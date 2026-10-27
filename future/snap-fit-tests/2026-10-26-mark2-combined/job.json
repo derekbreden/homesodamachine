@@ -1,0 +1,158 @@
+{
+  "schema": 1,
+  "profile": "hardware/printed-parts/petgf.3mf",
+  "regions": "hardware/printed-parts/enclosure/enclosure/heat-set-review/print-regions.json",
+  "printers": {
+    "Mark1": {
+      "connection_key": "H2C",
+      "z_trim_mm": 0.18,
+      "filament_colour": "#000000"
+    },
+    "Mark2": {
+      "z_trim_mm": 0.04,
+      "filament_colour": "#161616"
+    }
+  },
+  "filament_mapping": {
+    "extruder_ams_count": [
+      "1#0|4#0",
+      "1#0|4#0"
+    ],
+    "support_filament": "1",
+    "support_interface_filament": "1",
+    "flush_into_support": "0"
+  },
+  "pieces": {
+    "tube-and-cable-snaps-wall9-cooled": {
+      "printer": "Mark2",
+      "nozzle": {
+        "side": "left",
+        "diameter_mm": 0.4,
+        "flow": "Standard",
+        "hardened": true,
+        "reason": "Every abrasive stock runs on the left hotend (hardware/ledger/tools.md, Which hotends fit an H2C). Mark2's 2026-10-24 jobs ran black PET-GF on its fixed left hardened 0.4 mm Standard-flow hotend (faucet/industrial/prints/2026-10-24-buttons-sculpted-bands020-mark2/README.md, task 1372253517)."
+      },
+      "material": "Polymaker Fiberon PET-GF15, black",
+      "spacing_mm": 15,
+      "parts": [
+        {
+          "stl": "future/tube-snap-exploration/parts/tube-snap-c2-three-bores.stl",
+          "name": "Tube-C2-6.55-6.45-6.35"
+        },
+        {
+          "stl": "future/cable-clip-exploration/parts/relay-ribbon-wall9-span16.stl",
+          "name": "Cable-wall9-span16"
+        },
+        {
+          "stl": "future/cable-clip-exploration/parts/relay-ribbon-wall9-span24.stl",
+          "name": "Cable-wall9-span24"
+        }
+      ],
+      "yaw_degrees": 0,
+      "plate_border_mm": 80,
+      "settings": {
+        "fan_min_speed": {
+          "value": [
+            "100"
+          ],
+          "reason": "Derek reports a melty upright cable hook and requests major part cooling and time between layers on the combined 9 mm-wall trial. This plate alone uses full part cooling after three bed layers and a 20-second layer target."
+        },
+        "fan_max_speed": {
+          "value": [
+            "100"
+          ],
+          "reason": "Derek reports a melty upright cable hook and requests major part cooling and time between layers on the combined 9 mm-wall trial. This plate alone uses full part cooling after three bed layers and a 20-second layer target."
+        },
+        "reduce_fan_stop_start_freq": {
+          "value": [
+            "1"
+          ],
+          "reason": "Derek reports a melty upright cable hook and requests major part cooling and time between layers on the combined 9 mm-wall trial. This plate alone uses full part cooling after three bed layers and a 20-second layer target."
+        },
+        "close_fan_the_first_x_layers": {
+          "value": [
+            "3"
+          ],
+          "reason": "Derek reports a melty upright cable hook and requests major part cooling and time between layers on the combined 9 mm-wall trial. This plate alone uses full part cooling after three bed layers and a 20-second layer target."
+        },
+        "full_fan_speed_layer": {
+          "value": [
+            "4"
+          ],
+          "reason": "Derek reports a melty upright cable hook and requests major part cooling and time between layers on the combined 9 mm-wall trial. This plate alone uses full part cooling after three bed layers and a 20-second layer target."
+        },
+        "enable_overhang_bridge_fan": {
+          "value": [
+            "1"
+          ],
+          "reason": "Derek reports a melty upright cable hook and requests major part cooling and time between layers on the combined 9 mm-wall trial. This plate alone uses full part cooling after three bed layers and a 20-second layer target."
+        },
+        "overhang_fan_speed": {
+          "value": [
+            "100"
+          ],
+          "reason": "Derek reports a melty upright cable hook and requests major part cooling and time between layers on the combined 9 mm-wall trial. This plate alone uses full part cooling after three bed layers and a 20-second layer target."
+        },
+        "additional_cooling_fan_speed": {
+          "value": [
+            "0"
+          ],
+          "reason": "Derek reports a melty upright cable hook and requests major part cooling and time between layers on the combined 9 mm-wall trial. This plate alone uses full part cooling after three bed layers and a 20-second layer target."
+        },
+        "slow_down_for_layer_cooling": {
+          "value": [
+            "1"
+          ],
+          "reason": "Derek reports a melty upright cable hook and requests major part cooling and time between layers on the combined 9 mm-wall trial. This plate alone uses full part cooling after three bed layers and a 20-second layer target."
+        },
+        "slow_down_layer_time": {
+          "value": [
+            "20"
+          ],
+          "reason": "Derek reports a melty upright cable hook and requests major part cooling and time between layers on the combined 9 mm-wall trial. This plate alone uses full part cooling after three bed layers and a 20-second layer target."
+        },
+        "slow_down_min_speed": {
+          "value": [
+            "5"
+          ],
+          "reason": "Derek reports a melty upright cable hook and requests major part cooling and time between layers on the combined 9 mm-wall trial. This plate alone uses full part cooling after three bed layers and a 20-second layer target."
+        },
+        "no_slow_down_for_cooling_on_outwalls": {
+          "value": [
+            "0"
+          ],
+          "reason": "Derek reports a melty upright cable hook and requests major part cooling and time between layers on the combined 9 mm-wall trial. This plate alone uses full part cooling after three bed layers and a 20-second layer target."
+        },
+        "brim_type": {
+          "value": "no_brim",
+          "reason": "Three broad model footprints provide bed attachment; no added brim."
+        },
+        "brim_width": {
+          "value": "0",
+          "reason": "No brim on this plate."
+        },
+        "print_sequence": {
+          "value": "by layer",
+          "reason": "Print all pieces on every layer to provide cooling time between returns to a cable hook."
+        }
+      },
+      "placement_offsets_xy_mm": [
+        [
+          0,
+          -28
+        ],
+        [
+          -18,
+          12
+        ],
+        [
+          18,
+          12
+        ]
+      ],
+      "placement_reason": "Centered group: tube strip at front, cable span16 rear-left and span24 rear-right. Each object keeps its source axes, mouths upward, and layer-by-layer printing."
+    }
+  },
+  "source_declaration": "hardware/printed-parts/enclosure/trial-preparation/pieces.json",
+  "source_declaration_sha256": "7d57172a977bc13ed1d606fd1017782d487e862fa0c2fa2415f0bf8dae9c8b62"
+}

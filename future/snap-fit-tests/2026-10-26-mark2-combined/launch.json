@@ -1,0 +1,28 @@
+{
+  "printer": "Mark2",
+  "observed_at": "2026-10-27T04:33:48.797838+00:00",
+  "archive": {
+    "name": "2026-10-26-tube-and-cable-snaps-wall9-cooled-mark2-2179a771.gcode.3mf",
+    "sha256": "b0eb0b51520c375d14887ebe6851ccc2226dbf0ab334684e6f03076db17a30db",
+    "gcode_sha256": "cb6f3f3744e9ea421f38f435abf5b48c57c739e4c3aad89607bb6268ce2d3d3c",
+    "slots": {
+      "1": {
+        "type": "PET-CF",
+        "colour": "161616"
+      }
+    },
+    "objects": [
+      "Tube-C2-6.55-6.45-6.35",
+      "Cable-wall9-span16",
+      "Cable-wall9-span24"
+    ]
+  },
+  "printer_task_id": "1379240291",
+  "gcode_state": "RUNNING",
+  "subtask_name": "2026-10-26-tube-and-cable-snaps-wall9-cooled-mark2-2179a771.gcode.3mf",
+  "print_error": 0,
+  "hms": [],
+  "layer_num": 0,
+  "total_layer_num": 107,
+  "mc_remaining_time": 50
+}

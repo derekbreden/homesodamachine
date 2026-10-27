@@ -1,0 +1,4772 @@
+{
+  "scope": "Manual experimental plate audit. Fan commands are requests, not measured airflow. Feed-command cruise times plus explicit dwell are lower bounds, not firmware wall-clock timing; acceleration, synchronization and optional timelapse are not credited.",
+  "archive": "future/snap-fit-tests/2026-10-26-mark2-combined/2026-10-26-tube-and-cable-snaps-wall9-cooled-mark2-2179a771/2026-10-26-tube-and-cable-snaps-wall9-cooled-mark2-2179a771.gcode.3mf",
+  "archive_sha256": "b0eb0b51520c375d14887ebe6851ccc2226dbf0ab334684e6f03076db17a30db",
+  "preparation": "future/snap-fit-tests/2026-10-26-mark2-combined/2026-10-26-tube-and-cable-snaps-wall9-cooled-mark2-2179a771/preparation.json",
+  "preparation_sha256": "77912a88611277bb2780fdc00016ad168fb9d144b9586f2479da9ea4c511833b",
+  "recorded_archive_sha256": "b0eb0b51520c375d14887ebe6851ccc2226dbf0ab334684e6f03076db17a30db",
+  "archive_digest_matches": true,
+  "gcode_md5_matches": true,
+  "reviewer_sha256": "fad72dfa6bfbc5821528fc2bc3bd0338cb6e764430d43ae12fc5aaec95852a6f",
+  "cooling_settings": {
+    "fan_min_speed": [
+      "100"
+    ],
+    "fan_max_speed": [
+      "100"
+    ],
+    "close_fan_the_first_x_layers": [
+      "3"
+    ],
+    "full_fan_speed_layer": [
+      "4"
+    ],
+    "reduce_fan_stop_start_freq": [
+      "1"
+    ],
+    "overhang_fan_speed": [
+      "100"
+    ],
+    "additional_cooling_fan_speed": [
+      "0"
+    ],
+    "slow_down_for_layer_cooling": [
+      "1"
+    ],
+    "slow_down_layer_time": [
+      "20"
+    ],
+    "slow_down_min_speed": [
+      "5"
+    ],
+    "no_slow_down_for_cooling_on_outwalls": [
+      "0"
+    ]
+  },
+  "embedded_filament_cooling_settings": {
+    "fan_min_speed": [
+      "100"
+    ],
+    "fan_max_speed": [
+      "100"
+    ],
+    "close_fan_the_first_x_layers": [
+      "3"
+    ],
+    "full_fan_speed_layer": [
+      "4"
+    ],
+    "reduce_fan_stop_start_freq": [
+      "1"
+    ],
+    "overhang_fan_speed": [
+      "100"
+    ],
+    "additional_cooling_fan_speed": [
+      "0"
+    ],
+    "slow_down_for_layer_cooling": [
+      "1"
+    ],
+    "slow_down_layer_time": [
+      "20"
+    ],
+    "slow_down_min_speed": [
+      "5"
+    ],
+    "no_slow_down_for_cooling_on_outwalls": [
+      "0"
+    ]
+  },
+  "fan_command_interpretation": "M106 without P selects the default part-fan channel P1; explicit P2/P3/P9 commands are excluded. S255 is a100% request. This is commanded state, not measured airflow.",
+  "geometry": "future/cable-clip-exploration/wall9-span-geometry.json",
+  "geometry_sha256": "be147f1c5df139c99d9d015b3d8f3729076dd266d827f2c72391556e5493411a",
+  "cable_upper_from_z_mm": 14.2,
+  "cable_upper_layers": 48,
+  "cable_upper_minimum_full_part_fan_model_length_fraction": 1.0,
+  "cable_upper_part_fan_states_s255": [
+    255.0
+  ],
+  "explicit_P1_fan_commands_in_model_layers": [],
+  "part_fan_commands_after_first_three_layers": [
+    {
+      "source_line": 3264,
+      "layer": 4,
+      "z_mm": 0.92,
+      "command": "M106 S255",
+      "value_s255": 255.0,
+      "channel": 1,
+      "explicit_P1": false
+    },
+    {
+      "source_line": 80874,
+      "layer": 107,
+      "z_mm": 25.64,
+      "command": "M106 S0",
+      "value_s255": 0.0,
+      "channel": 1,
+      "explicit_P1": false
+    }
+  ],
+  "first_three_layer_model_part_fan_states_s255": [
+    0.0
+  ],
+  "upper_layer_nominal_motion_and_dwell_s": {
+    "minimum": 19.765875839180353,
+    "maximum": 48.854729648059674,
+    "last_ten": [
+      {
+        "z_mm": 23.48,
+        "seconds": 19.917105753537726
+      },
+      {
+        "z_mm": 23.72,
+        "seconds": 19.77913030382024
+      },
+      {
+        "z_mm": 23.96,
+        "seconds": 19.76735353390586
+      },
+      {
+        "z_mm": 24.2,
+        "seconds": 19.780725626721505
+      },
+      {
+        "z_mm": 24.44,
+        "seconds": 19.917123631603317
+      },
+      {
+        "z_mm": 24.68,
+        "seconds": 48.854729648059674
+      },
+      {
+        "z_mm": 24.92,
+        "seconds": 22.489474539536786
+      },
+      {
+        "z_mm": 25.16,
+        "seconds": 22.31241339396638
+      },
+      {
+        "z_mm": 25.4,
+        "seconds": 22.1170994892168
+      },
+      {
+        "z_mm": 25.64,
+        "seconds": 21.19801259138012
+      }
+    ]
+  },
+  "upper_layers_with_nominal_lower_bound_below_20s": 33,
+  "cable_upper_minimum_nominal_start_to_start_s": 19.73242449370855,
+  "cable_upper_minimum_nominal_off_object_interval_s": 8.630635069105892,
+  "voids": [
+    {
+      "object": "Cable-wall9-span16",
+      "identify_id": 1902,
+      "void": "seat",
+      "source_bounds_mm": [
+        0.0,
+        -8.0,
+        14.2,
+        2.2,
+        8.0,
+        21.95
+      ],
+      "plate_bounds_mm": [
+        [
+          146.40000009536743,
+          164.0,
+          14.2
+        ],
+        [
+          148.60000009536742,
+          180.0,
+          21.95
+        ]
+      ],
+      "support_crossings": [],
+      "brim_or_other_nonmodel_crossings": []
+    },
+    {
+      "object": "Cable-wall9-span16",
+      "identify_id": 1902,
+      "void": "entry",
+      "source_bounds_mm": [
+        0.0,
+        -8.0,
+        21.95,
+        1.4500000000000002,
+        8.0,
+        25.7
+      ],
+      "plate_bounds_mm": [
+        [
+          146.40000009536743,
+          164.0,
+          21.95
+        ],
+        [
+          147.85000009536742,
+          180.0,
+          25.7
+        ]
+      ],
+      "support_crossings": [],
+      "brim_or_other_nonmodel_crossings": []
+    },
+    {
+      "object": "Cable-wall9-span24",
+      "identify_id": 1903,
+      "void": "seat",
+      "source_bounds_mm": [
+        0.0,
+        -12.0,
+        14.2,
+        2.2,
+        12.0,
+        21.95
+      ],
+      "plate_bounds_mm": [
+        [
+          182.40000009536743,
+          160.0,
+          14.2
+        ],
+        [
+          184.60000009536742,
+          184.0,
+          21.95
+        ]
+      ],
+      "support_crossings": [],
+      "brim_or_other_nonmodel_crossings": []
+    },
+    {
+      "object": "Cable-wall9-span24",
+      "identify_id": 1903,
+      "void": "entry",
+      "source_bounds_mm": [
+        0.0,
+        -12.0,
+        21.95,
+        1.4500000000000002,
+        12.0,
+        25.7
+      ],
+      "plate_bounds_mm": [
+        [
+          182.40000009536743,
+          160.0,
+          21.95
+        ],
+        [
+          183.85000009536742,
+          184.0,
+          25.7
+        ]
+      ],
+      "support_crossings": [],
+      "brim_or_other_nonmodel_crossings": []
+    }
+  ],
+  "support_and_brim_excluded_from_declared_voids": true,
+  "layers": [
+    {
+      "layer": 1,
+      "z_mm": 0.2,
+      "start_s": 34.045806332474044,
+      "last_model_end_s": 72.16838264506714,
+      "explicit_dwell_s": 0.0,
+      "objects": {
+        "1903": {
+          "first_model_s": 34.29460923670993,
+          "last_model_s": 42.66002956862311,
+          "model_cruise_s": 8.294257641709098,
+          "model_length_mm": 684.090652379455,
+          "part_fan_states_s255": [
+            0.0
+          ],
+          "model_length_at_full_part_fan_mm": 0.0,
+          "full_part_fan_model_length_fraction": 0.0
+        },
+        "1902": {
+          "first_model_s": 42.74870129289166,
+          "last_model_s": 49.27246814279929,
+          "model_cruise_s": 6.452593889520762,
+          "model_length_mm": 525.9159583996802,
+          "part_fan_states_s255": [
+            0.0
+          ],
+          "model_length_at_full_part_fan_mm": 0.0,
+          "full_part_fan_model_length_fraction": 0.0
+        },
+        "1901": {
+          "first_model_s": 49.38895806421522,
+          "last_model_s": 72.16838264506714,
+          "model_cruise_s": 22.695815566182343,
+          "model_length_mm": 2059.8542344491466,
+          "part_fan_states_s255": [
+            0.0
+          ],
+          "model_length_at_full_part_fan_mm": 0.0,
+          "full_part_fan_model_length_fraction": 0.0
+        }
+      },
+      "nominal_motion_and_dwell_s": 38.1225763125931
+    },
+    {
+      "layer": 2,
+      "z_mm": 0.44,
+      "start_s": 72.16838264506714,
+      "last_model_end_s": 93.21362117248147,
+      "explicit_dwell_s": 0.0,
+      "objects": {
+        "1903": {
+          "first_model_s": 72.27392102627722,
+          "last_model_s": 76.67992871388132,
+          "model_cruise_s": 4.359001595675558,
+          "model_length_mm": 872.5209939287013,
+          "part_fan_states_s255": [
+            0.0
+          ],
+          "model_length_at_full_part_fan_mm": 0.0,
+          "full_part_fan_model_length_fraction": 0.0,
+          "nominal_start_to_start_s": 37.97931178956729,
+          "nominal_off_object_interval_s": 29.613891457654113
+        },
+        "1902": {
+          "first_model_s": 76.76451054073047,
+          "last_model_s": 80.20091994480822,
+          "model_cruise_s": 3.3900368069412896,
+          "model_length_mm": 680.1215621823441,
+          "part_fan_states_s255": [
+            0.0
+          ],
+          "model_length_at_full_part_fan_mm": 0.0,
+          "full_part_fan_model_length_fraction": 0.0,
+          "nominal_start_to_start_s": 34.01580924783881,
+          "nominal_off_object_interval_s": 27.49204239793118
+        },
+        "1901": {
+          "first_model_s": 80.30433357306661,
+          "last_model_s": 93.21362117248147,
+          "model_cruise_s": 12.869353146038486,
+          "model_length_mm": 2601.513211943912,
+          "part_fan_states_s255": [
+            0.0
+          ],
+          "model_length_at_full_part_fan_mm": 0.0,
+          "full_part_fan_model_length_fraction": 0.0,
+          "nominal_start_to_start_s": 30.915375508851398,
+          "nominal_off_object_interval_s": 8.135950927999474
+        }
+      },
+      "nominal_motion_and_dwell_s": 21.045238527414327
+    },
+    {
+      "layer": 3,
+      "z_mm": 0.68,
+      "start_s": 93.21362117248147,
+      "last_model_end_s": 118.06687181433443,
+      "explicit_dwell_s": 0.0,
+      "objects": {
+        "1903": {
+          "first_model_s": 93.31538990164218,
+          "last_model_s": 98.7947524315439,
+          "model_cruise_s": 5.439431291250348,
+          "model_length_mm": 872.5221151749917,
+          "part_fan_states_s255": [
+            0.0
+          ],
+          "model_length_at_full_part_fan_mm": 0.0,
+          "full_part_fan_model_length_fraction": 0.0,
+          "nominal_start_to_start_s": 21.041468875364956,
+          "nominal_off_object_interval_s": 16.635461187760853
+        },
+        "1902": {
+          "first_model_s": 98.87477871447064,
+          "last_model_s": 103.18933060491976,
+          "model_cruise_s": 4.274618636438805,
+          "model_length_mm": 680.1255621823443,
+          "part_fan_states_s255": [
+            0.0
+          ],
+          "model_length_at_full_part_fan_mm": 0.0,
+          "full_part_fan_model_length_fraction": 0.0,
+          "nominal_start_to_start_s": 22.110268173740167,
+          "nominal_off_object_interval_s": 18.673858769662417
+        },
+        "1901": {
+          "first_model_s": 103.29736211754941,
+          "last_model_s": 118.06687181433443,
+          "model_cruise_s": 14.716207324661934,
+          "model_length_mm": 2601.512919063177,
+          "part_fan_states_s255": [
+            0.0
+          ],
+          "model_length_at_full_part_fan_mm": 0.0,
+          "full_part_fan_model_length_fraction": 0.0,
+          "nominal_start_to_start_s": 22.993028544482797,
+          "nominal_off_object_interval_s": 10.083740945067944
+        }
+      },
+      "nominal_motion_and_dwell_s": 24.853250641852966
+    },
+    {
+      "layer": 4,
+      "z_mm": 0.92,
+      "start_s": 118.06687181433443,
+      "last_model_end_s": 138.1831556876627,
+      "explicit_dwell_s": 0.0,
+      "objects": {
+        "1903": {
+          "first_model_s": 118.1630508320612,
+          "last_model_s": 123.31503676046864,
+          "model_cruise_s": 5.111682360805632,
+          "model_length_mm": 303.61382605235974,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 303.61382605235974,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 24.847660930419025,
+          "nominal_off_object_interval_s": 19.368298400517304
+        },
+        "1902": {
+          "first_model_s": 123.4004110889274,
+          "last_model_s": 127.5470345163101,
+          "model_cruise_s": 4.099810992542192,
+          "model_length_mm": 243.45408318273857,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 243.45408318273857,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 24.525632374456762,
+          "nominal_off_object_interval_s": 20.21108048400764
+        },
+        "1901": {
+          "first_model_s": 127.65567867119664,
+          "last_model_s": 138.1831556876627,
+          "model_cruise_s": 10.432473968160158,
+          "model_length_mm": 621.0169350920006,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 621.0169350920006,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 24.358316553647228,
+          "nominal_off_object_interval_s": 9.588806856862206
+        }
+      },
+      "nominal_motion_and_dwell_s": 20.116283873328257
+    },
+    {
+      "layer": 5,
+      "z_mm": 1.16,
+      "start_s": 138.1831556876627,
+      "last_model_end_s": 158.1047849013048,
+      "explicit_dwell_s": 0.0,
+      "objects": {
+        "1903": {
+          "first_model_s": 138.28560658389156,
+          "last_model_s": 143.4189642265586,
+          "model_cruise_s": 5.093161973572806,
+          "model_length_mm": 294.50317663454587,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 294.50317663454587,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 20.12255575183036,
+          "nominal_off_object_interval_s": 14.97056982342292
+        },
+        "1902": {
+          "first_model_s": 143.50418990585305,
+          "last_model_s": 147.65178103868334,
+          "model_cruise_s": 4.1007609417018696,
+          "model_length_mm": 237.11517220257315,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 237.11517220257315,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 20.103778816925654,
+          "nominal_off_object_interval_s": 15.957155389542947
+        },
+        "1901": {
+          "first_model_s": 147.76045577028412,
+          "last_model_s": 158.1047849013048,
+          "model_cruise_s": 10.248778121071533,
+          "model_length_mm": 593.2334402413596,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 593.2334402413596,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 20.104777099087485,
+          "nominal_off_object_interval_s": 9.577300082621434
+        }
+      },
+      "nominal_motion_and_dwell_s": 19.92162921364212
+    },
+    {
+      "layer": 6,
+      "z_mm": 1.4,
+      "start_s": 158.1047849013048,
+      "last_model_end_s": 178.0161604100833,
+      "explicit_dwell_s": 0.0,
+      "objects": {
+        "1903": {
+          "first_model_s": 158.20691706882496,
+          "last_model_s": 163.34943400112022,
+          "model_cruise_s": 5.102419145606284,
+          "model_length_mm": 290.83789129955824,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 290.83789129955824,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.9213104849334,
+          "nominal_off_object_interval_s": 14.787952842266378
+        },
+        "1902": {
+          "first_model_s": 163.4345872593152,
+          "last_model_s": 167.59876593263795,
+          "model_cruise_s": 4.11733297301299,
+          "model_length_mm": 234.6879794617407,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 234.6879794617407,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.930397353462155,
+          "nominal_off_object_interval_s": 15.782806220631869
+        },
+        "1901": {
+          "first_model_s": 167.7074813323881,
+          "last_model_s": 178.0161604100833,
+          "model_cruise_s": 10.212822970784716,
+          "model_length_mm": 582.13090933473,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 582.13090933473,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.94702556210399,
+          "nominal_off_object_interval_s": 9.602696431083302
+        }
+      },
+      "nominal_motion_and_dwell_s": 19.91137550877849
+    },
+    {
+      "layer": 7,
+      "z_mm": 1.64,
+      "start_s": 178.0161604100833,
+      "last_model_end_s": 197.925383092135,
+      "explicit_dwell_s": 0.0,
+      "objects": {
+        "1903": {
+          "first_model_s": 178.11812053841467,
+          "last_model_s": 183.26123812295415,
+          "model_cruise_s": 5.103124110048296,
+          "model_length_mm": 289.5172411767401,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 289.5172411767401,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.911203469589708,
+          "nominal_off_object_interval_s": 14.768686537294457
+        },
+        "1902": {
+          "first_model_s": 183.346326691216,
+          "last_model_s": 187.51989776597296,
+          "model_cruise_s": 4.126709466448672,
+          "model_length_mm": 234.12198372985466,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 234.12198372985466,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.9117394319008,
+          "nominal_off_object_interval_s": 15.74756075857806
+        },
+        "1901": {
+          "first_model_s": 187.6286799584146,
+          "last_model_s": 197.925383092135,
+          "model_cruise_s": 10.200843455465554,
+          "model_length_mm": 578.7278520400794,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 578.7278520400794,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.921198626026495,
+          "nominal_off_object_interval_s": 9.612519548331306
+        }
+      },
+      "nominal_motion_and_dwell_s": 19.909222682051706
+    },
+    {
+      "layer": 8,
+      "z_mm": 1.88,
+      "start_s": 197.925383092135,
+      "last_model_end_s": 218.1683078450653,
+      "explicit_dwell_s": 0.0,
+      "objects": {
+        "1903": {
+          "first_model_s": 198.02721803736827,
+          "last_model_s": 202.75101976549823,
+          "model_cruise_s": 4.676997233983509,
+          "model_length_mm": 289.46090519023943,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 289.46090519023943,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.9090974989536,
+          "nominal_off_object_interval_s": 14.765979914414118
+        },
+        "1902": {
+          "first_model_s": 202.83116666146051,
+          "last_model_s": 206.62363866944276,
+          "model_cruise_s": 3.7908999527514156,
+          "model_length_mm": 234.55467512016864,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 234.55467512016864,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.484839970244508,
+          "nominal_off_object_interval_s": 15.311268895487558
+        },
+        "1901": {
+          "first_model_s": 206.72789978194163,
+          "last_model_s": 218.1683078450653,
+          "model_cruise_s": 11.399683826957325,
+          "model_length_mm": 719.6359825996977,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 719.6359825996977,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.099219823527022,
+          "nominal_off_object_interval_s": 8.802516689806623
+        }
+      },
+      "nominal_motion_and_dwell_s": 20.242924752930293
+    },
+    {
+      "layer": 9,
+      "z_mm": 2.12,
+      "start_s": 218.1683078450653,
+      "last_model_end_s": 297.63373256201703,
+      "explicit_dwell_s": 0.0,
+      "objects": {
+        "1903": {
+          "first_model_s": 218.2434835712671,
+          "last_model_s": 220.87163958833654,
+          "model_cruise_s": 2.581356720364756,
+          "model_length_mm": 290.9457563488081,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 290.9457563488081,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 20.21626553389882,
+          "nominal_off_object_interval_s": 15.492463805768864
+        },
+        "1902": {
+          "first_model_s": 220.95167247733107,
+          "last_model_s": 223.0952919106665,
+          "model_cruise_s": 2.103064135496336,
+          "model_length_mm": 236.2567440639667,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 236.2567440639667,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 18.12050581587056,
+          "nominal_off_object_interval_s": 14.328033807888318
+        },
+        "1901": {
+          "first_model_s": 223.1996301311153,
+          "last_model_s": 297.63373256201703,
+          "model_cruise_s": 74.01877097071919,
+          "model_length_mm": 2068.9033013217236,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 2068.9033013217236,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 16.47173034917367,
+          "nominal_off_object_interval_s": 5.031322286049999
+        }
+      },
+      "nominal_motion_and_dwell_s": 79.46542471695173
+    },
+    {
+      "layer": 10,
+      "z_mm": 2.36,
+      "start_s": 297.63373256201703,
+      "last_model_end_s": 320.5040724980965,
+      "explicit_dwell_s": 0.0,
+      "objects": {
+        "1903": {
+          "first_model_s": 297.8054020585727,
+          "last_model_s": 300.75360007812867,
+          "model_cruise_s": 2.9014026532654125,
+          "model_length_mm": 295.67580437327877,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 295.67580437327877,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 79.56191848730563,
+          "nominal_off_object_interval_s": 76.93376247023619
+        },
+        "1902": {
+          "first_model_s": 300.83353618826595,
+          "last_model_s": 303.23624244939583,
+          "model_cruise_s": 2.3620762400611772,
+          "model_length_mm": 240.10140859221585,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 240.10140859221585,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 79.88186371093488,
+          "nominal_off_object_interval_s": 77.73824427759945
+        },
+        "1901": {
+          "first_model_s": 303.34093403759334,
+          "last_model_s": 320.5040724980965,
+          "model_cruise_s": 16.8329939916643,
+          "model_length_mm": 2295.8060905907946,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 2295.8060905907946,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 80.14130390647804,
+          "nominal_off_object_interval_s": 5.707201475576312
+        }
+      },
+      "nominal_motion_and_dwell_s": 22.87033993607946
+    },
+    {
+      "layer": 11,
+      "z_mm": 2.6,
+      "start_s": 320.5040724980965,
+      "last_model_end_s": 343.33201674825136,
+      "explicit_dwell_s": 0.0,
+      "objects": {
+        "1903": {
+          "first_model_s": 320.6058526258159,
+          "last_model_s": 323.65021482460406,
+          "model_cruise_s": 2.9574859713247674,
+          "model_length_mm": 306.24065564166506,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 306.24065564166506,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 22.80045056724316,
+          "nominal_off_object_interval_s": 19.852252547687215
+        },
+        "1902": {
+          "first_model_s": 323.7300799152413,
+          "last_model_s": 326.15951808805625,
+          "model_cruise_s": 2.3887330272275613,
+          "model_length_mm": 245.86207120232936,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 245.86207120232936,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 22.896543726975324,
+          "nominal_off_object_interval_s": 20.493837465845445
+        },
+        "1901": {
+          "first_model_s": 326.26601577295764,
+          "last_model_s": 343.33201674825136,
+          "model_cruise_s": 16.69239703837953,
+          "model_length_mm": 2301.26630040782,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 2301.26630040782,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 22.9250817353643,
+          "nominal_off_object_interval_s": 5.761943274861153
+        }
+      },
+      "nominal_motion_and_dwell_s": 22.82794425015487
+    },
+    {
+      "layer": 12,
+      "z_mm": 2.84,
+      "start_s": 343.33201674825136,
+      "last_model_end_s": 366.10822707341407,
+      "explicit_dwell_s": 0.0,
+      "objects": {
+        "1903": {
+          "first_model_s": 343.4281856459295,
+          "last_model_s": 346.3985265238123,
+          "model_cruise_s": 2.9235298332911537,
+          "model_length_mm": 298.50975106810216,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 298.50975106810216,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 22.822333020113604,
+          "nominal_off_object_interval_s": 19.777970821325425
+        },
+        "1902": {
+          "first_model_s": 346.48333660280275,
+          "last_model_s": 348.8724821291907,
+          "model_cruise_s": 2.34828372247116,
+          "model_length_mm": 237.72138623583842,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 237.72138623583842,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 22.753256687561475,
+          "nominal_off_object_interval_s": 20.323818514746506
+        },
+        "1901": {
+          "first_model_s": 348.9789977451944,
+          "last_model_s": 366.10822707341407,
+          "model_cruise_s": 16.80306486750821,
+          "model_length_mm": 2299.1502975034,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 2299.1502975034,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 22.712981972236776,
+          "nominal_off_object_interval_s": 5.646980996943057
+        }
+      },
+      "nominal_motion_and_dwell_s": 22.776210325162708
+    },
+    {
+      "layer": 13,
+      "z_mm": 3.08,
+      "start_s": 366.10822707341407,
+      "last_model_end_s": 388.21928904248074,
+      "explicit_dwell_s": 0.0,
+      "objects": {
+        "1903": {
+          "first_model_s": 366.20999847041037,
+          "last_model_s": 369.02991227985393,
+          "model_cruise_s": 2.7730684351434487,
+          "model_length_mm": 293.73101103535976,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 293.73101103535976,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 22.78181282448088,
+          "nominal_off_object_interval_s": 19.81147194659809
+        },
+        "1902": {
+          "first_model_s": 369.1149085614123,
+          "last_model_s": 371.3943930695331,
+          "model_cruise_s": 2.2377261156130865,
+          "model_length_mm": 235.19555304721789,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 235.19555304721789,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 22.631571958609527,
+          "nominal_off_object_interval_s": 20.242426432221578
+        },
+        "1901": {
+          "first_model_s": 371.4873991799392,
+          "last_model_s": 388.21928904248074,
+          "model_cruise_s": 14.682615123838596,
+          "model_length_mm": 2171.7797839929744,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 2171.7797839929744,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 22.50840143474477,
+          "nominal_off_object_interval_s": 5.379172106525118
+        }
+      },
+      "nominal_motion_and_dwell_s": 22.111061969066668
+    },
+    {
+      "layer": 14,
+      "z_mm": 3.32,
+      "start_s": 388.21928904248074,
+      "last_model_end_s": 412.57873474739955,
+      "explicit_dwell_s": 0.0,
+      "objects": {
+        "1903": {
+          "first_model_s": 388.31544061615296,
+          "last_model_s": 390.960823508327,
+          "model_cruise_s": 2.5984845855355156,
+          "model_length_mm": 291.8172410424811,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 291.8172410424811,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 22.105442145742586,
+          "nominal_off_object_interval_s": 19.285528336299024
+        },
+        "1902": {
+          "first_model_s": 391.04600781424386,
+          "last_model_s": 393.1887968906904,
+          "model_cruise_s": 2.1008494446536266,
+          "model_length_mm": 233.91420461366815,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 233.91420461366815,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 21.931099252831586,
+          "nominal_off_object_interval_s": 19.65161474471074
+        },
+        "1901": {
+          "first_model_s": 393.2877696940518,
+          "last_model_s": 412.57873474739955,
+          "model_cruise_s": 18.72810690137071,
+          "model_length_mm": 630.6711606147378,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 630.6711606147378,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 21.800370514112615,
+          "nominal_off_object_interval_s": 5.068480651571065
+        }
+      },
+      "nominal_motion_and_dwell_s": 24.359445704918812
+    },
+    {
+      "layer": 15,
+      "z_mm": 3.56,
+      "start_s": 412.57873474739955,
+      "last_model_end_s": 432.82466346933774,
+      "explicit_dwell_s": 0.0,
+      "objects": {
+        "1903": {
+          "first_model_s": 412.66602059518124,
+          "last_model_s": 417.34081834479156,
+          "model_cruise_s": 4.627848164766396,
+          "model_length_mm": 291.9408139297251,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 291.9408139297251,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 24.350579979028282,
+          "nominal_off_object_interval_s": 21.70519708685424
+        },
+        "1902": {
+          "first_model_s": 417.4261669274118,
+          "last_model_s": 421.21813380376244,
+          "model_cruise_s": 3.7462128352668507,
+          "model_length_mm": 236.20750895707008,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 236.20750895707008,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 26.380159113167963,
+          "nominal_off_object_interval_s": 24.237370036721416
+        },
+        "1901": {
+          "first_model_s": 421.31694056680186,
+          "last_model_s": 432.82466346933774,
+          "model_cruise_s": 11.110337797159291,
+          "model_length_mm": 726.070542509826,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 726.070542509826,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 28.029170872750058,
+          "nominal_off_object_interval_s": 8.73820581940231
+        }
+      },
+      "nominal_motion_and_dwell_s": 20.245928721938185
+    },
+    {
+      "layer": 16,
+      "z_mm": 3.8,
+      "start_s": 432.82466346933774,
+      "last_model_end_s": 452.68611809304724,
+      "explicit_dwell_s": 0.0,
+      "objects": {
+        "1903": {
+          "first_model_s": 432.9116428647526,
+          "last_model_s": 438.0316639465875,
+          "model_cruise_s": 5.073043919948551,
+          "model_length_mm": 294.2487904992978,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 294.2487904992978,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 20.245622269571356,
+          "nominal_off_object_interval_s": 15.570824519961036
+        },
+        "1902": {
+          "first_model_s": 438.1172046325212,
+          "last_model_s": 442.25926388245654,
+          "model_cruise_s": 4.096172818289124,
+          "model_length_mm": 237.55753159296418,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 237.55753159296418,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 20.691037705109352,
+          "nominal_off_object_interval_s": 16.899070828758738
+        },
+        "1901": {
+          "first_model_s": 442.3477348474493,
+          "last_model_s": 452.68611809304724,
+          "model_cruise_s": 9.909680548345401,
+          "model_length_mm": 580.0466347631515,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 580.0466347631515,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 21.030794280647456,
+          "nominal_off_object_interval_s": 9.523071378111581
+        }
+      },
+      "nominal_motion_and_dwell_s": 19.861454623709506
+    },
+    {
+      "layer": 17,
+      "z_mm": 4.04,
+      "start_s": 452.68611809304724,
+      "last_model_end_s": 473.1483074916967,
+      "explicit_dwell_s": 0.0,
+      "objects": {
+        "1903": {
+          "first_model_s": 452.7523744980053,
+          "last_model_s": 457.57644363429984,
+          "model_cruise_s": 4.777083166319358,
+          "model_length_mm": 297.9856640163323,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 297.9856640163323,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.840731633252688,
+          "nominal_off_object_interval_s": 14.720710551417767
+        },
+        "1902": {
+          "first_model_s": 457.6609998977059,
+          "last_model_s": 461.5763871105168,
+          "model_cruise_s": 3.869460553759417,
+          "model_length_mm": 241.23712658237736,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 241.23712658237736,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.543795265184713,
+          "nominal_off_object_interval_s": 15.401736015249355
+        },
+        "1901": {
+          "first_model_s": 461.664864892139,
+          "last_model_s": 473.1483074916967,
+          "model_cruise_s": 11.227432603567907,
+          "model_length_mm": 724.7988886520419,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 724.7988886520419,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.31713004468969,
+          "nominal_off_object_interval_s": 8.978746799091766
+        }
+      },
+      "nominal_motion_and_dwell_s": 20.462189398649457
+    },
+    {
+      "layer": 18,
+      "z_mm": 4.28,
+      "start_s": 473.1483074916967,
+      "last_model_end_s": 493.65760314601,
+      "explicit_dwell_s": 0.0,
+      "objects": {
+        "1903": {
+          "first_model_s": 473.21966691715204,
+          "last_model_s": 478.0181460842744,
+          "model_cruise_s": 4.757050984199175,
+          "model_length_mm": 310.48464192766363,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 310.48464192766363,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 20.46729241914676,
+          "nominal_off_object_interval_s": 15.643223282852205
+        },
+        "1902": {
+          "first_model_s": 478.10257733020273,
+          "last_model_s": 481.9587201371566,
+          "model_cruise_s": 3.8102063349706854,
+          "model_length_mm": 248.23953189424523,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 248.23953189424523,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 20.441577432496842,
+          "nominal_off_object_interval_s": 16.52619021968593
+        },
+        "1901": {
+          "first_model_s": 482.04566844952734,
+          "last_model_s": 493.65760314601,
+          "model_cruise_s": 10.17506192870412,
+          "model_length_mm": 693.3687137582979,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 693.3687137582979,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 20.380803557388333,
+          "nominal_off_object_interval_s": 8.897360957830642
+        }
+      },
+      "nominal_motion_and_dwell_s": 20.50929565431329
+    },
+    {
+      "layer": 19,
+      "z_mm": 4.52,
+      "start_s": 493.65760314601,
+      "last_model_end_s": 513.8672818518678,
+      "explicit_dwell_s": 0.0,
+      "objects": {
+        "1903": {
+          "first_model_s": 493.725062462625,
+          "last_model_s": 498.8006322649228,
+          "model_cruise_s": 5.034415766642699,
+          "model_length_mm": 296.05961539207044,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 296.05961539207044,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 20.505395545472936,
+          "nominal_off_object_interval_s": 15.70691637835057
+        },
+        "1902": {
+          "first_model_s": 498.88495691405245,
+          "last_model_s": 502.98413553292033,
+          "model_cruise_s": 4.0532872819263455,
+          "model_length_mm": 238.19839613857206,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 238.19839613857206,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 20.782379583849718,
+          "nominal_off_object_interval_s": 16.92623677689585
+        },
+        "1901": {
+          "first_model_s": 503.0944608545337,
+          "last_model_s": 513.8672818518678,
+          "model_cruise_s": 9.781132592171797,
+          "model_length_mm": 585.5051112510835,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 585.5051112510835,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 21.04879240500634,
+          "nominal_off_object_interval_s": 9.43685770852369
+        }
+      },
+      "nominal_motion_and_dwell_s": 20.20967870585781
+    },
+    {
+      "layer": 20,
+      "z_mm": 4.76,
+      "start_s": 513.8672818518678,
+      "last_model_end_s": 533.7213573245164,
+      "explicit_dwell_s": 0.0,
+      "objects": {
+        "1903": {
+          "first_model_s": 513.9598565013156,
+          "last_model_s": 519.3379679747522,
+          "model_cruise_s": 5.337141581950397,
+          "model_length_mm": 291.3389029961895,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 291.3389029961895,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 20.23479403869061,
+          "nominal_off_object_interval_s": 15.159224236392788
+        },
+        "1902": {
+          "first_model_s": 519.4222082014772,
+          "last_model_s": 523.773802140139,
+          "model_cruise_s": 4.305766359854187,
+          "model_length_mm": 234.9840615419602,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 234.9840615419602,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 20.537251287424795,
+          "nominal_off_object_interval_s": 16.438072668556913
+        },
+        "1901": {
+          "first_model_s": 523.8840275394581,
+          "last_model_s": 533.7213573245164,
+          "model_cruise_s": 9.21353764424716,
+          "model_length_mm": 508.15400000000045,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 508.15400000000045,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 20.78956668492441,
+          "nominal_off_object_interval_s": 10.016745687590287
+        }
+      },
+      "nominal_motion_and_dwell_s": 19.85407547264856
+    },
+    {
+      "layer": 21,
+      "z_mm": 5.0,
+      "start_s": 533.7213573245164,
+      "last_model_end_s": 553.4985273131242,
+      "explicit_dwell_s": 0.0,
+      "objects": {
+        "1903": {
+          "first_model_s": 533.8145368051547,
+          "last_model_s": 539.3766849927944,
+          "model_cruise_s": 5.521313539180659,
+          "model_length_mm": 289.6733491945025,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 289.6733491945025,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.85468030383913,
+          "nominal_off_object_interval_s": 14.47656883040247
+        },
+        "1902": {
+          "first_model_s": 539.4608421017826,
+          "last_model_s": 543.9696215518403,
+          "model_cruise_s": 4.4630352115734615,
+          "model_length_mm": 234.1272098199084,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 234.1272098199084,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 20.0386339003054,
+          "nominal_off_object_interval_s": 15.687039961643677
+        },
+        "1901": {
+          "first_model_s": 544.0802749569513,
+          "last_model_s": 553.4985273131242,
+          "model_cruise_s": 8.921628586181672,
+          "model_length_mm": 471.3100000000006,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 471.3100000000006,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 20.19624741749317,
+          "nominal_off_object_interval_s": 10.358917632434895
+        }
+      },
+      "nominal_motion_and_dwell_s": 19.777169988607852
+    },
+    {
+      "layer": 22,
+      "z_mm": 5.24,
+      "start_s": 553.4985273131242,
+      "last_model_end_s": 573.1649673778821,
+      "explicit_dwell_s": 0.0,
+      "objects": {
+        "1903": {
+          "first_model_s": 553.5916044860237,
+          "last_model_s": 559.3420719366966,
+          "model_cruise_s": 5.70416362010577,
+          "model_length_mm": 289.3640142694348,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 289.3640142694348,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.77706768086898,
+          "nominal_off_object_interval_s": 14.214919493229331
+        },
+        "1902": {
+          "first_model_s": 559.4214692540808,
+          "last_model_s": 564.0815032776133,
+          "model_cruise_s": 4.6199749211128,
+          "model_length_mm": 234.3577590313484,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 234.3577590313484,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.960627152298116,
+          "nominal_off_object_interval_s": 15.451847702240457
+        },
+        "1901": {
+          "first_model_s": 564.1883319556374,
+          "last_model_s": 573.1649673778821,
+          "model_cruise_s": 8.357103538663173,
+          "model_length_mm": 425.0980000000004,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 425.0980000000004,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 20.108056998686152,
+          "nominal_off_object_interval_s": 10.689804642513195
+        }
+      },
+      "nominal_motion_and_dwell_s": 19.66644006475792
+    },
+    {
+      "layer": 23,
+      "z_mm": 5.48,
+      "start_s": 573.1649673778821,
+      "last_model_end_s": 592.8396568951866,
+      "explicit_dwell_s": 0.0,
+      "objects": {
+        "1903": {
+          "first_model_s": 573.2588756581645,
+          "last_model_s": 579.2966413159979,
+          "model_cruise_s": 5.99137627494094,
+          "model_length_mm": 290.2821805208879,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 290.2821805208879,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.667271172140772,
+          "nominal_off_object_interval_s": 13.916803721467886
+        },
+        "1902": {
+          "first_model_s": 579.3759172241834,
+          "last_model_s": 584.2784557814338,
+          "model_cruise_s": 4.862597923976452,
+          "model_length_mm": 235.59286941665852,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 235.59286941665852,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.954447970102592,
+          "nominal_off_object_interval_s": 15.294413946570103
+        },
+        "1901": {
+          "first_model_s": 584.3854902807208,
+          "last_model_s": 592.8396568951866,
+          "model_cruise_s": 7.944643962848308,
+          "model_length_mm": 384.91800000000035,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 384.91800000000035,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 20.197158325083365,
+          "nominal_off_object_interval_s": 11.220522902838638
+        }
+      },
+      "nominal_motion_and_dwell_s": 19.6746895173045
+    },
+    {
+      "layer": 24,
+      "z_mm": 5.72,
+      "start_s": 592.8396568951866,
+      "last_model_end_s": 612.5216857003453,
+      "explicit_dwell_s": 0.0,
+      "objects": {
+        "1903": {
+          "first_model_s": 592.9360147047079,
+          "last_model_s": 599.0562481951251,
+          "model_cruise_s": 6.073778199609508,
+          "model_length_mm": 294.0720944977607,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 294.0720944977607,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.677139046543402,
+          "nominal_off_object_interval_s": 13.639373388709942
+        },
+        "1902": {
+          "first_model_s": 599.1353545777749,
+          "last_model_s": 604.1110363007588,
+          "model_cruise_s": 4.935910307670041,
+          "model_length_mm": 238.98032406302454,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 238.98032406302454,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.75943735359158,
+          "nominal_off_object_interval_s": 14.85689879634117
+        },
+        "1901": {
+          "first_model_s": 604.2182356395363,
+          "last_model_s": 612.5216857003453,
+          "model_cruise_s": 7.806444061962132,
+          "model_length_mm": 377.96200000000005,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 377.96200000000005,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.832745358815487,
+          "nominal_off_object_interval_s": 11.378578744349625
+        }
+      },
+      "nominal_motion_and_dwell_s": 19.682028805158666
+    },
+    {
+      "layer": 25,
+      "z_mm": 5.96,
+      "start_s": 612.5216857003453,
+      "last_model_end_s": 632.1514811301126,
+      "explicit_dwell_s": 0.0,
+      "objects": {
+        "1903": {
+          "first_model_s": 612.6156893429096,
+          "last_model_s": 619.0613260113553,
+          "model_cruise_s": 6.399135132198401,
+          "model_length_mm": 304.7054845448472,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 304.7054845448472,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.679674638201732,
+          "nominal_off_object_interval_s": 13.559441147784469
+        },
+        "1902": {
+          "first_model_s": 619.140165846771,
+          "last_model_s": 624.3630052133516,
+          "model_cruise_s": 5.182932711979772,
+          "model_length_mm": 246.79397930210345,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 246.79397930210345,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 20.004811268996036,
+          "nominal_off_object_interval_s": 15.0291295460122
+        },
+        "1901": {
+          "first_model_s": 624.470352809528,
+          "last_model_s": 632.1514811301126,
+          "model_cruise_s": 7.0342177108855415,
+          "model_length_mm": 334.9460000000002,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 334.9460000000002,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 20.25211716999172,
+          "nominal_off_object_interval_s": 11.94866710918268
+        }
+      },
+      "nominal_motion_and_dwell_s": 19.62979542976734
+    },
+    {
+      "layer": 26,
+      "z_mm": 6.2,
+      "start_s": 632.1514811301126,
+      "last_model_end_s": 651.7481722742134,
+      "explicit_dwell_s": 0.0,
+      "objects": {
+        "1903": {
+          "first_model_s": 632.2536037039629,
+          "last_model_s": 638.7435907565881,
+          "model_cruise_s": 6.44079855315551,
+          "model_length_mm": 302.71753199830925,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 302.71753199830925,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.637914361053276,
+          "nominal_off_object_interval_s": 13.192277692607604
+        },
+        "1902": {
+          "first_model_s": 638.827791198455,
+          "last_model_s": 643.9672786838464,
+          "model_cruise_s": 5.092589584047778,
+          "model_length_mm": 239.35171045024586,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 239.35171045024586,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.687625351684005,
+          "nominal_off_object_interval_s": 14.46478598510339
+        },
+        "1901": {
+          "first_model_s": 644.0747490337085,
+          "last_model_s": 651.7481722742134,
+          "model_cruise_s": 7.043319148936168,
+          "model_length_mm": 331.03599999999994,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 331.03599999999994,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.604396224180505,
+          "nominal_off_object_interval_s": 11.923267903595843
+        }
+      },
+      "nominal_motion_and_dwell_s": 19.59669114410076
+    },
+    {
+      "layer": 27,
+      "z_mm": 6.44,
+      "start_s": 651.7481722742134,
+      "last_model_end_s": 671.5080071861187,
+      "explicit_dwell_s": 0.0,
+      "objects": {
+        "1903": {
+          "first_model_s": 651.8474654053787,
+          "last_model_s": 658.7977925720911,
+          "model_cruise_s": 6.856027078673064,
+          "model_length_mm": 320.3677334422733,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 320.3677334422733,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.59386170141579,
+          "nominal_off_object_interval_s": 13.103874648790566
+        },
+        "1902": {
+          "first_model_s": 658.8718676199943,
+          "last_model_s": 664.3139210992887,
+          "model_cruise_s": 5.349195510777826,
+          "model_length_mm": 251.12146113061368,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 251.12146113061368,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 20.04407642153933,
+          "nominal_off_object_interval_s": 14.904588936147888
+        },
+        "1901": {
+          "first_model_s": 664.4156545630802,
+          "last_model_s": 671.5080071861187,
+          "model_cruise_s": 6.553032400100833,
+          "model_length_mm": 316.008,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 316.008,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 20.340905529371753,
+          "nominal_off_object_interval_s": 12.667482288866836
+        }
+      },
+      "nominal_motion_and_dwell_s": 19.759834911905273
+    },
+    {
+      "layer": 28,
+      "z_mm": 6.68,
+      "start_s": 671.5080071861187,
+      "last_model_end_s": 691.1320246849893,
+      "explicit_dwell_s": 0.0,
+      "objects": {
+        "1903": {
+          "first_model_s": 671.6097451260811,
+          "last_model_s": 678.7229100231335,
+          "model_cruise_s": 7.0188930922532276,
+          "model_length_mm": 319.18310047096935,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 319.18310047096935,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.762279720702395,
+          "nominal_off_object_interval_s": 12.811952553989954
+        },
+        "1902": {
+          "first_model_s": 678.8042723327949,
+          "last_model_s": 684.3328345277267,
+          "model_cruise_s": 5.475817652851537,
+          "model_length_mm": 250.21985327352928,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 250.21985327352928,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.932404712800576,
+          "nominal_off_object_interval_s": 14.490351233506203
+        },
+        "1901": {
+          "first_model_s": 684.4412573593252,
+          "last_model_s": 691.1320246849893,
+          "model_cruise_s": 6.177148936170209,
+          "model_length_mm": 290.3259999999998,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 290.3259999999998,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 20.025602796244925,
+          "nominal_off_object_interval_s": 12.933250173206488
+        }
+      },
+      "nominal_motion_and_dwell_s": 19.62401749887067
+    },
+    {
+      "layer": 29,
+      "z_mm": 6.92,
+      "start_s": 691.1320246849893,
+      "last_model_end_s": 710.7564479504553,
+      "explicit_dwell_s": 0.0,
+      "objects": {
+        "1903": {
+          "first_model_s": 691.2327441220061,
+          "last_model_s": 698.3195309975488,
+          "model_cruise_s": 6.993547600667037,
+          "model_length_mm": 316.75859516342194,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 316.75859516342194,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.62299899592506,
+          "nominal_off_object_interval_s": 12.509834098872602
+        },
+        "1902": {
+          "first_model_s": 698.4011121666215,
+          "last_model_s": 703.9672388103811,
+          "model_cruise_s": 5.513078803693502,
+          "model_length_mm": 251.00768031038675,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 251.00768031038675,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.596839833826607,
+          "nominal_off_object_interval_s": 14.068277638894756
+        },
+        "1901": {
+          "first_model_s": 704.0757967372181,
+          "last_model_s": 710.7564479504553,
+          "model_cruise_s": 6.170982905982911,
+          "model_length_mm": 288.80200000000025,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 288.80200000000025,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.634539377892906,
+          "nominal_off_object_interval_s": 12.943772052228724
+        }
+      },
+      "nominal_motion_and_dwell_s": 19.624423265465907
+    },
+    {
+      "layer": 30,
+      "z_mm": 7.16,
+      "start_s": 710.7564479504553,
+      "last_model_end_s": 730.3882591974168,
+      "explicit_dwell_s": 0.0,
+      "objects": {
+        "1903": {
+          "first_model_s": 710.8569219211702,
+          "last_model_s": 717.9706005172454,
+          "model_cruise_s": 7.020454304109206,
+          "model_length_mm": 319.4798508233978,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 319.4798508233978,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.624177799164045,
+          "nominal_off_object_interval_s": 12.537390923621388
+        },
+        "1902": {
+          "first_model_s": 718.0524007890706,
+          "last_model_s": 723.6470347275379,
+          "model_cruise_s": 5.541151608766533,
+          "model_length_mm": 253.48074994988335,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 253.48074994988335,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.6512886224491,
+          "nominal_off_object_interval_s": 14.085161978689484
+        },
+        "1901": {
+          "first_model_s": 723.7633776508632,
+          "last_model_s": 730.3882591974168,
+          "model_cruise_s": 6.11791637136783,
+          "model_length_mm": 287.74600000000004,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 287.74600000000004,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.687580913645093,
+          "nominal_off_object_interval_s": 13.006929700407909
+        }
+      },
+      "nominal_motion_and_dwell_s": 19.631811246961547
+    },
+    {
+      "layer": 31,
+      "z_mm": 7.4,
+      "start_s": 730.3882591974168,
+      "last_model_end_s": 750.0459367891958,
+      "explicit_dwell_s": 0.0,
+      "objects": {
+        "1903": {
+          "first_model_s": 730.4881954414161,
+          "last_model_s": 737.6635358602564,
+          "model_cruise_s": 7.082172139356355,
+          "model_length_mm": 325.2322574322555,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 325.2322574322555,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.63127352024594,
+          "nominal_off_object_interval_s": 12.51759492417068
+        },
+        "1902": {
+          "first_model_s": 737.7455554717579,
+          "last_model_s": 743.389312584903,
+          "model_cruise_s": 5.589781000133163,
+          "model_length_mm": 258.0085119701837,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 258.0085119701837,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.69315468268735,
+          "nominal_off_object_interval_s": 14.098520744220082
+        },
+        "1901": {
+          "first_model_s": 743.5057761681163,
+          "last_model_s": 750.0459367891958,
+          "model_cruise_s": 6.03484413309983,
+          "model_length_mm": 287.1580000000003,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 287.1580000000003,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.74239851725315,
+          "nominal_off_object_interval_s": 13.117516970699512
+        }
+      },
+      "nominal_motion_and_dwell_s": 19.65767759177902
+    },
+    {
+      "layer": 32,
+      "z_mm": 7.64,
+      "start_s": 750.0459367891958,
+      "last_model_end_s": 769.7992312045,
+      "explicit_dwell_s": 0.0,
+      "objects": {
+        "1903": {
+          "first_model_s": 750.145560586536,
+          "last_model_s": 757.4143821811781,
+          "model_cruise_s": 7.130696026450408,
+          "model_length_mm": 334.26334974464544,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 334.26334974464544,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.65736514511991,
+          "nominal_off_object_interval_s": 12.482024726279633
+        },
+        "1902": {
+          "first_model_s": 757.4900216562422,
+          "last_model_s": 763.2732988987937,
+          "model_cruise_s": 5.6704114864175175,
+          "model_length_mm": 267.1544682079395,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 267.1544682079395,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.74446618448428,
+          "nominal_off_object_interval_s": 14.100709071339224
+        },
+        "1901": {
+          "first_model_s": 763.382250134855,
+          "last_model_s": 769.7992312045,
+          "model_cruise_s": 5.912155600321631,
+          "model_length_mm": 286.9559999999999,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 286.9559999999999,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.876473966738672,
+          "nominal_off_object_interval_s": 13.336313345659164
+        }
+      },
+      "nominal_motion_and_dwell_s": 19.75329441530414
+    },
+    {
+      "layer": 33,
+      "z_mm": 7.88,
+      "start_s": 769.7992312045,
+      "last_model_end_s": 789.5650730830565,
+      "explicit_dwell_s": 0.0,
+      "objects": {
+        "1903": {
+          "first_model_s": 769.8987600803526,
+          "last_model_s": 777.2063849820942,
+          "model_cruise_s": 7.218063478120571,
+          "model_length_mm": 338.7826159276365,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 338.7826159276365,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.753199493816624,
+          "nominal_off_object_interval_s": 12.484377899174547
+        },
+        "1902": {
+          "first_model_s": 777.2888439726453,
+          "last_model_s": 783.0550128888691,
+          "model_cruise_s": 5.6558206133997695,
+          "model_length_mm": 266.61697163993654,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 266.61697163993654,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.79882231640306,
+          "nominal_off_object_interval_s": 14.015545073851627
+        },
+        "1901": {
+          "first_model_s": 783.167273787335,
+          "last_model_s": 789.5650730830565,
+          "model_cruise_s": 5.892700598085286,
+          "model_length_mm": 287.0440000000002,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 287.0440000000002,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.78502365248005,
+          "nominal_off_object_interval_s": 13.368042582835074
+        }
+      },
+      "nominal_motion_and_dwell_s": 19.765841878556557
+    },
+    {
+      "layer": 34,
+      "z_mm": 8.12,
+      "start_s": 789.5650730830565,
+      "last_model_end_s": 809.2822425855883,
+      "explicit_dwell_s": 0.0,
+      "objects": {
+        "1903": {
+          "first_model_s": 789.6646541788997,
+          "last_model_s": 796.9357386603637,
+          "model_cruise_s": 7.134481796752506,
+          "model_length_mm": 333.5871073829232,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 333.5871073829232,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.76589409854705,
+          "nominal_off_object_interval_s": 12.458269196805531
+        },
+        "1902": {
+          "first_model_s": 797.018417683398,
+          "last_model_s": 802.7683233345495,
+          "model_cruise_s": 5.641671223229666,
+          "model_length_mm": 265.0416489104549,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 265.0416489104549,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.729573710752675,
+          "nominal_off_object_interval_s": 13.963404794528856
+        },
+        "1901": {
+          "first_model_s": 802.8806200192851,
+          "last_model_s": 809.2822425855883,
+          "model_cruise_s": 5.895758526002134,
+          "model_length_mm": 287.3399999999998,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 287.3399999999998,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.713346231950027,
+          "nominal_off_object_interval_s": 13.315546936228543
+        }
+      },
+      "nominal_motion_and_dwell_s": 19.71716950253176
+    },
+    {
+      "layer": 35,
+      "z_mm": 8.36,
+      "start_s": 809.2822425855883,
+      "last_model_end_s": 828.9784996808935,
+      "explicit_dwell_s": 0.0,
+      "objects": {
+        "1903": {
+          "first_model_s": 809.3819547253884,
+          "last_model_s": 816.6668524648532,
+          "model_cruise_s": 7.101353222876663,
+          "model_length_mm": 333.28061110644927,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 333.28061110644927,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.717300546488673,
+          "nominal_off_object_interval_s": 12.446216065024714
+        },
+        "1902": {
+          "first_model_s": 816.749751742898,
+          "last_model_s": 822.4921160211815,
+          "model_cruise_s": 5.63591428519015,
+          "model_length_mm": 265.75745138700967,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 265.75745138700967,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.7313340595,
+          "nominal_off_object_interval_s": 13.981428408348506
+        },
+        "1901": {
+          "first_model_s": 822.6044539727504,
+          "last_model_s": 828.9784996808935,
+          "model_cruise_s": 5.867011148641041,
+          "model_length_mm": 287.81600000000014,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 287.81600000000014,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.723833953465373,
+          "nominal_off_object_interval_s": 13.322211387162156
+        }
+      },
+      "nominal_motion_and_dwell_s": 19.696257095305214
+    },
+    {
+      "layer": 36,
+      "z_mm": 8.6,
+      "start_s": 828.9784996808935,
+      "last_model_end_s": 848.7119854565154,
+      "explicit_dwell_s": 0.0,
+      "objects": {
+        "1903": {
+          "first_model_s": 829.078427371041,
+          "last_model_s": 836.3993343630178,
+          "model_cruise_s": 7.122375180488208,
+          "model_length_mm": 334.9971285638186,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 334.9971285638186,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.696472645652648,
+          "nominal_off_object_interval_s": 12.411574906187866
+        },
+        "1902": {
+          "first_model_s": 836.4684934185472,
+          "last_model_s": 842.2384849207806,
+          "model_cruise_s": 5.6650277051640145,
+          "model_length_mm": 267.6722364797899,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 267.6722364797899,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.7187416756492,
+          "nominal_off_object_interval_s": 13.976377397365695
+        },
+        "1901": {
+          "first_model_s": 842.3508762904194,
+          "last_model_s": 848.7119854565154,
+          "model_cruise_s": 5.852382527254831,
+          "model_length_mm": 288.5219999999998,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 288.5219999999998,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.74642231766893,
+          "nominal_off_object_interval_s": 13.372376609525872
+        }
+      },
+      "nominal_motion_and_dwell_s": 19.733485775621944
+    },
+    {
+      "layer": 37,
+      "z_mm": 8.84,
+      "start_s": 848.7119854565154,
+      "last_model_end_s": 868.5093496388051,
+      "explicit_dwell_s": 0.0,
+      "objects": {
+        "1903": {
+          "first_model_s": 848.8122384462018,
+          "last_model_s": 856.1642201310508,
+          "model_cruise_s": 7.153202954506544,
+          "model_length_mm": 337.8412848327039,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 337.8412848327039,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.733811075160816,
+          "nominal_off_object_interval_s": 12.412904083184003
+        },
+        "1902": {
+          "first_model_s": 856.2333050567393,
+          "last_model_s": 862.0479811676055,
+          "model_cruise_s": 5.712709894440776,
+          "model_length_mm": 271.0039165327716,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 271.0039165327716,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.7648116381921,
+          "nominal_off_object_interval_s": 13.994820135958662
+        },
+        "1901": {
+          "first_model_s": 862.1604411413898,
+          "last_model_s": 868.5093496388051,
+          "model_cruise_s": 5.834970435884928,
+          "model_length_mm": 289.4670000000002,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 289.4670000000002,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.809564850970446,
+          "nominal_off_object_interval_s": 13.448455684874375
+        }
+      },
+      "nominal_motion_and_dwell_s": 19.797364182289698
+    },
+    {
+      "layer": 38,
+      "z_mm": 9.08,
+      "start_s": 868.5093496388051,
+      "last_model_end_s": 888.4036498174362,
+      "explicit_dwell_s": 0.0,
+      "objects": {
+        "1903": {
+          "first_model_s": 868.6100338352618,
+          "last_model_s": 876.0125517133639,
+          "model_cruise_s": 7.203664107671617,
+          "model_length_mm": 343.2626068434463,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 343.2626068434463,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.797795389059957,
+          "nominal_off_object_interval_s": 12.445813704210991
+        },
+        "1902": {
+          "first_model_s": 876.0815802705363,
+          "last_model_s": 881.9577061742402,
+          "model_cruise_s": 5.775190895673622,
+          "model_length_mm": 276.340472738184,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 276.340472738184,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.848275213797024,
+          "nominal_off_object_interval_s": 14.033599102930793
+        },
+        "1901": {
+          "first_model_s": 882.0702643368355,
+          "last_model_s": 888.4036498174362,
+          "model_cruise_s": 5.802645658381095,
+          "model_length_mm": 290.67000000000024,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 290.67000000000024,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.90982319544571,
+          "nominal_off_object_interval_s": 13.560914698030388
+        }
+      },
+      "nominal_motion_and_dwell_s": 19.894300178631056
+    },
+    {
+      "layer": 39,
+      "z_mm": 9.32,
+      "start_s": 888.4036498174362,
+      "last_model_end_s": 908.5790271271748,
+      "explicit_dwell_s": 0.0,
+      "objects": {
+        "1903": {
+          "first_model_s": 888.5048987953595,
+          "last_model_s": 895.8967489703763,
+          "model_cruise_s": 7.195835652462816,
+          "model_length_mm": 357.9195240924253,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 357.9195240924253,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.89486496009772,
+          "nominal_off_object_interval_s": 12.492347081995604
+        },
+        "1902": {
+          "first_model_s": 895.965723288788,
+          "last_model_s": 901.7753312092557,
+          "model_cruise_s": 5.7095322314333705,
+          "model_length_mm": 284.6650760684201,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 284.6650760684201,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.884143018251734,
+          "nominal_off_object_interval_s": 14.008017114547783
+        },
+        "1901": {
+          "first_model_s": 901.8870636996943,
+          "last_model_s": 908.5790271271748,
+          "model_cruise_s": 6.100020047822222,
+          "model_length_mm": 304.0759999999998,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 304.0759999999998,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.816799362858774,
+          "nominal_off_object_interval_s": 13.483413882258105
+        }
+      },
+      "nominal_motion_and_dwell_s": 20.175377309738565
+    },
+    {
+      "layer": 40,
+      "z_mm": 9.56,
+      "start_s": 908.5790271271748,
+      "last_model_end_s": 929.0075733377979,
+      "explicit_dwell_s": 0.0,
+      "objects": {
+        "1903": {
+          "first_model_s": 908.6810023255755,
+          "last_model_s": 915.9147357017729,
+          "model_cruise_s": 7.082666578177514,
+          "model_length_mm": 367.26163603465585,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 367.26163603465585,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 20.176103530215983,
+          "nominal_off_object_interval_s": 12.784253355199212
+        },
+        "1902": {
+          "first_model_s": 915.998739481796,
+          "last_model_s": 921.7120280942222,
+          "model_cruise_s": 5.57206153467542,
+          "model_length_mm": 288.9561059909,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 288.9561059909,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 20.03301619300794,
+          "nominal_off_object_interval_s": 14.223408272540269
+        },
+        "1901": {
+          "first_model_s": 921.8146982006622,
+          "last_model_s": 929.0075733377979,
+          "model_cruise_s": 6.469331141559642,
+          "model_length_mm": 329.9919999999997,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 329.9919999999997,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.927634500967883,
+          "nominal_off_object_interval_s": 13.235671073487424
+        }
+      },
+      "nominal_motion_and_dwell_s": 20.428546210623153
+    },
+    {
+      "layer": 41,
+      "z_mm": 9.8,
+      "start_s": 929.0075733377979,
+      "last_model_end_s": 949.4625153745484,
+      "explicit_dwell_s": 0.0,
+      "objects": {
+        "1903": {
+          "first_model_s": 929.1057494930346,
+          "last_model_s": 936.4895820679669,
+          "model_cruise_s": 7.247657993634414,
+          "model_length_mm": 361.2484326056516,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 361.2484326056516,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 20.424747167459145,
+          "nominal_off_object_interval_s": 13.191013791261753
+        },
+        "1902": {
+          "first_model_s": 936.5643967768934,
+          "last_model_s": 942.4161536559441,
+          "model_cruise_s": 5.710647409271404,
+          "model_length_mm": 284.6890499152569,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 284.6890499152569,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 20.56565729509748,
+          "nominal_off_object_interval_s": 14.852368682671226
+        },
+        "1901": {
+          "first_model_s": 942.5185875038984,
+          "last_model_s": 949.4625153745484,
+          "model_cruise_s": 6.298777278682392,
+          "model_length_mm": 330.5139999999996,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 330.5139999999996,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 20.703889303236224,
+          "nominal_off_object_interval_s": 13.511014166100495
+        }
+      },
+      "nominal_motion_and_dwell_s": 20.45494203675048
+    },
+    {
+      "layer": 42,
+      "z_mm": 10.04,
+      "start_s": 949.4625153745484,
+      "last_model_end_s": 969.9984414395909,
+      "explicit_dwell_s": 0.0,
+      "objects": {
+        "1903": {
+          "first_model_s": 949.5613002827215,
+          "last_model_s": 956.9851538637201,
+          "model_cruise_s": 7.287910632255521,
+          "model_length_mm": 359.2509522955154,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 359.2509522955154,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 20.455550789686868,
+          "nominal_off_object_interval_s": 13.071718214754583
+        },
+        "1902": {
+          "first_model_s": 957.060226213673,
+          "last_model_s": 962.9583244113887,
+          "model_cruise_s": 5.75688171773062,
+          "model_length_mm": 283.6850886488109,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 283.6850886488109,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 20.49582943677956,
+          "nominal_off_object_interval_s": 14.644072557728919
+        },
+        "1901": {
+          "first_model_s": 963.0605570993451,
+          "last_model_s": 969.9984414395909,
+          "model_cruise_s": 6.3181736593965105,
+          "model_length_mm": 328.9350000000002,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 328.9350000000002,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 20.541969595446744,
+          "nominal_off_object_interval_s": 13.598041724796758
+        }
+      },
+      "nominal_motion_and_dwell_s": 20.53592606504253
+    },
+    {
+      "layer": 43,
+      "z_mm": 10.28,
+      "start_s": 969.9984414395909,
+      "last_model_end_s": 990.5032463867257,
+      "explicit_dwell_s": 0.0,
+      "objects": {
+        "1903": {
+          "first_model_s": 970.0959557008501,
+          "last_model_s": 977.8591604356449,
+          "model_cruise_s": 7.6309481726700845,
+          "model_length_mm": 362.4127391315818,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 362.4127391315818,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 20.534655418128636,
+          "nominal_off_object_interval_s": 13.110801837129998
+        },
+        "1902": {
+          "first_model_s": 977.9280796989586,
+          "last_model_s": 984.0990663165252,
+          "model_cruise_s": 6.030339260803775,
+          "model_length_mm": 286.2405267745692,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 286.2405267745692,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 20.86785348528565,
+          "nominal_off_object_interval_s": 14.96975528756991
+        },
+        "1901": {
+          "first_model_s": 984.2011365079863,
+          "last_model_s": 990.5032463867257,
+          "model_cruise_s": 5.789636234834153,
+          "model_length_mm": 290.4040000000001,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 290.4040000000001,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 21.1405794086412,
+          "nominal_off_object_interval_s": 14.202695068395428
+        }
+      },
+      "nominal_motion_and_dwell_s": 20.504804947134744
+    },
+    {
+      "layer": 44,
+      "z_mm": 10.52,
+      "start_s": 990.5032463867257,
+      "last_model_end_s": 1011.1279070723813,
+      "explicit_dwell_s": 0.0,
+      "objects": {
+        "1903": {
+          "first_model_s": 990.6042481969472,
+          "last_model_s": 998.4314002495863,
+          "model_cruise_s": 7.690646217053518,
+          "model_length_mm": 361.5210565745703,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 361.5210565745703,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 20.508292496097056,
+          "nominal_off_object_interval_s": 12.74508776130233
+        },
+        "1902": {
+          "first_model_s": 998.5069146155437,
+          "last_model_s": 1004.776843093417,
+          "model_cruise_s": 6.129136479927569,
+          "model_length_mm": 287.9123556888324,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 287.9123556888324,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 20.578834916585038,
+          "nominal_off_object_interval_s": 14.407848299018497
+        },
+        "1901": {
+          "first_model_s": 1004.8787849882757,
+          "last_model_s": 1011.1279070723813,
+          "model_cruise_s": 5.748385209859716,
+          "model_length_mm": 286.07600000000014,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 286.07600000000014,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 20.67764848028935,
+          "nominal_off_object_interval_s": 14.375538601550033
+        }
+      },
+      "nominal_motion_and_dwell_s": 20.624660685655613
+    },
+    {
+      "layer": 45,
+      "z_mm": 10.76,
+      "start_s": 1011.1279070723813,
+      "last_model_end_s": 1031.6889138775862,
+      "explicit_dwell_s": 0.0,
+      "objects": {
+        "1903": {
+          "first_model_s": 1011.2266454977574,
+          "last_model_s": 1019.497704696262,
+          "model_cruise_s": 8.1339541647518,
+          "model_length_mm": 367.34582928767475,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 367.34582928767475,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 20.622397300810235,
+          "nominal_off_object_interval_s": 12.795245248171113
+        },
+        "1902": {
+          "first_model_s": 1019.5734933640875,
+          "last_model_s": 1026.1874758415033,
+          "model_cruise_s": 6.472432513762624,
+          "model_length_mm": 291.9464042910767,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 291.9464042910767,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 21.06657874854386,
+          "nominal_off_object_interval_s": 14.796650270670511
+        },
+        "1901": {
+          "first_model_s": 1026.2893227212674,
+          "last_model_s": 1031.6889138775862,
+          "model_cruise_s": 5.053216509060526,
+          "model_length_mm": 241.88400000000001,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 241.88400000000001,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 21.410537732991656,
+          "nominal_off_object_interval_s": 15.161415648886077
+        }
+      },
+      "nominal_motion_and_dwell_s": 20.561006805204897
+    },
+    {
+      "layer": 46,
+      "z_mm": 11.0,
+      "start_s": 1031.6889138775862,
+      "last_model_end_s": 1052.4847144450048,
+      "explicit_dwell_s": 0.0,
+      "objects": {
+        "1903": {
+          "first_model_s": 1031.7923004914705,
+          "last_model_s": 1040.3502540252268,
+          "model_cruise_s": 8.407635793336919,
+          "model_length_mm": 379.39887228491466,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 379.39887228491466,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 20.56565499371311,
+          "nominal_off_object_interval_s": 12.29459579520858
+        },
+        "1902": {
+          "first_model_s": 1040.4355898711115,
+          "last_model_s": 1047.2523842254639,
+          "model_cruise_s": 6.674296451494973,
+          "model_length_mm": 300.36268009621705,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 300.36268009621705,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 20.86209650702392,
+          "nominal_off_object_interval_s": 14.248114029608132
+        },
+        "1901": {
+          "first_model_s": 1047.3541977005607,
+          "last_model_s": 1052.4847144450048,
+          "model_cruise_s": 4.890524097409041,
+          "model_length_mm": 233.42399999999998,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 233.42399999999998,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 21.064874979293336,
+          "nominal_off_object_interval_s": 15.665283822974516
+        }
+      },
+      "nominal_motion_and_dwell_s": 20.79580056741861
+    },
+    {
+      "layer": 47,
+      "z_mm": 11.24,
+      "start_s": 1052.4847144450048,
+      "last_model_end_s": 1072.8820132160085,
+      "explicit_dwell_s": 0.0,
+      "objects": {
+        "1903": {
+          "first_model_s": 1052.5811282295074,
+          "last_model_s": 1061.8701799878697,
+          "model_cruise_s": 9.14493446763974,
+          "model_length_mm": 379.2673893378037,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 379.2673893378037,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 20.788827738036844,
+          "nominal_off_object_interval_s": 12.230874204280553
+        },
+        "1902": {
+          "first_model_s": 1061.9468568483233,
+          "last_model_s": 1069.3309087296689,
+          "model_cruise_s": 7.180888971393052,
+          "model_length_mm": 296.9553794077546,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 296.9553794077546,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 21.51126697721179,
+          "nominal_off_object_interval_s": 14.694472622859394
+        },
+        "1901": {
+          "first_model_s": 1069.4328107677666,
+          "last_model_s": 1072.8820132160085,
+          "model_cruise_s": 3.209346356123213,
+          "model_length_mm": 142.38799999999992,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 142.38799999999992,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 22.07861306720588,
+          "nominal_off_object_interval_s": 16.948096322761785
+        }
+      },
+      "nominal_motion_and_dwell_s": 20.39729877100376
+    },
+    {
+      "layer": 48,
+      "z_mm": 11.48,
+      "start_s": 1072.8820132160085,
+      "last_model_end_s": 1092.6302697373383,
+      "explicit_dwell_s": 0.0,
+      "objects": {
+        "1903": {
+          "first_model_s": 1072.9823697842571,
+          "last_model_s": 1083.8931759655247,
+          "model_cruise_s": 10.771117205847066,
+          "model_length_mm": 373.3037731135741,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 373.3037731135741,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 20.40124155474973,
+          "nominal_off_object_interval_s": 11.112189796387383
+        },
+        "1902": {
+          "first_model_s": 1083.969650258032,
+          "last_model_s": 1092.6302697373383,
+          "model_cruise_s": 8.456422187515551,
+          "model_length_mm": 293.07641190060343,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 293.07641190060343,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 22.02279340970881,
+          "nominal_off_object_interval_s": 14.638741528363198
+        }
+      },
+      "nominal_motion_and_dwell_s": 19.748256521329722
+    },
+    {
+      "layer": 49,
+      "z_mm": 11.72,
+      "start_s": 1092.6302697373383,
+      "last_model_end_s": 1112.4828636171487,
+      "explicit_dwell_s": 0.0,
+      "objects": {
+        "1903": {
+          "first_model_s": 1092.707059983757,
+          "last_model_s": 1103.5792417739815,
+          "model_cruise_s": 10.822903436693624,
+          "model_length_mm": 347.9563454897008,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 347.9563454897008,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.724690199499946,
+          "nominal_off_object_interval_s": 8.81388401823233
+        },
+        "1902": {
+          "first_model_s": 1103.6481226035955,
+          "last_model_s": 1112.4828636171487,
+          "model_cruise_s": 8.681147666958223,
+          "model_length_mm": 279.0988974927072,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 279.0988974927072,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.678472345563478,
+          "nominal_off_object_interval_s": 11.017852866257272
+        }
+      },
+      "nominal_motion_and_dwell_s": 19.852593879810456
+    },
+    {
+      "layer": 50,
+      "z_mm": 11.96,
+      "start_s": 1112.4828636171487,
+      "last_model_end_s": 1132.3396299070082,
+      "explicit_dwell_s": 0.0,
+      "objects": {
+        "1903": {
+          "first_model_s": 1112.5781644558501,
+          "last_model_s": 1123.431448593033,
+          "model_cruise_s": 10.803898210519325,
+          "model_length_mm": 347.3453274681964,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 347.3453274681964,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.871104472093066,
+          "nominal_off_object_interval_s": 8.998922681868635
+        },
+        "1902": {
+          "first_model_s": 1123.5003192486568,
+          "last_model_s": 1132.3396299070082,
+          "model_cruise_s": 8.685582197082452,
+          "model_length_mm": 279.2414676362006,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 279.2414676362006,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.852196645061213,
+          "nominal_off_object_interval_s": 11.017455631508028
+        }
+      },
+      "nominal_motion_and_dwell_s": 19.85676628985948
+    },
+    {
+      "layer": 51,
+      "z_mm": 12.2,
+      "start_s": 1132.3396299070082,
+      "last_model_end_s": 1152.190769086081,
+      "explicit_dwell_s": 0.0,
+      "objects": {
+        "1903": {
+          "first_model_s": 1132.4350320373246,
+          "last_model_s": 1143.359449973809,
+          "model_cruise_s": 10.766904224701747,
+          "model_length_mm": 346.5148676316512,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 346.5148676316512,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.85686758147449,
+          "nominal_off_object_interval_s": 9.003583444291507
+        },
+        "1902": {
+          "first_model_s": 1143.4355428864699,
+          "last_model_s": 1152.190769086081,
+          "model_cruise_s": 8.708418055031645,
+          "model_length_mm": 280.26592107110173,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 280.26592107110173,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.935223637813124,
+          "nominal_off_object_interval_s": 11.095912979461673
+        }
+      },
+      "nominal_motion_and_dwell_s": 19.85113917907279
+    },
+    {
+      "layer": 52,
+      "z_mm": 12.44,
+      "start_s": 1152.190769086081,
+      "last_model_end_s": 1172.0640048216649,
+      "explicit_dwell_s": 0.0,
+      "objects": {
+        "1903": {
+          "first_model_s": 1152.2803224285633,
+          "last_model_s": 1163.2944201936161,
+          "model_cruise_s": 10.89673345227682,
+          "model_length_mm": 356.8680205620659,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 356.8680205620659,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.845290391238677,
+          "nominal_off_object_interval_s": 8.920872454754317
+        },
+        "1902": {
+          "first_model_s": 1163.3704078324965,
+          "last_model_s": 1172.0640048216649,
+          "model_cruise_s": 8.64678895109851,
+          "model_length_mm": 283.18233814847633,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 283.18233814847633,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.934864946026664,
+          "nominal_off_object_interval_s": 11.179638746415549
+        }
+      },
+      "nominal_motion_and_dwell_s": 19.873235735583876
+    },
+    {
+      "layer": 53,
+      "z_mm": 12.68,
+      "start_s": 1172.0640048216649,
+      "last_model_end_s": 1191.9416105671282,
+      "explicit_dwell_s": 0.0,
+      "objects": {
+        "1903": {
+          "first_model_s": 1172.1535430595782,
+          "last_model_s": 1183.18033838462,
+          "model_cruise_s": 10.910188033473634,
+          "model_length_mm": 365.3094626541423,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 365.3094626541423,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.873220631014874,
+          "nominal_off_object_interval_s": 8.859122865962036
+        },
+        "1902": {
+          "first_model_s": 1183.2562376214894,
+          "last_model_s": 1191.9416105671282,
+          "model_cruise_s": 8.638564496756162,
+          "model_length_mm": 289.2479345663854,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 289.2479345663854,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.88582978899285,
+          "nominal_off_object_interval_s": 11.192232799824524
+        }
+      },
+      "nominal_motion_and_dwell_s": 19.87760574546337
+    },
+    {
+      "layer": 54,
+      "z_mm": 12.92,
+      "start_s": 1191.9416105671282,
+      "last_model_end_s": 1212.2909589728997,
+      "explicit_dwell_s": 0.0,
+      "objects": {
+        "1903": {
+          "first_model_s": 1192.0304337217387,
+          "last_model_s": 1203.2898204677274,
+          "model_cruise_s": 10.904712808626492,
+          "model_length_mm": 409.46125811593276,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 409.46125811593276,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.876890662160577,
+          "nominal_off_object_interval_s": 8.850095337118773
+        },
+        "1902": {
+          "first_model_s": 1203.3656537881325,
+          "last_model_s": 1212.2909589728997,
+          "model_cruise_s": 8.796947400635934,
+          "model_length_mm": 329.91488187271,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 329.91488187271,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 20.109416166643086,
+          "nominal_off_object_interval_s": 11.42404322100424
+        }
+      },
+      "nominal_motion_and_dwell_s": 20.34934840577148
+    },
+    {
+      "layer": 55,
+      "z_mm": 13.16,
+      "start_s": 1212.2909589728997,
+      "last_model_end_s": 1250.264522250549,
+      "explicit_dwell_s": 0.0,
+      "objects": {
+        "1903": {
+          "first_model_s": 1212.378041608788,
+          "last_model_s": 1234.874262561564,
+          "model_cruise_s": 22.164957351905063,
+          "model_length_mm": 745.9828765495421,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 745.9828765495421,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 20.347607887049207,
+          "nominal_off_object_interval_s": 9.088221141060558
+        },
+        "1902": {
+          "first_model_s": 1234.9500533963517,
+          "last_model_s": 1250.264522250549,
+          "model_cruise_s": 15.066559084323329,
+          "model_length_mm": 534.5854996188366,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 534.5854996188366,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 31.5843996082192,
+          "nominal_off_object_interval_s": 22.65909442345196
+        }
+      },
+      "nominal_motion_and_dwell_s": 37.97356327764919
+    },
+    {
+      "layer": 56,
+      "z_mm": 13.4,
+      "start_s": 1250.264522250549,
+      "last_model_end_s": 1271.9867409882384,
+      "explicit_dwell_s": 0.0,
+      "objects": {
+        "1903": {
+          "first_model_s": 1250.3543693394822,
+          "last_model_s": 1262.6030998564406,
+          "model_cruise_s": 11.946689231791835,
+          "model_length_mm": 634.7308974293724,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 634.7308974293724,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 37.976327730694265,
+          "nominal_off_object_interval_s": 15.480106777918309
+        },
+        "1902": {
+          "first_model_s": 1262.6775065951797,
+          "last_model_s": 1271.9867409882384,
+          "model_cruise_s": 9.068843686610483,
+          "model_length_mm": 476.7647336497256,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 476.7647336497256,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 27.727453198828016,
+          "nominal_off_object_interval_s": 12.412984344630786
+        }
+      },
+      "nominal_motion_and_dwell_s": 21.722218737689445
+    },
+    {
+      "layer": 57,
+      "z_mm": 13.64,
+      "start_s": 1271.9867409882384,
+      "last_model_end_s": 1293.611159283088,
+      "explicit_dwell_s": 0.0,
+      "objects": {
+        "1903": {
+          "first_model_s": 1272.0778471020176,
+          "last_model_s": 1284.230576356746,
+          "model_cruise_s": 11.849861869146878,
+          "model_length_mm": 628.3739714353229,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 628.3739714353229,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 21.723477762535367,
+          "nominal_off_object_interval_s": 9.474747245576964
+        },
+        "1902": {
+          "first_model_s": 1284.310379817512,
+          "last_model_s": 1293.611159283088,
+          "model_cruise_s": 9.060957047905454,
+          "model_length_mm": 476.01342820761397,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 476.01342820761397,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 21.632873222332364,
+          "nominal_off_object_interval_s": 12.323638829273705
+        }
+      },
+      "nominal_motion_and_dwell_s": 21.624418294849647
+    },
+    {
+      "layer": 58,
+      "z_mm": 13.88,
+      "start_s": 1293.611159283088,
+      "last_model_end_s": 1315.1683037385055,
+      "explicit_dwell_s": 0.0,
+      "objects": {
+        "1903": {
+          "first_model_s": 1293.7022653968672,
+          "last_model_s": 1305.799648381973,
+          "model_cruise_s": 11.79322563457095,
+          "model_length_mm": 625.7715143563214,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 625.7715143563214,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 21.624418294849647,
+          "nominal_off_object_interval_s": 9.471689040121191
+        },
+        "1902": {
+          "first_model_s": 1305.8677468003716,
+          "last_model_s": 1315.1683037385055,
+          "model_cruise_s": 9.060642719898722,
+          "model_length_mm": 476.68494783695814,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 476.68494783695814,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 21.55736698285955,
+          "nominal_off_object_interval_s": 12.256587517283606
+        }
+      },
+      "nominal_motion_and_dwell_s": 21.55714445541753
+    },
+    {
+      "layer": 59,
+      "z_mm": 14.12,
+      "start_s": 1315.1683037385055,
+      "last_model_end_s": 1336.4229466030329,
+      "explicit_dwell_s": 0.0,
+      "objects": {
+        "1903": {
+          "first_model_s": 1315.2626156992412,
+          "last_model_s": 1327.2661262204495,
+          "model_cruise_s": 11.049377731519673,
+          "model_length_mm": 595.4539083956447,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 595.4539083956447,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 21.56035030237399,
+          "nominal_off_object_interval_s": 9.462967317268294
+        },
+        "1902": {
+          "first_model_s": 1327.3347908449298,
+          "last_model_s": 1336.4229466030329,
+          "model_cruise_s": 8.280985736961098,
+          "model_length_mm": 440.8843821765778,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 440.8843821765778,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 21.46704404455818,
+          "nominal_off_object_interval_s": 12.166487106424256
+        }
+      },
+      "nominal_motion_and_dwell_s": 21.25464286452734
+    },
+    {
+      "layer": 60,
+      "z_mm": 14.36,
+      "start_s": 1336.4229466030329,
+      "last_model_end_s": 1357.2773371098722,
+      "explicit_dwell_s": 0.0,
+      "objects": {
+        "1903": {
+          "first_model_s": 1336.5013609440114,
+          "last_model_s": 1347.8672513561894,
+          "model_cruise_s": 11.119964564579323,
+          "model_length_mm": 468.0939594005008,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 468.0939594005008,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 21.238745244770143,
+          "nominal_off_object_interval_s": 9.235234723561916
+        },
+        "1902": {
+          "first_model_s": 1347.9496743296604,
+          "last_model_s": 1357.2773371098722,
+          "model_cruise_s": 9.105216953190487,
+          "model_length_mm": 384.64022595095423,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 384.64022595095423,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 20.614883484730626,
+          "nominal_off_object_interval_s": 11.526727726627541
+        }
+      },
+      "nominal_motion_and_dwell_s": 20.85439050683931
+    },
+    {
+      "layer": 61,
+      "z_mm": 14.6,
+      "start_s": 1357.2773371098722,
+      "last_model_end_s": 1378.1260099671665,
+      "explicit_dwell_s": 0.0,
+      "objects": {
+        "1903": {
+          "first_model_s": 1357.3550027823876,
+          "last_model_s": 1368.7167185389194,
+          "model_cruise_s": 11.110181966761909,
+          "model_length_mm": 470.996608091975,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 470.996608091975,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 20.853641838376234,
+          "nominal_off_object_interval_s": 9.487751426198201
+        },
+        "1902": {
+          "first_model_s": 1368.7991415123904,
+          "last_model_s": 1378.1260099671665,
+          "model_cruise_s": 9.049168188660103,
+          "model_length_mm": 384.854098732873,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 384.854098732873,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 20.849467182729995,
+          "nominal_off_object_interval_s": 11.521804402518228
+        }
+      },
+      "nominal_motion_and_dwell_s": 20.848672857294332
+    },
+    {
+      "layer": 62,
+      "z_mm": 14.84,
+      "start_s": 1378.1260099671665,
+      "last_model_end_s": 1398.1268563561566,
+      "explicit_dwell_s": 0.0,
+      "objects": {
+        "1903": {
+          "first_model_s": 1378.2030655928663,
+          "last_model_s": 1389.3909871168537,
+          "model_cruise_s": 11.021583802457526,
+          "model_length_mm": 422.6367397915797,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 422.6367397915797,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 20.848062810478723,
+          "nominal_off_object_interval_s": 9.486347053946929
+        },
+        "1902": {
+          "first_model_s": 1389.4715095549684,
+          "last_model_s": 1398.1268563561566,
+          "model_cruise_s": 8.498553145293597,
+          "model_length_mm": 325.88194032920626,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 325.88194032920626,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 20.672368042578,
+          "nominal_off_object_interval_s": 11.345499587801896
+        }
+      },
+      "nominal_motion_and_dwell_s": 20.000846388990112
+    },
+    {
+      "layer": 63,
+      "z_mm": 15.08,
+      "start_s": 1398.1268563561566,
+      "last_model_end_s": 1418.0475417370526,
+      "explicit_dwell_s": 0.0,
+      "objects": {
+        "1903": {
+          "first_model_s": 1398.2058326429594,
+          "last_model_s": 1409.362063420021,
+          "model_cruise_s": 10.990312471435987,
+          "model_length_mm": 419.82726940593466,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 419.82726940593466,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 20.002767050093098,
+          "nominal_off_object_interval_s": 8.814845526105728
+        },
+        "1902": {
+          "first_model_s": 1409.4425846452302,
+          "last_model_s": 1418.0475417370526,
+          "model_cruise_s": 8.46253546674397,
+          "model_length_mm": 323.25929468984697,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 323.25929468984697,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.97107509026182,
+          "nominal_off_object_interval_s": 11.315728289073604
+        }
+      },
+      "nominal_motion_and_dwell_s": 19.920685380895975
+    },
+    {
+      "layer": 64,
+      "z_mm": 15.32,
+      "start_s": 1418.0475417370526,
+      "last_model_end_s": 1437.944925492981,
+      "explicit_dwell_s": 0.0,
+      "objects": {
+        "1903": {
+          "first_model_s": 1418.1264495418404,
+          "last_model_s": 1429.2736400244346,
+          "model_cruise_s": 10.981676670249817,
+          "model_length_mm": 419.3923737429071,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 419.3923737429071,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.920616898881008,
+          "nominal_off_object_interval_s": 8.76438612181937
+        },
+        "1902": {
+          "first_model_s": 1429.354168383053,
+          "last_model_s": 1437.944925492981,
+          "model_cruise_s": 8.448152063365004,
+          "model_length_mm": 322.62862043986524,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 322.62862043986524,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.911583737822866,
+          "nominal_off_object_interval_s": 11.306626646000495
+        }
+      },
+      "nominal_motion_and_dwell_s": 19.89738375592833
+    },
+    {
+      "layer": 65,
+      "z_mm": 15.56,
+      "start_s": 1437.944925492981,
+      "last_model_end_s": 1457.8292559565964,
+      "explicit_dwell_s": 0.0,
+      "objects": {
+        "1903": {
+          "first_model_s": 1438.0237777975656,
+          "last_model_s": 1449.1713568968119,
+          "model_cruise_s": 10.979882076714494,
+          "model_length_mm": 419.4550396966373,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 419.4550396966373,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.897328255725142,
+          "nominal_off_object_interval_s": 8.750137773130973
+        },
+        "1902": {
+          "first_model_s": 1449.2514098460404,
+          "last_model_s": 1457.8292559565964,
+          "model_cruise_s": 8.44432053763884,
+          "model_length_mm": 322.5836089442496,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 322.5836089442496,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.897241462987267,
+          "nominal_off_object_interval_s": 11.306484353059432
+        }
+      },
+      "nominal_motion_and_dwell_s": 19.88433046361547
+    },
+    {
+      "layer": 66,
+      "z_mm": 15.8,
+      "start_s": 1457.8292559565964,
+      "last_model_end_s": 1477.7526831795763,
+      "explicit_dwell_s": 0.0,
+      "objects": {
+        "1903": {
+          "first_model_s": 1457.9076974592942,
+          "last_model_s": 1469.11271091154,
+          "model_cruise_s": 11.037089097069563,
+          "model_length_mm": 423.91638770416904,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 423.91638770416904,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.88391966172867,
+          "nominal_off_object_interval_s": 8.736340562482383
+        },
+        "1902": {
+          "first_model_s": 1469.1928108320403,
+          "last_model_s": 1477.7526831795763,
+          "model_cruise_s": 8.425969737818757,
+          "model_length_mm": 323.59910814874,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 323.59910814874,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.941400985999962,
+          "nominal_off_object_interval_s": 11.363554875443924
+        }
+      },
+      "nominal_motion_and_dwell_s": 19.923427222979853
+    },
+    {
+      "layer": 67,
+      "z_mm": 16.04,
+      "start_s": 1477.7526831795763,
+      "last_model_end_s": 1497.7424226113028,
+      "explicit_dwell_s": 0.0,
+      "objects": {
+        "1903": {
+          "first_model_s": 1477.8310754632832,
+          "last_model_s": 1489.076935207862,
+          "model_cruise_s": 11.078000722441152,
+          "model_length_mm": 428.3224636245417,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 428.3224636245417,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.923378003989,
+          "nominal_off_object_interval_s": 8.718364551743207
+        },
+        "1902": {
+          "first_model_s": 1489.1570991258814,
+          "last_model_s": 1497.7424226113028,
+          "model_cruise_s": 8.450588078055985,
+          "model_length_mm": 326.69168816228853,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 326.69168816228853,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.964288293841037,
+          "nominal_off_object_interval_s": 11.404415946305107
+        }
+      },
+      "nominal_motion_and_dwell_s": 19.989739431726548
+    },
+    {
+      "layer": 68,
+      "z_mm": 16.28,
+      "start_s": 1497.7424226113028,
+      "last_model_end_s": 1517.8112145082441,
+      "explicit_dwell_s": 0.0,
+      "objects": {
+        "1903": {
+          "first_model_s": 1497.8207713434101,
+          "last_model_s": 1509.1453423664427,
+          "model_cruise_s": 11.136383556283278,
+          "model_length_mm": 435.05757850109245,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 435.05757850109245,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.989695880126874,
+          "nominal_off_object_interval_s": 8.743836135548008
+        },
+        "1902": {
+          "first_model_s": 1509.2258407437064,
+          "last_model_s": 1517.8112145082441,
+          "model_cruise_s": 8.431715040000933,
+          "model_length_mm": 329.29207392253977,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 329.29207392253977,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 20.068741617825026,
+          "nominal_off_object_interval_s": 11.483418132403585
+        }
+      },
+      "nominal_motion_and_dwell_s": 20.06879189694132
+    },
+    {
+      "layer": 69,
+      "z_mm": 16.52,
+      "start_s": 1517.8112145082441,
+      "last_model_end_s": 1537.7244939967793,
+      "explicit_dwell_s": 0.0,
+      "objects": {
+        "1903": {
+          "first_model_s": 1517.8894887039567,
+          "last_model_s": 1529.1461463200123,
+          "model_cruise_s": 11.090969527495282,
+          "model_length_mm": 425.3236156950471,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 425.3236156950471,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 20.068717360546543,
+          "nominal_off_object_interval_s": 8.74414633751394
+        },
+        "1902": {
+          "first_model_s": 1529.227091274284,
+          "last_model_s": 1537.7244939967793,
+          "model_cruise_s": 8.343449182401807,
+          "model_length_mm": 319.90048856701253,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 319.90048856701253,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 20.001250530577636,
+          "nominal_off_object_interval_s": 11.4158767660399
+        }
+      },
+      "nominal_motion_and_dwell_s": 19.91327948853518
+    },
+    {
+      "layer": 70,
+      "z_mm": 16.76,
+      "start_s": 1537.7244939967793,
+      "last_model_end_s": 1557.5625097126072,
+      "explicit_dwell_s": 0.0,
+      "objects": {
+        "1903": {
+          "first_model_s": 1537.8027109196719,
+          "last_model_s": 1548.9994876587175,
+          "model_cruise_s": 11.031799775213354,
+          "model_length_mm": 419.68395597090773,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 419.68395597090773,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.913222215715223,
+          "nominal_off_object_interval_s": 8.656564599659532
+        },
+        "1902": {
+          "first_model_s": 1549.080710252262,
+          "last_model_s": 1557.5625097126072,
+          "model_cruise_s": 8.32725108299469,
+          "model_length_mm": 316.7707531949676,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 316.7707531949676,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.85361897797793,
+          "nominal_off_object_interval_s": 11.35621625548265
+        }
+      },
+      "nominal_motion_and_dwell_s": 19.83801571582785
+    },
+    {
+      "layer": 71,
+      "z_mm": 17.0,
+      "start_s": 1557.5625097126072,
+      "last_model_end_s": 1577.3283855517875,
+      "explicit_dwell_s": 0.0,
+      "objects": {
+        "1903": {
+          "first_model_s": 1557.640695783801,
+          "last_model_s": 1568.733004283932,
+          "model_cruise_s": 10.9278824443366,
+          "model_length_mm": 411.9811681514891,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 411.9811681514891,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.837984864129112,
+          "nominal_off_object_interval_s": 8.641208125083494
+        },
+        "1902": {
+          "first_model_s": 1568.8131347459705,
+          "last_model_s": 1577.3283855517875,
+          "model_cruise_s": 8.360148456340141,
+          "model_length_mm": 315.1775968040232,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 315.1775968040232,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.73242449370855,
+          "nominal_off_object_interval_s": 11.250625033363349
+        }
+      },
+      "nominal_motion_and_dwell_s": 19.765875839180353
+    },
+    {
+      "layer": 72,
+      "z_mm": 17.24,
+      "start_s": 1577.3283855517875,
+      "last_model_end_s": 1597.0956687650648,
+      "explicit_dwell_s": 0.0,
+      "objects": {
+        "1903": {
+          "first_model_s": 1577.4065714632477,
+          "last_model_s": 1588.473131303409,
+          "model_cruise_s": 10.902219893444952,
+          "model_length_mm": 412.10391197222003,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 412.10391197222003,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.765875679446708,
+          "nominal_off_object_interval_s": 8.673567179315796
+        },
+        "1902": {
+          "first_model_s": 1588.5533005063405,
+          "last_model_s": 1597.0956687650648,
+          "model_cruise_s": 8.398798649797142,
+          "model_length_mm": 317.4745889623323,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 317.4745889623323,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.74016576037002,
+          "nominal_off_object_interval_s": 11.224914954553014
+        }
+      },
+      "nominal_motion_and_dwell_s": 19.767283213277324
+    },
+    {
+      "layer": 73,
+      "z_mm": 17.48,
+      "start_s": 1597.0956687650648,
+      "last_model_end_s": 1616.8992191120758,
+      "explicit_dwell_s": 0.0,
+      "objects": {
+        "1903": {
+          "first_model_s": 1597.1739171310267,
+          "last_model_s": 1608.2664754931118,
+          "model_cruise_s": 10.928258627834937,
+          "model_length_mm": 414.77503158082027,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 414.77503158082027,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.767345667778955,
+          "nominal_off_object_interval_s": 8.700785827617665
+        },
+        "1902": {
+          "first_model_s": 1608.3466518650075,
+          "last_model_s": 1616.8992191120758,
+          "model_cruise_s": 8.408917755354429,
+          "model_length_mm": 319.15315549131464,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 319.15315549131464,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.793351358666996,
+          "nominal_off_object_interval_s": 11.250983099942687
+        }
+      },
+      "nominal_motion_and_dwell_s": 19.80355034701097
+    },
+    {
+      "layer": 74,
+      "z_mm": 17.72,
+      "start_s": 1616.8992191120758,
+      "last_model_end_s": 1636.8187421927025,
+      "explicit_dwell_s": 0.0,
+      "objects": {
+        "1903": {
+          "first_model_s": 1616.9775929959974,
+          "last_model_s": 1628.051182530581,
+          "model_cruise_s": 10.910933519668628,
+          "model_length_mm": 419.2806979341564,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 419.2806979341564,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.803675864970728,
+          "nominal_off_object_interval_s": 8.7111175028856
+        },
+        "1902": {
+          "first_model_s": 1628.131397978118,
+          "last_model_s": 1636.8187421927025,
+          "model_cruise_s": 8.545729978045292,
+          "model_length_mm": 328.426210673461,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 328.426210673461,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.784746113110486,
+          "nominal_off_object_interval_s": 11.232178866042204
+        }
+      },
+      "nominal_motion_and_dwell_s": 19.919523080626732
+    },
+    {
+      "layer": 75,
+      "z_mm": 17.96,
+      "start_s": 1636.8187421927025,
+      "last_model_end_s": 1656.9725062941884,
+      "explicit_dwell_s": 0.0,
+      "objects": {
+        "1903": {
+          "first_model_s": 1636.8972557579311,
+          "last_model_s": 1648.1370551376745,
+          "model_cruise_s": 11.100102615459626,
+          "model_length_mm": 437.2614121356489,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 437.2614121356489,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.91966276193375,
+          "nominal_off_object_interval_s": 8.846073227350189
+        },
+        "1902": {
+          "first_model_s": 1648.2171833040004,
+          "last_model_s": 1656.9725062941884,
+          "model_cruise_s": 8.61076739292658,
+          "model_length_mm": 339.22925319291824,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 339.22925319291824,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 20.085785325882398,
+          "nominal_off_object_interval_s": 11.39844111129787
+        }
+      },
+      "nominal_motion_and_dwell_s": 20.153764101485876
+    },
+    {
+      "layer": 76,
+      "z_mm": 18.2,
+      "start_s": 1656.9725062941884,
+      "last_model_end_s": 1676.9145856935493,
+      "explicit_dwell_s": 0.0,
+      "objects": {
+        "1903": {
+          "first_model_s": 1657.0516305844535,
+          "last_model_s": 1668.1907483074247,
+          "model_cruise_s": 10.999717496908513,
+          "model_length_mm": 423.9382900553057,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 423.9382900553057,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 20.15437482652237,
+          "nominal_off_object_interval_s": 8.914575446779054
+        },
+        "1902": {
+          "first_model_s": 1668.2709232706363,
+          "last_model_s": 1676.9145856935493,
+          "model_cruise_s": 8.48543816316928,
+          "model_length_mm": 327.0328162215291,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 327.0328162215291,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 20.05373996663593,
+          "nominal_off_object_interval_s": 11.298416976447925
+        }
+      },
+      "nominal_motion_and_dwell_s": 19.942079399360864
+    },
+    {
+      "layer": 77,
+      "z_mm": 18.44,
+      "start_s": 1676.9145856935493,
+      "last_model_end_s": 1696.788021409581,
+      "explicit_dwell_s": 0.0,
+      "objects": {
+        "1903": {
+          "first_model_s": 1676.9935278919131,
+          "last_model_s": 1688.1008620158923,
+          "model_cruise_s": 10.968256514276499,
+          "model_length_mm": 420.116029645799,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 420.116029645799,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.941897307459612,
+          "nominal_off_object_interval_s": 8.802779584488462
+        },
+        "1902": {
+          "first_model_s": 1688.1810902452326,
+          "last_model_s": 1696.788021409581,
+          "model_cruise_s": 8.448199978187521,
+          "model_length_mm": 323.58616069868117,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 323.58616069868117,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.910166974596223,
+          "nominal_off_object_interval_s": 11.266504551683283
+        }
+      },
+      "nominal_motion_and_dwell_s": 19.873435716031736
+    },
+    {
+      "layer": 78,
+      "z_mm": 18.68,
+      "start_s": 1696.788021409581,
+      "last_model_end_s": 1716.647200027571,
+      "explicit_dwell_s": 0.0,
+      "objects": {
+        "1903": {
+          "first_model_s": 1696.8668954447126,
+          "last_model_s": 1707.9722995996838,
+          "model_cruise_s": 10.966636436961592,
+          "model_length_mm": 419.3275952232808,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 419.3275952232808,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.873367552799436,
+          "nominal_off_object_interval_s": 8.766033428820265
+        },
+        "1902": {
+          "first_model_s": 1708.0525756465865,
+          "last_model_s": 1716.647200027571,
+          "model_cruise_s": 8.438233992163742,
+          "model_length_mm": 322.64485343095566,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 322.64485343095566,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.871485401353993,
+          "nominal_off_object_interval_s": 11.264554237005541
+        }
+      },
+      "nominal_motion_and_dwell_s": 19.859178617989983
+    },
+    {
+      "layer": 79,
+      "z_mm": 18.92,
+      "start_s": 1716.647200027571,
+      "last_model_end_s": 1736.501417141206,
+      "explicit_dwell_s": 0.0,
+      "objects": {
+        "1903": {
+          "first_model_s": 1716.7260183919168,
+          "last_model_s": 1727.8381567745848,
+          "model_cruise_s": 10.965508932083633,
+          "model_length_mm": 419.4052904852021,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 419.4052904852021,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.85912294720424,
+          "nominal_off_object_interval_s": 8.75371879223303
+        },
+        "1902": {
+          "first_model_s": 1727.9181138171703,
+          "last_model_s": 1736.501417141206,
+          "model_cruise_s": 8.433428723610309,
+          "model_length_mm": 322.5531871649964,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 322.5531871649964,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.865538170583704,
+          "nominal_off_object_interval_s": 11.270913789599263
+        }
+      },
+      "nominal_motion_and_dwell_s": 19.85421711363506
+    },
+    {
+      "layer": 80,
+      "z_mm": 19.16,
+      "start_s": 1736.501417141206,
+      "last_model_end_s": 1756.3750950067035,
+      "explicit_dwell_s": 0.0,
+      "objects": {
+        "1903": {
+          "first_model_s": 1736.5797089410553,
+          "last_model_s": 1747.7031353064592,
+          "model_cruise_s": 10.97711242659248,
+          "model_length_mm": 420.15192203773455,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 420.15192203773455,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.85369054913849,
+          "nominal_off_object_interval_s": 8.741552166470456
+        },
+        "1902": {
+          "first_model_s": 1747.7831196592658,
+          "last_model_s": 1756.3750950067035,
+          "model_cruise_s": 8.441866171515976,
+          "model_length_mm": 323.10790149263437,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 323.10790149263437,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.86500584209557,
+          "nominal_off_object_interval_s": 11.281702518059774
+        }
+      },
+      "nominal_motion_and_dwell_s": 19.873677865497484
+    },
+    {
+      "layer": 81,
+      "z_mm": 19.4,
+      "start_s": 1756.3750950067035,
+      "last_model_end_s": 1776.3303628290062,
+      "explicit_dwell_s": 0.0,
+      "objects": {
+        "1903": {
+          "first_model_s": 1756.453373052735,
+          "last_model_s": 1767.6583893943737,
+          "model_cruise_s": 11.05632682844167,
+          "model_length_mm": 426.809812288385,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 426.809812288385,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.873664111679773,
+          "nominal_off_object_interval_s": 8.750237746275843
+        },
+        "1902": {
+          "first_model_s": 1767.739326894281,
+          "last_model_s": 1776.3303628290062,
+          "model_cruise_s": 8.440439220880698,
+          "model_length_mm": 325.7924820362701,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 325.7924820362701,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.9562072350152,
+          "nominal_off_object_interval_s": 11.364231887577489
+        }
+      },
+      "nominal_motion_and_dwell_s": 19.95526782230263
+    },
+    {
+      "layer": 82,
+      "z_mm": 19.64,
+      "start_s": 1776.3303628290062,
+      "last_model_end_s": 1796.4424189316435,
+      "explicit_dwell_s": 0.0,
+      "objects": {
+        "1903": {
+          "first_model_s": 1776.4086113083831,
+          "last_model_s": 1787.726684438972,
+          "model_cruise_s": 11.172483964068856,
+          "model_length_mm": 437.8635035737776,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 437.8635035737776,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.955238255648055,
+          "nominal_off_object_interval_s": 8.750221914009444
+        },
+        "1902": {
+          "first_model_s": 1787.8075445124682,
+          "last_model_s": 1796.4424189316435,
+          "model_cruise_s": 8.483583117123159,
+          "model_length_mm": 332.3868611610198,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 332.3868611610198,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 20.06821761818719,
+          "nominal_off_object_interval_s": 11.47718168346205
+        }
+      },
+      "nominal_motion_and_dwell_s": 20.112056102637325
+    },
+    {
+      "layer": 83,
+      "z_mm": 19.88,
+      "start_s": 1796.4424189316435,
+      "last_model_end_s": 1816.3891162436198,
+      "explicit_dwell_s": 0.0,
+      "objects": {
+        "1903": {
+          "first_model_s": 1796.5206048983216,
+          "last_model_s": 1807.8118554024127,
+          "model_cruise_s": 11.145716337931507,
+          "model_length_mm": 429.4224163043286,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 429.4224163043286,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 20.111993589938493,
+          "nominal_off_object_interval_s": 8.793920459349692
+        },
+        "1902": {
+          "first_model_s": 1807.892782003926,
+          "last_model_s": 1816.3891162436198,
+          "model_cruise_s": 8.344372007348491,
+          "model_length_mm": 321.4030332342682,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 321.4030332342682,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 20.085237491457747,
+          "nominal_off_object_interval_s": 11.450363072282471
+        }
+      },
+      "nominal_motion_and_dwell_s": 19.946697311976322
+    },
+    {
+      "layer": 84,
+      "z_mm": 20.12,
+      "start_s": 1816.3891162436198,
+      "last_model_end_s": 1836.251629019063,
+      "explicit_dwell_s": 0.0,
+      "objects": {
+        "1903": {
+          "first_model_s": 1816.4670947958095,
+          "last_model_s": 1827.6988974464887,
+          "model_cruise_s": 11.086571235810599,
+          "model_length_mm": 423.25101129862395,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 423.25101129862395,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.946489897487936,
+          "nominal_off_object_interval_s": 8.655239393396869
+        },
+        "1902": {
+          "first_model_s": 1827.7797273691046,
+          "last_model_s": 1836.251629019063,
+          "model_cruise_s": 8.318916845258894,
+          "model_length_mm": 317.5484698262517,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 317.5484698262517,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.88694536517869,
+          "nominal_off_object_interval_s": 11.390611125484838
+        }
+      },
+      "nominal_motion_and_dwell_s": 19.862512775443292
+    },
+    {
+      "layer": 85,
+      "z_mm": 20.36,
+      "start_s": 1836.251629019063,
+      "last_model_end_s": 1856.0226191865738,
+      "explicit_dwell_s": 0.0,
+      "objects": {
+        "1903": {
+          "first_model_s": 1836.3295325155946,
+          "last_model_s": 1847.4524544040785,
+          "model_cruise_s": 10.975422189541419,
+          "model_length_mm": 415.2958691425433,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 415.2958691425433,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.86243771978502,
+          "nominal_off_object_interval_s": 8.630635069105892
+        },
+        "1902": {
+          "first_model_s": 1847.5332431600486,
+          "last_model_s": 1856.0226191865738,
+          "model_cruise_s": 8.336190588789412,
+          "model_length_mm": 315.42915931234296,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 315.42915931234296,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.753515790943993,
+          "nominal_off_object_interval_s": 11.281614140985539
+        }
+      },
+      "nominal_motion_and_dwell_s": 19.770990167510718
+    },
+    {
+      "layer": 86,
+      "z_mm": 20.6,
+      "start_s": 1856.0226191865738,
+      "last_model_end_s": 1875.7913373142655,
+      "explicit_dwell_s": 0.0,
+      "objects": {
+        "1903": {
+          "first_model_s": 1856.1004322859665,
+          "last_model_s": 1867.1912228997367,
+          "model_cruise_s": 10.948304268054851,
+          "model_length_mm": 411.83871221666294,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 411.83871221666294,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.770899770371898,
+          "nominal_off_object_interval_s": 8.647977881887982
+        },
+        "1902": {
+          "first_model_s": 1867.2719492384003,
+          "last_model_s": 1875.7913373142655,
+          "model_cruise_s": 8.379136541993049,
+          "model_length_mm": 315.19518625463854,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 315.19518625463854,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.738706078351697,
+          "nominal_off_object_interval_s": 11.249330051826519
+        }
+      },
+      "nominal_motion_and_dwell_s": 19.768718127691727
+    },
+    {
+      "layer": 87,
+      "z_mm": 20.84,
+      "start_s": 1875.7913373142655,
+      "last_model_end_s": 1895.558446201117,
+      "explicit_dwell_s": 0.0,
+      "objects": {
+        "1903": {
+          "first_model_s": 1875.869114937738,
+          "last_model_s": 1886.955447567503,
+          "model_cruise_s": 10.94452861890685,
+          "model_length_mm": 413.8855906049937,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 413.8855906049937,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.76868265177154,
+          "nominal_off_object_interval_s": 8.677892038001346
+        },
+        "1902": {
+          "first_model_s": 1887.036121235141,
+          "last_model_s": 1895.558446201117,
+          "model_cruise_s": 8.38171050890342,
+          "model_length_mm": 316.9683524116976,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 316.9683524116976,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.764171996740743,
+          "nominal_off_object_interval_s": 11.244783920875534
+        }
+      },
+      "nominal_motion_and_dwell_s": 19.767108886851474
+    },
+    {
+      "layer": 88,
+      "z_mm": 21.08,
+      "start_s": 1895.558446201117,
+      "last_model_end_s": 1915.375639957653,
+      "explicit_dwell_s": 0.0,
+      "objects": {
+        "1903": {
+          "first_model_s": 1895.6362374501593,
+          "last_model_s": 1906.749861592446,
+          "model_cruise_s": 10.972424703382668,
+          "model_length_mm": 419.07531944403877,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 419.07531944403877,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.767122512421338,
+          "nominal_off_object_interval_s": 8.680789882656427
+        },
+        "1902": {
+          "first_model_s": 1906.8304883860696,
+          "last_model_s": 1915.375639957653,
+          "model_cruise_s": 8.404243903654127,
+          "model_length_mm": 320.98126078260947,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 320.98126078260947,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.794367150928565,
+          "nominal_off_object_interval_s": 11.272042184952625
+        }
+      },
+      "nominal_motion_and_dwell_s": 19.81719375653597
+    },
+    {
+      "layer": 89,
+      "z_mm": 21.32,
+      "start_s": 1915.375639957653,
+      "last_model_end_s": 1935.3724915168348,
+      "explicit_dwell_s": 0.0,
+      "objects": {
+        "1903": {
+          "first_model_s": 1915.453473094005,
+          "last_model_s": 1926.5917458947488,
+          "model_cruise_s": 10.92760990698489,
+          "model_length_mm": 427.20802618411903,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 427.20802618411903,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.817235643845606,
+          "nominal_off_object_interval_s": 8.703611501558953
+        },
+        "1902": {
+          "first_model_s": 1926.6723317191272,
+          "last_model_s": 1935.3724915168348,
+          "model_cruise_s": 8.559985961221736,
+          "model_length_mm": 334.70636154777753,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 334.70636154777753,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.841843333057568,
+          "nominal_off_object_interval_s": 11.296691761474221
+        }
+      },
+      "nominal_motion_and_dwell_s": 19.996851559181778
+    },
+    {
+      "layer": 90,
+      "z_mm": 21.56,
+      "start_s": 1935.3724915168348,
+      "last_model_end_s": 1955.284817403581,
+      "explicit_dwell_s": 0.0,
+      "objects": {
+        "1903": {
+          "first_model_s": 1935.4512013384108,
+          "last_model_s": 1946.5835380993833,
+          "model_cruise_s": 10.96572899784313,
+          "model_length_mm": 425.5783392266781,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 425.5783392266781,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.997728244405835,
+          "nominal_off_object_interval_s": 8.859455443662
+        },
+        "1902": {
+          "first_model_s": 1946.6640924621345,
+          "last_model_s": 1955.284817403581,
+          "model_cruise_s": 8.461701166379115,
+          "model_length_mm": 328.3955116428944,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 328.3955116428944,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.991760743007262,
+          "nominal_off_object_interval_s": 11.291600945299706
+        }
+      },
+      "nominal_motion_and_dwell_s": 19.912325886746203
+    },
+    {
+      "layer": 91,
+      "z_mm": 21.8,
+      "start_s": 1955.284817403581,
+      "last_model_end_s": 1975.0918551164043,
+      "explicit_dwell_s": 0.0,
+      "objects": {
+        "1903": {
+          "first_model_s": 1955.3638315433113,
+          "last_model_s": 1966.4530347483048,
+          "model_cruise_s": 10.923101775250496,
+          "model_length_mm": 420.77879141174833,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 420.77879141174833,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.91263020490055,
+          "nominal_off_object_interval_s": 8.78029344392803
+        },
+        "1902": {
+          "first_model_s": 1966.5335544843344,
+          "last_model_s": 1975.0918551164043,
+          "model_cruise_s": 8.416020724231133,
+          "model_length_mm": 324.20002530436244,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 324.20002530436244,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.86946202219997,
+          "nominal_off_object_interval_s": 11.248737080753472
+        }
+      },
+      "nominal_motion_and_dwell_s": 19.80703771282333
+    },
+    {
+      "layer": 92,
+      "z_mm": 22.04,
+      "start_s": 1975.0918551164043,
+      "last_model_end_s": 1994.8612425604952,
+      "explicit_dwell_s": 0.0,
+      "objects": {
+        "1903": {
+          "first_model_s": 1975.1707969278216,
+          "last_model_s": 1986.2438774050622,
+          "model_cruise_s": 10.90738312084606,
+          "model_length_mm": 419.3888809965307,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 419.3888809965307,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.80696538451025,
+          "nominal_off_object_interval_s": 8.71776217951674
+        },
+        "1902": {
+          "first_model_s": 1986.3244024091084,
+          "last_model_s": 1994.8612425604952,
+          "model_cruise_s": 8.39431197493954,
+          "model_length_mm": 322.76129543642514,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 322.76129543642514,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.79084792477397,
+          "nominal_off_object_interval_s": 11.232547292704112
+        }
+      },
+      "nominal_motion_and_dwell_s": 19.769387444090853
+    },
+    {
+      "layer": 93,
+      "z_mm": 22.28,
+      "start_s": 1994.8612425604952,
+      "last_model_end_s": 2017.427181469973,
+      "explicit_dwell_s": 0.0,
+      "objects": {
+        "1903": {
+          "first_model_s": 1994.940114547657,
+          "last_model_s": 2007.925081874134,
+          "model_cruise_s": 12.747730153519754,
+          "model_length_mm": 466.9115893944652,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 466.9115893944652,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.76931761983542,
+          "nominal_off_object_interval_s": 8.696237142594782
+        },
+        "1902": {
+          "first_model_s": 2008.0128457427152,
+          "last_model_s": 2017.427181469973,
+          "model_cruise_s": 9.203494728823856,
+          "model_length_mm": 354.2609338063813,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 354.2609338063813,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 21.688443333606756,
+          "nominal_off_object_interval_s": 13.151603182220015
+        }
+      },
+      "nominal_motion_and_dwell_s": 22.565938909477836
+    },
+    {
+      "layer": 94,
+      "z_mm": 22.52,
+      "start_s": 2017.427181469973,
+      "last_model_end_s": 2037.7604084817103,
+      "explicit_dwell_s": 0.0,
+      "objects": {
+        "1903": {
+          "first_model_s": 2017.505647852783,
+          "last_model_s": 2028.938825751057,
+          "model_cruise_s": 11.25836354846646,
+          "model_length_mm": 466.9854955598073,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 466.9854955598073,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 22.56553330512611,
+          "nominal_off_object_interval_s": 9.58056597864902
+        },
+        "1902": {
+          "first_model_s": 2029.026639164046,
+          "last_model_s": 2037.7604084817103,
+          "model_cruise_s": 8.545435913133725,
+          "model_length_mm": 354.23794444925943,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 354.23794444925943,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 21.013793421330774,
+          "nominal_off_object_interval_s": 11.599457694072953
+        }
+      },
+      "nominal_motion_and_dwell_s": 20.333227011737335
+    },
+    {
+      "layer": 95,
+      "z_mm": 22.76,
+      "start_s": 2037.7604084817103,
+      "last_model_end_s": 2057.6842629590474,
+      "explicit_dwell_s": 0.0,
+      "objects": {
+        "1903": {
+          "first_model_s": 2037.8388301853392,
+          "last_model_s": 2049.0768730239038,
+          "model_cruise_s": 11.070354671631813,
+          "model_length_mm": 439.3592843655929,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 439.3592843655929,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 20.333182332556134,
+          "nominal_off_object_interval_s": 8.90000443428221
+        },
+        "1902": {
+          "first_model_s": 2049.1564874447267,
+          "last_model_s": 2057.6842629590474,
+          "model_cruise_s": 8.394084847653806,
+          "model_length_mm": 333.0899828971422,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 333.0899828971422,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 20.12984828068079,
+          "nominal_off_object_interval_s": 11.396078963016407
+        }
+      },
+      "nominal_motion_and_dwell_s": 19.923854477337045
+    },
+    {
+      "layer": 96,
+      "z_mm": 23.0,
+      "start_s": 2057.6842629590474,
+      "last_model_end_s": 2077.7023694638924,
+      "explicit_dwell_s": 0.0,
+      "objects": {
+        "1903": {
+          "first_model_s": 2057.762629974335,
+          "last_model_s": 2069.0705016740976,
+          "model_cruise_s": 11.099085393101287,
+          "model_length_mm": 447.6082879897161,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 447.6082879897161,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.923799788995893,
+          "nominal_off_object_interval_s": 8.685756950431369
+        },
+        "1902": {
+          "first_model_s": 2069.1503261443627,
+          "last_model_s": 2077.7023694638924,
+          "model_cruise_s": 8.4173214288911,
+          "model_length_mm": 339.3626886504559,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 339.3626886504559,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.993838699635944,
+          "nominal_off_object_interval_s": 11.466063185315306
+        }
+      },
+      "nominal_motion_and_dwell_s": 20.018106504845036
+    },
+    {
+      "layer": 97,
+      "z_mm": 23.24,
+      "start_s": 2077.7023694638924,
+      "last_model_end_s": 2097.761857185905,
+      "explicit_dwell_s": 0.0,
+      "objects": {
+        "1903": {
+          "first_model_s": 2077.7806712788665,
+          "last_model_s": 2089.09680404942,
+          "model_cruise_s": 11.126872583455997,
+          "model_length_mm": 452.50330980864436,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 452.50330980864436,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 20.01804130453138,
+          "nominal_off_object_interval_s": 8.710169604768907
+        },
+        "1902": {
+          "first_model_s": 2089.175294250793,
+          "last_model_s": 2097.761857185905,
+          "model_cruise_s": 8.422888500983786,
+          "model_length_mm": 342.4208027537053,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 342.4208027537053,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 20.02496810643015,
+          "nominal_off_object_interval_s": 11.472924786900421
+        }
+      },
+      "nominal_motion_and_dwell_s": 20.059487722012364
+    },
+    {
+      "layer": 98,
+      "z_mm": 23.48,
+      "start_s": 2097.761857185905,
+      "last_model_end_s": 2117.6789629394425,
+      "explicit_dwell_s": 0.0,
+      "objects": {
+        "1903": {
+          "first_model_s": 2097.8401058031122,
+          "last_model_s": 2109.087957827319,
+          "model_cruise_s": 11.080794699330253,
+          "model_length_mm": 446.22457029093664,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 446.22457029093664,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 20.059434524245717,
+          "nominal_off_object_interval_s": 8.743301753692322
+        },
+        "1902": {
+          "first_model_s": 2109.166345989342,
+          "last_model_s": 2117.6789629394425,
+          "model_cruise_s": 8.360129107478484,
+          "model_length_mm": 336.60044656402727,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 336.60044656402727,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.99105173854923,
+          "nominal_off_object_interval_s": 11.404488803437289
+        }
+      },
+      "nominal_motion_and_dwell_s": 19.917105753537726
+    },
+    {
+      "layer": 99,
+      "z_mm": 23.72,
+      "start_s": 2117.6789629394425,
+      "last_model_end_s": 2137.4580932432627,
+      "explicit_dwell_s": 0.0,
+      "objects": {
+        "1903": {
+          "first_model_s": 2117.756904460839,
+          "last_model_s": 2128.8853554305824,
+          "model_cruise_s": 10.963877490398339,
+          "model_length_mm": 439.2860247819604,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 439.2860247819604,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.91679865772676,
+          "nominal_off_object_interval_s": 8.668946633520136
+        },
+        "1902": {
+          "first_model_s": 2128.963675946893,
+          "last_model_s": 2137.4580932432627,
+          "model_cruise_s": 8.3416728367907,
+          "model_length_mm": 334.2230249940808,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 334.2230249940808,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.797329957551028,
+          "nominal_off_object_interval_s": 11.284713007450591
+        }
+      },
+      "nominal_motion_and_dwell_s": 19.77913030382024
+    },
+    {
+      "layer": 100,
+      "z_mm": 23.96,
+      "start_s": 2137.4580932432627,
+      "last_model_end_s": 2157.2254467771686,
+      "explicit_dwell_s": 0.0,
+      "objects": {
+        "1903": {
+          "first_model_s": 2137.5359268688135,
+          "last_model_s": 2148.6287657567323,
+          "model_cruise_s": 10.927469827934987,
+          "model_length_mm": 418.15784541564534,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 418.15784541564534,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.77902240797448,
+          "nominal_off_object_interval_s": 8.650571438231054
+        },
+        "1902": {
+          "first_model_s": 2148.7089201121457,
+          "last_model_s": 2157.2254467771686,
+          "model_cruise_s": 8.373769745953807,
+          "model_length_mm": 320.4362556118324,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 320.4362556118324,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.745244165252643,
+          "nominal_off_object_interval_s": 11.250826868882996
+        }
+      },
+      "nominal_motion_and_dwell_s": 19.76735353390586
+    },
+    {
+      "layer": 101,
+      "z_mm": 24.2,
+      "start_s": 2157.2254467771686,
+      "last_model_end_s": 2177.00617240389,
+      "explicit_dwell_s": 0.0,
+      "objects": {
+        "1903": {
+          "first_model_s": 2157.303657291692,
+          "last_model_s": 2168.4125389358333,
+          "model_cruise_s": 10.926079725259067,
+          "model_length_mm": 439.59260761292455,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 439.59260761292455,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.767730422878685,
+          "nominal_off_object_interval_s": 8.674891534959897
+        },
+        "1902": {
+          "first_model_s": 2168.491429038881,
+          "last_model_s": 2177.00617240389,
+          "model_cruise_s": 8.364534973094505,
+          "model_length_mm": 336.53312375083624,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 336.53312375083624,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.782508926735318,
+          "nominal_off_object_interval_s": 11.265982261712452
+        }
+      },
+      "nominal_motion_and_dwell_s": 19.780725626721505
+    },
+    {
+      "layer": 102,
+      "z_mm": 24.44,
+      "start_s": 2177.00617240389,
+      "last_model_end_s": 2196.9232960354934,
+      "explicit_dwell_s": 0.0,
+      "objects": {
+        "1903": {
+          "first_model_s": 2177.0844888098977,
+          "last_model_s": 2188.2933672125578,
+          "model_cruise_s": 10.96274674411847,
+          "model_length_mm": 486.9308333341943,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 486.9308333341943,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.78083151820556,
+          "nominal_off_object_interval_s": 8.671949874064467
+        },
+        "1902": {
+          "first_model_s": 2188.4418071126943,
+          "last_model_s": 2196.9232960354934,
+          "model_cruise_s": 8.294375074798731,
+          "model_length_mm": 370.6018468892122,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 370.6018468892122,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.950378073813226,
+          "nominal_off_object_interval_s": 11.435634708804173
+        }
+      },
+      "nominal_motion_and_dwell_s": 19.917123631603317
+    },
+    {
+      "layer": 103,
+      "z_mm": 24.68,
+      "start_s": 2196.9232960354934,
+      "last_model_end_s": 2245.778025683553,
+      "explicit_dwell_s": 0.0,
+      "objects": {
+        "1903": {
+          "first_model_s": 2197.0724718200436,
+          "last_model_s": 2224.6187993004173,
+          "model_cruise_s": 27.293320783224495,
+          "model_length_mm": 984.3320428156599,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 984.3320428156599,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 19.987983010145854,
+          "nominal_off_object_interval_s": 8.779104607485806
+        },
+        "1902": {
+          "first_model_s": 2224.6981039365087,
+          "last_model_s": 2245.778025683553,
+          "model_cruise_s": 20.829295086052344,
+          "model_length_mm": 737.9329062392912,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 737.9329062392912,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 36.25629682381441,
+          "nominal_off_object_interval_s": 27.774807901015265
+        }
+      },
+      "nominal_motion_and_dwell_s": 48.854729648059674
+    },
+    {
+      "layer": 104,
+      "z_mm": 24.92,
+      "start_s": 2245.778025683553,
+      "last_model_end_s": 2268.26750022309,
+      "explicit_dwell_s": 0.0,
+      "objects": {
+        "1903": {
+          "first_model_s": 2245.856008309342,
+          "last_model_s": 2258.5645650177803,
+          "model_cruise_s": 12.507167716721808,
+          "model_length_mm": 1111.116842850209,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 1111.116842850209,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 48.78353648929851,
+          "nominal_off_object_interval_s": 21.237209008924765
+        },
+        "1902": {
+          "first_model_s": 2258.643116759236,
+          "last_model_s": 2268.26750022309,
+          "model_cruise_s": 9.470155674478201,
+          "model_length_mm": 838.7280672848785,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 838.7280672848785,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 33.94501282272722,
+          "nominal_off_object_interval_s": 12.865091075682813
+        }
+      },
+      "nominal_motion_and_dwell_s": 22.489474539536786
+    },
+    {
+      "layer": 105,
+      "z_mm": 25.16,
+      "start_s": 2268.26750022309,
+      "last_model_end_s": 2290.5799136170563,
+      "explicit_dwell_s": 0.0,
+      "objects": {
+        "1903": {
+          "first_model_s": 2268.345059955685,
+          "last_model_s": 2280.956457345931,
+          "model_cruise_s": 12.388265265182826,
+          "model_length_mm": 1110.3937215545504,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 1110.3937215545504,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 22.489051646342887,
+          "nominal_off_object_interval_s": 9.780494937904677
+        },
+        "1902": {
+          "first_model_s": 2281.0350970239174,
+          "last_model_s": 2290.5799136170563,
+          "model_cruise_s": 9.37625183840482,
+          "model_length_mm": 838.0047740887005,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 838.0047740887005,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 22.39198026468148,
+          "nominal_off_object_interval_s": 12.767596800827505
+        }
+      },
+      "nominal_motion_and_dwell_s": 22.31241339396638
+    },
+    {
+      "layer": 106,
+      "z_mm": 25.4,
+      "start_s": 2290.5799136170563,
+      "last_model_end_s": 2312.697013106273,
+      "explicit_dwell_s": 0.0,
+      "objects": {
+        "1903": {
+          "first_model_s": 2290.656203410797,
+          "last_model_s": 2303.128917173719,
+          "model_cruise_s": 12.306201218519405,
+          "model_length_mm": 1087.1728428502092,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 1087.1728428502092,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 22.31114345511196,
+          "nominal_off_object_interval_s": 9.699746064865849
+        },
+        "1902": {
+          "first_model_s": 2303.207862301126,
+          "last_model_s": 2312.697013106273,
+          "model_cruise_s": 9.334615615453323,
+          "model_length_mm": 822.7840672848786,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 822.7840672848786,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 22.172765277208782,
+          "nominal_off_object_interval_s": 12.627948684069906
+        }
+      },
+      "nominal_motion_and_dwell_s": 22.1170994892168
+    },
+    {
+      "layer": 107,
+      "z_mm": 25.64,
+      "start_s": 2312.697013106273,
+      "last_model_end_s": 2333.895025697653,
+      "explicit_dwell_s": 0.0,
+      "objects": {
+        "1903": {
+          "first_model_s": 2312.7750233325864,
+          "last_model_s": 2324.722332202767,
+          "model_cruise_s": 10.716799804979111,
+          "model_length_mm": 997.9789801961418,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 997.9789801961418,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 22.11881992178951,
+          "nominal_off_object_interval_s": 9.646106158867497
+        },
+        "1902": {
+          "first_model_s": 2324.8030484764936,
+          "last_model_s": 2333.895025697653,
+          "model_cruise_s": 8.12847089300861,
+          "model_length_mm": 754.944374926432,
+          "part_fan_states_s255": [
+            255.0
+          ],
+          "model_length_at_full_part_fan_mm": 754.944374926432,
+          "full_part_fan_model_length_fraction": 1.0,
+          "nominal_start_to_start_s": 21.595186175367417,
+          "nominal_off_object_interval_s": 12.106035370220525
+        }
+      },
+      "nominal_motion_and_dwell_s": 21.19801259138012
+    }
+  ],
+  "part_fan_commands": [
+    {
+      "source_line": 1148,
+      "layer": 1,
+      "z_mm": 0.2,
+      "command": "M106 S0",
+      "value_s255": 0.0,
+      "channel": 1,
+      "explicit_P1": false
+    },
+    {
+      "source_line": 3264,
+      "layer": 4,
+      "z_mm": 0.92,
+      "command": "M106 S255",
+      "value_s255": 255.0,
+      "channel": 1,
+      "explicit_P1": false
+    },
+    {
+      "source_line": 80874,
+      "layer": 107,
+      "z_mm": 25.64,
+      "command": "M106 S0",
+      "value_s255": 0.0,
+      "channel": 1,
+      "explicit_P1": false
+    }
+  ],
+  "status": "Pass: requested experimental fan/time settings and emitted commands recorded; no physical20-second timing claim.",
+  "checks": {
+    "archive_and_gcode_bound": true,
+    "upper_cable_model_part_fan_commanded_100_percent": true,
+    "first_three_model_layers_part_fan_off": true,
+    "local_layer_cooling_target_20_seconds": true,
+    "cable_seat_and_entry_support_and_brim_free": true,
+    "conservative_timing_and_off_object_interval_recorded": true
+  },
+  "pass_requested_command_audit": true
+}

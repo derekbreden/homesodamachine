@@ -1,0 +1,127 @@
+{
+  "project_sha256_matches": true,
+  "objects": [
+    {
+      "name": "Tube-C2-6.55-6.45-6.35",
+      "vertices": 12233,
+      "source_sha256_matches": true,
+      "embedded_vertex_error_mm": 4.999999987376214e-07,
+      "source_comparison": "source vertices in order",
+      "seam_painted_facets": 0,
+      "placed_bounds_mm": [
+        [
+          132.5,
+          124.0,
+          -9.800000011495058e-08
+        ],
+        [
+          192.5,
+          140.0,
+          11.293605902
+        ]
+      ],
+      "bed_contact_z_mm": -9.800000011495058e-08,
+      "blocked_facets": 0,
+      "partially_painted_facets": 0,
+      "parts": {
+        "normal_part": 1
+      },
+      "layer_ranges": [],
+      "ribbon_and_fin_parts": 0,
+      "modifiers_expected": 0
+    },
+    {
+      "name": "Cable-wall9-span16",
+      "vertices": 26,
+      "source_sha256_matches": true,
+      "embedded_vertex_error_mm": 4.2826513713123404e-07,
+      "source_comparison": "source vertices in order",
+      "seam_painted_facets": 0,
+      "placed_bounds_mm": [
+        [
+          137.4,
+          158.0,
+          3.8099999954965824e-07
+        ],
+        [
+          151.6,
+          186.0,
+          25.700000381
+        ]
+      ],
+      "bed_contact_z_mm": 3.8099999954965824e-07,
+      "blocked_facets": 0,
+      "partially_painted_facets": 0,
+      "parts": {
+        "normal_part": 1
+      },
+      "layer_ranges": [],
+      "ribbon_and_fin_parts": 0,
+      "modifiers_expected": 0
+    },
+    {
+      "name": "Cable-wall9-span24",
+      "vertices": 26,
+      "source_sha256_matches": true,
+      "embedded_vertex_error_mm": 4.2826513713123404e-07,
+      "source_comparison": "source vertices in order",
+      "seam_painted_facets": 0,
+      "placed_bounds_mm": [
+        [
+          173.4,
+          154.0,
+          3.8099999954965824e-07
+        ],
+        [
+          187.6,
+          190.0,
+          25.700000381
+        ]
+      ],
+      "bed_contact_z_mm": 3.8099999954965824e-07,
+      "blocked_facets": 0,
+      "partially_painted_facets": 0,
+      "parts": {
+        "normal_part": 1
+      },
+      "layer_ranges": [],
+      "ribbon_and_fin_parts": 0,
+      "modifiers_expected": 0
+    }
+  ],
+  "z_trim_block": [
+    "+0.0",
+    "0.04 - 0.01",
+    "0.04 - 0.02",
+    "0.04 + 0.01",
+    "0.04"
+  ],
+  "cooling": {
+    "fan_min_speed": [
+      "100"
+    ],
+    "fan_max_speed": [
+      "100"
+    ],
+    "overhang_fan_speed": [
+      "100"
+    ],
+    "overhang_fan_threshold": [
+      "50%"
+    ],
+    "additional_cooling_fan_speed": [
+      "0"
+    ]
+  },
+  "support": {
+    "support_type": "tree(auto)",
+    "support_style": "default",
+    "support_object_xy_distance": "0.4",
+    "max_bridge_length": "0",
+    "tree_support_branch_diameter": "2",
+    "tree_support_branch_diameter_angle": "5",
+    "brim_type": "no_brim"
+  },
+  "problems": [],
+  "pass": true
+}

@@ -23,9 +23,11 @@ It calls for smaller bores to improve grip. The 6.55 mm control matches C2's
 native clip geometry with zero missing or added volume. The [geometry report](c2-bore-geometry.json)
 binds that comparison, all three native bore sections, the source and the exports.
 
-The [Mark2 C2 bore job](prints/2026-10-26-mark2-c2-three-bores/README.md) has a
-**14 min 12 s** native estimate and emits no support or brim. It is ready for
-the bed after the upright cable-clip coupon is removed.
+The [combined Mark2 plate](../snap-fit-tests/2026-10-26-mark2-combined/README.md)
+prints this trio alongside two 9 mm-wall cable coupons. All three tube clips,
+including the C2 control, share the experiment's stronger cooling recipe.
+The [standalone bore preparation](prints/2026-10-26-mark2-c2-three-bores/README.md)
+retains its editable project and native reading; it has no separate printer launch.
 
 Compare insertion, seated grip, axial movement, removal and wing/root survival
 on the same actual quarter-inch tube, identifying each result by its diameter
