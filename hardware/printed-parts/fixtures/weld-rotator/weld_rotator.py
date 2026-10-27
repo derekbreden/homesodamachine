@@ -32,6 +32,8 @@ _repo = next(p for p in _here.parents if (p / "tools" / "docgen").is_dir())
 sys.path.insert(0, str(_hw / "scripts"))
 sys.path.insert(0, str(_repo / "tools"))
 sys.path.insert(0, str(_here.parent))
+sys.path.insert(0, str(_hw / 'printed-parts/cadlib'))
+import fits
 
 from _cadq_export import export_assembly  # noqa: E402
 from _material_base import (  # noqa: E402
@@ -243,7 +245,7 @@ TOWER_MOUNT_POINTS = (
 TOWER_RAIL_INSERT_X = (130.0, 150.0)
 TOWER_RAIL_INSERT_Y = 41.0
 TOWER_RAIL_INSERT_DEPTH = 6.0
-M5_SHANK_D = 5.5
+M5_SHANK_D = fits.m5_thread_pass_dia
 M5_HEAD_D = 9.0
 M5_HEAD_DEPTH = 4.5
 M5_INSERT_D = 7.0

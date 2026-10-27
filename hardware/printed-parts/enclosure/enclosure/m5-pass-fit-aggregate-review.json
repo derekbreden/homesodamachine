@@ -1,0 +1,71 @@
+{
+  "scope": "Four known common-frame printed quadrant BReps replaced; original native placements, unrelated geometry, seated retainer, casing and wiring records retained.",
+  "hosts": [
+    {
+      "host": "hardware/printed-parts/enclosure/enclosure/enclosure.step",
+      "before_step_sha256": "1bd5ea312ad3de8c77ea2ccb9b1fa0134f0159ea7e249ae7a6b98ce0e98d43b0",
+      "step_sha256": "f8c0639225b898f046ee7287740373b48f763f0eb0ca751b7e40f6f4fb5b02ba",
+      "payload_sha256": "097d4dd4a03e95e46a9ea2bc4f7a64879249fe62aaf209cb4f8367d0521f0f1c",
+      "replaced_native_solid_count": 4,
+      "all_other_native_records_byte_identical": true,
+      "retained_viewer_members": 21,
+      "changed_viewer_members": [
+        "enclosure_front_bottom",
+        "enclosure_front_top",
+        "enclosure_back_bottom",
+        "enclosure_back_top"
+      ],
+      "native_world_frame_agreement": {
+        "enclosure_front_bottom": {
+          "aggregate_minus_part_mm3": 0.0,
+          "part_minus_aggregate_mm3": 0.0
+        },
+        "enclosure_back_bottom": {
+          "aggregate_minus_part_mm3": 0.0,
+          "part_minus_aggregate_mm3": 0.0
+        },
+        "enclosure_front_top": {
+          "aggregate_minus_part_mm3": 0.0,
+          "part_minus_aggregate_mm3": 0.0
+        },
+        "enclosure_back_top": {
+          "aggregate_minus_part_mm3": 0.0,
+          "part_minus_aggregate_mm3": 0.0
+        }
+      }
+    },
+    {
+      "host": "hardware/manifold-layout/enclosure-assembly.step",
+      "before_step_sha256": "bfac33825d17a54fb525efa0c1068df09a6482a8f3994706b40f657cfae0ceb2",
+      "step_sha256": "181da1661b4d39d0ea9b585689bd1a33e7cddfa848b9da6f31d4212907c99fc1",
+      "payload_sha256": "259efa63130b8ac31fda3ff03ec469ab751aee699367082bb4ffe807782bead8",
+      "replaced_native_solid_count": 4,
+      "all_other_native_records_byte_identical": true,
+      "retained_viewer_members": 559,
+      "changed_viewer_members": [
+        "enclosure-front-bottom",
+        "enclosure-front-top",
+        "enclosure-back-bottom",
+        "enclosure-back-top"
+      ],
+      "native_world_frame_agreement": {
+        "enclosure-front-bottom": {
+          "aggregate_minus_part_mm3": 0.0,
+          "part_minus_aggregate_mm3": 0.0
+        },
+        "enclosure-back-bottom": {
+          "aggregate_minus_part_mm3": 0.0,
+          "part_minus_aggregate_mm3": 0.0
+        },
+        "enclosure-front-top": {
+          "aggregate_minus_part_mm3": 0.0,
+          "part_minus_aggregate_mm3": 0.0
+        },
+        "enclosure-back-top": {
+          "aggregate_minus_part_mm3": 0.0,
+          "part_minus_aggregate_mm3": 0.0
+        }
+      }
+    }
+  ]
+}

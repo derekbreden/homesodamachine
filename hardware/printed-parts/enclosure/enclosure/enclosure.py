@@ -464,13 +464,13 @@ ceiling_lip_drop = funnel_seat_thickness + _funnel.brim_thickness - ceiling_skin
 # The Y seam's two corner stacks. In each ±X corner the front and back pieces stand knuckles
 # that alternate up the seam, held by two ordinary M5 screws: the lower enters from the
 # handhold ceiling, the upper from the roof. Each head bears on its printed floor. Clearance
-# passages print to size; they must pass the screw by hand before its thread reaches the insert.
+# passages use the selected M5 fit; long passages may need turning before the insert engages.
 y_stack_axis_in = 6.8          # upper screw axis inboard of the interior face
 y_stack_lower_axis_in = 6.25   # lower axis: its head passes the handhold's inner wall
 y_stack_high_depth = 13.0      # under the roof the stack stops outboard of the funnel's
                                # lift-off cover
 y_stack_front_root = wall      # how far a front knuckle roots fore of the seam, into its flank
-y_stack_clearance_dia = 5.6    # as-printed clearance for the common fully threaded M5 screw
+y_stack_clearance_dia = fits.m5_thread_pass_dia  # selected printed M5 threaded passage
 y_stack_cbore_dia = 9.0        # M5 SHCS head Ø8.5, knurled to Ø8.72
 y_stack_head_recess = 3.0      # head face inside the opening
 y_stack_head_h = 5.0           # ISO 4762 M5
@@ -481,7 +481,7 @@ y_stack_upper_chamfer = 5.1    # front-top's −X knuckle gives its inboard-aft 
                                # line (`tube-fluid-1`) that turns past that corner under the frame
 lower_rod_len = 100.0          # common ISO 4762 M5 × 100, inserted from the handhold
 upper_rod_len = lower_rod_len  # the same M5 × 100 enters front-top's roof head block
-y_stack_lower_anchor_depth = 25.0  # anchor stock above the sloped passage, before fit allowance
+y_stack_lower_anchor_face_drop = 34.05  # wall-side mating datum below the Z seam, before its sloped gap
 y_stack_lower_plane_over_seat = 0.3  # reference of the lower head block's aft-rising top
 y_stack_upper_datum = 265.0    # front-top's insert mouth, above its closed screw-tip pocket
 y_stack_upper_head_datum = 321.5  # aft-rising underside; full stock beneath the funnel clearance
@@ -3436,8 +3436,7 @@ def y_stack(inner):
               lower_seat + y_stack_lower_plane_over_seat + sloped)
     # Back-bottom's insert anchor ends on the Z seam, with its complete root under the
     # back rail. The fully threaded screw bears on both faces of front-bottom's knuckle.
-    bb0 = (top - y_stack_lower_anchor_depth + sloped
-           - (y_stack_lower_axis_in + y_stack_clearance_dia / 2.0))
+    bb0 = top - y_stack_lower_anchor_face_drop + sloped
     lower = (
         ("back-bottom", ceiling, fb0 - sloped, 0.0, sloped),
         ("front-bottom", fb0, bb0 - sloped, sloped, sloped),

@@ -53,7 +53,7 @@ def main():
     (HERE / 'geometry.json').write_text(json.dumps(dict(
         scope='Nominal passage comparison for the acquired SVLING M5x50 screws; physical fit is unmeasured.',
         screw_stock='hardware/ledger/inventory.md, Fab fixture: SVLING M5 x 0.8 x 50, B0GHNQFZYR',
-        production_bore_mm=5.6, parts=rows), indent=2) + '\n')
+        comparison_control_bore_mm=5.6, parts=rows), indent=2) + '\n')
     print(f'{len(rows)} labeled native coupons and print meshes written.', flush=True)
 
 

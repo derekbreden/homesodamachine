@@ -183,13 +183,13 @@
   "part_process_overrides": {},
   "source_sha256": {
     "hardware/printed-parts/enclosure/enclosure/heat-set-review/print_regions.py": "090fba941ce769ed09dd462f3e6f10e546c557ce2429277932ba0cf59e474b7e",
-    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "7af803740f78bb6e98e97f538bd4c7b872edc009ed3c9d98d1a096292a65a104",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "cd318c853b856eba715eb28aeea68bde865588c548eaaa64981a6dd47d56b99a",
     "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py": "264bb52da73675dcd41f7fff8bc5fce6eabd06336fc3cf8b7a9b8560c21e5040",
-    "hardware/printed-parts/enclosure/enclosure/_fixed_pump_mount.py": "ff127ca87a4345383007068f0ebf9f82e3b771cb111cc1eee6869019a112b283",
+    "hardware/printed-parts/enclosure/enclosure/_fixed_pump_mount.py": "465214f98f1930f45a8f79a774db9def71b9070687159f7cad5682781087ca00",
     "hardware/manifold-layout/enclosure-box.json": "3b8f760a0754d4cad939df7f8ceaf3047a35b3d8e707f602ea6b961548f4129e",
     "hardware/printed-parts/enclosure/enclosure/_above_core_shell.py": "4977bcee4b7d3fef51a13b601473a66b0a010bf509fe883ab8ce5998fd225741",
     "hardware/manifold-layout/above_core.py": "0ad87c7c252ab3cfe803c0f2a63a9374d06d0005591509031328ad6e3203988f",
-    "hardware/manifold-layout/above-core.json": "70de28e454278ad9676a14663dd97120ea7130c67e5e168ec1e69d7fba6b2fc6",
+    "hardware/manifold-layout/above-core.json": "846759aa1213927db689ec9ed2c2bf96899950b7bd7f9634b8fa79b2582e88fc",
     "hardware/reference/meanwell-irm90/meanwell_irm90.py": "5b3e8b9374caf9a3a61cfd8db3f12f5158ada4405b9692fdc004e9c0e47b7db7",
     "hardware/reference/teyleten-relay/teyleten_relay.py": "fe0965a8f3f4a9eab65efac03716dfdd6ef9e93ab658e8c73f3df83af6e7fbe6",
     "hardware/printed-parts/zone-c/funnel/funnel_frame.py": "2a993b6679da6958825f603be01609cea172253607cbffe2df7eb3ac1a2e93b0",
@@ -200,20 +200,20 @@
   },
   "native_artifact_sha256": {
     "front-bottom": {
-      ".step": "9cde787958ae0005de6096493c47d633347fda0dc7da94ed05112639f9e3cca5",
-      ".stl": "aa52fdffbc4ad3b0bffb7682c3c10108c49f48d8ede48223d5baacd311501276"
+      ".step": "ea3f189b042ec9cacef8fa11f7a7cbec5338b247c79b98cbf0c12c6fd24567c6",
+      ".stl": "d8b8b5e71833bdd4ed9e036bc65d29db2df0c8bc03fba751e1e4610062b1e353"
     },
     "front-top": {
-      ".step": "5cb0a70a28086ef1f10883d7f2aaf2e8978917e170514160120b819a64d009f5",
-      ".stl": "3a60a0aa99bfe02acdb06028656336ae08d615c12babf207378997088db5dc6d"
+      ".step": "75fce7c595b401e5475d54dbe173615bec8a21ad5756401a0d1357e4925ec05f",
+      ".stl": "599efebe368463b1d6ec926f1cc10faf6a5d45e4c899f1ce6dd6f4578637fe04"
     },
     "back-bottom": {
-      ".step": "e8cd8f7f282f1c234511def75b31e5f25c82b11ed953bf3ac9e1621c35b3fcce",
-      ".stl": "767e18b9821243a0e02c3b7995d3a6f9c6fc9efb31f160e244aa7c7e031c0ad0"
+      ".step": "556b122b134f436f9b9eabb37d4720aee47f093527c6d3c6e8f4c8cf7b10c5aa",
+      ".stl": "b1b4ec646bbdece942222db643a9808432b00687298ea15ce1282e63f22a0d44"
     },
     "back-top": {
-      ".step": "ef7cc17dfd7cdde5d78ff025b5631b0f60737171c6e670cc560ef243042bf97d",
-      ".stl": "a40f34b7dd16071d2e8dbb151cfc58cc1f2496c43b68332846ae3a3c29e3e6ac"
+      ".step": "9977e2070deb6f4dc5412a39cd690991f76a440a675f1c0515f990e9550fb96d",
+      ".stl": "13a50d145c96238f6a0c585f60fd7a4513772545c58e2009cd82724540aba633"
     },
     "pump-retainer": {
       ".step": "7fc6f0bef4a08eca4400b04c19911f596c28b3d50c7de6f675eb60b1b76e4f80",

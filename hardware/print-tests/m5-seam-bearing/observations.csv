@@ -3,7 +3,7 @@ nominal_bore_mm,bearing_length_mm,push_or_turn,insertion_feel,sideways_play,feel
 4.9,12,,,,,,,
 5.0,12,,,,,,,
 5.1,12,,,,,,,
-5.2,12,,,,,,,
+5.2,12,push,pushed through fine,,,,,selected for M5 threaded pass-throughs
 5.3,12,,,,,,,
 5.4,12,,,,,,,
 5.5,12,,,,,,,
@@ -12,7 +12,7 @@ nominal_bore_mm,bearing_length_mm,push_or_turn,insertion_feel,sideways_play,feel
 4.9,40,,,,,,,
 5.0,40,,,,,,,
 5.1,40,,,,,,,
-5.2,40,,,,,,,
+5.2,40,turn in some cases,resistance in some cases,,,,,selected for M5 threaded pass-throughs
 5.3,40,,,,,,,
 5.4,40,,,,,,,
 5.5,40,,,,,,,
