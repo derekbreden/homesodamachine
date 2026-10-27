@@ -40,6 +40,9 @@ const COMMITTED_DOCUMENT_FILES = new Set([
   "hardware/cold-core-layout/water-inlet-jet-cap-drawing.pdf",
   "hardware/cold-core-layout/water-inlet-jet-cap-drawing.pdf.json",
   "hardware/cold-core-layout/water-inlet-jet-cap-drawing.cover.png",
+  "hardware/water-inlet-jet-guide/water-inlet-jet-guide.pdf",
+  "hardware/water-inlet-jet-guide/water-inlet-jet-guide.pdf.json",
+  "hardware/water-inlet-jet-guide/water-inlet-jet-guide.cover.png",
 ]);
 
 export function isCommittedDocumentFile(repoRel) {
