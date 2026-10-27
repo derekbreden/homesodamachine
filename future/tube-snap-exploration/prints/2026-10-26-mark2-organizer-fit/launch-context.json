@@ -1,0 +1,39 @@
+{
+  "authorization": "Mark Two is free and available for your test print. Please start it now.",
+  "requested_printer": "Mark2",
+  "bed_clear_authority": "Derek's direct availability/start request",
+  "preflight": {
+    "observed_at_utc": "2026-10-27T02:51:19.935792+00:00",
+    "mark2_state": "FINISH",
+    "previous_task_name": "m5-seam-bearing-mark2-print-only.gcode.3mf",
+    "previous_task_id": "1378515009",
+    "print_error": 0,
+    "left_external_spool": {
+      "id": 254,
+      "reported_type": "PET-CF",
+      "colour": "161616FF"
+    },
+    "right_external_spool": {
+      "id": 255,
+      "reported_type": "TPU",
+      "colour": "161616FF"
+    },
+    "active_nozzle_diameter_mm": 0.4,
+    "bed_target_c": 0,
+    "nozzle_target_c": 0
+  },
+  "peer_startup_spacing": {
+    "printer": "Mark1 / H2C",
+    "fresh_observation_at_utc": "2026-10-27T02:51:20.019852+00:00",
+    "fresh_state": "RUNNING",
+    "fresh_task_name": "Right_reservoir_and_cap_-_PETG_0.24_mm_overlap50",
+    "fresh_layer": 559,
+    "fresh_total_layers": 833,
+    "fresh_percent": 72,
+    "accepted_start_record": "hardware/printed-parts/cold-core/reservoir/prints/2026-10-26-mark1-right-engineering-flow105-overlap50-temp260-left08-z000/launch.json",
+    "accepted_start_utc": "2026-10-26T22:39:03.553720+00:00",
+    "elapsed_to_launch_receipt_seconds": 15199.669049,
+    "required_seconds": 180
+  },
+  "result": "Printer accepted on one Send; exact reviewed archive RUNNING. Startup receipt is not a first-layer or completed-fit observation."
+}

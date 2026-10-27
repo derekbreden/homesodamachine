@@ -9,7 +9,12 @@ records the dimensions, identity and physical-fit questions.
 
 The native estimate is **12 min 8 s**. The job is prepared for **Mark2's left
 hardened 0.4 mm Standard-flow hotend**, with black PET-GF on external spool
-254, reported by the printer as PET-CF. The job has not been submitted.
+254, reported by the printer as PET-CF. Mark2 accepted task **1379090194**
+at **21:52 CDT on October 26**. The [launch receipt](launch.json) identifies
+the exact reviewed archive as RUNNING with print error 0 and no HMS entries.
+The [launch context](launch-context.json) records the start request, loaded
+material and peer-printer startup spacing. This is a startup observation;
+physical fit and wing survival remain unassessed.
 
 - [Ready native print archive](2026-10-26-tube-snap-three-bores-mark2-f10f7183/2026-10-26-tube-snap-three-bores-mark2-f10f7183.gcode.3mf)
 - [Editable project](2026-10-26-tube-snap-three-bores-mark2-f10f7183/2026-10-26-tube-snap-three-bores-mark2-f10f7183.3mf)
