@@ -183,10 +183,10 @@
   "part_process_overrides": {},
   "source_sha256": {
     "hardware/printed-parts/enclosure/enclosure/heat-set-review/print_regions.py": "090fba941ce769ed09dd462f3e6f10e546c557ce2429277932ba0cf59e474b7e",
-    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "6786a7041b270b426baa07b922eeec86afa84940b9f02766ce0e1fa63214768f",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "c3b98b8e4bc113dc0952372d5ab00bee7e76081b9b38681a76674118de863d9b",
     "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py": "264bb52da73675dcd41f7fff8bc5fce6eabd06336fc3cf8b7a9b8560c21e5040",
     "hardware/printed-parts/enclosure/enclosure/_fixed_pump_mount.py": "465214f98f1930f45a8f79a774db9def71b9070687159f7cad5682781087ca00",
-    "hardware/manifold-layout/enclosure-box.json": "3b8f760a0754d4cad939df7f8ceaf3047a35b3d8e707f602ea6b961548f4129e",
+    "hardware/manifold-layout/enclosure-box.json": "2fc18e48ab70b041610d700244e8517dc4b45510d07cfbaf3febf15f25e2a5b2",
     "hardware/printed-parts/enclosure/enclosure/_above_core_shell.py": "6e1c16c2ab00c317a6ca9e78f9ac052ea827d8c383d127d02ffc83c9213bef10",
     "hardware/manifold-layout/above_core.py": "0ad87c7c252ab3cfe803c0f2a63a9374d06d0005591509031328ad6e3203988f",
     "hardware/manifold-layout/above-core.json": "6b8bb80779f653f3b91f22547fdeb1155f802f63908892f24496a446210a1b40",
@@ -212,8 +212,8 @@
       ".stl": "b1b4ec646bbdece942222db643a9808432b00687298ea15ce1282e63f22a0d44"
     },
     "back-top": {
-      ".step": "a8045c56a9003682b630f2004d43495f10265956b8fd5c9fd68b85f485d31bc9",
-      ".stl": "ded804812a19bb4d1fb35626d27297ce8ed536ac048ba499eb7762ca5bd6f9e2"
+      ".step": "4a0732e58eca56cbfe07ea5e667a5262f948bf03f65c3bd33932338a34d085bb",
+      ".stl": "4f0d797ef264d0cd36374eb0b6a9afad940c217288421d502e6d67309b9d9c26"
     },
     "pump-retainer": {
       ".step": "7fc6f0bef4a08eca4400b04c19911f596c28b3d50c7de6f675eb60b1b76e4f80",
