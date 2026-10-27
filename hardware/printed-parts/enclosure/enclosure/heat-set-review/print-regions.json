@@ -183,13 +183,13 @@
   "part_process_overrides": {},
   "source_sha256": {
     "hardware/printed-parts/enclosure/enclosure/heat-set-review/print_regions.py": "090fba941ce769ed09dd462f3e6f10e546c557ce2429277932ba0cf59e474b7e",
-    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "cd318c853b856eba715eb28aeea68bde865588c548eaaa64981a6dd47d56b99a",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "6786a7041b270b426baa07b922eeec86afa84940b9f02766ce0e1fa63214768f",
     "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py": "264bb52da73675dcd41f7fff8bc5fce6eabd06336fc3cf8b7a9b8560c21e5040",
     "hardware/printed-parts/enclosure/enclosure/_fixed_pump_mount.py": "465214f98f1930f45a8f79a774db9def71b9070687159f7cad5682781087ca00",
     "hardware/manifold-layout/enclosure-box.json": "3b8f760a0754d4cad939df7f8ceaf3047a35b3d8e707f602ea6b961548f4129e",
-    "hardware/printed-parts/enclosure/enclosure/_above_core_shell.py": "4977bcee4b7d3fef51a13b601473a66b0a010bf509fe883ab8ce5998fd225741",
+    "hardware/printed-parts/enclosure/enclosure/_above_core_shell.py": "6e1c16c2ab00c317a6ca9e78f9ac052ea827d8c383d127d02ffc83c9213bef10",
     "hardware/manifold-layout/above_core.py": "0ad87c7c252ab3cfe803c0f2a63a9374d06d0005591509031328ad6e3203988f",
-    "hardware/manifold-layout/above-core.json": "846759aa1213927db689ec9ed2c2bf96899950b7bd7f9634b8fa79b2582e88fc",
+    "hardware/manifold-layout/above-core.json": "6b8bb80779f653f3b91f22547fdeb1155f802f63908892f24496a446210a1b40",
     "hardware/reference/meanwell-irm90/meanwell_irm90.py": "5b3e8b9374caf9a3a61cfd8db3f12f5158ada4405b9692fdc004e9c0e47b7db7",
     "hardware/reference/teyleten-relay/teyleten_relay.py": "fe0965a8f3f4a9eab65efac03716dfdd6ef9e93ab658e8c73f3df83af6e7fbe6",
     "hardware/printed-parts/zone-c/funnel/funnel_frame.py": "2a993b6679da6958825f603be01609cea172253607cbffe2df7eb3ac1a2e93b0",
@@ -212,8 +212,8 @@
       ".stl": "b1b4ec646bbdece942222db643a9808432b00687298ea15ce1282e63f22a0d44"
     },
     "back-top": {
-      ".step": "9977e2070deb6f4dc5412a39cd690991f76a440a675f1c0515f990e9550fb96d",
-      ".stl": "13a50d145c96238f6a0c585f60fd7a4513772545c58e2009cd82724540aba633"
+      ".step": "a8045c56a9003682b630f2004d43495f10265956b8fd5c9fd68b85f485d31bc9",
+      ".stl": "ded804812a19bb4d1fb35626d27297ce8ed536ac048ba499eb7762ca5bd6f9e2"
     },
     "pump-retainer": {
       ".step": "7fc6f0bef4a08eca4400b04c19911f596c28b3d50c7de6f675eb60b1b76e4f80",

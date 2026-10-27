@@ -1,0 +1,56 @@
+{
+  "method": "Each source-built pier and nominal strap bounding box is extended 300 mm in +Y. Every candidate stationary body has zero native common volume. The other stationary bodies are separated by an exact bounding axis.",
+  "stationary_inventory": "hardware/mechanical-qualification/enclosure-above-core/wall-closing-loose-stage-review.json",
+  "stationary_inventory_count": 31,
+  "native_fixture_assembly_sha256": "bfac33825d17a54fb525efa0c1068df09a6482a8f3994706b40f657cfae0ceb2",
+  "source_sha256": {
+    "hardware/printed-parts/enclosure/enclosure/_back_top_meter.py": "3c55259e725a6fdb08b4163788fb0ed7ea20c89e713629b9dca785da477d6bbb",
+    "hardware/printed-parts/enclosure/enclosure/_above_core_shell.py": "6e1c16c2ab00c317a6ca9e78f9ac052ea827d8c383d127d02ffc83c9213bef10"
+  },
+  "rows": [
+    {
+      "moving": "meter-0",
+      "stationary": "cold-core/foam-cap-lid-top",
+      "conservative_box_common_mm3": 0.0
+    },
+    {
+      "moving": "meter-0",
+      "stationary": "cold-core/g-ganen-pump",
+      "conservative_box_common_mm3": 0.0
+    },
+    {
+      "moving": "meter-1",
+      "stationary": "cold-core/foam-cap-lid-top",
+      "conservative_box_common_mm3": 0.0
+    },
+    {
+      "moving": "meter-1",
+      "stationary": "cold-core/g-ganen-pump",
+      "conservative_box_common_mm3": 0.0
+    },
+    {
+      "moving": "meter-fore",
+      "stationary": "cold-core/foam-cap-lid-top",
+      "conservative_box_common_mm3": 0.0
+    },
+    {
+      "moving": "meter-fore",
+      "stationary": "cold-core/g-ganen-pump",
+      "conservative_box_common_mm3": 0.0
+    },
+    {
+      "moving": "meter-aft",
+      "stationary": "cold-core/foam-cap-lid-top",
+      "conservative_box_common_mm3": 0.0
+    },
+    {
+      "moving": "meter-aft",
+      "stationary": "cold-core/g-ganen-pump",
+      "conservative_box_common_mm3": 0.0
+    }
+  ],
+  "passed": true,
+  "limits": [
+    "Retained 31-body native fixture and the selected loose-stage assembly prerequisites; no other whole-machine motion or physical fit qualification."
+  ]
+}

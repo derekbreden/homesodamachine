@@ -418,9 +418,17 @@ even though the whole enclosure does not — that is the point of the split.
 The [production arrangement](/hardware/manifold-layout/above-core.md) owns the native
 component frames. `_above_core_shell.py` builds back-top's PSU and relay hosts,
 V-A/V-K sidewall plates, rear ports and fluid supports. `_back_top_meter.py`
-constructs the two fixed-collar meter bearings and their east-wall beams.
-The aft beam reaches the wall at Y436 through a plain dogleg beside the
-regulator; its short tie passes through the local pad at the fixed collar.
+constructs two straight roof piers for the meter's fixed collars. The broad
+fore column has faces on X44.5 and X63; the aft pier starts on X52.5. Each
+has one west-open circular seat and one straight horizontal strap passage,
+with at least 3 mm of ordinary stock.
+The fore column also carries the ASSE's aft bearing. Its straight meter
+mouth admits the complete collar from the west; the strap approach opens
+into the ASSE bore with no narrow intervening web. Both ASSE and meter
+passages run through the shared stock. The aft pier has one flat fore setback
+below Z315
+for the meter housing. Both gas bearings join as one flat sidewall carrier
+between Z293 and Z301, with two circular seats and two straight tie passages.
 The PCB, pump and V-B belong to the cold-core mounts. Junction wells follow
 their actual branch points on the rear wall, core lid and front manifold.
 

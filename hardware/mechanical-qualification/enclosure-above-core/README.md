@@ -72,19 +72,15 @@ from the actual exported-shell readback. The two aft relay screw-head contacts
 with the representative terminal-block envelope remain explicit nominal fit
 limits; source host clearance does not establish purchased hardware fit.
 
-The [meter carrier reading](wall-meter-review.json) and
-[manual script](wall_meter.py) retain the fore carrier's recorded fixture
-scope. The [aft carrier reading](aft-meter-refit-review.json) and
-[manual reader](aft_meter_refit.py) bind the aft quarter bearing, its short
-nominal tie and the dogleg landing at Y436. Its full 3 mm bearing and tie-slot
-surround are present; its 3 by 6 mm wall bridge clears the actual installed
-regulator by 0.530 mm. The named native fittings, tubes and leads clear that
-local carrier and strip. The retaining strips remain unqualified for physical
-threading, head engagement and holding force.
-The [aft-carrier travel reading](aft-carrier-closing-review.json) bounds that
-carrier and strip continuously over 0–300 mm of rearward travel against all
-31 retained stationary core bodies. Only the lid and pump survive the bounds;
-their four native common volumes are zero.
+The [plain-mount reading](../../printed-parts/enclosure/enclosure/plain-mount-review/native.json)
+binds the broad shared meter/ASSE column, aft roof pier and common gas carrier
+to the exported back-top. The native stock reading checks the 3 mm bearing and
+strap-passage stock, open passages and complete nominal retaining strips.
+The closing bound extends both piers and strips 300 mm aft against the
+31-body stationary inventory of the selected loose-stage assembly. The low
+V-A chain and lower pump elbow retain that stage's handling prerequisites.
+The retaining strips remain unqualified for physical threading, head
+engagement and holding force.
 
 The [rear fitting-land reading](rear-clamp-lands.json) and
 [manual reader](rear_clamp_lands.py) read all six selected ports in the actual
