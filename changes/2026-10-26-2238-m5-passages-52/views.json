@@ -1,0 +1,81 @@
+{
+  "views": [
+    {
+      "name": "bearing",
+      "caption": "A transverse section of the upper west M5 passage. The nominal screw envelope stays fixed; the printed passage is Ø5.2 mm.",
+      "before": "bearing-before.webp",
+      "after": "bearing-after.webp",
+      "width": 1000,
+      "height": 1000,
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          -79.78455331424783,
+          185.01273775233045,
+          893.1815561917389
+        ],
+        "target": [
+          -97.7,
+          208.9,
+          296
+        ],
+        "up": [
+          0,
+          1,
+          0
+        ],
+        "half": 8,
+        "near": 409.1527908227671,
+        "far": 1056.907655258194,
+        "aspect": 1,
+        "section": {
+          "at": [
+            -97.7,
+            208.9,
+            296
+          ],
+          "normal": [
+            0,
+            0,
+            1
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [
+        "enclosure-back-top"
+      ],
+      "ghost": [],
+      "only": [
+        "enclosure-back-top",
+        "y-seam-west-upper-screw"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "adab5f9c61f1a40bb76bddfff7c48d3e57d23db2f8230099d58147e1bb1e9674",
+          "commit": "3fc5922e93693a791648252eb9bfd1d9d9820751",
+          "taken": "2026-10-27T03:04:42.444Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "259efa63130b8ac31fda3ff03ec469ab751aee699367082bb4ffe807782bead8",
+          "commit": "111a9083f5b8c619156bec375f73f07b5c58a882",
+          "published": true
+        }
+      },
+      "changed": [],
+      "withinMeshing": [
+        "enclosure-back-bottom",
+        "enclosure-front-top",
+        "enclosure-front-bottom",
+        "enclosure-back-top"
+      ]
+    }
+  ]
+}
