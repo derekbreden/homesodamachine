@@ -16,7 +16,7 @@ file: hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step
 click: x=-100.875 y=144.918 z=169.200
 click: x=100.875 y=144.918 z=169.200
 
-[slope] The linter is wrong for this channel: this 45° face is the roof of the relief over the lower Y-stack screw passage where it crosses front-bottom's knuckle underside (`_y_bore_reliefs`). It rises toward the passage inside a slot of the passage's own width, so both of its rising edges stand on the slot's walls 5.6 mm apart and each layer of it is carried at both ends as well as by the layer below; the rule reads one wall and its rising edge, a slope hanging sideways off a single wall.
+[slope] The linter is wrong for this channel: this 45° face is the roof of the relief over the lower Y-stack screw passage where it crosses front-bottom's knuckle underside (`_y_bore_reliefs`). It rises toward the passage inside a slot of the passage's own width, so both of its rising edges stand on the slot's walls 5.2 mm apart and each layer of it is carried at both ends as well as by the layer below; the rule reads one wall and its rising edge, a slope hanging sideways off a single wall.
 alternatives: A level roof over the slot is a down-facing ceiling. A roof rising off the slot walls, a gable, dives under the 45° knuckle face along a V and leaves a ridge down the slot. A vertical end wall where the roof lands meets the knuckle face on a 45° arris. The rule could count a slope whose two rising edges stand on opposed walls as carried.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step
 click: x=0.000 y=211.432 z=57.948
@@ -57,11 +57,17 @@ click: x=-99.531 y=96.619 z=78.751
 click: x=-105.918 y=103.387 z=79.423
 click: x=-99.533 y=106.487 z=78.750
 click: x=-105.692 y=39.247 z=96.131
+click: x=-105.857 y=39.247 z=96.227
+click: x=-105.857 y=37.414 z=96.227
 click: x=-105.920 y=44.181 z=107.923
 click: x=-105.692 y=54.049 z=95.755
+click: x=-105.692 y=54.049 z=95.865
+click: x=-105.692 y=52.215 z=95.865
 click: x=-99.531 y=37.414 z=135.751
 click: x=-105.925 y=54.049 z=136.423
 click: x=-105.692 y=68.850 z=95.379
+click: x=-105.692 y=68.850 z=95.488
+click: x=-105.692 y=67.016 z=95.488
 click: x=-105.911 y=63.916 z=107.923
 click: x=-105.621 y=83.652 z=94.912
 click: x=-105.920 y=73.784 z=107.923

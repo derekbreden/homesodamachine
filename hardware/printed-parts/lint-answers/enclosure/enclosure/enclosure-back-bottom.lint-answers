@@ -190,7 +190,7 @@ file: hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step
 click: x=-98.250 y=208.900 z=60.800
 click: x=98.250 y=208.900 z=60.800
 
-[slope] The linter is wrong for this channel: this 45° face is the roof of the relief over the lower Y-stack screw passage where it crosses back-bottom's upper knuckle underside (`_y_bore_reliefs`). It rises toward the passage inside a slot of the passage's own width, so both of its rising edges stand on the slot's walls 5.6 mm apart and each layer of it is carried at both ends as well as by the layer below; the rule reads one wall and its rising edge, a slope hanging sideways off a single wall.
+[slope] The linter is wrong for this channel: this 45° face is the roof of the relief over the lower Y-stack screw passage where it crosses back-bottom's upper knuckle underside (`_y_bore_reliefs`). It rises toward the passage inside a slot of the passage's own width, so both of its rising edges stand on the slot's walls 5.2 mm apart and each layer of it is carried at both ends as well as by the layer below; the rule reads one wall and its rising edge, a slope hanging sideways off a single wall.
 alternatives: A level roof over the slot is a down-facing ceiling. A roof rising off the slot walls, a gable, dives under the 45° knuckle face along a V and leaves a ridge down the slot. A vertical end wall where the roof lands meets the knuckle face on a 45° arris. The rule could count a slope whose two rising edges stand on opposed walls as carried.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step
 click: x=95.719 y=208.900 z=140.148
@@ -205,4 +205,6 @@ click: x=47.240 y=471.374 z=11.786
 alternatives: A 4.2 mm wall keeps 3 mm under every groove and takes 1.2 mm more of the room inside each flank; a shallower groove changes the texture the corner coupon set.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step
 click: x=-104.500 y=213.453 z=98.051
+click: x=-104.500 y=213.451 z=112.313
+click: x=-106.300 y=213.450 z=112.313
 click: x=104.500 y=213.453 z=98.051
