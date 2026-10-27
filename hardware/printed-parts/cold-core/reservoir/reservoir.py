@@ -671,11 +671,10 @@ def build_reservoir_cap(side=1):
     )
     cap = cap.cut(counterbores)
 
-    # Independent air tube, captured flush in the plate with a slotted splash
-    # baffle below. The chamber leaves the lower TPU flare accessible.
+    # The independent air tube passes through a flush TPU spool in this plain,
+    # open seat. Its lower end opens directly into the reservoir headspace.
     vent_xy = vent_position[side]
     cap = cap.cut(tube_ports.seat_tool(vent_xy, cap_wall_height, tube_ports.air_grip))
-    cap = cap.union(tube_ports.build_baffle(vent_xy, cap_wall_height))
 
     # Level-sensing rod register boss: a hollow boss hanging down from
     # the cap's underside into the body cavity. The rod top slides into

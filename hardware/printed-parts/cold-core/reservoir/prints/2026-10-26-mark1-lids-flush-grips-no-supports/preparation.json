@@ -1,0 +1,38 @@
+{
+  "source_project": "hardware/printed-parts/cold-core/reservoir/reservoir.3mf",
+  "source_project_sha256": "c62d7e4cd41e99b0798f14f29756984c95fe7056b9f5ad1378cde1e34ec66434",
+  "candidate": ".cache/reservoir-lids-clear-ports-20261026/reservoir-lids-open-airport-nosupport.3mf",
+  "candidate_sha256": "ad63f93e9ce319204eef46bab7327d63005da58e71ae9fb03bded327694f70b8",
+  "parts": [
+    {
+      "name": "reservoir-cap-left",
+      "source_step": "hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.step",
+      "step_sha256": "66c7403d0853aaaa01fe22ad2f72748fea133ab4b8c9ebab3687aadfba25d917",
+      "source_mesh_triangles": 16832,
+      "transform": "1 0 0 0 -1 0 0 0 -1 119 160 5.5",
+      "print_orientation": "exterior face down",
+      "ports": "two 9/11 mm liquid seats and one 6/8 mm air seat; matched 45-degree countersinks"
+    },
+    {
+      "name": "reservoir-cap-right",
+      "source_step": "hardware/printed-parts/cold-core/reservoir/reservoir-cap-right.step",
+      "step_sha256": "132cf18d1f5e2757f303f5eab102dd59589a25530bb3f46ab395990567b3463a",
+      "source_mesh_triangles": 16832,
+      "transform": "1 0 0 0 -1 0 0 0 -1 206 160 5.5",
+      "print_orientation": "exterior face down",
+      "ports": "two 9/11 mm liquid seats and one 6/8 mm air seat; matched 45-degree countersinks"
+    }
+  ],
+  "settings_changes_from_right_overlap50_recipe": {
+    "enable_support": {
+      "from": "1",
+      "to": "0"
+    },
+    "print_settings_id": {
+      "from": "Reservoir PETG 0.8 - five walls overlap50 flow105 260C",
+      "to": "Reservoir lids 0.8 - flush grips no supports"
+    }
+  },
+  "supports": "Off for this lid pair. The 45-degree grommet seats grow without supports; the screw seats bridge their small clearance bores. All three tube ports are open, without a baffle.",
+  "scope": "Current lid geometry and editable project. Native slice, open-port toolpaths and launch are recorded separately."
+}

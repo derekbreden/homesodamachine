@@ -1,14 +1,3 @@
-[ceiling] The closed splash-baffle floor bridges the 9 mm chamber and the 3 mm side-slot mouths when the lid prints exterior-face down. The four retained wall sectors join that floor to the plate. This is the reviewed splash barrier below the open tube tip; printed bridge finish remains unqualified.
-alternatives: An open floor loses the upward-splash barrier. A conical floor changes the reviewed 3 mm drop and tube-tip clearance; a support requiring removal through the 3 × 2 mm slots has no established removal result.
-file: hardware/printed-parts/cold-core/reservoir/reservoir-cap-right.step
-click: x=118.375 y=-26.000 z=3.000
-
-[thin] The reviewed baffle has a 1 mm floor, 3 mm total drop and 1 mm of open space below the air-tube tip. These dimensions create the splash barrier while preserving the intake opening and the retained float clearance. No printed splash or durability result is claimed.
-alternatives: Thickening inward consumes the 1 mm intake clearance; thickening outward extends below the reviewed 3 mm baffle envelope. A deeper baffle requires another float-clearance review.
-file: hardware/printed-parts/cold-core/reservoir/reservoir-cap-right.step
-click: x=114.175 y=-25.987 z=2.000
-click: x=114.175 y=-25.987 z=3.000
-
 [thin] Existing rod-register section, outside the tube-port geometry change: its rod-clearance bore and 2 mm radial wall retain the rod register and the float-stop interface. The tube-grip implementation does not qualify its strength or lifetime.
 alternatives: Thickening the register changes an existing float-stop interface and needs its own fit review; this task retains the rod and float datums.
 file: hardware/printed-parts/cold-core/reservoir/reservoir-cap-right.step

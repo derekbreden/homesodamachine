@@ -63,19 +63,6 @@ def cut_seat(shape, xy, spec):
     return shape.cut(seat).clean()
 
 
-def baffle(xy):
-    # The lower grommet flare remains exposed through this 9mm opening.
-    # The tube ends 1mm below the lid, 1mm above the closed baffle floor.
-    shell=cylinder(xy,LID_BOTTOM-3.,LID_BOTTOM+.01,13.)
-    shell=shell.cut(cylinder(xy,LID_BOTTOM-2.,LID_BOTTOM+.1,9.))
-    x,y=xy
-    for direction in (0,90,180,270):
-        slot=cq.Solid.makeBox(10.,3.,2.,cq.Vector(x,y-1.5,LID_BOTTOM-2.))
-        slot=slot.rotate((x,y,0),(x,y,1),direction)
-        shell=shell.cut(slot)
-    return shell.clean()
-
-
 def cap_candidate(side):
     """The approved geometry is implemented by the production generator."""
     letter = 'a' if side == 1 else 'b'
@@ -149,7 +136,7 @@ def build(out, native_cache):
           'fluid_grommet':FLUID_GRIP,'air_grommet':AIR_GRIP,
           'vent_axes':VENT_XY,'air_tube_od':AIR_OD,'air_tube_id':AIR_ID,
           'air_tube_top_z':cap_face_z+AIR_PRIDE,'air_tube_above_outer_cap':AIR_PRIDE,
-          'air_tube_tip_to_baffle_floor':1.,'passage_d':PASSAGE_D,
+          'air_tube_tip_below_lid':1.,'passage_d':PASSAGE_D,
           'passage_wall':PASSAGE_WALL,'passage_radial_tube_clearance':(PASSAGE_D-AIR_OD)/2.},
         'checks':{},
         'limits':['Nominal CAD only; TPU insertion, sliding grip and printed fits need a trial.',
@@ -187,12 +174,10 @@ def build(out, native_cache):
     report['checks']['B-fill-elbow-to-PETG-intersection-mm3']=parts['b-fill-lower'].intersect(parts['cap-b']).Volume()
     report['checks']['B-fill-elbow-to-TPU-nominal-interference-mm3']=parts['b-fill-lower'].intersect(parts['grip-b-fill']).Volume()
     # The float's full travel envelope ends at the unchanged register boss.
-    # At its upper stop it remains below every newly added baffle or tube seat.
+    # At its upper stop it remains below the tube seats.
     import _float_interface as float_interface
     float_top=reservoir.float_magnet_travel_z[1]+float_interface.height-float_interface.magnet_midplane
     report['checks']['float-upper-stop-top-z-mm']=float_top
-    report['checks']['new-baffle-below-lid-bottom-z-mm']=LID_BOTTOM-3.
-    report['checks']['baffle-vertical-clearance-above-float-top-mm']=LID_BOTTOM-3.-float_top
     # Existing body seating, gasket and screws keep their native datums.
     for letter in ('a','b'):
         for suffix in ('','-gasket'):
