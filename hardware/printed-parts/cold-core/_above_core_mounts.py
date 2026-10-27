@@ -200,7 +200,8 @@ def check_support_datums():
             'stock_x_limits_world_mm': (centre[0],centre[0]+radius+3.),
             'tie_window_y_mm': (centre[1]-1.4,centre[1]+1.4),
             'tie_window_z_mm': (slot_top-3.2,slot_top),
-            'tie_route_z_mm': slot_top-1.6,
+            'tie_roof_rise_mm': 1.4,
+            'tie_route_z_mm': slot_top-2.,
             'open_direction': 'west-and-up',
             'pump_driver_axis_world_mm': driver,
             'pump_driver_radius_mm': tool_radius,
@@ -208,7 +209,7 @@ def check_support_datums():
 
 
 def check_support():
-    """One filled pedestal with a cylindrical seat and straight tie passage."""
+    """One filled pedestal, cylindrical seat and peaked-roof tie passage."""
     import cadquery as cq
     data = check_support_datums()
     x,y,z = data['centre_world_mm']
@@ -219,8 +220,13 @@ def check_support():
         cq.Vector(low_x,data['root_fore_y_mm'],above_core.specification()['cap_face_z_mm']-.15))
     y0,y1 = data['tie_window_y_mm']
     z0,z1 = data['tie_window_z_mm']
-    passage = cq.Solid.makeBox(high_x-low_x+.2,y1-y0,z1-z0,
-                              cq.Vector(low_x-.1,y0,z0))
+    # A 45-degree roof keeps the narrow threading lane free of trapped trees.
+    # The lower 1.8 mm remains rectangular for the nominal 2.5 x 0.8 mm strip.
+    plane = cq.Plane(origin=(low_x-.1,0.,0.),xDir=(0.,1.,0.),normal=(1.,0.,0.))
+    shoulder = z1-data['tie_roof_rise_mm']
+    passage = cq.Workplane(plane).polyline([
+        (y0,z0),(y1,z0),(y1,shoulder),((y0+y1)/2.,z1),
+        (y0,shoulder)]).close().extrude(high_x-low_x+.2).val()
     bore = cq.Solid.makeCylinder(data['seat_radius_mm'],
         data['root_aft_y_mm']-data['bearing_fore_y_mm']+.2,
         cq.Vector(x,data['bearing_fore_y_mm']-.1,z),cq.Vector(0.,1.,0.))
