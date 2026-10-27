@@ -39,7 +39,6 @@ from _cold_core_interface import (
     foam_cap_lid_vent_radius,
     foam_shell_outer_height,
     insert_pocket_depth,
-    front_port_floor_z,
     front_wall_x,
     mid_screw_x_offset,
     outer_shell_foam_gap,
@@ -74,9 +73,8 @@ from _cold_core_interface import (
 )
 from docgen import substitute_md
 
-sys.path.insert(0, str(_here.parent / "copper-plugs"))
-from copper_plugs import (columns, plug_specs, slot_stations,  # noqa: E402
-                          tube_clearance_radius)
+from _copper_ports import evap_cross_z, hole_radius as copper_hole_radius, stations
+
 
 
 def _report_front_ports(shell):
@@ -91,9 +89,9 @@ def _report_front_ports(shell):
     # EVERY STATION ON EITHER LANE, probed on its own lane's y — the two lanes each
     # carry one of the evaporator's coppers, so a check that read them all on the port
     # lane would report the west lane's as blocked and the port lane's slot as its bore.
-    clear = tube_clearance_radius - 0.25      # the copper slot, independent of fluid passages
-    stations = dict(slot_stations())
-    for name, ((sx, sy, sz), _axis) in sorted(stations.items(), key=lambda kv: kv[1][0][2]):
+    clear = copper_hole_radius - 0.25
+    ports = stations()
+    for name, ((sx, sy, sz), _axis) in sorted(ports.items(), key=lambda kv: kv[1][0][2]):
         probe = cq.Solid.makeCylinder(
             clear, wall_and_floor_thickness + 2.0,
             cq.Vector(sx - 1.0, sy, sz), cq.Vector(1, 0, 0))
@@ -101,15 +99,9 @@ def _report_front_ports(shell):
         assert blocked <= 1e-3, (
             f"the front-face station {name} at y {sy:.4g} z {sz:.4g} is blocked by "
             f"{blocked:.4f} mm³ — the bore does not go through")
-    print(f"  front face:       {len(stations)} stations on x {front_wall_x:.4g}, all open — "
+    print(f"  front face:       {len(ports)} stations on x {front_wall_x:.4g}, all open — "
           + ", ".join(f"{n} y {p[1]:.4g} z {p[2]:.4g}"
-                      for n, (p, _a) in sorted(stations.items(), key=lambda kv: kv[1][0][2])))
-
-
-def _plug_span(name):
-    """"low → high" Z span of one copper plug, as the README's table reads it."""
-    z_bottom, z_top = plug_specs[name].z_range
-    return f"{z_bottom:.4g} → {z_top:.4g}"
+                      for n, (p, _a) in sorted(ports.items(), key=lambda kv: kv[1][0][2])))
 
 
 def main():
@@ -154,10 +146,7 @@ def main():
             "SUPPORT_RING_W": f"{support_ring_radial_width:.4g} mm",
             "SUPPORT_RING_INNER_R": f"{carbonator_coil_envelope_radius - support_ring_radial_width:.4g} mm",
             "TUBE_HOLE_D": f"{port_hole_radius * 2:.4g} mm",
-            # The copper plug's arch is the SLOT's figure and not the bore's
-            # (`copper_plugs.slot_width_x`). The two read alike and do not move together:
-            # a formed copper tail is laid into an open slot, a line is pushed through a hole.
-            "PLUG_ARCH_D": f"{2.0 * tube_clearance_radius:.4g} mm",
+            "COPPER_HOLE_D": f"{2.0 * copper_hole_radius:.4g} mm",
             "CORNER_ROUND_R": f"{corner_round_radius:.4g} mm",
             "FSHELL_OUTER_WALL": f"{outer_shell_wall:.4g} mm",
             "FSHELL_POUR_BAND": f"{abs(pour_band_shell_side_y - pour_band_pocket_side_y):.4g} mm",
@@ -190,21 +179,7 @@ def main():
             "LANE_Y": f"{port_lane_outer_y:.4g} to {port_lane_inner_y:.4g}",
             "LANE_W": f"{port_lane_inner_y - port_lane_outer_y:.4g} mm",
             "LANE_MID_Y": f"{port_lane_mid_y:.4g}",
-            "SLOT_FLOOR_Z": f"{front_port_floor_z:.4g} mm",
-            # What each lane's slot carries, named for the LINE rather than the plug
-            # whose bottom end lands on it — a stack tiles its slot, so a
-            # pass-through center IS a plug boundary.
-            "SLOT_Z": "; ".join(
-                f"{lane} " + ", ".join(f"{line} {z:.4g}" for line, z in col.stations)
-                for lane, col in columns.items()),
-            # How far up the wall the whole face reaches — the highest station either
-            # slot carries, which is the last plug's bottom end because that plug fills
-            # the rest of its column.
-            "COLUMN_TOP": f"{max(z for c in columns.values() for _n, z in c.stations):.4g} mm",
-            # Copper-plug Z spans — the plugs tile their own slot end-to-end, each
-            # end face landing on a pass-through center.
-            "PLUG_SPAN_WEST": _plug_span("west"),
-            "PLUG_SPAN_PORT": _plug_span("port"),
+            "COPPER_Z": f"{evap_cross_z:.4g} mm",
             "FSHELL_VOLUME": f"{volume:.3f} mm³",
             "FSHELL_BBOX_X": f"{bbox.xmin:.3f} to {bbox.xmax:.3f} mm",
             "FSHELL_BBOX_Y": f"{bbox.ymin:.3f} to {bbox.ymax:.3f} mm",

@@ -181,8 +181,47 @@ def check_project(directory: Path) -> dict:
             transform = np.array([float(v) for v in items[str(record["object_id"])].get("transform").split()])
             placed = vertices @ transform[:9].reshape(3, 3) + transform[9:]
             source = _mesh.read_stl(ROOT / record["stl"])
-            source_vertices, _ = _mesh.merge(source)
+            source_vertices, source_faces = _mesh.merge(source)
             expected = (source_vertices - record["source_center_mm"]) @ np.array(record["build_rotation"]).T + record["translation_mm"]
+            vertex_error = float(np.abs(placed-expected).max()) if placed.shape == expected.shape else float("inf")
+            comparison = "source vertices in order"
+            if record.get("seam_enforcer"):
+                # A seam strip subdivides existing facets. Read its surface independently
+                # of the splitter, including facet interiors as well as new vertices.
+                import trimesh
+                source_mesh = trimesh.Trimesh(source_vertices, source_faces, process=False)
+                embedded_faces = np.array(re.findall(r'<triangle v1="(\d+)" v2="(\d+)" v3="(\d+)"', text), dtype=int)
+                native_vertices = vertices + record["source_center_mm"]
+                probes = np.vstack((native_vertices, native_vertices[embedded_faces].mean(axis=1)))
+                vertex_error = 0.
+                for offset in range(0, len(probes), 4000):
+                    sample = probes[offset:offset+4000]
+                    _, distances, indices = trimesh.proximity.closest_point(source_mesh, sample)
+                    # Long, thin STL facets can lose precision in Gram-matrix
+                    # barycentrics. Project onto their dominant coordinate plane.
+                    tri = source_vertices[source_faces[indices]]
+                    a, b, c = tri[:, 0], tri[:, 1], tri[:, 2]
+                    ab, ac = b-a, c-a
+                    normal = np.cross(ab, ac)
+                    normal /= np.linalg.norm(normal, axis=1)[:, None]
+                    signed = np.einsum("ij,ij->i", sample-a, normal)
+                    projected = sample-signed[:, None]*normal
+                    axes = np.argsort(np.abs(normal), axis=1)[:, :2]
+                    take = lambda values: np.take_along_axis(values, axes, axis=1)
+                    u, v, q = take(ab), take(ac), take(projected-a)
+                    cross = lambda x, y: x[:, 0]*y[:, 1]-x[:, 1]*y[:, 0]
+                    denominator = cross(u, v)
+                    alpha, beta = cross(q, v)/denominator, cross(u, q)/denominator
+                    inside = (alpha >= -1e-10) & (beta >= -1e-10) & (alpha+beta <= 1+1e-10)
+                    edges = []
+                    for left, right in ((a, b), (b, c), (c, a)):
+                        direction = right-left
+                        fraction = np.clip(np.einsum("ij,ij->i", sample-left, direction)/np.einsum("ij,ij->i", direction, direction), 0, 1)
+                        edges.append(np.linalg.norm(sample-left-fraction[:, None]*direction, axis=1))
+                    refined = np.where(inside, np.abs(signed), np.min(edges, axis=0))
+                    distances = np.minimum(distances, refined)
+                    vertex_error = max(vertex_error, float(distances.max()))
+                comparison = "vertices and facet centroids against the source STL surface"
             obj_config = config.find(f"object[@id='{record['object_id']}']")
             subtypes = defaultdict(int)
             for part in obj_config.findall("part"):
@@ -193,7 +232,8 @@ def check_project(directory: Path) -> dict:
             result["objects"].append({
                 "name": record["name"], "vertices": len(vertices),
                 "source_sha256_matches": _mesh.sha256(ROOT / record["stl"]) == record["stl_sha256"],
-                "embedded_vertex_error_mm": float(np.abs(placed - expected).max()) if placed.shape == expected.shape else float("inf"),
+                "embedded_vertex_error_mm": vertex_error, "source_comparison": comparison,
+                "seam_painted_facets": len(re.findall(r'paint_seam="4"', text)),
                 "placed_bounds_mm": [placed.min(axis=0).tolist(), placed.max(axis=0).tolist()],
                 "bed_contact_z_mm": float(placed[:, 2].min()),
                 "blocked_facets": painted, "partially_painted_facets": coded, "parts": dict(subtypes),

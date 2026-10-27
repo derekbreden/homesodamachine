@@ -8,7 +8,7 @@ Design intent and component rationale live in [`/hardware/README.md`](/hardware/
 
 This is a single-session integration procedure: bring a finished cold core and a donor ice maker together at one workspace, open the donor's refrigerant loop, braze the cold core's coil stubs into the donor's loop, vacuum, charge, run up. Half a day of work end-to-end. All multi-day prep work (coil winding, foam pour) happens upstream in [`cold-core.md`](/hardware/assembly/cold-core.md) before this session begins.
 
-In: donor ice maker (verified topology in [`/hardware/reference/ice-maker/README.md`](/hardware/reference/ice-maker/README.md)); a finished cold core (output of [`cold-core.md`](/hardware/assembly/cold-core.md) — wound evaporator coil bonded around the carbonator, coil stubs protruding through the foam-shell's copper-plug exits at [200 mm](PROT_INLET) inlet and [175 mm](PROT_OUTLET) outlet, foam pour fully cured); R-600a refrigerant; argon from the welder cylinder.
+In: donor ice maker (verified topology in [`/hardware/reference/ice-maker/README.md`](/hardware/reference/ice-maker/README.md)); a finished cold core (output of [`cold-core.md`](/hardware/assembly/cold-core.md) — wound evaporator coil bonded around the carbonator, coil stubs protruding through the foam-shell's copper exits at [200 mm](PROT_INLET) inlet and [175 mm](PROT_OUTLET) outlet, foam pour fully cured); R-600a refrigerant; argon from the welder cylinder.
 
 Out: a closed and brazed refrigerant loop, vacuum-tight, charged within [±1 g](RECHARGE_TOL) of target mass, with the cold core's evaporator coil now brazed into the donor's refrigeration cycle. The compressor runs on its first run-up and the suction line drops cold.
 
@@ -27,9 +27,9 @@ procedure — two to Derek, one to the part:
 
 **Hazard B — Residual hydrocarbon at the braze.** After venting, residual R-600a remains dissolved in the compressor oil and pooled in low points of the tubing. Mitigation: flow low-pressure argon (a few psi, *flowing*, not static) through the open loop during the entire loop-open period, sweeping residual fuel out ahead of the heat. The same continuous flow serves as the dry inert blanket that preserves the factory drier's desiccant during the loop-open period (see step 3). The existing welder-side argon cylinder is the source.
 
-**Hazard C — Braze heat conducted back into the printed copper-plug stack.** Both loop joints are brazed on a stub whose other end is a printed **PETG** copper plug ([`printed-parts/cold-core/copper-plugs/`](/hardware/printed-parts/cold-core/copper-plugs/), [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §7) with cured pour foam behind it. PETG's glass transition is [~80 °C](PETG_TG), and the joint is [~92 mm](JOINT_STANDOFF) from the plug face at most — the routed leg `_lines` refrig-3 is the whole of the reach, and it cannot be opened up: the suction leaves the compressor's shell on a tangent line, not a face, so where that leg goes is settled by which tangent the stub stands on and not by how much copper is cut. Copper is the conductor between the two.
+**Hazard C — Braze heat conducted back into the printed shell.** Both loop joints are brazed on a copper stub that passes through the **PET-GF shell**, with foil exit seals and cured pour foam behind it. The joint is [~92 mm](JOINT_STANDOFF) from the shell face at most; its installed routed leg sets that reach. Protect the shell, exit collars and foam from conducted heat before each braze.
 
-*Order-of-magnitude estimate, not a measurement.* Taking 1/4" OD × 0.031" wall copper as a straight fin at k = [380 W/m·K](COPPER_K) with a combined natural-convection-plus-radiation h = [35 W/m²K](FIN_H), the decay length is [86.5 mm](FIN_DECAY) — so a [~700 °C](BRAZE_TEMP) BCuP-5 joint arrives at the plug face around [~235 °C](PLUG_RISE) above ambient. That destroys the plug and chars the foam behind it. The h is a bare-tube-in-still-air figure and the real stub is shorter than a semi-infinite fin, so treat the number as an upper-middle bound — but a plug face at [~255 °C](PLUG_FACE) clears PETG's Tg by [3.2×](TG_MARGIN), and the estimate would have to be wrong by that factor before the plug survived. Mitigation is step 4 — a wet rag on the stub hard against the plug face, kept wet through both brazes, torch aimed away from the core.
+*Order-of-magnitude estimate, not a temperature measurement.* For the 1/4" OD × 0.031" wall copper, k = [380 W/m·K](COPPER_K) and an assumed combined convection/radiation h = [35 W/m²K](FIN_H) give an [86.5 mm](FIN_DECAY) straight-fin decay length. A [~700 °C](BRAZE_TEMP) joint then gives an uncooled shell-exit estimate of [~255 °C](EXIT_TEMP), or [~235 °C](EXIT_RISE) above ambient. The finite routed tube and wet-rag heat sink differ from this model. The estimate establishes the need for heat protection, not a qualified material limit. Use step 4 for each joint and inspect the shell, foil collars and foam boundary afterward.
 
 The in-service hazard — a refrigerant leak post-build into a sealed compartment that contains an ignition source — is owned elsewhere. The compressor's terminal block and clip-on PTC module remain under the R-600a donor's own moulded power-box cover. The cover stays installed while the appliance connects only at the donor assembly's factory-external electrical interface; a missing, cracked, modified, loose, or incorrectly retained cover fails the build. The appliance adds no second sheet-metal shroud, and [`/business/regulatory.md`](/business/regulatory.md) carries the qualification still owed on the retained donor cover against the applicable 60335 enclosure provisions.
 
@@ -42,7 +42,7 @@ Per-unit BOM lives in [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §5 (
 | Item | Source / spec | Notes |
 |---|---|---|
 | Donor ice maker | Generic B0F42MT8JX or Frigidaire EFIC117-SS B07PCZKG94 | Both verified topology |
-| Finished cold core | Output of [`cold-core.md`](/hardware/assembly/cold-core.md) | Wound coil bonded to carbonator, foam-poured, coil stubs protruding through the foam-shell's copper-plug exits — [200 mm](PROT_INLET) inlet, [175 mm](PROT_OUTLET) outlet |
+| Finished cold core | Output of [`cold-core.md`](/hardware/assembly/cold-core.md) | Wound coil bonded to carbonator, foam-poured, coil stubs protruding through the foam-shell's copper exits — [200 mm](PROT_INLET) inlet, [175 mm](PROT_OUTLET) outlet |
 | Drier (spare / contingency only) | Supco SUD8358 + Supco D111 | The factory drier stays in service (see step 3 + harvested README "Filter-drier"); SUD8358 and D111 kept on the shelf as spares for any future loop-open service that requires replacement. Not consumed in this procedure. |
 | R-600a refrigerant | Enviro-Safe B0CGG1WH1N (3-pack + brass charging gauge) | [~40 g](SYSTEM_CHARGE) per system, mass-metered; one 3-can pack covers ~12 recharges |
 | Supco BPV31 bullet-piercing valve | B00DM8J3MI | Single permanent service-access point for the life of the appliance — taps the compressor process tube to vent factory R-600a (step 2), feeds argon during the entire loop-open period (step 3 onward), and serves as the manifold connection for vacuum (step 7) + recharge (step 8). Clamped permanently. |
@@ -62,7 +62,7 @@ Tooling — all committed in [`/hardware/ledger/purchases.md`](/hardware/ledger/
 - **Vacuum pump + gauges:** Orion Motor Tech 4 CFM 1/3 HP single-stage vacuum pump (150 µ ultimate) + Orion Motor Tech HVAC A/C manifold gauge set, 1/4" SAE.
 - **Mass scale:** Smart Weigh Pro digital pocket scale, 2000 g × 0.1 g (well under the [±1 g](RECHARGE_TOL) recharge target).
 - **Brazing heat:** Bernzomatic TS8000 high-intensity torch head + MAP-Pro 3-can kit.
-- **Braze heat protection** for the printed PETG copper plugs (Hazard C): two cotton shop rags and a cup of water, off the bench. Nothing is bought for this and nothing appears in [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) — a soaked rag is a boiling-water clamp on the tube, which pins the plug end near 100 °C for as long as it stays wet, and it is the standard HVAC answer at this standoff. Heat-blocking paste (~$25/tub) is the alternative and is rejected here: it has to be smeared onto and then cleaned off a tube that is about to be brazed dry, and residue on the OD near a phosphorus-fluxing joint is a contamination risk the rag does not carry.
+- **Braze heat protection** for the printed shell exits (Hazard C): two cotton shop rags and a cup of water, off the bench. Nothing is bought for this and nothing appears in [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) — a soaked rag is a boiling-water clamp on the tube, which draws heat from the tube while it remains wet. Heat-blocking paste (~$25/tub) is the alternative and is rejected here: it has to be smeared onto and then cleaned off a tube that is about to be brazed dry, and residue on the OD near a phosphorus-fluxing joint is a contamination risk the rag does not carry.
 - **Filler:** BCuP-5 15 % silver brazing alloy — phosphorus self-fluxes on copper, so every (copper-to-copper) loop joint is brazed **dry, no flux**. Brazing flux is only needed for a dissimilar-metal joint (copper-to-brass/steel), of which the loop has none; flux residue left inside a sealed refrigeration loop is corrosive and can plug the cap tube or drier screen, so it is deliberately omitted.
 - **Copper prep:** 3M Scotch-Brite Maroon General Purpose Hand Pads (cut into strips for ACR copper OD prior to braze).
 - **Argon purge rig:** Uniweld RHP400 CGA-580 regulator (swaps onto the existing argon cylinder already feeding the laser welder) + Joywayus brass 1/4" SAE 45° flare nut (clamps flared 1/4" ACR stub onto RHP400 outlet + HVAC charging hose). No nitrogen cylinder needed.
@@ -102,16 +102,16 @@ With argon flowing through the loop, cut the refrigerant tubing at two points:
 
 The factory finger-plate evaporator (cold plate) and the hot-gas bypass solenoid + bypass line + tee come out. The bonded capillary-tube + suction-line heat-exchanger pair (where they run alongside each other for most of the suction line's length) stays intact on the compressor side.
 
-### 4. Heat-protect the copper-plug exits — before each braze, both times
+### 4. Heat-protect the copper exits — before each braze, both times
 
-Both joints below are brazed on a stub that runs back into a printed PETG plug with cured foam behind it, [~92 mm](JOINT_STANDOFF) away at most (Hazard C). Do this immediately before lighting the torch, and do it again for the second joint — a rag that has already been through one braze is dry.
+Both joints below are brazed on a stub that runs back into a PET-GF shell with cured foam behind it, [~92 mm](JOINT_STANDOFF) away at most (Hazard C). Do this immediately before lighting the torch, and do it again for the second joint — a rag that has already been through one braze is dry.
 
 - Soak a cotton shop rag and wring it so it is heavy with water but not running.
-- Wrap it around the stub **hard against the plug face**, on the core side of the joint, covering as much of the remaining stub as it will reach. The rag is the heat sink; the gap between it and the joint is what the torch has to overcome, so wrap it toward the plug, not toward the joint.
-- Keep it wet for the whole braze. A rag that steams dry has stopped working and the plug starts climbing immediately; re-wet it between passes rather than pushing on.
-- Aim the torch **away from the core** — flame and hot gas off toward the compressor side, never played along the stub toward the plug. The rag answers for what the copper conducts; it does nothing about a flame laid straight onto the plug face.
+- Wrap it around the stub **hard against the shell exit**, on the core side of the joint, covering as much of the remaining stub as it will reach. The rag is the heat sink; the gap between it and the joint is what the torch has to overcome, so wrap it toward the shell exit, not toward the joint.
+- Keep it wet for the whole braze. A rag that steams dry has stopped working and the shell exit starts climbing immediately; re-wet it between passes rather than pushing on.
+- Aim the torch **away from the core** — flame and hot gas off toward the compressor side, never played along the stub toward the shell exit. The rag answers for what the copper conducts; it does nothing about a flame laid straight onto the shell exit.
 
-After each braze, before moving on: look at the plug face. Any gloss, sag, dimpling, or smell of scorched foam means the plug is compromised — it is a sealing surface and a foam boundary, and it is not repairable in place.
+After each braze, before moving on: look at the shell exit. Any gloss, sag, dimpling, or smell of scorched foam means the shell exit is compromised — it is a sealing surface and a foam boundary, and it is not repairable in place.
 
 ### 5. Tie in the suction line
 
@@ -154,7 +154,7 @@ and re-charged (step 8). Field-repair-in-place with the charge still in is not t
 A finished integrated refrigerant loop:
 
 - Cold core's coil stubs brazed into the donor's loop (suction-line tie-in + cap-tube pinch-swage tie-in)
-- Both printed copper-plug faces unmarked — no gloss, sag or dimpling — and no scorch smell off the foam behind them (Hazard C)
+- Both printed shell exits unmarked — no gloss, sag or dimpling — and no scorch smell off the foam behind them (Hazard C)
 - Vacuum-tight (≤[500 microns](VACUUM_TARGET), no rise over [15 min](VACUUM_HOLD) isolated)
 - Charged to within [±1 g](RECHARGE_TOL) of target mass
 - No detectable leaks at any joint

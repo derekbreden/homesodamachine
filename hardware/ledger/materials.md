@@ -36,7 +36,7 @@ build and purchasing records.
 
 Names describe the supplied part and its present purpose. Construction methods,
 scan provenance and fabrication instructions belong in its documentation. A
-sealing thimble has a cylindrical wall and a cap; a copper-slot cover is a plastic
+sealing thimble has a cylindrical wall and a cap; a tube restraint is a plastic
 cover around a copper tube. Identification plates and collars are named for the
 port or line they mark. Fitted tubes are named for their circuit and connection
 role, with stock details where useful.
@@ -45,7 +45,6 @@ role, with stock details where useful.
 | --- | --- | --- |
 | HSM-000268 | Faucet lever · PET-GF | Shared faucet part with its print stock |
 | HSM-000090 | Faucet tube sealing thimble · TPU 85A | Physical form, sealing role and stock |
-| HSM-000023 | Cold-core copper-slot covers | Covers supplied as a two-piece set |
 | HSM-000277 | Flavor A pump suction flex tube · 1/4 inch black LLDPE | Circuit, connection role and stock |
 | HSM-000331 | PISCO RVFUP1/4-1/4-0.3 preset regulator · CO₂ secondary · 0.3 MPa | Installed manufacturer identity, function and setting |
 

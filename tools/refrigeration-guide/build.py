@@ -26,7 +26,7 @@ SOURCES = [
     "hardware/assembly/enclosure-mechanical.md",
     "hardware/ledger/bom.md",
     "hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.py",
-    "hardware/printed-parts/cold-core/copper-plugs/README.md",
+    "hardware/printed-parts/cold-core/foam-shell/README.md",
     "hardware/printed-parts/refrigeration/fuse-clamp/README.md",
     "hardware/assembly/firmware-and-commissioning.md",
     "firmware/src_appliance/README.md",
@@ -60,7 +60,7 @@ def verify_manual_numbers():
         },
         "refrigerant-loop.figures.json": {
             "UNIT_A_CHARGE":"15 g", "UNIT_B_CHARGE":"23 g", "VACUUM_TARGET":"500 microns",
-            "VACUUM_HOLD":"15 min", "RECHARGE_TOL":"±1 g", "PETG_TG":"~80 °C",
+            "VACUUM_HOLD":"15 min", "RECHARGE_TOL":"±1 g",
             "VOL_CORRECTION":"+5-15 g", "VENT_CLEARANCE":"3 m", "RUN_CURRENT":"~1 A",
             "OFF_TIME":"3-minute", "JOINT_STANDOFF":"~92 mm",
         },
@@ -235,7 +235,7 @@ def fig_lengths(a):
     for x,lab,inside,out in [(28,"INLET",135.5,200),(290,"OUTLET",254.6,175)]:
         a.line(x,240,x+190,240,COPPER,8)
         a.rect(x+83,223,13,35,ORANGE,INK)
-        a.label(f"{lab} / plug face is the datum",x,213,10)
+        a.label(f"{lab} / shell exit is the datum",x,213,10)
         a.label(f"{inside:g} mm in shell",x,277,10,BLUE)
         a.label(f"{out:g} mm outside",x+190,277,10,BLUE,align="right")
     a.label("length picture is schematic",500,299,8,MUTED,align="right")
@@ -315,10 +315,10 @@ def fig_tails(a):
     a.rect(298,139,15,37,ORANGE,INK)
     a.dim(26,260,63,260)
     a.label("INLET / lower wrap",8,280,10,ORANGE)
-    a.label("200 mm from plug",8,298,10,BLUE)
+    a.label("200 mm from shell",8,298,10,BLUE)
     a.line(398,181,484,181,BLUE,1)
     a.label("OUTLET / upper wrap",338,204,10,COPPER)
-    a.label("175 mm from plug",338,223,10,BLUE)
+    a.label("175 mm from shell",338,223,10,BLUE)
     a.label("One tail per lane",334,74,12)
     a.label("Port lane / inlet",334,96,11,ORANGE)
     a.label("West lane / outlet",334,119,11,COPPER)
@@ -477,7 +477,7 @@ def fig_rag(a):
     for x in [166,184,202]:
         a.line(x,145,x-4,209,BLUE,.8,[3,3])
     a.label("WET RAG",186,128,11,BLUE,align="center")
-    a.label("Hard against the plug face",8,25,12,BLUE)
+    a.label("Hard against the shell exit",8,25,12,BLUE)
     a.line(92,31,150,145,BLUE,1)
     a.rect(270,167,66,20,ORANGE,INK)
     a.shape([(355,95),(425,52),(442,73),(372,112)],INK,INK)
@@ -713,7 +713,7 @@ def fig_record(a):
     a.label("PER-UNIT REFRIGERATION RECORD",47,40,13,BLUE)
     lines=[("Donor / label / actual topology","Pages 2-3"),
            ("Coil / probes / routed protrusions","Pages 4-8"),
-           ("Vent / argon / brazes / plug faces","Pages 10-15"),
+           ("Vent / argon / brazes / shell exits","Pages 10-15"),
            ("Vacuum hold / net charge / leak sweep","Pages 16-19"),
            ("Mount / airflow / controls / load test","Pages 20-25")]
     for i,(lab,pg) in enumerate(lines):
@@ -777,10 +777,10 @@ PAGES = [
 
     ("Route the two exits", "Lower the dressed carbonator into the open shell with one refrigerant tail in each assigned lane.", fig_tails,
      [("Clock by the tails", "The lower/inlet tail takes the port lane. The upper/outlet tail takes the west lane. Avoid torsion where either tail leaves the wrap."),
-      ("Measure from each plug face", "Leave 200 mm inlet and 175 mm outlet outside the plug. Measure the physical routed assembly; do not cut away the in-shell part of an allowance."),
-      ("Handoff to the mold guide", "The copper plugs close their elongated wall slots, with sensor leads protected. Follow the mold guide for pre-pour inspection and cured closure.")],
+      ("Feed through the round holes", "While lowering the core, feed each bare tail from inside through its 7.5 mm hole. Support the copper while forming broad curves; do not use the shell edge as a former."),
+      ("Measure and seal", "Leave 200 mm inlet and 175 mm outlet outside the shell. Reject kinks or flattening; burnish 3M 425 collars around both annuli before the foam pour.")],
      "DONE WHEN", "Both protrusions are recorded and the cured core can be supported with no load on the tube exits.",
-     "cold-core.md §§1,5 / coil_mandrel.py / copper-plugs/README.md", None),
+     "cold-core.md §§1,5 / coil_mandrel.py / foam-shell/README.md", None),
 
     ("Support before teardown", "Remove only the donor casing and supports that prevent access, while keeping the sealed circuit undamaged.", fig_support,
      [("Unplug and identify the leads", "Keep mains isolated. Photograph the factory-external compressor and fan connections. Retain the terminal/PTC cover and its original retention."),
@@ -810,24 +810,24 @@ PAGES = [
      "DONE WHEN", "Both cuts are open with argon flowing out of each; drier, cap tube, helix and bonded pair are at factory length.",
      "refrigerant-loop.md §3 / ice-maker/README.md", RL_DOC),
 
-    ("Wet rag on each stub", "Both joints sit on copper that runs back into a printed PETG plug with cured foam behind it. Protect it before each braze.", fig_rag,
+    ("Wet rag on each stub", "Both joints sit on copper that runs back into a PET-GF shell with cured foam behind it. Protect it before each braze.", fig_rag,
      [("Soak and wring a rag", "Cotton shop rag, heavy with water but not running. Do this immediately before each braze; a rag that has been through one braze is dry."),
-      ("Wrap it hard against the plug", "On the core side of the joint, covering as much of the stub as it reaches. The rag is the heat sink: wrap toward the plug, not the joint."),
-      ("Keep it wet; aim away", "Re-wet it between passes. Aim flame and hot gas away from the core, toward the compressor side, never along the stub toward the plug.")],
-     "CHECK", "After each braze: gloss, sag, dimpling or a scorched-foam smell at the plug face means it is compromised.",
-     "refrigerant-loop.md §4 / copper-plugs/README.md", RL_DOC),
+      ("Wrap it hard against the shell", "On the core side of the joint, covering as much of the stub as it reaches. The rag is the heat sink: wrap toward the shell, not the joint."),
+      ("Keep it wet; aim away", "Re-wet it between passes. Aim flame and hot gas away from the core, toward the compressor side, never along the stub toward the shell.")],
+     "CHECK", "After each braze: gloss, sag, dimpling or a scorched-foam smell at the shell exit means it is compromised.",
+     "refrigerant-loop.md §4 / foam-shell/README.md", RL_DOC),
 
     ("Braze the suction coupling", "Join the upper coil outlet to the factory suction line with an ACR-grade 1/4 in slip coupling, under the flowing argon.", fig_suction,
      [("Bright copper first", "Scotch-Brite both tube ODs and the coupling sockets until bright. Keep grit and swarf out of the bore."),
       ("Stage the joint", "The coil-outlet stub leaves the wall on the west lane at the factory suction cut. Slide the slip coupling over both 1/4 in ends; no adapter."),
       ("Braze dry under argon", "Wet rag on the stub first (page 13). BCuP-5 self-fluxes on copper, so no flux goes into the sealed loop. Flame away from the core.")],
-     "DONE WHEN", "A complete fillet ring at both coupling mouths, argon never interrupted, plug face unmarked.",
+     "DONE WHEN", "A complete fillet ring at both coupling mouths, argon never interrupted, shell exit unmarked.",
      "refrigerant-loop.md §5 / Harris Stay-Silv 15 technical sheet", MANUFACTURERS["harris_filler"]),
 
     ("Pinch-swage the capillary", "No reducer: the 1/4 in coil-inlet stub collapses onto the cap tube and is brazed under the flowing argon.", fig_swage,
      [("Slide the cap tube in", "The cap tube cut on page 12 goes into the coil-inlet stub, which leaves the front wall on the port lane."),
       ("Swage with the Knipex", "Knipex 86 01 180 smooth parallel jaws, flats not bites: squeeze, rotate 60 degrees, squeeze again, until the stub has closed evenly onto the cap tube."),
-      ("Braze dry with a fresh rag", "A fresh wet rag hard against the plug face; page 14's rag is dry. Braze the swaged mouth with no flux, then check the plug face.")],
+      ("Braze dry with a fresh rag", "A fresh wet rag hard against the shell exit; page 14's rag is dry. Braze the swaged mouth with no flux, then check the shell exit.")],
      "CHECK", "The cap tube stays at factory length. If it ever changes substantially, a refrigeration tech recalculates it.",
      "refrigerant-loop.md §6 / ice-maker/README.md", RL_DOC),
 
@@ -909,7 +909,7 @@ PAGES = [
      "refrigerant-loop.md §9 / regulatory.md", RL_DOC),
 
     ("Keep the unit's evidence", "The guide supplies order and pictures; the per-unit record establishes which work and measurements were completed.", fig_record,
-     [("Keep the measured result", "Attach donor labels, coil/probe checks, plug-face checks, the vacuum hold, net charge, the leak sweep and installed control/load results."),
+     [("Keep the measured result", "Attach donor labels, coil/probe checks, shell-exit checks, the vacuum hold, net charge, the leak sweep and installed control/load results."),
       ("Use the written sources", "The footer names the responsible procedure or part reference. The README indexes the local documents."),
       ("Keep this guide manual", "Rebuild it deliberately when its operation changes. The PDFs and source receipt are committed artifacts; the appliance build does not redraw them.")],
      "CHECK", "Open items stay where refrigerant-loop.md lists them; the unit record shows what was measured.",

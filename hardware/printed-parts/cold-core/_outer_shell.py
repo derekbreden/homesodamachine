@@ -10,10 +10,6 @@ import fits
 from _cold_core_interface import (
     attachment_stations,
     outer_shell_wall,
-    copper_slot_wall,
-    port_lane_mid_y,
-    west_lane_mid_y,
-    front_wall_x,
     wall_and_floor_thickness,
     foam_shell_outer_height,
     outer_shell_x_length,
@@ -109,21 +105,10 @@ def build_attachment_bosses(height, oversize=0.0):
 
 
 def build_outer_shell():
-    """Plain standing walls, fixed floor and local copper-cover seating jambs."""
+    """Continuous standing walls, fixed floor and cap attachment bosses."""
     h = foam_shell_outer_height
     shell = _rounded_footprint(h).cut(cavity_plan(wall_and_floor_thickness, h))
 
-    # The continuous inboard flanges seat on a fixed plane. The exterior
-    # clearance also accommodates the foil allowance around the plain casing.
-    from copper_plugs import plug_half_x_outer
-    seat_wall = copper_slot_wall + front_wall_x + outer_shell_x_length/2
-    jamb_stock = cavity_plan(wall_and_floor_thickness, h).cut(
-        cavity_plan(wall_and_floor_thickness, h, wall=seat_wall))
-    for y in (port_lane_mid_y, west_lane_mid_y):
-        clip = make_box((front_wall_x-1.0, front_wall_x+copper_slot_wall+1.0),
-                        (y-plug_half_x_outer, y+plug_half_x_outer),
-                        (wall_and_floor_thickness, h))
-        shell = shell.union(jamb_stock.intersect(clip))
     return shell.union(build_attachment_bosses(h)).unwrap()
 
 

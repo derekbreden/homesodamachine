@@ -21,12 +21,12 @@ welding sheets, with the weld-rotator guide's one-picture-per-step approach.
 | 5 | Wind and remove the coil from the printed mandrel |
 | 6 | Mount the bare-wall probe and calibrated reed bridge; apply foil |
 | 7 | Transfer the coil; bond the suction-end probe |
-| 8 | Route the two tails and measure protrusion from the plug faces |
+| 8 | Route the two tails and measure protrusion from the shell exits |
 | 9 | Isolate power and support the donor during casing removal |
 | 10 | Clamp the BPV31 on the process tube for life and vent the factory charge |
 | 11 | Rig the argon purge to the BPV31 and start low-pressure flow |
 | 12 | Cut the suction line and cap tube at the evaporator; strip the ice-making path |
-| 13 | Wrap a wet rag hard against each plug face before each braze |
+| 13 | Wrap a wet rag hard against each shell exit before each braze |
 | 14 | Braze the suction slip coupling dry under argon |
 | 15 | Pinch-swage the coil-inlet stub onto the cap tube and braze it |
 | 16 | Pull vacuum to 500 microns, then hold isolated with no rise |
@@ -46,7 +46,7 @@ welding sheets, with the weld-rotator guide's one-picture-per-step approach.
 
 - [Cold-core assembly](../assembly/cold-core.md), [handwork](../assembly/handwork.md),
   [coil mandrel](../printed-parts/cold-core/coil-mandrel/coil_mandrel.py) and
-  [copper plugs](../printed-parts/cold-core/copper-plugs/README.md) supply stock,
+  [copper feed-throughs](../printed-parts/cold-core/foam-shell/README.md#copper-feed-throughs) supply stock,
   winding datums, probe placement, tail routing and the foam-work handoff.
 - [Refrigerant loop](../assembly/refrigerant-loop.md) supplies the circuit order,
   the argon purge, the vacuum and recharge targets and the procedure's open items.
