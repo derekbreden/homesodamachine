@@ -36,7 +36,6 @@ sys.path.insert(
     str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"),
 )
 sys.path.insert(0, str(_here.parents[1]))
-sys.path.insert(0, str(_here.parents[1] / "copper-plugs"))
 sys.path.insert(0, str(_here.parents[1] / "coil-mandrel"))
 sys.path.insert(0, str(_hardware / "cut-parts" / "carbonation" / "endcaps-circular"))
 from _cadq_export import export_assembly

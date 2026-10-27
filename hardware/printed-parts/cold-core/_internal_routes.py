@@ -66,7 +66,6 @@ import cadquery as cq
 _here = Path(__file__).resolve()
 sys.path.insert(0, str(_here.parent))
 sys.path.insert(0, str(_here.parent / "reservoir"))
-sys.path.insert(0, str(_here.parent / "copper-plugs"))
 sys.path.insert(0, str(_here.parent / "prv-shroud"))
 sys.path.insert(0, str(_here.parents[2] / "scripts"))
 

@@ -46,7 +46,6 @@ _hw = next(p for p in _here.parents if p.name == "hardware")
 # reach this file without going through `enclosure_assembly`, and they set up their own path.
 for _p in (_hw / "scripts", _here.parent,
            _hw / "printed-parts" / "cold-core",
-           _hw / "printed-parts" / "cold-core" / "copper-plugs",
            _hw / "printed-parts" / "zone-c" / "funnel",
            _hw / "printed-parts" / "enclosure" / "enclosure",
            _hw / "reference" / "compressor",
@@ -86,7 +85,7 @@ import water_split as _split                           # noqa: E402
 import manifold_layout as _ml                           # noqa: E402
 import compressor as _comp                             # noqa: E402
 import condenser_block as _cond                        # noqa: E402
-import copper_plugs as _plugs                          # noqa: E402
+import _copper_ports as _copper                          # noqa: E402
 import gasher_check_valve as _gasher                    # noqa: E402
 import wr1110_regulator as _wr1110                      # noqa: E402
 import _gas_chain                                      # noqa: E402
@@ -149,8 +148,8 @@ STATIONS = {
                       "co2-in": (lambda: _ea_cap("co2-in"), _split.TUBE_D),
                       # The evaporator's two ends are copper, not LLDPE, and they open on
                       # the core's own flanks rather than up its cap columns.
-                      "evap-outlet": (lambda: _plugs.slot_station("evap-outlet"), CU_OD),
-                      "evap-inlet": (lambda: _plugs.slot_station("evap-inlet"), CU_OD)},
+                      "evap-outlet": (lambda: _copper.station("evap-outlet"), CU_OD),
+                      "evap-inlet": (lambda: _copper.station("evap-inlet"), CU_OD)},
     "compressor": {"refrig-suction": (lambda: _comp.stations()["refrig-suction"], CU_OD),
                    "refrig-discharge": (lambda: _comp.stations()["refrig-discharge"], CU_OD)},
     "condenser+fan": {"refrig-outlet": (lambda: _cond.stations()["refrig-outlet"], CU_OD),

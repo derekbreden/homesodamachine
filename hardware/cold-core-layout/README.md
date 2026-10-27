@@ -27,7 +27,6 @@ planes the appliance reads off the stack.
 | carbonator | 5" × 0.065" 316 tube, two 1/4" endcap plates recessed one thickness in, the 1/8" 316L float rod between their blind registers |
 | carbonator fittings | four TAISHER street elbows, one per tapped port; the SV-125 and its shroud on port 4 |
 | pockets | both reservoirs and their caps |
-| wall | the two copper-slot covers, one in each lane slot |
 | lines | the eight `_internal_routes` centrelines — both reservoirs' dip tubes among them — each drawn at the arc its corridor leaves |
 | coil | the wrap as an exact helix on the carbonator's own radius, and both tails to their slot stations |
 | inlet jet | nominal 316 cap, Ø9.5 × 2 mm with a 1/16-inch passage, on the top water elbow's male tip |

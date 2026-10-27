@@ -31,7 +31,7 @@ SOURCES = [
     "hardware/printed-parts/zone-c/funnel/wall-review.json",
     "hardware/assembly/cold-core.md",
     "hardware/printed-parts/cold-core/foam-shell/README.md",
-    "hardware/printed-parts/cold-core/copper-plugs/README.md",
+    "hardware/printed-parts/cold-core/_copper_ports.py",
     "hardware/mechanical-qualification/core-and-faucet-heatsets.json",
     "hardware/printed-parts/cold-core/reservoir/wetted-surface-test.md",
     "hardware/printed-parts/zone-c/funnel-mold/containment-review.json",
@@ -667,29 +667,32 @@ def pages(c):
     finish(c,n,"Cold-core.md step 3; foam-shell/README.md cap pour", "assembly/cold-core.md")
 
     n=20
-    start(c,n,"Close the slots; protect access", "Everything foam will bury is installed, routed and proved before the body pour.", "COLD CORE")
-    def plug_section(a):
-        # Plug section at the wall, cavity on the right.
-        a.rect(188,47,35,249,STEEL)
-        a.rect(222,65,10,207,ORANGE)
-        a.rect(172,49,50,13,ORANGE)
-        a.rect(172,276,50,13,ORANGE)
-        a.label("outside",111,38,12,BLUE,align="center")
-        a.label("foam cavity",331,38,12,BLUE,align="center")
-        a.label("continuous inner lip",315,104,12,ORANGE)
-        a.line(292,100,232,100,ORANGE,.9)
-        a.label("short outer tabs",20,128,11,ORANGE)
-        a.line(141,124,176,59,ORANGE,.9)
-        a.ellipse(175,241,68,38,COPPER,INK)
-        a.arrow(254,12,254,47,ORANGE)
-        a.label("slide down from above",262,320,13,BLUE,"PlexSemi","center")
-        a.label("lower arch over copper / plug top flush with shell",262,343,11,INK,align="center")
-    figure(c,plug_section,height=365)
+    start(c,n,"Seal the copper exits; protect access", "Everything foam will bury is installed, routed and proved before the body pour.", "COLD CORE")
+    def exit_section(a):
+        # Section through the copper and the plain shell wall, cavity on the right.
+        a.rect(191,47,30,104,STEEL)
+        a.rect(191,199,30,97,STEEL)
+        a.rect(38,153,414,44,COPPER,INK)
+        a.rect(185,119,6,112,ORANGE,INK)
+        a.rect(154,147,37,6,ORANGE,INK)
+        a.rect(154,197,37,6,ORANGE,INK)
+        a.label("outside",105,38,12,BLUE,align="center")
+        a.label("foam cavity",342,38,12,BLUE,align="center")
+        a.label("plain 2.38 mm wall",316,94,12)
+        a.line(302,98,213,106,INK,.9)
+        a.label("7.5 mm round hole",316,125,12)
+        a.line(303,130,222,151,INK,.9)
+        a.label("6.35 mm OD copper",316,251,12,COPPER)
+        a.line(303,244,277,193,COPPER,.9)
+        a.label("burnished 3M 425 collar",14,267,12,ORANGE)
+        a.line(161,259,185,226,ORANGE,.9)
+        a.label("Seal the annulus before pouring foam",262,333,12,BLUE,align="center")
+    figure(c,exit_section,height=365)
     actions(c,[("Prove the buried work", "Carbonator and inlet jet qualified; coil/probes/reeds and fitted fluid lines checked. Tug-test inaccessible push fittings before encapsulating."),
-               ("Seat both copper plugs", "Continuous lip faces the foam cavity. Shell wall lies between that lip and the short outside tabs. Lower arch seats over the copper."),
+               ("Form, inspect and seal the exits", "Feed bare tails through their holes while lowering the core. Support broad bends in the copper; reject kinks or flattening. Burnish foil collars to clean copper and shell around both annuli."),
                ("Keep service paths open", "Protect reservoir vent/fill openings, top conduits, relief outlet and both reed channels. Reed columns are installed after body foam cure.")],y=534)
     gate(c,"Probe and access check", "Both probes and lead entries need foam coverage without a trapped void. Do not bury an unproved sensor, line, relief path or fitting.")
-    finish(c,n,"Cold-core.md steps 1, 5-6; copper-plugs/README.md", "assembly/cold-core.md")
+    finish(c,n,"Cold-core.md steps 1, 5-6; foam-shell/README.md", "assembly/cold-core.md")
 
     n=21
     start(c,n,"Pour through the open top", "The body foam fills around the sealed carbonator and reservoirs; its connected zone reaches the coil.", "COLD CORE")
@@ -734,7 +737,7 @@ def pages(c):
         a.line(120,310,148,310,BLUE,.8)
         a.label("BOTTOM / mouth down",266,376,13,BLUE,"PlexSemi","center")
     figure(c,cold_close,height=400)
-    actions(c,[("Trim only cured overflow", "Trim to the plate, never into a cradle. Protect tubes/leads, plug webs, cradles and insert hosts; clear all conduits, vents and reed channels."),
+    actions(c,[("Trim only cured overflow", "Trim to the plate, never into a cradle. Protect tubes/leads, copper exits, cradles and insert hosts; clear all conduits, vents and reed channels."),
                ("Install reeds, gaskets and caps", "Drop reservoir reed columns in, route their cables out the top, and lay both TPU gaskets. Top cap rotates 180 deg; bottom mouth faces down."),
                ("Close and inspect", "Ten M3 x 25 screws per end. Identify top orientation by deck/cradle features. Check open paths, gasket seating and recessed screw heads.")],y=561)
     gate(c,"Finished", "Both caps and body cured; exposed foam flush; probes wetted in with no void; channels and relief path open.",y=686,tone=BLUE)

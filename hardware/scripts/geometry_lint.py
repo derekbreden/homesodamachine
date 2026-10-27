@@ -200,13 +200,12 @@ PRINT_UP = {"enclosure-back-top": -1.0, "funnel-mold/core": -1.0,
 #: bed on their foot with the -Y edge lifted by `faucet_shell.print_base_build_rot`, which
 #: refresh_print_project.py and prepare_vent_prints.py apply as a negative turn about X; these
 #: entries mirror it. The nameplate, the DATA plate and the rear labels bed on their backs, the
-#: Y0 plane, so their print's up is the box's +Y. The copper-slot covers bed on their +Y interior
-#: flange. `ledge` reads it. These follow the poses `trial-preparation/pieces.json` and
+#: Y0 plane, so their print's up is the box's +Y. `ledge` reads it. These follow the poses
+#: `trial-preparation/pieces.json` and
 #: `trial-preparation/labels.py` print them in.
 PRINT_TILT_X = {"faucet-shell-base": -15.0, "industrial-shell-base": -15.0,
                 "nameplate-001": 90.0, "data-ring": 90.0,
                 "foam-cap/reservoir-a-fore-snap-cap": 90.0,
-                "copper-plugs/copper-plug-port": -90.0, "copper-plugs/copper-plug-west": -90.0,
                 **{f"rear-identification/rear-label-{which}": 90.0
                    for which in ("water", "co2", "drain", "carb", "flavor-a", "flavor-b")}}
 

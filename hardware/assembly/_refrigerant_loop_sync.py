@@ -63,14 +63,9 @@ vent_ignition_clearance_m = 3           # min distance to any ignition source
 
 sf76e_open_temp_c = 77                  # BOJACK SF76E SEFUSE open temp
 
-# ─── Brazing heat vs. the printed copper-plug stack ───────────────────
-# The copper leaves the core through PRINTED PETG plugs and the joints are
-# brazed a few tube-diameters off their faces, so the plug is downstream of a
-# ~700 °C torch on a conductor. What that costs is estimated, not measured:
-# a straight-fin decay length L = sqrt(k·A / (h·P)) on 1/4" OD × 0.031" wall
-# copper, then the plug face read at exp(−x/L) of the joint's rise.
+# ─── Conducted heat at the printed shell's copper exits ──────────────
+# Straight-fin estimate for the uncooled copper; no material qualification.
 
-petg_glass_transition_c = 80            # PETG Tg — the plug's own ceiling
 braze_joint_temp_c = 700                # BCuP-5 working temperature
 ambient_c = 20                          # shop ambient the rise is over
 copper_k_w_mk = 380                     # 1/4" ACR copper conductivity
@@ -84,12 +79,9 @@ _tube_id_mm = _tube_od_mm - 2 * _tube_wall_mm
 _area_m2 = math.pi / 4 * (_tube_od_mm ** 2 - _tube_id_mm ** 2) / 1e6
 _perimeter_m = math.pi * _tube_od_mm / 1e3
 fin_decay_mm = math.sqrt(copper_k_w_mk * _area_m2 / (fin_h_w_m2k * _perimeter_m)) * 1e3
-plug_face_rise_c = ((braze_joint_temp_c - ambient_c)
+exit_rise_c = ((braze_joint_temp_c - ambient_c)
                     * math.exp(-joint_standoff_mm / fin_decay_mm))
-# What that leaves the plug's own face standing at, and how far over its Tg that is. The
-# estimate has to be wrong by the whole of that factor before the plug survives the torch.
-plug_face_c = ambient_c + plug_face_rise_c
-tg_margin = plug_face_c / petg_glass_transition_c
+exit_temp_c = ambient_c + exit_rise_c
 
 
 def main():
@@ -120,16 +112,14 @@ def main():
         # Coil tie-in stubs (coil_mandrel.py) — the PROTRUDING half of each allowance.
         "PROT_INLET": f"{_coil_mandrel_gen.stub_protrusion['inlet']:.4g} mm",
         "PROT_OUTLET": f"{_coil_mandrel_gen.stub_protrusion['outlet']:.4g} mm",
-        # Brazing heat against the printed copper-plug stack.
-        "PETG_TG": f"~{petg_glass_transition_c:.4g} °C",
+        # Conducted heat at the printed shell exits.
         "BRAZE_TEMP": f"~{braze_joint_temp_c:.4g} °C",
         "COPPER_K": f"{copper_k_w_mk:.4g} W/m·K",
         "FIN_H": f"{fin_h_w_m2k:.4g} W/m²K",
         "JOINT_STANDOFF": f"~{joint_standoff_mm:.4g} mm",
         "FIN_DECAY": f"{fin_decay_mm:.1f} mm",
-        "PLUG_RISE": f"~{plug_face_rise_c:.0f} °C",
-        "PLUG_FACE": f"~{plug_face_c:.0f} °C",
-        "TG_MARGIN": f"{tg_margin:.1f}×",
+        "EXIT_RISE": f"~{exit_rise_c:.0f} °C",
+        "EXIT_TEMP": f"~{exit_temp_c:.0f} °C",
     }
 
     substitute_md(

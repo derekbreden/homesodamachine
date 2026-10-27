@@ -490,17 +490,164 @@
           "reason": "Retain 15% gyroid in thicker regions."
         },
         "enable_support": {
+          "value": "1",
+          "reason": "Tree(auto)/Default decides support at the round copper passages and blind insert roofs; native support placement is reviewed for this production geometry."
+        },
+        "seam_position": {
+          "value": "back",
+          "reason": "Selected faucet A2 contour seam package, transferred intact to the production shell."
+        },
+        "override_filament_scarf_seam_setting": {
+          "value": "1",
+          "reason": "Selected faucet A2 contour seam package, transferred intact to the production shell."
+        },
+        "seam_slope_conditional": {
+          "value": "1",
+          "reason": "Selected faucet A2 contour seam package, transferred intact to the production shell."
+        },
+        "scarf_angle_threshold": {
+          "value": "155",
+          "reason": "Selected faucet A2 contour seam package, transferred intact to the production shell."
+        },
+        "seam_slope_entire_loop": {
           "value": "0",
-          "reason": "The upright shell and floor-down cap pieces retain their support-free recipe."
+          "reason": "Selected faucet A2 contour seam package, transferred intact to the production shell."
+        },
+        "seam_slope_steps": {
+          "value": "10",
+          "reason": "Selected faucet A2 contour seam package, transferred intact to the production shell."
+        },
+        "seam_slope_inner_walls": {
+          "value": "1",
+          "reason": "Selected faucet A2 contour seam package, transferred intact to the production shell."
+        },
+        "seam_slope_min_length": {
+          "value": "60",
+          "reason": "Selected faucet A2 contour seam package, transferred intact to the production shell."
+        },
+        "seam_slope_start_height": {
+          "value": "10%",
+          "reason": "Selected faucet A2 contour seam package, transferred intact to the production shell."
+        },
+        "seam_slope_type": {
+          "value": "external",
+          "reason": "Selected faucet A2 contour seam package, transferred intact to the production shell."
+        },
+        "seam_gap": {
+          "value": "150%",
+          "reason": "Selected faucet A2 contour seam package, transferred intact to the production shell."
+        },
+        "seam_slope_gap": {
+          "value": "0%",
+          "reason": "Selected faucet A2 contour seam package, transferred intact to the production shell."
+        },
+        "filament_wipe": {
+          "value": [
+            "0",
+            "0",
+            "0"
+          ],
+          "reason": "Retain the selected faucet wipe-off treatment at all active filament variants."
+        },
+        "filament_wipe_distance": {
+          "value": [
+            "0",
+            "0",
+            "0"
+          ],
+          "reason": "Retain the selected faucet wipe-off treatment at all active filament variants."
+        },
+        "outer_wall_speed": {
+          "value": [
+            "100",
+            "100",
+            "100",
+            "100",
+            "100"
+          ],
+          "reason": "Full-height production shell: gentler deposition and motion through the continuous 2.38 mm walls."
+        },
+        "inner_wall_speed": {
+          "value": [
+            "150",
+            "150",
+            "150",
+            "150",
+            "150"
+          ],
+          "reason": "Full-height production shell: gentler deposition and motion through the continuous 2.38 mm walls."
+        },
+        "outer_wall_acceleration": {
+          "value": [
+            "1500",
+            "1500",
+            "1500",
+            "1500",
+            "1500"
+          ],
+          "reason": "Full-height production shell: gentler deposition and motion through the continuous 2.38 mm walls."
+        },
+        "inner_wall_acceleration": {
+          "value": [
+            "3000",
+            "3000",
+            "3000",
+            "3000",
+            "3000"
+          ],
+          "reason": "Full-height production shell: gentler deposition and motion through the continuous 2.38 mm walls."
+        },
+        "default_acceleration": {
+          "value": [
+            "3000",
+            "3000",
+            "3000",
+            "3000",
+            "3000"
+          ],
+          "reason": "Full-height production shell: gentler deposition and motion through the continuous 2.38 mm walls."
+        },
+        "travel_acceleration": {
+          "value": [
+            "5000",
+            "5000",
+            "5000",
+            "5000",
+            "5000"
+          ],
+          "reason": "Full-height production shell: gentler deposition and motion through the continuous 2.38 mm walls."
+        },
+        "support_type": {
+          "value": "tree(auto)",
+          "reason": "Tree(auto)/Default decides support at the round copper passages and blind insert roofs; native support placement is reviewed for this production geometry."
+        },
+        "support_style": {
+          "value": "default",
+          "reason": "Tree(auto)/Default decides support at the round copper passages and blind insert roofs; native support placement is reviewed for this production geometry."
+        },
+        "filament_density": {
+          "value": [
+            "1.43"
+          ],
+          "reason": "Polymaker Fiberon PET-GF15 TDS density is 1.43 g/cm3; this corrects feed-mass and cost reporting without changing extrusion volume. https://fiberon.polymaker.com/wp-content/uploads/TDS_FIBERON-PET-GF15_V1.0_EN.pdf"
         }
       },
       "plate_border_mm": 20.0,
       "parts": [
         {
-          "stl": "hardware/printed-parts/cold-core/foam-shell/foam-shell.stl"
+          "stl": "hardware/printed-parts/cold-core/foam-shell/foam-shell.stl",
+          "seam_enforcer": {
+            "axis": "x",
+            "center_mm": 60.0,
+            "half_width_mm": 0.25,
+            "face_axis": "y",
+            "face_coordinate_mm": -90.2,
+            "face_sign": -1,
+            "reason": "Start the 60 mm scarf on an uninterrupted long-wall span, clear of the X40 and X131.5 insert bosses and all port openings."
+          }
         }
       ],
-      "pose_reason": "As exported: the floor on the bed; supports off as the shell's own recipe sets (foam-shell/README.md, Printer / profile)."
+      "pose_reason": "Floor on the bed; the production shell retains its native upright pose. Tree(auto)/Default, localized PET-GF cooling and the explicitly placed A2 scarf are saved in this entry."
     },
     "foam-cap-bottom": {
       "printer": "Mark2",
@@ -694,7 +841,10 @@
           "stl": "hardware/printed-parts/cold-core/foam-cap/reservoir-a-fore-snap-cap.stl",
           "pose": {
             "turns": [
-              ["x", 90]
+              [
+                "x",
+                90
+              ]
             ]
           }
         }
@@ -955,30 +1105,6 @@
       "spacing_mm": 10,
       "parts": [
         {
-          "stl": "hardware/printed-parts/cold-core/copper-plugs/copper-plug-port.stl",
-          "name": "copper-plug-port",
-          "pose": {
-            "turns": [
-              [
-                "x",
-                -90
-              ]
-            ]
-          }
-        },
-        {
-          "stl": "hardware/printed-parts/cold-core/copper-plugs/copper-plug-west.stl",
-          "name": "copper-plug-west",
-          "pose": {
-            "turns": [
-              [
-                "x",
-                -90
-              ]
-            ]
-          }
-        },
-        {
           "stl": "hardware/printed-parts/cold-core/prv-shroud/prv-shroud.stl",
           "pose": {
             "turns": [
@@ -1012,7 +1138,7 @@
           }
         }
       ],
-      "pose_reason": "Copper covers: the continuous interior flange (+Y, 1,583 mm2) flat on the bed (copper-plugs/README.md). PRV shroud: the closed cap on the bed, the cavity opening upward (prv-shroud/README.md). Reed bridge: the outer convex face down (reed-bridge/README.md). Fuse clamp: on its side, the swept profile face (refrigeration/fuse-clamp/README.md)."
+      "pose_reason": "PRV shroud: the closed cap on the bed, the cavity opening upward (prv-shroud/README.md). Reed bridge: the outer convex face down (reed-bridge/README.md). Fuse clamp: on its side, the swept profile face (refrigeration/fuse-clamp/README.md)."
     },
     "factory-petg": {
       "printer": "Mark1",

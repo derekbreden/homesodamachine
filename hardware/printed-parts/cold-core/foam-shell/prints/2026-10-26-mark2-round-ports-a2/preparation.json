@@ -1,0 +1,54 @@
+{
+  "status": "prepared; not submitted to printer",
+  "part": "full production cold-core shell",
+  "printer": "Mark2",
+  "hotend": "fixed left hardened 0.4 mm Standard",
+  "material": "black Polymaker Fiberon PET-GF15",
+  "profile": "hardware/printed-parts/petgf.3mf",
+  "profile_sha256": "45c16e8c8517e0a205107d7b9f7412d013f51a8de7ecf86125cc940079d37ed0",
+  "source_stl": "hardware/printed-parts/cold-core/foam-shell/foam-shell.stl",
+  "source_stl_sha256": "8439f508969e98b72daa28e6231ea93bc9ac3d28841b7f797d72cf9b38f91995",
+  "source_step_sha256": "1361297fddda44405aa78c345c7c94ab32bd9efe45c4f5bb8c2bbdcdf0c99de5",
+  "archive": ".cache/prints/2026-10-26-cold-core-production/final-slice/2026-10-26-foam-shell-mark2-53af0b65/2026-10-26-foam-shell-mark2-53af0b65.gcode.3mf",
+  "archive_sha256": "b08e84852254a382e2aba91014fca7222d1ddb9e2b49160eb9be0caec9fd93c4",
+  "editable_project": "cold-core-shell-mark2.3mf",
+  "editable_project_sha256": "bf05934a8c511c371f3e94912f6cad0bf7705ea1ca2d33817550988b5081751d",
+  "requested_user_z_trim_mm": 0.04,
+  "emitted_textured_g29_1_z_mm": 0.02,
+  "native_slice": {
+    "estimated_total_seconds": 113835.0625,
+    "estimated_total_hours": 31.620850694444446,
+    "estimated_filament_grams": 1449.8621826171875,
+    "layers": 889,
+    "generated_support_bodies": 0,
+    "saved_profile_density_g_cm3": 1.43
+  },
+  "geometry": {
+    "wall_mm": 2.38,
+    "floor_mm": 2,
+    "size_mm": [
+      282.4,
+      180.4,
+      213.4
+    ],
+    "copper_hole_diameter_mm": 7.5,
+    "nominal_copper_od_mm": 6.35,
+    "copper_axes_native_mm": [
+      [
+        -141.5,
+        -77.5,
+        28.425
+      ],
+      [
+        -141.5,
+        77.5,
+        28.425
+      ]
+    ]
+  },
+  "seam_reference": "hardware/printed-parts/faucet/industrial/finish-selection.json",
+  "review": "native-review.json",
+  "path_review": "wall-path-review.json",
+  "geometry_review": "geometry-review.json",
+  "physical_acceptance": "Inspect the full shell finish, integrity, retained fits and copper insertion before assembly; no completed physical result is recorded by this preparation."
+}

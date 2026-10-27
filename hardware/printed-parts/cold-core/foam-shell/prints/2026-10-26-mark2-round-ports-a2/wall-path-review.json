@@ -1,0 +1,103 @@
+{
+  "archive": ".cache/prints/2026-10-26-cold-core-production/final-slice/2026-10-26-foam-shell-mark2-53af0b65/2026-10-26-foam-shell-mark2-53af0b65.gcode.3mf",
+  "archive_sha256": "b08e84852254a382e2aba91014fca7222d1ddb9e2b49160eb9be0caec9fd93c4",
+  "exterior_layers": 889,
+  "scarf_layers": 888,
+  "ordinary_exterior_layers": [
+    1
+  ],
+  "scarf_start_x_range_mm": [
+    60.00399999999999,
+    60.256
+  ],
+  "scarf_start_y_range_mm": [
+    -89.99,
+    -89.987
+  ],
+  "scarf_ramp_length_range_mm": [
+    59.99899999999997,
+    60.00000013333336
+  ],
+  "part_wipe_sequences": 0,
+  "upper_short_inner_loops_at_former_slot_corners": [],
+  "ordinary_wall_bead_centers_y_mm_at_x0_z100_28": [
+    -89.98931700061709,
+    -89.60563402798657,
+    -89.20731702569837,
+    -88.812,
+    -88.414,
+    -88.03
+  ],
+  "ordinary_wall_bead_count": 6,
+  "settings": {
+    "default_acceleration": [
+      "3000",
+      "3000",
+      "3000",
+      "3000",
+      "3000"
+    ],
+    "enable_support": "1",
+    "filament_wipe": [
+      "0",
+      "0",
+      "0"
+    ],
+    "filament_wipe_distance": [
+      "0",
+      "0",
+      "0"
+    ],
+    "inner_wall_acceleration": [
+      "3000",
+      "3000",
+      "3000",
+      "3000",
+      "3000"
+    ],
+    "inner_wall_speed": [
+      "150",
+      "150",
+      "150",
+      "150",
+      "150"
+    ],
+    "outer_wall_acceleration": [
+      "1500",
+      "1500",
+      "1500",
+      "1500",
+      "1500"
+    ],
+    "outer_wall_speed": [
+      "100",
+      "100",
+      "100",
+      "100",
+      "100"
+    ],
+    "override_filament_scarf_seam_setting": "1",
+    "seam_gap": "150%",
+    "seam_placement_away_from_overhangs": "0",
+    "seam_position": "back",
+    "seam_slope_conditional": "1",
+    "seam_slope_entire_loop": "0",
+    "seam_slope_gap": "0%",
+    "seam_slope_inner_walls": "1",
+    "seam_slope_min_length": "60",
+    "seam_slope_start_height": "10%",
+    "seam_slope_steps": "10",
+    "seam_slope_type": "external",
+    "support_style": "default",
+    "support_type": "tree(auto)",
+    "travel_acceleration": [
+      "5000",
+      "5000",
+      "5000",
+      "5000",
+      "5000"
+    ]
+  },
+  "scope": "Commanded paths. No claim about the unprinted part's physical finish or assembled copper insertion.",
+  "metadata_only_reslice_review": "metadata-review.json"
+}
