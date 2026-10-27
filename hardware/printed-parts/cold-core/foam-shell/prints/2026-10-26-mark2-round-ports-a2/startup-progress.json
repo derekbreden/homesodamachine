@@ -1,0 +1,31 @@
+{
+  "observed_at": "2026-10-27T05:56:58.854684+00:00",
+  "job_id": "1379343230",
+  "subtask_name": "cold-core-shell-round-ports-mark2-2026-10-27.gcode.3mf",
+  "gcode_state": "RUNNING",
+  "gcode_file_prepare_percent": "100",
+  "mc_print_stage": "2",
+  "mc_print_sub_stage": 0,
+  "upload": {
+    "file_size": 0,
+    "finish_size": 0,
+    "message": "Good",
+    "oss_url": "",
+    "progress": 0,
+    "sequence_id": "0903",
+    "speed": 0,
+    "status": "idle",
+    "task_id": "",
+    "time_remaining": 0,
+    "trouble_id": ""
+  },
+  "print_error": 0,
+  "hms": [],
+  "nozzle_temper": 200.0,
+  "nozzle_target_temper": 200.0,
+  "bed_temper": 45.0,
+  "bed_target_temper": 45.0,
+  "layer_num": 0,
+  "total_layer_num": 889,
+  "mc_remaining_time": 1897
+}

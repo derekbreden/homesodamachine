@@ -1,0 +1,51 @@
+{
+  "printer": "Mark2",
+  "observed_at": "2026-10-27T05:54:33.303368+00:00",
+  "archive": {
+    "name": "cold-core-shell-round-ports-mark2-2026-10-27.gcode.3mf",
+    "sha256": "b08e84852254a382e2aba91014fca7222d1ddb9e2b49160eb9be0caec9fd93c4",
+    "gcode_sha256": "1e53d5329495534320b70031d799e69361df4fc7b9641b902376665cae402c8b",
+    "slots": {
+      "1": {
+        "type": "PET-CF",
+        "colour": "161616"
+      }
+    },
+    "objects": [
+      "foam-shell"
+    ]
+  },
+  "printer_task_id": "1379343230",
+  "gcode_state": "PREPARE",
+  "subtask_name": "cold-core-shell-round-ports-mark2-2026-10-27.gcode.3mf",
+  "print_error": 0,
+  "hms": [],
+  "layer_num": 107,
+  "total_layer_num": 107,
+  "mc_remaining_time": 0,
+  "accepted_observed_at_central": "2026-10-27T00:54:33.303368-05:00",
+  "timestamp_scope": "Fresh active task readback after SUCCESS acknowledgment; conservative start-spacing timestamp.",
+  "options": {
+    "Timelapse": "On",
+    "Auto bed leveling": "On",
+    "Flow dynamic calibration": "Auto",
+    "Nozzle Offset Calibration": "Auto"
+  },
+  "material": "black Polymaker Fiberon PET-GF15; external spool 254, printer PET-CF #161616",
+  "nozzle": "fixed left hardened 0.4 mm Standard",
+  "source_archive": ".cache/prints/2026-10-26-cold-core-production/final-slice/2026-10-26-foam-shell-mark2-53af0b65/2026-10-26-foam-shell-mark2-53af0b65.gcode.3mf",
+  "archive_repackaged": false,
+  "retry_packaging": "Fresh filename and import, identical archive bytes; 20-second settling wait before one Send.",
+  "initial_rejection": "rejected-send.json",
+  "shared_circuit": {
+    "other_printer": "Mark1",
+    "other_job_id": "1379263645",
+    "other_accepted_at_utc": "2026-10-27T04:52:01.265860+00:00",
+    "other_current_job_matches_preflight": true,
+    "seconds_since_other_acceptance": 3752.037508,
+    "minimum_seconds": 180,
+    "no_other_start_resume_before_central": "2026-10-27T00:57:33.303368-05:00"
+  },
+  "native_estimated_seconds": 113835.0625,
+  "native_estimated_finish_central": "2026-10-28T08:31:48.365868-05:00"
+}
