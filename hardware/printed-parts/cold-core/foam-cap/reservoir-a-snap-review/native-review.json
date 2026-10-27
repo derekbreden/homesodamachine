@@ -66,18 +66,18 @@
     "hardware/printed-parts/cold-core/_reservoir_a_snap.py": "e479806978b4b96211bbd0bf38ecbeb9076939f240c65dfda2ab10e675f7ca58",
     "hardware/printed-parts/cold-core/_reservoir_a_anchors.py": "085cdcdd2abb13a2484c9cb1f3d1213425947718ead939041815ab65c4d92e64",
     "hardware/printed-parts/cold-core/foam-cap/foam_cap.py": "7e980fd5d8c3e72173927724054b5518669cf3fb59ae4e5bc8007582a97f9125",
-    "hardware/manifold-layout/above-core.json": "5f357819e9c3143ff330c02f6890a23c26f106742a329204eabfe76e4797a429",
+    "hardware/manifold-layout/above-core.json": "6b8bb80779f653f3b91f22547fdeb1155f802f63908892f24496a446210a1b40",
     "hardware/reference/ground-ring-stack/ground_ring_stack.py": "9d4b4ca2b5a61f00667412a2f247aca6fd3e4a80e516cdeed0ada0afa659ad73",
     "hardware/wiring/installed/route-overrides.json": "2cb5af09e42c4e2746e6eb7f7ad5e7662105120ad6b2a5d566c943bb57fe132f"
   },
   "artifact_sha256": {
-    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step": "4946b339821f70fcdedfe8a3ddd7e178aa1aa42af094b58ab1cd2044f8dd09b2",
-    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl": "2d141bd3eacb16811c49a6af4ca611a57338e3788155f266d71c7092d95473e1",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step": "baff55a5930fc56db5a6a24ff5d893c8f40dfc8c37d86154560f162c8a06b863",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl": "1fd08504d27f29f06c1f37ff3e270b426482862d6afde3b574c111e2eac952e1",
     "hardware/printed-parts/cold-core/foam-cap/reservoir-a-fore-snap-cap.step": "8f931c6c10b0c4df154cbf35a710f9555edba9a5a434f129805243fb16e05785",
     "hardware/printed-parts/cold-core/foam-cap/reservoir-a-fore-snap-cap.stl": "f20116e8e27b6ff4ce81905e24992838a1d1e5e622f2246fb73f173320cdcfed",
-    "hardware/wiring/enclosure-wiring.json": "3c4e8078358eff56c7bd9911e33f31420ae95c0a8219cb481f65eedb9254e4cc",
-    "hardware/manifold-layout/enclosure-assembly.step": "1774c855ebb9f130aacb9b6dfde17f8e7185b7fa6d9f9b5031cb67a2bc4c5e78",
-    "hardware/cold-core-layout/cold-core-assembly.step": "d14a10768980006f0edd4953cdaa643449f887e093246ba534cab00c6c1f6924"
+    "hardware/wiring/enclosure-wiring.json": "4b9ab48064b679a6f15f455912840a5699f6913d6f31aca53c18b9387059cd39",
+    "hardware/manifold-layout/enclosure-assembly.step": "b8be919c38e7d0690c0f56d0c56095769a7475ae44ccb7ff9c7e3260d313b62d",
+    "hardware/cold-core-layout/cold-core-assembly.step": "b90be74ef4e3ec6881a6ef19c9f5dd4a159dcbba47c25b6282eb7c72fe0621cd"
   },
   "receiver": {
     "valid": true,
@@ -133,7 +133,7 @@
   "exported_lid": {
     "valid": true,
     "solids": 1,
-    "volume_mm3": 293677.05945103057,
+    "volume_mm3": 293824.7938459804,
     "bounds_mm": [
       [
         -141.20000009999998,

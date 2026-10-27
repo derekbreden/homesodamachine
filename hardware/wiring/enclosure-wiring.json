@@ -43762,7 +43762,7 @@
     "Nominal and unlocated terminals remain visible in the graph and manifest; no exact donor termination is invented.",
     "The electrical graph does not qualify grounding, mains isolation, current capacity or energization."
   ],
-  "physical_scene_sha256": "dfcc61fa88a7f88ae66035ecb56fde8f9756d3656559a99afbbcfb9a83db83a1",
+  "physical_scene_sha256": "9b9fed627b60683e29894a763f3cace01ac06a989535a58aec5ad31373a70857",
   "source_sha256": {
     "hardware/wiring/installed/build.py": "28ba31fd5f3081c2073f4e25185173c05dbcb0f0c67a259d6c9ef0b955afc578",
     "hardware/wiring/installed/connections.py": "11528d05f94efb932dd4b9eee07f01578a401fc8bf37ff9d9cab50b3bd058000",
@@ -43776,12 +43776,12 @@
     "hardware/wiring/installed/bundle-routes.json": "fdb751f9de3ce955436239d3bfdd660ad75238c2189adbc011911d727aa6d676",
     "hardware/wiring/installed/connector-map.json": "8986c0f9b7e7394d965af41546f90fd4425f8ccb98a6360db6bbff8ba64a2126",
     "hardware/manifold-layout/above_core.py": "0ad87c7c252ab3cfe803c0f2a63a9374d06d0005591509031328ad6e3203988f",
-    "hardware/manifold-layout/above-core.json": "5f357819e9c3143ff330c02f6890a23c26f106742a329204eabfe76e4797a429",
+    "hardware/manifold-layout/above-core.json": "6b8bb80779f653f3b91f22547fdeb1155f802f63908892f24496a446210a1b40",
     "hardware/manifold-layout/above_core_wiring.py": "aa0f139b4ff3d00fe6bae1a476af1ca4d9d17cd4e08ee8074adf43b4683c62e6",
     "hardware/manifold-layout/enclosure-box.json": "3b8f760a0754d4cad939df7f8ceaf3047a35b3d8e707f602ea6b961548f4129e",
     "hardware/printed-parts/enclosure/enclosure/enclosure.py": "cd318c853b856eba715eb28aeea68bde865588c548eaaa64981a6dd47d56b99a",
     "hardware/printed-parts/enclosure/enclosure/_fixed_pump_mount.py": "465214f98f1930f45a8f79a774db9def71b9070687159f7cad5682781087ca00",
-    "hardware/printed-parts/cold-core/_above_core_mounts.py": "aa773edbc8cbbbef164002c53ccafeedd1110c2abe1aec2bfa57e7dd0759f8af",
+    "hardware/printed-parts/cold-core/_above_core_mounts.py": "553d51a9dcf5f67935b5ef5271684492abb256217f69e79005316932a0b1bcca",
     "hardware/printed-parts/cold-core/_cold_core_interface.py": "39077913173b58987d3ab6c834369feb798e141dc0a3a06cad92321f10790590",
     "hardware/assembly/harnesses/j2.json": "34ef4ac5c41910851100fd36a3f549b2028586440e250d0ebce949c8783c30a5",
     "hardware/assembly/harnesses/j13.json": "ea324cc287dce7e8040ab8d3db355c8b6648cf9737dbd8e5598963eb33a2b7e1"
