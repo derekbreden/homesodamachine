@@ -12,7 +12,6 @@ receive the same applicable allowances; a datum does not waive them.
 | Foam shell, floor down (+Z) | Reservoir guides have 0.25 mm per side. Tube crossings keep their lower envelope and gain 0.25 mm at their crowns. Bottom blind insert pockets gain 0.25 mm depth; top pockets are upward openings. |
 | Foam caps, closed floor on the bed | Pad-to-cup relief and column-to-lid passages have 0.15 mm per side. Conduit bores are vertical. The bottom lid's head pads and their matching cup relief are 0.25 mm taller to back the deeper supported head seats with a full 2 mm plate. The top cup gives that band to its lid, preserving the assembled outer faces. |
 | Top foam lid, plate down (+Z) | Tie tunnels gain 0.25 mm at their opposing floors, preserving the roof and seated body datum. Sideways tube seats gain 0.25 mm at the crown and the post grows equally above it, retaining 3 mm of stock. Upward-open tube and valve seats need no support allowance. |
-| Copper plugs, continuous inboard flange on the bed (+Y face down) | Web sides and both wall-channel faces use 0.25 mm running clearance. The supported exterior retaining tabs carry the additional 0.25 mm on their wall-facing sides; tab thickness remains 1 mm. Copper arches have 0.15 mm radial clearance. |
 | Reservoir body, flat floor down (+Z) | Body guides use the shared running allowance, the floor's underside included. The floor, the walls and the rod boss grow from the bed and have no supported face. |
 | Reservoir cap, exterior face down (−Z) | Screw-head and membrane-pocket supported floors gain 0.25 mm depth. The vent boss grows with its pocket to retain the wall below it. Rod register, fill and draw bores open along the build axis. |
 | PRV shroud, closed cap down (−Z) | Static elbow seat has 0.15 mm radial clearance. The radial vent gains 0.25 mm only toward print-up; the axial cavity opens upward. |
@@ -32,3 +31,5 @@ magnet pocket during the same print; its pocket clearances and insertion pause
 require their own native slice review. The
 [separate PETG-shell bench reference](magnetic-float/petg-bench-reference.md)
 defines the press fits of its retained Aero core and insert.
+
+Copper feed-throughs are Ø7.5 mm through the continuous shell wall, with 0.575 mm radial clearance to nominal 6.35 mm ACR copper.

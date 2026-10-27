@@ -1254,16 +1254,6 @@
             ]
           },
           {
-            "material": "HSM-000023",
-            "quantity": 1,
-            "unit": "set",
-            "bodies": [
-              "copper-plug-west",
-              "copper-plug-port"
-            ],
-            "note": "Two copper-slot covers, one per lane; the west and port models have identical geometry."
-          },
-          {
             "material": "HSM-000024",
             "quantity": 1,
             "unit": "ea",
@@ -2436,30 +2426,6 @@
       "aliases": [
         "foam cap lid bottom",
         "Foam cap lid bottom"
-      ]
-    },
-    {
-      "id": "HSM-000023",
-      "description": "Cold-core copper-slot covers",
-      "kind": "manufactured",
-      "models": [
-        {
-          "file": "printed-parts/cold-core/copper-plugs/copper-plug-west.step"
-        },
-        {
-          "file": "printed-parts/cold-core/copper-plugs/copper-plug-port.step"
-        }
-      ],
-      "documents": [
-        {
-          "title": "Part details",
-          "path": "printed-parts/cold-core/copper-plugs/README.md"
-        }
-      ],
-      "aliases": [
-        "copper plugs",
-        "Cold-core copper-plug stack",
-        "copper-slot covers"
       ]
     },
     {

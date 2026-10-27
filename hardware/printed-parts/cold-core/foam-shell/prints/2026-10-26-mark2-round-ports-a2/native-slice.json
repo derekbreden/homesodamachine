@@ -1,0 +1,71 @@
+{
+  "error_string": "Success.",
+  "export_time": 11071,
+  "layer_height": 0.23999999463558197,
+  "plate_index": 0,
+  "prepare_time": 93,
+  "return_code": 0,
+  "sliced_plates": [
+    {
+      "feature_type_times": {
+        "Bottom surface": 1177.6500244140625,
+        "Bridge": 4604.23486328125,
+        "Custom": 297.4147033691406,
+        "Flush": 15.0,
+        "Gap infill": 359.08111572265625,
+        "Inner wall": 51086.12890625,
+        "Internal solid infill": 4709.21728515625,
+        "Outer wall": 36781.5625,
+        "Overhang wall": 3.2384908199310303,
+        "Sparse infill": 6491.0966796875,
+        "Top surface": 908.5698852539062,
+        "Travel": 7209.42578125,
+        "Undefined": 7207.8564453125
+      },
+      "filament_change_times": 0,
+      "filaments": [
+        {
+          "filament_id": "GFT01",
+          "id": 1,
+          "main_used_g": 1449.8621826171875,
+          "total_used_g": 1449.8621826171875
+        }
+      ],
+      "generate_support_material_time": 5538,
+      "id": 1,
+      "infill_time": 6220,
+      "layer_filament_change": 0,
+      "main_predication": 113509.21875,
+      "make_perimeters_time": 18962,
+      "obj_cached_cnt": 0,
+      "objects": [
+        {
+          "bbox": {
+            "depth": 180.39999389648438,
+            "height": 213.39999389648438,
+            "width": 282.3999938964844,
+            "x": 21.300003051757812,
+            "y": 69.80000305175781,
+            "z": -2.4218138605647255e-10
+          },
+          "id": 5,
+          "name": "foam-shell",
+          "triangle_count": 48892
+        }
+      ],
+      "sliced_time": 46342,
+      "sliced_time_with_cache": 14754,
+      "total_predication": 113835.0625,
+      "triangle_count": 48892,
+      "warning_message": ""
+    }
+  ],
+  "sparse_infill_density": 15.0,
+  "upward_compatible_machine": [
+    "Bambu Lab H2S 0.4 nozzle",
+    "Bambu Lab H2D 0.4 nozzle",
+    "Bambu Lab H2D Pro 0.4 nozzle",
+    "Bambu Lab A2L 0.4 nozzle"
+  ],
+  "wall_loops": 3
+}

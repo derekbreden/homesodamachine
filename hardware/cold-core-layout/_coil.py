@@ -20,7 +20,7 @@ plane. Standing it up on the shell's Z, `x → y` and `z → −x`. `_map_azimut
 mandrel struck is the wrap count drawn here.
 
 WHERE A TAIL GOES after the wrap: radially clear of the helix, DOWN its own column, onto its
-lane at the height the wall lets it cross, and out. `copper_plugs.slot_station` is where each
+lane at the height the wall lets it cross, and out. `_copper_ports.station` is where each
 crosses — the inlet's on the port lane, the outlet's on the west — and both stand at
 `evap_cross_z`, well under the heights their wraps leave at. Which column each one falls down
 is `FALL_IN_LANE`, and the two flanks answer differently.
@@ -37,13 +37,13 @@ import cadquery as cq
 _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
 _cold = _hw / "printed-parts" / "cold-core"
-for _p in (_hw / "scripts", _cold, _cold / "coil-mandrel", _cold / "copper-plugs",
+for _p in (_hw / "scripts", _cold, _cold / "coil-mandrel",
            _cold / "reed-bridge", _here.parent):
     if str(_p) not in sys.path:
         sys.path.insert(0, str(_p))
 
 import coil_mandrel as _mandrel                          # noqa: E402
-import copper_plugs as _plugs                            # noqa: E402
+import _copper_ports as _copper                            # noqa: E402
 import reed_bridge as _bridge                            # noqa: E402
 from _cold_core_interface import (                       # noqa: E402
     evap_tail_high_z,
@@ -238,7 +238,7 @@ def gap_z_near(azimuth_deg: float, target_z: float) -> float:
 #
 # A lane is one bore wide, so a run standing in one at every storey between its wrap and its
 # station is a wall to anything crossing there. The PORT lane HAS such a crossing — the PRV
-# vent, one pitch over this very copper (`copper_plugs.columns`) — so the inlet falls at the
+# vent, one pitch over this very copper (`_copper_ports.stations()`) — so the inlet falls at the
 # standoff radius it already turned out to and joins the lane only at the height it crosses
 # the wall, where it is one storey among the others.
 #
@@ -257,7 +257,7 @@ def tail_points(which: str) -> list:
         az, z0, station = AZ_IN, evap_tail_low_z, "evap-inlet"
     else:
         az, z0, station = AZ_OUT, evap_tail_high_z, "evap-outlet"
-    (wall_x, lane_y, cross_z), _axis = _plugs.slot_station(station)
+    (wall_x, lane_y, cross_z), _axis = _copper.station(station)
 
     start = _at(az, z0)
     # Radially out of the wrap far enough to turn in, then down its own column, then onto the

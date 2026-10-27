@@ -94,8 +94,9 @@ PETGF_CARRY = (_CAP_PETG * _RHO_PETG) / (_CAP_PETGF * _RHO_PETGF)
 # five are labelled est. in the ledger. Faucet and float read native slice durations.
 _BULK_PETG = round(MEASURED[2] / MEASURED[1], 1)
 RATES = {
+    "shell": None, # Exact full-shell duration from the production native slice.
     "cover": None,  # Reference solid PETG slice rate; current geometry is unsliced.
-    "bulk":  round(_BULK_PETG * PETGF_CARRY, 1),                # 13.3 — carried, est.
+    "bulk": None, # Caps/lids estimate from the shell's current 0.4 mm slice rate.
     "ext":   round(MEASURED_EXT[2] / MEASURED_EXT[1], 1),       # 31.2 — measured
     "tight": round(_BULK_PETG * 2.0),  # 3 mm watertight walls, Arachne, fine nozzle: ~½ the rate
     "small": round(_BULK_PETG * 2.8),  # travel + layer-change overhead dominates a small part
@@ -105,7 +106,7 @@ RATES = {
     "aero": None,   # Native v1 estimate per float, excluding the manual pause.
 }
 
-GROUP_MARKER = {"cover": "FUNNEL_COVER", "bulk": "BULK", "ext": "EXT", "tight": "TIGHT",
+GROUP_MARKER = {"shell": "SHELL", "cover": "FUNNEL_COVER", "bulk": "BULK", "ext": "EXT", "tight": "TIGHT",
                 "small": "SMALL", "tool": "TOOL", "petgf": "PETGF",
                 "rings": "RINGS", "aero": "AERO"}
 
@@ -163,6 +164,8 @@ def group_masses():
 def print_estimate():
     """Shared print totals for machine-time.md and labor.md; performs no writes."""
     kg, orphans = group_masses()
+    shell_record = Path(HERE).parent / "printed-parts/cold-core/foam-shell/prints/2026-10-26-mark2-round-ports-a2/preparation.json"
+    shell_hours = json.loads(shell_record.read_text())["native_slice"]["estimated_total_seconds"] / 3600
     with open(FAUCET_SLICE, encoding="utf-8") as fh:
         faucet_slice = json.load(fh)
     faucet_hours = sum(plate["estimated_total_seconds"]
@@ -186,7 +189,9 @@ def print_estimate():
     if float_hours <= 0 or float_kg <= 0:
         raise ValueError("ASA Aero slice duration and object feed must be positive")
     kg["aero"] = float_qty * float_kg
-    rates = dict(RATES, petgf=round(faucet_hours / kg["petgf"], 1),
+    rates = dict(RATES, shell=round(shell_hours / kg["shell"], 1),
+                 bulk=round(shell_hours / kg["shell"], 1),
+                 petgf=round(faucet_hours / kg["petgf"], 1),
                  aero=round(float_hours / float_kg, 1))
     cover_record = Path(HERE).parent / 'printed-parts/zone-c/funnel-cover/native-slice-review.json'
     with open(cover_record, encoding='utf-8') as fh:
@@ -201,6 +206,7 @@ def print_estimate():
         raise ValueError('Funnel-cover native duration and BOM mass must be positive')
     rates['cover'] = round(cover_hours / cover_reference_kg, 1)
     hours = {g: kg[g] * rates[g] for g in kg}
+    hours["shell"] = shell_hours
     hours["petgf"] = faucet_hours
     hours["aero"] = float_qty * float_hours
     return {"kg": kg, "rates": rates, "hours": hours, "unassigned": orphans,

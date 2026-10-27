@@ -1,0 +1,23 @@
+{
+  "native_step_sha256": "bfac33825d17a54fb525efa0c1068df09a6482a8f3994706b40f657cfae0ceb2",
+  "viewer_payload_sha256": "adab5f9c61f1a40bb76bddfff7c48d3e57d23db2f8230099d58147e1bb1e9674",
+  "body_count": 563,
+  "copper_cover_bodies": 0,
+  "foam_shell_bodies": [
+    "cold-core/foam-shell"
+  ],
+  "native_step": "hardware/manifold-layout/enclosure-assembly.step",
+  "viewer_shell_frame_maximum_error_mm": 1.5306472789688996e-05,
+  "viewer_shell_world_bounds_mm": [
+    [
+      -90.20006561279297,
+      182.60000610351562,
+      20.0
+    ],
+    [
+      90.19999694824219,
+      465.0,
+      233.39999389648438
+    ]
+  ]
+}

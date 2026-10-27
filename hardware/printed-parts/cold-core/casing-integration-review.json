@@ -1,6 +1,5 @@
 {
-  "scope": "One-off geometric integration of the smooth cold-core casing. Native geometry and retained fit datums; no recurring check, physical fit, strength, thermal performance or lifetime qualification.",
-  "reference_source_commit": "b58ee4350b9041825c2c33acf097128e6d4b65f3",
+  "scope": "One-off native integration receipt for the smooth 2.38 mm casing with round copper exits. Records source geometry, unchanged mating exports and installed tail clearance.",
   "standing_wall_mm": 2.38,
   "floor_mm": 2.0,
   "casing_footprint_mm": [
@@ -43,24 +42,13 @@
       213.4
     ]
   },
-  "copper_cover_fit_datums": {
-    "outer_wall_outer_y": -141.5,
-    "outer_wall_inner_y": -138.3,
-    "inner_channel_y": -138.05,
-    "outer_channel_y": -142.0,
-    "wall_y_range": [
-      -138.05,
-      -142.0
-    ]
-  },
-  "copper_jamb_actual_wall_mm": 2.8999999999999773,
   "cap_screw_reach_mm": 8.399999999999999,
   "cap_screw_tip_air_mm": 2.1000000000000014,
   "native_solids": {
     "foam-shell": {
       "valid": true,
       "solid_count": 1,
-      "volume_mm3": 1169365.5831188303,
+      "volume_mm3": 1174751.423783235,
       "bounds_mm": [
         [
           -141.20000009999998,
@@ -193,31 +181,31 @@
     "hardware/printed-parts/cold-core/reservoir/reservoir-retaining-ring.stl": "ba87234750a972b86ecccf31cbf341e71f60ed0f1d23ef7262eae65e87d64ecc"
   },
   "native_input_sha256": {
-    "hardware/printed-parts/cold-core/foam-shell/foam-shell.step": "e37b633f92887e296af97d2da8cb0500c2695f8bbb8b3889f37d3b6925d68b7d",
-    "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step": "43775ada9c87841a21f1f21da108773fc93a332f386f551f2f7c67cb609b362a",
+    "hardware/printed-parts/cold-core/foam-shell/foam-shell.step": "1361297fddda44405aa78c345c7c94ab32bd9efe45c4f5bb8c2bbdcdf0c99de5",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step": "9f7c1b28119278b14db56401f7c73e695a06d7965c3f335478727eedb3e820ce",
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step": "675b254bd096cd4f62dd9fa5e3dc06717c1533921c1edb5d30f1133189304c2b",
-    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step": "1a57043ecc7936ca320b3bb334a3f716ac9f786bf347b9ff7682f3291532c404",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step": "502f1a135397e3adf0a876dca0b6e543c5860cf646c5ef160076c465e47a6349",
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step": "90c2ecb56ebc87635e05b11c68dd0a8bdb275323b427a9b951a27b9c76e8ed85",
-    "hardware/printed-parts/cold-core/foam-shell/foam-shell.stl": "b705e3aa5eee906839456b84d7f6419a655db4197b1483d9d05efb3d23149bcd",
-    "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.stl": "aac0507af32c1ea846f199131359da0fee0a069989f1145c339436567ac37377",
+    "hardware/printed-parts/cold-core/foam-shell/foam-shell.stl": "8439f508969e98b72daa28e6231ea93bc9ac3d28841b7f797d72cf9b38f91995",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.stl": "38a1c0e9e64ec84f1074341d6098c93eaa85db14890b6c66d18dacfd2da4d273",
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl": "8ec127fc8cdd9b74734f39bf695361934151e5e6cff614ade43914ab7f32794c",
-    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl": "146fbf9cebc2b09215f0f2bbe899d7b2c96f00b596a8c189cd9523f0087e1c45",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl": "0c44e0c057f5a11d54f36370190a44f66157384ea0cf4d91fd9cbdc9ee3fefbc",
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.stl": "fc308b454d8940727fd71e8a665b09bbfcb78d88d8ca0724ba7f1b3a304876f6",
-    "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step": "2c5cc1c4a15bcdce22f5216f8df8daea991302820cc31e64d69511090e456bac",
-    "hardware/printed-parts/cold-core/foam-assembly/internal-routes.step": "6624c0b2e575c8ff2cc46d2ae031b8936e55744fbcb767eb56910331a98e4709"
+    "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step": "32bb01a159fc15e03f2ebca19503ed28d7c7a7fb6f12713115ee35e30a9c0152",
+    "hardware/printed-parts/cold-core/foam-assembly/internal-routes.step": "1b0e45224f55a5452b908d94fbfa4cfdc43926fcdb8237e232e947f14af65649"
   },
   "source_sha256": {
-    "hardware/printed-parts/cold-core/_cold_core_interface.py": "1e99589ad5f8a062acaa6d4f2957774e0f4c29695e3856955258862208ae3c63",
-    "hardware/printed-parts/cold-core/_outer_shell.py": "0b6142e37b03021040193a74ede55f5dd769ffd03bce871224578387d4e45aee",
-    "hardware/printed-parts/cold-core/_foam_shell.py": "acfa53993ce48118b0b155039c1780d0910410af25a46bd91427166ede00aa03",
+    "hardware/printed-parts/cold-core/_cold_core_interface.py": "39077913173b58987d3ab6c834369feb798e141dc0a3a06cad92321f10790590",
+    "hardware/printed-parts/cold-core/_outer_shell.py": "f1341e150946b69245543cec1fc651f498c3baf41ce0337123768e977b3bf817",
+    "hardware/printed-parts/cold-core/_foam_shell.py": "5e96cfaa8a95c7e0b1ac0a2dc379f7d0688a5bad2ccd7b7f2485938d36fc5899",
     "hardware/printed-parts/cold-core/_reservoir_pocket_walls.py": "fdc694879e2e91b862e0b2446aa0274cc59d454277af3810b7c3aa93fd4025dc",
     "hardware/printed-parts/cold-core/_reed_channels.py": "938f03a8b2ad47958f60589b26f7aa83dd705bf08eb1289341a7bee6d18cbfd3",
     "hardware/printed-parts/cold-core/_foam_cap.py": "44d39787899a43819717eb8f23b12f25bdaa442696356512a095b2c22f044102",
     "hardware/printed-parts/cold-core/_show_skin.py": "cc568f562387a1a7dbd3f60485846845f65369422d4c8bbe6e8bf27ef5c0de12",
-    "hardware/printed-parts/cold-core/foam-shell/foam_shell.py": "418ef46bdc0c1f83f1d541aee7e053a8b69ad887442c7663d90c86025c8c81b8",
-    "hardware/printed-parts/cold-core/foam-cap/foam_cap.py": "9c74cf53ee69ef7691fef7b3670519b1f93f729b29e0f32948d7c7cc424b77a6",
-    "hardware/printed-parts/cold-core/copper-plugs/copper_plugs.py": "941b5ce1f5f67026c4d50ae34e9d37ac0442a5ec50f70603bb47830b1b21f8a7",
-    "hardware/manifold-layout/enclosure_assembly.py": "b14208a45806219c054eca2ef836528f4e137a86468f69521ca6864a8b4dfedf"
+    "hardware/printed-parts/cold-core/foam-shell/foam_shell.py": "f95977b81e20bdabc44784e17618ef5e1016d766f9efce4c235c9a8b2cd2f248",
+    "hardware/printed-parts/cold-core/foam-cap/foam_cap.py": "89464565b3d23dedfd006d9c11fe0c54fea0030d1126b6f2b606fca69e1d4235",
+    "hardware/manifold-layout/enclosure_assembly.py": "8d3ab0b769bfe8949584ad591972be03a85562965873410245bada415d2c2b2b",
+    "hardware/printed-parts/cold-core/_copper_ports.py": "c85f7a0206583c09f9e5771baf2d6efe81034ef665b5f53b662070fbb01fda93"
   },
   "checks": {
     "reservoir_mating_cavity_unchanged": true,
@@ -227,7 +215,6 @@
     "conduit_floor_positions_unchanged": true,
     "stack_planes_unchanged": true,
     "reed_cavities_unchanged": true,
-    "copper_cover_datums_unchanged": true,
     "reservoir_print_meshes_unchanged": true,
     "foam-shell_valid_single_solid": true,
     "foam-cap-top_valid_single_solid": true,
@@ -242,7 +229,12 @@
     "reservoir-cap-left_clears_shell": true,
     "reservoir-cap-right_clears_shell": true,
     "foil_fits_reserved_envelope": true,
-    "assembly_frame_anchor_matches_reference": true
+    "assembly_frame_anchor_matches_reference": true,
+    "round_copper_holes_open": true,
+    "installed_copper_tails_clear_shell": true,
+    "reservoir_pocket_stock_unchanged": true,
+    "retained_mating_exports_unchanged": true,
+    "former_slots_closed": true
   },
   "pass": true,
   "assembly_frame_anchor_x_mm": -141.5,
@@ -254,48 +246,52 @@
     "no_internal_line_to_line_intersections": true,
     "scope": "foam_assembly.py native report on the integrated pieces and unchanged route datums"
   },
-  "copper_cover_jamb_witnesses": [
-    {
-      "axis": "X",
-      "y_mm": 73.675,
-      "z_mm": 100.0,
-      "first_wall_faces_mm": [
-        -141.199997,
-        -138.300003
-      ],
-      "wall_stock_mm": 2.8999939999999924
-    },
-    {
-      "axis": "X",
-      "y_mm": -73.675,
-      "z_mm": 100.0,
-      "first_wall_faces_mm": [
-        -141.199997,
-        -138.300003
-      ],
-      "wall_stock_mm": 2.8999939999999924
-    },
-    {
-      "axis": "Y",
+  "copper_ports": {
+    "evap-inlet": {
       "point_mm": [
-        -138.204,
-        82.075,
-        118.412
+        -141.5,
+        -77.5,
+        28.425
       ],
-      "corner_stock_mm": 4.242402249484286
+      "axis": [
+        -1.0,
+        0.0,
+        0.0
+      ],
+      "hole_diameter_mm": 7.5,
+      "probe_intersection_mm3": 0.0,
+      "installed_copper_shell_intersection_mm3": 0.0
+    },
+    "evap-outlet": {
+      "point_mm": [
+        -141.5,
+        77.5,
+        28.425
+      ],
+      "axis": [
+        -1.0,
+        0.0,
+        0.0
+      ],
+      "hole_diameter_mm": 7.5,
+      "probe_intersection_mm3": 0.0,
+      "installed_copper_shell_intersection_mm3": 0.0
     }
-  ],
-  "copper_cover_jamb_scope": "Local seating shoulders match the retained copper-cover flanges: a 1 mm-wide flat bearing ledge extends 0.52 mm inward from the ordinary casing wall. The normal casing stock at the straight seats is 2.90 mm. These local seats are not ordinary 2.38 mm walls.",
-  "post_publish_lint_review": {
-    "pieces_reviewed": 5,
-    "geometry_changed_after_slice": false,
-    "retained_feature_families": [
-      "Copper-cover seating shoulders and 1 mm flange bearings, with printed-mesh stock witnesses",
-      "Blind insert-pocket roofs with supported-face depth allowance",
-      "Specified 2 mm cap floors and bottom lid plate",
-      "R14 cap passage rims, with retained bore and plane datums",
-      "Fixed clamp-station corner stock"
-    ],
-    "scope": "Review of the post-publish lint findings and their part-specific answers; no additional physical acceptance."
-  }
+  },
+  "retained_exports": {
+    "hardware/manifold-layout/enclosure-box.json": true,
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step": true,
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step": true,
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step": true,
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step": true,
+    "hardware/printed-parts/cold-core/foam-cap/reservoir-a-fore-snap-cap.step": true,
+    "hardware/printed-parts/cold-core/reservoir/reservoir-air-grip.step": true,
+    "hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.step": true,
+    "hardware/printed-parts/cold-core/reservoir/reservoir-cap-right.step": true,
+    "hardware/printed-parts/cold-core/reservoir/reservoir-gasket.step": true,
+    "hardware/printed-parts/cold-core/reservoir/reservoir-left.step": true,
+    "hardware/printed-parts/cold-core/reservoir/reservoir-right.step": true,
+    "hardware/printed-parts/cold-core/reservoir/reservoir-tube-grip.step": true
+  },
+  "round_port_geometry_review": "foam-shell/prints/2026-10-26-mark2-round-ports-a2/geometry-review.json"
 }

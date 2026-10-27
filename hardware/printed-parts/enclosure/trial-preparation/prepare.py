@@ -36,6 +36,7 @@ sys.path.insert(0, str(HERE))
 import _derive  # noqa: E402
 import _mesh  # noqa: E402
 import _native  # noqa: E402
+import _seam  # noqa: E402
 
 SPEC_PATH = HERE / "pieces.json"
 STEP_MESHES = HERE / "step-meshes.json"
@@ -65,7 +66,7 @@ def _plain(value):
 class Mesh:
     """One STL, read once, posed into its print frame."""
 
-    def __init__(self, path: Path, pose: dict | None):
+    def __init__(self, path: Path, pose: dict | None, seam: dict | None = None):
         self.path = path
         self.sha256 = _mesh.sha256(path)
         step = path.with_suffix(".step")
@@ -79,6 +80,10 @@ class Mesh:
         triangles = _mesh.read_stl(path)
         self.vertices, self.faces = _mesh.merge(triangles)
         del triangles
+        self.seam_record = None
+        self.seam_paint = [None] * len(self.faces)
+        if seam:
+            self.vertices, self.faces, self.seam_paint, self.seam_record = _seam.strip(self.vertices, self.faces, seam)
         self.closed = _mesh.closed_check(self.faces)
         if not self.closed["closed_oriented_single_body"]:
             raise ValueError(f"{relative(path)} is not one closed, oriented body: {self.closed}")
@@ -287,9 +292,9 @@ def prepare(name: str, printer: str | None = None, parts: list[dict] | None = No
         path = ROOT / part["stl"]
         if not path.is_file():
             raise FileNotFoundError(f"{part['stl']} is not exported")
-        key = (part["stl"], json.dumps(part.get("pose")))
+        key = (part["stl"], json.dumps(part.get("pose")), json.dumps(part.get("seam_enforcer")))
         if key not in meshes:
-            meshes[key] = Mesh(path, part.get("pose"))
+            meshes[key] = Mesh(path, part.get("pose"), part.get("seam_enforcer"))
         mesh = meshes[key]
         declared = json.dumps(part.get("features", []), sort_keys=True)
         if (key, declared) not in derived:
@@ -329,13 +334,18 @@ def prepare(name: str, printer: str | None = None, parts: list[dict] | None = No
             raise ValueError(f"{inst['name']}: the model footprint leaves {margin:.2f} mm to the usable plate; "
                              f"with {brim:g} mm of brim that is inside the {border:g} mm bed border")
         to_plate = lambda q: np.asarray(q, float) @ r_yaw.T + [translation[0], translation[1], 0.0]
-        paint = [None] * len(mesh.faces)
+        paint = [dict(p) if isinstance(p, dict) else p for p in mesh.seam_paint]
+        def paint_support(index, code):
+            if isinstance(paint[index], dict):
+                paint[index]["paint_supports"] = code
+            else:
+                paint[index] = code
         for f in inst["features"]:
             for index in f.get("paint_faces", []):
-                paint[int(index)] = "8"
+                paint_support(int(index), "8")
             for index, code in f.get("paint_codes", {}).items():
-                if paint[index] is None:
-                    paint[index] = code
+                if paint[index] is None or isinstance(paint[index], dict):
+                    paint_support(index, code)
         object_settings = {k: v["value"] for k, v in part.get("object_settings", {}).items()}
         obj = plate.add_object(inst["name"], mesh.vertices - mesh.center, mesh.faces,
                                source_file=Path(part["stl"]).name, source_center=mesh.center,
@@ -348,6 +358,7 @@ def prepare(name: str, printer: str | None = None, parts: list[dict] | None = No
                   "source_center_mm": mesh.center.tolist(), "build_rotation": obj["build_rotation"],
                   "translation_mm": translation.tolist(),
                   "plate_bounds_mm": [low.tolist(), high.tolist()], "model_bed_margin_mm": margin,
+                  "seam_enforcer": mesh.seam_record,
                   "object_settings": part.get("object_settings", {}), "features": [], "ranges": [],
                   "verify_spans": [], "ribbons": [], "tie_windows": [], "modifiers": [], "fins": []}
         ribbon_source_boxes = []

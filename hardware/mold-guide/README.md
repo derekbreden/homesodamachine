@@ -29,7 +29,7 @@ one-picture-per-step approach and the approved Letter sheets' print calibration.
 | 17 | Stage the three 1:1 foam pours and the per-build quantity |
 | 18 | Prepare and clamp the labeled top and bottom cap stacks |
 | 19 | Mix each cap shot 1:1, pour, cure, trim and remove the fixture screws |
-| 20 | Prove buried components, seat copper plugs and protect open paths |
+| 20 | Prove buried components, seal the round copper exits and protect open paths |
 | 21 | Mix the body shot 1:1 and pour it all at once through the open top |
 | 22 | Trim after cure, fit reed columns/gaskets and close both caps |
 

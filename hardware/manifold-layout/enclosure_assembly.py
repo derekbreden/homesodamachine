@@ -120,7 +120,6 @@ for _p in (_hw / "scripts", _here.parent,
            _hw / "reference" / "digiten-flow-sensor",
            _hw / "cold-core-layout",
            _hw / "printed-parts" / "cold-core",
-           _hw / "printed-parts" / "cold-core" / "copper-plugs",
            _hw / "printed-parts" / "cold-core" / "foam-assembly",
            _hw / "printed-parts" / "enclosure" / "bulkhead-ring",
            _hw / "printed-parts" / "faucet" / "tube-collar",
@@ -151,7 +150,7 @@ import pick_text                                      # noqa: E402
 import _stated_bounds as _stated                      # noqa: E402
 import compressor as _comp                            # noqa: E402
 import condenser_block as _cond                       # noqa: E402
-import copper_plugs as _plugs                         # noqa: E402
+import _copper_ports as _copper                         # noqa: E402
 import display_cover as _cover                        # noqa: E402
 import display_gasket as _dgasket                     # noqa: E402
 import enclosure as _enc                              # noqa: E402
@@ -1377,7 +1376,7 @@ BEDDED_TOL = 0.01
 # --- The refrigerant loop's joints -------------------------------------------
 #
 # BOTH ENDS OF EVERY LEG, each a penetration its own module declares — `compressor.stations()`,
-# `condenser_block.stations()`, `copper_plugs.slot_stations()`. Nothing here restates a
+# `condenser_block.stations()`, `_copper_ports.stations()`. Nothing here restates a
 # coordinate; what this table holds is which two mouths each leg joins, because a station that
 # has drifted is copper drawn in the open and no other gate on this pack would say so.
 JOINT_STATIONS = {
@@ -1421,8 +1420,8 @@ def refrigerant_stations(carries: dict) -> dict:
     tables = {"compressor": _comp.stations(),
               "condenser+fan": _cond.stations(),
               "foam-assembly": {f"evap-{end}": st
-                                for end, st in (("inlet", _plugs.slot_station("evap-inlet")),
-                                                ("outlet", _plugs.slot_station("evap-outlet")))}}
+                                for end, st in (("inlet", _copper.station("evap-inlet")),
+                                                ("outlet", _copper.station("evap-outlet")))}}
     return {f"{body}.{port}": carries[body](station)
             for body, table in tables.items() if body in carries
             for port, station in table.items()}
@@ -4319,6 +4318,7 @@ def build_pack() -> cq.Assembly:
     # what every port, station, line-route and geometry gate measures against; but a body cannot
     # be exported beside the bodies it is the outside of without sharing volume with all of them.
     a.core_envelope = foam
+    a.core_carry = foam_carry
     core = cq.Assembly(name=CORE)
     for _name, _solid, _colour in core_bodies(foam_carry):
         core.add(_solid, name=_name, color=_colour)
@@ -5868,6 +5868,27 @@ def selftest():
     yield "the production C14 block keeps its stated crown and bed with the bore and inserts cut"
 
 
+def graft_printed_surfaces(a, mesh):
+    """Carry the shell surface by its actual installed frame.
+
+    The smooth shell's opposite faces have nearly identical sampled surfaces;
+    placement recovery cannot distinguish its copper-hole face reliably.
+    """
+    import numpy as np
+    import flute_payload
+    surfaces = flute_payload.surfaces()
+    shell = surfaces.pop("foam-shell", None)
+    landed = flute_payload.graft(mesh, surfaces)
+    if shell is not None:
+        carry = a.core_carry
+        origin = np.array(carry(((0., 0., 0.), (0., 0., 1.)))[0])
+        axes = [np.array(carry((p, (0., 0., 1.)))[0]) - origin
+                for p in ((1., 0., 0.), (0., 1., 0.), (0., 0., 1.))]
+        installed = flute_payload.carried(shell, (np.column_stack(axes), origin))
+        landed += flute_payload.graft(mesh, {"foam-shell": installed}, same_frame=True)
+    return landed
+
+
 def main():
     # THIS FILE, UNDER THE NAME EVERYTHING ELSE IMPORTS IT BY. Run as a script it is `__main__`,
     # so a module that does `import enclosure_assembly` gets a SECOND copy — one that has built
@@ -5917,8 +5938,7 @@ def main():
     # IMPORTED HERE AND NOT AT THE TOP. This module is imported by most of the generators in the
     # tree, and `flute_payload` pulls in a decimator and a proximity index that only the run
     # which cuts the appliance ever uses. The read is still traced, so the graph declares it.
-    import flute_payload                                                # noqa: E402
-    grafted = flute_payload.graft(mesh, flute_payload.surfaces())
+    grafted = graft_printed_surfaces(a, mesh)
     if grafted:
         print(f"-> {out.name}.mesh  ({grafted} fluted piece(s))")
     import check_asse_drain

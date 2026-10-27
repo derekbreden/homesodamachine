@@ -1,6 +1,6 @@
 """Shared interface for the cold-core's geometry modules — dimensional
 constants and hole-punch helpers that every sibling part (foam shell,
-foam cap stack, reservoir, copper plugs, coil mandrel) needs to stay
+foam cap stack, reservoir, copper ports, coil mandrel) needs to stay
 in sync against.
 
 The constants carry claims about each other — a screw long enough for its insert, a band wide
@@ -47,9 +47,7 @@ hole_shift_from_edge = 15.0
 
 
 # Plain outside faces reserve room for the foil within the enclosure envelope.
-# Copper covers grip separate local jamb seats, with their own fit datums.
 outer_shell_wall = wall_thickness
-copper_slot_wall = 3.2
 
 
 # The cold cylinder + its evaporator coil. [7 mm](COIL_RADIAL_CLEARANCE) of
@@ -82,7 +80,7 @@ support_ring_radial_width = 9.0
 # Passive cold-core passages leave 0.5 mm radial air around the measured 6.5 mm
 # tube, including the blind crossing below a reservoir. These holes guide a line
 # through the shell; they do not grip it or seal the foam pour. Mask pour gaps
-# temporarily. Faucet, organizer, fitting and copper-plug fits have their own sizes.
+# temporarily. Faucet, organizer, fitting and copper passage fits have their own sizes.
 passage_tube_od = 6.5
 port_hole_radius = passage_tube_od / 2.0 + 0.5
 
@@ -292,63 +290,32 @@ foam_cap_lid_height = wall_and_floor_thickness + head_pad_height
 # and it runs clear end to end at every height above the floor slab. The two bosses on
 # the ±X walls stand on the face the lanes arrive at, clear of both bands in y.
 #
-# The lane is ONE BORE WIDE. That is what makes each lane a column rather than a grid, and
-# what its slot stands on is `front_port_floor_z` below.
-front_wall_x = -141.5  # fixed copper/cover port frame
+# Each copper tail has its own routing lane and a fixed exit axis.
+front_wall_x = -141.5  # fixed copper port frame
 port_lane_outer_y = -82.5  # fixed tube-routing lane
-port_lane_inner_y = -72.5  # tube/slot routing datum; pocket stock grows outside it
+port_lane_inner_y = -72.5  # tube-routing datum; pocket stock grows outside it
 port_lane_mid_y = (port_lane_outer_y + port_lane_inner_y) / 2
 
 # The +Y band's lane, which is this one mirrored — the bosses stand at both signs, so both
 # bands leave the same strip. The evaporator's WARM tail drops this band to its own station
-# low on the front wall (`copper_plugs.columns`).
+# low on the front wall (`_copper_ports.stations()`).
 west_lane_mid_y = -port_lane_mid_y
-# PET-GF left either side of a bore on the lane, and under the lowest one over the
-# floor slab. Below this the wall between two features stops being printable.
-port_lane_wall = 1.5
 
 # Where the evaporator coil's two tails leave the carbonator: the low one one
 # `hole_shift_from_edge` above the bottom-plate elbow band, the high one the same
 # below the top's. These are the COIL's heights — what the mandrel is wound to and
 # what the reed bridge's wrap band spans — and they are NOT the heights their copper
 # crosses the shell wall at. Each tail turns onto a LANE OF ITS OWN — the inlet's onto
-# the port lane, the outlet's onto the west (`copper_plugs.columns`) — and both drop
-# from there to their stations in the slot, so compressing the field can never compress
+# the port lane, the outlet's onto the west (`_copper_ports.stations()`) — and both drop
+# from there to their exit stations, so moving a passage cannot compress
 # the coil.
 evap_tail_low_z = hole_shift_from_edge + wall_and_floor_thickness + below_carbonator_elbows_height
 evap_tail_high_z = (foam_shell_outer_height - hole_shift_from_edge
                     - wall_and_floor_thickness - above_carbonator_elbows_height)
 
-# NOTHING CROSSES THIS FACE BUT THE SLOTS. The front wall is mated face to face with the
-# refrigeration base — the condenser against it and the compressor's own plate just short of that
-# plane — so a bore struck here opens into that base rather than into the machine. Every one of
-# the seven fluid lines leaves by the TOP, up its own band to a conduit in the cap
-# (`cap_conduits`), and so do the two reed cables, each up the channel its column stands in
-# (`reed_cable_conduit_xy`). What is left on this face is the copper slot on each lane and
-# no round bore at all.
-# Copper-tail crossing datums are independent of passive LLDPE passage clearance.
-front_slot_layout_radius = 3.4
-front_port_pitch = 2 * front_slot_layout_radius + port_lane_wall
-# WHAT THE SLOT STANDS ON is the pocket floor's own band — one wall of PET-GF over the floor, one
-# bore of lane, one wall again. That is the lowest anything can sit on this lane and still leave
-# the floor its material.
-front_port_floor_z = bag_pocket_floor_top_z + port_lane_wall + front_slot_layout_radius
-# AND WHAT HOLDS IT UP OFF THAT IS THE APPLIANCE'S OWN FLOOR. The core stands on `enclosure`'s
-# slab with the compressor bay mated to this face, and both coppers cross here — so a slot
-# that sits at the bottom of its lane puts the evaporator's two legs in the slab's material
-# instead of the machine's air. `enclosure_assembly` reads that on `clearance-floor` and
-# `pack-closes`, both against the loop rather than against this figure.
-#   ONE LANE PITCH IS THE STANDOFF, and it is STATED here rather than derived: nothing inside this
-# shell sets it, so a crossing that drops reads red in the appliance instead of quietly walking
-# the refrigerant loop into a wall. `copper_plugs.evap_cross_z` takes the slot's own reach up
-# from this top.
-front_slot_standoff = front_port_pitch
-front_port_field_top_z = front_port_floor_z + front_slot_standoff + front_slot_layout_radius
-
-# The face every penetration opens on, as a direction: the shell's own −X. A station is a
-# position and the way out of it, so a turn that moves the shell moves both.
-front_port_axis = (-1.0, 0.0, 0.0)
-
+# The two copper exits cross the front wall; their axes and bore clearance are
+# declared in `_copper_ports`. The seven fluid lines and two reed cables leave
+# through their cap conduits, above the adjacent refrigeration base.
 
 # Rounded outer-shell corners. Each corner's exterior wall is a true arc:
 # the outer face is a quarter-round of [11.7 mm](CORNER_ROUND_R) radius, the
@@ -386,7 +353,7 @@ state("forward-band-takes-a-bore", "The forward band still passes a line",
 # other.
 #   THE TWO END BOSSES stand centred on a ±X wall, the only station either ±X run has. Their
 # cylinder is tangent to the ±X face the same way a ±Y boss is tangent to its own, and the web
-# runs out to that face instead. Both centres are clear: in the shell the two copper-plug slots
+# runs out to that face instead. Both centres are clear: in the shell the two copper feed-throughs
 # the front face is cut for stand at y ±77.5 and nothing else reaches it, and on the TOP LID's
 # outer face — the deck the machine stands on — the one body that would cover a centre is
 # `water-3`'s tie post, which stands along its own run and is set where this station is not
@@ -736,7 +703,7 @@ state(
 #   ITS FALL IS THE ONLY RISER THE LANE CARRIES. A lane is one bore wide, so a riser in it is a
 # wall to everything crossing that column, and the lane's other traffic all runs WEST at one
 # storey each: the evaporator's inlet copper drops onto the lane beside the carbonator and takes it to
-# its slot station (`copper_plugs.columns`), and the carbonated water joins only once it is over
+# its exit station (`_copper_ports.stations()`), and the carbonated water joins only once it is over
 # the carbonator.
 # The PRV shroud lies on the west lane and its vent leaves through the +Y flank.
 #   WHERE THE LEAN CROSSES is the Carbonator SUPPORT RING's business, not this file's. The reach in
@@ -1414,44 +1381,6 @@ def make_box(x_range, y_range, z_range):
         .extrude(z_max - z_min)
         .unwrap()
     )
-
-
-def build_slot_punch(
-    origin=(0, 0, 0),
-    slot_length=1.0,
-    slot_diameter=6.5,
-    slot_punch_height=40,
-    direction=1,
-):
-    """Z-elongated, Y-extruded rounded slot (circle-rect-circle), centered
-    at `origin`'s X/Z and starting at `origin`'s Y, extruded in `direction`·Y
-    (+1 = +Y, −1 = −Y). Long axis runs along world Z. The rounded ends each
-    contribute slot_diameter/2 of additional Z reach beyond `slot_length`."""
-    x, y, z = origin
-    return (
-        cq.Workplane(xz_plane_y_up)
-        .workplane(origin=(x, 0, z), offset=y)
-        .slot2D(slot_length, slot_diameter, angle=90)
-        .extrude(direction * slot_punch_height)
-    )
-
-
-def port_to_shell(solid, lane_y=None):
-    """Carry a solid from the PORT FRAME into the shell's, onto one of the front wall's
-    two lanes.
-
-    The port frame is the one every penetration is authored in, the copper-plug
-    stack among them: x lateral across the face, −y out through it, z the shell's
-    own. One quarter turn about Z puts its −y on the shell's −X, and one slide puts
-    its lateral centreline on a lane. Authoring there is what keeps the plug
-    stack and the slot it fills a single reading — a plug is a part that plugs a slot
-    in a wall, and that is the frame that says so; a pose turned by hand alongside a
-    slot cut by hand is two implementations of one transform.
-
-    ONE FRAME SERVES BOTH LANES because both are the same wall: `lane_y` is the only
-    thing that differs, so a plug printed for one lane fits the other."""
-    return (solid.rotate(cq.Vector(0, 0, 0), cq.Vector(0, 0, 1), -90.0)
-                 .translate(cq.Vector(0.0, port_lane_mid_y if lane_y is None else lane_y, 0.0)))
 
 
 def build_z_axis_hole_punch(

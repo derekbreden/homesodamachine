@@ -234,9 +234,12 @@ class Plate:
             for start in range(0, len(faces), 50000):
                 rows = faces[start:start + 50000].tolist()
                 codes = paint[start:start + 50000] if paint is not None else [None] * len(rows)
-                out.write("".join(
-                    f'<triangle v1="{a}" v2="{b}" v3="{c}"' + (f' paint_supports="{p}"/>' if p and p != "0" else "/>")
-                    for (a, b, c), p in zip(rows, codes)).encode())
+                serialized = []
+                for (a, b, c), code in zip(rows, codes):
+                    attributes = code if isinstance(code, dict) else ({"paint_supports": code} if code and code != "0" else {})
+                    suffix = "".join(f' {key}="{value}"' for key, value in attributes.items())
+                    serialized.append(f'<triangle v1="{a}" v2="{b}" v3="{c}"{suffix}/>')
+                out.write("".join(serialized).encode())
             out.write(b"</triangles></mesh></object></resources></model>")
 
     def write(self, path: Path) -> None:

@@ -87,8 +87,6 @@ def colour_for(name: str):
         return _routing.color("drain-white")
     if name.startswith("reservoir"):
         return _mat.C_RESERVOIR
-    if name.startswith("copper-plug"):
-        return _mat.C_PLUG
     if name.startswith("evap-"):
         return _mat.M_COPPER
     if name.startswith("float-rod"):

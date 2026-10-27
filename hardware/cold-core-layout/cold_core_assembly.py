@@ -30,7 +30,7 @@ _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
 _cold = _hw / "printed-parts" / "cold-core"
 for _p in (_hw / "scripts", _cold, _cold / "foam-assembly", _cold / "reservoir",
-           _cold / "copper-plugs", _cold / "prv-shroud",
+           _cold / "prv-shroud",
            _hw / "printed-parts" / "cadlib", _here.parent):
     if str(_p) not in sys.path:
         sys.path.insert(0, str(_p))
@@ -39,7 +39,6 @@ from _cadq_export import export_assembly, import_step                 # noqa: E4
 import _overlap                                          # noqa: E402
 import foam_assembly as _foam                            # noqa: E402
 import _internal_routes as _routes                       # noqa: E402
-import copper_plugs as _plugs                            # noqa: E402
 from _cold_core_interface import foam_shell_outer_height  # noqa: E402
 import _carbonator as _V                                     # noqa: E402
 import _coil as _C                                       # noqa: E402
@@ -86,14 +85,12 @@ HELD_BY = {
     "reservoir-b-gasket": "body rim",
     "reservoir-a-cap": "the gasket on the body rim",
     "reservoir-b-cap": "the gasket on the body rim",
-    "copper-plug-west": "wall slot",
-    "copper-plug-port": "wall slot",
     "prv-shroud": "the PRV it caps",
     "prv-sv125": "elbow socket",
     "reed-bridge": "support ring",
     "evap-coil": "the carbonator it clamps",
-    "evap-tail-inlet": "wall slot",
-    "evap-tail-outlet": "wall slot",
+    "evap-tail-inlet": "copper feed-through",
+    "evap-tail-outlet": "copper feed-through",
     "water-inlet-jet-cap-nominal": "water elbow tip weld (unqualified)",
     "reservoir-b-fill-lower": "cap pocket and reservoir fill bore",
     "reservoir-b-fill-upper": "cap pocket",
@@ -183,16 +180,6 @@ def _load(path: Path):
     return import_step(str(path)).val()
 
 
-def _plug_into_shell(solid, column: str):
-    """One copper plug, from its own frame into the shell's.
-
-    The plug is authored with the wall on ±Y and the slot running along X; in the shell the
-    front wall is on −X and the lane runs along Y. A quarter turn about Z is the whole of the
-    difference, then the plug slides to its own column's lane."""
-    turned = solid.rotate(cq.Vector(0, 0, 0), cq.Vector(0, 0, 1), -90)
-    return turned.translate((0, _plugs.columns[column].lane_y, 0))
-
-
 def _world_in_core(shape):
     return (_above_mounts.world_shape_in_cap(shape)
             .rotate((0.,0.,0.),(0.,0.,1.),180.)
@@ -235,9 +222,6 @@ def build_bodies() -> dict:
             _tube_ports.air_grip, _tube_ports.air_position[side], z0)
         placed[f"tube-reservoir-air-{letter}"] = _tube_ports.build_air_tube(side, z0, _foam.cap_face_z)
 
-    for plug, spec in _plugs.plug_specs.items():
-        placed[f"copper-plug-{plug}"] = _plug_into_shell(
-            _load(_cold / "copper-plugs" / f"copper-plug-{plug}.step"), spec.column)
 
     placed.update(_C.bodies())
     placed.update(_I.bodies(placed))
@@ -582,17 +566,8 @@ def report(a) -> None:
 def main() -> int:
     a = build_assembly()
     export_assembly(a, str(STEP_OUT))
-    # AND THE FLUTED SURFACES INTO THE PAYLOAD THE VIEWER READS. The shell and both caps carry a
-    # show skin that is in the printed mesh and not in the solid (`cold-core/_show_skin.py`), so
-    # the payload written beside this STEP holds three smooth prisms until they are put back.
-    # `loadStepFile` prefers that payload to the STEP, so this is what /3d draws.
-    #
-    # IMPORTED HERE AND NOT AT THE TOP, the way `enclosure_assembly` does it: `flute_payload`
-    # pulls in a decimator and a proximity index that only the run which cuts an assembly uses.
-    #
-    # AND ASKED FOR THE CORE'S TREE, not the disk. This assembly holds cold-core bodies and no
-    # others, so the box's six fluted pieces are surfaces it can never graft — and indexing them
-    # makes the action hold the whole enclosure to read six payloads it puts down again.
+    # Use the complete printed surfaces for this native cold-core assembly.
+    # Only the cold-core family belongs to this host.
     import flute_payload                                                # noqa: E402
     _grafted = flute_payload.graft(Path(str(STEP_OUT) + ".mesh"),
                                    flute_payload.surfaces(flute_payload.COLD_CORE_DIRS))

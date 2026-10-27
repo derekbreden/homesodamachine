@@ -2,9 +2,22 @@
 
 Format: facts only. Direct quotes from Derek where applicable. Settings observed in committed `.3mf` snapshots. No interpretation, no hypothesis — analysis lives in the conversation, decisions land in the geometry.
 
-Geometry: the full cold-core foam shell, from [`foam_shell.py`](/hardware/printed-parts/cold-core/foam-shell/foam_shell.py). The smooth casing is 282.4 × 180.4 mm, 213.4 mm tall, with ordinary 2.38 mm standing walls and a 2 mm floor. Local copper-cover seating stock is described in the casing integration receipt. README is the geometry source-of-truth.
+Geometry: the full cold-core foam shell, from [`foam_shell.py`](/hardware/printed-parts/cold-core/foam-shell/foam_shell.py). The smooth casing is 282.4 × 180.4 mm, 213.4 mm tall, with ordinary 2.38 mm standing walls and a 2 mm floor. README is the geometry source-of-truth.
 
 The launch record binds the exact `foam-shell.stl` embedded in the sliced project. The current shell, caps and lid edges have smooth surfaces. Historical fluted projects remain identified with their own attempts below.
+
+## Production preparation — round copper exits / A2 seam
+
+The full shell is prepared for Mark2 with two 7.5 mm copper holes, continuous
+2.38 mm walls, the selected faucet A2 scarf treatment and wiping off. The
+scarf starts on the plain long-wall span at native X60, Y−90.2. Outer walls
+request 100 mm/s / 1,500 mm/s²; inner walls 150 mm/s / 3,000 mm/s².
+
+The [production record](prints/2026-10-26-mark2-round-ports-a2/README.md)
+binds the editable project, sliced archive, exact source hashes, emitted paths
+and preserved fits. Native estimate: **31 h 37 min**, **1,449.9 g**. Tree(auto)
+Default remains enabled and generates no supports. Prepared only; no launch
+or physical result is recorded for this article.
 
 ## Stock
 

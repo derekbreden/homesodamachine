@@ -8,7 +8,7 @@ helical guide groove [1 mm](GROOVE_DEPTH) deep that cradles the copper.
 The coil's inner radius after winding is net_undersize mm smaller than
 the carbonator radius, so the coil stretches radially to clamp the carbonator.
 
-Coil start and end are clocked to the foam-shell's two copper-plug
+Coil start and end are clocked to the foam-shell's two copper feed-through
 slots — one tail either side of the mandrel's centre plane, one per
 lane; exit bends are purely radial (no vertical jog).
 """
@@ -91,14 +91,14 @@ mandrel_r_range = (mandrel_inner_radius, mandrel_radius)
 # and each tail takes its own — the inlet to the port lane, the outlet to the west
 # — and drops that lane's own slot to a station at the height the other's is at.
 #   These are the COIL's own heights — the elbow bands the carbonator leaves clear
-# above and below itself — and NOT the slot stations the copper ends up crossing
+# above and below itself — and NOT the exit stations the copper ends up crossing
 # the wall at, so the wind length is set here and the crossing heights in
-# `copper-plugs/copper_plugs.py`. Pinning either to the other would put a bend
+# `_copper_ports.py`. Pinning either to the other would put a bend
 # where the mandrel wants a wrap.
 tail_inlet_x, tail_inlet_y, tail_inlet_z = -30.0, evap_tail_low_z, 20.0
 tail_outlet_x, tail_outlet_y, tail_outlet_z = 30.0, evap_tail_high_z, 20.0
 
-# [119.4 mm](WIND_LENGTH) — Y span between foam-shell inlet and outlet plugs.
+# [119.4 mm](WIND_LENGTH) — Y span between foam-shell inlet and outlet tails.
 wind_length = tail_outlet_y - tail_inlet_y
 
 tail_inlet_azimuth = math.degrees(math.atan2(tail_inlet_z, tail_inlet_x))
@@ -248,9 +248,9 @@ def main():
     print(f"Groove:                profile R={groove_profile_radius} mm, "
           f"offset {groove_offset:.3f} mm, depth {groove_depth:.1f} mm")
     print(f"Wind length:           {wind_length:.1f} mm  "
-          f"(foam-shell plug Y span: {tail_inlet_y} → {tail_outlet_y})")
-    print(f"Inlet plug azimuth:    {tail_inlet_azimuth:.2f}°")
-    print(f"Outlet plug azimuth:   {tail_outlet_azimuth:.2f}°")
+          f"(coil tail Y span: {tail_inlet_y} → {tail_outlet_y})")
+    print(f"Inlet tail azimuth:    {tail_inlet_azimuth:.2f}°")
+    print(f"Outlet tail azimuth:   {tail_outlet_azimuth:.2f}°")
     print(f"CCW alignment delta:   {tail_ccw_delta:.2f}°")
     print(f"Wraps:                 {total_wraps:.4f}  ({full_wraps} full + "
           f"{tail_ccw_delta:.2f}° fractional)")

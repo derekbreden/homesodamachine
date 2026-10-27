@@ -184,7 +184,7 @@ running clearance to the printed reservoirs. The floor is 2 mm.
 Foil tape sits directly on the smooth perimeter. Its 0.30 mm per-face envelope
 allowance contains at most two 0.12 mm tape layers without a groove. The
 component mounts, clamp axes and nominal 253.4 mm stack height retain their
-independent datums. Copper-cover jambs retain their own seating planes.
+independent datums. The copper exits are two round clearance holes through the same wall section.
 
 **Every boss stands hard against the wall it leans on, and the station names which
 wall that is** — never the sign of its own coordinates, which for a boss centred on a
@@ -211,8 +211,7 @@ Each carries a heat-set insert pocket at each end (drilled in from each face) �
 [20](STACK_INSERTS) inserts total, [10](FACE_SCREWS) per face, for fastening the
 foam-cap stacks.
 
-The outer **−X** wall carries one Z-elongated slot on each of its two lanes and
-**no round bore at all**. **Nothing else crosses it** — this face is mated against the
+The outer **−X** wall carries one round copper feed-through on each lane. **Nothing else crosses it** — this face is mated against the
 refrigeration base, so a bore struck here opens into that base rather than into the
 machine. All seven fluid lines leave by the top cap's conduits, along with the
 two reservoir reed cables and sensor/earth loom in their own passages. See Penetrations.
@@ -385,15 +384,15 @@ do not retain the tube. Faucet and organizer fits use their own dimensions.
 conduit through the foam cap and its lid (`_cold_core_interface.cap_conduits`), and the
 service bay stands on the face they open on. What is left on the −X face — the one the
 enclosure's quarter turn puts at the front of the machine, mated flat against the
-refrigeration base — is the two copper evaporator lines in their lane slots. The PRV vent crosses
+refrigeration base — is the two copper evaporator lines through their round holes. The PRV vent crosses
 the +Y flank into the enclosure’s exterior relief chase.
 
 | # | Pass-through | Opening | Carries |
 |---|---|---|---|
 | 1 | Reed cable (+X) | top-cap reed conduit | the reservoir-A level reeds' cable |
 | 2 | Reed cable (−X) | top-cap reed conduit | the reservoir-B level reeds' cable |
-| 3 | Copper evaporator inlet | port-lane slot | 1/4" OD ACR copper, made up on the condenser's own outlet pick across the plane the two bodies share |
-| 4 | Copper evaporator outlet | west-lane slot | 1/4" OD ACR copper, made up on the compressor's own suction pick across that same plane |
+| 3 | Copper evaporator inlet | port-lane hole | 1/4" OD ACR copper, made up on the condenser's own outlet pick across the plane the two bodies share |
+| 4 | Copper evaporator outlet | west-lane hole | 1/4" OD ACR copper, made up on the compressor's own suction pick across that same plane |
 | 5 | PRV vent | **+Y flank** | short 1/4" OD LLDPE from the prv-shroud’s barrel into the enclosure’s west-wall relief chase, which opens outside the cabinet (see [`prv-shroud`](/hardware/printed-parts/cold-core/prv-shroud/)) |
 | 6 | Water inlet | **plain aft top-cap guide** `water-in` | one continuous tube from the pump's check and downward outlet elbow, through the curved cap corridor to the fixed top-plate −Y adapter **above the water line**, where the water-inlet jet discharges into headspace against the CO2 back-pressure; the guide adds no joint or cut |
 | 7 | Carbonated-water outlet | **top-cap conduit** `carb-water-out` | to the dispense faucet — off the bottom-plate Port 3 elbow **under the liquid**, across under the carbonator, out through the ring's 217° slot and up beside the coil |
@@ -456,105 +455,26 @@ each station's bore is cut through.
 The lane is **one bore wide**, which is what makes each lane a column rather than a
 grid.
 
-### What holds the slot up
+### Copper feed-throughs
 
-A lane's floor is the pocket floor's own band — [6.9 mm](SLOT_FLOOR_Z), one wall of PET-GF
-over the floor, one bore of lane, one wall again. The slot does not sit there: it stands
-one lane pitch above it, on `_cold_core_interface.front_slot_standoff`.
+Two round Ø[7.5 mm](COPPER_HOLE_D) holes pass through the −X casing wall,
+one per lane. Their axes remain at Y = ±77.5 mm and Z = [28.43 mm](COPPER_Z)
+above the shell's outside floor. Each clears the nominal 6.35 mm copper by
+0.575 mm radially. The floor is [2 mm](FSHELL_FLOOR_T) thick.
+`_copper_ports.py` owns the exit axes; `cut_copper_ports` in `_port_cuts.py`
+cuts the holes. The PRV retains its separate +Y-flank opening.
 
-That standoff is **stated, not derived**. Nothing inside this shell sets it — what does is
-the appliance's own floor slab outside this face, which both of the evaporator's coppers
-would cross into if the slot dropped to the bottom of its lane. `enclosure_assembly` reads
-that against the loop itself, on `clearance-floor` and `pack-closes`, so a
-slot that drops reads red over there rather than quietly walking the refrigerant loop into
-a wall. `copper_plugs.evap_cross_z` takes the slot's own reach up from this top.
+The vertical wall is continuous above and beside each hole. The shell is
+one printed body with ordinary [2.38 mm](FSHELL_WALL_T) walls through the
+front corners. Both copper tails are fed through their holes during the
+carbonator's descent, with their final bends formed as the assembly seats.
+The [production assembly procedure](/hardware/assembly/cold-core.md#5-body-side-install)
+specifies the sequence and exit sealing.
 
-**Two fluid lines use this lane and neither crosses this wall:** the CO2 falls the
-lane's whole height and runs along its floor at the plate band before it turns in; the
-carbonated water joins only once the carbonator's top plate is under it. The lane is one bore
-wide, so what keeps them apart is the storey each takes, and
-`_internal_routes.report_routes` is what proves it. Above the shell,
-`cap_conduit_pair_neck` holds the two columns in this lane apart.
-
-### The two lane slots and their copper plug stacks
-
-The −X outer_shell wall carries a **Z-elongated slot** on each of its two lanes, and
-between them they take the two copper evaporator lines, one lane pitch up off each lane’s floor. Each slot is
-⌀[6.65 mm](PLUG_ARCH_D) wide (rounded ends along Z) and both are cut by
-`cut_lane_slots` in `_port_cuts.py`. A slot's
-top extends past the wall top so no sliver of wall material remains
-above it — the plugs slide down into the slot from
-above during assembly. With the centerward wall extending only to
-y = ±[72.88 mm](POCKET_Y_OUTER) (where it meets the ±Y walls via the
-transition arcs), each slot pierces only this one outer wall.
-
-**There are two because the refrigeration base is two bodies.** This wall is mated face
-to face with that base: the condenser stands against the port lane's face and the
-compressor just short of the west lane's. So the evaporator's two coppers leave by
-opposite lanes, each on the pick the body behind it already carries — the condenser's
-joint made up across the plane the two bodies share, the compressor's cut and brazed
-across the standoff its pressed shell leaves. A slot rather than a bore is the coil's
-doing either way — a tail formed
-off a coil that is lowered into the cavity travels *down* the wall to its station rather
-than being threaded through it.
-
-Both the slots and the plug stacks that fill them are authored in the **port frame** —
-the frame where the wall a port crosses is a −Y wall and the slot runs lateral in
-x — and `_cold_core_interface.port_to_shell` is the one transform that carries that
-frame onto a lane. A pose turned by hand alongside a slot cut by hand is two
-implementations of one transform; this way the plug and the hole it plugs cannot
-land in two places. One frame serves both lanes, so a plug drawn there fits either.
-
-Pass-through Z heights (centers, absolute in the model — the floor occupies
-z = 0 to z = [2.38 mm](FSHELL_WALL_T), so subtract that for a height above the
-cavity floor):
-
-[port-lane evap-inlet 28.43; west-lane evap-outlet 28.43](SLOT_Z)
-
-The two coppers cross at the same height, each after dropping down its own lane.
-The slots sit in the bottom [28.43 mm](COLUMN_TOP) band of a wall
-[213.4 mm](OUTER_H) tall. `copper_plugs.py` derives their stations.
-The PRV vent has a separate +Y-flank opening; it does not enter either copper slot.
-
-Two printed PETG **copper plugs**, one per lane, slide down into their own lane's slot
-from above:
-
-| Plug | Lane | Z span (mm) | Z end arches |
-|---|---|---|---|
-| `copper-plug-west` | west | [28.43 → 213.4](PLUG_SPAN_WEST) | bottom end only (top flat) |
-| `copper-plug-port` | port | [28.43 → 213.4](PLUG_SPAN_PORT) | bottom end only (top flat) |
-
-Each plug runs from its own tube's center to the wall top, and the arch cutout at
-its bottom end holds exactly half of that tube — the tube is the gap. **The two come
-out the same solid**, because the two lanes carry one copper each and both cross at
-the same height; they stay two parts because a plug is what fills one column, and a
-station added to either lane divides that lane's plug alone.
-
-Each plug has a **continuous interior flange** that overlaps both slot edges
-by 1 mm and seats against the shell's local jamb planes. This 8.65 mm wide,
-1 mm thick lip keeps foam inside along the slot; outward foam pressure bears
-it against the seat. The 6.15 mm wide web spans the copper-cover port frame.
-The local casing jamb is 2.90 mm thick; the cover retains its independent
-3.20 mm grip datum and printed-face clearances.
-
-The **exterior flange is limited to two 8 mm long retaining tabs**, one at
-each end of the web. Each tab is 8.65 mm wide and 1 mm thick. The wall slides
-between a tab and the interior flange with its running and supported-face allowances, keeping the plug
-aligned before the foam pour. The web and lower tab start 2.35 mm above the
-copper's centre to leave printable stock beside the arch. Print with the
-continuous interior flange flat on the bed. See `copper-plugs/copper_plugs.py`
-for the middle and end-tab cross-sections.
-
-Each plug end that abuts a tube has a **⌀[6.65 mm](PLUG_ARCH_D) half-circle
-arch cutout** centered at x = 0, so the plug seats around the tube
-without crushing it. Both plugs arch at the bottom only and end flat at the shell
-rim beneath the cap. Small gaps around the copper and the rounded slot
-bottom fill during the foam pour.
-
-A column's last plug reaches the wall top with that flat face, so nothing is left
-open above either stack. Once the two plugs are installed, what is left unfilled
-in either slot along Z — the strip below that lane's lowest line, plus the narrow
-clearance band around each tube — gets filled by the body foam pour.
+The exits retain the refrigeration base's entry positions and stand high
+enough to clear its floor slab. The CO2 and carbonated-water lines use their
+existing internal storeys and leave through the top cap. Their routes and
+the printed reservoir cavities retain their own datums.
 
 ## Assembly and foam pour
 
@@ -578,8 +498,8 @@ Every internal component is installed first:
 - Copper evaporator coil hand-wound around the carbonator exterior and
   bonded with 3M 425 aluminum foil tape.
 - Reservoirs installed into the two reservoir pockets.
-- Copper evaporator inlet routed along the port lane and out through its slot; copper
-  evaporator outlet routed along the west lane and out through that lane’s own slot. Each leaves its fitting and turns onto its
+- Copper evaporator inlet routed along the port lane and out through its round hole; copper
+  evaporator outlet routed along the west lane and out through its round hole. Each leaves its fitting and turns onto its
   lane, and each of the two coppers lands on the pick of the body standing against its
   own lane's face — the condenser's outlet east, the compressor's suction west.
 - Water inlet: a 1/4" PTC × 1/4" NPT M adapter (JG PP010822E) made up on the
@@ -589,10 +509,9 @@ Every internal component is installed first:
   The guide is plain: it adds no fitting, insertion or tube cut. Lay the complete
   route before pouring; use both CAD spans and actual receiving-end marks for
   its single blank per [Internal plumbing](/hardware/assembly/internal-plumbing.md#parts-and-cut-lengths).
-- Two copper plugs slid down from above, one per lane, with the continuous
-  interior flange facing the cavity and the shell wall held between it and
-  the exterior end tabs. Each bottom arch seats over its copper and the top
-  finishes flush with the shell rim.
+- Copper tails fed through their Ø7.5 mm holes during the carbonator descent,
+  formed into their final lanes, and sealed to the shell with burnished foil collars.
+
 - PRV shroud subassembly (`../prv-shroud/`) — already built and
   cured ahead of time, threaded into Port 4 at carbonator install — is
   here as part of the carbonator by the time the body pour happens.
@@ -657,7 +576,7 @@ inserts. Apply the exterior seam tape as specified under "Dry casing seams".
 ## Nominal walls and functional stock
 
 Ordinary casing and pocket walls use 2.38 mm. Pocket cavities, reed slots,
-copper-cover seats and hardware axes have separate fit datums; their local
+copper passages and hardware axes have separate fit datums; their local
 junctions retain the stock their function requires. Floors are 2 mm, the
 carbonator support ring retains its 9 mm radial section, and the top lid
 retains its 5.4 mm equipment plate. The printed reservoirs and their caps
@@ -671,16 +590,22 @@ pack six perimeter beads across the ordinary 2.38 mm walls. PET-GF15 takes its f
 current shared [`petgf.3mf`](../../petgf.3mf), including the
 [localized cooling policy](../../cooling/README.md).
 
-Plate contents (when slicing): `foam-shell` alone; the two `foam-cap`s + their
-two lids on a second plate. **The two
-copper plugs are not on the shell's plate** — they are PETG
-([bom.md §7](/hardware/ledger/bom.md)) and go on the small-PETG plate with the
-drip pan, the PRV shroud, the reed bridge and the fuse clamp
-([machine-time.md](/hardware/ledger/machine-time.md) §1).
+The production shell is prepared alone, upright and floor-down. Tree(auto)/Default
+supplies the automatic support decision for its passages and insert roofs.
+The selected faucet A2 contour treatment uses a 60 mm scarf, 10% start height,
+ten steps, 0% scarf gap and the coupled 150% ordinary gap. Wiping is off.
+A seam-enforcer strip at native X60, Y−90.2 starts the scarf on an uninterrupted
+long-wall span, clear of the attachment pockets and copper/PRV ports.
+
+Outer walls request 100 mm/s and 1,500 mm/s²; inner walls request 150 mm/s and
+3,000 mm/s². Default acceleration is 3,000 mm/s² and travel acceleration is
+5,000 mm/s². The filament retains its 18 mm³/s volumetric ceiling. The first
+bed layer is 0.20 mm and later layers are 0.24 mm. The production preparation
+is declared in `enclosure/trial-preparation/pieces.json` under `foam-shell`.
 
 ### Printer / profile
 
-- **Printer:** Bambu Lab H2C, **0.4 mm hardened nozzle, left hotend** —
+- **Printer:** Mark2 (Bambu Lab H2C), **0.4 mm hardened nozzle, left hotend** —
   every abrasive stock runs left ([tools.md](/hardware/ledger/tools.md))
 - **Hotend flow:** Standard; current inputs are declared in
   [`pieces.json`](../../enclosure/trial-preparation/pieces.json).
@@ -690,9 +615,9 @@ drip pan, the PRV shroud, the reed bridge and the fuse clamp
 - **Wall loops:** 3, Classic
 - **Top / bottom shells:** 4 / 3
 - **Sparse infill:** 15 % gyroid
-- **Speeds:** shared 0.4 mm process, capped at 18 mm³/s maximum volumetric flow.
-  The native preparation records the emitted speeds.
-- **Supports:** off (threshold 30°)
+- **Speeds / acceleration:** outer walls 100 mm/s / 1,500 mm/s²; inner walls
+  150 mm/s / 3,000 mm/s²; maximum volumetric flow 18 mm³/s.
+- **Supports:** Tree(auto), Default style; retain the slicer's automatic decisions.
 - **Brim:** auto, 5 mm width, 0.1 mm object gap, 0.15 mm elephant-foot
   compensation
 - **Wrapping detection:** off

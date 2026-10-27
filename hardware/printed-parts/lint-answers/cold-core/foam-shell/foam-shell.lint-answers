@@ -1,20 +1,3 @@
-[sliver] Required copper-cover seating shoulders. The retained cover flanges need their flat inboard seats at x=-138.30; those seats extend 0.52 mm inward from the ordinary casing. Their 1 mm bearing width matches the cover's slot-edge overlap. The straight seat has 2.90 mm of normal casing stock. The short rounded-corner return measures 4.242 mm along its flagged normal in the printed mesh.
-alternatives: Removing the shoulders moves the cover's seating face and loses the retained flange contact. A taper across the 1 mm bearing removes that flat contact. Extending 2.90 mm stock across the whole face changes the selected six-bead ordinary wall. The native witnesses are in cold-core/casing-integration-review.json.
-file: hardware/printed-parts/cold-core/foam-shell/foam-shell.step
-click: x=-138.560 y=73.175 z=107.700
-click: x=-138.560 y=-73.175 z=107.700
-click: x=-138.204 y=82.075 z=118.412
-
-[thin] Required 1 mm-wide copper-cover flange bearing. These pairs cross the bearing sideways, between its slot edge and its shoulder; the cover's 1 mm overlap requires that span. The casing measured across X at the straight seats is 2.90 mm, and the flat seating plane remains the cover's fixed fit datum.
-alternatives: Widening the bearing changes the cover's flange overlap and the slot-side stock. Removing or tapering it changes the retained cover fit. This local seating feature is separate from the ordinary 2.38 mm wall.
-file: hardware/printed-parts/cold-core/foam-shell/foam-shell.step
-click: x=-138.800 y=74.175 z=203.269
-click: x=-138.800 y=73.175 z=203.269
-click: x=-138.810 y=-74.175 z=202.570
-click: x=-138.810 y=-73.175 z=202.570
-click: x=-138.802 y=-74.175 z=148.729
-click: x=-138.802 y=-73.175 z=148.729
-
 [ledge] Required blind insert-pocket ends. Each Ø4 mm bottom pilot retains its specified cylindrical depth plus the 0.25 mm supported-face allowance; the flat end bridges the 4 mm opening in the upright shell. Its position preserves insert room and the M3x25 screw-tip allowance recorded in the casing integration receipt.
 alternatives: A taper at the same end plane shortens the full-depth cylindrical seat. Extending that taper deeper changes the specified pocket-end datum. A through-bore opens the pocket beyond its blind end. The current slice retains localized bridge cooling and no supports in these small blind pockets.
 file: hardware/printed-parts/cold-core/foam-shell/foam-shell.step

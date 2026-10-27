@@ -41,7 +41,7 @@
    "label": "Every billed cold-core part has a body here",
    "kind": "goal",
    "status": "fail",
-   "value": "32/39",
+   "value": "31/38",
    "target": "a body per billed part",
    "detail": [
     "PTFE thread tape \u2014 billed, no solid here (\"Millrose 70894 Nickel Guard\")",
@@ -109,7 +109,7 @@
    "label": "Every body the core carries is placed",
    "kind": "goal",
    "status": "pass",
-   "value": "59/59",
+   "value": "57/57",
    "target": "a solid per body",
    "detail": [],
    "active": false
@@ -139,7 +139,7 @@
    "label": "A feature of another placed part locates every body",
    "kind": "goal",
    "status": "fail",
-   "value": "57/59",
+   "value": "55/57",
    "target": "a located joint per body",
    "detail": [
     "probe-carbonator-ds18b20: foil tape",
@@ -157,8 +157,6 @@
   "collet-carb-water-out",
   "collet-co2-in",
   "collet-water-in",
-  "copper-plug-port",
-  "copper-plug-west",
   "endcap-bottom",
   "endcap-top",
   "evap-coil",

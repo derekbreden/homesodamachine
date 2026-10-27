@@ -111,7 +111,7 @@ genrule(
         "pysrc/hardware/printed-parts/cadlib/snap.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
         "pysrc/hardware/printed-parts/cold-core/_cold_core_interface.py",
-        "pysrc/hardware/printed-parts/cold-core/copper-plugs/copper_plugs.py",
+        "pysrc/hardware/printed-parts/cold-core/_copper_ports.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_case.py",
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
@@ -260,6 +260,7 @@ genrule(
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
         "pysrc/hardware/printed-parts/cold-core/_above_core_mounts.py",
         "pysrc/hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "pysrc/hardware/printed-parts/cold-core/_copper_ports.py",
         "pysrc/hardware/printed-parts/cold-core/_float_interface.py",
         "pysrc/hardware/printed-parts/cold-core/_foam_cap.py",
         "hardware/printed-parts/cold-core/_internal_routes.py",
@@ -269,7 +270,6 @@ genrule(
         "pysrc/hardware/printed-parts/cold-core/_reservoir_ports.py",
         "pysrc/hardware/printed-parts/cold-core/_support_ring.py",
         "pysrc/hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.py",
-        "pysrc/hardware/printed-parts/cold-core/copper-plugs/copper_plugs.py",
         "pysrc/hardware/printed-parts/cold-core/prv-shroud/prv_shroud.py",
         "pysrc/hardware/printed-parts/cold-core/reed-bridge/reed_bridge.py",
         "pysrc/hardware/printed-parts/cold-core/reservoir/reservoir.py",
@@ -419,6 +419,7 @@ genrule(
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
         "pysrc/hardware/printed-parts/cold-core/_above_core_mounts.py",
         "pysrc/hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "pysrc/hardware/printed-parts/cold-core/_copper_ports.py",
         "pysrc/hardware/printed-parts/cold-core/_float_interface.py",
         "pysrc/hardware/printed-parts/cold-core/_foam_cap.py",
         "pysrc/hardware/printed-parts/cold-core/_internal_routes.py",
@@ -429,7 +430,6 @@ genrule(
         "pysrc/hardware/printed-parts/cold-core/_support_ring.py",
         "pysrc/hardware/printed-parts/cold-core/_water_pressure_regulator.py",
         "pysrc/hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.py",
-        "pysrc/hardware/printed-parts/cold-core/copper-plugs/copper_plugs.py",
         "pysrc/hardware/printed-parts/cold-core/foam-assembly/foam_assembly.py",
         "pysrc/hardware/printed-parts/cold-core/prv-shroud/prv_shroud.py",
         "pysrc/hardware/printed-parts/cold-core/reed-bridge/reed_bridge.py",
@@ -786,6 +786,7 @@ genrule(
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
         "pysrc/hardware/printed-parts/cold-core/_above_core_mounts.py",
         "pysrc/hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "pysrc/hardware/printed-parts/cold-core/_copper_ports.py",
         "pysrc/hardware/printed-parts/cold-core/_float_interface.py",
         "pysrc/hardware/printed-parts/cold-core/_foam_cap.py",
         "pysrc/hardware/printed-parts/cold-core/_internal_routes.py",
@@ -795,7 +796,6 @@ genrule(
         "pysrc/hardware/printed-parts/cold-core/_reservoir_ports.py",
         "pysrc/hardware/printed-parts/cold-core/_support_ring.py",
         "pysrc/hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.py",
-        "pysrc/hardware/printed-parts/cold-core/copper-plugs/copper_plugs.py",
         "pysrc/hardware/printed-parts/cold-core/prv-shroud/prv_shroud.py",
         "pysrc/hardware/printed-parts/cold-core/reed-bridge/reed_bridge.py",
         "pysrc/hardware/printed-parts/cold-core/reservoir/reservoir.py",
@@ -895,6 +895,7 @@ genrule(
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
         "pysrc/hardware/printed-parts/cold-core/_above_core_mounts.py",
         "pysrc/hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "pysrc/hardware/printed-parts/cold-core/_copper_ports.py",
         "pysrc/hardware/printed-parts/cold-core/_float_interface.py",
         "pysrc/hardware/printed-parts/cold-core/_foam_cap.py",
         "pysrc/hardware/printed-parts/cold-core/_internal_routes.py",
@@ -905,7 +906,6 @@ genrule(
         "pysrc/hardware/printed-parts/cold-core/_support_ring.py",
         "pysrc/hardware/printed-parts/cold-core/_water_pressure_regulator.py",
         "pysrc/hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.py",
-        "pysrc/hardware/printed-parts/cold-core/copper-plugs/copper_plugs.py",
         "pysrc/hardware/printed-parts/cold-core/foam-assembly/foam_assembly.py",
         "pysrc/hardware/printed-parts/cold-core/prv-shroud/prv_shroud.py",
         "pysrc/hardware/printed-parts/cold-core/reed-bridge/reed_bridge.py",
@@ -1348,6 +1348,7 @@ genrule(
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
         "pysrc/hardware/printed-parts/cold-core/_above_core_mounts.py",
         "pysrc/hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "pysrc/hardware/printed-parts/cold-core/_copper_ports.py",
         "pysrc/hardware/printed-parts/cold-core/_float_interface.py",
         "pysrc/hardware/printed-parts/cold-core/_foam_cap.py",
         "pysrc/hardware/printed-parts/cold-core/_internal_routes.py",
@@ -1358,9 +1359,6 @@ genrule(
         "pysrc/hardware/printed-parts/cold-core/_reservoir_ports.py",
         "pysrc/hardware/printed-parts/cold-core/_support_ring.py",
         "pysrc/hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.py",
-        ":out/copper-plugs/hardware/printed-parts/cold-core/copper-plugs/copper-plug-port.step",
-        ":out/copper-plugs/hardware/printed-parts/cold-core/copper-plugs/copper-plug-west.step",
-        "pysrc/hardware/printed-parts/cold-core/copper-plugs/copper_plugs.py",
         "pysrc/hardware/printed-parts/cold-core/foam-assembly/foam_assembly.py",
         ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step",
         ":out/flute-payload-cold-core/hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step.mesh",
@@ -2466,6 +2464,7 @@ genrule(
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
         "pysrc/hardware/printed-parts/cold-core/_above_core_mounts.py",
         "pysrc/hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "pysrc/hardware/printed-parts/cold-core/_copper_ports.py",
         "pysrc/hardware/printed-parts/cold-core/_float_interface.py",
         "pysrc/hardware/printed-parts/cold-core/_foam_cap.py",
         "pysrc/hardware/printed-parts/cold-core/_internal_routes.py",
@@ -2479,9 +2478,6 @@ genrule(
         "pysrc/hardware/printed-parts/cold-core/_support_ring.py",
         "pysrc/hardware/printed-parts/cold-core/_water_pressure_regulator.py",
         "pysrc/hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.py",
-        ":out/copper-plugs/hardware/printed-parts/cold-core/copper-plugs/copper-plug-port.step",
-        ":out/copper-plugs/hardware/printed-parts/cold-core/copper-plugs/copper-plug-west.step",
-        "pysrc/hardware/printed-parts/cold-core/copper-plugs/copper_plugs.py",
         ":out/foam-assembly/hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step",
         "pysrc/hardware/printed-parts/cold-core/foam-assembly/foam_assembly.py",
         ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step",
@@ -2831,6 +2827,7 @@ genrule(
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
         "pysrc/hardware/printed-parts/cold-core/_above_core_mounts.py",
         "pysrc/hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "pysrc/hardware/printed-parts/cold-core/_copper_ports.py",
         "pysrc/hardware/printed-parts/cold-core/_float_interface.py",
         "pysrc/hardware/printed-parts/cold-core/_foam_cap.py",
         "pysrc/hardware/printed-parts/cold-core/_internal_routes.py",
@@ -2842,9 +2839,6 @@ genrule(
         "pysrc/hardware/printed-parts/cold-core/_support_ring.py",
         "pysrc/hardware/printed-parts/cold-core/_water_pressure_regulator.py",
         "pysrc/hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.py",
-        ":out/copper-plugs/hardware/printed-parts/cold-core/copper-plugs/copper-plug-port.step",
-        ":out/copper-plugs/hardware/printed-parts/cold-core/copper-plugs/copper-plug-west.step",
-        "pysrc/hardware/printed-parts/cold-core/copper-plugs/copper_plugs.py",
         ":out/foam-assembly/hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step",
         "pysrc/hardware/printed-parts/cold-core/foam-assembly/foam_assembly.py",
         ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step",
@@ -3304,67 +3298,6 @@ cp hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.py $$O1
 )
 
 genrule(
-    name = "copper-plugs",
-    srcs = [
-        "pysrc/hardware/manifold-layout/above_core.py",
-        "pysrc/hardware/printed-parts/cadlib/fits.py",
-        "pysrc/hardware/printed-parts/cadlib/reeding.py",
-        "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
-        "pysrc/hardware/printed-parts/cold-core/_above_core_mounts.py",
-        "pysrc/hardware/printed-parts/cold-core/_cold_core_interface.py",
-        "hardware/printed-parts/cold-core/copper-plugs/copper_plugs.py",
-        "pysrc/hardware/printed-parts/enclosure/enclosure/_anchor_cap_interface.py",
-        "pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
-        "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
-        "pysrc/hardware/printed-parts/valve-seat/valve_seat.py",
-        "pysrc/hardware/reference/beduan-solenoid/beduan_solenoid.py",
-        "pysrc/hardware/reference/g-ganen-pump/common-foot/g_ganen_foot.py",
-        "pysrc/hardware/reference/g-ganen-pump/g_ganen_pump.py",
-        "pysrc/hardware/reference/g-ganen-pump/installation/g_ganen_installation.py",
-        "pysrc/hardware/reference/g-ganen-pump/integration-envelope/g_ganen_integration.py",
-        "pysrc/hardware/reference/g-ganen-pump/integration-envelope/native_queries.py",
-        "hardware/reference/g-ganen-pump/reference-parameters.json",
-        "pysrc/hardware/scripts/_cadq_export.py",
-        "pysrc/hardware/scripts/_material_base.py",
-        "pysrc/hardware/scripts/_materials.py",
-        "pysrc/hardware/scripts/_mesh_payload.py",
-        "pysrc/hardware/scripts/_run_lock.py",
-        "pysrc/hardware/scripts/_stated_bounds.py",
-        "pysrc/tools/docgen/__init__.py",
-    ],
-    outs = [
-        "out/copper-plugs/hardware/printed-parts/cold-core/copper-plugs/copper-plug-port.step",
-        "out/copper-plugs/hardware/printed-parts/cold-core/copper-plugs/copper-plug-west.step",
-        "out/copper-plugs/hardware/printed-parts/cold-core/copper-plugs/copper_plugs.py",
-    ],
-    cmd = """
-set -e
-O0=$$PWD/$(location out/copper-plugs/hardware/printed-parts/cold-core/copper-plugs/copper-plug-port.step)
-O1=$$PWD/$(location out/copper-plugs/hardware/printed-parts/cold-core/copper-plugs/copper-plug-west.step)
-O2=$$PWD/$(location out/copper-plugs/hardware/printed-parts/cold-core/copper-plugs/copper_plugs.py)
-for f in $(SRCS); do
-  case $$f in
-    */node_modules/*) continue;;
-    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
-    */pysrc/*) t=$${f##*/pysrc/};;
-    *) t=$$f;;
-  esac
-  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
-done
-for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
-done
-cd work
-ln -sfn $$HSM_WORKSPACE/.cache .cache
-D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/cold-core/copper-plugs/copper_plugs.py > /dev/null
-cp hardware/printed-parts/cold-core/copper-plugs/copper-plug-port.step $$O0
-cp hardware/printed-parts/cold-core/copper-plugs/copper-plug-west.step $$O1
-cp hardware/printed-parts/cold-core/copper-plugs/copper_plugs.py $$O2
-""",
-)
-
-genrule(
     name = "foam-assembly",
     srcs = [
         "hardware/manifold-layout/above-core.json",
@@ -3606,6 +3539,7 @@ genrule(
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
         "pysrc/hardware/printed-parts/cold-core/_above_core_mounts.py",
         "pysrc/hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "pysrc/hardware/printed-parts/cold-core/_copper_ports.py",
         "pysrc/hardware/printed-parts/cold-core/_float_interface.py",
         "pysrc/hardware/printed-parts/cold-core/_foam_cap.py",
         "pysrc/hardware/printed-parts/cold-core/_foam_shell.py",
@@ -3618,7 +3552,6 @@ genrule(
         "pysrc/hardware/printed-parts/cold-core/_show_skin.py",
         "pysrc/hardware/printed-parts/cold-core/_support_ring.py",
         "pysrc/hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.py",
-        "pysrc/hardware/printed-parts/cold-core/copper-plugs/copper_plugs.py",
         "hardware/printed-parts/cold-core/foam-shell/README.md",
         "pysrc/hardware/printed-parts/cold-core/foam-shell/foam_shell.py",
         "pysrc/hardware/printed-parts/cold-core/prv-shroud/prv_shroud.py",
@@ -4343,6 +4276,7 @@ genrule(
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
         "pysrc/hardware/printed-parts/cold-core/_above_core_mounts.py",
         "pysrc/hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "pysrc/hardware/printed-parts/cold-core/_copper_ports.py",
         "pysrc/hardware/printed-parts/cold-core/_float_interface.py",
         "pysrc/hardware/printed-parts/cold-core/_foam_cap.py",
         "pysrc/hardware/printed-parts/cold-core/_internal_routes.py",
@@ -4353,7 +4287,6 @@ genrule(
         "pysrc/hardware/printed-parts/cold-core/_support_ring.py",
         "pysrc/hardware/printed-parts/cold-core/_water_pressure_regulator.py",
         "pysrc/hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.py",
-        "pysrc/hardware/printed-parts/cold-core/copper-plugs/copper_plugs.py",
         "pysrc/hardware/printed-parts/cold-core/foam-assembly/foam_assembly.py",
         "pysrc/hardware/printed-parts/cold-core/prv-shroud/prv_shroud.py",
         "pysrc/hardware/printed-parts/cold-core/reed-bridge/reed_bridge.py",
@@ -5064,6 +4997,7 @@ genrule(
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
         "pysrc/hardware/printed-parts/cold-core/_above_core_mounts.py",
         "pysrc/hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "pysrc/hardware/printed-parts/cold-core/_copper_ports.py",
         "pysrc/hardware/printed-parts/cold-core/_float_interface.py",
         "pysrc/hardware/printed-parts/cold-core/_foam_cap.py",
         "pysrc/hardware/printed-parts/cold-core/_internal_routes.py",
@@ -5074,9 +5008,6 @@ genrule(
         "pysrc/hardware/printed-parts/cold-core/_support_ring.py",
         "pysrc/hardware/printed-parts/cold-core/_water_pressure_regulator.py",
         "pysrc/hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.py",
-        ":out/copper-plugs/hardware/printed-parts/cold-core/copper-plugs/copper-plug-port.step",
-        ":out/copper-plugs/hardware/printed-parts/cold-core/copper-plugs/copper-plug-west.step",
-        "pysrc/hardware/printed-parts/cold-core/copper-plugs/copper_plugs.py",
         ":out/foam-assembly/hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step",
         "pysrc/hardware/printed-parts/cold-core/foam-assembly/foam_assembly.py",
         "hardware/printed-parts/cold-core/foam-cap/cap-feature-intersections.json",
@@ -5313,6 +5244,7 @@ genrule(
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
         "pysrc/hardware/printed-parts/cold-core/_above_core_mounts.py",
         "pysrc/hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "pysrc/hardware/printed-parts/cold-core/_copper_ports.py",
         "pysrc/hardware/printed-parts/cold-core/_float_interface.py",
         "pysrc/hardware/printed-parts/cold-core/_foam_cap.py",
         "pysrc/hardware/printed-parts/cold-core/_internal_routes.py",
@@ -5322,7 +5254,6 @@ genrule(
         "pysrc/hardware/printed-parts/cold-core/_reservoir_a_anchors.py",
         "pysrc/hardware/printed-parts/cold-core/_support_ring.py",
         "pysrc/hardware/printed-parts/cold-core/_water_pressure_regulator.py",
-        "pysrc/hardware/printed-parts/cold-core/copper-plugs/copper_plugs.py",
         "pysrc/hardware/printed-parts/cold-core/prv-shroud/prv_shroud.py",
         "pysrc/hardware/printed-parts/cold-core/reservoir/reservoir.py",
         "pysrc/hardware/printed-parts/electronics/module_tray.py",
@@ -5679,6 +5610,7 @@ genrule(
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
         "pysrc/hardware/printed-parts/cold-core/_above_core_mounts.py",
         "pysrc/hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "pysrc/hardware/printed-parts/cold-core/_copper_ports.py",
         "pysrc/hardware/printed-parts/cold-core/_float_interface.py",
         "pysrc/hardware/printed-parts/cold-core/_foam_cap.py",
         "pysrc/hardware/printed-parts/cold-core/_internal_routes.py",
@@ -5689,7 +5621,6 @@ genrule(
         "pysrc/hardware/printed-parts/cold-core/_support_ring.py",
         "pysrc/hardware/printed-parts/cold-core/_water_pressure_regulator.py",
         "pysrc/hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.py",
-        "pysrc/hardware/printed-parts/cold-core/copper-plugs/copper_plugs.py",
         "pysrc/hardware/printed-parts/cold-core/foam-assembly/foam_assembly.py",
         "pysrc/hardware/printed-parts/cold-core/prv-shroud/prv_shroud.py",
         "pysrc/hardware/printed-parts/cold-core/reed-bridge/reed_bridge.py",
@@ -5973,6 +5904,7 @@ genrule(
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
         "pysrc/hardware/printed-parts/cold-core/_above_core_mounts.py",
         "pysrc/hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "pysrc/hardware/printed-parts/cold-core/_copper_ports.py",
         "pysrc/hardware/printed-parts/cold-core/_float_interface.py",
         "pysrc/hardware/printed-parts/cold-core/_foam_cap.py",
         "pysrc/hardware/printed-parts/cold-core/_internal_routes.py",
@@ -5983,7 +5915,6 @@ genrule(
         "pysrc/hardware/printed-parts/cold-core/_support_ring.py",
         "pysrc/hardware/printed-parts/cold-core/_water_pressure_regulator.py",
         "pysrc/hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.py",
-        "pysrc/hardware/printed-parts/cold-core/copper-plugs/copper_plugs.py",
         "pysrc/hardware/printed-parts/cold-core/foam-assembly/foam_assembly.py",
         "pysrc/hardware/printed-parts/cold-core/prv-shroud/prv_shroud.py",
         "pysrc/hardware/printed-parts/cold-core/reed-bridge/reed_bridge.py",
@@ -9926,6 +9857,7 @@ genrule(
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
         "pysrc/hardware/printed-parts/cold-core/_above_core_mounts.py",
         "pysrc/hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "pysrc/hardware/printed-parts/cold-core/_copper_ports.py",
         "pysrc/hardware/printed-parts/cold-core/_float_interface.py",
         "pysrc/hardware/printed-parts/cold-core/_foam_cap.py",
         "pysrc/hardware/printed-parts/cold-core/_internal_routes.py",
@@ -9937,15 +9869,13 @@ genrule(
         "pysrc/hardware/printed-parts/cold-core/_support_ring.py",
         "pysrc/hardware/printed-parts/cold-core/_water_pressure_regulator.py",
         "pysrc/hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.py",
-        ":out/copper-plugs/hardware/printed-parts/cold-core/copper-plugs/copper-plug-port.step",
-        ":out/copper-plugs/hardware/printed-parts/cold-core/copper-plugs/copper-plug-west.step",
-        "pysrc/hardware/printed-parts/cold-core/copper-plugs/copper_plugs.py",
         "pysrc/hardware/printed-parts/cold-core/foam-assembly/foam_assembly.py",
         ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step",
         ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step",
         ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step",
         ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step",
         ":out/foam-shell/hardware/printed-parts/cold-core/foam-shell/foam-shell.step",
+        "hardware/printed-parts/cold-core/foam-shell/prints/2026-10-26-mark2-round-ports-a2/preparation.json",
         "hardware/printed-parts/cold-core/magnetic-float/all-aero/mark2-print/v1/float-preflight.json",
         ":out/prv-shroud/hardware/printed-parts/cold-core/prv-shroud/prv-shroud.step",
         "pysrc/hardware/printed-parts/cold-core/prv-shroud/prv_shroud.py",
@@ -10250,6 +10180,7 @@ genrule(
     srcs = [
         "hardware/ledger/bom.md",
         "hardware/ledger/machine-time.md",
+        "hardware/printed-parts/cold-core/foam-shell/prints/2026-10-26-mark2-round-ports-a2/preparation.json",
         "hardware/printed-parts/cold-core/magnetic-float/all-aero/mark2-print/v1/float-preflight.json",
         "hardware/printed-parts/faucet/faucet-petgf.support-audit.json",
         "hardware/printed-parts/zone-c/funnel-cover/native-slice-review.json",
@@ -10509,6 +10440,7 @@ genrule(
         "hardware/printed-parts/cadlib/world_workplane.py",
         "hardware/printed-parts/cold-core/_above_core_mounts.py",
         "hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "hardware/printed-parts/cold-core/_copper_ports.py",
         "hardware/printed-parts/cold-core/_float_interface.py",
         "hardware/printed-parts/cold-core/_foam_cap.py",
         "hardware/printed-parts/cold-core/_internal_routes.py",
@@ -10519,9 +10451,6 @@ genrule(
         "hardware/printed-parts/cold-core/_support_ring.py",
         "hardware/printed-parts/cold-core/_water_pressure_regulator.py",
         "hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.py",
-        ":out/copper-plugs/hardware/printed-parts/cold-core/copper-plugs/copper-plug-port.step",
-        ":out/copper-plugs/hardware/printed-parts/cold-core/copper-plugs/copper-plug-west.step",
-        "hardware/printed-parts/cold-core/copper-plugs/copper_plugs.py",
         ":out/foam-assembly/hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step",
         "hardware/printed-parts/cold-core/foam-assembly/foam_assembly.py",
         "hardware/printed-parts/cold-core/foam-cap/cap-feature-intersections.json",
@@ -10805,6 +10734,7 @@ genrule(
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
         "pysrc/hardware/printed-parts/cold-core/_above_core_mounts.py",
         "pysrc/hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "pysrc/hardware/printed-parts/cold-core/_copper_ports.py",
         "pysrc/hardware/printed-parts/cold-core/_float_interface.py",
         "pysrc/hardware/printed-parts/cold-core/_foam_cap.py",
         "pysrc/hardware/printed-parts/cold-core/_internal_routes.py",
@@ -10815,7 +10745,6 @@ genrule(
         "pysrc/hardware/printed-parts/cold-core/_support_ring.py",
         "pysrc/hardware/printed-parts/cold-core/_water_pressure_regulator.py",
         "pysrc/hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.py",
-        "pysrc/hardware/printed-parts/cold-core/copper-plugs/copper_plugs.py",
         "pysrc/hardware/printed-parts/cold-core/foam-assembly/foam_assembly.py",
         "pysrc/hardware/printed-parts/cold-core/prv-shroud/prv_shroud.py",
         "pysrc/hardware/printed-parts/cold-core/reed-bridge/reed_bridge.py",
@@ -11906,6 +11835,14 @@ genrule(
 )
 
 genrule(
+    name = "pysrc-d32f56629616",
+    srcs = ["hardware/printed-parts/cold-core/_copper_ports.py"],
+    outs = ["pysrc/hardware/printed-parts/cold-core/_copper_ports.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
     name = "pysrc-969722b17baf",
     srcs = ["hardware/printed-parts/cold-core/_float_interface.py"],
     outs = ["pysrc/hardware/printed-parts/cold-core/_float_interface.py"],
@@ -12021,14 +11958,6 @@ genrule(
     name = "pysrc-fa9ad5e94716",
     srcs = ["hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.py"],
     outs = ["pysrc/hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.py"],
-    tools = ["tools/bazel/pysrc.py"],
-    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
-)
-
-genrule(
-    name = "pysrc-cf062581b64c",
-    srcs = ["hardware/printed-parts/cold-core/copper-plugs/copper_plugs.py"],
-    outs = ["pysrc/hardware/printed-parts/cold-core/copper-plugs/copper_plugs.py"],
     tools = ["tools/bazel/pysrc.py"],
     cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
 )
@@ -13698,7 +13627,6 @@ filegroup(
         ":asse-straight-cuffs",
         ":cold-core-interface",
         ":coil-mandrel",
-        ":copper-plugs",
         ":foam-assembly",
         ":foam-cap",
         ":foam-shell",
