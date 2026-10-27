@@ -1,0 +1,499 @@
+{
+  "scope": "Manual native construction and materialization reading; physical retention and full-shell slicing are separate.",
+  "source_sha256": {
+    "hardware/printed-parts/cadlib/route_snap.py": "e9d1b350d7c639adc125ab01a99022d8a4eaaffac9c8278616722de0ec99ef47",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "6786a7041b270b426baa07b922eeec86afa84940b9f02766ce0e1fa63214768f",
+    "hardware/printed-parts/enclosure/enclosure/_route_snaps.py": "d1a3f9a70ecd272a44d2fbdc99d577726ff4cbea6264e8a293e9cff8d86a5ddc",
+    "hardware/printed-parts/enclosure/enclosure/_tube_snap_sites.py": "0ba3dbe3159b8423f863f09683f904cdebf8c808d79cc0de64cb302d233d2300",
+    "hardware/wiring/installed/retainers.py": "57b34f59389754f437ba2482dab49e66790b316b43c9275e18f66263bd65c180"
+  },
+  "piece": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step",
+  "piece_sha256": "0702006a0e88137948f2e636d97462f36138d3114a37025b6f123561d7b2fff7",
+  "stl_sha256": "349b0a699a42e9e98f2ccd90546c15443deadffb6d03a212bcf5e62a2f0997fc",
+  "payload_sha256": "565e27623ec3d2b5008939ed2a53a5070e396e60bca7c13f32afb3b56f6fe192",
+  "part_valid": true,
+  "part_solids": 1,
+  "tube_count": 4,
+  "cable_count": 3,
+  "features": [
+    {
+      "id": "dc1-west-pair",
+      "kind": "cable",
+      "datums": {
+        "id": "dc1-west-pair",
+        "host": "enclosure-back-top",
+        "origin": [
+          -98.5,
+          320.5,
+          271.35
+        ],
+        "outward": [
+          1.0,
+          0.0,
+          0.0
+        ],
+        "profile_up": [
+          0.0,
+          0.0,
+          -1.0
+        ],
+        "seat_depth": 3.5,
+        "seat_height": 7.5,
+        "span": 16.0,
+        "stock": 3.0,
+        "beak": 0.75,
+        "centre_world_mm": [
+          -96.75,
+          320.5,
+          258.1
+        ],
+        "target_centers": {
+          "DC1-GND": [
+            -96.75,
+            320.5,
+            256.1
+          ],
+          "DC1-V12": [
+            -96.75,
+            320.5,
+            260.1
+          ]
+        },
+        "stock_basis": "Two nominal 3.0 mm insulated 16 AWG wires; physical insulation OD unmeasured.",
+        "fit_scope": "Matched two-wire seat; physical insertion, retention and layer survival remain observations.",
+        "kind": "cable"
+      },
+      "native_feature_valid": true,
+      "native_feature_solids": 1,
+      "volume_mm3": 1245.7800000000007,
+      "missing_from_part_mm3": 0.0,
+      "bounds_world_mm": [
+        -98.6,
+        312.5,
+        250.60000000000002,
+        -92.0,
+        328.5,
+        271.45000000000005
+      ]
+    },
+    {
+      "id": "j5-west-ribbon",
+      "kind": "cable",
+      "datums": {
+        "id": "j5-west-ribbon",
+        "host": "enclosure-back-top",
+        "origin": [
+          -98.5,
+          267.0,
+          290.075
+        ],
+        "outward": [
+          1.0,
+          0.0,
+          0.0
+        ],
+        "profile_up": [
+          0.0,
+          0.0,
+          -1.0
+        ],
+        "seat_depth": 2.2,
+        "seat_height": 7.75,
+        "span": 16.0,
+        "stock": 3.0,
+        "beak": 0.75,
+        "centre_world_mm": [
+          -97.4,
+          267.0,
+          278.0
+        ],
+        "target_centers": {
+          "J5-GND": [
+            -97.4,
+            267.0,
+            280.775
+          ],
+          "J5-V5": [
+            -97.4,
+            267.0,
+            278.925
+          ],
+          "J5-IO2": [
+            -97.4,
+            267.0,
+            277.075
+          ],
+          "J5-IO19": [
+            -97.4,
+            267.0,
+            275.225
+          ]
+        },
+        "stock_basis": "Bare 4P 22 AWG ribbon, 1.70 mm modeled conductor OD on 1.85 mm pitch.",
+        "fit_scope": "Bare 4P fit accepted on the 16 mm coupon; installed routing and assembly access have their own scope.",
+        "kind": "cable"
+      },
+      "native_feature_valid": true,
+      "native_feature_solids": 1,
+      "volume_mm3": 1071.6200000000001,
+      "missing_from_part_mm3": 0.0,
+      "bounds_world_mm": [
+        -98.6,
+        259.0,
+        270.375,
+        -93.3,
+        275.0,
+        290.175
+      ]
+    },
+    {
+      "id": "vk-positive-east",
+      "kind": "cable",
+      "datums": {
+        "id": "vk-positive-east",
+        "host": "enclosure-back-top",
+        "origin": [
+          98.5,
+          274.0,
+          329.3
+        ],
+        "outward": [
+          -1.0,
+          0.0,
+          0.0
+        ],
+        "profile_up": [
+          0.0,
+          0.0,
+          -1.0
+        ],
+        "seat_depth": 2.2,
+        "seat_height": 2.2,
+        "span": 8.0,
+        "stock": 3.0,
+        "beak": 0.6,
+        "centre_world_mm": [
+          97.4,
+          274.0,
+          320.0
+        ],
+        "target_centers": {
+          "J2-positive-K": [
+            97.4,
+            274.0,
+            320.0
+          ]
+        },
+        "stock_basis": "One modeled 1.70 mm insulated 22 AWG silicone wire.",
+        "fit_scope": "Provisional compact seat, 1.60 mm mouth; soft-insulation entry is a physical fit observation.",
+        "kind": "cable"
+      },
+      "native_feature_valid": true,
+      "native_feature_solids": 1,
+      "volume_mm3": 394.6000000000006,
+      "missing_from_part_mm3": 0.0,
+      "bounds_world_mm": [
+        93.3,
+        270.0,
+        315.3,
+        98.6,
+        278.0,
+        329.40000000000003
+      ]
+    },
+    {
+      "id": "tube-snap-flavor-a-rear-roof",
+      "kind": "tube",
+      "datums": {
+        "id": "tube-snap-flavor-a-rear-roof",
+        "route_id": "fluid-18",
+        "host": "enclosure-back-top",
+        "centre": [
+          -1.3750005643842016,
+          428.6,
+          337.75
+        ],
+        "along": [
+          1.0,
+          0.0,
+          0.0
+        ],
+        "outward": [
+          0.0,
+          0.0,
+          -1.0
+        ],
+        "root_distance": 8.25,
+        "tube_od": 4.0,
+        "bore_diameter": 4.1,
+        "wing": 1.52,
+        "span": 8.0,
+        "print_up": [
+          0.0,
+          0.0,
+          -1.0
+        ],
+        "basis": "Rear flavor-A straight under the plain roof; seat this tube before the vent crosses its downward approach.",
+        "install_before": [
+          "drain-vent"
+        ],
+        "source_parameter": {
+          "file": "hardware/manifold-layout/above_core_routes.py",
+          "function": "route_specifications",
+          "native_segment_index": 21,
+          "line_endpoints_world_mm": [
+            [
+              -15.0,
+              428.6,
+              337.75
+            ],
+            [
+              12.249998871231597,
+              428.6,
+              337.75
+            ]
+          ],
+          "line_parameter": 0.5,
+          "straight_end_clearance_mm": 9.624999435615798,
+          "host_face_axis": "Z",
+          "host_face_coordinate_mm": 346.0
+        },
+        "kind": "tube"
+      },
+      "native_feature_valid": true,
+      "native_feature_solids": 1,
+      "volume_mm3": 480.9067168436255,
+      "missing_from_part_mm3": 0.0,
+      "bounds_world_mm": [
+        -5.375000564384202,
+        425.03000000000003,
+        335.3613794579987,
+        2.6249994356157984,
+        432.17,
+        346.1
+      ],
+      "nominal_tube_overlap_mm3": 0.0,
+      "nominal_tube_radial_clearance_mm": 0.049999999999961055
+    },
+    {
+      "id": "tube-snap-flavor-b-rear-roof",
+      "kind": "tube",
+      "datums": {
+        "id": "tube-snap-flavor-b-rear-roof",
+        "route_id": "fluid-28",
+        "host": "enclosure-back-top",
+        "centre": [
+          2.674999999999997,
+          420.28967877669146,
+          343.0
+        ],
+        "along": [
+          1.0,
+          0.0,
+          0.0
+        ],
+        "outward": [
+          0.0,
+          0.0,
+          -1.0
+        ],
+        "root_distance": 3.0,
+        "tube_od": 4.0,
+        "bore_diameter": 4.1,
+        "wing": 1.52,
+        "span": 8.0,
+        "print_up": [
+          0.0,
+          0.0,
+          -1.0
+        ],
+        "basis": "Long rear flavor-B straight, three millimetres below the plain roof.",
+        "install_before": [],
+        "source_parameter": {
+          "file": "hardware/manifold-layout/above_core_routes.py",
+          "function": "route_specifications",
+          "native_segment_index": 15,
+          "line_endpoints_world_mm": [
+            [
+              -34.0,
+              420.28967877669146,
+              343.0
+            ],
+            [
+              39.349999999999994,
+              420.28967877669146,
+              343.0
+            ]
+          ],
+          "line_parameter": 0.5,
+          "straight_end_clearance_mm": 32.675,
+          "host_face_axis": "Z",
+          "host_face_coordinate_mm": 346.0
+        },
+        "kind": "tube"
+      },
+      "native_feature_valid": true,
+      "native_feature_solids": 1,
+      "volume_mm3": 190.02701333394373,
+      "missing_from_part_mm3": 0.0,
+      "bounds_world_mm": [
+        -1.3250000000000028,
+        416.71967877669147,
+        340.6113794579987,
+        6.674999999999997,
+        423.85967877669145,
+        346.57
+      ],
+      "nominal_tube_overlap_mm3": 0.0,
+      "nominal_tube_radial_clearance_mm": 0.049999999999961055
+    },
+    {
+      "id": "tube-snap-vent-roof",
+      "kind": "tube",
+      "datums": {
+        "id": "tube-snap-vent-roof",
+        "route_id": "drain-vent",
+        "host": "enclosure-back-top",
+        "centre": [
+          -35.00000000000001,
+          389.28332896947956,
+          342.0
+        ],
+        "along": [
+          7.985090080815581e-16,
+          1.0,
+          0.0
+        ],
+        "outward": [
+          0.0,
+          0.0,
+          -1.0
+        ],
+        "root_distance": 4.0,
+        "tube_od": 4.0,
+        "bore_diameter": 4.1,
+        "wing": 1.52,
+        "span": 8.0,
+        "print_up": [
+          0.0,
+          0.0,
+          -1.0
+        ],
+        "basis": "Straight vent span below the plain roof; its local approach clears seated flavor-A tubing.",
+        "install_before": [],
+        "source_parameter": {
+          "file": "hardware/manifold-layout/above_core_routes.py",
+          "function": "route_specifications",
+          "native_segment_index": 4,
+          "line_endpoints_world_mm": [
+            [
+              -35.000000000000014,
+              380.3849605281867,
+              342.0
+            ],
+            [
+              -35.0,
+              398.1816974107724,
+              342.0
+            ]
+          ],
+          "line_parameter": 0.5,
+          "straight_end_clearance_mm": 4.89836844129286,
+          "host_face_axis": "Z",
+          "host_face_coordinate_mm": 346.0
+        },
+        "kind": "tube"
+      },
+      "native_feature_valid": true,
+      "native_feature_solids": 1,
+      "volume_mm3": 238.14671684362492,
+      "missing_from_part_mm3": 0.0,
+      "bounds_world_mm": [
+        -38.570000000000014,
+        385.28332896947956,
+        339.6113794579987,
+        -31.42999999999999,
+        393.28332896947956,
+        346.1
+      ],
+      "nominal_tube_overlap_mm3": 0.0,
+      "nominal_tube_radial_clearance_mm": 0.04999999999997239
+    },
+    {
+      "id": "tube-snap-reservoir-a-fill-east",
+      "kind": "tube",
+      "datums": {
+        "id": "tube-snap-reservoir-a-fill-east",
+        "route_id": "fluid-14",
+        "host": "enclosure-back-top",
+        "centre": [
+          94.31,
+          265.0,
+          258.5
+        ],
+        "along": [
+          0.0,
+          1.0,
+          0.0
+        ],
+        "outward": [
+          -1.0,
+          0.0,
+          0.0
+        ],
+        "root_distance": 4.189999999999998,
+        "tube_od": 6.35,
+        "bore_diameter": 6.35,
+        "wing": 2.4,
+        "span": 8.0,
+        "print_up": [
+          0.0,
+          0.0,
+          -1.0
+        ],
+        "basis": "East-wall fill straight; seat fill before draw, then close the existing paired fore cap.",
+        "install_before": [
+          "fluid-16"
+        ],
+        "source_parameter": {
+          "file": "hardware/manifold-layout/reservoir-a-routes.json",
+          "function": "fluid-14.segments",
+          "native_segment_index": 12,
+          "line_endpoints_world_mm": [
+            [
+              94.31,
+              244.0,
+              258.5
+            ],
+            [
+              94.31,
+              286.0,
+              258.5
+            ]
+          ],
+          "line_parameter": 0.5,
+          "straight_end_clearance_mm": 17.0,
+          "host_face_axis": "X",
+          "host_face_coordinate_mm": 98.5
+        },
+        "kind": "tube"
+      },
+      "native_feature_valid": true,
+      "native_feature_solids": 1,
+      "volume_mm3": 519.7085852667785,
+      "missing_from_part_mm3": 0.0,
+      "bounds_world_mm": [
+        90.57433634474879,
+        261.0,
+        252.925,
+        99.88500000000002,
+        269.0,
+        268.365
+      ],
+      "nominal_tube_overlap_mm3": 0.0,
+      "nominal_tube_radial_clearance_mm": 0.0
+    }
+  ],
+  "pass": true,
+  "cable_datum_source_binding": "Current cable-site datums equal the recorded native construction inputs exactly. Subsequent guide-route edits do not alter those construction inputs."
+}

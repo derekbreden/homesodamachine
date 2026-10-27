@@ -8340,6 +8340,9 @@ def build_piece(box, y_side, z_side, halves_cache=None):
         piece = _handholds(piece, inner, y_joint, y_side)
     if y_side == "back" and z_side == "bottom":
         piece = piece.fuse(*disposal_letters(outer).Solids())
+    if (y_side, z_side) == ('back', 'top'):
+        import _route_snaps
+        piece = _route_snaps.apply(piece, y_side, z_side)
     # Final structural joinery: no later fuse fills a stack fit or bore. The bottom
     # handhold finish then cuts the same exterior profile through shell and knuckles.
     piece = _y_stacks(piece, inner, outer, y_joint, f"{y_side}-{z_side}", box.pack.funnel)

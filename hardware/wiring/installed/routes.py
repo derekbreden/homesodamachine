@@ -43,6 +43,8 @@ def routed(connections, attachments):
             guides.extend(pump_terminal_guides(c, attachments, groups[c.harness].index(c.id)))
         elif saved.get('front_top_passage') == 'display':
             guides.extend(display_internal_guides(attachments, groups[c.harness].index(c.id)))
+        from .retainers import dress_guides
+        guides = dress_guides(c, guides, attachments, saved)
         lead = 6. if STOCK[c.stock]['awg'] == 22 else 8.
         start_lead, end_lead = saved.get('end_lands_mm', [lead, lead])
         # PSU side wire entries and vertical screw approaches are separate.
