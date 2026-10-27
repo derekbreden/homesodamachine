@@ -10,7 +10,7 @@ import argparse
 import json
 from pathlib import Path
 
-from wall_meter import ROOT, HERE, cq, meter, mounts, sha, bounds, contacts, stock_probes
+from wall_meter import ROOT, HERE, cq, meter, mounts, sha, bounds, contacts, stock_probes, tie_slot
 
 
 def main():
@@ -27,11 +27,10 @@ def main():
         path = args.bind_back_top.resolve()
         stock = import_step(path).val()
         a, b = data['tie_slot_min_world_mm'], data['tie_slot_max_world_mm']
-        slot = cq.Solid.makeBox(b[0]-a[0], b[1]-a[1], 3., cq.Vector(
-            a[0], a[1], data['beam_bottom_world_z_mm']))
+        slot = tie_slot(data)
         x, y, z = data['centre_world_mm']
         bore = cq.Solid.makeCylinder(data['seat_radius_mm'], data['width_mm'],
-            cq.Vector(x, y-data['width_mm']/2., z), cq.Vector(0, 1, 0))
+            cq.Vector(x, data['stock_min_world_mm'][1], z), cq.Vector(0, 1, 0))
         report = json.loads(args.output.read_text())
         report['actual_back_top_binding'] = {
             'path': str(path.relative_to(ROOT)), 'sha256': sha(path),
