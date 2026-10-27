@@ -72,6 +72,7 @@ services:
         - hardware/tube-insertion-guide/**
         - hardware/carbonator-filming-guide/**
         - hardware/gun-positioner-guide/**
+        - hardware/water-inlet-jet-guide/**
         - hardware/guide-assets/**
         - hardware/assembly-letter-guide/**
         - hardware/drill-and-cut-guide/**
