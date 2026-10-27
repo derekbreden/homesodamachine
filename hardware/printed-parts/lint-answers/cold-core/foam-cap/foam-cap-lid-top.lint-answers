@@ -80,20 +80,12 @@ file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
 click: x=55.658 y=-36.746 z=4.350
 click: x=55.658 y=-36.746 z=6.750
 
-[sliver] Functional fore snap catch: each 0.60 mm-wide underside is the full-Y bearing ledge that captures the cap hook while leaving the outward spring lane open. Its fixed section is 3 mm tall. The cap's hook has 0.45 mm engagement, with separate 0.25 mm sliding side air and 0.40 mm underside allowance. The local dense receiver/root modifier and emitted-path reading describe deposition, not printed retention or surface acceptance.
-alternatives: Increasing this projection to 3 mm widens the whole matching cap by 4.8 mm. Filling the space below the ledge blocks the integral hook; removing the ledge removes positive retention. A local relief merely moves those conflicts to a new edge instead of resolving the mating shape.
+[thin] Deliberate functional C2 spring section: these three ranked surface groups belong to the four free jaws above the tube equators. Their measured 2.400 mm wall is the C2 section Derek selected with the 6.35 mm bore on Mark2 task 1379240291, recorded in future/snap-fit-tests/2026-10-26-mark2-combined/physical-result.json. The ordinary stock below the equators is one broad filled base; the upper jaws retain this specific flexure exception. This answer preserves the thinness ranking and establishes no full-lid force or lifetime result.
+alternatives: Increasing the jaws to 3 mm while keeping the same bore increases each outer radius by 0.6 mm and consumes 1.2 mm of the pair's spread space. Preserving the current conservative 1 mm-per-jaw envelope and its 0.35 mm opposing gap then requires wider tube spacing and another routing change, as well as retuning the accepted spring section. Filling above the equators joins the free jaws and closes the press-in mouths. A rigid cradle with a separate closure adds a part and an assembly step instead of providing the selected direct snap.
 file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
-click: x=114.050 y=64.625 z=8.400
-click: x=114.050 y=43.875 z=8.400
-
-[ledge] Functional flat snap bearing underside: these two 6.5 × 0.6 mm faces catch the cap's full-span hooks after outward flex and spring-back. Their flat contact keeps retention from camming the cap outward under withdrawal. Tree(auto)/Default adds no support-interface box within the fore receiver/root region in the current offline lid slice; the 0.40 mm underside allowance remains in the mating geometry. The receiver is open above and at both flanks for inspection and cleanup before the tubes and cap enter.
-alternatives: Sloping or rounding away the flat changes the withdrawal catch into a release ramp. A corbel fills the hook's seating space. A 3 mm projection requires a matching cap 4.8 mm wider and changes the approved spring and hook geometry. Support finish and release effort remain physical qualifications.
-file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
-click: x=115.133 y=43.775 z=8.400
-click: x=115.133 y=64.525 z=8.400
-
-[sliver] Functional shallow spring-foot clearance pockets. These 0.65 mm-high sides bound the two flat-bottomed reliefs that let the retained fore cap sit at Z258.5 with 0.25 mm floor clearance. The floors retain 4.75 mm of lid backing; the pockets end at the receiver neck without cutting its 3 mm cheeks. The native seated and spread-cap readings show zero overlap with the lid.
-alternatives: Raising the cap and tubes 0.65 mm to clear the uncut lid leaves only 0.735 mm under V-B for the fill tube, below the selected 1 mm buffer. Lowering the whole lid face alters its broad 5.4 mm plate and the roots of the other fixed features. Removing the pockets obstructs the cap; the local relief preserves the selected tube and mating-cap geometry.
-file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
-click: x=114.050 y=67.965 z=5.075
-click: x=114.050 y=40.535 z=5.075
+click: x=115.051 y=69.574 z=10.595
+click: x=115.051 y=67.174 z=10.567
+click: x=115.051 y=44.926 z=10.595
+click: x=115.051 y=47.326 z=10.567
+click: x=115.051 y=58.426 z=10.595
+click: x=115.051 y=60.826 z=10.567

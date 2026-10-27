@@ -28,3 +28,8 @@ core and complete appliance. Only the lid and fill tube surfaces change, and the
 separate cap component is absent. Other native geometry, hierarchy, poses,
 colors and wiring are retained. [Assembly scene readings](assembly-scenes.json)
 bind the five guide GLBs; their other triangles, materials and transforms are exact.
+
+[Lid readings](lid.json) bind the four free arms and the unchanged stock outside
+the fore site. [Printability readings](geometry-lint.json) identify the specified
+2.4 mm spring walls and their narrowly anchored functional exception.
+[Publication](publication.json) binds the live appliance and its cap-free mesh set.
