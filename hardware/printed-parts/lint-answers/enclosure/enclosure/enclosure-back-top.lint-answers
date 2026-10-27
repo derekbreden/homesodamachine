@@ -230,7 +230,7 @@ click: x=-32.492 y=462.033 z=266.196
 alternatives: Read hole roofs separately from sideways corbels. Squaring the opening's corners puts a flat roof over the inlet's chamfered body.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=-57.698 y=465.175 z=323.248
-click: x=-79.315 y=465.175 z=323.235
+click: x=-79.302 y=465.175 z=323.248
 
 [ceiling] Required valve seat plates: the V-A and V-K solenoids stand on these faces, the shared `valve_seat` V69 plate with its four blind sockets and open port channel, rooted in the side walls (`_above_core_shell.valve_seats`). Back-top prints ceiling-down, so each plate's top looks at the bed 28 mm up; Tree(auto)/Default support stands in the valve's own room (slice 257a5648, interfaces 16 and 17) and leaves before the valve goes in. Physical cleanup remains unqualified.
 alternatives: A 45-degree corbel over the plate occupies the solenoid; a seat printed separately is a second part to hold the valve.
@@ -297,3 +297,41 @@ alternatives: Running the slope to the free edge makes a tapered tip. Filling up
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=-98.000 y=216.425 z=335.946
 click: x=98.000 y=216.425 z=335.946
+
+[sliver] Required cable-retaining undercuts: these are the complete flat working undersides of the DC-1 pair, bare J5 4P ribbon and V-K positive-lead catches, respectively 0.75 x 16, 0.75 x 16 and 0.60 x 8 mm. The three hooks keep 3 mm arm stock; the measured strip width is the catch projection into the entry, setting the 2.75, 1.45 and 1.60 mm mouths in their 3.50, 2.20 and 2.20 mm deep seats (`cadlib/route_snap.py:cable_hook`). The 16 mm J5 section has Derek's fit/retention acceptance in future/snap-fit-tests/2026-10-26-mark2-combined/physical-result.json. The DC-1 and V-K section fits and the complete enclosure print remain unqualified.
+alternatives: A 3 mm projection closes either 2.20 mm seat's mouth and leaves only 0.50 mm at the DC-1 entry. Enlarging the whole hook to retain its mouth enlarges the matched cable seat and requires another fit/clearance review. Filling beneath the flat enters the cable seat; removing the projection opens retention, and sloping the working underside makes withdrawal spread the hook along a release ramp.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=-95.375 y=320.500 z=254.350
+click: x=-96.675 y=267.000 z=274.125
+click: x=96.600 y=274.000 z=318.900
+
+[ledge] Required cable catch bearings: these are the same complete flat retention undersides of the V-K, DC-1 and J5 hooks, 0.60 x 8, 0.75 x 16 and 0.75 x 16 mm, in the ceiling-down production pose. Their square undercuts hold the cable behind its narrower entry; the surrounding arm stock is 3 mm. J5's 16 mm section has the specific physical fit/retention acceptance in future/snap-fit-tests/2026-10-26-mark2-combined/physical-result.json; that result does not qualify the other two seats or the full enclosure's support cleanup.
+alternatives: A sloped bearing is a withdrawal ramp; filling under it closes the cable seat. A 3 mm bearing projection closes the two 2.20 mm seats' mouths and restricts the 3.50 mm seat to a 0.50 mm entry. Enlarging the complete seat changes the fitted cable envelope. Support placement for the complete enclosure belongs to its own native print preparation.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=96.500 y=272.667 z=318.900
+click: x=-95.500 y=317.833 z=254.350
+click: x=-96.800 y=264.333 z=274.125
+
+[thin] Required spring section of the three 4 mm tube snaps: these six readings are the free curved arms of the rear flavor-A, rear flavor-B and vent clips, each with a 4.10 mm bore, 1.52 mm radial wing thickness, 125.421 degree wrap per wing and 8 mm axial span (`_tube_snap_sites.py`, `cadlib/route_snap.py:tube_clip`). The section is proportionally scaled from the selected 2.40 mm C2 spring for the smaller tube; this is a modeled compliance/fit estimate, with physical insertion, holding and fatigue unqualified. This answer applies to those free spring arms, not ordinary fixed wall or root stock.
+alternatives: A 3 mm radial wing nearly doubles thickness relative to this bore and changes the curved spring's stiffness and insertion response rather than preserving the selected C2 proportions. Filling the opening prevents tube insertion. Opening the tips or reducing their wrap changes retention; a separate cap changes the requested integral snap interface and needs its own fit.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=-2.375 y=425.038 z=337.513
+click: x=-2.375 y=426.555 z=337.605
+click: x=3.675 y=423.852 z=342.763
+click: x=3.675 y=422.335 z=342.855
+click: x=-0.375 y=432.121 z=337.162
+click: x=-0.375 y=430.620 z=337.402
+click: x=1.675 y=416.769 z=342.412
+click: x=1.675 y=418.269 z=342.652
+click: x=-38.569 y=390.284 z=341.939
+click: x=-37.050 y=390.284 z=341.957
+click: x=-31.431 y=388.283 z=341.939
+click: x=-32.950 y=388.283 z=341.957
+
+[thin] Accepted C2 spring section: these two readings are the free 2.40 mm radial wings of the Reservoir A fill clip, with the selected 6.35 mm bore, 125.421 degree wrap per wing and 8 mm axial span. Derek selected this C2 bore and wing section for present use in future/snap-fit-tests/2026-10-26-mark2-combined/physical-result.json. The answer covers the working spring arms; it does not qualify fatigue, numerical holding force or the complete enclosure print.
+alternatives: Thickening the free arms to 3 mm changes the accepted spring section, its outer envelope and insertion response. Filling between the arms closes insertion; reducing their wrap changes the accepted retention geometry. A separate cap changes the requested integral interface.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=93.940 y=263.999 z=264.062
+click: x=94.085 y=263.999 z=261.667
+click: x=94.215 y=263.999 z=252.926
+click: x=94.243 y=263.999 z=255.326

@@ -1,0 +1,702 @@
+{
+  "views": [
+    {
+      "name": "fill-snap",
+      "caption": "The reservoir fill tube seats directly in the C2 snap, with a full root to the wall. Section through the clip.",
+      "before": "fill-snap-before.webp",
+      "after": "fill-snap-after.webp",
+      "width": 1000,
+      "height": 760,
+      "marks": [
+        {
+          "x": 500,
+          "y": 380,
+          "r": 79.2,
+          "label": "C2",
+          "at": [
+            94.31,
+            265,
+            258.5
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          71.09754256492536,
+          213.9325936428358,
+          243.99221410307834
+        ],
+        "target": [
+          94.31,
+          265,
+          258.5
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 0.21271020275503927,
+        "far": 571.2895096038947,
+        "aspect": 1.3157894736842106,
+        "section": {
+          "at": [
+            94.31,
+            265,
+            258.5
+          ],
+          "normal": [
+            0,
+            -1,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [
+        "enclosure-back-top"
+      ],
+      "ghost": [],
+      "only": [
+        "enclosure-back-top",
+        "tube-fluid-14"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "259efa63130b8ac31fda3ff03ec469ab751aee699367082bb4ffe807782bead8",
+          "commit": "8c7b1786b8a1e436e4206b5c1676fd1588e3acd7",
+          "taken": "2026-10-27T04:39:56.873Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "1716dc6c2a86b29c4c6643ef187336a865c489ec8a687d3f379f947f42f2b902",
+          "commit": "5f9764ffc65dab28bb79c34abf4bc29407372fc8",
+          "published": true
+        }
+      },
+      "changed": [
+        "wire-J5-IO19",
+        "wire-J5-GND",
+        "wire-J5-V5",
+        "wire-J5-IO2",
+        "wire-DC3-negative",
+        "cold-core/wago-sensors",
+        "wire-J4-GND",
+        "wire-J7-carb-earth-2",
+        "wire-DC1-GND",
+        "wire-flow-GND",
+        "wire-temp-GND",
+        "wire-J7-earth-4",
+        "cold-core/wago-reeds-b",
+        "wire-DC4-GND",
+        "wire-J7-GND",
+        "wire-DC4-V12",
+        "wire-DC2-V12",
+        "cold-core/wago-v12",
+        "cold-core/wago-gnd",
+        "wire-DC1-V12",
+        "wire-J1-OUT2",
+        "tube-above-core-va-fore-feed",
+        "cold-core/foam-cap-lid-top",
+        "enclosure-back-top",
+        "wire-J2-positive-K",
+        "cold-core/reservoir-b-cap",
+        "cold-core/reservoir-a-cap",
+        "tube-fluid-16",
+        "tube-fluid-14",
+        "tube-above-core-drain-vb-east-link",
+        "cold-core/vb-outlet-return",
+        "cold-core/valve-v-b",
+        "tube-above-core-vb-yb-link",
+        "cold-core/vb-outlet-stem",
+        "cold-core/vb-inlet-turn",
+        "cold-core/reservoir-a-fore-snap-cap",
+        "wire-J1-positive-B",
+        "cold-core/tube-above-core-vb-yb-cross"
+      ],
+      "withinMeshing": [
+        "tube-above-core-va-under-head",
+        "tube-above-core-water-in",
+        "wire-J1-positive-F",
+        "enclosure-pump-retainer",
+        "wire-AC6-PE",
+        "wire-J4-IO26",
+        "cold-core/evap-coil",
+        "wire-J7-CHI",
+        "wire-J7-CLO",
+        "wire-J1-OUT4",
+        "wire-J2-positive-J",
+        "wire-J1-positive-D",
+        "funnel",
+        "wire-J4-3V3",
+        "wire-AC1-N",
+        "wire-J7-RB3",
+        "wire-J6-GND"
+      ]
+    },
+    {
+      "name": "roof-runs",
+      "caption": "Section through the two rear flavor snaps: filled roots and short spring wings.",
+      "before": "roof-runs-before.webp",
+      "after": "roof-runs-after.webp",
+      "width": 1000,
+      "height": 760,
+      "marks": [
+        {
+          "x": 500,
+          "y": 380,
+          "r": 190,
+          "label": "Flavor snaps",
+          "at": [
+            0,
+            424.44,
+            340.2
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          -35.5230172719284,
+          420.57880247044255,
+          325.5274493876817
+        ],
+        "target": [
+          0,
+          424.44,
+          340.2
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 0.26294543227471295,
+        "far": 563.0466837416977,
+        "aspect": 1.3157894736842106,
+        "section": {
+          "at": [
+            0,
+            424.44,
+            340.2
+          ],
+          "normal": [
+            -1,
+            0,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [
+        "enclosure-back-top"
+      ],
+      "ghost": [],
+      "only": [
+        "enclosure-back-top",
+        "tube-fluid-18",
+        "tube-fluid-28"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "259efa63130b8ac31fda3ff03ec469ab751aee699367082bb4ffe807782bead8",
+          "commit": "8c7b1786b8a1e436e4206b5c1676fd1588e3acd7",
+          "taken": "2026-10-27T04:39:56.873Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "1716dc6c2a86b29c4c6643ef187336a865c489ec8a687d3f379f947f42f2b902",
+          "commit": "5f9764ffc65dab28bb79c34abf4bc29407372fc8",
+          "published": true
+        }
+      },
+      "changed": [
+        "wire-J5-IO19",
+        "wire-J5-GND",
+        "wire-J5-V5",
+        "wire-J5-IO2",
+        "wire-DC3-negative",
+        "cold-core/wago-sensors",
+        "wire-J4-GND",
+        "wire-J7-carb-earth-2",
+        "wire-DC1-GND",
+        "wire-flow-GND",
+        "wire-temp-GND",
+        "wire-J7-earth-4",
+        "cold-core/wago-reeds-b",
+        "wire-DC4-GND",
+        "wire-J7-GND",
+        "wire-DC4-V12",
+        "wire-DC2-V12",
+        "cold-core/wago-v12",
+        "cold-core/wago-gnd",
+        "wire-DC1-V12",
+        "wire-J1-OUT2",
+        "tube-above-core-va-fore-feed",
+        "cold-core/foam-cap-lid-top",
+        "enclosure-back-top",
+        "wire-J2-positive-K",
+        "cold-core/reservoir-b-cap",
+        "cold-core/reservoir-a-cap",
+        "tube-fluid-16",
+        "tube-fluid-14",
+        "tube-above-core-drain-vb-east-link",
+        "cold-core/vb-outlet-return",
+        "cold-core/valve-v-b",
+        "tube-above-core-vb-yb-link",
+        "cold-core/vb-outlet-stem",
+        "cold-core/vb-inlet-turn",
+        "cold-core/reservoir-a-fore-snap-cap",
+        "wire-J1-positive-B",
+        "cold-core/tube-above-core-vb-yb-cross"
+      ],
+      "withinMeshing": [
+        "tube-above-core-va-under-head",
+        "tube-above-core-water-in",
+        "wire-J1-positive-F",
+        "enclosure-pump-retainer",
+        "wire-AC6-PE",
+        "wire-J4-IO26",
+        "cold-core/evap-coil",
+        "wire-J7-CHI",
+        "wire-J7-CLO",
+        "wire-J1-OUT4",
+        "wire-J2-positive-J",
+        "wire-J1-positive-D",
+        "funnel",
+        "wire-J4-3V3",
+        "wire-AC1-N",
+        "wire-J7-RB3",
+        "wire-J6-GND"
+      ]
+    },
+    {
+      "name": "vent-snap",
+      "caption": "Section through the vent snap and its full roof root.",
+      "before": "vent-snap-before.webp",
+      "after": "vent-snap-after.webp",
+      "width": 1000,
+      "height": 760,
+      "marks": [
+        {
+          "x": 500,
+          "y": 380,
+          "r": 135.7,
+          "label": "Vent snap",
+          "at": [
+            -35,
+            389.28,
+            342
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          -23.14066806117087,
+          358.7845750144393,
+          333.52904861512206
+        ],
+        "target": [
+          -35,
+          389.28,
+          342
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 0.16467201678765017,
+        "far": 480.95438650793386,
+        "aspect": 1.3157894736842106,
+        "section": {
+          "at": [
+            -35,
+            389.28,
+            342
+          ],
+          "normal": [
+            0,
+            -1,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [
+        "enclosure-back-top"
+      ],
+      "ghost": [],
+      "only": [
+        "enclosure-back-top",
+        "tube-drain-vent"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "259efa63130b8ac31fda3ff03ec469ab751aee699367082bb4ffe807782bead8",
+          "commit": "8c7b1786b8a1e436e4206b5c1676fd1588e3acd7",
+          "taken": "2026-10-27T04:39:56.873Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "1716dc6c2a86b29c4c6643ef187336a865c489ec8a687d3f379f947f42f2b902",
+          "commit": "5f9764ffc65dab28bb79c34abf4bc29407372fc8",
+          "published": true
+        }
+      },
+      "changed": [
+        "wire-J5-IO19",
+        "wire-J5-GND",
+        "wire-J5-V5",
+        "wire-J5-IO2",
+        "wire-DC3-negative",
+        "cold-core/wago-sensors",
+        "wire-J4-GND",
+        "wire-J7-carb-earth-2",
+        "wire-DC1-GND",
+        "wire-flow-GND",
+        "wire-temp-GND",
+        "wire-J7-earth-4",
+        "cold-core/wago-reeds-b",
+        "wire-DC4-GND",
+        "wire-J7-GND",
+        "wire-DC4-V12",
+        "wire-DC2-V12",
+        "cold-core/wago-v12",
+        "cold-core/wago-gnd",
+        "wire-DC1-V12",
+        "wire-J1-OUT2",
+        "tube-above-core-va-fore-feed",
+        "cold-core/foam-cap-lid-top",
+        "enclosure-back-top",
+        "wire-J2-positive-K",
+        "cold-core/reservoir-b-cap",
+        "cold-core/reservoir-a-cap",
+        "tube-fluid-16",
+        "tube-fluid-14",
+        "tube-above-core-drain-vb-east-link",
+        "cold-core/vb-outlet-return",
+        "cold-core/valve-v-b",
+        "tube-above-core-vb-yb-link",
+        "cold-core/vb-outlet-stem",
+        "cold-core/vb-inlet-turn",
+        "cold-core/reservoir-a-fore-snap-cap",
+        "wire-J1-positive-B",
+        "cold-core/tube-above-core-vb-yb-cross"
+      ],
+      "withinMeshing": [
+        "tube-above-core-va-under-head",
+        "tube-above-core-water-in",
+        "wire-J1-positive-F",
+        "enclosure-pump-retainer",
+        "wire-AC6-PE",
+        "wire-J4-IO26",
+        "cold-core/evap-coil",
+        "wire-J7-CHI",
+        "wire-J7-CLO",
+        "wire-J1-OUT4",
+        "wire-J2-positive-J",
+        "wire-J1-positive-D",
+        "funnel",
+        "wire-J4-3V3",
+        "wire-AC1-N",
+        "wire-J7-RB3",
+        "wire-J6-GND"
+      ]
+    },
+    {
+      "name": "west-cables",
+      "caption": "The DC pair and the 4P relay ribbon seat in integral hooks with 3 mm stock.",
+      "before": "west-cables-before.webp",
+      "after": "west-cables-after.webp",
+      "width": 1000,
+      "height": 760,
+      "marks": [
+        {
+          "x": 397.8,
+          "y": 325.9,
+          "r": 21.7,
+          "label": "4P ribbon",
+          "at": [
+            -97.4,
+            267,
+            278
+          ]
+        },
+        {
+          "x": 592.4,
+          "y": 453.1,
+          "r": 20.4,
+          "label": "DC pair",
+          "at": [
+            -96.75,
+            320.5,
+            258.1
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          68.33552017555616,
+          194.9986878946663,
+          165.46526708764407
+        ],
+        "target": [
+          -95,
+          293,
+          270
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 0.3648427754265276,
+        "far": 581.0397658273725,
+        "aspect": 1.3157894736842106
+      },
+      "highlight": [
+        "enclosure-back-top"
+      ],
+      "ghost": [],
+      "only": [
+        "enclosure-back-top",
+        "wire-DC1-GND",
+        "wire-DC1-V12",
+        "wire-J5-*"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "259efa63130b8ac31fda3ff03ec469ab751aee699367082bb4ffe807782bead8",
+          "commit": "8c7b1786b8a1e436e4206b5c1676fd1588e3acd7",
+          "taken": "2026-10-27T04:39:56.873Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "1716dc6c2a86b29c4c6643ef187336a865c489ec8a687d3f379f947f42f2b902",
+          "commit": "5f9764ffc65dab28bb79c34abf4bc29407372fc8",
+          "published": true
+        }
+      },
+      "changed": [
+        "wire-J5-IO19",
+        "wire-J5-GND",
+        "wire-J5-V5",
+        "wire-J5-IO2",
+        "wire-DC3-negative",
+        "cold-core/wago-sensors",
+        "wire-J4-GND",
+        "wire-J7-carb-earth-2",
+        "wire-DC1-GND",
+        "wire-flow-GND",
+        "wire-temp-GND",
+        "wire-J7-earth-4",
+        "cold-core/wago-reeds-b",
+        "wire-DC4-GND",
+        "wire-J7-GND",
+        "wire-DC4-V12",
+        "wire-DC2-V12",
+        "cold-core/wago-v12",
+        "cold-core/wago-gnd",
+        "wire-DC1-V12",
+        "wire-J1-OUT2",
+        "tube-above-core-va-fore-feed",
+        "cold-core/foam-cap-lid-top",
+        "enclosure-back-top",
+        "wire-J2-positive-K",
+        "cold-core/reservoir-b-cap",
+        "cold-core/reservoir-a-cap",
+        "tube-fluid-16",
+        "tube-fluid-14",
+        "tube-above-core-drain-vb-east-link",
+        "cold-core/vb-outlet-return",
+        "cold-core/valve-v-b",
+        "tube-above-core-vb-yb-link",
+        "cold-core/vb-outlet-stem",
+        "cold-core/vb-inlet-turn",
+        "cold-core/reservoir-a-fore-snap-cap",
+        "wire-J1-positive-B",
+        "cold-core/tube-above-core-vb-yb-cross"
+      ],
+      "withinMeshing": [
+        "tube-above-core-va-under-head",
+        "tube-above-core-water-in",
+        "wire-J1-positive-F",
+        "enclosure-pump-retainer",
+        "wire-AC6-PE",
+        "wire-J4-IO26",
+        "cold-core/evap-coil",
+        "wire-J7-CHI",
+        "wire-J7-CLO",
+        "wire-J1-OUT4",
+        "wire-J2-positive-J",
+        "wire-J1-positive-D",
+        "funnel",
+        "wire-J4-3V3",
+        "wire-AC1-N",
+        "wire-J7-RB3",
+        "wire-J6-GND"
+      ]
+    },
+    {
+      "name": "vk-lead",
+      "caption": "A compact hook is sized to the single positive V-K lead.",
+      "before": "vk-lead-before.webp",
+      "after": "vk-lead-after.webp",
+      "width": 1000,
+      "height": 760,
+      "marks": [
+        {
+          "x": 507.8,
+          "y": 385,
+          "r": 62.6,
+          "label": "V-K lead",
+          "at": [
+            97.4,
+            274,
+            320
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          52.9875528801344,
+          244.9917019200896,
+          295.05286365127705
+        ],
+        "target": [
+          96.5,
+          274,
+          320
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 0.2029958068606691,
+        "far": 519.4853000187373,
+        "aspect": 1.3157894736842106
+      },
+      "highlight": [
+        "enclosure-back-top"
+      ],
+      "ghost": [],
+      "only": [
+        "enclosure-back-top",
+        "wire-J2-positive-K"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "259efa63130b8ac31fda3ff03ec469ab751aee699367082bb4ffe807782bead8",
+          "commit": "8c7b1786b8a1e436e4206b5c1676fd1588e3acd7",
+          "taken": "2026-10-27T04:39:56.873Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "1716dc6c2a86b29c4c6643ef187336a865c489ec8a687d3f379f947f42f2b902",
+          "commit": "5f9764ffc65dab28bb79c34abf4bc29407372fc8",
+          "published": true
+        }
+      },
+      "changed": [
+        "wire-J5-IO19",
+        "wire-J5-GND",
+        "wire-J5-V5",
+        "wire-J5-IO2",
+        "wire-DC3-negative",
+        "cold-core/wago-sensors",
+        "wire-J4-GND",
+        "wire-J7-carb-earth-2",
+        "wire-DC1-GND",
+        "wire-flow-GND",
+        "wire-temp-GND",
+        "wire-J7-earth-4",
+        "cold-core/wago-reeds-b",
+        "wire-DC4-GND",
+        "wire-J7-GND",
+        "wire-DC4-V12",
+        "wire-DC2-V12",
+        "cold-core/wago-v12",
+        "cold-core/wago-gnd",
+        "wire-DC1-V12",
+        "wire-J1-OUT2",
+        "tube-above-core-va-fore-feed",
+        "cold-core/foam-cap-lid-top",
+        "enclosure-back-top",
+        "wire-J2-positive-K",
+        "cold-core/reservoir-b-cap",
+        "cold-core/reservoir-a-cap",
+        "tube-fluid-16",
+        "tube-fluid-14",
+        "tube-above-core-drain-vb-east-link",
+        "cold-core/vb-outlet-return",
+        "cold-core/valve-v-b",
+        "tube-above-core-vb-yb-link",
+        "cold-core/vb-outlet-stem",
+        "cold-core/vb-inlet-turn",
+        "cold-core/reservoir-a-fore-snap-cap",
+        "wire-J1-positive-B",
+        "cold-core/tube-above-core-vb-yb-cross"
+      ],
+      "withinMeshing": [
+        "tube-above-core-va-under-head",
+        "tube-above-core-water-in",
+        "wire-J1-positive-F",
+        "enclosure-pump-retainer",
+        "wire-AC6-PE",
+        "wire-J4-IO26",
+        "cold-core/evap-coil",
+        "wire-J7-CHI",
+        "wire-J7-CLO",
+        "wire-J1-OUT4",
+        "wire-J2-positive-J",
+        "wire-J1-positive-D",
+        "funnel",
+        "wire-J4-3V3",
+        "wire-AC1-N",
+        "wire-J7-RB3",
+        "wire-J6-GND"
+      ]
+    }
+  ]
+}

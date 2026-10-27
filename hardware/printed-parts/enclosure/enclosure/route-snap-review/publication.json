@@ -1,0 +1,16 @@
+{
+  "source_commit": "bb2f0ec4d7b908671f35a7b4c15a5d5d12d360f8",
+  "pointer_commit": "5f9764ffc65dab28bb79c34abf4bc29407372fc8",
+  "live_viewer_native_source_sha256": "294da475d3ecf3790bc1433469a0fcfe1fdc7a688f7e1872fd5f4c95095c8263",
+  "published_members_sha256": {
+    "hardware/manifold-layout/enclosure-assembly.step": "294da475d3ecf3790bc1433469a0fcfe1fdc7a688f7e1872fd5f4c95095c8263",
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": "1716dc6c2a86b29c4c6643ef187336a865c489ec8a687d3f379f947f42f2b902",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.step": "b511c1def765dc65dcfd66306ba06203d539b7a57d2b7840c5ce2d14af582849",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh": "4b9db87d395db27f546ec65f568c05763aa9c1ad13c6e99bc9c11dce55e6b229",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "0702006a0e88137948f2e636d97462f36138d3114a37025b6f123561d7b2fff7",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": "349b0a699a42e9e98f2ccd90546c15443deadffb6d03a212bcf5e62a2f0997fc",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh": "565e27623ec3d2b5008939ed2a53a5070e396e60bca7c13f32afb3b56f6fe192",
+    "hardware/wiring/enclosure-wiring.step": "df385b75f56a43922a62bb5d5f09ffbd27af2cee86096040e4d491998677b772",
+    "hardware/wiring/enclosure-wiring.step.mesh": "f35f6a2e815f9c1ac6714f4546862f6d0a2e6a4ed82f4dad7ce7f81ec7752fc1"
+  }
+}
