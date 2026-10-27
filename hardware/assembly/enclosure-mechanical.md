@@ -101,7 +101,7 @@ the funnel frame separate. V-B, the pump and PCB travel with the cold core.
 Dry-fit the seams with the box empty: slide each column's top onto its bottom — front-top entering fore of front-bottom's front wall and running AFT to its stop blocks, back-top entering aft of back-bottom's rear wall and running FORE to its own — then part them again and telescope front-bottom into back-bottom, front-top into back-top. Confirm every slide runs its whole travel without shaving, reaches its assembled position, and every knuckle passes its neighbours as the halves telescope.
 
 **Check the printed screw passages at the dry fit.** Each screw must pass through its
-[Ø5.6](Y_STACK_CLEARANCE) clearance holes by hand and start in its insert without forcing the
+[Ø5.2](Y_STACK_CLEARANCE) clearance holes by hand and start in its insert without forcing the
 parts sideways. Remove loose support material from the open passages. Confirm the blocks
 pass one another during the closing slide. The modeled gaps accommodate printed surface
 roughness, including at seating faces; they are not a promise of open space after tightening.
