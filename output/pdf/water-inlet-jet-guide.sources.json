@@ -1,0 +1,110 @@
+{
+  "pdf": "water-inlet-jet-guide.pdf",
+  "pages": 14,
+  "page_inches": [
+    8.5,
+    11
+  ],
+  "print_layout": {
+    "content_scale": 0.98,
+    "bleed_overhang_inches": 0.25,
+    "colored_band_inset_inches": 0.3333333333333333,
+    "bleed_layer_scale": 1,
+    "media_source": "rear",
+    "print_scaling": "100% / none"
+  },
+  "artwork": "vector schematic; dimensions govern; not a full-size template",
+  "source_sha256": {
+    "tools/water-inlet-jet-guide/build.py": "fad4d09042ff042cdd66f2ff72a04725f9544bc9c6101ff963ee86dcd1ab1aae",
+    "tools/water-inlet-jet-guide/jet_art.py": "f52ec26411f5a95510040a573a2574436d2f146ff306f9e23541283b35c1b332",
+    "tools/assembly-guides/common.py": "1ec932ef9dc4cae73205f3e9a3722a2c23710d08287aa03e9908a555ec0db885",
+    "hardware/assembly/water-inlet-jet.md": "49c949059bc81e8fbdde7052ab45e2135a4f9ad547da3c82e3ba773c45addaaa",
+    "hardware/printed-parts/fixtures/water-inlet-jet/README.md": "1387eae1f4789038f764790f657fbbc325c115a838f39f186dae903c2352261c",
+    "hardware/printed-parts/fixtures/water-inlet-jet/water_inlet_jet_fixture.py": "61043a32088e1512e8fda5c7045ba010d4bfb66b256daea7d006e8b7badd993b",
+    "hardware/cold-core-layout/_water_inlet_jet.py": "10178e16d8764e1d0753b8199031e796ccbe9cef0bc163983d98825e15bf2cd5",
+    "hardware/cold-core-layout/water_inlet_jet_cap_drawing.py": "3db313f90f6a0fe0124d2ece469a27568b4ef8f0a67518ef39f3dc59f4ca15b7",
+    "hardware/cold-core-layout/water-inlet-jet-cap-drawing.pdf": "11eed7335c9f964080f4ee837278c137c4b1480fe2a21723d0ec68ad12fee903",
+    "hardware/assembly/pressure-vessel.md": "505da88bf7ce5e1600af5b8e2e5429c719003fcc6124a185476fa77a8ead53ed",
+    "hardware/assembly/acceptance-and-burn-in.md": "672b3d232c37daf8c12c031a554ca8b5882ec2d48047ef04650a99b758c229b9",
+    "hardware/ledger/tools.md": "692d7597015edf752832a17f695e3346c0ef3963fbd416e435294c0aaa478e13",
+    "hardware/ledger/inventory.md": "c146a58f8038a34b38093920bd297e0f4d4a2255d312380a77af61b3f97c2528"
+  },
+  "pdf_sha256": "2eac13af133c4e4a37c9f635e0b29e0eb51e6c47d1c022ec924dcf2fc4f73d96",
+  "geometry_mm": {
+    "JET_CAP_D": 9.5,
+    "JET_CAP_T": 2.0,
+    "JET_PASSAGE_D": 1.5875
+  },
+  "finished_limits_mm": {
+    "OD_TOL": 0.05,
+    "THICKNESS_TOL": 0.2,
+    "BORE_PLUS": 0.05,
+    "BORE_MINUS": 0.01,
+    "RADIAL_OFFSET_MAX": 0.1,
+    "AXIS_ANGLE_MAX": 1.0,
+    "FACE_GAP_MAX": 0.05,
+    "THICKNESS_VARIATION_MAX": 0.05,
+    "HOLE_EDGE_BREAK_MAX": 0.05
+  },
+  "primary_references": {
+    "S1": {
+      "title": "JET-CAP-01 Rev A: finished cap",
+      "url": "https://homesodamachine.com/read/cold-core-layout/water-inlet-jet-cap-drawing.pdf"
+    },
+    "S2": {
+      "title": "Jet fabrication and elbow fit",
+      "url": "https://github.com/derekbreden/homesodamachine/blob/main/hardware/assembly/water-inlet-jet.md"
+    },
+    "S3": {
+      "title": "Drilling jaws and four-clamp setup",
+      "url": "https://github.com/derekbreden/homesodamachine/blob/main/hardware/printed-parts/fixtures/water-inlet-jet/README.md"
+    },
+    "M1": {
+      "title": "WEN 4208T drill press manual, pp. 5-6, 14, 16-17",
+      "url": "https://cdn.shopify.com/s/files/1/0012/0350/3168/files/4208T.manual.20220914.pdf?v=1664398265"
+    },
+    "M2": {
+      "title": "WEN BA4555 metal bandsaw manual",
+      "url": "https://cdn.shopify.com/s/files/1/0012/0350/3168/files/BA4555.manual.20211206.pdf?v=1649272733"
+    },
+    "M3": {
+      "title": "X1 Pro manual, installation, modes and red-dot alignment",
+      "url": "https://www.xlaserlab.com/pages/xlaserlab-x1-pro-instruction-manual"
+    },
+    "M4": {
+      "title": "X1 Pro shielding-gas installation",
+      "url": "https://eu.xlaserlab.com/blogs/academy/x1pro-laser-welder-unboxing-installation"
+    },
+    "M5": {
+      "title": "Norseman: drilling feeds and speeds",
+      "url": "https://www.norsemandrill.com/feeds-speeds-drill.php"
+    },
+    "M6": {
+      "title": "Nickel Institute 11026: stainless fabrication for water",
+      "url": "https://nickelinstitute.org/en/resources/technical-guides/fabricating-stainless-steels-for-the-water-industry-guidelines-for-achieving-top-performance-11026/"
+    },
+    "M7": {
+      "title": "BSSA: cleaning before passivation",
+      "url": "https://bssa.org.uk/bssa_articles/passivation-of-stainless-steels/"
+    }
+  },
+  "review_scope": "Illustrated work sequence; no physical trial, welding or qualification performed",
+  "visual_focus": {
+    "drilling_pages": [
+      3,
+      4,
+      5
+    ],
+    "welding_pages": [
+      8,
+      9,
+      10,
+      11
+    ]
+  },
+  "authored_trial_choices": [
+    "opposing four-tack handling sequence",
+    "alternating accessible quarter arcs; final recipe depends on coupon"
+  ],
+  "edition_date": "2026-10-26"
+}
