@@ -1,0 +1,34 @@
+{
+  "scope": "Manual native update of the three printed M5 passage hosts; all other assembly bodies carried from their retained individual native exports.",
+  "selected_m5_passage_mm": 5.2,
+  "physical_selection": "hardware/print-tests/m5-seam-bearing/physical-result.json",
+  "parts": [
+    {
+      "part": "motor-tower",
+      "before_step_sha256": "8b50bab55e0430f59be98af2923761c48e1068a97c7617a664d5099d9879c0f0",
+      "valid": true,
+      "solids": 1,
+      "removed_mm3": 0.0,
+      "added_mm3": 35.29579346308161,
+      "step_sha256": "f94ca9bf95b29e66d284ea54211314108ca805a62dc744c844f7593f71c8d67b"
+    },
+    {
+      "part": "motor-carriage",
+      "before_step_sha256": "d2291d8b737f593bc70f65a3dcc6a30b07a0073ad4786eae2b1dc374eb8844dc",
+      "valid": true,
+      "solids": 1,
+      "removed_mm3": 0.0,
+      "added_mm3": 28.114112656977014,
+      "step_sha256": "f48b99af9eb3a1f702eef3458b67e8d2a6232dc1cf940117361c2de4b68d7aed"
+    },
+    {
+      "part": "ground-tower",
+      "before_step_sha256": "7bcde8fc7cb43de90007f5d4d2ba264c49cb8d7f467ff0a919e663b9bc099dc7",
+      "valid": true,
+      "solids": 1,
+      "removed_mm3": 0.0,
+      "added_mm3": 17.64789673154089,
+      "step_sha256": "0e2b9580acfa4b6850dda8a9dc9967bc0dbf2cb21320f390c9afaf1c1c2d2c73"
+    }
+  ]
+}

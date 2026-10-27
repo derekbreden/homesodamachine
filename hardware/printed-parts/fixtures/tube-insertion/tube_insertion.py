@@ -24,6 +24,8 @@ import cadquery as cq
 HERE = Path(__file__).resolve().parent
 REPO = next(p for p in HERE.parents if (p / "tools" / "docgen").is_dir())
 HARDWARE = REPO / "hardware"
+sys.path.insert(0, str(HARDWARE / 'printed-parts/cadlib'))
+import fits
 DONOR_SOURCE = HARDWARE / "reference/touch-flo-faucet/westbrass-reference/westbrass_reference.py"
 DONOR_STEP = DONOR_SOURCE.parent / "westbrass-reference.step"
 SLEEVE_SOURCE = HARDWARE / "printed-parts/faucet/tpu-o-ring/tpu_o_ring.py"
@@ -119,7 +121,7 @@ CLAMP_FINAL_X = 58.0
 CLAMP_BACK_X = CLAMP_FINAL_X + JAW_HANDLE_END_X
 CLAMP_BOLT_X = LINER_X0 + LINER_LENGTH / 2
 CLAMP_BOLT_Y = 26.0
-M5_CLEARANCE_D = 5.5
+M5_CLEARANCE_D = fits.m5_thread_pass_dia
 M5_HEAD_D = 9.0
 M5_HEAD_H = 5.0
 M5_CS_HEAD_D = 10.2

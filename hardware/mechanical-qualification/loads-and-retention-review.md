@@ -52,13 +52,15 @@ above it; 3 mm at the plane needs the handhold roll at R4.5, and Derek asked on 
 the bottom grips match the top's rounding, so the roll stays R6 and the rim's lint row is
 answered with R4.5 as the alternative.
 
-**Bearing and clamping.** A nominal Ø8.5 head over the Ø5.6 passage has 32.1 mm²
+**Bearing and clamping.** A nominal Ø8.5 head over the Ø5.2 passage has 35.5 mm²
 of projected bearing area. Each head floor and insert block belong to the same
 quadrant: back-bottom at the lower stations and front-top at the upper stations.
 The screw retains the opposite quadrant's middle block as a pin through a clearance
 passage. Tightening seats the head; it does not directly squeeze that middle block
-between the end blocks. The Ø5.6 passages and 0.25 mm running fits are assembly
-clearances, not a zero-play fit. Printed variation, contact, wear and deflection
+between the end blocks. The Ø5.2 passages use the
+[selected physical M5 fit](../print-tests/m5-seam-bearing/physical-result.json);
+the nominal diametral air around an M5 thread envelope is 0.2 mm. The 0.25 mm
+running fits remain between the printed blocks. Printed variation, contact, wear and deflection
 set assembled movement. No installation torque or retained preload is qualified;
 stop when the head meets its floor. The nominal bearing area and solid host geometry
 do not establish printed load capacity or long-term rigidity.

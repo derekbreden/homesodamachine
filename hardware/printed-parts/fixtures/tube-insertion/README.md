@@ -1,5 +1,8 @@
 # Tube insertion tooling
 
+Printed M5 threaded passages use the shared Ø5.2 mm fit selected in the
+[M5 sample comparison](/hardware/print-tests/m5-seam-bearing/physical-result.json).
+
 Current PET-GF editable projects follow the [localized cooling policy](../../cooling/README.md).
 Re-slice them for current cooling commands. Identified native archives retain
 their original commands and physical-evidence scope.

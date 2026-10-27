@@ -559,12 +559,12 @@ In that sagging mode, each top can withdraw relative to its moving bottom half. 
 lower stacks retain the opening: each lower screw passes from the handhold ceiling through
 back-bottom's knuckle and front-bottom's into the insert in back-bottom's knuckle under the
 Z seam. Opening can
-load the screw in bearing against those blocks. The Ø5.6 mm printed holes have clearance
+load the screw in bearing against those blocks. The selected Ø5.2 mm printed holes have nominal clearance
 around the nominal Ø5 mm screw, so print variation and deflection determine which blocks
 bear first. Equal load sharing is unestablished. Block ligaments, wall roots and screw
 bending carry the load.
 
-Each screw axis stands mid-overlap, and the printed Ø5.6 mm clearance bore leaves each knuckle a ligament fore
+Each screw axis stands mid-overlap, and the printed Ø5.2 mm passage leaves each knuckle a ligament fore
 and aft of it, recorded per knuckle for the identified native inputs in the
 [native audit](../printed-parts/enclosure/enclosure/heat-set-review/geometry-check.json).
 Every knuckle has a
