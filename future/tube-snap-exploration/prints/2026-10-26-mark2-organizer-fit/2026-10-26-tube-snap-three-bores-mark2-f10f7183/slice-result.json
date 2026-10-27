@@ -1,0 +1,70 @@
+{
+  "error_string": "Success.",
+  "export_time": 1026,
+  "layer_height": 0.23999999463558197,
+  "plate_index": 0,
+  "prepare_time": 20,
+  "return_code": 0,
+  "sliced_plates": [
+    {
+      "feature_type_times": {
+        "Bottom surface": 31.956707000732422,
+        "Bridge": 68.9168930053711,
+        "Custom": 305.2161865234375,
+        "Flush": 15.0,
+        "Gap infill": 4.648567199707031,
+        "Inner wall": 36.601173400878906,
+        "Internal solid infill": 95.39106750488281,
+        "Outer wall": 70.3399887084961,
+        "Sparse infill": 25.010868072509766,
+        "Top surface": 17.29790496826172,
+        "Travel": 66.56024169921875,
+        "Undefined": 57.120277404785156
+      },
+      "filament_change_times": 0,
+      "filaments": [
+        {
+          "filament_id": "GFT01",
+          "id": 1,
+          "main_used_g": 3.0032260417938232,
+          "total_used_g": 3.0032260417938232
+        }
+      ],
+      "generate_support_material_time": 3,
+      "id": 1,
+      "infill_time": 15,
+      "layer_filament_change": 0,
+      "main_predication": 401.7322998046875,
+      "make_perimeters_time": 11,
+      "obj_cached_cnt": 0,
+      "objects": [
+        {
+          "bbox": {
+            "depth": 14.0,
+            "height": 10.433817863464355,
+            "width": 54.0,
+            "x": 135.5,
+            "y": 153.0,
+            "z": 2.6782220885479546e-10
+          },
+          "id": 5,
+          "name": "tube-snap-three-bores",
+          "triangle_count": 2864
+        }
+      ],
+      "sliced_time": 166,
+      "sliced_time_with_cache": 129,
+      "total_predication": 727.5084838867188,
+      "triangle_count": 2864,
+      "warning_message": ""
+    }
+  ],
+  "sparse_infill_density": 15.0,
+  "upward_compatible_machine": [
+    "Bambu Lab H2S 0.4 nozzle",
+    "Bambu Lab H2D 0.4 nozzle",
+    "Bambu Lab H2D Pro 0.4 nozzle",
+    "Bambu Lab A2L 0.4 nozzle"
+  ],
+  "wall_loops": 2
+}

@@ -1,0 +1,3041 @@
+{
+  "scope": "STL cross-sections and emitted bead envelopes; no mechanical, adhesion or physical print acceptance.",
+  "archive": "future/tube-snap-exploration/prints/2026-10-26-mark2-organizer-fit/2026-10-26-tube-snap-three-bores-mark2-f10f7183/2026-10-26-tube-snap-three-bores-mark2-f10f7183.gcode.3mf",
+  "archive_sha256": "bb5fe8aebbc1413bfe84862a98baeb70ada5eae4f5f2feb7b3ff5b0d6242fc97",
+  "source_sha256": {
+    "future/tube-snap-exploration/tube_snap_trial.py": "47e29d8833451e225a90c1a2acd423af91885bd70035a1f1d21f764fbf715296",
+    "future/tube-snap-exploration/parts/tube-snap-three-bores.stl": "8948e22e3179bed2697f03ede0d59258bbc91a3d2f45818377d00ec71b369af4",
+    "future/tube-snap-exploration/parts/tube-snap-three-bores.step": "f0744942930049e049135fc787f7d67211880d0a02cdce9f020df9d0250b1a2e",
+    "future/tube-snap-exploration/geometry-report.json": "4939dfc0dcb9bb3c54bb860d53026935a535c9ded8225919bbb4934d4b86a5ba"
+  },
+  "analysis": "Every upper-leaf layer is compared with the STL at its layer midpoint. Previous-layer coverage uses commanded model bead footprints; an uncovered road centreline can still have partial bead overlap. No support or brim roads were emitted.",
+  "layers": 44,
+  "features": {
+    "Inner wall": 688,
+    "Outer wall": 912,
+    "Bottom surface": 192,
+    "Internal solid infill": 2384,
+    "Sparse infill": 2300,
+    "Floating vertical shell": 12,
+    "Bridge": 370,
+    "Top surface": 274,
+    "Gap infill": 38
+  },
+  "upper_leaf_samples": 74,
+  "minimum_upper_leaf_bead_coverage": 0.9898541735414992,
+  "upper_leaf_missing_stock_pieces": 0,
+  "upper_leaf_disconnected_bead_footprints": 0,
+  "upper_leaf_layers_without_previous_bead_contact": 0,
+  "second_layer_minimum_individual_road_bead_contact_fraction": 0.628395170135505,
+  "second_layer_roads_without_previous_bead_contact": 0,
+  "upper_leaf_minimum_individual_road_bead_contact_fraction": 0.6727062762929221,
+  "roads_without_any_previous_bead_contact_above_floor": 0,
+  "longest_centerline_with_no_bead_contact_above_floor_mm": 2.9384334114327757,
+  "fully_unbacked_nonbridge_roads_above_floor": 2,
+  "longest_unbacked_model_centerline_mm": 5.643748574825873,
+  "support_removal": "Native Tree(auto)/Default generated no support, including unlabelled bodies; no support-removal lane is required by this archive.",
+  "leaf_rows": [
+    {
+      "sample": "A",
+      "bore_mm": 6.550000000000001,
+      "side": "left",
+      "layer_top_z_mm": 7.64,
+      "stock_area_mm2": 11.524224000000004,
+      "bead_coverage": 0.996229223468589,
+      "stock_components": 1,
+      "bead_components": 1,
+      "stock_pieces_touched": 1,
+      "centre_span_path_crossings": [
+        [
+          -22.505,
+          "Outer wall",
+          0.42
+        ],
+        [
+          -22.121,
+          "Inner wall",
+          0.45
+        ],
+        [
+          -21.867,
+          "Inner wall",
+          0.45
+        ],
+        [
+          -21.484,
+          "Outer wall",
+          0.42
+        ]
+      ],
+      "bead_footprint_touches_previous": true
+    },
+    {
+      "sample": "A",
+      "bore_mm": 6.550000000000001,
+      "side": "right",
+      "layer_top_z_mm": 7.64,
+      "stock_area_mm2": 11.524224000000004,
+      "bead_coverage": 0.9962316364012949,
+      "stock_components": 1,
+      "bead_components": 1,
+      "stock_pieces_touched": 1,
+      "centre_span_path_crossings": [
+        [
+          -14.516,
+          "Outer wall",
+          0.42
+        ],
+        [
+          -14.133,
+          "Inner wall",
+          0.45
+        ],
+        [
+          -13.879,
+          "Inner wall",
+          0.45
+        ],
+        [
+          -13.495,
+          "Outer wall",
+          0.42
+        ]
+      ],
+      "bead_footprint_touches_previous": true
+    },
+    {
+      "sample": "B",
+      "bore_mm": 6.65,
+      "side": "left",
+      "layer_top_z_mm": 7.64,
+      "stock_area_mm2": 11.519088000000009,
+      "bead_coverage": 0.995996359421091,
+      "stock_components": 1,
+      "bead_components": 1,
+      "stock_pieces_touched": 1,
+      "centre_span_path_crossings": [
+        [
+          -4.555,
+          "Outer wall",
+          0.42
+        ],
+        [
+          -4.171,
+          "Inner wall",
+          0.45
+        ],
+        [
+          -3.918,
+          "Inner wall",
+          0.45
+        ],
+        [
+          -3.535,
+          "Outer wall",
+          0.42
+        ]
+      ],
+      "bead_footprint_touches_previous": true
+    },
+    {
+      "sample": "B",
+      "bore_mm": 6.65,
+      "side": "right",
+      "layer_top_z_mm": 7.64,
+      "stock_area_mm2": 11.51908800000001,
+      "bead_coverage": 0.9959940557478347,
+      "stock_components": 1,
+      "bead_components": 1,
+      "stock_pieces_touched": 1,
+      "centre_span_path_crossings": [
+        [
+          3.535,
+          "Outer wall",
+          0.42
+        ],
+        [
+          3.918,
+          "Inner wall",
+          0.45
+        ],
+        [
+          4.171,
+          "Inner wall",
+          0.45
+        ],
+        [
+          4.555,
+          "Outer wall",
+          0.42
+        ]
+      ],
+      "bead_footprint_touches_previous": true
+    },
+    {
+      "sample": "C",
+      "bore_mm": 6.75,
+      "side": "left",
+      "layer_top_z_mm": 7.64,
+      "stock_area_mm2": 11.52425600000015,
+      "bead_coverage": 0.9962310643174312,
+      "stock_components": 1,
+      "bead_components": 1,
+      "stock_pieces_touched": 1,
+      "centre_span_path_crossings": [
+        [
+          13.395,
+          "Outer wall",
+          0.42
+        ],
+        [
+          13.779,
+          "Inner wall",
+          0.45
+        ],
+        [
+          14.033,
+          "Inner wall",
+          0.45
+        ],
+        [
+          14.416,
+          "Outer wall",
+          0.42
+        ]
+      ],
+      "bead_footprint_touches_previous": true
+    },
+    {
+      "sample": "C",
+      "bore_mm": 6.75,
+      "side": "right",
+      "layer_top_z_mm": 7.64,
+      "stock_area_mm2": 11.52425600000015,
+      "bead_coverage": 0.9962310643174312,
+      "stock_components": 1,
+      "bead_components": 1,
+      "stock_pieces_touched": 1,
+      "centre_span_path_crossings": [
+        [
+          21.584,
+          "Outer wall",
+          0.42
+        ],
+        [
+          21.967,
+          "Inner wall",
+          0.45
+        ],
+        [
+          22.221,
+          "Inner wall",
+          0.45
+        ],
+        [
+          22.605,
+          "Outer wall",
+          0.42
+        ]
+      ],
+      "bead_footprint_touches_previous": true
+    },
+    {
+      "sample": "A",
+      "bore_mm": 6.550000000000001,
+      "side": "left",
+      "layer_top_z_mm": 7.88,
+      "stock_area_mm2": 11.543520000000171,
+      "bead_coverage": 0.9961297655980857,
+      "stock_components": 1,
+      "bead_components": 1,
+      "stock_pieces_touched": 1,
+      "centre_span_path_crossings": [
+        [
+          -22.497,
+          "Outer wall",
+          0.42
+        ],
+        [
+          -22.114,
+          "Inner wall",
+          0.45
+        ],
+        [
+          -21.858,
+          "Inner wall",
+          0.45
+        ],
+        [
+          -21.474,
+          "Outer wall",
+          0.42
+        ]
+      ],
+      "bead_footprint_touches_previous": true
+    },
+    {
+      "sample": "A",
+      "bore_mm": 6.550000000000001,
+      "side": "right",
+      "layer_top_z_mm": 7.88,
+      "stock_area_mm2": 11.543520000000171,
+      "bead_coverage": 0.9961286882683094,
+      "stock_components": 1,
+      "bead_components": 1,
+      "stock_pieces_touched": 1,
+      "centre_span_path_crossings": [
+        [
+          -14.526,
+          "Outer wall",
+          0.42
+        ],
+        [
+          -14.142,
+          "Inner wall",
+          0.45
+        ],
+        [
+          -13.886,
+          "Inner wall",
+          0.45
+        ],
+        [
+          -13.503,
+          "Outer wall",
+          0.42
+        ]
+      ],
+      "bead_footprint_touches_previous": true
+    },
+    {
+      "sample": "B",
+      "bore_mm": 6.65,
+      "side": "left",
+      "layer_top_z_mm": 7.88,
+      "stock_area_mm2": 11.546816000000035,
+      "bead_coverage": 0.9959890195298564,
+      "stock_components": 1,
+      "bead_components": 1,
+      "stock_pieces_touched": 1,
+      "centre_span_path_crossings": [
+        [
+          -4.547,
+          "Outer wall",
+          0.42
+        ],
+        [
+          -4.164,
+          "Inner wall",
+          0.45
+        ],
+        [
+          -3.907,
+          "Inner wall",
+          0.45
+        ],
+        [
+          -3.524,
+          "Outer wall",
+          0.42
+        ]
+      ],
+      "bead_footprint_touches_previous": true
+    },
+    {
+      "sample": "B",
+      "bore_mm": 6.65,
+      "side": "right",
+      "layer_top_z_mm": 7.88,
+      "stock_area_mm2": 11.546816000000035,
+      "bead_coverage": 0.9959890195298567,
+      "stock_components": 1,
+      "bead_components": 1,
+      "stock_pieces_touched": 1,
+      "centre_span_path_crossings": [
+        [
+          3.524,
+          "Outer wall",
+          0.42
+        ],
+        [
+          3.907,
+          "Inner wall",
+          0.45
+        ],
+        [
+          4.164,
+          "Inner wall",
+          0.45
+        ],
+        [
+          4.547,
+          "Outer wall",
+          0.42
+        ]
+      ],
+      "bead_footprint_touches_previous": true
+    },
+    {
+      "sample": "C",
+      "bore_mm": 6.75,
+      "side": "left",
+      "layer_top_z_mm": 7.88,
+      "stock_area_mm2": 11.541455999999926,
+      "bead_coverage": 0.995758416141946,
+      "stock_components": 1,
+      "bead_components": 1,
+      "stock_pieces_touched": 1,
+      "centre_span_path_crossings": [
+        [
+          13.403,
+          "Outer wall",
+          0.42
+        ],
+        [
+          13.786,
+          "Inner wall",
+          0.45
+        ],
+        [
+          14.042,
+          "Inner wall",
+          0.45
+        ],
+        [
+          14.425,
+          "Outer wall",
+          0.42
+        ]
+      ],
+      "bead_footprint_touches_previous": true
+    },
+    {
+      "sample": "C",
+      "bore_mm": 6.75,
+      "side": "right",
+      "layer_top_z_mm": 7.88,
+      "stock_area_mm2": 11.541455999999926,
+      "bead_coverage": 0.995758416141946,
+      "stock_components": 1,
+      "bead_components": 1,
+      "stock_pieces_touched": 1,
+      "centre_span_path_crossings": [
+        [
+          21.575,
+          "Outer wall",
+          0.42
+        ],
+        [
+          21.958,
+          "Inner wall",
+          0.45
+        ],
+        [
+          22.214,
+          "Inner wall",
+          0.45
+        ],
+        [
+          22.597,
+          "Outer wall",
+          0.42
+        ]
+      ],
+      "bead_footprint_touches_previous": true
+    },
+    {
+      "sample": "A",
+      "bore_mm": 6.550000000000001,
+      "side": "left",
+      "layer_top_z_mm": 8.12,
+      "stock_area_mm2": 11.614839999999958,
+      "bead_coverage": 0.9960379841949357,
+      "stock_components": 1,
+      "bead_components": 1,
+      "stock_pieces_touched": 1,
+      "centre_span_path_crossings": [
+        [
+          -22.478,
+          "Outer wall",
+          0.42
+        ],
+        [
+          -22.094,
+          "Inner wall",
+          0.45
+        ],
+        [
+          -21.829,
+          "Inner wall",
+          0.45
+        ],
+        [
+          -21.446,
+          "Outer wall",
+          0.42
+        ]
+      ],
+      "bead_footprint_touches_previous": true
+    },
+    {
+      "sample": "A",
+      "bore_mm": 6.550000000000001,
+      "side": "right",
+      "layer_top_z_mm": 8.12,
+      "stock_area_mm2": 11.614847999999938,
+      "bead_coverage": 0.9960403072717123,
+      "stock_components": 1,
+      "bead_components": 1,
+      "stock_pieces_touched": 1,
+      "centre_span_path_crossings": [
+        [
+          -14.554,
+          "Outer wall",
+          0.42
+        ],
+        [
+          -14.171,
+          "Inner wall",
+          0.45
+        ],
+        [
+          -13.906,
+          "Inner wall",
+          0.45
+        ],
+        [
+          -13.522,
+          "Outer wall",
+          0.42
+        ]
+      ],
+      "bead_footprint_touches_previous": true
+    },
+    {
+      "sample": "B",
+      "bore_mm": 6.65,
+      "side": "left",
+      "layer_top_z_mm": 8.12,
+      "stock_area_mm2": 11.604504000000134,
+      "bead_coverage": 0.9962568818885619,
+      "stock_components": 1,
+      "bead_components": 1,
+      "stock_pieces_touched": 1,
+      "centre_span_path_crossings": [
+        [
+          -4.528,
+          "Outer wall",
+          0.42
+        ],
+        [
+          -4.144,
+          "Inner wall",
+          0.45
+        ],
+        [
+          -3.881,
+          "Inner wall",
+          0.45
+        ],
+        [
+          -3.497,
+          "Outer wall",
+          0.42
+        ]
+      ],
+      "bead_footprint_touches_previous": true
+    },
+    {
+      "sample": "B",
+      "bore_mm": 6.65,
+      "side": "right",
+      "layer_top_z_mm": 8.12,
+      "stock_area_mm2": 11.604504000000134,
+      "bead_coverage": 0.9962551642811345,
+      "stock_components": 1,
+      "bead_components": 1,
+      "stock_pieces_touched": 1,
+      "centre_span_path_crossings": [
+        [
+          3.497,
+          "Outer wall",
+          0.42
+        ],
+        [
+          3.881,
+          "Inner wall",
+          0.45
+        ],
+        [
+          4.144,
+          "Inner wall",
+          0.45
+        ],
+        [
+          4.528,
+          "Outer wall",
+          0.42
+        ]
+      ],
+      "bead_footprint_touches_previous": true
+    },
+    {
+      "sample": "C",
+      "bore_mm": 6.75,
+      "side": "left",
+      "layer_top_z_mm": 8.12,
+      "stock_area_mm2": 11.611511999999948,
+      "bead_coverage": 0.9959514270434225,
+      "stock_components": 1,
+      "bead_components": 1,
+      "stock_pieces_touched": 1,
+      "centre_span_path_crossings": [
+        [
+          13.422,
+          "Outer wall",
+          0.42
+        ],
+        [
+          13.805,
+          "Inner wall",
+          0.45
+        ],
+        [
+          14.07,
+          "Inner wall",
+          0.45
+        ],
+        [
+          14.453,
+          "Outer wall",
+          0.42
+        ]
+      ],
+      "bead_footprint_touches_previous": true
+    },
+    {
+      "sample": "C",
+      "bore_mm": 6.75,
+      "side": "right",
+      "layer_top_z_mm": 8.12,
+      "stock_area_mm2": 11.611511999999948,
+      "bead_coverage": 0.9959514270434225,
+      "stock_components": 1,
+      "bead_components": 1,
+      "stock_pieces_touched": 1,
+      "centre_span_path_crossings": [
+        [
+          21.547,
+          "Outer wall",
+          0.42
+        ],
+        [
+          21.93,
+          "Inner wall",
+          0.45
+        ],
+        [
+          22.195,
+          "Inner wall",
+          0.45
+        ],
+        [
+          22.578,
+          "Outer wall",
+          0.42
+        ]
+      ],
+      "bead_footprint_touches_previous": true
+    },
+    {
+      "sample": "A",
+      "bore_mm": 6.550000000000001,
+      "side": "left",
+      "layer_top_z_mm": 8.36,
+      "stock_area_mm2": 11.725096000000123,
+      "bead_coverage": 0.995759391740259,
+      "stock_components": 1,
+      "bead_components": 1,
+      "stock_pieces_touched": 1,
+      "centre_span_path_crossings": [
+        [
+          -22.445,
+          "Outer wall",
+          0.42
+        ],
+        [
+          -22.062,
+          "Inner wall",
+          0.45
+        ],
+        [
+          -21.783,
+          "Inner wall",
+          0.45
+        ],
+        [
+          -21.4,
+          "Outer wall",
+          0.42
+        ]
+      ],
+      "bead_footprint_touches_previous": true
+    },
+    {
+      "sample": "A",
+      "bore_mm": 6.550000000000001,
+      "side": "right",
+      "layer_top_z_mm": 8.36,
+      "stock_area_mm2": 11.725096000000121,
+      "bead_coverage": 0.9958555517610689,
+      "stock_components": 1,
+      "bead_components": 1,
+      "stock_pieces_touched": 1,
+      "centre_span_path_crossings": [
+        [
+          -14.6,
+          "Outer wall",
+          0.42
+        ],
+        [
+          -14.217,
+          "Inner wall",
+          0.45
+        ],
+        [
+          -13.938,
+          "Inner wall",
+          0.45
+        ],
+        [
+          -13.555,
+          "Outer wall",
+          0.42
+        ]
+      ],
+      "bead_footprint_touches_previous": true
+    },
+    {
+      "sample": "B",
+      "bore_mm": 6.65,
+      "side": "left",
+      "layer_top_z_mm": 8.36,
+      "stock_area_mm2": 11.723336000000018,
+      "bead_coverage": 0.9959877375519944,
+      "stock_components": 1,
+      "bead_components": 1,
+      "stock_pieces_touched": 1,
+      "centre_span_path_crossings": [
+        [
+          -4.496,
+          "Outer wall",
+          0.42
+        ],
+        [
+          -4.113,
+          "Inner wall",
+          0.45
+        ],
+        [
+          -3.834,
+          "Inner wall",
+          0.45
+        ],
+        [
+          -3.451,
+          "Outer wall",
+          0.42
+        ]
+      ],
+      "bead_footprint_touches_previous": true
+    },
+    {
+      "sample": "B",
+      "bore_mm": 6.65,
+      "side": "right",
+      "layer_top_z_mm": 8.36,
+      "stock_area_mm2": 11.723336000000018,
+      "bead_coverage": 0.9959815513055549,
+      "stock_components": 1,
+      "bead_components": 1,
+      "stock_pieces_touched": 1,
+      "centre_span_path_crossings": [
+        [
+          3.451,
+          "Outer wall",
+          0.42
+        ],
+        [
+          3.834,
+          "Inner wall",
+          0.45
+        ],
+        [
+          4.112,
+          "Inner wall",
+          0.45
+        ],
+        [
+          4.496,
+          "Outer wall",
+          0.42
+        ]
+      ],
+      "bead_footprint_touches_previous": true
+    },
+    {
+      "sample": "C",
+      "bore_mm": 6.75,
+      "side": "left",
+      "layer_top_z_mm": 8.36,
+      "stock_area_mm2": 11.712207999999919,
+      "bead_coverage": 0.9951051875762833,
+      "stock_components": 1,
+      "bead_components": 1,
+      "stock_pieces_touched": 1,
+      "centre_span_path_crossings": [
+        [
+          13.453,
+          "Outer wall",
+          0.42
+        ],
+        [
+          13.837,
+          "Inner wall",
+          0.45
+        ],
+        [
+          14.114,
+          "Inner wall",
+          0.45
+        ],
+        [
+          14.4955,
+          "Outer wall",
+          0.42
+        ]
+      ],
+      "bead_footprint_touches_previous": true
+    },
+    {
+      "sample": "C",
+      "bore_mm": 6.75,
+      "side": "right",
+      "layer_top_z_mm": 8.36,
+      "stock_area_mm2": 11.712199999999939,
+      "bead_coverage": 0.9940893361250852,
+      "stock_components": 1,
+      "bead_components": 1,
+      "stock_pieces_touched": 1,
+      "centre_span_path_crossings": [
+        [
+          21.506,
+          "Outer wall",
+          0.42
+        ],
+        [
+          21.886,
+          "Inner wall",
+          0.45
+        ],
+        [
+          22.163,
+          "Inner wall",
+          0.45
+        ],
+        [
+          22.547,
+          "Outer wall",
+          0.42
+        ]
+      ],
+      "bead_footprint_touches_previous": true
+    },
+    {
+      "sample": "A",
+      "bore_mm": 6.550000000000001,
+      "side": "left",
+      "layer_top_z_mm": 8.6,
+      "stock_area_mm2": 11.894815999999992,
+      "bead_coverage": 0.995957778423747,
+      "stock_components": 1,
+      "bead_components": 1,
+      "stock_pieces_touched": 1,
+      "centre_span_path_crossings": [
+        [
+          -22.401,
+          "Outer wall",
+          0.42
+        ],
+        [
+          -22.017,
+          "Inner wall",
+          0.45
+        ],
+        [
+          -21.717,
+          "Inner wall",
+          0.45
+        ],
+        [
+          -21.334,
+          "Outer wall",
+          0.42
+        ]
+      ],
+      "bead_footprint_touches_previous": true
+    },
+    {
+      "sample": "A",
+      "bore_mm": 6.550000000000001,
+      "side": "right",
+      "layer_top_z_mm": 8.6,
+      "stock_area_mm2": 11.894808000000012,
+      "bead_coverage": 0.9962931689808412,
+      "stock_components": 1,
+      "bead_components": 1,
+      "stock_pieces_touched": 1,
+      "centre_span_path_crossings": [
+        [
+          -14.666,
+          "Outer wall",
+          0.42
+        ],
+        [
+          -14.283,
+          "Inner wall",
+          0.45
+        ],
+        [
+          -13.983,
+          "Inner wall",
+          0.45
+        ],
+        [
+          -13.599,
+          "Outer wall",
+          0.42
+        ]
+      ],
+      "bead_footprint_touches_previous": true
+    },
+    {
+      "sample": "B",
+      "bore_mm": 6.65,
+      "side": "left",
+      "layer_top_z_mm": 8.6,
+      "stock_area_mm2": 11.878199999999879,
+      "bead_coverage": 0.996334750679744,
+      "stock_components": 1,
+      "bead_components": 1,
+      "stock_pieces_touched": 1,
+      "centre_span_path_crossings": [
+        [
+          -4.452,
+          "Outer wall",
+          0.42
+        ],
+        [
+          -4.068,
+          "Inner wall",
+          0.45
+        ],
+        [
+          -3.771,
+          "Inner wall",
+          0.45
+        ],
+        [
+          -3.387,
+          "Outer wall",
+          0.42
+        ]
+      ],
+      "bead_footprint_touches_previous": true
+    },
+    {
+      "sample": "B",
+      "bore_mm": 6.65,
+      "side": "right",
+      "layer_top_z_mm": 8.6,
+      "stock_area_mm2": 11.878199999999879,
+      "bead_coverage": 0.9963339975882288,
+      "stock_components": 1,
+      "bead_components": 1,
+      "stock_pieces_touched": 1,
+      "centre_span_path_crossings": [
+        [
+          3.387,
+          "Outer wall",
+          0.42
+        ],
+        [
+          3.771,
+          "Inner wall",
+          0.45
+        ],
+        [
+          4.068,
+          "Inner wall",
+          0.45
+        ],
+        [
+          4.452,
+          "Outer wall",
+          0.42
+        ]
+      ],
+      "bead_footprint_touches_previous": true
+    },
+    {
+      "sample": "C",
+      "bore_mm": 6.75,
+      "side": "left",
+      "layer_top_z_mm": 8.6,
+      "stock_area_mm2": 11.876216000000113,
+      "bead_coverage": 0.9963288834978133,
+      "stock_components": 1,
+      "bead_components": 1,
+      "stock_pieces_touched": 1,
+      "centre_span_path_crossings": [
+        [
+          13.497,
+          "Outer wall",
+          0.42
+        ],
+        [
+          13.88,
+          "Inner wall",
+          0.45
+        ],
+        [
+          14.178,
+          "Inner wall",
+          0.45
+        ],
+        [
+          14.562,
+          "Outer wall",
+          0.42
+        ]
+      ],
+      "bead_footprint_touches_previous": true
+    },
+    {
+      "sample": "C",
+      "bore_mm": 6.75,
+      "side": "right",
+      "layer_top_z_mm": 8.6,
+      "stock_area_mm2": 11.876216000000113,
+      "bead_coverage": 0.9959959185816342,
+      "stock_components": 1,
+      "bead_components": 1,
+      "stock_pieces_touched": 1,
+      "centre_span_path_crossings": [
+        [
+          21.438,
+          "Outer wall",
+          0.42
+        ],
+        [
+          21.822,
+          "Inner wall",
+          0.45
+        ],
+        [
+          22.12,
+          "Inner wall",
+          0.45
+        ],
+        [
+          22.503,
+          "Outer wall",
+          0.42
+        ]
+      ],
+      "bead_footprint_touches_previous": true
+    },
+    {
+      "sample": "A",
+      "bore_mm": 6.550000000000001,
+      "side": "left",
+      "layer_top_z_mm": 8.84,
+      "stock_area_mm2": 12.110680000000002,
+      "bead_coverage": 0.9961305761079151,
+      "stock_components": 1,
+      "bead_components": 1,
+      "stock_pieces_touched": 1,
+      "centre_span_path_crossings": [
+        [
+          -22.343,
+          "Outer wall",
+          0.42
+        ],
+        [
+          -21.96,
+          "Inner wall",
+          0.45
+        ],
+        [
+          -21.633,
+          "Inner wall",
+          0.45
+        ],
+        [
+          -21.249,
+          "Outer wall",
+          0.42
+        ]
+      ],
+      "bead_footprint_touches_previous": true
+    },
+    {
+      "sample": "A",
+      "bore_mm": 6.550000000000001,
+      "side": "right",
+      "layer_top_z_mm": 8.84,
+      "stock_area_mm2": 12.110680000000002,
+      "bead_coverage": 0.9963824777866171,
+      "stock_components": 1,
+      "bead_components": 1,
+      "stock_pieces_touched": 1,
+      "centre_span_path_crossings": [
+        [
+          -14.751,
+          "Outer wall",
+          0.42
+        ],
+        [
+          -14.367,
+          "Inner wall",
+          0.45
+        ],
+        [
+          -14.04,
+          "Inner wall",
+          0.45
+        ],
+        [
+          -13.657,
+          "Outer wall",
+          0.42
+        ]
+      ],
+      "bead_footprint_touches_previous": true
+    },
+    {
+      "sample": "B",
+      "bore_mm": 6.65,
+      "side": "left",
+      "layer_top_z_mm": 8.84,
+      "stock_area_mm2": 12.10386399999993,
+      "bead_coverage": 0.996389277539006,
+      "stock_components": 1,
+      "bead_components": 1,
+      "stock_pieces_touched": 1,
+      "centre_span_path_crossings": [
+        [
+          -4.395,
+          "Outer wall",
+          0.42
+        ],
+        [
+          -4.011,
+          "Inner wall",
+          0.45
+        ],
+        [
+          -3.685,
+          "Inner wall",
+          0.45
+        ],
+        [
+          -3.302,
+          "Outer wall",
+          0.42
+        ]
+      ],
+      "bead_footprint_touches_previous": true
+    },
+    {
+      "sample": "B",
+      "bore_mm": 6.65,
+      "side": "right",
+      "layer_top_z_mm": 8.84,
+      "stock_area_mm2": 12.10386399999993,
+      "bead_coverage": 0.9963890996218905,
+      "stock_components": 1,
+      "bead_components": 1,
+      "stock_pieces_touched": 1,
+      "centre_span_path_crossings": [
+        [
+          3.302,
+          "Outer wall",
+          0.42
+        ],
+        [
+          3.685,
+          "Inner wall",
+          0.45
+        ],
+        [
+          4.011,
+          "Inner wall",
+          0.45
+        ],
+        [
+          4.395,
+          "Outer wall",
+          0.42
+        ]
+      ],
+      "bead_footprint_touches_previous": true
+    },
+    {
+      "sample": "C",
+      "bore_mm": 6.75,
+      "side": "left",
+      "layer_top_z_mm": 8.84,
+      "stock_area_mm2": 12.079535999999962,
+      "bead_coverage": 0.9961459694011582,
+      "stock_components": 1,
+      "bead_components": 1,
+      "stock_pieces_touched": 1,
+      "centre_span_path_crossings": [
+        [
+          13.553,
+          "Outer wall",
+          0.42
+        ],
+        [
+          13.937,
+          "Inner wall",
+          0.45
+        ],
+        [
+          14.26,
+          "Inner wall",
+          0.45
+        ],
+        [
+          14.643,
+          "Outer wall",
+          0.42
+        ]
+      ],
+      "bead_footprint_touches_previous": true
+    },
+    {
+      "sample": "C",
+      "bore_mm": 6.75,
+      "side": "right",
+      "layer_top_z_mm": 8.84,
+      "stock_area_mm2": 12.079535999999962,
+      "bead_coverage": 0.9958649646078224,
+      "stock_components": 1,
+      "bead_components": 1,
+      "stock_pieces_touched": 1,
+      "centre_span_path_crossings": [
+        [
+          21.357,
+          "Outer wall",
+          0.42
+        ],
+        [
+          21.74,
+          "Inner wall",
+          0.45
+        ],
+        [
+          22.063,
+          "Inner wall",
+          0.45
+        ],
+        [
+          22.447,
+          "Outer wall",
+          0.42
+        ]
+      ],
+      "bead_footprint_touches_previous": true
+    },
+    {
+      "sample": "A",
+      "bore_mm": 6.550000000000001,
+      "side": "left",
+      "layer_top_z_mm": 9.08,
+      "stock_area_mm2": 12.410624000000098,
+      "bead_coverage": 0.9965062991584358,
+      "stock_components": 1,
+      "bead_components": 1,
+      "stock_pieces_touched": 1,
+      "centre_span_path_crossings": [
+        [
+          -22.272,
+          "Outer wall",
+          0.42
+        ],
+        [
+          -21.888,
+          "Inner wall",
+          0.45
+        ],
+        [
+          -21.524,
+          "Inner wall",
+          0.45
+        ],
+        [
+          -21.14,
+          "Outer wall",
+          0.42
+        ]
+      ],
+      "bead_footprint_touches_previous": true
+    },
+    {
+      "sample": "A",
+      "bore_mm": 6.550000000000001,
+      "side": "right",
+      "layer_top_z_mm": 9.08,
+      "stock_area_mm2": 12.410624000000098,
+      "bead_coverage": 0.9965071562558868,
+      "stock_components": 1,
+      "bead_components": 1,
+      "stock_pieces_touched": 1,
+      "centre_span_path_crossings": [
+        [
+          -14.86,
+          "Outer wall",
+          0.42
+        ],
+        [
+          -14.476,
+          "Inner wall",
+          0.45
+        ],
+        [
+          -14.112,
+          "Inner wall",
+          0.45
+        ],
+        [
+          -13.728,
+          "Outer wall",
+          0.42
+        ]
+      ],
+      "bead_footprint_touches_previous": true
+    },
+    {
+      "sample": "B",
+      "bore_mm": 6.65,
+      "side": "left",
+      "layer_top_z_mm": 9.08,
+      "stock_area_mm2": 12.382679999999937,
+      "bead_coverage": 0.9964818281146984,
+      "stock_components": 1,
+      "bead_components": 1,
+      "stock_pieces_touched": 1,
+      "centre_span_path_crossings": [
+        [
+          -4.325,
+          "Outer wall",
+          0.42
+        ],
+        [
+          -3.941,
+          "Inner wall",
+          0.45
+        ],
+        [
+          -3.581,
+          "Inner wall",
+          0.45
+        ],
+        [
+          -3.197,
+          "Outer wall",
+          0.42
+        ]
+      ],
+      "bead_footprint_touches_previous": true
+    },
+    {
+      "sample": "B",
+      "bore_mm": 6.65,
+      "side": "right",
+      "layer_top_z_mm": 9.08,
+      "stock_area_mm2": 12.382679999999937,
+      "bead_coverage": 0.9964813238156629,
+      "stock_components": 1,
+      "bead_components": 1,
+      "stock_pieces_touched": 1,
+      "centre_span_path_crossings": [
+        [
+          3.197,
+          "Outer wall",
+          0.42
+        ],
+        [
+          3.581,
+          "Inner wall",
+          0.45
+        ],
+        [
+          3.941,
+          "Inner wall",
+          0.45
+        ],
+        [
+          4.325,
+          "Outer wall",
+          0.42
+        ]
+      ],
+      "bead_footprint_touches_previous": true
+    },
+    {
+      "sample": "C",
+      "bore_mm": 6.75,
+      "side": "left",
+      "layer_top_z_mm": 9.08,
+      "stock_area_mm2": 12.361455999999862,
+      "bead_coverage": 0.9962883365217692,
+      "stock_components": 1,
+      "bead_components": 1,
+      "stock_pieces_touched": 1,
+      "centre_span_path_crossings": [
+        [
+          13.623,
+          "Outer wall",
+          0.42
+        ],
+        [
+          14.007,
+          "Inner wall",
+          0.45
+        ],
+        [
+          14.365,
+          "Inner wall",
+          0.45
+        ],
+        [
+          14.748,
+          "Outer wall",
+          0.42
+        ]
+      ],
+      "bead_footprint_touches_previous": true
+    },
+    {
+      "sample": "C",
+      "bore_mm": 6.75,
+      "side": "right",
+      "layer_top_z_mm": 9.08,
+      "stock_area_mm2": 12.361471999999821,
+      "bead_coverage": 0.9962876602687942,
+      "stock_components": 1,
+      "bead_components": 1,
+      "stock_pieces_touched": 1,
+      "centre_span_path_crossings": [
+        [
+          21.252,
+          "Outer wall",
+          0.42
+        ],
+        [
+          21.635,
+          "Inner wall",
+          0.45
+        ],
+        [
+          21.993,
+          "Inner wall",
+          0.45
+        ],
+        [
+          22.377,
+          "Outer wall",
+          0.42
+        ]
+      ],
+      "bead_footprint_touches_previous": true
+    },
+    {
+      "sample": "A",
+      "bore_mm": 6.550000000000001,
+      "side": "left",
+      "layer_top_z_mm": 9.32,
+      "stock_area_mm2": 12.758783999999876,
+      "bead_coverage": 0.9963928491725202,
+      "stock_components": 1,
+      "bead_components": 1,
+      "stock_pieces_touched": 1,
+      "centre_span_path_crossings": [
+        [
+          -22.187,
+          "Outer wall",
+          0.42
+        ],
+        [
+          -21.803,
+          "Inner wall",
+          0.45
+        ],
+        [
+          -21.395,
+          "Inner wall",
+          0.45
+        ],
+        [
+          -21.012,
+          "Outer wall",
+          0.42
+        ]
+      ],
+      "bead_footprint_touches_previous": true
+    },
+    {
+      "sample": "A",
+      "bore_mm": 6.550000000000001,
+      "side": "right",
+      "layer_top_z_mm": 9.32,
+      "stock_area_mm2": 12.758775999999898,
+      "bead_coverage": 0.9963956577066878,
+      "stock_components": 1,
+      "bead_components": 1,
+      "stock_pieces_touched": 1,
+      "centre_span_path_crossings": [
+        [
+          -14.988,
+          "Outer wall",
+          0.42
+        ],
+        [
+          -14.605,
+          "Inner wall",
+          0.45
+        ],
+        [
+          -14.197,
+          "Inner wall",
+          0.45
+        ],
+        [
+          -13.813,
+          "Outer wall",
+          0.42
+        ]
+      ],
+      "bead_footprint_touches_previous": true
+    },
+    {
+      "sample": "B",
+      "bore_mm": 6.65,
+      "side": "left",
+      "layer_top_z_mm": 9.32,
+      "stock_area_mm2": 12.756464000000053,
+      "bead_coverage": 0.9962401764730199,
+      "stock_components": 1,
+      "bead_components": 1,
+      "stock_pieces_touched": 1,
+      "centre_span_path_crossings": [
+        [
+          -4.241,
+          "Outer wall",
+          0.42
+        ],
+        [
+          -3.858,
+          "Inner wall",
+          0.45
+        ],
+        [
+          -3.45,
+          "Inner wall",
+          0.45
+        ],
+        [
+          -3.067,
+          "Outer wall",
+          0.42
+        ]
+      ],
+      "bead_footprint_touches_previous": true
+    },
+    {
+      "sample": "B",
+      "bore_mm": 6.65,
+      "side": "right",
+      "layer_top_z_mm": 9.32,
+      "stock_area_mm2": 12.756464000000049,
+      "bead_coverage": 0.9962401764730204,
+      "stock_components": 1,
+      "bead_components": 1,
+      "stock_pieces_touched": 1,
+      "centre_span_path_crossings": [
+        [
+          3.067,
+          "Outer wall",
+          0.42
+        ],
+        [
+          3.45,
+          "Inner wall",
+          0.45
+        ],
+        [
+          3.858,
+          "Inner wall",
+          0.45
+        ],
+        [
+          4.241,
+          "Outer wall",
+          0.42
+        ]
+      ],
+      "bead_footprint_touches_previous": true
+    },
+    {
+      "sample": "C",
+      "bore_mm": 6.75,
+      "side": "left",
+      "layer_top_z_mm": 9.32,
+      "stock_area_mm2": 12.7077519999998,
+      "bead_coverage": 0.9962613006831742,
+      "stock_components": 1,
+      "bead_components": 1,
+      "stock_pieces_touched": 1,
+      "centre_span_path_crossings": [
+        [
+          13.707,
+          "Outer wall",
+          0.42
+        ],
+        [
+          14.09,
+          "Inner wall",
+          0.45
+        ],
+        [
+          14.491,
+          "Inner wall",
+          0.45
+        ],
+        [
+          14.875,
+          "Outer wall",
+          0.42
+        ]
+      ],
+      "bead_footprint_touches_previous": true
+    },
+    {
+      "sample": "C",
+      "bore_mm": 6.75,
+      "side": "right",
+      "layer_top_z_mm": 9.32,
+      "stock_area_mm2": 12.70774399999982,
+      "bead_coverage": 0.9962613313600596,
+      "stock_components": 1,
+      "bead_components": 1,
+      "stock_pieces_touched": 1,
+      "centre_span_path_crossings": [
+        [
+          21.125,
+          "Outer wall",
+          0.42
+        ],
+        [
+          21.509,
+          "Inner wall",
+          0.45
+        ],
+        [
+          21.91,
+          "Inner wall",
+          0.45
+        ],
+        [
+          22.293,
+          "Outer wall",
+          0.42
+        ]
+      ],
+      "bead_footprint_touches_previous": true
+    },
+    {
+      "sample": "A",
+      "bore_mm": 6.550000000000001,
+      "side": "left",
+      "layer_top_z_mm": 9.56,
+      "stock_area_mm2": 12.531224000000066,
+      "bead_coverage": 0.9959485215657943,
+      "stock_components": 1,
+      "bead_components": 1,
+      "stock_pieces_touched": 1,
+      "centre_span_path_crossings": [
+        [
+          -22.086,
+          "Outer wall",
+          0.42
+        ],
+        [
+          -21.703,
+          "Inner wall",
+          0.45
+        ],
+        [
+          -21.323,
+          "Inner wall",
+          0.45
+        ],
+        [
+          -20.94,
+          "Outer wall",
+          0.42
+        ]
+      ],
+      "bead_footprint_touches_previous": true
+    },
+    {
+      "sample": "A",
+      "bore_mm": 6.550000000000001,
+      "side": "right",
+      "layer_top_z_mm": 9.56,
+      "stock_area_mm2": 12.531224000000066,
+      "bead_coverage": 0.9962715490946282,
+      "stock_components": 1,
+      "bead_components": 1,
+      "stock_pieces_touched": 1,
+      "centre_span_path_crossings": [
+        [
+          -15.06,
+          "Outer wall",
+          0.42
+        ],
+        [
+          -14.677,
+          "Inner wall",
+          0.45
+        ],
+        [
+          -14.297,
+          "Inner wall",
+          0.45
+        ],
+        [
+          -13.914,
+          "Outer wall",
+          0.42
+        ]
+      ],
+      "bead_footprint_touches_previous": true
+    },
+    {
+      "sample": "B",
+      "bore_mm": 6.65,
+      "side": "left",
+      "layer_top_z_mm": 9.56,
+      "stock_area_mm2": 12.8301120000001,
+      "bead_coverage": 0.9965196773527637,
+      "stock_components": 1,
+      "bead_components": 1,
+      "stock_pieces_touched": 1,
+      "centre_span_path_crossings": [
+        [
+          -4.142,
+          "Outer wall",
+          0.42
+        ],
+        [
+          -3.758,
+          "Inner wall",
+          0.45
+        ],
+        [
+          -3.341,
+          "Inner wall",
+          0.45
+        ],
+        [
+          -2.958,
+          "Outer wall",
+          0.42
+        ]
+      ],
+      "bead_footprint_touches_previous": true
+    },
+    {
+      "sample": "B",
+      "bore_mm": 6.65,
+      "side": "right",
+      "layer_top_z_mm": 9.56,
+      "stock_area_mm2": 12.8301120000001,
+      "bead_coverage": 0.9965178912725365,
+      "stock_components": 1,
+      "bead_components": 1,
+      "stock_pieces_touched": 1,
+      "centre_span_path_crossings": [
+        [
+          2.958,
+          "Outer wall",
+          0.42
+        ],
+        [
+          3.341,
+          "Inner wall",
+          0.45
+        ],
+        [
+          3.758,
+          "Inner wall",
+          0.45
+        ],
+        [
+          4.142,
+          "Outer wall",
+          0.42
+        ]
+      ],
+      "bead_footprint_touches_previous": true
+    },
+    {
+      "sample": "C",
+      "bore_mm": 6.75,
+      "side": "left",
+      "layer_top_z_mm": 9.56,
+      "stock_area_mm2": 13.010727999999972,
+      "bead_coverage": 0.996667044350533,
+      "stock_components": 1,
+      "bead_components": 1,
+      "stock_pieces_touched": 1,
+      "centre_span_path_crossings": [
+        [
+          13.804,
+          "Outer wall",
+          0.42
+        ],
+        [
+          14.188,
+          "Inner wall",
+          0.45
+        ],
+        [
+          14.627,
+          "Inner wall",
+          0.45
+        ],
+        [
+          15.011,
+          "Outer wall",
+          0.42
+        ]
+      ],
+      "bead_footprint_touches_previous": true
+    },
+    {
+      "sample": "C",
+      "bore_mm": 6.75,
+      "side": "right",
+      "layer_top_z_mm": 9.56,
+      "stock_area_mm2": 13.010735999999952,
+      "bead_coverage": 0.996667014371176,
+      "stock_components": 1,
+      "bead_components": 1,
+      "stock_pieces_touched": 1,
+      "centre_span_path_crossings": [
+        [
+          20.989,
+          "Outer wall",
+          0.42
+        ],
+        [
+          21.373,
+          "Inner wall",
+          0.45
+        ],
+        [
+          21.812,
+          "Inner wall",
+          0.45
+        ],
+        [
+          22.196,
+          "Outer wall",
+          0.42
+        ]
+      ],
+      "bead_footprint_touches_previous": true
+    },
+    {
+      "sample": "A",
+      "bore_mm": 6.550000000000001,
+      "side": "left",
+      "layer_top_z_mm": 9.8,
+      "stock_area_mm2": 11.504920000000084,
+      "bead_coverage": 0.9962410375818702,
+      "stock_components": 1,
+      "bead_components": 1,
+      "stock_pieces_touched": 1,
+      "centre_span_path_crossings": [
+        [
+          -21.971,
+          "Outer wall",
+          0.42
+        ],
+        [
+          -21.587,
+          "Inner wall",
+          0.45
+        ],
+        [
+          -21.336,
+          "Inner wall",
+          0.45
+        ],
+        [
+          -20.952,
+          "Outer wall",
+          0.42
+        ]
+      ],
+      "bead_footprint_touches_previous": true
+    },
+    {
+      "sample": "A",
+      "bore_mm": 6.550000000000001,
+      "side": "right",
+      "layer_top_z_mm": 9.8,
+      "stock_area_mm2": 11.504920000000084,
+      "bead_coverage": 0.9962413804010399,
+      "stock_components": 1,
+      "bead_components": 1,
+      "stock_pieces_touched": 1,
+      "centre_span_path_crossings": [
+        [
+          -15.048,
+          "Outer wall",
+          0.42
+        ],
+        [
+          -14.664,
+          "Inner wall",
+          0.45
+        ],
+        [
+          -14.413,
+          "Inner wall",
+          0.45
+        ],
+        [
+          -14.029,
+          "Outer wall",
+          0.42
+        ]
+      ],
+      "bead_footprint_touches_previous": true
+    },
+    {
+      "sample": "B",
+      "bore_mm": 6.65,
+      "side": "left",
+      "layer_top_z_mm": 9.8,
+      "stock_area_mm2": 12.064975999999888,
+      "bead_coverage": 0.9961882086433996,
+      "stock_components": 1,
+      "bead_components": 1,
+      "stock_pieces_touched": 1,
+      "centre_span_path_crossings": [
+        [
+          -4.026,
+          "Outer wall",
+          0.42
+        ],
+        [
+          -3.642,
+          "Inner wall",
+          0.45
+        ],
+        [
+          -3.321,
+          "Inner wall",
+          0.45
+        ],
+        [
+          -2.938,
+          "Outer wall",
+          0.42
+        ]
+      ],
+      "bead_footprint_touches_previous": true
+    },
+    {
+      "sample": "B",
+      "bore_mm": 6.65,
+      "side": "right",
+      "layer_top_z_mm": 9.8,
+      "stock_area_mm2": 12.064975999999888,
+      "bead_coverage": 0.9961872691742986,
+      "stock_components": 1,
+      "bead_components": 1,
+      "stock_pieces_touched": 1,
+      "centre_span_path_crossings": [
+        [
+          2.938,
+          "Outer wall",
+          0.42
+        ],
+        [
+          3.321,
+          "Inner wall",
+          0.45
+        ],
+        [
+          3.642,
+          "Inner wall",
+          0.45
+        ],
+        [
+          4.026,
+          "Outer wall",
+          0.42
+        ]
+      ],
+      "bead_footprint_touches_previous": true
+    },
+    {
+      "sample": "C",
+      "bore_mm": 6.75,
+      "side": "left",
+      "layer_top_z_mm": 9.8,
+      "stock_area_mm2": 12.532255999999961,
+      "bead_coverage": 0.9965390576197574,
+      "stock_components": 1,
+      "bead_components": 1,
+      "stock_pieces_touched": 1,
+      "centre_span_path_crossings": [
+        [
+          13.917,
+          "Outer wall",
+          0.42
+        ],
+        [
+          14.301,
+          "Inner wall",
+          0.45
+        ],
+        [
+          14.681,
+          "Inner wall",
+          0.45
+        ],
+        [
+          15.064,
+          "Outer wall",
+          0.42
+        ]
+      ],
+      "bead_footprint_touches_previous": true
+    },
+    {
+      "sample": "C",
+      "bore_mm": 6.75,
+      "side": "right",
+      "layer_top_z_mm": 9.8,
+      "stock_area_mm2": 12.532247999999981,
+      "bead_coverage": 0.9963352704195784,
+      "stock_components": 1,
+      "bead_components": 1,
+      "stock_pieces_touched": 1,
+      "centre_span_path_crossings": [
+        [
+          20.936,
+          "Outer wall",
+          0.42
+        ],
+        [
+          21.32,
+          "Inner wall",
+          0.45
+        ],
+        [
+          21.699,
+          "Inner wall",
+          0.45
+        ],
+        [
+          22.083,
+          "Outer wall",
+          0.42
+        ]
+      ],
+      "bead_footprint_touches_previous": true
+    },
+    {
+      "sample": "A",
+      "bore_mm": 6.550000000000001,
+      "side": "left",
+      "layer_top_z_mm": 10.04,
+      "stock_area_mm2": 9.606608000000051,
+      "bead_coverage": 0.9954255645707202,
+      "stock_components": 1,
+      "bead_components": 1,
+      "stock_pieces_touched": 1,
+      "centre_span_path_crossings": [
+        [
+          -21.836,
+          "Outer wall",
+          0.42
+        ],
+        [
+          -21.445,
+          "Gap infill",
+          0.448844
+        ],
+        [
+          -21.055,
+          "Outer wall",
+          0.42
+        ]
+      ],
+      "bead_footprint_touches_previous": true
+    },
+    {
+      "sample": "A",
+      "bore_mm": 6.550000000000001,
+      "side": "right",
+      "layer_top_z_mm": 10.04,
+      "stock_area_mm2": 9.606608000000051,
+      "bead_coverage": 0.994985086703636,
+      "stock_components": 1,
+      "bead_components": 1,
+      "stock_pieces_touched": 1,
+      "centre_span_path_crossings": [
+        [
+          -14.945,
+          "Outer wall",
+          0.42
+        ],
+        [
+          -14.555,
+          "Gap infill",
+          0.448844
+        ],
+        [
+          -14.165,
+          "Outer wall",
+          0.42
+        ]
+      ],
+      "bead_footprint_touches_previous": true
+    },
+    {
+      "sample": "B",
+      "bore_mm": 6.65,
+      "side": "left",
+      "layer_top_z_mm": 10.04,
+      "stock_area_mm2": 10.500696000000062,
+      "bead_coverage": 0.9955941676444868,
+      "stock_components": 1,
+      "bead_components": 1,
+      "stock_pieces_touched": 1,
+      "centre_span_path_crossings": [
+        [
+          -3.893,
+          "Outer wall",
+          0.42
+        ],
+        [
+          -3.447,
+          "Gap infill",
+          0.560614
+        ],
+        [
+          -3.001,
+          "Outer wall",
+          0.42
+        ]
+      ],
+      "bead_footprint_touches_previous": true
+    },
+    {
+      "sample": "B",
+      "bore_mm": 6.65,
+      "side": "right",
+      "layer_top_z_mm": 10.04,
+      "stock_area_mm2": 10.500696000000062,
+      "bead_coverage": 0.9955941676444866,
+      "stock_components": 1,
+      "bead_components": 1,
+      "stock_pieces_touched": 1,
+      "centre_span_path_crossings": [
+        [
+          3.001,
+          "Outer wall",
+          0.42
+        ],
+        [
+          3.447,
+          "Gap infill",
+          0.560614
+        ],
+        [
+          3.893,
+          "Outer wall",
+          0.42
+        ]
+      ],
+      "bead_footprint_touches_previous": true
+    },
+    {
+      "sample": "C",
+      "bore_mm": 6.75,
+      "side": "left",
+      "layer_top_z_mm": 10.04,
+      "stock_area_mm2": 11.255600000000188,
+      "bead_coverage": 0.9961133935682908,
+      "stock_components": 1,
+      "bead_components": 1,
+      "stock_pieces_touched": 1,
+      "centre_span_path_crossings": [
+        [
+          14.048,
+          "Outer wall",
+          0.42
+        ],
+        [
+          14.541,
+          "Gap infill",
+          0.654974
+        ],
+        [
+          15.035,
+          "Outer wall",
+          0.42
+        ]
+      ],
+      "bead_footprint_touches_previous": true
+    },
+    {
+      "sample": "C",
+      "bore_mm": 6.75,
+      "side": "right",
+      "layer_top_z_mm": 10.04,
+      "stock_area_mm2": 11.255600000000186,
+      "bead_coverage": 0.996115154366432,
+      "stock_components": 1,
+      "bead_components": 1,
+      "stock_pieces_touched": 1,
+      "centre_span_path_crossings": [
+        [
+          20.965,
+          "Outer wall",
+          0.42
+        ],
+        [
+          21.459,
+          "Gap infill",
+          0.654974
+        ],
+        [
+          21.952,
+          "Outer wall",
+          0.42
+        ]
+      ],
+      "bead_footprint_touches_previous": true
+    },
+    {
+      "sample": "A",
+      "bore_mm": 6.550000000000001,
+      "side": "left",
+      "layer_top_z_mm": 10.28,
+      "stock_area_mm2": 5.360040000000026,
+      "bead_coverage": 0.9927763052811936,
+      "stock_components": 1,
+      "bead_components": 1,
+      "stock_pieces_touched": 1,
+      "centre_span_path_crossings": [
+        [
+          -21.59,
+          "Outer wall",
+          0.379456
+        ],
+        [
+          -21.3,
+          "Outer wall",
+          0.379456
+        ]
+      ],
+      "bead_footprint_touches_previous": true
+    },
+    {
+      "sample": "A",
+      "bore_mm": 6.550000000000001,
+      "side": "right",
+      "layer_top_z_mm": 10.28,
+      "stock_area_mm2": 5.360040000000026,
+      "bead_coverage": 0.9927763052811936,
+      "stock_components": 1,
+      "bead_components": 1,
+      "stock_pieces_touched": 1,
+      "centre_span_path_crossings": [
+        [
+          -14.7,
+          "Outer wall",
+          0.379456
+        ],
+        [
+          -14.41,
+          "Outer wall",
+          0.379456
+        ]
+      ],
+      "bead_footprint_touches_previous": true
+    },
+    {
+      "sample": "B",
+      "bore_mm": 6.65,
+      "side": "left",
+      "layer_top_z_mm": 10.28,
+      "stock_area_mm2": 7.616776000000073,
+      "bead_coverage": 0.9944406522927673,
+      "stock_components": 1,
+      "bead_components": 1,
+      "stock_pieces_touched": 1,
+      "centre_span_path_crossings": [
+        [
+          -3.711,
+          "Outer wall",
+          0.42
+        ],
+        [
+          -3.445,
+          "Gap infill",
+          0.200114
+        ],
+        [
+          -3.179,
+          "Outer wall",
+          0.42
+        ]
+      ],
+      "bead_footprint_touches_previous": true
+    },
+    {
+      "sample": "B",
+      "bore_mm": 6.65,
+      "side": "right",
+      "layer_top_z_mm": 10.28,
+      "stock_area_mm2": 7.616776000000072,
+      "bead_coverage": 0.9944406522927677,
+      "stock_components": 1,
+      "bead_components": 1,
+      "stock_pieces_touched": 1,
+      "centre_span_path_crossings": [
+        [
+          3.179,
+          "Outer wall",
+          0.42
+        ],
+        [
+          3.445,
+          "Gap infill",
+          0.200114
+        ],
+        [
+          3.711,
+          "Outer wall",
+          0.42
+        ]
+      ],
+      "bead_footprint_touches_previous": true
+    },
+    {
+      "sample": "C",
+      "bore_mm": 6.75,
+      "side": "left",
+      "layer_top_z_mm": 10.28,
+      "stock_area_mm2": 9.039855999999872,
+      "bead_coverage": 0.995374826848112,
+      "stock_components": 1,
+      "bead_components": 1,
+      "stock_pieces_touched": 1,
+      "centre_span_path_crossings": [
+        [
+          14.2,
+          "Outer wall",
+          0.42
+        ],
+        [
+          14.555,
+          "Gap infill",
+          0.378004
+        ],
+        [
+          14.91,
+          "Outer wall",
+          0.42
+        ]
+      ],
+      "bead_footprint_touches_previous": true
+    },
+    {
+      "sample": "C",
+      "bore_mm": 6.75,
+      "side": "right",
+      "layer_top_z_mm": 10.28,
+      "stock_area_mm2": 9.039847999999894,
+      "bead_coverage": 0.9953760447803693,
+      "stock_components": 1,
+      "bead_components": 1,
+      "stock_pieces_touched": 1,
+      "centre_span_path_crossings": [
+        [
+          21.09,
+          "Outer wall",
+          0.42
+        ],
+        [
+          21.445,
+          "Gap infill",
+          0.378004
+        ],
+        [
+          21.8,
+          "Outer wall",
+          0.42
+        ]
+      ],
+      "bead_footprint_touches_previous": true
+    },
+    {
+      "sample": "C",
+      "bore_mm": 6.75,
+      "side": "left",
+      "layer_top_z_mm": 10.52,
+      "stock_area_mm2": 3.482959999999821,
+      "bead_coverage": 0.9898541735414992,
+      "stock_components": 1,
+      "bead_components": 1,
+      "stock_pieces_touched": 1,
+      "centre_span_path_crossings": [
+        [
+          14.527,
+          "Outer wall",
+          0.379456
+        ],
+        [
+          14.583,
+          "Outer wall",
+          0.379456
+        ]
+      ],
+      "bead_footprint_touches_previous": true
+    },
+    {
+      "sample": "C",
+      "bore_mm": 6.75,
+      "side": "right",
+      "layer_top_z_mm": 10.52,
+      "stock_area_mm2": 3.482951999999841,
+      "bead_coverage": 0.990094008808321,
+      "stock_components": 1,
+      "bead_components": 1,
+      "stock_pieces_touched": 1,
+      "centre_span_path_crossings": [
+        [
+          21.417,
+          "Outer wall",
+          0.379456
+        ],
+        [
+          21.473,
+          "Outer wall",
+          0.379456
+        ]
+      ],
+      "bead_footprint_touches_previous": true
+    }
+  ],
+  "layer_rows": [
+    {
+      "layer_top_z_mm": 0.2,
+      "height_mm": 0.2,
+      "model_area_mm2": 733.631127126081,
+      "minimum_road_bead_contact_fraction": null,
+      "roads_without_previous_bead_contact": 0,
+      "longest_centerline_with_no_bead_contact_mm": 0,
+      "unbacked_centerline_mm": 0,
+      "longest_unbacked_centerline_mm": 0,
+      "fully_unbacked_roads": 0,
+      "fully_unbacked_nonbridge_roads": 0,
+      "bridge_unbacked_mm": 0
+    },
+    {
+      "layer_top_z_mm": 0.44,
+      "height_mm": 0.24,
+      "model_area_mm2": 754.9056570677343,
+      "minimum_road_bead_contact_fraction": 0.628395170135505,
+      "roads_without_previous_bead_contact": 0,
+      "longest_centerline_with_no_bead_contact_mm": 0.0,
+      "unbacked_centerline_mm": 5.6205318314046195,
+      "longest_unbacked_centerline_mm": 0.17215906871192918,
+      "fully_unbacked_roads": 0,
+      "fully_unbacked_nonbridge_roads": 0,
+      "bridge_unbacked_mm": 0
+    },
+    {
+      "layer_top_z_mm": 0.68,
+      "height_mm": 0.24,
+      "model_area_mm2": 754.9054493443253,
+      "minimum_road_bead_contact_fraction": 0.7650129739056747,
+      "roads_without_previous_bead_contact": 0,
+      "longest_centerline_with_no_bead_contact_mm": 0.0,
+      "unbacked_centerline_mm": 1.7538294228831761,
+      "longest_unbacked_centerline_mm": 0.12171412679140303,
+      "fully_unbacked_roads": 0,
+      "fully_unbacked_nonbridge_roads": 0,
+      "bridge_unbacked_mm": 0
+    },
+    {
+      "layer_top_z_mm": 0.92,
+      "height_mm": 0.24,
+      "model_area_mm2": 237.06210545272563,
+      "minimum_road_bead_contact_fraction": 0.8059746637864199,
+      "roads_without_previous_bead_contact": 0,
+      "longest_centerline_with_no_bead_contact_mm": 0.0,
+      "unbacked_centerline_mm": 0.31759916621342654,
+      "longest_unbacked_centerline_mm": 0.09168848576578625,
+      "fully_unbacked_roads": 0,
+      "fully_unbacked_nonbridge_roads": 0,
+      "bridge_unbacked_mm": 0
+    },
+    {
+      "layer_top_z_mm": 1.16,
+      "height_mm": 0.24,
+      "model_area_mm2": 224.43717978452236,
+      "minimum_road_bead_contact_fraction": 0.25424701486034157,
+      "roads_without_previous_bead_contact": 0,
+      "longest_centerline_with_no_bead_contact_mm": 0.0,
+      "unbacked_centerline_mm": 64.60198598832447,
+      "longest_unbacked_centerline_mm": 0.9092910844138373,
+      "fully_unbacked_roads": 90,
+      "fully_unbacked_nonbridge_roads": 90,
+      "bridge_unbacked_mm": 0
+    },
+    {
+      "layer_top_z_mm": 1.4,
+      "height_mm": 0.24,
+      "model_area_mm2": 221.6285326283282,
+      "minimum_road_bead_contact_fraction": 0.5268291465610044,
+      "roads_without_previous_bead_contact": 0,
+      "longest_centerline_with_no_bead_contact_mm": 0.0,
+      "unbacked_centerline_mm": 41.67038280646902,
+      "longest_unbacked_centerline_mm": 0.41964197927041846,
+      "fully_unbacked_roads": 0,
+      "fully_unbacked_nonbridge_roads": 0,
+      "bridge_unbacked_mm": 0
+    },
+    {
+      "layer_top_z_mm": 1.64,
+      "height_mm": 0.24,
+      "model_area_mm2": 221.12971334017575,
+      "minimum_road_bead_contact_fraction": 0.5709827776764846,
+      "roads_without_previous_bead_contact": 0,
+      "longest_centerline_with_no_bead_contact_mm": 0.0,
+      "unbacked_centerline_mm": 0.20150092055142216,
+      "longest_unbacked_centerline_mm": 0.03919390358399366,
+      "fully_unbacked_roads": 0,
+      "fully_unbacked_nonbridge_roads": 0,
+      "bridge_unbacked_mm": 0
+    },
+    {
+      "layer_top_z_mm": 1.88,
+      "height_mm": 0.24,
+      "model_area_mm2": 259.044401438163,
+      "minimum_road_bead_contact_fraction": 0.0029368873300011852,
+      "roads_without_previous_bead_contact": 0,
+      "longest_centerline_with_no_bead_contact_mm": 2.3125596018630574,
+      "unbacked_centerline_mm": 113.0788286918911,
+      "longest_unbacked_centerline_mm": 5.186476161723618,
+      "fully_unbacked_roads": 7,
+      "fully_unbacked_nonbridge_roads": 7,
+      "bridge_unbacked_mm": 0
+    },
+    {
+      "layer_top_z_mm": 2.12,
+      "height_mm": 0.4,
+      "model_area_mm2": 653.0914259957076,
+      "minimum_road_bead_contact_fraction": 0.0,
+      "roads_without_previous_bead_contact": 2,
+      "longest_centerline_with_no_bead_contact_mm": 5.164005673634844,
+      "unbacked_centerline_mm": 1020.3656149743177,
+      "longest_unbacked_centerline_mm": 5.643748574825873,
+      "fully_unbacked_roads": 3,
+      "fully_unbacked_nonbridge_roads": 0,
+      "bridge_unbacked_mm": 1020.3656149743177
+    },
+    {
+      "layer_top_z_mm": 2.36,
+      "height_mm": 0.24,
+      "model_area_mm2": 669.9636347578075,
+      "minimum_road_bead_contact_fraction": 0.13056250485963825,
+      "roads_without_previous_bead_contact": 0,
+      "longest_centerline_with_no_bead_contact_mm": 0.0,
+      "unbacked_centerline_mm": 179.8011389568832,
+      "longest_unbacked_centerline_mm": 1.2023757536659985,
+      "fully_unbacked_roads": 11,
+      "fully_unbacked_nonbridge_roads": 11,
+      "bridge_unbacked_mm": 0
+    },
+    {
+      "layer_top_z_mm": 2.6,
+      "height_mm": 0.24,
+      "model_area_mm2": 672.1015767637509,
+      "minimum_road_bead_contact_fraction": 0.0,
+      "roads_without_previous_bead_contact": 5,
+      "longest_centerline_with_no_bead_contact_mm": 0.4548626166217625,
+      "unbacked_centerline_mm": 28.700225401771142,
+      "longest_unbacked_centerline_mm": 3.788000000000011,
+      "fully_unbacked_roads": 14,
+      "fully_unbacked_nonbridge_roads": 14,
+      "bridge_unbacked_mm": 0
+    },
+    {
+      "layer_top_z_mm": 2.84,
+      "height_mm": 0.24,
+      "model_area_mm2": 668.8880167819352,
+      "minimum_road_bead_contact_fraction": 0.056187388585752784,
+      "roads_without_previous_bead_contact": 0,
+      "longest_centerline_with_no_bead_contact_mm": 0.08485461120951451,
+      "unbacked_centerline_mm": 9.642937498723851,
+      "longest_unbacked_centerline_mm": 0.5441323368446377,
+      "fully_unbacked_roads": 12,
+      "fully_unbacked_nonbridge_roads": 12,
+      "bridge_unbacked_mm": 0
+    },
+    {
+      "layer_top_z_mm": 3.08,
+      "height_mm": 0.24,
+      "model_area_mm2": 692.0783552863314,
+      "minimum_road_bead_contact_fraction": 0.1009709336292361,
+      "roads_without_previous_bead_contact": 0,
+      "longest_centerline_with_no_bead_contact_mm": 2.9384334114327757,
+      "unbacked_centerline_mm": 68.41948492633716,
+      "longest_unbacked_centerline_mm": 3.367464245989626,
+      "fully_unbacked_roads": 3,
+      "fully_unbacked_nonbridge_roads": 0,
+      "bridge_unbacked_mm": 60.9681363826297
+    },
+    {
+      "layer_top_z_mm": 3.32,
+      "height_mm": 0.4,
+      "model_area_mm2": 218.41151430368674,
+      "minimum_road_bead_contact_fraction": 0.18843677458660654,
+      "roads_without_previous_bead_contact": 0,
+      "longest_centerline_with_no_bead_contact_mm": 2.9163580780557368,
+      "unbacked_centerline_mm": 140.3183399078967,
+      "longest_unbacked_centerline_mm": 3.5583728621475075,
+      "fully_unbacked_roads": 0,
+      "fully_unbacked_nonbridge_roads": 0,
+      "bridge_unbacked_mm": 128.10155660401898
+    },
+    {
+      "layer_top_z_mm": 3.56,
+      "height_mm": 0.24,
+      "model_area_mm2": 227.66678163594455,
+      "minimum_road_bead_contact_fraction": 0.6538706170645935,
+      "roads_without_previous_bead_contact": 0,
+      "longest_centerline_with_no_bead_contact_mm": 0.0,
+      "unbacked_centerline_mm": 26.322535478857823,
+      "longest_unbacked_centerline_mm": 0.1207344375996513,
+      "fully_unbacked_roads": 1,
+      "fully_unbacked_nonbridge_roads": 1,
+      "bridge_unbacked_mm": 0
+    },
+    {
+      "layer_top_z_mm": 3.8,
+      "height_mm": 0.24,
+      "model_area_mm2": 227.72630141956466,
+      "minimum_road_bead_contact_fraction": 0.6536003685107611,
+      "roads_without_previous_bead_contact": 0,
+      "longest_centerline_with_no_bead_contact_mm": 0.0,
+      "unbacked_centerline_mm": 1.8401616340859577,
+      "longest_unbacked_centerline_mm": 0.13540274231820604,
+      "fully_unbacked_roads": 1,
+      "fully_unbacked_nonbridge_roads": 1,
+      "bridge_unbacked_mm": 0
+    },
+    {
+      "layer_top_z_mm": 4.04,
+      "height_mm": 0.24,
+      "model_area_mm2": 227.7868162592573,
+      "minimum_road_bead_contact_fraction": 0.9133069194572795,
+      "roads_without_previous_bead_contact": 0,
+      "longest_centerline_with_no_bead_contact_mm": 0.0,
+      "unbacked_centerline_mm": 0.6783822828842935,
+      "longest_unbacked_centerline_mm": 0.08009599384887511,
+      "fully_unbacked_roads": 0,
+      "fully_unbacked_nonbridge_roads": 0,
+      "bridge_unbacked_mm": 0
+    },
+    {
+      "layer_top_z_mm": 4.28,
+      "height_mm": 0.24,
+      "model_area_mm2": 220.1950053730087,
+      "minimum_road_bead_contact_fraction": 0.8602826353903906,
+      "roads_without_previous_bead_contact": 0,
+      "longest_centerline_with_no_bead_contact_mm": 0.0,
+      "unbacked_centerline_mm": 0.5710918747171262,
+      "longest_unbacked_centerline_mm": 0.10239043968938143,
+      "fully_unbacked_roads": 0,
+      "fully_unbacked_nonbridge_roads": 0,
+      "bridge_unbacked_mm": 0
+    },
+    {
+      "layer_top_z_mm": 4.52,
+      "height_mm": 0.24,
+      "model_area_mm2": 170.93708284735797,
+      "minimum_road_bead_contact_fraction": 0.8961886984855839,
+      "roads_without_previous_bead_contact": 0,
+      "longest_centerline_with_no_bead_contact_mm": 0.0,
+      "unbacked_centerline_mm": 1.0802077938642185,
+      "longest_unbacked_centerline_mm": 0.2500000000000284,
+      "fully_unbacked_roads": 0,
+      "fully_unbacked_nonbridge_roads": 0,
+      "bridge_unbacked_mm": 0
+    },
+    {
+      "layer_top_z_mm": 4.76,
+      "height_mm": 0.24,
+      "model_area_mm2": 147.1647168314015,
+      "minimum_road_bead_contact_fraction": 0.9334187226124778,
+      "roads_without_previous_bead_contact": 0,
+      "longest_centerline_with_no_bead_contact_mm": 0.0,
+      "unbacked_centerline_mm": 0.060102452985034915,
+      "longest_unbacked_centerline_mm": 0.021065742042793545,
+      "fully_unbacked_roads": 0,
+      "fully_unbacked_nonbridge_roads": 0,
+      "bridge_unbacked_mm": 0
+    },
+    {
+      "layer_top_z_mm": 5.0,
+      "height_mm": 0.24,
+      "model_area_mm2": 130.2101762279112,
+      "minimum_road_bead_contact_fraction": 0.9982253704522704,
+      "roads_without_previous_bead_contact": 0,
+      "longest_centerline_with_no_bead_contact_mm": 0.0,
+      "unbacked_centerline_mm": 0,
+      "longest_unbacked_centerline_mm": 0,
+      "fully_unbacked_roads": 0,
+      "fully_unbacked_nonbridge_roads": 0,
+      "bridge_unbacked_mm": 0
+    },
+    {
+      "layer_top_z_mm": 5.24,
+      "height_mm": 0.24,
+      "model_area_mm2": 117.02856629150055,
+      "minimum_road_bead_contact_fraction": 0.9552239163886196,
+      "roads_without_previous_bead_contact": 0,
+      "longest_centerline_with_no_bead_contact_mm": 0.0,
+      "unbacked_centerline_mm": 0.14118351372951565,
+      "longest_unbacked_centerline_mm": 0.02394725228825223,
+      "fully_unbacked_roads": 0,
+      "fully_unbacked_nonbridge_roads": 0,
+      "bridge_unbacked_mm": 0
+    },
+    {
+      "layer_top_z_mm": 5.48,
+      "height_mm": 0.24,
+      "model_area_mm2": 106.34652551198982,
+      "minimum_road_bead_contact_fraction": 0.9939794995681878,
+      "roads_without_previous_bead_contact": 0,
+      "longest_centerline_with_no_bead_contact_mm": 0.0,
+      "unbacked_centerline_mm": 0.3866198947982866,
+      "longest_unbacked_centerline_mm": 0.045186064295307915,
+      "fully_unbacked_roads": 0,
+      "fully_unbacked_nonbridge_roads": 0,
+      "bridge_unbacked_mm": 0
+    },
+    {
+      "layer_top_z_mm": 5.72,
+      "height_mm": 0.24,
+      "model_area_mm2": 97.53079895785888,
+      "minimum_road_bead_contact_fraction": 0.9996854990651791,
+      "roads_without_previous_bead_contact": 0,
+      "longest_centerline_with_no_bead_contact_mm": 0.0,
+      "unbacked_centerline_mm": 0,
+      "longest_unbacked_centerline_mm": 0,
+      "fully_unbacked_roads": 0,
+      "fully_unbacked_nonbridge_roads": 0,
+      "bridge_unbacked_mm": 0
+    },
+    {
+      "layer_top_z_mm": 5.96,
+      "height_mm": 0.24,
+      "model_area_mm2": 90.21894077207956,
+      "minimum_road_bead_contact_fraction": 0.9996854990651791,
+      "roads_without_previous_bead_contact": 0,
+      "longest_centerline_with_no_bead_contact_mm": 0.0,
+      "unbacked_centerline_mm": 0,
+      "longest_unbacked_centerline_mm": 0,
+      "fully_unbacked_roads": 0,
+      "fully_unbacked_nonbridge_roads": 0,
+      "bridge_unbacked_mm": 0
+    },
+    {
+      "layer_top_z_mm": 6.2,
+      "height_mm": 0.24,
+      "model_area_mm2": 84.18651532941675,
+      "minimum_road_bead_contact_fraction": 0.9997070290584459,
+      "roads_without_previous_bead_contact": 0,
+      "longest_centerline_with_no_bead_contact_mm": 0.0,
+      "unbacked_centerline_mm": 0,
+      "longest_unbacked_centerline_mm": 0,
+      "fully_unbacked_roads": 0,
+      "fully_unbacked_nonbridge_roads": 0,
+      "bridge_unbacked_mm": 0
+    },
+    {
+      "layer_top_z_mm": 6.44,
+      "height_mm": 0.24,
+      "model_area_mm2": 79.29079895785819,
+      "minimum_road_bead_contact_fraction": 0.9996854990651791,
+      "roads_without_previous_bead_contact": 0,
+      "longest_centerline_with_no_bead_contact_mm": 0.0,
+      "unbacked_centerline_mm": 0,
+      "longest_unbacked_centerline_mm": 0,
+      "fully_unbacked_roads": 0,
+      "fully_unbacked_nonbridge_roads": 0,
+      "bridge_unbacked_mm": 0
+    },
+    {
+      "layer_top_z_mm": 6.68,
+      "height_mm": 0.24,
+      "model_area_mm2": 75.40279895785872,
+      "minimum_road_bead_contact_fraction": 0.9996854990651799,
+      "roads_without_previous_bead_contact": 0,
+      "longest_centerline_with_no_bead_contact_mm": 0.0,
+      "unbacked_centerline_mm": 0,
+      "longest_unbacked_centerline_mm": 0,
+      "fully_unbacked_roads": 0,
+      "fully_unbacked_nonbridge_roads": 0,
+      "bridge_unbacked_mm": 0
+    },
+    {
+      "layer_top_z_mm": 6.92,
+      "height_mm": 0.24,
+      "model_area_mm2": 72.45894077207979,
+      "minimum_road_bead_contact_fraction": 0.9996854990651799,
+      "roads_without_previous_bead_contact": 0,
+      "longest_centerline_with_no_bead_contact_mm": 0.0,
+      "unbacked_centerline_mm": 0,
+      "longest_unbacked_centerline_mm": 0,
+      "fully_unbacked_roads": 0,
+      "fully_unbacked_nonbridge_roads": 0,
+      "bridge_unbacked_mm": 0
+    },
+    {
+      "layer_top_z_mm": 7.16,
+      "height_mm": 0.24,
+      "model_area_mm2": 70.42679895785861,
+      "minimum_road_bead_contact_fraction": 0.9997070290584459,
+      "roads_without_previous_bead_contact": 0,
+      "longest_centerline_with_no_bead_contact_mm": 0.0,
+      "unbacked_centerline_mm": 0,
+      "longest_unbacked_centerline_mm": 0,
+      "fully_unbacked_roads": 0,
+      "fully_unbacked_nonbridge_roads": 0,
+      "bridge_unbacked_mm": 0
+    },
+    {
+      "layer_top_z_mm": 7.4,
+      "height_mm": 0.24,
+      "model_area_mm2": 69.24265714363783,
+      "minimum_road_bead_contact_fraction": 0.9997109616232682,
+      "roads_without_previous_bead_contact": 0,
+      "longest_centerline_with_no_bead_contact_mm": 0.0,
+      "unbacked_centerline_mm": 0,
+      "longest_unbacked_centerline_mm": 0,
+      "fully_unbacked_roads": 0,
+      "fully_unbacked_nonbridge_roads": 0,
+      "bridge_unbacked_mm": 0
+    },
+    {
+      "layer_top_z_mm": 7.64,
+      "height_mm": 0.24,
+      "model_area_mm2": 68.890586236527,
+      "minimum_road_bead_contact_fraction": 0.9998615380625542,
+      "roads_without_previous_bead_contact": 0,
+      "longest_centerline_with_no_bead_contact_mm": 0.0,
+      "unbacked_centerline_mm": 0,
+      "longest_unbacked_centerline_mm": 0,
+      "fully_unbacked_roads": 0,
+      "fully_unbacked_nonbridge_roads": 0,
+      "bridge_unbacked_mm": 0
+    },
+    {
+      "layer_top_z_mm": 7.88,
+      "height_mm": 0.24,
+      "model_area_mm2": 68.98686986496996,
+      "minimum_road_bead_contact_fraction": 0.9734865058424401,
+      "roads_without_previous_bead_contact": 0,
+      "longest_centerline_with_no_bead_contact_mm": 0.0,
+      "unbacked_centerline_mm": 0,
+      "longest_unbacked_centerline_mm": 0,
+      "fully_unbacked_roads": 0,
+      "fully_unbacked_nonbridge_roads": 0,
+      "bridge_unbacked_mm": 0
+    },
+    {
+      "layer_top_z_mm": 8.12,
+      "height_mm": 0.24,
+      "model_area_mm2": 69.40258623652717,
+      "minimum_road_bead_contact_fraction": 0.9325253711307725,
+      "roads_without_previous_bead_contact": 0,
+      "longest_centerline_with_no_bead_contact_mm": 0.0,
+      "unbacked_centerline_mm": 0,
+      "longest_unbacked_centerline_mm": 0,
+      "fully_unbacked_roads": 0,
+      "fully_unbacked_nonbridge_roads": 0,
+      "bridge_unbacked_mm": 0
+    },
+    {
+      "layer_top_z_mm": 8.36,
+      "height_mm": 0.24,
+      "model_area_mm2": 70.00596681271644,
+      "minimum_road_bead_contact_fraction": 0.8891736385168965,
+      "roads_without_previous_bead_contact": 0,
+      "longest_centerline_with_no_bead_contact_mm": 0.0,
+      "unbacked_centerline_mm": 0,
+      "longest_unbacked_centerline_mm": 0,
+      "fully_unbacked_roads": 0,
+      "fully_unbacked_nonbridge_roads": 0,
+      "bridge_unbacked_mm": 0
+    },
+    {
+      "layer_top_z_mm": 8.6,
+      "height_mm": 0.240001,
+      "model_area_mm2": 71.04248829774075,
+      "minimum_road_bead_contact_fraction": 0.8375461576926498,
+      "roads_without_previous_bead_contact": 0,
+      "longest_centerline_with_no_bead_contact_mm": 0.0,
+      "unbacked_centerline_mm": 0,
+      "longest_unbacked_centerline_mm": 0,
+      "fully_unbacked_roads": 0,
+      "fully_unbacked_nonbridge_roads": 0,
+      "bridge_unbacked_mm": 0
+    },
+    {
+      "layer_top_z_mm": 8.84,
+      "height_mm": 0.24,
+      "model_area_mm2": 72.32413783238798,
+      "minimum_road_bead_contact_fraction": 0.7949051825062493,
+      "roads_without_previous_bead_contact": 0,
+      "longest_centerline_with_no_bead_contact_mm": 0.0,
+      "unbacked_centerline_mm": 0,
+      "longest_unbacked_centerline_mm": 0,
+      "fully_unbacked_roads": 0,
+      "fully_unbacked_nonbridge_roads": 0,
+      "bridge_unbacked_mm": 0
+    },
+    {
+      "layer_top_z_mm": 9.08,
+      "height_mm": 0.24,
+      "model_area_mm2": 74.05830260808503,
+      "minimum_road_bead_contact_fraction": 0.7200662165164312,
+      "roads_without_previous_bead_contact": 0,
+      "longest_centerline_with_no_bead_contact_mm": 0.0,
+      "unbacked_centerline_mm": 0,
+      "longest_unbacked_centerline_mm": 0,
+      "fully_unbacked_roads": 0,
+      "fully_unbacked_nonbridge_roads": 0,
+      "bridge_unbacked_mm": 0
+    },
+    {
+      "layer_top_z_mm": 9.32,
+      "height_mm": 0.24,
+      "model_area_mm2": 76.17072805074868,
+      "minimum_road_bead_contact_fraction": 0.6871223292862662,
+      "roads_without_previous_bead_contact": 0,
+      "longest_centerline_with_no_bead_contact_mm": 0.0,
+      "unbacked_centerline_mm": 0,
+      "longest_unbacked_centerline_mm": 0,
+      "fully_unbacked_roads": 0,
+      "fully_unbacked_nonbridge_roads": 0,
+      "bridge_unbacked_mm": 0
+    },
+    {
+      "layer_top_z_mm": 9.56,
+      "height_mm": 0.240001,
+      "model_area_mm2": 76.48653830620538,
+      "minimum_road_bead_contact_fraction": 0.6727062762929221,
+      "roads_without_previous_bead_contact": 0,
+      "longest_centerline_with_no_bead_contact_mm": 0.0,
+      "unbacked_centerline_mm": 0,
+      "longest_unbacked_centerline_mm": 0,
+      "fully_unbacked_roads": 0,
+      "fully_unbacked_nonbridge_roads": 0,
+      "bridge_unbacked_mm": 0
+    },
+    {
+      "layer_top_z_mm": 9.8,
+      "height_mm": 0.24,
+      "model_area_mm2": 71.95988915845825,
+      "minimum_road_bead_contact_fraction": 0.8723198760033408,
+      "roads_without_previous_bead_contact": 0,
+      "longest_centerline_with_no_bead_contact_mm": 0.0,
+      "unbacked_centerline_mm": 0,
+      "longest_unbacked_centerline_mm": 0,
+      "fully_unbacked_roads": 0,
+      "fully_unbacked_nonbridge_roads": 0,
+      "bridge_unbacked_mm": 0
+    },
+    {
+      "layer_top_z_mm": 10.04,
+      "height_mm": 0.24,
+      "model_area_mm2": 62.462590162847206,
+      "minimum_road_bead_contact_fraction": 0.9996854990651791,
+      "roads_without_previous_bead_contact": 0,
+      "longest_centerline_with_no_bead_contact_mm": 0.0,
+      "unbacked_centerline_mm": 0,
+      "longest_unbacked_centerline_mm": 0,
+      "fully_unbacked_roads": 0,
+      "fully_unbacked_nonbridge_roads": 0,
+      "bridge_unbacked_mm": 0
+    },
+    {
+      "layer_top_z_mm": 10.28,
+      "height_mm": 0.24,
+      "model_area_mm2": 43.78836818995069,
+      "minimum_road_bead_contact_fraction": 0.9999999999999996,
+      "roads_without_previous_bead_contact": 0,
+      "longest_centerline_with_no_bead_contact_mm": 0.0,
+      "unbacked_centerline_mm": 0,
+      "longest_unbacked_centerline_mm": 0,
+      "fully_unbacked_roads": 0,
+      "fully_unbacked_nonbridge_roads": 0,
+      "bridge_unbacked_mm": 0
+    },
+    {
+      "layer_top_z_mm": 10.52,
+      "height_mm": 0.240001,
+      "model_area_mm2": 6.8980682779117615,
+      "minimum_road_bead_contact_fraction": 0.9999999999999997,
+      "roads_without_previous_bead_contact": 0,
+      "longest_centerline_with_no_bead_contact_mm": 0.0,
+      "unbacked_centerline_mm": 0,
+      "longest_unbacked_centerline_mm": 0,
+      "fully_unbacked_roads": 0,
+      "fully_unbacked_nonbridge_roads": 0,
+      "bridge_unbacked_mm": 0
+    }
+  ],
+  "upper_leaf_longest_centerline_without_any_previous_bead_contact_mm": 0.0,
+  "contact_interpretation": "Every second-layer and upper-leaf road has previous-layer bead contact. Centreline excursions inside a partially overlapping bead do not imply an unanchored road. The short zero-contact spans near the floor/root skin are native bridges over the retained sparse infill. These readings establish commanded path continuity, not physical layer bonding or flexural survival."
+}

@@ -1,0 +1,22 @@
+{
+  "scope": "Read-only printer observation during offline preparation. No send, upload, pause, resume or settings command.",
+  "command": ".cache/printer-control/venv/bin/python tools/bambu_printer.py status Mark2",
+  "printer": "Mark2",
+  "observed_at": "2026-10-27T01:55:01.402258+00:00",
+  "gcode_state": "RUNNING",
+  "subtask_name": "m5-seam-bearing-mark2-print-only.gcode.3mf",
+  "mc_percent": 78,
+  "layer_num": 121,
+  "total_layer_num": 169,
+  "mc_remaining_time": 55,
+  "print_error": 0,
+  "hms": [{"attr": 201326848, "code": 131095}],
+  "external_spools": {
+    "254": {"type": "PET-CF", "colour": "161616FF"},
+    "255": {"type": "TPU", "colour": "161616FF"}
+  },
+  "nozzle_type": "HS01-0.4",
+  "physical_material": "The parent session identifies external left 254 as black PET-GF. PET-GF reports PET-CF in this printer.",
+  "job_mapping": "The prepared archive uses filament 1 on the left hardened 0.4 mm Standard-flow nozzle, colour #161616. No right-nozzle extrusion is selected.",
+  "submitted": false
+}

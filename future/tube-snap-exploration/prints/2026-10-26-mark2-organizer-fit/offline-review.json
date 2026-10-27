@@ -1,0 +1,101 @@
+{
+  "status": "Offline preparation and native path review; no printer submission.",
+  "submitted": false,
+  "source_sha256": {
+    "future/tube-snap-exploration/tube_snap_trial.py": "47e29d8833451e225a90c1a2acd423af91885bd70035a1f1d21f764fbf715296",
+    "future/tube-snap-exploration/parts/tube-snap-three-bores.stl": "8948e22e3179bed2697f03ede0d59258bbc91a3d2f45818377d00ec71b369af4",
+    "future/tube-snap-exploration/parts/tube-snap-three-bores.step": "f0744942930049e049135fc787f7d67211880d0a02cdce9f020df9d0250b1a2e",
+    "future/tube-snap-exploration/geometry-report.json": "4939dfc0dcb9bb3c54bb860d53026935a535c9ded8225919bbb4934d4b86a5ba"
+  },
+  "preparer_sha256": "700893c81ddd03aea2dea3ee33a5959cfa3634324b311dbfa9192d816bc37fe9",
+  "directory": "future/tube-snap-exploration/prints/2026-10-26-mark2-organizer-fit/2026-10-26-tube-snap-three-bores-mark2-f10f7183",
+  "project": "future/tube-snap-exploration/prints/2026-10-26-mark2-organizer-fit/2026-10-26-tube-snap-three-bores-mark2-f10f7183/2026-10-26-tube-snap-three-bores-mark2-f10f7183.3mf",
+  "project_sha256": "77c8aae1421eccefe8f359bd0a3594899b7a111895478486fcc7c2299a6857b6",
+  "archive": "future/tube-snap-exploration/prints/2026-10-26-mark2-organizer-fit/2026-10-26-tube-snap-three-bores-mark2-f10f7183/2026-10-26-tube-snap-three-bores-mark2-f10f7183.gcode.3mf",
+  "archive_sha256": "bb5fe8aebbc1413bfe84862a98baeb70ada5eae4f5f2feb7b3ff5b0d6242fc97",
+  "profile": "hardware/printed-parts/petgf.3mf",
+  "profile_sha256": "45c16e8c8517e0a205107d7b9f7412d013f51a8de7ecf86125cc940079d37ed0",
+  "printer": "Mark2",
+  "nozzle": {
+    "side": "left",
+    "diameter_mm": 0.4,
+    "flow": "Standard",
+    "hardened": true,
+    "reason": "Every abrasive stock runs on the left hotend (hardware/ledger/tools.md, Which hotends fit an H2C). Mark2's 2026-10-24 jobs ran black PET-GF on its fixed left hardened 0.4 mm Standard-flow hotend (faucet/industrial/prints/2026-10-24-buttons-sculpted-bands020-mark2/README.md, task 1372253517).",
+    "sliced_diameter_mm": 0.4,
+    "sliced_volume_type": "Standard"
+  },
+  "material": "Polymaker Fiberon PET-GF15, black",
+  "requested_z_trim_mm": 0.04,
+  "emitted_z_trim_mm": [
+    0.0,
+    0.02
+  ],
+  "process": {
+    "wall_loops": "2",
+    "sparse_infill_density": "15%",
+    "sparse_infill_pattern": "gyroid",
+    "layer_height": "0.24",
+    "initial_layer_print_height": "0.2",
+    "enable_support": "1",
+    "support_type": "tree(auto)",
+    "support_style": "default",
+    "brim_type": "auto_brim",
+    "brim_width": "5",
+    "filament_colour": [
+      "#161616"
+    ],
+    "filament_map": [
+      "1"
+    ],
+    "curr_bed_type": "Textured PEI Plate",
+    "overhang_fan_threshold": [
+      "50%"
+    ],
+    "overhang_fan_speed": [
+      "70"
+    ]
+  },
+  "model_pose": "3 mm floor flat on the bed, upward mouths, source +X to printer right; 6.55 / 6.65 / 6.75 mm left to right.",
+  "estimated_seconds": 727.5084838867188,
+  "estimated_filament_g": 3.0032260417938232,
+  "filaments": [
+    {
+      "filament_id": "GFT01",
+      "id": 1,
+      "main_used_g": 3.0032260417938232,
+      "total_used_g": 3.0032260417938232
+    }
+  ],
+  "slicer_warnings": "",
+  "native_preview_images": [
+    "future/tube-snap-exploration/prints/2026-10-26-mark2-organizer-fit/2026-10-26-tube-snap-three-bores-mark2-f10f7183/plate_1.png",
+    "future/tube-snap-exploration/prints/2026-10-26-mark2-organizer-fit/2026-10-26-tube-snap-three-bores-mark2-f10f7183/plate_1_small.png",
+    "future/tube-snap-exploration/prints/2026-10-26-mark2-organizer-fit/2026-10-26-tube-snap-three-bores-mark2-f10f7183/plate_no_light_1.png",
+    "future/tube-snap-exploration/prints/2026-10-26-mark2-organizer-fit/2026-10-26-tube-snap-three-bores-mark2-f10f7183/top_1.png",
+    "future/tube-snap-exploration/prints/2026-10-26-mark2-organizer-fit/2026-10-26-tube-snap-three-bores-mark2-f10f7183/pick_1.png"
+  ],
+  "native_review": "future/tube-snap-exploration/prints/2026-10-26-mark2-organizer-fit/2026-10-26-tube-snap-three-bores-mark2-f10f7183/review.json",
+  "native_review_pass": true,
+  "minimum_bead_margin_mm": 135.485,
+  "first_second_layer_stack": {
+    "1901": {
+      "second_layer_model_bead_area_mm2": 754.9056570677343,
+      "fraction_over_first_layer": 0.9704237153892155,
+      "second_layer_centerline_outside_first_mm": 5.6205318314046195
+    }
+  },
+  "support_topology": {
+    "1901": {
+      "support_bodies": 0,
+      "interface_islands": 0,
+      "bed_rooted_bodies": 0,
+      "model_rooted_bodies": 0,
+      "shortest_build_up_mm": null,
+      "bodies_without_interface_labels": 0,
+      "explicit_interface_islands": 0,
+      "shortest_labelled_build_up_mm": null
+    }
+  },
+  "physical_evaluation": "Push-in force, short-leaf/root survival, seated grip, axial slide and removal on the actual tube remain the purpose of the print trial."
+}

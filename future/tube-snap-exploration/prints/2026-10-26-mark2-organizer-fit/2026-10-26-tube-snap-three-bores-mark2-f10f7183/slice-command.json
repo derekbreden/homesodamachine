@@ -1,0 +1,14 @@
+[
+  "/Applications/BambuStudio.app/Contents/MacOS/BambuStudio",
+  "--slice",
+  "0",
+  "--arrange",
+  "0",
+  "--orient",
+  "0",
+  "--outputdir",
+  "/Users/derekbredensteiner/Developer/homesodamachine/future/tube-snap-exploration/prints/2026-10-26-mark2-organizer-fit/2026-10-26-tube-snap-three-bores-mark2-f10f7183/native",
+  "--export-3mf",
+  "2026-10-26-tube-snap-three-bores-mark2-f10f7183.gcode.3mf",
+  "/Users/derekbredensteiner/Developer/homesodamachine/future/tube-snap-exploration/prints/2026-10-26-mark2-organizer-fit/2026-10-26-tube-snap-three-bores-mark2-f10f7183/2026-10-26-tube-snap-three-bores-mark2-f10f7183.3mf"
+]
