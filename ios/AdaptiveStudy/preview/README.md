@@ -1,6 +1,23 @@
 # Native app renders
 
-Each image is a native SwiftUI content render with sample data. Dimensions are layout canvases in points; system chrome and device safe-area masks are omitted. The source captures are 2× PNGs in the local `renders/` directory; these review copies are 1× WebP.
+Each image is a native SwiftUI content render with sample data. Dimensions are layout canvases in points; system chrome and device safe-area masks are omitted. Source captures are 2× PNGs in the local `renders/` directory. Focused detail copies retain that 2× resolution with lossless WebP encoding; the complete matrix uses compact 1× WebP copies.
+
+## Detail review · 2× lossless
+
+| Screen | Window | Native detail |
+| --- | --- | --- |
+| Machine | iPhone portrait · 402 × 874 pt | [View 2× lossless](detail/phone-home.webp) |
+| Flavor image and ratio | iPhone portrait · 402 × 874 pt | [View 2× lossless](detail/phone-flavor.webp) |
+| Care | iPhone portrait · 402 × 874 pt | [View 2× lossless](detail/phone-care.webp) |
+| Settings | iPhone portrait · 402 × 874 pt | [View 2× lossless](detail/phone-settings.webp) |
+| Sound and quiet hours | iPhone portrait · 402 × 874 pt | [View 2× lossless](detail/phone-sound.webp) |
+| Machine | Duo cover · 466 × 678 pt | [View 2× lossless](detail/cover-home.webp) |
+| Machine | Duo open · 890 × 626 pt | [View 2× lossless](detail/duo-home.webp) |
+| Machine | iPad portrait · 834 × 1194 pt | [View 2× lossless](detail/ipad-portrait-home.webp) |
+| Machine | iPad landscape · 1194 × 834 pt | [View 2× lossless](detail/ipad-home.webp) |
+| Machine | iPhone landscape · 874 × 402 pt | [View 2× lossless](detail/landscape-home.webp) |
+
+## Complete screen matrix · 1×
 
 | Screen | phone | cover | duo | ipad-portrait | ipad | narrow | landscape |
 | --- | --- | --- | --- | --- | --- | --- | --- |

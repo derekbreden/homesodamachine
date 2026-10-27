@@ -9,8 +9,9 @@ and controls, and the app's bundled flavor art.
 
 ## Review
 
-- [Every screen at every size](preview/README.md): 37 screens and states across
-  seven canvases, rendered by the same SwiftUI code.
+- [Native detail and screen index](preview/README.md): focused 2× lossless renders
+  for judging text and visual detail, plus all 37 screens and states across seven
+  canvases in a compact browsing matrix.
 - [Production integration plan](INTEGRATION.md): firmware capability mapping,
   authoritative state, Bluetooth routing, migration, and operation behavior.
 - [Views](Sources/StudyViews.swift): the native layout source behind the images.
@@ -25,9 +26,12 @@ runtime cannot boot the Duo device type.
 
 The fixture's Kitchen machine, unit IDs, temperatures, levels, ratios, connection
 conditions, and transfer progress are sample data. Views are real SwiftUI; product
-effects are fixtures. Buttons illustrate navigation and local edits. The study
+effects are fixtures. Buttons illustrate navigation and local edits. Ratio and
+name drafts apply with Save; active flavor changes through Use at faucet.
+Connection state survives navigation, and machine-dependent controls are disabled
+offline. Local edits disappear when the study restarts. The study
 does not connect to a machine, select a real photo, crop or transfer pixels, run a
-pump, save settings, or install software. The crop mockup specifies the adaptive
+pump, write machine settings, or install software. The crop mockup specifies the adaptive
 placement of the existing crop pipeline; its sample framing is fixed.
 
 ## Product map
@@ -60,7 +64,7 @@ the layout branches so folding, rotation, or window resizing preserves them.
 | --- | --- |
 | Narrow phone or window | Three bottom destinations; two flavor cards; machine readings below; stacked form and preparation sections |
 | Short, wide phone / open Duo | Same destinations; flavor cards beside machine readings; compact horizontal flavor cards in short windows; two-column flavor, crop and preparation views where their content fits |
-| Large window, at least 1000 pt wide | 216 pt sidebar; same destinations and routes; content bounded to 1040 pt |
+| Large window, at least 1000 pt wide | 216 pt sidebar; same destinations and routes; content bounded to 840 pt; settings forms bounded to 560 pt |
 | Reduced height | Content scrolls; crop instructions and action sit beside the exact tall framing window; navigation retains its own region |
 | Accessibility text | Single-column content and compact navigation; scalable semantic text; no fixed-height body panels |
 
@@ -68,6 +72,10 @@ Body content scrolls at every size. A shorter window reveals less content withou
 discarding controls. Images retain the machine's 43:80 framing and bounded sizes;
 they are not stretched into the available iPad space. The home screen's two cards
 remain a two-item composition rather than becoming extra empty grid columns.
+The selected flavor has an explicit On tap marker and a fine accent outline.
+Navigation uses a quiet icon/text selection. Machine identity and connection status
+appear together in the compact header or the wide sidebar. Settings use aligned
+icon gutters and inset separators; Care actions have a visible secondary surface.
 
 | Render canvas | Size, pt |
 | --- | --- |
@@ -127,14 +135,17 @@ node ios/AdaptiveStudy/review.mjs
 
 `capture.py --quick` renders Machine, Sound, and Crop at three sizes. The full run
 captures the matrix into the ignored `renders/` directory. `review.mjs` writes
-the 1× WebP review copies, overview, and index into `preview/`.
+the compact 1× WebP matrix, overview, and index into `preview/`, and selected
+native 2× lossless WebP copies into `preview/detail/`.
 Use `capture.py --routes home,offline` to refresh only those routes while retaining
 the other captured screens.
 
 To package the in-chat review, pass `--inline-dir <current-chat-visualization-dir>`
-to `review.mjs`. It writes two self-contained fragments with native render images
-and the shared mobile theme helper. Those review controls choose a screen/window
-or show the image at actual point size; they are outside the proposed product.
+to `review.mjs`. It packages focused phone and aspect-ratio reviews with native
+2× lossless images and the shared mobile theme helper. If the inline size limit
+requires it, a review is split across fragments without reducing image quality.
+Those review controls choose a screen/window or show the image at actual point
+size; they are outside the proposed product. Fit is the initial viewing mode.
 
 Open the generated `SodaMachineStudy.xcodeproj` to run the local fixture app. Its
 bundle ID, data container, generated project and simulator are separate from the

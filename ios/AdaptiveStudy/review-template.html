@@ -1,6 +1,6 @@
 <div id="__ROOT_ID__" aria-label="__REVIEW_TITLE__">
   <div class="viz-controls">
-    <label class="form-label">Screen
+    <label class="form-label" data-screen-label>Screen
       <select class="form-select" data-screen aria-label="Proposal screen"></select>
     </label>
     <label class="form-label" data-viewport-label>Window
@@ -18,7 +18,7 @@
     <input class="form-range" type="range" min="0" max="100" value="0" data-position aria-label="Horizontal position in full-size render">
   </label>
   <div class="review-stage viz-dotted-background">
-    <img class="review-image" src="__INITIAL_IMAGE__" alt="__INITIAL_ALT__" draggable="false">
+    <img class="review-image" alt="__INITIAL_ALT__" draggable="false">
   </div>
 </div>
 <style>
@@ -47,6 +47,7 @@
   const sizes = new Map();
   for (const item of data.images) sizes.set(item.viewport, `${item.title} · ${item.width} × ${item.height}`);
   for (const [id, label] of sizes) viewport.add(new Option(label, id));
+  root.querySelector('[data-screen-label]').hidden = labels.size === 1;
   root.querySelector('[data-viewport-label]').hidden = sizes.size === 1;
   screen.value = data.initialRoute;
   viewport.value = data.initialViewport;
@@ -66,8 +67,8 @@
     chosen = data.images.find(item => item.route === screen.value && item.viewport === viewport.value);
     if (!chosen) return;
     img.src = chosen.data;
-    img.alt = `${chosen.label}, ${chosen.title}, ${chosen.width} by ${chosen.height} points. Native SwiftUI render with sample machine data.`;
-    caption.textContent = `${chosen.width} × ${chosen.height} pt · native SwiftUI`;
+    img.alt = `${chosen.label}, ${chosen.title}, ${chosen.width} by ${chosen.height} points. Native SwiftUI render at 2× resolution, losslessly encoded, with sample machine data.`;
+    caption.textContent = `${chosen.width} × ${chosen.height} pt · 2× lossless`;
     size();
   }
   function restore(saved) {
@@ -88,15 +89,12 @@
   screen.addEventListener('change', () => { position.value = '0'; save(); });
   viewport.addEventListener('change', () => {
     position.value = '0';
-    const item = data.images.find(item => item.viewport === viewport.value);
-    actual.checked = item && stage.getBoundingClientRect().width / item.width < 0.65;
     save();
   });
   actual.addEventListener('change', save);
   position.addEventListener('input', size);
   new ResizeObserver(size).observe(stage);
   window.addEventListener('openai:set_globals', event => restore(event.detail?.globals?.widgetState));
-  actual.checked = stage.getBoundingClientRect().width / data.images.find(item => item.route === screen.value && item.viewport === viewport.value).width < 0.65;
   restore(window.openai?.widgetState);
   window.__vizReady = true;
 })();
