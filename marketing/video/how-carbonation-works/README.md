@@ -6,10 +6,13 @@ its running time on the carbonator's gas admission, water jet, entrainment,
 refill control and copper evaporator. Two separate streams meet in the glass
 at the close.
 
-The picture combines genuine enclosure, cold-core and faucet CAD with the
-animated carbonator cutaway. Fluid motion, bubble populations, thermal tracers,
-glass and drink are illustrative. The integrated appliance is in development.
-The coil carries refrigerant; heat tracers terminate on its submerged turns.
+The enclosure reveal and animated cutaway share the actual STEP pressure
+vessel, fittings, drilled jet cap and guide geometry. A moving section plane
+opens the hardware at fixed datums. The movable cylindrical ASA Aero float
+and its enclosed RC62 ring come from their assembly STEP. Fluid motion,
+bubble populations, thermal tracers, glass and drink are illustrative.
+The integrated appliance is in development. The coil carries refrigerant;
+heat tracers terminate on its submerged turns.
 
 Open [the film player](watch.html) or the rendered master at
 `out/how-carbonation-works.mp4`. [publication.json](publication.json) and
@@ -32,11 +35,15 @@ picture handles are defined in [audio/edit-plan.json](audio/edit-plan.json).
 24-bit mix at −16.00 LUFS, with −2.61 dBTP peak and linear final normalization.
 The picture includes readable captions; the sidecars carry the same spoken text.
 
-`carbonator.js` evaluates the visible fluid behavior from explicit simulation
-time. `scene.js` maps that behavior onto the narration clock, supplies the
-camera choreography and stages the CAD, evaporator and faucet. `studio.html`
-provides the fixed video composition. [assets/README.md](assets/README.md)
-describes the mesh snapshots, real coil path, datums, fonts and provenance.
+`carbonator.js` evaluates fluid behavior at the CAD inlet and outlet datums
+from explicit simulation time. `scene.js` maps that behavior onto the narration
+clock. Its continuous camera track moves from the drilled cap directly to the
+impact, then widens through the float and evaporator views. Soft dissolves join
+the faucet and appliance locations. The studio uses the pale ice, cobalt and
+orange palette of *One Less Errand*, with a matte faucet and clear thin-rimmed
+glass. `studio.html` provides the fixed video composition.
+[assets/README.md](assets/README.md) describes the mesh snapshots, real coil
+path, datums, fonts and provenance.
 
 ## Render
 
@@ -59,6 +66,11 @@ them, and muxes the stereo AAC sound master. A matching scene signature reuses
 an existing clip. `--shots gas,jet` selects scenes and `--fresh` replaces selected
 clips. `--stills` writes the review frames and thumbnail source. Render outputs,
 intermediate audio, and local CAD working copies are ignored.
+
+`--stills --times 4.2,20.2,36.7,65.1` selects specific review frames. The
+fixed hardware and closed half-section sources can be extracted from the
+existing STEP files with `prepare-carbonator-assets.py` in `tools/cad-venv`.
+That export does not change or rebuild the hardware.
 
 For the local player and the animated scene preview:
 

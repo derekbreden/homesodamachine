@@ -1,7 +1,7 @@
 {
-  "video_sha256": "4389cb551628ce815b970ee617c1b74f90ee67222487ff49ceb528fba2e5dec2",
+  "video_sha256": "a540f2dda17c4535ad58f439d97dc992322de828e83abdd5278d9b5a70858d1e",
   "duration_seconds": 102.033333,
-  "size_bytes": 42151138,
+  "size_bytes": 38882075,
   "video": {
     "codec_name": "h264",
     "profile": "High",
@@ -24,5 +24,6 @@
   "integrated_lufs": -16.02,
   "true_peak_dbtp": -2.61,
   "caption_cues": 40,
-  "content_review_passed": true
+  "content_review_passed": true,
+  "aac_packet_sha256": "95ff44019b53649b0b4d8a9e03f403514f5613932724885efd77ed3711670e6f"
 }

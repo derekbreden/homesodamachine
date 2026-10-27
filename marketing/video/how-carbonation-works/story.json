@@ -7,7 +7,7 @@
   },
   "target_duration_seconds": 102.033333,
   "narration": "narration.json",
-  "direction": "A continuous journey from the appliance into its cold core and back to the glass. The approved cutaway and its visible gas bubbles, plunging jet and mixing plume carry the explanation. Camera moves follow the spoken idea. Copper, stainless steel and clear water provide the material contrast, with restrained cobalt, ice and orange from the Home Soda Machine identity. Brief labels identify real parts and physical processes. Picture timing follows the edited connected narration in audio/timing.json.",
+  "direction": "A continuous journey from the appliance into its cold core and back to the glass. The same actual STEP vessel, ports, drilled cap, guide and cylindrical magnetic float carry the reveal and fluid explanation. The camera follows one continuous track through nozzle, impact, refill and cooling; soft dissolves join the faucet and appliance locations. Pale ice-blue studio, cobalt typography, matte black faucet, stainless steel, copper and small orange accents follow One Less Errand. Picture timing follows the edited connected narration in audio/timing.json.",
   "scenes": [
     {
       "id": "hook",
@@ -18,7 +18,7 @@
       "picture": "Cold Press opening: a close, appetizing view of the actual faucet geometry and a clear glass. A concise title introduces the question. Transition toward the under-counter appliance as the three forces are named.",
       "labels": [
         "How carbonation works",
-        "Pressure · Mixing · Cold"
+        "Pressure \u00b7 Mixing \u00b7 Cold"
       ]
     },
     {
@@ -27,7 +27,7 @@
       "target_end": 20.166667,
       "narration_start": "Pull away the enclosure,",
       "narration_end": "in contact with carbon dioxide.",
-      "picture": "Enclosure sections move apart to locate the cold core. Other parts recede as the camera approaches the stainless vessel. Open the shell into the same readable cross section as the approved animation; retain a small liquid charge so bottom gas admission is visible.",
+      "picture": "Enclosure sections move apart to locate the cold core. Other parts recede as the camera approaches the actual stainless vessel. A moving section plane opens those same STEP shapes, exposing the genuine cylindrical float and guide. The liquid and flow overlays occupy the fixed CAD datums.",
       "labels": [
         "Cold core",
         "Carbonator"
@@ -42,10 +42,10 @@
       "narration_end": "As the pressures balance, gas admission stops.",
       "picture": "Follow the gas line to the plain bottom port. Distinct irregular bubbles rise through the remaining water and reach the headspace. Their finite train tapers and ends before the refill develops. Keep enough of the vessel visible to establish all four ports.",
       "labels": [
-        "CO₂ inlet",
-        "CO₂ headspace"
+        "CO\u2082 inlet",
+        "CO\u2082 headspace"
       ],
-      "visual_truth": "No sparge stone. Gas admission requires forward pressure and is not shown as perpetual bubbling. Headspace gas need not remain pure CO₂ in sustained use."
+      "visual_truth": "No sparge stone. Gas admission requires forward pressure and is not shown as perpetual bubbling. Headspace gas need not remain pure CO\u2082 in sustained use."
     },
     {
       "id": "jet",
@@ -53,10 +53,10 @@
       "target_end": 41.5,
       "narration_start": "Fresh water comes in from the top.",
       "narration_end": "turns the incoming flow into a narrow jet.",
-      "picture": "Track water through the top inlet elbow, then make a purposeful macro move to the welded cap and its axial passage. A coherent stream contracts just outside the orifice and develops moving surface disturbances. Pull back enough to see its path to the pool.",
+      "picture": "Track the actual top inlet to its nominal drilled cap and axial passage. A coherent stream contracts outside the CAD orifice and develops moving surface disturbances. The continuous camera descends directly from the cap to the jet impact.",
       "labels": [
         "Water inlet",
-        "1/16 in · 1.59 mm jet"
+        "1/16 in \u00b7 1.59 mm jet"
       ],
       "visual_truth": "Bore dimension is nominal design geometry. Contraction, jet speed and stream disturbances are illustrative rather than measured hydraulic behavior. Do not turn the nozzle into a broad spray."
     },
@@ -69,7 +69,7 @@
       "picture": "Stay with the approved energetic animation: an irregular impact cavity, short splash crown, entrained gas bubbles descending in the water jet, then returning around its edges. The rising liquid level and recirculation remain visible. Use one slow camera move into the plume, without cutting away from the mechanism.",
       "labels": [
         "Jet impact",
-        "Gas–water contact"
+        "Gas\u2013water contact"
       ],
       "visual_truth": "Bubble size, population and flow intensity are qualitative. The explanatory focus is interfacial contact and mixing, not a measured transfer rate or an assertion of instantaneous equilibrium."
     },
@@ -79,9 +79,9 @@
       "target_end": 62.5,
       "narration_start": "The bubbles are the process you can see.",
       "narration_end": "is gas dissolved in the water.",
-      "picture": "Hold a readable close view of the bubble plume. Selected smaller bubbles diminish as they travel, then let the picture breathe over the transparent pool. A restrained label names dissolved CO₂ without drawing molecules to scale or treating escaping fizz as the product being made.",
+      "picture": "Hold a readable close view of the bubble plume. Selected smaller bubbles diminish as they travel, then let the picture breathe over the transparent pool. A restrained label names dissolved CO\u2082 without drawing molecules to scale or treating escaping fizz as the product being made.",
       "labels": [
-        "Dissolved CO₂"
+        "Dissolved CO\u2082"
       ],
       "visual_truth": "Carbonation is dissolved gas. Visible bubble count or foam is not a performance measurement."
     },
@@ -91,10 +91,10 @@
       "target_end": 69.766667,
       "narration_start": "As the level rises, a magnetic float follows it.",
       "narration_end": "At the high-level signal, the refill pump stops.",
-      "picture": "Widen to show the guided float following the rising surface. Identify the exterior high-level reed briefly. At the high-level crossing, incoming flow ends, the last droplets fall and the turbulent pool starts to settle. Keep the gas supply closed through the headspace compression of refill.",
+      "picture": "The continuous camera widens to show the genuine 36 by 28 millimetre cylindrical float following the rising surface on its guide rod. At the high-level crossing, incoming flow ends, the last droplets fall and the turbulent pool starts to settle.",
       "labels": [
         "Magnetic float",
-        "High level · pump off"
+        "High level \u00b7 pump off"
       ],
       "visual_truth": "The external reed detects the moving magnet through the vessel wall. Do not show an electrical probe penetrating the vessel."
     },
@@ -109,7 +109,7 @@
         "Copper evaporator",
         "Heat into the refrigerant"
       ],
-      "visual_truth": "The coil carries refrigerant, not soda or CO₂. Heat crosses the bonded interfaces mainly by conduction, then is absorbed by the evaporating refrigerant. Show thermal graphics as explanatory overlays, not literal rays of heat escaping through an air gap. The compressor and condenser reject heat elsewhere in the appliance."
+      "visual_truth": "The coil carries refrigerant, not soda or CO\u2082. Heat crosses the bonded interfaces mainly by conduction, then is absorbed by the evaporating refrigerant. Show thermal graphics as explanatory overlays, not literal rays of heat escaping through an air gap. The compressor and condenser reject heat elsewhere in the appliance."
     },
     {
       "id": "serve",
@@ -140,7 +140,7 @@
   ],
   "publication_notes": {
     "description_disclosure": "Engineering animation of the Home Soda Machine design under development. Fluid motion, bubble populations and thermal graphics are illustrative; they are not measurements of actual operating performance. Narration generated with Gemini voice.",
-    "onscreen_disclosure": "Engineering visualization · flow illustrated",
+    "onscreen_disclosure": "Engineering visualization \u00b7 flow illustrated",
     "source_documents": [
       "hardware/README.md",
       "hardware/assembly/pressure-vessel.md",

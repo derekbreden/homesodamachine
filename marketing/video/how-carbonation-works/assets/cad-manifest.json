@@ -84,19 +84,19 @@
       "file": "faucet-cad.json",
       "compressedFile": "faucet-cad.json.gz",
       "meshes": 11,
-      "triangles": 48222,
-      "bytes": 2783179,
-      "compressedBytes": 630434,
+      "triangles": 67480,
+      "bytes": 3697592,
+      "compressedBytes": 987914,
       "bounds": [
         [
-          -30.505,
+          -30.457,
           -151.884,
-          -0.001
+          -0.0
         ],
         [
-          30.454,
+          30.457,
           31.721,
-          242.734
+          242.716
         ]
       ],
       "sourceSha256": "b3333351fe673e8edb1c6d3db0e93b3e52873603b9b30602426317a28c48f8ed"
@@ -123,5 +123,41 @@
     "The standalone cold-core payload supplies the coil; the enclosure bundle does not duplicate its embedded cold core.",
     "Compressed bundles are the committed sources; plain JSON files are local working copies."
   ],
-  "faucetDatums": "faucet-datums.json"
+  "faucetDatums": "faucet-datums.json",
+  "carbonatorAnimation": {
+    "datums": "carbonator-datums.json",
+    "bundles": [
+      {
+        "file": "carbonator-hardware-full.json",
+        "compressedFile": "carbonator-hardware-full.json.gz",
+        "meshes": 18,
+        "triangles": 20212,
+        "bytes": 1212610,
+        "compressedBytes": 240610,
+        "source": "hardware/cold-core-layout/cold-core-assembly.step",
+        "sourceSha256": "f8abee782cb4483131839efa791101aaeb236795c5e32fd27b344e9a2eab8f50"
+      },
+      {
+        "file": "carbonator-hardware-section.json",
+        "compressedFile": "carbonator-hardware-section.json.gz",
+        "meshes": 16,
+        "triangles": 11506,
+        "bytes": 699537,
+        "compressedBytes": 135262,
+        "source": "hardware/cold-core-layout/cold-core-assembly.step",
+        "sourceSha256": "f8abee782cb4483131839efa791101aaeb236795c5e32fd27b344e9a2eab8f50"
+      },
+      {
+        "file": "magnetic-float-cad.json",
+        "compressedFile": "magnetic-float-cad.json.gz",
+        "meshes": 2,
+        "triangles": 2520,
+        "bytes": 139230,
+        "compressedBytes": 24235,
+        "source": "hardware/printed-parts/cold-core/magnetic-float/all-aero/assembly.step",
+        "sourceSha256": "8a8166649e23bb9be37a099cc59603e0d43ba692e78871302f44688168c78a3d"
+      }
+    ]
+  },
+  "faucetSurfaceNormals": "Source CAD vertex-normal field transferred to 24,000-triangle shell targets; crease sides retained."
 }

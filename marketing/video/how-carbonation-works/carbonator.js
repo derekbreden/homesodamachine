@@ -1,16 +1,16 @@
-// Adapted from the approved carbonator-turbulence study. Units are millimetres.
+// Illustrative fluid motion inside the exact CAD pressure vessel. Units are millimetres.
 // Picture time is explicit, so source frames can be rendered in any order.
-window.createCarbonator = function(THREE, renderer, scene) {
+window.createCarbonator = function(THREE, renderer, scene, datums) {
   const T=THREE;
   const world=new T.Group();scene.add(world);
   const vessel=new T.Group();world.add(vessel);
   const theme={rgba(name){
-    const tokens={background:'#08152f',foreground:'#dce6ff','viz-series-1':'#72c7ff','viz-series-2':'#ff9152'};
+    const tokens={background:'#eaf6ff',foreground:'#1749d1','viz-series-1':'#438ccc','viz-series-2':'#ff9152'};
     const n=parseInt((tokens[name]||'#dce6ff').slice(1),16);
     return [(n>>16)&255,(n>>8)&255,n&255,255];
   }};
   const R = 61.849, RO = 63.5, H = 127, LOW = 54.398, HIGH = 82.55;
-  const JX = -19.05, JY = 121.4, BORE = 1.5875, DURATION = 36;
+  const JX = datums.jetExit[0], JY = datums.jetExit[1], BORE = 1.5875;
   const V = (x,y,z=0) => new T.Vector3(x,y,z);
   const clamp = T.MathUtils.clamp;
   const smooth = (a,b,x) => {const v=clamp((x-a)/(b-a),0,1);return v*v*(3-2*v);};
@@ -21,35 +21,27 @@ window.createCarbonator = function(THREE, renderer, scene) {
   function resolved(name) { const p=theme.rgba(name); return new T.Color(p[0]/255,p[1]/255,p[2]/255).convertSRGBToLinear(); }
   function mix(a,b,t) {return a.clone().lerp(b,t);}
   const halfPlane = new T.Plane(V(0,0,-1),0);
-  const steel = new T.MeshPhysicalMaterial({metalness:.94,roughness:.28,clearcoat:.12,side:T.DoubleSide});
-  const edgeSteel = new T.MeshStandardMaterial({metalness:.80,roughness:.38,side:T.DoubleSide});
-  const darkSteel = new T.MeshStandardMaterial({metalness:.85,roughness:.32,side:T.DoubleSide});
-  const wallSteel = steel.clone();
-  const plateSteel = steel.clone();plateSteel.clippingPlanes=[halfPlane];
-  const pipeSteel = steel.clone();
   const waterSide = new T.MeshPhysicalMaterial({metalness:0,roughness:.12,transparent:true,opacity:.20,depthWrite:false,side:T.DoubleSide,clearcoat:.9,ior:1.333});
-  const waterTop = new T.MeshPhysicalMaterial({metalness:0,roughness:.10,transmission:.62,thickness:12,ior:1.333,clearcoat:1,clearcoatRoughness:.075,depthWrite:false,side:T.DoubleSide});
+  const waterTop = new T.MeshPhysicalMaterial({metalness:0,roughness:.12,transmission:.45,transparent:true,opacity:.72,thickness:5,ior:1.333,clearcoat:.5,clearcoatRoughness:.10,depthWrite:false,side:T.DoubleSide});
   const jetMat = new T.MeshPhysicalMaterial({metalness:0,roughness:.075,transmission:.28,thickness:1.6,ior:1.333,clearcoat:1,depthWrite:false,side:T.DoubleSide});
   const waterLineMat = new T.MeshBasicMaterial({transparent:true,opacity:.44,depthWrite:false});
   const gasLineMat = new T.MeshBasicMaterial({transparent:true,opacity:.35,depthWrite:false});
-  const floatMat = new T.MeshStandardMaterial({roughness:.72,metalness:0});
-  const magnetMat = new T.MeshStandardMaterial({roughness:.3,metalness:.85});
-  const materials = [steel,edgeSteel,darkSteel,wallSteel,plateSteel,pipeSteel];
-  const hemi = new T.HemisphereLight(0xffffff,0xffffff,.55);scene.add(hemi);
-  const key = new T.DirectionalLight(0xffffff,2.3);key.position.set(-120,220,180);scene.add(key);
-  const rim = new T.DirectionalLight(0xffffff,2.2);rim.position.set(180,170,-50);scene.add(rim);
+  waterLineMat.clippingPlanes=[halfPlane];gasLineMat.clippingPlanes=[halfPlane];
+  const hemi = new T.HemisphereLight(0xf7fbff,0xc5d9ed,.75);scene.add(hemi);
+  const key = new T.DirectionalLight(0xf7fbff,2.1);key.position.set(-120,220,180);scene.add(key);
+  const rim = new T.DirectionalLight(0xe5f0ff,1.15);rim.position.set(180,170,-50);scene.add(rim);
   const fill = new T.DirectionalLight(0xffffff,.6);fill.position.set(20,-40,220);scene.add(fill);
   let envTexture;
   function environment() {
     const e = new T.Scene();
     const lightHost=palette.bg.r+palette.bg.g+palette.bg.b>1.5;
-    e.background = mix(palette.bg,palette.fg,lightHost?.94:.12);
+    e.background = new T.Color(0x586571);
     const lightColor = new T.Color(1,1,1);
     const panel = (x,y,z,w,h,intensity) => {
       const m = new T.Mesh(new T.PlaneGeometry(w,h),new T.MeshBasicMaterial({color:lightColor.clone().multiplyScalar(intensity),side:T.DoubleSide}));
       m.position.set(x,y,z);m.lookAt(0,0,0);e.add(m);
     };
-    panel(-3,2,4,1.6,8,1.8);panel(4,1,2,.8,9,1.3);panel(0,5,-2,6,2,1.6);panel(-2,-2,-4,3,7,.7);
+    panel(-3,2,4,4,8,1.25);panel(4,1,2,2.5,9,.9);panel(0,5,-2,6,4,1.1);panel(-2,-2,-4,4,7,.45);
     const gen = new T.PMREMGenerator(renderer);
     const target=gen.fromScene(e,.025,.1,100);
     if(envTexture)envTexture.dispose();
@@ -61,91 +53,16 @@ window.createCarbonator = function(THREE, renderer, scene) {
     palette.bg=resolved('background');palette.fg=resolved('foreground');palette.water=resolved('viz-series-1');palette.gas=resolved('viz-series-2');
     const lightHost=palette.bg.r+palette.bg.g+palette.bg.b>1.5;
     neutral.copy(mix(palette.bg,palette.fg,lightHost?.76:.32));
-    materials.forEach((m,i)=>{m.color.copy(mix(neutral,new T.Color(1,1,1),i===2?.06:.22));m.envMapIntensity=1.0;});
+
     waterSide.color.copy(mix(palette.water,new T.Color(1,1,1),.18));
     waterTop.color.copy(mix(palette.water,new T.Color(1,1,1),.40));
     jetMat.color.copy(mix(palette.water,new T.Color(1,1,1),.42));
     waterLineMat.color.copy(palette.water);gasLineMat.color.copy(palette.gas);
-    floatMat.color.copy(mix(palette.bg,palette.fg,.20));magnetMat.color.copy(neutral);
+
     environment();
     if(typeof gasPoints!=='undefined')gasPoints.material.color.copy(palette.gas);
   }
   function mesh(geo,mat,parent=vessel) {const m=new T.Mesh(geo,mat);parent.add(m);return m;}
-  function cylinder(radius,length,x,y,z,material=steel,radial=64) {const m=mesh(new T.CylinderGeometry(radius,radius,length,radial),material);m.position.set(x,y,z);return m;}
-  // A solid wall section, including the thin exposed cut faces.
-  function annularSection(r0,r1,y0,y1,start=Math.PI/2,arc=Math.PI,material=steel) {
-    const n=96,positions=[],normals=[],indices=[];
-    for(let j=0;j<4;j++)for(let i=0;i<=n;i++) {
-      const a=start+arc*i/n,r=j%2===0?r1:r0,y=j<2?y0:y1;
-      positions.push(r*Math.sin(a),y,r*Math.cos(a));normals.push(Math.sin(a),0,Math.cos(a));
-    }
-    const face=(a,b,c,d)=>indices.push(a,b,c,a,c,d);
-    for(let i=0;i<n;i++) {
-      face(i,i+1,2*(n+1)+i+1,2*(n+1)+i);
-      face(n+1+i,3*(n+1)+i,3*(n+1)+i+1,n+1+i+1);
-      face(i,n+1+i,n+1+i+1,i+1);
-      face(2*(n+1)+i,2*(n+1)+i+1,3*(n+1)+i+1,3*(n+1)+i);
-    }
-    face(0,2*(n+1),3*(n+1),n+1);face(n,2*(n+1)+n,3*(n+1)+n,n+1+n);
-    const g=new T.BufferGeometry();g.setAttribute('position',new T.Float32BufferAttribute(positions,3));g.setIndex(indices);g.computeVertexNormals();
-    return mesh(g,material);
-  }
-  annularSection(R,RO,-12.7,139.7,Math.PI/2,Math.PI,wallSteel);
-  // Recessed flat end plates: the cut passes through both pairs of ports.
-  function plate(y0) {
-    const shape=new T.Shape();shape.absarc(0,0,R-.13,0,Math.PI*2,false);
-    for(const x of [JX,-JX]) {const h=new T.Path();h.absarc(x,0,5.6,0,Math.PI*2,true);shape.holes.push(h);}
-    const g=new T.ExtrudeGeometry(shape,{depth:6.35,bevelEnabled:false,curveSegments:72});
-    g.rotateX(-Math.PI/2);g.translate(0,y0,0);mesh(g,plateSteel);
-    const ranges=[[-R,JX-5.6],[JX+5.6,-JX-5.6],[-JX+5.6,R]];
-    for(const [a,b]of ranges) {const m=mesh(new T.PlaneGeometry(b-a,6.35),edgeSteel);m.position.set((a+b)/2,y0+3.175,.04);}
-  }
-  plate(-6.35);plate(H);
-  // Weld beads are small, rounded fillets in the recessed rims.
-  for(const y of [-6.65,133.65]) {
-    const g=new T.TorusGeometry(R-1.2,1.35,8,96,Math.PI);g.rotateX(Math.PI/2);g.rotateY(Math.PI);
-    const m=mesh(g,steel);m.position.y=y;
-  }
-  // A half-section of a pipe preserves both the exterior and the internal bore.
-  function sectionPipe(points,outer,inner,mat=pipeSteel) {
-    const path=new T.CatmullRomCurve3(points,false,'centripetal');
-    const n=64,k=20,pos=[],idx=[];
-    for(let j=0;j<2;j++)for(let i=0;i<=n;i++){
-      const t=i/n,p=path.getPoint(t),d=path.getTangent(t),nrm=V(-d.y,d.x,0).normalize(),r=j?inner:outer;
-      for(let q=0;q<=k;q++){const a=Math.PI+q/k*Math.PI;pos.push(p.x+nrm.x*Math.cos(a)*r,p.y+nrm.y*Math.cos(a)*r,p.z+Math.sin(a)*r);}
-    }
-    const layer=(n+1)*(k+1),face=(a,b,c,d)=>idx.push(a,b,c,a,c,d);
-    for(let i=0;i<n;i++)for(let q=0;q<k;q++){
-      const a=i*(k+1)+q;face(a,a+k+1,a+k+2,a+1);face(layer+a,layer+a+1,layer+a+k+2,layer+a+k+1);
-    }
-    for(let i=0;i<n;i++)for(const q of [0,k]){const a=i*(k+1)+q;face(a,a+k+1,layer+a+k+1,layer+a);}
-    for(const i of [0,n])for(let q=0;q<k;q++){const a=i*(k+1)+q;face(a,a+1,layer+a+1,layer+a);}
-    const geo=new T.BufferGeometry();geo.setAttribute('position',new T.Float32BufferAttribute(pos,3));geo.setIndex(idx);geo.computeVertexNormals();
-    return {body:mesh(geo,mat),path};
-  }
-  const inlet=sectionPipe([V(-75,153),V(-35,153),V(-24,150),V(JX,141),V(JX,123.4)],6.6,3.25);
-  const gasPipe=sectionPipe([V(-75,-23),V(-34,-23),V(-23,-19),V(JX,-9),V(JX,3)],6.6,3.25);
-  const outletPipe=sectionPipe([V(19.05,3),V(19.05,-10),V(24,-19),V(36,-23),V(75,-23)],6.6,3.25);
-  const relief=sectionPipe([V(19.05,124),V(19.05,143),V(24,151),V(38,153)],6.6,3.25);
-  for(const [x,y]of [[JX,137],[19.05,137],[JX,-10],[19.05,-10]]) {
-    const m=cylinder(8.2,7,x,y,0,darkSteel,6);m.material=darkSteel.clone();m.material.clippingPlanes=[halfPlane];
-    // Thread crests at the plate entry.
-    for(let i=0;i<5;i++){const g=new T.TorusGeometry(6.6,.24,5,32,Math.PI);g.rotateX(Math.PI/2);const t=mesh(g,edgeSteel);t.position.set(x,y-3+i*1.4,0);}
-  }
-  const valve=mesh(new T.CylinderGeometry(9,9,26,6),edgeSteel);valve.rotation.z=Math.PI/2;valve.position.set(50,153,0);
-  const pull=mesh(new T.TorusGeometry(5.1,.7,7,32),steel);pull.position.set(68,153,0);pull.rotation.y=Math.PI/2;
-  // The welded cap has a true 1/16-inch axial passage, shown in section.
-  annularSection(BORE/2,4.75,JY,JY+2,Math.PI/2,Math.PI,steel).position.x=JX;
-  const capBead=mesh(new T.TorusGeometry(4.72,.32,6,48,Math.PI),steel);capBead.rotation.x=Math.PI/2;capBead.position.set(JX,JY+2,0);
-  const guide=cylinder(1.5875,H,0,H/2,-41.849,steel,16);
-  const floatGroup=new T.Group();vessel.add(floatGroup);floatGroup.position.set(0,LOW-8.766,-41.849);
-  const floatShape=new T.Shape();
-  floatShape.moveTo(-11,-18);floatShape.quadraticCurveTo(-14,-18,-14,-14);floatShape.lineTo(-14,14);floatShape.quadraticCurveTo(-14,18,-10,18);floatShape.lineTo(10,18);floatShape.quadraticCurveTo(14,18,14,14);floatShape.lineTo(14,-14);floatShape.quadraticCurveTo(14,-18,11,-18);floatShape.closePath();
-  const floatHole=new T.Path();floatHole.absarc(0,0,2,0,Math.PI*2,true);floatShape.holes.push(floatHole);
-  const floatGeo=new T.ExtrudeGeometry(floatShape,{depth:28,bevelEnabled:true,bevelSize:.6,bevelThickness:.6,bevelSegments:2,curveSegments:12});
-  floatGeo.rotateX(-Math.PI/2);floatGeo.translate(0,-14,0);
-  const fmesh=mesh(floatGeo,floatMat,floatGroup);fmesh.scale.set(.92,1,.88);
-  const magnet=mesh(new T.CylinderGeometry(4.75,4.75,3.18,24),magnetMat,floatGroup);magnet.rotation.x=Math.PI/2;magnet.position.set(0,0,-15.4);
   // Pool boundary, with a separately deformed reflecting surface.
   const pool=mesh(new T.CylinderGeometry(R-.38,R-.38,1,112,1,true),waterSide);pool.renderOrder=3;
   const bottomWater=mesh(new T.CircleGeometry(R-.38,96),waterSide);bottomWater.rotation.x=-Math.PI/2;bottomWater.position.y=.2;bottomWater.renderOrder=3;
@@ -159,9 +76,11 @@ window.createCarbonator = function(THREE, renderer, scene) {
   const surface=mesh(waterGeo,waterTop);surface.renderOrder=4;surfaceGeo.dispose();
   const surfaceAttr=waterGeo.attributes.position;
   const meniscus=mesh(new T.TorusGeometry(R-.8,.32,6,112),waterLineMat);meniscus.rotation.x=Math.PI/2;meniscus.renderOrder=5;
-  const inletWater=mesh(new T.TubeGeometry(inlet.path,64,2.7,12,false),waterLineMat);inletWater.renderOrder=6;
-  const boreWater=cylinder(BORE/2,2,JX,JY+1,0,waterLineMat,20);boreWater.renderOrder=6;
-  const gasIn=mesh(new T.TubeGeometry(gasPipe.path,64,2.8,12,false),gasLineMat);gasIn.renderOrder=6;
+  const inletPath=new T.CatmullRomCurve3(datums.waterLumen.map(p=>V(...p)));
+  const gasPath=new T.CatmullRomCurve3(datums.gasLumen.map(p=>V(...p)));
+  const inletWater=mesh(new T.TubeGeometry(inletPath,80,2.5,12,false),waterLineMat);inletWater.renderOrder=6;
+  const boreWater=mesh(new T.CylinderGeometry(BORE/2,BORE/2,2,24),waterLineMat);boreWater.position.set(JX,JY+1,0);boreWater.renderOrder=6;
+  const gasIn=mesh(new T.TubeGeometry(gasPath,80,2.5,12,false),gasLineMat);gasIn.renderOrder=6;
   // Free jet: a contracted coherent core, with small advecting disturbances.
   const JN=90,JR=16,jetPositions=new Float32Array((JN+1)*JR*3),jetIndices=[];
   for(let i=0;i<JN;i++)for(let j=0;j<JR;j++){const a=i*JR+j,b=i*JR+(j+1)%JR;jetIndices.push(a,b,b+JR,a,b+JR,a+JR);}
@@ -223,7 +142,6 @@ window.createCarbonator = function(THREE, renderer, scene) {
     const refill=smooth(6.4,28,t),level=options.level??lerp(LOW,HIGH,refill);
     const decay=t<28?1:Math.exp(-(t-28)*.65),agitation=waterOn*1.15+gasOn*.30+(t>28?.85*decay:0);
     pool.scale.y=level;pool.position.y=level/2;surface.position.y=level;meniscus.position.y=level+.04;
-    floatGroup.position.y=level-8.766;
     inletWater.visible=waterOn>.01;boreWater.visible=waterOn>.01;gasIn.visible=gasOn>.01;gasLineMat.opacity=.18+.26*gasOn;
     jet.visible=waterOn>.005;
     const gap=JY-level,front=waterOn>.98?1:smooth(6.1,6.65,t),jetLength=gap*front;
@@ -275,13 +193,13 @@ window.createCarbonator = function(THREE, renderer, scene) {
     for(let i=0;i<ENTRAINED_BUBBLES;i++) {
       const seed=(i*.754877666)%1,life=1.35+(i%11)*.085;
       const age=mod(t+i*.077,life),born=t-age,u=age/life,a=i*2.39996;
-      const active=born>6.5&&born<27.95;
+      const active=waterOn>.01&&born>6.5&&born<27.95;
       const maxDepth=Math.min(level-6,38+seed*20);
       let radius,depth,theta;
       if(u<.61){const d=u/.61;radius=(1.2+11*d)*Math.sqrt(seed+.03);depth=2+maxDepth*d;theta=a+d*2.7+Math.sin(t*11+i)*d*.15;}
       else {const up=(u-.61)/.39;radius=(11+up*16)*Math.sqrt(seed+.1);depth=(maxDepth+2)*(1-up);theta=a+2.7+up*1.2;}
       const x=JX+Math.cos(theta)*radius,z=Math.sin(theta)*radius;
-      const size=active?(.42+seed*seed*1.60)*(1-.38*u)*Math.min(1,u*16+.6):0;
+      const size=active?(.42+seed*seed*1.60)*(1-.38*u)*Math.min(1,u*16+.6)*waterOn:0;
       if(size>.05)activeEntrained++;
       instance(entrained,i,x,Math.max(2,level-depth),z,Math.max(.0001,size),.82+.13*Math.sin(t*22+i));
     }
@@ -289,7 +207,7 @@ window.createCarbonator = function(THREE, renderer, scene) {
     for(let i=0;i<FOAM_BUBBLES;i++) {
       const u=mod(t*1.9+i*.61803,1),a=i*2.39996+t*.6,rad=3.5+u*10.5;
       const x=JX+Math.cos(a)*rad,z=Math.sin(a)*rad;
-      const born=t-u/1.9,active=born>6.6&&born<28;
+      const born=t-u/1.9,active=waterOn>.01&&born>6.6&&born<28;
       const size=active?(.4+(i%7)*.12)*Math.pow(1-u,.38):0;
       instance(foam,i,x,level+surfaceHeight(x,z)+size*.25,z,Math.max(.0001,size),.52);
     }
@@ -322,14 +240,11 @@ window.createCarbonator = function(THREE, renderer, scene) {
   const oldPalette=setPalette;
   function refreshPalette(){oldPalette();const lightHost=palette.bg.r+palette.bg.g+palette.bg.b>1.5;
     const dark=mix(palette.bg,palette.fg,lightHost?.94:.08),bright=mix(palette.bg,palette.fg,lightHost?.05:.94);
-    bubbleMaterial.uniforms.rimTint.value.copy(mix(dark,palette.gas,.25));
-    bubbleMaterial.uniforms.fillTint.value.copy(mix(palette.water,bright,.56));
+    bubbleMaterial.uniforms.rimTint.value.setHex(0x54728a);
+    bubbleMaterial.uniforms.fillTint.value.setHex(0xdcedf7);
     bubbleMaterial.uniforms.lightTint.value.copy(bright);
     circulation.material.color.copy(palette.water);gasPoints.material.color.copy(palette.gas);ringsMeshes.forEach(m=>m.material.color.copy(mix(palette.water,palette.fg,.25)));}
   refreshPalette();
-  return {world,vessel,tick:update,waterSide,waterTop,wallSteel,steel,jetMat,floatGroup,guide,magnet,
-    bubbles,entrained,foam,gasPoints,circulation,LOW,HIGH,H,R,RO,JX,JY,
-    setWallOpacity(a){wallSteel.transparent=a<.999;wallSteel.opacity=a;wallSteel.depthWrite=a>.99;},
-    setAccent(a){floatMat.emissive.setRGB(.35*a,.12*a,.015*a);}
-  };
+  return {world,vessel,tick:update,waterSide,waterTop,jetMat,
+    bubbles,entrained,foam,gasPoints,circulation,LOW,HIGH,H,R,RO,JX,JY};
 };

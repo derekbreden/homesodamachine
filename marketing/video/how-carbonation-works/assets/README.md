@@ -43,3 +43,37 @@ cropped at countertop height, in its native Z-up frame. Every mesh has group
 exit tangent, the lever pivot, and illustrative glass/pour staging. Apply
 `(F.x, F.z, -F.y)` for the same right-handed Y-up convention. The selected
 display texture is decoded directly from the firmware RGB565 artwork.
+The Sculpted base and tip use 24,000-triangle display targets with the source
+CAD vertex-normal field transferred to the reduced mesh. Crease-aware normal
+selection retains designed edges while the curved arch's highlights remain
+smooth.
+
+## Animated carbonator
+
+`../prepare-carbonator-assets.py` reads the existing current STEP assemblies
+and exports persistent hardware in local Y-up coordinates. Its outputs are
+`carbonator-hardware-full.json.gz`, `carbonator-hardware-section.json.gz`,
+`magnetic-float-cad.json.gz` and `carbonator-datums.json`. The corresponding
+uncompressed CAD JSON files are ignored working copies.
+
+The full and half-section pressure hardware use the same analytic STEP shapes.
+The section retains Z ≤ 0 in the local movie frame. Its cut faces are actual
+Boolean geometry. `sectionFaceIndices` is a flat vertex-index list of cut
+triangles; `sectionTriangleOrdinals` gives their face IDs in the original index
+buffer for assigning a separate matte section material. The float and guide
+lie behind the section plane. These bundles already have the Y-up coordinate
+transform applied: do not rotate them or subtract the enclosure anchor again.
+
+The water jet exits at `(19.05, 124.746, 0)` mm, with its 2 mm axial passage
+starting at Y 126.746 mm. The plain CO₂ port opens at `(19.05, 0.254, 0)` and
+the soda-water outlet at `(−19.05, 0.254, 0)`. The datums file provides sampled
+water, gas and outlet flow centerlines along the source elbow axes. The
+6.35 mm modeled elbow bore is the layout placeholder stated in the source;
+the connector reference models supply exterior envelopes. Colored flow
+within those envelopes is an explanatory overlay.
+
+The movable float comes directly from the current all-ASA Aero assembly STEP:
+a 36 mm cylindrical body, 28 mm tall, with a 4.8 mm axial guide bore and an
+enclosed coaxial RC62 ring. Its local origin is the magnet midplane, with body
+Y −14 to +14 mm. Place it at `(0, level − 8.766, −41.849)` mm using the
+provisional dry-foam immersion model. The ring belongs inside the opaque body.

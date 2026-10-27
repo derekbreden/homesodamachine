@@ -16,8 +16,8 @@ const require=createRequire(path.join(repo,'tools/render/package.json'));
 const {default:puppeteer}=await import(require.resolve('puppeteer'));
 const args=process.argv.slice(2),has=s=>args.includes(s),arg=(s,d)=>{const i=args.indexOf(s);return i>=0?args[i+1]:d;};
 const out=path.join(HERE,'out');await fs.mkdir(path.join(out,'vendor'),{recursive:true});
-for(const n of ['enclosure','cold-core','faucet']){
- const target=path.join(HERE,`assets/${n}-cad.json`);
+for(const n of ['enclosure-cad','cold-core-cad','faucet-cad','carbonator-hardware-full','carbonator-hardware-section','magnetic-float-cad']){
+ const target=path.join(HERE,`assets/${n}.json`);
  if(!fss.existsSync(target))await fs.writeFile(target,gunzipSync(await fs.readFile(target+'.gz')));
 }
 const vendor=path.join(out,'vendor/three.min.js');
@@ -56,7 +56,7 @@ try{
  await page.waitForFunction('window.filmReady===true',{timeout:90000});
  if(errors.length)throw Error(errors.join('\n'));
  if(has('--stills')){
-  const times=[4.2,11.3,14.7,18.4,24.0,29.7,36.7,47.2,56.8,65.1,68.2,73.9,77.8,85.0,90.0,98.5];
+  const times=arg('--times','4.2,11.3,14.7,18.4,19.9,20.2,24.0,29.7,36.7,41.5,47.2,56.8,62.5,65.1,68.2,69.8,73.9,77.8,85.0,87.5,90.0,98.5').split(',').map(Number);
   await fs.mkdir(path.join(out,'review'),{recursive:true});
   for(const t of times){const p=path.join(out,'review',String(t.toFixed(1)).padStart(5,'0')+'.jpg');const {state}=await screenshot(Math.round(t*30),p);console.log(JSON.stringify({...state,file:p}));}
   const thumbFrame=Math.round(49.0*30);await screenshot(thumbFrame,null,{captionsVisible:false});
@@ -65,7 +65,7 @@ try{
  }
  if(has('--render')){
   const segmentDir=path.join(out,'segments');await fs.mkdir(segmentDir,{recursive:true});
-  const hash=createHash('sha256');for(const n of ['scene.js','carbonator.js','studio.html','audio/timing.json','audio/captions-edited.json','assets/cad-manifest.json','assets/coil-path.json','assets/Archivo-latin-variable.woff2','assets/IBMPlexMono-latin-regular.woff2','assets/faucet-display-flavor1.png','out/vendor/three.min.js'])hash.update(await fs.readFile(path.join(HERE,n)));
+  const hash=createHash('sha256');for(const n of ['scene.js','carbonator.js','studio.html','audio/timing.json','audio/captions-edited.json','assets/cad-manifest.json','assets/carbonator-datums.json','assets/carbonator-hardware-full.json.gz','assets/carbonator-hardware-section.json.gz','assets/magnetic-float-cad.json.gz','assets/coil-path.json','assets/Archivo-latin-variable.woff2','assets/IBMPlexMono-latin-regular.woff2','assets/faucet-display-flavor1.png','out/vendor/three.min.js'])hash.update(await fs.readFile(path.join(HERE,n)));
   const signature=hash.digest('hex');
   const selected=arg('--shots','').split(',').filter(Boolean),files=[];
   for(let i=0;i<clock.scenes.length;i++){
