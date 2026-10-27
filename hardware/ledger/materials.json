@@ -2278,6 +2278,10 @@
           "kind": "engineering-drawing"
         },
         {
+          "title": "Drilling and welding bench guide",
+          "path": "water-inlet-jet-guide/water-inlet-jet-guide.pdf"
+        },
+        {
           "title": "Jet fabrication and elbow fit",
           "path": "assembly/water-inlet-jet.md"
         }

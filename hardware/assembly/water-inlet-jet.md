@@ -6,6 +6,11 @@ top plate from outside; the cap discharges into the CO2 headspace. The plate is
 one of the identical purchased SendCutSend blanks. The other top port carries
 the PRV, and the bottom ports carry plain CO2 and soda-water elbows.
 
+The [illustrated drilling and welding bench guide](../water-inlet-jet-guide/water-inlet-jet-guide.pdf)
+shows the clamping, drill-depth setup, drilling motion, gun placement, opposing
+tacks, circumferential travel and sectioned-root comparison. Its coupon record
+ties the actual fit and settings to the retained inspection evidence.
+
 **Status: elbow fit and welding unqualified.** The
 [finished cap engineering drawing](../cold-core-layout/water-inlet-jet-cap-drawing.pdf)
 (JET-CAP-01, Rev A) defines the drilled, face-finished and deburred component
@@ -117,6 +122,9 @@ does not grip correctly. Do not drill a rod that can turn or rock in the jaws.
 The cap is drilled before welding so both sides of its bore remain accessible
 for deburring. The finished hole is inspected and flow-checked after welding;
 an unrecorded drill-through repair is not the same geometry.
+The caliper checks cap OD and thickness. Verify the small finished-bore limits
+with suitably calibrated pin gauges or optical measurement; a drill-shank
+clearance check alone does not establish the drawing tolerance.
 
 [Norseman's drilling guidance](https://www.norsemandrill.com/feeds-speeds-drill.php)
 gives material-dependent speed and feed ranges and notes that conditions
@@ -169,6 +177,9 @@ concentric. Establish the gentle internal purge and torch shielding, then
 tack opposite sides and check seating. Close the circumference with the
 small-joint trial settings, keeping the jet clear. Record power, pulse mode,
 wobble, travel, filler use, shielding/purge, tack order and restart treatment.
+The bench guide shows the coupon handling plan: oppose the first two tacks,
+then the other pair, and alternate accessible arcs before closing the tie-ins.
+Record the actual accepted order and any changes with the coupon.
 There is no approved numerical laser recipe for this joint. The carbonator's
 large closure-weld settings are not its recipe.
 
@@ -242,12 +253,12 @@ the cold-core pour.
 | Record | Current state |
 |---|---|
 | Actual rod OD; elbow bore, end land and tip | Unmeasured |
-| Cap OD/thickness, thread fit and headspace projection | Candidate dimensions only |
+| Cap OD/thickness, thread fit and headspace projection | Component limits in JET-CAP-01; actual fitting compatibility and projection unmeasured |
 | Printed rod-clamping fixture and drilling/cut repeatability | Not built or demonstrated |
 | Purge-hose fit, gas-tight joints and torch-flow check | Not demonstrated |
 | Small-weld recipe and sectioned root | Unqualified |
 | Root/oxide cleaning, residue removal and passivation acceptance | Unqualified |
-| Per-part inspection and flow acceptance band | Undefined pending qualification |
+| Per-part inspection and flow acceptance band | Cap limits in JET-CAP-01; small-joint examination and flow band pending qualification |
 | Integrated G Ganen refill, idle behaviour and in-glass carbonation | Unmeasured |
 
 ## Sources
