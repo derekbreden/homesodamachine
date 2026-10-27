@@ -152,7 +152,7 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
     content.setAttribute("aria-label", { bom: "Exploded bill of materials", used: "Where used", docs: "Documents" }[tab]);
     scroll.append(content);
     if (tab === "bom") renderBom(content, rootMaterial, index, rows);
-    if (tab === "used") renderUsed(content, current, used);
+    if (tab === "used") renderUsed(content, current, used, index);
     if (tab === "docs") renderDocs(content, docs);
     scroll.scrollTop = top;
   }
@@ -211,7 +211,7 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
     renderRelations(content, index.get(selected) || rootMaterial, index);
   }
 
-  function renderUsed(content, current, used) {
+  function renderUsed(content, current, used, index) {
     if (!current) return;
     if (!used.assemblies.length) content.append(el("p", "material-empty", "No containing assemblies recorded."));
     for (const result of used.assemblies) {
