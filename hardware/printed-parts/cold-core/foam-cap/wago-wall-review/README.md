@@ -55,3 +55,8 @@ passes: 211 layers, 21.2 mm minimum full-bead bed margin, matching archived
 G-code digest, and at least 99.31% sampled solid coverage through the fore
 receiver and lid root. The prepared STL digest matches the current lid.
 This is an offline preparation; no print was launched.
+
+The populated export retains the published back-top tube clips. The whole-machine
+scorecard remains open. The separate ASSE/drain reading flags the vent tube’s
+0.05 mm nominal radial clearance in its back-top clip as an unconnected
+clearance; that clip contact needs its finite named-contact treatment.
