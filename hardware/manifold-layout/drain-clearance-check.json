@@ -1,7 +1,7 @@
 {
   "scope": "Nominal exact B-rep clearance of the direct TPU ASSE sleeve and dedicated drain against the complete installed assembly population, including cold-core bodies and retained flavor returns. Connected interfaces are excluded. The white 4 mm return requires at least 1 mm to every unconnected body. Pump occupied envelopes are read per component. The sleeve's expanded shape is an occupancy approximation. Hardware tolerances, zip-tie heads, actual bending, seals and vent performance are unmeasured.",
   "conservative_cold_core_envelope_included": true,
-  "installed_body_count": 266,
+  "installed_body_count": 267,
   "checked_members": [
     "asse-drain-adapter",
     "tube-drain-vent",
@@ -491,6 +491,11 @@
           "overlap_mm3": 0
         },
         {
+          "name": "reservoir-a-fore-snap-cap",
+          "gap_mm": 39.1457423,
+          "overlap_mm3": 0
+        },
+        {
           "name": "carbonator-fold",
           "gap_mm": 49.5359716,
           "overlap_mm3": 0
@@ -582,7 +587,7 @@
         },
         {
           "name": "ground-stack",
-          "gap_mm": 36.5098198,
+          "gap_mm": 35.6168358,
           "overlap_mm3": 0
         },
         {
@@ -1144,6 +1149,11 @@
           "overlap_mm3": 0
         },
         {
+          "name": "reservoir-a-fore-snap-cap",
+          "gap_mm": 120.4913751,
+          "overlap_mm3": 0
+        },
+        {
           "name": "carbonator-fold",
           "gap_mm": 55.0752185,
           "overlap_mm3": 0
@@ -1462,7 +1472,7 @@
   "source_sha256": {
     "hardware/scripts/check_asse_drain.py": "91f5b3bab308ee253339de62919f18cc32d70098476a52bfa61e89cb5d97c418",
     "hardware/manifold-layout/_drain.py": "d4f6db44b344125cf6f9b1bc6be341002dae887d78966ada3029e1e452b94c2a",
-    "hardware/manifold-layout/enclosure_assembly.py": "ca018a57f2546b7ddbce2773351b105357e58ffd048cb00160be7c2a5483ac4a",
+    "hardware/manifold-layout/enclosure_assembly.py": "5f6d7dc55a2a6ee37905af9419390a085cb8988b43d216a5c0adebe72c4dd5d5",
     "hardware/manifold-layout/_lines.py": "eb226d118dc2ff57192f556913bb3f733a49b6a8cb5bcc7e27a2abbaaa469d56",
     "hardware/reference/neofit-drain-bulkhead/neofit_drain_bulkhead.py": "a1e869c93ed2dba3873036fe10506b99ace883bc46a033833354be4e49bcc096",
     "hardware/reference/asse1022-assembly/asse1022_assembly.py": "4481085380d131f5d85696f5c366058382b07577c6881a274495e5d67ec2b3eb",

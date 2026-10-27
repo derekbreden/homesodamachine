@@ -1,0 +1,526 @@
+{
+  "scope": "Current offline manufacturing inputs and emitted paths for one fore paired snap cap and its integral lid receiver. No printer launch, physical fit, release, retention, load or lifetime acceptance.",
+  "source_files": [
+    {
+      "path": "hardware/printed-parts/cold-core/foam-cap/reservoir-a-snap-review/print/review.py",
+      "sha256": "7a9a265935861d1521a15d286fadf3316a2fea720956611b2cf808df1fdede6f"
+    },
+    {
+      "path": "hardware/printed-parts/enclosure/trial-preparation/review.py",
+      "sha256": "3cf718b7a053e711d960dfdca6f7fa4ba970ca8c9c23dec347b2b955b999e492"
+    },
+    {
+      "path": "hardware/printed-parts/enclosure/trial-preparation/prepare.py",
+      "sha256": "13a7d1d31eca213a76e311a64315661669f8633125f91272f22a849547fa31c0"
+    },
+    {
+      "path": "hardware/printed-parts/cold-core/_reservoir_a_snap.py",
+      "sha256": "83eacee416f52466a9e5879b890bc00843ab04399d7660a896fb0bcd52ed890c"
+    }
+  ],
+  "cap": {
+    "piece": "reservoir-a-fore-snap-cap",
+    "files": [
+      {
+        "path": ".cache/prints/reservoir-a-fore-snap-2026-10-26/2026-10-26-reservoir-a-fore-snap-cap-mark2-76c805c6/preparation.json",
+        "sha256": "ab783496843242f361b302a33f668cb05ba9201202608b220ac11c8f66e1b907"
+      },
+      {
+        "path": ".cache/prints/reservoir-a-fore-snap-2026-10-26/2026-10-26-reservoir-a-fore-snap-cap-mark2-76c805c6/review.json",
+        "sha256": "c708fc2630c78cccc8f072dfd1f5ae0c69360b939bfe9f390bd97630088fb36b"
+      },
+      {
+        "path": ".cache/prints/reservoir-a-fore-snap-2026-10-26/2026-10-26-reservoir-a-fore-snap-cap-mark2-76c805c6/support-audit-1901.json",
+        "sha256": "ba4cef1c8696dde3e36a7f4f3e10e3a8a00ee9cf810983689722596fae01f154"
+      },
+      {
+        "path": ".cache/prints/reservoir-a-fore-snap-2026-10-26/2026-10-26-reservoir-a-fore-snap-cap-mark2-76c805c6/2026-10-26-reservoir-a-fore-snap-cap-mark2-76c805c6.3mf",
+        "sha256": "4f0dbc660494e559e3a8c7db49b7c96675577793d5ed4f79e9586cc2f41e659c"
+      },
+      {
+        "path": ".cache/prints/reservoir-a-fore-snap-2026-10-26/2026-10-26-reservoir-a-fore-snap-cap-mark2-76c805c6/2026-10-26-reservoir-a-fore-snap-cap-mark2-76c805c6.gcode.3mf",
+        "sha256": "48b3ad2bb4dddb4f32b57da01b39b22d1f4ad2278b1942d5fda4647e4def454f"
+      },
+      {
+        "path": "hardware/printed-parts/cold-core/foam-cap/reservoir-a-fore-snap-cap.stl",
+        "sha256": "f20116e8e27b6ff4ce81905e24992838a1d1e5e622f2246fb73f173320cdcfed"
+      },
+      {
+        "path": "hardware/printed-parts/cold-core/foam-cap/reservoir-a-fore-snap-cap.step",
+        "sha256": "8f931c6c10b0c4df154cbf35a710f9555edba9a5a434f129805243fb16e05785"
+      }
+    ],
+    "current_native_and_archive_identity": true,
+    "existing_review_pass": true,
+    "printer": "Mark2",
+    "nozzle": {
+      "side": "left",
+      "diameter_mm": 0.4,
+      "flow": "Standard",
+      "hardened": true,
+      "reason": "Abrasive PET-GF runs on the fixed left hardened 0.4 mm Standard-flow hotend.",
+      "sliced_diameter_mm": 0.4,
+      "sliced_volume_type": "Standard"
+    },
+    "material": "Polymaker Fiberon PET-GF15, black",
+    "pose": {
+      "turns": [
+        [
+          "x",
+          90
+        ]
+      ]
+    },
+    "pose_rotation": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ]
+    ],
+    "source_center_mm": [
+      0.0,
+      0.0,
+      1.3499999046325684
+    ],
+    "plate_bounds_mm": [
+      [
+        150.13500022888184,
+        153.15000009536743,
+        0.0
+      ],
+      [
+        174.86499977111816,
+        166.84999990463257,
+        6.0
+      ]
+    ],
+    "minimum_full_bead_margin_mm": 150.038748,
+    "support_summary": {
+      "support_bodies": 0,
+      "interface_islands": 0,
+      "bed_rooted_bodies": 0,
+      "model_rooted_bodies": 0,
+      "shortest_build_up_mm": null,
+      "bodies_without_interface_labels": 0,
+      "explicit_interface_islands": 0,
+      "shortest_labelled_build_up_mm": null
+    },
+    "model_and_support_estimate_seconds": 493.4413757324219,
+    "process": {
+      "wall_loops": "3",
+      "wall_generator": "classic",
+      "sparse_infill_density": "100%",
+      "sparse_infill_pattern": "zig-zag",
+      "enable_support": "0",
+      "support_type": "tree(auto)",
+      "support_style": "default",
+      "layer_height": "0.24",
+      "initial_layer_print_height": "0.2"
+    },
+    "existing_checks": {
+      "archive": true,
+      "z_trim": true,
+      "bed_border": true,
+      "fine_and_transition_bands": true,
+      "show_faces_support_free": true,
+      "tie_windows_support_free": true,
+      "ribbons_support_free_and_printed": true,
+      "solid_hosts_sampled": true
+    },
+    "sampled_model_bead_coverage": [
+      {
+        "object": 1901,
+        "name": "Whole cap",
+        "plate_bounds_mm": [
+          [
+            150.135,
+            153.14999990463258,
+            0.0
+          ],
+          [
+            174.865,
+            166.84999990463257,
+            6.0
+          ]
+        ],
+        "samples": [
+          {
+            "print_z_mm": 0.44,
+            "coverage": 0.9954306836044469,
+            "stock_mm2": 154.90895880051784
+          },
+          {
+            "print_z_mm": 3.08,
+            "coverage": 0.9932801893890364,
+            "stock_mm2": 154.9089582146189
+          },
+          {
+            "print_z_mm": 5.72,
+            "coverage": 0.9954380485601231,
+            "stock_mm2": 154.9089578309673
+          }
+        ],
+        "minimum_coverage": 0.9932801893890364
+      },
+      {
+        "object": 1901,
+        "name": "West spring leaf",
+        "plate_bounds_mm": [
+          [
+            150.135,
+            157.54999990463256,
+            0.0
+          ],
+          [
+            151.575,
+            163.44999990463256,
+            6.0
+          ]
+        ],
+        "samples": [
+          {
+            "print_z_mm": 0.44,
+            "coverage": 0.9964622871139359,
+            "stock_mm2": 8.495999999999995
+          },
+          {
+            "print_z_mm": 3.08,
+            "coverage": 0.9964622871139359,
+            "stock_mm2": 8.495999999999995
+          },
+          {
+            "print_z_mm": 5.72,
+            "coverage": 0.9964622871139359,
+            "stock_mm2": 8.495999999999995
+          }
+        ],
+        "minimum_coverage": 0.9964622871139359
+      },
+      {
+        "object": 1901,
+        "name": "East spring leaf",
+        "plate_bounds_mm": [
+          [
+            173.425,
+            157.54999990463256,
+            0.0
+          ],
+          [
+            174.865,
+            163.44999990463256,
+            6.0
+          ]
+        ],
+        "samples": [
+          {
+            "print_z_mm": 0.44,
+            "coverage": 0.9995523014175666,
+            "stock_mm2": 8.495999999999993
+          },
+          {
+            "print_z_mm": 3.08,
+            "coverage": 0.9995522073831665,
+            "stock_mm2": 8.495999999999995
+          },
+          {
+            "print_z_mm": 5.72,
+            "coverage": 0.9995522073831665,
+            "stock_mm2": 8.495999999999995
+          }
+        ],
+        "minimum_coverage": 0.9995522073831665
+      },
+      {
+        "object": 1901,
+        "name": "West integral hook",
+        "plate_bounds_mm": [
+          [
+            150.135,
+            163.89999990463258,
+            0.0
+          ],
+          [
+            152.275,
+            166.79999990463256,
+            6.0
+          ]
+        ],
+        "samples": [
+          {
+            "print_z_mm": 0.44,
+            "coverage": 0.9976641888520283,
+            "stock_mm2": 5.994750061988832
+          },
+          {
+            "print_z_mm": 3.08,
+            "coverage": 0.9976641888410078,
+            "stock_mm2": 5.994750061988826
+          },
+          {
+            "print_z_mm": 5.72,
+            "coverage": 0.9976641888520313,
+            "stock_mm2": 5.994750061988814
+          }
+        ],
+        "minimum_coverage": 0.9976641888410078
+      },
+      {
+        "object": 1901,
+        "name": "East integral hook",
+        "plate_bounds_mm": [
+          [
+            172.725,
+            163.89999990463258,
+            0.0
+          ],
+          [
+            174.865,
+            166.79999990463256,
+            6.0
+          ]
+        ],
+        "samples": [
+          {
+            "print_z_mm": 0.44,
+            "coverage": 0.9981267118813804,
+            "stock_mm2": 5.99474971387514
+          },
+          {
+            "print_z_mm": 3.08,
+            "coverage": 0.9981266978357237,
+            "stock_mm2": 5.994749715513263
+          },
+          {
+            "print_z_mm": 5.72,
+            "coverage": 0.9981266939839663,
+            "stock_mm2": 5.994749738646922
+          }
+        ],
+        "minimum_coverage": 0.9981266939839663
+      },
+      {
+        "object": 1901,
+        "name": "Fixed cap roof",
+        "plate_bounds_mm": [
+          [
+            150.135,
+            153.14999990463258,
+            0.0
+          ],
+          [
+            174.865,
+            157.14999990463258,
+            6.0
+          ]
+        ],
+        "samples": [
+          {
+            "print_z_mm": 0.44,
+            "coverage": 0.9941874381168234,
+            "stock_mm2": 84.12185106763815
+          },
+          {
+            "print_z_mm": 3.08,
+            "coverage": 0.9914614369255345,
+            "stock_mm2": 84.12185072025416
+          },
+          {
+            "print_z_mm": 5.72,
+            "coverage": 0.9942374276347345,
+            "stock_mm2": 84.12185025237463
+          }
+        ],
+        "minimum_coverage": 0.9914614369255345
+      }
+    ],
+    "coverage_scope": "Three emitted layers along the six-millimetre extrusion, using the existing native reader. Each named section must have at least 90% model-bead area coverage. This is a deposition reading, not strength qualification."
+  },
+  "lid": {
+    "piece": "foam-cap-lid-top",
+    "files": [
+      {
+        "path": ".cache/prints/reservoir-a-fore-snap-2026-10-26/2026-10-26-foam-cap-lid-top-mark2-48dcc0aa/preparation.json",
+        "sha256": "57c3d81ecb876d6572568e96dc7ca76f930037a1e582ee6aed74960cdd9f6ec5"
+      },
+      {
+        "path": ".cache/prints/reservoir-a-fore-snap-2026-10-26/2026-10-26-foam-cap-lid-top-mark2-48dcc0aa/review.json",
+        "sha256": "969748fb252a32009c45a11b5f084cddd4e892cd2428718235a957de33c5f0ea"
+      },
+      {
+        "path": ".cache/prints/reservoir-a-fore-snap-2026-10-26/2026-10-26-foam-cap-lid-top-mark2-48dcc0aa/support-audit-1901.json",
+        "sha256": "87364cc9a4a8390814fe3af0ec170a7425a41d3b1c38569ebfeaefca2e801303"
+      },
+      {
+        "path": ".cache/prints/reservoir-a-fore-snap-2026-10-26/2026-10-26-foam-cap-lid-top-mark2-48dcc0aa/2026-10-26-foam-cap-lid-top-mark2-48dcc0aa.3mf",
+        "sha256": "8fae82ddf1492e7378c5f75a2ca23f5cbb43d7336203b68040f4af2839272aab"
+      },
+      {
+        "path": ".cache/prints/reservoir-a-fore-snap-2026-10-26/2026-10-26-foam-cap-lid-top-mark2-48dcc0aa/2026-10-26-foam-cap-lid-top-mark2-48dcc0aa.gcode.3mf",
+        "sha256": "fa585cfa26a0146870fced7f574c05f26cdb72e09cc0dbeb3fba02a7aa528813"
+      },
+      {
+        "path": "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl",
+        "sha256": "0c44e0c057f5a11d54f36370190a44f66157384ea0cf4d91fd9cbdc9ee3fefbc"
+      },
+      {
+        "path": "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step",
+        "sha256": "502f1a135397e3adf0a876dca0b6e543c5860cf646c5ef160076c465e47a6349"
+      }
+    ],
+    "current_native_and_archive_identity": true,
+    "existing_review_pass": true,
+    "printer": "Mark2",
+    "nozzle": {
+      "side": "left",
+      "diameter_mm": 0.4,
+      "flow": "Standard",
+      "hardened": true,
+      "reason": "Smooth 2.38 mm cold-core casing: 0.42 mm outer and 0.45 mm inner lines at 0.24 mm layers, three loops from each boundary.",
+      "sliced_diameter_mm": 0.4,
+      "sliced_volume_type": "Standard"
+    },
+    "material": "Polymaker Fiberon PET-GF15, black",
+    "pose": null,
+    "pose_rotation": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "source_center_mm": [
+      0.0,
+      3.75,
+      25.604999542236328
+    ],
+    "plate_bounds_mm": [
+      [
+        21.300003051757812,
+        66.05000305175781,
+        0.0
+      ],
+      [
+        303.6999969482422,
+        253.9499969482422,
+        51.209999084472656
+      ]
+    ],
+    "minimum_full_bead_margin_mm": 21.131200999999976,
+    "support_summary": {
+      "support_bodies": 11,
+      "interface_islands": 12,
+      "bed_rooted_bodies": 4,
+      "model_rooted_bodies": 7,
+      "shortest_build_up_mm": 0.24,
+      "bodies_without_interface_labels": 0,
+      "explicit_interface_islands": 12,
+      "shortest_labelled_build_up_mm": 0.24
+    },
+    "model_and_support_estimate_seconds": 19780.203125,
+    "process": {
+      "wall_loops": "3",
+      "wall_generator": "classic",
+      "sparse_infill_density": "15%",
+      "sparse_infill_pattern": "gyroid",
+      "enable_support": "1",
+      "support_type": "tree(auto)",
+      "support_style": "default",
+      "layer_height": "0.24",
+      "initial_layer_print_height": "0.2"
+    },
+    "existing_checks": {
+      "archive": true,
+      "z_trim": true,
+      "bed_border": true,
+      "fine_and_transition_bands": true,
+      "show_faces_support_free": true,
+      "tie_windows_support_free": true,
+      "ribbons_support_free_and_printed": true,
+      "solid_hosts_sampled": true
+    },
+    "region_inputs": {
+      "current": {
+        "path": "hardware/printed-parts/cold-core/foam-cap/fore-snap-print-regions.json",
+        "sha256": "7b8f8b7b52c50655b26805c2e5652480d8d7d239f85a1b2d8af302e279ab35eb"
+      },
+      "frozen_at_preparation": {
+        "path": ".cache/prints/reservoir-a-fore-snap-2026-10-26/2026-10-26-foam-cap-lid-top-mark2-48dcc0aa/region-input-at-preparation.json",
+        "sha256": "ac87ee92ef3ffd6fd40d6d8536479e16f24b4e4fd16436840b2b705e60810c51"
+      },
+      "same_modifier_and_native_geometry": true
+    },
+    "receiver_root_deposition": [
+      {
+        "object": 1901,
+        "name": "Reservoir A fore snap receiver, axial shoulders and lid root",
+        "plate_bounds_mm": [
+          [
+            270.3,
+            198.135,
+            2.4000000000000092
+          ],
+          [
+            282.8,
+            222.865,
+            12.39999999999998
+          ]
+        ],
+        "samples": [
+          {
+            "print_z_mm": 2.84,
+            "coverage": 0.9933124913960734,
+            "stock_mm2": 309.1250000000002
+          },
+          {
+            "print_z_mm": 7.4,
+            "coverage": 0.9933688544635288,
+            "stock_mm2": 279.35490081000626
+          },
+          {
+            "print_z_mm": 12.2,
+            "coverage": 0.9969946332408922,
+            "stock_mm2": 110.27994426001268
+          }
+        ],
+        "minimum_coverage": 0.9933124913960734
+      }
+    ],
+    "receiver_support_interfaces": [],
+    "catch_underside_strategy": "Keep the lid-up pose and Tree(auto)/Default support decisions. The emitted interface boxes do not meet the fore receiver/root region. The short fixed ledges print with the model, and the cap retains its 0.40 mm catch-underside allowance. The receiver is open at the top and both flanks for inspection and cleanup before tube/cap assembly. No manual support override or claim about printed surface finish is added."
+  },
+  "checks": {
+    "cap_current_identity": true,
+    "lid_current_identity": true,
+    "existing_cap_review": true,
+    "existing_lid_review": true,
+    "cap_three_loops_and_solid_recipe": true,
+    "cap_section_in_bed_plane": true,
+    "cap_no_support": true,
+    "cap_emitted_solid_sections": true,
+    "lid_unchanged_native_and_region": true,
+    "lid_dense_receiver_root": true,
+    "no_fore_receiver_support_interface": true
+  },
+  "status": "pass"
+}

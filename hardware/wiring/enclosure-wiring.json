@@ -2392,12 +2392,12 @@
       "part": "ground-stack",
       "point": [
         41.5,
-        202.79422863405995,
+        187.20577136594005,
         262.29999999999995
       ],
       "outward": [
         0.5000000000000001,
-        0.8660254037844386,
+        -0.8660254037844386,
         0.0
       ],
       "kind": "ring-barrel",
@@ -11925,23 +11925,28 @@
           280.0
         ],
         [
-          30.0,
-          220.0,
-          268.0
+          26.0,
+          168.0,
+          280.0
         ],
         [
-          42.0,
-          217.0,
-          266.0
+          43.0,
+          168.0,
+          270.0
+        ],
+        [
+          48.5,
+          175.08141571295792,
+          262.29999999999995
         ],
         [
           44.5,
-          207.99038105676658,
+          182.00961894323342,
           262.29999999999995
         ],
         [
           41.5,
-          202.79422863405995,
+          187.20577136594005,
           262.29999999999995
         ]
       ],
@@ -12235,156 +12240,156 @@
           ],
           "end_mm": [
             26.0,
-            222.319555557029,
-            280.56501994337884
+            220.34988866870432,
+            280.08522929109466
           ],
-          "length_mm": 37.3928786198527
+          "length_mm": 39.420139511050934
         },
         {
           "kind": "arc",
           "start_mm": [
             26.0,
-            222.319555557029,
-            280.56501994337884
+            220.34988866870432,
+            280.08522929109466
           ],
           "midpoint_mm": [
-            26.211772209116077,
-            220.65065700361774,
-            279.5231767453279
+            26.0,
+            219.9974331238043,
+            280.0213835320139
           ],
           "end_mm": [
-            26.754955993324113,
-            220.0,
-            277.73513202002766
-          ],
-          "radius_mm": 3.0000000000000004,
-          "angle_radians": 1.3443414584257318,
-          "length_mm": 4.033024375277196
-        },
-        {
-          "kind": "line",
-          "start_mm": [
-            26.754955993324113,
-            220.0,
-            277.73513202002766
-          ],
-          "end_mm": [
-            29.418857401126502,
-            220.0,
-            269.7434277966205
-          ],
-          "length_mm": 8.423995910784592
-        },
-        {
-          "kind": "arc",
-          "start_mm": [
-            29.418857401126502,
-            220.0,
-            269.7434277966205
-          ],
-          "midpoint_mm": [
-            30.318143136835086,
-            219.88125557207428,
-            268.39134077265265
-          ],
-          "end_mm": [
-            31.760005929934703,
-            219.55999851751633,
-            267.7066656783442
+            26.0,
+            219.63988041909917,
+            280.0
           ],
           "radius_mm": 3.0,
-          "angle_radians": 1.0992335897321266,
-          "length_mm": 3.2977007691963798
+          "angle_radians": 0.23893644058616292,
+          "length_mm": 0.7168093217584888
         },
         {
           "kind": "line",
           "start_mm": [
-            31.760005929934703,
-            219.55999851751633,
-            267.7066656783442
+            26.0,
+            219.63988041909917,
+            280.0
           ],
           "end_mm": [
-            40.36633378978765,
-            217.4084165525531,
-            266.2722777017021
+            26.0,
+            171.0,
+            280.0
           ],
-          "length_mm": 8.986414916459827
+          "length_mm": 48.63988041909917
         },
         {
           "kind": "arc",
           "start_mm": [
-            40.36633378978765,
-            217.4084165525531,
-            266.2722777017021
+            26.0,
+            171.0,
+            280.0
           ],
           "midpoint_mm": [
-            41.67646511560513,
-            216.70042934813998,
-            265.9049403346141
+            26.757364060049017,
+            168.87867965644037,
+            279.5544917293829
           ],
           "end_mm": [
-            42.42409965172849,
-            215.47160949758734,
-            265.3723325154418
+            28.585802645473308,
+            168.0,
+            278.4789396203098
           ],
           "radius_mm": 3.0,
-          "angle_radians": 1.0340299294139612,
-          "length_mm": 3.1020897882418836
+          "angle_radians": 1.5707963267948966,
+          "length_mm": 4.71238898038469
         },
         {
           "kind": "line",
           "start_mm": [
-            42.42409965172849,
-            215.47160949758734,
-            265.3723325154418
+            28.585802645473308,
+            168.0,
+            278.4789396203098
           ],
           "end_mm": [
-            44.157457378391506,
-            209.22485245377007,
-            262.80696307998056
+            41.981591146651404,
+            168.0,
+            270.59906403138154
           ],
-          "length_mm": 6.971916731678734
+          "length_mm": 15.541543966584618
         },
         {
           "kind": "arc",
           "start_mm": [
-            44.157457378391506,
-            209.22485245377007,
-            262.80696307998056
+            41.981591146651404,
+            168.0,
+            270.59906403138154
           ],
           "midpoint_mm": [
-            44.2298146064078,
-            208.00119506742035,
-            262.43280003325054
+            42.878635746547765,
+            168.1833602370824,
+            269.9557853891466
           ],
           "end_mm": [
-            43.81111201162642,
-            206.7971920601796,
+            43.54983653884688,
+            168.70793111013614,
+            269.23022884561436
+          ],
+          "radius_mm": 3.0,
+          "angle_radians": 0.7503804979797435,
+          "length_mm": 2.2511414939392305
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            43.54983653884688,
+            168.70793111013614,
+            269.23022884561436
+          ],
+          "end_mm": [
+            47.45999320046007,
+            173.74237562353153,
+            263.75600951935587
+          ],
+          "length_mm": 8.402501645866954
+        },
+        {
+          "kind": "arc",
+          "start_mm": [
+            47.45999320046007,
+            173.74237562353153,
+            263.75600951935587
+          ],
+          "midpoint_mm": [
+            47.90135639585701,
+            175.24690607064426,
+            262.7040120526041
+          ],
+          "end_mm": [
+            47.38256921639019,
+            177.01686260411162,
             262.29999999999995
           ],
           "radius_mm": 3.0,
-          "angle_radians": 0.8610533980630644,
-          "length_mm": 2.583160194189193
+          "angle_radians": 1.280527492748524,
+          "length_mm": 3.841582478245572
         },
         {
           "kind": "line",
           "start_mm": [
-            43.81111201162642,
-            206.7971920601796,
+            47.38256921639019,
+            177.01686260411162,
             262.29999999999995
           ],
           "end_mm": [
             41.5,
-            202.79422863405995,
+            187.20577136594005,
             262.29999999999995
           ],
-          "length_mm": 4.622224023252832
+          "length_mm": 11.765138432780365
         }
       ],
-      "length_mm": 295.531,
+      "length_mm": 351.408,
       "minimum_bend_mm": 3.0,
       "route_status": "proposed",
-      "routing_note": "The inlet earth feed uses the60-degree ring lug and approaches from aft/west beneath the V-B inlet. Physical lead dress and crimp entry remain unqualified."
+      "routing_note": "The inlet earth feed uses the 300-degree fore-east ring lug and approaches from the fore side of the stack. Its final straight crimp entry retains at least 6 mm; the route uses R3 bends. Physical lead dress and crimp entry remain unqualified."
     },
     {
       "id": "PE-carbonator",
@@ -42769,14 +42774,14 @@
     "Nominal and unlocated terminals remain visible in the graph and manifest; no exact donor termination is invented.",
     "The electrical graph does not qualify grounding, mains isolation, current capacity or energization."
   ],
-  "physical_scene_sha256": "dd77c7a947ea7d8ad62f5b8869d6469fcb69fc81a9a1214def5bf0d7f99eb351",
+  "physical_scene_sha256": "645c0bae6c76632e6eac3e586ae80fd32a05675d3781655fcac18644caceba1d",
   "source_sha256": {
     "hardware/wiring/installed/build.py": "28ba31fd5f3081c2073f4e25185173c05dbcb0f0c67a259d6c9ef0b955afc578",
     "hardware/wiring/installed/connections.py": "11528d05f94efb932dd4b9eee07f01578a401fc8bf37ff9d9cab50b3bd058000",
     "hardware/wiring/installed/model.py": "66f6a6ea2228d7a75bb9175f803c9b1c2b02ea05ac074b5da160e66a6722cfac",
     "hardware/wiring/installed/terminals.py": "485ef865f493e321958309bdbf3527ae57adb91ae864d5b924ddaed5d56edf99",
     "hardware/wiring/installed/routes.py": "25a614a784977ba733ffb64962bedec8b4e81b1bf8ce7ff1e3d9873d3b7b7ec3",
-    "hardware/wiring/installed/route-overrides.json": "4a334aa8ad6a15dc8a1ddc7cacddafbd4d4a9014cf14480de44fe28d290c7851",
+    "hardware/wiring/installed/route-overrides.json": "06b97bb70fd2c96fa8b0bf7fc2c0c15aa11e1c88e59cdb0dd154ea7f22fce1da",
     "hardware/wiring/installed/terminations.py": "3ce8d897dc7b2266bae24bfcbfc4210c96f584ffb044f57b17b503719d2ac7e6",
     "hardware/wiring/installed/step_merge.py": "9766a94b2b75fdb65342c5eb110dc7d68a15dbe8011b95dd6434b629921450db",
     "hardware/wiring/installed/bundles.py": "e92f00001096f86fe485820a05b7ca912254d5dd6bcf8f5b1b928bfe8952c967",

@@ -1354,6 +1354,7 @@ genrule(
         "pysrc/hardware/printed-parts/cold-core/_outer_shell.py",
         "pysrc/hardware/printed-parts/cold-core/_port_cuts.py",
         "pysrc/hardware/printed-parts/cold-core/_reed_channels.py",
+        "pysrc/hardware/printed-parts/cold-core/_reservoir_a_snap.py",
         "pysrc/hardware/printed-parts/cold-core/_reservoir_ports.py",
         "pysrc/hardware/printed-parts/cold-core/_support_ring.py",
         "pysrc/hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.py",
@@ -1373,6 +1374,9 @@ genrule(
         ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step",
         ":out/flute-payload-cold-core/hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step.mesh",
         ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-top.stl",
+        ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/reservoir-a-fore-snap-cap.step",
+        ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/reservoir-a-fore-snap-cap.step.mesh",
+        ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/reservoir-a-fore-snap-cap.stl",
         ":out/foam-shell/hardware/printed-parts/cold-core/foam-shell/foam-shell.step",
         ":out/flute-payload-cold-core/hardware/printed-parts/cold-core/foam-shell/foam-shell.step.mesh",
         ":out/foam-shell/hardware/printed-parts/cold-core/foam-shell/foam-shell.stl",
@@ -2469,6 +2473,7 @@ genrule(
         "pysrc/hardware/printed-parts/cold-core/_port_cuts.py",
         "pysrc/hardware/printed-parts/cold-core/_reed_channels.py",
         "pysrc/hardware/printed-parts/cold-core/_reservoir_a_anchors.py",
+        "pysrc/hardware/printed-parts/cold-core/_reservoir_a_snap.py",
         "pysrc/hardware/printed-parts/cold-core/_reservoir_ports.py",
         "pysrc/hardware/printed-parts/cold-core/_show_skin.py",
         "pysrc/hardware/printed-parts/cold-core/_support_ring.py",
@@ -2491,6 +2496,9 @@ genrule(
         ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step",
         ":out/flute-payload-cold-core/hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step.mesh",
         ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-top.stl",
+        ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/reservoir-a-fore-snap-cap.step",
+        ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/reservoir-a-fore-snap-cap.step.mesh",
+        ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/reservoir-a-fore-snap-cap.stl",
         ":out/foam-shell/hardware/printed-parts/cold-core/foam-shell/foam-shell.step",
         ":out/flute-payload-cold-core/hardware/printed-parts/cold-core/foam-shell/foam-shell.step.mesh",
         ":out/foam-shell/hardware/printed-parts/cold-core/foam-shell/foam-shell.stl",
@@ -2536,7 +2544,6 @@ genrule(
         ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh",
         ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
         ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step",
-        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step.mesh",
         ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.stl",
         ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step",
         ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step.mesh",
@@ -3391,6 +3398,9 @@ genrule(
         ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step",
         ":out/flute-payload-cold-core/hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step.mesh",
         ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-top.stl",
+        ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/reservoir-a-fore-snap-cap.step",
+        ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/reservoir-a-fore-snap-cap.step.mesh",
+        ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/reservoir-a-fore-snap-cap.stl",
         ":out/foam-shell/hardware/printed-parts/cold-core/foam-shell/foam-shell.step",
         ":out/flute-payload-cold-core/hardware/printed-parts/cold-core/foam-shell/foam-shell.step.mesh",
         ":out/foam-shell/hardware/printed-parts/cold-core/foam-shell/foam-shell.stl",
@@ -3480,6 +3490,7 @@ genrule(
         "pysrc/hardware/printed-parts/cold-core/_port_cuts.py",
         "pysrc/hardware/printed-parts/cold-core/_reed_channels.py",
         "pysrc/hardware/printed-parts/cold-core/_reservoir_a_anchors.py",
+        "pysrc/hardware/printed-parts/cold-core/_reservoir_a_snap.py",
         "pysrc/hardware/printed-parts/cold-core/_reservoir_ports.py",
         "pysrc/hardware/printed-parts/cold-core/_show_skin.py",
         "pysrc/hardware/printed-parts/cold-core/_support_ring.py",
@@ -3504,6 +3515,7 @@ genrule(
         "pysrc/hardware/scripts/_cadq_export.py",
         "pysrc/hardware/scripts/_material_base.py",
         "pysrc/hardware/scripts/_materials.py",
+        "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_meshes.py",
         "pysrc/hardware/scripts/_overlap.py",
         "pysrc/hardware/scripts/_realized.py",
@@ -3523,6 +3535,9 @@ genrule(
         "out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl",
         "out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step",
         "out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-top.stl",
+        "out/foam-cap/hardware/printed-parts/cold-core/foam-cap/reservoir-a-fore-snap-cap.step",
+        "out/foam-cap/hardware/printed-parts/cold-core/foam-cap/reservoir-a-fore-snap-cap.step.mesh",
+        "out/foam-cap/hardware/printed-parts/cold-core/foam-cap/reservoir-a-fore-snap-cap.stl",
         "out/foam-cap/hardware/printed-parts/cold-core/_foam_cap.py",
         "out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam_cap.py",
     ],
@@ -3538,8 +3553,11 @@ O6=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-
 O7=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl)
 O8=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step)
 O9=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-top.stl)
-O10=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/_foam_cap.py)
-O11=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam_cap.py)
+O10=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/reservoir-a-fore-snap-cap.step)
+O11=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/reservoir-a-fore-snap-cap.step.mesh)
+O12=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/reservoir-a-fore-snap-cap.stl)
+O13=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/_foam_cap.py)
+O14=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam_cap.py)
 for f in $(SRCS); do
   case $$f in
     */node_modules/*) continue;;
@@ -3566,8 +3584,11 @@ cp hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh $$O6
 cp hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl $$O7
 cp hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step $$O8
 cp hardware/printed-parts/cold-core/foam-cap/foam-cap-top.stl $$O9
-cp hardware/printed-parts/cold-core/_foam_cap.py $$O10
-cp hardware/printed-parts/cold-core/foam-cap/foam_cap.py $$O11
+cp hardware/printed-parts/cold-core/foam-cap/reservoir-a-fore-snap-cap.step $$O10
+cp hardware/printed-parts/cold-core/foam-cap/reservoir-a-fore-snap-cap.step.mesh $$O11
+cp hardware/printed-parts/cold-core/foam-cap/reservoir-a-fore-snap-cap.stl $$O12
+cp hardware/printed-parts/cold-core/_foam_cap.py $$O13
+cp hardware/printed-parts/cold-core/foam-cap/foam_cap.py $$O14
 """,
 )
 
@@ -11944,6 +11965,14 @@ genrule(
     name = "pysrc-21a5b050296a",
     srcs = ["hardware/printed-parts/cold-core/_reservoir_a_anchors.py"],
     outs = ["pysrc/hardware/printed-parts/cold-core/_reservoir_a_anchors.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
+    name = "pysrc-cf305ad43c2c",
+    srcs = ["hardware/printed-parts/cold-core/_reservoir_a_snap.py"],
+    outs = ["pysrc/hardware/printed-parts/cold-core/_reservoir_a_snap.py"],
     tools = ["tools/bazel/pysrc.py"],
     cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
 )

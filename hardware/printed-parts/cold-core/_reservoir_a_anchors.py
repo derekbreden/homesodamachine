@@ -1,15 +1,13 @@
-"""Integral paired seats for Reservoir A's continuous fill and draw tubes.
+"""Reservoir A's fore snap receiver and aft tied seats, in appliance millimetres.
 
-All public coordinates are appliance-world millimetres. The selected stations
-are recorded in ``studies/funnel-gate/reservoir-a-anchors.json``; production
-geometry is independent of that study. The slot ceiling is derived from the
-seat bottom and the ordinary 3 mm wall. The aft seat's west stock ramps from
-the lid face up to the seat top, under V-K's outlet elbow. Nominal tie
-witnesses describe routing, not purchased tie dimensions, threading, retention
-or physical acceptance.
+The fore cap and its receiver share `_reservoir_a_snap`. The aft seat's west
+stock ramps from the lid face under V-K's outlet elbow. Its tie witnesses
+describe routing, not purchased dimensions or physical acceptance.
 """
 from copy import deepcopy
 import math
+
+import _reservoir_a_snap as snap
 
 
 _SPECIFICATION = {
@@ -36,8 +34,6 @@ _SPECIFICATION = {
     "tie_witness_bottom_center_z_mm": 252.4,
     "stations": [
         {"id": "a-pair-fore-anchor", "label": "Reservoir A fore paired anchor",
-         "tube_centers_world_mm": [[50.5, 205., 259.5], [58., 205., 259.5]],
-         "tie_head_side": "east",
          "routes_west_to_east": ["fluid-16", "fluid-14"]},
         {"id": "a-pair-aft-anchor", "label": "Reservoir A aft paired anchor",
          "tube_centers_world_mm": [[86.5, 304., 259.5], [94., 304., 259.5]],
@@ -55,6 +51,9 @@ _SPECIFICATION = {
 def specification():
     """Selected production dimensions, including the derived slot ceiling."""
     result = deepcopy(_SPECIFICATION)
+    fore = result["stations"][0]
+    fore.update(snap.specification())
+    result["stations"][1]["closure"] = "tie"
     result["tie_slot_top_z_mm"] = min(
         point[2] for row in result["stations"]
         for point in row["tube_centers_world_mm"]
@@ -72,7 +71,16 @@ def datums():
         first, last = station["tube_centers_world_mm"]
         x0, x1 = first[0], last[0]
         y = first[1]
-        half = spec["station_length_mm"] / 2
+        half = station.get("station_length_mm", spec["station_length_mm"]) / 2
+        if station["closure"] == "snap":
+            cx, _, cz = station["centre_world_mm"]
+            extent = station["wing_outer_x_mm"]
+            result[station["id"]] = {
+                **station,
+                "stock_bounds_mm": [[cx-extent, y-half, cz+station["base_floor_z_mm"]],
+                                    [cx+extent, y+half, cz+station["base_top_z_mm"]]],
+            }
+            continue
         slot_half = spec["tie_slot_width_y_mm"] / 2
         inner = spec["tie_access_inner_offset_mm"]
         east = station.get("base_east_of_last_tube_mm", spec["stock_east_of_last_tube_mm"])
@@ -120,6 +128,8 @@ def cuts():
     """Apply after the seats join the lid, opening the slot through lid stock."""
     result = {}
     for name, row in datums().items():
+        if row["closure"] != "tie":
+            continue
         openings = [_box(bounds) for bounds in row["access_bounds_mm"]]
         if "open_quarter_bounds_mm" in row:
             openings.append(_box(row["open_quarter_bounds_mm"]))
@@ -148,6 +158,9 @@ def supports():
     passages = cuts()
     result = {}
     for name, row in datums().items():
+        if row["closure"] == "snap":
+            result[name] = snap.base()
+            continue
         body = _box(row["stock_bounds_mm"])
         if "west_ramp_xz_mm" in row:
             body = body.cut(_west_ramp_cutter(row, spec))
@@ -189,6 +202,8 @@ def tie_witnesses():
     spec = specification()
     result = {}
     for name, row in datums().items():
+        if row["closure"] != "tie":
+            continue
         line = Polygon(tie_profile(row))
         outer = line.buffer(spec["tie_witness_thickness_mm"]/2, join_style=2)
         inner = line.buffer(-spec["tie_witness_thickness_mm"]/2, join_style=2)

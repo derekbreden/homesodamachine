@@ -1270,16 +1270,24 @@
       },
       {
         "point_mm": [
-          30.0,
-          220.0,
-          268.0
+          26.0,
+          168.0,
+          280.0
         ]
       },
       {
         "point_mm": [
-          42.0,
-          217.0,
-          266.0
+          43.0,
+          168.0,
+          270.0
+        ]
+      },
+      {
+        "terminal": "ground.inlet",
+        "offset": [
+          7.0,
+          -12.12435565298214,
+          0.0
         ]
       }
     ],
@@ -1290,7 +1298,7 @@
     "bend_radius_mm": 3.0,
     "preserve_stations": true,
     "route_status": "proposed",
-    "note": "The inlet earth feed uses the60-degree ring lug and approaches from aft/west beneath the V-B inlet. Physical lead dress and crimp entry remain unqualified."
+    "note": "The inlet earth feed uses the 300-degree fore-east ring lug and approaches from the fore side of the stack. Its final straight crimp entry retains at least 6 mm; the route uses R3 bends. Physical lead dress and crimp entry remain unqualified."
   },
   "AC2-N": {
     "stations": [

@@ -49,7 +49,7 @@ def colour_for(name: str):
         return _mat.M_JG_BLACK_PP
     if name == 'digiten-flow':
         return _mat.C_DIGITEN
-    if name == 'soda-bend-holder':
+    if name in ('soda-bend-holder', 'reservoir-a-fore-snap-cap'):
         return _mat.M_PETGF_BLACK
     if name == 'soda-continuous-insulation':
         return _mat.M_NITRILE_BLACK

@@ -130,9 +130,12 @@ reeds_per_carbonator = 2
 solenoid_count = sum(1 for n in ml.P if n.startswith("V-"))
 tee_count = len(ml.PURCHASED_TEES)
 
-# Cable management, vent-adapter lands and one shared tie at each paired
-# Reservoir A anchor use four-inch stock.
-reservoir_a_ties_per_build = len(_reservoir_a_anchors.datums())
+# Cable management, vent-adapter lands and paired stations with tie closures
+# use four-inch stock. Each snapped station carries one separate printed cap.
+reservoir_a_ties_per_build = sum(row.get('closure', 'tie') == 'tie'
+                                for row in _reservoir_a_anchors.datums().values())
+reservoir_a_snap_caps_per_build = sum(row.get('closure') == 'snap'
+                                     for row in _reservoir_a_anchors.datums().values())
 four_inch_ties_per_build = 15 + 2 + reservoir_a_ties_per_build
 # One six-inch tie at each selected fluid saddle and explicit cap retaining path.
 # This allocates owned stock; installed loop fit/retention remain unqualified.
@@ -442,6 +445,7 @@ def main(*, only_bom=False):
         "FOUR_INCH_TIES": f"{four_inch_ties_per_build:.4g}",
         "FOUR_INCH_TIES_COST": pack_line_cost(four_inch_ties_per_build, "4.28", 200),
         "RESERVOIR_A_TIES": f"{reservoir_a_ties_per_build}",
+        "RESERVOIR_A_SNAP_CAPS": f"{reservoir_a_snap_caps_per_build}",
         "SIX_INCH_TIES": f"{six_inch_ties_per_build:.4g}",
         "SIX_INCH_TIES_COST": pack_line_cost(six_inch_ties_per_build, "6.42", 100),
         "SOLID16_CUT_LENGTH": f"{solid16_cut_m:g} m",

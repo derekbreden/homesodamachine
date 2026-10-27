@@ -349,6 +349,7 @@ MOUNTS = (
     ("anchor-cap-co2-2", "enclosure-back-top", "snap-capture"),
     ("anchor-cap-fluid-14", "foam-assembly", "snap-capture"),
     ("anchor-cap-fluid-18", "foam-assembly", "snap-capture"),
+    ("reservoir-a-fore-snap-cap", "foam-assembly", "snap-capture"),
     ("flavor-reducer-v-g", "valve-v-g", "collet"),
     ("flavor-reducer-v-j", "valve-v-j", "collet"),
     ("data-ring", "enclosure-back-top", "snap"),
@@ -673,6 +674,7 @@ TOUCHING_OK = {frozenset(p) for p in (
     ("gasher-co2", _gas_chain.CHECK_OUT_ADAPTER),
     # The pump and PCB stand on the core cap; the PSU mounts on back-top.
     ("foam-assembly", "g-ganen-pump"),
+    ("reservoir-a-fore-snap-cap", "foam-assembly"),
     ("enclosure-back-top", "psu"),
     # The three selected valves retain their actual mounting parents.
     ("enclosure-back-top", "vk-solenoid"),
@@ -1633,6 +1635,11 @@ def anchored_pairs(a=None, runs=()) -> set:
     pairs |= {frozenset((name, f"anchor-cap-{name}"))
               for name, row in _ea._cci.cap_anchors.items()
               if name in cap_ids and row.closure == "cap"}
+    import _reservoir_a_anchors
+    pairs |= {frozenset((rid, row['cap_name']))
+              for row in _reservoir_a_anchors.datums().values()
+              if row.get('closure') == 'snap'
+              for rid in row['routes_west_to_east']}
     return pairs | {frozenset((name, "foam-assembly")) for name in cap_ids}
 
 

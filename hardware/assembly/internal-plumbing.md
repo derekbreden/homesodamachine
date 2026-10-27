@@ -291,11 +291,13 @@ end at 45°, straighten it by hand, and feed it down its draw conduit and the ca
 until the tip touches the floor
 ([floor and dip tube](/hardware/printed-parts/cold-core/reservoir/floor-and-dip-tube.md)).
 
-Reservoir A's two continuous tubes share integral paired seats at Y205 and
-Y304 mm. Draw is west of fill: their centreline X stations are 50.5/58 mm
-at the fore seat and 86.5/94 mm at the aft seat, both at Z259.5 mm. Thread
-one four-inch narrow tie through each empty seat's transverse slot before
-laying in the pair; retain both tubes with that shared tie on the open core.
+Reservoir A’s two continuous tubes share a fore snap seat and an aft tied seat.
+Draw is west of fill: their centreline X stations are 50.5/58 mm at the fore seat,
+Y209.75 mm, and 86.5/94 mm at the aft seat, Y304 mm, both at Z259.5 mm. Lay the pair into the fore half-pipes
+and press the separate snap cap down until both wings engage the lid’s integral base.
+At the aft seat, Y304 mm, thread one four-inch narrow tie through the empty transverse
+slot before laying in the pair; retain both tubes there with that shared tie on the
+open core.
 Leave the front valve ends free during the column slide and dress the
 flexible spans clear of passing fittings. Once the column is home, finish
 dressing the free spans and connect the front ends. Keep each tube
@@ -310,9 +312,9 @@ continue through the guide to the reservoir fill bore or dip-tube tip and
 replace the socket allowance with its actual fully seated insertion mark.
 The guide adds no fitting, insertion or cut. Tighten the pump screws before
 threading the draw tube; remove that tube for the affected screw's service.
-The nominal closed tie path is
+The aft nominal closed tie path is
 47.182 mm before head engagement and tail; threading and retention remain
-unqualified. The [route record](/hardware/mechanical-qualification/enclosure-above-core/reservoir-a-route-review.json)
+unqualified. Fore snap insertion force, fit and retention have no physical acceptance. The [route record](/hardware/mechanical-qualification/enclosure-above-core/reservoir-a-route-review.json)
 preserves the selected line/arc definitions and contact scope.
 
 V-F's outlet, V-E's inlet and V-I's outlet each receive one ATEU44W stem
