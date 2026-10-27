@@ -6,17 +6,17 @@
     "foam-cap-lid-top": "Source STEP/STL coordinates before the installed cap half-turn; world_bounds_mm uses appliance coordinates."
   },
   "source_sha256": {
-    "hardware/printed-parts/cold-core/foam-cap/prepare_fore_snap_regions.py": "ca97a8835f2fee7ad2f78dfa299cd0153a07b667a17d5f30e2b4e00643e75b5d",
-    "hardware/printed-parts/cold-core/_reservoir_a_snap.py": "83eacee416f52466a9e5879b890bc00843ab04399d7660a896fb0bcd52ed890c",
+    "hardware/printed-parts/cold-core/foam-cap/prepare_fore_snap_regions.py": "dd88a5d7520b278249576ee1e5053a070aa0b2a78fa4060f3c86aec849189621",
+    "hardware/printed-parts/cold-core/_reservoir_a_snap.py": "e479806978b4b96211bbd0bf38ecbeb9076939f240c65dfda2ab10e675f7ca58",
     "hardware/manifold-layout/above_core.py": "0ad87c7c252ab3cfe803c0f2a63a9374d06d0005591509031328ad6e3203988f",
-    "hardware/manifold-layout/above-core.json": "5b34c1204d816a92473346007f2f31d204ee95187b8db8c98563cd7a6427f92a",
-    "hardware/printed-parts/cold-core/_reservoir_a_anchors.py": "7b8058992da3b67164ffa7c5f0b303254bfd708b3406119fa2c05c5b959db633",
-    "hardware/printed-parts/cold-core/foam-cap/foam_cap.py": "89464565b3d23dedfd006d9c11fe0c54fea0030d1126b6f2b606fca69e1d4235"
+    "hardware/manifold-layout/above-core.json": "5f357819e9c3143ff330c02f6890a23c26f106742a329204eabfe76e4797a429",
+    "hardware/printed-parts/cold-core/_reservoir_a_anchors.py": "085cdcdd2abb13a2484c9cb1f3d1213425947718ead939041815ab65c4d92e64",
+    "hardware/printed-parts/cold-core/foam-cap/foam_cap.py": "7e980fd5d8c3e72173927724054b5518669cf3fb59ae4e5bc8007582a97f9125"
   },
   "native_artifact_sha256": {
     "foam-cap-lid-top": {
-      ".step": "502f1a135397e3adf0a876dca0b6e543c5860cf646c5ef160076c465e47a6349",
-      ".stl": "0c44e0c057f5a11d54f36370190a44f66157384ea0cf4d91fd9cbdc9ee3fefbc"
+      ".step": "4946b339821f70fcdedfe8a3ddd7e178aa1aa42af094b58ab1cd2044f8dd09b2",
+      ".stl": "2d141bd3eacb16811c49a6af4ca611a57338e3788155f266d71c7092d95473e1"
     }
   },
   "part_process_overrides": {},
@@ -30,7 +30,7 @@
           41.885000000000005,
           66.615,
           2.4000000000000057,
-          12.399999999999977
+          11.399999999999977
         ],
         "applied_source_bounds_mm": [
           107.80000000000001,
@@ -38,7 +38,7 @@
           41.885000000000005,
           66.615,
           2.4000000000000057,
-          12.399999999999977
+          11.399999999999977
         ],
         "world_bounds_mm": [
           41.885000000000005,
@@ -46,7 +46,7 @@
           203.5,
           216.0,
           250.4,
-          260.4
+          259.4
         ],
         "sparse_infill_density": "100%",
         "sparse_infill_pattern": "zig-zag"

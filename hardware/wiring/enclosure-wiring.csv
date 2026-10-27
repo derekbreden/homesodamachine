@@ -11,18 +11,18 @@ AC5-N,Compressor,N,wago-n.3,compressor.N,18,585.849,proposed,nominal,unlocated,f
 AC6-PE,Compressor,PE,ground.compressor,compressor.PE,18,333.114,proposed,modeled,unlocated,fixed
 PE-bus,Earth bonds,PE,wago-g.2,ground.inlet,16,351.408,proposed,nominal,modeled,fixed
 PE-carbonator,Earth bonds,PE,ground.carbonator,carbonator.PE,16,423.501,proposed,modeled,unlocated,fixed
-DC1-V12,12V power,V12,psu.V12,wago-v12.1,16,283.293,proposed,nominal,nominal,fixed
-DC4-V12,12V power,V12,wago-v12.3,J10.V12,16,80.927,proposed,nominal,nominal,fixed
-DC1-GND,12V power,GND,psu.GND,wago-gnd.1,16,280.915,proposed,nominal,nominal,fixed
-DC4-GND,12V power,GND,wago-gnd.3,J10.GND,16,51.318,proposed,nominal,nominal,fixed
-DC2-V12,Diaphragm pump,V12,wago-v12.2,relay-2.COM,16,248.483,proposed,nominal,nominal,fixed
+DC1-V12,12V power,V12,psu.V12,wago-v12.1,16,266.476,proposed,nominal,nominal,fixed
+DC4-V12,12V power,V12,wago-v12.3,J10.V12,16,110.285,proposed,nominal,nominal,fixed
+DC1-GND,12V power,GND,psu.GND,wago-gnd.1,16,249.988,proposed,nominal,nominal,fixed
+DC4-GND,12V power,GND,wago-gnd.3,J10.GND,16,71.076,proposed,nominal,nominal,fixed
+DC2-V12,Diaphragm pump,V12,wago-v12.2,relay-2.COM,16,272.488,proposed,nominal,nominal,fixed
 DC3-positive,Diaphragm pump,pump-switched,relay-2.NO,diaphragm.positive,16,136.047,proposed,nominal,unlocated,fixed
-DC3-negative,Diaphragm pump,GND,wago-gnd.2,diaphragm.negative,16,253.272,proposed,nominal,unlocated,fixed
+DC3-negative,Diaphragm pump,GND,wago-gnd.2,diaphragm.negative,16,293.844,proposed,nominal,unlocated,fixed
 J1-COM,J1,V12,J1.COM,wago-mana.1,22,200.807,proposed,nominal,nominal,fixed
 J1-OUT1,J1,J1.OUT1,J1.OUT1,V-A.negative,22,135.487,proposed,nominal,modeled,fixed
 J1-positive-A,J1,V12,wago-mana.2,V-A.positive,22,327.561,proposed,nominal,modeled,fixed
-J1-OUT2,J1,J1.OUT2,J1.OUT2,V-B.negative,22,170.527,proposed,nominal,modeled,fixed
-J1-positive-B,J1,V12,wago-mana.3,V-B.positive,22,111.586,proposed,nominal,modeled,fixed
+J1-OUT2,J1,J1.OUT2,J1.OUT2,V-B.negative,22,175.872,proposed,nominal,modeled,fixed
+J1-positive-B,J1,V12,wago-mana.3,V-B.positive,22,112.438,proposed,nominal,modeled,fixed
 J1-OUT3,J1,J1.OUT3,J1.OUT3,V-C.negative,22,242.957,proposed,nominal,modeled,fixed
 J1-positive-C,J1,V12,wago-mana.4,V-C.positive,22,159.417,proposed,nominal,modeled,fixed
 J1-OUT4,J1,J1.OUT4,J1.OUT4,V-D.negative,22,215.498,proposed,nominal,modeled,fixed
@@ -56,9 +56,9 @@ J4-3V3,J4,3V3,J4.3V3,temp-carbonator.V,22,437.113,proposed,nominal,nominal,fixed
 J4-IO26,J4,IO26,J4.IO26,temp-carbonator.DATA,22,436.371,proposed,nominal,nominal,fixed
 J4-V5,J4,V5,J4.V5,flow.V,22,221.53,proposed,nominal,nominal,fixed
 J4-IO25,J4,IO25,J4.IO25,flow.PULSE,22,229.457,proposed,nominal,nominal,fixed
-J4-GND,J4,GND,J4.GND,wago-sensors.1,22,46.301,proposed,nominal,nominal,fixed
-temp-GND,J4,GND,wago-sensors.2,temp-carbonator.GND,22,467.103,proposed,nominal,nominal,fixed
-flow-GND,J4,GND,wago-sensors.3,flow.GND,22,248.719,proposed,nominal,nominal,fixed
+J4-GND,J4,GND,J4.GND,wago-sensors.1,22,60.03,proposed,nominal,nominal,fixed
+temp-GND,J4,GND,wago-sensors.2,temp-carbonator.GND,22,476.438,proposed,nominal,nominal,fixed
+flow-GND,J4,GND,wago-sensors.3,flow.GND,22,247.088,proposed,nominal,nominal,fixed
 temp-bus-V,J4,3V3,temp-carbonator.V,temp-coil.V,22,100.71,proposed,nominal,nominal,fixed
 temp-bus-DATA,J4,IO26,temp-carbonator.DATA,temp-coil.DATA,22,106.557,proposed,nominal,nominal,fixed
 temp-bus-GND,J4,GND,temp-carbonator.GND,temp-coil.GND,22,112.525,proposed,nominal,nominal,fixed
@@ -76,7 +76,7 @@ J6-earth-2,J6,GND,reed-a-3.GND,reed-a-2.GND,22,54.0,proposed,nominal,nominal,fix
 J6-RA3,J6,RA3,J6.RA3,reed-a-3.signal,22,371.032,proposed,nominal,nominal,fixed
 J6-earth-3,J6,GND,reed-a-4.GND,reed-a-3.GND,22,54.0,proposed,nominal,nominal,fixed
 J6-RA4,J6,RA4,J6.RA4,reed-a-4.signal,22,325.526,proposed,nominal,nominal,fixed
-J7-GND,J7,GND,J7.GND,wago-reeds-b.1,22,28.096,proposed,nominal,nominal,fixed
+J7-GND,J7,GND,J7.GND,wago-reeds-b.1,22,51.735,proposed,nominal,nominal,fixed
 J7-RB1,J7,RB1,J7.RB1,reed-b-1.signal,22,379.748,proposed,nominal,nominal,fixed
 J7-earth-1,J7,GND,reed-b-2.GND,reed-b-1.GND,22,54.0,proposed,nominal,nominal,fixed
 J7-RB2,J7,RB2,J7.RB2,reed-b-2.signal,22,333.217,proposed,nominal,nominal,fixed
@@ -84,11 +84,11 @@ J7-earth-2,J7,GND,reed-b-3.GND,reed-b-2.GND,22,54.0,proposed,nominal,nominal,fix
 J7-RB3,J7,RB3,J7.RB3,reed-b-3.signal,22,281.559,proposed,nominal,nominal,fixed
 J7-earth-3,J7,GND,reed-b-4.GND,reed-b-3.GND,22,54.0,proposed,nominal,nominal,fixed
 J7-RB4,J7,RB4,J7.RB4,reed-b-4.signal,22,221.052,proposed,nominal,nominal,fixed
-J7-earth-4,J7,GND,wago-reeds-b.2,reed-b-4.GND,22,238.004,proposed,nominal,nominal,fixed
+J7-earth-4,J7,GND,wago-reeds-b.2,reed-b-4.GND,22,247.342,proposed,nominal,nominal,fixed
 J7-CLO,J7,CLO,J7.CLO,reed-carb-1.signal,22,406.39,proposed,nominal,nominal,fixed
 J7-carb-earth-1,J7,GND,reed-carb-2.GND,reed-carb-1.GND,22,28.152,proposed,nominal,nominal,fixed
 J7-CHI,J7,CHI,J7.CHI,reed-carb-2.signal,22,324.687,proposed,nominal,nominal,fixed
-J7-carb-earth-2,J7,GND,wago-reeds-b.3,reed-carb-2.GND,22,348.834,proposed,nominal,nominal,fixed
+J7-carb-earth-2,J7,GND,wago-reeds-b.3,reed-carb-2.GND,22,380.407,proposed,nominal,nominal,fixed
 J9-B,J9,B,J9.B,display.B,22,266.759,proposed,nominal,unlocated,fixed
 J9-A,J9,A,J9.A,display.A,22,268.966,proposed,nominal,unlocated,fixed
 J9-GND,J9,GND,J9.GND,display.GND,22,271.517,proposed,nominal,unlocated,fixed

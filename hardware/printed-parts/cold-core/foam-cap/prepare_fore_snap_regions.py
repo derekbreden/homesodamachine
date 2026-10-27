@@ -37,12 +37,14 @@ def main():
     parser.add_argument('--out', type=Path, default=HERE / 'fore-snap-print-regions.json')
     args = parser.parse_args()
     spec = snap.specification()
-    cx, cy, cz = spec['centre_world_mm']
     half_x, half_y = spec['wing_outer_x_mm'], spec['station_length_mm']/2
     lid_face = layout.specification()['cap_face_z_mm']
-    world = [cx-half_x, cx+half_x, cy-half_y, cy+half_y,
-             min(cz+spec['base_floor_z_mm'], lid_face-spec['wall_mm']),
-             cz+spec['base_top_z_mm']]
+    points = [snap.world_point(p) for p in itertools.product(
+        (-half_x, half_x), (-half_y, half_y),
+        (spec['base_floor_z_mm'], spec['base_top_z_mm']))]
+    world = [value for axis in range(3) for value in
+             (min(p[axis] for p in points), max(p[axis] for p in points))]
+    world[4] = min(world[4], lid_face-spec['wall_mm'])
     corners = [layout.world_to_cap(point) for point in
                itertools.product(*[world[i:i+2] for i in (0, 2, 4)])]
     native = [value for axis in range(3)

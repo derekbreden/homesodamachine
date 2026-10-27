@@ -1,0 +1,122 @@
+{
+  "scope": "Redressed exposed wire portions against neighboring physical bodies. Wire paths are proposed dressing; unchanged remote baseline cable packing is outside this reading.",
+  "native_nearby_readings": [
+    {
+      "parts": [
+        "wire-DC1-GND",
+        "cold-core/foam-cap-lid-top"
+      ],
+      "gap_mm": 1.1999999999999602
+    },
+    {
+      "parts": [
+        "wire-flow-GND",
+        "va-east-turn"
+      ],
+      "gap_mm": 1.2782817023530648
+    },
+    {
+      "parts": [
+        "wire-flow-GND",
+        "vb-mounted-wall"
+      ],
+      "gap_mm": 1.1999999999999957
+    },
+    {
+      "parts": [
+        "wire-flow-GND",
+        "cold-core/foam-cap-lid-top"
+      ],
+      "gap_mm": 1.1999999999999957
+    }
+  ],
+  "export_route_matches": [
+    {
+      "wire": "DC1-V12",
+      "points_residual_mm": 0.0,
+      "start": "psu.V12",
+      "end": "wago-v12.1"
+    },
+    {
+      "wire": "DC4-V12",
+      "points_residual_mm": 0.0,
+      "start": "wago-v12.3",
+      "end": "J10.V12"
+    },
+    {
+      "wire": "DC1-GND",
+      "points_residual_mm": 0.0,
+      "start": "psu.GND",
+      "end": "wago-gnd.1"
+    },
+    {
+      "wire": "DC4-GND",
+      "points_residual_mm": 0.0,
+      "start": "wago-gnd.3",
+      "end": "J10.GND"
+    },
+    {
+      "wire": "DC2-V12",
+      "points_residual_mm": 0.0,
+      "start": "wago-v12.2",
+      "end": "relay-2.COM"
+    },
+    {
+      "wire": "DC3-negative",
+      "points_residual_mm": 6.050257835006185e-12,
+      "start": "wago-gnd.2",
+      "end": "diaphragm.negative"
+    },
+    {
+      "wire": "J1-OUT2",
+      "points_residual_mm": 0.0,
+      "start": "J1.OUT2",
+      "end": "V-B.negative"
+    },
+    {
+      "wire": "J1-positive-B",
+      "points_residual_mm": 0.0,
+      "start": "wago-mana.3",
+      "end": "V-B.positive"
+    },
+    {
+      "wire": "J4-GND",
+      "points_residual_mm": 0.0,
+      "start": "J4.GND",
+      "end": "wago-sensors.1"
+    },
+    {
+      "wire": "temp-GND",
+      "points_residual_mm": 3.6766223260892424e-12,
+      "start": "wago-sensors.2",
+      "end": "temp-carbonator.GND"
+    },
+    {
+      "wire": "flow-GND",
+      "points_residual_mm": 0.0,
+      "start": "wago-sensors.3",
+      "end": "flow.GND"
+    },
+    {
+      "wire": "J7-GND",
+      "points_residual_mm": 0.0,
+      "start": "J7.GND",
+      "end": "wago-reeds-b.1"
+    },
+    {
+      "wire": "J7-earth-4",
+      "points_residual_mm": 2.4670571775406733e-12,
+      "start": "wago-reeds-b.2",
+      "end": "reed-b-4.GND"
+    },
+    {
+      "wire": "J7-carb-earth-2",
+      "points_residual_mm": 5.174000271414847e-12,
+      "start": "wago-reeds-b.3",
+      "end": "reed-carb-2.GND"
+    }
+  ],
+  "route_overrides_sha256": "2cb5af09e42c4e2746e6eb7f7ad5e7662105120ad6b2a5d566c943bb57fe132f",
+  "bundle_routes_sha256": "fdb751f9de3ce955436239d3bfdd660ad75238c2189adbc011911d727aa6d676",
+  "manifest_sha256": "3c4e8078358eff56c7bd9911e33f31420ae95c0a8219cb481f65eedb9254e4cc"
+}

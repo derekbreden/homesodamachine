@@ -764,326 +764,404 @@
   "DC1-GND": {
     "stations": [
       {
-        "terminal": "psu.GND",
-        "offset": [
-          0.0,
-          -6.00001221,
-          -20.3
+        "point_mm": [
+          -85.8,
+          341.99999999703124,
+          256.09999999999997
         ]
       },
       {
-        "terminal": "psu.GND",
-        "offset": [
-          -10.2,
-          -18.00001221,
-          -20.3
+        "point_mm": [
+          -96.0,
+          329.99999999703124,
+          256.09999999999997
         ]
       },
       {
-        "terminal": "psu.GND",
-        "offset": [
-          -10.2,
-          -31.00001221,
-          -20.3
+        "point_mm": [
+          -96.0,
+          316.99999999703124,
+          256.09999999999997
         ]
       },
       {
-        "terminal": "psu.GND",
-        "offset": [
-          62.0,
-          -31.00001221,
-          -20.3
+        "point_mm": [
+          -23.799999999999997,
+          316.99999999703124,
+          256.09999999999997
         ]
       },
       {
-        "terminal": "psu.GND",
-        "offset": [
-          62.0,
-          -31.00001221,
-          -1.6
+        "point_mm": [
+          -16.0,
+          308.0,
+          269.9
         ]
       },
       {
-        "terminal": "psu.GND",
-        "offset": [
-          62.0,
-          -72.50001221,
-          -1.6
+        "point_mm": [
+          2.0,
+          290.0,
+          263.9
         ]
       },
       {
-        "terminal": "psu.GND",
-        "offset": [
-          91.8,
-          -72.50001221,
-          -1.6
+        "point_mm": [
+          6.0,
+          282.0,
+          267.9
         ]
       },
       {
-        "terminal": "psu.GND",
-        "offset": [
-          91.8,
-          -96.00001221,
-          -1.6
+        "point_mm": [
+          12.0,
+          280.0,
+          273.9
         ]
       },
       {
-        "terminal": "psu.GND",
-        "offset": [
-          76.0,
-          -96.00001221,
-          -1.6
+        "point_mm": [
+          24.0,
+          280.0,
+          275.9
         ]
       },
       {
-        "terminal": "psu.GND",
-        "offset": [
-          76.0,
-          -96.00001221,
-          -15.8
+        "point_mm": [
+          26.0,
+          282.0,
+          273.9
+        ]
+      },
+      {
+        "point_mm": [
+          28.0,
+          284.0,
+          271.9
+        ]
+      },
+      {
+        "point_mm": [
+          34.0,
+          284.0,
+          269.9
+        ]
+      },
+      {
+        "point_mm": [
+          38.0,
+          284.0,
+          265.9
+        ]
+      },
+      {
+        "point_mm": [
+          40.0,
+          284.0,
+          263.9
+        ]
+      },
+      {
+        "point_mm": [
+          40.0,
+          282.0,
+          257.9
         ]
       }
     ],
     "end_lands_mm": [
       6.0,
-      8.0
+      3
     ],
     "bend_radius_mm": 3.0,
     "preserve_stations": true,
     "route_status": "proposed",
-    "note": "Installed route to the back-top dry-wall PSU arrangement, preserving the named terminal frames and graph. Physical lead dressing and termination fit remain unqualified."
+    "note": "Wire dressing to board-facing V-B wall junctions; fixed remote terminal and cable passages retained. Nominal insulated diameters; physical dressing remains unqualified.",
+    "endpoint_tangent_fraction": 0.9
   },
   "DC1-V12": {
     "stations": [
       {
-        "terminal": "psu.V12",
-        "offset": [
-          -8.2,
-          -3.60001221,
-          0.0
+        "point_mm": [
+          -94.0,
+          344.3999999970313,
+          284.4
         ]
       },
       {
-        "terminal": "psu.V12",
-        "offset": [
-          -8.2,
-          -10.00001221,
-          -14.4
+        "point_mm": [
+          -94.0,
+          337.99999999703124,
+          270.0
         ]
       },
       {
-        "terminal": "psu.V12",
-        "offset": [
-          -8.2,
-          -18.00001221,
-          -24.3
+        "point_mm": [
+          -94.0,
+          329.99999999703124,
+          260.09999999999997
         ]
       },
       {
-        "terminal": "psu.V12",
-        "offset": [
-          -8.2,
-          -36.00001221,
-          -24.3
+        "point_mm": [
+          -94.0,
+          311.99999999703124,
+          260.09999999999997
         ]
       },
       {
-        "terminal": "psu.V12",
-        "offset": [
-          62.0,
-          -36.00001221,
-          -24.3
+        "point_mm": [
+          -23.799999999999997,
+          311.99999999703124,
+          260.09999999999997
         ]
       },
       {
-        "terminal": "psu.V12",
-        "offset": [
-          62.0,
-          -36.00001221,
-          -12.9
+        "point_mm": [
+          -20.0,
+          306.0,
+          269.9
         ]
       },
       {
-        "terminal": "psu.V12",
-        "offset": [
-          62.0,
-          -67.00001221,
-          -12.9
+        "point_mm": [
+          -20.0,
+          292.0,
+          269.9
         ]
       },
       {
-        "terminal": "psu.V12",
-        "offset": [
-          88.3,
-          -67.00001221,
-          -12.9
+        "point_mm": [
+          -6.0,
+          272.0,
+          265.9
         ]
       },
       {
-        "terminal": "psu.V12",
-        "offset": [
-          88.3,
-          -125.00001221,
-          -12.9
+        "point_mm": [
+          2.0,
+          222.0,
+          259.9
         ]
       },
       {
-        "terminal": "psu.V12",
-        "offset": [
-          76.0,
-          -125.00001221,
-          -12.9
+        "point_mm": [
+          10.0,
+          210.0,
+          257.9
         ]
       },
       {
-        "terminal": "psu.V12",
-        "offset": [
-          76.0,
-          -125.00001221,
-          -23.8
+        "point_mm": [
+          18.0,
+          210.0,
+          257.9
         ]
       }
     ],
     "end_lands_mm": [
       3.6,
-      8.0
+      3
     ],
     "bend_radius_mm": 3.0,
     "preserve_stations": true,
     "route_status": "proposed",
-    "note": "Installed route to the back-top dry-wall PSU arrangement, preserving the named terminal frames and graph. Physical lead dressing and termination fit remain unqualified.",
+    "note": "Wire dressing to board-facing V-B wall junctions; fixed remote terminal and cable passages retained. Nominal insulated diameters; physical dressing remains unqualified.",
     "endpoint_tangent_fraction": 0.9
   },
   "DC4-GND": {
     "stations": [
       {
-        "terminal": "wago-gnd.3",
-        "offset": [
-          -8.7,
-          21.8863,
-          -0.04
+        "point_mm": [
+          28.0,
+          264.0,
+          273.9
+        ]
+      },
+      {
+        "point_mm": [
+          0.0,
+          268.0,
+          279.9
         ]
       }
     ],
     "end_lands_mm": [
-      8.0,
-      8.0
+      3,
+      8
     ],
     "bend_radius_mm": 3.0,
     "preserve_stations": true,
     "route_status": "proposed",
-    "note": "Native-terminal route through selected equipment and fluid corridors; physical dressing and wire packing remain open."
+    "note": "Wire dressing to board-facing V-B wall junctions; fixed remote terminal and cable passages retained. Nominal insulated diameters; physical dressing remains unqualified.",
+    "endpoint_tangent_fraction": 0.9
   },
   "DC4-V12": {
     "stations": [
       {
-        "terminal": "wago-v12.3",
-        "offset": [
-          -9.69999,
-          5.8863,
-          7.96
+        "point_mm": [
+          14.0,
+          210.0,
+          257.9
         ]
       },
       {
-        "terminal": "wago-v12.3",
-        "offset": [
-          -9.69999,
-          45.8863,
-          7.96
+        "point_mm": [
+          8.0,
+          212.0,
+          257.9
         ]
       },
       {
-        "terminal": "wago-v12.3",
-        "offset": [
-          -11.69999,
-          47.8863,
-          7.96
+        "point_mm": [
+          -2.0,
+          242.0,
+          259.9
         ]
       },
       {
-        "terminal": "wago-v12.3",
-        "offset": [
-          -17.69999,
-          53.8863,
-          5.96
+        "point_mm": [
+          -10.0,
+          274.0,
+          263.9
         ]
       },
       {
-        "terminal": "wago-v12.3",
-        "offset": [
-          -21.69999,
-          53.8863,
-          5.96
+        "point_mm": [
+          -18.0,
+          280.0,
+          263.9
         ]
       }
     ],
     "end_lands_mm": [
-      8.0,
-      4.0
+      3,
+      4
     ],
     "bend_radius_mm": 3.0,
     "preserve_stations": true,
     "route_status": "proposed",
-    "note": "Native terminal route east of the return-support root, with 4 mm external wire-mouth land at J10; the separate 8 mm nominal insertion approach remains clear. Physical dressing and wire packing remain open."
+    "note": "Wire dressing to board-facing V-B wall junctions; fixed remote terminal and cable passages retained. Nominal insulated diameters; physical dressing remains unqualified.",
+    "endpoint_tangent_fraction": 0.9
   },
   "DC2-V12": {
     "stations": [
       {
-        "terminal": "wago-v12.2",
-        "offset": [
-          -9.2,
-          11.0,
-          0.4
+        "point_mm": [
+          16.0,
+          210.0,
+          257.9
         ]
       },
       {
-        "terminal": "wago-v12.2",
-        "offset": [
-          -3.7,
-          53.0,
-          2.4
+        "point_mm": [
+          10.0,
+          210.0,
+          257.9
         ]
       },
       {
-        "terminal": "wago-v12.2",
-        "offset": [
-          -32.2,
-          107.0,
-          29.0
+        "point_mm": [
+          2.0,
+          222.0,
+          259.9
         ]
       },
       {
-        "terminal": "wago-v12.2",
-        "offset": [
-          -51.2,
-          143.0,
-          44.4
+        "point_mm": [
+          0.0,
+          236.0,
+          259.9
+        ]
+      },
+      {
+        "point_mm": [
+          -34.0,
+          325.0,
+          289.59999999999997
+        ]
+      },
+      {
+        "point_mm": [
+          -53.0,
+          361.0,
+          304.99999999999994
         ]
       }
     ],
     "end_lands_mm": [
-      8.0,
+      3,
       8.0
     ],
     "bend_radius_mm": 3.0,
     "preserve_stations": true,
     "route_status": "proposed",
-    "note": "Installed route to the back-top dry-wall PSU/relay arrangement, preserving the named terminal frames and graph. Physical lead dressing and termination fit remain unqualified."
+    "note": "Wire dressing to board-facing V-B wall junctions; fixed remote terminal and cable passages retained. Nominal insulated diameters; physical dressing remains unqualified.",
+    "endpoint_tangent_fraction": 0.9
   },
   "DC3-negative": {
     "stations": [
       {
         "point_mm": [
-          -10.324662008821557,
-          278.0,
-          264.07081302466753
+          40.0,
+          282.0,
+          257.9
         ]
       },
       {
         "point_mm": [
-          -15.0,
-          281.0,
-          260.0
+          40.0,
+          284.0,
+          263.9
+        ]
+      },
+      {
+        "point_mm": [
+          38.0,
+          284.0,
+          265.9
+        ]
+      },
+      {
+        "point_mm": [
+          34.0,
+          284.0,
+          269.9
+        ]
+      },
+      {
+        "point_mm": [
+          28.0,
+          284.0,
+          271.9
+        ]
+      },
+      {
+        "point_mm": [
+          26.0,
+          282.0,
+          273.9
+        ]
+      },
+      {
+        "point_mm": [
+          24.0,
+          280.0,
+          275.9
+        ]
+      },
+      {
+        "point_mm": [
+          -12.0,
+          280.0,
+          269.9
+        ]
+      },
+      {
+        "point_mm": [
+          -16.0,
+          288.0,
+          267.9
         ]
       },
       {
@@ -1094,62 +1172,57 @@
         ]
       },
       {
-        "terminal": "wago-gnd.2",
-        "offset": [
-          -9.06827,
-          73.29999,
-          7.06696
+        "point_mm": [
+          -10.86827,
+          315.29999,
+          267.66695999999996
         ]
       },
       {
-        "terminal": "wago-gnd.2",
-        "offset": [
-          -13.06827,
-          77.29999,
-          7.06696
+        "point_mm": [
+          -14.86827,
+          319.29999,
+          267.66695999999996
         ]
       },
       {
-        "terminal": "wago-gnd.2",
-        "offset": [
-          -17.06827,
-          125.29999,
-          13.06696
+        "point_mm": [
+          -18.86827,
+          367.29999,
+          273.66695999999996
         ]
       },
       {
-        "terminal": "wago-gnd.2",
-        "offset": [
-          -17.06827,
-          197.29999,
-          13.06696
+        "point_mm": [
+          -18.86827,
+          439.29999,
+          273.66695999999996
         ]
       },
       {
-        "terminal": "wago-gnd.2",
-        "offset": [
-          -13.06827,
-          203.29999,
-          15.06696
+        "point_mm": [
+          -14.86827,
+          445.29999,
+          275.66695999999996
         ]
       },
       {
-        "terminal": "wago-gnd.2",
-        "offset": [
-          -11.06827,
-          205.29999,
-          17.06696
+        "point_mm": [
+          -12.86827,
+          447.29999,
+          277.66695999999996
         ]
       }
     ],
     "end_lands_mm": [
-      8.0,
+      3,
       8.0
     ],
     "bend_radius_mm": 3.0,
     "preserve_stations": true,
     "route_status": "proposed",
-    "note": "The pump negative lead passes west of the fixed V-B return support root. Its factory terminal location and physical lead dress remain unqualified."
+    "note": "Wire dressing to board-facing V-B wall junctions; fixed remote terminal and cable passages retained. Nominal insulated diameters; physical dressing remains unqualified.",
+    "endpoint_tangent_fraction": 0.9
   },
   "DC3-positive": {
     "stations": [
@@ -1459,30 +1532,29 @@
   "J1-OUT2": {
     "stations": [
       {
-        "terminal": "J1.OUT2",
-        "offset": [
-          110.17998,
-          -5.19858,
-          4.56
+        "point_mm": [
+          -24.0,
+          272.0,
+          275.9
         ]
       },
       {
-        "terminal": "J1.OUT2",
-        "offset": [
-          122.17998,
-          -5.19858,
-          0.56
+        "point_mm": [
+          44.0,
+          272.0,
+          293.9
         ]
       }
     ],
     "end_lands_mm": [
-      6.0,
-      6.0
+      6,
+      6
     ],
     "bend_radius_mm": 2.0,
     "preserve_stations": true,
     "route_status": "proposed",
-    "note": "Native-terminal route around the centred frame-mounted drain and V-B group, preserving the J10 driver and wire-entry approaches; physical dressing and wire packing remain open."
+    "note": "The V-B negative lead passes above the paired snap cap release envelope and approaches its fixed native spade. Physical harness dressing remains unqualified.",
+    "endpoint_tangent_fraction": 0.9
   },
   "J1-positive-A": {
     "stations": [
@@ -2271,90 +2343,119 @@
   "J4-GND": {
     "stations": [
       {
-        "terminal": "J4.GND",
-        "offset": [
-          4.39999,
-          -11.46959,
-          4.2
+        "point_mm": [
+          14.0,
+          216.0,
+          271.9
+        ]
+      },
+      {
+        "point_mm": [
+          20.0,
+          216.0,
+          273.9
         ]
       }
     ],
     "end_lands_mm": [
-      6.0,
+      2,
+      3
+    ],
+    "bend_radius_mm": 2.0,
+    "preserve_stations": true,
+    "route_status": "proposed",
+    "note": "Wire dressing to board-facing V-B wall junctions; fixed remote terminal and cable passages retained. Nominal insulated diameters; physical dressing remains unqualified.",
+    "endpoint_tangent_fraction": 0.9
+  },
+  "flow-GND": {
+    "stations": [
+      {
+        "point_mm": [
+          30.0,
+          216.0,
+          271.9
+        ]
+      },
+      {
+        "point_mm": [
+          40.0,
+          218.0,
+          265.9
+        ]
+      },
+      {
+        "point_mm": [
+          45.25,
+          224,
+          259.9
+        ]
+      },
+      {
+        "point_mm": [
+          45.25,
+          260,
+          259.9
+        ]
+      },
+      {
+        "point_mm": [
+          50.0,
+          270.0,
+          267.9
+        ]
+      },
+      {
+        "point_mm": [
+          39.704800000000006,
+          293.79999666666663,
+          269.87604999999996
+        ]
+      },
+      {
+        "point_mm": [
+          43.204800000000006,
+          321.79999999666666,
+          260.99999999999994
+        ]
+      },
+      {
+        "point_mm": [
+          70.0,
+          325.99999999666665,
+          260.99999999999994
+        ]
+      },
+      {
+        "point_mm": [
+          70.0,
+          346.99999999666665,
+          260.99999999999994
+        ]
+      },
+      {
+        "point_mm": [
+          70.0,
+          349.99999999666665,
+          269.87604999999996
+        ]
+      },
+      {
+        "point_mm": [
+          70.0,
+          392.71479999666667,
+          269.87604999999996
+        ]
+      }
+    ],
+    "end_lands_mm": [
+      3,
       6.0
     ],
     "bend_radius_mm": 2.0,
     "preserve_stations": true,
     "route_status": "proposed",
-    "note": "Native-terminal route through selected equipment and fluid corridors; physical dressing and wire packing remain open."
-  },
-  "flow-GND": {
-    "stations": [
-      {
-        "terminal": "wago-sensors.3",
-        "offset": [
-          1.0048,
-          24.53333,
-          9.27605
-        ]
-      },
-      {
-        "terminal": "wago-sensors.3",
-        "offset": [
-          41.0048,
-          92.53333,
-          9.27605
-        ]
-      },
-      {
-        "terminal": "wago-sensors.3",
-        "offset": [
-          45.0048,
-          120.53333333,
-          0.4
-        ]
-      },
-      {
-        "terminal": "wago-sensors.3",
-        "offset": [
-          71.8,
-          124.73333333,
-          0.4
-        ]
-      },
-      {
-        "terminal": "wago-sensors.3",
-        "offset": [
-          71.8,
-          145.73333333,
-          0.4
-        ]
-      },
-      {
-        "terminal": "wago-sensors.3",
-        "offset": [
-          71.8,
-          148.73333333,
-          9.27605
-        ]
-      },
-      {
-        "terminal": "wago-sensors.3",
-        "offset": [
-          71.8,
-          191.44813333,
-          9.27605
-        ]
-      }
-    ],
-    "end_lands_mm": [
-      6.0,
-      6.0
-    ],
-    "bend_radius_mm": 3.0,
-    "preserve_stations": true,
-    "route_status": "proposed",
-    "note": "Lead route passes fore of the continuous soda inlet foam, below the valve coil and then aft outside the nominal full sleeve. Physical harness dressing and foam compression remain unqualified."
+    "note": "Wire dressing to board-facing V-B wall junctions; fixed remote terminal and cable passages retained. Nominal insulated diameters; physical dressing remains unqualified.",
+    "endpoint_tangent_fraction": 0.9
   },
   "J5-GND": {
     "stations": [
@@ -2629,24 +2730,16 @@
     "note": "Installed route to the back-top dry-wall PSU/relay arrangement, preserving the named terminal frames and graph. Physical lead dressing and termination fit remain unqualified."
   },
   "J7-GND": {
-    "stations": [
-      {
-        "terminal": "J7.GND",
-        "offset": [
-          8.39999,
-          -8.46959,
-          -3.8
-        ]
-      }
-    ],
+    "stations": [],
     "end_lands_mm": [
-      6.0,
-      6.0
+      6,
+      3
     ],
     "bend_radius_mm": 2.0,
     "preserve_stations": true,
     "route_status": "proposed",
-    "note": "Native-terminal route through selected equipment and fluid corridors; physical dressing and wire packing remain open."
+    "note": "Wire dressing to board-facing V-B wall junctions; fixed remote terminal and cable passages retained. Nominal insulated diameters; physical dressing remains unqualified.",
+    "endpoint_tangent_fraction": 0.9
   },
   "J9-A": {
     "stations": [

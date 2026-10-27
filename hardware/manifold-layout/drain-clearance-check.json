@@ -402,7 +402,7 @@
         },
         {
           "name": "tube-above-core-drain-vb-east-link",
-          "gap_mm": 43.7617082,
+          "gap_mm": 43.8943742,
           "overlap_mm3": 0
         },
         {
@@ -547,7 +547,7 @@
         },
         {
           "name": "valve-v-b",
-          "gap_mm": 50.3776196,
+          "gap_mm": 50.3919805,
           "overlap_mm3": 0
         },
         {
@@ -557,32 +557,32 @@
         },
         {
           "name": "vb-outlet-return",
-          "gap_mm": 59.1644647,
+          "gap_mm": 59.2054574,
           "overlap_mm3": 0
         },
         {
           "name": "vb-outlet-stem",
-          "gap_mm": 96.3314906,
+          "gap_mm": 96.2993216,
           "overlap_mm3": 0
         },
         {
           "name": "wago-sensors",
-          "gap_mm": 35.9189926,
+          "gap_mm": 60.0507671,
           "overlap_mm3": 0
         },
         {
           "name": "wago-v12",
-          "gap_mm": 55.6927205,
+          "gap_mm": 62.1532892,
           "overlap_mm3": 0
         },
         {
           "name": "wago-gnd",
-          "gap_mm": 78.1826041,
+          "gap_mm": 82.8266005,
           "overlap_mm3": 0
         },
         {
           "name": "wago-reeds-b",
-          "gap_mm": 91.3643939,
+          "gap_mm": 81.3231382,
           "overlap_mm3": 0
         },
         {
@@ -592,7 +592,7 @@
         },
         {
           "name": "tube-above-core-vb-yb-cross",
-          "gap_mm": 73.1862658,
+          "gap_mm": 73.2943019,
           "overlap_mm3": 0
         },
         {
@@ -1140,7 +1140,7 @@
         },
         {
           "name": "reservoir-a-fore-snap-cap",
-          "gap_mm": 120.4913751,
+          "gap_mm": 120.5160933,
           "overlap_mm3": 0
         },
         {
@@ -1195,42 +1195,42 @@
         },
         {
           "name": "valve-v-b",
-          "gap_mm": 121.7986676,
+          "gap_mm": 121.7334144,
           "overlap_mm3": 0
         },
         {
           "name": "vb-inlet-turn",
-          "gap_mm": 107.9880409,
+          "gap_mm": 107.9692902,
           "overlap_mm3": 0
         },
         {
           "name": "vb-outlet-return",
-          "gap_mm": 52.6035327,
+          "gap_mm": 52.6546815,
           "overlap_mm3": 0
         },
         {
           "name": "vb-outlet-stem",
-          "gap_mm": 116.8494637,
+          "gap_mm": 116.9323276,
           "overlap_mm3": 0
         },
         {
           "name": "wago-sensors",
-          "gap_mm": 72.5766213,
+          "gap_mm": 105.3121575,
           "overlap_mm3": 0
         },
         {
           "name": "wago-v12",
-          "gap_mm": 80.2099767,
+          "gap_mm": 105.6430609,
           "overlap_mm3": 0
         },
         {
           "name": "wago-gnd",
-          "gap_mm": 83.2543103,
+          "gap_mm": 107.0149222,
           "overlap_mm3": 0
         },
         {
           "name": "wago-reeds-b",
-          "gap_mm": 84.856417,
+          "gap_mm": 106.6897407,
           "overlap_mm3": 0
         },
         {
@@ -1240,7 +1240,7 @@
         },
         {
           "name": "tube-above-core-vb-yb-cross",
-          "gap_mm": 68.4476025,
+          "gap_mm": 68.5360158,
           "overlap_mm3": 0
         },
         {
@@ -1434,14 +1434,14 @@
       ],
       "passed": true
     },
-    "tube-fluid-18": {
+    "tube-fluid-28": {
       "centerline_radii_mm": [
         25.0
       ],
       "stock_minimum_mm": 25.0,
       "passed": true
     },
-    "tube-fluid-28": {
+    "tube-fluid-18": {
       "centerline_radii_mm": [
         25.0
       ],
@@ -1452,7 +1452,7 @@
   "source_sha256": {
     "hardware/scripts/check_asse_drain.py": "91f5b3bab308ee253339de62919f18cc32d70098476a52bfa61e89cb5d97c418",
     "hardware/manifold-layout/_drain.py": "d4f6db44b344125cf6f9b1bc6be341002dae887d78966ada3029e1e452b94c2a",
-    "hardware/manifold-layout/enclosure_assembly.py": "8d3ab0b769bfe8949584ad591972be03a85562965873410245bada415d2c2b2b",
+    "hardware/manifold-layout/enclosure_assembly.py": "2279b9578beca9c53cf110ee412ffe90f988e19b4c521968705d96b882b05b81",
     "hardware/manifold-layout/_lines.py": "5e58802c1acfbd33055ab2c44af5dc9be5ade5aa24139fbb8f31809543ce316e",
     "hardware/reference/neofit-drain-bulkhead/neofit_drain_bulkhead.py": "a1e869c93ed2dba3873036fe10506b99ace883bc46a033833354be4e49bcc096",
     "hardware/reference/asse1022-assembly/asse1022_assembly.py": "4481085380d131f5d85696f5c366058382b07577c6881a274495e5d67ec2b3eb",

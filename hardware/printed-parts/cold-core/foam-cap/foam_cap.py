@@ -398,7 +398,7 @@ def casing_outline(z0, z1):
 
 
 def build_top_lid():
-    """Equipment passages, integral V-B wall and upward-access wiring wells."""
+    """Equipment passages, integral V-B wall and board-facing wiring wells."""
     lid = add_side_anchors(
         add_chain_anchors(
             add_cradles(cut_deck_mounts_lid(build_foam_cap_lid()), lid_total_height),
@@ -413,8 +413,9 @@ def build_top_lid():
         lid = lid.cut(passage)
     electrical = above_core_wiring.cap_features()
     # Wiring wells keep to the plain casing footprint.
-    lid = lid.union(_above_mounts.world_shape_in_cap(electrical['add'])
-                    .intersect(casing_outline(-1.0, lid_total_height + 30.0)))
+    electrical_stock = _above_mounts.world_shape_in_cap(electrical['add'])
+    lid = lid.union(electrical_stock.intersect(
+        casing_outline(-1.0, electrical_stock.BoundingBox().zmax+1.0)))
     lid = lid.cut(_above_mounts.world_shape_in_cap(electrical['cut']))
     for support in _a_anchors.supports().values():
         lid = lid.union(_above_mounts.world_shape_in_cap(support))
@@ -467,6 +468,8 @@ def main():
     for name, lid, proud in (
         ("foam-cap-lid-bottom", lid_bottom, 0.0),
         ("foam-cap-lid-top", lid_top, max(cradle_proud, anchor_proud, side_proud,
+                    _above_mounts.world_shape_in_cap(
+                        above_core_wiring.cap_features()['add']).BoundingBox().zmax-lid_total_height,
                     *(_above_mounts.valve_support(n,lid_total_height).BoundingBox().zmax
                       - lid_total_height for n in ('valve-v-b',)))),
     ):

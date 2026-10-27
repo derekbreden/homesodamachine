@@ -1,0 +1,178 @@
+{
+  "lid_valid": true,
+  "lid_solids": 1,
+  "clamp_centre_mm": [
+    54.25,
+    209.75,
+    258.5
+  ],
+  "revised_clearances": [
+    {
+      "parts": [
+        "tube-fluid-14",
+        "cold-core/valve-v-b"
+      ],
+      "gap_mm": 1.3850020387352062,
+      "designed_seat": false,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "tube-fluid-14",
+        "lower-valve-elbow"
+      ],
+      "gap_mm": 8.685701128768002,
+      "designed_seat": false,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "tube-fluid-14",
+        "tube-above-core-va-fore-feed"
+      ],
+      "gap_mm": 13.669281109330917,
+      "designed_seat": false,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "tube-fluid-14",
+        "cold-core/reservoir-a-fore-snap-cap"
+      ],
+      "gap_mm": 0.14999999999996108,
+      "designed_seat": true,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "tube-fluid-14",
+        "cold-core/foam-cap-lid-top"
+      ],
+      "gap_mm": 0.14999996906696889,
+      "designed_seat": true,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "tube-fluid-14",
+        "cold-core/ground-stack"
+      ],
+      "gap_mm": 11.538581485534232,
+      "designed_seat": false,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "tube-fluid-16",
+        "cold-core/valve-v-b"
+      ],
+      "gap_mm": 1.7349999999999,
+      "designed_seat": false,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "tube-fluid-16",
+        "lower-valve-elbow"
+      ],
+      "gap_mm": 1.0229081921837664,
+      "designed_seat": false,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "tube-fluid-16",
+        "tube-above-core-va-fore-feed"
+      ],
+      "gap_mm": 6.610124717547383,
+      "designed_seat": false,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "tube-fluid-16",
+        "cold-core/reservoir-a-fore-snap-cap"
+      ],
+      "gap_mm": 0.14999999999991342,
+      "designed_seat": true,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "tube-fluid-16",
+        "cold-core/foam-cap-lid-top"
+      ],
+      "gap_mm": 0.14999991972359583,
+      "designed_seat": true,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "tube-fluid-16",
+        "cold-core/ground-stack"
+      ],
+      "gap_mm": 1.1959552648607044,
+      "designed_seat": false,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "tube-fluid-14",
+        "tube-fluid-16"
+      ],
+      "gap_mm": 1.0100000000000016
+    },
+    {
+      "parts": [
+        "cold-core/reservoir-a-fore-snap-cap",
+        "cold-core/valve-v-b"
+      ],
+      "gap_mm": 6.318942975736659
+    },
+    {
+      "parts": [
+        "cold-core/reservoir-a-fore-snap-cap",
+        "lower-valve-elbow"
+      ],
+      "gap_mm": 75.84276052818001
+    }
+  ],
+  "baseline_assembly_sha256": "bfac33825d17a54fb525efa0c1068df09a6482a8f3994706b40f657cfae0ceb2",
+  "lid_pocket_reading": {
+    "cap_overlap_mm3": 0.0,
+    "spread_approach_gap_mm": 0.15000000000000568,
+    "lid_valid": true,
+    "lid_solids": 1
+  },
+  "restraint_spans": {
+    "fluid-14": {
+      "span_lengths_mm": [
+        176.92884663928393,
+        118.63271840058698,
+        156.95036537162997
+      ],
+      "maximum_span_mm": 176.92884663928393
+    },
+    "fluid-16": {
+      "span_lengths_mm": [
+        136.50581881717073,
+        118.79876951719925,
+        138.75483927559847
+      ],
+      "maximum_span_mm": 138.75483927559847
+    }
+  },
+  "frame_gap": {
+    "gap_mm": 1.2499998999999775,
+    "a_mm": [
+      19.95,
+      228.55,
+      298.65000000000003
+    ],
+    "b_mm": [
+      19.95,
+      228.55,
+      299.8999999
+    ]
+  }
+}

@@ -29,7 +29,8 @@ retain at least 3 mm above the water and gas fittings.
 | V-B return union elbow | Fixed native fitting position | Integral cold-core lid bearing and retaining tie |
 | Two relays | West wall, one above the other | Integral back-top bosses |
 | Mains WAGOs | Beside C14, east of PSU screwdriver approaches | Rear-wall wells |
-| DC/sensor/reed WAGOs and ground stack | Beside the PCB | Cold-core lid wells and ground boss |
+| DC/sensor/reed WAGOs | Two rows on the PCB-facing back of V-B’s wall; fore/aft wire entries, west-opening levers | Integral 3 mm blank-backed wells |
+| Ground stack | Fore of V-B | Cold-core lid ground boss |
 | Reservoir A fill/draw pair | R14 fore passages and paired east-side seats, draw west of fill | Integral cold-core lid base with one removable fore snap cap; one shared narrow tie at the aft paired seat |
 | Valve manifold commons | Beside their front valve rows | Front-top wells |
 
@@ -41,11 +42,10 @@ pitch. The upper row is water/CO2 inlet, the middle row vent/soda outlet, and th
 lower row flavor A/B outlet. C14 is at X−68.5/Z330 and RJ11 at X−30/Z274.376.
 
 Reservoir A's selected routes are defined in
-[reservoir-a-routes.json](reservoir-a-routes.json). The fore seat's tube
-centres are X50.5/58 at Y209.75; the aft pair is X86.5/94 at Y304, all at
-Z259.5. The `fluid-14` fill warm span is 450.588 mm and the `fluid-16`
-draw span is 391.974 mm, including the 16.891 mm receiving ends in their
-front-valve ATEU44W stem elbows.
+[reservoir-a-routes.json](reservoir-a-routes.json). The fore seat’s tube centres
+are X50.5/58 at Y209.75, Z258.5. Both under-valve runs use that height and
+rise to Z259.5 after V-B, ahead of the aft tied seat at Y304. Their front-valve
+ATEU44W stem elbows retain their 16.891 mm receiving ends.
 Each continues through its plain core guide without a joint or physical cut.
 Only the connection points and paired-anchor centres/axes are fixed;
 intervening bends, radii and displayed lengths illustrate routing and may
@@ -120,10 +120,13 @@ fits retain their named material, orientation and artifact scope in the
 
 The funnel extends 35 mm aft (+Y), retaining the fore edge. Its drain is at
 Y179.19575, at the enlarged mouth center. V-B's native origin is
-X38/Y244.90434/Z280.41.
-Its inlet uses level stem elbows with a 10.95 mm exposed straight tube;
-its return crosses west above the PCB at Y280.69954 to the union at
-X−24.83652/Z290.79407, then follows a 2 mm crowned R27.44 return into Y-B.
+X38/Y244.90434/Z279.41. The WAGO wells retain 1.25 mm to the funnel frame.
+Seat the fore-facing WAGO bodies before fitting V-B’s inlet plumbing. The
+[wall-routing review](../printed-parts/cold-core/foam-cap/wago-wall-review/README.md)
+binds the current geometry and lid slice.
+Its inlet uses an R19.98 minimum S-offset between level stem-elbow sockets.
+Its return crosses west above the PCB at Y280.69954 to the union at
+X−24.83652/Z289.79407, then follows a 2 mm crowned R28.66 return into Y-B.
 The union has a direct lid support near its fixed body band. Terminate the
 PCB power connections and seat J11 before fitting the return. The recorded
 J11 housing path (6 mm up, 6 mm east, then 20 mm up with the funnel frame and

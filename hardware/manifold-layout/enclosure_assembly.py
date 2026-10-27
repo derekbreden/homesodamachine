@@ -2559,11 +2559,12 @@ def reservoir_a_anchor_sites(runs) -> tuple:
     by_id = {run.id: run for run in runs}
     spec = _reservoir_a_anchors.specification()
     return tuple(
-        (identifier, (tuple(point), tuple(spec['tube_axis_world']),
+        (identifier, (tuple(point), tuple(axis),
                       (0., 0., -1.), spec['seat_radius_mm']))
         for row in _reservoir_a_anchors.datums().values()
-        for identifier, point in zip(row['routes_west_to_east'],
-                                     row['tube_centers_world_mm'])
+        for identifier, point, axis in zip(row['routes_west_to_east'],
+                                          row['tube_centers_world_mm'],
+                                          row['tube_axes_world'])
         if identifier in by_id)
 
 
@@ -2585,7 +2586,24 @@ def reservoir_a_developed_stations(run, points):
                         if _on_leg(point, p, q, 1.e-6))
             distance += math.dist(p, q)
         else:
-            distance += segment['radius_mm'] * abs(segment['angle_rad'])
+            center, axis = segment['center_mm'], segment['axis']
+            radius, angle = segment['radius_mm'], segment['angle_rad']
+            start = tuple(p-c for p, c in zip(segment['points_mm'][0], center))
+            for point in points:
+                radial = tuple(p-c for p, c in zip(point, center))
+                if (abs(math.dist(point, center)-radius)>1.e-6
+                        or abs(sum(a*b for a, b in zip(radial, axis)))>1.e-6):
+                    continue
+                cross = (start[1]*radial[2]-start[2]*radial[1],
+                         start[2]*radial[0]-start[0]*radial[2],
+                         start[0]*radial[1]-start[1]*radial[0])
+                turn = math.atan2(math.copysign(1., angle)*sum(a*b for a, b in zip(axis, cross)),
+                                  sum(a*b for a, b in zip(start, radial)))
+                if turn < -1.e-6/radius:
+                    turn += 2*math.pi
+                if turn <= abs(angle)+1.e-6/radius:
+                    cuts.append(distance+radius*max(0., turn))
+            distance += radius * abs(angle)
     cuts.append(distance)
     return tuple(sorted(set(cuts)))
 

@@ -1,0 +1,105 @@
+{
+  "archive": "hardware/printed-parts/cold-core/foam-cap/wago-wall-review/print/2026-10-27-foam-cap-lid-top-mark2-a1807ad0/2026-10-27-foam-cap-lid-top-mark2-a1807ad0.gcode.3mf",
+  "archive_sha256": "dedacf6ea130aa0f2750c8ce779e08c9f9e09e957e3830f68017850ca8f37f14",
+  "gcode_md5_matches": true,
+  "emitted_z_trim_mm": [
+    0.0,
+    0.02
+  ],
+  "expected_emitted_textured_trim_mm": 0.02,
+  "layers": 211,
+  "project_check": true,
+  "bead_envelope_plate_mm": [
+    [
+      21.200000000000003,
+      65.95
+    ],
+    [
+      303.8,
+      254.05
+    ]
+  ],
+  "bed_margins_mm": {
+    "left": 21.200000000000003,
+    "front": 65.95,
+    "right": 21.19999999999999,
+    "back": 65.94999999999999
+  },
+  "minimum_bed_margin_mm": 21.19999999999999,
+  "bed_border_mm": 20.0,
+  "fine_and_transition_bands": [],
+  "support_roads": 61693,
+  "show_face_minimum_bead_clearance_mm": null,
+  "show_face_contacts": [],
+  "tie_window_support_crossings": [],
+  "ribbon_support_crossings": [],
+  "ribbons": [],
+  "fine_band_unbacked_roads": [],
+  "first_second_layer_stack": {
+    "1901": {
+      "second_layer_model_bead_area_mm2": 48796.090834552095,
+      "fraction_over_first_layer": 0.9941010965645,
+      "second_layer_centerline_outside_first_mm": 117.51662038338564
+    }
+  },
+  "solid_host_deposition": [
+    {
+      "object": 1901,
+      "name": "Reservoir A fore snap receiver, axial shoulders and lid root",
+      "plate_bounds_mm": [
+        [
+          270.3,
+          198.135,
+          2.4000000000000092
+        ],
+        [
+          282.8,
+          222.865,
+          11.39999999999998
+        ]
+      ],
+      "samples": [
+        {
+          "print_z_mm": 2.84,
+          "coverage": 0.9933124913960734,
+          "stock_mm2": 309.1250000000002
+        },
+        {
+          "print_z_mm": 6.92,
+          "coverage": 0.9931238779057711,
+          "stock_mm2": 279.35490081000614
+        },
+        {
+          "print_z_mm": 11.24,
+          "coverage": 0.9969946332408922,
+          "stock_mm2": 110.27994426001268
+        }
+      ],
+      "minimum_coverage": 0.9931238779057711
+    }
+  ],
+  "support_topology": {
+    "1901": {
+      "support_bodies": 10,
+      "interface_islands": null,
+      "bed_rooted_bodies": 5,
+      "model_rooted_bodies": 5,
+      "shortest_build_up_mm": null,
+      "bodies_without_interface_labels": 1,
+      "explicit_interface_islands": 12,
+      "shortest_labelled_build_up_mm": 0.24
+    }
+  },
+  "scope": "Commanded paths and bead envelopes from this archive. Support removal, surface finish, fit and strength are physical observations.",
+  "checks": {
+    "archive": true,
+    "z_trim": true,
+    "bed_border": true,
+    "fine_and_transition_bands": true,
+    "show_faces_support_free": true,
+    "tie_windows_support_free": true,
+    "ribbons_support_free_and_printed": true,
+    "solid_hosts_sampled": true
+  },
+  "pass": true
+}
