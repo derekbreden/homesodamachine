@@ -93,10 +93,9 @@ def main():
         "TANK_OD": f"{_coil_mandrel_gen.carbonator_od:.4g} mm",
         "NET_UNDERSIZE": f"{_coil_mandrel_gen.net_undersize:.4g} mm",
         "WIND_LENGTH": f"{_coil_mandrel_gen.wind_length:.4g} mm",
-        # total_wraps is a derived float; .3f matches "9.687 wraps".
-        "TOTAL_WRAPS": f"{_coil_mandrel_gen.total_wraps:.3f}",
-        # pitch is derived; .2f matches "12.43 mm".
-        "PITCH": f"{_coil_mandrel_gen.pitch:.2f} mm",
+        # The finished coil's turn count and pitch, set on the vessel fixture.
+        "TOTAL_WRAPS": f"{_coil_gen.TOTAL_WRAPS:.3f}",
+        "PITCH": f"{_coil_gen.PITCH:.2f} mm",
         # Copper consumption. SPRUNG_LEN is the wrap once it has sprung off the mandrel
         # onto the carbonator; LAID_FT is that same wrap with the reed bridge's lift in it —
         # what a build consumes, and what the cut stands on.

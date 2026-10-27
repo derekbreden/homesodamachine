@@ -8,11 +8,22 @@ Order isn't strict — pressure-testing waits on tap + weld being complete on th
 
 ## Bend copper around the pressure vessel
 
-Wind the GOORY 1/4" OD × 0.031" wall ACR copper tubing into the evaporator coil on the printed [coil-mandrel](/hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.py), then pull it off and slip it over the carbonator OD — the as-wound coil runs undersize, so it clamps tight. The 0.031" wall resists kink at the bend radius required around the 5" OD carbonator. Single-layer wrap at the mandrel groove's [12.33 mm](PITCH) pitch yields [13.41 ft](LAID_FT) of wrap per carbonator as it lies on the carbonator, plus a tie-in allowance per end — [335.5 mm](STUB_INLET) at the inlet, [429.6 mm](STUB_OUTLET) at the outlet, each covering that tail's own run out through the copper feed-through wall as well as what protrudes past it ([bom.md §5](/hardware/ledger/bom.md)). Bonded to the carbonator OD with 3M 425 aluminum foil tape — applied as a continuous skin under the coil so the tape spans the carbonator ↔ coil thermal interface ([hardware/README.md](/hardware/README.md) "Refrigeration").
+Form GOORY 1/4" OD × 0.031" wall ACR copper tubing to the complete
+[EVAP-01 production drawing](/hardware/cold-core-layout/evaporator-coil-drawing.pdf).
+The final winding is 9½ right-hand turns over 119.4 mm at [12.57 mm](PITCH)
+pitch on the 5" OD vessel, with the specified local relief over the reed bridge.
+Use the undersized printed [coil mandrel](/hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.py)
+for rough forming, then feed material from the unfinished ends as the finished
+winding is set on the vessel fixture. Form the R15 tangent tails and verify
+their exit stations before foam. Copper allocation is [13.15 ft](LAID_FT) in
+the laid winding plus [354.4 mm](STUB_INLET) at the inlet and
+[446.9 mm](STUB_OUTLET) at the outlet, including each in-core form and its own
+working tail. The finished stock cut and working lengths are controlled by
+EVAP-01. Apply 3M 425 foil as the continuous vessel-to-coil thermal interface.
 
 See [assembly/cold-core.md](/hardware/assembly/cold-core.md) step 1 for the production-procedure framing; the stubs it leaves are brazed in [assembly/refrigerant-loop.md](/hardware/assembly/refrigerant-loop.md).
 
-The [EVAP-01 forming drawing](/hardware/cold-core-layout/evaporator-coil-drawing.pdf)
+The [EVAP-01 production drawing](/hardware/cold-core-layout/evaporator-coil-drawing.pdf)
 defines the installed winding, working tails, exit positions and bend requirements.
 
 ## Tap NPT in 316L end caps

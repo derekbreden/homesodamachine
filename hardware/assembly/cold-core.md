@@ -54,21 +54,24 @@ Bond the coil to the carbonator OD with 3M 425 aluminum foil tape applied as a c
 
 Before closing the foil skin over the coil's outlet (high) end — the suction side, refrigerant leaving as low-pressure gas, the coldest metal — tuck the **DS18S20 coil probe** (bare TO-92, family 0x10, leads heat-shrunk) flat against the copper and tape it down under the foil. This is the freeze-protect sensor; thermally bonding it to the suction-end copper is what lets the −8 °C cutoff see the coldest point. Distinct 1-wire family codes let firmware tell it and the carbonator probe apart deterministically, with no per-unit ID map.
 
-Wind around the printed [coil-mandrel](/hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.py) — hollow PETG cylinder with a shallow [1 mm](GROOVE_DEPTH) helical guide groove, mandrel OD [123 mm](MANDREL_OD), carbonator OD [127 mm](TANK_OD), net coil undersize [3 mm](NET_UNDERSIZE). Wind length [119.4 mm](WIND_LENGTH), [9.687](TOTAL_WRAPS) wraps, pitch [12.33 mm](PITCH) — [4.06 m](SPRUNG_LEN) of copper in the wrap once it has sprung off the mandrel onto the carbonator. The wrap runs between the two tails at Y=[47](TAIL_INLET_Y) and Y=[166.4](TAIL_OUTLET_Y) — the elbow bands clear of the carbonator, independent of the exit stations. The tails leave mirrored about the mandrel's centre plane, one either side, because each takes its own lane: the inlet to the port lane, the outlet to the west, and each drops its own lane to an exit at the height the other's is at. Pull the wound coil off the mandrel and slip it onto the foil-taped carbonator. Coil springback: 1–3 mm radial. The wraps land where the pitch puts them; the bridge lifts whichever ones cross it, so the coil is clocked only by its two tails, not to the carbonator.
+Rough-form with the printed [coil mandrel](/hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.py),
+a hollow PETG drum of OD [123 mm](MANDREL_OD). Set the finished winding on the
+foil-taped [127 mm](TANK_OD) vessel: [9.500](TOTAL_WRAPS) right-hand turns over
+[119.4 mm](WIND_LENGTH), pitch [12.57 mm](PITCH). Feed material from the long
+unfinished ends while setting that diameter and pitch. The lower helix end is
+on −Y at Z47.00 mm; the upper end is on +Y at Z166.40 mm. Form both complete
+R15 mm tangent tails per EVAP-01: opposite plan offsets to the two lanes,
+an inlet vertical dogleg, and an outlet vertical drop. Both exits retain their
+−X direction at Y=±77.50 mm, Z28.425 mm. The winding eases over the reed bridge
+at the drawing's specified radial relief and contacts the vessel elsewhere.
 
 The carbonator leaves this step with three lead runs on it — the two probes and the reed pair's 3-conductor bundle — all led toward the top cap’s shared `sensor-cable` passage for routing in step 5.
 
-The [EVAP-01 forming drawing](/hardware/cold-core-layout/evaporator-coil-drawing.pdf)
-controls the installed winding, exit coordinates, working tails and inspection
-before foam. Its centerlines describe the fitted coil; the mandrel is the forming
-aid. Coil-forming instructions: [`/hardware/handwork.md`](/hardware/assembly/handwork.md)
+The [EVAP-01 production drawing](/hardware/cold-core-layout/evaporator-coil-drawing.pdf)
+controls the complete formed tube, all tail bends and straights, exit coordinates,
+working lengths and inspection before foam. Sheet 2 gives the tangent stations
+and bend data. Coil-forming instructions: [`handwork.md`](/hardware/assembly/handwork.md)
 "Bend copper around the pressure vessel".
-
-EVAP-01 identifies the tail routing still requiring release: the layout's
-rounded inlet/outlet arcs reach R5.72/R8.78 mm, below the R12.7 mm stock minimum.
-Those intermediate curves are omitted from the forming drawing. Establish
-compliant transitions and confirm assembled clearances and first-article fit
-before committing the coil to foam.
 
 ### 2. Press ruthex inserts into the outer shell
 
@@ -98,17 +101,20 @@ The V-B return has its own integral lid restraint and one six-inch narrow tie. T
 
 The main PCB uses the full-length inserts prepared here. The PSU and both relays mount on back-top's dry sidewall; their wall inserts are installed during enclosure assembly. The electronics ceiling is continuous.
 
-The Reservoir A fill/draw pair uses a fore snap seat at Y209.75 mm and an aft tied
-seat at Y304 mm on the lid. Draw occupies the west seat at each station. Lay both continuous tubes into the fore
-half-pipes and press the separate `reservoir-a-fore-snap-cap` down until both snap wings
-engage the integral base. At the aft station, Y304 mm, thread one four-inch narrow tie
+The Reservoir A fill/draw pair uses two integral fore C2 clips on one broad lid
+base at Y209.75, Z258.5 mm, with draw at X50.5 and fill at X64.0 mm. Press each
+continuous tube downward through its open +Z mouth. For removal, release the
+exposed jaws and lift the tube upward. At the aft station, Y304 mm, thread one four-inch narrow tie
 through the empty transverse slot before laying in the pair; one common tie retains
 both tubes there. Its slot has 3 mm of seat floor above it. Their plain cap guides add
 no joint or physical tube cut; follow the combined warm/internal preparation in
 [internal plumbing](internal-plumbing.md). Tighten the pump screws before threading
 the continuous draw tube, which crosses one driver approach; remove the tube for that
-screw’s service. Snap fit, insertion force and retention remain physically unqualified;
-the aft tie witness does not qualify threading, head engagement or retention.
+screw’s service. The selected quarter-inch C2 bore and spring section have
+[accepted coupon fit](../../future/snap-fit-tests/2026-10-26-mark2-combined/physical-result.json).
+The complete widened station's print, installed access, numerical insertion and
+retention forces, and lifetime remain unqualified; the aft tie witness does not
+qualify threading, head engagement or retention.
 
 ### 4. Reservoir subassembly (both, at the bench)
 
