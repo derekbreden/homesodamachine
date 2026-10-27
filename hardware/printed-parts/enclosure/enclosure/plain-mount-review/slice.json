@@ -1,0 +1,1202 @@
+{
+  "archive": ".cache/prints/trial/2026-10-27-back-top-mark2-d701dfbb/2026-10-27-back-top-mark2-d701dfbb.gcode.3mf",
+  "archive_sha256": "1095401c295941a40334bd33524d1754150d54e6d5af71154317a12b07f2646c",
+  "gcode_md5_matches": true,
+  "emitted_z_trim_mm": [
+    0.0,
+    0.02
+  ],
+  "expected_emitted_textured_trim_mm": 0.02,
+  "layers": 812,
+  "project_check": true,
+  "bead_envelope_plate_mm": [
+    [
+      20.278740000000003,
+      52.35374
+    ],
+    [
+      303.215,
+      267.64626000000004
+    ]
+  ],
+  "bed_margins_mm": {
+    "left": 20.278740000000003,
+    "front": 52.35374,
+    "right": 21.785000000000025,
+    "back": 52.35373999999996
+  },
+  "minimum_bed_margin_mm": 20.278740000000003,
+  "bed_border_mm": 20.0,
+  "fine_and_transition_bands": [
+    {
+      "object": 1901,
+      "name": "Roof side edge transition",
+      "transition_band_mm": [
+        0.0,
+        6.099992998780998
+      ],
+      "emitted_wall_layer_heights_mm": [
+        0.2,
+        0.24
+      ],
+      "pass": true
+    }
+  ],
+  "support_roads": 473138,
+  "show_face_minimum_bead_clearance_mm": null,
+  "show_face_contacts": [],
+  "tie_window_support_crossings": [],
+  "ribbon_support_crossings": [],
+  "ribbons": [
+    {
+      "object": 1901,
+      "ribbon": 1,
+      "layers_with_ribbon_roads": 23,
+      "declared_layers": 23,
+      "first_z_mm": 180.44,
+      "last_z_mm": 185.72
+    },
+    {
+      "object": 1901,
+      "ribbon": 2,
+      "layers_with_ribbon_roads": 23,
+      "declared_layers": 23,
+      "first_z_mm": 180.44,
+      "last_z_mm": 185.72
+    },
+    {
+      "object": 1901,
+      "ribbon": 3,
+      "layers_with_ribbon_roads": 23,
+      "declared_layers": 23,
+      "first_z_mm": 180.44,
+      "last_z_mm": 185.72
+    }
+  ],
+  "fine_band_unbacked_roads": [],
+  "first_second_layer_stack": {
+    "1901": {
+      "second_layer_model_bead_area_mm2": 42623.29783788384,
+      "fraction_over_first_layer": 0.994715234810624,
+      "second_layer_centerline_outside_first_mm": 537.1778963292464
+    }
+  },
+  "solid_host_deposition": [
+    {
+      "object": 1901,
+      "name": "Y seam knuckle and its wall root +1/265.25",
+      "plate_bounds_mm": [
+        [
+          20.425996948242187,
+          52.501000000000005,
+          0.0009999999999763531
+        ],
+        [
+          40.08500305175781,
+          68.5,
+          89.75
+        ]
+      ],
+      "samples": [
+        {
+          "print_z_mm": 0.44,
+          "coverage": 0.9989674777379856,
+          "stock_mm2": 24.408001673169935
+        },
+        {
+          "print_z_mm": 45.08,
+          "coverage": 0.9956374593596282,
+          "stock_mm2": 265.303092437718
+        },
+        {
+          "print_z_mm": 89.48,
+          "coverage": 0.9962582457253011,
+          "stock_mm2": 265.30343096366755
+        }
+      ],
+      "minimum_coverage": 0.9956374593596282
+    },
+    {
+      "object": 1901,
+      "name": "Y seam knuckle and its wall root -1/265.25",
+      "plate_bounds_mm": [
+        [
+          20.425996948242187,
+          251.5,
+          0.0009999999999763531
+        ],
+        [
+          40.08500305175781,
+          267.499,
+          89.75
+        ]
+      ],
+      "samples": [
+        {
+          "print_z_mm": 0.44,
+          "coverage": 0.998967477737986,
+          "stock_mm2": 24.40800167316991
+        },
+        {
+          "print_z_mm": 45.08,
+          "coverage": 0.9949599632353606,
+          "stock_mm2": 265.3030937167106
+        },
+        {
+          "print_z_mm": 89.48,
+          "coverage": 0.9961042439177435,
+          "stock_mm2": 265.30343109406357
+        }
+      ],
+      "minimum_coverage": 0.9949599632353606
+    },
+    {
+      "object": 1901,
+      "name": "Z rail, end stop and wall root -1",
+      "plate_bounds_mm": [
+        [
+          20.425996948242187,
+          52.501000000000005,
+          177.2
+        ],
+        [
+          291.5750030517578,
+          56.650000000000006,
+          194.749
+        ]
+      ],
+      "samples": [
+        {
+          "print_z_mm": 177.56,
+          "coverage": 0.9941339228614905,
+          "stock_mm2": 875.4195754801805
+        },
+        {
+          "print_z_mm": 186.2,
+          "coverage": 0.9903620593880562,
+          "stock_mm2": 779.1019178947892
+        },
+        {
+          "print_z_mm": 194.6,
+          "coverage": 0.9972931221965035,
+          "stock_mm2": 1025.8057422035158
+        }
+      ],
+      "minimum_coverage": 0.9903620593880562
+    },
+    {
+      "object": 1901,
+      "name": "Z rail, end stop and wall root -1",
+      "plate_bounds_mm": [
+        [
+          20.425996948242187,
+          61.099999999999994,
+          177.2
+        ],
+        [
+          291.5750030517578,
+          70.0,
+          194.749
+        ]
+      ],
+      "samples": [
+        {
+          "print_z_mm": 177.56,
+          "coverage": 0.9963126618691653,
+          "stock_mm2": 258.97465856950885
+        },
+        {
+          "print_z_mm": 186.2,
+          "coverage": 0.9951341607868263,
+          "stock_mm2": 86.6686972368047
+        },
+        {
+          "print_z_mm": 194.6,
+          "coverage": 0.9979128703688575,
+          "stock_mm2": 181.42415741878273
+        }
+      ],
+      "minimum_coverage": 0.9951341607868263
+    },
+    {
+      "object": 1901,
+      "name": "Z rail, end stop and wall root -1",
+      "plate_bounds_mm": [
+        [
+          20.425996948242187,
+          56.650000000000006,
+          177.2
+        ],
+        [
+          44.475006103515625,
+          61.099999999999994,
+          194.749
+        ]
+      ],
+      "samples": [
+        {
+          "print_z_mm": 177.56,
+          "coverage": 0.9958508083478484,
+          "stock_mm2": 19.580000460644474
+        },
+        {
+          "print_z_mm": 194.6,
+          "coverage": 1.0,
+          "stock_mm2": 1.7800004606445183
+        }
+      ],
+      "minimum_coverage": 0.9958508083478484
+    },
+    {
+      "object": 1901,
+      "name": "Z rail, end stop and wall root -1",
+      "plate_bounds_mm": [
+        [
+          137.67499084472658,
+          56.650000000000006,
+          177.2
+        ],
+        [
+          150.47499084472653,
+          61.099999999999994,
+          194.749
+        ]
+      ],
+      "samples": [
+        {
+          "print_z_mm": 177.56,
+          "coverage": 0.9958061159656793,
+          "stock_mm2": 28.75999999999972
+        },
+        {
+          "print_z_mm": 194.6,
+          "coverage": 0.9999887500000284,
+          "stock_mm2": 3.5599999999997882
+        }
+      ],
+      "minimum_coverage": 0.9958061159656793
+    },
+    {
+      "object": 1901,
+      "name": "Z rail, end stop and wall root -1",
+      "plate_bounds_mm": [
+        [
+          276.1749908447266,
+          56.650000000000006,
+          177.2
+        ],
+        [
+          291.5750030517578,
+          61.099999999999994,
+          194.749
+        ]
+      ],
+      "samples": [
+        {
+          "print_z_mm": 177.56,
+          "coverage": 0.9978452747576873,
+          "stock_mm2": 57.70187279986894
+        },
+        {
+          "print_z_mm": 186.2,
+          "coverage": 0.9986625853731104,
+          "stock_mm2": 55.92186980072756
+        },
+        {
+          "print_z_mm": 194.6,
+          "coverage": 0.9985330833919215,
+          "stock_mm2": 61.80701560021737
+        }
+      ],
+      "minimum_coverage": 0.9978452747576873
+    },
+    {
+      "object": 1901,
+      "name": "Z rail, end stop and wall root -1",
+      "plate_bounds_mm": [
+        [
+          150.47499084472653,
+          56.650000000000006,
+          185.65999999999997
+        ],
+        [
+          276.1749908447266,
+          61.099999999999994,
+          194.749
+        ]
+      ],
+      "samples": [
+        {
+          "print_z_mm": 190.28,
+          "coverage": 0.9974872074881772,
+          "stock_mm2": 559.3649999999989
+        },
+        {
+          "print_z_mm": 194.6,
+          "coverage": 0.9982989151935211,
+          "stock_mm2": 559.3649999999989
+        }
+      ],
+      "minimum_coverage": 0.9974872074881772
+    },
+    {
+      "object": 1901,
+      "name": "Z rail, end stop and wall root -1",
+      "plate_bounds_mm": [
+        [
+          150.47499084472653,
+          56.650000000000006,
+          177.2
+        ],
+        [
+          276.1749908447266,
+          61.099999999999994,
+          180.25999999999996
+        ]
+      ],
+      "samples": [
+        {
+          "print_z_mm": 177.56,
+          "coverage": 0.9976951608221266,
+          "stock_mm2": 559.3649999999989
+        },
+        {
+          "print_z_mm": 178.76,
+          "coverage": 0.9975381271215091,
+          "stock_mm2": 559.3649999999989
+        },
+        {
+          "print_z_mm": 179.96,
+          "coverage": 0.9999396883695398,
+          "stock_mm2": 559.3649999999989
+        }
+      ],
+      "minimum_coverage": 0.9975381271215091
+    },
+    {
+      "object": 1901,
+      "name": "Z rail, end stop and wall root -1",
+      "plate_bounds_mm": [
+        [
+          44.475006103515625,
+          56.650000000000006,
+          185.65999999999997
+        ],
+        [
+          137.67499084472658,
+          61.099999999999994,
+          194.749
+        ]
+      ],
+      "samples": [
+        {
+          "print_z_mm": 190.28,
+          "coverage": 0.9975584618450453,
+          "stock_mm2": 414.73993209838767
+        },
+        {
+          "print_z_mm": 194.6,
+          "coverage": 0.9982199945842607,
+          "stock_mm2": 414.73993209838767
+        }
+      ],
+      "minimum_coverage": 0.9975584618450453
+    },
+    {
+      "object": 1901,
+      "name": "Z rail, end stop and wall root -1",
+      "plate_bounds_mm": [
+        [
+          44.475006103515625,
+          56.650000000000006,
+          177.2
+        ],
+        [
+          137.67499084472658,
+          61.099999999999994,
+          180.25999999999996
+        ]
+      ],
+      "samples": [
+        {
+          "print_z_mm": 177.56,
+          "coverage": 0.9977216453074204,
+          "stock_mm2": 414.73993209838767
+        },
+        {
+          "print_z_mm": 178.76,
+          "coverage": 0.9977730454391,
+          "stock_mm2": 414.73993209838767
+        },
+        {
+          "print_z_mm": 179.96,
+          "coverage": 0.9999391741691144,
+          "stock_mm2": 414.73993209838767
+        }
+      ],
+      "minimum_coverage": 0.9977216453074204
+    },
+    {
+      "object": 1901,
+      "name": "Z rail, end stop and wall root +1",
+      "plate_bounds_mm": [
+        [
+          20.425996948242187,
+          250.0,
+          177.2
+        ],
+        [
+          291.5750030517578,
+          258.9,
+          194.749
+        ]
+      ],
+      "samples": [
+        {
+          "print_z_mm": 177.56,
+          "coverage": 0.9961497961019906,
+          "stock_mm2": 181.26868977585042
+        },
+        {
+          "print_z_mm": 186.2,
+          "coverage": 0.9919205801449767,
+          "stock_mm2": 86.66869657611939
+        },
+        {
+          "print_z_mm": 194.6,
+          "coverage": 0.9992419943026227,
+          "stock_mm2": 186.224294109489
+        }
+      ],
+      "minimum_coverage": 0.9919205801449767
+    },
+    {
+      "object": 1901,
+      "name": "Z rail, end stop and wall root +1",
+      "plate_bounds_mm": [
+        [
+          20.425996948242187,
+          263.35,
+          177.2
+        ],
+        [
+          291.5750030517578,
+          267.499,
+          194.749
+        ]
+      ],
+      "samples": [
+        {
+          "print_z_mm": 177.56,
+          "coverage": 0.9939592791844096,
+          "stock_mm2": 875.365963943502
+        },
+        {
+          "print_z_mm": 186.2,
+          "coverage": 0.9906838826770501,
+          "stock_mm2": 780.7659642120946
+        },
+        {
+          "print_z_mm": 194.6,
+          "coverage": 0.9978274751695148,
+          "stock_mm2": 1075.5257364900942
+        }
+      ],
+      "minimum_coverage": 0.9906838826770501
+    },
+    {
+      "object": 1901,
+      "name": "Z rail, end stop and wall root +1",
+      "plate_bounds_mm": [
+        [
+          20.425996948242187,
+          258.9,
+          177.2
+        ],
+        [
+          44.475006103515625,
+          263.35,
+          194.749
+        ]
+      ],
+      "samples": [
+        {
+          "print_z_mm": 177.56,
+          "coverage": 0.9937265527381249,
+          "stock_mm2": 19.580000460644722
+        },
+        {
+          "print_z_mm": 194.6,
+          "coverage": 1.0,
+          "stock_mm2": 1.780000460644541
+        }
+      ],
+      "minimum_coverage": 0.9937265527381249
+    },
+    {
+      "object": 1901,
+      "name": "Z rail, end stop and wall root +1",
+      "plate_bounds_mm": [
+        [
+          276.1749908447266,
+          258.9,
+          177.2
+        ],
+        [
+          291.5750030517578,
+          263.35,
+          194.749
+        ]
+      ],
+      "samples": [
+        {
+          "print_z_mm": 177.56,
+          "coverage": 0.9941730975882325,
+          "stock_mm2": 57.70187411104661
+        },
+        {
+          "print_z_mm": 186.2,
+          "coverage": 0.9952635122787644,
+          "stock_mm2": 55.92187086021949
+        },
+        {
+          "print_z_mm": 194.6,
+          "coverage": 0.9994867304410421,
+          "stock_mm2": 61.80699977291878
+        }
+      ],
+      "minimum_coverage": 0.9941730975882325
+    },
+    {
+      "object": 1901,
+      "name": "Z rail, end stop and wall root +1",
+      "plate_bounds_mm": [
+        [
+          44.475006103515625,
+          258.9,
+          185.65999999999997
+        ],
+        [
+          276.1749908447266,
+          263.35,
+          194.749
+        ]
+      ],
+      "samples": [
+        {
+          "print_z_mm": 190.28,
+          "coverage": 0.9977124668616387,
+          "stock_mm2": 1031.0649320983994
+        },
+        {
+          "print_z_mm": 194.6,
+          "coverage": 0.9982955908306179,
+          "stock_mm2": 1031.0649320983994
+        }
+      ],
+      "minimum_coverage": 0.9977124668616387
+    },
+    {
+      "object": 1901,
+      "name": "Z rail, end stop and wall root +1",
+      "plate_bounds_mm": [
+        [
+          44.475006103515625,
+          258.9,
+          177.2
+        ],
+        [
+          276.1749908447266,
+          263.35,
+          180.25999999999996
+        ]
+      ],
+      "samples": [
+        {
+          "print_z_mm": 177.56,
+          "coverage": 0.9977521264888742,
+          "stock_mm2": 1031.0649320983994
+        },
+        {
+          "print_z_mm": 178.76,
+          "coverage": 0.9977689057331892,
+          "stock_mm2": 1031.0649320983994
+        },
+        {
+          "print_z_mm": 179.96,
+          "coverage": 0.999939697797673,
+          "stock_mm2": 1031.0649320983994
+        }
+      ],
+      "minimum_coverage": 0.9977521264888742
+    },
+    {
+      "object": 1901,
+      "name": "PSU bearing pad, insert host and west wall root 1",
+      "plate_bounds_mm": [
+        [
+          166.77501525878907,
+          52.501000000000005,
+          53.10000000000002
+        ],
+        [
+          176.77501525878907,
+          64.0,
+          63.10000000000002
+        ]
+      ],
+      "samples": [
+        {
+          "print_z_mm": 53.48,
+          "coverage": 0.9898788184165527,
+          "stock_mm2": 90.1838776509464
+        },
+        {
+          "print_z_mm": 58.28,
+          "coverage": 0.9873232963112403,
+          "stock_mm2": 78.03811658448046
+        },
+        {
+          "print_z_mm": 62.84,
+          "coverage": 0.9846433152709372,
+          "stock_mm2": 91.78292487919941
+        }
+      ],
+      "minimum_coverage": 0.9846433152709372
+    },
+    {
+      "object": 1901,
+      "name": "PSU bearing pad, insert host and west wall root 2",
+      "plate_bounds_mm": [
+        [
+          264.77501525878904,
+          52.501000000000005,
+          53.10000000000002
+        ],
+        [
+          274.77501525878904,
+          64.0,
+          63.10000000000002
+        ]
+      ],
+      "samples": [
+        {
+          "print_z_mm": 53.48,
+          "coverage": 0.991978391310076,
+          "stock_mm2": 90.29668026468286
+        },
+        {
+          "print_z_mm": 58.28,
+          "coverage": 0.9875627620768718,
+          "stock_mm2": 78.15091910648886
+        },
+        {
+          "print_z_mm": 62.84,
+          "coverage": 0.9850634701277208,
+          "stock_mm2": 91.8957277702049
+        }
+      ],
+      "minimum_coverage": 0.9850634701277208
+    },
+    {
+      "object": 1901,
+      "name": "PSU bearing pad, insert host and west wall root 3",
+      "plate_bounds_mm": [
+        [
+          166.77501525878907,
+          52.501000000000005,
+          86.10000000000002
+        ],
+        [
+          176.77501525878907,
+          64.0,
+          96.10000000000002
+        ]
+      ],
+      "samples": [
+        {
+          "print_z_mm": 86.6,
+          "coverage": 0.9755410434734397,
+          "stock_mm2": 91.78316032407494
+        },
+        {
+          "print_z_mm": 91.16,
+          "coverage": 0.9879312247334908,
+          "stock_mm2": 78.03811618433711
+        },
+        {
+          "print_z_mm": 95.96,
+          "coverage": 0.9855852228293854,
+          "stock_mm2": 90.18356545597402
+        }
+      ],
+      "minimum_coverage": 0.9755410434734397
+    },
+    {
+      "object": 1901,
+      "name": "PSU bearing pad, insert host and west wall root 4",
+      "plate_bounds_mm": [
+        [
+          264.77501525878904,
+          52.501000000000005,
+          86.10000000000002
+        ],
+        [
+          274.77501525878904,
+          64.0,
+          96.10000000000002
+        ]
+      ],
+      "samples": [
+        {
+          "print_z_mm": 86.6,
+          "coverage": 0.977884887105069,
+          "stock_mm2": 91.89596287933789
+        },
+        {
+          "print_z_mm": 91.16,
+          "coverage": 0.987211233718303,
+          "stock_mm2": 78.15091903181495
+        },
+        {
+          "print_z_mm": 95.96,
+          "coverage": 0.9856239476241926,
+          "stock_mm2": 90.29636732115195
+        }
+      ],
+      "minimum_coverage": 0.977884887105069
+    },
+    {
+      "object": 1901,
+      "name": "Relay bearing pad, insert host and west wall root 1",
+      "plate_bounds_mm": [
+        [
+          180.27500305175775,
+          52.501000000000005,
+          40.60000000000002
+        ],
+        [
+          190.27500305175775,
+          65.51,
+          50.60000000000002
+        ]
+      ],
+      "samples": [
+        {
+          "print_z_mm": 41.0,
+          "coverage": 0.9802380429721596,
+          "stock_mm2": 88.40787017559208
+        },
+        {
+          "print_z_mm": 45.8,
+          "coverage": 0.9864633150084458,
+          "stock_mm2": 84.43225994522129
+        },
+        {
+          "print_z_mm": 50.36,
+          "coverage": 0.9846218877313997,
+          "stock_mm2": 89.20183459672675
+        }
+      ],
+      "minimum_coverage": 0.9802380429721596
+    },
+    {
+      "object": 1901,
+      "name": "Relay bearing pad, insert host and west wall root 2",
+      "plate_bounds_mm": [
+        [
+          180.27500305175775,
+          52.501000000000005,
+          27.600000000000023
+        ],
+        [
+          190.27500305175775,
+          65.51,
+          37.60000000000002
+        ]
+      ],
+      "samples": [
+        {
+          "print_z_mm": 28.04,
+          "coverage": 0.9866492581620737,
+          "stock_mm2": 102.50629715956137
+        },
+        {
+          "print_z_mm": 32.6,
+          "coverage": 0.9913561648730753,
+          "stock_mm2": 113.1130629022702
+        },
+        {
+          "print_z_mm": 37.4,
+          "coverage": 0.9853394054851504,
+          "stock_mm2": 88.81840619491955
+        }
+      ],
+      "minimum_coverage": 0.9853394054851504
+    },
+    {
+      "object": 1901,
+      "name": "Relay bearing pad, insert host and west wall root 3",
+      "plate_bounds_mm": [
+        [
+          246.27500305175775,
+          52.501000000000005,
+          40.60000000000002
+        ],
+        [
+          256.2750030517577,
+          65.51,
+          50.60000000000002
+        ]
+      ],
+      "samples": [
+        {
+          "print_z_mm": 41.0,
+          "coverage": 0.9796863559917942,
+          "stock_mm2": 88.44915252292842
+        },
+        {
+          "print_z_mm": 45.8,
+          "coverage": 0.9903119482976125,
+          "stock_mm2": 113.1625874255668
+        },
+        {
+          "print_z_mm": 50.36,
+          "coverage": 0.9844037298665118,
+          "stock_mm2": 89.24311613103266
+        }
+      ],
+      "minimum_coverage": 0.9796863559917942
+    },
+    {
+      "object": 1901,
+      "name": "Relay bearing pad, insert host and west wall root 4",
+      "plate_bounds_mm": [
+        [
+          246.27500305175775,
+          52.501000000000005,
+          27.600000000000023
+        ],
+        [
+          256.2750030517577,
+          65.51,
+          37.60000000000002
+        ]
+      ],
+      "samples": [
+        {
+          "print_z_mm": 28.04,
+          "coverage": 0.9902988507077914,
+          "stock_mm2": 108.54543118008974
+        },
+        {
+          "print_z_mm": 32.6,
+          "coverage": 0.987773512630198,
+          "stock_mm2": 84.49691996705708
+        },
+        {
+          "print_z_mm": 37.4,
+          "coverage": 0.9843576749111271,
+          "stock_mm2": 88.85968789906808
+        }
+      ],
+      "minimum_coverage": 0.9843576749111271
+    },
+    {
+      "object": 1901,
+      "name": "Relay bearing pad, insert host and west wall root 5",
+      "plate_bounds_mm": [
+        [
+          180.2750030517578,
+          52.501000000000005,
+          21.0
+        ],
+        [
+          190.2750030517578,
+          65.51,
+          31.0
+        ]
+      ],
+      "samples": [
+        {
+          "print_z_mm": 21.56,
+          "coverage": 0.9905498026323295,
+          "stock_mm2": 89.90428591423587
+        },
+        {
+          "print_z_mm": 26.12,
+          "coverage": 0.9864987298334448,
+          "stock_mm2": 84.41390371109088
+        },
+        {
+          "print_z_mm": 30.68,
+          "coverage": 0.9910755990093593,
+          "stock_mm2": 107.81403768797985
+        }
+      ],
+      "minimum_coverage": 0.9864987298334448
+    },
+    {
+      "object": 1901,
+      "name": "Relay bearing pad, insert host and west wall root 6",
+      "plate_bounds_mm": [
+        [
+          180.2750030517578,
+          52.501000000000005,
+          8.0
+        ],
+        [
+          190.2750030517578,
+          65.51,
+          18.0
+        ]
+      ],
+      "samples": [
+        {
+          "print_z_mm": 8.36,
+          "coverage": 0.9899439529762667,
+          "stock_mm2": 123.19463923773745
+        },
+        {
+          "print_z_mm": 13.16,
+          "coverage": 0.9909909927772498,
+          "stock_mm2": 113.12605900504101
+        },
+        {
+          "print_z_mm": 17.72,
+          "coverage": 0.9826022726781207,
+          "stock_mm2": 89.563314367773
+        }
+      ],
+      "minimum_coverage": 0.9826022726781207
+    },
+    {
+      "object": 1901,
+      "name": "Relay bearing pad, insert host and west wall root 7",
+      "plate_bounds_mm": [
+        [
+          246.2750030517578,
+          52.501000000000005,
+          21.0
+        ],
+        [
+          256.27500305175784,
+          65.51,
+          31.0
+        ]
+      ],
+      "samples": [
+        {
+          "print_z_mm": 21.56,
+          "coverage": 0.9904732360965626,
+          "stock_mm2": 89.9455682902734
+        },
+        {
+          "print_z_mm": 26.12,
+          "coverage": 0.9904650408856803,
+          "stock_mm2": 113.1712312920179
+        },
+        {
+          "print_z_mm": 30.68,
+          "coverage": 0.9871088289726376,
+          "stock_mm2": 107.8553206925436
+        }
+      ],
+      "minimum_coverage": 0.9871088289726376
+    },
+    {
+      "object": 1901,
+      "name": "Relay bearing pad, insert host and west wall root 8",
+      "plate_bounds_mm": [
+        [
+          246.2750030517578,
+          52.501000000000005,
+          8.0
+        ],
+        [
+          256.27500305175784,
+          65.51,
+          18.0
+        ]
+      ],
+      "samples": [
+        {
+          "print_z_mm": 8.36,
+          "coverage": 0.9905473106599478,
+          "stock_mm2": 123.2315365275557
+        },
+        {
+          "print_z_mm": 13.16,
+          "coverage": 0.9857038620792317,
+          "stock_mm2": 84.4587663259415
+        },
+        {
+          "print_z_mm": 17.72,
+          "coverage": 0.9832174618974111,
+          "stock_mm2": 89.6045964652328
+        }
+      ],
+      "minimum_coverage": 0.9832174618974111
+    },
+    {
+      "object": 1901,
+      "name": "C14 blind insert host and rear wall root -1",
+      "plate_bounds_mm": [
+        [
+          278.0750030517578,
+          66.395,
+          20.0
+        ],
+        [
+          291.5750030517578,
+          76.395,
+          30.0
+        ]
+      ],
+      "samples": [
+        {
+          "print_z_mm": 20.36,
+          "coverage": 0.9608715927566667,
+          "stock_mm2": 80.83840074800935
+        },
+        {
+          "print_z_mm": 25.16,
+          "coverage": 0.9897713391235405,
+          "stock_mm2": 73.50262574442576
+        },
+        {
+          "print_z_mm": 29.72,
+          "coverage": 0.9846498628102822,
+          "stock_mm2": 83.8706521301746
+        }
+      ],
+      "minimum_coverage": 0.9608715927566667
+    },
+    {
+      "object": 1901,
+      "name": "C14 blind insert host and rear wall root +1",
+      "plate_bounds_mm": [
+        [
+          278.0750030517578,
+          106.605,
+          20.0
+        ],
+        [
+          291.5750030517578,
+          116.605,
+          30.0
+        ]
+      ],
+      "samples": [
+        {
+          "print_z_mm": 20.36,
+          "coverage": 0.9650037620674374,
+          "stock_mm2": 93.99936935816417
+        },
+        {
+          "print_z_mm": 25.16,
+          "coverage": 0.9869483322436062,
+          "stock_mm2": 73.50486223843606
+        },
+        {
+          "print_z_mm": 29.72,
+          "coverage": 0.984938333563934,
+          "stock_mm2": 97.4916497975665
+        }
+      ],
+      "minimum_coverage": 0.9650037620674374
+    },
+    {
+      "object": 1901,
+      "name": "Funnel frame receiver, blind cap and full flank root 1",
+      "plate_bounds_mm": [
+        [
+          73.7665109750391,
+          52.501000000000005,
+          9.000000100000022
+        ],
+        [
+          85.7665109750391,
+          77.3,
+          19.20000010000001
+        ]
+      ],
+      "samples": [
+        {
+          "print_z_mm": 9.56,
+          "coverage": 0.9923046644718436,
+          "stock_mm2": 276.2637590354256
+        },
+        {
+          "print_z_mm": 14.12,
+          "coverage": 0.9953895389254191,
+          "stock_mm2": 276.26375993209683
+        },
+        {
+          "print_z_mm": 18.92,
+          "coverage": 0.9940780942905214,
+          "stock_mm2": 288.8288297992078
+        }
+      ],
+      "minimum_coverage": 0.9923046644718436
+    },
+    {
+      "object": 1901,
+      "name": "Funnel frame receiver, blind cap and full flank root 2",
+      "plate_bounds_mm": [
+        [
+          73.7665109750391,
+          242.7,
+          9.000000100000022
+        ],
+        [
+          85.7665109750391,
+          267.499,
+          19.20000010000001
+        ]
+      ],
+      "samples": [
+        {
+          "print_z_mm": 9.56,
+          "coverage": 0.9924674873221419,
+          "stock_mm2": 276.2637595048396
+        },
+        {
+          "print_z_mm": 14.12,
+          "coverage": 0.9947004708937766,
+          "stock_mm2": 276.2637592097754
+        },
+        {
+          "print_z_mm": 18.92,
+          "coverage": 0.9943021908271846,
+          "stock_mm2": 288.82882873109804
+        }
+      ],
+      "minimum_coverage": 0.9924674873221419
+    }
+  ],
+  "support_topology": {
+    "1901": {
+      "support_bodies": 16,
+      "interface_islands": null,
+      "bed_rooted_bodies": 6,
+      "model_rooted_bodies": 10,
+      "shortest_build_up_mm": null,
+      "bodies_without_interface_labels": 1,
+      "explicit_interface_islands": 42,
+      "shortest_labelled_build_up_mm": 7.92
+    }
+  },
+  "scope": "Commanded paths and bead envelopes from this archive. Support removal, surface finish, fit and strength are physical observations.",
+  "checks": {
+    "archive": true,
+    "z_trim": true,
+    "bed_border": true,
+    "fine_and_transition_bands": true,
+    "show_faces_support_free": true,
+    "tie_windows_support_free": true,
+    "ribbons_support_free_and_printed": true,
+    "solid_hosts_sampled": true
+  },
+  "pass": true
+}
