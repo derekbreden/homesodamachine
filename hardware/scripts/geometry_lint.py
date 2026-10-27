@@ -205,6 +205,7 @@ PRINT_UP = {"enclosure-back-top": -1.0, "funnel-mold/core": -1.0,
 #: `trial-preparation/labels.py` print them in.
 PRINT_TILT_X = {"faucet-shell-base": -15.0, "industrial-shell-base": -15.0,
                 "nameplate-001": 90.0, "data-ring": 90.0,
+                "foam-cap/reservoir-a-fore-snap-cap": 90.0,
                 "copper-plugs/copper-plug-port": -90.0, "copper-plugs/copper-plug-west": -90.0,
                 **{f"rear-identification/rear-label-{which}": 90.0
                    for which in ("water", "co2", "drain", "carb", "flavor-a", "flavor-b")}}

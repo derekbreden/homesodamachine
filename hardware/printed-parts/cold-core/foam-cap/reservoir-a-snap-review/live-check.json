@@ -1,0 +1,51 @@
+{
+  "scope": "Published fore paired snap files, populated assembly and lid scene, read through the live object map and decompressed before SHA-256 comparison. No physical qualification.",
+  "site": "https://homesodamachine.com",
+  "implementation_commit": "4291e30fca19d6e9e8fe9b7447c053e3b64eb674",
+  "publication_commit": "d54fd2322f18425cd96f08a3f0217c7d1a4de3a0",
+  "files": [
+    {
+      "path": "printed-parts/cold-core/foam-cap/reservoir-a-fore-snap-cap.step",
+      "bytes": 94187,
+      "matches": true,
+      "sha256": "8f931c6c10b0c4df154cbf35a710f9555edba9a5a434f129805243fb16e05785"
+    },
+    {
+      "path": "printed-parts/cold-core/foam-cap/reservoir-a-fore-snap-cap.stl",
+      "bytes": 66884,
+      "matches": true,
+      "sha256": "f20116e8e27b6ff4ce81905e24992838a1d1e5e622f2246fb73f173320cdcfed"
+    },
+    {
+      "path": "printed-parts/cold-core/foam-cap/reservoir-a-fore-snap-cap.step.mesh",
+      "bytes": 49636,
+      "matches": true,
+      "sha256": "7e767dbad8a580cc8646bc7b88387a9062f37469ff953c0991c817726fdda16a"
+    },
+    {
+      "path": "printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh",
+      "bytes": 1748504,
+      "matches": true,
+      "sha256": "0e76fef4cd8f2c1b0d06d8a4a245c946d9f318786e50a46ceff32ddcabd15681"
+    },
+    {
+      "path": "manifold-layout/enclosure-assembly.step.mesh",
+      "bytes": 44299284,
+      "matches": true,
+      "sha256": "f6d8b5aa2a78dc32d488e0d0357b3201c0b1f04000cec8fa950ebe65eac8b111"
+    },
+    {
+      "path": "cold-core-layout/cold-core-assembly.step",
+      "bytes": 8220796,
+      "matches": true,
+      "sha256": "a1452b01cf87b981723e5e267ca06a9b4bb82f6ce49c3320e314279a47871a3a"
+    },
+    {
+      "path": "assembly/scenes/glb/cap-lid.glb",
+      "bytes": 8800416,
+      "matches": true,
+      "sha256": "a832efc9cc806258fc956ed71bff9daa390291e3ff8a73f3d2ab0fb4ed331a1c"
+    }
+  ],
+  "status": "PASS"
+}

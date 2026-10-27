@@ -1,0 +1,191 @@
+{
+  "views": [
+    {
+      "name": "paired-snap",
+      "caption": "One cap closes over the fore tube pair; three-millimetre shoulders capture it along the tube axes.",
+      "before": "paired-snap-before.webp",
+      "after": "paired-snap-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 600,
+          "y": 346,
+          "r": 48.2,
+          "label": "Snap cap",
+          "at": [
+            54.25,
+            209.75,
+            267.7
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          418.1564646801773,
+          -196.50764806968067,
+          527.1555991190954
+        ],
+        "target": [
+          54.25,
+          209.75,
+          260.5
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 28,
+        "near": 432.88173185435073,
+        "far": 1090.5805274908544,
+        "aspect": 1.3333333333333333
+      },
+      "highlight": [
+        "cold-core/reservoir-a-fore-snap-cap"
+      ],
+      "ghost": [],
+      "only": [
+        "cold-core/foam-cap-lid-top",
+        "cold-core/reservoir-a-fore-snap-cap",
+        "tube-fluid-14",
+        "tube-fluid-16"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "bf192c16d6cbb18ab2c1f9bc0e96195f3f8ce8e9f6356aecc9f3430c85eb4ded",
+          "commit": "f8b2987821bd290634547e900dc18267030cb9df",
+          "taken": "2026-10-26T23:45:00.046Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "f6d8b5aa2a78dc32d488e0d0357b3201c0b1f04000cec8fa950ebe65eac8b111",
+          "commit": "d54fd2322f18425cd96f08a3f0217c7d1a4de3a0",
+          "published": true
+        }
+      },
+      "changed": [
+        "cold-core/ground-stack",
+        "cold-core/reservoir-a-fore-snap-cap",
+        "wire-PE-bus",
+        "cold-core/foam-cap-lid-top"
+      ],
+      "withinMeshing": [
+        "tube-above-core-va-fore-feed",
+        "tube-above-core-va-under-head",
+        "tube-above-core-water-in",
+        "enclosure-pump-retainer",
+        "tube-above-core-vb-yb-link",
+        "cold-core/evap-coil",
+        "funnel"
+      ]
+    },
+    {
+      "name": "hook-section",
+      "caption": "A section through the pair shows the hooks beneath the receiver ledges.",
+      "before": "hook-section-before.webp",
+      "after": "hook-section-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 842.2,
+          "y": 519.9,
+          "r": 52.1,
+          "label": "Hook",
+          "at": [
+            64.475,
+            209.75,
+            257
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          54.25,
+          -387.754172488951,
+          367.5507510480112
+        ],
+        "target": [
+          54.25,
+          209.75,
+          260
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 19,
+        "near": 430.763018375574,
+        "far": 1088.4618140120776,
+        "aspect": 1.3333333333333333,
+        "section": {
+          "at": [
+            54.25,
+            209.75,
+            259.5
+          ],
+          "normal": [
+            0,
+            -1,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [
+        "cold-core/reservoir-a-fore-snap-cap"
+      ],
+      "ghost": [],
+      "only": [
+        "cold-core/foam-cap-lid-top",
+        "cold-core/reservoir-a-fore-snap-cap",
+        "tube-fluid-14",
+        "tube-fluid-16"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "bf192c16d6cbb18ab2c1f9bc0e96195f3f8ce8e9f6356aecc9f3430c85eb4ded",
+          "commit": "f8b2987821bd290634547e900dc18267030cb9df",
+          "taken": "2026-10-26T23:45:00.046Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "f6d8b5aa2a78dc32d488e0d0357b3201c0b1f04000cec8fa950ebe65eac8b111",
+          "commit": "d54fd2322f18425cd96f08a3f0217c7d1a4de3a0",
+          "published": true
+        }
+      },
+      "changed": [
+        "cold-core/ground-stack",
+        "cold-core/reservoir-a-fore-snap-cap",
+        "wire-PE-bus",
+        "cold-core/foam-cap-lid-top"
+      ],
+      "withinMeshing": [
+        "tube-above-core-va-fore-feed",
+        "tube-above-core-va-under-head",
+        "tube-above-core-water-in",
+        "enclosure-pump-retainer",
+        "tube-above-core-vb-yb-link",
+        "cold-core/evap-coil",
+        "funnel"
+      ]
+    }
+  ]
+}
