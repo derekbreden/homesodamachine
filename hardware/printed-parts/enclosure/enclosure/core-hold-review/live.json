@@ -1,0 +1,17 @@
+[
+  {
+    "model": "printed-parts/enclosure/enclosure/enclosure-back-top.step",
+    "source_step_sha256": "4a0732e58eca56cbfe07ea5e667a5262f948bf03f65c3bd33932338a34d085bb",
+    "matched": true
+  },
+  {
+    "model": "printed-parts/enclosure/enclosure/enclosure.step",
+    "source_step_sha256": "cf33dd1d90ce9682b9b1199e7d98baf40fa572f68b66bec2cab5a731210a23c1",
+    "matched": true
+  },
+  {
+    "model": "manifold-layout/enclosure-assembly.step",
+    "source_step_sha256": "6efe3cd09f226b8f5a370f1f4602c0ee5d2a0ead1e9021bc1919eed9a3185166",
+    "matched": true
+  }
+]
