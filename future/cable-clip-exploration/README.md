@@ -33,8 +33,10 @@ The guide and redressing are a site proposal, not production integration.
 ## Print preparation
 
 The [Mark2 job](prints/2026-10-26-mark2-relay-ribbon/README.md) is prepared and
-reviewed offline, with a **10 min 1 s** native estimate. Submission awaits the
-three tube-snap matrix strips being removed from Mark2's bed.
+reviewed with a **10 min 1 s** native estimate. It is running on Mark2 as
+**task 1379210744**, accepted **October 26 at 11:11 p.m. CDT**. The
+[launch receipt](prints/2026-10-26-mark2-relay-ribbon/launch.json) binds the
+reviewed archive to the active printer task.
 
 The coupon prints in its **installed orientation, entry up**, translated 6 mm
 upward to put the host wall's bottom on the bed. Its total height is **25.70 mm**.

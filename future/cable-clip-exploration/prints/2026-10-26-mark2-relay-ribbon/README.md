@@ -2,8 +2,9 @@
 
 The **10 min 1 s** upright job is prepared for Mark2’s left hardened 0.4 mm
 Standard-flow nozzle in black Polymaker Fiberon PET-GF15. The editable project
-and sliced archive are ready. Submission awaits the three tube-snap matrix
-strips being removed from Mark2's bed.
+and sliced archive identify **task 1379210744**, running on Mark2. Its single
+Send was accepted **October 26 at 11:11 p.m. CDT**, with print error 0 and no
+HMS in the launch receipt.
 
 The [study](../../README.md) describes the bare 22 AWG 4P J5 ribbon and its
 proposed west-wall location. This coupon is not a production enclosure feature.
@@ -16,6 +17,7 @@ flat underside.
 - [Editable project](2026-10-26-relay-ribbon-4p-upright-mark2-78832950/2026-10-26-relay-ribbon-4p-upright-mark2-78832950.3mf)
 - [Native print archive](2026-10-26-relay-ribbon-4p-upright-mark2-78832950/2026-10-26-relay-ribbon-4p-upright-mark2-78832950.gcode.3mf)
 - [Native preview](2026-10-26-relay-ribbon-4p-upright-mark2-78832950/plate_1.png)
+- [Accepted launch receipt](launch.json), [launch context](launch-context.json) and [preflight](preflight.json)
 - [Offline preparation and native review](offline-review.json)
 - [Pocket, entry, wall footprint and corbel path reading](path-review.json)
 - [Manual preparer](prepare.py), [path reader](path_review.py) and [local declaration](job.json)

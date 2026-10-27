@@ -1,0 +1,26 @@
+{
+  "printer": "Mark2",
+  "observed_at": "2026-10-27T04:11:24.861995+00:00",
+  "archive": {
+    "name": "2026-10-26-relay-ribbon-4p-upright-mark2-78832950.gcode.3mf",
+    "sha256": "c0724b827595e1ccd7abb6535548460132de178925a7fff87f8944a32b083422",
+    "gcode_sha256": "422fac829d2ced56cabc13bf21a496437a429a6cba4a74c0fe984198ce68133d",
+    "slots": {
+      "1": {
+        "type": "PET-CF",
+        "colour": "161616"
+      }
+    },
+    "objects": [
+      "relay-ribbon-4p-print"
+    ]
+  },
+  "printer_task_id": "1379210744",
+  "gcode_state": "RUNNING",
+  "subtask_name": "2026-10-26-relay-ribbon-4p-upright-mark2-78832950.gcode.3mf",
+  "print_error": 0,
+  "hms": [],
+  "layer_num": 0,
+  "total_layer_num": 107,
+  "mc_remaining_time": 10
+}
