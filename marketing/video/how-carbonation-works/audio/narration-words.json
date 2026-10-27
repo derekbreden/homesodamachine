@@ -1,0 +1,1496 @@
+[
+  {
+    "word": "A",
+    "start": 0.0,
+    "end": 0.24,
+    "probability": 0.8696
+  },
+  {
+    "word": "turn",
+    "start": 0.24,
+    "end": 0.42,
+    "probability": 0.9883
+  },
+  {
+    "word": "of",
+    "start": 0.42,
+    "end": 0.52,
+    "probability": 0.9292
+  },
+  {
+    "word": "the",
+    "start": 0.52,
+    "end": 0.62,
+    "probability": 0.9858
+  },
+  {
+    "word": "handle",
+    "start": 0.62,
+    "end": 0.84,
+    "probability": 0.9946
+  },
+  {
+    "word": "looks",
+    "start": 0.84,
+    "end": 1.2,
+    "probability": 0.9849
+  },
+  {
+    "word": "simple.",
+    "start": 1.2,
+    "end": 1.54,
+    "probability": 0.9927
+  },
+  {
+    "word": "Inside",
+    "start": 2.4,
+    "end": 2.68,
+    "probability": 0.9878
+  },
+  {
+    "word": "home",
+    "start": 2.68,
+    "end": 2.94,
+    "probability": 0.6782
+  },
+  {
+    "word": "soda",
+    "start": 2.94,
+    "end": 3.2,
+    "probability": 0.9854
+  },
+  {
+    "word": "machine,",
+    "start": 3.2,
+    "end": 3.54,
+    "probability": 0.9785
+  },
+  {
+    "word": "three",
+    "start": 3.76,
+    "end": 3.86,
+    "probability": 0.9419
+  },
+  {
+    "word": "things",
+    "start": 3.86,
+    "end": 4.12,
+    "probability": 0.9985
+  },
+  {
+    "word": "make",
+    "start": 4.12,
+    "end": 4.38,
+    "probability": 0.9941
+  },
+  {
+    "word": "it",
+    "start": 4.38,
+    "end": 4.5,
+    "probability": 0.9976
+  },
+  {
+    "word": "possible.",
+    "start": 4.5,
+    "end": 4.7,
+    "probability": 0.999
+  },
+  {
+    "word": "Pressure,",
+    "start": 5.46,
+    "end": 5.68,
+    "probability": 0.981
+  },
+  {
+    "word": "mixing,",
+    "start": 6.28,
+    "end": 6.46,
+    "probability": 0.9849
+  },
+  {
+    "word": "and",
+    "start": 7.08,
+    "end": 7.28,
+    "probability": 0.9956
+  },
+  {
+    "word": "cold.",
+    "start": 7.28,
+    "end": 7.5,
+    "probability": 0.998
+  },
+  {
+    "word": "Pull",
+    "start": 8.28,
+    "end": 8.64,
+    "probability": 0.9727
+  },
+  {
+    "word": "away",
+    "start": 8.64,
+    "end": 8.8,
+    "probability": 0.9917
+  },
+  {
+    "word": "the",
+    "start": 8.8,
+    "end": 8.9,
+    "probability": 0.9951
+  },
+  {
+    "word": "enclosure",
+    "start": 8.9,
+    "end": 9.24,
+    "probability": 0.9937
+  },
+  {
+    "word": "and",
+    "start": 9.24,
+    "end": 9.58,
+    "probability": 0.6304
+  },
+  {
+    "word": "this",
+    "start": 9.58,
+    "end": 9.86,
+    "probability": 0.979
+  },
+  {
+    "word": "is",
+    "start": 9.86,
+    "end": 10.0,
+    "probability": 0.9941
+  },
+  {
+    "word": "the",
+    "start": 10.0,
+    "end": 10.12,
+    "probability": 0.9858
+  },
+  {
+    "word": "cold",
+    "start": 10.12,
+    "end": 10.3,
+    "probability": 0.9897
+  },
+  {
+    "word": "core.",
+    "start": 10.3,
+    "end": 10.62,
+    "probability": 0.9951
+  },
+  {
+    "word": "At",
+    "start": 11.32,
+    "end": 11.48,
+    "probability": 0.9902
+  },
+  {
+    "word": "its",
+    "start": 11.48,
+    "end": 11.56,
+    "probability": 0.9561
+  },
+  {
+    "word": "center",
+    "start": 11.56,
+    "end": 11.82,
+    "probability": 0.896
+  },
+  {
+    "word": "is",
+    "start": 11.82,
+    "end": 12.0,
+    "probability": 0.8643
+  },
+  {
+    "word": "a",
+    "start": 12.0,
+    "end": 12.08,
+    "probability": 0.9727
+  },
+  {
+    "word": "stainless",
+    "start": 12.08,
+    "end": 12.28,
+    "probability": 0.998
+  },
+  {
+    "word": "steel",
+    "start": 12.28,
+    "end": 12.6,
+    "probability": 0.9912
+  },
+  {
+    "word": "carbonator,",
+    "start": 12.6,
+    "end": 13.16,
+    "probability": 0.9663
+  },
+  {
+    "word": "a",
+    "start": 13.5,
+    "end": 13.78,
+    "probability": 0.9951
+  },
+  {
+    "word": "sealed",
+    "start": 13.78,
+    "end": 13.96,
+    "probability": 0.9912
+  },
+  {
+    "word": "tank",
+    "start": 13.96,
+    "end": 14.34,
+    "probability": 0.999
+  },
+  {
+    "word": "that",
+    "start": 14.34,
+    "end": 14.56,
+    "probability": 0.9893
+  },
+  {
+    "word": "keeps",
+    "start": 14.56,
+    "end": 14.74,
+    "probability": 0.998
+  },
+  {
+    "word": "water",
+    "start": 14.74,
+    "end": 15.02,
+    "probability": 0.7661
+  },
+  {
+    "word": "in",
+    "start": 15.02,
+    "end": 15.24,
+    "probability": 0.9917
+  },
+  {
+    "word": "contact",
+    "start": 15.24,
+    "end": 15.62,
+    "probability": 0.9995
+  },
+  {
+    "word": "with",
+    "start": 15.62,
+    "end": 15.9,
+    "probability": 0.9985
+  },
+  {
+    "word": "carbon",
+    "start": 15.9,
+    "end": 16.08,
+    "probability": 0.9829
+  },
+  {
+    "word": "dioxide.",
+    "start": 16.08,
+    "end": 16.3,
+    "probability": 0.9995
+  },
+  {
+    "word": "Carbon",
+    "start": 17.14,
+    "end": 17.54,
+    "probability": 0.9321
+  },
+  {
+    "word": "dioxide",
+    "start": 17.54,
+    "end": 17.82,
+    "probability": 0.9937
+  },
+  {
+    "word": "enters",
+    "start": 17.82,
+    "end": 18.3,
+    "probability": 1.0
+  },
+  {
+    "word": "through",
+    "start": 18.3,
+    "end": 18.5,
+    "probability": 0.9951
+  },
+  {
+    "word": "a",
+    "start": 18.5,
+    "end": 18.56,
+    "probability": 0.9922
+  },
+  {
+    "word": "port",
+    "start": 18.56,
+    "end": 18.74,
+    "probability": 0.9922
+  },
+  {
+    "word": "at",
+    "start": 18.74,
+    "end": 18.86,
+    "probability": 0.9961
+  },
+  {
+    "word": "the",
+    "start": 18.86,
+    "end": 18.94,
+    "probability": 0.9985
+  },
+  {
+    "word": "bottom.",
+    "start": 18.94,
+    "end": 19.2,
+    "probability": 1.0
+  },
+  {
+    "word": "While",
+    "start": 19.86,
+    "end": 19.98,
+    "probability": 0.9829
+  },
+  {
+    "word": "gas",
+    "start": 19.98,
+    "end": 20.16,
+    "probability": 0.9395
+  },
+  {
+    "word": "is",
+    "start": 20.16,
+    "end": 20.32,
+    "probability": 0.9917
+  },
+  {
+    "word": "entering,",
+    "start": 20.32,
+    "end": 20.7,
+    "probability": 0.999
+  },
+  {
+    "word": "bubbles",
+    "start": 20.96,
+    "end": 21.14,
+    "probability": 0.9966
+  },
+  {
+    "word": "rise",
+    "start": 21.14,
+    "end": 21.4,
+    "probability": 0.9917
+  },
+  {
+    "word": "through",
+    "start": 21.4,
+    "end": 21.66,
+    "probability": 0.9756
+  },
+  {
+    "word": "the",
+    "start": 21.66,
+    "end": 21.76,
+    "probability": 0.9854
+  },
+  {
+    "word": "water",
+    "start": 21.76,
+    "end": 21.96,
+    "probability": 0.9995
+  },
+  {
+    "word": "and",
+    "start": 21.96,
+    "end": 22.18,
+    "probability": 0.9604
+  },
+  {
+    "word": "collect",
+    "start": 22.18,
+    "end": 22.42,
+    "probability": 0.625
+  },
+  {
+    "word": "in",
+    "start": 22.42,
+    "end": 22.6,
+    "probability": 0.9761
+  },
+  {
+    "word": "the",
+    "start": 22.6,
+    "end": 22.68,
+    "probability": 0.9888
+  },
+  {
+    "word": "space",
+    "start": 22.68,
+    "end": 22.88,
+    "probability": 0.999
+  },
+  {
+    "word": "above",
+    "start": 22.88,
+    "end": 23.12,
+    "probability": 0.9917
+  },
+  {
+    "word": "it.",
+    "start": 23.12,
+    "end": 23.28,
+    "probability": 0.9951
+  },
+  {
+    "word": "As",
+    "start": 23.96,
+    "end": 24.1,
+    "probability": 0.9966
+  },
+  {
+    "word": "the",
+    "start": 24.1,
+    "end": 24.22,
+    "probability": 0.9961
+  },
+  {
+    "word": "pressures",
+    "start": 24.22,
+    "end": 24.4,
+    "probability": 0.7529
+  },
+  {
+    "word": "balance,",
+    "start": 24.4,
+    "end": 24.82,
+    "probability": 0.9927
+  },
+  {
+    "word": "gas",
+    "start": 25.16,
+    "end": 25.38,
+    "probability": 0.9961
+  },
+  {
+    "word": "admission",
+    "start": 25.38,
+    "end": 25.6,
+    "probability": 0.8809
+  },
+  {
+    "word": "stops.",
+    "start": 25.6,
+    "end": 26.02,
+    "probability": 0.9941
+  },
+  {
+    "word": "Fresh",
+    "start": 26.82,
+    "end": 27.22,
+    "probability": 0.9917
+  },
+  {
+    "word": "water",
+    "start": 27.22,
+    "end": 27.44,
+    "probability": 0.9634
+  },
+  {
+    "word": "comes",
+    "start": 27.44,
+    "end": 27.7,
+    "probability": 0.998
+  },
+  {
+    "word": "in",
+    "start": 27.7,
+    "end": 27.82,
+    "probability": 0.9946
+  },
+  {
+    "word": "from",
+    "start": 27.82,
+    "end": 27.96,
+    "probability": 0.9956
+  },
+  {
+    "word": "the",
+    "start": 27.96,
+    "end": 28.08,
+    "probability": 0.9961
+  },
+  {
+    "word": "top.",
+    "start": 28.08,
+    "end": 28.28,
+    "probability": 0.999
+  },
+  {
+    "word": "Look",
+    "start": 28.78,
+    "end": 29.08,
+    "probability": 0.9976
+  },
+  {
+    "word": "closely",
+    "start": 29.08,
+    "end": 29.34,
+    "probability": 0.999
+  },
+  {
+    "word": "at",
+    "start": 29.34,
+    "end": 29.66,
+    "probability": 0.9971
+  },
+  {
+    "word": "the",
+    "start": 29.66,
+    "end": 29.74,
+    "probability": 0.998
+  },
+  {
+    "word": "inlet.",
+    "start": 29.74,
+    "end": 29.98,
+    "probability": 0.7676
+  },
+  {
+    "word": "A",
+    "start": 30.0,
+    "end": 30.5,
+    "probability": 0.4346
+  },
+  {
+    "word": "tiny",
+    "start": 30.5,
+    "end": 31.04,
+    "probability": 0.9932
+  },
+  {
+    "word": "1",
+    "start": 31.04,
+    "end": 31.54,
+    "probability": 0.5884
+  },
+  {
+    "word": "-sixteenth",
+    "start": 31.54,
+    "end": 32.16,
+    "probability": 0.4983
+  },
+  {
+    "word": "inch",
+    "start": 32.16,
+    "end": 32.46,
+    "probability": 0.6748
+  },
+  {
+    "word": "hole",
+    "start": 32.46,
+    "end": 32.7,
+    "probability": 0.9888
+  },
+  {
+    "word": "turns",
+    "start": 32.7,
+    "end": 33.08,
+    "probability": 0.9927
+  },
+  {
+    "word": "the",
+    "start": 33.08,
+    "end": 33.22,
+    "probability": 0.9932
+  },
+  {
+    "word": "incoming",
+    "start": 33.22,
+    "end": 33.36,
+    "probability": 0.9648
+  },
+  {
+    "word": "flow",
+    "start": 33.36,
+    "end": 33.82,
+    "probability": 0.9951
+  },
+  {
+    "word": "into",
+    "start": 33.82,
+    "end": 34.06,
+    "probability": 0.9922
+  },
+  {
+    "word": "a",
+    "start": 34.06,
+    "end": 34.2,
+    "probability": 0.9321
+  },
+  {
+    "word": "narrow",
+    "start": 34.2,
+    "end": 34.36,
+    "probability": 0.9937
+  },
+  {
+    "word": "jet.",
+    "start": 34.36,
+    "end": 34.66,
+    "probability": 0.9951
+  },
+  {
+    "word": "The",
+    "start": 35.52,
+    "end": 35.62,
+    "probability": 0.9712
+  },
+  {
+    "word": "stream",
+    "start": 35.62,
+    "end": 35.8,
+    "probability": 0.9966
+  },
+  {
+    "word": "crosses",
+    "start": 35.8,
+    "end": 36.16,
+    "probability": 0.9966
+  },
+  {
+    "word": "the",
+    "start": 36.16,
+    "end": 36.38,
+    "probability": 0.9888
+  },
+  {
+    "word": "carbon",
+    "start": 36.38,
+    "end": 36.54,
+    "probability": 0.9639
+  },
+  {
+    "word": "dioxide",
+    "start": 36.54,
+    "end": 36.76,
+    "probability": 0.999
+  },
+  {
+    "word": "headspace",
+    "start": 36.76,
+    "end": 37.4,
+    "probability": 0.9263
+  },
+  {
+    "word": "and",
+    "start": 37.4,
+    "end": 37.72,
+    "probability": 0.9268
+  },
+  {
+    "word": "plunges",
+    "start": 37.72,
+    "end": 38.16,
+    "probability": 0.9956
+  },
+  {
+    "word": "into",
+    "start": 38.16,
+    "end": 38.28,
+    "probability": 0.9907
+  },
+  {
+    "word": "the",
+    "start": 38.28,
+    "end": 38.44,
+    "probability": 0.9844
+  },
+  {
+    "word": "water",
+    "start": 38.44,
+    "end": 38.62,
+    "probability": 0.999
+  },
+  {
+    "word": "below.",
+    "start": 38.62,
+    "end": 38.86,
+    "probability": 0.9971
+  },
+  {
+    "word": "Its",
+    "start": 39.54,
+    "end": 39.82,
+    "probability": 0.9233
+  },
+  {
+    "word": "impact",
+    "start": 39.82,
+    "end": 40.18,
+    "probability": 0.998
+  },
+  {
+    "word": "draws",
+    "start": 40.18,
+    "end": 40.46,
+    "probability": 0.998
+  },
+  {
+    "word": "gas",
+    "start": 40.46,
+    "end": 40.74,
+    "probability": 0.9863
+  },
+  {
+    "word": "into",
+    "start": 40.74,
+    "end": 41.02,
+    "probability": 0.9888
+  },
+  {
+    "word": "the",
+    "start": 41.02,
+    "end": 41.18,
+    "probability": 0.9922
+  },
+  {
+    "word": "pool",
+    "start": 41.18,
+    "end": 41.4,
+    "probability": 0.9966
+  },
+  {
+    "word": "and",
+    "start": 41.4,
+    "end": 41.68,
+    "probability": 0.9238
+  },
+  {
+    "word": "drives",
+    "start": 41.68,
+    "end": 41.98,
+    "probability": 0.8154
+  },
+  {
+    "word": "circulation.",
+    "start": 41.98,
+    "end": 42.36,
+    "probability": 0.9868
+  },
+  {
+    "word": "Those",
+    "start": 43.34,
+    "end": 43.6,
+    "probability": 0.9771
+  },
+  {
+    "word": "moving",
+    "start": 43.6,
+    "end": 43.9,
+    "probability": 0.9961
+  },
+  {
+    "word": "interfaces",
+    "start": 43.9,
+    "end": 44.42,
+    "probability": 0.9937
+  },
+  {
+    "word": "give",
+    "start": 44.42,
+    "end": 44.86,
+    "probability": 0.9878
+  },
+  {
+    "word": "carbon",
+    "start": 44.86,
+    "end": 45.2,
+    "probability": 0.9355
+  },
+  {
+    "word": "dioxide",
+    "start": 45.2,
+    "end": 45.54,
+    "probability": 0.9946
+  },
+  {
+    "word": "more",
+    "start": 45.54,
+    "end": 45.86,
+    "probability": 0.999
+  },
+  {
+    "word": "opportunities",
+    "start": 45.86,
+    "end": 46.28,
+    "probability": 0.9717
+  },
+  {
+    "word": "to",
+    "start": 46.28,
+    "end": 46.74,
+    "probability": 0.999
+  },
+  {
+    "word": "dissolve.",
+    "start": 46.74,
+    "end": 46.98,
+    "probability": 0.9976
+  },
+  {
+    "word": "The",
+    "start": 48.06,
+    "end": 48.14,
+    "probability": 0.9888
+  },
+  {
+    "word": "bubbles",
+    "start": 48.14,
+    "end": 48.32,
+    "probability": 0.9961
+  },
+  {
+    "word": "are",
+    "start": 48.32,
+    "end": 48.48,
+    "probability": 0.7378
+  },
+  {
+    "word": "the",
+    "start": 48.48,
+    "end": 48.58,
+    "probability": 0.9937
+  },
+  {
+    "word": "process",
+    "start": 48.58,
+    "end": 48.88,
+    "probability": 0.9912
+  },
+  {
+    "word": "you",
+    "start": 48.88,
+    "end": 49.06,
+    "probability": 0.9883
+  },
+  {
+    "word": "can",
+    "start": 49.06,
+    "end": 49.18,
+    "probability": 0.9922
+  },
+  {
+    "word": "see.",
+    "start": 49.18,
+    "end": 49.42,
+    "probability": 0.9941
+  },
+  {
+    "word": "The",
+    "start": 50.14,
+    "end": 50.16,
+    "probability": 0.9941
+  },
+  {
+    "word": "carbonation",
+    "start": 50.16,
+    "end": 50.58,
+    "probability": 0.9961
+  },
+  {
+    "word": "you",
+    "start": 50.58,
+    "end": 50.78,
+    "probability": 0.9941
+  },
+  {
+    "word": "drink",
+    "start": 50.78,
+    "end": 50.98,
+    "probability": 0.9971
+  },
+  {
+    "word": "is",
+    "start": 50.98,
+    "end": 51.22,
+    "probability": 0.9932
+  },
+  {
+    "word": "gas",
+    "start": 51.22,
+    "end": 51.4,
+    "probability": 0.9907
+  },
+  {
+    "word": "dissolved",
+    "start": 51.4,
+    "end": 51.64,
+    "probability": 0.9468
+  },
+  {
+    "word": "in",
+    "start": 51.64,
+    "end": 51.96,
+    "probability": 0.9897
+  },
+  {
+    "word": "the",
+    "start": 51.96,
+    "end": 52.04,
+    "probability": 0.9902
+  },
+  {
+    "word": "water.",
+    "start": 52.04,
+    "end": 52.28,
+    "probability": 1.0
+  },
+  {
+    "word": "As",
+    "start": 53.28,
+    "end": 53.5,
+    "probability": 0.9956
+  },
+  {
+    "word": "the",
+    "start": 53.5,
+    "end": 53.6,
+    "probability": 0.9976
+  },
+  {
+    "word": "level",
+    "start": 53.6,
+    "end": 53.76,
+    "probability": 0.9956
+  },
+  {
+    "word": "rises,",
+    "start": 53.76,
+    "end": 54.06,
+    "probability": 0.9966
+  },
+  {
+    "word": "a",
+    "start": 54.32,
+    "end": 54.42,
+    "probability": 0.9971
+  },
+  {
+    "word": "magnetic",
+    "start": 54.42,
+    "end": 54.7,
+    "probability": 0.999
+  },
+  {
+    "word": "flow",
+    "start": 54.7,
+    "end": 55.04,
+    "probability": 0.3369
+  },
+  {
+    "word": "follows",
+    "start": 55.04,
+    "end": 55.48,
+    "probability": 0.9868
+  },
+  {
+    "word": "it.",
+    "start": 55.48,
+    "end": 55.64,
+    "probability": 0.9956
+  },
+  {
+    "word": "At",
+    "start": 56.28,
+    "end": 56.46,
+    "probability": 0.9961
+  },
+  {
+    "word": "the",
+    "start": 56.46,
+    "end": 56.56,
+    "probability": 0.9834
+  },
+  {
+    "word": "high",
+    "start": 56.56,
+    "end": 56.66,
+    "probability": 0.9917
+  },
+  {
+    "word": "level",
+    "start": 56.66,
+    "end": 56.86,
+    "probability": 0.5327
+  },
+  {
+    "word": "signal,",
+    "start": 56.86,
+    "end": 57.12,
+    "probability": 0.9985
+  },
+  {
+    "word": "the",
+    "start": 57.46,
+    "end": 57.5,
+    "probability": 0.9946
+  },
+  {
+    "word": "refill",
+    "start": 57.5,
+    "end": 57.64,
+    "probability": 0.3313
+  },
+  {
+    "word": "pump",
+    "start": 57.64,
+    "end": 57.88,
+    "probability": 0.9946
+  },
+  {
+    "word": "stops.",
+    "start": 57.88,
+    "end": 58.14,
+    "probability": 0.998
+  },
+  {
+    "word": "tops.",
+    "start": 58.14,
+    "end": 58.24,
+    "probability": 0.2722
+  },
+  {
+    "word": "Now",
+    "start": 59.02,
+    "end": 59.22,
+    "probability": 0.9766
+  },
+  {
+    "word": "look",
+    "start": 59.22,
+    "end": 59.4,
+    "probability": 0.9189
+  },
+  {
+    "word": "outside",
+    "start": 59.4,
+    "end": 59.56,
+    "probability": 0.9888
+  },
+  {
+    "word": "the",
+    "start": 59.56,
+    "end": 59.82,
+    "probability": 0.981
+  },
+  {
+    "word": "tank.",
+    "start": 59.82,
+    "end": 59.96,
+    "probability": 0.999
+  },
+  {
+    "word": "This",
+    "start": 60.96,
+    "end": 60.96,
+    "probability": 0.9741
+  },
+  {
+    "word": "copper",
+    "start": 60.96,
+    "end": 61.16,
+    "probability": 0.9902
+  },
+  {
+    "word": "coil",
+    "start": 61.16,
+    "end": 61.56,
+    "probability": 0.9688
+  },
+  {
+    "word": "carries",
+    "start": 61.56,
+    "end": 61.88,
+    "probability": 0.9937
+  },
+  {
+    "word": "refrigerant.",
+    "start": 61.88,
+    "end": 62.44,
+    "probability": 0.8667
+  },
+  {
+    "word": "As",
+    "start": 62.76,
+    "end": 63.16,
+    "probability": 0.9941
+  },
+  {
+    "word": "it",
+    "start": 63.16,
+    "end": 63.24,
+    "probability": 0.9956
+  },
+  {
+    "word": "evaporates,",
+    "start": 63.24,
+    "end": 63.78,
+    "probability": 0.9941
+  },
+  {
+    "word": "it",
+    "start": 63.9,
+    "end": 63.96,
+    "probability": 0.9941
+  },
+  {
+    "word": "absorbs",
+    "start": 63.96,
+    "end": 64.14,
+    "probability": 0.9985
+  },
+  {
+    "word": "heat",
+    "start": 64.14,
+    "end": 64.5,
+    "probability": 0.9956
+  },
+  {
+    "word": "through",
+    "start": 64.5,
+    "end": 64.68,
+    "probability": 0.8052
+  },
+  {
+    "word": "the",
+    "start": 64.68,
+    "end": 64.78,
+    "probability": 0.9946
+  },
+  {
+    "word": "coil",
+    "start": 64.78,
+    "end": 65.02,
+    "probability": 0.9917
+  },
+  {
+    "word": "and",
+    "start": 65.02,
+    "end": 65.32,
+    "probability": 0.9146
+  },
+  {
+    "word": "the",
+    "start": 65.32,
+    "end": 65.5,
+    "probability": 0.9648
+  },
+  {
+    "word": "stainless",
+    "start": 65.5,
+    "end": 65.68,
+    "probability": 0.9971
+  },
+  {
+    "word": "steel",
+    "start": 65.68,
+    "end": 65.98,
+    "probability": 0.9951
+  },
+  {
+    "word": "wall.",
+    "start": 65.98,
+    "end": 66.2,
+    "probability": 0.9771
+  },
+  {
+    "word": "The",
+    "start": 67.08,
+    "end": 67.16,
+    "probability": 0.9932
+  },
+  {
+    "word": "refrigeration",
+    "start": 67.16,
+    "end": 67.74,
+    "probability": 0.9976
+  },
+  {
+    "word": "loop",
+    "start": 67.74,
+    "end": 67.88,
+    "probability": 0.9497
+  },
+  {
+    "word": "carries",
+    "start": 67.88,
+    "end": 68.2,
+    "probability": 0.9985
+  },
+  {
+    "word": "that",
+    "start": 68.2,
+    "end": 68.32,
+    "probability": 0.979
+  },
+  {
+    "word": "heat",
+    "start": 68.32,
+    "end": 68.5,
+    "probability": 0.999
+  },
+  {
+    "word": "away.",
+    "start": 68.5,
+    "end": 68.8,
+    "probability": 0.9961
+  },
+  {
+    "word": "Cold",
+    "start": 69.64,
+    "end": 69.9,
+    "probability": 0.9683
+  },
+  {
+    "word": "water",
+    "start": 69.9,
+    "end": 70.1,
+    "probability": 0.9253
+  },
+  {
+    "word": "can",
+    "start": 70.1,
+    "end": 70.3,
+    "probability": 0.9985
+  },
+  {
+    "word": "hold",
+    "start": 70.3,
+    "end": 70.46,
+    "probability": 0.9956
+  },
+  {
+    "word": "more",
+    "start": 70.46,
+    "end": 70.7,
+    "probability": 0.9951
+  },
+  {
+    "word": "dissolved",
+    "start": 70.7,
+    "end": 70.98,
+    "probability": 0.9751
+  },
+  {
+    "word": "carbon",
+    "start": 70.98,
+    "end": 71.34,
+    "probability": 0.9971
+  },
+  {
+    "word": "dioxide.",
+    "start": 71.34,
+    "end": 71.56,
+    "probability": 0.999
+  },
+  {
+    "word": "Pressure,",
+    "start": 72.68,
+    "end": 73.0,
+    "probability": 0.9829
+  },
+  {
+    "word": "mixing",
+    "start": 73.38,
+    "end": 73.58,
+    "probability": 0.9971
+  },
+  {
+    "word": "and",
+    "start": 73.58,
+    "end": 73.98,
+    "probability": 0.6616
+  },
+  {
+    "word": "cooling",
+    "start": 73.98,
+    "end": 74.28,
+    "probability": 0.9902
+  },
+  {
+    "word": "work",
+    "start": 74.28,
+    "end": 74.58,
+    "probability": 0.9795
+  },
+  {
+    "word": "together,",
+    "start": 74.58,
+    "end": 74.86,
+    "probability": 0.999
+  },
+  {
+    "word": "so",
+    "start": 75.36,
+    "end": 75.48,
+    "probability": 0.9976
+  },
+  {
+    "word": "the",
+    "start": 75.48,
+    "end": 75.58,
+    "probability": 0.9873
+  },
+  {
+    "word": "next",
+    "start": 75.58,
+    "end": 75.72,
+    "probability": 0.9966
+  },
+  {
+    "word": "pour",
+    "start": 75.72,
+    "end": 75.96,
+    "probability": 0.8579
+  },
+  {
+    "word": "starts",
+    "start": 75.96,
+    "end": 76.3,
+    "probability": 0.9961
+  },
+  {
+    "word": "with",
+    "start": 76.3,
+    "end": 76.44,
+    "probability": 0.9985
+  },
+  {
+    "word": "chilled",
+    "start": 76.44,
+    "end": 76.72,
+    "probability": 0.998
+  },
+  {
+    "word": "carbonated",
+    "start": 76.72,
+    "end": 77.44,
+    "probability": 0.8369
+  },
+  {
+    "word": "water",
+    "start": 77.44,
+    "end": 77.74,
+    "probability": 0.999
+  },
+  {
+    "word": "ready",
+    "start": 77.74,
+    "end": 78.26,
+    "probability": 0.7285
+  },
+  {
+    "word": "for",
+    "start": 78.26,
+    "end": 78.48,
+    "probability": 0.9985
+  },
+  {
+    "word": "a",
+    "start": 78.48,
+    "end": 78.54,
+    "probability": 0.9868
+  },
+  {
+    "word": "separate",
+    "start": 78.54,
+    "end": 78.82,
+    "probability": 0.9956
+  },
+  {
+    "word": "stream",
+    "start": 78.82,
+    "end": 79.16,
+    "probability": 0.9951
+  },
+  {
+    "word": "of",
+    "start": 79.16,
+    "end": 79.32,
+    "probability": 0.9985
+  },
+  {
+    "word": "flavor",
+    "start": 79.32,
+    "end": 79.6,
+    "probability": 0.9136
+  },
+  {
+    "word": "at",
+    "start": 79.6,
+    "end": 79.88,
+    "probability": 0.9951
+  },
+  {
+    "word": "the",
+    "start": 79.88,
+    "end": 79.96,
+    "probability": 0.9951
+  },
+  {
+    "word": "faucet.",
+    "start": 79.96,
+    "end": 80.3,
+    "probability": 0.9912
+  },
+  {
+    "word": "Home",
+    "start": 81.12,
+    "end": 81.26,
+    "probability": 0.853
+  },
+  {
+    "word": "soda",
+    "start": 81.26,
+    "end": 81.48,
+    "probability": 0.8975
+  },
+  {
+    "word": "machine.",
+    "start": 81.48,
+    "end": 81.72,
+    "probability": 0.9819
+  },
+  {
+    "word": "Cold",
+    "start": 82.58,
+    "end": 82.6,
+    "probability": 0.978
+  },
+  {
+    "word": "soda.",
+    "start": 82.6,
+    "end": 82.84,
+    "probability": 0.9902
+  },
+  {
+    "word": "On",
+    "start": 83.54,
+    "end": 83.54,
+    "probability": 0.8745
+  },
+  {
+    "word": "tap.",
+    "start": 83.54,
+    "end": 83.68,
+    "probability": 0.9404
+  },
+  {
+    "word": "up.",
+    "start": 83.68,
+    "end": 83.84,
+    "probability": 0.0796
+  }
+]

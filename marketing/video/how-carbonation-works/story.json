@@ -1,0 +1,158 @@
+{
+  "title": "How Home Soda Machine carbonates water",
+  "format": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 30
+  },
+  "target_duration_seconds": 102.033333,
+  "narration": "narration.json",
+  "direction": "A continuous journey from the appliance into its cold core and back to the glass. The approved cutaway and its visible gas bubbles, plunging jet and mixing plume carry the explanation. Camera moves follow the spoken idea. Copper, stainless steel and clear water provide the material contrast, with restrained cobalt, ice and orange from the Home Soda Machine identity. Brief labels identify real parts and physical processes. Picture timing follows the edited connected narration in audio/timing.json.",
+  "scenes": [
+    {
+      "id": "hook",
+      "target_start": 0.0,
+      "target_end": 9.833333,
+      "narration_start": "A turn of the handle looks simple.",
+      "narration_end": "pressure, mixing, and cold.",
+      "picture": "Cold Press opening: a close, appetizing view of the actual faucet geometry and a clear glass. A concise title introduces the question. Transition toward the under-counter appliance as the three forces are named.",
+      "labels": [
+        "How carbonation works",
+        "Pressure · Mixing · Cold"
+      ]
+    },
+    {
+      "id": "reveal",
+      "target_start": 9.833333,
+      "target_end": 20.166667,
+      "narration_start": "Pull away the enclosure,",
+      "narration_end": "in contact with carbon dioxide.",
+      "picture": "Enclosure sections move apart to locate the cold core. Other parts recede as the camera approaches the stainless vessel. Open the shell into the same readable cross section as the approved animation; retain a small liquid charge so bottom gas admission is visible.",
+      "labels": [
+        "Cold core",
+        "Carbonator"
+      ],
+      "visual_truth": "Use current CAD where available. The reveal is a diagrammatic exploded view, not a service instruction. The integrated design is in development."
+    },
+    {
+      "id": "gas",
+      "target_start": 20.166667,
+      "target_end": 31.433333,
+      "narration_start": "Carbon dioxide enters through a port at the bottom.",
+      "narration_end": "As the pressures balance, gas admission stops.",
+      "picture": "Follow the gas line to the plain bottom port. Distinct irregular bubbles rise through the remaining water and reach the headspace. Their finite train tapers and ends before the refill develops. Keep enough of the vessel visible to establish all four ports.",
+      "labels": [
+        "CO₂ inlet",
+        "CO₂ headspace"
+      ],
+      "visual_truth": "No sparge stone. Gas admission requires forward pressure and is not shown as perpetual bubbling. Headspace gas need not remain pure CO₂ in sustained use."
+    },
+    {
+      "id": "jet",
+      "target_start": 31.433333,
+      "target_end": 41.5,
+      "narration_start": "Fresh water comes in from the top.",
+      "narration_end": "turns the incoming flow into a narrow jet.",
+      "picture": "Track water through the top inlet elbow, then make a purposeful macro move to the welded cap and its axial passage. A coherent stream contracts just outside the orifice and develops moving surface disturbances. Pull back enough to see its path to the pool.",
+      "labels": [
+        "Water inlet",
+        "1/16 in · 1.59 mm jet"
+      ],
+      "visual_truth": "Bore dimension is nominal design geometry. Contraction, jet speed and stream disturbances are illustrative rather than measured hydraulic behavior. Do not turn the nozzle into a broad spray."
+    },
+    {
+      "id": "mixing",
+      "target_start": 41.5,
+      "target_end": 55.333333,
+      "narration_start": "The stream crosses the carbon dioxide headspace",
+      "narration_end": "more opportunities to dissolve.",
+      "picture": "Stay with the approved energetic animation: an irregular impact cavity, short splash crown, entrained gas bubbles descending in the water jet, then returning around its edges. The rising liquid level and recirculation remain visible. Use one slow camera move into the plume, without cutting away from the mechanism.",
+      "labels": [
+        "Jet impact",
+        "Gas–water contact"
+      ],
+      "visual_truth": "Bubble size, population and flow intensity are qualitative. The explanatory focus is interfacial contact and mixing, not a measured transfer rate or an assertion of instantaneous equilibrium."
+    },
+    {
+      "id": "dissolution",
+      "target_start": 55.333333,
+      "target_end": 62.5,
+      "narration_start": "The bubbles are the process you can see.",
+      "narration_end": "is gas dissolved in the water.",
+      "picture": "Hold a readable close view of the bubble plume. Selected smaller bubbles diminish as they travel, then let the picture breathe over the transparent pool. A restrained label names dissolved CO₂ without drawing molecules to scale or treating escaping fizz as the product being made.",
+      "labels": [
+        "Dissolved CO₂"
+      ],
+      "visual_truth": "Carbonation is dissolved gas. Visible bubble count or foam is not a performance measurement."
+    },
+    {
+      "id": "level",
+      "target_start": 62.5,
+      "target_end": 69.766667,
+      "narration_start": "As the level rises, a magnetic float follows it.",
+      "narration_end": "At the high-level signal, the refill pump stops.",
+      "picture": "Widen to show the guided float following the rising surface. Identify the exterior high-level reed briefly. At the high-level crossing, incoming flow ends, the last droplets fall and the turbulent pool starts to settle. Keep the gas supply closed through the headspace compression of refill.",
+      "labels": [
+        "Magnetic float",
+        "High level · pump off"
+      ],
+      "visual_truth": "The external reed detects the moving magnet through the vessel wall. Do not show an electrical probe penetrating the vessel."
+    },
+    {
+      "id": "cooling",
+      "target_start": 69.766667,
+      "target_end": 83.133333,
+      "narration_start": "Now look outside the tank.",
+      "narration_end": "The refrigeration loop carries that heat away.",
+      "picture": "Reveal the copper evaporator coil around the same cutaway vessel. A restrained warm-to-cold thermal overlay moves heat from the bulk water through the stainless wall and bonded copper contact. A short transparent coil segment shows refrigerant flow and phase change; the outlet continues toward the refrigeration loop. Return to the intact copper surface before the next transition.",
+      "labels": [
+        "Copper evaporator",
+        "Heat into the refrigerant"
+      ],
+      "visual_truth": "The coil carries refrigerant, not soda or CO₂. Heat crosses the bonded interfaces mainly by conduction, then is absorbed by the evaporating refrigerant. Show thermal graphics as explanatory overlays, not literal rays of heat escaping through an air gap. The compressor and condenser reject heat elsewhere in the appliance."
+    },
+    {
+      "id": "serve",
+      "target_start": 83.133333,
+      "target_end": 96.5,
+      "narration_start": "Cold water can hold more dissolved carbon dioxide.",
+      "narration_end": "ready for a separate stream of flavor at the faucet.",
+      "picture": "The thermal overlay resolves into the cooled tank. Follow carbonated water from the other bottom port toward the faucet, returning to the opening glass. If flavor is shown, use its separate outlet stream and let the liquids mix in the glass. Let a finished cold drink close the mechanical explanation.",
+      "labels": [
+        "Chilled carbonated water",
+        "Flavor added at the faucet"
+      ],
+      "visual_truth": "No syrup in the carbonator or copper coil. No exact delivered temperature, carbonation level, refill speed or production-readiness claim."
+    },
+    {
+      "id": "close",
+      "target_start": 96.5,
+      "target_end": 102.033333,
+      "narration_start": "Home Soda Machine.",
+      "narration_end": "Cold soda, on tap.",
+      "picture": "Hold the glass and faucet in a clean Cold Press hero composition. Use the existing brand mark, a concise closing line and the website. Leave a short clean tail for the final sound decay.",
+      "labels": [
+        "Home Soda Machine",
+        "Cold soda, on tap.",
+        "homesodamachine.com"
+      ]
+    }
+  ],
+  "publication_notes": {
+    "description_disclosure": "Engineering animation of the Home Soda Machine design under development. Fluid motion, bubble populations and thermal graphics are illustrative; they are not measurements of actual operating performance. Narration generated with Gemini voice.",
+    "onscreen_disclosure": "Engineering visualization · flow illustrated",
+    "source_documents": [
+      "hardware/README.md",
+      "hardware/assembly/pressure-vessel.md",
+      "hardware/assembly/water-inlet-jet.md",
+      "hardware/assembly/acceptance-and-burn-in.md",
+      "hardware/assembly/cold-core.md",
+      "hardware/assembly/refrigerant-loop.md",
+      "hardware/cold-core-layout/_carbonator.py",
+      "hardware/cold-core-layout/_coil.py",
+      "hardware/printed-parts/cold-core/magnetic-float/all-aero/installation.md",
+      "marketing/video/remotion/README.md",
+      "brand/README.md"
+    ]
+  }
+}

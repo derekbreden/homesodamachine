@@ -1,0 +1,13 @@
+Go inside a home soda machine to see how pressure, a narrow water jet, and refrigeration turn water into cold, carbonated water. This cutaway follows the Home Soda Machine design from the enclosure to its carbonator, copper evaporator, and faucet.
+
+Explore the machine and follow the build:
+https://homesodamachine.com
+
+0:00 Inside the machine
+0:20 Carbon dioxide enters the carbonator
+0:31 The water jet
+0:41 Mixing and dissolved carbon dioxide
+1:09 The copper cooling coil
+1:23 Back to the faucet
+
+Engineering visualization of a design in development. Fluid motion, bubble populations, and thermal graphics are illustrative. Narration generated with Gemini voice (Charon).

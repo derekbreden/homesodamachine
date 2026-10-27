@@ -1,0 +1,8 @@
+out/
+assets/*-cad.json
+audio/*-stem.wav
+audio/narration.wav
+audio/transcription.json
+audio/voice-master.wav
+audio/mix-master.wav
+__pycache__/
