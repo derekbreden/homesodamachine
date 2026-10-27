@@ -94,28 +94,24 @@ levers open west. The blank-backed wells retain 3 mm walls and join the
 V-B wall and lid. Their top and V-B’s wall share the flat Z298.65 mm plane, with 1.25 mm to the funnel frame.
 V-B’s native origin is Z279.41 mm.
 
-Reservoir A’s draw and fill tubes share a fore snap seat and an aft tied seat. Draw
-occupies the west half-pipe at each station. The fore tube axes are X50.5/58 at
-Y209.75, Z258.5 mm. The integral lid base and one separate PET-GF
-`reservoir-a-fore-snap-cap` enclose the pair with matching half-pipes. The cap is 6 mm
-long in Y; the 12.5 mm base retains 3 mm end shoulders with 0.25 mm running clearance
-at each cap end. Its complete X span is 41.885–66.615 mm. Fixed floors, outer cheeks
-and the central land retain 3 mm of material. The two 1.44 mm spring leaves have
-6.7 mm of free height; each wing and hook spans the cap’s full 6 mm in Y. The flexures,
-their root transitions and the hooks’ 45° entry noses supply the functional exceptions
-to the fixed stock. The wings flex outward during downward insertion and their hooks
-engage the receiver ledges with 0.45 mm nominal overlap. Side running clearance is
-0.25 mm, tube radial clearance is 0.15 mm and supported hook-ledge clearance is 0.4 mm.
-The cap’s main seating faces have 0.25 mm air above the base. The cap prints on one
-Y end, placing its spring sections in the bed plane; the lid prints on its flat underside.
-The [snap review](reservoir-a-snap-review/README.md) records the current geometry and its
-scope; printed fit, insertion force, retention and lifetime remain unqualified.
+Reservoir A’s draw and fill tubes use two direct fore C2 clips and one aft tied
+seat. Draw occupies the west position at each station. The fore tube axes are
+X50.5/64.0 at Y209.75, Z258.5 mm: **13.5 mm centre spacing**. Each clip has the
+selected **6.35 mm bore**, **2.40 mm spring wall** and **125.421° wrap per wing**.
+Both span the full Y205.75–213.75 mm run.
 
-Two shallow clearance pockets under the fore cap’s spring feet have floors at
-Z252.75. Their 0.65 mm depth leaves 4.75 mm of lid backing and 0.25 mm
-nominal air below the seated wing tips. The pockets lie outside the receiver
-neck. Both tubes retain their fore restraint and pass below V-B at Z258.5;
-they rise to Z259.5 before the aft restraint. The
+One broad base spans X44.925–69.575 mm. It fills the space below the tube equators
+at Z258.5, with the two round bores cut through that common stock. Its bottom at
+Z250.4 joins 3 mm into the existing lid beneath the Z253.4 face. The curved arms
+above the equators remain free to spread. Press each tube down through its open
++Z mouth; lift it upward with the exposed jaws released for removal. The clips
+are integral to the lid, which prints on its flat underside.
+
+The [C2 coupon result](../../../../future/snap-fit-tests/2026-10-26-mark2-combined/physical-result.json)
+selects this quarter-inch bore and spring section for present use. It does not
+qualify the complete paired station's printed finish, installed access, numerical
+forces or lifetime. Both tubes pass below V-B at Z258.5 and rise to Z259.5 before
+the aft restraint. The
 [wall-routing review](wago-wall-review/README.md) records the native fit and lid slice.
 
 The aft seat occupies Y299–309 at Z259.5 mm. Its R3.325 mm grooves follow the
@@ -128,12 +124,12 @@ at Z248. Side mouths provide threading access. One nominal 2.5 × 0.8 mm tie wit
 describes the aft path; purchased tie dimensions, threading, installed retention and
 load capacity remain unqualified. The aft seat extends beyond the core’s east edge.
 
-[_reservoir_a_snap.py](../_reservoir_a_snap.py) supplies the fore snap geometry;
+[_reservoir_a_c2.py](../_reservoir_a_c2.py) supplies the fore C2 geometry;
 [_reservoir_a_anchors.py](../_reservoir_a_anchors.py) defines the shared tube stations
 and aft seat, passage and tie witness. The tubes remain continuous. The
 [anchor reader receipt](reservoir-a-anchor-review.json) binds its identified two-tie
 article and finite native stock witnesses; those fore tie-passage results do not qualify
-the snap interface. The lid and cup use the same smooth print-mesh export. Nearby
+the direct C2 interface. The lid and cup use the same smooth print-mesh export. Nearby
 electrical and nominal-tie contacts retain their explicit fixture status.
 
 The [neoFit ACHV44-E water check](../../../reference/neofit-achv44-check/README.md)

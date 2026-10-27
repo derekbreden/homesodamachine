@@ -1,14 +1,13 @@
 """Reservoir A's fore snap receiver and aft tied seats, in appliance millimetres.
 
-The fore cap and its receiver share `_reservoir_a_snap`. The aft seat's west
+The fore integral C2 pair shares `_reservoir_a_c2`. The aft seat's west
 stock ramps from the lid face under V-K's outlet elbow. Its tie witnesses
 describe routing, not purchased dimensions or physical acceptance.
 """
 from copy import deepcopy
-import itertools
 import math
 
-import _reservoir_a_snap as snap
+import _reservoir_a_c2 as snap
 
 
 _SPECIFICATION = {
@@ -75,15 +74,10 @@ def datums():
         x0, x1 = first[0], last[0]
         y = first[1]
         half = station.get("station_length_mm", spec["station_length_mm"]) / 2
-        if station["closure"] == "snap":
-            extent = station["wing_outer_x_mm"]
-            corners = [snap.world_point(p) for p in itertools.product(
-                (-extent, extent), (-half, half),
-                (station["base_floor_z_mm"], station["base_top_z_mm"]))]
+        if station["closure"] == "direct-snap":
             result[station["id"]] = {
                 **station,
-                "stock_bounds_mm": [[min(p[i] for p in corners) for i in range(3)],
-                                    [max(p[i] for p in corners) for i in range(3)]],
+                "stock_bounds_mm": station["body_bounds_mm"],
                 "tube_axes_world": [station['tube_axis_world']]*2,
             }
             continue
@@ -173,22 +167,7 @@ def cuts():
     spec = specification()
     result = {}
     for name, row in datums().items():
-        if row["closure"] == "snap":
-            # The lowered tubes retain the native fore cap. Its wing tips
-            # clear the lid in two shallow pockets outside the receiver neck.
-            floor = row['hook_bottom_z_mm']-row['axial_clearance_mm']
-            top = spec['lid_face_z_mm']-row['centre_world_mm'][2]+.1
-            if top > floor:
-                clearances = []
-                for side in (-1., 1.):
-                    xs = sorted((side*row['base_neck_half_x_mm'],
-                                 side*(row['wing_outer_x_mm']+1.35)))
-                    half_y = row['cap_length_mm']/2+row['axial_clearance_mm']
-                    points = [snap.world_point(p) for p in itertools.product(
-                        xs, (-half_y, half_y), (floor, top))]
-                    clearances.append(_box([[min(p[i] for p in points) for i in range(3)],
-                                            [max(p[i] for p in points) for i in range(3)]]))
-                result[name] = clearances[0].fuse(clearances[1])
+        if row["closure"] == "direct-snap":
             continue
         openings = [_box(bounds) for bounds in row["access_bounds_mm"]]
         if "open_quarter_bounds_mm" in row:
@@ -218,7 +197,7 @@ def supports():
     passages = cuts()
     result = {}
     for name, row in datums().items():
-        if row["closure"] == "snap":
+        if row["closure"] == "direct-snap":
             result[name] = snap.base()
             continue
         body = _box(row["stock_bounds_mm"])

@@ -27,12 +27,14 @@ its fit and flex are estimates. Each clip spans the full 8 mm along its tube.
 Filled roots retain the common simple profile through to the host face.
 
 Seat `fluid-18` before the vent crosses its approach. Seat `fluid-14` before
-`fluid-16`, then close Reservoir A's paired fore cap. The provider's
+`fluid-16`. The provider's
 `install_before` entries are the installation-order source.
 
-Reservoir A's compact paired fore cap retains its two 7.5 mm-pitch seats.
-Independent full C2 profiles at that pitch occupy the neighboring bare tube;
-merging their roots alone does not provide the needed tube space. The aft
+Reservoir A's fore pair uses two integral C2 clips on the
+[cold-core lid](../../../cold-core/foam-cap/README.md), with 13.5 mm centre spacing
+at X50.5/64.0, Y209.75, Z258.5 mm. Their 6.35 mm bores and 2.40 mm wings span
+8 mm along the tubes on one broad common base. Insert each tube downward through
+its +Z mouth; release the exposed jaws for upward removal. The aft
 curved, tied seat and purchased-body ties retain their assigned roles and
 quantities. These new routing clips have no counted tie-removal credit.
 

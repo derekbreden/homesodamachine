@@ -31,7 +31,7 @@ retain at least 3 mm above the water and gas fittings.
 | Mains WAGOs | Beside C14, east of PSU screwdriver approaches | Rear-wall wells |
 | DC/sensor/reed WAGOs | Two rows on the PCB-facing back of V-B’s wall; fore/aft wire entries, west-opening levers | Integral 3 mm blank-backed wells |
 | Ground stack | Fore of V-B | Cold-core lid ground boss |
-| Reservoir A fill/draw pair | R14 fore passages and paired east-side seats, draw west of fill | Integral cold-core lid base with one removable fore snap cap; one shared narrow tie at the aft paired seat |
+| Reservoir A fill/draw pair | R14 fore passages and paired east-side seats, draw west of fill | Two integral fore C2 clips on one broad lid base; one shared narrow tie at the aft paired seat |
 | Valve manifold commons | Beside their front valve rows | Front-top wells |
 
 WAGO positions follow actual branch connections. The electronics ceiling is
@@ -43,15 +43,18 @@ lower row flavor A/B outlet. C14 is at X−68.5/Z330 and RJ11 at X−30/Z274.376
 
 Reservoir A's selected routes are defined in
 [reservoir-a-routes.json](reservoir-a-routes.json). The fore seat’s tube centres
-are X50.5/58 at Y209.75, Z258.5. Both under-valve runs use that height and
+are X50.5/64.0 at Y209.75, Z258.5, with 13.5 mm centre spacing. Both under-valve runs use that height and
 rise to Z259.5 after V-B, ahead of the aft tied seat at Y304. Their front-valve
 ATEU44W stem elbows retain their 16.891 mm receiving ends.
 Each continues through its plain core guide without a joint or physical cut.
 Only the connection points and paired-anchor centres/axes are fixed;
 intervening bends, radii and displayed lengths illustrate routing and may
-change for installed clearance. The fore half-pipes and snap cap, and the aft open
-seats and nominal retaining tie, define the local fit where a tube bends away from an
-anchor. The snap’s fit, insertion force and retention remain physically unqualified.
+change for installed clearance. The fore C2 clips use the accepted 6.35 mm bore,
+2.40 mm spring wall and 8 mm span. Their mouths face +Z for downward tube insertion
+and exposed-jaw upward release. The aft open seats and nominal retaining tie retain
+their local fit. The [coupon result](../../future/snap-fit-tests/2026-10-26-mark2-combined/physical-result.json)
+qualifies the selected C2 fit; the complete paired station's installation, numerical
+retention force and lifetime remain unmeasured.
 
 The front valves V-F, V-E and V-I carry three ATEU44W stem elbows, trimmed to
 their receiving valves' actual tube-stop marks (12.7 mm nominal in CAD).

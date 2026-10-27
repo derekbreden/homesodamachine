@@ -328,7 +328,6 @@ PETGF_BLACK_PARTS = {
     "display-cover", "funnel-frame", "elbow-cradle",
     "foam-shell", "foam-cap-top", "foam-cap-lid-top", "foam-cap-bottom",
     "foam-cap-lid-bottom", "collet-press", "nameplate-receiver",
-    "reservoir-a-fore-snap-cap",
     "faucet-shell-base", "faucet-shell-tip", "shell-base", "shell-tip",
     "above-counter-plate", "faucet-display-cover", "faucet-display-cover-seated",
     "industrial-shell-base", "industrial-display-cover", "industrial-above-counter-plate",

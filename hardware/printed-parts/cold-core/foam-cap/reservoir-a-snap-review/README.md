@@ -1,4 +1,9 @@
-# Reservoir A fore paired snap
+# Removable fore paired-cap article review
+
+This record describes the HSM-000337 cap and receiver identified by the source,
+native export and print archive hashes below. Its fit and print readings belong
+to that article. The [production lid](../README.md) documents the integral fore
+C2 pair.
 
 HSM-000337 is one removable PET-GF cap on the integral fore receiver in
 HSM-000020, the cold-core top lid. Its two upper half-pipes close over the
@@ -37,10 +42,10 @@ material limit, force, repeated-use performance or retained load.
 
 The [native reading](native-review.json), produced manually by
 [`review_reservoir_a_snap.py`](../../../../../tools/reviews/review_reservoir_a_snap.py),
-binds current source and exported geometry. It includes seated fit, both
+binds its identified source and exported geometry. It includes seated fit, both
 axial stops, the 6.65 mm cap approach and a native outward-bending section.
 Its bent shape is a geometric motion proxy. The complete cap starts above
-the receiver. Its approach is read against the current valve, fittings,
+the receiver. Its approach is read against the identified valve, fittings,
 wire dressing and the shallow spring-foot pockets in the top lid.
 
 The inlet earth lug points at 300°. Its PE lead approaches through the fore

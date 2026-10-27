@@ -2560,7 +2560,7 @@ def reservoir_a_anchor_sites(runs) -> tuple:
     spec = _reservoir_a_anchors.specification()
     return tuple(
         (identifier, (tuple(point), tuple(axis),
-                      (0., 0., -1.), spec['seat_radius_mm']))
+                      (0., 0., -1.), row.get('seat_radius_mm', spec['seat_radius_mm'])))
         for row in _reservoir_a_anchors.datums().values()
         for identifier, point, axis in zip(row['routes_west_to_east'],
                                           row['tube_centers_world_mm'],
@@ -3052,7 +3052,6 @@ def co2_wall_port(inlet_carry):
 # body added to the assembly that is not part of that pack has to be named here or it
 # joins the box and moves every one of them.
 STANDALONE = ("compressor", "condenser+fan", "foam-assembly", "g-ganen-pump",
-              "reservoir-a-fore-snap-cap",
               *(f"{name}{part}" for name, _toward in PUMP_ELBOWS.values()
                 for part in ("", "-clamp-barb", "-clamp-tube")),
               "funnel", "discharge-chain", "display", "display-cover",

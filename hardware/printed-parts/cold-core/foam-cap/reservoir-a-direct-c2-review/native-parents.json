@@ -1,0 +1,130 @@
+[
+  {
+    "scope": "Native XCAF prototype replacement and cap component retirement. Other leaves/placements/colors and all unaffected viewer arrays preserved.",
+    "source_relative": "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step",
+    "held_sha256": "0a974b486466043a33d30a90bd8b3ed2cc86e6935c951aade5b46f1e9c640a2c",
+    "held_mesh_sha256": "b295f3d67cd5dda8990bd2532682be4d23f2603e65117a122a01f55e17e9dff8",
+    "staged": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/paired-c2/staged/foam/foam-assembly.step",
+    "staged_sha256": "baef3a225b45b709e11d00f07fab15f98458b11096ab1396d111294f09954b21",
+    "staged_mesh_sha256": "bdbbb86d32985260f096563b7fa733a64ec99e1204699aa6f5c9cf6b179066ac",
+    "physical_sha256": "baef3a225b45b709e11d00f07fab15f98458b11096ab1396d111294f09954b21",
+    "changed": [
+      "foam-cap-lid-top"
+    ],
+    "leaf_count_before": 5,
+    "leaf_count_after": 5,
+    "replaced_native_bodies": {
+      "foam-cap-lid-top": {
+        "solids": 1,
+        "faces": 224,
+        "edges": 617,
+        "bbox": [
+          -141.2,
+          -97.7,
+          228.0,
+          141.2,
+          90.2,
+          278.65
+        ],
+        "volume": 293828.125087,
+        "area": 119959.021115
+      }
+    },
+    "removed_native_paths": [],
+    "unrelated_native_leaves_retained": 4,
+    "unrelated_mesh_arrays_identical": true,
+    "retained_retainer": [],
+    "lid_viewer_surface": "Exact standalone STL-derived payload, rigidly transformed into the validated held native lid frame.",
+    "mesh_count_before": 5,
+    "mesh_count_after": 5,
+    "updated_viewer_meshes": [
+      "foam-cap-lid-top"
+    ],
+    "removed_viewer_meshes": []
+  },
+  {
+    "scope": "Native XCAF prototype replacement and cap component retirement. Other leaves/placements/colors and all unaffected viewer arrays preserved.",
+    "source_relative": "hardware/cold-core-layout/cold-core-assembly.step",
+    "held_sha256": "12e6ec1c4a163f5b76a6a35a77904597b51dc1ac552e0f7a46639c3eb88d387a",
+    "held_mesh_sha256": "ac47b2b120b735307d6e6c7de10978ce3bafd0d69e6fce05b927c077f4e8d3ab",
+    "staged": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/paired-c2/staged/core/cold-core-assembly.step",
+    "staged_sha256": "f8abee782cb4483131839efa791101aaeb236795c5e32fd27b344e9a2eab8f50",
+    "staged_mesh_sha256": "c056f0de71d47c4fa460592d63a889247daf329580bdde8abf0afde0d70910a5",
+    "physical_sha256": "f8abee782cb4483131839efa791101aaeb236795c5e32fd27b344e9a2eab8f50",
+    "changed": [
+      "foam-cap-lid-top",
+      "reservoir-a-fore-snap-cap REMOVED"
+    ],
+    "leaf_count_before": 71,
+    "leaf_count_after": 70,
+    "replaced_native_bodies": {
+      "foam-cap-lid-top": {
+        "solids": 1,
+        "faces": 224,
+        "edges": 617,
+        "bbox": [
+          -141.2,
+          -97.7,
+          228.0,
+          141.2,
+          90.2,
+          278.65
+        ],
+        "volume": 293828.125087,
+        "area": 119959.021115
+      }
+    },
+    "removed_native_paths": [
+      [
+        "cold-core-assembly",
+        "reservoir-a-fore-snap-cap"
+      ]
+    ],
+    "unrelated_native_leaves_retained": 69,
+    "unrelated_mesh_arrays_identical": true,
+    "retained_retainer": [],
+    "lid_viewer_surface": "Exact standalone STL-derived payload, rigidly transformed into the validated held native lid frame.",
+    "mesh_count_before": 71,
+    "mesh_count_after": 70,
+    "updated_viewer_meshes": [
+      "foam-cap-lid-top"
+    ],
+    "removed_viewer_meshes": [
+      "reservoir-a-fore-snap-cap"
+    ]
+  },
+  {
+    "source_relative": "hardware/manifold-layout/enclosure-assembly.step",
+    "held_sha256": "294da475d3ecf3790bc1433469a0fcfe1fdc7a688f7e1872fd5f4c95095c8263",
+    "held_mesh_sha256": "1716dc6c2a86b29c4c6643ef187336a865c489ec8a687d3f379f947f42f2b902",
+    "staged": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/paired-c2/staged/appliance/enclosure-assembly.step",
+    "staged_sha256": "e7e55c199893f12b8af8323ef9bf87bfeda92ec327c730ad49e09ba6f3098193",
+    "staged_mesh_sha256": "8623364e7b9841925e9970754704029ee3a40924b4afa33ab125f54bd7825935",
+    "physical_sha256": "2306bda5df9f42d711fd67ad5f8d8164ce691183504bece05f6bea5e5ce06f53",
+    "leaf_count_before": 450,
+    "leaf_count_after": 449,
+    "updated_native_bodies": [
+      "foam-cap-lid-top",
+      "tube-fluid-14"
+    ],
+    "removed_native_bodies": [
+      "reservoir-a-fore-snap-cap"
+    ],
+    "native_read_back_passed_before_wiring_append": true,
+    "unchanged_native_names_hierarchy_poses_colors_measures_and_retainer_fingerprint_retained": true,
+    "native_validation_program_sha256": "0ee871cfcae3fc758393b3976289fe6593d8a12f7819ca7ff02e361bd5c7dfde",
+    "wire_source_sha256": "df385b75f56a43922a62bb5d5f09ffbd27af2cee86096040e4d491998677b772",
+    "scope": "Read-back was completed by stage-native.py before its missing-payload error in step_merge.install. The native append completed; this step finishes only the viewer payload from held arrays plus the exact current standalone lid print surface and fill BRep.",
+    "unrelated_mesh_arrays_identical": true,
+    "lid_viewer_surface": "Exact standalone STL-derived payload, rigidly transformed into the validated held native lid frame.",
+    "mesh_count_before": 563,
+    "mesh_count_after": 562,
+    "updated_viewer_meshes": [
+      "tube-fluid-14",
+      "cold-core/foam-cap-lid-top"
+    ],
+    "removed_viewer_meshes": [
+      "cold-core/reservoir-a-fore-snap-cap"
+    ]
+  }
+]

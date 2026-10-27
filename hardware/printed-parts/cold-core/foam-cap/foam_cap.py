@@ -27,7 +27,6 @@ import valve_seat as seat
 import _foam_cap as _foam_cap_module
 import _above_core_mounts as _above_mounts
 import _reservoir_a_anchors as _a_anchors
-import _reservoir_a_snap as _a_snap
 import above_core_wiring
 import _reservoir_ports as reservoir_ports
 from _foam_cap import (
@@ -454,7 +453,6 @@ def main():
     # the same flag as the caps they close, not one derived from the other.
     lid_bottom = build_foam_cap_lid(open_down=True)
     lid_top = build_top_lid()
-    snap_cap = cq.Workplane(obj=_a_snap.cap())
 
     assert len(cap_top.solids().vals()) == 1, "cap_top must be a single solid"
     # Every plinth and anchor joins the lid.
@@ -481,18 +479,15 @@ def main():
             (cap_top, "foam-cap-top", _mat.C_CAP_TOP),
             (cap_bottom, "foam-cap-bottom", _mat.C_CAP_BOTTOM),
             (lid_top, "foam-cap-lid-top", _mat.C_CAP_LID_TOP),
-            (lid_bottom, "foam-cap-lid-bottom", _mat.C_CAP_LID_BOTTOM),
-            (snap_cap, _a_snap.CAP_NAME, _mat.M_PETGF_BLACK)):
+            (lid_bottom, "foam-cap-lid-bottom", _mat.C_CAP_LID_BOTTOM)):
         export_assembly(one_body(shape, name, colour), str(_here / f"{name}.step"))
     print("-> foam-cap-top.step")
     print("-> foam-cap-bottom.step")
     print("-> foam-cap-lid-top.step")
     print("-> foam-cap-lid-bottom.step")
-    print(f"-> {_a_snap.CAP_NAME}.step")
 
     for shape, name in ((cap_top, "foam-cap-top"), (cap_bottom, "foam-cap-bottom"),
-                        (lid_top, "foam-cap-lid-top"), (lid_bottom, "foam-cap-lid-bottom"),
-                        (snap_cap, _a_snap.CAP_NAME)):
+                        (lid_top, "foam-cap-lid-top"), (lid_bottom, "foam-cap-lid-bottom")):
         write_bed_file(shape, _here / f"{name}.stl")
 
     variables = {

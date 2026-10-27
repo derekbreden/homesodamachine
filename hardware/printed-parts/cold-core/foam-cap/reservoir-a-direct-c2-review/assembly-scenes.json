@@ -1,0 +1,59 @@
+[
+  {
+    "source_relative": "hardware/assembly/scenes/glb/cold-core.glb",
+    "source_sha256": "3184ae0d697a5d72e0c8d5f4495689fa1584f8c8e68207e76c4e7eefb3a6c61b",
+    "staged": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/paired-c2/staged/glb/cold-core.glb",
+    "staged_sha256": "4ef30fbaec7b008c9d2c32360b1a806f3c4a67ad1be46ac1c5e5314a51f0f319",
+    "updated_nodes": [
+      "cold-core/foam-cap-lid-top",
+      "tube-fluid-14"
+    ],
+    "removed_cap_nodes": 1,
+    "unchanged_geometry_materials_transforms_identical": true
+  },
+  {
+    "source_relative": "hardware/assembly/scenes/glb/cap-lid.glb",
+    "source_sha256": "01fcacbfa3b655f9179e2e20a30d1a9913792aa3493384c6337b1e12517752ae",
+    "staged": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/paired-c2/staged/glb/cap-lid.glb",
+    "staged_sha256": "d18f08cd3a61d257e9d769d599c0eb6c73dcd84781345f8b08d70304268ece0c",
+    "updated_nodes": [
+      "cold-core/foam-cap-lid-top"
+    ],
+    "removed_cap_nodes": 1,
+    "unchanged_geometry_materials_transforms_identical": true
+  },
+  {
+    "source_relative": "hardware/assembly/scenes/glb/back-half.glb",
+    "source_sha256": "3b0075a51b4ea6e0d01435e28eeb85efa6c26aef7a102a36316c83507e18ed0f",
+    "staged": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/paired-c2/staged/glb/back-half.glb",
+    "staged_sha256": "b9ba31e706dd038bd8e599fa9269ee4410d010dfe134190cd34d95493cca1780",
+    "updated_nodes": [
+      "cold-core/foam-cap-lid-top",
+      "tube-fluid-14"
+    ],
+    "removed_cap_nodes": 1,
+    "unchanged_geometry_materials_transforms_identical": true
+  },
+  {
+    "source_relative": "hardware/assembly/scenes/glb/cap-lid-fill.glb",
+    "source_sha256": "3daea5e1cc72309bf6a4ad534bc0a09e048edfa6dd9ec984495d83a343359dff",
+    "staged": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/paired-c2/staged/glb/cap-lid-fill.glb",
+    "staged_sha256": "884eef31a5f87448eea1681608ebcedfa646cf9914fb2cad01fe00b7b6adae3b",
+    "updated_nodes": [
+      "cold-core/foam-cap-lid-top"
+    ],
+    "removed_cap_nodes": 0,
+    "unchanged_geometry_materials_transforms_identical": true
+  },
+  {
+    "source_relative": "hardware/assembly/scenes/glb/cold-core-open.glb",
+    "source_sha256": "39033eee49095d94f2dac948b9e9bc04bfbe78766d99378f8d78deb243c4b17f",
+    "staged": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/paired-c2/staged/glb/cold-core-open.glb",
+    "staged_sha256": "5c310edea7242ea12c318cd0f60372da31c3ff7aa82eb922224acb7cc93c1ebb",
+    "updated_nodes": [
+      "tube-fluid-14"
+    ],
+    "removed_cap_nodes": 0,
+    "unchanged_geometry_materials_transforms_identical": true
+  }
+]

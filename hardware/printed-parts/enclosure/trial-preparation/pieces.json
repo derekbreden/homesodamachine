@@ -803,54 +803,6 @@
       ],
       "pose_reason": "As exported: the lid's 48,900 mm2 flat face is its Z0 face, the walls and wells standing up from it."
     },
-    "reservoir-a-fore-snap-cap": {
-      "printer": "Mark2",
-      "nozzle": {
-        "side": "left",
-        "diameter_mm": 0.4,
-        "flow": "Standard",
-        "hardened": true,
-        "reason": "Abrasive PET-GF runs on the fixed left hardened 0.4 mm Standard-flow hotend."
-      },
-      "material": "Polymaker Fiberon PET-GF15, black",
-      "settings": {
-        "wall_loops": {
-          "value": "3",
-          "reason": "Three Classic loops around the cap section and its 1.44 mm spring leaves."
-        },
-        "wall_generator": {
-          "value": "classic",
-          "reason": "Keep the cap section's perimeter deposition consistent through its straight extrusion."
-        },
-        "sparse_infill_density": {
-          "value": "100%",
-          "reason": "Solid deposition through the hooks, spring leaves and fixed cap roof."
-        },
-        "sparse_infill_pattern": {
-          "value": "zig-zag",
-          "reason": "The complete cap uses the solid reinforcement pattern."
-        },
-        "enable_support": {
-          "value": "0",
-          "reason": "Source +Y is print +Z. Every layer repeats the same X/Z section, with the spring and hook profiles in the bed plane."
-        }
-      },
-      "plate_border_mm": 20.0,
-      "parts": [
-        {
-          "stl": "hardware/printed-parts/cold-core/foam-cap/reservoir-a-fore-snap-cap.stl",
-          "pose": {
-            "turns": [
-              [
-                "x",
-                90
-              ]
-            ]
-          }
-        }
-      ],
-      "pose_reason": "HSM-000337 prints end-on: source +Y becomes build +Z, with the -Y end on the bed. The full spring and hook sections lie in the bed plane."
-    },
     "labels": {
       "printer": "Mark2",
       "nozzle": {

@@ -1,52 +1,52 @@
 {
-  "scope": "One infill-only modifier through the existing fore snap receiver, its full axial shoulders and one wall into the lid root. No load capacity or lifetime qualification.",
+  "scope": "One infill-only modifier through the fore direct C2 shared base and one wall into the lid root. No load capacity or lifetime qualification.",
   "use": "Manual print preparation for foam-cap-lid-top only. The box intersects existing material and adds no geometry. All other lid walls, infill, pose, features and support settings retain their current recipe.",
   "producer": "hardware/printed-parts/cold-core/foam-cap/prepare_fore_snap_regions.py",
   "coordinate_frames": {
     "foam-cap-lid-top": "Source STEP/STL coordinates before the installed cap half-turn; world_bounds_mm uses appliance coordinates."
   },
   "source_sha256": {
-    "hardware/printed-parts/cold-core/foam-cap/prepare_fore_snap_regions.py": "dd88a5d7520b278249576ee1e5053a070aa0b2a78fa4060f3c86aec849189621",
-    "hardware/printed-parts/cold-core/_reservoir_a_snap.py": "e479806978b4b96211bbd0bf38ecbeb9076939f240c65dfda2ab10e675f7ca58",
+    "hardware/printed-parts/cold-core/foam-cap/prepare_fore_snap_regions.py": "6d54003e0a091a669eadf26446dc2ae0035559c7152c9068aaee46401414cbe6",
+    "hardware/printed-parts/cold-core/_reservoir_a_c2.py": "073f314bf227dee8d5326b077fb4d2a050a70cc9164e2688dcb307393aea466e",
     "hardware/manifold-layout/above_core.py": "0ad87c7c252ab3cfe803c0f2a63a9374d06d0005591509031328ad6e3203988f",
     "hardware/manifold-layout/above-core.json": "6b8bb80779f653f3b91f22547fdeb1155f802f63908892f24496a446210a1b40",
-    "hardware/printed-parts/cold-core/_reservoir_a_anchors.py": "085cdcdd2abb13a2484c9cb1f3d1213425947718ead939041815ab65c4d92e64",
-    "hardware/printed-parts/cold-core/foam-cap/foam_cap.py": "7e980fd5d8c3e72173927724054b5518669cf3fb59ae4e5bc8007582a97f9125"
+    "hardware/printed-parts/cold-core/_reservoir_a_anchors.py": "9abd50a2cfe048b0e1cafaebfa1ea5e87f2115c02140077a34e5f59b18e381fc",
+    "hardware/printed-parts/cold-core/foam-cap/foam_cap.py": "44b07628f11b97bcce2ed5a172b90db0dd34a677399451afe57c46cc5b5cd1b1"
   },
   "native_artifact_sha256": {
     "foam-cap-lid-top": {
-      ".step": "baff55a5930fc56db5a6a24ff5d893c8f40dfc8c37d86154560f162c8a06b863",
-      ".stl": "1fd08504d27f29f06c1f37ff3e270b426482862d6afde3b574c111e2eac952e1"
+      ".step": "0104fdeab9cb080db6f3f7a7cd5b99164d72ff9815de069c52d2300c7ef89452",
+      ".stl": "0abb19105d0527899d5f48ed4c0dd33531c04b4715cdbb9bd4e9685e7a0318c1"
     }
   },
   "part_process_overrides": {},
   "pieces": {
     "foam-cap-lid-top": [
       {
-        "name": "Reservoir A fore snap receiver, axial shoulders and lid root",
+        "name": "Reservoir A fore direct C2 pair and lid root",
         "machine_bounds_mm": [
-          107.80000000000001,
-          120.30000000000001,
-          41.885000000000005,
-          66.615,
+          110.05000000000001,
+          118.05000000000001,
+          44.925,
+          69.575,
           2.4000000000000057,
-          11.399999999999977
+          10.5
         ],
         "applied_source_bounds_mm": [
-          107.80000000000001,
-          120.30000000000001,
-          41.885000000000005,
-          66.615,
+          110.05000000000001,
+          118.05000000000001,
+          44.925,
+          69.575,
           2.4000000000000057,
-          11.399999999999977
+          10.5
         ],
         "world_bounds_mm": [
-          41.885000000000005,
-          66.615,
-          203.5,
-          216.0,
+          44.925,
+          69.575,
+          205.75,
+          213.75,
           250.4,
-          259.4
+          258.5
         ],
         "sparse_infill_density": "100%",
         "sparse_infill_pattern": "zig-zag"

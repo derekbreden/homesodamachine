@@ -1,0 +1,1593 @@
+{
+  "schema": 1,
+  "scope": "Manual exact native check of the only changed six-segment fill fore span against the full pinned current hardware and the new complete lid. Entire approved draw route, all fill segments11 onward, all fittings, all wiring and other parent bodies are retained. No production target written.",
+  "passed": true,
+  "native_parent_sha256": "294da475d3ecf3790bc1433469a0fcfe1fdc7a688f7e1872fd5f4c95095c8263",
+  "context_index_sha256": "8e033f13ff419de6b459256c4d3a60aad839fd5c9e5d1aa7af7bd9c9bda82351",
+  "source_route_sha256": "df0dd07e47ea02e07b017621e143db47b0a48909be5672ddb2bbc47e5f80bdb5",
+  "baseline_route_sha256": "b68cb921409364d931a3dd3127909f90427455390c80b2f29a3668f65c3737c7",
+  "new_pair_review_sha256": "2338984646483a298d4889da405370e0746cb19b81c780a2eb341711941647cd",
+  "new_lid_world_sha256": "dbc91fb44ca3efe58e2885340ee6beaed1cdb4d823b6903c374236e818644fa9",
+  "pair_native_sha256": "0a62e0b8056dbf811134decf4236a83f3758b4367435f486042ccad178c948b9",
+  "baseline_binding": [
+    {
+      "route": "fluid-14",
+      "matched": true,
+      "generated": {
+        "valid": true,
+        "solids": 1,
+        "volume_mm3": 7941.423022605803,
+        "bounds_mm": [
+          [
+            33.82499989999999,
+            110.19900000000001,
+            253.39999989999998
+          ],
+          [
+            97.48500010000001,
+            429.4750001,
+            298.67500010000003
+          ]
+        ],
+        "center_mm": [
+          72.7620625472606,
+          257.861492830778,
+          269.6996213299264
+        ]
+      },
+      "held": {
+        "valid": true,
+        "solids": 1,
+        "volume_mm3": 7941.423022605838,
+        "bounds_mm": [
+          [
+            33.825,
+            110.199,
+            253.39999999999998
+          ],
+          [
+            97.4850001,
+            429.475,
+            298.67500010000003
+          ]
+        ],
+        "center_mm": [
+          72.76206254726073,
+          257.86149283078583,
+          269.69962132992305
+        ]
+      },
+      "native_vertex_and_edge_witness": {
+        "vertices_mm": 1.211538707387342e-11,
+        "edge_samples_mm": 1.8239320625558794e-11,
+        "generated_topology": [
+          66,
+          130,
+          66
+        ],
+        "held_topology": [
+          66,
+          130,
+          66
+        ]
+      }
+    },
+    {
+      "route": "fluid-16",
+      "matched": true,
+      "generated": {
+        "valid": true,
+        "solids": 1,
+        "volume_mm3": 6915.602365178645,
+        "bounds_mm": [
+          [
+            19.174999900001403,
+            110.1984615590855,
+            253.39999989999995
+          ],
+          [
+            90.12500009999884,
+            411.17500010000003,
+            298.6750000618296
+          ]
+        ],
+        "center_mm": [
+          53.598411072713034,
+          260.6636161755156,
+          269.21858598158934
+        ]
+      },
+      "held": {
+        "valid": true,
+        "solids": 1,
+        "volume_mm3": 6915.602365178922,
+        "bounds_mm": [
+          [
+            19.17499990000142,
+            110.19846155908557,
+            253.39999999999986
+          ],
+          [
+            90.12500009999857,
+            411.175,
+            298.6750000618236
+          ]
+        ],
+        "center_mm": [
+          53.59841107271499,
+          260.66361617551945,
+          269.2185859815881
+        ]
+      },
+      "native_vertex_and_edge_witness": {
+        "vertices_mm": 1.158628554454451e-11,
+        "edge_samples_mm": 1.181462291948335e-11,
+        "generated_topology": [
+          62,
+          122,
+          62
+        ],
+        "held_topology": [
+          62,
+          122,
+          62
+        ]
+      }
+    }
+  ],
+  "pair_specification": {
+    "closure": "direct-snap",
+    "centre_world_mm": [
+      57.25,
+      209.75,
+      258.5
+    ],
+    "tube_centers_world_mm": [
+      [
+        50.5,
+        209.75,
+        258.5
+      ],
+      [
+        64.0,
+        209.75,
+        258.5
+      ]
+    ],
+    "tube_axis_world": [
+      0.0,
+      1.0,
+      0.0
+    ],
+    "tube_axis_worlds": [
+      [
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ]
+    ],
+    "tube_od_mm": 6.35,
+    "bore_diameter_mm": 6.35,
+    "seat_radius_mm": 3.175,
+    "tube_pitch_mm": 13.5,
+    "station_length_mm": 8.0,
+    "spring_thickness_mm": 2.4,
+    "tip_degrees": 125.42102606277044,
+    "lid_face_z_mm": 253.4,
+    "base_floor_world_z_mm": 250.4,
+    "base_top_world_z_mm": 258.5,
+    "base_bounds_mm": [
+      [
+        44.925,
+        205.75,
+        250.4
+      ],
+      [
+        69.575,
+        213.75,
+        258.5
+      ]
+    ],
+    "body_bounds_mm": [
+      [
+        44.925,
+        205.75,
+        250.4
+      ],
+      [
+        69.575,
+        213.75,
+        262.2356636552512
+      ]
+    ],
+    "floor_stock_mm": 3.0,
+    "outer_radius_mm": 5.574999999999999,
+    "outer_width_mm": 24.65,
+    "central_land_mm": 7.15,
+    "static_outer_gap_mm": 2.3500000000000014,
+    "nominal_nose_spread_per_jaw_mm": 0.8097461762957114,
+    "clearance_spread_per_jaw_mm": 1.0,
+    "opposing_jaw_envelope_gap_mm": 0.3500000000000014,
+    "insertion_direction_world": [
+      0.0,
+      0.0,
+      -1.0
+    ],
+    "print_up_world": [
+      0.0,
+      0.0,
+      1.0
+    ],
+    "print_basis": "Lid flat underside on bed; C2 mouths grow upward, matching the floor-rooted trial orientation.",
+    "spring_basis": "Accepted C2 bore6.35, wing2.4 and tip125.421 degrees; no load or lifetime claim."
+  },
+  "unchanged_draw_route_exact": true,
+  "unchanged_fill_aft_segments_11_on_exact": true,
+  "new_shapes": {
+    "fluid-14": {
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 7946.9986033177465,
+      "bounds_mm": [
+        [
+          33.82499989999999,
+          110.19900000000001,
+          253.39999989999998
+        ],
+        [
+          97.48500010000001,
+          429.4750001,
+          298.6750001000001
+        ]
+      ],
+      "center_mm": [
+        73.34373778297183,
+        257.2631342426756,
+        270.04447398113564
+      ]
+    },
+    "fluid-16": {
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 6915.602365178922,
+      "bounds_mm": [
+        [
+          19.17499990000142,
+          110.19846155908557,
+          253.39999999999986
+        ],
+        [
+          90.12500009999857,
+          411.175,
+          298.6750000618236
+        ]
+      ],
+      "center_mm": [
+        53.59841107271499,
+        260.66361617551945,
+        269.2185859815881
+      ]
+    }
+  },
+  "fore_hardware_contacts": [
+    {
+      "distance_mm": 10.805803452275057,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "route": "fluid-14",
+      "body": "ya-stem-elbow",
+      "baseline_overlap_mm3": null,
+      "introduced_overlap_mm3": 0.0
+    },
+    {
+      "distance_mm": 14.558338831646697,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "route": "fluid-14",
+      "body": "tube-above-core-va-fore-feed",
+      "baseline_overlap_mm3": null,
+      "introduced_overlap_mm3": 0.0
+    },
+    {
+      "distance_mm": 17.874122291675334,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "route": "fluid-14",
+      "body": "tube-above-core-drain-vb-east-link",
+      "baseline_overlap_mm3": null,
+      "introduced_overlap_mm3": 0.0
+    },
+    {
+      "distance_mm": 9.338134176094343,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "route": "fluid-14",
+      "body": "tube-fluid-18",
+      "baseline_overlap_mm3": null,
+      "introduced_overlap_mm3": 0.0
+    },
+    {
+      "distance_mm": 109.39261501369558,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "route": "fluid-14",
+      "body": "tube-fluid-28",
+      "baseline_overlap_mm3": null,
+      "introduced_overlap_mm3": 0.0
+    },
+    {
+      "distance_mm": 10.59602388102833,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "route": "fluid-14",
+      "body": "cold-core/foam-cap-top",
+      "baseline_overlap_mm3": null,
+      "introduced_overlap_mm3": 0.0
+    },
+    {
+      "distance_mm": 0.0,
+      "overlap_mm3": 0,
+      "overlap_bounds_mm": null,
+      "route": "fluid-14",
+      "body": "cold-core/foam-cap-lid-top",
+      "baseline_overlap_mm3": null,
+      "introduced_overlap_mm3": 0.0
+    },
+    {
+      "distance_mm": 26.693180661669277,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "route": "fluid-14",
+      "body": "cold-core/tube-reservoir-air-b",
+      "baseline_overlap_mm3": null,
+      "introduced_overlap_mm3": 0.0
+    },
+    {
+      "distance_mm": 3.4960963674788648,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "route": "fluid-14",
+      "body": "cold-core/valve-v-b",
+      "baseline_overlap_mm3": null,
+      "introduced_overlap_mm3": 0.0
+    },
+    {
+      "distance_mm": 13.954953935942664,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "route": "fluid-14",
+      "body": "cold-core/vb-inlet-turn",
+      "baseline_overlap_mm3": null,
+      "introduced_overlap_mm3": 0.0
+    },
+    {
+      "distance_mm": 13.036984763298273,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "route": "fluid-14",
+      "body": "cold-core/ground-stack",
+      "baseline_overlap_mm3": null,
+      "introduced_overlap_mm3": 0.0
+    },
+    {
+      "distance_mm": 1.2249998999999434,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "route": "fluid-14",
+      "body": "funnel-frame",
+      "baseline_overlap_mm3": null,
+      "introduced_overlap_mm3": 0.0
+    },
+    {
+      "distance_mm": 14.375907797422727,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "route": "fluid-14",
+      "body": "enclosure-front-top",
+      "baseline_overlap_mm3": null,
+      "introduced_overlap_mm3": 0.0
+    },
+    {
+      "distance_mm": 15.529399744189638,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "route": "fluid-14",
+      "body": "enclosure-back-top",
+      "baseline_overlap_mm3": null,
+      "introduced_overlap_mm3": 0.0
+    },
+    {
+      "distance_mm": 1.850384856996731,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "route": "fluid-14",
+      "body": "wire-AC4-H",
+      "baseline_overlap_mm3": null,
+      "introduced_overlap_mm3": 0.0
+    },
+    {
+      "distance_mm": 1.1017967202392853,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "route": "fluid-14",
+      "body": "wire-AC5-N",
+      "baseline_overlap_mm3": null,
+      "introduced_overlap_mm3": 0.0
+    },
+    {
+      "distance_mm": 2.401100183684318,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "route": "fluid-14",
+      "body": "wire-AC6-PE",
+      "baseline_overlap_mm3": null,
+      "introduced_overlap_mm3": 0.0
+    },
+    {
+      "distance_mm": 6.451666386290679,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "route": "fluid-14",
+      "body": "wire-PE-bus",
+      "baseline_overlap_mm3": null,
+      "introduced_overlap_mm3": 0.0
+    },
+    {
+      "distance_mm": 26.472627874160644,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "route": "fluid-14",
+      "body": "wire-PE-carbonator",
+      "baseline_overlap_mm3": null,
+      "introduced_overlap_mm3": 0.0
+    },
+    {
+      "distance_mm": 2.641527571761999,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "route": "fluid-14",
+      "body": "wire-J1-COM",
+      "baseline_overlap_mm3": null,
+      "introduced_overlap_mm3": 0.0
+    },
+    {
+      "distance_mm": 11.168687788637843,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "route": "fluid-14",
+      "body": "wire-J1-positive-A",
+      "baseline_overlap_mm3": null,
+      "introduced_overlap_mm3": 0.0
+    },
+    {
+      "distance_mm": 21.93244023520461,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "route": "fluid-14",
+      "body": "wire-J1-positive-B",
+      "baseline_overlap_mm3": null,
+      "introduced_overlap_mm3": 0.0
+    },
+    {
+      "distance_mm": 11.151134152966696,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "route": "fluid-14",
+      "body": "wire-J1-positive-C",
+      "baseline_overlap_mm3": null,
+      "introduced_overlap_mm3": 0.0
+    },
+    {
+      "distance_mm": 11.886260875548956,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "route": "fluid-14",
+      "body": "wire-J1-positive-D",
+      "baseline_overlap_mm3": null,
+      "introduced_overlap_mm3": 0.0
+    },
+    {
+      "distance_mm": 18.607551767605155,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "route": "fluid-14",
+      "body": "wire-J1-positive-E",
+      "baseline_overlap_mm3": null,
+      "introduced_overlap_mm3": 0.0
+    },
+    {
+      "distance_mm": 5.33041577365999,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "route": "fluid-14",
+      "body": "wire-J1-OUT6",
+      "baseline_overlap_mm3": null,
+      "introduced_overlap_mm3": 0.0
+    },
+    {
+      "distance_mm": 20.652195029562073,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "route": "fluid-14",
+      "body": "wire-J1-positive-F",
+      "baseline_overlap_mm3": null,
+      "introduced_overlap_mm3": 0.0
+    },
+    {
+      "distance_mm": 17.359121811062366,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "route": "fluid-14",
+      "body": "wire-J1-OUT7",
+      "baseline_overlap_mm3": null,
+      "introduced_overlap_mm3": 0.0
+    },
+    {
+      "distance_mm": 20.995727415890197,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "route": "fluid-14",
+      "body": "wire-J1-positive-G",
+      "baseline_overlap_mm3": null,
+      "introduced_overlap_mm3": 0.0
+    },
+    {
+      "distance_mm": 13.404248906664733,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "route": "fluid-14",
+      "body": "wire-J1-positive-H",
+      "baseline_overlap_mm3": null,
+      "introduced_overlap_mm3": 0.0
+    },
+    {
+      "distance_mm": 2.7457941812482636,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "route": "fluid-14",
+      "body": "wire-J2-COM",
+      "baseline_overlap_mm3": null,
+      "introduced_overlap_mm3": 0.0
+    },
+    {
+      "distance_mm": 9.647502597157606,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "route": "fluid-14",
+      "body": "wire-J2-positive-I",
+      "baseline_overlap_mm3": null,
+      "introduced_overlap_mm3": 0.0
+    },
+    {
+      "distance_mm": 11.663611145604673,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "route": "fluid-14",
+      "body": "wire-J2-FAN",
+      "baseline_overlap_mm3": null,
+      "introduced_overlap_mm3": 0.0
+    },
+    {
+      "distance_mm": 16.634311558038775,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "route": "fluid-14",
+      "body": "wire-J2-positive-K",
+      "baseline_overlap_mm3": null,
+      "introduced_overlap_mm3": 0.0
+    },
+    {
+      "distance_mm": 61.20487685918548,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "route": "fluid-14",
+      "body": "wire-J13-AM2",
+      "baseline_overlap_mm3": null,
+      "introduced_overlap_mm3": 0.0
+    },
+    {
+      "distance_mm": 61.589105661236516,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "route": "fluid-14",
+      "body": "wire-J13-AM1",
+      "baseline_overlap_mm3": null,
+      "introduced_overlap_mm3": 0.0
+    },
+    {
+      "distance_mm": 65.60391270668401,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "route": "fluid-14",
+      "body": "wire-J4-V5",
+      "baseline_overlap_mm3": null,
+      "introduced_overlap_mm3": 0.0
+    },
+    {
+      "distance_mm": 65.65940311188736,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "route": "fluid-14",
+      "body": "wire-J4-IO25",
+      "baseline_overlap_mm3": null,
+      "introduced_overlap_mm3": 0.0
+    },
+    {
+      "distance_mm": 15.896592348739945,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "route": "fluid-14",
+      "body": "wire-flow-GND",
+      "baseline_overlap_mm3": null,
+      "introduced_overlap_mm3": 0.0
+    },
+    {
+      "distance_mm": 7.7370745197763995,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "route": "fluid-14",
+      "body": "terminal-compressor-cord-jacket",
+      "baseline_overlap_mm3": null,
+      "introduced_overlap_mm3": 0.0
+    }
+  ],
+  "full_pair_tube_contact": {
+    "distance_mm": 1.0100000000014226,
+    "overlap_mm3": 0.0,
+    "overlap_bounds_mm": null
+  },
+  "nominal_seated_lid_contacts": [
+    {
+      "distance_mm": 0.0,
+      "overlap_mm3": 0,
+      "overlap_bounds_mm": null,
+      "axis_x_mm": 50.5
+    },
+    {
+      "distance_mm": 0.0,
+      "overlap_mm3": 0,
+      "overlap_bounds_mm": null,
+      "axis_x_mm": 64.0
+    }
+  ],
+  "press_capsule_contacts": [
+    {
+      "distance_mm": 42.346475790237655,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "axis_x_mm": 50.5,
+      "body": "tube-fluid-18"
+    },
+    {
+      "distance_mm": 125.33323149047057,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "axis_x_mm": 50.5,
+      "body": "tube-fluid-28"
+    },
+    {
+      "distance_mm": 15.526930087656766,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "axis_x_mm": 50.5,
+      "body": "cold-core/foam-cap-top"
+    },
+    {
+      "distance_mm": 4.154897307021694,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "axis_x_mm": 50.5,
+      "body": "cold-core/valve-v-b"
+    },
+    {
+      "distance_mm": 37.824999999999996,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "axis_x_mm": 50.5,
+      "body": "enclosure-front-top"
+    },
+    {
+      "distance_mm": 37.824999999999996,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "axis_x_mm": 50.5,
+      "body": "enclosure-back-top"
+    },
+    {
+      "distance_mm": 24.898989803209584,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "axis_x_mm": 50.5,
+      "body": "wire-AC4-H"
+    },
+    {
+      "distance_mm": 24.66419278551489,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "axis_x_mm": 50.5,
+      "body": "wire-AC5-N"
+    },
+    {
+      "distance_mm": 18.360798015066212,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "axis_x_mm": 50.5,
+      "body": "wire-PE-bus"
+    },
+    {
+      "distance_mm": 11.372769397024665,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "axis_x_mm": 50.5,
+      "body": "wire-PE-carbonator"
+    },
+    {
+      "distance_mm": 7.203543778614204,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "axis_x_mm": 50.5,
+      "body": "wire-J1-COM"
+    },
+    {
+      "distance_mm": 17.8326797321651,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "axis_x_mm": 50.5,
+      "body": "wire-J1-positive-A"
+    },
+    {
+      "distance_mm": 24.394397386067208,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "axis_x_mm": 50.5,
+      "body": "wire-J1-OUT6"
+    },
+    {
+      "distance_mm": 23.38059602638842,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "axis_x_mm": 50.5,
+      "body": "wire-J1-OUT7"
+    },
+    {
+      "distance_mm": 3.4575956611892233,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "axis_x_mm": 50.5,
+      "body": "wire-J2-COM"
+    },
+    {
+      "distance_mm": 22.434296752732248,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "axis_x_mm": 50.5,
+      "body": "wire-J2-FAN"
+    },
+    {
+      "distance_mm": 94.49082807712954,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "axis_x_mm": 50.5,
+      "body": "wire-J13-AM2"
+    },
+    {
+      "distance_mm": 95.16399302912518,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "axis_x_mm": 50.5,
+      "body": "wire-J13-AM1"
+    },
+    {
+      "distance_mm": 7.461268872163171,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "axis_x_mm": 50.5,
+      "body": "wire-flow-GND"
+    },
+    {
+      "distance_mm": 0.0,
+      "overlap_mm3": 24.49238376011578,
+      "overlap_bounds_mm": [
+        [
+          47.324999999999996,
+          205.75,
+          258.5
+        ],
+        [
+          53.675000000000004,
+          213.75,
+          262.17043321471436
+        ]
+      ],
+      "axis_x_mm": 50.5,
+      "body": "new-lid",
+      "outside_working_pair_overlap_mm3": 0,
+      "rigid_pair_overlap_mm3": 0,
+      "classification": "Contact with free C2 spring noses is required during insertion; rigid stock and remaining lid must stay clear."
+    },
+    {
+      "distance_mm": 38.064898914136776,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "axis_x_mm": 64.0,
+      "body": "tube-fluid-18"
+    },
+    {
+      "distance_mm": 138.2910987958391,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "axis_x_mm": 64.0,
+      "body": "tube-fluid-28"
+    },
+    {
+      "distance_mm": 19.77499979999999,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "axis_x_mm": 64.0,
+      "body": "cold-core/foam-cap-top"
+    },
+    {
+      "distance_mm": 10.746348786402049,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "axis_x_mm": 64.0,
+      "body": "cold-core/valve-v-b"
+    },
+    {
+      "distance_mm": 24.325000000000003,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "axis_x_mm": 64.0,
+      "body": "enclosure-front-top"
+    },
+    {
+      "distance_mm": 24.325000000000003,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "axis_x_mm": 64.0,
+      "body": "enclosure-back-top"
+    },
+    {
+      "distance_mm": 24.38804046188663,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "axis_x_mm": 64.0,
+      "body": "wire-PE-carbonator"
+    },
+    {
+      "distance_mm": 15.295491753443278,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "axis_x_mm": 64.0,
+      "body": "wire-J1-COM"
+    },
+    {
+      "distance_mm": 18.052329797462143,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "axis_x_mm": 64.0,
+      "body": "wire-J1-positive-A"
+    },
+    {
+      "distance_mm": 33.546140709892825,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "axis_x_mm": 64.0,
+      "body": "wire-J1-OUT6"
+    },
+    {
+      "distance_mm": 33.47062169788585,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "axis_x_mm": 64.0,
+      "body": "wire-J1-OUT7"
+    },
+    {
+      "distance_mm": 10.62508047056666,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "axis_x_mm": 64.0,
+      "body": "wire-J2-COM"
+    },
+    {
+      "distance_mm": 33.1278227586292,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "axis_x_mm": 64.0,
+      "body": "wire-J2-FAN"
+    },
+    {
+      "distance_mm": 20.451689713606008,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "axis_x_mm": 64.0,
+      "body": "wire-J2-positive-K"
+    },
+    {
+      "distance_mm": 17.897132948301213,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "axis_x_mm": 64.0,
+      "body": "wire-flow-GND"
+    },
+    {
+      "distance_mm": 0.0,
+      "overlap_mm3": 24.492383760115377,
+      "overlap_bounds_mm": [
+        [
+          60.824999999999996,
+          205.75,
+          258.5
+        ],
+        [
+          67.175,
+          213.75,
+          262.17043321471436
+        ]
+      ],
+      "axis_x_mm": 64.0,
+      "body": "new-lid",
+      "outside_working_pair_overlap_mm3": 0,
+      "rigid_pair_overlap_mm3": 0,
+      "classification": "Contact with free C2 spring noses is required during insertion; rigid stock and remaining lid must stay clear."
+    }
+  ],
+  "conservative_1mm_arm_box_contacts": [
+    {
+      "distance_mm": 45.125071501145904,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "station_axis_x_mm": 50.5,
+      "arm_outward": -1.0,
+      "body": "tube-fluid-18"
+    },
+    {
+      "distance_mm": 122.14840498203246,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "station_axis_x_mm": 50.5,
+      "arm_outward": -1.0,
+      "body": "tube-fluid-28"
+    },
+    {
+      "distance_mm": 14.189254475534783,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "station_axis_x_mm": 50.5,
+      "arm_outward": -1.0,
+      "body": "cold-core/foam-cap-top"
+    },
+    {
+      "distance_mm": 10.438248103342202,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "station_axis_x_mm": 50.5,
+      "arm_outward": -1.0,
+      "body": "cold-core/valve-v-b"
+    },
+    {
+      "distance_mm": 8.787420576488444,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "station_axis_x_mm": 50.5,
+      "arm_outward": -1.0,
+      "body": "cold-core/ground-stack"
+    },
+    {
+      "distance_mm": 43.365253823704286,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "station_axis_x_mm": 50.5,
+      "arm_outward": -1.0,
+      "body": "enclosure-front-top"
+    },
+    {
+      "distance_mm": 43.469891451366344,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "station_axis_x_mm": 50.5,
+      "arm_outward": -1.0,
+      "body": "enclosure-back-top"
+    },
+    {
+      "distance_mm": 27.838860798454373,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "station_axis_x_mm": 50.5,
+      "arm_outward": -1.0,
+      "body": "wire-AC4-H"
+    },
+    {
+      "distance_mm": 27.962974915770808,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "station_axis_x_mm": 50.5,
+      "arm_outward": -1.0,
+      "body": "wire-AC5-N"
+    },
+    {
+      "distance_mm": 17.8299174445971,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "station_axis_x_mm": 50.5,
+      "arm_outward": -1.0,
+      "body": "wire-PE-bus"
+    },
+    {
+      "distance_mm": 10.050935279373643,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "station_axis_x_mm": 50.5,
+      "arm_outward": -1.0,
+      "body": "wire-PE-carbonator"
+    },
+    {
+      "distance_mm": 7.909281320359088,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "station_axis_x_mm": 50.5,
+      "arm_outward": -1.0,
+      "body": "wire-J1-COM"
+    },
+    {
+      "distance_mm": 24.37000566031989,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "station_axis_x_mm": 50.5,
+      "arm_outward": -1.0,
+      "body": "wire-J1-positive-A"
+    },
+    {
+      "distance_mm": 20.95099784051003,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "station_axis_x_mm": 50.5,
+      "arm_outward": -1.0,
+      "body": "wire-J1-OUT7"
+    },
+    {
+      "distance_mm": 5.197684990261079,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "station_axis_x_mm": 50.5,
+      "arm_outward": -1.0,
+      "body": "wire-J2-COM"
+    },
+    {
+      "distance_mm": 20.7814812034987,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "station_axis_x_mm": 50.5,
+      "arm_outward": -1.0,
+      "body": "wire-J2-FAN"
+    },
+    {
+      "distance_mm": 5.780323674954678,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "station_axis_x_mm": 50.5,
+      "arm_outward": -1.0,
+      "body": "wire-flow-GND"
+    },
+    {
+      "distance_mm": 40.91194618052179,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "station_axis_x_mm": 50.5,
+      "arm_outward": 1.0,
+      "body": "tube-fluid-18"
+    },
+    {
+      "distance_mm": 130.6753342450583,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "station_axis_x_mm": 50.5,
+      "arm_outward": 1.0,
+      "body": "tube-fluid-28"
+    },
+    {
+      "distance_mm": 20.314083974128106,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "station_axis_x_mm": 50.5,
+      "arm_outward": 1.0,
+      "body": "cold-core/foam-cap-top"
+    },
+    {
+      "distance_mm": 10.784833214885811,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "station_axis_x_mm": 50.5,
+      "arm_outward": 1.0,
+      "body": "cold-core/valve-v-b"
+    },
+    {
+      "distance_mm": 34.425,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "station_axis_x_mm": 50.5,
+      "arm_outward": 1.0,
+      "body": "enclosure-front-top"
+    },
+    {
+      "distance_mm": 34.55671929739965,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "station_axis_x_mm": 50.5,
+      "arm_outward": 1.0,
+      "body": "enclosure-back-top"
+    },
+    {
+      "distance_mm": 32.04622536833676,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "station_axis_x_mm": 50.5,
+      "arm_outward": 1.0,
+      "body": "wire-AC4-H"
+    },
+    {
+      "distance_mm": 18.015889798776122,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "station_axis_x_mm": 50.5,
+      "arm_outward": 1.0,
+      "body": "wire-PE-carbonator"
+    },
+    {
+      "distance_mm": 12.067356198528636,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "station_axis_x_mm": 50.5,
+      "arm_outward": 1.0,
+      "body": "wire-J1-COM"
+    },
+    {
+      "distance_mm": 23.016109801781845,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "station_axis_x_mm": 50.5,
+      "arm_outward": 1.0,
+      "body": "wire-J1-positive-A"
+    },
+    {
+      "distance_mm": 27.5214333084468,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "station_axis_x_mm": 50.5,
+      "arm_outward": 1.0,
+      "body": "wire-J1-OUT7"
+    },
+    {
+      "distance_mm": 7.654887847184072,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "station_axis_x_mm": 50.5,
+      "arm_outward": 1.0,
+      "body": "wire-J2-COM"
+    },
+    {
+      "distance_mm": 27.573246699773435,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "station_axis_x_mm": 50.5,
+      "arm_outward": 1.0,
+      "body": "wire-J2-FAN"
+    },
+    {
+      "distance_mm": 11.630734782642826,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "station_axis_x_mm": 50.5,
+      "arm_outward": 1.0,
+      "body": "wire-flow-GND"
+    },
+    {
+      "distance_mm": 39.34634821538778,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "station_axis_x_mm": 64.0,
+      "arm_outward": -1.0,
+      "body": "tube-fluid-18"
+    },
+    {
+      "distance_mm": 135.0431802935599,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "station_axis_x_mm": 64.0,
+      "arm_outward": -1.0,
+      "body": "tube-fluid-28"
+    },
+    {
+      "distance_mm": 22.950000799999998,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "station_axis_x_mm": 64.0,
+      "arm_outward": -1.0,
+      "body": "cold-core/foam-cap-top"
+    },
+    {
+      "distance_mm": 12.288060850107808,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "station_axis_x_mm": 64.0,
+      "arm_outward": -1.0,
+      "body": "cold-core/valve-v-b"
+    },
+    {
+      "distance_mm": 29.865253823704286,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "station_axis_x_mm": 64.0,
+      "arm_outward": -1.0,
+      "body": "enclosure-front-top"
+    },
+    {
+      "distance_mm": 30.016988682303843,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "station_axis_x_mm": 64.0,
+      "arm_outward": -1.0,
+      "body": "enclosure-back-top"
+    },
+    {
+      "distance_mm": 22.19254991170328,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "station_axis_x_mm": 64.0,
+      "arm_outward": -1.0,
+      "body": "wire-PE-carbonator"
+    },
+    {
+      "distance_mm": 14.513275723258904,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "station_axis_x_mm": 64.0,
+      "arm_outward": -1.0,
+      "body": "wire-J1-COM"
+    },
+    {
+      "distance_mm": 22.94814662214991,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "station_axis_x_mm": 64.0,
+      "arm_outward": -1.0,
+      "body": "wire-J1-positive-A"
+    },
+    {
+      "distance_mm": 30.929430047286488,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "station_axis_x_mm": 64.0,
+      "arm_outward": -1.0,
+      "body": "wire-J1-OUT7"
+    },
+    {
+      "distance_mm": 9.940376305041962,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "station_axis_x_mm": 64.0,
+      "arm_outward": -1.0,
+      "body": "wire-J2-COM"
+    },
+    {
+      "distance_mm": 31.097847999409918,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "station_axis_x_mm": 64.0,
+      "arm_outward": -1.0,
+      "body": "wire-J2-FAN"
+    },
+    {
+      "distance_mm": 15.099779449198016,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "station_axis_x_mm": 64.0,
+      "arm_outward": -1.0,
+      "body": "wire-flow-GND"
+    },
+    {
+      "distance_mm": 37.643033751215356,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "station_axis_x_mm": 64.0,
+      "arm_outward": 1.0,
+      "body": "tube-fluid-18"
+    },
+    {
+      "distance_mm": 143.63937810791134,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "station_axis_x_mm": 64.0,
+      "arm_outward": 1.0,
+      "body": "tube-fluid-28"
+    },
+    {
+      "distance_mm": 19.768527866382477,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "station_axis_x_mm": 64.0,
+      "arm_outward": 1.0,
+      "body": "cold-core/foam-cap-top"
+    },
+    {
+      "distance_mm": 14.897325079659831,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "station_axis_x_mm": 64.0,
+      "arm_outward": 1.0,
+      "body": "cold-core/valve-v-b"
+    },
+    {
+      "distance_mm": 20.924999999999997,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "station_axis_x_mm": 64.0,
+      "arm_outward": 1.0,
+      "body": "enclosure-front-top"
+    },
+    {
+      "distance_mm": 21.14099923369928,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "station_axis_x_mm": 64.0,
+      "arm_outward": 1.0,
+      "body": "enclosure-back-top"
+    },
+    {
+      "distance_mm": 30.648357171235233,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "station_axis_x_mm": 64.0,
+      "arm_outward": 1.0,
+      "body": "wire-PE-carbonator"
+    },
+    {
+      "distance_mm": 19.57419149712954,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "station_axis_x_mm": 64.0,
+      "arm_outward": 1.0,
+      "body": "wire-J1-COM"
+    },
+    {
+      "distance_mm": 23.468787841338315,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "station_axis_x_mm": 64.0,
+      "arm_outward": 1.0,
+      "body": "wire-J1-positive-A"
+    },
+    {
+      "distance_mm": 37.644366502211,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "station_axis_x_mm": 64.0,
+      "arm_outward": 1.0,
+      "body": "wire-J1-OUT7"
+    },
+    {
+      "distance_mm": 15.504783479919597,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "station_axis_x_mm": 64.0,
+      "arm_outward": 1.0,
+      "body": "wire-J2-COM"
+    },
+    {
+      "distance_mm": 37.62265393840561,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "station_axis_x_mm": 64.0,
+      "arm_outward": 1.0,
+      "body": "wire-J2-FAN"
+    },
+    {
+      "distance_mm": 19.02415387407516,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "station_axis_x_mm": 64.0,
+      "arm_outward": 1.0,
+      "body": "wire-J2-positive-K"
+    },
+    {
+      "distance_mm": 22.771911922910615,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "station_axis_x_mm": 64.0,
+      "arm_outward": 1.0,
+      "body": "wire-flow-GND"
+    }
+  ],
+  "motion_scope": "A7mm press capsule per tube plus1mm outward bounds on actual free arms. Nominal nose-spread bound and opposed-arm gap are from the paired helper. No force, strain, durability or physical access qualification is inferred.",
+  "staged_files": {
+    ".cache/paired-c2/routes/tubes.step": "a6cfc16be7da077ee6e8ce7004d004b223e8b2782080100311e93e76fb61391c",
+    ".cache/paired-c2/routes/fluid-16.brep": "74cf9e6301beea38201f9fe39fe3d80e7ef2a315666ea8ca438f75933e47a826",
+    ".cache/paired-c2/routes/tubes.step.mesh": "fffdb588b9de3cb803a02f92713a8bf69b586dbefcf0afc984a982f87e769b59",
+    ".cache/paired-c2/routes/fluid-14.brep": "651c56acdccfd1a358791e9b4369c1ba7adfe0d58ebda8fab71ca042ea20c811"
+  },
+  "static_full_pair_foreign_contacts": [
+    {
+      "body": "tube-fluid-18",
+      "distance_mm": 37.737389509126025,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null
+    },
+    {
+      "body": "tube-fluid-28",
+      "distance_mm": 123.1409317589262,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null
+    },
+    {
+      "body": "cold-core/foam-cap-top",
+      "distance_mm": 10.518609420424458,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null
+    },
+    {
+      "body": "cold-core/valve-v-b",
+      "distance_mm": 10.611184444829963,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null
+    },
+    {
+      "body": "enclosure-front-top",
+      "distance_mm": 21.924999999999997,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null
+    },
+    {
+      "body": "enclosure-back-top",
+      "distance_mm": 22.741293895917945,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null
+    },
+    {
+      "body": "wire-AC4-H",
+      "distance_mm": 28.915724657999867,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null
+    },
+    {
+      "body": "wire-AC5-N",
+      "distance_mm": 28.91532543482784,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null
+    },
+    {
+      "body": "wire-PE-bus",
+      "distance_mm": 18.041245526049984,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null
+    },
+    {
+      "body": "wire-PE-carbonator",
+      "distance_mm": 11.582791310034105,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null
+    },
+    {
+      "body": "wire-J1-COM",
+      "distance_mm": 9.014554907430137,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null
+    },
+    {
+      "body": "wire-J1-positive-A",
+      "distance_mm": 22.957048957921888,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null
+    },
+    {
+      "body": "wire-J1-OUT7",
+      "distance_mm": 22.050278196421925,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null
+    },
+    {
+      "body": "wire-J2-COM",
+      "distance_mm": 6.531052088569971,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null
+    },
+    {
+      "body": "wire-J2-FAN",
+      "distance_mm": 22.42354685301532,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null
+    },
+    {
+      "body": "wire-J2-positive-K",
+      "distance_mm": 20.800611571735615,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null
+    },
+    {
+      "body": "wire-flow-GND",
+      "distance_mm": 6.972529282161025,
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null
+    }
+  ],
+  "static_full_pair_foreign_clear": true,
+  "pair_press_other_tube_clearance": {
+    "method": "Exact constant-X fore straight cylinder bounds across both8mm stations. All neighboring curved pieces remain outside this station inY.",
+    "surface_air_mm": 7.15
+  },
+  "manual_reader_sha256": {
+    "/Users/derekbredensteiner/.codex/visualizations/2026/10/26/01a17653-e00f-7c40-b0f8-bb2c8b25f571/check-paired-c2-final.py": "a48f1bab5df7fadbb67f8a75fb3adc34bd3c0cc711e5c488aacbab501fff4f80",
+    "/Users/derekbredensteiner/.codex/visualizations/2026/10/26/01a17653-e00f-7c40-b0f8-bb2c8b25f571/check-paired-c2-static.py": "9a7e25b0c4a441a978560bec347353c423bbeab87ffcf8e78482ed40671932ea"
+  },
+  "route_endpoint_and_radius_proof": {
+    "both_logical_endpoint_records_unchanged": true,
+    "endpoint_records": {
+      "fluid-14": {
+        "original": [
+          [
+            82.1,
+            110.19900000000001,
+            288.22020000000003
+          ],
+          [
+            61.0,
+            426.3,
+            253.39999999999998
+          ]
+        ],
+        "current": [
+          [
+            82.1,
+            110.19900000000001,
+            288.22020000000003
+          ],
+          [
+            61.0,
+            426.3,
+            253.39999999999998
+          ]
+        ],
+        "unchanged": true
+      },
+      "fluid-16": {
+        "original": [
+          [
+            22.35,
+            110.19900000000001,
+            288.22020000000003
+          ],
+          [
+            45.0,
+            408.0,
+            253.39999999999998
+          ]
+        ],
+        "current": [
+          [
+            22.35,
+            110.19900000000001,
+            288.22020000000003
+          ],
+          [
+            45.0,
+            408.0,
+            253.39999999999998
+          ]
+        ],
+        "unchanged": true
+      }
+    },
+    "segment_counts": {
+      "fluid-14": 32,
+      "fluid-16": 30
+    },
+    "minimum_radius_mm": 14.0,
+    "tube_od_mm": 6.35,
+    "tube_id_mm": 4.24,
+    "east_fill_C2_line_segment12_unchanged": true
+  }
+}

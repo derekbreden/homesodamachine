@@ -82,10 +82,15 @@ def printed_stock(path, spec, datums):
             HERE/'foam_cap.py', HERE.parent/'_show_skin.py')},
         'coordinate_tolerance_mm': 1.e-5, 'readings': []}
     for name, row in datums.items():
-        for feature, zmid, minimum in (
-            ('seat web', (spec['tie_slot_top_z_mm'] + row['tube_centers_world_mm'][0][2]
-                          - spec['seat_radius_mm'])/2, 3.),
-            ('slot floor', (spec['root_z_mm']+spec['tie_slot_bottom_z_mm'])/2, 3.)):
+        if row['closure']=='direct-snap':
+            features=(('direct C2 seat floor', (row['base_floor_world_z_mm']
+                +row['tube_centers_world_mm'][0][2]-row['seat_radius_mm'])/2, 3.),)
+        else:
+            features=(
+                ('seat web', (spec['tie_slot_top_z_mm'] + row['tube_centers_world_mm'][0][2]
+                              - spec['seat_radius_mm'])/2, 3.),
+                ('slot floor', (spec['root_z_mm']+spec['tie_slot_bottom_z_mm'])/2, 3.))
+        for feature, zmid, minimum in features:
             # The seat-web mouth planes meet the outer tube axes. Read just
             # inside the closed web rather than exactly on those open edges.
             inward = (.1, -.1) if feature == 'seat web' else (0., 0.)
@@ -221,6 +226,8 @@ def main():
     input_passage_stock = {name: volume(lid.intersect(shape)) for name, shape in cuts.items()}
     if all(v<TOL_MM3 for v in (*input_seat_missing.values(), *input_passage_stock.values())):
         args.apply_delta = False
+    if args.apply_delta and any(row['closure']=='direct-snap' for row in datums.values()):
+        raise ValueError('Read the current full lid export for the direct C2 pair; adding seats to an older lid retains its receiver shoulders and foot pockets.')
     if args.apply_delta:
         for shape in seats.values():
             lid = lid.fuse(shape)
@@ -283,6 +290,21 @@ def main():
         first, last = row['tube_centers_world_mm']
         x0, x1 = first[0], last[0]
         y, z = first[1:]
+        if row['closure']=='direct-snap':
+            record['seats'][name] = {**signature(shape),
+                'missing_from_lid_mm3': volume(shape.cut(lid))}
+            lo, hi = row['base_bounds_mm']
+            floor = box(lo[0], lo[1], lo[2], hi[0], hi[1], row['lid_face_z_mm'])
+            middle = box(x0+row['seat_radius_mm']+.1, lo[1]+.1, row['lid_face_z_mm'],
+                         x1-row['seat_radius_mm']-.1, hi[1]-.1, z-.1)
+            for feature, witness, thickness in (
+                    ('complete direct C2 base floor',floor,row['floor_stock_mm']),
+                    ('continuous direct C2 central land',middle,row['central_land_mm'])):
+                missing=volume(witness.cut(lid))
+                record['stock_checks'].append({'check':name+' / '+feature,
+                    'thickness_mm':thickness,'missing_mm3':missing,
+                    'passed':thickness>=3. and missing<TOL_MM3})
+            continue
         h = spec['tie_slot_width_y_mm']/2
         seat_bottom = z-spec['seat_radius_mm']
         inner = spec['tie_access_inner_offset_mm']
