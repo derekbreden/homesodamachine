@@ -582,9 +582,8 @@ def main(*, only_bom=False):
         "TOTAL_M5_INSERTS": f"{total_m5_inserts_per_build:.4g}",
         "M5_INSERTS_COST": pack_line_cost(total_m5_inserts_per_build, "10.71", 50),
         # Evaporator-coil copper (§5 GOORY row). LAID_FT is the copper a build CONSUMES —
-        # the wrap as it lies on the carbonator, bridge lift and all. The mandrel's two shorter
-        # readings are MANDREL_FT (what the tool holds) and SPRUNG_FT (what the same wraps
-        # come to once off it) — three lengths, three names, so a doc says which it quotes.
+        # the finished winding on the vessel, including bridge relief. The
+        # mandrel-groove calculations are independent tool references.
         "PITCH": f"{_coil_gen.PITCH:.4g} mm",
         "NET_UNDERSIZE": f"{_coil_mandrel_gen.net_undersize:.4g} mm",
         "LAID_FT": f"{_wrap_mm / 304.8:.4g} ft",

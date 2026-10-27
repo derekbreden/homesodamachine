@@ -3,9 +3,9 @@
 `coil-mandrel` is the undersized rough-forming aid. This module defines the
 finished copper after diameter, pitch and turn count are set on the vessel
 fixture: one tube radius off the carbonator OD, lifted over the reed bridge
-by `_ride_radius`. `wrap_length` is therefore the
-copper a build CONSUMES, which is the figure `bom.md` §5 bills — longer than either of the
-mandrel's two.
+by `_ride_radius`. `wrap_length` is the copper in that finished winding,
+which is the figure `bom.md` §5 bills. The mandrel's groove has its own
+turn count and length.
 
     winding radius   `carbonator_outer_radius + tube_radius`, the copper's centreline on the carbonator
     wraps            9.5 finished right-hand turns, opposite tangent exits
@@ -345,8 +345,8 @@ def report() -> None:
           f"z {evap_tail_low_z:.1f}..{evap_tail_high_z:.1f}")
     print(f"    azimuths        inlet {AZ_IN:+.2f}°, outlet {AZ_OUT:+.2f}°, "
           f"CCW delta {(AZ_OUT - AZ_IN) % 360:.2f}°")
-    # Three readings of one length: what the mandrel holds, what the same wraps come to once
-    # sprung onto the carbonator, and what THIS module draws with the reed bridge's lift in it.
+    # Finished laid winding, followed by the rough tool's independent groove
+    # calculations. The tool's turn count does not control the finished coil.
     print(f"    wrap laid       {wrap:.0f} mm ({wrap / 304.8:.2f} ft) — mandrel "
           f"{_mandrel.mandrel_wrap_length:.0f}, sprung {_mandrel.fitted_wrap_length:.0f}, "
           f"reed bridge {bridge_lift_length():+.0f}")

@@ -96,9 +96,8 @@ def main():
         # The finished coil's turn count and pitch, set on the vessel fixture.
         "TOTAL_WRAPS": f"{_coil_gen.TOTAL_WRAPS:.3f}",
         "PITCH": f"{_coil_gen.PITCH:.2f} mm",
-        # Copper consumption. SPRUNG_LEN is the wrap once it has sprung off the mandrel
-        # onto the carbonator; LAID_FT is that same wrap with the reed bridge's lift in it —
-        # what a build consumes, and what the cut stands on.
+        # LAID_FT is the finished winding's copper consumption. SPRUNG_LEN is
+        # the independent tool-groove calculation expanded to vessel diameter.
         "SPRUNG_LEN": f"{_coil_mandrel_gen.fitted_wrap_length / 1000:.4g} m",
         "LAID_FT": f"{_coil_gen.wrap_length() / 304.8:.4g} ft",
         "STUB_INLET": f"{_coil_mandrel_gen.stub_allowance['inlet']:.4g} mm",
