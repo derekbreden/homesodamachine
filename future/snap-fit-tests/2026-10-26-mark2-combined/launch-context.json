@@ -1,0 +1,18 @@
+{
+  "authorization": "I'm going to be going into bed soon, and so I've got the plate cleared for you now, and I'd like to get a test print here that has both what I asked for with the tube snaps and whatever we want to do next here for the cable clips.",
+  "geometry_instruction": "So I think I'd like to see that with a 9 millimeter thick wall, and I'd also like to see the hook cavity be a bit longer as far as a longer length of cable within the cavity.",
+  "cooling_instruction": "So we definitely can't do anything quite like that again without some major part fan cooling and time between layers.",
+  "bed_clear_authority": "Derek's explicit cleared-plate instruction for the combined test.",
+  "preflight": "preflight.json",
+  "peer_startup_spacing": {
+    "printer": "Mark1 / H2C",
+    "fresh_status": "FINISH",
+    "fresh_task_name": "Right_reservoir_and_cap_-_PETG_0.24_mm_overlap50",
+    "accepted_start_record": "hardware/printed-parts/cold-core/reservoir/prints/2026-10-26-mark1-right-engineering-flow105-overlap50-temp260-left08-z000/launch.json",
+    "accepted_start_utc": "2026-10-26T22:39:03.553720+00:00",
+    "seconds_to_launch_receipt": 21285.244118,
+    "required_seconds": 180
+  },
+  "archive_matches_all_manual_reviews": true,
+  "result": "One Send accepted. Exact combined archive RUNNING, task1379240291, print error0, no HMS. No physical print or retention acceptance inferred."
+}

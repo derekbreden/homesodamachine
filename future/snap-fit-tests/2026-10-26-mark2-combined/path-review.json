@@ -1,0 +1,2795 @@
+{
+  "scope": "Manual commanded bead/contact reading only. Support-in-pocket and cooling/timing are reviewed separately.",
+  "archive": "future/snap-fit-tests/2026-10-26-mark2-combined/2026-10-26-tube-and-cable-snaps-wall9-cooled-mark2-2179a771/2026-10-26-tube-and-cable-snaps-wall9-cooled-mark2-2179a771.gcode.3mf",
+  "archive_sha256": "b0eb0b51520c375d14887ebe6851ccc2226dbf0ab334684e6f03076db17a30db",
+  "source_sha256": {
+    "future/tube-snap-exploration/c2_bore_trial.py": "605091dffa9105e9c4a9d0382d54f26d31524b21998c5714bcec95cb8e3aa394",
+    "future/tube-snap-exploration/parts/tube-snap-c2-three-bores.stl": "350d7d300c767f3514ca54eb4452456c3b2372ba067361771f76daf21c554dbe",
+    "future/tube-snap-exploration/parts/tube-snap-c2-three-bores.step": "5c526539592dac28b6cc12edee067e50215efc62069a62b53b5c1b6498a49ea1",
+    "future/tube-snap-exploration/retention_matrix.py": "a77225ec7e9924514a57c55720c8437bfe68b1a79eff914d1f199cb8d19e695b",
+    "future/tube-snap-exploration/retention-matrix-geometry.json": "938ce52a38ef2a510bd45b150ef9dcce014d4b9c4912443974385584e08e0f5f",
+    "future/tube-snap-exploration/geometry-report.json": "4939dfc0dcb9bb3c54bb860d53026935a535c9ded8225919bbb4934d4b86a5ba",
+    "future/cable-clip-exploration/wall9_span_trial.py": "29b0ed522666ee9e04d0fe373dc5f97cd166c5ac0086e939c13c8eeaa934f92d",
+    "future/cable-clip-exploration/parts/relay-ribbon-wall9-span16.stl": "883db5fc6a80afb17e41639176f238dbc4a8519147fd5c8bac38e2fbb0a78a13",
+    "future/cable-clip-exploration/parts/relay-ribbon-wall9-span16.step": "e98ccdc7723931214b4b910c344726e36544edccc95a49178be3833b1ded77ac",
+    "future/cable-clip-exploration/parts/relay-ribbon-wall9-span24.stl": "96ddcacc082e322e768018a413a9ee11ab64dd2c665a507de66320cd6df410e2",
+    "future/cable-clip-exploration/parts/relay-ribbon-wall9-span24.step": "5e69545c1630107b2f2109ead0e60e24ff74541cdd1c74ef3b57d2d12bc99a9c",
+    "future/cable-clip-exploration/relay_ribbon_trial.py": "e4754169913a98e25f307cdb54efdf4111e308068a5a6ce3f95949c457379cee",
+    "future/cable-clip-exploration/geometry-report.json": "c4c78487fa57e06cc9e8297369a2bb2dcdd09b59b5e0befce55de65356383f6e",
+    "future/cable-clip-exploration/parts/relay-ribbon-4p-print.stl": "c75a565756883d4a7efdd77d265f3f2e11d34db15a80d74aad42e23f7012ca29",
+    "future/cable-clip-exploration/parts/relay-ribbon-4p-print.step": "4d19a147169108a54a35e9cb40179697b49952b64df58ed3afd61522434531d3",
+    "future/cable-clip-exploration/parts/relay-ribbon-4p-installed.step": "2020394d72eec2f84d1457733b40453726050dc26041bbc0b8c7ed44eb97bff9",
+    "future/tube-snap-exploration/c2-bore-geometry.json": "032eaf40f03de59da16f132f231e27a2b952f8f88b7f4bccd5a7944c030a4387",
+    "future/cable-clip-exploration/wall9-span-geometry.json": "be147f1c5df139c99d9d015b3d8f3729076dd266d827f2c72391556e5493411a"
+  },
+  "reviewer_sha256": "6fbafdec92db66fa389b62809a30ea3c1d6220ef0ab9f12ad148eeefea5bc47d",
+  "features": {
+    "Inner wall": 2485,
+    "Outer wall": 3534,
+    "Bottom surface": 438,
+    "Internal solid infill": 5079,
+    "Sparse infill": 35697,
+    "Floating vertical shell": 312,
+    "Bridge": 964,
+    "Top surface": 592,
+    "Gap infill": 20,
+    "Overhang wall": 6
+  },
+  "layers_by_object": {
+    "Tube-C2-6.55-6.45-6.35": 47,
+    "Cable-wall9-span16": 107,
+    "Cable-wall9-span24": 107
+  },
+  "first_two_model_layers": {
+    "1901": {
+      "name": "Tube-C2-6.55-6.45-6.35",
+      "layers": [
+        {
+          "layer_top_z_mm": 0.2,
+          "height_mm": 0.2,
+          "model_components": 1,
+          "component_areas_mm2": [
+            934.9976301339279
+          ]
+        },
+        {
+          "layer_top_z_mm": 0.44,
+          "height_mm": 0.24,
+          "model_components": 1,
+          "component_areas_mm2": [
+            958.7902030378633
+          ],
+          "bead_area_fraction_over_first": 0.9739663573107099,
+          "minimum_individual_road_contact_fraction": 0.6302141198549432,
+          "roads_without_any_bead_contact": 0
+        }
+      ]
+    },
+    "1902": {
+      "name": "Cable-wall9-span16",
+      "layers": [
+        {
+          "layer_top_z_mm": 0.2,
+          "height_mm": 0.2,
+          "model_components": 1,
+          "component_areas_mm2": [
+            239.84489189677845
+          ]
+        },
+        {
+          "layer_top_z_mm": 0.44,
+          "height_mm": 0.24,
+          "model_components": 1,
+          "component_areas_mm2": [
+            251.38333297926715
+          ],
+          "bead_area_fraction_over_first": 0.9518124783633591,
+          "minimum_individual_road_contact_fraction": 0.6202717935576525,
+          "roads_without_any_bead_contact": 0
+        }
+      ]
+    },
+    "1903": {
+      "name": "Cable-wall9-span24",
+      "layers": [
+        {
+          "layer_top_z_mm": 0.2,
+          "height_mm": 0.2,
+          "model_components": 1,
+          "component_areas_mm2": [
+            309.21475073296807
+          ]
+        },
+        {
+          "layer_top_z_mm": 0.44,
+          "height_mm": 0.24,
+          "model_components": 1,
+          "component_areas_mm2": [
+            323.262530858096
+          ],
+          "bead_area_fraction_over_first": 0.9543909994093565,
+          "minimum_individual_road_contact_fraction": 0.6202717935576525,
+          "roads_without_any_bead_contact": 0
+        }
+      ]
+    }
+  },
+  "tube": {
+    "leaf_count": 6,
+    "sampled_leaf_layers": 96,
+    "minimum_leaf_stock_bead_coverage": 0.9949760180970377,
+    "minimum_upper_road_previous_contact_fraction": 0.6198658763585557,
+    "upper_roads_without_previous_bead_contact": 0,
+    "leaf_layers": [
+      {
+        "sample": "6.55",
+        "side": "left",
+        "layer_top_z_mm": 7.64,
+        "stock_area_mm2": 19.203535999999986,
+        "bead_coverage": 0.9976113787918028,
+        "stock_components": 1,
+        "stock_components_touched": 1,
+        "bead_components": 1,
+        "previous_bead_contact": true
+      },
+      {
+        "sample": "6.55",
+        "side": "right",
+        "layer_top_z_mm": 7.64,
+        "stock_area_mm2": 19.203543999999965,
+        "bead_coverage": 0.9976125287566393,
+        "stock_components": 1,
+        "stock_components_touched": 1,
+        "bead_components": 1,
+        "previous_bead_contact": true
+      },
+      {
+        "sample": "6.45",
+        "side": "left",
+        "layer_top_z_mm": 7.64,
+        "stock_area_mm2": 19.20341600000006,
+        "bead_coverage": 0.9976113789690949,
+        "stock_components": 1,
+        "stock_components_touched": 1,
+        "bead_components": 1,
+        "previous_bead_contact": true
+      },
+      {
+        "sample": "6.45",
+        "side": "right",
+        "layer_top_z_mm": 7.64,
+        "stock_area_mm2": 19.20341600000006,
+        "bead_coverage": 0.9976128068882493,
+        "stock_components": 1,
+        "stock_components_touched": 1,
+        "bead_components": 1,
+        "previous_bead_contact": true
+      },
+      {
+        "sample": "6.35",
+        "side": "left",
+        "layer_top_z_mm": 7.64,
+        "stock_area_mm2": 19.20328799999993,
+        "bead_coverage": 0.9976117121081219,
+        "stock_components": 1,
+        "stock_components_touched": 1,
+        "bead_components": 1,
+        "previous_bead_contact": true
+      },
+      {
+        "sample": "6.35",
+        "side": "right",
+        "layer_top_z_mm": 7.64,
+        "stock_area_mm2": 19.20329599999991,
+        "bead_coverage": 0.9976119833728722,
+        "stock_components": 1,
+        "stock_components_touched": 1,
+        "bead_components": 1,
+        "previous_bead_contact": true
+      },
+      {
+        "sample": "6.55",
+        "side": "left",
+        "layer_top_z_mm": 7.88,
+        "stock_area_mm2": 19.237847999999985,
+        "bead_coverage": 0.9975970064208387,
+        "stock_components": 1,
+        "stock_components_touched": 1,
+        "bead_components": 1,
+        "previous_bead_contact": true
+      },
+      {
+        "sample": "6.55",
+        "side": "right",
+        "layer_top_z_mm": 7.88,
+        "stock_area_mm2": 19.237840000000006,
+        "bead_coverage": 0.9975973258905719,
+        "stock_components": 1,
+        "stock_components_touched": 1,
+        "bead_components": 1,
+        "previous_bead_contact": true
+      },
+      {
+        "sample": "6.45",
+        "side": "left",
+        "layer_top_z_mm": 7.88,
+        "stock_area_mm2": 19.239567999999963,
+        "bead_coverage": 0.9975457893545309,
+        "stock_components": 1,
+        "stock_components_touched": 1,
+        "bead_components": 1,
+        "previous_bead_contact": true
+      },
+      {
+        "sample": "6.45",
+        "side": "right",
+        "layer_top_z_mm": 7.88,
+        "stock_area_mm2": 19.239567999999963,
+        "bead_coverage": 0.9975462910224714,
+        "stock_components": 1,
+        "stock_components_touched": 1,
+        "bead_components": 1,
+        "previous_bead_contact": true
+      },
+      {
+        "sample": "6.35",
+        "side": "left",
+        "layer_top_z_mm": 7.88,
+        "stock_area_mm2": 19.24128799999994,
+        "bead_coverage": 0.9974568256279732,
+        "stock_components": 1,
+        "stock_components_touched": 1,
+        "bead_components": 1,
+        "previous_bead_contact": true
+      },
+      {
+        "sample": "6.35",
+        "side": "right",
+        "layer_top_z_mm": 7.88,
+        "stock_area_mm2": 19.24128799999994,
+        "bead_coverage": 0.9974568256279734,
+        "stock_components": 1,
+        "stock_components_touched": 1,
+        "bead_components": 1,
+        "previous_bead_contact": true
+      },
+      {
+        "sample": "6.55",
+        "side": "left",
+        "layer_top_z_mm": 8.12,
+        "stock_area_mm2": 19.331623999999923,
+        "bead_coverage": 0.9974150227544373,
+        "stock_components": 1,
+        "stock_components_touched": 1,
+        "bead_components": 1,
+        "previous_bead_contact": true
+      },
+      {
+        "sample": "6.55",
+        "side": "right",
+        "layer_top_z_mm": 8.12,
+        "stock_area_mm2": 19.3316319999999,
+        "bead_coverage": 0.9974146716938881,
+        "stock_components": 1,
+        "stock_components_touched": 1,
+        "bead_components": 1,
+        "previous_bead_contact": true
+      },
+      {
+        "sample": "6.45",
+        "side": "left",
+        "layer_top_z_mm": 8.12,
+        "stock_area_mm2": 19.334872000000132,
+        "bead_coverage": 0.9975819733442499,
+        "stock_components": 1,
+        "stock_components_touched": 1,
+        "bead_components": 1,
+        "previous_bead_contact": true
+      },
+      {
+        "sample": "6.45",
+        "side": "right",
+        "layer_top_z_mm": 8.12,
+        "stock_area_mm2": 19.334872000000136,
+        "bead_coverage": 0.99758197334425,
+        "stock_components": 1,
+        "stock_components_touched": 1,
+        "bead_components": 1,
+        "previous_bead_contact": true
+      },
+      {
+        "sample": "6.35",
+        "side": "left",
+        "layer_top_z_mm": 8.12,
+        "stock_area_mm2": 19.33811999999989,
+        "bead_coverage": 0.997447257334624,
+        "stock_components": 1,
+        "stock_components_touched": 1,
+        "bead_components": 1,
+        "previous_bead_contact": true
+      },
+      {
+        "sample": "6.35",
+        "side": "right",
+        "layer_top_z_mm": 8.12,
+        "stock_area_mm2": 19.33811199999991,
+        "bead_coverage": 0.9974472779487329,
+        "stock_components": 1,
+        "stock_components_touched": 1,
+        "bead_components": 1,
+        "previous_bead_contact": true
+      },
+      {
+        "sample": "6.55",
+        "side": "left",
+        "layer_top_z_mm": 8.36,
+        "stock_area_mm2": 19.484632000000147,
+        "bead_coverage": 0.9972963930861228,
+        "stock_components": 1,
+        "stock_components_touched": 1,
+        "bead_components": 1,
+        "previous_bead_contact": true
+      },
+      {
+        "sample": "6.55",
+        "side": "right",
+        "layer_top_z_mm": 8.36,
+        "stock_area_mm2": 19.484640000000127,
+        "bead_coverage": 0.9973538489644068,
+        "stock_components": 1,
+        "stock_components_touched": 1,
+        "bead_components": 1,
+        "previous_bead_contact": true
+      },
+      {
+        "sample": "6.45",
+        "side": "left",
+        "layer_top_z_mm": 8.36,
+        "stock_area_mm2": 19.494104000000107,
+        "bead_coverage": 0.9975841475002047,
+        "stock_components": 1,
+        "stock_components_touched": 1,
+        "bead_components": 1,
+        "previous_bead_contact": true
+      },
+      {
+        "sample": "6.45",
+        "side": "right",
+        "layer_top_z_mm": 8.36,
+        "stock_area_mm2": 19.494104000000107,
+        "bead_coverage": 0.997584169032544,
+        "stock_components": 1,
+        "stock_components_touched": 1,
+        "bead_components": 1,
+        "previous_bead_contact": true
+      },
+      {
+        "sample": "6.35",
+        "side": "left",
+        "layer_top_z_mm": 8.36,
+        "stock_area_mm2": 19.503568000000087,
+        "bead_coverage": 0.9974711464461535,
+        "stock_components": 1,
+        "stock_components_touched": 1,
+        "bead_components": 1,
+        "previous_bead_contact": true
+      },
+      {
+        "sample": "6.35",
+        "side": "right",
+        "layer_top_z_mm": 8.36,
+        "stock_area_mm2": 19.503568000000087,
+        "bead_coverage": 0.9973914389705486,
+        "stock_components": 1,
+        "stock_components_touched": 1,
+        "bead_components": 1,
+        "previous_bead_contact": true
+      },
+      {
+        "sample": "6.55",
+        "side": "left",
+        "layer_top_z_mm": 8.6,
+        "stock_area_mm2": 19.713960000000043,
+        "bead_coverage": 0.9972753730217556,
+        "stock_components": 1,
+        "stock_components_touched": 1,
+        "bead_components": 1,
+        "previous_bead_contact": true
+      },
+      {
+        "sample": "6.55",
+        "side": "right",
+        "layer_top_z_mm": 8.6,
+        "stock_area_mm2": 19.713951999999836,
+        "bead_coverage": 0.9974759050679597,
+        "stock_components": 1,
+        "stock_components_touched": 1,
+        "bead_components": 1,
+        "previous_bead_contact": true
+      },
+      {
+        "sample": "6.45",
+        "side": "left",
+        "layer_top_z_mm": 8.6,
+        "stock_area_mm2": 19.726376000000073,
+        "bead_coverage": 0.9974891525215189,
+        "stock_components": 1,
+        "stock_components_touched": 1,
+        "bead_components": 1,
+        "previous_bead_contact": true
+      },
+      {
+        "sample": "6.45",
+        "side": "right",
+        "layer_top_z_mm": 8.6,
+        "stock_area_mm2": 19.726376000000073,
+        "bead_coverage": 0.9974903963488195,
+        "stock_components": 1,
+        "stock_components_touched": 1,
+        "bead_components": 1,
+        "previous_bead_contact": true
+      },
+      {
+        "sample": "6.35",
+        "side": "left",
+        "layer_top_z_mm": 8.6,
+        "stock_area_mm2": 19.738791999999876,
+        "bead_coverage": 0.9973933579108493,
+        "stock_components": 1,
+        "stock_components_touched": 1,
+        "bead_components": 1,
+        "previous_bead_contact": true
+      },
+      {
+        "sample": "6.35",
+        "side": "right",
+        "layer_top_z_mm": 8.6,
+        "stock_area_mm2": 19.738783999999896,
+        "bead_coverage": 0.9971905932805671,
+        "stock_components": 1,
+        "stock_components_touched": 1,
+        "bead_components": 1,
+        "previous_bead_contact": true
+      },
+      {
+        "sample": "6.55",
+        "side": "left",
+        "layer_top_z_mm": 8.84,
+        "stock_area_mm2": 20.01781600000004,
+        "bead_coverage": 0.9974214684319936,
+        "stock_components": 1,
+        "stock_components_touched": 1,
+        "bead_components": 1,
+        "previous_bead_contact": true
+      },
+      {
+        "sample": "6.55",
+        "side": "right",
+        "layer_top_z_mm": 8.84,
+        "stock_area_mm2": 20.01780800000006,
+        "bead_coverage": 0.997567804169472,
+        "stock_components": 1,
+        "stock_components_touched": 1,
+        "bead_components": 1,
+        "previous_bead_contact": true
+      },
+      {
+        "sample": "6.45",
+        "side": "left",
+        "layer_top_z_mm": 8.84,
+        "stock_area_mm2": 20.04171199999996,
+        "bead_coverage": 0.9975590715312695,
+        "stock_components": 1,
+        "stock_components_touched": 1,
+        "bead_components": 1,
+        "previous_bead_contact": true
+      },
+      {
+        "sample": "6.45",
+        "side": "right",
+        "layer_top_z_mm": 8.84,
+        "stock_area_mm2": 20.04171199999996,
+        "bead_coverage": 0.9975603983433097,
+        "stock_components": 1,
+        "stock_components_touched": 1,
+        "bead_components": 1,
+        "previous_bead_contact": true
+      },
+      {
+        "sample": "6.35",
+        "side": "left",
+        "layer_top_z_mm": 8.84,
+        "stock_area_mm2": 20.065600000000135,
+        "bead_coverage": 0.9973997846668894,
+        "stock_components": 1,
+        "stock_components_touched": 1,
+        "bead_components": 1,
+        "previous_bead_contact": true
+      },
+      {
+        "sample": "6.35",
+        "side": "right",
+        "layer_top_z_mm": 8.84,
+        "stock_area_mm2": 20.06559200000015,
+        "bead_coverage": 0.9972755181677754,
+        "stock_components": 1,
+        "stock_components_touched": 1,
+        "bead_components": 1,
+        "previous_bead_contact": true
+      },
+      {
+        "sample": "6.55",
+        "side": "left",
+        "layer_top_z_mm": 9.08,
+        "stock_area_mm2": 20.41042400000015,
+        "bead_coverage": 0.997387264159609,
+        "stock_components": 1,
+        "stock_components_touched": 1,
+        "bead_components": 1,
+        "previous_bead_contact": true
+      },
+      {
+        "sample": "6.55",
+        "side": "right",
+        "layer_top_z_mm": 9.08,
+        "stock_area_mm2": 20.41041600000017,
+        "bead_coverage": 0.9973845843291838,
+        "stock_components": 1,
+        "stock_components_touched": 1,
+        "bead_components": 1,
+        "previous_bead_contact": true
+      },
+      {
+        "sample": "6.45",
+        "side": "left",
+        "layer_top_z_mm": 9.08,
+        "stock_area_mm2": 20.44049599999994,
+        "bead_coverage": 0.9973212292000712,
+        "stock_components": 1,
+        "stock_components_touched": 1,
+        "bead_components": 1,
+        "previous_bead_contact": true
+      },
+      {
+        "sample": "6.45",
+        "side": "right",
+        "layer_top_z_mm": 9.08,
+        "stock_area_mm2": 20.44049599999994,
+        "bead_coverage": 0.9973224241178106,
+        "stock_components": 1,
+        "stock_components_touched": 1,
+        "bead_components": 1,
+        "previous_bead_contact": true
+      },
+      {
+        "sample": "6.35",
+        "side": "left",
+        "layer_top_z_mm": 9.08,
+        "stock_area_mm2": 20.480671999999913,
+        "bead_coverage": 0.9974089209370489,
+        "stock_components": 1,
+        "stock_components_touched": 1,
+        "bead_components": 1,
+        "previous_bead_contact": true
+      },
+      {
+        "sample": "6.35",
+        "side": "right",
+        "layer_top_z_mm": 9.08,
+        "stock_area_mm2": 20.480671999999913,
+        "bead_coverage": 0.9974089209370489,
+        "stock_components": 1,
+        "stock_components_touched": 1,
+        "bead_components": 1,
+        "previous_bead_contact": true
+      },
+      {
+        "sample": "6.55",
+        "side": "left",
+        "layer_top_z_mm": 9.32,
+        "stock_area_mm2": 20.91787199999999,
+        "bead_coverage": 0.9974502096163819,
+        "stock_components": 1,
+        "stock_components_touched": 1,
+        "bead_components": 1,
+        "previous_bead_contact": true
+      },
+      {
+        "sample": "6.55",
+        "side": "right",
+        "layer_top_z_mm": 9.32,
+        "stock_area_mm2": 20.91786400000001,
+        "bead_coverage": 0.997450856305735,
+        "stock_components": 1,
+        "stock_components_touched": 1,
+        "bead_components": 1,
+        "previous_bead_contact": true
+      },
+      {
+        "sample": "6.45",
+        "side": "left",
+        "layer_top_z_mm": 9.32,
+        "stock_area_mm2": 20.96531200000004,
+        "bead_coverage": 0.9971751573939768,
+        "stock_components": 1,
+        "stock_components_touched": 1,
+        "bead_components": 1,
+        "previous_bead_contact": true
+      },
+      {
+        "sample": "6.45",
+        "side": "right",
+        "layer_top_z_mm": 9.32,
+        "stock_area_mm2": 20.96531200000004,
+        "bead_coverage": 0.9971751573939769,
+        "stock_components": 1,
+        "stock_components_touched": 1,
+        "bead_components": 1,
+        "previous_bead_contact": true
+      },
+      {
+        "sample": "6.35",
+        "side": "left",
+        "layer_top_z_mm": 9.32,
+        "stock_area_mm2": 21.012751999999864,
+        "bead_coverage": 0.9975572026758703,
+        "stock_components": 1,
+        "stock_components_touched": 1,
+        "bead_components": 1,
+        "previous_bead_contact": true
+      },
+      {
+        "sample": "6.35",
+        "side": "right",
+        "layer_top_z_mm": 9.32,
+        "stock_area_mm2": 21.012751999999864,
+        "bead_coverage": 0.9975572026758703,
+        "stock_components": 1,
+        "stock_components_touched": 1,
+        "bead_components": 1,
+        "previous_bead_contact": true
+      },
+      {
+        "sample": "6.55",
+        "side": "left",
+        "layer_top_z_mm": 9.56,
+        "stock_area_mm2": 21.527736000000004,
+        "bead_coverage": 0.9972822787919595,
+        "stock_components": 1,
+        "stock_components_touched": 1,
+        "bead_components": 1,
+        "previous_bead_contact": true
+      },
+      {
+        "sample": "6.55",
+        "side": "right",
+        "layer_top_z_mm": 9.56,
+        "stock_area_mm2": 21.527736000000004,
+        "bead_coverage": 0.997283215652985,
+        "stock_components": 1,
+        "stock_components_touched": 1,
+        "bead_components": 1,
+        "previous_bead_contact": true
+      },
+      {
+        "sample": "6.45",
+        "side": "left",
+        "layer_top_z_mm": 9.56,
+        "stock_area_mm2": 21.571351999999933,
+        "bead_coverage": 0.9972466897999577,
+        "stock_components": 1,
+        "stock_components_touched": 1,
+        "bead_components": 1,
+        "previous_bead_contact": true
+      },
+      {
+        "sample": "6.45",
+        "side": "right",
+        "layer_top_z_mm": 9.56,
+        "stock_area_mm2": 21.571351999999933,
+        "bead_coverage": 0.9972464869111414,
+        "stock_components": 1,
+        "stock_components_touched": 1,
+        "bead_components": 1,
+        "previous_bead_contact": true
+      },
+      {
+        "sample": "6.35",
+        "side": "left",
+        "layer_top_z_mm": 9.56,
+        "stock_area_mm2": 21.610616000000164,
+        "bead_coverage": 0.9972181049931131,
+        "stock_components": 1,
+        "stock_components_touched": 1,
+        "bead_components": 1,
+        "previous_bead_contact": true
+      },
+      {
+        "sample": "6.35",
+        "side": "right",
+        "layer_top_z_mm": 9.56,
+        "stock_area_mm2": 21.610616000000164,
+        "bead_coverage": 0.9972178961859541,
+        "stock_components": 1,
+        "stock_components_touched": 1,
+        "bead_components": 1,
+        "previous_bead_contact": true
+      },
+      {
+        "sample": "6.55",
+        "side": "left",
+        "layer_top_z_mm": 9.8,
+        "stock_area_mm2": 21.740032000000156,
+        "bead_coverage": 0.9971451168552717,
+        "stock_components": 1,
+        "stock_components_touched": 1,
+        "bead_components": 1,
+        "previous_bead_contact": true
+      },
+      {
+        "sample": "6.55",
+        "side": "right",
+        "layer_top_z_mm": 9.8,
+        "stock_area_mm2": 21.740032000000156,
+        "bead_coverage": 0.9971451168552714,
+        "stock_components": 1,
+        "stock_components_touched": 1,
+        "bead_components": 1,
+        "previous_bead_contact": true
+      },
+      {
+        "sample": "6.45",
+        "side": "left",
+        "layer_top_z_mm": 9.8,
+        "stock_area_mm2": 21.714095999999927,
+        "bead_coverage": 0.9971708904259531,
+        "stock_components": 1,
+        "stock_components_touched": 1,
+        "bead_components": 1,
+        "previous_bead_contact": true
+      },
+      {
+        "sample": "6.45",
+        "side": "right",
+        "layer_top_z_mm": 9.8,
+        "stock_area_mm2": 21.714095999999927,
+        "bead_coverage": 0.9971712794706038,
+        "stock_components": 1,
+        "stock_components_touched": 1,
+        "bead_components": 1,
+        "previous_bead_contact": true
+      },
+      {
+        "sample": "6.35",
+        "side": "left",
+        "layer_top_z_mm": 9.8,
+        "stock_area_mm2": 21.679000000000087,
+        "bead_coverage": 0.9970340459495572,
+        "stock_components": 1,
+        "stock_components_touched": 1,
+        "bead_components": 1,
+        "previous_bead_contact": true
+      },
+      {
+        "sample": "6.35",
+        "side": "right",
+        "layer_top_z_mm": 9.8,
+        "stock_area_mm2": 21.679000000000087,
+        "bead_coverage": 0.9970373440805265,
+        "stock_components": 1,
+        "stock_components_touched": 1,
+        "bead_components": 1,
+        "previous_bead_contact": true
+      },
+      {
+        "sample": "6.55",
+        "side": "left",
+        "layer_top_z_mm": 10.04,
+        "stock_area_mm2": 21.376128000000108,
+        "bead_coverage": 0.9972043785423357,
+        "stock_components": 1,
+        "stock_components_touched": 1,
+        "bead_components": 1,
+        "previous_bead_contact": true
+      },
+      {
+        "sample": "6.55",
+        "side": "right",
+        "layer_top_z_mm": 10.04,
+        "stock_area_mm2": 21.376120000000128,
+        "bead_coverage": 0.9973706257475868,
+        "stock_components": 1,
+        "stock_components_touched": 1,
+        "bead_components": 1,
+        "previous_bead_contact": true
+      },
+      {
+        "sample": "6.45",
+        "side": "left",
+        "layer_top_z_mm": 10.04,
+        "stock_area_mm2": 21.291336,
+        "bead_coverage": 0.9973249412937865,
+        "stock_components": 1,
+        "stock_components_touched": 1,
+        "bead_components": 1,
+        "previous_bead_contact": true
+      },
+      {
+        "sample": "6.45",
+        "side": "right",
+        "layer_top_z_mm": 10.04,
+        "stock_area_mm2": 21.291336,
+        "bead_coverage": 0.9973247729885107,
+        "stock_components": 1,
+        "stock_components_touched": 1,
+        "bead_components": 1,
+        "previous_bead_contact": true
+      },
+      {
+        "sample": "6.35",
+        "side": "left",
+        "layer_top_z_mm": 10.04,
+        "stock_area_mm2": 21.195439999999962,
+        "bead_coverage": 0.9975122345770732,
+        "stock_components": 1,
+        "stock_components_touched": 1,
+        "bead_components": 1,
+        "previous_bead_contact": true
+      },
+      {
+        "sample": "6.35",
+        "side": "right",
+        "layer_top_z_mm": 10.04,
+        "stock_area_mm2": 21.195447999999942,
+        "bead_coverage": 0.9974291373870109,
+        "stock_components": 1,
+        "stock_components_touched": 1,
+        "bead_components": 1,
+        "previous_bead_contact": true
+      },
+      {
+        "sample": "6.55",
+        "side": "left",
+        "layer_top_z_mm": 10.28,
+        "stock_area_mm2": 20.501031999999896,
+        "bead_coverage": 0.9974895350331993,
+        "stock_components": 1,
+        "stock_components_touched": 1,
+        "bead_components": 1,
+        "previous_bead_contact": true
+      },
+      {
+        "sample": "6.55",
+        "side": "right",
+        "layer_top_z_mm": 10.28,
+        "stock_area_mm2": 20.501031999999896,
+        "bead_coverage": 0.9974908031270902,
+        "stock_components": 1,
+        "stock_components_touched": 1,
+        "bead_components": 1,
+        "previous_bead_contact": true
+      },
+      {
+        "sample": "6.45",
+        "side": "left",
+        "layer_top_z_mm": 10.28,
+        "stock_area_mm2": 20.358735999999908,
+        "bead_coverage": 0.9974409931848917,
+        "stock_components": 1,
+        "stock_components_touched": 1,
+        "bead_components": 1,
+        "previous_bead_contact": true
+      },
+      {
+        "sample": "6.45",
+        "side": "right",
+        "layer_top_z_mm": 10.28,
+        "stock_area_mm2": 20.358735999999908,
+        "bead_coverage": 0.9974420027538677,
+        "stock_components": 1,
+        "stock_components_touched": 1,
+        "bead_components": 1,
+        "previous_bead_contact": true
+      },
+      {
+        "sample": "6.35",
+        "side": "left",
+        "layer_top_z_mm": 10.28,
+        "stock_area_mm2": 20.204983999999968,
+        "bead_coverage": 0.997536740040105,
+        "stock_components": 1,
+        "stock_components_touched": 1,
+        "bead_components": 1,
+        "previous_bead_contact": true
+      },
+      {
+        "sample": "6.35",
+        "side": "right",
+        "layer_top_z_mm": 10.28,
+        "stock_area_mm2": 20.204991999999947,
+        "bead_coverage": 0.9975369739152165,
+        "stock_components": 1,
+        "stock_components_touched": 1,
+        "bead_components": 1,
+        "previous_bead_contact": true
+      },
+      {
+        "sample": "6.55",
+        "side": "left",
+        "layer_top_z_mm": 10.52,
+        "stock_area_mm2": 19.117375999999922,
+        "bead_coverage": 0.9975622052779084,
+        "stock_components": 1,
+        "stock_components_touched": 1,
+        "bead_components": 1,
+        "previous_bead_contact": true
+      },
+      {
+        "sample": "6.55",
+        "side": "right",
+        "layer_top_z_mm": 10.52,
+        "stock_area_mm2": 19.117383999999902,
+        "bead_coverage": 0.9975634971357048,
+        "stock_components": 1,
+        "stock_components_touched": 1,
+        "bead_components": 1,
+        "previous_bead_contact": true
+      },
+      {
+        "sample": "6.45",
+        "side": "left",
+        "layer_top_z_mm": 10.52,
+        "stock_area_mm2": 18.912959999999885,
+        "bead_coverage": 0.997558143361937,
+        "stock_components": 1,
+        "stock_components_touched": 1,
+        "bead_components": 1,
+        "previous_bead_contact": true
+      },
+      {
+        "sample": "6.45",
+        "side": "right",
+        "layer_top_z_mm": 10.52,
+        "stock_area_mm2": 18.912959999999885,
+        "bead_coverage": 0.9975581433619374,
+        "stock_components": 1,
+        "stock_components_touched": 1,
+        "bead_components": 1,
+        "previous_bead_contact": true
+      },
+      {
+        "sample": "6.35",
+        "side": "left",
+        "layer_top_z_mm": 10.52,
+        "stock_area_mm2": 18.697951999999987,
+        "bead_coverage": 0.9976136042488596,
+        "stock_components": 1,
+        "stock_components_touched": 1,
+        "bead_components": 1,
+        "previous_bead_contact": true
+      },
+      {
+        "sample": "6.35",
+        "side": "right",
+        "layer_top_z_mm": 10.52,
+        "stock_area_mm2": 18.697959999999966,
+        "bead_coverage": 0.9976144574194235,
+        "stock_components": 1,
+        "stock_components_touched": 1,
+        "bead_components": 1,
+        "previous_bead_contact": true
+      },
+      {
+        "sample": "6.55",
+        "side": "left",
+        "layer_top_z_mm": 10.76,
+        "stock_area_mm2": 17.175359999999955,
+        "bead_coverage": 0.9970388944704371,
+        "stock_components": 1,
+        "stock_components_touched": 1,
+        "bead_components": 1,
+        "previous_bead_contact": true
+      },
+      {
+        "sample": "6.55",
+        "side": "right",
+        "layer_top_z_mm": 10.76,
+        "stock_area_mm2": 17.175359999999955,
+        "bead_coverage": 0.9970388944704367,
+        "stock_components": 1,
+        "stock_components_touched": 1,
+        "bead_components": 1,
+        "previous_bead_contact": true
+      },
+      {
+        "sample": "6.45",
+        "side": "left",
+        "layer_top_z_mm": 10.76,
+        "stock_area_mm2": 16.894152000000076,
+        "bead_coverage": 0.9973769675686316,
+        "stock_components": 1,
+        "stock_components_touched": 1,
+        "bead_components": 1,
+        "previous_bead_contact": true
+      },
+      {
+        "sample": "6.45",
+        "side": "right",
+        "layer_top_z_mm": 10.76,
+        "stock_area_mm2": 16.894152000000076,
+        "bead_coverage": 0.9973769675686316,
+        "stock_components": 1,
+        "stock_components_touched": 1,
+        "bead_components": 1,
+        "previous_bead_contact": true
+      },
+      {
+        "sample": "6.35",
+        "side": "left",
+        "layer_top_z_mm": 10.76,
+        "stock_area_mm2": 16.6096399999999,
+        "bead_coverage": 0.9971759091208074,
+        "stock_components": 1,
+        "stock_components_touched": 1,
+        "bead_components": 1,
+        "previous_bead_contact": true
+      },
+      {
+        "sample": "6.35",
+        "side": "right",
+        "layer_top_z_mm": 10.76,
+        "stock_area_mm2": 16.6096399999999,
+        "bead_coverage": 0.9971759091208077,
+        "stock_components": 1,
+        "stock_components_touched": 1,
+        "bead_components": 1,
+        "previous_bead_contact": true
+      },
+      {
+        "sample": "6.55",
+        "side": "left",
+        "layer_top_z_mm": 11.0,
+        "stock_area_mm2": 14.498760000000175,
+        "bead_coverage": 0.9968095165746257,
+        "stock_components": 1,
+        "stock_components_touched": 1,
+        "bead_components": 1,
+        "previous_bead_contact": true
+      },
+      {
+        "sample": "6.55",
+        "side": "right",
+        "layer_top_z_mm": 11.0,
+        "stock_area_mm2": 14.498760000000173,
+        "bead_coverage": 0.9968095165746257,
+        "stock_components": 1,
+        "stock_components_touched": 1,
+        "bead_components": 1,
+        "previous_bead_contact": true
+      },
+      {
+        "sample": "6.45",
+        "side": "left",
+        "layer_top_z_mm": 11.0,
+        "stock_area_mm2": 14.079416000000037,
+        "bead_coverage": 0.9969026256835095,
+        "stock_components": 1,
+        "stock_components_touched": 1,
+        "bead_components": 1,
+        "previous_bead_contact": true
+      },
+      {
+        "sample": "6.45",
+        "side": "right",
+        "layer_top_z_mm": 11.0,
+        "stock_area_mm2": 14.079416000000036,
+        "bead_coverage": 0.9969028082695238,
+        "stock_components": 1,
+        "stock_components_touched": 1,
+        "bead_components": 1,
+        "previous_bead_contact": true
+      },
+      {
+        "sample": "6.35",
+        "side": "left",
+        "layer_top_z_mm": 11.0,
+        "stock_area_mm2": 13.639176000000134,
+        "bead_coverage": 0.9966164089314747,
+        "stock_components": 1,
+        "stock_components_touched": 1,
+        "bead_components": 1,
+        "previous_bead_contact": true
+      },
+      {
+        "sample": "6.35",
+        "side": "right",
+        "layer_top_z_mm": 11.0,
+        "stock_area_mm2": 13.639168000000154,
+        "bead_coverage": 0.9966164374091425,
+        "stock_components": 1,
+        "stock_components_touched": 1,
+        "bead_components": 1,
+        "previous_bead_contact": true
+      },
+      {
+        "sample": "6.55",
+        "side": "left",
+        "layer_top_z_mm": 11.24,
+        "stock_area_mm2": 9.94363999999996,
+        "bead_coverage": 0.995793792434175,
+        "stock_components": 1,
+        "stock_components_touched": 1,
+        "bead_components": 1,
+        "previous_bead_contact": true
+      },
+      {
+        "sample": "6.55",
+        "side": "right",
+        "layer_top_z_mm": 11.24,
+        "stock_area_mm2": 9.94364799999994,
+        "bead_coverage": 0.9957924998958139,
+        "stock_components": 1,
+        "stock_components_touched": 1,
+        "bead_components": 1,
+        "previous_bead_contact": true
+      },
+      {
+        "sample": "6.45",
+        "side": "left",
+        "layer_top_z_mm": 11.24,
+        "stock_area_mm2": 9.133984000000055,
+        "bead_coverage": 0.995448980214262,
+        "stock_components": 1,
+        "stock_components_touched": 1,
+        "bead_components": 1,
+        "previous_bead_contact": true
+      },
+      {
+        "sample": "6.45",
+        "side": "right",
+        "layer_top_z_mm": 11.24,
+        "stock_area_mm2": 9.133984000000055,
+        "bead_coverage": 0.9954506885909753,
+        "stock_components": 1,
+        "stock_components_touched": 1,
+        "bead_components": 1,
+        "previous_bead_contact": true
+      },
+      {
+        "sample": "6.35",
+        "side": "left",
+        "layer_top_z_mm": 11.24,
+        "stock_area_mm2": 8.21868799999993,
+        "bead_coverage": 0.9949760180970377,
+        "stock_components": 1,
+        "stock_components_touched": 1,
+        "bead_components": 1,
+        "previous_bead_contact": true
+      },
+      {
+        "sample": "6.35",
+        "side": "right",
+        "layer_top_z_mm": 11.24,
+        "stock_area_mm2": 8.218695999999909,
+        "bead_coverage": 0.994978169745041,
+        "stock_components": 1,
+        "stock_components_touched": 1,
+        "bead_components": 1,
+        "previous_bead_contact": true
+      }
+    ],
+    "upper_road_layers": [
+      {
+        "layer_top_z_mm": 7.64,
+        "minimum_road_contact_fraction": 0.9998253104264219,
+        "roads_without_previous_bead_contact": 0,
+        "longest_centerline_without_bead_contact_mm": 0.0
+      },
+      {
+        "layer_top_z_mm": 7.88,
+        "minimum_road_contact_fraction": 0.9758965238008435,
+        "roads_without_previous_bead_contact": 0,
+        "longest_centerline_without_bead_contact_mm": 0.0
+      },
+      {
+        "layer_top_z_mm": 8.12,
+        "minimum_road_contact_fraction": 0.930116432064318,
+        "roads_without_previous_bead_contact": 0,
+        "longest_centerline_without_bead_contact_mm": 0.0
+      },
+      {
+        "layer_top_z_mm": 8.36,
+        "minimum_road_contact_fraction": 0.8843579781065396,
+        "roads_without_previous_bead_contact": 0,
+        "longest_centerline_without_bead_contact_mm": 0.0
+      },
+      {
+        "layer_top_z_mm": 8.6,
+        "minimum_road_contact_fraction": 0.8386211619275765,
+        "roads_without_previous_bead_contact": 0,
+        "longest_centerline_without_bead_contact_mm": 0.0
+      },
+      {
+        "layer_top_z_mm": 8.84,
+        "minimum_road_contact_fraction": 0.7826911499715676,
+        "roads_without_previous_bead_contact": 0,
+        "longest_centerline_without_bead_contact_mm": 0.0
+      },
+      {
+        "layer_top_z_mm": 9.08,
+        "minimum_road_contact_fraction": 0.7206194053662061,
+        "roads_without_previous_bead_contact": 0,
+        "longest_centerline_without_bead_contact_mm": 0.0
+      },
+      {
+        "layer_top_z_mm": 9.32,
+        "minimum_road_contact_fraction": 0.6679014048026818,
+        "roads_without_previous_bead_contact": 0,
+        "longest_centerline_without_bead_contact_mm": 0.0
+      },
+      {
+        "layer_top_z_mm": 9.56,
+        "minimum_road_contact_fraction": 0.6198658763585557,
+        "roads_without_previous_bead_contact": 0,
+        "longest_centerline_without_bead_contact_mm": 0.0
+      },
+      {
+        "layer_top_z_mm": 9.8,
+        "minimum_road_contact_fraction": 0.7111538793507873,
+        "roads_without_previous_bead_contact": 0,
+        "longest_centerline_without_bead_contact_mm": 0.0
+      },
+      {
+        "layer_top_z_mm": 10.04,
+        "minimum_road_contact_fraction": 0.8530620294373458,
+        "roads_without_previous_bead_contact": 0,
+        "longest_centerline_without_bead_contact_mm": 0.0
+      },
+      {
+        "layer_top_z_mm": 10.28,
+        "minimum_road_contact_fraction": 0.9734865058424401,
+        "roads_without_previous_bead_contact": 0,
+        "longest_centerline_without_bead_contact_mm": 0.0
+      },
+      {
+        "layer_top_z_mm": 10.52,
+        "minimum_road_contact_fraction": 0.998813650593826,
+        "roads_without_previous_bead_contact": 0,
+        "longest_centerline_without_bead_contact_mm": 0.0
+      },
+      {
+        "layer_top_z_mm": 10.76,
+        "minimum_road_contact_fraction": 0.9996184531800357,
+        "roads_without_previous_bead_contact": 0,
+        "longest_centerline_without_bead_contact_mm": 0.0
+      },
+      {
+        "layer_top_z_mm": 11.0,
+        "minimum_road_contact_fraction": 0.9996878872403036,
+        "roads_without_previous_bead_contact": 0,
+        "longest_centerline_without_bead_contact_mm": 0.0
+      },
+      {
+        "layer_top_z_mm": 11.24,
+        "minimum_road_contact_fraction": 0.9996854990651791,
+        "roads_without_previous_bead_contact": 0,
+        "longest_centerline_without_bead_contact_mm": 0.0
+      }
+    ]
+  },
+  "cables": [
+    {
+      "object_id": 1902,
+      "name": "Cable-wall9-span16",
+      "span_along_cable_mm": 16.0,
+      "sampled_layers": 82,
+      "retaining_hook_layers": 15,
+      "minimum_stock_bead_coverage": 0.3762861477255953,
+      "layers_without_previous_complete_component_contact": 0,
+      "layers": [
+        {
+          "layer_top_z_mm": 6.2,
+          "stage": "corbel/post",
+          "stock_area_mm2": 1.2639984741208536,
+          "bead_coverage": 0.9872801473894046,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 6.44,
+          "stage": "corbel/post",
+          "stock_area_mm2": 5.103998474120999,
+          "bead_coverage": 0.9959454058155132,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 6.68,
+          "stage": "corbel/post",
+          "stock_area_mm2": 8.943998474121145,
+          "bead_coverage": 0.9975783184409579,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 6.92,
+          "stage": "corbel/post",
+          "stock_area_mm2": 12.783998474120835,
+          "bead_coverage": 0.998305732262663,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 7.16,
+          "stage": "corbel/post",
+          "stock_area_mm2": 16.62399847412098,
+          "bead_coverage": 0.9979115118182177,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 7.4,
+          "stage": "corbel/post",
+          "stock_area_mm2": 20.463998474121126,
+          "bead_coverage": 0.9975397430200389,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 7.64,
+          "stage": "corbel/post",
+          "stock_area_mm2": 24.303998474120817,
+          "bead_coverage": 0.8790033012760402,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 7.88,
+          "stage": "corbel/post",
+          "stock_area_mm2": 28.143998474120963,
+          "bead_coverage": 0.8479950516996783,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 8.12,
+          "stage": "corbel/post",
+          "stock_area_mm2": 31.98399847412111,
+          "bead_coverage": 0.7942958296877642,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 8.36,
+          "stage": "corbel/post",
+          "stock_area_mm2": 35.8239984741208,
+          "bead_coverage": 0.7440918014576083,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 8.6,
+          "stage": "corbel/post",
+          "stock_area_mm2": 39.663998474120945,
+          "bead_coverage": 0.6988789693029187,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 8.84,
+          "stage": "corbel/post",
+          "stock_area_mm2": 43.50399847412109,
+          "bead_coverage": 0.6595030465999275,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 9.08,
+          "stage": "corbel/post",
+          "stock_area_mm2": 47.343998474121236,
+          "bead_coverage": 0.6252793518946644,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 9.32,
+          "stage": "corbel/post",
+          "stock_area_mm2": 51.183998474120926,
+          "bead_coverage": 0.5982019099215091,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 9.56,
+          "stage": "corbel/post",
+          "stock_area_mm2": 55.02399847412107,
+          "bead_coverage": 0.6008780920208668,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 9.8,
+          "stage": "corbel/post",
+          "stock_area_mm2": 58.86399847412122,
+          "bead_coverage": 0.5623308397599176,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 10.04,
+          "stage": "corbel/post",
+          "stock_area_mm2": 62.70399847412091,
+          "bead_coverage": 0.5370989811716537,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 10.28,
+          "stage": "corbel/post",
+          "stock_area_mm2": 66.54399847412105,
+          "bead_coverage": 0.512475699927455,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 10.52,
+          "stage": "corbel/post",
+          "stock_area_mm2": 70.3839984741212,
+          "bead_coverage": 0.49278981122557997,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 10.76,
+          "stage": "corbel/post",
+          "stock_area_mm2": 74.22399847412089,
+          "bead_coverage": 0.4764440985011245,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 11.0,
+          "stage": "corbel/post",
+          "stock_area_mm2": 78.06399847412104,
+          "bead_coverage": 0.4666868775876602,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 11.24,
+          "stage": "corbel/post",
+          "stock_area_mm2": 81.90399847412118,
+          "bead_coverage": 0.46015079020969957,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 11.48,
+          "stage": "corbel/post",
+          "stock_area_mm2": 83.18399847412093,
+          "bead_coverage": 0.4311644193859349,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 11.72,
+          "stage": "corbel/post",
+          "stock_area_mm2": 83.18399847412093,
+          "bead_coverage": 0.37739720156893125,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 11.96,
+          "stage": "corbel/post",
+          "stock_area_mm2": 83.18399847412093,
+          "bead_coverage": 0.3772371237148842,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 12.2,
+          "stage": "corbel/post",
+          "stock_area_mm2": 83.18399847412093,
+          "bead_coverage": 0.3762861477255953,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 12.44,
+          "stage": "corbel/post",
+          "stock_area_mm2": 83.18399847412093,
+          "bead_coverage": 0.3780218068698464,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 12.68,
+          "stage": "corbel/post",
+          "stock_area_mm2": 83.18399847412093,
+          "bead_coverage": 0.38441657501999726,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 12.92,
+          "stage": "corbel/post",
+          "stock_area_mm2": 83.18399847412093,
+          "bead_coverage": 0.5073244783992517,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 13.16,
+          "stage": "corbel/post",
+          "stock_area_mm2": 83.18399847412093,
+          "bead_coverage": 0.9153811286958353,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 13.4,
+          "stage": "corbel/post",
+          "stock_area_mm2": 83.18399847412093,
+          "bead_coverage": 0.9993128183720752,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 13.64,
+          "stage": "corbel/post",
+          "stock_area_mm2": 83.18399847412093,
+          "bead_coverage": 0.9993127939480703,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 13.88,
+          "stage": "corbel/post",
+          "stock_area_mm2": 83.18399847412093,
+          "bead_coverage": 0.99931279394807,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 14.12,
+          "stage": "corbel/post",
+          "stock_area_mm2": 83.18399847412093,
+          "bead_coverage": 0.9017814779354354,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 14.36,
+          "stage": "corbel/post",
+          "stock_area_mm2": 48.0,
+          "bead_coverage": 0.9990632788596358,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 14.6,
+          "stage": "corbel/post",
+          "stock_area_mm2": 48.0,
+          "bead_coverage": 0.9990632788596358,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 14.84,
+          "stage": "corbel/post",
+          "stock_area_mm2": 48.0,
+          "bead_coverage": 0.7389191960074291,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 15.08,
+          "stage": "corbel/post",
+          "stock_area_mm2": 48.0,
+          "bead_coverage": 0.7369798257371175,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 15.32,
+          "stage": "corbel/post",
+          "stock_area_mm2": 48.0,
+          "bead_coverage": 0.7358859789188296,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 15.56,
+          "stage": "corbel/post",
+          "stock_area_mm2": 48.0,
+          "bead_coverage": 0.7318226055086422,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 15.8,
+          "stage": "corbel/post",
+          "stock_area_mm2": 48.0,
+          "bead_coverage": 0.7275965058683478,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 16.04,
+          "stage": "corbel/post",
+          "stock_area_mm2": 48.0,
+          "bead_coverage": 0.7230607619396684,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 16.28,
+          "stage": "corbel/post",
+          "stock_area_mm2": 48.0,
+          "bead_coverage": 0.7037908969589707,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 16.52,
+          "stage": "corbel/post",
+          "stock_area_mm2": 48.0,
+          "bead_coverage": 0.6926215691572707,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 16.76,
+          "stage": "corbel/post",
+          "stock_area_mm2": 48.0,
+          "bead_coverage": 0.686253641682601,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 17.0,
+          "stage": "corbel/post",
+          "stock_area_mm2": 48.0,
+          "bead_coverage": 0.6827813791282806,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 17.24,
+          "stage": "corbel/post",
+          "stock_area_mm2": 48.0,
+          "bead_coverage": 0.6830364376500988,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 17.48,
+          "stage": "corbel/post",
+          "stock_area_mm2": 48.0,
+          "bead_coverage": 0.6868862091980477,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 17.72,
+          "stage": "corbel/post",
+          "stock_area_mm2": 48.0,
+          "bead_coverage": 0.7278339503372054,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 17.96,
+          "stage": "corbel/post",
+          "stock_area_mm2": 48.0,
+          "bead_coverage": 0.7519001969311025,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 18.2,
+          "stage": "corbel/post",
+          "stock_area_mm2": 48.0,
+          "bead_coverage": 0.7389380904180923,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 18.44,
+          "stage": "corbel/post",
+          "stock_area_mm2": 48.0,
+          "bead_coverage": 0.7373401418504462,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 18.68,
+          "stage": "corbel/post",
+          "stock_area_mm2": 48.0,
+          "bead_coverage": 0.7358986177269001,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 18.92,
+          "stage": "corbel/post",
+          "stock_area_mm2": 48.0,
+          "bead_coverage": 0.7330647275052069,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 19.16,
+          "stage": "corbel/post",
+          "stock_area_mm2": 48.0,
+          "bead_coverage": 0.7285769490714845,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 19.4,
+          "stage": "corbel/post",
+          "stock_area_mm2": 48.0,
+          "bead_coverage": 0.7242968502815992,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 19.64,
+          "stage": "corbel/post",
+          "stock_area_mm2": 48.0,
+          "bead_coverage": 0.7181526950412261,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 19.88,
+          "stage": "corbel/post",
+          "stock_area_mm2": 48.0,
+          "bead_coverage": 0.6953574634549539,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 20.12,
+          "stage": "corbel/post",
+          "stock_area_mm2": 48.0,
+          "bead_coverage": 0.6874703613668189,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 20.36,
+          "stage": "corbel/post",
+          "stock_area_mm2": 48.0,
+          "bead_coverage": 0.6832725272926856,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 20.6,
+          "stage": "corbel/post",
+          "stock_area_mm2": 48.0,
+          "bead_coverage": 0.6826660594305954,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 20.84,
+          "stage": "corbel/post",
+          "stock_area_mm2": 48.0,
+          "bead_coverage": 0.6858198709757545,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 21.08,
+          "stage": "corbel/post",
+          "stock_area_mm2": 48.0,
+          "bead_coverage": 0.6908166497649851,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 21.32,
+          "stage": "corbel/post",
+          "stock_area_mm2": 48.0,
+          "bead_coverage": 0.7355169934207312,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 21.56,
+          "stage": "corbel/post",
+          "stock_area_mm2": 48.0,
+          "bead_coverage": 0.7396327843551905,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 21.8,
+          "stage": "corbel/post",
+          "stock_area_mm2": 48.0,
+          "bead_coverage": 0.7378134902361831,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 22.04,
+          "stage": "corbel/post",
+          "stock_area_mm2": 48.0,
+          "bead_coverage": 0.7359537235850029,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 22.28,
+          "stage": "retaining hook/cap",
+          "stock_area_mm2": 60.0,
+          "bead_coverage": 0.796171193490874,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 22.52,
+          "stage": "retaining hook/cap",
+          "stock_area_mm2": 60.0,
+          "bead_coverage": 0.7912189845971895,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 22.76,
+          "stage": "retaining hook/cap",
+          "stock_area_mm2": 60.0,
+          "bead_coverage": 0.6364057130879656,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 23.0,
+          "stage": "retaining hook/cap",
+          "stock_area_mm2": 60.0,
+          "bead_coverage": 0.6416346641249617,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 23.24,
+          "stage": "retaining hook/cap",
+          "stock_area_mm2": 60.0,
+          "bead_coverage": 0.6757373798030367,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 23.48,
+          "stage": "retaining hook/cap",
+          "stock_area_mm2": 60.0,
+          "bead_coverage": 0.6633169296148331,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 23.72,
+          "stage": "retaining hook/cap",
+          "stock_area_mm2": 60.0,
+          "bead_coverage": 0.6549639700609469,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 23.96,
+          "stage": "retaining hook/cap",
+          "stock_area_mm2": 60.0,
+          "bead_coverage": 0.5665563968564893,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 24.2,
+          "stage": "retaining hook/cap",
+          "stock_area_mm2": 60.0,
+          "bead_coverage": 0.6552073138551539,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 24.44,
+          "stage": "retaining hook/cap",
+          "stock_area_mm2": 60.0,
+          "bead_coverage": 0.6559192315369233,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 24.68,
+          "stage": "retaining hook/cap",
+          "stock_area_mm2": 60.0,
+          "bead_coverage": 0.9992340817502119,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 24.92,
+          "stage": "retaining hook/cap",
+          "stock_area_mm2": 60.0,
+          "bead_coverage": 0.9992340817502119,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 25.16,
+          "stage": "retaining hook/cap",
+          "stock_area_mm2": 58.5600159999999,
+          "bead_coverage": 0.9992225979218555,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 25.4,
+          "stage": "retaining hook/cap",
+          "stock_area_mm2": 54.72001599999976,
+          "bead_coverage": 0.9989710565077379,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 25.64,
+          "stage": "retaining hook/cap",
+          "stock_area_mm2": 50.88001600000007,
+          "bead_coverage": 0.9973646187935503,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        }
+      ]
+    },
+    {
+      "object_id": 1903,
+      "name": "Cable-wall9-span24",
+      "span_along_cable_mm": 24.0,
+      "sampled_layers": 82,
+      "retaining_hook_layers": 15,
+      "minimum_stock_bead_coverage": 0.3476906780691216,
+      "layers_without_previous_complete_component_contact": 0,
+      "layers": [
+        {
+          "layer_top_z_mm": 6.2,
+          "stage": "corbel/post",
+          "stock_area_mm2": 1.8959977111812805,
+          "bead_coverage": 0.9915200982596031,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 6.44,
+          "stage": "corbel/post",
+          "stock_area_mm2": 7.655997711181499,
+          "bead_coverage": 0.9972969372103421,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 6.68,
+          "stage": "corbel/post",
+          "stock_area_mm2": 13.415997711181717,
+          "bead_coverage": 0.9983855456273053,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 6.92,
+          "stage": "corbel/post",
+          "stock_area_mm2": 19.175997711181253,
+          "bead_coverage": 0.9988704881751085,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 7.16,
+          "stage": "corbel/post",
+          "stock_area_mm2": 24.93599771118147,
+          "bead_coverage": 0.9986076745454783,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 7.4,
+          "stage": "corbel/post",
+          "stock_area_mm2": 30.69599771118169,
+          "bead_coverage": 0.9983598286800259,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 7.64,
+          "stage": "corbel/post",
+          "stock_area_mm2": 36.455997711181226,
+          "bead_coverage": 0.8753860241540445,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 7.88,
+          "stage": "corbel/post",
+          "stock_area_mm2": 42.215997711181444,
+          "bead_coverage": 0.8576494844723553,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 8.12,
+          "stage": "corbel/post",
+          "stock_area_mm2": 47.97599771118166,
+          "bead_coverage": 0.7913729641496888,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 8.36,
+          "stage": "corbel/post",
+          "stock_area_mm2": 53.7359977111812,
+          "bead_coverage": 0.7328115314841052,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 8.6,
+          "stage": "corbel/post",
+          "stock_area_mm2": 59.49599771118142,
+          "bead_coverage": 0.6841561538014617,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 8.84,
+          "stage": "corbel/post",
+          "stock_area_mm2": 65.25599771118164,
+          "bead_coverage": 0.6426026762362675,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 9.08,
+          "stage": "corbel/post",
+          "stock_area_mm2": 71.01599771118185,
+          "bead_coverage": 0.6072184320001204,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 9.32,
+          "stage": "corbel/post",
+          "stock_area_mm2": 76.77599771118139,
+          "bead_coverage": 0.5952460405184876,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 9.56,
+          "stage": "corbel/post",
+          "stock_area_mm2": 82.53599771118161,
+          "bead_coverage": 0.5717526074604226,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 9.8,
+          "stage": "corbel/post",
+          "stock_area_mm2": 88.29599771118183,
+          "bead_coverage": 0.5398564732356305,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 10.04,
+          "stage": "corbel/post",
+          "stock_area_mm2": 94.05599771118136,
+          "bead_coverage": 0.5147441015130193,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 10.28,
+          "stage": "corbel/post",
+          "stock_area_mm2": 99.81599771118158,
+          "bead_coverage": 0.48807608199330377,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 10.52,
+          "stage": "corbel/post",
+          "stock_area_mm2": 105.5759977111818,
+          "bead_coverage": 0.4691107678591955,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 10.76,
+          "stage": "corbel/post",
+          "stock_area_mm2": 111.33599771118134,
+          "bead_coverage": 0.45241015180660255,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 11.0,
+          "stage": "corbel/post",
+          "stock_area_mm2": 117.09599771118155,
+          "bead_coverage": 0.4383509171816415,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 11.24,
+          "stage": "corbel/post",
+          "stock_area_mm2": 122.85599771118177,
+          "bead_coverage": 0.4393372209776927,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 11.48,
+          "stage": "corbel/post",
+          "stock_area_mm2": 124.77599771118139,
+          "bead_coverage": 0.41099509100917286,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 11.72,
+          "stage": "corbel/post",
+          "stock_area_mm2": 124.77599771118139,
+          "bead_coverage": 0.3476906780691216,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 11.96,
+          "stage": "corbel/post",
+          "stock_area_mm2": 124.77599771118139,
+          "bead_coverage": 0.3484319267014212,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 12.2,
+          "stage": "corbel/post",
+          "stock_area_mm2": 124.77599771118139,
+          "bead_coverage": 0.34856476735125275,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 12.44,
+          "stage": "corbel/post",
+          "stock_area_mm2": 124.77599771118139,
+          "bead_coverage": 0.3716441209419029,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 12.68,
+          "stage": "corbel/post",
+          "stock_area_mm2": 124.77599771118139,
+          "bead_coverage": 0.3814131656457717,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 12.92,
+          "stage": "corbel/post",
+          "stock_area_mm2": 124.77599771118139,
+          "bead_coverage": 0.4635425773438689,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 13.16,
+          "stage": "corbel/post",
+          "stock_area_mm2": 124.77599771118139,
+          "bead_coverage": 0.9062177998812095,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 13.4,
+          "stage": "corbel/post",
+          "stock_area_mm2": 124.77599771118139,
+          "bead_coverage": 0.9156434291963425,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 13.64,
+          "stage": "corbel/post",
+          "stock_area_mm2": 124.77599771118139,
+          "bead_coverage": 0.8992980921904288,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 13.88,
+          "stage": "corbel/post",
+          "stock_area_mm2": 124.77599771118139,
+          "bead_coverage": 0.9000267145242564,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 14.12,
+          "stage": "corbel/post",
+          "stock_area_mm2": 124.77599771118139,
+          "bead_coverage": 0.897853806966579,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 14.36,
+          "stage": "corbel/post",
+          "stock_area_mm2": 72.0,
+          "bead_coverage": 0.8375198883888592,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 14.6,
+          "stage": "corbel/post",
+          "stock_area_mm2": 72.0,
+          "bead_coverage": 0.8415939719752689,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 14.84,
+          "stage": "corbel/post",
+          "stock_area_mm2": 72.0,
+          "bead_coverage": 0.7116690906074993,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 15.08,
+          "stage": "corbel/post",
+          "stock_area_mm2": 72.0,
+          "bead_coverage": 0.7152465817214755,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 15.32,
+          "stage": "corbel/post",
+          "stock_area_mm2": 72.0,
+          "bead_coverage": 0.7192103682472729,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 15.56,
+          "stage": "corbel/post",
+          "stock_area_mm2": 72.0,
+          "bead_coverage": 0.7198711725226246,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 15.8,
+          "stage": "corbel/post",
+          "stock_area_mm2": 72.0,
+          "bead_coverage": 0.733721432410887,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 16.04,
+          "stage": "corbel/post",
+          "stock_area_mm2": 72.0,
+          "bead_coverage": 0.7351564644835284,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 16.28,
+          "stage": "corbel/post",
+          "stock_area_mm2": 72.0,
+          "bead_coverage": 0.7191392426274139,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 16.52,
+          "stage": "corbel/post",
+          "stock_area_mm2": 72.0,
+          "bead_coverage": 0.707237754691228,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 16.76,
+          "stage": "corbel/post",
+          "stock_area_mm2": 72.0,
+          "bead_coverage": 0.7004051444073521,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 17.0,
+          "stage": "corbel/post",
+          "stock_area_mm2": 72.0,
+          "bead_coverage": 0.6721037045486938,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 17.24,
+          "stage": "corbel/post",
+          "stock_area_mm2": 72.0,
+          "bead_coverage": 0.6727518447837867,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 17.48,
+          "stage": "corbel/post",
+          "stock_area_mm2": 72.0,
+          "bead_coverage": 0.6760527806350196,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 17.72,
+          "stage": "corbel/post",
+          "stock_area_mm2": 72.0,
+          "bead_coverage": 0.682288406620733,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 17.96,
+          "stage": "corbel/post",
+          "stock_area_mm2": 72.0,
+          "bead_coverage": 0.7030363640624103,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 18.2,
+          "stage": "corbel/post",
+          "stock_area_mm2": 72.0,
+          "bead_coverage": 0.7106560715678366,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 18.44,
+          "stage": "corbel/post",
+          "stock_area_mm2": 72.0,
+          "bead_coverage": 0.7144159654937915,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 18.68,
+          "stage": "corbel/post",
+          "stock_area_mm2": 72.0,
+          "bead_coverage": 0.718122057319807,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 18.92,
+          "stage": "corbel/post",
+          "stock_area_mm2": 72.0,
+          "bead_coverage": 0.7201508325293368,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 19.16,
+          "stage": "corbel/post",
+          "stock_area_mm2": 72.0,
+          "bead_coverage": 0.7196932746088802,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 19.4,
+          "stage": "corbel/post",
+          "stock_area_mm2": 72.0,
+          "bead_coverage": 0.7350724695690153,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 19.64,
+          "stage": "corbel/post",
+          "stock_area_mm2": 72.0,
+          "bead_coverage": 0.7384276729423895,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 19.88,
+          "stage": "corbel/post",
+          "stock_area_mm2": 72.0,
+          "bead_coverage": 0.709917381071169,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 20.12,
+          "stage": "corbel/post",
+          "stock_area_mm2": 72.0,
+          "bead_coverage": 0.7018079605572658,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 20.36,
+          "stage": "corbel/post",
+          "stock_area_mm2": 72.0,
+          "bead_coverage": 0.6724573858796119,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 20.6,
+          "stage": "corbel/post",
+          "stock_area_mm2": 72.0,
+          "bead_coverage": 0.6724030443743094,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 20.84,
+          "stage": "corbel/post",
+          "stock_area_mm2": 72.0,
+          "bead_coverage": 0.6750690364750244,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 21.08,
+          "stage": "corbel/post",
+          "stock_area_mm2": 72.0,
+          "bead_coverage": 0.6801200445667154,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 21.32,
+          "stage": "corbel/post",
+          "stock_area_mm2": 72.0,
+          "bead_coverage": 0.689530329066181,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 21.56,
+          "stage": "corbel/post",
+          "stock_area_mm2": 72.0,
+          "bead_coverage": 0.7097298061222191,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 21.8,
+          "stage": "corbel/post",
+          "stock_area_mm2": 72.0,
+          "bead_coverage": 0.7135878083514942,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 22.04,
+          "stage": "corbel/post",
+          "stock_area_mm2": 72.0,
+          "bead_coverage": 0.7172281930319335,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 22.28,
+          "stage": "retaining hook/cap",
+          "stock_area_mm2": 90.0,
+          "bead_coverage": 0.7852267749680263,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 22.52,
+          "stage": "retaining hook/cap",
+          "stock_area_mm2": 90.0,
+          "bead_coverage": 0.7838518151183259,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 22.76,
+          "stage": "retaining hook/cap",
+          "stock_area_mm2": 90.0,
+          "bead_coverage": 0.6480570149031877,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 23.0,
+          "stage": "retaining hook/cap",
+          "stock_area_mm2": 90.0,
+          "bead_coverage": 0.6559810105977654,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 23.24,
+          "stage": "retaining hook/cap",
+          "stock_area_mm2": 90.0,
+          "bead_coverage": 0.6713873755391218,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 23.48,
+          "stage": "retaining hook/cap",
+          "stock_area_mm2": 90.0,
+          "bead_coverage": 0.6595154166215417,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 23.72,
+          "stage": "retaining hook/cap",
+          "stock_area_mm2": 90.0,
+          "bead_coverage": 0.6400655034684465,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 23.96,
+          "stage": "retaining hook/cap",
+          "stock_area_mm2": 90.0,
+          "bead_coverage": 0.5514886617951762,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 24.2,
+          "stage": "retaining hook/cap",
+          "stock_area_mm2": 90.0,
+          "bead_coverage": 0.64115146035498,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 24.44,
+          "stage": "retaining hook/cap",
+          "stock_area_mm2": 90.0,
+          "bead_coverage": 0.6431590882223545,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 24.68,
+          "stage": "retaining hook/cap",
+          "stock_area_mm2": 90.0,
+          "bead_coverage": 0.9994891664270887,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 24.92,
+          "stage": "retaining hook/cap",
+          "stock_area_mm2": 90.0,
+          "bead_coverage": 0.9994891664270887,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 25.16,
+          "stage": "retaining hook/cap",
+          "stock_area_mm2": 87.84002399999986,
+          "bead_coverage": 0.9994814140225041,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 25.4,
+          "stage": "retaining hook/cap",
+          "stock_area_mm2": 82.08002399999964,
+          "bead_coverage": 0.9993136974358805,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        },
+        {
+          "layer_top_z_mm": 25.64,
+          "stage": "retaining hook/cap",
+          "stock_area_mm2": 76.3200240000001,
+          "bead_coverage": 0.9977752174921388,
+          "arm_region_bead_components": 1,
+          "complete_wall_hook_components": 1,
+          "complete_components_touch_previous": true
+        }
+      ]
+    }
+  ],
+  "interpretation": "Cable anchoring follows each complete connected emitted section through the broad wall; the first corbel expansion may lie outside the previous wall while its full in-plane component remains attached. Tube upper leaves additionally require individual roads to contact previous-layer beads. These are geometric path readings, not physical bond/strength or grip acceptance.",
+  "checks": {
+    "generic_native_review_pass": true,
+    "all_three_first_second_layers_present": true,
+    "first_second_layers_one_component": true,
+    "second_layer_roads_all_touch_first": true,
+    "all_six_tube_leaves_present": true,
+    "tube_upper_stock_components_printed": true,
+    "tube_upper_leaf_beads_connected": true,
+    "tube_upper_leaf_beads_touch_previous": true,
+    "tube_upper_roads_all_touch_previous": true,
+    "both_cable_corbels_hooks_sampled": true,
+    "cable_complete_components_anchored_previous": true
+  },
+  "pass": true
+}

@@ -1,0 +1,497 @@
+{
+  "piece": "tube-and-cable-snaps-wall9-cooled",
+  "printer": "Mark2",
+  "connection_key": "Mark2",
+  "nozzle": {
+    "side": "left",
+    "diameter_mm": 0.4,
+    "flow": "Standard",
+    "hardened": true,
+    "reason": "Every abrasive stock runs on the left hotend (hardware/ledger/tools.md, Which hotends fit an H2C). Mark2's 2026-10-24 jobs ran black PET-GF on its fixed left hardened 0.4 mm Standard-flow hotend (faucet/industrial/prints/2026-10-24-buttons-sculpted-bands020-mark2/README.md, task 1372253517).",
+    "sliced_diameter_mm": 0.4,
+    "sliced_volume_type": "Standard"
+  },
+  "material": "Polymaker Fiberon PET-GF15, black",
+  "bed_type": "Textured PEI Plate",
+  "requested_z_trim_mm": 0.04,
+  "emitted_textured_trim_mm": 0.02,
+  "project": "future/snap-fit-tests/2026-10-26-mark2-combined/2026-10-26-tube-and-cable-snaps-wall9-cooled-mark2-2179a771/2026-10-26-tube-and-cable-snaps-wall9-cooled-mark2-2179a771.3mf",
+  "project_sha256": "e50062a831b5948f0b66a6d8d16d9631774dafb932a7802e75b269647349f313",
+  "profile": "hardware/printed-parts/petgf.3mf",
+  "profile_sha256": "45c16e8c8517e0a205107d7b9f7412d013f51a8de7ecf86125cc940079d37ed0",
+  "settings_sha256": "0b3c647359e1e6bee317a9b6b5689c145f4884fd4e191d1d68485d4aa9ccf9b5",
+  "settings_changes": {
+    "extruder_ams_count": {
+      "from": [
+        "1#0|4#1",
+        "1#0|4#0"
+      ],
+      "to": [
+        "1#0|4#0",
+        "1#0|4#0"
+      ],
+      "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface."
+    },
+    "support_filament": {
+      "from": "0",
+      "to": "1",
+      "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface."
+    },
+    "support_interface_filament": {
+      "from": "0",
+      "to": "1",
+      "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface."
+    },
+    "flush_into_support": {
+      "from": "1",
+      "to": "0",
+      "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface."
+    },
+    "filament_colour": {
+      "from": [
+        "#000000"
+      ],
+      "to": [
+        "#161616"
+      ],
+      "reason": "Mark2's loaded black PET-GF colour reading."
+    },
+    "fan_min_speed": {
+      "from": [
+        "0"
+      ],
+      "to": [
+        "100"
+      ],
+      "reason": "Derek reports a melty upright cable hook and requests major part cooling and time between layers on the combined 9 mm-wall trial. This plate alone uses full part cooling after three bed layers and a 20-second layer target."
+    },
+    "fan_max_speed": {
+      "from": [
+        "0"
+      ],
+      "to": [
+        "100"
+      ],
+      "reason": "Derek reports a melty upright cable hook and requests major part cooling and time between layers on the combined 9 mm-wall trial. This plate alone uses full part cooling after three bed layers and a 20-second layer target."
+    },
+    "reduce_fan_stop_start_freq": {
+      "from": [
+        "0"
+      ],
+      "to": [
+        "1"
+      ],
+      "reason": "Derek reports a melty upright cable hook and requests major part cooling and time between layers on the combined 9 mm-wall trial. This plate alone uses full part cooling after three bed layers and a 20-second layer target."
+    },
+    "close_fan_the_first_x_layers": {
+      "from": [
+        "3"
+      ],
+      "to": [
+        "3"
+      ],
+      "reason": "Derek reports a melty upright cable hook and requests major part cooling and time between layers on the combined 9 mm-wall trial. This plate alone uses full part cooling after three bed layers and a 20-second layer target."
+    },
+    "full_fan_speed_layer": {
+      "from": [
+        "0"
+      ],
+      "to": [
+        "4"
+      ],
+      "reason": "Derek reports a melty upright cable hook and requests major part cooling and time between layers on the combined 9 mm-wall trial. This plate alone uses full part cooling after three bed layers and a 20-second layer target."
+    },
+    "enable_overhang_bridge_fan": {
+      "from": [
+        "1"
+      ],
+      "to": [
+        "1"
+      ],
+      "reason": "Derek reports a melty upright cable hook and requests major part cooling and time between layers on the combined 9 mm-wall trial. This plate alone uses full part cooling after three bed layers and a 20-second layer target."
+    },
+    "overhang_fan_speed": {
+      "from": [
+        "70"
+      ],
+      "to": [
+        "100"
+      ],
+      "reason": "Derek reports a melty upright cable hook and requests major part cooling and time between layers on the combined 9 mm-wall trial. This plate alone uses full part cooling after three bed layers and a 20-second layer target."
+    },
+    "additional_cooling_fan_speed": {
+      "from": [
+        "0"
+      ],
+      "to": [
+        "0"
+      ],
+      "reason": "Derek reports a melty upright cable hook and requests major part cooling and time between layers on the combined 9 mm-wall trial. This plate alone uses full part cooling after three bed layers and a 20-second layer target."
+    },
+    "slow_down_for_layer_cooling": {
+      "from": [
+        "1"
+      ],
+      "to": [
+        "1"
+      ],
+      "reason": "Derek reports a melty upright cable hook and requests major part cooling and time between layers on the combined 9 mm-wall trial. This plate alone uses full part cooling after three bed layers and a 20-second layer target."
+    },
+    "slow_down_layer_time": {
+      "from": [
+        "1"
+      ],
+      "to": [
+        "20"
+      ],
+      "reason": "Derek reports a melty upright cable hook and requests major part cooling and time between layers on the combined 9 mm-wall trial. This plate alone uses full part cooling after three bed layers and a 20-second layer target."
+    },
+    "slow_down_min_speed": {
+      "from": [
+        "10",
+        "10",
+        "10"
+      ],
+      "to": [
+        "5"
+      ],
+      "reason": "Derek reports a melty upright cable hook and requests major part cooling and time between layers on the combined 9 mm-wall trial. This plate alone uses full part cooling after three bed layers and a 20-second layer target."
+    },
+    "no_slow_down_for_cooling_on_outwalls": {
+      "from": [
+        "0"
+      ],
+      "to": [
+        "0"
+      ],
+      "reason": "Derek reports a melty upright cable hook and requests major part cooling and time between layers on the combined 9 mm-wall trial. This plate alone uses full part cooling after three bed layers and a 20-second layer target."
+    },
+    "brim_type": {
+      "from": "auto_brim",
+      "to": "no_brim",
+      "reason": "Three broad model footprints provide bed attachment; no added brim."
+    },
+    "brim_width": {
+      "from": "5",
+      "to": "0",
+      "reason": "No brim on this plate."
+    },
+    "print_sequence": {
+      "from": "by layer",
+      "to": "by layer",
+      "reason": "Print all pieces on every layer to provide cooling time between returns to a cable hook."
+    }
+  },
+  "profile_changes": {
+    "machine_start_gcode": {
+      "from_sha256": "3cc9e41520dbf5622d6f9a96bce734db9d11b0b48b49f2abec047a6e01dc6a92",
+      "to_sha256": "b09bc598f2ed7c29dceb227188593905dfc663f0391b98ff708ef00e7ce01bee",
+      "requested_z_trim_mm": 0.04
+    },
+    "printer_settings_id": {
+      "from": "Bambu Lab H2C 0.4 nozzle 04 first layer by agent",
+      "to": "Bambu Lab H2C 0.4 Standard +0.04 Z trim"
+    },
+    "print_compatible_printers": {
+      "from": [
+        "Bambu Lab H2C 0.4 nozzle"
+      ],
+      "to": [
+        "Bambu Lab H2C 0.4 nozzle",
+        "Bambu Lab H2C 0.4 Standard +0.04 Z trim"
+      ]
+    }
+  },
+  "usable_plate_mm": [
+    [
+      0.0,
+      0.0
+    ],
+    [
+      325.0,
+      320.0
+    ]
+  ],
+  "plate_border_mm": 80,
+  "brim_allowance_mm": 0.0,
+  "plate_offset_mm": null,
+  "objects": [
+    {
+      "name": "Tube-C2-6.55-6.45-6.35",
+      "identify_id": 1901,
+      "object_id": 2,
+      "stl": "future/tube-snap-exploration/parts/tube-snap-c2-three-bores.stl",
+      "stl_sha256": "350d7d300c767f3514ca54eb4452456c3b2372ba067361771f76daf21c554dbe",
+      "step_sha256": "5c526539592dac28b6cc12edee067e50215efc62069a62b53b5c1b6498a49ea1",
+      "facets": 24462,
+      "closed": {
+        "edges": 36693,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "inconsistent_edges": 0,
+        "bodies": 1,
+        "closed_oriented_single_body": true
+      },
+      "pose": null,
+      "pose_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "yaw_degrees": 0,
+      "source_center_mm": [
+        0.0,
+        0.0,
+        5.64680290222168
+      ],
+      "build_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "translation_mm": [
+        162.5,
+        132.0,
+        5.64680290222168
+      ],
+      "plate_bounds_mm": [
+        [
+          132.5,
+          124.0,
+          0.0
+        ],
+        [
+          192.5,
+          140.0,
+          11.29360580444336
+        ]
+      ],
+      "model_bed_margin_mm": 124.0,
+      "seam_enforcer": null,
+      "object_settings": {},
+      "features": [],
+      "ranges": [],
+      "verify_spans": [],
+      "ribbons": [],
+      "tie_windows": [],
+      "modifiers": [],
+      "fins": []
+    },
+    {
+      "name": "Cable-wall9-span16",
+      "identify_id": 1902,
+      "object_id": 4,
+      "stl": "future/cable-clip-exploration/parts/relay-ribbon-wall9-span16.stl",
+      "stl_sha256": "883db5fc6a80afb17e41639176f238dbc4a8519147fd5c8bac38e2fbb0a78a13",
+      "step_sha256": "e98ccdc7723931214b4b910c344726e36544edccc95a49178be3833b1ded77ac",
+      "facets": 48,
+      "closed": {
+        "edges": 72,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "inconsistent_edges": 0,
+        "bodies": 1,
+        "closed_oriented_single_body": true
+      },
+      "pose": null,
+      "pose_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "yaw_degrees": 0,
+      "source_center_mm": [
+        -1.9000000953674316,
+        0.0,
+        12.850000381469727
+      ],
+      "build_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "translation_mm": [
+        144.5,
+        172.0,
+        12.850000381469727
+      ],
+      "plate_bounds_mm": [
+        [
+          137.40000009536743,
+          158.0,
+          0.0
+        ],
+        [
+          151.59999990463257,
+          186.0,
+          25.700000762939453
+        ]
+      ],
+      "model_bed_margin_mm": 134.0,
+      "seam_enforcer": null,
+      "object_settings": {},
+      "features": [],
+      "ranges": [],
+      "verify_spans": [],
+      "ribbons": [],
+      "tie_windows": [],
+      "modifiers": [],
+      "fins": []
+    },
+    {
+      "name": "Cable-wall9-span24",
+      "identify_id": 1903,
+      "object_id": 6,
+      "stl": "future/cable-clip-exploration/parts/relay-ribbon-wall9-span24.stl",
+      "stl_sha256": "96ddcacc082e322e768018a413a9ee11ab64dd2c665a507de66320cd6df410e2",
+      "step_sha256": "5e69545c1630107b2f2109ead0e60e24ff74541cdd1c74ef3b57d2d12bc99a9c",
+      "facets": 48,
+      "closed": {
+        "edges": 72,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "inconsistent_edges": 0,
+        "bodies": 1,
+        "closed_oriented_single_body": true
+      },
+      "pose": null,
+      "pose_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "yaw_degrees": 0,
+      "source_center_mm": [
+        -1.9000000953674316,
+        0.0,
+        12.850000381469727
+      ],
+      "build_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "translation_mm": [
+        180.5,
+        172.0,
+        12.850000381469727
+      ],
+      "plate_bounds_mm": [
+        [
+          173.40000009536743,
+          154.0,
+          0.0
+        ],
+        [
+          187.59999990463257,
+          190.0,
+          25.700000762939453
+        ]
+      ],
+      "model_bed_margin_mm": 130.0,
+      "seam_enforcer": null,
+      "object_settings": {},
+      "features": [],
+      "ranges": [],
+      "verify_spans": [],
+      "ribbons": [],
+      "tie_windows": [],
+      "modifiers": [],
+      "fins": []
+    }
+  ],
+  "pause": null,
+  "show_faces": "future/snap-fit-tests/2026-10-26-mark2-combined/2026-10-26-tube-and-cable-snaps-wall9-cooled-mark2-2179a771/show-faces.npz",
+  "spec": "future/snap-fit-tests/2026-10-26-mark2-combined/job.json",
+  "spec_sha256": "56ddd92b127b182f107f8eabd6f201893d1b22918440c1b91729920a822ca57b",
+  "tool_sha256": {
+    "hardware/printed-parts/enclosure/trial-preparation/_derive.py": "31256357a16f37d9f1516ce1ee1636c97559dfe54a1a2050ae661d622e6b3189",
+    "hardware/printed-parts/enclosure/trial-preparation/_mesh.py": "7ab22db36e370608f52df3709c4af1994c8e804ee06e101dcbf79210db99eead",
+    "hardware/printed-parts/enclosure/trial-preparation/_native.py": "1c99ce10842a141a942a19d7def2329512d14b676c00618496187e0d93cd29da",
+    "hardware/printed-parts/enclosure/trial-preparation/_seam.py": "9ffa509df701826563e18388fd3bcc57c604f4b2b8e5e4288821ddcd00bcb176",
+    "hardware/printed-parts/enclosure/trial-preparation/labels.py": "c326a74b104b894d81dcfd8eb00c93ebf602291816decaf241a01cf4818b672d",
+    "hardware/printed-parts/enclosure/trial-preparation/prepare.py": "525be245521bd721c1ee6795f37e80d9f1e9ace9c4f8fa08b857f88e83388d9a",
+    "hardware/printed-parts/enclosure/trial-preparation/review.py": "9bd303fe370842fd34eb559dc5f53f887f75c42e478c598737397dd49dd539f7",
+    "hardware/printed-parts/enclosure/trial-preparation/step_meshes.py": "b50f7b50f52f1e8516be3b1fc9ecdb10e87fb188f8b9bebc0fac56737320fc44"
+  },
+  "prepared_utc": "2026-10-27T04:29:50+00:00",
+  "sliced": true,
+  "submitted": false,
+  "archive": "future/snap-fit-tests/2026-10-26-mark2-combined/2026-10-26-tube-and-cable-snaps-wall9-cooled-mark2-2179a771/2026-10-26-tube-and-cable-snaps-wall9-cooled-mark2-2179a771.gcode.3mf",
+  "archive_sha256": "b0eb0b51520c375d14887ebe6851ccc2226dbf0ab334684e6f03076db17a30db",
+  "gcode_sha256": "cb6f3f3744e9ea421f38f435abf5b48c57c739e4c3aad89607bb6268ce2d3d3c",
+  "estimated_seconds": 3024.798583984375,
+  "slicer_warnings": []
+}

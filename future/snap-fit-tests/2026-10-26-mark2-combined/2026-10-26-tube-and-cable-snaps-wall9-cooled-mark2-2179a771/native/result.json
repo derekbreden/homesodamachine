@@ -1,0 +1,97 @@
+{
+    "error_string": "Success.",
+    "export_time": 2200,
+    "layer_height": 0.23999999463558197,
+    "plate_index": 0,
+    "prepare_time": 78,
+    "return_code": 0,
+    "sliced_plates": [
+        {
+            "feature_type_times": {
+                "Bottom surface": 66.88018035888672,
+                "Bridge": 163.6358642578125,
+                "Custom": 304.45452880859375,
+                "Flush": 15.0,
+                "Gap infill": 3.8206841945648193,
+                "Inner wall": 542.3702392578125,
+                "Internal solid infill": 337.63922119140625,
+                "Outer wall": 687.6837768554688,
+                "Overhang wall": 4.0520758628845215,
+                "Sparse infill": 633.2098999023438,
+                "Top surface": 45.1685791015625,
+                "Travel": 229.57107543945313,
+                "Undefined": 220.88711547851563
+            },
+            "filament_change_times": 0,
+            "filaments": [
+                {
+                    "filament_id": "GFT01",
+                    "id": 1,
+                    "main_used_g": 13.448073387145996,
+                    "total_used_g": 13.448073387145996
+                }
+            ],
+            "generate_support_material_time": 16,
+            "id": 1,
+            "infill_time": 107,
+            "layer_filament_change": 0,
+            "main_predication": 2699.028076171875,
+            "make_perimeters_time": 64,
+            "obj_cached_cnt": 0,
+            "objects": [
+                {
+                    "bbox": {
+                        "depth": 16.0,
+                        "height": 11.29360580444336,
+                        "width": 60.0,
+                        "x": 132.5,
+                        "y": 124.0,
+                        "z": -2.2167956359453456e-10
+                    },
+                    "id": 5,
+                    "name": "Tube-C2-6.55-6.45-6.35",
+                    "triangle_count": 24462
+                },
+                {
+                    "bbox": {
+                        "depth": 28.0,
+                        "height": 25.700000762939453,
+                        "width": 14.200006484985352,
+                        "x": 137.39999389648438,
+                        "y": 158.0,
+                        "z": -4.697273681131264e-10
+                    },
+                    "id": 9,
+                    "name": "Cable-wall9-span16",
+                    "triangle_count": 48
+                },
+                {
+                    "bbox": {
+                        "depth": 36.0,
+                        "height": 25.700000762939453,
+                        "width": 14.200006484985352,
+                        "x": 173.39999389648438,
+                        "y": 154.0,
+                        "z": -4.697273681131264e-10
+                    },
+                    "id": 13,
+                    "name": "Cable-wall9-span24",
+                    "triangle_count": 48
+                }
+            ],
+            "sliced_time": 1543,
+            "sliced_time_with_cache": 1322,
+            "total_predication": 3024.798583984375,
+            "triangle_count": 24558,
+            "warning_message": ""
+        }
+    ],
+    "sparse_infill_density": 15.0,
+    "upward_compatible_machine": [
+        "Bambu Lab H2S 0.4 nozzle",
+        "Bambu Lab H2D 0.4 nozzle",
+        "Bambu Lab H2D Pro 0.4 nozzle",
+        "Bambu Lab A2L 0.4 nozzle"
+    ],
+    "wall_loops": 2
+}

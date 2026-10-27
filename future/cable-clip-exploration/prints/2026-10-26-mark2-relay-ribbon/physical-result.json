@@ -1,0 +1,64 @@
+{
+  "schema": 1,
+  "part": "Upright bare J5 4P relay-ribbon clip coupon on a 3 mm host wall",
+  "status": "Print deformation reported; cancelled before completion",
+  "authority": "Derek, direct physical report and two photographs in chat",
+  "recorded_at_utc": "2026-10-27T04:29:20+00:00",
+  "printer": "Mark2",
+  "printer_task_id": "1379210744",
+  "archive": "future/cable-clip-exploration/prints/2026-10-26-mark2-relay-ribbon/2026-10-26-relay-ribbon-4p-upright-mark2-78832950/2026-10-26-relay-ribbon-4p-upright-mark2-78832950.gcode.3mf",
+  "archive_sha256": "c0724b827595e1ccd7abb6535548460132de178925a7fff87f8944a32b083422",
+  "gcode_sha256": "422fac829d2ced56cabc13bf21a496437a429a6cba4a74c0fe984198ce68133d",
+  "project": "future/cable-clip-exploration/prints/2026-10-26-mark2-relay-ribbon/2026-10-26-relay-ribbon-4p-upright-mark2-78832950/2026-10-26-relay-ribbon-4p-upright-mark2-78832950.3mf",
+  "project_sha256": "0ff3055ee56d954611409bb9aea28c396576bbe08d1e5027336be8a2ada529ab",
+  "source_sha256_at_preparation": {
+    "future/cable-clip-exploration/relay_ribbon_trial.py": "e4754169913a98e25f307cdb54efdf4111e308068a5a6ce3f95949c457379cee",
+    "future/cable-clip-exploration/parts/relay-ribbon-4p-print.stl": "c75a565756883d4a7efdd77d265f3f2e11d34db15a80d74aad42e23f7012ca29",
+    "future/cable-clip-exploration/parts/relay-ribbon-4p-print.step": "4d19a147169108a54a35e9cb40179697b49952b64df58ed3afd61522434531d3",
+    "future/cable-clip-exploration/parts/relay-ribbon-4p-installed.step": "2020394d72eec2f84d1457733b40453726050dc26041bbc0b8c7ed44eb97bff9",
+    "future/cable-clip-exploration/geometry-report.json": "c4c78487fa57e06cc9e8297369a2bb2dcdd09b59b5e0befce55de65356383f6e"
+  },
+  "print_pose_at_preparation": "Entry-up STL, with no rotation. The 24 by 3 mm wall edge starts on the bed; the 45 degree hook corbel starts 6 mm above it.",
+  "launch_receipt": "future/cable-clip-exploration/prints/2026-10-26-mark2-relay-ribbon/launch.json",
+  "launch_receipt_sha256": "d00567a62b813bda5c2cfbe2bb91a34f808661c8df2c6323a06735b7904b0868",
+  "observation": "So that last one came out pretty melty there. I stopped it partway, as you'll see. So we definitely can't do anything quite like that again without some major part fan cooling and time between layers. So I think I'd like to see that with a 9 millimeter thick wall, and I'd also like to see the hook cavity be a bit longer as far as a longer length of cable within the cavity. And I don't know, maybe you can set it up with a couple variations. I'm going to be going into bed soon, and so I've got the plate cleared for you now, and I'd like to get a test print here that has both what I asked for with the tube snaps and whatever we want to do next here for the cable clips. So prepare a larger test plate of both things, taking into consideration that we're going to be doing this on 9 millimeter thick walls and might need a bit longer cavity.",
+  "print_completed": false,
+  "cancelled_before_completion": true,
+  "stopped_by": "Derek",
+  "stop_basis": "Direct report that he stopped the print partway; no completion telemetry is inferred from the launch receipt.",
+  "visible_photo_observations": [
+    "Uneven and wavy layer bands on the incomplete coupon.",
+    "Localized glossy material buildup and distortion around portions of the partially formed hook."
+  ],
+  "reported_heat_or_layer_time_interpretation": "Derek describes the print as melty and calls for substantially more part-fan cooling and more time between layers.",
+  "cause_confirmed": false,
+  "actual_material_temperature_c": null,
+  "actual_part_fan_performance_at_defect": null,
+  "actual_layer_duration_at_defect_s": null,
+  "cause_scope": "The photographs and report establish the deformed partial result, not its measured temperature or a uniquely established thermal, cooling or layer-time cause.",
+  "requested_next_trial": {
+    "host_wall_thickness_mm": 9.0,
+    "cable_cavity_length": "Longer cable contact span than this coupon",
+    "cable_clip_variations_requested": true,
+    "combined_plate": "Tube-snap and cable-clip variants together",
+    "cooling_and_layer_time": "More part-fan cooling and more time between layers requested"
+  },
+  "completed_cable_fit_test_reported": false,
+  "fit_accepted": false,
+  "retention_accepted": false,
+  "quantified_insertion_force_n": null,
+  "quantified_retention_force_n": null,
+  "photos": [
+    {
+      "path": "future/cable-clip-exploration/prints/2026-10-26-mark2-relay-ribbon/physical-photo-1.jpg",
+      "sha256": "89763b2df2f2c81b9e493dcb7768411642d2dbe1abb545209f2d65777c0631ef",
+      "caption": "Incomplete upright cable coupon with uneven layer bands and localized material buildup around the partially formed hook."
+    },
+    {
+      "path": "future/cable-clip-exploration/prints/2026-10-26-mark2-relay-ribbon/physical-photo-2.jpg",
+      "sha256": "b07abf4fb5ccc0de3682ce51bc0ccfa2a279ce3e95137e7e736d70175a328011",
+      "caption": "Incomplete upright cable coupon with uneven layer bands and localized material buildup around the partially formed hook."
+    }
+  ],
+  "scope": "Reported print-quality failure and cancellation of the identified upright coupon. No completed fit, retention, release, load-capacity or lifetime acceptance is established."
+}

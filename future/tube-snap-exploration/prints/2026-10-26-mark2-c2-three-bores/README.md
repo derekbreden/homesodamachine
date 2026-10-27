@@ -11,9 +11,11 @@ the organizer's established **0.10 mm diameter** tuning step. The [geometry repo
 binds every native bore section and the control comparison. The [physical feedback](../2026-10-26-mark2-retention-matrix/physical-result.json)
 records Derek's C2 preference and request for this comparison.
 
-The job is **prepared, not submitted**, while Mark2 prints the upright relay-ribbon
-coupon. Its native estimate is **14 min 12 s** and **3.98 g** using the saved
-profile density.
+This standalone job is **prepared, not submitted**. The
+[combined plate](../../../snap-fit-tests/2026-10-26-mark2-combined/README.md)
+uses the same part with two 9 mm-wall cable coupons and its experimental cooling
+recipe. The standalone native estimate is **14 min 12 s** and **3.98 g** using
+the saved profile density.
 
 - [Editable project](2026-10-26-tube-snap-c2-three-bores-mark2-cf1d0d5d/2026-10-26-tube-snap-c2-three-bores-mark2-cf1d0d5d.3mf)
 - [Native print archive](2026-10-26-tube-snap-c2-three-bores-mark2-cf1d0d5d/2026-10-26-tube-snap-c2-three-bores-mark2-cf1d0d5d.gcode.3mf)
