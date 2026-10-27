@@ -1,0 +1,103 @@
+<div id="__ROOT_ID__" aria-label="__REVIEW_TITLE__">
+  <div class="viz-controls">
+    <label class="form-label">Screen
+      <select class="form-select" data-screen aria-label="Proposal screen"></select>
+    </label>
+    <label class="form-label" data-viewport-label>Window
+      <select class="form-select" data-viewport aria-label="Layout window"></select>
+    </label>
+  </div>
+  <div class="viz-row">
+    <label class="form-check">
+      <input class="form-check-input" type="checkbox" data-actual>
+      <span class="form-check-label">Actual size</span>
+    </label>
+    <span class="text-small text-muted" data-caption aria-live="polite"></span>
+  </div>
+  <label class="form-label" data-position-label hidden>Horizontal position
+    <input class="form-range" type="range" min="0" max="100" value="0" data-position aria-label="Horizontal position in full-size render">
+  </label>
+  <div class="review-stage viz-dotted-background">
+    <img class="review-image" src="__INITIAL_IMAGE__" alt="__INITIAL_ALT__" draggable="false">
+  </div>
+</div>
+<style>
+  #__ROOT_ID__ [hidden] { display: none !important; }
+  #__ROOT_ID__ .review-stage { position: relative; width: 100%; overflow: hidden; margin-top: 12px; }
+  #__ROOT_ID__ .review-image { display: block; max-width: none; height: auto; }
+</style>
+<script>
+(() => {
+  __THEME_HELPER__
+  const root = document.getElementById('__ROOT_ID__');
+  const theme = createInlineMobileTheme(root);
+  theme.observe(() => {});
+  const data = __RENDER_DATA__;
+  const screen = root.querySelector('[data-screen]');
+  const viewport = root.querySelector('[data-viewport]');
+  const actual = root.querySelector('[data-actual]');
+  const stage = root.querySelector('.review-stage');
+  const img = root.querySelector('img');
+  const caption = root.querySelector('[data-caption]');
+  const position = root.querySelector('[data-position]');
+  const positionLabel = root.querySelector('[data-position-label]');
+  const labels = new Map();
+  for (const item of data.images) labels.set(item.route, item.label);
+  for (const [id, label] of labels) screen.add(new Option(label, id));
+  const sizes = new Map();
+  for (const item of data.images) sizes.set(item.viewport, `${item.title} · ${item.width} × ${item.height}`);
+  for (const [id, label] of sizes) viewport.add(new Option(label, id));
+  root.querySelector('[data-viewport-label]').hidden = sizes.size === 1;
+  screen.value = data.initialRoute;
+  viewport.value = data.initialViewport;
+  let chosen = null;
+
+  function size() {
+    if (!chosen) return;
+    const room = stage.getBoundingClientRect().width;
+    const width = actual.checked ? chosen.width : Math.min(room, chosen.width);
+    const extra = Math.max(0, width - room);
+    img.style.width = `${width}px`;
+    img.style.height = `${width * chosen.height / chosen.width}px`;
+    img.style.marginLeft = `${extra ? -extra * Number(position.value) / 100 : (room - width) / 2}px`;
+    positionLabel.hidden = extra <= 0;
+  }
+  function render() {
+    chosen = data.images.find(item => item.route === screen.value && item.viewport === viewport.value);
+    if (!chosen) return;
+    img.src = chosen.data;
+    img.alt = `${chosen.label}, ${chosen.title}, ${chosen.width} by ${chosen.height} points. Native SwiftUI render with sample machine data.`;
+    caption.textContent = `${chosen.width} × ${chosen.height} pt · native SwiftUI`;
+    size();
+  }
+  function restore(saved) {
+    const values = saved?.modelContent;
+    if (values && labels.has(values.screen)) screen.value = values.screen;
+    if (values && sizes.has(values.viewport)) viewport.value = values.viewport;
+    if (typeof saved?.privateContent?.actual === 'boolean') actual.checked = saved.privateContent.actual;
+    render();
+  }
+  function save() {
+    render();
+    const pending = window.openai?.setWidgetState?.({
+      modelContent: {screen: screen.value, viewport: viewport.value},
+      privateContent: {actual: actual.checked}
+    });
+    pending?.catch?.(() => {});
+  }
+  screen.addEventListener('change', () => { position.value = '0'; save(); });
+  viewport.addEventListener('change', () => {
+    position.value = '0';
+    const item = data.images.find(item => item.viewport === viewport.value);
+    actual.checked = item && stage.getBoundingClientRect().width / item.width < 0.65;
+    save();
+  });
+  actual.addEventListener('change', save);
+  position.addEventListener('input', size);
+  new ResizeObserver(size).observe(stage);
+  window.addEventListener('openai:set_globals', event => restore(event.detail?.globals?.widgetState));
+  actual.checked = stage.getBoundingClientRect().width / data.images.find(item => item.route === screen.value && item.viewport === viewport.value).width < 0.65;
+  restore(window.openai?.widgetState);
+  window.__vizReady = true;
+})();
+</script>
