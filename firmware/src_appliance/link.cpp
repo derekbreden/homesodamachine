@@ -195,8 +195,7 @@ static void fillPayload(const MachineFillState &st, FillStatePayload &p) {
     p.reeds     = st.reeds;
 }
 
-// Every phone hears every change too, whoever asked for it; J3 is full duplex
-// and needs no turn.
+// Every phone hears every change too, whoever asked for it.
 static void onFillState(const MachineFillState &st) {
     FillStatePayload p;
     fillPayload(st, p);

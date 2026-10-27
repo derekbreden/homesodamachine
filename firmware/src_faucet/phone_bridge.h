@@ -10,18 +10,16 @@
 //
 // A phone writes BLE_FRAME_MACHINE_REQ — a BridgeHeader, then the request's own
 // payload — and this board puts it on J3 as MSG_BRIDGE_REQ under an id of its
-// own, so two phones' ids never meet on the wire. The main board's answer comes
-// back under that id and goes to the phone that asked, under the phone's id.
-// What may be asked is the main board's list (faucet_link.cpp), not this
-// board's: anything else comes back BRIDGE_ERR_REFUSED.
+// own. The main board's answer comes back under that id and goes to the phone
+// that asked, under the phone's id. What may be asked is the main board's list
+// (faucet_link.cpp); anything else comes back BRIDGE_ERR_REFUSED.
 //
 // State that moved reaches every phone on the air under id 0: what the main
 // board volunteers inside MSG_BRIDGE_RESP, and the selection and Prime's
 // session, which J3 already brings this board for its own glass.
 //
-// NOTHING IS REPLAYED. A request the main board does not answer in time is
-// answered BRIDGE_ERR_NO_ANSWER, and the phone reads the truth with a query
-// rather than asking for the action twice.
+// A request the main board does not answer in time is answered
+// BRIDGE_ERR_NO_ANSWER, and the phone reads the truth with a query.
 //
 // The other frame types this board speaks are in ble_ota.h and ble_image.h.
 constexpr uint8_t BLE_FRAME_MACHINE_REQ = 0x23;  // phone → board: BridgeHeader, then the request
