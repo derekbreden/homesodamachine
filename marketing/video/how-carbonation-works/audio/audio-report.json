@@ -1,0 +1,196 @@
+{
+  "duration": 102.03333333333333,
+  "sample_rate": 48000,
+  "channels": 2,
+  "bit_depth": 24,
+  "voice_service": "Google Gemini Interactions API",
+  "voice_model": "gemini-3.8-flash-tts",
+  "voice": "Charon",
+  "score": "Original procedural ambient composition",
+  "effects": "Original procedural sound design; scene-following illustrative textures",
+  "stock_assets": [],
+  "random_seed": 20261027,
+  "master_integrated_lufs": -16.0,
+  "master_true_peak_dbtp": -2.61,
+  "master_loudness_range_lu": 5.8,
+  "normalization": {
+    "input_i": "-15.06",
+    "input_tp": "-1.75",
+    "input_lra": "5.30",
+    "input_thresh": "-26.66",
+    "output_i": "-15.94",
+    "output_tp": "-2.62",
+    "output_lra": "5.40",
+    "output_thresh": "-27.53",
+    "normalization_type": "linear",
+    "target_offset": "-0.06"
+  },
+  "premix_loudness": {
+    "input_i": "-15.13",
+    "input_tp": "-1.74",
+    "input_lra": "5.80",
+    "input_thresh": "-26.78",
+    "output_i": "-16.02",
+    "output_tp": "-1.78",
+    "output_lra": "5.00",
+    "output_thresh": "-27.61",
+    "normalization_type": "dynamic",
+    "target_offset": "0.02"
+  },
+  "voice_word_speed_changed": false,
+  "master_sha256": "9c069549e10f82c296d14a8749025309ebe431ecd15f4c6eb59350e90467c8d8",
+  "stems": {
+    "voice": "voice-master.wav",
+    "score": "score-stem.wav",
+    "effects": "effects-stem.wav"
+  },
+  "sound_clock": {
+    "enclosure": [
+      10.0,
+      13.1
+    ],
+    "gas_admission": [
+      20.7,
+      30.4
+    ],
+    "jet": [
+      32.6,
+      68.5
+    ],
+    "entrainment": [
+      42.5,
+      61.4
+    ],
+    "evaporator_flow": [
+      70.5,
+      82.5
+    ],
+    "pour": [
+      87.5,
+      95.3
+    ],
+    "closing_fizz": [
+      95.3,
+      101.65
+    ]
+  },
+  "score_harmony": [
+    {
+      "start": 0.0,
+      "end": 22.0,
+      "frequencies_hz": [
+        146.832,
+        220.0,
+        329.628,
+        369.994
+      ]
+    },
+    {
+      "start": 19.0,
+      "end": 43.5,
+      "frequencies_hz": [
+        123.471,
+        184.997,
+        246.942,
+        293.665
+      ]
+    },
+    {
+      "start": 40.0,
+      "end": 71.8,
+      "frequencies_hz": [
+        130.813,
+        195.998,
+        293.665,
+        369.994
+      ]
+    },
+    {
+      "start": 68.5,
+      "end": 85.4,
+      "frequencies_hz": [
+        164.814,
+        246.942,
+        329.628,
+        391.995
+      ]
+    },
+    {
+      "start": 81.5,
+      "end": 102.03333333333333,
+      "frequencies_hz": [
+        146.832,
+        220.0,
+        293.665,
+        369.994
+      ]
+    }
+  ],
+  "score_notes": [
+    {
+      "at": 0.15,
+      "frequency_hz": 587.33,
+      "pan": -0.22
+    },
+    {
+      "at": 0.82,
+      "frequency_hz": 880,
+      "pan": 0.18
+    },
+    {
+      "at": 7.9,
+      "frequency_hz": 659.26,
+      "pan": -0.1
+    },
+    {
+      "at": 10.0,
+      "frequency_hz": 587.33,
+      "pan": 0.2
+    },
+    {
+      "at": 19.7,
+      "frequency_hz": 493.88,
+      "pan": -0.15
+    },
+    {
+      "at": 31.0,
+      "frequency_hz": 739.99,
+      "pan": 0.1
+    },
+    {
+      "at": 41.1,
+      "frequency_hz": 587.33,
+      "pan": -0.1
+    },
+    {
+      "at": 55.05,
+      "frequency_hz": 659.26,
+      "pan": 0.15
+    },
+    {
+      "at": 69.25,
+      "frequency_hz": 783.99,
+      "pan": -0.2
+    },
+    {
+      "at": 82.8,
+      "frequency_hz": 739.99,
+      "pan": 0.16
+    },
+    {
+      "at": 96.4,
+      "frequency_hz": 587.33,
+      "pan": -0.12
+    },
+    {
+      "at": 100.1,
+      "frequency_hz": 440,
+      "pan": 0.12
+    },
+    {
+      "at": 100.35,
+      "frequency_hz": 587.33,
+      "pan": -0.1
+    }
+  ]
+}

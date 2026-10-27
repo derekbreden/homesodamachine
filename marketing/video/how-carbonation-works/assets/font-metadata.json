@@ -1,0 +1,37 @@
+{
+  "Archivo-latin-variable.woff2": {
+    "source": "https://fonts.gstatic.com/s/archivo/v25/k3kPo8UDI-1M0wlSV9XAw6lQkqWY8Q82sLydOxI.woff2",
+    "sha256": "8f704806dbedeaaeca334b11ec348bc3ac3a439d6431544b3afb54f534ee4967",
+    "italicAngle": 0.0,
+    "fsSelection": 192,
+    "macStyle": 0,
+    "names": {
+      "1": "Archivo SemiBold",
+      "2": "Regular",
+      "16": "",
+      "17": ""
+    },
+    "axes": [
+      {
+        "tag": "wght",
+        "min": 100.0,
+        "default": 600.0,
+        "max": 900.0
+      }
+    ]
+  },
+  "IBMPlexMono-latin-regular.woff2": {
+    "source": "https://fonts.gstatic.com/s/ibmplexmono/v20/-F63fjptAgt5VM-kVkqdyU8n1i8q1w.woff2",
+    "sha256": "08949f728dc52d528e69b1667d15c89a5686a4ee9a296ff90983985f99c380f7",
+    "italicAngle": 0.0,
+    "fsSelection": 448,
+    "macStyle": 0,
+    "names": {
+      "1": "IBM Plex Mono",
+      "2": "Regular",
+      "16": "",
+      "17": ""
+    },
+    "axes": []
+  }
+}

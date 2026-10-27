@@ -1,0 +1,16 @@
+```json
+{
+  "usable": true,
+  "overall_delivery": "Clean, authoritative, and engaging narration well-suited for an animated science explainer. Intonation is consistent, natural, and maintains an instructive yet accessible cadence throughout.",
+  "pace": "Deliberate and well-measured. Pauses between clauses and sentences provide sufficient breathing room for visual animation, and the delivery within sentences is never rushed.",
+  "intelligibility": "Excellent. Enunciation is crisp and precise across technical terminology.",
+  "sonic_defects": "None detected. The recording is quiet with a clean noise floor and no room reflections or distortion.",
+  "any_exact_words_phrases_differing_from_script": [],
+  "clipped_words": [],
+  "tail_artifacts": "None. Reverb and room decay taper off cleanly at sentence ends and after the closing phrase.",
+  "material_improvements": [
+    "Software flags for 'flow' (00:33) and 'tops/up' (00:58) are ASR recognition errors; 'incoming flow' and 'refill pump stops' are articulated accurately and cleanly in the audio.",
+    "'Magnetic float' (00:54), 'refill pump stops' (00:57), and the closing 'on tap' (01:23) are all enunciated clearly with proper emphasis."
+  ]
+}
+```

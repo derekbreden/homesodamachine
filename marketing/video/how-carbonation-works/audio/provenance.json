@@ -1,0 +1,29 @@
+{
+  "service": "Google Gemini Interactions API",
+  "model": "gemini-3.8-flash-tts",
+  "voice": "Charon",
+  "generated_at": "2026-10-27T07:08:33.088156+00:00",
+  "script_sha256": "9286000e08701a21983e0141e407ace55bf05add1418f19a075f4bc3612b501b",
+  "source_sha256": "b2cab7c29adf58aa06646361e2d0b1e33700f6e655b9a53b660a3d09dbf787dc",
+  "source_format": {
+    "sample_rate": 24000,
+    "channels": 1,
+    "sample_width": 2,
+    "frames": 2023680,
+    "duration": 84.32
+  },
+  "production_format": {
+    "programs": [],
+    "stream_groups": [],
+    "streams": [
+      {
+        "sample_rate": "48000",
+        "channels": 1,
+        "bits_per_raw_sample": "24"
+      }
+    ],
+    "format": {
+      "duration": "84.320000"
+    }
+  }
+}

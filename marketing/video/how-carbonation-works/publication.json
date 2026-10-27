@@ -1,0 +1,53 @@
+{
+  "title": "How Carbonation Works — Inside a Home Soda Machine",
+  "description": "Go inside a home soda machine to see how pressure, a narrow water jet, and refrigeration turn water into cold, carbonated water. This cutaway follows the Home Soda Machine design from the enclosure to its carbonator, copper evaporator, and faucet.\n\nExplore the machine and follow the build:\nhttps://homesodamachine.com\n\n0:00 Inside the machine\n0:20 Carbon dioxide enters the carbonator\n0:31 The water jet\n0:41 Mixing and dissolved carbon dioxide\n1:09 The copper cooling coil\n1:23 Back to the faucet\n\nEngineering visualization of a design in development. Fluid motion, bubble populations, and thermal graphics are illustrative. Narration generated with Gemini voice (Charon).",
+  "descriptionFile": "youtube-description.txt",
+  "video": "out/how-carbonation-works.mp4",
+  "thumbnail": "thumbnail.jpg",
+  "captions": "out/how-carbonation-works.srt",
+  "webVttCaptions": "out/how-carbonation-works.vtt",
+  "language": "en",
+  "category": "Science & Technology",
+  "madeForKids": false,
+  "channel": "Home Soda Machine",
+  "channelId": "UCvlTxqzLbamEXK7zo0L9g6A",
+  "syntheticNarration": true,
+  "aiDisclosure": true,
+  "paidPromotion": false,
+  "durationSeconds": 102.033333,
+  "width": 1920,
+  "height": 1080,
+  "fps": 30,
+  "pictureFrames": 3061,
+  "editManifest": "audio/timing.json",
+  "chapters": [
+    {
+      "startSeconds": 0,
+      "title": "Inside the machine"
+    },
+    {
+      "startSeconds": 20,
+      "title": "Carbon dioxide enters the carbonator"
+    },
+    {
+      "startSeconds": 31,
+      "title": "The water jet"
+    },
+    {
+      "startSeconds": 41,
+      "title": "Mixing and dissolved carbon dioxide"
+    },
+    {
+      "startSeconds": 69,
+      "title": "The copper cooling coil"
+    },
+    {
+      "startSeconds": 83,
+      "title": "Back to the faucet"
+    }
+  ],
+  "videoSha256": "4389cb551628ce815b970ee617c1b74f90ee67222487ff49ceb528fba2e5dec2",
+  "thumbnailSha256": "031d464052474cc48ea1c48123689e4a1c1f12e75e59463841afc83a1b24b74d",
+  "colorSpace": "BT.709",
+  "colorRange": "limited"
+}
