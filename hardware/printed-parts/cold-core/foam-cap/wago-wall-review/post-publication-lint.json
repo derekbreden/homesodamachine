@@ -1,0 +1,10 @@
+{
+  "scope": "Manual post-publication reading of the printed lid; no build or commit gate. Existing thin-section and functional mating/support answers retain their scopes.",
+  "piece_sha256": "1fd08504d27f29f06c1f37ff3e270b426482862d6afde3b574c111e2eac952e1",
+  "printed_facets": 96838,
+  "findings": 23,
+  "answered_face_findings": 12,
+  "unanswered_findings": 0,
+  "answers": "hardware/printed-parts/lint-answers/cold-core/foam-cap/foam-cap-lid-top.lint-answers",
+  "source_geometry_assembly_sha256": "f03e02578100e962c8fd95b80b786607888ada67137ad44c68f7c600dec74d94"
+}
