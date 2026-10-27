@@ -2,62 +2,62 @@
   "scope": "Only the cap lid native solid and displayed lid surfaces change. Every other native record and viewer array is retained.",
   "hosts": {
     "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step": {
-      "input_step_sha256": "baef3a225b45b709e11d00f07fab15f98458b11096ab1396d111294f09954b21",
-      "step_sha256": "d5d76e71be6a0ca7c7961d0b01d253339ea3bd49755deef044893c1376aa0b85",
-      "unchanged_native_records": 71195,
-      "native_volume_mm3": 292714.72079545126,
+      "input_step_sha256": "d5d76e71be6a0ca7c7961d0b01d253339ea3bd49755deef044893c1376aa0b85",
+      "step_sha256": "4a9769935205940904a0a686f4a4cb591511b7651d4c0fc08e82a3bb22847df7",
+      "unchanged_native_records": 89963,
+      "native_volume_mm3": 292737.42049780465,
       "native_centre_mm": [
-        -5.596200264565242,
-        -3.4058029367986014,
-        232.82617034522823
+        -5.593152117866298,
+        -3.4034443270761674,
+        232.82735632557612
       ],
       "native_round_trip_matches": true
     },
     "hardware/cold-core-layout/cold-core-assembly.step": {
-      "input_step_sha256": "f8abee782cb4483131839efa791101aaeb236795c5e32fd27b344e9a2eab8f50",
-      "step_sha256": "3fd0e1a07475236a51fd3bce839c5c900f0008f409ad32ea994f26e7fc8f20bb",
-      "unchanged_native_records": 138711,
-      "native_volume_mm3": 292714.72079545126,
+      "input_step_sha256": "3fd0e1a07475236a51fd3bce839c5c900f0008f409ad32ea994f26e7fc8f20bb",
+      "step_sha256": "7c8ea0c56b9d2ba515401632131697a16e9a0c019ebdcd948e6187517edc831d",
+      "unchanged_native_records": 157479,
+      "native_volume_mm3": 292737.42049780465,
       "native_centre_mm": [
-        -5.596200264565242,
-        -3.4058029367986014,
-        232.82617034522823
+        -5.593152117866298,
+        -3.4034443270761674,
+        232.82735632557612
       ],
       "native_round_trip_matches": true
     },
     "hardware/manifold-layout/enclosure-assembly.step": {
-      "input_step_sha256": "6efe3cd09f226b8f5a370f1f4602c0ee5d2a0ead1e9021bc1919eed9a3185166",
-      "step_sha256": "e9e0f61ffaaadc5307f1e5ce22ea8ef025a784576781720bea5a5fef0cbf0cfc",
-      "unchanged_native_records": 2746968,
-      "native_volume_mm3": 292714.7207954377,
+      "input_step_sha256": "e9e0f61ffaaadc5307f1e5ce22ea8ef025a784576781720bea5a5fef0cbf0cfc",
+      "step_sha256": "7e27e2b2c0aac042bc0038a72dde31354632fb9f516ba6d2fb762ca7e8fb9c21",
+      "unchanged_native_records": 2765736,
+      "native_volume_mm3": 292737.4204977914,
       "native_centre_mm": [
-        3.405802936800252,
-        318.20379973543436,
-        252.8261703452278
+        3.4034443270778243,
+        318.20684788213265,
+        252.82735632557544
       ],
       "native_round_trip_matches": true,
-      "mesh_sha256": "097877820313a7e9a42a1fc2642920a1522136149f723350e3a436695811e743",
+      "mesh_sha256": "b50862a5af3bde9d69e38965a065cb7db55b1b8ceb2cf4b1cc560fb723bae64d",
       "unrelated_viewer_arrays_identical": true,
       "retained_viewer_members": 561
     },
     "hardware/assembly/scenes/glb/back-half.glb": {
-      "input_sha256": "ad7addd55e4f926cb8ef69d6851f3ac5c09c74c1ea8db606a41d8603db3d8afc",
-      "sha256": "db2f6a70865838a50620e1d4c930afe608bfc54f05c6db03b4a98c47b8b58be4",
+      "input_sha256": "db2f6a70865838a50620e1d4c930afe608bfc54f05c6db03b4a98c47b8b58be4",
+      "sha256": "5df02b0f4c04f4dfbd0306e94f2431b5e06a632464b6f44e341ef972129948a4",
       "changed_lid_surfaces": 1
     },
     "hardware/assembly/scenes/glb/cap-lid-fill.glb": {
-      "input_sha256": "884eef31a5f87448eea1681608ebcedfa646cf9914fb2cad01fe00b7b6adae3b",
-      "sha256": "e0c3087cfde70fe97f52af79218100fd9f4afcfa1763c5ec74ae589da16cc56b",
+      "input_sha256": "e0c3087cfde70fe97f52af79218100fd9f4afcfa1763c5ec74ae589da16cc56b",
+      "sha256": "dd11bf6eb2135cca2e61ac2076c0fe76ba210d1418e6f2ae90085755c8aa4ca1",
       "changed_lid_surfaces": 1
     },
     "hardware/assembly/scenes/glb/cap-lid.glb": {
-      "input_sha256": "d18f08cd3a61d257e9d769d599c0eb6c73dcd84781345f8b08d70304268ece0c",
-      "sha256": "33450de96ba695b9f29ef05eba831de1e3b2a1005e007ea6ac7b90cea9778f1e",
+      "input_sha256": "33450de96ba695b9f29ef05eba831de1e3b2a1005e007ea6ac7b90cea9778f1e",
+      "sha256": "9515723e81d42f81fc7157d497334eff02c78599494bc29f081e7cb2788446d2",
       "changed_lid_surfaces": 1
     },
     "hardware/assembly/scenes/glb/cold-core.glb": {
-      "input_sha256": "4ef30fbaec7b008c9d2c32360b1a806f3c4a67ad1be46ac1c5e5314a51f0f319",
-      "sha256": "8b7989710012ce99d8f54ccde714ac1d6f243e9e96bdcb8b1f8b912bf062ca84",
+      "input_sha256": "8b7989710012ce99d8f54ccde714ac1d6f243e9e96bdcb8b1f8b912bf062ca84",
+      "sha256": "a4832c2b73462233455f5a7f9020f91f1054e311b005ee4baf9d7e77c7c120c2",
       "changed_lid_surfaces": 1
     }
   }
