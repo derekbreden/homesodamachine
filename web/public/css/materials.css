@@ -92,7 +92,6 @@
 .bom-number { color: var(--text-2); font: 0.72rem/1.3 ui-monospace, monospace; }
 .bom-counts { color: var(--text-2); font-size: 0.75rem; line-height: 1.5; }
 .bom-quantity { flex: 0 0 3.5rem; font-size: 0.8rem; text-align: right; padding: 0 7px 0 0; color: var(--text); font-variant-numeric: tabular-nums; }
-.material-source { display: inline-block; margin-top: 14px; color: var(--accent); font-size: 0.75rem; }
 .material-used { padding: 15px 0; border-bottom: 1px solid var(--border); }
 .material-path { font-size: 0.72rem; line-height: 1.7; color: var(--text-2); margin: 6px 0 0; overflow-wrap: anywhere; }
 .material-document { display: grid; gap: 6px; padding: 16px 0; border-bottom: 1px solid var(--border); color: var(--text); text-decoration: none; }
