@@ -3,6 +3,7 @@
 #include "base_link.h"
 #include "logos_sink.h"
 #include "ble_link.h"
+#include "phone_bridge.h"
 #include "fw_version.h"
 #include "ota_receiver.h"
 #include <esp_system.h>
@@ -489,10 +490,16 @@ void onMessage(ProtoLink *link, const uint8_t *frame, uint16_t len) {
     return;
   }
 
+  if (type == MSG_BRIDGE_RESP) {
+    phoneBridgeOnAnswer(payload, plen);
+    return;
+  }
+
   if (type == MSG_RESP_PRIME_SESSION && plen >= sizeof(PrimeSessionStatePayload)) {
     PrimeSessionStatePayload state;
     memcpy(&state, payload, sizeof(state));
     if (primeHandler) primeHandler(state, base.connectionGeneration());
+    phoneBridgeOnState(type, &state, sizeof(state));
     return;
   }
 
@@ -514,6 +521,7 @@ void onMessage(ProtoLink *link, const uint8_t *frame, uint16_t len) {
     FlavorStatePayload state;
     memcpy(&state, payload, sizeof(state));
     if (state.flavor > PUMP_CHANNEL_B) return;
+    phoneBridgeOnState(type, &state, sizeof(state));
 
     mainBoardFlavor = state.flavor;
     mainBoardPersisted = (state.flags & FLAVOR_STATE_F_PERSISTED) != 0;
@@ -554,6 +562,13 @@ void onMessage(ProtoLink *link, const uint8_t *frame, uint16_t len) {
       synchronized = (state.flags & FLAVOR_STATE_F_ESTABLISHED) != 0;
       awaitingPersistence = !mainBoardPersisted;
     }
+    return;
+  }
+
+  // A main board that predates the bridge answers every phone request with
+  // this, naming MSG_BRIDGE_REQ.
+  if (type == MSG_ERR_UNSUPPORTED && plen >= 1 && payload[0] == MSG_BRIDGE_REQ) {
+    phoneBridgeOnNoBridge();
     return;
   }
 
@@ -744,6 +759,12 @@ void baseLinkService() {
 
 bool baseLinkSendOtaSrc(uint8_t type, const void *data, uint16_t len) {
   return base.trySend(type, data, len) >= 0;
+}
+
+bool baseLinkSendBridge(const void *frame, uint16_t len) {
+  if (!base.isConnected() || base.trySend(MSG_BRIDGE_REQ, frame, len) < 0) return false;
+  ++framesTx;
+  return true;
 }
 
 void baseLinkReadStatus(BaseLinkStatus &status) {

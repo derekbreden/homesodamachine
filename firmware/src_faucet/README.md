@@ -48,6 +48,24 @@ Each faucet press retains its main board session and hold tokens across retries.
 CANCEL. If J3 disconnects, the main board stops a faucet-owned run independently of the UI,
 while its 2 s hold-heartbeat and 60 s run limits remain in force.
 
+## A phone
+
+The radio is a GATT server on the Nordic UART service ([`ble_link.cpp`](ble_link.cpp)). A
+phone asks who the machine is and names it (`IDENTITY`), sends and reads back pictures
+([`ble_image`](/firmware/lib/ble_image/ble_image.h)), and updates every board's software
+([`ble_ota`](/firmware/lib/ble_ota/ble_ota.h)). Everything else it asks of the machine —
+status, the selection, a flavor's ratio, the fill, the clean cycle, sound, and Prime's
+session — this display carries to the main board ([`phone_bridge.cpp`](phone_bridge.cpp)):
+`BLE_FRAME_MACHINE_REQ` becomes `MSG_BRIDGE_REQ` on J3 under an id of this board's own, and
+the main board's answer goes back to the phone that asked under the phone's id. What a phone
+may ask is the main board's list, not this board's; anything else is answered refused. State
+that moved — a fill or clean cycle stepping or ending, the selection, Prime's session — goes
+to every phone on the air under id 0. A request the main board does not answer in time is
+answered as unanswered and never sent twice; the phone reads the truth with a query.
+
+Answering `IDENTITY`, this display also sends `BLE_FRAME_BRIDGE` with the bridge's version,
+which is how a phone tells this display from one that predates the bridge.
+
 ## State and persistence
 
 The main board owns flavor truth. This display keeps a cache only so boot can draw the last

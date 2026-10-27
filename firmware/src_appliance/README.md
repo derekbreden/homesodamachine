@@ -91,8 +91,16 @@ board also establishes and reports the safe I/O foundation the next connected be
   the machine was moving it (`machine_policy::ReservoirLevel`).
 - **The ratio.** What each channel pours at — 1:6 to 1:24 — is held here and persisted in
   namespace `selection`, keys `ratio0` and `ratio1`, set from a flavor's own page on the
-  enclosure as `MSG_RATIO_SET` or by `ratio <a|b> <n>` on the console, and read by the
-  dispense.
+  enclosure as `MSG_RATIO_SET`, from a phone one channel at a time as `MSG_RATIO_SET_ONE`,
+  or by `ratio <a|b> <n>` on the console, and read by the dispense.
+- **A phone.** What a phone asks through the faucet's radio arrives on J3 inside
+  `MSG_BRIDGE_REQ`, and `faucet_link.cpp` holds the whole list of what it may ask: status,
+  the selection, a channel's ratio, the fill and the clean cycle, sound, Prime's session,
+  ending that session, and opening a flavor's Prime page on the enclosure — never a hold.
+  Each is answered inside `MSG_BRIDGE_RESP` with the frame the same request gets on J9, and
+  anything else is refused. Every fill and clean change goes to J3 as well, under request
+  id 0, so a phone follows a run whoever started it; the enclosure follows one a phone
+  started the way it follows the console's.
 - **Sound.** The whole vocabulary below, the volume and quiet-hours settings behind it,
   and the gas alarm that none of those settings can reach.
 
@@ -133,7 +141,7 @@ bench, and says `SIMULATED` on every `status` while one stands.
 | `machine.cpp` | every pin that reaches a load, and the three limits |
 | `pcba_expanders.cpp` | U2/U3 register safety and the logical V-A–V-K / fan / reed map |
 | `link.cpp` | J9 frames in, machine announcements out |
-| `faucet_link.cpp` | J3 full-duplex flavor acknowledgements and shared-prime controls/state |
+| `faucet_link.cpp` | J3 full-duplex flavor acknowledgements, shared-prime controls/state, and what a phone may ask |
 | `flavor.cpp` | main-board-owned flavor state and deferred NVS persistence |
 | `rtc.cpp` | U6 DS3231 — what hour it is, and whether that answer can be believed |
 | `pins.h` | what this image reaches on the main board, off `pcba.tsx` |

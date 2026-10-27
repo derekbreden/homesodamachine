@@ -110,8 +110,8 @@ Prime retains the enclosure's session and local physical holds. Software Update
 uses one overall transfer, restart and version verification sequence for the whole
 machine.
 
-Identity, images, and aggregate updates have existing phone transports. Telemetry,
-ratio, selection, Care, and sound need the typed Bluetooth bridge described in
+Identity, images, and aggregate updates have their own phone transports. Telemetry,
+ratio, selection, Care, and sound travel the typed Bluetooth bridge described in
 the integration plan. Consumer screens use those existing appliance concepts.
 The firmware's factory/bench Dry/Purge, prototype usage charts and unmeasured
 consumable estimates are outside this app map.

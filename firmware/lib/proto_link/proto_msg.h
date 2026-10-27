@@ -216,12 +216,13 @@ constexpr uint8_t MSG_FILL_QUERY = 0x57;  // no payload: answer with FillStatePa
 constexpr uint8_t MSG_RESP_FILL  = 0x58;  // FillStatePayload: to START, QUERY and STOP, and on every change
 constexpr uint8_t MSG_FILL_STOP  = 0x59;  // no payload: end the run now
 
-// ── A customer page, asked for from the main board's console (0x5A..) ────
+// ── A customer page, asked for by the main board (0x5A..) ────────────────
 // The enclosure display has no console inside the appliance, and the bench
 // camera reads its panel. This puts a customer page up — and, when asked,
 // presses that page's one commitment — through the same handlers a finger
-// reaches, so what the camera photographs is the real path. Nothing in a
-// product path sends it.
+// reaches, so what the camera photographs is the real path. The console sends
+// it, and so does a phone's Prime (MSG_PRIME_OPEN), which only ever opens the
+// page and presses nothing.
 constexpr uint8_t MSG_UI_SHOW      = 0x5A;  // UiShowPayload
 constexpr uint8_t MSG_RESP_UI_SHOW = 0x5B;  // ResponsePayload: 1 shown, 0 not
 
@@ -266,6 +267,32 @@ constexpr uint8_t MSG_RESP_RATIO  = 0x65;  // RatioPayload: resulting truth
 // so the display re-advertises and tells the phone what the machine is now
 // called.
 constexpr uint8_t MSG_IDENTITY_SET = 0x66;  // IdentityNamePayload; empty clears the stored name
+
+// ── The phone, through the faucet (0x67..) ───────────────────────────────
+// A phone reaches the main board through the radio on the faucet display. The
+// faucet puts what the phone asks for on J3 inside MSG_BRIDGE_REQ, and the main
+// board answers inside MSG_BRIDGE_RESP with the same request id — the answer
+// the same request gets on J9, as the same MSG_RESP_* frame. What a phone may
+// ask is the main board's list, not the faucet's (faucet_link.cpp): status,
+// the selection, a channel's ratio, the fill and the clean cycle, sound, and
+// Prime's session. Anything else is answered BRIDGE_ERR_REFUSED; there is no
+// console behind it.
+//
+// An id of zero is the main board volunteering state that moved — a fill or a
+// clean cycle stepping or ending, whoever started it — and the faucet passes
+// it to every phone on the air.
+constexpr uint8_t MSG_BRIDGE_REQ  = 0x67;  // BridgeHeader, then the request's own payload
+constexpr uint8_t MSG_BRIDGE_RESP = 0x68;  // BridgeHeader, then the answer's own payload
+
+// A phone saves one flavor's ratio; the main board keeps the other channel at
+// what it holds, so a phone never writes back a stale pair.
+constexpr uint8_t MSG_RATIO_SET_ONE = 0x69;  // RatioOnePayload: answered with MSG_RESP_RATIO
+
+// A phone's Prime opens that flavor's Prime page on the enclosure, which leases
+// the session; a finger on either display's pad runs the pump. The phone never
+// holds it. Answered once the enclosure says whether the page went up.
+constexpr uint8_t MSG_PRIME_OPEN      = 0x6A;  // ChannelPayload
+constexpr uint8_t MSG_RESP_PRIME_OPEN = 0x6B;  // PrimeOpenPayload
 
 // Fixed transport capacities are part of the replay contract. Keeping the
 // values beside the shared wire protocol lets each actual queue assert that a
@@ -403,6 +430,11 @@ struct __attribute__((packed)) RatioPayload {
   uint8_t ratio[2];
 };
 
+struct __attribute__((packed)) RatioOnePayload {
+  uint8_t channel;  // PUMP_CHANNEL_*
+  uint8_t ratio;    // FLAVOR_RATIO_MIN..FLAVOR_RATIO_MAX
+};
+
 static_assert(sizeof(RatioPayload) == 2, "ratio wire layout drift");
 
 // ── Reservoir level, as StatusPayload carries it ─────────────────────────
@@ -429,6 +461,17 @@ struct __attribute__((packed)) UiShowPayload {
   uint8_t rail;      // UI_RAIL_*
   uint8_t channel;   // PUMP_CHANNEL_*, or UI_CHANNEL_NONE
   uint8_t act;       // 1: also press the page's commitment — START FILL, START CLEAN CYCLE
+};
+
+// Whether a phone's Prime reached the glass. SHOWN is the page, not the
+// session: the session's own state follows as MSG_RESP_PRIME_SESSION.
+constexpr uint8_t PRIME_OPEN_SHOWN     = 0;
+constexpr uint8_t PRIME_OPEN_REFUSED   = 1;  // the enclosure would not: locked, mid-hold, or not up
+constexpr uint8_t PRIME_OPEN_NO_ANSWER = 2;  // the enclosure did not answer in time
+
+struct __attribute__((packed)) PrimeOpenPayload {
+  uint8_t channel;  // PUMP_CHANNEL_*
+  uint8_t result;   // PRIME_OPEN_*
 };
 
 constexpr uint8_t PUMP_CHANNEL_A = 0;  // U11 -> J13.AM2/AM1, the two WEST pins
@@ -894,6 +937,27 @@ struct __attribute__((packed)) VersionsPayload {
 constexpr uint8_t BLE_ST_UP        = 1 << 0;  // on air: advertising, or a phone is on it
 constexpr uint8_t BLE_ST_CONNECTED = 1 << 1;
 constexpr uint8_t BLE_ST_IDENTITY  = 1 << 2;  // the main board answered
+
+// ── The phone's bridge ────────────────────────────────────────────────────
+// What leads every MSG_BRIDGE_REQ and MSG_BRIDGE_RESP on J3, and every
+// BLE_FRAME_MACHINE_REQ and BLE_FRAME_MACHINE between the faucet and a phone.
+// The request's or the answer's own payload follows, exactly as J9 carries it.
+struct __attribute__((packed)) BridgeHeader {
+  uint8_t reqId;  // the request this answers; 0 for state the main board volunteers
+  uint8_t type;   // a MSG_* request; a MSG_RESP_*, MSG_ERR_* or BRIDGE_ERR_* answer
+};
+
+// Answers that say the request was not carried out, and why. The faucet makes
+// all but REFUSED itself; none carries a payload.
+constexpr uint8_t BRIDGE_ERR_REFUSED   = 0xD0;  // not something a phone may ask, or malformed
+constexpr uint8_t BRIDGE_ERR_LINK_DOWN = 0xD1;  // J3 is down: the main board never heard it
+constexpr uint8_t BRIDGE_ERR_BUSY      = 0xD2;  // the faucet holds as many requests as it can
+constexpr uint8_t BRIDGE_ERR_NO_ANSWER = 0xD3;  // asked, and the main board did not answer in time
+constexpr uint8_t BRIDGE_ERR_NO_BRIDGE = 0xD4;  // the main board's firmware predates the bridge
+
+// What the faucet tells a phone about the bridge when the phone asks who the
+// machine is. A faucet that predates it never sends one.
+constexpr uint8_t BRIDGE_VERSION = 1;
 
 // ── The radio bench ──────────────────────────────────────────────────────
 // The enclosure display raises the access point and sinks the bytes; the

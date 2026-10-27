@@ -38,51 +38,56 @@ owns machine state and persistence. The enclosure reaches it independently over
 J9. A command supported on J9 or the USB console is not automatically a BLE
 command.
 
-| Product function | Existing capability | Production integration |
-| --- | --- | --- |
-| Add, choose, rename, remove a machine | Accessory setup, advertisements, identity reads and `IDENTITY <name>` | Reuse directory/accessory integration and naming acknowledgement |
-| Flavor faces and custom photos | BLE image query/read/upload/erase and art query/set | Reuse image transport, CRC cache, crop, queue, and main-board art acknowledgement |
-| Software Update | BLE version reports and aggregate OTA transport | Reuse catalog, download validation, sequencing, and post-restart verification |
-| Active flavor / Use at faucet | Tokenized main-board flavor selection and state on display links | Add typed BLE selection request and authoritative selection notifications |
-| Reservoir levels, temperatures, operation status | `StatusPayload` on J9 | Add J3/BLE query and response forwarding with freshness metadata |
-| Mixing ratio | Main-board `MSG_RATIO_QUERY/SET`, `MSG_RESP_RATIO` | Add channel-scoped BLE intent and authoritative pair readback |
-| Fill and Clean | Main-board start/query/stop and complete operation snapshots on J9 | Add routed J3/BLE intents and operation snapshot notifications |
-| Prime | Enclosure-owned session; either physical display can hold its pad | Add narrowly targeted Open Prime, session query, and cancel through the phone bridge; no phone hold command |
-| Sound and quiet hours | Main-board sound configuration get/set/readback on J9 | Add J3/BLE configuration routing and expose clock validity |
+| Product function | How the phone reaches it |
+| --- | --- |
+| Add, choose, rename, remove a machine | Accessory setup, advertisements, identity reads and `IDENTITY <name>` |
+| Flavor faces and custom photos | BLE image query/read/upload/erase and art query/set |
+| Software Update | BLE version reports and aggregate OTA transport |
+| Active flavor / Use at faucet | Bridge: `MSG_FLAVOR_QUERY`, tokenized `MSG_FLAVOR_SELECT`; changes published |
+| Reservoir levels, temperatures, operation status | Bridge: `MSG_STATUS_REQ`, answered with `StatusPayload` |
+| Mixing ratio | Bridge: `MSG_RATIO_QUERY`, and `MSG_RATIO_SET_ONE` for one channel; answered with the pair |
+| Fill and Clean | Bridge: start, query and stop, each answered with the complete state; every change published |
+| Prime | Bridge: `MSG_PRIME_OPEN`, `MSG_PRIME_SESSION_QUERY`, and current-token CANCEL; no hold |
+| Sound and quiet hours | Bridge: `MSG_SOUND_CFG_GET/SET`, answered with clock-valid and quiet-now flags |
 
-The current faucet BLE dispatcher handles identity, images, and OTA. Other phone
-text is logged as diagnostic text; it does not execute the main-board console.
-See [ble_link.cpp](../../firmware/src_faucet/ble_link.cpp) and
-[faucet_link.cpp](../../firmware/src_appliance/faucet_link.cpp). The underlying
-machine payloads and limits are in
+The faucet's BLE dispatcher handles identity, images and OTA itself and carries
+everything else a phone asks to the main board. See
+[phone_bridge.cpp](../../firmware/src_faucet/phone_bridge.cpp) for the faucet's
+half and [faucet_link.cpp](../../firmware/src_appliance/faucet_link.cpp) for the
+main board's list of what a phone may ask. The payloads and limits are in
 [proto_msg.h](../../firmware/lib/proto_link/proto_msg.h); J9 handlers are in
 [link.cpp](../../firmware/src_appliance/link.cpp).
 
-## Proposed service contract
+## The bridge
 
-Define a versioned, typed appliance service over framed BLE. Allocate its frame
-IDs alongside the shared protocol. Advertise/query its supported operations so
-an app connected to firmware without the bridge can identify the missing
-capability and offer Software Update. Missing support must not look like an empty
-reservoir, a zero reading, or a successful write.
+A phone writes `BLE_FRAME_MACHINE_REQ` (0x23): a request id, a `MSG_*` request
+type, then that request's own payload as J9 carries it. The faucet puts it on J3
+as `MSG_BRIDGE_REQ` under an id of its own and returns the main board's answer
+as `BLE_FRAME_MACHINE` (0x24) — the same id, then the `MSG_RESP_*` frame the
+request gets on J9 — to the phone that asked. State that moved reaches every
+phone on the air under id 0: fill and clean changes from the main board, and the
+selection and Prime's session, which J3 already brings the faucet. Image and OTA
+framing and flow control are separate and unchanged.
 
-The bridge carries request IDs, operation/channel arguments, and correlated
-responses. The faucet retains the requesting BLE connection for direct replies;
-authoritative changed state may be published to every connected phone. Reconnect
-reads a complete snapshot instead of replaying an actuator command. Keep the
-existing separate image and OTA framing and flow control.
+Answering `IDENTITY`, the faucet sends `BLE_FRAME_BRIDGE` (0x25) with the
+bridge's version. An app connected to a faucet that sends none identifies the
+missing capability and offers Software Update; missing support never looks like
+an empty reservoir, a zero reading, or a successful write. A main board that
+predates the bridge is reported as `BRIDGE_ERR_NO_BRIDGE` the same way.
 
-Route intents to main-board operations through a shared typed handler or explicit
-J3 handlers. Preserve each response's destination and the main board's checks and
-endings. Do not expose an arbitrary console-command tunnel or a general
-bench-navigation endpoint as the product API.
+Nothing is replayed. The faucet answers a request the main board leaves
+unanswered for two seconds with `BRIDGE_ERR_NO_ANSWER`, a full queue with
+`BRIDGE_ERR_BUSY`, and a request it could not deliver with
+`BRIDGE_ERR_LINK_DOWN`. Reconnect reads a complete snapshot instead of repeating
+an actuator command. There is no console tunnel and no bench-navigation
+endpoint: the main board answers anything off its list `BRIDGE_ERR_REFUSED`.
 
 Channel-specific changes identify channel 0 or 1 and carry the main board's
-result. The two flavors have independent art and ratios. For a ratio SET that
-internally uses the existing two-channel payload, the main board merges the
-selected channel with its own current other-channel value. A phone must not
-overwrite the other channel from a stale cached pair. Apply the same authority
-rule to active-flavor selection and art updates.
+result. The two flavors have independent art and ratios. `MSG_RATIO_SET_ONE`
+names one channel and the main board keeps the other at what it holds, so a
+phone never overwrites the other channel from a stale cached pair; a value
+outside 1:6–1:24 changes nothing and the answering pair says so. Selection is
+absolute and tokenized, and art is set as a pair the phone reads first.
 
 Persist confirmed machine snapshots per machine with read times. Pending UI
 edits are separate from confirmed values. A successful BLE write means transport
@@ -162,12 +167,14 @@ The enclosure creates and renews the existing main-board session; the enclosure
 or faucet pad supplies the physical hold. The phone monitors and can exit that
 session. It never sends pump hold START/TICK/STOP and is not a new hold owner.
 
-Expose a narrow `openPrime(channel)` bridge operation. Its J9 request is
-`MSG_UI_SHOW` with `UI_RAIL_PRIME`, the selected channel, and `act = 0`. The
-enclosure's existing handler opens `SVC_PRIME_HOLD`. A successful UI-show response
-means the screen was shown; wait for the main board's matching READY session
-before telling the phone it is ready to prime. A failed/busy/no-answer result
-leaves the app in preparation with an explanation.
+The phone's Prime is `MSG_PRIME_OPEN`. The main board asks the enclosure for
+`MSG_UI_SHOW` with `UI_RAIL_PRIME`, the selected channel, and `act = 0`, without
+holding its loop, and answers `MSG_RESP_PRIME_OPEN` with whether the page went
+up, or that the enclosure did not answer within 5 s. The enclosure's existing
+handler opens `SVC_PRIME_HOLD`. Shown means the screen was shown; the app waits
+for the main board's matching READY session before telling the person it is
+ready to prime. A refused or unanswered result leaves the app in preparation
+with an explanation.
 
 Read `PrimeSessionStatePayload` for phase, channel, owner, outcome, elapsed time,
 revision, session token, and hold token. While RUNNING, the app can say which

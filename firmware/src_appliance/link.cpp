@@ -34,6 +34,7 @@ static bool displayUsbReattachAck = false;
 static bool testScreenAck = false;
 static bool uiShowAck = false;
 static bool uiShown = false;
+static uint32_t uiShowAnswers = 0;   // every answer, for an ask that does not wait
 static bool wifiApAck = false;
 static WifiApStatePayload wifiApState{};
 static flavor_link_policy::TokenLedger enclosureFlavorTokens;
@@ -99,7 +100,7 @@ static void sendChangedPrimeSessionState(HdlcLink *link) {
 }
 
 // What the main board currently holds, as the glass reads it.
-static void fillSoundCfg(SoundCfgPayload &c) {
+void linkFillSoundCfg(SoundCfgPayload &c) {
     c.volume      = soundVolume();
     c.quietOn     = soundQuietOn() ? 1 : 0;
     c.quietStart  = soundQuietStart();
@@ -194,18 +195,25 @@ static void fillPayload(const MachineFillState &st, FillStatePayload &p) {
     p.reeds     = st.reeds;
 }
 
+// Every phone hears every change too, whoever asked for it; J3 is full duplex
+// and needs no turn.
 static void onFillState(const MachineFillState &st) {
-    if (fillReplyDirect) return;
     FillStatePayload p;
     fillPayload(st, p);
+    faucetLinkPublish(MSG_RESP_FILL, &p, sizeof(p));
+    if (fillReplyDirect) return;
     announceQueue(MSG_RESP_FILL, &p, sizeof(p));
 }
 
-static void sendFillState(HdlcLink *link) {
+void linkReadFillState(FillStatePayload &p) {
     MachineFillState st;
     machineReadFillState(st);
-    FillStatePayload p;
     fillPayload(st, p);
+}
+
+static void sendFillState(HdlcLink *link) {
+    FillStatePayload p;
+    linkReadFillState(p);
     link->send(MSG_RESP_FILL, &p, sizeof(p));
 }
 
@@ -227,17 +235,22 @@ static void cleanPayload(const MachineCleanState &st, CleanStatePayload &p) {
 }
 
 static void onCleanState(const MachineCleanState &st) {
-    if (cleanReplyDirect) return;
     CleanStatePayload p;
     cleanPayload(st, p);
+    faucetLinkPublish(MSG_RESP_CLEAN, &p, sizeof(p));
+    if (cleanReplyDirect) return;
     announceQueue(MSG_RESP_CLEAN, &p, sizeof(p));
 }
 
-static void sendCleanState(HdlcLink *link) {
+void linkReadCleanState(CleanStatePayload &p) {
     MachineCleanState st;
     machineReadCleanState(st);
-    CleanStatePayload p;
     cleanPayload(st, p);
+}
+
+static void sendCleanState(HdlcLink *link) {
+    CleanStatePayload p;
+    linkReadCleanState(p);
     link->send(MSG_RESP_CLEAN, &p, sizeof(p));
 }
 
@@ -286,6 +299,46 @@ static bool isUserAction(uint8_t type) {
            type == MSG_FILL_STOP || type == MSG_CLEAN_STOP || type == MSG_AIR_START ||
            type == MSG_AIR_STOP || type == MSG_SOUND_CFG_SET || type == MSG_FLAVOR_ART_SET ||
            type == MSG_RATIO_SET || type == MSG_PRIME_SESSION_SET;
+}
+
+// What the main board reads about itself, as either link carries it.
+void linkFillStatus(StatusPayload &s) {
+    s = StatusPayload{};
+    s.uptimeS      = millis() / 1000;
+    s.freeHeap     = ESP.getFreeHeap();
+    s.framesRx     = j9.framesRx;
+    s.framesTx     = j9.framesTx;
+    s.gasMv        = (uint16_t)analogReadMilliVolts(PIN_GAS_AOUT);
+    s.flags        = (machineGasTripped()  ? STATUS_F_GAS_TRIP : 0)
+                   | (machineIsPriming()   ? STATUS_F_PRIMING  : 0)
+                   | (machineIsFilling()   ? STATUS_F_FILLING  : 0)
+                   | (machineIsCleaning()  ? STATUS_F_CLEANING : 0)
+                   | (machineIsAiring()    ? STATUS_F_AIRING   : 0)
+                   | (machineIsPouring()   ? STATUS_F_POURING  : 0);
+    s.primeChannel = machinePumpChannel();
+    s.j9ReplyHighWater = j9TurnReplyHighWater;
+    s.j9ReplyOverruns = j9TurnReplyOverruns;
+    MachineThermal th;
+    machineThermal(th);
+    MachineLevels lv;
+    machineLevels(lv);
+    s.reeds[0] = lv.reeds[0];
+    s.reeds[1] = lv.reeds[1];
+    s.level[0] = lv.level[0];
+    s.level[1] = lv.level[1];
+    s.levelFlags = (lv.valid    ? LEVEL_F_VALID     : 0)
+                 | (lv.carbLow  ? LEVEL_F_CARB_LOW  : 0)
+                 | (lv.carbHigh ? LEVEL_F_CARB_HIGH : 0)
+                 | (th.simulated ? LEVEL_F_SIMULATED  : 0);
+    s.ratio[0] = flavorRatio(0);
+    s.ratio[1] = flavorRatio(1);
+    s.tankCx10    = th.tankValid ? tenthsC(th.tankC) : TEMP_UNREAD;
+    s.coilCx10    = th.coilValid ? tenthsC(th.coilC) : TEMP_UNREAD;
+    s.coldState   = th.coldState;
+    s.refillState = th.refillState;
+    s.probeCount  = th.probeCount;
+    s.flags |= (th.compressorRelay ? STATUS_F_COMPRESSOR : 0)
+             | (th.refillRelay     ? STATUS_F_REFILL     : 0);
 }
 
 static void dispatch(HdlcLink *link, const uint8_t *frame, uint16_t len);
@@ -390,6 +443,7 @@ static void dispatch(HdlcLink *link, const uint8_t *frame, uint16_t len) {
     if (type == MSG_RESP_UI_SHOW) {
         uiShowAck = true;
         uiShown = plen >= 1 && payload[0] != 0;
+        ++uiShowAnswers;
         return;
     }
 
@@ -577,7 +631,7 @@ static void dispatch(HdlcLink *link, const uint8_t *frame, uint16_t len) {
 
     if (type == MSG_SOUND_CFG_GET) {
         SoundCfgPayload c;
-        fillSoundCfg(c);
+        linkFillSoundCfg(c);
         link->send(MSG_RESP_SOUND_CFG, &c, sizeof(c));
         return;
     }
@@ -594,48 +648,14 @@ static void dispatch(HdlcLink *link, const uint8_t *frame, uint16_t len) {
                       req.volume, req.quietOn ? "on" : "off",
                       req.quietStart, req.quietEnd, req.quietVolume);
         SoundCfgPayload c;
-        fillSoundCfg(c);
+        linkFillSoundCfg(c);
         link->send(MSG_RESP_SOUND_CFG, &c, sizeof(c));
         return;
     }
 
     if (type == MSG_STATUS_REQ) {
-        StatusPayload s{};
-        s.uptimeS      = millis() / 1000;
-        s.freeHeap     = ESP.getFreeHeap();
-        s.framesRx     = j9.framesRx;
-        s.framesTx     = j9.framesTx;
-        s.gasMv        = (uint16_t)analogReadMilliVolts(PIN_GAS_AOUT);
-        s.flags        = (machineGasTripped()  ? STATUS_F_GAS_TRIP : 0)
-                       | (machineIsPriming()   ? STATUS_F_PRIMING  : 0)
-                       | (machineIsFilling()   ? STATUS_F_FILLING  : 0)
-                       | (machineIsCleaning()  ? STATUS_F_CLEANING : 0)
-                       | (machineIsAiring()    ? STATUS_F_AIRING   : 0)
-                       | (machineIsPouring()   ? STATUS_F_POURING  : 0);
-        s.primeChannel = machinePumpChannel();
-        s.j9ReplyHighWater = j9TurnReplyHighWater;
-        s.j9ReplyOverruns = j9TurnReplyOverruns;
-        MachineThermal th;
-        machineThermal(th);
-        MachineLevels lv;
-        machineLevels(lv);
-        s.reeds[0] = lv.reeds[0];
-        s.reeds[1] = lv.reeds[1];
-        s.level[0] = lv.level[0];
-        s.level[1] = lv.level[1];
-        s.levelFlags = (lv.valid    ? LEVEL_F_VALID     : 0)
-                     | (lv.carbLow  ? LEVEL_F_CARB_LOW  : 0)
-                     | (lv.carbHigh ? LEVEL_F_CARB_HIGH : 0)
-                     | (th.simulated ? LEVEL_F_SIMULATED  : 0);
-        s.ratio[0] = flavorRatio(0);
-        s.ratio[1] = flavorRatio(1);
-        s.tankCx10    = th.tankValid ? tenthsC(th.tankC) : TEMP_UNREAD;
-        s.coilCx10    = th.coilValid ? tenthsC(th.coilC) : TEMP_UNREAD;
-        s.coldState   = th.coldState;
-        s.refillState = th.refillState;
-        s.probeCount  = th.probeCount;
-        s.flags |= (th.compressorRelay ? STATUS_F_COMPRESSOR : 0)
-                 | (th.refillRelay     ? STATUS_F_REFILL     : 0);
+        StatusPayload s;
+        linkFillStatus(s);
         link->send(MSG_RESP_STATUS, &s, sizeof(s));
         return;
     }
@@ -829,6 +849,18 @@ bool linkUiShow(uint8_t rail, uint8_t channel, uint8_t act) {
     uiShown = false;
     UiShowPayload req{rail, channel, act};
     return askEnclosure(MSG_UI_SHOW, &req, sizeof(req), uiShowAck) && uiShown;
+}
+
+uint32_t linkUiShowAsk(uint8_t rail, uint8_t channel, uint8_t act) {
+    UiShowPayload req{rail, channel, act};
+    announceQueue(MSG_UI_SHOW, &req, sizeof(req));
+    return uiShowAnswers;
+}
+
+bool linkUiShowAnswered(uint32_t askedAt, bool &shown) {
+    if (uiShowAnswers == askedAt) return false;
+    shown = uiShown;
+    return true;
 }
 
 bool linkDisplayUsbReattach() {
