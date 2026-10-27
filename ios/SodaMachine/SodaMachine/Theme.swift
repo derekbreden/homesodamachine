@@ -16,34 +16,19 @@ nonisolated enum Theme {
     static let controlTint = ice
     static let error = Color(red: 1, green: 181 / 255, blue: 181 / 255)
 
-    static let dotActive = orange
-    static let dotInactive = ice.opacity(0.6)
     static let placeholder = navy
-    static let activePhase = ice
-
-    // Per-flavor chart series, paired with labels and flavor pictures.
-    static let chartFlavor1 = orange
-    static let chartFlavor2 = ice
 }
 
 // ────────────────────────────────────────────────────────────
-// The mark, and the one place a screen that opens with it puts it.
-//
-// THE LAUNCH SCREEN AND THE SCREEN BEHIND IT HOLD THE SAME TWO NUMBERS.
-// LaunchScreen.storyboard draws this size at this distance below the safe
-// area, against Assets.xcassets/LaunchBackground, which is Theme.background.
-// The app's first frame lands with the mark where the launch screen has it.
-// Change one of the three and change all three.
+// The mark at the head of the first-run page.
 // ────────────────────────────────────────────────────────────
 
 extension Theme {
-    /// The mark's frame, where it is the first thing on a screen.
     static let markSize: CGFloat = 160
-    /// From the top of the safe area to the top of that frame.
+    /// From the top of the safe area to the top of the mark.
     static let markTop: CGFloat = 72
 }
 
-/// The mark at the head of a screen, in the place the launch screen leaves it.
 struct MarkHeader: View {
     var body: some View {
         Image("LaunchIcon")
