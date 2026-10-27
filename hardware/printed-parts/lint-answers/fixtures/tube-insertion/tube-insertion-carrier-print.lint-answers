@@ -2,6 +2,7 @@
 alternatives: Lowering the raised support plane to Z6 drops the collar and tube axis by 1 mm. Raising the entire 124 x 100 mm guide foot to 7 mm removes this offset but adds about 12.4 cm3 of material while leaving the 7 mm jaw-support and coupling-seat sections unchanged. The 6 mm guide foot and 7 mm support plane preserve the specified guide and tube datums.
 file: hardware/printed-parts/fixtures/tube-insertion/tube-insertion-carrier.step
 click: x=1.249 y=40.000 z=7.000
+click: x=1.249 y=-40.000 z=7.000
 
 [sliver] This 1 x 32 mm exposed face is the end step of the narrow jaw shelf at X0, between Z6 and Z7. The shelf is solid from Z0 to Z7 across Y-16..16 and X-38.5..0, and prints directly on its broad bed face. The exposed 1 mm rise is supported by 7 mm stock; it is not an independent thin fin.
 alternatives: Lowering the shelf to the 6 mm foot height loses the required Z7 jaw-support datum. Raising the complete 124 x 100 mm foot to 7 mm adds about 12.4 cm3 while preserving the same shelf thickness. Widening the forward shelf into a full-width block fills the required front-stop lanes at Y16.5..21 and their negative-Y counterpart.
