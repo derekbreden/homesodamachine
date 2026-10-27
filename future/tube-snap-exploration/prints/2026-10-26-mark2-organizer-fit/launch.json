@@ -1,0 +1,26 @@
+{
+  "printer": "Mark2",
+  "observed_at": "2026-10-27T02:52:23.222769+00:00",
+  "archive": {
+    "name": "2026-10-26-tube-snap-three-bores-mark2-f10f7183.gcode.3mf",
+    "sha256": "bb5fe8aebbc1413bfe84862a98baeb70ada5eae4f5f2feb7b3ff5b0d6242fc97",
+    "gcode_sha256": "d07ff6cdb08463b1e47e76f405dc2ebaaac6fc0d353605ea1ebcb136b8b802ab",
+    "slots": {
+      "1": {
+        "type": "PET-CF",
+        "colour": "161616"
+      }
+    },
+    "objects": [
+      "tube-snap-three-bores"
+    ]
+  },
+  "printer_task_id": "1379090194",
+  "gcode_state": "RUNNING",
+  "subtask_name": "2026-10-26-tube-snap-three-bores-mark2-f10f7183.gcode.3mf",
+  "print_error": 0,
+  "hms": [],
+  "layer_num": 0,
+  "total_layer_num": 44,
+  "mc_remaining_time": 0
+}
