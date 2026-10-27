@@ -5,6 +5,15 @@ Three recessed M3 screws clamp it to the faucet shell. The three pedestals
 align the parts before the screws are tightened. The above-counter gasket
 covers the underside and the fasteners when the faucet ships.
 
+[Finished plate engineering drawing](above-counter-plate-drawing.pdf)
+(FCT-PLT-02, Rev A) defines the footprint, passages, pedestal locations and
+recessed screw seats after support removal. The sheet includes top and front
+views and a 5:1 local section. General linear tolerance is ±0.20 mm;
+feature-center coordinates are ±0.10 mm, with individual fit and depth limits
+shown on the drawing. Gasket-face free-state gap is 0.20 mm maximum.
+[above_counter_plate_drawing.py](above_counter_plate_drawing.py) generates
+the sheet from the production part's parameters.
+
 ## Footprint and bearing
 
 The oval measures [58 mm](FOOT_WIDTH) across X and [59 mm](FOOT_DEPTH)
@@ -35,9 +44,10 @@ face; each pedestal has clearance above its tip.
 The flavor pair and 4 mm drain pass through a [18.15 mm](PLATE_PILL_L) ×
 [7.25 mm](PLATE_PILL_W) pill slot centered at
 ([0 mm](PLATE_FLAVOR_X),+[18.93 mm](PLATE_FLAVOR_Y)), with its long axis along X.
-The connected signal-cable branch is a 5.0 × 1.8 mm capsule centered at
+The signal-cable clearance is a 5.0 × 1.8 mm capsule centered at
 ([0 mm](PLATE_RIBBON_X),+[21.4875 mm](PLATE_RIBBON_Y)), with its long axis along X.
-The ribbon stays flat behind the flavor/drain row through the counter stack.
+This capsule lies entirely within the pill slot. The ribbon stays flat behind
+the flavor/drain row through the counter stack.
 The rear bundle is centered on X=0, with the drain between the flavors and
 the flat ribbon behind it. The matching steel plate admits the complete row
 through its open rear channel. The printed passage connects broadly around
