@@ -293,5 +293,24 @@
     "hardware/printed-parts/cold-core/reservoir/reservoir-right.step": true,
     "hardware/printed-parts/cold-core/reservoir/reservoir-tube-grip.step": true
   },
-  "round_port_geometry_review": "foam-shell/prints/2026-10-26-mark2-round-ports-a2/geometry-review.json"
+  "round_port_geometry_review": "foam-shell/prints/2026-10-26-mark2-round-ports-a2/geometry-review.json",
+  "post_publish_lint_review": {
+    "pieces_reviewed": 1,
+    "scope": "Changed shell STL after publication; source geometry and archive unchanged by this review.",
+    "findings": {
+      "thin_family": 1,
+      "blind_insert_end_ledges": 10,
+      "step": 0,
+      "bump": 0,
+      "sliver": 0,
+      "ceiling": 0,
+      "slope": 0
+    },
+    "corner_insert_minimum_radial_stock_mm": 1.6960947032089386,
+    "required_pilot_surrounding_wall_mm": 1.6,
+    "full_depth_annular_witness_count": 20,
+    "all_annular_witnesses_pass": true,
+    "record": "foam-shell/prints/2026-10-26-mark2-round-ports-a2/insert-witnesses.json",
+    "geometry_changed_after_slice": false
+  }
 }
