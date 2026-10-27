@@ -63,7 +63,21 @@ half its 0.42 mm bead width. Inner perimeters are not shown. The slot shoulders
 are the specified copper-cover bearings; no isolated mesh fins or periodic
 notches appear in these contours.
 
-## Process settings still requiring assessment
+## Geometry, motion and deposition
+
+The [physical interpretation](physical-interpretation.md) traces the extrusion
+directions around the photographed corner. Local flex and vibration of the
+tall wall and free slot edge is the leading hypothesis. The designed foam
+void is empty during printing, and the nozzle's short turns at the slot lip
+immediately precede the rippled long face. This interpretation is an inference;
+no wall motion or contact force was measured. A smooth mesh and straight
+commands do not establish dynamic printability.
+
+The inner-wall inspection also finds a separate four-move loop about 1.6 mm
+long at each slot corner on 722 upper layers, with a retract/unretract and
+wipe sequence around it. The exterior-only audit did not inspect those
+internal starts and stops. Their contribution to local edge roughness remains
+an inference; they are recorded with exact moves in the physical interpretation.
 
 The emitted flat-face and slot-edge moves request **200 mm/s** and
 **5,000 mm/s²** outer-wall acceleration. Inner walls request up to 300 mm/s
@@ -75,9 +89,10 @@ Fuzzy skin and scarf seams are off. Seam placement is aligned with a saved
 15% gap. A saved pressure-advance override flag is not a measurement of the
 printer's runtime calibration; launch used automatic flow calibration.
 
-The motion recipe and physical deposition remain candidates for the poor
-finish. This audit does not establish which caused it, and it does not clear
-the chosen process settings simply because the geometry is smooth.
+The shell's stiffness during printing, local toolpath order, motion and
+physical deposition require consideration together. This audit does not
+establish an isolated hardware fault or clear the part's printability simply
+because the geometry is smooth.
 
 The [machine-readable audit](audit.json) includes the measured regions,
 checksums and hashes of the seven supplied photographs. Geometry and printer
