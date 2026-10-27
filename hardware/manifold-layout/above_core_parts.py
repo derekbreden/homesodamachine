@@ -265,8 +265,12 @@ def abu44m_bulkhead():
 
 
 def core_components():
-    """Additional standalone-core rows; the meter and inlet travel with back-top."""
-    return {}
+    """The removable fore tube cap carried by the cold-core lid."""
+    snap = _module('above_core_reservoir_a_snap',
+                   'printed-parts/cold-core/_reservoir_a_snap.py')
+    solid, carry = _placed(snap.installed_cap(),
+                           {'rotation': IDENTITY, 'translation_mm': ORIGIN})
+    return {'reservoir-a-fore-snap-cap': (solid, M_PETGF_BLACK, carry)}
 
 
 @cache

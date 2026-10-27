@@ -383,6 +383,11 @@ def export(a):
     import _reservoir_a_anchors
     paired_spec = _reservoir_a_anchors.specification()
     for row in _reservoir_a_anchors.datums().values():
+        closure = row.get('closure', 'tie')
+        base_length = row.get('station_length_mm', paired_spec['station_length_mm'])
+        clamp_length = row['cap_length_mm'] if closure == 'snap' else base_length
+        closing_part = ({'shared_cap': row['cap_name']} if closure == 'snap'
+                        else {'shared_tie': row['id'] + '-tie'})
         for rid, point in zip(row['routes_west_to_east'], row['tube_centers_world_mm']):
             if rid not in by_id:
                 continue
@@ -392,13 +397,15 @@ def export(a):
                 continue
             hold_rows.append((rid, {
                 'id': f"{rid}/{row['id']}",
-                'label': row['label'], 'type': 'paired-tied-seat',
+                'label': row['label'],
+                'type': 'paired-snap-seat' if closure == 'snap' else 'paired-tied-seat',
                 'source': '_reservoir_a_anchors.datums', 'host': 'foam-cap-lid-top',
                 'point': list(station[0]), 'tangent': list(station[1]),
                 'root': list(station[2]), 'seat_r_mm': station[3],
                 'slip_mm': station[3] - by_id[rid].diam / 2.,
-                'clamp_length_mm': paired_spec['station_length_mm'],
-                'shared_tie': row['id'] + '-tie',
+                'clamp_length_mm': clamp_length,
+                'base_support_length_mm': base_length,
+                **closing_part,
                 'qualification_scope': 'Nominal restraint geometry; gripping/load unqualified',
             }))
 

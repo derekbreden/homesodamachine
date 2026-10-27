@@ -92,25 +92,39 @@ The four core WAGO junctions face west toward the PCB and stagger around
 the B-draw passage. Their blank-backed wells retain 3 mm walls and sit
 entirely on the lid. The levers open upward.
 
-Reservoir A's draw and fill tubes share two integral paired seats at world
-Y205 and Y304 mm. Their respective west/east axes are X50.5/58 and
-X86.5/94 mm, at Z259.5 mm. The 10 mm-long open seats have 3.325 mm radii
-and one narrow tie passage beneath each pair. Their top plane at Z257 leaves
-a 3.116 mm central ridge. Closed outer cheeks retain at least 3 mm of stock;
-the aft outer tube uses an open outboard quarter-seat with a 3 mm bottom
-bearing. Its base ends at X97.7, clear of the enclosure flank. The slot ceiling
-at Z253.175 retains a complete 3 mm wall below the lowest seat; its floor at
-Z251.6 leaves 3.6 mm beneath it. The anchor base shares the lid's underside
-at Z248. Side mouths provide threading access. The fore nominal tie head
-lies east of its tubes, leaving the ground lead's northeast entry open.
-The aft seat extends beyond the core's east edge. One nominal 2.5 × 0.8 mm
-tie witness per pair describes the selected path; purchased tie dimensions,
-threading, installed retention and load capacity remain unqualified.
-[_reservoir_a_anchors.py](../_reservoir_a_anchors.py) owns these stations and
-native seat, passage and witness builders. The tubes remain continuous.
-The manually invoked [anchor reader](reservoir_a_anchor_review.py) records
-finite native stock witnesses and vertical measurements through the actual
-printed STL in its [scoped receipt](reservoir-a-anchor-review.json). The lid and cup use the same smooth print-mesh export. Nearby
+Reservoir A’s draw and fill tubes share a fore snap seat and an aft tied seat. Draw
+occupies the west half-pipe at each station. The fore tube axes are X50.5/58 at
+Y209.75, Z259.5 mm. The integral lid base and one separate PET-GF
+`reservoir-a-fore-snap-cap` enclose the pair with matching half-pipes. The cap is 6 mm
+long in Y; the 12.5 mm base retains 3 mm end shoulders with 0.25 mm running clearance
+at each cap end. Its complete X span is 41.885–66.615 mm. Fixed floors, outer cheeks
+and the central land retain 3 mm of material. The two 1.44 mm spring leaves have
+6.7 mm of free height; each wing and hook spans the cap’s full 6 mm in Y. The flexures,
+their root transitions and the hooks’ 45° entry noses supply the functional exceptions
+to the fixed stock. The wings flex outward during downward insertion and their hooks
+engage the receiver ledges with 0.45 mm nominal overlap. Side running clearance is
+0.25 mm, tube radial clearance is 0.15 mm and supported hook-ledge clearance is 0.4 mm.
+The cap’s main seating faces have 0.25 mm air above the base. The cap prints on one
+Y end, placing its spring sections in the bed plane; the lid prints on its flat underside.
+The [snap review](reservoir-a-snap-review/README.md) records the current geometry and its
+scope; printed fit, insertion force, retention and lifetime remain unqualified.
+
+The aft seat’s tube axes are X86.5/94 at Y304, Z259.5 mm. Its 10 mm-long open seats
+have 3.325 mm radii and one narrow tie passage beneath the pair. The top plane at
+Z257 leaves a 3.116 mm central ridge. The outer tube uses an open outboard quarter-seat
+with a 3 mm bottom bearing. The base ends at X97.7, clear of the enclosure flank.
+The slot ceiling at Z253.175 retains a complete 3 mm wall below the lowest seat;
+its floor at Z251.6 leaves 3.6 mm beneath it. The anchor base shares the lid’s underside
+at Z248. Side mouths provide threading access. One nominal 2.5 × 0.8 mm tie witness
+describes the aft path; purchased tie dimensions, threading, installed retention and
+load capacity remain unqualified. The aft seat extends beyond the core’s east edge.
+
+[_reservoir_a_snap.py](../_reservoir_a_snap.py) supplies the fore snap geometry;
+[_reservoir_a_anchors.py](../_reservoir_a_anchors.py) defines the shared tube stations
+and aft seat, passage and tie witness. The tubes remain continuous. The
+[anchor reader receipt](reservoir-a-anchor-review.json) binds its identified two-tie
+article and finite native stock witnesses; those fore tie-passage results do not qualify
+the snap interface. The lid and cup use the same smooth print-mesh export. Nearby
 electrical and nominal-tie contacts retain their explicit fixture status.
 
 The [neoFit ACHV44-E water check](../../../reference/neofit-achv44-check/README.md)

@@ -39,11 +39,14 @@ earth is a pass-through on such a device, so this bond path is unchanged by it.
 
 | | mm |
 |---|---|
-| Lugs | **3**, bottom-up carbonator at 120°, inlet at 60° and compressor at 240°, rising one tongue thickness each; none points east (0°), where Reservoir A's draw tube passes |
+| Lugs | **3**, bottom-up carbonator at 120°, inlet at 300° and compressor at 240°, rising one tongue thickness each; none points east (0°), where Reservoir A's draw tube passes |
 | Ring-terminal tongue | ⌀**8.0** eye, ⌀**3.2** bore, **0.8** thick |
 | Crimp barrel | ⌀**4.2** × **6.0** stub (no wire past it) |
 | Washer | ⌀**7.0** × **0.8** stand-in over the top lug; the build's washer is the ⌀9 × 0.8 flat washer [bom.md](/hardware/ledger/bom.md) §13 bills |
 | Screw | M3 × 8 SHCS, ⌀5.5 × 3.0 head; 4.8 mm below the landing, through the boss's 4 mm insert |
+
+The reference keeps the three lugs, washer, screw shank and head as separate native
+solids in one compound. Their touching surfaces do not merge the physical hardware.
 
 Frame: Z up, screw axis on Z, origin at the **landing surface** (the boss top).
 Rings stack upward; the shank runs down (−Z) into the heat-set insert. Drop at

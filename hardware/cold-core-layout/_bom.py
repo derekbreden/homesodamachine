@@ -60,6 +60,8 @@ PARTS = (
     ("foam shell", "Cold-core inner shell (foam-shell)", ("foam-shell",)),
     ("foam cap top", "Cold-core foam cap — top", ("foam-cap-top",)),
     ("foam cap lid top", "Cold-core foam cap lid — top", ("foam-cap-lid-top",)),
+    ("fore paired tube snap cap", "Reservoir A fore paired tube snap cap",
+     ("reservoir-a-fore-snap-cap",)),
     ("foam cap bottom", "Cold-core foam cap — bottom", ("foam-cap-bottom",)),
     ("foam cap lid bottom", "Cold-core foam cap lid — bottom", ("foam-cap-lid-bottom",)),
     ("copper-slot covers", "Cold-core copper-slot covers",

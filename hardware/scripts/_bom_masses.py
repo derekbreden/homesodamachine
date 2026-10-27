@@ -103,9 +103,9 @@ PROFILES = {
     # Small parts carry the two-wall, 15% recipe. The organizer's accepted
     # fit-trial slice uses this recipe; the other rows are profile estimates.
     "small": (0.87, 0.45, 0.15),
-    # Solid PET-GF: the collet press and the anchor cap.
-    # Their manual print specification uses a 0.4 nozzle, at least 6 walls and
-    # 100% infill. Bill their complete geometry until native production slices.
+    # Solid PET-GF: collet press and tube snap caps. The fore paired cap has
+    # three loops; the collet press and generic cap specify at least six.
+    # All use 100% infill, so their complete geometry supplies the mass.
     "tool":  (2.70, 0.45, 1.00),
     # The bulkhead rings and their tube collars, two PET-GF spools to a plate: the
     # nameplate's saved profile, `nameplate/nameplate-001-petgf.3mf` — 0.4 nozzles,
@@ -126,6 +126,9 @@ PARTS = {
     "Cold-core inner shell (foam-shell)": ["cold-core/foam-shell/foam-shell.step"],
     "Cold-core foam cap — top": ["cold-core/foam-cap/foam-cap-top.step"],
     "Cold-core foam cap lid — top": ["cold-core/foam-cap/foam-cap-lid-top.step"],
+    "Reservoir A fore paired tube snap cap": [
+        "cold-core/foam-cap/reservoir-a-fore-snap-cap.step",
+    ],
     "Cold-core foam cap — bottom": ["cold-core/foam-cap/foam-cap-bottom.step"],
     "Cold-core foam cap lid — bottom": ["cold-core/foam-cap/foam-cap-lid-bottom.step"],
     "Cold-core copper-slot covers": [
@@ -224,6 +227,7 @@ GROUP_OF = [
     ("Enclosure — pump retainer",   "ext"),
     ("Display cover plate",         "ext"),
     ("Soda inlet bend holder",       "small"),
+    ("Reservoir A fore paired tube snap cap", "tool"),
     ("Flavor reservoir",            "tight"),
     ("Faucet shell",                "petgf"),
     ("Faucet display cover plate",  "petgf"),

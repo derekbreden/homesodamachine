@@ -30,7 +30,7 @@ retain at least 3 mm above the water and gas fittings.
 | Two relays | West wall, one above the other | Integral back-top bosses |
 | Mains WAGOs | Beside C14, east of PSU screwdriver approaches | Rear-wall wells |
 | DC/sensor/reed WAGOs and ground stack | Beside the PCB | Cold-core lid wells and ground boss |
-| Reservoir A fill/draw pair | R14 fore passages and paired east-side seats, draw west of fill | Two integral cold-core lid paired seats, one shared narrow tie per station |
+| Reservoir A fill/draw pair | R14 fore passages and paired east-side seats, draw west of fill | Integral cold-core lid base with one removable fore snap cap; one shared narrow tie at the aft paired seat |
 | Valve manifold commons | Beside their front valve rows | Front-top wells |
 
 WAGO positions follow actual branch connections. The electronics ceiling is
@@ -42,15 +42,16 @@ lower row flavor A/B outlet. C14 is at X−68.5/Z330 and RJ11 at X−30/Z274.376
 
 Reservoir A's selected routes are defined in
 [reservoir-a-routes.json](reservoir-a-routes.json). The fore seat's tube
-centres are X50.5/58 at Y205; the aft pair is X86.5/94 at Y304, all at
+centres are X50.5/58 at Y209.75; the aft pair is X86.5/94 at Y304, all at
 Z259.5. The `fluid-14` fill warm span is 450.588 mm and the `fluid-16`
 draw span is 391.974 mm, including the 16.891 mm receiving ends in their
 front-valve ATEU44W stem elbows.
 Each continues through its plain core guide without a joint or physical cut.
 Only the connection points and paired-anchor centres/axes are fixed;
 intervening bends, radii and displayed lengths illustrate routing and may
-change for installed clearance. The actual open seats and nominal retaining
-ties define the local fit where a tube bends away from an anchor.
+change for installed clearance. The fore half-pipes and snap cap, and the aft open
+seats and nominal retaining tie, define the local fit where a tube bends away from an
+anchor. The snap’s fit, insertion force and retention remain physically unqualified.
 
 The front valves V-F, V-E and V-I carry three ATEU44W stem elbows, trimmed to
 their receiving valves' actual tube-stop marks (12.7 mm nominal in CAD).

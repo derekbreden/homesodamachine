@@ -73,6 +73,7 @@ HELD_BY = {
     "foam-shell": "the enclosure floor",
     "foam-cap-top": "shell rim",
     "foam-cap-lid-top": "cap mouth",
+    "reservoir-a-fore-snap-cap": "fore paired tube base on the top lid",
     "foam-cap-bottom": "shell floor",
     "foam-cap-lid-bottom": "cap mouth",
     "carbonator-tube": "support ring",
