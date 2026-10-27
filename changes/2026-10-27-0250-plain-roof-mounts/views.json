@@ -1,0 +1,100 @@
+{
+  "views": [
+    {
+      "name": "carriers",
+      "caption": "Broad roof columns carry the meter and ASSE; both gas seats join on common flat planes.",
+      "before": "carriers-before.webp",
+      "after": "carriers-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 681.8,
+          "y": 316.3,
+          "r": 64.3,
+          "label": "Shared roof column",
+          "at": [
+            58,
+            367,
+            333
+          ]
+        },
+        {
+          "x": 627.3,
+          "y": 645.9,
+          "r": 51.4,
+          "label": "Flat gas carrier",
+          "at": [
+            88,
+            409,
+            301
+          ]
+        }
+      ],
+      "model": "printed-parts/enclosure/enclosure/enclosure.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          -313.92119937346985,
+          13.078800626530153,
+          55.755160438571124
+        ],
+        "target": [
+          65,
+          392,
+          321
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 70,
+        "near": 244.93964162108807,
+        "far": 892.6945060565149,
+        "aspect": 1.3333333333333333,
+        "section": {
+          "at": [
+            44,
+            390,
+            320
+          ],
+          "normal": [
+            -1,
+            0,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [
+        "enclosure_back_top"
+      ],
+      "ghost": [],
+      "only": [
+        "enclosure_back_top"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "printed-parts/enclosure/enclosure/enclosure.step.mesh",
+          "from": "snapshot",
+          "sha256": "4b9db87d395db27f546ec65f568c05763aa9c1ad13c6e99bc9c11dce55e6b229",
+          "commit": "82ab5d039cedd8dbe5c130c1ef3e23d5a6d3d007",
+          "taken": "2026-10-27T07:00:18.842Z",
+          "published": true
+        },
+        "after": {
+          "payload": "printed-parts/enclosure/enclosure/enclosure.step.mesh",
+          "from": "file",
+          "sha256": "54a27d387d07ace9c8ef8af2c432befbf49cf4fd9481a1c72b4c008272907e1b",
+          "commit": null
+        }
+      },
+      "changed": [
+        "enclosure_back_top"
+      ],
+      "withinMeshing": []
+    }
+  ]
+}

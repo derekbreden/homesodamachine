@@ -335,3 +335,19 @@ click: x=93.940 y=263.999 z=264.062
 click: x=94.085 y=263.999 z=261.667
 click: x=94.215 y=263.999 z=252.926
 click: x=94.243 y=263.999 z=255.326
+
+[ceiling] Required common gas-carrier boundary: the two fixed-barrel seats share one 8 mm slab on Z293/301. The gas bodies, adjustment parts and collets occupy the space above that footprint. Tree(auto)/Default remains under the carrier; the source-bound Mark2 slice and its local support-path reading are in enclosure/enclosure/plain-mount-review. Physical support release remains unqualified.
+alternatives: Continuing the complete footprint to the roof enters the installed gas bodies. Retreating to a narrower roof column requires additional carrier transitions and long strap passages; a corbel requires further cuts around the gas bodies. The common flat slab preserves the selected bearings and one plain stock boundary.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=88.350 y=407.364 z=301.000
+
+[ceiling] Required straight meter-strap passage profiles: both 3 mm high openings retain the 3 mm web over the collar seats. Their closed portions, X52.5 to X63, contain no support roads in the native Mark2 slice. The fore opening joins the west-open ASSE approach, where automatic tree support remains accessible before installing hardware; this is not a claim of physically easy release.
+alternatives: A gable consumes the lower web unless the passage moves upward; that adds profile breaks and requires redrawing the fore ASSE overlap. Filling either opening closes the retaining-strap path. The straight openings retain the complete nominal strip section and the broad column faces.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=53.750 y=367.715 z=318.676
+click: x=57.750 y=412.415 z=318.676
+
+[ceiling] Required rigid-collar insertion mouth: the fore column's 18.6 mm straight west opening admits the meter's nominal 18.3 mm fixed collar. Its lower cheek completes the column's 3 mm base stock. The native Mark2 slice places automatic tree support in the open mouth, removed before fitting the meter. Physical release and the purchased fit remain unqualified.
+alternatives: A gable raised into the mouth reduces its full collar-admission envelope. Removing the lower west cheek adds a lower step to the shared column outline. Retaining the rectangular mouth preserves the insertion profile and the simple full-stock column.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=47.250 y=366.607 z=297.076

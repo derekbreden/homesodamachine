@@ -426,8 +426,7 @@ The fore column also carries the ASSE's aft bearing. Its straight meter
 mouth admits the complete collar from the west; the strap approach opens
 into the ASSE bore with no narrow intervening web. Both ASSE and meter
 passages run through the shared stock. The aft pier has one flat fore setback
-below Z315
-for the meter housing. Both gas bearings join as one flat sidewall carrier
+below Z315 for the meter housing. Both gas bearings join as one flat sidewall carrier
 between Z293 and Z301, with two circular seats and two straight tie passages.
 The PCB, pump and V-B belong to the cold-core mounts. Junction wells follow
 their actual branch points on the rear wall, core lid and front manifold.
