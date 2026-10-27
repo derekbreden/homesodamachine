@@ -97,3 +97,9 @@ because the geometry is smooth.
 The [machine-readable audit](audit.json) includes the measured regions,
 checksums and hashes of the seven supplied photographs. Geometry and printer
 settings were not changed during this inspection.
+
+The [seam comparison](seam-comparison.md) records the additional photographs
+of the lower front-center scar. The sent job used an ordinary Aligned seam
+with wiping enabled; the faucet's selected A2 scarf and wipe-off treatment
+was not transferred. It also locates the seam beside the front middle
+insert pocket and records the local backing and gap-fill paths.
