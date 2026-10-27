@@ -40,8 +40,8 @@ enum StudyRoute: String, CaseIterable {
         switch self {
         case .images: .flavor
         case .crop, .uploading, .imageError: .images
-        case .sound, .clock, .update, .current, .machines, .rename: .settings
-        case .fill, .clean, .prime, .busy, .stopped, .complete: .care
+        case .sound, .clock, .update, .updateError, .current, .machines, .rename: .settings
+        case .fill, .clean, .prime, .busy, .stopped, .complete, .fillStopped, .fillFull, .lost: .care
         default: .home
         }
     }
@@ -49,45 +49,51 @@ enum StudyRoute: String, CaseIterable {
 
 struct StudyRoot: View {
     @State private var route: StudyRoute
-    @State private var channel = 0
-    @State private var ratios = [20, 20]
-    @State private var arts = [0, 1]
-    @State private var quiet = true
-    @State private var volume = 60.0
-    @State private var quietVolume = 20.0
-    @State private var startHour = 22
-    @State private var endHour = 7
-    @State private var name = "Kitchen"
+    @State private var fixture: StudyFixture
     @Environment(\.dynamicTypeSize) private var typeSize
 
-    init(initialRoute: StudyRoute = .home) { _route = State(initialValue: initialRoute) }
+    init(initialRoute: StudyRoute = .home) {
+        _route = State(initialValue: initialRoute)
+        _fixture = State(initialValue: StudyFixture(route: initialRoute))
+    }
 
-    private var disconnected: Bool { [.offline, .bluetooth, .lost].contains(route) }
+    private var disconnected: Bool { !fixture.isConnected }
     private var blocksNavigation: Bool { [.filling, .cleaning, .cleanFunnel, .stopping, .updating, .restarting, .verifying].contains(route) }
-    private var ratio: Int { get { ratios[channel] } nonmutating set { ratios[channel] = newValue } }
-    private var art: Int { get { arts[channel] } nonmutating set { arts[channel] = newValue } }
-    private var flavorLabel: String { "Flavor \(channel + 1)" }
-    private func go(_ next: StudyRoute) { route = next }
+    private var ratio: Int { get { fixture.draftRatio } nonmutating set { fixture.draftRatio = newValue } }
+    private var art: Int { fixture.arts[fixture.selectedChannel] }
+    private var flavorLabel: String { "Flavor \(fixture.selectedChannel + 1)" }
+    private var linkText: String {
+        switch fixture.connection {
+        case .connected: "Connected"
+        case .outOfRange: route == .lost ? "Connection lost" : "Out of range · last read 10 min ago"
+        case .bluetoothOff: "Bluetooth is off"
+        }
+    }
+    private func go(_ next: StudyRoute) {
+        if next == .rename { fixture.beginRename() }
+        route = next
+    }
 
     var body: some View {
         GeometryReader { geo in
             let sidebar = geo.size.width >= 1000 && !typeSize.isAccessibilitySize
+            let pageWidth = min(840, geo.size.width - (sidebar ? 216 : 0) - 48)
             HStack(spacing: 0) {
                 if sidebar && route != .add { sideNavigation }
                 VStack(spacing: 0) {
-                    if route != .add { header }
+                    if route != .add { header(sidebar: sidebar, width: pageWidth) }
                     if route == .crop {
                         cropEditor(size: CGSize(width: geo.size.width - (sidebar ? 216 : 0), height: geo.size.height - 164))
                     } else {
                         ScrollView {
-                            content(width: geo.size.width - (sidebar ? 216 : 0) - 48, height: geo.size.height)
-                                .frame(maxWidth: 1040)
+                            content(width: pageWidth, height: geo.size.height)
+                                .frame(maxWidth: pageWidth)
                                 .frame(maxWidth: .infinity, alignment: .top)
                                 .padding(.horizontal, 24)
-                                .padding(.top, route == .add ? 32 : 18)
+                                .padding(.top, route == .add ? 32 : 20)
                                 .padding(.bottom, 24)
                         }
-                        .scrollIndicators(.hidden)
+                        .scrollIndicators(.automatic)
                     }
                     if !sidebar && route != .add && route != .crop { bottomNavigation }
                 }
@@ -101,37 +107,54 @@ struct StudyRoot: View {
         .font(.body)
     }
 
-    private var header: some View {
-        VStack(alignment: .leading, spacing: 7) {
-            HStack(spacing: 12) {
+    private func header(sidebar: Bool, width: CGFloat) -> some View {
+        let home = [.home, .offline, .bluetooth, .unread, .alarm].contains(route)
+        return VStack(alignment: .leading, spacing: 6) {
+            HStack(spacing: 8) {
                 if !route.isTop && !blocksNavigation {
                     Button { go(route.parent) } label: {
-                        Image(systemName: "chevron.left").font(.title3.weight(.medium)).frame(width: 44, height: 44)
+                        Image(systemName: "chevron.left").font(.body.weight(.medium)).frame(width: 32, height: 44, alignment: .leading)
                     }
                     .accessibilityLabel("Back")
                 }
-                Text(route.title.replacingOccurrences(of: "Flavor 1", with: flavorLabel)).font(.title2.weight(.semibold))
-                    .fixedSize(horizontal: false, vertical: true)
-                Spacer(minLength: 8)
-                if route.isTop {
+                if home && !sidebar {
                     Button { go(.machines) } label: {
-                        Image(systemName: "chevron.down").font(.body.weight(.medium)).frame(width: 44, height: 44)
-                    }.accessibilityLabel("Your machines")
+                        HStack(spacing: 9) {
+                            Text(fixture.machineName).font(.largeTitle.weight(.semibold))
+                            Image(systemName: "chevron.down").font(.caption.weight(.semibold)).foregroundStyle(Theme.textSecondary)
+                        }
+                    }.buttonStyle(.plain).disabled(blocksNavigation)
+                } else {
+                    Text(home ? "Machine" : route.title.replacingOccurrences(of: "Flavor 1", with: flavorLabel))
+                        .font(route.isTop ? .largeTitle.weight(.semibold) : .headline)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
+                Spacer(minLength: 8)
+                if route.isTop && !home && !sidebar {
+                    Button { go(.machines) } label: {
+                        HStack(spacing: 6) { Text(fixture.machineName); Image(systemName: "chevron.down").font(.caption2) }
+                            .font(.subheadline.weight(.medium)).foregroundStyle(Theme.textSecondary)
+                            .padding(.horizontal, 12).padding(.vertical, 10)
+                            .background(Theme.ice.opacity(0.08), in: Capsule())
+                    }.buttonStyle(.plain).disabled(blocksNavigation)
                 }
                 if route == .crop {
                     Button("Cancel") { go(.images) }.frame(minHeight: 44)
                 }
             }
-            HStack(spacing: 6) {
-                Image(systemName: disconnected || route == .bluetooth ? "antenna.radiowaves.left.and.right.slash" : "antenna.radiowaves.left.and.right")
-                Text(route == .offline ? "Out of range · last read 10 min ago" : route == .bluetooth ? "Bluetooth is off" : route == .lost ? "Connection lost" : "Kitchen · Connected")
+            if !sidebar {
+                HStack(spacing: 6) {
+                    Circle().fill(disconnected ? Theme.textSecondary.opacity(0.5) : Theme.ice).frame(width: 5, height: 5)
+                    Text(route.isTop ? linkText : "\(fixture.machineName) · \(linkText)")
+                }
+                .font(.caption)
+                .foregroundStyle(Theme.textSecondary)
             }
-            .font(.subheadline)
-            .foregroundStyle(Theme.textSecondary)
         }
+        .frame(maxWidth: width).frame(maxWidth: .infinity)
         .padding(.horizontal, 24)
-        .padding(.top, 16)
-        .padding(.bottom, 12)
+        .padding(.top, route.isTop ? 24 : 10)
+        .padding(.bottom, route.isTop ? 8 : 6)
         .background(Theme.background)
     }
 
@@ -143,41 +166,48 @@ struct StudyRoot: View {
             ForEach(navigation, id: \.0) { item in
                 Button { go(item.2) } label: {
                     VStack(spacing: 5) {
-                        Image(systemName: item.1).font(.system(size: 21, weight: .medium))
-                        Text(item.0).font(.caption.weight(.medium))
+                        Image(systemName: item.0 == "Machine" && route.tab == item.0 ? "drop.fill" : item.1).font(.system(size: 20, weight: .regular))
+                        Text(item.0).font(.caption2.weight(route.tab == item.0 ? .semibold : .regular))
                     }
                     .foregroundStyle(route.tab == item.0 ? Theme.accent : Theme.textSecondary)
-                    .frame(maxWidth: .infinity, minHeight: 60)
-                    .background(route.tab == item.0 ? Theme.background : Color.clear, in: RoundedRectangle(cornerRadius: 12))
+                    .frame(maxWidth: .infinity, minHeight: 48)
                 }.disabled(blocksNavigation)
             }
         }
-        .padding(.horizontal, 16).padding(.top, 8).padding(.bottom, 12)
+        .frame(maxWidth: 480).frame(maxWidth: .infinity)
+        .padding(.horizontal, 16).padding(.top, 8).padding(.bottom, 8)
         .background(Theme.surface)
+        .overlay(alignment: .top) { Theme.ice.opacity(0.10).frame(height: 0.5) }
     }
     private var sideNavigation: some View {
         VStack(alignment: .leading, spacing: 8) {
-            Image("LaunchIcon").resizable().scaledToFit().frame(width: 64, height: 64)
-                .padding(.bottom, 12).accessibilityHidden(true)
-            Text("Soda Machine").font(.headline).padding(.bottom, 20)
+            HStack(spacing: 10) {
+                Image("LaunchIcon").resizable().scaledToFit().frame(width: 32, height: 32).accessibilityHidden(true)
+                Text("Soda Machine").font(.subheadline.weight(.semibold))
+            }.padding(.bottom, 24)
             Button { go(.machines) } label: {
-                HStack { Text("Kitchen").font(.headline); Spacer(); Image(systemName: "chevron.down").font(.caption) }
-                    .frame(minHeight: 44)
-            }
-            Text(disconnected ? "Out of range" : "Connected").font(.subheadline).foregroundStyle(Theme.textSecondary)
-                .padding(.bottom, 26)
+                HStack {
+                    VStack(alignment: .leading, spacing: 5) {
+                        Text(fixture.machineName).font(.headline)
+                        Text(linkText).font(.caption).foregroundStyle(Theme.textSecondary)
+                    }
+                    Spacer(minLength: 6)
+                    Image(systemName: "chevron.down").font(.caption2)
+                }.padding(12).background(Theme.background, in: RoundedRectangle(cornerRadius: 12))
+            }.buttonStyle(.plain).disabled(blocksNavigation).padding(.bottom, 20)
             ForEach(navigation, id: \.0) { item in
                 Button { go(item.2) } label: {
                     Label(item.0, systemImage: item.1)
-                        .font(.body.weight(.medium)).frame(maxWidth: .infinity, alignment: .leading)
-                        .padding(14)
+                        .font(.subheadline.weight(.medium)).frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(12)
                         .foregroundStyle(route.tab == item.0 ? Theme.accent : Theme.textSecondary)
-                        .background(route.tab == item.0 ? Theme.background : Color.clear, in: RoundedRectangle(cornerRadius: 12))
+                        .background(route.tab == item.0 ? Theme.ice.opacity(0.08) : Color.clear, in: RoundedRectangle(cornerRadius: 10))
                 }.disabled(blocksNavigation)
             }
             Spacer(minLength: 32)
             Button { go(.machines) } label: { Label("Your machines", systemImage: "square.stack").frame(minHeight: 44) }
                 .foregroundStyle(Theme.textSecondary)
+                .disabled(blocksNavigation)
         }
         .padding(20).frame(width: 216).background(Theme.surface)
     }
@@ -201,7 +231,7 @@ struct StudyRoot: View {
     }
 
     private func section(_ title: String) -> some View {
-        Text(title).font(.subheadline.weight(.semibold)).foregroundStyle(Theme.textSecondary)
+        Text(title).font(.subheadline.weight(.medium)).foregroundStyle(Theme.textSecondary)
             .frame(maxWidth: .infinity, alignment: .leading)
     }
     private func note(_ text: String) -> some View {
@@ -211,14 +241,14 @@ struct StudyRoot: View {
     private func panel<V: View>(@ViewBuilder _ content: () -> V) -> some View {
         VStack(alignment: .leading, spacing: 16, content: content).padding(20)
             .frame(maxWidth: .infinity, alignment: .leading)
-            .background(Theme.surface, in: RoundedRectangle(cornerRadius: 18))
+            .background(Theme.surface, in: RoundedRectangle(cornerRadius: 16))
     }
-    private func action(_ text: String, primary: Bool = true, next: StudyRoute, forChannel: Int? = nil) -> some View {
-        Button { if let forChannel { channel = forChannel }; go(next) } label: {
+    private func action(_ text: String, primary: Bool = true, next: StudyRoute, forChannel: Int? = nil, perform: (() -> Void)? = nil) -> some View {
+        Button { if let forChannel { fixture.beginFlavor(channel: forChannel) }; perform?(); go(next) } label: {
             Text(text).font(.body.weight(.semibold)).multilineTextAlignment(.center)
-                .frame(maxWidth: .infinity, minHeight: 50)
+                .frame(maxWidth: .infinity, minHeight: 48)
                 .foregroundStyle(primary ? Theme.onAccent : Theme.textPrimary)
-                .background(primary ? Theme.accent : Theme.surface, in: RoundedRectangle(cornerRadius: 12))
+                .background(primary ? Theme.accent : Theme.ice.opacity(0.12), in: RoundedRectangle(cornerRadius: 12))
         }.buttonStyle(.plain)
     }
     private func row(_ title: String, detail: String? = nil, icon: String? = nil, next: StudyRoute) -> some View {
@@ -229,9 +259,15 @@ struct StudyRoot: View {
                 Spacer(minLength: 12)
                 if let detail { Text(detail).font(.subheadline).foregroundStyle(Theme.textSecondary) }
                 Image(systemName: "chevron.right").font(.caption.weight(.semibold)).foregroundStyle(Theme.textSecondary)
-            }.frame(minHeight: 48)
+            }.frame(minHeight: 52)
         }.buttonStyle(.plain)
     }
+    private func groupedPanel<V: View>(@ViewBuilder _ content: () -> V) -> some View {
+        VStack(spacing: 0, content: content).padding(.horizontal, 16).padding(.vertical, 4)
+            .frame(maxWidth: .infinity)
+            .background(Theme.surface, in: RoundedRectangle(cornerRadius: 16))
+    }
+    private var rowDivider: some View { Theme.ice.opacity(0.12).frame(height: 0.5).padding(.leading, 36) }
     private func artView(_ index: Int, height: CGFloat) -> some View {
         let picture = Bundle.main.path(forResource: "flavor_\(index + 1)", ofType: "png").flatMap(UIImage.init(contentsOfFile:)) ?? UIImage()
         return Image(uiImage: picture).resizable().scaledToFill()
@@ -260,38 +296,39 @@ struct StudyRoot: View {
     private func home(width: CGFloat, height: CGFloat) -> some View {
         let compact = !typeSize.isAccessibilitySize && (height < 520 || (width >= 360 && width < 552 && height < 740))
         return VStack(alignment: .leading, spacing: 20) {
-            if route == .offline { notice("Last known readings", "Bring your device near the machine to make changes.") }
-            if route == .bluetooth { notice("Turn on Bluetooth", "Bluetooth connects this device to your machine.", icon: "antenna.radiowaves.left.and.right.slash") }
+            if fixture.connection == .outOfRange { notice("Last known readings", "Bring your device near the machine to make changes.") }
+            if fixture.connection == .bluetoothOff { notice("Turn on Bluetooth", "Bluetooth connects this device to your machine.", icon: "antenna.radiowaves.left.and.right.slash") }
             if route == .alarm { notice("Gas alarm", "Check the machine now. Filling, cleaning and flavor injection are unavailable.", icon: "exclamationmark.triangle.fill", urgent: true) }
             if width >= 760 && !typeSize.isAccessibilitySize {
                 HStack(alignment: .top, spacing: 24) {
-                    flavorPair(compact: compact).frame(maxWidth: .infinity)
+                    flavorPair(compact: compact, artHeight: 200).frame(maxWidth: .infinity)
                     machineStatus.frame(width: min(260, width * 0.31))
                 }
             } else {
-                flavorPair(compact: compact)
+                flavorPair(compact: compact, artHeight: 152)
                 machineStatus
             }
         }
     }
-    private func flavorPair(compact: Bool) -> some View {
+    private func flavorPair(compact: Bool, artHeight: CGFloat) -> some View {
         VStack(alignment: .leading, spacing: 12) {
             section("Flavors")
             LazyVGrid(columns: typeSize.isAccessibilitySize ? [GridItem(.flexible())] : [GridItem(.flexible(), spacing: 12), GridItem(.flexible())], spacing: 12) {
-                flavorCard(0, level: 3, compact: compact)
-                flavorCard(1, level: 1, compact: compact)
+                flavorCard(0, level: 3, compact: compact, artHeight: artHeight)
+                flavorCard(1, level: 1, compact: compact, artHeight: artHeight)
             }
         }
     }
-    private func flavorCard(_ channel: Int, level: Int, compact: Bool) -> some View {
-        Button { self.channel = channel; go(.flavor) } label: {
+    private func flavorCard(_ channel: Int, level: Int, compact: Bool, artHeight: CGFloat) -> some View {
+        let active = fixture.activeFlavor == channel && route != .unread
+        return Button { fixture.beginFlavor(channel: channel); go(.flavor) } label: {
             Group {
                 if compact {
                     HStack(spacing: 12) {
                         if route == .unread {
                             Image(systemName: "photo").foregroundStyle(Theme.textSecondary).frame(width: 59, height: 110)
                         } else {
-                            artView(arts[channel], height: 110)
+                            artView(fixture.arts[channel], height: 110)
                         }
                         VStack(alignment: .leading, spacing: 10) {
                             HStack(spacing: 4) {
@@ -299,44 +336,50 @@ struct StudyRoot: View {
                                 Spacer(minLength: 0)
                                 Image(systemName: "chevron.right").font(.caption.weight(.semibold))
                             }
-                            Text(route == .unread ? "—" : "1:\(ratios[channel])").font(.subheadline.monospacedDigit())
+                            Text(route == .unread ? "—" : "1:\(fixture.ratios[channel])").font(.title3.weight(.medium).monospacedDigit())
                             gauge(level, unknown: route == .unread)
-                            Text(route == .unread ? "Unknown" : level == 3 ? "High · On tap" : "Low")
-                                .font(.caption).foregroundStyle(channel == 0 && route != .unread ? Theme.accent : Theme.textSecondary)
+                            Text(route == .unread ? "Unknown" : "\(level == 3 ? "High" : "Low")\(active ? " · On tap" : "")")
+                                .font(.caption).foregroundStyle(active ? Theme.accent : Theme.textSecondary)
                         }
                     }
                 } else {
-                    VStack(alignment: .leading, spacing: 13) {
+                    VStack(alignment: .leading, spacing: 14) {
                         HStack {
-                            Text("Flavor \(channel + 1)").font(.headline)
+                            Text("Flavor \(channel + 1)").font(.subheadline.weight(.semibold))
                             Spacer(minLength: 2)
                             Image(systemName: "chevron.right").font(.caption.weight(.semibold))
                         }
                         Group {
                             if route == .unread {
                                 Image(systemName: "photo").font(.title).foregroundStyle(Theme.textSecondary)
-                                    .frame(height: 160).frame(maxWidth: .infinity)
+                                    .frame(height: artHeight).frame(maxWidth: .infinity)
                             } else {
-                                artView(arts[channel], height: 160).frame(maxWidth: .infinity)
+                                artView(fixture.arts[channel], height: artHeight).frame(maxWidth: .infinity)
                             }
-                        }.padding(.vertical, 3)
+                        }.padding(.vertical, 4)
                         HStack {
-                            Text(channel == 0 && route != .unread ? "On tap" : " ").font(.caption.weight(.medium)).foregroundStyle(Theme.accent)
+                            if active {
+                                Label("On tap", systemImage: "checkmark.circle.fill").font(.caption2.weight(.medium)).foregroundStyle(Theme.accent)
+                            }
                             Spacer(minLength: 0)
-                            Text(route == .unread ? "—" : "1:\(ratios[channel])").font(.subheadline.monospacedDigit()).foregroundStyle(Theme.textSecondary)
+                            Text(route == .unread ? "—" : "1:\(fixture.ratios[channel])").font(.subheadline.weight(.medium).monospacedDigit())
                         }
                         gauge(level, unknown: route == .unread)
-                        Text(route == .unread ? "Level unknown" : level == 3 ? "High" : "Low")
-                            .font(.subheadline).foregroundStyle(Theme.textSecondary)
+                        HStack {
+                            Text("Reservoir").font(.caption).foregroundStyle(Theme.textSecondary)
+                            Spacer(minLength: 2)
+                            Text(route == .unread ? "—" : level == 3 ? "High" : "Low").font(.caption.weight(.medium))
+                        }
                     }
                 }
             }.padding(16).frame(maxWidth: .infinity, alignment: .leading)
                 .background(Theme.surface, in: RoundedRectangle(cornerRadius: 18))
+                .overlay(RoundedRectangle(cornerRadius: 18).strokeBorder(active ? Theme.accent.opacity(0.7) : Theme.ice.opacity(0.08), lineWidth: active ? 1.25 : 0.5))
         }.buttonStyle(.plain)
     }
     private var machineStatus: some View {
         VStack(alignment: .leading, spacing: 12) {
-            section("Machine")
+            section("Status")
             panel {
                 HStack {
                     Image(systemName: "thermometer.low").foregroundStyle(Theme.textSecondary)
@@ -356,50 +399,77 @@ struct StudyRoot: View {
         let wide = width >= 600 && !typeSize.isAccessibilitySize
         return FlexibleColumns(wide: wide, spacing: 24) {
             VStack(spacing: 12) {
-                artView(art, height: wide ? 280 : 200)
-                Button("Change image") { go(.images) }.font(.body.weight(.medium)).frame(minHeight: 44)
+                if wide {
+                    artView(art, height: 240)
+                    Button("Change image") { go(.images) }.font(.subheadline.weight(.medium)).frame(minHeight: 44)
+                } else {
+                    HStack(spacing: 20) {
+                        artView(art, height: 132)
+                        VStack(alignment: .leading, spacing: 12) {
+                            Text("Display image").font(.headline)
+                            note("Shown on both machine displays.")
+                            Button("Change image") { go(.images) }.font(.subheadline.weight(.medium)).frame(minHeight: 44)
+                        }
+                    }.frame(maxWidth: .infinity, alignment: .leading)
+                }
             }.frame(maxWidth: .infinity)
         } right: {
-            VStack(alignment: .leading, spacing: 20) {
+            VStack(alignment: .leading, spacing: 16) {
                 panel {
-                    section("Mix ratio")
+                    HStack {
+                        Text("Mix ratio").font(.headline)
+                        Spacer()
+                        if fixture.draftRatio == fixture.ratios[fixture.selectedChannel] {
+                            Label("Saved", systemImage: "checkmark").font(.caption).foregroundStyle(Theme.textSecondary)
+                        } else {
+                            Button("Save") { fixture.saveRatio() }.font(.subheadline.weight(.semibold)).disabled(disconnected)
+                        }
+                    }
                     HStack(spacing: 18) {
-                        Button { ratio = max(6, ratio - 1) } label: { Image(systemName: "minus").frame(width: 48, height: 48).background(Theme.background, in: Circle()) }
+                        Button { ratio = max(6, ratio - 1) } label: { Image(systemName: "minus").frame(width: 44, height: 44).background(Theme.ice.opacity(0.10), in: Circle()) }
                             .accessibilityLabel("Stronger mix")
                         Text("1:\(ratio)").font(.largeTitle.weight(.medium).monospacedDigit()).frame(maxWidth: .infinity)
-                        Button { ratio = min(24, ratio + 1) } label: { Image(systemName: "plus").frame(width: 48, height: 48).background(Theme.background, in: Circle()) }
+                        Button { ratio = min(24, ratio + 1) } label: { Image(systemName: "plus").frame(width: 44, height: 44).background(Theme.ice.opacity(0.10), in: Circle()) }
                             .accessibilityLabel("Lighter mix")
-                    }
-                    note("1 part concentrate to \(ratio) parts water.")
+                    }.disabled(disconnected)
+                    Text("1 part concentrate · \(ratio) parts water").font(.subheadline).foregroundStyle(Theme.textSecondary)
                     HStack { Text("More flavor"); Spacer(); Text("Lighter") }.font(.caption).foregroundStyle(Theme.textSecondary)
-                    note("Range 1:6–1:24. Match the ratio on your concentrate bottle.")
+                    Text("1:6–1:24 · Match your concentrate bottle.").font(.caption).foregroundStyle(Theme.textSecondary)
                 }
-                action("Save ratio", next: .home)
-                panel { row("Use at faucet", icon: "drop", next: .home) }
+                if fixture.activeFlavor == fixture.selectedChannel {
+                    Label("On tap at the faucet", systemImage: "checkmark.circle.fill")
+                        .font(.subheadline).foregroundStyle(Theme.accent).padding(.vertical, 4)
+                } else {
+                    action("Use at faucet", next: .home, perform: { fixture.selectFlavorAtFaucet() }).disabled(disconnected)
+                }
             }.frame(maxWidth: .infinity)
         }
     }
 
     private func imagePicker(width: CGFloat) -> some View {
-        VStack(alignment: .leading, spacing: 20) {
+        let room = min(560, width)
+        let columns = max(1, Int((room + 12) / 84))
+        let tileWidth = min(112, (room - CGFloat(columns - 1) * 12) / CGFloat(columns))
+        let tileHeight = tileWidth * 80 / 43
+        return VStack(alignment: .leading, spacing: 20) {
             if route == .imageError { notice("Picture wasn’t sent", "Check your connection and try sending it again.", icon: "exclamationmark.circle") }
             section("Choose an image")
-            LazyVGrid(columns: [GridItem(.adaptive(minimum: 78, maximum: 112), spacing: 14)], alignment: .leading, spacing: 16) {
+            LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 12), count: columns), alignment: .leading, spacing: 16) {
                 ForEach(0..<4) { index in
-                    Button { art = index; go(.flavor) } label: {
+                    Button { fixture.selectArt(index); go(.flavor) } label: {
                         VStack(spacing: 8) {
-                            artView(index, height: 160)
+                            artView(index, height: tileHeight)
                                 .overlay(alignment: .bottomTrailing) {
                                     if index == art { Image(systemName: "checkmark.circle.fill").symbolRenderingMode(.palette).foregroundStyle(Theme.onAccent, Theme.accent).padding(5) }
                                 }
                             Text("Image \(index + 1)").font(.caption)
                         }
-                    }.buttonStyle(.plain)
+                    }.buttonStyle(.plain).disabled(disconnected)
                 }
                 if route == .uploading {
                     VStack(spacing: 8) {
                         ZStack {
-                            artView(2, height: 160).opacity(0.35)
+                            artView(2, height: tileHeight).opacity(0.35)
                             VStack(spacing: 10) { ProgressView(value: 0.46).tint(Theme.accent); Text("46%").font(.caption.monospacedDigit()) }.padding(10)
                         }
                         Button("Cancel") { go(.images) }.font(.caption).frame(minHeight: 44)
@@ -407,15 +477,15 @@ struct StudyRoot: View {
                 }
                 Button { go(.crop) } label: {
                     VStack(spacing: 8) {
-                        Image(systemName: "plus").font(.title2).frame(width: 86, height: 160)
+                        Image(systemName: "plus").font(.title2).frame(width: tileWidth, height: tileHeight)
                             .background(Theme.surface, in: RoundedRectangle(cornerRadius: 8))
                         Text("Add photo").font(.caption)
                     }
-                }
+                }.disabled(disconnected)
             }
             note(route == .uploading ? "Sending picture to the machine. You can add another while it sends." : "Four included images. Add up to four of your own.")
             if route == .imageError { action("Try again", next: .uploading).frame(maxWidth: 360) }
-        }
+        }.frame(maxWidth: room).frame(maxWidth: .infinity, alignment: .leading)
     }
     private func cropEditor(size: CGSize) -> some View {
         let wide = size.width >= 600 || size.height < 350
@@ -435,9 +505,10 @@ struct StudyRoot: View {
     }
 
     private func care(width: CGFloat) -> some View {
-        VStack(alignment: .leading, spacing: 24) {
-            note("Care for one flavor at a time. Have a container under the faucet before you begin.")
-            LazyVGrid(columns: [GridItem(.adaptive(minimum: 275), spacing: 16)], alignment: .leading, spacing: 16) {
+        let count = typeSize.isAccessibilitySize ? 1 : width >= 760 ? 3 : width >= 600 ? 2 : 1
+        return VStack(alignment: .leading, spacing: 20) {
+            note("One flavor at a time.")
+            LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 16, alignment: .top), count: count), alignment: .leading, spacing: 16) {
                 careCard("Fill", icon: "arrow.down.to.line", detail: "Add concentrate through the top funnel.", next: .fill)
                 careCard("Clean", icon: "sparkles", detail: "Rinse the funnel, reservoir and flavor line.", next: .clean)
                 careCard("Prime", icon: "drop", detail: "Bring concentrate to the faucet.", next: .prime)
@@ -445,16 +516,15 @@ struct StudyRoot: View {
         }
     }
     private func careCard(_ title: String, icon: String, detail: String, next: StudyRoute) -> some View {
-        panel {
+        VStack(alignment: .leading, spacing: 12) {
             Label(title, systemImage: icon).font(.title3.weight(.medium))
-            note(detail)
+            note(detail).frame(minHeight: 34, alignment: .topLeading)
             HStack(spacing: 12) {
                 action("Flavor 1", primary: false, next: next, forChannel: 0)
-                    .background(Theme.background, in: RoundedRectangle(cornerRadius: 12))
                 action("Flavor 2", primary: false, next: next, forChannel: 1)
-                    .background(Theme.background, in: RoundedRectangle(cornerRadius: 12))
-            }
-        }
+            }.disabled(disconnected)
+        }.padding(16).frame(maxWidth: .infinity, alignment: .topLeading)
+            .background(Theme.surface, in: RoundedRectangle(cornerRadius: 16))
     }
     private func preparation(width: CGFloat) -> some View {
         let fill = route == .fill
@@ -475,6 +545,7 @@ struct StudyRoot: View {
                     note(fill ? "Filling also ends when the planned run finishes. Concentrate may remain in the funnel if the reservoir fills first." : prime ? "The app follows the same Prime session as both displays." : "Keep the pitcher in place until the cycle ends.")
                 }
                 action(fill ? "Start filling" : prime ? "Open Prime on machine" : "Start cleaning", next: fill ? .filling : prime ? .priming : .cleanFunnel)
+                    .disabled(disconnected)
             }.frame(maxWidth: .infinity)
         }
     }
@@ -529,52 +600,53 @@ struct StudyRoot: View {
     }
 
     private func settings(width: CGFloat) -> some View {
-        FlexibleColumns(wide: width >= 700 && !typeSize.isAccessibilitySize, spacing: 24) {
+        VStack(alignment: .leading, spacing: 28) {
             VStack(alignment: .leading, spacing: 12) {
                 section("Your machine")
-                panel {
-                    row("Name", detail: "Kitchen", next: .rename)
+                groupedPanel {
+                    row("Name", detail: fixture.machineName, icon: "pencil", next: .rename)
+                    rowDivider
                     row("Sound", icon: "speaker.wave.2", next: .sound)
+                    rowDivider
                     row("Software Update", icon: "arrow.down.circle", next: .update)
                 }
-            }.frame(maxWidth: .infinity)
-        } right: {
+            }
             VStack(alignment: .leading, spacing: 12) {
                 section("This device")
-                panel {
+                groupedPanel {
                     row("Your machines", icon: "square.stack", next: .machines)
                 }
-                note("Kitchen · Unit A1B2C3")
-            }.frame(maxWidth: .infinity)
-        }
+                Text("Unit \(fixture.unit)").font(.caption).foregroundStyle(Theme.textSecondary).padding(.leading, 4)
+            }
+        }.frame(maxWidth: 560).frame(maxWidth: .infinity, alignment: .leading)
     }
     private func sound(width: CGFloat) -> some View {
         VStack(alignment: .leading, spacing: 22) {
             if route == .clock { notice("Quiet hours need the machine clock", "The clock is unavailable. Your schedule is saved, but quiet hours cannot take effect.", icon: "clock.badge.exclamationmark") }
-            FlexibleColumns(wide: width >= 680 && !typeSize.isAccessibilitySize, spacing: 24) {
+            VStack(alignment: .leading, spacing: 20) {
                 panel {
-                    HStack { Text("Volume").font(.headline); Spacer(); Text("\(Int(volume))%").monospacedDigit() }
-                    Slider(value: $volume, in: 0...100, step: 1).accessibilityLabel("Volume")
+                    HStack { Text("Volume").font(.headline); Spacer(); Text("\(Int(fixture.volume))%").monospacedDigit() }
+                    Slider(value: $fixture.volume, in: 0...100, step: 1).accessibilityLabel("Volume")
                     note("Touch sounds and completion chimes.")
                 }
-            } right: {
                 panel {
-                    Toggle("Quiet hours", isOn: $quiet).tint(Theme.accent)
+                    Toggle("Quiet hours", isOn: $fixture.quiet).tint(Theme.accent)
                     HStack {
                         Text("From"); Spacer()
-                        Picker("From", selection: $startHour) { ForEach(0..<24) { h in Text(hour(h)).tag(h) } }.tint(Theme.ice)
+                        Picker("From", selection: $fixture.startHour) { ForEach(0..<24) { h in Text(hour(h)).tag(h) } }.tint(Theme.ice)
                     }.frame(minHeight: 44)
                     HStack {
                         Text("Until"); Spacer()
-                        Picker("Until", selection: $endHour) { ForEach(0..<24) { h in Text(hour(h)).tag(h) } }.tint(Theme.ice)
+                        Picker("Until", selection: $fixture.endHour) { ForEach(0..<24) { h in Text(hour(h)).tag(h) } }.tint(Theme.ice)
                     }.frame(minHeight: 44)
-                    HStack { Text("Quiet volume"); Spacer(); Text("\(Int(quietVolume))%").monospacedDigit() }
-                    Slider(value: $quietVolume, in: 0...100, step: 1).accessibilityLabel("Quiet volume")
+                    HStack { Text("Quiet volume"); Spacer(); Text("\(Int(fixture.quietVolume))%").monospacedDigit() }
+                    Slider(value: $fixture.quietVolume, in: 0...100, step: 1).accessibilityLabel("Quiet volume")
                 }
-            }
+            }.disabled(disconnected)
             note("The gas alarm always sounds at full volume.")
             action("Save sound settings", next: .settings).frame(maxWidth: 440)
-        }
+                .disabled(disconnected)
+        }.frame(maxWidth: 560).frame(maxWidth: .infinity, alignment: .leading)
     }
     private func hour(_ h: Int) -> String { "\(h % 12 == 0 ? 12 : h % 12) \(h < 12 ? "AM" : "PM")" }
     private func software(width: CGFloat) -> some View {
@@ -600,7 +672,7 @@ struct StudyRoot: View {
                 action("Check again", primary: false, next: .current)
             } else {
                 note("This usually takes a few minutes. Keep your device near the machine and leave the machine plugged in.")
-                action("Update now", next: .updating)
+                action("Update now", next: .updating).disabled(disconnected)
             }
         }.frame(maxWidth: 460).frame(maxWidth: .infinity).padding(.vertical, 20)
     }
@@ -616,25 +688,38 @@ struct StudyRoot: View {
     }
     private var machines: some View {
         VStack(alignment: .leading, spacing: 20) {
-            panel {
-                row("Kitchen", detail: "Connected ✓", next: .home)
-                note("Unit A1B2C3")
-            }
-            panel {
-                row("Workshop", detail: "Out of range", next: .offline)
-                note("Unit D4E5F6 · Last connected yesterday")
+            groupedPanel {
+                ForEach(0..<fixture.names.count, id: \.self) { index in
+                    Button {
+                        fixture.selectMachine(index)
+                        go(fixture.isConnected ? .home : .offline)
+                    } label: {
+                        HStack(spacing: 12) {
+                            VStack(alignment: .leading, spacing: 6) {
+                                Text(fixture.names[index]).font(.body.weight(.medium))
+                                Text(index == fixture.selectedMachine ? "Unit \(fixture.unit) · \(linkText)" : index == 0 ? "Unit A1B2C3 · In range" : "Unit D4E5F6 · Last connected yesterday")
+                                    .font(.caption).foregroundStyle(Theme.textSecondary)
+                            }
+                            Spacer()
+                            if index == fixture.selectedMachine {
+                                Image(systemName: "checkmark").font(.body.weight(.semibold)).foregroundStyle(Theme.accent)
+                            }
+                        }.padding(.vertical, 16)
+                    }.buttonStyle(.plain)
+                    if index == 0 { Theme.ice.opacity(0.12).frame(height: 0.5) }
+                }
             }
             action("Add a machine", primary: false, next: .add)
             note("A machine’s name is shared by every device that connects to it.")
-            Button("Remove Kitchen from this device") { go(.add) }.font(.subheadline).foregroundStyle(Theme.error).frame(minHeight: 44)
+            Button("Remove \(fixture.machineName) from this device") { go(.add) }.font(.subheadline).foregroundStyle(Theme.error).frame(minHeight: 44)
         }.frame(maxWidth: 560).frame(maxWidth: .infinity)
     }
     private var rename: some View {
         VStack(alignment: .leading, spacing: 20) {
-            TextField("Name", text: $name).textInputAutocapitalization(.words).autocorrectionDisabled()
+            TextField("Name", text: $fixture.draftName).textInputAutocapitalization(.words).autocorrectionDisabled()
                 .padding(16).background(Theme.surface, in: RoundedRectangle(cornerRadius: 12))
             note("Up to twenty letters. The machine keeps its name so every device sees the same one.")
-            action("Save name", next: .settings)
+            action("Save name", next: .settings, perform: { fixture.saveName() }).disabled(disconnected)
         }.frame(maxWidth: 460).frame(maxWidth: .infinity)
     }
     private func onboarding(width: CGFloat) -> some View {

@@ -8,7 +8,8 @@
     "title": "iPhone portrait",
     "viewport": "phone",
     "width": 402,
-    "label": "Machine"
+    "label": "Machine",
+    "detailFile": "detail/phone-home.webp"
   },
   {
     "file": "phone-flavor.webp",
@@ -19,7 +20,8 @@
     "title": "iPhone portrait",
     "viewport": "phone",
     "width": 402,
-    "label": "Flavor image and ratio"
+    "label": "Flavor image and ratio",
+    "detailFile": "detail/phone-flavor.webp"
   },
   {
     "file": "phone-images.webp",
@@ -63,7 +65,8 @@
     "title": "iPhone portrait",
     "viewport": "phone",
     "width": 402,
-    "label": "Care"
+    "label": "Care",
+    "detailFile": "detail/phone-care.webp"
   },
   {
     "file": "phone-fill.webp",
@@ -140,7 +143,8 @@
     "title": "iPhone portrait",
     "viewport": "phone",
     "width": 402,
-    "label": "Settings"
+    "label": "Settings",
+    "detailFile": "detail/phone-settings.webp"
   },
   {
     "file": "phone-sound.webp",
@@ -151,7 +155,8 @@
     "title": "iPhone portrait",
     "viewport": "phone",
     "width": 402,
-    "label": "Sound and quiet hours"
+    "label": "Sound and quiet hours",
+    "detailFile": "detail/phone-sound.webp"
   },
   {
     "file": "phone-update.webp",
@@ -415,7 +420,8 @@
     "title": "Duo cover",
     "viewport": "cover",
     "width": 466,
-    "label": "Machine"
+    "label": "Machine",
+    "detailFile": "detail/cover-home.webp"
   },
   {
     "file": "cover-flavor.webp",
@@ -822,7 +828,8 @@
     "title": "Duo open",
     "viewport": "duo",
     "width": 890,
-    "label": "Machine"
+    "label": "Machine",
+    "detailFile": "detail/duo-home.webp"
   },
   {
     "file": "duo-flavor.webp",
@@ -1229,7 +1236,8 @@
     "title": "iPad portrait",
     "viewport": "ipad-portrait",
     "width": 834,
-    "label": "Machine"
+    "label": "Machine",
+    "detailFile": "detail/ipad-portrait-home.webp"
   },
   {
     "file": "ipad-portrait-flavor.webp",
@@ -1636,7 +1644,8 @@
     "title": "iPad landscape",
     "viewport": "ipad",
     "width": 1194,
-    "label": "Machine"
+    "label": "Machine",
+    "detailFile": "detail/ipad-home.webp"
   },
   {
     "file": "ipad-flavor.webp",
@@ -2450,7 +2459,8 @@
     "title": "iPhone landscape",
     "viewport": "landscape",
     "width": 874,
-    "label": "Machine"
+    "label": "Machine",
+    "detailFile": "detail/landscape-home.webp"
   },
   {
     "file": "landscape-flavor.webp",
