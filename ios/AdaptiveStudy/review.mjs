@@ -25,6 +25,10 @@ const labels = {
   stopping: 'Stop awaiting confirmation', updateError: 'Update check failed', restarting: 'Update · restarting',
   verifying: 'Update · verifying'
 };
+const focusedGroups = [
+  {id: 'soda-polished-phone', title: 'Refined appliance app', routes: ['home', 'flavor', 'care', 'settings', 'sound'], sizes: ['phone'], initialRoute: 'home', initialViewport: 'phone'},
+  {id: 'soda-polished-layouts', title: 'Refined adaptive layouts', routes: ['home'], sizes: ['cover', 'duo', 'ipad-portrait', 'ipad', 'landscape'], initialRoute: 'home', initialViewport: 'duo'}
+];
 const images = [];
 for (const item of manifest) {
   const source = path.join(here, 'renders', item.file);
@@ -32,11 +36,28 @@ for (const item of manifest) {
   await sharp(source).resize({width: item.width}).webp({quality: 90, effort: 5}).toFile(path.join(preview, file));
   images.push({...item, file, label: labels[item.route]});
 }
+const detailDirectory = path.join(preview, 'detail');
+await fs.mkdir(detailDirectory, {recursive: true});
+const detailImages = new Map();
+for (const item of images) {
+  if (!focusedGroups.some(group => group.routes.includes(item.route) && group.sizes.includes(item.viewport))) continue;
+  // Keep every captured pixel. These review copies supply two image pixels per
+  // displayed SwiftUI point and preserve text edges without lossy compression.
+  const buffer = await sharp(path.join(here, 'renders', item.file.replace(/\.webp$/, '.png')))
+    .webp({lossless: true, effort: 6}).toBuffer();
+  const detailFile = `detail/${item.file}`;
+  await fs.writeFile(path.join(preview, detailFile), buffer);
+  item.detailFile = detailFile;
+  detailImages.set(item.file, buffer);
+}
 await fs.writeFile(path.join(preview, 'manifest.json'), JSON.stringify(images, null, 2) + '\n');
 
 const viewports = [...new Set(images.map(item => item.viewport))];
 const routes = [...new Set(images.map(item => item.route))];
-let index = '# Native app renders\n\nEach image is a native SwiftUI content render with sample data. Dimensions are layout canvases in points; system chrome and device safe-area masks are omitted. The source captures are 2× PNGs in the local `renders/` directory; these review copies are 1× WebP.\n\n';
+let index = '# Native app renders\n\nEach image is a native SwiftUI content render with sample data. Dimensions are layout canvases in points; system chrome and device safe-area masks are omitted. Source captures are 2× PNGs in the local `renders/` directory. Focused detail copies retain that 2× resolution with lossless WebP encoding; the complete matrix uses compact 1× WebP copies.\n\n';
+index += '## Detail review · 2× lossless\n\n| Screen | Window | Native detail |\n| --- | --- | --- |\n';
+for (const item of images.filter(item => item.detailFile)) index += `| ${item.label} | ${item.title} · ${item.width} × ${item.height} pt | [View 2× lossless](${item.detailFile}) |\n`;
+index += '\n## Complete screen matrix · 1×\n\n';
 index += '| Screen | ' + viewports.join(' | ') + ' |\n| --- | ' + viewports.map(() => '---').join(' | ') + ' |\n';
 for (const route of routes) index += `| ${labels[route]} | ` + viewports.map(v => `[View](${v}-${route}.webp)`).join(' | ') + ' |\n';
 await fs.writeFile(path.join(preview, 'README.md'), index);
@@ -63,32 +84,41 @@ if (inlineDirectory) {
   await fs.mkdir(inlineDirectory, {recursive: true});
   const template = await fs.readFile(path.join(here, 'review-template.html'), 'utf8');
   const helper = await fs.readFile(path.join(here, '../../tools/viz/inline-mobile/assets/theme.js'), 'utf8');
-  const groups = [
-    {id: 'soda-aspect-ratios', title: 'Adaptive app layouts', routes: ['home', 'flavor', 'crop', 'care', 'settings'], sizes: viewports, initialRoute: 'home', initialViewport: 'duo'},
-    {id: 'soda-entire-app', title: 'Entire appliance app proposal', routes, sizes: ['phone'], initialRoute: 'home', initialViewport: 'phone'}
-  ];
-  for (const group of groups) {
+  for (const group of focusedGroups) {
     const selected = images.filter(item => group.routes.includes(item.route) && group.sizes.includes(item.viewport));
-    let html;
-    let quality = 86;
-    do {
-      const encoded = [];
-      for (const item of selected) {
-        const buffer = await sharp(path.join(here, 'renders', item.file.replace(/\.webp$/, '.png')))
-          .resize({width: item.width}).webp({quality, effort: 5}).toBuffer();
-        encoded.push({...item, data: `data:image/webp;base64,${buffer.toString('base64')}`});
-      }
-      const initial = encoded.find(item => item.route === group.initialRoute && item.viewport === group.initialViewport);
-      html = template.replaceAll('__ROOT_ID__', group.id).replaceAll('__REVIEW_TITLE__', group.title)
-        .replace('__INITIAL_IMAGE__', initial.data).replace('__INITIAL_ALT__', initial.label)
+    const encoded = selected.map(item => ({...item,
+      data: `data:image/webp;base64,${detailImages.get(item.file).toString('base64')}`}));
+    function fragment(items, id) {
+      const initial = items.find(item => item.route === group.initialRoute && item.viewport === group.initialViewport) ?? items[0];
+      // The initial image lives in the data once; render() assigns its src before
+      // the first useful frame, avoiding a second full base64 copy in the file.
+      return template.replaceAll('__ROOT_ID__', id).replaceAll('__REVIEW_TITLE__', group.title)
+        .replace('__INITIAL_ALT__', initial.label)
         .replace('__THEME_HELPER__', helper)
-        .replace('__RENDER_DATA__', JSON.stringify({images: encoded, initialRoute: group.initialRoute, initialViewport: group.initialViewport}));
-      quality -= 6;
-    } while (Buffer.byteLength(html) >= 1_000_000 && quality >= 62);
-    if (Buffer.byteLength(html) >= 1_000_000) throw new Error(`${group.id} exceeds the inline size limit`);
-    const destination = path.join(inlineDirectory, `${group.id}.html`);
-    await fs.writeFile(destination, html);
-    console.log(`${group.title}: ${selected.length} renders, ${Buffer.byteLength(html)} bytes, ${destination}`);
+        .replace('__RENDER_DATA__', JSON.stringify({images: items, initialRoute: initial.route, initialViewport: initial.viewport}));
+    }
+    // A larger future screen may require another fragment. Split the review
+    // rather than reducing its native resolution or introducing lossy encoding.
+    const batches = [];
+    let batch = [];
+    for (const item of encoded) {
+      const candidate = [...batch, item];
+      if (batch.length && Buffer.byteLength(fragment(candidate, group.id)) >= 1_000_000) {
+        batches.push(batch);
+        batch = [item];
+      } else {
+        batch = candidate;
+      }
+    }
+    if (batch.length) batches.push(batch);
+    for (const [index, items] of batches.entries()) {
+      const id = index ? `${group.id}-${index + 1}` : group.id;
+      const html = fragment(items, id);
+      if (Buffer.byteLength(html) >= 1_000_000) throw new Error(`${id} has one native render larger than the inline size limit`);
+      const destination = path.join(inlineDirectory, `${id}.html`);
+      await fs.writeFile(destination, html);
+      console.log(`${group.title}: ${items.length} renders, 2× lossless, ${Buffer.byteLength(html)} bytes, ${destination}`);
+    }
   }
 }
 console.log(`Review index: ${path.join(preview, 'README.md')}`);
