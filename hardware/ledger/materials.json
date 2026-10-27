@@ -3577,6 +3577,11 @@
       ],
       "documents": [
         {
+          "title": "Finished above-counter plate engineering drawing",
+          "path": "printed-parts/faucet/above-counter-plate/above-counter-plate-drawing.pdf",
+          "kind": "engineering-drawing"
+        },
+        {
           "title": "Part details",
           "path": "printed-parts/faucet/above-counter-plate/README.md"
         }
