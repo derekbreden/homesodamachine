@@ -1,14 +1,15 @@
 {
- "gatesPass": true,
+ "gatesPass": false,
  "checks": [
   {
    "id": "bodies-clear",
    "label": "No two placed solids share volume",
    "kind": "gate",
-   "status": "pass",
-   "value": "0 clash",
+   "status": "fail",
+   "value": "1 clash",
    "target": "0 clash",
    "detail": [
+    "foam-cap-lid-top \u2229 reservoir-a-fore-snap-cap = 34.87 mm\u00b3",
     "carbonator-tube \u2229 evap-coil: the wrap rides it \u2014 see RIDES_ON",
     "evap-coil \u2229 reed-bridge: the wrap rides it \u2014 see RIDES_ON",
     "evap-coil \u2229 reed-carb-1: the wrap rides it \u2014 see RIDES_ON",
