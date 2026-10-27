@@ -1,0 +1,95 @@
+{
+  "views": [
+    {
+      "name": "formed-coil",
+      "caption": "The finished winding has 9½ turns. Both tails use tangent R15 mm bends and retain their shell exit stations.",
+      "before": "formed-coil-before.webp",
+      "after": "formed-coil-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 429.2,
+          "y": 357.5,
+          "r": 30,
+          "label": "Outlet R15 form",
+          "at": [
+            -38.522,
+            77.5,
+            110
+          ]
+        },
+        {
+          "x": 796.9,
+          "y": 672,
+          "r": 30,
+          "label": "Inlet R15 dogleg",
+          "at": [
+            -37.39,
+            -77.5,
+            37.709
+          ]
+        }
+      ],
+      "model": "cold-core-layout/cold-core-assembly.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          -371.98185207528826,
+          -256.91431234486936,
+          286.84677261445046
+        ],
+        "target": [
+          -45,
+          0,
+          100
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 150,
+        "near": 272.8832010107197,
+        "far": 766.7618003880627,
+        "aspect": 1.3333333333333333
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [
+        "evap-coil",
+        "evap-tail-inlet",
+        "evap-tail-outlet"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "cold-core-layout/cold-core-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "25056030e5fff5adb725157b9be573e4f7682d3f2cdce2daec3a9f1ffc8f84ed",
+          "commit": "71015831622275affd4d4abd6c5c40b5c88ee6c8",
+          "taken": "2026-10-27T06:13:20.871Z",
+          "published": false
+        },
+        "after": {
+          "payload": "cold-core-layout/cold-core-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "c056f0de71d47c4fa460592d63a889247daf329580bdde8abf0afde0d70910a5",
+          "commit": "8c5eb27e7bb12e96802f71b8ac88eae2f04f2545",
+          "published": false
+        }
+      },
+      "changed": [
+        "reservoir-a-fore-snap-cap",
+        "probe-coil-ds18s20",
+        "evap-tail-outlet",
+        "evap-tail-inlet",
+        "foam-cap-lid-top",
+        "evap-coil"
+      ],
+      "withinMeshing": [
+        "probe-carbonator-ds18b20"
+      ]
+    }
+  ]
+}
