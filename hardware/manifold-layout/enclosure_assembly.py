@@ -3035,6 +3035,7 @@ def co2_wall_port(inlet_carry):
 # body added to the assembly that is not part of that pack has to be named here or it
 # joins the box and moves every one of them.
 STANDALONE = ("compressor", "condenser+fan", "foam-assembly", "g-ganen-pump",
+              "reservoir-a-fore-snap-cap",
               *(f"{name}{part}" for name, _toward in PUMP_ELBOWS.values()
                 for part in ("", "-clamp-barb", "-clamp-tube")),
               "funnel", "discharge-chain", "display", "display-cover",

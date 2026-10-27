@@ -41,7 +41,7 @@
    "label": "Every billed cold-core part has a body here",
    "kind": "goal",
    "status": "fail",
-   "value": "31/38",
+   "value": "32/39",
    "target": "a body per billed part",
    "detail": [
     "PTFE thread tape \u2014 billed, no solid here (\"Millrose 70894 Nickel Guard\")",
@@ -109,7 +109,7 @@
    "label": "Every body the core carries is placed",
    "kind": "goal",
    "status": "pass",
-   "value": "58/58",
+   "value": "59/59",
    "target": "a solid per body",
    "detail": [],
    "active": false
@@ -139,7 +139,7 @@
    "label": "A feature of another placed part locates every body",
    "kind": "goal",
    "status": "fail",
-   "value": "56/58",
+   "value": "57/59",
    "target": "a located joint per body",
    "detail": [
     "probe-carbonator-ds18b20: foil tape",
@@ -192,6 +192,7 @@
   "reed-carb-2",
   "reservoir-a",
   "reservoir-a-cap",
+  "reservoir-a-fore-snap-cap",
   "reservoir-a-gasket",
   "reservoir-b",
   "reservoir-b-cap",

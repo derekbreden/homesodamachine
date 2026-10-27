@@ -138,8 +138,10 @@ records the current rigid-slide and final-connection limits.
 5. Close the box per [enclosure-mechanical.md](enclosure-mechanical.md); the
    front-bottom and front-top looms have landed at their devices by then
    ([wiring.md](wiring.md)). Through the funnel opening, with the frame out:
-   - Stack the ground rings on the lid boss: carbonator bond, inlet PE bus and
-     compressor PE, then the flat washer and M3 × 8.
+   - Stack the ground rings on the lid boss: carbonator bond at 120°, inlet PE bus at
+     300° and compressor PE at 240°, then the flat washer and M3 × 8. Angles run from
+     +X toward +Y about +Z. Dress the inlet earth feed around the fore side of the
+     stack, keeping its last 6 mm straight into the crimp barrel.
    - Land the free ends of DC-1 and DC-2 in the V12 and GND junctions.
    - Make the three joins: the compressor's switched-H core with the relay 1
      NO pigtail, its neutral core with the N-junction pigtail, and the pump

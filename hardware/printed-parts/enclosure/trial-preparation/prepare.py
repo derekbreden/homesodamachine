@@ -97,8 +97,8 @@ class Mesh:
         return points @ self.rotation
 
 
-def regions_for(spec: dict, key: str, mesh: Mesh) -> dict:
-    path = ROOT / spec["regions"]
+def regions_for(spec: dict, key: str, mesh: Mesh, record_file: str | None = None) -> dict:
+    path = ROOT / (record_file or spec["regions"])
     record = json.loads(path.read_text())
     bound = record["native_artifact_sha256"].get(key)
     if bound is None:
@@ -106,7 +106,8 @@ def regions_for(spec: dict, key: str, mesh: Mesh) -> dict:
     if bound[".stl"] != mesh.sha256 or (mesh.step_sha256 and bound[".step"] != mesh.step_sha256):
         raise ValueError(f"{relative(path)} binds {key} to STL {bound['.stl'][:12]} / STEP {bound['.step'][:12]}; "
                          f"the current exports are {mesh.sha256[:12]} / {(mesh.step_sha256 or '-')[:12]}. "
-                         "Regenerate it with heat-set-review/print_regions.py from the current geometry.")
+                         f"Regenerate it with {record.get('producer', 'heat-set-review/print_regions.py')} "
+                         "from the current geometry.")
     return {"record": relative(path), "record_sha256": _mesh.sha256(path), "rows": record["pieces"][key],
             "part_process_overrides": record.get("part_process_overrides", {}).get(key)}
 
@@ -294,7 +295,8 @@ def prepare(name: str, printer: str | None = None, parts: list[dict] | None = No
         if (key, declared) not in derived:
             derived[(key, declared)] = derive(mesh, part.get("features", []))
         features = derived[(key, declared)]
-        regions = regions_for(spec, part["regions"], mesh) if part.get("regions") else None
+        regions = (regions_for(spec, part["regions"], mesh, part.get("regions_file"))
+                   if part.get("regions") else None)
         for copy in range(part.get("quantity", 1)):
             instances.append({"part": part, "mesh": mesh, "features": features, "regions": regions,
                               "name": part.get("name", Path(part["stl"]).stem) + (f"-{copy + 1}" if part.get("quantity", 1) > 1 else "")})
@@ -609,7 +611,7 @@ def run_external(name: str, piece: dict) -> None:
 
 def listing() -> None:
     spec = json.loads(SPEC_PATH.read_text())
-    regions = json.loads((ROOT / spec["regions"]).read_text())["native_artifact_sha256"]
+    region_files = {}
     for name, piece in spec["pieces"].items():
         nozzle = piece.get("nozzle", {})
         head = (f"{name:22s} {piece['printer']:6s} {nozzle.get('side', '-'):5s} {nozzle.get('diameter_mm', 0):g} mm "
@@ -626,7 +628,11 @@ def listing() -> None:
             state = "missing" if not path.is_file() else _mesh.sha256(path)[:12]
             binding = ""
             if part.get("regions") and path.is_file():
-                bound = regions.get(part["regions"], {}).get(".stl")
+                region_file = part.get("regions_file", spec["regions"])
+                if region_file not in region_files:
+                    region_files[region_file] = json.loads(
+                        (ROOT / region_file).read_text())["native_artifact_sha256"]
+                bound = region_files[region_file].get(part["regions"], {}).get(".stl")
                 binding = "regions bound" if bound == _mesh.sha256(path) else "regions stale"
             print(f"    {part.get('quantity', 1)} x {part['stl']}  {state}  {binding}")
 

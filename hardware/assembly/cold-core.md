@@ -89,16 +89,17 @@ The V-B return has its own integral lid restraint and one six-inch narrow tie. T
 
 The main PCB uses the full-length inserts prepared here. The PSU and both relays mount on back-top's dry sidewall; their wall inserts are installed during enclosure assembly. The electronics ceiling is continuous.
 
-The Reservoir A fill/draw pair lies in two shallow integral lid seats at
-Y205 and Y304 mm. Draw occupies the west seat at each station. Thread one
-four-inch narrow tie through each empty transverse slot before laying in
-both continuous tubes; one common tie retains the pair. The seat floor
-above each slot is 3 mm. Their plain cap guides add no joint or physical
-tube cut; follow the combined warm/internal preparation in
-[internal plumbing](internal-plumbing.md). Tighten the pump screws before
-threading the continuous draw tube, which crosses one driver approach;
-remove the tube for that screw's service. Nominal tie witnesses do not
-qualify physical threading, head engagement or retention.
+The Reservoir A fill/draw pair uses a fore snap seat at Y209.75 mm and an aft tied
+seat at Y304 mm on the lid. Draw occupies the west seat at each station. Lay both continuous tubes into the fore
+half-pipes and press the separate `reservoir-a-fore-snap-cap` down until both snap wings
+engage the integral base. At the aft station, Y304 mm, thread one four-inch narrow tie
+through the empty transverse slot before laying in the pair; one common tie retains
+both tubes there. Its slot has 3 mm of seat floor above it. Their plain cap guides add
+no joint or physical tube cut; follow the combined warm/internal preparation in
+[internal plumbing](internal-plumbing.md). Tighten the pump screws before threading
+the continuous draw tube, which crosses one driver approach; remove the tube for that
+screw’s service. Snap fit, insertion force and retention remain physically unqualified;
+the aft tie witness does not qualify threading, head engagement or retention.
 
 ### 4. Reservoir subassembly (both, at the bench)
 

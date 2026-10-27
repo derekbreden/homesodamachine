@@ -1,5 +1,5 @@
 """Reference solid for the chassis-ground ring-terminal stack — the physical
-realization of the single-point "ground bus" on the +X wall of back-top.
+realization of the single-point "ground bus" on the cold-core lid.
 
 This is not one SKU: it is the bolted stack that *is* the bus. An M3 × 8
 SHCS through a flat washer clamps a fan of insulated ring terminals —
@@ -35,7 +35,7 @@ from _materials import C_GND, one_body
 # --- Stack geometry (standard M3 hardware + insulated ring terminals) ------
 # The bonds bottom-up, as electronics-bay.md stacks them, each with its lug's bearing about the
 # stud. No lug points east (0°), where Reservoir A's draw tube passes the stack.
-RINGS = (("carbonator", 120.0), ("inlet", 60.0), ("compressor", 240.0))
+RINGS = (("carbonator", 120.0), ("inlet", 300.0), ("compressor", 240.0))
 ring_count = len(RINGS)
 
 eye_od = 8.0            # ring-terminal tongue outer diameter
@@ -85,10 +85,10 @@ def landing():
 
 
 def build():
-    part = None
-    for i, (_bond, bearing) in enumerate(RINGS):
-        ring = _ring(i * tongue_t, bearing)
-        part = ring if part is None else part.union(ring)
+    # The rings, washer and screw are distinct physical hardware. Keep their
+    # touching native solids in one reference compound rather than fusing them.
+    parts = [_ring(i * tongue_t, bearing).val()
+             for i, (_bond, bearing) in enumerate(RINGS)]
     top = landing()[0][2]
 
     washer = (
@@ -99,7 +99,7 @@ def build():
         cq.Workplane("XY").cylinder(washer_t + 2, hole_d / 2.0, centered=(True, True, False))
         .translate((0, 0, top - 1))
     )
-    part = part.union(washer)
+    parts.append(washer.val())
 
     head_z = top + washer_t
     shank = (
@@ -110,7 +110,8 @@ def build():
         cq.Workplane("XY").cylinder(head_h, head_d / 2.0, centered=(True, True, False))
         .translate((0, 0, head_z))
     )
-    return part.union(shank).union(head)
+    parts.extend((shank.val(), head.val()))
+    return cq.Workplane(obj=cq.Compound.makeCompound(parts))
 
 
 def main():
