@@ -1459,22 +1459,18 @@
           },
           {
             "material": "HSM-000010",
-            "quantity": 4,
+            "quantity": 3,
             "unit": "ea",
             "bodies": [
               "carbonator-elbow-co2-in",
               "carbonator-elbow-carb-water-out",
-              "carbonator-elbow-water-in",
               "carbonator-elbow-prv"
             ]
           },
           {
-            "material": "HSM-000011",
+            "material": "HSM-000338",
             "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "water-inlet-jet-cap-nominal"
-            ]
+            "unit": "ea"
           },
           {
             "material": "HSM-000012",
@@ -6276,6 +6272,58 @@
         "Reservoir A fore snap cap",
         "fore paired tube snap cap"
       ]
+    },
+    {
+      "id": "HSM-000338",
+      "description": "Carbonator water-inlet jet elbow",
+      "kind": "assembly",
+      "aliases": [
+        "welded water inlet jet",
+        "jet elbow assembly",
+        "water-inlet jet weldment"
+      ],
+      "contexts": [
+        {
+          "material": "HSM-000004"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Water-inlet jet elbow assembly engineering drawing",
+          "path": "cold-core-layout/water-inlet-jet-elbow-drawing.pdf",
+          "kind": "engineering-drawing"
+        },
+        {
+          "title": "Jet fabrication and elbow fit",
+          "path": "assembly/water-inlet-jet.md"
+        },
+        {
+          "title": "Drilling and welding bench guide",
+          "path": "water-inlet-jet-guide/water-inlet-jet-guide.pdf"
+        }
+      ],
+      "bom": {
+        "scope": "One TAISHER street elbow with the drilled 316 cap welded to its male tip. The external push-connect adapter and port seal are installed with the vessel.",
+        "source": "assembly/water-inlet-jet.md",
+        "items": [
+          {
+            "material": "HSM-000010",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "carbonator-elbow-water-in"
+            ]
+          },
+          {
+            "material": "HSM-000011",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "water-inlet-jet-cap-nominal"
+            ]
+          }
+        ]
+      }
     }
   ]
 }
