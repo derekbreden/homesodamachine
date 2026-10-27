@@ -790,7 +790,7 @@
         },
         "enable_support": {
           "value": "1",
-          "reason": "Tree(auto)/Default supports the water-check pedestal tie passage, V-B return ledge and rectangular WAGO well end walls; retain the native automatic choices and remove supports through their open mouths."
+          "reason": "Tree(auto)/Default supports the V-B return ledge and rectangular WAGO well end walls. The water-check tie passage has a 45-degree peaked roof. Retain native automatic support choices."
         }
       },
       "plate_border_mm": 20.0,

@@ -1,0 +1,24 @@
+{
+  "scope": "Manual emitted-bead reading through the nominal straight 2.5 \u00d7 0.8 mm retaining-strip core, across the complete pedestal passage. Geometric G-code reading only; physical threading and tie head unqualified. No automatic preparation or build check added.",
+  "archive": ".cache/prints/trial/2026-10-27-foam-cap-lid-top-mark1-9993631f/2026-10-27-foam-cap-lid-top-mark1-9993631f.gcode.3mf",
+  "archive_sha256": "becc2e122ec314a0f2a2193831677c547ddaec8aeaa6111a2a113b85399fa284",
+  "core_plate_xy_mm": [
+    127.53701604012355,
+    123.44820033878733,
+    130.03701604012355,
+    135.0296788892109
+  ],
+  "core_plate_z_mm": [
+    18.187349821336888,
+    18.987349821336885
+  ],
+  "intersecting_layer_tops_mm": [
+    18.2,
+    18.44,
+    18.68,
+    18.92,
+    19.16
+  ],
+  "model_or_support_bead_crossings": [],
+  "nominal_straight_core_clear": true
+}

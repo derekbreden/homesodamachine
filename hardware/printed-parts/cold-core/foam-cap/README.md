@@ -64,7 +64,7 @@ head engagement and retention remain unqualified.
 | Restraint | Nominal strip route | Allocated tie |
 | --- | ---: | --- |
 | V-B outlet return | Selected route under access review | One 152.4 mm narrow tie |
-| Water-check barrel | 71.63 mm | One 152.4 mm narrow tie |
+| Water-check barrel | 72.34 mm | One 152.4 mm narrow tie |
 
 The [production arrangement](../../../manifold-layout/above-core.md) owns the
 installed component frames. [_above_core_mounts.py](../_above_core_mounts.py)
@@ -135,13 +135,14 @@ electrical and nominal-tie contacts retain their explicit fixture status.
 The [neoFit ACHV44-E water check](../../../reference/neofit-achv44-check/README.md)
 uses an 8.8 mm-long east quarter bearing beginning 0.5 mm inside its fixed barrel
 band. Its full 11.58 × 8.8 mm pedestal reaches the lid directly, ahead of the
-fore pump foot. A straight 2.8 × 3.2 mm transverse tie passage retains 3 mm
+fore pump foot. A transverse tie passage has 2.8 mm width, 1.8 mm straight sides and a
+45° peaked roof at 3.2 mm overall height. It retains 3 mm
 of stock beneath the bearing and at both axial ends. The printed pedestal clears
 all four pump-driver columns. Fasten the pump before seating the check. For pump service,
 release or disconnect the removable check group to clear that driver lane.
 
 The water check's complete nominal 2.5 × 0.8 mm retaining-strip path is
-71.63 mm, read from `check_tie_route()`. Thread it through the pedestal's straight passage
+72.34 mm, read from `check_tie_route()`. Thread it through the pedestal's straight passage
 before seating the check. One six-inch narrow tie is allocated. The
 outlet elbow has 0.4 mm exposed stem ahead of the reference's 16.891 mm
 receiving depth. The check's exterior scale and receiving depth are

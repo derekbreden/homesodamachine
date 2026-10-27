@@ -2,9 +2,10 @@
 
 The water check's east-lower quarter bearing stands on one filled 11.58 × 8.8 mm
 pedestal rooted directly in the top lid. The bearing begins 0.5 mm inside the
-check's fixed barrel band. Its straight transverse tie passage is 2.8 × 3.2 mm;
+check's fixed barrel band. Its transverse tie passage is 2.8 mm wide with 1.8 mm straight sides and
+a 45° peaked roof at 3.2 mm overall height;
 the seat floor and both axial ends retain 3 mm stock. The nominal 2.5 × 0.8 mm
-strip follows a 71.63 mm route within one six-inch narrow tie.
+strip follows a 72.34 mm route within one six-inch narrow tie.
 
 [Native readings](native.json) cover the one-solid lid, complete nominal strip
 and actual published equipment and wire bodies. The pump has 1.52 mm CAD air;
