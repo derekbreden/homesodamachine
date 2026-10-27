@@ -1,0 +1,74 @@
+{
+  "views": [
+    {
+      "name": "bearing",
+      "caption": "The water-check bearing stands on a filled pedestal ahead of the pump foot, with a straight peaked-roof tie passage.",
+      "before": "bearing-before.webp",
+      "after": "bearing-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 818.5,
+          "y": 473.6,
+          "r": 90,
+          "label": "Direct lid root",
+          "at": [
+            -34,
+            -25,
+            15
+          ]
+        }
+      ],
+      "model": "printed-parts/cold-core/foam-cap/foam-cap-lid-top.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          -2.0484199269597525,
+          -466.5158007304024,
+          280.7094804382414
+        ],
+        "target": [
+          -46,
+          -27,
+          17
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 25,
+        "near": 320.7904742059755,
+        "far": 878.100534175951,
+        "aspect": 1.3333333333333333
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [
+        "foam-cap-lid-top"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh",
+          "from": "snapshot",
+          "sha256": "c2bd08eec09fc4bee942cd86ddea0e38daf01ab7a033f3e70fab86a895c5d514",
+          "commit": "dd3c1464ffab61e2a9456bd21b01c4c43401e1fd",
+          "taken": "2026-10-27T15:15:00.173Z",
+          "published": true
+        },
+        "after": {
+          "payload": "printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh",
+          "from": "file",
+          "sha256": "5dec15ecb50afa83ad07a534992ee36c57bd255097f7eb9cfccc89cc172ecfd6",
+          "commit": null
+        }
+      },
+      "changed": [
+        "foam-cap-lid-top"
+      ],
+      "withinMeshing": []
+    }
+  ]
+}

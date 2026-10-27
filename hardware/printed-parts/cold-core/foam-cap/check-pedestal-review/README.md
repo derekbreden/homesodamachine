@@ -24,3 +24,15 @@ The valve's reference dimensions remain inferred from vendor media; the
 purchase ledger lists the actual valves on order. These readings establish
 geometry and access, not physical bearing fit, tie-head engagement, load
 capacity or lifetime.
+
+The [Mark1 preparation](print-preparation.json) uses the left hardened 0.4 mm
+Standard nozzle, PET-GF, Textured PEI and the printer’s +0.18 mm requested trim
+(+0.16 mm emitted). The [native slice review](slice.json) passes its eight
+checks with 21.2 mm full-bead bed margin. The separate [passage reading](slot-slice.json)
+finds no emitted model or support bead in the complete nominal strip lane.
+Tree(auto)/Default remains enabled for the other features. No printer job was sent.
+
+[Publication](publication.json) and [live source readings](live.json) bind the
+current native and displayed lid. The [post-publication lint reading](lint.json)
+finds no defect on the pedestal; existing functional fit and spring exceptions
+remain documented at the part’s lint-answer path.

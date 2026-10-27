@@ -1,0 +1,17 @@
+{
+  "scope": "Only water-check lid geometry and its retained parent/scene surfaces published. Physical check-valve fit remains unmeasured.",
+  "source_commit": "1d482095e104ec73fe3fa9bdecd12c9cf8c86e43",
+  "changed_artifacts": {
+    "hardware/assembly/scenes/glb/back-half.glb": "5df02b0f4c04f4dfbd0306e94f2431b5e06a632464b6f44e341ef972129948a4",
+    "hardware/assembly/scenes/glb/cap-lid-fill.glb": "dd11bf6eb2135cca2e61ac2076c0fe76ba210d1418e6f2ae90085755c8aa4ca1",
+    "hardware/assembly/scenes/glb/cap-lid.glb": "9515723e81d42f81fc7157d497334eff02c78599494bc29f081e7cb2788446d2",
+    "hardware/assembly/scenes/glb/cold-core.glb": "a4832c2b73462233455f5a7f9020f91f1054e311b005ee4baf9d7e77c7c120c2",
+    "hardware/cold-core-layout/cold-core-assembly.step": "7c8ea0c56b9d2ba515401632131697a16e9a0c019ebdcd948e6187517edc831d",
+    "hardware/manifold-layout/enclosure-assembly.step": "7e27e2b2c0aac042bc0038a72dde31354632fb9f516ba6d2fb762ca7e8fb9c21",
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": "b50862a5af3bde9d69e38965a065cb7db55b1b8ceb2cf4b1cc560fb723bae64d",
+    "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step": "4a9769935205940904a0a686f4a4cb591511b7651d4c0fc08e82a3bb22847df7",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step": "83a5d01e6615d02a9664b5409fe48b9bb63fc92efdc7a506038e177f80e7d08f",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh": "5dec15ecb50afa83ad07a534992ee36c57bd255097f7eb9cfccc89cc172ecfd6",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl": "9947ffffc1119b85b9d3909e400098dd30fe88c490c86d188431ba059e3a283f"
+  }
+}
