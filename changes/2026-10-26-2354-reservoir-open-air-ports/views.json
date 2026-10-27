@@ -1,0 +1,136 @@
+{
+  "views": [
+    {
+      "name": "air-port",
+      "caption": "The 4 mm air tube passes through its flush TPU grommet directly into the reservoir headspace.",
+      "before": "air-port-before.webp",
+      "after": "air-port-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 600,
+          "y": 493.7,
+          "r": 23.6,
+          "label": "Open tube tip",
+          "at": [
+            26,
+            443.8,
+            228.15
+          ]
+        },
+        {
+          "x": 600,
+          "y": 422.8,
+          "r": 47.4,
+          "label": "TPU grip",
+          "at": [
+            26,
+            443.8,
+            231.15
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          71.30721357558619,
+          450.5960820363379,
+          232.2653606787793
+        ],
+        "target": [
+          26,
+          443.8,
+          230
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 0.16067000372444626,
+        "far": 244.78895261618501,
+        "aspect": 1.3333333333333333,
+        "section": {
+          "at": [
+            26,
+            443.8,
+            230
+          ],
+          "normal": [
+            1,
+            0,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [
+        "cold-core/reservoir-a-cap",
+        "cold-core/reservoir-grip-a-air",
+        "cold-core/tube-reservoir-air-a"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "259efa63130b8ac31fda3ff03ec469ab751aee699367082bb4ffe807782bead8",
+          "commit": "8c7b1786b8a1e436e4206b5c1676fd1588e3acd7",
+          "taken": "2026-10-27T04:40:38.345Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "1981407ca76860d1407172755a1c2ec595270aec957b3b7eb1a03744c87d0c0b",
+          "commit": "a5bb9279415e583978fc6c69f9c7ea9f8b031f67",
+          "published": true
+        }
+      },
+      "changed": [
+        "wire-DC3-negative",
+        "cold-core/wago-sensors",
+        "wire-J4-GND",
+        "wire-J7-carb-earth-2",
+        "wire-DC1-GND",
+        "wire-temp-GND",
+        "wire-flow-GND",
+        "wire-J7-earth-4",
+        "cold-core/wago-reeds-b",
+        "wire-DC4-GND",
+        "wire-J7-GND",
+        "wire-DC4-V12",
+        "wire-DC2-V12",
+        "cold-core/wago-v12",
+        "cold-core/wago-gnd",
+        "wire-DC1-V12",
+        "wire-J1-OUT2",
+        "tube-above-core-va-fore-feed",
+        "cold-core/reservoir-b-cap",
+        "cold-core/reservoir-a-cap",
+        "tube-fluid-16",
+        "tube-fluid-14",
+        "tube-above-core-drain-vb-east-link",
+        "cold-core/vb-outlet-return",
+        "cold-core/valve-v-b",
+        "tube-above-core-vb-yb-link",
+        "cold-core/vb-outlet-stem",
+        "cold-core/vb-inlet-turn",
+        "cold-core/reservoir-a-fore-snap-cap",
+        "wire-J1-positive-B",
+        "cold-core/tube-above-core-vb-yb-cross"
+      ],
+      "withinMeshing": [
+        "tube-above-core-va-under-head",
+        "tube-above-core-water-in",
+        "cold-core/evap-coil",
+        "funnel"
+      ]
+    }
+  ]
+}
