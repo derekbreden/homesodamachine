@@ -6,8 +6,11 @@ top plate from outside; the cap discharges into the CO2 headspace. The plate is
 one of the identical purchased SendCutSend blanks. The other top port carries
 the PRV, and the bottom ports carry plain CO2 and soda-water elbows.
 
-**Status: fabrication trial, unqualified.** The cap dimensions below describe
-the first fit and welding trial. The actual elbow bore and tip, completed NPT
+**Status: elbow fit and welding unqualified.** The
+[finished cap engineering drawing](../cold-core-layout/water-inlet-jet-cap-drawing.pdf)
+(JET-CAP-01, Rev A) defines the drilled, face-finished and deburred component
+before welding, including hole size, centering, alignment and edge limits.
+The actual elbow bore and tip, completed NPT
 engagement, weld root, hydraulic performance and carbonation performance have
 no measurements recorded here. The G Ganen B07F35PTFR diaphragm pump, Mean Well
 supply and enclosure are the baseline. The conditional pump arrangement is in
@@ -35,12 +38,15 @@ The jet cap is per-unit material; its clamping and purge fixtures are shop tools
 | Owned TAISHER TC025 304 compression needle valve, 1/4-inch OD both ends, [B0CLXHZZCW](https://www.amazon.com/dp/B0CLXHZZCW) | Throttles purge flow independently of torch shielding. |
 | Owned Mudder hose cutter, argon cylinder and RX Weld regulator/flowmeter | Cuts the existing 6 mm OD supply hose square and feeds both branches. The RHP400 is an alternate regulator, not a second simultaneous supply. |
 
-## Candidate dimensions and measured fit
+## Cap dimensions and measured fit
 
-| Feature | Trial specification |
+The drawing's limits apply to the finished cap. The dimensions below are its
+nominal geometry; actual elbow compatibility is established by the fit readings.
+
+| Feature | Nominal geometry |
 |---|---|
-| Cap OD | [9.5 mm](CAP_OD), subject to measured elbow land and port clearance |
-| Finished cap thickness | [2 mm](CAP_THICKNESS), initial cutting target ±0.2 mm |
+| Cap OD | [9.5 mm](CAP_OD); verify elbow land and port clearance below |
+| Finished cap thickness | [2 mm](CAP_THICKNESS), ±0.2 mm after face finishing and deburring |
 | Axial hole | [1/16 inch / 1.5875 mm](JET_BORE) |
 | Passage length / diameter | [1.26](JET_LD), from the nominal thickness and bore |
 | Nominal passage area | [1.979 mm²](JET_AREA), not a measured flow coefficient |

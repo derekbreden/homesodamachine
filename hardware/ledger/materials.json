@@ -2270,6 +2270,17 @@
         {
           "material": "HSM-000004"
         }
+      ],
+      "documents": [
+        {
+          "title": "Finished water-inlet jet cap engineering drawing",
+          "path": "cold-core-layout/water-inlet-jet-cap-drawing.pdf",
+          "kind": "engineering-drawing"
+        },
+        {
+          "title": "Jet fabrication and elbow fit",
+          "path": "assembly/water-inlet-jet.md"
+        }
       ]
     },
     {

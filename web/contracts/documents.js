@@ -37,6 +37,9 @@ const COMMITTED_DOCUMENT_FILES = new Set([
   "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate-drawing.pdf",
   "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate-drawing.pdf.json",
   "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate-drawing.cover.png",
+  "hardware/cold-core-layout/water-inlet-jet-cap-drawing.pdf",
+  "hardware/cold-core-layout/water-inlet-jet-cap-drawing.pdf.json",
+  "hardware/cold-core-layout/water-inlet-jet-cap-drawing.cover.png",
 ]);
 
 export function isCommittedDocumentFile(repoRel) {
