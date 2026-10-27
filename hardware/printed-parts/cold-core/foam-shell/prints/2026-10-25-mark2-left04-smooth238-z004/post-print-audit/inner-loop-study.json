@@ -1,0 +1,222 @@
+{
+  "archive": "2026-10-25-foam-shell-mark2-bdc6554c.gcode.3mf",
+  "scope": "Positive-extrusion inner-wall runs shorter than 5 mm entirely within native X -142..-136, abs(Y) 69..85. Group statistics limited to Z>=40 mm.",
+  "groups": {
+    "negative_corner": {
+      "run_count": 722,
+      "layer_count": 722,
+      "z_range_mm": [
+        40.04,
+        213.08
+      ],
+      "xy_length_range_mm": [
+        1.559190711200519,
+        1.6015825621647382
+      ],
+      "samples_at_z_200_12": [
+        {
+          "layer": 834,
+          "z_mm": 200.12,
+          "xy_length_mm": 1.600597058954174,
+          "start_to_end_gap_mm": 0.05980802621721556,
+          "deposited_filament_mm": 0.06083,
+          "moves": [
+            {
+              "native_start_mm": [
+                -139.489,
+                -82.351,
+                200.12
+              ],
+              "native_end_mm": [
+                -139.292,
+                -82.317,
+                200.12
+              ],
+              "xy_length_mm": 0.1999124808509966,
+              "e_mm": 0.00762,
+              "requested_speed_mm_s": 188.20788333333334,
+              "requested_acceleration_mm_s2": 8000.0,
+              "gcode_line": 3505072
+            },
+            {
+              "native_start_mm": [
+                -139.292,
+                -82.317,
+                200.12
+              ],
+              "native_end_mm": [
+                -139.292,
+                -81.817,
+                200.12
+              ],
+              "xy_length_mm": 0.5,
+              "e_mm": 0.01898,
+              "requested_speed_mm_s": 188.20788333333334,
+              "requested_acceleration_mm_s2": 8000.0,
+              "gcode_line": 3505073
+            },
+            {
+              "native_start_mm": [
+                -139.292,
+                -81.817,
+                200.12
+              ],
+              "native_end_mm": [
+                -139.684,
+                -81.817,
+                200.12
+              ],
+              "xy_length_mm": 0.39199999999999946,
+              "e_mm": 0.0149,
+              "requested_speed_mm_s": 188.20788333333334,
+              "requested_acceleration_mm_s2": 8000.0,
+              "gcode_line": 3505074
+            },
+            {
+              "native_start_mm": [
+                -139.684,
+                -81.817,
+                200.12
+              ],
+              "native_end_mm": [
+                -139.51,
+                -82.295,
+                200.12
+              ],
+              "xy_length_mm": 0.5086845781031779,
+              "e_mm": 0.01933,
+              "requested_speed_mm_s": 188.20788333333334,
+              "requested_acceleration_mm_s2": 8000.0,
+              "gcode_line": 3505075
+            }
+          ]
+        }
+      ]
+    },
+    "positive_corner": {
+      "run_count": 722,
+      "layer_count": 722,
+      "z_range_mm": [
+        40.04,
+        213.08
+      ],
+      "xy_length_range_mm": [
+        1.5423852715371675,
+        1.6009399850194899
+      ],
+      "samples_at_z_200_12": [
+        {
+          "layer": 834,
+          "z_mm": 200.12,
+          "xy_length_mm": 1.5948450357311699,
+          "start_to_end_gap_mm": 0.060406953242138434,
+          "deposited_filament_mm": 0.06061,
+          "moves": [
+            {
+              "native_start_mm": [
+                -139.678,
+                81.81700000000001,
+                200.12
+              ],
+              "native_end_mm": [
+                -139.292,
+                81.81700000000001,
+                200.12
+              ],
+              "xy_length_mm": 0.38599999999999923,
+              "e_mm": 0.01467,
+              "requested_speed_mm_s": 188.20788333333334,
+              "requested_acceleration_mm_s2": 8000.0,
+              "gcode_line": 3505091
+            },
+            {
+              "native_start_mm": [
+                -139.292,
+                81.81700000000001,
+                200.12
+              ],
+              "native_end_mm": [
+                -139.292,
+                82.31800000000001,
+                200.12
+              ],
+              "xy_length_mm": 0.5010000000000048,
+              "e_mm": 0.01902,
+              "requested_speed_mm_s": 188.20788333333334,
+              "requested_acceleration_mm_s2": 8000.0,
+              "gcode_line": 3505092
+            },
+            {
+              "native_start_mm": [
+                -139.292,
+                82.31800000000001,
+                200.12
+              ],
+              "native_end_mm": [
+                -139.487,
+                82.35400000000001,
+                200.12
+              ],
+              "xy_length_mm": 0.19829523443592592,
+              "e_mm": 0.00752,
+              "requested_speed_mm_s": 188.20788333333334,
+              "requested_acceleration_mm_s2": 8000.0,
+              "gcode_line": 3505093
+            },
+            {
+              "native_start_mm": [
+                -139.487,
+                82.35400000000001,
+                200.12
+              ],
+              "native_end_mm": [
+                -139.65800000000002,
+                81.874,
+                200.12
+              ],
+              "xy_length_mm": 0.5095498012952399,
+              "e_mm": 0.0194,
+              "requested_speed_mm_s": 188.20788333333334,
+              "requested_acceleration_mm_s2": 8000.0,
+              "gcode_line": 3505094
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "sample_834_retract_and_wipe": {
+    "negative_corner": {
+      "retract_before_mm": 0.8,
+      "unretract_mm": 0.8,
+      "extrusion_lines": [
+        3505072,
+        3505073,
+        3505074,
+        3505075
+      ],
+      "wipe_lines": [
+        3505078,
+        3505079,
+        3505080,
+        3505081
+      ],
+      "wipe_retract_mm": 0.76,
+      "stationary_retract_after_wipe_mm": 0.04
+    },
+    "positive_corner": {
+      "extrusion_lines": [
+        3505091,
+        3505092,
+        3505093,
+        3505094
+      ],
+      "wipe_lines": [
+        3505097,
+        3505098,
+        3505099,
+        3505100
+      ]
+    }
+  }
+}

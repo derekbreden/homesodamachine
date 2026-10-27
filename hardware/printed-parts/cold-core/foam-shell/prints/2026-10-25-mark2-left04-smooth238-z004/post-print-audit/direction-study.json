@@ -1,0 +1,400 @@
+{
+  "source": "sampled-paths.npz from the byte-identified sent-file audit",
+  "sampled_layers": [
+    {
+      "layer": 21,
+      "z_mm": 5.0,
+      "opposite_prv_face": {
+        "native_start_mm": [
+          -129.496,
+          -89.99,
+          5.0
+        ],
+        "native_end_mm": [
+          129.77800000000002,
+          -89.986,
+          5.0
+        ],
+        "requested_speed_mm_s": 200.0,
+        "requested_acceleration_mm_s2": 5000.0,
+        "gcode_line": 183805
+      },
+      "prv_face": {
+        "native_start_mm": [
+          129.49599999999998,
+          89.99000000000001,
+          5.0
+        ],
+        "native_end_mm": [
+          -129.785,
+          89.98599999999999,
+          5.0
+        ],
+        "requested_speed_mm_s": 200.0,
+        "requested_acceleration_mm_s2": 5000.0,
+        "gcode_line": 183860
+      }
+    },
+    {
+      "layer": 168,
+      "z_mm": 40.28,
+      "opposite_prv_face": {
+        "native_start_mm": [
+          -129.786,
+          -89.986,
+          40.28
+        ],
+        "native_end_mm": [
+          129.731,
+          -89.987,
+          40.28
+        ],
+        "requested_speed_mm_s": 200.0,
+        "requested_acceleration_mm_s2": 5000.0,
+        "gcode_line": 1031296
+      },
+      "prv_face": {
+        "native_start_mm": [
+          129.497,
+          89.99000000000001,
+          40.28
+        ],
+        "native_end_mm": [
+          -129.786,
+          89.98599999999999,
+          40.28
+        ],
+        "requested_speed_mm_s": 200.0,
+        "requested_acceleration_mm_s2": 5000.0,
+        "gcode_line": 1031351
+      }
+    },
+    {
+      "layer": 418,
+      "z_mm": 100.28,
+      "opposite_prv_face": {
+        "native_start_mm": [
+          -129.786,
+          -89.986,
+          100.28
+        ],
+        "native_end_mm": [
+          129.649,
+          -89.988,
+          100.28
+        ],
+        "requested_speed_mm_s": 200.0,
+        "requested_acceleration_mm_s2": 5000.0,
+        "gcode_line": 1958178
+      },
+      "prv_face": {
+        "native_start_mm": [
+          129.49599999999998,
+          89.99000000000001,
+          100.28
+        ],
+        "native_end_mm": [
+          -129.785,
+          89.98599999999999,
+          100.28
+        ],
+        "requested_speed_mm_s": 200.0,
+        "requested_acceleration_mm_s2": 5000.0,
+        "gcode_line": 1958232
+      }
+    },
+    {
+      "layer": 668,
+      "z_mm": 160.28,
+      "opposite_prv_face": {
+        "native_start_mm": [
+          -129.785,
+          -89.986,
+          160.28
+        ],
+        "native_end_mm": [
+          129.57,
+          -89.989,
+          160.28
+        ],
+        "requested_speed_mm_s": 200.0,
+        "requested_acceleration_mm_s2": 5000.0,
+        "gcode_line": 2885576
+      },
+      "prv_face": {
+        "native_start_mm": [
+          129.49599999999998,
+          89.99000000000001,
+          160.28
+        ],
+        "native_end_mm": [
+          -129.785,
+          89.98599999999999,
+          160.28
+        ],
+        "requested_speed_mm_s": 200.0,
+        "requested_acceleration_mm_s2": 5000.0,
+        "gcode_line": 2885632
+      }
+    },
+    {
+      "layer": 772,
+      "z_mm": 185.24,
+      "opposite_prv_face": {
+        "native_start_mm": [
+          -129.785,
+          -89.986,
+          185.24
+        ],
+        "native_end_mm": [
+          129.536,
+          -89.99,
+          185.24
+        ],
+        "requested_speed_mm_s": 200.0,
+        "requested_acceleration_mm_s2": 5000.0,
+        "gcode_line": 3276389
+      },
+      "prv_face": {
+        "native_start_mm": [
+          129.49599999999998,
+          89.99000000000001,
+          185.24
+        ],
+        "native_end_mm": [
+          -129.786,
+          89.98599999999999,
+          185.24
+        ],
+        "requested_speed_mm_s": 200.0,
+        "requested_acceleration_mm_s2": 5000.0,
+        "gcode_line": 3276445
+      }
+    },
+    {
+      "layer": 834,
+      "z_mm": 200.12,
+      "opposite_prv_face": {
+        "native_start_mm": [
+          -129.785,
+          -89.986,
+          200.12
+        ],
+        "native_end_mm": [
+          129.515,
+          -89.99,
+          200.12
+        ],
+        "requested_speed_mm_s": 200.0,
+        "requested_acceleration_mm_s2": 5000.0,
+        "gcode_line": 3505976
+      },
+      "prv_face": {
+        "native_start_mm": [
+          129.49599999999998,
+          89.99000000000001,
+          200.12
+        ],
+        "native_end_mm": [
+          -129.786,
+          89.98599999999999,
+          200.12
+        ],
+        "requested_speed_mm_s": 200.0,
+        "requested_acceleration_mm_s2": 5000.0,
+        "gcode_line": 3506032
+      }
+    },
+    {
+      "layer": 868,
+      "z_mm": 208.28,
+      "opposite_prv_face": {
+        "native_start_mm": [
+          -129.785,
+          -89.986,
+          208.28
+        ],
+        "native_end_mm": [
+          129.50400000000002,
+          -89.99,
+          208.28
+        ],
+        "requested_speed_mm_s": 200.0,
+        "requested_acceleration_mm_s2": 5000.0,
+        "gcode_line": 3674523
+      },
+      "prv_face": {
+        "native_start_mm": [
+          129.49599999999998,
+          89.99000000000001,
+          208.28
+        ],
+        "native_end_mm": [
+          -129.786,
+          89.98599999999999,
+          208.28
+        ],
+        "requested_speed_mm_s": 200.0,
+        "requested_acceleration_mm_s2": 5000.0,
+        "gcode_line": 3674579
+      }
+    },
+    {
+      "layer": 882,
+      "z_mm": 211.64,
+      "opposite_prv_face": {
+        "native_start_mm": [
+          -129.786,
+          -89.986,
+          211.64
+        ],
+        "native_end_mm": [
+          129.5,
+          -89.99,
+          211.64
+        ],
+        "requested_speed_mm_s": 200.0,
+        "requested_acceleration_mm_s2": 5000.0,
+        "gcode_line": 3749569
+      },
+      "prv_face": {
+        "native_start_mm": [
+          129.49599999999998,
+          89.99000000000001,
+          211.64
+        ],
+        "native_end_mm": [
+          -129.786,
+          89.98599999999999,
+          211.64
+        ],
+        "requested_speed_mm_s": 200.0,
+        "requested_acceleration_mm_s2": 5000.0,
+        "gcode_line": 3749625
+      }
+    },
+    {
+      "layer": 889,
+      "z_mm": 213.32,
+      "opposite_prv_face": {
+        "native_start_mm": [
+          -129.785,
+          -89.986,
+          213.32
+        ],
+        "native_end_mm": [
+          129.78699999999998,
+          -89.986,
+          213.32
+        ],
+        "requested_speed_mm_s": 200.0,
+        "requested_acceleration_mm_s2": 5000.0,
+        "gcode_line": 3785607
+      },
+      "prv_face": {
+        "native_start_mm": [
+          129.49599999999998,
+          89.99000000000001,
+          213.32
+        ],
+        "native_end_mm": [
+          -129.786,
+          89.98599999999999,
+          213.32
+        ],
+        "requested_speed_mm_s": 200.0,
+        "requested_acceleration_mm_s2": 5000.0,
+        "gcode_line": 3785689
+      }
+    }
+  ],
+  "slot_lip_at_z_200_12": [
+    {
+      "native_start_mm": [
+        -131.311,
+        -82.465,
+        200.12
+      ],
+      "native_end_mm": [
+        -138.171,
+        -82.46,
+        200.12
+      ],
+      "length_mm": 6.8600018221571775,
+      "gcode_line": 3505949,
+      "requested_speed_mm_s": 200.0,
+      "requested_acceleration_mm_s2": 5000.0
+    },
+    {
+      "native_start_mm": [
+        -138.171,
+        -82.46,
+        200.12
+      ],
+      "native_end_mm": [
+        -138.246,
+        -82.285,
+        200.12
+      ],
+      "length_mm": 0.1903943276466018,
+      "gcode_line": 3505950,
+      "requested_speed_mm_s": 200.0,
+      "requested_acceleration_mm_s2": 5000.0
+    },
+    {
+      "native_start_mm": [
+        -138.246,
+        -82.285,
+        200.12
+      ],
+      "native_end_mm": [
+        -138.51,
+        -82.285,
+        200.12
+      ],
+      "length_mm": 0.2639999999999816,
+      "gcode_line": 3505951,
+      "requested_speed_mm_s": 200.0,
+      "requested_acceleration_mm_s2": 5000.0
+    },
+    {
+      "native_start_mm": [
+        -138.51,
+        -82.285,
+        200.12
+      ],
+      "native_end_mm": [
+        -138.51,
+        -81.035,
+        200.12
+      ],
+      "length_mm": 1.25,
+      "gcode_line": 3505952,
+      "requested_speed_mm_s": 200.0,
+      "requested_acceleration_mm_s2": 5000.0
+    },
+    {
+      "native_start_mm": [
+        -138.51,
+        -81.035,
+        200.12
+      ],
+      "native_end_mm": [
+        -140.7,
+        -81.035,
+        200.12
+      ],
+      "length_mm": 2.1899999999999977,
+      "gcode_line": 3505953,
+      "requested_speed_mm_s": 200.0,
+      "requested_acceleration_mm_s2": 5000.0
+    }
+  ],
+  "geometric_context_mm": {
+    "ordinary_wall": 2.38,
+    "height": 213.4,
+    "slot_width": 6.65,
+    "ordinary_long_wall_to_pocket_gap": 14.94
+  },
+  "scope": "Direction and geometry are measured. Flutter, contact, damping, displacement, and actual speed are not measured. No fitted vibration model or frequency estimate."
+}
