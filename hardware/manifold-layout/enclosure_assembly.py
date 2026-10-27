@@ -1272,9 +1272,10 @@ _COND_UNPRINTED = "NOT PRINTED — no piece owns this station"
 #
 # The west bracket stands between the PSU and rear jack, its east face on the plane of the jack
 # pocket's west wall, so the jack's body passes it at the pocket's own fit. The east bracket
-# stands beside the pump. Both turn over the same plain aft cap crown.
+# stands three millimetres west of the wet-field recess. Both turn over the
+# same plain aft cap crown, with full-height roots on the unrecessed rear wall.
 KEYSTONE_FACE = _above.specification()['rear_wall']['dry_openings']['keystone']['face_center_mm']
-CORE_HOLD_LANES = ((-43.6, KEYSTONE_FACE[0] - _enc.keystone_pocket_width() / 2.0), (56.6, 65.6))
+CORE_HOLD_LANES = ((-43.6, KEYSTONE_FACE[0] - _enc.keystone_pocket_width() / 2.0), (12.0, 21.0))
 
 
 def core_stops(foam) -> tuple:

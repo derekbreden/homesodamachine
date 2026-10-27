@@ -1,0 +1,87 @@
+{
+  "scope": "East core hold on the unrecessed rear-wall strip. West hold, cold core, ports, routes and other back-top stock retained. Native geometry and rigid travel only; no physical load qualification.",
+  "before_east_bounds_mm": [
+    56.599999999999994,
+    65.6,
+    453.2999999,
+    462.3,
+    253.6499999,
+    258.0
+  ],
+  "after_east_bounds_mm": [
+    11.999999899999944,
+    21.000000100000058,
+    453.2999997999999,
+    462.3000001000001,
+    253.64999979999996,
+    293.6500000000001
+  ],
+  "after_holds": [
+    [
+      -43.6,
+      -37.475,
+      465.2999999,
+      253.3999999
+    ],
+    [
+      12.0,
+      21.0,
+      465.2999999,
+      253.3999999
+    ]
+  ],
+  "rear_wall_y_mm": 462.3,
+  "wall_root_area_mm2": 360.0,
+  "wall_root_height_mm": 40.0,
+  "east_hold_missing_from_export_mm3": 0.0,
+  "west_hold_symmetric_difference_mm3": 0.0,
+  "changed_stock_outside_local_region_mm3": 0.0,
+  "added_stock_mm3": 1939.500021599492,
+  "removed_stock_mm3": 347.8500120149997,
+  "cap_air_mm": 0.24999990000000594,
+  "actual_neighbors": [
+    {
+      "name": "tube-fluid-18",
+      "gap_mm": 14.249998871232002,
+      "common_mm3": 0.0
+    },
+    {
+      "name": "tube-fluid-28",
+      "gap_mm": 53.437540753687934,
+      "common_mm3": 0.0
+    },
+    {
+      "name": "cold-core/foam-cap-top",
+      "gap_mm": 5.808820568067165,
+      "common_mm3": 0.0
+    },
+    {
+      "name": "cold-core/foam-cap-lid-top",
+      "gap_mm": 0.24999990000000594,
+      "common_mm3": 0.0
+    },
+    {
+      "name": "wire-DC3-negative",
+      "gap_mm": 5.839541146531867,
+      "common_mm3": 0.0
+    }
+  ],
+  "continuous_300mm_closing": [
+    {
+      "name": "cold-core/foam-cap-top",
+      "swept_box_common_mm3": 0.0
+    },
+    {
+      "name": "cold-core/foam-cap-lid-top",
+      "swept_box_common_mm3": 0.0
+    }
+  ],
+  "baseline_assembly_sha256": "c003b866d11f8986d21d458a48b994b2264d730709113447019ba57623819f4a",
+  "piece_step_sha256": "4a0732e58eca56cbfe07ea5e667a5262f948bf03f65c3bd33932338a34d085bb",
+  "piece_stl_sha256": "4f0d797ef264d0cd36374eb0b6a9afad940c217288421d502e6d67309b9d9c26",
+  "source_sha256": {
+    "hardware/manifold-layout/enclosure_assembly.py": "23ef5eb102d11a79ba64575f865d4e60f35747663f4abd3ec6f56275bc1eb12b",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "c3b98b8e4bc113dc0952372d5ab00bee7e76081b9b38681a76674118de863d9b",
+    "hardware/manifold-layout/enclosure-box.json": "2fc18e48ab70b041610d700244e8517dc4b45510d07cfbaf3febf15f25e2a5b2"
+  }
+}

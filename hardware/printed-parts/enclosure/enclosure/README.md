@@ -508,7 +508,8 @@ Four features bearing on the core's own faces:
   This face prints upward with back-top inverted and adds no supported-face allowance.
   The straight web carries
   the flange. The west bracket occupies X−43.6..−37.6 between the PSU and rear jack;
-  the east bracket occupies X56.6..65.6 beside the pump. Their nominal native gaps are
+  the east bracket occupies X12..21, 3 mm west of the wet-field recess. Both
+  retain their complete 40 mm wall legs. The west bracket’s nominal gaps are
   0.40 mm to the PSU and 0.275 mm to the rear jack. The complete 300 mm horizontal
   back-column approach clears the populated core. These are CAD clearances;
   printed fit and restraint strength remain unqualified.
@@ -529,7 +530,7 @@ the corner blocks' pockets close around the front face with the same 0.25 mm all
 
 **The front blocks need no support**: they print floor-down with no overhang in them.
 The aft brackets print with back-top ceiling-down. Each cap-facing flat looks print-up;
-the opposite gusset face is 25° from vertical and lays on the preceding layers.
+the gusset face grows from the rear wall at more than 45° to the bed.
 The brackets take no print support.
 
 ## The reeded skin
