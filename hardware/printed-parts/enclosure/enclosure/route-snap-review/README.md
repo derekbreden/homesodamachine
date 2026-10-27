@@ -102,3 +102,7 @@ locations and loading space. The [native assembly receipt](native-assemblies.jso
 and [wiring reading](wiring-review.json) identify the retained fixture geometry,
 seated pump retainer and wire endpoints. The [integration receipt](integration.json)
 binds the installed native files and viewer payloads.
+The [publication receipt](publication.json) confirms the live viewer's native
+source, and the [post-publication geometry reading](post-publication-lint-review.json)
+records the working catch/spring faces and the C14 opening's existing
+classification answer.

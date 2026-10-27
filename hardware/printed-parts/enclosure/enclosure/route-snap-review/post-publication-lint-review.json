@@ -1,0 +1,291 @@
+{
+  "schema": 1,
+  "scope": "Manual post-publication reading of the back-top STL. No source geometry, print job or recurring build check changed.",
+  "published_context_reported_by_integrator": {
+    "source_commit": "bb2f0ec4d",
+    "appliance_native_sha256_prefix": "294da475",
+    "appliance_payload_sha256_prefix": "1716dc6c"
+  },
+  "command": "tmp/takeover/cadq \"Complete post-publication back-top lint reading\" -- /bin/zsh -c \"cd /Users/derekbredensteiner/Developer/homesodamachine && tools/cad-venv/bin/python hardware/scripts/geometry_lint.py hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl --all\"",
+  "printed_facets": 974198,
+  "raw_log": ".cache/route-snap-geometry-lint-all.txt",
+  "raw_log_sha256": "8ff008a4ba895cd20855eab5ee753aaf5ef51686fadf82efdbc5bdff63de6dca",
+  "source_artifact_and_answer_sha256": {
+    "hardware/scripts/geometry_lint.py": "aa8efd4c8ba0c5dbbcc9d3738b0cb9900e18071af71bfc82d46fb8f7af632dcf",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": "349b0a699a42e9e98f2ccd90546c15443deadffb6d03a212bcf5e62a2f0997fc",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "0702006a0e88137948f2e636d97462f36138d3114a37025b6f123561d7b2fff7",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh": "565e27623ec3d2b5008939ed2a53a5070e396e60bca7c13f32afb3b56f6fe192",
+    "hardware/printed-parts/cadlib/route_snap.py": "e9d1b350d7c639adc125ab01a99022d8a4eaaffac9c8278616722de0ec99ef47",
+    "hardware/printed-parts/enclosure/enclosure/_tube_snap_sites.py": "0ba3dbe3159b8423f863f09683f904cdebf8c808d79cc0de64cb302d233d2300",
+    "hardware/wiring/installed/retainers.py": "57b34f59389754f437ba2482dab49e66790b316b43c9275e18f66263bd65c180",
+    "hardware/printed-parts/enclosure/enclosure/_above_core_shell.py": "4977bcee4b7d3fef51a13b601473a66b0a010bf509fe883ab8ce5998fd225741",
+    "hardware/reference/iec-c14-inlet/iec_c14_inlet.py": "833422c7c9cad6e0cd1cb63efa559bb50f12f649314d572ed78752bb5036cba9",
+    "future/snap-fit-tests/2026-10-26-mark2-combined/physical-result.json": "530df05ff7593b0a95a5443576d41dc724411e99ba1c08a6ec10649e80c06166",
+    "hardware/printed-parts/lint-answers/enclosure/enclosure/enclosure-back-top.lint-answers": "ac88eb6b52b7813563f058d143cee68760279e5edb9f1f4d0ba7efe3c36890ac"
+  },
+  "all_displayed_instance_count": 76,
+  "all_displayed_class_counts": {
+    "sliver": 6,
+    "slope": 4,
+    "thin": 22,
+    "ledge": 10,
+    "ceiling": 34
+  },
+  "previously_unanswered_instance_count": 15,
+  "previously_unanswered_instances": [
+    {
+      "class": "sliver",
+      "summary": "0.750 mm strip, 16.0 mm long",
+      "anchors_mm": [
+        [
+          -95.375,
+          320.5,
+          254.35
+        ]
+      ],
+      "previously_answered": false,
+      "exact_current_anchor_answered": true
+    },
+    {
+      "class": "sliver",
+      "summary": "0.750 mm strip, 16.0 mm long",
+      "anchors_mm": [
+        [
+          -96.675,
+          267.0,
+          274.125
+        ]
+      ],
+      "previously_answered": false,
+      "exact_current_anchor_answered": true
+    },
+    {
+      "class": "sliver",
+      "summary": "0.600 mm strip, 8.0 mm long",
+      "anchors_mm": [
+        [
+          96.6,
+          274.0,
+          318.9
+        ]
+      ],
+      "previously_answered": false,
+      "exact_current_anchor_answered": true
+    },
+    {
+      "class": "slope",
+      "summary": "45\u00b0 underside runs along a wall with no level foot \u00b7 slope dir +1.00,+0.00 vs wall n +0.00,+1.00 \u00b7 along 6.9 mm \u00b7 39 mm\u00b2",
+      "anchors_mm": [
+        [
+          -79.302,
+          465.175,
+          323.248
+        ]
+      ],
+      "previously_answered": false,
+      "exact_current_anchor_answered": true
+    },
+    {
+      "class": "thin",
+      "summary": "1.520 mm of material at its thinnest \u00b7 55.6 mm\u00b2 of surface under 2.5 mm \u00b7 spans 6.1 \u00d7 2.1 \u00d7 4.6 mm \u00b7 in 5 pieces",
+      "anchors_mm": [
+        [
+          -2.375,
+          425.038,
+          337.513
+        ],
+        [
+          -2.375,
+          426.555,
+          337.605
+        ]
+      ],
+      "previously_answered": false,
+      "exact_current_anchor_answered": true
+    },
+    {
+      "class": "thin",
+      "summary": "1.520 mm of material at its thinnest \u00b7 55.1 mm\u00b2 of surface under 2.5 mm \u00b7 spans 6.2 \u00d7 2.1 \u00d7 4.6 mm \u00b7 in 5 pieces",
+      "anchors_mm": [
+        [
+          3.675,
+          423.852,
+          342.763
+        ],
+        [
+          3.675,
+          422.335,
+          342.855
+        ]
+      ],
+      "previously_answered": false,
+      "exact_current_anchor_answered": true
+    },
+    {
+      "class": "thin",
+      "summary": "1.520 mm of material at its thinnest \u00b7 55.6 mm\u00b2 of surface under 2.5 mm \u00b7 spans 6.1 \u00d7 2.1 \u00d7 4.6 mm \u00b7 in 5 pieces",
+      "anchors_mm": [
+        [
+          -0.375,
+          432.121,
+          337.162
+        ],
+        [
+          -0.375,
+          430.62,
+          337.402
+        ]
+      ],
+      "previously_answered": false,
+      "exact_current_anchor_answered": true
+    },
+    {
+      "class": "thin",
+      "summary": "1.520 mm of material at its thinnest \u00b7 55.1 mm\u00b2 of surface under 2.5 mm \u00b7 spans 6.2 \u00d7 2.1 \u00d7 4.6 mm \u00b7 in 5 pieces",
+      "anchors_mm": [
+        [
+          1.675,
+          416.769,
+          342.412
+        ],
+        [
+          1.675,
+          418.269,
+          342.652
+        ]
+      ],
+      "previously_answered": false,
+      "exact_current_anchor_answered": true
+    },
+    {
+      "class": "thin",
+      "summary": "1.520 mm of material at its thinnest \u00b7 53.8 mm\u00b2 of surface under 2.5 mm \u00b7 spans 2.1 \u00d7 6.2 \u00d7 4.5 mm \u00b7 in 5 pieces",
+      "anchors_mm": [
+        [
+          -38.569,
+          390.284,
+          341.939
+        ],
+        [
+          -37.05,
+          390.284,
+          341.957
+        ]
+      ],
+      "previously_answered": false,
+      "exact_current_anchor_answered": true
+    },
+    {
+      "class": "thin",
+      "summary": "1.520 mm of material at its thinnest \u00b7 53.7 mm\u00b2 of surface under 2.5 mm \u00b7 spans 2.1 \u00d7 6.2 \u00d7 4.5 mm \u00b7 in 5 pieces",
+      "anchors_mm": [
+        [
+          -31.431,
+          388.283,
+          341.939
+        ],
+        [
+          -32.95,
+          388.283,
+          341.957
+        ]
+      ],
+      "previously_answered": false,
+      "exact_current_anchor_answered": true
+    },
+    {
+      "class": "thin",
+      "summary": "2.400 mm of material at its thinnest \u00b7 19.6 mm\u00b2 of surface under 2.5 mm \u00b7 spans 3.0 \u00d7 2.0 \u00d7 2.8 mm \u00b7 in 4 pieces",
+      "anchors_mm": [
+        [
+          93.94,
+          263.999,
+          264.062
+        ],
+        [
+          94.085,
+          263.999,
+          261.667
+        ]
+      ],
+      "previously_answered": false,
+      "exact_current_anchor_answered": true
+    },
+    {
+      "class": "thin",
+      "summary": "2.400 mm of material at its thinnest \u00b7 28.3 mm\u00b2 of surface under 2.5 mm \u00b7 spans 4.0 \u00d7 4.7 \u00d7 2.8 mm \u00b7 in 3 pieces",
+      "anchors_mm": [
+        [
+          94.215,
+          263.999,
+          252.926
+        ],
+        [
+          94.243,
+          263.999,
+          255.326
+        ]
+      ],
+      "previously_answered": false,
+      "exact_current_anchor_answered": true
+    },
+    {
+      "class": "ledge",
+      "summary": "4.80 mm\u00b2 flat face 0\u00b0 off facing the bed \u00b7 8.0 \u00d7 0.6 mm \u00b7 36.1 mm up",
+      "anchors_mm": [
+        [
+          96.5,
+          272.667,
+          318.9
+        ]
+      ],
+      "previously_answered": false,
+      "exact_current_anchor_answered": true
+    },
+    {
+      "class": "ledge",
+      "summary": "12.00 mm\u00b2 flat face 0\u00b0 off facing the bed \u00b7 16.0 \u00d7 0.8 mm \u00b7 100.6 mm up",
+      "anchors_mm": [
+        [
+          -95.5,
+          317.833,
+          254.35
+        ]
+      ],
+      "previously_answered": false,
+      "exact_current_anchor_answered": true
+    },
+    {
+      "class": "ledge",
+      "summary": "12.00 mm\u00b2 flat face 0\u00b0 off facing the bed \u00b7 16.0 \u00d7 0.8 mm \u00b7 80.9 mm up",
+      "anchors_mm": [
+        [
+          -96.8,
+          264.333,
+          274.125
+        ]
+      ],
+      "previously_answered": false,
+      "exact_current_anchor_answered": true
+    }
+  ],
+  "remaining_unanswered_exact_anchors": [],
+  "answer_validation": "Each emitted class/pick is matched to the current answer file within the linter's 0.002 mm anchor tolerance. This text-only validation reuses the one complete STL lint run; it does not rerun the geometry analysis.",
+  "new_geometry_disposition": {
+    "cable_catch_surfaces": "Three sliver and three ledge readings are the functional retaining undersides of 3 mm stock hooks. The narrow projection sets the entry mouth; it is not a thin ordinary wall. Only the 4P section has the recorded physical fit acceptance.",
+    "tube_springs": "Six 1.52 mm readings are the free scaled 4 mm tube spring arms; two 2.40 mm readings are the selected C2 spring arms. The answers cover only those flexures, with the 4 mm fit and all full-enclosure print behavior still unqualified.",
+    "new_unexplained_shape_defects_identified": []
+  },
+  "c14_slope_disposition": {
+    "anchor_mm": [
+      -79.302,
+      465.175,
+      323.248
+    ],
+    "classification": "Source-derived slope misclassification, existing answer re-anchored.",
+    "source_reason": "_above_core_shell.c14_rear_cutters extrudes the measured inlet _body_profile through the rear wall; that profile has 4.85 mm lower 45 degree chamfers. In the ceiling-down print these become the roof corners of a through-opening, grown from the opening sides, rather than corbels running along a standing wall.",
+    "alternatives": "Read through-opening roofs separately; squaring the profile gives a flat roof over the measured chamfered body.",
+    "integrator_notified": true
+  },
+  "retained_answers_scope": "Existing unrelated answers, including any entries explicitly marked outside scope and unresolved, keep their original status. This review grants no blanket acceptance to those features."
+}
