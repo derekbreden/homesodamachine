@@ -1,0 +1,22 @@
+{
+  "observed_at": "2026-10-27T01:31:10.262556+00:00",
+  "printer": "Mark2",
+  "gcode_state": "RUNNING",
+  "active_subtask": "m5-seam-bearing-mark2-print-only.gcode.3mf",
+  "progress_percent": 68,
+  "remaining_minutes": 79,
+  "print_error": 0,
+  "hms": [
+    {
+      "attr": 201326848,
+      "code": 131095
+    }
+  ],
+  "left_external_spool": {
+    "type": "PET-CF",
+    "colour": "161616FF"
+  },
+  "physical_stock": "black Polymaker Fiberon PET-GF15 per retained loading report; PET-CF is its printer mapping",
+  "left_nozzle": "fixed hardened 0.4 mm; Standard-flow prepared archive",
+  "shell_submitted": false
+}

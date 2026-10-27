@@ -1,0 +1,16 @@
+{
+  "hardware/printed-parts/cold-core/foam-shell/foam-shell.step.mesh": {
+    "url": "https://homesodamachine.com/meshes/printed-parts/cold-core/foam-shell/foam-shell.step.mesh",
+    "live_sha256": "e459caa7c367e4d40c6464b978d46a0ce66ddec784d0d9caed675a4262a6654b",
+    "local_sha256": "e459caa7c367e4d40c6464b978d46a0ce66ddec784d0d9caed675a4262a6654b",
+    "bytes": 1332148,
+    "matches": true
+  },
+  "hardware/manifold-layout/enclosure-assembly.step.mesh": {
+    "url": "https://homesodamachine.com/meshes/manifold-layout/enclosure-assembly.step.mesh",
+    "live_sha256": "adab5f9c61f1a40bb76bddfff7c48d3e57d23db2f8230099d58147e1bb1e9674",
+    "local_sha256": "adab5f9c61f1a40bb76bddfff7c48d3e57d23db2f8230099d58147e1bb1e9674",
+    "bytes": 44393512,
+    "matches": true
+  }
+}
