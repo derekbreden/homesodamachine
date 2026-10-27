@@ -1,0 +1,28 @@
+{
+  "scope": "Native routing-clip integration; seven dressed wires, held fixture poses and seated pump retainer retained.",
+  "prior_published_appliance_sha256": "f03e02578100e962c8fd95b80b786607888ada67137ad44c68f7c600dec74d94",
+  "committed_physical_appliance_baseline_sha256": "f03e02578100e962c8fd95b80b786607888ada67137ad44c68f7c600dec74d94",
+  "wire_input_parent_sha256": "f03e02578100e962c8fd95b80b786607888ada67137ad44c68f7c600dec74d94",
+  "all_baseline_terminal_frames_and_route_records_match": true,
+  "wiring_integration": {
+    "schema": 1,
+    "scope": "Wiring-only integration; existing physical parts retained",
+    "physical_step_sha256": "87eb6817f6d7ab58ba2ffd8ea03a72b57daf10b1dea38f657a3b1db62f9e1f62",
+    "installed_step_sha256": "294da475d3ecf3790bc1433469a0fcfe1fdc7a688f7e1872fd5f4c95095c8263",
+    "physical_records_retained": 2564153,
+    "physical_meshes_retained": 450,
+    "wiring_meshes": 113,
+    "all_retained_viewer_arrays_identical": true,
+    "wiring_step_sha256": "df385b75f56a43922a62bb5d5f09ffbd27af2cee86096040e4d491998677b772"
+  },
+  "installed_files_sha256": {
+    "hardware/printed-parts/enclosure/enclosure/enclosure.step": "b511c1def765dc65dcfd66306ba06203d539b7a57d2b7840c5ce2d14af582849",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh": "4b9db87d395db27f546ec65f568c05763aa9c1ad13c6e99bc9c11dce55e6b229",
+    "hardware/manifold-layout/enclosure-assembly.step": "294da475d3ecf3790bc1433469a0fcfe1fdc7a688f7e1872fd5f4c95095c8263",
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": "1716dc6c2a86b29c4c6643ef187336a865c489ec8a687d3f379f947f42f2b902",
+    "hardware/wiring/enclosure-wiring.step": "df385b75f56a43922a62bb5d5f09ffbd27af2cee86096040e4d491998677b772",
+    "hardware/wiring/enclosure-wiring.step.mesh": "f35f6a2e815f9c1ac6714f4546862f6d0a2e6a4ed82f4dad7ce7f81ec7752fc1",
+    "hardware/wiring/enclosure-wiring.json": "d24d28a1bdf4f9ec984930354bea0adf5606d285e96973b4538c7f46985a129a",
+    "hardware/wiring/enclosure-wiring.csv": "719cf1bb62dee311df24444e0a464f1368aa015b5dbe39ce1eece3ca402b8557"
+  }
+}

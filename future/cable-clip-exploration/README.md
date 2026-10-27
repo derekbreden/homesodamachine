@@ -11,6 +11,12 @@ and a 0.75 mm retaining beak. The outer post, cap and 45° corbel use 3 mm stock
 Each wall extends 6 mm below the hook. Wall lengths are 28 and 36 mm, giving
 252 and 324 mm² bed footprints. Both coupons print upright, entry up.
 
+The [combined plate's physical result](../snap-fit-tests/2026-10-26-mark2-combined/physical-result.json)
+accepts the smaller **16 mm-span** clip with the bare insulated 4P ribbon.
+It fits perfectly and stays put. Straight sliding entry is difficult; angling
+and pulling the ribbon into the seat succeeds. This is qualitative fit and
+retention acceptance of that identified coupon, with no measured force or lifetime.
+
 The [geometry report](wall9-span-geometry.json) binds the
 [generator](wall9_span_trial.py), native single solids and exported parts.
 The hook cross-sections match the accepted profile, with zero added or missing
@@ -28,26 +34,24 @@ The [stopped 3 mm-wall coupon's physical result](prints/2026-10-26-mark2-relay-r
 records visible deformation and cancellation before completion. No cable fit,
 grip, release or spring survival result is accepted from that print.
 
-## Proposed J5 site
+## Production J5 installation
 
-The [8 mm-span site reading](proposed-site-review.json) places the guide on back-top’s west
-inside face, **X−98.5**, across **Y324–332 mm**. The local frame begins at
-**(−98.5, 328, 275.925) mm** and the ribbon centre is
-**(−97.4, 328, 288) mm**. The installed mouth faces +Z; the cable runs along Y.
+The selected **16 mm-span** profile is integral to back-top's west inside wall.
+The [site provider](../../hardware/wiring/installed/retainers.py) defines the
+`j5-west-ribbon` frame, conductor order and local dressing; the
+[production review](../../hardware/printed-parts/enclosure/enclosure/route-snap-review/README.md)
+records installation, print direction and fit scope. The installed mouth faces
+−Z. Back-top prints ceiling-down, building in machine −Z.
 
-This proposal requires dressing the J5 conductors **2.4 mm toward the wall**,
-with an **8 mm straight bare window before the relay fan-out**. The ¼-inch PET
-braid ends before the clip. It does not represent the current route unchanged
-or remove a counted tie. The closest tested native body is V-A, with
-**0.846 mm** clip clearance and **4.096 mm** clearance to the loading envelope.
-The checked fixtures have no native overlap. Connecting curves, braid transition,
-complete quadrant assembly and service remain outside that local reading.
-The guide and redressing are a site proposal, not production integration.
-The 16 mm and 24 mm trial spans have no production-site clearance reading.
+Keep a full 16 mm straight bare-insulated window through the hook. Finish the
+¼-inch PET braid and heat-shrink outside it, and begin the free-lead fan-out
+after it. Preserve connector order GND, V5, IO2, IO19 from installed +Z to −Z.
+Release the ribbon before sliding back-top for service. Original electrical
+junctions and counted body ties retain their assigned roles.
 
-Use the actual bare 4P ribbon to assess insertion, grip, axial slide, release and
-layer/root survival. These coupons do not test a braided sleeve or finished
-crimp inside the clip, and their print pose does not define a production quadrant's pose.
+The accepted 4P seat does not establish fit of the DC-1 pair or V-K single-lead
+seats. Production-shell cleanup, installed release forces and layer/root
+lifetime remain separate from the identified upright coupon result.
 
 ```sh
 tools/cad-venv/bin/python future/cable-clip-exploration/wall9_span_trial.py

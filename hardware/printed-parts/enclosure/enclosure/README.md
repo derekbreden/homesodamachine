@@ -1087,6 +1087,26 @@ motor bores open into wider terminal rooms and close above them with 36° conica
 The continuous stock fills the rest of the pump-to-roof volume, around the functional
 hardware and cable rooms.
 
+## Integral routing snaps
+
+Back-top carries four direct tube snaps and three single-arm cable clips on its
+existing roof and wall stock. The quarter-inch fill guide uses the selected C2
+section with a **6.35 mm bore** and **2.40 mm wings**. The three 4 mm tube guides
+use **4.10 mm bores** and proportionally sized **1.52 mm spring wings**. The cable
+seats match the relay ribbon, DC power pair and one V-K lead; no generic oversized
+pocket gathers unrelated wires.
+
+The [routing review](route-snap-review/README.md) identifies every station, its
+print direction, cable dressing, installation order and current fit basis. These
+features add no separate printed part or fastener. The closely spaced Reservoir A
+fore pair keeps its cap, and body-retaining ties keep their existing jobs.
+
+The [combined coupon result](../../../../future/snap-fit-tests/2026-10-26-mark2-combined/physical-result.json)
+accepts the C2 6.35 mm bore for present use and the 16 mm-span 4P ribbon clip's
+fit and qualitative retention. The 4 mm tube sections, DC-1 pair seat and V-K
+single-wire seat remain provisional. The coupon result does not establish the
+complete back-top print's cleanup, installed release forces or lifetime.
+
 ## Prepared tubes and underside loading
 
 Each pump carries two straight [33.2 mm](DOCK_PUMP_TUBE) stubs of the machine's black

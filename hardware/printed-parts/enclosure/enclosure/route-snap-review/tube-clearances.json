@@ -1,0 +1,1124 @@
+{
+  "scope": "Pinned existing native hardware/tube/wire assembly plus four local proposed clips and exact7 mm local bare-tube press sweeps; no aggregate rebuild.",
+  "native_assembly_sha256": "1774c855ebb9f130aacb9b6dfde17f8e7185b7fa6d9f9b5031cb67a2bc4c5e78",
+  "results": [
+    {
+      "route": "fluid-18",
+      "site": {
+        "native_route": "fluid-18",
+        "logical_routes": [
+          "fluid-18"
+        ],
+        "od_mm": 4.0,
+        "centre_world_mm": [
+          -1.3750005643842034,
+          428.6,
+          337.75
+        ],
+        "axis_world": [
+          1.0,
+          0.0,
+          0.0
+        ],
+        "host": "enclosure-back-top",
+        "host_face": "ceiling",
+        "face_coordinate_mm": 346.0,
+        "outward_world": [
+          0.0,
+          0.0,
+          -1.0
+        ],
+        "root_distance_mm": 8.25,
+        "print_build_world": "-Z",
+        "span_mm": 8.0,
+        "segment_index": 21,
+        "straight_endpoints_world_mm": [
+          [
+            -15.000000000000002,
+            428.6,
+            337.75
+          ],
+          [
+            12.249998871231595,
+            428.6,
+            337.75
+          ]
+        ],
+        "available_exposed_straight_mm": 27.249998871231597,
+        "straight_end_clearances_mm": [
+          9.624999435615798,
+          9.624999435615798
+        ],
+        "exposed_route_end_clearances_mm": [
+          524.3706325645023,
+          101.53876789482433
+        ],
+        "bore_estimate_mm": 4.1,
+        "wing_mm": 1.52,
+        "tip_degrees": 125.42102606277044,
+        "requires_native_host_and_neighbor_review": true,
+        "source": "hardware/manifold-layout/above_core_routes.py:229",
+        "native_line_endpoints_world_mm": [
+          [
+            -15.000000000000002,
+            428.6,
+            337.75
+          ],
+          [
+            12.249998871231597,
+            428.6,
+            337.75
+          ]
+        ],
+        "centre_parameter": "Midpoint of listed source line",
+        "host_part": "enclosure-back-top",
+        "native_hardware_review": {
+          "pass": true,
+          "scene_sha256": "d954170f04f58978016adcfe0df073173efb7788555e940b44824e738a638b61",
+          "closest_neighbors": [
+            {
+              "body": "tube-drain-vent",
+              "own_tube": false,
+              "other_fluid_tube": true,
+              "clip_gap_mm": 2.5089531133131446,
+              "press_gap_mm": 0.0,
+              "clip_overlap_mm3": 0.0,
+              "press_overlap_mm3": 61.26176760021519
+            },
+            {
+              "body": "tube-fluid-28",
+              "own_tube": false,
+              "other_fluid_tube": true,
+              "clip_gap_mm": 2.7403212233100476,
+              "press_gap_mm": 5.829747648571482,
+              "clip_overlap_mm3": 0.0,
+              "press_overlap_mm3": 0.0
+            },
+            {
+              "body": "wire-PE-bus",
+              "own_tube": false,
+              "other_fluid_tube": false,
+              "clip_gap_mm": 23.603408887439084,
+              "press_gap_mm": 23.540847787252595,
+              "clip_overlap_mm3": 0.0,
+              "press_overlap_mm3": 0.0
+            },
+            {
+              "body": "wire-DC3-positive",
+              "own_tube": false,
+              "other_fluid_tube": false,
+              "clip_gap_mm": 43.911069271504374,
+              "press_gap_mm": 38.832895139455196,
+              "clip_overlap_mm3": 0.0,
+              "press_overlap_mm3": 0.0
+            },
+            {
+              "body": "wire-DC2-V12",
+              "own_tube": false,
+              "other_fluid_tube": false,
+              "clip_gap_mm": 66.14091993701606,
+              "press_gap_mm": 65.69230555306301,
+              "clip_overlap_mm3": 0.0,
+              "press_overlap_mm3": 0.0
+            }
+          ],
+          "static_conflicts": [],
+          "hard_hardware_press_conflicts": [],
+          "soft_tube_press_interferences": [
+            {
+              "body": "tube-drain-vent",
+              "own_tube": false,
+              "other_fluid_tube": true,
+              "clip_gap_mm": 2.5089531133131446,
+              "press_gap_mm": 0.0,
+              "clip_overlap_mm3": 0.0,
+              "press_overlap_mm3": 61.26176760021519
+            }
+          ]
+        },
+        "installation_before": [
+          "drain-vent"
+        ],
+        "provider": "hardware/printed-parts/enclosure/enclosure/_tube_snap_sites.py"
+      },
+      "valid_single_solid": true,
+      "native_scene_sha256": "1774c855ebb9f130aacb9b6dfde17f8e7185b7fa6d9f9b5031cb67a2bc4c5e78",
+      "checks": [
+        {
+          "body": "tube-fluid-18",
+          "own_tube": true,
+          "other_fluid_tube": false,
+          "clip_gap_mm": 0.04999999999997239,
+          "press_gap_mm": 0.0,
+          "clip_overlap_mm3": 0.0,
+          "press_overlap_mm3": 61.261056745001866
+        },
+        {
+          "body": "tube-fluid-28",
+          "own_tube": false,
+          "other_fluid_tube": true,
+          "clip_gap_mm": 2.7403212233100476,
+          "press_gap_mm": 5.829747648571482,
+          "clip_overlap_mm3": 0.0,
+          "press_overlap_mm3": 0.0
+        },
+        {
+          "body": "tube-drain-vent",
+          "own_tube": false,
+          "other_fluid_tube": true,
+          "clip_gap_mm": 2.5089531133131446,
+          "press_gap_mm": 0.0,
+          "clip_overlap_mm3": 0.0,
+          "press_overlap_mm3": 61.26176760021519
+        },
+        {
+          "body": "enclosure-back-top",
+          "owner": true,
+          "press_gap_mm": 6.25,
+          "press_overlap_mm3": 0.0
+        },
+        {
+          "body": "wire-PE-bus",
+          "own_tube": false,
+          "other_fluid_tube": false,
+          "clip_gap_mm": 23.603408887439084,
+          "press_gap_mm": 23.540847787252595,
+          "clip_overlap_mm3": 0.0,
+          "press_overlap_mm3": 0.0
+        },
+        {
+          "body": "wire-DC2-V12",
+          "own_tube": false,
+          "other_fluid_tube": false,
+          "clip_gap_mm": 66.14091993701606,
+          "press_gap_mm": 65.69230555306301,
+          "clip_overlap_mm3": 0.0,
+          "press_overlap_mm3": 0.0
+        },
+        {
+          "body": "wire-DC3-positive",
+          "own_tube": false,
+          "other_fluid_tube": false,
+          "clip_gap_mm": 43.911069271504374,
+          "press_gap_mm": 38.832895139455196,
+          "clip_overlap_mm3": 0.0,
+          "press_overlap_mm3": 0.0
+        }
+      ],
+      "closest_neighbors": [
+        {
+          "body": "tube-drain-vent",
+          "own_tube": false,
+          "other_fluid_tube": true,
+          "clip_gap_mm": 2.5089531133131446,
+          "press_gap_mm": 0.0,
+          "clip_overlap_mm3": 0.0,
+          "press_overlap_mm3": 61.26176760021519
+        },
+        {
+          "body": "tube-fluid-28",
+          "own_tube": false,
+          "other_fluid_tube": true,
+          "clip_gap_mm": 2.7403212233100476,
+          "press_gap_mm": 5.829747648571482,
+          "clip_overlap_mm3": 0.0,
+          "press_overlap_mm3": 0.0
+        },
+        {
+          "body": "wire-PE-bus",
+          "own_tube": false,
+          "other_fluid_tube": false,
+          "clip_gap_mm": 23.603408887439084,
+          "press_gap_mm": 23.540847787252595,
+          "clip_overlap_mm3": 0.0,
+          "press_overlap_mm3": 0.0
+        },
+        {
+          "body": "wire-DC3-positive",
+          "own_tube": false,
+          "other_fluid_tube": false,
+          "clip_gap_mm": 43.911069271504374,
+          "press_gap_mm": 38.832895139455196,
+          "clip_overlap_mm3": 0.0,
+          "press_overlap_mm3": 0.0
+        },
+        {
+          "body": "wire-DC2-V12",
+          "own_tube": false,
+          "other_fluid_tube": false,
+          "clip_gap_mm": 66.14091993701606,
+          "press_gap_mm": 65.69230555306301,
+          "clip_overlap_mm3": 0.0,
+          "press_overlap_mm3": 0.0
+        }
+      ],
+      "static_conflicts": [],
+      "hard_hardware_press_conflicts": [],
+      "soft_tube_press_interferences": [
+        {
+          "body": "tube-drain-vent",
+          "own_tube": false,
+          "other_fluid_tube": true,
+          "clip_gap_mm": 2.5089531133131446,
+          "press_gap_mm": 0.0,
+          "clip_overlap_mm3": 0.0,
+          "press_overlap_mm3": 61.26176760021519
+        }
+      ],
+      "pass": true
+    },
+    {
+      "route": "fluid-28",
+      "site": {
+        "native_route": "fluid-28",
+        "logical_routes": [
+          "fluid-28"
+        ],
+        "od_mm": 4.0,
+        "centre_world_mm": [
+          2.674999999999997,
+          420.28967877669146,
+          343.0
+        ],
+        "axis_world": [
+          1.0,
+          0.0,
+          0.0
+        ],
+        "host": "enclosure-back-top",
+        "host_face": "ceiling",
+        "face_coordinate_mm": 346.0,
+        "outward_world": [
+          0.0,
+          0.0,
+          -1.0
+        ],
+        "root_distance_mm": 3.0,
+        "print_build_world": "-Z",
+        "span_mm": 8.0,
+        "segment_index": 15,
+        "straight_endpoints_world_mm": [
+          [
+            -34.0,
+            420.28967877669146,
+            343.0
+          ],
+          [
+            39.349999999999994,
+            420.28967877669146,
+            343.0
+          ]
+        ],
+        "available_exposed_straight_mm": 73.35,
+        "straight_end_clearances_mm": [
+          32.675,
+          32.675
+        ],
+        "exposed_route_end_clearances_mm": [
+          371.14666988504837,
+          140.92911778385997
+        ],
+        "bore_estimate_mm": 4.1,
+        "wing_mm": 1.52,
+        "tip_degrees": 125.42102606277044,
+        "requires_native_host_and_neighbor_review": true,
+        "source": "hardware/manifold-layout/above_core_routes.py:229",
+        "native_line_endpoints_world_mm": [
+          [
+            -34.0,
+            420.28967877669146,
+            343.0
+          ],
+          [
+            39.349999999999994,
+            420.28967877669146,
+            343.0
+          ]
+        ],
+        "centre_parameter": "Midpoint of listed source line",
+        "host_part": "enclosure-back-top",
+        "native_hardware_review": {
+          "pass": true,
+          "scene_sha256": "d954170f04f58978016adcfe0df073173efb7788555e940b44824e738a638b61",
+          "closest_neighbors": [
+            {
+              "body": "tube-fluid-18",
+              "own_tube": false,
+              "other_fluid_tube": true,
+              "clip_gap_mm": 4.259747648570236,
+              "press_gap_mm": 4.310321223308563,
+              "clip_overlap_mm3": 0.0,
+              "press_overlap_mm3": 0.0
+            },
+            {
+              "body": "tube-drain-vent",
+              "own_tube": false,
+              "other_fluid_tube": true,
+              "clip_gap_mm": 8.908418290017053,
+              "press_gap_mm": 5.510119454440255,
+              "clip_overlap_mm3": 0.0,
+              "press_overlap_mm3": 0.0
+            },
+            {
+              "body": "wire-PE-bus",
+              "own_tube": false,
+              "other_fluid_tube": false,
+              "clip_gap_mm": 27.220828444629348,
+              "press_gap_mm": 25.85826118398805,
+              "clip_overlap_mm3": 0.0,
+              "press_overlap_mm3": 0.0
+            },
+            {
+              "body": "wire-DC3-positive",
+              "own_tube": false,
+              "other_fluid_tube": false,
+              "clip_gap_mm": 52.532045314025105,
+              "press_gap_mm": 47.94585595893725,
+              "clip_overlap_mm3": 0.0,
+              "press_overlap_mm3": 0.0
+            },
+            {
+              "body": "wire-DC2-V12",
+              "own_tube": false,
+              "other_fluid_tube": false,
+              "clip_gap_mm": 69.09344827912179,
+              "press_gap_mm": 67.99025016093444,
+              "clip_overlap_mm3": 0.0,
+              "press_overlap_mm3": 0.0
+            }
+          ],
+          "static_conflicts": [],
+          "hard_hardware_press_conflicts": [],
+          "soft_tube_press_interferences": []
+        },
+        "installation_before": [],
+        "provider": "hardware/printed-parts/enclosure/enclosure/_tube_snap_sites.py"
+      },
+      "valid_single_solid": true,
+      "native_scene_sha256": "1774c855ebb9f130aacb9b6dfde17f8e7185b7fa6d9f9b5031cb67a2bc4c5e78",
+      "checks": [
+        {
+          "body": "tube-fluid-18",
+          "own_tube": false,
+          "other_fluid_tube": true,
+          "clip_gap_mm": 4.259747648570236,
+          "press_gap_mm": 4.310321223308563,
+          "clip_overlap_mm3": 0.0,
+          "press_overlap_mm3": 0.0
+        },
+        {
+          "body": "tube-fluid-28",
+          "own_tube": true,
+          "other_fluid_tube": false,
+          "clip_gap_mm": 0.049999999994357607,
+          "press_gap_mm": 0.0,
+          "clip_overlap_mm3": 0.0,
+          "press_overlap_mm3": 61.26105674500181
+        },
+        {
+          "body": "tube-drain-vent",
+          "own_tube": false,
+          "other_fluid_tube": true,
+          "clip_gap_mm": 8.908418290017053,
+          "press_gap_mm": 5.510119454440255,
+          "clip_overlap_mm3": 0.0,
+          "press_overlap_mm3": 0.0
+        },
+        {
+          "body": "enclosure-back-top",
+          "owner": true,
+          "press_gap_mm": 1.0,
+          "press_overlap_mm3": 0.0
+        },
+        {
+          "body": "wire-PE-bus",
+          "own_tube": false,
+          "other_fluid_tube": false,
+          "clip_gap_mm": 27.220828444629348,
+          "press_gap_mm": 25.85826118398805,
+          "clip_overlap_mm3": 0.0,
+          "press_overlap_mm3": 0.0
+        },
+        {
+          "body": "wire-DC2-V12",
+          "own_tube": false,
+          "other_fluid_tube": false,
+          "clip_gap_mm": 69.09344827912179,
+          "press_gap_mm": 67.99025016093444,
+          "clip_overlap_mm3": 0.0,
+          "press_overlap_mm3": 0.0
+        },
+        {
+          "body": "wire-DC3-positive",
+          "own_tube": false,
+          "other_fluid_tube": false,
+          "clip_gap_mm": 52.532045314025105,
+          "press_gap_mm": 47.94585595893725,
+          "clip_overlap_mm3": 0.0,
+          "press_overlap_mm3": 0.0
+        }
+      ],
+      "closest_neighbors": [
+        {
+          "body": "tube-fluid-18",
+          "own_tube": false,
+          "other_fluid_tube": true,
+          "clip_gap_mm": 4.259747648570236,
+          "press_gap_mm": 4.310321223308563,
+          "clip_overlap_mm3": 0.0,
+          "press_overlap_mm3": 0.0
+        },
+        {
+          "body": "tube-drain-vent",
+          "own_tube": false,
+          "other_fluid_tube": true,
+          "clip_gap_mm": 8.908418290017053,
+          "press_gap_mm": 5.510119454440255,
+          "clip_overlap_mm3": 0.0,
+          "press_overlap_mm3": 0.0
+        },
+        {
+          "body": "wire-PE-bus",
+          "own_tube": false,
+          "other_fluid_tube": false,
+          "clip_gap_mm": 27.220828444629348,
+          "press_gap_mm": 25.85826118398805,
+          "clip_overlap_mm3": 0.0,
+          "press_overlap_mm3": 0.0
+        },
+        {
+          "body": "wire-DC3-positive",
+          "own_tube": false,
+          "other_fluid_tube": false,
+          "clip_gap_mm": 52.532045314025105,
+          "press_gap_mm": 47.94585595893725,
+          "clip_overlap_mm3": 0.0,
+          "press_overlap_mm3": 0.0
+        },
+        {
+          "body": "wire-DC2-V12",
+          "own_tube": false,
+          "other_fluid_tube": false,
+          "clip_gap_mm": 69.09344827912179,
+          "press_gap_mm": 67.99025016093444,
+          "clip_overlap_mm3": 0.0,
+          "press_overlap_mm3": 0.0
+        }
+      ],
+      "static_conflicts": [],
+      "hard_hardware_press_conflicts": [],
+      "soft_tube_press_interferences": [],
+      "pass": true
+    },
+    {
+      "route": "drain-vent",
+      "site": {
+        "native_route": "drain-vent",
+        "logical_routes": [
+          "drain-vent"
+        ],
+        "od_mm": 4.0,
+        "centre_world_mm": [
+          -35.00000000000001,
+          389.28332896947956,
+          342.0
+        ],
+        "axis_world": [
+          7.985090080815581e-16,
+          1.0,
+          0.0
+        ],
+        "host": "enclosure-back-top",
+        "host_face": "ceiling",
+        "face_coordinate_mm": 346.0,
+        "outward_world": [
+          0.0,
+          0.0,
+          -1.0
+        ],
+        "root_distance_mm": 4.0,
+        "print_build_world": "-Z",
+        "span_mm": 8.0,
+        "segment_index": 4,
+        "straight_endpoints_world_mm": [
+          [
+            -35.000000000000014,
+            380.3849605281867,
+            342.0
+          ],
+          [
+            -35.0,
+            398.1816974107724,
+            342.0
+          ]
+        ],
+        "available_exposed_straight_mm": 17.79673688258572,
+        "straight_end_clearances_mm": [
+          4.89836844129286,
+          4.89836844129286
+        ],
+        "exposed_route_end_clearances_mm": [
+          48.796582077273285,
+          119.03515464876602
+        ],
+        "bore_estimate_mm": 4.1,
+        "wing_mm": 1.52,
+        "tip_degrees": 125.42102606277044,
+        "requires_native_host_and_neighbor_review": true,
+        "source": "hardware/manifold-layout/above_core_routes.py:229",
+        "native_line_endpoints_world_mm": [
+          [
+            -35.000000000000014,
+            380.3849605281867,
+            342.0
+          ],
+          [
+            -35.0,
+            398.1816974107724,
+            342.0
+          ]
+        ],
+        "centre_parameter": "Midpoint of listed source line",
+        "host_part": "enclosure-back-top",
+        "native_hardware_review": {
+          "pass": true,
+          "scene_sha256": "d954170f04f58978016adcfe0df073173efb7788555e940b44824e738a638b61",
+          "closest_neighbors": [
+            {
+              "body": "tube-fluid-18",
+              "own_tube": false,
+              "other_fluid_tube": true,
+              "clip_gap_mm": 1.0104388876244135,
+              "press_gap_mm": 0.9999999999999929,
+              "clip_overlap_mm3": 0.0,
+              "press_overlap_mm3": 0.0
+            },
+            {
+              "body": "wire-PE-bus",
+              "own_tube": false,
+              "other_fluid_tube": false,
+              "clip_gap_mm": 14.470189330452047,
+              "press_gap_mm": 11.116663630990388,
+              "clip_overlap_mm3": 0.0,
+              "press_overlap_mm3": 0.0
+            },
+            {
+              "body": "tube-fluid-28",
+              "own_tube": false,
+              "other_fluid_tube": true,
+              "clip_gap_mm": 18.429999999999993,
+              "press_gap_mm": 20.02082429892862,
+              "clip_overlap_mm3": 0.0,
+              "press_overlap_mm3": 0.0
+            },
+            {
+              "body": "wire-DC2-V12",
+              "own_tube": false,
+              "other_fluid_tube": false,
+              "clip_gap_mm": 32.737045091190666,
+              "press_gap_mm": 29.781598035568173,
+              "clip_overlap_mm3": 0.0,
+              "press_overlap_mm3": 0.0
+            }
+          ],
+          "static_conflicts": [],
+          "hard_hardware_press_conflicts": [],
+          "soft_tube_press_interferences": []
+        },
+        "installation_before": [],
+        "provider": "hardware/printed-parts/enclosure/enclosure/_tube_snap_sites.py"
+      },
+      "valid_single_solid": true,
+      "native_scene_sha256": "1774c855ebb9f130aacb9b6dfde17f8e7185b7fa6d9f9b5031cb67a2bc4c5e78",
+      "checks": [
+        {
+          "body": "tube-fluid-18",
+          "own_tube": false,
+          "other_fluid_tube": true,
+          "clip_gap_mm": 1.0104388876244135,
+          "press_gap_mm": 0.9999999999999929,
+          "clip_overlap_mm3": 0.0,
+          "press_overlap_mm3": 0.0
+        },
+        {
+          "body": "tube-fluid-28",
+          "own_tube": false,
+          "other_fluid_tube": true,
+          "clip_gap_mm": 18.429999999999993,
+          "press_gap_mm": 20.02082429892862,
+          "clip_overlap_mm3": 0.0,
+          "press_overlap_mm3": 0.0
+        },
+        {
+          "body": "tube-drain-vent",
+          "own_tube": true,
+          "other_fluid_tube": false,
+          "clip_gap_mm": 0.04999999999996927,
+          "press_gap_mm": 0.0,
+          "clip_overlap_mm3": 0.0,
+          "press_overlap_mm3": 61.26105674499908
+        },
+        {
+          "body": "enclosure-back-top",
+          "owner": true,
+          "press_gap_mm": 2.0,
+          "press_overlap_mm3": 0.0
+        },
+        {
+          "body": "wire-PE-bus",
+          "own_tube": false,
+          "other_fluid_tube": false,
+          "clip_gap_mm": 14.470189330452047,
+          "press_gap_mm": 11.116663630990388,
+          "clip_overlap_mm3": 0.0,
+          "press_overlap_mm3": 0.0
+        },
+        {
+          "body": "wire-DC2-V12",
+          "own_tube": false,
+          "other_fluid_tube": false,
+          "clip_gap_mm": 32.737045091190666,
+          "press_gap_mm": 29.781598035568173,
+          "clip_overlap_mm3": 0.0,
+          "press_overlap_mm3": 0.0
+        }
+      ],
+      "closest_neighbors": [
+        {
+          "body": "tube-fluid-18",
+          "own_tube": false,
+          "other_fluid_tube": true,
+          "clip_gap_mm": 1.0104388876244135,
+          "press_gap_mm": 0.9999999999999929,
+          "clip_overlap_mm3": 0.0,
+          "press_overlap_mm3": 0.0
+        },
+        {
+          "body": "wire-PE-bus",
+          "own_tube": false,
+          "other_fluid_tube": false,
+          "clip_gap_mm": 14.470189330452047,
+          "press_gap_mm": 11.116663630990388,
+          "clip_overlap_mm3": 0.0,
+          "press_overlap_mm3": 0.0
+        },
+        {
+          "body": "tube-fluid-28",
+          "own_tube": false,
+          "other_fluid_tube": true,
+          "clip_gap_mm": 18.429999999999993,
+          "press_gap_mm": 20.02082429892862,
+          "clip_overlap_mm3": 0.0,
+          "press_overlap_mm3": 0.0
+        },
+        {
+          "body": "wire-DC2-V12",
+          "own_tube": false,
+          "other_fluid_tube": false,
+          "clip_gap_mm": 32.737045091190666,
+          "press_gap_mm": 29.781598035568173,
+          "clip_overlap_mm3": 0.0,
+          "press_overlap_mm3": 0.0
+        }
+      ],
+      "static_conflicts": [],
+      "hard_hardware_press_conflicts": [],
+      "soft_tube_press_interferences": [],
+      "pass": true
+    },
+    {
+      "route": "fluid-14",
+      "site": {
+        "native_route": "fluid-14",
+        "logical_routes": [
+          "fluid-14"
+        ],
+        "od_mm": 6.35,
+        "centre_world_mm": [
+          94.31,
+          265.0,
+          258.5
+        ],
+        "axis_world": [
+          0,
+          1,
+          0
+        ],
+        "host": "enclosure-back-top",
+        "host_face": "east-wall",
+        "face_coordinate_mm": 98.5,
+        "outward_world": [
+          -1,
+          0,
+          0
+        ],
+        "root_distance_mm": 4.19,
+        "print_build_world": "-Z",
+        "span_mm": 8.0,
+        "segment_index": 12,
+        "straight_endpoints_world_mm": [
+          [
+            57.99999999999999,
+            193.58986138881644,
+            258.5
+          ],
+          [
+            58.0,
+            216.0,
+            258.5
+          ]
+        ],
+        "available_exposed_straight_mm": 42.0,
+        "straight_end_clearances_mm": [
+          17.0,
+          17.0
+        ],
+        "exposed_route_end_clearances_mm": [
+          235.58014378954098,
+          192.0407866219599
+        ],
+        "bore_estimate_mm": 6.45,
+        "wing_mm": 2.4,
+        "tip_degrees": 125.42102606277044,
+        "requires_native_host_and_neighbor_review": true,
+        "source": "hardware/manifold-layout/reservoir-a-routes.json",
+        "native_line_endpoints_world_mm": [
+          [
+            94.31,
+            244.0,
+            258.5
+          ],
+          [
+            94.31,
+            286.0,
+            258.5
+          ]
+        ],
+        "centre_parameter": "Midpoint of listed source line",
+        "host_part": "enclosure-back-top",
+        "native_hardware_review": {
+          "pass": true,
+          "scene_sha256": "d954170f04f58978016adcfe0df073173efb7788555e940b44824e738a638b61",
+          "closest_neighbors": [
+            {
+              "body": "cold-core/foam-cap-lid-top",
+              "own_tube": false,
+              "other_fluid_tube": false,
+              "clip_gap_mm": 0.9494571218248581,
+              "press_gap_mm": 1.9249997999999948,
+              "clip_overlap_mm3": 0.0,
+              "press_overlap_mm3": 0.0
+            },
+            {
+              "body": "cold-core/valve-v-b",
+              "own_tube": false,
+              "other_fluid_tube": false,
+              "clip_gap_mm": 2.5472526984084203,
+              "press_gap_mm": 5.284999999999968,
+              "clip_overlap_mm3": 0.0,
+              "press_overlap_mm3": 0.0
+            },
+            {
+              "body": "tube-fluid-16",
+              "own_tube": false,
+              "other_fluid_tube": true,
+              "clip_gap_mm": 2.732171736231627,
+              "press_gap_mm": 1.4210854715202004e-14,
+              "clip_overlap_mm3": 0.0,
+              "press_overlap_mm3": 34.042529361659334
+            },
+            {
+              "body": "cold-core/foam-cap-top",
+              "own_tube": false,
+              "other_fluid_tube": false,
+              "clip_gap_mm": 5.7905418486238425,
+              "press_gap_mm": 7.474999799999978,
+              "clip_overlap_mm3": 0.0,
+              "press_overlap_mm3": 0.0
+            },
+            {
+              "body": "wire-J1-OUT2",
+              "own_tube": false,
+              "other_fluid_tube": false,
+              "clip_gap_mm": 8.168917154888693,
+              "press_gap_mm": 9.901781851545662,
+              "clip_overlap_mm3": 0.0,
+              "press_overlap_mm3": 0.0
+            }
+          ],
+          "static_conflicts": [],
+          "hard_hardware_press_conflicts": [],
+          "soft_tube_press_interferences": [
+            {
+              "body": "tube-fluid-16",
+              "own_tube": false,
+              "other_fluid_tube": true,
+              "clip_gap_mm": 2.732171736231627,
+              "press_gap_mm": 1.4210854715202004e-14,
+              "clip_overlap_mm3": 0.0,
+              "press_overlap_mm3": 34.042529361659334
+            }
+          ]
+        },
+        "installation_before": [
+          "fluid-16"
+        ],
+        "provider": "hardware/printed-parts/enclosure/enclosure/_tube_snap_sites.py"
+      },
+      "valid_single_solid": true,
+      "native_scene_sha256": "1774c855ebb9f130aacb9b6dfde17f8e7185b7fa6d9f9b5031cb67a2bc4c5e78",
+      "checks": [
+        {
+          "body": "tube-fluid-14",
+          "own_tube": true,
+          "other_fluid_tube": false,
+          "clip_gap_mm": 0.049999999999967716,
+          "press_gap_mm": 0.0,
+          "clip_overlap_mm3": 0.0,
+          "press_overlap_mm3": 140.39714737040146
+        },
+        {
+          "body": "tube-fluid-16",
+          "own_tube": false,
+          "other_fluid_tube": true,
+          "clip_gap_mm": 2.732171736231627,
+          "press_gap_mm": 1.4210854715202004e-14,
+          "clip_overlap_mm3": 0.0,
+          "press_overlap_mm3": 34.042529361659334
+        },
+        {
+          "body": "cold-core/foam-cap-top",
+          "own_tube": false,
+          "other_fluid_tube": false,
+          "clip_gap_mm": 5.7905418486238425,
+          "press_gap_mm": 7.474999799999978,
+          "clip_overlap_mm3": 0.0,
+          "press_overlap_mm3": 0.0
+        },
+        {
+          "body": "cold-core/foam-cap-lid-top",
+          "own_tube": false,
+          "other_fluid_tube": false,
+          "clip_gap_mm": 0.9494571218248581,
+          "press_gap_mm": 1.9249997999999948,
+          "clip_overlap_mm3": 0.0,
+          "press_overlap_mm3": 0.0
+        },
+        {
+          "body": "cold-core/line-carb-water-out",
+          "own_tube": false,
+          "other_fluid_tube": false,
+          "clip_gap_mm": 21.387047062170662,
+          "press_gap_mm": 19.849545759780792,
+          "clip_overlap_mm3": 0.0,
+          "press_overlap_mm3": 0.0
+        },
+        {
+          "body": "cold-core/valve-v-b",
+          "own_tube": false,
+          "other_fluid_tube": false,
+          "clip_gap_mm": 2.5472526984084203,
+          "press_gap_mm": 5.284999999999968,
+          "clip_overlap_mm3": 0.0,
+          "press_overlap_mm3": 0.0
+        },
+        {
+          "body": "enclosure-back-top",
+          "owner": true,
+          "press_gap_mm": 1.0149999999999864,
+          "press_overlap_mm3": 0.0
+        },
+        {
+          "body": "wire-J1-COM",
+          "own_tube": false,
+          "other_fluid_tube": false,
+          "clip_gap_mm": 77.15484478738858,
+          "press_gap_mm": 73.62073630832577,
+          "clip_overlap_mm3": 0.0,
+          "press_overlap_mm3": 0.0
+        },
+        {
+          "body": "wire-J1-positive-A",
+          "own_tube": false,
+          "other_fluid_tube": false,
+          "clip_gap_mm": 74.40702245248768,
+          "press_gap_mm": 71.7479553086766,
+          "clip_overlap_mm3": 0.0,
+          "press_overlap_mm3": 0.0
+        },
+        {
+          "body": "wire-J1-OUT2",
+          "own_tube": false,
+          "other_fluid_tube": false,
+          "clip_gap_mm": 8.168917154888693,
+          "press_gap_mm": 9.901781851545662,
+          "clip_overlap_mm3": 0.0,
+          "press_overlap_mm3": 0.0
+        },
+        {
+          "body": "wire-J1-positive-B",
+          "own_tube": false,
+          "other_fluid_tube": false,
+          "clip_gap_mm": 19.648703838760998,
+          "press_gap_mm": 24.51975293178133,
+          "clip_overlap_mm3": 0.0,
+          "press_overlap_mm3": 0.0
+        },
+        {
+          "body": "wire-J1-OUT6",
+          "own_tube": false,
+          "other_fluid_tube": false,
+          "clip_gap_mm": 94.21257804915244,
+          "press_gap_mm": 90.21503504820875,
+          "clip_overlap_mm3": 0.0,
+          "press_overlap_mm3": 0.0
+        },
+        {
+          "body": "wire-J1-OUT7",
+          "own_tube": false,
+          "other_fluid_tube": false,
+          "clip_gap_mm": 92.66533077150758,
+          "press_gap_mm": 88.43352164214193,
+          "clip_overlap_mm3": 0.0,
+          "press_overlap_mm3": 0.0
+        },
+        {
+          "body": "wire-J2-COM",
+          "own_tube": false,
+          "other_fluid_tube": false,
+          "clip_gap_mm": 72.04670646409254,
+          "press_gap_mm": 67.7707183983527,
+          "clip_overlap_mm3": 0.0,
+          "press_overlap_mm3": 0.0
+        },
+        {
+          "body": "wire-J2-FAN",
+          "own_tube": false,
+          "other_fluid_tube": false,
+          "clip_gap_mm": 86.4663885469157,
+          "press_gap_mm": 81.50873343847744,
+          "clip_overlap_mm3": 0.0,
+          "press_overlap_mm3": 0.0
+        },
+        {
+          "body": "wire-J2-OUT3",
+          "own_tube": false,
+          "other_fluid_tube": false,
+          "clip_gap_mm": 51.09514288704973,
+          "press_gap_mm": 50.25078791478795,
+          "clip_overlap_mm3": 0.0,
+          "press_overlap_mm3": 0.0
+        },
+        {
+          "body": "wire-J2-positive-K",
+          "own_tube": false,
+          "other_fluid_tube": false,
+          "clip_gap_mm": 38.19001650239367,
+          "press_gap_mm": 43.76582816911519,
+          "clip_overlap_mm3": 0.0,
+          "press_overlap_mm3": 0.0
+        }
+      ],
+      "closest_neighbors": [
+        {
+          "body": "cold-core/foam-cap-lid-top",
+          "own_tube": false,
+          "other_fluid_tube": false,
+          "clip_gap_mm": 0.9494571218248581,
+          "press_gap_mm": 1.9249997999999948,
+          "clip_overlap_mm3": 0.0,
+          "press_overlap_mm3": 0.0
+        },
+        {
+          "body": "cold-core/valve-v-b",
+          "own_tube": false,
+          "other_fluid_tube": false,
+          "clip_gap_mm": 2.5472526984084203,
+          "press_gap_mm": 5.284999999999968,
+          "clip_overlap_mm3": 0.0,
+          "press_overlap_mm3": 0.0
+        },
+        {
+          "body": "tube-fluid-16",
+          "own_tube": false,
+          "other_fluid_tube": true,
+          "clip_gap_mm": 2.732171736231627,
+          "press_gap_mm": 1.4210854715202004e-14,
+          "clip_overlap_mm3": 0.0,
+          "press_overlap_mm3": 34.042529361659334
+        },
+        {
+          "body": "cold-core/foam-cap-top",
+          "own_tube": false,
+          "other_fluid_tube": false,
+          "clip_gap_mm": 5.7905418486238425,
+          "press_gap_mm": 7.474999799999978,
+          "clip_overlap_mm3": 0.0,
+          "press_overlap_mm3": 0.0
+        },
+        {
+          "body": "wire-J1-OUT2",
+          "own_tube": false,
+          "other_fluid_tube": false,
+          "clip_gap_mm": 8.168917154888693,
+          "press_gap_mm": 9.901781851545662,
+          "clip_overlap_mm3": 0.0,
+          "press_overlap_mm3": 0.0
+        }
+      ],
+      "static_conflicts": [],
+      "hard_hardware_press_conflicts": [],
+      "soft_tube_press_interferences": [
+        {
+          "body": "tube-fluid-16",
+          "own_tube": false,
+          "other_fluid_tube": true,
+          "clip_gap_mm": 2.732171736231627,
+          "press_gap_mm": 1.4210854715202004e-14,
+          "clip_overlap_mm3": 0.0,
+          "press_overlap_mm3": 34.042529361659334
+        }
+      ],
+      "pass": true
+    }
+  ],
+  "mutual_clips": [
+    {
+      "first": "fluid-18",
+      "second": "fluid-28",
+      "gap_mm": 1.1703212233085765,
+      "overlap_mm3": 0.0
+    },
+    {
+      "first": "fluid-18",
+      "second": "drain-vent",
+      "gap_mm": 41.06962523702922,
+      "overlap_mm3": 0.0
+    },
+    {
+      "first": "fluid-18",
+      "second": "fluid-14",
+      "gap_mm": 193.93695593924332,
+      "overlap_mm3": 0.0
+    },
+    {
+      "first": "fluid-28",
+      "second": "drain-vent",
+      "gap_mm": 38.151979205357115,
+      "overlap_mm3": 0.0
+    },
+    {
+      "first": "fluid-28",
+      "second": "fluid-14",
+      "gap_mm": 187.56237635914064,
+      "overlap_mm3": 0.0
+    },
+    {
+      "first": "drain-vent",
+      "second": "fluid-14",
+      "gap_mm": 185.91039478160704,
+      "overlap_mm3": 0.0
+    }
+  ],
+  "limits": "Native fixture is the latest published 1774c855 appliance, including current lid and fore fluid14/16 changes. Physical flex and complete routed-tube assembly motion are not qualified. Soft-tube approach interference requires an assembly order, not a hard-part clearance claim."
+}

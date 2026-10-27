@@ -1,5 +1,10 @@
 # Direct tube-snap bore trial
 
+The [physical result](../snap-fit-tests/2026-10-26-mark2-combined/physical-result.json)
+selects **C2 with the 6.35 mm CAD bore** for present use. Its 2.40 mm wings,
+125.421° wrap and 8 mm span retain C2's section. Trying a smaller bore remains
+optional future tuning.
+
 The current comparison has **three clips on one 60 × 16 × 3 mm floor**.
 Every clip keeps C2's **2.40 mm wings**, **125.421° circular wrap per wing**,
 rounded noses, filled lower root and 8 mm span along the tube. The tube centre
@@ -29,9 +34,11 @@ including the C2 control, share the experiment's stronger cooling recipe.
 The [standalone bore preparation](prints/2026-10-26-mark2-c2-three-bores/README.md)
 retains its editable project and native reading; it has no separate printer launch.
 
-Compare insertion, seated grip, axial movement, removal and wing/root survival
-on the same actual quarter-inch tube, identifying each result by its diameter
-label. The two smaller bores have no physical result yet.
+The selected 6.35 mm coupon has Derek's qualitative physical acceptance on the
+tested quarter-inch tube. Numerical insertion/removal force, fatigue and lifetime
+are unmeasured. The [production routing review](../../hardware/printed-parts/enclosure/enclosure/route-snap-review/README.md)
+records its installed application; the scaled 4 mm tube sections retain their
+own provisional fit scope.
 
 ```sh
 tools/cad-venv/bin/python future/tube-snap-exploration/c2_bore_trial.py

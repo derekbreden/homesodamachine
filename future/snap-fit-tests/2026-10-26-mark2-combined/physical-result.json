@@ -1,0 +1,46 @@
+{
+  "schema": 1,
+  "part": "C2 tube-bore comparison and 9 mm-wall relay-ribbon cable clips",
+  "status": "C2 6.35 mm bore and 16 mm-span 4P ribbon clip accepted for present use",
+  "authority": "Derek, direct physical report in chat",
+  "observed_date": "2026-10-27",
+  "printer": "Mark2",
+  "printer_task_id": "1379240291",
+  "archive": "future/snap-fit-tests/2026-10-26-mark2-combined/2026-10-26-tube-and-cable-snaps-wall9-cooled-mark2-2179a771/2026-10-26-tube-and-cable-snaps-wall9-cooled-mark2-2179a771.gcode.3mf",
+  "archive_sha256": "b0eb0b51520c375d14887ebe6851ccc2226dbf0ab334684e6f03076db17a30db",
+  "project_sha256": "e50062a831b5948f0b66a6d8d16d9631774dafb932a7802e75b269647349f313",
+  "launch_receipt": "future/snap-fit-tests/2026-10-26-mark2-combined/launch.json",
+  "source_sha256": {
+    "future/tube-snap-exploration/parts/tube-snap-c2-three-bores.stl": "350d7d300c767f3514ca54eb4452456c3b2372ba067361771f76daf21c554dbe",
+    "future/cable-clip-exploration/parts/relay-ribbon-wall9-span16.stl": "883db5fc6a80afb17e41639176f238dbc4a8519147fd5c8bac38e2fbb0a78a13"
+  },
+  "observation": "C2 with 6.35 is my preferred size from that test print. Make a note that we may try iterating smaller still, but that's good enough for now.\n\nOn the cable clips, the smaller size works well, and the 4P cable fits perfectly. A bit difficult to get in sliding from above, but possible when angling and pulling, and it definitely stays put. I think we're good with this cable clip.",
+  "reported_result": {
+    "tube_snap": {
+      "preferred_sample": "C2",
+      "preferred_cad_bore_diameter_mm": 6.35,
+      "wing_thickness_mm": 2.4,
+      "circular_wrap_per_wing_deg": 125.42102606277044,
+      "span_mm": 8,
+      "accepted_for_present_use": true,
+      "smaller_bore_iteration": "Optional future tuning; 6.35 mm is the current choice."
+    },
+    "cable_clip": {
+      "preferred_sample": "Smaller 16 mm cavity-span coupon on the 9 mm wall",
+      "cable": "Bare insulated 4P ribbon",
+      "seat_depth_mm": 2.2,
+      "seat_height_mm": 7.75,
+      "span_mm": 16,
+      "mouth_mm": 1.45,
+      "beak_mm": 0.75,
+      "hook_stock_mm": 3,
+      "reported_fit": "Fits perfectly and stays put; straight sliding entry is difficult, but angling and pulling succeeds.",
+      "accepted_for_present_use": true
+    }
+  },
+  "quantified_insertion_force_n": null,
+  "quantified_removal_force_n": null,
+  "measured_printed_bore_diameter_mm": null,
+  "measured_test_tube_outer_diameter_mm": null,
+  "scope": "Qualitative physical selection of the C2 6.35 mm CAD bore and fit/retention acceptance of the 16 mm-span 4P ribbon coupon from this cooled plate. The report does not accept the proportionally scaled 4 mm tube clips, DC-1 pair seat, V-K single-wire seat, complete production back-top print or its support cleanup. No numerical force, damage, fatigue or lifetime result is established."
+}

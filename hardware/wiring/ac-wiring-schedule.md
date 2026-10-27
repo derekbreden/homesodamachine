@@ -94,9 +94,9 @@ One 22 AWG 4P ribbon carries RELAYS J5 (`GND` / `V5` / `IO2` / `IO19`) from the 
 
 | # | From | To | Conductors | AWG | Approx. length | Termination | Notes |
 |---|---|---|---|---|---|---|---|
-| LV-1 | RELAYS J5 `IO19` | Teyleten relay #1 input terminal (IN) | signal | [22](AWG_LV) | [~300 mm](LEN_RELAYS) | XH housing at J5; screw terminal at relay | [3.3 V](V_IO) GPIO drive into the opto input; no ground loop concern. |
-| LV-2 | RELAYS J5 `IO2` | Teyleten relay #2 input terminal (IN) | signal | [22](AWG_LV) | [~300 mm](LEN_RELAYS) | XH housing at J5; screw terminal at relay | Diaphragm pump refill gate. IO2 is boot-safe here: the opto's LED load holds it low, which download mode also wants. |
-| LV-3 | RELAYS J5 `V5` + `GND` | Relay #1 + #2 module VCC / GND | + + GND | [22](AWG_LV) | [~300 mm](LEN_RELAYS) | XH housing at J5; screw terminals at relays; tee V5 / GND to both modules at the relay end | Coil/opto [5 V](V_LOGIC) comes off the main board's K7805 rail through J5; opto isolation keeps the coil supply electrically separate from the mains contacts. |
+| LV-1 | RELAYS J5 `IO19` | Teyleten relay #1 input terminal (IN) | signal | [22](AWG_LV) | [~350 mm](LEN_RELAYS) | XH housing at J5; screw terminal at relay | [3.3 V](V_IO) GPIO drive into the opto input; no ground loop concern. |
+| LV-2 | RELAYS J5 `IO2` | Teyleten relay #2 input terminal (IN) | signal | [22](AWG_LV) | [~350 mm](LEN_RELAYS) | XH housing at J5; screw terminal at relay | Diaphragm pump refill gate. IO2 is boot-safe here: the opto's LED load holds it low, which download mode also wants. |
+| LV-3 | RELAYS J5 `V5` + `GND` | Relay #1 + #2 module VCC / GND | + + GND | [22](AWG_LV) | [~350 mm](LEN_RELAYS) | XH housing at J5; screw terminals at relays; tee V5 / GND to both modules at the relay end | Coil/opto [5 V](V_LOGIC) comes off the main board's K7805 rail through J5; opto isolation keeps the coil supply electrically separate from the mains contacts. |
 
 ### [12 V](V_DC) distribution
 

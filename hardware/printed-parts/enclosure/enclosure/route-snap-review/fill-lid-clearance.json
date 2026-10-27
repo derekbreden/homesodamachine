@@ -1,0 +1,121 @@
+{
+  "scope": "Only accepted quarter-tube east-fill C2 against changed b8 lid. Three unchanged roof sites retain published1774 neighborhood reading.",
+  "baseline_sha256": "b8be919c38e7d0690c0f56d0c56095769a7475ae44ccb7ff9c7e3260d313b62d",
+  "site": {
+    "id": "tube-snap-reservoir-a-fill-east",
+    "route_id": "fluid-14",
+    "host": "enclosure-back-top",
+    "centre": [
+      94.31,
+      265.0,
+      258.5
+    ],
+    "along": [
+      0.0,
+      1.0,
+      0.0
+    ],
+    "outward": [
+      -1.0,
+      0.0,
+      0.0
+    ],
+    "root_distance": 4.189999999999998,
+    "tube_od": 6.35,
+    "bore_diameter": 6.35,
+    "wing": 2.4,
+    "span": 8.0,
+    "print_up": [
+      0.0,
+      0.0,
+      -1.0
+    ],
+    "basis": "East-wall fill straight; seat fill before draw, then close the existing paired fore cap.",
+    "install_before": [
+      "fluid-16"
+    ],
+    "source_parameter": {
+      "file": "hardware/manifold-layout/reservoir-a-routes.json",
+      "function": "fluid-14.segments",
+      "native_segment_index": 12,
+      "line_endpoints_world_mm": [
+        [
+          94.31,
+          244.0,
+          258.5
+        ],
+        [
+          94.31,
+          286.0,
+          258.5
+        ]
+      ],
+      "line_parameter": 0.5,
+      "straight_end_clearance_mm": 17.0,
+      "host_face_axis": "X",
+      "host_face_coordinate_mm": 98.5
+    }
+  },
+  "old_lid": {
+    "name": "cold-core/foam-cap-lid-top",
+    "path": [
+      "enclosure-assembly",
+      "383",
+      "cold-core/foam-cap-lid-top"
+    ],
+    "file": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/route-snap-native/archive/1774-a88/hardware-corridor/197-0033f66732.brep",
+    "sha256": "5646c8df2a8f0a38b76312a40e81f8d547e32a3c103011353ab12e0a1cbf0d01",
+    "bbox_world_mm": [
+      -90.2,
+      182.6,
+      248.0,
+      97.7,
+      465.0,
+      298.65
+    ]
+  },
+  "new_lid": {
+    "name": "cold-core/foam-cap-lid-top",
+    "path": [
+      "enclosure-assembly",
+      "383",
+      "cold-core/foam-cap-lid-top"
+    ],
+    "file": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/route-snap-native/hardware-corridor/197-0033f66732.brep",
+    "sha256": "e34778865a966608e1a04d97dacee1ae000b02c14f15b7685b7f2c1b912df81a",
+    "bbox_world_mm": [
+      -90.2,
+      182.6,
+      248.0,
+      97.7,
+      465.0,
+      298.65
+    ]
+  },
+  "old_bore_diameter_mm": 6.45,
+  "accepted_bore_diameter_mm": 6.35,
+  "nominal_own_tube_radial_clearance_mm": 0.0,
+  "old_clip_old_lid_gap_mm": 0.9494571218248581,
+  "accepted_clip_old_lid_gap_mm": 0.9986314202120264,
+  "accepted_clip_new_lid_gap_mm": 0.9986314202120264,
+  "bare_tube_press_new_lid_gap_mm": 1.9249997999999948,
+  "clip_bounds": [
+    90.57433634474879,
+    261.0,
+    252.925,
+    99.88500000000002,
+    269.0,
+    268.365
+  ],
+  "previous_clip_bounds": [
+    90.54535733154592,
+    261.0,
+    252.87499999999994,
+    99.935,
+    269.0,
+    268.415
+  ],
+  "new_lid_overlap_mm3": 0.0,
+  "print_fit_basis": "User selected printed C2 bore diameter6.35mm. The4mm tube bore4.10mm remains a provisional modeled estimate.",
+  "pass": true
+}

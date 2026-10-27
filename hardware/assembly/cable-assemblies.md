@@ -38,7 +38,7 @@ two 3P cover the one six-way wafer and reach four counts besides.
 | J2 MANIFOLD B | [6](J2_PINS) | 3P + 3P | [650 mm](LOOM_J2) | five populated; the conductor that would land in contact 3 is trimmed at the housing, not crimped; FAN sets the blank length; `FAN` and `OUT3` seat after the box closes |
 | J3 FAUCET | [4](J3_PINS) | 4P | [400 mm](LOOM_J3) | the inboard half only, board to the keystone on the +Y wall |
 | J4 SENSORS | [7](J4_PINS) | 4P + 3P | [650 mm](LOOM_J4) | the 1-wire and flow pairs (`3V3`/`IO26`, `V5`/`IO25`) on the 4P; the shared `GND` on the 3P, two reserved conductors trimmed at the housing; the flow pair seats after the box closes |
-| J5 RELAYS | [4](J5_PINS) | 4P | [300 mm](LOOM_J5) | both Teyleten modules |
+| J5 RELAYS | [4](J5_PINS) | 4P | [350 mm](LOOM_J5) | both Teyleten modules |
 | J6 REEDS A | [5](J6_PINS) | 5P | [600 mm](LOOM_J6) | reservoir A's column entire — four reeds and the common |
 | J7 REEDS B | [7](J7_PINS) | 5P + 3P | [500 mm](LOOM_J7) | reservoir B's column on the 5P; `CLO`/`CHI` on the 3P, third conductor trimmed |
 | J9 DISPLAY | [4](J9_PINS) | 4P | [400 mm](LOOM_J9) | the 4.3B's RS485 pair and its 12 V |
@@ -117,6 +117,38 @@ For each cable assembly in the schedule below:
 4. **Sleeve & dress.** Lay a pair edge to edge, web flat, and slip it into black braided sleeve sized to the pair; heat-shrink each cut end; flush-cut every zip tie. A ribbon needs no combing. Keep DC-5 bare end to end.
 5. **Test.** Continuity end-to-end, pin-to-pin against the schedule; confirm no short between adjacent conductors; on the manifold and reed assemblies verify the Wago commons exactly the intended pins. **Label the assembly by name, not per-conductor.**
 6. **Bag & stage** for [`wiring.md`](/hardware/assembly/wiring.md).
+
+## Back-top clip preparation and service
+
+Back-top's [integral routing clips](../printed-parts/enclosure/enclosure/route-snap-review/README.md)
+hold the DC-1 insulated 16 AWG pair, J5's insulated 22 AWG 4P ribbon and one
+V-K positive lead (`J2-positive-K`). Their [site provider](../wiring/installed/retainers.py)
+defines the retained conductors, local straight spans and dressing positions.
+The existing connector, relay and WAGO junctions retain their electrical
+assignments; clip placement does not change the termination schedule.
+
+Prepare an unsleeved straight window over the full clip span: 16 mm for DC-1
+and J5, and 8 mm for the single V-K lead. Finish the PET braid and its
+heat-shrink outside that window. Keep J5's web flat against the wall, with the
+four insulated conductors stacked across the seat height, and begin its
+fan-out beyond the clip. Keep their connector order through the web: GND, V5,
+IO2, IO19 from installed +Z to −Z. Insulation remains intact throughout each seat.
+
+With back-top open, dress and seat the prepared runs through the accessible
+mouths. All three cable mouths face down in installed machine coordinates;
+back-top's ceiling-down print pose reverses that direction on the printer.
+Angle and pull the J5 ribbon into its mouth; straight sliding entry can be tight.
+The [physical result](../../future/snap-fit-tests/2026-10-26-mark2-combined/physical-result.json)
+accepts the 16 mm-span clip's 4P fit and qualitative retention. The DC-1 pair and
+V-K single-wire seats remain provisional. The
+[review](../printed-parts/enclosure/enclosure/route-snap-review/README.md#evidence-and-fit-scope)
+retains the coupon scope and the complete production print's separate status.
+
+Before sliding back-top for opening, release its clipped cables and tubes so
+the shell cannot pull their terminals or junctions. Support the freed runs and
+follow [`wiring.md`](wiring.md) for the existing inter-quadrant connections.
+Body ties and the ledger's tie quantities retain their assigned scope; these
+routing clips carry no counted tie-removal credit.
 
 ## Assembly schedule
 

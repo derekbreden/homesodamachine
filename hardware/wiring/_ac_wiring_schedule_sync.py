@@ -127,7 +127,7 @@ len_earth_carbonator_mm = 500  # Lid stack → unlocated carbonator bond: 423.50
 # The installed graph supplies continuous-path sums for the revised commons
 # and power leads. Bench cuts include fitting reserve and are trimmed in place;
 # native centreline lengths do not qualify physical harness fit.
-len_relays_mm = 300      # J5 → west-wall relays: 230 mm longest continuous common plus reserve.
+len_relays_mm = 350      # J5 → west-wall relays through the ribbon clip: 279 mm modeled maximum plus fitting reserve.
 len_vk_mm = 350          # DC-9 OUT3 → V-K: 277.762 mm modeled path plus termination/dressing reserve.
 len_man_a_com_mm = 300   # J1 COM → upper front-top 221-420, with board escape and dressing reserve
 len_man_b_com_mm = 300   # J2 COM → lower front-top 221-415, independently of the valve OUT cuts
