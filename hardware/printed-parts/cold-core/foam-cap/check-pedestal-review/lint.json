@@ -1,0 +1,11 @@
+{
+  "scope": "Post-publication lint of the final printed top lid. No finding lies on the water-check pedestal. Existing cap screw/cover/C2 thin-section answers and retained functional-ceiling answers remain in force. No physical fit or force qualification.",
+  "step_sha256": "83a5d01e6615d02a9664b5409fe48b9bb63fc92efdc7a506038e177f80e7d08f",
+  "stl_sha256": "9947ffffc1119b85b9d3909e400098dd30fe88c490c86d188431ba059e3a283f",
+  "printed_facets": 99770,
+  "header": "foam-cap-lid-top.stl \u00b7 99770 printed facets \u00b7 24 findings \u00b7 7 answered",
+  "rendered_finding_groups": 31,
+  "unanswered_groups": [],
+  "sliver_groups": 0,
+  "water_check_pedestal_findings": 0
+}

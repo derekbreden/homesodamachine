@@ -1,0 +1,12 @@
+[
+  {
+    "model": "printed-parts/cold-core/foam-cap/foam-cap-lid-top.step",
+    "source_step_sha256": "83a5d01e6615d02a9664b5409fe48b9bb63fc92efdc7a506038e177f80e7d08f",
+    "matched": true
+  },
+  {
+    "model": "manifold-layout/enclosure-assembly.step",
+    "source_step_sha256": "7e27e2b2c0aac042bc0038a72dde31354632fb9f516ba6d2fb762ca7e8fb9c21",
+    "matched": true
+  }
+]
