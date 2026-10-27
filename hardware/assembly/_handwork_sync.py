@@ -60,10 +60,9 @@ def main():
             f"{reservoir.reservoir_rod_len:.4g} mm "
             f"({reservoir.reservoir_rod_len / MM_PER_IN:.3g} in)"
         ),
-        # Evaporator-coil wrap — pitch enforced by the mandrel's helical groove,
-        # the tie-in allowances struck in coil_mandrel.py, the laid wrap drawn in
-        # cold-core-layout/_coil.py.
-        "PITCH": f"{_coil_mandrel_gen.pitch:.4g} mm",
+        # Finished evaporator pitch and laid winding from _coil; the rough
+        # mandrel module carries the billed tail allowances.
+        "PITCH": f"{_coil_gen.PITCH:.4g} mm",
         "LAID_FT": f"{_coil_gen.wrap_length() / 304.8:.4g} ft",
         "STUB_INLET": f"{_coil_mandrel_gen.stub_allowance['inlet']:.4g} mm",
         "STUB_OUTLET": f"{_coil_mandrel_gen.stub_allowance['outlet']:.4g} mm",

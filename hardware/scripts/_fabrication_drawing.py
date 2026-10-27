@@ -22,7 +22,8 @@ def frame(c, sheet):
     c.rect(27, 27, sheet[0] - 54, sheet[1] - 54, stroke=1, fill=0)
 
 
-def title_block(c, sheet, title, drawing, material, quantity, part_id, status):
+def title_block(c, sheet, title, drawing, material, quantity, part_id, status,
+                revision="A", sheet_label="1 OF 1"):
     right = sheet[0] - 27
     left = right - 562
     c.setLineWidth(0.7)
@@ -42,10 +43,10 @@ def title_block(c, sheet, title, drawing, material, quantity, part_id, status):
         text(c, x, 87, label, 7)
         text(c, x, 73, value, 8.5, bold=True)
     fields = ((left, left + 175, "DRAWING", drawing),
-              (left + 175, left + 220, "REV", "A"),
+              (left + 175, left + 220, "REV", revision),
               (left + 220, left + 335, "DATE", "2026-10-27"),
               (left + 335, left + 452, "SCALE", "AS SHOWN"),
-              (left + 452, right, "SHEET", "1 OF 1"))
+              (left + 452, right, "SHEET", sheet_label))
     for i, (a, b, label, value) in enumerate(fields):
         if i:
             line(c, a, 27, a, 65)

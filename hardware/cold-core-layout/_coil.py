@@ -1,29 +1,26 @@
 """The evaporator coil, wound on the carbonator, with the two tails that leave it.
 
-`coil-mandrel` is the tool the copper is wound ON — a cylinder undersized by `net_undersize` so
-the wrap springs out and clamps the carbonator when it comes off. This module is the copper
-AFTER that: at the radius it actually sits at, one tube radius off the carbonator's own OD, and
-lifted
-again wherever the reed bridge carries it (`_ride_radius`). `wrap_length` is therefore the
+`coil-mandrel` is the undersized rough-forming aid. This module defines the
+finished copper after diameter, pitch and turn count are set on the vessel
+fixture: one tube radius off the carbonator OD, lifted over the reed bridge
+by `_ride_radius`. `wrap_length` is therefore the
 copper a build CONSUMES, which is the figure `bom.md` §5 bills — longer than either of the
 mandrel's two.
 
     winding radius   `carbonator_outer_radius + tube_radius`, the copper's centreline on the carbonator
-    wraps            `coil_mandrel.total_wraps` — 9 full plus the fraction the tails' azimuths
-                     span, which is the mandrel's own figure and stays its own
+    wraps            9.5 finished right-hand turns, opposite tangent exits
     z                `evap_tail_low_z` up to `evap_tail_high_z`, the bands the carbonator's own
                      elbows leave clear above and below it
 
-FRAMES. The mandrel is authored lying down, its own Y the cylinder axis and (x, z) the radial
-plane. Standing it up on the shell's Z, `x → y` and `z → −x`. `_map_azimuth` is that turn and
-`COIL_CLOCK` is the roll on top of it; both leave `tail_ccw_delta` alone, so the wrap count the
-mandrel struck is the wrap count drawn here.
+FRAME. The finished winding uses the cold core's Z axis and opposite -Y / +Y
+helix exits. The undersized mandrel is a rough-forming aid; its groove and
+springback do not define the finished turn count or copper consumption.
 
-WHERE A TAIL GOES after the wrap: radially clear of the helix, DOWN its own column, onto its
-lane at the height the wall lets it cross, and out. `_copper_ports.station` is where each
-crosses — the inlet's on the port lane, the outlet's on the west — and both stand at
-`evap_cross_z`, well under the heights their wraps leave at. Which column each one falls down
-is `FALL_IN_LANE`, and the two flanks answer differently.
+TAIL FORM. Both helix ends lie on the port axis, at -Y / +Y. A tangent
+pitch roll-off and two opposite R15 plan bends take each tail to its lane.
+The inlet uses an R15 vertical dogleg; the outlet uses two R15 quarter bends
+and a straight drop. Every segment is tangent to the next. The two exits
+retain their shell station and their -X axes.
 """
 
 from __future__ import annotations
@@ -53,51 +50,18 @@ from _cold_core_interface import (                       # noqa: E402
     wall_and_floor_thickness,
 )
 from _routing import stock_min, stock_of                 # noqa: E402
-import _internal_routes as _R                            # noqa: E402
 import _stated_bounds as _bounds                         # noqa: E402
 
 TUBE_R = _mandrel.tube_radius                       # 3.175 — 1/4" ACR copper
 # The copper's centreline once it is off the mandrel and onto the carbonator: its inner surface
 # on the carbonator's OD.
 WIND_R = carbonator_outer_radius + TUBE_R
-TOTAL_WRAPS = _mandrel.total_wraps
-PITCH = _mandrel.pitch
+TOTAL_WRAPS = 9.5
 COPPER_STOCK = stock_of("refrigerant", 2 * TUBE_R)
 COPPER_BEND = stock_min("refrigerant", 2 * TUBE_R)
 
-# How far a tail stands off the wrap before it turns for its lane — one bend radius, the
-# shortest straight a turn off the helix can be seated in.
-TAIL_LEAD = COPPER_BEND
-
-
-def _map_azimuth(mandrel_x: float, mandrel_z: float) -> float:
-    """One of the mandrel's radial points as an azimuth in the shell's frame, degrees CCW
-    off +X."""
-    return math.degrees(math.atan2(mandrel_x, -mandrel_z))
-
-
-# HOW THE WOUND COIL IS CLOCKED ONTO THE CARBONATOR, degrees CCW. The mandrel says where the two
-# tails sit RELATIVE TO EACH OTHER — `tail_ccw_delta` is its own figure and untouched here —
-# and nothing says where that pair sits relative to the shell. A helix is the same helix at
-# every roll, so this is one free turn, and it is the only thing that moves both tails without
-# moving anything they have to clear.
-#
-# THE WINDOW IS 2.5° WIDE AND THE MANDREL'S OWN AZIMUTHS SIT IN THE MIDDLE OF IT, which is why
-# the turn is zero. Swept against the placed solids at 0.05° over AZ_IN ∈ [−130°, −114°]:
-#
-#   AZ_IN < −124.5°   the inlet tail's fall meets reservoir A's pocket, whose centreward arc
-#                     stands at r 78..80 and begins at azimuth ∓125°. The fall is at r 79.4,
-#                     inside that band, so it only passes where the arc is not.
-#   AZ_IN > −122.0°   the same wall on reservoir B, reached by the outlet tail's step out to
-#                     the west lane — `tail_ccw_delta` carries it there 247.4° round.
-#
-# The carbonated water's riser used to close that window from the middle; it stands one column
-# clear of it now (`_cold_core_interface.cap_conduits`, carb-water-out). What is left is
-# measured on every build by `bodies-clear` and `lines-apart`, not restated.
-COIL_CLOCK = 0.0
-
-AZ_IN = _map_azimuth(_mandrel.tail_inlet_x, _mandrel.tail_inlet_z) + COIL_CLOCK
-AZ_OUT = _map_azimuth(_mandrel.tail_outlet_x, _mandrel.tail_outlet_z) + COIL_CLOCK
+# Finished helix endpoints, degrees CCW from +X in the core frame.
+AZ_IN, AZ_OUT = -90.0, 90.0
 
 
 def _at(azimuth_deg: float, z: float, radius: float = None) -> cq.Vector:
@@ -107,6 +71,7 @@ def _at(azimuth_deg: float, z: float, radius: float = None) -> cq.Vector:
 
 
 WIND_HEIGHT = evap_tail_high_z - evap_tail_low_z
+PITCH = WIND_HEIGHT / TOTAL_WRAPS
 
 
 # THE WRAP DOES NOT LIE ON THE CARBONATOR ALL THE WAY ROUND. The reed bridge stands on the register
@@ -234,61 +199,105 @@ def gap_z_near(azimuth_deg: float, target_z: float) -> float:
     return wrap_z + PITCH / 2.0
 
 
-# WHICH COLUMN EACH TAIL FALLS DOWN, and it is not the same answer on the two flanks.
-#
-# A lane is one bore wide, so a run standing in one at every storey between its wrap and its
-# station is a wall to anything crossing there. The PORT lane HAS such a crossing — the PRV
-# vent, one pitch over this very copper (`_copper_ports.stations()`) — so the inlet falls at the
-# standoff radius it already turned out to and joins the lane only at the height it crosses
-# the wall, where it is one storey among the others.
-#
-# THE WEST FLANK CANNOT DO THAT. Reservoir B's pocket closes the standoff annulus on that
-# side: its centreward arc stands at r 80.0 against a fall at r 79.4, and there is no room
-# between the wrapped coil at 69.85 and that arc for a ⌀6.35 tube with a lead long enough to
-# seat its own corner. The west lane carries no storey between the outlet's two heights, so
-# the outlet falls IN the lane — the one column open to it.
-FALL_IN_LANE = {"inlet": False, "outlet": True}
+TAIL_BEND_R = 15.0
+
+
+class TailForm:
+    """Analytic circular bends and tangent straights, in manufacturing order."""
+
+    def __init__(self, point, tangent):
+        self.point = cq.Vector(*point)
+        self.tangent = cq.Vector(*tangent).normalized()
+        self.edges = []
+        self.segments = []
+
+    def bend(self, normal, degrees, label):
+        normal = cq.Vector(*normal).normalized()
+        angle = math.radians(degrees)
+        start, tangent = self.point, self.tangent
+        radius = TAIL_BEND_R
+        end = (start + tangent.multiply(radius * math.sin(angle))
+               + normal.multiply(radius * (1 - math.cos(angle))))
+        mid = (start + tangent.multiply(radius * math.sin(angle / 2))
+               + normal.multiply(radius * (1 - math.cos(angle / 2))))
+        self.edges.append(cq.Edge.makeThreePointArc(start, mid, end))
+        self.segments.append(dict(id=label, kind="bend", start=start.toTuple(),
+                                  end=end.toTuple(), radius=radius, angle=degrees,
+                                  tangent=tangent.toTuple(), normal=normal.toTuple()))
+        self.point = end
+        self.tangent = tangent.multiply(math.cos(angle)) + normal.multiply(math.sin(angle))
+
+    def straight(self, length, label):
+        if length <= 1e-8:
+            return
+        end = self.point + self.tangent.multiply(length)
+        self.edges.append(cq.Edge.makeLine(self.point, end))
+        self.segments.append(dict(id=label, kind="straight", start=self.point.toTuple(),
+                                  end=end.toTuple(), length=length))
+        self.point = end
+
+    def wire(self):
+        return cq.Wire.assembleEdges(self.edges)
+
+
+def tail_form(which: str, *, working_tail=False) -> TailForm:
+    """Production form from helix endpoint to the shell exit, optionally to cut end.
+
+    B0 absorbs the helix's small pitch angle. B1/B2 are a plan S-offset;
+    B3/B4 complete the vertical change. The outlet has a straight between B3
+    and B4. E is the fixed exit datum, two millimetres outside the station.
+    """
+    sign = -1 if which == "inlet" else 1
+    az = AZ_IN if which == "inlet" else AZ_OUT
+    z = evap_tail_low_z if which == "inlet" else evap_tail_high_z
+    start = _at(az, z)
+    beta = math.atan(PITCH / (2 * math.pi * WIND_R))
+    form = TailForm(start.toTuple(), (-math.cos(beta), 0, sign * math.sin(beta)))
+    form.bend((-math.sin(beta), 0, -sign * math.cos(beta)), math.degrees(beta), "B0")
+    (_wall_x, lane_y, cross_z), _axis = _copper.station("evap-" + which)
+    offset = abs(lane_y) - WIND_R
+    angle = math.acos(1 - offset / (2 * TAIL_BEND_R))
+    form.bend((0, sign, 0), math.degrees(angle), "B1")
+    form.bend((-math.sin(angle), -sign * math.cos(angle), 0), math.degrees(angle), "B2")
+    if which == "inlet":
+        drop = form.point.z - cross_z
+        angle = math.acos(1 - drop / (2 * TAIL_BEND_R))
+        form.bend((0, 0, -1), math.degrees(angle), "B3")
+        form.bend((-math.sin(angle), 0, math.cos(angle)), math.degrees(angle), "B4")
+    else:
+        form.bend((0, 0, -1), 90, "B3")
+        form.straight(form.point.z - (cross_z + TAIL_BEND_R), "S1")
+        form.bend((-1, 0, 0), 90, "B4")
+    exit_x = _wall_x - wall_and_floor_thickness
+    form.straight(form.point.x - exit_x, "S2")
+    if working_tail:
+        form.straight(_mandrel.stub_protrusion[which], "WORKING TAIL")
+    return form
 
 
 def tail_points(which: str) -> list:
-    """One tail's centreline: off the wrap, down its own column, onto its lane at the station's
-    height, and out through the wall. `FALL_IN_LANE` says which column that is."""
-    if which == "inlet":
-        az, z0, station = AZ_IN, evap_tail_low_z, "evap-inlet"
-    else:
-        az, z0, station = AZ_OUT, evap_tail_high_z, "evap-outlet"
-    (wall_x, lane_y, cross_z), _axis = _copper.station(station)
-
-    start = _at(az, z0)
-    # Radially out of the wrap far enough to turn in, then down its own column, then onto the
-    # lane's own y at the crossing height, then out through the wall.
-    lead = _at(az, z0, WIND_R + TAIL_LEAD)
-    fall_y = lane_y if FALL_IN_LANE[which] else lead.y
-    return [
-        (start.x, start.y, start.z),
-        (lead.x, lead.y, lead.z),
-        (lead.x, fall_y, z0),
-        (lead.x, fall_y, cross_z),
-        (lead.x, lane_y, cross_z),
-        (wall_x - wall_and_floor_thickness, lane_y, cross_z),
-    ]
+    """Tangent stations of the production form; not sharp polyline corners."""
+    form = tail_form(which)
+    return [form.segments[0]["start"], *(item["end"] for item in form.segments)]
 
 
 def build_tail(which: str):
-    """One tail drawn at the copper's own arc: `(bend_radius, solid)`."""
-    return _R.route_bend_radius, _R.build_route(tail_points(which), COPPER_BEND, TUBE_R)
+    form = tail_form(which)
+    wire = form.wire()
+    plane = cq.Plane(origin=wire.startPoint(), normal=wire.tangentAt(0))
+    solid = cq.Workplane(plane).circle(TUBE_R).sweep(
+        cq.Workplane("XY").newObject([wire]), isFrenet=True).val()
+    return TAIL_BEND_R, solid
 
 
 def bodies() -> dict:
-    return {
-        "evap-coil": build_wrap(),
-        "evap-tail-inlet": _R.build_route(tail_points("inlet"), COPPER_BEND, TUBE_R),
-        "evap-tail-outlet": _R.build_route(tail_points("outlet"), COPPER_BEND, TUBE_R),
-    }
+    return {"evap-coil": build_wrap(),
+            "evap-tail-inlet": build_tail("inlet")[1],
+            "evap-tail-outlet": build_tail("outlet")[1]}
 
 
 def tail_length(which: str) -> float:
-    return _R.route_wire(tail_points(which), COPPER_BEND).Length()
+    return tail_form(which).wire().Length()
 
 
 # WHAT THE CUT ALLOWS, AGAINST WHAT THE TAILS ACTUALLY TAKE. A tie-in allowance is that end's
@@ -335,7 +344,7 @@ def report() -> None:
     print(f"    wraps           {TOTAL_WRAPS:.3f} at {PITCH:.4g} mm pitch, "
           f"z {evap_tail_low_z:.1f}..{evap_tail_high_z:.1f}")
     print(f"    azimuths        inlet {AZ_IN:+.2f}°, outlet {AZ_OUT:+.2f}°, "
-          f"CCW delta {_mandrel.tail_ccw_delta:.2f}°")
+          f"CCW delta {(AZ_OUT - AZ_IN) % 360:.2f}°")
     # Three readings of one length: what the mandrel holds, what the same wraps come to once
     # sprung onto the carbonator, and what THIS module draws with the reed bridge's lift in it.
     print(f"    wrap laid       {wrap:.0f} mm ({wrap / 304.8:.2f} ft) — mandrel "

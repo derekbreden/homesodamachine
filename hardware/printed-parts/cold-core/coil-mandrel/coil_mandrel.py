@@ -5,12 +5,10 @@ Hollow PETG cylinder for hand-winding 1/4" OD copper around the 5"
 round 316L carbonator. [5 mm](WALL) solid PETG wall, with a shallow
 helical guide groove [1 mm](GROOVE_DEPTH) deep that cradles the copper.
 
-The coil's inner radius after winding is net_undersize mm smaller than
-the carbonator radius, so the coil stretches radially to clamp the carbonator.
-
-Coil start and end are clocked to the foam-shell's two copper feed-through
-slots — one tail either side of the mandrel's centre plane, one per
-lane; exit bends are purely radial (no vertical jog).
+The undersized groove is a rough-forming aid. Feed material from the long
+ends while setting the finished diameter, pitch and turn count on the vessel
+fixture. EVAP-01 and cold-core-layout/_coil.py define the production coil,
+including its opposite tangent exits and complete R15 tail forms.
 """
 
 import math
@@ -48,8 +46,8 @@ carbonator_od = 127.0  # 5" carbonator carbonator OD
 # [63.5 mm](TANK_R) — carbonator radius.
 carbonator_radius = carbonator_od / 2
 
-# As-wound coil inner radius, this much under the carbonator radius; the coil
-# stretches radially by this to clamp the carbonator.
+# Rough preform undersize relative to the carbonator; final form is set on
+# the vessel fixture with material fed from the unfinished tails.
 net_undersize = 3.0
 
 
@@ -162,15 +160,15 @@ stub_protrusion = {"inlet": 200.0, "outlet": 175.0}
 
 # WHAT EACH TAIL DOES BEFORE IT PROTRUDES, AND NOTHING ELSE IN THE REPO BILLS IT.
 # `cold-core-layout/_coil.tail_length` draws each tail off the helix, down its own
-# column and out through the shell wall: [135.5 mm](SHELL_TAIL_INLET) and
-# [254.6 mm](SHELL_TAIL_OUTLET). That copper comes off the same cut as the wrap, so
+# column and out through the shell wall: [154.4 mm](SHELL_TAIL_INLET) and
+# [271.9 mm](SHELL_TAIL_OUTLET). That copper comes off the same cut as the wrap, so
 # the allowance carries it — an allowance is in-shell tail PLUS protrusion, end for
 # end. Written here rather than imported because `_coil` imports this module and the
 # dependency only runs one way; `_coil`'s `stub-tails-billed` bound is where the two
 # figures are held against the tails actually drawn, since that module sees both.
-tail_in_shell = {"inlet": 135.5, "outlet": 254.6}
+tail_in_shell = {"inlet": 154.4, "outlet": 271.9}
 
-# [335.5 mm](STUB_INLET) at the inlet, [429.6 mm](STUB_OUTLET) at the outlet.
+# [354.4 mm](STUB_INLET) at the inlet, [446.9 mm](STUB_OUTLET) at the outlet.
 stub_allowance = {end: tail_in_shell[end] + stub_protrusion[end] for end in tail_in_shell}
 stub_total = sum(stub_allowance.values())
 
