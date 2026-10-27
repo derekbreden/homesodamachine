@@ -70,12 +70,12 @@ export function bomCountText({ direct, total }) {
   return `${direct} direct · ${total} total BOM item${total === 1 ? "" : "s"}`;
 }
 
-// The document list includes containing assemblies, with one entry per linked path.
+// A reader's documents are the PDFs of the material and its containing assemblies, one entry per path.
 export function materialDocuments(catalog, id, options = {}) {
   const index = materialIndex(catalog), docs = new Map();
   function collect(material, inherited = false) {
     for (const doc of material?.documents || [])
-      if (!docs.has(doc.path)) docs.set(doc.path, { ...doc, inherited, owner: material.description });
+      if (doc.path.endsWith(".pdf") && !docs.has(doc.path)) docs.set(doc.path, { ...doc, inherited, owner: material.description });
   }
   collect(index.get(id));
   for (const row of whereUsed(catalog, id, options)) collect(row.material, true);

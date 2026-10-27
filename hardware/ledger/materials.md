@@ -1,7 +1,9 @@
 # Material catalog
 
 [`materials.json`](materials.json) records the identities, composition, models and
-documents shown by the [material explorer](https://homesodamachine.com/3d).
+documents shown by the [material explorer](https://homesodamachine.com/3d). The
+explorer shows the PDFs among a material's `documents`; Markdown, scripts and
+records there and in `bom.source` are for agents and are not shown.
 An assembly's contents can include other assemblies; quantities and ancestry follow
 those relationships through every level.
 
