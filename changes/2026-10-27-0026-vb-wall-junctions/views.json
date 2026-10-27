@@ -1,0 +1,128 @@
+{
+  "views": [
+    {
+      "name": "wall-routing",
+      "caption": "Core junctions and the tube lanes beside V-B",
+      "before": "wall-routing-before.webp",
+      "after": "wall-routing-after.webp",
+      "width": 1000,
+      "height": 700,
+      "marks": [
+        {
+          "x": 500.2,
+          "y": 320.6,
+          "r": 14.1,
+          "label": "WAGOs on V-B wall",
+          "at": [
+            25,
+            242,
+            286
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          -238.79571333106276,
+          370.58747779599577,
+          664.7281662283795
+        ],
+        "target": [
+          15,
+          247,
+          273
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 214.68465912591293,
+        "far": 872.3842155312486,
+        "aspect": 1.4285714285714286
+      },
+      "highlight": [
+        "cold-core/wago-*"
+      ],
+      "ghost": [],
+      "only": [
+        "cold-core/foam-cap-lid-top",
+        "cold-core/reservoir-a-fore-snap-cap",
+        "cold-core/wago-*",
+        "cold-core/valve-v-b",
+        "cold-core/vb-*",
+        "cold-core/tube-above-core-vb-yb-cross",
+        "tube-fluid-14",
+        "tube-fluid-16",
+        "tube-above-core-va-fore-feed",
+        "tube-above-core-drain-vb-east-link",
+        "tube-above-core-vb-yb-link",
+        "cold-core/pcba"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "adab5f9c61f1a40bb76bddfff7c48d3e57d23db2f8230099d58147e1bb1e9674",
+          "commit": "42dc9fc8db49f2f73ff0b82622da6dc6820e8306",
+          "taken": "2026-10-27T01:59:17.564Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "file",
+          "sha256": "ecdff6e27da226585110871062507fac0798ee466da43eea7b15fa028c04226c",
+          "commit": null
+        }
+      },
+      "changed": [
+        "wire-DC3-negative",
+        "cold-core/wago-sensors",
+        "wire-J4-GND",
+        "wire-J7-carb-earth-2",
+        "wire-DC1-GND",
+        "wire-flow-GND",
+        "wire-temp-GND",
+        "wire-J7-earth-4",
+        "cold-core/wago-reeds-b",
+        "wire-DC4-GND",
+        "wire-J7-GND",
+        "wire-DC4-V12",
+        "wire-DC2-V12",
+        "cold-core/wago-v12",
+        "cold-core/wago-gnd",
+        "wire-DC1-V12",
+        "wire-J1-OUT2",
+        "tube-above-core-va-fore-feed",
+        "cold-core/foam-cap-lid-top",
+        "enclosure-back-top",
+        "cold-core/reservoir-b-cap",
+        "cold-core/reservoir-a-cap",
+        "tube-fluid-16",
+        "tube-fluid-14",
+        "tube-above-core-drain-vb-east-link",
+        "cold-core/vb-outlet-return",
+        "cold-core/valve-v-b",
+        "tube-above-core-vb-yb-link",
+        "cold-core/vb-outlet-stem",
+        "cold-core/vb-inlet-turn",
+        "cold-core/reservoir-a-fore-snap-cap",
+        "wire-J1-positive-B",
+        "cold-core/tube-above-core-vb-yb-cross"
+      ],
+      "withinMeshing": [
+        "tube-above-core-va-under-head",
+        "tube-above-core-water-in",
+        "enclosure-back-bottom",
+        "enclosure-pump-retainer",
+        "enclosure-front-top",
+        "enclosure-front-bottom",
+        "cold-core/evap-coil",
+        "funnel"
+      ]
+    }
+  ]
+}
