@@ -78,7 +78,7 @@
     {
       "name": "cold-core/foam-cap-lid-top",
       "bounds_residual_mm": 2.0000297240585496e-07,
-      "volume_residual_mm3": 1.7462298274040222e-10
+      "volume_residual_mm3": 6.984919309616089e-10
     }
   ],
   "preserved_bodies": [
@@ -139,14 +139,14 @@
     }
   ],
   "published_baseline": {
-    "commit": "4fd228e923a4b6bdc1eef34bda19e46d6a162bdb",
-    "assembly_sha256": "d954170f04f58978016adcfe0df073173efb7788555e940b44824e738a638b61"
+    "commit": "d3f172f60510a22ad552de0c8ef733ef7afe890d",
+    "assembly_sha256": "1774c855ebb9f130aacb9b6dfde17f8e7185b7fa6d9f9b5031cb67a2bc4c5e78"
   },
-  "assembly_sha256": "1774c855ebb9f130aacb9b6dfde17f8e7185b7fa6d9f9b5031cb67a2bc4c5e78",
-  "mesh_sha256": "5809b597bf8678609c2392b9adf25adfe0f330dcf844b4b531ff88d2dfab5994",
+  "assembly_sha256": "b8be919c38e7d0690c0f56d0c56095769a7475ae44ccb7ff9c7e3260d313b62d",
+  "mesh_sha256": "4464bf1e8661ca1d0252ab05ab250eae8483dd78737bde0d7bcfc3a2dfe4202a",
   "source_sha256": {
-    "hardware/manifold-layout/above-core.json": "5f357819e9c3143ff330c02f6890a23c26f106742a329204eabfe76e4797a429",
-    "hardware/manifold-layout/above-core.md": "48aa0d4184e03e0e6a13c1345c8111d8ac9bfd436624ad232bf021cb0ac79508",
+    "hardware/manifold-layout/above-core.json": "6b8bb80779f653f3b91f22547fdeb1155f802f63908892f24496a446210a1b40",
+    "hardware/manifold-layout/above-core.md": "aca3ea3e18749f2d590310b0ce54bbea8477d319f590cc816e617e6668b584ae",
     "hardware/manifold-layout/above_core_parts.py": "ff64c7f64e17b3f77b7942c96e63fc981e3098cbe72109ba2394eed43e729aa3",
     "hardware/manifold-layout/above_core_wiring.py": "aa0f139b4ff3d00fe6bae1a476af1ca4d9d17cd4e08ee8074adf43b4683c62e6",
     "hardware/manifold-layout/enclosure_assembly.py": "572da85f5757e4ac0e42614cc8be3f5f987b06cb76307c7763b822886f5149ee",
@@ -154,12 +154,14 @@
     "hardware/printed-parts/cold-core/_reservoir_a_anchors.py": "085cdcdd2abb13a2484c9cb1f3d1213425947718ead939041815ab65c4d92e64",
     "hardware/printed-parts/cold-core/_reservoir_a_snap.py": "e479806978b4b96211bbd0bf38ecbeb9076939f240c65dfda2ab10e675f7ca58",
     "hardware/printed-parts/cold-core/foam-cap/foam_cap.py": "7e980fd5d8c3e72173927724054b5518669cf3fb59ae4e5bc8007582a97f9125",
-    "hardware/printed-parts/cold-core/foam-cap/README.md": "52790d95e32c00b1722b18a86847897ca8ed2360ff4c34c6539f0e532ee84ab7",
+    "hardware/printed-parts/cold-core/foam-cap/README.md": "9d923bf190eb30244448193fc1ac56d745968a80d3a0e46d1d515baa566488ca",
     "hardware/printed-parts/cold-core/foam-cap/prepare_fore_snap_regions.py": "dd88a5d7520b278249576ee1e5053a070aa0b2a78fa4060f3c86aec849189621",
     "hardware/wiring/installed/route-overrides.json": "2cb5af09e42c4e2746e6eb7f7ad5e7662105120ad6b2a5d566c943bb57fe132f",
     "hardware/wiring/installed/bundle-routes.json": "fdb751f9de3ce955436239d3bfdd660ad75238c2189adbc011911d727aa6d676",
     "tools/reviews/review_reservoir_a_snap.py": "968845eb694b5728cf16de4998d17596b11606ca18b68d1d57a309ea8be40a21",
-    "hardware/printed-parts/cold-core/foam-cap/reservoir-a-snap-review/README.md": "bb2edca933e81e782b1373ac086a3de02af6b3fb8b6bc42a5a806539972e93e2"
+    "hardware/printed-parts/cold-core/foam-cap/reservoir-a-snap-review/README.md": "bb2edca933e81e782b1373ac086a3de02af6b3fb8b6bc42a5a806539972e93e2",
+    "hardware/printed-parts/cold-core/_above_core_mounts.py": "553d51a9dcf5f67935b5ef5271684492abb256217f69e79005316932a0b1bcca",
+    "hardware/printed-parts/lint-answers/cold-core/foam-cap/foam-cap-lid-top.lint-answers": "4dfaa55bd8dc0d9c372ff1b889d9538cd10741240bfafb8d81cb0f14afd0dc31"
   },
-  "scope": "Completed populated native export. Retains the completed full ASSE/drain reading after the sole further solid edit, the fore spring-foot pocket clearance cut."
+  "scope": "Completed populated native export with the common wall/holder top plane. The completed full ASSE/drain reading is retained: the subsequent lid-only edits are the fore spring-foot reliefs and a wall-top addition whose exact neighboring clearances are in top-plane-review.json."
 }
