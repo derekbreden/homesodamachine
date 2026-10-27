@@ -1,0 +1,103 @@
+{
+  "model": "mlx-community/whisper-base.en-mlx",
+  "script_words": 244,
+  "recognized_words": 249,
+  "discrepancies": [
+    {
+      "type": "replace",
+      "script": [
+        "one-sixteenth-inch"
+      ],
+      "heard": [
+        "1",
+        "-sixteenth",
+        "inch"
+      ],
+      "script_range": [
+        95,
+        96
+      ],
+      "word_range": [
+        95,
+        98
+      ]
+    },
+    {
+      "type": "replace",
+      "script": [
+        "float"
+      ],
+      "heard": [
+        "flow"
+      ],
+      "script_range": [
+        162,
+        163
+      ],
+      "word_range": [
+        164,
+        165
+      ]
+    },
+    {
+      "type": "replace",
+      "script": [
+        "high-level"
+      ],
+      "heard": [
+        "high",
+        "level"
+      ],
+      "script_range": [
+        167,
+        168
+      ],
+      "word_range": [
+        169,
+        171
+      ]
+    },
+    {
+      "type": "insert",
+      "script": [],
+      "heard": [
+        "tops."
+      ],
+      "script_range": [
+        173,
+        173
+      ],
+      "word_range": [
+        176,
+        177
+      ]
+    },
+    {
+      "type": "insert",
+      "script": [],
+      "heard": [
+        "up."
+      ],
+      "script_range": [
+        244,
+        244
+      ],
+      "word_range": [
+        248,
+        249
+      ]
+    }
+  ],
+  "first_word": {
+    "word": "A",
+    "start": 0.0,
+    "end": 0.24,
+    "probability": 0.8696
+  },
+  "last_word": {
+    "word": "up.",
+    "start": 83.68,
+    "end": 83.84,
+    "probability": 0.0796
+  }
+}

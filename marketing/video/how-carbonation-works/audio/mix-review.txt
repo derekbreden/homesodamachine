@@ -1,0 +1,13 @@
+```json
+{
+ "usable": true,
+ "intelligibility": "The voice is clear and easy to understand throughout the recording.",
+ "voice_delivery": "The narration is performed at a professional, appropriate pace and with a neutral, engaging tone.",
+ "music_and_effect_balance": "The background music and sound effects are well-balanced and do not overpower or mask the narration.",
+ "sonic_defects": "The audio contains no noticeable sonic defects like harsh hiss, pumping, or excessive drone.",
+ "clipped_words": "None",
+ "distracting_sounds": "None",
+ "tail_quality": "The tail is clean and fits the recording.",
+ "material_improvements": "The audio quality is professional and serves its purpose well. No improvements are necessary."
+}
+```

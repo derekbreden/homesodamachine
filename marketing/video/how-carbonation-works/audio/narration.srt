@@ -1,0 +1,159 @@
+1
+00:00:00,000 --> 00:00:01,720
+A turn of the handle looks simple.
+
+2
+00:00:02,400 --> 00:00:03,720
+Inside Home Soda Machine,
+
+3
+00:00:03,760 --> 00:00:04,880
+three things make it possible:
+
+4
+00:00:05,460 --> 00:00:07,680
+pressure, mixing, and cold.
+
+5
+00:00:08,280 --> 00:00:09,240
+Pull away the enclosure,
+
+6
+00:00:09,240 --> 00:00:10,800
+and this is the cold core.
+
+7
+00:00:11,320 --> 00:00:13,340
+At its center is a stainless steel carbonator:
+
+8
+00:00:13,500 --> 00:00:15,020
+a sealed tank that keeps water
+
+9
+00:00:15,020 --> 00:00:16,480
+in contact with carbon dioxide.
+
+10
+00:00:17,140 --> 00:00:19,380
+Carbon dioxide enters through a port at the bottom.
+
+11
+00:00:19,860 --> 00:00:20,880
+While gas is entering,
+
+12
+00:00:20,960 --> 00:00:21,960
+bubbles rise through the water
+
+13
+00:00:21,960 --> 00:00:23,460
+and collect in the space above it.
+
+14
+00:00:23,960 --> 00:00:26,200
+As the pressures balance, gas admission stops.
+
+15
+00:00:26,820 --> 00:00:28,460
+Fresh water comes in from the top.
+
+16
+00:00:28,780 --> 00:00:29,980
+Look closely at the inlet:
+
+17
+00:00:30,000 --> 00:00:32,700
+a tiny, one-sixteenth-inch hole
+
+18
+00:00:32,700 --> 00:00:34,840
+turns the incoming flow into a narrow jet.
+
+19
+00:00:35,520 --> 00:00:37,400
+The stream crosses the carbon dioxide headspace
+
+20
+00:00:37,400 --> 00:00:39,040
+and plunges into the water below.
+
+21
+00:00:39,540 --> 00:00:41,400
+Its impact draws gas into the pool
+
+22
+00:00:41,400 --> 00:00:42,540
+and drives circulation.
+
+23
+00:00:43,340 --> 00:00:45,540
+Those moving interfaces give carbon dioxide
+
+24
+00:00:45,540 --> 00:00:47,160
+more opportunities to dissolve.
+
+25
+00:00:48,060 --> 00:00:49,600
+The bubbles are the process you can see.
+
+26
+00:00:50,140 --> 00:00:50,980
+The carbonation you drink
+
+27
+00:00:50,980 --> 00:00:52,460
+is gas dissolved in the water.
+
+28
+00:00:53,280 --> 00:00:55,820
+As the level rises, a magnetic float follows it.
+
+29
+00:00:56,280 --> 00:00:58,320
+At the high-level signal, the refill pump stops.
+
+30
+00:00:59,020 --> 00:01:00,140
+Now look outside the tank.
+
+31
+00:01:00,960 --> 00:01:02,620
+This copper coil carries refrigerant.
+
+32
+00:01:02,760 --> 00:01:04,500
+As it evaporates, it absorbs heat
+
+33
+00:01:04,500 --> 00:01:06,380
+through the coil and the stainless steel wall.
+
+34
+00:01:07,080 --> 00:01:08,980
+The refrigeration loop carries that heat away.
+
+35
+00:01:09,640 --> 00:01:11,740
+Cold water can hold more dissolved carbon dioxide.
+
+36
+00:01:12,680 --> 00:01:15,040
+Pressure, mixing, and cooling work together,
+
+37
+00:01:15,360 --> 00:01:17,740
+so the next pour starts with chilled, carbonated water,
+
+38
+00:01:17,740 --> 00:01:20,480
+ready for a separate stream of flavor at the faucet.
+
+39
+00:01:21,120 --> 00:01:21,900
+Home Soda Machine.
+
+40
+00:01:22,580 --> 00:01:23,860
+Cold soda, on tap.

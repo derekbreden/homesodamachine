@@ -1,0 +1,54 @@
+{
+  "units": "mm",
+  "frame": "faucet native, countertop z=0; forward is -Y",
+  "threeYUpMapping": [
+    "F.x",
+    "F.z",
+    "-F.y"
+  ],
+  "waterOutlet": [
+    0,
+    -133.996722,
+    180.3887434
+  ],
+  "flavorOutlet": [
+    -3.175,
+    -138.637722,
+    184.2857434
+  ],
+  "exitDirection": [
+    0,
+    -0.6427876097,
+    -0.7660444431
+  ],
+  "waterIllustrativeSpeedMmS": 900,
+  "flavorIllustrativeSpeedMmS": 750,
+  "leverPivot": [
+    0,
+    0,
+    46
+  ],
+  "leverPourRotationRadians": 0.23,
+  "suggestedGlass": {
+    "baseCenter": [
+      0,
+      -196,
+      0.4
+    ],
+    "height": 86.45,
+    "outerRimRadius": 38.15,
+    "liquidLevel": 68
+  },
+  "screen": {
+    "mesh": "faucet_display_screen",
+    "texture": "faucet-display-flavor1.png",
+    "u": "(F.x+8.875)/17.75",
+    "v": "(F.z-200.580)/25.483",
+    "imageSize": [
+      172,
+      320
+    ]
+  },
+  "source": "Current faucet CAD and marketing/video/one-less-errand/studio/stage.py",
+  "note": "Outlet stations and tangent are CAD-based; pour speeds and glass are illustrative shot staging."
+}

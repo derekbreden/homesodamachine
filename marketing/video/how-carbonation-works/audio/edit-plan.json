@@ -1,0 +1,141 @@
+{
+  "source": "narration-source.wav",
+  "master": "voice-master.wav",
+  "source_sha256": "b2cab7c29adf58aa06646361e2d0b1e33700f6e655b9a53b660a3d09dbf787dc",
+  "master_sha256": "74ba2492162bfeff03d48e969a74086a0d6a687f398fc23d10ad4c0d3cf8654d",
+  "source_duration": 84.32,
+  "duration": 102.02,
+  "added_seconds": 17.7,
+  "speed_change": false,
+  "processing": "65 Hz high-pass; voice normalized to -17 LUFS, -2 dBTP ceiling; 48 kHz mono 24-bit PCM",
+  "loudness": {
+    "input_i": "-19.19",
+    "input_tp": "-0.35",
+    "input_lra": "6.00",
+    "input_thresh": "-29.88",
+    "output_i": "-18.08",
+    "output_tp": "-2.00",
+    "output_lra": "5.50",
+    "output_thresh": "-28.86",
+    "normalization_type": "dynamic",
+    "target_offset": "1.08"
+  },
+  "insertions": [
+    {
+      "source_at": 0.0,
+      "added": 1.25,
+      "purpose": "opening handle",
+      "edited_at": 0.0
+    },
+    {
+      "source_at": 7.765,
+      "added": 1.4,
+      "after_caption": 3,
+      "after_text": "pressure, mixing, and cold.",
+      "purpose": "picture breath",
+      "edited_at": 9.015
+    },
+    {
+      "source_at": 17.04,
+      "added": 1.6,
+      "after_caption": 8,
+      "after_text": "in contact with carbon dioxide.",
+      "purpose": "picture breath",
+      "edited_at": 19.69
+    },
+    {
+      "source_at": 26.275,
+      "added": 1.55,
+      "after_caption": 13,
+      "after_text": "As the pressures balance, gas admission stops.",
+      "purpose": "picture breath",
+      "edited_at": 30.525
+    },
+    {
+      "source_at": 35.355,
+      "added": 1.25,
+      "after_caption": 17,
+      "after_text": "turns the incoming flow into a narrow jet.",
+      "purpose": "picture breath",
+      "edited_at": 41.155
+    },
+    {
+      "source_at": 47.91,
+      "added": 1.5,
+      "after_caption": 23,
+      "after_text": "more opportunities to dissolve.",
+      "purpose": "picture breath",
+      "edited_at": 54.96
+    },
+    {
+      "source_at": 49.815,
+      "added": 0.55,
+      "after_caption": 24,
+      "after_text": "The bubbles are the process you can see.",
+      "purpose": "picture breath",
+      "edited_at": 58.365
+    },
+    {
+      "source_at": 53.055,
+      "added": 1.25,
+      "after_caption": 26,
+      "after_text": "is gas dissolved in the water.",
+      "purpose": "picture breath",
+      "edited_at": 62.155
+    },
+    {
+      "source_at": 58.86,
+      "added": 1.65,
+      "after_caption": 28,
+      "after_text": "At the high-level signal, the refill pump stops.",
+      "purpose": "picture breath",
+      "edited_at": 69.21
+    },
+    {
+      "source_at": 62.535,
+      "added": 0.55,
+      "after_caption": 30,
+      "after_text": "This copper coil carries refrigerant.",
+      "purpose": "picture breath",
+      "edited_at": 74.535
+    },
+    {
+      "source_at": 66.92,
+      "added": 0.7,
+      "after_caption": 32,
+      "after_text": "through the coil and the stainless steel wall.",
+      "purpose": "picture breath",
+      "edited_at": 79.47
+    },
+    {
+      "source_at": 69.48,
+      "added": 1.3,
+      "after_caption": 33,
+      "after_text": "The refrigeration loop carries that heat away.",
+      "purpose": "picture breath",
+      "edited_at": 82.73
+    },
+    {
+      "source_at": 72.595,
+      "added": 0.7,
+      "after_caption": 34,
+      "after_text": "Cold water can hold more dissolved carbon dioxide.",
+      "purpose": "picture breath",
+      "edited_at": 87.145
+    },
+    {
+      "source_at": 80.83,
+      "added": 1.05,
+      "after_caption": 37,
+      "after_text": "ready for a separate stream of flavor at the faucet.",
+      "purpose": "picture breath",
+      "edited_at": 96.08
+    },
+    {
+      "source_at": 84.32,
+      "added": 1.4,
+      "purpose": "closing handle",
+      "edited_at": 100.62
+    }
+  ]
+}

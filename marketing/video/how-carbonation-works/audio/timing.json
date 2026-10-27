@@ -1,0 +1,117 @@
+{
+  "duration": 102.02,
+  "fps": 30,
+  "frames": 3061,
+  "scenes": [
+    {
+      "id": "hook",
+      "caption_range": [
+        0,
+        3
+      ],
+      "voice_start": 1.25,
+      "voice_end": 8.75,
+      "start": 0.0,
+      "end": 9.833333
+    },
+    {
+      "id": "reveal",
+      "caption_range": [
+        4,
+        8
+      ],
+      "voice_start": 10.93,
+      "voice_end": 18.95,
+      "start": 9.833333,
+      "end": 20.166667
+    },
+    {
+      "id": "gas",
+      "caption_range": [
+        9,
+        13
+      ],
+      "voice_start": 21.39,
+      "voice_end": 30.27,
+      "start": 20.166667,
+      "end": 31.433333
+    },
+    {
+      "id": "jet",
+      "caption_range": [
+        14,
+        17
+      ],
+      "voice_start": 32.62,
+      "voice_end": 40.46,
+      "start": 31.433333,
+      "end": 41.5
+    },
+    {
+      "id": "mixing",
+      "caption_range": [
+        18,
+        23
+      ],
+      "voice_start": 42.57,
+      "voice_end": 54.03,
+      "start": 41.5,
+      "end": 55.333333
+    },
+    {
+      "id": "dissolution",
+      "caption_range": [
+        24,
+        26
+      ],
+      "voice_start": 56.61,
+      "voice_end": 61.38,
+      "start": 55.333333,
+      "end": 62.5
+    },
+    {
+      "id": "level",
+      "caption_range": [
+        27,
+        28
+      ],
+      "voice_start": 63.63,
+      "voice_end": 68.49,
+      "start": 62.5,
+      "end": 69.766667
+    },
+    {
+      "id": "cooling",
+      "caption_range": [
+        29,
+        33
+      ],
+      "voice_start": 71.02,
+      "voice_end": 82.05,
+      "start": 69.766667,
+      "end": 83.133333
+    },
+    {
+      "id": "serve",
+      "caption_range": [
+        34,
+        37
+      ],
+      "voice_start": 84.19,
+      "voice_end": 95.55,
+      "start": 83.133333,
+      "end": 96.5
+    },
+    {
+      "id": "close",
+      "caption_range": [
+        38,
+        39
+      ],
+      "voice_start": 97.42,
+      "voice_end": 99.98,
+      "start": 96.5,
+      "end": 102.02
+    }
+  ]
+}

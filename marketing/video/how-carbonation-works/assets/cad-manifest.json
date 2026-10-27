@@ -1,0 +1,127 @@
+{
+  "units": "mm",
+  "nativeFrame": "X-right, Y-rear, Z-up; enclosure assembly",
+  "threeYUpMapping": [
+    "E.x",
+    "E.z",
+    "-E.y"
+  ],
+  "carbonator": {
+    "axisXY": [
+      0,
+      323.8
+    ],
+    "tubeBottomZ": 52,
+    "tubeTopZ": 204.4,
+    "insideFloorZ": 64.7,
+    "insideCeilingZ": 191.7,
+    "outerRadius": 63.5
+  },
+  "coldCoreToEnclosure": {
+    "matrixRowMajor": [
+      0,
+      -1,
+      0,
+      0,
+      1,
+      0,
+      0,
+      323.8,
+      0,
+      0,
+      1,
+      20,
+      0,
+      0,
+      0,
+      1
+    ]
+  },
+  "bundles": [
+    {
+      "file": "enclosure-cad.json",
+      "compressedFile": "enclosure-cad.json.gz",
+      "meshes": 22,
+      "triangles": 350962,
+      "bytes": 17370146,
+      "compressedBytes": 3560906,
+      "bounds": [
+        [
+          -107.733,
+          4.785,
+          -6.001
+        ],
+        [
+          107.712,
+          473.5,
+          361.0
+        ]
+      ],
+      "sourceSha256": "1716dc6c2a86b29c4c6643ef187336a865c489ec8a687d3f379f947f42f2b902"
+    },
+    {
+      "file": "cold-core-cad.json",
+      "compressedFile": "cold-core-cad.json.gz",
+      "meshes": 61,
+      "triangles": 239818,
+      "bytes": 12360498,
+      "compressedBytes": 2531787,
+      "bounds": [
+        [
+          -90.206,
+          180.3,
+          0.0
+        ],
+        [
+          97.7,
+          465.0,
+          298.65
+        ]
+      ],
+      "sourceSha256": "ac47b2b120b735307d6e6c7de10978ce3bafd0d69e6fce05b927c077f4e8d3ab"
+    },
+    {
+      "file": "faucet-cad.json",
+      "compressedFile": "faucet-cad.json.gz",
+      "meshes": 11,
+      "triangles": 48222,
+      "bytes": 2783179,
+      "compressedBytes": 630434,
+      "bounds": [
+        [
+          -30.505,
+          -151.884,
+          -0.001
+        ],
+        [
+          30.454,
+          31.721,
+          242.734
+        ]
+      ],
+      "sourceSha256": "b3333351fe673e8edb1c6d3db0e93b3e52873603b9b30602426317a28c48f8ed"
+    }
+  ],
+  "coilPath": {
+    "file": "coil-path.json",
+    "wrapPoints": 913,
+    "inletPoints": 103,
+    "outletPoints": 182
+  },
+  "fonts": {
+    "Archivo-latin-variable.woff2": "https://fonts.gstatic.com/s/archivo/v25/k3kPo8UDI-1M0wlSV9XAw6lQkqWY8Q82sLydOxI.woff2",
+    "IBMPlexMono-latin-regular.woff2": "https://fonts.gstatic.com/s/ibmplexmono/v20/-F63fjptAgt5VM-kVkqdyU8n1i8q1w.woff2"
+  },
+  "licenses": {
+    "Archivo-OFL.txt": "https://raw.githubusercontent.com/google/fonts/main/ofl/archivo/OFL.txt",
+    "IBMPlexMono-OFL.txt": "https://raw.githubusercontent.com/google/fonts/main/ofl/ibmplexmono/OFL.txt"
+  },
+  "notes": [
+    "Enclosure and cold-core position/normal arrays share the enclosure frame; do not apply coldCoreToEnclosure twice. Faucet geometry uses its own mounting-axis frame.",
+    "CAD display meshes use conservative quadric simplification for video; source design geometry is unchanged.",
+    "Color triples are linear-sRGB and should be passed directly to THREE.Color without another sRGB-to-linear conversion.",
+    "The standalone cold-core payload supplies the coil; the enclosure bundle does not duplicate its embedded cold core.",
+    "Compressed bundles are the committed sources; plain JSON files are local working copies."
+  ],
+  "faucetDatums": "faucet-datums.json"
+}
