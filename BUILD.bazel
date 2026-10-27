@@ -2693,6 +2693,7 @@ genrule(
         "pysrc/hardware/wiring/installed/connections.py",
         "hardware/wiring/installed/connector-map.json",
         "pysrc/hardware/wiring/installed/model.py",
+        "pysrc/hardware/wiring/installed/retainers.py",
         "hardware/wiring/installed/route-overrides.json",
         "pysrc/hardware/wiring/installed/routes.py",
         "pysrc/hardware/wiring/installed/step_merge.py",
@@ -5240,6 +5241,7 @@ genrule(
         "pysrc/hardware/printed-parts/cadlib/port_chip.py",
         "pysrc/hardware/printed-parts/cadlib/print_mesh.py",
         "pysrc/hardware/printed-parts/cadlib/reeding.py",
+        "pysrc/hardware/printed-parts/cadlib/route_snap.py",
         "pysrc/hardware/printed-parts/cadlib/snap.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
         "pysrc/hardware/printed-parts/cold-core/_above_core_mounts.py",
@@ -5270,7 +5272,9 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/enclosure/_grip_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_nameplate_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_nameplate_wing_interface.py",
+        "pysrc/hardware/printed-parts/enclosure/enclosure/_route_snaps.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_swept_top.py",
+        "pysrc/hardware/printed-parts/enclosure/enclosure/_tube_snap_sites.py",
         "hardware/printed-parts/enclosure/enclosure/enclosure.py",
         "pysrc/hardware/printed-parts/enclosure/nameplate/_nameplate_dimensions.py",
         "pysrc/hardware/printed-parts/enclosure/nameplate/nameplate.py",
@@ -5346,6 +5350,7 @@ genrule(
         "pysrc/hardware/wiring/installed/bundles.py",
         "pysrc/hardware/wiring/installed/connections.py",
         "pysrc/hardware/wiring/installed/model.py",
+        "pysrc/hardware/wiring/installed/retainers.py",
         "pysrc/hardware/wiring/installed/routes.py",
         "pysrc/hardware/wiring/installed/step_merge.py",
         "pysrc/hardware/wiring/installed/terminals.py",
@@ -11803,6 +11808,14 @@ genrule(
 )
 
 genrule(
+    name = "pysrc-8e962f74ec87",
+    srcs = ["hardware/printed-parts/cadlib/route_snap.py"],
+    outs = ["pysrc/hardware/printed-parts/cadlib/route_snap.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
     name = "pysrc-f1d4783cf51c",
     srcs = ["hardware/printed-parts/cadlib/snap.py"],
     outs = ["pysrc/hardware/printed-parts/cadlib/snap.py"],
@@ -12267,9 +12280,25 @@ genrule(
 )
 
 genrule(
+    name = "pysrc-bde3b192e40a",
+    srcs = ["hardware/printed-parts/enclosure/enclosure/_route_snaps.py"],
+    outs = ["pysrc/hardware/printed-parts/enclosure/enclosure/_route_snaps.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
     name = "pysrc-d8d30424efd7",
     srcs = ["hardware/printed-parts/enclosure/enclosure/_swept_top.py"],
     outs = ["pysrc/hardware/printed-parts/enclosure/enclosure/_swept_top.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
+    name = "pysrc-14828f9e8a00",
+    srcs = ["hardware/printed-parts/enclosure/enclosure/_tube_snap_sites.py"],
+    outs = ["pysrc/hardware/printed-parts/enclosure/enclosure/_tube_snap_sites.py"],
     tools = ["tools/bazel/pysrc.py"],
     cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
 )
@@ -13446,6 +13475,14 @@ genrule(
     name = "pysrc-113c2acc44f1",
     srcs = ["hardware/wiring/installed/model.py"],
     outs = ["pysrc/hardware/wiring/installed/model.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
+    name = "pysrc-dc282b19534e",
+    srcs = ["hardware/wiring/installed/retainers.py"],
+    outs = ["pysrc/hardware/wiring/installed/retainers.py"],
     tools = ["tools/bazel/pysrc.py"],
     cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
 )

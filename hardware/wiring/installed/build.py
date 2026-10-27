@@ -105,7 +105,8 @@ def write_manifest(manifest,scene_step):
     manifest['physical_scene_sha256']=hashlib.sha256(raw.encode()).hexdigest()
     paths=[Path(__file__),Path(__file__).with_name('connections.py'),
            Path(__file__).with_name('model.py'),Path(__file__).with_name('terminals.py'),
-           Path(__file__).with_name('routes.py'),Path(__file__).with_name('route-overrides.json'),
+           Path(__file__).with_name('routes.py'),Path(__file__).with_name('retainers.py'),
+           Path(__file__).with_name('route-overrides.json'),
            Path(__file__).with_name('terminations.py'),
            Path(__file__).with_name('step_merge.py'),
            Path(__file__).with_name('bundles.py'),Path(__file__).with_name('bundle-routes.json'),

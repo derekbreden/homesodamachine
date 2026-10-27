@@ -12,6 +12,19 @@ reviewed archive, cleared-plate authorization and shared-circuit startup spacing
 | Rear left | Cable clip with **16 mm** cavity span on a **9 mm** wall |
 | Rear right | Cable clip with **24 mm** cavity span on a **9 mm** wall |
 
+## Physical result
+
+The [physical result](physical-result.json) records Derek's preferred tube
+sample, **C2 with the 6.35 mm CAD bore**, as good enough for present use.
+Trying a smaller bore remains optional future tuning.
+
+The smaller **16 mm-span** cable clip is accepted with the bare insulated 4P
+ribbon: it fits perfectly and stays put. Straight sliding entry is difficult;
+angling and pulling the ribbon into the seat succeeds. This result belongs to
+these identified coupons. The 4 mm tube sections, DC-1 pair seat and V-K
+single-wire seat have no physical fit acceptance from this plate. Numerical
+retention forces, fatigue and lifetime remain unmeasured.
+
 The [tube trio](../../tube-snap-exploration/README.md) retains C2's 2.40 mm wings,
 125.421° wrap per wing, filled roots and rounded noses on a 60 × 16 × 3 mm floor.
 The 0.10 mm diameter increment follows the organizer tuning. A straight long tube
@@ -22,7 +35,8 @@ the accepted 2.20 × 7.75 mm seat, 1.45 mm mouth, 0.75 mm retaining beak, 3 mm
 hook stock and 45° corbel. Host walls are **9 mm thick**, 28 or 36 mm long,
 and extend 6 mm below the hook. Both print upright, entry-up, 25.7 mm tall.
 The cavity spans along the cable are 16 and 24 mm. There are no small local
-reliefs, added support fins or brim. Fit and spring survival require physical review.
+reliefs, added support fins or brim. The physical acceptance above covers the
+selected 16 mm-span coupon's 4P fit and retention.
 
 ## Experimental cooling
 
