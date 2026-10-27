@@ -104,11 +104,11 @@
         },
         {
           "name": "enclosure-back-top",
-          "gap_mm": 2.0,
+          "gap_mm": 0.05,
           "overlap_mm3": 0
         }
       ],
-      "passed": true
+      "passed": false
     },
     "tube-fluid-18": {
       "valid": true,
@@ -647,7 +647,7 @@
         },
         {
           "name": "enclosure-back-top",
-          "gap_mm": 2.5,
+          "gap_mm": 0.05,
           "overlap_mm3": 0
         },
         {
@@ -1295,7 +1295,7 @@
         },
         {
           "name": "enclosure-back-top",
-          "gap_mm": 0.8038037,
+          "gap_mm": 0.05,
           "overlap_mm3": 0
         },
         {
@@ -1452,11 +1452,11 @@
   "source_sha256": {
     "hardware/scripts/check_asse_drain.py": "91f5b3bab308ee253339de62919f18cc32d70098476a52bfa61e89cb5d97c418",
     "hardware/manifold-layout/_drain.py": "d4f6db44b344125cf6f9b1bc6be341002dae887d78966ada3029e1e452b94c2a",
-    "hardware/manifold-layout/enclosure_assembly.py": "2279b9578beca9c53cf110ee412ffe90f988e19b4c521968705d96b882b05b81",
+    "hardware/manifold-layout/enclosure_assembly.py": "572da85f5757e4ac0e42614cc8be3f5f987b06cb76307c7763b822886f5149ee",
     "hardware/manifold-layout/_lines.py": "5e58802c1acfbd33055ab2c44af5dc9be5ade5aa24139fbb8f31809543ce316e",
     "hardware/reference/neofit-drain-bulkhead/neofit_drain_bulkhead.py": "a1e869c93ed2dba3873036fe10506b99ace883bc46a033833354be4e49bcc096",
     "hardware/reference/asse1022-assembly/asse1022_assembly.py": "4481085380d131f5d85696f5c366058382b07577c6881a274495e5d67ec2b3eb",
     "hardware/printed-parts/asse-drain-adapter/asse_drain_adapter.py": "f30085fb80f68e34f87256784733bd6773af44115b97790d124551914d5ca918"
   },
-  "passed": true
+  "passed": false
 }

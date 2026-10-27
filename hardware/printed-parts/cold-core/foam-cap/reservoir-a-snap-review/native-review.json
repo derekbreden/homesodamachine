@@ -75,8 +75,8 @@
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl": "1fd08504d27f29f06c1f37ff3e270b426482862d6afde3b574c111e2eac952e1",
     "hardware/printed-parts/cold-core/foam-cap/reservoir-a-fore-snap-cap.step": "8f931c6c10b0c4df154cbf35a710f9555edba9a5a434f129805243fb16e05785",
     "hardware/printed-parts/cold-core/foam-cap/reservoir-a-fore-snap-cap.stl": "f20116e8e27b6ff4ce81905e24992838a1d1e5e622f2246fb73f173320cdcfed",
-    "hardware/wiring/enclosure-wiring.json": "4b9ab48064b679a6f15f455912840a5699f6913d6f31aca53c18b9387059cd39",
-    "hardware/manifold-layout/enclosure-assembly.step": "b8be919c38e7d0690c0f56d0c56095769a7475ae44ccb7ff9c7e3260d313b62d",
+    "hardware/wiring/enclosure-wiring.json": "8c422d9a413e349d0b381878c11073667ff0961426d591390e6c32a992544d9a",
+    "hardware/manifold-layout/enclosure-assembly.step": "f03e02578100e962c8fd95b80b786607888ada67137ad44c68f7c600dec74d94",
     "hardware/cold-core-layout/cold-core-assembly.step": "b90be74ef4e3ec6881a6ef19c9f5dd4a159dcbba47c25b6282eb7c72fe0621cd"
   },
   "receiver": {
