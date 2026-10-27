@@ -120,7 +120,7 @@ fits retain their named material, orientation and artifact scope in the
 
 The funnel extends 35 mm aft (+Y), retaining the fore edge. Its drain is at
 Y179.19575, at the enlarged mouth center. V-B's native origin is
-X38/Y244.90434/Z279.41. The WAGO wells retain 1.25 mm to the funnel frame.
+X38/Y244.90434/Z279.41. The WAGO wells and V-B wall share a flat top at Z298.65, retaining 1.25 mm to the funnel frame.
 Seat the fore-facing WAGO bodies before fitting V-B’s inlet plumbing. The
 [wall-routing review](../printed-parts/cold-core/foam-cap/wago-wall-review/README.md)
 binds the current geometry and lid slice.

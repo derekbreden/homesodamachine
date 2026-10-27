@@ -91,7 +91,7 @@ blind backing. Its fastener datums belong to
 The four core WAGO junctions form two rows on the board-facing back of V-B’s
 wall. V12 and sensor ports face fore; GND and reed ports face aft. Their
 levers open west. The blank-backed wells retain 3 mm walls and join the
-V-B wall and lid. Their top is Z298.65 mm, with 1.25 mm to the funnel frame.
+V-B wall and lid. Their top and V-B’s wall share the flat Z298.65 mm plane, with 1.25 mm to the funnel frame.
 V-B’s native origin is Z279.41 mm.
 
 Reservoir A’s draw and fill tubes share a fore snap seat and an aft tied seat. Draw

@@ -3,7 +3,7 @@
   "objects": [
     {
       "name": "foam-cap-lid-top",
-      "vertices": 48357,
+      "vertices": 48353,
       "source_sha256_matches": true,
       "embedded_vertex_error_mm": 4.999999987376214e-07,
       "source_comparison": "source vertices in order",

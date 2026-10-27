@@ -103,6 +103,9 @@ def valve_support_datums(name, face_z=None):
     corners = [above_core.point(frame,point) for point in itertools.product(*limits)]
     low = tuple(min(point[i] for point in corners) for i in range(3))
     high = tuple(max(point[i] for point in corners) for i in range(3))
+    if name == 'valve-v-b':
+        high = (*high[:2], max(high[2], above_core.specification()[
+            'vb_mount']['seat_wall_bounds_mm'][1][2]))
     face = above_core.specification()['cap_face_z_mm'] if face_z is None else (
         above_core.point(above_core.cap_lid_pose(),(0.,0.,face_z))[2])
     half = core.outer_shell_y_length/2.

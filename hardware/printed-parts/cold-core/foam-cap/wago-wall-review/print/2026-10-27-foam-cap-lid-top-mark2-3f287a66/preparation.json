@@ -15,8 +15,8 @@
   "bed_type": "Textured PEI Plate",
   "requested_z_trim_mm": 0.04,
   "emitted_textured_trim_mm": 0.02,
-  "project": "hardware/printed-parts/cold-core/foam-cap/wago-wall-review/print/2026-10-27-foam-cap-lid-top-mark2-a1807ad0/2026-10-27-foam-cap-lid-top-mark2-a1807ad0.3mf",
-  "project_sha256": "0a6ca5b42306f9c2f7142347e2ebafae2092592bb44386d5e7eade51041b0adc",
+  "project": "hardware/printed-parts/cold-core/foam-cap/wago-wall-review/print/2026-10-27-foam-cap-lid-top-mark2-3f287a66/2026-10-27-foam-cap-lid-top-mark2-3f287a66.3mf",
+  "project_sha256": "03dfd8ed14a9fb07a8c6cd7bee80b1e8aba03f36405f4d18171a2d782325f2fe",
   "profile": "hardware/printed-parts/petgf.3mf",
   "profile_sha256": "45c16e8c8517e0a205107d7b9f7412d013f51a8de7ecf86125cc940079d37ed0",
   "settings_sha256": "9ec932e56f44be2a559a6247710e66aef9d476ff4c4dcc5c01d0fd10f1701e03",
@@ -116,11 +116,11 @@
       "identify_id": 1901,
       "object_id": 2,
       "stl": "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl",
-      "stl_sha256": "2d141bd3eacb16811c49a6af4ca611a57338e3788155f266d71c7092d95473e1",
-      "step_sha256": "4946b339821f70fcdedfe8a3ddd7e178aa1aa42af094b58ab1cd2044f8dd09b2",
-      "facets": 96846,
+      "stl_sha256": "1fd08504d27f29f06c1f37ff3e270b426482862d6afde3b574c111e2eac952e1",
+      "step_sha256": "baff55a5930fc56db5a6a24ff5d893c8f40dfc8c37d86154560f162c8a06b863",
+      "facets": 96838,
       "closed": {
-        "edges": 145269,
+        "edges": 145257,
         "boundary_edges": 0,
         "nonmanifold_edges": 0,
         "inconsistent_edges": 0,
@@ -226,13 +226,13 @@
       "fins": [],
       "regions": {
         "record": "hardware/printed-parts/cold-core/foam-cap/fore-snap-print-regions.json",
-        "record_sha256": "3c643ec267e8b948c1a4caddee9b752d25d79a0af3be8f97432a916042671fb2",
+        "record_sha256": "b2576a669315dbe0880450b53072803eb81f195ac4f27129082fa82c4fac5ce3",
         "part_process_overrides": null
       }
     }
   ],
   "pause": null,
-  "show_faces": "hardware/printed-parts/cold-core/foam-cap/wago-wall-review/print/2026-10-27-foam-cap-lid-top-mark2-a1807ad0/show-faces.npz",
+  "show_faces": "hardware/printed-parts/cold-core/foam-cap/wago-wall-review/print/2026-10-27-foam-cap-lid-top-mark2-3f287a66/show-faces.npz",
   "spec": "hardware/printed-parts/enclosure/trial-preparation/pieces.json",
   "spec_sha256": "7d57172a977bc13ed1d606fd1017782d487e862fa0c2fa2415f0bf8dae9c8b62",
   "tool_sha256": {
@@ -245,12 +245,12 @@
     "hardware/printed-parts/enclosure/trial-preparation/review.py": "9bd303fe370842fd34eb559dc5f53f887f75c42e478c598737397dd49dd539f7",
     "hardware/printed-parts/enclosure/trial-preparation/step_meshes.py": "b50f7b50f52f1e8516be3b1fc9ecdb10e87fb188f8b9bebc0fac56737320fc44"
   },
-  "prepared_utc": "2026-10-27T05:18:27+00:00",
+  "prepared_utc": "2026-10-27T05:38:32+00:00",
   "sliced": true,
   "submitted": false,
-  "archive": "hardware/printed-parts/cold-core/foam-cap/wago-wall-review/print/2026-10-27-foam-cap-lid-top-mark2-a1807ad0/2026-10-27-foam-cap-lid-top-mark2-a1807ad0.gcode.3mf",
-  "archive_sha256": "dedacf6ea130aa0f2750c8ce779e08c9f9e09e957e3830f68017850ca8f37f14",
-  "gcode_sha256": "6379a0e595cdac7912c37fb2f580e1b8dfaa6d69baf04163cee1b2926c199bca",
-  "estimated_seconds": 19412.892578125,
+  "archive": "hardware/printed-parts/cold-core/foam-cap/wago-wall-review/print/2026-10-27-foam-cap-lid-top-mark2-3f287a66/2026-10-27-foam-cap-lid-top-mark2-3f287a66.gcode.3mf",
+  "archive_sha256": "778639422858f6f57aa761ff89f2efc4c246c1ea10f885b6b107c515301ae191",
+  "gcode_sha256": "672460bbafd683239279557b63beda5587856836bc92cf8f6be7344e93125045",
+  "estimated_seconds": 19408.181640625,
   "slicer_warnings": []
 }

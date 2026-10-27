@@ -3,18 +3,18 @@ alternatives: A root carried fore under the bearing, or a corbel, fills the spac
 file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
 click: x=-45.463 y=-27.011 z=20.587
 
-[ceiling] Unavoidable flat over the PCB's wire lane: the V-B return union's bracket overhangs its root 4 mm fore and 4.3 mm aft at world Z276.64. DC1-V12 and PE-carbonator run beneath the fore overhang at Z273 and below, toward the PCB's aft wire-entry lands, and the strap's 2.8 mm tie window passes under the beam. The beam keeps 3.0 mm of floor under the union's leaning bore. Tree(auto)/Default supports it; the supports leave sideways from under the open overhangs.
+[ceiling] Unavoidable flat over the PCB's wire lane: the V-B return union's bracket overhangs its root 4 mm fore and 4.3 mm aft at world Z275.64. DC1-V12 and PE-carbonator run beneath the fore overhang at Z273 and below, toward the PCB's aft wire-entry lands, and the strap's 2.8 mm tie window passes under the beam. The beam keeps 3.0 mm of floor under the union's leaning bore. Tree(auto)/Default supports it; the supports leave sideways from under the open overhangs.
 alternatives: A 45° corbel under the fore overhang reaches into the wire lane, which stands 3.6 mm below. Carrying the root fore under the beam closes that lane and the PCB's wire-entry lands. A deeper beam lowers the same flat toward the wires.
 file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
-click: x=37.444 y=-6.300 z=28.639
+click: x=37.444 y=-6.300 z=27.639
 
-[ceiling] Functional retention roof: each WAGO 221-413 well closes over its connector's blank rear half and holds it down. The roof spans the well's 19.1 mm between its side walls, 8.7 mm over the pocket floor, and the well is open on its lever face toward the PCB. It prints as a bridge between the side walls; any support Tree(auto)/Default adds comes out through the open lever face.
-alternatives: An open-topped well lets the connector lift off its floor. A peaked or sloped roof stands taller over the connector and spans the same width. Without the well the connector has no seat on the lid.
+[ceiling] Functional upper end walls of the four rotated WAGO wells. Each flat 9.4 × 8.7 mm underside closes the rectangular pocket at one end of its 19.1 mm vertical body allowance, with 3 mm stock above it. The rear half of the connector slides into this rectangular seat along its own Y axis; its levers and the west face remain accessible. Tree(auto)/Default retains its automatic supports, which are removed through the open well mouth. The current native slice records their placement; physical release remains unmeasured.
+alternatives: Filling the pocket below this end wall occupies the WAGO body. Sloping the underside enters that rectangular body allowance; retaining it with a thicker rising section raises the upper row toward the funnel frame. Opening the end removes axial capture of the connector. The current end wall preserves its purchased rectangular mating envelope.
 file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
-click: x=128.800 y=12.225 z=16.950
-click: x=105.800 y=12.225 z=16.950
-click: x=81.800 y=12.225 z=16.950
-click: x=58.800 y=12.225 z=16.950
+click: x=90.525 y=27.300 z=47.650
+click: x=77.975 y=27.300 z=47.650
+click: x=90.525 y=27.300 z=25.550
+click: x=77.975 y=27.300 z=25.550
 
 [ceiling] Functional aft tie tunnel: under the aft Reservoir A paired seat the strap runs through a 3.2 mm transverse slot. This 7.5 × 3.2 mm roof is the seat's ridge between the two tubes, 1.6 mm over the slot floor, and it bridges the slot's 3.2 mm width.
 alternatives: An open-topped slot cuts the ridge that carries both tubes' grooves. A sloped roof takes stock from that ridge or deepens the slot into the lid's floor stock.
@@ -81,13 +81,19 @@ click: x=55.658 y=-36.746 z=4.350
 click: x=55.658 y=-36.746 z=6.750
 
 [sliver] Functional fore snap catch: each 0.60 mm-wide underside is the full-Y bearing ledge that captures the cap hook while leaving the outward spring lane open. Its fixed section is 3 mm tall. The cap's hook has 0.45 mm engagement, with separate 0.25 mm sliding side air and 0.40 mm underside allowance. The local dense receiver/root modifier and emitted-path reading describe deposition, not printed retention or surface acceptance.
-alternatives: Increasing this projection to 3 mm widens the whole matching cap by 4.8 mm. The native deflected-body alternative leaves 0.299359 mm to J2-COM, below the 1 mm wire-clearance requirement. Filling the space below the ledge blocks the integral hook; removing the ledge removes positive retention. A local relief merely moves those conflicts to a new edge instead of resolving the mating shape.
+alternatives: Increasing this projection to 3 mm widens the whole matching cap by 4.8 mm. Filling the space below the ledge blocks the integral hook; removing the ledge removes positive retention. A local relief merely moves those conflicts to a new edge instead of resolving the mating shape.
 file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
-click: x=114.050 y=64.625 z=9.400
-click: x=114.050 y=43.875 z=9.400
+click: x=114.050 y=64.625 z=8.400
+click: x=114.050 y=43.875 z=8.400
 
 [ledge] Functional flat snap bearing underside: these two 6.5 × 0.6 mm faces catch the cap's full-span hooks after outward flex and spring-back. Their flat contact keeps retention from camming the cap outward under withdrawal. Tree(auto)/Default adds no support-interface box within the fore receiver/root region in the current offline lid slice; the 0.40 mm underside allowance remains in the mating geometry. The receiver is open above and at both flanks for inspection and cleanup before the tubes and cap enter.
-alternatives: Sloping or rounding away the flat changes the withdrawal catch into a release ramp. A corbel fills the hook's seating space. Enlarging the complete receiver/cap to a 3 mm projection violates the nearby J2-COM clearance as quantified for the matching sliver finding. Support finish and release effort remain physical qualifications.
+alternatives: Sloping or rounding away the flat changes the withdrawal catch into a release ramp. A corbel fills the hook's seating space. A 3 mm projection requires a matching cap 4.8 mm wider and changes the approved spring and hook geometry. Support finish and release effort remain physical qualifications.
 file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
-click: x=115.133 y=43.775 z=9.400
-click: x=115.133 y=64.525 z=9.400
+click: x=115.133 y=43.775 z=8.400
+click: x=115.133 y=64.525 z=8.400
+
+[sliver] Functional shallow spring-foot clearance pockets. These 0.65 mm-high sides bound the two flat-bottomed reliefs that let the retained fore cap sit at Z258.5 with 0.25 mm floor clearance. The floors retain 4.75 mm of lid backing; the pockets end at the receiver neck without cutting its 3 mm cheeks. The native seated and spread-cap readings show zero overlap with the lid.
+alternatives: Raising the cap and tubes 0.65 mm to clear the uncut lid leaves only 0.735 mm under V-B for the fill tube, below the selected 1 mm buffer. Lowering the whole lid face alters its broad 5.4 mm plate and the roots of the other fixed features. Removing the pockets obstructs the cap; the local relief preserves the selected tube and mating-cap geometry.
+file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
+click: x=114.050 y=67.965 z=5.075
+click: x=114.050 y=40.535 z=5.075

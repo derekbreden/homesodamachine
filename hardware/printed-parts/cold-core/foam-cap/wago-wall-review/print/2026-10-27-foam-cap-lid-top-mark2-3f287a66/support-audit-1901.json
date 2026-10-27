@@ -3,11 +3,11 @@
   "piece": "foam-cap-lid-top",
   "inputs": {
     "gcode": "support-labels-1901.gcode",
-    "gcode_sha256": "f9d9f2dc58d53c20e8cb4cbee8497c8d8cebbd3438e3fad29cd5acd4033b2c57",
+    "gcode_sha256": "beb266a62ac5eef31c593e5ef031227d6b6db720cc78cc2b4b76f5027f705257",
     "model": "/private/tmp/hsm-readiness-wall-production/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl",
-    "model_sha256": "2d141bd3eacb16811c49a6af4ca611a57338e3788155f266d71c7092d95473e1",
-    "profile": "hardware/printed-parts/cold-core/foam-cap/wago-wall-review/print/2026-10-27-foam-cap-lid-top-mark2-a1807ad0/2026-10-27-foam-cap-lid-top-mark2-a1807ad0.3mf",
-    "profile_sha256": "0a6ca5b42306f9c2f7142347e2ebafae2092592bb44386d5e7eade51041b0adc"
+    "model_sha256": "1fd08504d27f29f06c1f37ff3e270b426482862d6afde3b574c111e2eac952e1",
+    "profile": "hardware/printed-parts/cold-core/foam-cap/wago-wall-review/print/2026-10-27-foam-cap-lid-top-mark2-3f287a66/2026-10-27-foam-cap-lid-top-mark2-3f287a66.3mf",
+    "profile_sha256": "03dfd8ed14a9fb07a8c6cd7bee80b1e8aba03f36405f4d18171a2d782325f2fe"
   },
   "slicer": "BambuStudio 02.08.02.61",
   "first_layer_z_mm": 0.2,
