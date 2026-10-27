@@ -1,4 +1,4 @@
-"""Manual water-check bearing, lid backing and nominal-strip review.
+"""Manual water-check pedestal, lid backing and nominal-strip review.
 
 Run through tmp/takeover/cadq after exporting foam-cap-lid-top.step. This
 updates only feature_checks.check_bridge in above-core-native-review.json.
@@ -117,7 +117,7 @@ def main():
                HW / 'reference/neofit-achv44-check/model-dimensions.json',
                HW / 'reference/neofit-achv44-check/neofit-achv44-check.step']
     result = {
-        'scope': 'Source-native east quarter bearing, complete 3 mm lid backing, '
+        'scope': 'Source-native direct-rooted east quarter bearing, complete 3 mm lid backing, '
                  'four nominal pump-driver columns and complete water-check '
                  'retaining-strip path, bound to the exported cap lid. '
                  'Separate actual-appliance records cover equipment and wiring. '
@@ -132,7 +132,10 @@ def main():
         'geometric_minimum_loop_mm': core.cap_anchor_tie_loop('discharge-chain'),
         'nominal_strip_route': route,
         'remaining_stock_mm': remaining,
-        'continuous_beam_at_notch_mm': upper_x-datums['tool_notch_max_x_mm'],
+        'root_footprint_mm': [upper_x-lower_x,
+                             datums['root_aft_y_mm']-datums['root_fore_y_mm']],
+        'tie_passage_mm': [datums['tie_window_y_mm'][1]-datums['tie_window_y_mm'][0],
+                           datums['tie_window_z_mm'][1]-datums['tie_window_z_mm'][0]],
         'pump_hex_driver': {
             'across_flats_mm': 2.5, 'radial_air_mm': fits.slip,
             'assembly_scope': 'Fasten the pump before seating the removable '

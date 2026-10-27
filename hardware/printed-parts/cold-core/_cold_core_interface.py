@@ -1020,7 +1020,7 @@ def cap_anchor_tie_loop(name):
     if name == 'discharge-chain':
         data = _above_mounts.check_support_datums()
         w = data['half_width_mm']
-        h = data['centre_world_mm'][2]-data['bridge_bottom_world_z_mm']
+        h = data['centre_world_mm'][2]-data['tie_route_z_mm']
         # Convex loop around the circle and the lower-east rectangular
         # quarter bearing: bottom, east face, two tangents and retained arc.
         return (w+h+math.sqrt(w*w-r*r)+math.sqrt(h*h-r*r)

@@ -168,72 +168,63 @@ def check_anchor():
 
 
 def check_support_datums():
-    """East quarter bearing and aft root, open toward the pump driver lane."""
+    """Direct lid-rooted east quarter bearing on the fore fixed barrel band."""
     import fits
     core = importlib.import_module('_cold_core_interface')
     pump = importlib.import_module('g_ganen_installation')
-    foot = importlib.import_module('g_ganen_foot')
     check = importlib.import_module('neofit_achv44_check')
-    native, band_radius, first, last = _check_bearing_station()
-    centre = above_core.point(above_core.pose('discharge-chain'), native)
-    head_x = min(row['station_mm'][0] for row in pump.mount_stations())
-    foot_aft = above_core.point(above_core.pose('g-ganen-pump'),
-                                (head_x+foot.WIDTH/2.,0.,0.))[1]
-    radius = max(row[1] for row in check.sections())+fits.slip
-    outlet = above_core.point(above_core.pose('discharge-chain'),check.outlet()[0])
+    first,last,band_radius = check.bearing_band()
+    bearing_first = first+.5
+    bearing_last = bearing_first+core.cap_anchor_len
+    inlet,outward = check.inlet()
+    native = tuple(p-(bearing_first+bearing_last)/2.*a
+                   for p,a in zip(inlet,outward))
+    centre = above_core.point(above_core.pose('discharge-chain'),native)
+    radius = band_radius+fits.slip
     pump_mounts = [above_core.point(above_core.pose('g-ganen-pump'),row['station_mm'])
                    for row in pump.mount_stations()]
     driver = min(pump_mounts,key=lambda p:math.dist(p[:2],centre[:2]))
     tool_radius = 2.5/math.sqrt(3.)+fits.slip
-    notch_radius = tool_radius+fits.slip
+    fore = centre[1]-core.cap_anchor_len/2.
+    aft = centre[1]+core.cap_anchor_len/2.
+    slot_top = centre[2]-radius-3.
     return {'centre_world_mm': centre,
             'fixed_band_from_inlet_mm': (first, last),
-            'bearing_from_inlet_mm': ((first+last-core.cap_anchor_len)/2.,
-                                     (first+last+core.cap_anchor_len)/2.),
+            'bearing_from_inlet_mm': (bearing_first,bearing_last),
             'fixed_band_radius_mm': band_radius,
-            'root_fore_y_mm': foot_aft+1.,
-            # The flat aft face stays in front of the outlet's stem-elbow
-            # shoulder while retaining the foot's independent driver lane.
-            'root_aft_y_mm': min(foot_aft+6.,outlet[1]-fits.slip),
-            'bearing_fore_y_mm': centre[1]-core.cap_anchor_len/2.,
+            'root_fore_y_mm': fore,
+            'root_aft_y_mm': aft,
+            'bearing_fore_y_mm': fore,
             'seat_radius_mm': radius,
             'half_width_mm': radius+3.,
             'stock_x_limits_world_mm': (centre[0],centre[0]+radius+3.),
-            'bridge_bottom_world_z_mm': centre[2]-radius-3.,
+            'tie_window_y_mm': (centre[1]-1.4,centre[1]+1.4),
+            'tie_window_z_mm': (slot_top-3.2,slot_top),
+            'tie_route_z_mm': slot_top-1.6,
             'open_direction': 'west-and-up',
             'pump_driver_axis_world_mm': driver,
             'pump_driver_radius_mm': tool_radius,
-            'tool_notch_max_x_mm': driver[0]+notch_radius,
-            'tool_notch_y_mm': (driver[1]-notch_radius,driver[1]+notch_radius),
             'wall_mm': 3.}
 
 
 def check_support():
-    """Lid-rooted east quarter bearing with a west-open pump-tool notch."""
+    """One filled pedestal with a cylindrical seat and straight tie passage."""
     import cadquery as cq
     data = check_support_datums()
     x,y,z = data['centre_world_mm']
     low_x,high_x = data['stock_x_limits_world_mm']
     root = cq.Solid.makeBox(high_x-low_x,
         data['root_aft_y_mm']-data['root_fore_y_mm'],
-        z-above_core.specification()['cap_face_z_mm'],
-        cq.Vector(low_x,data['root_fore_y_mm'],above_core.specification()['cap_face_z_mm']))
-    beam = cq.Solid.makeBox(high_x-low_x,
-        data['root_aft_y_mm']-data['bearing_fore_y_mm'],
-        z-data['bridge_bottom_world_z_mm'],
-        cq.Vector(low_x,data['bearing_fore_y_mm'],data['bridge_bottom_world_z_mm']))
-    support = root.fuse(beam)
-    y0,y1 = data['tool_notch_y_mm']
-    notch = cq.Solid.makeBox(data['tool_notch_max_x_mm']-low_x+1.,y1-y0,
-                             z-data['bridge_bottom_world_z_mm']+2.,
-                             cq.Vector(low_x-1.,y0,data['bridge_bottom_world_z_mm']-1.))
-    support = support.cut(notch)
-    # The fixed barrel owns one plain cylindrical seat. The same opening
-    # continues through the aft root, keeping the neck and collet free.
+        z-above_core.specification()['cap_face_z_mm']+.15,
+        cq.Vector(low_x,data['root_fore_y_mm'],above_core.specification()['cap_face_z_mm']-.15))
+    y0,y1 = data['tie_window_y_mm']
+    z0,z1 = data['tie_window_z_mm']
+    passage = cq.Solid.makeBox(high_x-low_x+.2,y1-y0,z1-z0,
+                              cq.Vector(low_x-.1,y0,z0))
     bore = cq.Solid.makeCylinder(data['seat_radius_mm'],
         data['root_aft_y_mm']-data['bearing_fore_y_mm']+.2,
         cq.Vector(x,data['bearing_fore_y_mm']-.1,z),cq.Vector(0.,1.,0.))
-    return world_shape_in_cap(support.cut(bore).clean())
+    return world_shape_in_cap(root.cut(bore,passage).clean())
 
 
 def _back_top_meter():
@@ -388,8 +379,8 @@ def _tie_length(segments):
 def check_tie_route():
     """Closed nominal strip around the fixed water barrel and quarter bearing.
 
-    Its width follows the barrel axis. The strip threads beneath the bridge,
-    through the open space above the lid; no printed tie window is required.
+    Its width follows the barrel axis. The strip threads straight through
+    the pedestal's transverse passage, three millimetres below the seat.
     Head engagement, bend transitions and purchased dimensions are unqualified.
     """
     data = check_support_datums()
@@ -397,7 +388,7 @@ def check_tie_route():
     allowance = .55             # half the 0.8 mm strip plus 0.15 mm air
     radius = data['fixed_band_radius_mm']+allowance
     w = data['stock_x_limits_world_mm'][1]-x+allowance
-    h = z-data['bridge_bottom_world_z_mm']+allowance
+    h = z-data['tie_route_z_mm']
     left = (-allowance,-h)
     left_angle = math.atan2(left[1],left[0])-math.acos(radius/math.hypot(*left))
     right_angle = math.acos(radius/w)
@@ -423,8 +414,7 @@ def check_tie_route():
         'width_mm': 2.5,
         'thickness_mm': .8,
         'fixed_band_plane_world_y_mm': y,
-        'threading_height_mm': (data['bridge_bottom_world_z_mm']
-                                -above_core.specification()['cap_face_z_mm']),
+        'threading_height_mm': data['tie_window_z_mm'][1]-data['tie_window_z_mm'][0],
         'strip_basis': 'Nominal layout allowance; purchased strap/head dimensions unmeasured',
     }
 
