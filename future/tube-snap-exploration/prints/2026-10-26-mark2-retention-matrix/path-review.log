@@ -1,0 +1,45 @@
+{
+  "scope": "Bound STL sections and commanded bead envelopes only; no physical adhesion, grip, force, layer-strength or lifetime claim.",
+  "archive": "future/tube-snap-exploration/prints/2026-10-26-mark2-retention-matrix/2026-10-26-tube-snap-retention-matrix-mark2-4f9f9960/2026-10-26-tube-snap-retention-matrix-mark2-4f9f9960.gcode.3mf",
+  "archive_sha256": "fc937a71172f499bd7e9603f780fa30e36152fae78476614c84745877f288b46",
+  "object_count": 3,
+  "samples": 9,
+  "upper_leaf_count": 18,
+  "layer_count_by_row": {
+    "A": 45,
+    "B": 47,
+    "C": 48
+  },
+  "features": {
+    "Inner wall": 2276,
+    "Outer wall": 3200,
+    "Bottom surface": 657,
+    "Internal solid infill": 8794,
+    "Sparse infill": 8254,
+    "Floating vertical shell": 36,
+    "Bridge": 1419,
+    "Top surface": 856,
+    "Gap infill": 158
+  },
+  "support_roads": 0,
+  "skirt_brim_roads": 0,
+  "upper_leaf_samples": 262,
+  "minimum_upper_leaf_bead_coverage": 0.9913869804618375,
+  "upper_leaf_missing_stock_pieces": 0,
+  "upper_leaf_disconnected_bead_footprints": 0,
+  "upper_leaf_layers_without_previous_bead_contact": 0,
+  "second_layer_minimum_road_bead_contact_fraction": 0.6302141198549434,
+  "upper_layer_minimum_road_bead_contact_fraction": 0.5455147051479434,
+  "upper_layer_longest_centerline_without_bead_contact_mm": 0.0,
+  "checks": {
+    "nine_same_bores": true,
+    "all18_upper_leaves_have_paths": true,
+    "all_upper_stock_components_touched": true,
+    "all_upper_leaf_bead_footprints_connected": true,
+    "all_upper_leaf_footprints_touch_previous": true,
+    "all_upper_roads_have_previous_bead_contact": true,
+    "all_second_layer_roads_have_previous_bead_contact": true,
+    "no_support_roads": true
+  },
+  "pass": true
+}

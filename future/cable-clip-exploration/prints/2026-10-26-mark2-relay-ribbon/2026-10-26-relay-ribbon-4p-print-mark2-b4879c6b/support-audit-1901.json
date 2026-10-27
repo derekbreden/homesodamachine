@@ -1,0 +1,61 @@
+{
+  "schema": 1,
+  "piece": "relay-ribbon-4p-print",
+  "inputs": {
+    "gcode": "support-labels-1901.gcode",
+    "gcode_sha256": "fc030485189315d115d97952e5c418d5e3ab79e2bf36fd395d9083bf99f7fc8e",
+    "model": "/Users/derekbredensteiner/Developer/homesodamachine/future/cable-clip-exploration/parts/relay-ribbon-4p-print.stl",
+    "model_sha256": "6acfebc1f2bb0ec0ea6fd5bbc9a4570099358e9db7af67126279bd734e64d8af",
+    "profile": "future/cable-clip-exploration/prints/2026-10-26-mark2-relay-ribbon/2026-10-26-relay-ribbon-4p-print-mark2-b4879c6b/2026-10-26-relay-ribbon-4p-print-mark2-b4879c6b.3mf",
+    "profile_sha256": "ff10bba2ecd9d15a5699c5d1f6ae9bcf964148c73ead4f88e4a075084a6b7b84"
+  },
+  "slicer": "BambuStudio 02.08.02.61",
+  "first_layer_z_mm": 0.2,
+  "coordinate_frame": {
+    "plate_to_cad_transform": [
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      -161.400000095,
+      -160.0,
+      0.0
+    ],
+    "plate_to_cad_translation_mm": [
+      -161.4,
+      -160.0,
+      0.0
+    ]
+  },
+  "slicer_settings": {
+    "layer_height": "0.24",
+    "support_bottom_z_distance": "0.3",
+    "support_interface_bottom_layers": "2",
+    "support_interface_spacing": "0.5",
+    "support_interface_top_layers": "2",
+    "support_object_xy_distance": "0.4",
+    "support_on_build_plate_only": "0",
+    "support_style": "default",
+    "support_threshold_angle": "35",
+    "support_top_z_distance": "0.45",
+    "support_type": "tree(auto)"
+  },
+  "summary": {
+    "support_bodies": 0,
+    "interface_islands": 0,
+    "bed_rooted_bodies": 0,
+    "model_rooted_bodies": 0,
+    "shortest_build_up_mm": null,
+    "bodies_without_interface_labels": 0,
+    "explicit_interface_islands": 0,
+    "shortest_labelled_build_up_mm": null
+  },
+  "trees": [],
+  "interfaces": [],
+  "interface_feature_policy": "All support bodies are retained; unlabelled interfaces have unknown contact count and build-up."
+}
