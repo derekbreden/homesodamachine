@@ -1,0 +1,1368 @@
+{
+  "piece": "back-top",
+  "printer": "Mark2",
+  "connection_key": "Mark2",
+  "nozzle": {
+    "side": "left",
+    "diameter_mm": 0.4,
+    "flow": "Standard",
+    "hardened": true,
+    "reason": "Every abrasive stock runs on the left hotend (hardware/ledger/tools.md, Which hotends fit an H2C). Mark2's 2026-10-24 jobs ran black PET-GF on its fixed left hardened 0.4 mm Standard-flow hotend (faucet/industrial/prints/2026-10-24-buttons-sculpted-bands020-mark2/README.md, task 1372253517).",
+    "sliced_diameter_mm": 0.4,
+    "sliced_volume_type": "Standard"
+  },
+  "material": "Polymaker Fiberon PET-GF15, black",
+  "bed_type": "Textured PEI Plate",
+  "requested_z_trim_mm": 0.04,
+  "emitted_textured_trim_mm": 0.02,
+  "project": ".cache/prints/trial/2026-10-27-back-top-mark2-c3436a45/2026-10-27-back-top-mark2-c3436a45.3mf",
+  "project_sha256": "9bab770b9de135fa59eccb70247e68f0e4abefab2ebaf718f007a93f40b9a530",
+  "profile": "hardware/printed-parts/petgf.3mf",
+  "profile_sha256": "45c16e8c8517e0a205107d7b9f7412d013f51a8de7ecf86125cc940079d37ed0",
+  "settings_sha256": "551d3e6ee51c1ac14663995a7815ba84259e0c02b5efadfbd6d8dbe47ba05080",
+  "settings_changes": {
+    "extruder_ams_count": {
+      "from": [
+        "1#0|4#1",
+        "1#0|4#0"
+      ],
+      "to": [
+        "1#0|4#0",
+        "1#0|4#0"
+      ],
+      "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface."
+    },
+    "support_filament": {
+      "from": "0",
+      "to": "1",
+      "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface."
+    },
+    "support_interface_filament": {
+      "from": "0",
+      "to": "1",
+      "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface."
+    },
+    "flush_into_support": {
+      "from": "1",
+      "to": "0",
+      "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface."
+    },
+    "filament_colour": {
+      "from": [
+        "#000000"
+      ],
+      "to": [
+        "#161616"
+      ],
+      "reason": "Mark2's loaded black PET-GF colour reading."
+    },
+    "max_bridge_length": {
+      "from": "0",
+      "to": "50",
+      "reason": "Support in back-top's zip-tie cavities is impossible to remove (2026-10-09 Mark1 article). With a 50 mm bridge limit the native 2026-10-10 slice has no support in the tie windows and its article drew no tie-cavity report. drain-readiness/prints/2026-10-09-current-back-top-tree-mark1/physical-result.json; drain-readiness/prints/2026-10-10-current-back-top-bridge50-mark1/README.md. Back-top only."
+    },
+    "tree_support_branch_diameter_angle": {
+      "from": "5",
+      "to": "0.5",
+      "reason": "Bed-rooted trunks with the profile's 5-degree growth leave less than the 20 mm unseasoned-plate border around back-top's footprint; 0.5 degrees keeps the complete model/support/brim footprint inside it (2026-10-09 preparation, git d5f17da3bd). The groove ribbons below carry the caught faces that the 2026-10-10 article's trapped stems reached. Back-top only."
+    },
+    "tree_support_branch_diameter": {
+      "from": "2",
+      "to": "3",
+      "reason": "Thicker constant-diameter trunks at 0.5-degree growth (2026-10-11 preparation, drain-readiness/prints/2026-10-11-back-top-groove-supports-mark1/preparation.json). Back-top only."
+    }
+  },
+  "profile_changes": {
+    "machine_start_gcode": {
+      "from_sha256": "3cc9e41520dbf5622d6f9a96bce734db9d11b0b48b49f2abec047a6e01dc6a92",
+      "to_sha256": "b09bc598f2ed7c29dceb227188593905dfc663f0391b98ff708ef00e7ce01bee",
+      "requested_z_trim_mm": 0.04
+    },
+    "printer_settings_id": {
+      "from": "Bambu Lab H2C 0.4 nozzle 04 first layer by agent",
+      "to": "Bambu Lab H2C 0.4 Standard +0.04 Z trim"
+    },
+    "print_compatible_printers": {
+      "from": [
+        "Bambu Lab H2C 0.4 nozzle"
+      ],
+      "to": [
+        "Bambu Lab H2C 0.4 nozzle",
+        "Bambu Lab H2C 0.4 Standard +0.04 Z trim"
+      ]
+    }
+  },
+  "usable_plate_mm": [
+    [
+      0.0,
+      0.0
+    ],
+    [
+      325.0,
+      320.0
+    ]
+  ],
+  "plate_border_mm": 20.0,
+  "brim_allowance_mm": 0.0,
+  "plate_offset_mm": {
+    "value": [
+      -5.4,
+      0.0
+    ],
+    "reason": "With the footprint centered, tree trunks under the rear face root up to 11.6 mm past it while the seam end's beads stay within 0.9 mm of it: emitted bead envelope X 26.05-309.70 mm (2026-10-19 Mark2 slice of the 8b4aae4e4 mesh). This offset centers that envelope, 20.6 mm from both bed edges. Back-top only."
+  },
+  "objects": [
+    {
+      "name": "enclosure-back-top",
+      "identify_id": 1901,
+      "object_id": 2,
+      "stl": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
+      "stl_sha256": "4f0d797ef264d0cd36374eb0b6a9afad940c217288421d502e6d67309b9d9c26",
+      "step_sha256": "4a0732e58eca56cbfe07ea5e667a5262f948bf03f65c3bd33932338a34d085bb",
+      "facets": 974360,
+      "closed": {
+        "edges": 1461540,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "inconsistent_edges": 0,
+        "bodies": 1,
+        "closed_oriented_single_body": true
+      },
+      "pose": {
+        "turns": [
+          [
+            "x",
+            180
+          ]
+        ]
+      },
+      "pose_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0
+        ]
+      ],
+      "yaw_degrees": 90,
+      "source_center_mm": [
+        0.0,
+        336.8249969482422,
+        257.625
+      ],
+      "build_rotation": [
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0
+        ]
+      ],
+      "translation_mm": [
+        157.1,
+        160.0,
+        97.375
+      ],
+      "plate_bounds_mm": [
+        [
+          20.424996948242182,
+          52.5,
+          0.0
+        ],
+        [
+          293.77500305175784,
+          267.5,
+          194.75
+        ]
+      ],
+      "model_bed_margin_mm": 20.424996948242182,
+      "seam_enforcer": null,
+      "object_settings": {},
+      "features": [
+        {
+          "name": "Roof side edge transition",
+          "kind": "transition_band",
+          "span_print_z_mm": [
+            0.0,
+            5.999992998780998
+          ],
+          "foot_print_z_mm": 0.0,
+          "radius_mm": 6.0,
+          "chamfer_area_mm2": 1830.7088311418402,
+          "wall_loops": 6,
+          "painted": {
+            "faces": 5080,
+            "area_mm2": 2805.291,
+            "bounds_print_mm": [
+              [
+                -107.5,
+                -129.521,
+                0.0
+              ],
+              [
+                107.498,
+                118.775,
+                5.999
+              ]
+            ]
+          },
+          "reason": "Back-top's roof side edges print on the bed as the additive 0.24 mm treatment. print-readiness.md; printed-parts/AGENTS.md."
+        },
+        {
+          "name": "Z-seam sliding-groove ribbons",
+          "kind": "groove_ribbons",
+          "ribbon_settings": {
+            "extruder": "1",
+            "wall_loops": "2",
+            "sparse_infill_density": "0%",
+            "top_shell_layers": "2",
+            "bottom_shell_layers": "2",
+            "top_shell_thickness": "0",
+            "bottom_shell_thickness": "0"
+          },
+          "reason": "Each caught face prints down from back-top's ceiling over its open sliding groove. A removable two-wall ribbon stands on the groove floor one empty layer up and stops two empty layers under the caught face; automatic support is blocked on the caught faces and the ribbons, and the solid-host modifiers stop at the ribbons. The 2026-10-10 article's long groove stems were trapped in the walls; the other quadrants' groove supports released easily. enclosure/enclosure/README.md Support-removal strategy; drain-readiness/prints/2026-10-10-current-back-top-bridge50-mark1/physical-result.json."
+        }
+      ],
+      "ranges": [
+        {
+          "min_z": 0.0,
+          "max_z": 6.099992998780998,
+          "options": {
+            "layer_height": "0.24",
+            "wall_loops": "6"
+          },
+          "feature": "Roof side edge transition"
+        }
+      ],
+      "verify_spans": [],
+      "ribbons": [
+        {
+          "number": 1,
+          "caught_face_print_z_mm": 186.3000030517578,
+          "floor_print_z_mm": 179.9499969482422,
+          "caught_face": {
+            "faces": 2,
+            "area_mm2": 493.5,
+            "bounds_print_mm": [
+              [
+                -103.75,
+                19.025,
+                186.3
+              ],
+              [
+                -98.5,
+                113.025,
+                186.3
+              ]
+            ]
+          },
+          "box_print_mm": [
+            [
+              -103.35,
+              19.425009155273436,
+              180.25999999999996
+            ],
+            [
+              -98.9,
+              112.62499389648437,
+              185.65999999999997
+            ]
+          ],
+          "layers": [
+            751,
+            773
+          ],
+          "gap_below_mm": 0.25,
+          "gap_above_mm": 0.58,
+          "box_plate_mm": [
+            [
+              44.475006103515625,
+              56.650000000000006,
+              180.25999999999996
+            ],
+            [
+              137.67499084472655,
+              61.099999999999994,
+              185.65999999999997
+            ]
+          ]
+        },
+        {
+          "number": 2,
+          "caught_face_print_z_mm": 186.3000030517578,
+          "floor_print_z_mm": 179.9499969482422,
+          "caught_face": {
+            "faces": 2,
+            "area_mm2": 664.125,
+            "bounds_print_mm": [
+              [
+                -103.75,
+                -119.475,
+                186.3
+              ],
+              [
+                -98.5,
+                7.025,
+                186.3
+              ]
+            ]
+          },
+          "box_print_mm": [
+            [
+              -103.35,
+              -119.07499084472656,
+              180.25999999999996
+            ],
+            [
+              -98.9,
+              6.625009155273437,
+              185.65999999999997
+            ]
+          ],
+          "layers": [
+            751,
+            773
+          ],
+          "gap_below_mm": 0.25,
+          "gap_above_mm": 0.58,
+          "box_plate_mm": [
+            [
+              150.47499084472656,
+              56.650000000000006,
+              180.25999999999996
+            ],
+            [
+              276.17499084472655,
+              61.099999999999994,
+              185.65999999999997
+            ]
+          ]
+        },
+        {
+          "number": 3,
+          "caught_face_print_z_mm": 186.3000030517578,
+          "floor_print_z_mm": 179.9499969482422,
+          "caught_face": {
+            "faces": 2,
+            "area_mm2": 1220.625,
+            "bounds_print_mm": [
+              [
+                98.5,
+                -119.475,
+                186.3
+              ],
+              [
+                103.75,
+                113.025,
+                186.3
+              ]
+            ]
+          },
+          "box_print_mm": [
+            [
+              98.9,
+              -119.07499084472656,
+              180.25999999999996
+            ],
+            [
+              103.35,
+              112.62499389648437,
+              185.65999999999997
+            ]
+          ],
+          "layers": [
+            751,
+            773
+          ],
+          "gap_below_mm": 0.25,
+          "gap_above_mm": 0.58,
+          "box_plate_mm": [
+            [
+              44.475006103515625,
+              258.9,
+              180.25999999999996
+            ],
+            [
+              276.17499084472655,
+              263.35,
+              185.65999999999997
+            ]
+          ]
+        }
+      ],
+      "tie_windows": [],
+      "modifiers": [
+        {
+          "name": "Y seam knuckle and its wall root +1/265.25",
+          "source_bounds_mm": [
+            [
+              -107.499,
+              200.15099389648438,
+              265.25
+            ],
+            [
+              -91.5,
+              219.81,
+              354.999
+            ]
+          ],
+          "plate_bounds_mm": [
+            [
+              20.425996948242187,
+              52.501000000000005,
+              0.0009999999999763531
+            ],
+            [
+              40.08500305175781,
+              68.5,
+              89.75
+            ]
+          ],
+          "sparse_infill_density": "100%"
+        },
+        {
+          "name": "Y seam knuckle and its wall root -1/265.25",
+          "source_bounds_mm": [
+            [
+              91.5,
+              200.15099389648438,
+              265.25
+            ],
+            [
+              107.499,
+              219.81,
+              354.999
+            ]
+          ],
+          "plate_bounds_mm": [
+            [
+              20.425996948242187,
+              251.5,
+              0.0009999999999763531
+            ],
+            [
+              40.08500305175781,
+              267.499,
+              89.75
+            ]
+          ],
+          "sparse_infill_density": "100%"
+        },
+        {
+          "name": "Z rail, end stop and wall root -1",
+          "source_bounds_mm": [
+            [
+              -107.499,
+              200.15099389648438,
+              160.251
+            ],
+            [
+              -103.35,
+              471.3,
+              177.8
+            ]
+          ],
+          "plate_bounds_mm": [
+            [
+              20.425996948242187,
+              52.501000000000005,
+              177.2
+            ],
+            [
+              291.5750030517578,
+              56.650000000000006,
+              194.749
+            ]
+          ],
+          "sparse_infill_density": "100%"
+        },
+        {
+          "name": "Z rail, end stop and wall root -1",
+          "source_bounds_mm": [
+            [
+              -98.9,
+              200.15099389648438,
+              160.251
+            ],
+            [
+              -90.0,
+              471.3,
+              177.8
+            ]
+          ],
+          "plate_bounds_mm": [
+            [
+              20.425996948242187,
+              61.099999999999994,
+              177.2
+            ],
+            [
+              291.5750030517578,
+              70.0,
+              194.749
+            ]
+          ],
+          "sparse_infill_density": "100%"
+        },
+        {
+          "name": "Z rail, end stop and wall root -1",
+          "source_bounds_mm": [
+            [
+              -103.35,
+              200.15099389648438,
+              160.251
+            ],
+            [
+              -98.9,
+              224.20000305175782,
+              177.8
+            ]
+          ],
+          "plate_bounds_mm": [
+            [
+              20.425996948242187,
+              56.650000000000006,
+              177.2
+            ],
+            [
+              44.475006103515625,
+              61.099999999999994,
+              194.749
+            ]
+          ],
+          "sparse_infill_density": "100%"
+        },
+        {
+          "name": "Z rail, end stop and wall root -1",
+          "source_bounds_mm": [
+            [
+              -103.35,
+              317.3999877929688,
+              160.251
+            ],
+            [
+              -98.9,
+              330.1999877929687,
+              177.8
+            ]
+          ],
+          "plate_bounds_mm": [
+            [
+              137.67499084472658,
+              56.650000000000006,
+              177.2
+            ],
+            [
+              150.47499084472653,
+              61.099999999999994,
+              194.749
+            ]
+          ],
+          "sparse_infill_density": "100%"
+        },
+        {
+          "name": "Z rail, end stop and wall root -1",
+          "source_bounds_mm": [
+            [
+              -103.35,
+              455.8999877929688,
+              160.251
+            ],
+            [
+              -98.9,
+              471.3,
+              177.8
+            ]
+          ],
+          "plate_bounds_mm": [
+            [
+              276.1749908447266,
+              56.650000000000006,
+              177.2
+            ],
+            [
+              291.5750030517578,
+              61.099999999999994,
+              194.749
+            ]
+          ],
+          "sparse_infill_density": "100%"
+        },
+        {
+          "name": "Z rail, end stop and wall root -1",
+          "source_bounds_mm": [
+            [
+              -103.35,
+              330.1999877929687,
+              160.251
+            ],
+            [
+              -98.9,
+              455.8999877929688,
+              169.34000000000003
+            ]
+          ],
+          "plate_bounds_mm": [
+            [
+              150.47499084472653,
+              56.650000000000006,
+              185.65999999999997
+            ],
+            [
+              276.1749908447266,
+              61.099999999999994,
+              194.749
+            ]
+          ],
+          "sparse_infill_density": "100%"
+        },
+        {
+          "name": "Z rail, end stop and wall root -1",
+          "source_bounds_mm": [
+            [
+              -103.35,
+              330.1999877929687,
+              174.74000000000004
+            ],
+            [
+              -98.9,
+              455.8999877929688,
+              177.8
+            ]
+          ],
+          "plate_bounds_mm": [
+            [
+              150.47499084472653,
+              56.650000000000006,
+              177.2
+            ],
+            [
+              276.1749908447266,
+              61.099999999999994,
+              180.25999999999996
+            ]
+          ],
+          "sparse_infill_density": "100%"
+        },
+        {
+          "name": "Z rail, end stop and wall root -1",
+          "source_bounds_mm": [
+            [
+              -103.35,
+              224.20000305175782,
+              160.251
+            ],
+            [
+              -98.9,
+              317.3999877929688,
+              169.34000000000003
+            ]
+          ],
+          "plate_bounds_mm": [
+            [
+              44.475006103515625,
+              56.650000000000006,
+              185.65999999999997
+            ],
+            [
+              137.67499084472658,
+              61.099999999999994,
+              194.749
+            ]
+          ],
+          "sparse_infill_density": "100%"
+        },
+        {
+          "name": "Z rail, end stop and wall root -1",
+          "source_bounds_mm": [
+            [
+              -103.35,
+              224.20000305175782,
+              174.74000000000004
+            ],
+            [
+              -98.9,
+              317.3999877929688,
+              177.8
+            ]
+          ],
+          "plate_bounds_mm": [
+            [
+              44.475006103515625,
+              56.650000000000006,
+              177.2
+            ],
+            [
+              137.67499084472658,
+              61.099999999999994,
+              180.25999999999996
+            ]
+          ],
+          "sparse_infill_density": "100%"
+        },
+        {
+          "name": "Z rail, end stop and wall root +1",
+          "source_bounds_mm": [
+            [
+              90.0,
+              200.15099389648438,
+              160.251
+            ],
+            [
+              98.9,
+              471.3,
+              177.8
+            ]
+          ],
+          "plate_bounds_mm": [
+            [
+              20.425996948242187,
+              250.0,
+              177.2
+            ],
+            [
+              291.5750030517578,
+              258.9,
+              194.749
+            ]
+          ],
+          "sparse_infill_density": "100%"
+        },
+        {
+          "name": "Z rail, end stop and wall root +1",
+          "source_bounds_mm": [
+            [
+              103.35,
+              200.15099389648438,
+              160.251
+            ],
+            [
+              107.499,
+              471.3,
+              177.8
+            ]
+          ],
+          "plate_bounds_mm": [
+            [
+              20.425996948242187,
+              263.35,
+              177.2
+            ],
+            [
+              291.5750030517578,
+              267.499,
+              194.749
+            ]
+          ],
+          "sparse_infill_density": "100%"
+        },
+        {
+          "name": "Z rail, end stop and wall root +1",
+          "source_bounds_mm": [
+            [
+              98.9,
+              200.15099389648438,
+              160.251
+            ],
+            [
+              103.35,
+              224.20000305175782,
+              177.8
+            ]
+          ],
+          "plate_bounds_mm": [
+            [
+              20.425996948242187,
+              258.9,
+              177.2
+            ],
+            [
+              44.475006103515625,
+              263.35,
+              194.749
+            ]
+          ],
+          "sparse_infill_density": "100%"
+        },
+        {
+          "name": "Z rail, end stop and wall root +1",
+          "source_bounds_mm": [
+            [
+              98.9,
+              455.8999877929688,
+              160.251
+            ],
+            [
+              103.35,
+              471.3,
+              177.8
+            ]
+          ],
+          "plate_bounds_mm": [
+            [
+              276.1749908447266,
+              258.9,
+              177.2
+            ],
+            [
+              291.5750030517578,
+              263.35,
+              194.749
+            ]
+          ],
+          "sparse_infill_density": "100%"
+        },
+        {
+          "name": "Z rail, end stop and wall root +1",
+          "source_bounds_mm": [
+            [
+              98.9,
+              224.20000305175782,
+              160.251
+            ],
+            [
+              103.35,
+              455.8999877929688,
+              169.34000000000003
+            ]
+          ],
+          "plate_bounds_mm": [
+            [
+              44.475006103515625,
+              258.9,
+              185.65999999999997
+            ],
+            [
+              276.1749908447266,
+              263.35,
+              194.749
+            ]
+          ],
+          "sparse_infill_density": "100%"
+        },
+        {
+          "name": "Z rail, end stop and wall root +1",
+          "source_bounds_mm": [
+            [
+              98.9,
+              224.20000305175782,
+              174.74000000000004
+            ],
+            [
+              103.35,
+              455.8999877929688,
+              177.8
+            ]
+          ],
+          "plate_bounds_mm": [
+            [
+              44.475006103515625,
+              258.9,
+              177.2
+            ],
+            [
+              276.1749908447266,
+              263.35,
+              180.25999999999996
+            ]
+          ],
+          "sparse_infill_density": "100%"
+        },
+        {
+          "name": "PSU bearing pad, insert host and west wall root 1",
+          "source_bounds_mm": [
+            [
+              -107.499,
+              346.50001220703126,
+              291.9
+            ],
+            [
+              -96.0,
+              356.50001220703126,
+              301.9
+            ]
+          ],
+          "plate_bounds_mm": [
+            [
+              166.77501525878907,
+              52.501000000000005,
+              53.10000000000002
+            ],
+            [
+              176.77501525878907,
+              64.0,
+              63.10000000000002
+            ]
+          ],
+          "sparse_infill_density": "100%"
+        },
+        {
+          "name": "PSU bearing pad, insert host and west wall root 2",
+          "source_bounds_mm": [
+            [
+              -107.499,
+              444.50001220703126,
+              291.9
+            ],
+            [
+              -96.0,
+              454.50001220703126,
+              301.9
+            ]
+          ],
+          "plate_bounds_mm": [
+            [
+              264.77501525878904,
+              52.501000000000005,
+              53.10000000000002
+            ],
+            [
+              274.77501525878904,
+              64.0,
+              63.10000000000002
+            ]
+          ],
+          "sparse_infill_density": "100%"
+        },
+        {
+          "name": "PSU bearing pad, insert host and west wall root 3",
+          "source_bounds_mm": [
+            [
+              -107.499,
+              346.50001220703126,
+              258.9
+            ],
+            [
+              -96.0,
+              356.50001220703126,
+              268.9
+            ]
+          ],
+          "plate_bounds_mm": [
+            [
+              166.77501525878907,
+              52.501000000000005,
+              86.10000000000002
+            ],
+            [
+              176.77501525878907,
+              64.0,
+              96.10000000000002
+            ]
+          ],
+          "sparse_infill_density": "100%"
+        },
+        {
+          "name": "PSU bearing pad, insert host and west wall root 4",
+          "source_bounds_mm": [
+            [
+              -107.499,
+              444.50001220703126,
+              258.9
+            ],
+            [
+              -96.0,
+              454.50001220703126,
+              268.9
+            ]
+          ],
+          "plate_bounds_mm": [
+            [
+              264.77501525878904,
+              52.501000000000005,
+              86.10000000000002
+            ],
+            [
+              274.77501525878904,
+              64.0,
+              96.10000000000002
+            ]
+          ],
+          "sparse_infill_density": "100%"
+        },
+        {
+          "name": "Relay bearing pad, insert host and west wall root 1",
+          "source_bounds_mm": [
+            [
+              -107.499,
+              359.99999999999994,
+              304.4
+            ],
+            [
+              -94.49,
+              369.99999999999994,
+              314.4
+            ]
+          ],
+          "plate_bounds_mm": [
+            [
+              180.27500305175775,
+              52.501000000000005,
+              40.60000000000002
+            ],
+            [
+              190.27500305175775,
+              65.51,
+              50.60000000000002
+            ]
+          ],
+          "sparse_infill_density": "100%"
+        },
+        {
+          "name": "Relay bearing pad, insert host and west wall root 2",
+          "source_bounds_mm": [
+            [
+              -107.499,
+              359.99999999999994,
+              317.4
+            ],
+            [
+              -94.49,
+              369.99999999999994,
+              327.4
+            ]
+          ],
+          "plate_bounds_mm": [
+            [
+              180.27500305175775,
+              52.501000000000005,
+              27.600000000000023
+            ],
+            [
+              190.27500305175775,
+              65.51,
+              37.60000000000002
+            ]
+          ],
+          "sparse_infill_density": "100%"
+        },
+        {
+          "name": "Relay bearing pad, insert host and west wall root 3",
+          "source_bounds_mm": [
+            [
+              -107.499,
+              425.99999999999994,
+              304.4
+            ],
+            [
+              -94.49,
+              435.99999999999994,
+              314.4
+            ]
+          ],
+          "plate_bounds_mm": [
+            [
+              246.27500305175775,
+              52.501000000000005,
+              40.60000000000002
+            ],
+            [
+              256.2750030517577,
+              65.51,
+              50.60000000000002
+            ]
+          ],
+          "sparse_infill_density": "100%"
+        },
+        {
+          "name": "Relay bearing pad, insert host and west wall root 4",
+          "source_bounds_mm": [
+            [
+              -107.499,
+              425.99999999999994,
+              317.4
+            ],
+            [
+              -94.49,
+              435.99999999999994,
+              327.4
+            ]
+          ],
+          "plate_bounds_mm": [
+            [
+              246.27500305175775,
+              52.501000000000005,
+              27.600000000000023
+            ],
+            [
+              256.2750030517577,
+              65.51,
+              37.60000000000002
+            ]
+          ],
+          "sparse_infill_density": "100%"
+        },
+        {
+          "name": "Relay bearing pad, insert host and west wall root 5",
+          "source_bounds_mm": [
+            [
+              -107.499,
+              360.0,
+              324.0
+            ],
+            [
+              -94.49,
+              370.0,
+              334.0
+            ]
+          ],
+          "plate_bounds_mm": [
+            [
+              180.2750030517578,
+              52.501000000000005,
+              21.0
+            ],
+            [
+              190.2750030517578,
+              65.51,
+              31.0
+            ]
+          ],
+          "sparse_infill_density": "100%"
+        },
+        {
+          "name": "Relay bearing pad, insert host and west wall root 6",
+          "source_bounds_mm": [
+            [
+              -107.499,
+              360.0,
+              337.0
+            ],
+            [
+              -94.49,
+              370.0,
+              347.0
+            ]
+          ],
+          "plate_bounds_mm": [
+            [
+              180.2750030517578,
+              52.501000000000005,
+              8.0
+            ],
+            [
+              190.2750030517578,
+              65.51,
+              18.0
+            ]
+          ],
+          "sparse_infill_density": "100%"
+        },
+        {
+          "name": "Relay bearing pad, insert host and west wall root 7",
+          "source_bounds_mm": [
+            [
+              -107.499,
+              426.0,
+              324.0
+            ],
+            [
+              -94.49,
+              436.0,
+              334.0
+            ]
+          ],
+          "plate_bounds_mm": [
+            [
+              246.2750030517578,
+              52.501000000000005,
+              21.0
+            ],
+            [
+              256.27500305175784,
+              65.51,
+              31.0
+            ]
+          ],
+          "sparse_infill_density": "100%"
+        },
+        {
+          "name": "Relay bearing pad, insert host and west wall root 8",
+          "source_bounds_mm": [
+            [
+              -107.499,
+              426.0,
+              337.0
+            ],
+            [
+              -94.49,
+              436.0,
+              347.0
+            ]
+          ],
+          "plate_bounds_mm": [
+            [
+              246.2750030517578,
+              52.501000000000005,
+              8.0
+            ],
+            [
+              256.27500305175784,
+              65.51,
+              18.0
+            ]
+          ],
+          "sparse_infill_density": "100%"
+        },
+        {
+          "name": "C14 blind insert host and rear wall root -1",
+          "source_bounds_mm": [
+            [
+              -93.605,
+              457.79999999999995,
+              325.0
+            ],
+            [
+              -83.605,
+              471.3,
+              335.0
+            ]
+          ],
+          "plate_bounds_mm": [
+            [
+              278.0750030517578,
+              66.395,
+              20.0
+            ],
+            [
+              291.5750030517578,
+              76.395,
+              30.0
+            ]
+          ],
+          "sparse_infill_density": "100%"
+        },
+        {
+          "name": "C14 blind insert host and rear wall root +1",
+          "source_bounds_mm": [
+            [
+              -53.394999999999996,
+              457.79999999999995,
+              325.0
+            ],
+            [
+              -43.394999999999996,
+              471.3,
+              335.0
+            ]
+          ],
+          "plate_bounds_mm": [
+            [
+              278.0750030517578,
+              106.605,
+              20.0
+            ],
+            [
+              291.5750030517578,
+              116.605,
+              30.0
+            ]
+          ],
+          "sparse_infill_density": "100%"
+        },
+        {
+          "name": "Funnel frame receiver, blind cap and full flank root 1",
+          "source_bounds_mm": [
+            [
+              -107.499,
+              253.4915079232813,
+              335.7999999
+            ],
+            [
+              -82.7,
+              265.4915079232813,
+              345.9999999
+            ]
+          ],
+          "plate_bounds_mm": [
+            [
+              73.7665109750391,
+              52.501000000000005,
+              9.000000100000022
+            ],
+            [
+              85.7665109750391,
+              77.3,
+              19.20000010000001
+            ]
+          ],
+          "sparse_infill_density": "100%"
+        },
+        {
+          "name": "Funnel frame receiver, blind cap and full flank root 2",
+          "source_bounds_mm": [
+            [
+              82.7,
+              253.4915079232813,
+              335.7999999
+            ],
+            [
+              107.499,
+              265.4915079232813,
+              345.9999999
+            ]
+          ],
+          "plate_bounds_mm": [
+            [
+              73.7665109750391,
+              242.7,
+              9.000000100000022
+            ],
+            [
+              85.7665109750391,
+              267.499,
+              19.20000010000001
+            ]
+          ],
+          "sparse_infill_density": "100%"
+        }
+      ],
+      "fins": [],
+      "regions": {
+        "record": "hardware/printed-parts/enclosure/enclosure/heat-set-review/print-regions.json",
+        "record_sha256": "498938f9b0002a8c659cce88d773a52ffcbe27eafb221cc8952aafb3c3432e9a",
+        "part_process_overrides": null
+      }
+    }
+  ],
+  "pause": null,
+  "show_faces": ".cache/prints/trial/2026-10-27-back-top-mark2-c3436a45/show-faces.npz",
+  "spec": "hardware/printed-parts/enclosure/trial-preparation/pieces.json",
+  "spec_sha256": "46af89c1c1da935d79072733a53b3298bcbded584b2e93bedd88901c58bc9ae2",
+  "tool_sha256": {
+    "hardware/printed-parts/enclosure/trial-preparation/_derive.py": "31256357a16f37d9f1516ce1ee1636c97559dfe54a1a2050ae661d622e6b3189",
+    "hardware/printed-parts/enclosure/trial-preparation/_mesh.py": "7ab22db36e370608f52df3709c4af1994c8e804ee06e101dcbf79210db99eead",
+    "hardware/printed-parts/enclosure/trial-preparation/_native.py": "1c99ce10842a141a942a19d7def2329512d14b676c00618496187e0d93cd29da",
+    "hardware/printed-parts/enclosure/trial-preparation/_seam.py": "9ffa509df701826563e18388fd3bcc57c604f4b2b8e5e4288821ddcd00bcb176",
+    "hardware/printed-parts/enclosure/trial-preparation/labels.py": "c326a74b104b894d81dcfd8eb00c93ebf602291816decaf241a01cf4818b672d",
+    "hardware/printed-parts/enclosure/trial-preparation/prepare.py": "525be245521bd721c1ee6795f37e80d9f1e9ace9c4f8fa08b857f88e83388d9a",
+    "hardware/printed-parts/enclosure/trial-preparation/review.py": "9bd303fe370842fd34eb559dc5f53f887f75c42e478c598737397dd49dd539f7",
+    "hardware/printed-parts/enclosure/trial-preparation/step_meshes.py": "b50f7b50f52f1e8516be3b1fc9ecdb10e87fb188f8b9bebc0fac56737320fc44"
+  },
+  "prepared_utc": "2026-10-27T14:42:34+00:00",
+  "sliced": true,
+  "submitted": false,
+  "archive": ".cache/prints/trial/2026-10-27-back-top-mark2-c3436a45/2026-10-27-back-top-mark2-c3436a45.gcode.3mf",
+  "archive_sha256": "c6ebbb8fddb87af7fd37e5754ecf9b2cc8de564c27ae3ac79a2891a49100dca7",
+  "gcode_sha256": "1e3c9f3aa9a81a5d75d92c93fc875cdc37d10b874ba7e1739ade49f06997e221",
+  "estimated_seconds": 101317.5859375,
+  "slicer_warnings": []
+}

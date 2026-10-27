@@ -1,0 +1,6 @@
+{
+  "piece_stl_sha256": "4f0d797ef264d0cd36374eb0b6a9afad940c217288421d502e6d67309b9d9c26",
+  "scope": "Relocated east hold, X12..21, Y453.3..462.3, Z253.65..293.65",
+  "findings_on_relocated_hold": [],
+  "retained_recess_floor_answer": "hardware/printed-parts/lint-answers/enclosure/enclosure/enclosure-back-top.lint-answers"
+}

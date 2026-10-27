@@ -513,6 +513,9 @@ Four features bearing on the core's own faces:
   0.40 mm to the PSU and 0.275 mm to the rear jack. The complete 300 mm horizontal
   back-column approach clears the populated core. These are CAD clearances;
   printed fit and restraint strength remain unqualified.
+  The [native hold reading](core-hold-review/native.json) binds the complete east profile,
+  wall root and cap gap to the current export, and preserves the west hold exactly.
+  The [current slice](core-hold-review/slice.json) binds its print preparation.
 
 The whole core pocket follows that same rounded plan with 0.25 mm around it,
 from the floor to Z253.65 above its cap crown. The floor under it is the box's one floor
@@ -531,7 +534,7 @@ the corner blocks' pockets close around the front face with the same 0.25 mm all
 **The front blocks need no support**: they print floor-down with no overhang in them.
 The aft brackets print with back-top ceiling-down. Each cap-facing flat looks print-up;
 the gusset face grows from the rear wall at more than 45° to the bed.
-The brackets take no print support.
+The production preparation retains Tree(auto)/Default.
 
 ## The reeded skin
 
