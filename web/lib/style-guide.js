@@ -2,6 +2,7 @@ import { renderHead, renderNav, renderPageHeader, renderFooter } from './shell.j
 import { COST_CSS } from './cost.js';
 import { SIGNUP_BUTTON_CSS } from './landing.js';
 import { readMaterialCatalog } from './material-catalog.js';
+import { materialDocuments } from '../contracts/materials.js';
 
 const escape = value => String(value).replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[char]);
 const repo = 'https://github.com/derekbreden/homesodamachine/blob/main/';
@@ -28,7 +29,8 @@ function renderGuide(hardwareDir) {
   const samples = [root, find('HSM-000005'), find('HSM-000161')];
   const rows = ['HSM-000151', 'HSM-000152', 'HSM-000155'].map(id => ({ material: find(id), item: root.bom.items.find(item => item.material === id) }));
   const materialLink = material => `/3d#material:${material.id}`;
-  const documentLink = document => document.path.endsWith('.pdf') ? `/read/${document.path}` : repo + 'hardware/' + document.path;
+  const documentLink = document => `/read/${document.path}`;
+  const documents = materialDocuments({ materials }, root.id);
 
   const roles = [
     { name: 'Page heading', sample: '<h2 class="cost-title" id="guide-type-heading">Parts by category</h2>', id: 'guide-type-heading', use: 'Introduce a page or major section. Cost uses a smaller heading inside its expandable panels.', path: 'web/lib/cost.js', selector: '.cost-title' },
@@ -52,7 +54,7 @@ function renderGuide(hardwareDir) {
   const buttonsMarkup = `<div class="guide-buttons">
   <button type="button" class="signup-btn" data-guide-focus>Focus the search</button>
   <div class="material-actions"><button type="button" data-guide-clear>Clear search</button></div>
-  <a class="material-link" href="${documentLink(root.documents[0])}">Assembly guide</a>
+  <a class="material-link" href="${documentLink(documents[0])}">Assembly guide</a>
 </div>`;
   const endcapDrawing = find('HSM-000009').documents.find(document => document.kind === 'engineering-drawing');
   const drawingMarkup = `<a class="material-document material-drawing-feature" href="${documentLink(endcapDrawing)}">
@@ -97,7 +99,7 @@ ${rows.map(({ material, item }, i) => `    <div class="bom-row${i === 0 ? ' sele
   <p class="material-selection-note" id="guide-selection-status" role="status">${escape(rows[0].material.description)} selected in this example.</p>
 </div>
 <div id="guide-docs" role="tabpanel" aria-labelledby="guide-tab-docs" hidden>
-${root.documents.map(document => `  <a class="material-document" href="${documentLink(document)}"><strong>${escape(document.title)}</strong><span>${escape(root.description)}</span></a>`).join('\n')}
+${documents.map(document => `  <a class="material-document" href="${documentLink(document)}"><strong>${escape(document.title)}</strong><span>${escape(root.description)}</span></a>`).join('\n')}
 </div>`;
   const panelMarkup = `<details class="cost-panel" open>
   <summary>

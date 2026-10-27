@@ -16,8 +16,7 @@ const el = (tag, className, text) => {
 const options = () => ({ finish: state.faucetFinish });
 const quantity = (q, unit = "ea") => q == null ? "As required" : `${Number(q.toFixed(3))} ${unit}`;
 const pathKey = (path) => path.map((item) => `${item.material}:${item.occurrence}`).join("/");
-const docHref = (path) => path.endsWith(".pdf") ? "/read/" + path :
-  "https://github.com/derekbreden/homesodamachine/blob/main/hardware/" + path;
+const docHref = (path) => "/read/" + path;
 
 export function mountMaterialPanel(workspace, { file = null, material = null } = {}) {
   const panel = el("aside", "material-panel");
@@ -204,9 +203,6 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
         const note = el("p", "material-selection-note"); note.setAttribute("role", "status");
         content.prepend(note);
       }
-      if (rootMaterial.bom.source) {
-        const source = el("a", "material-source", "Parts-list source"); source.href = docHref(rootMaterial.bom.source); source.target = "_blank"; source.rel = "noopener"; content.append(source);
-      }
     }
     renderRelations(content, index.get(selected) || rootMaterial, index);
   }
@@ -230,7 +226,7 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
 
   function renderDocs(content, docs) {
     if (!docs.length) content.append(el("p", "material-empty", "No documents linked to this material or its assemblies."));
-    const ownDrawing = d => !d.inherited && d.kind === "engineering-drawing" && d.path.endsWith(".pdf");
+    const ownDrawing = d => !d.inherited && d.kind === "engineering-drawing";
     for (const d of [...docs].sort((a, b) => Number(ownDrawing(b)) - Number(ownDrawing(a)))) {
       const link = el("a", "material-document" + (ownDrawing(d) ? " material-drawing-feature" : ""));
       link.href = docHref(d.path); link.target = "_blank"; link.rel = "noopener";
@@ -242,7 +238,7 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
           event.preventDefault(); drawingView.showDrawing({ ...d, subject: selected !== root ? d.owner : null });
         });
       }
-      link.append(el("strong", "", d.title), el("span", "", ownDrawing(d) ? "Open in Drawing →" : `${d.path.endsWith(".pdf") ? "PDF" : "Details"}${d.inherited ? " · " + d.owner : ""}`)); content.append(link);
+      link.append(el("strong", "", d.title), el("span", "", ownDrawing(d) ? "Open in Drawing →" : "PDF" + (d.inherited ? " · " + d.owner : ""))); content.append(link);
     }
   }
 
