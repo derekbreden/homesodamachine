@@ -1,5 +1,5 @@
 {
-  "status": "prepared; not submitted to printer",
+  "status": "printing on Mark2 as task 1379343230; RUNNING verified 2026-10-27T05:56:58Z",
   "part": "full production cold-core shell",
   "printer": "Mark2",
   "hotend": "fixed left hardened 0.4 mm Standard",
@@ -50,5 +50,8 @@
   "review": "native-review.json",
   "path_review": "wall-path-review.json",
   "geometry_review": "geometry-review.json",
-  "physical_acceptance": "Inspect the full shell finish, integrity, retained fits and copper insertion before assembly; no completed physical result is recorded by this preparation."
+  "physical_acceptance": "Inspect the full shell finish, integrity, retained fits and copper insertion before assembly; no completed physical result is recorded by this preparation.",
+  "launch": "launch.json",
+  "startup": "startup.json",
+  "startup_progress": "startup-progress.json"
 }

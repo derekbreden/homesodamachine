@@ -6,9 +6,9 @@ Geometry: the full cold-core foam shell, from [`foam_shell.py`](/hardware/printe
 
 The launch record binds the exact `foam-shell.stl` embedded in the sliced project. The current shell, caps and lid edges have smooth surfaces. Historical fluted projects remain identified with their own attempts below.
 
-## Production preparation — round copper exits / A2 seam
+## Production print — round copper exits / A2 seam
 
-The full shell is prepared for Mark2 with two 7.5 mm copper holes, continuous
+The full shell job on Mark2 uses two 7.5 mm copper holes, continuous
 2.38 mm walls, the selected faucet A2 scarf treatment and wiping off. The
 scarf starts on the plain long-wall span at native X60, Y−90.2. Outer walls
 request 100 mm/s / 1,500 mm/s²; inner walls 150 mm/s / 3,000 mm/s².
@@ -16,19 +16,22 @@ request 100 mm/s / 1,500 mm/s²; inner walls 150 mm/s / 3,000 mm/s².
 The [production record](prints/2026-10-26-mark2-round-ports-a2/README.md)
 binds the editable project, sliced archive, exact source hashes, emitted paths
 and preserved fits. Native estimate: **31 h 37 min**, **1,449.9 g**. Tree(auto)
-Default remains enabled and generates no supports. Prepared only; no launch
-or physical result is recorded for this article.
+Default remains enabled and generates no supports. Accepted as task
+**1379343230** at **2026-10-27 00:54:33 CDT / 05:54:33 UTC**, with PREPARE,
+print error 0 and HMS empty. Timelapse and bed leveling are On; flow and nozzle
+offset calibration are Auto. The submitted archive is byte-identical to the
+reviewed preparation. No physical result is recorded for this article.
 
 ## Stock
 
-The recorded smooth-shell job uses **Polymaker Fiberon PET-GF15, black, on Mark2's
+The round-port shell job uses **Polymaker Fiberon PET-GF15, black, on Mark2's
 fixed left hardened 0.4 mm Standard hotend**. Its left-nozzle envelope is
-325 × 320 × 320 mm. The [job record](prints/2026-10-25-mark2-left04-smooth238-z004/README.md)
+325 × 320 × 320 mm. The [job record](prints/2026-10-26-mark2-round-ports-a2/README.md)
 binds the archive and printer mapping.
 
 The plate uses 0.20 mm first and 0.24 mm ordinary layers, 0.42 mm outer and
 0.45 mm inner lines, three classic wall loops and 15% gyroid in thick regions.
-Emitted outer walls request 200 mm/s and 5,000 mm/s² acceleration.
+Emitted outer walls request 100 mm/s and 1,500 mm/s² acceleration.
 It takes the filament settings from the shared
 [`petgf.3mf`](../../petgf.3mf):
 
@@ -109,7 +112,7 @@ use 15% gyroid. Supports are off; minimum native bed margin is 21.183 mm.
 Native estimate: **23 h 4 min 46 s**. Requested user Z trim +0.04 mm emits
 G29.1 Z0.02. Timelapse and bed leveling On; flow and nozzle-offset Auto.
 
-The [job record](prints/2026-10-25-mark2-left04-smooth238-z004/README.md)
+The [job record](prints/2026-10-26-mark2-round-ports-a2/README.md)
 binds geometry, settings, emitted paths and the accepted launch.
 Derek supplied seven photographs and reported: "Well, this turned out pretty
 awful here, at least in these parts that I've photographed for you here."
