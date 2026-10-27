@@ -1,0 +1,114 @@
+{
+  "status": "Offline native preparation/review; printer submission not performed.",
+  "submitted": false,
+  "source_sha256": {
+    "future/tube-snap-exploration/c2_bore_trial.py": "605091dffa9105e9c4a9d0382d54f26d31524b21998c5714bcec95cb8e3aa394",
+    "future/tube-snap-exploration/parts/tube-snap-c2-three-bores.stl": "350d7d300c767f3514ca54eb4452456c3b2372ba067361771f76daf21c554dbe",
+    "future/tube-snap-exploration/parts/tube-snap-c2-three-bores.step": "5c526539592dac28b6cc12edee067e50215efc62069a62b53b5c1b6498a49ea1",
+    "future/tube-snap-exploration/retention_matrix.py": "a77225ec7e9924514a57c55720c8437bfe68b1a79eff914d1f199cb8d19e695b",
+    "future/tube-snap-exploration/retention-matrix-geometry.json": "938ce52a38ef2a510bd45b150ef9dcce014d4b9c4912443974385584e08e0f5f",
+    "future/tube-snap-exploration/geometry-report.json": "4939dfc0dcb9bb3c54bb860d53026935a535c9ded8225919bbb4934d4b86a5ba",
+    "future/tube-snap-exploration/c2-bore-geometry.json": "032eaf40f03de59da16f132f231e27a2b952f8f88b7f4bccd5a7944c030a4387"
+  },
+  "preparer_sha256": "b5a13f70347567889bbbb1966a0aa31a27644c58809d46dae721a936edd28b4c",
+  "directory": "future/tube-snap-exploration/prints/2026-10-26-mark2-c2-three-bores/2026-10-26-tube-snap-c2-three-bores-mark2-cf1d0d5d",
+  "project": "future/tube-snap-exploration/prints/2026-10-26-mark2-c2-three-bores/2026-10-26-tube-snap-c2-three-bores-mark2-cf1d0d5d/2026-10-26-tube-snap-c2-three-bores-mark2-cf1d0d5d.3mf",
+  "project_sha256": "f47e15a73edcbf30e35de0eeb8c9b4ffb439a0cd023bf53067f948dc76153b66",
+  "archive": "future/tube-snap-exploration/prints/2026-10-26-mark2-c2-three-bores/2026-10-26-tube-snap-c2-three-bores-mark2-cf1d0d5d/2026-10-26-tube-snap-c2-three-bores-mark2-cf1d0d5d.gcode.3mf",
+  "archive_sha256": "be7a69c58418ba9d50ba13cae451ca325fc8edc5b3789aaae95619b1dd5039b5",
+  "profile": "hardware/printed-parts/petgf.3mf",
+  "profile_sha256": "45c16e8c8517e0a205107d7b9f7412d013f51a8de7ecf86125cc940079d37ed0",
+  "printer": "Mark2",
+  "nozzle": {
+    "side": "left",
+    "diameter_mm": 0.4,
+    "flow": "Standard",
+    "hardened": true,
+    "reason": "Every abrasive stock runs on the left hotend (hardware/ledger/tools.md, Which hotends fit an H2C). Mark2's 2026-10-24 jobs ran black PET-GF on its fixed left hardened 0.4 mm Standard-flow hotend (faucet/industrial/prints/2026-10-24-buttons-sculpted-bands020-mark2/README.md, task 1372253517).",
+    "sliced_diameter_mm": 0.4,
+    "sliced_volume_type": "Standard"
+  },
+  "material": "Polymaker Fiberon PET-GF15, black",
+  "requested_z_trim_mm": 0.04,
+  "emitted_z_trim_mm": [
+    0.0,
+    0.02
+  ],
+  "process": {
+    "wall_loops": "2",
+    "sparse_infill_density": "15%",
+    "sparse_infill_pattern": "gyroid",
+    "layer_height": "0.24",
+    "initial_layer_print_height": "0.2",
+    "enable_support": "1",
+    "support_type": "tree(auto)",
+    "support_style": "default",
+    "brim_type": "auto_brim",
+    "brim_width": "5",
+    "filament_colour": [
+      "#161616"
+    ],
+    "filament_map": [
+      "1"
+    ],
+    "curr_bed_type": "Textured PEI Plate",
+    "overhang_fan_threshold": [
+      "50%"
+    ],
+    "overhang_fan_speed": [
+      "70"
+    ]
+  },
+  "model_pose": "One 60 x16 x3 mm floor flat on bed; mouths +Z, tube axes Y; bores left-to-right 6.55 /6.45 /6.35 mm.",
+  "identity": {
+    "control": "Left 6.55 mm is C2",
+    "bore_diameters_mm": [
+      6.55,
+      6.45,
+      6.35
+    ],
+    "spring_wall_mm": 2.4,
+    "tip_angle_deg": 125.42102606277044
+  },
+  "estimated_seconds": 852.1781005859375,
+  "estimated_filament_g": 3.9811794757843018,
+  "filaments": [
+    {
+      "filament_id": "GFT01",
+      "id": 1,
+      "main_used_g": 3.9811794757843018,
+      "total_used_g": 3.9811794757843018
+    }
+  ],
+  "slicer_warnings": "",
+  "native_preview_images": [
+    "future/tube-snap-exploration/prints/2026-10-26-mark2-c2-three-bores/2026-10-26-tube-snap-c2-three-bores-mark2-cf1d0d5d/plate_1.png",
+    "future/tube-snap-exploration/prints/2026-10-26-mark2-c2-three-bores/2026-10-26-tube-snap-c2-three-bores-mark2-cf1d0d5d/plate_1_small.png",
+    "future/tube-snap-exploration/prints/2026-10-26-mark2-c2-three-bores/2026-10-26-tube-snap-c2-three-bores-mark2-cf1d0d5d/plate_no_light_1.png",
+    "future/tube-snap-exploration/prints/2026-10-26-mark2-c2-three-bores/2026-10-26-tube-snap-c2-three-bores-mark2-cf1d0d5d/top_1.png",
+    "future/tube-snap-exploration/prints/2026-10-26-mark2-c2-three-bores/2026-10-26-tube-snap-c2-three-bores-mark2-cf1d0d5d/pick_1.png"
+  ],
+  "native_review": "future/tube-snap-exploration/prints/2026-10-26-mark2-c2-three-bores/2026-10-26-tube-snap-c2-three-bores-mark2-cf1d0d5d/review.json",
+  "native_review_pass": true,
+  "minimum_bead_margin_mm": 132.485,
+  "first_second_layer_stack": {
+    "1901": {
+      "second_layer_model_bead_area_mm2": 958.7902030378631,
+      "fraction_over_first_layer": 0.9739663573107099,
+      "second_layer_centerline_outside_first_mm": 6.67150622311749
+    }
+  },
+  "support_topology": {
+    "1901": {
+      "support_bodies": 0,
+      "interface_islands": 0,
+      "bed_rooted_bodies": 0,
+      "model_rooted_bodies": 0,
+      "shortest_build_up_mm": null,
+      "bodies_without_interface_labels": 0,
+      "explicit_interface_islands": 0,
+      "shortest_labelled_build_up_mm": null
+    }
+  },
+  "physical_evaluation": "Compare insertion, wing/root survival, grip, axial slide and removal on actual1/4-inch tube. No force or life prediction."
+}
