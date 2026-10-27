@@ -1,10 +1,16 @@
 # Bare J5 relay-ribbon coupon — Mark2
 
-The **10 min 1 s** upright job is prepared for Mark2’s left hardened 0.4 mm
-Standard-flow nozzle in black Polymaker Fiberon PET-GF15. The editable project
-and sliced archive identify **task 1379210744**, running on Mark2. Its single
-Send was accepted **October 26 at 11:11 p.m. CDT**, with print error 0 and no
-HMS in the launch receipt.
+**Derek stopped task 1379210744 before completion.** He describes the partial
+coupon as “pretty melty” and requests more part-fan cooling and time between
+layers, a 9 mm host wall, a longer cable cavity and variants on a combined
+tube/cable test plate. The [physical result](physical-result.json) preserves his
+exact report with [photo 1](physical-photo-1.jpg) and [photo 2](physical-photo-2.jpg).
+
+The upright job’s native estimate is **10 min 1 s**, on Mark2’s left hardened
+0.4 mm Standard-flow nozzle in black Polymaker Fiberon PET-GF15. The editable
+project and sliced archive bind the identified task. Its launch receipt records
+the accepted start **October 26 at 11:11 p.m. CDT**, with print error 0 and no
+HMS at that startup observation.
 
 The [study](../../README.md) describes the bare 22 AWG 4P J5 ribbon and its
 proposed west-wall location. This coupon is not a production enclosure feature.
@@ -17,6 +23,7 @@ flat underside.
 - [Editable project](2026-10-26-relay-ribbon-4p-upright-mark2-78832950/2026-10-26-relay-ribbon-4p-upright-mark2-78832950.3mf)
 - [Native print archive](2026-10-26-relay-ribbon-4p-upright-mark2-78832950/2026-10-26-relay-ribbon-4p-upright-mark2-78832950.gcode.3mf)
 - [Native preview](2026-10-26-relay-ribbon-4p-upright-mark2-78832950/plate_1.png)
+- [Physical result](physical-result.json), [photo 1](physical-photo-1.jpg) and [photo 2](physical-photo-2.jpg)
 - [Accepted launch receipt](launch.json), [launch context](launch-context.json) and [preflight](preflight.json)
 - [Offline preparation and native review](offline-review.json)
 - [Pocket, entry, wall footprint and corbel path reading](path-review.json)
@@ -36,5 +43,8 @@ connected section containing the hook contacts the previous model layer,
 including its first corbel layer. These are commanded paths, not physical
 adhesion or surface-finish acceptance.
 
-Actual bare-ribbon entry, grip, axial slide, release and layer/root survival
-remain untested. This preparation does not integrate a production enclosure feature.
+The photos show uneven layer bands and localized material buildup on the partial
+hook. Actual part temperature, fan performance and defect-layer duration were not
+measured; the heat/short-layer interpretation remains Derek’s reported explanation.
+The cancelled article has no accepted cable fit or retention result. This coupon
+does not integrate a production enclosure feature.

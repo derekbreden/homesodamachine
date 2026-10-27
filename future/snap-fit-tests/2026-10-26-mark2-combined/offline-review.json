@@ -1,0 +1,158 @@
+{
+  "status": "Offline reviewed plate; no printer submission.",
+  "submitted": false,
+  "source_sha256": {
+    "future/tube-snap-exploration/c2_bore_trial.py": "605091dffa9105e9c4a9d0382d54f26d31524b21998c5714bcec95cb8e3aa394",
+    "future/tube-snap-exploration/parts/tube-snap-c2-three-bores.stl": "350d7d300c767f3514ca54eb4452456c3b2372ba067361771f76daf21c554dbe",
+    "future/tube-snap-exploration/parts/tube-snap-c2-three-bores.step": "5c526539592dac28b6cc12edee067e50215efc62069a62b53b5c1b6498a49ea1",
+    "future/tube-snap-exploration/retention_matrix.py": "a77225ec7e9924514a57c55720c8437bfe68b1a79eff914d1f199cb8d19e695b",
+    "future/tube-snap-exploration/retention-matrix-geometry.json": "938ce52a38ef2a510bd45b150ef9dcce014d4b9c4912443974385584e08e0f5f",
+    "future/tube-snap-exploration/geometry-report.json": "4939dfc0dcb9bb3c54bb860d53026935a535c9ded8225919bbb4934d4b86a5ba",
+    "future/cable-clip-exploration/wall9_span_trial.py": "29b0ed522666ee9e04d0fe373dc5f97cd166c5ac0086e939c13c8eeaa934f92d",
+    "future/cable-clip-exploration/parts/relay-ribbon-wall9-span16.stl": "883db5fc6a80afb17e41639176f238dbc4a8519147fd5c8bac38e2fbb0a78a13",
+    "future/cable-clip-exploration/parts/relay-ribbon-wall9-span16.step": "e98ccdc7723931214b4b910c344726e36544edccc95a49178be3833b1ded77ac",
+    "future/cable-clip-exploration/parts/relay-ribbon-wall9-span24.stl": "96ddcacc082e322e768018a413a9ee11ab64dd2c665a507de66320cd6df410e2",
+    "future/cable-clip-exploration/parts/relay-ribbon-wall9-span24.step": "5e69545c1630107b2f2109ead0e60e24ff74541cdd1c74ef3b57d2d12bc99a9c",
+    "future/cable-clip-exploration/relay_ribbon_trial.py": "e4754169913a98e25f307cdb54efdf4111e308068a5a6ce3f95949c457379cee",
+    "future/cable-clip-exploration/geometry-report.json": "c4c78487fa57e06cc9e8297369a2bb2dcdd09b59b5e0befce55de65356383f6e",
+    "future/cable-clip-exploration/parts/relay-ribbon-4p-print.stl": "c75a565756883d4a7efdd77d265f3f2e11d34db15a80d74aad42e23f7012ca29",
+    "future/cable-clip-exploration/parts/relay-ribbon-4p-print.step": "4d19a147169108a54a35e9cb40179697b49952b64df58ed3afd61522434531d3",
+    "future/cable-clip-exploration/parts/relay-ribbon-4p-installed.step": "2020394d72eec2f84d1457733b40453726050dc26041bbc0b8c7ed44eb97bff9",
+    "future/tube-snap-exploration/c2-bore-geometry.json": "032eaf40f03de59da16f132f231e27a2b952f8f88b7f4bccd5a7944c030a4387",
+    "future/cable-clip-exploration/wall9-span-geometry.json": "be147f1c5df139c99d9d015b3d8f3729076dd266d827f2c72391556e5493411a"
+  },
+  "preparer_sha256": "ec0c3212eab5dfe76d9c2d8d86ba85d4fd50e007949504a3f596284bf933428b",
+  "directory": "future/snap-fit-tests/2026-10-26-mark2-combined/2026-10-26-tube-and-cable-snaps-wall9-cooled-mark2-2179a771",
+  "project": "future/snap-fit-tests/2026-10-26-mark2-combined/2026-10-26-tube-and-cable-snaps-wall9-cooled-mark2-2179a771/2026-10-26-tube-and-cable-snaps-wall9-cooled-mark2-2179a771.3mf",
+  "project_sha256": "e50062a831b5948f0b66a6d8d16d9631774dafb932a7802e75b269647349f313",
+  "archive": "future/snap-fit-tests/2026-10-26-mark2-combined/2026-10-26-tube-and-cable-snaps-wall9-cooled-mark2-2179a771/2026-10-26-tube-and-cable-snaps-wall9-cooled-mark2-2179a771.gcode.3mf",
+  "archive_sha256": "b0eb0b51520c375d14887ebe6851ccc2226dbf0ab334684e6f03076db17a30db",
+  "profile": "hardware/printed-parts/petgf.3mf",
+  "profile_sha256": "45c16e8c8517e0a205107d7b9f7412d013f51a8de7ecf86125cc940079d37ed0",
+  "printer": "Mark2",
+  "nozzle": {
+    "side": "left",
+    "diameter_mm": 0.4,
+    "flow": "Standard",
+    "hardened": true,
+    "reason": "Every abrasive stock runs on the left hotend (hardware/ledger/tools.md, Which hotends fit an H2C). Mark2's 2026-10-24 jobs ran black PET-GF on its fixed left hardened 0.4 mm Standard-flow hotend (faucet/industrial/prints/2026-10-24-buttons-sculpted-bands020-mark2/README.md, task 1372253517).",
+    "sliced_diameter_mm": 0.4,
+    "sliced_volume_type": "Standard"
+  },
+  "material": "Polymaker Fiberon PET-GF15, black",
+  "requested_z_trim_mm": 0.04,
+  "emitted_z_trim_mm": [
+    0.0,
+    0.02
+  ],
+  "estimated_seconds": 3024.798583984375,
+  "estimated_filament_g": 13.448073387145996,
+  "process": {
+    "fan_min_speed": [
+      "100"
+    ],
+    "fan_max_speed": [
+      "100"
+    ],
+    "reduce_fan_stop_start_freq": [
+      "1"
+    ],
+    "close_fan_the_first_x_layers": [
+      "3"
+    ],
+    "full_fan_speed_layer": [
+      "4"
+    ],
+    "enable_overhang_bridge_fan": [
+      "1"
+    ],
+    "overhang_fan_speed": [
+      "100"
+    ],
+    "additional_cooling_fan_speed": [
+      "0"
+    ],
+    "slow_down_for_layer_cooling": [
+      "1"
+    ],
+    "slow_down_layer_time": [
+      "20"
+    ],
+    "slow_down_min_speed": [
+      "5"
+    ],
+    "no_slow_down_for_cooling_on_outwalls": [
+      "0"
+    ],
+    "layer_height": "0.24",
+    "initial_layer_print_height": "0.2",
+    "print_sequence": "by layer",
+    "brim_type": "no_brim",
+    "brim_width": "0",
+    "enable_support": "1",
+    "support_type": "tree(auto)",
+    "support_style": "default",
+    "wall_loops": "2",
+    "sparse_infill_density": "15%",
+    "filament_colour": [
+      "#161616"
+    ],
+    "filament_map": [
+      "1"
+    ],
+    "curr_bed_type": "Textured PEI Plate"
+  },
+  "native_review_pass": true,
+  "minimum_bead_margin_mm": 123.985,
+  "first_second_layer_stack": {
+    "1901": {
+      "second_layer_model_bead_area_mm2": 958.7902030378633,
+      "fraction_over_first_layer": 0.9739663573107099,
+      "second_layer_centerline_outside_first_mm": 6.671506223117736
+    },
+    "1902": {
+      "second_layer_model_bead_area_mm2": 251.38333297926715,
+      "fraction_over_first_layer": 0.9518124783633591,
+      "second_layer_centerline_outside_first_mm": 3.2019219665732965
+    },
+    "1903": {
+      "second_layer_model_bead_area_mm2": 323.262530858096,
+      "fraction_over_first_layer": 0.9543909994093565,
+      "second_layer_centerline_outside_first_mm": 3.6330201901816226
+    }
+  },
+  "support_topology": {
+    "1901": {
+      "support_bodies": 0,
+      "interface_islands": 0,
+      "bed_rooted_bodies": 0,
+      "model_rooted_bodies": 0,
+      "shortest_build_up_mm": null,
+      "bodies_without_interface_labels": 0,
+      "explicit_interface_islands": 0,
+      "shortest_labelled_build_up_mm": null
+    },
+    "1902": {
+      "support_bodies": 0,
+      "interface_islands": 0,
+      "bed_rooted_bodies": 0,
+      "model_rooted_bodies": 0,
+      "shortest_build_up_mm": null,
+      "bodies_without_interface_labels": 0,
+      "explicit_interface_islands": 0,
+      "shortest_labelled_build_up_mm": null
+    },
+    "1903": {
+      "support_bodies": 0,
+      "interface_islands": 0,
+      "bed_rooted_bodies": 0,
+      "model_rooted_bodies": 0,
+      "shortest_build_up_mm": null,
+      "bodies_without_interface_labels": 0,
+      "explicit_interface_islands": 0,
+      "shortest_labelled_build_up_mm": null
+    }
+  },
+  "model_pose": "Tube floor flat; cable coupons upright entry-up on9mm walls; all three objects printed by layer.",
+  "physical_evaluation": "Tube diameters compare under the same experimental cooling recipe, including C2 control. Cable cooling, shape, fit and spring survival require physical review."
+}
