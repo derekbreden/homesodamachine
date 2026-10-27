@@ -1,7 +1,7 @@
-"""Bare 22 AWG 4P relay-ribbon clip on a 3 mm wall, in back-top's print pose.
+"""Bare 22 AWG 4P relay-ribbon clip, printed entry-up on an extended wall.
 
 Run manually with tools/cad-venv/bin/python. The installed design has its
-entry upward; the coupon prints entry-down, like back-top printed ceiling-down.
+entry upward. The coupon retains that orientation and stands on its wall edge.
 The coupon does not change the enclosure or the installed wiring routes.
 """
 from pathlib import Path
@@ -16,7 +16,8 @@ GAP = 2.20
 SEAT_HEIGHT = 7.75
 SPAN = 8.0
 STOCK = 3.0
-WALL_RUN = 14.0
+WALL_RUN = 24.0
+WALL_BELOW_HOOK = 6.0
 BEAK = .75
 MOUTH = GAP - BEAK
 PROJECTION = GAP + STOCK
@@ -46,7 +47,7 @@ def prism(section, length):
 
 
 def print_pose(shape):
-    return shape.rotate((0,0,0),(1,0,0),180).translate((0,0,TOP))
+    return shape.translate((0,0,WALL_BELOW_HOOK))
 
 
 def signature(shape):
@@ -56,9 +57,8 @@ def signature(shape):
 
 
 def build():
-    # Ending the wall at TOP puts both the wall and the outer arm on the bed.
-    # Extending the wall above the entry would leave the arm floating at startup.
-    wall = cq.Solid.makeBox(STOCK,WALL_RUN,TOP,cq.Vector(-STOCK,-WALL_RUN/2,0))
+    wall = cq.Solid.makeBox(STOCK,WALL_RUN,TOP+WALL_BELOW_HOOK,
+                            cq.Vector(-STOCK,-WALL_RUN/2,-WALL_BELOW_HOOK))
     clip = prism(SECTION,SPAN)
     installed = wall.fuse(clip).clean()
     cable = None
@@ -102,14 +102,20 @@ def main():
                         seat_depth_mm=GAP,seat_height_mm=SEAT_HEIGHT,mouth_depth_mm=MOUTH,
                         post_wall_cap_minimum_mm=STOCK,span_along_cable_mm=SPAN,
                         beak_projection_mm=BEAK,projection_from_wall_mm=PROJECTION,
-                        host_wall_mm=STOCK,host_run_mm=WALL_RUN,overall_print_height_mm=TOP),
+                        host_wall_mm=STOCK,host_run_mm=WALL_RUN,
+                        wall_below_hook_mm=WALL_BELOW_HOOK,
+                        overall_print_height_mm=TOP+WALL_BELOW_HOOK),
         installed_frame="X outward from wall; Z up; cable axis Y. Mouth opens upward.",
-        print_pose="Half-turn about X followed by +19.70 mm Z. Entry faces the bed, matching installed-up on ceiling-down back-top. In a +Z quadrant the same print pose corresponds to installed-down entry.",
-        print_pocket_bounds_mm=[0.,-SPAN/2,TOP-SEAT_ROOF,GAP,SPAN/2,TOP-SEAT_FLOOR],
-        print_entry_core_bounds_mm=[0.,-SPAN/2,0.,MOUTH,SPAN/2,TOP-SEAT_ROOF],
-        pocket_closure=dict(width_mm=GAP,build_z_mm=TOP-SEAT_FLOOR,
-                            mechanism="Short bridge between the standing wall and outer arm"),
-        support_requirement="No support or brim roads inside the cable seat or entry corridor; verify the emitted native slice with Tree(auto)/Default retained.",
+        print_pose="Installed orientation, translated +6.00 mm Z to put the wall bottom on the bed. Entry faces up. No rotation.",
+        print_pocket_bounds_mm=[0.,-SPAN/2,SEAT_FLOOR+WALL_BELOW_HOOK,
+                                GAP,SPAN/2,SEAT_ROOF+WALL_BELOW_HOOK],
+        print_entry_core_bounds_mm=[0.,-SPAN/2,SEAT_ROOF+WALL_BELOW_HOOK,
+                                    MOUTH,SPAN/2,TOP+WALL_BELOW_HOOK],
+        corbel=dict(build_start_z_mm=WALL_BELOW_HOOK,
+                    build_end_z_mm=WALL_BELOW_HOOK+PROJECTION,slope_degrees=45),
+        retaining_lip=dict(projection_mm=BEAK,build_underside_z_mm=SEAT_ROOF+WALL_BELOW_HOOK,
+                            bearing="Flat underside retaining the ribbon"),
+        support_requirement="No brim. No support roads inside the cable seat or entry corridor; verify the emitted native slice with Tree(auto)/Default retained.",
         print_native=signature(printed),installed_native=signature(installed),readings=readings,
         files={str(p.relative_to(ROOT)):sha(p) for p in (stl,step,installed_step)},
         provenance={p:sha(ROOT/p) for p in PROVENANCE},

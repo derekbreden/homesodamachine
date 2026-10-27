@@ -1,0 +1,69 @@
+{
+  "project_sha256_matches": true,
+  "objects": [
+    {
+      "name": "relay-ribbon-4p-print",
+      "vertices": 26,
+      "source_sha256_matches": true,
+      "embedded_vertex_error_mm": 4.2826513713123404e-07,
+      "source_comparison": "source vertices in order",
+      "seam_painted_facets": 0,
+      "placed_bounds_mm": [
+        [
+          158.4,
+          148.0,
+          3.8099999954965824e-07
+        ],
+        [
+          166.6,
+          172.0,
+          25.700000381
+        ]
+      ],
+      "bed_contact_z_mm": 3.8099999954965824e-07,
+      "blocked_facets": 0,
+      "partially_painted_facets": 0,
+      "parts": {
+        "normal_part": 1
+      },
+      "layer_ranges": [],
+      "ribbon_and_fin_parts": 0,
+      "modifiers_expected": 0
+    }
+  ],
+  "z_trim_block": [
+    "+0.0",
+    "0.04 - 0.01",
+    "0.04 - 0.02",
+    "0.04 + 0.01",
+    "0.04"
+  ],
+  "cooling": {
+    "fan_min_speed": [
+      "0"
+    ],
+    "fan_max_speed": [
+      "0"
+    ],
+    "overhang_fan_speed": [
+      "70"
+    ],
+    "overhang_fan_threshold": [
+      "50%"
+    ],
+    "additional_cooling_fan_speed": [
+      "0"
+    ]
+  },
+  "support": {
+    "support_type": "tree(auto)",
+    "support_style": "default",
+    "support_object_xy_distance": "0.4",
+    "max_bridge_length": "0",
+    "tree_support_branch_diameter": "2",
+    "tree_support_branch_diameter_angle": "5",
+    "brim_type": "no_brim"
+  },
+  "problems": [],
+  "pass": true
+}
