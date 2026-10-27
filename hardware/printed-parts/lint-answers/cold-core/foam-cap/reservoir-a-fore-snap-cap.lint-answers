@@ -1,0 +1,19 @@
+[sliver] Functional spring-root clearance roof: this full-Y 0.85 mm face ends the open lane between the rigid cap and each spring wing at Z4.2. The lane leaves 6.7 mm from root to hook bearing for outward insertion flex. Filling it joins the wing to the rigid half at Z1.15, reducing that length to 3.65 mm and raising the simple cantilever strain estimate at 0.6 mm deflection from 2.89% to 9.73%. It is the boundary of the working spring lane, not a residual strip between independent cuts.
+alternatives: Filling the lane defeats the selected flex length. Thickening the wing to 3 mm at the same length gives a 6.01% beam estimate; retaining 2.89% would need about 9.67 mm of spring length and a taller cap that enters V-B's inlet during the 6.65 mm vertical approach. These are geometric beam estimates, not an elastic solution or lifetime result.
+file: hardware/printed-parts/cold-core/foam-cap/reservoir-a-fore-snap-cap.step
+click: x=10.500 y=0.000 z=4.200
+click: x=-10.500 y=0.000 z=4.200
+
+[sliver] Functional hook bearing face: its 0.70 mm radial span contains the 0.25 mm sliding side allowance and 0.45 mm positive capture under the receiver ledge. The integral hook is 3 mm tall including its lead-in nose; this narrow contact face does not define a thin fixed wall. The cap prints along Y, placing this entire hook section in every layer. The current emitted-path reading samples both hooks and records at least 99.15% bead coverage across the cap's sampled sections.
+alternatives: Filling the inboard side removes the clearance that lets the hook pass the receiver. Removing the projection removes positive retention. Increasing the receiver projection to 3 mm widens the complete matching cap by 4.8 mm; the current native deflected-body probe then leaves only 0.299359 mm to J2-COM against the 1 mm wire-clearance requirement. The current full-span bearing preserves that required space.
+file: hardware/printed-parts/cold-core/foam-cap/reservoir-a-fore-snap-cap.step
+click: x=10.575 y=0.000 z=-2.500
+click: x=-10.575 y=0.000 z=-2.500
+
+[thin] Intentional moving spring leaves: the 1.44 mm section supplies outward bending over the receiver while the rigid cap, receiver and axial shoulders retain their 3 mm fixed sections. This thickness follows the physically accepted display-wing section as a printability precedent, without transferring its retention acceptance to this cap. The current cap prints end-on along Y with three Classic loops and 100% infill, so the X/Z spring section and its bending lie in each layer. hardware/printed-parts/cold-core/foam-cap/reservoir-a-snap-review/print/review.json records actual emitted beads through both leaves, both hooks and the roof, with minimum sampled coverage 99.15% and no supports.
+alternatives: A 3 mm leaf at the same 6.7 mm free length and 0.6 mm deflection raises the beam estimate from 2.89% to 6.01%. Keeping the lower estimate with 3 mm leaves requires approximately 9.67 mm free length; raising that root and roof obstructs V-B's inlet along the 6.65 mm approach. Shortening or filling the spring lane increases strain further. Printed insertion force, retention and repeated-use life remain unqualified.
+file: hardware/printed-parts/cold-core/foam-cap/reservoir-a-fore-snap-cap.step
+click: x=-12.365 y=-2.016 z=1.875
+click: x=-10.925 y=-2.016 z=1.875
+click: x=12.365 y=-2.070 z=3.518
+click: x=10.925 y=-2.070 z=3.518
