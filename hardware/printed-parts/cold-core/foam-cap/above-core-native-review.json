@@ -458,28 +458,28 @@
       }
     },
     "check_bridge": {
-      "scope": "Source-native east quarter bearing, complete 3 mm lid backing, four nominal pump-driver columns and complete water-check retaining-strip path, bound to the exported cap lid. Separate actual-appliance records cover equipment and wiring. No physical fit, threading, retention, pressure or life qualification.",
+      "scope": "Source-native direct-rooted east quarter bearing, complete 3 mm lid backing, four nominal pump-driver columns and complete water-check retaining-strip path, bound to the exported cap lid. Separate actual-appliance records cover equipment and wiring. No physical fit, threading, retention, pressure or life qualification.",
       "source_sha256": {
-        "hardware/printed-parts/cold-core/foam-cap/check_bridge_review.py": "3a69397b2d55cf6d33710ab855cb5f76ccfb19bb89cf9fad57e3a6fa8009e2f0",
-        "hardware/printed-parts/cold-core/_above_core_mounts.py": "98651e90bc1fd520e9737eb4240302a09b97cefb236687f5de32a2536faf5b57",
-        "hardware/printed-parts/cold-core/_cold_core_interface.py": "c0719df5f3bb053bf30960b67f2538575fbe606e72dd8d035b07000f38f4ef43",
+        "hardware/printed-parts/cold-core/foam-cap/check_bridge_review.py": "14b167af374cd98930d2fca3f24175796244a98663e39da0de872558b9aefa18",
+        "hardware/printed-parts/cold-core/_above_core_mounts.py": "1190198d26b4eb2c372cb327a70d7bb40aee8f42ff549d528079c0681d56f6c5",
+        "hardware/printed-parts/cold-core/_cold_core_interface.py": "bc4d8aae940e820e9ac2be5e7c2c10acd49b648a8cef0776720a25ad78467986",
         "hardware/manifold-layout/above_core.py": "0ad87c7c252ab3cfe803c0f2a63a9374d06d0005591509031328ad6e3203988f",
         "hardware/reference/neofit-achv44-check/neofit_achv44_check.py": "a05bb8c69df5ee919985a0280fc04be1a425c71c605a6c9b846ab991c6e0f719",
-        "hardware/printed-parts/cadlib/fits.py": "85b7eedd9af4ee77c4321575410b6e232c7572bda27609faf83c4bfdf5e77ab1",
+        "hardware/printed-parts/cadlib/fits.py": "9815ebd9ffe112ea5173fd6ecc600086e3c7b53df00c29706b4826617390a509",
         "hardware/reference/g-ganen-pump/installation/g_ganen_installation.py": "7c0c1fb6c5d91b6a2ff38b01a5e50d014be5c6e930f5c92de13970debab1997c",
-        "hardware/manifold-layout/above-core.json": "04887b550cc53b2516832689b40f81a56e83119e4cc04921ad9819ed343c726b",
+        "hardware/manifold-layout/above-core.json": "6b8bb80779f653f3b91f22547fdeb1155f802f63908892f24496a446210a1b40",
         "hardware/reference/neofit-achv44-check/model-dimensions.json": "a9058aa42dc8a34f072abe4a1e5cc74d9b2a1c4d0547eba4e5d68bee679f9e4d",
         "hardware/reference/neofit-achv44-check/neofit-achv44-check.step": "6cba8b0db77eb05d3488c114d184e9bb8a691db49b681dcacbcfe833f7da2c82"
       },
       "exported_lid": {
         "path": "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step",
-        "sha256": "66d318de3189e9292dd31582f248fb737538f428f65295db4a06aa83f88c40a4"
+        "sha256": "56f77a81cf6a2b0e379a8cf70b43b86a5418d830761e83c0894bf9b36cbefec2"
       },
       "reference_basis": "neoFit ACHV44-E vendor mesh with same-family fixed-collar scale and receiving-depth inference; actual part dimensions unmeasured.",
       "datums": {
         "centre_world_mm": [
           -32.80179966121266,
-          360.4912956512049,
+          357.51298395987646,
           280.16882837176047
         ],
         "fixed_band_from_inlet_mm": [
@@ -487,20 +487,28 @@
           20.1931249738797
         ],
         "bearing_from_inlet_mm": [
-          7.91481328255124,
-          16.71481328255124
+          4.93650159122278,
+          13.73650159122278
         ],
         "fixed_band_radius_mm": 8.431478550423588,
-        "root_fore_y_mm": 382.43545217260646,
-        "root_aft_y_mm": 387.43545217260646,
-        "bearing_fore_y_mm": 356.0912956512049,
+        "root_fore_y_mm": 353.1129839598765,
+        "root_aft_y_mm": 361.91298395987644,
+        "bearing_fore_y_mm": 353.1129839598765,
         "seat_radius_mm": 8.581478550423588,
         "half_width_mm": 11.581478550423588,
         "stock_x_limits_world_mm": [
           -32.80179966121266,
           -21.220321110789072
         ],
-        "bridge_bottom_world_z_mm": 268.5873498213369,
+        "tie_window_y_mm": [
+          356.1129839598765,
+          358.91298395987644
+        ],
+        "tie_window_z_mm": [
+          265.3873498213369,
+          268.5873498213369
+        ],
+        "tie_route_z_mm": 266.98734982133686,
         "open_direction": "west-and-up",
         "pump_driver_axis_world_mm": [
           -30.868269476362286,
@@ -508,14 +516,9 @@
           253.4000061035156
         ],
         "pump_driver_radius_mm": 1.5933756729740645,
-        "tool_notch_max_x_mm": -29.124893803388222,
-        "tool_notch_y_mm": [
-          370.6920764996324,
-          374.17882784558054
-        ],
         "wall_mm": 3.0
       },
-      "geometric_minimum_loop_mm": 66.52024302387129,
+      "geometric_minimum_loop_mm": 69.2706638038039,
       "nominal_strip_route": {
         "segments": [
           {
@@ -523,13 +526,13 @@
             "points_mm": [
               [
                 -33.35179966121266,
-                360.4912956512049,
-                268.0373498213369
+                357.51298395987646,
+                266.98734982133686
               ],
               [
                 -20.67032111078907,
-                360.4912956512049,
-                268.0373498213369
+                357.51298395987646,
+                266.98734982133686
               ]
             ],
             "wide_axis": [
@@ -543,12 +546,12 @@
             "points_mm": [
               [
                 -20.67032111078907,
-                360.4912956512049,
-                268.0373498213369
+                357.51298395987646,
+                266.98734982133686
               ],
               [
                 -20.67032111078907,
-                360.4912956512049,
+                357.51298395987646,
                 280.16882837176047
               ]
             ],
@@ -563,12 +566,12 @@
             "points_mm": [
               [
                 -20.67032111078907,
-                360.4912956512049,
+                357.51298395987646,
                 280.16882837176047
               ],
               [
                 -26.152407617494926,
-                360.4912956512049,
+                357.51298395987646,
                 286.20642246217943
               ]
             ],
@@ -583,22 +586,22 @@
             "points_mm": [
               [
                 -26.152407617494926,
-                360.4912956512049,
+                357.51298395987646,
                 286.20642246217943
               ],
               [
-                -39.003514534127774,
-                360.4912956512049,
-                286.6654189842881
+                -38.73867824718015,
+                357.51298395987646,
+                286.90829642251936
               ],
               [
-                -39.14153917982523,
-                360.4912956512049,
-                273.8068585676934
+                -39.62981837959375,
+                357.51298395987646,
+                274.33400898011206
               ]
             ],
             "radius_mm": 8.981478550423589,
-            "sweep_degrees": 182.86108384967855,
+            "sweep_degrees": 178.2760400942542,
             "wide_axis": [
               0.0,
               -1.0,
@@ -609,14 +612,14 @@
             "kind": "line",
             "points_mm": [
               [
-                -39.14153917982523,
-                360.4912956512049,
-                273.8068585676934
+                -39.62981837959375,
+                357.51298395987646,
+                274.33400898011206
               ],
               [
                 -33.35179966121266,
-                360.4912956512049,
-                268.0373498213369
+                357.51298395987646,
+                266.98734982133686
               ]
             ],
             "wide_axis": [
@@ -626,17 +629,24 @@
             ]
           }
         ],
-        "length_mm": 69.80634235042726,
+        "length_mm": 71.62766296919236,
         "stock": "6-inch narrow nylon tie",
         "stock_length_mm": 152.4,
         "width_mm": 2.5,
         "thickness_mm": 0.8,
-        "fixed_band_plane_world_y_mm": 360.4912956512049,
-        "threading_height_mm": 15.18734982133688,
+        "fixed_band_plane_world_y_mm": 357.51298395987646,
+        "threading_height_mm": 3.1999999999999886,
         "strip_basis": "Nominal layout allowance; purchased strap/head dimensions unmeasured"
       },
-      "remaining_stock_mm": 82.59365764957275,
-      "continuous_beam_at_notch_mm": 7.9045726925991495,
+      "remaining_stock_mm": 80.77233703080765,
+      "root_footprint_mm": [
+        11.58147855042359,
+        8.799999999999955
+      ],
+      "tie_passage_mm": [
+        2.7999999999999545,
+        3.1999999999999886
+      ],
       "pump_hex_driver": {
         "across_flats_mm": 2.5,
         "radial_air_mm": 0.15,
@@ -749,8 +759,8 @@
         {
           "check": "nominal retaining-strip stock",
           "passed": true,
-          "path_length_mm": 69.80634235042726,
-          "remaining_stock_mm": 82.59365764957275,
+          "path_length_mm": 71.62766296919236,
+          "remaining_stock_mm": 80.77233703080765,
           "physical_head_engagement_qualified": false
         }
       ],

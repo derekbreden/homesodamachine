@@ -1,0 +1,161 @@
+{
+  "scope": "Discrete native witnesses every half degree along the retained 0\u201314 degree water-check swing about the pump discharge barb. Geometry only; flexible tube insertion, tolerances and physical handling unqualified.",
+  "pivot_world_mm": [
+    -27.885667056207957,
+    329.67648236865375,
+    280.1688283717604
+  ],
+  "axis_world": [
+    -0.9999421767690463,
+    0.002533638544009382,
+    0.010451018807260161
+  ],
+  "samples": [
+    {
+      "angle_deg": -0.0,
+      "gap_mm": 0.149999999990289,
+      "intersection_mm3": 0
+    },
+    {
+      "angle_deg": -0.5,
+      "gap_mm": 0.1502993532705964,
+      "intersection_mm3": 0
+    },
+    {
+      "angle_deg": -1.0,
+      "gap_mm": 0.15547012315432313,
+      "intersection_mm3": 0
+    },
+    {
+      "angle_deg": -1.5,
+      "gap_mm": 0.16550166628375645,
+      "intersection_mm3": 0
+    },
+    {
+      "angle_deg": -2.0,
+      "gap_mm": 0.18037366659678014,
+      "intersection_mm3": 0
+    },
+    {
+      "angle_deg": -2.5,
+      "gap_mm": 0.20005630662921742,
+      "intersection_mm3": 0
+    },
+    {
+      "angle_deg": -3.0,
+      "gap_mm": 0.22451051667914393,
+      "intersection_mm3": 0
+    },
+    {
+      "angle_deg": -3.5,
+      "gap_mm": 0.2536882968822704,
+      "intersection_mm3": 0
+    },
+    {
+      "angle_deg": -4.0,
+      "gap_mm": 0.28753310591762715,
+      "intersection_mm3": 0
+    },
+    {
+      "angle_deg": -4.5,
+      "gap_mm": 0.32598030895497865,
+      "intersection_mm3": 0
+    },
+    {
+      "angle_deg": -5.0,
+      "gap_mm": 0.36895767659645073,
+      "intersection_mm3": 0
+    },
+    {
+      "angle_deg": -5.5,
+      "gap_mm": 0.4163859259693065,
+      "intersection_mm3": 0
+    },
+    {
+      "angle_deg": -6.0,
+      "gap_mm": 0.4681792948006975,
+      "intersection_mm3": 0
+    },
+    {
+      "angle_deg": -6.5,
+      "gap_mm": 0.524246139240326,
+      "intersection_mm3": 0
+    },
+    {
+      "angle_deg": -7.0,
+      "gap_mm": 0.5844895463738986,
+      "intersection_mm3": 0
+    },
+    {
+      "angle_deg": -7.5,
+      "gap_mm": 0.6488079527641161,
+      "intersection_mm3": 0
+    },
+    {
+      "angle_deg": -8.0,
+      "gap_mm": 0.7170957609318362,
+      "intersection_mm3": 0
+    },
+    {
+      "angle_deg": -8.5,
+      "gap_mm": 0.7892439464104123,
+      "intersection_mm3": 0
+    },
+    {
+      "angle_deg": -9.0,
+      "gap_mm": 0.8651406488355959,
+      "intersection_mm3": 0
+    },
+    {
+      "angle_deg": -9.5,
+      "gap_mm": 0.944671741427792,
+      "intersection_mm3": 0
+    },
+    {
+      "angle_deg": -10.0,
+      "gap_mm": 1.0277213741536784,
+      "intersection_mm3": 0
+    },
+    {
+      "angle_deg": -10.5,
+      "gap_mm": 1.1141724867830483,
+      "intersection_mm3": 0
+    },
+    {
+      "angle_deg": -11.0,
+      "gap_mm": 1.203907288958594,
+      "intersection_mm3": 0
+    },
+    {
+      "angle_deg": -11.5,
+      "gap_mm": 1.2968077052489515,
+      "intersection_mm3": 0
+    },
+    {
+      "angle_deg": -12.0,
+      "gap_mm": 1.3927626681056813,
+      "intersection_mm3": 0
+    },
+    {
+      "angle_deg": -12.5,
+      "gap_mm": 1.492389038348492,
+      "intersection_mm3": 0
+    },
+    {
+      "angle_deg": -13.0,
+      "gap_mm": 1.5959967245604787,
+      "intersection_mm3": 0
+    },
+    {
+      "angle_deg": -13.5,
+      "gap_mm": 1.7033854479498034,
+      "intersection_mm3": 0
+    },
+    {
+      "angle_deg": -14.0,
+      "gap_mm": 1.8143696958807136,
+      "intersection_mm3": 0
+    }
+  ],
+  "all_clear": true
+}

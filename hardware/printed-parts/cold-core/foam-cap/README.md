@@ -7,7 +7,7 @@ leaves 0.30 mm per face for the exterior foil bands. The
 independent mounting, passage and stack-height datums. The PCB lies flat on
 its west half; the diaphragm pump stands aft. V-B seats in
 an integral upright socket wall east of the PCB. The water check rests on
-a fore–aft quarter bearing on an aft-rooted bridge. It opens upward and west,
+a fore–aft quarter bearing on a filled lid-rooted pedestal. It opens upward and west,
 leaving the west approach open. The four DC/sensor wells sit on the board-facing back of V-B’s wall,
 with levers opening west. The earth boss is accessible from above. Back-top carries V-A, V-K, their fitted
 plumbing, the complete inlet header, PSU, both relays and flow meter.
@@ -27,7 +27,7 @@ and the pump/Y-A feeds at the lower outlets.
 
 The edge-on flow meter, both collar bearings, continuous external inlet,
 accepted R14 holder and one 63 mm square-ended foam piece belong to back-top.
-The collar bearings root into its sidewall. Thread the tube through the
+The collar bearings root into its roof. Thread the tube through the
 holder and slide the foam over both before connecting the meter. The holder
 has a 2 mm wall and 3 mm legs; local foam compression remains an estimate
 informed by the recorded physical fit. The core guide is a plain boundary in
@@ -64,7 +64,7 @@ head engagement and retention remain unqualified.
 | Restraint | Nominal strip route | Allocated tie |
 | --- | ---: | --- |
 | V-B outlet return | Selected route under access review | One 152.4 mm narrow tie |
-| Water-check barrel | 69.81 mm | One 152.4 mm narrow tie |
+| Water-check barrel | 71.63 mm | One 152.4 mm narrow tie |
 
 The [production arrangement](../../../manifold-layout/above-core.md) owns the
 installed component frames. [_above_core_mounts.py](../_above_core_mounts.py)
@@ -133,16 +133,16 @@ the direct C2 interface. The lid and cup use the same smooth print-mesh export. 
 electrical and nominal-tie contacts retain their explicit fixture status.
 
 The [neoFit ACHV44-E water check](../../../reference/neofit-achv44-check/README.md)
-uses an 8.8 mm-long east quarter bearing centered within its fixed barrel band.
-The bearing retains 3 mm below and east of the body clearance; its 5 mm-deep
-root begins 1 mm aft of the fore pump foot. A west-open flat notch clears the
-fore-west pump screw's nominal 2.5 mm hex driver and leaves a 7.90 mm-wide
-continuous beam. Fasten the pump before seating the check. For pump service,
+uses an 8.8 mm-long east quarter bearing beginning 0.5 mm inside its fixed barrel
+band. Its full 11.58 × 8.8 mm pedestal reaches the lid directly, ahead of the
+fore pump foot. A straight 2.8 × 3.2 mm transverse tie passage retains 3 mm
+of stock beneath the bearing and at both axial ends. The printed pedestal clears
+all four pump-driver columns. Fasten the pump before seating the check. For pump service,
 release or disconnect the removable check group to clear that driver lane.
 
 The water check's complete nominal 2.5 × 0.8 mm retaining-strip path is
-69.81 mm. It threads through the 15.19 mm-high open space below the bridge;
-one six-inch narrow tie leaves 82.59 mm of stock beyond that path. The
+71.63 mm, read from `check_tie_route()`. Thread it through the pedestal's straight passage
+before seating the check. One six-inch narrow tie is allocated. The
 outlet elbow has 0.4 mm exposed stem ahead of the reference's 16.891 mm
 receiving depth. The check's exterior scale and receiving depth are
 same-family layout inferences. Actual part dimensions, collet release travel,
