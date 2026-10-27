@@ -92,6 +92,10 @@ void baseLinkPrimeDiscard();
 // or down, which the pull answers by re-asking.
 bool baseLinkSendOtaSrc(uint8_t type, const void *data, uint16_t len);
 
+// A phone's request, as MSG_BRIDGE_REQ: its header and body. False when the
+// link is down or its window is full, which phone_bridge.cpp waits out.
+bool baseLinkSendBridge(const void *frame, uint16_t len);
+
 // One line to the main board's console, which is the only console this board
 // has once it is in a machine.
 void baseLinkSay(const char *text);

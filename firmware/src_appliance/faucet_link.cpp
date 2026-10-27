@@ -8,6 +8,7 @@
 #include "versions.h"
 #include "idle.h"
 #include "flavor_link_policy.h"
+#include "j9_query_policy.h"
 #include "machine.h"
 #include "pins.h"
 #include "proto_link.h"
@@ -49,6 +50,21 @@ uint8_t eraseWanted = 0xFF;
 // A faucet display that just came up renders from artwork it has not been told
 // yet, so the pair is published once per connection as well as on every change.
 bool artPublished = false;
+// What phones have asked, and a Prime one of them is waiting on (onBridge).
+uint32_t bridgeRequests = 0;
+uint32_t bridgeRefused = 0;
+flavor_link_policy::TokenLedger phoneTokens;
+
+// A phone's Prime, waiting on the enclosure's answer. One at a time: a second
+// ask while one waits is told the machine is busy.
+struct PrimeOpenAsk {
+    bool     waiting;
+    uint8_t  reqId;
+    uint8_t  channel;
+    uint32_t mark;
+    uint32_t askedMs;
+};
+PrimeOpenAsk primeOpen{};
 
 void observeConnectionEpoch() {
     const uint32_t generation = faucet.connectionGeneration();
@@ -60,6 +76,8 @@ void observeConnectionEpoch() {
     synchronized = false;
     artPublished = false;
     handledTokens.reset();
+    phoneTokens.reset();
+    primeOpen.waiting = false;
 }
 
 uint8_t stateFlags() {
@@ -99,10 +117,10 @@ bool sendArt() {
     return false;
 }
 
-bool sendPrimeState() {
+void readPrimeState(PrimeSessionStatePayload &state) {
     MachinePrimeSessionState current;
     machineReadPrimeSessionState(current);
-    PrimeSessionStatePayload state{
+    state = PrimeSessionStatePayload{
         current.phase,
         current.channel,
         current.owner,
@@ -112,14 +130,218 @@ bool sendPrimeState() {
         current.sessionToken,
         current.holdToken,
     };
+}
+
+bool sendPrimeState() {
+    PrimeSessionStatePayload state;
+    readPrimeState(state);
     if (faucet.trySend(MSG_RESP_PRIME_SESSION, &state, sizeof(state)) >= 0) {
         ++framesTx;
         ++primeStatePublications;
-        lastPrimeRevision = current.revision;
+        lastPrimeRevision = state.revision;
         lastPrimeStatePublicationMs = millis();
         return true;
     }
     return false;
+}
+
+// ── The phone, through the faucet ─────────────────────────────────────────
+// Everything a phone may ask of the machine arrives inside MSG_BRIDGE_REQ, and
+// onBridge() is the whole list of it. Each answer is the frame the same request
+// gets on J9, carried back inside MSG_BRIDGE_RESP under the request's id. The
+// faucet already counts phone traffic as presence (MSG_TOUCH), so nothing here
+// wakes the glasses itself.
+bool sendBridge(uint8_t reqId, uint8_t type, const void *data, uint16_t len) {
+    uint8_t frame[sizeof(BridgeHeader) + sizeof(StatusPayload)];   // the largest answer
+    if (len > sizeof(frame) - sizeof(BridgeHeader)) return false;
+    frame[0] = reqId;
+    frame[1] = type;
+    if (len) memcpy(frame + sizeof(BridgeHeader), data, len);
+    if (faucet.trySend(MSG_BRIDGE_RESP, frame, (uint16_t)(sizeof(BridgeHeader) + len)) < 0)
+        return false;
+    ++framesTx;
+    return true;
+}
+
+void answerPrimeOpen(uint8_t result) {
+    PrimeOpenPayload answer{primeOpen.channel, result};
+    sendBridge(primeOpen.reqId, MSG_RESP_PRIME_OPEN, &answer, sizeof(answer));
+    primeOpen.waiting = false;
+}
+
+void onBridge(const uint8_t *payload, uint16_t plen) {
+    if (plen < sizeof(BridgeHeader)) {
+        ++invalidRequests;
+        return;
+    }
+    ++bridgeRequests;
+    const uint8_t reqId = payload[0];
+    const uint8_t type = payload[1];
+    const uint8_t *body = payload + sizeof(BridgeHeader);
+    const uint16_t blen = plen - sizeof(BridgeHeader);
+
+    if (type == MSG_STATUS_REQ) {
+        StatusPayload s;
+        linkFillStatus(s);
+        sendBridge(reqId, MSG_RESP_STATUS, &s, sizeof(s));
+        return;
+    }
+
+    if (type == MSG_FLAVOR_QUERY) {
+        FlavorStatePayload state{flavorSelected(), stateFlags(), 0};
+        sendBridge(reqId, MSG_RESP_FLAVOR_STATE, &state, sizeof(state));
+        return;
+    }
+
+    // Absolute and tokenized, like a tap on either glass, so a retry cannot
+    // select twice. The heartbeat carries the result to the faucet's own logo.
+    if (type == MSG_FLAVOR_SELECT && blen >= sizeof(FlavorRequestPayload)) {
+        FlavorRequestPayload request;
+        memcpy(&request, body, sizeof(request));
+        if (request.flavor > PUMP_CHANNEL_B || request.token == 0) {
+            ++bridgeRefused;
+            sendBridge(reqId, BRIDGE_ERR_REFUSED, nullptr, 0);
+            return;
+        }
+        if (!phoneTokens.duplicateOrRemember(request.token)) {
+            flavorSelect(request.flavor);
+            if ((request.flags & FLAVOR_REQ_F_AUDIBLE) != 0) soundPlay(SND_TICK);
+            Serial.printf("\n[J3] phone selected flavor %u%s\n", flavorSelected() + 1,
+                          flavorPersisted() ? "" : " — persistence pending");
+        }
+        FlavorStatePayload state{flavorSelected(), stateFlags(), request.token};
+        sendBridge(reqId, MSG_RESP_FLAVOR_STATE, &state, sizeof(state));
+        return;
+    }
+
+    if (type == MSG_RATIO_QUERY) {
+        RatioPayload r{{flavorRatio(0), flavorRatio(1)}};
+        sendBridge(reqId, MSG_RESP_RATIO, &r, sizeof(r));
+        return;
+    }
+
+    // One channel, merged here with what the main board holds for the other.
+    // An out-of-range value changes nothing, and the pair that answers says so.
+    if (type == MSG_RATIO_SET_ONE && blen >= sizeof(RatioOnePayload)) {
+        RatioOnePayload request;
+        memcpy(&request, body, sizeof(request));
+        if (request.channel > PUMP_CHANNEL_B) {
+            ++bridgeRefused;
+            sendBridge(reqId, BRIDGE_ERR_REFUSED, nullptr, 0);
+            return;
+        }
+        const uint8_t r0 = request.channel == PUMP_CHANNEL_A ? request.ratio : flavorRatio(0);
+        const uint8_t r1 = request.channel == PUMP_CHANNEL_B ? request.ratio : flavorRatio(1);
+        if (flavorRatioSet(r0, r1))
+            Serial.printf("\n[J3] phone ratio 1:%u / 1:%u\n", flavorRatio(0), flavorRatio(1));
+        else
+            Serial.printf("\n[J3] phone ratio 1:%u for flavor %u refused — out of %u..%u\n",
+                          request.ratio, request.channel + 1, FLAVOR_RATIO_MIN, FLAVOR_RATIO_MAX);
+        RatioPayload r{{flavorRatio(0), flavorRatio(1)}};
+        sendBridge(reqId, MSG_RESP_RATIO, &r, sizeof(r));
+        return;
+    }
+
+    // The fill and the clean cycle, answered with the state the request
+    // produced. The machine's own checks decide: it refuses while anything else
+    // runs, with the expanders unverified, and under the gas alarm. Every phone,
+    // and the enclosure, hears the change through link.cpp's announcement.
+    if ((type == MSG_FILL_START && blen >= sizeof(ChannelPayload)) ||
+        type == MSG_FILL_STOP || type == MSG_FILL_QUERY) {
+        if (type == MSG_FILL_START) {
+            Serial.printf("\n[J3] phone MSG_FILL_START ch=%u\n", body[0]);
+            machineFillBegin(body[0]);
+        } else if (type == MSG_FILL_STOP) {
+            Serial.println("\n[J3] phone MSG_FILL_STOP");
+            machineFillStop();
+        }
+        FillStatePayload p;
+        linkReadFillState(p);
+        sendBridge(reqId, MSG_RESP_FILL, &p, sizeof(p));
+        return;
+    }
+    if ((type == MSG_CLEAN_START && blen >= sizeof(ChannelPayload)) ||
+        type == MSG_CLEAN_STOP || type == MSG_CLEAN_QUERY) {
+        if (type == MSG_CLEAN_START) {
+            Serial.printf("\n[J3] phone MSG_CLEAN_START ch=%u\n", body[0]);
+            machineCleanBegin(body[0]);
+        } else if (type == MSG_CLEAN_STOP) {
+            Serial.println("\n[J3] phone MSG_CLEAN_STOP");
+            machineCleanStop();
+        }
+        CleanStatePayload p;
+        linkReadCleanState(p);
+        sendBridge(reqId, MSG_RESP_CLEAN, &p, sizeof(p));
+        return;
+    }
+
+    if (type == MSG_SOUND_CFG_GET) {
+        SoundCfgPayload c;
+        linkFillSoundCfg(c);
+        sendBridge(reqId, MSG_RESP_SOUND_CFG, &c, sizeof(c));
+        return;
+    }
+    if (type == MSG_SOUND_CFG_SET && blen >= sizeof(SoundCfgPayload)) {
+        SoundCfgPayload req;
+        memcpy(&req, body, sizeof(req));
+        soundSetVolume(req.volume);
+        soundSetQuiet(req.quietOn != 0, req.quietStart, req.quietEnd, req.quietVolume);
+        Serial.printf("\n[J3] phone sound cfg: volume %u, quiet %s %02u:00-%02u:00 at %u\n",
+                      req.volume, req.quietOn ? "on" : "off",
+                      req.quietStart, req.quietEnd, req.quietVolume);
+        SoundCfgPayload c;
+        linkFillSoundCfg(c);
+        sendBridge(reqId, MSG_RESP_SOUND_CFG, &c, sizeof(c));
+        return;
+    }
+
+    // Prime is the enclosure's session and a finger's hold. A phone reads it,
+    // opens its page, and may end it; it never holds the pad.
+    if (type == MSG_PRIME_SESSION_QUERY) {
+        PrimeSessionStatePayload state;
+        readPrimeState(state);
+        sendBridge(reqId, MSG_RESP_PRIME_SESSION, &state, sizeof(state));
+        return;
+    }
+    if (type == MSG_PRIME_SESSION_SET && blen >= sizeof(PrimeSessionRequestPayload)) {
+        PrimeSessionRequestPayload request;
+        memcpy(&request, body, sizeof(request));
+        if (request.action != PRIME_SESSION_CANCEL || request.channel > PUMP_CHANNEL_B ||
+            request.sessionToken == 0) {
+            ++bridgeRefused;
+            sendBridge(reqId, BRIDGE_ERR_REFUSED, nullptr, 0);
+            return;
+        }
+        MachinePrimeSessionState before;
+        machineReadPrimeSessionState(before);
+        const bool accepted = machinePrimeSessionCancel(request.sessionToken);
+        MachinePrimeSessionState after;
+        machineReadPrimeSessionState(after);
+        if (accepted && before.phase != PRIME_SESSION_OFF &&
+            after.revision != before.revision) soundPlay(SND_TICK);
+        PrimeSessionStatePayload state;
+        readPrimeState(state);
+        sendBridge(reqId, MSG_RESP_PRIME_SESSION, &state, sizeof(state));
+        return;
+    }
+    if (type == MSG_PRIME_OPEN && blen >= sizeof(ChannelPayload)) {
+        if (body[0] > PUMP_CHANNEL_B) {
+            ++bridgeRefused;
+            sendBridge(reqId, BRIDGE_ERR_REFUSED, nullptr, 0);
+            return;
+        }
+        if (primeOpen.waiting) {
+            sendBridge(reqId, BRIDGE_ERR_BUSY, nullptr, 0);
+            return;
+        }
+        Serial.printf("\n[J3] phone opens Prime for flavor %u\n", body[0] + 1);
+        primeOpen = PrimeOpenAsk{true, reqId, body[0],
+                                 linkUiShowAsk(UI_RAIL_PRIME, body[0], 0), millis()};
+        return;
+    }
+
+    ++bridgeRefused;
+    sendBridge(reqId, BRIDGE_ERR_REFUSED, nullptr, 0);
 }
 
 void onMessage(ProtoLink *link, const uint8_t *frame, uint16_t len) {
@@ -166,6 +388,8 @@ void onMessage(ProtoLink *link, const uint8_t *frame, uint16_t len) {
         sendState(request.token);
         return;
     }
+
+    if (type == MSG_BRIDGE_REQ) { onBridge(payload, plen); return; }
 
     if (type == MSG_OTA_REQ)  { otaOnRequest(OTA_TGT_FAUCET, payload, plen); return; }
     if (type == MSG_RESP_OTA) { otaOnState(OTA_TGT_FAUCET, payload, plen);   return; }
@@ -423,6 +647,14 @@ void faucetLinkService() {
     const bool connected = faucet.isConnected();
     if (!connected) return;
 
+    if (primeOpen.waiting) {
+        bool shown = false;
+        if (linkUiShowAnswered(primeOpen.mark, shown))
+            answerPrimeOpen(shown ? PRIME_OPEN_SHOWN : PRIME_OPEN_REFUSED);
+        else if (millis() - primeOpen.askedMs >= j9_query_policy::kEnclosureReplyWaitMs)
+            answerPrimeOpen(PRIME_OPEN_NO_ANSWER);
+    }
+
     // Publish a revision immediately, then periodically repeat the complete
     // absolute state. trySend() only proves that TinyProto accepted a frame
     // into its local TX window; it does not prove that the sleeping faucet
@@ -464,6 +696,10 @@ void faucetLinkService() {
     }
 
     faucet.service();
+}
+
+void faucetLinkPublish(uint8_t type, const void *data, uint16_t len) {
+    if (faucet.isConnected()) sendBridge(0, type, data, len);
 }
 
 // Sent here for the latency, repeated on the heartbeat for the certainty.
@@ -603,4 +839,7 @@ void faucetLinkReport() {
     Serial.printf("    prime states %lu (%lu heartbeats)\n",
                   (unsigned long)status.primeStatePublications,
                   (unsigned long)status.primeHeartbeatPublications);
+    Serial.printf("    phone requests %lu, refused %lu%s\n",
+                  (unsigned long)bridgeRequests, (unsigned long)bridgeRefused,
+                  primeOpen.waiting ? ", a Prime waiting on the enclosure" : "");
 }
