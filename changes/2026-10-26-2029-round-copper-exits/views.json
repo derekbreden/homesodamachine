@@ -1,0 +1,85 @@
+{
+  "views": [
+    {
+      "name": "front",
+      "caption": "Two round copper exits in a continuous 2.38 mm wall.",
+      "before": "front-before.webp",
+      "after": "front-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 860.5,
+          "y": 711.3,
+          "r": 26.9,
+          "label": "Copper exit",
+          "at": [
+            77.5,
+            182.6,
+            48.425
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          0,
+          -129.0121748013623,
+          164.09346097616347
+        ],
+        "target": [
+          0,
+          182.6,
+          126.7
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 206.05188124488484,
+        "far": 851.6361947336777,
+        "aspect": 1.3333333333333333
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [
+        "cold-core/foam-shell"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "f6d8b5aa2a78dc32d488e0d0357b3201c0b1f04000cec8fa950ebe65eac8b111",
+          "commit": "41034d221ab637f1f5fc680c054082a38ec63c55",
+          "taken": "2026-10-27T00:37:32.390Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "adab5f9c61f1a40bb76bddfff7c48d3e57d23db2f8230099d58147e1bb1e9674",
+          "commit": "f82bef5282d27505a16f4ddef8d16a3e1be1783d",
+          "published": true
+        }
+      },
+      "changed": [
+        "cold-core/copper-plug-port",
+        "cold-core/copper-plug-west",
+        "cold-core/foam-shell"
+      ],
+      "withinMeshing": [
+        "tube-above-core-va-fore-feed",
+        "tube-above-core-va-under-head",
+        "tube-above-core-water-in",
+        "enclosure-pump-retainer",
+        "tube-above-core-vb-yb-link",
+        "cold-core/evap-coil",
+        "funnel"
+      ]
+    }
+  ]
+}

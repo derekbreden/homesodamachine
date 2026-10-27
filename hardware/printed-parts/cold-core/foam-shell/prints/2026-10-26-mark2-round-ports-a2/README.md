@@ -55,3 +55,5 @@ commanded paths and geometric checks; the completed shell's finish, integrity,
 fit and insertion still require inspection before use in an assembled unit.
 
 Density metadata uses Polymaker's [1.43 g/cm³ specification](https://fiberon.polymaker.com/wp-content/uploads/TDS_FIBERON-PET-GF15_V1.0_EN.pdf). The [metadata review](metadata-review.json) confirms that the correction leaves every executable G-code command unchanged. The [machine review](machine-review.json) records the explicit shell placement and absence of cover bodies.
+
+The [live-model review](live-review.json) confirms that the site serves the exact reviewed shell and full-machine payloads. The [geometry change](https://homesodamachine.com/changes/2026-10-26-2029-round-copper-exits) records the front wall from one camera.
