@@ -1,0 +1,132 @@
+{
+  "schema": 1,
+  "scope": "Post-publication geometry lint of the published top-lid STL, with the new answer restricted to the direct C2 fore pair and three obsolete removable-cap interface answers retired. All unrelated answer blocks, outside-site geometry and other ranked findings are retained. No whole-machine recomposition or new build gate.",
+  "performed_at_utc": "2026-10-27T07:51:24.306739+00:00",
+  "publication": {
+    "live_confirmation": "Parent confirmed live adoption before this run.",
+    "source_commit": "8c5eb27e7bb12e96802f71b8ac88eae2f04f2545",
+    "pointer_commit": "d6a6525f0e8a60fc5087ab4a1ed7db60756fcc0a",
+    "appliance_payload": "manifold-layout/enclosure-assembly.step.mesh",
+    "live_payload_source_sha256": "e7e55c199893f12b8af8323ef9bf87bfeda92ec327c730ad49e09ba6f3098193",
+    "live_mesh_count": 562,
+    "old_cap_present": false
+  },
+  "command": [
+    "tmp/takeover/cadq",
+    "Post-publication fore C2 lid geometry lint",
+    "--",
+    "tools/cad-venv/bin/python",
+    "hardware/scripts/geometry_lint.py",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl",
+    "--all"
+  ],
+  "run": {
+    "exit_code": 0,
+    "printed_facets": 99838,
+    "ranked_thin_findings": 24,
+    "answered_ceiling_findings": 8,
+    "other_reported_classes": [],
+    "full_stdout_sha256": "08df0f4d541efce39eaabc9c333b73d164a8caf3da717a769dcab57304a1045e",
+    "input_sha256": {
+      "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl": "0abb19105d0527899d5f48ed4c0dd33531c04b4715cdbb9bd4e9685e7a0318c1",
+      "hardware/printed-parts/lint-answers/cold-core/foam-cap/foam-cap-lid-top.lint-answers": "4dfaa55bd8dc0d9c372ff1b889d9538cd10741240bfafb8d81cb0f14afd0dc31",
+      "hardware/scripts/geometry_lint.py": "4f8d892298728db824cf895e4416660aa0be4ba6033331ddcf83da9920af08af"
+    }
+  },
+  "target_selection_window_source_mm": [
+    [
+      107.7,
+      40.0,
+      2.3
+    ],
+    [
+      120.4,
+      72.0,
+      15.0
+    ]
+  ],
+  "target_findings": [
+    {
+      "class": "thin",
+      "description": "2.400 mm of material at its thinnest \u00b7 29.1 mm\u00b2 of surface under 2.5 mm \u00b7 spans 5.1 \u00d7 2.8 \u00d7 4.0 mm \u00b7 in 3 pieces",
+      "click_source_mm": [
+        [
+          115.051,
+          69.574,
+          10.595
+        ],
+        [
+          115.051,
+          67.174,
+          10.567
+        ]
+      ],
+      "disposition": "Specified 2.400 mm C2 functional spring section; narrowly anchored answer added, ranking retained."
+    },
+    {
+      "class": "thin",
+      "description": "2.400 mm of material at its thinnest \u00b7 29.1 mm\u00b2 of surface under 2.5 mm \u00b7 spans 5.1 \u00d7 2.8 \u00d7 4.0 mm \u00b7 in 3 pieces",
+      "click_source_mm": [
+        [
+          115.051,
+          44.926,
+          10.595
+        ],
+        [
+          115.051,
+          47.326,
+          10.567
+        ]
+      ],
+      "disposition": "Specified 2.400 mm C2 functional spring section; narrowly anchored answer added, ranking retained."
+    },
+    {
+      "class": "thin",
+      "description": "2.400 mm of material at its thinnest \u00b7 39.0 mm\u00b2 of surface under 2.5 mm \u00b7 spans 2.0 \u00d7 8.0 \u00d7 3.0 mm \u00b7 in 8 pieces",
+      "click_source_mm": [
+        [
+          115.051,
+          58.426,
+          10.595
+        ],
+        [
+          115.051,
+          60.826,
+          10.567
+        ]
+      ],
+      "disposition": "Specified 2.400 mm C2 functional spring section; narrowly anchored answer added, ranking retained."
+    }
+  ],
+  "answers": {
+    "path": "hardware/printed-parts/lint-answers/cold-core/foam-cap/foam-cap-lid-top.lint-answers",
+    "before_sha256": "4dfaa55bd8dc0d9c372ff1b889d9538cd10741240bfafb8d81cb0f14afd0dc31",
+    "after_sha256": "1a90716bfaba1f7e76c067f470105872224838977ad741db986a387ca60fe612",
+    "entries_appended": 1,
+    "exact_click_anchors_appended": 6,
+    "unrelated_answer_blocks_preserved": true,
+    "intermediate_sha256_before_retirement": "b915fefc7e4c402d130be4e79ceda8f5a4ca18cbbfee0c4aa0716038206e1f64",
+    "obsolete_fore_cap_entries_retired": 3,
+    "retired_entries": [
+      {
+        "heading": "[sliver] Functional fore snap catch",
+        "block_sha256": "823be9a3ff8059c6fca193469c103278e8b304e8686d75867977a5bc7f1b1139",
+        "click_anchors_retired": 2
+      },
+      {
+        "heading": "[ledge] Functional flat snap bearing underside",
+        "block_sha256": "add732ead10d93cfd33bc432cd24312d83eb1b0b6be9044013102143b802e4f5",
+        "click_anchors_retired": 2
+      },
+      {
+        "heading": "[sliver] Functional shallow spring-foot clearance pockets",
+        "block_sha256": "4fe4f80a36bb5ceabd074cae847a00e1e6b26180d69a47495801a8482f6db163",
+        "click_anchors_retired": 2
+      }
+    ],
+    "retirement_recorded_at_utc": "2026-10-27T07:53:04.662906+00:00"
+  },
+  "outside_target_ranked_thin_findings": 21,
+  "geometry_changed": false,
+  "limits": "The lint measurements are geometric. Coupon fit acceptance is scoped to the identified C2 article. Printed complete-lid cleanup, insertion/removal forces, retention and lifetime are not established by this reading."
+}

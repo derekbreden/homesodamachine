@@ -1,0 +1,83 @@
+{
+  "views": [
+    {
+      "name": "fore-pair",
+      "caption": "The fore tubes press into two C2 seats formed in the lid, with four independent spring arms.",
+      "before": "fore-pair-before.webp",
+      "after": "fore-pair-after.webp",
+      "width": 1280,
+      "height": 960,
+      "marks": [
+        {
+          "x": 607.6,
+          "y": 458.6,
+          "r": 180,
+          "label": "Fore tube snaps",
+          "at": [
+            57.25,
+            205.75,
+            255.5
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          220.43349099917114,
+          464.1758730632238,
+          784.8983580618424
+        ],
+        "target": [
+          57.25,
+          209.75,
+          258.5
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 32,
+        "near": 330.0263141934827,
+        "far": 987.6164366086855,
+        "aspect": 1.3333333333333333
+      },
+      "highlight": [
+        "cold-core/foam-cap-lid-top",
+        "cold-core/reservoir-a-fore-snap-cap"
+      ],
+      "ghost": [],
+      "only": [
+        "cold-core/foam-cap-lid-top",
+        "cold-core/reservoir-a-fore-snap-cap",
+        "tube-fluid-14",
+        "tube-fluid-16"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "1716dc6c2a86b29c4c6643ef187336a865c489ec8a687d3f379f947f42f2b902",
+          "commit": "82ab5d039cedd8dbe5c130c1ef3e23d5a6d3d007",
+          "taken": "2026-10-27T06:59:53.191Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "8623364e7b9841925e9970754704029ee3a40924b4afa33ab125f54bd7825935",
+          "commit": "10f78a7075147698fc433180cc3ed321ed33efc4",
+          "published": true
+        }
+      },
+      "changed": [
+        "cold-core/reservoir-a-fore-snap-cap",
+        "cold-core/foam-cap-lid-top",
+        "tube-fluid-14"
+      ],
+      "withinMeshing": []
+    }
+  ]
+}
