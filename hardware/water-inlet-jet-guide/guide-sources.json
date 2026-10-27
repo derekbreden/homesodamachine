@@ -15,21 +15,25 @@
   },
   "artwork": "vector schematic; dimensions govern; not a full-size template",
   "source_sha256": {
-    "tools/water-inlet-jet-guide/build.py": "fad4d09042ff042cdd66f2ff72a04725f9544bc9c6101ff963ee86dcd1ab1aae",
+    "tools/water-inlet-jet-guide/build.py": "66126fb62292d5c74c1e0ce2cc8ca1513a76f3c03aefa0e003eacf51f05688e7",
     "tools/water-inlet-jet-guide/jet_art.py": "f52ec26411f5a95510040a573a2574436d2f146ff306f9e23541283b35c1b332",
+    "tools/water-inlet-jet-guide/fixture_art.py": "70bc465f9c614d1338172f012ac72fc252f74dc990dcfe1f08453461bccfdf28",
     "tools/assembly-guides/common.py": "1ec932ef9dc4cae73205f3e9a3722a2c23710d08287aa03e9908a555ec0db885",
-    "hardware/assembly/water-inlet-jet.md": "49c949059bc81e8fbdde7052ab45e2135a4f9ad547da3c82e3ba773c45addaaa",
-    "hardware/printed-parts/fixtures/water-inlet-jet/README.md": "1387eae1f4789038f764790f657fbbc325c115a838f39f186dae903c2352261c",
+    "hardware/assembly/water-inlet-jet.md": "b9c283a6065685492b79d73084e42f08ca60a4e808ef06986de1cc16a94ef5ab",
+    "hardware/printed-parts/fixtures/water-inlet-jet/README.md": "41318dbb91c47621dcdb242c3d96327a84bce3551adc94a344c2115b35138ace",
     "hardware/printed-parts/fixtures/water-inlet-jet/water_inlet_jet_fixture.py": "61043a32088e1512e8fda5c7045ba010d4bfb66b256daea7d006e8b7badd993b",
+    "hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-fixed.stl": "225c54738a6a5bad9d3d7bb29f4d80f96e9502f0f8ad353048309325251a7aad",
+    "hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-loose.stl": "87381e45691beb57438eef386a7ca13a15d562887e032f2c601cd09a8a4ec108",
     "hardware/cold-core-layout/_water_inlet_jet.py": "10178e16d8764e1d0753b8199031e796ccbe9cef0bc163983d98825e15bf2cd5",
     "hardware/cold-core-layout/water_inlet_jet_cap_drawing.py": "3db313f90f6a0fe0124d2ece469a27568b4ef8f0a67518ef39f3dc59f4ca15b7",
     "hardware/cold-core-layout/water-inlet-jet-cap-drawing.pdf": "11eed7335c9f964080f4ee837278c137c4b1480fe2a21723d0ec68ad12fee903",
+    "hardware/cold-core-layout/water-inlet-jet-elbow-drawing.pdf": "94f6649ed4c463c3cf8053f0b70c6b5efcc5dd0214997d330ad2738b9b4cf472",
     "hardware/assembly/pressure-vessel.md": "505da88bf7ce5e1600af5b8e2e5429c719003fcc6124a185476fa77a8ead53ed",
     "hardware/assembly/acceptance-and-burn-in.md": "672b3d232c37daf8c12c031a554ca8b5882ec2d48047ef04650a99b758c229b9",
     "hardware/ledger/tools.md": "692d7597015edf752832a17f695e3346c0ef3963fbd416e435294c0aaa478e13",
     "hardware/ledger/inventory.md": "c146a58f8038a34b38093920bd297e0f4d4a2255d312380a77af61b3f97c2528"
   },
-  "pdf_sha256": "2eac13af133c4e4a37c9f635e0b29e0eb51e6c47d1c022ec924dcf2fc4f73d96",
+  "pdf_sha256": "fa32c560d0df1c9aaef0b5b7378d0955ad8e4eb8fbdeea46027d0e644df70e46",
   "geometry_mm": {
     "JET_CAP_D": 9.5,
     "JET_CAP_T": 2.0,
@@ -46,6 +50,20 @@
     "THICKNESS_VARIATION_MAX": 0.05,
     "HOLE_EDGE_BREAK_MAX": 0.05
   },
+  "fixture_inputs_mm": {
+    "BASE_X": 120.0,
+    "BASE_Y": 90.0,
+    "BASE_T": 8.0,
+    "JAW_X": 64.0,
+    "JAW_DEPTH": 25.0,
+    "GRIP_Z": 30.0,
+    "HANDLING_BLANK_L": 50.0,
+    "MIN_HANDLING_BLANK_L": 40.0,
+    "OPEN_JAW_GAP": 1.0,
+    "GROOVE_R": 4.9,
+    "JAW_CLAMP_X": 20.0,
+    "BASE_CLAMP_X": 46.0
+  },
   "primary_references": {
     "S1": {
       "title": "JET-CAP-01 Rev A: finished cap",
@@ -58,6 +76,10 @@
     "S3": {
       "title": "Drilling jaws and four-clamp setup",
       "url": "https://github.com/derekbreden/homesodamachine/blob/main/hardware/printed-parts/fixtures/water-inlet-jet/README.md"
+    },
+    "S4": {
+      "title": "JET-ELB-01 Rev A: complete welded jet elbow",
+      "url": "https://homesodamachine.com/read/cold-core-layout/water-inlet-jet-elbow-drawing.pdf"
     },
     "M1": {
       "title": "WEN 4208T drill press manual, pp. 5-6, 14, 16-17",
@@ -74,37 +96,48 @@
     "M4": {
       "title": "X1 Pro shielding-gas installation",
       "url": "https://eu.xlaserlab.com/blogs/academy/x1pro-laser-welder-unboxing-installation"
-    },
-    "M5": {
-      "title": "Norseman: drilling feeds and speeds",
-      "url": "https://www.norsemandrill.com/feeds-speeds-drill.php"
-    },
-    "M6": {
-      "title": "Nickel Institute 11026: stainless fabrication for water",
-      "url": "https://nickelinstitute.org/en/resources/technical-guides/fabricating-stainless-steels-for-the-water-industry-guidelines-for-achieving-top-performance-11026/"
-    },
-    "M7": {
-      "title": "BSSA: cleaning before passivation",
-      "url": "https://bssa.org.uk/bssa_articles/passivation-of-stainless-steels/"
     }
   },
-  "review_scope": "Illustrated work sequence; no physical trial, welding or qualification performed",
-  "visual_focus": {
-    "drilling_pages": [
+  "review_scope": "Jet and drilling-fixture assembly sequence; no physical build or qualification performed",
+  "build_phases": {
+    "drilling_fixture_pages": [
+      2,
       3,
       4,
       5
     ],
-    "welding_pages": [
-      8,
+    "cap_pages": [
+      6,
+      7,
+      8
+    ],
+    "weld_setup_pages": [
       9,
-      10,
-      11
+      10
+    ],
+    "welding_pages": [
+      11,
+      12,
+      13
+    ],
+    "support_page": 14
+  },
+  "mesh_figures": {
+    "pages": [
+      2,
+      3
+    ],
+    "sources": [
+      "water-inlet-jet-fixture-fixed.stl",
+      "water-inlet-jet-fixture-loose.stl"
     ]
   },
+  "open_build_details": [
+    "dimensioned metal body holder and separate cap restraint"
+  ],
   "authored_trial_choices": [
     "opposing four-tack handling sequence",
-    "alternating accessible quarter arcs; final recipe depends on coupon"
+    "alternating accessible quarter arcs; actual recipe depends on coupon"
   ],
-  "edition_date": "2026-10-26"
+  "edition_date": "2026-10-27"
 }
