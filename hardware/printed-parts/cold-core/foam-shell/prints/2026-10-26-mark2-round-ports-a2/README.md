@@ -1,6 +1,6 @@
 # Production cold-core shell — Mark2
 
-**Prepared for the next full-shell print; not submitted to the printer.**
+**Accepted on Mark2 as task 1379343230 at 00:54:33 CDT on October 27, 2026.**
 Native estimate: **31 h 37 min**, **1,449.9 g**, 889 layers.
 
 The smooth shell has continuous 2.38 mm standing walls, a 2 mm floor and two
@@ -63,3 +63,15 @@ ten Ø4 mm blind-pocket roofs and the minimum ligament beside a corner pilot.
 [Full-depth native witnesses](insert-witnesses.json) retain 1.6 mm material around
 all twenty insert pilots; the corner minimum is 1.696 mm. The casing, clamp
 pattern and prepared archive are unchanged by this review.
+
+The [launch receipt](launch.json) binds the submitted archive and unchanged G-code,
+left external spool mapping and four visible print options. Mark2 acknowledged
+SUCCESS and reported PREPARE, print error 0 and HMS empty. The first send was
+[explicitly rejected](rejected-send.json); a fresh filename/import of identical
+archive bytes and a 20-second settling wait preceded the successful send.
+[Startup telemetry](startup.json) records the machine after acceptance. Physical
+finish and first-layer adhesion are not inferred from that status.
+
+At **00:56:58 CDT**, the [fresh readback](startup-progress.json) reported RUNNING,
+layer 0/889, with print error 0 and HMS empty. The file preparation was 100%;
+startup was in progress.

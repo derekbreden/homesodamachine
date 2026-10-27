@@ -1,0 +1,12 @@
+{
+  "archive": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/prints/2026-10-26-cold-core-production/final-slice/2026-10-26-foam-shell-mark2-53af0b65/2026-10-26-foam-shell-mark2-53af0b65.gcode.3mf",
+  "archive_sha256": "b08e84852254a382e2aba91014fca7222d1ddb9e2b49160eb9be0caec9fd93c4",
+  "gcode_sha256": "1e53d5329495534320b70031d799e69361df4fc7b9641b902376665cae402c8b",
+  "checks": {
+    "archive_sha256_matches": true,
+    "current_stl_sha256_matches": true,
+    "current_step_sha256_matches": true,
+    "native_review_pass": true,
+    "gcode_md5_matches": true
+  }
+}

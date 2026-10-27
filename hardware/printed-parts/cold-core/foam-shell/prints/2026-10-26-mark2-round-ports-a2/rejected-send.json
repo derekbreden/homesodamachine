@@ -1,0 +1,21 @@
+{
+  "status": "explicitly rejected; no new shell task",
+  "archive_sha256": "b08e84852254a382e2aba91014fca7222d1ddb9e2b49160eb9be0caec9fd93c4",
+  "project_file_reply": {
+    "command": "project_file",
+    "result": "FAIL",
+    "reason": "ERROR STATE",
+    "err_code": 83902534,
+    "hex_code": "05004046"
+  },
+  "vendor_error_definition": "The 3MF file is invalid; verify printer model or re-slice.",
+  "vendor_error_source": "/Applications/BambuStudio.app/Contents/Resources/hms/hms_en_31B.json",
+  "status_after": {
+    "job_id": "1379240291",
+    "gcode_state": "FINISH",
+    "print_error": 0,
+    "hms": []
+  },
+  "recovery_reference": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-24-tee-carrier-plate-mark2-v12/submission.json",
+  "recovery": "Fresh filename and import of identical archive, 20-second settled-dialog wait, one Send; no reslice or command changes."
+}
