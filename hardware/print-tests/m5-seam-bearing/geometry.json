@@ -1,7 +1,6 @@
 {
   "scope": "Nominal passage comparison for the acquired SVLING M5x50 screws; physical fit is unmeasured.",
   "screw_stock": "hardware/ledger/inventory.md, Fab fixture: SVLING M5 x 0.8 x 50, B0GHNQFZYR",
-  "production_bore_mm": 5.6,
   "parts": [
     {
       "name": "m5-d48-h12",
@@ -615,5 +614,6 @@
       "stl_sha256": "af38d5ed676b3c50435286860bb54bdd6dd8d18f05b014147c0ec2ed06db4062",
       "step_sha256": "62d175274eaad1557222dcfe0a3ef4bedbb60599d8faeb6134d97d050ff0dbd5"
     }
-  ]
+  ],
+  "comparison_control_bore_mm": 5.6
 }

@@ -1,0 +1,32 @@
+{
+  "reported_date": "2026-10-26",
+  "printer": "Mark2",
+  "printer_task_id": "1378515009",
+  "article": "mark2/2026-10-26-m5-seam-bearing-mark2-be46870c",
+  "screw": "Acquired SVLING fully threaded M5 x 0.8 x 50 mm, B0GHNQFZYR",
+  "material": "Polymaker Fiberon PET-GF15, black",
+  "nozzle": "Left hardened 0.4 mm Standard",
+  "selected_nominal_m5_passage_mm": 5.2,
+  "observations": [
+    {
+      "nominal_bore_mm": 5.2,
+      "straight_bearing_length_mm": 12,
+      "reported_fit": "Pushed through fine."
+    },
+    {
+      "nominal_bore_mm": 5.2,
+      "straight_bearing_length_mm": 40,
+      "reported_fit": "Resistance in some cases; turning the screw was needed to pass it."
+    },
+    {
+      "nominal_bore_mm": 5.1,
+      "straight_bearing_length_mm": null,
+      "reported_fit": "Required turning the screw throughout insertion."
+    }
+  ],
+  "user_statements": [
+    "5.2 is my choice for all threaded pass throughs. Make it so.",
+    "On the 12 mm sample it pushed through fine, on the 40 mm sample I got some resistance in some cases and had to screw to get past it. On 5.1 I had to screw the whole time. I think with variability accounted for, 5.2 will be both the safest and the tightest, at least for the risk profile I want to tolerate right now."
+  ],
+  "scope": "Qualitative user selection of nominal 5.2 mm printed M5 threaded pass-throughs from the identified PET-GF comparison. The 5.1 mm sample length, screw outside diameters, forces, repeated-cycle results and load capacity are not specified."
+}

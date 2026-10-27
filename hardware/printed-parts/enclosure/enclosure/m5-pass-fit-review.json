@@ -1,0 +1,271 @@
+{
+  "scope": "Manual before/after native reading for the selected printed M5 fit. No whole-machine qualification.",
+  "selected_diameter_mm": 5.2,
+  "nominal_diametral_air_mm": 0.20000000000000018,
+  "physical_result": "hardware/print-tests/m5-seam-bearing/physical-result.json",
+  "source_sha256": {
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "cd318c853b856eba715eb28aeea68bde865588c548eaaa64981a6dd47d56b99a",
+    "hardware/printed-parts/cadlib/fits.py": "9815ebd9ffe112ea5173fd6ecc600086e3c7b53df00c29706b4826617390a509"
+  },
+  "allowed_change": "Material added only inside the original M5 passages and their sloped entry reliefs. Lower mating-plane datums are independent of the passage diameter.",
+  "axes": [
+    {
+      "side": "west",
+      "station": "lower",
+      "x": -98.25,
+      "y": 208.9
+    },
+    {
+      "side": "west",
+      "station": "upper",
+      "x": -97.7,
+      "y": 208.9
+    },
+    {
+      "side": "east",
+      "station": "lower",
+      "x": 98.25,
+      "y": 208.9
+    },
+    {
+      "side": "east",
+      "station": "upper",
+      "x": 97.7,
+      "y": 208.9
+    }
+  ],
+  "parts": [
+    {
+      "piece": "front-bottom",
+      "before_step_sha256": "9cde787958ae0005de6096493c47d633347fda0dc7da94ed05112639f9e3cca5",
+      "step_sha256": "ea3f189b042ec9cacef8fa11f7a7cbec5338b247c79b98cbf0c12c6fd24567c6",
+      "stl_sha256": "d8b8b5e71833bdd4ed9e036bc65d29db2df0c8bc03fba751e1e4610062b1e353",
+      "before_bounds_mm": [
+        -107.50000010000001,
+        107.50000010000002,
+        4.9999999,
+        217.8,
+        -6.000000200000139,
+        174.8
+      ],
+      "bounds_mm": [
+        -107.50000010000001,
+        107.50000010000002,
+        4.9999999,
+        217.8,
+        -6.000000200000139,
+        174.8
+      ],
+      "native_valid": true,
+      "solid_count": 1,
+      "added_mm3": 421.0215551508937,
+      "removed_mm3": 0.0,
+      "added_outside_m5_passages_and_reliefs_mm3": 0.0,
+      "nominal_m5_shaft_overlap_mm3": 0.0,
+      "native_passage_faces": [
+        {
+          "diameter_mm": 5.2,
+          "bounds_mm": [
+            -100.85,
+            -95.65,
+            206.3,
+            211.5,
+            67.75355339059304,
+            134.8
+          ]
+        },
+        {
+          "diameter_mm": 5.2,
+          "bounds_mm": [
+            95.65,
+            100.85,
+            206.3,
+            211.5,
+            67.75355339059304,
+            134.79999999999995
+          ]
+        }
+      ]
+    },
+    {
+      "piece": "back-bottom",
+      "before_step_sha256": "e8cd8f7f282f1c234511def75b31e5f25c82b11ed953bf3ac9e1621c35b3fcce",
+      "step_sha256": "556b122b134f436f9b9eabb37d4720aee47f093527c6d3c6e8f4c8cf7b10c5aa",
+      "stl_sha256": "b1b4ec646bbdece942222db643a9808432b00687298ea15ce1282e63f22a0d44",
+      "before_bounds_mm": [
+        -107.50000010000001,
+        107.50000010000001,
+        200.1499998999997,
+        471.9000001000005,
+        -6.000000200000009,
+        174.8
+      ],
+      "bounds_mm": [
+        -107.50000010000001,
+        107.50000010000001,
+        200.1499998999997,
+        471.9000001,
+        -6.000000200000009,
+        174.8
+      ],
+      "native_valid": true,
+      "solid_count": 1,
+      "added_mm3": 186.7916250417498,
+      "removed_mm3": 0.0,
+      "added_outside_m5_passages_and_reliefs_mm3": 0.0,
+      "nominal_m5_shaft_overlap_mm3": 0.0,
+      "native_passage_faces": [
+        {
+          "diameter_mm": 5.2,
+          "bounds_mm": [
+            -100.85,
+            -95.65,
+            206.3,
+            211.5,
+            60.8,
+            72.59999999999997
+          ]
+        },
+        {
+          "diameter_mm": 5.2,
+          "bounds_mm": [
+            -100.85,
+            -95.65,
+            206.3,
+            211.5,
+            129.95355339059003,
+            149.5
+          ]
+        },
+        {
+          "diameter_mm": 5.2,
+          "bounds_mm": [
+            95.65,
+            100.85,
+            206.3,
+            211.5,
+            129.95355339059,
+            149.5
+          ]
+        },
+        {
+          "diameter_mm": 5.2,
+          "bounds_mm": [
+            95.65,
+            100.85,
+            206.3,
+            211.5,
+            60.8,
+            72.59999999999997
+          ]
+        }
+      ]
+    },
+    {
+      "piece": "front-top",
+      "before_step_sha256": "5cb0a70a28086ef1f10883d7f2aaf2e8978917e170514160120b819a64d009f5",
+      "step_sha256": "75fce7c595b401e5475d54dbe173615bec8a21ad5756401a0d1357e4925ec05f",
+      "stl_sha256": "599efebe368463b1d6ec926f1cc10faf6a5d45e4c899f1ce6dd6f4578637fe04",
+      "before_bounds_mm": [
+        -107.50000010000002,
+        107.50000010000001,
+        4.999999899999998,
+        217.8000001,
+        160.2499999,
+        355.00000000002
+      ],
+      "bounds_mm": [
+        -107.50000010000002,
+        107.50000010000001,
+        4.999999899999998,
+        217.8000001,
+        160.2499999,
+        355.00000000002
+      ],
+      "native_valid": true,
+      "solid_count": 1,
+      "added_mm3": 115.21535113610041,
+      "removed_mm3": 0.0,
+      "added_outside_m5_passages_and_reliefs_mm3": 0.0,
+      "nominal_m5_shaft_overlap_mm3": 0.0,
+      "native_passage_faces": [
+        {
+          "diameter_mm": 5.2,
+          "bounds_mm": [
+            -100.3,
+            -95.1,
+            206.3,
+            211.5,
+            327.8,
+            346.9999999
+          ]
+        },
+        {
+          "diameter_mm": 5.2,
+          "bounds_mm": [
+            95.1,
+            100.3,
+            206.3,
+            211.5,
+            327.8,
+            346.9999999
+          ]
+        }
+      ]
+    },
+    {
+      "piece": "back-top",
+      "before_step_sha256": "ef7cc17dfd7cdde5d78ff025b5631b0f60737171c6e670cc560ef243042bf97d",
+      "step_sha256": "9977e2070deb6f4dc5412a39cd690991f76a440a675f1c0515f990e9550fb96d",
+      "stl_sha256": "13a50d145c96238f6a0c585f60fd7a4513772545c58e2009cd82724540aba633",
+      "before_bounds_mm": [
+        -107.5000001,
+        107.5000001,
+        200.14999999999998,
+        473.5,
+        160.2499999,
+        355.0000000000254
+      ],
+      "bounds_mm": [
+        -107.5000001,
+        107.5000001,
+        200.14999999999998,
+        473.5,
+        160.2499999,
+        355.0000000000254
+      ],
+      "native_valid": true,
+      "solid_count": 1,
+      "added_mm3": 447.0109969261709,
+      "removed_mm3": 0.0,
+      "added_outside_m5_passages_and_reliefs_mm3": 0.0,
+      "nominal_m5_shaft_overlap_mm3": 0.0,
+      "native_passage_faces": [
+        {
+          "diameter_mm": 5.2,
+          "bounds_mm": [
+            -100.3,
+            -95.1,
+            206.3,
+            211.5,
+            265.25,
+            332.64644660939996
+          ]
+        },
+        {
+          "diameter_mm": 5.2,
+          "bounds_mm": [
+            95.1,
+            100.3,
+            206.3,
+            211.5,
+            265.25,
+            332.64644660939996
+          ]
+        }
+      ]
+    }
+  ],
+  "unchanged_retainer": true,
+  "all_passage_changes_confined": true
+}

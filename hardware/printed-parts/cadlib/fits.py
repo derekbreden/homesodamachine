@@ -48,6 +48,10 @@ supported_surface = 0.25
 #: the floor turns up into the walls print slightly rounded, so the cavity narrows at its tip.
 layer_transition = 0.10
 
+#: Nominal printed passage for fully threaded M5 screws. Selected from the
+#: m5-seam-bearing PET-GF comparison; long passages may require screw rotation.
+m5_thread_pass_dia = 5.2
+
 
 def clearance(*, sliding=False, supported=False, at_floor=False):
     """One mating-face allowance, including motion, bridge finish and a cavity floor's rounded

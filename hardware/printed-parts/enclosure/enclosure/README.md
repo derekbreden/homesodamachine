@@ -137,7 +137,9 @@ The slopes run across the slide or close as the front half slides aft, and a top
 that rises toward a free face levels off one wall short of it. Every face between knuckles
 keeps a [0.25 mm](Y_STACK_GAP) running fit, measured square to the face.
 
-The screws pass through printed [Ø5.6](Y_STACK_CLEARANCE) clearance holes. Each insert and
+The screws pass through printed [Ø5.2](Y_STACK_CLEARANCE) holes, the selected
+[M5 sample fit](/hardware/print-tests/m5-seam-bearing/physical-result.json).
+Long passages may require turning the screw before the insert engages. Each insert and
 the manufacturer's minimum stock round it, [Ø11.6](Y_STACK_INSERT_BOSS) about the axis, fit
 inside the side band. The lower axes stand [9.25 mm](Y_STACK_LOWER_AXIS_OUT) in from the exterior,
 where the head passes the handhold's inner wall on its way up; the upper axes
@@ -147,6 +149,12 @@ of front-top's insert. Each head bears on a printed floor in a Ø9 opening,
 into the roof. The lower opening ends on the plane of the handhold's inner wall; the upper
 one runs on into the funnel opening. Seat the heads with a 4 mm hex key and stop when they
 meet their floors; the printed joint has no qualified installation torque.
+
+The [native fit reading](m5-pass-fit-review.json) binds the four current quadrants.
+Only the M5 passages and their sloped entries gain material; the knuckle mating
+planes retain their stated datums. The [aggregate reading](m5-pass-fit-aggregate-review.json)
+identifies the same four native parts in both assemblies and preserves every
+other native record and viewer body.
 
 **The lower opening and the handhold's lip:** the lip's R6 roll and its print chamfer take
 the first 2.29 mm of the lifting ceiling from the outer face, and the lower opening begins

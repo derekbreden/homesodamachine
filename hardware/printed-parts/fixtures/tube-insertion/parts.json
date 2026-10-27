@@ -249,7 +249,7 @@
     "rated_capacity_mm": 152.4,
     "scope": "Opening dimension and adaptable flat bearing stations; schematic tool solids are not measured manufacturer CAD"
   },
-  "source_sha256": "cd12a7c2b8081ac2ee228b6790c07973c69b4995995a9a8c1e36dab51b77a5e9",
+  "source_sha256": "fbd994eeda99e4489b23d8524e4c65bc5e9f3158429daf753f1bb7c8fbff2953",
   "reference_source_sha256": {
     "hardware/reference/touch-flo-faucet/westbrass-reference/westbrass_reference.py": "6ca8f3d332acaef05c4c92041509e66ea68235ddc4f593c0c5e3a9d8543670d0",
     "hardware/printed-parts/faucet/tpu-o-ring/tpu_o_ring.py": "81a348b7b08866c60026226f592cfd250669edfa0b2aa18dcb44c7687c8db575"
