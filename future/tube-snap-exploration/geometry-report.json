@@ -1,0 +1,113 @@
+{
+  "scope": "Physical fit and snap-survival trial; no production assembly update or accepted fit claim.",
+  "source": "future/tube-snap-exploration/tube_snap_trial.py",
+  "source_sha256": "47e29d8833451e225a90c1a2acd423af91885bd70035a1f1d21f764fbf715296",
+  "floor_xyz_mm": [
+    54.0,
+    14.0,
+    3.0
+  ],
+  "tube_nominal_od_mm": 6.35,
+  "tube_axis_above_floor_mm": 4.5,
+  "organizer_baseline_bore_mm": 6.65,
+  "step_in_diameter_mm": 0.1,
+  "provenance": {
+    "hardware/printed-parts/faucet/umbilical-organizer/umbilical_organizer.py": "1cf90bdc600acba1587649e6b914b57b204f7cc5ce7d88f04d9581eb6541f33f",
+    "hardware/printed-parts/faucet/umbilical-organizer/physical-acceptance.json": "e26921179b8d991ef6eba197fc64c587b429828e166f33a567ab4f2771809958",
+    "future/umbilical-organizer-exploration/prepare_increment_trial.py": "6262486f0b2386b71600853302a395b4fb7614a3064d6af5856a8505759e5729",
+    "future/umbilical-organizer-exploration/diameter-increments-mark2/physical-result.json": "dfda52234ee8690678c08e2c96b3911dbdeb7c5c07a1aa7089bc34e5323516c7"
+  },
+  "samples": [
+    {
+      "label": "A",
+      "centre_x_mm": -18.0,
+      "tube_axis_y_mm": [
+        -4.0,
+        4.0
+      ],
+      "tube_axis_z_mm": 7.5,
+      "bore_diameter_mm": 6.550000000000001,
+      "nominal_radial_allowance_mm": 0.10000000000000053,
+      "spring_wall_mm": 1.44,
+      "outer_radius_mm": 4.715,
+      "mouth_width_mm": 5.449999999999999,
+      "nose_radius_mm": 0.72,
+      "tip_angle_deg": 120.42102606277044,
+      "free_upper_curve_mm": 2.1211335311882533,
+      "measured_mid_bore_section_x_mm": [
+        -4.715,
+        -3.274999999999995,
+        3.274999999999997,
+        4.715
+      ]
+    },
+    {
+      "label": "B",
+      "centre_x_mm": 0.0,
+      "tube_axis_y_mm": [
+        -4.0,
+        4.0
+      ],
+      "tube_axis_z_mm": 7.5,
+      "bore_diameter_mm": 6.65,
+      "nominal_radial_allowance_mm": 0.15000000000000036,
+      "spring_wall_mm": 1.44,
+      "outer_radius_mm": 4.765000000000001,
+      "mouth_width_mm": 5.449999999999999,
+      "nose_radius_mm": 0.72,
+      "tip_angle_deg": 121.60636416492554,
+      "free_upper_curve_mm": 2.2313640574159987,
+      "measured_mid_bore_section_x_mm": [
+        -4.765000000000001,
+        -3.325,
+        3.325000000000001,
+        4.765000000000001
+      ]
+    },
+    {
+      "label": "C",
+      "centre_x_mm": 18.0,
+      "tube_axis_y_mm": [
+        -4.0,
+        4.0
+      ],
+      "tube_axis_z_mm": 7.5,
+      "bore_diameter_mm": 6.75,
+      "nominal_radial_allowance_mm": 0.20000000000000018,
+      "spring_wall_mm": 1.44,
+      "outer_radius_mm": 4.8149999999999995,
+      "mouth_width_mm": 5.449999999999999,
+      "nose_radius_mm": 0.72,
+      "tip_angle_deg": 122.72554435862934,
+      "free_upper_curve_mm": 2.3389350016258774,
+      "measured_mid_bore_section_x_mm": [
+        -4.8149999999999995,
+        -3.3749999999999716,
+        3.3749999999999716,
+        4.814999999999998
+      ]
+    }
+  ],
+  "identification": "Facing the printer, smallest bore left, organizer bore centre, largest right. Keep this orientation when removing the one-piece floor; no labels or identification cuts are added.",
+  "common_geometry": "Filled lower root, constant spring wall, mouth width, tube-axis height and full 8 mm Y span. No pedestal or isolated attachment feet.",
+  "print_pose": "3 mm floor flat on bed; tube axes parallel to the bed along Y; openings face up.",
+  "native": {
+    "valid": true,
+    "solids": 1,
+    "volume_mm3": 3073.6469708146087,
+    "bounds_mm": [
+      -27.000000100000005,
+      -7.000000100000004,
+      -1.000000004440892e-07,
+      27.000000100000005,
+      7.000000100000004,
+      10.434042217381398
+    ]
+  },
+  "files": {
+    "future/tube-snap-exploration/parts/tube-snap-three-bores.stl": "8948e22e3179bed2697f03ede0d59258bbc91a3d2f45818377d00ec71b369af4",
+    "future/tube-snap-exploration/parts/tube-snap-three-bores.step": "f0744942930049e049135fc787f7d67211880d0a02cdce9f020df9d0250b1a2e"
+  },
+  "evaluation": "Compare push-in force, layer/root survival, seated grip, axial slide and removal on the actual 1/4-inch tube. The organizer's upright-bore fit does not establish horizontal snap fit. Short curved arms and cross-layer bending are part of this physical trial, not qualified performance.",
+  "preparation_only": true
+}
