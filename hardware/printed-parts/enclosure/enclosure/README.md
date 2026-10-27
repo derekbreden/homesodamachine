@@ -1098,8 +1098,9 @@ pocket gathers unrelated wires.
 
 The [routing review](route-snap-review/README.md) identifies every station, its
 print direction, cable dressing, installation order and current fit basis. These
-features add no separate printed part or fastener. The closely spaced Reservoir A
-fore pair keeps its cap, and body-retaining ties keep their existing jobs.
+features add no separate printed part or fastener. Reservoir A's fore pair seats
+in two integral C2 clips on the cold-core lid at 13.5 mm centre spacing;
+body-retaining ties keep their existing jobs.
 
 The [combined coupon result](../../../../future/snap-fit-tests/2026-10-26-mark2-combined/physical-result.json)
 accepts the C2 6.35 mm bore for present use and the 16 mm-span 4P ribbon clip's

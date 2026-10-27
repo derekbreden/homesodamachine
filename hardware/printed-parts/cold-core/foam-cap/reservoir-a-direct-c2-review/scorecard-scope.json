@@ -1,0 +1,84 @@
+{
+  "scope": "Manual removal of the retired standalone cap from named body/BOM/placement summaries and its obsolete exemptions. Existing geometry results, unrelated failures and top-level pass flags are retained; no whole-machine recomposition or audit was run.",
+  "changes": [
+    {
+      "file": "hardware/cold-core-layout/cold-core-assembly.scorecard.json",
+      "before_sha256": "31cc9af90f739fbebc5c8e503a14443b629c5de459888af29832323b7253225f",
+      "after_sha256": "0135492481eb68980a9df7ea751ad8fb704a536534a1220059501bfbb61888fc",
+      "changes": [
+        {
+          "removed_body": "reservoir-a-fore-snap-cap"
+        },
+        {
+          "check": "bom-covered",
+          "value_before": "31/38",
+          "value_after": "30/37"
+        },
+        {
+          "check": "placed",
+          "value_before": "57/57",
+          "value_after": "56/56"
+        },
+        {
+          "check": "mounted",
+          "value_before": "55/57",
+          "value_after": "54/56"
+        }
+      ],
+      "gatesPass": true,
+      "status_flags_preserved": true
+    },
+    {
+      "file": "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.scorecard.json",
+      "before_sha256": "31cc9af90f739fbebc5c8e503a14443b629c5de459888af29832323b7253225f",
+      "after_sha256": "0135492481eb68980a9df7ea751ad8fb704a536534a1220059501bfbb61888fc",
+      "changes": [
+        {
+          "removed_body": "reservoir-a-fore-snap-cap"
+        },
+        {
+          "check": "bom-covered",
+          "value_before": "31/38",
+          "value_after": "30/37"
+        },
+        {
+          "check": "placed",
+          "value_before": "57/57",
+          "value_after": "56/56"
+        },
+        {
+          "check": "mounted",
+          "value_before": "55/57",
+          "value_after": "54/56"
+        }
+      ],
+      "gatesPass": true,
+      "status_flags_preserved": true
+    },
+    {
+      "file": "hardware/manifold-layout/enclosure-assembly.scorecard.json",
+      "before_sha256": "add52189e93520b4831938a7c804e287af4337c6e5ad3cfdd66e0e2658fbb15d",
+      "after_sha256": "68aa305b3ef00c7dedb593077105f94087c557bd23b0dd56e5cf57fcb1703ef5",
+      "changes": [
+        {
+          "check": "clearance-floor",
+          "removed_detail": [
+            "fluid-16 \u2014 reservoir-a-fore-snap-cap: 0.149 mm \u2014 excluded from the global pack floor",
+            "fluid-14 \u2014 reservoir-a-fore-snap-cap: 0.149 mm \u2014 excluded from the global pack floor",
+            "reservoir-a-fore-snap-cap \u2014 foam-assembly: 0.150 mm \u2014 excluded from the global pack floor"
+          ]
+        },
+        {
+          "check": "placed",
+          "removed_detail": [
+            "reservoir-a-fore-snap-cap: no seat states where it stands"
+          ],
+          "value_before": "126/157 stated",
+          "value_after": "126/156 stated"
+        }
+      ],
+      "gatesPass": false,
+      "status_flags_preserved": true
+    }
+  ]
+}

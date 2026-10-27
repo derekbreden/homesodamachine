@@ -1230,14 +1230,6 @@
             ]
           },
           {
-            "material": "HSM-000337",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "reservoir-a-fore-snap-cap"
-            ]
-          },
-          {
             "material": "HSM-000021",
             "quantity": 1,
             "unit": "ea",
@@ -6261,31 +6253,6 @@
         {
           "material": "HSM-000003"
         }
-      ]
-    },
-    {
-      "id": "HSM-000337",
-      "description": "Reservoir A fore paired tube snap cap",
-      "kind": "manufactured",
-      "models": [
-        {
-          "file": "printed-parts/cold-core/foam-cap/reservoir-a-fore-snap-cap.step"
-        }
-      ],
-      "documents": [
-        {
-          "title": "Part details",
-          "path": "printed-parts/cold-core/foam-cap/README.md"
-        },
-        {
-          "title": "Snap geometry review",
-          "path": "printed-parts/cold-core/foam-cap/reservoir-a-snap-review/README.md"
-        }
-      ],
-      "aliases": [
-        "reservoir-a-fore-snap-cap",
-        "Reservoir A fore snap cap",
-        "fore paired tube snap cap"
       ]
     },
     {

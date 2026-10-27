@@ -15,7 +15,7 @@ HERE = Path(__file__).resolve().parent
 ROOT = next(p for p in HERE.parents if (p / 'hardware/scripts').is_dir())
 PREPARATION = ROOT / 'hardware/printed-parts/enclosure/trial-preparation'
 sys.path[:0] = [str(HERE.parent), str(ROOT / 'hardware/manifold-layout'), str(PREPARATION)]
-import _reservoir_a_snap as snap
+import _reservoir_a_c2 as snap
 import above_core as layout
 import _mesh
 
@@ -37,14 +37,8 @@ def main():
     parser.add_argument('--out', type=Path, default=HERE / 'fore-snap-print-regions.json')
     args = parser.parse_args()
     spec = snap.specification()
-    half_x, half_y = spec['wing_outer_x_mm'], spec['station_length_mm']/2
-    lid_face = layout.specification()['cap_face_z_mm']
-    points = [snap.world_point(p) for p in itertools.product(
-        (-half_x, half_x), (-half_y, half_y),
-        (spec['base_floor_z_mm'], spec['base_top_z_mm']))]
-    world = [value for axis in range(3) for value in
-             (min(p[axis] for p in points), max(p[axis] for p in points))]
-    world[4] = min(world[4], lid_face-spec['wall_mm'])
+    low, high = spec['base_bounds_mm']
+    world = [value for axis in range(3) for value in (low[axis], high[axis])]
     corners = [layout.world_to_cap(point) for point in
                itertools.product(*[world[i:i+2] for i in (0, 2, 4)])]
     native = [value for axis in range(3)
@@ -59,7 +53,7 @@ def main():
                 min(native[2*axis+1], float(high[axis])))]
     if any(clipped[i+1] <= clipped[i] for i in (0, 2, 4)):
         raise ValueError('The fore receiver/root modifier is outside the current lid bounds')
-    row = dict(name='Reservoir A fore snap receiver, axial shoulders and lid root',
+    row = dict(name='Reservoir A fore direct C2 pair and lid root',
                machine_bounds_mm=native, applied_source_bounds_mm=clipped,
                world_bounds_mm=world, sparse_infill_density='100%',
                sparse_infill_pattern='zig-zag')
@@ -67,8 +61,8 @@ def main():
                ROOT / 'hardware/manifold-layout/above-core.json',
                HERE.parent / '_reservoir_a_anchors.py', HERE / 'foam_cap.py']
     record = dict(
-        scope='One infill-only modifier through the existing fore snap receiver, its '
-              'full axial shoulders and one wall into the lid root. No load capacity '
+        scope='One infill-only modifier through the fore direct C2 shared base and '
+              'one wall into the lid root. No load capacity '
               'or lifetime qualification.',
         use='Manual print preparation for foam-cap-lid-top only. The box intersects '
             'existing material and adds no geometry. All other lid walls, infill, '

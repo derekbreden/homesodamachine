@@ -1,0 +1,24 @@
+{
+  "scope": "Production integral paired C2 installation. Draw and all unrelated geometry/wiring retained. No printer job sent.",
+  "previous_published_appliance_sha256": "294da475d3ecf3790bc1433469a0fcfe1fdc7a688f7e1872fd5f4c95095c8263",
+  "native_appliance_sha256": "e7e55c199893f12b8af8323ef9bf87bfeda92ec327c730ad49e09ba6f3098193",
+  "physical_scene_sha256": "2306bda5df9f42d711fd67ad5f8d8164ce691183504bece05f6bea5e5ce06f53",
+  "wire_native_sha256": "df385b75f56a43922a62bb5d5f09ffbd27af2cee86096040e4d491998677b772",
+  "wiring_route_terminal_frame_records_exact": true,
+  "files": {
+    "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step": "baef3a225b45b709e11d00f07fab15f98458b11096ab1396d111294f09954b21",
+    "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step.mesh": "bdbbb86d32985260f096563b7fa733a64ec99e1204699aa6f5c9cf6b179066ac",
+    "hardware/cold-core-layout/cold-core-assembly.step": "f8abee782cb4483131839efa791101aaeb236795c5e32fd27b344e9a2eab8f50",
+    "hardware/cold-core-layout/cold-core-assembly.step.mesh": "c056f0de71d47c4fa460592d63a889247daf329580bdde8abf0afde0d70910a5",
+    "hardware/manifold-layout/enclosure-assembly.step": "e7e55c199893f12b8af8323ef9bf87bfeda92ec327c730ad49e09ba6f3098193",
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": "8623364e7b9841925e9970754704029ee3a40924b4afa33ab125f54bd7825935",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step": "0104fdeab9cb080db6f3f7a7cd5b99164d72ff9815de069c52d2300c7ef89452",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl": "0abb19105d0527899d5f48ed4c0dd33531c04b4715cdbb9bd4e9685e7a0318c1",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh": "c2bd08eec09fc4bee942cd86ddea0e38daf01ab7a033f3e70fab86a895c5d514",
+    "hardware/assembly/scenes/glb/cold-core.glb": "4ef30fbaec7b008c9d2c32360b1a806f3c4a67ad1be46ac1c5e5314a51f0f319",
+    "hardware/assembly/scenes/glb/cap-lid.glb": "d18f08cd3a61d257e9d769d599c0eb6c73dcd84781345f8b08d70304268ece0c",
+    "hardware/assembly/scenes/glb/back-half.glb": "b9ba31e706dd038bd8e599fa9269ee4410d010dfe134190cd34d95493cca1780",
+    "hardware/assembly/scenes/glb/cap-lid-fill.glb": "884eef31a5f87448eea1681608ebcedfa646cf9914fb2cad01fe00b7b6adae3b",
+    "hardware/assembly/scenes/glb/cold-core-open.glb": "5c310edea7242ea12c318cd0f60372da31c3ff7aa82eb922224acb7cc93c1ebb"
+  }
+}
