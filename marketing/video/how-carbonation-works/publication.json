@@ -1,5 +1,5 @@
 {
-  "title": "How Carbonation Works \u2014 Inside a Home Soda Machine",
+  "title": "How Carbonation Works — Inside a Home Soda Machine",
   "description": "Go inside a home soda machine to see how pressure, a narrow water jet, and refrigeration turn water into cold, carbonated water. This cutaway follows the Home Soda Machine design from the enclosure to its carbonator, copper evaporator, and faucet.\n\nExplore the machine and follow the build:\nhttps://homesodamachine.com\n\n0:00 Inside the machine\n0:20 Carbon dioxide enters the carbonator\n0:31 The water jet\n0:41 Mixing and dissolved carbon dioxide\n1:09 The copper cooling coil\n1:23 Back to the faucet\n\nEngineering visualization of a design in development. Fluid motion, bubble populations, and thermal graphics are illustrative. Narration generated with Gemini voice (Charon).",
   "descriptionFile": "youtube-description.txt",
   "video": "out/how-carbonation-works.mp4",
@@ -49,5 +49,23 @@
   "videoSha256": "a540f2dda17c4535ad58f439d97dc992322de828e83abdd5278d9b5a70858d1e",
   "thumbnailSha256": "b0eb44c984ebcbe2381067d3c6f9e2ac487758b64ccbebfd5946d48cf8363b99",
   "colorSpace": "BT.709",
-  "colorRange": "limited"
+  "colorRange": "limited",
+  "status": "published",
+  "visibility": "public",
+  "videoId": "fEWwkrJh5J4",
+  "url": "https://youtu.be/fEWwkrJh5J4",
+  "publishedDate": "2026-10-27",
+  "verifiedAt": "2026-10-27T15:54:08.836165+00:00",
+  "verification": {
+    "publicWatchPage": true,
+    "publicOEmbed": true,
+    "titleAndChannel": true,
+    "customThumbnail": true,
+    "maxResolution": "1080p",
+    "captions": "English",
+    "captionSource": "Uploaded timed SRT; English by you",
+    "captionCues": 40,
+    "aiLabel": true,
+    "copyrightCheck": "No issues found"
+  }
 }
