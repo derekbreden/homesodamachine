@@ -384,8 +384,8 @@
       "name": "reservoir-cap-left",
       "plate": 1,
       "source": "hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.step",
-      "step_sha256": "dfdb6d91a285e60ba67b3663c62d7f46e330e508ec9a162203fd887c05bcb72f",
-      "triangles": 17880,
+      "step_sha256": "66c7403d0853aaaa01fe22ad2f72748fea133ab4b8c9ebab3687aadfba25d917",
+      "triangles": 16832,
       "watertight": true,
       "body_count": 1,
       "print_orientation": "exterior face down",
@@ -428,8 +428,8 @@
       "name": "reservoir-cap-right",
       "plate": 2,
       "source": "hardware/printed-parts/cold-core/reservoir/reservoir-cap-right.step",
-      "step_sha256": "de2f54c2c34fab9ad171db2e656191b3cc23f08233398d48b5560842e0c2f2bc",
-      "triangles": 17578,
+      "step_sha256": "132cf18d1f5e2757f303f5eab102dd59589a25530bb3f46ab395990567b3463a",
+      "triangles": 16832,
       "watertight": true,
       "body_count": 1,
       "print_orientation": "exterior face down",
@@ -448,5 +448,5 @@
     }
   ],
   "scope": "Current CAD and declared no-ironing recipe. Historical water holds belong to their identified articles; physical outcomes belong to the print records.",
-  "project_sha256": "6963639743021f9eaae5d9ce500322f77124df25465ef735c119adbacf6446dd"
+  "project_sha256": "c62d7e4cd41e99b0798f14f29756984c95fe7056b9f5ad1378cde1e34ec66434"
 }

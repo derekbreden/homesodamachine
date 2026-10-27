@@ -97,7 +97,7 @@ The pump tubes come fitted in the prepared pumps and are not counted here. A bar
 construction, known stock length and exposed path.
 
 Each reservoir also has an independent, bidirectional air path: headspace →
-side-slotted splash baffle → 4 mm OD / 2.5 mm ID tube → equipment-space air
+flush TPU grommet → 4 mm OD / 2.5 mm ID tube → equipment-space air
 above the foam cap. Its dedicated printed passage keeps insulation off the
 tube. These two passive air tubes do not cross-connect the reservoirs or use
 any valve. [Reservoir air paths](/hardware/printed-parts/cold-core/reservoir/vent.md).

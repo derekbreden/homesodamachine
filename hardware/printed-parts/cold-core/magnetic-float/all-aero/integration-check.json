@@ -66,10 +66,10 @@
     "hardware/printed-parts/cold-core/_float_interface.py": "d2fc9c9029101bf471e06f81f9b1acbc4c6c841ba629e561fd9a33833319a72a",
     "hardware/printed-parts/cold-core/magnetic-float/all-aero/physical-observations.json": "98e0d6ff6279750202439dae0441767bab120295626a8fc0d4d3bd89f6e10e11",
     "hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step": "cd81ff529ce5d1fafef25744935ea798db8ae4ed898c1ed42b63b8d0be2ec00a",
-    "hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole-drawing.pdf": "7b1fe8c38f558ac50b50b6332eb7366310230237e6e2de468a406594aa792749",
+    "hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole-drawing.pdf": "3dfe1d422758bc4e3ee0ff65204573d68feaa81ecbf7611b575e192ffd6deb4b",
     "hardware/printed-parts/cold-core/reservoir/reservoir-right.step": "53bdb23481d31bbf030c496e27dffbc47273c5acf282db0f248e00c13ade753e",
-    "hardware/printed-parts/cold-core/reservoir/reservoir-cap-right.step": "de2f54c2c34fab9ad171db2e656191b3cc23f08233398d48b5560842e0c2f2bc",
+    "hardware/printed-parts/cold-core/reservoir/reservoir-cap-right.step": "132cf18d1f5e2757f303f5eab102dd59589a25530bb3f46ab395990567b3463a",
     "hardware/printed-parts/cold-core/reservoir/reservoir-left.step": "addefcf9f35e0298efb310b205bbc2b257a9de162b30700584d7454c9c36cdda",
-    "hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.step": "dfdb6d91a285e60ba67b3663c62d7f46e330e508ec9a162203fd887c05bcb72f"
+    "hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.step": "66c7403d0853aaaa01fe22ad2f72748fea133ab4b8c9ebab3687aadfba25d917"
   }
 }

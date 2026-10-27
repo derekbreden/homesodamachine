@@ -17,18 +17,28 @@ carries both mouths: the fill, and the dip tube the draw line becomes.
 The 4 mm lid plate carries matched 45° countersinks for flush TPU spools:
 two 1/4-inch tube grips and one 4 mm air-tube grip per reservoir. Each air
 tube passes through its own integral foam-cap passage and opens 6 mm above
-the insulation. [Air tubes and splash baffles](vent.md) ·
+the insulation. [Open air tubes and grommets](vent.md) ·
 [Tube insertion and grip](floor-and-dip-tube.md).
 
 Print four [liquid-tube grips](reservoir-tube-grip.step) and two
 [air-tube grips](reservoir-air-grip.step) in TPU 90A per machine. The
 [approved review](tube-vent-proposal/README.md) defines their geometry;
-printed grip and splash performance remain unqualified. Frozen print archives
+printed grip remains unqualified. Frozen print archives
 retain the geometry of their tested articles. A fresh lid slice is required
 for these countersunk ports.
 
 The [native integration check](tube-grip-integration.json) records the flush
 seats, open air paths, casing clearance and unchanged body geometry.
+
+## Current lid pair
+
+The [left/right open-port lids](prints/2026-10-26-mark1-lids-flush-grips-no-supports/README.md)
+are accepted as **Mark1 task 1379263645**, starting **23:52:01 CDT October 26**
+on A3 through the left 0.8 mm nozzle. Each lid has two liquid-tube grommet
+seats and one smaller air-tube grommet seat, open through the plate. The
+4 mm air tube opens directly into the headspace. Supports are Off for this
+lid-only plate. Native estimate: **1 h 38 min 9 s, 118.64 g, 46 layers**.
+The emitted toolpaths leave all six tube-port cores clear.
 
 ## 50% overlap prints
 
@@ -37,18 +47,20 @@ turned out well and is **holding water so far**, as reported by Derek.
 Completion is FINISH 833/833 with no error/HMS. Duration, water head and
 cap/gasket assembly sealing are unspecified.
 
-The [right reservoir and current matching lid](prints/2026-10-26-mark1-right-engineering-flow105-overlap50-temp260-left08-z000/README.md)
-are running as **Mark1 task 1378532609**, with **50% overlap** and every other
+The [right reservoir and its matching lid at launch](prints/2026-10-26-mark1-right-engineering-flow105-overlap50-temp260-left08-z000/README.md)
+completed as **Mark1 task 1378532609**, with **50% overlap** and every other
 saved setting retained from the left article. Use **255/260 °C**, glued
 **Engineering Plate**, fixed **left 0.8 mm Standard**, A2 with Auto Refill,
 zero added/effective Z trim and ironing Off. Native estimate: **5 h 41 min,
-443.37 g, 833 layers**. Startup has no error/HMS. Physical right-article water
-holding and current flush-grip lid fit are unassessed.
+443.37 g, 833 layers**. Completion is FINISH 833/833 with no error/HMS. The
+[printed-lid report](prints/2026-10-26-mark1-right-engineering-flow105-overlap50-temp260-left08-z000/physical-result/lid-port-supports.json)
+records support through the air opening beneath its baffle. Right-article
+water holding and TPU fit remain unassessed.
 
 The [two-hour leak report](water-hold-evidence/2026-10-26-two-hour-leak/physical-result.json)
 retains its unconfirmed task identity and reported floor-fill/wall location.
 The 50% left trial retains its saved earlier-port lid. The right print includes
-the current matching lid with flush TPU-grip ports. Earlier observations
+its matching flush-grip lid with a baffle beneath the air port. Earlier observations
 retain their identified article and recipe scope.
 
 ## Recorded Engineering Plate left reservoir and lid

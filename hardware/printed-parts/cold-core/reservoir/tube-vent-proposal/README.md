@@ -40,11 +40,9 @@ passage keeps pour foam off the tubing. Its 0.6 mm radial tube clearance is
 independent of the TPU grip at the reservoir lid.
 
 The air insert has a 6 mm waist, 8 mm flares and a 3.9 mm bore, with 0.3 mm
-entry chamfers opening to 4.5 mm. A closed-bottom, four-slot splash baffle is
-integral with the lid below it: 13 mm OD, 9 mm ID, 3 mm total drop, 1 mm floor,
-and 3 × 2 mm side slots. The tube tip ends 1 mm above that floor. The open
-9 mm chamber clears the TPU's lower flare. These short straight tubes need
-no bends, fittings, separate sleeves or added fasteners.
+entry chamfers opening to 4.5 mm. The air seat is open through the lid. The
+tube opens directly into the headspace 1 mm below the plate. These short straight tubes need no bends, fittings,
+separate sleeves or added fasteners.
 
 ## Fit evidence
 
@@ -52,8 +50,7 @@ no bends, fittings, separate sleeves or added fasteners.
 appliance assembly, including its wiring and other tube runs. Candidate solids
 are valid; each lid and the modified foam cup remains one solid. The lid/body
 and lid/gasket intersections are zero. The B-fill stem clears the PETG and has
-the intended small interference with its compliant TPU bore. The new baffles
-remain 4 mm above the float's highest upright position.
+the intended small interference with its compliant TPU bore. The tube seats remain above the float's highest upright position.
 
 The A air tube clears the water pump by 4.637 mm. B clears the nearest liquid
 line by 4.389 mm. Both air tubes clear their proposed casing passages by 0.6 mm.
@@ -62,7 +59,7 @@ meshes of those same candidate solids. The pump's display mesh has its own
 [provenance record](pump-display-provenance.json); native B-rep, rather than
 display triangles, supplies the fit clearances.
 
-Printed grip, insertion feel, splash performance and installed airflow remain
+Printed grip, insertion feel and installed airflow remain
 unmeasured. These previews establish nominal geometry and assembly clearance.
 
 ## Reproduce the review

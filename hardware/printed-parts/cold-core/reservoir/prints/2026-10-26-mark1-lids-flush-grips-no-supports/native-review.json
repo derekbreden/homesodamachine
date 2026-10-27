@@ -1,0 +1,117 @@
+{
+  "native_archive": ".cache/reservoir-lids-clear-ports-20261026/open-ports-native.gcode.3mf",
+  "native_archive_sha256": "7a27b39a3456f3d1951152a253b2928ee1f34a823b593f68cdc0bde3d069e550",
+  "gcode_sha256": "fb030056631b51e79b54f5e4d89f1fe10d0d5f15448ab1dc92338ea13de63801",
+  "embedded_md5_verified": true,
+  "parts": [
+    {
+      "identify_id": "350",
+      "name": "reservoir-cap-left",
+      "skipped": "false"
+    },
+    {
+      "identify_id": "372",
+      "name": "reservoir-cap-right",
+      "skipped": "false"
+    }
+  ],
+  "layer_count": 46,
+  "estimate_seconds": 5889,
+  "estimate_weight_g": 118.64,
+  "support_features": 0,
+  "port_core_deposited_bead_intersections": {
+    "left-air": 0,
+    "left-fill": 0,
+    "left-draw": 0,
+    "right-air": 0,
+    "right-fill": 0,
+    "right-draw": 0
+  },
+  "port_centres_bed_xy_mm": {
+    "left-air": [
+      107.76909446716309,
+      192.5
+    ],
+    "left-fill": [
+      119.26909446716309,
+      116.5
+    ],
+    "left-draw": [
+      115.46909446716309,
+      150.5
+    ],
+    "right-air": [
+      235.2309055328369,
+      186.0
+    ],
+    "right-fill": [
+      217.7309055328369,
+      217.5
+    ],
+    "right-draw": [
+      199.4309055328369,
+      205.0
+    ]
+  },
+  "port_probe_radii_mm": {
+    "air": 2.35,
+    "liquid": 3.5
+  },
+  "arc_sampling_chord_length_max_mm": 0.1,
+  "minimum_full_bead_bed_inset_mm": 80.519003,
+  "model_full_bead_bounds_xy_mm": [
+    [
+      80.519003,
+      89.750003
+    ],
+    [
+      244.480997,
+      230.249997
+    ]
+  ],
+  "deposited_moves": 164438,
+  "z_trim_commands": [
+    "G29.1 Z0 ; clear z-trim value first",
+    "G29.1 Z0"
+  ],
+  "plate": "Engineering Plate",
+  "hotend": "left 0.8 mm Standard",
+  "global_export_metadata_differences": {
+    "curr_bed_type": {
+      "saved": "Engineering Plate",
+      "exported": "Textured PEI Plate"
+    },
+    "extruder_ams_count": {
+      "saved": [
+        "1#0|4#1",
+        "1#0|4#0"
+      ],
+      "exported": [
+        "1#0|4#0",
+        "1#0|4#0"
+      ]
+    },
+    "filament_map_mode": {
+      "saved": "Manual",
+      "exported": "Auto For Flush"
+    },
+    "filament_settings_id": {
+      "saved": [
+        "Reservoir May Water Clear 260C Flow1.05"
+      ],
+      "exported": [
+        "Reservoir May Water Clear 260C Flow1.05(reservoir-lids-open-airport-nosupport.3mf)"
+      ]
+    },
+    "print_settings_id": {
+      "saved": "Reservoir lids 0.8 - flush grips no supports",
+      "exported": "Reservoir lids 0.8 - flush grips no supports(reservoir-lids-open-airport-nosupport.3mf)"
+    },
+    "printer_settings_id": {
+      "saved": "Bambu Lab H2C 0.8 Standard PETG zero Z trim",
+      "exported": "Bambu Lab H2C 0.8 nozzle"
+    }
+  },
+  "metadata_scope": "Selected plate and emitted G-code are Engineering; actual left-nozzle selection and zero Z trim are checked. Other saved process values match.",
+  "scope": "Native slice verifies six open port cores through the complete print height and zero generated supports. Physical finish and TPU fit remain unassessed."
+}

@@ -1,0 +1,17 @@
+{
+  "source_archive": ".cache/reservoir-lids-clear-ports-20261026/open-ports-native.gcode.3mf",
+  "source_archive_sha256": "7a27b39a3456f3d1951152a253b2928ee1f34a823b593f68cdc0bde3d069e550",
+  "print_only_archive": ".cache/reservoir-lids-clear-ports-20261026/2026-10-26-reservoir-lids-open-airports-no-support-left08-z000-a3-mark1.gcode.3mf",
+  "print_only_archive_sha256": "8f0c722a389b2d3dc0c4edff479b24fdc66bdbefb06ead3170104700676e9eef",
+  "gcode_sha256": {
+    "Metadata/plate_1.gcode": "fb030056631b51e79b54f5e4d89f1fe10d0d5f15448ab1dc92338ea13de63801"
+  },
+  "gcode_byte_identical": true,
+  "changed_container_entries": [
+    "3D/3dmodel.model",
+    "Metadata/model_settings.config"
+  ],
+  "omitted_editable_geometry_entries": [
+    "Metadata/cut_information.xml"
+  ]
+}

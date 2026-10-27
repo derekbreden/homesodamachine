@@ -4,17 +4,22 @@
     "reservoir-cap-right.step": {
       "valid": true,
       "solids": 1,
-      "approved_preview_symmetric_difference_mm3": 0.23794003362455313,
-      "seat_cleanup": {
-        "added_mm3": 0.23794003362455313,
-        "removed_mm3": 0.0,
-        "reason": "The seat ends at the plate underside; a 0.1 mm cutting overshoot no longer recesses the perimeter lip below the lower TPU face."
-      }
+      "open_air_port_probe_diameter_mm": 5.8,
+      "open_air_port_probe_z_mm": [
+        1,
+        11
+      ],
+      "probe_intersection_mm3": 0.0
     },
     "reservoir-cap-left.step": {
       "valid": true,
       "solids": 1,
-      "approved_preview_symmetric_difference_mm3": 0.0
+      "open_air_port_probe_diameter_mm": 5.8,
+      "open_air_port_probe_z_mm": [
+        1,
+        11
+      ],
+      "probe_intersection_mm3": 0.0
     },
     "reservoir-tube-grip.step": {
       "valid": true,
@@ -48,25 +53,25 @@
       "tube_length_mm": 31.25,
       "cup_clearance_mm": 0.5999999999999943,
       "casing_lid_clearance_mm": 0.5999999999999943,
-      "headspace_to_open_air_witness_minimum_clearance_mm": 0.5,
       "top_pride_mm": 6.0,
-      "tube_tip_above_baffle_floor_mm": 1.0,
       "grip_top_and_bottom_flush_z_mm": [
         209.15,
         213.15
-      ]
+      ],
+      "tube_tip_below_lid_mm": 1.0,
+      "headspace_opening": "Tube tip opens directly into the headspace through the TPU grommet."
     },
     "b": {
       "tube_length_mm": 31.25,
       "cup_clearance_mm": 0.5999999999999943,
       "casing_lid_clearance_mm": 0.5999999999999927,
-      "headspace_to_open_air_witness_minimum_clearance_mm": 0.5,
       "top_pride_mm": 6.0,
-      "tube_tip_above_baffle_floor_mm": 1.0,
       "grip_top_and_bottom_flush_z_mm": [
         209.15,
         213.15
-      ]
+      ],
+      "tube_tip_below_lid_mm": 1.0,
+      "headspace_opening": "Tube tip opens directly into the headspace through the TPU grommet."
     }
   },
   "body_geometry_unchanged": {
@@ -76,11 +81,11 @@
   "sha256": {
     "hardware/printed-parts/cold-core/reservoir/reservoir-air-grip.step": "0c6458a2fb7245ed078c0bac7f2b4cfa48d39e153f9a028a6c76c25df654170d",
     "hardware/printed-parts/cold-core/reservoir/reservoir-tube-grip.step": "06e1ff34d5355fcbb44e0f0fcef30394c870e9ccaa09ec04e3a9aa6c655db680",
-    "hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.step": "dfdb6d91a285e60ba67b3663c62d7f46e330e508ec9a162203fd887c05bcb72f",
-    "hardware/printed-parts/cold-core/reservoir/reservoir-cap-right.step": "de2f54c2c34fab9ad171db2e656191b3cc23f08233398d48b5560842e0c2f2bc",
+    "hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.step": "66c7403d0853aaaa01fe22ad2f72748fea133ab4b8c9ebab3687aadfba25d917",
+    "hardware/printed-parts/cold-core/reservoir/reservoir-cap-right.step": "132cf18d1f5e2757f303f5eab102dd59589a25530bb3f46ab395990567b3463a",
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step": "9f7c1b28119278b14db56401f7c73e695a06d7965c3f335478727eedb3e820ce",
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step": "e024cf5faf3e03603835e3b3af8004b187322a6376c4094a6b42b2cae11e0e11",
-    "hardware/printed-parts/cold-core/_reservoir_ports.py": "b35bb9e11aa7b28290d04b88162b0f70de30bc49d3b6c06c86db6d454ae0c139"
+    "hardware/printed-parts/cold-core/_reservoir_ports.py": "bd659d71bf7f0be2c1e447e450129ee6f1ac9b406b9a1ca183c6ad38885b626a"
   },
   "design_approval": {
     "quote": "This all looks perfect. Please implement all of this.",
@@ -88,36 +93,17 @@
     "scope": "Approval of the displayed geometry; no printed grip or airflow result."
   },
   "surface_review": {
-    "stage": "Post-publish inspection and seat cleanup; no automatic gate added.",
-    "pieces": [
-      "reservoir-cap-left.stl",
-      "reservoir-cap-right.stl",
-      "reservoir-tube-grip.stl",
-      "reservoir-air-grip.stl",
-      "../foam-cap/foam-cap-top.stl",
-      "../foam-cap/foam-cap-lid-top.stl"
-    ],
-    "print_pose_correction": "Both reservoir caps print exterior face down, as emitted by prepare_print.py. The lint now uses that existing production pose.",
-    "corrected_geometry": "The air-seat tool stops at the plate underside rather than cutting a 0.1 mm recess into reservoir A\u2019s perimeter lip.",
-    "intentional_features": [
-      "Matched 45-degree compliant TPU flange tapers and the 1.4 mm liquid-grip waist.",
-      "The reviewed 1 mm baffle floor bridges its 9 mm chamber.",
-      "The lower air-grip mating land is coplanar with the plate underside."
-    ],
+    "stage": "Plain open-port lids; final printed surface and TPU fit remain unqualified.",
+    "supports": "Off for the lid-only print. Matched 45-degree grommet seats are retained. Screw-head seats bridge their clearance bores.",
     "answers": "hardware/printed-parts/lint-answers/cold-core/reservoir/",
-    "retained_existing_scope": "The rod register, six screw-head seats and previously recorded casing sections retain their interfaces. Their physical strength and lifetime are not established by this port change.",
-    "casing_lint": {
-      "foam-cap-top": {
-        "ranked_thin_findings": 15,
-        "other_open_classes": 0
-      },
-      "foam-cap-lid-top": {
-        "ranked_findings": 21,
-        "answered_face_findings": 9,
-        "other_open_classes": 0
-      },
-      "scope": "Existing casing feature answers retained; the new straight air columns use the approved 2 mm wall section."
-    },
-    "physical_limit": "TPU insertion, grip, printed baffle finish, splash protection and installed airflow remain unqualified."
+    "physical_limit": "TPU insertion, grip and installed airflow remain unqualified."
+  },
+  "current_air_port": {
+    "tube_od_mm": 4,
+    "tube_id_mm": 2.5,
+    "tpu_grip_bore_mm": 3.9,
+    "grommet_retained": true,
+    "baffle": false,
+    "derek_quote": "Just remove the baffle"
   }
 }

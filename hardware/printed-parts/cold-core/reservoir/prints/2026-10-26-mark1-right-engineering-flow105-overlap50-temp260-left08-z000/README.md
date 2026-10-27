@@ -44,3 +44,14 @@ holding remain unassessed.
 Derek:
 
 > All right, that reservoir print turned out well. It's holding water so far. So now that we've got that side, left I guess it was, with a 50% overlap, I'd like to get the other side, right side, with a 50% overlap, or whatever the other side is that you didn't just print. Mark one is available, plate is glued and ready.
+
+## Printed lid opening
+
+Derek's [lid photograph and slice diagnosis](physical-result/lid-port-supports.json)
+show two liquid holes open while the air opening appears filled or backed.
+The retained native slice places tree supports through the air port to reach
+the closed baffle floor. Its model geometry has the updated countersinks;
+the obstruction is generated support and the floor behind it.
+
+The [replacement lid pair](../2026-10-26-mark1-lids-flush-grips-no-supports/README.md)
+has a plain open air port, retains the TPU grommet and uses supports Off.

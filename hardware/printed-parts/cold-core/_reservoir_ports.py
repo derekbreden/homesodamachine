@@ -15,12 +15,6 @@ air_tube_above_casing = 6.0
 air_tube_below_lid = 1.0
 air_passage_diameter = 5.2
 air_passage_wall = 2.0
-baffle_od = 13.0
-baffle_id = 9.0
-baffle_drop = 3.0
-baffle_floor = 1.0
-baffle_slot_width = 3.0
-baffle_slot_height = 2.0
 
 
 def cylinder(xy, z0, z1, diameter):
@@ -55,20 +49,6 @@ def build_grommet(specification, xy=(0.0, 0.0), z0=0.0):
         cq.Solid.makeCone(radius, lead_radius, lead_height,
                          cq.Vector(*xy, z1 - lead_height)))
     return spool_envelope(xy, z0, specification).cut(opening).clean()
-
-
-def build_baffle(xy, lid_underside_z):
-    """Closed floor and four side slots; the 9mm chamber clears the lower flare."""
-    floor_z = lid_underside_z - baffle_drop
-    slots_z = floor_z + baffle_floor
-    shell = cylinder(xy, floor_z, lid_underside_z + .01, baffle_od).cut(
-        cylinder(xy, slots_z, lid_underside_z + .1, baffle_id))
-    x, y = xy
-    for angle in (0, 90, 180, 270):
-        slot = cq.Solid.makeBox(10.0, baffle_slot_width, baffle_slot_height,
-            cq.Vector(x, y - baffle_slot_width / 2, slots_z))
-        shell = shell.cut(slot.rotate((x, y, 0), (x, y, 1), angle))
-    return shell.clean()
 
 
 def build_air_tube(side, lid_underside_z, casing_face_z):

@@ -1,0 +1,47 @@
+{
+  "job_id": "1378532609",
+  "observed_on_central": "2026-10-26",
+  "photo": "lid-ports-photo-1.jpg",
+  "photo_sha256": "966acb93672e6379ec957ea5c5c31747ffce02a8d53a55ba371229e6a67bc4fe",
+  "derek_quote": "I thought you said that last reservoir print had your changes, but I only see two holes in the lid here. I was expecting a third smaller hole.",
+  "visible_observation": "Two liquid ports look open; the air-port region appears filled or backed. The photograph alone does not distinguish supports from the baffle floor.",
+  "native_source": ".cache/reservoir-right-overlap50-20261026/right-pair-native.gcode.3mf",
+  "gcode_sha256": "fda5099ee55a0491cab5f0a7c2a96c79d918776657cb65ea70e301c228ed867c",
+  "air_port_toolpaths": {
+    "bed_xy_mm": [
+      148.2309055328369,
+      186.0
+    ],
+    "features_inside_opening": {
+      "Support": {
+        "moves": 952,
+        "z_min": 0.3,
+        "z_max": 5.34
+      },
+      "Support interface": {
+        "moves": 11,
+        "z_min": 5.58,
+        "z_max": 5.82
+      },
+      "Bridge": {
+        "moves": 18,
+        "z_min": 6.3,
+        "z_max": 6.3
+      },
+      "Internal solid infill": {
+        "moves": 46,
+        "z_min": 6.54,
+        "z_max": 6.78
+      },
+      "Top surface": {
+        "moves": 23,
+        "z_min": 7.02,
+        "z_max": 7.02
+      }
+    },
+    "model_moves_inside_opening_below_plate_top": 0
+  },
+  "diagnosis": "The current-lid model was used. Generated support occupies the air opening from Z0.30 to Z5.82 to support the closed baffle floor. No model extrusion closes the core through the plate itself.",
+  "derek_followup": "Just remove the baffle",
+  "scope": "Printed lid report and native slice. No TPU grip or water-hold acceptance is inferred."
+}

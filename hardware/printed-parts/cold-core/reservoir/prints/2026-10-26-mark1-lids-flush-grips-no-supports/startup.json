@@ -1,0 +1,15 @@
+{
+  "observed_at_utc": "2026-10-27T04:53:39.223001+00:00",
+  "job_id": "1379263645",
+  "subtask_name": "Reservoir_lids_-_open_air_ports_and_TPU_seats",
+  "gcode_state": "RUNNING",
+  "layer_num": 0,
+  "total_layer_num": 46,
+  "print_error": 0,
+  "hms": [],
+  "nozzle_temper": 181.0,
+  "nozzle_target_temper": 180.0,
+  "bed_temper": 39.0,
+  "bed_target_temper": 39.0,
+  "scope": "Fresh printer telemetry; visual deposition and adhesion are not assessed."
+}

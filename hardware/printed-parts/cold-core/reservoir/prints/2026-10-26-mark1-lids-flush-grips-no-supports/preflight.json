@@ -1,0 +1,153 @@
+{
+  "Mark2": {
+    "observed_at_utc": "2026-10-27T04:48:03.700140+00:00",
+    "job_id": "1379240291",
+    "subtask_name": "2026-10-26-tube-and-cable-snaps-wall9-cooled-mark2-2179a771.gcode.3mf",
+    "gcode_state": "RUNNING",
+    "print_error": 0,
+    "hms": [],
+    "layer_num": 8,
+    "total_layer_num": 107,
+    "nozzle_temper": 281.0,
+    "nozzle_target_temper": 280.0,
+    "bed_temper": 80.0,
+    "bed_target_temper": 80.0
+  },
+  "Mark1": {
+    "observed_at_utc": "2026-10-27T04:48:03.143077+00:00",
+    "job_id": "1378532609",
+    "subtask_name": "Right_reservoir_and_cap_-_PETG_0.24_mm_overlap50",
+    "gcode_state": "FINISH",
+    "print_error": 0,
+    "hms": [],
+    "layer_num": 833,
+    "total_layer_num": 833,
+    "nozzle_temper": 38.0,
+    "nozzle_target_temper": 0.0,
+    "bed_temper": 41.0,
+    "bed_target_temper": 0.0,
+    "ams_slots": [
+      {
+        "slot": "A1",
+        "tray_type": null,
+        "tray_info_idx": null,
+        "tray_color": null,
+        "remain": null
+      },
+      {
+        "slot": "A2",
+        "tray_type": null,
+        "tray_info_idx": null,
+        "tray_color": null,
+        "remain": null
+      },
+      {
+        "slot": "A3",
+        "tray_type": "PETG",
+        "tray_info_idx": "GFG01",
+        "tray_color": "00000000",
+        "remain": 73
+      },
+      {
+        "slot": "A4",
+        "tray_type": "PETG",
+        "tray_info_idx": "GFG01",
+        "tray_color": "00000000",
+        "remain": 100
+      }
+    ],
+    "nozzles": [
+      {
+        "id": 18,
+        "diameter": 0.4,
+        "type": "HS01"
+      },
+      {
+        "id": 1,
+        "diameter": 0.8,
+        "type": "HS01"
+      },
+      {
+        "id": 17,
+        "diameter": 0.2,
+        "type": "HS00"
+      },
+      {
+        "id": 0,
+        "diameter": 0.2,
+        "type": "HS00"
+      },
+      {
+        "id": 19,
+        "diameter": 0.8,
+        "type": "HS01"
+      }
+    ]
+  },
+  "shared_circuit": {
+    "other_printer": "Mark2",
+    "job_id": "1379240291",
+    "first_same_active_task_observed_at_utc": "2026-10-27T04:48:03.700140+00:00",
+    "final_observed_at_utc": "2026-10-27T04:51:21.885935+00:00",
+    "elapsed_seconds": 198.185684,
+    "minimum_seconds": 180
+  },
+  "Mark1_final": {
+    "observed_at_utc": "2026-10-27T04:51:23.079515+00:00",
+    "job_id": "1378532609",
+    "subtask_name": "Right_reservoir_and_cap_-_PETG_0.24_mm_overlap50",
+    "gcode_state": "FINISH",
+    "print_error": 0,
+    "hms": [],
+    "layer_num": 833,
+    "total_layer_num": 833,
+    "mc_percent": 100,
+    "mc_remaining_time": 0,
+    "nozzle_temper": 38.0,
+    "nozzle_target_temper": 0.0,
+    "bed_temper": 40.0,
+    "bed_target_temper": 0.0,
+    "ams_slots": [
+      {
+        "slot": "A1",
+        "tray_type": null,
+        "tray_color": null,
+        "tray_info_idx": null,
+        "remain": null
+      },
+      {
+        "slot": "A2",
+        "tray_type": null,
+        "tray_color": null,
+        "tray_info_idx": null,
+        "remain": null
+      },
+      {
+        "slot": "A3",
+        "tray_type": "PETG",
+        "tray_color": "00000000",
+        "tray_info_idx": "GFG01",
+        "remain": 73
+      },
+      {
+        "slot": "A4",
+        "tray_type": "PETG",
+        "tray_color": "00000000",
+        "tray_info_idx": "GFG01",
+        "remain": 100
+      }
+    ]
+  },
+  "send_dialog": {
+    "printer": "Mark1",
+    "plate": "Engineering",
+    "selected_slot": "A3 PETG L",
+    "auto_refill_visible": true,
+    "Timelapse": "On",
+    "Auto Bed Leveling": "On",
+    "Flow Dynamics Calibration": "Auto",
+    "Nozzle Offset Calibration": "Auto",
+    "source": "cua_repl Send print job screenshot",
+    "job_title": "reservoir-lids-open-airport-nosupport_Left and right lids - open air ports"
+  }
+}

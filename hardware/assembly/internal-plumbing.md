@@ -449,6 +449,6 @@ stem elbow; A-fill extends 1 mm through the flat lid into the headspace.
 
 Cut two nominal 31.25 mm pieces of white 4 mm OD / 2.5 mm ID LLDPE. Feed each
 through its dedicated foam-cap passage and air grip, leaving 6 mm above the
-outer cap face. Its lower end stands 1 mm above the baffle floor. Each air
+outer cap face. Its lower end stands 1 mm below the reservoir plate. Each air
 path is open in both directions and independent of the other reservoir.
 [Installation and dimensions](/hardware/printed-parts/cold-core/reservoir/vent.md).
