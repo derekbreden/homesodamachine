@@ -43,81 +43,17 @@ class BLEManager {
     /// always in range.
     var linked: Bool { connectionState == .connected }
 
-    // Config state (synced from ESP32 via S3 bridge). Read once per session;
-    // the values themselves are the record's.
-    var configSynced = false
-    var flavor1Image: Int {
-        get { current?.config.flavor1Image ?? 0 }
-        set { current?.config.flavor1Image = newValue; directory.touch() }
-    }
-    var flavor2Image: Int {
-        get { current?.config.flavor2Image ?? 1 }
-        set { current?.config.flavor2Image = newValue; directory.touch() }
-    }
-    var flavor1Ratio: Int {
-        get { current?.config.flavor1Ratio ?? 20 }
-        set { current?.config.flavor1Ratio = newValue; directory.touch() }
-    }
-    var flavor2Ratio: Int {
-        get { current?.config.flavor2Ratio ?? 20 }
-        set { current?.config.flavor2Ratio = newValue; directory.touch() }
-    }
-    var numImages: Int {
-        get { current?.config.numImages ?? 0 }
-        set { current?.config.numImages = newValue; directory.touch() }
-    }
-
-    // Image list and cached images
-    var imageNames: [String] {
-        get { current?.config.imageNames ?? [] }
-        set { current?.config.imageNames = newValue; directory.touch() }
-    }
-    var cachedImages: [Int: UIImage] {
-        get { current?.cachedImages ?? [:] }
-        set { current?.cachedImages = newValue }
-    }
-    var imageDownloadProgress: Double? = nil  // nil = not downloading
-
-    // Upload state
-    var uploadProgress: Double? = nil  // nil = not uploading
-    var uploadStatus: String = ""
-    var uploadQueue: [UploadQueueItem] = []
-    var activeUploadImage: UIImage? = nil
-    var activeUploadSlot: Int = -1
-
-    struct UploadQueueItem: Identifiable {
-        let id = UUID()
-        let image: UIImage
-    }
-
-    // Firmware versions (populated by GET_VERSION response)
-    var s3Version: String {
-        get { current?.prototypeVersions.s3 ?? "" }
-        set { current?.prototypeVersions.s3 = newValue; directory.touch() }
-    }
-    var espVersion: String {
-        get { current?.prototypeVersions.esp ?? "" }
-        set { current?.prototypeVersions.esp = newValue; directory.touch() }
-    }
-    var rpVersion: String {
-        get { current?.prototypeVersions.rp ?? "" }
-        set { current?.prototypeVersions.rp = newValue; directory.touch() }
-    }
-
-    // Factory reset completion signal (toggled on OK:FACTORY_RESET)
-    var factoryResetCompleted = false
-
-    // Delete error (shown as alert in UI, nil = no error)
-    var deleteError: String? = nil
-
-    // Clean cycle state
-    var cleanCycleActive = false
-    var cleanCyclePhase: String? = nil   // "Filling... (1/3)", "Flushing... (2/3)", nil
-    var cleanCycleCompleted = false
-
-    // Prime state
-    var primeActive = false
-    var primeFlavor: Int = 0  // 1 or 2
+    // ── The bridge to the main board (MachineBridge.swift) ───────────────
+    /// What the faucet said it carries, answering IDENTITY on this link; nil
+    /// until it has.
+    var bridgeVersion: Int?
+    /// The faucet answered IDENTITY and said nothing about a bridge: its
+    /// software predates it.
+    var bridgeMissing = false
+    @ObservationIgnored var bridgeNextID: UInt8 = 0
+    @ObservationIgnored var bridgeWaiting: [UInt8: CheckedContinuation<Result<BridgeAnswer, BridgeError>, Never>] = [:]
+    /// The demo's run in progress (DemoMachine.swift).
+    @ObservationIgnored var demoRunTask: Task<Void, Never>?
 
     // The demo: a machine that is always in range and never existed.
     var demoMode: Bool { current?.isDemo ?? false }
@@ -134,6 +70,8 @@ class BLEManager {
         set { current?.flavorArt = newValue; directory.touch() }
     }
     var imageQueue: [QueuedImage] = []
+    /// The last picture that did not reach the machine, kept for Try again.
+    var failedImage: QueuedImage?
     // A read-back in flight, and the crcs already asked for, so a face is
     // fetched once ever rather than once per state frame.
     /// Faces by the crc32 of the picture they belong to, on the record.
@@ -255,65 +193,7 @@ class BLEManager {
     /// those is a prototype.
     var isAppliance: Bool { current?.model == .appliance }
 
-    // Chart data: laid out on the record from its usage reading. Read once
-    // per session; `chartDataSynced` says this session has.
-    var chartData24H: [[Double]] {
-        current?.chartData24H ?? [Array(repeating: 0, count: 24), Array(repeating: 0, count: 24)]
-    }
-    var chartData30D: [[Double]] {
-        current?.chartData30D ?? [Array(repeating: 0, count: 30), Array(repeating: 0, count: 30)]
-    }
-    var chartDataHOD: [[Double]] {
-        current?.chartDataHOD ?? [Array(repeating: 0, count: 24), Array(repeating: 0, count: 24)]
-    }
-    var chartDataHODDays: Int { current?.chartDataHODDays ?? 1 }
-    var chartDataSynced: Bool = false
-
-    /// A reading being assembled, hour by hour, until CHART_CUR closes it.
-    @ObservationIgnored fileprivate var rawHourlyData: [[HourBucket]] = [[], []]
-    @ObservationIgnored fileprivate var currentSeqHour: UInt32 = 0
-    @ObservationIgnored fileprivate var chartCurReceived: Int = 0
-
-    // Usage statistics (used by pie chart)
-    struct FlavorStats {
-        var monthFlowSum: UInt32 = 0
-    }
-    var flavor1Stats: FlavorStats { FlavorStats(monthFlowSum: current?.monthFlowSum[0] ?? 0) }
-    var flavor2Stats: FlavorStats { FlavorStats(monthFlowSum: current?.monthFlowSum[1] ?? 0) }
-    var statsSynced = false
-
     // ── Internal state (not observed by SwiftUI) ──
-
-    @ObservationIgnored fileprivate var pendingImageList: [String] = []
-    @ObservationIgnored fileprivate var pendingCRCs: [Int: UInt32] = [:]  // from LIST response
-
-    // Pending delete state (for optimistic UI rollback)
-    @ObservationIgnored fileprivate var pendingDeleteSlot: Int = -1
-    @ObservationIgnored fileprivate var preDeleteNumImages: Int = 0
-    @ObservationIgnored fileprivate var preDeleteCachedImages: [Int: UIImage] = [:]
-    @ObservationIgnored fileprivate var preDeleteImageNames: [String] = []
-
-    // Image upload state
-    @ObservationIgnored fileprivate var isUploading = false
-    @ObservationIgnored fileprivate var uploadSlot: Int = -1
-    @ObservationIgnored fileprivate var uploadLabel: String = ""
-    @ObservationIgnored fileprivate var uploadSteps: [(type: String, data: Data)] = []
-    @ObservationIgnored fileprivate var currentUploadStep = 0
-    @ObservationIgnored fileprivate var uploadBytesSent = 0
-    @ObservationIgnored fileprivate var uploadQueueTotal = 0
-    @ObservationIgnored fileprivate var uploadImageRef: UIImage?
-
-    // Image download state
-    @ObservationIgnored fileprivate var imgDownloadSlot: Int = -1
-    @ObservationIgnored fileprivate var imgDownloadData = Data()
-    @ObservationIgnored fileprivate var imgDownloadExpected: Int = 0
-    @ObservationIgnored fileprivate var imgDownloadCRC: UInt32 = 0
-    @ObservationIgnored fileprivate var imgDownloadRetries: Int = 0
-    @ObservationIgnored fileprivate var imgDownloadQueue: [Int] = []
-    @ObservationIgnored fileprivate var isDownloading = false
-    @ObservationIgnored fileprivate var binStartReceived = false
-    @ObservationIgnored fileprivate var pendingStatsRequest = false
-    @ObservationIgnored fileprivate var chartRetryTimer: DispatchWorkItem?
 
     // GATT/NUS state
     @ObservationIgnored fileprivate var nusReady = false
@@ -352,26 +232,12 @@ class BLEManager {
     }
 
     /// Called when the app returns to foreground after being backgrounded.
-    /// Restarts scanning if not connected (iOS silently stops scans while
-    /// backgrounded), and resets stale transfer state if connected (downloads
-    /// interrupted by backgrounding leave isDownloading stuck true, blocking
-    /// subsequent stats requests).
+    /// Restarts scanning if not connected: iOS silently stops scans while
+    /// backgrounded.
     func handleReturnToForeground() {
         guard !demoMode, centralManager != nil else { return }
 
-        if connectionState == .connected {
-            guard isDownloading else { return }
-            // Download was interrupted by backgrounding — the S3 stopped
-            // sending while we were suspended. Clear the dead transfer so
-            // requestStatsAndCharts() isn't blocked by isDownloading.
-            imgDownloadQueue = []
-            imgDownloadData = Data()
-            imgDownloadSlot = -1
-            binStartReceived = false
-            isDownloading = false
-            imageDownloadProgress = nil
-            pendingStatsRequest = false
-        } else if connectionState == .searching || connectionState == .searchingLong, current != nil {
+        if connectionState == .searching || connectionState == .searchingLong, current != nil {
             // Looking: iOS may have stopped the scan while the app was away, so
             // it looks again. A connection on its way is left to land — it was
             // asked for by peripheral id or by a sighting, and either one waits
@@ -399,7 +265,6 @@ class BLEManager {
         // and is not crossing the link.
         if let p = otaProgress, !p.finished, p.failure == nil { return true }
         if !otaQueue.isEmpty || otaSettlingSince != nil { return true }
-        if isUploading || !uploadQueue.isEmpty { return true }
         switch imageUploadState {
         case .preparing, .sending: return true
         default: return false
@@ -428,287 +293,6 @@ class BLEManager {
         var frame = Data([type, UInt8(payload.count & 0xFF), UInt8((payload.count >> 8) & 0xFF)])
         frame.append(payload)
         p.writeValue(frame, for: rx, type: withResponse ? .withResponse : .withoutResponse)
-    }
-
-    func requestConfig() {
-        if demoMode { return }
-        send("GET_CONFIG")
-    }
-
-    func requestImageList() {
-        if demoMode { return }
-        pendingImageList = []
-        send("LIST")
-    }
-
-    func requestVersions() {
-        if demoMode { return }
-        send("GET_VERSION")
-    }
-
-    func requestStatsAndCharts() {
-        if demoMode {
-            populateDemoStats()
-            populateDemoChartData()
-            return
-        }
-        chartRetryTimer?.cancel()
-        chartRetryTimer = nil
-        statsSynced = false
-        chartDataSynced = false
-        rawHourlyData = [[], []]
-        chartCurReceived = 0
-        if isDownloading {
-            pendingStatsRequest = true
-            return
-        }
-        pendingStatsRequest = false
-        send("GET_CHART_DATA")
-        scheduleChartRetry()
-    }
-
-    private func scheduleChartRetry(attempt: Int = 1) {
-        chartRetryTimer?.cancel()
-        guard attempt <= 3 else { return }
-        let work = DispatchWorkItem { [weak self] in
-            guard let self, !self.chartDataSynced else { return }
-            self.rawHourlyData = [[], []]
-            self.chartCurReceived = 0
-            self.send("GET_CHART_DATA")
-            self.scheduleChartRetry(attempt: attempt + 1)
-        }
-        chartRetryTimer = work
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3, execute: work)
-    }
-
-    func subscribeStats() {
-        if demoMode { return }
-        send("STATS_SUBSCRIBE")
-    }
-
-    func unsubscribeStats() {
-        if demoMode { return }
-        chartRetryTimer?.cancel()
-        chartRetryTimer = nil
-        send("STATS_UNSUBSCRIBE")
-    }
-
-    func factoryReset() {
-        if demoMode {
-            flavor1Image = 0
-            flavor2Image = 1
-            flavor1Ratio = 20
-            flavor2Ratio = 20
-            numImages = 3
-            imageNames = ["flavor_1", "flavor_2", "flavor_3"]
-            cachedImages = [
-                0: flavorImage("flavor_1"),
-                1: flavorImage("flavor_2"),
-                2: flavorImage("flavor_3")
-            ]
-            factoryResetCompleted = true
-            return
-        }
-        send("FACTORY_RESET")
-    }
-
-    func startCleanCycle(flavor: Int) {
-        if demoMode {
-            cleanCycleActive = true
-            cleanCyclePhase = "Filling... (1/3)"
-            let phases = [
-                (0.5, "Flushing... (1/3)"),
-                (1.0, "Filling... (2/3)"),
-                (1.5, "Flushing... (2/3)"),
-                (2.0, "Filling... (3/3)"),
-                (2.5, "Flushing... (3/3)")
-            ]
-            for (delay, phase) in phases {
-                DispatchQueue.main.asyncAfter(deadline: .now() + delay) { [weak self] in
-                    guard let self, self.cleanCycleActive else { return }
-                    self.cleanCyclePhase = phase
-                }
-            }
-            DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) { [weak self] in
-                guard let self, self.cleanCycleActive else { return }
-                self.cleanCycleActive = false
-                self.cleanCyclePhase = nil
-                self.cleanCycleCompleted = true
-            }
-            return
-        }
-        cleanCycleActive = true
-        cleanCyclePhase = "Starting..."
-        send("CLEAN:\(flavor)")
-    }
-
-    func abortCleanCycle() {
-        if demoMode {
-            cleanCycleActive = false
-            cleanCyclePhase = nil
-            return
-        }
-        send("CLEAN_ABORT")
-    }
-
-    func startPrime(flavor: Int) {
-        if demoMode {
-            primeActive = true
-            primeFlavor = flavor
-            return
-        }
-        primeActive = true
-        primeFlavor = flavor
-        send("PRIME_START:\(flavor)")
-    }
-
-    func sendPrimeTick() {
-        if demoMode { return }
-        send("PRIME_TICK")
-    }
-
-    func stopPrime() {
-        if demoMode {
-            primeActive = false
-            return
-        }
-        primeActive = false
-        send("PRIME_STOP")
-    }
-
-    func sendSet(_ key: String, value: Int) {
-        send("SET:\(key)=\(value)")
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) { [weak self] in
-            self?.send("SAVE")
-        }
-    }
-
-    func displayName(for index: Int) -> String {
-        guard index >= 0, index < imageNames.count else {
-            return "Image \(index)"
-        }
-        let name = imageNames[index]
-        if name.isEmpty { return "Image \(index)" }
-        return name.replacingOccurrences(of: "_", with: " ").capitalized
-    }
-
-    func imageFor(slot: Int) -> UIImage? {
-        return cachedImages[slot]
-    }
-
-    func queueUploads(_ items: [UploadQueueItem]) {
-        uploadQueue.append(contentsOf: items)
-        uploadQueueTotal = uploadQueue.count + (isUploading ? 1 : 0)
-        if !isUploading {
-            startNextUpload()
-        }
-    }
-
-    private func startNextUpload() {
-        guard !uploadQueue.isEmpty else {
-            uploadQueueTotal = 0
-            activeUploadImage = nil
-            activeUploadSlot = -1
-            requestImageList()
-            return
-        }
-        let item = uploadQueue.removeFirst()
-        let slot = numImages
-        uploadImageRef = item.image
-        activeUploadImage = item.image
-        activeUploadSlot = slot
-        let position = uploadQueueTotal - uploadQueue.count
-        uploadStatus = "Uploading \(position) of \(uploadQueueTotal)..."
-        uploadImage(item.image, toSlot: slot)
-    }
-
-    private func uploadImage(_ image: UIImage, toSlot slot: Int) {
-        if demoMode {
-            uploadDemoImage(image, toSlot: slot)
-            return
-        }
-        guard let pngData = ImageProcessor.generatePNG(from: image),
-              let s3Data = ImageProcessor.generateRGB565(from: image, width: 240, height: 240),
-              let rpData = ImageProcessor.generateRGB565(from: image, width: 128, height: 115) else {
-            uploadStatus = "Image processing failed"
-            return
-        }
-
-        let label = "image_\(slot)"
-        log.info("Upload: slot \(slot), png=\(pngData.count)B, s3=\(s3Data.count)B, rp=\(rpData.count)B")
-
-        isUploading = true
-        uploadSlot = slot
-        uploadLabel = label
-        uploadSteps = [
-            (type: "png", data: pngData),
-            (type: "s3",  data: s3Data),
-            (type: "rp",  data: rpData)
-        ]
-        currentUploadStep = 0
-        uploadBytesSent = 0
-        uploadProgress = 0
-        uploadStatus = "Uploading image..."
-
-        sendNextUploadStep()
-    }
-
-    func deleteImage(slot: Int) {
-        if demoMode {
-            deleteDemoImage(slot: slot)
-            return
-        }
-
-        pendingDeleteSlot = slot
-        preDeleteNumImages = numImages
-        preDeleteCachedImages = cachedImages
-        preDeleteImageNames = imageNames
-
-        numImages -= 1
-        var newCache: [Int: UIImage] = [:]
-        for (key, img) in cachedImages {
-            if key < slot {
-                newCache[key] = img
-            } else if key > slot {
-                newCache[key - 1] = img
-            }
-        }
-        cachedImages = newCache
-        if slot < imageNames.count {
-            imageNames.remove(at: slot)
-        }
-
-        send("DELETE_STORE_IMG:\(slot)")
-    }
-
-    /// Every slot this phone has no picture for is asked for, by GETPNG, on
-    /// each connection. A rotary display answers with the PNG it keeps. The
-    /// display on the prototype under the counter does not answer, so that
-    /// machine's custom slots are placeholders on a phone that holds no copy —
-    /// and this phone holds none: what an earlier build kept under Caches is
-    /// gone, and what is on that machine stays on it.
-    func downloadAllImages(advertisedCRCs: [Int: UInt32] = [:]) {
-        guard let m = current, !isDownloading else { return }
-        var queue: [Int] = []
-        for slot in 0..<numImages {
-            // A picture on the phone that the machine still lists under the
-            // same crc is the picture. One listed under another has changed
-            // under it and comes down again; firmware that lists no crc is
-            // taken at its word.
-            if let held = m.cachedImages[slot], held.size != .zero {
-                if let advertised = advertisedCRCs[slot] {
-                    if m.config.imageCRCs[slot] == advertised { continue }
-                } else {
-                    continue
-                }
-            }
-            queue.append(slot)
-        }
-        if queue.isEmpty { return }
-        isDownloading = true
-        imageDownloadProgress = 0
-        imgDownloadQueue = queue
-        startNextDownload()
     }
 
     // MARK: - Your machines
@@ -783,7 +367,14 @@ class BLEManager {
             reconnectTimer?.invalidate()
             seedDemo(m)
             connectionState = .connected
-            configSynced = true
+            return
+        }
+        // A prototype is listed, and never connected to.
+        guard m.supported else {
+            centralManager?.stopScan()
+            scanTimer?.invalidate()
+            reconnectTimer?.invalidate()
+            connectionState = radioDown ? .bluetoothOff : .searching
             return
         }
         // A real machine is the first thing that needs the radio, which comes
@@ -843,8 +434,6 @@ class BLEManager {
         centralManager?.stopScan()
         scanTimer?.invalidate()
         reconnectTimer?.invalidate()
-        chartRetryTimer?.cancel()
-        chartRetryTimer = nil
         stopFacePump()
         // The peripheral is let go before it is cancelled, so what the cancel
         // says back is not this link's any more.
@@ -855,29 +444,7 @@ class BLEManager {
         if let peripheral { centralManager?.cancelPeripheralConnection(peripheral) }
         if connectionState != .bluetoothOff { connectionState = .searching }
         namePushed = false
-        configSynced = false
-        statsSynced = false
-        chartDataSynced = false
-        rawHourlyData = [[], []]
-        chartCurReceived = 0
-        pendingImageList = []
-        pendingCRCs = [:]
-        pendingDeleteSlot = -1
-        preDeleteCachedImages = [:]
-        preDeleteImageNames = []
-        isDownloading = false
-        imageDownloadProgress = nil
-        isUploading = false
-        uploadProgress = nil
-        uploadSteps = []
-        uploadQueue = []
-        uploadQueueTotal = 0
-        uploadImageRef = nil
-        activeUploadImage = nil
-        activeUploadSlot = -1
-        primeActive = false
-        cleanCycleActive = false
-        cleanCyclePhase = nil
+        abandonBridgeRequests()
         imageQueue = []
         activeUpload = nil
         imageUploadState = .idle
@@ -886,565 +453,12 @@ class BLEManager {
         otaImage = nil
         otaData = Data()
         otaFetch = nil
-        imgDownloadQueue = []
-        imgDownloadSlot = -1
-        imgDownloadData = Data()
-        binStartReceived = false
         imageBundle = Data()
         pendingCrc = [:]
         faceSlot = -1
         facePixels = Data()
         faceHave.removeAll()
         faceReceived = 0
-    }
-
-    // MARK: - Demo mode
-
-    /// The demo's machine, as it ships, each time the app opens on it: three
-    /// placeholder pictures out of this app's bundle, the ratios, and a
-    /// fortnight of pours generated when its stats are opened. Its name is
-    /// the one thing about it that is kept. Nothing is re-seeded while it is
-    /// open — its pictures being in hand is what says it is.
-    private func seedDemo(_ m: KnownMachine) {
-        guard m.cachedImages.isEmpty else { return }
-        m.config = PrototypeConfig(numImages: 3, imageNames: ["flavor_1", "flavor_2", "flavor_3"])
-        m.cachedImages = [
-            0: flavorImage("flavor_1"),
-            1: flavorImage("flavor_2"),
-            2: flavorImage("flavor_3")
-        ]
-        m.prototypeVersions = PrototypeVersions(s3: "Demo", esp: "Demo", rp: "Demo")
-        m.configReadAt = Date()
-        m.usage = UsageReading()
-        m.recomputeCharts()
-        directory.save()
-    }
-
-    // Demo-mode flavor art: the bundled placeholder PNG (images/flavor_N.png,
-    // copied in by tools/build_flavor_assets.sh), falling back to a flat swatch.
-    private func flavorImage(_ name: String) -> UIImage {
-        if let url = Bundle.main.url(forResource: name, withExtension: "png"),
-           let img = UIImage(contentsOfFile: url.path) {
-            return img
-        }
-        let pretty = name.replacingOccurrences(of: "_", with: " ").capitalized
-        return generateDemoImage(label: pretty, color: UIColor(white: 0.25, alpha: 1))
-    }
-
-    private func generateDemoImage(label: String, color: UIColor) -> UIImage {
-        let size = CGSize(width: 240, height: 240)
-        let renderer = UIGraphicsImageRenderer(size: size)
-        return renderer.image { ctx in
-            color.setFill()
-            ctx.cgContext.fillEllipse(in: CGRect(origin: .zero, size: size))
-            let attrs: [NSAttributedString.Key: Any] = [
-                .font: UIFont.systemFont(ofSize: 24, weight: .bold),
-                .foregroundColor: UIColor.white
-            ]
-            let text = label as NSString
-            let textSize = text.size(withAttributes: attrs)
-            let textRect = CGRect(
-                x: (size.width - textSize.width) / 2,
-                y: (size.height - textSize.height) / 2,
-                width: textSize.width,
-                height: textSize.height
-            )
-            text.draw(in: textRect, withAttributes: attrs)
-        }
-    }
-
-    private func uploadDemoImage(_ image: UIImage, toSlot slot: Int) {
-        isUploading = true
-        uploadSlot = slot
-        uploadImageRef = image
-        uploadProgress = 0
-        let totalSteps = 20
-        Task { [weak self] in
-            for step in 1...totalSteps {
-                try? await Task.sleep(for: .milliseconds(100))
-                guard let self, self.demoMode, self.isUploading else { return }
-                self.uploadProgress = Double(step) / Double(totalSteps)
-            }
-            guard let self else { return }
-            self.imageNames.append("image_\(slot)")
-            self.completeUpload()
-        }
-    }
-
-    /// The demo's fortnight, as a usage reading: pours shaped like a day, so
-    /// every chart is laid out the way a machine's is.
-    private func populateDemoStats() {
-        guard let m = current else { return }
-        if m.usage.readAt == nil {
-            let seqHour: UInt32 = 24 * 60
-            let nowHour = Calendar.current.component(.hour, from: Date())
-            var hourly: [[HourBucket]] = [[], []]
-            for hoursAgo in 0..<(24 * 14) {
-                let hour = (nowHour - hoursAgo % 24 + 24) % 24
-                let angle = Double(hour - 12) / 12.0 * .pi
-                let base = max(0, cos(angle)) * 8.0 * 20
-                let seq = seqHour - UInt32(hoursAgo)
-                hourly[0].append(HourBucket(seq: seq, flow: UInt32(base * 1.2 * (0.7 + Double.random(in: 0...0.6)))))
-                hourly[1].append(HourBucket(seq: seq, flow: UInt32(base * 0.8 * (0.7 + Double.random(in: 0...0.6)))))
-            }
-            m.usage = UsageReading(hourly: hourly, seqHour: seqHour, readAt: Date())
-            m.recomputeCharts()
-            directory.save()
-        }
-        statsSynced = true
-    }
-
-    private func populateDemoChartData() {
-        chartDataSynced = true
-    }
-
-    private func deleteDemoImage(slot: Int) {
-        guard numImages > 1 else { return }
-
-        var newNames: [String] = []
-        var newCache: [Int: UIImage] = [:]
-        var j = 0
-        for i in 0..<numImages where i != slot {
-            if i < imageNames.count { newNames.append(imageNames[i]) }
-            if let img = cachedImages[i] { newCache[j] = img }
-            j += 1
-        }
-
-        numImages -= 1
-        imageNames = newNames
-        cachedImages = newCache
-
-        if flavor1Image > slot { flavor1Image -= 1 }
-        else if flavor1Image == slot { flavor1Image = max(0, slot - 1) }
-        if flavor2Image > slot { flavor2Image -= 1 }
-        else if flavor2Image == slot { flavor2Image = max(0, slot - 1) }
-    }
-
-    // MARK: - Image upload
-
-    private func sendNextUploadStep() {
-        guard currentUploadStep < uploadSteps.count else {
-            uploadStatus = "Finalizing..."
-            send("FINALIZE_UPLOAD:\(uploadSlot):\(uploadLabel)")
-            return
-        }
-
-        let step = uploadSteps[currentUploadStep]
-        let crc = ImageProcessor.crc32(step.data)
-
-        log.info("Upload step \(self.currentUploadStep)/\(self.uploadSteps.count): type=\(step.type) size=\(step.data.count) crc=0x\(String(crc, radix: 16, uppercase: true))")
-
-        let fileType: UInt8 = step.type == "png" ? 0 : (step.type == "s3" ? 1 : 2)
-
-        // Build BIN_START payload: [slot(1B), fileType(1B), size(4B LE), crc32(4B LE), label...]
-        var startPayload = Data(capacity: 10 + 32)
-        startPayload.append(UInt8(uploadSlot))
-        startPayload.append(fileType)
-        var sizeLE = UInt32(step.data.count).littleEndian
-        withUnsafeBytes(of: &sizeLE) { startPayload.append(contentsOf: $0) }
-        var crcLE = crc.littleEndian
-        withUnsafeBytes(of: &crcLE) { startPayload.append(contentsOf: $0) }
-        if currentUploadStep == 0, let labelData = uploadLabel.data(using: .utf8) {
-            startPayload.append(labelData)
-        }
-
-        uploadBytesSent = 0
-
-        sendBLEFrame(type: 0x02, payload: startPayload)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
-            self.sendUploadChunks()
-        }
-    }
-
-    private func sendUploadChunks() {
-        guard currentUploadStep < uploadSteps.count else { return }
-        let data = uploadSteps[currentUploadStep].data
-        let mtu = connectedPeripheral?.maximumWriteValueLength(for: .withResponse) ?? 182
-        let chunkSize = min(mtu - 3, 240)
-
-        func sendChunk() {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.02) {
-                guard self.uploadBytesSent < data.count, self.isUploading else { return }
-                let end = min(self.uploadBytesSent + chunkSize, data.count)
-                let chunk = data[self.uploadBytesSent..<end]
-
-                self.sendBLEFrame(type: 0x03, payload: Data(chunk))
-                self.uploadBytesSent = end
-
-                let stepBase = Double(self.currentUploadStep) / 3.0
-                let stepProgress = Double(self.uploadBytesSent) / Double(data.count) / 3.0
-                self.uploadProgress = stepBase + stepProgress
-
-                if self.uploadBytesSent < data.count {
-                    sendChunk()
-                } else {
-                    log.info("Upload step \(self.currentUploadStep): all \(self.uploadBytesSent) bytes sent, sending BIN_END")
-                    self.sendBLEFrame(type: 0x04, payload: Data())
-                }
-            }
-        }
-        sendChunk()
-    }
-
-    private func completeUpload() {
-        isUploading = false
-        uploadSteps = []
-        numImages = max(numImages, uploadSlot + 1)
-        if let img = uploadImageRef { cachedImages[uploadSlot] = img }
-        uploadImageRef = nil
-
-        if !uploadQueue.isEmpty {
-            let position = uploadQueueTotal - uploadQueue.count + 1
-            uploadStatus = "Uploading \(position) of \(uploadQueueTotal)..."
-            uploadProgress = 0
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { [weak self] in
-                self?.startNextUpload()
-            }
-        } else {
-            uploadProgress = 1.0
-            uploadStatus = "Upload complete!"
-            uploadQueueTotal = 0
-            activeUploadImage = nil
-            activeUploadSlot = -1
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
-                self?.uploadProgress = nil
-                self?.requestImageList()
-            }
-        }
-    }
-
-    private func failUpload(_ reason: String) {
-        log.error("Upload failed (slot \(self.uploadSlot)): \(reason)")
-        isUploading = false
-        uploadSteps = []
-        uploadImageRef = nil
-
-        if !uploadQueue.isEmpty {
-            uploadStatus = "Slot \(self.uploadSlot) failed, continuing..."
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
-                self?.startNextUpload()
-            }
-        } else {
-            uploadStatus = "Upload failed: \(reason)"
-            uploadProgress = nil
-            uploadQueueTotal = 0
-            activeUploadImage = nil
-            activeUploadSlot = -1
-        }
-    }
-
-    func cancelActiveUpload() {
-        guard isUploading else { return }
-        isUploading = false
-        uploadSteps = []
-        uploadImageRef = nil
-        if !demoMode { send("ABORT_UPLOAD") }
-
-        if !uploadQueue.isEmpty {
-            uploadStatus = "Cancelled, continuing..."
-            uploadProgress = 0
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
-                self?.startNextUpload()
-            }
-        } else {
-            uploadProgress = nil
-            uploadStatus = ""
-            uploadQueueTotal = 0
-            activeUploadImage = nil
-            activeUploadSlot = -1
-        }
-    }
-
-    func cancelQueuedUpload(id: UUID) {
-        uploadQueue.removeAll { $0.id == id }
-        uploadQueueTotal = uploadQueue.count + (isUploading ? 1 : 0)
-    }
-
-    // MARK: - Image download
-
-    fileprivate func startNextDownload() {
-        guard !imgDownloadQueue.isEmpty else {
-            imageDownloadProgress = nil
-            isDownloading = false
-            if pendingStatsRequest {
-                pendingStatsRequest = false
-                send("GET_CHART_DATA")
-            }
-            return
-        }
-        let slot = imgDownloadQueue.removeFirst()
-        imgDownloadData = Data()
-        imgDownloadExpected = 0
-        imgDownloadRetries = 0
-        send("GETPNG:\(slot)")
-    }
-
-    // MARK: - Response parsing
-
-    fileprivate func handleTextResponse(_ text: String) {
-        if text.hasPrefix("CONFIG:") {
-            parseConfig(text)
-        } else if text.hasPrefix("IMG:") {
-            parseImageLine(text)
-        } else if text == "END" {
-            imageNames = pendingImageList
-            pendingImageList = []
-            downloadAllImages(advertisedCRCs: pendingCRCs)
-            pendingCRCs = [:]
-        } else if text.hasPrefix("IMG_OK:") {
-            guard isUploading else {
-                log.debug("Ignoring IMG_OK (not uploading): \(text)")
-                return
-            }
-            currentUploadStep += 1
-            let stepNames = ["PNG", "S3 RGB565", "RP2040 RGB565"]
-            if currentUploadStep < uploadSteps.count {
-                uploadStatus = "Uploading \(stepNames[currentUploadStep])..."
-            }
-            sendNextUploadStep()
-        } else if text.hasPrefix("IMG_ERR:") {
-            guard isUploading else {
-                log.debug("Ignoring IMG_ERR (not uploading): \(text)")
-                return
-            }
-            failUpload(text)
-        } else if text == "OK:UPLOAD_ABORTED" {
-            log.info("Upload abort acknowledged by S3")
-        } else if text.hasPrefix("OK:UPLOAD_DONE:") {
-            guard isUploading else {
-                log.debug("Ignoring OK:UPLOAD_DONE (not uploading): \(text)")
-                return
-            }
-            completeUpload()
-        } else if text.hasPrefix("OK:STORE_DELETED=") {
-            pendingDeleteSlot = -1
-            let body = String(text.dropFirst(3))
-            for pair in body.split(separator: ",") {
-                let parts = pair.split(separator: "=", maxSplits: 1)
-                if parts.count == 2, let val = Int(parts[1]), String(parts[0]) == "NUM_IMAGES" {
-                    numImages = max(val, 1)
-                }
-            }
-            clearDiskCache()
-            cachedImages = [:]
-            requestImageList()
-            log.info("Image deleted, refreshing list")
-        } else if text.hasPrefix("VERSION:S3=") {
-            s3Version = String(text.dropFirst(11))
-        } else if text.hasPrefix("VERSION:ESP32=") {
-            espVersion = String(text.dropFirst(14))
-        } else if text.hasPrefix("VERSION:RP2040=") {
-            rpVersion = String(text.dropFirst(15))
-        } else if text.hasPrefix("CHART_") {
-            parseChartLine(text)
-        } else if text.hasPrefix("CLEAN:FILLING:") {
-            let parts = text.dropFirst(14)
-            if let slashIdx = parts.firstIndex(of: "/"),
-               let colonIdx = parts.firstIndex(of: ":") {
-                let c = parts[parts.index(after: colonIdx)..<slashIdx]
-                let t = parts[parts.index(after: slashIdx)...]
-                cleanCyclePhase = "Filling... (\(c)/\(t))"
-            } else {
-                cleanCyclePhase = "Filling..."
-            }
-        } else if text.hasPrefix("CLEAN:FLUSHING:") {
-            let parts = text.dropFirst(15)
-            if let slashIdx = parts.firstIndex(of: "/"),
-               let colonIdx = parts.firstIndex(of: ":") {
-                let c = parts[parts.index(after: colonIdx)..<slashIdx]
-                let t = parts[parts.index(after: slashIdx)...]
-                cleanCyclePhase = "Flushing... (\(c)/\(t))"
-            } else {
-                cleanCyclePhase = "Flushing..."
-            }
-        } else if text.hasPrefix("OK:CLEAN:") {
-            cleanCycleActive = false
-            cleanCyclePhase = nil
-            cleanCycleCompleted = true
-        } else if text == "OK:CLEAN_ABORT" {
-            cleanCycleActive = false
-            cleanCyclePhase = nil
-        } else if text.hasPrefix("ERR:CLEAN") {
-            cleanCycleActive = false
-            cleanCyclePhase = nil
-        } else if text.hasPrefix("PRIME:ACTIVE:") {
-            primeActive = true
-        } else if text == "OK:PRIME_STOP" || text == "OK:PRIME_TIMEOUT" {
-            primeActive = false
-        } else if text.hasPrefix("ERR:PRIME") {
-            primeActive = false
-        } else if text == "OK:FACTORY_RESET" {
-            log.info("Factory reset confirmed, re-syncing")
-            clearDiskCache()
-            cachedImages = [:]
-            imageNames = []
-            statsSynced = false
-            chartDataSynced = false
-            factoryResetCompleted = true
-            requestConfig()
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [weak self] in
-                self?.requestImageList()
-            }
-        } else if text.hasPrefix("ERR:") {
-            log.error("Error response: \(text)")
-            if isUploading {
-                failUpload(text)
-            } else if isDownloading {
-                log.error("Skipping failed image download, continuing queue")
-                startNextDownload()
-            } else if pendingDeleteSlot >= 0 {
-                numImages = preDeleteNumImages
-                cachedImages = preDeleteCachedImages
-                imageNames = preDeleteImageNames
-                pendingDeleteSlot = -1
-                deleteError = String(text.dropFirst(4))
-            }
-        }
-    }
-
-    private func parseConfig(_ text: String) {
-        let body = String(text.dropFirst(7))
-        var values: [String: Int] = [:]
-        for pair in body.split(separator: ",") {
-            let parts = pair.split(separator: "=", maxSplits: 1)
-            if parts.count == 2, let val = Int(parts[1]) {
-                values[String(parts[0])] = val
-            }
-        }
-
-        if let v = values["F1_RATIO"] { flavor1Ratio = v }
-        if let v = values["F2_RATIO"] { flavor2Ratio = v }
-        if let v = values["F1_IMAGE"] { flavor1Image = v }
-        if let v = values["F2_IMAGE"] { flavor2Image = v }
-        if let v = values["numImages"] { numImages = max(v, 1) }
-        current?.configReadAt = Date()
-        directory.touch()
-        configSynced = true
-        log.info("Config synced: F1=\(self.flavor1Image)/\(self.flavor1Ratio) F2=\(self.flavor2Image)/\(self.flavor2Ratio) numImages=\(self.numImages)")
-    }
-
-    private func parseChartLine(_ text: String) {
-        guard let firstColon = text.firstIndex(of: ":") else { return }
-        let prefix = String(text[text.startIndex..<firstColon])
-        let body = String(text[text.index(after: firstColon)...])
-        let parts = body.split(separator: ",")
-        guard parts.count >= 2 else { return }
-
-        var flavor = 0
-        var kvValues: [String: String] = [:]
-        var dataStart = 0
-        for (i, part) in parts.enumerated() {
-            let kv = part.split(separator: "=", maxSplits: 1)
-            if kv.count == 2 {
-                kvValues[String(kv[0])] = String(kv[1])
-                if kv[0] == "F" { flavor = Int(kv[1]) ?? 0 }
-                dataStart = i + 1
-            } else {
-                break
-            }
-        }
-        guard flavor >= 0, flavor <= 1 else { return }
-
-        if prefix == "CHART_HOURLY" {
-            if let seqStr = kvValues["SEQ"], let seq = UInt32(seqStr) {
-                currentSeqHour = seq
-            }
-            for part in parts[dataStart...] {
-                let pair = part.split(separator: ":", maxSplits: 1)
-                if pair.count == 2, let seq = UInt32(pair[0]), let fs = UInt32(pair[1]) {
-                    rawHourlyData[flavor].append(HourBucket(seq: seq, flow: fs))
-                }
-            }
-            return
-        }
-
-        // The hour under way is not in the hourly list — the machine's live
-        // count is authoritative for it — so CHART_CUR closes one flavor's
-        // reading with it, and the reading lands on the record once both have.
-        if prefix == "CHART_CUR" {
-            if let fsStr = kvValues["FS"], let fs = UInt32(fsStr) {
-                rawHourlyData[flavor].removeAll { $0.seq == currentSeqHour }
-                rawHourlyData[flavor].append(HourBucket(seq: currentSeqHour, flow: fs))
-            }
-            chartCurReceived += 1
-            if chartCurReceived >= 2 {
-                chartRetryTimer?.cancel()
-                if let m = current {
-                    m.usage = UsageReading(hourly: rawHourlyData, seqHour: currentSeqHour, readAt: Date())
-                    withAnimation { m.recomputeCharts() }
-                    directory.touch()
-                }
-                rawHourlyData = [[], []]
-                chartDataSynced = true
-                statsSynced = true
-                chartCurReceived = 0
-            }
-            return
-        }
-
-        // A pour as it happens: the hour under way, re-counted. Which hour is
-        // the machine's to say, and firmware that says it is believed; from
-        // firmware that does not, a count lower than the one held is the next
-        // hour having begun.
-        if prefix == "CHART_LIVE" {
-            guard let fsStr = kvValues["FS"], let fs = UInt32(fsStr),
-                  let m = current, m.usage.readAt != nil else { return }
-            var u = m.usage
-            while u.hourly.count < 2 { u.hourly.append([]) }
-            var seq = u.seqHour
-            if let said = kvValues["SEQ"].flatMap({ UInt32($0) }) {
-                seq = said
-            } else if let held = u.hourly[flavor].first(where: { $0.seq == u.seqHour }), fs < held.flow {
-                seq = u.seqHour + 1
-            }
-            if seq > u.seqHour { u.seqHour = seq }
-            if let i = u.hourly[flavor].firstIndex(where: { $0.seq == seq }) {
-                u.hourly[flavor][i].flow = fs
-            } else {
-                u.hourly[flavor].append(HourBucket(seq: seq, flow: fs))
-            }
-            u.readAt = Date()
-            m.usage = u
-            withAnimation { m.recomputeCharts() }
-            directory.touch()
-            return
-        }
-    }
-
-
-    private func parseImageLine(_ text: String) {
-        // Format: IMG:slot:label or IMG:slot:label:hexcrc
-        let parts = text.split(separator: ":", maxSplits: 3)
-        if parts.count >= 3 {
-            let name = String(parts[2])
-            let slot = Int(parts[1]) ?? pendingImageList.count
-            while pendingImageList.count <= slot {
-                pendingImageList.append("")
-            }
-            pendingImageList[slot] = name
-            // Parse optional CRC field (Phase 3)
-            if parts.count >= 4, let crc = UInt32(parts[3], radix: 16) {
-                pendingCRCs[slot] = crc
-            }
-        }
-    }
-
-    // MARK: - Image disk cache
-    // The prototype's store, kept on the record by slot with the crc the
-    // machine listed beside each one.
-
-    private func saveImageToDisk(slot: Int, data: Data) {
-        current?.saveSlot(slot, data: data)
-    }
-
-    fileprivate func clearDiskCache() {
-        current?.clearSlots()
-        directory.touch()
-    }
-
-    private func savePersistedCRC(slot: Int, crc: UInt32) {
-        current?.config.imageCRCs[slot] = crc
-        directory.touch()
     }
 
     // MARK: - Internal
@@ -1455,10 +469,7 @@ class BLEManager {
     fileprivate func startScan() {
         guard let centralManager, centralManager.state == .poweredOn else { return }
         let idle = connectionState != .connected && connectionState != .connecting
-        if idle {
-            connectionState = .searching
-            configSynced = false
-        }
+        if idle { connectionState = .searching }
         discovered = []
         lastRssiPush = [:]
         // Duplicates on: RSSI is how a picker sorts, and a machine that moves
@@ -1520,7 +531,7 @@ class BLEManager {
             known.model = seen.model
             directory.touch()
         }
-        if let m = current, m.id == known.id,
+        if let m = current, m.id == known.id, m.supported,
            connectionState == .searching || connectionState == .searchingLong {
             connect(m, peripheralID: seen.id, unit: seen.unit)
         }
@@ -1623,18 +634,13 @@ class BLEManager {
             }
             directory.save()
         }
-        // GET_CONFIG and LIST are the rotary display's vocabulary, on
-        // the machine under the counter. An appliance answers neither.
-        // What an appliance is asked instead is what pictures it
-        // holds, which is the screen someone opens the app for.
-        if current?.model == .prototype {
-            send("GET_CONFIG")
-            send("LIST")
-        } else {
-            saidStanding = ""   // a new session reports its own conditions
-            queryImageSlots()
-            startFacePump()
-        }
+        // A prototype is listed and can be removed. An appliance is asked
+        // what pictures it holds; the rest of what its pages show is read
+        // once the faucet says it carries the bridge.
+        guard current?.supported == true else { return }
+        saidStanding = ""   // a new session reports its own conditions
+        queryImageSlots()
+        startFacePump()
     }
 
     /// THE MACHINE THIS PHONE KNOWS IS ASKED FOR, NOT ONLY LISTENED FOR. A
@@ -1648,7 +654,7 @@ class BLEManager {
     /// the radio answers.
     fileprivate func reachKnown() {
         guard !inBackground, let centralManager, centralManager.state == .poweredOn,
-              let machine = current, !machine.isDemo,
+              let machine = current, !machine.isDemo, machine.supported,
               let id = machine.peripheralID.flatMap(UUID.init(uuidString:)),
               let peripheral = centralManager.retrievePeripherals(withIdentifiers: [id]).first
         else { return }
@@ -1783,7 +789,8 @@ class BLEManager {
             otaSettlingSince = nil
             return
         }
-        if linked { requestVersions() }
+        // The faucet answers IDENTITY with what every board runs.
+        if linked { send("IDENTITY") }
         DispatchQueue.main.asyncAfter(deadline: .now() + 3) { [weak self] in
             self?.settleTick()
         }
@@ -1879,6 +886,7 @@ class BLEManager {
         if settled { said.pendingName = nil }
         namePushed = false
         directory.save()
+        noteIdentityAnswered()
     }
 
     /// VersionsPayload: [count:1] then count × [board:1][version:24][artCrc:4][buildEpoch:4].
@@ -1937,78 +945,6 @@ class BLEManager {
         }
     }
 
-    fileprivate func handleBinStart(_ payload: Data) {
-        guard isDownloading else {
-            log.debug("Ignoring unsolicited BIN_START")
-            return
-        }
-        guard payload.count >= 10 else { return }
-        let psi = payload.startIndex
-        let slot = Int(payload[psi])
-        let size = UInt32(payload[psi + 2]) | (UInt32(payload[psi + 3]) << 8) |
-                   (UInt32(payload[psi + 4]) << 16) | (UInt32(payload[psi + 5]) << 24)
-        let crc = UInt32(payload[psi + 6]) | (UInt32(payload[psi + 7]) << 8) |
-                  (UInt32(payload[psi + 8]) << 16) | (UInt32(payload[psi + 9]) << 24)
-        imgDownloadSlot = slot
-        imgDownloadExpected = Int(size)
-        imgDownloadCRC = crc
-        imgDownloadData = Data()
-        binStartReceived = true
-        log.info("BIN_START: slot \(slot), \(size) bytes, CRC=0x\(String(crc, radix: 16))")
-    }
-
-    fileprivate func handleBinData(_ payload: Data) {
-        guard binStartReceived else { return }
-        imgDownloadData.append(payload)
-    }
-
-    fileprivate func handleBinEnd() {
-        guard binStartReceived else { return }
-        binStartReceived = false
-        let imgData = imgDownloadData
-        let slot = imgDownloadSlot
-        let expectedSize = imgDownloadExpected
-        let expectedCRC = imgDownloadCRC
-        imgDownloadSlot = -1
-        imgDownloadData = Data()
-
-        if imgData.count != expectedSize {
-            log.error("Image \(slot) size mismatch: got \(imgData.count) expected \(expectedSize)")
-            retryDownload(slot: slot)
-            return
-        }
-
-        let actualCRC = ImageProcessor.crc32(imgData)
-        if actualCRC != expectedCRC {
-            log.error("Image \(slot) CRC mismatch: got 0x\(String(actualCRC, radix: 16)) expected 0x\(String(expectedCRC, radix: 16))")
-            retryDownload(slot: slot)
-            return
-        }
-
-        imgDownloadRetries = 0
-        // Kept on the record, beside the crc the machine listed for it.
-        saveImageToDisk(slot: slot, data: imgData)
-        savePersistedCRC(slot: slot, crc: expectedCRC)
-        if let image = UIImage(data: imgData) {
-            cachedImages[slot] = image
-            log.info("Image \(slot) cached (\(imgData.count) bytes, CRC verified)")
-        } else {
-            log.error("Image \(slot) decode failed: \(imgData.count) bytes")
-        }
-        startNextDownload()
-    }
-
-    private func retryDownload(slot: Int) {
-        imgDownloadRetries += 1
-        if imgDownloadRetries <= 3 {
-            log.info("Retrying image \(slot) download (attempt \(self.imgDownloadRetries))")
-            send("GETPNG:\(slot)")
-        } else {
-            log.error("Image \(slot) download failed after 3 retries")
-            imgDownloadRetries = 0
-            startNextDownload()
-        }
-    }
 }
 
 // ────────────────────────────────────────────────────────────
@@ -2112,8 +1048,6 @@ private class CBDelegateAdapter: NSObject, CBCentralManagerDelegate, CBPeriphera
     func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
         guard peripheral === ble.connectedPeripheral else { return }
         log.info("Disconnected")
-        ble.imgDownloadSlot = -1
-        ble.binStartReceived = false
         ble.connectedPeripheral = nil
         ble.rxCharacteristic = nil
         ble.nusReady = false
@@ -2127,30 +1061,8 @@ private class CBDelegateAdapter: NSObject, CBCentralManagerDelegate, CBPeriphera
         ble.faceReceived = 0
         ble.stopFacePump()
         ble.namePushed = false
+        ble.abandonBridgeRequests()
         ble.connectionState = ble.radioOff ? .bluetoothOff : .searching
-        ble.configSynced = false
-        ble.statsSynced = false
-        ble.chartDataSynced = false
-        ble.imgDownloadQueue = []
-        ble.isDownloading = false
-        ble.imageDownloadProgress = nil
-        ble.isUploading = false
-        ble.uploadProgress = nil
-        ble.uploadSteps = []
-        ble.uploadQueue = []
-        ble.uploadQueueTotal = 0
-        ble.uploadImageRef = nil
-        ble.activeUploadImage = nil
-        ble.activeUploadSlot = -1
-        ble.primeActive = false
-        ble.cleanCycleActive = false
-        ble.cleanCyclePhase = nil
-        if ble.pendingDeleteSlot >= 0 {
-            ble.numImages = ble.preDeleteNumImages
-            ble.cachedImages = ble.preDeleteCachedImages
-            ble.imageNames = ble.preDeleteImageNames
-            ble.pendingDeleteSlot = -1
-        }
         ble.scheduleReconnect()
     }
 
@@ -2228,17 +1140,10 @@ private class CBDelegateAdapter: NSObject, CBCentralManagerDelegate, CBPeriphera
             frameBuffer = frameBuffer.subdata(in: (frameBuffer.startIndex + frameLen)..<frameBuffer.endIndex)
 
             switch type {
-            case 0x01: // TEXT
-                if let text = String(data: payload, encoding: .utf8) {
-                    if text.hasPrefix("DBG:") { continue }
-                    ble.handleTextResponse(text)
+            case 0x01: // TEXT — why a name did not reach the main board
+                if let text = String(data: payload, encoding: .utf8), text.hasPrefix("ERR:") {
+                    log.error("Error response: \(text)")
                 }
-            case 0x02: // BIN_START
-                ble.handleBinStart(payload)
-            case 0x03: // BIN_DATA
-                ble.handleBinData(payload)
-            case 0x04: // BIN_END
-                ble.handleBinEnd()
             case 0x11: // OTA_NEED — the board asking for its next piece
                 ble.handleOtaNeed(payload)
             case 0x13: // OTA_END
@@ -2255,6 +1160,10 @@ private class CBDelegateAdapter: NSObject, CBCentralManagerDelegate, CBPeriphera
                 ble.handleImagePix(payload)
             case 0x1E: // ART_STATE — which face each channel wears
                 ble.handleFlavorArt(payload)
+            case BridgeFrame.answer: // what the main board said, asked or not
+                ble.handleBridgeAnswer(payload)
+            case BridgeFrame.version: // the faucet carries the bridge
+                ble.handleBridgeVersion(payload)
             default:
                 break
             }

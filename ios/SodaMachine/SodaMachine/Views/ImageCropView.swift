@@ -101,62 +101,45 @@ struct ImageCropView: View {
 
     var body: some View {
         GeometryReader { geo in
-            // The window is the largest glass-shaped rectangle that fits in
-            // what the titles and the buttons leave. It is the only rendition
-            // of the picture on this screen, because every face the machine
-            // wears is this one at another size.
-            let window = fit(in: CGSize(width: geo.size.width - 48,
-                                        height: geo.size.height - 220))
+            let wide = geo.size.width >= 600 || geo.size.height < 350
+            // The largest glass-shaped rectangle in the room the header and
+            // the instructions leave.
+            let window = fit(in: wide
+                ? CGSize(width: geo.size.width / 2 - 36, height: min(geo.size.height - 116, 460))
+                : CGSize(width: geo.size.width - 48, height: min(geo.size.height - 300, 460)))
 
-            ZStack {
-                Theme.background.ignoresSafeArea()
+            VStack(spacing: 0) {
+                HStack {
+                    Text("Position your picture").font(.headline)
+                    Spacer()
+                    Button("Cancel", action: onCancel).frame(minHeight: 44)
+                }
+                .padding(.horizontal, 24)
+                .padding(.top, 10)
 
-                VStack(spacing: 0) {
-                    Text("Position your picture")
-                        .font(.system(size: 20, weight: .medium))
-                        .foregroundStyle(Theme.textPrimary)
-                        .padding(.top, 24)
-
-                    Text("Drag to move, pinch to zoom.")
-                        .font(.system(size: 13))
-                        .foregroundStyle(Theme.textSecondary)
-                        .multilineTextAlignment(.center)
-                        .padding(.top, 6)
-                        .padding(.horizontal, 24)
-
-                    Spacer(minLength: 8)
-
+                FlexibleColumns(wide: wide, spacing: 28) {
                     view(size: window)
-                        .overlay(
-                            Rectangle()
-                                .strokeBorder(Color.white.opacity(0.55), lineWidth: 2)
-                        )
+                        .overlay(Rectangle().strokeBorder(Theme.ice.opacity(0.7), lineWidth: 2))
                         .contentShape(Rectangle())
                         .gesture(gesture(window))
-
-                    Spacer(minLength: 8)
-
-                    HStack(spacing: 12) {
-                        Button("Cancel", action: onCancel)
-                            .font(.system(size: 16))
-                            .foregroundStyle(Theme.textSecondary)
-                            .frame(maxWidth: .infinity)
-                            .padding(.vertical, 14)
-
-                        Button("Use This") { onUse(crop()) }
-                            .font(.system(size: 16, weight: .medium))
-                            .foregroundStyle(Theme.textPrimary)
-                            .frame(maxWidth: .infinity)
-                            .padding(.vertical, 14)
-                            .background(Color.white.opacity(0.12))
-                            .cornerRadius(12)
+                        .frame(maxWidth: .infinity, maxHeight: wide ? .infinity : nil)
+                        .accessibilityLabel("Picture framing")
+                } right: {
+                    VStack(alignment: .leading, spacing: 20) {
+                        Text("Frame the faucet display").font(.title3.weight(.medium))
+                        Note("Drag to move. Pinch to zoom.")
+                        Note("This same framing is used on both machine displays.")
+                        ActionButton(title: "Use this picture") { onUse(crop()) }
                     }
-                    .padding(.horizontal, 24)
-                    .padding(.top, 12)
-                    .padding(.bottom, 28)
+                    .frame(maxWidth: wide ? 320 : 440).frame(maxWidth: .infinity)
                 }
+                .padding(24)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
         }
+        .background(Theme.background.ignoresSafeArea())
+        .foregroundStyle(Theme.textPrimary)
+        .tint(Theme.accent)
         .task {
             // Off the main thread: nothing on screen needs it until someone
             // zooms past the picture's own edge.

@@ -1,7 +1,8 @@
-# Adaptive appliance app proposal
+# Adaptive appliance app study
 
-An executable SwiftUI proposal for the integrated soda machine's complete iOS
-app. The product has three destinations: **Machine**, **Care**, and **Settings**.
+An executable SwiftUI study of the integrated soda machine's complete iOS app,
+built in [`ios/SodaMachine`](../SodaMachine). The product has three destinations:
+**Machine**, **Care**, and **Settings**.
 The layout uses the existing Big Blue palette, SF Symbols, native SwiftUI text
 and controls, and the app's bundled flavor art.
 
@@ -49,10 +50,10 @@ placement of the existing crop pipeline; its sample framing is fixed.
 | Your machines | Current and known machines, status/read time, selection, add, rename, and confirmed removal from this device |
 | Setup and demo | Native accessory setup near the faucet; an appliance demo using the same screens |
 
-The proposal's app model is appliance-only. Its demo uses appliance fixtures.
-Saved real prototype records have an explicit unsupported/removal path and are
-never relabeled as appliances. The production changes and persistence migration
-are defined in the integration plan; this study is a separate target.
+The app model is appliance-only. The study's demo uses appliance fixtures. A
+saved prototype is listed as unsupported, with a removal path. The integration
+plan describes the production app's behavior and saved-record schema; this study
+is a separate target.
 
 ## Layout rules
 
@@ -145,7 +146,7 @@ to `review.mjs`. It packages focused phone and aspect-ratio reviews with native
 2× lossless images and the shared mobile theme helper. If the inline size limit
 requires it, a review is split across fragments without reducing image quality.
 Those review controls choose a screen/window or show the image at actual point
-size; they are outside the proposed product. Fit is the initial viewing mode.
+size; they are outside the product. Fit is the initial viewing mode.
 
 Open the generated `SodaMachineStudy.xcodeproj` to run the local fixture app. Its
 bundle ID, data container, generated project and simulator are separate from the

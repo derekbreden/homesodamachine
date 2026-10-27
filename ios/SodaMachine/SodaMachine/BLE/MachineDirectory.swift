@@ -104,47 +104,6 @@ enum MachineAdvert {
     }
 }
 
-// ── What the phone reads off a machine ──────────────────────────────────
-
-/// The rotary display's settings, as the prototype under the counter holds
-/// them: which slot each flavor wears, what it pours at, and what is in the
-/// image store.
-struct PrototypeConfig: Codable, Equatable {
-    var flavor1Image = 0
-    var flavor2Image = 1
-    var flavor1Ratio = 20
-    var flavor2Ratio = 20
-    var numImages = 0
-    var imageNames: [String] = []
-    /// The crc32 the machine listed for each slot when its picture was cached,
-    /// so a reconnect can tell a picture on disk from one that changed.
-    var imageCRCs: [Int: UInt32] = [:]
-}
-
-/// What each of the prototype's three boards says it runs.
-struct PrototypeVersions: Codable, Equatable {
-    var s3 = ""
-    var esp = ""
-    var rp = ""
-}
-
-/// One hour of one flavor, as the prototype counts it: the hour's sequence
-/// number and the flow-meter sum inside it.
-struct HourBucket: Codable, Equatable {
-    var seq: UInt32
-    var flow: UInt32
-}
-
-/// The prototype's usage log as it stood at one reading. `seqHour` is the
-/// machine's current hour at that reading, and every bucket is placed against
-/// `readAt` — so a chart laid out from this a week later still says what the
-/// machine said then, rather than sliding the week's pours into today.
-struct UsageReading: Codable, Equatable {
-    var hourly: [[HourBucket]] = [[], []]
-    var seqHour: UInt32 = 0
-    var readAt: Date?
-}
-
 // ── One machine ─────────────────────────────────────────────────────────
 
 /// One machine this phone knows. Observable field by field, so a face that
@@ -192,19 +151,9 @@ final class KnownMachine: Identifiable {
     var picturesReadAt: Date?
     var faces: [UInt32: UIImage] = [:]
 
-    // The prototype's settings, its image store, and what its boards run.
-    var config = PrototypeConfig()
-    var configReadAt: Date?
-    var cachedImages: [Int: UIImage] = [:]
-    var prototypeVersions = PrototypeVersions()
-
-    // The prototype's usage, and the charts laid out from it.
-    var usage = UsageReading()
-    var chartData24H: [[Double]] = [Array(repeating: 0, count: 24), Array(repeating: 0, count: 24)]
-    var chartData30D: [[Double]] = [Array(repeating: 0, count: 30), Array(repeating: 0, count: 30)]
-    var chartDataHOD: [[Double]] = [Array(repeating: 0, count: 24), Array(repeating: 0, count: 24)]
-    var chartDataHODDays: Int = 1
-    var monthFlowSum: [UInt32] = [0, 0]
+    // What the appliance last said through the bridge, each reading with the
+    // moment it was read (MachineBridge.swift).
+    var appliance = ApplianceState()
 
     init(id: String = UUID().uuidString, key: String, unit: String, peripheralID: String?,
          name: String, model: MachineModel, isDemo: Bool = false, addedAt: Date = Date()) {
@@ -226,6 +175,11 @@ final class KnownMachine: Identifiable {
     /// What kind of machine, for a list with more than one kind on it.
     var kind: String { isDemo ? "Demo" : model.label }
 
+    /// A machine this app opens: the demo, or one that says it is an
+    /// appliance. A machine whose advertisement carries no model byte runs
+    /// the prototype's firmware.
+    var supported: Bool { isDemo || model == .appliance }
+
     /// Where this record's pictures live.
     var folder: URL { MachineDirectory.root.appendingPathComponent(id, isDirectory: true) }
 
@@ -236,49 +190,10 @@ final class KnownMachine: Identifiable {
         return peripheralID == seen.id
     }
 
-    /// Lay the charts out from the usage reading, against the moment it was
-    /// read. Days of data is the union of both flavors' days.
-    func recomputeCharts() {
-        while usage.hourly.count < 2 { usage.hourly.append([]) }
-        let asOf = usage.readAt ?? Date()
-        let calendar = Calendar.current
-        let startOfDay = calendar.startOfDay(for: asOf)
-        var new24 = [[Double]](repeating: Array(repeating: 0, count: 24), count: 2)
-        var new30 = [[Double]](repeating: Array(repeating: 0, count: 30), count: 2)
-        var newHOD = [[Double]](repeating: Array(repeating: 0, count: 24), count: 2)
-        var sums: [UInt32] = [0, 0]
-        var days = Set<Int>()
-
-        for flavor in 0..<2 {
-            for entry in usage.hourly[flavor] {
-                let hoursAgo = Int(usage.seqHour) - Int(entry.seq)
-                guard hoursAgo >= 0 else { continue }
-                let bucketDate = asOf.addingTimeInterval(-Double(hoursAgo) * 3600)
-                let flow = Double(entry.flow) * 0.05
-                if hoursAgo < 24 { new24[flavor][23 - hoursAgo] += flow }
-                let bucketDay = calendar.startOfDay(for: bucketDate)
-                let daysAgo = calendar.dateComponents([.day], from: bucketDay, to: startOfDay).day ?? 999
-                if daysAgo >= 0, daysAgo < 30 {
-                    new30[flavor][29 - daysAgo] += flow
-                    days.insert(daysAgo)
-                    sums[flavor] &+= entry.flow
-                    newHOD[flavor][calendar.component(.hour, from: bucketDate)] += flow
-                }
-            }
-        }
-
-        chartDataHODDays = max(days.count, 1)
-        chartData24H = new24
-        chartData30D = new30
-        chartDataHOD = newHOD
-        monthFlowSum = sums
-    }
-
     // ── Pictures on disk ──────────────────────────────────────────────────
     // A face is filed under the crc32 of the picture it belongs to, so a
     // picture that moves slots keeps its face and a slot that changes hands
-    // does not inherit the old one. The prototype's store is by slot, with the
-    // crc the machine listed beside it in `config.imageCRCs`.
+    // does not inherit the old one.
 
     func faceURL(crc: UInt32) -> URL {
         folder.appendingPathComponent("face-\(String(crc, radix: 16)).png")
@@ -299,33 +214,6 @@ final class KnownMachine: Identifiable {
         try? FileManager.default.removeItem(at: faceURL(crc: crc))
     }
 
-    func slotURL(_ slot: Int) -> URL {
-        folder.appendingPathComponent("slot-\(slot).png")
-    }
-
-    func saveSlot(_ slot: Int, data: Data) {
-        try? FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true)
-        try? data.write(to: slotURL(slot))
-    }
-
-    func loadSlot(_ slot: Int) -> UIImage? {
-        guard let data = try? Data(contentsOf: slotURL(slot)) else { return nil }
-        return UIImage(data: data)
-    }
-
-    /// The prototype's whole store, gone from the phone as it has from the
-    /// machine.
-    func clearSlots() {
-        let fm = FileManager.default
-        if let names = try? fm.contentsOfDirectory(atPath: folder.path) {
-            for n in names where n.hasPrefix("slot-") {
-                try? fm.removeItem(at: folder.appendingPathComponent(n))
-            }
-        }
-        config.imageCRCs = [:]
-        cachedImages = [:]
-    }
-
     /// Every picture kept for this machine, back into memory. Run once when the
     /// record is loaded; a page is drawn from memory, never from a file.
     func loadPictures() {
@@ -336,10 +224,6 @@ final class KnownMachine: Identifiable {
                let crc = UInt32(n.dropFirst(5).dropLast(4), radix: 16),
                let img = loadFace(crc: crc) {
                 faces[crc] = img
-            } else if n.hasPrefix("slot-"), n.hasSuffix(".png"),
-                      let slot = Int(n.dropFirst(5).dropLast(4)),
-                      let img = loadSlot(slot) {
-                cachedImages[slot] = img
             }
         }
     }
@@ -369,10 +253,7 @@ struct MachineRecord: Codable {
     var imageSlots: ImageSlots
     var flavorArt: FlavorArt
     var picturesReadAt: Date?
-    var config: PrototypeConfig
-    var configReadAt: Date?
-    var prototypeVersions: PrototypeVersions
-    var usage: UsageReading
+    var appliance: ApplianceState?
 
     init(_ m: KnownMachine) {
         id = m.id
@@ -394,10 +275,7 @@ struct MachineRecord: Codable {
         imageSlots = m.imageSlots
         flavorArt = m.flavorArt
         picturesReadAt = m.picturesReadAt
-        config = m.config
-        configReadAt = m.configReadAt
-        prototypeVersions = m.prototypeVersions
-        usage = m.usage
+        appliance = m.appliance
     }
 
     func restore() -> KnownMachine {
@@ -414,17 +292,14 @@ struct MachineRecord: Codable {
         m.imageSlots = imageSlots
         m.flavorArt = flavorArt
         m.picturesReadAt = picturesReadAt
-        m.config = config
-        m.configReadAt = configReadAt
-        m.prototypeVersions = prototypeVersions
-        m.usage = usage
-        m.recomputeCharts()
+        m.appliance = appliance ?? ApplianceState()
         m.loadPictures()
         return m
     }
 }
 
 private struct DirectoryFile: Encodable {
+    var schema = MachineDirectory.schema
     var current: String?
     var machines: [MachineRecord]
     var carriedOver: Bool
@@ -438,6 +313,7 @@ private struct Skippable<T: Decodable>: Decodable {
 }
 
 private struct DirectoryFileRead: Decodable {
+    var schema: Int?
     var current: String?
     var machines: [Skippable<MachineRecord>]
     var carriedOver: Bool?
@@ -469,6 +345,10 @@ final class MachineDirectory {
     @ObservationIgnored var carriedOver = false
 
     @ObservationIgnored private var saveSoon: DispatchWorkItem?
+
+    /// What the file on disk is written as. A file without the field is 1,
+    /// whose demo is a prototype.
+    static let schema = 2
 
     static var root: URL {
         let support = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0]
@@ -531,7 +411,7 @@ final class MachineDirectory {
     func addDemo() -> KnownMachine {
         if let have = demo { return have }
         let m = KnownMachine(key: "demo", unit: "", peripheralID: nil,
-                             name: "", model: .prototype, isDemo: true)
+                             name: "", model: .appliance, isDemo: true)
         known.append(m)
         save()
         return m
@@ -603,6 +483,18 @@ final class MachineDirectory {
         current = known.first { $0.id == file.current }
         carriedOver = file.carriedOver ?? false
         log.info("\(self.known.count) machine(s) known")
+        if (file.schema ?? 1) < Self.schema { migrate(from: file.schema ?? 1) }
+    }
+
+    /// 1 to 2: the demo becomes an appliance, keeping its place in the list
+    /// and its name, and is seeded with sample state when it next opens. Every
+    /// other record keeps its model.
+    private func migrate(from schema: Int) {
+        if schema < 2 {
+            for m in known where m.isDemo { m.model = .appliance }
+        }
+        log.info("machines.json migrated from schema \(schema)")
+        save()
     }
 
     /// Written now. Cheap: a few records and no pictures.
