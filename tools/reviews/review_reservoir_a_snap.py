@@ -5,6 +5,7 @@
 This is a task-scoped geometry reading, outside the build and commit paths.
 The bent section is a cantilever kinematic proxy, not a material simulation.
 """
+from functools import cache
 import hashlib
 import json
 import math
@@ -19,11 +20,7 @@ import cadquery as cq
 import _reservoir_a_snap as snap
 import _reservoir_a_anchors as anchors
 import above_core as layout
-import above_core_parts as parts
-import above_core_routes as routes
-import above_core_wiring as electrical
-from _cadq_export import import_step
-from hardware.wiring.installed.model import Connection, Route, STOCK, shape as wire_shape
+from _cadq_export import import_step, import_assembly
 
 HERE = ROOT/'hardware/printed-parts/cold-core/foam-cap'
 OUT = HERE/'reservoir-a-snap-review'
@@ -89,47 +86,46 @@ def bent_cap(delta):
                 edges.append(cq.Edge.makeBezier([
                     q0, q0+derivative(first,last,first)/3,
                     q3-derivative(first,last,last)/3, q3]))
-    return cq.Solid.extrudeLinear(cq.Wire.assembleEdges(edges), [],
-                                  cq.Vector(0, p['cap_length_mm'], 0)).translate(snap.CENTRE)
+    return snap.installed(cq.Solid.extrudeLinear(cq.Wire.assembleEdges(edges), [],
+                                                cq.Vector(0, p['cap_length_mm'], 0)))
+
+
+@cache
+def motion_bounds():
+    lo, hi = bounds(snap.installed_cap())
+    lift = snap.specification()['insertion_lift_mm']
+    return [[v-3. for v in lo], [hi[0]+3., hi[1]+3., hi[2]+lift+3.]]
 
 
 def nearby(body):
     lo, hi = bounds(body)
-    envelope = ((40., 69.), (202.5, 217.), (252., 276.))
-    return all(hi[i]>=a and lo[i]<=b for i, (a, b) in enumerate(envelope))
+    low, high = motion_bounds()
+    return all(hi[i]>=low[i] and lo[i]<=high[i] for i in range(3))
 
 
 def main():
     p, base, cap = snap.specification(), snap.base(), snap.installed_cap()
     spread = bent_cap(.6)
-    # These are current native purchased references and the current authored
-    # placement/tube routes. No cached draft BREP is a fixture input.
-    fixtures = {name: row[0] for name, row in
-                {**parts.components(), **electrical.components()}.items()
-                if nearby(row[0])}
-    for name, row in routes.reservoir_a_route_specs().items():
-        if name in ('fluid-14', 'fluid-16'):
-            fixtures[name] = parts.route_shape(row)
+    # Read the complete current export, including installed wires and the
+    # purchased neighbors. The receipt binds the assembly and lid artifacts.
+    low, high = motion_bounds()
+    local_window = cq.Solid.makeBox(*(high[i]-low[i] for i in range(3)), cq.Vector(*low))
+    fixtures = {}
+    for name, (body, _color) in import_assembly(
+            ROOT/'hardware/manifold-layout/enclosure-assembly.step').items():
+        if name in ('cold-core/'+snap.CAP_NAME, 'cold-core/foam-cap-lid-top') or not nearby(body):
+            continue
+        local = body.intersect(local_window)
+        if not local.isNull() and local.Volume()>1.e-7:
+            fixtures[name] = local
     native_lid = import_step(HERE/'foam-cap-lid-top.step').val()
     # Exact local native stock, with every crop plane outside the complete
     # moving cap envelope. Remote lid bosses cannot take part in this motion.
-    local_window = cq.Solid.makeBox(31., 15., 23., cq.Vector(39., 202., 253.))
+    low, high = motion_bounds()
+    local_window = cq.Solid.makeBox(*(high[i]-low[i] for i in range(3)), cq.Vector(*low))
     fixtures['top-lid'] = native_lid.moved(
         layout.frame_location(layout.cap_lid_pose())).intersect(local_window)
     manifest = ROOT/'hardware/wiring/enclosure-wiring.json'
-    for row in json.loads(manifest.read_text())['routes']:
-        points = [s[k] for s in row['segments'] for k in ('start_mm', 'end_mm')]
-        if not points:
-            continue
-        lo = [min(q[i] for q in points)-3 for i in range(3)]
-        hi = [max(q[i] for q in points)+3 for i in range(3)]
-        if any(hi[i]<a or lo[i]>b for i, (a, b) in
-               enumerate(((40., 69.), (202.5, 217.), (252., 276.)))):
-            continue
-        connection = Connection(**{key: row[key] for key in
-                                    ('id', 'harness', 'net', 'start', 'end', 'stock')})
-        fixtures['wire-'+row['id']] = wire_shape(
-            Route(connection, row['points_mm'], row['segments']), STOCK[row['stock']]['od_mm'])
 
     results = {}
     for name, other in fixtures.items():
@@ -156,7 +152,8 @@ def main():
         lift = p['insertion_lift_mm']*i/53
         overlap = base.intersect(spread.translate((0, 0, lift))).Volume()
         motion.append(dict(lift_mm=lift, spread_at_hook_mm=.6, overlap_mm3=overlap))
-    axial = [dict(offset_y_mm=y, overlap_mm3=base.intersect(cap.translate((0, y, 0))).Volume())
+    axial = [dict(offset_along_tubes_mm=y, overlap_mm3=base.intersect(
+                 cap.translate(snap.world_vector((0, y, 0)))).Volume())
              for y in (-.35, -.25, 0., .25, .35)]
     sources = [Path(__file__), Path(snap.__file__), Path(anchors.__file__), HERE/'foam_cap.py',
                ROOT/'hardware/manifold-layout/above-core.json',
@@ -183,7 +180,7 @@ def main():
             length_mm=p['spring_length_mm'], hook_overlap_mm=.45,
             nominal_percent=100*1.5*p['spring_thickness_mm']*.45/p['spring_length_mm']**2,
             with_extra_015_mm_percent=100*1.5*p['spring_thickness_mm']*.6/p['spring_length_mm']**2),
-        scope='Current digital geometry and offline print preparation. Physical snap fit, '
+        scope='Current digital geometry within 3 mm of the complete cap motion and offline print preparation. Physical snap fit, '
               'tube restraint, forces, creep, fatigue and load capacity are not qualified.')
     OUT.mkdir(exist_ok=True)
     (OUT/'native-review.json').write_text(json.dumps(report, indent=2)+'\n')

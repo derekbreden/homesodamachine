@@ -494,15 +494,17 @@ def route_specs():
     for name, points in fore['tubes'].items():
         if name.startswith('soda-'):
             continue
-        segments = None
-        if name == 'va-fore-feed':
+        segments = fore.get('native_segments', {}).get(name)
+        if segments is not None:
+            pass
+        elif name == 'va-fore-feed':
             controls = fore.get('va_fore_controls_mm', [fore.get('va_fore_control_mm')])
             segments = [_line(points[0], controls[0][0]),
                         *[_bezier(control) for control in controls],
                         _line(controls[-1][-1], points[-1])]
         elif name == 'drain-vb-east-link':
             control = fore.get('vb_drain_control_mm', fore.get('b_plumbing', {}).get('inlet_control_mm'))
-            if fore.get('b_plumbing', {}).get('inlet_arm_lift_degrees') == 0.:
+            if fore.get('b_plumbing', {}).get('inlet_minimum_radius_mm') is None:
                 points = [points[0], points[-1]]
                 segments = [_line(*points)]
             else:

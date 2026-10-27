@@ -8,8 +8,8 @@ independent mounting, passage and stack-height datums. The PCB lies flat on
 its west half; the diaphragm pump stands aft. V-B seats in
 an integral upright socket wall east of the PCB. The water check rests on
 a fore–aft quarter bearing on an aft-rooted bridge. It opens upward and west,
-leaving the west approach open. The four DC/sensor junction wells and the earth
-boss remain accessible from above. Back-top carries V-A, V-K, their fitted
+leaving the west approach open. The four DC/sensor wells sit on the board-facing back of V-B’s wall,
+with levers opening west. The earth boss is accessible from above. Back-top carries V-A, V-K, their fitted
 plumbing, the complete inlet header, PSU, both relays and flow meter.
 
 Two independent reservoir air tubes have floor-rooted 5.2 mm passages through
@@ -88,13 +88,15 @@ and one 0.8 mm washer: 4.8 mm projection, 2.2 mm nominal tip air and 4.4 mm
 blind backing. Its fastener datums belong to
 [above_core_wiring.py](../../../manifold-layout/above_core_wiring.py).
 
-The four core WAGO junctions face west toward the PCB and stagger around
-the B-draw passage. Their blank-backed wells retain 3 mm walls and sit
-entirely on the lid. The levers open upward.
+The four core WAGO junctions form two rows on the board-facing back of V-B’s
+wall. V12 and sensor ports face fore; GND and reed ports face aft. Their
+levers open west. The blank-backed wells retain 3 mm walls and join the
+V-B wall and lid. Their top is Z298.65 mm, with 1.25 mm to the funnel frame.
+V-B’s native origin is Z279.41 mm.
 
 Reservoir A’s draw and fill tubes share a fore snap seat and an aft tied seat. Draw
 occupies the west half-pipe at each station. The fore tube axes are X50.5/58 at
-Y209.75, Z259.5 mm. The integral lid base and one separate PET-GF
+Y209.75, Z258.5 mm. The integral lid base and one separate PET-GF
 `reservoir-a-fore-snap-cap` enclose the pair with matching half-pipes. The cap is 6 mm
 long in Y; the 12.5 mm base retains 3 mm end shoulders with 0.25 mm running clearance
 at each cap end. Its complete X span is 41.885–66.615 mm. Fixed floors, outer cheeks
@@ -109,9 +111,16 @@ Y end, placing its spring sections in the bed plane; the lid prints on its flat 
 The [snap review](reservoir-a-snap-review/README.md) records the current geometry and its
 scope; printed fit, insertion force, retention and lifetime remain unqualified.
 
-The aft seat’s tube axes are X86.5/94 at Y304, Z259.5 mm. Its 10 mm-long open seats
-have 3.325 mm radii and one narrow tie passage beneath the pair. The top plane at
-Z257 leaves a 3.116 mm central ridge. The outer tube uses an open outboard quarter-seat
+Two shallow clearance pockets under the fore cap’s spring feet have floors at
+Z252.75. Their 0.65 mm depth leaves 4.75 mm of lid backing and 0.25 mm
+nominal air below the seated wing tips. The pockets lie outside the receiver
+neck. Both tubes retain their fore restraint and pass below V-B at Z258.5;
+they rise to Z259.5 before the aft restraint. The
+[wall-routing review](wago-wall-review/README.md) records the native fit and lid slice.
+
+The aft seat occupies Y299–309 at Z259.5 mm. Its R3.325 mm grooves follow the
+actual tube curves, with one narrow tie passage beneath the pair. The top plane
+at Z256.95 retains a central ridge above the ordinary 3 mm stock. The outer tube uses an open outboard quarter-seat
 with a 3 mm bottom bearing. The base ends at X97.7, clear of the enclosure flank.
 The slot ceiling at Z253.175 retains a complete 3 mm wall below the lowest seat;
 its floor at Z251.6 leaves 3.6 mm beneath it. The anchor base shares the lid’s underside

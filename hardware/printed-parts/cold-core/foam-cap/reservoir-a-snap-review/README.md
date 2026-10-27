@@ -10,7 +10,7 @@ to release the cap.
 The receiver spans 12.5 mm in Y, centred at Y209.75. Its two 3 mm end
 shoulders capture the cap axially, with 0.25 mm running air at each end.
 The lower seats retain 3 mm floors and outer cheeks. The shared seat opening
-has a 3 mm central land. The tube centre lines are X50.5/58, Z259.5 mm.
+has a 3 mm central land. The tube centre lines are X50.5/58, Z258.5 mm.
 
 | Interface | Nominal allowance |
 | --- | ---: |
@@ -40,8 +40,8 @@ The [native reading](native-review.json), produced manually by
 binds current source and exported geometry. It includes seated fit, both
 axial stops, the 6.65 mm cap approach and a native outward-bending section.
 Its bent shape is a geometric motion proxy. The complete cap starts above
-the receiver; its nominal roof clearance below V-B's inlet elbow is 0.31 mm
-at the top of that approach.
+the receiver. Its approach is read against the current valve, fittings,
+wire dressing and the shallow spring-foot pockets in the top lid.
 
 The inlet earth lug points at 300°. Its PE lead approaches through the fore
 lane with R3 bends and an 11.765 mm straight crimp entry. The
