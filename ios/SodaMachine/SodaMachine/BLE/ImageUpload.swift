@@ -99,7 +99,11 @@ extension BLEManager {
     }
 
     func setFlavorArt(channel: Int, art: Int) {
-        guard !demoMode, channel >= 0, channel < 2 else { return }
+        guard channel >= 0, channel < 2 else { return }
+        if demoMode {
+            flavorArt.art[channel] = art
+            return
+        }
         sendBLEFrame(type: ImageFrame.artSet, payload: Data([UInt8(channel), UInt8(art)]))
     }
 
@@ -465,6 +469,15 @@ extension BLEManager {
         return slot
     }
 
+    /// The picture that failed last goes up again, into whichever slot is free
+    /// now. Its slot, if any, is returned.
+    func retryFailedImage() -> Int? {
+        guard let item = failedImage else { return nil }
+        failedImage = nil
+        imageUploadState = .idle
+        return enqueueImage(item.crop, preview: item.preview)
+    }
+
     /// The lowest slot the machine has free that nothing already in this queue
     /// has claimed. The board cannot know about the ones still on the phone.
     func nextFreeSlot() -> Int? {
@@ -484,6 +497,7 @@ extension BLEManager {
             guard activeUpload?.id == item.id else { return }
             guard let prepared else {
                 forgetPreview(slot: item.slot)
+                failedImage = item
                 activeUpload = nil
                 imageUploadState = .failed("that picture would not convert")
                 startNextImage()
@@ -496,6 +510,7 @@ extension BLEManager {
     /// One finished, one way or another. The next starts after a beat so a run
     /// of pictures does not strobe.
     private func finishActive(_ outcome: ImageUploadState) {
+        if case .failed = outcome { failedImage = activeUpload }
         activeUpload = nil
         imageUploadState = outcome
         if !imageQueue.isEmpty {

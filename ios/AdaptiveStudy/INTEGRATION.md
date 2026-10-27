@@ -1,32 +1,29 @@
 # Appliance app integration
 
-The adaptive study is an executable SwiftUI presentation using local fixtures. Its
-screens propose the integrated appliance app: Machine, Care, and Settings, with
-the same routes in compact and wide windows. This document defines the production
-work behind those screens. The study target does not communicate with a machine.
+The adaptive study is an executable SwiftUI presentation using local fixtures:
+Machine, Care, and Settings, with the same routes in compact and wide windows.
+The production app in [`ios/SodaMachine`](../SodaMachine) builds those screens on
+the machine's own state. This document is the behavior behind them. The study
+target does not communicate with a machine.
 
-## Application scope and migration
+## Application scope
 
-- The app targets the integrated appliance. Remove the prototype carousel,
-  prototype configuration commands, rotary image-slot interface, factory reset,
-  and prototype usage charts from its product routes.
-- Keep the machine directory, system accessory setup, identity reconciliation,
-  selected-machine persistence, image cache, and aggregate firmware updater.
-- A stored real prototype remains identified as a prototype. Do not reinterpret
-  its readings, image slots, ratios, or firmware as an appliance. Its directory
-  row can identify it as unsupported and offer removal through the existing
-  accessory-management path. An unsupported selected record must not open an
-  appliance dashboard or issue appliance commands.
-- The demo uses the appliance model and the same routes and state types as a real
-  appliance. Migrate the record whose `isDemo` flag is true to an appliance demo,
-  retaining its directory identity. Seed labeled sample appliance state; discard
-  prototype-only demo settings and charts. Demo actions operate locally and never
-  open Bluetooth, install firmware, or claim a real machine was changed.
-- Decode existing saved records before removing legacy model fields. Add defaults
-  for new appliance fields and an explicit persistence schema migration. Preserve
-  real machine identity, names, accessory IDs, selected machine, and cached art.
+- The app targets the integrated appliance: the machine directory, system
+  accessory setup, identity reconciliation, selected-machine persistence, the
+  image cache, and the aggregate firmware updater, under the three destinations.
+- A saved machine whose advertisement carries no appliance model byte runs the
+  prototype's firmware. It is listed as a prototype, never connected to, and can
+  be removed through the accessory-management path; selected, it shows a page
+  that offers removal or another machine.
+- The demo is an appliance with the same routes and state types as a real one,
+  seeded with sample state. Its actions play out on the device and never open
+  Bluetooth, install firmware, or claim a real machine was changed.
+- Saved records are schema 2: each carries its appliance readings with their read
+  times. A schema 1 file's demo becomes an appliance on load, keeping its place
+  and name; every other record keeps its identity, name, accessory ID and art.
 
-Existing entry points are [RootView.swift](../SodaMachine/SodaMachine/Views/RootView.swift),
+Entry points are [AppShell.swift](../SodaMachine/SodaMachine/Views/AppShell.swift),
+[MachineBridge.swift](../SodaMachine/SodaMachine/BLE/MachineBridge.swift),
 [MachineDirectory.swift](../SodaMachine/SodaMachine/BLE/MachineDirectory.swift),
 and [BLEManager.swift](../SodaMachine/SodaMachine/BLE/BLEManager.swift).
 
@@ -75,17 +72,14 @@ missing capability and offers Software Update; missing support never looks like
 an empty reservoir, a zero reading, or a successful write. A main board that
 predates the bridge is reported as `BRIDGE_ERR_NO_BRIDGE` the same way.
 
-Nothing is replayed. The faucet answers a request the main board leaves
-unanswered for two seconds with `BRIDGE_ERR_NO_ANSWER`, a full queue with
-`BRIDGE_ERR_BUSY`, and a request it could not deliver with
-`BRIDGE_ERR_LINK_DOWN`. Reconnect reads a complete snapshot instead of repeating
-an actuator command. There is no console tunnel and no bench-navigation
-endpoint: the main board answers anything off its list `BRIDGE_ERR_REFUSED`.
+The faucet answers a request the main board leaves unanswered for two seconds
+with `BRIDGE_ERR_NO_ANSWER`, a full queue with `BRIDGE_ERR_BUSY`, and a request
+it could not deliver with `BRIDGE_ERR_LINK_DOWN`. Reconnect reads a complete
+snapshot. The main board answers anything off its list `BRIDGE_ERR_REFUSED`.
 
 Channel-specific changes identify channel 0 or 1 and carry the main board's
 result. The two flavors have independent art and ratios. `MSG_RATIO_SET_ONE`
-names one channel and the main board keeps the other at what it holds, so a
-phone never overwrites the other channel from a stale cached pair; a value
+names one channel and the main board keeps the other at what it holds; a value
 outside 1:6–1:24 changes nothing and the answering pair says so. Selection is
 absolute and tokenized, and art is set as a pair the phone reads first.
 
@@ -115,7 +109,7 @@ response. Changes made on either display also refresh the phone's model.
   and from a sensor the connected machine cannot read.
 - Ratios are concentrate : water, `1:6` through `1:24`. A smaller denominator
   means more flavor. Save the selected channel and display the acknowledged
-  result. There is no customer temperature-setpoint command in this proposal.
+  result. The app has no customer temperature-setpoint command.
 
 Poll status while its information is visible and after reconnect or a relevant
 command. Record the receipt time and stop presenting the snapshot as live after
@@ -241,8 +235,8 @@ during an operation. Image errors preserve retry/cancel choices and the machine'
 confirmed selection. The demo supplies deterministic examples of these states,
 not invented usage history.
 
-Layout verification belongs to this implementation task: compact portrait,
-short landscape, near-square expanded phone, iPad portrait/landscape, narrow
-resizable iPad window, and accessibility text sizes. Keep selection, edits, and
-operation state outside layout branches so resizing does not restart work.
-This proposal adds no automatic build or commit checks.
+The layout answers compact portrait, short landscape, near-square expanded
+phone, iPad portrait and landscape, a narrow resizable iPad window, and
+accessibility text sizes. The tab, the pages, and a run in progress live in the
+app's Navigator, outside the layout branches. Nothing here adds an automatic
+build or commit check.
