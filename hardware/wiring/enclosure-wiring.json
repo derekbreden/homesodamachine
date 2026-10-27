@@ -44162,7 +44162,7 @@
     "Nominal and unlocated terminals remain visible in the graph and manifest; no exact donor termination is invented.",
     "The electrical graph does not qualify grounding, mains isolation, current capacity or energization."
   ],
-  "physical_scene_sha256": "87eb6817f6d7ab58ba2ffd8ea03a72b57daf10b1dea38f657a3b1db62f9e1f62",
+  "physical_scene_sha256": "2306bda5df9f42d711fd67ad5f8d8164ce691183504bece05f6bea5e5ce06f53",
   "source_sha256": {
     "hardware/wiring/installed/build.py": "28ba31fd5f3081c2073f4e25185173c05dbcb0f0c67a259d6c9ef0b955afc578",
     "hardware/wiring/installed/connections.py": "11528d05f94efb932dd4b9eee07f01578a401fc8bf37ff9d9cab50b3bd058000",
@@ -44201,7 +44201,7 @@
       "J5-V5"
     ],
     "terminal_records_preserved": true,
-    "physical_scene_hash_scope": "Native physical scene after the reviewed back-top substitution; all held fixture poses and terminal coordinates retained.",
-    "installed_scene_sha256": "294da475d3ecf3790bc1433469a0fcfe1fdc7a688f7e1872fd5f4c95095c8263"
+    "physical_scene_hash_scope": "Native installed physical scene; fixture poses, terminal coordinates and retained wiring unchanged.",
+    "installed_scene_sha256": "e7e55c199893f12b8af8323ef9bf87bfeda92ec327c730ad49e09ba6f3098193"
   }
 }

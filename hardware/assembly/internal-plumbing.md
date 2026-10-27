@@ -291,10 +291,11 @@ end at 45°, straighten it by hand, and feed it down its draw conduit and the ca
 until the tip touches the floor
 ([floor and dip tube](/hardware/printed-parts/cold-core/reservoir/floor-and-dip-tube.md)).
 
-Reservoir A’s two continuous tubes share a fore snap seat and an aft tied seat.
-Draw is west of fill: their centreline X stations are 50.5/58 mm at the fore seat,
-Y209.75 mm, and 86.5/94 mm at the aft seat, Y304 mm, both at Z259.5 mm. Lay the pair into the fore half-pipes
-and press the separate snap cap down until both wings engage the lid’s integral base.
+Reservoir A’s two continuous tubes use two integral fore C2 clips on one broad base
+and one aft tied seat. Draw is west of fill: their centreline X stations are
+50.5/64.0 mm at the fore clips, Y209.75 and Z258.5 mm, and 86.5/94 mm at the aft
+seat, Y304 and Z259.5 mm. Press each tube down through its clip's open +Z mouth.
+For removal, release the exposed jaws and lift the tube upward.
 At the aft seat, Y304 mm, thread one four-inch narrow tie through the empty transverse
 slot before laying in the pair; retain both tubes there with that shared tie on the
 open core.
@@ -305,8 +306,8 @@ unbroken through its plain core guide. Only the connection points and
 paired-anchor centres/axes are fixed; the bends and displayed lengths between
 them illustrate routing and may change to clear installed hardware and
 wires. The current drawn warm spans are
-[450.588 mm](RESERVOIR_A_FILL_WARM) for `fluid-14` fill and
-[391.974 mm](RESERVOIR_A_DRAW_WARM) for `fluid-16` draw. Each includes the
+[452.830 mm](RESERVOIR_A_FILL_WARM) for `fluid-14` fill and
+[394.059 mm](RESERVOIR_A_DRAW_WARM) for `fluid-16` draw. Each includes the
 16.891 mm receiving length in its front-valve ATEU44W stem elbow. For the physical blank,
 continue through the guide to the reservoir fill bore or dip-tube tip and
 replace the socket allowance with its actual fully seated insertion mark.

@@ -1,0 +1,197 @@
+{
+  "scope": "Complete staged lid; named fore receiver/root/pocket replacement only. Comparison uses reimported STEP local solids, explicit1e-5mm Boolean tolerance, and a fore ROI outside the working geometry.",
+  "pass": true,
+  "baseline_sha256": "baff55a5930fc56db5a6a24ff5d893c8f40dfc8c37d86154560f162c8a06b863",
+  "candidate_sha256": "0104fdeab9cb080db6f3f7a7cd5b99164d72ff9815de069c52d2300c7ef89452",
+  "baseline": {
+    "valid": true,
+    "solids": 1,
+    "faces": 236,
+    "edges": 653,
+    "volume_mm3": 293824.7938459804,
+    "bounds_mm": [
+      -141.20000009999998,
+      -90.2000001,
+      -1.0000291588975187e-07,
+      141.20000009999998,
+      97.7000001,
+      50.65
+    ]
+  },
+  "candidate": {
+    "valid": true,
+    "solids": 1,
+    "faces": 224,
+    "edges": 617,
+    "volume_mm3": 293828.12508675817,
+    "bounds_mm": [
+      -141.20000009999998,
+      -90.2000001,
+      -1.0000291588975187e-07,
+      141.20000009999998,
+      97.7000001,
+      50.65
+    ]
+  },
+  "outside_fore_geometry_equal": true,
+  "outside_raw_boolean_difference_mm3": {
+    "added_mm3": 290452.05683633074,
+    "removed_mm3": 290452.05683633074
+  },
+  "outside_boolean_limit": "Coplanar Boolean subtraction returned the whole identical solid in both directions; not used as material-difference evidence.",
+  "outside_baseline_fingerprint": "b4f5ff47a3586bb1a2088df9c275267a548cc190cd4ba561477dd02ec8af4807",
+  "outside_candidate_fingerprint": "b4f5ff47a3586bb1a2088df9c275267a548cc190cd4ba561477dd02ec8af4807",
+  "outside_native_edge_sample_count": 6902,
+  "outside_native_edge_maximum_gap_mm": 3.827989909044339e-08,
+  "roi_local_mm": [
+    [
+      107.3,
+      40.0,
+      -0.5
+    ],
+    [
+      121.3,
+      71.0,
+      17.5
+    ]
+  ],
+  "roi_world_mm": [
+    [
+      40.0,
+      202.5,
+      247.5
+    ],
+    [
+      71.0,
+      216.5,
+      265.5
+    ]
+  ],
+  "boolean_tolerance_mm": 1e-05,
+  "pair_raw_subtraction_mm3": 0.0,
+  "spring_room_raw_subtraction_mm3": 0.0,
+  "spring_room_native_geometry_equal": true,
+  "pair_boundary_vertices_contained": true,
+  "independent_working_arms": 4,
+  "pair_specification": {
+    "closure": "direct-snap",
+    "centre_world_mm": [
+      57.25,
+      209.75,
+      258.5
+    ],
+    "tube_centers_world_mm": [
+      [
+        50.5,
+        209.75,
+        258.5
+      ],
+      [
+        64.0,
+        209.75,
+        258.5
+      ]
+    ],
+    "tube_axis_world": [
+      0.0,
+      1.0,
+      0.0
+    ],
+    "tube_axis_worlds": [
+      [
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ]
+    ],
+    "tube_od_mm": 6.35,
+    "bore_diameter_mm": 6.35,
+    "seat_radius_mm": 3.175,
+    "tube_pitch_mm": 13.5,
+    "station_length_mm": 8.0,
+    "spring_thickness_mm": 2.4,
+    "tip_degrees": 125.42102606277044,
+    "lid_face_z_mm": 253.4,
+    "base_floor_world_z_mm": 250.4,
+    "base_top_world_z_mm": 258.5,
+    "base_bounds_mm": [
+      [
+        44.925,
+        205.75,
+        250.4
+      ],
+      [
+        69.575,
+        213.75,
+        258.5
+      ]
+    ],
+    "body_bounds_mm": [
+      [
+        44.925,
+        205.75,
+        250.4
+      ],
+      [
+        69.575,
+        213.75,
+        262.2356636552512
+      ]
+    ],
+    "floor_stock_mm": 3.0,
+    "outer_radius_mm": 5.574999999999999,
+    "outer_width_mm": 24.65,
+    "central_land_mm": 7.15,
+    "static_outer_gap_mm": 2.3500000000000014,
+    "nominal_nose_spread_per_jaw_mm": 0.8097461762957114,
+    "clearance_spread_per_jaw_mm": 1.0,
+    "opposing_jaw_envelope_gap_mm": 0.3500000000000014,
+    "insertion_direction_world": [
+      0.0,
+      0.0,
+      -1.0
+    ],
+    "print_up_world": [
+      0.0,
+      0.0,
+      1.0
+    ],
+    "print_basis": "Lid flat underside on bed; C2 mouths grow upward, matching the floor-rooted trial orientation.",
+    "spring_basis": "Accepted C2 bore6.35, wing2.4 and tip125.421 degrees; no load or lifetime claim."
+  },
+  "aft_tie_station": {
+    "id": "a-pair-aft-anchor",
+    "label": "Reservoir A aft paired anchor",
+    "tube_centers_world_mm": [
+      [
+        86.5,
+        304.0,
+        259.5
+      ],
+      [
+        94.0,
+        304.0,
+        259.5
+      ]
+    ],
+    "curved_seats": true,
+    "seat_top_z_mm": 256.95,
+    "open_quarter_side": "east",
+    "base_east_of_last_tube_mm": 3.7,
+    "west_ramp_top_west_of_first_tube_mm": 3.5,
+    "routes_west_to_east": [
+      "fluid-16",
+      "fluid-14"
+    ],
+    "closure": "tie"
+  },
+  "world_brep": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/fore-direct-c2/lid-candidate-world.brep",
+  "local_step": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/paired-c2/staged/foam-cap/foam-cap-lid-top.step",
+  "local_stl": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/paired-c2/staged/foam-cap/foam-cap-lid-top.stl",
+  "local_payload": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/paired-c2/staged/foam-cap/foam-cap-lid-top.step.mesh"
+}
