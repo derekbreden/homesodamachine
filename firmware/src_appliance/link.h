@@ -76,8 +76,7 @@ bool linkTestScreen(uint16_t seconds);
 // True when the display answered that it showed it.
 bool linkUiShow(uint8_t rail, uint8_t channel, uint8_t act);
 
-// The same page, asked for without waiting: for a request that arrived on
-// another link and must not hold this loop. The ask returns a mark, and the
+// The same page, asked for without waiting. The ask returns a mark, and the
 // answer is whichever one the display gives after it.
 uint32_t linkUiShowAsk(uint8_t rail, uint8_t channel, uint8_t act);
 bool linkUiShowAnswered(uint32_t askedAt, bool &shown);

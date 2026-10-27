@@ -96,7 +96,7 @@ board also establishes and reports the safe I/O foundation the next connected be
 - **A phone.** What a phone asks through the faucet's radio arrives on J3 inside
   `MSG_BRIDGE_REQ`, and `faucet_link.cpp` holds the whole list of what it may ask: status,
   the selection, a channel's ratio, the fill and the clean cycle, sound, Prime's session,
-  ending that session, and opening a flavor's Prime page on the enclosure — never a hold.
+  ending that session, and opening a flavor's Prime page on the enclosure.
   Each is answered inside `MSG_BRIDGE_RESP` with the frame the same request gets on J9, and
   anything else is refused. Every fill and clean change goes to J3 as well, under request
   id 0, so a phone follows a run whoever started it; the enclosure follows one a phone

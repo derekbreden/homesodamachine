@@ -120,8 +120,7 @@ void phoneBridgeOnAnswer(const uint8_t *payload, uint16_t len) {
 }
 
 void phoneBridgeOnState(uint8_t type, const void *data, uint16_t len) {
-  // Not taken in while no phone is on, so whatever is current goes to the next
-  // one within a heartbeat of it arriving.
+  // Taken in only while a phone is on.
   if (!bleLinkConnected()) return;
 
   if (type == MSG_RESP_FLAVOR_STATE && len >= sizeof(FlavorStatePayload)) {

@@ -148,9 +148,7 @@ bool sendPrimeState() {
 // ── The phone, through the faucet ─────────────────────────────────────────
 // Everything a phone may ask of the machine arrives inside MSG_BRIDGE_REQ, and
 // onBridge() is the whole list of it. Each answer is the frame the same request
-// gets on J9, carried back inside MSG_BRIDGE_RESP under the request's id. The
-// faucet already counts phone traffic as presence (MSG_TOUCH), so nothing here
-// wakes the glasses itself.
+// gets on J9, carried back inside MSG_BRIDGE_RESP under the request's id.
 bool sendBridge(uint8_t reqId, uint8_t type, const void *data, uint16_t len) {
     uint8_t frame[sizeof(BridgeHeader) + sizeof(StatusPayload)];   // the largest answer
     if (len > sizeof(frame) - sizeof(BridgeHeader)) return false;
@@ -193,8 +191,8 @@ void onBridge(const uint8_t *payload, uint16_t plen) {
         return;
     }
 
-    // Absolute and tokenized, like a tap on either glass, so a retry cannot
-    // select twice. The heartbeat carries the result to the faucet's own logo.
+    // Absolute and tokenized, like a tap on either glass: a retry selects
+    // once. The heartbeat carries the result to the faucet's own logo.
     if (type == MSG_FLAVOR_SELECT && blen >= sizeof(FlavorRequestPayload)) {
         FlavorRequestPayload request;
         memcpy(&request, body, sizeof(request));
@@ -296,7 +294,7 @@ void onBridge(const uint8_t *payload, uint16_t plen) {
     }
 
     // Prime is the enclosure's session and a finger's hold. A phone reads it,
-    // opens its page, and may end it; it never holds the pad.
+    // opens its page, and may end it.
     if (type == MSG_PRIME_SESSION_QUERY) {
         PrimeSessionStatePayload state;
         readPrimeState(state);
