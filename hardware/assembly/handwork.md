@@ -12,6 +12,9 @@ Wind the GOORY 1/4" OD × 0.031" wall ACR copper tubing into the evaporator coil
 
 See [assembly/cold-core.md](/hardware/assembly/cold-core.md) step 1 for the production-procedure framing; the stubs it leaves are brazed in [assembly/refrigerant-loop.md](/hardware/assembly/refrigerant-loop.md).
 
+The [EVAP-01 forming drawing](/hardware/cold-core-layout/evaporator-coil-drawing.pdf)
+defines the installed winding, working tails, exit positions and bend requirements.
+
 ## Tap NPT in 316L end caps
 
 Hand-tap 1/4"-18 NPT directly into the 1/4"-thick laser-cut 316L end-cap plates from SendCutSend (`endcap-circular-2hole.dxf`). 2 ports per plate × 2 plates per carbonator × 10 carbonators of stock = 40 holes. Tap Magic EP-Xtra cutting fluid; LingGan M35 cobalt 1/4-18 NPT pipe tap (HSS-E, wears slower on stainless than plain HSS); Brown & Sharpe spring-loaded tap guide on the WEN drill press; Drill America DWT adjustable tap wrench for the hand drive. The committed plan for the first hole is [tapping-plan-2026-05-03.md](/hardware/snapshots/tapping-plan-2026-05-03.md); the remaining 39 follow once that one proves the fixture and the feel.
@@ -35,7 +38,20 @@ SendCutSend plates retain their common geometry.
 
 ## Cut + seat the reservoir float rods
 
-Cut two 1/8" 316L SS rods — one per flavor reservoir — to [203.8 mm (8.02 in)](RESERVOIR_ROD_LEN) from the same Tandefio B0CY4DWJFQ stock as the carbonator float rod. Same square-cut-and-deburr discipline. The guide axes stand 20 mm from the wet far wall, at (±106.25, 32.5) mm; current float/interface datums are in [installation.md](/hardware/printed-parts/cold-core/magnetic-float/all-aero/installation.md). Unlike the carbonator rod these are **not welded**: each is captured by printed PETG bosses at both ends. Seat the bottom end in the standing body-boss blind bore on the reservoir BODY's flat floor, slip the one-piece ASA Aero float with its midplane RC62 over the rod, and let the cap-side register boss capture the top end as the reservoir cap is installed. The cut length already backs off the body-boss-floor-to-cap-boss seat-to-seat span for clearance (per `reservoir.py`), so the rod locates without ever holding the cap off its gasket.
+Cut two 1/8" 316 SS rods — one per flavor reservoir — to the finished
+**203.75 mm +0.00/−0.10 mm** length in
+[FR-RES-01](/hardware/cut-parts/carbonation/reservoir-float-rod/reservoir-float-rod-drawing.pdf),
+from stock meeting its diameter limits. Same square-cut-and-deburr discipline.
+The guide axes stand 20 mm from the wet far wall, at (±106.25, 32.5) mm;
+current float/interface datums are in
+[installation.md](/hardware/printed-parts/cold-core/magnetic-float/all-aero/installation.md).
+Each rod is captured by printed PETG bosses at both ends, without welding.
+Seat the bottom end in the standing body-boss blind bore on the reservoir BODY's
+flat floor, slip the one-piece ASA Aero float with its midplane RC62 over the rod,
+and let the cap-side register boss capture the top end as the reservoir cap is
+installed. Verify FR-RES-01's 0.05–0.50 mm axial endplay with the cap and gasket
+fully seated, and free float travel. Retain the specified rod length; correct
+out-of-limit seats so the rod cannot hold the cap off its gasket.
 
 See [reservoir/level-sensing.md](/hardware/printed-parts/cold-core/reservoir/level-sensing.md) for the rod / float / reed geometry and [assembly/cold-core.md](/hardware/assembly/cold-core.md) (reservoir-internal assembly) for where this sits in the cold-core build.
 

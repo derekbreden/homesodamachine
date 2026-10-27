@@ -20,6 +20,12 @@ including upright guide play. Liquid switching heights need calibration.
 | Carbonator rod cut | **[5.110 ±0.005 in (129.79 ±0.13 mm)](CARB_ROD_LENGTH)** finished length, per FR-CARB-01; cap inside-face spacing 5.000 ±0.010 in per CV-WLD-01 |
 | Reservoir rod cut | **[203.750 mm](RES_ROD_LENGTH)**, with **[0.15 mm](RES_ROD_CLEARANCE)** axial clearance |
 
+The reservoir rods share [FR-RES-01](/hardware/cut-parts/carbonation/reservoir-float-rod/reservoir-float-rod-drawing.pdf):
+finished length **203.75 mm +0.00/−0.10 mm**, with controlled diameter, straightness
+and end finish. The table gives nominal seat geometry. Verify **0.05–0.50 mm**
+actual axial endplay with the cap and gasket fully seated, and free float travel;
+correct out-of-limit seats while retaining the specified rod length.
+
 Use the [end-cap drawing](/hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole-drawing.pdf)
 and [pressure-vessel procedure](/hardware/assembly/pressure-vessel.md) for
 fabrication. The laser-cut file contains the disc and two port holes; the rod

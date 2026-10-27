@@ -1311,7 +1311,7 @@
             ]
           },
           {
-            "material": "HSM-000035",
+            "material": "HSM-000339",
             "quantity": 2,
             "unit": "ea",
             "bodies": [
@@ -2334,6 +2334,21 @@
       "contexts": [
         {
           "material": "HSM-000003"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Evaporator coil forming engineering drawing",
+          "path": "cold-core-layout/evaporator-coil-drawing.pdf",
+          "kind": "engineering-drawing"
+        },
+        {
+          "title": "Coil forming and cold-core assembly",
+          "path": "assembly/cold-core.md"
+        },
+        {
+          "title": "Refrigeration integration",
+          "path": "assembly/refrigerant-loop.md"
         }
       ]
     },
@@ -6324,6 +6339,37 @@
           }
         ]
       }
+    },
+    {
+      "id": "HSM-000339",
+      "description": "Reservoir float guide rod \u00b7 316 stainless",
+      "kind": "manufactured",
+      "aliases": [
+        "reservoir float rod",
+        "reservoir guide rod",
+        "float-rod-a",
+        "float-rod-b"
+      ],
+      "contexts": [
+        {
+          "material": "HSM-000003"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Reservoir float guide rod engineering drawing",
+          "path": "cut-parts/carbonation/reservoir-float-rod/reservoir-float-rod-drawing.pdf",
+          "kind": "engineering-drawing"
+        },
+        {
+          "title": "Reservoir rod installation",
+          "path": "printed-parts/cold-core/magnetic-float/all-aero/installation.md"
+        },
+        {
+          "title": "Rod stock and allocation",
+          "path": "ledger/bom.md"
+        }
+      ]
     }
   ]
 }

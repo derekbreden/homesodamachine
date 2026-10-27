@@ -58,7 +58,17 @@ Wind around the printed [coil-mandrel](/hardware/printed-parts/cold-core/coil-ma
 
 The carbonator leaves this step with three lead runs on it — the two probes and the reed pair's 3-conductor bundle — all led toward the top cap’s shared `sensor-cable` passage for routing in step 5.
 
-Coil-forming instructions: [`/hardware/handwork.md`](/hardware/assembly/handwork.md) "Bend copper around the pressure vessel".
+The [EVAP-01 forming drawing](/hardware/cold-core-layout/evaporator-coil-drawing.pdf)
+controls the installed winding, exit coordinates, working tails and inspection
+before foam. Its centerlines describe the fitted coil; the mandrel is the forming
+aid. Coil-forming instructions: [`/hardware/handwork.md`](/hardware/assembly/handwork.md)
+"Bend copper around the pressure vessel".
+
+EVAP-01 identifies the tail routing still requiring release: the layout's
+rounded inlet/outlet arcs reach R5.72/R8.78 mm, below the R12.7 mm stock minimum.
+Those intermediate curves are omitted from the forming drawing. Establish
+compliant transitions and confirm assembled clearances and first-article fit
+before committing the coil to foam.
 
 ### 2. Press ruthex inserts into the outer shell
 
