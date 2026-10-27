@@ -51,3 +51,11 @@ void bleLinkQuiet(bool quiet);
 bool bleLinkConnected();
 void bleLinkFillStatus(BleStatusPayload &out);
 void bleLinkReport();
+
+// An answer from the main board, as BLE_FRAME_MACHINE: to the one link that
+// asked — and only while it is still the same connection — or, to
+// BLE_LINK_EVERY, to every phone on the air. False when the link is gone or
+// could not carry it.
+constexpr uint16_t BLE_LINK_EVERY = 0xFFFF;
+bool bleLinkDeliver(uint16_t link, uint32_t gen, uint8_t reqId, uint8_t type,
+                    const void *body, uint16_t len);

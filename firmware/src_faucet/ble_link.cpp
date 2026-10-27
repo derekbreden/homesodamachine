@@ -7,6 +7,7 @@
 #include "ble_ota.h"
 #include "ble_image.h"
 #include "fw_version.h"
+#include "phone_bridge.h"
 
 // ESP's connection reattempt restarts advertising from a field set this code
 // never fills, and leaves an empty advertisement on air. platformio.ini
@@ -298,6 +299,45 @@ static bool notify(uint8_t type, const void *data, uint16_t len) {
 // One line to the phone, in the text vocabulary it already reads.
 static void sayToPhone(const char *text) { notify(BLE_TEXT, text, (uint16_t)strlen(text)); }
 
+bool bleLinkDeliver(uint16_t handle, uint32_t gen, uint8_t reqId, uint8_t type,
+                    const void *body, uint16_t len) {
+  if (!txChar) return false;
+  uint8_t frame[3 + sizeof(BridgeHeader) + 64];
+  if (len > sizeof(frame) - 3 - sizeof(BridgeHeader)) return false;
+  const uint16_t plen = (uint16_t)(sizeof(BridgeHeader) + len);
+  frame[0] = BLE_FRAME_MACHINE;
+  frame[1] = (uint8_t)(plen & 0xFF);
+  frame[2] = (uint8_t)(plen >> 8);
+  frame[3] = reqId;
+  frame[4] = type;
+  if (len) memcpy(frame + 3 + sizeof(BridgeHeader), body, len);
+  txChar->setValue(frame, 3 + plen);
+
+  if (handle != BLE_LINK_EVERY) {
+    Link l;
+    if (!linkFind(handle, l) || l.gen != gen || !fits(plen, l.mtu)) return false;
+    return txChar->notify(handle);
+  }
+
+  Link now[CONFIG_BT_NIMBLE_MAX_CONNECTIONS];
+  portENTER_CRITICAL(&linksMux);
+  memcpy(now, links, sizeof(now));
+  portEXIT_CRITICAL(&linksMux);
+  bool took = false;
+  for (const Link &l : now) {
+    if (l.handle == BLE_HS_CONN_HANDLE_NONE || !fits(plen, l.mtu)) continue;
+    took = txChar->notify(l.handle) || took;
+  }
+  return took;
+}
+
+// Which bridge this board carries. A phone that hears none is talking to a
+// faucet that predates it.
+static void sendBridgeVersion() {
+  const uint8_t version = BRIDGE_VERSION;
+  notify(BLE_FRAME_BRIDGE, &version, sizeof(version));
+}
+
 static void sendIdentity() {
   // Everything a picker needs on one screen: which machine, which unit, what it
   // is called, and what this display is running.
@@ -558,7 +598,15 @@ static void dispatchFrame(const uint8_t *work, uint16_t len) {
   if (type == BLE_TEXT && plen == 8 && !memcmp(payload, "IDENTITY", 8)) {
     sendIdentity();
     sendVersions();
+    sendBridgeVersion();
     versionsAskedAtMs = 0;   // and ask the main board again, in case it has news
+    return;
+  }
+
+  // What the phone asks of the machine, for the main board to answer.
+  if (type == BLE_FRAME_MACHINE_REQ) {
+    Link l;
+    if (linkFind(replyTo, l)) phoneBridgeRequest(l.handle, l.gen, payload, plen);
     return;
   }
 
@@ -598,6 +646,7 @@ void bleLinkService() {
   settleLinks();
   bleOtaService();
   bleImageService();   // whatever a read-back still owes the phone
+  phoneBridgeService();
 
   // A RADIO THAT HAS STOPPED IS A MACHINE NO PHONE CAN FIND, and nothing else
   // on this board reads it. It advertises whenever there is room for another
