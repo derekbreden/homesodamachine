@@ -9,6 +9,7 @@
 #include "idle.h"
 #include "link.h"
 #include "machine.h"
+#include "machine_policy.h"
 #include "onewire.h"
 #include "refill_policy.h"
 #include "pins.h"
@@ -224,7 +225,10 @@ static void help() {
     Serial.println("  clean <a|b> [rounds] [s]   the clean cycle: the funnel pumped through to the faucet, then");
     Serial.println("                    tap water pumped in until the full reed closes and pumped out the faucet");
     Serial.println("                    until the empty reed closes plus an 8 s tail, rounds times (default 3);");
-    Serial.println("                    s caps every step (default 141 funnel, 90 in, 150 out)");
+    Serial.printf("                    s caps every step (default %lu funnel, %lu in, %lu out)\n",
+                  (unsigned long)(machine_policy::kCleanFunnelPlannedMs / 1000),
+                  (unsigned long)(machine_policy::kCleanWaterFillPlannedMs / 1000),
+                  (unsigned long)(machine_policy::kCleanFlushPlannedMs / 1000));
     Serial.println("  dry [s]           dry the flavor lines: air in then through to the faucet, on each");
     Serial.println("                    channel in turn, the funnel dry and open; s caps every step");
     Serial.println("  purge <a|b> [s]   air into that reservoir, then the reservoir out the faucet until");

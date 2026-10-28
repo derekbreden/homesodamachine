@@ -1120,6 +1120,10 @@ void test_clean_cycle_left_sums_the_steps_still_to_come() {
 }
 
 void test_clean_timing_is_ordered_and_reads_the_reservoir_as_the_fill_does() {
+    const uint32_t reservoir_ms =
+        (kCleanReservoirMl * 60000u + kFillSlowestMlMin - 1) / kFillSlowestMlMin;
+    TEST_ASSERT_TRUE(kCleanWaterFillPlannedMs >= reservoir_ms);
+    TEST_ASSERT_TRUE(kCleanFlushPlannedMs >= reservoir_ms + kCleanFlushTailMs);
     TEST_ASSERT_TRUE(kCleanRounds >= 1);
     TEST_ASSERT_TRUE(kCleanFlushTailMs < kCleanFlushPlannedMs);
     TEST_ASSERT_TRUE(kCleanFlushPlannedMs > kCleanWaterFillPlannedMs);

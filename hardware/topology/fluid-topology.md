@@ -204,7 +204,10 @@ This table is canonical for the integrated flavor manifold. Pumps run forward on
 - (Same as Dispense B)
 
 Each clean water fill checks the reservoir's full reed before opening V-A or starting the
-pump; a full reservoir proceeds to its flush. A fill ends on that reed or its 90 s limit.
+pump; a full reservoir proceeds to its flush. A fill ends on that reed or its 240 s limit.
+The flush ends 8 s after the empty reed closes, or at 248 s. These limits cover the
+[1.37 L reservoir](/hardware/printed-parts/cold-core/reservoir/floor-and-dip-tube.md)
+at the pump's slowest rated 380 mL/min, with line allowance and the flush tail.
 At a stop, the pump drive stops and V-A closes immediately. The channel's select and return
 remain open for 250 ms of coast-down, then close before the next path opens. Expander faults
 stop the running cleaning motor before the driver's emergency valve closure.

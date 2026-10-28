@@ -115,8 +115,10 @@ From the bench-acceptance UI, run "clean cycle, Channel A." Firmware executes th
 
 During each water-fill step, confirm the selected flavor pump turns forward while V-A and
 that channel's select and reservoir-return valves are open. The other flavor pump and the
-carbonator refill relay stay off. A full reed ends the fill; the planned 90 s is its upper
-limit. A reservoir already full at the start of the step skips the water fill and proceeds
+carbonator refill relay stay off. A full reed ends the fill; the planned 240 s is its upper
+limit. The flush ends 8 s after the empty reed closes or at 248 s. These limits cover the
+1.37 L reservoir at the slowest rated 380 mL/min with line allowance. A reservoir already
+full at the start of the step skips the water fill and proceeds
 to flushing. At a stop, the pump drive stops and V-A closes immediately; the remaining path
 stays open for 250 ms of coast-down before its valves close. A stopped head's slow gravity
 leakage is not the cleaning flow.
