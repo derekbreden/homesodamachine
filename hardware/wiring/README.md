@@ -115,6 +115,12 @@ the body pour, with their free ends threaded through the cap and lid.
 
 ## Routing and assembly
 
+Insulated wires may lie against a surface or another wire. They need room
+to occupy their routed space: avoid trapping them on all sides in a narrow
+channel or sending them through solid stock. A uniform 1 mm gap around each
+wire is not a design requirement. Local room readings remain manual design
+reviews; they add no build or commit check.
+
 `proposed` is an installed route for review. `unresolved` means the saved routing
 needs attention; geometry remains visible for complete electrical coverage. An
 unsuccessful bounded route search does not prove that the physical route is

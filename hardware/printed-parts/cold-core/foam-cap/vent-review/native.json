@@ -1,0 +1,168 @@
+{
+  "fit": {
+    "scope": "Selected production cap wall, vent and junctions; nominal native geometry. Physical strength and purchased fit retain their component scopes.",
+    "lid_valid": true,
+    "lid_solids": 1,
+    "WAGO_shift_world_mm": [
+      -2.5,
+      0,
+      0
+    ],
+    "vent_to_lid": {
+      "gap_mm": 0.5999997999999778,
+      "overlap_mm3": 0.0
+    },
+    "vent_to_v12": {
+      "gap_mm": 1.500000005148003,
+      "overlap_mm3": 0.0
+    },
+    "vent_to_other_wagos": {
+      "cold-core/wago-v12": {
+        "gap_mm": 1.500000005148003,
+        "overlap_mm3": 0.0
+      },
+      "cold-core/wago-gnd": {
+        "gap_mm": 17.76240136764853,
+        "overlap_mm3": 0.0
+      },
+      "cold-core/wago-sensors": {
+        "gap_mm": 17.36490714099688,
+        "overlap_mm3": 0.0
+      },
+      "cold-core/wago-reeds-b": {
+        "gap_mm": 24.795017691976803,
+        "overlap_mm3": 0.0
+      }
+    },
+    "opening_to_valve": 5.24841905639863,
+    "frame": {
+      "gap_mm": 1.2499999000000344,
+      "overlap_mm3": 0.0
+    },
+    "hardware_nearby": [
+      {
+        "part": "cold-core/wago-v12",
+        "neighbor": "cold-core/tube-reservoir-air-b",
+        "gap_mm": 1.500000005148003,
+        "overlap_mm3": 0.0
+      }
+    ]
+  },
+  "source_build": {
+    "build": "Incremental source-generated V-B wall and four electrical wells on the published lid; unchanged plate and other features retained.",
+    "valid": true,
+    "solids": 1,
+    "candidate_difference_mm3": 0.0,
+    "step_sha256": "52662ad3d7731af35b1f3660da4badb9c7abaf15f1fe93c34e4a1068b7de514e",
+    "source_sha256": {
+      "hardware/manifold-layout/above_core_wiring.py": "837accb947804750cc257519fc093781c31e729fb0055c4b957354a9b38a6a68",
+      "hardware/manifold-layout/above-core.json": "22cc77e50a15643a22f83be424b8aeddca20940e109ac781732bcce31ebc1a80",
+      "hardware/printed-parts/cold-core/foam-cap/foam_cap.py": "2f25526db1906ccba28bab3e23b1551d8a39456dc7f37145bda32cdbcc8a9650",
+      "hardware/printed-parts/cold-core/_above_core_mounts.py": "d540d325b821f1837d822b4e3a340de22d3c77365bb70e721d28a9f33851f8ce"
+    }
+  },
+  "native_integration": {
+    "hardware/manifold-layout/enclosure-assembly.step": {
+      "sha256": "40d54c2e584bb274fc59f858651cdbf69847395be97e7a2802d33936ac208d55",
+      "changed_native_roots": [
+        "cold-core/foam-cap-lid-top",
+        "cold-core/wago-gnd",
+        "cold-core/wago-reeds-b",
+        "cold-core/wago-sensors",
+        "cold-core/wago-v12",
+        "wire-DC1-GND",
+        "wire-DC1-V12",
+        "wire-DC2-V12",
+        "wire-DC3-negative",
+        "wire-DC4-GND",
+        "wire-DC4-V12",
+        "wire-J4-GND",
+        "wire-J7-GND",
+        "wire-J7-carb-earth-2",
+        "wire-J7-earth-4",
+        "wire-flow-GND",
+        "wire-temp-GND"
+      ],
+      "all_bytes_outside_selected_roots_and_appended_records_retained": true,
+      "wire_records_stay_in_replaceable_block": true
+    },
+    "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step": {
+      "sha256": "8c08bf8f48c92aa3b4b94909c5da2f5c5a4e0721d58f674c73367110b691c57d",
+      "changed_native_roots": [
+        "foam-cap-lid-top"
+      ],
+      "all_bytes_outside_selected_roots_and_appended_records_retained": true,
+      "wire_records_stay_in_replaceable_block": false
+    },
+    "hardware/cold-core-layout/cold-core-assembly.step": {
+      "sha256": "9e05214a101a2d10925d84766fde9e99aef85ce517969428e6cf76aedeb5e6a5",
+      "changed_native_roots": [
+        "foam-cap-lid-top"
+      ],
+      "all_bytes_outside_selected_roots_and_appended_records_retained": true,
+      "wire_records_stay_in_replaceable_block": false
+    },
+    "hardware/wiring/enclosure-wiring.step": {
+      "sha256": "4545226fa7c814a0728b370c3b2d65d03d18e2191886ee2b070b78fa2f24cab9",
+      "changed_native_roots": [
+        "wire-DC1-GND",
+        "wire-DC1-V12",
+        "wire-DC2-V12",
+        "wire-DC3-negative",
+        "wire-DC4-GND",
+        "wire-DC4-V12",
+        "wire-J4-GND",
+        "wire-J7-GND",
+        "wire-J7-carb-earth-2",
+        "wire-J7-earth-4",
+        "wire-flow-GND",
+        "wire-temp-GND"
+      ],
+      "all_bytes_outside_selected_roots_and_appended_records_retained": true,
+      "wire_records_stay_in_replaceable_block": false
+    }
+  },
+  "viewer_integration": {
+    "hardware/manifold-layout/enclosure-assembly.step": {
+      "sha256": "3540d14706293dc5014625f1cc17802171cc2ebe53bf874dde3aeeccff51cedc",
+      "changed_rows": [
+        "cold-core/foam-cap-lid-top",
+        "cold-core/wago-gnd",
+        "cold-core/wago-reeds-b",
+        "cold-core/wago-sensors",
+        "cold-core/wago-v12",
+        "wire-DC1-GND",
+        "wire-DC1-V12",
+        "wire-DC2-V12",
+        "wire-DC3-negative",
+        "wire-DC4-GND",
+        "wire-DC4-V12",
+        "wire-J4-GND",
+        "wire-J7-GND",
+        "wire-J7-carb-earth-2",
+        "wire-J7-earth-4",
+        "wire-flow-GND",
+        "wire-temp-GND"
+      ],
+      "unchanged_rows_copied_byte_for_byte": 545
+    },
+    "hardware/wiring/enclosure-wiring.step": {
+      "sha256": "5cf460a2435c5d191e74f611da9f608bc68be41533c8baa120fd164d071e98a9",
+      "changed_rows": [
+        "wire-DC1-GND",
+        "wire-DC1-V12",
+        "wire-DC2-V12",
+        "wire-DC3-negative",
+        "wire-DC4-GND",
+        "wire-DC4-V12",
+        "wire-J4-GND",
+        "wire-J7-GND",
+        "wire-J7-carb-earth-2",
+        "wire-J7-earth-4",
+        "wire-flow-GND",
+        "wire-temp-GND"
+      ],
+      "unchanged_rows_copied_byte_for_byte": 101
+    }
+  }
+}

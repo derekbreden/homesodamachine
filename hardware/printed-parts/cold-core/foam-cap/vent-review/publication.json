@@ -1,0 +1,19 @@
+{
+  "scope": "Cap vent passage, four WAGO junctions and twelve existing lead routes; all other native records and public arrays retained.",
+  "source_commit": "0642418f7dc23bf51bf196dfb114c30f20e3be61",
+  "changed_artifacts": {
+    "hardware/assembly/scenes/glb/back-half.glb": "4f17f0704e90979d4a35539ea927f5d0dcb9c85f7c070cfacf46f2ea92ab063b",
+    "hardware/assembly/scenes/glb/cap-lid-fill.glb": "562d8c5db73898f5f49c9881a882b3fd7a5563134577806e7894d9817e67c0b0",
+    "hardware/assembly/scenes/glb/cap-lid.glb": "a88c5ef75ef79b452e6f6e5a7c74d35f6a4f99f1109de3a341d5656f0e27a43d",
+    "hardware/assembly/scenes/glb/cold-core.glb": "bb4ede270939934f172631cddbda2a0788859ea733beda37e3e1e0f06c35cdee",
+    "hardware/cold-core-layout/cold-core-assembly.step": "9e05214a101a2d10925d84766fde9e99aef85ce517969428e6cf76aedeb5e6a5",
+    "hardware/manifold-layout/enclosure-assembly.step": "40d54c2e584bb274fc59f858651cdbf69847395be97e7a2802d33936ac208d55",
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": "3540d14706293dc5014625f1cc17802171cc2ebe53bf874dde3aeeccff51cedc",
+    "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step": "8c08bf8f48c92aa3b4b94909c5da2f5c5a4e0721d58f674c73367110b691c57d",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step": "52662ad3d7731af35b1f3660da4badb9c7abaf15f1fe93c34e4a1068b7de514e",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh": "316f267d313ab4d56fb257c2597d7afd7a94c1b88e7c9dc535a302dc56b4cdde",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl": "82864e8ce06a4fb8074d314131ff035fed7f85fe2f038c6806ffb7d73d60ec6d",
+    "hardware/wiring/enclosure-wiring.step": "4545226fa7c814a0728b370c3b2d65d03d18e2191886ee2b070b78fa2f24cab9",
+    "hardware/wiring/enclosure-wiring.step.mesh": "5cf460a2435c5d191e74f611da9f608bc68be41533c8baa120fd164d071e98a9"
+  }
+}
