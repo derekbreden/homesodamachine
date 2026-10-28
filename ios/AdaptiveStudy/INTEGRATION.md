@@ -98,7 +98,8 @@ and sent again after **Trust**; pictures, faces, the name and Software Update as
 first. **Don't Trust**, a minute with no answer, or another device's ask already
 up changes nothing and says so. A name given before the device is trusted stands
 until it is. Trust lasts until **Forget trusted phones** on the enclosure, which
-forgets every device at once.
+forgets every device at once, or until the device forgets the machine: set up
+again, it pairs anew and is asked again.
 
 Channel-specific changes identify channel 0 or 1 and carry the main board's
 result. The two flavors have independent art and ratios. `MSG_RATIO_SET_ONE`
