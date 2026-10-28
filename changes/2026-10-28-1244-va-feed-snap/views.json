@@ -1,0 +1,77 @@
+{
+  "views": [
+    {
+      "name": "lid-feed-snap",
+      "caption": "The existing V-A feed seats in one filled C2 clip integral to the cold-core lid.",
+      "before": "lid-feed-snap-before.webp",
+      "after": "lid-feed-snap-after.webp",
+      "width": 1200,
+      "height": 840,
+      "marks": [
+        {
+          "x": 487.5,
+          "y": 528.4,
+          "r": 63,
+          "label": "Filled lid root",
+          "at": [
+            5.425,
+            254.5,
+            256
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          -319.74958431032854,
+          -78.24958431032854,
+          508.5621882327464
+        ],
+        "target": [
+          13,
+          254.5,
+          259
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 20,
+        "near": 340.0219611096261,
+        "far": 917.0694625223596,
+        "aspect": 1.4285714285714286
+      },
+      "highlight": [
+        "tube-above-core-va-fore-feed"
+      ],
+      "ghost": [],
+      "only": [
+        "cold-core/foam-cap-lid-top",
+        "tube-above-core-va-fore-feed"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "75fd831610cb8076af67052a27c61b6ef78061ee991763b30b054a54eeff5fcb",
+          "commit": "438f5eb2a9f2d7319bbc3e633d6df999431b7079",
+          "taken": "2026-10-28T17:28:54.497Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "file",
+          "sha256": "8da6db37ffec0f62b92e45a7e1ce9dc071b87ce84faffa7466a65a418fa45707",
+          "commit": null
+        }
+      },
+      "changed": [
+        "cold-core/foam-cap-lid-top"
+      ],
+      "withinMeshing": []
+    }
+  ]
+}
