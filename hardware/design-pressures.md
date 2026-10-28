@@ -17,6 +17,12 @@ made, once.
 **Rigidity and a substantial feel.** Available internal volume around supported hardware
 belongs to the structure.
 
+**Simplicity of the whole assembly.** Choose clean routes, broad printable shapes, simple
+supports and straightforward assembly steps. A tube can move to another wall, the floor or
+the ceiling when that produces a simpler arrangement. Judge a change by the crowding,
+special reliefs and rework it creates elsewhere. Distance moved and the number of edited
+items do not measure its disruption.
+
 ## Not optimised
 
 **Field service.** None. Every physical fault, the pumps' included, is answered by shipping a
@@ -31,6 +37,11 @@ destroyed is a part that comes out by being destroyed.
 
 ## What follows for placement
 
+- **Design a tube's complete path and its supports together.** Intermediate waypoints are
+  design variables. Choose them where simple integral supports have room, considering the
+  surrounding tubes, wiring and hardware as one layout. Reconsider the whole route when a
+  local attachment becomes awkward; coordinated changes to neighboring routes or bodies
+  can be part of the simpler solution.
 - **A butt joint needs one of its two bodies free along the port axis when it is made.** The
   stub lies entirely inside the two collets, so it is pushed home into one and the second body
   comes onto it. This constrains the ORDER, not the grouping: a chain of butts installs in
