@@ -5861,17 +5861,17 @@
     },
     {
       "id": "HSM-000303",
-      "description": "Flavor B dispense outlet tube \u00b7 4 mm black LLDPE",
+      "description": "Flavor B dispense outlet tube \u00b7 4 mm black LLDPE \u00b7 V-J to west rear flavor port X37.25",
       "kind": "manufactured",
       "aliases": [
         "fluid-28",
         "tube-fluid-28",
-        "fluid 28 tube \u00b7 1/4 inch black LLDPE"
+        "fluid 28 tube \u00b7 4 mm black LLDPE"
       ],
       "documents": [
         {
           "title": "Tube routing and cut stock",
-          "path": "manifold-layout/enclosure_assembly.py"
+          "path": "manifold-layout/above_core_routes.py"
         },
         {
           "title": "Internal plumbing",
@@ -5890,17 +5890,17 @@
     },
     {
       "id": "HSM-000304",
-      "description": "Flavor A dispense outlet tube \u00b7 4 mm black LLDPE",
+      "description": "Flavor A dispense outlet tube \u00b7 4 mm black LLDPE \u00b7 V-G to east rear flavor port X77.5",
       "kind": "manufactured",
       "aliases": [
         "fluid-18",
         "tube-fluid-18",
-        "fluid 18 tube \u00b7 1/4 inch black LLDPE"
+        "fluid 18 tube \u00b7 4 mm black LLDPE"
       ],
       "documents": [
         {
           "title": "Tube routing and cut stock",
-          "path": "manifold-layout/enclosure_assembly.py"
+          "path": "manifold-layout/above_core_routes.py"
         },
         {
           "title": "Internal plumbing",
@@ -5929,7 +5929,7 @@
       "documents": [
         {
           "title": "Tube routing and cut stock",
-          "path": "manifold-layout/enclosure_assembly.py"
+          "path": "manifold-layout/above_core_routes.py"
         },
         {
           "title": "Internal plumbing",

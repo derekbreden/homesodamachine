@@ -1,0 +1,476 @@
+{
+  "schema": 1,
+  "created_utc": "2026-10-28T16:05:34.606039+00:00",
+  "scope": "Manual native reading of the two paired flavor roof roots only. Six individual tube seats remain provider data. No whole-appliance recomposition, foreign-body clearance audit or physical fit/retention claim.",
+  "imported_modules": {
+    "_route_snaps": "hardware/printed-parts/enclosure/enclosure/_route_snaps.py",
+    "above_core_parts": "hardware/manifold-layout/above_core_parts.py",
+    "above_core_routes": "hardware/manifold-layout/above_core_routes.py",
+    "_bom_masses": "hardware/scripts/_bom_masses.py"
+  },
+  "source_sha256": {
+    "hardware/printed-parts/enclosure/enclosure/_route_snaps.py": "863a741a0d4025361c12d5397b0150a289fa8ffb6706a876dd8c002ae68e2967",
+    "hardware/printed-parts/enclosure/enclosure/_tube_snap_sites.py": "a6bb2521934e5c34aaaa153740344bd3616bfd9ba97a5b8315b3445f3fbd4798",
+    "hardware/printed-parts/cadlib/route_snap.py": "e9d1b350d7c639adc125ab01a99022d8a4eaaffac9c8278616722de0ec99ef47"
+  },
+  "host": {
+    "path": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step",
+    "sha256": "8974d38f391b349b6bb7d17903b3e7a531cfb10441703982948bc1c7f9a3285f",
+    "native_valid": true,
+    "native_solids": 1
+  },
+  "boolean_fuzzy_tolerance_mm": 1e-06,
+  "roof_proxy": {
+    "bounds_world_mm": [
+      -80.0,
+      340.0,
+      346.0,
+      20.0,
+      420.0,
+      355.0
+    ],
+    "basis": "Existing plain roof slab Z346..355; intersects only attachment material."
+  },
+  "groups": [
+    {
+      "id": "tube-snap-flavor-roof-354",
+      "members": [
+        "tube-snap-flavor-a-roof-354",
+        "tube-snap-flavor-b-roof-354"
+      ],
+      "datums": {
+        "id": "tube-snap-flavor-roof-354",
+        "kind": "tube-group",
+        "host": "enclosure-back-top",
+        "members": [
+          {
+            "id": "tube-snap-flavor-a-roof-354",
+            "route_id": "fluid-18",
+            "host": "enclosure-back-top",
+            "centre": [
+              -45.0,
+              354.0,
+              343.0
+            ],
+            "along": [
+              0.0,
+              1.0,
+              0.0
+            ],
+            "outward": [
+              0.0,
+              0.0,
+              -1.0
+            ],
+            "root_distance": 3.0,
+            "tube_od": 4.0,
+            "bore_diameter": 4.1,
+            "wing": 1.52,
+            "span": 8.0,
+            "print_up": [
+              0.0,
+              0.0,
+              -1.0
+            ],
+            "basis": "Flavor-A roof straight, held on the forward common filled root; load from below with the vent clear.",
+            "install_before": [
+              "drain-vent"
+            ],
+            "group": {
+              "id": "tube-snap-flavor-roof-354",
+              "bridge_origin": [
+                -51.53,
+                350.0,
+                343.0
+              ],
+              "bridge_size": [
+                3.06,
+                8.0,
+                3.1
+              ]
+            },
+            "source_parameter": {
+              "file": "hardware/manifold-layout/above_core_routes.py",
+              "function": "route_specifications",
+              "native_segment_index": 9,
+              "line_endpoints_world_mm": [
+                [
+                  -45.0,
+                  348.0,
+                  343.0
+                ],
+                [
+                  -45.0,
+                  395.28967877669146,
+                  343.0
+                ]
+              ],
+              "line_parameter": 0.12687757995424007,
+              "straight_end_clearance_mm": 2.0,
+              "straight_end_clearances_mm": [
+                2.0,
+                37.28967877669146
+              ],
+              "host_face_axis": "Z",
+              "host_face_coordinate_mm": 346.0
+            }
+          },
+          {
+            "id": "tube-snap-flavor-b-roof-354",
+            "route_id": "fluid-28",
+            "host": "enclosure-back-top",
+            "centre": [
+              -55.0,
+              354.0,
+              343.0
+            ],
+            "along": [
+              0.0,
+              1.0,
+              0.0
+            ],
+            "outward": [
+              0.0,
+              0.0,
+              -1.0
+            ],
+            "root_distance": 3.0,
+            "tube_od": 4.0,
+            "bore_diameter": 4.1,
+            "wing": 1.52,
+            "span": 8.0,
+            "print_up": [
+              0.0,
+              0.0,
+              -1.0
+            ],
+            "basis": "Flavor-B roof straight, held on the forward common filled root; load from below with the vent clear.",
+            "install_before": [
+              "drain-vent"
+            ],
+            "group": {
+              "id": "tube-snap-flavor-roof-354",
+              "bridge_origin": [
+                -51.53,
+                350.0,
+                343.0
+              ],
+              "bridge_size": [
+                3.06,
+                8.0,
+                3.1
+              ]
+            },
+            "source_parameter": {
+              "file": "hardware/manifold-layout/above_core_routes.py",
+              "function": "route_specifications",
+              "native_segment_index": 5,
+              "line_endpoints_world_mm": [
+                [
+                  -55.0,
+                  348.0,
+                  343.0
+                ],
+                [
+                  -55.0,
+                  403.6,
+                  343.0
+                ]
+              ],
+              "line_parameter": 0.10791366906474816,
+              "straight_end_clearance_mm": 2.0,
+              "straight_end_clearances_mm": [
+                2.0,
+                45.60000000000002
+              ],
+              "host_face_axis": "Z",
+              "host_face_coordinate_mm": 346.0
+            }
+          }
+        ],
+        "shared_root": {
+          "id": "tube-snap-flavor-roof-354",
+          "bridge_origin": [
+            -51.53,
+            350.0,
+            343.0
+          ],
+          "bridge_size": [
+            3.06,
+            8.0,
+            3.1
+          ]
+        }
+      },
+      "native_valid": true,
+      "native_solids": 1,
+      "volume_mm3": 450.98202666788706,
+      "bounds_world_mm": [
+        -58.57000000000001,
+        350.0,
+        340.6113794579987,
+        -41.42999999999999,
+        358.0,
+        346.57
+      ],
+      "roof_overlap_mm3": 31.71259298063994,
+      "missing_from_generated_back_top_mm3": 0,
+      "approved": {
+        "path": "4mm-smooth-195658-native/roof-guided-support-354.brep",
+        "sha256": "a13632832496314f5f0a21ffb6d87230afab4274bb50c3be3a2a2f64d1ef8877",
+        "volume_mm3": 450.9820266678869,
+        "bounds_world_mm": [
+          -58.57000000000001,
+          350.0,
+          340.6113794579987,
+          -41.42999999999999,
+          358.0,
+          346.57
+        ]
+      },
+      "comparison": {
+        "volume_delta_mm3": 1.7053025658242404e-13,
+        "maximum_bounds_delta_mm": 0.0,
+        "source_only_volume_mm3": 0,
+        "approved_only_volume_mm3": 0
+      }
+    },
+    {
+      "id": "tube-snap-flavor-roof-390",
+      "members": [
+        "tube-snap-flavor-a-roof-390",
+        "tube-snap-flavor-b-roof-390"
+      ],
+      "datums": {
+        "id": "tube-snap-flavor-roof-390",
+        "kind": "tube-group",
+        "host": "enclosure-back-top",
+        "members": [
+          {
+            "id": "tube-snap-flavor-a-roof-390",
+            "route_id": "fluid-18",
+            "host": "enclosure-back-top",
+            "centre": [
+              -45.0,
+              390.0,
+              343.0
+            ],
+            "along": [
+              0.0,
+              1.0,
+              0.0
+            ],
+            "outward": [
+              0.0,
+              0.0,
+              -1.0
+            ],
+            "root_distance": 3.0,
+            "tube_od": 4.0,
+            "bore_diameter": 4.1,
+            "wing": 1.52,
+            "span": 8.0,
+            "print_up": [
+              0.0,
+              0.0,
+              -1.0
+            ],
+            "basis": "Flavor-A roof straight, held on the aft common filled root; load from below with the vent clear.",
+            "install_before": [
+              "drain-vent"
+            ],
+            "group": {
+              "id": "tube-snap-flavor-roof-390",
+              "bridge_origin": [
+                -51.53,
+                386.0,
+                343.0
+              ],
+              "bridge_size": [
+                3.06,
+                8.0,
+                3.1
+              ]
+            },
+            "source_parameter": {
+              "file": "hardware/manifold-layout/above_core_routes.py",
+              "function": "route_specifications",
+              "native_segment_index": 9,
+              "line_endpoints_world_mm": [
+                [
+                  -45.0,
+                  348.0,
+                  343.0
+                ],
+                [
+                  -45.0,
+                  395.28967877669146,
+                  343.0
+                ]
+              ],
+              "line_parameter": 0.8881430596796804,
+              "straight_end_clearance_mm": 1.289678776691459,
+              "straight_end_clearances_mm": [
+                38.0,
+                1.289678776691459
+              ],
+              "host_face_axis": "Z",
+              "host_face_coordinate_mm": 346.0
+            }
+          },
+          {
+            "id": "tube-snap-flavor-b-roof-390",
+            "route_id": "fluid-28",
+            "host": "enclosure-back-top",
+            "centre": [
+              -55.0,
+              390.0,
+              343.0
+            ],
+            "along": [
+              0.0,
+              1.0,
+              0.0
+            ],
+            "outward": [
+              0.0,
+              0.0,
+              -1.0
+            ],
+            "root_distance": 3.0,
+            "tube_od": 4.0,
+            "bore_diameter": 4.1,
+            "wing": 1.52,
+            "span": 8.0,
+            "print_up": [
+              0.0,
+              0.0,
+              -1.0
+            ],
+            "basis": "Flavor-B roof straight, held on the aft common filled root; load from below.",
+            "install_before": [],
+            "group": {
+              "id": "tube-snap-flavor-roof-390",
+              "bridge_origin": [
+                -51.53,
+                386.0,
+                343.0
+              ],
+              "bridge_size": [
+                3.06,
+                8.0,
+                3.1
+              ]
+            },
+            "source_parameter": {
+              "file": "hardware/manifold-layout/above_core_routes.py",
+              "function": "route_specifications",
+              "native_segment_index": 5,
+              "line_endpoints_world_mm": [
+                [
+                  -55.0,
+                  348.0,
+                  343.0
+                ],
+                [
+                  -55.0,
+                  403.6,
+                  343.0
+                ]
+              ],
+              "line_parameter": 0.7553956834532372,
+              "straight_end_clearance_mm": 9.60000000000002,
+              "straight_end_clearances_mm": [
+                38.0,
+                9.60000000000002
+              ],
+              "host_face_axis": "Z",
+              "host_face_coordinate_mm": 346.0
+            }
+          }
+        ],
+        "shared_root": {
+          "id": "tube-snap-flavor-roof-390",
+          "bridge_origin": [
+            -51.53,
+            386.0,
+            343.0
+          ],
+          "bridge_size": [
+            3.06,
+            8.0,
+            3.1
+          ]
+        }
+      },
+      "native_valid": true,
+      "native_solids": 1,
+      "volume_mm3": 450.98202666788706,
+      "bounds_world_mm": [
+        -58.57000000000001,
+        386.0,
+        340.6113794579987,
+        -41.42999999999999,
+        394.0,
+        346.57
+      ],
+      "roof_overlap_mm3": 31.71259298063994,
+      "missing_from_generated_back_top_mm3": 0,
+      "approved": {
+        "path": "4mm-smooth-195658-native/smooth-support-390.brep",
+        "sha256": "ed806911c026677cb3e07e2e2b53a816786ff7fc9681f8db3546a4255074113a",
+        "volume_mm3": 450.9820266678868,
+        "bounds_world_mm": [
+          -58.57000000000001,
+          386.0,
+          340.6113794579987,
+          -41.42999999999999,
+          394.0,
+          346.57
+        ]
+      },
+      "comparison": {
+        "volume_delta_mm3": 2.2737367544323206e-13,
+        "maximum_bounds_delta_mm": 0.0,
+        "source_only_volume_mm3": 0,
+        "approved_only_volume_mm3": 0
+      }
+    }
+  ],
+  "elapsed_seconds": 4.4554979580279905,
+  "printed_mass_estimate": {
+    "schema": 1,
+    "scope": "Existing base-profile native filament estimate for the single changed back-top BOM row; not a slice or physical mass result.",
+    "estimator_sha256": "6b49bcc18ff203e6e934899b34892e969f9ebb1bcb949fd4a0c77238df8cdaef",
+    "profile": [
+      0.87,
+      0.45,
+      0.15
+    ],
+    "density_g_per_cm3": 1.43,
+    "price_usd_per_kg": 25.02,
+    "parts": [
+      {
+        "path": "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step",
+        "sha256": "556b122b134f436f9b9eabb37d4720aee47f093527c6d3c6e8f4c8cf7b10c5aa",
+        "solid_volume_cm3": 1316.3545234210617,
+        "solid_area_cm2": 3843.165833380683,
+        "profile": "ext",
+        "mass_kg": 0.6887670674050749,
+        "cost_usd": 17.232952026474972
+      },
+      {
+        "path": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step",
+        "sha256": "8974d38f391b349b6bb7d17903b3e7a531cfb10441703982948bc1c7f9a3285f",
+        "solid_volume_cm3": 1503.2414876041644,
+        "solid_area_cm2": 4195.005844445853,
+        "profile": "ext",
+        "mass_kg": 0.7660608746324755,
+        "cost_usd": 19.16684308330454
+      }
+    ],
+    "mass_kg": 1.4548279420375505,
+    "cost_usd": 36.39979510977951
+  },
+  "reading_pass": true
+}

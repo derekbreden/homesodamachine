@@ -17,17 +17,24 @@ those providers rather than a second coordinate table here.
 | Route | Host | Nominal tube OD | CAD bore | Functional spring wall | Span along tube |
 | --- | --- | ---: | ---: | ---: | ---: |
 | Reservoir A fill, `fluid-14` | East wall | 6.35 mm | 6.35 mm | 2.40 mm | 8 mm |
-| Flavor A, `fluid-18` | Roof | 4.00 mm | 4.10 mm | 1.52 mm | 8 mm |
-| Flavor B, `fluid-28` | Roof | 4.00 mm | 4.10 mm | 1.52 mm | 8 mm |
+| Flavor A, `fluid-18`, two seats | Roof | 4.00 mm | 4.10 mm | 1.52 mm | 8 mm each |
+| Flavor B, `fluid-28`, two seats | Roof | 4.00 mm | 4.10 mm | 1.52 mm | 8 mm each |
 | `drain-vent` | Roof | 4.00 mm | 4.10 mm | 1.52 mm | 8 mm |
 
 Each seat uses the C2 circular section, rounded noses and 125.421° wrap per wing.
 The 4 mm section scales the functional spring thickness from C2's proportions;
 its fit and flex are estimates. Each clip spans the full 8 mm along its tube.
 Filled roots retain the common simple profile through to the host face.
+The two flavor tubes share one broad filled base at each roof station, Y354
+and Y390. Flavor A's axis is X−45 and flavor B's is X−55, both at Z343 mm.
+Their gentle rise reaches the straight roof run at Y348; each 8 mm seat
+holds that straight span with its mouth facing installed −Z.
 
-Seat `fluid-18` before the vent crosses its approach. Seat `fluid-14` before
-`fluid-16`. The provider's
+Seat the flavor tubes upward from below while back-top is open, keeping the
+vent clear of their loading approaches. Flavor A connects V-G to the east
+rear socket at X77.5; flavor B connects V-J to the west socket at X37.25.
+Keep those logical identities through the collars and faucet umbilical.
+Seat `fluid-14` before `fluid-16`. The provider's
 `install_before` entries are the installation-order source.
 
 Reservoir A's fore pair uses two integral C2 clips on the
@@ -96,9 +103,18 @@ The complete production back-top's print finish, cleanup and installed service
 remain unassessed. Numerical retention force, fatigue and lifetime are unmeasured;
 native clearances alone do not establish them.
 
-The manual [construction reading](native-review.json) identifies all seven
-additions in the one-solid back-top. The [tube neighborhood reading](tube-clearances.json)
-and [accepted fill-clip/lid reading](fill-lid-clearance.json) bind the local tube
+The [paired roof-root reading](roof-guided-groups.json) binds both common
+filled bases to the approved native fixtures and generated back-top. Each
+is one valid solid with positive roof attachment and no material missing
+from its host. It also records the affected back-quadrant mass estimate.
+
+Each manual receipt applies to its named geometry and source hashes.
+The [roof-routing production reading](roof-guided-production.json) binds the
+three native hose paths, both shared roof bases, the two adjusted wire fan-outs
+and their installed assembly surfaces. Its local slice reading covers the
+shared snap with nearby roof stock; the 4 mm fit remains a modeled estimate.
+The [construction reading](native-review.json), [tube neighborhood reading](tube-clearances.json)
+and [accepted fill-clip/lid reading](fill-lid-clearance.json) bind their local tube
 clearances; the [cable opening reading](cable-clearances.json) covers the hook
 locations and loading space. The [native assembly receipt](native-assemblies.json)
 and [wiring reading](wiring-review.json) identify the retained fixture geometry,
