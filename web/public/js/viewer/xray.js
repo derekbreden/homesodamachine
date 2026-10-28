@@ -47,6 +47,13 @@ export function setMeshMaterial(group, mesh, material) {
   rendering.setMeshMaterial(group, mesh, material, enabled);
 }
 
+// Fade every body of the loaded model that `holds(mesh)` does not keep — the
+// rest of the model behind a focused selection (part-highlight.js). No argument
+// ends it. The fade lives here because it swaps the same materials x-ray does.
+export function setFocusFade(holds = null) {
+  rendering.setFocus(holds ? state.currentGroup : null, holds);
+}
+
 export function setXrayEnabled(on, { persist = true } = {}) {
   enabled = !!on;
   rendering.setEnabled(enabled);

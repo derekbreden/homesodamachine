@@ -1,7 +1,9 @@
 import { state } from "./state.js";
 import { materialIndex, materialForFile, explodeBom, bomItems, bomCountText, bomCounts, materialDocuments, materialUses, occurrenceBodies, occurrenceForBody, matchesBody } from "/contracts/materials.js";
 import { HSM_EVENTS } from "/contracts/client-events.js";
-import { highlightParts as highlightAll, clearHighlight, frameScene, scenePartNames } from "./part-highlight.js";
+import { highlightParts, clearHighlight, leaveHighlight, scenePartNames } from "./part-highlight.js";
+import { clearComponentSelection } from "./component-picker.js";
+import { standsIn } from "/contracts/body-path.js";
 import { openMaterial, materialHash } from "./material-nav.js";
 import { makeMaterialSearch } from "./material-search.js";
 import { componentLocation, stepLabel, stepLocation } from "/contracts/step-locations.js";
@@ -70,35 +72,138 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
   const search = makeMaterialSearch({ compact: true });
   panel.append(search, headHost, tabsHost, scroll);
   let disposed = false;
-  let pendingRootFocus = false;
-  // Focus: a selected BOM item stands alone in the model. Remembered per browser.
-  let focus = (() => { try { return localStorage.getItem("material-focus") !== "0"; } catch { return true; } })();
-  const highlightParts = (names) => highlightAll(names, { focus });
-  // Back out to the root: its own parts in the parent model, or the whole model.
-  function showRoot() {
-    const path = contextPath();
-    if (path.length && state.mountedDetail?.file === lastFile) highlightParts(occurrenceBodies(state.materialCatalog, path, scenePartNames(), options()));
-    else if (state.mountedDetail?.file === lastFile) frameScene();
-    else clearHighlight();
-  }
+  // A selection made while its model is still loading waits here for STEP_MOUNTED.
+  let pending = null;
+  let status = "";
   function contextPath() {
     const parent = materialForFile(state.materialCatalog, lastFile);
     return parent && parent.id !== root ? explodeBom(state.materialCatalog, parent.id, options()).find((r) => r.material.id === root)?.path || [] : [];
   }
   const bindingsFor = (path, names) => occurrenceBodies(state.materialCatalog, [...contextPath(), ...path], names, options());
 
-  function setRoot(id) {
-    selectedBody = null;
-    root = id; selected = id; selectedPath = []; expanded.clear(); tab = null;
-    render();
-    const path = contextPath();
-    pendingRootFocus = path.length > 0 && state.mountedDetail?.file !== lastFile;
-    if (!pendingRootFocus) showRoot();
+  // THE PANEL'S SELECTION IS THE MODEL'S. What the model picks out: the selected BOM item, a
+  // related material's bodies, a picked body with no record, or this material where it stands
+  // in the larger model it was opened in. The model's own material picks nothing out, so the
+  // model opens whole and unfaded.
+  function hasSubject() {
+    return Boolean(selectedBody || selectedPath.length || selected !== root || contextPath().length);
+  }
+  function subjectNames(names) {
+    if (selectedBody) return [...names].filter((name) => standsIn(name, selectedBody));
+    if (selectedPath.length) return bindingsFor(selectedPath, names);
+    if (selected !== root) {
+      const relation = materialIndex(state.materialCatalog).get(root)?.relations?.find((r) => r.material === selected && r.bodies?.length);
+      return relation ? [...names].filter((name) => relation.bodies.some((body) => matchesBody(name, body))) : [];
+    }
+    return occurrenceBodies(state.materialCatalog, contextPath(), names, options());
   }
 
-  function select(id, path = []) {
+  // Bring the model into line with the panel. `fly` frames a new selection, or flies back out
+  // to the view from before one that ended; a pick made in the model keeps the camera where
+  // the reader has it.
+  function show({ fly = true } = {}) {
+    if (disposed || !lastFile) return;
+    if (state.mountedDetail?.file !== lastFile) {
+      pending = { fly };
+      setStatus(hasSubject() ? "The model is loading." : "");
+      return;
+    }
+    pending = null;
+    if (!hasSubject()) {
+      setStatus("");
+      if (fly) leaveHighlight({ owner: "materials" });
+      else clearHighlight({ owner: "materials" });
+      return;
+    }
+    const names = subjectNames(scenePartNames());
+    highlightParts(names, {
+      owner: "materials", onRelease: released, fly,
+      onDraw: (drawn) => setStatus(!names.length ? "This material has no drawn geometry in the current model."
+        : drawn.shown ? "All visible occurrences highlighted in this model."
+        : drawn.hidden ? "Hidden in this view." : ""),
+    });
+  }
+
+  function setStatus(text) {
+    status = text;
+    let note = panel.querySelector(".material-selection-note");
+    if (!text) { note?.remove(); return; }
+    const tree = tab === "bom" && scroll.querySelector(".bom-tree");
+    if (!note && tree) {
+      note = el("p", "material-selection-note"); note.setAttribute("role", "status");
+      tree.parentElement.prepend(note);
+    }
+    if (note) note.textContent = text;
+  }
+
+  // The material this panel is open on. A material shown inside a larger model gives way to
+  // that model's own; the URL follows, so a reload opens what is shown.
+  function reroot(id) {
+    const open = workspace.classList.contains("materials-open");
+    history.replaceState(history.state, "", "#" + materialHash(id, { panel: open ? "materials" : null }));
+    root = id; selected = id; selectedPath = []; selectedBody = null; expanded.clear(); tab = null;
+  }
+
+  function setRoot(id) {
+    clearComponentSelection();
+    root = id; selected = id; selectedPath = []; selectedBody = null; expanded.clear(); tab = null;
+    render();
+    show();
+  }
+
+  // `fromModel`: the reader picked it in the model, so the camera stays and the picker keeps
+  // its own mark on the body clicked.
+  function select(id, path = [], { fromModel = false } = {}) {
+    if (!fromModel) clearComponentSelection();
     selectedBody = null;
     selected = id; selectedPath = path;
+    render();
+    scroll.querySelector(".bom-row.selected")?.scrollIntoView({ block: "nearest" });
+    show({ fly: !fromModel });
+  }
+
+  // One level up from the selection: the BOM item holding it, then the material this panel is
+  // open on, then — for a material shown inside a larger model — that model's own material.
+  function parentOfSelection() {
+    const index = materialIndex(state.materialCatalog);
+    if (selectedPath.length > 1) {
+      const path = selectedPath.slice(0, -1);
+      const material = index.get(path.at(-1).material);
+      return material ? { material, path } : null;
+    }
+    if (selectedBody || selected !== root) return index.has(root) ? { material: index.get(root), path: [] } : null;
+    const model = contextPath().length ? materialForFile(state.materialCatalog, lastFile) : null;
+    return model ? { material: model, path: [], reroot: true } : null;
+  }
+  function up() {
+    const parent = parentOfSelection();
+    if (!parent) return;
+    if (parent.reroot) reroot(parent.material.id);
+    select(parent.material.id, parent.path);
+  }
+
+  // Let go of the selection altogether: back to the model's own material with nothing picked
+  // out, flying back to the view from before it unless the reader let go in the model.
+  // Answers whether there was a selection to let go of.
+  function leave({ fromModel = false } = {}) {
+    const marked = !fromModel && clearComponentSelection();
+    if (!hasSubject()) return marked;
+    const model = contextPath().length ? materialForFile(state.materialCatalog, lastFile) : null;
+    if (model) reroot(model.id);
+    selectedBody = null; selected = root; selectedPath = [];
+    render();
+    show({ fly: !fromModel });
+    return true;
+  }
+
+  // Another surface took the model's selection, or it was cleared from outside (Reset view,
+  // the checks): the panel lets go of its own without touching the model.
+  function released() {
+    if (disposed || !hasSubject()) return;
+    clearComponentSelection();
+    const model = contextPath().length ? materialForFile(state.materialCatalog, lastFile) : null;
+    if (model) reroot(model.id);
+    selectedBody = null; selected = root; selectedPath = []; status = "";
     render();
   }
 
@@ -119,9 +224,10 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
     const head = el("div", "material-panel-head");
     const actions = el("div", "material-actions");
     const identity = el("div", "material-identity");
-    if (rootMaterial && (selected !== root || selectedBody)) {
-      const back = el("button", "material-context", "← " + rootMaterial.description);
-      back.type = "button"; back.addEventListener("click", () => { select(root); showRoot(); }); head.append(back);
+    const parent = parentOfSelection();
+    if (parent) {
+      const back = el("button", "material-context", "← " + parent.material.description);
+      back.type = "button"; back.addEventListener("click", up); head.append(back);
     }
     identity.append(el("span", "material-eyebrow", current ? `${current.id} · ${current.kind}` : selectedBody ? "Component in assembly" : "CAD model"));
     identity.append(el("h2", "", current?.description || (selectedBody || stepLabel(lastFile)).replace(/[-_]/g, " ") || "Material explorer"));
@@ -259,17 +365,7 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
       const collapse = el("button", "", "Collapse all"); collapse.type = "button";
       all.addEventListener("click", () => { rows.forEach((r) => expanded.add(pathKey(r.path))); render(); });
       collapse.addEventListener("click", () => { expanded.clear(); render(); });
-      const focusButton = el("button", "", "Focus"); focusButton.type = "button";
-      focusButton.title = "Hide everything but the selected item in the model";
-      focusButton.setAttribute("aria-pressed", String(focus));
-      focusButton.addEventListener("click", () => {
-        focus = !focus;
-        try { localStorage.setItem("material-focus", focus ? "1" : "0"); } catch {}
-        const bodies = selectedPath.length && state.mountedDetail?.file === lastFile ? bindingsFor(selectedPath, scenePartNames()) : [];
-        if (bodies.length) highlightParts(bodies); else showRoot();
-        render();
-      });
-      tools.append(all, collapse, focusButton);
+      tools.append(all, collapse);
       if (costOf) {
         const order = el("div", "bom-order"); order.setAttribute("role", "group"); order.setAttribute("aria-label", "Order");
         for (const [byCost, label] of [[false, "BOM order"], [true, "By cost"]]) {
@@ -304,8 +400,8 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
       };
       emit("", rootMaterial.id, 0, 1, []);
       content.append(tree);
-      if (selectedPath.length) {
-        const note = el("p", "material-selection-note"); note.setAttribute("role", "status");
+      if (status) {
+        const note = el("p", "material-selection-note", status); note.setAttribute("role", "status");
         content.prepend(note);
       }
     }
@@ -329,15 +425,7 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
     const costText = cost ? (cost.costed ? money(extendedUsd) : "—") : null;
     pick.setAttribute("aria-label", `${row.material.description}, ${quantity(row.quantity, row.item.unit)} in this assembly${costText ? ", " + (cost.costed ? costText : "no recorded cost") : ""}${branch ? ", " + bomCountText(childCounts) : ""}`);
     pick.setAttribute("aria-pressed", String(selectedPath.length > 0 && key === pathKey(selectedPath)));
-    pick.addEventListener("click", () => {
-      const loading = state.mountedDetail?.file !== lastFile;
-      const bodies = loading ? [] : bindingsFor(row.path, scenePartNames());
-      select(row.material.id, row.path);
-      pendingRootFocus = loading;
-      if (bodies.length) highlightParts(bodies); else clearHighlight();
-      const note = panel.querySelector(".material-selection-note");
-      if (note) note.textContent = loading ? "The model is loading." : bodies.length ? "All visible occurrences highlighted in this model." : "This material has no drawn geometry in the current model.";
-    });
+    pick.addEventListener("click", () => select(row.material.id, row.path));
     const amount = el("span", "bom-amount");
     amount.append(el("span", "bom-quantity", quantity(row.quantity, row.item.unit)));
     if (costText) {
@@ -476,43 +564,51 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
     if (event?.type === HSM_EVENTS.FAUCET_OPTIONS) search.refresh();
     const mountedFile = state.mountedDetail?.file || file;
     if (file && mountedFile !== lastFile) {
+      // Another model: its own material, nothing selected, under the camera it opened with.
       drawingView?.closeDrawing();
-      selectedBody = null;
+      selectedBody = null; pending = null; status = "";
       lastFile = mountedFile; root = materialForFile(state.materialCatalog, mountedFile)?.id; selected = root; selectedPath = []; expanded.clear(); tab = null;
+      render();
+      show({ fly: false });
+      return;
     }
     render();
-    if ((pendingRootFocus || (event?.type === HSM_EVENTS.STEP_MOUNTED && contextPath().length)) && state.mountedDetail?.file === lastFile) {
-      pendingRootFocus = false;
-      highlightParts(selectedPath.length ? bindingsFor(selectedPath, scenePartNames()) :
-        occurrenceBodies(state.materialCatalog, contextPath(), scenePartNames(), options()));
-    }
+    if (state.mountedDetail?.file !== lastFile) return;
+    // A selection waiting on the model frames it once the opener has set the camera.
+    const waiting = pending;
+    if (waiting) requestAnimationFrame(() => { if (pending === waiting) show(waiting); });
+    else show({ fly: false });
   }
+  // A click in the model (Component mode) selects what it hit; a click on empty space,
+  // or the Component panel's ×, lets go.
   function picked(event) {
     if (event.detail.file !== state.mountedDetail?.file) return;
-    clearHighlight();
+    if (!event.detail.name) { leave({ fromModel: true }); return; }
+    const pick = { fromModel: true };
     const rootMaterial = materialIndex(state.materialCatalog).get(root);
     const names = [...scenePartNames()];
     if (rootMaterial && names.length && names.every(name => matchesBody(name, event.detail.name)) &&
         (!stepLocation(lastFile).component || !explodeBom(state.materialCatalog, root, options()).some(row => row.item.bodies?.length || row.item.prefix) || rootMaterial.models?.some(model => model.file === lastFile))) {
-      select(root); return;
+      select(root, [], pick); return;
     }
     const row = explodeBom(state.materialCatalog, root, options()).filter((r) =>
       bindingsFor(r.path, [event.detail.name]).length).sort((a, b) => b.depth - a.depth)[0];
-    if (row) { row.path.forEach((_, i) => expanded.add(pathKey(row.path.slice(0, i + 1)))); select(row.material.id, row.path); }
+    if (row) { row.path.forEach((_, i) => expanded.add(pathKey(row.path.slice(0, i + 1)))); select(row.material.id, row.path, pick); }
     else {
       const relation = materialIndex(state.materialCatalog).get(root)?.relations?.find((r) =>
         r.bodies?.some((body) => matchesBody(event.detail.name, body)));
-      if (relation) select(relation.material);
+      if (relation) select(relation.material, [], pick);
       else {
         const parent = materialForFile(state.materialCatalog, lastFile);
         const outside = parent && occurrenceForBody(state.materialCatalog, parent.id, event.detail.name, options());
         if (outside) {
-          setRoot(parent.id);
+          reroot(parent.id);
           outside.path.forEach((_, i) => expanded.add(pathKey(outside.path.slice(0, i + 1))));
-          select(outside.material.id, outside.path);
+          select(outside.material.id, outside.path, pick);
         } else {
           selected = null; selectedPath = []; selectedBody = event.detail.name;
           render();
+          show({ fly: false });
         }
       }
     }
@@ -527,7 +623,7 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
     setOpen(!mobile.matches && (panel === "materials" || requestedTab === "bom"));
     render();
   }
-  const handle = { select, setRoot, sync, applyRoute, closeDrawing: () => drawingView?.closeDrawing(), dispose: () => {
+  const handle = { select, setRoot, sync, applyRoute, leave, closeDrawing: () => drawingView?.closeDrawing(), dispose: () => {
     disposed = true;
     drawingView?.dispose();
     mobile.removeEventListener("change", closeOnMobile);
