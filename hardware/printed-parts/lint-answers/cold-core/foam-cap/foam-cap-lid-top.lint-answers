@@ -63,6 +63,8 @@ click: x=128.121 y=-85.929 z=2.250
 click: x=128.121 y=-85.929 z=0.000
 click: x=133.673 y=-84.269 z=2.250
 click: x=133.673 y=-84.269 z=0.000
+click: x=132.636 y=83.613 z=0.000
+click: x=132.636 y=83.613 z=2.250
 
 [thin] Specific B-fill retaining-cover section: this printed pair spans 2.401 mm through the nominal 2.4 mm dry cover above the upper fitting at world X-33/Y287.5. Its top is Z254.75, leaving 0.25 mm nominal air to the fixed PCB tails. The upper fitting reaches its upward stop after 0.2 mm translation. This cover-specific section is accepted under the printed-parts thinner-cover exception; pull strength, printed fit and lifetime remain unqualified. The local native and printed scopes are recorded in foam-cap/b-fill-pair-review.json and b-fill-printed-review.json.
 alternatives: A 3 mm cover raises the same flat roof to Z255.35 and intersects the fixed PCB tails by 24.2728 mm3. An open pocket removes the upward stop. Either changes the selected fit or retention interface; the simple 2.4 mm cover preserves both.

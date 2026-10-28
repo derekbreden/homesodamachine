@@ -14,6 +14,12 @@ click: x=-14.079 y=53.819 z=13.242
 click: x=-13.632 y=52.034 z=14.450
 click: x=-81.309 y=-30.677 z=14.450
 click: x=45.607 y=73.740 z=0.150
+click: x=15.020 y=-54.550 z=0.151
+click: x=15.020 y=-54.550 z=0.150
+click: x=-13.578 y=55.719 z=14.450
+click: x=-14.437 y=53.960 z=13.317
+click: x=-81.323 y=-26.991 z=14.450
+click: x=-82.149 y=-28.765 z=13.317
 
 [thin] Specified cold-core section: Derek selected smooth 2.38 mm standing casing walls and conduit stock for the whole casing, with three Classic loops from each boundary. This is the cold-core exception to the enclosure's ordinary 3 mm section; printed strength and lifetime are not established by the slice.
 alternatives: A 3 mm section changes the selected six-bead packing and takes additional foam space; the current section is Derek's explicit geometry choice.
@@ -28,6 +34,10 @@ click: x=134.560 y=-28.753 z=2.760
 click: x=134.632 y=-26.755 z=2.760
 click: x=113.050 y=-20.563 z=7.992
 click: x=115.050 y=-20.563 z=8.000
+click: x=133.860 y=29.749 z=13.168
+click: x=133.889 y=32.129 z=13.168
+click: x=133.860 y=22.251 z=13.168
+click: x=133.889 y=19.871 z=13.168
 
 [thin] Specified cup-floor section: Derek selected the 2.38 mm vertical casing while retaining the existing 2 mm floors, pocket heights and passage datums. The floor is the stack's 2.0 mm floor section above its 0.15 mm seat clearance, which leaves 2.05 mm under the B-fill pockets. The horizontal water-in and soda traverses keep 2.10 mm of backing beneath their bores.
 alternatives: A 3 mm floor raises the traverses and pockets a millimetre in a 14.65 mm cup, which moves where their R14 bends cross into the lid, or makes the cup taller and moves the cap face.
@@ -40,3 +50,17 @@ click: x=-26.465 y=-8.301 z=2.250
 click: x=-26.465 y=-8.301 z=0.150
 click: x=37.084 y=-33.152 z=2.250
 click: x=37.084 y=-33.152 z=0.150
+click: x=132.982 y=-26.289 z=0.150
+click: x=132.982 y=-26.289 z=2.150
+click: x=87.079 y=-46.863 z=0.150
+click: x=87.079 y=-46.863 z=2.200
+click: x=-4.593 y=55.446 z=2.250
+click: x=-4.593 y=55.446 z=0.150
+click: x=37.319 y=-33.197 z=2.250
+click: x=37.319 y=-33.197 z=0.150
+
+[thin] Outside the carbonator-sensing change: this ranked group is the existing cup casing and floor stock; its representative pair is 2.000 mm apart on the reservoir-side curve. The new straight reed passage is at native (0, 74) mm. The existing cup stock remains part of the separate cap layout review; this entry records its scope and establishes no printed strength or lifetime result.
+alternatives: Thickening this local stock to 3 mm by moving its outside boundary changes the casing clearance; adding the stock inward consumes the adjacent cavity and requires reconciling its internal interfaces. Both belong to the cap layout review rather than the reed-position change.
+file: hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step
+click: x=-122.369 y=27.071 z=13.429
+click: x=-124.181 y=27.917 z=13.429

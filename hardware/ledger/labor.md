@@ -28,7 +28,7 @@ The linked fabrication procedures define each operation. [Letter shop guides](/h
 
 ## 1. Machining
 
-Drilling, tapping, chamfering, cutting and deburring for the carbonator and its water-inlet jet. The 316L plate work is the slowest metal in the build: four 1/4"-18 NPT ports hand-tapped into 1/4" plate, and a blind register hole in the carbonator's pressure boundary that must not break through.
+Drilling, tapping, chamfering, cutting and deburring for the carbonator, its upper float stop and its water-inlet jet. The 316L plate work is the slowest metal in the build: four 1/4"-18 NPT ports hand-tapped into 1/4" plate, and a blind register hole in the carbonator's pressure boundary that must not break through.
 
 | Operation | Procedure | Notes | Run | Minutes |
 |---|---|---|---|---:|
@@ -38,20 +38,21 @@ Drilling, tapping, chamfering, cutting and deburring for the carbonator and its 
 | Cut three level rods to length, deburr | [reservoir rods](/hardware/assembly/handwork.md#cut--seat-the-reservoir-float-rods), [pressure-vessel](/hardware/assembly/pressure-vessel.md) | 1/8" 316: one at 5.110 ±0.005 in and two at 203.8 mm; the setup is a stop set and proved for each length | 20 m setup a batch · 1 m a rod · 3 a machine | 5 <!--parts HSM-000336 HSM-000339--> |
 | Deburr the tube; Scotch-Brite the two fillet bands | [pressure-vessel](/hardware/assembly/pressure-vessel.md) | ~30 s per joint of prep is what the weld needs; the rest is handling | | 10 <!--parts HSM-000008--> |
 | Drill the jet handling blank, cut the cap, deburr and clean | [Jet procedure](/hardware/assembly/water-inlet-jet.md) | Provisional, unmeasured attended-time estimate; the drilling fixture, already made, is set up once a batch | 20 m setup a batch · 3 m a cap · 1 a machine | 5 <!--parts HSM-000011--> |
-| **Machining** | | | | **[50](LAB_SEC1)** |
+| Bore, cut, deburr and clean the upper float stop | [pressure-vessel](/hardware/assembly/pressure-vessel.md#upper-float-stop) | Provisional, unmeasured allowance: clamp the stainless handling blank, bore Ø9/64 inch before the 4 mm cutoff, deburr both mouths and inspect length | 20 m setup a batch · 3 m a stop · 1 a machine | 5 <!--parts HSM-000004--> |
+| **Machining** | | | | **[55](LAB_SEC1)** |
 
 ## 2. Welding & brazing
 
-Four laser operations serve the carbonator: the float-rod tack, two closure welds and the water-inlet jet cap weld. The refrigerant loop has one brazed tie-in. Argon shielding and the jet's internal purge are included in their attended setup allowances.
+Five laser operations serve the carbonator: the float-rod tack, upper float-stop tack, two closure welds and the water-inlet jet cap weld. The refrigerant loop has one brazed tie-in. Argon shielding and the jet's internal purge are included in their attended setup allowances.
 
 | Operation | Procedure | Notes | Run | Minutes |
 |---|---|---|---|---:|
-| Tack the float rod into the bottom-plate register | [pressure-vessel](/hardware/assembly/pressure-vessel.md) | Opens the welding session the plate fillets share: welder, argon and fixture brought up once for every vessel in it | 20 m setup a session of 10 · 3 m a vessel · 1 a machine | 5 <!--parts HSM-000004--> |
+| Tack the float rod into the bottom register and the upper stop over the top register | [pressure-vessel](/hardware/assembly/pressure-vessel.md) | Provisional, unmeasured allowance for both loose-cap tacks; welder, argon and fixture are set up once for the session the plate fillets share | 20 m setup a session of 10 · 5 m a vessel · 1 a machine | 7 <!--parts HSM-000004--> |
 | Weld the bottom-plate corner fillet under argon | [pressure-vessel](/hardware/assembly/pressure-vessel.md) | ~15" of recessed corner fillet, handheld X1 Pro, keep heat moving | | 10 <!--parts HSM-000004--> |
 | Close the carbonator — top-plate fillet, float captive | [pressure-vessel](/hardware/assembly/pressure-vessel.md) | Same joint, one shot, nothing comes back out after this | | 10 <!--parts HSM-000004--> |
 | Fixture, purge and weld the water-inlet jet cap | [Jet procedure](/hardware/assembly/water-inlet-jet.md) | Provisional, unmeasured estimate for a qualified, repeatable process; destructive development coupons are excluded | | 10 <!--parts HSM-000338--> |
 | Cut the loop, tie in the suction line, pinch-swage the capillary | [refrigerant-loop](/hardware/assembly/refrigerant-loop.md) | Brazing the harvested compressor path with argon flowing through the tube | | 25 <!--parts HSM-000001--> |
-| **Welding & brazing** | | | | **[60](LAB_SEC2)** |
+| **Welding & brazing** | | | | **[62](LAB_SEC2)** |
 
 ## 3. Pressure, leak & flow checks
 
@@ -243,8 +244,8 @@ The unit passed. Empty it, clean it up, name it, box it.
 
 | Section | Time | At [$100](LABOR_RATE)/h |
 |---|---:|---:|
-| 1. Machining | [50 m](LAB_HM1) | [$83.33](LAB_USD1) |
-| 2. Welding & brazing | [1 h](LAB_HM2) | [$100.00](LAB_USD2) |
+| 1. Machining | [55 m](LAB_HM1) | [$91.67](LAB_USD1) |
+| 2. Welding & brazing | [1 h 2 m](LAB_HM2) | [$103.33](LAB_USD2) |
 | 3. Pressure, leak & flow checks | [1 h](LAB_HM3) | [$100.00](LAB_USD3) |
 | 4. Silicone casting | [35 m](LAB_HM4) | [$58.33](LAB_USD4) |
 | 5. Foam pouring | [35 m](LAB_HM5) | [$58.33](LAB_USD5) |
@@ -253,9 +254,9 @@ The unit passed. Empty it, clean it up, name it, box it.
 | 8. Assembly | [2 h 53 m](LAB_HM8) | [$288.00](LAB_USD8) |
 | 9. Power-on & testing | [55 m](LAB_HM9) | [$91.67](LAB_USD9) |
 | 10. Finishing & packing | [35 m](LAB_HM10) | [$58.33](LAB_USD10) |
-| **Per-unit total** | **[11 h 53 m](LAB_HM)** | **[$1,188.00](LAB_USD)** |
+| **Per-unit total** | **[12 h](LAB_HM)** | **[$1,199.67](LAB_USD)** |
 
-The target is 10 hours attended per unit. The current estimate is [11 h 53 m](LAB_HM), including 20 minutes of unmeasured recurring jet work. The largest attended-time categories are:
+The target is 10 hours attended per unit. The current estimate is [12 h](LAB_HM), including 20 minutes of unmeasured recurring jet work. The largest attended-time categories are:
 
 - **Assembly** ([2 h 53 m](LAB_HM8), the largest category) — [1 h 18 m](LAB_HM_PRINTED) of it is the printed parts, most of that the plate turns of the large parts that fill a plate each. More printers shorten the print, not the plate turns.
 - **Wiring** ([2 h 20 m](LAB_HM6)) — 90 minutes for eleven finished bench harnesses and 50 minutes for installation and AC checks. Ready maps, a cut list and staged crimping and soldering tools support the practiced unit-25 estimates.
