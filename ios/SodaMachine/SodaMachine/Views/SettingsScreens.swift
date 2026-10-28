@@ -14,7 +14,7 @@ struct SettingsHomeView: View {
             VStack(alignment: .leading, spacing: 12) {
                 SectionTitle("Your machine")
                 GroupedPanel {
-                    SettingsRow(title: "Name", detail: ble.current?.displayName, icon: "pencil") { nav.push(.rename) }
+                    SettingsRow(title: "Name", detail: nameDetail, icon: "pencil") { nav.push(.rename) }
                     RowDivider()
                     SettingsRow(title: "Sound", icon: "speaker.wave.2") { nav.push(.sound) }
                     RowDivider()
@@ -24,7 +24,7 @@ struct SettingsHomeView: View {
             VStack(alignment: .leading, spacing: 12) {
                 SectionTitle("This device")
                 GroupedPanel {
-                    SettingsRow(title: "Your machines", icon: "square.stack") { nav.push(.machines) }
+                    SettingsRow(title: "Your machines", icon: "square.stack") { nav.managing = true }
                 }
                 if let unit = ble.current?.unit, !unit.isEmpty {
                     Text("Unit \(unit)").font(.caption).foregroundStyle(Theme.textSecondary).padding(.leading, 4)
@@ -39,23 +39,33 @@ struct SettingsHomeView: View {
         }
         .frame(maxWidth: 560).frame(maxWidth: .infinity, alignment: .leading)
     }
+
+    /// A name the machine has not acknowledged yet says so.
+    private var nameDetail: String? {
+        guard let m = ble.current else { return nil }
+        return m.pendingName.map { "\($0) · Pending" } ?? m.displayName
+    }
 }
 
 // ── Sound ───────────────────────────────────────────────────────────────
 
+/// The machine's sound. The choices are a draft until the machine accepts
+/// them; Back keeps the draft, and Discard changes puts back what the machine
+/// holds.
 struct SoundView: View {
     @Environment(BLEManager.self) var ble
     @Environment(Navigator.self) var nav
+    @Environment(EditSessions.self) var edits
+    let entry: RouteEntry
 
-    /// The settings being chosen, until they are saved; nil follows the machine.
-    @State private var draft: SoundSettings?
-    @State private var saving = false
-    @State private var problem: String?
-
+    private var key: EditKey? { ble.current.map { EditKey(machine: $0.id, field: .sound) } }
     private var held: SoundSettings? { ble.appliance.sound?.value }
+    private var draft: SoundSettings? { key.flatMap { edits.draft($0) } }
+    private var changed: Bool { draft.map { d in held.map { !d.sameChoices(as: $0) } ?? true } ?? false }
 
     var body: some View {
         let s = draft ?? held ?? SoundSettings()
+        let write = key.flatMap(edits.write)
         VStack(alignment: .leading, spacing: 22) {
             if let held, !held.clockSet, s.quietOn {
                 Notice(title: "Quiet hours need the machine clock",
@@ -64,6 +74,9 @@ struct SoundView: View {
             }
             if held == nil && !ble.canChange {
                 Notice(title: "Sound settings unavailable", message: "Bring your device near the machine to read them.")
+            } else if !ble.canChange {
+                Notice(title: "Changes wait for the machine",
+                       message: "Bring your device near the machine to save these settings.")
             }
             VStack(alignment: .leading, spacing: 20) {
                 Panel {
@@ -93,28 +106,34 @@ struct SoundView: View {
                     Slider(value: binding(\.quietVolume), in: 0...100, step: 1).accessibilityLabel("Quiet volume")
                 }
             }
-            .disabled(!ble.canChange || held == nil)
+            .disabled(held == nil || write?.running == true)
             Note("The gas alarm always sounds at full volume.")
-            if let problem { Note(problem) }
-            ActionButton(title: "Save sound settings", working: saving) { save(s) }
+            if let problem = write?.problem { Note(problem) }
+            if changed { Note("Not saved yet.") }
+            ActionButton(title: "Save sound settings", working: write?.running == true) { save(s) }
                 .frame(maxWidth: 440)
-                .disabled(!ble.canChange || held == nil || saving)
+                .disabled(!ble.canChange || held == nil || !changed || write?.running == true)
+            if draft != nil && write?.running != true {
+                Button("Discard changes") { if let key { edits.discard(key) } }
+                    .font(.body.weight(.medium)).frame(minHeight: 44)
+            }
         }
         .frame(maxWidth: 560).frame(maxWidth: .infinity, alignment: .leading)
         .task(id: ble.canChange) { if ble.canChange { await ble.readSound() } }
     }
 
-    private func field<T>(_ key: WritableKeyPath<SoundSettings, T>) -> Binding<T> {
-        Binding(get: { (draft ?? held ?? SoundSettings())[keyPath: key] },
+    private func field<T>(_ path: WritableKeyPath<SoundSettings, T>) -> Binding<T> {
+        Binding(get: { (draft ?? held ?? SoundSettings())[keyPath: path] },
                 set: { value in
+                    guard let key else { return }
                     var next = draft ?? held ?? SoundSettings()
-                    next[keyPath: key] = value
-                    draft = next
+                    next[keyPath: path] = value
+                    edits.setDraft(next, for: key)
                 })
     }
 
-    private func binding(_ key: WritableKeyPath<SoundSettings, Int>) -> Binding<Double> {
-        let f = field(key)
+    private func binding(_ path: WritableKeyPath<SoundSettings, Int>) -> Binding<Double> {
+        let f = field(path)
         return Binding(get: { Double(f.wrappedValue) }, set: { f.wrappedValue = Int($0.rounded()) })
     }
 
@@ -125,23 +144,25 @@ struct SoundView: View {
         return date.formatted(.dateTime.hour())
     }
 
+    /// Done once the machine holds these choices: the editor closes. Anything
+    /// else leaves the draft where it is, with what happened.
     private func save(_ wanted: SoundSettings) {
-        saving = true
-        problem = nil
+        guard let key, let machine = ble.current?.id else { return }
+        let token = edits.begin(key)
         Task {
             let answer = await ble.saveSound(wanted)
-            saving = false
+            guard edits.isNewest(token, for: key) else { return }
             switch answer {
             case .success:
-                if let held = ble.appliance.sound?.value, held.sameChoices(as: wanted) {
-                    draft = nil
-                    nav.back(from: .sound)
+                if ble.current?.id == machine, let held = ble.appliance.sound?.value, held.sameChoices(as: wanted) {
+                    edits.end(token, for: key)
+                    edits.settle(key, saved: wanted)
+                    nav.finish(entry)
                 } else {
-                    draft = nil
-                    problem = "The machine kept different settings. They’re shown above."
+                    edits.end(token, for: key, problem: "The machine kept different settings. Yours are still here to save again or discard.")
                 }
             case .failure(let e):
-                problem = e.message
+                edits.end(token, for: key, problem: e.message)
             }
         }
     }
@@ -149,15 +170,28 @@ struct SoundView: View {
 
 // ── The machine's name ──────────────────────────────────────────────────
 
+/// The machine's name, which the machine keeps for every device. Saved away
+/// from the machine, it waits on this device and says so until the machine
+/// acknowledges it.
 struct RenameView: View {
     @Environment(BLEManager.self) var ble
     @Environment(Navigator.self) var nav
-    @State private var name = ""
+    @Environment(EditSessions.self) var edits
+    let entry: RouteEntry
     @FocusState private var focused: Bool
 
+    private var key: EditKey? { ble.current.map { EditKey(machine: $0.id, field: .name) } }
+    private var standing: String { ble.current?.pendingName ?? ble.current?.name ?? "" }
+    private var text: Binding<String> {
+        Binding(get: { key.flatMap { edits.draft($0) } ?? standing },
+                set: { value in if let key { edits.setDraft(value, for: key) } })
+    }
+    private var trimmed: String { text.wrappedValue.trimmingCharacters(in: .whitespacesAndNewlines) }
+
     var body: some View {
+        let write = key.flatMap(edits.write)
         VStack(alignment: .leading, spacing: 20) {
-            TextField("Name", text: $name, prompt: Text(ble.current?.displayName ?? "Name"))
+            TextField("Name", text: text, prompt: Text(ble.current?.displayName ?? "Name"))
                 .textInputAutocapitalization(.words)
                 .autocorrectionDisabled()
                 .submitLabel(.done)
@@ -165,120 +199,50 @@ struct RenameView: View {
                 .onSubmit(save)
                 .padding(16)
                 .background(Theme.surface, in: RoundedRectangle(cornerRadius: 12))
+                .disabled(write?.running == true)
             Note("Up to twenty letters. The machine keeps its name so every device sees the same one.")
-            if let m = ble.current, m.pendingName != nil, !ble.linked {
-                Note("Sent to the machine when this device is next near it.")
+            if let m = ble.current, let pending = m.pendingName {
+                Note(ble.linked ? "Sending “\(pending)” to the machine."
+                                : "“\(pending)” is saved on this device. It goes to the machine when this device is next near it.")
             }
-            ActionButton(title: "Save name") { save() }
-                .disabled(trimmed.isEmpty)
+            if let problem = write?.problem { Note(problem) }
+            ActionButton(title: "Save name", working: write?.running == true) { save() }
+                .disabled(trimmed.isEmpty || trimmed == standing || write?.running == true)
+            if key.flatMap({ edits.draft($0, as: String.self) }) != nil && write?.running != true {
+                Button("Discard changes") { if let key { edits.discard(key) } }
+                    .font(.body.weight(.medium)).frame(minHeight: 44)
+            }
         }
         .frame(maxWidth: 460).frame(maxWidth: .infinity)
-        .onAppear {
-            name = ble.current?.pendingName ?? ble.current?.name ?? ""
-            focused = true
-        }
+        .onAppear { focused = true }
     }
 
-    private var trimmed: String { name.trimmingCharacters(in: .whitespacesAndNewlines) }
-
+    /// Done once the machine acknowledges the name, or once it is waiting on
+    /// this device for the machine, which Settings then says.
     private func save() {
-        guard let m = ble.current, !trimmed.isEmpty else { return }
+        guard let key, let m = ble.current, !trimmed.isEmpty, trimmed != standing else { return }
         let name = trimmed
+        let typed = text.wrappedValue
+        let token = edits.begin(key)
         Task {
-            guard await ble.ensureTrusted(.name) else { return }
+            guard await ble.ensureTrusted(.name) else {
+                edits.end(token, for: key, problem: "Nothing changed. Tap Trust on the machine to rename it from this device.")
+                return
+            }
+            guard edits.isNewest(token, for: key) else { return }
+            guard ble.current?.id == m.id else {
+                edits.end(token, for: key, problem: "Nothing changed: another machine is in use.")
+                return
+            }
             ble.rename(m, to: name)
-            nav.back(from: .rename)
-        }
-    }
-}
-
-// ── Your machines ───────────────────────────────────────────────────────
-
-struct MachinesView: View {
-    @Environment(BLEManager.self) var ble
-    @Environment(MachineDirectory.self) var directory
-    @Environment(MachineAccess.self) var access
-    @Environment(Navigator.self) var nav
-    @State private var removing: KnownMachine?
-    @State private var adding = false
-
-    var body: some View {
-        VStack(alignment: .leading, spacing: 20) {
-            TimelineView(.periodic(from: .now, by: 5)) { context in
-                GroupedPanel {
-                    ForEach(Array(directory.known.enumerated()), id: \.element.id) { index, machine in
-                        row(machine, at: context.date)
-                        if index < directory.known.count - 1 { RowDivider(inset: 0) }
-                    }
-                }
+            for _ in 0..<12 where m.pendingName != nil && ble.linked {
+                try? await Task.sleep(for: .milliseconds(500))
             }
-            ActionButton(title: "Add a machine", primary: false) { adding = true }
-            Note("A machine’s name is shared by every device that connects to it.")
-            if let current = directory.current {
-                Button("Remove \(current.displayName) from this device") {
-                    // The system asks before removing a machine it lists.
-                    if access.lists(current) { access.forget(current) } else { removing = current }
-                }
-                .font(.subheadline).foregroundStyle(Theme.error).frame(minHeight: 44)
-            }
+            guard edits.isNewest(token, for: key) else { return }
+            edits.end(token, for: key)
+            edits.settle(key, saved: typed)
+            nav.finish(entry)
         }
-        .frame(maxWidth: 560).frame(maxWidth: .infinity)
-        .onAppear { ble.beginBrowsing() }
-        .onDisappear { ble.endBrowsing() }
-        .sheet(isPresented: $adding) { AddMachineSheet() }
-        .confirmationDialog("Remove \(removing?.displayName ?? "this machine") from this device?",
-                            isPresented: Binding(get: { removing != nil }, set: { if !$0 { removing = nil } }),
-                            titleVisibility: .visible) {
-            Button("Remove", role: .destructive) {
-                if let m = removing { access.forget(m) }
-                removing = nil
-            }
-            Button("Cancel", role: .cancel) { removing = nil }
-        } message: {
-            Text("Its pictures and readings leave this device. The machine itself is not changed.")
-        }
-    }
-
-    private func row(_ machine: KnownMachine, at now: Date) -> some View {
-        Button { ble.select(machine) } label: {
-            HStack(spacing: 12) {
-                VStack(alignment: .leading, spacing: 6) {
-                    Text(machine.displayName).font(.body.weight(.medium))
-                    Text(subtitle(machine, at: now)).font(.caption).foregroundStyle(Theme.textSecondary)
-                }
-                Spacer()
-                if machine.id == directory.current?.id {
-                    Image(systemName: "checkmark").font(.body.weight(.semibold)).foregroundStyle(Theme.accent)
-                }
-            }
-            .padding(.vertical, 16)
-            .contentShape(Rectangle())
-        }
-        .buttonStyle(.plain)
-        .accessibilityElement(children: .combine)
-        .accessibilityAddTraits(machine.id == directory.current?.id ? .isSelected : [])
-    }
-
-    /// The unit tells two machines nobody has named apart; one with no unit
-    /// says what kind it is.
-    private func subtitle(_ machine: KnownMachine, at now: Date) -> String {
-        if machine.isDemo { return "Demo · Always here" }
-        if !machine.supported { return "Prototype · \(status(machine, at: now))" }
-        let who = machine.unit.isEmpty ? machine.kind : "Unit \(machine.unit)"
-        return "\(who) · \(status(machine, at: now))"
-    }
-
-    private func status(_ machine: KnownMachine, at now: Date) -> String {
-        if machine.id == directory.current?.id {
-            switch ble.connectionState {
-            case .connected: return "Connected"
-            case .connecting: return "Connecting…"
-            default: break
-            }
-        }
-        if let seen = machine.lastSeen, now.timeIntervalSince(seen) < 10 { return "In range" }
-        if let t = machine.lastConnected { return "Last connected \(said(t))" }
-        return "Never connected"
     }
 }
 
@@ -308,8 +272,9 @@ struct UnsupportedMachineView: View {
                     }
                 }
                 ActionButton(title: "Remove from this device", primary: false) {
-                    if access.lists(machine) { access.forget(machine) } else { removing = true }
+                    if machine.accessoryID != nil { access.forget(machine) } else { removing = true }
                 }
+                if let why = access.removalProblem { Note(why) }
                 ActionButton(title: "Add a machine") { adding = true }
             }
             .frame(maxWidth: 560).frame(maxWidth: .infinity)

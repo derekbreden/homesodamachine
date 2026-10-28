@@ -3,98 +3,24 @@ import SwiftUI
 // ────────────────────────────────────────────────────────────
 // What the app opens on, at every size.
 //
-// Three destinations — Machine, Care and Settings — in a bar along the bottom
-// of a narrow window, and in a sidebar beside the pages once the window is a
-// thousand points wide. The tab and each tab's stack of pages live in
-// Navigator, above the layout. The machine and whether the phone can hear it
-// sit in the header of a narrow window and in the sidebar of a wide one.
+// Three destinations — Machine, Care and Settings — each its own stack of
+// pages, in the system's tab bar: along the bottom of an iPhone, and on an
+// iPad at the top or as a sidebar, as the person chooses. The stacks and the
+// drafts live above the layout, so a window that changes shape keeps where
+// someone is and what they were changing. A top page leads with the app's own
+// header; a page opened from it has the system's Back and edge swipe.
+//
+// Your machines belongs to the device, not to a machine: it opens over
+// whatever is showing, whether or not a machine is in use.
 // ────────────────────────────────────────────────────────────
-
-enum AppTab: String, CaseIterable {
-    case machine, care, settings
-
-    var title: String {
-        switch self {
-        case .machine: "Machine"
-        case .care: "Care"
-        case .settings: "Settings"
-        }
-    }
-
-    var icon: String {
-        switch self {
-        case .machine: "drop"
-        case .care: "sparkles"
-        case .settings: "slider.horizontal.3"
-        }
-    }
-}
-
-enum AppRoute: Hashable {
-    case flavor(Int)
-    case images(Int)
-    case fill(Int)
-    case clean(Int)
-    case prime(Int)
-    case sound
-    case update
-    case machines
-    case rename
-}
-
-/// Where someone is: a tab, and a stack of pages on each.
-@Observable
-final class Navigator {
-    var tab = AppTab.machine
-    private var stacks: [AppTab: [AppRoute]] = [:]
-    /// A run on the machine that this screen is minding: the tabs, the back
-    /// button and the machine switcher wait for it.
-    var locked = false
-
-    var path: [AppRoute] { stacks[tab] ?? [] }
-    var top: AppRoute? { path.last }
-
-    /// A page over the one showing, on the tab in front, so Back returns to
-    /// exactly where it was opened from — whichever button, header or sidebar
-    /// opened it. The page already showing is not opened over itself.
-    func push(_ route: AppRoute) {
-        guard !locked, top != route else { return }
-        stacks[tab, default: []].append(route)
-    }
-
-    func back() {
-        guard !locked else { return }
-        _ = stacks[tab]?.popLast()
-    }
-
-    /// A page closing itself once the machine has answered: only while it is
-    /// still the page on top of its own tab, wherever someone has gone since.
-    func back(from route: AppRoute) {
-        guard !locked else { return }
-        for t in [tab] + AppTab.allCases where stacks[t]?.last == route {
-            stacks[t]?.removeLast()
-            return
-        }
-    }
-
-    /// A tab chosen again goes back to its top.
-    func select(_ next: AppTab) {
-        guard !locked else { return }
-        if next == tab { stacks[next] = [] } else { tab = next }
-    }
-
-    /// The Machine tab, every tab back to its top, unlocked.
-    func reset() {
-        tab = .machine
-        stacks = [:]
-        locked = false
-    }
-}
 
 struct RootView: View {
     @Environment(BLEManager.self) var ble
     @Environment(MachineDirectory.self) var directory
+    @Environment(MachineAccess.self) var access
     @State private var nav = Navigator()
+    @State private var edits = EditSessions()
+    @State private var runs = RunLog()
 
     var body: some View {
         Group {
@@ -104,12 +30,52 @@ struct RootView: View {
                 } else {
                     AppShell()
                 }
-            } else {
+            } else if directory.known.isEmpty {
                 FirstRunView()
+            } else {
+                ChooseMachineView()
             }
         }
-        .environment(nav)
+        .sheet(isPresented: Binding(get: { nav.managing }, set: { nav.managing = $0 })) { MachinesSheet() }
         .onChange(of: directory.current?.id) { nav.reset() }
+        // A machine added from anywhere opens, even one already in use; Your
+        // machines closes over it.
+        .onChange(of: access.added) {
+            nav.managing = false
+            nav.reset()
+        }
+        // Every reading reaches the runs a page has opened, whether or not
+        // that page is still up.
+        .onChange(of: ble.appliance) { _, now in
+            if let id = ble.current?.id { runs.observe(machine: id, appliance: now) }
+        }
+        .onChange(of: ble.linked) { _, up in
+            if !up, let id = ble.current?.id { runs.lostLink(machine: id) }
+        }
+        // One rule holds navigation, wherever the run is shown from.
+        .onChange(of: holding, initial: true) { _, now in nav.locked = now }
+        // The one place an operation that hasn't ended is asked about, every
+        // two seconds, whichever page is up: its progress, its ending, or what
+        // an unanswered start did, all reach the runs through `observe`.
+        .task(id: outstanding) {
+            let kinds = outstanding
+            guard !kinds.isEmpty else { return }
+            while !Task.isCancelled {
+                if kinds.contains(.fill) { await ble.readFill() }
+                if kinds.contains(.clean) { await ble.readClean() }
+                if kinds.contains(.prime) { await ble.readPrime() }
+                try? await Task.sleep(for: .seconds(2))
+            }
+        }
+        // A machine gone from this device, by any path, takes its drafts and
+        // runs with it, so no late answer can bring them back.
+        .onChange(of: directory.known.map(\.id)) { before, after in
+            for id in Set(before).subtracting(after) {
+                edits.forget(machine: id)
+                runs.forget(machine: id)
+                ble.forgetUploads(machine: id)
+            }
+        }
         .onAppear {
             // A phone pointed at a machine turns toward it as soon as the
             // system has said which machines it may reach. The radio comes up
@@ -117,107 +83,243 @@ struct RootView: View {
             // the demo, leaves the looking to the system's sheet.
             ble.activateBluetooth()
         }
+        .environment(nav)
+        .environment(edits)
+        .environment(runs)
     }
+}
+
+extension RootView {
+    /// The page in front is minding what it shows: a run this phone started
+    /// and can hear, or an update under way. Elsewhere nothing is held, so the
+    /// way back to that page is always open.
+    fileprivate var holding: Bool {
+        guard let id = ble.current?.id, let route = nav.top?.route else { return false }
+        let hearing = ble.linked || ble.demoMode
+        switch route {
+        case .fill(let ch): return hearing && runs.minding(RunLog.Key(machine: id, kind: .fill, channel: ch))
+        case .clean(let ch): return hearing && runs.minding(RunLog.Key(machine: id, kind: .clean, channel: ch))
+        case .update: return ble.updateRunning
+        default: return false
+        }
+    }
+
+    /// Operations that haven't ended, or whose start went unanswered, that the
+    /// machine can be asked about now.
+    fileprivate var outstanding: Set<RunLog.Kind> {
+        ble.canChange ? runs.outstanding(machine: ble.current?.id) : []
+    }
+}
+
+extension EnvironmentValues {
+    /// The window's height, which decides how much of a page fits on one screen.
+    @Entry var windowHeight: CGFloat = 800
 }
 
 struct AppShell: View {
     @Environment(BLEManager.self) var ble
     @Environment(Navigator.self) var nav
-    @Environment(\.dynamicTypeSize) private var typeSize
 
     var body: some View {
         GeometryReader { geo in
-            let sidebar = geo.size.width >= 1000 && !typeSize.isAccessibilitySize
-            let pageWidth = min(840, geo.size.width - (sidebar ? 216 : 0) - 48)
-            HStack(spacing: 0) {
-                if sidebar { SideNavigation() }
-                VStack(spacing: 0) {
-                    PageHeader(sidebar: sidebar, width: pageWidth)
-                    ScrollView {
-                        page(width: pageWidth, height: geo.size.height)
-                            .frame(maxWidth: pageWidth)
-                            .frame(maxWidth: .infinity, alignment: .top)
-                            .padding(.horizontal, 24)
-                            .padding(.top, 20)
-                            .padding(.bottom, 24)
-                    }
-                    .scrollIndicators(.automatic)
-                    if !sidebar { BottomNavigation() }
+            tabs
+            .tabViewStyle(.sidebarAdaptable)
+            .tabViewSidebarBottomBar {
+                Button { nav.managing = true } label: {
+                    Label("Your machines", systemImage: "square.stack").frame(minHeight: 44)
                 }
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .coordinateSpace(.named("pages"))
-                .simultaneousGesture(swipeBack)
+                .disabled(nav.locked)
             }
+            .environment(\.windowHeight, geo.size.height)
         }
-        .background(Theme.background.ignoresSafeArea())
-        .foregroundStyle(Theme.textPrimary)
         .tint(Theme.accent)
-        .font(.body)
         .overlay {
             if let ask = ble.trustAsk, !ask.quiet { TrustAskOverlay(ask: ask) }
         }
     }
+}
 
-    /// A swipe in from the left edge of the pages is Back, as across iOS. It
-    /// starts in the margin, where no control is.
-    private var swipeBack: some Gesture {
-        DragGesture(minimumDistance: 16, coordinateSpace: .named("pages"))
-            .onEnded { drag in
-                guard drag.startLocation.x < 24, nav.top != nil,
-                      drag.translation.width > 72,
-                      abs(drag.translation.height) < drag.translation.width / 2 else { return }
-                nav.back()
+extension AppShell {
+    /// The three destinations. While a page minds a run, the others can't be
+    /// chosen; a system without disabled tabs refuses the choice instead.
+    @ViewBuilder fileprivate var tabs: some View {
+        let selection = Binding(get: { nav.tab }, set: { nav.select($0) })
+        if #available(iOS 18.4, *) {
+            TabView(selection: selection) {
+                Tab(AppTab.machine.title, systemImage: AppTab.machine.icon, value: AppTab.machine) {
+                    TabStack(tab: .machine)
+                }
+                .disabled(nav.locked && nav.tab != .machine)
+                Tab(AppTab.care.title, systemImage: AppTab.care.icon, value: AppTab.care) {
+                    TabStack(tab: .care)
+                }
+                .disabled(nav.locked && nav.tab != .care)
+                Tab(AppTab.settings.title, systemImage: AppTab.settings.icon, value: AppTab.settings) {
+                    TabStack(tab: .settings)
+                }
+                .disabled(nav.locked && nav.tab != .settings)
             }
-    }
-
-    @ViewBuilder private func page(width: CGFloat, height: CGFloat) -> some View {
-        switch nav.top {
-        case nil:
-            switch nav.tab {
-            case .machine: MachineHomeView(width: width, height: height)
-            case .care: CareHomeView(width: width)
-            case .settings: SettingsHomeView()
+        } else {
+            TabView(selection: selection) {
+                Tab(AppTab.machine.title, systemImage: AppTab.machine.icon, value: AppTab.machine) {
+                    TabStack(tab: .machine)
+                }
+                Tab(AppTab.care.title, systemImage: AppTab.care.icon, value: AppTab.care) {
+                    TabStack(tab: .care)
+                }
+                Tab(AppTab.settings.title, systemImage: AppTab.settings.icon, value: AppTab.settings) {
+                    TabStack(tab: .settings)
+                }
             }
-        case .flavor(let ch): FlavorDetailView(channel: ch, width: width)
-        case .images(let ch): ImageLibraryView(channel: ch, width: width)
-        case .fill(let ch): FillView(channel: ch, width: width)
-        case .clean(let ch): CleanView(channel: ch, width: width)
-        case .prime(let ch): PrimeView(channel: ch, width: width)
-        case .sound: SoundView()
-        case .update: SoftwareUpdateView()
-        case .machines: MachinesView()
-        case .rename: RenameView()
         }
     }
 }
 
-// ── The header, the bar, the sidebar ─────────────────────────────────────
+// ── A destination's pages ────────────────────────────────────────────────
 
-/// What the page is, and which machine. A top page leads with its title, and
-/// the Machine page with the machine itself; a page further in leads with a
-/// way back.
-struct PageHeader: View {
-    @Environment(BLEManager.self) var ble
-    @Environment(MachineDirectory.self) var directory
+/// One destination: its top page under the app's header, and the pages opened
+/// from it, each with the system's Back and edge swipe — both of which wait,
+/// like everything else, while a page minds a run.
+struct TabStack: View {
     @Environment(Navigator.self) var nav
-    let sidebar: Bool
-    let width: CGFloat
-
-    private var isTop: Bool { nav.top == nil }
-    /// The machine is named in the title, or in the menu beside it.
-    private var named: Bool { isTop && (nav.tab == .machine || directory.known.count > 1) }
+    let tab: AppTab
 
     var body: some View {
+        NavigationStack(path: Binding(get: { nav.path(on: tab) }, set: { nav.setPath($0, on: tab) })) {
+            TopPage(tab: tab)
+                .toolbar(.hidden, for: .navigationBar)
+                .navigationDestination(for: RouteEntry.self) { entry in RoutePage(entry: entry) }
+        }
+        .foregroundStyle(Theme.textPrimary)
+        .font(.body)
+    }
+}
+
+/// A page's own scrolling region: a column at most 840 wide, centered.
+struct PageScroll<Content: View>: View {
+    @Environment(\.windowHeight) private var windowHeight
+    @ViewBuilder let content: (_ width: CGFloat, _ windowHeight: CGFloat) -> Content
+
+    var body: some View {
+        GeometryReader { geo in
+            let width = min(840, geo.size.width - 48)
+            ScrollView {
+                content(width, windowHeight)
+                    .frame(maxWidth: width)
+                    .frame(maxWidth: .infinity, alignment: .top)
+                    .padding(.horizontal, 24)
+                    .padding(.top, 20)
+                    .padding(.bottom, 24)
+            }
+            .scrollIndicators(.automatic)
+        }
+        .background(Theme.background.ignoresSafeArea())
+    }
+}
+
+struct TopPage: View {
+    let tab: AppTab
+
+    var body: some View {
+        GeometryReader { geo in
+            VStack(spacing: 0) {
+                TopHeader(tab: tab, width: min(840, geo.size.width - 48))
+                PageScroll { width, windowHeight in
+                    switch tab {
+                    case .machine: MachineHomeView(width: width, height: windowHeight)
+                    case .care: CareHomeView(width: width)
+                    case .settings: SettingsHomeView()
+                    }
+                }
+            }
+        }
+        .background(Theme.background.ignoresSafeArea())
+    }
+}
+
+struct RoutePage: View {
+    @Environment(BLEManager.self) var ble
+    @Environment(Navigator.self) var nav
+    let entry: RouteEntry
+
+    var body: some View {
+        PageScroll { width, _ in
+            switch entry.route {
+            case .flavor(let ch): FlavorDetailView(channel: ch, width: width, entry: entry)
+            case .images(let ch): ImageLibraryView(channel: ch, width: width, entry: entry)
+            case .fill(let ch): FillView(channel: ch, width: width, entry: entry)
+            case .clean(let ch): CleanView(channel: ch, width: width, entry: entry)
+            case .prime(let ch): PrimeView(channel: ch, width: width, entry: entry)
+            case .sound: SoundView(entry: entry)
+            case .update: SoftwareUpdateView(entry: entry)
+            case .rename: RenameView(entry: entry)
+            }
+        }
+        .modifier(PageTitle(title: entry.route.title, subtitle: ble.machineLine))
+        .navigationBarBackButtonHidden(nav.locked)
+    }
+}
+
+/// A page's title in the navigation bar, with the machine and its link under
+/// it.
+private struct PageTitle: ViewModifier {
+    let title: String
+    let subtitle: String
+
+    func body(content: Content) -> some View {
+        if #available(iOS 26.0, *) {
+            content
+                .navigationTitle(title)
+                .navigationSubtitle(subtitle)
+                .navigationBarTitleDisplayMode(.inline)
+        } else {
+            content
+                .navigationTitle(title)
+                .navigationBarTitleDisplayMode(.inline)
+                .toolbar {
+                    ToolbarItem(placement: .principal) {
+                        VStack(spacing: 1) {
+                            Text(title).font(.headline)
+                            Text(subtitle).font(.caption).foregroundStyle(Theme.textSecondary)
+                        }
+                        .accessibilityElement(children: .combine)
+                    }
+                }
+        }
+    }
+}
+
+extension AppRoute {
+    var title: String {
+        switch self {
+        case .flavor(let ch): "Flavor \(ch + 1)"
+        case .images(let ch): "Flavor \(ch + 1) image"
+        case .fill(let ch): "Fill Flavor \(ch + 1)"
+        case .clean(let ch): "Clean Flavor \(ch + 1)"
+        case .prime(let ch): "Prime Flavor \(ch + 1)"
+        case .sound: "Sound"
+        case .update: "Software Update"
+        case .rename: "Machine name"
+        }
+    }
+}
+
+// ── The header ───────────────────────────────────────────────────────────
+
+/// A top page's title, and which machine. The Machine page leads with the
+/// machine itself; the others name it beside their title when there is more
+/// than one to choose from, and in the line under it when there is not.
+struct TopHeader: View {
+    @Environment(BLEManager.self) var ble
+    @Environment(MachineDirectory.self) var directory
+    let tab: AppTab
+    let width: CGFloat
+
+    var body: some View {
+        let several = directory.known.count > 1
         VStack(alignment: .leading, spacing: 6) {
             HStack(spacing: 8) {
-                if !isTop && !nav.locked {
-                    Button { nav.back() } label: {
-                        Image(systemName: "chevron.left").font(.body.weight(.medium))
-                            .frame(width: 32, height: 44, alignment: .leading)
-                    }
-                    .accessibilityLabel("Back")
-                }
-                if isTop && nav.tab == .machine && !sidebar {
+                if tab == .machine {
                     MachineSwitcher { menu in
                         HStack(spacing: 9) {
                             Text(ble.current?.displayName ?? "").font(.largeTitle.weight(.semibold))
@@ -229,12 +331,13 @@ struct PageHeader: View {
                         }
                     }
                 } else {
-                    Text(title)
-                        .font(isTop ? .largeTitle.weight(.semibold) : .headline)
+                    Text(tab.title)
+                        .font(.largeTitle.weight(.semibold))
                         .fixedSize(horizontal: false, vertical: true)
+                        .accessibilityAddTraits(.isHeader)
                 }
                 Spacer(minLength: 8)
-                if isTop && nav.tab != .machine && !sidebar && directory.known.count > 1 {
+                if tab != .machine && several {
                     MachineSwitcher { _ in
                         HStack(spacing: 6) {
                             Text(ble.current?.displayName ?? "")
@@ -246,123 +349,28 @@ struct PageHeader: View {
                     }
                 }
             }
-            if !sidebar {
-                HStack(spacing: 6) {
-                    Circle().fill(ble.linked ? Theme.ice : Theme.textSecondary.opacity(0.5)).frame(width: 5, height: 5)
-                    Text(named ? linkText : "\(ble.current?.displayName ?? "") · \(linkText)")
-                }
-                .font(.caption)
-                .foregroundStyle(Theme.textSecondary)
-                .accessibilityElement(children: .combine)
-                .accessibilityAddTraits(.updatesFrequently)
+            HStack(spacing: 6) {
+                Circle().fill(ble.linked ? Theme.ice : Theme.textSecondary.opacity(0.5)).frame(width: 5, height: 5)
+                Text(tab == .machine || several ? ble.linkText : ble.machineLine)
             }
+            .font(.caption)
+            .foregroundStyle(Theme.textSecondary)
+            .accessibilityElement(children: .combine)
+            .accessibilityAddTraits(.updatesFrequently)
         }
         .frame(maxWidth: width).frame(maxWidth: .infinity)
         .padding(.horizontal, 24)
-        .padding(.top, isTop ? 24 : 10)
-        .padding(.bottom, isTop ? 8 : 6)
+        .padding(.top, 24)
+        .padding(.bottom, 8)
         .background(Theme.background)
     }
-
-    private var title: String {
-        switch nav.top {
-        case nil: nav.tab.title
-        case .flavor(let ch): "Flavor \(ch + 1)"
-        case .images(let ch): "Flavor \(ch + 1) image"
-        case .fill(let ch): "Fill Flavor \(ch + 1)"
-        case .clean(let ch): "Clean Flavor \(ch + 1)"
-        case .prime(let ch): "Prime Flavor \(ch + 1)"
-        case .sound: "Sound"
-        case .update: "Software Update"
-        case .machines: "Your machines"
-        case .rename: "Machine name"
-        }
-    }
-
-    private var linkText: String { ble.linkText }
 }
 
-struct BottomNavigation: View {
-    @Environment(Navigator.self) var nav
-
-    var body: some View {
-        HStack(spacing: 4) {
-            ForEach(AppTab.allCases, id: \.self) { tab in
-                let selected = nav.tab == tab
-                Button { nav.select(tab) } label: {
-                    VStack(spacing: 5) {
-                        Image(systemName: tab == .machine && selected ? "drop.fill" : tab.icon)
-                            .font(.system(size: 20, weight: .regular))
-                        Text(tab.title).font(.caption2.weight(selected ? .semibold : .regular))
-                    }
-                    .foregroundStyle(selected ? Theme.accent : Theme.textSecondary)
-                    .frame(maxWidth: .infinity, minHeight: 48)
-                }
-                .disabled(nav.locked)
-                .accessibilityAddTraits(selected ? .isSelected : [])
-            }
-        }
-        .frame(maxWidth: 480).frame(maxWidth: .infinity)
-        .padding(.horizontal, 16).padding(.top, 8).padding(.bottom, 8)
-        .background(Theme.surface.ignoresSafeArea(edges: .bottom))
-        .overlay(alignment: .top) { Theme.ice.opacity(0.10).frame(height: 0.5) }
-    }
-}
-
-struct SideNavigation: View {
-    @Environment(BLEManager.self) var ble
-    @Environment(Navigator.self) var nav
-
-    var body: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            HStack(spacing: 10) {
-                Image("LaunchIcon").resizable().scaledToFit().frame(width: 32, height: 32).accessibilityHidden(true)
-                Text("Soda Machine").font(.subheadline.weight(.semibold))
-            }
-            .padding(.bottom, 24)
-            MachineSwitcher { menu in
-                HStack {
-                    VStack(alignment: .leading, spacing: 5) {
-                        Text(ble.current?.displayName ?? "").font(.headline)
-                        Text(ble.linkText).font(.caption).foregroundStyle(Theme.textSecondary)
-                    }
-                    Spacer(minLength: 6)
-                    if menu { Image(systemName: "chevron.down").font(.caption2) }
-                }
-                .foregroundStyle(Theme.textPrimary)
-                .padding(12)
-                .background(Theme.background, in: RoundedRectangle(cornerRadius: 12))
-            }
-            .padding(.bottom, 20)
-            ForEach(AppTab.allCases, id: \.self) { tab in
-                let selected = nav.tab == tab
-                Button { nav.select(tab) } label: {
-                    Label(tab.title, systemImage: tab.icon)
-                        .font(.subheadline.weight(.medium)).frame(maxWidth: .infinity, alignment: .leading)
-                        .padding(12)
-                        .foregroundStyle(selected ? Theme.accent : Theme.textSecondary)
-                        .background(selected ? Theme.ice.opacity(0.08) : Color.clear, in: RoundedRectangle(cornerRadius: 10))
-                }
-                .disabled(nav.locked)
-                .accessibilityAddTraits(selected ? .isSelected : [])
-            }
-            Spacer(minLength: 32)
-            Button { nav.push(.machines) } label: {
-                Label("Your machines", systemImage: "square.stack").frame(minHeight: 44)
-            }
-            .foregroundStyle(Theme.textSecondary)
-            .disabled(nav.locked)
-        }
-        .padding(20)
-        .frame(width: 216)
-        .frame(maxHeight: .infinity, alignment: .top)
-        .background(Theme.surface.ignoresSafeArea())
-    }
-}
-
-/// Which machine every tab is about. With more than one on this device it is
-/// a menu of them, the one showing checked, and a way to add another; Your
-/// machines, in Settings, is where they are managed. With one, it is the name.
+/// Which machine every destination is about. With more than one on this
+/// device it is a menu of them, the one in use checked, and a way to add
+/// another; Your machines is where they are managed. With one, it is the
+/// name. Choosing another opens its overview; choosing the one in use leaves
+/// everything where it is. It waits while a run or a transfer needs the link.
 struct MachineSwitcher<Face: View>: View {
     @Environment(BLEManager.self) var ble
     @Environment(MachineDirectory.self) var directory
@@ -375,7 +383,7 @@ struct MachineSwitcher<Face: View>: View {
         if directory.known.count > 1 {
             Menu {
                 Picker("Machine", selection: chosen) {
-                    ForEach(directory.known) { m in Text(m.displayName).tag(Optional(m.id)) }
+                    ForEach(directory.known) { m in Text(directory.label(for: m)).tag(Optional(m.id)) }
                 }
                 .pickerStyle(.inline)
                 Button { adding = true } label: {
@@ -384,7 +392,7 @@ struct MachineSwitcher<Face: View>: View {
             } label: {
                 face(true)
             }
-            .disabled(nav.locked)
+            .disabled(nav.locked || ble.transferInFlight)
             .sheet(isPresented: $adding) { AddMachineSheet() }
         } else {
             face(false)
@@ -399,13 +407,30 @@ struct MachineSwitcher<Face: View>: View {
     }
 }
 
+extension MachineDirectory {
+    /// A machine's name where two on this device share it: with its unit.
+    func label(for m: KnownMachine) -> String {
+        let twins = known.filter { $0.displayName == m.displayName }.count > 1
+        return twins && !m.unit.isEmpty ? "\(m.displayName) · Unit \(m.unit)" : m.displayName
+    }
+}
+
 extension BLEManager {
-    /// Whether the phone can hear the machine, and if not, since when.
+    /// Which machine, and whether the phone can hear it. The demo is just
+    /// the demo.
+    var machineLine: String {
+        guard let m = current else { return "" }
+        return m.isDemo ? linkText : "\(m.displayName) · \(linkText)"
+    }
+
+    /// Whether the phone can hear the machine, and if not, since when; and,
+    /// once it can, whether the machine lets it change anything.
     var linkText: String {
         guard let m = current else { return "" }
         if m.isDemo { return "Demo" }
         switch connectionState {
-        case .connected: return "Connected"
+        case .connected:
+            return trust == .viewer || trust == .unpaired ? "Connected · View only" : "Connected"
         case .connecting: return "Connecting…"
         case .bluetoothOff: return "Bluetooth is off"
         case .searching: return "Looking for it…"

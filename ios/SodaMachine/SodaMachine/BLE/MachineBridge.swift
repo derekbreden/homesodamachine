@@ -145,7 +145,7 @@ struct FlavorSelection: Codable, Equatable {
     }
 }
 
-struct SoundSettings: Codable, Equatable {
+struct SoundSettings: Codable, Hashable {
     var volume = 60
     var quietOn = false
     var quietStart = 22
@@ -336,11 +336,15 @@ extension BLEManager {
     /// turns down for want of trust is asked for on its displays and, once
     /// this device is trusted, sent again.
     func ask(_ type: UInt8, _ body: [UInt8] = []) async -> Result<BridgeAnswer, BridgeError> {
+        let machine = current?.id
         let first = await request(type, body)
         guard case .failure(.untrusted) = first else { return first }
         let (reason, channel) = Self.trustReason(type, body)
         let outcome = await requestTrust(reason, channel: channel)
         guard outcome == .trusted else { return .failure(.untrusted(outcome)) }
+        // Trusted, and still the same machine on the same link: only then is
+        // the change sent again, once.
+        guard current?.id == machine, linked else { return .failure(.offline) }
         return await request(type, body)
     }
 

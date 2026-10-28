@@ -26,6 +26,9 @@ enum TrustStanding: UInt8 {
 
 enum TrustOutcome: UInt8 {
     case none = 0, trusted, declined, timedOut, busy, unpaired, canceled
+    /// This app's own: the link went before the machine answered. The faucet
+    /// never sends it.
+    case lostLink = 0xF0
 }
 
 /// proto_msg.h's TRUST_FOR_*: what this device wants, so the displays can say so.
@@ -61,6 +64,12 @@ extension BLEManager {
         if outcome != .none { finishTrustAsk(outcome) }
         if standing == .trusted, was != .trusted { pushPendingName() }
         if standing == .trusted {
+            // An ask that ended unanswered here — the link went, say — was
+            // answered after all.
+            if let ask = trustAsk, ask.ended != nil {
+                trustAsk = nil
+                if ask.quiet { sayTrusted() }
+            }
             if trustAskOnLink { sayTrusted() }   // set up again under a pairing the machine trusts
             trustAskOnLink = false
         } else if trustAskOnLink, standing == .viewer {
@@ -82,7 +91,10 @@ extension BLEManager {
     /// Ask the machine to trust this device, and wait for how it ends. A device
     /// with no bond is asked by iOS to pair, and asks again once it has.
     func requestTrust(_ reason: TrustReason, channel: Int? = nil, quiet: Bool = false) async -> TrustOutcome {
-        if demoMode || trust == .trusted { return .trusted }
+        if demoMode || trust == .trusted {
+            if trustAsk?.ended != nil { trustAsk = nil }
+            return .trusted
+        }
         guard linked, connectedPeripheral != nil else { return .canceled }
         var (outcome, seq) = await askOnce(reason, channel: channel, quiet: quiet)
         if outcome == .unpaired, seq == trustAskSeq {
@@ -99,7 +111,7 @@ extension BLEManager {
         case .canceled, .none:
             trustAsk = nil
         default:
-            if quiet { trustAsk = nil } else { trustAsk?.ended = outcome }
+            trustAsk?.ended = outcome
         }
         return outcome
     }
@@ -125,10 +137,20 @@ extension BLEManager {
     /// OK on how an ask ended.
     func dismissTrustAsk() { trustAsk = nil }
 
-    /// The link went, and the ask with it.
-    func abandonTrust() {
+    /// Another machine chosen, added or removed: nothing about the setup of
+    /// the last one — its ask, its outcome, its Trusted — carries over.
+    func clearTrustContext() {
+        trustAskSeq += 1   // the old ask's waiting task lands nowhere
         finishTrustAsk(.canceled)
-        if trustAsk?.ended == nil { trustAsk = nil }
+        trustAsk = nil
+        trustAskOnLink = false
+        trustGrantedAt = nil
+    }
+
+    /// The link went, and the ask with it, which says so until it is read.
+    func abandonTrust() {
+        finishTrustAsk(.lostLink)
+        if trustAsk != nil, trustAsk?.ended == nil { trustAsk?.ended = .lostLink }
         trust = nil
     }
 

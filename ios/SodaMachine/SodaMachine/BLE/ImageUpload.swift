@@ -75,6 +75,17 @@ struct QueuedImage: Identifiable, Equatable {
     static func == (a: QueuedImage, b: QueuedImage) -> Bool { a.id == b.id }
 }
 
+/// How one picture's trip to the machine ended, for whoever is waiting on it.
+enum UploadEnd: Equatable {
+    /// The machine holds it.
+    case stored
+    case failed(String)
+    /// Someone canceled it.
+    case canceled
+    /// The link went before it arrived.
+    case interrupted
+}
+
 enum ImageUploadState: Equatable {
     case idle
     case preparing
@@ -108,6 +119,56 @@ extension BLEManager {
         sendBLEFrame(type: ImageFrame.artSet, payload: Data([UInt8(channel), UInt8(art)]))
     }
 
+    /// Put `art` on `channel` and wait, up to a deadline, for the machine to
+    /// say it wears it. The faucet answers from its own copy of the pair
+    /// until the main board publishes the new one, so an answer still naming
+    /// the old face is a wait, not a refusal. False for a deadline passed, a
+    /// link gone, another machine in use, or a choice that `still` says has
+    /// been superseded.
+    ///
+    /// THE MACHINE'S ASSIGNMENTS RUN ONE AFTER ANOTHER, in the order asked,
+    /// both flavors together: the faucet sets a pair, filling the other half
+    /// from its own copy, so two in flight at once can undo each other. A
+    /// choice is sent only once every earlier one is done or given up, so the
+    /// newest choice is the last the machine is sent, and the face the flavor
+    /// ends up wearing. Only an answer heard after the send counts: what this
+    /// device last heard can show a face, never confirm a change.
+    func assignArt(channel: Int, art: Int, on machine: String,
+                   while still: @escaping @MainActor () -> Bool) async -> Bool {
+        let before = artChain
+        artAssigning[channel, default: 0] += 1
+        let mine = Task { () -> Bool in
+            _ = await before?.value
+            let worn = await self.assignNow(channel: channel, art: art, on: machine, while: still)
+            self.artAssigning[channel, default: 1] -= 1
+            return worn
+        }
+        artChain = mine
+        return await mine.value
+    }
+
+    /// Whether a face assignment for this flavor is still under way.
+    func assigningArt(_ channel: Int) -> Bool { (artAssigning[channel] ?? 0) > 0 }
+
+    private func assignNow(channel: Int, art: Int, on machine: String,
+                           while still: @MainActor () -> Bool) async -> Bool {
+        func wearing() -> Bool { flavorArt.art.indices.contains(channel) && flavorArt.art[channel] == art }
+        guard still(), current?.id == machine, linked || demoMode else { return false }
+        let sent = Date()
+        setFlavorArt(channel: channel, art: art)
+        if demoMode { return true }
+        let until = sent.addingTimeInterval(6)
+        while Date() < until {
+            try? await Task.sleep(for: .milliseconds(500))
+            guard current?.id == machine, linked else { return false }
+            if let heard = artHeardAt, heard > sent, wearing() { return true }
+            // A newer choice waits behind this one and is sent next.
+            guard still() else { return false }
+            queryFlavorArt()
+        }
+        return false
+    }
+
     func handleFlavorArt(_ payload: Data) {
         guard payload.count >= 4 else { return }
         let b = payload.startIndex
@@ -116,6 +177,7 @@ extension BLEManager {
         a.factory = Int(payload[b + 2])
         a.custom = Int(payload[b + 3])
         flavorArt = a
+        artHeardAt = Date()
     }
 
     /// Keep a read moving for as long as there is a link, rather than for as
@@ -235,7 +297,7 @@ extension BLEManager {
         // The machine listing this picture's own crc32 in the slot it was
         // sent to is the picture having arrived, and outranks any frame
         // that went missing on the way back.
-        if case .sending = imageUploadState, let active = activeUpload,
+        if case .sending = imageUploadState, let active = activeUpload, imageBegun == active.id,
            let want = pendingCrc[active.slot], want != 0,
            slots.crc(of: active.slot) == want {
             say("upload: slot \(active.slot) is on the machine")
@@ -411,14 +473,15 @@ extension BLEManager {
         sendBLEFrame(type: ImageFrame.erase, payload: Data([UInt8(slot)]))
     }
 
-    /// Stop one partway. The board's slot was erased when the transfer opened
-    /// and never got its header, so there is nothing to undo on either side.
+    /// Stop one partway, or before it starts. The board's slot was erased
+    /// when the transfer opened and never got its header, so there is nothing
+    /// to undo on either side; one still being made is let go before its
+    /// BEGIN goes out.
     func cancelImageUpload() {
-        guard case .sending = imageUploadState else { return }
-        let slot = imageSlotSending
+        guard let active = activeUpload else { return }
+        if imageBegun == active.id { sendBLEFrame(type: ImageFrame.abort, payload: Data()) }
         imageBundle = Data()
-        sendBLEFrame(type: ImageFrame.abort, payload: Data())
-        forgetPreview(slot: slot)
+        forgetPreview(slot: active.slot)
         finishActive(.idle)
     }
 
@@ -427,6 +490,47 @@ extension BLEManager {
         guard let item = imageQueue.first(where: { $0.id == id }) else { return }
         forgetPreview(slot: item.slot)
         imageQueue.removeAll { $0.id == id }
+        resolveUpload(id, .canceled)
+    }
+
+    // ── Who is waiting on which picture ───────────────────────────────────
+
+    /// How this picture's trip ends: stored, failed, canceled, or cut off by
+    /// the link. A picture no longer queued or on its way has already ended.
+    func awaitUpload(_ id: UUID) async -> UploadEnd {
+        if let end = uploadEnds.removeValue(forKey: id) { return end }
+        guard activeUpload?.id == id || imageQueue.contains(where: { $0.id == id }) else { return .interrupted }
+        return await withCheckedContinuation { uploadWaiters[id] = $0 }
+    }
+
+    private func resolveUpload(_ id: UUID, _ end: UploadEnd) {
+        if let waiter = uploadWaiters.removeValue(forKey: id) {
+            waiter.resume(returning: end)
+        } else {
+            uploadEnds[id] = end
+        }
+    }
+
+    /// The link went. The board abandons a transfer it was taking, so the one
+    /// on its way failed and can be tried again; the ones waiting behind it
+    /// never started.
+    func interruptUploads() {
+        if let active = activeUpload {
+            forgetPreview(slot: active.slot)
+            keepFailed(active)
+            imageUploadState = .failed("the connection dropped before it arrived")
+            resolveUpload(active.id, .interrupted)
+        }
+        for item in imageQueue {
+            forgetPreview(slot: item.slot)
+            keepFailed(item)
+            resolveUpload(item.id, .interrupted)
+        }
+        activeUpload = nil
+        imageBegun = nil
+        imageQueue = []
+        imageBundle = Data()
+        uploadEnds = [:]
     }
 
     /// A picture that did not arrive must not go on being shown.
@@ -456,27 +560,40 @@ extension BLEManager {
     /// Take a picture for the machine. Choosing the next one never waits on the
     /// last: a queued picture is a real tile in the place it will occupy, and
     /// the "+" stays live the whole time.
-    func enqueueImage(_ crop: UIImage, preview: UIImage?) -> Int? {
+    func enqueueImage(_ crop: UIImage, preview: UIImage?) -> QueuedImage? {
         if let why = imageSizeMismatch {
-            DispatchQueue.main.async { self.imageUploadState = .failed(why) }
+            imageUploadState = .failed(why)
             return nil
         }
         guard !demoMode, linked, let slot = nextFreeSlot() else { return nil }
         let item = QueuedImage(crop: crop, slot: slot, preview: preview)
-        DispatchQueue.main.async {
-            self.imageQueue.append(item)
-            if self.activeUpload == nil { self.startNextImage() }
-        }
-        return slot
+        imageQueue.append(item)
+        if activeUpload == nil { startNextImage() }
+        return item
     }
 
-    /// The picture that failed last goes up again, into whichever slot is free
-    /// now. Its slot, if any, is returned.
-    func retryFailedImage() -> Int? {
-        guard let item = failedImage else { return nil }
-        failedImage = nil
-        imageUploadState = .idle
-        return enqueueImage(item.crop, preview: item.preview)
+    /// A picture that didn't arrive goes up again, into whichever slot is
+    /// free now, as a new trip. It is kept until the new trip has started.
+    func retryUpload(_ id: UUID) -> QueuedImage? {
+        guard let failed = failedUploads[id], failed.machine == current?.id else { return nil }
+        guard let item = enqueueImage(failed.image.crop, preview: failed.image.preview) else { return nil }
+        failedUploads[id] = nil
+        if case .failed = imageUploadState { imageUploadState = .idle }
+        return item
+    }
+
+    /// Whether this picture can be tried again here.
+    func canRetryUpload(_ id: UUID) -> Bool { failedUploads[id]?.machine == current?.id }
+
+    /// A choice gone, or its machine: its picture is no longer kept.
+    func dropFailedUpload(_ id: UUID) { failedUploads[id] = nil }
+
+    func forgetUploads(machine: String) {
+        failedUploads = failedUploads.filter { $0.value.machine != machine }
+    }
+
+    private func keepFailed(_ item: QueuedImage) {
+        if let machine = current?.id { failedUploads[item.id] = (machine, item) }
     }
 
     /// The lowest slot the machine has free that nothing already in this queue
@@ -498,9 +615,10 @@ extension BLEManager {
             guard activeUpload?.id == item.id else { return }
             guard let prepared else {
                 forgetPreview(slot: item.slot)
-                failedImage = item
+                keepFailed(item)
                 activeUpload = nil
                 imageUploadState = .failed("that picture would not convert")
+                resolveUpload(item.id, .failed("that picture would not convert"))
                 startNextImage()
                 return
             }
@@ -511,7 +629,15 @@ extension BLEManager {
     /// One finished, one way or another. The next starts after a beat so a run
     /// of pictures does not strobe.
     private func finishActive(_ outcome: ImageUploadState) {
-        if case .failed = outcome { failedImage = activeUpload }
+        if case .failed = outcome, let active = activeUpload { keepFailed(active) }
+        imageBegun = nil
+        if let id = activeUpload?.id {
+            switch outcome {
+            case .done: resolveUpload(id, .stored)
+            case .failed(let why): resolveUpload(id, .failed(why))
+            default: resolveUpload(id, .canceled)
+            }
+        }
         activeUpload = nil
         imageUploadState = outcome
         if !imageQueue.isEmpty {
@@ -550,6 +676,7 @@ extension BLEManager {
         var payload = Data([UInt8(slot)])
         payload.append(contentsOf: withUnsafeBytes(of: UInt32(bundle.count).littleEndian, Array.init))
         payload.append(contentsOf: withUnsafeBytes(of: prepared.crc.littleEndian, Array.init))
+        imageBegun = activeUpload?.id
         sendBLEFrame(type: ImageFrame.begin, payload: payload)
         log.info("slot \(slot): \(bundle.count) bytes")
         // Nothing is sent until the board answers BEGIN with the offset it
@@ -560,6 +687,9 @@ extension BLEManager {
     func handleImageAck(_ payload: Data) {
         guard payload.count >= 7 else { return }
         let b = payload.startIndex
+        // Only the picture whose BEGIN went out is answered here: an answer
+        // about another slot, or before BEGIN, is about one already finished.
+        guard let active = activeUpload, imageBegun == active.id, Int(payload[b]) == active.slot else { return }
         let state = payload[b + 1]
         let err = payload[b + 2]
         let have = Int(UInt32(payload[b + 3]) | (UInt32(payload[b + 4]) << 8) |
@@ -585,6 +715,14 @@ extension BLEManager {
             queryImageSlots()
         default:  // TAKING — either the opening ack, or a rewind
             guard !imageBundle.isEmpty else { return }
+            guard err == 0 else {
+                // The board said no while taking it: nothing more goes out.
+                let why = Int(err) < uploadErrors.count ? uploadErrors[Int(err)] : "unknown"
+                imageBundle = Data()
+                forgetPreview(slot: active.slot)
+                finishActive(.failed(why))
+                return
+            }
             if have != imageSentOffset {
                 log.info("rewind \(self.imageSentOffset) -> \(have)")
                 imageSentOffset = have

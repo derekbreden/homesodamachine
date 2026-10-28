@@ -93,8 +93,19 @@ struct MachineHomeView: View {
 struct MachineNotices: View {
     @Environment(BLEManager.self) var ble
     @Environment(Navigator.self) var nav
+    @State private var adding = false
 
     var body: some View {
+        if ble.demoMode {
+            VStack(spacing: 12) {
+                Notice(title: "This is the demo",
+                       message: "Its readings and runs are simulated. Nothing here reaches a machine.",
+                       icon: "play.rectangle")
+                ActionButton(title: "Add your machine", primary: false) { adding = true }
+                    .disabled(nav.locked)
+            }
+            .sheet(isPresented: $adding) { AddMachineSheet() }
+        }
         if ble.connectionState == .bluetoothOff && !ble.demoMode {
             Notice(title: "Turn on Bluetooth", message: "Bluetooth connects this device to your machine.",
                    icon: "antenna.radiowaves.left.and.right.slash")
@@ -113,6 +124,20 @@ struct MachineNotices: View {
             Notice(title: "Tap Trust on the machine",
                    message: "So this \(BLEManager.deviceWord) can change settings and run cycles. The faucet and the main display both ask.",
                    icon: "hand.tap")
+        } else if let ask = ble.trustAsk, ask.quiet, let ended = ask.ended {
+            VStack(spacing: 12) {
+                Notice(title: ask.title,
+                       message: ended == .unpaired ? ask.message
+                           : "This \(BLEManager.deviceWord) can view the machine. Ask again to change settings and run cycles.",
+                       icon: "hand.raised")
+                HStack(spacing: 12) {
+                    ActionButton(title: "Ask again", primary: false) {
+                        Task { _ = await ble.requestTrust(.anything, quiet: true) }
+                    }
+                    .disabled(!ble.linked)
+                    ActionButton(title: "OK", primary: false) { ble.dismissTrustAsk() }
+                }
+            }
         } else if ble.trustGrantedAt != nil {
             Notice(title: "Trusted",
                    message: "This \(BLEManager.deviceWord) can change settings and run cycles.",
@@ -260,22 +285,30 @@ struct MachineStatusPanel: View {
 
 // ── One flavor ──────────────────────────────────────────────────────────
 
+/// One flavor: its image, its mix, whether it is on tap, and its care. The
+/// mix is a draft until the machine accepts it, and stays one through Back,
+/// a child page or another destination. Putting the flavor on tap stays on
+/// this page.
 struct FlavorDetailView: View {
     @Environment(BLEManager.self) var ble
     @Environment(Navigator.self) var nav
+    @Environment(EditSessions.self) var edits
     @Environment(\.dynamicTypeSize) private var typeSize
     let channel: Int
     let width: CGFloat
+    let entry: RouteEntry
 
-    /// The ratio being chosen, until it is saved; nil follows the machine.
-    @State private var draft: Int?
-    @State private var saving = false
+    /// Which of this page's buttons the running write belongs to.
     @State private var selecting = false
-    @State private var problem: String?
 
+    private var key: EditKey? { ble.current.map { EditKey(machine: $0.id, field: .ratio(channel: channel)) } }
     private var confirmed: Int? { ble.appliance.ratio(channel) }
+    private var draft: Int? { key.flatMap { edits.draft($0) } }
     private var ratio: Int { draft ?? confirmed ?? 20 }
+    private var unsaved: Bool { draft.map { $0 != confirmed } ?? false }
     private var active: Bool { ble.appliance.selection?.value.channel == channel }
+    private var write: EditSessions.Write? { key.flatMap(edits.write) }
+    private var working: Bool { write?.running == true }
     private var art: Int { ble.flavorArt.art.indices.contains(channel) ? ble.flavorArt.art[channel] : channel }
 
     var body: some View {
@@ -304,74 +337,126 @@ struct FlavorDetailView: View {
                     HStack {
                         Text("Mix ratio").font(.headline)
                         Spacer()
-                        if saving {
+                        if working && !selecting {
                             ProgressView().tint(Theme.textSecondary)
-                        } else if confirmed == ratio {
+                        } else if unsaved {
+                            Button("Save mix") { save() }.font(.subheadline.weight(.semibold))
+                                .frame(minWidth: 44, minHeight: 44).contentShape(Rectangle())
+                                .disabled(!ble.canChange || working)
+                        } else if confirmed != nil {
                             Label("Saved", systemImage: "checkmark").font(.caption).foregroundStyle(Theme.textSecondary)
-                        } else {
-                            Button("Save") { save() }.font(.subheadline.weight(.semibold)).disabled(!ble.canChange)
                         }
                     }
                     HStack(spacing: 18) {
-                        Button { draft = max(6, ratio - 1) } label: {
+                        Button { change(to: max(6, ratio - 1)) } label: {
                             Image(systemName: "minus").frame(width: 44, height: 44).background(Theme.ice.opacity(0.10), in: Circle())
                         }
                         .accessibilityLabel("Stronger mix")
                         Text("1:\(ratio)").font(.largeTitle.weight(.medium).monospacedDigit()).frame(maxWidth: .infinity)
-                            .accessibilityLabel("1 to \(ratio)")
-                        Button { draft = min(24, ratio + 1) } label: {
+                            .accessibilityLabel("1 to \(ratio)\(unsaved ? ", not saved" : "")")
+                        Button { change(to: min(24, ratio + 1)) } label: {
                             Image(systemName: "plus").frame(width: 44, height: 44).background(Theme.ice.opacity(0.10), in: Circle())
                         }
                         .accessibilityLabel("Lighter mix")
                     }
-                    .disabled(!ble.canChange || saving)
-                    Text("1 part concentrate · \(ratio) parts water").font(.subheadline).foregroundStyle(Theme.textSecondary)
+                    .disabled(working || confirmed == nil && !ble.canChange)
+                    Text(unsaved ? "Not saved · the machine pours 1:\(confirmed.map(String.init) ?? "—")"
+                                 : "1 part concentrate · \(ratio) parts water")
+                        .font(.subheadline).foregroundStyle(unsaved ? Theme.accent : Theme.textSecondary)
                     HStack { Text("More flavor"); Spacer(); Text("Lighter") }.font(.caption).foregroundStyle(Theme.textSecondary)
                     Text("1:6–1:24 · Match your concentrate bottle.").font(.caption).foregroundStyle(Theme.textSecondary)
                 }
-                if let problem { Note(problem) }
+                if unsaved && !working {
+                    Button("Discard changes") { if let key { edits.discard(key) } }
+                        .font(.subheadline.weight(.medium)).frame(minHeight: 44)
+                }
+                if !ble.canChange && !ble.demoMode {
+                    Note(unsaved ? "Your mix is kept here. Bring your device near the machine to save it."
+                                 : "Bring your device near the machine to make changes.")
+                }
+                if let problem = write?.problem { Note(problem) }
                 if active {
                     Label("On tap at the faucet", systemImage: "checkmark.circle.fill")
                         .font(.subheadline).foregroundStyle(Theme.accent).padding(.vertical, 4)
                 } else {
-                    ActionButton(title: "Use at faucet", working: selecting) { select() }
-                        .disabled(!ble.canChange || selecting)
+                    ActionButton(title: unsaved ? "Save and use at faucet" : "Use at faucet", working: working && selecting) { use() }
+                        .disabled(!ble.canChange || working)
                 }
+                VStack(alignment: .leading, spacing: 12) {
+                    SectionTitle("Care")
+                    HStack(spacing: 12) {
+                        ActionButton(title: "Fill", primary: false) { nav.push(.fill(channel)) }
+                        ActionButton(title: "Clean", primary: false) { nav.push(.clean(channel)) }
+                        ActionButton(title: "Prime", primary: false) { nav.push(.prime(channel)) }
+                    }
+                }
+                .padding(.top, 8)
             }
             .frame(maxWidth: .infinity)
         }
         .modifier(StatusPolling())
     }
 
+    private func change(to value: Int) {
+        guard let key else { return }
+        edits.setDraft(value == confirmed ? nil : value, for: key)
+    }
+
+    /// Saved in place. Anything but the machine taking this mix leaves the
+    /// draft standing, with what happened.
     private func save() {
+        guard let key, let machine = ble.current?.id else { return }
         let wanted = ratio
-        saving = true
-        problem = nil
+        selecting = false
+        let token = edits.begin(key)
         Task {
             let answer = await ble.saveRatio(channel, wanted)
-            saving = false
+            guard edits.isNewest(token, for: key) else { return }
             switch answer {
+            case .success where ble.current?.id == machine && ble.appliance.ratio(channel) == wanted:
+                edits.end(token, for: key)
+                edits.settle(key, saved: wanted)
             case .success:
-                if ble.appliance.ratio(channel) == wanted {
-                    draft = nil
-                } else {
-                    problem = "The machine kept \(confirmed.map { "1:\($0)" } ?? "its ratio")."
-                }
+                edits.end(token, for: key, problem: "The machine kept its mix. Yours is still here to save again or discard.")
             case .failure(let e):
-                problem = e.message
+                edits.end(token, for: key, problem: e.message)
             }
         }
     }
 
-    private func select() {
+    /// On tap, saving the mix first when it has changed: the mix is confirmed
+    /// before the flavor is put on tap, and a mix saved before the second
+    /// step failed says so.
+    private func use() {
+        guard let key, let machine = ble.current?.id else { return }
+        let wanted = unsaved ? ratio : nil
         selecting = true
-        problem = nil
+        let token = edits.begin(key)
         Task {
+            if let wanted {
+                let saved = await ble.saveRatio(channel, wanted)
+                guard edits.isNewest(token, for: key) else { return }
+                switch saved {
+                case .success where ble.current?.id == machine && ble.appliance.ratio(channel) == wanted:
+                    edits.settle(key, saved: wanted)
+                case .success:
+                    edits.end(token, for: key, problem: "The machine kept its mix, so this flavor wasn’t put on tap. Your mix is still here.")
+                    return
+                case .failure(let e):
+                    edits.end(token, for: key, problem: "\(e.message) This flavor wasn’t put on tap.")
+                    return
+                }
+            }
             let answer = await ble.selectFlavor(channel)
-            selecting = false
+            guard edits.isNewest(token, for: key) else { return }
+            let saidMix = wanted == nil ? "" : "The mix was saved. "
             switch answer {
-            case .success: if ble.appliance.selection?.value.channel == channel { nav.back(from: .flavor(channel)) }
-            case .failure(let e): problem = e.message
+            case .success where ble.current?.id == machine && ble.appliance.selection?.value.channel == channel:
+                edits.end(token, for: key)
+            case .success:
+                edits.end(token, for: key, problem: "\(saidMix)The machine kept the other flavor on tap.")
+            case .failure(let e):
+                edits.end(token, for: key, problem: "\(saidMix)\(e.message)")
             }
         }
     }
