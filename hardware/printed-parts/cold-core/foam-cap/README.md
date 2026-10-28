@@ -49,9 +49,19 @@ crosses one pump-driver approach; disconnect it for that screw's service.
 The V-B return has a filled 11.24 × 11.5 mm lid pedestal beneath its forward
 leg, with a peaked tie passage and one six-inch narrow tie on the fixed body band.
 Keep both release collets free. V-A's low turn travels with back-top through
-its connected tubing. Support and dress that free feed on the open bench;
-its final connection is at front-top's Y-A. No independent V-A printed bearing
-or retaining strip is included in this cap.
+its connected tubing; its final connection is at front-top's Y-A. The straight
+white feed, logical `fluid-3` / native `above-core-va-fore-feed`, seats in one
+integral C2 clip on the lid at world (11, 254.5, 261.6) mm. The clip uses the
+selected 6.35 mm bore, 2.40 mm spring wall and full 8 mm span, opening toward
++Z for downward tube insertion and upward release.
+
+Its filled root spans the 8.2 mm from the Z253.4 lid face to the tube axis.
+The minimum solid stock below the bore is 5.025 mm; the 2.40 mm section is the
+functional spring exception. The clip builds from the lid's flat underside
+with the surrounding stock. Seat the feed before finally dressing
+`PE-carbonator` and `J4-V5`, leaving the loading mouth clear. Release the feed
+before separating back-top from the core. The [V-A feed review](va-feed-snap-review/README.md)
+records this station and its fit scope.
 
 Thread the V-B holder before seating the fitting and dress its tie before
 final upper connections. Complete J10 power termination and seat J11 before
