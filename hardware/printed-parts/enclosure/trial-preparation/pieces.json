@@ -790,7 +790,7 @@
         },
         "enable_support": {
           "value": "1",
-          "reason": "Tree(auto)/Default supports the V-B return ledge and rectangular WAGO well end walls. The water-check tie passage has a 45-degree peaked roof. Retain native automatic support choices."
+          "reason": "Tree(auto)/Default supports the rectangular WAGO well end walls and B-fill pocket roofs. The return and water-check pedestals have peaked tie passages. Retain native automatic support choices."
         }
       },
       "plate_border_mm": 20.0,

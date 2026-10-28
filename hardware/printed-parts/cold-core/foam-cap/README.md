@@ -94,6 +94,13 @@ levers open west. The blank-backed wells retain 3 mm walls and join the
 V-B wall and lid. Their top and V-B’s wall share the flat Z298.65 mm plane, with 1.25 mm to the funnel frame.
 V-B’s native origin is Z279.41 mm.
 
+The four junction origins share world X29.0 mm. Reservoir B's 4 mm vent tube
+remains at X32.5/Y221.8, ending at Z259.4. Its Ø5.2 mm straight passage continues
+through the full adjacent V-B wall height. The west backing plane is X32.0;
+the vent has 1.5 mm nominal air to the lower V12 connector and 0.6 mm radial
+allowance in its printed passage. The socket backing and broad wall root remain
+at least 3 mm. These are native CAD clearances.
+
 Reservoir A’s draw and fill tubes use two direct fore C2 clips and one aft tied
 seat. Draw occupies the west position at each station. The fore tube axes are
 X50.5/64.0 at Y209.75, Z258.5 mm: **13.5 mm centre spacing**. Each clip has the

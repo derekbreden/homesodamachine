@@ -420,7 +420,9 @@ def build_top_lid():
         lid = lid.union(_above_mounts.world_shape_in_cap(support))
     for passage in _a_anchors.cuts().values():
         lid = lid.cut(_above_mounts.world_shape_in_cap(passage))
-    return cut_reservoir_air_bores(lid, -.1, lid_total_height + .1).clean()
+    # Vent tubes continue above the plate. Carry their straight passages
+    # through adjacent mount stock instead of ending them inside a wall.
+    return cut_reservoir_air_bores(lid, -.1, lid.val().BoundingBox().zmax + .1).clean()
 
 
 def cut_reservoir_air_bores(shape, z0, z1):
