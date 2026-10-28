@@ -1,0 +1,18 @@
+{
+  "scope": "Post-publication complete reservoir-cap-left STL lint. Native cap differs only by the relocated air seat. Cup/lid post-publication scans belong to the coordinated reed-passage review.",
+  "reservoir": {
+    "native_valid": true,
+    "solids": 1,
+    "facets": 28612,
+    "watertight": true,
+    "winding_consistent": true,
+    "sha256": {
+      "step": "4007b3183881235299fd90941ce265974916efce74de6e8b4d4beb54ea9b1949",
+      "stl": "ea70738980234a0e2695be4df473c0e00c11ca9a0a698530a939371ef3ff502a",
+      "step.mesh": "51d3675f2e01d54b6fe074e95599e2b10b06c81bdf6984e04c01a62d08de9a2d"
+    }
+  },
+  "lint_findings": 7,
+  "answered_existing_findings": 7,
+  "new_open_findings": 0
+}

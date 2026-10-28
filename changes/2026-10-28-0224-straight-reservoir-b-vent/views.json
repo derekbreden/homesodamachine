@@ -1,0 +1,53 @@
+{
+  "views": [
+    {
+      "name": "vent",
+      "caption": "The straight vent stands forward of a continuous wall, with 3.78 mm nominal wall clearance and 3.66 mm to the WAGO.",
+      "before": "vent-before.webp",
+      "after": "vent-after.webp",
+      "width": 920,
+      "height": 640,
+      "marks": [],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          -70.0,
+          105.0,
+          315.0
+        ],
+        "target": [
+          32.0,
+          219.0,
+          267.0
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 32.5,
+        "aspect": 1.4375
+      },
+      "only": [
+        "cold-core/foam-cap-lid-top",
+        "cold-core/wago-v12",
+        "cold-core/tube-reservoir-air-b",
+        "cold-core/valve-v-b"
+      ],
+      "rendering": "Opaque CPU z-buffer drawing of the full published viewer triangles. One camera for both snapshot and current geometry; no mesh decimation. Browser renderer exceeded the session memory limit.",
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "c4ccbafe8c8a63ff5493e9081069c547bfd3d7d1fe2ebb39fe24fbe9a9260735"
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "sha256": "fb994e476988df5672c61730886aac1be0d31ec4e9c2a5c196c7cbe8c74d2107"
+        }
+      },
+      "highlight": []
+    }
+  ]
+}

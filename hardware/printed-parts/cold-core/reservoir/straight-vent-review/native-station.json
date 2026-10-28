@@ -1,0 +1,29 @@
+{
+  "scope": "Straight vent moved as a complete vertical path, including its reservoir lid seat. Candidate on the published pre-magnet baseline.",
+  "shift_world_mm": [
+    0.0,
+    -7.0,
+    0.0
+  ],
+  "axis_world_xy_mm": [
+    32.5,
+    214.8
+  ],
+  "axis_shell_xy_mm": [
+    -109.0,
+    -32.5
+  ],
+  "wall_restored": true,
+  "lid_valid": true,
+  "lid_solids": 1,
+  "tube_to_lid_mm": 0.5999998021825058,
+  "bore_to_wall_mm": 3.1793399999999963,
+  "tube_to_wall_mm": 3.779340200000007,
+  "nearby": [
+    {
+      "name": "cold-core/wago-v12",
+      "gap_mm": 3.661492896404288,
+      "overlap_mm3": 0.0
+    }
+  ]
+}
