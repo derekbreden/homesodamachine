@@ -144,12 +144,16 @@ Operation fillOperation(uint8_t channel);
 // the faucet on the dispense path — the channel's draw and its flavor tube,
 // pump on — until the empty reed closes and kCleanFlushTailMs more has drawn
 // the flavor tube clear. Each step also ends at its planned time.
+// The reservoir holds 1.37 L floor to rim (reservoir/floor-and-dip-tube.md).
+// At 380 mL/min that takes about 217 s. The fill allows 240 s for the reservoir
+// and connecting line; the flush allows that draw plus its 8 s tail.
 constexpr uint8_t  kCleanRounds            = 3;
 constexpr uint32_t kCleanFunnelMl          = 698;
 constexpr uint32_t kCleanFunnelPlannedMs   = 141000;
-constexpr uint32_t kCleanWaterFillPlannedMs = 90000;
-constexpr uint32_t kCleanFlushPlannedMs     = 150000;
+constexpr uint32_t kCleanReservoirMl        = 1370;
+constexpr uint32_t kCleanWaterFillPlannedMs = 240000;
 constexpr uint32_t kCleanFlushTailMs        = 8000;
+constexpr uint32_t kCleanFlushPlannedMs     = kCleanWaterFillPlannedMs + kCleanFlushTailMs;
 constexpr uint32_t kCleanReedPeriodMs       = kFillReedPeriodMs;
 // Between steps the pump stops and V-A closes immediately. The other valves
 // remain open this long for coast-down, then close before the next step.
