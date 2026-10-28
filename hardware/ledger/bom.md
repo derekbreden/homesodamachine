@@ -121,8 +121,8 @@ The soda inlet bend holder is PET-GF with the accepted 2 mm wall, 3 mm legs and 
 | Part | Qty | Material | Mass (kg) | $ |
 |---|---:|---|---:|---:|
 | Cold-core inner shell (foam-shell) | 1 | PET-GF | 1.450 | $36.28 <!--@printed--><!--parts HSM-000018--> |
-| Cold-core foam cap — top | 1 | PET-GF | 0.273 | $6.84 <!--@printed--><!--parts HSM-000019--> |
-| Cold-core foam cap lid — top | 1 | PET-GF | 0.255 | $6.39 <!--@printed--><!--parts HSM-000020--> |
+| Cold-core foam cap — top | 1 | PET-GF | 0.275 | $6.87 <!--@printed--><!--parts HSM-000019--> |
+| Cold-core foam cap lid — top | 1 | PET-GF | 0.257 | $6.43 <!--@printed--><!--parts HSM-000020--> |
 | Cold-core foam cap — bottom | 1 | PET-GF | 0.184 | $4.60 <!--@printed--><!--parts HSM-000021--> |
 | Cold-core foam cap lid — bottom | 1 | PET-GF | 0.141 | $3.52 <!--@printed--><!--parts HSM-000022--> |
 | PRV shroud | 1 | PETG | 0.008 | $0.09 <!--@printed--><!--parts HSM-000024--> |
@@ -133,7 +133,7 @@ The soda inlet bend holder is PET-GF with the accepted 2 mm wall, 3 mm legs and 
 | Enclosure — front bottom + front top (two quadrants) | 1 set | PET-GF | 1.587 | $39.71 <!--@printed--><!--parts HSM-000078:630 HSM-000079:956--> |
 | Enclosure — pump retainer | 1 | PET-GF | 0.133 | $3.32 <!--@printed--><!--parts HSM-000082--> |
 | Carbonator reed bridge | 1 | PETG | 0.008 | $0.09 <!--@printed--><!--parts HSM-000029--> |
-| Enclosure — back bottom + back top (two quadrants) | 1 set | PET-GF | 1.454 | $36.38 <!--@printed--><!--parts HSM-000080:691 HSM-000081:769--> |
+| Enclosure — back bottom + back top (two quadrants) | 1 set | PET-GF | 1.455 | $36.40 <!--@printed--><!--parts HSM-000080:691 HSM-000081:769--> |
 | Display cover plate | 1 | PET-GF | 0.012 | $0.31 <!--@printed--><!--parts HSM-000076--> |
 | Bulkhead ring — one per +Y-wall crossing | 6 | PET-GF (blue, white ×2, red, black ×2) | 0.011 | $0.28 <!--@printed--><!--parts HSM-000062:1.27 HSM-000063:1.29 HSM-000064:1.38 HSM-000065:1.38 HSM-000066:1.25 HSM-000067:1.36--> |
 | Tube collar — one per +Y-wall crossing | 6 | PET-GF (blue, white ×2, red, black ×2) | 0.023 | $0.59 <!--@printed--><!--parts HSM-000272:2.48 HSM-000099:2.72 HSM-000100:2.87 HSM-000101:2.87 HSM-000273:2.53 HSM-000102:2.67--> |
@@ -148,10 +148,10 @@ The soda inlet bend holder is PET-GF with the accepted 2 mm wall, 3 mm legs and 
 | Soda inlet bend holder | 1 | PET-GF | 0.003 | $0.06 <!--@printed--><!--parts HSM-000358--> |
 | Funnel frame | 1 | PET-GF | 0.259 | $6.49 <!--@printed--><!--parts HSM-000072--> |
 | Funnel cover | 1 | PETG | 0.134 | $1.50 <!--@printed--><!--parts HSM-000071--> |
-| Funnel drain-elbow cradle | 1 | PET-GF | 0.011 | $0.29 <!--@printed--><!--parts HSM-000073--> |
-| **Printed parts total** | | | **~6.99** | **[$160.64](BOM_SEC7)** |
+| Funnel drain-elbow cradle | 1 | PET-GF | 0.011 | $0.28 <!--@printed--><!--parts HSM-000073--> |
+| **Printed parts total** | | | **~6.99** | **[$160.72](BOM_SEC7)** |
 
-By material: PETG ≈ 1.03 kg / $11.50 — of which the four translucent reservoir parts are ≈ 0.87 kg / $9.76 — and PET-GF ≈ 5.96 kg / $149.12.
+By material: PETG ≈ 1.03 kg / $11.50 — of which the four translucent reservoir parts are ≈ 0.87 kg / $9.76 — and PET-GF ≈ 5.96 kg / $149.19.
 
 These geometry-based estimates use the shared wall and sparse-infill recipes.
 They exclude the additional material in the enclosure's
@@ -337,7 +337,7 @@ The papers packed with each machine ([`assembly/finish-pack-ship.md`](/hardware/
 | 4. CO2 subsystem | [$147.03](BOM_SEC4) |
 | 5. Refrigeration | [$143.06](BOM_SEC5) |
 | 6. Cold core insulation | [$18.64](BOM_SEC6) |
-| 7. Printed parts (PETG + PET-GF) | [$160.64](BOM_SEC7) |
+| 7. Printed parts (PETG + PET-GF) | [$160.72](BOM_SEC7) |
 | 8. Flavor subsystem | [$272.69](BOM_SEC8) |
 | 9. Dispensing | [$80.40](BOM_SEC9) |
 | 10. UI | [$0.00](BOM_SEC10) |
@@ -346,7 +346,7 @@ The papers packed with each machine ([`assembly/finish-pack-ship.md`](/hardware/
 | 13. Mechanical attach hardware | [$16.85](BOM_SEC13) |
 | 14. Cold kit | [$4.29](BOM_SEC14) |
 | 15. Customer documentation | [$25.14](BOM_SEC15) |
-| **Total** | **[$1,484.52](BOM_GRAND)** |
+| **Total** | **[$1,484.60](BOM_GRAND)** |
 
 ## External / user-supplied (not shipped)
 
