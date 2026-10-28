@@ -18,7 +18,7 @@ diameter — the vendor taps 1/4"-18 NPT per the drawing callout.
   Disc:            [123.4 mm](DISC_D_MM) Ø × [6.35 mm](DISC_THK_MM)  (4.860" × 1/4", = tube ID 4.870" − 0.010")
   NPT tap-drill:   2× [11.13 mm](HOLE_D_MM) Ø  (7/16") THRU, at X = ±[19.05 mm](HOLE_OFFSET_MM) (±0.750")
   Rod register:    [3.572 mm](REG_D) Ø (9/64") blind, [2.54 mm](REG_DEPTH) (0.100") deep, at
-                   (0, −[41.85 mm](REG_Y)) on the inside (+Z) face — leaves [3.81 mm](REG_PLATE_REMAINING)
+                   (−[41.85 mm](REG_X), 0) on the inside (+Z) face — leaves [3.81 mm](REG_PLATE_REMAINING)
                    (0.150") of plate as intact pressure boundary.
 
 The register sits on the +Z face = the carbonator INSIDE face; the −Z face is the
@@ -44,7 +44,7 @@ sys.path.insert(
 from _cadq_export import export_assembly
 from _materials import M_STAINLESS, one_body
 from docgen import substitute_py_comments
-from endcap_circular_dxf import register_radius as _register_radius_in
+from endcap_circular_dxf import register_radius as _register_radius_in, register_position as _register_position_in
 
 inch = 25.4  # mm per inch — the cap's source specs are in inches.
 
@@ -63,9 +63,9 @@ hole_positions = [(-hole_offset, 0.0), (hole_offset, 0.0)]
 
 # ── Rod register — blind retention pocket, machined (see module docstring) ──
 # The DXF module owns this blind-drill datum; both artifacts read it exactly.
-# [41.85 mm](REG_Y) — register center on the −Y axis, clear of ports.
+# [41.85 mm](REG_X) — register center on the −X axis, beyond the negative port.
 register_radius = _register_radius_in * inch
-register_position = (0.0, -register_radius)
+register_position = tuple(v * inch for v in _register_position_in)
 # [3.572 mm](REG_D) — 9/64" slip-fit drill on the 1/8" rod.
 register_drill_diameter = 0.140625 * inch
 # [2.54 mm](REG_DEPTH) — 0.100" blind; leaves 3.81 mm (0.150") of plate.
@@ -111,7 +111,7 @@ def main() -> None:
     print(f"  Disc:      Ø{disc_diameter:.3f} × {disc_thickness:.3f} mm, 316 SS")
     print(f"  NPT holes: 2× Ø{hole_diameter:.3f} mm THRU at X = ±{hole_offset:.3f} mm")
     print(f"  Register:  Ø{register_drill_diameter:.4g} × {register_depth:.3g} mm blind "
-          f"at (0, {-register_radius:.3f}), +Z (inside) face")
+          f"at {register_position}, +Z (inside) face")
 
     variables = {
         "DISC_D_MM": f"{disc_diameter:.4g} mm",
@@ -121,7 +121,7 @@ def main() -> None:
         "HOLE_D_MM": f"{hole_diameter:.4g} mm",
         "HOLE_R_MM": f"{hole_radius:.4g} mm",
         "HOLE_OFFSET_MM": f"{hole_offset:.4g} mm",
-        "REG_Y": f"{register_radius:.4g} mm",
+        "REG_X": f"{register_radius:.4g} mm",
         "REG_D": f"{register_drill_diameter:.4g} mm",
         "REG_DEPTH": f"{register_depth:.4g} mm",
         "REG_PLATE_REMAINING": f"{disc_thickness - register_depth:.4g} mm",

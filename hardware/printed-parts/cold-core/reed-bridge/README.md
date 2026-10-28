@@ -1,6 +1,7 @@
 # Carbonator reed bridge
 
-The mount for the carbonator's two external level reeds. A printed
+The mount for the carbonator's two external level reeds, installed on the
+foam shell's −Y azimuth opposite both reservoirs' +Y sensing stations. A printed
 PETG interposer that holds each reed against bare 316L on the register
 azimuth and stands the evaporator coil off the glass where a wrap crosses
 it. One per carbonator, plus a reusable setting gauge that places it.
@@ -56,7 +57,7 @@ of level.
 
 **CHI — pump off** at 65 % of the wetted height: level
 [95.25 mm](HIGH_LEVEL). [968.6 mL](STORED_ML) = [2.86](STORED_SERVINGS)
-servings stored above the floor, [528.6 mL](HEADSPACE_ML) of CO2 headspace
+servings stored above the floor, [528.4 mL](HEADSPACE_ML) of CO2 headspace
 (35 %) above it for the inlet jet and the level surge.
 
 **CLO — pump on** one serving below: level [67.1 mm](LOW_LEVEL). The
@@ -65,7 +66,7 @@ refill increment is one drink. Below CLO, [630.5 mL](RESERVE_ML) =
 
 **Reach.** The Aero float's magnetic midplane travels between
 [28.2 mm](MAGNET_LOWEST), sitting on the rod's tack bead, and
-[125.7 mm](MAGNET_HIGHEST), against the top plate. Both reed heights fall
+[121.7 mm](MAGNET_HIGHEST), against the 4 mm stainless stop below the top plate. Both reed heights fall
 inside the wind band, [15 mm](BAND_BOTTOM) … [134.4 mm](BAND_TOP).
 
 **Reed centres and calibration.** The geometric seed centres are
@@ -129,15 +130,17 @@ before printing the bridge/setting gauge or fixing the reed heights.
    `CHI`, shared common); heat-shrink every joint and every bare lead — the
    3M 425 skin is aluminium. Prove each reed with the printed RC62 float.
 2. Hang the setting gauge on the tube's bottom rim, sight the register line
-   90° off the two end-plate ports, mark the bridge's bottom edge.
+   beyond the negative port on the port diameter, mark the bridge's bottom edge.
 3. Lay the reeds into the pockets, leads into the groove, a 3M 425 patch
    over each pocket. Prove both reeds through the wall with the RC62 in the
    finished ASA Aero float, sliding it along the register line.
 4. Seat the bridge on the mark; a wrap of 3M 425 over each ramp end holds
    it. Skin the carbonator per [`cold-core.md`](/hardware/assembly/cold-core.md)
    §1 — the foil goes over the bridge, burnished down onto both ramps.
-5. Lead the three conductors up the register line, outboard of where the
-   coil sits, to the +Z slot.
+5. Lead the three conductors up the −Y register line outside the coil,
+   through the straight `carbonator-reeds` passage in the upper cup and lid.
+   Its installed shell-frame axis is (0, −74) mm; the enclosure exit is
+   (74, 323.8, 253.4) mm. Dress the free ends to J7 and the reed-common WAGO.
 
 ## Sources
 [value](NAME) texts are updated by:

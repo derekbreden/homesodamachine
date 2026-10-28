@@ -37,6 +37,7 @@ from _cold_core_interface import (                       # noqa: E402
     reed_column_axis_x,
     reed_x_depth,
     carbonator_outer_radius,
+    carbonator_sensor_axis,
 )
 from _reed_channels import reed_y_center, reeds_per_reservoir   # noqa: E402
 import _float_interface as _float
@@ -128,10 +129,14 @@ def carbonator_reed_z() -> tuple:
     return (_bridge.reed_low_z + _V.carbonator_bottom_z, _bridge.reed_high_z + _V.carbonator_bottom_z)
 
 
-def carbonator_reed_x() -> float:
+def carbonator_reed_radius() -> float:
     """The reeds sit against bare 316L on the register azimuth, so their glass stands one
     radius out from the carbonator wall inside the bridge that holds them."""
     return carbonator_outer_radius + F.REED_GLASS_R
+
+
+def carbonator_reed_xy() -> tuple:
+    return tuple(carbonator_reed_radius() * v for v in carbonator_sensor_axis)
 
 
 # --- where a float rides -----------------------------------------------------
@@ -180,7 +185,7 @@ def float_seats(reservoirs: dict = None) -> dict:
     carbonator, the pocket's own centre plane for a reservoir. `cold_core_assembly` grades
     these; `report` prints them."""
     out = {}
-    park, wall = _V.ROD_X, _V.TUBE_ID / 2.0
+    park, wall = _V.ROD_RADIUS, _V.TUBE_ID / 2.0
     centre, standoff = float_ride(park, wall)
     out["float-carb"] = (park, wall, centre, standoff)
     for name, side in (("a", +1), ("b", -1)):
@@ -199,9 +204,10 @@ def level_bodies(reservoirs: dict = None) -> dict:
     # The carbonator: one guided float on the register azimuth at the provisional
     # high reed centre. Liquid immersion and directional switching are unmeasured.
     out["float-carb"] = F.float_capsule(
-        centre=(seats["float-carb"][2], 0.0, _bridge.reed_high_z + _V.carbonator_bottom_z))
+        centre=(*(seats["float-carb"][2] * v for v in carbonator_sensor_axis),
+                _bridge.reed_high_z + _V.carbonator_bottom_z))
     for i, z in enumerate(carbonator_reed_z(), start=1):
-        out[f"reed-carb-{i}"] = F.reed(centre=(carbonator_reed_x(), 0.0, z))
+        out[f"reed-carb-{i}"] = F.reed(centre=(*carbonator_reed_xy(), z))
 
     # Each reservoir: its rod, its float, and four reeds in the shell's own channel.
     for name, side in (("a", +1), ("b", -1)):
@@ -259,7 +265,7 @@ def report(reservoirs: dict = None) -> None:
     print(f"    inlet jet       nominal ⌀{JET_CAP_D:g} × {JET_CAP_T:g} cap, "
           f"⌀{JET_PASSAGE_D:g} passage; fit, weld and installed projection unqualified")
     print(f"    carb reeds      z {', '.join(f'{z:.1f}' for z in carbonator_reed_z())} "
-          f"at x {carbonator_reed_x():.2f}")
+          f"at XY {carbonator_reed_xy()}")
     print(f"    res reeds       z {', '.join(f'{z:.1f}' for z in reservoir_reed_z())} "
           f"at x ±{REED_COLUMN_X:.1f}, y {reed_y_center:.1f}, "
           f"{RESERVOIR_REED_PITCH:.0f} mm pitch in a "

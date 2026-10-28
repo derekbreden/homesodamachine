@@ -578,6 +578,10 @@ def cable_guide_points(name):
     cup_height = core.foam_cap_height - core.head_pad_height
     cup_bottom = spec['cap_lid_pose']['translation_mm'][2] - cup_height
     mid_z = spec['cap_lid_pose']['translation_mm'][2] - 6.6
+    if math.dist(lower_xy, upper_xy) < 1e-9:
+        return {'points_mm': ((*lower_xy, cup_bottom-1.),
+                              (*upper_xy, spec['cap_face_z_mm']+2.)),
+                'bend_radius_mm': 5.5}
     if name == 'reed-cable-b':
         plan = (lower_xy, (lower_xy[0], 205.), (upper_xy[0], 205.), upper_xy)
     elif name == 'sensor-cable':

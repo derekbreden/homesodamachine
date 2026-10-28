@@ -32,8 +32,8 @@ from endcap_circular_dxf import (
 )
 
 PDF_PATH = HERE / "endcap-circular-2hole-drawing.pdf"
-REVISION = "D"
-REVISION_DATE = "2026-10-26"
+REVISION = "E"
+REVISION_DATE = "2026-10-28"
 SHEET = (17 * inch, 11 * inch)
 MARGIN = 27
 VISIBLE = 0.85
@@ -183,16 +183,14 @@ def face_view(c):
     c.setLineWidth(VISIBLE)
     c.circle(rx, ry, register_drill_diameter * inch / 2, stroke=1, fill=0)
     center(c, rx, ry, 10)
-    # A-A passes through the two ports. B-B is a local section at R1.
+    # A-A passes through both ports and R1. Detail B enlarges the R1 section.
     cutting_plane_ends(c, CX - RADIUS - 24, CX + RADIUS + 24, CY, "A")
-    line(c, rx - 28, ry, rx + 28, ry, dash=CENTER_DASH)
-    cutting_plane_ends(c, rx - 37, rx + 37, ry, "B", rise=16)
     circular_leader(c, (CX + hole_positions[1][0] * inch, CY), hole_radius * inch,
                     (484, 600), (510, 600),
                     ["2X 1/4-18 NPT THRU", "TAP FROM OUTSIDE FACE", "P1, P2 - SEE NOTE 2"], 10)
     circular_leader(c, (rx, ry), register_drill_diameter * inch / 2,
                     (322, 415), (342, 415),
-                    ["R1 - BLIND REGISTER", "SEE SECTION B-B"], 9)
+                    ["R1 - BLIND REGISTER", "SEE DETAIL B"], 9)
     # The witnesses start at the actual OD silhouette, not an imaginary
     # rectangle tangent to the bottom of the disc.
     horizontal_dimension(c, CX - RADIUS, CX + RADIUS, CY,
@@ -226,13 +224,27 @@ def port_section(c):
             line(c, x + sign * (r_outside + 0.04 * inch), bottom,
                  x + sign * (r_inside + 0.04 * inch), top)
         line(c, x, bottom - 9, x, top + 9, dash=CENTER_DASH)
+    # R1 lies in this section plane; preserve its blind, pointed opening.
+    rx = CX + register_position[0] * inch
+    rr = register_drill_diameter * inch / 2
+    tip = top - register_depth * inch
+    shoulder = tip + rr / math.tan(math.radians(135 / 2))
+    opening = path_from_points(c, [(rx-rr, top), (rx-rr, shoulder),
+                                  (rx, tip), (rx+rr, shoulder), (rx+rr, top)])
+    c.setFillColorRGB(1, 1, 1)
+    c.drawPath(opening, stroke=0, fill=1)
+    c.setFillColorRGB(0, 0, 0)
+    for a, b in zip([(rx-rr, top), (rx-rr, shoulder), (rx, tip), (rx+rr, shoulder)],
+                    [(rx-rr, shoulder), (rx, tip), (rx+rr, shoulder), (rx+rr, top)]):
+        line(c, *a, *b, VISIBLE)
+    line(c, rx, bottom-9, rx, top+9, dash=CENTER_DASH)
     vertical_dimension(c, 493, bottom, top, right, [f"{disc_thickness:.3f}"],
                        outside=True)
     text(c, CX, 194, "SECTION A-A", 11, bold=True, align="center")
     text(c, CX, 180, "SCALE 1:1 - THREADS SHOWN CONVENTIONALLY", 8,
          align="center")
     # Direct face labels make tap entry and OD preparation unambiguous.
-    leader(c, (175, top), (140, 273), (110, 273),
+    leader(c, (205, top), (140, 273), (110, 273),
            ["INSIDE FACE"], 8.5)
     leader(c, (405, bottom), (425, 190), (445, 190),
            ["OUTSIDE FACE", "NPT ENTRY / WELD FACE"], 8.5)
@@ -247,7 +259,7 @@ def register_section(c):
     point_angle = 135
     point_height = radius / math.tan(math.radians(point_angle / 2))
     shoulder = tip + point_height
-    text(c, x, 734, "SECTION B-B", 12, bold=True, align="center")
+    text(c, x, 734, "DETAIL B - SECTION AT R1", 12, bold=True, align="center")
     text(c, x, 718, "LOCAL VIEW AT R1 - SCALE 4:1", 9, align="center")
     # Broken ends crop the plate locally; the V is the drill point, not a
     # flat-bottom pocket. The source depth always ends at its deepest tip.

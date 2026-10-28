@@ -1,7 +1,7 @@
 """The lines INSIDE the cold core, drawn.
 
-Nine conduits stand on the top cap — seven fluid lines and both reed cables; this
-module is the other half of each of those — the run from the fitting a line lands on
+Seven fluid conduits, four cable passages and two reservoir air bores stand on
+the top cap. This module draws each fluid run from its fitting
 to the mouth it leaves by, as a swept ⌀[6.35](LLDPE_TUBE_OD) solid on the tube's own
 centreline. The shell is a set of voids and a line is a void's occupant, so nothing
 about a route shows up in a bounding box and nothing about it collides with anything:

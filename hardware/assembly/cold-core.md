@@ -65,7 +65,7 @@ an inlet vertical dogleg, and an outlet vertical drop. Both exits retain their
 −X direction at Y=±77.50 mm, Z28.425 mm. The winding eases over the reed bridge
 at the drawing's specified radial relief and contacts the vessel elsewhere.
 
-The carbonator leaves this step with three lead runs on it — the two probes and the reed pair's 3-conductor bundle — all led toward the top cap’s shared `sensor-cable` passage for routing in step 5.
+The carbonator leaves this step with three lead runs on it — the two probes and the reed pair's 3-conductor bundle — the probes led toward `sensor-cable` and the reed pair up the −Y register line toward the separate straight `carbonator-reeds` passage for routing in step 5.
 
 The [EVAP-01 production drawing](/hardware/cold-core-layout/evaporator-coil-drawing.pdf)
 controls the complete formed tube, all tail bends and straights, exit coordinates,
@@ -141,9 +141,9 @@ spools in Bambu TPU 90A per machine.
 With the outer shell open-top-up on the bench, install every internal component:
 
 - **Carbonator + coil.** Leave both long tails free for feeding, with straight, deburred ends. Lower the carbonator partway into the center cavity with its coil clocked to the two lanes. Feed each bare tail through its Ø7.5 mm shell hole from inside, then lower the carbonator in stages while drawing the tails outward and forming broad curves. Keep the copper approximately normal to the wall through each hole; hold the tube itself while forming it, so the printed wall does not act as the bending tool. Seat the carbonator on the printed-in `carbonator_support_ring` and form the final lane bends. Retain at least the modeled R12.7 centerline bend radius and reject a kinked, creased or visibly flattened section. Leave the specified 200 mm inlet and 175 mm outlet working lengths outside the shell for refrigeration integration. Its CO2 elbow and that elbow's PTC adapter are already made up on the bottom-plate port (below); they hang inboard of the ring's bore and descend in open space as the carbonator seats, so no shell material is in their way
-- **Sensor leads** — the two temperature probes and the two carbonator reeds are already bonded to the carbonator under foil (step 1); nothing is bonded in the cavity. Route the three temperature-bus conductors, three carbonator-reed conductors and carbonator earth lead through the top cap’s shared Ø7.5 mm `sensor-cable` conduit, west of the pump. The temperature bus joins SIG-1 and the reed leads join J7, per [`wiring.md`](/hardware/assembly/wiring.md). Lay these leads in the foam annulus outside the coil before the body pour and thread the cap and lid over the free ends before closing the core. The reservoir reed channels carry only their own five-conductor columns. Seat the internal leads so the foam closes around them; seal their lid exit with the cable collar specified in step 7.
+- **Sensor leads** — the two temperature probes and the two carbonator reeds are already bonded to the carbonator under foil (step 1); nothing is bonded in the cavity. Route the three temperature-bus conductors and carbonator earth lead through the Ø7.5 mm `sensor-cable` conduit west of the pump. Route CLO, CHI and their shared common straight up outside the coil on −Y through the separate Ø7.5 mm `carbonator-reeds` passage in both upper cup and top lid, at shell (0, −74) mm / enclosure (74, 323.8, 253.4) mm. The temperature bus joins SIG-1 and the reed leads join J7, per [`wiring.md`](/hardware/assembly/wiring.md). Lay these leads in the foam annulus outside the coil before the body pour and thread the cap and lid over the free ends before closing the core. The reservoir reed channels carry only their own five-conductor columns. Seat the internal leads so the foam closes around them; seal each lid exit with its own cable collar specified in step 7.
 - **Reservoirs** seated into the two ±X bag pockets
-- **Penetrations.** **Every fluid line crosses this core's boundary at the TOP**, up (or, for the CO2, down) its own band to one of the seven conduits in the top cap. No live station goes through a wall: the shell's −X face is mated against the refrigeration base — the condenser flush on it, the compressor's plate just short of that plane — so a bore struck there would open into that base rather than into the machine. What crosses that face is the **two copper evaporator lines, each through its own round hole**. The two reservoir reed cables and the shared internal sensor/earth loom leave by their three cable conduits in the top cap.
+- **Penetrations.** **Every fluid line crosses this core's boundary at the TOP**, up (or, for the CO2, down) its own band to one of the seven conduits in the top cap. No live station goes through a wall: the shell's −X face is mated against the refrigeration base — the condenser flush on it, the compressor's plate just short of that plane — so a bore struck there would open into that base rather than into the machine. What crosses that face is the **two copper evaporator lines, each through its own round hole**. The two reservoir reed cables, carbonator reed cable and temperature/earth loom leave by four cable passages through the upper cup and lid.
 
   **The carbonator and both reservoirs fill high and draw low.** Their water or flavor fill enters above the liquid and their draw leaves at the lowest point. That is what the air-purge and clean-flush service modes in [`fluid-topology.md`](/hardware/topology/fluid-topology.md) run on.
 
@@ -167,7 +167,7 @@ air around the measured 6.5 mm tube. Before pouring, mask the gaps around
 the installed tubes at the outer exits with removable tape on the dry side. Keep tube mouths, collets and reed channels
 open. The faucet and organizer keep their separately specified gripping fits.
 
-The three potted tubes and the sensor/earth loom rise out of the foam into the top
+The three potted tubes, carbonator reed cable and sensor/earth loom rise out of the foam into the top
 cap's passages at step 7. Hold each one at its conduit's station in the shell
 (`cap_conduit_shell_xy` in [`_cold_core_interface.py`](/hardware/printed-parts/cold-core/_cold_core_interface.py))
 through the free-rise pour with strips of removable tape across the open top; a line
@@ -210,7 +210,7 @@ A finished cold core:
 - Carbonator with qualified top water-inlet jet and plain bottom CO2 opening; identical plate pattern and four port stations retained
 - Carbonator + bonded coil installed, seated in the cylinder cavity, surrounded by foam; coil stubs protruding through the foam-shell's copper exits — [200 mm](PROT_INLET) at the inlet, [175 mm](PROT_OUTLET) at the outlet
 - Both temperature probes potted in the foam against their metal surfaces — DS18B20 (carbonator-wall, 0x28) on the carbonator OD, DS18S20 (coil, 0x10) at the suction end of the coil — leads routed through the shared top-cap sensor conduit and sealed, joining SIG-1 at the cold-core exit
-- Both carbonator reeds in the reed-bridge on the carbonator wall at the register azimuth (`CLO` water target [67.1 mm](LOW_LEVEL), `CHI` water target [95.25 mm](HIGH_LEVEL); reed centres require the float offset and directional switching calibration), under the foil, leads through the shared top-cap sensor conduit to J7
+- Both carbonator reeds in the reed-bridge on the carbonator wall at the register azimuth (`CLO` water target [67.1 mm](LOW_LEVEL), `CHI` water target [95.25 mm](HIGH_LEVEL); reed centres require the float offset and directional switching calibration), under the foil, leads through the dedicated straight `carbonator-reeds` cup/lid passage to J7
 - Both reservoirs seated in their bag pockets
 - The carbonator's three cap conduits carrying their lines, and the four reservoir conduits open for theirs; water and flavor fill above the liquid, and each draw leaves from its lowest point
 - The carbonated-water outlet crossing the carbonator support ring at the ring's own 217° slot and the CO2 at the 307° slot, with all four bearing segments whole
@@ -220,7 +220,7 @@ A finished cold core:
 
 ## Open items
 
-1. **Carbonator reed placement.** The [bridge](/hardware/printed-parts/cold-core/reed-bridge/README.md) provides through-pockets to bare steel, coil ramps and a rim-referenced setting gauge. Current pocket centers are provisional; finished-float liquid immersion and directional switching calibration set the final operating heights. Rod/drilling XY datums are specified in [installation.md](/hardware/printed-parts/cold-core/magnetic-float/all-aero/installation.md).
+1. **Carbonator reed placement.** The [bridge](/hardware/printed-parts/cold-core/reed-bridge/README.md) provides through-pockets to bare steel, coil ramps and a rim-referenced setting gauge. Current pocket centers are provisional; finished-float liquid immersion and directional switching calibration set the final operating heights. The 4 mm upper-register stop holds the float below the inlet jet. Rod/drilling XY datums are specified in [installation.md](/hardware/printed-parts/cold-core/magnetic-float/all-aero/installation.md).
 2. **Foam data-sheet spec (mix proportions, pot life, cure time, pour temperature window).**
 3. **Trim method after foam cure.**
 4. **Reservoir final-qualification status.** Pending water + syrup-dwell pass.

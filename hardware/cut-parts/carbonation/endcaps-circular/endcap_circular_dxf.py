@@ -25,7 +25,7 @@ Two identical discs per carbonator, each with 2x tap-drill holes for 1/4"-18 NPT
   Both discs are drilled identically (kept interchangeable): top plate captures
   the rod tip, bottom plate seats/locates the rod base for its tack weld.
 
-  Register center:     (0, -[-1.648](REGISTER_Y))" on the -Y axis, clear of the two ports.
+  Register center:     (−[1.648 in](REGISTER_R), 0) on the −X axis, beyond P1.
                        Radius [1.648 in](REGISTER_R) = tube-ID radius [2.435 in](TUBE_ID_R)
                        minus [20 mm](ROD_WALL_DISTANCE), the shared Aero float guide datum.
                        A 36 mm float has 2 mm nominal clearance from the wet wall;
@@ -95,7 +95,7 @@ hole_positions = [
 tube_id = 4.870                       # tube inner Ø; float guide datum
 tube_id_radius = tube_id / 2          # 2.435"
 register_radius = tube_id_radius - rod_axis_from_inner_wall / 25.4
-register_position = (0.0, -register_radius)  # on −Y, clear of ports
+register_position = (-register_radius, 0.0)  # on −X, beyond P1; installed on shell −Y
 register_drill_diameter = 0.140625    # 9/64" — slip-fit on the 1/8" rod (snug)
 register_depth = 0.100                # to the drill-tip; leaves 0.150" of plate
 
@@ -141,7 +141,7 @@ def main() -> None:
         "HOLE_R_IN": f"{hole_radius:.4g} in",
         "HOLE_SPACING": f"{hole_spacing:.4g} in",
         "HOLE_OFFSET": f"{hole_spacing / 2:.4g}",
-        "REGISTER_Y": f"{register_position[1]:.4g}",
+        "REGISTER_X": f"{register_position[0]:.4g}",
         "REGISTER_R": f"{register_radius:.4g} in",
         "TUBE_ID_R": f"{tube_id_radius:.4g} in",
         "ROD_WALL_DISTANCE": f"{rod_axis_from_inner_wall:g} mm",

@@ -213,12 +213,18 @@ top_lid_vent_setback = 2.5
 #
 # Four 1/4" NPT ports, two per end plate, each pair [1.5"](CARBONATOR_PORT_PITCH) centre to
 # centre on a diameter (`hole_offset` in cut-parts/carbonation/endcaps-circular). Both
-# plates carry the float rod's blind register on the axis at right angles to their own
-# pair, the rod is tack-welded into the bottom plate's register and enters the top plate's
+# plates carry the float rod's blind register beyond the −Y port on their common
+# port axis, the rod is tack-welded into the bottom plate's register and enters the top plate's
 # at closure, so the plates are clocked together and the carbonator has ONE port axis.
 #   That axis is the shell's ±Y. All four ports stand [19.05 mm](CARBONATOR_PORT_OFFSET) off
 # the shell's own axis on it, two under the carbonator and two over it.
 carbonator_port_offset = 0.750 * 25.4
+# The register and external bridge share -Y, opposite the reservoirs' +Y sensing stations.
+carbonator_sensor_azimuth = -90.0
+carbonator_sensor_axis = (0.0, -1.0)
+# The upper register's 316L stop holds the float below the inlet-jet tip.
+carbonator_float_top_stop_height = 4.0
+carbonator_float_top_stop_diameter = 9.5
 
 # CO2 inlet — the bottom plate's LANE-SIDE port, open into the vessel. Gas enters below
 # the liquid and rises to replenish the headspace; the top water-inlet jet provides the
@@ -767,9 +773,11 @@ cap_fluid_conduits = {
 cap_cable_floor_conduits = {
     "reed-cable-a": reed_cable_conduit_xy(+1),
     "reed-cable-b": reed_cable_conduit_xy(-1),
-    # The potted temperature probes, carbonator reeds and earth lead leave
+    # The potted temperature probes and earth lead leave
     # the main foam cavity through one shared passage, west of the pump.
     "sensor-cable": (-36.0, -74.0),
+    # The carbonator's three reed conductors rise outside the coil on -Y.
+    "carbonator-reeds": (0.0, 74.0),
 }
 cap_cable_conduits = {name: _above_mounts.cap_guide_xy(name, xy)
                       for name, xy in cap_cable_floor_conduits.items()}
