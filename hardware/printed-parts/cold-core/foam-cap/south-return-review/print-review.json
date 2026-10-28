@@ -1,0 +1,100 @@
+{
+  "prints": [
+    {
+      "piece": "foam-cap-lid-top",
+      "printer": "Mark1",
+      "nozzle": "left hardened 0.4 mm Standard",
+      "material": "Polymaker Fiberon PET-GF15, black",
+      "support": "Tree(auto)/Default",
+      "archive": ".cache/prints/trial/2026-10-27-foam-cap-lid-top-mark1-4e6a6f70/2026-10-27-foam-cap-lid-top-mark1-4e6a6f70.gcode.3mf",
+      "archive_sha256": "666cc25e878478ae3bd6508974132ba84923b75baf2d1f2924e8b37c37df007d",
+      "stl": "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl",
+      "stl_sha256": "7bcc54f627339e94a679df4911b677f4aad8395d47c5ba278bb5331d28c70d68",
+      "step_sha256": "bf1f59bdc20789accf8c451602816910ce6524585c026ef6b262d6346fc2e4a8",
+      "review_pass": true,
+      "checks": {
+        "archive": true,
+        "z_trim": true,
+        "bed_border": true,
+        "fine_and_transition_bands": true,
+        "show_faces_support_free": true,
+        "tie_windows_support_free": true,
+        "ribbons_support_free_and_printed": true,
+        "solid_hosts_sampled": true
+      },
+      "minimum_bed_margin_mm": 21.19999999999999,
+      "support_topology": {
+        "1901": {
+          "support_bodies": 8,
+          "interface_islands": null,
+          "bed_rooted_bodies": 3,
+          "model_rooted_bodies": 5,
+          "shortest_build_up_mm": null,
+          "bodies_without_interface_labels": 1,
+          "explicit_interface_islands": 10,
+          "shortest_labelled_build_up_mm": 0.24
+        }
+      }
+    },
+    {
+      "piece": "elbow-cradle",
+      "printer": "Mark1",
+      "nozzle": "left hardened 0.4 mm Standard",
+      "material": "Polymaker Fiberon PET-GF15, black",
+      "support": "Tree(auto)/Default",
+      "archive": ".cache/prints/trial/2026-10-27-elbow-cradle-mark1-3c2efba9/2026-10-27-elbow-cradle-mark1-3c2efba9.gcode.3mf",
+      "archive_sha256": "475b24a7f668113d589f567806ebb627573f31871474cf49a9a3dd669f1b9e59",
+      "stl": "hardware/printed-parts/zone-c/funnel/elbow-cradle.stl",
+      "stl_sha256": "b0afff03e40fdf937eb5ef5221bad9902950e544d2933d258005a7283d0cc12c",
+      "step_sha256": "636411c93528680f0283ae0c27d46001a752f0d60818785662d3597e923649f4",
+      "review_pass": true,
+      "checks": {
+        "archive": true,
+        "z_trim": true,
+        "bed_border": true,
+        "fine_and_transition_bands": true,
+        "show_faces_support_free": true,
+        "tie_windows_support_free": true,
+        "ribbons_support_free_and_printed": true,
+        "solid_hosts_sampled": true
+      },
+      "minimum_bed_margin_mm": 136.252755,
+      "support_topology": {
+        "1901": {
+          "support_bodies": 2,
+          "interface_islands": 2,
+          "bed_rooted_bodies": 2,
+          "model_rooted_bodies": 0,
+          "shortest_build_up_mm": 33.36,
+          "bodies_without_interface_labels": 0,
+          "explicit_interface_islands": 2,
+          "shortest_labelled_build_up_mm": 33.36
+        }
+      }
+    }
+  ],
+  "pedestal_tie_passage": {
+    "scope": "Manual emitted-bead reading through the nominal straight 2.5 \u00d7 0.8 mm retaining-strip core, across the complete pedestal passage. Geometric G-code reading only; physical threading and tie head unqualified. No automatic preparation or build check added.",
+    "archive": ".cache/prints/trial/2026-10-27-foam-cap-lid-top-mark1-4e6a6f70/2026-10-27-foam-cap-lid-top-mark1-4e6a6f70.gcode.3mf",
+    "archive_sha256": "666cc25e878478ae3bd6508974132ba84923b75baf2d1f2924e8b37c37df007d",
+    "core_plate_xy_mm": [
+      224.15046,
+      150.173476038208,
+      226.65046,
+      161.41347603820802
+    ],
+    "core_plate_z_mm": [
+      16.470000000000006,
+      17.270000000000003
+    ],
+    "intersecting_layer_tops_mm": [
+      16.52,
+      16.76,
+      17.0,
+      17.24,
+      17.48
+    ],
+    "model_or_support_bead_crossings": [],
+    "nominal_straight_core_clear": true
+  }
+}

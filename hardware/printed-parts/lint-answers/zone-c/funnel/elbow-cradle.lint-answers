@@ -4,9 +4,13 @@ file: hardware/printed-parts/zone-c/funnel/elbow-cradle.step
 click: x=-16.600 y=4.661 z=34.203
 click: x=16.600 y=4.661 z=34.203
 
-[thin] These exact 1.300 mm pairs cross the two intentional cantilever wings, specified by LEAF_T. Each wing bends inward so its outward hook can pass the frame's slot with 0.25 mm insertion air, then returns over the catch web. This bending section is a named flexure, rather than an ordinary body wall. The source's nominal passage model estimates 2.67 mm tip deflection over 12.89 mm free length; it does not establish insertion force, PET-GF strain capacity, retention or lifetime. Current native equality preserves these complete wings and hooks. The answer covers the four leaf anchors below, not every surface in the lint's grouped area.
+[thin] These exact 1.300 mm pairs cross the two intentional cantilever wings, specified by LEAF_T. Each wing bends inward so its outward hook can pass the frame's slot with 0.25 mm insertion air, then returns over the catch web. This bending section is a named flexure, rather than an ordinary body wall. The source's nominal passage model estimates 2.67 mm tip deflection over 12.89 mm free length; it does not establish insertion force, PET-GF strain capacity, retention or lifetime. Current native equality preserves these complete wings and hooks. The answer covers the listed leaf anchors below, not every surface in the lint's grouped area.
 alternatives: A thicker wing in the same span needs greater bending strain for the same hook passage and changes the modeled insertion behavior. Keeping a thicker flexure would require a longer bending span and revised frame slots or a separate retention mechanism. Making the wing rigid prevents the current hook overlap from passing its slot. Retain the specified 1.3 mm flexures with their unqualified physical scope.
 file: hardware/printed-parts/zone-c/funnel/elbow-cradle.step
 click: x=-15.050 y=9.186 z=21.461
 click: x=-13.750 y=9.186 z=21.461
 click: x=15.050 y=19.672 z=32.651
+click: x=-15.050 y=-10.461 z=33.424
+click: x=-13.750 y=-10.461 z=33.424
+click: x=15.050 y=19.783 z=33.424
+click: x=13.750 y=19.783 z=33.424

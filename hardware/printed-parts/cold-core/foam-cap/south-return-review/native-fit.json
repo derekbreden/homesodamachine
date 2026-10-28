@@ -1,0 +1,311 @@
+{
+  "scope": "Selected moved hardware, tubes, pedestal and drain cradle; millimetres in enclosure XYZ. Physical fit and structural load are unqualified.",
+  "readings": [
+    {
+      "candidate": "valve-v-b",
+      "neighbor": "enclosure-back-top",
+      "gap_mm": 1.2000000000000028,
+      "overlap_mm3": 0.0
+    },
+    {
+      "candidate": "valve-v-b",
+      "neighbor": "tube-fluid-14",
+      "gap_mm": 1.1542752790192166,
+      "overlap_mm3": 0.0
+    },
+    {
+      "candidate": "vb-outlet-stem",
+      "neighbor": "enclosure-back-top",
+      "gap_mm": 1.1941482076125838,
+      "overlap_mm3": 0.0
+    },
+    {
+      "candidate": "vb-outlet-return",
+      "neighbor": "cold-core/g-ganen-pump",
+      "gap_mm": 1.4736564860043826,
+      "overlap_mm3": 0.0
+    },
+    {
+      "candidate": "drain-outlet-stem",
+      "neighbor": "elbow-cradle",
+      "gap_mm": 1.0000000000005684,
+      "overlap_mm3": 0.0
+    },
+    {
+      "candidate": "drain-outlet-stem",
+      "neighbor": "funnel-drain-union",
+      "gap_mm": 0.0,
+      "overlap_mm3": 0.0
+    },
+    {
+      "candidate": "return-tube",
+      "neighbor": "tube-fluid-26",
+      "gap_mm": 1.6407746105748278,
+      "overlap_mm3": 0.0
+    },
+    {
+      "candidate": "return-tube",
+      "neighbor": "drain-outlet-stem",
+      "gap_mm": 2.062743801772826,
+      "overlap_mm3": 0.0
+    },
+    {
+      "candidate": "inlet-tube",
+      "neighbor": "drain-outlet-stem",
+      "gap_mm": 0.0,
+      "overlap_mm3": 0.0
+    },
+    {
+      "candidate": "inlet-tube",
+      "neighbor": "vb-inlet-turn",
+      "gap_mm": 0.0,
+      "overlap_mm3": 0.0
+    },
+    {
+      "candidate": "cross-tube",
+      "neighbor": "vb-outlet-stem",
+      "gap_mm": 0.0,
+      "overlap_mm3": 0.0
+    },
+    {
+      "candidate": "cross-tube",
+      "neighbor": "vb-outlet-return",
+      "gap_mm": 2.7853275241795927e-12,
+      "overlap_mm3": 0.0
+    },
+    {
+      "candidate": "return-tube",
+      "neighbor": "vb-outlet-return",
+      "gap_mm": 3.480431259289065e-12,
+      "overlap_mm3": 0.0
+    },
+    {
+      "candidate": "support",
+      "neighbor": "vb-outlet-return",
+      "gap_mm": 0.14999999999264446,
+      "overlap_mm3": 0.0
+    },
+    {
+      "candidate": "lid-world",
+      "neighbor": "valve-v-b",
+      "gap_mm": 0.0,
+      "overlap_mm3": 0.0
+    }
+  ],
+  "pedestal": {
+    "stock_min_world_mm": [
+      -6.076523961791983,
+      255.14954,
+      253.25
+    ],
+    "stock_max_world_mm": [
+      5.163476038208017,
+      266.64954,
+      279.41
+    ],
+    "bore_origin_world_mm": [
+      5.163476038208017,
+      280.39954,
+      279.41
+    ],
+    "bore_axis_world": [
+      0.0,
+      -1.0,
+      0.0
+    ],
+    "bore_length_mm": 50.0,
+    "seat_radius_mm": 8.24,
+    "native_leg": "z",
+    "native_band_mm": [
+      13.0,
+      16.0
+    ],
+    "tie_window_min_world_mm": [
+      -6.1765239617919825,
+      259.49954,
+      263.77000000000004
+    ],
+    "tie_window_max_world_mm": [
+      5.263476038208017,
+      262.29954,
+      268.17
+    ],
+    "tie_profile_origin_world_mm": [
+      5.163476038208017,
+      260.89954,
+      268.17
+    ],
+    "tie_profile_x_world": [
+      0.0,
+      1.0,
+      0.0
+    ],
+    "tie_profile_normal_world": [
+      1.0,
+      0.0,
+      0.0
+    ],
+    "tie_profile_mm": [
+      [
+        -1.4,
+        -4.4
+      ],
+      [
+        1.4,
+        -4.4
+      ],
+      [
+        1.4,
+        -2.6
+      ],
+      [
+        0.0,
+        0.0
+      ],
+      [
+        -1.4,
+        -2.6
+      ]
+    ],
+    "tie_route_native_down_mm": 14.54,
+    "centre_world_mm": [
+      5.163476038208017,
+      260.89954,
+      279.41
+    ],
+    "wall_mm": 3.0,
+    "parent": "foam-assembly",
+    "support_implemented": true
+  },
+  "nominal_tie": {
+    "segments": [
+      {
+        "kind": "arc",
+        "points_mm": [
+          [
+            13.423374174916153,
+            260.89954,
+            276.4036429401674
+          ],
+          [
+            7.438495444659175,
+            260.89954,
+            287.9004880130809
+          ],
+          [
+            -3.4929841107692923,
+            260.89954,
+            280.93636748169234
+          ]
+        ],
+        "radius_mm": 8.790000000000001,
+        "sweep_degrees": 190.0,
+        "wide_axis": [
+          0.0,
+          -1.0,
+          0.0
+        ]
+      },
+      {
+        "kind": "line",
+        "points_mm": [
+          [
+            -3.4929841107692923,
+            260.89954,
+            280.93636748169234
+          ],
+          [
+            -6.876523961791983,
+            260.89954,
+            282.41
+          ]
+        ],
+        "wide_axis": [
+          0.0,
+          -1.0,
+          0.0
+        ]
+      },
+      {
+        "kind": "line",
+        "points_mm": [
+          [
+            -6.876523961791983,
+            260.89954,
+            282.41
+          ],
+          [
+            -6.876523961791982,
+            260.89954,
+            264.87
+          ]
+        ],
+        "wide_axis": [
+          0.0,
+          -1.0,
+          0.0
+        ]
+      },
+      {
+        "kind": "line",
+        "points_mm": [
+          [
+            -6.876523961791982,
+            260.89954,
+            264.87
+          ],
+          [
+            5.963476038208017,
+            260.89954,
+            264.87
+          ]
+        ],
+        "wide_axis": [
+          0.0,
+          -1.0,
+          0.0
+        ]
+      },
+      {
+        "kind": "line",
+        "points_mm": [
+          [
+            5.963476038208017,
+            260.89954,
+            264.87
+          ],
+          [
+            13.423374174916153,
+            260.89954,
+            276.4036429401674
+          ]
+        ],
+        "wide_axis": [
+          0.0,
+          -1.0,
+          0.0
+        ]
+      }
+    ],
+    "length_mm": 76.95516526283446,
+    "stock": "6-inch narrow nylon tie",
+    "stock_length_mm": 152.4,
+    "width_mm": 2.5,
+    "thickness_mm": 0.8,
+    "strip_basis": "Nominal layout allowance; purchased strap dimensions unmeasured"
+  },
+  "tie_lid_overlap_mm3": 0.0,
+  "tie_elbow_overlap_mm3": 0.0,
+  "lid_valid_single_solid": true,
+  "cradle": {
+    "one_valid_solid": true,
+    "global_native_prototype_frame_verified": true,
+    "collar_gap_mm": 1.0000000000005684,
+    "full_height_column_collar_gap_mm": 0.0,
+    "full_height_column_overlap_mm3": 18.70786310939777,
+    "wing_root_mm": 3.0,
+    "existing_drop_and_wing_tests_passed": true,
+    "step_sha256": "636411c93528680f0283ae0c27d46001a752f0d60818785662d3597e923649f4",
+    "stl_sha256": "b0afff03e40fdf937eb5ef5221bad9902950e544d2933d258005a7283d0cc12c"
+  }
+}
