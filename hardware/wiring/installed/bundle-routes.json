@@ -143,11 +143,17 @@
         "bend_radius_mm": 2.0,
         "entry_stations": [
           {
-            "terminal": "wago-n.3",
-            "offset": [
-              11.46667,
-              -77.75972,
-              5.51643
+            "point_mm": [
+              -40.266666666666666,
+              418.0,
+              310.0
+            ]
+          },
+          {
+            "point_mm": [
+              -28.799996666666665,
+              352.94028,
+              310.0
             ]
           },
           {
@@ -383,11 +389,10 @@
         "route_status": "proposed",
         "entry_stations": [
           {
-            "terminal": "J6.RA1",
-            "offset": [
-              24.00987,
-              41.46633,
-              9.6
+            "point_mm": [
+              -46.0,
+              279.5692400200504,
+              278.0
             ]
           },
           {
@@ -468,11 +473,10 @@
         "route_status": "proposed",
         "entry_stations": [
           {
-            "terminal": "J6.RA2",
-            "offset": [
-              22.16512,
-              43.3668,
-              9.6
+            "point_mm": [
+              -46.0,
+              278.9698420200504,
+              278.0
             ]
           },
           {
@@ -529,11 +533,10 @@
         "route_status": "proposed",
         "entry_stations": [
           {
-            "terminal": "J6.RA3",
-            "offset": [
-              22.16512,
-              47.92723,
-              9.6
+            "point_mm": [
+              -46.0,
+              281.03015002005037,
+              278.0
             ]
           },
           {
@@ -590,11 +593,10 @@
         "route_status": "proposed",
         "entry_stations": [
           {
-            "terminal": "J6.RA4",
-            "offset": [
-              24.00987,
-              53.82796,
-              9.6
+            "point_mm": [
+              -46.0,
+              284.4307580200504,
+              278.0
             ]
           },
           {

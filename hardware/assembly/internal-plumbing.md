@@ -48,7 +48,7 @@ Keep the original sealing surface undamaged and verify the actual seated
 engagement before use. The JG union-elbow scan does not establish
 its hidden insertion stop.
 
-The carbonator's water-in adapter and the check's downward outlet elbow share
+The carbonator's water-in adapter and the check's upward outlet elbow share
 one continuous white 1/4-inch tube. Combine the internal `water-in` CAD span
 and warm `water-5` span, using the actual receiving-end insertion marks in
 place of their nominal allowances. The plain lid guide adds no insertion,
@@ -140,44 +140,32 @@ the lid; the model does not draw the housings. Preserve the existing fit/pressur
 is not a qualified pressure joint.
 
 The check lies fore–aft west of the pump in its lid saddle, arrow away from the
-pump. Its outlet stem elbow faces downward into the passive aft water-in guide.
-The same uncut tube continues through that plain guide to the carbonator's
-existing water-in adapter. Assemble the internal route before closing the core;
-the lid carries no water joint.
+pump. Its outlet stem elbow faces upward. One continuous white tube arches
+above the lid at R18, enters the straight guide at world (−53, 288.7265) mm,
+and continues to the carbonator's existing water-in adapter. Its lower turn
+is laid in the open main body before potting; the cap contains only a straight
+passage and the lid carries no water joint.
+
 Make up the check group on the open core, with the check's six-inch narrow tie
 already threaded through its east-quarter pedestal ([cold core](cold-core.md) §3):
 
-1. Fasten the pump first. The printed check pedestal leaves all four driver
-   approaches open before the check is in; the check body occupies one
-   screw's tool column once it is seated.
-2. Push the discharge TPU elbow onto the pump's outlet barb (11 mm) and leave
-   its barb clamp band open.
-3. Push the 31.9 mm link fully into the elbow's tube socket (15 mm).
-4. Push the check's inlet onto the link (16.9 mm), holding the chain up.
-5. Push the outlet stem elbow's trimmed stem into the check's outlet to its
-   0.4 mm mark, with its socket clocked straight down.
-6. Turn the TPU elbow on its barb to raise the chain 13–14°. The outlet
-   elbow's socket mouth then stands about 1.7 mm above and 2.2 mm aft of the
-   water-in stub's tip. Set the tip in the mouth and swing the chain down. The
-   socket takes the stub over the last 12° or so of the swing; the 7.7 mm
-   exposed stub flexes about 2 mm and straightens. The check settles straight down into its open east-quarter
-   bearing. The stub enters the socket up to about 12° off its axis, and no
-   physical test has qualified a push-fit made at that angle.
-7. Close the TPU elbow's barb and tube-socket bands, close the check's tie around
-   its fixed barrel, and check each insertion mark.
+1. Fasten the pump while all four driver approaches are open.
+2. Seat the discharge TPU elbow on the pump's outlet barb (11 mm), and seat
+   the 31.9 mm link in its tube socket (15 mm).
+3. Seat the check's inlet on the link (16.9 mm). Seat the outlet stem elbow
+   to its 0.4 mm showing mark with its tube socket facing upward.
+4. Lower the fixed check barrel into its open quarter bearing. Feed the
+   continuous inlet through its plain guide and form the exposed R18 arch
+   into the upward-facing outlet socket, using the actual insertion mark.
+5. Close both TPU clamp bands and the check tie, verify the insertion marks,
+   then dress the flexible leads clear of the arch.
 
-The J6 reed leads RA2 and RA4 pass within 0.05 mm of the swing: dress them
-after the group seats, or hold them clear while it swings.
-
-The reported internal water path is 229.656 mm and its warm span is 24.610 mm,
-a combined 254.266 mm of CAD centreline. The warm span includes the NeoFit
-ATEU44 outlet elbow's published 16.891 mm female receiving dimension
-(B = 0.665 inch) and 7.719 mm exposed above the guide; verify actual seating.
-The internal reference retains an 18.5 mm adapter standoff; that standoff does
-not measure the actual PP010822E socket insertion. Between the modeled release
-faces the path is 218.875 mm: 211.156 mm inside plus 7.719 mm above the guide.
-The single physical blank follows that exposed path plus actual receiving
-depths at both ends, adjusted to the fitted geometry and seated marks.
+The metal-adapter mouth to guide path is 87.551 mm. The warm path is
+208.817 mm including the NeoFit ATEU44 elbow's published 16.891 mm receiving
+allowance (B = 0.665 inch); 191.926 mm is exposed above the guide. The modeled
+exposed path between the two release faces is therefore 279.477 mm. Prepare
+one blank with the actual receiving depths at both ends, adjusted to the
+fitted geometry and seated marks. The plain guide adds no cut or insertion.
 
 The west-facing ASSE adapter feeds the dedicated white 4 mm vent line to the
 middle-left rear bulkhead and the faucet's separate outlet over the bowl.
@@ -363,10 +351,9 @@ in its two back-top sidewall-rooted collar bearings, with its lead root down
 and label east. Its outlet collet meets the rear return fitting's collet; the short
 tube occupies both sockets with no exposed span.
 
-The drawn continuous tube is 461.382 mm: 380.715 mm from the metal elbow
-mouth to the plain guide, plus 80.667 mm above it. This includes the nominal
-18.5 mm PP010822E adapter standoff and the meter's estimated 15.7 mm receiving
-depth. Prepare one physical tube using the actual receiving marks at those
+The drawn continuous tube is 434.567 mm: 353.900 mm from the metal adapter
+mouth to the plain guide, plus 80.667 mm above it. The upper span includes
+the meter's estimated 15.7 mm receiving depth. Prepare one physical tube using the actual receiving marks at those
 two fittings; the guide adds no length allowance or cut.
 
 Tighten all four pump screws before threading this inlet: the installed tube

@@ -595,155 +595,43 @@ def cable_guide_points(name):
 
 
 def water_in_guide_points():
-    """World-frame R14 inlet path from the retained metal-elbow departure.
+    """Straight world-frame cap entry, above the body's inlet turn.
 
-    The first point lies on the fixed top-port clocking line. A short S
-    passes east of the sensor passage before the aft traverse rises into the
-    plain guide beneath the check elbow.
+    The metal elbow keeps its clocking line. Its pressure tube turns upward
+    before the cup floor and stays vertical through the cup and lid.
     """
     core = importlib.import_module('_cold_core_interface')
-    frame = above_core.cap_lid_pose()
+    guide = tuple(above_core.specification()['cap_guides_world_mm']['water-in'])
+    band = (core.wall_and_floor_thickness+core.carbonator_support_ring_height
+            +core.carbonator_height+core.hole_shift_from_edge)
     cup_height = core.foam_cap_height-core.head_pad_height
-    top_z = (core.wall_and_floor_thickness+core.carbonator_support_ring_height
-             +core.carbonator_height+core.hole_shift_from_edge)
-    def world(point):
-        return above_core.point(frame, (-point[0], -point[1],
-            point[2]-core.foam_shell_outer_height-cup_height))
-    origin = world((0., -core.carbonator_port_offset, top_z))
-    clocking = world((-47., core.west_lane_mid_y, top_z))
-    fraction = (-55.-origin[0])/(clocking[0]-origin[0])
-    departure = tuple(a+fraction*(b-a) for a,b in zip(origin,clocking))
-    upper = tuple(above_core.specification()['cap_guides_world_mm']['water-in'])
-    traverse_z = upper[2]-14.
-    return [departure, (-56.,310.,traverse_z), (-56.,330.,traverse_z),
-            (0.,330.,traverse_z), (upper[0],upper[1],traverse_z), upper]
+    world_z = above_core.cap_lid_pose()['translation_mm'][2]-cup_height-core.foam_shell_outer_height
+    return [(*guide[:2], band+world_z), guide]
 
 
 def water_in_floor_xy():
-    """Actual curved inlet crossing of the existing cup floor, in cap XY."""
-    from above_core_routes import _rounded
-    core = importlib.import_module('_cold_core_interface')
-    z = (above_core.cap_lid_pose()['translation_mm'][2]
-         -(core.foam_cap_height-core.head_pad_height)+core.cap_shell_clearance)
-    for segment in _rounded(water_in_guide_points(),14.):
-        a,b = segment['points_mm'][0],segment['points_mm'][-1]
-        if not min(a[2],b[2]) <= z <= max(a[2],b[2]):
-            continue
-        if segment['kind']=='line':
-            t=(z-a[2])/(b[2]-a[2])
-            point=tuple(x+t*(y-x) for x,y in zip(a,b))
-        else:
-            center,axis=segment['center_mm'],segment['axis']
-            radial=tuple(x-y for x,y in zip(a,center))
-            cross=(axis[1]*radial[2]-axis[2]*radial[1],
-                   axis[2]*radial[0]-axis[0]*radial[2],
-                   axis[0]*radial[1]-axis[1]*radial[0])
-            def at(angle):
-                return tuple(c+r*math.cos(angle)+n*math.sin(angle)
-                             for c,r,n in zip(center,radial,cross))
-            low,high=0.,segment['angle_rad']
-            for _ in range(48):
-                mid=(low+high)/2.
-                if at(mid)[2] < z:
-                    low=mid
-                else:
-                    high=mid
-            point=at((low+high)/2.)
-        return above_core.world_to_cap(point)[:2]
-    raise ValueError('Water inlet does not cross the cup floor')
+    """The shared straight inlet axis in the cap's native frame."""
+    return above_core.world_to_cap(water_in_guide_points()[-1])[:2]
 
 
 @lru_cache(maxsize=1)
 def water_in_features():
-    """D7.5 inlet passage with floor-rooted 3 mm side and roof stock.
-
-    The existing 2 mm cup floor is retained; the horizontal air passage has
-    2.10 mm backing to its outer face. The curved entry cuts that floor only
-    on the actual tube corridor. No stock projects below the cup. Individual
-    native line/arc sleeves are clipped before union for stable band Booleans.
-    """
-    import cadquery as cq
-    from _internal_routes import route_wire
-
-    core = importlib.import_module('_cold_core_interface')
-    points = water_in_guide_points()
-    points[-1] = (*points[-1][:2], points[-1][2]+1.)
-    wire = route_wire(points,14.)
-    def pieces(radius):
-        return [cq.Workplane(cq.Plane(origin=edge.startPoint(),normal=edge.tangentAt(0.)))
-                .circle(radius).sweep(cq.Wire.assembleEdges([edge]),isFrenet=False).val()
-                for edge in wire.Edges()]
-    air_parts = pieces(core.cap_conduit_bore_radius)
-    air = air_parts[0].fuse(*air_parts[1:]).clean()
-    sleeve_parts = pieces(core.cap_conduit_bore_radius+3.)
-    lid_bottom = above_core.cap_lid_pose()['translation_mm'][2]
-    cup_bottom = lid_bottom-(core.foam_cap_height-core.head_pad_height)
-    def stock(z0,z1):
-        band=cq.Solid.makeBox(220.,330.,z1-z0,cq.Vector(-110.,170.,z0))
-        clipped=[part.intersect(band) for part in sleeve_parts]
-        clipped=[part for part in clipped if part.Solids()]
-        return clipped[0].fuse(*clipped[1:]).clean()
-    return {
-        'cup_add': stock(cup_bottom+core.cap_shell_clearance,
-                         lid_bottom-core.cap_lid_clearance),
-        'lid_add': stock(lid_bottom,above_core.specification()['cap_face_z_mm']),
-        'cut': air,
-        'wall_mm': 3.,
-        'horizontal_floor_backing_mm': points[1][2]-core.cap_conduit_bore_radius
-                                       -cup_bottom-core.cap_shell_clearance,
-    }
+    """Straight D7.5 inlet guide with 3 mm radial stock."""
+    return straight_cap_features('water-in')
 
 
 def soda_out_guide_points():
-    """R14 roof traverse from the fixed soda riser to its upper plain guide.
-
-    The horizontal reach stands above the complete cup floor. Both quarter
-    turns retain vertical end tangents; the guide is an ownership boundary
-    in one continuous tube.
-    """
-    import soda_inlet
+    """Straight soda passage; its body turn finishes below the cup."""
+    guide = tuple(above_core.specification()['cap_guides_world_mm']['carb-water-out'])
     core = importlib.import_module('_cold_core_interface')
-    frame = above_core.cap_lid_pose()
-    lower = above_core.point(frame, (*core.cap_conduit_floor_xy['carb-water-out'], 0.))[:2]
-    return soda_inlet.passage_points(lower)
+    floor = above_core.cap_lid_pose()['translation_mm'][2]-(core.foam_cap_height-core.head_pad_height)
+    return [(*guide[:2], floor-1.), guide]
 
 
 @lru_cache(maxsize=1)
 def soda_out_features():
-    """Curved D7.5 soda passage with 3 mm side and roof stock.
-
-    Individual native line/arc sleeves join the established cup floor;
-    its horizontal backing is2.10mm. The sleeve is clipped at the existing
-    floor and lid bands, with no added projection below the cup.
-    """
-    import cadquery as cq
-    from _internal_routes import route_wire
-
-    core = importlib.import_module('_cold_core_interface')
-    points = soda_out_guide_points()
-    points[0] = (*points[0][:2], points[0][2]-1.)
-    points[-1] = (*points[-1][:2], points[-1][2]+1.)
-    wire = route_wire(points,14.)
-    def pieces(radius):
-        return [cq.Workplane(cq.Plane(origin=edge.startPoint(),normal=edge.tangentAt(0.)))
-                .circle(radius).sweep(cq.Wire.assembleEdges([edge]),isFrenet=False).val()
-                for edge in wire.Edges()]
-    air_parts = pieces(core.cap_conduit_bore_radius)
-    air = air_parts[0].fuse(*air_parts[1:]).clean()
-    sleeve_parts = pieces(core.cap_conduit_bore_radius+3.)
-    lid_bottom = above_core.cap_lid_pose()['translation_mm'][2]
-    cup_bottom = lid_bottom-(core.foam_cap_height-core.head_pad_height)
-    def stock(z0,z1):
-        band=cq.Solid.makeBox(220.,330.,z1-z0,cq.Vector(-110.,170.,z0))
-        clipped=[part.intersect(band) for part in sleeve_parts]
-        clipped=[part for part in clipped if part.Solids()]
-        return clipped[0].fuse(*clipped[1:]).clean()
-    return {'cup_add': stock(cup_bottom+core.cap_shell_clearance,
-                             lid_bottom-core.cap_lid_clearance),
-            'lid_add': stock(lid_bottom,above_core.specification()['cap_face_z_mm']),
-            'cut': air,'wall_mm':3.,
-            'horizontal_floor_backing_mm': points[1][2]-core.cap_conduit_bore_radius
-                                           -cup_bottom-core.cap_shell_clearance}
+    """Straight D7.5 soda guide with 3 mm radial stock."""
+    return straight_cap_features('carb-water-out')
 
 
 @lru_cache(maxsize=1)
@@ -935,3 +823,21 @@ def schedule():
             for name, row in union_tie_routes().items()
         },
     }
+
+
+@lru_cache(maxsize=2)
+def straight_cap_features(name):
+    """One cylindrical tube guide, split only at the cup/lid joint."""
+    import cadquery as cq
+    core = importlib.import_module('_cold_core_interface')
+    guide = above_core.specification()['cap_guides_world_mm'][name]
+    lid_bottom = above_core.cap_lid_pose()['translation_mm'][2]
+    floor = lid_bottom-(core.foam_cap_height-core.head_pad_height)
+    radius = core.cap_conduit_bore_radius
+    def cylinder(r, z0, z1):
+        return cq.Solid.makeCylinder(r,z1-z0,cq.Vector(*guide[:2],z0))
+    return {'cup_add':cylinder(radius+3.,floor+core.cap_shell_clearance,
+                              lid_bottom-core.cap_lid_clearance),
+            'lid_add':cylinder(radius+3.,lid_bottom,guide[2]),
+            'cut':cylinder(radius,floor-1.,guide[2]+1.),
+            'wall_mm':3.,'horizontal_floor_backing_mm':None}

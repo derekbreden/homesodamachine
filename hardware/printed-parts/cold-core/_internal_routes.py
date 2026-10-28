@@ -52,9 +52,9 @@ WHERE A LINE HAS TO REACH AND RISE AT ONCE, IT LEANS: one diagonal in place of t
 corners on a step's own width, which is what the carbonated water does under the carbonator to
 cross the CO2 and again at the top to put itself on its conduit's column.
 
-The water inlet retains the carbonator elbow's clocking line. Its R14 upper
-path crosses the cup floor on a curve, passes east of the sensor loom and rises
-into the aft guide. The plain guide is a boundary in one continuous tube.
+The water inlet retains the carbonator elbow's clocking line. Its R14
+turn finishes below the cup floor. The soda tube turns above the carbonator
+while the body is open for potting. Both pass straight through the cap.
 """
 
 import math
@@ -129,8 +129,8 @@ top_band_z = carbonator_top_plate_z + hole_shift_from_edge          # both top-p
 shell_top_z = foam_shell_outer_height                         # where a riser enters its conduit
 conduit_mouth_z = cap_face_z                                  # and where it comes back out
 
-# The shell's lane step finishes one stock radius below its top. Curved
-# D7.5 cap passages then join the fixed risers to their selected upper guides.
+# The gas lane step finishes one stock radius below the shell top.
+# The water and soda turns finish before their straight cap guides.
 lane_step_top_z = shell_top_z - route_bend_radius
 
 # The reservoir cap's outer face — what a fill conduit's tube bottoms on. The reservoir body's
@@ -233,8 +233,6 @@ def _routes():
     # in toward the coil by more than 0.12 mm.
     carb_mid_x = (carb_x + carb_upper_x) / 2.0
     co2_x, co2_lane_y = cap_conduit_shell_xy("co2-in")
-    carb_floor_xy = tuple(-v for v in cap_conduit_floor_xy["carb-water-out"])
-    carb_lane_y = carb_floor_xy[1]
     # The carbonated water's LEAN at the top, and the rise it owes anything under the carbonator.
     #   Under the carbonator the only run it could meet is the CO2's reach in, and that reach stops
     # on the carbonator's axis — the CO2 falls the lane's +X half, so its lean never comes out as
@@ -245,22 +243,12 @@ def _routes():
     co2_under_tank_y = co2_run_y(carb_x)
     carb_co2_rise = 0.0 if co2_under_tank_y is None else (lldpe_tube_od + line_hug) * (
         (carbonator_port_offset - carb_riser_y) / (carbonator_port_offset - co2_under_tank_y))
-    #   At the top it steps out onto the lane, and that lean is at 45° — the step outboard
-    # and the last of the rise are one move, so two square corners on a step's own width
-    # become two shallow ones on a diagonal half again as long. It ends on
-    # `lane_step_top_z`, one stock arc under the shell's top.
-    carb_lane_step = math.dist((carb_upper_x, carb_upper_y),
-                               carb_floor_xy)
-    # The lower column clears the inlet copper and crosses the support ring's slot.
-    # Above that crossing a shallow lean reaches the upper column clear of reservoir B.
-    # The final diagonal then takes both X and Y onto the cap conduit, retaining the
-    # stock bend radius at every corner. The retained floor entry then joins
-    # the upper guide through the curved roof passage.
-    carb_cap_x = carb_floor_xy[0]
+    # Above the coil, the soda tube turns directly toward its cap guide.
+    # The turn is laid into the open body before potting; the cap stays straight.
 
     return {
-        # One continuous pressure tube from the fixed top-port clocking
-        # line, through the curved cup passage, to the aft plain guide.
+        # One continuous pressure tube turns upward before the cup floor
+        # and passes straight through its guide.
         "water-in": [(0.,-carbonator_port_offset,top_band_z)] + [
             world_point_in_shell(p) for p in _above_mounts.water_in_guide_points()],
         # Each reservoir's dip tube: the draw line, one straight drop from its mouth on the
@@ -298,10 +286,10 @@ def _routes():
             (carb_x, carb_riser_y, water_outlet_drift_z[0]),
             (carb_mid_x, coil_standoff_y(carb_mid_x), sum(water_outlet_drift_z) / 2.0),
             (carb_upper_x, carb_upper_y, water_outlet_drift_z[1]),
-            (carb_upper_x, carb_upper_y, lane_step_top_z - carb_lane_step),
-            (carb_cap_x, carb_lane_y, lane_step_top_z),
-        ] + [world_point_in_shell(p) for p in
-             _above_mounts.soda_out_guide_points()[1:]],
+            (carb_upper_x, carb_upper_y, top_band_z),
+            (*cap_conduit_shell_xy("carb-water-out"), top_band_z),
+            (*cap_conduit_shell_xy("carb-water-out"), conduit_mouth_z),
+        ],
         # The PRV's relief: the only line here that starts on a PRINTED part rather than on a
         # fitting, and the only one that leaves by a FLANK instead of by the lid. Out of the
         # shroud's underside pointing down, one corner, and straight out the +Y wall into the
