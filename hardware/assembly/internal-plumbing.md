@@ -84,7 +84,9 @@ join the fixed rear bulkhead and the fixed X77.5/Y368.7622 cap guide to this
 folded group. The below-lid route continues to the carbonator's existing gas
 fitting and support-ring lane. That check-to-carbonator leg is one uncut tube
 through the plain gas guide; combine both CAD spans when marking its two
-receiving ends.
+receiving ends. The lower span is 260.942 mm from the guide to the neoFit
+elbow's socket mouth, plus 16.891 mm nominal insertion into that elbow.
+Replace the socket allowance with its actual fully seated insertion mark.
 
 For the enclosure slide, fit the last elbow (`gas-upper-b`) to that core
 tube and leave its male stem separate from `gas-upper-a` on back-top.
@@ -352,10 +354,12 @@ in its two back-top sidewall-rooted collar bearings, with its lead root down
 and label east. Its outlet collet meets the rear return fitting's collet; the short
 tube occupies both sockets with no exposed span.
 
-The drawn continuous tube is 434.567 mm: 353.900 mm from the metal adapter
-mouth to the plain guide, plus 80.667 mm above it. The upper span includes
-the meter's estimated 15.7 mm receiving depth. Prepare one physical tube using the actual receiving marks at those
-two fittings; the guide adds no length allowance or cut.
+The nominal continuous tube blank is **446.788 mm**: 349.230 mm from the
+neoFit outlet elbow's socket mouth to the plain guide, 16.891 mm into that
+elbow, and 80.667 mm above the guide. The upper span includes the meter's
+estimated 15.7 mm receiving depth. Replace both socket allowances with the
+actual fully seated insertion marks when preparing the physical blank; the
+guide adds no length allowance or cut.
 
 Tighten all four pump screws before threading this inlet: the installed tube
 crosses one vertical pump-driver approach. Disconnect and remove the inlet
