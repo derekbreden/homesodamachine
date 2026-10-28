@@ -56,8 +56,9 @@ its black nameplate. The glass contains dark cola and rounded ice cubes packed f
 just above the liquid, with a visible rim and no falling streams. The first-pour instructions
 call for a glass filled with ice. The illustration comes from
 `tools/install-guide/ice_scene.py`. `tools/install-guide/hold_scene.py` draws the app's picture
-of a phone held over the faucet display the way one is held at a card reader: hidden-line
-outlines of the current faucet head, made the way the kit drawings are.
+of a phone held over the faucet display the way one is held at a card reader. Continuous
+silhouettes of the source solids define the housing and phone; finer lines distinguish the
+bezel, recessed glass and three tube ends. The output is the app's tintable vector asset.
 
 The concentrate bottle has a rounded PET body, tapered shoulders, an open ribbed neck, dark
 liquid and a wrapped COLA concentrate label. The bottle and framed display are snapshots from
