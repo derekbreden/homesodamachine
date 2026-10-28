@@ -98,6 +98,7 @@
   overflow: hidden;
   background: var(--bg);
   touch-action: none;
+  container-type: inline-size;
 }
 .cad-wrapper > canvas.cad-viewport {
   display: block;
@@ -1658,6 +1659,16 @@
   border-color: color-mix(in srgb, var(--text-2) 55%, transparent);
   background: color-mix(in srgb, var(--text-2) 14%, rgba(16, 49, 156, 0.85));
   color: var(--text-2);
+}
+/* A canvas too narrow to stand the badge clear of the rail's overlays — the Materials pane
+   open beside it — stacks it over Reset view instead. */
+@container (max-width: 940px) {
+  .cad-wrapper .sc-badge {
+    left: auto;
+    right: calc(env(safe-area-inset-right, 0px) + 16px);
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 56px);
+    transform: none;
+  }
 }
 .cad-wrapper .sc-badge { transition: filter 0.12s; }
 .cad-wrapper .sc-badge:hover { filter: brightness(1.2); }

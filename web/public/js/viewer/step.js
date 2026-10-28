@@ -11,7 +11,7 @@ import { scene, camera, resetCamera, addStudioLighting, fitCameraDepth, fitFog,
 import { applyXray, syncEdgeResolution, setMeshMaterial } from "./xray.js";
 import { setActiveEdges } from "./edge-picker.js";
 import { clearPickFind } from "./pick-find.js";
-import { clearHighlight } from "./part-highlight.js";
+import { dropHighlight } from "./part-highlight.js";
 import { clearComponentPicker, loadHiddenForFile, applyHiddenComponents } from "./component-picker.js";
 import { onStepReloaded } from "./component-edit.js";
 import { surfaceText } from "./pick-format.js";
@@ -454,7 +454,7 @@ export async function loadStepFile(file, { preserveCamera = false } = {}) {
     applyXray(state.currentGroup); // ghost + edges if x-ray mode is on
     setActiveEdges(result); // BREP edges for the edge picker (lazy-reconstructed)
     clearPickFind(); // stale find highlights reference the old geometry
-    clearHighlight(); // and a stale scorecard part-highlight does too
+    dropHighlight(); // and the selection's overlay and fade; its owner draws it again on STEP_MOUNTED
     clearComponentPicker();      // drop a stale component selection/hover overlay
     scene.add(state.currentGroup);
     state.mountedDetail = {
