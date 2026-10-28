@@ -1,15 +1,19 @@
 #!/usr/bin/env python3
 """The app's HoldAtFaucet picture: a phone held to the faucet display the way people hold one
-at a card reader, its top half over the display and its bottom half toward the person.
+at a card reader, drawn as outlines.
 
-The faucet is the current source model above the counter, as the install guide builds it. The
-phone is a prop: a plain outline, lying parallel to the display a little off its face. One
-colored scene STEP is rendered the guide's way and written, trimmed, to the app's asset.
+The faucet head is the current source model, seen from the front and a little above, the way
+the person holding the phone sees it: its display, the nozzle under it, and the arm running
+back out of the picture. The phone is a prop, an outline lying parallel to the display a
+little off its face, turned the way a right hand holds it, with its top corner over the
+display. The arm fades where it leaves the head and the phone fades toward the hand. The
+lines are hidden-line views of the solids, as in the kit drawings. The drawing is a template
+image: the app colors it.
 """
 from pathlib import Path
-import json
+import math
 import os
-import subprocess
+import re
 import sys
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -18,89 +22,163 @@ sys.path.insert(0, str(HARDWARE / 'install-guide'))
 os.environ.setdefault('HSM_NO_BUILD_LOCK', '1')
 
 import cadquery as cq  # noqa: E402
-from PIL import Image  # noqa: E402
+from cadquery.occ_impl.exporters.svg import getPaths  # noqa: E402
+from OCP.BRepLib import BRepLib  # noqa: E402
+from OCP.gp import gp_Ax2, gp_Dir, gp_Pnt  # noqa: E402
+from OCP.HLRAlgo import HLRAlgo_Projector  # noqa: E402
+from OCP.HLRBRep import HLRBRep_Algo, HLRBRep_HLRToShape  # noqa: E402
 import _cad_art as art  # noqa: E402
 
-SCENE = HARDWARE / 'assembly/scenes/out/faucet-phone.step'
-RENDER = HARDWARE / 'assembly/scenes/out/faucet-phone.png'
-ASSET = ROOT / 'ios/SodaMachine/SodaMachine/Assets.xcassets/HoldAtFaucet.imageset/HoldAtFaucet.png'
+ASSET = ROOT / 'ios/SodaMachine/SodaMachine/Assets.xcassets/HoldAtFaucet.imageset/HoldAtFaucet.svg'
 
-GAP = 30.0      # the phone's back off the display screen, mm
-OVER = 22.0     # the phone's top edge past the screen's centre, along the screen, mm
-TWIST = -7.0    # the phone turned in its own plane, as a hand holds it, degrees
+ELEVATION = 15.0   # the view above level, degrees: the nozzle still shows under the display
 PHONE = (71.6, 147.6, 7.8)   # a common phone's outline and thickness, mm
-CAMERA = dict(cam=(1.0, -0.85, 0.5), target=(0, -95, 125), span=150, size='2000x2000')
-WIDTH = 1200    # the asset's width, px
-
-ABOVE_COUNTER = (
-    'westbrass', 'drain_tube', 'soda_faucet_tube', 'tpu_o_ring',
-    'flavor_tube_pos_x', 'flavor_tube_neg_x', 'lever',
-    'above_counter_plate', 'above_counter_gasket', 'shell_base', 'shell_tip',
-    'faucet-display-cover-seated', 'faucet_display', 'faucet_display_screen',
-)
+TWIST = 34.0       # the phone turned in its own plane, top toward the faucet, degrees
+GAP = 20.0         # the phone's back off the display screen, mm
+CORNER = 3.0       # the phone's nearest edge right of the screen's centre, in the view, mm
+ARM = (25.0, 34.0) # the arm fading out, above the screen's centre in the view, mm
+HAND = (0.40, 0.78)  # the phone fading out, as fractions of its length from its top
+STROKE = 0.65      # line width, mm
+MARGIN = 4.0       # space around the drawing, mm
 
 
-def scene() -> Path:
+def shape(obj):
+    return obj.val() if hasattr(obj, 'val') else obj
+
+
+def polylines(edges):
+    if edges.IsNull():
+        return []
+    BRepLib.BuildCurves3d_s(edges, 1e-6)
+    _, paths = getPaths([cq.Shape(edges)], [])
+    lines = [[(float(x), float(y)) for x, y in re.findall(r'[ML]([-+\d.eE]+),([-+\d.eE]+)', path)]
+             for path in paths]
+    return [line for line in lines if len(line) > 1
+            and sum(math.dist(a, b) for a, b in zip(line, line[1:])) > 0.5]
+
+
+def clip(line, inside):
+    """The parts of a polyline where inside(point) >= 0."""
+    pieces, piece = [], [line[0]] if inside(line[0]) >= 0 else []
+    for a, b in zip(line, line[1:]):
+        fa, fb = inside(a), inside(b)
+        if (fa >= 0) != (fb >= 0):
+            k = fa / (fa - fb)
+            cut = (a[0] + k * (b[0] - a[0]), a[1] + k * (b[1] - a[1]))
+            if fa >= 0:
+                pieces.append(piece + [cut])
+                piece = []
+            else:
+                piece = [cut]
+        if fb >= 0:
+            piece.append(b)
+    pieces.append(piece)
+    return [p for p in pieces if len(p) > 1]
+
+
+def drawing() -> str:
     fa = art._load_faucet_module()
     parts = art._children_by_name(fa.build_assembly())
-    lever_rest, _ = art._physical_levers(fa)
-    out = cq.Assembly(name='faucet-phone')
-    for name in ABOVE_COUNTER:
-        child = parts[name]
-        obj = lever_rest if name == 'lever' else child.obj
-        if name in {'westbrass', 'drain_tube', 'flavor_tube_pos_x', 'flavor_tube_neg_x'}:
-            obj = art._clip_z(obj, fa.countertop_top_z, 260.0)
-        art._add_child(out, child, obj=obj)
+    # The display module is drawn by its screen alone; its body only hides what is behind it.
+    head = {name: shape(parts[name].obj) for name in
+            ('shell_tip', 'faucet-display-cover-seated', 'faucet_display', 'faucet_display_screen')}
+    # The tubes only where they end, in the nozzle under the display.
+    front = cq.Workplane('XY').box(200, 100, 400).translate((0, -150, 150)).val()
+    head['nozzle'] = cq.Compound.makeCompound(
+        [shape(parts[n].obj).intersect(front)
+         for n in ('soda_faucet_tube', 'flavor_tube_pos_x', 'flavor_tube_neg_x')])
 
-    # The screen's tilt, from its own extents: it faces forward and up.
-    screen = parts['faucet_display_screen'].obj
-    box = (screen.val() if hasattr(screen, 'val') else screen).BoundingBox()
+    box = head['faucet_display_screen'].BoundingBox()
     centre = cq.Vector((box.xmin + box.xmax) / 2, (box.ymin + box.ymax) / 2, (box.zmin + box.zmax) / 2)
-    dy, dz = box.ymax - box.ymin, box.zmax - box.zmin
-    up = cq.Vector(0, dy, dz).normalized()
-    normal = cq.Vector(0, -dz, dy).normalized()
-    tilt = cq.Vector(0, 1, 0).getAngle(up) * 180 / 3.141592653589793
+    up = cq.Vector(0, box.ymax - box.ymin, box.zmax - box.zmin).normalized()
+    normal = cq.Vector(0, -up.z, up.y)
+    tilt = math.degrees(math.atan2(up.z, up.y))
+    e = math.radians(ELEVATION)
+    view_x, view_y = cq.Vector(1, 0, 0), cq.Vector(0, math.sin(e), math.cos(e))
+    seen = lambda v: (v.dot(view_x), v.dot(view_y))
 
     w, h, t = PHONE
     body = (cq.Workplane('XY').box(w, h, t, centered=(True, True, False))
-            .edges('|Z').fillet(10.5).edges('>Z or <Z').fillet(1.6))
-    glass = (cq.Workplane('XY').workplane(offset=t - 0.2)
-             .box(w - 4.2, h - 4.2, 0.45, centered=(True, True, False)).edges('|Z').fillet(8.6))
-    island = (cq.Workplane('XY').workplane(offset=t + 0.2)
-              .center(0, h / 2 - 11.6).rect(19.5, 5.8).extrude(0.25).edges('|Z').fillet(2.85))
-    at = centre + normal * GAP + up * (OVER - h / 2)
+            .edges('|Z').fillet(10.5).edges('>Z or <Z').fillet(1.6)).val()
+    island = (cq.Workplane('XY').workplane(offset=t).center(0, h / 2 - 11.6)
+              .rect(19.5, 5.8).extrude(0.3).edges('|Z').fillet(2.85)).val()
 
-    def place(shape):
-        shape = shape.rotate((0, 0, 0), (0, 0, 1), TWIST).rotate((0, 0, 0), (1, 0, 0), tilt)
-        return shape.translate((at.x, at.y, at.z))
+    def placed(v, at):
+        """A point of the phone, from its own frame to where it is held: turned about Z by
+        TWIST, then tipped about X to the display's tilt, as the solids are below."""
+        tw, tl = math.radians(TWIST), math.radians(tilt)
+        x, y, z = v[0] * math.cos(tw) - v[1] * math.sin(tw), v[0] * math.sin(tw) + v[1] * math.cos(tw), v[2]
+        return cq.Vector(x, y * math.cos(tl) - z * math.sin(tl), y * math.sin(tl) + z * math.cos(tl)) + at
 
-    out.add(place(body), name='phone_body', color=cq.Color(0.80, 0.82, 0.85))
-    out.add(place(glass), name='phone_screen', color=cq.Color(0x17 / 255, 0x49 / 255, 0xD1 / 255))
-    out.add(place(island), name='phone_island', color=cq.Color(0.04, 0.04, 0.05))
-    SCENE.parent.mkdir(parents=True, exist_ok=True)
-    return art._export_colored(out, SCENE, mesh=True)
+    # Its outline's leftmost point in the view sits CORNER right of the screen's centre.
+    r = 10.5
+    rim = [(sx * (w / 2 - r) + r * math.cos(a), sy * (h / 2 - r) + r * math.sin(a), t)
+           for sx, sy, a0 in ((1, 1, 0), (-1, 1, 90), (-1, -1, 180), (1, -1, 270))
+           for a in (math.radians(a0 + i) for i in range(0, 91, 3))]
+    at = centre + normal * GAP
+    left = min((seen(placed(v, at)) for v in rim), key=lambda p: p[0])
+    goal = seen(centre)
+    at = at + view_x * (goal[0] + CORNER - left[0]) + up * ((goal[1] - left[1]) / up.dot(view_y))
+    phone = {name: s.rotate((0, 0, 0), (0, 0, 1), TWIST).rotate((0, 0, 0), (1, 0, 0), tilt)
+             .translate(at.toTuple()) for name, s in (('body', body), ('island', island))}
 
+    hlr = HLRBRep_Algo()
+    for s in (*head.values(), *phone.values()):
+        hlr.Add(s.wrapped)
+    camera = (0, -math.cos(e), math.sin(e))
+    hlr.Projector(HLRAlgo_Projector(gp_Ax2(gp_Pnt(), gp_Dir(*camera), gp_Dir(1, 0, 0))))
+    hlr.Update()
+    hlr.Hide()
+    lines = HLRBRep_HLRToShape(hlr)
+    sharp = lambda s: polylines(lines.VCompound(s.wrapped))
+    outline = lambda s: polylines(lines.OutLineVCompound(s.wrapped))
 
-def render(step: Path) -> None:
-    job = dict(step=str(step.relative_to(HARDWARE)), out=str(RENDER), up=(0, 0, 1), bg='#ffffff',
-               transparent=True, solid=True, ortho=True, trim=False, ground=False, fog=False,
-               **CAMERA)
-    jobs = RENDER.with_suffix('.json')
-    jobs.write_text(json.dumps([job], indent=2) + '\n')
-    subprocess.run(['node', str(ROOT / 'tools/render/render-step-posed.js'), '--jobs', str(jobs)],
-                   cwd=ROOT, check=True)
+    screen = sharp(head['faucet_display_screen']) + outline(head['faucet_display_screen'])
+    screen_top = max(y for line in screen for _, y in line)
+    # The cover is drawn by its outline alone, without the edge where it meets the arm.
+    cover = [line for line in outline(head['faucet-display-cover-seated'])
+             if min(y for _, y in line) < screen_top]
+    faucet = (sharp(head['shell_tip']) + outline(head['shell_tip']) + cover + screen
+              + sharp(head['nozzle']) + outline(head['nozzle']))
+    held = sum((sharp(s) + outline(s) for s in phone.values()), [])
 
+    arm_fade, arm_end = (goal[1] + d for d in ARM)
+    # Along the phone in the view: 0 at its top edge, 1 at its bottom edge.
+    top, bottom = seen(placed((0, h / 2, t), at)), seen(placed((0, -h / 2, t), at))
+    axis = (bottom[0] - top[0], bottom[1] - top[1])
+    along = lambda p: ((p[0] - top[0]) * axis[0] + (p[1] - top[1]) * axis[1]) / (axis[0] ** 2 + axis[1] ** 2)
+    on_phone = lambda f: (top[0] + axis[0] * f, top[1] + axis[1] * f)
+    faucet = [piece for line in faucet for piece in clip(line, lambda p: arm_end - p[1])]
+    held = [piece for line in held for piece in clip(line, lambda p: HAND[1] - along(p))]
 
-def asset() -> None:
-    image = Image.open(RENDER).convert('RGBA')
-    left, top, right, bottom = image.getbbox()
-    pad = 40
-    image = image.crop((left - pad, top - pad, right + pad, bottom + pad))
-    image = image.resize((WIDTH, round(image.height * WIDTH / image.width)), Image.LANCZOS)
-    image.save(ASSET, optimize=True)
-    print(ASSET, image.size)
+    points = [p for line in faucet + held for p in line]
+    left_x = min(x for x, _ in points) - MARGIN
+    top_y = max(y for _, y in points) + STROKE
+    width = max(x for x, _ in points) + MARGIN - left_x
+    height = top_y - min(y for _, y in points) + MARGIN
+    page = lambda p: (p[0] - left_x, top_y - p[1])
+    d = lambda line: 'M' + ' L'.join('%.2f,%.2f' % page(p) for p in line)
+    hand0, hand1 = page(on_phone(HAND[0])), page(on_phone(HAND[1]))
+    return '\n'.join([
+        f'<svg xmlns="http://www.w3.org/2000/svg" width="{width:.1f}" height="{height:.1f}" '
+        f'viewBox="0 0 {width:.2f} {height:.2f}">',
+        '<defs>',
+        f'<linearGradient id="arm" gradientUnits="userSpaceOnUse" x1="0" y1="{top_y - arm_end:.2f}" '
+        f'x2="0" y2="{top_y - arm_fade:.2f}">'
+        '<stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000"/>'
+        '</linearGradient>',
+        f'<linearGradient id="hand" gradientUnits="userSpaceOnUse" x1="{hand0[0]:.2f}" '
+        f'y1="{hand0[1]:.2f}" x2="{hand1[0]:.2f}" y2="{hand1[1]:.2f}">'
+        '<stop offset="0" stop-color="#000"/><stop offset="1" stop-color="#000" stop-opacity="0"/>'
+        '</linearGradient>',
+        '</defs>',
+        f'<g fill="none" stroke-width="{STROKE}" stroke-linecap="round" stroke-linejoin="round">',
+        '<g stroke="url(#arm)">', *(f'<path d="{d(line)}"/>' for line in faucet), '</g>',
+        '<g stroke="url(#hand)">', *(f'<path d="{d(line)}"/>' for line in held), '</g>',
+        '</g>', '</svg>', ''])
 
 
 if __name__ == '__main__':
-    render(scene())
-    asset()
+    out = Path(sys.argv[1]) if len(sys.argv) > 1 else ASSET
+    out.write_text(drawing())
+    print(out)
