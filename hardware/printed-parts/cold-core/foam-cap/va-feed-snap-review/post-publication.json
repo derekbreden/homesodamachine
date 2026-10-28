@@ -1,0 +1,181 @@
+{
+  "schema": 1,
+  "created_utc": "2026-10-28T17:52:17.205022+00:00",
+  "scope": "Manual post-publication reading of the two new V-A clip spring findings. Existing full lint output and source/native evidence only; no geometry or lint rerun, print job or recurring check.",
+  "publication": {
+    "source_commit": "5bd8fade17aef625d097cc0313dbe13573fa4445",
+    "pointer_commit": "8e9ef2d34e0579419e7c27888cc0e22ee13ec391",
+    "native_appliance_sha256": "d073f62616bef15232d55ecdb8b1f843cf118d917750f90408eeb6a380428189",
+    "lid_step_sha256": "b54c75fc6d3035683c906ff7595bb30575a6d6f56c080b8ab10b6ca993053226",
+    "lid_stl_sha256": "80b6aee54be33a619105e790ea783b5fdd37ad003bac4ba0b3443d578467b174"
+  },
+  "raw_lint": {
+    "path": ".cache/va-feed-snap/lint-all.txt",
+    "sha256": "3234d760ac890f24e7b804c8648488efc20dbe76aa21652a23eb2023edb15eee",
+    "header": "foam-cap-lid-top.stl \u00b7 74374 printed facets \u00b7 25 findings \u00b7 6 answered",
+    "printed_facets": 74374,
+    "ranked_findings_reported": 25,
+    "separately_answered_reported": 6,
+    "all_displayed_instances": 31,
+    "all_displayed_class_counts": {
+      "thin": 25,
+      "ceiling": 6
+    },
+    "already_explained_instances_in_raw_output": 28,
+    "original_unanchored_groups": 3,
+    "completed_queue_job": {
+      "label": "published V-A lid geometry reading",
+      "exit_code": 0,
+      "elapsed_seconds": 5
+    }
+  },
+  "instructions_read": "hardware/printed-parts/lint-answers/AGENTS.md",
+  "source_artifact_and_answer_sha256": {
+    "hardware/scripts/geometry_lint.py": "4f8d892298728db824cf895e4416660aa0be4ba6033331ddcf83da9920af08af",
+    "hardware/printed-parts/lint-answers/AGENTS.md": "990cf7ec6c738dc3449cae1a08548e91f16c902020caf74492828805a0d429c5",
+    "hardware/printed-parts/lint-answers/cold-core/foam-cap/foam-cap-lid-top.lint-answers": "aa3a0ac18007774afd9d21919b33cde3d5828bc5e6f110b17cd457675d51ca41",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step": "b54c75fc6d3035683c906ff7595bb30575a6d6f56c080b8ab10b6ca993053226",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl": "80b6aee54be33a619105e790ea783b5fdd37ad003bac4ba0b3443d578467b174",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh": "c603bff30889d695597025ab30f1248363249f6ce48780495e7d5612e2433d99",
+    "hardware/manifold-layout/enclosure-assembly.step": "d073f62616bef15232d55ecdb8b1f843cf118d917750f90408eeb6a380428189",
+    "hardware/printed-parts/cold-core/_above_core_mounts.py": "0938bcb0a0c53faa99bc0febeef852b258d52a3a34615d5bfe8fb5c0ce846022",
+    "hardware/printed-parts/cold-core/foam-cap/foam_cap.py": "3c2b544413fd2cdcfe84e0e1baea4db88200dffb1e758262873fb54aa7b7b72b",
+    "hardware/printed-parts/cadlib/route_snap.py": "e9d1b350d7c639adc125ab01a99022d8a4eaaffac9c8278616722de0ec99ef47",
+    "hardware/manifold-layout/above-core.json": "0e1714617664d97d7135ac98f4d1115bb72faba598086c6cfe881ef9d8608284",
+    "future/snap-fit-tests/2026-10-26-mark2-combined/physical-result.json": "530df05ff7593b0a95a5443576d41dc724411e99ba1c08a6ec10649e80c06166",
+    "hardware/printed-parts/cold-core/foam-cap/va-feed-snap-review/publication.json": "11ea4cfec9fcb612e513a195445a793224faabf92cfb0a7361835df349832661",
+    "hardware/printed-parts/cold-core/foam-cap/va-feed-snap-review/lid.json": "b2505c0cdaf86078f80c8f7f0f77a048efd4deed47e093dc842b2cda577dd561",
+    "hardware/printed-parts/cold-core/foam-cap/va-feed-snap-review/native-fit.json": "f9b994184d1041e6da8a40280c6bbcfd3c650e3d9e71a6e4dc4759b3e195552a",
+    "hardware/printed-parts/cold-core/foam-cap/va-feed-snap-review/integration.json": "40590f6a97c1e7029e24eb100df19d5811d62ab6ea0b1b1197652a02a3ffd43e"
+  },
+  "new_station": {
+    "centre_world_mm": [
+      11.0,
+      254.5,
+      261.6
+    ],
+    "centre_native_lid_mm": [
+      69.3,
+      11.0,
+      13.6
+    ],
+    "bounds_native_lid_mm": [
+      [
+        65.3,
+        5.425,
+        5.3
+      ],
+      [
+        73.3,
+        16.575,
+        17.3356636552512
+      ]
+    ],
+    "functional_spring_findings": [
+      {
+        "finding_class": "thin",
+        "summary": "[thin] 2.400 mm of material at its thinnest \u00b7 22.0 mm\u00b2 of surface under 2.5 mm \u00b7 spans 3.7 \u00d7 2.8 \u00d7 3.7 mm \u00b7 in 4 pieces",
+        "anchors_mm": [
+          [
+            70.301,
+            5.426,
+            13.695
+          ],
+          [
+            70.301,
+            7.826,
+            13.667
+          ]
+        ],
+        "already_explained_in_raw_log": false,
+        "classification": "required_working_C2_spring",
+        "thickness_mm": 2.4,
+        "arm_side": "negative-native-Y",
+        "exact_current_answer_anchors_present": true
+      },
+      {
+        "finding_class": "thin",
+        "summary": "[thin] 2.400 mm of material at its thinnest \u00b7 28.1 mm\u00b2 of surface under 2.5 mm \u00b7 spans 5.1 \u00d7 2.8 \u00d7 3.7 mm \u00b7 in 3 pieces",
+        "anchors_mm": [
+          [
+            70.301,
+            16.574,
+            13.695
+          ],
+          [
+            70.301,
+            14.174,
+            13.667
+          ]
+        ],
+        "already_explained_in_raw_log": false,
+        "classification": "required_working_C2_spring",
+        "thickness_mm": 2.4,
+        "arm_side": "positive-native-Y",
+        "exact_current_answer_anchors_present": true
+      }
+    ],
+    "new_unnecessary_edge_or_seam_findings": [],
+    "new_ledge_findings": [],
+    "new_ceiling_findings": [],
+    "new_geometry_defect_findings": [],
+    "ordinary_stock_below_bore_mm": 5.025
+  },
+  "answer_update": {
+    "path": "hardware/printed-parts/lint-answers/cold-core/foam-cap/foam-cap-lid-top.lint-answers",
+    "existing_C2_spring_entry_extended": true,
+    "new_ranked_groups": 2,
+    "new_exact_paired_pick_coordinates": 4,
+    "retained_fore_pair_ranked_groups": 3,
+    "retained_fore_pair_coordinates_unchanged": true,
+    "current_required_spring_reason": "[thin] Deliberate functional C2 spring section: these five ranked surface groups belong to the six free jaws above the tube equators, four on the fore Reservoir A pair and two on the V-A feed seat. Their measured 2.400 mm wall is the C2 section Derek selected with the 6.35 mm bore on Mark2 task 1379240291, recorded in future/snap-fit-tests/2026-10-26-mark2-combined/physical-result.json. Ordinary stock below the equators remains filled; the V-A root retains 5.025 mm below its bore. Only the working upper jaws use this specific flexure exception. This answer preserves the thinness ranking and establishes no full-lid force, lifetime or print result.",
+    "alternatives": "alternatives: Increasing the jaws to 3 mm while keeping the same bore increases each outer radius by 0.6 mm and changes the selected spring section. On the fore pair it also consumes 1.2 mm of spread space: preserving the current conservative 1 mm-per-jaw envelope and its 0.35 mm opposing gap requires wider tube spacing and another routing change. Filling above the equators joins the free jaws and closes the press-in mouths. A rigid cradle with a separate closure adds a part and an assembly step instead of providing the selected direct snap.",
+    "all_other_answer_changes": "Only the two coordinates of one retained clamp-floor pick were refreshed; its existing reason and every other entry remain byte-identical.",
+    "legacy_pick_refresh": {
+      "classification": "existing_answer_pick_refresh",
+      "thickness_mm": 2.25,
+      "previous_anchors_mm": [
+        [
+          -41.84,
+          84.276,
+          0.0
+        ],
+        [
+          -41.84,
+          84.276,
+          2.25
+        ]
+      ],
+      "current_anchors_mm": [
+        [
+          -41.815,
+          84.267,
+          0.0
+        ],
+        [
+          -41.815,
+          84.267,
+          2.25
+        ]
+      ],
+      "shift_mm": 0.026570660511178307,
+      "reason_unchanged": true,
+      "basis": "The published source lid equals the held lid plus the approved snap with zero bilateral native difference; this remote clamp floor is retained geometry.",
+      "new_geometry_claim": false
+    },
+    "all_three_previously_unanchored_raw_groups_have_exact_scoped_anchors": true,
+    "geometry_lint_rerun": false
+  },
+  "native_evidence": {
+    "lid_valid": true,
+    "lid_solids": 1,
+    "stl_watertight": true,
+    "expected_additive_difference_mm3": 0,
+    "expected_missing_difference_mm3": 0,
+    "current_native_fit_passed": true,
+    "current_native_leaf_count": 563,
+    "only_lid_changed_in_native_parents": true
+  },
+  "physical_scope": "The 6.35 mm bore and 2.40 mm C2 spring retain the selected test section. This manual classification establishes no complete-lid print or support-cleanup result, insertion/holding force or lifetime.",
+  "recurring_checks_added": false
+}

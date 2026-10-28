@@ -1,0 +1,20 @@
+{
+  "source_commit": "5bd8fade17aef625d097cc0313dbe13573fa4445",
+  "pointer_commit": "8e9ef2d34e0579419e7c27888cc0e22ee13ec391",
+  "appliance_sha256": "d073f62616bef15232d55ecdb8b1f843cf118d917750f90408eeb6a380428189",
+  "live_viewer_native_source_sha256": "d073f62616bef15232d55ecdb8b1f843cf118d917750f90408eeb6a380428189",
+  "live_viewer_matches_published_object": true,
+  "published_members_sha256": {
+    "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step": "bba3e1c1936dd5cda4a7ea8a1bf02fd87cd544ab5d05889d9d675d148b7aa738",
+    "hardware/cold-core-layout/cold-core-assembly.step": "2bd96a5ab9553ba4df8257a41396f9997eaef0a859501dd9a64eb707c32a18a1",
+    "hardware/manifold-layout/enclosure-assembly.step": "d073f62616bef15232d55ecdb8b1f843cf118d917750f90408eeb6a380428189",
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": "8da6db37ffec0f62b92e45a7e1ce9dc071b87ce84faffa7466a65a418fa45707",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step": "b54c75fc6d3035683c906ff7595bb30575a6d6f56c080b8ab10b6ca993053226",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl": "80b6aee54be33a619105e790ea783b5fdd37ad003bac4ba0b3443d578467b174",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh": "c603bff30889d695597025ab30f1248363249f6ce48780495e7d5612e2433d99",
+    "hardware/assembly/scenes/glb/cold-core.glb": "88dc78258757c6073b2798095da0d640fdda5eb6637d813acb83c8a4d5ad8d07",
+    "hardware/assembly/scenes/glb/cap-lid.glb": "f97f984a346d9c729cd1c93cd72cb24abd98a6d0d16a5113e48026a88946a949",
+    "hardware/assembly/scenes/glb/back-half.glb": "ce7ac69dc6e08326797f9a3fb4c4c6330bd8f74a63a63d73a889809f2ce93144",
+    "hardware/assembly/scenes/glb/cap-lid-fill.glb": "efddbec8c717103b547f40afe1465b6cf2c866c05da3a3dbbeb32530a27d789c"
+  }
+}
