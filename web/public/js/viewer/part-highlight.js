@@ -71,8 +71,11 @@ function flyToBox(box) {
 
 // Highlight every mesh whose name is in `names` (Set or array): bright edges + a faint shell
 // over each, framed by the camera. Returns the count highlighted.
-export function highlightParts(names) {
+// `focus` also takes every other solid out of view until the highlight clears, so the parts
+// at hand stand alone where they sit in the assembly.
+export function highlightParts(names, { focus = false } = {}) {
   clearOverlay();
+  restoreFocus();
   const want = names instanceof Set ? names : new Set(names);
   if (!state.currentGroup || !want.size) return 0;
   const box = new THREE.Box3();
@@ -97,11 +100,37 @@ export function highlightParts(names) {
     box.union(mesh.geometry.boundingBox);
     n++;
   }
+  if (n && focus) {
+    for (const m of state.currentGroup.children) {
+      const nm = m.userData?.isXrayEdge ? m.userData.xrayComponent : m.name;
+      if (!m.isMesh || !m.visible || want.has(nm)) continue;
+      m.visible = false; focusHidden.push(m);
+    }
+  }
   if (n) flyToBox(box);
   return n;
 }
 
+const focusHidden = [];
+function restoreFocus() {
+  for (const m of focusHidden.splice(0)) m.visible = true;
+}
+
 export function clearHighlight() {
   clearOverlay();
+  restoreFocus();
   flyToken++; // cancel an in-flight fly-to
+}
+
+// Clear any highlight and fly back out to frame every visible solid.
+export function frameScene() {
+  clearHighlight();
+  if (!state.currentGroup) return;
+  const box = new THREE.Box3();
+  for (const m of state.currentGroup.children) {
+    if (!m.isMesh || !m.visible || m.userData?.isXrayEdge) continue;
+    if (!m.geometry.boundingBox) m.geometry.computeBoundingBox();
+    box.union(m.geometry.boundingBox);
+  }
+  flyToBox(box);
 }
