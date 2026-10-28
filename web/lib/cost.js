@@ -18,6 +18,7 @@ import { renderHead, renderNav, renderPageHeader, renderFooter } from "./shell.j
 import { readBatchForecast, renderBatchForecast, BATCH_FORECAST_CSS } from "./batch-forecast.js";
 import { categoryName } from "./cost-categories.js";
 import { plainMarkdown, stripPack, readPartCosts } from "./part-costs.js";
+import { parseRun, runText, duration } from "../contracts/part-costs.js";
 import { renderPartCostTree, PART_COST_CSS } from "./part-cost-view.js";
 import { readMaterialCatalog } from "./material-catalog.js";
 import { readJ2Harness, readJ13Harness, renderHarnessGuide } from "./harness-guide.js";
@@ -113,19 +114,20 @@ export function readCostRollup(hardwareDir) {
   return { total, rowCount, cats };
 }
 
-// Parse labor.md → { minutes, rate, opCount, cats: [{ n, name, minutes,
-// ops: [{ name, cards, minutes }] }] }, sorted by minutes descending. A row's
-// estimate is its last cell, matching _labor_totals.py's parse. The bold inline
-// subtotal row is skipped along with headers and separators, so what the page
-// shows is always the sum of the operations under it. The hourly rate comes off
-// the ledger's own [$100](LABOR_RATE) marker — the view never carries a second
-// copy of a number the ledger sets.
+// Parse labor.md → { minutes, rate, batchSize, opCount, cats: [{ n, name,
+// minutes, ops: [{ name, cards, minutes, run }] }] }, sorted by minutes
+// descending. A row's estimate is its last cell, matching _labor_totals.py's
+// parse; a row with a Run cell carries its run, which prices it at any batch.
+// The bold inline subtotal row is skipped along with headers and separators, so
+// what the page shows is always the sum of the operations under it. The hourly
+// rate comes off the ledger's own [$100](LABOR_RATE) marker — the view never
+// carries a second copy of a number the ledger sets.
 export function readLaborRollup(hardwareDir) {
   const text = fs.readFileSync(path.join(hardwareDir, "ledger", "labor.md"), "utf-8");
   const rm = text.match(/\[\$([0-9][0-9,]*(?:\.[0-9]+)?)\]\(LABOR_RATE\)/);
   const rate = rm ? parseFloat(rm[1].replace(/,/g, "")) : 0;
   const cats = [];
-  let cat = null;
+  let cat = null, runColumn = -1;
 
   for (const raw of text.split("\n")) {
     if (raw.startsWith("## ")) {
@@ -138,13 +140,15 @@ export function readLaborRollup(hardwareDir) {
     const cells = raw.replace(/^\|/, "").replace(/\|$/, "").split("|").map((c) => c.trim());
     if (cells.length < 2 || cells.every((c) => /^[-:\s]*$/.test(c))) continue; // separator
     const first = cells[0];
-    if (first.toLowerCase() === "operation" || first.startsWith("**")) continue; // header / subtotal
-    const m = plainMarkdown(cells[cells.length - 1]).match(/^([0-9][0-9,]*)$/);
-    const minutes = m ? parseInt(m[1].replace(/,/g, ""), 10) : 0;
+    if (first.toLowerCase() === "operation") { runColumn = cells.indexOf("Run"); continue; } // header
+    if (first.startsWith("**")) continue; // subtotal
+    const m = plainMarkdown(cells[cells.length - 1]).match(/^([0-9][0-9,]*(?:\.[0-9]+)?)$/);
+    const minutes = m ? parseFloat(m[1].replace(/,/g, "")) : 0;
     cat.minutes += minutes;
     // Cards cell is an em-dash when the operation has no card of its own.
     const cards = (cells[1] || "").replace(/^—$/, "");
-    cat.ops.push({ name: plainMarkdown(first), cards, minutes });
+    const run = runColumn > 0 && runColumn < cells.length - 1 ? parseRun(cells[runColumn]) : null;
+    cat.ops.push({ name: plainMarkdown(first), cards, minutes, run });
   }
 
   const filled = cats.filter((c) => c.ops.length);
@@ -235,8 +239,9 @@ function rateStr(r) {
 }
 
 function hm(min) {
-  const h = Math.floor(min / 60);
-  const m = min % 60;
+  const total = Math.round(min);
+  const h = Math.floor(total / 60);
+  const m = total % 60;
   if (!h) return `${m} m`;
   return m ? `${h} h ${m} m` : `${h} h`;
 }
@@ -327,6 +332,7 @@ export const COST_CSS = `
 /* A part name is one long token as often as it is words. */
 .cost-items td:first-child { overflow-wrap: anywhere; }
 .cost-items td.cost-qty { text-align: right; white-space: nowrap; color: var(--text-2); font-variant-numeric: tabular-nums; }
+.cost-items .cost-run { display: block; margin-top: 0.15rem; color: var(--text-3); font-size: 0.7rem; }
 .cost-items td.cost-num { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; color: var(--text); }
 .cost-ea { color: var(--text-3); }
 /* Section markers in the parts table, whole sentences in the labor and machine
@@ -476,8 +482,8 @@ function renderLaborSection(labor, harness) {
 
   const details = cats.map((c) => {
     const row = (o, showCards = true) => `<tr>
-        <td>${escape(o.name)}${showCards && o.cards ? ` <span class="cost-secs">${escape(o.cards)}</span>` : ""}</td>
-        <td class="cost-qty">${hm(o.minutes)}</td><td class="cost-num">${cash(o.minutes)}</td>
+        <td>${escape(o.name)}${showCards && o.cards ? ` <span class="cost-secs">${escape(plainMarkdown(o.cards))}</span>` : ""}${o.run ? `<span class="cost-run">${escape(runText(o.run, labor.batchSize))}</span>` : ""}</td>
+        <td class="cost-qty">${duration(o.minutes)}</td><td class="cost-num">${cash(o.minutes)}</td>
       </tr>`;
     const n = c.ops.length;
     if (c.n === 6) {
@@ -507,7 +513,7 @@ function renderLaborSection(labor, harness) {
     <div class="cost-big">${hm(minutes)}</div>
     <div class="cost-lbl">attended time per finished unit &mdash; ${opCount} build jobs across ${cats.length} kinds of work, priced at ${rateStr(rate)} an hour</div>
   </div>
-  <p class="cost-note">Planned hands-on time for the 25th machine, with practiced hands, the maps, tools and fixtures ready. Development and lookup time are outside the recurring estimate. Each harness is one complete bench job. These times are estimates.</p>
+  <p class="cost-note">Planned hands-on time for the 25th machine, with practiced hands, the maps, tools and fixtures ready. Development and lookup time are outside the recurring estimate. Each harness is one complete bench job. An operation set up once for many pieces carries its run beneath it, with the setup shared across a batch of ${labor.batchSize || "several"} machines. These times are estimates.</p>
   <h3 class="cost-h2">All work, ranked</h3>
   <div class="cost-chart">
 ${bars}

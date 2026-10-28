@@ -1,8 +1,18 @@
 import fs from "node:fs";
 import path from "node:path";
 import { createHash } from "node:crypto";
+import { runMinutes } from "../contracts/part-costs.js";
 
 const gcd = (a, b) => b ? gcd(b, a % b) : a;
+
+// Attended minutes a machine takes when `units` are built together. An
+// operation with a run spreads each setup over that batch's pieces; every other
+// operation is its ledger minutes. A labor figure without operations is flat.
+export function laborMinutes(labor, units) {
+  const ops = (labor.cats || []).flatMap(cat => cat.ops);
+  if (!ops.length) return labor.minutes;
+  return ops.reduce((total, op) => total + (op.run ? runMinutes(op.run, units) : op.minutes), 0);
+}
 
 function lotCost(option, lots) {
   let price = option.priceCents;
@@ -120,7 +130,8 @@ export function calculateBatch(data, units, labor) {
   if (pendingPayments.some(payment => !Number.isInteger(payment.costCents) || payment.costCents < 0)) throw new RangeError("Invalid pending-payment reserve");
   const pendingCents = pendingPayments.reduce((total, payment) => total + payment.costCents, 0);
   const cashCents = procurementCents + pendingCents + allowances.reduce((total, allowance) => total + allowance.costCents, 0);
-  const laborHours = labor && labor.rate > 0 && labor.opCount > 0 && labor.minutes > 0 ? labor.minutes / 60 * units : null;
+  const minutes = labor ? laborMinutes(labor, units) : 0;
+  const laborHours = labor && labor.rate > 0 && labor.opCount > 0 && minutes > 0 ? minutes / 60 * units : null;
   const laborCents = laborHours === null ? null : Math.round(laborHours * labor.rate * 100);
   return { units, rows, suppliers, allowances, pendingPayments, pendingCents, partsCents, inboundCents, taxCents, procurementCents, cashCents, leftoverCents: Math.round(leftoverCents), laborHours, laborCents, totalCents: laborCents === null ? null : cashCents + laborCents };
 }

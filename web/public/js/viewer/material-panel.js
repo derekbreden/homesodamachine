@@ -6,7 +6,7 @@ import { openMaterial, materialHash } from "./material-nav.js";
 import { makeMaterialSearch } from "./material-search.js";
 import { componentLocation, stepLabel, stepLocation } from "/contracts/step-locations.js";
 import { mountMaterialDrawing } from "./material-drawing.js";
-import { rollupCost, directCost, laborUsd, money, duration, COST_KINDS } from "/contracts/part-costs.js";
+import { rollupCost, directCost, laborUsd, money, duration, runText, COST_KINDS } from "/contracts/part-costs.js";
 
 const el = (tag, className, text) => {
   const node = document.createElement(tag);
@@ -393,13 +393,16 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
         if (element.section) meta.push(element.section.replace(/^\d+\.\s*/, ""));
         name.append(label);
         if (meta.length) name.append(el("span", "material-cost-meta", meta.join(" · ")));
+        const run = element.run ? runText(element.run, state.materialCatalog.costs.batch) : element.lot ? `Lot: ${element.lot.label}` : "";
+        if (run) name.append(el("span", "material-cost-run", run));
         const value = element.minutes ? `${duration(element.minutes)} · ${money(element.minutes * rate / 60)}` : money(element.usd);
         line.append(name, el("span", "material-cost-value", value));
         list.append(line);
       }
       content.append(list);
     }
-    content.append(el("p", "material-scope", `Per piece. Purchases, stock and supplies carry their delivered cost from the per-unit cost ledger; labor is attended time at ${money(rate, { cents: false })} an hour. Bulk stock and shared operations are divided across the pieces of a finished unit.`));
+    const batch = state.materialCatalog.costs.batch;
+    content.append(el("p", "material-scope", `Per piece. Purchases, stock and supplies carry their delivered cost from the per-unit cost ledger; labor is attended time at ${money(rate, { cents: false })} an hour. Bulk stock and shared operations are divided across the pieces of a finished unit${batch ? `, and a run's setup across a batch of ${batch} machines` : ""}.`));
   }
 
   function renderUsed(content, current, used, index) {

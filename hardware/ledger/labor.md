@@ -4,7 +4,9 @@ Attended human minutes to build one finished appliance, grouped into the ten kin
 
 **Attended, not elapsed.** A row counts only the minutes a person is *on* the operation. The 30-minute hydro hold, the 15-minute vacuum hold, the silicone cure, the 8-hour burn-in, and the [194.5](LAB_PRINT_H) estimated printer-hours are equipment time. What is counted here is setup, the hands-on pass, the check, the tear-down, and the walk to the next stage. The hours a *machine* is busy are their own ledger: [machine-time.md](/hardware/ledger/machine-time.md), which is what turnaround and throughput are read off.
 
-**Deliberately the ideal, not Derek's actual time.** Derek builds each unit himself, one at a time. These estimates assume practiced hands, the fixture built and the jig loaded, and per-batch setup shared across [10](BATCH_SIZE) units, the quantity the ledger buys in: endcap plates 20 at a time (two per carbonator), tube 10 at a time, PCBAs at the qty-10 price. An operation whose setup is per-batch rather than per-unit carries a tenth of that setup here. Costs, and the price set from them, rest on this ideal picture of labor; paying for Derek's actual hours would take a price of $8,000 or more, which is not the plan.
+**Deliberately the ideal, not Derek's actual time.** Derek builds each unit himself, one at a time. These estimates assume practiced hands, the fixture built and the jig loaded, and a batch of [10](BATCH_SIZE) machines built together, the quantity the ledger buys in: endcap plates 20 at a time (two per carbonator), tube 10 at a time, PCBAs at the qty-10 price. Costs, and the price set from them, rest on this ideal picture of labor; paying for Derek's actual hours would take a price of $8,000 or more, which is not the plan.
+
+**Runs.** An operation set up once for many pieces carries a Run cell: `15 m setup a plate of 30 · 30 s a float · 3 a machine`. The setup comes once a run: the plate cleaned and turned, the spool loaded, the welder and argon brought up, the bath mixed. The per-piece time comes with every piece. A run's size is the pieces one setup serves, a plate's or a session's capacity; `a batch` is one setup for every machine built together. The Minutes cell is the arithmetic for a batch of ten: the setups ten machines need, plus every piece's time, divided by ten. The [batch forecast](/hardware/ledger/batch-forecast.md) works the same cells out for 5, 10 and 20 machines. An operation without a Run cell is timed once a machine.
 
 **The maturity benchmark is the 25th unit using the documented method.** A practiced assembler has the maps, material locations, terminal choices and tools ready. Development, lookup and learning are outside the recurring labor estimate. A complete harness remains one bench job, made start to finish by one person; repeat volume does not assume separate stations for mass crimping.
 
@@ -16,7 +18,11 @@ Attended human minutes to build one finished appliance, grouped into the ten kin
 
 `5m · 10m · 15m · 20m · 25m · 30m · 45m · 1h · 1h15 · 1h30 · 1h45 · 2h · 2h30 · 3h · 4h · 6h`
 
-These are the steps a person actually estimates in. "40 minutes" claims a precision no one has for work they have not timed; it means 30 or it means 45, and saying which is the more useful answer. `_labor_totals.py --check` rejects a row that lands anywhere else, so the convention holds as rows get added. Subtotals and the grand total are plain sums of those estimates and land where the arithmetic puts them.
+These are the steps a person actually estimates in. "40 minutes" claims a precision no one has for work they have not timed; it means 30 or it means 45, and saying which is the more useful answer. A run's setup and per-piece time are estimates on the same steps, with seconds and single minutes below them:
+
+`5 s · 10 s · 15 s · 30 s · 45 s · 1 m · 2 m · 3 m`
+
+`_labor_totals.py --check` rejects an estimate that lands anywhere else, so the convention holds as rows get added. A run row's minutes, the subtotals and the grand total are arithmetic and land where it puts them.
 
 The linked fabrication procedures define each operation. [Letter shop guides](/hardware/assembly/guides/README.md) illustrate drilling and cutting, molds, refrigeration and the carbonator weld operation.
 
@@ -24,43 +30,43 @@ The linked fabrication procedures define each operation. [Letter shop guides](/h
 
 Drilling, tapping, chamfering, cutting and deburring for the carbonator and its water-inlet jet. The 316L plate work is the slowest metal in the build: four 1/4"-18 NPT ports hand-tapped into 1/4" plate, and a blind register hole in the carbonator's pressure boundary that must not break through.
 
-| Operation | Procedure | Notes | Minutes |
-|---|---|---|---:|
-| Chamfer the four port holes; break both plate edges | [pressure-vessel](/hardware/assembly/pressure-vessel.md) | Countersink inside faces, burr-break only on the outside — that edge is the fillet root | 5 <!--parts HSM-000009--> |
-| Tap four 1/4"-18 NPT ports in 1/4" 316L | [pressure-vessel](/hardware/assembly/pressure-vessel.md) | Hand tap + spring guide + cutting fluid | 20 <!--parts HSM-000009--> |
-| Drill the blind rod register, both plates | [pressure-vessel](/hardware/assembly/pressure-vessel.md) | Drill press at ~740 RPM, depth stop at 0.10", proved on a scrap disc first | 5 <!--parts HSM-000009--> |
-| Cut three level rods to length, deburr | [reservoir rods](/hardware/assembly/handwork.md#cut--seat-the-reservoir-float-rods), [pressure-vessel](/hardware/assembly/pressure-vessel.md) | 1/8" 316: one at 5.110 ±0.005 in and two at 203.8 mm | 5 <!--parts HSM-000336 HSM-000339--> |
-| Deburr the tube; Scotch-Brite the two fillet bands | [pressure-vessel](/hardware/assembly/pressure-vessel.md) | ~30 s per joint of prep is what the weld needs; the rest is handling | 10 <!--parts HSM-000008--> |
-| Drill the jet handling blank, cut the cap, deburr and clean | [Jet procedure](/hardware/assembly/water-inlet-jet.md) | Provisional, unmeasured attended-time estimate; batch setup amortized, drilling fixture already made | 5 <!--parts HSM-000011--> |
-| **Machining** | | | **[50](LAB_SEC1)** |
+| Operation | Procedure | Notes | Run | Minutes |
+|---|---|---|---|---:|
+| Chamfer the four port holes; break both plate edges | [pressure-vessel](/hardware/assembly/pressure-vessel.md) | Countersink inside faces, burr-break only on the outside — that edge is the fillet root | | 5 <!--parts HSM-000009--> |
+| Tap four 1/4"-18 NPT ports in 1/4" 316L | [pressure-vessel](/hardware/assembly/pressure-vessel.md) | Hand tap + spring guide + cutting fluid | | 20 <!--parts HSM-000009--> |
+| Drill the blind rod register, both plates | [pressure-vessel](/hardware/assembly/pressure-vessel.md) | Drill press at ~740 RPM; the setup is the depth stop at 0.10", proved on a scrap disc | 10 m setup a batch · 2 m a plate · 2 a machine | 5 <!--parts HSM-000009--> |
+| Cut three level rods to length, deburr | [reservoir rods](/hardware/assembly/handwork.md#cut--seat-the-reservoir-float-rods), [pressure-vessel](/hardware/assembly/pressure-vessel.md) | 1/8" 316: one at 5.110 ±0.005 in and two at 203.8 mm; the setup is a stop set and proved for each length | 20 m setup a batch · 1 m a rod · 3 a machine | 5 <!--parts HSM-000336 HSM-000339--> |
+| Deburr the tube; Scotch-Brite the two fillet bands | [pressure-vessel](/hardware/assembly/pressure-vessel.md) | ~30 s per joint of prep is what the weld needs; the rest is handling | | 10 <!--parts HSM-000008--> |
+| Drill the jet handling blank, cut the cap, deburr and clean | [Jet procedure](/hardware/assembly/water-inlet-jet.md) | Provisional, unmeasured attended-time estimate; the drilling fixture, already made, is set up once a batch | 20 m setup a batch · 3 m a cap · 1 a machine | 5 <!--parts HSM-000011--> |
+| **Machining** | | | | **[50](LAB_SEC1)** |
 
 ## 2. Welding & brazing
 
 Four laser operations serve the carbonator: the float-rod tack, two closure welds and the water-inlet jet cap weld. The refrigerant loop has one brazed tie-in. Argon shielding and the jet's internal purge are included in their attended setup allowances.
 
-| Operation | Procedure | Notes | Minutes |
-|---|---|---|---:|
-| Tack the float rod into the bottom-plate register | [pressure-vessel](/hardware/assembly/pressure-vessel.md) | Same welding session as the plate fillets — heat the welder once | 5 <!--parts HSM-000004--> |
-| Weld the bottom-plate corner fillet under argon | [pressure-vessel](/hardware/assembly/pressure-vessel.md) | ~15" of recessed corner fillet, handheld X1 Pro, keep heat moving | 10 <!--parts HSM-000004--> |
-| Close the carbonator — top-plate fillet, float captive | [pressure-vessel](/hardware/assembly/pressure-vessel.md) | Same joint, one shot, nothing comes back out after this | 10 <!--parts HSM-000004--> |
-| Fixture, purge and weld the water-inlet jet cap | [Jet procedure](/hardware/assembly/water-inlet-jet.md) | Provisional, unmeasured estimate for a qualified, repeatable process; destructive development coupons are excluded | 10 <!--parts HSM-000338--> |
-| Cut the loop, tie in the suction line, pinch-swage the capillary | [refrigerant-loop](/hardware/assembly/refrigerant-loop.md) | Brazing the harvested compressor path with argon flowing through the tube | 25 <!--parts HSM-000001--> |
-| **Welding & brazing** | | | **[60](LAB_SEC2)** |
+| Operation | Procedure | Notes | Run | Minutes |
+|---|---|---|---|---:|
+| Tack the float rod into the bottom-plate register | [pressure-vessel](/hardware/assembly/pressure-vessel.md) | Opens the welding session the plate fillets share: welder, argon and fixture brought up once for every vessel in it | 20 m setup a session of 10 · 3 m a vessel · 1 a machine | 5 <!--parts HSM-000004--> |
+| Weld the bottom-plate corner fillet under argon | [pressure-vessel](/hardware/assembly/pressure-vessel.md) | ~15" of recessed corner fillet, handheld X1 Pro, keep heat moving | | 10 <!--parts HSM-000004--> |
+| Close the carbonator — top-plate fillet, float captive | [pressure-vessel](/hardware/assembly/pressure-vessel.md) | Same joint, one shot, nothing comes back out after this | | 10 <!--parts HSM-000004--> |
+| Fixture, purge and weld the water-inlet jet cap | [Jet procedure](/hardware/assembly/water-inlet-jet.md) | Provisional, unmeasured estimate for a qualified, repeatable process; destructive development coupons are excluded | | 10 <!--parts HSM-000338--> |
+| Cut the loop, tie in the suction line, pinch-swage the capillary | [refrigerant-loop](/hardware/assembly/refrigerant-loop.md) | Brazing the harvested compressor path with argon flowing through the tube | | 25 <!--parts HSM-000001--> |
+| **Welding & brazing** | | | | **[60](LAB_SEC2)** |
 
 ## 3. Pressure, leak & flow checks
 
 The carbonator receives dye penetrant and hydro before foaming, the refrigerant loop a vacuum-decay check before charge, and the CO2 path a witnessed hold at measured operating pressure. The jet elbow receives its own production inspection and timed flow check. The holds themselves are unattended — plugging, filling, pumping, reading and draining are not. These checks do not replace the weld-process qualification.
 
-| Operation | Procedure | Notes | Minutes |
-|---|---|---|---:|
-| Dye-penetrant both closure welds — clean, dwell, develop, read | [pressure-vessel](/hardware/assembly/pressure-vessel.md) | Solvent-removable visible dye on bare, dry welds | 10 <!--parts HSM-000004--> |
-| Hydro test to 180 PSI — plug, fill, pump, drain | [pressure-vessel](/hardware/assembly/pressure-vessel.md) | 1.44× the SV-125's set pressure; the 30-minute hold is not counted | 15 <!--parts HSM-000004--> |
-| Citric passivation — load the tub, rinse, dry | [pressure-vessel](/hardware/assembly/pressure-vessel.md) | Clean carbonator and jet elbow; batch soak in the shared tub, 30–60 minute soak not counted | 5 <!--parts HSM-000004:4 HSM-000338:1--> |
-| Inspect the jet elbow, flow-check and record the result | [Jet procedure](/hardware/assembly/water-inlet-jet.md) | Provisional, unmeasured estimate; accepted geometry and flow band must be established by qualification | 5 <!--parts HSM-000338--> |
-| Pull vacuum to 500 µm, valve off, read the rise | [refrigerant-loop](/hardware/assembly/refrigerant-loop.md) | Two 15-minute holds, neither counted | 10 <!--parts HSM-000001--> |
-| Mass-metered recharge, run-up and leak check | [refrigerant-loop](/hardware/assembly/refrigerant-loop.md) | Scale-metered charge, then find the weep if there is one | 10 <!--parts HSM-000001--> |
-| First CO2 fill at the selected setting; measure pressure and witness every joint dry | [acceptance-and-burn-in](/hardware/assembly/acceptance-and-burn-in.md) | Record actual carbonator pressure; the nominal regulator setting is not a reading | 5 <!--parts HSM-000001--> |
-| **Pressure, leak & flow checks** | | | **[60](LAB_SEC3)** |
+| Operation | Procedure | Notes | Run | Minutes |
+|---|---|---|---|---:|
+| Dye-penetrant both closure welds — clean, dwell, develop, read | [pressure-vessel](/hardware/assembly/pressure-vessel.md) | Solvent-removable visible dye on bare, dry welds | | 10 <!--parts HSM-000004--> |
+| Hydro test to 180 PSI — plug, fill, pump, drain | [pressure-vessel](/hardware/assembly/pressure-vessel.md) | 1.44× the SV-125's set pressure; the 30-minute hold is not counted | | 15 <!--parts HSM-000004--> |
+| Citric passivation — load the tub, rinse, dry | [pressure-vessel](/hardware/assembly/pressure-vessel.md) | Clean carbonator and jet elbow; the setup is the citric bath mixed in the shared tub, the 30–60 minute soak not counted | 20 m setup a batch · 3 m a vessel · 1 a machine | 5 <!--parts HSM-000004:4 HSM-000338:1--> |
+| Inspect the jet elbow, flow-check and record the result | [Jet procedure](/hardware/assembly/water-inlet-jet.md) | Provisional, unmeasured estimate; accepted geometry and flow band must be established by qualification | | 5 <!--parts HSM-000338--> |
+| Pull vacuum to 500 µm, valve off, read the rise | [refrigerant-loop](/hardware/assembly/refrigerant-loop.md) | Two 15-minute holds, neither counted | | 10 <!--parts HSM-000001--> |
+| Mass-metered recharge, run-up and leak check | [refrigerant-loop](/hardware/assembly/refrigerant-loop.md) | Scale-metered charge, then find the weep if there is one | | 10 <!--parts HSM-000001--> |
+| First CO2 fill at the selected setting; measure pressure and witness every joint dry | [acceptance-and-burn-in](/hardware/assembly/acceptance-and-burn-in.md) | Record actual carbonator pressure; the nominal regulator setting is not a reading | | 5 <!--parts HSM-000001--> |
+| **Pressure, leak & flow checks** | | | | **[60](LAB_SEC3)** |
 
 ## 4. Silicone casting
 
@@ -167,11 +173,30 @@ Every wetted and gas joint in the unit: the carbonator's four elbow stacks, the 
 
 ## 8. Assembly
 
-Everything that is putting parts together with fasteners and hands. The print model allocates [7.028](LAB_PRINT_KG) kg of filament and [194.5](LAB_PRINT_H) printer-hours per unit, including the three ASA Aero floats ([machine-time.md](/hardware/ledger/machine-time.md)). The attended share is plate changes, spool swaps, part removal, support cleanup and the three RC62 insertions at their print pauses. That tending allowance is provisional. Assembly includes the [68](TOTAL_INSERTS) M3/M5 heat-set inserts and [68](TOTAL_SCREWS) matching screws.
+Everything that is taking the printed parts off the printers and putting parts together with fasteners and hands. Assembly includes the [68](TOTAL_INSERTS) M3/M5 heat-set inserts and [68](TOTAL_SCREWS) matching screws.
+
+### Printed parts
+
+The print model allocates [7.028](LAB_PRINT_KG) kg of filament and [194.5](LAB_PRINT_H) printer-hours per unit, including the three ASA Aero floats ([machine-time.md](/hardware/ledger/machine-time.md)); those hours are the printers'. A plate's setup is its turn: the finished plate pulled and its parts released, the plate cleaned, glued and seated, the next job started, the spool changed when it runs out. A piece's own time is its brim and supports off and a look over it, and for a float the RC62 seated at its pause. A large part fills a plate by itself; the small ones go a batch's worth to a plate. Plate capacities follow the recorded slicer layouts where there is one and are provisional elsewhere, as are the times. The small TPU seals' printing is unmeasured and not counted. On the ledger's batch the printed parts take [1 h 18 m](LAB_HM_PRINTED) a machine.
+
+| Operation | Procedure | Notes | Run | Minutes |
+|---|---|---|---|---:|
+| Print the cold-core insulation shell | [preparation](/hardware/printed-parts/cold-core/foam-shell/prints/2026-10-26-mark2-round-ports-a2/README.md) | One shell to a plate; no generated supports | 3 m setup a plate of 1 · 1 m a shell · 1 a machine | 4 <!--parts HSM-000018--> |
+| Print the four cold-core caps and lids | — | One piece to a plate | 3 m setup a plate of 1 · 30 s a piece · 4 a machine | 14 <!--parts HSM-000019 HSM-000020 HSM-000021 HSM-000022--> |
+| Print the four enclosure quadrants | [print log](/hardware/printed-parts/enclosure/enclosure/print-log.md) | One quadrant to a plate; tree supports and a 5 mm brim | 3 m setup a plate of 1 · 2 m a quadrant · 4 a machine | 20 <!--parts HSM-000078 HSM-000079 HSM-000080 HSM-000081--> |
+| Print the funnel frame, lower pump retainer, display cover and drain-elbow cradle | — | Two to a plate; tree supports | 3 m setup a plate of 2 · 1 m a piece · 4 a machine | 10 <!--parts HSM-000072 HSM-000082 HSM-000076 HSM-000073--> |
+| Print the two flavor reservoirs and their caps | [print log](/hardware/printed-parts/cold-core/reservoir/print-log.md) | A reservoir and its cap to a plate | 3 m setup a plate of 2 · 1 m a piece · 4 a machine | 10 <!--parts HSM-000025 HSM-000026 HSM-000027 HSM-000028--> |
+| Print the funnel cover | [recipe](/hardware/printed-parts/zone-c/funnel-cover/README.md) | Black PETG, one to a plate | 3 m setup a plate of 1 · 30 s a cover · 1 a machine | 3.5 <!--parts HSM-000071--> |
+| Print the faucet shell base and tip, display cover and above-counter plate | [faucet-petgf](/hardware/printed-parts/faucet/faucet-petgf.md) | The four share one plate in the production slice | 3 m setup a plate of 4 · 1 m a piece · 4 a machine | 7 <!--parts HSM-000094 HSM-000095 HSM-000096 HSM-000092 HSM-000113 HSM-000114 HSM-000111--> |
+| Print the PRV shroud, reed bridge and thermal-cutoff clamp | — | PETG, a batch's worth to a plate | 3 m setup a plate of 30 · 15 s a piece · 3 a machine | 1.1 <!--parts HSM-000024 HSM-000029 HSM-000041--> |
+| Print the umbilical organizer, soda bend holder, collet press, lever and nameplate | — | PET-GF, a batch's worth to a plate; each nameplate carries its unit's serial | 3 m setup a plate of 50 · 15 s a piece · 5 a machine | 1.6 <!--parts HSM-000098 HSM-000358 HSM-000372 HSM-000268 HSM-000069--> |
+| Print the port identification plates and tube collars | [rear identification](/hardware/printed-parts/enclosure/rear-identification/README.md), [tube collar](/hardware/printed-parts/faucet/tube-collar/README.md) | Each in its station's colour with contrasting lettering, a batch's worth to a plate | 3 m setup a plate of 130 · 15 s a piece · 13 a machine | 3.6 <!--parts HSM-000062 HSM-000063 HSM-000064 HSM-000065 HSM-000066 HSM-000067 HSM-000068 HSM-000272 HSM-000099 HSM-000100 HSM-000101 HSM-000102 HSM-000273--> |
+| Print the three level floats; seat an RC62 in each at the pause | [float record](/hardware/printed-parts/cold-core/magnetic-float/all-aero/README.md) | ASA Aero from the drybox on the glued Engineering plate; one pause a plate seats every float's magnet; the elapsed pause is unmeasured | 15 m setup a plate of 30 · 30 s a float · 3 a machine | 3 <!--parts HSM-000033--> |
+
+### Fitting it together
 
 | Operation | Procedure | Notes | Minutes |
 |---|---|---|---:|
-| Tend the printers — plate changes, spool swaps, part removal, support cleanup and float-magnet insertion | — | [7.028](LAB_PRINT_KG) kg over [194.5](LAB_PRINT_H) estimated printer-hours; includes three RC62 insertion/resume passes. Provisional attended allowance; the v2 float slice and elapsed manual pauses are unmeasured | 25 <!--parts HSM-000018:1450 HSM-000019:273 HSM-000020:255 HSM-000021:184 HSM-000022:141 HSM-000024:8 HSM-000025:378 HSM-000026:378 HSM-000027:58 HSM-000028:58 HSM-000029:8 HSM-000033:1001 HSM-000078:631 HSM-000079:956 HSM-000080:688 HSM-000081:766 HSM-000082:133 HSM-000076:12 HSM-000062:1.8 HSM-000063:1.9 HSM-000064:2.0 HSM-000065:2.0 HSM-000066:1.8 HSM-000067:1.9 HSM-000068:1.4 HSM-000272:3.5 HSM-000273:3.6 HSM-000099:3.9 HSM-000100:4.1 HSM-000101:4.1 HSM-000102:3.8 HSM-000069:17 HSM-000041:5 HSM-000341:17 HSM-000001:3 HSM-000072:259 HSM-000071:134 HSM-000073:11 HSM-000095:29 HSM-000268:4 HSM-000098:5 HSM-000094:76 HSM-000096:6 HSM-000092:9 HSM-000113:80 HSM-000114:7 HSM-000111:9--> |
 | Press the [68](TOTAL_INSERTS) M3/M5 heat-set inserts | [cold-core](/hardware/assembly/cold-core.md), [enclosure-mechanical](/hardware/assembly/enclosure-mechanical.md) | Shell faces, cap columns, reservoir caps, touch-flo pods, wall bosses, condenser fingers, the integral front-top pump mount, funnel-frame ledges, [4](SEAM_INSERTS) enclosure Y-seam anchors and floor posts. FX-888D + T18 tips for [60](TOTAL_M3_INSERTS) M3 and [8](TOTAL_M5_INSERTS) M5 | 10 <!--parts HSM-000003:41 HSM-000001:24 HSM-000002:3 HSM-000007:3--> |
 | Drive the [68](TOTAL_SCREWS) M3/M5 build screws | — | [20](FOAM_SCREWS) foam-cap, [4](PUMP_MOUNT_SCREWS) water-pump, [12](RES_SCREWS) reservoir-cap, [3](TOUCHFLO_SCREWS) faucet base, [13](SHELF_SCREWS) electronics, [2](COND_SCREWS) condenser, [4](ROOF_CLOSURE_SCREWS) funnel-frame, [0](DISPLAY_COVER_SCREWS) display plate, [0](NAMEPLATE_SCREWS) nameplate, [4](SEAM_RODS) M5 enclosure Y-seam screws, two upward through the handholds and two downward through the roof, each with one flat washer, [4](FLOOR_SCREWS) floor, [2](C14_SCREWS) C14 inlet | 5 <!--parts HSM-000003:32 HSM-000001:32 HSM-000051:1 HSM-000002:3 HSM-000007:3--> |
 | Wind the evaporator coil on the mandrel; transfer it, set the band | [cold-core](/hardware/assembly/cold-core.md) | | 10 <!--parts HSM-000015--> |
@@ -183,22 +208,22 @@ Everything that is putting parts together with fasteners and hands. The print mo
 | Seat the cold core; condenser, electronics bay, close the box | [enclosure-mechanical](/hardware/assembly/enclosure-mechanical.md) | | 10 <!--parts HSM-000001--> |
 | Cut, route and sleeve the umbilical; bag it with the under-counter plate | [faucet-and-umbilical](/hardware/assembly/faucet-and-umbilical.md) | Three LLDPE tubes, braid, the bag | 10 <!--parts HSM-000002 HSM-000007--> |
 | Assemble the faucet — two-piece shell, display cover, plate, gasket and o-ring | — | Route tubes and ribbon before closing the plate; PET-GF prints, TPU seals | 5 <!--parts HSM-000002 HSM-000007--> |
-| **Assembly** | | | **[120](LAB_SEC8)** |
+| **Assembly** | | | **[172.8](LAB_SEC8)** |
 
 ## 9. Power-on & testing
 
 The unit is fully built. Now it gets plugged in for the first time: load the firmware, walk every sensor and every actuator, dispense from it, and leave it running overnight. The 8-hour burn-in is not counted — firmware logs it and Derek checks in three times.
 
-| Operation | Procedure | Notes | Minutes |
-|---|---|---|---:|
-| Check the wiring is right; first DC power-on | [firmware-and-commissioning](/hardware/assembly/firmware-and-commissioning.md) | | 5 <!--parts HSM-000001--> |
-| Load the firmware onto the three ESP32s | [firmware-and-commissioning](/hardware/assembly/firmware-and-commissioning.md) | Base, enclosure display, faucet display | 5 <!--parts HSM-000001:2 HSM-000002:1 HSM-000007:1--> |
-| Read every sensor and confirm it reports | [firmware-and-commissioning](/hardware/assembly/firmware-and-commissioning.md) | Both DS18x20s, flow, reeds, gas | 10 <!--parts HSM-000001--> |
-| Fire every valve and pump; run the compressor and set its setpoints | [firmware-and-commissioning](/hardware/assembly/firmware-and-commissioning.md) | | 10 <!--parts HSM-000001--> |
-| First dispenses — water, flavor A, flavor B | [acceptance-and-burn-in](/hardware/assembly/acceptance-and-burn-in.md) | | 5 <!--parts HSM-000001--> |
-| Clean cycle, air purge, level-sensing transitions | [acceptance-and-burn-in](/hardware/assembly/acceptance-and-burn-in.md) | | 10 <!--parts HSM-000001--> |
-| Burn-in check-ins at 1 h, 4 h and 8 h | [acceptance-and-burn-in](/hardware/assembly/acceptance-and-burn-in.md) | The 8-hour window itself is not counted | 10 <!--parts HSM-000001--> |
-| **Power-on & testing** | | | **[55](LAB_SEC9)** |
+| Operation | Procedure | Notes | Run | Minutes |
+|---|---|---|---|---:|
+| Check the wiring is right; first DC power-on | [firmware-and-commissioning](/hardware/assembly/firmware-and-commissioning.md) | | | 5 <!--parts HSM-000001--> |
+| Load the firmware onto the three ESP32s | [firmware-and-commissioning](/hardware/assembly/firmware-and-commissioning.md) | Base, enclosure display, faucet display; the setup is the release built and the flashing station cabled | 20 m setup a batch · 1 m a board · 3 a machine | 5 <!--parts HSM-000001:2 HSM-000002:1 HSM-000007:1--> |
+| Read every sensor and confirm it reports | [firmware-and-commissioning](/hardware/assembly/firmware-and-commissioning.md) | Both DS18x20s, flow, reeds, gas | | 10 <!--parts HSM-000001--> |
+| Fire every valve and pump; run the compressor and set its setpoints | [firmware-and-commissioning](/hardware/assembly/firmware-and-commissioning.md) | | | 10 <!--parts HSM-000001--> |
+| First dispenses — water, flavor A, flavor B | [acceptance-and-burn-in](/hardware/assembly/acceptance-and-burn-in.md) | | | 5 <!--parts HSM-000001--> |
+| Clean cycle, air purge, level-sensing transitions | [acceptance-and-burn-in](/hardware/assembly/acceptance-and-burn-in.md) | | | 10 <!--parts HSM-000001--> |
+| Burn-in check-ins at 1 h, 4 h and 8 h | [acceptance-and-burn-in](/hardware/assembly/acceptance-and-burn-in.md) | The 8-hour window itself is not counted | | 10 <!--parts HSM-000001--> |
+| **Power-on & testing** | | | | **[55](LAB_SEC9)** |
 
 ## 10. Finishing & packing
 
@@ -225,15 +250,15 @@ The unit passed. Empty it, clean it up, name it, box it.
 | 5. Foam pouring | [35 m](LAB_HM5) | [$58.33](LAB_USD5) |
 | 6. Wiring | [2 h 20 m](LAB_HM6) | [$233.33](LAB_USD6) |
 | 7. Plumbing | [1 h 10 m](LAB_HM7) | [$116.67](LAB_USD7) |
-| 8. Assembly | [2 h](LAB_HM8) | [$200.00](LAB_USD8) |
+| 8. Assembly | [2 h 53 m](LAB_HM8) | [$288.00](LAB_USD8) |
 | 9. Power-on & testing | [55 m](LAB_HM9) | [$91.67](LAB_USD9) |
 | 10. Finishing & packing | [35 m](LAB_HM10) | [$58.33](LAB_USD10) |
-| **Per-unit total** | **[11 h](LAB_HM)** | **[$1,100.00](LAB_USD)** |
+| **Per-unit total** | **[11 h 53 m](LAB_HM)** | **[$1,188.00](LAB_USD)** |
 
-The target is 10 hours attended per unit. The current estimate is [11 h](LAB_HM), including 20 minutes of unmeasured recurring jet work. The largest attended-time categories are:
+The target is 10 hours attended per unit. The current estimate is [11 h 53 m](LAB_HM), including 20 minutes of unmeasured recurring jet work. The largest attended-time categories are:
 
-- **Wiring** ([2 h 20 m](LAB_HM6), the largest category) — 90 minutes for eleven finished bench harnesses and 50 minutes for installation and AC checks. Ready maps, a cut list and staged crimping and soldering tools support the practiced unit-25 estimates.
-- **Assembly** ([2 h](LAB_HM8)) — includes 25 minutes of provisional printer tending. Additional printer capacity changes elapsed print time; plate handling and float-magnet insertion still require attended work.
+- **Assembly** ([2 h 53 m](LAB_HM8), the largest category) — [1 h 18 m](LAB_HM_PRINTED) of it is the printed parts, most of that the plate turns of the large parts that fill a plate each. More printers shorten the print, not the plate turns.
+- **Wiring** ([2 h 20 m](LAB_HM6)) — 90 minutes for eleven finished bench harnesses and 50 minutes for installation and AC checks. Ready maps, a cut list and staged crimping and soldering tools support the practiced unit-25 estimates.
 - **Machining** — the four hand-tapped NPT ports are the slowest five minutes each in the build.
 
 ## Not counted here

@@ -135,6 +135,7 @@
 .material-cost-name a { color: var(--text); text-decoration: underline; text-decoration-color: color-mix(in srgb, var(--text) 35%, transparent); text-underline-offset: .18em; }
 .material-cost-name a:hover { color: var(--accent); }
 .material-cost-meta { color: var(--text-2); font-size: 0.72rem; }
+.material-cost-run { color: var(--text-3); font-size: 0.68rem; }
 .material-cost-value { font-size: 0.8rem; font-variant-numeric: tabular-nums; white-space: nowrap; }
 .material-used { padding: 15px 0; border-bottom: 1px solid var(--border); }
 .material-path { font-size: 0.72rem; line-height: 1.7; color: var(--text-2); margin: 6px 0 0; overflow-wrap: anywhere; }

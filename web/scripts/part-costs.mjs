@@ -11,7 +11,7 @@ import { fileURLToPath } from "node:url";
 import { readMaterialCatalog } from "../lib/material-catalog.js";
 import { readPartCosts } from "../lib/part-costs.js";
 import { bomItems, materialIndex } from "../contracts/materials.js";
-import { rollupCost, money, duration } from "../contracts/part-costs.js";
+import { rollupCost, money, duration, runText } from "../contracts/part-costs.js";
 
 const hardwareDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../../hardware");
 const catalog = readMaterialCatalog(hardwareDir);
@@ -32,6 +32,8 @@ function describe(id) {
     const amount = element.kind === "labor" ? `${duration(element.minutes)} of ${element.of} m` : money(element.usd);
     const measure = element.measure ? ` · ${+element.measure.value.toFixed(3)} ${element.measure.unit}` : "";
     console.log(`  ${element.kind.padEnd(11)} ${amount.padStart(14)}  ${element.label}${measure}  (${element.section || ""})`);
+    if (element.run) console.log(`  ${"".padEnd(26)}  ${runText(element.run, costs.batch)}`);
+    if (element.lot) console.log(`  ${"".padEnd(26)}  Lot: ${element.lot.label}`);
   }
 }
 

@@ -66,3 +66,41 @@ export function duration(minutes) {
   const h = Math.floor(total / 60), m = total % 60;
   return !h ? `${m} m` : m ? `${h} h ${m} m` : `${h} h`;
 }
+
+// A labor operation's run, read off its labor.md Run cell the way
+// hardware/scripts/_labor_totals.py reads it:
+// `15 m setup a plate of 30 · 30 s a float · 3 a machine`. `a batch` is one
+// setup for every machine built together.
+const RUN_RE = /^([0-9][0-9 hms]*?) setup an? ([a-z][a-z-]*)(?: of ([0-9]+))? · ([0-9][0-9 hms]*?) an? ([a-z][a-z -]*?) · ([0-9]+) an? machine$/;
+const RUN_DURATION_RE = /^(?:([0-9]+) h)? ?(?:([0-9]+) m)? ?(?:([0-9]+) s)?$/;
+
+function runDuration(text) {
+  const match = text.trim().match(RUN_DURATION_RE);
+  if (!match || !match.slice(1).some(Boolean)) return null;
+  const [h, m, s] = match.slice(1).map((n) => Number(n || 0));
+  return h * 60 + m + s / 60;
+}
+
+export function parseRun(text) {
+  const match = String(text || "").replace(/\s+/g, " ").trim().match(RUN_RE);
+  if (!match) return null;
+  const setup = runDuration(match[1]), each = runDuration(match[4]);
+  const cap = match[3] ? Number(match[3]) : null;
+  if (setup == null || each == null || (match[2] === "batch") !== (cap == null)) return null;
+  return { setup, run: match[2], cap, each, piece: match[5], per: Number(match[6]) };
+}
+
+// Attended minutes a machine takes when `batch` machines are built together:
+// every setup the batch's pieces need plus each piece's own time, to the tenth
+// of a minute labor.md writes.
+export function runMinutes(run, batch) {
+  const pieces = batch * run.per;
+  const runs = run.cap == null ? 1 : Math.ceil(pieces / run.cap);
+  return Math.round((runs * run.setup + pieces * run.each) / batch * 10 + 1e-8) / 10;
+}
+
+// "Plate of 30 · 15 m setup + 30 s a float"; "Batch of 10 machines · …".
+export function runText(run, batch) {
+  const size = run.cap == null ? `Batch of ${batch} machines` : `${run.run[0].toUpperCase()}${run.run.slice(1)} of ${run.cap}`;
+  return `${size} · ${duration(run.setup)} setup + ${duration(run.each)} a ${run.piece}`;
+}
