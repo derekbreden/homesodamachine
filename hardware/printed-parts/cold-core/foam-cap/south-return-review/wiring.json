@@ -1,0 +1,60 @@
+{
+  "scope": "Changed conductors compared to the prior installed scene. Existing wire-pair qualification remains outside this local change.",
+  "changed_wires": [
+    "DC1-GND",
+    "DC1-V12",
+    "DC2-V12",
+    "DC3-negative",
+    "DC4-GND",
+    "DC4-V12",
+    "J1-COM",
+    "J1-OUT2",
+    "J1-OUT7",
+    "J1-positive-A",
+    "J1-positive-B",
+    "J2-OUT3",
+    "J2-positive-K",
+    "J3-GND",
+    "J3-IO35",
+    "J3-V5",
+    "J4-IO25",
+    "J4-V5",
+    "J7-GND",
+    "J7-earth-4",
+    "PE-bus",
+    "PE-carbonator"
+  ],
+  "new_physical_contacts": [],
+  "new_wire_pairs": [],
+  "added_cradle_stock": {
+    "scope": "Conservative centreline-to-box reading for only the added root corbels, over every installed wire. Each box encloses the added stock. The sampled arclength spacing is at most 0.5 mm; the reported lower bound subtracts 0.25 mm and the wire radius.",
+    "minimum_wire_air_lower_bound_mm": 2.8256325973740166,
+    "nearest_wire": "J9-B",
+    "stock_boxes_world_mm": [
+      [
+        [
+          -15.050000190734954,
+          198.05633998107854,
+          285.7081991431641
+        ],
+        [
+          -8.312899589538665,
+          199.75813937377873,
+          287.41000044321294
+        ]
+      ],
+      [
+        [
+          8.312899589538484,
+          198.05633998107854,
+          285.7081991431641
+        ],
+        [
+          15.050000190734773,
+          199.75813937377873,
+          287.41000044321294
+        ]
+      ]
+    ]
+  }
+}
