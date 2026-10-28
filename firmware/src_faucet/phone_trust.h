@@ -12,9 +12,10 @@
 // trusts: a flavor on tap, a ratio, a picture, a cycle, the sound, the name,
 // the software. A phone is trusted by a tap on either display, this board's or
 // the enclosure's, which the main board carries the ask out to and the answer
-// back from. A trusted phone is kept by the identity address of its bond, so it
-// stays trusted through every later connection, a restart and an update, until
-// the enclosure's settings forget every trusted phone at once.
+// back from. A trusted phone is kept by its pairing, the identity address and
+// the key of its bond, so it stays trusted through every later connection, a
+// restart and an update. A phone that forgets the machine and pairs again is
+// asked again, and the enclosure's settings forget every trusted phone at once.
 //
 // One ask is up at a time. It ends at a tap on either display, after
 // TRUST_ASK_MS, when the phone withdraws it, or when the phone leaves.

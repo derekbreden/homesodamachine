@@ -93,9 +93,11 @@ The phone hears how it ended, and where it now stands, as `BLE_FRAME_TRUST`. One
 a time; another phone asking meanwhile is told the machine is busy. A phone with no bond is
 asked to pair again instead, which iOS puts to its owner.
 
-Trusted phones are kept in NVS namespace `trust` by identity address, sixteen at most, oldest
-dropped first, through every restart and update, until **Forget trusted phones** on the
-enclosure (`MSG_TRUST_FORGET`) or `trust forget` on the main board's console forgets every one.
+Trusted phones are kept in NVS namespace `trust` by pairing — the identity address and a digest
+of the bond's key — sixteen at most, oldest dropped first, through every restart and update. A
+phone that forgets the machine and pairs again holds a new key, and is asked again. **Forget
+trusted phones** on the enclosure (`MSG_TRUST_FORGET`) or `trust forget` on the main board's
+console forgets every one.
 
 ## State and persistence
 

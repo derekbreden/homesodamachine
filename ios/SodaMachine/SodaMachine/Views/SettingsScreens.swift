@@ -200,6 +200,7 @@ struct MachinesView: View {
     @Environment(MachineAccess.self) var access
     @Environment(Navigator.self) var nav
     @State private var removing: KnownMachine?
+    @State private var adding = false
 
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
@@ -211,9 +212,7 @@ struct MachinesView: View {
                     }
                 }
             }
-            ActionButton(title: "Add a machine", primary: false, working: access.opening) { access.add() }
-                .disabled(access.opening)
-            AddOutcome()
+            ActionButton(title: "Add a machine", primary: false) { adding = true }
             Note("A machine’s name is shared by every device that connects to it.")
             if let current = directory.current {
                 Button("Remove \(current.displayName) from this device") {
@@ -224,11 +223,9 @@ struct MachinesView: View {
             }
         }
         .frame(maxWidth: 560).frame(maxWidth: .infinity)
-        .onAppear {
-            access.clearOutcome()
-            ble.beginBrowsing()
-        }
+        .onAppear { ble.beginBrowsing() }
         .onDisappear { ble.endBrowsing() }
+        .sheet(isPresented: $adding) { AddMachineSheet() }
         .confirmationDialog("Remove \(removing?.displayName ?? "this machine") from this device?",
                             isPresented: Binding(get: { removing != nil }, set: { if !$0 { removing = nil } }),
                             titleVisibility: .visible) {
