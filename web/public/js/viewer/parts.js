@@ -7,6 +7,14 @@ import { FAUCET_STYLES, FAUCET_FINISHES, faucetStyleFor } from '/contracts/fauce
 import { state } from './state.js';
 import { makeMaterialSearch } from './material-search.js';
 import { openMaterial, materialHash } from './material-nav.js';
+import { rollupCost, money } from '/contracts/part-costs.js';
+
+// A product card names its part number and, inside the finished unit, its cost.
+function cardNote(id) {
+  const costed = state.materialCatalog?.costs?.costed?.includes(id);
+  const cost = costed ? rollupCost(state.materialCatalog, id, { finish: state.faucetFinish }) : null;
+  return cost?.costed ? `${id} · ${money(cost.usd)}` : id;
+}
 
 export function syncFaucetCard(card) {
   const style = FAUCET_STYLES.find((s) => s.id === state.faucetStyle) || FAUCET_STYLES[0];
@@ -18,7 +26,7 @@ export function syncFaucetCard(card) {
     card.dataset.material = material.id;
     card.querySelector('.assembly-model-link').href = '/3d#' + materialHash(material.id);
     card.querySelector('.name').textContent = material.description;
-    card.querySelector('.assembly-note').textContent = material.id;
+    card.querySelector('.assembly-note').textContent = cardNote(material.id);
     syncBomLink(card);
   }
   card.querySelector('.faucet-card-options').textContent = `${style.label} · ${finish.label} · Choose style and finish`;
@@ -86,7 +94,7 @@ export function buildPartsSection(gridEl, { steps, dxfs, glbs }) {
     const row = document.createElement('div'); row.className = 'assembly-row' + (kind === 'tooling' ? ' assembly-row-tools' : '');
     for (const m of roots.filter((m) => m.kind === kind)) {
       const file = m.models?.[0]?.file; if (!file || !steps.includes(file)) continue;
-      row.append(renderAssembly({ description: m.description, note: m.id, file, id: m.id }));
+      row.append(renderAssembly({ description: m.description, note: cardNote(m.id), file, id: m.id }));
     }
     if (row.childElementCount) gridEl.append(title, row);
   }

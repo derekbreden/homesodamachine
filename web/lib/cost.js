@@ -17,25 +17,14 @@ import fs from "fs";
 import { renderHead, renderNav, renderPageHeader, renderFooter } from "./shell.js";
 import { readBatchForecast, renderBatchForecast, BATCH_FORECAST_CSS } from "./batch-forecast.js";
 import { categoryName } from "./cost-categories.js";
+import { plainMarkdown, stripPack, readPartCosts } from "./part-costs.js";
+import { renderPartCostTree, PART_COST_CSS } from "./part-cost-view.js";
+import { readMaterialCatalog } from "./material-catalog.js";
 import { readJ2Harness, readJ13Harness, renderHarnessGuide } from "./harness-guide.js";
 import {
   SALE_PRICE, SALES_HORIZON, dollars, recoveryPlan, recoveryRange,
   recoverySummary, salesBalance, renderRecoveryChart,
 } from "../public/cost-recovery.js";
-
-// Every cell this page shows is prose off a markdown table, and the ledgers
-// write their numbers as docgen markers — `[value](NAME)`, so a figure has one
-// authored home and every reader takes the same value. Strip the marker syntax
-// back to the value, and the emphasis around it, so a cell reads as prose here.
-function plainMarkdown(text) {
-  return String(text)
-    .replace(/\[([^\]]*)\]\([^)]*\)/g, "$1")
-    .replace(/`([^`]*)`/g, "$1")
-    .replace(/\*\*([^*]*)\*\*/g, "$1")
-    .replace(/~~([^~]*)~~/g, "$1")
-    .replace(/\s+/g, " ")
-    .trim();
-}
 
 const TAG_RE = /<!--@([a-z][a-z-]*)-->/;
 const MONEY_RE = /\$\s?([0-9][0-9,]*(?:\.[0-9]{1,2})?)/;
@@ -46,21 +35,6 @@ function escape(s) {
 
 function money(n) {
   return "$" + n.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-}
-
-// Drop the purchase pack size from a display name — both the parenthetical form
-// ("(20-pk)", "(2-pack)", "(bag of 10)") and the inline form (", 100 pc",
-// ", 120 pc"). The itemization shows the true per-unit quantity next to the
-// name, so the pack size only muddies "×4". ASINs / part numbers in parens
-// ("(B0FCF1MGT3)", "(NC)") have no pack word and are left alone; lengths and
-// dimensions ("100 ft spool", "10–16 mm", "× 8 mm") aren't pc/pk and survive.
-function stripPack(name) {
-  return name
-    .replace(/\s*\([^()]*\b(?:pk|pack|pcs?|ct|sets?|pieces?|count|bag)\b[^()]*\)/gi, "")
-    .replace(/,\s*\d+\s*(?:pc|pcs|pk|pack)\b/gi, "")
-    .replace(/\s{2,}/g, " ")
-    .replace(/\s*,\s*$/g, "")
-    .trim();
 }
 
 function parseMoney(cell) {
@@ -165,7 +139,7 @@ export function readLaborRollup(hardwareDir) {
     if (cells.length < 2 || cells.every((c) => /^[-:\s]*$/.test(c))) continue; // separator
     const first = cells[0];
     if (first.toLowerCase() === "operation" || first.startsWith("**")) continue; // header / subtotal
-    const m = cells[cells.length - 1].match(/^([0-9][0-9,]*)$/);
+    const m = plainMarkdown(cells[cells.length - 1]).match(/^([0-9][0-9,]*)$/);
     const minutes = m ? parseInt(m[1].replace(/,/g, ""), 10) : 0;
     cat.minutes += minutes;
     // Cards cell is an em-dash when the operation has no card of its own.
@@ -597,7 +571,7 @@ function renderTopline(total, labor) {
       <a class="cost-top-leg" href="#parts"><i class="cost-key"></i>Parts <b>${money(total)}</b></a>
       <a class="cost-top-leg" href="#labor"><i class="cost-key l"></i>Labor <b>${money(labour)}</b> ${hm(labor.minutes)} at ${rateStr(labor.rate)}/h</a>
     </div>
-    <p class="cost-top-context">Parts plus planned batch labor. Our early builds take substantially longer. <a href="#assumptions">What we&rsquo;re assuming</a> · <a href="#batch-forecast">Purchases for 5, 10 &amp; 20 machines</a></p>
+    <p class="cost-top-context">Parts plus planned batch labor. Our early builds take substantially longer. <a href="#by-part">Cost by part</a> · <a href="#assumptions">What we&rsquo;re assuming</a> · <a href="#batch-forecast">Purchases for 5, 10 &amp; 20 machines</a></p>
   </section>
 `;
 }
@@ -682,7 +656,7 @@ function renderCostPanel(panel) {
   </details>`;
 }
 
-function renderCostBody(rollup, labor, mach, investment, forecast, harness) {
+function renderCostBody(rollup, labor, mach, investment, forecast, harness, partCatalog) {
   const { total, rowCount, cats } = rollup;
   const mx = Math.max(...cats.map((c) => c.sum), 1);
   const unitCost = labor && labor.rate > 0 && labor.opCount > 0
@@ -729,7 +703,7 @@ function renderCostBody(rollup, labor, mach, investment, forecast, harness) {
   }).join("\n");
 
   const unitBody = `
-${unitCost !== null ? renderTopline(total, labor) : ""}
+${unitCost !== null ? renderTopline(total, labor) : ""}${partCatalog ? renderPartCostTree(partCatalog) : ""}
   <h2 class="cost-title" id="parts">Parts by category</h2>
   <div class="cost-hero">
     <div class="cost-big">${money(total)}</div>
@@ -802,15 +776,20 @@ export function mountCostRoutes(app, { hardwareDir }) {
     try {
       harness.J13 = readJ13Harness(hardwareDir);
     } catch (e) { /* optional second bench guide */ }
+    let partCatalog = null;
     try {
-      body = renderCostBody(readCostRollup(hardwareDir), labor, mach, investment, forecast, harness);
+      partCatalog = readMaterialCatalog(hardwareDir);
+      partCatalog.costs = readPartCosts(hardwareDir, partCatalog);
+    } catch (e) { partCatalog = null; /* the tree needs the catalog and both ledgers */ }
+    try {
+      body = renderCostBody(readCostRollup(hardwareDir), labor, mach, investment, forecast, harness, partCatalog);
     } catch (e) {
       // A stripped checkout (no bom.md) shouldn't 500 — render an empty state.
       body = `<main class="cost-wrap site-content">${renderPrice(null)}<p class="cost-note">Cost data unavailable.</p></main>`;
     }
     res.send(
       renderHead({
-        title: "Price & Cost · Home Soda Machine", pageStyles: COST_CSS + BATCH_FORECAST_CSS, pageClass: "site-interior",
+        title: "Price & Cost · Home Soda Machine", pageStyles: COST_CSS + PART_COST_CSS + BATCH_FORECAST_CSS, pageClass: "site-interior",
         pageHead: '<link rel="stylesheet" href="/css/harness.css">',
         importMap: { imports: {
           three: "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.min.js",
