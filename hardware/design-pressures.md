@@ -42,6 +42,10 @@ destroyed is a part that comes out by being destroyed.
   surrounding tubes, wiring and hardware as one layout. Reconsider the whole route when a
   local attachment becomes awkward; coordinated changes to neighboring routes or bodies
   can be part of the simpler solution.
+- **Ports and anchors guide flexible tube paths.** Use gentle curves between them and let
+  the anchors establish the route. Spread changes in height or direction over the available
+  distance, passing neighboring tubes with close clearance. Adjust the routes together when
+  useful. Use elbows where the physical tube needs them.
 - **A butt joint needs one of its two bodies free along the port axis when it is made.** The
   stub lies entirely inside the two collets, so it is pushed home into one and the second body
   comes onto it. This constrains the ORDER, not the grouping: a chain of butts installs in
