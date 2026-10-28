@@ -34,7 +34,7 @@ struct FirstRunView: View {
                         ActionButton(title: "Find your machine", working: access.opening) { access.add() }
                             .disabled(access.opening)
                         Note("Hold your device right next to the faucet. Choose your machine in Apple’s nearby accessory sheet.")
-                        outcome
+                        AddOutcome()
                         if directory.demo == nil {
                             Button("Try the demo") { ble.addDemo() }
                                 .font(.body.weight(.medium)).frame(minHeight: 44)
@@ -51,23 +51,5 @@ struct FirstRunView: View {
         .foregroundStyle(Theme.textPrimary)
         .tint(Theme.accent)
         .onAppear { access.clearOutcome() }
-    }
-
-    @ViewBuilder private var outcome: some View {
-        switch access.outcome {
-        case .failed(let why)?:
-            Note(why)
-                .accessibilityAddTraits(.updatesFrequently)
-        case .nothingAdded?:
-            VStack(alignment: .leading, spacing: 8) {
-                Label("Hold your device closer to the faucet", systemImage: "figure.walk")
-                Label("Make sure the machine is powered on", systemImage: "power")
-                Label("Try turning it off and on", systemImage: "arrow.clockwise")
-            }
-            .font(.subheadline).foregroundStyle(Theme.textSecondary)
-            .accessibilityElement(children: .combine)
-        case nil:
-            EmptyView()
-        }
     }
 }

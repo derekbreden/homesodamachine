@@ -42,7 +42,9 @@ struct CareHomeView: View {
             Note(detail).frame(minHeight: 34, alignment: .topLeading)
             HStack(spacing: 12) {
                 ActionButton(title: "Flavor 1", primary: false) { nav.push(route(0)) }
+                    .accessibilityLabel("\(title), Flavor 1")
                 ActionButton(title: "Flavor 2", primary: false) { nav.push(route(1)) }
+                    .accessibilityLabel("\(title), Flavor 2")
             }
             .disabled(!ble.canChange)
         }

@@ -126,8 +126,12 @@ struct SoftwareUpdateView: View {
     }
 
     /// The date the running software was built, and how old that reading is.
+    /// The main board's build speaks for the machine; a display's stands in
+    /// only when the main board has not said.
     private var installed: String {
-        let v = ble.machineVersions.byBoard.values.first { !$0.isEmpty } ?? ""
+        let v = [OTATarget.mainBoard, .radioBoard, .farDisplay].lazy
+            .compactMap { ble.machineVersions.byBoard[$0.rawValue] }
+            .first { !$0.isEmpty } ?? ""
         let date = v.split(separator: " ").first.map(String.init) ?? ""
         var line = date.isEmpty ? "" : "Installed \(date)."
         if !ble.linked, let t = ble.current?.versionsReadAt {
