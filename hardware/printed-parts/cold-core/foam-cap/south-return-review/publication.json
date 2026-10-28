@@ -1,0 +1,54 @@
+{
+  "source_commits": [
+    "d90fd6598",
+    "8fa4e9abb"
+  ],
+  "artifacts": {
+    "hardware/assembly/scenes/glb/back-half.glb": "83a9c35a13ba4c6c80672e74fa9d86de44da9f3610c0734f511f9b6adc9c66bc",
+    "hardware/assembly/scenes/glb/cap-lid-fill.glb": "c23c16a9d3cb930ca4bc5992597cd3e273308a9671726e1ef645101eaa6d768a",
+    "hardware/assembly/scenes/glb/cap-lid.glb": "e12b1104c8e76a0704a6b102a7f28fab7d035025bbc4fa07de3953f2785f2815",
+    "hardware/assembly/scenes/glb/cold-core.glb": "9f89bdc6cd31f952d8972f8c337d33ff7b4124ef4dce068d4f3a5243a00ed8e2",
+    "hardware/assembly/scenes/glb/funnel-drain.glb": "c71961f03f3c008d928e1833ce50e505f7a782051ca81f8a476a0a3857e7c887",
+    "hardware/cold-core-layout/cold-core-assembly.step": "9792d8d75e6adc43403e99ab8da519048f19b17dadd4dabffe9b4a2796840b05",
+    "hardware/manifold-layout/enclosure-assembly.step": "430b99b2d226d58681b0c76fac2742c1b49a9c175c0496b4280124c6c4b9d013",
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": "5bea2c319aa1422cb54ae8aa9a186d597105feeb521d5d4d07490c57b067f09a",
+    "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step": "14036d8e22573625eaf7c3d0e75235fbe360d8e1d9a7be072acd35f9e307c705",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step": "bf1f59bdc20789accf8c451602816910ce6524585c026ef6b262d6346fc2e4a8",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh": "8ed11e3ff9402ab91b364a0163087675b3872fc90bb44981027985d49da6c907",
+    "hardware/printed-parts/zone-c/funnel/elbow-cradle.step": "636411c93528680f0283ae0c27d46001a752f0d60818785662d3597e923649f4",
+    "hardware/printed-parts/zone-c/funnel/elbow-cradle.step.mesh": "4e1f6fa18c18ea5b1303220ba205b71e7b99c850893d200b1c9f07ee3ce8539f",
+    "hardware/printed-parts/zone-c/funnel/elbow-cradle.stl": "b0afff03e40fdf937eb5ef5221bad9902950e544d2933d258005a7283d0cc12c",
+    "hardware/wiring/enclosure-wiring.step": "a5e759e496b596899c982849be125d9f9534a6e59f8d5154d33f224ff2ccd2e4",
+    "hardware/wiring/enclosure-wiring.step.mesh": "8be8aa14c32a1374685997c11bdb965858c8faf68ae2d46c5cb4b627bc6069f4",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl": "7bcc54f627339e94a679df4911b677f4aad8395d47c5ba278bb5331d28c70d68"
+  },
+  "unchanged_appliance_public_surfaces": 515,
+  "cradle_correction": {
+    "native_root": 2542747,
+    "native_records_added": 14298,
+    "all_existing_bytes_outside_selected_root_retained": true,
+    "unchanged_public_surface_rows_retained": 561,
+    "unchanged_drain_scene_surfaces_retained": 9
+  },
+  "live_payloads": [
+    {
+      "model": "printed-parts/cold-core/foam-cap/foam-cap-lid-top.step",
+      "source_step_sha256": "bf1f59bdc20789accf8c451602816910ce6524585c026ef6b262d6346fc2e4a8",
+      "matched": true
+    },
+    {
+      "model": "printed-parts/zone-c/funnel/elbow-cradle.step",
+      "source_step_sha256": "636411c93528680f0283ae0c27d46001a752f0d60818785662d3597e923649f4",
+      "matched": true
+    },
+    {
+      "model": "manifold-layout/enclosure-assembly.step",
+      "source_step_sha256": "430b99b2d226d58681b0c76fac2742c1b49a9c175c0496b4280124c6c4b9d013",
+      "matched": true
+    }
+  ],
+  "stale_unbundled_local_payloads_removed": [
+    "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step.mesh",
+    "hardware/cold-core-layout/cold-core-assembly.step.mesh"
+  ]
+}

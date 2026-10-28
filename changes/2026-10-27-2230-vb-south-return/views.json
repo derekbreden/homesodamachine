@@ -1,0 +1,81 @@
+{
+  "views": [
+    {
+      "name": "return",
+      "caption": "The V-B return and its lid root, with the fixed pump, PCB and WAGO wall.",
+      "before": "return-before.webp",
+      "after": "return-after.webp",
+      "width": 704,
+      "height": 520,
+      "marks": [],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          -124,
+          33,
+          445
+        ],
+        "target": [
+          -13,
+          250,
+          279
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 87,
+        "near": 0.1,
+        "far": 3000,
+        "aspect": 1.353846153846154
+      },
+      "highlight": [
+        "cold-core/vb-outlet-return"
+      ],
+      "only": [
+        "cold-core/foam-cap-lid-top",
+        "cold-core/valve-v-b",
+        "cold-core/vb-inlet-turn",
+        "cold-core/vb-outlet-stem",
+        "cold-core/vb-outlet-return",
+        "drain-outlet-stem",
+        "tube-above-core-drain-vb-east-link",
+        "cold-core/tube-above-core-vb-yb-cross",
+        "tube-above-core-vb-yb-link",
+        "cold-core/pcba",
+        "cold-core/g-ganen-pump",
+        "cold-core/wago-v12",
+        "cold-core/wago-gnd",
+        "cold-core/wago-sensors",
+        "cold-core/wago-reeds-b",
+        "yb-stem-elbow",
+        "funnel-drain-union"
+      ],
+      "rendering": "Retained actual-CAD comparison with translucent surroundings and a cropped lid. Camera unchanged between states. The cradle is omitted from these captures.",
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "b50862a5af3bde9d69e38965a065cb7db55b1b8ceb2cf4b1cc560fb723bae64d",
+          "commit": "3faa5baeb248fb703f2e7effa0b9d96e7a02ee2e",
+          "taken": "2026-10-28T01:11:39.202Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "retained-native-scene",
+          "sha256": "5bea2c319aa1422cb54ae8aa9a186d597105feeb521d5d4d07490c57b067f09a",
+          "commit": "08c4dbf3d06351aa3669ba7bea55802523f5f145"
+        }
+      },
+      "changed": [
+        "cold-core/foam-cap-lid-top",
+        "cold-core/valve-v-b",
+        "cold-core/vb-outlet-return"
+      ],
+      "withinMeshing": []
+    }
+  ]
+}
