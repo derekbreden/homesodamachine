@@ -48,8 +48,6 @@ import numpy as np
 import trimesh
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-import flute_payload                                                     # noqa: E402
-import _mesh_payload                                                     # noqa: E402
 
 _PT = re.compile(r"x=(-?[\d.]+)\s+y=(-?[\d.]+)\s+z=(-?[\d.]+)")
 #: Normals within this many degrees of each other are one plane.
@@ -117,6 +115,8 @@ def load_mesh(path, kind):
     """The printed STL, or the payload's triangles, as one trimesh."""
     if kind == "printed":
         return trimesh.load(str(path), process=False)
+    import flute_payload
+
     meshes = flute_payload.read_payload(path)
     if not meshes:
         return None
@@ -315,6 +315,8 @@ def main(argv=None):
             loaded[s] = m
             note = ""
             if s == "drawn":
+                import _mesh_payload
+
                 cut = _mesh_payload.read_cut(p)
                 src = _mesh_payload.read_source(p)
                 note = ("  · decimated %.3f of %.3f mm" % (cut["dev"], cut["bound"])
