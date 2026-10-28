@@ -1,0 +1,24 @@
+{
+  "scope": "Manual nearest-wire check at the moved tube and open outlet disk only. Existing conductor stock ODs; <=0.5 mm arc-length intervals imply <=0.25 mm centreline sampling bound. No wire-to-wire or uniform-clearance rule.",
+  "wires": 98,
+  "samples": 46880,
+  "sample_bound_mm": 0.25,
+  "wire_to_tube_sampled_gap_mm": 4.59899377712723,
+  "wire_to_open_mouth_sampled_gap_mm": 5.293698445913135,
+  "body_witness": {
+    "wire": "PE-carbonator",
+    "point_mm": [
+      25.673032607475616,
+      211.32696739252438,
+      261.67303260747565
+    ]
+  },
+  "mouth_witness": {
+    "wire": "PE-carbonator",
+    "point_mm": [
+      25.931851652578136,
+      211.06814834742187,
+      261.93185165257813
+    ]
+  }
+}

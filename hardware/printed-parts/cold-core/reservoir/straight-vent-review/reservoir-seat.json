@@ -1,0 +1,15 @@
+{
+  "reservoir_cap_valid": true,
+  "solids": 1,
+  "air_seat_shell_mm": [
+    -109.0,
+    -32.5
+  ],
+  "nearest_screw_counterbore_edge_mm": 27.901221242939165,
+  "wet_far_wall_to_flare_mm": 13.25,
+  "liquid_seat_edge_gaps_mm": {
+    "fill": 68.71924315665551,
+    "draw": 34.99820221087589
+  },
+  "rod_distance_to_flare_mm": 57.32064706860318
+}
