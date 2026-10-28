@@ -1,7 +1,7 @@
 import { state } from "./state.js";
 import { materialIndex, materialForFile, explodeBom, bomItems, bomCountText, bomCounts, materialDocuments, materialUses, occurrenceBodies, occurrenceForBody, matchesBody } from "/contracts/materials.js";
 import { HSM_EVENTS } from "/contracts/client-events.js";
-import { highlightParts, clearHighlight, scenePartNames } from "./part-highlight.js";
+import { highlightParts as highlightAll, clearHighlight, frameScene, scenePartNames } from "./part-highlight.js";
 import { openMaterial, materialHash } from "./material-nav.js";
 import { makeMaterialSearch } from "./material-search.js";
 import { componentLocation, stepLabel, stepLocation } from "/contracts/step-locations.js";
@@ -71,6 +71,16 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
   panel.append(search, headHost, tabsHost, scroll);
   let disposed = false;
   let pendingRootFocus = false;
+  // Focus: a selected BOM item stands alone in the model. Remembered per browser.
+  let focus = (() => { try { return localStorage.getItem("material-focus") !== "0"; } catch { return true; } })();
+  const highlightParts = (names) => highlightAll(names, { focus });
+  // Back out to the root: its own parts in the parent model, or the whole model.
+  function showRoot() {
+    const path = contextPath();
+    if (path.length && state.mountedDetail?.file === lastFile) highlightParts(occurrenceBodies(state.materialCatalog, path, scenePartNames(), options()));
+    else if (state.mountedDetail?.file === lastFile) frameScene();
+    else clearHighlight();
+  }
   function contextPath() {
     const parent = materialForFile(state.materialCatalog, lastFile);
     return parent && parent.id !== root ? explodeBom(state.materialCatalog, parent.id, options()).find((r) => r.material.id === root)?.path || [] : [];
@@ -83,8 +93,7 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
     render();
     const path = contextPath();
     pendingRootFocus = path.length > 0 && state.mountedDetail?.file !== lastFile;
-    if (path.length && !pendingRootFocus) highlightParts(occurrenceBodies(state.materialCatalog, path, scenePartNames(), options()));
-    else clearHighlight();
+    if (!pendingRootFocus) showRoot();
   }
 
   function select(id, path = []) {
@@ -112,7 +121,7 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
     const identity = el("div", "material-identity");
     if (rootMaterial && (selected !== root || selectedBody)) {
       const back = el("button", "material-context", "← " + rootMaterial.description);
-      back.type = "button"; back.addEventListener("click", () => { clearHighlight(); select(root); }); head.append(back);
+      back.type = "button"; back.addEventListener("click", () => { select(root); showRoot(); }); head.append(back);
     }
     identity.append(el("span", "material-eyebrow", current ? `${current.id} · ${current.kind}` : selectedBody ? "Component in assembly" : "CAD model"));
     identity.append(el("h2", "", current?.description || (selectedBody || stepLabel(lastFile)).replace(/[-_]/g, " ") || "Material explorer"));
@@ -250,7 +259,17 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
       const collapse = el("button", "", "Collapse all"); collapse.type = "button";
       all.addEventListener("click", () => { rows.forEach((r) => expanded.add(pathKey(r.path))); render(); });
       collapse.addEventListener("click", () => { expanded.clear(); render(); });
-      tools.append(all, collapse);
+      const focusButton = el("button", "", "Focus"); focusButton.type = "button";
+      focusButton.title = "Hide everything but the selected item in the model";
+      focusButton.setAttribute("aria-pressed", String(focus));
+      focusButton.addEventListener("click", () => {
+        focus = !focus;
+        try { localStorage.setItem("material-focus", focus ? "1" : "0"); } catch {}
+        const bodies = selectedPath.length && state.mountedDetail?.file === lastFile ? bindingsFor(selectedPath, scenePartNames()) : [];
+        if (bodies.length) highlightParts(bodies); else showRoot();
+        render();
+      });
+      tools.append(all, collapse, focusButton);
       if (costOf) {
         const order = el("div", "bom-order"); order.setAttribute("role", "group"); order.setAttribute("aria-label", "Order");
         for (const [byCost, label] of [[false, "BOM order"], [true, "By cost"]]) {
