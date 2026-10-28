@@ -38,26 +38,33 @@ struct TrustAskOverlay: View {
         }
     }
 
+    private var title: String { ask.title }
+    private var message: String { ask.message }
+}
+
+extension TrustAsk {
     private var device: String { BLEManager.deviceWord }
 
-    private var title: String {
-        switch ask.ended {
+    var title: String {
+        switch ended {
         case nil: "Tap Trust on the machine"
         case .unpaired?: "Tap Pair on this \(device)"
         case .declined?: "Not trusted"
         case .timedOut?: "No answer"
         case .busy?: "The machine is asking about another device"
+        case .lostLink?: "The connection dropped"
         default: "Nothing changed"
         }
     }
 
-    private var message: String {
-        switch ask.ended {
-        case nil: "The faucet and the main display are asking whether to trust this \(device) \(ask.purpose)."
+    var message: String {
+        switch ended {
+        case nil: "The faucet and the main display are asking whether to trust this \(device) \(purpose)."
         case .unpaired?: "This \(device) hasn’t paired with the machine. When it asks, tap Pair, and the machine asks for Trust next."
         case .declined?: "Someone tapped Don’t Trust on the machine. Nothing changed."
         case .timedOut?: "No one tapped Trust on the machine. Nothing changed."
         case .busy?: "Try again in a moment. Nothing changed."
+        case .lostLink?: "The machine didn’t get to answer. Nothing changed. Bring your \(device) near the machine and try again."
         default: ""
         }
     }

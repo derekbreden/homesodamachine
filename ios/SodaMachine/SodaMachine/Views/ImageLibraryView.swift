@@ -5,19 +5,35 @@ import PhotosUI
 // The face a flavor wears: the four this app ships with, the machine's own
 // pictures, and a "+" that adds one more while the machine has room.
 //
-// A new picture takes whichever custom slot is free and wears itself at once.
-// One on its way shows in the place it will occupy, with its progress and a
-// way to cancel it.
+// Choosing is a task that ends back on the flavor once the machine says the
+// flavor wears the choice. A new photo goes up first, in the place it will
+// occupy, and is put on the flavor only once the machine holds it. The newest
+// choice for a flavor is the only one that can still be put on it: an older
+// picture may finish arriving, but it never takes the newer one's place, and
+// a canceled one is never put on at all.
 // ────────────────────────────────────────────────────────────
+
+/// What a flavor is to wear: a face the machine has, or one on its way.
+struct ImageChoice: Hashable {
+    let art: Int
+    let upload: UUID?
+}
 
 struct ImageLibraryView: View {
     @Environment(BLEManager.self) var ble
     @Environment(Navigator.self) var nav
+    @Environment(EditSessions.self) var edits
     let channel: Int
     let width: CGFloat
+    let entry: RouteEntry
 
     @State private var cropping: UIImage?
     @State private var removing: Int?   // art index
+
+    private var key: EditKey? { ble.current.map { EditKey(machine: $0.id, field: .image(channel: channel)) } }
+    private var choice: ImageChoice? { key.flatMap { edits.draft($0) } }
+    private var write: EditSessions.Write? { key.flatMap(edits.write) }
+    private var worn: Int? { ble.flavorArt.art.indices.contains(channel) ? ble.flavorArt.art[channel] : nil }
 
     var body: some View {
         let room = min(560, width)
@@ -25,12 +41,19 @@ struct ImageLibraryView: View {
         let tileWidth = min(112, (room - CGFloat(columns - 1) * 12) / CGFloat(columns))
         let tileHeight = tileWidth * 80 / 43
         VStack(alignment: .leading, spacing: 20) {
-            if case .failed(let why) = ble.imageUploadState {
-                Notice(title: "Picture wasn’t sent", message: "\(why.prefix(1).uppercased())\(why.dropFirst()).",
-                       icon: "exclamationmark.circle")
-            } else if let why = ble.imageSizeMismatch {
+            if let why = ble.imageSizeMismatch {
                 Notice(title: "Pictures can’t be sent", message: "\(why.prefix(1).uppercased())\(why.dropFirst()).",
                        icon: "exclamationmark.circle")
+            }
+            if let problem = write?.problem {
+                Notice(title: "Flavor \(channel + 1) didn’t change", message: problem, icon: "exclamationmark.circle")
+                if let id = choice?.upload, ble.canRetryUpload(id), ble.linked {
+                    ActionButton(title: "Try again") { retry(id) }.frame(maxWidth: 360)
+                }
+            } else if write?.running == true, let choice {
+                Note(choice.upload == nil || !uploading(choice.upload)
+                     ? "Putting it on Flavor \(channel + 1)…"
+                     : "Sending your picture. It goes on Flavor \(channel + 1) once the machine has it.")
             }
             SectionTitle("Choose an image")
             LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 12), count: columns),
@@ -52,9 +75,6 @@ struct ImageLibraryView: View {
                 }
             }
             Note(footnote)
-            if ble.failedImage != nil, ble.linked {
-                ActionButton(title: "Try again") { retry() }.frame(maxWidth: 360)
-            }
         }
         .frame(maxWidth: room).frame(maxWidth: .infinity, alignment: .leading)
         .onAppear {
@@ -73,9 +93,9 @@ struct ImageLibraryView: View {
                             isPresented: Binding(get: { removing != nil }, set: { if !$0 { removing = nil } }),
                             titleVisibility: .visible) {
             Button("Remove", role: .destructive) {
-                if let art = removing, let slot = ble.flavorArt.customSlot(art: art) {
+                if let art = removing, let slot = ble.flavorArt.customSlot(art: art), let machine = ble.current?.id {
                     Task {
-                        guard await ble.ensureTrusted(.image) else { return }
+                        guard await ble.ensureTrusted(.image), ble.current?.id == machine else { return }
                         ble.removeImage(slot: slot)
                     }
                 }
@@ -98,19 +118,21 @@ struct ImageLibraryView: View {
         return "Four included images. Add up to four of your own."
     }
 
+    private func uploading(_ id: UUID?) -> Bool {
+        guard let id else { return false }
+        return ble.activeUpload?.id == id || ble.imageQueue.contains { $0.id == id }
+    }
+
     private func tile(art: Int, label: String, height: CGFloat, custom: Bool) -> some View {
-        let chosen = ble.flavorArt.art.indices.contains(channel) && ble.flavorArt.art[channel] == art
-        return Button {
-            Task {
-                guard await ble.ensureTrusted(.image, channel: channel) else { return }
-                ble.setFlavorArt(channel: channel, art: art)
-                nav.back(from: .images(channel))
-            }
-        } label: {
+        let chosen = worn == art
+        let pending = write?.running == true && choice?.art == art && choice?.upload == nil
+        return Button { choose(art) } label: {
             VStack(spacing: 8) {
                 FlavorArtView(art: art, height: height)
                     .overlay {
-                        if custom && ble.picture(art: art) == nil && ble.linked { ProgressView().tint(Theme.textSecondary) }
+                        if pending || custom && ble.picture(art: art) == nil && ble.linked {
+                            ProgressView().tint(Theme.textSecondary)
+                        }
                     }
                     .overlay(alignment: .bottomTrailing) {
                         if chosen {
@@ -193,20 +215,114 @@ struct ImageLibraryView: View {
                 })
     }
 
-    private func add(_ crop: UIImage) {
+    // ── The task ──────────────────────────────────────────────────────────
+
+    /// A face the machine has. The one the flavor already wears, with no
+    /// other face on its way to the machine, ends the task, and with it any
+    /// earlier choice still being sent.
+    private func choose(_ art: Int) {
+        guard let key, let machine = ble.current?.id else { return }
+        if worn == art && !ble.assigningArt(channel) {
+            release()
+            edits.discard(key)
+            nav.finish(entry)
+            return
+        }
+        release()
+        edits.setDraft(ImageChoice(art: art, upload: nil), for: key)
+        let token = edits.begin(key)
         Task {
-            guard await ble.ensureTrusted(.image, channel: channel) else { return }
-            let preview = ImageBundle.preview(from: crop)
-            guard let slot = ble.enqueueImage(crop, preview: preview) else { return }
-            ble.setFlavorArt(channel: channel, art: ble.flavorArt.artIndex(customSlot: slot))
+            guard await ble.ensureTrusted(.image, channel: channel) else {
+                edits.end(token, for: key, problem: "Nothing changed. Tap Trust on the machine to change images from this device.")
+                return
+            }
+            guard edits.isNewest(token, for: key) else { return }
+            guard ble.current?.id == machine else {
+                edits.end(token, for: key, problem: "Nothing changed: another machine is in use.")
+                return
+            }
+            await assign(art, token: token, key: key, machine: machine)
         }
     }
 
-    private func retry() {
+    /// A new photo: sent, then put on the flavor once the machine holds it.
+    private func add(_ crop: UIImage) {
+        guard let key, let machine = ble.current?.id else { return }
+        release()
+        let token = edits.begin(key)
         Task {
-            guard await ble.ensureTrusted(.image, channel: channel) else { return }
-            guard let slot = ble.retryFailedImage() else { return }
-            ble.setFlavorArt(channel: channel, art: ble.flavorArt.artIndex(customSlot: slot))
+            guard await ble.ensureTrusted(.image, channel: channel) else {
+                edits.end(token, for: key, problem: "Nothing changed. Tap Trust on the machine to change images from this device.")
+                return
+            }
+            guard edits.isNewest(token, for: key) else { return }
+            guard ble.current?.id == machine else {
+                edits.end(token, for: key, problem: "Nothing changed: another machine is in use.")
+                return
+            }
+            guard let item = ble.enqueueImage(crop, preview: ImageBundle.preview(from: crop)) else {
+                edits.end(token, for: key, problem: ble.imageSizeMismatch.map { "\($0)." } ?? "The machine has no room for another picture.")
+                return
+            }
+            await follow(item, token: token, key: key, machine: machine)
+        }
+    }
+
+    /// The same photograph, for the same flavor, as a new trip, under the
+    /// same checks as the first: Trust, this machine, and still the newest
+    /// choice.
+    private func retry(_ id: UUID) {
+        guard let key, let machine = ble.current?.id else { return }
+        let token = edits.begin(key)
+        Task {
+            guard await ble.ensureTrusted(.image, channel: channel) else {
+                edits.end(token, for: key, problem: "Nothing changed. Tap Trust on the machine to change images from this device.")
+                return
+            }
+            guard edits.isNewest(token, for: key) else { return }
+            guard ble.current?.id == machine, let item = ble.retryUpload(id) else {
+                edits.end(token, for: key, problem: "The picture couldn’t be sent again here. Bring your device near the machine and try again.")
+                return
+            }
+            await follow(item, token: token, key: key, machine: machine)
+        }
+    }
+
+    /// The choice being replaced keeps no picture for a retry.
+    private func release() {
+        if let id = choice?.upload { ble.dropFailedUpload(id) }
+    }
+
+    /// A picture on its way, followed to the end of its trip. Only the newest
+    /// choice for the flavor is put on it.
+    private func follow(_ item: QueuedImage, token: UUID, key: EditKey, machine: String) async {
+        let art = ble.flavorArt.artIndex(customSlot: item.slot)
+        if edits.isNewest(token, for: key) { edits.setDraft(ImageChoice(art: art, upload: item.id), for: key) }
+        switch await ble.awaitUpload(item.id) {
+        case .stored:
+            guard edits.isNewest(token, for: key) else { return }
+            await assign(art, token: token, key: key, machine: machine)
+        case .failed(let why):
+            edits.end(token, for: key, problem: "The picture wasn’t sent: \(why).")
+        case .interrupted:
+            edits.end(token, for: key, problem: "The connection dropped before the picture arrived.")
+        case .canceled:
+            guard edits.isNewest(token, for: key) else { return }
+            edits.discard(key)
+        }
+    }
+
+    /// The machine wears it, or says why not. Done, the task closes its own
+    /// page — only this opening of it, and only while it is on top.
+    private func assign(_ art: Int, token: UUID, key: EditKey, machine: String) async {
+        let worn = await ble.assignArt(channel: channel, art: art, on: machine,
+                                       while: { edits.isNewest(token, for: key) })
+        guard edits.isNewest(token, for: key) else { return }
+        if worn {
+            edits.discard(key)
+            nav.finish(entry)
+        } else {
+            edits.end(token, for: key, problem: "The machine didn’t confirm the new image. Choose it again to retry.")
         }
     }
 }

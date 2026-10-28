@@ -32,20 +32,6 @@ private let log = Logger(subsystem: "com.derekbreden.SodaMachine", category: "Ma
 // radio of another id: it is how the system's list and this one line up.
 // ────────────────────────────────────────────────────────────
 
-enum MachineModel: UInt8, Codable {
-    case unknown = 0
-    case appliance = 1
-    case prototype = 2
-
-    var label: String {
-        switch self {
-        case .appliance: return "Soda machine"
-        case .prototype: return "Prototype"
-        case .unknown: return "Soda machine"
-        }
-    }
-}
-
 /// One scan result: a machine in range right now, as its advertisement says.
 struct DiscoveredMachine: Identifiable, Equatable {
     /// CoreBluetooth's per-install peripheral id. Stable on this phone, which is
@@ -424,13 +410,12 @@ final class MachineDirectory {
 
     /// Gone from the phone, pictures and all. The machine it points at is not
     /// touched. If it was the one the phone was pointed at, the phone points
-    /// at whichever known machine it talked to most recently, or at nothing.
+    /// at nothing until a person chooses (Management.swift).
     func forget(_ m: KnownMachine) {
+        let after = afterRemoving(m.id, current: current?.id, remaining: known.map(\.id))
         known.removeAll { $0.id == m.id }
         try? FileManager.default.removeItem(at: m.folder)
-        if current?.id == m.id {
-            current = known.max { ($0.lastConnected ?? .distantPast) < ($1.lastConnected ?? .distantPast) }
-        }
+        if case .keep = after {} else { current = nil }
         log.info("forgot \(m.displayName)")
         save()
     }
