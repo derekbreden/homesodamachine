@@ -37,7 +37,7 @@ def z(value):
 
 def longitudinal_section(c):
     text(c, CX, 750, "SECTION A-A", 12, bold=True, align="center")
-    text(c, CX, 733, "THROUGH VESSEL AND ROD AXES - SCALE 1:1", 9, align="center")
+    text(c, CX, 733, "LOOKING +X; RIGHT IS -Y - SCALE 1:1", 9, align="center")
     left, right = CX - OD * IN / 2, CX + OD * IN / 2
     bore_l, bore_r = CX - ID * IN / 2, CX + ID * IN / 2
     cap_l, cap_r = CX - CAP_D * IN / 2, CX + CAP_D * IN / 2
@@ -60,9 +60,22 @@ def longitudinal_section(c):
             c.setLineWidth(0.5)
             c.drawPath(p, fill=1, stroke=1)
             c.setFillColorRGB(0, 0, 0)
-    rod_x = CX + ROD_X * IN
+    # Both ports are in the section plane. Their internal thread outlines are conventional.
+    for px in (-carb.carbonator_port_offset / MM, carb.carbonator_port_offset / MM):
+        x = CX + px * IN
+        for lo, hi in ((RECESS, FLOOR), (CEILING, LENGTH-RECESS)):
+            c.setFillColorRGB(1, 1, 1)
+            c.rect(x-cap.hole_radius*IN, z(lo), 2*cap.hole_radius*IN, (hi-lo)*IN, fill=1, stroke=0)
+            c.setFillColorRGB(0, 0, 0)
+            line(c, x-cap.hole_radius*IN, z(lo), x-cap.hole_radius*IN, z(hi), VISIBLE)
+            line(c, x+cap.hole_radius*IN, z(lo), x+cap.hole_radius*IN, z(hi), VISIBLE)
+    rod_x = CX + ROD_RADIUS * IN
     register_opening(c, rod_x, z(FLOOR), IN, -1)
     register_opening(c, rod_x, z(CEILING), IN, 1)
+    stop_lo = CEILING-carb.UPPER_STOP_H/MM
+    for a,b in ((rod_x-carb.UPPER_STOP_D/MM*IN/2,rod_x-carb.UPPER_STOP_BORE/MM*IN/2),
+                (rod_x+carb.UPPER_STOP_BORE/MM*IN/2,rod_x+carb.UPPER_STOP_D/MM*IN/2)):
+        section_material(c, [(a,z(stop_lo)),(b,z(stop_lo)),(b,z(CEILING)),(a,z(CEILING))], spacing=4)
     # Longitudinal solid rod is left unhatched, at its finished nominal length.
     c.setFillColorRGB(1, 1, 1)
     c.setLineWidth(VISIBLE)
@@ -82,6 +95,7 @@ def longitudinal_section(c):
     balloon(c, 2, (185, 310), (210, z(FLOOR)))
     balloon(c, 3, (352, 554), (rod_x - ROD_D * IN / 2, 525))
     balloon(c, 4, (365, 399), (rod_x - float_w / 2, z(2.6) + 20))
+    balloon(c, 5, (547, 609), (rod_x+carb.UPPER_STOP_D/MM*IN/2,z(stop_lo)+4))
     vdim(c, 95, BASE, z(LENGTH), left, left, f"{LENGTH:.3f} REF", size=10)
     # Direct inside-face dimension: arrow tips touch the two physical planes.
     gap_x = 250
@@ -109,7 +123,7 @@ def longitudinal_section(c):
     leader(c, (tack_tip[0] + 1, tack_tip[1] + 1), (525, 320), (545, 320),
            ["T1 - ROD TACK", "BOTTOM CAP ONLY"], 8.5)
     text(c, CX, 211, "FIXED-LENGTH ROD SEATS IN BOTTOM REGISTER; TOP REGISTER RETAINS CLEARANCE.", 8, align="center")
-    text(c, CX, 197, "PORTS LIE OUT OF THE SECTION PLANE. FLOAT ENVELOPE IS REFERENCE ONLY.", 8, align="center")
+    text(c, CX, 197, "PORTS AND ROD SHARE THIS PLANE. FLOAT ENVELOPE IS REFERENCE ONLY.", 8, align="center")
 
 
 def outside_end_view(c):
@@ -131,17 +145,22 @@ def outside_end_view(c):
         c.arc(x - port_r - 1.5, py - port_r - 1.5,
               x + port_r + 1.5, py + port_r + 1.5, 35, 270)
         center(c, x, py, 13)
-    rx = x + ROD_X * s
+    rx, ry = x, y - ROD_RADIUS * s
     c.setDash((3, 2))
-    c.circle(rx, y, REG_D * s / 2, stroke=1, fill=0)
+    c.circle(rx, ry, REG_D * s / 2, stroke=1, fill=0)
     c.setDash()
-    center(c, rx, y, 8)
-    cutting_plane_ends(c, x - 113, x + 113, y, "A", rise=18)
+    center(c, rx, ry, 8)
+    # The section plane is the YZ plane, through the ports and guide rod.
+    line(c,x,y-103,x,y+103,dash=(15,3,3,3))
+    for ey in (y-103,y+103):
+        line(c,x,ey,x-18,ey,VISIBLE)
+        arrow(c,(x,ey),(x-18,ey))
+        text(c,x-23,ey-3,"A",10,bold=True,align="right")
     text(c, x + 9, y + 104, "+Y", 8)
-    text(c, rx, y - 20, "R1", 8, bold=True, align="center")
+    text(c, rx+14, ry-3, "R1", 8, bold=True)
     horizontal_dimension(c, x - OD * s / 2, x + OD * s / 2, y,
                          496, f"Ø{OD:.3f} REF", 9)
-    text(c, x, 481, "BOTH R1 REGISTERS SHARE +X; BOTH PORT PAIRS SHARE ±Y.", 7.7, align="center")
+    text(c, x, 481, "BOTH R1 REGISTERS ON -Y; BOTH PORT PAIRS ON ±Y.", 7.7, align="center")
 
 
 def closure_detail(c):
@@ -188,6 +207,7 @@ def parts_list(c):
         ("2", "2", "HSM-000009", "316 SS FINISHED END CAP; END-CAP-01"),
         ("3", "1", "HSM-000336", "316 SS FLOAT GUIDE ROD; FR-CARB-01"),
         ("4", "1", "HSM-000032", "ASA AERO MAGNETIC FLOAT; INSTALL BEFORE CLOSURE"),
+        ("5", "1", "316 SS", "UPPER FLOAT STOP; DEFINITION IN NOTE 5"),
     ]
     c.setLineWidth(THIN)
     c.rect(left, top - len(rows) * height, right - left, len(rows) * height, stroke=1, fill=0)
@@ -202,14 +222,15 @@ def parts_list(c):
 
 
 def requirements(c):
-    text(c, 650, 336, "ASSEMBLY REQUIREMENTS", 10, bold=True)
+    text(c, 650, 315, "ASSEMBLY REQUIREMENTS", 10, bold=True)
     paragraphs = [
         "1. Fabrication state of HSM-000004 before permanent fittings. Component ports, registers and edge preparation: END-CAP-01. Stock dimensions are nominal.",
-        f"2. Finished cap inside-face spacing AT ROD AXIS: {INSIDE_SPAN:.3f} ±{INSIDE_SPAN_TOL:.3f}. Set both outside faces 0.250 below adjacent tube rims. Align both port pairs on one diameter; both R1 register axes coaxial with the rod. Rod +X faces reservoir B; ports lie on ±Y in the cold core.",
+        f"2. Finished cap inside-face spacing AT ROD AXIS: {INSIDE_SPAN:.3f} ±{INSIDE_SPAN_TOL:.3f}. Set both outside faces 0.250 below adjacent tube rims. Align both port pairs on ±Y; both R1 register axes coaxial on -Y, opposite the reservoirs' +Y sensing stations.",
         "3. Use the fixed-length rod per FR-CARB-01. Seat and tack it in the bottom register before the bottom closure weld. Install the float before top closure; verify top engagement, free travel and full cap seating at the specified spacing.",
         "4. W1: continuous internal-corner fillet around BOTH cap perimeters. ER316L .030 filler. Clean bore band and cap outside face; preserve the square cap weld root. T1: tack rod to bottom cap. Welding, inspection, hydro and passivation: pressure-vessel procedure, steps 2-8.",
+        f"5. Upper stop: Ø{carb.UPPER_STOP_D/MM:.3f} stock, Ø9/64 THRU, {carb.UPPER_STOP_H/MM:.4f} +0.0000/-0.0079 long; square faces, deburr. T2: tack concentrically over top R1 before closure. Keep bore clear. With inlet fitted, retain 0.039 MIN axial air above the stopped float; verify through full radial guide play. Stop attachment and installed clearance require qualification.",
     ]
-    end = wrap_lines(c, 650, 318, paragraphs, 525, size=8.6, leading=11.3, gap=5)
+    end = wrap_lines(c, 650, 297, paragraphs, 525, size=8.0, leading=10.2, gap=4)
     return end
 
 
@@ -217,7 +238,7 @@ def build_pdf(path):
     c = canvas.Canvas(str(path), pagesize=SHEET, invariant=1, pageCompression=1)
     c.setTitle("Carbonator vessel - closure assembly engineering drawing")
     c.setAuthor("Home Soda Machine / Codex")
-    c.setSubject("CV-WLD-01 Rev B: closure geometry, cap clocking and fixed-length rod interface")
+    c.setSubject("CV-WLD-01 Rev C: -Y sensing azimuth and upper float stop")
     frame(c, SHEET)
     longitudinal_section(c)
     outside_end_view(c)
@@ -227,7 +248,7 @@ def build_pdf(path):
     text(c, 47, 168, "RELEASE ITEMS: W1 SIZE AND WELD QUALIFICATION; REMAINING UNSPECIFIED ASSEMBLY TOLERANCES.", 8.5, bold=True)
     title_block(c, SHEET, "CARBONATOR VESSEL - CLOSURE ASSEMBLY", "CV-WLD-01",
                 "SEE PARTS LIST", "1 PER MACHINE", "HSM-000004 / FABRICATION STATE",
-                revision="B")
+                revision="C", date="2026-10-28")
     c.showPage()
     c.save()
 

@@ -12,8 +12,9 @@ including upright guide play. Liquid switching heights need calibration.
 
 | Location | Datum and dimension |
 | --- | --- |
-| Carbonator, both end caps | Register center **(0, −[41.849 mm](CARB_RADIUS))** from the disc center, along the −Y axis perpendicular to the two-port line |
-| Same carbonator position, inches | **(0, −[1.6476 in](CARB_RADIUS_IN))**; radius equals half the 4.870 in tube ID minus 20 mm |
+| Carbonator, both end caps | Register center **(−[41.849 mm](CARB_RADIUS), 0)** in the inside-face drawing frame, beyond the negative port on the two-port line |
+| Same carbonator position, inches | **(−[1.6476 in](CARB_RADIUS_IN), 0)**; radius equals half the 4.870 in tube ID minus 20 mm |
+| Carbonator installed axis | Rod **(0, −41.849) mm** and reeds **(0, −64.75) mm** in the shell frame; both reservoirs sense at +Y |
 | Carbonator register drill | 9/64 in (3.5719 mm), blind **0.100 in (2.54 mm) to drill tip**, on the inside face; 0.150 in (3.81 mm) of plate remains |
 | Reservoir body and matching cap | Rod axis **(x = ±[106.25 mm](RES_X), y = +[32.5 mm](RES_Y))** in the assembled cold-core frame; sign selects the mirrored reservoir |
 | Reservoir local datum | Rod axis is 20 mm inward from its wet far wall, x = ±126.25 mm; body and cap registers share this axis |
@@ -75,10 +76,18 @@ CAD; use the assembly datum rather than the local underside of a loose printed c
 | --- | --- |
 | Carbonator target liquid levels, pump-on / pump-off | **[67.098 / 95.250 mm](CARB_WATER_LEVELS)** |
 | Carbonator provisional reed centers, CLO / CHI | **[58.332 / 86.484 mm](CARB_REED_CENTERS)** |
-| Carbonator magnet-center mechanical travel | **[28.200–125.700 mm](CARB_TRAVEL)** |
+| Carbonator magnet-center mechanical travel | **[28.200–121.700 mm](CARB_TRAVEL)** |
 | Reservoir magnet-center mechanical travel | **[25.250–188.150 mm](RES_TRAVEL)** |
 | Reservoir four provisional reed centers | **[25.700, 79.700, 133.700, 187.700 mm](RES_REED_CENTERS)** |
 | Reservoir provisional reed pitch | **[54 mm](RES_REED_PITCH)** |
+
+A 4 mm-long stainless annular stop is tacked around the top plate's rod
+register before closure. The stop holds the float below the water-inlet tip.
+At the nominal modeled tip projection, the stopped float has 1.746 mm of axial
+air to the jet cap over all upright guide play. Verify at least 1 mm with
+the actual inlet elbow and jet fitted before closure; attachment, tilt and
+finished sliding require physical qualification. The rod's finished cut length
+and register depth retain their specified datums.
 
 The carbonator target water-level difference displaces one 338.1 mL water
 serving. Its provisional reed centers assume 0.65 g/cm³ foam, a dry pocket,
@@ -165,4 +174,5 @@ measured switching heights.
 
 ## Sources
 [value](NAME) texts are updated by:
+- `/<stdin>`
 - `/hardware/printed-parts/cold-core/magnetic-float/all-aero/integration.py`

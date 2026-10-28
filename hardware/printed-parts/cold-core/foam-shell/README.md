@@ -25,7 +25,7 @@ The CadQuery script uses an explicit XY plane with +Z normal
   bottom plate (CO2 inlet, water outlet). Both plates are clocked so the
   port pairs stand on the shell's **±Y** axis
   (`_cold_core_interface.carbonator_port_offset`); the float rod's register, at
-  right angles to each plate's own pair, is what holds the two together. Carbonator assembled height = tube
+  the negative end of each plate's port diameter, is what holds the two together. Carbonator assembled height = tube
   length = **[152.4 mm](TANK_H)**. Outer radius = **[63.5 mm](TANK_R)**.
 - **Reservoir** — printed rigid PETG flavor reservoir, one per flavor,
   two per cold core, standing on its pocket's floor. **Two mouths, both in its
@@ -214,7 +214,7 @@ foam-cap stacks.
 The outer **−X** wall carries one round copper feed-through on each lane. **Nothing else crosses it** — this face is mated against the
 refrigeration base, so a bore struck here opens into that base rather than into the
 machine. All seven fluid lines leave by the top cap's conduits, along with the
-two reservoir reed cables and sensor/earth loom in their own passages. See Penetrations.
+two reservoir reed cables, carbonator reed cable and sensor/earth loom in their own passages. See Penetrations.
 
 ### foam_cap and foam_cap_lid
 
@@ -374,9 +374,10 @@ both ends of that.
 
 ## Penetrations
 
-Thirteen pass-throughs total — ten tube lines, two reservoir reed cables and the sensor/earth loom. Every tube is **1/4" OD
-(6.35 mm nominal, about 6.5 mm measured)**. Passive passages through printed
-material are ⌀[7.5 mm](TUBE_HOLE_D), with 0.5 mm radial air around the measured
+Sixteen pass-throughs total — twelve tube lines and four cable looms. The
+liquid, gas and refrigerant tubes are **1/4" OD (6.35 mm nominal, about 6.5 mm
+measured)**; the two reservoir air tubes are **4 mm OD**. Passive quarter-inch
+passages through printed material are ⌀[7.5 mm](TUBE_HOLE_D), with 0.5 mm radial air around the measured
 tube for insertion below the reservoirs and through the cap. These passages
 do not retain the tube. Faucet and organizer fits use their own dimensions.
 
@@ -401,7 +402,10 @@ the +Y flank into the enclosure’s exterior relief chase.
 | 10 | Reservoir B draw | **top-cap conduit** `reservoir-b` | one continuous dip tube through the cap's 3.5 mm passive shift and B's draw bore to its floor |
 | 11 | Reservoir A fill | **top-cap conduit** `reservoir-a-fill` | through the cap's 3.5 mm passive shift to A's fill bore, **above its liquid** |
 | 12 | Reservoir B fill | **two fitted cap pockets** `reservoir-b-fill` | an upper JG elbow, short tube and lower trimmed NeoFit stem through B's fill bore, ending in the headspace |
-| 13 | Sensor and earth loom | top-cap `sensor-cable` passage | temperature-bus conductors, carbonator reed conductors and carbonator earth lead |
+| 13 | Sensor and earth loom | top-cap `sensor-cable` passage | temperature-bus conductors and carbonator earth lead |
+| 14 | Carbonator reed loom | straight top-cup/lid `carbonator-reeds` passage at shell (0, −74) mm | CLO, CHI and their shared common, to J7 and its common WAGO |
+| 15 | Reservoir A air | dedicated Ø5.2 mm upper-cup/lid passage | 4 mm OD tube from A’s cap grip to 6 mm above the outer lid |
+| 16 | Reservoir B air | dedicated Ø5.2 mm upper-cup/lid passage | 4 mm OD tube from B’s cap grip to 6 mm above the outer lid |
 
 **The carbonator and both reservoirs are filled high and drawn low** — the carbonator at
 its two plates, each reservoir through its cap, from above the liquid and from its floor. Nothing that enters one can leave

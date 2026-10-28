@@ -15,8 +15,8 @@ model supersedes the other, so **the card below is written beside both STEPs**: 
 ## Frame
 
 The foam shell's own. Z up, the shell floor's outer face at z = 0, the shell's open top at
-`foam_shell.foam_shell_outer_height`, which `foam-shell/README.md` states as `OUTER_H`. ±Y is the carbonator's port axis; +X is the register azimuth, which the float
-rod and the reed bridge share. `foam_assembly.stack_floor_z` and `.cap_face_z` are the two
+`foam_shell.foam_shell_outer_height`, which `foam-shell/README.md` states as `OUTER_H`. ±Y is the carbonator's port axis; −Y is the register azimuth, which the float
+rod and the reed bridge share, opposite both reservoirs' +Y sensing positions. A 4 mm stainless stop around the upper register limits the float below the inlet tip. The three reed conductors rise through their own straight upper-cup/lid passage at shell (0, −74) mm. `foam_assembly.stack_floor_z` and `.cap_face_z` are the two
 planes the appliance reads off the stack.
 
 ## What is here

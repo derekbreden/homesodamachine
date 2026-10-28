@@ -7,7 +7,7 @@ both reservoirs in their pockets, the fittings made up on every port, and the li
 among all of them.
 
 FRAME: the foam shell's own. Z up, the shell floor's outer face at z = 0, the shell's open top
-at `foam_shell_outer_height`. ±Y is the carbonator's port axis and +X the register azimuth.
+at `foam_shell_outer_height`. ±Y is the carbonator's port axis and −Y the register azimuth.
 `foam_assembly.stack_floor_z` and `.cap_face_z` are the two planes the appliance reads.
 
     tools/cad-venv/bin/python hardware/cold-core-layout/cold_core_assembly.py
@@ -39,7 +39,7 @@ from _cadq_export import export_assembly, import_step                 # noqa: E4
 import _overlap                                          # noqa: E402
 import foam_assembly as _foam                            # noqa: E402
 import _internal_routes as _routes                       # noqa: E402
-from _cold_core_interface import foam_shell_outer_height  # noqa: E402
+from _cold_core_interface import foam_shell_outer_height, carbonator_sensor_azimuth  # noqa: E402
 import _carbonator as _V                                     # noqa: E402
 import _coil as _C                                       # noqa: E402
 import _fittings as _F                                   # noqa: E402
@@ -78,6 +78,7 @@ HELD_BY = {
     "endcap-bottom": "tube bore",
     "endcap-top": "tube bore",
     "float-rod-carb": "plate registers",
+    "float-stop-carb-top": "top plate inside face",
     "reservoir-a": "pocket",
     "reservoir-b": "pocket",
     "reservoir-a-gasket": "body rim",
@@ -225,8 +226,9 @@ def build_bodies() -> dict:
     placed.update(_C.bodies())
     placed.update(_I.bodies(placed))
     placed.update(_prv_stack())
-    placed["reed-bridge"] = _load(_cold / "reed-bridge" / "reed-bridge.step").translate(
-        (0, 0, _V.carbonator_bottom_z))
+    placed["reed-bridge"] = (_load(_cold / "reed-bridge" / "reed-bridge.step")
+        .rotate((0, 0, 0), (0, 0, 1), carbonator_sensor_azimuth)
+        .translate((0, 0, _V.carbonator_bottom_z)))
     for name,world in _above_mounts.reservoir_b_fill_parts().items():
         placed[name] = _world_in_core(world)
     for name,(world,_colour,_carry) in _above_parts.core_components().items():
@@ -419,7 +421,7 @@ def _floats_couple(placed: dict) -> Check:
     good = 0
     for name, (park, wall, _centre, standoff) in sorted(seats.items()):
         minimum_gap = standoff - 2 * _I.FLOAT_SLOP
-        reed_axis = _I.carbonator_reed_x() if name == "float-carb" else _I.REED_COLUMN_X
+        reed_axis = _I.carbonator_reed_radius() if name == "float-carb" else _I.REED_COLUMN_X
         edge_path = _I._float.reed_edge_distance(park, reed_axis)
         float_path = _I._float.reed_float_edge_distance(park, reed_axis)
         good += minimum_gap >= 1.0 and float_path <= _I.FLOAT_EDGE_DESIGN_MAXIMUM

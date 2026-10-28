@@ -89,7 +89,7 @@ def colour_for(name: str):
         return _mat.C_RESERVOIR
     if name.startswith("evap-"):
         return _mat.M_COPPER
-    if name.startswith("float-rod"):
+    if name.startswith(("float-rod", "float-stop")):
         return _mat.M_STAINLESS
     if name.startswith("float-"):
         return _mat.M_ASA_AERO_WHITE
