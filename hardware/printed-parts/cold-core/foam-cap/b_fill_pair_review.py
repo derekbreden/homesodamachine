@@ -61,11 +61,10 @@ def box(a, b):
 
 
 def current_vb_strip_scope(tail_xmax):
-    """A conservative current-source bound replaces the old cached strip."""
+    """Conservative X bounds for the selected strip."""
     route = mounts.union_tie_routes()['vb-outlet-return']
     datum = mounts.union_support_datums()['vb-outlet-return']
-    band_mid = sum(datum['native_band_mm'])/2.
-    centre = layout.point(layout.snapshot_pose('vb-outlet-return'), (0., band_mid, 0.))
+    centre = datum['centre_world_mm']
     padding = (route['width_mm']+route['thickness_mm'])/2.
     intervals = []
     for segment in route['segments']:
@@ -77,7 +76,7 @@ def current_vb_strip_scope(tail_xmax):
             intervals.append((min(xs)-padding, max(xs)+padding))
     limits = [min(row[0] for row in intervals), max(row[1] for row in intervals)]
     return {
-        'scope': 'Current source-derived nominal strip versus the selected fluid24 tail. The cached strip at the former west station is superseded by this conservative line/full-circle X bound; no strap, head or slot move is adopted. Purchased strip dimensions and physical handling remain unqualified.',
+        'scope': 'Current source-derived nominal strip versus the selected fluid24 tail, using conservative line/full-circle X bounds. Purchased strip dimensions and physical handling remain unqualified.',
         'source_sha256': {str(path.relative_to(ROOT)): sha(path) for path in (
             Path(mounts.__file__), ROOT/'hardware/manifold-layout/above-core.json')},
         'current_window_world_mm': [datum['tie_window_min_world_mm'],
