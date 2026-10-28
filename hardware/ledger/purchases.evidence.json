@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "as_of": "2026-10-26",
+  "as_of": "2026-10-28",
   "reporting_period": {
     "start": "2026-01-01",
     "end": "2026-12-31"
@@ -8337,7 +8337,14 @@
       ],
       "allocation_status": "all_project",
       "source_ids": [
-        "src-1de8a5e4ff1344b081aa6d8332b15203"
+        "src-1de8a5e4ff1344b081aa6d8332b15203",
+        "src-edf9dcd2444d4f21809773fc5473d92c"
+      ],
+      "delivery_dates": [
+        {
+          "precision": "day",
+          "value": "2026-10-28"
+        }
       ]
     },
     "pur-abd647629bfa41e1ae7de9bf129dbf44": {
@@ -8570,6 +8577,19 @@
       "allocation_status": "all_project",
       "source_ids": [
         "src-f1858fd8ad6e4488986599b5ba971c31"
+      ]
+    },
+    "pur-9d9726d27ea04842b803208c17fd1b37": {
+      "vendor": "Fresh Water Systems",
+      "purpose": "components",
+      "amount_evidence": "final_vendor_amount",
+      "order_ids": [
+        "fws:WEBFWS100715944"
+      ],
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-31821bcc03544179b8acbd0ee716eea6",
+        "src-25efb07a466642cda375aa9fe665d977"
       ]
     }
   },
@@ -14367,7 +14387,8 @@
       },
       "allocation_status": "all_project",
       "source_ids": [
-        "src-1de8a5e4ff1344b081aa6d8332b15203"
+        "src-1de8a5e4ff1344b081aa6d8332b15203",
+        "src-edf9dcd2444d4f21809773fc5473d92c"
       ]
     },
     "amazon:112-6255534-2742635": {
@@ -14440,6 +14461,19 @@
       "allocation_status": "all_project",
       "source_ids": [
         "src-f1858fd8ad6e4488986599b5ba971c31"
+      ]
+    },
+    "fws:WEBFWS100715944": {
+      "vendor": "Fresh Water Systems",
+      "reference": "WEBFWS100715944",
+      "order_date": {
+        "precision": "day",
+        "value": "2026-10-28"
+      },
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-31821bcc03544179b8acbd0ee716eea6",
+        "src-25efb07a466642cda375aa9fe665d977"
       ]
     }
   },
@@ -17950,15 +17984,19 @@
       "event_id": "evt-e479c6487dd243a088862f30dcf951f6",
       "vendor": "Fresh Water Systems",
       "event_type": "charge",
-      "confirmation": "expected",
-      "event_date": null,
+      "confirmation": "confirmed",
+      "event_date": {
+        "precision": "day",
+        "value": "2026-10-24"
+      },
       "amount_minor": 17354,
       "currency": "USD",
       "allocation_status": "all_project",
       "source_ids": [
-        "src-1de8a5e4ff1344b081aa6d8332b15203"
+        "src-1de8a5e4ff1344b081aa6d8332b15203",
+        "src-edf9dcd2444d4f21809773fc5473d92c"
       ],
-      "verified_at": "2026-10-24",
+      "verified_at": "2026-10-28",
       "order_ids": [
         "fws:WEBFWS100715131"
       ]
@@ -17982,6 +18020,27 @@
       "verified_at": "2026-10-24",
       "order_ids": [
         "amazon:114-0006703-7518633"
+      ]
+    },
+    {
+      "event_id": "evt-acd3c197767942d68ef92b3d422122b7",
+      "vendor": "Fresh Water Systems",
+      "event_type": "charge",
+      "confirmation": "confirmed",
+      "event_date": {
+        "precision": "day",
+        "value": "2026-10-28"
+      },
+      "amount_minor": 4913,
+      "currency": "USD",
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-31821bcc03544179b8acbd0ee716eea6",
+        "src-25efb07a466642cda375aa9fe665d977"
+      ],
+      "verified_at": "2026-10-28",
+      "order_ids": [
+        "fws:WEBFWS100715944"
       ]
     }
   ],
@@ -19384,6 +19443,14 @@
       "purchase_id": "pur-242d69307ce84a69948b9e502ff3dd71",
       "order_id": "amazon:114-0006703-7518633",
       "amount_minor": 6004,
+      "currency": "USD"
+    },
+    {
+      "allocation_id": "alloc-3bf2aac187ec403e93d29a42407c2fe7",
+      "event_id": "evt-acd3c197767942d68ef92b3d422122b7",
+      "purchase_id": "pur-9d9726d27ea04842b803208c17fd1b37",
+      "order_id": "fws:WEBFWS100715944",
+      "amount_minor": 4913,
       "currency": "USD"
     }
   ],
@@ -29818,6 +29885,60 @@
       ],
       "verified_at": "2026-10-26",
       "note": "Signed-in Amazon order details and order summary: ordered 2026-10-26, all six items arriving 2026-10-27. Canon EOS R50 V with RF-S 14-30mm lens kit (B0F258T13X) at USD 799.00 and SanDisk Extreme 128 GB SD card (B0G8LT6J46) at USD 44.99, both sold by Amazon.com; SmallRig CT25 overhead tripod (B0F8TDJH4J) at USD 99.00 and SmallRig CT-10 tripod (B0B63VTW46) at USD 69.99, both sold by SmallRig; NEEWER NL-192AI two-panel light kit (B08TMBXLGD) at USD 149.99, sold by iphotoxx; Anker USB-C SD card reader (B07NW8RPYN) at USD 17.99, sold by AnkerDirect. USD 1,180.96 item subtotal, USD 0.00 shipping, USD 16.90 promotion, USD 84.39 estimated tax and USD 1,248.45 grand total. The promotion is the 10% SmallRig offer shown on both tripod listings and on none of the other four, allocated as 10% of each: USD 9.90 to the CT25 and 7.00 to the CT-10. The tax is not itemized; it is allocated in proportion to the post-promotion item price: USD 57.93 to the camera, 6.46 to the CT25, 4.57 to the CT-10, 10.87 to the lights, 3.26 to the SD card and 1.30 to the reader. Order-scoped Transactions list no transactions yet. No charge or delivery is established."
+    },
+    "src-31821bcc03544179b8acbd0ee716eea6": {
+      "vendor": "Fresh Water Systems",
+      "document_type": "email_order_confirmation",
+      "reference": "WEBFWS100715944",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-10-28"
+      },
+      "proves": [
+        "price",
+        "order_date"
+      ],
+      "verified_at": "2026-10-28",
+      "note": "Gmail order confirmation received 2026-10-28 10:43 America/Chicago: neoFit AME4-N2-E acetal black male elbow, 1/4\" tube × 1/4\" NPTF, 2 × bag of 10 at USD 15.60; USD 31.20 subtotal, USD 14.60 shipping, USD 3.33 tax, USD 49.13 total; 2-business-day shipping. No shipment or delivery is stated."
+    },
+    "src-25efb07a466642cda375aa9fe665d977": {
+      "vendor": "Fresh Water Systems",
+      "document_type": "merchant_order_page",
+      "reference": "WEBFWS100715944",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-10-28"
+      },
+      "proves": [
+        "charge",
+        "merchant_event_date"
+      ],
+      "verified_at": "2026-10-28",
+      "note": "Account order page opened from the vendor's order email link. Its payment line shows USD 49.13 dated 2026-10-28, the order total; fulfillment status Confirmed Oct 28 at 10:43am. Line item: NeoFit - Acetal Black Male Elbow 1/4\"tube x 1/4\"NPTF, Bag of 10, quantity 2 at USD 15.60. No bank posting or funding ownership is established.",
+      "merchant_event_date": {
+        "precision": "day",
+        "value": "2026-10-28"
+      }
+    },
+    "src-edf9dcd2444d4f21809773fc5473d92c": {
+      "vendor": "Fresh Water Systems",
+      "document_type": "merchant_order_page",
+      "reference": "WEBFWS100715131",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-10-28"
+      },
+      "proves": [
+        "charge",
+        "merchant_event_date",
+        "delivery"
+      ],
+      "verified_at": "2026-10-28",
+      "note": "Account order page opened from the vendor's order email link. Its payment line shows USD 173.54 dated 2026-10-24, the order total; fulfillment status Delivered Oct 28 at 9:21am, UPS 1Z89YF110338370723, one shipment carrying all four lines (ACHV44-E bag of 10, ATEU44W 3 × bag of 10, ATBU444-E bag of 10, LLDPE4M-BLACK 100 ft). Gmail lists out-for-delivery (08:51) and delivered (09:23 America/Chicago) notices dated 2026-10-28. No bank posting or funding ownership is established.",
+      "merchant_event_date": {
+        "precision": "day",
+        "value": "2026-10-24"
+      }
     }
   },
   "coverage": [
@@ -31294,6 +31415,48 @@
         "amazon:114-0006703-7518633"
       ],
       "note": "Order details and order-scoped Transactions for one named project order; its USD 354.89 debit is Pending. No claim of complete Amazon account coverage."
+    },
+    {
+      "coverage_id": "coverage-6194d8a6259e4ec4864ddd8bad6f5a79",
+      "vendor": "Fresh Water Systems",
+      "stream": "carbonator-port male elbow order",
+      "evidence_type": "order_confirmation",
+      "checked_at": "2026-10-28",
+      "examined_period": {
+        "start": "2026-10-27",
+        "end": "2026-10-28"
+      },
+      "complete_period": null,
+      "coverage": "partial",
+      "source_ids": [
+        "src-31821bcc03544179b8acbd0ee716eea6"
+      ],
+      "order_ids": [
+        "fws:WEBFWS100715944"
+      ],
+      "note": "Scoped Gmail search for mail from the last day and review of the named order confirmation; no claim of complete Fresh Water Systems account coverage."
+    },
+    {
+      "coverage_id": "coverage-94400028abbd45a08205cae95a67450e",
+      "vendor": "Fresh Water Systems",
+      "stream": "merchant account order pages",
+      "evidence_type": "merchant_payments",
+      "checked_at": "2026-10-28",
+      "examined_period": {
+        "start": "2026-10-24",
+        "end": "2026-10-28"
+      },
+      "complete_period": null,
+      "coverage": "partial",
+      "source_ids": [
+        "src-edf9dcd2444d4f21809773fc5473d92c",
+        "src-25efb07a466642cda375aa9fe665d977"
+      ],
+      "order_ids": [
+        "fws:WEBFWS100715131",
+        "fws:WEBFWS100715944"
+      ],
+      "note": "Account order pages opened from the two named orders' emails: payment lines for both, and delivered fulfillment for WEBFWS100715131. No claim of complete account coverage."
     }
   ],
   "gaps": [

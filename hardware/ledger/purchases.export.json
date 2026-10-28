@@ -377,6 +377,14 @@
       "purchase_id": "pur-bd9cd829101241ce9c11a341dfe51b42"
     },
     {
+      "allocation_id": "alloc-3bf2aac187ec403e93d29a42407c2fe7",
+      "amount_minor": 4913,
+      "currency": "USD",
+      "event_id": "evt-acd3c197767942d68ef92b3d422122b7",
+      "order_id": "fws:WEBFWS100715944",
+      "purchase_id": "pur-9d9726d27ea04842b803208c17fd1b37"
+    },
+    {
       "allocation_id": "alloc-3d2e40faf1a04b52a5ebf797c8979340",
       "amount_minor": 19305,
       "currency": "USD",
@@ -1401,7 +1409,7 @@
       "purchase_id": "pur-e09e5d28db894792aef087da03caea51"
     }
   ],
-  "as_of": "2026-10-26",
+  "as_of": "2026-10-28",
   "coverage": [
     {
       "checked_at": "2026-10-04",
@@ -1979,6 +1987,26 @@
       "vendor": "XLaserlab"
     },
     {
+      "checked_at": "2026-10-28",
+      "complete_period": null,
+      "coverage": "partial",
+      "coverage_id": "coverage-6194d8a6259e4ec4864ddd8bad6f5a79",
+      "evidence_type": "order_confirmation",
+      "examined_period": {
+        "end": "2026-10-28",
+        "start": "2026-10-27"
+      },
+      "note": "Scoped Gmail search for mail from the last day and review of the named order confirmation; no claim of complete Fresh Water Systems account coverage.",
+      "order_ids": [
+        "fws:WEBFWS100715944"
+      ],
+      "source_ids": [
+        "src-31821bcc03544179b8acbd0ee716eea6"
+      ],
+      "stream": "carbonator-port male elbow order",
+      "vendor": "Fresh Water Systems"
+    },
+    {
       "checked_at": "2026-10-04",
       "complete_period": null,
       "coverage": "unknown",
@@ -2225,6 +2253,28 @@
       ],
       "stream": "funnel-mold hardware orders",
       "vendor": "Amazon"
+    },
+    {
+      "checked_at": "2026-10-28",
+      "complete_period": null,
+      "coverage": "partial",
+      "coverage_id": "coverage-94400028abbd45a08205cae95a67450e",
+      "evidence_type": "merchant_payments",
+      "examined_period": {
+        "end": "2026-10-28",
+        "start": "2026-10-24"
+      },
+      "note": "Account order pages opened from the two named orders' emails: payment lines for both, and delivered fulfillment for WEBFWS100715131. No claim of complete account coverage.",
+      "order_ids": [
+        "fws:WEBFWS100715131",
+        "fws:WEBFWS100715944"
+      ],
+      "source_ids": [
+        "src-25efb07a466642cda375aa9fe665d977",
+        "src-edf9dcd2444d4f21809773fc5473d92c"
+      ],
+      "stream": "merchant account order pages",
+      "vendor": "Fresh Water Systems"
     },
     {
       "checked_at": "2026-10-04",
@@ -5884,6 +5934,34 @@
     },
     {
       "allocation_ids": [
+        "alloc-3bf2aac187ec403e93d29a42407c2fe7"
+      ],
+      "allocation_status": "all_project",
+      "amount_minor": 4913,
+      "confirmation": "confirmed",
+      "currency": "USD",
+      "event_date": {
+        "precision": "day",
+        "value": "2026-10-28"
+      },
+      "event_id": "evt-acd3c197767942d68ef92b3d422122b7",
+      "event_type": "charge",
+      "order_ids": [
+        "fws:WEBFWS100715944"
+      ],
+      "purchase_ids": [
+        "pur-9d9726d27ea04842b803208c17fd1b37"
+      ],
+      "source_ids": [
+        "src-25efb07a466642cda375aa9fe665d977",
+        "src-31821bcc03544179b8acbd0ee716eea6"
+      ],
+      "unallocated_to_purchase_minor": 0,
+      "vendor": "Fresh Water Systems",
+      "verified_at": "2026-10-28"
+    },
+    {
+      "allocation_ids": [
         "alloc-bb48de78d1ae4d6c85e46241a14f7cb7"
       ],
       "allocation_status": "all_project",
@@ -6882,9 +6960,12 @@
       ],
       "allocation_status": "all_project",
       "amount_minor": 17354,
-      "confirmation": "expected",
+      "confirmation": "confirmed",
       "currency": "USD",
-      "event_date": null,
+      "event_date": {
+        "precision": "day",
+        "value": "2026-10-24"
+      },
       "event_id": "evt-e479c6487dd243a088862f30dcf951f6",
       "event_type": "charge",
       "order_ids": [
@@ -6894,11 +6975,12 @@
         "pur-43767918757a4173a8b69a9b725d64fd"
       ],
       "source_ids": [
-        "src-1de8a5e4ff1344b081aa6d8332b15203"
+        "src-1de8a5e4ff1344b081aa6d8332b15203",
+        "src-edf9dcd2444d4f21809773fc5473d92c"
       ],
       "unallocated_to_purchase_minor": 0,
       "vendor": "Fresh Water Systems",
-      "verified_at": "2026-10-24"
+      "verified_at": "2026-10-28"
     },
     {
       "allocation_ids": [
@@ -7809,7 +7891,7 @@
       ]
     }
   ],
-  "input_fingerprint": "sha256:a909217a37c32feebd9a0ae2b09e59360e030a2dfbf5f29174f96d139af3d1f3",
+  "input_fingerprint": "sha256:a3f793da37f81acf79b75f1add88a81e843c161d0e39b18bb5e857cd754ca29f",
   "orders": [
     {
       "allocation_status": "all_project",
@@ -16134,7 +16216,28 @@
       ],
       "reference": "WEBFWS100715131",
       "source_ids": [
-        "src-1de8a5e4ff1344b081aa6d8332b15203"
+        "src-1de8a5e4ff1344b081aa6d8332b15203",
+        "src-edf9dcd2444d4f21809773fc5473d92c"
+      ],
+      "vendor": "Fresh Water Systems"
+    },
+    {
+      "allocation_status": "all_project",
+      "event_ids": [
+        "evt-acd3c197767942d68ef92b3d422122b7"
+      ],
+      "order_date": {
+        "precision": "day",
+        "value": "2026-10-28"
+      },
+      "order_id": "fws:WEBFWS100715944",
+      "purchase_ids": [
+        "pur-9d9726d27ea04842b803208c17fd1b37"
+      ],
+      "reference": "WEBFWS100715944",
+      "source_ids": [
+        "src-25efb07a466642cda375aa9fe665d977",
+        "src-31821bcc03544179b8acbd0ee716eea6"
       ],
       "vendor": "Fresh Water Systems"
     },
@@ -24382,15 +24485,24 @@
       "amount_minor": 17354,
       "contributes": true,
       "currency": "USD",
-      "delivery_date": null,
+      "delivery_date": {
+        "precision": "day",
+        "value": "2026-10-28"
+      },
+      "delivery_dates": [
+        {
+          "precision": "day",
+          "value": "2026-10-28"
+        }
+      ],
       "description": "Fresh Water Systems order WEBFWS100715131 — neoFit ACHV44-E acetal black single check valve, 1/4\" tube, 0.3 psi crack pressure (bag of 10) + neoFit ATEU44W acetal white stem elbow, 1/4\" tube × 1/4\" stem (3 × bag of 10) + neoFit ATBU444-E acetal black branch stem tee, 1/4\" tube × 1/4\" stem (bag of 10) + neoFlo LLDPE4M-BLACK black 4 mm OD LLDPE tubing (100 ft)",
       "event_ids": [
         "evt-e479c6487dd243a088862f30dcf951f6"
       ],
-      "fulfillment": "ON-ORDER",
+      "fulfillment": "ACQUIRED",
       "invoice_date": null,
       "ledger_purchase_id": "pur-43767918757a4173a8b69a9b725d64fd",
-      "merchant_charge_allocated_minor": 0,
+      "merchant_charge_allocated_minor": 17354,
       "merchant_refund_allocated_minor": 0,
       "order_date": {
         "precision": "day",
@@ -24399,7 +24511,7 @@
       "order_ids": [
         "fws:WEBFWS100715131"
       ],
-      "payment_evidence": "unknown",
+      "payment_evidence": "merchant_charge",
       "price_basis": "row_total",
       "purchase_id": "pur-43767918757a4173a8b69a9b725d64fd",
       "purpose": "components",
@@ -24415,7 +24527,8 @@
       "section": "4. Carbonator plumbing (pressurized side)",
       "service_period": null,
       "source_ids": [
-        "src-1de8a5e4ff1344b081aa6d8332b15203"
+        "src-1de8a5e4ff1344b081aa6d8332b15203",
+        "src-edf9dcd2444d4f21809773fc5473d92c"
       ],
       "split_charge": false,
       "stream": "purchase",
@@ -37475,6 +37588,53 @@
       "stream": "purchase",
       "unit_amount_minor": null,
       "vendor": "Amazon"
+    },
+    {
+      "allocation_status": "all_project",
+      "amount_evidence": "final_vendor_amount",
+      "amount_minor": 4913,
+      "contributes": true,
+      "currency": "USD",
+      "delivery_date": null,
+      "description": "Fresh Water Systems order WEBFWS100715944 — neoFit AME4-N2-E acetal black male elbow, fixed, 1/4\" tube × 1/4\" NPTF, EPDM O-ring (2 × bag of 10)",
+      "event_ids": [
+        "evt-acd3c197767942d68ef92b3d422122b7"
+      ],
+      "fulfillment": "ON-ORDER",
+      "invoice_date": null,
+      "ledger_purchase_id": "pur-9d9726d27ea04842b803208c17fd1b37",
+      "merchant_charge_allocated_minor": 4913,
+      "merchant_refund_allocated_minor": 0,
+      "order_date": {
+        "precision": "day",
+        "value": "2026-10-28"
+      },
+      "order_ids": [
+        "fws:WEBFWS100715944"
+      ],
+      "payment_evidence": "merchant_charge",
+      "price_basis": "row_total",
+      "purchase_id": "pur-9d9726d27ea04842b803208c17fd1b37",
+      "purpose": "components",
+      "quantity": 2,
+      "quantity_text": "2 bags (20)",
+      "receipt_date": null,
+      "record_role": "purchase",
+      "row_date": {
+        "precision": "day",
+        "value": "2026-10-28"
+      },
+      "row_date_basis": "order_date",
+      "section": "4. Carbonator plumbing (pressurized side)",
+      "service_period": null,
+      "source_ids": [
+        "src-25efb07a466642cda375aa9fe665d977",
+        "src-31821bcc03544179b8acbd0ee716eea6"
+      ],
+      "split_charge": false,
+      "stream": "purchase",
+      "unit_amount_minor": null,
+      "vendor": "Fresh Water Systems"
     },
     {
       "allocation_status": "all_project",
@@ -56834,6 +56994,26 @@
     {
       "document_date": {
         "precision": "day",
+        "value": "2026-10-28"
+      },
+      "document_type": "merchant_order_page",
+      "merchant_event_date": {
+        "precision": "day",
+        "value": "2026-10-28"
+      },
+      "note": "Account order page opened from the vendor's order email link. Its payment line shows USD 49.13 dated 2026-10-28, the order total; fulfillment status Confirmed Oct 28 at 10:43am. Line item: NeoFit - Acetal Black Male Elbow 1/4\"tube x 1/4\"NPTF, Bag of 10, quantity 2 at USD 15.60. No bank posting or funding ownership is established.",
+      "proves": [
+        "charge",
+        "merchant_event_date"
+      ],
+      "reference": "WEBFWS100715944",
+      "source_id": "src-25efb07a466642cda375aa9fe665d977",
+      "vendor": "Fresh Water Systems",
+      "verified_at": "2026-10-28"
+    },
+    {
+      "document_date": {
+        "precision": "day",
         "value": "2026-03-26"
       },
       "document_type": "merchant_monetary_receipt",
@@ -57126,6 +57306,22 @@
       "source_id": "src-3153c49a671e462c85f1909704064e8e",
       "vendor": "Bambu Lab",
       "verified_at": "2026-10-13"
+    },
+    {
+      "document_date": {
+        "precision": "day",
+        "value": "2026-10-28"
+      },
+      "document_type": "email_order_confirmation",
+      "note": "Gmail order confirmation received 2026-10-28 10:43 America/Chicago: neoFit AME4-N2-E acetal black male elbow, 1/4\" tube × 1/4\" NPTF, 2 × bag of 10 at USD 15.60; USD 31.20 subtotal, USD 14.60 shipping, USD 3.33 tax, USD 49.13 total; 2-business-day shipping. No shipment or delivery is stated.",
+      "proves": [
+        "price",
+        "order_date"
+      ],
+      "reference": "WEBFWS100715944",
+      "source_id": "src-31821bcc03544179b8acbd0ee716eea6",
+      "vendor": "Fresh Water Systems",
+      "verified_at": "2026-10-28"
     },
     {
       "document_date": {
@@ -60762,6 +60958,27 @@
     {
       "document_date": {
         "precision": "day",
+        "value": "2026-10-28"
+      },
+      "document_type": "merchant_order_page",
+      "merchant_event_date": {
+        "precision": "day",
+        "value": "2026-10-24"
+      },
+      "note": "Account order page opened from the vendor's order email link. Its payment line shows USD 173.54 dated 2026-10-24, the order total; fulfillment status Delivered Oct 28 at 9:21am, UPS 1Z89YF110338370723, one shipment carrying all four lines (ACHV44-E bag of 10, ATEU44W 3 × bag of 10, ATBU444-E bag of 10, LLDPE4M-BLACK 100 ft). Gmail lists out-for-delivery (08:51) and delivered (09:23 America/Chicago) notices dated 2026-10-28. No bank posting or funding ownership is established.",
+      "proves": [
+        "charge",
+        "merchant_event_date",
+        "delivery"
+      ],
+      "reference": "WEBFWS100715131",
+      "source_id": "src-edf9dcd2444d4f21809773fc5473d92c",
+      "vendor": "Fresh Water Systems",
+      "verified_at": "2026-10-28"
+    },
+    {
+      "document_date": {
+        "precision": "day",
         "value": "2026-03-18"
       },
       "document_type": "merchant_monetary_receipt",
@@ -61183,7 +61400,7 @@
       "basis": "Current procurement status, independently of payment evidence.",
       "by_status": [
         {
-          "amount_minor": 4661921,
+          "amount_minor": 4679275,
           "currency": "USD",
           "fulfillment": "ACQUIRED",
           "purchase_ids": [
@@ -61343,6 +61560,7 @@
             "pur-41f67e61e80f4bbda2004fa71d913663",
             "pur-42eba219e2714ebc9bfa7bba5081d3e3",
             "pur-433742d17ca046aaa56e10ed08232830",
+            "pur-43767918757a4173a8b69a9b725d64fd",
             "pur-438e546fcfdc40feb6642cdbf2b74d04",
             "pur-43c3d4ea0f7a46a5b388d4a65138d304",
             "pur-43d05d54be2a46458d8442f68c10ac4b",
@@ -61888,7 +62106,7 @@
           "unknown_amount_ids": []
         },
         {
-          "amount_minor": 219598,
+          "amount_minor": 207157,
           "currency": "USD",
           "fulfillment": "ON-ORDER",
           "purchase_ids": [
@@ -61896,7 +62114,6 @@
             "pur-242d69307ce84a69948b9e502ff3dd71",
             "pur-2c46198fe81f4cf7bf5a65d4e4ec638a",
             "pur-3d8a298bd6054af6a120b520e7a8da65",
-            "pur-43767918757a4173a8b69a9b725d64fd",
             "pur-4eaf76e6557740d7b0e85e0be8664f71",
             "pur-4fe40749fe864533992cc92b1e791c63",
             "pur-5f404f5035cb425a9a8d90c69010a404",
@@ -61904,6 +62121,7 @@
             "pur-7a2c9d6f4b8e4d1a3f6c0b2d4e5f7a96",
             "pur-7f5e5ae2f85e4d74bca9edb78b7332f0",
             "pur-8b3d0e7a5c9f4e2b4a7d1c3e5f6a8b07",
+            "pur-9d9726d27ea04842b803208c17fd1b37",
             "pur-a326599d5b464456b43259262c4808ba",
             "pur-abd647629bfa41e1ae7de9bf129dbf44",
             "pur-ae7d87fe77614d0098db388d7f0fa11d",
@@ -61929,7 +62147,6 @@
         "pur-242d69307ce84a69948b9e502ff3dd71",
         "pur-2c46198fe81f4cf7bf5a65d4e4ec638a",
         "pur-3d8a298bd6054af6a120b520e7a8da65",
-        "pur-43767918757a4173a8b69a9b725d64fd",
         "pur-4eaf76e6557740d7b0e85e0be8664f71",
         "pur-4fe40749fe864533992cc92b1e791c63",
         "pur-5f404f5035cb425a9a8d90c69010a404",
@@ -61937,6 +62154,7 @@
         "pur-7a2c9d6f4b8e4d1a3f6c0b2d4e5f7a96",
         "pur-7f5e5ae2f85e4d74bca9edb78b7332f0",
         "pur-8b3d0e7a5c9f4e2b4a7d1c3e5f6a8b07",
+        "pur-9d9726d27ea04842b803208c17fd1b37",
         "pur-a326599d5b464456b43259262c4808ba",
         "pur-abd647629bfa41e1ae7de9bf129dbf44",
         "pur-ae7d87fe77614d0098db388d7f0fa11d",
@@ -61958,7 +62176,6 @@
         "evt-a3c8a2e1a259405e85d14c27817deb58",
         "evt-c0203246ff88423a9af71d1977ede6c4",
         "evt-c8a1b3ae1a6d4021a36b2fe4e55971e9",
-        "evt-e479c6487dd243a088862f30dcf951f6",
         "evt-e5f1a5d1860941fe82124df7e77e67fe",
         "evt-f309b3ca14d1489d87b39daf5c7b7841"
       ],
@@ -62203,7 +62420,7 @@
         },
         {
           "authorizations_minor": 0,
-          "charges_minor": 143320,
+          "charges_minor": 165587,
           "currency": "USD",
           "event_ids": [
             "evt-07fc9a2979134192b3cc752f32f2b460",
@@ -62219,12 +62436,14 @@
             "evt-859aaf61508e423492ba56484ab9f2df",
             "evt-8b786496a51248269419124e3f7b6073",
             "evt-a581db47af7146ef95a329e497e4fbe6",
+            "evt-acd3c197767942d68ef92b3d422122b7",
             "evt-bad47324ad83426992a3db494d58e295",
             "evt-c0203246ff88423a9af71d1977ede6c4",
             "evt-d1da698db2c940a09ec686643f142b0d",
             "evt-d3b134e34785419c80b032d8ae15d6d1",
             "evt-db226e9820d147058384c3bfe695bab8",
             "evt-e1c554d60bb24823b9f662d1d7a5147d",
+            "evt-e479c6487dd243a088862f30dcf951f6",
             "evt-e5f1a5d1860941fe82124df7e77e67fe",
             "evt-ed4b655c12a24295898f2074f883b6a9",
             "evt-ef96ebf561264b5dafd229959a5acabe",
@@ -62233,7 +62452,7 @@
           ],
           "evidence_scope": "retrieved_records_only",
           "month": "2026-10",
-          "net_minor": 143320,
+          "net_minor": 165587,
           "noncash_credits_minor": 0,
           "refunds_minor": 0,
           "unknown_amount_ids": [],
@@ -62269,9 +62488,9 @@
       "totals": [
         {
           "authorizations_minor": 0,
-          "charges_minor": 1765693,
+          "charges_minor": 1787960,
           "currency": "USD",
-          "net_minor": 1765693,
+          "net_minor": 1787960,
           "noncash_credits_minor": 0,
           "refunds_minor": 0,
           "unresolved_project_share_minor": 0
@@ -62294,8 +62513,7 @@
             "evt-9fd2d4a65f7d45a594a7ac3a6837d416",
             "evt-a3c8a2e1a259405e85d14c27817deb58",
             "evt-a44b7291eb25461f97cd8d045faebd4e",
-            "evt-c8a1b3ae1a6d4021a36b2fe4e55971e9",
-            "evt-e479c6487dd243a088862f30dcf951f6"
+            "evt-c8a1b3ae1a6d4021a36b2fe4e55971e9"
           ],
           "net_minor": 57998,
           "noncash_credits_minor": 0,
@@ -62956,7 +63174,7 @@
           "currency": "USD",
           "estimate_minor": 234492,
           "evidence_scope": "retrieved_records_only",
-          "final_vendor_amount_minor": 141812,
+          "final_vendor_amount_minor": 146725,
           "legacy_unverified_minor": 30634,
           "month": "2026-10",
           "purchase_ids": [
@@ -62996,6 +63214,7 @@
             "pur-91bd3b099e80493ab591655550b439ca",
             "pur-9835cb05727440fa98029e6134ffd627",
             "pur-9c025ba9576044b38a4745d084361ea5",
+            "pur-9d9726d27ea04842b803208c17fd1b37",
             "pur-a02ce33a2d984d9fbea615cbad793ab3",
             "pur-a326599d5b464456b43259262c4808ba",
             "pur-a61e59a7635c4aa0887475454ad04b04",
@@ -63017,7 +63236,7 @@
             "pur-f7d7511ce9394cae80352c28342d27fd",
             "pur-f98feadd5dec4c1cba460dd7c74baa09"
           ],
-          "total_minor": 406938,
+          "total_minor": 411851,
           "unknown_amount_ids": []
         },
         {
@@ -63045,7 +63264,7 @@
       ],
       "purpose_totals": [
         {
-          "amount_minor": 1137850,
+          "amount_minor": 1142763,
           "currency": "USD",
           "purpose": "components"
         },
@@ -63084,9 +63303,9 @@
         {
           "currency": "USD",
           "estimate_minor": 398545,
-          "final_vendor_amount_minor": 2097033,
+          "final_vendor_amount_minor": 2101946,
           "legacy_unverified_minor": 2398968,
-          "total_minor": 4894546
+          "total_minor": 4899459
         }
       ],
       "undated_unallocated": [
@@ -63244,7 +63463,7 @@
           "legacy_unverified_purchase_minor": 2398968,
           "order_only_charge_allocation_minor": 6561,
           "partial_charge_purchase_minor": 0,
-          "purchases_without_merchant_charge_minor": 3135414,
+          "purchases_without_merchant_charge_minor": 3118060,
           "undated_charge_minor": 57998,
           "undated_refund_minor": 0,
           "undated_unallocated_purchase_minor": 922346,
@@ -63327,6 +63546,7 @@
         "coverage-529808250fb54698ba4b715138d42a00",
         "coverage-5d72f7e2ddec401d85de4cb0ce8ed2aa",
         "coverage-615679b164eb4d54b8f4302a8f3b976f",
+        "coverage-6194d8a6259e4ec4864ddd8bad6f5a79",
         "coverage-683c80d033e445e5a06780abc6fd7762",
         "coverage-6ae0fe39a22446b5af11066bec38e300",
         "coverage-6e94055bf3074d6eb35fed6a91a4a83a",
@@ -63338,6 +63558,7 @@
         "coverage-88c04aa68db042feb287051cb5e01375",
         "coverage-89028646dee6480680bf381570c72830",
         "coverage-8baffc08a77545f1b1273b8f3fac5b68",
+        "coverage-94400028abbd45a08205cae95a67450e",
         "coverage-96556d699c7b46f4978a3888d3d375db",
         "coverage-9addde8548284bd9b7e2677f30b1c80a",
         "coverage-9d1de87f70a241d1ace3c918c49d2c65",
@@ -63996,7 +64217,6 @@
         "pur-418cda134a6d4c6786b36931d0c34d7f",
         "pur-42eba219e2714ebc9bfa7bba5081d3e3",
         "pur-433742d17ca046aaa56e10ed08232830",
-        "pur-43767918757a4173a8b69a9b725d64fd",
         "pur-438e546fcfdc40feb6642cdbf2b74d04",
         "pur-43c3d4ea0f7a46a5b388d4a65138d304",
         "pur-4455a0c4d2964f14a02678408c4bcdc0",
@@ -64426,8 +64646,7 @@
         "evt-9fd2d4a65f7d45a594a7ac3a6837d416",
         "evt-a3c8a2e1a259405e85d14c27817deb58",
         "evt-a44b7291eb25461f97cd8d045faebd4e",
-        "evt-c8a1b3ae1a6d4021a36b2fe4e55971e9",
-        "evt-e479c6487dd243a088862f30dcf951f6"
+        "evt-c8a1b3ae1a6d4021a36b2fe4e55971e9"
       ],
       "undated_unallocated_purchase_ids": [
         "pur-039f49fc6eef49008dd6a93defa86b27",
@@ -64582,6 +64801,7 @@
       "coverage-529808250fb54698ba4b715138d42a00: evidence coverage is partial",
       "coverage-5d72f7e2ddec401d85de4cb0ce8ed2aa: evidence coverage is unknown",
       "coverage-615679b164eb4d54b8f4302a8f3b976f: evidence coverage is unknown",
+      "coverage-6194d8a6259e4ec4864ddd8bad6f5a79: evidence coverage is partial",
       "coverage-683c80d033e445e5a06780abc6fd7762: evidence coverage is unknown",
       "coverage-6ae0fe39a22446b5af11066bec38e300: evidence coverage is unknown",
       "coverage-6e94055bf3074d6eb35fed6a91a4a83a: evidence coverage is partial",
@@ -64593,6 +64813,7 @@
       "coverage-88c04aa68db042feb287051cb5e01375: evidence coverage is partial",
       "coverage-89028646dee6480680bf381570c72830: evidence coverage is unknown",
       "coverage-8baffc08a77545f1b1273b8f3fac5b68: evidence coverage is partial",
+      "coverage-94400028abbd45a08205cae95a67450e: evidence coverage is partial",
       "coverage-96556d699c7b46f4978a3888d3d375db: evidence coverage is partial",
       "coverage-9addde8548284bd9b7e2677f30b1c80a: evidence coverage is partial",
       "coverage-9d1de87f70a241d1ace3c918c49d2c65: evidence coverage is partial",

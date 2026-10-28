@@ -102,6 +102,7 @@ Bought specifically for a test or investigation, not for production use.
 | **FERRODAY 0.5 µm sintered 304 SS diffusion stones, two-set kit** | [B091C5Y6L9](https://www.amazon.com/dp/B091C5Y6L9), [purchases.md §4](/hardware/ledger/purchases.md) | Acquired comparison stock for the [conditional carbonation Plan B](/future/carbonation-plan-b.md); no stone ships in the water-jet design. No integrated-carbonator carbonation result is recorded. |
 | **LTWFITTING 316 SS 1/4-inch hose barb × 1/4-inch MNPT, five-pack** | [B017N4TTMA](https://www.amazon.com/dp/B017N4TTMA), [purchases.md §4](/hardware/ledger/purchases.md) | Acquired bench fittings; no internal barb in the carbonator. |
 | **Metaland 1/4-inch-ID silicone tubing** | [B08L1ST6ST](https://www.amazon.com/dp/B08L1ST6ST), [purchases.md §4](/hardware/ledger/purchases.md) | Bench tubing; no internal silicone stub in the carbonator. |
+| **neoFit AME4-N2-E acetal black male elbow, fixed, 1/4-inch tube × 1/4-inch NPTF** | 20 on order ([AME4-N2-E](https://www.freshwatersystems.com/products/neofit-acetal-black-male-elbow-1-4-tube-x-1-4-nptf), FWS WEBFWS100715944, [purchases.md §4](/hardware/ledger/purchases.md)) | Fit trial at carbonator Ports 1 and 3: a one-piece push-fit 90° turn in place of the TAISHER street elbow and its push-fit adapter. Its height against the cold core's port band is unchecked; the BOM and the cold-core model carry the street elbow. |
 
 ## Donor
 
