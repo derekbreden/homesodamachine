@@ -16,7 +16,8 @@
 //
 // State that moved reaches every phone on the air under id 0: what the main
 // board volunteers inside MSG_BRIDGE_RESP, and the selection and Prime's
-// session, which J3 already brings this board for its own glass.
+// session, which J3 already brings this board for its own glass. Stamped setting
+// STATE carries the main board's opaque revision for every saved field.
 //
 // A request the main board does not answer in time is answered
 // BRIDGE_ERR_NO_ANSWER, and the phone reads the truth with a query.

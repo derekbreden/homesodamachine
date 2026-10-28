@@ -496,6 +496,11 @@ void onMessage(ProtoLink *link, const uint8_t *frame, uint16_t len) {
     return;
   }
 
+  if (type == MSG_SETTING_STATE) {
+    phoneBridgeOnState(type, payload, plen);
+    return;
+  }
+
   // A tap on the enclosure's ask, and the enclosure's settings forgetting
   // every trusted phone; the console's report.
   if (type == MSG_TRUST_ANSWER && plen >= sizeof(TrustAnswerPayload)) {
@@ -705,11 +710,8 @@ void faucetRequestRelay(uint8_t slot) {
 
 void faucetSetFlavorArt(uint8_t channel, uint8_t art) {
   if (channel > 1 || art >= FLAVOR_ART_COUNT) return;
-  uint8_t pair[2];
-  faucetReadFlavorArt(pair);
-  pair[channel] = art;
-  FlavorArtPayload req{{pair[0], pair[1]}};
-  base.trySend(MSG_FLAVOR_ART_SET, &req, sizeof(req));
+  FlavorArtOnePayload req{channel, art};
+  base.trySend(MSG_FLAVOR_ART_SET_ONE, &req, sizeof(req));
 }
 
 void baseLinkSay(const char *text) { base.trySend(MSG_TEXT, text, (uint16_t)strlen(text)); }

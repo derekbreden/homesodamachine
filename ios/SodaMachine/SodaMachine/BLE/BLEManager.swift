@@ -63,7 +63,10 @@ class BLEManager {
     var trustAsk: TrustAsk?
     /// When the setup ask was answered Trust, for the Machine page to say so.
     var trustGrantedAt: Date?
-    @ObservationIgnored var trustWaiting: CheckedContinuation<TrustOutcome, Never>?
+    @ObservationIgnored var trustWaiters: [CheckedContinuation<TrustOutcome, Never>] = []
+    @ObservationIgnored var trustPulse: Task<Void, Never>?
+    @ObservationIgnored var trustContext: String?
+    @ObservationIgnored var trustForeground = true
     @ObservationIgnored var trustAskSeq = 0
     @ObservationIgnored var trustAskOnLink = false
 
@@ -124,7 +127,8 @@ class BLEManager {
     @ObservationIgnored var imageBegun: UUID?
     /// Face assignments, one after another for the whole machine, and how
     /// many are under way for each flavor (ImageUpload.swift).
-    @ObservationIgnored var artChain: Task<Bool, Never>?
+    @ObservationIgnored var artChain: Task<SettingReply, Never>?
+    @ObservationIgnored var artHistory: [String: ArtLineage] = [:]
     @ObservationIgnored var artAssigning: [Int: Int] = [:]
     /// When the machine last said which face each flavor wears.
     @ObservationIgnored var artHeardAt: Date?
@@ -285,6 +289,7 @@ class BLEManager {
     /// app leaves the screen, unless something is crossing it, and taken up
     /// again when the app returns.
     func handleEnterBackground() {
+        setTrustContext(trustContext, foreground: false)
         guard !demoMode, centralManager != nil, current != nil, !transferInFlight else { return }
         dropLink()
     }
@@ -372,33 +377,6 @@ class BLEManager {
         }
         directory.forget(machine)
         if wasCurrent { point() }
-    }
-
-    /// What a person calls this machine. The name lives on the main board and
-    /// the radio advertises it, so it is sent there when the machine can hear;
-    /// until then the record carries it and the page shows it. Twenty bytes,
-    /// which is what the board keeps, cut on a character.
-    func rename(_ machine: KnownMachine, to raw: String) {
-        var bytes = Array(raw.trimmingCharacters(in: .whitespacesAndNewlines).utf8.prefix(20))
-        while !bytes.isEmpty, String(bytes: bytes, encoding: .utf8) == nil { bytes.removeLast() }
-        let name = String(bytes: bytes, encoding: .utf8) ?? ""
-        guard !name.isEmpty else { return }
-        machine.name = name
-        if machine.isDemo { directory.save(); return }
-        machine.pendingName = name
-        if linked, current?.id == machine.id, trust == nil || trust == .trusted {
-            send("IDENTITY \(name)")
-            namePushed = true
-        }
-        directory.save()
-    }
-
-    /// A name given while the machine could not take it — out of earshot, or
-    /// not yet trusting this device — sent now that it can.
-    func pushPendingName() {
-        guard linked, let name = current?.pendingName else { return }
-        send("IDENTITY \(name)")
-        namePushed = true
     }
 
     /// Turn the radio toward the machine this phone is pointed at: the demo is
@@ -677,8 +655,7 @@ class BLEManager {
             // against the machine it belongs to. The board answers this
             // with its identity, its bridge and where this device stands,
             // and `introduce` folds the record into the unit's own. A name
-            // given while the machine was out of earshot follows once the
-            // machine trusts this device (pushPendingName).
+            // changed through an editor follows the stamped settings path.
             send("IDENTITY")
             directory.save()
         }

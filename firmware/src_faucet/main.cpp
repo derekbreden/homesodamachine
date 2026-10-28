@@ -160,6 +160,9 @@ static lv_obj_t *primeExitBtn, *primeHoldBtn;
 static lv_obj_t *primeExitLbl, *primeHoldLbl, *primeStatusLbl;
 static lv_obj_t *trustLayer, *trustTitleLbl, *trustBodyLbl;
 static uint8_t   trustShownAsk = 0;   // the ask on the glass; 0 while none is
+static bool trustLayoutReserved = false;
+static bool trustPressed = false;
+static bool touchIsDown = false;
 static lv_indev_t *touchInput = nullptr;
 
 // ════════════════════════════════════════════════════════════
@@ -277,11 +280,13 @@ static void lvglFlush(lv_disp_drv_t *disp, const lv_area_t *area, lv_color_t *co
 static void touchpadRead(lv_indev_drv_t *drv, lv_indev_data_t *data) {
   uint16_t x, y;
   if (touch.getTouch(&x, &y)) {
+    touchIsDown = true;
     lastInputTime = millis();
     data->point.x = x;
     data->point.y = y;
     data->state = LV_INDEV_STATE_PRESSED;
   } else {
+    touchIsDown = false;
     data->state = LV_INDEV_STATE_RELEASED;
   }
 }
@@ -980,74 +985,117 @@ static void onDontTrust(lv_event_t *e) {
   if (trustShownAsk) phoneTrustAnswer(trustShownAsk, false);
 }
 
-static lv_obj_t *trustButton(lv_obj_t *parent, lv_coord_t y, lv_coord_t h, uint32_t bg,
+static void trustTouch(lv_event_t *e) {
+  const lv_event_code_t code = lv_event_get_code(e);
+  if (code == LV_EVENT_PRESSED) trustPressed = true;
+  else if (code == LV_EVENT_RELEASED || code == LV_EVENT_PRESS_LOST) trustPressed = false;
+}
+
+static lv_obj_t *trustButton(lv_obj_t *parent, lv_coord_t x, lv_coord_t y,
+                             lv_coord_t w, lv_coord_t h, uint32_t bg,
                              uint32_t fg, const char *text, lv_event_cb_t cb) {
   lv_obj_t *btn = lv_btn_create(parent);
   lv_obj_remove_style_all(btn);
-  lv_obj_set_pos(btn, 8, y);
-  lv_obj_set_size(btn, SCREEN_W - 16, h);
+  lv_obj_set_pos(btn, x, y);
+  lv_obj_set_size(btn, w, h);
   lv_obj_set_style_radius(btn, 10, 0);
   lv_obj_set_style_bg_color(btn, lv_color_hex(bg), 0);
   lv_obj_set_style_bg_opa(btn, LV_OPA_COVER, 0);
   lv_obj_set_style_bg_color(btn, lv_color_hex(COL_OFF), LV_STATE_PRESSED);
+  lv_obj_clear_flag(btn, LV_OBJ_FLAG_PRESS_LOCK);
+  lv_obj_add_event_cb(btn, trustTouch, LV_EVENT_ALL, NULL);
   lv_obj_add_event_cb(btn, cb, LV_EVENT_CLICKED, NULL);
   lv_obj_t *lbl = lv_label_create(btn);
   lv_label_set_text(lbl, text);
-  lv_obj_set_style_text_font(lbl, &lv_font_montserrat_20, 0);
+  lv_obj_set_style_text_font(lbl, &lv_font_montserrat_14, 0);
   lv_obj_set_style_text_color(lbl, lv_color_hex(fg), 0);
+  lv_obj_set_style_text_align(lbl, LV_TEXT_ALIGN_CENTER, 0);
   lv_obj_center(lbl);
   return btn;
 }
 
-// Built once and hidden, like the prime layer, and clickable so a tap on it
-// never reaches the flavor target underneath.
+// A request reserves the bottom 112 pixels. The flavor target stays usable
+// above it; Prime keeps two complete targets in the remaining 208 pixels.
+// Arrival or departure waits for a resting finger and a pending Stop, so a
+// target never moves underneath a hold. Replays do not touch this layout.
+static void trustLayoutService(lv_timer_t *) {
+  if (!trustLayer) return;
+  const bool finger = touchIsDown;
+  if (!finger) trustPressed = false;
+  const bool sensitive = finger || primePressed || primeStopPending || primeCancelPending;
+  const bool wanted = trustShownAsk != 0;
+  if (wanted != trustLayoutReserved && !sensitive) {
+    if (touchInput) lv_indev_wait_release(touchInput);
+    trustLayoutReserved = wanted;
+    const lv_coord_t contentH = wanted ? SCREEN_H - 112 : SCREEN_H;
+    lv_obj_set_size(primeExitBtn, SCREEN_W, contentH / 2);
+    lv_obj_set_pos(primeHoldBtn, 0, contentH / 2);
+    lv_obj_set_size(primeHoldBtn, SCREEN_W, contentH - contentH / 2);
+    lv_img_set_zoom(logoImg, wanted ? 160 : 256);
+    lv_obj_align(logoImg, LV_ALIGN_CENTER, 0, wanted ? -56 : 0);
+  }
+  const bool updating = otaLayer && !lv_obj_has_flag(otaLayer, LV_OBJ_FLAG_HIDDEN);
+  const bool show = wanted && trustLayoutReserved && !updating;
+  if (show && lv_obj_has_flag(trustLayer, LV_OBJ_FLAG_HIDDEN)) {
+    lv_obj_clear_flag(trustLayer, LV_OBJ_FLAG_HIDDEN);
+    lv_obj_move_foreground(trustLayer);
+  } else if (!show) {
+    lv_obj_add_flag(trustLayer, LV_OBJ_FLAG_HIDDEN);
+  }
+}
+
 static void buildTrustLayer(lv_obj_t *scr) {
   trustLayer = lv_obj_create(scr);
   lv_obj_remove_style_all(trustLayer);
-  lv_obj_set_pos(trustLayer, 0, 0);
-  lv_obj_set_size(trustLayer, SCREEN_W, SCREEN_H);
-  lv_obj_set_style_bg_color(trustLayer, THEME_BG, 0);
+  lv_obj_set_pos(trustLayer, 0, SCREEN_H - 112);
+  lv_obj_set_size(trustLayer, SCREEN_W, 112);
+  lv_obj_set_style_bg_color(trustLayer, lv_color_hex(COL_CARD), 0);
   lv_obj_set_style_bg_opa(trustLayer, LV_OPA_COVER, 0);
   lv_obj_clear_flag(trustLayer, LV_OBJ_FLAG_SCROLLABLE);
   lv_obj_add_flag(trustLayer, LV_OBJ_FLAG_CLICKABLE);
+  lv_obj_add_event_cb(trustLayer, trustTouch, LV_EVENT_ALL, NULL);
+  lv_obj_set_style_border_width(trustLayer, 1, 0);
+  lv_obj_set_style_border_side(trustLayer, LV_BORDER_SIDE_TOP, 0);
+  lv_obj_set_style_border_color(trustLayer, lv_color_hex(COL_ACCENT), 0);
 
   trustTitleLbl = lv_label_create(trustLayer);
   lv_obj_set_width(trustTitleLbl, SCREEN_W - 16);
-  lv_obj_set_pos(trustTitleLbl, 8, 20);
+  lv_obj_set_pos(trustTitleLbl, 8, 7);
   lv_label_set_long_mode(trustTitleLbl, LV_LABEL_LONG_WRAP);
   lv_obj_set_style_text_align(trustTitleLbl, LV_TEXT_ALIGN_CENTER, 0);
-  lv_obj_set_style_text_font(trustTitleLbl, &lv_font_montserrat_20, 0);
+  lv_obj_set_style_text_font(trustTitleLbl, &lv_font_montserrat_14, 0);
   lv_obj_set_style_text_color(trustTitleLbl, lv_color_hex(COL_TEXT), 0);
 
   trustBodyLbl = lv_label_create(trustLayer);
   lv_obj_set_width(trustBodyLbl, SCREEN_W - 16);
-  lv_obj_set_pos(trustBodyLbl, 8, 80);
+  lv_obj_set_pos(trustBodyLbl, 8, 29);
   lv_label_set_long_mode(trustBodyLbl, LV_LABEL_LONG_WRAP);
   lv_obj_set_style_text_align(trustBodyLbl, LV_TEXT_ALIGN_CENTER, 0);
   lv_obj_set_style_text_font(trustBodyLbl, &lv_font_montserrat_14, 0);
   lv_obj_set_style_text_color(trustBodyLbl, lv_color_hex(COL_DIM), 0);
 
-  trustButton(trustLayer, SCREEN_H - 8 - 48 - 8 - 56, 56, COL_ACCENT, COL_CARD, "TRUST", onTrust);
-  trustButton(trustLayer, SCREEN_H - 8 - 48, 48, COL_CARD, COL_TEXT, "DON'T TRUST", onDontTrust);
+  trustButton(trustLayer, 8, 60, 74, 44, 0x1749d1, COL_TEXT, "Don't\nTrust", onDontTrust);
+  trustButton(trustLayer, 90, 60, 74, 44, COL_ACCENT, COL_CARD, "Trust", onTrust);
 
   lv_obj_add_flag(trustLayer, LV_OBJ_FLAG_HIDDEN);
+  lv_timer_create(trustLayoutService, 50, nullptr);
 }
 
 void faucetTrustShow(const TrustShowPayload &ask) {
-  char body[128];
-  trustBody(ask.reason, ask.channel, ask.kind, body, sizeof(body));
+  if (trustShownAsk == ask.askId) return;
   lv_label_set_text(trustTitleLbl, trustTitle(ask.kind));
-  lv_label_set_text(trustBodyLbl, body);
+  lv_label_set_text(trustBodyLbl, "Settings + cycles");
   trustShownAsk = ask.askId;
-  lv_obj_move_foreground(trustLayer);
-  lv_obj_clear_flag(trustLayer, LV_OBJ_FLAG_HIDDEN);
+  trustLayoutService(nullptr);
   lastInputTime = millis();
   wakeBacklight();
 }
 
 void faucetTrustHide() {
+  if (trustPressed && touchInput) lv_indev_wait_release(touchInput);
   trustShownAsk = 0;
   lv_obj_add_flag(trustLayer, LV_OBJ_FLAG_HIDDEN);
+  trustLayoutService(nullptr);
 }
 
 // ════════════════════════════════════════════════════════════

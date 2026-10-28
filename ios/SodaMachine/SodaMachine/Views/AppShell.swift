@@ -18,11 +18,19 @@ struct RootView: View {
     @Environment(BLEManager.self) var ble
     @Environment(MachineDirectory.self) var directory
     @Environment(MachineAccess.self) var access
+    @Environment(MixController.self) var mix
+    @Environment(SettingWriter.self) var writer
+    @Environment(\.scenePhase) private var scenePhase
+    @State private var foreground = true
     @State private var nav = Navigator()
     @State private var edits = EditSessions()
     @State private var runs = RunLog()
 
     var body: some View {
+        lifecycle.environment(nav).environment(edits).environment(runs)
+    }
+
+    private var pages: some View {
         Group {
             if let machine = directory.current {
                 if !machine.supported {
@@ -37,7 +45,34 @@ struct RootView: View {
             }
         }
         .sheet(isPresented: Binding(get: { nav.managing }, set: { nav.managing = $0 })) { MachinesSheet() }
-        .onChange(of: directory.current?.id) { nav.reset() }
+        .onChange(of: directory.current?.id) { nav.reset(); mix.connectionChanged(); writer.poke() }
+        .onChange(of: pageContext, initial: true) { updateContext() }
+        .onChange(of: scenePhase) { _, phase in
+            if phase == .background { foreground = false }
+            else if phase == .active { foreground = true }
+            updateContext()
+        }
+    }
+
+    private var connections: some View {
+        pages.onChange(of: writer.acceptedCommits) { _, records in
+            for (id, record) in records {
+                let field: EditField = id.setting == .name ? .name : .sound
+                let key = EditKey(machine: id.machine, field: field)
+                guard edits.base(key)?.revision == record.base.revision else { continue }
+                if id.setting == .name,
+                   let draft = edits.draft(key, as: String.self),
+                   Data(draft.trimmingCharacters(in: .whitespacesAndNewlines).utf8) == record.desired {
+                    edits.settle(key, saved: draft)
+                } else if id.setting == .sound, let draft = edits.draft(key, as: SoundSettings.self),
+                          let saved = SoundSettings(record.desired), saved.sameChoices(as: draft) {
+                    edits.settle(key, saved: draft)
+                }
+            }
+        }
+        .onChange(of: ble.bridgeVersion) { mix.connectionChanged(); writer.poke() }
+        .onChange(of: ble.trust) { mix.connectionChanged(); writer.poke() }
+        .onChange(of: ble.current?.settingSnapshots) { mix.connectionChanged(); writer.poke() }
         // A machine added from anywhere opens, even one already in use; Your
         // machines closes over it.
         .onChange(of: access.added) {
@@ -51,9 +86,12 @@ struct RootView: View {
         }
         .onChange(of: ble.linked) { _, up in
             if !up, let id = ble.current?.id { runs.lostLink(machine: id) }
+            mix.connectionChanged()
         }
-        // One rule holds navigation, wherever the run is shown from.
-        .onChange(of: holding, initial: true) { _, now in nav.locked = now }
+    }
+
+    private var operations: some View {
+        connections.onChange(of: holding, initial: true) { _, now in nav.locked = now }
         // The one place an operation that hasn't ended is asked about, every
         // two seconds, whichever page is up: its progress, its ending, or what
         // an unanswered start did, all reach the runs through `observe`.
@@ -67,13 +105,22 @@ struct RootView: View {
                 try? await Task.sleep(for: .seconds(2))
             }
         }
-        // A machine gone from this device, by any path, takes its drafts and
-        // runs with it, so no late answer can bring them back.
-        .onChange(of: directory.known.map(\.id)) { before, after in
+    }
+
+    private var lifecycle: some View {
+        operations.onChange(of: directory.known.map(\.id)) { before, after in
             for id in Set(before).subtracting(after) {
                 edits.forget(machine: id)
+                mix.changes.forget(machine: id)
+                writer.forget(machine: id)
                 runs.forget(machine: id)
                 ble.forgetUploads(machine: id)
+            }
+        }
+        .task {
+            while !Task.isCancelled {
+                writer.poke()
+                try? await Task.sleep(for: .seconds(2))
             }
         }
         .onAppear {
@@ -83,13 +130,29 @@ struct RootView: View {
             // the demo, leaves the looking to the system's sheet.
             ble.activateBluetooth()
         }
-        .environment(nav)
-        .environment(edits)
-        .environment(runs)
     }
 }
 
 extension RootView {
+    fileprivate var pageContext: String? {
+        guard let id = directory.current?.id, !nav.managing else { return nil }
+        return "\(id)/\(nav.tab.rawValue)/\(nav.top?.id.uuidString ?? "root")"
+    }
+
+    fileprivate func updateContext() {
+        ble.setTrustContext(pageContext, foreground: foreground)
+        let mixContext: String?
+        if case .flavor? = nav.top?.route, !nav.managing { mixContext = pageContext }
+        else { mixContext = nil }
+        mix.contextChanged(context: mixContext, foreground: foreground)
+        let setting: SettingKey?
+        switch nav.top?.route {
+        case .sound?: setting = .sound
+        case .rename?: setting = .name
+        default: setting = nil
+        }
+        writer.contextChanged(setting: nav.managing ? nil : setting, foreground: foreground)
+    }
     /// The page in front is minding what it shows: a run this phone started
     /// and can hear, or an update under way. Elsewhere nothing is held, so the
     /// way back to that page is always open.

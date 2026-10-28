@@ -3,6 +3,8 @@
 #include <esp_mac.h>
 
 #include "identity.h"
+#include "settings.h"
+#include "settings_core.h"
 
 static Preferences prefs;
 static char machineName[MACHINE_NAME_MAX + 1] = {0};
@@ -31,12 +33,22 @@ void machineIdentity(IdentityPayload &out) {
 }
 
 bool machineSetName(const char *name) {
+    if (settingsStarted()) {
+        uint8_t length = name ? strnlen(name, MACHINE_NAME_MAX) : 0;
+        while (length && !stamped_settings::validValue(SETTING_NAME, (const uint8_t *)name, length)) --length;
+        return settingsWrite(SETTING_NAME, SETTING_GLOBAL, (const uint8_t *)name, length);
+    }
     strncpy(machineName, name ? name : "", MACHINE_NAME_MAX);
     machineName[MACHINE_NAME_MAX] = 0;
     if (!prefs.begin("machine", false)) return false;
     const bool ok = prefs.putString("name", machineName) > 0 || machineName[0] == 0;
     prefs.end();
     return ok;
+}
+
+void identityApplySettings(const uint8_t *name, uint8_t length) {
+    memset(machineName, 0, sizeof(machineName));
+    if (length) memcpy(machineName, name, length);
 }
 
 void identityReport() {

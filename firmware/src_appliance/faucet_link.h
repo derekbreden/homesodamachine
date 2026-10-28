@@ -25,6 +25,7 @@ void faucetLinkPublishIdle();
 // State that moved, for every phone on the faucet's radio: a MSG_RESP_* frame
 // and its payload, volunteered inside MSG_BRIDGE_RESP with request id 0.
 void faucetLinkPublish(uint8_t type, const void *data, uint16_t len);
+bool faucetLinkTryPublish(uint8_t type, const void *data, uint16_t len);
 // Put one OTA frame on J3. Full duplex, so this has none of J9's turn rule.
 bool faucetLinkSendOta(uint8_t type, const void *data, uint16_t len);
 

@@ -37,15 +37,15 @@ command.
 
 | Product function | How the phone reaches it |
 | --- | --- |
-| Add, choose, rename, remove a machine | Accessory setup, advertisements, identity reads and `IDENTITY <name>` |
-| Flavor faces and custom photos | BLE image query/read/upload/erase and art query/set |
+| Add, choose, rename, remove a machine | Accessory setup, advertisements, identity reads and stamped name CAS |
+| Flavor faces and custom photos | BLE image query/read/upload/erase and stamped per-channel art CAS |
 | Software Update | BLE version reports and aggregate OTA transport |
-| Active flavor / Use at faucet | Bridge: `MSG_FLAVOR_QUERY`, tokenized `MSG_FLAVOR_SELECT`; changes published |
+| Active flavor / Use at faucet | Bridge v2: stamped selection read/CAS; changes published |
 | Reservoir levels, temperatures, operation status | Bridge: `MSG_STATUS_REQ`, answered with `StatusPayload` |
-| Mixing ratio | Bridge: `MSG_RATIO_QUERY`, and `MSG_RATIO_SET_ONE` for one channel; answered with the pair |
+| Mixing ratio | Bridge v2: stamped per-channel mix read/CAS; changes published |
 | Fill and Clean | Bridge: start, query and stop, each answered with the complete state; every change published |
 | Prime | Bridge: `MSG_PRIME_OPEN`, `MSG_PRIME_SESSION_QUERY`, and current-token CANCEL; no hold |
-| Sound and quiet hours | Bridge: `MSG_SOUND_CFG_GET/SET`, answered with clock-valid and quiet-now flags |
+| Sound and quiet hours | Bridge v2: stamped choices read/CAS; legacy read supplies clock flags |
 
 The faucet's BLE dispatcher handles identity, images and OTA itself and carries
 everything else a phone asks to the main board. See
@@ -86,26 +86,41 @@ device reads the machine; changing it takes a device the machine trusts
 `BLE_FRAME_TRUST` (0x26) answering `IDENTITY` and whenever it moves: unpaired,
 view only or trusted, whether this device's ask is up, and how an ask ended.
 
-A device is trusted by **Trust** on either display. It asks with
-`BLE_FRAME_TRUST_ASK` (0x27): what it wants (`TRUST_FOR_*`), the channel, and
-iPhone or iPad, which both displays put into **Trust this iPhone?** and what
-trusting it allows. The app asks once as the machine is set up, which the
-Machine page mentions and nothing waits on; after that, a change from a device
-that is not trusted asks again, says so over the app until a display answers or
-someone cancels, and is made once the device is trusted. A request over the
-bridge the faucet turns down for want of trust is answered `BRIDGE_ERR_UNTRUSTED`
-and sent again after **Trust**; pictures, faces, the name and Software Update ask
-first. **Don't Trust**, a minute with no answer, or another device's ask already
-up changes nothing and says so. A name given before the device is trusted stands
-until it is. Trust lasts until **Forget trusted phones** on the enclosure, which
-forgets every device at once, or until the device forgets the machine: set up
-again, it pairs anew and is asked again.
+A device is trusted by **Trust** on a machine display. BLE_FRAME_TRUST_ASK
+retains reason/channel/device-kind as its three-byte prefix and appends flags
+(bit 0: presence lease) and a nonzero client tag. A matching renewal preserves
+the original 60-second ceiling; leased requests require presence every 15 seconds.
+BLE_FRAME_TRUST retains standing/asking/outcome and appends retry-after LE16,
+remaining LE16 and echoed tag. The app distinguishes sent from admitted,
+withdraws when its context leaves, and offers an explicit retry after expiry or
+physical decline. The firmware owns per-identity and global rate limits.
 
-Channel-specific changes identify channel 0 or 1 and carry the main board's
-result. The two flavors have independent art and ratios. `MSG_RATIO_SET_ONE`
-names one channel and the main board keeps the other at what it holds; a value
-outside 1:6–1:24 changes nothing and the answering pair says so. Selection is
-absolute and tokenized, and art is set as a pair the phone reads first.
+The faucet's compact tray leaves normal controls available. The enclosure's
+**Phone request** rail entry opens a normal task page only on a local tap.
+Remote arrival never replaces the current task or its controls. Trust is keyed
+by pairing; re-pairing requires approval again. The shared appliance name and
+settings survive removing the accessory relationship on a phone.
+
+## Stamped settings
+
+The main board owns seven independently stamped fields: ratio and art per
+channel, and global sound, name and selection. GET 0x72 carries kind/channel.
+SET_IF 0x73 carries kind/channel, expected LE64 revision, byte length and value.
+STATE 0x74 carries kind/channel, result, LE64 revision, byte length and value.
+Result 0 is a snapshot or accepted write, 1 conflict, 2 invalid and 3 storage
+failure. State pushes use bridge request id zero. Bridge version 2 identifies
+this capability; the app does not fall back to an unconditional write.
+
+All mutation sources pass through one main-loop authority. A durable boot epoch
+and per-field counters make revisions unique across restart and equal-value
+writes. Value snapshots flush in idle/quiet time; accepted means applied live.
+Mixes coalesce after taps, persist while offline and retry on reconnect under
+their captured revision. Explicit Name/Sound submissions use the same conditional
+queue. Conflicts require Use mine or Keep machine’s setting; a matching value is
+not evidence that an unanswered write succeeded. Selection and image assignment
+also use captured revisions. Physical displays name only the channel they edit:
+ratio uses standalone 0x69 and artwork uses standalone 0x75. The main board merges
+that intent with its current other channel. Explicit pair frames remain supported.
 
 Persist confirmed machine snapshots per machine with read times. Pending UI
 edits are separate from confirmed values. A successful BLE write means transport
@@ -230,8 +245,8 @@ Custom-art activation and an upload failure must reconcile to the machine's
 actual accepted art; do not promise that the previous face remains unchanged
 unless the activation sequence guarantees that behavior.
 
-Reuse the machine-owned name and explicit identity acknowledgement, including
-the existing pending-name behavior when naming offline. Removing a machine
+Use the machine-owned stamped name and the persistent explicit-form queue when
+naming offline. Removing a machine
 removes it from this device's accessory/directory state, with confirmation; it
 does not factory-reset the appliance or delete another device's record.
 
@@ -248,8 +263,8 @@ not installation success. Demo update behavior remains clearly simulated.
 Connection state belongs to the selected machine model, not to a route. Offline
 and Bluetooth-off states persist while browsing its screens. Keep cached art and
 readings available with their read time, but disable machine-dependent changes
-and Care starts until the relevant link and capability are available. Name
-queueing retains its existing explicit behavior; actuator operations are never
+and Care starts until the relevant link and capability are available. Queued
+settings retain their captured revisions; actuator operations are never
 queued for later execution.
 
 Represent these independently: no reading yet, invalid sensor, stale snapshot,

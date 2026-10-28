@@ -15,6 +15,7 @@
 #include "pins.h"
 #include "rtc.h"
 #include "sound.h"
+#include "settings.h"
 #include "proto_msg.h"   // the channel numbers and the prime ceiling the glass uses
 
 // ════════════════════════════════════════════════════════════
@@ -89,6 +90,7 @@ void setup() {
     identityBegin();
     versionsBegin();
     flavorBegin();
+    settingsBegin();
     idleBegin();
 
     // The clock quiet hours reads. Without it soundInQuietHours() is false for
@@ -142,6 +144,7 @@ void loop() {
     machineService();   // the deadlines a held pump is measured against
     linkService();      // J9 frames in, replies out
     faucetLinkService();// J3 frames in, replies out
+    settingsService(); // stamped changes out; value snapshots persist only idle and quiet
     versionsService();  // ask each display what it is running
     soundService();     // U8's step boundaries — nothing here blocks, and it must
                         // run every pass: LEDC keeps oscillating on its own, so a
@@ -248,7 +251,7 @@ static void help() {
     Serial.println("  flavor [a|b]      selected flavor (main-board-owned and persisted)");
     Serial.printf ("  ratio [a|b] [%u-%u]  what a channel pours at, 1:n water to concentrate (persisted)\n",
                    FLAVOR_RATIO_MIN, FLAVOR_RATIO_MAX);
-    Serial.printf ("  art [<a> <b>]     which logo each channel wears, 0-%u (persisted, published to both)\n",
+    Serial.printf ("  art [a|b <0-%u>]  change one channel; art <first> <second> explicitly sets both\n",
                    FLAVOR_ART_COUNT - 1);
     Serial.println("  link              J9 enclosure display and J3 faucet links");
     Serial.println("  ping              put a frame on the pair and read its echo back");
@@ -560,9 +563,8 @@ static void removePicture(uint8_t slot, bool tellFaucet) {
     if (slot >= FLAVOR_ART_CUSTOM) return;
     const uint8_t art = (uint8_t)(FLAVOR_ART_FACTORY + slot);
     uint8_t a0 = flavorArt(0), a1 = flavorArt(1);
-    if (a0 == art) a0 = 0;
-    if (a1 == art) a1 = 1;
-    flavorArtSet(a0, a1);
+    if (a0 == art) { a0 = 0; settingsWrite(SETTING_ART, 0, &a0, 1); }
+    if (a1 == art) { a1 = 1; settingsWrite(SETTING_ART, 1, &a1, 1); }
     if (tellFaucet) faucetLinkImageErase(slot);
     linkImageErase(slot);
     Serial.printf("\nremoved picture %u — both displays told, artwork %u/%u\n",
@@ -783,7 +785,8 @@ static void reconcileService() {
     if (a0 != flavorArt(0) || a1 != flavorArt(1)) {
         Serial.printf("\nreconcile: a channel was wearing a picture that is gone — artwork %u/%u\n",
                       a0, a1);
-        flavorArtSet(a0, a1);
+        if (a0 != flavorArt(0)) settingsWrite(SETTING_ART, 0, &a0, 1);
+        if (a1 != flavorArt(1)) settingsWrite(SETTING_ART, 1, &a1, 1);
     }
 }
 
@@ -1047,11 +1050,12 @@ static void console(const String &line) {
                 Serial.printf("\nusage: ratio <a|b> <%u-%u>\n", FLAVOR_RATIO_MIN, FLAVOR_RATIO_MAX);
                 return;
             }
-            const uint8_t r0 = which == 'a' ? (uint8_t)n : flavorRatio(0);
-            const uint8_t r1 = which == 'b' ? (uint8_t)n : flavorRatio(1);
-            flavorRatioSet(r0, r1);
+            const uint8_t value = (uint8_t)n;
+            if (!settingsWrite(SETTING_RATIO, which == 'a' ? 0 : 1, &value, 1))
+                Serial.println("\nratio not changed — settings storage is unavailable");
         }
-        Serial.printf("\nratio A 1:%u, B 1:%u (persisted)\n", flavorRatio(0), flavorRatio(1));
+        Serial.printf("\nratio A 1:%u, B 1:%u%s\n", flavorRatio(0), flavorRatio(1),
+                      flavorPersisted() ? " (persisted)" : " (persistence pending)");
         return;
     }
     if (line == "idle") {
@@ -1065,6 +1069,23 @@ static void console(const String &line) {
     if (line.startsWith("art")) {
         String rest = line.substring(3); rest.trim();
         if (rest.length()) {
+            const char which = rest[0] | 0x20;
+            if ((which == 'a' || which == 'b') && rest.length() > 1) {
+                String argument = rest.substring(1); argument.trim();
+                bool digits = argument.length() != 0;
+                for (unsigned i = 0; i < argument.length(); ++i)
+                    if (argument[i] < '0' || argument[i] > '9') digits = false;
+                const int n = argument.toInt();
+                if (!digits || n < 0 || n >= FLAVOR_ART_COUNT) {
+                    Serial.printf("\nusage: art <a|b> <0..%u>\n", FLAVOR_ART_COUNT - 1);
+                    return;
+                }
+                const uint8_t value = (uint8_t)n;
+                if (!settingsWrite(SETTING_ART, which == 'a' ? 0 : 1, &value, 1))
+                    Serial.println("\nart not changed — settings storage is unavailable");
+                Serial.printf("\nartwork %u/%u\n", flavorArt(0), flavorArt(1));
+                return;
+            }
             const int sp = rest.indexOf(' ');
             if (sp < 0) { Serial.println("\nusage: art <a> <b>"); return; }
             const int a = rest.substring(0, sp).toInt();

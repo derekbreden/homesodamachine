@@ -14,6 +14,7 @@
 #include "proto_link.h"
 #include "proto_msg.h"
 #include "sound.h"
+#include "settings.h"
 
 namespace {
 
@@ -150,7 +151,7 @@ bool sendPrimeState() {
 // onBridge() is the whole list of it. Each answer is the frame the same request
 // gets on J9, carried back inside MSG_BRIDGE_RESP under the request's id.
 bool sendBridge(uint8_t reqId, uint8_t type, const void *data, uint16_t len) {
-    uint8_t frame[sizeof(BridgeHeader) + sizeof(StatusPayload)];   // the largest answer
+    uint8_t frame[sizeof(BridgeHeader) + sizeof(StatusPayload)];   // also fits stamped settings
     if (len > sizeof(frame) - sizeof(BridgeHeader)) return false;
     frame[0] = reqId;
     frame[1] = type;
@@ -177,6 +178,13 @@ void onBridge(const uint8_t *payload, uint16_t plen) {
     const uint8_t type = payload[1];
     const uint8_t *body = payload + sizeof(BridgeHeader);
     const uint16_t blen = plen - sizeof(BridgeHeader);
+
+    if (type == MSG_SETTING_GET || type == MSG_SETTING_SET_IF) {
+        uint8_t answer[SETTING_STATE_HEADER_SIZE + SETTING_VALUE_MAX];
+        const uint16_t len = settingsAnswer(type, body, blen, answer, sizeof(answer));
+        sendBridge(reqId, MSG_SETTING_STATE, answer, len);
+        return;
+    }
 
     if (type == MSG_STATUS_REQ) {
         StatusPayload s;
@@ -228,9 +236,7 @@ void onBridge(const uint8_t *payload, uint16_t plen) {
             sendBridge(reqId, BRIDGE_ERR_REFUSED, nullptr, 0);
             return;
         }
-        const uint8_t r0 = request.channel == PUMP_CHANNEL_A ? request.ratio : flavorRatio(0);
-        const uint8_t r1 = request.channel == PUMP_CHANNEL_B ? request.ratio : flavorRatio(1);
-        if (flavorRatioSet(r0, r1))
+        if (settingsWrite(SETTING_RATIO, request.channel, &request.ratio, 1))
             Serial.printf("\n[J3] phone ratio 1:%u / 1:%u\n", flavorRatio(0), flavorRatio(1));
         else
             Serial.printf("\n[J3] phone ratio 1:%u for flavor %u refused — out of %u..%u\n",
@@ -282,8 +288,11 @@ void onBridge(const uint8_t *payload, uint16_t plen) {
     if (type == MSG_SOUND_CFG_SET && blen >= sizeof(SoundCfgPayload)) {
         SoundCfgPayload req;
         memcpy(&req, body, sizeof(req));
-        soundSetVolume(req.volume);
-        soundSetQuiet(req.quietOn != 0, req.quietStart, req.quietEnd, req.quietVolume);
+        sound_policy::Settings next;
+        next.volume = req.volume; next.quietOn = req.quietOn != 0;
+        next.quietStart = req.quietStart; next.quietEnd = req.quietEnd;
+        next.quietVolume = req.quietVolume;
+        soundSetSettings(next);
         Serial.printf("\n[J3] phone sound cfg: volume %u, quiet %s %02u:00-%02u:00 at %u\n",
                       req.volume, req.quietOn ? "on" : "off",
                       req.quietStart, req.quietEnd, req.quietVolume);
@@ -538,6 +547,29 @@ void onMessage(ProtoLink *link, const uint8_t *frame, uint16_t len) {
         return;
     }
 
+    if (type == MSG_FLAVOR_ART_SET_ONE && plen == sizeof(FlavorArtOnePayload)) {
+        FlavorArtOnePayload request;
+        memcpy(&request, payload, sizeof(request));
+        if (!settingsWrite(SETTING_ART, request.channel, &request.art, 1)) {
+            ++invalidRequests;
+            if (faucet.trySendResponse(MSG_ERR_SLOT_INVALID, request.art) >= 0) ++framesTx;
+            return;
+        }
+        idleTouched();
+        sendArt();
+        return;
+    }
+
+    if (type == MSG_RATIO_SET_ONE && plen == sizeof(RatioOnePayload)) {
+        RatioOnePayload request;
+        memcpy(&request, payload, sizeof(request));
+        settingsWrite(SETTING_RATIO, request.channel, &request.ratio, 1);
+        RatioPayload r{{flavorRatio(0), flavorRatio(1)}};
+        if (faucet.trySend(MSG_RESP_RATIO, &r, sizeof(r)) >= 0) ++framesTx;
+        idleTouched();
+        return;
+    }
+
     if (type == MSG_FLAVOR_ART_SET && plen >= sizeof(FlavorArtPayload)) {
         FlavorArtPayload request;
         memcpy(&request, payload, sizeof(request));
@@ -704,7 +736,11 @@ void faucetLinkService() {
 }
 
 void faucetLinkPublish(uint8_t type, const void *data, uint16_t len) {
-    if (faucet.isConnected()) sendBridge(0, type, data, len);
+    faucetLinkTryPublish(type, data, len);
+}
+
+bool faucetLinkTryPublish(uint8_t type, const void *data, uint16_t len) {
+    return faucet.isConnected() && sendBridge(0, type, data, len);
 }
 
 // Sent here for the latency, repeated on the heartbeat for the certainty.

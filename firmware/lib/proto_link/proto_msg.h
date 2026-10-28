@@ -305,6 +305,30 @@ constexpr uint8_t MSG_TRUST_FORGET      = 0x6F;  // no payload: enclosure or con
 constexpr uint8_t MSG_RESP_TRUST_FORGET = 0x70;  // TrustForgotPayload: faucet → main board → enclosure
 constexpr uint8_t MSG_TRUST_REPORT      = 0x71;  // no payload: console → faucet, answered on the console
 
+// Main-board setting authority. Revisions are opaque little-endian uint64s;
+// equality is the only operation a client performs on them. A boot epoch is
+// durably advanced before writes are enabled, and every accepted write advances
+// its field's counter, including a write of the value already held.
+constexpr uint8_t MSG_SETTING_GET    = 0x72;  // [kind,channel]
+constexpr uint8_t MSG_SETTING_SET_IF = 0x73;  // [kind,channel,expected:u64LE,length,value...]
+constexpr uint8_t MSG_SETTING_STATE  = 0x74;  // [kind,channel,result,revision:u64LE,length,value...]
+// A physical display changes only the channel its finger is editing. This is
+// a standalone J9/J3 intent, not a permitted legacy phone-bridge command.
+constexpr uint8_t MSG_FLAVOR_ART_SET_ONE = 0x75;  // FlavorArtOnePayload; answers with the authoritative pair
+constexpr uint8_t SETTING_RATIO     = 0;
+constexpr uint8_t SETTING_SOUND     = 1;
+constexpr uint8_t SETTING_NAME      = 2;
+constexpr uint8_t SETTING_SELECTION = 3;
+constexpr uint8_t SETTING_ART       = 4;
+constexpr uint8_t SETTING_GLOBAL    = 0xFF;
+constexpr uint8_t SETTING_OK              = 0;
+constexpr uint8_t SETTING_CONFLICT        = 1;
+constexpr uint8_t SETTING_INVALID         = 2;
+constexpr uint8_t SETTING_STORAGE_FAILURE = 3;
+constexpr uint8_t SETTING_VALUE_MAX = 20;
+constexpr uint8_t SETTING_SET_HEADER_SIZE = 11;
+constexpr uint8_t SETTING_STATE_HEADER_SIZE = 12;
+
 // What the phone wants to do, so the ask can say so. TRUST_FOR_ANYTHING is the
 // ask a phone makes as it is set up.
 constexpr uint8_t TRUST_FOR_ANYTHING = 0;
@@ -544,10 +568,15 @@ struct __attribute__((packed)) IdlePayload {
 
 static_assert(sizeof(IdlePayload) == 5, "idle wire layout drift");
 
-// One logo index per channel, low channel first. A SET states both, so the
-// main board never has to merge a partial view of the pair.
+// One logo index per channel, low channel first. Legacy SET explicitly states
+// both; current physical controls send SET_ONE and the authority merges it.
 struct __attribute__((packed)) FlavorArtPayload {
   uint8_t art[2];
+};
+
+struct __attribute__((packed)) FlavorArtOnePayload {
+  uint8_t channel;
+  uint8_t art;
 };
 
 static_assert(sizeof(FlavorArtPayload) == 2, "flavor art wire layout drift");
@@ -1006,7 +1035,7 @@ constexpr uint8_t BRIDGE_ERR_UNTRUSTED = 0xD5;  // a change from a phone the mac
 
 // What the faucet tells a phone about the bridge when the phone asks who the
 // machine is. A faucet that predates it never sends one.
-constexpr uint8_t BRIDGE_VERSION = 1;
+constexpr uint8_t BRIDGE_VERSION = 2;  // stamped settings GET / conditional SET
 
 // ── The radio bench ──────────────────────────────────────────────────────
 // The enclosure display raises the access point and sinks the bytes; the

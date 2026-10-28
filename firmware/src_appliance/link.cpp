@@ -14,6 +14,7 @@
 #include "proto_link.h"
 #include "rs485_echo.h"
 #include "sound.h"
+#include "settings.h"
 
 // The wire ids in proto_msg.h and the SoundId enum in lib/sound are two halves of
 // one contract, and this is the seam that translates between them. Asserting the
@@ -125,8 +126,8 @@ void linkFillSoundCfg(SoundCfgPayload &c) {
 // below posts it and then watches for the answer — so the only frames this file
 // puts on the pair without a turn are linkPing's, which is a bench command with
 // nobody expected to answer it.
-// An air state is 20 bytes and is the widest thing queued here; a clean state
-// is 19, a fill state 12, an OTA begin 11, and every other announcement fits in 8.
+// A complete identity is 25 bytes. Air, clean, fill and the other ordinary
+// announcements share this queue with it; stamped setting snapshots fit too.
 struct Announce { uint8_t type; uint8_t len; uint8_t data[LINK_ANNOUNCE_MAX]; };
 static_assert(sizeof(FillStatePayload) <= LINK_ANNOUNCE_MAX,
               "a fill state must fit an announcement");
@@ -297,7 +298,8 @@ static bool isUserAction(uint8_t type) {
     return type == MSG_PUMP_RUN || type == MSG_CLEAN_START || type == MSG_FILL_START ||
            type == MSG_FILL_STOP || type == MSG_CLEAN_STOP || type == MSG_AIR_START ||
            type == MSG_AIR_STOP || type == MSG_SOUND_CFG_SET || type == MSG_FLAVOR_ART_SET ||
-           type == MSG_RATIO_SET || type == MSG_PRIME_SESSION_SET ||
+           type == MSG_FLAVOR_ART_SET_ONE || type == MSG_RATIO_SET_ONE ||
+           type == MSG_RATIO_SET || type == MSG_SETTING_SET_IF || type == MSG_PRIME_SESSION_SET ||
            type == MSG_TRUST_ANSWER || type == MSG_TRUST_FORGET;
 }
 
@@ -417,6 +419,13 @@ static void dispatch(HdlcLink *link, const uint8_t *frame, uint16_t len) {
     // A press is presence whether or not it also asked for something.
     if (isUserAction(type) || type == MSG_SOUND_PLAY || type == MSG_TOUCH) idleTouched();
 
+    if (type == MSG_SETTING_GET || type == MSG_SETTING_SET_IF) {
+        uint8_t answer[SETTING_STATE_HEADER_SIZE + SETTING_VALUE_MAX];
+        const uint16_t length = settingsAnswer(type, payload, plen, answer, sizeof(answer));
+        link->send(MSG_SETTING_STATE, answer, length);
+        return;
+    }
+
     if (type == MSG_RESP_IMAGES && plen >= sizeof(ImagesPayload)) {
         ImagesPayload im;
         memcpy(&im, payload, sizeof(im));
@@ -490,6 +499,18 @@ static void dispatch(HdlcLink *link, const uint8_t *frame, uint16_t len) {
     // The logo a channel wears is main-board-owned like the selection, so the
     // enclosure states the pair and reads back what the main board now holds.
     if (type == MSG_FLAVOR_ART_QUERY) {
+        FlavorArtPayload art{{flavorArt(0), flavorArt(1)}};
+        link->send(MSG_RESP_FLAVOR_ART, &art, sizeof(art));
+        return;
+    }
+
+    if (type == MSG_FLAVOR_ART_SET_ONE && plen == sizeof(FlavorArtOnePayload)) {
+        FlavorArtOnePayload request;
+        memcpy(&request, payload, sizeof(request));
+        if (!settingsWrite(SETTING_ART, request.channel, &request.art, 1)) {
+            link->sendResponse(MSG_ERR_SLOT_INVALID, request.art);
+            return;
+        }
         FlavorArtPayload art{{flavorArt(0), flavorArt(1)}};
         link->send(MSG_RESP_FLAVOR_ART, &art, sizeof(art));
         return;
@@ -649,8 +670,11 @@ static void dispatch(HdlcLink *link, const uint8_t *frame, uint16_t len) {
     if (type == MSG_SOUND_CFG_SET && plen >= sizeof(SoundCfgPayload)) {
         SoundCfgPayload req;
         memcpy(&req, payload, sizeof(req));
-        soundSetVolume(req.volume);
-        soundSetQuiet(req.quietOn != 0, req.quietStart, req.quietEnd, req.quietVolume);
+        sound_policy::Settings next;
+        next.volume = req.volume; next.quietOn = req.quietOn != 0;
+        next.quietStart = req.quietStart; next.quietEnd = req.quietEnd;
+        next.quietVolume = req.quietVolume;
+        soundSetSettings(next);
         Serial.printf("\n[J9] sound cfg: volume %u, quiet %s %02u:00-%02u:00 at %u\n",
                       req.volume, req.quietOn ? "on" : "off",
                       req.quietStart, req.quietEnd, req.quietVolume);
@@ -670,6 +694,14 @@ static void dispatch(HdlcLink *link, const uint8_t *frame, uint16_t len) {
     // What a channel pours at: owned here, stated by a glass as a pair, and
     // answered with what is now held.
     if (type == MSG_RATIO_QUERY) {
+        RatioPayload r{{flavorRatio(0), flavorRatio(1)}};
+        link->send(MSG_RESP_RATIO, &r, sizeof(r));
+        return;
+    }
+    if (type == MSG_RATIO_SET_ONE && plen == sizeof(RatioOnePayload)) {
+        RatioOnePayload request;
+        memcpy(&request, payload, sizeof(request));
+        settingsWrite(SETTING_RATIO, request.channel, &request.ratio, 1);
         RatioPayload r{{flavorRatio(0), flavorRatio(1)}};
         link->send(MSG_RESP_RATIO, &r, sizeof(r));
         return;

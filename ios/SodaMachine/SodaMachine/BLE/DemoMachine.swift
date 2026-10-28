@@ -9,6 +9,7 @@ import Foundation
 extension BLEManager {
     /// Sample state for a demo that has none yet.
     func seedDemo(_ m: KnownMachine) {
+        if m.isDemo, m.appliance.status != nil { seedDemoSettings(m); return }
         guard m.isDemo, m.appliance.status == nil else { return }
         let now = Date()
         var status = MachineStatus()
@@ -31,12 +32,14 @@ extension BLEManager {
         state.prime = Reading(value: PrimeSession(), at: now)
         m.appliance = state
         m.flavorArt = FlavorArt()
+        seedDemoSettings(m)
         directory.save()
     }
 
     /// The demo's answer to one request, as the machine would give it.
     func demoAnswer(_ type: UInt8, _ body: [UInt8]) -> Result<BridgeAnswer, BridgeError> {
         guard let m = current else { return .failure(.offline) }
+        if type == SettingsWire.get || type == SettingsWire.setIf { return demoSettingAnswer(type, body, machine: m) }
         let now = Date()
         var a = m.appliance
         var answer = BridgeAnswer(type: type, body: Data())
@@ -117,6 +120,47 @@ extension BLEManager {
         }
         m.appliance = a
         return .success(answer)
+    }
+
+    /// The demo uses the same conditional-write contract as the appliance.
+    /// Equal-value writes advance the stamp, so it also exposes ABA conflicts.
+    private func seedDemoSettings(_ machine: KnownMachine) {
+        let a = machine.appliance
+        let values: [(SettingKey, Data)] = [
+            (.ratio(channel: 0), Data([UInt8(clamping: a.ratio(0) ?? 20)])),
+            (.ratio(channel: 1), Data([UInt8(clamping: a.ratio(1) ?? 20)])),
+            (.sound, Data((a.sound?.value ?? SoundSettings()).wire)),
+            (.name, Data(machine.name.utf8)),
+            (.selection, Data([UInt8(clamping: a.selection?.value.channel ?? 0)])),
+            (.art(channel: 0), Data([UInt8(clamping: machine.flavorArt.art[0])])),
+            (.art(channel: 1), Data([UInt8(clamping: machine.flavorArt.art[1])])),
+        ]
+        for (key, value) in values where machine.settingSnapshots[key] == nil {
+            machine.settingSnapshots[key] = SettingSnapshot(key: key, revision: 1, value: value)
+        }
+    }
+
+    private func demoSettingAnswer(_ type: UInt8, _ body: [UInt8], machine: KnownMachine) -> Result<BridgeAnswer, BridgeError> {
+        seedDemoSettings(machine)
+        guard body.count >= 2, let kind = SettingKind(rawValue: body[0]) else { return .failure(.refused) }
+        let key = SettingKey(kind, channel: body[1])
+        guard key.valid, let current = machine.settingSnapshots[key] else { return .failure(.refused) }
+        var result = SettingsWire.Result.accepted
+        var snapshot = current
+        if type == SettingsWire.get {
+            guard body.count == 2 else { return .failure(.refused) }
+        } else {
+            guard body.count >= 11, body.count == 11 + Int(body[10]) else { return .failure(.refused) }
+            let expected = (0..<8).reduce(UInt64(0)) { $0 | UInt64(body[2 + $1]) << ($1 * 8) }
+            let value = Data(body.dropFirst(11))
+            if !key.validValue(value) { result = .invalid }
+            else if expected != current.revision { result = .conflict }
+            else if current.revision == UInt64.max { result = .storageFailure }
+            else { snapshot = SettingSnapshot(key: key, revision: current.revision + 1, value: value) }
+        }
+        let data = SettingsWire.encode(SettingsWire.State(snapshot: snapshot, result: result))
+        takeSettingState(data)
+        return .success(BridgeAnswer(type: SettingsWire.state, body: data))
     }
 
     /// A change the demo machine makes on its own, a moment from now.

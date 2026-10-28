@@ -209,7 +209,7 @@ static_assert(4 * TILE_BTN_W + 3 * TILE_GAP <= DETAIL_W, "four whole portraits p
 // ── Pages ──
 // Every page is built once and lives for the life of the firmware; switching hides one and
 // shows another. Sub-views inside a page work the same way.
-enum Page { PAGE_HOME, PAGE_FLAVOR, PAGE_SERVICE, PAGE_SETUP, PAGE_COUNT };
+enum Page { PAGE_HOME, PAGE_FLAVOR, PAGE_SERVICE, PAGE_SETUP, PAGE_TRUST, PAGE_COUNT };
 
 enum FlavorView  { FLV_DETAIL, FLV_IMAGES, FLV_COUNT };
 enum ServiceView { SVC_PRIME_PICK, SVC_PRIME_HOLD, SVC_CLEAN_PICK,
@@ -2309,11 +2309,11 @@ static void setCleanMsg(const char *s) { if (cleanMsg) lv_label_set_text(cleanMs
 static void setFillMsg(const char *s)  { if (fillMsg)  lv_label_set_text(fillMsg, s); }
 
 // An assignment updates the rail, selected portrait and picker selection.
-// The main board owns the pair and persists it; this states what the glass now
-// wants and takes back whatever the main board ends up holding.
-static void sendFlavorArt() {
-  FlavorArtPayload art{{flavorImage[0], flavorImage[1]}};
-  j9Post(MSG_FLAVOR_ART_SET, &art, sizeof(art));
+// The main board owns both channels. This states only what the finger changed;
+// a cached view of the other channel never travels back as a write.
+static void sendFlavorArt(uint8_t channel) {
+  FlavorArtOnePayload art{channel, flavorImage[channel]};
+  j9Post(MSG_FLAVOR_ART_SET_ONE, &art, sizeof(art));
 }
 
 // An image standing for one particular channel, wherever that channel is offered.
@@ -3144,7 +3144,7 @@ static bool imagePick(uint8_t img) {
   if (!flavorArtAvailable(img)) return false;
   flavorImage[flavorSel] = img;
   refreshFlavorImages();
-  sendFlavorArt();
+  sendFlavorArt(flavorSel);
   return true;
 }
 
@@ -3249,10 +3249,10 @@ static void ratioStepCb(lv_event_t *e) {
   if (r > RATIO_MAX) r = RATIO_MAX;
   flavorRatio[flavorSel] = (uint8_t)r;
   refreshFlavorText();
-  // The press's one frame: the pair as this glass now wants it. The main
-  // board's answer is what it holds, and the tick is made off this frame.
-  RatioPayload p{{flavorRatio[0], flavorRatio[1]}};
-  j9Post(MSG_RATIO_SET, &p, sizeof(p));
+  // The press changes this channel; the main board keeps the other one at its
+  // authoritative value, including changes this glass has not heard yet.
+  RatioOnePayload p{flavorSel, flavorRatio[flavorSel]};
+  j9Post(MSG_RATIO_SET_ONE, &p, sizeof(p));
   ratioSentMs = millis() ? millis() : 1;
 }
 
@@ -3461,7 +3461,7 @@ static void buildLockScreen(lv_obj_t *scr) {
 
 static void lockScreenShow(const char *kicker, const char *title, const char *body) {
   if (!lockScreen) return;
-  askHide();   // the lock takes the glass; a phone's ask still stands on the faucet
+  askHide();   // the lock takes the glass; the nonmodal inbox retains its request
   lv_obj_set_pos(lockScreen, 0, 0);
   lv_obj_set_size(lockScreen, SCREEN_W, SCREEN_H);
   operationResultVisible = false;
@@ -4267,33 +4267,78 @@ static void testScreenHide() {
 // ── Trusted phones ────────────────────────────────────────────────────────
 // Any phone reads the machine; changing it takes a phone the faucet trusts, and
 // a tap on either glass is what trusts one. The faucet runs each ask and the
-// main board carries it here, so the words are trust_text.h's, the same on
-// both glasses. An answer goes back the same way and nothing here keeps it.
+// main board carries it here. The task page uses trust_text.h's request and
+// grant text; an answer goes back the same way and nothing here keeps it.
 //
-// One modal carries the ask and Forget's confirmation, over every page and an
-// operation's result card, under the camera's test screen. An ask goes up when
-// uiShow() would put a page up: never over a lock or a live hold on this glass,
-// where the faucet's own ask still stands, and a dark glass is woken for it.
-// While up it holds the dark off, as a lock does, and a lock coming up takes it
-// down.
+// Remote requests enter a small inbox in the flavor rail. Only a local tap
+// opens their normal task page; the rail, task tabs and Done remain available.
+// Forget's local confirmation alone uses a modal. A remote request never
+// replaces that confirmation, the operation lock, or a physical hold.
 #define ASK_W        640
 #define ASK_H        330
 #define ASK_PAD       32
 #define ASK_BTN_H     66
 #define ASK_BTN_GAP   16
-#define ASK_MS     75000   // the longest an ask stands; the faucet ends its own at 60 s and says so
+#define ASK_MS     75000   // the local Forget confirmation's maximum lifetime
 #define FORGOT_MS   6000   // how long what Forget found stays above it
 
-enum AskMode : uint8_t { ASK_NONE, ASK_TRUST, ASK_FORGET };
+enum AskMode : uint8_t { ASK_NONE, ASK_FORGET };
 static AskMode askMode = ASK_NONE;
 static uint8_t trustAskId = 0;           // the faucet's number for the ask on the glass
 static unsigned long askShownMs = 0;
 static lv_obj_t *askScreen, *askTitle, *askBody, *askNoLabel, *askYesLabel;
 static lv_obj_t *forgetBtn, *forgotNote;
 static unsigned long forgotUntilMs = 0;  // nonzero: the note is up until then
+static lv_obj_t *trustInbox, *trustTaskTitle, *trustTaskBody, *trustTaskNo, *trustTaskYes;
+static uint32_t trustReceivedMs = 0;
+static uint8_t trustAnsweredAskId = 0;
 
 static void askNoCb(lv_event_t *e);
 static void askYesCb(lv_event_t *e);
+static void trustNoCb(lv_event_t *e);
+static void trustYesCb(lv_event_t *e);
+
+static void trustInboxCb(lv_event_t *e) {
+  (void)e;
+  if (!trustAskId || lockActive || holding || primeStopPending ||
+      (primeSessionKnown && primeSession.phase == PRIME_SESSION_RUNNING) || askMode != ASK_NONE) return;
+  showPage(PAGE_TRUST);
+}
+
+static void buildTrustInbox(lv_obj_t *scr) {
+  // This slot is permanently reserved between the two flavor portraits and
+  // Settings. A request's arrival does not move any existing touch target.
+  trustInbox = mkBtn(scr, 84, 56, COL_ACCENT);
+  lv_obj_set_pos(trustInbox, 10, 352);
+  lv_obj_clear_flag(trustInbox, LV_OBJ_FLAG_PRESS_LOCK);
+  lv_obj_add_event_cb(trustInbox, trustInboxCb, LV_EVENT_CLICKED, NULL);
+  lv_obj_t *label = mkText(trustInbox, "Phone\nrequest", &lv_font_montserrat_20, COL_INK);
+  lv_obj_set_style_text_align(label, LV_TEXT_ALIGN_CENTER, 0);
+  lv_obj_center(label);
+  lv_obj_add_flag(trustInbox, LV_OBJ_FLAG_HIDDEN);
+
+  lv_obj_t *page = pageObj[PAGE_TRUST];
+  trustTaskTitle = mkText(page, "No request waiting", &lv_font_montserrat_28, COL_TEXT);
+  lv_obj_set_width(trustTaskTitle, DETAIL_W);
+  lv_obj_set_pos(trustTaskTitle, 0, 8);
+  trustTaskBody = mkText(page, "Use your phone to ask again.", &lv_font_montserrat_20, COL_DIM);
+  lv_obj_set_width(trustTaskBody, DETAIL_W);
+  lv_obj_set_pos(trustTaskBody, 0, 62);
+  const lv_coord_t width = (DETAIL_W - 16) / 2;
+  const lv_coord_t y = SCREEN_H - HEADER_H - 2 * PANE_PAD - ASK_BTN_H - 8;
+  trustTaskNo = mkBtn(page, width, ASK_BTN_H, COL_CARD);
+  lv_obj_set_pos(trustTaskNo, 0, y);
+  lv_obj_clear_flag(trustTaskNo, LV_OBJ_FLAG_PRESS_LOCK);
+  lv_obj_add_event_cb(trustTaskNo, trustNoCb, LV_EVENT_CLICKED, NULL);
+  lv_obj_center(mkText(trustTaskNo, "Don't Trust", &lv_font_montserrat_20, COL_TEXT));
+  trustTaskYes = mkBtn(page, width, ASK_BTN_H, COL_ACCENT);
+  lv_obj_set_pos(trustTaskYes, width + 16, y);
+  lv_obj_clear_flag(trustTaskYes, LV_OBJ_FLAG_PRESS_LOCK);
+  lv_obj_add_event_cb(trustTaskYes, trustYesCb, LV_EVENT_CLICKED, NULL);
+  lv_obj_center(mkText(trustTaskYes, "Trust", &lv_font_montserrat_20, COL_INK));
+  lv_obj_add_state(trustTaskNo, LV_STATE_DISABLED);
+  lv_obj_add_state(trustTaskYes, LV_STATE_DISABLED);
+}
 
 // Built once and hidden, like the lock: a full-screen shield in the theme's
 // blue, a card in the middle of it with the question and what it means, and
@@ -4336,6 +4381,7 @@ static void buildAsk(lv_obj_t *scr) {
   lv_obj_center(askYesLabel);
 
   lv_obj_add_flag(askScreen, LV_OBJ_FLAG_HIDDEN);
+  buildTrustInbox(scr);
 }
 
 static void askShow(AskMode mode, const char *title, const char *body,
@@ -4363,38 +4409,57 @@ static void askHide() {
   lv_obj_add_flag(askScreen, LV_OBJ_FLAG_HIDDEN);
 }
 
-// A new ask replaces whatever ask is up, the faucet's or Forget's.
+// Replays preserve the request's first-received clock and the user's press.
+// An unanswered request never moves the person to another page.
 static void trustShow(const TrustShowPayload &ask) {
-  if (!uiReady || lockActive || holding) return;
+  if (!uiReady || ask.askId == 0 || ask.askId == trustAnsweredAskId) return;
+  if (ask.askId == trustAskId) return;
   if (screenIdle) wake();
   char body[160];
   trustBody(ask.reason, ask.channel, ask.kind, body, sizeof(body));
   trustAskId = ask.askId;
-  askShow(ASK_TRUST, trustTitle(ask.kind), body, "Don't Trust", "Trust");
+  trustAnsweredAskId = 0;
+  trustReceivedMs = millis();
+  if (activePage == PAGE_TRUST && touchInput) lv_indev_wait_release(touchInput);
+  lv_label_set_text(trustTaskTitle, trustTitle(ask.kind));
+  lv_label_set_text(trustTaskBody, body);
+  lv_obj_clear_state(trustTaskNo, LV_STATE_DISABLED);
+  lv_obj_clear_state(trustTaskYes, LV_STATE_DISABLED);
+  if (!lockActive && askMode == ASK_NONE) lv_obj_clear_flag(trustInbox, LV_OBJ_FLAG_HIDDEN);
 }
 
 // Answered at the faucet, timed out, or the phone left.
 static void trustClose(uint8_t askId) {
-  if (askMode == ASK_TRUST && askId == trustAskId) askHide();
+  if (askId != trustAskId) return;
+  trustAskId = 0;
+  lv_obj_add_flag(trustInbox, LV_OBJ_FLAG_HIDDEN);
+  lv_label_set_text(trustTaskTitle, "No request waiting");
+  lv_label_set_text(trustTaskBody, "Use your phone to ask again, or choose Done to return.");
+  lv_obj_add_state(trustTaskNo, LV_STATE_DISABLED);
+  lv_obj_add_state(trustTaskYes, LV_STATE_DISABLED);
 }
 
 static void trustAnswer(bool trusted) {
+  if (!trustAskId) return;
   TrustAnswerPayload answer{trustAskId, (uint8_t)(trusted ? 1 : 0)};
   j9Post(MSG_TRUST_ANSWER, &answer, sizeof(answer));
+  trustAnsweredAskId = trustAskId;
+  trustClose(trustAskId);
 }
 
-// Don't Trust, or Cancel.
+static void trustNoCb(lv_event_t *e) { (void)e; trustAnswer(false); }
+static void trustYesCb(lv_event_t *e) { (void)e; trustAnswer(true); }
+
+// Cancel the local Forget confirmation.
 static void askNoCb(lv_event_t *e) {
   (void)e;
-  if (askMode == ASK_TRUST) trustAnswer(false);
   askHide();
 }
 
-// Trust, or Forget.
+// Confirm Forget.
 static void askYesCb(lv_event_t *e) {
   (void)e;
-  if (askMode == ASK_TRUST) trustAnswer(true);
-  else if (askMode == ASK_FORGET) j9Post(MSG_TRUST_FORGET, nullptr, 0);
+  if (askMode == ASK_FORGET) j9Post(MSG_TRUST_FORGET, nullptr, 0);
   askHide();
 }
 
@@ -4421,6 +4486,15 @@ static void trustForgot(uint8_t count) {
 static void askService() {
   const unsigned long now = millis();
   if (askMode != ASK_NONE && now - askShownMs >= ASK_MS) askHide();
+  if (trustAskId && now - trustReceivedMs >= 60000) trustClose(trustAskId);
+  if (trustInbox) {
+    if (trustAskId && !lockActive && askMode == ASK_NONE && !testActive)
+      lv_obj_clear_flag(trustInbox, LV_OBJ_FLAG_HIDDEN);
+    else lv_obj_add_flag(trustInbox, LV_OBJ_FLAG_HIDDEN);
+    if (holding || primeStopPending || (primeSessionKnown && primeSession.phase == PRIME_SESSION_RUNNING))
+      lv_obj_add_state(trustInbox, LV_STATE_DISABLED);
+    else lv_obj_clear_state(trustInbox, LV_STATE_DISABLED);
+  }
   if (forgotUntilMs && (long)(now - forgotUntilMs) >= 0) {
     forgotUntilMs = 0;
     lv_obj_add_flag(forgotNote, LV_OBJ_FLAG_HIDDEN);
@@ -4432,8 +4506,8 @@ static void buildRail(lv_obj_t *scr) {
   lv_obj_add_flag(flavorRail, LV_OBJ_FLAG_CLICKABLE);
   lv_obj_add_event_cb(flavorRail, flavorBackCb, ACT_EVENT, NULL);
   for (uint8_t i = 0; i < 2; ++i) {
-    lv_obj_t *b = mkBtn(flavorRail, 84, 173, 0x0a267f);
-    lv_obj_set_pos(b, 10, 19 + i * 189);
+    lv_obj_t *b = mkBtn(flavorRail, 84, 160, 0x0a267f);
+    lv_obj_set_pos(b, 10, 10 + i * 170);
     lv_obj_set_style_border_width(b, 2, 0);
     lv_obj_set_style_border_color(b, lv_color_hex(0x0a267f), 0);
     lv_obj_add_event_cb(b, homeFlavorPickCb, ACT_EVENT, (void *)(intptr_t)i);
@@ -5029,7 +5103,7 @@ static void buildUi() {
   // After the panes so it draws above them, before the lock so that still covers it.
   buildSettingsButton(scr);
   buildLockScreen(scr);
-  buildAsk(scr);          // raised over whatever is up when it shows
+  buildAsk(scr);          // local Forget confirmation and the nonmodal phone inbox
   buildTestScreen(scr);   // above the lock: the camera reads it through anything
 
   uiReady = true;
@@ -5150,7 +5224,7 @@ static void processTextLine(const char *line) {
         }
         flavorImage[flavorSel] = (uint8_t)img;
         refreshFlavorImages();
-        sendFlavorArt();
+        sendFlavorArt(flavorSel);
       }
       Serial.printf("OK:EDIT=%d,img=%u\n", f, flavorImage[flavorSel]);
     }

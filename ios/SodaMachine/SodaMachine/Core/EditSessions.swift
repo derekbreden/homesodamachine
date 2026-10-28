@@ -41,6 +41,7 @@ final class EditSessions {
 
     private var drafts: [EditKey: AnyHashable] = [:]
     private var writes: [EditKey: Write] = [:]
+    private var bases: [EditKey: SettingSnapshot] = [:]
 
     func draft<Value: Hashable>(_ key: EditKey, as type: Value.Type = Value.self) -> Value? {
         drafts[key]?.base as? Value
@@ -53,10 +54,17 @@ final class EditSessions {
         if writes[key]?.running == false { writes[key] = nil }
     }
 
+    func capture(_ snapshot: SettingSnapshot?, for key: EditKey) {
+        if bases[key] == nil { bases[key] = snapshot }
+    }
+
+    func base(_ key: EditKey) -> SettingSnapshot? { bases[key] }
+
     /// Discard changes: the confirmed value stands again.
     func discard(_ key: EditKey) {
         drafts[key] = nil
         writes[key] = nil
+        bases[key] = nil
     }
 
     /// A write starts, superseding any earlier one for the same setting.
@@ -79,7 +87,7 @@ final class EditSessions {
     /// The machine accepted `saved`. A draft still holding it is done; one
     /// changed since stays.
     func settle<Value: Hashable>(_ key: EditKey, saved: Value) {
-        if draft(key, as: Value.self) == saved { drafts[key] = nil }
+        if draft(key, as: Value.self) == saved { drafts[key] = nil; bases[key] = nil }
     }
 
     func write(_ key: EditKey) -> Write? { writes[key] }
@@ -89,5 +97,6 @@ final class EditSessions {
     func forget(machine: String) {
         drafts = drafts.filter { $0.key.machine != machine }
         writes = writes.filter { $0.key.machine != machine }
+        bases = bases.filter { $0.key.machine != machine }
     }
 }

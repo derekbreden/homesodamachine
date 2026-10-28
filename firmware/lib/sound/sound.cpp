@@ -221,6 +221,7 @@ static Preferences prefs;
 static const char *NVS_NS = "hsmsound";
 
 static sound_policy::Settings settings;
+static SoundSettingsWriter settingsWriter = nullptr;
 
 static int (*hourNowFn)() = nullptr;
 
@@ -268,19 +269,31 @@ uint8_t soundLevelFor(SoundId id) {
 }
 
 void soundSetVolume(uint8_t pct) {
-    settings.volume = pct;
-    settings = sound_policy::clamped(settings);
-    settingsSave();
+    auto next = settings;
+    next.volume = pct;
+    soundSetSettings(next);
 }
 
 void soundSetQuiet(bool on, uint8_t startHour, uint8_t endHour, uint8_t qPct) {
-    settings.quietOn     = on;
-    settings.quietStart  = startHour;
-    settings.quietEnd    = endHour;
-    settings.quietVolume = qPct;
-    settings = sound_policy::clamped(settings);
-    settingsSave();
+    auto next = settings;
+    next.quietOn = on;
+    next.quietStart = startHour;
+    next.quietEnd = endHour;
+    next.quietVolume = qPct;
+    soundSetSettings(next);
 }
+
+void soundSetSettingsWriter(SoundSettingsWriter writer) { settingsWriter = writer; }
+
+bool soundSetSettings(const sound_policy::Settings &value) {
+    const auto next = sound_policy::clamped(value);
+    if (settingsWriter) return settingsWriter(next);
+    settings = next;
+    settingsSave();
+    return true;
+}
+
+void soundApplySettings(const sound_policy::Settings &value) { settings = sound_policy::clamped(value); }
 
 uint8_t soundVolume()      { return settings.volume; }
 bool    soundQuietOn()     { return settings.quietOn; }

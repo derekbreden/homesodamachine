@@ -17,6 +17,7 @@ import PhotosUI
 struct ImageChoice: Hashable {
     let art: Int
     let upload: UUID?
+    let base: SettingSnapshot
 }
 
 struct ImageLibraryView: View {
@@ -29,11 +30,19 @@ struct ImageLibraryView: View {
 
     @State private var cropping: UIImage?
     @State private var removing: Int?   // art index
+    @State private var conflict: SettingSnapshot?
 
     private var key: EditKey? { ble.current.map { EditKey(machine: $0.id, field: .image(channel: channel)) } }
     private var choice: ImageChoice? { key.flatMap { edits.draft($0) } }
     private var write: EditSessions.Write? { key.flatMap(edits.write) }
     private var worn: Int? { ble.flavorArt.art.indices.contains(channel) ? ble.flavorArt.art[channel] : nil }
+
+    private var currentConflict: SettingSnapshot? {
+        if let conflict { return ble.settingSnapshot(.art(channel: channel)) ?? conflict }
+        guard write?.running != true, let choice, let current = ble.settingSnapshot(.art(channel: channel)),
+              current.revision != choice.base.revision else { return nil }
+        return current
+    }
 
     var body: some View {
         let room = min(560, width)
@@ -45,7 +54,7 @@ struct ImageLibraryView: View {
                 Notice(title: "Pictures can’t be sent", message: "\(why.prefix(1).uppercased())\(why.dropFirst()).",
                        icon: "exclamationmark.circle")
             }
-            if let problem = write?.problem {
+            if let problem = write?.problem, currentConflict == nil {
                 Notice(title: "Flavor \(channel + 1) didn’t change", message: problem, icon: "exclamationmark.circle")
                 if let id = choice?.upload, ble.canRetryUpload(id), ble.linked {
                     ActionButton(title: "Try again") { retry(id) }.frame(maxWidth: 360)
@@ -54,6 +63,17 @@ struct ImageLibraryView: View {
                 Note(choice.upload == nil || !uploading(choice.upload)
                      ? "Putting it on Flavor \(channel + 1)…"
                      : "Sending your picture. It goes on Flavor \(channel + 1) once the machine has it.")
+            }
+            if let conflict = currentConflict, let chosen = choice?.art {
+                Notice(title: "Machine’s image changed", message: "The machine now uses Image \((ble.settingSnapshot(.art(channel: channel))?.byte ?? conflict.byte ?? 0) + 1). Your choice is Image \(chosen + 1).", icon: "exclamationmark.triangle.fill")
+                HStack(spacing: 24) {
+                    Button("Use mine") { choose(chosen, basedOn: ble.settingSnapshot(.art(channel: channel))) }
+                    Button("Keep machine’s image") {
+                        if let key { release(); edits.discard(key) }
+                        self.conflict = nil
+                        nav.finish(entry)
+                    }
+                }.frame(minHeight: 44)
             }
             SectionTitle("Choose an image")
             LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 12), count: columns),
@@ -144,7 +164,7 @@ struct ImageLibraryView: View {
             }
         }
         .buttonStyle(.plain)
-        .disabled(!(ble.linked || ble.demoMode))
+        .disabled(!(ble.linked || ble.demoMode) || ble.settingSnapshot(.art(channel: channel)) == nil)
         .accessibilityAddTraits(chosen ? .isSelected : [])
         .contextMenu {
             if custom && ble.activeUpload == nil && ble.linked {
@@ -220,8 +240,10 @@ struct ImageLibraryView: View {
     /// A face the machine has. The one the flavor already wears, with no
     /// other face on its way to the machine, ends the task, and with it any
     /// earlier choice still being sent.
-    private func choose(_ art: Int) {
-        guard let key, let machine = ble.current?.id else { return }
+    private func choose(_ art: Int, basedOn supplied: SettingSnapshot? = nil) {
+        guard let key, let machine = ble.current?.id,
+              let base = supplied ?? choice?.base ?? ble.settingSnapshot(.art(channel: channel)) else { return }
+        conflict = nil
         if worn == art && !ble.assigningArt(channel) {
             release()
             edits.discard(key)
@@ -229,7 +251,7 @@ struct ImageLibraryView: View {
             return
         }
         release()
-        edits.setDraft(ImageChoice(art: art, upload: nil), for: key)
+        edits.setDraft(ImageChoice(art: art, upload: nil, base: base), for: key)
         let token = edits.begin(key)
         Task {
             guard await ble.ensureTrusted(.image, channel: channel) else {
@@ -241,13 +263,14 @@ struct ImageLibraryView: View {
                 edits.end(token, for: key, problem: "Nothing changed: another machine is in use.")
                 return
             }
-            await assign(art, token: token, key: key, machine: machine)
+            await assign(art, base: base, token: token, key: key, machine: machine)
         }
     }
 
     /// A new photo: sent, then put on the flavor once the machine holds it.
     private func add(_ crop: UIImage) {
-        guard let key, let machine = ble.current?.id else { return }
+        guard let key, let machine = ble.current?.id, let base = ble.settingSnapshot(.art(channel: channel)) else { return }
+        conflict = nil
         release()
         let token = edits.begin(key)
         Task {
@@ -264,7 +287,7 @@ struct ImageLibraryView: View {
                 edits.end(token, for: key, problem: ble.imageSizeMismatch.map { "\($0)." } ?? "The machine has no room for another picture.")
                 return
             }
-            await follow(item, token: token, key: key, machine: machine)
+            await follow(item, base: base, token: token, key: key, machine: machine)
         }
     }
 
@@ -272,7 +295,7 @@ struct ImageLibraryView: View {
     /// same checks as the first: Trust, this machine, and still the newest
     /// choice.
     private func retry(_ id: UUID) {
-        guard let key, let machine = ble.current?.id else { return }
+        guard let key, let machine = ble.current?.id, let base = choice?.base else { return }
         let token = edits.begin(key)
         Task {
             guard await ble.ensureTrusted(.image, channel: channel) else {
@@ -284,7 +307,7 @@ struct ImageLibraryView: View {
                 edits.end(token, for: key, problem: "The picture couldn’t be sent again here. Bring your device near the machine and try again.")
                 return
             }
-            await follow(item, token: token, key: key, machine: machine)
+            await follow(item, base: base, token: token, key: key, machine: machine)
         }
     }
 
@@ -295,13 +318,13 @@ struct ImageLibraryView: View {
 
     /// A picture on its way, followed to the end of its trip. Only the newest
     /// choice for the flavor is put on it.
-    private func follow(_ item: QueuedImage, token: UUID, key: EditKey, machine: String) async {
+    private func follow(_ item: QueuedImage, base: SettingSnapshot, token: UUID, key: EditKey, machine: String) async {
         let art = ble.flavorArt.artIndex(customSlot: item.slot)
-        if edits.isNewest(token, for: key) { edits.setDraft(ImageChoice(art: art, upload: item.id), for: key) }
+        if edits.isNewest(token, for: key) { edits.setDraft(ImageChoice(art: art, upload: item.id, base: base), for: key) }
         switch await ble.awaitUpload(item.id) {
         case .stored:
             guard edits.isNewest(token, for: key) else { return }
-            await assign(art, token: token, key: key, machine: machine)
+            await assign(art, base: base, token: token, key: key, machine: machine)
         case .failed(let why):
             edits.end(token, for: key, problem: "The picture wasn’t sent: \(why).")
         case .interrupted:
@@ -314,15 +337,19 @@ struct ImageLibraryView: View {
 
     /// The machine wears it, or says why not. Done, the task closes its own
     /// page — only this opening of it, and only while it is on top.
-    private func assign(_ art: Int, token: UUID, key: EditKey, machine: String) async {
-        let worn = await ble.assignArt(channel: channel, art: art, on: machine,
-                                       while: { edits.isNewest(token, for: key) })
+    private func assign(_ art: Int, base: SettingSnapshot, token: UUID, key: EditKey, machine: String) async {
+        let answer = await ble.assignArt(channel: channel, art: art, expected: base, on: machine,
+                                        while: { edits.isNewest(token, for: key) })
         guard edits.isNewest(token, for: key) else { return }
-        if worn {
+        switch answer {
+        case .accepted:
             edits.discard(key)
             nav.finish(entry)
-        } else {
-            edits.end(token, for: key, problem: "The machine didn’t confirm the new image. Choose it again to retry.")
+        case .conflict(let current):
+            conflict = current
+            edits.end(token, for: key, problem: "Another device changed this flavor’s image. Choose which image to keep.")
+        case .failure(let failure):
+            edits.end(token, for: key, problem: failure.message)
         }
     }
 }

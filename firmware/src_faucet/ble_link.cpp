@@ -192,6 +192,7 @@ struct Standing {
   uint32_t trustGen;
   uint8_t  state;     // TRUST_STATE_*
   uint32_t sinceMs;   // when this connection came up
+  uint8_t  trustTag;  // its last admitted client attempt, for unsolicited state
 };
 static Standing standing[CONFIG_BT_NIMBLE_MAX_CONNECTIONS];
 
@@ -218,10 +219,28 @@ static bool notifyLink(uint16_t handle, uint32_t gen, uint8_t type, const void *
   return txChar->notify(handle);
 }
 
-static void sendTrust(uint16_t handle, uint32_t gen, uint8_t outcome) {
-  BleTrustPayload t{standingOf(handle, gen),
-                    (uint8_t)(phoneTrustAsking(handle, gen) ? 1 : 0), outcome};
-  notifyLink(handle, gen, BLE_FRAME_TRUST, &t, sizeof(t));
+static void rememberTrustTag(uint16_t handle, uint32_t gen, uint8_t tag) {
+  for (Standing &s : standing)
+    if (s.handle == handle && s.gen == gen) s.trustTag = tag;
+}
+
+static void sendTrust(uint16_t handle, uint32_t gen, uint8_t outcome, int incomingTag = -1) {
+  Link l;
+  if (!linkFind(handle, l) || l.gen != gen) return;
+  uint8_t tag = 0;
+  for (const Standing &s : standing)
+    if (s.handle == handle && s.gen == gen) tag = s.trustTag;
+  if (incomingTag >= 0) tag = (uint8_t)incomingTag;
+  const bool asking = phoneTrustAsking(handle, gen) && phoneTrustClientTag(handle, gen) == tag;
+  const uint8_t state = standingOf(handle, gen);
+  const uint16_t retry = state == TRUST_STATE_TRUSTED ? 0 : phoneTrustRetryAfter(handle, gen, l.id, tag);
+  const uint16_t remaining = phoneTrustRemaining(handle, gen, tag);
+  // The original three bytes stay at the front. Legacy apps ignore this
+  // optional timing/tag suffix; every multibyte value is explicitly LE.
+  const uint8_t body[] = {state, (uint8_t)(asking ? 1 : 0), outcome,
+                         (uint8_t)retry, (uint8_t)(retry >> 8),
+                         (uint8_t)remaining, (uint8_t)(remaining >> 8), tag};
+  notifyLink(handle, gen, BLE_FRAME_TRUST, body, sizeof(body));
 }
 
 static void settleStanding(const Link *now) {
@@ -230,7 +249,7 @@ static void settleStanding(const Link *now) {
     const Link &l = now[i];
     Standing &s = standing[i];
     if (l.handle == BLE_HS_CONN_HANDLE_NONE) {
-      s = Standing{BLE_HS_CONN_HANDLE_NONE, 0, false, false, 0, TRUST_STATE_UNPAIRED, 0};
+      s = Standing{BLE_HS_CONN_HANDLE_NONE, 0, false, false, 0, TRUST_STATE_UNPAIRED, 0, 0};
       continue;
     }
     const bool fresh = s.handle != l.handle || s.gen != l.gen;
@@ -248,7 +267,7 @@ static void settleStanding(const Link *now) {
                         : TRUST_STATE_VIEWER;
     const bool moved = !fresh && state != s.state;
     s = Standing{l.handle, l.gen, l.secured, l.bonded, trustGen, state,
-                 fresh ? millis() : s.sinceMs};
+                 fresh ? millis() : s.sinceMs, (uint8_t)(fresh ? 0 : s.trustTag)};
     if (moved || (fresh && l.bonded)) sendTrust(l.handle, l.gen, TRUST_OUTCOME_NONE);
   }
 }
@@ -722,7 +741,7 @@ static uint32_t lastTouchTxMs = 0;
 static bool bridgeReads(uint8_t type) {
   return type == MSG_STATUS_REQ || type == MSG_FLAVOR_QUERY || type == MSG_RATIO_QUERY ||
          type == MSG_FILL_QUERY || type == MSG_CLEAN_QUERY || type == MSG_SOUND_CFG_GET ||
-         type == MSG_PRIME_SESSION_QUERY;
+         type == MSG_PRIME_SESSION_QUERY || type == MSG_SETTING_GET;
 }
 
 static bool changesMachine(uint8_t type, const uint8_t *payload, uint16_t plen) {
@@ -776,22 +795,26 @@ static void refuseUntrusted(const Link &l, uint8_t type, const uint8_t *payload,
 // under a bond has nothing to keep the phone by.
 static void onTrustAsk(const Link &l, const BleTrustAskPayload &req) {
   if (req.reason == TRUST_CANCEL) {
-    phoneTrustWithdraw(l.handle, l.gen);
+    if (!phoneTrustWithdraw(l.handle, l.gen, req.clientTag))
+      sendTrust(l.handle, l.gen, TRUST_OUTCOME_CANCELED, req.clientTag);
     return;
   }
   if (standingOf(l.handle, l.gen) == TRUST_STATE_TRUSTED) {
-    sendTrust(l.handle, l.gen, TRUST_OUTCOME_TRUSTED);
+    rememberTrustTag(l.handle, l.gen, req.clientTag);
+    sendTrust(l.handle, l.gen, TRUST_OUTCOME_TRUSTED, req.clientTag);
     return;
   }
   if (!l.bonded) {
-    sendTrust(l.handle, l.gen, TRUST_OUTCOME_UNPAIRED);
+    rememberTrustTag(l.handle, l.gen, req.clientTag);
+    sendTrust(l.handle, l.gen, TRUST_OUTCOME_UNPAIRED, req.clientTag);
     return;
   }
   if (!phoneTrustAsk(l.handle, l.gen, l.id, req)) {
-    sendTrust(l.handle, l.gen, TRUST_OUTCOME_BUSY);
+    sendTrust(l.handle, l.gen, phoneTrustRefusal(l.id), req.clientTag);
     return;
   }
-  sendTrust(l.handle, l.gen, TRUST_OUTCOME_NONE);
+  rememberTrustTag(l.handle, l.gen, req.clientTag);
+  sendTrust(l.handle, l.gen, TRUST_OUTCOME_NONE, req.clientTag);
 }
 
 static void dispatchFrame(const uint8_t *work, uint16_t len) {
@@ -822,9 +845,9 @@ static void dispatchFrame(const uint8_t *work, uint16_t len) {
     refuseUntrusted(from, type, payload, plen);
     return;
   }
-  if (type == BLE_FRAME_TRUST_ASK && plen >= sizeof(BleTrustAskPayload)) {
-    BleTrustAskPayload req;
-    memcpy(&req, payload, sizeof(req));
+  if (type == BLE_FRAME_TRUST_ASK && plen >= BLE_TRUST_ASK_PREFIX) {
+    BleTrustAskPayload req{};
+    memcpy(&req, payload, plen < sizeof(req) ? plen : sizeof(req));
     onTrustAsk(from, req);
     return;
   }

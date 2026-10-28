@@ -4,6 +4,7 @@
 #include "flavor.h"
 #include "flavor_selection.h"
 #include "proto_msg.h"
+#include "settings.h"
 
 namespace {
 
@@ -64,6 +65,7 @@ void flavorBegin() {
 }
 
 bool flavorService() {
+    if (settingsStarted()) return false;
     if (storeOpen && ratioDirty && due(millis(), ratioPersistDueMs)) {
         const bool ok = prefs.putUChar("ratio0", ratio[0]) == sizeof(uint8_t) &&
                         prefs.putUChar("ratio1", ratio[1]) == sizeof(uint8_t);
@@ -106,6 +108,11 @@ bool flavorService() {
 }
 
 bool flavorSynchronize(uint8_t candidate) {
+    if (settingsStarted()) {
+        if (candidate > 1) return false;
+        if (authority.established()) return true;
+        return settingsWrite(SETTING_SELECTION, SETTING_GLOBAL, &candidate, 1);
+    }
     const flavor_selection::Update update = authority.synchronize(candidate);
     if (update == flavor_selection::Update::Rejected) return false;
     changed(update);
@@ -117,6 +124,7 @@ bool flavorSynchronize(uint8_t candidate) {
 }
 
 bool flavorSelect(uint8_t flavor) {
+    if (settingsStarted()) return settingsWrite(SETTING_SELECTION, SETTING_GLOBAL, &flavor, 1);
     const flavor_selection::Update update = authority.select(flavor);
     if (update == flavor_selection::Update::Rejected) return false;
     changed(update);
@@ -125,8 +133,12 @@ bool flavorSelect(uint8_t flavor) {
 
 uint8_t flavorSelected() { return authority.selected(); }
 bool flavorEstablished() { return authority.established(); }
-bool flavorPersisted() { return storeOpen && authority.persisted(); }
+bool flavorPersisted() {
+    if (settingsStarted()) return settingsReady() && !settingsDirty() && !settingsStorageFailed();
+    return storeOpen && authority.persisted();
+}
 bool flavorPersistenceError() {
+    if (settingsStarted()) return settingsStorageFailed();
     return !storeOpen || authority.persistenceError();
 }
 uint32_t flavorRevision() { return revision; }
@@ -134,6 +146,7 @@ uint32_t flavorRevision() { return revision; }
 uint8_t flavorArt(uint8_t channel) { return art[channel & 1]; }
 
 bool flavorArtSet(uint8_t a0, uint8_t a1) {
+    if (settingsStarted()) return settingsWritePair(SETTING_ART, a0, a1);
     if (a0 >= FLAVOR_ART_COUNT || a1 >= FLAVOR_ART_COUNT) return false;
     if (art[0] == a0 && art[1] == a1) return true;
     art[0] = a0;
@@ -147,6 +160,7 @@ bool flavorArtSet(uint8_t a0, uint8_t a1) {
 uint8_t flavorRatio(uint8_t channel) { return ratio[channel & 1]; }
 
 bool flavorRatioSet(uint8_t r0, uint8_t r1) {
+    if (settingsStarted()) return settingsWritePair(SETTING_RATIO, r0, r1);
     if (r0 < FLAVOR_RATIO_MIN || r0 > FLAVOR_RATIO_MAX ||
         r1 < FLAVOR_RATIO_MIN || r1 > FLAVOR_RATIO_MAX) return false;
     if (ratio[0] == r0 && ratio[1] == r1) return true;
@@ -157,3 +171,15 @@ bool flavorRatioSet(uint8_t r0, uint8_t r1) {
     ++revision;
     return true;
 }
+
+void flavorApplySettings(uint8_t selected, uint8_t r0, uint8_t r1, uint8_t a0, uint8_t a1) {
+    const bool moved = !authority.established() || authority.selected() != selected ||
+                       ratio[0] != r0 || ratio[1] != r1 || art[0] != a0 || art[1] != a1;
+    authority.loadPersisted(selected);
+    ratio[0] = r0; ratio[1] = r1;
+    art[0] = a0; art[1] = a1;
+    artDirty = ratioDirty = false;
+    if (moved) ++revision;
+}
+
+void flavorSettingsDurabilityChanged() { ++revision; }

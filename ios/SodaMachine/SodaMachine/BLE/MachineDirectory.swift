@@ -141,6 +141,14 @@ final class KnownMachine: Identifiable {
     // moment it was read (MachineBridge.swift).
     var appliance = ApplianceState()
 
+    /// Main-board setting stamps, retained with their values so an offline
+    /// edit still refers to the exact revision it was based on.
+    var settingStorageProblem = false
+    var settingSnapshots: [SettingKey: SettingSnapshot] = [:]
+    /// A new faucet can be attached to a main board without stamped settings.
+    /// Its explicit refusal is remembered for this connection only.
+    var stampedSettingsUnavailable = false
+
     init(id: String = UUID().uuidString, key: String, unit: String, peripheralID: String?,
          name: String, model: MachineModel, isDemo: Bool = false, addedAt: Date = Date()) {
         self.id = id
@@ -240,6 +248,7 @@ struct MachineRecord: Codable {
     var flavorArt: FlavorArt
     var picturesReadAt: Date?
     var appliance: ApplianceState?
+    var settings: [SettingSnapshot]?
 
     init(_ m: KnownMachine) {
         id = m.id
@@ -262,6 +271,7 @@ struct MachineRecord: Codable {
         flavorArt = m.flavorArt
         picturesReadAt = m.picturesReadAt
         appliance = m.appliance
+        settings = Array(m.settingSnapshots.values)
     }
 
     func restore() -> KnownMachine {
@@ -279,6 +289,9 @@ struct MachineRecord: Codable {
         m.flavorArt = flavorArt
         m.picturesReadAt = picturesReadAt
         m.appliance = appliance ?? ApplianceState()
+        for snapshot in settings ?? [] where snapshot.valid {
+            m.settingSnapshots[snapshot.key] = snapshot
+        }
         m.loadPictures()
         return m
     }
