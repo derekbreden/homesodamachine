@@ -65,6 +65,9 @@ export const ICON_INNER = {
   // A ticked rule — Rulers. The axis triad it draws is the truer picture and
   // reads as an abstract mark at 15px, where this reads as its own label.
   rulers: '<rect x="2" y="8" width="20" height="9" rx="2"></rect><path d="M7 8v4"></path><path d="M12 8v5"></path><path d="M17 8v4"></path>',
+  // Corner brackets around a point — Focus, the selection standing out from a
+  // model faded around it.
+  focus: '<circle cx="12" cy="12" r="3"></circle><path d="M3 7V5a2 2 0 0 1 2-2h2"></path><path d="M17 3h2a2 2 0 0 1 2 2v2"></path><path d="M21 17v2a2 2 0 0 1-2 2h-2"></path><path d="M7 21H5a2 2 0 0 1-2-2v-2"></path>',
   // ── Disclosure ─────────────────────────────────────────────────────────────
   // A chevron, drawn pointing right and turned a quarter clockwise by whatever
   // it is on when that thing stands open — the /3d branches and the viewer's

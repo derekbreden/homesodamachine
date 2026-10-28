@@ -21,7 +21,7 @@
 // localStorage save/apply).
 
 import * as THREE from "three";
-import { createNavigation } from "./navigation.js";
+import { createNavigation, saveCameraPose } from "./navigation.js";
 export { depthRangeFor, fitCameraDepth } from "./navigation.js";
 import { state } from "./state.js";
 import { syncEdgeResolution } from "./xray.js";
@@ -408,7 +408,26 @@ export function resetCamera(group) {
 // reopening the file (or following a push notification) restores the same
 // view. Keys are namespaced by file path.
 export function saveCameraState(file) {
-  if (file) navigation.savePose(`step-camera:${file}`);
+  if (!file) return;
+  const key = `step-camera:${file}`;
+  if (heldPose?.file === file) saveCameraPose(heldPose, heldPose, key);
+  else navigation.savePose(key);
+}
+
+// A selection's fly-to is a look at one part, not where the reader left the
+// model. While a selection is up (part-highlight.js), the view kept for its file
+// is the one from before it, and leaving the selection flies back there.
+let heldPose = null;
+export function holdCameraPose() {
+  const file = state.mountedDetail?.file;
+  if (!file || heldPose?.file === file) return;
+  heldPose = { file, position: camera.position.clone(), up: camera.up.clone(), target: controls.target.clone() };
+}
+
+export function releaseCameraPose() {
+  const pose = heldPose;
+  heldPose = null;
+  return pose;
 }
 
 export function applyCameraState(file) {

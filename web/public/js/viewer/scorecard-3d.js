@@ -5,7 +5,7 @@
 // gate/goal into its detail rows. One verdict, two surfaces: the same data the terminal prints.
 
 import { scorecardPathFor, isScorecard, sizeText, gatesFailing, gatesUnread } from "/contracts/scorecard-sidecar.js";
-import { scenePartNames, highlightParts, clearHighlight } from "./part-highlight.js";
+import { scenePartNames, highlightParts, leaveHighlight } from "./part-highlight.js";
 
 const MARK = { pass: "✓", fail: "✗", warn: "•", unread: "○" };
 
@@ -60,7 +60,7 @@ function appendCheck(card, c, gray, wrapper, partNames) {
       r.addEventListener("click", (e) => {
         e.stopPropagation();
         closeModal(wrapper);
-        highlightParts(refs);
+        highlightParts(refs, { owner: "scorecard" });
       });
     }
     return r;
@@ -111,7 +111,7 @@ function appendSize(card, sc) {
 
 function openModal(wrapper, sc, title) {
   closeModal(wrapper);
-  clearHighlight(); // reopening the checks restores the full model
+  leaveHighlight({ owner: "scorecard" }); // reopening the checks restores the full model and its view
   const modal = el("div", "sc-modal");
   modal.addEventListener("click", () => closeModal(wrapper)); // backdrop closes
   // Don't leak orbit/zoom gestures to the TrackballControls on the canvas behind the modal.

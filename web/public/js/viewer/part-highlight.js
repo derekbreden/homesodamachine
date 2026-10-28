@@ -1,20 +1,27 @@
-// Highlight a named solid (or a few) in the loaded STEP scene — the scorecard modal's detail
-// rows click through to the geometry they name. Draws bright feature-edges + a faint shell over
-// the referenced meshes (depth-test off, so it reads through the enclosure walls) and flies the
-// camera to frame them. Overlay-only: the base meshes' materials are never touched, so it
-// composes with x-ray and clears cleanly. Mirrors pick-find.js's overlay + fly-to, but at the
-// whole-solid level (a component name) rather than a pick coordinate.
+// The model's selection: the solids one surface has picked out — a Materials row, a part
+// picked in the model, a checks row from the scorecard — drawn with bright feature-edges + a
+// faint shell (depth-test off, so it reads through the enclosure walls) and framed by the
+// camera. While Focus is on, every other body fades behind it. Nothing is faded unless
+// something is selected, and a selection that is the whole of what is drawn picks nothing out.
+//
+// One surface holds the selection at a time. A surface that takes it from another tells the
+// other through its `onRelease`, so the Materials panel never names a part the model has
+// stopped showing. Leaving a selection flies the camera back to the view from before it
+// (scene.js holds that view, and keeps it as the file's camera while the selection is up).
 //
 // The name match works because export_assembly names each solid (foam-assembly, seaflo-pump, …)
 // and step.js buildMesh stamps that name onto the THREE.Mesh — the same names the scorecard's
-// registry uses, so a detail row's text and a scene mesh share one key.
+// registry and the material catalog's bindings use.
 
 import * as THREE from "three";
-import { scene, camera, controls } from "./scene.js";
+import { scene, camera, controls, holdCameraPose, releaseCameraPose } from "./scene.js";
 import { state } from "./state.js";
+import { setFocusFade } from "./xray.js";
+import { makeToolChip } from "./tool-rail.js";
 
 const HL = 0x35e0d0; // highlight cyan — distinct from pick-find magenta and edge select/hover
 const EDGE_THRESHOLD_DEG = 30;
+const FOCUS_KEY = "step-focus";
 
 const overlay = new THREE.Group();
 overlay.name = "part-highlight";
@@ -23,6 +30,14 @@ scene.add(overlay);
 
 const edgeMat = new THREE.LineBasicMaterial({ color: HL, transparent: true, opacity: 0.95, depthTest: false });
 edgeMat.depthWrite = false;
+
+// { names, owner, onRelease, onDraw } — what is selected and which surface selected it.
+let subject = null;
+let drawn = 0; // solids the selection picks out on screen
+let focusOn = (() => {
+  try { return localStorage.getItem(FOCUS_KEY) !== "0"; } catch { return true; }
+})();
+let focusChip = null;
 
 function clearOverlay() {
   for (const c of [...overlay.children]) {
@@ -45,23 +60,22 @@ export function scenePartNames() {
 }
 
 let flyToken = 0;
-function flyToBox(box) {
-  if (box.isEmpty()) return;
-  const center = box.getCenter(new THREE.Vector3());
-  const size = box.getSize(new THREE.Vector3());
-  const maxDim = Math.max(size.x, size.y, size.z, 2);
-  const dir = camera.position.clone().sub(controls.target).normalize();
-  const destPos = center.clone().addScaledVector(dir, maxDim * 2.4);
+// A gesture always wins over a fly in progress.
+controls.addEventListener("start", () => { flyToken++; });
+
+function flyTo({ position, target, up = camera.up }) {
   const startPos = camera.position.clone();
   const startTarget = controls.target.clone();
+  const startUp = camera.up.clone();
   const token = ++flyToken;
   const t0 = performance.now();
   function step() {
     if (token !== flyToken) return;
     const t = Math.min((performance.now() - t0) / 400, 1);
     const ease = t * (2 - t);
-    camera.position.lerpVectors(startPos, destPos, ease);
-    controls.target.lerpVectors(startTarget, center, ease);
+    camera.position.lerpVectors(startPos, position, ease);
+    camera.up.lerpVectors(startUp, up, ease).normalize();
+    controls.target.lerpVectors(startTarget, target, ease);
     camera.lookAt(controls.target);
     controls.update();
     if (t < 1) requestAnimationFrame(step);
@@ -69,68 +83,145 @@ function flyToBox(box) {
   requestAnimationFrame(step);
 }
 
-// Highlight every mesh whose name is in `names` (Set or array): bright edges + a faint shell
-// over each, framed by the camera. Returns the count highlighted.
-// `focus` also takes every other solid out of view until the highlight clears, so the parts
-// at hand stand alone where they sit in the assembly.
-export function highlightParts(names, { focus = false } = {}) {
-  clearOverlay();
-  restoreFocus();
-  const want = names instanceof Set ? names : new Set(names);
-  if (!state.currentGroup || !want.size) return 0;
+function flyToBox(box) {
+  if (box.isEmpty()) return;
+  const center = box.getCenter(new THREE.Vector3());
+  const size = box.getSize(new THREE.Vector3());
+  const maxDim = Math.max(size.x, size.y, size.z, 2);
+  const dir = camera.position.clone().sub(controls.target).normalize();
+  flyTo({ position: center.clone().addScaledVector(dir, maxDim * 2.4), target: center });
+}
+
+function solidsBox(meshes) {
   const box = new THREE.Box3();
-  const seen = new Set();
-  let n = 0;
-  for (const mesh of state.currentGroup.children) {
-    // A component hidden from the local view (component-picker.js) stays hidden:
-    // a scorecard row naming it would otherwise paint a ghost of the solid the
-    // reader just took out of the view.
-    if (!mesh.isMesh || !want.has(mesh.name) || mesh.visible === false
-        || seen.has(mesh.geometry)) continue;
-    seen.add(mesh.geometry); // front + back share one geometry — one highlight per solid
-    const eg = new THREE.EdgesGeometry(mesh.geometry, EDGE_THRESHOLD_DEG);
-    overlay.add(new THREE.LineSegments(eg, edgeMat));
-    const shell = new THREE.Mesh(mesh.geometry.clone(), new THREE.MeshBasicMaterial({
-      color: HL, transparent: true, opacity: 0.16, side: THREE.DoubleSide,
-      depthWrite: false, depthTest: false,
-    }));
-    shell.renderOrder = 995;
-    overlay.add(shell);
+  for (const mesh of meshes) {
     if (!mesh.geometry.boundingBox) mesh.geometry.computeBoundingBox();
     box.union(mesh.geometry.boundingBox);
-    n++;
   }
-  if (n && focus) {
+  return box;
+}
+
+// The drawn bodies of the loaded model, without the x-ray edges and hit proxies beside them.
+function bodies() {
+  return (state.currentGroup?.children || []).filter((m) =>
+    m.isMesh && !m.userData?.isXrayEdge && !m.userData?.hitOnly && m.visible !== false);
+}
+
+// Draw the selection on the geometry as it stands: edges + shell over each of its visible
+// solids, and the fade over everything else.
+function draw() {
+  clearOverlay();
+  const report = { shown: 0, hidden: 0, whole: false, box: new THREE.Box3() };
+  const want = subject?.names;
+  const visible = bodies();
+  const picked = want ? visible.filter((m) => want.has(m.name)) : [];
+  if (want && state.currentGroup) {
     for (const m of state.currentGroup.children) {
-      const nm = m.userData?.isXrayEdge ? m.userData.xrayComponent : m.name;
-      if (!m.isMesh || !m.visible || want.has(nm)) continue;
-      m.visible = false; focusHidden.push(m);
+      if (m.isMesh && m.visible === false && want.has(m.name)) report.hidden++;
     }
   }
-  if (n) flyToBox(box);
-  return n;
-}
-
-const focusHidden = [];
-function restoreFocus() {
-  for (const m of focusHidden.splice(0)) m.visible = true;
-}
-
-export function clearHighlight() {
-  clearOverlay();
-  restoreFocus();
-  flyToken++; // cancel an in-flight fly-to
-}
-
-// Clear any highlight and fly back out to frame every visible solid.
-export function frameScene() {
-  clearHighlight();
-  if (!state.currentGroup) return;
-  const box = new THREE.Box3();
-  for (const m of state.currentGroup.children) {
-    if (!m.isMesh || !m.visible || m.userData?.isXrayEdge) continue;
-    if (!m.geometry.boundingBox) m.geometry.computeBoundingBox();
-    box.union(m.geometry.boundingBox);
+  report.box = solidsBox(picked);
+  report.whole = picked.length > 0 && picked.length === visible.length;
+  const seen = new Set();
+  if (!report.whole) {
+    for (const mesh of picked) {
+      if (seen.has(mesh.geometry)) continue;
+      seen.add(mesh.geometry); // front + back share one geometry — one highlight per solid
+      overlay.add(new THREE.LineSegments(new THREE.EdgesGeometry(mesh.geometry, EDGE_THRESHOLD_DEG), edgeMat));
+      const shell = new THREE.Mesh(mesh.geometry.clone(), new THREE.MeshBasicMaterial({
+        color: HL, transparent: true, opacity: 0.16, side: THREE.DoubleSide,
+        depthWrite: false, depthTest: false,
+      }));
+      shell.renderOrder = 995;
+      overlay.add(shell);
+    }
   }
-  flyToBox(box);
+  drawn = seen.size;
+  report.shown = drawn;
+  setFocusFade(drawn && focusOn ? (mesh) => want.has(mesh.name) : null);
+  syncFocusChip();
+  subject?.onDraw?.(report);
+  return report;
+}
+
+// Select the solids named in `names` (Set or array) for `owner`, replacing whatever was
+// selected, and frame them unless `fly` is false (a pick made in the model keeps the camera
+// where the reader has it). `onRelease` runs when another surface takes the selection or it
+// is cleared from outside. Each drawing reports { shown, hidden, whole } to `onDraw` and is
+// returned: solids picked out, solids of the selection hidden from this view, and whether it
+// is all of what is drawn.
+export function highlightParts(names, { owner = null, onRelease = null, onDraw = null, fly = true } = {}) {
+  const previous = subject;
+  subject = { names: names instanceof Set ? names : new Set(names), owner, onRelease, onDraw };
+  holdCameraPose();
+  const report = draw();
+  if (fly && !report.box.isEmpty()) flyToBox(report.box);
+  else if (fly) flyToken++;
+  if (previous && previous.owner !== owner) previous.onRelease?.();
+  return report;
+}
+
+// Draw the selection again on the geometry as it now stands — after a hide or a finish change.
+export function refreshHighlight() {
+  if (subject) draw();
+}
+
+function end(owner, back) {
+  if (owner && subject && subject.owner !== owner) return false;
+  const previous = subject;
+  subject = null;
+  const pose = releaseCameraPose();
+  if (!previous && !pose) return false;
+  draw();
+  if (back && pose) flyTo(pose);
+  else if (back) flyToBox(solidsBox(bodies()));
+  else flyToken++; // cancel an in-flight fly-to
+  if (previous && previous.owner !== owner) previous.onRelease?.();
+  return true;
+}
+
+// End the selection where the camera is. `owner` names the surface asking: it ends only its
+// own selection and is not told about it; with no owner, whoever held it is told.
+export function clearHighlight({ owner = null } = {}) {
+  return end(owner, false);
+}
+
+// End the selection and fly back to the view from before it.
+export function leaveHighlight({ owner = null } = {}) {
+  return end(owner, true);
+}
+
+// The geometry under the selection is being replaced. Its overlay and fade go with it; the
+// view held from before it stays, for the owner to draw its selection again on the new model.
+export function dropHighlight() {
+  subject = null;
+  clearOverlay();
+  drawn = 0;
+  setFocusFade(null);
+  syncFocusChip();
+  flyToken++;
+}
+
+function syncFocusChip() {
+  if (focusChip) focusChip.hidden = !drawn;
+}
+
+// Focus: whether the rest of the model fades behind a selection. The switch stands in the
+// Show row only while something is selected; the choice is kept in this browser under
+// `step-focus`.
+export function makeFocusToggle() {
+  focusChip = makeToolChip({
+    className: "focus-toggle",
+    label: "Focus",
+    icon: "focus",
+    title: "Fade everything but the selection",
+    read: () => focusOn,
+    write: (on) => {
+      focusOn = !!on;
+      try { localStorage.setItem(FOCUS_KEY, focusOn ? "1" : "0"); } catch {}
+      if (subject) draw();
+    },
+  });
+  syncFocusChip();
+  return focusChip;
 }

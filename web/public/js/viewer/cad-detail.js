@@ -40,7 +40,7 @@ import { makePickModeControl } from "./pick-mode.js";
 import { setTrail, stepHash, walkDepth } from "./step-nav.js";
 import { mountScorecard } from "./scorecard-3d.js";
 import { mountRelated, closeRelated } from "./related-nav.js";
-import { clearHighlight } from "./part-highlight.js";
+import { clearHighlight, leaveHighlight, makeFocusToggle } from "./part-highlight.js";
 import { mountTubeTool, closeTubeTool, clearTubeTool, cancelTubeFocus } from "./tube-overlay-host.js";
 import { mountFaucetOptions } from "./faucet-options.js";
 import { mountFlavorPath } from "./flavor-path.js";
@@ -73,7 +73,7 @@ function makeResetViewButton() {
     onClick: () => {
     if (!state.mountedDetail || !state.currentGroup) return;
     cancelTubeFocus();
-    clearHighlight(); // a scorecard part-highlight is a temporary focus; reset restores all
+    clearHighlight(); // a selection is a temporary focus; reset lets go of it and restores all
     const { type, file } = state.mountedDetail;
     try { localStorage.removeItem(`step-camera:${file}`); } catch {}
 
@@ -201,6 +201,7 @@ export function openCadDetail(type, file, pushHistory = true, path = null) {
     clearFlavorPath = mountFlavorPath(wrapper, chips);
   }
   chips.appendChild(makeRulerToggle());
+  if (type === "step") chips.appendChild(makeFocusToggle());
   rail.appendChild(makeToolGroup("Show", chips)).classList.add("tool-group-show");
   const clearToolDrawer = mountToolDrawer(rail);
   const footer = document.createElement("div");
@@ -238,6 +239,10 @@ export function openCadDetail(type, file, pushHistory = true, path = null) {
     else if (closeToolDrawer(wrapper, true)) { e.preventDefault(); e.stopPropagation(); }
     else if (closeTopPickFind() || closeTubeTool()) {
       wrapper.querySelector(".tool-drawer.compact > summary")?.focus();
+      e.preventDefault(); e.stopPropagation();
+    }
+    // A selection is the last thing up before the viewer itself. A field keeps its own Escape.
+    else if (!e.target.closest?.("input, textarea, select") && (materialPanel?.leave() || leaveHighlight())) {
       e.preventDefault(); e.stopPropagation();
     }
   };

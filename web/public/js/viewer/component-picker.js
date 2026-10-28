@@ -31,6 +31,7 @@ import { showsInFaucetFinish } from "/contracts/faucet-options.js";
 import { drillTo, drillToComponent } from "./step-nav.js";
 import { makePanelCollapse } from "./tool-rail.js";
 import { syncTubeVisibility } from "./tube-overlay-host.js";
+import { refreshHighlight } from "./part-highlight.js";
 
 const LS_KEY = "step-component-pick";
 const SEL = 0xffa733;   // selection highlight — warm amber (distinct from edge yellow, part-highlight cyan, find magenta)
@@ -100,6 +101,7 @@ export function applyHiddenComponents() {
   }
   invalidateAllEdgesLayer(); // the edge picker's faint all-edges layer must drop hidden solids
   syncTubeVisibility();
+  refreshHighlight(); // a selection picks out only what is still drawn
   refreshPanel();
 }
 
@@ -176,8 +178,10 @@ function standsHidden(name) {
   return heldBy(name).some((held) => state.hiddenComponents.has(held));
 }
 
-// One overlay Group per role so we can rebuild each independently.
-const selGroup = new THREE.Group(); selGroup.renderOrder = 994; overlay.add(selGroup);
+// One overlay Group per role so we can rebuild each independently. The Materials panel
+// selects what a click hits and part-highlight.js fills it; the selection here is the
+// clicked body's outline, drawn over that fill so it stands out among its occurrences.
+const selGroup = new THREE.Group(); selGroup.renderOrder = 997; overlay.add(selGroup);
 const hoverGroup = new THREE.Group(); hoverGroup.renderOrder = 993; overlay.add(hoverGroup);
 
 function disposeGroup(g) {
@@ -188,9 +192,9 @@ function disposeGroup(g) {
   }
 }
 
-// Bright edges + a faint translucent shell over every (visible) mesh of `name`,
-// depth-test off so it reads through the translucent enclosure. Mirrors
-// part-highlight.js, deduped by shared front/back geometry.
+// Bright edges, and a faint translucent shell when `shellOpacity` asks for one, over
+// every (visible) mesh of `name`, depth-test off so it reads through the translucent
+// enclosure. Mirrors part-highlight.js, deduped by shared front/back geometry.
 function drawOverlay(g, name, color, edgeMat, shellOpacity) {
   disposeGroup(g);
   if (!name || !state.currentGroup) return;
@@ -201,6 +205,7 @@ function drawOverlay(g, name, color, edgeMat, shellOpacity) {
         || seen.has(mesh.geometry)) continue;
     seen.add(mesh.geometry);
     g.add(new THREE.LineSegments(new THREE.EdgesGeometry(mesh.geometry, EDGE_THRESHOLD_DEG), edgeMat));
+    if (!shellOpacity) continue;
     const shell = new THREE.Mesh(mesh.geometry.clone(), new THREE.MeshBasicMaterial({
       color, transparent: true, opacity: shellOpacity, side: THREE.DoubleSide,
       depthWrite: false, depthTest: false,
@@ -237,7 +242,7 @@ function pickComponent(clientX, clientY) {
 // --- selection + hover ---
 function selectComponent(name) {
   selection = name;
-  drawOverlay(selGroup, name, SEL, selEdgeMat, 0.18);
+  drawOverlay(selGroup, name, SEL, selEdgeMat, 0);
   setHover(null);
   showPanel();
   window.dispatchEvent(new CustomEvent(HSM_EVENTS.MATERIAL_PICKED, {
@@ -248,6 +253,25 @@ function selectComponent(name) {
 function clearSelectionOverlay() {
   selection = null;
   disposeGroup(selGroup);
+}
+
+// Let go of the selection here and in the Materials panel, whose selection is the model's.
+function deselect() {
+  clearSelectionOverlay();
+  refreshPanel();
+  window.dispatchEvent(new CustomEvent(HSM_EVENTS.MATERIAL_PICKED, {
+    detail: { file: state.mountedDetail?.file, name: null },
+  }));
+}
+
+// The Materials panel moved the selection somewhere a click here did not put it. Answers
+// whether there was a selection to clear.
+export function clearComponentSelection() {
+  if (!selection) return false;
+  clearSelectionOverlay();
+  setHover(null);
+  refreshPanel();
+  return true;
 }
 
 export function clearComponentPicker() {
@@ -282,7 +306,7 @@ function buildPanel() {
   close.className = "edge-panel-close";
   close.textContent = "×";
   close.title = "Clear selection";
-  close.addEventListener("click", () => { clearSelectionOverlay(); refreshPanel(); });
+  close.addEventListener("click", deselect);
   head.appendChild(title);
   head.appendChild(nameEl);
   head.appendChild(makePanelCollapse(panel, "step-component-panel-collapsed"));
@@ -518,7 +542,7 @@ renderer.domElement.addEventListener("pointerup", (e) => {
   if (Math.hypot(e.clientX - downX, e.clientY - downY) > 6) return; // a drag, not a click
   const name = pickComponent(e.clientX, e.clientY);
   if (name) selectComponent(name);
-  else { clearSelectionOverlay(); refreshPanel(); } // click on empty space clears the selection
+  else deselect(); // click on empty space clears the selection
 });
 renderer.domElement.addEventListener("pointermove", (e) => {
   if (!active() || e.buttons !== 0) return;
