@@ -1,0 +1,24 @@
+{
+  "source_commit": "0c120687739750246b73bf8442bd35c8afe7be96",
+  "pointer_commit": "a33f36f062b0cf1259792013f255f0b37fdc1123",
+  "appliance_sha256": "593d13874cb902ce14696a0fe062a0a99093e9e9fd7766746960adf1d1197754",
+  "published_object_native_source_sha256": "593d13874cb902ce14696a0fe062a0a99093e9e9fd7766746960adf1d1197754",
+  "published_members_sha256": {
+    "hardware/printed-parts/enclosure/enclosure/enclosure.step": "dc5827053dca5c58ab3566faea10c1dd6e5e212d94c2181943d4e60adb02e83b",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh": "92238e1242d3d6837d59e013c1ef8b89e892435d2d96c0633aba14bc013cc254",
+    "hardware/manifold-layout/enclosure-assembly.step": "593d13874cb902ce14696a0fe062a0a99093e9e9fd7766746960adf1d1197754",
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": "e0e7e130ae8831992dba8036c5b7ce0805f5a22e2a98e5b55e7d4842013a3861",
+    "hardware/wiring/enclosure-wiring.step": "93cd0a0243834afaba063bf86f1ae3005c111f52644d543ab4dfe4a9f4f32b24",
+    "hardware/wiring/enclosure-wiring.step.mesh": "2680d3b79542975f67b3afd1be5ddf44d8b94634c659ba0580af8c80e0145d1d",
+    "hardware/assembly/scenes/glb/cold-core.glb": "e5a5dc1b0257972b74cc7ec526f1777bed97ff864bb9d512bf4879eac24baf6f",
+    "hardware/assembly/scenes/glb/cap-lid.glb": "0d88cb7d39fa56cf866a464632fc883594d7eac8b4b041be3d422645c71fcff6",
+    "hardware/assembly/scenes/glb/back-top.glb": "1bb13a7f3d8ae5196183457edbd56c580e38f39698eae641ff8245602cb90545",
+    "hardware/assembly/scenes/glb/back-half.glb": "15e9bf6418a8d3f0c7f7b74ce99b2e64e15a56d2da9c966f410bc67c38c41775",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "8974d38f391b349b6bb7d17903b3e7a531cfb10441703982948bc1c7f9a3285f",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": "9c8d7d565cb4702249fc1984d4f212df7650bbfd354b7dff17b20a179ad3f8ac",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh": "ce85cd70cdb916631bb44e4128053ed278d96570588b4d90f77fddc138d24330"
+  },
+  "object_store_verified": true,
+  "live_viewer_native_source_sha256": "593d13874cb902ce14696a0fe062a0a99093e9e9fd7766746960adf1d1197754",
+  "live_viewer_matches_published_object": true
+}

@@ -312,17 +312,25 @@ click: x=96.500 y=272.667 z=318.900
 click: x=-95.500 y=317.833 z=254.350
 click: x=-96.800 y=264.333 z=274.125
 
-[thin] Required spring section of the three 4 mm tube snaps: these six readings are the free curved arms of the rear flavor-A, rear flavor-B and vent clips, each with a 4.10 mm bore, 1.52 mm radial wing thickness, 125.421 degree wrap per wing and 8 mm axial span (`_tube_snap_sites.py`, `cadlib/route_snap.py:tube_clip`). The section is proportionally scaled from the selected 2.40 mm C2 spring for the smaller tube; this is a modeled compliance/fit estimate, with physical insertion, holding and fatigue unqualified. This answer applies to those free spring arms, not ordinary fixed wall or root stock.
+[thin] Required spring section of the five 4 mm tube seats: these ten readings identify both free curved arms of the four flavor seats at Y354/Y390 and the retained vent seat, each with a 4.10 mm bore, 1.52 mm radial wing thickness, 125.421 degree wrap per wing and 8 mm axial span (`_tube_snap_sites.py`, `cadlib/route_snap.py:tube_clip`). The circular spring section preserves the proportionally scaled selected 2.40 mm C2 section for the smaller tube. The shared filled flavor-root bridges retain 3.06 x 8 x 3.1 mm ordinary stock; this exception applies only to the working curved springs. The 4 mm compliance and fit remain modeled estimates, with physical fit, insertion, holding, fatigue and the complete enclosure print unqualified.
 alternatives: A 3 mm radial wing nearly doubles thickness relative to this bore and changes the curved spring's stiffness and insertion response rather than preserving the selected C2 proportions. Filling the opening prevents tube insertion. Opening the tips or reducing their wrap changes retention; a separate cap changes the requested integral snap interface and needs its own fit.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-2.375 y=425.038 z=337.513
-click: x=-2.375 y=426.555 z=337.605
-click: x=3.675 y=423.852 z=342.763
-click: x=3.675 y=422.335 z=342.855
-click: x=-0.375 y=432.121 z=337.162
-click: x=-0.375 y=430.620 z=337.402
-click: x=1.675 y=416.769 z=342.412
-click: x=1.675 y=418.269 z=342.652
+click: x=-58.569 y=355.000 z=342.939
+click: x=-57.050 y=355.000 z=342.957
+click: x=-58.569 y=391.000 z=342.939
+click: x=-57.050 y=391.000 z=342.957
+click: x=-51.431 y=353.000 z=342.939
+click: x=-52.950 y=353.000 z=342.957
+click: x=-48.569 y=355.000 z=342.939
+click: x=-47.050 y=355.000 z=342.957
+click: x=-41.431 y=353.000 z=342.939
+click: x=-42.950 y=353.000 z=342.957
+click: x=-51.431 y=389.000 z=342.939
+click: x=-52.950 y=389.000 z=342.957
+click: x=-48.569 y=391.000 z=342.939
+click: x=-47.050 y=391.000 z=342.957
+click: x=-41.431 y=389.000 z=342.939
+click: x=-42.950 y=389.000 z=342.957
 click: x=-38.569 y=390.284 z=341.939
 click: x=-37.050 y=390.284 z=341.957
 click: x=-31.431 y=388.283 z=341.939

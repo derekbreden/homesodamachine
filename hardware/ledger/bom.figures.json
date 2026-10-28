@@ -22,8 +22,8 @@
     "END_CAPS": "2",
     "FLAT_WASHERS_9": "5",
     "FLAT_WASHERS_9_COST": "$0.23",
-    "FLAVOR_4MM_COST": "$2.18",
-    "FLAVOR_4MM_FT": "16.80",
+    "FLAVOR_4MM_COST": "$2.16",
+    "FLAVOR_4MM_FT": "16.60",
     "FLAVOR_CUT": "1963",
     "FLOOR_INSERTS": "4",
     "FLOOR_SCREWS": "4",
@@ -134,7 +134,7 @@
     "WASHER_MAX_OD": "29"
   },
   "/hardware/scripts/_bom_totals.py": {
-    "BOM_GRAND": "$1,463.83",
+    "BOM_GRAND": "$1,463.81",
     "BOM_SEC1": "$175.03",
     "BOM_SEC11": "$35.21",
     "BOM_SEC12": "$29.78",
@@ -148,6 +148,6 @@
     "BOM_SEC6": "$18.64",
     "BOM_SEC7": "$160.72",
     "BOM_SEC8": "$272.69",
-    "BOM_SEC9": "$78.66"
+    "BOM_SEC9": "$78.64"
   }
 }

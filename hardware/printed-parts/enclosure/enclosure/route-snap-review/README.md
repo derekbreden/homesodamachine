@@ -113,6 +113,10 @@ The [roof-routing production reading](roof-guided-production.json) binds the
 three native hose paths, both shared roof bases, the two adjusted wire fan-outs
 and their installed assembly surfaces. Its local slice reading covers the
 shared snap with nearby roof stock; the 4 mm fit remains a modeled estimate.
+The [roof publication reading](roof-guided-publication.json) identifies the
+uploaded native source and the live viewer's source reading. The
+[post-publication roof reading](roof-guided-post-publication.json) classifies
+the working spring sections and the ordinary shared-root stock.
 The [construction reading](native-review.json), [tube neighborhood reading](tube-clearances.json)
 and [accepted fill-clip/lid reading](fill-lid-clearance.json) bind their local tube
 clearances; the [cable opening reading](cable-clearances.json) covers the hook
