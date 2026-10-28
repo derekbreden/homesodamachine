@@ -71,8 +71,8 @@ coordinates. The scoped native routing record is
 
 The carbonator's existing water and soda fitting datums stay fixed. The gas guide
 is at X77.5/Y368.7622 and its below-lid route retains the carbonator fitting and
-support-ring lane. Reservoir A fill and B draw use shallow offsets through the
-cap. Reservoir B fill uses a trimmed stem elbow at its cap bore, a short tube and
+support-ring lane. Reservoir A fill and B draw pass straight through the cap,
+with their reservoir seats aligned to the upper guides. Reservoir B fill uses a trimmed stem elbow at its cap bore, a short tube and
 a JG elbow below the lid, with the upward exit aft of the PCB at X−33/Y287.5.
 The reservoir cap bores remain on their own native datums. The lower fitting
 has a 3.05 mm cover; a broad 2.4 mm upper cover retains the upward-facing
@@ -81,15 +81,20 @@ cup-floor section remains intact outside the named bores. Assemble the pair
 and short link in the open cup before its lid goes on for the cap pour; these
 clearances do not qualify physical fit or retention loads.
 
-The soda tube rises from the fixed bottom outlet beside the coil, crosses above
-the tank at Z239.4 and exits through the plain guide at X50/Y342.4148/Z253.4.
-Its curved passage retains the cup floor and uses R14 bends. The same continuous
+The soda tube rises from the fixed bottom outlet beside the coil, turns toward
+its guide in the open main body at Z219.4, and passes straight through the cup
+and lid at X50/Y342.4148/Z253.4. Its R14 turns are assembled before potting the
+main body. The same continuous
 tube follows the accepted PET-GF R14 holder directly into the meter inlet.
 The holder has a 2 mm wall and 3 mm legs. One square-ended 63 mm piece of owned
 ID6.35/OD25.4 foam slides over the tube and holder before the meter connects.
 The guide introduces no joint or extra tube insertion. Local foam compression
 is a layout estimate informed by the recorded physical fit; its occupied
 CAD shape is not a cutting pattern or physical clearance result.
+The water inlet also turns below the cup floor and passes straight through
+X−53/Y288.7265. The check's aft outlet elbow faces upward, feeding an exposed
+R18 arch into that guide. Its check body, pump connection and carbonator
+metal fitting retain their installed datums.
 Tighten all four pump screws before threading the inlet and connecting the
 meter. The installed tube crosses one pump-driver approach; service of that
 screw requires disconnecting and removing the inlet.

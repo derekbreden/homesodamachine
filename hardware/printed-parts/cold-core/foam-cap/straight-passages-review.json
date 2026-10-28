@@ -1,0 +1,580 @@
+{
+  "scope": "Four straight fluid passages through the top cap; B-fill retains its fitted link and is not released for a production print.",
+  "date": "2026-10-28",
+  "guides": {
+    "water-in": {
+      "guide_world_xy_mm": [
+        -53.0,
+        288.7264629725531
+      ],
+      "cup_gap_mm": 0.5749999999999664,
+      "lid_gap_mm": 0.5749999819148502,
+      "cup_overlap_mm3": 0.0,
+      "lid_overlap_mm3": 0.0
+    },
+    "carb-water-out": {
+      "guide_world_xy_mm": [
+        50.0,
+        342.4148
+      ],
+      "cup_gap_mm": 0.5749999999999738,
+      "lid_gap_mm": 0.5749999999999634,
+      "cup_overlap_mm3": 0.0,
+      "lid_overlap_mm3": 0.0
+    },
+    "A-fill": {
+      "guide_world_xy_mm": [
+        61.0,
+        426.3
+      ],
+      "cup_gap_mm": 0.5749999999999886,
+      "lid_gap_mm": 0.5749999999999821,
+      "cup_overlap_mm3": 0.0,
+      "lid_overlap_mm3": 0.0
+    },
+    "B-draw": {
+      "guide_world_xy_mm": [
+        -6.0,
+        229.5
+      ],
+      "cup_gap_mm": 0.574999999999984,
+      "lid_gap_mm": 0.5749999999999865,
+      "cup_overlap_mm3": 0.0,
+      "lid_overlap_mm3": 0.0
+    }
+  },
+  "parts": {
+    "foam-cap-top": {
+      "valid": true,
+      "solids": 1,
+      "faces": 192,
+      "volume_mm3": 186848.08147354904,
+      "bounds_mm": [
+        -141.2,
+        -90.2,
+        0.1499999999999999,
+        141.2,
+        90.2,
+        23.6
+      ],
+      "facets": 355198,
+      "vertices": 177555,
+      "dropped_degenerate_facets": 1,
+      "watertight": true,
+      "winding_consistent": true,
+      "nonmanifold_edges": 0,
+      "sha256": {
+        "step": "fc8600760e8ec655fabbfa3e1f6ca59d047ec0fdb9e71c980cd4c710b6c0f473",
+        "stl": "e229cb797da2c55a3f0b15276e98055526d2c3658e2bc33a8bcbdf841b799893",
+        "step.mesh": "cadb2be83acb6ef68e34692d0a3547d3ab82be7ef3a627a84bf9f8f0729bf1ef"
+      },
+      "payload": {
+        "triangles": 355198,
+        "regions": 125,
+        "vertices": 206147,
+        "decimation_mm": 0.0,
+        "crease_deg": 30.0
+      }
+    },
+    "foam-cap-lid-top": {
+      "valid": true,
+      "solids": 1,
+      "faces": 221,
+      "volume_mm3": 301539.4000141821,
+      "bounds_mm": [
+        -141.2,
+        -90.2,
+        -1e-07,
+        141.2,
+        97.7000001,
+        50.650000000000034
+      ],
+      "facets": 72446,
+      "vertices": 36153,
+      "dropped_degenerate_facets": 0,
+      "watertight": true,
+      "winding_consistent": true,
+      "nonmanifold_edges": 0,
+      "sha256": {
+        "step": "c8d0c682c5775e3a7a6422eb032331673442ff47cf0f1e9f89e180bc71114085",
+        "stl": "1e21bfa0ab7c765278d74a67085b1d5f0912cc7e7b39038a13c041a09ed40567",
+        "step.mesh": "199efca620a1c34a4cef3309d22372c6b22d305c4406e988312871696966d865"
+      },
+      "payload": {
+        "triangles": 72446,
+        "regions": 169,
+        "vertices": 64043,
+        "decimation_mm": 0.0,
+        "crease_deg": 30.0
+      }
+    },
+    "reservoir-cap-right": {
+      "valid": true,
+      "solids": 1,
+      "faces": 56,
+      "volume_mm3": 45356.964071567345,
+      "bounds_mm": [
+        52.28807768317634,
+        -70.25,
+        -2.0,
+        129.25,
+        70.25,
+        9.0
+      ],
+      "facets": 28614,
+      "vertices": 14291,
+      "dropped_degenerate_facets": 0,
+      "watertight": true,
+      "winding_consistent": true,
+      "nonmanifold_edges": 0,
+      "sha256": {
+        "step": "555c285283251571ed7db034cd0db32d066f9c75043af152effc7d084afe1c03",
+        "stl": "a56726721cfc654e7ba7c5d7a3a274d441f456f01086cdab6a31cbbdcb5405c7",
+        "step.mesh": "a75e89059625e4b9b44b239a985b54f551ac896efc1d4543ec3b4ecf2594dd72"
+      },
+      "payload": {
+        "triangles": 28614,
+        "regions": 49,
+        "vertices": 26346,
+        "decimation_mm": 0.0,
+        "crease_deg": 30.0
+      }
+    },
+    "reservoir-cap-left": {
+      "valid": true,
+      "solids": 1,
+      "faces": 55,
+      "volume_mm3": 45356.96407156731,
+      "bounds_mm": [
+        -129.25,
+        -70.25,
+        -2.0,
+        -52.28807768317634,
+        70.25,
+        9.0
+      ],
+      "facets": 28614,
+      "vertices": 14291,
+      "dropped_degenerate_facets": 0,
+      "watertight": true,
+      "winding_consistent": true,
+      "nonmanifold_edges": 0,
+      "sha256": {
+        "step": "3edae66b8c425ef4cedf1589ea642ab97fce33c4d4f8cc00cc645681eaad17a6",
+        "stl": "633df731f7f4d7123ab1f0e848db61c212c84cf8c412fee32ef9cd0bd448676a",
+        "step.mesh": "5312e70066204de62cd9abc0b796bc5f13fef2c51d8abaf77c507cc8f9c411d5"
+      },
+      "payload": {
+        "triangles": 28614,
+        "regions": 48,
+        "vertices": 26342,
+        "decimation_mm": 0.0,
+        "crease_deg": 30.0
+      }
+    }
+  },
+  "installed_water_exposed_warm_length_mm": 191.926449,
+  "water_outlet_clocking": "Existing aft check stem elbow faces upward; fixed check barrel and pump remain at their installed datums.",
+  "reservoir_seat_shift_world_mm": {
+    "A-fill": [
+      3.5,
+      0,
+      0
+    ],
+    "B-draw": [
+      3.5,
+      0,
+      0
+    ]
+  },
+  "lead_dressing": {
+    "changed_free_leads": [
+      "AC5-N",
+      "J1-OUT1",
+      "J1-positive-A",
+      "J6-RA1",
+      "J6-RA2",
+      "J6-RA3",
+      "J6-RA4"
+    ],
+    "terminals_and_shared_conduits": "Retained",
+    "physical_screen": {
+      "scope": "Candidate manual mesh screen; non-wire native-payload surfaces, ~1 mm stations. Old cap/features and replaced routes excluded; candidate cap checked separately. Mesh error and sampling are not final native clearance.",
+      "tests": 12399,
+      "findings": [],
+      "near": {
+        "AC5-N": [
+          {
+            "route": "AC5-N",
+            "body": "flow-regulator",
+            "gap_mm": 1.6753,
+            "point_mm": [
+              -14.036340957907134,
+              300.03114072810115,
+              318.33460214562024
+            ],
+            "surface_mm": [
+              -13.854101181030273,
+              299.5705261230469,
+              321.2683410644531
+            ],
+            "inside": null
+          },
+          {
+            "route": "AC5-N",
+            "body": "wago-n",
+            "gap_mm": 4.7722,
+            "point_mm": [
+              -40.266666666666666,
+              424.6277706828407,
+              316.2
+            ],
+            "surface_mm": [
+              -40.266666666666666,
+              430.70001220703125,
+              316.2
+            ],
+            "inside": null
+          },
+          {
+            "route": "AC5-N",
+            "body": "enclosure-back-top",
+            "gap_mm": 3.2871,
+            "point_mm": [
+              -12.941221632676093,
+              297.2933424150236,
+              317.7870424830047
+            ],
+            "surface_mm": [
+              -8.354101181030273,
+              297.2933424150236,
+              317.7870424830047
+            ],
+            "inside": null
+          }
+        ],
+        "J1-OUT1": [
+          {
+            "route": "J1-OUT1",
+            "body": "tube-fluid-24",
+            "gap_mm": 4.0626,
+            "point_mm": [
+              -46.787159126656526,
+              284.8953168145803,
+              291.36132263757116
+            ],
+            "surface_mm": [
+              -43.74999910447373,
+              281.77896718722087,
+              293.64113657979954
+            ],
+            "inside": null
+          },
+          {
+            "route": "J1-OUT1",
+            "body": "cold-core/pcba",
+            "gap_mm": 3.0515,
+            "point_mm": [
+              -69.48927445844636,
+              271.6287171149381,
+              275.2994896239828
+            ],
+            "surface_mm": [
+              -69.48927445844636,
+              267.80792236328125,
+              274.510009765625
+            ],
+            "inside": null
+          },
+          {
+            "route": "J1-OUT1",
+            "body": "enclosure-back-top",
+            "gap_mm": 3.2042,
+            "point_mm": [
+              -54.9792809493332,
+              278.1999787341177,
+              288.0359593570336
+            ],
+            "surface_mm": [
+              -57.60409927368164,
+              281.2897644042969,
+              288.0359593570336
+            ],
+            "inside": null
+          }
+        ],
+        "J1-positive-A": [
+          {
+            "route": "J1-positive-A",
+            "body": "funnel-frame",
+            "gap_mm": 2.5729,
+            "point_mm": [
+              47.10143207109411,
+              249.67392594667942,
+              301.14976132148433
+            ],
+            "surface_mm": [
+              47.101432071093996,
+              246.70964367563323,
+              302.8611879675698
+            ],
+            "inside": null
+          }
+        ],
+        "J6-RA1": [
+          {
+            "route": "J6-RA1",
+            "body": "cold-core/discharge-chain",
+            "gap_mm": 4.0694,
+            "point_mm": [
+              -42.50434949131355,
+              358.04790162780665,
+              271.0142255948292
+            ],
+            "surface_mm": [
+              -39.112850189208984,
+              358.04790162780665,
+              274.5777282714844
+            ],
+            "inside": null
+          },
+          {
+            "route": "J6-RA1",
+            "body": "cold-core/pcba",
+            "gap_mm": 1.3174,
+            "point_mm": [
+              -63.20420251234563,
+              256.92177090916357,
+              276.0338050461858
+            ],
+            "surface_mm": [
+              -64.47221374511719,
+              257.79791259765625,
+              274.510009765625
+            ],
+            "inside": null
+          }
+        ],
+        "J6-RA2": [
+          {
+            "route": "J6-RA2",
+            "body": "cold-core/discharge-chain",
+            "gap_mm": 1.2808,
+            "point_mm": [
+              -38.75762920941185,
+              352.3094385509986,
+              288.8651254119923
+            ],
+            "surface_mm": [
+              -37.591426849365234,
+              352.61297607421875,
+              287.1077880859375
+            ],
+            "inside": null
+          },
+          {
+            "route": "J6-RA2",
+            "body": "cold-core/pcba",
+            "gap_mm": 2.1322,
+            "point_mm": [
+              -62.38385810390359,
+              256.4137901060319,
+              276.1275587110309
+            ],
+            "surface_mm": [
+              -64.47221374511719,
+              257.79791259765625,
+              274.510009765625
+            ],
+            "inside": null
+          },
+          {
+            "route": "J6-RA2",
+            "body": "cold-core/pump-outlet-tpu",
+            "gap_mm": 1.2493,
+            "point_mm": [
+              -41.040731416771706,
+              329.1896895671039,
+              285.4399774143783
+            ],
+            "surface_mm": [
+              -39.25726572668046,
+              329.16834970214956,
+              284.3327737935925
+            ],
+            "inside": null
+          },
+          {
+            "route": "J6-RA2",
+            "body": "cold-core/pump-outlet-tube-band",
+            "gap_mm": 2.5862,
+            "point_mm": [
+              -40.06919856257602,
+              339.02788062408035,
+              286.897487200597
+            ],
+            "surface_mm": [
+              -37.49954075866877,
+              339.1764831542969,
+              284.62097507059383
+            ],
+            "inside": null
+          }
+        ],
+        "J6-RA3": [
+          {
+            "route": "J6-RA3",
+            "body": "cold-core/carbonator-fold",
+            "gap_mm": 4.3105,
+            "point_mm": [
+              -25.18008005254048,
+              403.1849438639943,
+              270.0
+            ],
+            "surface_mm": [
+              -27.051799548255403,
+              405.2535400390625,
+              274.3415019583647
+            ],
+            "inside": null
+          },
+          {
+            "route": "J6-RA3",
+            "body": "cold-core/discharge-chain",
+            "gap_mm": 0.3797,
+            "point_mm": [
+              -38.3227679021909,
+              361.6527311887044,
+              272.241244202239
+            ],
+            "surface_mm": [
+              -37.591426849365234,
+              361.6527311887044,
+              273.2298583984375
+            ],
+            "inside": null
+          },
+          {
+            "route": "J6-RA3",
+            "body": "cold-core/g-ganen-pump",
+            "gap_mm": 4.8641,
+            "point_mm": [
+              -23.802399263659964,
+              404.56262465287483,
+              270.0
+            ],
+            "surface_mm": [
+              -18.120300604572655,
+              404.5974660113276,
+              270.60335843315
+            ],
+            "inside": null
+          },
+          {
+            "route": "J6-RA3",
+            "body": "cold-core/pcba",
+            "gap_mm": 2.2852,
+            "point_mm": [
+              -62.328230890876085,
+              256.1867522729967,
+              276.1339161080372
+            ],
+            "surface_mm": [
+              -64.47221374511719,
+              257.79791259765625,
+              274.510009765625
+            ],
+            "inside": null
+          },
+          {
+            "route": "J6-RA3",
+            "body": "cold-core/pump-outlet-tpu",
+            "gap_mm": 1.7174,
+            "point_mm": [
+              -41.28941506278897,
+              330.49843645631887,
+              274.46655096883796
+            ],
+            "surface_mm": [
+              -39.07351547495356,
+              330.2997741699219,
+              275.7479071018116
+            ],
+            "inside": null
+          },
+          {
+            "route": "J6-RA3",
+            "body": "cold-core/pump-outlet-tube-band",
+            "gap_mm": 2.3925,
+            "point_mm": [
+              -39.59418811387579,
+              348.3008905891106,
+              273.19494710221
+            ],
+            "surface_mm": [
+              -37.168936982923846,
+              348.1764831542969,
+              275.3435264225853
+            ],
+            "inside": null
+          }
+        ],
+        "J6-RA4": [
+          {
+            "route": "J6-RA4",
+            "body": "cold-core/carbonator-fold",
+            "gap_mm": 0.1478,
+            "point_mm": [
+              -41.49012389648437,
+              409.1843729193323,
+              292.0
+            ],
+            "surface_mm": [
+              -40.49231506644388,
+              409.1843729193323,
+              292.0
+            ],
+            "inside": null
+          },
+          {
+            "route": "J6-RA4",
+            "body": "cold-core/pcba",
+            "gap_mm": 2.1289,
+            "point_mm": [
+              -62.274125684201955,
+              256.6211340168545,
+              276.14009956142667
+            ],
+            "surface_mm": [
+              -64.47221374511719,
+              257.79791259765625,
+              274.510009765625
+            ],
+            "inside": null
+          },
+          {
+            "route": "J6-RA4",
+            "body": "cold-core/pump-outlet-tpu",
+            "gap_mm": 3.9986,
+            "point_mm": [
+              -42.91407727904085,
+              329.297092009645,
+              287.5796241630119
+            ],
+            "surface_mm": [
+              -39.00804901100984,
+              329.6219515114516,
+              284.7254654830702
+            ],
+            "inside": null
+          }
+        ]
+      }
+    }
+  },
+  "limits": [
+    "Tube-to-guide allowance is intentional; it is not the appliance non-contact clearance floor.",
+    "The native probe and exported manifold/STL checks do not qualify received hardware or fluid service.",
+    "B-fill requires a layout decision before printing HSM-000020."
+  ]
+}

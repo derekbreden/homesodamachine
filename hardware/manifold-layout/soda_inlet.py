@@ -108,12 +108,9 @@ def tube_spec():
 
 
 def passage_points(lower_world_xy):
-    """R14 under-lid traverse from the retained lower column to the guide."""
+    """Straight cup/lid span on the soda guide's aligned axis."""
     guide = plan()['core_guide_mm']
-    radius = plan()['holder']['centreline_bend_r_mm']
-    z = guide[2]
-    return [(*lower_world_xy, z-2.*radius), (*lower_world_xy, z-radius),
-            (*guide[:2], z-radius), tuple(guide)]
+    return [(*lower_world_xy,guide[2]-21.),tuple(guide)]
 
 
 def _holder_section():

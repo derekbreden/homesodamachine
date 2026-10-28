@@ -244,19 +244,9 @@ def main():
     air = features['cut']
     floor_z = (layout.cap_lid_pose()['translation_mm'][2]-foam.top_cap_height
                +core.cap_shell_clearance)
-    passage = mounts.soda_out_guide_points()
-    d = [passage[2][i]-passage[1][i] for i in range(3)]
-    d = [x/math.sqrt(sum(v*v for v in d)) for x in d]
-    # The complete ordinary floor underneath the straight traverse; curved
-    # entry/exit openings are measured separately by the named air corridor.
-    a = [passage[1][i]+14.*d[i] for i in range(3)]
-    b = [passage[2][i]-14.*d[i] for i in range(3)]
-    a[2] = b[2] = floor_z+core.wall_and_floor_thickness/2.
-    floor_path = cq.Wire.assembleEdges([cq.Edge.makeLine(cq.Vector(*a), cq.Vector(*b))])
-    plane = cq.Plane(origin=a, normal=d, xDir=(-d[1], d[0], 0.))
-    floor_probe = (cq.Workplane(plane).rect(2.*core.cap_conduit_bore_radius,
-                                         core.wall_and_floor_thickness)
-                   .sweep(floor_path, isFrenet=False).val())
+    guide = plan['core_guide_mm']
+    floor_probe = cq.Solid.makeCylinder(core.cap_conduit_bore_radius+3.,
+        core.wall_and_floor_thickness,cq.Vector(*guide[:2],floor_z)).cut(air)
     passage_rows = contacts({'soda-pressure-passage': air},
         {name: body for name, body in core_bodies.items()
          if name not in ('line-carb-water-out', 'foam-cap-top', 'foam-cap-lid-top',

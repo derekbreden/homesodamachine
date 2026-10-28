@@ -109,7 +109,9 @@ def main():
     stem=parts._module('water_passage_neofit_stem',
                        'reference/neofit-stem-elbow/neofit_stem_elbow.py')
     warm_mouth = layout.point(layout.snapshot_pose('carbonator-fold'),stem.socket()[0])
-    warm_exposed = math.dist(warm_mouth,points[-1])
+    warm_path = routes._rounded([warm_mouth,(*warm_mouth[:2],318.5),
+                                (*points[-1][:2],318.5),points[-1]],18.)
+    warm_exposed = parts.route_wire({'segments':warm_path}).Length()
     receiving = stem.SOCKET_INSERTION
     context = previous.get('bounded_context_receipt')
     if args.context_json:
@@ -126,10 +128,10 @@ def main():
     context_matches = (context is not None and len(points)==len(context['points_world_mm'])
                        and max(math.dist(a,b) for a,b in zip(points,context['points_world_mm']))<1e-6)
     report = {
-        'schema':1,'reviewed_date':'2026-10-24',
-        'scope':('Manual nominal native reading of the aft water-in passage, its floor-rooted '
-                 'side/roof sleeve and one continuous tube through the plain guide. The source '
-                 'metal elbow/adapter and all purchased poses are retained. No physical fit, '
+        'schema':1,'reviewed_date':'2026-10-28',
+        'scope':('Manual nominal native reading of the straight water-in guide, its floor-rooted '
+                 'column and one continuous tube through the plain guide. The source '
+                 'metal elbow/adapter keep their poses; the check elbow faces up. No physical fit, '
                  'hand access, pressure, sealing, retention, thermal or lifetime qualification.'),
         'reproduce':'tools/cad-venv/bin/python hardware/mechanical-qualification/enclosure-above-core/water_in_passage.py',
         'guide_world_mm':list(points[-1]),'internal_points_world_mm':points,
@@ -137,7 +139,7 @@ def main():
         'passage_diameter_mm':2.*core.cap_conduit_bore_radius,
         'side_and_roof_stock_mm':3.,'cup_floor_specification_mm':core.wall_and_floor_thickness,
         'horizontal_floor_backing_mm':features['horizontal_floor_backing_mm'],
-        'floor_scope':'Existing complete 2 mm cup floor; only the actual curved pressure passage crosses it. New stock is clipped at its outer face with no below-floor projection.',
+        'floor_scope':'The straight cylindrical guide crosses the cup floor; no horizontal passage runs through the cup.',
         'floor_scope_sources':['hardware/printed-parts/cold-core/_cold_core_interface.py:43',
                                'hardware/printed-parts/cold-core/foam-cap/dry-closure-review.json'],
         'cup_floor_outer_world_z_mm':floor_z,'horizontal_floor_probes':floor_rows,
