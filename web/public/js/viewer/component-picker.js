@@ -31,7 +31,7 @@ import { showsInFaucetFinish } from "/contracts/faucet-options.js";
 import { drillTo, drillToComponent } from "./step-nav.js";
 import { makePanelCollapse } from "./tool-rail.js";
 import { syncTubeVisibility } from "./tube-overlay-host.js";
-import { refreshHighlight } from "./part-highlight.js";
+import { refreshHighlight, fadedBody } from "./part-highlight.js";
 
 const LS_KEY = "step-component-pick";
 const SEL = 0xffa733;   // selection highlight — warm amber (distinct from edge yellow, part-highlight cyan, find magenta)
@@ -178,10 +178,8 @@ function standsHidden(name) {
   return heldBy(name).some((held) => state.hiddenComponents.has(held));
 }
 
-// One overlay Group per role so we can rebuild each independently. The Materials panel
-// selects what a click hits and part-highlight.js fills it; the selection here is the
-// clicked body's outline, drawn over that fill so it stands out among its occurrences.
-const selGroup = new THREE.Group(); selGroup.renderOrder = 997; overlay.add(selGroup);
+// One overlay Group per role so we can rebuild each independently.
+const selGroup = new THREE.Group(); selGroup.renderOrder = 994; overlay.add(selGroup);
 const hoverGroup = new THREE.Group(); hoverGroup.renderOrder = 993; overlay.add(hoverGroup);
 
 function disposeGroup(g) {
@@ -192,9 +190,9 @@ function disposeGroup(g) {
   }
 }
 
-// Bright edges, and a faint translucent shell when `shellOpacity` asks for one, over
-// every (visible) mesh of `name`, depth-test off so it reads through the translucent
-// enclosure. Mirrors part-highlight.js, deduped by shared front/back geometry.
+// Bright edges + a faint translucent shell over every (visible) mesh of `name`,
+// depth-test off so it reads through the translucent enclosure. Mirrors
+// part-highlight.js, deduped by shared front/back geometry.
 function drawOverlay(g, name, color, edgeMat, shellOpacity) {
   disposeGroup(g);
   if (!name || !state.currentGroup) return;
@@ -205,7 +203,6 @@ function drawOverlay(g, name, color, edgeMat, shellOpacity) {
         || seen.has(mesh.geometry)) continue;
     seen.add(mesh.geometry);
     g.add(new THREE.LineSegments(new THREE.EdgesGeometry(mesh.geometry, EDGE_THRESHOLD_DEG), edgeMat));
-    if (!shellOpacity) continue;
     const shell = new THREE.Mesh(mesh.geometry.clone(), new THREE.MeshBasicMaterial({
       color, transparent: true, opacity: shellOpacity, side: THREE.DoubleSide,
       depthWrite: false, depthTest: false,
@@ -236,13 +233,16 @@ function pickComponent(clientX, clientY) {
   );
   _raycaster.setFromCamera(_ndc, camera);
   const hits = _raycaster.intersectObjects(targets, false);
-  return hits.length ? hits[0].object.name || null : null;
+  // Behind a part chosen in the Materials pane the rest of the model is faded, and a click
+  // goes through what is faded to what stands out.
+  const hit = hits.find((h) => !fadedBody(h.object)) || hits[0];
+  return hit ? hit.object.name || null : null;
 }
 
 // --- selection + hover ---
 function selectComponent(name) {
   selection = name;
-  drawOverlay(selGroup, name, SEL, selEdgeMat, 0);
+  drawOverlay(selGroup, name, SEL, selEdgeMat, 0.18);
   setHover(null);
   showPanel();
   window.dispatchEvent(new CustomEvent(HSM_EVENTS.MATERIAL_PICKED, {
