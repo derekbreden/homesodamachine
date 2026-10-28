@@ -57,8 +57,6 @@ export const ALIASES = {
   "collar_flavor_a_word": "printed-parts/faucet/tube-collar/tube-collar-flavor-a.step",
   "collar_flavor_b": "printed-parts/faucet/tube-collar/tube-collar-flavor-b.step",
   "collar_flavor_b_word": "printed-parts/faucet/tube-collar/tube-collar-flavor-b.step",
-  "collet-carb-water-out": "reference/jg-pp010822e/jg-pp010822e.step",
-  "collet-co2-in": "reference/jg-pp010822e/jg-pp010822e.step",
   "collet-water-in": "reference/jg-pp010822e/jg-pp010822e.step",
   "digiten-flow": "reference/digiten-flow-sensor/digiten-flow-sensor.step",
   "discharge-chain": "reference/neofit-achv44-check/neofit-achv44-check.step",

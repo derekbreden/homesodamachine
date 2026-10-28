@@ -71,10 +71,10 @@ def colour_for(name: str):
         return _mat.M_BRASS
     if name.startswith("endcap"):
         return _mat.M_STAINLESS
+    if name in ("carbonator-elbow-co2-in", "carbonator-elbow-carb-water-out"):
+        return _mat.M_NEOFIT_ACETAL
     if name.startswith("carbonator-elbow"):
         return _mat.M_STAINLESS
-    if name == "collet-co2-in":
-        return _mat.M_JG_GREY_ACETAL
     if name.startswith("collet-"):
         return _mat.M_JG_BLACK_PP
     if name.endswith("-gasket"):

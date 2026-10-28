@@ -145,8 +145,8 @@ state(
 # from the ring's own face, which is a fraction of what that corner takes, so the tube
 # would have to finish bending inside the reach. Struck on the conduit's column instead,
 # the fall lands on the axis itself: one corner out in the open lane, then straight in.
-# The port, its TAISHER elbow — clocked to this line — the collet on it and the reach are
-# one line, which is what the collet asks for: a tube still bending never bottoms in it.
+# The port, its neoFit push-fit male elbow — aimed along this line — and the reach are
+# one line, so the tube is straight where it enters the elbow's socket and bottoms in it.
 # `foam_assembly` probes that last leg straight at every build.
 co2_inlet_xyz = (0.0, co2_inlet_y, front_face_port_z)
 # WHERE THE LEAN STARTS, which is not where the fall lands. The line falls the lane on the cap
