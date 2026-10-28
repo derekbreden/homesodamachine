@@ -1,0 +1,192 @@
+{
+  "views": [
+    {
+      "name": "flavor-routes",
+      "caption": "The flavor lines rise gently to the roof guides; black is the neighboring Reservoir B fill line.",
+      "before": "flavor-routes-before.webp",
+      "after": "flavor-routes-after.webp",
+      "width": 1200,
+      "height": 840,
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          395.061562904134,
+          -82.06156290413401,
+          554.7900158876871
+        ],
+        "target": [
+          0,
+          313,
+          298
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 155,
+        "near": 351.42092111713714,
+        "far": 1017.5505891099504,
+        "aspect": 1.4285714285714286
+      },
+      "highlight": [
+        "tube-fluid-18",
+        "tube-fluid-28"
+      ],
+      "ghost": [],
+      "only": [
+        "tube-fluid-18",
+        "tube-fluid-28",
+        "tube-fluid-24"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "fb994e476988df5672c61730886aac1be0d31ec4e9c2a5c196c7cbe8c74d2107",
+          "commit": "5c1ac97c493b4b13d19c8e4753a8be6f35cc5c3c",
+          "taken": "2026-10-28T15:34:45.595Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "file",
+          "sha256": "e0e7e130ae8831992dba8036c5b7ce0805f5a22e2a98e5b55e7d4842013a3861",
+          "commit": null
+        }
+      },
+      "changed": [
+        "cold-core/tube-water-5",
+        "cold-core/line-water-in",
+        "tube-fluid-18",
+        "tube-fluid-28",
+        "bulkhead-ring-flavor-a-word",
+        "bulkhead-flavor-a",
+        "bulkhead-ring-flavor-a",
+        "bulkhead-ring-flavor-b",
+        "bulkhead-ring-flavor-b-word",
+        "bulkhead-flavor-b",
+        "bulkhead-flavor-a-nut",
+        "bulkhead-flavor-b-nut",
+        "cold-core/carbonator-fold",
+        "cold-core/line-carb-water-out",
+        "cold-core/foam-cap-top",
+        "wire-J1-positive-A",
+        "wire-AC5-N",
+        "enclosure-back-top",
+        "tube-fluid-24",
+        "wire-J1-OUT1",
+        "wire-J6-RA3",
+        "wire-J6-RA2",
+        "wire-J6-RA1",
+        "wire-J6-RA4",
+        "wire-temp-GND",
+        "cold-core/reservoir-grip-b-draw",
+        "cold-core/reservoir-grip-a-fill",
+        "cold-core/line-reservoir-a-fill",
+        "cold-core/line-reservoir-b",
+        "cold-core/reservoir-a-cap",
+        "cold-core/reservoir-b-cap",
+        "cold-core/foam-cap-lid-top",
+        "wire-J4-IO26"
+      ],
+      "withinMeshing": []
+    },
+    {
+      "name": "roof-seats",
+      "caption": "Each roof station has one filled base joining both tube seats; the mouths face downward.",
+      "before": "roof-seats-before.webp",
+      "after": "roof-seats-after.webp",
+      "width": 1200,
+      "height": 840,
+      "marks": [
+        {
+          "x": 315.8,
+          "y": 374,
+          "r": 46.7,
+          "label": "Forward pair",
+          "at": [
+            -50,
+            354,
+            343
+          ]
+        },
+        {
+          "x": 465.7,
+          "y": 458.8,
+          "r": 46.7,
+          "label": "Aft pair",
+          "at": [
+            -50,
+            390,
+            343
+          ]
+        }
+      ],
+      "model": "printed-parts/enclosure/enclosure/enclosure.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          308.07465383823734,
+          -25.34331729779666,
+          71.37684375643215
+        ],
+        "target": [
+          -25,
+          391,
+          342
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 63,
+        "near": 261.5129039294011,
+        "far": 909.2677683648278,
+        "aspect": 1.4285714285714286,
+        "section": {
+          "at": [
+            0,
+            345,
+            0
+          ],
+          "normal": [
+            0,
+            -1,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [
+        "enclosure_back_top"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "printed-parts/enclosure/enclosure/enclosure.step.mesh",
+          "from": "snapshot",
+          "sha256": "a552cf811662b2c91dd0f6979bb210bf61eb80504abc27a1ffd6ebb757fa2524",
+          "commit": "5c1ac97c493b4b13d19c8e4753a8be6f35cc5c3c",
+          "taken": "2026-10-28T15:34:18.403Z",
+          "published": true
+        },
+        "after": {
+          "payload": "printed-parts/enclosure/enclosure/enclosure.step.mesh",
+          "from": "file",
+          "sha256": "92238e1242d3d6837d59e013c1ef8b89e892435d2d96c0633aba14bc013cc254",
+          "commit": null
+        }
+      },
+      "changed": [
+        "enclosure_back_top"
+      ],
+      "withinMeshing": []
+    }
+  ]
+}
