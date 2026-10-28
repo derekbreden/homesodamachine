@@ -77,6 +77,29 @@ with `BRIDGE_ERR_NO_ANSWER`, a full queue with `BRIDGE_ERR_BUSY`, and a request
 it could not deliver with `BRIDGE_ERR_LINK_DOWN`. Reconnect reads a complete
 snapshot. The main board answers anything off its list `BRIDGE_ERR_REFUSED`.
 
+## Trust
+
+Apple's setup sheet pairs the device with the faucet (`bluetoothPairingLE`), and
+the bond is how the machine knows the device on every later connection. Every
+device reads the machine; changing it takes a device the machine trusts
+([phone_trust.h](../../firmware/src_faucet/phone_trust.h)). The faucet sends
+`BLE_FRAME_TRUST` (0x26) answering `IDENTITY` and whenever it moves: unpaired,
+view only or trusted, whether this device's ask is up, and how an ask ended.
+
+A device is trusted by **Trust** on either display. It asks with
+`BLE_FRAME_TRUST_ASK` (0x27): what it wants (`TRUST_FOR_*`), the channel, and
+iPhone or iPad, which both displays put into **Trust this iPhone?** and what
+trusting it allows. The app asks once as the machine is set up, which the
+Machine page mentions and nothing waits on; after that, a change from a device
+that is not trusted asks again, says so over the app until a display answers or
+someone cancels, and is made once the device is trusted. A request over the
+bridge the faucet turns down for want of trust is answered `BRIDGE_ERR_UNTRUSTED`
+and sent again after **Trust**; pictures, faces, the name and Software Update ask
+first. **Don't Trust**, a minute with no answer, or another device's ask already
+up changes nothing and says so. A name given before the device is trusted stands
+until it is. Trust lasts until **Forget trusted phones** on the enclosure, which
+forgets every device at once.
+
 Channel-specific changes identify channel 0 or 1 and carry the main board's
 result. The two flavors have independent art and ratios. `MSG_RATIO_SET_ONE`
 names one channel and the main board keeps the other at what it holds; a value

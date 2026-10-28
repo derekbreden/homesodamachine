@@ -4,6 +4,7 @@
 #include "logos_sink.h"
 #include "ble_link.h"
 #include "phone_bridge.h"
+#include "phone_trust.h"
 #include "fw_version.h"
 #include "ota_receiver.h"
 #include <esp_system.h>
@@ -495,6 +496,24 @@ void onMessage(ProtoLink *link, const uint8_t *frame, uint16_t len) {
     return;
   }
 
+  // A tap on the enclosure's ask, and the enclosure's settings forgetting
+  // every trusted phone; the console's report.
+  if (type == MSG_TRUST_ANSWER && plen >= sizeof(TrustAnswerPayload)) {
+    TrustAnswerPayload a;
+    memcpy(&a, payload, sizeof(a));
+    phoneTrustAnswer(a.askId, a.trusted != 0);
+    return;
+  }
+  if (type == MSG_TRUST_FORGET) {
+    TrustForgotPayload forgot{phoneTrustForget()};
+    base.trySend(MSG_RESP_TRUST_FORGET, &forgot, sizeof(forgot));
+    return;
+  }
+  if (type == MSG_TRUST_REPORT) {
+    phoneTrustReport();
+    return;
+  }
+
   if (type == MSG_RESP_PRIME_SESSION && plen >= sizeof(PrimeSessionStatePayload)) {
     PrimeSessionStatePayload state;
     memcpy(&state, payload, sizeof(state));
@@ -694,6 +713,10 @@ void faucetSetFlavorArt(uint8_t channel, uint8_t art) {
 }
 
 void baseLinkSay(const char *text) { base.trySend(MSG_TEXT, text, (uint16_t)strlen(text)); }
+
+bool baseLinkSendTrust(uint8_t type, const void *data, uint16_t len) {
+  return base.trySend(type, data, len) >= 0;
+}
 
 void baseLinkSayOnConnect(const char *text) {
   snprintf(bootLine, sizeof(bootLine), "%s", text);

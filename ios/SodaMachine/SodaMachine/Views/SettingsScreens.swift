@@ -29,6 +29,12 @@ struct SettingsHomeView: View {
                 if let unit = ble.current?.unit, !unit.isEmpty {
                     Text("Unit \(unit)").font(.caption).foregroundStyle(Theme.textSecondary).padding(.leading, 4)
                 }
+                if ble.linked, ble.trust == .viewer || ble.trust == .unpaired {
+                    Note("This \(BLEManager.deviceWord) can view the machine. A change asks for Trust on the machine first.")
+                    ActionButton(title: "Ask the machine to trust this \(BLEManager.deviceWord)", primary: false) {
+                        Task { _ = await ble.requestTrust(.anything) }
+                    }
+                }
             }
         }
         .frame(maxWidth: 560).frame(maxWidth: .infinity, alignment: .leading)
@@ -177,8 +183,12 @@ struct RenameView: View {
 
     private func save() {
         guard let m = ble.current, !trimmed.isEmpty else { return }
-        ble.rename(m, to: trimmed)
-        nav.back()
+        let name = trimmed
+        Task {
+            guard await ble.ensureTrusted(.name) else { return }
+            ble.rename(m, to: name)
+            nav.back()
+        }
     }
 }
 

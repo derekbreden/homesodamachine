@@ -293,6 +293,54 @@ constexpr uint8_t MSG_RATIO_SET_ONE = 0x69;  // RatioOnePayload: answered with M
 constexpr uint8_t MSG_PRIME_OPEN      = 0x6A;  // ChannelPayload
 constexpr uint8_t MSG_RESP_PRIME_OPEN = 0x6B;  // PrimeOpenPayload
 
+// ── Trusted phones ────────────────────────────────────────────────────────
+// Any phone reads the machine. Changing it takes a phone the faucet trusts,
+// and a phone is trusted by a tap on either display. The faucet keeps the
+// trusted phones and runs the ask; the main board carries the ask out to the
+// enclosure and its answer back, and keeps none of it.
+constexpr uint8_t MSG_TRUST_SHOW        = 0x6C;  // TrustShowPayload: faucet → main board → enclosure
+constexpr uint8_t MSG_TRUST_CLOSE       = 0x6D;  // TrustClosePayload: faucet → main board → enclosure
+constexpr uint8_t MSG_TRUST_ANSWER      = 0x6E;  // TrustAnswerPayload: enclosure → main board → faucet
+constexpr uint8_t MSG_TRUST_FORGET      = 0x6F;  // no payload: enclosure or console → faucet
+constexpr uint8_t MSG_RESP_TRUST_FORGET = 0x70;  // TrustForgotPayload: faucet → main board → enclosure
+constexpr uint8_t MSG_TRUST_REPORT      = 0x71;  // no payload: console → faucet, answered on the console
+
+// What the phone wants to do, so the ask can say so. TRUST_FOR_ANYTHING is the
+// ask a phone makes as it is set up.
+constexpr uint8_t TRUST_FOR_ANYTHING = 0;
+constexpr uint8_t TRUST_FOR_FLAVOR   = 1;  // put a flavor on tap
+constexpr uint8_t TRUST_FOR_RATIO    = 2;
+constexpr uint8_t TRUST_FOR_IMAGE    = 3;
+constexpr uint8_t TRUST_FOR_FILL     = 4;
+constexpr uint8_t TRUST_FOR_CLEAN    = 5;
+constexpr uint8_t TRUST_FOR_PRIME    = 6;
+constexpr uint8_t TRUST_FOR_SOUND    = 7;
+constexpr uint8_t TRUST_FOR_NAME     = 8;
+constexpr uint8_t TRUST_FOR_UPDATE   = 9;
+
+constexpr uint8_t TRUST_KIND_PHONE  = 0;  // asked as "this iPhone"
+constexpr uint8_t TRUST_KIND_TABLET = 1;  // asked as "this iPad"
+
+struct __attribute__((packed)) TrustShowPayload {
+  uint8_t askId;    // never 0; a close or an answer names the ask it belongs to
+  uint8_t reason;   // TRUST_FOR_*
+  uint8_t channel;  // PUMP_CHANNEL_*, or UI_CHANNEL_NONE
+  uint8_t kind;     // TRUST_KIND_*
+};
+
+struct __attribute__((packed)) TrustClosePayload {
+  uint8_t askId;
+};
+
+struct __attribute__((packed)) TrustAnswerPayload {
+  uint8_t askId;    // 0, from the main board's console: whichever ask is up
+  uint8_t trusted;  // 1 Trust, 0 Don't Trust
+};
+
+struct __attribute__((packed)) TrustForgotPayload {
+  uint8_t count;    // phones that were trusted
+};
+
 // Fixed transport capacities are part of the replay contract. Keeping the
 // values beside the shared wire protocol lets each actual queue assert that a
 // future depth/window change still fits inside the main board's token ledger.
@@ -833,6 +881,7 @@ constexpr uint8_t OTA_ERR_CRC       = 4;  // whole-image CRC32 did not match BEG
 constexpr uint8_t OTA_ERR_VERIFY    = 5;  // esp_ota_end / set_boot_partition refused
 constexpr uint8_t OTA_ERR_SEQUENCE  = 6;  // bytes arrived for the wrong offset
 constexpr uint8_t OTA_ERR_BUSY      = 7;  // another phone's transfer is in flight
+constexpr uint8_t OTA_ERR_UNTRUSTED = 8;  // from a phone the machine does not trust
 
 // Which board an image is for. The relay reaches every one of these; a source
 // upstream of it names one here rather than knowing which link it lives on.
@@ -953,6 +1002,7 @@ constexpr uint8_t BRIDGE_ERR_LINK_DOWN = 0xD1;  // J3 is down: the main board ne
 constexpr uint8_t BRIDGE_ERR_BUSY      = 0xD2;  // the faucet holds as many requests as it can
 constexpr uint8_t BRIDGE_ERR_NO_ANSWER = 0xD3;  // asked, and the main board did not answer in time
 constexpr uint8_t BRIDGE_ERR_NO_BRIDGE = 0xD4;  // the main board's firmware predates the bridge
+constexpr uint8_t BRIDGE_ERR_UNTRUSTED = 0xD5;  // a change from a phone the machine does not trust
 
 // What the faucet tells a phone about the bridge when the phone asks who the
 // machine is. A faucet that predates it never sends one.

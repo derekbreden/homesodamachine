@@ -163,8 +163,8 @@ then write the output byte to `0x38` where `EXIO_n = bit n`.
 is activity for both, so they sleep and wake together; this panel runs no timer of its
 own and sleeps when it is told to. A press that already sent a command is presence the
 main board can see, and a press that stayed silent — a wake tap, a tap on nothing — sends
-`MSG_TOUCH` so it counts too. Waking is immediate; a live hold and an operation lock still
-hold the dark off here, which is this panel's own business. A pair left lit is a link that
+`MSG_TOUCH` so it counts too. Waking is immediate; a live hold, an operation lock and an
+open ask still hold the dark off here, which is this panel's own business. A pair left lit is a link that
 stopped talking, and is meant to read as exactly that.
 
 The first touch on a dark screen turns it back on, on whatever the dark left up (see the
@@ -338,7 +338,7 @@ while an operation is pending or running.
 | Fill | instructions, Start filling, authoritative progress and Stop |
 | Prime | shared main-board session and Hold to prime |
 | Clean | three rinse cycles, authoritative progress and Stop |
-| System status | complete machine profile and ten live reed indicators |
+| System status | complete machine profile, ten live reed indicators, and Forget trusted phones |
 
 Ratios appear only on the Ratio page. Image assignments and ratios are saved by the
 main board and shared with the faucet. Missing uploaded images are unavailable choices;
@@ -389,8 +389,8 @@ dark, flavor tasks return to On tap. After ten minutes dark, every page returns 
 `IDLE:0`..`IDLE:3` exercise these stages. A wake touch is consumed; it wakes without
 triggering an action.
 
-Navigation responds to a press. Start/Stop require a release on their target; sliding
-off cancels the click. Prime stops on release or slide-off. An image press commits on
+Navigation responds to a press. Start/Stop and an ask's two answers require a release on
+their target; sliding off cancels the click. Prime stops on release or slide-off. An image press commits on
 a still hold of 150 ms or on lift and is canceled by movement or page dismissal.
 
 ### Prime
@@ -507,6 +507,27 @@ repaints only the dots that changed. A poll the main board has not answered for 
 reading it flags as stale, empties every dot and puts **Not reading the sensors** in the pane
 below the drawing. The 436 px profile occupies the full machine page beside the cold loop and
 refill readings. The drawing contains no text.
+
+### Trusted phones
+
+Any phone reads the machine; changing it takes a phone the faucet trusts, and a tap on either
+glass trusts one. The faucet runs each ask and the main board carries it here as
+`MSG_TRUST_SHOW { askId, reason, channel, kind }`. The ask covers the glass: **Trust this
+iPhone?** (or iPad), what the phone wants and what trusting it allows, in
+[`trust_text.h`](../lib/proto_link/trust_text.h)'s words, the same as the faucet's, and
+**Don't Trust** beside **Trust**. Either sends `MSG_TRUST_ANSWER { askId, trusted }` and takes
+the ask down at once. `MSG_TRUST_CLOSE { askId }` takes it down when it was answered at the
+faucet, timed out or the phone left, and an ask still up after 75 s goes down on its own. A
+new ask replaces the one up.
+
+An ask goes up on the terms `MSG_UI_SHOW` does: never over a lock or a live hold on this glass,
+where the faucet's own ask still stands, and a dark glass wakes for it. While up it holds the
+dark off, and a lock coming up takes it down.
+
+**Forget trusted phones** is at the foot of System status's right-hand column. It asks
+**Forget all trusted phones?** first, and **Forget** sends `MSG_TRUST_FORGET`. The faucet's
+`MSG_RESP_TRUST_FORGET { count }` shows above the button for six seconds: *Forgot 2 trusted
+phones.*, *Forgot 1 trusted phone.* or *No phones were trusted.*
 
 ## Integration seams (not implemented)
 

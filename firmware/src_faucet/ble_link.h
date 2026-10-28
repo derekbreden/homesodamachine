@@ -59,3 +59,9 @@ void bleLinkReport();
 constexpr uint16_t BLE_LINK_EVERY = 0xFFFF;
 bool bleLinkDeliver(uint16_t link, uint32_t gen, uint8_t reqId, uint8_t type,
                     const void *body, uint16_t len);
+
+// Whether that connection is still the one on that link.
+bool bleLinkUp(uint16_t link, uint32_t gen);
+
+// A phone's trust ask ended: it hears how, and where it now stands.
+void bleLinkTrustEnded(uint16_t link, uint32_t gen, uint8_t outcome);

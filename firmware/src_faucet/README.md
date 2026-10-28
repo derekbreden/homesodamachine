@@ -64,7 +64,38 @@ to every phone on the air under id 0. A request the main board does not answer i
 answered as unanswered, and the phone reads the truth with a query.
 
 Answering `IDENTITY`, this display also sends `BLE_FRAME_BRIDGE` with the bridge's version,
-which is how a phone tells this display from one that predates the bridge.
+which is how a phone tells this display from one that predates the bridge, and
+`BLE_FRAME_TRUST` with where that phone stands.
+
+### Pairing and trust
+
+A phone pairs once, inside Apple's setup sheet: Just Works, bonded, LE Secure Connections, no
+passkey. Subscribing to TX takes an encrypted link, and iOS meets that refusal by encrypting
+under the phone's bond, without asking anyone, or by asking the owner of a phone with no bond
+to pair. A link is taken as the bonded phone it is from the stack's word that encryption
+changed or from the first frame that arrives encrypted, whichever comes first, and the bond's
+identity address is how the phone is known on every later connection. NimBLE keeps up to 16
+bonds in NVS.
+
+Every phone reads everything. Changing anything — a request over the bridge that is not a
+read, a picture, a face, an update, the name — takes a phone this display trusts
+([`phone_trust.cpp`](phone_trust.cpp)), and a change from any other phone is refused in the
+form its own answer takes: `BRIDGE_ERR_UNTRUSTED`, an image or update ending with its
+`_UNTRUSTED` error, the faces as they stand, `ERR:IDENTITY:UNTRUSTED`.
+
+A phone asks to be trusted with `BLE_FRAME_TRUST_ASK` (reason, channel, iPhone or iPad). The
+ask goes up here and, through the main board, on the enclosure (`MSG_TRUST_SHOW`): **Trust
+this iPhone?**, what the phone wants, and what trusting it allows, in
+[`trust_text.h`](/firmware/lib/proto_link/trust_text.h)'s words. **Trust** or **Don't Trust**
+on either display answers for both; the ask also ends after a minute, when the phone
+withdraws it, or when it leaves, and `MSG_TRUST_CLOSE` takes the other display's copy down.
+The phone hears how it ended, and where it now stands, as `BLE_FRAME_TRUST`. One ask is up at
+a time; another phone asking meanwhile is told the machine is busy. A phone with no bond is
+asked to pair again instead, which iOS puts to its owner.
+
+Trusted phones are kept in NVS namespace `trust` by identity address, sixteen at most, oldest
+dropped first, through every restart and update, until **Forget trusted phones** on the
+enclosure (`MSG_TRUST_FORGET`) or `trust forget` on the main board's console forgets every one.
 
 ## State and persistence
 

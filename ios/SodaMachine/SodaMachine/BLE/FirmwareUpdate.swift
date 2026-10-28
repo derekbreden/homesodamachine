@@ -254,7 +254,8 @@ struct OTAProgress: Equatable {
 /// update: try it again, or get the machine looked at. Every one of these is
 /// one of those, and the exact cause goes to the log for whoever reads logs.
 enum OTAError: UInt8 {
-    case none = 0, noSlot = 1, tooBig = 2, write = 3, crc = 4, verify = 5, sequence = 6, busy = 7
+    case none = 0, noSlot = 1, tooBig = 2, write = 3, crc = 4, verify = 5, sequence = 6, busy = 7,
+         untrusted = 8
 
     /// True where trying again cannot help, because nothing about the machine
     /// will be different next time.
@@ -262,6 +263,7 @@ enum OTAError: UInt8 {
 
     var message: String {
         if self == .busy { return "Another phone is updating this machine. Try again when it's done." }
+        if self == .untrusted { return "The machine doesn't trust this \(BLEManager.deviceWord) yet. Nothing changed." }
         return needsService
             ? "This machine needs an update that can't be installed over Bluetooth."
             : "Something went wrong partway through. Your machine is unchanged."
@@ -278,6 +280,7 @@ enum OTAError: UInt8 {
         case .verify:   return "esp_ota_end / set_boot_partition refused"
         case .sequence: return "bytes arrived for the wrong offset"
         case .busy:     return "another phone's transfer is in flight"
+        case .untrusted: return "from a phone the machine does not trust"
         }
     }
 }
