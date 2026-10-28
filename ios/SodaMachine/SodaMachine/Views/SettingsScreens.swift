@@ -282,30 +282,6 @@ struct MachinesView: View {
     }
 }
 
-/// What came of the last Add a machine: why the sheet did not open, or what to
-/// try when it came back empty.
-struct AddOutcome: View {
-    @Environment(MachineAccess.self) var access
-
-    var body: some View {
-        switch access.outcome {
-        case .failed(let why)?:
-            Note(why)
-                .accessibilityAddTraits(.updatesFrequently)
-        case .nothingAdded?:
-            VStack(alignment: .leading, spacing: 8) {
-                Label("Hold your device right next to the faucet", systemImage: "figure.walk")
-                Label("Make sure the machine is powered on", systemImage: "power")
-                Label("Try turning it off and on", systemImage: "arrow.clockwise")
-            }
-            .font(.subheadline).foregroundStyle(Theme.textSecondary)
-            .accessibilityElement(children: .combine)
-        case nil:
-            EmptyView()
-        }
-    }
-}
-
 // ── A prototype ─────────────────────────────────────────────────────────
 
 /// A saved prototype: listed, and removable from this device.
@@ -315,6 +291,7 @@ struct UnsupportedMachineView: View {
     @Environment(MachineAccess.self) var access
     let machine: KnownMachine
     @State private var removing = false
+    @State private var adding = false
 
     var body: some View {
         ScrollView {
@@ -333,9 +310,7 @@ struct UnsupportedMachineView: View {
                 ActionButton(title: "Remove from this device", primary: false) {
                     if access.lists(machine) { access.forget(machine) } else { removing = true }
                 }
-                ActionButton(title: "Add a machine", working: access.opening) { access.add() }
-                    .disabled(access.opening)
-                AddOutcome()
+                ActionButton(title: "Add a machine") { adding = true }
             }
             .frame(maxWidth: 560).frame(maxWidth: .infinity)
             .padding(24)
@@ -343,6 +318,7 @@ struct UnsupportedMachineView: View {
         .background(Theme.background.ignoresSafeArea())
         .foregroundStyle(Theme.textPrimary)
         .tint(Theme.accent)
+        .sheet(isPresented: $adding) { AddMachineSheet() }
         .confirmationDialog("Remove \(machine.displayName) from this device?", isPresented: $removing, titleVisibility: .visible) {
             Button("Remove", role: .destructive) { access.forget(machine) }
             Button("Cancel", role: .cancel) {}

@@ -18,24 +18,3 @@ nonisolated enum Theme {
 
     static let placeholder = navy
 }
-
-// ────────────────────────────────────────────────────────────
-// The mark at the head of the first-run page.
-// ────────────────────────────────────────────────────────────
-
-extension Theme {
-    static let markSize: CGFloat = 160
-    /// From the top of the safe area to the top of the mark.
-    static let markTop: CGFloat = 72
-}
-
-struct MarkHeader: View {
-    var body: some View {
-        Image("LaunchIcon")
-            .resizable()
-            .scaledToFit()
-            .frame(width: Theme.markSize, height: Theme.markSize)
-            .padding(.top, Theme.markTop)
-            .accessibilityHidden(true)
-    }
-}
