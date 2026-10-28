@@ -53,8 +53,8 @@ click: x=-131.605 y=83.397 z=0.000
 click: x=-131.605 y=83.397 z=2.250
 click: x=38.347 y=-84.155 z=0.000
 click: x=38.347 y=-84.155 z=2.250
-click: x=-41.840 y=84.276 z=0.000
-click: x=-41.840 y=84.276 z=2.250
+click: x=-41.815 y=84.267 z=0.000
+click: x=-41.815 y=84.267 z=2.250
 click: x=135.671 y=-2.156 z=0.000
 click: x=135.671 y=-2.156 z=2.250
 click: x=42.667 y=85.720 z=0.000
@@ -72,8 +72,8 @@ file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
 click: x=55.658 y=-36.746 z=4.350
 click: x=55.658 y=-36.746 z=6.750
 
-[thin] Deliberate functional C2 spring section: these three ranked surface groups belong to the four free jaws above the tube equators. Their measured 2.400 mm wall is the C2 section Derek selected with the 6.35 mm bore on Mark2 task 1379240291, recorded in future/snap-fit-tests/2026-10-26-mark2-combined/physical-result.json. The ordinary stock below the equators is one broad filled base; the upper jaws retain this specific flexure exception. This answer preserves the thinness ranking and establishes no full-lid force or lifetime result.
-alternatives: Increasing the jaws to 3 mm while keeping the same bore increases each outer radius by 0.6 mm and consumes 1.2 mm of the pair's spread space. Preserving the current conservative 1 mm-per-jaw envelope and its 0.35 mm opposing gap then requires wider tube spacing and another routing change, as well as retuning the accepted spring section. Filling above the equators joins the free jaws and closes the press-in mouths. A rigid cradle with a separate closure adds a part and an assembly step instead of providing the selected direct snap.
+[thin] Deliberate functional C2 spring section: these five ranked surface groups belong to the six free jaws above the tube equators, four on the fore Reservoir A pair and two on the V-A feed seat. Their measured 2.400 mm wall is the C2 section Derek selected with the 6.35 mm bore on Mark2 task 1379240291, recorded in future/snap-fit-tests/2026-10-26-mark2-combined/physical-result.json. Ordinary stock below the equators remains filled; the V-A root retains 5.025 mm below its bore. Only the working upper jaws use this specific flexure exception. This answer preserves the thinness ranking and establishes no full-lid force, lifetime or print result.
+alternatives: Increasing the jaws to 3 mm while keeping the same bore increases each outer radius by 0.6 mm and changes the selected spring section. On the fore pair it also consumes 1.2 mm of spread space: preserving the current conservative 1 mm-per-jaw envelope and its 0.35 mm opposing gap requires wider tube spacing and another routing change. Filling above the equators joins the free jaws and closes the press-in mouths. A rigid cradle with a separate closure adds a part and an assembly step instead of providing the selected direct snap.
 file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
 click: x=115.051 y=69.574 z=10.595
 click: x=115.051 y=67.174 z=10.567
@@ -81,3 +81,7 @@ click: x=115.051 y=44.926 z=10.595
 click: x=115.051 y=47.326 z=10.567
 click: x=115.051 y=58.426 z=10.595
 click: x=115.051 y=60.826 z=10.567
+click: x=70.301 y=5.426 z=13.695
+click: x=70.301 y=7.826 z=13.667
+click: x=70.301 y=16.574 z=13.695
+click: x=70.301 y=14.174 z=13.667

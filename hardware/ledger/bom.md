@@ -123,7 +123,7 @@ The soda inlet bend holder is PET-GF with the accepted 2 mm wall, 3 mm legs and 
 |---|---:|---|---:|---:|
 | Cold-core inner shell (foam-shell) | 1 | PET-GF | 1.450 | $36.28 <!--@printed--><!--parts HSM-000018--> |
 | Cold-core foam cap — top | 1 | PET-GF | 0.275 | $6.87 <!--@printed--><!--parts HSM-000019--> |
-| Cold-core foam cap lid — top | 1 | PET-GF | 0.257 | $6.43 <!--@printed--><!--parts HSM-000020--> |
+| Cold-core foam cap lid — top | 1 | PET-GF | 0.258 | $6.45 <!--@printed--><!--parts HSM-000020--> |
 | Cold-core foam cap — bottom | 1 | PET-GF | 0.184 | $4.60 <!--@printed--><!--parts HSM-000021--> |
 | Cold-core foam cap lid — bottom | 1 | PET-GF | 0.141 | $3.52 <!--@printed--><!--parts HSM-000022--> |
 | PRV shroud | 1 | PETG | 0.008 | $0.09 <!--@printed--><!--parts HSM-000024--> |
@@ -150,9 +150,9 @@ The soda inlet bend holder is PET-GF with the accepted 2 mm wall, 3 mm legs and 
 | Funnel frame | 1 | PET-GF | 0.259 | $6.49 <!--@printed--><!--parts HSM-000072--> |
 | Funnel cover | 1 | PETG | 0.134 | $1.50 <!--@printed--><!--parts HSM-000071--> |
 | Funnel drain-elbow cradle | 1 | PET-GF | 0.011 | $0.28 <!--@printed--><!--parts HSM-000073--> |
-| **Printed parts total** | | | **~6.99** | **[$160.72](BOM_SEC7)** |
+| **Printed parts total** | | | **~6.99** | **[$160.74](BOM_SEC7)** |
 
-By material: PETG ≈ 1.03 kg / $11.50 — of which the four translucent reservoir parts are ≈ 0.87 kg / $9.76 — and PET-GF ≈ 5.96 kg / $149.19.
+By material: PETG ≈ 1.03 kg / $11.50 — of which the four translucent reservoir parts are ≈ 0.87 kg / $9.76 — and PET-GF ≈ 5.96 kg / $149.21.
 
 These geometry-based estimates use the shared wall and sparse-infill recipes.
 They exclude the additional material in the enclosure's
@@ -337,7 +337,7 @@ The papers packed with each machine ([`assembly/finish-pack-ship.md`](/hardware/
 | 4. CO2 subsystem | [$145.61](BOM_SEC4) |
 | 5. Refrigeration | [$143.06](BOM_SEC5) |
 | 6. Cold core insulation | [$18.64](BOM_SEC6) |
-| 7. Printed parts (PETG + PET-GF) | [$160.72](BOM_SEC7) |
+| 7. Printed parts (PETG + PET-GF) | [$160.74](BOM_SEC7) |
 | 8. Flavor subsystem | [$272.69](BOM_SEC8) |
 | 9. Dispensing | [$78.64](BOM_SEC9) |
 | 10. UI | [$0.00](BOM_SEC10) |
@@ -346,7 +346,7 @@ The papers packed with each machine ([`assembly/finish-pack-ship.md`](/hardware/
 | 13. Mechanical attach hardware | [$16.85](BOM_SEC13) |
 | 14. Cold kit | [$4.29](BOM_SEC14) |
 | 15. Customer documentation | [$25.14](BOM_SEC15) |
-| **Total** | **[$1,463.81](BOM_GRAND)** |
+| **Total** | **[$1,463.83](BOM_GRAND)** |
 
 ## External / user-supplied (not shipped)
 
