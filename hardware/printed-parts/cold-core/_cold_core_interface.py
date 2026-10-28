@@ -229,13 +229,11 @@ carbonator_float_top_stop_diameter = 9.5
 # CO2 inlet — the bottom plate's LANE-SIDE port, open into the vessel. Gas enters below
 # the liquid and rises to replenish the headspace; the top water-inlet jet provides the
 # intended gas/water contact during refill (`assembly/water-inlet-jet.md`).
-#   Outside the carbonator it is one bore on the shell's own centreline, level with the
-# bottom-plate elbows, run from the port out through the carbonator support ring to the
-# port lane. The port, its TAISHER elbow, the PI010822S collet made up on it and
-# the ring bore all stand on that one line, so the tube is the only thing that
-# crosses shell material and no bend is taken in-cavity. The line reaches the
-# bore's lane end from ABOVE — down the port lane from the cap's `co2-in`
-# conduit — so it is laid before the top cap goes on, not pushed in from outside.
+#   Outside the carbonator the neoFit push-fit male elbow takes the tube directly.
+# Its socket axis and the straight leaning reach cross the carbonator support ring
+# through a pour slot into the port lane (`_port_cuts`). The line reaches the lane
+# from ABOVE — down from the cap's `co2-in` conduit — so it is laid before the top
+# cap goes on, not pushed in from outside.
 co2_inlet_y = -carbonator_port_offset
 co2_inlet_tube_radius = port_hole_radius
 
