@@ -45,8 +45,8 @@ board also establishes and reports the safe I/O foundation the next connected be
   path draws the line behind it clear. A dry funnel gives it air; water poured in before a
   flavor change rinses the funnel's path, which no other step reaches. Then it puts tap water
   through the channel three rounds over. A round opens the channel's tap-water path — V-A, its
-  select and its return, `CleanWaterFillA/B` — with the pump off, tap pressure crossing the
-  idle head into the reservoir until the full reed closes or 90 s pass; then its dispense path
+  select and its return, `CleanWaterFillA/B` — with the pump on, pumping regulated tap water
+  into the reservoir until the full reed closes or 90 s pass; then its dispense path
   — its draw and its flavor tube, `CleanFlushA/B` — with the pump on, out through the faucet
   until the empty reed closes — the float down at the reservoir's empty mark — and 8 s more
   have drawn the flavor tube clear, or 150 s pass. Between steps the pump stops and every
@@ -167,7 +167,7 @@ pio device monitor -e appliance
 |---|---|
 | `pump <a\|b> [ms]` | run one flavor pump, bounded — default 2000, ceiling 60000 |
 | `fill <a\|b> [s]` | the funnel fill: the channel's funnel path open and its pump drawing, for `s` s (default 80) or until the reservoir's full reed closes |
-| `clean <a\|b> [rounds] [s]` | the clean cycle: the funnel pumped through to the faucet, then tap water in through the idle pump and pumped out the faucet, `rounds` times (default 3); `s` caps every step (default 114 funnel, 90 in, 150 out) |
+| `clean <a\|b> [rounds] [s]` | the clean cycle: the funnel pumped through to the faucet, then tap water pumped into the reservoir and out the faucet, `rounds` times (default 3); `s` caps every step (default 141 funnel, 90 in, 150 out) |
 | `ui <page> [a\|b] [go]` | put a customer page on the enclosure — choose, prime, fill, clean, settings — optionally for a flavor, `go` pressing its START |
 | `flavor [a\|b]` | read or set the main-board-owned flavor selection, and the logo pair beside it |
 | `ratio [a\|b] [6-24]` | read or set what a channel pours at, persisted in NVS and carried to the enclosure on its next poll |

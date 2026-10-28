@@ -40,10 +40,10 @@ ActuatorPlan canonicalPlan(Operation operation) {
             return makePlan(operation, valves3(Valve::B, Valve::D, Valve::I), kPumpB, false, false);
         case Operation::CleanWaterFillA:
             return makePlan(
-                operation, valves3(Valve::A, Valve::C, Valve::F), kPumpNone, false, false);
+                operation, valves3(Valve::A, Valve::C, Valve::F), kPumpA, false, false);
         case Operation::CleanWaterFillB:
             return makePlan(
-                operation, valves3(Valve::A, Valve::D, Valve::I), kPumpNone, false, false);
+                operation, valves3(Valve::A, Valve::D, Valve::I), kPumpB, false, false);
         case Operation::CleanFlushA:
             return makePlan(operation, valves2(Valve::E, Valve::G), kPumpA, false, false);
         case Operation::CleanFlushB:

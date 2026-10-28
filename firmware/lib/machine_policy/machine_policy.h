@@ -139,10 +139,10 @@ Operation fillOperation(uint8_t channel);
 // 110.2 s, and the 30 s the dry cycle gives this same path draws the line
 // behind it clear; the step plans 141 s. Then tap water goes through the channel the way concentrate does,
 // kCleanRounds times over. A round fills the reservoir with tap water through
-// the idle pump — V-A, the channel's select and its return, tap pressure
-// across a parked head — until the full reed closes, then draws it out through
+// the running pump — V-A, the channel's select and its return open, pump on —
+// until the full reed closes, then draws it out through
 // the faucet on the dispense path — the channel's draw and its flavor tube,
-// pump on — until the empty reed opens and kCleanFlushTailMs more has drawn
+// pump on — until the empty reed closes and kCleanFlushTailMs more has drawn
 // the flavor tube clear. Each step also ends at its planned time.
 constexpr uint8_t  kCleanRounds            = 3;
 constexpr uint32_t kCleanFunnelMl          = 698;
@@ -156,7 +156,7 @@ constexpr uint32_t kCleanSettleMs           = kFillParkDwellMs;
 constexpr uint8_t  kReservoirReedEmpty      = 1u << 0;   // bit 0 of a reservoir's closed-reed mask
 
 enum class CleanStep : uint8_t {
-    WaterFill = 0,   // tap water in, pump off
+    WaterFill = 0,   // pump on, tap water into the reservoir
     Flush,           // pump on, out through the faucet
     Funnel,          // pump on, the funnel through to the faucet
 };

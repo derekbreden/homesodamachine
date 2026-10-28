@@ -229,7 +229,7 @@ constexpr uint8_t MSG_RESP_UI_SHOW = 0x5B;  // ResponsePayload: 1 shown, 0 not
 // ── The clean cycle, as the main board runs it (0x5C..) ──────────────────
 // MSG_CLEAN_START (0x0F) asks the main board to draw the funnel through the
 // channel and out through the faucet, then put tap water through the channel
-// the way concentrate goes: rounds of a tap-water fill through the idle pump
+// the way concentrate goes: rounds of a pumped tap-water fill
 // into the reservoir, then a pumped flush out through the faucet.
 // The main board answers that request, every step it moves to, and every
 // ending with its complete clean state; a query gets the same answer, and
@@ -396,7 +396,7 @@ static_assert(sizeof(FillStatePayload) == 12, "fill wire layout drift");
 constexpr uint8_t CLEAN_PHASE_OFF     = 0;
 constexpr uint8_t CLEAN_PHASE_RUNNING = 1;
 
-constexpr uint8_t CLEAN_STEP_WATER_FILL = 0;  // tap water in through the idle pump
+constexpr uint8_t CLEAN_STEP_WATER_FILL = 0;  // tap water pumped into the reservoir
 constexpr uint8_t CLEAN_STEP_FLUSH      = 1;  // pumped out through the faucet
 constexpr uint8_t CLEAN_STEP_FUNNEL     = 2;  // the funnel pumped through to the faucet, before round 1
 

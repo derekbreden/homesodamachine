@@ -29,7 +29,10 @@ GPIO, clock and I2C fakes. It checks wet Prime's reservoir dispense pairs, pump-
 stop ordering including expander faults, token/session retries and competing displays,
 cancel/disconnect/heartbeat/lease/ceiling endings, gas and I/O admission, the falling
 reservoir gauge, refill/pour exclusion and fan preservation. Console motor checks and the
-self-test remain individual motor loads. These tests do not establish physical wet operation.
+self-test remain individual motor loads. Cleaning checks cover both channels pumping tap
+water into their reservoirs, stopping on the full reed or deadline, restarting on the flush
+path, and stopping the motor before closing valves on request. These tests do not establish
+physical wet operation.
 `test_pour_policy` checks the pour's cycle timing at 1:20, 1:6 and 1:24, the clamps either
 side of the flow reading and the floor and ceiling on the two phases, the sequence one pour
 walks — valves and pump opening on the first reading, each cycle's timing taken from the

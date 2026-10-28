@@ -41,9 +41,9 @@ void test_canonical_flavor_topology_plans_match_documented_states() {
     expectPlan(Operation::FunnelFillB,
                bit(Valve::B) | bit(Valve::D) | bit(Valve::I), kPumpB, false, false);
     expectPlan(Operation::CleanWaterFillA,
-               bit(Valve::A) | bit(Valve::C) | bit(Valve::F), kPumpNone, false, false);
+               bit(Valve::A) | bit(Valve::C) | bit(Valve::F), kPumpA, false, false);
     expectPlan(Operation::CleanWaterFillB,
-               bit(Valve::A) | bit(Valve::D) | bit(Valve::I), kPumpNone, false, false);
+               bit(Valve::A) | bit(Valve::D) | bit(Valve::I), kPumpB, false, false);
     expectPlan(Operation::CleanFlushA,
                bit(Valve::E) | bit(Valve::G), kPumpA, false, false);
     expectPlan(Operation::CleanFlushB,
@@ -956,11 +956,11 @@ void test_clean_steps_are_the_channels_own_water_fill_and_flush() {
     TEST_ASSERT_EQUAL(Operation::CleanFlushA,     cleanOperation(0, CleanStep::Flush));
     TEST_ASSERT_EQUAL(Operation::CleanWaterFillB, cleanOperation(1, CleanStep::WaterFill));
     TEST_ASSERT_EQUAL(Operation::CleanFlushB,     cleanOperation(1, CleanStep::Flush));
-    // Tap pressure crosses an idle head on the way in; the pump is on the way out.
+    // The selected pump moves tap water in and flushes it out.
     for (uint8_t ch = 0; ch < 2; ch++) {
         const ActuatorPlan in  = canonicalPlan(cleanOperation(ch, CleanStep::WaterFill));
         const ActuatorPlan out = canonicalPlan(cleanOperation(ch, CleanStep::Flush));
-        TEST_ASSERT_EQUAL_UINT8(kPumpNone, in.flavor_pumps);
+        TEST_ASSERT_EQUAL_UINT8(ch == 0 ? kPumpA : kPumpB, in.flavor_pumps);
         TEST_ASSERT_EQUAL_UINT8(ch == 0 ? kPumpA : kPumpB, out.flavor_pumps);
         TEST_ASSERT_TRUE(in.valves & bit(Valve::A));
         TEST_ASSERT_FALSE(out.valves & bit(Valve::A));

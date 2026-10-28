@@ -56,9 +56,9 @@
 // three funnel-path valves and draws with that pump for a planned 80 s, or
 // until the reservoir's full reed closes, from the enclosure or the console.
 // The clean cycle draws the funnel through a channel and out the faucet, then
-// puts tap water through it three rounds over — a fill through the idle pump
+// puts tap water through it three rounds over — a pumped tap-water fill
 // until the full reed closes, then a pumped flush out the faucet until the
-// empty reed opens — from the enclosure or the console.
+// empty reed closes and the tail clears the line — from the enclosure or the console.
 // The air cycles sweep the flavor path dry, at the bench or the factory, or air
 // a rinsed reservoir out the faucet. The pour opens the selected channel's
 // dispense path on the flow meter and bursts its pump against the reading. The
@@ -222,9 +222,9 @@ static void help() {
     Serial.println("  fill <a|b> [s]    the funnel fill: that channel's funnel path open and its pump drawing,");
     Serial.println("                    for s seconds (default 80) or until the reservoir's full reed closes");
     Serial.println("  clean <a|b> [rounds] [s]   the clean cycle: the funnel pumped through to the faucet, then");
-    Serial.println("                    tap water in through the idle pump until the full reed closes and pumped");
-    Serial.println("                    out the faucet until the empty reed opens, rounds times (default 3);");
-    Serial.println("                    s caps every step (default 114 funnel, 90 in, 150 out)");
+    Serial.println("                    tap water pumped in until the full reed closes and pumped out the faucet");
+    Serial.println("                    until the empty reed closes plus an 8 s tail, rounds times (default 3);");
+    Serial.println("                    s caps every step (default 141 funnel, 90 in, 150 out)");
     Serial.println("  dry [s]           dry the flavor lines: air in then through to the faucet, on each");
     Serial.println("                    channel in turn, the funnel dry and open; s caps every step");
     Serial.println("  purge <a|b> [s]   air into that reservoir, then the reservoir out the faucet until");
