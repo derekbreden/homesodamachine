@@ -47,6 +47,9 @@ enum MachineMessage {
     static let prime:         UInt8 = 0x2C
     static let primeOpen:     UInt8 = 0x6A
     static let primeOpened:   UInt8 = 0x6B
+    static let settingGet = SettingsWire.get
+    static let settingSetIf = SettingsWire.setIf
+    static let settingState = SettingsWire.state
 }
 
 enum BridgeError: Error, Equatable {
@@ -319,6 +322,7 @@ extension BLEManager {
         let first = bridgeVersion == nil
         bridgeVersion = Int(payload.first ?? 0)
         bridgeMissing = false
+        if first { current?.stampedSettingsUnavailable = false }
         log.info("bridge version \(self.bridgeVersion ?? 0)")
         if first, linked { Task { await readAppliance() } }
     }
@@ -365,7 +369,7 @@ extension BLEManager {
         }
     }
 
-    private func request(_ type: UInt8, _ body: [UInt8]) async -> Result<BridgeAnswer, BridgeError> {
+    func request(_ type: UInt8, _ body: [UInt8]) async -> Result<BridgeAnswer, BridgeError> {
         if demoMode { return demoAnswer(type, body) }
         guard linked, connectedPeripheral != nil else { return .failure(.offline) }
         guard bridgeReady else { return .failure(bridgeMissing ? .needsUpdate : .offline) }
@@ -416,24 +420,34 @@ extension BLEManager {
 
     /// File what the machine said on its record, whoever asked.
     func take(_ type: UInt8, _ body: Data) {
+        if type == SettingsWire.state { takeSettingState(body); return }
         guard let m = current else { return }
         let now = Date()
         var state = m.appliance
         switch type {
         case MachineMessage.status:
-            guard let s = MachineStatus(body) else { return }
+            guard var s = MachineStatus(body) else { return }
+            for channel in 0..<2 {
+                if let mix = m.settingSnapshots[.ratio(channel: channel)]?.byte { s.ratios[channel] = mix }
+            }
             state.status = Reading(value: s, at: now)
         case MachineMessage.flavorState:
-            guard let s = FlavorSelection(body) else { return }
+            guard var s = FlavorSelection(body) else { return }
+            if let selected = m.settingSnapshots[.selection]?.byte { s.channel = selected }
             state.selection = Reading(value: s, at: now)
         case MachineMessage.ratio:
             let b = [UInt8](body)
             guard b.count >= 2 else { return }
             var s = state.status?.value ?? MachineStatus()
-            s.ratios = [Int(b[0]), Int(b[1])]
+            s.ratios = (0..<2).map { m.settingSnapshots[.ratio(channel: $0)]?.byte ?? Int(b[$0]) }
             state.status = Reading(value: s, at: state.status?.at ?? now)
         case MachineMessage.sound:
-            guard let s = SoundSettings(body) else { return }
+            guard var s = SoundSettings(body) else { return }
+            if let choices = m.settingSnapshots[.sound], var stamped = SoundSettings(choices.value) {
+                stamped.clockSet = s.clockSet
+                stamped.quietNow = s.quietNow
+                s = stamped
+            }
             state.sound = Reading(value: s, at: now)
         case MachineMessage.fill:
             guard let s = FillState(body) else { return }
@@ -509,8 +523,15 @@ extension BLEManager {
 
     /// Everything a machine's pages show, read once when the link comes up.
     func readAppliance() async {
+        if stampedSettingsSupported {
+            for key in [SettingKey.ratio(channel: 0), .ratio(channel: 1), .sound, .name, .selection,
+                        .art(channel: 0), .art(channel: 1)] {
+                if case .failure(.needsUpdate) = await readSetting(key) { break }
+            }
+        }
         await readSelection()
         await readStatus()
+        await readSound()
         await readFill()
         await readClean()
         await readPrime()

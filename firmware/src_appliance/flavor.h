@@ -23,6 +23,11 @@ bool     flavorPersisted();
 bool     flavorPersistenceError();
 uint32_t flavorRevision();
 
+// RAM replicas applied only by the main-board settings authority. Persistence
+// and stamps belong to that authority, including physical-display changes.
+void flavorApplySettings(uint8_t selected, uint8_t r0, uint8_t r1, uint8_t a0, uint8_t a1);
+void flavorSettingsDurabilityChanged();
+
 // Which logo a channel wears, and the pair as a whole. A set naming a logo no
 // image carries artwork for is refused rather than clamped.
 uint8_t flavorArt(uint8_t channel);

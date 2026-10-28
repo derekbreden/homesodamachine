@@ -47,40 +47,137 @@ struct SettingsHomeView: View {
     }
 }
 
-// ── Sound ───────────────────────────────────────────────────────────────
+// ── Explicit forms ────────────────────────────────────────────────────
 
-/// The machine's sound. The choices are a draft until the machine accepts
-/// them; Back keeps the draft, and Discard changes puts back what the machine
-/// holds.
+struct FormSaveOutcome: View {
+    @Environment(BLEManager.self) var ble
+    @Environment(SettingWriter.self) var writer
+    let setting: SettingKey
+    var discard: () -> Void
+    var submitted: (UUID) -> Void
+
+    var body: some View {
+        if let pending = writer.commit(setting) {
+            VStack(alignment: .leading, spacing: 12) {
+                if let ask = ble.trustAsk, ask.quiet {
+                    TrustStatusView(ask: ask, offersClose: false) {
+                        Task {
+                            guard await ble.retryTrustAsk() == .trusted else { return }
+                            if let id = writer.commit(setting)?.id { submitted(id) }
+                            writer.retry(setting)
+                        }
+                    }
+                } else if let outcome = pending.trustEnd {
+                    KeptTrustOutcome(outcome: outcome, retryAt: pending.trustRetryAt) {
+                        submitted(pending.id)
+                        writer.retry(setting)
+                    }
+                } else if pending.phase == .conflict {
+                    Label(pending.unconfirmed == true ? "Save not confirmed" : "Changed from another device", systemImage: "exclamationmark.triangle.fill")
+                        .font(.headline)
+                    Text("The machine now has \(describe(ble.settingSnapshot(setting)?.value ?? pending.current?.value)). Your change is kept here.")
+                        .font(.subheadline).foregroundStyle(Theme.textSecondary)
+                    HStack(spacing: 24) {
+                        Button("Use mine") {
+                            writer.useMine(setting)
+                            if let id = writer.commit(setting)?.id { submitted(id) }
+                        }
+                        Button("Keep machine’s setting") { writer.discard(setting); discard() }
+                    }.frame(minHeight: 44)
+                } else if !ble.canChange {
+                    Label(ble.connectionState == .bluetoothOff ? "Not sent · Bluetooth is off" : "Not sent · out of range", systemImage: "antenna.radiowaves.left.and.right.slash")
+                        .font(.headline)
+                    Note("Your change is kept on this device. It sends automatically when the machine reconnects.")
+                } else if pending.phase == .failed || pending.phase == .uncertain {
+                    Label(pending.phase == .uncertain ? "Save not confirmed" : "Couldn’t save", systemImage: "exclamationmark.triangle.fill")
+                        .font(.headline)
+                    Note(pending.problem ?? "Your change is kept here.")
+                    Button("Try again") {
+                        submitted(pending.id)
+                        writer.retry(setting)
+                    }.frame(minHeight: 44)
+                } else {
+                    HStack { ProgressView(); Text(pending.phase == .trust ? "Trust needed to save" : "Saving…") }
+                }
+                if pending.phase != .conflict {
+                    Button(pending.phase == .uncertain ? "Stop retrying" : "Discard changes") { writer.discard(setting); discard() }.frame(minHeight: 44)
+                        .disabled(pending.phase == .sending)
+                }
+            }
+            .padding(16).frame(maxWidth: .infinity, alignment: .leading)
+            .background(Theme.surface, in: RoundedRectangle(cornerRadius: 14))
+            .accessibilityElement(children: .contain)
+        }
+    }
+
+    private func describe(_ data: Data?) -> String {
+        guard let data else { return "a newer setting" }
+        if setting == .name { return "the name “\(String(data: data, encoding: .utf8) ?? "")”" }
+        if let sound = SoundSettings(data) { return "volume \(sound.volume)% and its current quiet-hours schedule" }
+        return "a newer setting"
+    }
+}
+
+struct DraftSettingConflict: View {
+    @Environment(BLEManager.self) var ble
+    @Environment(SettingWriter.self) var writer
+    let setting: SettingKey
+    let base: SettingSnapshot
+    let desired: Data
+    var keepMachine: () -> Void
+    var submitted: (UUID) -> Void
+
+    var body: some View {
+        if let current = ble.settingSnapshot(setting), current.revision != base.revision {
+            VStack(alignment: .leading, spacing: 12) {
+                Label("Changed from another device", systemImage: "exclamationmark.triangle.fill").font(.headline)
+                Note(setting == .name
+                     ? "The machine is now named “\(String(data: current.value, encoding: .utf8) ?? "")”. Your name is kept here."
+                     : "The machine’s sound settings changed while you were editing. Your choices are kept here.")
+                HStack(spacing: 24) {
+                    Button("Use mine") {
+                        if let token = writer.submit(setting, base: current, desired: desired) { submitted(token) }
+                    }
+                    Button("Keep machine’s setting", action: keepMachine)
+                }.frame(minHeight: 44)
+            }
+            .padding(16).frame(maxWidth: .infinity, alignment: .leading)
+            .background(Theme.surface, in: RoundedRectangle(cornerRadius: 14))
+        }
+    }
+}
+
 struct SoundView: View {
     @Environment(BLEManager.self) var ble
     @Environment(Navigator.self) var nav
     @Environment(EditSessions.self) var edits
+    @Environment(SettingWriter.self) var writer
     let entry: RouteEntry
+    @State private var submittedToken: UUID?
+    @State private var submittedValue: SoundSettings?
 
     private var key: EditKey? { ble.current.map { EditKey(machine: $0.id, field: .sound) } }
-    private var held: SoundSettings? { ble.appliance.sound?.value }
+    private var snapshot: SettingSnapshot? { ble.settingSnapshot(.sound) }
+    private var held: SoundSettings? { snapshot.flatMap { SoundSettings($0.value) } }
     private var draft: SoundSettings? { key.flatMap { edits.draft($0) } }
-    private var changed: Bool { draft.map { d in held.map { !d.sameChoices(as: $0) } ?? true } ?? false }
+    private var displayedSound: SoundSettings { writer.commit(.sound).flatMap { SoundSettings($0.desired) } ?? draft ?? held ?? SoundSettings() }
+    private var changed: Bool { draft != nil }
+    private var waiting: Bool { writer.commit(.sound) != nil }
+    private var conflict: Bool { key.flatMap(edits.base).map { base in snapshot.map { base.revision != $0.revision } ?? false } ?? false }
+    private var accepted: UUID? { ble.current.flatMap { writer.accepted[FormSettingID(machine: $0.id, setting: .sound)] } }
 
     var body: some View {
-        let s = draft ?? held ?? SoundSettings()
-        let write = key.flatMap(edits.write)
+        let s = displayedSound
         VStack(alignment: .leading, spacing: 22) {
-            if let held, !held.clockSet, s.quietOn {
-                Notice(title: "Quiet hours need the machine clock",
-                       message: "The clock is unavailable. Your schedule is saved, but quiet hours cannot take effect.",
-                       icon: "clock.badge.exclamationmark")
+            if snapshot == nil {
+                Notice(title: "Sound settings unavailable", message: ble.canChange ? "Waiting for the machine’s saved settings." : "Bring your device near the machine to read them.")
             }
-            if held == nil && !ble.canChange {
-                Notice(title: "Sound settings unavailable", message: "Bring your device near the machine to read them.")
-            } else if !ble.canChange {
-                Notice(title: "Changes wait for the machine",
-                       message: "Bring your device near the machine to save these settings.")
+            if ble.appliance.sound?.value.clockSet == false, s.quietOn {
+                Notice(title: "Quiet hours need the machine clock", message: "The clock is unavailable. Your schedule can be saved, but quiet hours cannot take effect.", icon: "clock.badge.exclamationmark")
             }
             VStack(alignment: .leading, spacing: 20) {
                 Panel {
-                    HStack { Text("Volume").font(.headline); Spacer(); Text("\(s.volume)%").monospacedDigit() }
+                    HStack { Text("Volume").font(.headline); Spacer(); Text(held == nil ? "—" : "\(s.volume)%").monospacedDigit() }
                     Slider(value: binding(\.volume), in: 0...100, step: 1).accessibilityLabel("Volume")
                     Note("Touch sounds and completion chimes.")
                 }
@@ -90,46 +187,58 @@ struct SoundView: View {
                         Text("From"); Spacer()
                         Picker("From", selection: field(\.quietStart)) {
                             ForEach(0..<24, id: \.self) { h in Text(Self.hour(h)).tag(h) }
-                        }
-                        .tint(Theme.ice)
-                    }
-                    .frame(minHeight: 44)
+                        }.tint(Theme.ice)
+                    }.frame(minHeight: 44)
                     HStack {
                         Text("Until"); Spacer()
                         Picker("Until", selection: field(\.quietEnd)) {
                             ForEach(0..<24, id: \.self) { h in Text(Self.hour(h)).tag(h) }
-                        }
-                        .tint(Theme.ice)
-                    }
-                    .frame(minHeight: 44)
+                        }.tint(Theme.ice)
+                    }.frame(minHeight: 44)
                     HStack { Text("Quiet volume"); Spacer(); Text("\(s.quietVolume)%").monospacedDigit() }
                     Slider(value: binding(\.quietVolume), in: 0...100, step: 1).accessibilityLabel("Quiet volume")
                 }
-            }
-            .disabled(held == nil || write?.running == true)
+            }.disabled(snapshot == nil || waiting)
             Note("The gas alarm always sounds at full volume.")
-            if let problem = write?.problem { Note(problem) }
-            if changed { Note("Not saved yet.") }
-            ActionButton(title: "Save sound settings", working: write?.running == true) { save(s) }
-                .frame(maxWidth: 440)
-                .disabled(!ble.canChange || held == nil || !changed || write?.running == true)
-            if draft != nil && write?.running != true {
-                Button("Discard changes") { if let key { edits.discard(key) } }
-                    .font(.body.weight(.medium)).frame(minHeight: 44)
+            FormSaveOutcome(setting: .sound, discard: { if let key { edits.discard(key) } }, submitted: { token in
+                submittedToken = token
+                submittedValue = s
+            })
+            if !waiting {
+                if let key, let base = edits.base(key), let current = snapshot, current.revision != base.revision {
+                    DraftSettingConflict(setting: .sound, base: base, desired: soundBytes(s), keepMachine: { edits.discard(key) }, submitted: { token in
+                        submittedToken = token; submittedValue = s
+                    })
+                }
+                if changed && !conflict { Note("Your sound changes are ready to save.") }
+                if !conflict {
+                    ActionButton(title: "Save sound settings") { save(s) }
+                        .frame(maxWidth: 440).disabled(snapshot == nil || !changed)
+                }
+                if changed && !conflict {
+                    Button("Discard changes") { if let key { edits.discard(key) } }.frame(minHeight: 44)
+                }
             }
         }
         .frame(maxWidth: 560).frame(maxWidth: .infinity, alignment: .leading)
-        .task(id: ble.canChange) { if ble.canChange { await ble.readSound() } }
+        .task(id: ble.canChange) {
+            if ble.canChange { _ = await ble.readSetting(.sound); await ble.readSound() }
+        }
+        .onChange(of: accepted) { _, token in
+            guard let token, token == submittedToken, nav.isOpen(entry), let key, let value = submittedValue else { return }
+            edits.settle(key, saved: value)
+            nav.finish(entry)
+        }
     }
 
     private func field<T>(_ path: WritableKeyPath<SoundSettings, T>) -> Binding<T> {
-        Binding(get: { (draft ?? held ?? SoundSettings())[keyPath: path] },
-                set: { value in
-                    guard let key else { return }
-                    var next = draft ?? held ?? SoundSettings()
-                    next[keyPath: path] = value
-                    edits.setDraft(next, for: key)
-                })
+        Binding(get: { displayedSound[keyPath: path] }, set: { value in
+            guard let key else { return }
+            edits.capture(snapshot, for: key)
+            var next = draft ?? held ?? SoundSettings()
+            next[keyPath: path] = value
+            edits.setDraft(next, for: key)
+        })
     }
 
     private func binding(_ path: WritableKeyPath<SoundSettings, Int>) -> Binding<Double> {
@@ -138,111 +247,88 @@ struct SoundView: View {
     }
 
     static func hour(_ h: Int) -> String {
-        var c = DateComponents()
-        c.hour = h
-        let date = Calendar.current.date(from: c) ?? Date()
-        return date.formatted(.dateTime.hour())
+        var c = DateComponents(); c.hour = h
+        return (Calendar.current.date(from: c) ?? Date()).formatted(.dateTime.hour())
     }
 
-    /// Done once the machine holds these choices: the editor closes. Anything
-    /// else leaves the draft where it is, with what happened.
+    private func soundBytes(_ wanted: SoundSettings) -> Data {
+        Data([UInt8(wanted.volume), wanted.quietOn ? 1 : 0, UInt8(wanted.quietStart), UInt8(wanted.quietEnd), UInt8(wanted.quietVolume), 0])
+    }
+
     private func save(_ wanted: SoundSettings) {
-        guard let key, let machine = ble.current?.id else { return }
-        let token = edits.begin(key)
-        Task {
-            let answer = await ble.saveSound(wanted)
-            guard edits.isNewest(token, for: key) else { return }
-            switch answer {
-            case .success:
-                if ble.current?.id == machine, let held = ble.appliance.sound?.value, held.sameChoices(as: wanted) {
-                    edits.end(token, for: key)
-                    edits.settle(key, saved: wanted)
-                    nav.finish(entry)
-                } else {
-                    edits.end(token, for: key, problem: "The machine kept different settings. Yours are still here to save again or discard.")
-                }
-            case .failure(let e):
-                edits.end(token, for: key, problem: e.message)
-            }
-        }
+        guard let key, let base = edits.base(key) ?? snapshot else { return }
+        submittedValue = wanted
+        submittedToken = writer.submit(.sound, base: base, desired: soundBytes(wanted))
     }
 }
 
-// ── The machine's name ──────────────────────────────────────────────────
-
-/// The machine's name, which the machine keeps for every device. Saved away
-/// from the machine, it waits on this device and says so until the machine
-/// acknowledges it.
 struct RenameView: View {
     @Environment(BLEManager.self) var ble
     @Environment(Navigator.self) var nav
     @Environment(EditSessions.self) var edits
+    @Environment(SettingWriter.self) var writer
     let entry: RouteEntry
     @FocusState private var focused: Bool
+    @State private var submittedToken: UUID?
+    @State private var submittedValue: String?
 
     private var key: EditKey? { ble.current.map { EditKey(machine: $0.id, field: .name) } }
-    private var standing: String { ble.current?.pendingName ?? ble.current?.name ?? "" }
+    private var snapshot: SettingSnapshot? { ble.settingSnapshot(.name) }
+    private var standing: String { snapshot.flatMap { String(data: $0.value, encoding: .utf8) } ?? ble.current?.name ?? "" }
     private var text: Binding<String> {
-        Binding(get: { key.flatMap { edits.draft($0) } ?? standing },
-                set: { value in if let key { edits.setDraft(value, for: key) } })
+        Binding(get: { writer.commit(.name).flatMap { String(data: $0.desired, encoding: .utf8) } ?? key.flatMap { edits.draft($0) } ?? ble.current?.pendingName ?? standing }, set: { value in
+            if let key { edits.capture(snapshot, for: key); edits.setDraft(value, for: key) }
+        })
     }
     private var trimmed: String { text.wrappedValue.trimmingCharacters(in: .whitespacesAndNewlines) }
+    private var waiting: Bool { writer.commit(.name) != nil }
+    private var conflict: Bool { key.flatMap(edits.base).map { base in snapshot.map { base.revision != $0.revision } ?? false } ?? false }
+    private var accepted: UUID? { ble.current.flatMap { writer.accepted[FormSettingID(machine: $0.id, setting: .name)] } }
 
     var body: some View {
-        let write = key.flatMap(edits.write)
         VStack(alignment: .leading, spacing: 20) {
             TextField("Name", text: text, prompt: Text(ble.current?.displayName ?? "Name"))
-                .textInputAutocapitalization(.words)
-                .autocorrectionDisabled()
-                .submitLabel(.done)
-                .focused($focused)
-                .onSubmit(save)
-                .padding(16)
-                .background(Theme.surface, in: RoundedRectangle(cornerRadius: 12))
-                .disabled(write?.running == true)
-            Note("Up to twenty letters. The machine keeps its name so every device sees the same one.")
-            if let m = ble.current, let pending = m.pendingName {
-                Note(ble.linked ? "Sending “\(pending)” to the machine."
-                                : "“\(pending)” is saved on this device. It goes to the machine when this device is next near it.")
-            }
-            if let problem = write?.problem { Note(problem) }
-            ActionButton(title: "Save name", working: write?.running == true) { save() }
-                .disabled(trimmed.isEmpty || trimmed == standing || write?.running == true)
-            if key.flatMap({ edits.draft($0, as: String.self) }) != nil && write?.running != true {
-                Button("Discard changes") { if let key { edits.discard(key) } }
-                    .font(.body.weight(.medium)).frame(minHeight: 44)
+                .textInputAutocapitalization(.words).autocorrectionDisabled()
+                .submitLabel(.done).focused($focused).onSubmit(save)
+                .padding(16).background(Theme.surface, in: RoundedRectangle(cornerRadius: 12))
+                .disabled(waiting || snapshot == nil)
+            Note("The machine keeps its name so every device sees the same one.")
+            if trimmed.utf8.count > 20 { Note("This name is too long. Try a shorter name.") }
+            if snapshot == nil { Note("Connect to the machine to read its saved name.") }
+            FormSaveOutcome(setting: .name, discard: { if let key { edits.discard(key) } }, submitted: { token in
+                submittedToken = token
+                submittedValue = text.wrappedValue
+            })
+            if !waiting {
+                if let key, let base = edits.base(key), let current = snapshot, current.revision != base.revision {
+                    DraftSettingConflict(setting: .name, base: base, desired: Data(trimmed.utf8), keepMachine: { edits.discard(key) }, submitted: { token in
+                        submittedToken = token; submittedValue = text.wrappedValue
+                    })
+                }
+                if !conflict {
+                    ActionButton(title: "Save name") { save() }
+                        .disabled(snapshot == nil || trimmed.isEmpty || trimmed.utf8.count > 20 || trimmed == standing)
+                }
+                if !conflict && key.flatMap({ edits.draft($0, as: String.self) }) != nil {
+                    Button("Discard changes") { if let key { edits.discard(key) } }.frame(minHeight: 44)
+                }
             }
         }
         .frame(maxWidth: 460).frame(maxWidth: .infinity)
         .onAppear { focused = true }
-    }
-
-    /// Done once the machine acknowledges the name, or once it is waiting on
-    /// this device for the machine, which Settings then says.
-    private func save() {
-        guard let key, let m = ble.current, !trimmed.isEmpty, trimmed != standing else { return }
-        let name = trimmed
-        let typed = text.wrappedValue
-        let token = edits.begin(key)
-        Task {
-            guard await ble.ensureTrusted(.name) else {
-                edits.end(token, for: key, problem: "Nothing changed. Tap Trust on the machine to rename it from this device.")
-                return
-            }
-            guard edits.isNewest(token, for: key) else { return }
-            guard ble.current?.id == m.id else {
-                edits.end(token, for: key, problem: "Nothing changed: another machine is in use.")
-                return
-            }
-            ble.rename(m, to: name)
-            for _ in 0..<12 where m.pendingName != nil && ble.linked {
-                try? await Task.sleep(for: .milliseconds(500))
-            }
-            guard edits.isNewest(token, for: key) else { return }
-            edits.end(token, for: key)
-            edits.settle(key, saved: typed)
+        .task(id: ble.canChange) { if ble.canChange { _ = await ble.readSetting(.name) } }
+        .onChange(of: accepted) { _, token in
+            guard let token, token == submittedToken, nav.isOpen(entry), let key, let value = submittedValue else { return }
+            edits.settle(key, saved: value)
             nav.finish(entry)
         }
+    }
+
+    private func save() {
+        guard let key, let base = edits.base(key) ?? snapshot, !trimmed.isEmpty, trimmed.utf8.count <= 20 else { return }
+        focused = false
+        submittedValue = text.wrappedValue
+        submittedToken = writer.submit(.name, base: base, desired: Data(trimmed.utf8))
     }
 }
 

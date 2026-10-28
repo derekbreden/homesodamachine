@@ -120,28 +120,10 @@ struct MachineNotices: View {
                 ActionButton(title: "Software Update", primary: false) { nav.push(.update) }
             }
         }
-        if let ask = ble.trustAsk, ask.quiet, ask.ended == nil {
-            Notice(title: "Tap Trust on the machine",
-                   message: "So this \(BLEManager.deviceWord) can change settings and run cycles. The faucet and the main display both ask.",
-                   icon: "hand.tap")
-        } else if let ask = ble.trustAsk, ask.quiet, let ended = ask.ended {
-            VStack(spacing: 12) {
-                Notice(title: ask.title,
-                       message: ended == .unpaired ? ask.message
-                           : "This \(BLEManager.deviceWord) can view the machine. Ask again to change settings and run cycles.",
-                       icon: "hand.raised")
-                HStack(spacing: 12) {
-                    ActionButton(title: "Ask again", primary: false) {
-                        Task { _ = await ble.requestTrust(.anything, quiet: true) }
-                    }
-                    .disabled(!ble.linked)
-                    ActionButton(title: "OK", primary: false) { ble.dismissTrustAsk() }
-                }
-            }
+        if let ask = ble.trustAsk, ask.quiet, ask.reason == .anything {
+            Panel { TrustStatusView(ask: ask) }
         } else if ble.trustGrantedAt != nil {
-            Notice(title: "Trusted",
-                   message: "This \(BLEManager.deviceWord) can change settings and run cycles.",
-                   icon: "checkmark.circle")
+            Notice(title: "Trusted", message: "This \(BLEManager.deviceWord) can change settings and run cycles.", icon: "checkmark.circle")
         }
         if let s = ble.appliance.status?.value {
             if s.gasAlarm {
@@ -285,31 +267,31 @@ struct MachineStatusPanel: View {
 
 // ── One flavor ──────────────────────────────────────────────────────────
 
-/// One flavor: its image, its mix, whether it is on tap, and its care. The
-/// mix is a draft until the machine accepts it, and stays one through Back,
-/// a child page or another destination. Putting the flavor on tap stays on
-/// this page.
+/// Mix changes are applied by the root-owned synchronizer; controls stay
+/// together while permission, connection and save outcomes appear below them.
 struct FlavorDetailView: View {
     @Environment(BLEManager.self) var ble
     @Environment(Navigator.self) var nav
-    @Environment(EditSessions.self) var edits
+    @Environment(MixController.self) var mix
     @Environment(\.dynamicTypeSize) private var typeSize
     let channel: Int
     let width: CGFloat
     let entry: RouteEntry
-
-    /// Which of this page's buttons the running write belongs to.
     @State private var selecting = false
+    @State private var selectionProblem: String?
+    @State private var selectionConflict: SettingSnapshot?
 
-    private var key: EditKey? { ble.current.map { EditKey(machine: $0.id, field: .ratio(channel: channel)) } }
-    private var confirmed: Int? { ble.appliance.ratio(channel) }
-    private var draft: Int? { key.flatMap { edits.draft($0) } }
-    private var ratio: Int { draft ?? confirmed ?? 20 }
-    private var unsaved: Bool { draft.map { $0 != confirmed } ?? false }
+    private var ratio: Int? { mix.value(channel: channel) }
+    private var pending: MixChanges.Pending? { mix.pending(channel: channel) }
+    private var confirmed: Int? { ble.settingSnapshot(.ratio(channel: channel))?.byte }
     private var active: Bool { ble.appliance.selection?.value.channel == channel }
-    private var write: EditSessions.Write? { key.flatMap(edits.write) }
-    private var working: Bool { write?.running == true }
     private var art: Int { ble.flavorArt.art.indices.contains(channel) ? ble.flavorArt.art[channel] : channel }
+
+    private var mixHeader: String {
+        if ble.current?.settingStorageProblem == true { return "Not kept" }
+        guard let pending else { return ratio == nil ? "Waiting" : (ble.canChange ? "Saved" : "Last saved") }
+        return pending.phase == .queued || pending.phase == .saving ? "Saving…" : "Not saved"
+    }
 
     var body: some View {
         let wide = width >= 600 && !typeSize.isAccessibilitySize
@@ -326,61 +308,61 @@ struct FlavorDetailView: View {
                             Note("Shown on both machine displays.")
                             Button("Change image") { nav.push(.images(channel)) }.font(.subheadline.weight(.medium)).frame(minHeight: 44)
                         }
-                    }
-                    .frame(maxWidth: .infinity, alignment: .leading)
+                    }.frame(maxWidth: .infinity, alignment: .leading)
                 }
-            }
-            .frame(maxWidth: .infinity)
+            }.frame(maxWidth: .infinity)
         } right: {
             VStack(alignment: .leading, spacing: 16) {
                 Panel {
                     HStack {
                         Text("Mix ratio").font(.headline)
                         Spacer()
-                        if working && !selecting {
-                            ProgressView().tint(Theme.textSecondary)
-                        } else if unsaved {
-                            Button("Save mix") { save() }.font(.subheadline.weight(.semibold))
-                                .frame(minWidth: 44, minHeight: 44).contentShape(Rectangle())
-                                .disabled(!ble.canChange || working)
-                        } else if confirmed != nil {
-                            Label("Saved", systemImage: "checkmark").font(.caption).foregroundStyle(Theme.textSecondary)
-                        }
+                        Label(mixHeader,
+                              systemImage: pending == nil && ble.current?.settingStorageProblem != true ? "checkmark.circle" : "exclamationmark.circle.fill")
+                            .font(.caption.weight(.medium))
+                            .foregroundStyle(pending == nil && ble.current?.settingStorageProblem != true ? Theme.textSecondary : Theme.accent)
                     }
-                    HStack(spacing: 18) {
-                        Button { change(to: max(6, ratio - 1)) } label: {
-                            Image(systemName: "minus").frame(width: 44, height: 44).background(Theme.ice.opacity(0.10), in: Circle())
-                        }
-                        .accessibilityLabel("Stronger mix")
-                        Text("1:\(ratio)").font(.largeTitle.weight(.medium).monospacedDigit()).frame(maxWidth: .infinity)
-                            .accessibilityLabel("1 to \(ratio)\(unsaved ? ", not saved" : "")")
-                        Button { change(to: min(24, ratio + 1)) } label: {
-                            Image(systemName: "plus").frame(width: 44, height: 44).background(Theme.ice.opacity(0.10), in: Circle())
-                        }
-                        .accessibilityLabel("Lighter mix")
+                    HStack(alignment: .top, spacing: 10) {
+                        VStack(spacing: 8) {
+                            Button { if let ratio { mix.changed(channel: channel, to: max(6, ratio - 1)) } } label: {
+                                Image(systemName: "minus").frame(width: 44, height: 44)
+                                    .background(Theme.ice.opacity(0.10), in: Circle())
+                            }.accessibilityLabel("Stronger mix").disabled(ratio == 6)
+                            Text("More flavor").font(.caption).foregroundStyle(Theme.textSecondary)
+                        }.frame(maxWidth: .infinity)
+                        Text(ratio.map { "1:\($0)" } ?? "—")
+                            .font(.largeTitle.weight(.medium).monospacedDigit())
+                            .frame(maxWidth: .infinity, minHeight: 44)
+                            .accessibilityLabel(ratio.map { "1 to \($0)" } ?? "Mix unavailable")
+                        VStack(spacing: 8) {
+                            Button { if let ratio { mix.changed(channel: channel, to: min(24, ratio + 1)) } } label: {
+                                Image(systemName: "plus").frame(width: 44, height: 44)
+                                    .background(Theme.ice.opacity(0.10), in: Circle())
+                            }.accessibilityLabel("Lighter mix").disabled(ratio == 24)
+                            Text("Lighter").font(.caption).foregroundStyle(Theme.textSecondary)
+                        }.frame(maxWidth: .infinity)
                     }
-                    .disabled(working || confirmed == nil && !ble.canChange)
-                    Text(unsaved ? "Not saved · the machine pours 1:\(confirmed.map(String.init) ?? "—")"
-                                 : "1 part concentrate · \(ratio) parts water")
-                        .font(.subheadline).foregroundStyle(unsaved ? Theme.accent : Theme.textSecondary)
-                    HStack { Text("More flavor"); Spacer(); Text("Lighter") }.font(.caption).foregroundStyle(Theme.textSecondary)
-                    Text("1:6–1:24 · Match your concentrate bottle.").font(.caption).foregroundStyle(Theme.textSecondary)
+                    .padding(.vertical, 8).disabled(!mix.canEdit(channel: channel))
+                    Text("1:6–1:24 · Match your concentrate bottle.")
+                        .font(.caption).foregroundStyle(Theme.textSecondary)
+                    Divider().overlay(Theme.ice.opacity(0.15))
+                    MixOutcome(channel: channel)
                 }
-                if unsaved && !working {
-                    Button("Discard changes") { if let key { edits.discard(key) } }
-                        .font(.subheadline.weight(.medium)).frame(minHeight: 44)
-                }
-                if !ble.canChange && !ble.demoMode {
-                    Note(unsaved ? "Your mix is kept here. Bring your device near the machine to save it."
-                                 : "Bring your device near the machine to make changes.")
-                }
-                if let problem = write?.problem { Note(problem) }
                 if active {
-                    Label("On tap at the faucet", systemImage: "checkmark.circle.fill")
+                    Label(confirmed.map { ble.canChange ? "On tap · machine pours 1:\($0)" : "Last known on tap · 1:\($0)" } ?? "On tap at the faucet", systemImage: "checkmark.circle.fill")
                         .font(.subheadline).foregroundStyle(Theme.accent).padding(.vertical, 4)
                 } else {
-                    ActionButton(title: unsaved ? "Save and use at faucet" : "Use at faucet", working: working && selecting) { use() }
-                        .disabled(!ble.canChange || working)
+                    ActionButton(title: selecting ? "Waiting for saved mix…" : "Use at faucet", working: selecting) { use() }
+                        .disabled(!ble.canChange || selecting || ratio == nil || pending?.phase == .conflict)
+                }
+                if let selectionProblem {
+                    Notice(title: selectionConflict == nil ? "Couldn’t put this flavor on tap" : "Flavor on tap changed elsewhere", message: selectionProblem, icon: "exclamationmark.triangle.fill")
+                    if selectionConflict != nil {
+                        HStack(spacing: 20) {
+                            Button("Use this flavor") { use(expected: ble.settingSnapshot(.selection)) }
+                            Button("Keep machine’s choice") { self.selectionProblem = nil; selectionConflict = nil }
+                        }.frame(minHeight: 44)
+                    }
                 }
                 VStack(alignment: .leading, spacing: 12) {
                     SectionTitle("Care")
@@ -389,75 +371,85 @@ struct FlavorDetailView: View {
                         ActionButton(title: "Clean", primary: false) { nav.push(.clean(channel)) }
                         ActionButton(title: "Prime", primary: false) { nav.push(.prime(channel)) }
                     }
-                }
-                .padding(.top, 8)
-            }
-            .frame(maxWidth: .infinity)
+                }.padding(.top, 8)
+            }.frame(maxWidth: .infinity)
         }
         .modifier(StatusPolling())
     }
 
-    private func change(to value: Int) {
-        guard let key else { return }
-        edits.setDraft(value == confirmed ? nil : value, for: key)
-    }
-
-    /// Saved in place. Anything but the machine taking this mix leaves the
-    /// draft standing, with what happened.
-    private func save() {
-        guard let key, let machine = ble.current?.id else { return }
-        let wanted = ratio
-        selecting = false
-        let token = edits.begin(key)
-        Task {
-            let answer = await ble.saveRatio(channel, wanted)
-            guard edits.isNewest(token, for: key) else { return }
-            switch answer {
-            case .success where ble.current?.id == machine && ble.appliance.ratio(channel) == wanted:
-                edits.end(token, for: key)
-                edits.settle(key, saved: wanted)
-            case .success:
-                edits.end(token, for: key, problem: "The machine kept its mix. Yours is still here to save again or discard.")
-            case .failure(let e):
-                edits.end(token, for: key, problem: e.message)
-            }
-        }
-    }
-
-    /// On tap, saving the mix first when it has changed: the mix is confirmed
-    /// before the flavor is put on tap, and a mix saved before the second
-    /// step failed says so.
-    private func use() {
-        guard let key, let machine = ble.current?.id else { return }
-        let wanted = unsaved ? ratio : nil
+    private func use(expected: SettingSnapshot? = nil) {
+        guard let machine = ble.current?.id, let base = expected ?? ble.settingSnapshot(.selection) else { return }
         selecting = true
-        let token = edits.begin(key)
+        selectionProblem = nil
+        selectionConflict = nil
         Task {
-            if let wanted {
-                let saved = await ble.saveRatio(channel, wanted)
-                guard edits.isNewest(token, for: key) else { return }
-                switch saved {
-                case .success where ble.current?.id == machine && ble.appliance.ratio(channel) == wanted:
-                    edits.settle(key, saved: wanted)
-                case .success:
-                    edits.end(token, for: key, problem: "The machine kept its mix, so this flavor wasn’t put on tap. Your mix is still here.")
-                    return
-                case .failure(let e):
-                    edits.end(token, for: key, problem: "\(e.message) This flavor wasn’t put on tap.")
-                    return
-                }
+            defer { selecting = false }
+            guard await mix.flush(channel: channel), ble.current?.id == machine else {
+                selectionProblem = "The mix needs to be saved first. Its status appears above."; return
             }
-            let answer = await ble.selectFlavor(channel)
-            guard edits.isNewest(token, for: key) else { return }
-            let saidMix = wanted == nil ? "" : "The mix was saved. "
-            switch answer {
-            case .success where ble.current?.id == machine && ble.appliance.selection?.value.channel == channel:
-                edits.end(token, for: key)
-            case .success:
-                edits.end(token, for: key, problem: "\(saidMix)The machine kept the other flavor on tap.")
-            case .failure(let e):
-                edits.end(token, for: key, problem: "\(saidMix)\(e.message)")
+            guard await ble.ensureTrusted(.flavor, channel: channel), ble.current?.id == machine else { return }
+            switch await ble.writeSetting(.selection, expected: base.revision, value: Data([UInt8(channel)])) {
+            case .accepted: break
+            case .conflict(let current):
+                selectionConflict = current
+                selectionProblem = "The machine is now using Flavor \((current.byte ?? 0) + 1). Choose whether to replace it."
+            case .failure(let failure): selectionProblem = failure.message
             }
         }
+    }
+}
+
+struct MixOutcome: View {
+    @Environment(BLEManager.self) var ble
+    @Environment(MixController.self) var mix
+    let channel: Int
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            if let pending = mix.pending(channel: channel) {
+                if let ask = ble.trustAsk, ask.quiet, ask.reason == .ratio, ask.channel == channel {
+                    TrustStatusView(ask: ask, offersClose: false) { mix.retry(channel: channel) }
+                } else if let outcome = pending.trustEnd, pending.requiresTrustRetry == true {
+                    KeptTrustOutcome(outcome: outcome, retryAt: pending.trustRetryAt) { mix.retry(channel: channel) }
+                } else if pending.phase == .conflict {
+                    Label(pending.conflictFromUncertainty == true ? "Save not confirmed" : "Changed from another device", systemImage: "exclamationmark.triangle.fill").font(.headline)
+                    Text("Machine: 1:\(ble.settingSnapshot(.ratio(channel: channel))?.byte ?? pending.elsewhere?.byte ?? 0) · Yours: 1:\(pending.desired)")
+                        .font(.subheadline.monospacedDigit())
+                    HStack(spacing: 24) {
+                        Button("Use mine") { mix.useMine(channel: channel) }
+                        Button("Keep machine’s mix") { mix.keepTheirs(channel: channel) }
+                    }.frame(minHeight: 44)
+                } else if !ble.canChange || pending.phase == .held {
+                    Label(ble.connectionState == .bluetoothOff ? "Not sent · Bluetooth is off" : "Not sent · out of range", systemImage: "antenna.radiowaves.left.and.right.slash").font(.headline)
+                    Note(ble.connectionState == .bluetoothOff ? "Turn on Bluetooth. Your mix sends automatically when the machine reconnects." : "Your mix is kept here. It sends automatically when the machine reconnects.")
+                } else if pending.phase == .waitingForTrust {
+                    Label("Trust needed to save", systemImage: "exclamationmark.triangle.fill").font(.headline)
+                    Note("Your mix is kept here. Ask the machine to trust this \(BLEManager.deviceWord).")
+                    Button("Ask for Trust") { mix.retry(channel: channel) }.frame(minHeight: 44)
+                } else if pending.phase == .uncertain || pending.phase == .failed || pending.phase == .unsupported {
+                    Label(pending.phase == .uncertain ? "Save not confirmed" : "Couldn’t save mix", systemImage: "exclamationmark.triangle.fill").font(.headline)
+                    Note(pending.problem ?? mix.status(channel: channel))
+                    Button("Try again") { mix.retry(channel: channel) }.frame(minHeight: 44)
+                } else {
+                    HStack { ProgressView(); Text("Saving…").font(.subheadline.weight(.semibold)) }
+                    Note(ble.settingSnapshot(.ratio(channel: channel))?.byte.map { "The machine currently pours 1:\($0)." } ?? "Waiting for the machine.")
+                }
+                if pending.phase != .saving && pending.phase != .conflict {
+                    Button(pending.phase == .uncertain ? "Stop retrying" : "Discard changes") {
+                        if ble.trustAsk?.reason == .ratio { ble.withdrawTrustAsk() }
+                        mix.discard(channel: channel)
+                    }.font(.subheadline.weight(.medium)).frame(minHeight: 44)
+                }
+            } else if ble.current?.settingStorageProblem == true {
+                Notice(title: "The machine couldn’t keep its settings", message: "Its current settings still apply, but may not survive a restart. The machine will try saving them again.", icon: "exclamationmark.triangle.fill")
+            } else if let ratio = mix.value(channel: channel) {
+                Text("1 part concentrate · \(ratio) parts water").font(.subheadline).foregroundStyle(Theme.textSecondary)
+            } else {
+                Note(mix.status(channel: channel))
+            }
+            if let problem = mix.changes.persistenceProblem { Note(problem) }
+        }
+        .frame(maxWidth: .infinity, minHeight: 44, alignment: .topLeading)
+        .accessibilityElement(children: .contain)
     }
 }

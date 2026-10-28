@@ -1,7 +1,11 @@
-# Adaptive appliance app study
+# Adaptive layout fixtures
 
-An executable SwiftUI study of the integrated soda machine's complete iOS app,
-built in [`ios/SodaMachine`](../SodaMachine). The product has three destinations:
+Executable SwiftUI layout fixtures for **Machine**, **Care**, and **Settings**.
+Review connected journeys in the production app in [`ios/SodaMachine`](../SodaMachine),
+using its [experience contract](../SodaMachine/EXPERIENCE.md). Automatic mix saving,
+stamped conflicts, Trust, and navigation are implemented in that app.
+
+The fixtures have three destinations:
 **Machine**, **Care**, and **Settings**.
 The layout uses the existing Big Blue palette, SF Symbols, native SwiftUI text
 and controls, and the app's bundled flavor art.
@@ -37,7 +41,7 @@ does not connect to a machine, select a real photo, crop or transfer pixels, run
 pump, write machine settings, or install software. The crop mockup specifies the adaptive
 placement of the existing crop pipeline; its sample framing is fixed.
 
-## Product map
+## Fixture map
 
 | Destination | Screens and behavior |
 | --- | --- |

@@ -16,7 +16,7 @@
 // board volunteers waits here for the enclosure's next turn, so a payload that
 // outgrows this is silently truncated on the way out — hence the asserts at
 // every site that queues one.
-constexpr uint8_t LINK_ANNOUNCE_MAX = 20;
+constexpr uint8_t LINK_ANNOUNCE_MAX = 32;
 
 void linkBegin();
 

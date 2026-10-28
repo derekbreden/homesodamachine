@@ -361,7 +361,7 @@ final class MachineAccess {
                 // Met by a central manager made after the system listed it.
                 ble.holdRadio()
                 let m = ble.add(peripheralID: id)
-                adopt(picked, as: m, named: false)
+                adopt(picked, as: m)
                 ble.askTrustOnLink()
                 added += 1
                 outcome = nil
@@ -388,18 +388,17 @@ final class MachineAccess {
     // ── The system's list and the records ─────────────────────────────────
 
     /// A machine the system lists, written onto its record: the peripheral id
-    /// it is listed under, and the name it is listed as. A name someone gave
-    /// there goes to the machine.
-    private func adopt(_ accessory: ASAccessory, as m: KnownMachine, named: Bool) {
+    /// it is listed under, and its system label. Machine names are edited
+    /// through the machine’s stamped setting.
+    private func adopt(_ accessory: ASAccessory, as m: KnownMachine) {
         m.accessoryID = accessory.bluetoothIdentifier?.uuidString
         m.accessoryName = accessory.displayName
-        if named { ble.rename(m, to: accessory.displayName) }
         directory.save()
     }
 
     /// Every record held to the system's list. A record whose listing is gone
-    /// was removed in Settings, and leaves the phone. A listed name that
-    /// changed was given in Settings, and goes to the machine. A record from
+    /// was removed in Settings, and leaves the phone. Its system label is
+    /// kept separately from the machine’s shared name. A record from
     /// an earlier build that the system now lists takes its listing. And a
     /// machine handed over with no record — handed over as the app went away
     /// — is given one.
@@ -415,20 +414,20 @@ final class MachineAccess {
         for m in directory.known where !m.isDemo {
             if let id = m.accessoryID {
                 if let accessory = listed.removeValue(forKey: id) {
-                    if accessory.displayName != m.accessoryName { adopt(accessory, as: m, named: true) }
+                    if accessory.displayName != m.accessoryName { adopt(accessory, as: m) }
                 } else {
                     log.info("\(m.displayName) was removed in Settings")
                     ble.forget(m)
                 }
             } else if let id = m.peripheralID, let accessory = listed.removeValue(forKey: id) {
-                adopt(accessory, as: m, named: false)
+                adopt(accessory, as: m)
             }
         }
         for (id, accessory) in listed where accessory.state == .authorized {
             // What the system calls it is no new name: the machine says its own.
             log.info("the system lists \(id) with no record; adding it")
             let m = directory.add(peripheralID: id)
-            adopt(accessory, as: m, named: false)
+            adopt(accessory, as: m)
             if directory.current == nil { ble.select(m) }
         }
     }
