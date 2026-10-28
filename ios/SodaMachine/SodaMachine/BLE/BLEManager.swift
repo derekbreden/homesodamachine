@@ -83,7 +83,10 @@ class BLEManager {
     }
     var imageQueue: [QueuedImage] = []
     /// The last picture that did not reach the machine, kept for Try again.
-    var failedImage: QueuedImage?
+    /// Pictures that didn't arrive, by id, with the machine they were for,
+    /// kept for whoever chose them to try again — through a switch to another
+    /// machine and back, until that choice or that machine goes.
+    var failedUploads: [UUID: (machine: String, image: QueuedImage)] = [:]
     // A read-back in flight, and the crcs already asked for, so a face is
     // fetched once ever rather than once per state frame.
     /// Faces by the crc32 of the picture they belong to, on the record.
@@ -113,6 +116,18 @@ class BLEManager {
     @ObservationIgnored var saidStanding = ""
     @ObservationIgnored var pendingCrc: [Int: UInt32] = [:]
     var activeUpload: QueuedImage?
+    /// Who is waiting on each picture, by its id, and how pictures ended
+    /// before anyone asked (ImageUpload.swift).
+    @ObservationIgnored var uploadWaiters: [UUID: CheckedContinuation<UploadEnd, Never>] = [:]
+    @ObservationIgnored var uploadEnds: [UUID: UploadEnd] = [:]
+    /// The picture whose BEGIN went out: only its acknowledgements count.
+    @ObservationIgnored var imageBegun: UUID?
+    /// Face assignments, one after another for the whole machine, and how
+    /// many are under way for each flavor (ImageUpload.swift).
+    @ObservationIgnored var artChain: Task<Bool, Never>?
+    @ObservationIgnored var artAssigning: [Int: Int] = [:]
+    /// When the machine last said which face each flavor wears.
+    @ObservationIgnored var artHeardAt: Date?
     var imageUploadState: ImageUploadState = .idle
     @ObservationIgnored var imageBundle = Data()
     @ObservationIgnored var imageSlotSending = 0
@@ -198,6 +213,9 @@ class BLEManager {
     /// that answer describes the image it is leaving.
     static let otaSettleFloor: TimeInterval = 15
     @ObservationIgnored fileprivate var otaModel: MachineModel = .unknown
+    /// Every image this run sends: each one's board has to answer before the
+    /// run is done.
+    @ObservationIgnored fileprivate var otaRun: [FirmwareImage] = []
     @ObservationIgnored fileprivate var otaFetch: ((FirmwareImage) async throws -> Data)? = nil
 
     /// Which screens this machine gets. A machine whose advertisement carried
@@ -271,6 +289,12 @@ class BLEManager {
         dropLink()
     }
 
+    /// An update on its way, or the machine restarting into it.
+    var updateRunning: Bool {
+        if let p = otaProgress, !p.finished, p.failure == nil { return true }
+        return !otaQueue.isEmpty || otaSettlingSince != nil
+    }
+
     /// An update or a picture on its way across the link.
     var transferInFlight: Bool {
         // A finished or failed update stays on screen until it is dismissed,
@@ -314,6 +338,7 @@ class BLEManager {
     func select(_ machine: KnownMachine) {
         guard current?.id != machine.id else { return }
         dropLink()
+        clearTrustContext()
         directory.select(machine)
         point()
     }
@@ -323,6 +348,7 @@ class BLEManager {
     @discardableResult
     func add(peripheralID: String) -> KnownMachine {
         dropLink()
+        clearTrustContext()
         let m = directory.add(peripheralID: peripheralID)
         directory.select(m)
         point()
@@ -331,15 +357,19 @@ class BLEManager {
 
     func addDemo() {
         dropLink()
+        clearTrustContext()
         directory.select(directory.addDemo())
         point()
     }
 
     /// Gone from the phone. If it was the one the phone was pointed at, the
-    /// phone points at whichever it talked to most recently, or at nothing.
+    /// phone points at nothing until a person chooses another.
     func forget(_ machine: KnownMachine) {
         let wasCurrent = current?.id == machine.id
-        if wasCurrent { dropLink() }
+        if wasCurrent {
+            dropLink()
+            clearTrustContext()
+        }
         directory.forget(machine)
         if wasCurrent { point() }
     }
@@ -466,8 +496,7 @@ class BLEManager {
         namePushed = false
         abandonBridgeRequests()
         abandonTrust()
-        imageQueue = []
-        activeUpload = nil
+        interruptUploads()
         imageUploadState = .idle
         otaQueue = []
         otaProgress = nil
@@ -723,6 +752,7 @@ class BLEManager {
                         fetch: @escaping (FirmwareImage) async throws -> Data) {
         guard otaQueue.isEmpty, otaProgress == nil, !images.isEmpty else { return }
         otaModel = model
+        otaRun = images
         otaFetch = fetch
         otaQueueDone = 0
         func order(_ i: FirmwareImage) -> Int {
@@ -944,11 +974,14 @@ class BLEManager {
         guard let m = current else { return }
         m.versions = found
         m.versionsReadAt = Date()
-        // The machine has answered since it went down, so there is a fact
-        // to report and the run is over. What that fact is — took, or did
-        // not — is read off these versions like any other.
+        // Every part the run sent has answered since the machine went down,
+        // so there is a fact to report about each and the run is over. What
+        // that fact is — took, or did not — is read off these versions like
+        // any other. A part still silent keeps the run settling, until the
+        // wait gives up and the page says what it could not verify.
         if let began = otaSettlingSince,
-           Date().timeIntervalSince(began) >= Self.otaSettleFloor {
+           Date().timeIntervalSince(began) >= Self.otaSettleFloor,
+           otaRun.allSatisfy({ UpdateAssessment.standing(of: $0, versions: found, model: otaModel) != .unknown }) {
             otaSettlingSince = nil
         }
         directory.touch()
@@ -1084,6 +1117,7 @@ private class CBDelegateAdapter: NSObject, CBCentralManagerDelegate, CBPeriphera
         ble.namePushed = false
         ble.abandonBridgeRequests()
         ble.abandonTrust()
+        ble.interruptUploads()
         ble.connectionState = ble.radioOff ? .bluetoothOff : .searching
         ble.scheduleReconnect()
     }

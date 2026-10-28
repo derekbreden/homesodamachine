@@ -261,6 +261,8 @@ not invented usage history.
 
 The layout answers compact portrait, short landscape, near-square expanded
 phone, iPad portrait and landscape, a narrow resizable iPad window, and
-accessibility text sizes. The tab, the pages, and a run in progress live in the
-app's Navigator, outside the layout branches. Nothing here adds an automatic
-build or commit check.
+accessibility text sizes. Each destination's pages live in the app's Navigator,
+drafts in EditSessions and what a run has shown in RunLog, all above the layout
+branches ([Core/](../SodaMachine/SodaMachine/Core)), so a window that changes
+shape keeps them. [EXPERIENCE.md](../SodaMachine/EXPERIENCE.md) is the journey
+contract. Nothing here adds an automatic build or commit check.

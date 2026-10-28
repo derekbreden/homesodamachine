@@ -425,9 +425,10 @@ final class MachineAccess {
             }
         }
         for (id, accessory) in listed where accessory.state == .authorized {
+            // What the system calls it is no new name: the machine says its own.
             log.info("the system lists \(id) with no record; adding it")
             let m = directory.add(peripheralID: id)
-            adopt(accessory, as: m, named: accessory.displayName != Self.unnamed)
+            adopt(accessory, as: m, named: false)
             if directory.current == nil { ble.select(m) }
         }
     }
@@ -453,11 +454,27 @@ final class MachineAccess {
         return session.accessories.first { $0.bluetoothIdentifier?.uuidString == id }
     }
 
-    /// Gone from the phone, pictures and all. A machine the system lists is
-    /// removed from the system, which asks first, and its record goes when
-    /// the system has removed it; any other goes at once.
+    /// Why the last removal did not happen, for Your machines to say.
+    private(set) var removalProblem: String?
+
+    /// Gone from the phone, pictures and all. A machine the system handed
+    /// over is removed from the system, which asks first, and its record goes
+    /// only once the system has removed it — a record dropped while the
+    /// system still lists the machine would come straight back. Any other
+    /// goes at once.
     func forget(_ m: KnownMachine) {
-        guard let session, let accessory = listing(of: m) else {
+        removalProblem = nil
+        guard m.accessoryID != nil else {
+            ble.forget(m)
+            return
+        }
+        guard ready, let session else {
+            removalProblem = "\(m.displayName) wasn’t removed: the system’s list of accessories isn’t available yet. Try again in a moment."
+            if session == nil { start() }
+            return
+        }
+        guard let accessory = listing(of: m) else {
+            // The system no longer lists it: removed in Settings already.
             ble.forget(m)
             return
         }
@@ -466,6 +483,9 @@ final class MachineAccess {
                 try await session.removeAccessory(accessory)
             } catch {
                 log.info("\(accessory.displayName) stays: \(error.localizedDescription)")
+                if (error as? ASError)?.code != .userCancelled {
+                    self?.removalProblem = "\(m.displayName) wasn’t removed. Try again."
+                }
                 return
             }
             self?.removed(accessory)
