@@ -1,0 +1,383 @@
+{
+  "views": [
+    {
+      "name": "sensors",
+      "caption": "Both reservoir sensing pairs are on the left; the carbonator magnet, rod and reeds move to the opposite side on the right.",
+      "before": "sensors-before.webp",
+      "after": "sensors-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 714.1,
+          "y": 450,
+          "r": 65.5,
+          "label": "Carbonator sensing side",
+          "at": [
+            41.849,
+            323.8,
+            130
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          0,
+          323.8,
+          675.2766035087678
+        ],
+        "target": [
+          0,
+          323.8,
+          130
+        ],
+        "up": [
+          0,
+          1,
+          0
+        ],
+        "half": 165,
+        "near": 320.9556977467714,
+        "far": 911.6720182146032,
+        "aspect": 1.3333333333333333
+      },
+      "highlight": [
+        "cold-core/float-carb",
+        "cold-core/float-rod-carb",
+        "cold-core/reed-carb-*"
+      ],
+      "ghost": [],
+      "only": [
+        "cold-core/carbonator-tube",
+        "cold-core/float-rod-*",
+        "cold-core/float-carb",
+        "cold-core/float-a",
+        "cold-core/float-b",
+        "cold-core/reed-*"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "3540d14706293dc5014625f1cc17802171cc2ebe53bf874dde3aeeccff51cedc",
+          "commit": "54e53c1b11ecd79daac1695e7cb3496a14899fbb",
+          "taken": "2026-10-28T06:25:26.227Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "fb994e476988df5672c61730886aac1be0d31ec4e9c2a5c196c7cbe8c74d2107",
+          "commit": "c4014c64aee75570b39a6e21acddd237173902bb",
+          "published": false
+        }
+      },
+      "changed": [
+        "cold-core/float-stop-carb-top",
+        "wire-J7-CHI",
+        "wire-J7-CLO",
+        "wire-J7-carb-earth-1",
+        "wire-J7-carb-earth-2",
+        "cold-core/reed-carb-1",
+        "cold-core/reed-carb-2",
+        "cold-core/reed-bridge",
+        "cold-core/float-carb",
+        "cold-core/float-rod-carb",
+        "wire-temp-bus-V",
+        "wire-temp-bus-GND",
+        "wire-temp-bus-DATA",
+        "cold-core/probe-coil-ds18s20",
+        "cold-core/evap-tail-outlet",
+        "cold-core/evap-tail-inlet",
+        "cold-core/foam-cap-top",
+        "cold-core/evap-coil",
+        "cold-core/reservoir-grip-b-air",
+        "cold-core/tube-reservoir-air-b",
+        "cold-core/foam-cap-lid-top",
+        "cold-core/endcap-top",
+        "cold-core/endcap-bottom",
+        "cold-core/reservoir-b-cap"
+      ],
+      "withinMeshing": [
+        "tube-above-core-vb-yb-link",
+        "tube-above-core-va-under-head",
+        "tube-above-core-water-in",
+        "wire-J1-positive-F",
+        "enclosure-pump-retainer",
+        "cold-core/valve-v-b",
+        "wire-AC6-PE",
+        "wire-J4-IO26",
+        "wire-J1-OUT4",
+        "wire-temp-GND",
+        "wire-J2-positive-J",
+        "tube-fluid-14",
+        "tube-above-core-va-fore-feed",
+        "wire-J4-3V3",
+        "cold-core/probe-carbonator-ds18b20",
+        "wire-J1-positive-D",
+        "funnel",
+        "wire-AC1-N",
+        "tube-above-core-drain-vb-east-link",
+        "elbow-cradle",
+        "cold-core/vb-outlet-return",
+        "wire-J3-IO35",
+        "cold-core/vb-inlet-turn",
+        "cold-core/vb-outlet-stem",
+        "drain-outlet-stem",
+        "wire-J1-positive-B",
+        "wire-J7-RB3",
+        "wire-J6-GND"
+      ]
+    },
+    {
+      "name": "lid",
+      "caption": "The carbonator reed leads leave through their own opening directly above the new sensing side.",
+      "before": "lid-before.webp",
+      "after": "lid-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 600,
+          "y": 450,
+          "r": 64.3,
+          "label": "Reed lead exit",
+          "at": [
+            74,
+            323.8,
+            253.4
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          87.80962904830405,
+          384.22645791676825,
+          333.64514176717216
+        ],
+        "target": [
+          74,
+          323.8,
+          253.4
+        ],
+        "up": [
+          0,
+          1,
+          0
+        ],
+        "fov": 45,
+        "near": 0.23963219778876388,
+        "far": 462.77613467223637,
+        "aspect": 1.3333333333333333
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [
+        "cold-core/foam-cap-lid-top"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "3540d14706293dc5014625f1cc17802171cc2ebe53bf874dde3aeeccff51cedc",
+          "commit": "54e53c1b11ecd79daac1695e7cb3496a14899fbb",
+          "taken": "2026-10-28T06:25:26.227Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "d36ba3b9868644913858e753c2e79abda0211fb614f44650d5ac068565dd0aab",
+          "commit": "f701d367cac37ded59ac94ef8cf290b5e33c54b4",
+          "published": false
+        }
+      },
+      "changed": [
+        "cold-core/float-stop-carb-top",
+        "wire-J7-CHI",
+        "wire-J7-CLO",
+        "wire-J7-carb-earth-1",
+        "wire-J7-carb-earth-2",
+        "cold-core/reed-carb-1",
+        "cold-core/reed-carb-2",
+        "cold-core/reed-bridge",
+        "cold-core/float-carb",
+        "cold-core/float-rod-carb",
+        "wire-temp-bus-V",
+        "wire-temp-bus-GND",
+        "wire-temp-bus-DATA",
+        "cold-core/probe-coil-ds18s20",
+        "cold-core/evap-tail-outlet",
+        "cold-core/evap-tail-inlet",
+        "cold-core/foam-cap-top",
+        "cold-core/evap-coil",
+        "cold-core/endcap-top",
+        "cold-core/endcap-bottom",
+        "cold-core/foam-cap-lid-top"
+      ],
+      "withinMeshing": [
+        "tube-above-core-vb-yb-link",
+        "tube-above-core-va-under-head",
+        "tube-above-core-water-in",
+        "wire-J1-positive-F",
+        "enclosure-pump-retainer",
+        "cold-core/valve-v-b",
+        "wire-AC6-PE",
+        "wire-J4-IO26",
+        "wire-J1-OUT4",
+        "wire-temp-GND",
+        "wire-J2-positive-J",
+        "tube-fluid-14",
+        "tube-above-core-va-fore-feed",
+        "wire-J4-3V3",
+        "cold-core/probe-carbonator-ds18b20",
+        "wire-J1-positive-D",
+        "funnel",
+        "wire-AC1-N",
+        "tube-above-core-drain-vb-east-link",
+        "elbow-cradle",
+        "cold-core/vb-outlet-return",
+        "wire-J3-IO35",
+        "cold-core/vb-inlet-turn",
+        "cold-core/vb-outlet-stem",
+        "drain-outlet-stem",
+        "wire-J1-positive-B",
+        "wire-J7-RB3",
+        "wire-J6-GND"
+      ]
+    },
+    {
+      "name": "upper-stop",
+      "caption": "The upper register carries a stainless float stop below the inlet tip.",
+      "before": "upper-stop-before.webp",
+      "after": "upper-stop-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 760.9,
+          "y": 305.6,
+          "r": 45,
+          "label": "Upper float stop",
+          "at": [
+            41.849,
+            323.8,
+            189.7
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          91.146436805565,
+          154.324980787015,
+          -72.12145601855002
+        ],
+        "target": [
+          12,
+          339,
+          191.7
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 60,
+        "near": 141.03112566581467,
+        "far": 500.2844227424053,
+        "aspect": 1.3333333333333333
+      },
+      "highlight": [
+        "cold-core/float-stop-carb-top"
+      ],
+      "ghost": [],
+      "only": [
+        "cold-core/endcap-top",
+        "cold-core/float-stop-carb-top",
+        "cold-core/float-rod-carb"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "3540d14706293dc5014625f1cc17802171cc2ebe53bf874dde3aeeccff51cedc",
+          "commit": "54e53c1b11ecd79daac1695e7cb3496a14899fbb",
+          "taken": "2026-10-28T06:25:26.227Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "fb994e476988df5672c61730886aac1be0d31ec4e9c2a5c196c7cbe8c74d2107",
+          "commit": "c4014c64aee75570b39a6e21acddd237173902bb",
+          "published": false
+        }
+      },
+      "changed": [
+        "cold-core/float-stop-carb-top",
+        "wire-J7-CHI",
+        "wire-J7-CLO",
+        "wire-J7-carb-earth-1",
+        "wire-J7-carb-earth-2",
+        "cold-core/reed-carb-1",
+        "cold-core/reed-carb-2",
+        "cold-core/reed-bridge",
+        "cold-core/float-carb",
+        "cold-core/float-rod-carb",
+        "wire-temp-bus-V",
+        "wire-temp-bus-GND",
+        "wire-temp-bus-DATA",
+        "cold-core/probe-coil-ds18s20",
+        "cold-core/evap-tail-outlet",
+        "cold-core/evap-tail-inlet",
+        "cold-core/foam-cap-top",
+        "cold-core/evap-coil",
+        "cold-core/reservoir-grip-b-air",
+        "cold-core/tube-reservoir-air-b",
+        "cold-core/foam-cap-lid-top",
+        "cold-core/endcap-top",
+        "cold-core/endcap-bottom",
+        "cold-core/reservoir-b-cap"
+      ],
+      "withinMeshing": [
+        "tube-above-core-vb-yb-link",
+        "tube-above-core-va-under-head",
+        "tube-above-core-water-in",
+        "wire-J1-positive-F",
+        "enclosure-pump-retainer",
+        "cold-core/valve-v-b",
+        "wire-AC6-PE",
+        "wire-J4-IO26",
+        "wire-J1-OUT4",
+        "wire-temp-GND",
+        "wire-J2-positive-J",
+        "tube-fluid-14",
+        "tube-above-core-va-fore-feed",
+        "wire-J4-3V3",
+        "cold-core/probe-carbonator-ds18b20",
+        "wire-J1-positive-D",
+        "funnel",
+        "wire-AC1-N",
+        "tube-above-core-drain-vb-east-link",
+        "elbow-cradle",
+        "cold-core/vb-outlet-return",
+        "wire-J3-IO35",
+        "cold-core/vb-inlet-turn",
+        "cold-core/vb-outlet-stem",
+        "drain-outlet-stem",
+        "wire-J1-positive-B",
+        "wire-J7-RB3",
+        "wire-J6-GND"
+      ]
+    }
+  ]
+}

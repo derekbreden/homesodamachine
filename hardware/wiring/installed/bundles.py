@@ -85,7 +85,10 @@ def centreline(b,attachments):
         import _internal_routes
         corridor=_above_core_mounts.cable_guide_points(b['passage'])
         source_points=list(reversed(corridor['points_mm']))
-        native=_internal_routes.route_wire(source_points,corridor['bend_radius_mm'])
+        if b.get('above_cap_stations_mm'):
+            source_points=[*map(tuple,b['above_cap_stations_mm']),*source_points]
+        native=_internal_routes.route_wire(source_points,
+            b.get('above_cap_bend_radius_mm',corridor['bend_radius_mm']))
         # Read the actual native bore's edges, including its own fitted radii.
         # A different polyline fillet rule can drift outside this narrow bore.
         remaining=list(native.Edges());segments=[];cursor=tuple(source_points[0])
@@ -102,10 +105,12 @@ def centreline(b,attachments):
                            radius_mm=radius,angle_radians=edge.Length()/radius)
             segments.append(row);cursor=end
         first=tuple(source_points[0])
-        top=(first[0],first[1],265. if b['passage']=='reed-cable-b' else 270.)
-        segments.insert(0,{'kind':'line','start_mm':top,'end_mm':first,
-                           'length_mm':math.dist(top,first)})
-        points=[top,*source_points]
+        points=source_points
+        if not b.get('above_cap_stations_mm'):
+            top=(first[0],first[1],265. if b['passage']=='reed-cable-b' else 270.)
+            segments.insert(0,{'kind':'line','start_mm':top,'end_mm':first,
+                               'length_mm':math.dist(top,first)})
+            points=[top,*source_points]
         cached[b['passage']]=(points,segments)
         attachments._shared_cap_cables=cached
         return points,segments
@@ -149,7 +154,8 @@ def core_route(connection,attachments):
         exit=[last,tail,*[attachments.station(s) for s in fan.get('exit_stations',[])],
               add(end.point,mul(end.outward,fan['end_lands_mm'][1])),end.point]
         fixed_stations=b.get('jacket',True)
-        segments=(rounded_segments(entry,fan.get('bend_radius_mm',4.),keep_collinear=fixed_stations)+
+        segments=(rounded_segments(entry,fan.get('bend_radius_mm',4.),keep_collinear=fixed_stations,
+                                   endpoint_tangent_fraction=fan.get('endpoint_tangent_fraction',.44))+
                   core+rounded_segments(exit,fan.get('bend_radius_mm',4.),keep_collinear=fixed_stations))
         radii=[s['radius_mm'] for s in segments if s['kind']=='arc']
         route=Route(connection,entry+[s['end_mm'] for s in core]+exit[1:],segments,
