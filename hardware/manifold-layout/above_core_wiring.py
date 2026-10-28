@@ -64,7 +64,7 @@ def placements():
              'PSU secondary / pump negative / PCB J10 GND'),
             ('wago-reeds-b', 250.55, 286.1, WALL_BACK_AFT,
              'PCB J7 / reservoir B / carbonator reed common')):
-        put(name, '413', 'cold-core', turn, (31.5, y, z), purpose)
+        put(name, '413', 'cold-core', turn, (29.0, y, z), purpose)
     # These branch points travel with the complete front valve manifold.
     put('wago-mana', '420', 'front-top', EAST_FLANK, (95.20, 185.05, 277.),
         'J1 valve common and eight A-H coil branches')
