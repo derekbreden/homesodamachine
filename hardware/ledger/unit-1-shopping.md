@@ -13,7 +13,7 @@ Checked October 21, 2026 against the current BOM, purchase ledger, batch invento
 
 | Item | Unit 1 allocation | Recorded stock and source |
 |---|---:|---|
-| [neoFlo black 4 mm OD / 2.5 mm ID LLDPE](https://www.freshwatersystems.com/products/black-4mm-od-lldpe-polyethylene-tubing?variant=50723039248568) | Both internal dispense runs, two continuous 1,963 mm faucet runs, fitting engagements and cutting allowance | 100 ft, FWS WEBFWS100715131, ordered October 24 ([purchase ledger](purchases.md)). |
+| [neoFlo black 4 mm OD / 2.5 mm ID LLDPE](https://www.freshwatersystems.com/products/black-4mm-od-lldpe-polyethylene-tubing?variant=50723039248568) | Both internal dispense runs, two continuous 1,963 mm faucet runs, fitting engagements and cutting allowance | 100 ft, FWS WEBFWS100715131, delivered October 28 ([purchase ledger](purchases.md)). |
 | [ARD4M4-E, 4 mm tube × 1/4-inch stem reducer](https://www.freshwatersystems.com/products/neofit-acetal-black-stem-reducer-4mm-5-32-tube-x-1-4-stem?variant=42404048339128) | 2 | Bag of 10, FWS WEBFWS100711469, delivered October 9 ([purchase ledger](purchases.md)). Remaining loose stock is uncounted. |
 | [ABU44M-E, 4 mm bulkhead](https://www.freshwatersystems.com/products/neofit-acetal-black-bulkhead-connector-4mm-5-32-tube) | 2 FLAVOR + 1 OVER | Same delivered order, bag of 10. The flavor pair and drain together consume three fittings per machine. |
 | White 4 mm OVER tubing | One continuous faucet run and internal return | Four 25 ft lengths delivered on the same order. Keep this stock assigned to the white OVER circuit. |

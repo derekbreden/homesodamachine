@@ -183,7 +183,8 @@ Check valves, water-inlet jet fittings, diagnostic pumps and carbonation parts, 
 | <!--purchase:pur-75e2868ec892406fa186ca13d17e7497--> TAISHER forged 316L SS 90° street elbow, 1/4" female NPT × 1/4" male NPT, 2-pack — water-inlet jet qualification coupon and spare | [B0CZ38MYL1](https://www.amazon.com/dp/B0CZ38MYL1) | 1 pk (2) | $22.51 | 112-0884852-3444230 | 2026-09-15 | 2026-09-17 | ACQUIRED |
 | <!--purchase:pur-51e99d8549c9421081ecf1e8151ed165--> G Ganen 12 V diaphragm pump, advertised 110 psi / 4.5 L/min — the selected diaphragm pump; this received sample is its [measured reference](/hardware/reference/g-ganen-pump/README.md) | [B07F35PTFR](https://www.amazon.com/dp/B07F35PTFR) | 1 | $19.29 | 112-0884852-3444230 | 2026-09-15 | 2026-09-17 | ACQUIRED |
 | <!--purchase:pur-b45edf5bf83a442a9c580969adbfa616--> IEIK 12 V 60 W diaphragm pump, advertised 116 psi / 5 L/min — measurement-only purchase | [B07YXTHNRQ](https://www.amazon.com/dp/B07YXTHNRQ) | 1 | $20.37 | 112-0884852-3444230 | 2026-09-15 | 2026-09-17 | ACQUIRED (diagnostic stock, no production allocation) |
-| <!--purchase:pur-43767918757a4173a8b69a9b725d64fd--> Fresh Water Systems order WEBFWS100715131 — neoFit **ACHV44-E** acetal black single check valve, 1/4" tube, 0.3 psi crack pressure (bag of 10) + neoFit **ATEU44W** acetal white stem elbow, 1/4" tube × 1/4" stem (3 × bag of 10) + neoFit **ATBU444-E** acetal black branch stem tee, 1/4" tube × 1/4" stem (bag of 10) + neoFlo **LLDPE4M-BLACK** black 4 mm OD LLDPE tubing (100 ft) | [FWS](https://www.freshwatersystems.com/) | 4 line items | $173.54 | WEBFWS100715131 | 2026-10-24 | — | ON-ORDER (ground, 4–5 business days. Merchandise by line: ACHV44-E $80.40; ATEU44W $36.18 for 30; ATBU444-E $17.64; black 4 mm tubing $13.00 for 100 ft — $147.22 merchandise + $14.58 shipping + $11.74 tax. Check valves for the CO2 and water-side checks; stem elbows for the pump dock's lower returns and the above-core layout's trimmed-stem joints; the branch tee for that layout's water split; the tubing for the black 4 mm flavor dispense lines) |
+| <!--purchase:pur-43767918757a4173a8b69a9b725d64fd--> Fresh Water Systems order WEBFWS100715131 — neoFit **ACHV44-E** acetal black single check valve, 1/4" tube, 0.3 psi crack pressure (bag of 10) + neoFit **ATEU44W** acetal white stem elbow, 1/4" tube × 1/4" stem (3 × bag of 10) + neoFit **ATBU444-E** acetal black branch stem tee, 1/4" tube × 1/4" stem (bag of 10) + neoFlo **LLDPE4M-BLACK** black 4 mm OD LLDPE tubing (100 ft) | [FWS](https://www.freshwatersystems.com/) | 4 line items | $173.54 | WEBFWS100715131 | 2026-10-24 | 2026-10-28 | ACQUIRED (UPS 1Z89YF110338370723, all four lines in one shipment. Merchandise by line: ACHV44-E $80.40; ATEU44W $36.18 for 30; ATBU444-E $17.64; black 4 mm tubing $13.00 for 100 ft — $147.22 merchandise + $14.58 shipping + $11.74 tax = $173.54 paid. Check valves for the CO2 and water-side checks; stem elbows for the pump dock's lower returns and the above-core layout's trimmed-stem joints; the branch tee for that layout's water split; the tubing for the black 4 mm flavor dispense lines) |
+| <!--purchase:pur-9d9726d27ea04842b803208c17fd1b37--> Fresh Water Systems order WEBFWS100715944 — neoFit **AME4-N2-E** acetal black male elbow, fixed, 1/4" tube × 1/4" NPTF, EPDM O-ring (2 × bag of 10) | [AME4-N2-E](https://www.freshwatersystems.com/products/neofit-acetal-black-male-elbow-1-4-tube-x-1-4-nptf) | 2 bags (20) | $49.13 | WEBFWS100715944 | 2026-10-28 | — | ON-ORDER (2-business-day shipping. $31.20 merchandise ($15.60 a bag of 10) + $14.60 shipping + $3.33 tax = $49.13 paid. One-piece push-fit 90° turns for a fit trial at carbonator Ports 1 and 3, held in inventory.md) |
 
 ## 5. Flavor subsystem
 
@@ -822,19 +823,19 @@ Printed copies of the [install guide](/hardware/install-guide/README.md). Lulu o
 
 | Status | $ |
 |---|---|
-| Acquired hardware valuation — includes replaced/returned originals | [$40,176.90](LEDGER_ACQUIRED_HW) |
+| Acquired hardware valuation — includes replaced/returned originals | [$40,350.44](LEDGER_ACQUIRED_HW) |
 | Engineering services (§18) | [$6,519.51](LEDGER_LABOR) |
-| Acquired procurement valuation (combined) | [$46,696.41](LEDGER_ACQUIRED_COMBINED) |
-| ON-ORDER | [$2,195.98](LEDGER_ON_ORDER) |
+| Acquired procurement valuation (combined) | [$46,869.95](LEDGER_ACQUIRED_COMBINED) |
+| ON-ORDER | [$2,071.57](LEDGER_ON_ORDER) |
 | MISSING — not in hand | [$53.07](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
-| **Recorded procurement valuation — includes commitments** | [$48,945.46](LEDGER_GRAND_TOTAL) |
+| **Recorded procurement valuation — includes commitments** | [$48,994.59](LEDGER_GRAND_TOTAL) |
 
 Price evidence within the procurement valuation:
 
 | Amount basis | USD |
 |---|---|
-| Final vendor amounts | [$20,970.33](LEDGER_FINAL_VENDOR) |
+| Final vendor amounts | [$21,019.46](LEDGER_FINAL_VENDOR) |
 | Estimated amounts | [$3,985.45](LEDGER_ESTIMATES) |
 | Legacy / unverified amounts | [$23,989.68](LEDGER_LEGACY_UNVERIFIED) |
 
@@ -842,9 +843,9 @@ Merchant-evidenced payments (project shares; includes the undated bucket):
 
 | Event basis | USD |
 |---|---|
-| Completed charges | [$17,656.93](LEDGER_MERCHANT_CHARGES) |
+| Completed charges | [$17,879.60](LEDGER_MERCHANT_CHARGES) |
 | Issued monetary refunds | [$0.00](LEDGER_MERCHANT_REFUNDS) |
-| Charges less monetary refunds | [$17,656.93](LEDGER_MERCHANT_NET) |
+| Charges less monetary refunds | [$17,879.60](LEDGER_MERCHANT_NET) |
 
 The retrieved records have partial vendor coverage. An empty month or refund total is not evidence of account-wide zero activity. Authorizations, pending charges and noncash credit do not enter this view.
 
@@ -855,7 +856,7 @@ Acquired hardware valuation by section (includes replaced/returned originals):
 | 1 | Carbonator fabrication | [$4,664.67](LEDGER_SEC1) |
 | 2 | CO2 subsystem (incl. Lillium prototype carbonator $1,129) | [$2,180.19](LEDGER_SEC2) |
 | 3 | Water supply + backflow prevention | [$1,616.71](LEDGER_SEC3) |
-| 4 | Carbonator plumbing | [$344.93](LEDGER_SEC4) |
+| 4 | Carbonator plumbing | [$518.47](LEDGER_SEC4) |
 | 5 | Flavor subsystem | [$2,034.82](LEDGER_SEC5) |
 | 6 | Refrigeration | [$1,984.90](LEDGER_SEC6) |
 | 7 | Dispensing end | [$237.65](LEDGER_SEC7) |
