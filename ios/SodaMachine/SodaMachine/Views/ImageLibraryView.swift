@@ -104,7 +104,7 @@ struct ImageLibraryView: View {
             Task {
                 guard await ble.ensureTrusted(.image, channel: channel) else { return }
                 ble.setFlavorArt(channel: channel, art: art)
-                nav.back()
+                nav.back(from: .images(channel))
             }
         } label: {
             VStack(spacing: 8) {
