@@ -46,3 +46,11 @@ exits.
 launchctl bootout gui/$(id -u)/com.homesodamachine.transcript-offload
 launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/com.homesodamachine.transcript-offload.plist
 ```
+
+A run brings sidebar sessions back first and evicts last. To bring an
+unarchived session back now instead of on the next hourly run, restart the job.
+`-k` stops a run that is still going:
+
+```sh
+launchctl kickstart -k gui/$(id -u)/com.homesodamachine.transcript-offload
+```
