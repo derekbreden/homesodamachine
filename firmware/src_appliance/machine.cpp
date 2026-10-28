@@ -618,8 +618,8 @@ uint16_t machineValvesOpen() { return pcba::expanders().currentOutputs().valves;
 // One topology state at a time. First the funnel — V-B, the channel's select
 // and its flavor tube open, pump on — for its planned time; then, kCleanRounds
 // times over, the channel's tap-water fill — V-A, its select and its return
-// open, pump off — until the full reed closes, then its flush — its draw and
-// its flavor tube open, pump on — until the empty reed has opened and the tail
+// open, pump on — until the full reed closes, then its flush — its draw and
+// its flavor tube open, pump on — until the empty reed has closed and the tail
 // has drawn the line clear. Every step ends at its planned time as well
 // (machine_policy::clean*ShouldEnd). Between steps the pump stops, every valve
 // closes, and nothing is energised for kCleanSettleMs.
@@ -744,7 +744,7 @@ static void cleanParked(uint8_t outcome) {
     cleanAnnounce(millis());
 }
 
-// The next step's valves open and, for the funnel or a flush, its pump starts.
+// The next step's valves open, then the selected channel's pump starts.
 // False parks everything and ends the cycle as a fault.
 static bool cleanStepBegin(uint32_t now) {
     const machine_policy::CleanStep step = cleanStepOf(cleanStepIndex);

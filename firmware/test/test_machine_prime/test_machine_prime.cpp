@@ -154,7 +154,7 @@ Expanders &expanders() {
 
 // Compile the production actuator arbiter and expander driver, with only
 // their hardware endpoints replaced. This covers the actual entry/exit
-// handlers rather than a separate test model of Prime.
+// handlers for Prime and cleaning.
 #include "../../src_appliance/machine.cpp"
 
 namespace {
@@ -242,6 +242,79 @@ size_t firstDuty(uint32_t duty) {
         if (host::events[i].kind == host::EventKind::Duty && host::events[i].value == duty)
             return i;
     return host::events.size();
+}
+
+void expectCleanPump(uint8_t channel, uint8_t step, uint16_t valves) {
+    MachineCleanState value;
+    machineReadCleanState(value);
+    TEST_ASSERT_TRUE(machineIsCleaning());
+    TEST_ASSERT_EQUAL_UINT8(step, value.step);
+    TEST_ASSERT_EQUAL_UINT8(channel, value.channel);
+    TEST_ASSERT_EQUAL_HEX16(valves, machineValvesOpen());
+    TEST_ASSERT_EQUAL_UINT32(255, host::duties[pumpPin(channel)]);
+    TEST_ASSERT_EQUAL_UINT32(0, host::duties[pumpPin(channel ^ 1)]);
+}
+
+void beginCleanWaterFill(uint8_t channel) {
+    using machine_policy::Valve;
+    using machine_policy::valveBit;
+    const uint16_t valves = valveBit(Valve::A) | (channel == 0
+        ? valveBit(Valve::C) | valveBit(Valve::F)
+        : valveBit(Valve::D) | valveBit(Valve::I));
+    host::bus.at(channel == 0 ? pcba::MCP_RESERVOIR_A : pcba::MCP_RESERVOIR_B,
+                 host::kGpioB) = 0xff;
+    TEST_ASSERT_TRUE(machineCleanBegin(channel, 1, 1000));
+    runAt(host::now + 1000);  // the opening funnel step ends
+    TEST_ASSERT_EQUAL_UINT32(0, host::duties[pumpPin(channel)]);
+    runAt(host::now + machine_policy::kCleanSettleMs);
+    expectCleanPump(channel, CLEAN_STEP_WATER_FILL, valves);
+}
+
+void test_clean_water_fill_pumps_both_channels_until_full_or_deadline_then_flushes() {
+    for (uint8_t channel = 0; channel < 2; ++channel) {
+        for (uint8_t full = 0; full < 2; ++full) {
+            beginCleanWaterFill(channel);
+            const uint16_t fillValves = machineValvesOpen();
+            if (full) {
+                host::bus.at(channel == 0 ? pcba::MCP_RESERVOIR_A : pcba::MCP_RESERVOIR_B,
+                             host::kGpioB) &= static_cast<uint8_t>(~machine_policy::kReservoirReedFull);
+                runAt(host::now + machine_policy::kCleanReedPeriodMs);
+            } else {
+                runAt(host::now + 999);
+                expectCleanPump(channel, CLEAN_STEP_WATER_FILL, fillValves);
+                runAt(host::now + 1);
+            }
+            TEST_ASSERT_EQUAL_UINT32(0, host::duties[pumpPin(channel)]);
+            runAt(host::now + machine_policy::kCleanSettleMs - 1);
+            TEST_ASSERT_EQUAL_UINT32(0, host::duties[pumpPin(channel)]);
+            TEST_ASSERT_EQUAL_HEX16(fillValves, machineValvesOpen());
+            runAt(host::now + 1);
+            expectCleanPump(channel, CLEAN_STEP_FLUSH, dispensePair(channel));
+            runAt(host::now + 1000);
+            runAt(host::now + machine_policy::kCleanSettleMs);
+            MachineCleanState value;
+            machineReadCleanState(value);
+            TEST_ASSERT_FALSE(machineIsCleaning());
+            TEST_ASSERT_EQUAL_UINT8(CLEAN_OUTCOME_DONE, value.outcome);
+            expectParked();
+        }
+    }
+}
+
+void test_clean_stop_stops_water_fill_motor_before_closing_its_valves() {
+    for (uint8_t channel = 0; channel < 2; ++channel) {
+        beginCleanWaterFill(channel);
+        const uint16_t valves = machineValvesOpen();
+        machineStop();
+        TEST_ASSERT_EQUAL_UINT32(0, host::duties[pumpPin(channel)]);
+        TEST_ASSERT_EQUAL_HEX16(valves, machineValvesOpen());
+        runAt(host::now + machine_policy::kCleanSettleMs);
+        MachineCleanState value;
+        machineReadCleanState(value);
+        TEST_ASSERT_FALSE(machineIsCleaning());
+        TEST_ASSERT_EQUAL_UINT8(CLEAN_OUTCOME_STOPPED, value.outcome);
+        expectParked();
+    }
 }
 
 void test_ready_and_cancel_ready_drive_nothing() {
@@ -748,5 +821,7 @@ int main(int, char **) {
     RUN_TEST(test_gas_trip_stops_wet_hold_and_refuses_new_admission);
     RUN_TEST(test_console_motor_check_stays_bounded_without_valves_or_prime_fault_hook);
     RUN_TEST(test_selftest_motor_step_remains_an_individual_load);
+    RUN_TEST(test_clean_water_fill_pumps_both_channels_until_full_or_deadline_then_flushes);
+    RUN_TEST(test_clean_stop_stops_water_fill_motor_before_closing_its_valves);
     return UNITY_END();
 }
