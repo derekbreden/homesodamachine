@@ -314,10 +314,13 @@ class Attachments:
                     point=(c[0],c[1],z)
                     basis='Reed capture-envelope ends; soldered lead extensions and insulation are proposed'
                     if bank=='carb':
-                        point=(c[0],c[1]+8.,z);axis=(0,1,0)
+                        tank=centre(self.part('carbonator-tube'))
+                        radial=unit((c[0]-tank[0],c[1]-tank[1],0.))
+                        tangent=(-radial[1],radial[0],0.)
+                        point=add((c[0],c[1],z),mul(radial,8.));axis=radial
                         basis='Proposed insulated splice outside the coil; the 14 mm reed capture envelope includes lead/tape room, not measured glass ends'
                         if label=='GND':
-                            point=(c[0]-2.8,c[1]+8.,z-3.)
+                            point=add(add((c[0],c[1],z-3.),mul(radial,8.)),mul(tangent,2.8))
                             axis=(0,0,1)
                             basis='Proposed insulated tap on the continuous carbonator-reed common, 2.8 mm beside the signal splice row and 3 mm below its capture envelope; local bare lead dressing nominal'
                     elif label=='GND':

@@ -222,7 +222,7 @@ carbonator_port_offset = 0.750 * 25.4
 # The register and external bridge share -Y, opposite the reservoirs' +Y sensing stations.
 carbonator_sensor_azimuth = -90.0
 carbonator_sensor_axis = (0.0, -1.0)
-# The upper register's 316L stop holds the float below the inlet-jet tip.
+# The upper register's stainless stop holds the float below the inlet-jet tip.
 carbonator_float_top_stop_height = 4.0
 carbonator_float_top_stop_diameter = 9.5
 
