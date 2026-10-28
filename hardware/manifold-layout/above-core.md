@@ -123,14 +123,17 @@ fits retain their named material, orientation and artifact scope in the
 
 The funnel extends 35 mm aft (+Y), retaining the fore edge. Its drain is at
 Y179.19575, at the enlarged mouth center. V-B's native origin is
-X38/Y244.90434/Z279.41. The WAGO wells and V-B wall share a flat top at Z298.65, retaining 1.25 mm to the funnel frame.
+X40/Y239.60434/Z279.41. The WAGO wells and V-B wall share a flat top at Z298.65, retaining 1.25 mm to the funnel frame.
 Seat the fore-facing WAGO bodies before fitting V-B’s inlet plumbing. The
-[wall-routing review](../printed-parts/cold-core/foam-cap/wago-wall-review/README.md)
-binds the current geometry and lid slice.
-Its inlet uses an R19.98 minimum S-offset between level stem-elbow sockets.
-Its return crosses west above the PCB at Y280.69954 to the union at
-X−24.83652/Z289.79407, then follows a 2 mm crowned R28.66 return into Y-B.
-The union has a direct lid support near its fixed body band. Terminate the
+[south-return review](../printed-parts/cold-core/foam-cap/south-return-review/README.md)
+binds the geometry and lid slice.
+Its inlet uses an R14.07 minimum S-offset between level stem-elbow sockets.
+The drain stem is 16.7 mm past its shoulder, including 1 mm showing above
+the drain union's collet; its collar clears the cradle by 1 mm.
+Its return crosses west on a level straight link at Y275.39954/Z279.41 to the
+union at X5.16348, then runs forward to Y239 before one R20.99 minimum curve
+enters Y-B. The union sits on a filled lid pedestal beneath its forward leg.
+Both return fittings are level. Terminate the
 PCB power connections and seat J11 before fitting the return. The recorded
 J11 housing path (6 mm up, 6 mm east, then 20 mm up with the funnel frame and
 drain removed) belongs to the X−50 return variant and does not qualify the

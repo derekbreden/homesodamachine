@@ -34,8 +34,8 @@ informed by the recorded physical fit. The core guide is a plain boundary in
 one uncut tube. Tighten the pump screws before connecting that inlet, which
 crosses one pump-driver approach; disconnect it for that screw's service.
 
-The V-B return has an integral lid restraint. Its broad ledge and flat root
-sit aft of the PCB, with one six-inch narrow tie on the fixed body band.
+The V-B return has a filled 11.24 × 11.5 mm lid pedestal beneath its forward
+leg, with a peaked tie passage and one six-inch narrow tie on the fixed body band.
 Keep both release collets free. V-A's low turn travels with back-top through
 its connected tubing. Support and dress that free feed on the open bench;
 its final connection is at front-top's Y-A. No independent V-A printed bearing
@@ -44,7 +44,7 @@ or retaining strip is included in this cap.
 Thread the V-B holder before seating the fitting and dress its tie before
 final upper connections. Complete J10 power termination and seat J11 before
 fitting the selected return; that return occupies J10's vertical screwdriver
-corridors, and the recorded J11 housing path belongs to the X−50 return variant. The native
+corridors in the recorded access study. The recorded J11 housing path belongs to the X−50 return variant. The native
 review includes the source-scoped pump and PCB mounting tools,
 seven JST housing withdrawal columns, both KF301 screw axes and 8 mm straight
 wire-entry lands. J1, J2 and J11 use the complete housing paths in the
@@ -63,7 +63,7 @@ head engagement and retention remain unqualified.
 
 | Restraint | Nominal strip route | Allocated tie |
 | --- | ---: | --- |
-| V-B outlet return | Selected route under access review | One 152.4 mm narrow tie |
+| V-B outlet return | 76.96 mm | One 152.4 mm narrow tie |
 | Water-check barrel | 72.34 mm | One 152.4 mm narrow tie |
 
 The [production arrangement](../../../manifold-layout/above-core.md) owns the
