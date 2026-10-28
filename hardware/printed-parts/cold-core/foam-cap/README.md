@@ -16,7 +16,7 @@ Two independent reservoir air tubes have floor-rooted 5.2 mm passages through
 the cup's foam cavity, with 2 mm printed walls and matching openings through
 the lid. Each straight 4 mm tube passes through a flush TPU grip in its
 reservoir lid and ends 6 mm above this casing face. Native shell-frame axes
-are A (120, -26) and B (-102, -32.5) mm; the top cup/lid install after their
+are A (120, -26) and B (-109, -32.5) mm; the top cup/lid install after their
 shared 180° half-turn. [Tube and grip details](../reservoir/vent.md).
 
 V-B uses the shared V69 socket profile. Its wall travels with the populated
@@ -95,13 +95,14 @@ V-B wall and lid. Their top and V-B’s wall share the flat Z298.65 mm plane, wi
 V-B’s native origin is Z279.41 mm.
 
 The four junction origins share world X29.0 mm. Reservoir B's 4 mm vent tube
-remains at X32.5/Y221.8, ending at Z259.4. Its Ø5.2 mm straight passage continues
-through the full adjacent V-B wall height. The west backing plane is X32.0;
-the vent has 1.5 mm nominal air to the lower V12 connector and 0.6 mm radial
-allowance in its printed passage. The socket backing and broad wall root remain
-at least 3 mm. These are native CAD clearances. The
-[vent and junction review](vent-review/README.md) binds this arrangement and
-the Mark1 archive for its recorded STL hash.
+stands at X32.5/Y214.8, ending at Z259.4. Its reservoir-lid seat, cup sleeve
+and Ø5.2 mm lid opening share one straight axis. V-B's wall is continuous,
+with its west backing plane at X32.0. The vent has 3.78 mm nominal air to
+the wall, 3.66 mm to the lower V12 connector and 0.6 mm radial allowance
+in its printed guide. The socket backing and broad wall root retain the
+ordinary 3 mm stock. The
+[straight vent review](../reservoir/straight-vent-review/README.md) binds the
+selected station and its published parts.
 
 Reservoir A’s draw and fill tubes use two direct fore C2 clips and one aft tied
 seat. Draw occupies the west position at each station. The fore tube axes are

@@ -1,0 +1,26 @@
+{
+  "scope": "Published straight B-vent station and the three matching printed interfaces. This manual review is separate from the remaining cap fluid-traverse assembly decision and adds no build or commit check.",
+  "source_commit": "50e626035",
+  "combined_sensor_source_commit": "c4014c64a",
+  "publication_commit": "2ac98443e",
+  "station_world_xy_mm": [
+    32.5,
+    214.8
+  ],
+  "station_shell_xy_mm": [
+    -109.0,
+    -32.5
+  ],
+  "straight_tube_cut_mm": 31.25,
+  "artifacts": {
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step": "f2f48827ab9115be3174f0c9d28fc407a92931d735c3efcd162a328972878718",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.stl": "263b609526495cdb6384a37f1051fdd6cf0dbe62ae80c1dd0f64c1b3ed60b11c",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step.mesh": "4fd3129189d107722f34d14687b7815b1676c2544e82b6fbe3f3b3beac0bc1f6",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step": "841d727786e3a1f9c6d0be98425f7e4aa7c7d8cb8938828d8808c698b7063149",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl": "38d824af559c855ea5ba24abfdfeeae590842cf5f2d42dc3d6b65d2dd844e4f5",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh": "b1e3e6297a14587a1abd3c94e9bd01d5fa3ca6b5d23e522edb2acccbc9243092",
+    "hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.step": "4007b3183881235299fd90941ce265974916efce74de6e8b4d4beb54ea9b1949",
+    "hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.stl": "ea70738980234a0e2695be4df473c0e00c11ca9a0a698530a939371ef3ff502a",
+    "hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.step.mesh": "51d3675f2e01d54b6fe074e95599e2b10b06c81bdf6984e04c01a62d08de9a2d"
+  }
+}
