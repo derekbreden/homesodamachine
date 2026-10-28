@@ -144,6 +144,9 @@ struct AppShell: View {
         .foregroundStyle(Theme.textPrimary)
         .tint(Theme.accent)
         .font(.body)
+        .overlay {
+            if let ask = ble.trustAsk, !ask.quiet { TrustAskOverlay(ask: ask) }
+        }
     }
 
     @ViewBuilder private func page(width: CGFloat, height: CGFloat) -> some View {

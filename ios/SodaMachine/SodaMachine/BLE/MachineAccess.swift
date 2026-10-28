@@ -110,6 +110,7 @@ final class MachineAccess {
         let descriptor = ASDiscoveryDescriptor()
         descriptor.bluetoothServiceUUID = CBUUID(string: "6E400001-B5A3-F393-E0A9-E50E24DCCA9E")
         descriptor.bluetoothRange = range
+        descriptor.supportedOptions = [.bluetoothPairingLE]
         return descriptor
     }
 
@@ -362,6 +363,7 @@ final class MachineAccess {
                 ble.holdRadio()
                 let m = ble.add(peripheralID: id)
                 adopt(picked, as: m, named: picked.displayName != Self.unnamed)
+                ble.askTrustOnLink()
                 added += 1
                 outcome = nil
             } else if let failure {

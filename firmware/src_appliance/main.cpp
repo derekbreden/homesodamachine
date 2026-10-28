@@ -262,6 +262,8 @@ static void help() {
     Serial.println("  versions          what each board on this machine is running");
     Serial.println("  identity [<name>] the model and unit a phone sees, and what to call it");
     Serial.println("  ble               the radio, asked of the display that has it");
+    Serial.println("  trust [forget]    how many phones the faucet trusts; 'forget' forgets every one");
+    Serial.println("  trust yes|no      answer the trust ask that is up, as a tap on a display would");
     Serial.println("  images            what pictures each display holds; 'images sync' reconciles now,");
     Serial.println("                    'images erase|relay|test <slot>' act on one");
     Serial.println("  wifi [on|off|<KB>[q]]   the radio bench: the enclosure sinks, the faucet sends");
@@ -954,6 +956,13 @@ static void console(const String &line) {
     if (line.startsWith("ota"))    { otaConsole(line); return; }
     if (line.startsWith("identity")) { identityConsole(line); return; }
     if (line == "ble")             { faucetLinkBleReport(); return; }
+    if (line == "trust")           { faucetLinkRelay(MSG_TRUST_REPORT, nullptr, 0); return; }
+    if (line == "trust forget")    { faucetLinkRelay(MSG_TRUST_FORGET, nullptr, 0); return; }
+    if (line == "trust yes" || line == "trust no") {
+        TrustAnswerPayload a{0, (uint8_t)(line == "trust yes" ? 1 : 0)};
+        faucetLinkRelay(MSG_TRUST_ANSWER, &a, sizeof(a));
+        return;
+    }
     if (line.startsWith("images erase")) {
         String rest = line.substring(12); rest.trim();
         const uint8_t slot = rest.length() ? (uint8_t)rest.toInt() : 0xFF;

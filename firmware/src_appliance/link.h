@@ -71,6 +71,10 @@ bool linkDisplayUsbReattach();
 // to end it now. True when the display answered.
 bool linkTestScreen(uint16_t seconds);
 
+// A message from the faucet for the enclosure, announced on its next poll: a
+// trust ask showing or closing, and what forgetting the trusted phones found.
+void linkRelay(uint8_t type, const void *data, uint8_t len);
+
 // A customer page on the enclosure display, from the console — and, with act,
 // that page's one commitment pressed, through the handlers a finger reaches.
 // True when the display answered that it showed it.

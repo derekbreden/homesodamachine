@@ -73,7 +73,12 @@ struct ImageLibraryView: View {
                             isPresented: Binding(get: { removing != nil }, set: { if !$0 { removing = nil } }),
                             titleVisibility: .visible) {
             Button("Remove", role: .destructive) {
-                if let art = removing, let slot = ble.flavorArt.customSlot(art: art) { ble.removeImage(slot: slot) }
+                if let art = removing, let slot = ble.flavorArt.customSlot(art: art) {
+                    Task {
+                        guard await ble.ensureTrusted(.image) else { return }
+                        ble.removeImage(slot: slot)
+                    }
+                }
                 removing = nil
             }
             Button("Cancel", role: .cancel) { removing = nil }
@@ -96,8 +101,11 @@ struct ImageLibraryView: View {
     private func tile(art: Int, label: String, height: CGFloat, custom: Bool) -> some View {
         let chosen = ble.flavorArt.art.indices.contains(channel) && ble.flavorArt.art[channel] == art
         return Button {
-            ble.setFlavorArt(channel: channel, art: art)
-            nav.back()
+            Task {
+                guard await ble.ensureTrusted(.image, channel: channel) else { return }
+                ble.setFlavorArt(channel: channel, art: art)
+                nav.back()
+            }
         } label: {
             VStack(spacing: 8) {
                 FlavorArtView(art: art, height: height)
@@ -186,13 +194,19 @@ struct ImageLibraryView: View {
     }
 
     private func add(_ crop: UIImage) {
-        let preview = ImageBundle.preview(from: crop)
-        guard let slot = ble.enqueueImage(crop, preview: preview) else { return }
-        ble.setFlavorArt(channel: channel, art: ble.flavorArt.artIndex(customSlot: slot))
+        Task {
+            guard await ble.ensureTrusted(.image, channel: channel) else { return }
+            let preview = ImageBundle.preview(from: crop)
+            guard let slot = ble.enqueueImage(crop, preview: preview) else { return }
+            ble.setFlavorArt(channel: channel, art: ble.flavorArt.artIndex(customSlot: slot))
+        }
     }
 
     private func retry() {
-        guard let slot = ble.retryFailedImage() else { return }
-        ble.setFlavorArt(channel: channel, art: ble.flavorArt.artIndex(customSlot: slot))
+        Task {
+            guard await ble.ensureTrusted(.image, channel: channel) else { return }
+            guard let slot = ble.retryFailedImage() else { return }
+            ble.setFlavorArt(channel: channel, art: ble.flavorArt.artIndex(customSlot: slot))
+        }
     }
 }

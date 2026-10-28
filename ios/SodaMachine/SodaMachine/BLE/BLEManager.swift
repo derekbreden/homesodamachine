@@ -55,6 +55,18 @@ class BLEManager {
     /// The demo's run in progress (DemoMachine.swift).
     @ObservationIgnored var demoRunTask: Task<Void, Never>?
 
+    // ── Trust (MachineTrust.swift) ───────────────────────────────────────
+    /// Where this device stands with the machine on this link; nil until the
+    /// faucet says, and from a faucet that does not ask for trust.
+    var trust: TrustStanding?
+    /// The ask on the machine's displays from this device, while there is one.
+    var trustAsk: TrustAsk?
+    /// When the setup ask was answered Trust, for the Machine page to say so.
+    var trustGrantedAt: Date?
+    @ObservationIgnored var trustWaiting: CheckedContinuation<TrustOutcome, Never>?
+    @ObservationIgnored var trustAskSeq = 0
+    @ObservationIgnored var trustAskOnLink = false
+
     // The demo: a machine that is always in range and never existed.
     var demoMode: Bool { current?.isDemo ?? false }
 
@@ -344,11 +356,19 @@ class BLEManager {
         machine.name = name
         if machine.isDemo { directory.save(); return }
         machine.pendingName = name
-        if linked, current?.id == machine.id {
+        if linked, current?.id == machine.id, trust == nil || trust == .trusted {
             send("IDENTITY \(name)")
             namePushed = true
         }
         directory.save()
+    }
+
+    /// A name given while the machine could not take it — out of earshot, or
+    /// not yet trusting this device — sent now that it can.
+    func pushPendingName() {
+        guard linked, let name = current?.pendingName else { return }
+        send("IDENTITY \(name)")
+        namePushed = true
     }
 
     /// Turn the radio toward the machine this phone is pointed at: the demo is
@@ -445,6 +465,7 @@ class BLEManager {
         if connectionState != .bluetoothOff { connectionState = .searching }
         namePushed = false
         abandonBridgeRequests()
+        abandonTrust()
         imageQueue = []
         activeUpload = nil
         imageUploadState = .idle
@@ -621,20 +642,15 @@ class BLEManager {
         connectionState = .connected
         if let machine = current {
             machine.lastConnected = Date()
-            // A name given while the machine was out of earshot, now
-            // that it is in it.
-            if let name = machine.pendingName {
-                send("IDENTITY \(name)")
-                namePushed = true
-            } else {
-                // ASK A MACHINE WHO IT IS RATHER THAN WAIT TO BE TOLD.
-                // A record with no unit matches only on peripheral id,
-                // and those are per app install — one reinstall and it
-                // is orphaned against the machine it belongs to. The
-                // board answers this with its identity, and `introduce`
-                // folds the record into the unit's own.
-                send("IDENTITY")
-            }
+            // ASK A MACHINE WHO IT IS RATHER THAN WAIT TO BE TOLD.
+            // A record with no unit matches only on peripheral id, and
+            // those are per app install — one reinstall and it is orphaned
+            // against the machine it belongs to. The board answers this
+            // with its identity, its bridge and where this device stands,
+            // and `introduce` folds the record into the unit's own. A name
+            // given while the machine was out of earshot follows once the
+            // machine trusts this device (pushPendingName).
+            send("IDENTITY")
             directory.save()
         }
         // A prototype is listed and can be removed. An appliance is asked
@@ -1067,6 +1083,7 @@ private class CBDelegateAdapter: NSObject, CBCentralManagerDelegate, CBPeriphera
         ble.stopFacePump()
         ble.namePushed = false
         ble.abandonBridgeRequests()
+        ble.abandonTrust()
         ble.connectionState = ble.radioOff ? .bluetoothOff : .searching
         ble.scheduleReconnect()
     }
@@ -1148,6 +1165,8 @@ private class CBDelegateAdapter: NSObject, CBCentralManagerDelegate, CBPeriphera
             case 0x01: // TEXT — why a name did not reach the main board
                 if let text = String(data: payload, encoding: .utf8), text.hasPrefix("ERR:") {
                     log.error("Error response: \(text)")
+                    // Not taken, so the name stands until the machine trusts this device.
+                    if text == "ERR:IDENTITY:UNTRUSTED" { ble.namePushed = false }
                 }
             case 0x11: // OTA_NEED — the board asking for its next piece
                 ble.handleOtaNeed(payload)
@@ -1169,6 +1188,8 @@ private class CBDelegateAdapter: NSObject, CBCentralManagerDelegate, CBPeriphera
                 ble.handleBridgeAnswer(payload)
             case BridgeFrame.version: // the faucet carries the bridge
                 ble.handleBridgeVersion(payload)
+            case TrustFrame.state: // where this device stands with the machine
+                ble.handleTrust(payload)
             default:
                 break
             }

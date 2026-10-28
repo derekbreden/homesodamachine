@@ -10,6 +10,7 @@
 #include "fw_version.h"
 #include "front_ui_policy.h"
 #include "proto_link.h"
+#include "trust_text.h"
 #include <driver/gpio.h>
 #include <esp_sleep.h>
 #include "soc/gpio_reg.h"
@@ -258,6 +259,7 @@ static bool primeLinkOwnsJ9();
 static void primeSessionService();
 static void lockScreenShow(const char *kicker, const char *title, const char *body);
 static void lockScreenHide();
+static void askHide();
 
 // ── UI objects ──
 static lv_obj_t *lockScreen, *lockLogoImg, *lockKicker, *lockTitle, *lockBody;
@@ -1782,6 +1784,9 @@ static void refreshStatusReeds();
 static void refreshStatusThermal();
 static void refreshFlavorText();
 static bool uiShow(const UiShowPayload &req);
+static void trustShow(const TrustShowPayload &ask);
+static void trustClose(uint8_t askId);
+static void trustForgot(uint8_t count);
 
 static void j9OnMessage(HdlcLink *link, const uint8_t *frame, uint16_t len) {
   awaitingAnswer = false;   // the main board has spoken; the wire is ours again
@@ -1896,6 +1901,29 @@ static void j9OnMessage(HdlcLink *link, const uint8_t *frame, uint16_t len) {
     memcpy(&req, payload, sizeof(req));
     const bool shown = uiShow(req);
     link->sendResponse(MSG_RESP_UI_SHOW, shown ? 1 : 0);
+    return;
+  }
+
+  // A phone's trust ask, from the faucet that runs it, and what forgetting the
+  // trusted phones found. None of them is answered in the turn.
+  if (type == MSG_TRUST_SHOW && plen >= sizeof(TrustShowPayload)) {
+    TrustShowPayload ask;
+    memcpy(&ask, payload, sizeof(ask));
+    trustShow(ask);
+    return;
+  }
+
+  if (type == MSG_TRUST_CLOSE && plen >= sizeof(TrustClosePayload)) {
+    TrustClosePayload req;
+    memcpy(&req, payload, sizeof(req));
+    trustClose(req.askId);
+    return;
+  }
+
+  if (type == MSG_RESP_TRUST_FORGET && plen >= sizeof(TrustForgotPayload)) {
+    TrustForgotPayload forgot;
+    memcpy(&forgot, payload, sizeof(forgot));
+    trustForgot(forgot.count);
     return;
   }
 
@@ -3433,6 +3461,7 @@ static void buildLockScreen(lv_obj_t *scr) {
 
 static void lockScreenShow(const char *kicker, const char *title, const char *body) {
   if (!lockScreen) return;
+  askHide();   // the lock takes the glass; a phone's ask still stands on the faucet
   lv_obj_set_pos(lockScreen, 0, 0);
   lv_obj_set_size(lockScreen, SCREEN_W, SCREEN_H);
   operationResultVisible = false;
@@ -4235,6 +4264,169 @@ static void testScreenHide() {
   lastInputTime = millis();
 }
 
+// ── Trusted phones ────────────────────────────────────────────────────────
+// Any phone reads the machine; changing it takes a phone the faucet trusts, and
+// a tap on either glass is what trusts one. The faucet runs each ask and the
+// main board carries it here, so the words are trust_text.h's, the same on
+// both glasses. An answer goes back the same way and nothing here keeps it.
+//
+// One modal carries the ask and Forget's confirmation, over every page and an
+// operation's result card, under the camera's test screen. An ask goes up when
+// uiShow() would put a page up: never over a lock or a live hold on this glass,
+// where the faucet's own ask still stands, and a dark glass is woken for it.
+// While up it holds the dark off, as a lock does, and a lock coming up takes it
+// down.
+#define ASK_W        640
+#define ASK_H        330
+#define ASK_PAD       32
+#define ASK_BTN_H     66
+#define ASK_BTN_GAP   16
+#define ASK_MS     75000   // the longest an ask stands; the faucet ends its own at 60 s and says so
+#define FORGOT_MS   6000   // how long what Forget found stays above it
+
+enum AskMode : uint8_t { ASK_NONE, ASK_TRUST, ASK_FORGET };
+static AskMode askMode = ASK_NONE;
+static uint8_t trustAskId = 0;           // the faucet's number for the ask on the glass
+static unsigned long askShownMs = 0;
+static lv_obj_t *askScreen, *askTitle, *askBody, *askNoLabel, *askYesLabel;
+static lv_obj_t *forgetBtn, *forgotNote;
+static unsigned long forgotUntilMs = 0;  // nonzero: the note is up until then
+
+static void askNoCb(lv_event_t *e);
+static void askYesCb(lv_event_t *e);
+
+// Built once and hidden, like the lock: a full-screen shield in the theme's
+// blue, a card in the middle of it with the question and what it means, and
+// two answers side by side, the one that commits on the right in the accent.
+static void buildAsk(lv_obj_t *scr) {
+  askScreen = mkFlat(scr, 0, 0, SCREEN_W, SCREEN_H, THEME_BG);
+  lv_obj_add_flag(askScreen, LV_OBJ_FLAG_CLICKABLE);   // a finger here reaches no page beneath
+
+  lv_obj_t *modal = mkCard(askScreen, ASK_W, ASK_H);
+  lv_obj_center(modal);
+  lv_obj_set_style_radius(modal, 0, 0);
+  lv_obj_set_style_pad_all(modal, ASK_PAD, 0);
+  const lv_coord_t w = ASK_W - 2 * ASK_PAD;
+
+  askTitle = mkText(modal, "", &lv_font_montserrat_40, COL_TEXT);
+  lv_obj_set_width(askTitle, w);
+  lv_obj_set_pos(askTitle, 0, 0);
+  askBody = mkText(modal, "", &lv_font_montserrat_24, COL_DIM);
+  lv_obj_set_width(askBody, w);
+  lv_obj_set_style_text_line_space(askBody, 6, 0);
+  lv_obj_set_pos(askBody, 0, TEXT_H_40 + 18);
+
+  // An answer takes a release on its target, like Start and Stop: slide off to
+  // change your mind.
+  const lv_coord_t bw = (w - ASK_BTN_GAP) / 2;
+  lv_obj_t *no = mkBtn(modal, bw, ASK_BTN_H, COL_BLUE);
+  lv_obj_align(no, LV_ALIGN_BOTTOM_LEFT, 0, 0);
+  lv_obj_set_style_border_width(no, 2, 0);
+  lv_obj_set_style_border_color(no, lv_color_hex(0x7d9eed), 0);
+  lv_obj_clear_flag(no, LV_OBJ_FLAG_PRESS_LOCK);
+  lv_obj_add_event_cb(no, askNoCb, LV_EVENT_CLICKED, NULL);
+  askNoLabel = mkText(no, "", &lv_font_montserrat_24, COL_TEXT);
+  lv_obj_center(askNoLabel);
+
+  lv_obj_t *yes = mkBtn(modal, bw, ASK_BTN_H, COL_ACCENT);
+  lv_obj_align(yes, LV_ALIGN_BOTTOM_RIGHT, 0, 0);
+  lv_obj_clear_flag(yes, LV_OBJ_FLAG_PRESS_LOCK);
+  lv_obj_add_event_cb(yes, askYesCb, LV_EVENT_CLICKED, NULL);
+  askYesLabel = mkText(yes, "", &lv_font_montserrat_24, COL_INK);
+  lv_obj_center(askYesLabel);
+
+  lv_obj_add_flag(askScreen, LV_OBJ_FLAG_HIDDEN);
+}
+
+static void askShow(AskMode mode, const char *title, const char *body,
+                    const char *no, const char *yes) {
+  if (!askScreen) return;
+  // A finger already down pressed something else, or the ask this one
+  // replaces. It answers nothing here, and chooses no picture beneath: an ask
+  // takes a press that begins on it.
+  if (touchInput) lv_indev_wait_release(touchInput);
+  tileDisarm();
+  askMode = mode;
+  askShownMs = millis();
+  lv_label_set_text(askTitle, title);
+  lv_label_set_text(askBody, body);
+  lv_label_set_text(askNoLabel, no);
+  lv_label_set_text(askYesLabel, yes);
+  lv_obj_clear_flag(askScreen, LV_OBJ_FLAG_HIDDEN);
+  lv_obj_move_foreground(askScreen);
+  if (testActive) lv_obj_move_foreground(testScreen);   // the camera reads it through anything
+}
+
+static void askHide() {
+  if (askMode == ASK_NONE) return;
+  askMode = ASK_NONE;
+  lv_obj_add_flag(askScreen, LV_OBJ_FLAG_HIDDEN);
+}
+
+// A new ask replaces whatever ask is up, the faucet's or Forget's.
+static void trustShow(const TrustShowPayload &ask) {
+  if (!uiReady || lockActive || holding) return;
+  if (screenIdle) wake();
+  char body[160];
+  trustBody(ask.reason, ask.channel, ask.kind, body, sizeof(body));
+  trustAskId = ask.askId;
+  askShow(ASK_TRUST, trustTitle(ask.kind), body, "Don't Trust", "Trust");
+}
+
+// Answered at the faucet, timed out, or the phone left.
+static void trustClose(uint8_t askId) {
+  if (askMode == ASK_TRUST && askId == trustAskId) askHide();
+}
+
+static void trustAnswer(bool trusted) {
+  TrustAnswerPayload answer{trustAskId, (uint8_t)(trusted ? 1 : 0)};
+  j9Post(MSG_TRUST_ANSWER, &answer, sizeof(answer));
+}
+
+// Don't Trust, or Cancel.
+static void askNoCb(lv_event_t *e) {
+  (void)e;
+  if (askMode == ASK_TRUST) trustAnswer(false);
+  askHide();
+}
+
+// Trust, or Forget.
+static void askYesCb(lv_event_t *e) {
+  (void)e;
+  if (askMode == ASK_TRUST) trustAnswer(true);
+  else if (askMode == ASK_FORGET) j9Post(MSG_TRUST_FORGET, nullptr, 0);
+  askHide();
+}
+
+static void forgetAskCb(lv_event_t *e) {
+  (void)e;
+  askShow(ASK_FORGET, "Forget all trusted phones?",
+          "Each phone is asked again the next time it changes something.",
+          "Cancel", "Forget");
+}
+
+// What the faucet found when it forgot them, above Forget for FORGOT_MS.
+static void trustForgot(uint8_t count) {
+  if (!forgotNote) return;
+  if (count == 0)      lv_label_set_text(forgotNote, "No phones were trusted.");
+  else if (count == 1) lv_label_set_text(forgotNote, "Forgot 1 trusted phone.");
+  else                 lv_label_set_text_fmt(forgotNote, "Forgot %u trusted phones.", (unsigned)count);
+  lv_obj_clear_flag(forgotNote, LV_OBJ_FLAG_HIDDEN);
+  lv_obj_align_to(forgotNote, forgetBtn, LV_ALIGN_OUT_TOP_LEFT, 0, -12);
+  forgotUntilMs = millis() + FORGOT_MS;
+  if (!forgotUntilMs) forgotUntilMs = 1;
+}
+
+// From loop(): an ask stands ASK_MS at most, and the note keeps its own clock.
+static void askService() {
+  const unsigned long now = millis();
+  if (askMode != ASK_NONE && now - askShownMs >= ASK_MS) askHide();
+  if (forgotUntilMs && (long)(now - forgotUntilMs) >= 0) {
+    forgotUntilMs = 0;
+    lv_obj_add_flag(forgotNote, LV_OBJ_FLAG_HIDDEN);
+  }
+}
+
 static void buildRail(lv_obj_t *scr) {
   flavorRail = mkFlat(scr, 0, 0, RAIL_W, SCREEN_H, lv_color_hex(COL_CARD));
   lv_obj_add_flag(flavorRail, LV_OBJ_FLAG_CLICKABLE);
@@ -4567,7 +4759,8 @@ static lv_coord_t buildStatusDiagram(lv_obj_t *card, lv_coord_t w, lv_coord_t to
 }
 
 // Settings is the system status: the machine's profile with every reed on it,
-// and beside it the cold loop and the refill.
+// and beside it the cold loop and the refill, with Forget trusted phones under
+// them.
 static void buildSettings(lv_obj_t *page) {
   lv_obj_set_pos(page, RAIL_W, HEADER_H);
   lv_obj_set_width(page, SCREEN_W - RAIL_W);
@@ -4586,6 +4779,22 @@ static void buildSettings(lv_obj_t *page) {
     statusThermalValue[i] = mkText(status, "--", &lv_font_montserrat_20, COL_TEXT);
     lv_obj_set_pos(statusThermalValue[i], 548, y);
   }
+  // Forget trusted phones, at the foot of the column, level with the profile's
+  // floor. It asks before anything is forgotten, and what the faucet forgot
+  // shows above it.
+  const lv_coord_t colW = SCREEN_W - RAIL_W - 2 * PANE_PAD - 460;
+  forgetBtn = mkBtn(status, colW, 66, COL_BLUE);
+  lv_obj_set_pos(forgetBtn, 460, 5 + diagramHeight - 66);
+  lv_obj_set_style_border_width(forgetBtn, 2, 0);
+  lv_obj_set_style_border_color(forgetBtn, lv_color_hex(0x7d9eed), 0);
+  lv_obj_add_event_cb(forgetBtn, forgetAskCb, ACT_EVENT, NULL);
+  lv_obj_t *forget = mkText(forgetBtn, "Forget trusted phones", &lv_font_montserrat_20, COL_TEXT);
+  lv_obj_set_width(forget, colW - 16);
+  lv_obj_set_style_text_align(forget, LV_TEXT_ALIGN_CENTER, 0);
+  lv_obj_center(forget);
+  forgotNote = mkText(status, "", &lv_font_montserrat_20, COL_TEXT);
+  lv_obj_set_width(forgotNote, colW);
+  lv_obj_add_flag(forgotNote, LV_OBJ_FLAG_HIDDEN);
 }
 
 // GPIO43 reads RS485_RXD on Waveshare's table and is the S3's U0TXD. The pair is a
@@ -4820,6 +5029,7 @@ static void buildUi() {
   // After the panes so it draws above them, before the lock so that still covers it.
   buildSettingsButton(scr);
   buildLockScreen(scr);
+  buildAsk(scr);          // raised over whatever is up when it shows
   buildTestScreen(scr);   // above the lock: the camera reads it through anything
 
   uiReady = true;
@@ -5411,6 +5621,7 @@ void loop() {
   cleanService();
   airService();
   ratioService();
+  askService();
 
   // The status request keeps main board truth fresh once a second whenever a
   // shared prime hold does not own the pair.
@@ -5452,12 +5663,14 @@ void loop() {
   }
 
   // Going dark is the main board's call, made across both glasses at once — see
-  // applyIdleState(). An active operation lock and a live hold still hold it off
-  // here, because those are this panel's own business.
+  // applyIdleState(). An active operation lock, a live hold and an ask waiting
+  // on a finger still hold it off here, because those are this panel's own
+  // business.
   if (testActive && (long)(millis() - testUntilMs) >= 0) testScreenHide();
 
   if (displayReady && !screenIdle && idleAsleepKnown && idleAsleepWanted &&
-      !holding && !lockActive && !testActive && !touchUnconfirmedSince) {
+      !holding && !lockActive && !testActive && askMode == ASK_NONE &&
+      !touchUnconfirmedSince) {
     const bool primeRunning = primeSessionKnown && !primeLinkLost &&
                               primeSession.phase == PRIME_SESSION_RUNNING;
     if (!primeRunning) {

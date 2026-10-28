@@ -128,6 +128,7 @@ constexpr uint8_t BLE_IMG_ERR_SIZE  = 2;  // not what one picture is on this bui
 constexpr uint8_t BLE_IMG_ERR_WRITE = 3;
 constexpr uint8_t BLE_IMG_ERR_CRC   = 4;  // arrived whole and is not what was promised
 constexpr uint8_t BLE_IMG_ERR_BUSY  = 5;
+constexpr uint8_t BLE_IMG_ERR_UNTRUSTED = 6;  // from a phone the machine does not trust
 
 // How often a running transfer volunteers where it has got to. Often enough
 // that a phone which stopped being listened to finds out quickly; rarely enough

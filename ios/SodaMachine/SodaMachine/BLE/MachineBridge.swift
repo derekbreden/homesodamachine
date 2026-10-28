@@ -64,6 +64,8 @@ enum BridgeError: Error, Equatable {
     case offline
     /// The main board turned it down for a reason of its own (MSG_ERR_*).
     case rejected(UInt8)
+    /// The machine does not trust this device, and asking ended this way.
+    case untrusted(TrustOutcome)
 }
 
 // ── What the machine says, as the app keeps it ───────────────────────────
@@ -330,8 +332,36 @@ extension BLEManager {
         }
     }
 
-    /// One request, and the machine's answer to it.
+    /// One request, and the machine's answer to it. A change the machine
+    /// turns down for want of trust is asked for on its displays and, once
+    /// this device is trusted, sent again.
     func ask(_ type: UInt8, _ body: [UInt8] = []) async -> Result<BridgeAnswer, BridgeError> {
+        let first = await request(type, body)
+        guard case .failure(.untrusted) = first else { return first }
+        let (reason, channel) = Self.trustReason(type, body)
+        let outcome = await requestTrust(reason, channel: channel)
+        guard outcome == .trusted else { return .failure(.untrusted(outcome)) }
+        return await request(type, body)
+    }
+
+    /// What a change is for, as the displays ask about it.
+    private static func trustReason(_ type: UInt8, _ body: [UInt8]) -> (TrustReason, Int?) {
+        let channel = body.first.map(Int.init)
+        switch type {
+        case MachineMessage.flavorSelect: return (.flavor, channel)
+        case MachineMessage.ratioSetOne: return (.ratio, channel)
+        case MachineMessage.fillStart: return (.fill, channel)
+        case MachineMessage.fillStop: return (.fill, nil)
+        case MachineMessage.cleanStart: return (.clean, channel)
+        case MachineMessage.cleanStop: return (.clean, nil)
+        case MachineMessage.soundSet: return (.sound, nil)
+        case MachineMessage.primeOpen: return (.prime, channel)
+        case MachineMessage.primeSet: return (.prime, body.count > 1 ? Int(body[1]) : nil)
+        default: return (.anything, nil)
+        }
+    }
+
+    private func request(_ type: UInt8, _ body: [UInt8]) async -> Result<BridgeAnswer, BridgeError> {
         if demoMode { return demoAnswer(type, body) }
         guard linked, connectedPeripheral != nil else { return .failure(.offline) }
         guard bridgeReady else { return .failure(bridgeMissing ? .needsUpdate : .offline) }
@@ -365,6 +395,7 @@ extension BLEManager {
         case 0xD2: waiting.resume(returning: .failure(.busy))
         case 0xD3: waiting.resume(returning: .failure(.noAnswer))
         case 0xD4: waiting.resume(returning: .failure(.needsUpdate))
+        case 0xD5: waiting.resume(returning: .failure(.untrusted(.none)))
         case 0xE1...0xE9: waiting.resume(returning: .failure(.rejected(type)))
         default: waiting.resume(returning: .success(BridgeAnswer(type: type, body: body)))
         }

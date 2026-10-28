@@ -87,6 +87,7 @@ enum ImageUploadState: Equatable {
 private let uploadErrors = [
     "", "no such slot", "a picture is a different size on that machine",
     "the board could not write it", "it did not arrive intact", "the board is busy",
+    "the machine does not trust this device yet",
 ]
 
 extension BLEManager {

@@ -96,6 +96,10 @@ bool baseLinkSendOtaSrc(uint8_t type, const void *data, uint16_t len);
 // link is down or its window is full, which phone_bridge.cpp waits out.
 bool baseLinkSendBridge(const void *frame, uint16_t len);
 
+// A trust ask showing or closing, or what forgetting found: to the main board,
+// which carries it to the enclosure.
+bool baseLinkSendTrust(uint8_t type, const void *data, uint16_t len);
+
 // One line to the main board's console, which is the only console this board
 // has once it is in a machine.
 void baseLinkSay(const char *text);

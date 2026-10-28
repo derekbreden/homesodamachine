@@ -297,7 +297,8 @@ static bool isUserAction(uint8_t type) {
     return type == MSG_PUMP_RUN || type == MSG_CLEAN_START || type == MSG_FILL_START ||
            type == MSG_FILL_STOP || type == MSG_CLEAN_STOP || type == MSG_AIR_START ||
            type == MSG_AIR_STOP || type == MSG_SOUND_CFG_SET || type == MSG_FLAVOR_ART_SET ||
-           type == MSG_RATIO_SET || type == MSG_PRIME_SESSION_SET;
+           type == MSG_RATIO_SET || type == MSG_PRIME_SESSION_SET ||
+           type == MSG_TRUST_ANSWER || type == MSG_TRUST_FORGET;
 }
 
 // What the main board reads about itself, as either link carries it.
@@ -472,6 +473,13 @@ static void dispatch(HdlcLink *link, const uint8_t *frame, uint16_t len) {
     if (type == MSG_RESP_OTA) { otaOnState(OTA_TGT_ENCLOSURE, payload, plen);   return; }
 
     if (type == MSG_TOUCH) return;   // presence only; nothing to answer
+
+    // A tap on the trust ask, and the settings forgetting every trusted phone:
+    // the faucet keeps them, so both go on to it and nothing is answered here.
+    if (type == MSG_TRUST_ANSWER || type == MSG_TRUST_FORGET) {
+        faucetLinkRelay(type, payload, plen);
+        return;
+    }
 
     if (type == MSG_IDLE_QUERY) {
         IdlePayload idle{idleAsleep() ? (uint8_t)1 : (uint8_t)0, idleWindowMs()};
@@ -782,6 +790,10 @@ void linkBegin() {
 }
 
 // Volunteered, so it waits for a turn exactly like every other announcement.
+void linkRelay(uint8_t type, const void *data, uint8_t len) {
+    announceQueue(type, data, len);
+}
+
 void linkQueueOta(uint8_t type, const void *data, uint8_t len) {
     announceQueue(type, data, len);
 }

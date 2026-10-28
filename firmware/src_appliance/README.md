@@ -100,7 +100,11 @@ board also establishes and reports the safe I/O foundation the next connected be
   Each is answered inside `MSG_BRIDGE_RESP` with the frame the same request gets on J9, and
   anything else is refused. Every fill and clean change goes to J3 as well, under request
   id 0, so a phone follows a run whoever started it; the enclosure follows one a phone
-  started the way it follows the console's.
+  started the way it follows the console's. Which phones may change anything is the
+  faucet's to keep; this board carries the faucet's trust ask out to the enclosure
+  (`MSG_TRUST_SHOW`, `MSG_TRUST_CLOSE`, `MSG_RESP_TRUST_FORGET`) and the enclosure's answer
+  and **Forget trusted phones** back (`MSG_TRUST_ANSWER`, `MSG_TRUST_FORGET`), and keeps
+  none of it.
 - **Sound.** The whole vocabulary below, the volume and quiet-hours settings behind it,
   and the gas alarm that none of those settings can reach.
 
@@ -168,6 +172,7 @@ pio device monitor -e appliance
 | `flavor [a\|b]` | read or set the main-board-owned flavor selection, and the logo pair beside it |
 | `ratio [a\|b] [6-24]` | read or set what a channel pours at, persisted in NVS and carried to the enclosure on its next poll |
 | `art [<a> <b>]` | read or set which logo each channel wears, persisted in NVS and published to both glasses |
+| `trust [forget\|yes\|no]` | how many phones the faucet trusts and how many it has bonds for; `forget` forgets every trusted phone; `yes` or `no` answers the ask that is up, as a tap on either display would |
 | `dry [s]` | dry the flavor lines, at the bench or the factory: air in then through to the faucet, on each channel in turn; `s` caps every step |
 | `purge <a\|b> [s]` | air into that reservoir, then the reservoir out the faucet until its empty reed opens; `s` caps every step |
 | `flow <n> [s]` | the meter without water: `n` pulses per 50 ms for `s` s (default 5), and the selected channel pours against that reading |

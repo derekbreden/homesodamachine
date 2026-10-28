@@ -28,6 +28,10 @@ void faucetLinkPublish(uint8_t type, const void *data, uint16_t len);
 // Put one OTA frame on J3. Full duplex, so this has none of J9's turn rule.
 bool faucetLinkSendOta(uint8_t type, const void *data, uint16_t len);
 
+// A message for the faucet from the enclosure or the console: a tap on a trust
+// ask, forgetting every trusted phone, the console's trust report.
+bool faucetLinkRelay(uint8_t type, const void *data, uint16_t len);
+
 // What the display at the far end is doing with its radio.
 void faucetLinkBleReport();
 

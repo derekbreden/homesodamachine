@@ -32,6 +32,7 @@ extension BridgeError {
         case .needsUpdate: "Update the machine’s software to do this from the app."
         case .offline: "Bring your device near the machine."
         case .rejected: "The machine turned that down."
+        case .untrusted: "Nothing changed."
         }
     }
 }
@@ -107,6 +108,15 @@ struct MachineNotices: View {
                        icon: "arrow.down.circle")
                 ActionButton(title: "Software Update", primary: false) { nav.open(.update, on: .settings) }
             }
+        }
+        if let ask = ble.trustAsk, ask.quiet, ask.ended == nil {
+            Notice(title: "Tap Trust on the machine",
+                   message: "So this \(BLEManager.deviceWord) can change settings and run cycles. The faucet and the main display both ask.",
+                   icon: "hand.tap")
+        } else if ble.trustGrantedAt != nil {
+            Notice(title: "Trusted",
+                   message: "This \(BLEManager.deviceWord) can change settings and run cycles.",
+                   icon: "checkmark.circle")
         }
         if let s = ble.appliance.status?.value {
             if s.gasAlarm {

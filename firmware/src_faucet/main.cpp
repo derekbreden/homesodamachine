@@ -9,6 +9,8 @@
 #include "image_store.h"
 #include "ble_image.h"
 #include "ble_link.h"
+#include "phone_trust.h"
+#include "trust_text.h"
 #include "fw_version.h"
 
 // ════════════════════════════════════════════════════════════
@@ -156,6 +158,8 @@ static lv_obj_t *primeLayer;
 static lv_obj_t *otaLayer, *otaTitle, *otaPct;
 static lv_obj_t *primeExitBtn, *primeHoldBtn;
 static lv_obj_t *primeExitLbl, *primeHoldLbl, *primeStatusLbl;
+static lv_obj_t *trustLayer, *trustTitleLbl, *trustBodyLbl;
+static uint8_t   trustShownAsk = 0;   // the ask on the glass; 0 while none is
 static lv_indev_t *touchInput = nullptr;
 
 // ════════════════════════════════════════════════════════════
@@ -880,6 +884,8 @@ static void primeService(const BaseLinkStatus &link) {
 //  UI
 // ════════════════════════════════════════════════════════════
 
+static void buildTrustLayer(lv_obj_t *scr);
+
 static void buildUi() {
   bindLogos();
 
@@ -954,7 +960,94 @@ static void buildUi() {
 
   lv_obj_add_flag(primeLayer, LV_OBJ_FLAG_HIDDEN);
 
+  buildTrustLayer(scr);
   applyFlavorUi();
+}
+
+// ════════════════════════════════════════════════════════════
+//  Trusting a phone
+// ════════════════════════════════════════════════════════════
+//
+// A phone that wants to change the machine asks here and on the enclosure at
+// once. A tap on either answers for both; phone_trust.cpp closes this one when
+// the ask ends anywhere else.
+
+static void onTrust(lv_event_t *e) {
+  if (trustShownAsk) phoneTrustAnswer(trustShownAsk, true);
+}
+
+static void onDontTrust(lv_event_t *e) {
+  if (trustShownAsk) phoneTrustAnswer(trustShownAsk, false);
+}
+
+static lv_obj_t *trustButton(lv_obj_t *parent, lv_coord_t y, lv_coord_t h, uint32_t bg,
+                             uint32_t fg, const char *text, lv_event_cb_t cb) {
+  lv_obj_t *btn = lv_btn_create(parent);
+  lv_obj_remove_style_all(btn);
+  lv_obj_set_pos(btn, 8, y);
+  lv_obj_set_size(btn, SCREEN_W - 16, h);
+  lv_obj_set_style_radius(btn, 10, 0);
+  lv_obj_set_style_bg_color(btn, lv_color_hex(bg), 0);
+  lv_obj_set_style_bg_opa(btn, LV_OPA_COVER, 0);
+  lv_obj_set_style_bg_color(btn, lv_color_hex(COL_OFF), LV_STATE_PRESSED);
+  lv_obj_add_event_cb(btn, cb, LV_EVENT_CLICKED, NULL);
+  lv_obj_t *lbl = lv_label_create(btn);
+  lv_label_set_text(lbl, text);
+  lv_obj_set_style_text_font(lbl, &lv_font_montserrat_20, 0);
+  lv_obj_set_style_text_color(lbl, lv_color_hex(fg), 0);
+  lv_obj_center(lbl);
+  return btn;
+}
+
+// Built once and hidden, like the prime layer, and clickable so a tap on it
+// never reaches the flavor target underneath.
+static void buildTrustLayer(lv_obj_t *scr) {
+  trustLayer = lv_obj_create(scr);
+  lv_obj_remove_style_all(trustLayer);
+  lv_obj_set_pos(trustLayer, 0, 0);
+  lv_obj_set_size(trustLayer, SCREEN_W, SCREEN_H);
+  lv_obj_set_style_bg_color(trustLayer, THEME_BG, 0);
+  lv_obj_set_style_bg_opa(trustLayer, LV_OPA_COVER, 0);
+  lv_obj_clear_flag(trustLayer, LV_OBJ_FLAG_SCROLLABLE);
+  lv_obj_add_flag(trustLayer, LV_OBJ_FLAG_CLICKABLE);
+
+  trustTitleLbl = lv_label_create(trustLayer);
+  lv_obj_set_width(trustTitleLbl, SCREEN_W - 16);
+  lv_obj_set_pos(trustTitleLbl, 8, 20);
+  lv_label_set_long_mode(trustTitleLbl, LV_LABEL_LONG_WRAP);
+  lv_obj_set_style_text_align(trustTitleLbl, LV_TEXT_ALIGN_CENTER, 0);
+  lv_obj_set_style_text_font(trustTitleLbl, &lv_font_montserrat_20, 0);
+  lv_obj_set_style_text_color(trustTitleLbl, lv_color_hex(COL_TEXT), 0);
+
+  trustBodyLbl = lv_label_create(trustLayer);
+  lv_obj_set_width(trustBodyLbl, SCREEN_W - 16);
+  lv_obj_set_pos(trustBodyLbl, 8, 80);
+  lv_label_set_long_mode(trustBodyLbl, LV_LABEL_LONG_WRAP);
+  lv_obj_set_style_text_align(trustBodyLbl, LV_TEXT_ALIGN_CENTER, 0);
+  lv_obj_set_style_text_font(trustBodyLbl, &lv_font_montserrat_14, 0);
+  lv_obj_set_style_text_color(trustBodyLbl, lv_color_hex(COL_DIM), 0);
+
+  trustButton(trustLayer, SCREEN_H - 8 - 48 - 8 - 56, 56, COL_ACCENT, COL_CARD, "TRUST", onTrust);
+  trustButton(trustLayer, SCREEN_H - 8 - 48, 48, COL_CARD, COL_TEXT, "DON'T TRUST", onDontTrust);
+
+  lv_obj_add_flag(trustLayer, LV_OBJ_FLAG_HIDDEN);
+}
+
+void faucetTrustShow(const TrustShowPayload &ask) {
+  char body[128];
+  trustBody(ask.reason, ask.channel, ask.kind, body, sizeof(body));
+  lv_label_set_text(trustTitleLbl, trustTitle(ask.kind));
+  lv_label_set_text(trustBodyLbl, body);
+  trustShownAsk = ask.askId;
+  lv_obj_move_foreground(trustLayer);
+  lv_obj_clear_flag(trustLayer, LV_OBJ_FLAG_HIDDEN);
+  lastInputTime = millis();
+  wakeBacklight();
+}
+
+void faucetTrustHide() {
+  trustShownAsk = 0;
+  lv_obj_add_flag(trustLayer, LV_OBJ_FLAG_HIDDEN);
 }
 
 // ════════════════════════════════════════════════════════════
