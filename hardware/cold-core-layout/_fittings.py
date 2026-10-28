@@ -50,9 +50,9 @@ def _orient(solid, axis):
 
 # --- TAISHER 316L 90° barstock street elbow, 1/4" NPT M × F -------------------
 #
-# `bom.md` §2 — all four carbonator-port elbows. Male on one leg, female on the other: the male
-# threads into the plate's own tapped 1/4"-18 NPT and the female socket turns the line 90° onto
-# its lateral axis, where a push-connect adapter or the SV-125 makes up on it.
+# `bom.md` §2 — the top plate's two carbonator-port elbows. Male on one leg, female on the other:
+# the male threads into the plate's own tapped 1/4"-18 NPT and the female socket turns the line
+# 90° onto its lateral axis, where a push-connect adapter or the SV-125 makes up on it.
 #
 # The hex is sized by the ⌀19 mm bore of `prv-shroud`, which the README there
 # states the elbow seat enters: across corners has to clear it, so across flats stops at 5/8".
@@ -99,6 +99,53 @@ def street_elbow(*, corner, up=(0, 0, 1), out, up_leg=None, out_leg=None,
         c + out.multiply(out_leg - min(SOCKET_DEPTH, out_leg)))
     solid = solid.cut(bore_up).cut(bore_out).cut(socket)
     return solid, Mouth(tuple(c + out.multiply(out_leg)), tuple(out), ELBOW_BORE)
+
+
+# --- neoFit AME4-N2-E push-fit male elbow, 1/4" tube × 1/4" NPTF, black acetal ---------
+#
+# `bom.md` §2 — the bottom plate's two carbonator-port elbows. One piece: the male thread enters
+# the plate's tapped 1/4"-18 NPT and the push-fit socket turns the line 90°, so the tube pushes
+# straight into the elbow with no adapter. Figures off neoFit's Male Elbow NPTF drawing, AME4-N2
+# row, linked from the FWS listing. The plan view draws the body's back as the post's own round,
+# centred on the thread, which puts the mouth L − H/2 off the thread axis (about ±1 mm); the flow
+# bore is the estimate the NeoFit stem-elbow reference takes.
+MALE_ELBOW_THREAD = 0.520 * IN            # A — thread tip to shoulder
+MALE_ELBOW_HEIGHT = 1.256 * IN            # E — thread tip to the far side of the body
+MALE_ELBOW_BODY_D = 0.610 * IN            # ⌀P — the socket body
+MALE_ELBOW_LENGTH = 1.063 * IN            # L — socket face to the back of the body
+MALE_ELBOW_POST_W = 0.4375 * IN           # H — the body's width over the thread
+MALE_ELBOW_INSERTION = 0.665 * IN         # B — socket face to tube stop
+MALE_ELBOW_FLOW_BORE = 4.3
+MALE_ELBOW_TUBE_OD = 0.25 * IN
+# The socket axis over the thread's shoulder, and the mouth's reach off the thread axis.
+MALE_ELBOW_AXIS_REACH = MALE_ELBOW_HEIGHT - MALE_ELBOW_THREAD - MALE_ELBOW_BODY_D / 2
+MALE_ELBOW_MOUTH_REACH = MALE_ELBOW_LENGTH - MALE_ELBOW_POST_W / 2
+
+
+def male_elbow(*, corner, up, out):
+    """The one-piece push-fit male elbow standing on `corner`, where its two axes cross.
+
+    The thread runs `up` into the plate from a shoulder `MALE_ELBOW_AXIS_REACH` off the corner;
+    the socket faces `out`. Hands back the solid and the mouth the tube pushes into."""
+    up = cq.Vector(*up).normalized()
+    out = cq.Vector(*out).normalized()
+    c = cq.Vector(*corner)
+    body_r = MALE_ELBOW_BODY_D / 2
+    socket_body = _orient(_cyl(body_r, MALE_ELBOW_MOUTH_REACH), out).translate(c)
+    post = _orient(_cyl(MALE_ELBOW_POST_W / 2, body_r + MALE_ELBOW_AXIS_REACH), up).translate(
+        c - up.multiply(body_r))
+    thread = _orient(_cyl(ELBOW_MALE_R, MALE_ELBOW_THREAD), up).translate(
+        c + up.multiply(MALE_ELBOW_AXIS_REACH))
+    solid = socket_body.fuse(post).fuse(thread)
+
+    mouth = c + out.multiply(MALE_ELBOW_MOUTH_REACH)
+    socket = _orient(_cyl(MALE_ELBOW_TUBE_OD / 2, MALE_ELBOW_INSERTION), out).translate(
+        mouth - out.multiply(MALE_ELBOW_INSERTION))
+    bore_out = _orient(_cyl(MALE_ELBOW_FLOW_BORE / 2, MALE_ELBOW_MOUTH_REACH), out).translate(c)
+    bore_up = _orient(_cyl(MALE_ELBOW_FLOW_BORE / 2,
+                           MALE_ELBOW_AXIS_REACH + MALE_ELBOW_THREAD + 1), up).translate(c)
+    solid = solid.cut(socket).cut(bore_out).cut(bore_up)
+    return solid, Mouth(tuple(mouth), tuple(out), MALE_ELBOW_TUBE_OD)
 
 
 # --- Control Devices SV-125 safety valve, 1/4" NPT, 125 psi -------------------
