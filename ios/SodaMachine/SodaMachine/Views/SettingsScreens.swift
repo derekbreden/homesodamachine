@@ -151,7 +151,7 @@ struct RenameView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
-            TextField("Name", text: $name)
+            TextField("Name", text: $name, prompt: Text(ble.current?.displayName ?? "Name"))
                 .textInputAutocapitalization(.words)
                 .autocorrectionDisabled()
                 .submitLabel(.done)
@@ -203,7 +203,7 @@ struct MachinesView: View {
             }
             ActionButton(title: "Add a machine", primary: false, working: access.opening) { access.add() }
                 .disabled(access.opening)
-            outcome
+            AddOutcome()
             Note("A machine’s name is shared by every device that connects to it.")
             if let current = directory.current {
                 Button("Remove \(current.displayName) from this device") {
@@ -256,9 +256,9 @@ struct MachinesView: View {
     /// says what kind it is.
     private func subtitle(_ machine: KnownMachine, at now: Date) -> String {
         if machine.isDemo { return "Demo · Always here" }
+        if !machine.supported { return "Prototype · \(status(machine, at: now))" }
         let who = machine.unit.isEmpty ? machine.kind : "Unit \(machine.unit)"
-        let kind = machine.supported ? "" : " · Prototype"
-        return "\(who)\(kind) · \(status(machine, at: now))"
+        return "\(who) · \(status(machine, at: now))"
     }
 
     private func status(_ machine: KnownMachine, at now: Date) -> String {
@@ -273,15 +273,23 @@ struct MachinesView: View {
         if let t = machine.lastConnected { return "Last connected \(said(t))" }
         return "Never connected"
     }
+}
 
-    @ViewBuilder private var outcome: some View {
+/// What came of the last Add a machine: why the sheet did not open, or what to
+/// try when it came back empty.
+struct AddOutcome: View {
+    @Environment(MachineAccess.self) var access
+
+    var body: some View {
         switch access.outcome {
         case .failed(let why)?:
             Note(why)
+                .accessibilityAddTraits(.updatesFrequently)
         case .nothingAdded?:
             VStack(alignment: .leading, spacing: 8) {
                 Label("Hold your device right next to the faucet", systemImage: "figure.walk")
                 Label("Make sure the machine is powered on", systemImage: "power")
+                Label("Try turning it off and on", systemImage: "arrow.clockwise")
             }
             .font(.subheadline).foregroundStyle(Theme.textSecondary)
             .accessibilityElement(children: .combine)
@@ -320,6 +328,7 @@ struct UnsupportedMachineView: View {
                 }
                 ActionButton(title: "Add a machine", working: access.opening) { access.add() }
                     .disabled(access.opening)
+                AddOutcome()
             }
             .frame(maxWidth: 560).frame(maxWidth: .infinity)
             .padding(24)

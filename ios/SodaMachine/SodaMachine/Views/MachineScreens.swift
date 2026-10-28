@@ -223,7 +223,6 @@ struct MachineStatusPanel: View {
     }
 
     static func cooling(_ s: MachineStatus) -> String {
-        guard s.tankTenthsC != nil else { return "Waiting for a reading" }
         switch ColdState(rawValue: s.coldState) {
         case .on: return "Cooling"
         case .holding: return "Cooling soon"
@@ -244,8 +243,8 @@ struct MachineStatusPanel: View {
         }
         guard s.levelsRead else { return "Water level unknown" }
         if s.carbonatorHighReed { return "Water level high" }
-        if s.carbonatorLowReed { return "Water level normal" }
-        return "Water level low"
+        if s.carbonatorLowReed { return "Water level low" }
+        return "Water level normal"
     }
 }
 

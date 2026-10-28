@@ -512,7 +512,10 @@ class BLEManager {
     /// the spot; a known machine is noted as in range and takes whatever the
     /// advertisement says that its record did not yet have.
     fileprivate func noteSighting(_ seen: DiscoveredMachine) {
-        guard var known = directory.machine(matching: seen) else { return }
+        guard var known = directory.machine(matching: seen) else {
+            log.info("\(seen.id) is none of this phone's machines")
+            return
+        }
         known.lastSeen = seen.lastSeen
         if known.peripheralID != seen.id {
             known.peripheralID = seen.id
@@ -635,11 +638,13 @@ class BLEManager {
             directory.save()
         }
         // A prototype is listed and can be removed. An appliance is asked
-        // what pictures it holds; the rest of what its pages show is read
-        // once the faucet says it carries the bridge.
+        // what pictures it holds and which one each channel wears; the rest
+        // of what its pages show is read once the faucet says it carries the
+        // bridge.
         guard current?.supported == true else { return }
         saidStanding = ""   // a new session reports its own conditions
         queryImageSlots()
+        queryFlavorArt()
         startFacePump()
     }
 
@@ -1010,7 +1015,7 @@ private class CBDelegateAdapter: NSObject, CBCentralManagerDelegate, CBPeriphera
             return
         }
 
-        log.info("Found \(seen.displayName) at \(seen.rssi) dBm")
+        log.info("Found \(seen.displayName) at \(seen.rssi) dBm: unit \(seen.unit.isEmpty ? "none" : seen.unit), model \(seen.model.rawValue), peripheral \(seen.id)")
         ble.discovered.append(seen)
         ble.lastRssiPush[seen.id] = Date()
         // The set changed, so this is where the order is settled.
