@@ -1,0 +1,14 @@
+reservoir-cap-left.stl · 28614 printed facets · 2 findings
+answers: hardware/printed-parts/lint-answers/cold-core/reservoir/reservoir-cap-left.lint-answers · read hardware/printed-parts/lint-answers/AGENTS.md before writing one
+
+  [thin] 2.000 mm of material at its thinnest · 240.8 mm² of surface under 2.5 mm · spans 7.5 × 7.5 × 4.7 mm · in 6 pieces
+    file: hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.step
+    click: x=-107.945 y=32.883 z=3.833
+    click: x=-109.900 y=33.304 z=3.833
+    answered: Existing rod-register section, outside the tube-port geometry change: its rod-clearance bore and 2 mm radial wall retain the rod register and the float-stop interface. The tube-grip implementation does not qualify its strength or lifetime.
+    alternatives: Thickening the register changes an existing float-stop interface and needs its own fit review; this task retains the rod and float datums.
+
+  [thin] 2.244 mm of material at its thinnest · 4.5 mm² of surface under 2.5 mm · spans 1.4 × 1.7 × 0.0 mm
+    file: hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.step
+    click: x=-90.765 y=3.216 z=6.998
+    click: x=-89.017 y=1.808 z=6.998

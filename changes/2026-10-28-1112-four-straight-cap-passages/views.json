@@ -1,0 +1,106 @@
+{
+  "views": [
+    {
+      "name": "cap",
+      "caption": "Four straight guide columns replace the sideways water, soda, A-fill and B-draw passages. The B-fill fitting pair remains under review.",
+      "before": "cap-before.webp",
+      "after": "cap-after.webp",
+      "width": 920,
+      "height": 640,
+      "marks": [],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          370,
+          10,
+          570
+        ],
+        "target": [
+          0,
+          326,
+          241
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 145.0,
+        "aspect": 1.4375
+      },
+      "only": [
+        "cold-core/foam-cap-top",
+        "cold-core/line-water-in",
+        "cold-core/line-carb-water-out",
+        "cold-core/line-reservoir-a-fill",
+        "cold-core/line-reservoir-b",
+        "cold-core/reservoir-a-cap",
+        "cold-core/reservoir-b-cap"
+      ],
+      "rendering": "Opaque CPU z-buffer drawing of the complete published viewer triangles; one camera for snapshot and current geometry. Labels drawn into both images.",
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from_snapshot": true,
+          "sha256": "fb994e476988df5672c61730886aac1be0d31ec4e9c2a5c196c7cbe8c74d2107"
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "sha256": "7b326b25487b1cb7c38c046c7fedb67004f648b490fc47f68f086ad1d95ddc31"
+        }
+      },
+      "highlight": []
+    },
+    {
+      "name": "water",
+      "caption": "The existing water-check outlet elbow faces upward into one exposed R18 arch. The fixed check barrel, pump and metal carbonator fitting retain their positions.",
+      "before": "water-before.webp",
+      "after": "water-after.webp",
+      "width": 920,
+      "height": 640,
+      "marks": [],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          -320,
+          80,
+          480
+        ],
+        "target": [
+          -38,
+          350,
+          275
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 88.0,
+        "aspect": 1.4375
+      },
+      "only": [
+        "cold-core/foam-cap-top",
+        "cold-core/tube-water-5",
+        "cold-core/carbonator-fold",
+        "cold-core/discharge-chain",
+        "cold-core/g-ganen-pump"
+      ],
+      "rendering": "Opaque CPU z-buffer drawing of the complete published viewer triangles; one camera for snapshot and current geometry. Labels drawn into both images.",
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from_snapshot": true,
+          "sha256": "fb994e476988df5672c61730886aac1be0d31ec4e9c2a5c196c7cbe8c74d2107"
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "sha256": "7b326b25487b1cb7c38c046c7fedb67004f648b490fc47f68f086ad1d95ddc31"
+        }
+      },
+      "highlight": []
+    }
+  ]
+}
