@@ -1,0 +1,38 @@
+foam-cap-lid-top.stl · 72446 printed facets · 0 findings · 6 answered
+answers: hardware/printed-parts/lint-answers/cold-core/foam-cap/foam-cap-lid-top.lint-answers · read hardware/printed-parts/lint-answers/AGENTS.md before writing one
+
+  [ceiling · answered] Functional upper end walls of the four rotated WAGO wells. Each flat 9.4 × 8.7 mm underside closes the rectangular pocket at one end of its 19.1 mm vertical body allowance, with 3 mm stock above it. The rear half of the connector slides into this rectangular seat along its own Y axis; its levers and the west face remain accessible. Tree(auto)/Default retains its automatic supports, which are removed through the open well mouth. The current native slice records their placement; physical release remains unmeasured.
+    alternatives: Filling the pocket below this end wall occupies the WAGO body. Sloping the underside enters that rectangular body allowance; retaining it with a thicker rising section raises the upper row toward the funnel frame. Opening the end removes axial capture of the connector. The current end wall preserves its purchased rectangular mating envelope.
+    82 mm² flat print-down face at z=47.650 · 9.4 × 8.7 mm · drop 19.1–19.1 mm to material below
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=90.525 y=24.800 z=47.650
+    click: x=90.525 y=24.800 z=47.650
+
+  [ceiling · answered] Functional upper end walls of the four rotated WAGO wells. Each flat 9.4 × 8.7 mm underside closes the rectangular pocket at one end of its 19.1 mm vertical body allowance, with 3 mm stock above it. The rear half of the connector slides into this rectangular seat along its own Y axis; its levers and the west face remain accessible. Tree(auto)/Default retains its automatic supports, which are removed through the open well mouth. The current native slice records their placement; physical release remains unmeasured.
+    alternatives: Filling the pocket below this end wall occupies the WAGO body. Sloping the underside enters that rectangular body allowance; retaining it with a thicker rising section raises the upper row toward the funnel frame. Opening the end removes axial capture of the connector. The current end wall preserves its purchased rectangular mating envelope.
+    82 mm² flat print-down face at z=47.650 · 9.4 × 8.7 mm · drop 19.1–19.1 mm to material below
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=77.975 y=24.800 z=47.650
+    click: x=77.975 y=24.800 z=47.650
+
+  [ceiling · answered] Functional upper end walls of the four rotated WAGO wells. Each flat 9.4 × 8.7 mm underside closes the rectangular pocket at one end of its 19.1 mm vertical body allowance, with 3 mm stock above it. The rear half of the connector slides into this rectangular seat along its own Y axis; its levers and the west face remain accessible. Tree(auto)/Default retains its automatic supports, which are removed through the open well mouth. The current native slice records their placement; physical release remains unmeasured.
+    alternatives: Filling the pocket below this end wall occupies the WAGO body. Sloping the underside enters that rectangular body allowance; retaining it with a thicker rising section raises the upper row toward the funnel frame. Opening the end removes axial capture of the connector. The current end wall preserves its purchased rectangular mating envelope.
+    82 mm² flat print-down face at z=25.550 · 9.4 × 8.7 mm · drop 19.1–19.1 mm to material below
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=90.525 y=24.800 z=25.550
+    click: x=90.525 y=24.800 z=25.550
+
+  [ceiling · answered] Functional upper end walls of the four rotated WAGO wells. Each flat 9.4 × 8.7 mm underside closes the rectangular pocket at one end of its 19.1 mm vertical body allowance, with 3 mm stock above it. The rear half of the connector slides into this rectangular seat along its own Y axis; its levers and the west face remain accessible. Tree(auto)/Default retains its automatic supports, which are removed through the open well mouth. The current native slice records their placement; physical release remains unmeasured.
+    alternatives: Filling the pocket below this end wall occupies the WAGO body. Sloping the underside enters that rectangular body allowance; retaining it with a thicker rising section raises the upper row toward the funnel frame. Opening the end removes axial capture of the connector. The current end wall preserves its purchased rectangular mating envelope.
+    82 mm² flat print-down face at z=25.550 · 9.4 × 8.7 mm · drop 19.1–19.1 mm to material below
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=77.975 y=24.800 z=25.550
+    click: x=77.975 y=24.800 z=25.550
+
+  [ceiling · answered] Functional lower B-fill fitting pocket: the flat underside at world Z251.4 clears the fixed lower elbow and retains its 3.05 mm roof to Z254.45. This open-bottom dry pocket receives the fitting before the lid closes. Retain Tree(auto)/Default support decisions; actual support release, retention force and print quality are unqualified.
+    alternatives: Filling the pocket obstructs the elbow. Changing its ceiling or fitting station requires reconciling the fixed reservoir stem and direct link; the flat pocket preserves those selected interfaces.
+    401 mm² flat print-down face at z=3.400 · 27.9 × 20.3 mm · open to the bed (3.4 mm up)
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=84.119 y=-42.264 z=3.400
+    click: x=84.119 y=-42.264 z=3.400
+
+  [ceiling · answered] Functional aft tie tunnel: under the aft Reservoir A paired seat the strap runs through a 3.2 mm transverse slot. This 7.5 × 3.2 mm roof is the seat's ridge between the two tubes, 1.6 mm over the slot floor, and it bridges the slot's 3.2 mm width.
+    alternatives: An open-topped slot cuts the ridge that carries both tubes' grooves. A sloped roof takes stock from that ridge or deepens the slot into the lid's floor stock.
+    24 mm² flat print-down face at z=5.175 · 7.5 × 3.2 mm · drop 1.6–1.6 mm to material below
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=19.800 y=90.250 z=5.175
+    click: x=19.800 y=90.250 z=5.175

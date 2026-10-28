@@ -1,0 +1,22 @@
+{
+  "scope": "Post-publication geometry-lint review of four revised printable pieces; every lint class ran once against the published full-resolution STL.",
+  "publication_commit": "cf1094637",
+  "source_commit": "dd16b1aa9",
+  "classes": [
+    "step",
+    "bump",
+    "sliver",
+    "ceiling",
+    "slope",
+    "thin",
+    "ledge"
+  ],
+  "execution": "The thin-class normal-matrix and pair batches were bounded without changing samples, predicates or thresholds; surface classes ran unchanged. No build or commit checks added.",
+  "results": {
+    "foam-cap-top": "No step, bump, sliver, ceiling, slope or ledge findings. Thin rankings are the retained 2 mm floor and 2.38 mm casing; the curved-passage rim findings are absent.",
+    "foam-cap-lid-top": "No new surface feature defect. Six named functional ceilings retain their recorded pocket/tie roles. Thin rankings locate existing clamp-head floors, the perimeter screw clearances, C2 spring jaws and the unchanged B-fill cover.",
+    "reservoir-cap-left": "Six counterbore bearing faces and the flush B-draw spool perimeter lip. Thin ranking locates the existing rod register and the matching spool-seat/perimeter interface.",
+    "reservoir-cap-right": "Six counterbore bearing faces and the flush vent/fill spool perimeter lips. Thin ranking locates the existing rod register."
+  },
+  "print_release": "B-fill layout remains unresolved. The top lid is not released for a production print."
+}
