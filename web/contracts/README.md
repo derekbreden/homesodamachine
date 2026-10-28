@@ -42,8 +42,10 @@ tree needs no edit here.
 - **part-costs.js** — each part number's cost rolled up through its BOM: its own purchase,
   material, supplies and labor (`costs.direct`, allocated by `web/lib/part-costs.js` from bom.md
   and labor.md and served beside the catalog at `/api/materials`) plus every child's cost times
-  its quantity. Read by `web/public/js/viewer/{material-panel,parts}.js` and
-  `web/lib/part-cost-view.js`.
+  its quantity. A labor operation's run (its labor.md Run cell, read the way
+  `hardware/scripts/_labor_totals.py` reads it) prices it at any batch, and a purchase carries the
+  smallest lot batch-forecast.json buys it in. Read by
+  `web/public/js/viewer/{material-panel,parts}.js`, `web/lib/{part-cost-view,cost,batch-forecast}.js`.
 - **faucet-options.js** — the Sculpted and Industrial faucet assemblies and their part paths,
   plus the Black/White PET-GF finish palette and the exact bodies that take it. Both styles
   use the same assembly frame. Read by the viewer's faucet controls, material builder and
