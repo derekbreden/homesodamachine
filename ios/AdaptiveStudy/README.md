@@ -15,6 +15,8 @@ and controls, and the app's bundled flavor art.
   canvases in a compact browsing matrix.
 - [Production integration plan](INTEGRATION.md): firmware capability mapping,
   authoritative state, Bluetooth routing, migration, and operation behavior.
+- [App experience](../SodaMachine/EXPERIENCE.md): connected journeys, editing,
+  confirmation, navigation, setup, and task completion.
 - [Views](Sources/StudyViews.swift): the native layout source behind the images.
 
 The screenshots are content renders from the installed iOS 18.5 Simulator runtime.
