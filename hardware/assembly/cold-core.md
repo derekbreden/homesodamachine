@@ -34,7 +34,7 @@ Per-unit BOM lives in [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §5 (
 | M3 × 12 mm SHCS, 304 stainless (18-8) × 12 (reservoir-cap screws) | BNUOK B0DJQGMQZM | ACQUIRED |
 | ruthex M3 **full-length** heat-set inserts × [40](CC_INSERTS) — every one this procedure presses ([28](CAP_INSERTS) foam-caps: [20](CAP_CLAMP_INSERTS) clamp bosses plus [8](CAP_DECK_INSERTS) deck-mount columns, + [12](RES_INSERTS) reservoir). **RX-M3x5.7, not the short RX-M3Sx4.0** — both bags are brass M3 in a ⌀4 hole and only the body length tells them apart, so check the trough label before the iron goes on. Every pocket in this procedure was already bored deep enough for the long body. The faucet plate, PSU and wall relays use their separately specified short inserts; the cap equipment uses the full-length family. `bom.md` §13 carries the appliance total. | ruthex B08BCRZZS3 (100-pc bag) | ACQUIRED |
 | Pour-in-place 2 lb 2-part closed-cell PU foam, 1 qt kit | Fiberglass Supply Depot B08R7TX8QJ | ACQUIRED |
-| Reservoir-B fill pair: neoFit ATEU44W stem elbow (trimmed), JG PP0308E union elbow and a short 1/4" LLDPE link | FWS WEBFWS100715131 (ATEU44W); FWS WEBFWS100675224 and WEBFWS100684731 (PP0308E) | ATEU44W ON-ORDER; PP0308E ACQUIRED. Fitted in the top cap before its pour (step 3) |
+| Reservoir-B fill pair: neoFit ATEU44W stem elbow (trimmed), JG PP0308E union elbow and a short 1/4" LLDPE link | FWS WEBFWS100715131 (ATEU44W); FWS WEBFWS100675224 and WEBFWS100684731 (PP0308E) | ATEU44W ACQUIRED; PP0308E ACQUIRED. Fitted in the top cap before its pour (step 3) |
 | Foam-pour consumables (mixing cups × 4, stir sticks × 4, nitrile gloves × 1 pair per build) | B08JHH1DBF / B09H6ZP447 / B0G8SSMVKW | ACQUIRED |
 
 ## Procedure
