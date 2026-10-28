@@ -31,7 +31,10 @@ cancel/disconnect/heartbeat/lease/ceiling endings, gas and I/O admission, the fa
 reservoir gauge, refill/pour exclusion and fan preservation. Console motor checks and the
 self-test remain individual motor loads. Cleaning checks cover both channels pumping tap
 water into their reservoirs, stopping on the full reed or deadline, restarting on the flush
-path, and stopping the motor before closing valves on request. These tests do not establish
+path, cutting tap pressure at each stop while leaving the outlet open for coast-down,
+skipping a full reservoir, and stopping motors before emergency valve closure on reed and
+health-read faults in every cleaning step. They cover inlet-close failures and gas stops.
+These tests do not establish
 physical wet operation.
 `test_pour_policy` checks the pour's cycle timing at 1:20, 1:6 and 1:24, the clamps either
 side of the flow reading and the floor and ceiling on the two phases, the sequence one pour

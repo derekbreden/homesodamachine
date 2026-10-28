@@ -203,6 +203,12 @@ This table is canonical for the integrated flavor manifold. Pumps run forward on
 - Path: Reservoir B → V-H → P-B → V-J → flavor tube B
 - (Same as Dispense B)
 
+Each clean water fill checks the reservoir's full reed before opening V-A or starting the
+pump; a full reservoir proceeds to its flush. A fill ends on that reed or its 90 s limit.
+At a stop, the pump drive stops and V-A closes immediately. The channel's select and return
+remain open for 250 ms of coast-down, then close before the next path opens. Expander faults
+stop the running cleaning motor before the driver's emergency valve closure.
+
 ### Air Purge In → Reservoir A
 
 - Open: V-B, V-C, V-F
