@@ -36,7 +36,7 @@ board also establishes and reports the safe I/O foundation the next connected be
   <a|b> [s]` runs Air Purge In then Air Purge Out on one channel: air into the rinsed
   reservoir, then the reservoir out the faucet until its empty reed has opened and the tail
   has drawn the line clear ([`acceptance-and-burn-in.md`](/hardware/assembly/acceptance-and-burn-in.md)
-  §9). In and Through run 20 s and 30 s; Out runs the clean flush's 150 s or its reed. Every
+  §9). In and Through run 20 s and 30 s; Out runs the clean flush's 248 s or its reed. Every
   answer, step and ending is an `AirStatePayload` on `MSG_RESP_AIR`.
 - **The clean cycle.** `MSG_CLEAN_START` from the enclosure, or `clean <a|b> [rounds] [s]`
   from the console, first draws the funnel through the channel and out of the faucet — V-B,
@@ -46,10 +46,12 @@ board also establishes and reports the safe I/O foundation the next connected be
   flavor change rinses the funnel's path, which no other step reaches. Then it puts tap water
   through the channel three rounds over. A round opens the channel's tap-water path — V-A, its
   select and its return, `CleanWaterFillA/B` — with the pump on, pumping regulated tap water
-  into the reservoir until the full reed closes or 90 s pass; then its dispense path
+  into the reservoir until the full reed closes or 240 s pass; then its dispense path
   — its draw and its flavor tube, `CleanFlushA/B` — with the pump on, out through the faucet
   until the empty reed closes — the float down at the reservoir's empty mark — and 8 s more
-  have drawn the flavor tube clear, or 150 s pass. Before each water fill, a fresh reed read
+  have drawn the flavor tube clear, or 248 s pass. These limits cover the 1.37 L reservoir
+  at the slowest rated 380 mL/min, with line allowance and the flush's 8 s tail.
+  Before each water fill, a fresh reed read
   skips a full reservoir directly to the flush. Between steps the pump stops and V-A closes
   immediately; the remaining valves stay open for a quarter second of coast-down, then close
   before the next path opens. An expander fault stops the cleaning motor before the driver's
@@ -171,7 +173,7 @@ pio device monitor -e appliance
 |---|---|
 | `pump <a\|b> [ms]` | run one flavor pump, bounded — default 2000, ceiling 60000 |
 | `fill <a\|b> [s]` | the funnel fill: the channel's funnel path open and its pump drawing, for `s` s (default 80) or until the reservoir's full reed closes |
-| `clean <a\|b> [rounds] [s]` | the clean cycle: the funnel pumped through to the faucet, then tap water pumped into the reservoir and out the faucet, `rounds` times (default 3); `s` caps every step (default 141 funnel, 90 in, 150 out) |
+| `clean <a\|b> [rounds] [s]` | the clean cycle: the funnel pumped through to the faucet, then tap water pumped into the reservoir and out the faucet, `rounds` times (default 3); `s` caps every step (default 141 funnel, 240 in, 248 out) |
 | `ui <page> [a\|b] [go]` | put a customer page on the enclosure — choose, prime, fill, clean, settings — optionally for a flavor, `go` pressing its START |
 | `flavor [a\|b]` | read or set the main-board-owned flavor selection, and the logo pair beside it |
 | `ratio [a\|b] [6-24]` | read or set what a channel pours at, persisted in NVS and carried to the enclosure on its next poll |
