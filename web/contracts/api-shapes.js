@@ -45,8 +45,10 @@
 //   GET /api/dxf        -> DxfItem[]
 //   GET /api/pcb        -> Board[]
 //   GET /api/documents  -> Document[]
-//   GET /api/materials  -> { schema: 1, roots: string[], materials: Material[] }
-//                          ledger/materials.json with its authored source imports resolved
+//   GET /api/materials  -> { schema: 1, roots: string[], cost_root: string, materials: Material[], costs }
+//                          ledger/materials.json with its authored source imports resolved; `costs`
+//                          is lib/part-costs.js's allocation of bom.md and labor.md to part numbers
+//                          (null without the ledgers), rolled up by contracts/part-costs.js
 //   GET /api/mermaid-content/<path>  -> text/plain (raw .mmd)
 //   GET /api/pcb-content/<path>      -> image/svg+xml   (confined by pcb-out.js VIEW_REQUEST_RE)
 //   GET /api/pcb-picks/<path>        -> PicksFile        (picks-schema.ts; confined by PICKS_REQUEST_RE)

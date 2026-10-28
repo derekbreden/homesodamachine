@@ -10,6 +10,7 @@ import { SCORECARD_SUFFIX } from "../contracts/scorecard-sidecar.js";
 import { mountTubeRoutes } from "./tube-routes.js";
 import { mountPdfjsAssets, renderDocumentReader } from "./document-reader.js";
 import { readMaterialCatalog } from "./material-catalog.js";
+import { readPartCosts } from "./part-costs.js";
 
 const relOf = (req) => req.params.splat.join("/");
 
@@ -50,8 +51,12 @@ export function mountViewerRoutes(app, { hardwareDir, store, pointersPath }) {
 
   app.get("/api/materials", (_req, res) => {
     res.set("Cache-Control", "no-cache");
-    try { res.json(readMaterialCatalog(hardwareDir)); }
-    catch (error) { res.status(503).json({ error: "Material catalog unavailable" }); }
+    let catalog;
+    try { catalog = readMaterialCatalog(hardwareDir); }
+    catch (error) { return res.status(503).json({ error: "Material catalog unavailable" }); }
+    // Costs ride with the catalog; a checkout without the ledgers serves parts uncosted.
+    try { catalog.costs = readPartCosts(hardwareDir, catalog); } catch { catalog.costs = null; }
+    res.json(catalog);
   });
 
   // WHERE THE PAGE FETCHES A MODEL'S BYTES, when the store has a public address. Every member

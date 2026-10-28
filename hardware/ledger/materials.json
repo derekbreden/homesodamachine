@@ -7,6 +7,7 @@
     "HSM-000006",
     "HSM-000180"
   ],
+  "cost_root": "HSM-000340",
   "materials": [
     {
       "id": "HSM-000001",
@@ -36,7 +37,7 @@
         }
       ],
       "bom": {
-        "scope": "Modeled machine contents, including fitted tubing, inlet fittings and selected hardware. The installation water tube and cylinder tether are connected equipment. Wiring, cut lengths and unmodeled fasteners follow the build and cost records.",
+        "scope": "Machine contents: fitted tubing, inlet fittings, fasteners and the eleven bench harnesses. The installation water tube and cylinder tether ship in the install kit. Wire, tubing stock and supplies are costed on the parts and assemblies that use them; cut lengths follow the build records.",
         "source": "ledger/bom.md",
         "items": [
           {
@@ -120,7 +121,7 @@
           },
           {
             "material": "HSM-000330",
-            "quantity": 8,
+            "quantity": 29,
             "unit": "ea",
             "bodies": [
               "stem-elbow-y-c",
@@ -130,8 +131,30 @@
               "stem-elbow-y-f",
               "stem-elbow-v-d",
               "stem-elbow-y-g",
-              "stem-elbow-v-j"
-            ]
+              "stem-elbow-v-j",
+              "tee-fold",
+              "lower-valve-elbow",
+              "lower-pump-elbow",
+              "carbonator-fold",
+              "reg-va-elbow",
+              "va-outlet-elbow",
+              "ya-stem-elbow",
+              "drain-outlet-stem",
+              "vb-inlet-turn",
+              "vb-outlet-stem",
+              "yb-stem-elbow",
+              "gas-inlet-elbow",
+              "gas-lower-a",
+              "gas-lower-b",
+              "gas-upper-a",
+              "gas-upper-b",
+              "soda-outlet-return-stem",
+              "soda-stem-elbow",
+              "reservoir-a-fill-turn",
+              "reservoir-a-draw-turn",
+              "reservoir-b-fill-turn"
+            ],
+            "note": "Eight at the pump-dock lower returns, eighteen at the warm header and return joints and three at the reservoir valves V-F, V-E and V-I."
           },
           {
             "material": "HSM-000161",
@@ -143,8 +166,8 @@
             "quantity": 2,
             "unit": "ea",
             "bodies": [
-              "pump-elbow-suction",
-              "pump-elbow-discharge"
+              "pump-inlet-tpu",
+              "pump-outlet-tpu"
             ]
           },
           {
@@ -152,10 +175,10 @@
             "quantity": 4,
             "unit": "ea",
             "bodies": [
-              "pump-elbow-suction-clamp-barb",
-              "pump-elbow-suction-clamp-tube",
-              "pump-elbow-discharge-clamp-barb",
-              "pump-elbow-discharge-clamp-tube"
+              "pump-inlet-barb-band",
+              "pump-inlet-tube-band",
+              "pump-outlet-barb-band",
+              "pump-outlet-tube-band"
             ]
           },
           {
@@ -193,7 +216,7 @@
           },
           {
             "material": "HSM-000050",
-            "quantity": 7,
+            "quantity": 10,
             "unit": "ea",
             "bodies": [
               "wago-h",
@@ -203,7 +226,8 @@
               "wago-gnd",
               "wago-reeds-b",
               "wago-sensors"
-            ]
+            ],
+            "note": "Seven modeled blocks; three more join the compressor's switched hot and neutral and the pump positive under the funnel opening."
           },
           {
             "material": "HSM-000051",
@@ -234,7 +258,8 @@
             "quantity": 1,
             "unit": "ea",
             "bodies": [
-              "co2-inlet"
+              "co2-inlet",
+              "co2-inlet-nut"
             ]
           },
           {
@@ -264,13 +289,13 @@
           },
           {
             "material": "HSM-000059",
-            "quantity": 4,
+            "quantity": 2,
             "unit": "ea",
             "bodies": [
               "bulkhead-water",
-              "bulkhead-flavor-b",
-              "bulkhead-flavor-a",
-              "bulkhead-carb"
+              "bulkhead-carb",
+              "bulkhead-water-nut",
+              "bulkhead-carb-nut"
             ]
           },
           {
@@ -283,10 +308,15 @@
           },
           {
             "material": "HSM-000061",
-            "quantity": 1,
+            "quantity": 3,
             "unit": "ea",
             "bodies": [
-              "bulkhead-drain"
+              "bulkhead-drain",
+              "bulkhead-flavor-a",
+              "bulkhead-flavor-b",
+              "bulkhead-drain-nut",
+              "bulkhead-flavor-a-nut",
+              "bulkhead-flavor-b-nut"
             ]
           },
           {
@@ -395,11 +425,14 @@
           },
           {
             "material": "HSM-000074",
-            "quantity": 1,
+            "quantity": 3,
             "unit": "ea",
             "bodies": [
-              "funnel-drain-union"
-            ]
+              "funnel-drain-union",
+              "va-east-turn",
+              "vb-outlet-return"
+            ],
+            "note": "The funnel drain elbow in its cradle, the V-A east turn and the V-B return union."
           },
           {
             "material": "HSM-000075",
@@ -704,15 +737,6 @@
             "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
           },
           {
-            "material": "HSM-000294",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "tube-water-2"
-            ],
-            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
-          },
-          {
             "material": "HSM-000295",
             "quantity": 1,
             "unit": "ea",
@@ -855,6 +879,199 @@
               "tube-drain-vent"
             ],
             "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
+          },
+          {
+            "material": "HSM-000343",
+            "quantity": 1,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-000344",
+            "quantity": 1,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-000345",
+            "quantity": 1,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-000346",
+            "quantity": 1,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-000347",
+            "quantity": 1,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-000348",
+            "quantity": 1,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-000349",
+            "quantity": 1,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-000350",
+            "quantity": 1,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-000351",
+            "quantity": 1,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-000352",
+            "quantity": 1,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-000353",
+            "quantity": 1,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-000354",
+            "quantity": 1,
+            "unit": "ea",
+            "note": "Seated in the main board's BT1 holder at bench test."
+          },
+          {
+            "material": "HSM-000355",
+            "quantity": 1,
+            "unit": "ea",
+            "note": "Clamped permanently on the compressor process tube."
+          },
+          {
+            "material": "HSM-000356",
+            "quantity": 1,
+            "unit": "ea",
+            "note": "Brazed between the evaporator coil's outlet stub and the donor suction line."
+          },
+          {
+            "material": "HSM-000357",
+            "quantity": 2,
+            "unit": "ea",
+            "note": "One in each dispense valve outlet, V-G and V-J.",
+            "bodies": [
+              "flavor-reducer-v-g",
+              "flavor-reducer-v-j"
+            ]
+          },
+          {
+            "material": "HSM-000358",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "soda-bend-holder"
+            ]
+          },
+          {
+            "material": "HSM-000364",
+            "quantity": 1,
+            "unit": "ea",
+            "note": "One fitted run from the tap-water bulkhead to the ASSE inlet cuff."
+          },
+          {
+            "material": "HSM-000164",
+            "quantity": 6,
+            "unit": "ea",
+            "note": "Two condenser fingers and four funnel-frame ledges.",
+            "bodies": [
+              "funnel-frame-front-east-insert",
+              "funnel-frame-front-west-insert",
+              "funnel-frame-back-east-insert",
+              "funnel-frame-back-west-insert"
+            ]
+          },
+          {
+            "material": "HSM-000136",
+            "quantity": 11,
+            "unit": "ea",
+            "note": "Two C14 bosses, four PSU hosts, four relay diagonals and the core-lid ground boss."
+          },
+          {
+            "material": "HSM-000132",
+            "quantity": 8,
+            "unit": "ea",
+            "note": "Four compressor floor posts and four Y-seam anchors.",
+            "bodies": [
+              "y-seam-east-lower-insert",
+              "y-seam-east-upper-insert",
+              "y-seam-west-lower-insert",
+              "y-seam-west-upper-insert"
+            ]
+          },
+          {
+            "material": "HSM-000138",
+            "quantity": 10,
+            "unit": "ea",
+            "note": "Four PCB, four relay and two condenser screws."
+          },
+          {
+            "material": "HSM-000139",
+            "quantity": 2,
+            "unit": "ea",
+            "note": "The two C14 screws."
+          },
+          {
+            "material": "HSM-000140",
+            "quantity": 8,
+            "unit": "ea",
+            "note": "Four funnel-frame and four PSU wall screws.",
+            "bodies": [
+              "funnel-frame-front-east-screw",
+              "funnel-frame-front-west-screw",
+              "funnel-frame-back-east-screw",
+              "funnel-frame-back-west-screw"
+            ]
+          },
+          {
+            "material": "HSM-000360",
+            "quantity": 4,
+            "unit": "ea",
+            "note": "One through each G Ganen rubber foot."
+          },
+          {
+            "material": "HSM-000361",
+            "quantity": 4,
+            "unit": "ea",
+            "note": "One under each G Ganen mounting screw."
+          },
+          {
+            "material": "HSM-000362",
+            "quantity": 2,
+            "unit": "ea",
+            "note": "Bridging the C14 flange countersinks."
+          },
+          {
+            "material": "HSM-000133",
+            "quantity": 4,
+            "unit": "ea",
+            "note": "Compressor floor screws."
+          },
+          {
+            "material": "HSM-000159",
+            "quantity": 4,
+            "unit": "ea",
+            "note": "One under each compressor floor screw."
+          },
+          {
+            "material": "HSM-000359",
+            "quantity": 4,
+            "unit": "ea",
+            "note": "The Y seam's four corner-stack rods.",
+            "bodies": [
+              "y-seam-east-lower-screw",
+              "y-seam-east-upper-screw",
+              "y-seam-west-lower-screw",
+              "y-seam-west-upper-screw"
+            ]
           }
         ]
       },
@@ -908,7 +1125,7 @@
         }
       ],
       "bom": {
-        "scope": "Modeled parts for this faucet style. Flavor unions apply to the white finish; cut tubing lengths and wiring are detailed in the cost BOM.",
+        "scope": "Parts for this faucet style, with its umbilical tubing, signal ribbon and insulation. Flavor unions apply to the white finish; cut lengths follow the build records.",
         "source": "assembly/faucet-and-umbilical.md",
         "items": [
           {
@@ -1121,6 +1338,18 @@
             "bodies": [
               "under_counter_plate"
             ]
+          },
+          {
+            "material": "HSM-000366",
+            "quantity": 1,
+            "unit": "ea",
+            "note": "Inside the blue soda tube's end at the Westbrass lower compression port."
+          },
+          {
+            "material": "HSM-000367",
+            "quantity": 1,
+            "unit": "ea",
+            "note": "Crimped on the signal ribbon's wall end."
           }
         ],
         "context": [
@@ -1171,7 +1400,7 @@
         }
       ],
       "bom": {
-        "scope": "Carbonator, insulation stack, reservoirs and modeled sensing hardware. Consumable amounts and unmodeled fasteners are detailed in the cost BOM.",
+        "scope": "Carbonator, insulation stack, reservoirs, sensing hardware and the fasteners that close them. Foam, tape and other supplies are costed on the cold core itself.",
         "source": "cold-core-layout/_bom.py",
         "items": [
           {
@@ -1329,15 +1558,6 @@
             ]
           },
           {
-            "material": "HSM-000037",
-            "quantity": 2,
-            "unit": "ea",
-            "bodies": [
-              "vent-membrane-a",
-              "vent-membrane-b"
-            ]
-          },
-          {
             "material": "HSM-000313",
             "quantity": 1,
             "unit": "ea",
@@ -1400,6 +1620,48 @@
             "bodies": [
               "line-water-in"
             ]
+          },
+          {
+            "material": "HSM-000164",
+            "quantity": 40,
+            "unit": "ea",
+            "note": "Twenty foam-cap clamp bosses, eight deck-mount columns and twelve reservoir-cap inserts."
+          },
+          {
+            "material": "HSM-000137",
+            "quantity": 20,
+            "unit": "ea",
+            "note": "Foam-cap clamp screws, ten per face."
+          },
+          {
+            "material": "HSM-000363",
+            "quantity": 12,
+            "unit": "ea",
+            "note": "Six through each reservoir cap and gasket."
+          },
+          {
+            "material": "HSM-000330",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "reservoir-b-fill-lower"
+            ],
+            "note": "Reservoir B fill stem elbow at its cap bore."
+          },
+          {
+            "material": "HSM-000074",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "reservoir-b-fill-upper"
+            ],
+            "note": "Reservoir B fill union elbow below the lid."
+          },
+          {
+            "material": "HSM-000365",
+            "quantity": 2,
+            "unit": "ea",
+            "note": "Cut 31.25 mm, one through each reservoir cap's air grip."
           }
         ]
       }
@@ -1429,7 +1691,7 @@
         }
       ],
       "bom": {
-        "scope": "Vessel, port fittings, pressure relief, captive magnetic float and welded guide rod. Welding, sealing and fabrication consumables are detailed in the assembly guide.",
+        "scope": "Vessel, port fittings, pressure relief, captive magnetic float and welded guide rod. Filler wire, thread tape, inspection and passivation supplies are costed on the vessel itself.",
         "source": "assembly/pressure-vessel.md",
         "items": [
           {
@@ -1958,7 +2220,7 @@
         }
       ],
       "bom": {
-        "scope": "Modeled parts for this faucet style. Flavor unions apply to the white finish; cut tubing lengths and wiring are detailed in the cost BOM.",
+        "scope": "Parts for this faucet style, with its umbilical tubing, signal ribbon and insulation. Flavor unions apply to the white finish; cut lengths follow the build records.",
         "source": "assembly/faucet-and-umbilical.md",
         "items": [
           {
@@ -2171,6 +2433,18 @@
             "bodies": [
               "under_counter_plate"
             ]
+          },
+          {
+            "material": "HSM-000366",
+            "quantity": 1,
+            "unit": "ea",
+            "note": "Inside the blue soda tube's end at the Westbrass lower compression port."
+          },
+          {
+            "material": "HSM-000367",
+            "quantity": 1,
+            "unit": "ea",
+            "note": "Crimped on the signal ribbon's wall end."
           }
         ],
         "context": [
@@ -2912,7 +3186,23 @@
           "title": "Part details",
           "path": "reference/ground-ring-stack/README.md"
         }
-      ]
+      ],
+      "bom": {
+        "scope": "The inlet, carbonator and compressor earth bonds' ring lugs under one flat washer and M3 \u00d7 8 screw, into the short insert in the core-lid ground boss. The lugs are crimped on their bonds; terminal and wire stock are in the cost BOM.",
+        "source": "reference/ground-ring-stack/README.md",
+        "items": [
+          {
+            "material": "HSM-000138",
+            "quantity": 1,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-000361",
+            "quantity": 1,
+            "unit": "ea"
+          }
+        ]
+      }
     },
     {
       "id": "HSM-000052",
@@ -3040,7 +3330,8 @@
         }
       ],
       "aliases": [
-        "neoFit 4 mm OVER bulkhead"
+        "neoFit 4 mm OVER bulkhead",
+        "neoFit 4 mm FLAVOR bulkhead"
       ],
       "manufacturer_number": "ABU44M-E"
     },
@@ -4055,12 +4346,34 @@
     {
       "id": "HSM-000132",
       "description": "ruthex M5 \u00d7 9.5 heat-set insert",
-      "kind": "purchased"
+      "kind": "purchased",
+      "manufacturer_number": "RX-M5x9.5",
+      "aliases": [
+        "M5 insert",
+        "B07YSVXWS8"
+      ],
+      "documents": [
+        {
+          "title": "Fastener specification",
+          "path": "ledger/bom.md"
+        }
+      ]
     },
     {
       "id": "HSM-000133",
       "description": "M5 \u00d7 10 socket-head screw",
-      "kind": "purchased"
+      "kind": "purchased",
+      "aliases": [
+        "compressor floor screw",
+        "MewuDecor M5x10",
+        "B0BHZVXNJX"
+      ],
+      "documents": [
+        {
+          "title": "Fastener specification",
+          "path": "ledger/bom.md"
+        }
+      ]
     },
     {
       "id": "HSM-000134",
@@ -4075,27 +4388,80 @@
     {
       "id": "HSM-000136",
       "description": "ruthex M3 short heat-set insert",
-      "kind": "purchased"
+      "kind": "purchased",
+      "manufacturer_number": "RX-M3Sx4.0",
+      "aliases": [
+        "short insert",
+        "RX-M3S x 4",
+        "B09ZHSGHXD"
+      ],
+      "documents": [
+        {
+          "title": "Fastener specification",
+          "path": "ledger/bom.md"
+        }
+      ]
     },
     {
       "id": "HSM-000137",
       "description": "M3 \u00d7 25 socket-head screw",
-      "kind": "purchased"
+      "kind": "purchased",
+      "aliases": [
+        "foam-cap clamp screw",
+        "BNUOK M3x25",
+        "B0DJQGF665"
+      ],
+      "documents": [
+        {
+          "title": "Fastener specification",
+          "path": "ledger/bom.md"
+        }
+      ]
     },
     {
       "id": "HSM-000138",
       "description": "M3 \u00d7 8 socket-head screw",
-      "kind": "purchased"
+      "kind": "purchased",
+      "aliases": [
+        "BNUOK M3x8",
+        "B0DJQGPRPV"
+      ],
+      "documents": [
+        {
+          "title": "Fastener specification",
+          "path": "ledger/bom.md"
+        }
+      ]
     },
     {
       "id": "HSM-000139",
       "description": "M3 \u00d7 10 socket-head screw",
-      "kind": "purchased"
+      "kind": "purchased",
+      "aliases": [
+        "BNUOK M3x10",
+        "B0DJQGGDP2"
+      ],
+      "documents": [
+        {
+          "title": "Fastener specification",
+          "path": "ledger/bom.md"
+        }
+      ]
     },
     {
       "id": "HSM-000140",
       "description": "M3 \u00d7 12 socket-head screw",
-      "kind": "purchased"
+      "kind": "purchased",
+      "aliases": [
+        "BNUOK M3x12",
+        "B0DJQGVK8S"
+      ],
+      "documents": [
+        {
+          "title": "Fastener specification",
+          "path": "ledger/bom.md"
+        }
+      ]
     },
     {
       "id": "HSM-000141",
@@ -4245,7 +4611,17 @@
     {
       "id": "HSM-000159",
       "description": "M5 fender washer, OD 25 mm",
-      "kind": "purchased"
+      "kind": "purchased",
+      "aliases": [
+        "compressor floor washer",
+        "B0GSMDY5GL"
+      ],
+      "documents": [
+        {
+          "title": "Fastener specification",
+          "path": "ledger/bom.md"
+        }
+      ]
     },
     {
       "id": "HSM-000160",
@@ -4280,7 +4656,7 @@
         }
       ],
       "bom": {
-        "scope": "Two pumps, the broad lower retainer, three underside M3\u00d760 screws and three RX-M3\u00d75.7 inserts, four prepared pump tubes, and the Fastons that land the J13 ribbon on the motor tabs. The fitted upper inverse is integral front-top material, included in the machine\u2019s enclosure item. The pump tees, upper tubes, lower returns and J13 ribbon belong to the machine. The retainer captures the molded pump skirts against the fixed upper mount; the tee collets grip their prepared tubes.",
+        "scope": "Two pumps, the snap-fit lower retainer, four prepared pump tubes, and the Fastons that land the J13 ribbon on the motor tabs. The fitted upper inverse is integral front-top material, included in the machine\u2019s enclosure item. The pump tees, upper tubes, lower returns and J13 ribbon belong to the machine. The retainer\u2019s two integral wings engage front-top\u2019s flank receivers and capture the molded pump skirts against the fixed upper mount; the tee collets grip their prepared tubes.",
         "source": "assembly/internal-plumbing.md",
         "items": [
           {
@@ -4303,18 +4679,6 @@
             "bodies": [
               "enclosure-pump-retainer"
             ]
-          },
-          {
-            "material": "HSM-000164",
-            "quantity": 3,
-            "unit": "ea",
-            "note": "Installed upward into front-top\u2019s integral pump mount from its open underside."
-          },
-          {
-            "material": "HSM-000165",
-            "quantity": 3,
-            "unit": "ea",
-            "note": "Driven upward through the lower retainer into the three fixed-mount inserts."
           },
           {
             "material": "HSM-000168",
@@ -4347,6 +4711,10 @@
           "title": "Insert specification",
           "path": "ledger/bom.md"
         }
+      ],
+      "aliases": [
+        "full-length insert",
+        "B08BCRZZS3"
       ]
     },
     {
@@ -5495,7 +5863,7 @@
     },
     {
       "id": "HSM-000303",
-      "description": "Flavor B dispense outlet tube \u00b7 1/4 inch black LLDPE",
+      "description": "Flavor B dispense outlet tube \u00b7 4 mm black LLDPE",
       "kind": "manufactured",
       "aliases": [
         "fluid-28",
@@ -5524,7 +5892,7 @@
     },
     {
       "id": "HSM-000304",
-      "description": "Flavor A dispense outlet tube \u00b7 1/4 inch black LLDPE",
+      "description": "Flavor A dispense outlet tube \u00b7 4 mm black LLDPE",
       "kind": "manufactured",
       "aliases": [
         "fluid-18",
@@ -6334,6 +6702,826 @@
         },
         {
           "title": "Rod stock and allocation",
+          "path": "ledger/bom.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000340",
+      "description": "Soda machine \u00b7 as shipped",
+      "kind": "assembly",
+      "aliases": [
+        "finished unit",
+        "consumer unit",
+        "complete unit",
+        "in the box",
+        "machine, faucet and install kit"
+      ],
+      "documents": [
+        {
+          "title": "Per-unit cost BOM",
+          "path": "ledger/bom.md"
+        },
+        {
+          "title": "Labor",
+          "path": "ledger/labor.md"
+        },
+        {
+          "title": "Finish, pack, ship",
+          "path": "assembly/finish-pack-ship.md"
+        }
+      ],
+      "bom": {
+        "scope": "One finished appliance as it ships: the machine, the faucet with its umbilical, and the install kit. Every delivered dollar in the per-unit cost BOM and every attended minute in the labor ledger is allocated to a part number beneath it.",
+        "source": "ledger/bom.md",
+        "items": [
+          {
+            "material": "HSM-000001",
+            "quantity": 1,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-000002",
+            "quantity": 1,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-000341",
+            "quantity": 1,
+            "unit": "ea"
+          }
+        ]
+      }
+    },
+    {
+      "id": "HSM-000341",
+      "description": "Install kit",
+      "kind": "assembly",
+      "aliases": [
+        "install-kit",
+        "customer plumbing",
+        "installation kit"
+      ],
+      "documents": [
+        {
+          "title": "Finish, pack, ship",
+          "path": "assembly/finish-pack-ship.md"
+        },
+        {
+          "title": "Install guide",
+          "path": "install-guide/README.md"
+        }
+      ],
+      "bom": {
+        "scope": "What the customer installs with: the under-sink tees, the filtered water run, the CO\u2082 regulator and tether, the power cord, the collet press, the printed install guide and the cold kit.",
+        "source": "assembly/finish-pack-ship.md",
+        "items": [
+          {
+            "material": "HSM-000311",
+            "quantity": 1,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-000043",
+            "quantity": 1,
+            "unit": "ea",
+            "note": "Scenario A tee for an existing 1/4 inch line."
+          },
+          {
+            "material": "HSM-000312",
+            "quantity": 1,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-000014",
+            "quantity": 1,
+            "unit": "ea",
+            "note": "In the CO\u2082 regulator outlet, holding the tether."
+          },
+          {
+            "material": "HSM-000342",
+            "quantity": 1,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-000368",
+            "quantity": 1,
+            "unit": "ea",
+            "note": "Inline in the white tap-water run."
+          },
+          {
+            "material": "HSM-000369",
+            "quantity": 1,
+            "unit": "ea",
+            "note": "Scenario B tee for an existing 3/8 inch angle stop."
+          },
+          {
+            "material": "HSM-000370",
+            "quantity": 1,
+            "unit": "ea",
+            "note": "Set to 75 PSI and locked at acceptance; the tether rides in its outlet."
+          },
+          {
+            "material": "HSM-000371",
+            "quantity": 1,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-000372",
+            "quantity": 1,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-000373",
+            "quantity": 1,
+            "unit": "ea"
+          }
+        ]
+      }
+    },
+    {
+      "id": "HSM-000342",
+      "description": "Cold kit",
+      "kind": "assembly",
+      "aliases": [
+        "cold-kit",
+        "umbilical trim kit"
+      ],
+      "documents": [
+        {
+          "title": "Finish, pack, ship",
+          "path": "assembly/finish-pack-ship.md"
+        }
+      ],
+      "bom": {
+        "scope": "The bag at the bottom of the install kit for trimming the umbilical to the cabinet and carrying its foam over the whole run.",
+        "source": "assembly/finish-pack-ship.md",
+        "items": [
+          {
+            "material": "HSM-000374",
+            "quantity": 1,
+            "unit": "ea"
+          }
+        ]
+      }
+    },
+    {
+      "id": "HSM-000343",
+      "description": "Manifold A harness \u00b7 J1",
+      "kind": "manufactured",
+      "aliases": [
+        "J1",
+        "J1 MANIFOLD A",
+        "MANIFOLD A loom",
+        "eight-valve harness"
+      ],
+      "documents": [
+        {
+          "title": "Cable assemblies",
+          "path": "assembly/cable-assemblies.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000344",
+      "description": "Manifold B harness \u00b7 J2",
+      "kind": "manufactured",
+      "aliases": [
+        "J2",
+        "J2 MANIFOLD B",
+        "MANIFOLD B loom"
+      ],
+      "documents": [
+        {
+          "title": "Cable assemblies",
+          "path": "assembly/cable-assemblies.md"
+        },
+        {
+          "title": "J2 bench guide",
+          "path": "assembly/harnesses/j2.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000345",
+      "description": "Faucet display harness \u00b7 J3",
+      "kind": "manufactured",
+      "aliases": [
+        "J3",
+        "J3 FAUCET",
+        "SIG-6 inboard loom",
+        "keystone loom"
+      ],
+      "documents": [
+        {
+          "title": "Cable assemblies",
+          "path": "assembly/cable-assemblies.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000346",
+      "description": "Sensor harness \u00b7 J4",
+      "kind": "manufactured",
+      "aliases": [
+        "J4",
+        "J4 SENSORS",
+        "temperature bus and flow meter loom"
+      ],
+      "documents": [
+        {
+          "title": "Cable assemblies",
+          "path": "assembly/cable-assemblies.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000347",
+      "description": "Relay harness \u00b7 J5",
+      "kind": "manufactured",
+      "aliases": [
+        "J5",
+        "J5 RELAYS",
+        "relay loom"
+      ],
+      "documents": [
+        {
+          "title": "Cable assemblies",
+          "path": "assembly/cable-assemblies.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000348",
+      "description": "Reservoir A reed harness \u00b7 J6",
+      "kind": "manufactured",
+      "aliases": [
+        "J6",
+        "J6 REEDS A",
+        "reservoir A reed column"
+      ],
+      "documents": [
+        {
+          "title": "Cable assemblies",
+          "path": "assembly/cable-assemblies.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000349",
+      "description": "Reservoir B and carbonator reed harness \u00b7 J7",
+      "kind": "manufactured",
+      "aliases": [
+        "J7",
+        "J7 REEDS B",
+        "reservoir B reed column",
+        "carbonator reed pair"
+      ],
+      "documents": [
+        {
+          "title": "Cable assemblies",
+          "path": "assembly/cable-assemblies.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000350",
+      "description": "Machine display harness \u00b7 J9",
+      "kind": "manufactured",
+      "aliases": [
+        "J9",
+        "J9 DISPLAY",
+        "display loom"
+      ],
+      "documents": [
+        {
+          "title": "Cable assemblies",
+          "path": "assembly/cable-assemblies.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000351",
+      "description": "Main board supply lead \u00b7 J10",
+      "kind": "manufactured",
+      "aliases": [
+        "J10",
+        "12 V distribution lead",
+        "board input lead"
+      ],
+      "documents": [
+        {
+          "title": "Cable assemblies",
+          "path": "assembly/cable-assemblies.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000352",
+      "description": "Gas sensor harness \u00b7 J11",
+      "kind": "manufactured",
+      "aliases": [
+        "J11",
+        "J11 GAS",
+        "MQ-6 loom"
+      ],
+      "documents": [
+        {
+          "title": "Cable assemblies",
+          "path": "assembly/cable-assemblies.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000353",
+      "description": "Pump harness \u00b7 J13",
+      "kind": "manufactured",
+      "aliases": [
+        "J13",
+        "J13 PUMPS",
+        "DC-5 pump leads"
+      ],
+      "documents": [
+        {
+          "title": "Cable assemblies",
+          "path": "assembly/cable-assemblies.md"
+        },
+        {
+          "title": "J13 bench guide",
+          "path": "assembly/harnesses/j13.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000354",
+      "description": "Duracell CR2032 3 V lithium coin cell \u00b7 RTC backup",
+      "kind": "purchased",
+      "manufacturer_number": "CR2032",
+      "aliases": [
+        "CR2032",
+        "coin cell",
+        "BT1 cell",
+        "DS3231 backup cell",
+        "B0C15WJXL2"
+      ],
+      "documents": [
+        {
+          "title": "Cell specification",
+          "path": "ledger/bom.md"
+        },
+        {
+          "title": "Main board parts",
+          "path": "pcb/pcba/jlcpcb-parts.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000355",
+      "description": "Supco BPV31 bullet piercing valve \u00b7 compressor service port",
+      "kind": "purchased",
+      "manufacturer_number": "BPV31",
+      "aliases": [
+        "piercing valve",
+        "service port",
+        "process-tube valve",
+        "B00DM8J3MI"
+      ],
+      "documents": [
+        {
+          "title": "Service-port installation",
+          "path": "assembly/refrigerant-loop.md"
+        },
+        {
+          "title": "Valve specification",
+          "path": "ledger/bom.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000356",
+      "description": "Copper slip coupling \u00b7 1/4 inch ACR, sweat \u00d7 sweat",
+      "kind": "purchased",
+      "aliases": [
+        "slip coupling",
+        "sweat coupling",
+        "coil-to-suction coupling",
+        "B0FH549N6D"
+      ],
+      "documents": [
+        {
+          "title": "Suction-line tie-in",
+          "path": "assembly/refrigerant-loop.md"
+        },
+        {
+          "title": "Coupling specification",
+          "path": "ledger/bom.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000357",
+      "description": "neoFit ARD4M4-E \u00b7 4 mm tube \u00d7 1/4 inch stem reducer",
+      "kind": "purchased",
+      "manufacturer_number": "ARD4M4-E",
+      "aliases": [
+        "flavor reducer",
+        "dispense reducer",
+        "flavor-reducer-v-g",
+        "flavor-reducer-v-j"
+      ],
+      "documents": [
+        {
+          "title": "Reducer reference",
+          "path": "reference/neofit-flavor-reducer/README.md"
+        },
+        {
+          "title": "Flavor dispense plumbing",
+          "path": "assembly/internal-plumbing.md"
+        },
+        {
+          "title": "Fitting specification",
+          "path": "ledger/bom.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000358",
+      "description": "Soda inlet bend holder \u00b7 PET-GF",
+      "kind": "manufactured",
+      "aliases": [
+        "soda-bend-holder",
+        "bend holder",
+        "R14 holder",
+        "continuous soda inlet bend holder"
+      ],
+      "documents": [
+        {
+          "title": "Part details",
+          "path": "printed-parts/soda-bend-holder/README.md"
+        },
+        {
+          "title": "Soda inlet assembly",
+          "path": "assembly/internal-plumbing.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000359",
+      "description": "M5 \u00d7 100 socket-head screw \u00b7 black oxide",
+      "kind": "purchased",
+      "aliases": [
+        "seam rod",
+        "Y-seam screw",
+        "SVLING M5x100",
+        "B0GHNNYVDH"
+      ],
+      "documents": [
+        {
+          "title": "Y-seam closure",
+          "path": "assembly/enclosure-mechanical.md"
+        },
+        {
+          "title": "Fastener specification",
+          "path": "ledger/bom.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000360",
+      "description": "M3 \u00d7 20 socket-head screw \u00b7 black oxide",
+      "kind": "purchased",
+      "aliases": [
+        "water pump screw",
+        "BNUOK M3x20",
+        "B0DJR2Q5LP"
+      ],
+      "documents": [
+        {
+          "title": "Pump mounting",
+          "path": "assembly/electronics-bay.md"
+        },
+        {
+          "title": "Fastener specification",
+          "path": "ledger/bom.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000361",
+      "description": "M3 flat washer \u00b7 \u00d89 \u00d7 0.8 mm, 304 stainless",
+      "kind": "purchased",
+      "aliases": [
+        "DIN 9021 M3 washer",
+        "uxcell M3 washer 9 mm",
+        "B0FB45MN93"
+      ],
+      "documents": [
+        {
+          "title": "Fastener specification",
+          "path": "ledger/bom.md"
+        },
+        {
+          "title": "Ground stack",
+          "path": "reference/ground-ring-stack/README.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000362",
+      "description": "M3 flat washer \u00b7 \u00d87 \u00d7 0.5 mm, 304 stainless",
+      "kind": "purchased",
+      "aliases": [
+        "DIN 125A M3 washer",
+        "uxcell M3 washer 7 mm",
+        "C14 washer",
+        "B0F9KKJ22M"
+      ],
+      "documents": [
+        {
+          "title": "C14 mounting",
+          "path": "assembly/enclosure-mechanical.md"
+        },
+        {
+          "title": "Fastener specification",
+          "path": "ledger/bom.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000363",
+      "description": "M3 \u00d7 12 socket-head screw \u00b7 304 stainless",
+      "kind": "purchased",
+      "aliases": [
+        "reservoir cap screw",
+        "BNUOK M3x12 stainless",
+        "B0DJQGMQZM"
+      ],
+      "documents": [
+        {
+          "title": "Reservoir cap",
+          "path": "printed-parts/cold-core/reservoir/README.md"
+        },
+        {
+          "title": "Fastener specification",
+          "path": "ledger/bom.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000364",
+      "description": "Backflow preventer inlet tube \u00b7 1/4 inch white LLDPE",
+      "kind": "manufactured",
+      "aliases": [
+        "water-1",
+        "tube-water-1",
+        "tube-above-core-water-in",
+        "water 1 tube \u00b7 1/4 inch white LLDPE"
+      ],
+      "documents": [
+        {
+          "title": "Tube routing and cut stock",
+          "path": "manifold-layout/enclosure_assembly.py"
+        },
+        {
+          "title": "Internal plumbing",
+          "path": "assembly/internal-plumbing.md"
+        },
+        {
+          "title": "Fluid circuit",
+          "path": "topology/fluid-topology.md"
+        }
+      ],
+      "contexts": [
+        {
+          "material": "HSM-000001"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000365",
+      "description": "Cold-core flavor reservoir air tube \u00b7 4 mm white LLDPE",
+      "kind": "manufactured",
+      "aliases": [
+        "reservoir air tube",
+        "tube-reservoir-air-a",
+        "tube-reservoir-air-b"
+      ],
+      "documents": [
+        {
+          "title": "Air-tube installation",
+          "path": "printed-parts/cold-core/reservoir/vent.md"
+        },
+        {
+          "title": "Cold-core assembly",
+          "path": "assembly/cold-core.md"
+        }
+      ],
+      "contexts": [
+        {
+          "material": "HSM-000003"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000366",
+      "description": "Siptenk 1/4 inch brass tube stiffener",
+      "kind": "purchased",
+      "aliases": [
+        "tube stiffener",
+        "brass insert",
+        "soda supply stiffener",
+        "B0FM77LLM1"
+      ],
+      "documents": [
+        {
+          "title": "Soda supply connection",
+          "path": "assembly/faucet-and-umbilical.md"
+        },
+        {
+          "title": "Stiffener specification",
+          "path": "ledger/bom.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000367",
+      "description": "EZYUMM RJ11 6P4C modular plug \u00b7 3-prong",
+      "kind": "purchased",
+      "aliases": [
+        "RJ11 plug",
+        "modular plug",
+        "SIG-6 plug",
+        "B0DK4V733Q"
+      ],
+      "documents": [
+        {
+          "title": "SIG-6 termination",
+          "path": "assembly/faucet-and-umbilical.md"
+        },
+        {
+          "title": "Plug and jack wiring",
+          "path": "assembly/cable-assemblies.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000368",
+      "description": "Waterdrop 15UC-UF inline water filter",
+      "kind": "purchased",
+      "manufacturer_number": "15UC-UF",
+      "aliases": [
+        "water filter",
+        "inline filter",
+        "B085G9TZ4L"
+      ],
+      "documents": [
+        {
+          "title": "Install kit",
+          "path": "assembly/finish-pack-ship.md"
+        },
+        {
+          "title": "Filter specification",
+          "path": "ledger/bom.md"
+        },
+        {
+          "title": "Install guide",
+          "path": "install-guide/README.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000369",
+      "description": "John Guest ASVPP1LF angle stop adapter valve",
+      "kind": "purchased",
+      "manufacturer_number": "ASVPP1LF",
+      "aliases": [
+        "angle stop adapter",
+        "scenario B tee",
+        "B003YKF2JC"
+      ],
+      "documents": [
+        {
+          "title": "Install kit",
+          "path": "assembly/finish-pack-ship.md"
+        },
+        {
+          "title": "Fitting specification",
+          "path": "ledger/bom.md"
+        },
+        {
+          "title": "Install guide",
+          "path": "install-guide/README.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000370",
+      "description": "Taprite 3741 CO\u2082 primary regulator \u00b7 CGA-320",
+      "kind": "purchased",
+      "manufacturer_number": "3741",
+      "aliases": [
+        "primary regulator",
+        "CGA-320 regulator",
+        "Taprite 3741"
+      ],
+      "documents": [
+        {
+          "title": "Regulator reference",
+          "path": "reference/taprite-3741-regulator/README.md"
+        },
+        {
+          "title": "Factory setting",
+          "path": "assembly/acceptance-and-burn-in.md"
+        },
+        {
+          "title": "Regulator specification",
+          "path": "ledger/bom.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000371",
+      "description": "Monoprice NEMA 5-15P to IEC C13 line cord \u00b7 18 AWG, 6 ft",
+      "kind": "purchased",
+      "aliases": [
+        "line cord",
+        "power cord",
+        "C13 cord",
+        "B08VS8D4WC"
+      ],
+      "documents": [
+        {
+          "title": "Install kit",
+          "path": "assembly/finish-pack-ship.md"
+        },
+        {
+          "title": "Cord specification",
+          "path": "ledger/bom.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000372",
+      "description": "Collet press \u00b7 PET-GF",
+      "kind": "manufactured",
+      "aliases": [
+        "collet-press",
+        "release tool",
+        "collet release tool"
+      ],
+      "documents": [
+        {
+          "title": "Part details",
+          "path": "printed-parts/collet-press/README.md"
+        },
+        {
+          "title": "Install kit",
+          "path": "assembly/finish-pack-ship.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000373",
+      "description": "Install guide \u00b7 printed and bound",
+      "kind": "purchased",
+      "aliases": [
+        "install guide",
+        "printed install guide",
+        "Lulu install guide",
+        "customer documentation"
+      ],
+      "documents": [
+        {
+          "title": "Install guide",
+          "path": "install-guide/README.md"
+        },
+        {
+          "title": "Print order",
+          "path": "install-guide/press/ORDER.md"
+        },
+        {
+          "title": "Customer documentation",
+          "path": "assembly/finish-pack-ship.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000374",
+      "description": "Mudder tube cutter \u00b7 up to 3/4 inch OD",
+      "kind": "purchased",
+      "aliases": [
+        "tube cutter",
+        "PTFE tubing cutter",
+        "cold-kit cutter",
+        "B08VW15TK8"
+      ],
+      "documents": [
+        {
+          "title": "Cold kit",
+          "path": "assembly/finish-pack-ship.md"
+        },
+        {
+          "title": "Cutter specification",
           "path": "ledger/bom.md"
         }
       ]

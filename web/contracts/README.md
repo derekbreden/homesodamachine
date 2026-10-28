@@ -39,6 +39,11 @@ tree needs no edit here.
   ones whose name is not its file's stem; plus `sourceFileFor`, which answers null for the bodies an
   assembly builds and keeps. Read by `web/public/js/viewer/component-picker.js` for the drill-down
   into a selected component; pinned by `web/tests/component-sources.test.js`.
+- **part-costs.js** — each part number's cost rolled up through its BOM: its own purchase,
+  material, supplies and labor (`costs.direct`, allocated by `web/lib/part-costs.js` from bom.md
+  and labor.md and served beside the catalog at `/api/materials`) plus every child's cost times
+  its quantity. Read by `web/public/js/viewer/{material-panel,parts}.js` and
+  `web/lib/part-cost-view.js`.
 - **faucet-options.js** — the Sculpted and Industrial faucet assemblies and their part paths,
   plus the Black/White PET-GF finish palette and the exact bodies that take it. Both styles
   use the same assembly frame. Read by the viewer's faucet controls, material builder and

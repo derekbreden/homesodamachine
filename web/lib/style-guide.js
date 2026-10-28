@@ -2,7 +2,9 @@ import { renderHead, renderNav, renderPageHeader, renderFooter } from './shell.j
 import { COST_CSS } from './cost.js';
 import { SIGNUP_BUTTON_CSS } from './landing.js';
 import { readMaterialCatalog } from './material-catalog.js';
-import { materialDocuments } from '../contracts/materials.js';
+import { materialDocuments, bomItems } from '../contracts/materials.js';
+import { readPartCosts } from './part-costs.js';
+import { rollupCost, laborUsd, money, duration } from '../contracts/part-costs.js';
 
 const escape = value => String(value).replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[char]);
 const repo = 'https://github.com/derekbreden/homesodamachine/blob/main/';
@@ -93,13 +95,45 @@ ${samples.map(material => `    <a href="${materialLink(material)}" data-guide-re
 ${rows.map(({ material, item }, i) => `    <div class="bom-row${i === 0 ? ' selected' : ''}" style="--depth: 0">
       <button type="button" class="bom-disclosure" disabled aria-label="No child materials">·</button>
       <button type="button" class="bom-select" aria-pressed="${i === 0}" aria-label="${escape(material.description)}, ${item.quantity} ${item.unit} in this assembly"><span class="bom-description">${escape(material.description)}</span><span class="bom-number">${material.id}</span></button>
-      <span class="bom-quantity">${item.quantity} ${item.unit}</span>
+      <span class="bom-amount"><span class="bom-quantity">${item.quantity} ${item.unit}</span></span>
     </div>`).join('\n')}
   </div>
   <p class="material-selection-note" id="guide-selection-status" role="status">${escape(rows[0].material.description)} selected in this example.</p>
 </div>
 <div id="guide-docs" role="tabpanel" aria-labelledby="guide-tab-docs" hidden>
 ${documents.map(document => `  <a class="material-document" href="${documentLink(document)}"><strong>${escape(document.title)}</strong><span>${escape(root.description)}</span></a>`).join('\n')}
+</div>`;
+  // Costed rows come from the carbonator vessel, priced the way the explorer prices them.
+  const catalog = readMaterialCatalog(hardwareDir);
+  catalog.costs = readPartCosts(hardwareDir, catalog);
+  const vessel = catalog.materials.find(material => material.id === 'HSM-000004');
+  const memo = new Map(), roll = id => rollupCost(catalog, id, catalog.costs.options, memo);
+  const vesselCost = roll(vessel.id);
+  const pct = (part, whole) => whole > 0 ? (part / whole * 100).toFixed(2) : '0';
+  const split = (parts, labor, whole) => `<span class="cost-split" aria-hidden="true"><i class="p" style="width: ${pct(parts, whole)}%"></i><i class="l" style="width: ${pct(labor, whole)}%"></i></span>`;
+  const costedRows = bomItems(vessel, catalog.costs.options)
+    .map(item => ({ item, material: find(item.material), cost: roll(item.material) }))
+    .sort((a, b) => b.item.quantity * b.cost.usd - a.item.quantity * a.cost.usd).slice(0, 3);
+  const vesselLabor = (catalog.costs.direct[vessel.id]?.elements || []).filter(element => element.kind === 'labor');
+  const vesselMinutes = vesselLabor.reduce((sum, element) => sum + element.minutes, 0);
+  const costMarkup = `<div class="material-cost">
+  <p class="material-cost-total"><strong>${money(vesselCost.usd)}</strong><span>each</span></p>
+  ${split(vesselCost.parts, vesselCost.labor, vesselCost.usd)}
+  <p class="material-cost-legend"><span class="material-cost-key"><i class="cost-key"></i>Parts ${money(vesselCost.parts)}</span><span class="material-cost-key"><i class="cost-key l"></i>Labor ${money(vesselCost.labor)} · ${duration(vesselCost.minutes)}</span></p>
+</div>
+<div class="bom-tree">
+${costedRows.map(({ item, material, cost }) => `  <div class="bom-row" style="--depth: 0">
+    <button type="button" class="bom-disclosure" disabled aria-label="No child materials">·</button>
+    <button type="button" class="bom-select" aria-label="${escape(material.description)}, ${item.quantity} ${item.unit} in this assembly, ${money(item.quantity * cost.usd)}"><span class="bom-description">${escape(material.description)}</span><span class="bom-number">${material.id}</span></button>
+    <span class="bom-amount"><span class="bom-quantity">${item.quantity} ${item.unit}</span><span class="bom-cost">${money(item.quantity * cost.usd)}</span></span>
+    <span class="bom-share">${split(item.quantity * cost.parts, item.quantity * cost.labor, vesselCost.usd)}</span>
+  </div>`).join('\n')}
+  <div class="bom-row bom-own bom-own-labor" style="--depth: 0">
+    <span class="bom-own-mark">◷</span>
+    <button type="button" class="bom-select"><span class="bom-description">Labor on this assembly</span><span class="bom-counts">${vesselLabor.length} operations · ${duration(vesselMinutes)}</span></button>
+    <span class="bom-amount"><span class="bom-cost">${money(laborUsd(catalog, vesselMinutes))}</span></span>
+    <span class="bom-share">${split(0, laborUsd(catalog, vesselMinutes), vesselCost.usd)}</span>
+  </div>
 </div>`;
   const panelMarkup = `<details class="cost-panel" open>
   <summary>
@@ -139,6 +173,7 @@ ${documents.map(document => `  <a class="material-document" href="${documentLink
   <section class="guide-section" id="data" aria-labelledby="data-title">
     <h2 class="cost-title" id="data-title">Data and disclosure</h2>
     ${example({ id: 'selection', title: 'Material rows and selected states', usage: 'A selected tab has a filled background and underline. A selected row also keeps its pressed state in the markup. Click a row, switch tabs, or use the arrow keys on the tab list. Selection changes only this example.', markup: bomMarkup, sources: [['web/public/css/materials.css', 'BOM rows, tabs and documents'], ['web/public/js/viewer/material-panel.js', 'Production relationships'], ['hardware/ledger/materials.json', 'Catalog content']] })}
+    ${example({ id: 'costed-bom', title: 'Costed material rows', usage: 'A material’s cost sits under its name: the total, one bar split into parts in orange and labor in blue, and the two amounts. Each BOM row prices its quantity in the inspected assembly, with a thin bar for its share of that assembly. An expanded assembly ends with its own labor and supplies, so each level adds up. These rows are the carbonator vessel’s three largest items and its welding, inspection and test labor.', markup: costMarkup, sources: [['web/public/css/materials.css', 'Cost summary and costed rows'], ['web/public/js/viewer/material-panel.js', 'Production costed BOM'], ['web/lib/part-costs.js', 'Ledger allocation to part numbers']] })}
     ${example({ id: 'disclosure', title: 'Expandable panel and cost row', usage: 'Keep a useful heading and headline value visible when a panel is collapsed. Native details and summary provide disclosure without JavaScript. The cost row wraps its name above the values on phones.', markup: panelMarkup, sources: [['web/lib/cost.js', '.cost-panel and .cost-bar']] })}
   </section>
   <section class="guide-section" aria-labelledby="using-guide-title">

@@ -1,11 +1,12 @@
 import { state } from "./state.js";
-import { materialIndex, materialForFile, explodeBom, bomCountText, bomCounts, materialDocuments, materialUses, occurrenceBodies, occurrenceForBody, matchesBody } from "/contracts/materials.js";
+import { materialIndex, materialForFile, explodeBom, bomItems, bomCountText, bomCounts, materialDocuments, materialUses, occurrenceBodies, occurrenceForBody, matchesBody } from "/contracts/materials.js";
 import { HSM_EVENTS } from "/contracts/client-events.js";
 import { highlightParts, clearHighlight, scenePartNames } from "./part-highlight.js";
 import { openMaterial, materialHash } from "./material-nav.js";
 import { makeMaterialSearch } from "./material-search.js";
 import { componentLocation, stepLabel, stepLocation } from "/contracts/step-locations.js";
 import { mountMaterialDrawing } from "./material-drawing.js";
+import { rollupCost, directCost, laborUsd, money, duration, COST_KINDS } from "/contracts/part-costs.js";
 
 const el = (tag, className, text) => {
   const node = document.createElement(tag);
@@ -17,6 +18,26 @@ const options = () => ({ finish: state.faucetFinish });
 const quantity = (q, unit = "ea") => q == null ? "As required" : `${Number(q.toFixed(3))} ${unit}`;
 const pathKey = (path) => path.map((item) => `${item.material}:${item.occurrence}`).join("/");
 const docHref = (path) => "/read/" + path;
+// Costs appear for the finished unit and everything in it; tooling and
+// references have no per-unit cost.
+const costedIds = () => new Set(state.materialCatalog?.costs?.costed || []);
+const percent = (part, whole) => whole > 0 ? `${Math.max(0, Math.min(100, part / whole * 100)).toFixed(2)}%` : "0%";
+
+// Parts and labor as one bar: orange for what is bought, cut, printed or used up,
+// blue for attended time — the split the cost page draws for the whole unit.
+function costBar(cost, scale = cost.usd) {
+  const bar = el("span", "cost-split");
+  bar.setAttribute("aria-hidden", "true");
+  const parts = el("i", "p"), labor = el("i", "l");
+  parts.style.width = percent(cost.parts, scale); labor.style.width = percent(cost.labor, scale);
+  bar.append(parts, labor);
+  return bar;
+}
+const costKey = (kind, text) => {
+  const item = el("span", "material-cost-key");
+  item.append(el("i", kind === "labor" ? "cost-key l" : "cost-key"), text);
+  return item;
+};
 
 export function mountMaterialPanel(workspace, { file = null, material = null } = {}) {
   const panel = el("aside", "material-panel");
@@ -41,6 +62,7 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
   let root = material || materialForFile(state.materialCatalog, file)?.id;
   let selected = root, selectedPath = [], tab = null;
   let selectedBody = null;
+  let sortByCost = false;
   const expanded = new Set();
   let lastFile = file;
   const scroll = el("div", "material-panel-scroll");
@@ -106,10 +128,17 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
       actions.append(open);
     }
     if (current?.manufacturer_number) identity.append(el("p", "material-meta", "Manufacturer part: " + current.manufacturer_number));
+    const costed = costedIds(), memo = new Map();
+    const costOf = (id) => rollupCost(state.materialCatalog, id, options(), memo);
+    const costedRoot = Boolean(rootMaterial && costed.has(rootMaterial.id));
+    const costedCurrent = Boolean(current && costed.has(current.id));
     if (selectedPath.length) {
       const row = explodeBom(state.materialCatalog, root, options()).find((r) => pathKey(r.path) === pathKey(selectedPath));
-      if (row) identity.append(el("p", "material-meta", `${quantity(row.quantity, row.item.unit)} in ${rootMaterial.description}`));
+      const cost = costedCurrent && row?.quantity != null && costOf(current.id);
+      if (row) identity.append(el("p", "material-meta", `${quantity(row.quantity, row.item.unit)} in ${rootMaterial.description}` +
+        (cost?.costed && row.quantity !== 1 ? ` · ${money(row.quantity * cost.usd)}` : "")));
     }
+    if (costedCurrent) identity.append(costSummary(current, costOf(current.id)));
     if (current) {
       const permanent = materialLink(current, "Permanent link");
       // A regular anchor supports copying, opening in another tab and bookmarks.
@@ -136,27 +165,79 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
     const rows = explodeBom(state.materialCatalog, root, options());
     const used = current ? materialUses(state.materialCatalog, current.id, options()) : { assemblies: [], tools: [], equipment: [] };
     const docs = materialDocuments(state.materialCatalog, (current || rootMaterial)?.id, options());
-    const counts = { bom: rows.length, used: used.assemblies.length + used.tools.length + used.equipment.length, docs: docs.length };
-    if (!tab) tab = counts.bom ? "bom" : counts.docs ? "docs" : counts.used ? "used" : "bom";
+    const counts = { bom: rows.length, cost: Number(costedCurrent), used: used.assemblies.length + used.tools.length + used.equipment.length, docs: docs.length };
+    if (!tab) tab = counts.bom ? "bom" : counts.cost ? "cost" : counts.docs ? "docs" : counts.used ? "used" : "bom";
     const tabs = el("div", "material-tabs"); tabs.setAttribute("role", "tablist"); tabs.setAttribute("aria-label", "Material relationships");
-    for (const [key, label] of [["bom", "BOM"], ["docs", "Documents"], ["used", "Where used"]]) {
+    for (const [key, label] of [["bom", "BOM"], ["cost", "Cost"], ["docs", "Documents"], ["used", "Where used"]]) {
       if (!counts[key] && tab !== key) continue;
-      const button = el("button", "", `${label} (${counts[key]})`); button.type = "button";
+      const button = el("button", "", key === "cost" ? label : `${label} (${counts[key]})`); button.type = "button";
       if (key === "bom" && rootMaterial) button.title = `BOM items in ${rootMaterial.description}, including every nested level`;
       button.setAttribute("role", "tab"); button.setAttribute("aria-selected", String(tab === key));
       button.addEventListener("click", () => { tab = key; render(); }); tabs.append(button);
     }
     tabsHost.replaceChildren(tabs);
     const content = el("div", "material-tab-content"); content.setAttribute("role", "tabpanel");
-    content.setAttribute("aria-label", { bom: "Exploded bill of materials", used: "Where used", docs: "Documents" }[tab]);
+    content.setAttribute("aria-label", { bom: "Exploded bill of materials", cost: "Cost breakdown", used: "Where used", docs: "Documents" }[tab]);
     scroll.append(content);
-    if (tab === "bom") renderBom(content, rootMaterial, index, rows);
+    if (tab === "bom") renderBom(content, rootMaterial, index, rows, costedRoot ? costOf : null);
+    if (tab === "cost") renderCost(content, current, index, costedCurrent ? costOf : null);
     if (tab === "used") renderUsed(content, current, used, index);
     if (tab === "docs") renderDocs(content, docs);
     scroll.scrollTop = top;
   }
 
-  function renderBom(content, rootMaterial, index, rows) {
+  function costSummary(material, cost) {
+    const box = el("div", "material-cost");
+    if (!cost.costed) {
+      box.append(el("p", "material-cost-none", "No per-unit cost is recorded for this material."));
+      return box;
+    }
+    const total = el("p", "material-cost-total");
+    total.append(el("strong", "", money(cost.usd)), el("span", "", material.id === state.materialCatalog.costs.root ? "per finished unit" : "each"));
+    const legend = el("p", "material-cost-legend");
+    legend.append(costKey("parts", `Parts ${money(cost.parts)}`));
+    if (cost.minutes) legend.append(costKey("labor", `Labor ${money(cost.labor)} · ${duration(cost.minutes)}`));
+    box.append(total, costBar(cost), legend);
+    return box;
+  }
+
+  // A material's own cost, one row per kind, under its contents in the tree: the
+  // work of putting it together and what it consumes, so an expanded assembly
+  // visibly adds up to the total on its own row.
+  function ownCostRows(id, depth, pieces, path, total) {
+    const own = directCost(state.materialCatalog, id);
+    if (!own || !bomItems(materialIndex(state.materialCatalog).get(id), options()).length) return [];
+    const groups = new Map();
+    for (const element of own.elements) {
+      const group = groups.get(element.kind) || { parts: 0, labor: 0, minutes: 0, items: [] };
+      group.parts += element.usd || 0;
+      group.labor += laborUsd(state.materialCatalog, element.minutes || 0);
+      group.minutes += element.minutes || 0;
+      group.items.push(element);
+      groups.set(element.kind, group);
+    }
+    return COST_KINDS.filter((kind) => groups.has(kind.id)).map((kind) => {
+      const group = groups.get(kind.id), usd = group.parts + group.labor;
+      const line = el("div", `bom-row bom-own bom-own-${kind.id}`);
+      line.style.setProperty("--depth", depth);
+      const pick = el("button", "bom-select"); pick.type = "button";
+      const detail = kind.id === "labor" ? `${group.items.length} operation${group.items.length === 1 ? "" : "s"} · ${duration(group.minutes * pieces)}`
+        : group.items.map((item) => item.label).slice(0, 2).join(" · ") + (group.items.length > 2 ? ` · ${group.items.length - 2} more` : "")
+          + (group.minutes ? ` · ${duration(group.minutes * pieces)}` : "");
+      pick.append(el("span", "bom-description", kind.id === "labor" ? "Labor on this assembly" : kind.id === "unallocated" ? kind.label : `${kind.label} for this assembly`),
+        el("span", "bom-counts", detail));
+      pick.setAttribute("aria-label", `${kind.label}: ${money(usd * pieces)}, open the cost breakdown`);
+      pick.addEventListener("click", () => { tab = "cost"; select(id, path); });
+      const amount = el("span", "bom-amount");
+      amount.append(el("span", "bom-cost", money(usd * pieces)));
+      const share = el("span", "bom-share");
+      share.append(costBar({ parts: group.parts * pieces, labor: group.labor * pieces }, total));
+      line.append(el("span", "bom-own-mark", kind.id === "labor" ? "◷" : "·"), pick, amount, share);
+      return line;
+    });
+  }
+
+  function renderBom(content, rootMaterial, index, rows, costOf) {
     if (!rootMaterial?.bom?.items.length) {
       content.append(el("p", "material-empty", rootMaterial ? "No child materials listed for this part." : "Assembly relationships have not been recorded for this model."));
     } else {
@@ -169,35 +250,40 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
       const collapse = el("button", "", "Collapse all"); collapse.type = "button";
       all.addEventListener("click", () => { rows.forEach((r) => expanded.add(pathKey(r.path))); render(); });
       collapse.addEventListener("click", () => { expanded.clear(); render(); });
-      tools.append(all, collapse, el("span", "", "Quantities per assembly")); content.append(tools);
-      const tree = el("div", "bom-tree");
-      for (const row of rows) {
-        if (row.path.slice(0, -1).some((_, i) => !expanded.has(pathKey(row.path.slice(0, i + 1))))) continue;
-        const childCounts = bomCounts(state.materialCatalog, row.material.id, options());
-        const key = pathKey(row.path), branch = childCounts.total > 0;
-        const line = el("div", "bom-row" + (selectedPath.length && key === pathKey(selectedPath) ? " selected" : ""));
-        line.style.setProperty("--depth", row.depth);
-        const disclosure = el("button", "bom-disclosure", branch ? (expanded.has(key) ? "−" : "+") : "·");
-        disclosure.type = "button"; disclosure.disabled = !branch;
-        disclosure.setAttribute("aria-label", `${expanded.has(key) ? "Collapse" : "Expand"} ${row.material.description}`);
-        if (branch) disclosure.setAttribute("aria-expanded", String(expanded.has(key)));
-        disclosure.addEventListener("click", () => { if (expanded.has(key)) expanded.delete(key); else expanded.add(key); render(); });
-        const pick = el("button", "bom-select"); pick.type = "button";
-        pick.append(el("span", "bom-description", row.material.description), el("span", "bom-number", row.material.id));
-        if (branch) pick.append(el("span", "bom-counts", bomCountText(childCounts)));
-        pick.setAttribute("aria-label", `${row.material.description}, ${quantity(row.quantity, row.item.unit)} in this assembly${branch ? ", " + bomCountText(childCounts) : ""}`);
-        pick.setAttribute("aria-pressed", String(selectedPath.length > 0 && key === pathKey(selectedPath)));
-        pick.addEventListener("click", () => {
-          const loading = state.mountedDetail?.file !== lastFile;
-          const bodies = loading ? [] : bindingsFor(row.path, scenePartNames());
-          select(row.material.id, row.path);
-          pendingRootFocus = loading;
-          if (bodies.length) highlightParts(bodies); else clearHighlight();
-          const note = panel.querySelector(".material-selection-note");
-          if (note) note.textContent = loading ? "The model is loading." : bodies.length ? "All visible occurrences highlighted in this model." : "This material has no drawn geometry in the current model.";
-        });
-        line.append(disclosure, pick, el("span", "bom-quantity", quantity(row.quantity, row.item.unit))); tree.append(line);
+      tools.append(all, collapse);
+      if (costOf) {
+        const order = el("div", "bom-order"); order.setAttribute("role", "group"); order.setAttribute("aria-label", "Order");
+        for (const [byCost, label] of [[false, "BOM order"], [true, "By cost"]]) {
+          const button = el("button", "", label); button.type = "button";
+          button.setAttribute("aria-pressed", String(sortByCost === byCost));
+          button.addEventListener("click", () => { sortByCost = byCost; render(); });
+          order.append(button);
+        }
+        tools.append(order);
       }
+      content.append(tools);
+      const columns = el("div", "bom-columns");
+      columns.append(el("span", "", "Item"), el("span", "", costOf ? "Qty · cost in this assembly" : "Qty in this assembly"));
+      content.append(columns);
+      const tree = el("div", "bom-tree");
+      const total = costOf ? costOf(rootMaterial.id).usd : 0;
+      const extended = (row) => costOf && row.quantity != null ? row.quantity * costOf(row.material.id).usd : 0;
+      const children = new Map();
+      for (const row of rows) {
+        const parent = pathKey(row.path.slice(0, -1));
+        if (!children.has(parent)) children.set(parent, []);
+        children.get(parent).push(row);
+      }
+      const emit = (parentKey, ownerId, depth, pieces, ownerPath) => {
+        const list = children.get(parentKey) || [];
+        for (const row of costOf && sortByCost ? [...list].sort((a, b) => extended(b) - extended(a)) : list) {
+          tree.append(bomRow(row, costOf, total, extended(row)));
+          const key = pathKey(row.path);
+          if (expanded.has(key)) emit(key, row.material.id, depth + 1, row.quantity ?? 1, row.path);
+        }
+        if (costOf) tree.append(...ownCostRows(ownerId, depth, pieces, ownerPath, total));
+      };
+      emit("", rootMaterial.id, 0, 1, []);
       content.append(tree);
       if (selectedPath.length) {
         const note = el("p", "material-selection-note"); note.setAttribute("role", "status");
@@ -205,6 +291,115 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
       }
     }
     renderRelations(content, index.get(selected) || rootMaterial, index);
+  }
+
+  function bomRow(row, costOf, total, extendedUsd) {
+    const childCounts = bomCounts(state.materialCatalog, row.material.id, options());
+    const key = pathKey(row.path), branch = childCounts.total > 0;
+    const line = el("div", "bom-row" + (selectedPath.length && key === pathKey(selectedPath) ? " selected" : ""));
+    line.style.setProperty("--depth", row.depth);
+    const disclosure = el("button", "bom-disclosure", branch ? (expanded.has(key) ? "−" : "+") : "·");
+    disclosure.type = "button"; disclosure.disabled = !branch;
+    disclosure.setAttribute("aria-label", `${expanded.has(key) ? "Collapse" : "Expand"} ${row.material.description}`);
+    if (branch) disclosure.setAttribute("aria-expanded", String(expanded.has(key)));
+    disclosure.addEventListener("click", () => { if (expanded.has(key)) expanded.delete(key); else expanded.add(key); render(); });
+    const pick = el("button", "bom-select"); pick.type = "button";
+    pick.append(el("span", "bom-description", row.material.description), el("span", "bom-number", row.material.id));
+    if (branch) pick.append(el("span", "bom-counts", bomCountText(childCounts)));
+    const cost = costOf ? costOf(row.material.id) : null;
+    const costText = cost ? (cost.costed ? money(extendedUsd) : "—") : null;
+    pick.setAttribute("aria-label", `${row.material.description}, ${quantity(row.quantity, row.item.unit)} in this assembly${costText ? ", " + (cost.costed ? costText : "no recorded cost") : ""}${branch ? ", " + bomCountText(childCounts) : ""}`);
+    pick.setAttribute("aria-pressed", String(selectedPath.length > 0 && key === pathKey(selectedPath)));
+    pick.addEventListener("click", () => {
+      const loading = state.mountedDetail?.file !== lastFile;
+      const bodies = loading ? [] : bindingsFor(row.path, scenePartNames());
+      select(row.material.id, row.path);
+      pendingRootFocus = loading;
+      if (bodies.length) highlightParts(bodies); else clearHighlight();
+      const note = panel.querySelector(".material-selection-note");
+      if (note) note.textContent = loading ? "The model is loading." : bodies.length ? "All visible occurrences highlighted in this model." : "This material has no drawn geometry in the current model.";
+    });
+    const amount = el("span", "bom-amount");
+    amount.append(el("span", "bom-quantity", quantity(row.quantity, row.item.unit)));
+    if (costText) {
+      const value = el("span", "bom-cost" + (cost.costed ? "" : " bom-cost-none"), costText);
+      if (!cost.costed) value.title = "No per-unit cost is recorded for this material";
+      amount.append(value);
+    }
+    line.append(disclosure, pick, amount);
+    if (cost?.costed) {
+      const share = el("span", "bom-share");
+      const pieces = row.quantity ?? 0;
+      share.append(costBar({ parts: pieces * cost.parts, labor: pieces * cost.labor, usd: extendedUsd }, total));
+      line.append(share);
+    }
+    return line;
+  }
+
+  function renderCost(content, current, index, costOf) {
+    if (!current || !costOf) {
+      content.append(el("p", "material-empty", "No per-unit cost is recorded for this material. Costs cover the finished unit and every part in it."));
+      return;
+    }
+    const cost = costOf(current.id);
+    const own = directCost(state.materialCatalog, current.id);
+    const rate = state.materialCatalog.costs.rate;
+    const section = (title, amount) => {
+      const head = el("div", "material-cost-head");
+      head.append(el("h3", "", title), el("span", "", amount));
+      content.append(head);
+    };
+    const contents = bomItems(current, options()).filter((item) => typeof item.quantity === "number")
+      .map((item) => ({ item, material: index.get(item.material), cost: costOf(item.material) }))
+      .filter((entry) => entry.material && entry.cost.costed)
+      .map((entry) => ({ ...entry, usd: entry.item.quantity * entry.cost.usd }))
+      .sort((a, b) => b.usd - a.usd);
+    if (contents.length) {
+      const subtotal = contents.reduce((sum, entry) => sum + entry.usd, 0);
+      section("Contents", money(subtotal));
+      const list = el("div", "material-cost-lines");
+      for (const entry of contents) {
+        const line = el("button", "material-cost-line material-cost-link"); line.type = "button";
+        const name = el("span", "material-cost-name");
+        name.append(el("span", "", entry.material.description), el("span", "material-cost-meta", `${entry.material.id} · ${quantity(entry.item.quantity, entry.item.unit)}`));
+        line.append(name, el("span", "material-cost-value", money(entry.usd)));
+        line.append(costBar({ parts: entry.item.quantity * entry.cost.parts, labor: entry.item.quantity * entry.cost.labor, usd: entry.usd }, cost.usd));
+        line.addEventListener("click", () => {
+          const path = [...selectedPath];
+          const row = explodeBom(state.materialCatalog, root, options()).find((r) =>
+            r.material.id === entry.material.id && pathKey(r.path.slice(0, -1)) === pathKey(path));
+          select(entry.material.id, row ? row.path : []);
+        });
+        list.append(line);
+      }
+      content.append(list);
+    }
+    for (const kind of COST_KINDS) {
+      const elements = (own?.elements || []).filter((element) => element.kind === kind.id);
+      if (!elements.length) continue;
+      const minutes = elements.reduce((sum, element) => sum + (element.minutes || 0), 0);
+      const usd = elements.reduce((sum, element) => sum + (element.usd || 0), 0) + laborUsd(state.materialCatalog, minutes);
+      section(kind.label, minutes ? `${duration(minutes)} · ${money(usd)}` : money(usd));
+      const list = el("div", "material-cost-lines");
+      for (const element of elements.sort((a, b) => (b.usd || b.minutes || 0) - (a.usd || a.minutes || 0))) {
+        const line = el("div", "material-cost-line");
+        const name = el("span", "material-cost-name");
+        const label = element.href ? el("a", "", element.label) : el("span", "", element.label);
+        if (element.href) { label.href = element.href; label.target = "_blank"; label.rel = "noopener"; }
+        const meta = [];
+        if (element.measure) meta.push(`${+element.measure.value.toFixed(element.measure.value < 1 ? 3 : 2)} ${element.measure.unit}`);
+        if (kind.id === "labor" && element.of && Math.abs(element.of - element.minutes) > 0.01) meta.push(`share of ${duration(element.of)}`);
+        if (kind.id !== "labor" && kind.id !== "price" && element.of && Math.abs(element.of - element.usd) > 0.005) meta.push(`share of ${money(element.of)}`);
+        if (element.section) meta.push(element.section.replace(/^\d+\.\s*/, ""));
+        name.append(label);
+        if (meta.length) name.append(el("span", "material-cost-meta", meta.join(" · ")));
+        const value = element.minutes ? `${duration(element.minutes)} · ${money(element.minutes * rate / 60)}` : money(element.usd);
+        line.append(name, el("span", "material-cost-value", value));
+        list.append(line);
+      }
+      content.append(list);
+    }
+    content.append(el("p", "material-scope", `Per piece. Purchases, stock and supplies carry their delivered cost from the per-unit cost ledger; labor is attended time at ${money(rate, { cents: false })} an hour. Bulk stock and shared operations are divided across the pieces of a finished unit.`));
   }
 
   function renderUsed(content, current, used, index) {
