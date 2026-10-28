@@ -87,7 +87,7 @@ Each cap is a foam-filled cup, poured mouth-up with the foam-cap-lid sealing its
 
 The **bottom lid** carries a pad at each of the [10](CAP_FACE_SCREWS) screw stations, standing off the face that meets the cap. Seat it pads-into-the-cup: each sinks into the relief its boss column leaves at the mouth, and the head goes down inside the pad's counterbore. It prints counterbore-side down, so the face the core stands on comes off the plate.
 
-The **top lid** has no pads. It is solid the whole [5.4 mm](FOAM_CAP_LID_H) over its footprint and its cup is one pad shorter for it, so what meets the cap's mouth rim is the plate's own flat underside — and that underside is the face it prints on, with the V-B upright socket wall, check bridge, V-B return restraint, two paired Reservoir A tube seats, wiring wells and deck-mount bores building up from it.
+The **top lid** has no pads. It is solid the whole [5.4 mm](FOAM_CAP_LID_H) over its footprint and its cup is one pad shorter for it, so what meets the cap's mouth rim is the plate's own flat underside — and that underside is the face it prints on, with the V-B upright socket wall, V-A feed clip, check bridge, V-B return restraint, two paired Reservoir A tube seats, wiring wells and deck-mount bores building up from it.
 
 Both caps pour in that same top-face fixture, one after the other. The top cap is bolted there in its installed orientation (floor down, mouth + lid up); the bottom cap is the same operation and flips mouth-down at step 7.
 
@@ -98,6 +98,15 @@ V-B presses into the lid's upright wall east of the PCB using the shared [V69 so
 The G Ganen's four identical rubber feet have nominal 7 mm pads and slide independently along the casing rails. Their full clips reach the fore/aft rail ends, with slot centers at reference X = 9.5 and 67.5 mm and Y = ±38.5 mm. Each M3 × 20 screw sits 1.5 mm outward within its slot so its Ø9 × 0.8 mm washer lies flat clear of the raised shoulder. Align the feet with the printed lid holes and fasten the pump while its four driver approaches are open. Close and seal the cap-clamp screws before installing the PCB over them. Check actual screw passage, flat washer seating, thread engagement and rubber compression during assembly. The [installation reference](/hardware/reference/g-ganen-pump/installation/README.md) carries the cap axes and native checks. The cap's mount stations and conduit pattern identify its installed rotation.
 
 The V-B return has its own integral lid restraint and one six-inch narrow tie. Thread its holder before seating the fitting and dress the tie before final upper plumbing. V-A's low turn and feed travel with back-top on their connected tubing. Fasten the pump before making up its discharge check group, in the order [internal plumbing](internal-plumbing.md) §2 gives, or connecting the continuous soda inlet carried by back-top. The installed inlet crosses one pump-driver approach; disconnect and remove it for that screw's service. Thread the check's six-inch narrow tie through its east-quarter pedestal before seating the fixed barrel. The full-height pedestal stands ahead of the pump foot and leaves all four printed driver approaches open. Remove the check from that column for pump service. The meter, its two collar bearings, external inlet, accepted R14 holder and single 63 mm square-ended foam piece belong to back-top. Prepare those on the open back-top subassembly per [internal plumbing](internal-plumbing.md#4-rear-beverage-connections). Its concealed rear-outlet tube occupies 15.7 mm in the meter and 16.891 mm in the return elbow. The continuous inlet passes through this core's plain guide without a joint or tube cut. Receiving allowances and flexible closing handoffs retain their recorded CAD scope. Printed fit, tie retention and the complete installed fluid path retain their qualification limits.
+
+At the final upper connections, seat the straight white V-A feed in the lid's
+upward-opening C2 clip before finally dressing `PE-carbonator` and `J4-V5`.
+Press the continuous tube downward into the clip with the funnel frame absent;
+keep the two leads clear of the loading approach. The run is logical `fluid-3`,
+drawn as `above-core-va-fore-feed`; its fittings and tube path retain their
+existing datums. Release it from the lid before moving back-top for service.
+[Internal plumbing](internal-plumbing.md#5-final-connections-through-the-funnel-opening)
+gives the connection sequence.
 
 The main PCB uses the full-length inserts prepared here. The PSU and both relays mount on back-top's dry sidewall; their wall inserts are installed during enclosure assembly. The electronics ceiling is continuous.
 

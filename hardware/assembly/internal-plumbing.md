@@ -417,6 +417,11 @@ funnel frame carries no flavor-tube seat.
 ### 5. Final connections through the funnel opening
 
 Make the V-A low feed and V-B high feed/return with the funnel frame absent.
+Press the straight white V-A feed, `fluid-3` / `above-core-va-fore-feed`,
+downward into the core lid's upward-opening C2 clip at world
+(11, 254.5, 261.6) mm. Seat that tube before final dressing of
+`PE-carbonator` and `J4-V5`; keep both leads out of its loading approach.
+Release the tube from the lid clip before moving back-top for service.
 Seat J11 at the main board before the V-B return union and its flexible
 return tube go in; the return lies over J11
 ([wiring](wiring.md)). The single Y-A stem points aft and slightly east. The

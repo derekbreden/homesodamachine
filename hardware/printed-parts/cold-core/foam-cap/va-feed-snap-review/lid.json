@@ -1,0 +1,39 @@
+{
+  "schema": 1,
+  "scope": "Current full source lid with one approved integral C2 addition; bilateral comparison to held lid plus exact reviewed snap.",
+  "valid": true,
+  "solids": 1,
+  "volume_mm3": 302284.21414667123,
+  "previous_volume_mm3": 301539.40001417237,
+  "added_volume_mm3": 744.8141324988683,
+  "bounds_mm": [
+    -141.2,
+    -90.2,
+    -1e-07,
+    141.2,
+    97.7000001,
+    50.650000000000034
+  ],
+  "expected_additive_difference_mm3": 0,
+  "expected_missing_difference_mm3": 0,
+  "clip_sha256": "3c8c67148d9b226e76493abea274e471b4ae18102a5a6ca47cb171119b9f3309",
+  "printed_facets": 74374,
+  "stl_watertight": true,
+  "source_sha256": {
+    "hardware/printed-parts/cold-core/foam-cap/foam_cap.py": "3c2b544413fd2cdcfe84e0e1baea4db88200dffb1e758262873fb54aa7b7b72b",
+    "hardware/printed-parts/cold-core/_above_core_mounts.py": "0938bcb0a0c53faa99bc0febeef852b258d52a3a34615d5bfe8fb5c0ce846022"
+  },
+  "sha256": {
+    "step": "b54c75fc6d3035683c906ff7595bb30575a6d6f56c080b8ab10b6ca993053226",
+    "stl": "80b6aee54be33a619105e790ea783b5fdd37ad003bac4ba0b3443d578467b174",
+    "step.mesh": "c603bff30889d695597025ab30f1248363249f6ce48780495e7d5612e2433d99"
+  },
+  "payload": {
+    "triangles": 74374,
+    "regions": 172,
+    "vertices": 65973,
+    "decimation_mm": 0.0,
+    "crease_deg": 30.0
+  },
+  "source_native_parent_sha256": "19432c9700c04c363b4f4b53335a040e697f2237cc984880d69dfb4d99cfa622"
+}
