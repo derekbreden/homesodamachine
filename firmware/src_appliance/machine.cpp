@@ -316,10 +316,13 @@ static void pumpPark(uint8_t channel) {
     pinMode(kPump[channel].pin, INPUT);       // back to the boot parking
 }
 
+static void cleanBeforeFaultPark();
+
 // Expander faults park valves inside the driver, including faults discovered
-// by a console health read or the cold loop. Stop the held pump first, without
-// another bus call; machineService publishes its terminal state afterward.
-static void primeBeforeFaultPark() {
+// by a console health read or the cold loop. Stop Prime and cleaning motors
+// first, without another bus call; machineService publishes the ending.
+static void wetPumpBeforeFaultPark() {
+    cleanBeforeFaultPark();
     if (state != ST_PUMPING || hold != HOLD_PRIME) return;
     if (!primeIoFaulted) primeFaultElapsedMs = pumpTimer.elapsedMs(millis());
     primeIoFaulted = true;
@@ -621,8 +624,9 @@ uint16_t machineValvesOpen() { return pcba::expanders().currentOutputs().valves;
 // open, pump on — until the full reed closes, then its flush — its draw and
 // its flavor tube open, pump on — until the empty reed has closed and the tail
 // has drawn the line clear. Every step ends at its planned time as well
-// (machine_policy::clean*ShouldEnd). Between steps the pump stops, every valve
-// closes, and nothing is energised for kCleanSettleMs.
+// (machine_policy::clean*ShouldEnd). Between steps the pump stops,
+// the tap inlet closes immediately, and the other valves close after
+// kCleanSettleMs lets the head coast down with its outlet open.
 static uint8_t  cleanChannel        = 0;
 static uint8_t  cleanOutcome        = CLEAN_OUTCOME_NONE;
 static uint8_t  cleanRounds         = machine_policy::kCleanRounds;
@@ -639,6 +643,7 @@ static uint32_t cleanSettleAtMs     = 0;      // nonzero: the step is over, the 
 static uint8_t  cleanEndAfterSettle = CLEAN_OUTCOME_NONE;   // NONE: the next step follows the settle
 static bool     cleanStepRunning    = false;
 static bool     cleanPumpOn         = false;
+static bool     cleanIoFaulted      = false;
 static uint32_t cleanEmptyClosedAtMs = UINT32_MAX;   // elapsed when the empty reed was first seen closed
 
 static machine_policy::CleanStep cleanStepOf(uint8_t index) {
@@ -647,6 +652,15 @@ static machine_policy::CleanStep cleanStepOf(uint8_t index) {
 
 static uint32_t cleanStepElapsedNow(uint32_t now) {
     return cleanStepRunning ? now - cleanStepStartMs : cleanStepElapsedMs;
+}
+
+static void cleanBeforeFaultPark() {
+    if (state != ST_CLEANING) return;
+    cleanStepElapsedMs = cleanStepElapsedNow(millis());
+    cleanStepRunning = false;
+    cleanIoFaulted = true;
+    if (cleanPumpOn) pumpPark(cleanChannel);
+    cleanPumpOn = false;
 }
 
 static void cleanFill(MachineCleanState &st, uint32_t now) {
@@ -707,7 +721,8 @@ static bool cleanReadReeds() {
     return true;
 }
 
-// The pump stops now; the valves close after the settle, from cleanService().
+// Stop the pump and cut tap pressure now; leave the outlet open for coast-down.
+// The remaining valves close after the settle, from cleanService().
 // NONE ends only the step; anything else ends the cycle once the settle is over.
 static void cleanStepEnd(uint8_t cycleOutcome, uint32_t now) {
     if (state != ST_CLEANING) return;
@@ -720,14 +735,27 @@ static void cleanStepEnd(uint8_t cycleOutcome, uint32_t now) {
     if (cleanPumpOn) pumpPark(cleanChannel);
     cleanPumpOn        = false;
     cleanStepRunning   = false;
-    cleanEndAfterSettle = cycleOutcome;
+    if (!cleanIoFaulted && (machineValvesOpen() & machine_policy::valveBit(machine_policy::Valve::A)))
+        applyOutputs(machineValvesOpen() & ~machine_policy::valveBit(machine_policy::Valve::A));
+    cleanEndAfterSettle = cleanIoFaulted ? CLEAN_OUTCOME_FAULT : cycleOutcome;
     cleanSettleAtMs    = now + machine_policy::kCleanSettleMs;
     if (!cleanSettleAtMs) cleanSettleAtMs = 1;
 }
 
 // Everything off. The ending is announced from here, once nothing is energised.
 static void cleanParked(uint8_t outcome) {
-    if (!applyOutputs(0)) pcba::expanders().parkAll();
+    cleanStepElapsedMs = cleanStepElapsedNow(millis());
+    if (cleanPumpOn) pumpPark(cleanChannel);
+    cleanPumpOn = false;
+    cleanStepRunning = false;
+    // Keep the original I/O fault when its emergency park was verified.
+    if (cleanIoFaulted || !pcba::expanders().initialized()) {
+        outcome = CLEAN_OUTCOME_FAULT;
+        if (!pcba::expanders().outputsKnownParked()) pcba::expanders().parkAll();
+    } else if (!applyOutputs(0)) {
+        outcome = CLEAN_OUTCOME_FAULT;
+        if (!pcba::expanders().outputsKnownParked()) pcba::expanders().parkAll();
+    }
     cleanSettleAtMs = 0;
     cleanOutcome    = outcome;
     led(PIN_LED_ACT, false);
@@ -750,6 +778,31 @@ static bool cleanStepBegin(uint32_t now) {
     const machine_policy::CleanStep step = cleanStepOf(cleanStepIndex);
     const machine_policy::ActuatorPlan plan =
         machine_policy::canonicalPlan(machine_policy::cleanOperation(cleanChannel, step));
+    cleanStepPlannedMs   = step == machine_policy::CleanStep::Funnel ? cleanFunnelPlannedMs
+                         : step == machine_policy::CleanStep::Flush  ? cleanFlushPlannedMs
+                                                                     : cleanWaterPlannedMs;
+    cleanStepStartMs     = now;
+    cleanStepElapsedMs   = 0;
+    cleanLastReedMs      = now;
+    if (cleanIoFaulted || !pcba::expanders().initialized()) {
+        cleanParked(CLEAN_OUTCOME_FAULT);
+        return false;
+    }
+    if (machineGasTripped()) {
+        cleanParked(CLEAN_OUTCOME_GAS);
+        return false;
+    }
+    if (step == machine_policy::CleanStep::WaterFill) {
+        if (!cleanReadReeds()) { cleanParked(CLEAN_OUTCOME_FAULT); return false; }
+        if (cleanReeds & machine_policy::kReservoirReedFull) {
+            Serial.printf("\n[machine] clean %s: reservoir already full — skipping water fill\n",
+                          kPump[cleanChannel].who);
+            cleanStepRunning = true;
+            cleanStepEnd(CLEAN_OUTCOME_NONE, now);
+            cleanAnnounce(now);
+            return true;
+        }
+    }
     if (!machine_policy::isPlanSafe(plan, machine_policy::SafetyContext{false}) ||
         !applyOutputs(plan.valves)) {
         Serial.printf("\n[machine] clean %s: the %s valves could not be opened — parked\n",
@@ -764,12 +817,6 @@ static bool cleanStepBegin(uint32_t now) {
         return false;
     }
     cleanPumpOn          = plan.flavor_pumps != 0;
-    cleanStepPlannedMs   = step == machine_policy::CleanStep::Funnel ? cleanFunnelPlannedMs
-                         : step == machine_policy::CleanStep::Flush  ? cleanFlushPlannedMs
-                                                                     : cleanWaterPlannedMs;
-    cleanStepStartMs     = now;
-    cleanStepElapsedMs   = 0;
-    cleanLastReedMs      = now;
     cleanStepRunning     = true;
     cleanEmptyClosedAtMs = (cleanReeds != 0xFF) && (cleanReeds & machine_policy::kReservoirReedEmpty)
                                ? 0 : UINT32_MAX;
@@ -788,7 +835,6 @@ static bool cleanStepBegin(uint32_t now) {
 static void cleanSettled(uint32_t now) {
     cleanSettleAtMs = 0;
     if (!applyOutputs(0)) {
-        pcba::expanders().parkAll();
         cleanParked(CLEAN_OUTCOME_FAULT);
         return;
     }
@@ -806,16 +852,20 @@ static void cleanSettled(uint32_t now) {
 
 static void cleanService(uint32_t now) {
     if (state != ST_CLEANING) return;
+    if (cleanIoFaulted || !pcba::expanders().initialized()) {
+        cleanParked(CLEAN_OUTCOME_FAULT);
+        return;
+    }
+    if (machineGasTripped()) cleanStepEnd(CLEAN_OUTCOME_GAS, now);
     if (cleanSettleAtMs) {
         if ((int32_t)(now - cleanSettleAtMs) >= 0) cleanSettled(now);
         return;
     }
     if (!cleanStepRunning) return;
-    if (machineGasTripped()) { cleanStepEnd(CLEAN_OUTCOME_GAS, now); return; }
     const uint32_t elapsed = cleanStepElapsedNow(now);
     if (now - cleanLastReedMs >= machine_policy::kCleanReedPeriodMs) {
         cleanLastReedMs = now;
-        if (!cleanReadReeds()) { cleanStepEnd(CLEAN_OUTCOME_FAULT, now); return; }
+        if (!cleanReadReeds()) { cleanParked(CLEAN_OUTCOME_FAULT); return; }
         if ((cleanReeds & machine_policy::kReservoirReedEmpty) && cleanEmptyClosedAtMs == UINT32_MAX)
             cleanEmptyClosedAtMs = elapsed;
     }
@@ -857,6 +907,7 @@ bool machineCleanBegin(uint8_t channel, uint8_t rounds, uint32_t stepPlannedMs) 
     cleanReeds          = 0xFF;
     cleanStepRunning    = false;
     cleanPumpOn         = false;
+    cleanIoFaulted      = false;
     cleanSettleAtMs     = 0;
     cleanEndAfterSettle = CLEAN_OUTCOME_NONE;
     if (refusal == CLEAN_OUTCOME_NONE && !cleanReadReeds()) refusal = CLEAN_OUTCOME_FAULT;
@@ -1639,13 +1690,14 @@ void machineBegin() {
     primeRunUsesSession = false;
     primeEventUsesSession = false;
     primeIoFaulted = false;
-    pcba::expanders().beforeFaultPark(primeBeforeFaultPark);
+    pcba::expanders().beforeFaultPark(wetPumpBeforeFaultPark);
     fillDrawing  = false;
     fillParkAtMs = 0;
     fillOutcome  = FILL_OUTCOME_NONE;
     fillReeds    = 0xFF;
     cleanStepRunning = false;
     cleanPumpOn      = false;
+    cleanIoFaulted   = false;
     cleanSettleAtMs  = 0;
     cleanOutcome     = CLEAN_OUTCOME_NONE;
     cleanReeds       = 0xFF;

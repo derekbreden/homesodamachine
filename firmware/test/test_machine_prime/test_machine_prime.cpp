@@ -51,13 +51,12 @@ public:
             return false;
         }
         if (reg == kOlatA) {
-            // The real PCB map puts E/G at 0x20 bits 3/1 and H/J at
-            // 0x20 bit 0 / 0x21 bit 6. A fault park must stop GPIO PWM
-            // before removing any valve of the running pump's wet path.
+            // Cover each pump's source, fill and dispense valves on the real
+            // PCB map. A fault park stops GPIO PWM before closing a wet path.
             const uint8_t removed = previous & static_cast<uint8_t>(~value);
-            if ((duties[PIN_PUMP_A] && address == 0x20 && (removed & 0x0a)) ||
-                (duties[PIN_PUMP_B] && ((address == 0x20 && (removed & 0x01)) ||
-                                       (address == 0x21 && (removed & 0x40)))))
+            if ((duties[PIN_PUMP_A] && address == 0x20 && (removed & 0xee)) ||
+                (duties[PIN_PUMP_B] && ((address == 0x20 && (removed & 0xd1)) ||
+                                       (address == 0x21 && (removed & 0xc0)))))
                 pumpClosedAgainstDrive = true;
         }
         previous = value;
@@ -285,9 +284,12 @@ void test_clean_water_fill_pumps_both_channels_until_full_or_deadline_then_flush
                 runAt(host::now + 1);
             }
             TEST_ASSERT_EQUAL_UINT32(0, host::duties[pumpPin(channel)]);
+            const uint16_t coastingValves = fillValves &
+                ~machine_policy::valveBit(machine_policy::Valve::A);
+            TEST_ASSERT_EQUAL_HEX16(coastingValves, machineValvesOpen());
             runAt(host::now + machine_policy::kCleanSettleMs - 1);
             TEST_ASSERT_EQUAL_UINT32(0, host::duties[pumpPin(channel)]);
-            TEST_ASSERT_EQUAL_HEX16(fillValves, machineValvesOpen());
+            TEST_ASSERT_EQUAL_HEX16(coastingValves, machineValvesOpen());
             runAt(host::now + 1);
             expectCleanPump(channel, CLEAN_STEP_FLUSH, dispensePair(channel));
             runAt(host::now + 1000);
@@ -307,7 +309,8 @@ void test_clean_stop_stops_water_fill_motor_before_closing_its_valves() {
         const uint16_t valves = machineValvesOpen();
         machineStop();
         TEST_ASSERT_EQUAL_UINT32(0, host::duties[pumpPin(channel)]);
-        TEST_ASSERT_EQUAL_HEX16(valves, machineValvesOpen());
+        TEST_ASSERT_EQUAL_HEX16(valves & ~machine_policy::valveBit(machine_policy::Valve::A),
+                                machineValvesOpen());
         runAt(host::now + machine_policy::kCleanSettleMs);
         MachineCleanState value;
         machineReadCleanState(value);
@@ -315,6 +318,98 @@ void test_clean_stop_stops_water_fill_motor_before_closing_its_valves() {
         TEST_ASSERT_EQUAL_UINT8(CLEAN_OUTCOME_STOPPED, value.outcome);
         expectParked();
     }
+}
+
+void expectCleanFault() {
+    MachineCleanState value;
+    machineReadCleanState(value);
+    TEST_ASSERT_FALSE(machineIsCleaning());
+    TEST_ASSERT_EQUAL_UINT8(CLEAN_OUTCOME_FAULT, value.outcome);
+    expectParked();
+}
+
+void test_clean_reed_failure_stops_motor_before_emergency_valve_park() {
+    for (uint8_t channel = 0; channel < 2; ++channel) {
+        beginCleanWaterFill(channel);
+        host::bus.failRead(pcba::MCP_RESERVOIR_A, host::kGpioB);
+        runAt(host::now + machine_policy::kCleanReedPeriodMs);
+        expectCleanFault();
+        TEST_ASSERT_EQUAL(pcba::Fault::BusReadFailed, pcba::expanders().lastFault());
+        TEST_ASSERT_TRUE(pcba::expanders().begin());
+    }
+}
+
+void test_clean_health_fault_stops_each_steps_motor_synchronously() {
+    for (uint8_t channel = 0; channel < 2; ++channel) {
+        for (uint8_t step = 0; step < 3; ++step) {
+            if (step == 0) TEST_ASSERT_TRUE(machineCleanBegin(channel, 1, 1000));
+            else beginCleanWaterFill(channel);
+            if (step == 2) {
+                runAt(host::now + 1000);
+                runAt(host::now + machine_policy::kCleanSettleMs);
+                expectCleanPump(channel, CLEAN_STEP_FLUSH, dispensePair(channel));
+            }
+            host::now += 100;
+            host::bus.failRead(pcba::MCP_RESERVOIR_A, 0x00);
+            MachineIoStatus status;
+            TEST_ASSERT_FALSE(machineReadIoStatus(status));
+            TEST_ASSERT_EQUAL_UINT32(0, host::duties[pumpPin(channel)]);
+            TEST_ASSERT_EQUAL_HEX16(0, machineValvesOpen());
+            TEST_ASSERT_FALSE(host::pumpClosedAgainstDrive);
+            machineService();
+            expectCleanFault();
+            TEST_ASSERT_EQUAL(pcba::Fault::BusReadFailed, pcba::expanders().lastFault());
+            TEST_ASSERT_TRUE(pcba::expanders().begin());
+        }
+    }
+}
+
+void test_clean_full_reservoir_skips_water_fill_without_opening_tap_or_starting_motor() {
+    for (uint8_t channel = 0; channel < 2; ++channel) {
+        TEST_ASSERT_TRUE(machineCleanBegin(channel, 1, 1000));
+        runAt(host::now + 1000);
+        host::events.clear();
+        host::bus.at(channel == 0 ? pcba::MCP_RESERVOIR_A : pcba::MCP_RESERVOIR_B,
+                     host::kGpioB) = 0xf7;
+        runAt(host::now + machine_policy::kCleanSettleMs);
+        TEST_ASSERT_EQUAL_HEX16(0, machineValvesOpen());
+        TEST_ASSERT_EQUAL_UINT32(0, host::duties[pumpPin(channel)]);
+        TEST_ASSERT_EQUAL_UINT32(host::events.size(), firstDuty(255));
+        runAt(host::now + machine_policy::kCleanSettleMs);
+        expectCleanPump(channel, CLEAN_STEP_FLUSH, dispensePair(channel));
+        machineStop();
+        runAt(host::now + machine_policy::kCleanSettleMs);
+        expectParked();
+    }
+}
+
+void test_clean_inlet_close_failure_reports_fault_instead_of_stopped() {
+    for (uint8_t channel = 0; channel < 2; ++channel) {
+        beginCleanWaterFill(channel);
+        host::bus.failWrite(pcba::MCP_RESERVOIR_A, host::kOlatA, channel == 0 ? 0x24 : 0x10);
+        machineStop();
+        TEST_ASSERT_EQUAL_UINT32(0, host::duties[pumpPin(channel)]);
+        runAt(host::now + machine_policy::kCleanSettleMs);
+        expectCleanFault();
+        TEST_ASSERT_EQUAL(pcba::Fault::BusWriteFailed, pcba::expanders().lastFault());
+        TEST_ASSERT_TRUE(pcba::expanders().begin());
+    }
+}
+
+void test_clean_gas_trip_cuts_tap_inlet_and_stops_motor() {
+    beginCleanWaterFill(1);
+    host::gasMv = 2000;
+    runAt(host::now + 1);
+    runAt(host::now + 500);
+    TEST_ASSERT_TRUE(machineGasTripped());
+    TEST_ASSERT_EQUAL_UINT32(0, host::duties[PIN_PUMP_B]);
+    TEST_ASSERT_FALSE(machineValvesOpen() & machine_policy::valveBit(machine_policy::Valve::A));
+    runAt(host::now + machine_policy::kCleanSettleMs);
+    MachineCleanState value;
+    machineReadCleanState(value);
+    TEST_ASSERT_FALSE(machineIsCleaning());
+    TEST_ASSERT_EQUAL_UINT8(CLEAN_OUTCOME_GAS, value.outcome);
+    expectParked();
 }
 
 void test_ready_and_cancel_ready_drive_nothing() {
@@ -823,5 +918,10 @@ int main(int, char **) {
     RUN_TEST(test_selftest_motor_step_remains_an_individual_load);
     RUN_TEST(test_clean_water_fill_pumps_both_channels_until_full_or_deadline_then_flushes);
     RUN_TEST(test_clean_stop_stops_water_fill_motor_before_closing_its_valves);
+    RUN_TEST(test_clean_reed_failure_stops_motor_before_emergency_valve_park);
+    RUN_TEST(test_clean_health_fault_stops_each_steps_motor_synchronously);
+    RUN_TEST(test_clean_full_reservoir_skips_water_fill_without_opening_tap_or_starting_motor);
+    RUN_TEST(test_clean_inlet_close_failure_reports_fault_instead_of_stopped);
+    RUN_TEST(test_clean_gas_trip_cuts_tap_inlet_and_stops_motor);
     return UNITY_END();
 }

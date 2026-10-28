@@ -49,8 +49,12 @@ board also establishes and reports the safe I/O foundation the next connected be
   into the reservoir until the full reed closes or 90 s pass; then its dispense path
   — its draw and its flavor tube, `CleanFlushA/B` — with the pump on, out through the faucet
   until the empty reed closes — the float down at the reservoir's empty mark — and 8 s more
-  have drawn the flavor tube clear, or 150 s pass. Between steps the pump stops and every
-  valve is closed for a quarter second. It is refused on the same grounds as the fill, and
+  have drawn the flavor tube clear, or 150 s pass. Before each water fill, a fresh reed read
+  skips a full reservoir directly to the flush. Between steps the pump stops and V-A closes
+  immediately; the remaining valves stay open for a quarter second of coast-down, then close
+  before the next path opens. An expander fault stops the cleaning motor before the driver's
+  emergency valve park and ends the cycle as a fault, including faults found by a console
+  health read or the cold loop. It is refused on the same grounds as the fill, and
   every answer, every step and every ending is a complete `CleanStatePayload` on
   `MSG_RESP_CLEAN`, which carries the round, the step, the step's clock and an estimate of the
   minutes left; `MSG_CLEAN_QUERY` reads it back and `MSG_CLEAN_STOP` ends it after the settle.
