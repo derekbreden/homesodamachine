@@ -53,11 +53,11 @@ J3-GND,J3,GND,J3.GND,keystone.3,22,251.215,proposed,nominal,nominal,fixed
 J3-IO35,J3,IO35,J3.IO35,keystone.4,22,242.424,proposed,nominal,nominal,fixed
 J3-IO33,J3,IO33,J3.IO33,keystone.5,22,237.909,proposed,nominal,nominal,fixed
 J4-3V3,J4,3V3,J4.3V3,temp-carbonator.V,22,437.118,proposed,nominal,nominal,fixed
-J4-IO26,J4,IO26,J4.IO26,temp-carbonator.DATA,22,436.391,proposed,nominal,nominal,fixed
+J4-IO26,J4,IO26,J4.IO26,temp-carbonator.DATA,22,436.474,proposed,nominal,nominal,fixed
 J4-V5,J4,V5,J4.V5,flow.V,22,225.95,proposed,nominal,nominal,fixed
 J4-IO25,J4,IO25,J4.IO25,flow.PULSE,22,247.488,proposed,nominal,nominal,fixed
 J4-GND,J4,GND,J4.GND,wago-sensors.1,22,59.192,proposed,nominal,nominal,fixed
-temp-GND,J4,GND,wago-sensors.2,temp-carbonator.GND,22,475.12,proposed,nominal,nominal,fixed
+temp-GND,J4,GND,wago-sensors.2,temp-carbonator.GND,22,474.67,proposed,nominal,nominal,fixed
 flow-GND,J4,GND,wago-sensors.3,flow.GND,22,248.234,proposed,nominal,nominal,fixed
 temp-bus-V,J4,3V3,temp-carbonator.V,temp-coil.V,22,143.513,proposed,nominal,nominal,fixed
 temp-bus-DATA,J4,IO26,temp-carbonator.DATA,temp-coil.DATA,22,149.272,proposed,nominal,nominal,fixed

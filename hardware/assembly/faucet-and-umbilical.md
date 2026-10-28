@@ -201,6 +201,13 @@ Slide one printed collar down each tube from its bare +Y wall end: `carb` on the
 
 Run each collar up the tube until it butts the braid's own end — [75 mm](COLLAR_SLEEVE_TAIL) short of the tail — and turn its flag outward, away from the bundle's axis, so no two face each other. All four come out level. Each stays where it is put on the bend the tube came off the spool with: the tube is never straight through [30 mm](COLLAR_LENGTH) of bore, so it stands against the wall at both ends of one. Preserve the supplied OVER length, including during any cold-kit modification.
 
+Keep the two flavor identities continuous from the faucet passages to their
+collared appliance tails. Connect `flavor-a` to the east rear FLAVOR socket at
+world X77.5/Z274.376 and `flavor-b` to the west socket at X37.25/Z274.376.
+Inboard, these sockets connect to V-G through `fluid-18` and V-J through
+`fluid-28` respectively. Both tails use the same black 4 mm stock; their
+collars identify the circuits.
+
 The organizer, the bundle, the sleeve over it and four collars on the bare tails are drawn in [`/hardware/faucet-layout/faucet_assembly.py`](/hardware/faucet-layout/faucet_assembly.py), which carries the terminated end at full size and the metre and a half of straight between it and the faucet as a figure rather than a length.
 
 ### 5. Bag the sub-assembly with the under-counter plate

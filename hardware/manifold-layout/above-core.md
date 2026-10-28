@@ -39,7 +39,17 @@ continuous; the funnel frame is the removable roof closure.
 
 The six rear fluid stations form two columns at X37.25 and X77.5, with 32 mm row
 pitch. The upper row is water/CO2 inlet, the middle row vent/soda outlet, and the
-lower row flavor A/B outlet. C14 is at X−68.5/Z330 and RJ11 at X−30/Z274.376.
+lower row has flavor B at west X37.25 and flavor A at east X77.5. C14 is at
+X−68.5/Z330 and RJ11 at X−30/Z274.376. The logical A circuit runs from V-G
+through `fluid-18`; B runs from V-J through `fluid-28`. Their identified
+umbilical tails mate with those same logical rear sockets.
+
+The two 4 mm dispense lines follow gentle fore grades to Z296, then rise
+between Y278 and Y348 to their roof axes at Z343. Flavor A runs at X−45 and
+flavor B at X−55. Two common filled bases on back-top's roof carry paired
+8 mm seats at Y354 and Y390. Their mouths face −Z for loading from below.
+The 4.10 mm bores and 1.52 mm spring walls are provisional 4 mm fits; the
+quarter-inch C2 coupon result does not qualify them.
 
 Reservoir A's selected routes are defined in
 [reservoir-a-routes.json](reservoir-a-routes.json). The fore seat’s tube centres

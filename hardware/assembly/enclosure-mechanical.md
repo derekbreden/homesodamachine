@@ -115,7 +115,7 @@ Work with back-top loose. All station centres are world X/Z millimetres:
 |---|---|---|
 | Z338.376 | 1/4-inch water inlet, Ø17.44 bore | 1/4-inch CO2 inlet, Ø17.3 bore |
 | Z306.376 | 4 mm atmospheric vent, Ø15.3 bore | 1/4-inch soda outlet, Ø17.44 bore |
-| Z274.376 | 4 mm flavor A, Ø15.3 bore | 4 mm flavor B, Ø15.3 bore |
+| Z274.376 | 4 mm flavor B, Ø15.3 bore | 4 mm flavor A, Ø15.3 bore |
 
 Seat each flange outside and its panel nut on the relieved inside land. The fluid
 panel retains a 6 mm clamping stack: 4 mm printed wall and 2 mm identification chip. Keep moving release

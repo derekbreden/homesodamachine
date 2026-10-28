@@ -7208,8 +7208,8 @@
         "bulkhead-carb"
       ],
       [
-        "bulkhead-flavor-a",
-        "bulkhead-flavor-b"
+        "bulkhead-flavor-b",
+        "bulkhead-flavor-a"
       ]
     ]
   },
@@ -7289,14 +7289,14 @@
       {
         "name": "bulkhead-flavor-a",
         "label": "Flavor A",
-        "center_x_mm": 37.2499988712316,
+        "center_x_mm": 77.5,
         "center_z_mm": 274.3760478805363,
         "bore_diameter_mm": 15.3
       },
       {
         "name": "bulkhead-flavor-b",
         "label": "Flavor B",
-        "center_x_mm": 77.5,
+        "center_x_mm": 37.2499988712316,
         "center_z_mm": 274.3760478805363,
         "bore_diameter_mm": 15.3
       }

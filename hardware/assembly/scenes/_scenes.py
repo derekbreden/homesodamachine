@@ -215,10 +215,9 @@ SCENES = (
     Scene(
         "back-top", "Enclosure back top",
         roots=("enclosure-back-top",), inner=(), flip=((0, 1, 0), 180.0),
-        # The flavour-A riser, pushed into its union from the room while this piece is open.
-        # It is the longest run in the appliance and its far end is a valve on the front top,
-        # which is why it is made up here rather than reached for down a closed box.
-        also=("tube-fluid-18", *BACK_TOP_INLET_HEADER), later=(),
+        # Both flavor tubes seat in their paired roof snaps and rear unions
+        # while the open ceiling piece is accessible on the bench.
+        also=("tube-fluid-18", "tube-fluid-28", *BACK_TOP_INLET_HEADER), later=(),
         cam=(0.6, -1.0, 0.5), up=(0, 0, 1), zoom=2.7, look="centre",
         note="Turned over, which is how it is worked: its ceiling is the bench, the Z seam "
              "looks up and the Y-seam mouth faces the room — the +X wall is seen from where a "
@@ -340,16 +339,16 @@ SCENES = (
     Scene(
         "back-half", "Enclosure back half",
         roots=("enclosure-back-bottom", "enclosure-back-top"), inner=INNER_FOAM, flip=None,
-        # The flavour-A riser and four reservoir lines are made up while this
+        # Both flavor tubes and four reservoir lines are made up while this
         # half is open. Their loose front ends connect through the funnel opening.
-        also=("tube-fluid-14", "tube-fluid-16", "tube-fluid-18", "tube-fluid-24", "tube-fluid-26"),
+        also=("tube-fluid-14", "tube-fluid-16", "tube-fluid-18", "tube-fluid-24", "tube-fluid-26", "tube-fluid-28"),
         later=(),
         # High enough over the box to see down into the mouth AND across the top wall, which is
         # how the half is looked at with the front one still off the bench: the seam faces the
         # room and everything the front half must reach is under the eye at once.
         cam=(0.95, -1.1, 1.4), up=(0, 0, 1), zoom=3.2, look="centre",
         note="The two back quadrants mated, seen through the Y-seam mouth they present to the "
-             "front half — the last moment anything inside is reachable. Five runs hang out of "
+             "front half — the last moment anything inside is reachable. Six runs hang out of "
              "that mouth for the front half to take. The tray is not in yet: it goes east into "
              "its sleeve through the −X wall, with the box standing.",
     ),

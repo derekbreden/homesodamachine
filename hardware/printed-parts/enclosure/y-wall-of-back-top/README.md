@@ -17,7 +17,7 @@ customer's connections. Both columns use 32 mm vertical pitch.
 |---|---|---|
 | [338.376](GRID_TOP_Z) | TAP: PP1208E, white 1/4-inch inlet | CO2: neoFit ABU44-E, red 1/4-inch inlet |
 | [306.376](GRID_MIDDLE_Z) | OVER: ABU44M-E, white 4 mm vent | SODA: PP1208E, blue 1/4-inch outlet |
-| [274.376](GRID_BOTTOM_Z) | FLAVOR: ABU44M-E, black 4 mm A outlet | FLAVOR: ABU44M-E, black 4 mm B outlet |
+| [274.376](GRID_BOTTOM_Z) | FLAVOR: ABU44M-E, black 4 mm B outlet | FLAVOR: ABU44M-E, black 4 mm A outlet |
 
 The main rear wall is 9 mm stock. The fluid field retains a 6 mm clamping
 stack between Y465.3 and Y471.3. Each flush 2 mm identification chip replaces
@@ -68,6 +68,9 @@ The white TAP and OVER sockets take different tube diameters and carry their
 own words. The same spool colors continue inside the enclosure.
 
 The faucet umbilical carries soda, two flavors, OVER and the signal ribbon.
+Connect the tail identified `flavor-a` to the east X77.5 socket and
+`flavor-b` to the west X37.25 socket. Those identities continue inboard to
+V-G and V-J respectively.
 Only the soda tube receives the specified pipe insulation. PET braid covers
 the prepared bundle; the organizer below the faucet mounting space keeps its
 tubes in formation while allowing deliberate hand adjustment. Tube lengths,

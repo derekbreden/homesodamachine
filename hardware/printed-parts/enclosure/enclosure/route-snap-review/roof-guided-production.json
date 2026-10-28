@@ -1,0 +1,344 @@
+{
+  "schema": 1,
+  "scope": "Reviewed roof routing and integral shared roof bases; exact two flexible-wire fanouts. Held unrelated native leaves, print surfaces and installed pump-retainer geometry preserved.",
+  "files": {
+    "hardware/printed-parts/enclosure/enclosure/enclosure.step": "dc5827053dca5c58ab3566faea10c1dd6e5e212d94c2181943d4e60adb02e83b",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh": "92238e1242d3d6837d59e013c1ef8b89e892435d2d96c0633aba14bc013cc254",
+    "hardware/manifold-layout/enclosure-assembly.step": "593d13874cb902ce14696a0fe062a0a99093e9e9fd7766746960adf1d1197754",
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": "e0e7e130ae8831992dba8036c5b7ce0805f5a22e2a98e5b55e7d4842013a3861",
+    "hardware/wiring/enclosure-wiring.step": "93cd0a0243834afaba063bf86f1ae3005c111f52644d543ab4dfe4a9f4f32b24",
+    "hardware/wiring/enclosure-wiring.step.mesh": "2680d3b79542975f67b3afd1be5ddf44d8b94634c659ba0580af8c80e0145d1d",
+    "hardware/assembly/scenes/glb/cold-core.glb": "e5a5dc1b0257972b74cc7ec526f1777bed97ff864bb9d512bf4879eac24baf6f",
+    "hardware/assembly/scenes/glb/cap-lid.glb": "0d88cb7d39fa56cf866a464632fc883594d7eac8b4b041be3d422645c71fcff6",
+    "hardware/assembly/scenes/glb/back-top.glb": "1bb13a7f3d8ae5196183457edbd56c580e38f39698eae641ff8245602cb90545",
+    "hardware/assembly/scenes/glb/back-half.glb": "15e9bf6418a8d3f0c7f7b74ce99b2e64e15a56d2da9c966f410bc67c38c41775",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "8974d38f391b349b6bb7d17903b3e7a531cfb10441703982948bc1c7f9a3285f",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": "9c8d7d565cb4702249fc1984d4f212df7650bbfd354b7dff17b20a179ad3f8ac",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh": "ce85cd70cdb916631bb44e4128053ed278d96570588b4d90f77fddc138d24330"
+  },
+  "physical_scene_sha256": "d986c2993225c901434f18bfa966392f46795d309b7290d7140b32ac0ecfdca7",
+  "installed_scene_sha256": "593d13874cb902ce14696a0fe062a0a99093e9e9fd7766746960adf1d1197754",
+  "wiring_sha256": "93cd0a0243834afaba063bf86f1ae3005c111f52644d543ab4dfe4a9f4f32b24",
+  "hose_clearance": {
+    "schema": 1,
+    "appliance_sha256": "593d13874cb902ce14696a0fe062a0a99093e9e9fd7766746960adf1d1197754",
+    "scope": "Three changed native hoses against every leaf of the current scoped native machine, including installed wiring; outward-oriented disposable query solids.",
+    "contacts": [
+      {
+        "route": "fluid-24",
+        "other": "installed-wiring/wire-J1-OUT1",
+        "volume_mm3": 0.5709784631129913,
+        "intended_socket": false,
+        "soft_wire": true
+      }
+    ],
+    "route_pairs": [
+      {
+        "a": "fluid-18",
+        "b": "fluid-28",
+        "air_mm": 2.9999999997237414,
+        "overlap_mm3": 0
+      },
+      {
+        "a": "fluid-18",
+        "b": "fluid-24",
+        "air_mm": 10.122455631706417,
+        "overlap_mm3": 0
+      },
+      {
+        "a": "fluid-28",
+        "b": "fluid-24",
+        "air_mm": 3.1049999999971067,
+        "overlap_mm3": 0
+      }
+    ],
+    "leaf_count": 563,
+    "queried_nearby_leaves": 317
+  },
+  "native_parents": {
+    "enclosure": {
+      "leaf_count": 25,
+      "unrelated_native_leaves_retained": 24,
+      "retained_retainer": [
+        {
+          "name": "enclosure_pump_retainer",
+          "path": [
+            "enclosure",
+            "enclosure_pump_retainer"
+          ],
+          "world_transform": [
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          "color": {
+            "surface": [
+              0.033104766,
+              0.033104766,
+              0.036306486
+            ]
+          },
+          "geometry": {
+            "solids": 1,
+            "faces": 66,
+            "edges": 198,
+            "bbox": [
+              -99.6,
+              14.25,
+              165.195,
+              99.6,
+              82.265,
+              214.424
+            ],
+            "volume": 292216.577433,
+            "area": 66151.491658,
+            "geometry_fingerprint_sha256": "2907d7acd5c28ad98c878bbe203e87b8dbec7ecfc3aaad3840b5be8cdf633dea",
+            "fingerprint_basis": "Sorted native face type/area/centroid/bounds and edge type/length/centroid/bounds, quantized 0.0001mm geometry/measure units; world coordinates."
+          }
+        }
+      ],
+      "updated_viewer_meshes": [
+        "enclosure_back_top"
+      ],
+      "unrelated_mesh_arrays_identical": true
+    },
+    "appliance": {
+      "leaf_count": 450,
+      "unrelated_native_leaves_retained": 428,
+      "retained_retainer": [
+        {
+          "name": "enclosure-pump-retainer",
+          "path": [
+            "enclosure-assembly",
+            "enclosure-pump-retainer"
+          ],
+          "world_transform": [
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          "color": {
+            "surface": [
+              0.033104766,
+              0.033104766,
+              0.036306486
+            ]
+          },
+          "geometry": {
+            "solids": 1,
+            "faces": 66,
+            "edges": 198,
+            "bbox": [
+              -99.6,
+              14.25,
+              165.195,
+              99.6,
+              82.265,
+              214.424
+            ],
+            "volume": 292216.577433,
+            "area": 66151.491658,
+            "geometry_fingerprint_sha256": "2907d7acd5c28ad98c878bbe203e87b8dbec7ecfc3aaad3840b5be8cdf633dea",
+            "fingerprint_basis": "Sorted native face type/area/centroid/bounds and edge type/length/centroid/bounds, quantized 0.0001mm geometry/measure units; world coordinates."
+          }
+        }
+      ],
+      "updated_viewer_meshes": [
+        "bulkhead-flavor-a",
+        "bulkhead-flavor-a-nut",
+        "bulkhead-flavor-b",
+        "bulkhead-flavor-b-nut",
+        "tube-fluid-18",
+        "tube-fluid-28",
+        "tube-fluid-24",
+        "bulkhead-ring-flavor-a",
+        "bulkhead-ring-flavor-a-word/1",
+        "bulkhead-ring-flavor-a-word/2",
+        "bulkhead-ring-flavor-a-word/3",
+        "bulkhead-ring-flavor-a-word/4",
+        "bulkhead-ring-flavor-a-word/5",
+        "bulkhead-ring-flavor-a-word/6",
+        "bulkhead-ring-flavor-b",
+        "bulkhead-ring-flavor-b-word/1",
+        "bulkhead-ring-flavor-b-word/2",
+        "bulkhead-ring-flavor-b-word/3",
+        "bulkhead-ring-flavor-b-word/4",
+        "bulkhead-ring-flavor-b-word/5",
+        "bulkhead-ring-flavor-b-word/6",
+        "enclosure-back-top"
+      ],
+      "unrelated_mesh_arrays_identical": true
+    },
+    "wiring": {
+      "leaf_count": 113,
+      "unrelated_native_leaves_retained": 111,
+      "retained_retainer": [],
+      "updated_viewer_meshes": [
+        "wire-J4-IO26",
+        "wire-temp-GND"
+      ],
+      "unrelated_mesh_arrays_identical": true
+    }
+  },
+  "hoses": [
+    {
+      "id": "fluid-18",
+      "frm": "valve-v-g.outlet",
+      "to": "bulkhead-flavor-a.tube-in",
+      "od_mm": 4.0,
+      "native_valid": true,
+      "native_solids": 1,
+      "length_mm": 632.3263945909364,
+      "endpoints_world_mm": [
+        [
+          73.82,
+          166.23999999999998,
+          233.87220000000002
+        ],
+        [
+          77.5,
+          463.6,
+          274.3760478805363
+        ]
+      ]
+    },
+    {
+      "id": "fluid-28",
+      "frm": "valve-v-j.outlet",
+      "to": "bulkhead-flavor-b.tube-in",
+      "od_mm": 4.0,
+      "native_valid": true,
+      "native_solids": 1,
+      "length_mm": 501.2593453220115,
+      "endpoints_world_mm": [
+        [
+          -73.82,
+          166.23999999999998,
+          233.87220000000002
+        ],
+        [
+          37.2499988712316,
+          463.6,
+          274.3760478805363
+        ]
+      ]
+    },
+    {
+      "id": "fluid-24",
+      "frm": "reservoir-b-fill-turn.socket",
+      "to": "foam-assembly.reservoir-b-fill",
+      "od_mm": 6.35,
+      "native_valid": true,
+      "native_solids": 1,
+      "length_mm": 211.97378603030194,
+      "endpoints_world_mm": [
+        [
+          -82.1,
+          110.19900000000001,
+          288.2202
+        ],
+        [
+          -33.0,
+          287.5,
+          264.56239
+        ]
+      ]
+    }
+  ],
+  "source_sha256": {
+    "hardware/manifold-layout/above_core_routes.py": "edcb2f5f71e8765a55b4ed7094beab9cfb89c135589efc089ca9e59fc9a2d836",
+    "hardware/manifold-layout/above-core.json": "0e1714617664d97d7135ac98f4d1115bb72faba598086c6cfe881ef9d8608284",
+    "hardware/printed-parts/enclosure/enclosure/_route_snaps.py": "863a741a0d4025361c12d5397b0150a289fa8ffb6706a876dd8c002ae68e2967",
+    "hardware/printed-parts/enclosure/enclosure/_tube_snap_sites.py": "a6bb2521934e5c34aaaa153740344bd3616bfd9ba97a5b8315b3445f3fbd4798",
+    "hardware/wiring/installed/bundle-routes.json": "3b064e26066a45ae5f09af7648d18357d3569fc01c940da21205d9049902f3e1"
+  },
+  "print_pose": {
+    "part": "enclosure-back-top",
+    "rotation_x_deg": 180,
+    "shared_roots": "roof-guided-groups.json",
+    "local_slice_scope": "One exact shared roof snap with its local roof stock; not a full panel or physical fit qualification.",
+    "local_slice_model_layers": 60,
+    "local_slice_support_roads": 0
+  },
+  "fit": {
+    "quarter_inch_C2_bore_diameter_mm": 6.35,
+    "quarter_inch_wing_mm": 2.4,
+    "4mm_bore_diameter_mm": 4.1,
+    "4mm_wing_mm": 1.52,
+    "4mm_status": "Modeled fit estimate"
+  },
+  "wire_dressing": {
+    "J4-IO26_fill_air_mm": 0.54868,
+    "temp-GND_fill_air_mm": 1.64252,
+    "scope": "Only two fanout heights change; existing terminals, shared bundle cores and exits retain their positions. Flexible wire neighbors require ordinary dressing; this is not a wire-to-wire clearance qualification.",
+    "local_crossing": {
+      "wire": "J1-OUT1",
+      "tube": "fluid-24",
+      "modeled_overlap_mm3": 0.5709784631129913,
+      "assembly": "Dress the flexible J1-OUT1 fanout above the B-fill tube."
+    }
+  },
+  "final_native_tube_roots": {
+    "native": [
+      {
+        "native_root": 2486945,
+        "native_records_added": 3185,
+        "all_existing_bytes_outside_selected_root_retained": true
+      },
+      {
+        "native_root": 2489478,
+        "native_records_added": 2753,
+        "all_existing_bytes_outside_selected_root_retained": true
+      }
+    ],
+    "wiring": {
+      "schema": 1,
+      "scope": "Wiring-only integration; existing physical parts retained",
+      "physical_step_sha256": "d986c2993225c901434f18bfa966392f46795d309b7290d7140b32ac0ecfdca7",
+      "installed_step_sha256": "593d13874cb902ce14696a0fe062a0a99093e9e9fd7766746960adf1d1197754",
+      "physical_records_retained": 2557801,
+      "physical_meshes_retained": 450,
+      "wiring_meshes": 113,
+      "all_retained_viewer_arrays_identical": true,
+      "wiring_step_sha256": "93cd0a0243834afaba063bf86f1ae3005c111f52644d543ab4dfe4a9f4f32b24"
+    }
+  },
+  "routing": {
+    "A_low_lane_x_mm": -33.0,
+    "B_low_lane_x_mm": -40.0,
+    "roof_axes_x_mm": [
+      -45.0,
+      -55.0
+    ],
+    "roof_stations_y_mm": [
+      354.0,
+      390.0
+    ],
+    "roof_z_mm": 343.0,
+    "A_water_air_mm": 7.91632,
+    "B_water_air_mm": 0.836637,
+    "pair_air_mm": 3.0,
+    "minimum_curve_radius_mm": {
+      "A": 28.4327,
+      "B": 26.7179
+    }
+  }
+}

@@ -51,6 +51,16 @@ def _bezier(control):
     return {'kind': 'bezier', 'control_points_mm': [list(p) for p in control]}
 
 
+def _ease_lane(start, end):
+    """A gradual change between parallel +Y tube lanes, flat at both ends."""
+    step = (end[1] - start[1]) / 5.
+    return _bezier([start,
+        (start[0], start[1] + step, start[2]),
+        (start[0], start[1] + 2*step, start[2]),
+        (end[0], start[1] + 3*step, end[2]),
+        (end[0], start[1] + 4*step, end[2]), end])
+
+
 def _arc(start, tangent, axis, angle, radius):
     """Circular bend from a tangent; right-handed axis and angle in radians."""
     normal = _cross(axis, tangent)
@@ -124,10 +134,12 @@ def _points(segments):
             sampled = segment['points_mm']
         elif segment['kind'] == 'bezier':
             controls = segment['control_points_mm']
+            degree = len(controls) - 1
             sampled = []
             for i in range(65):
                 t = i/64
-                weights = ((1-t)**3, 3*(1-t)**2*t, 3*(1-t)*t*t, t**3)
+                weights = [math.comb(degree, k)*(1-t)**(degree-k)*t**k
+                           for k in range(degree+1)]
                 sampled.append([sum(w*p[k] for w, p in zip(weights, controls)) for k in range(3)])
         else:
             center, axis = segment['center_mm'], segment['axis']
@@ -234,7 +246,7 @@ def route_specifications(station):
 
     def route(identifier, source, destination, points, *, radius=14., spool='black',
               od=6.35, inside=4.24, source_depth=12.7, destination_depth=12.7,
-              suffix=None, prefix=None, note=''):
+              suffix=None, prefix=None, native_segments=None, note=''):
         a, ua, _ = station(*source)
         b, ub, _ = station(*destination)
         outside = [a, *points, b] if suffix is None else [a, *points]
@@ -243,10 +255,13 @@ def route_specifications(station):
         if suffix is None:
             full.append(_sub(b, _mul(ub, destination_depth)))
         try:
-            segments = [*(prefix or []), *_rounded(full, radius)]
-            if suffix is not None:
-                segments.extend(suffix)
-                segments.append(_line(b, _sub(b, _mul(ub, destination_depth))))
+            if native_segments is not None:
+                segments = native_segments
+            else:
+                segments = [*(prefix or []), *_rounded(full, radius)]
+                if suffix is not None:
+                    segments.extend(suffix)
+                    segments.append(_line(b, _sub(b, _mul(ub, destination_depth))))
             sampled = _points(segments)
             bent = any(segment['kind'] != 'line' for segment in segments)
             specifications[identifier] = {
@@ -273,52 +288,69 @@ def route_specifications(station):
           spool='blue', source_depth=15.7, destination_depth=16.891,
           note='Concealed 32.591 mm tube joins the coincident meter and rear-stem collet faces')
 
-    # Both dispense lines retain R25 and their three-dimensional rear returns.
-    # Their west lanes pass inboard of the enclosed M5x100 corner stack. A returns
-    # outboard before its rise; B returns in two stages to keep the rises apart.
-    flavor_a = station('bulkhead-flavor-a', 'tube-in')[0]
+    # The flavor pair passes low under the fore reservoir crossings, then
+    # rises gradually through the aisle beside the pump to two shared roof snaps.
     r = 25.
     diagonal = math.sqrt(.5)
-    start_a = (flavor_a[0], flavor_a[1]-r, flavor_a[2]+r)
-    arc_a, end_a = _arc(start_a, (0., 0., -1.), (1., 0., 0.), math.pi/2, r)
-    hairpin_height = 337.75
-    hairpin_start = (start_a[0]-r, start_a[1], hairpin_height)
-    hairpin, hairpin_end = _arc(hairpin_start, (1., 0., 0.), (0., 1., 0.), math.pi/2, r)
-    a_lane = (-87., 220., 286.5)
-    a_bends, a_point = _lane_transition(a_lane, (-7., 0., 0.), r)
-    a_rise, a_point = _lane_transition(a_point, (0., 0., 45.), r)
-    a_tail = _rounded([a_point, (-94., 310., 331.5), (-40., 350., 331.5),
-                       (-40., 380., hairpin_height),
-                       (-40., start_a[1], hairpin_height), hairpin_start], r)
+    a_source, a_axis, _ = station('valve-v-g', 'outlet')
+    flavor_a, a_port_axis, _ = station('bulkhead-flavor-a', 'tube-in')
+    a_lead = _rounded([_sub(a_source, _mul(a_axis, 10.)), a_source,
+        (a_source[0], a_source[1], 292.5), (35., 156., 288.5),
+        (-45., 156., 288.5), (-45., 181., 288.5)], r)
+    a_drop_x = 64.35
+    a_heading = math.pi/4-math.asin(((flavor_a[0]-a_drop_x)/r-1)/math.sqrt(2))
+    a_east, a_aft = math.cos(a_heading), math.sin(a_heading)
+    a_drop_y = flavor_a[1]-r*(a_east+a_aft)
+    a_turn, a_point = _arc((-45., a_drop_y-r, 343.), (0., 1., 0.),
+                          (0., 0., -1.), math.pi/2, r)
+    a_upper, a_upper_end = _arc((a_drop_x-r, a_drop_y, 343.), (1., 0., 0.),
+                              (0., 1., 0.), math.pi/2, r)
+    a_drop_start = (a_drop_x, a_drop_y, flavor_a[2]+r)
+    a_lower, a_lower_end = _arc(a_drop_start, (0., 0., -1.),
+                              (a_aft, -a_east, 0.), math.pi/2, r)
+    a_return, _ = _arc(a_lower_end, (a_east, a_aft, 0.), (0., 0., 1.),
+                      math.pi/2-a_heading, r)
+    a_segments = [*a_lead, _ease_lane((-45., 181., 288.5), (-33., 260., 296.)),
+        _line((-33., 260., 296.), (-33., 278., 296.)),
+        _bezier([(-33., 278., 296.), (-33., 299.6, 296.),
+                 (-33., 309.8, 310.1), (-33., 316.2, 328.9),
+                 (-45., 326.4, 343.), (-45., 348., 343.)]),
+        _line((-45., 348., 343.), (-45., a_drop_y-r, 343.)), a_turn,
+        _line(a_point, (a_drop_x-r, a_drop_y, 343.)), a_upper,
+        _line(a_upper_end, a_drop_start), a_lower, a_return,
+        _line(flavor_a, _sub(flavor_a, _mul(a_port_axis, 10.)))]
     route('fluid-18', ('valve-v-g', 'outlet'), ('bulkhead-flavor-a', 'tube-in'),
-          [(73.82, 166.24, 292.5), (35., 156., 288.5), (-68., 156., 288.5),
-           (-87., 198., 286.5), a_lane],
+          [], native_segments=a_segments,
           radius=r, spool='flavor-black-4mm', od=4., inside=2.5, source_depth=10.,
           destination_depth=10.,
-          suffix=[*a_bends, *a_rise, *a_tail, hairpin, _line(hairpin_end, start_a), arc_a])
+          note='Flavor A follows the paired roof guides to the east rear flavor port')
 
-    flavor_b = station('bulkhead-flavor-b', 'tube-in')[0]
-    # R25 and the port fix the drop's Y from its X. Moving the drop east takes it aft, off
-    # the meter collar's tie pad and toward the PISCO regulator; X64.35 splits the room.
-    b_drop_x = 64.35
-    b_heading = math.pi/4-math.asin(((flavor_b[0]-b_drop_x)/r-1)/math.sqrt(2))
-    b_east, b_aft = math.cos(b_heading), math.sin(b_heading)
-    b_drop_y = flavor_b[1]-r*(b_east+b_aft)
-    start_b = (b_drop_x, b_drop_y, flavor_b[2]+r)
-    b_lower, b_lower_end = _arc(start_b, (0., 0., -1.), (b_aft, -b_east, 0.), math.pi/2, r)
-    arc_b, _ = _arc(b_lower_end, (b_east, b_aft, 0.), (0., 0., 1.), math.pi/2-b_heading, r)
-    b_curve_start = (b_drop_x-r, b_drop_y, 343.)
-    b_upper, b_upper_end = _arc(b_curve_start, (1., 0., 0.), (0., 1., 0.), math.pi/2, r)
-    b_lane = (-85.5, 232., 281.)
-    b_rise, b_point = _lane_transition(b_lane, (-3., 0., 45.), r)
-    b_bends, b_point = _lane_transition(b_point, (-5.5, 0., 0.), r)
-    b_tail = _rounded([b_point, (-94., 325., 326.), (-59., 350., 343.),
-                       (-59., b_drop_y, 343.), b_curve_start], r)
+    b_source, b_axis, _ = station('valve-v-j', 'outlet')
+    flavor_b, b_port_axis, _ = station('bulkhead-flavor-b', 'tube-in')
+    b_lead = _rounded([_sub(b_source, _mul(b_axis, 10.)), b_source,
+        (b_source[0], b_source[1], 288.5), (b_source[0], b_source[1]+r, 288.5)], r)
+    b_turn_y = flavor_b[1]-2*r
+    b_turn, b_point = _arc((-55., b_turn_y, 343.), (0., 1., 0.),
+                          (0., 0., -1.), math.pi/2, r)
+    b_upper, b_upper_end = _arc((flavor_b[0]-r, flavor_b[1]-r, 343.),
+                              (1., 0., 0.), (0., 1., 0.), math.pi/2, r)
+    b_drop_start = (flavor_b[0], flavor_b[1]-r, flavor_b[2]+r)
+    b_lower, _ = _arc(b_drop_start, (0., 0., -1.), (1., 0., 0.), math.pi/2, r)
+    b_segments = [*b_lead, _ease_lane((b_source[0], b_source[1]+r, 288.5),
+                                     (-40., 260., 296.)),
+        _line((-40., 260., 296.), (-40., 278., 296.)),
+        _bezier([(-40., 278., 296.), (-40., 299.6, 296.),
+                 (-40., 309.8, 310.1), (-40., 316.2, 328.9),
+                 (-55., 326.4, 343.), (-55., 348., 343.)]),
+        _line((-55., 348., 343.), (-55., b_turn_y, 343.)), b_turn,
+        _line(b_point, (flavor_b[0]-r, flavor_b[1]-r, 343.)), b_upper,
+        _line(b_upper_end, b_drop_start), b_lower,
+        _line(flavor_b, _sub(flavor_b, _mul(b_port_axis, 10.)))]
     route('fluid-28', ('valve-v-j', 'outlet'), ('bulkhead-flavor-b', 'tube-in'),
-          [(-73.82, 166.24, 283.), (-85.5, 210., 281.), b_lane],
+          [], native_segments=b_segments,
           radius=r, spool='flavor-black-4mm', od=4., inside=2.5,
           source_depth=10., destination_depth=10.,
-          suffix=[*b_rise, *b_bends, *b_tail, b_upper, _line(b_upper_end, start_b), b_lower, arc_b])
+          note='Flavor B follows the paired roof guides to the west rear flavor port')
 
     # Vent travels above the dry electronics and drops aft of the motor.
     vent = station('bulkhead-drain', 'inboard')[0]
@@ -336,8 +368,7 @@ def route_specifications(station):
           source_depth=14., destination_depth=10., suffix=[vent_turn, vent_arc])
 
     specifications.update(reservoir_a_route_specs())
-    # B-fill's JG mouth is above the lid; its lower stem/link belong to the
-    # core builder. The selected Reservoir A paths leave both B routes intact.
+    # B-fill's JG mouth is above the lid; its lower stem/link belong to the core.
     b_draw = station('foam-assembly', 'reservoir-b')[0]
     b_draw_target = station('valve-v-h', 'inlet')[0]
     b_draw_z = 295.7
@@ -358,14 +389,14 @@ def route_specifications(station):
           note='B draw completes its westward offset aft of the drain cradle, then enters V-H from the fore corridor')
     b_fill = station('foam-assembly', 'reservoir-b-fill')[0]
     b_fill_start, b_fill_axis, _ = station('reservoir-b-fill-turn', 'socket')
-    b_fill_cruise = 295.5
-    b_fill_rise, _ = _lane_transition(
-        b_fill_start, (0., 0., b_fill_cruise-b_fill_start[2]), 14.)
+    b_fill_lane = (b_fill_start[0], 225., 287.)
+    b_fill_segments = [
+        _line(_sub(b_fill_start, _mul(b_fill_axis, 16.891)), b_fill_start),
+        _ease_lane(b_fill_start, b_fill_lane),
+        _bezier([b_fill_lane, (b_fill_start[0], 265., 287.),
+                 (b_fill[0], b_fill[1], b_fill[2]+35.), b_fill])]
     route('fluid-24', ('reservoir-b-fill-turn', 'socket'), ('foam-assembly', 'reservoir-b-fill'),
-          [(b_fill_start[0], 180., b_fill_cruise), (b_fill_start[0], 245., b_fill_cruise),
-           (b_fill[0], b_fill[1], b_fill_cruise)],
+          [], native_segments=b_fill_segments,
           source_depth=16.891, destination_depth=0.,
-          prefix=[_line(_sub(b_fill_start, _mul(b_fill_axis, 16.891)), b_fill_start),
-                  *b_fill_rise],
-          note='B fill leaves the trimmed V-I stem elbow, rises gently below the frame and reaches the existing upper JG socket')
+          note='B fill passes low below the flavor aisle and curves gently into its existing upper JG socket')
     return specifications
