@@ -31,11 +31,7 @@ struct FirstRunView: View {
                     VStack(alignment: .leading, spacing: 24) {
                         Text("Make it yours").font(.title2.weight(.semibold))
                         Note("Choose your flavor images, care for your machine, and keep it up to date.")
-                        HoldAtFaucet(height: wide ? 240 : 150)
-                        Note("Hold your device up to the faucet display, the way you would at a card reader. Then choose your machine in Apple’s nearby accessory sheet.")
-                        ActionButton(title: "Find your machine", working: access.opening) { access.add() }
-                            .disabled(access.opening)
-                        AddOutcome()
+                        FindYourMachine(pictureHeight: wide ? 240 : 150)
                         if directory.demo == nil {
                             Button("Try the demo") { ble.addDemo() }
                                 .font(.body.weight(.medium)).frame(minHeight: 44)
@@ -52,6 +48,50 @@ struct FirstRunView: View {
         .foregroundStyle(Theme.textPrimary)
         .tint(Theme.accent)
         .onAppear { access.clearOutcome() }
+    }
+}
+
+/// Adding a machine, over the page it was asked for from. Cancel returns to
+/// that page; a machine added opens.
+struct AddMachineSheet: View {
+    @Environment(MachineAccess.self) var access
+    @Environment(\.dismiss) private var dismiss
+
+    var body: some View {
+        ScrollView {
+            VStack(alignment: .leading, spacing: 24) {
+                HStack {
+                    Text("Add a machine").font(.title2.weight(.semibold))
+                    Spacer(minLength: 12)
+                    Button("Cancel") { dismiss() }.frame(minHeight: 44)
+                }
+                FindYourMachine(pictureHeight: 220)
+            }
+            .frame(maxWidth: 420).frame(maxWidth: .infinity)
+            .padding(24)
+        }
+        .background(Theme.background.ignoresSafeArea())
+        .foregroundStyle(Theme.textPrimary)
+        .tint(Theme.accent)
+        .onAppear { access.clearOutcome() }
+        .onChange(of: access.added) { dismiss() }
+    }
+}
+
+/// Where to hold the device, and the button that opens Apple's sheet, with
+/// what came of the last try.
+struct FindYourMachine: View {
+    @Environment(MachineAccess.self) var access
+    let pictureHeight: CGFloat
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 24) {
+            HoldAtFaucet(height: pictureHeight)
+            Note("Hold your device up to the faucet display, the way you would at a card reader. Then choose your machine in Apple’s nearby accessory sheet.")
+            ActionButton(title: "Find your machine", working: access.opening) { access.add() }
+                .disabled(access.opening)
+            AddOutcome()
+        }
     }
 }
 

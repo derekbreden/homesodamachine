@@ -61,6 +61,7 @@ extension BLEManager {
         if outcome != .none { finishTrustAsk(outcome) }
         if standing == .trusted, was != .trusted { pushPendingName() }
         if standing == .trusted {
+            if trustAskOnLink { sayTrusted() }   // set up again under a pairing the machine trusts
             trustAskOnLink = false
         } else if trustAskOnLink, standing == .viewer {
             trustAskOnLink = false
@@ -94,19 +95,22 @@ extension BLEManager {
         switch outcome {
         case .trusted:
             trustAsk = nil
-            if quiet {
-                let at = Date()
-                trustGrantedAt = at
-                DispatchQueue.main.asyncAfter(deadline: .now() + 6) { [weak self] in
-                    if self?.trustGrantedAt == at { self?.trustGrantedAt = nil }
-                }
-            }
+            if quiet { sayTrusted() }
         case .canceled, .none:
             trustAsk = nil
         default:
             if quiet { trustAsk = nil } else { trustAsk?.ended = outcome }
         }
         return outcome
+    }
+
+    /// The Machine page says so for a few seconds.
+    private func sayTrusted() {
+        let at = Date()
+        trustGrantedAt = at
+        DispatchQueue.main.asyncAfter(deadline: .now() + 6) { [weak self] in
+            if self?.trustGrantedAt == at { self?.trustGrantedAt = nil }
+        }
     }
 
     /// Cancel on the phone: the displays let go of the ask too.

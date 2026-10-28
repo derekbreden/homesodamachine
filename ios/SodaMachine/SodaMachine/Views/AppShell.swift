@@ -145,6 +145,8 @@ struct AppShell: View {
                     if !sidebar { BottomNavigation() }
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .coordinateSpace(.named("pages"))
+                .simultaneousGesture(swipeBack)
             }
         }
         .background(Theme.background.ignoresSafeArea())
@@ -154,6 +156,18 @@ struct AppShell: View {
         .overlay {
             if let ask = ble.trustAsk, !ask.quiet { TrustAskOverlay(ask: ask) }
         }
+    }
+
+    /// A swipe in from the left edge of the pages is Back, as across iOS. It
+    /// starts in the margin, where no control is.
+    private var swipeBack: some Gesture {
+        DragGesture(minimumDistance: 16, coordinateSpace: .named("pages"))
+            .onEnded { drag in
+                guard drag.startLocation.x < 24, nav.top != nil,
+                      drag.translation.width > 72,
+                      abs(drag.translation.height) < drag.translation.width / 2 else { return }
+                nav.back()
+            }
     }
 
     @ViewBuilder private func page(width: CGFloat, height: CGFloat) -> some View {
@@ -184,11 +198,14 @@ struct AppShell: View {
 /// way back.
 struct PageHeader: View {
     @Environment(BLEManager.self) var ble
+    @Environment(MachineDirectory.self) var directory
     @Environment(Navigator.self) var nav
     let sidebar: Bool
     let width: CGFloat
 
     private var isTop: Bool { nav.top == nil }
+    /// The machine is named in the title, or in the menu beside it.
+    private var named: Bool { isTop && (nav.tab == .machine || directory.known.count > 1) }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
@@ -201,24 +218,24 @@ struct PageHeader: View {
                     .accessibilityLabel("Back")
                 }
                 if isTop && nav.tab == .machine && !sidebar {
-                    Button { nav.push(.machines) } label: {
+                    MachineSwitcher { menu in
                         HStack(spacing: 9) {
                             Text(ble.current?.displayName ?? "").font(.largeTitle.weight(.semibold))
-                            Image(systemName: "chevron.down").font(.caption.weight(.semibold))
-                                .foregroundStyle(Theme.textSecondary)
+                                .foregroundStyle(Theme.textPrimary)
+                            if menu {
+                                Image(systemName: "chevron.down").font(.caption.weight(.semibold))
+                                    .foregroundStyle(Theme.textSecondary)
+                            }
                         }
                     }
-                    .buttonStyle(.plain)
-                    .disabled(nav.locked)
-                    .accessibilityHint("Your machines")
                 } else {
                     Text(title)
                         .font(isTop ? .largeTitle.weight(.semibold) : .headline)
                         .fixedSize(horizontal: false, vertical: true)
                 }
                 Spacer(minLength: 8)
-                if isTop && nav.tab != .machine && !sidebar {
-                    Button { nav.push(.machines) } label: {
+                if isTop && nav.tab != .machine && !sidebar && directory.known.count > 1 {
+                    MachineSwitcher { _ in
                         HStack(spacing: 6) {
                             Text(ble.current?.displayName ?? "")
                             Image(systemName: "chevron.down").font(.caption2)
@@ -227,14 +244,12 @@ struct PageHeader: View {
                         .padding(.horizontal, 12).padding(.vertical, 10)
                         .background(Theme.ice.opacity(0.08), in: Capsule())
                     }
-                    .buttonStyle(.plain)
-                    .disabled(nav.locked)
                 }
             }
             if !sidebar {
                 HStack(spacing: 6) {
                     Circle().fill(ble.linked ? Theme.ice : Theme.textSecondary.opacity(0.5)).frame(width: 5, height: 5)
-                    Text(isTop ? linkText : "\(ble.current?.displayName ?? "") · \(linkText)")
+                    Text(named ? linkText : "\(ble.current?.displayName ?? "") · \(linkText)")
                 }
                 .font(.caption)
                 .foregroundStyle(Theme.textSecondary)
@@ -305,20 +320,19 @@ struct SideNavigation: View {
                 Text("Soda Machine").font(.subheadline.weight(.semibold))
             }
             .padding(.bottom, 24)
-            Button { nav.push(.machines) } label: {
+            MachineSwitcher { menu in
                 HStack {
                     VStack(alignment: .leading, spacing: 5) {
                         Text(ble.current?.displayName ?? "").font(.headline)
                         Text(ble.linkText).font(.caption).foregroundStyle(Theme.textSecondary)
                     }
                     Spacer(minLength: 6)
-                    Image(systemName: "chevron.down").font(.caption2)
+                    if menu { Image(systemName: "chevron.down").font(.caption2) }
                 }
+                .foregroundStyle(Theme.textPrimary)
                 .padding(12)
                 .background(Theme.background, in: RoundedRectangle(cornerRadius: 12))
             }
-            .buttonStyle(.plain)
-            .disabled(nav.locked)
             .padding(.bottom, 20)
             ForEach(AppTab.allCases, id: \.self) { tab in
                 let selected = nav.tab == tab
@@ -343,6 +357,45 @@ struct SideNavigation: View {
         .frame(width: 216)
         .frame(maxHeight: .infinity, alignment: .top)
         .background(Theme.surface.ignoresSafeArea())
+    }
+}
+
+/// Which machine every tab is about. With more than one on this device it is
+/// a menu of them, the one showing checked, and a way to add another; Your
+/// machines, in Settings, is where they are managed. With one, it is the name.
+struct MachineSwitcher<Face: View>: View {
+    @Environment(BLEManager.self) var ble
+    @Environment(MachineDirectory.self) var directory
+    @Environment(Navigator.self) var nav
+    /// What it looks like, told whether it is a menu.
+    @ViewBuilder let face: (_ menu: Bool) -> Face
+    @State private var adding = false
+
+    var body: some View {
+        if directory.known.count > 1 {
+            Menu {
+                Picker("Machine", selection: chosen) {
+                    ForEach(directory.known) { m in Text(m.displayName).tag(Optional(m.id)) }
+                }
+                .pickerStyle(.inline)
+                Button { adding = true } label: {
+                    Label("Add a machine", systemImage: "plus")
+                }
+            } label: {
+                face(true)
+            }
+            .disabled(nav.locked)
+            .sheet(isPresented: $adding) { AddMachineSheet() }
+        } else {
+            face(false)
+        }
+    }
+
+    private var chosen: Binding<String?> {
+        Binding(get: { directory.current?.id },
+                set: { id in
+                    if let m = directory.known.first(where: { $0.id == id }) { ble.select(m) }
+                })
     }
 }
 

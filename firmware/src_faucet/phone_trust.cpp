@@ -13,7 +13,13 @@ namespace {
 Preferences store;
 bool        storeOpen = false;
 
-PhoneId  trusted[TRUST_MAX];   // oldest first
+// A trusted phone and the pairing it was trusted under.
+struct Trusted {
+  PhoneId  id;
+  uint32_t pairing;   // pairingOf() when it was trusted
+};
+
+Trusted  trusted[TRUST_MAX];   // oldest first
 uint8_t  trustedCount = 0;
 uint32_t generation = 1;
 
@@ -38,19 +44,34 @@ void say(const char *what, const PhoneId &id) {
   baseLinkSay(line);
 }
 
+// The key of the phone's bond, digested. Each pairing makes a new key, so a
+// phone that forgot the machine and paired again no longer matches.
+uint32_t pairingOf(const PhoneId &id) {
+  ble_store_key_sec key{};
+  key.peer_addr.type = id.type;
+  memcpy(key.peer_addr.val, id.addr, sizeof(id.addr));
+  ble_store_value_sec bond;
+  if (ble_store_read_peer_sec(&key, &bond) != 0 || !bond.ltk_present) return 0;
+  uint32_t h = 2166136261u;   // FNV-1a
+  for (uint8_t b : bond.ltk) h = (h ^ b) * 16777619u;
+  return h;
+}
+
 void save() {
   if (!storeOpen) return;
-  if (trustedCount) store.putBytes("phones", trusted, sizeof(PhoneId) * trustedCount);
+  if (trustedCount) store.putBytes("phones", trusted, sizeof(Trusted) * trustedCount);
   else store.remove("phones");
+}
+
+void drop(uint8_t i) {
+  memmove(trusted + i, trusted + i + 1, sizeof(Trusted) * (trustedCount - i - 1));
+  --trustedCount;
 }
 
 void add(const PhoneId &id) {
   if (phoneTrustKnows(id)) return;
-  if (trustedCount == TRUST_MAX) {   // the oldest goes first, as its bond does
-    memmove(trusted, trusted + 1, sizeof(PhoneId) * (TRUST_MAX - 1));
-    --trustedCount;
-  }
-  trusted[trustedCount++] = id;
+  if (trustedCount == TRUST_MAX) drop(0);   // the oldest goes first, as its bond does
+  trusted[trustedCount++] = Trusted{id, pairingOf(id)};
   ++generation;
   save();
 }
@@ -76,15 +97,20 @@ void phoneTrustBegin() {
   storeOpen = store.begin("trust");
   if (!storeOpen) return;
   const size_t n = store.getBytesLength("phones");
-  if (n && n % sizeof(PhoneId) == 0 && n <= sizeof(trusted)) {
+  if (n && n % sizeof(Trusted) == 0 && n <= sizeof(trusted)) {
     store.getBytes("phones", trusted, n);
-    trustedCount = (uint8_t)(n / sizeof(PhoneId));
+    trustedCount = (uint8_t)(n / sizeof(Trusted));
   }
 }
 
 bool phoneTrustKnows(const PhoneId &id) {
-  for (uint8_t i = 0; i < trustedCount; i++)
-    if (same(trusted[i], id)) return true;
+  for (uint8_t i = 0; i < trustedCount; i++) {
+    if (!same(trusted[i].id, id)) continue;
+    if (trusted[i].pairing == pairingOf(id)) return true;
+    drop(i);   // trusted under a pairing the phone has since let go of
+    save();
+    return false;
+  }
   return false;
 }
 

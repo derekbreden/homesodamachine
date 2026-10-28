@@ -25,8 +25,9 @@ private let log = Logger(subsystem: "com.derekbreden.SodaMachine", category: "Ac
 // THE SYSTEM'S LIST IS WHICH MACHINES ARE ON THE PHONE. A machine removed in
 // Settings leaves the phone, pictures and all, as Forget leaves it, and
 // Forget on a machine the system lists is the system's removal. A name given
-// in Settings, or in the sheet that adds the machine, is sent to the machine,
-// whose main board keeps the name every phone shows.
+// in Settings is sent to the machine, whose main board keeps the name every
+// phone shows. The sheet that adds a machine asks for no name: it cannot know
+// the one the machine already has, and the machine keeps it.
 //
 // AN EARLIER BUILD'S MACHINES ARE CARRIED OVER ONCE, BEFORE THE RADIO COMES
 // UP. That build reached them on Bluetooth access of its own, and carrying
@@ -84,7 +85,7 @@ final class MachineAccess {
     @ObservationIgnored private var wait = 0
 
     /// What a machine nobody has named is called, which is also what the
-    /// sheet calls the machine it shows and what its rename field starts with.
+    /// sheet calls the machine it shows.
     private static let unnamed = "Soda machine"
     private static let didNotOpen = "The setup sheet did not open. Try again."
     /// How many times the sheet is asked for again after the system turns it
@@ -222,10 +223,8 @@ final class MachineAccess {
         opening = true
         handed = nil
         setupFailed = false
-        let item = ASPickerDisplayItem(name: Self.unnamed, productImage: Self.picture,
-                                       descriptor: Self.descriptor(range: .immediate))
-        item.setupOptions = [.rename]
-        show([item])
+        show([ASPickerDisplayItem(name: Self.unnamed, productImage: Self.picture,
+                                  descriptor: Self.descriptor(range: .immediate))])
     }
 
     /// An outcome shown once is not shown to the next screen that opens.
@@ -362,7 +361,7 @@ final class MachineAccess {
                 // Met by a central manager made after the system listed it.
                 ble.holdRadio()
                 let m = ble.add(peripheralID: id)
-                adopt(picked, as: m, named: picked.displayName != Self.unnamed)
+                adopt(picked, as: m, named: false)
                 ble.askTrustOnLink()
                 added += 1
                 outcome = nil
