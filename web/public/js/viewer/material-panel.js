@@ -75,6 +75,8 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
   // A selection made while its model is still loading waits here for STEP_MOUNTED.
   let pending = null;
   let status = "";
+  // The selection came from a click in the model rather than from this pane or a search.
+  let modelPick = false;
   function contextPath() {
     const parent = materialForFile(state.materialCatalog, lastFile);
     return parent && parent.id !== root ? explodeBom(state.materialCatalog, parent.id, options()).find((r) => r.material.id === root)?.path || [] : [];
@@ -84,7 +86,9 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
   // THE PANEL'S SELECTION IS THE MODEL'S. What the model picks out: the selected BOM item, a
   // related material's bodies, a picked body with no record, or this material where it stands
   // in the larger model it was opened in. The model's own material picks nothing out, so the
-  // model opens whole and unfaded.
+  // model opens whole and opaque. A part chosen here or opened from a search is highlighted,
+  // framed and faded around (Focus); a click in the model is the picker's own mark, and the
+  // model stays opaque under the reader's camera so the next click can aim.
   function hasSubject() {
     return Boolean(selectedBody || selectedPath.length || selected !== root || contextPath().length);
   }
@@ -118,7 +122,9 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
     const names = subjectNames(scenePartNames());
     highlightParts(names, {
       owner: "materials", onRelease: released, fly,
-      onDraw: (drawn) => setStatus(!names.length ? "This material has no drawn geometry in the current model."
+      fill: !modelPick, fade: !modelPick, hold: modelPick ? false : fly ? true : null,
+      onDraw: (drawn) => setStatus(modelPick ? ""
+        : !names.length ? "This material has no drawn geometry in the current model."
         : drawn.shown ? "All visible occurrences highlighted in this model."
         : drawn.hidden ? "Hidden in this view." : ""),
     });
@@ -146,15 +152,17 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
 
   function setRoot(id) {
     clearComponentSelection();
+    modelPick = false;
     root = id; selected = id; selectedPath = []; selectedBody = null; expanded.clear(); tab = null;
     render();
     show();
   }
 
-  // `fromModel`: the reader picked it in the model, so the camera stays and the picker keeps
-  // its own mark on the body clicked.
+  // `fromModel`: the reader picked it in the model, so the camera stays, the model stays
+  // opaque and the picker keeps its own mark on the body clicked.
   function select(id, path = [], { fromModel = false } = {}) {
     if (!fromModel) clearComponentSelection();
+    modelPick = fromModel;
     selectedBody = null;
     selected = id; selectedPath = path;
     render();
@@ -190,7 +198,7 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
     if (!hasSubject()) return marked;
     const model = contextPath().length ? materialForFile(state.materialCatalog, lastFile) : null;
     if (model) reroot(model.id);
-    selectedBody = null; selected = root; selectedPath = [];
+    selectedBody = null; selected = root; selectedPath = []; modelPick = false;
     render();
     show({ fly: !fromModel });
     return true;
@@ -203,7 +211,7 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
     clearComponentSelection();
     const model = contextPath().length ? materialForFile(state.materialCatalog, lastFile) : null;
     if (model) reroot(model.id);
-    selectedBody = null; selected = root; selectedPath = []; status = "";
+    selectedBody = null; selected = root; selectedPath = []; status = ""; modelPick = false;
     render();
   }
 
@@ -566,7 +574,7 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
     if (file && mountedFile !== lastFile) {
       // Another model: its own material, nothing selected, under the camera it opened with.
       drawingView?.closeDrawing();
-      selectedBody = null; pending = null; status = "";
+      selectedBody = null; pending = null; status = ""; modelPick = false;
       lastFile = mountedFile; root = materialForFile(state.materialCatalog, mountedFile)?.id; selected = root; selectedPath = []; expanded.clear(); tab = null;
       render();
       show({ fly: false });
@@ -606,7 +614,7 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
           outside.path.forEach((_, i) => expanded.add(pathKey(outside.path.slice(0, i + 1))));
           select(outside.material.id, outside.path, pick);
         } else {
-          selected = null; selectedPath = []; selectedBody = event.detail.name;
+          selected = null; selectedPath = []; selectedBody = event.detail.name; modelPick = true;
           render();
           show({ fly: false });
         }
