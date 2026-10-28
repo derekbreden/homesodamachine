@@ -8,7 +8,7 @@ import cadquery as cq
 plate_thickness = 4.0
 liquid_grip = dict(waist_d=9.0, flare_d=11.0, bore_d=6.2, lead_d=7.0, lead_h=0.4)
 air_grip = dict(waist_d=6.0, flare_d=8.0, bore_d=3.9, lead_d=4.5, lead_h=0.3)
-air_position = {+1: (120.0, -26.0), -1: (-102.0, -32.5)}
+air_position = {+1: (120.0, -26.0), -1: (-109.0, -32.5)}
 air_tube_od = 4.0
 air_tube_id = 2.5
 air_tube_above_casing = 6.0

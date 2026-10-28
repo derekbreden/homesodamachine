@@ -20,7 +20,7 @@ reservoir headspace.
 ## Through the insulation
 
 Air axes in the native cold-core frame are A **(120, -26)** and
-B **(-102, -32.5)** mm. The top foam-cap cup has an integral 5.2 mm passage
+B **(-109, -32.5)** mm. The top foam-cap cup has an integral 5.2 mm passage
 with 2 mm printed wall at each station. Each passage continues through the
 pour lid. The 0.6 mm radial clearance lets the tube slide through; the TPU
 grip in the reservoir lid sets its insertion depth. Foam fills around the
@@ -31,6 +31,12 @@ spools to each reservoir lid before closing it. Feed each air tube through
 the casing passage and its TPU grip, leaving 6 mm visible above the casing
 face. This places its lower end 1 mm below the reservoir plate. Keep the bore
 open in both directions. Existing white 4 mm stock supplies both pieces.
+
+Reservoir B's tube is straight at world X32.5/Y214.8 mm. Its reservoir-lid
+seat, cup passage and outer-lid opening share that axis. The outlet ends at
+Z259.4, forward of V-B's continuous mounting wall. The tube has 3.78 mm
+nominal air to the wall and 3.66 mm to the lower V12 junction. The cup and
+lid separate along the straight tube during assembly.
 
 ## Qualification
 
