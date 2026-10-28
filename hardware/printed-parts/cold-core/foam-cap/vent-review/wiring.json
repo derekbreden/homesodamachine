@@ -1,0 +1,35 @@
+{
+  "all_changed_leads": {
+    "scope": "Manual room reading of changed free lead sections only. 5 mm station intervals, 8 transverse rays, r+3 mm reach; first/last 8 mm at terminals excluded. Wires and jackets excluded as obstacles. Tubes retained. Unchanged shared bundles/conduits retain prior assembly scope.",
+    "threshold_mm": 0.5,
+    "routes": 12,
+    "stations": 78,
+    "rays": 624,
+    "triangles_indexed": 70479,
+    "flags": [],
+    "elapsed_seconds": 1.546,
+    "process_peak_rss_mb": 160.2
+  },
+  "single_route_benchmark": {
+    "scope": "Manual room reading of changed free lead sections only. 5 mm station intervals, 8 transverse rays, r+3 mm reach; first/last 8 mm at terminals excluded. Wires and jackets excluded as obstacles. Tubes retained. Unchanged shared bundles/conduits retain prior assembly scope.",
+    "threshold_mm": 0.5,
+    "routes": 1,
+    "stations": 7,
+    "rays": 56,
+    "triangles_indexed": 659,
+    "flags": [],
+    "elapsed_seconds": 0.919,
+    "process_peak_rss_mb": 118.3
+  },
+  "comparison": {
+    "same_single_route": "DC4-V12",
+    "earlier_contact_screen_seconds": 2,
+    "earlier_contact_screen_cadq_reported_peak_rss_mb": 489,
+    "single_route_room_seconds": 0.919,
+    "single_route_room_cadq_reported_peak_rss_mb": 124,
+    "all_changed_routes_room_seconds": 1.546,
+    "all_changed_routes_room_cadq_reported_peak_rss_mb": 181,
+    "both_single_route_readings_have_no_findings": true
+  },
+  "scope": "Local manual room reading, not a uniform 1 mm wire clearance or a wire-pair gate."
+}

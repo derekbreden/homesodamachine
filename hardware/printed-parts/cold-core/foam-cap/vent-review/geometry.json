@@ -1,0 +1,37 @@
+{
+  "scope": "One post-publication surface-class pass over the complete STL, plus thin-section reading over the changed wall/wells/vent region. Existing functional answers retain their own scope.",
+  "stl_sha256": "82864e8ce06a4fb8074d314131ff035fed7f85fe2f038c6806ffb7d73d60ec6d",
+  "surface_open_new_defects": 0,
+  "functional_roof_findings": {
+    "WAGO_well_ceilings": 4,
+    "lower_B_fill_pocket": 1,
+    "aft_tie_passage": 1
+  },
+  "translated_WAGO_ceiling_anchors": [
+    {
+      "x": 77.975,
+      "y": 24.8,
+      "z": 25.55
+    },
+    {
+      "x": 77.975,
+      "y": 24.8,
+      "z": 47.65
+    },
+    {
+      "x": 90.525,
+      "y": 24.8,
+      "z": 25.55
+    },
+    {
+      "x": 90.525,
+      "y": 24.8,
+      "z": 47.65
+    }
+  ],
+  "changed_stock_thin_reading": {
+    "scope": "Changed V-B wall, four WAGO wells and vent/root region, with a surrounding surface buffer. The pre-change whole-lid six-tile readings retain their named clamp-floor, clamp-side, B-fill-cover and C2-spring exceptions.",
+    "findings": [],
+    "facets": 7285
+  }
+}

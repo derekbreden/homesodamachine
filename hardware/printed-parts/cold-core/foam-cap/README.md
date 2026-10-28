@@ -99,7 +99,9 @@ remains at X32.5/Y221.8, ending at Z259.4. Its Ø5.2 mm straight passage continu
 through the full adjacent V-B wall height. The west backing plane is X32.0;
 the vent has 1.5 mm nominal air to the lower V12 connector and 0.6 mm radial
 allowance in its printed passage. The socket backing and broad wall root remain
-at least 3 mm. These are native CAD clearances.
+at least 3 mm. These are native CAD clearances. The
+[vent and junction review](vent-review/README.md) binds this arrangement and
+the Mark1 archive for its recorded STL hash.
 
 Reservoir A’s draw and fill tubes use two direct fore C2 clips and one aft tied
 seat. Draw occupies the west position at each station. The fore tube axes are

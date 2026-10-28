@@ -1,10 +1,10 @@
 [ceiling] Functional upper end walls of the four rotated WAGO wells. Each flat 9.4 × 8.7 mm underside closes the rectangular pocket at one end of its 19.1 mm vertical body allowance, with 3 mm stock above it. The rear half of the connector slides into this rectangular seat along its own Y axis; its levers and the west face remain accessible. Tree(auto)/Default retains its automatic supports, which are removed through the open well mouth. The current native slice records their placement; physical release remains unmeasured.
 alternatives: Filling the pocket below this end wall occupies the WAGO body. Sloping the underside enters that rectangular body allowance; retaining it with a thicker rising section raises the upper row toward the funnel frame. Opening the end removes axial capture of the connector. The current end wall preserves its purchased rectangular mating envelope.
 file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
-click: x=90.525 y=27.300 z=47.650
-click: x=77.975 y=27.300 z=47.650
-click: x=90.525 y=27.300 z=25.550
-click: x=77.975 y=27.300 z=25.550
+click: x=90.525 y=24.800 z=47.650
+click: x=77.975 y=24.800 z=47.650
+click: x=90.525 y=24.800 z=25.550
+click: x=77.975 y=24.800 z=25.550
 
 [ceiling] Functional aft tie tunnel: under the aft Reservoir A paired seat the strap runs through a 3.2 mm transverse slot. This 7.5 × 3.2 mm roof is the seat's ridge between the two tubes, 1.6 mm over the slot floor, and it bridges the slot's 3.2 mm width.
 alternatives: An open-topped slot cuts the ridge that carries both tubes' grooves. A sloped roof takes stock from that ridge or deepens the slot into the lid's floor stock.
