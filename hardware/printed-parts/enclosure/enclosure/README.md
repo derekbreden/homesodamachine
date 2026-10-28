@@ -1100,12 +1100,17 @@ hardware and cable rooms.
 
 ## Integral routing snaps
 
-Back-top carries four direct tube snaps and three single-arm cable clips on its
+Back-top carries six direct tube seats and three single-arm cable clips on its
 existing roof and wall stock. The quarter-inch fill guide uses the selected C2
-section with a **6.35 mm bore** and **2.40 mm wings**. The three 4 mm tube guides
+section with a **6.35 mm bore** and **2.40 mm wings**. The five 4 mm tube seats
 use **4.10 mm bores** and proportionally sized **1.52 mm spring wings**. The cable
 seats match the relay ribbon, DC power pair and one V-K lead; no generic oversized
 pocket gathers unrelated wires.
+
+Both flavor tubes follow a broad, gentle rise to Z343 and run beneath two
+paired roof stations at Y354 and Y390. Each station has one common filled base
+with an 8 mm-long seat for each tube. The downward-facing mouths remain
+accessible with back-top open. The funnel frame carries no flavor-tube support.
 
 The [routing review](route-snap-review/README.md) identifies every station, its
 print direction, cable dressing, installation order and current fit basis. These

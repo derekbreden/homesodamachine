@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "scope": "Canonical physical assembly export with its current installed wiring; all physical native records and viewer arrays retained during wiring installation.",
-  "physical_step_sha256": "9971ccd310a1ea6a6b693fa9f2b21275310723d5fbadf20bd7530e572c7182cf",
-  "installed_step_sha256": "3c6f9f078d9df28c79227759b1e431c810ffdd3d8fac01a3035d309aeeb69f00",
-  "physical_records_retained": 2506045,
-  "physical_meshes_retained": 432,
+  "scope": "Wiring-only integration; existing physical parts retained",
+  "physical_step_sha256": "d986c2993225c901434f18bfa966392f46795d309b7290d7140b32ac0ecfdca7",
+  "installed_step_sha256": "593d13874cb902ce14696a0fe062a0a99093e9e9fd7766746960adf1d1197754",
+  "physical_records_retained": 2557801,
+  "physical_meshes_retained": 450,
   "wiring_meshes": 113,
   "all_retained_viewer_arrays_identical": true,
-  "wiring_step_sha256": "5e1c69dbfc577cb73ee1003db41dfb8ce6a62fb7e4e1e4b097ffded2941f7aa7",
+  "wiring_step_sha256": "93cd0a0243834afaba063bf86f1ae3005c111f52644d543ab4dfe4a9f4f32b24",
   "connection_count": 98
 }

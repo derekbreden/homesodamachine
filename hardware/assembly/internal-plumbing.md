@@ -325,10 +325,11 @@ below it while the printed cable mouth and connector positions remain fixed.
 
 Reservoir B fill turns through two actual compact fittings below the lid and emerges aft of the PCB at X−33/Y287.5. Its lower stem enters the reservoir cap's existing fill bore; the approximately 15.6 mm exposed link excludes the unmeasured JG socket insertion. Assemble the pair and link in the open cup before the top cap's pour ([cold core](cold-core.md) §3); the lid then closes over the lower 3.05 mm and upper 2.4 mm retaining covers. The upper cover has 0.25 mm nominal CAD air to the PCB tails; physical fit and retention load remain unqualified. A-fill and B-draw use shallow guide offsets. Dress and tag the front-top ends on the bench, and connect the remaining ends through the funnel opening before the frame goes in. Keep access to the lower returns' elbows and their collets.
 
-The drawn `fluid-24` span is [225.698 mm](RESERVOIR_B_FILL_WARM), including
+The drawn `fluid-24` span is [211.974 mm](RESERVOIR_B_FILL_WARM), including
 the 16.891 mm receiving length in V-I's stem elbow and ending at the upper JG socket
 face. Add the actual JG receiving mark when preparing that physical tube;
-the cap's separate short link is another piece. Terminate both J10 power
+the cap's separate short link is another piece. Dress the flexible `J1-OUT1`
+fanout above the B-fill tube where they pass. Terminate both J10 power
 leads on the loose PCB before fastening the board to the core, then connect
 their free ends to the core WAGOs. The captured B-fill fitting clears the
 installed lead and vertical screw tools but overlaps the optional straight
@@ -393,13 +394,21 @@ socket scope. Collet fit, connection force, threading and hand/tool access remai
 unqualified. The meter and rear outlet are prepared together on back-top.
 Closing and flexible handoffs are established only to the scope of that record.
 
-Flavor A and B use black 4 mm lines from the reducers at V-G and V-J to the
-lower-left and lower-right rear fittings respectively. Seat `fluid-18` and
-`fluid-28` in their rear bulkheads on the open back-top and carry their free
-ends ahead of back-top's open front through the ride. Once the box is closed,
-connect them at the V-G and V-J reducers through the funnel opening. Retain
-R25 turns and straight socket entries. Dress valve leads clear of those lines
-and leave collets accessible.
+Flavor A uses black 4 mm `fluid-18` from V-G to the east rear fitting at
+X77.5/Z274.376. Flavor B uses `fluid-28` from V-J to the west fitting at
+X37.25/Z274.376. Match each faucet tail's flavor collar to that logical socket.
+Seat both tubes in their bulkheads on the open back-top, then press their
+straight roof runs upward into the downward-facing seats at Y354 and Y390.
+Each station carries both tubes on one filled base. The 4.10 mm bores and
+1.52 mm spring wings remain provisional for 4 mm stock.
+
+Carry the free ends ahead of back-top's open front through the closing slide.
+Once the box is closed, connect them at the V-G and V-J reducers through the
+funnel opening. Follow the gentle fore grades and broad rise to the roof;
+retain R25 turns and straight socket entries. Keep the vent and valve leads
+clear of the clip mouths and leave collets accessible. Release the tubes from
+back-top's seats before sliding the quadrant open for service. The removable
+funnel frame carries no flavor-tube seat.
 
 ### 5. Final connections through the funnel opening
 
