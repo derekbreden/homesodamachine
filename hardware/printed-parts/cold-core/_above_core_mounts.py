@@ -104,6 +104,8 @@ def valve_support_datums(name, face_z=None):
     low = tuple(min(point[i] for point in corners) for i in range(3))
     high = tuple(max(point[i] for point in corners) for i in range(3))
     if name == 'valve-v-b':
+        low = (above_core.specification()['vb_mount']['seat_wall_bounds_mm'][0][0],
+               low[1],low[2])
         high = (*high[:2], max(high[2], above_core.specification()[
             'vb_mount']['seat_wall_bounds_mm'][1][2]))
     face = above_core.specification()['cap_face_z_mm'] if face_z is None else (
@@ -261,8 +263,8 @@ def _jg_band_radius(leg, first, last):
 def union_support_datums():
     """Selected union interfaces and the implemented core-owned restraint.
 
-    Fixed body bands leave the moving collets free. V-B uses a short ledge
-    rooted aft of the PCB. V-A travels with its valve through the connected
+    Fixed body bands leave the moving collets free. V-B uses a filled pedestal
+    beneath its forward leg. V-A travels with its valve through the connected
     tubing; its datum does not construct a core bearing or installed strip.
     """
     import fits
@@ -281,38 +283,32 @@ def union_support_datums():
           'support_implemented':False,
           'mount_status':'Tube-carried with the back-top V-A plumbing; no independent printed restraint'}
     frame = above_core.snapshot_pose('vb-outlet-return')
-    centre = above_core.point(frame,(0.,14.5,0.))
-    radius = _jg_band_radius('y',13.,16.)+fits.slip
-    bore_origin = above_core.point(frame,(0.,8.,0.))
-    bore_axis = above_core.vector(frame['rotation'],(0.,1.,0.))
-    bore_length = 13.
-    # The leg leans; 3 mm of floor stays under the bore's lowest generator.
-    bore_low = (min(bore_origin[2], bore_origin[2]+bore_axis[2]*bore_length)
-                - radius*math.sqrt(1.-bore_axis[2]**2))
-    bottom = bore_low-3.
-    pcb = importlib.import_module('pcba_tray')
-    board_aft = max(above_core.point(above_core.pose('pcba'),
-        (px-pcb._centre[0],py-pcb._centre[1],0.))[1]
-        for px in pcb._outline_x for py in pcb._outline_y)
-    plate_x = round(centre[0],1)-.8
-    # The broad root sits aft of the PCB's eight-millimetre wire-entry lands.
-    root_fore = max(round(board_aft,1)+7.5,centre[1]+4.)
-    root_aft = root_fore+3.
-    root_x = plate_x+1.
-    window_top = round(bottom,1)-.3
-    vb = {'stock_min_world_mm':(plate_x,centre[1],bottom),
-          'stock_max_world_mm':(plate_x+3.,centre[1]+radius+3.,centre[2]),
-          'beam_min_world_mm':(plate_x,centre[1],bottom),
-          'beam_max_world_mm':(root_x+9.,root_aft,bottom+3.),
-          'root_min_world_mm':(root_x,root_fore,face),
-          'root_max_world_mm':(root_x+9.,root_aft,bottom+3.),
-          'bore_origin_world_mm':bore_origin,
-          'bore_axis_world':bore_axis,
-          'bore_length_mm':bore_length,'seat_radius_mm':radius,
-          'native_leg':'y','native_band_mm':(13.,16.),
-          'tie_window_min_world_mm':(root_x+3.1,root_fore-.1,window_top-2.8),
-          'tie_window_max_world_mm':(root_x+5.9,root_aft+.1,bottom),
-          'tie_route_z_mm':window_top-1.4,
+    centre = above_core.point(frame,(0.,0.,14.5))
+    radius = _jg_band_radius('z',13.,16.)+fits.slip
+    down = above_core.vector(frame['rotation'],(1.,0.,0.))
+    through = above_core.vector(frame['rotation'],(0.,1.,0.))
+    wide = above_core.vector(frame['rotation'],(0.,0.,-1.))
+    peak = tuple(c+(radius+3.)*d for c,d in zip(centre,down))
+    low = (centre[0]-radius-3.,centre[1]-5.75,face)
+    high = (centre[0],centre[1]+5.75,centre[2])
+    profile = ((-1.4,-4.4),(1.4,-4.4),(1.4,-2.6),(0.,0.),(-1.4,-2.6))
+    corners = []
+    for x in (low[0]-.1,high[0]+.1):
+        for u,v in profile:
+            point = tuple(p+u*w-v*d for p,w,d in zip(peak,wide,down))
+            t = (x-point[0])/through[0]
+            corners.append(tuple(p+t*a for p,a in zip(point,through)))
+    vb = {'stock_min_world_mm':low,'stock_max_world_mm':high,
+          'bore_origin_world_mm':above_core.point(frame,(0.,0.,-5.)),
+          'bore_axis_world':above_core.vector(frame['rotation'],(0.,0.,1.)),
+          'bore_length_mm':50.,'seat_radius_mm':radius,
+          'native_leg':'z','native_band_mm':(13.,16.),
+          'tie_window_min_world_mm':tuple(min(p[i] for p in corners) for i in range(3)),
+          'tie_window_max_world_mm':tuple(max(p[i] for p in corners) for i in range(3)),
+          'tie_profile_origin_world_mm':peak,'tie_profile_x_world':wide,
+          'tie_profile_normal_world':through,'tie_profile_mm':profile,
+          'tie_route_native_down_mm':radius+6.3,
+          'centre_world_mm':centre,
           'wall_mm':3.,'parent':'foam-assembly','support_implemented':True}
     return {'va-east-turn': va, 'vb-outlet-return': vb}
 
@@ -326,11 +322,6 @@ def union_supports():
             continue
         low,high = data['stock_min_world_mm'],data['stock_max_world_mm']
         stock = cq.Solid.makeBox(*(high[i]-low[i] for i in range(3)),cq.Vector(*low))
-        for prefix in ('beam','root'):
-            if prefix+'_min_world_mm' in data:
-                low,high = data[prefix+'_min_world_mm'],data[prefix+'_max_world_mm']
-                stock = stock.fuse(cq.Solid.makeBox(
-                    *(high[i]-low[i] for i in range(3)),cq.Vector(*low)))
         bore = cq.Solid.makeCylinder(data['seat_radius_mm'],data['bore_length_mm'],
                                     cq.Vector(*data['bore_origin_world_mm']),
                                     cq.Vector(*data['bore_axis_world']))
@@ -345,9 +336,12 @@ def union_support_cuts():
     for name,data in union_support_datums().items():
         if data['parent'] != 'foam-assembly':
             continue
-        low,high = data['tie_window_min_world_mm'],data['tie_window_max_world_mm']
-        result[name] = world_shape_in_cap(cq.Solid.makeBox(
-            *(high[i]-low[i] for i in range(3)),cq.Vector(*low)))
+        origin = tuple(p-40.*a for p,a in zip(data['tie_profile_origin_world_mm'],
+                                            data['tie_profile_normal_world']))
+        plane = cq.Plane(origin=origin,xDir=data['tie_profile_x_world'],
+                         normal=data['tie_profile_normal_world'])
+        passage = cq.Workplane(plane).polyline(data['tie_profile_mm']).close().extrude(80.).val()
+        result[name] = world_shape_in_cap(passage)
     return result
 
 
@@ -427,35 +421,27 @@ def check_tie_route():
 
 def _vb_union_tie(data):
     frame = above_core.snapshot_pose('vb-outlet-return')
-    centre = above_core.point(frame, (0., 14.5, 0.))
-    u = (0., 1., 0.)
+    centre = data['centre_world_mm']
+    u = above_core.vector(frame['rotation'],(0.,1.,0.))
     v = tuple(-value for value in above_core.vector(frame['rotation'], (1., 0., 0.)))
     radius = data['seat_radius_mm'] + .55
-    upper = _tie_arc_point(centre, u, v, radius, 20.)
-    lower = _tie_arc_point(centre, u, v, radius, 260.)
-    first, last = data['tie_window_min_world_mm'], data['tie_window_max_world_mm']
-    wx, wz = (first[0]+last[0])/2., data['tie_route_z_mm']
-    fore_y, aft_y = first[1]-.5, last[1]+1.3
-    west_x = data['stock_min_world_mm'][0]-1.4
-    east_x = data['root_max_world_mm'][0]+1.4
-    window_fore, window_aft = (wx,fore_y,wz), (wx,aft_y,wz)
-    west_lower = (west_x,fore_y,wz)
-    rear_y = data['stock_max_world_mm'][1]+2.2
-    west_rear = (west_x,rear_y,wz)
-    west_upper = (west_x,rear_y,math.ceil(data['stock_max_world_mm'][2]+2.))
-    axis = above_core.vector(frame['rotation'],(0.,1.,0.))
-    east_lower = (east_x,lower[1],wz-4.3)
-    east_aft = (east_x,aft_y,wz)
+    lower = _tie_arc_point(centre,u,v,radius,-20.)
+    upper = _tie_arc_point(centre,u,v,radius,170.)
+    down = above_core.vector(frame['rotation'],(1.,0.,0.))
+    axis = above_core.vector(frame['rotation'],(0.,0.,1.))
+    line_origin = tuple(c+data['tie_route_native_down_mm']*d for c,d in zip(centre,down))
+    west_x,east_x = data['stock_min_world_mm'][0]-.8,data['stock_max_world_mm'][0]+.8
+    def at_x(x):
+        t=(x-line_origin[0])/u[0]
+        return tuple(p+t*a for p,a in zip(line_origin,u))
+    west_lower,east_lower=at_x(west_x),at_x(east_x)
+    west_upper=(west_x,centre[1],max(centre[2]+3.,upper[2]+1.))
     return [
-        _tie_line(window_aft, window_fore, (1., 0., 0.)),
-        _tie_line(window_fore, west_lower),
-        _tie_line(west_lower, west_rear, (1., 0., 0.)),
-        _tie_line(west_rear, west_upper, (1., 0., 0.)),
-        _tie_line(west_upper, upper, axis),
-        _tie_arc(centre, u, v, radius, 20., 260.),
-        _tie_line(lower, east_lower, (0., 1., 0.)),
-        _tie_line(east_lower, east_aft, (1., 0., 0.)),
-        _tie_line(east_aft, window_aft),
+        _tie_arc(centre,u,v,radius,-20.,170.),
+        _tie_line(upper,west_upper,axis),
+        _tie_line(west_upper,west_lower,axis),
+        _tie_line(west_lower,east_lower,axis),
+        _tie_line(east_lower,lower,axis),
     ]
 
 

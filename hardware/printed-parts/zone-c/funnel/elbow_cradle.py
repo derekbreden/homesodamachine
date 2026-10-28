@@ -35,17 +35,21 @@ _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
 _tools = next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"
 for _p in (_hw / "scripts", _hw / "printed-parts" / "cadlib",
-           _hw / "reference" / "jg-pp0308e-elbow", _tools):
+           _hw / "reference" / "jg-pp0308e-elbow",
+           _hw / "reference" / "neofit-stem-elbow", _hw / "manifold-layout", _tools):
     if str(_p) not in sys.path:
         sys.path.insert(0, str(_p))
 import fits                                                   # noqa: E402
 import elbow as _elbow                                        # noqa: E402
+import neofit_stem_elbow as _stem                              # noqa: E402
+import above_core as _layout                                  # noqa: E402
 
 WEB = 3.0              # the frame's bottom web under the socket
 SLIP = fits.slip       # radial growth of the scanned pocket profile
 WALL = 3.0             # block wall and floor beyond the elbow's widest section
 LOWER_SIDE_RELIEF = 0.65   # air to the neighbouring Y elbows, below the wing roots
 ROOT_STOCK = 3.0       # retain the full-width body under each wing
+STEM_BODY_AIR = 1.0    # aft lower face off the attached NeoFit collar
 HOLE_D = 11.25         # the 10.64 mm collet passes 0.3 mm a side; the 12.12 mm nose bears round it
 ELBOW_Z = -_elbow.FIXED_FACE   # the elbow's axis intersection, under the frame's underside
 BODY_TOP_STATION = 10.0   # vertical-leg station of the block's top, 1 mm under the root band's top
@@ -313,6 +317,14 @@ def build():
                                    for x, z in outline], close=True)
         tool = cq.Solid.extrudeLinear(wire, [], cq.Vector(0, y1 - y0 + 2, 0))
         body = body.cut(tool)
+    stem_y = _layout.snapshot_pose('drain-outlet-stem')['translation_mm'][1]
+    drain_y = _layout.specification()['fore_routes']['drain_union_corner_mm'][1]
+    rear_face = stem_y-drain_y-_stem.COLLAR_OD/2.-STEM_BODY_AIR
+    # One lower aft plane clears the stem collar. The full three-millimetre
+    # wing-root band, snap stations and PP0308E bearing remain intact.
+    if rear_face < y1:
+        body = body.cut(cq.Solid.makeBox(2*half+2.,y1-rear_face+1.,
+            z1-ROOT_STOCK-z0+1.,cq.Vector(-half-1.,rear_face,z0-1.)))
     cradle = body
     for side in (-1, 1):
         for a, b, lo in ((s["w_in"], s["w_out"], z1 - 0.01),
