@@ -444,8 +444,8 @@ readable for six seconds while navigation is restored. Refusals appear on the Fi
 
 **Clean → Start cleaning** sends `MSG_CLEAN_START { channel }`, and the main
 board draws the funnel through that channel and out through the faucet, then puts tap water
-through it three rounds over: in through the idle pump to the reservoir until its full reed
-closes, then out through the faucet on the dispense path until its empty reed opens. The
+through it three rounds over: pumped into the reservoir until its full reed closes, then
+pumped out through the faucet on the dispense path until its empty reed closes plus an 8 s tail. The
 confirm page says to set a pitcher under the faucet first and asks for nothing in the funnel.
 Water there matters only when the flavor changes, so the install guide's Change a flavor is
 what asks for it.

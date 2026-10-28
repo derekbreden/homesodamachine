@@ -19,7 +19,7 @@ All valves are normally closed solenoid valves. Flow direction is inlet (I) to o
 The upright V-A and V-K take the header at their upper inlet ports and discharge
 through their lower outlet ports, with their underside flow arrows downward.
 
-**A stopped pump is not a closed valve.** A parked KPHM600 head passes flow both ways — gravity drains a standing line down through one — so every path in this manifold is held by its NC solenoids alone, and each dispense path carries a gate at both ends of its pump. It is also what carries the clean-fill modes below, where tap water, pressure-limited by the YZMSZ 0.3 MPa regulator on V-A's feed, crosses an idle pump to reach a reservoir.
+**A stopped pump is not a closed valve.** A parked KPHM600 head slowly leaks under gravity, so every path in this manifold is held by its NC solenoids alone, and each dispense path carries a gate at both ends of its pump. The clean-fill modes actively run the selected pump to move tap water into its reservoir, with inlet pressure limited by the YZMSZ 0.3 MPa regulator on V-A's feed.
 
 The carbonated-water draw uses one continuous tube through the plain core
 guide and an accepted R14 bend holder directly into the meter inlet. The guide
@@ -180,14 +180,14 @@ This table is canonical for the integrated flavor manifold. Pumps run forward on
 ### Clean Water Fill → Reservoir A
 
 - Open: V-A, V-C, V-F
-- Pump A: OFF (regulated tap water through the idle pump)
-- Path: Tap → flow regulator → V-A → V-C → P-A (idle) → V-F → Reservoir A
+- Pump A: ON
+- Path: Tap → flow regulator → V-A → V-C → P-A → V-F → Reservoir A
 
 ### Clean Water Fill → Reservoir B
 
 - Open: V-A, V-D, V-I
-- Pump B: OFF (regulated tap water through the idle pump)
-- Path: Tap → flow regulator → V-A → V-D → P-B (idle) → V-I → Reservoir B
+- Pump B: ON
+- Path: Tap → flow regulator → V-A → V-D → P-B → V-I → Reservoir B
 
 ### Clean Flush A (water out)
 
