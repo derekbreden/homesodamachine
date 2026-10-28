@@ -1,0 +1,181 @@
+{
+  "schema": 1,
+  "scope": "One integral lid snap; unchanged tube and wire geometry, fittings, native hierarchy and all other viewer arrays.",
+  "files": {
+    "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step": "bba3e1c1936dd5cda4a7ea8a1bf02fd87cd544ab5d05889d9d675d148b7aa738",
+    "hardware/cold-core-layout/cold-core-assembly.step": "2bd96a5ab9553ba4df8257a41396f9997eaef0a859501dd9a64eb707c32a18a1",
+    "hardware/manifold-layout/enclosure-assembly.step": "d073f62616bef15232d55ecdb8b1f843cf118d917750f90408eeb6a380428189",
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": "8da6db37ffec0f62b92e45a7e1ce9dc071b87ce84faffa7466a65a418fa45707",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step": "b54c75fc6d3035683c906ff7595bb30575a6d6f56c080b8ab10b6ca993053226",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl": "80b6aee54be33a619105e790ea783b5fdd37ad003bac4ba0b3443d578467b174",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh": "c603bff30889d695597025ab30f1248363249f6ce48780495e7d5612e2433d99",
+    "hardware/assembly/scenes/glb/cold-core.glb": "88dc78258757c6073b2798095da0d640fdda5eb6637d813acb83c8a4d5ad8d07",
+    "hardware/assembly/scenes/glb/cap-lid.glb": "f97f984a346d9c729cd1c93cd72cb24abd98a6d0d16a5113e48026a88946a949",
+    "hardware/assembly/scenes/glb/back-half.glb": "ce7ac69dc6e08326797f9a3fb4c4c6330bd8f74a63a63d73a889809f2ce93144",
+    "hardware/assembly/scenes/glb/cap-lid-fill.glb": "efddbec8c717103b547f40afe1465b6cf2c866c05da3a3dbbeb32530a27d789c"
+  },
+  "physical_scene_sha256": "360db9bbc406fdf15b05c467138a0f1cc41c7a96dee60b1aaff954fe2cebb129",
+  "native_appliance_sha256": "d073f62616bef15232d55ecdb8b1f843cf118d917750f90408eeb6a380428189",
+  "wiring_routes_retained": true,
+  "parents": [
+    {
+      "source_relative": "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step",
+      "held_sha256": "301e8c60db4610d12796fa097a197b6f74127721c9bafe060b9fdf8fe6b19c2c",
+      "staged_sha256": "bba3e1c1936dd5cda4a7ea8a1bf02fd87cd544ab5d05889d9d675d148b7aa738",
+      "leaf_count": 5,
+      "only_replaced_native_body": "foam-cap-lid-top",
+      "source_frame": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "native_readback_valid": true,
+      "native_root": 35844,
+      "native_records_added": 18529,
+      "all_existing_bytes_outside_selected_root_retained": true
+    },
+    {
+      "source_relative": "hardware/cold-core-layout/cold-core-assembly.step",
+      "held_sha256": "57696ae52d0b74c182e047dead7dc9cd46ea1ef92eff1384527d04ced1dbb0f7",
+      "staged_sha256": "2bd96a5ab9553ba4df8257a41396f9997eaef0a859501dd9a64eb707c32a18a1",
+      "leaf_count": 69,
+      "only_replaced_native_body": "foam-cap-lid-top",
+      "source_frame": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "native_readback_valid": true,
+      "native_root": 29176,
+      "native_records_added": 18529,
+      "all_existing_bytes_outside_selected_root_retained": true
+    },
+    {
+      "source_relative": "hardware/manifold-layout/enclosure-assembly.step",
+      "held_sha256": "19432c9700c04c363b4f4b53335a040e697f2237cc984880d69dfb4d99cfa622",
+      "staged_sha256": "d073f62616bef15232d55ecdb8b1f843cf118d917750f90408eeb6a380428189",
+      "leaf_count": 563,
+      "only_replaced_native_body": "464/cold-core/foam-cap-lid-top",
+      "source_frame": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "native_readback_valid": true,
+      "native_root": 510358,
+      "native_records_added": 18529,
+      "all_existing_bytes_outside_selected_root_retained": true,
+      "staged_mesh_sha256": "8da6db37ffec0f62b92e45a7e1ce9dc071b87ce84faffa7466a65a418fa45707",
+      "unrelated_viewer_arrays_identical": true
+    }
+  ],
+  "assembly_scenes": [
+    {
+      "source_relative": "hardware/assembly/scenes/glb/cold-core.glb",
+      "source_sha256": "fe6ea2df3b951500d26351c56b6f90e90aa0e812b55c5cf93385cecbe13dc175",
+      "staged": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/va-feed-snap/staged/glb/cold-core.glb",
+      "staged_sha256": "88dc78258757c6073b2798095da0d640fdda5eb6637d813acb83c8a4d5ad8d07",
+      "updated_nodes": [
+        "cold-core/foam-cap-lid-top"
+      ],
+      "removed_cap_nodes": 0,
+      "unchanged_geometry_materials_transforms_identical": true
+    },
+    {
+      "source_relative": "hardware/assembly/scenes/glb/cap-lid.glb",
+      "source_sha256": "0d88cb7d39fa56cf866a464632fc883594d7eac8b4b041be3d422645c71fcff6",
+      "staged": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/va-feed-snap/staged/glb/cap-lid.glb",
+      "staged_sha256": "f97f984a346d9c729cd1c93cd72cb24abd98a6d0d16a5113e48026a88946a949",
+      "updated_nodes": [
+        "cold-core/foam-cap-lid-top"
+      ],
+      "removed_cap_nodes": 0,
+      "unchanged_geometry_materials_transforms_identical": true
+    },
+    {
+      "source_relative": "hardware/assembly/scenes/glb/back-half.glb",
+      "source_sha256": "15e9bf6418a8d3f0c7f7b74ce99b2e64e15a56d2da9c966f410bc67c38c41775",
+      "staged": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/va-feed-snap/staged/glb/back-half.glb",
+      "staged_sha256": "ce7ac69dc6e08326797f9a3fb4c4c6330bd8f74a63a63d73a889809f2ce93144",
+      "updated_nodes": [
+        "cold-core/foam-cap-lid-top"
+      ],
+      "removed_cap_nodes": 0,
+      "unchanged_geometry_materials_transforms_identical": true
+    },
+    {
+      "source_relative": "hardware/assembly/scenes/glb/cap-lid-fill.glb",
+      "source_sha256": "6df42782d0e49fcf716ff4d93c69d5f46b3c6f59da4e04c189e716a633716f88",
+      "staged": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/va-feed-snap/staged/glb/cap-lid-fill.glb",
+      "staged_sha256": "efddbec8c717103b547f40afe1465b6cf2c866c05da3a3dbbeb32530a27d789c",
+      "updated_nodes": [
+        "cold-core/foam-cap-lid-top"
+      ],
+      "removed_cap_nodes": 0,
+      "unchanged_geometry_materials_transforms_identical": true
+    }
+  ]
+}

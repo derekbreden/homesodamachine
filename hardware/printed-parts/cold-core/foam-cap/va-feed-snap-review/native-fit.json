@@ -1,0 +1,603 @@
+{
+  "schema": 1,
+  "scope": "One manual native read of the frozen current appliance. Exact approved clip, current lid attachment, retained tube straight, static contacts and local 7 mm press window. No source edits, full source rebuild or recurring check.",
+  "source_commit": "438f5eb2a9f2d7319bbc3e633d6df999431b7079",
+  "source_native": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/va-feed-snap/baseline/hardware/manifold-layout/enclosure-assembly.step",
+  "source_native_sha256": "19432c9700c04c363b4f4b53335a040e697f2237cc984880d69dfb4d99cfa622",
+  "native_leaf_count": 563,
+  "nearby_leaf_count_including_host_and_own": 43,
+  "all_native_leaf_bounds_considered": true,
+  "local_selection": "Every complete current native leaf within 5 mm of either exact clip or 7 mm press-envelope AABB.",
+  "source_sha256": {
+    "hardware/printed-parts/cold-core/_above_core_mounts.py": "0938bcb0a0c53faa99bc0febeef852b258d52a3a34615d5bfe8fb5c0ce846022",
+    "hardware/printed-parts/cold-core/foam-cap/foam_cap.py": "3c2b544413fd2cdcfe84e0e1baea4db88200dffb1e758262873fb54aa7b7b72b",
+    "hardware/printed-parts/cadlib/route_snap.py": "e9d1b350d7c639adc125ab01a99022d8a4eaaffac9c8278616722de0ec99ef47",
+    "hardware/manifold-layout/above_core.py": "0ad87c7c252ab3cfe803c0f2a63a9374d06d0005591509031328ad6e3203988f",
+    "hardware/manifold-layout/above-core.json": "0e1714617664d97d7135ac98f4d1115bb72faba598086c6cfe881ef9d8608284"
+  },
+  "clip": {
+    "path": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/va-feed-snap/native-fit/va-feed-snap-world.brep",
+    "sha256": "6f645b757c7bdddcb7f313433fedb0bb9efd4625ee447002dc4266bd864bcb19",
+    "centre_world_mm": [
+      11.0,
+      254.5,
+      261.6
+    ],
+    "bounds_mm": [
+      [
+        5.425000000000001,
+        250.5,
+        253.3
+      ],
+      [
+        16.575,
+        258.5,
+        265.3356636552512
+      ]
+    ],
+    "native_valid": true,
+    "native_solids": 1,
+    "tube_od_mm": 6.35,
+    "bore_mm": 6.35,
+    "wing_mm": 2.4,
+    "span_mm": 8.0,
+    "root_distance_mm": 8.200000000000017,
+    "ordinary_stock_below_bore_mm": 5.025000000000006,
+    "approved_fixture": "/Users/derekbredensteiner/.codex/visualizations/2026/10/26/01a17653-e00f-7c40-b0f8-bb2c8b25f571/next-snap-va-fore-y254.500.brep",
+    "approved_fixture_sha256": "3c8c67148d9b226e76493abea274e471b4ae18102a5a6ca47cb171119b9f3309",
+    "comparison": {
+      "source_only_mm3": 0,
+      "approved_only_mm3": 0,
+      "bounds_delta_mm": 1.7763568394002505e-15,
+      "volume_delta_mm3": 0.0
+    },
+    "mouth_world_direction": [
+      0,
+      0,
+      1
+    ],
+    "print_growth_world": [
+      0,
+      0,
+      1
+    ]
+  },
+  "host": {
+    "name": "464/cold-core/foam-cap-lid-top",
+    "path": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/va-feed-snap/native-fit/current-world-lid.brep",
+    "sha256": "5e36004ba757e1b5354b729440411e363dd5802dbd590fabf9254c7c69e6ad4b",
+    "native_valid": true,
+    "native_solids": 1,
+    "clip_overlap_mm3": 8.91999999999949,
+    "expected_full_root_overlap_mm3": 8.92,
+    "clip_overlap_above_plain_lid_face_mm3": 0,
+    "press_overlap_mm3": 0,
+    "floor_witnesses": [
+      {
+        "point_mm": [
+          6.0,
+          250.5,
+          253.4
+        ],
+        "distance_to_lid_surface_mm": 0.0
+      },
+      {
+        "point_mm": [
+          6.0,
+          254.5,
+          253.4
+        ],
+        "distance_to_lid_surface_mm": 0.0
+      },
+      {
+        "point_mm": [
+          6.0,
+          258.5,
+          253.4
+        ],
+        "distance_to_lid_surface_mm": 0.0
+      },
+      {
+        "point_mm": [
+          11.0,
+          250.5,
+          253.4
+        ],
+        "distance_to_lid_surface_mm": 0.0
+      },
+      {
+        "point_mm": [
+          11.0,
+          254.5,
+          253.4
+        ],
+        "distance_to_lid_surface_mm": 0.0
+      },
+      {
+        "point_mm": [
+          11.0,
+          258.5,
+          253.4
+        ],
+        "distance_to_lid_surface_mm": 0.0
+      },
+      {
+        "point_mm": [
+          16.0,
+          250.5,
+          253.4
+        ],
+        "distance_to_lid_surface_mm": 0.0
+      },
+      {
+        "point_mm": [
+          16.0,
+          254.5,
+          253.4
+        ],
+        "distance_to_lid_surface_mm": 0.0
+      },
+      {
+        "point_mm": [
+          16.0,
+          258.5,
+          253.4
+        ],
+        "distance_to_lid_surface_mm": 0.0
+      }
+    ],
+    "fused_path": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/va-feed-snap/native-fit/lid-with-va-snap-world.brep",
+    "fused_sha256": "e87723880ac49e2f84dc1601fef4fc12224d1b76d818f7b0db324b9a152a2a0d",
+    "fused_native_valid": true,
+    "fused_native_solids": 1,
+    "added_material_mm3": 744.8141324266908
+  },
+  "own_tube": {
+    "name": "tube-above-core-va-fore-feed",
+    "path": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/va-feed-snap/native-fit/current-va-feed-world.brep",
+    "sha256": "f6883a02d5a3934787fa1c82f85c4c2b702c700ede09ba60d8a91622cf408622",
+    "clip_overlap_mm3": 0,
+    "press_overlap_mm3": 140.39714737039685,
+    "native_straight_cylinder_faces": [
+      {
+        "radius_mm": 3.175,
+        "axis_point_mm": [
+          11.0,
+          261.19496077274,
+          261.6
+        ],
+        "axis_direction": [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        "bounds_mm": [
+          [
+            7.825,
+            224.0,
+            258.425
+          ],
+          [
+            14.175,
+            261.19496077274,
+            264.77500000000003
+          ]
+        ]
+      },
+      {
+        "radius_mm": 2.12,
+        "axis_point_mm": [
+          11.0,
+          261.19496077274,
+          261.6
+        ],
+        "axis_direction": [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        "bounds_mm": [
+          [
+            8.879999999999999,
+            224.0,
+            259.48
+          ],
+          [
+            13.120000000000001,
+            261.19496077274,
+            263.72
+          ]
+        ]
+      }
+    ],
+    "straight_span_verified": true,
+    "press_overlap_is_intended": true,
+    "press_overlap_basis": "The local insertion envelope includes the seated retained tube; this is the intended target."
+  },
+  "press": {
+    "path": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/va-feed-snap/native-fit/va-feed-7mm-press-world.brep",
+    "sha256": "91198c6713c4ed0cf59fd7aef9cce2821a2ef47516642ccf48df0799f8367ed2",
+    "travel_mm": 7.0,
+    "bounds_mm": [
+      [
+        7.825,
+        250.5,
+        258.425
+      ],
+      [
+        14.175,
+        258.5,
+        271.77500000000003
+      ]
+    ],
+    "basis": "Nominal 6.35 mm tube cross-section swept vertically +Z by 7 mm through the 8 mm station; fingers and tools are not modeled.",
+    "approach_world_direction": [
+      0,
+      0,
+      1
+    ],
+    "insertion_world_direction": [
+      0,
+      0,
+      -1
+    ]
+  },
+  "static_contacts": [],
+  "hard_press_contacts": [],
+  "soft_press_contacts": [
+    {
+      "name": "installed-wiring/wire-PE-carbonator",
+      "clip_air_mm": 0.7925925085099568,
+      "press_air_mm": 0.0,
+      "clip_overlap_mm3": 0.0,
+      "press_overlap_mm3": 53.73800560722616,
+      "soft_wire": true
+    },
+    {
+      "name": "installed-wiring/wire-J4-V5",
+      "clip_air_mm": 5.9453186479606925,
+      "press_air_mm": 0.0,
+      "clip_overlap_mm3": 0.0,
+      "press_overlap_mm3": 1.2291453249426674,
+      "soft_wire": true
+    }
+  ],
+  "neighbors": [
+    {
+      "name": "installed-wiring/wire-PE-carbonator",
+      "clip_air_mm": 0.7925925085099568,
+      "press_air_mm": 0.0,
+      "clip_overlap_mm3": 0.0,
+      "press_overlap_mm3": 53.73800560722616,
+      "soft_wire": true
+    },
+    {
+      "name": "installed-wiring/wire-J4-V5",
+      "clip_air_mm": 5.9453186479606925,
+      "press_air_mm": 0.0,
+      "clip_overlap_mm3": 0.0,
+      "press_overlap_mm3": 1.2291453249426674,
+      "soft_wire": true
+    },
+    {
+      "name": "464/446/cold-core/vb-outlet-return/1",
+      "clip_air_mm": 6.22956844490949,
+      "press_air_mm": 1.2746148477349122,
+      "clip_overlap_mm3": 0.0,
+      "press_overlap_mm3": 0.0,
+      "soft_wire": false
+    },
+    {
+      "name": "464/446/cold-core/vb-outlet-return/3",
+      "clip_air_mm": 8.92228023358867,
+      "press_air_mm": 3.78999539912705,
+      "clip_overlap_mm3": 0.0,
+      "press_overlap_mm3": 0.0,
+      "soft_wire": false
+    },
+    {
+      "name": "464/cold-core/wago-gnd",
+      "clip_air_mm": 4.025000000000002,
+      "press_air_mm": 6.425000000000001,
+      "clip_overlap_mm3": 0.0,
+      "press_overlap_mm3": 0.0,
+      "soft_wire": false
+    },
+    {
+      "name": "tube-above-core-vb-yb-link",
+      "clip_air_mm": 11.067280233588622,
+      "press_air_mm": 5.934995399127007,
+      "clip_overlap_mm3": 0.0,
+      "press_overlap_mm3": 0.0,
+      "soft_wire": false
+    },
+    {
+      "name": "installed-wiring/wire-DC4-GND",
+      "clip_air_mm": 7.449534607751513,
+      "press_air_mm": 6.187019784823406,
+      "clip_overlap_mm3": 0.0,
+      "press_overlap_mm3": 0.0,
+      "soft_wire": true
+    },
+    {
+      "name": "installed-wiring/wire-DC1-GND",
+      "clip_air_mm": 6.859163578746324,
+      "press_air_mm": 8.671306010749088,
+      "clip_overlap_mm3": 0.0,
+      "press_overlap_mm3": 0.0,
+      "soft_wire": true
+    },
+    {
+      "name": "installed-wiring/wire-DC3-negative",
+      "clip_air_mm": 7.062370660182735,
+      "press_air_mm": 9.224322468344223,
+      "clip_overlap_mm3": 0.0,
+      "press_overlap_mm3": 0.0,
+      "soft_wire": true
+    },
+    {
+      "name": "installed-wiring/wire-DC4-V12",
+      "clip_air_mm": 9.321230667584338,
+      "press_air_mm": 11.918297183731195,
+      "clip_overlap_mm3": 0.0,
+      "press_overlap_mm3": 0.0,
+      "soft_wire": true
+    },
+    {
+      "name": "installed-wiring/wire-DC2-V12",
+      "clip_air_mm": 9.65720698839319,
+      "press_air_mm": 10.835145613564025,
+      "clip_overlap_mm3": 0.0,
+      "press_overlap_mm3": 0.0,
+      "soft_wire": true
+    },
+    {
+      "name": "installed-wiring/wire-J7-earth-4",
+      "clip_air_mm": 16.302240411065988,
+      "press_air_mm": 10.37317831331773,
+      "clip_overlap_mm3": 0.0,
+      "press_overlap_mm3": 0.0,
+      "soft_wire": true
+    },
+    {
+      "name": "installed-wiring/wire-J2-COM",
+      "clip_air_mm": 11.940130840419595,
+      "press_air_mm": 10.962181422124527,
+      "clip_overlap_mm3": 0.0,
+      "press_overlap_mm3": 0.0,
+      "soft_wire": true
+    },
+    {
+      "name": "installed-wiring/wire-DC1-V12",
+      "clip_air_mm": 12.333004388133833,
+      "press_air_mm": 13.870560693403212,
+      "clip_overlap_mm3": 0.0,
+      "press_overlap_mm3": 0.0,
+      "soft_wire": true
+    },
+    {
+      "name": "installed-wiring/wire-J7-GND",
+      "clip_air_mm": 16.743958048980723,
+      "press_air_mm": 13.553307541478889,
+      "clip_overlap_mm3": 0.0,
+      "press_overlap_mm3": 0.0,
+      "soft_wire": true
+    },
+    {
+      "name": "installed-wiring/wire-J4-IO25",
+      "clip_air_mm": 21.23189947372939,
+      "press_air_mm": 15.672284245893868,
+      "clip_overlap_mm3": 0.0,
+      "press_overlap_mm3": 0.0,
+      "soft_wire": true
+    },
+    {
+      "name": "installed-wiring/wire-J7-RB4",
+      "clip_air_mm": 16.36424429809913,
+      "press_air_mm": 15.793741940523221,
+      "clip_overlap_mm3": 0.0,
+      "press_overlap_mm3": 0.0,
+      "soft_wire": true
+    },
+    {
+      "name": "installed-wiring/wire-temp-GND",
+      "clip_air_mm": 15.885487739547235,
+      "press_air_mm": 16.830429534140638,
+      "clip_overlap_mm3": 0.0,
+      "press_overlap_mm3": 0.0,
+      "soft_wire": true
+    },
+    {
+      "name": "installed-wiring/wire-J7-RB3",
+      "clip_air_mm": 17.19893734279252,
+      "press_air_mm": 16.828067535727868,
+      "clip_overlap_mm3": 0.0,
+      "press_overlap_mm3": 0.0,
+      "soft_wire": true
+    },
+    {
+      "name": "installed-wiring/wire-J2-FAN",
+      "clip_air_mm": 17.704532348539846,
+      "press_air_mm": 17.54807188790556,
+      "clip_overlap_mm3": 0.0,
+      "press_overlap_mm3": 0.0,
+      "soft_wire": true
+    },
+    {
+      "name": "installed-wiring/wire-J7-RB2",
+      "clip_air_mm": 17.921237556374415,
+      "press_air_mm": 17.583359175445306,
+      "clip_overlap_mm3": 0.0,
+      "press_overlap_mm3": 0.0,
+      "soft_wire": true
+    },
+    {
+      "name": "installed-wiring/wire-J7-RB1",
+      "clip_air_mm": 18.132720172881125,
+      "press_air_mm": 17.668770562603736,
+      "clip_overlap_mm3": 0.0,
+      "press_overlap_mm3": 0.0,
+      "soft_wire": true
+    },
+    {
+      "name": "464/cold-core/foam-cap-top",
+      "clip_air_mm": 17.75,
+      "press_air_mm": 21.36795939752892,
+      "clip_overlap_mm3": 0.0,
+      "press_overlap_mm3": 0.0,
+      "soft_wire": false
+    },
+    {
+      "name": "installed-wiring/wire-PE-bus",
+      "clip_air_mm": 26.019473022854605,
+      "press_air_mm": 20.050695720113115,
+      "clip_overlap_mm3": 0.0,
+      "press_overlap_mm3": 0.0,
+      "soft_wire": true
+    },
+    {
+      "name": "installed-wiring/wire-J7-CLO",
+      "clip_air_mm": 21.306376867769067,
+      "press_air_mm": 22.075869916914034,
+      "clip_overlap_mm3": 0.0,
+      "press_overlap_mm3": 0.0,
+      "soft_wire": true
+    },
+    {
+      "name": "installed-wiring/wire-J9-V12",
+      "clip_air_mm": 22.04453095760345,
+      "press_air_mm": 23.55612885624567,
+      "clip_overlap_mm3": 0.0,
+      "press_overlap_mm3": 0.0,
+      "soft_wire": true
+    },
+    {
+      "name": "installed-wiring/wire-J7-carb-earth-2",
+      "clip_air_mm": 27.981263608987522,
+      "press_air_mm": 23.05172527900254,
+      "clip_overlap_mm3": 0.0,
+      "press_overlap_mm3": 0.0,
+      "soft_wire": true
+    },
+    {
+      "name": "installed-wiring/wire-AC4-H",
+      "clip_air_mm": 31.54659927959361,
+      "press_air_mm": 26.380433945736073,
+      "clip_overlap_mm3": 0.0,
+      "press_overlap_mm3": 0.0,
+      "soft_wire": true
+    },
+    {
+      "name": "installed-wiring/wire-AC5-N",
+      "clip_air_mm": 32.14792288635772,
+      "press_air_mm": 27.10520207417522,
+      "clip_overlap_mm3": 0.0,
+      "press_overlap_mm3": 0.0,
+      "soft_wire": true
+    },
+    {
+      "name": "installed-wiring/wire-J1-OUT7",
+      "clip_air_mm": 28.44895682863813,
+      "press_air_mm": 29.030433120839817,
+      "clip_overlap_mm3": 0.0,
+      "press_overlap_mm3": 0.0,
+      "soft_wire": true
+    },
+    {
+      "name": "installed-wiring/wire-J1-OUT6",
+      "clip_air_mm": 29.249034224406355,
+      "press_air_mm": 29.54978805532967,
+      "clip_overlap_mm3": 0.0,
+      "press_overlap_mm3": 0.0,
+      "soft_wire": true
+    },
+    {
+      "name": "installed-wiring/wire-J4-IO26",
+      "clip_air_mm": 29.664690961084702,
+      "press_air_mm": 30.181401940153346,
+      "clip_overlap_mm3": 0.0,
+      "press_overlap_mm3": 0.0,
+      "soft_wire": true
+    },
+    {
+      "name": "tube-fluid-16",
+      "clip_air_mm": 30.81516175217692,
+      "press_air_mm": 33.33331507722767,
+      "clip_overlap_mm3": 0.0,
+      "press_overlap_mm3": 0.0,
+      "soft_wire": false
+    },
+    {
+      "name": "installed-wiring/wire-J1-COM",
+      "clip_air_mm": 34.6121819563173,
+      "press_air_mm": 33.7365638400547,
+      "clip_overlap_mm3": 0.0,
+      "press_overlap_mm3": 0.0,
+      "soft_wire": true
+    },
+    {
+      "name": "installed-wiring/wire-J1-positive-A",
+      "clip_air_mm": 40.65381797547233,
+      "press_air_mm": 35.630840819270695,
+      "clip_overlap_mm3": 0.0,
+      "press_overlap_mm3": 0.0,
+      "soft_wire": true
+    },
+    {
+      "name": "tube-fluid-18",
+      "clip_air_mm": 48.28141801211553,
+      "press_air_mm": 46.65936402004672,
+      "clip_overlap_mm3": 0.0,
+      "press_overlap_mm3": 0.0,
+      "soft_wire": false
+    },
+    {
+      "name": "installed-wiring/wire-J1-OUT3",
+      "clip_air_mm": 47.38793685834269,
+      "press_air_mm": 49.23025531457567,
+      "clip_overlap_mm3": 0.0,
+      "press_overlap_mm3": 0.0,
+      "soft_wire": true
+    },
+    {
+      "name": "installed-wiring/wire-J1-OUT5",
+      "clip_air_mm": 47.48979836990726,
+      "press_air_mm": 48.7060361425134,
+      "clip_overlap_mm3": 0.0,
+      "press_overlap_mm3": 0.0,
+      "soft_wire": true
+    },
+    {
+      "name": "enclosure-back-top",
+      "clip_air_mm": 49.879235590929625,
+      "press_air_mm": 50.17392794471092,
+      "clip_overlap_mm3": 0.0,
+      "press_overlap_mm3": 0.0,
+      "soft_wire": false
+    },
+    {
+      "name": "tube-fluid-28",
+      "clip_air_mm": 53.94407674342767,
+      "press_air_mm": 52.72147533864611,
+      "clip_overlap_mm3": 0.0,
+      "press_overlap_mm3": 0.0,
+      "soft_wire": false
+    },
+    {
+      "name": "installed-wiring/wire-J13-AM1",
+      "clip_air_mm": 77.85110696388786,
+      "press_air_mm": 78.86138567293952,
+      "clip_overlap_mm3": 0.0,
+      "press_overlap_mm3": 0.0,
+      "soft_wire": true
+    }
+  ],
+  "assembly_order": "Seat the V-A tube before dressing PE-carbonator and J4-V5 across the local approach; the two flexible conductors are not rigid insertion blockers.",
+  "passed": true,
+  "physical_scope": "The selected quarter-inch C2 section is retained. This native fit review does not qualify force, fatigue, full lid print or support cleanup.",
+  "seconds": 28.987836583983153,
+  "load_before_wires": [
+    "PE-carbonator",
+    "J4-V5"
+  ]
+}
