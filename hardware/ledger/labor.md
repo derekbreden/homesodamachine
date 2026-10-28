@@ -159,11 +159,11 @@ checks; no JST crimping, reed soldering or J13 Faston crimping is counted again.
 
 ## 7. Plumbing
 
-Every wetted and gas joint in the unit: the carbonator's four elbow stacks, the seven cold-core penetrations, the CO2 and water paths from the +Y wall of back-top to the core, the flavor manifold, and the risers to the umbilical bulkheads. Roughly sixteen taped NPT joints and a larger count of push-to-connect. PTC is fast; NPT into stainless is not.
+Every wetted and gas joint in the unit: the carbonator's four port elbows, the seven cold-core penetrations, the CO2 and water paths from the +Y wall of back-top to the core, the flavor manifold, and the risers to the umbilical bulkheads. Roughly fourteen taped NPT joints and a larger count of push-to-connect. PTC is fast; NPT into stainless is not.
 
 | Operation | Procedure | Notes | Minutes |
 |---|---|---|---:|
-| Install four elbow stacks, qualified jet elbow and PRV shroud | [pressure-vessel](/hardware/assembly/pressure-vessel.md) | One outside elbow per port; recurring jet work is counted in §§1–3 | 15 <!--parts HSM-000004:4 HSM-000003:1--> |
+| Install the four port elbows, qualified jet elbow and PRV shroud | [pressure-vessel](/hardware/assembly/pressure-vessel.md) | One outside elbow per port, the bottom two aimed at their lines; recurring jet work is counted in §§1–3 | 15 <!--parts HSM-000004:4 HSM-000003:1--> |
 | Route the cold-core passages; form and seal the copper exits | [cold-core](/hardware/assembly/cold-core.md) | Done before the body foam locks them in | 10 <!--parts HSM-000003--> |
 | CO2 path — +Y wall of back-top to cold core | [internal-plumbing](/hardware/assembly/internal-plumbing.md) | | 10 <!--parts HSM-000001--> |
 | Water path — +Y wall of back-top to cold core | [internal-plumbing](/hardware/assembly/internal-plumbing.md) | Filter, backflow, pump, top-plate port | 10 <!--parts HSM-000001--> |

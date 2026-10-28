@@ -37,7 +37,7 @@ The jet cap is per-unit material; its clamping and purge fixtures are shop tools
 
 | Part or tool | Use |
 |---|---|
-| TAISHER 316L 1/4-inch MNPT × FNPT street elbow, [B0CZ38MYL1](https://www.amazon.com/dp/B0CZ38MYL1) | One of the four production port elbows. The additional two-pack supplies a destructive trial and a spare; the four earlier elbows are allocated to one machine. |
+| TAISHER 316L 1/4-inch MNPT × FNPT street elbow, [B0CZ38MYL1](https://www.amazon.com/dp/B0CZ38MYL1) | One of the top plate's two production port elbows. The additional two-pack supplies a destructive trial and a spare; the four earlier elbows cover two machines. |
 | Hosifiy 316 round rod, nominal 3/8 inch / 9.5 mm × 400 mm, [B0FYCJJXCS](https://www.amazon.com/dp/B0FYCJJXCS) | Candidate cap stock. Measure its actual OD; its listing is 316, not a claim of 316L. |
 | 1/16-inch stub cobalt drill, [B00FX9PNYQ](https://www.amazon.com/dp/B00FX9PNYQ) | Drills the axial jet hole while the cap is still part of a longer handling blank. |
 | WEN 4208T drill press; Tap Magic EP-Xtra | The trial begins at the press's 1100 rpm belt setting. |

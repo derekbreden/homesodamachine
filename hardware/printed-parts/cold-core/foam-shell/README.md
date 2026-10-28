@@ -45,12 +45,13 @@ The CadQuery script uses an explicit XY plane with +Z normal
   and out to the reservoir wall.
 - **Carbonator-port fittings** — 1/4" NPT 90° elbows on every port, turning the
   line laterally. ~[30 mm](ELBOW_ENV) vertical envelope per elbow above
-  and below the carbonator. Each is clocked to the line it feeds, which is what lets
-  a run leave straight. The bottom-plate CO2 port's elbow carries a
-  **PP010822E 1/4" PTC × 1/4" NPT M adapter** on its outlet; that pair is made
-  up on the carbonator at the bench and hangs inboard of the support ring's bore,
-  so it descends in open space as the carbonator seats. Its collet faces the CO2
-  bore at y = [-19.05](CO2_BORE_Y), and the 1/4" OD line arrives on that axis
+  and below the carbonator. TAISHER street elbows take the top plate's two ports;
+  one-piece **neoFit AME4-N2-E push-fit male elbows** take the bottom plate's two
+  and receive their tubes directly. Each is aimed at the line it feeds, which is
+  what lets a run leave straight. The bottom-plate CO2 port's elbow is made up on
+  the carbonator at the bench and hangs inboard of the support ring, so it
+  descends in open space as the carbonator seats. Its socket faces the CO2 reach
+  at y = [-19.05](CO2_BORE_Y), and the 1/4" OD line arrives on that axis
   from the port lane — laid down the lane from the top cap before the cap goes
   on, not pushed in from outside.
 
@@ -141,7 +142,7 @@ floor regardless of which cavity it enters from, and they are where the two
 bottom-plate lines cross the ring, one slot each, so the ring is bored nowhere.
 
 The **CO2 inlet** takes a ⌀[7.5 mm](TUBE_HOLE_D) reach in to the bottom plate's
-lane-side port at y = [-19.05](CO2_BORE_Y), z = [17](CO2_BORE_Z), **leaning** across the
+lane-side port at y = [-19.05](CO2_BORE_Y), z = [20.8](CO2_BORE_Z), **leaning** across the
 shell's floor from the port lane through the 307° slot. The line falls the shell's whole
 height down that lane, runs along its floor and turns in where the lean both lands in
 the slot and stays outboard of reservoir A's pocket corner — the reservoir stands on that
@@ -496,9 +497,9 @@ Every internal component is installed first:
   on the `carbonator_support_ring`. Its four port elbows are already made up and clocked
   to the lines they feed — the bottom-plate CO2 elbow onto the leaning reach, the
   bottom-plate outlet elbow toward −X, the top-plate inlet elbow toward +Y — with
-  the water-side PP010822E and gas-side gray PI010822S collets hanging inboard
-  of the ring. The top water-inlet elbow carries its qualified jet cap; the bottom
-  gas opening is plain.
+  the two bottom push-fit elbows' own sockets hanging inboard of the ring. The top
+  water-inlet elbow carries its qualified jet cap and its PP010822E collet; the
+  bottom gas opening is plain.
 - Copper evaporator coil hand-wound around the carbonator exterior and
   bonded with 3M 425 aluminum foil tape.
 - Reservoirs installed into the two reservoir pockets.
@@ -530,10 +531,10 @@ Every internal component is installed first:
   pocket wall. From there it climbs beside the coil clear of the lane, and leans at
   the top to put itself on its conduit's own column for the last stock arc.
 - CO2 inlet on the plate's lane-side port at y = [-19.05](CO2_BORE_Y),
-  z = [17](CO2_BORE_Z) — its leaning reach crosses the ring's 307° slot and opens on
+  z = [20.8](CO2_BORE_Z) — its leaning reach crosses the ring's 307° slot and opens on
   the lane's floor. The line comes DOWN the lane from the top cap's `co2-in` conduit,
-  runs along that floor to the lean and goes straight in onto the collet already made
-  up under the plate.
+  runs along that floor to the lean and goes straight into the push-fit elbow already
+  made up under the plate.
 
 These four potted runs are laid **before the top cap goes on**, because every one of
 them leaves by the lid and every one is potted where it turns. The two reservoirs' lines

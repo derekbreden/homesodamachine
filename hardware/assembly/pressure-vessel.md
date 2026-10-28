@@ -1,6 +1,6 @@
 # Pressure Vessel Fabrication
 
-The fabrication and first-article qualification procedure for the carbonator — the 316L stainless body supplied at the **nominal [43.5 PSI](WORKING_PSI) CO2 feed setting** specified under [CO2 supply and pressure protection](#co2-supply-and-pressure-protection) below. That setting does not establish the carbonator's maximum pressure or pressure rating. Its water inlet is a drilled jet cap welded onto the male end of the top inlet elbow; CO2 enters through the plain bottom inlet elbow. The jet fit, its weld procedure, and integrated carbonation performance are unvalidated.
+The fabrication and first-article qualification procedure for the carbonator — the 316L stainless body supplied at the **nominal [43.5 PSI](WORKING_PSI) CO2 feed setting** specified under [CO2 supply and pressure protection](#co2-supply-and-pressure-protection) below. That setting does not establish the carbonator's maximum pressure or pressure rating. Its water inlet is a drilled jet cap welded onto the male end of the top inlet elbow; CO2 enters through the bottom inlet's push-fit elbow. The jet fit, its weld procedure, and integrated carbonation performance are unvalidated.
 
 Design intent and material rationale live in [`/hardware/README.md`](/hardware/README.md). The dev-phase task summary lives in [`/hardware/handwork.md`](/hardware/assembly/handwork.md). Snapshots of single-event execution (the first tap, the first weld recipe) live in their own dated files and are referenced by step below.
 
@@ -33,7 +33,8 @@ Per-unit BOM lives in [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §2 (
 | 1/8" 316 SS rod, [5.110 ±0.005 in (129.79 ±0.13 mm)](ROD_LEN) finished length, from 12" stock | Tandefio B0CY4DWJFQ | Internal float rod (bom.md §12) |
 | Magnetic float | One-piece ASA Aero, 36 × 28 mm, midplane RC62 | Trial article on the 1/8" rod; pressure/wetted service unqualified. [Installation datums](/hardware/printed-parts/cold-core/magnetic-float/all-aero/installation.md) |
 | Water-inlet jet cap, 316 SS | Hosifiy B0FYCJJXCS, nominal 9.5 mm round stock | One drilled slice welded onto Port 2's elbow, fabricated and qualified per [`water-inlet-jet.md`](/hardware/assembly/water-inlet-jet.md). Candidate thickness 2 mm and bore 1/16 inch; cap OD is subject to measured fitting clearance. |
-| **TAISHER 316L SS 1/4" NPT 90° street elbow, M×F** | B0CZ38MYL1 (2-pk) | **4 per carbonator — all four ports.** Port 2 carries the jet cap; the other three are plain. Each male end enters its plate from outside. The lateral stacks occupy the ~[30 mm](ELBOW_ENV) envelope above and below the carbonator — see [`foam-shell/README.md`](/hardware/printed-parts/cold-core/foam-shell/README.md) "Carbonator-port fittings". Millrose PTFE tape on every NPT joint. |
+| **TAISHER 316L SS 1/4" NPT 90° street elbow, M×F** | B0CZ38MYL1 (2-pk) | **2 per carbonator — the top plate's Ports 2 and 4.** Port 2 carries the jet cap; Port 4 carries the PRV. Each male end enters its plate from outside. The lateral stacks occupy the ~[30 mm](ELBOW_ENV) envelope above and below the carbonator — see [`foam-shell/README.md`](/hardware/printed-parts/cold-core/foam-shell/README.md) "Carbonator-port fittings". Millrose PTFE tape on every NPT joint. |
+| **neoFit AME4-N2-E 1/4" tube × 1/4" NPTF male elbow, black acetal** | FWS AME4-N2-E (bag of 10) | **2 per carbonator — the bottom plate's Ports 1 and 3.** One piece: its male thread enters the plate from outside and its push-fit socket turns the line 90°, so the tube pushes straight in. neoFit's torque allowance on the 1/4" thread is 1.1 ft·lb. |
 | **Control Devices SV-125 safety valve, 1/4" NPT, 125 PSI** | B01G2F6EMY (size SV-125) | **Port 4 dedicated PRV — installed after passivation per step 9 below, via the SS 90° elbow to orient the body laterally.** The 125 PSI set pressure stands above the G Ganen's outlet switch and the primary regulator's 75 PSI factory setting, so neither the refill pump nor a failed-open secondary lifts it; it is not a vessel safety factor. 49 SCFM relief capacity. |
 | Millrose PTFE thread-seal tape | B07C9ZV4PG | Anti-seize for 4 NPT ports (test plugs during hydro + final fittings after passivation) |
 | ER316L .030 filler wire | STARTECHWELD B09BKFBXT9 | Matches 316L parent metal. |
@@ -105,7 +106,7 @@ The finished vessel's cap **inside faces are 5.000 ±0.010 inches apart at the r
 
 Seat the rod in the bottom register and tack it vertically to the bottom plate's inside face. Verify that the top register engages the rod and that the top cap reaches its specified seating plane without the rod holding the weld root open. Maintain the specified cap spacing; the finished rod length is controlled by FR-CARB-01. Install the float before top closure and verify free travel. The rod tack and plate-to-tube welds are performed in the same welding session.
 
-Leave both bottom ports bare for welding, inspection and hydro. Port 1's plain CO2 elbow installs from outside at step 9.
+Leave both bottom ports bare for welding, inspection and hydro. Their push-fit elbows install from outside at step 9.
 
 ### 3. Weld bottom plate to tube
 
@@ -174,16 +175,18 @@ Rinse through all four open ports, drain and dry. Clean and passivate the welded
 
 After passivation, the carbonator receives its permanent port fittings. Per [`/hardware/printed-parts/cold-core/foam-shell/README.md`](/hardware/printed-parts/cold-core/foam-shell/README.md) "Carbonator-port fittings", every port gets a 1/4" NPT 90° elbow as the first downstream fitting, turning the line laterally so the rest of the stack fits within the ~[30 mm](ELBOW_ENV) vertical envelope above and below the carbonator.
 
-All four ports get a TAISHER 316L SS elbow. MNPT into the plate's FNPT, Millrose PTFE anti-seize tape on every joint. Downstream stack varies by port:
+The top plate's two ports get a TAISHER 316L SS street elbow and the bottom plate's two a neoFit AME4-N2-E push-fit male elbow. Each threads MNPT into the plate's FNPT on Millrose PTFE tape. Downstream stack varies by port:
 
 - **Port 2 (food-contact water inlet, top plate):** install the qualified, cleaned jet elbow, with the drilled cap at its male tip facing into the headspace. Confirm its thread engagement, clocking and unobstructed jet exit against the loose-plate fit record. Its PP010822E PTC adapter installs during cold-core integration per [`cold-core.md`](/hardware/assembly/cold-core.md) step 5 — connects to the lateral FNPT, collet turned into the band the line runs before it climbs the cap's conduit. The jet restriction is at the carbonator end of the elbow.
-- **Port 3 (food-contact carbonated-water outlet, bottom plate):** the elbow is the first fitting. Its downstream PP010822E PTC adapter installs during cold-core integration per [`cold-core.md`](/hardware/assembly/cold-core.md) — connects to the elbow's lateral FNPT.
+- **Port 3 (food-contact carbonated-water outlet, bottom plate):** thread the push-fit elbow in hand-tight, then turn it on within neoFit's 1.1 ft·lb allowance until its socket points along the line it takes, toward −X. The blue riser pushes straight into that socket during cold-core integration per [`cold-core.md`](/hardware/assembly/cold-core.md); nothing threads onto it.
 
 - **Port 4 (top-plate PRV):** The PRV must have an unobstructed path to the carbonator interior at all times — no tee, no shared line. A blockage, fitting failure, or maintenance disconnect on a shared line would compromise the safety relief path. The dedicated-elbow-on-dedicated-port architecture satisfies this. Thread the M-end of the **pre-built [`prv-shroud`](/hardware/printed-parts/cold-core/prv-shroud/) subassembly** into Port 4 FNPT, PTFE tape on the threads. The subassembly = TAISHER M×F elbow + SV-125 + printed shroud + cured silicone caulk seal at the shroud-elbow joint, built independently per the prv-shroud README's "Subassembly procedure" before this step (no prerequisites; the subassembly can be built whenever and sits ready). PRV body extends horizontally inside the shroud, fitting within the cylindrical foam-shell's headroom. The shroud preserves the air cavity around the SV-125's discharge side port and bonnet windows during the body foam pour ([`cold-core.md`](/hardware/assembly/cold-core.md) step 6), so the valve remains a functional relief device after the cold-core is cast.
 
-- **Port 1 (bottom-plate CO2 inlet):** install one plain SS elbow, male into the plate from outside, carrying the external CO2 line from the compact PISCO secondary regulator. Its bore opens directly below the water line. The external CO2 check valve remains part of the supply chain per [`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md).
+- **Port 1 (bottom-plate CO2 inlet):** thread the second push-fit elbow the same way, its socket aimed along the CO2 line's leaning reach to the support ring's 307° slot. The red CO2 line from the compact PISCO secondary regulator pushes straight into it during cold-core integration. Its bore opens directly below the water line. The external CO2 check valve remains part of the supply chain per [`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md).
 
-Once the four elbow stacks are in, the carbonator is the input to [`cold-core.md`](/hardware/assembly/cold-core.md) step 1 (coil wind).
+**First bottom elbow, on a tapped scrap of the 1/4-inch plate.** Before the first carbonator, thread one push-fit elbow into a scrap tapped like the plates. Record the thread left showing, the socket axis's height off the plate, the tip's projection through it and the aim reached within the allowance. Hold the scrap at the step 7 hydro pressure, then leave it pressurized cold. The cold-core model stands each bottom socket axis 17.55 mm off the plate, the thread's small end 0.26 inch past the outer face; a measured engagement replaces that figure (`_port_cuts.bottom_port_drop`). Port 1 sits on the float's side of the plate, so confirm the float clears its tip at the bottom of its travel.
+
+Once the four port elbows are in, the carbonator is the input to [`cold-core.md`](/hardware/assembly/cold-core.md) step 1 (coil wind).
 
 ### 10. PRV checks and optional setpoint verification
 
@@ -200,7 +203,7 @@ A finished carbonator is:
 - Tapped with four clean 1/4" NPT ports
 - Citric-acid passivated, rinsed dry
 - Water-inlet jet elbow qualified, cleaned, passivated and fitted to Port 2; jet exit clear into headspace
-- Plain CO2 elbow fitted to Port 1; dedicated unobstructed PRV path through Port 4
+- Push-fit elbows fitted to Ports 1 and 3 and aimed at their lines; dedicated unobstructed PRV path through Port 4
 - Float rod welded into bottom plate; ASA Aero float and RC62 captive
 - PRV pull-ring tested free and snappy during prv-shroud subassembly build (per that part's README, step 2)
 - Externally clean — no scale, no flux, no oxide bloom
@@ -209,7 +212,8 @@ A finished carbonator is:
 
 1. **Closure-weld qualification.** The §3 settings have not been qualified end-to-end on the 316L production joint. Root fusion, internal oxidation and a repeatable cleaning method remain to be demonstrated. Use the rotation rig only after its build and dry-commissioning gates pass per [`weld-rotation-rig.md`](/hardware/assembly/weld-rotation-rig.md).
 2. **Water-inlet jet fit and small-joint qualification.** Actual elbow bore, tip land, made-up projection, cap/weld passage through the tapped plate, and a sectioned same-material weld are outstanding. The nominal 9.5 mm × 2 mm cap with a 1/16-inch hole is a trial specification, not a measured fit. See [`water-inlet-jet.md`](/hardware/assembly/water-inlet-jet.md).
-3. **Recessed-port fitting and foam clearance.** Verify the four elbow stacks seat and clock with the plates recessed 1/4 inch and the existing foam-shell envelope. Port 2's completed cap must remain clear of the plate and discharge into the headspace.
+3. **Recessed-port fitting and foam clearance.** Verify the four port elbows seat and clock with the plates recessed 1/4 inch and the existing foam-shell envelope. Port 2's completed cap must remain clear of the plate and discharge into the headspace.
+4. **Bottom push-fit elbow fit.** The installed thread engagement, socket-axis height, tip projection beside the float and a cold pressure hold are unmeasured; the first-article check in step 9 supplies them.
 
 ## Sources
 [value](NAME) texts are updated by:

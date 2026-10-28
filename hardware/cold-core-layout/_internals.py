@@ -48,15 +48,13 @@ import jg_pp010822e as _ptc                              # noqa: E402
 from _cadq_export import import_step
 
 
-# --- the three collets made up on carbonator elbows --------------------------
+# --- the collet made up on the top water elbow --------------------------------
 #
-# `bom.md` §3 and §9 carry PP010822E water adapters; §4 carries PI010822S for the gas port.
-# The shank threads the elbow's socket and the collet stands outside it, so a line that used to
-# start at the elbow's mouth starts at the collet's.
-# The gas adapter shares this nominal layout envelope; its acquired part has not been measured
-# against the PP reference. Part identity and material are separate from that assumption.
+# `bom.md` §3 carries the PP010822E water adapter on the top plate's street elbow. The shank
+# threads the elbow's socket and the collet stands outside it, so the line starts at the
+# collet's mouth. The bottom plate's push-fit elbows take their tubes in their own sockets.
 PTC_STANDOFF = _ptc.COLLET_LENGTH + _ptc.HEX_LENGTH
-PTC_PORTS = ("co2-in", "carb-water-out", "water-in")
+PTC_PORTS = ("water-in",)
 
 
 def collet_on(mouth):
