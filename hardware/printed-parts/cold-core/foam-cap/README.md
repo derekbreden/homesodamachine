@@ -25,6 +25,18 @@ preparation belongs to [internal plumbing](../../../assembly/internal-plumbing.m
 Their underside flow arrows point down, with the header at the upper inlets
 and the pump/Y-A feeds at the lower outlets.
 
+Water in, soda out, A-fill and both reservoir draws pass straight through
+the cup and lid. A-fill's reservoir seat is shell (102.5, −61) mm; B-draw's
+is (−94.3, 6) mm. Their upper guides and exposed routes retain their stations.
+The water guide stands at world (−53, 288.7265) mm. Its inlet turn is laid in
+the open main body before potting. Above the lid, one exposed R18 arch joins
+the upward-facing check elbow, with about 192 mm exposed tube.
+The soda tube turns above the tank inside the open main body, then rises
+straight through world (50, 342.4148) mm into its retained external insulation.
+Each guide has a Ø7.5 mm bore; the water and soda columns have 3 mm radial stock.
+B-fill's fitted link and cover remain unresolved; HSM-000020 is not released
+for printing while that cap traversal remains.
+
 The edge-on flow meter, both collar bearings, continuous external inlet,
 accepted R14 holder and one 63 mm square-ended foam piece belong to back-top.
 The collar bearings root into its roof. Thread the tube through the
@@ -169,30 +181,27 @@ fit does not establish retention load or life in this upright host.
 
 The upper passages follow the installed equipment:
 
-- B-draw and A-fill each make a 3.5 mm shift with two 14 mm centreline-radius
-  turns above their unchanged reservoir bores.
+- B-draw and A-fill have aligned reservoir seats and straight Ø7.5 mm guides.
+  Both reservoir seats are 3.5 mm east of their vessel's original stations;
+  the warm routes and upper guides retain their installed datums.
 - B-fill uses a trimmed NeoFit stem elbow through its original plain reservoir
   bore, a short exposed tube and a JG PP0308E union elbow. The upper socket is
   at enclosure world (−33, 287.5, 264.56239) mm. The approximately 15.6 mm exposed link
   excludes socket insertion; the JG insertion depth is unmeasured. The lower
-  stem ends 1 mm below the reservoir cap's fill boss in the headspace.
-- The pressure-water inlet remains one continuous R14 tube from the fixed
-  carbonator fitting through the cup to the aft plain guide at world
-  (−32.8018, 410.0533, 253.4) mm, directly below the downward check elbow.
-  Its short S passes east of the sensor loom. The D7.5 passage has 3 mm side and roof stock rooted into
-  the cup floor. The existing [cap-floor specification](../_cold_core_interface.py) retains
-  the complete 2 mm cup floor, with 2.10 mm backing under the horizontal
-  passage; only its actual curved entry cuts the floor. No new stock projects
-  below the cup. The upper guide is a boundary in one uncut tube.
-- The gas guide feeds the retained lower gas lane through a shallow shift;
-  the carbonator fitting and support-ring approach retain their own stations.
-- The soda outlet retains its lower riser beside the coil, then turns through
-  a curved 7.5 mm passage above the tank to world (50, 342.4148, 253.4) mm.
-  Its R14 upper bends have 3 mm side and roof stock within the cup. The horizontal
-  span retains 2.10 mm of floor beneath the passage; the curved entry crosses
-  the cup floor beside the lower riser. The plain upper guide is a boundary
-  in one uncut tube that follows the accepted R14 holder directly into the
-  meter inlet. No extra fitting or tube cut occurs at the guide.
+  stem ends 1 mm below the reservoir cap's fill boss in the headspace. This
+  remaining cap traversal is under layout review; this lid is not released
+  for a production print.
+- The pressure-water inlet turns below the cup floor, passes straight through
+  world (−53, 288.7265, 253.4) mm, and forms an exposed R18 arch into the check's
+  upward-facing outlet elbow. The Ø7.5 mm column has 3 mm radial stock. The
+  guide is a boundary in one uncut tube, with no fitting or added insertion.
+- The gas guide is straight through the cap; its lower route retains the
+  carbonator fitting and support-ring approach.
+- The soda outlet retains its lower riser beside the coil, then turns at R14
+  in the open main body at world Z219.4. It rises straight through the cup and
+  lid at (50, 342.4148, 253.4) mm. The Ø7.5 mm column has 3 mm radial stock.
+  The uncut tube follows the accepted R14 holder directly into the meter
+  inlet. No extra fitting or tube cut occurs at the guide.
 - The carbonator's three reed conductors use a straight Ø7.5 mm passage through
   the upper cup and top lid at shell (0, −74) mm / enclosure
   (74, 323.8, 253.4) mm. A floor-rooted Ø12.26 mm column keeps pour foam out.
@@ -228,9 +237,10 @@ the current installed lead and vertical screw tools clear it. Installed
 wire insertion/withdrawal service is unqualified and may require unbolting
 and staging the PCB and flexible leads.
 
-The [aft water-passage receipt](../../../mechanical-qualification/enclosure-above-core/water-in-passage-review.json)
-binds the exported cup, lid and continuous internal tube, including the existing
-2 mm floor scope, 3 mm new side/roof stock and receiving-allowance limits.
+The [straight-passage review](straight-passages-review.json) binds the four
+revised guides to their exported cup/lid and reservoir-cap geometry. Each
+Ø6.35 mm tube probe has 0.575 mm radial clearance through both cap pieces.
+The existing 2 mm floor and 3 mm new column stock retain their own scope.
 
 The [native geometry review](above-core-native-review.json) records the scoped
 passage, insert-stock, fitting-pocket, pump/check-bridge and valve-wall interface

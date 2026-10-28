@@ -261,11 +261,14 @@ def route_specifications(station):
         except ValueError as failure:
             unresolved.append({'id': identifier, 'reason': str(failure)})
 
-    # The downward fold feeds a plain guide directly below its socket. This
-    # guide is a boundary in one continuous tube, with no receiving fitting.
-    route('water-5', ('carbonator-fold', 'socket'), ('foam-assembly', 'water-in'), [],
+    # The outlet elbow faces up. Two accessible R18 turns bridge to the
+    # straight inlet guide; the plain guide adds no joint or tube cut.
+    check_mouth = station('carbonator-fold','socket')[0]
+    water_guide = station('foam-assembly','water-in')[0]
+    route('water-5', ('carbonator-fold', 'socket'), ('foam-assembly', 'water-in'),
+          [(*check_mouth[:2],318.5),(*water_guide[:2],318.5)], radius=18.,
           source_depth=16.891, destination_depth=0., spool='white',
-          note='neoFit ACHV44-E discharge check folds down into the passive aft water-in guide')
+          note='Accessible R18 water arch from the upward check elbow to the straight cap guide')
     route('soda-meter-bulkhead', ('digiten-flow', 'outlet'), ('soda-outlet-return-stem', 'socket'), [],
           spool='blue', source_depth=15.7, destination_depth=16.891,
           note='Concealed 32.591 mm tube joins the coincident meter and rear-stem collet faces')

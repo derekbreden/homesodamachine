@@ -147,11 +147,11 @@ reservoir_floor_thickness = 3.0
 # up there is the tube.
 reservoir_fill_port = {
     -1: (-90.5, 43.5),      # B, forward pocket — the corner opposite its draw
-    +1: (102.5, -57.5),     # A, aft pocket — the strip between the pump and the brick
+    +1: (102.5, -61.0),     # A, aft pocket — the strip between the pump and the brick
 }
 reservoir_fill_sides = tuple(sorted(reservoir_fill_port))
 reservoir_draw_port = {
-    -1: (-94.3, 9.5),       # B — between the lid's pour hole and V-B's plinth
+    -1: (-94.3, 6.0),       # B — between the lid's pour hole and V-B's plinth
     +1: (84.2, -45.0),      # A — between the pump's two east feet
 }
 
@@ -374,9 +374,8 @@ _boss_wall_x = 137.5
 # behind the smooth 0.30 mm exterior foil land.
 _corner_boss_y = _boss_wall_y - 0.25
 _end_boss_x = 131.5  # cap/shell screw datum, independent of pocket stock
-# The mid bosses stand at ±40 mm on each long wall. The soda lower-riser
-# datum is (52.2, -port_lane_mid_y) in the cap frame; its curved roof passage
-# joins the independently selected upper guide in `cap_fluid_conduits`.
+# The mid bosses stand at ±40 mm on each long wall. The soda tube turns in
+# the main body below the cup and rises through its aligned straight guide.
 mid_screw_x_offset = 40.0
 #: Every attachment station as `((x, y), wall)`, `wall` naming the exterior face its cylinder
 #: stands tangent to and its web runs out to — "x", "y", or "corner" for one against both.
@@ -669,11 +668,10 @@ state(
 # is what the air-purge and clean-flush service modes run on.
 #
 #   water-in retains the carbonator's TOP-plate elbow and push-connect adapter.
-# Its tube leaves on the fixed lateral clocking line, curves through the cup
-# floor, then crosses east of the sensor loom into the aft traverse.
-# It rises into the aft plain guide directly beneath the downward check elbow.
-# The guide has no socket or tube break. The cup passage has 3 mm side/roof
-# stock; the existing 2 mm floor provides 2.10 mm backing on the horizontal reach.
+# Its tube leaves on the fixed lateral clocking line and turns upward in
+# the open body before the cup floor. The aligned cup and lid guide is straight.
+# An accessible R18 arch above the lid joins the upward check elbow. The
+# plain guide adds no socket or tube break; its cylindrical wall is 3 mm.
 #   reservoir-a-fill and reservoir-b-fill, the two FILLS, stand over their own reservoirs rather
 # than over a band, and have no run inside the shell at all: each is the column between a valve
 # on the deck and the bore in the cap of the reservoir it fills, and that cap's own outer face is
@@ -782,9 +780,9 @@ cap_cable_floor_conduits = {
 cap_cable_conduits = {name: _above_mounts.cap_guide_xy(name, xy)
                       for name, xy in cap_cable_floor_conduits.items()}
 cap_conduits = {**cap_fluid_conduits, **cap_cable_conduits}
-# Lower entries follow the reservoir bores and fixed internal risers. They
-# are independent of the upper guides: shallow tube shifts, the B-fill
-# fitting pair and the curved soda passage join the corresponding stations.
+# Water, soda, A-fill, both draws and gas have aligned straight cap entries.
+# B-fill retains its separate lower reservoir entry and fitted cap link.
+# Flexible cable entries retain their independently routed upper guides.
 cap_conduit_floor_xy = {
     **cap_conduits,
     **cap_cable_floor_conduits,
@@ -792,9 +790,9 @@ cap_conduit_floor_xy = {
     "reservoir-b": reservoir_draw_conduit_xy(-1),
     "reservoir-a-fill": reservoir_fill_conduit_xy(+1),
     "reservoir-b-fill": reservoir_fill_conduit_xy(-1),
-    "carb-water-out": (52.2, -port_lane_mid_y),
+    "carb-water-out": cap_conduits["carb-water-out"],
 }
-cap_passive_guides = ("reservoir-b", "reservoir-a-fill")
+cap_passive_guides = ()
 cap_cable_guides = tuple(cap_cable_conduits)
 # A full-height web closes a foam gap between two columns too narrow to pour; the bore axes and
 # their 7.5 mm clear passages are independent of that stock. Every pair here stands the pour gap
@@ -834,8 +832,6 @@ def cap_conduit_wall_neck(x, y):
     the bore runs up.
     A column that neither clears the wall nor reaches it stands tangent, which closes the
     same knife edge a tangent pair does."""
-    if (x, y) == tuple(cap_conduits['water-in']):
-        return (3.0, "the curved water-inlet sleeve's side and roof stock")
     to_outer = min(outer_shell_x_length / 2.0 - abs(x), outer_shell_y_length / 2.0 - abs(y))
     if to_outer - outer_shell_wall >= cap_conduit_boss_radius:
         return (to_outer - outer_shell_wall - cap_conduit_boss_radius,

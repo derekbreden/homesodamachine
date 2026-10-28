@@ -11,10 +11,10 @@ The fill and draw mouths are in the cap's 4 mm flat plate. Each has a TPU
 90A spool seated flush in matching 45° countersinks: 9 mm waist, 11 mm
 flares and a 6.2 mm gripping bore with 7 mm entry lead-ins.
 
-- **Fill**, at A [(102.5, -57.5)](FILL_POSITION_A) and B [(-90.5, 43.5)](FILL_POSITION_B).
+- **Fill**, at A [(102.5, -61)](FILL_POSITION_A) and B [(-90.5, 43.5)](FILL_POSITION_B).
   A's continuous tube ends 1 mm below the plate in the headspace. B receives
   the captured NeoFit stem elbow, with its existing trimmed tip position.
-- **Draw**, at A [(84.2, -45)](DRAW_POSITION_A) and B [(-94.3, 9.5)](DRAW_POSITION_B).
+- **Draw**, at A [(84.2, -45)](DRAW_POSITION_A) and B [(-94.3, 6)](DRAW_POSITION_B).
   One continuous 1/4-inch tube passes through the casing guide and TPU grip
   to the flat floor. Its end is cut at 45° so it cannot seal flat against it.
 
