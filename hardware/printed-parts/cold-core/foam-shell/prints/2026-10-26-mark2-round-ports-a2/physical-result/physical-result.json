@@ -1,0 +1,62 @@
+{
+  "schema": 1,
+  "reported_date": "2026-10-28",
+  "reported_by": "Derek",
+  "part": "cold-core foam shell",
+  "status": "success",
+  "accepted_for": "Internal cold-core production shell with a small, conspicuous seam defect.",
+  "printer": "Mark2",
+  "printer_task_id": "1379343230",
+  "launch_record": "../launch.json",
+  "submitted_archive_sha256": "b08e84852254a382e2aba91014fca7222d1ddb9e2b49160eb9be0caec9fd93c4",
+  "original_quote": "The seam on that cold core print that just finished did not turn out great. I mean, if this were an exterior surface, we'd have to keep iterating for a while. I mean, it's fine and it's probably better than the seam that we had before that was protruding more, but I don't think the scarf is helping anything there, as you can see in the photos. I guess it's fine to leave this as our production settings for production print. This will work, but just make a note of the pretty obvious visual defect we have there. I don't see any reason that this would be a structural defect, though. Everything seems solid enough, and I don't think this is going to interfere with assembly in any way. It's really quite small, just very noticeable. So please make a note of all of that and call it a success, as far as such things go.",
+  "production_settings": {
+    "disposition": "Retain current production settings, including the A2 scarf treatment.",
+    "settings_record": "../settings.json"
+  },
+  "visual_assessment": {
+    "defect": "Small but very noticeable seam line and local surface irregularity.",
+    "scarf": "Derek sees no apparent cosmetic benefit from the scarf.",
+    "exterior_surface": "An exterior show surface with this finish would need further iteration."
+  },
+  "structural_assessment": "Derek reports that everything seems solid enough and sees no reason to regard the seam as a structural defect.",
+  "assembly_assessment": "Derek expects the small seam defect not to interfere with assembly.",
+  "scope": "Derek's visual and hands-on assessment of this completed shell; assembly fit is an expectation in his report.",
+  "photos": [
+    {
+      "file": "photos/01-seam-closeup.jpg",
+      "supplied_as": "Photo 1.jpg",
+      "source_filename": "1-Photo-1.jpg",
+      "sha256": "5848cc4b9b2d70d2bb7f04fae52995a10677ddc7571b89cd1849c5fedbb204b4",
+      "bytes": 452920
+    },
+    {
+      "file": "photos/02-seam-closeup.jpg",
+      "supplied_as": "Photo 2.jpg",
+      "source_filename": "2-Photo-2.jpg",
+      "sha256": "ef561921a06de2ba452c763994fd7e8e035cd547a611d74e0e81c2e1a8f43009",
+      "bytes": 2433766
+    },
+    {
+      "file": "photos/03-wall-detail.jpg",
+      "supplied_as": "Photo 3.jpg",
+      "source_filename": "3-Photo-3.jpg",
+      "sha256": "5b154292cd20e1a470b38ee8c72d246c6c4f017d22c2fb91a4b6efc948425360",
+      "bytes": 418904
+    },
+    {
+      "file": "photos/04-overview.jpg",
+      "supplied_as": "Photo 4.jpg",
+      "source_filename": "4-Photo-4.jpg",
+      "sha256": "eb7a673614fefc7fa3353bf05ca379235a4784e49260f39c3d81fd1981f1781a",
+      "bytes": 309990
+    },
+    {
+      "file": "photos/05-seam-detail.jpg",
+      "supplied_as": "Photo 5.jpg",
+      "source_filename": "5-Photo-5.jpg",
+      "sha256": "a9a289561ed0903dd0514be0b564237a7615909ab030fba5a3d2f9c2b9f5e32e",
+      "bytes": 532819
+    }
+  ]
+}

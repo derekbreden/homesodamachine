@@ -643,7 +643,14 @@ is declared in `enclosure/trial-preparation/pieces.json` under `foam-shell`.
   moisture; a 3 kg spool feeds the print from a PolyDryer Box XL
   ([tools.md](/hardware/ledger/tools.md) "What dries where")
 
-The casing is smooth. Physical surface finish is assessed on the printed shell.
+The casing is smooth. Derek accepts the
+[completed Mark2 shell](prints/2026-10-26-mark2-round-ports-a2/README.md#physical-result--success-2026-10-28)
+as a successful internal cold-core print, reported October 28, 2026, and retains
+these production settings. The seam has a small but conspicuous visual defect;
+the scarf provides no apparent cosmetic benefit. Derek reports that the part
+feels solid, sees no reason to regard the seam as a structural defect and expects
+no assembly interference. An exterior show surface would need further finish
+iteration.
 
 ## Geometry receipt
 
