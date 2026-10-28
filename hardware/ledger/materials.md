@@ -76,11 +76,12 @@ the quantity in the assembly being inspected. `where used` follows the same
 occurrences toward every recorded parent and ancestor.
 
 An assembly is counted through its parent occurrence. Its components occur within
-that assembly. Purchased pack sizes, delivered costs, fabrication consumables and
-stock allowances remain in [`bom.md`](bom.md). Its per-unit costing scope differs
-from this composition catalog. Each catalog BOM's `scope` states its coverage;
-the machine catalog includes modeled parts and selected hardware, with
-remaining wiring, tubing and fasteners described by the build and cost records.
+that assembly. Purchased pack sizes, delivered costs, supplies and stock
+allowances remain in [`bom.md`](bom.md); its rows reach part numbers through
+their cost tags ([Costs](#costs)). Each catalog BOM's `scope` states its
+coverage. The machine catalog includes its parts, fasteners and bench harnesses;
+wire, tubing stock and supplies are costed on the parts and assemblies that use
+them rather than listed as contents.
 
 `bom.source` links the record that establishes the contents. `bom.imports` reads
 an existing structured parts list through explicit material mappings. The tube
@@ -120,8 +121,9 @@ without claiming independently selectable geometry.
 Every named body in the cataloged machine, faucet, cold-core and build-tool
 assembly views maps to a material. Routed tube sections share their fitted run's
 identity; distinct cut runs have distinct numbers. Cabinet stock and cut lengths
-are established by the routing and build records. Commercial consumables and
-unmodeled hardware remain in the cost and assembly documents.
+are established by the routing and build records. Supplies and bulk stock have
+no geometry or contents entry; their cost sits on the parts and assemblies that
+use them.
 
 Installation context and tool workpieces carry numbered records and explicit
 relationships outside the supplied product BOM. The kitchen countertop is an
@@ -137,6 +139,34 @@ The faucet lever is HSM-000268: one physically accepted printed shape, shared by
 both faucet styles and the standalone model. Its installation representation uses
 the authored nominal rest placement; physical fit/function evidence retains its
 recorded scope.
+
+## Costs
+
+`cost_root` names the finished unit the ledgers price: HSM-000340, the machine,
+faucet and install kit as they ship. Every data row of [`bom.md`](bom.md) and
+every operation of [`labor.md`](labor.md) carries a hidden
+`<!--parts HSM-000010 HSM-000013:2-->` tag naming the part numbers its dollars
+or minutes belong to:
+
+- a purchased part's row names that part, and its share is the part's price;
+- a row of stock — tubing, wire, filament, copper — names the parts cut,
+  printed or formed from it, weighted by what each uses;
+- a row of supplies names the assembly or part that consumes them;
+- an operation names the part it makes or the assembly it puts together.
+
+A row's amount is divided among its parts in the finished unit by the weights
+after the colons, or by each part's quantity in the unit when it has none, and
+then across that part's pieces. A part costs its own share plus each child's
+cost times the child's quantity, so an assembly carries its contents and the
+work and supplies of putting it together, and the finished unit's roll-up
+equals both ledgers' totals. A part outside the default build, such as an
+Industrial faucet part, is costed in the configuration that contains it.
+
+[`web/lib/part-costs.js`](../../web/lib/part-costs.js) allocates; the explorer
+and the [cost page](https://homesodamachine.com/cost#by-part) show the result.
+`node web/scripts/part-costs.mjs` lists what is unallocated and where the
+catalog's piece counts disagree with the ledger; `--tree` prints the costed
+BOM, and a part number prints that part's cost.
 
 ## Recorded assembly boundaries
 

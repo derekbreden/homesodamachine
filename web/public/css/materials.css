@@ -79,9 +79,12 @@
 .material-bom-counts { color: var(--text-2); font-size: 0.8rem; line-height: 1.5; margin: 14px 0; }
 .material-selection-note:empty { display: none; }
 .bom-tools { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; margin-bottom: 9px; }
-.bom-tools > span { font-size: 0.75rem; color: var(--text-3); margin-left: auto; }
+.bom-order { display: flex; margin-left: auto; border: 1px solid var(--border); border-radius: 5px; overflow: hidden; }
+.bom-tools .bom-order button { border: 0; border-radius: 0; background: transparent; color: var(--text-2); font-size: 0.75rem; }
+.bom-tools .bom-order button[aria-pressed=true] { background: var(--surface-2); color: var(--text); font-weight: 600; }
+.bom-columns { display: flex; justify-content: space-between; gap: 12px; margin: 0 -10px; padding: 10px 7px 7px 28px; border-bottom: 1px solid var(--border); color: var(--text-3); font-size: 0.68rem; letter-spacing: .05em; text-transform: uppercase; }
 .bom-tree { margin: 0 -10px; }
-.bom-row { display: flex; align-items: center; gap: 4px; min-height: 50px; border-bottom: 1px solid var(--border); padding-left: calc(min(var(--depth), 5) * 12px); }
+.bom-row { position: relative; display: flex; align-items: center; gap: 4px; min-height: 50px; border-bottom: 1px solid var(--border); padding-left: calc(min(var(--depth), 5) * 12px); }
 .bom-row.selected { background: color-mix(in srgb, var(--accent) 12%, transparent); border-radius: 5px; }
 .bom-disclosure { flex: 0 0 24px; height: 36px; border: 0; background: transparent; color: var(--accent); font-size: 17px; cursor: pointer; }
 .bom-disclosure:disabled { color: var(--text-3); cursor: default; }
@@ -91,7 +94,48 @@
 .bom-description { font-size: 0.82rem; line-height: 1.45; }
 .bom-number { color: var(--text-2); font: 0.72rem/1.3 ui-monospace, monospace; }
 .bom-counts { color: var(--text-2); font-size: 0.75rem; line-height: 1.5; }
-.bom-quantity { flex: 0 0 3.5rem; font-size: 0.8rem; text-align: right; padding: 0 7px 0 0; color: var(--text); font-variant-numeric: tabular-nums; }
+.bom-amount { flex: 0 0 auto; min-width: 3.5rem; display: grid; justify-items: end; gap: 3px; padding: 0 7px 0 0; font-variant-numeric: tabular-nums; }
+.bom-quantity { font-size: 0.8rem; color: var(--text); }
+.bom-amount:has(.bom-cost) .bom-quantity { font-size: 0.72rem; color: var(--text-2); }
+.bom-cost { font-size: 0.8rem; font-weight: 600; color: var(--text); }
+.bom-cost-none { font-weight: 400; color: var(--text-3); }
+/* Each row's share of the assembly at the top of the tree, split like its cost. */
+.bom-share { position: absolute; left: calc(min(var(--depth), 5) * 12px + 28px); right: 7px; bottom: 4px; pointer-events: none; }
+.bom-row:has(> .bom-share) .bom-select { padding-bottom: 12px; }
+.bom-own-mark { flex: 0 0 24px; height: 36px; display: grid; place-items: center; color: var(--text-3); font-size: 15px; }
+.bom-own-labor .bom-own-mark { color: var(--chart-two); }
+.bom-own .bom-description { color: var(--text-2); }
+/* Cost: what is bought, cut, printed or used up in orange; attended time in blue. */
+.material-cost { margin: 12px 0 2px; }
+.material-cost-total { display: flex; align-items: baseline; gap: 8px; margin: 0 0 10px; }
+.material-cost-total strong { font-size: 1.6rem; font-weight: 600; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.material-cost-total span { color: var(--text-2); font-size: 0.75rem; }
+.material-cost-none { margin: 6px 0 0; color: var(--text-3); font-size: 0.75rem; line-height: 1.5; }
+.material-cost-legend { display: flex; flex-wrap: wrap; gap: 4px 16px; margin: 10px 0 0; color: var(--text-2); font-size: 0.75rem; font-variant-numeric: tabular-nums; }
+.material-cost-key { display: inline-flex; align-items: center; gap: 6px; }
+/* The cost page's split bar and keys, sized for the panel and its rows. */
+.cost-key { flex: none; background: var(--chart-one, var(--brand-orange)); }
+.cost-key.l { background: var(--chart-two); }
+.material-cost-key .cost-key { width: 8px; height: 8px; border-radius: 2px; }
+.cost-split i { display: block; height: 100%; }
+.cost-split .p { background: var(--chart-one, var(--brand-orange)); }
+.cost-split .l { background: var(--chart-two); }
+.material-cost .cost-split, .material-cost-line > .cost-split, .bom-share .cost-split { display: flex; gap: 2px; width: 100%; overflow: hidden; }
+.material-cost .cost-split { height: 6px; border-radius: 3px; background: color-mix(in srgb, var(--text) 12%, transparent); }
+.material-cost-line > .cost-split { grid-column: 1 / -1; height: 3px; border-radius: 2px; background: transparent; }
+.bom-share .cost-split { height: 2px; border-radius: 1px; background: transparent; }
+.material-cost-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin: 22px 0 4px; }
+.material-cost-head h3 { margin: 0; color: var(--text-2); font-size: 0.72rem; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; }
+.material-cost-head span { font-size: 0.82rem; font-weight: 600; font-variant-numeric: tabular-nums; }
+.material-cost-lines { display: grid; }
+.material-cost-line { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: baseline; gap: 6px 12px; width: 100%; padding: 11px 0; border: 0; border-bottom: 1px solid var(--border); background: transparent; color: var(--text); font: inherit; text-align: left; }
+.material-cost-link { cursor: pointer; }
+.material-cost-link:hover .material-cost-name > :first-child { color: var(--accent); }
+.material-cost-name { display: grid; gap: 3px; min-width: 0; font-size: 0.8rem; line-height: 1.45; overflow-wrap: anywhere; }
+.material-cost-name a { color: var(--text); text-decoration: underline; text-decoration-color: color-mix(in srgb, var(--text) 35%, transparent); text-underline-offset: .18em; }
+.material-cost-name a:hover { color: var(--accent); }
+.material-cost-meta { color: var(--text-2); font-size: 0.72rem; }
+.material-cost-value { font-size: 0.8rem; font-variant-numeric: tabular-nums; white-space: nowrap; }
 .material-used { padding: 15px 0; border-bottom: 1px solid var(--border); }
 .material-path { font-size: 0.72rem; line-height: 1.7; color: var(--text-2); margin: 6px 0 0; overflow-wrap: anywhere; }
 .material-document { display: grid; gap: 6px; padding: 16px 0; border-bottom: 1px solid var(--border); color: var(--text); text-decoration: none; }
