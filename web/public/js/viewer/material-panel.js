@@ -281,7 +281,7 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
     const used = current ? materialUses(state.materialCatalog, current.id, options()) : { assemblies: [], tools: [], equipment: [] };
     const docs = materialDocuments(state.materialCatalog, (current || rootMaterial)?.id, options());
     const counts = { bom: rows.length, cost: Number(costedCurrent), used: used.assemblies.length + used.tools.length + used.equipment.length, docs: docs.length };
-    if (!tab) tab = counts.bom ? "bom" : counts.cost ? "cost" : counts.docs ? "docs" : counts.used ? "used" : "bom";
+    if (!tab) tab = counts.bom ? "bom" : counts.docs ? "docs" : counts.cost ? "cost" : counts.used ? "used" : "bom";
     const tabs = el("div", "material-tabs"); tabs.setAttribute("role", "tablist"); tabs.setAttribute("aria-label", "Material relationships");
     for (const [key, label] of [["bom", "BOM"], ["cost", "Cost"], ["docs", "Documents"], ["used", "Where used"]]) {
       if (!counts[key] && tab !== key) continue;

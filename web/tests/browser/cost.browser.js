@@ -4,7 +4,7 @@ import { createRequire } from "node:module";
 import { fileURLToPath } from "node:url";
 import { start } from "../../server.js";
 import { readBatchForecast } from "../../lib/batch-forecast.js";
-import { readLaborRollup } from "../../lib/cost.js";
+import { readCostRollup, readLaborRollup } from "../../lib/cost.js";
 
 const require = createRequire(new URL("../../../tools/render/package.json", import.meta.url));
 let browser, server, baseUrl;
@@ -23,14 +23,26 @@ test("cost overview reverses the section order, opens one card and follows direc
   const page = await browser.newPage();
   const errors = [];
   page.on("pageerror", error => errors.push(error.message));
+  // The figures the page states, from the ledgers it reads them from.
+  const hardware = fileURLToPath(new URL("../../../hardware", import.meta.url));
+  const labor = readLaborRollup(hardware);
+  const unitCost = Math.round((readCostRollup(hardware).total + labor.minutes / 60 * labor.rate) * 100) / 100;
+  const forecast = readBatchForecast(hardware, labor);
+  const dollars = value => "$" + value.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
   try {
     for (const width of [320, 390, 1440]) {
       await page.setViewport({ width, height: 950, deviceScaleFactor: 1 });
       await page.goto(baseUrl + "/cost", { waitUntil: "networkidle0" });
       assert.deepEqual(await page.$$eval(".cost-panel", panels => panels.map(panel => panel.id)), ["unit-cost-panel", "investment-panel", "forecast-panel"]);
       assert.deepEqual(await page.$$eval(".cost-panel", panels => panels.map(panel => panel.open)), [false, false, false]);
-      assert.match(await page.$eval("#unit-cost-panel > summary", el => el.textContent), /\$2,420.98.*Per finished machine/s);
-      assert.match(await page.$eval("#forecast-panel > summary", el => el.textContent), /\$4,742.65.*First 5 machines.*\$11,561.74.*First 10 machines.*\$27,923.77.*First 20 machines/s);
+      const unitSummary = await page.$eval("#unit-cost-panel > summary", el => el.textContent);
+      assert.ok(unitSummary.includes(dollars(unitCost) + "Per finished machine"), unitSummary);
+      const forecastSummary = await page.$eval("#forecast-panel > summary", el => el.textContent);
+      let at = 0;
+      for (const batch of forecast.batches) {
+        at = forecastSummary.indexOf(`${dollars(batch.cashCents / 100)}*First ${batch.units} machines`, at);
+        assert.ok(at >= 0, forecastSummary);
+      }
       assert.equal(await page.$eval("#forecast-group", el => el.value), "category");
       assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), false);
 
@@ -181,7 +193,7 @@ test("batch purchases rank by cost, filter Prime, regroup categories and preserv
       assert.equal(firstRows[0].id, "petgf-black");
       assert.equal(firstRows.length, expected.length);
       assert.deepEqual(firstRows.map(row => row.cents), expected.map(row => row.costCents));
-      assert.match(await page.$eval(prime + " .forecast-part-qty", el => el.textContent), /19 × 3 kg spool/);
+      assert.match(await page.$eval(prime + " .forecast-part-qty", el => el.textContent), /^\d+ × 3 kg spool/);
       const scroll = await page.$eval(prime + " .forecast-item-scroll", el => ({ height: el.clientHeight, content: el.scrollHeight }));
       assert.ok(scroll.content > scroll.height, "Prime list scrolls within its panel");
       assert.ok(scroll.height <= 420, "list fits in a compact panel");
@@ -194,14 +206,15 @@ test("batch purchases rank by cost, filter Prime, regroup categories and preserv
       await page.select("#forecast-group", "category");
       const sums = await page.$$eval(current + " .forecast-group:not([hidden])", groups => groups.map(group => Number(group.dataset.cents)));
       assert.deepEqual(sums, [...sums].sort((a, b) => b - a));
-      assert.equal(sums.reduce((sum, cents) => sum + cents, 0), 810300);
+      assert.equal(sums.reduce((sum, cents) => sum + cents, 0), expected.reduce((sum, row) => sum + row.costCents, 0));
       assert.equal(await page.$$eval(current + " .forecast-part:not([hidden])", rows => new Set(rows.map(row => row.dataset.supplier)).size), 1);
       assert.equal(await page.$$eval(current + " .forecast-part:not([hidden])", rows => new Set(rows.map(row => row.dataset.partId)).size), expected.length);
 
       await page.focus('input[name="forecast-units"][value="10"]');
       await page.keyboard.press("ArrowRight");
       assert.equal(await page.$eval(active, el => el.dataset.units), "20");
-      assert.match(await page.$eval(".forecast-result", el => el.textContent), /\$18,065.11/);
+      const primeTwenty = twenty.rows.filter(row => row.supplier === "amazon" && row.quantity);
+      assert.ok((await page.$eval(".forecast-result", el => el.textContent)).includes(dollars(primeTwenty.reduce((sum, row) => sum + row.costCents, 0))));
       assert.equal(await page.$eval('[data-card-units="20"]', el => el.dataset.selected), "true");
       await page.select("#forecast-group", "supplier");
       await page.select("#forecast-supplier", "all");

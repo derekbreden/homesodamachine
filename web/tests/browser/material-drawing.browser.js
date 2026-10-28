@@ -306,7 +306,7 @@ test("direct links and responsive layout apply the pane rules without storing a 
 
 test("multi-page drawings expose pagination in the document menu", async () => {
   const page = await browser.newPage();
-  const guide = fs.readFileSync("hardware/install-guide/install-guide.pdf");
+  const guide = fs.readFileSync(new URL("../../../hardware/install-guide/install-guide.pdf", import.meta.url));
   try {
     await page.setRequestInterception(true);
     page.on("request", request => {

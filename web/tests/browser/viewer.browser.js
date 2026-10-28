@@ -102,20 +102,39 @@ test("/3d opening a selected component and returning keep the exact view", async
       assembly,
     );
 
-    // Look squarely at a solid patch of the rear wall, then select it through
-    // the same canvas gesture a person uses.
+    // Look squarely at a patch of the rear wall that nothing stands in front of,
+    // then select it through the same canvas gesture a person uses. The patch is
+    // searched for: fittings through the wall move, the wall stays.
     const canvasPoint = await page.evaluate(async () => {
       const h = window.__hsm;
       const { setComponentPickEnabled } = await import("/js/viewer/component-picker.js");
       setComponentPickEnabled(true);
-      h.camera.position.set(80, 650, 300);
-      h.camera.up.set(0, 0, 1);
-      h.controls.target.set(80, 467, 300);
-      h.camera.lookAt(h.controls.target);
-      h.controls.update();
+      // A click lands on a whole pixel, so the ray is cast through that pixel.
       const rect = h.renderer.domElement.getBoundingClientRect();
-      return [rect.left + rect.width / 2, rect.top + rect.height / 2];
+      const click = [Math.round(rect.left + rect.width / 2), Math.round(rect.top + rect.height / 2)];
+      const ndc = new h.THREE.Vector2(((click[0] - rect.left) / rect.width) * 2 - 1,
+        -((click[1] - rect.top) / rect.height) * 2 + 1);
+      const front = h.currentGroup.children.filter((c) => c.userData?.side === "front" && c.visible !== false && c.name);
+      const ray = new h.THREE.Raycaster();
+      const look = (x, z) => {
+        h.camera.position.set(x, 650, z);
+        h.camera.up.set(0, 0, 1);
+        h.controls.target.set(x, 467, z);
+        h.camera.lookAt(h.controls.target);
+        h.controls.update();
+        h.camera.updateMatrixWorld();
+        ray.setFromCamera(ndc, h.camera);
+        return ray.intersectObjects(front, false)[0]?.object.name === "enclosure-back-top";
+      };
+      // Clear for a centimetre around, and looking at the middle of it last.
+      const patch = (x, z) => [[x + 10, z], [x - 10, z], [x, z + 10], [x, z - 10], [x, z]]
+        .every(([px, pz]) => look(px, pz));
+      for (let z = 300; z >= 180; z -= 20) {
+        for (let x = 80; x >= -80; x -= 20) if (patch(x, z)) return click;
+      }
+      return null;
     });
+    assert.ok(canvasPoint, "some patch of the rear wall should face the camera unobstructed");
     await page.mouse.click(...canvasPoint);
     await page.waitForFunction(() =>
       document.querySelector(".component-panel .edge-panel-file")?.title === "enclosure-back-top",
@@ -239,9 +258,14 @@ test("/3d zoom reaches the picked rear surface and leaves it as the orbit focus"
       h.camera.updateMatrixWorld();
       const ndc = new h.THREE.Vector2();
       const ray = new h.THREE.Raycaster();
-      let hit;
+      const rect = h.renderer.domElement.getBoundingClientRect();
+      let hit, client;
       for (const point of [[0.12, 0.08], [-0.12, 0.08], [0.12, -0.08], [-0.12, -0.08], [0, 0]]) {
-        ndc.set(...point);
+        // The wheel arrives on a whole pixel, and the zoom pins the surface under
+        // that pixel, so the picked point is cast through the same one.
+        client = [Math.round(rect.left + (point[0] + 1) * rect.width / 2),
+          Math.round(rect.top + (1 - point[1]) * rect.height / 2)];
+        ndc.set(((client[0] - rect.left) / rect.width) * 2 - 1, -((client[1] - rect.top) / rect.height) * 2 + 1);
         ray.setFromCamera(ndc, h.camera);
         const candidate = ray.intersectObject(h.currentGroup, true)
           .find((x) => x.face && x.object.isMesh && x.object.visible);
@@ -251,16 +275,12 @@ test("/3d zoom reaches the picked rear surface and leaves it as the orbit focus"
         }
       }
       if (!hit) return null;
-      const rect = h.renderer.domElement.getBoundingClientRect();
       return {
         point: hit.point.toArray(),
         center: center.toArray(),
         target: h.controls.target.toArray(),
         pointTargetDistance: hit.point.distanceTo(h.controls.target),
-        client: [
-          rect.left + (ndc.x + 1) * rect.width / 2,
-          rect.top + (1 - ndc.y) * rect.height / 2,
-        ],
+        client,
         ndc: ndc.toArray(),
       };
     });

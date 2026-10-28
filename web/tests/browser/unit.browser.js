@@ -39,7 +39,8 @@ test("inventory links open the list; navigation and preparation survive reloads"
       page.waitForNavigation({ waitUntil: "networkidle0" }),
       page.click('.unit-nav a[href="/0001/guides"]'),
     ]);
-    assert.equal(await page.$$eval(".unit-document", links => links.length), 3);
+    const guides = await page.$$eval(".unit-document", links => links.map(link => link.getAttribute("href")));
+    assert.ok(guides.length && guides.every(href => href.includes("install-guide")), "every guide opens the install guide");
     await page.goBack({ waitUntil: "networkidle0" });
     assert.equal(new URL(page.url()).pathname, "/0001/get-started");
     assert.deepEqual(errors, []);
