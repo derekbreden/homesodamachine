@@ -125,7 +125,11 @@
     "hardware/cold-core-layout/evaporator-coil-drawing.pdf": "ead6e9ca24dfa606a2f4240f7f6065840f6b33c33fd230b4cc35945904cfe172",
     "hardware/wiring/installed/bundle-routes.json": "add88c4b3c800d00976d1a52ae48ed4c816d9671950fb052ddc59d66f6139563",
     "hardware/wiring/installed/bundles.py": "0bb65b7683e948ef063a5377ddf5d8401565f0fa6c26f16f23d500584784d0a7",
-    "hardware/wiring/installed/terminals.py": "5ac4dd6b1ce78e7ebd9106006f9bd52bc94892a7d7f1d7f06430ef8d1ba6da1f"
+    "hardware/wiring/installed/terminals.py": "5ac4dd6b1ce78e7ebd9106006f9bd52bc94892a7d7f1d7f06430ef8d1ba6da1f",
+    "hardware/printed-parts/lint-answers/cold-core/foam-cap/foam-cap-top.lint-answers": "82c2406278e300544ae6a5a1653cf4c6824940a11efeb3dc81db452e273ae31b",
+    "hardware/printed-parts/lint-answers/cold-core/foam-cap/foam-cap-lid-top.lint-answers": "3ee8f331bc29a8eab3924f9e31086ab1396bda05c0acb59de235dcd3c022d584",
+    "hardware/ledger/labor.md": "3b5726dbfb9a88c58ce6bb9401b3dcda6c73389967cf58b23fc4ccfee2c69f5e",
+    "hardware/ledger/labor.figures.json": "434bafcc1be443629346ca1213926a4b4641fd7312598aa6415818dbec9512b8"
   },
   "wiring": {
     "scope": "Manual native intersections of the four relocated carbonator reed wires against all nearby physical bodies and other conductors. Only intended terminal contacts within the existing 8.5 mm endpoint rule are excluded.",
@@ -166,5 +170,37 @@
     "hardware/cold-core-layout/cold-core-assembly.step": "316a773ab6e252ed89098c5ea11f068c27d64f7a26b805627fa175d5d1734b82",
     "hardware/manifold-layout/enclosure-assembly.step": "c601245aa27f47e380610fe2159839ae1a35ab47e80e76fc03a39dd393156f4a",
     "hardware/manifold-layout/enclosure-assembly.step.mesh": "fb994e476988df5672c61730886aac1be0d31ec4e9c2a5c196c7cbe8c74d2107"
+  },
+  "publication": {
+    "live_payloads_verified_utc": "2026-10-28T08:09:02.668162+00:00",
+    "files": {
+      "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step.mesh": "4fd3129189d107722f34d14687b7815b1676c2544e82b6fbe3f3b3beac0bc1f6",
+      "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh": "b1e3e6297a14587a1abd3c94e9bd01d5fa3ca6b5d23e522edb2acccbc9243092"
+    }
+  },
+  "post_publish_lint": {
+    "classes": [
+      "step",
+      "bump",
+      "sliver",
+      "ceiling",
+      "slope",
+      "thin",
+      "ledge"
+    ],
+    "printed_facets": {
+      "cup": 796336,
+      "lid": 102512
+    },
+    "ranked_thin_groups": {
+      "cup": 15,
+      "lid": 24
+    },
+    "other_open_face_findings": 0,
+    "existing_answered_ceiling_findings": 6,
+    "review": "All ranked representatives checked. Existing rim, floor, conduit and screw-pocket anchors refreshed against their existing answers. The existing 2.000 mm reservoir-side cup stock is recorded separately as outside this sensing change and remains in the cap layout review.",
+    "run_log_sha256": "6e5f13a23020ac9df2d6d9ac77082aefc259c44fa768d91765d33ff38aab5b33",
+    "all_thin_log_sha256": "53c8cc881d73083c7455804ccf224d9781f29c1679d2bf4bb48db3e5f091e526",
+    "new_reed_passage_representative_picks": 0
   }
 }
