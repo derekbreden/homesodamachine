@@ -20,6 +20,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { bomItems, materialIndex } from "../contracts/materials.js";
 import { FAUCET_FINISHES } from "../contracts/faucet-options.js";
+import { parseRun } from "../contracts/part-costs.js";
 
 const PARTS_RE = /<!--parts\s+([\s\S]*?)-->/;
 const TARGET_RE = /HSM-\d{6}(?::\d+(?:\.\d+)?)?/g;
@@ -123,11 +124,33 @@ export function readBomLines(hardwareDir) {
   return lines;
 }
 
+// The smallest lot batch-forecast.json buys each bom.md line in, on the lines
+// it names by ASIN or by name. A single piece is no lot.
+export function attachPurchaseLots(hardwareDir, lines) {
+  let items;
+  try {
+    items = JSON.parse(fs.readFileSync(path.join(hardwareDir, "ledger", "batch-forecast.json"), "utf-8")).items || [];
+  } catch {
+    return lines;
+  }
+  for (const item of items) {
+    const lot = [...(item.options || [])].sort((a, b) => a.quantity - b.quantity)[0];
+    if (!lot || (lot.quantity === 1 && item.unit === "pieces")) continue;
+    const asin = /^B0[A-Z0-9]{8}$/.test(item.id) ? item.id : null;
+    const byAsin = asin ? lines.filter((line) => line.href?.includes(asin)) : [];
+    const name = stripPack(plainMarkdown(item.name));
+    for (const line of byAsin.length ? byAsin : lines.filter((line) => line.name === name))
+      line.lot = { label: lot.label, quantity: lot.quantity, unit: item.unit };
+  }
+  return lines;
+}
+
 export function readLaborOperations(hardwareDir) {
   const text = fs.readFileSync(path.join(hardwareDir, "ledger", "labor.md"), "utf-8");
   const rate = Number(text.match(/\[\$([0-9][0-9,]*(?:\.[0-9]+)?)\]\(LABOR_RATE\)/)?.[1]?.replace(/,/g, "")) || 0;
+  const batch = Number(text.match(/\[(\d+)\]\(BATCH_SIZE\)/)?.[1]) || null;
   const operations = [];
-  let section = null;
+  let section = null, runColumn = -1;
   for (const raw of text.split("\n")) {
     if (raw.startsWith("## ")) {
       const match = raw.match(/^## (\d+)\.\s*(.+?)\s*$/);
@@ -137,17 +160,19 @@ export function readLaborOperations(hardwareDir) {
     if (!section || !raw.startsWith("|")) continue;
     const cells = cellsOf(raw);
     if (cells.length < 2 || isSeparator(cells)) continue;
-    if (cells[0].toLowerCase() === "operation" || cells[0].startsWith("**")) continue; // header / subtotal
-    const minutes = Number(plainMarkdown(cells[cells.length - 1]).match(/^([0-9][0-9,]*)/)?.[1]?.replace(/,/g, "")) || 0;
+    if (cells[0].toLowerCase() === "operation") { runColumn = cells.indexOf("Run"); continue; } // header
+    if (cells[0].startsWith("**")) continue; // subtotal
+    const minutes = Number(plainMarkdown(cells[cells.length - 1]).match(/^([0-9][0-9,]*(?:\.[0-9]+)?)/)?.[1]?.replace(/,/g, "")) || 0;
     operations.push({
       section: section.n,
       sectionName: section.name,
       name: plainMarkdown(cells[0]),
       minutes,
+      run: runColumn > 0 && runColumn < cells.length - 1 ? parseRun(cells[runColumn]) : null,
       targets: parseTargets(raw),
     });
   }
-  return { rate, operations };
+  return { rate, batch, operations };
 }
 
 // Total pieces of each material in one unit, through every assembly level.
@@ -186,7 +211,7 @@ function configurations(catalog, rootId) {
 function costElement(entry, material, perPiece, fraction, pieces) {
   const { line } = entry;
   if (entry.source === "labor")
-    return { kind: "labor", label: line.name, section: `${line.section}. ${line.sectionName}`, minutes: perPiece, of: line.minutes };
+    return { kind: "labor", label: line.name, section: `${line.section}. ${line.sectionName}`, minutes: perPiece, of: line.minutes, ...(line.run && { run: line.run }) };
   // A bought part's row is its price; what a made part is cut, printed or cast
   // from is its material; anything used up in putting an assembly together, or
   // in making a part, is supplies.
@@ -202,10 +227,11 @@ function costElement(entry, material, perPiece, fraction, pieces) {
     usd: perPiece,
     measure,
     of: line.usd,
+    ...(line.lot && { lot: line.lot }),
   };
 }
 
-export function allocatePartCosts(catalog, { lines, operations, rate }) {
+export function allocatePartCosts(catalog, { lines, operations, rate, batch = null }) {
   const index = materialIndex(catalog);
   const rootId = catalog.cost_root;
   if (!index.has(rootId)) throw new Error("materials.json names no cost_root in the catalog");
@@ -283,6 +309,7 @@ export function allocatePartCosts(catalog, { lines, operations, rate }) {
   return {
     root: rootId,
     rate,
+    batch,
     options: configs[0].options,
     costed: [...home.keys()],
     ledger: { usd, minutes, lines: lines.length, operations: operations.length },
@@ -293,6 +320,7 @@ export function allocatePartCosts(catalog, { lines, operations, rate }) {
 }
 
 export function readPartCosts(hardwareDir, catalog) {
-  const { rate, operations } = readLaborOperations(hardwareDir);
-  return allocatePartCosts(catalog, { lines: readBomLines(hardwareDir), operations, rate });
+  const { rate, batch, operations } = readLaborOperations(hardwareDir);
+  const lines = attachPurchaseLots(hardwareDir, readBomLines(hardwareDir));
+  return allocatePartCosts(catalog, { lines, operations, rate, batch });
 }

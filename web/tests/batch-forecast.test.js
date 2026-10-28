@@ -3,8 +3,9 @@ import assert from "node:assert/strict";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { calculateBatch, optimizePurchase, readBatchForecast, renderBatchForecast } from "../lib/batch-forecast.js";
+import { calculateBatch, laborMinutes, optimizePurchase, readBatchForecast, renderBatchForecast } from "../lib/batch-forecast.js";
 import { readLaborRollup } from "../lib/cost.js";
+import { parseRun, runMinutes } from "../contracts/part-costs.js";
 
 const hardware = fileURLToPath(new URL("../../hardware", import.meta.url));
 const lot = (quantity, priceCents, extra = {}) => ({ quantity, priceCents, label: `${quantity}-pack`, ...extra });
@@ -171,9 +172,11 @@ test("five machines use opening stock and whole packs, with small-order reserves
   assert.equal(five.taxCents, 21868);
   assert.equal(five.allowances.find(allowance => allowance.id === "shop").costCents, 12500);
   assert.equal(five.cashCents, 421838);
-  assert.equal(five.laborHours, 660 / 60 * 5);
-  assert.equal(five.laborCents, 550000);
-  assert.equal(five.totalCents, 971838);
+  const labor = readLaborRollup(hardware);
+  assert.equal(Math.round(ten.laborHours * 60 * 1000), Math.round(labor.minutes * 10 * 1000), "ten machines take the ledger's own minutes");
+  assert.ok(five.laborHours / 5 > ten.laborHours / 10, "five machines share each setup among fewer");
+  assert.ok(twenty.laborHours / 20 < ten.laborHours / 10);
+  assert.equal(five.totalCents, five.cashCents + five.laborCents);
   assert.ok(five.cashCents < ten.cashCents / 2, "inventory makes this a separate calculation");
   assert.equal(ten.cashCents, 1090602);
   assert.equal(twenty.cashCents, 2711205);
@@ -200,4 +203,20 @@ test("delivered historical invoices are not taxed twice; paid labor remains sepa
   assert.equal(batch.totalCents, 111210);
   assert.equal(calculateBatch(data, 10, null).laborCents, null);
   assert.throws(() => calculateBatch({ ...data, taxRate: NaN }, 10, null), RangeError);
+});
+
+test("a run's setup is shared by the batch; per-machine work is not", () => {
+  const run = parseRun("15 m setup a plate of 30 · 30 s a float · 3 a machine");
+  assert.deepEqual(run, { setup: 15, run: "plate", cap: 30, each: 0.5, piece: "float", per: 3 });
+  assert.equal(runMinutes(run, 10), 3, "one plate of thirty for ten machines");
+  assert.equal(runMinutes(run, 1), 16.5, "one plate of three for a single machine");
+  assert.equal(runMinutes(run, 20), 3, "two full plates for twenty");
+  const batchRun = parseRun("20 m setup a batch · 3 m a vessel · 1 a machine");
+  assert.equal(batchRun.cap, null);
+  assert.equal(runMinutes(batchRun, 5), 7);
+  assert.equal(parseRun("20 m setup a plate · 3 m a vessel · 1 a machine"), null, "a plate needs its size");
+  const labor = { minutes: 13, rate: 60, opCount: 2, cats: [{ ops: [{ minutes: 10, run: null }, { minutes: 3, run }] }] };
+  assert.equal(laborMinutes(labor, 10), 13);
+  assert.equal(laborMinutes(labor, 1), 26.5);
+  assert.equal(laborMinutes({ minutes: 60 }, 5), 60, "a flat figure stays flat");
 });

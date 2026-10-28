@@ -162,6 +162,11 @@ work and supplies of putting it together, and the finished unit's roll-up
 equals both ledgers' totals. A part outside the default build, such as an
 Industrial faucet part, is costed in the configuration that contains it.
 
+A part made in runs carries its operation's [run](labor.md): a float's labor is
+its plate's setup shared across the batch, plus its own magnet. A bought part
+carries the smallest lot the [batch forecast](batch-forecast.md) buys it in.
+Both sit faintly under the line they price on the explorer's Cost tab.
+
 [`web/lib/part-costs.js`](../../web/lib/part-costs.js) allocates; the explorer
 and the [cost page](https://homesodamachine.com/cost#by-part) show the result.
 `node web/scripts/part-costs.mjs` lists what is unallocated and where the
