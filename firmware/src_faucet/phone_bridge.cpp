@@ -8,9 +8,9 @@
 
 namespace {
 
-// The largest request a phone may make is six bytes — sound, a selection, a
-// Prime ending — so a frame with more than this is none of them.
-constexpr uint8_t  kBodyMax  = 8;
+// A conditional name write is the largest request: the stamped setting header
+// and up to twenty UTF-8 bytes. The existing request/response prefixes stay put.
+constexpr uint8_t  kBodyMax  = SETTING_SET_HEADER_SIZE + SETTING_VALUE_MAX;
 constexpr uint8_t  kRequests = 6;
 constexpr uint32_t kQueuedMs = 1000;   // J3 would not take it in this long
 constexpr uint32_t kAnswerMs = 2000;   // the main board answers in milliseconds
@@ -122,6 +122,11 @@ void phoneBridgeOnAnswer(const uint8_t *payload, uint16_t len) {
 void phoneBridgeOnState(uint8_t type, const void *data, uint16_t len) {
   // Taken in only while a phone is on.
   if (!bleLinkConnected()) return;
+
+  if (type == MSG_SETTING_STATE) {
+    bleLinkDeliver(BLE_LINK_EVERY, 0, 0, type, data, len);
+    return;
+  }
 
   if (type == MSG_RESP_FLAVOR_STATE && len >= sizeof(FlavorStatePayload)) {
     FlavorStatePayload st;

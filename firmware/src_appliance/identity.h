@@ -19,6 +19,8 @@
 void identityBegin();
 void machineIdentity(IdentityPayload &out);
 bool machineSetName(const char *name);
+// Settings authority's RAM replica; no independent NVS write.
+void identityApplySettings(const uint8_t *name, uint8_t length);
 
 // The IDENTITY line — model, unit, name — on the console.
 void identityReport();

@@ -53,12 +53,23 @@ Editing sessions belong to the machine and setting, above page presentation.
 Flavor sessions also identify their channel. Back, child pages, tab changes,
 and layout changes preserve drafts. **Discard changes** explicitly restores the
 confirmed value. Switching appliances keeps drafts separate and never applies
-one appliance's choices to another. Drafts are local to the running app session.
+one appliance's choices to another. Mix intents and submitted Name/Sound changes
+are stored on this device through relaunch and reconnection. Unsubmitted form
+drafts are local to the running app session.
 
-A save applies the visible choice and reports the machine's accepted value.
-An error preserves the draft and offers a useful retry. A pending write does
-not claim success. Name changes queued for reconnection are described as
-pending until the machine acknowledges them.
+Each saved setting carries an opaque main-board revision. A write includes the
+revision the edit began with. The main board compares and applies it atomically,
+or returns its current value and revision without applying the requested value.
+Every mutation source advances the revision, including a change to equal bytes.
+A durable boot epoch prevents an old edit matching after restart. Applied values
+are persisted during the machine's quiet loop; the acknowledgement confirms the
+live machine setting.
+
+Changed settings are pushed to connected phones. A conflict retains the desired
+value and offers **Use mine** or **Keep machine’s setting**. Use mine explicitly
+rebases the next conditional write; it cannot bypass a later conflict. A missing
+answer is unconfirmed, even if a later reading equals the desired value. The app
+never infers ownership or success from matching value bytes.
 
 An asynchronous action identifies its originating machine, page entry, and
 task. A delayed response cannot close a newly opened page with the same name,
@@ -72,13 +83,20 @@ The Machine overview shows both flavors, the flavor on tap, coarse reservoir
 levels, saved ratios, and appliance readings. Selecting a flavor opens its
 detail; it does not immediately select that flavor at the faucet.
 
-Flavor detail is the home for that channel's image and mix. **Save mix** confirms
-the ratio in place. A pending ratio is visibly unsaved. For an inactive flavor,
-the action is **Use at faucet** when its ratio is saved, or **Save and use at
-faucet** when it has a draft. The combined action confirms the ratio before
-selecting the flavor. If only the first step succeeds, the page says the mix was
-saved and selection failed. A confirmed selection becomes **On tap at the
-faucet** on the same page. Back remains the way to the overview.
+Flavor detail is the home for that channel's image and mix. Adjusting the mix
+saves automatically after a short coalescing pause. The minus button and **More
+flavor**, and plus button and **Lighter**, remain together. The outcome area sits
+below that control group and distinguishes saving, accepted, out of range,
+Trust needed, declined, expired, unconfirmed, and conflict. A pending value
+never replaces the machine's confirmed ratio in the **On tap** description.
+
+An out-of-range mix is kept and sends automatically on reconnection under its
+original revision. It requires no extra resend tap. A changed revision produces
+a conflict, including when another source changed the value away and back.
+**Use at faucet** waits for the latest desired mix to be accepted, then conditionally
+sets the active flavor. The page stays in place and shows the confirmed selection.
+Back remains the way to the overview. Editing requires a stamped baseline;
+an unread mix is unavailable rather than an invented ratio.
 
 Change image opens a child task and returns to the same flavor with its ratio
 draft intact. Fill, Clean, and Prime entry points on the detail retain the
@@ -89,7 +107,8 @@ operation directory.
 
 Existing-image selection and adding a photo converge on the same outcome:
 choose, upload when needed, confirm assignment, return to the originating Flavor
-detail. The app waits for the machine's art readback before completing the task.
+detail. Assignment uses the channel's captured revision and waits for the main
+board's accepted stamped response before completing the task.
 Choosing the already assigned image can simply complete the picker.
 
 Photo selection opens the system picker, then the existing crop editor. Cancel
@@ -142,9 +161,12 @@ an unrelated saved record can remain available.
 
 ## Settings and software update
 
-Name and Sound are dedicated editors. Save completes that editor and returns
-to Settings after the accepted or explicitly queued outcome is established.
-Back preserves a draft; Discard changes is explicit.
+Name and Sound are dedicated forms with explicit Save actions. A submitted form
+shows the actual queued choice and its outcome. It is kept while out of range
+and sends automatically on reconnect under its captured revision. Acceptance
+closes only the page entry that submitted it; a new opening cannot be closed by
+an old response. Back preserves a draft; Discard changes is explicit. Name and
+Sound use the same Trust and conflict vocabulary as the mix panel.
 
 Software Update returns to whichever page opened it. Its journey is check,
 offer, send, restart, verify, result. Sending all bytes is not installation
@@ -172,11 +194,29 @@ A saved unsupported machine explains its unsupported state and offers removal,
 the shared Add preparation, and explicit opening of another saved machine. It
 does not expose appliance commands.
 
-Connecting and machine Trust are separate states. Pending Trust explains where
-to respond. A connected viewer is labeled **View only**, with an action to ask
-for Trust. Decline, timeout, and disconnection leave an understandable outcome
-and retry path. Approval occurs on the machine displays. A contextual change
-continues once after Trust is granted.
+Connecting and machine Trust are separate states. A request belongs to the
+machine, link and visible page that made it. **Requesting Trust** means the
+phone has sent an ask; **Tap Trust on the machine** appears only after the faucet
+confirms an active request and its remaining lifetime. Repeated edits join that
+request. Leaving its page, opening management, discarding the change, or entering
+the background withdraws it. System pairing's inactive phase does not withdraw it.
+
+The faucet shows a compact Trust tray beside its normal controls. The enclosure
+offers **Phone request** in its navigation rail; opening it is the person's choice.
+Neither remote arrival nor renewal replaces a local task or covers a held Prime
+pad, Stop, pouring controls, or Forget confirmation. Approval resumes the latest
+owned change once. Decline retains it and never automatically re-asks.
+
+New-app requests have a 15-second presence lease renewed every five seconds,
+and an absolute 60-second cap. Expiry requires an explicit new request. The
+machine reports retry-after time: per-identity decline delays are 30 seconds,
+two minutes, ten minutes and thirty minutes; the machine-wide physical-decline
+ladder is 15 seconds, one minute, five minutes and thirty minutes. Every
+unsuccessful admitted request also leaves 15 seconds quiet. Rejected traffic
+cannot extend these deadlines. Actual physical Trust or an hour of quiet resets
+the relevant policy. Unpaired, busy, declined, expired and disconnected outcomes
+remain distinct. The app does not claim a hardware prompt remains visible after
+it expires.
 
 Offline pages keep cached readings with their age, preserve drafts, and explain
 unavailable writes. Losing contact does not navigate to management or setup.
@@ -195,13 +235,17 @@ actual Foundation/Observation sources and use no simulator. They do not verify
 SwiftUI view lifetimes, gestures, or Bluetooth transport; those need the
 source review and physical-device journeys below.
 
-1. Change a ratio, open Images, cancel or choose an image, and return. Retain the
-   ratio draft and confirm only the chosen image.
+1. On a real connected view-only phone, adjust a mix. Verify Requesting, then
+   a confirmed Trust warning, with direction labels beside their buttons.
+   Repeat taps, approve, and confirm exactly the latest mix. Repeat with decline,
+   expiry, leaving the page and background; prompts must withdraw appropriately.
 2. Edit Sound and Name; visit another tab and return. Retain each page and draft.
 3. Rotate or resize while editing or viewing a nested page. Retain route,
    appliance, channel, and pending choices.
-4. Save and use an edited mix. Confirm the ratio before selection; retain the
-   editor and show On tap. Exercise a failure at each step without losing work.
+4. Adjust and use an edited mix. Confirm the ratio before selection; retain the
+   editor and show the machine's actual on-tap ratio. Hold a mix out of range,
+   reconnect, and confirm automatic saving. Change its revision elsewhere,
+   including away-and-back, and exercise both conflict resolutions.
 5. Cancel Add from every entry point and cancel the system picker separately.
    Return to the expected origin with no hidden management detour.
 6. Manage machine B while controlling A. Remove B without changing A. Remove A

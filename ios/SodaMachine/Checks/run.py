@@ -12,11 +12,17 @@ def main() -> None:
     sources = [
         core / "Navigation.swift",
         core / "EditSessions.swift",
+        core / "SettingsSync.swift",
+        core / "MixChanges.swift",
+        core / "TrustState.swift",
         core / "Management.swift",
         core / "MachineModel.swift",
         core / "Firmware.swift",
         checks / "NavigationChecks.swift",
         checks / "FirmwareChecks.swift",
+        checks / "SettingsSyncChecks.swift",
+        checks / "MixChecks.swift",
+        checks / "TrustChecks.swift",
         checks / "ExperienceChecks.swift",
     ]
     with tempfile.TemporaryDirectory(prefix="soda-experience-") as temporary:

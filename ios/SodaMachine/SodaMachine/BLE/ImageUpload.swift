@@ -119,55 +119,36 @@ extension BLEManager {
         sendBLEFrame(type: ImageFrame.artSet, payload: Data([UInt8(channel), UInt8(art)]))
     }
 
-    /// Put `art` on `channel` and wait, up to a deadline, for the machine to
-    /// say it wears it. The faucet answers from its own copy of the pair
-    /// until the main board publishes the new one, so an answer still naming
-    /// the old face is a wait, not a refusal. False for a deadline passed, a
-    /// link gone, another machine in use, or a choice that `still` says has
-    /// been superseded.
-    ///
-    /// THE MACHINE'S ASSIGNMENTS RUN ONE AFTER ANOTHER, in the order asked,
-    /// both flavors together: the faucet sets a pair, filling the other half
-    /// from its own copy, so two in flight at once can undo each other. A
-    /// choice is sent only once every earlier one is done or given up, so the
-    /// newest choice is the last the machine is sent, and the face the flavor
-    /// ends up wearing. Only an answer heard after the send counts: what this
-    /// device last heard can show a face, never confirm a change.
-    func assignArt(channel: Int, art: Int, on machine: String,
-                   while still: @escaping @MainActor () -> Bool) async -> Bool {
+    /// Serial assignments retain their captured revision. Only an accepted
+    /// earlier assignment in this app's own chain can advance that base.
+    func assignArt(channel: Int, art: Int, expected: SettingSnapshot, on machine: String,
+                   while still: @escaping @MainActor () -> Bool) async -> SettingReply {
         let before = artChain
         artAssigning[channel, default: 0] += 1
-        let mine = Task { () -> Bool in
+        let mine = Task { () -> SettingReply in
             _ = await before?.value
-            let worn = await self.assignNow(channel: channel, art: art, on: machine, while: still)
-            self.artAssigning[channel, default: 1] -= 1
-            return worn
+            defer { self.artAssigning[channel, default: 1] -= 1 }
+            guard still(), self.current?.id == machine, self.linked || self.demoMode else { return .failure(.offline) }
+            let historyKey = "\(machine)/\(channel)"
+            var base = expected
+            if let history = self.artHistory[historyKey], history.ancestors.contains(expected.revision),
+               self.settingSnapshot(.art(channel: channel))?.revision == history.current.revision {
+                base = history.current
+            }
+            let reply = await self.writeSetting(.art(channel: channel), expected: base.revision, value: Data([UInt8(art)]))
+            if case .accepted(let snapshot) = reply {
+                var ancestors = self.artHistory[historyKey]?.ancestors ?? []
+                ancestors.insert(expected.revision)
+                ancestors.insert(base.revision)
+                self.artHistory[historyKey] = ArtLineage(current: snapshot, ancestors: ancestors)
+            }
+            return reply
         }
         artChain = mine
         return await mine.value
     }
 
-    /// Whether a face assignment for this flavor is still under way.
     func assigningArt(_ channel: Int) -> Bool { (artAssigning[channel] ?? 0) > 0 }
-
-    private func assignNow(channel: Int, art: Int, on machine: String,
-                           while still: @MainActor () -> Bool) async -> Bool {
-        func wearing() -> Bool { flavorArt.art.indices.contains(channel) && flavorArt.art[channel] == art }
-        guard still(), current?.id == machine, linked || demoMode else { return false }
-        let sent = Date()
-        setFlavorArt(channel: channel, art: art)
-        if demoMode { return true }
-        let until = sent.addingTimeInterval(6)
-        while Date() < until {
-            try? await Task.sleep(for: .milliseconds(500))
-            guard current?.id == machine, linked else { return false }
-            if let heard = artHeardAt, heard > sent, wearing() { return true }
-            // A newer choice waits behind this one and is sent next.
-            guard still() else { return false }
-            queryFlavorArt()
-        }
-        return false
-    }
 
     func handleFlavorArt(_ payload: Data) {
         guard payload.count >= 4 else { return }
@@ -176,6 +157,9 @@ extension BLEManager {
         a.art = [Int(payload[b]), Int(payload[b + 1])]
         a.factory = Int(payload[b + 2])
         a.custom = Int(payload[b + 3])
+        for channel in 0..<min(2, a.art.count) {
+            if let stamped = settingSnapshot(.art(channel: channel))?.byte { a.art[channel] = stamped }
+        }
         flavorArt = a
         artHeardAt = Date()
     }
@@ -781,4 +765,9 @@ nonisolated func crc32(_ data: Data) -> UInt32 {
     var crc: UInt32 = 0xFFFFFFFF
     for byte in data { crc = table[Int((crc ^ UInt32(byte)) & 0xFF)] ^ (crc >> 8) }
     return crc ^ 0xFFFFFFFF
+}
+
+struct ArtLineage {
+    let current: SettingSnapshot
+    let ancestors: Set<SettingRevision>
 }

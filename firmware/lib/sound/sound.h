@@ -142,6 +142,12 @@ uint8_t soundVolume();
 // soundSetClock() is never set, hourNow() answers -1, and quiet hours never
 // engage — the machine does not guess at the time in order to go quiet.
 void    soundSetQuiet(bool on, uint8_t startHour, uint8_t endHour, uint8_t quietPct);
+// The appliance installs its stamped authority; bench builds keep the local
+// Preferences adapter. Full configuration writes are one authority transaction.
+using SoundSettingsWriter = bool (*)(const sound_policy::Settings &);
+void soundSetSettingsWriter(SoundSettingsWriter writer);
+bool soundSetSettings(const sound_policy::Settings &settings);
+void soundApplySettings(const sound_policy::Settings &settings);
 bool    soundQuietOn();
 uint8_t soundQuietStart();
 uint8_t soundQuietEnd();
