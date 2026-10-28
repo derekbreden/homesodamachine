@@ -320,11 +320,14 @@ def build():
     stem_y = _layout.snapshot_pose('drain-outlet-stem')['translation_mm'][1]
     drain_y = _layout.specification()['fore_routes']['drain_union_corner_mm'][1]
     rear_face = stem_y-drain_y-_stem.COLLAR_OD/2.-STEM_BODY_AIR
-    # One lower aft plane clears the stem collar. The full three-millimetre
-    # wing-root band, snap stations and PP0308E bearing remain intact.
+    # The lower aft plane clears the collar, with a continuous 45-degree
+    # underside into the full three-millimetre wing-root band.
     if rear_face < y1:
-        body = body.cut(cq.Solid.makeBox(2*half+2.,y1-rear_face+1.,
-            z1-ROOT_STOCK-z0+1.,cq.Vector(-half-1.,rear_face,z0-1.)))
+        plane = cq.Plane(origin=(-half-1.,0.,0.),xDir=(0.,1.,0.),normal=(1.,0.,0.))
+        roof = z1-ROOT_STOCK
+        outline = [(rear_face,z0-1.),(y1+1.,z0-1.),(y1+1.,roof),
+                   (y1,roof),(rear_face,roof-(y1-rear_face))]
+        body = body.cut(cq.Workplane(plane).polyline(outline).close().extrude(2*half+2.).val())
     cradle = body
     for side in (-1, 1):
         for a, b, lo in ((s["w_in"], s["w_out"], z1 - 0.01),
