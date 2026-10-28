@@ -16,6 +16,11 @@
   "unproven": {
     "_": "source.commit does not describe these members: an uncommitted path below reaches the rule that cuts one, its rule would not cut, or an interactive publication explicitly deferred that rule.",
     "paths": [
+      "changes/2026-10-28-0215-carbonator-reeds/lid-after.webp",
+      "changes/2026-10-28-0215-carbonator-reeds/lid-before.webp",
+      "changes/2026-10-28-0215-carbonator-reeds/sensors-after.webp",
+      "changes/2026-10-28-0215-carbonator-reeds/sensors-before.webp",
+      "changes/2026-10-28-0215-carbonator-reeds/views.json",
       "firmware/lib/proto_link/proto_msg.h",
       "firmware/lib/sound/sound.cpp",
       "firmware/lib/sound/sound.h",
@@ -66,6 +71,7 @@
       "hardware/printed-parts/cold-core/foam-shell/README.md",
       "hardware/printed-parts/cold-core/reed-bridge/reed_bridge.py",
       "hardware/scripts/_carbonator_drawing.py",
+      "hardware/scripts/_labor_totals.py",
       "hardware/scripts/flute_payload.py",
       "hardware/wiring/enclosure-wiring.csv",
       "hardware/wiring/enclosure-wiring.json",
@@ -108,7 +114,16 @@
       "marketing/video/how-carbonation-works/assets/carbonator-hardware-section.json.gz",
       "marketing/video/how-carbonation-works/assets/magnetic-float-cad.json.gz",
       "marketing/video/how-carbonation-works/prepare-carbonator-assets.py",
-      "tools/publish_now.py"
+      "tools/publish_now.py",
+      "web/contracts/part-costs.js",
+      "web/lib/batch-forecast-view.js",
+      "web/lib/batch-forecast.js",
+      "web/lib/cost.js",
+      "web/lib/part-costs.js",
+      "web/public/css/materials.css",
+      "web/public/js/viewer/material-panel.js",
+      "web/scripts/part-costs.mjs",
+      "web/tests/batch-forecast.test.js"
     ],
     "members": [
       "hardware/assembly/scenes/glb/back-half.glb",
@@ -1710,8 +1725,8 @@
     "hardware/install-guide/plumbing/modern/art/modern-tee-tug-check.png": "8a00340093b0dc25942826efdbb12236525daad39a98dc4f6d62c81b97c643fc",
     "hardware/install-guide/plumbing/modern/art/modern-water-off.png": "eb5623a33b96b53f5a3d451395f0cc6e4a7b8c6242bd600e0ab661f33765f27c",
     "hardware/install-guide/plumbing/modern/art/modern-water-on.png": "9d15c3c5ef60820f86c6cec68b200dfb5f43fda1dea5b86ec0600b8c53074fb7",
-    "hardware/manifold-layout/enclosure-assembly.step": "f511101077d19aeb8a7efa6793cf57e758faa0cf4e768030f308ca5444ddce61",
-    "hardware/manifold-layout/enclosure-assembly.step.mesh": "c4ccbafe8c8a63ff5493e9081069c547bfd3d7d1fe2ebb39fe24fbe9a9260735",
+    "hardware/manifold-layout/enclosure-assembly.step": "195658503ae4f14d9c714970226d3757357545c8513522e7fae9903c4752683b",
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": "d36ba3b9868644913858e753c2e79abda0211fb614f44650d5ac068565dd0aab",
     "hardware/manifold-layout/manifold-layout.step": "5eef4a1580f9571e71cac2dda03eb02df691074e276b79e694b3ee3a2eedd1ad",
     "hardware/manifold-layout/manifold-layout.step.mesh": "e710b90db3148a6a790a5842f065c20e108c45112f6e1715ec8b7f8fbf1abab6",
     "hardware/pcb/pcba/out/pcba.bom.csv": "8e50da9512f4775249bb0a81e7ef8dc1059fbd3ed31513aaae1511838bb65209",
@@ -2845,8 +2860,8 @@
     "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/plates/enclosure-pump-return-west-outer/body.stl": "9f4abb20c725e7b0ba2b8b42da55153db4d53a9fe736da71d565ab1d292f7f54",
     "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/plates/enclosure-pump-return-west-outer/wet-shadow-blocker.stl": "52846b6501e3de851c8685c8143c2eda01a7318189c51f6d5056824f5cd53ff1",
     "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/plates/enclosure-pump-return-west-outer/wet-void.stl": "4ba7d4254b61595c78b71715914ceff958a65f8a926f41e1b25753be8421e7fc",
-    "hardware/wiring/enclosure-wiring.step": "99e45399a6a1c98ac2e7bbe5d1b21e73f809c8fbd9d0590eccc776cb56e97490",
-    "hardware/wiring/enclosure-wiring.step.mesh": "0948220e5a82cf21baad61fd6d9fa257bd9c77fb10babccd72ed7f6e1c0413c0",
+    "hardware/wiring/enclosure-wiring.step": "1fb3ca812db773047f91102e2afcc7b79dde76873dd976c8111a1e547c50b55f",
+    "hardware/wiring/enclosure-wiring.step.mesh": "24e2cca380ec05ea77a375ebf0bdf4d5089861b6739543f017d4f3545c6fa609",
     "hardware/reference/neofit-flavor-reducer/neofit-flavor-reducer.step": "28ad424a683a778950e17844c38cc98ad69bba0135cc0472d703d993221c17e2",
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.stl": "fc308b454d8940727fd71e8a665b09bbfcb78d88d8ca0724ba7f1b3a304876f6",
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl": "98f0677edbe76771c80dc4411babccba39dbf7e4f1b61e103d827613f17322a0",
@@ -3124,8 +3139,8 @@
     "hardware/install-guide/plumbing/modern/art/modern-tee-tug-check.png": 1791566298,
     "hardware/install-guide/plumbing/modern/art/modern-water-off.png": 1791566298,
     "hardware/install-guide/plumbing/modern/art/modern-water-on.png": 1791566298,
-    "hardware/manifold-layout/enclosure-assembly.step": 1793171668,
-    "hardware/manifold-layout/enclosure-assembly.step.mesh": 1793171668,
+    "hardware/manifold-layout/enclosure-assembly.step": 1793172373,
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": 1793172373,
     "hardware/manifold-layout/manifold-layout.step": 1792740989,
     "hardware/manifold-layout/manifold-layout.step.mesh": 1792740989,
     "hardware/manifold-layout/studies/ceiling-fit/parts/back-wall.step": 1792743994,
@@ -4450,7 +4465,7 @@
     "hardware/reference/yyfkgcp-pogo-4p/pogo-4p-female.step": 1790919001,
     "hardware/reference/yyfkgcp-pogo-4p/pogo-4p-male.step": 1790919001,
     "hardware/reference/yzmsz-water-regulator/geometry/yzmsz-water-regulator.step": 1792828088,
-    "hardware/wiring/enclosure-wiring.step": 1793171668,
-    "hardware/wiring/enclosure-wiring.step.mesh": 1793171668
+    "hardware/wiring/enclosure-wiring.step": 1793172373,
+    "hardware/wiring/enclosure-wiring.step.mesh": 1793172373
   }
 }
