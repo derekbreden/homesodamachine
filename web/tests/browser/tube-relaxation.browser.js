@@ -41,6 +41,16 @@ async function openAssembly(page) {
   await page.waitForSelector(".tube-toggle");
 }
 
+// Compact viewports keep the rail's controls in the closed Tools drawer, and a
+// reader opens it before reaching Tubes.
+async function openTubes(page) {
+  await page.evaluate(() => {
+    const drawer = document.querySelector(".tool-drawer");
+    if (drawer && !drawer.open) drawer.querySelector("summary").click();
+  });
+  await page.click(".tube-toggle");
+}
+
 async function waitForResult(page, expected = {}) {
   await page.waitForFunction(({ runId, scenario, omitHoldId, coilPlane }) => {
     const panel = document.querySelector(".tube-panel");
@@ -84,7 +94,7 @@ test("/3d tube overlay is optional and leaves canonical assembly geometry intact
     assert.equal(await page.evaluate(() => !!window.__hsm.scene.getObjectByName("tube-overlay")), false);
     const original = await groupState(page);
 
-    await page.click(".tube-toggle");
+    await openTubes(page);
     await waitForResult(page, { runId: "fluid-18", scenario: "straight" });
     const state = await page.evaluate(() => {
       const h = window.__hsm;
@@ -148,7 +158,7 @@ test("/3d tube overlay is optional and leaves canonical assembly geometry intact
     assert.equal(geometry.screened, "capsule-surface");
     assert.deepEqual(await groupState(page), original);
 
-    await page.click(".tube-toggle");
+    await openTubes(page);
     await page.waitForFunction(() => !window.__hsm.scene.getObjectByName("tube-overlay")?.visible);
     assert.equal(await page.$eval(".tube-toggle", (el) => el.getAttribute("aria-pressed")), "false");
     assert.deepEqual(await groupState(page), original);
@@ -162,7 +172,7 @@ test("/3d tube scenarios and restraint release follow the latest control values"
   const page = await browser.newPage();
   try {
     await openAssembly(page);
-    await page.click(".tube-toggle");
+    await openTubes(page);
     await waitForResult(page, { runId: "fluid-18", scenario: "straight" });
     const hold = await page.$eval(".tube-omit", (el) => [...el.options].find((opt) => opt.value)?.value);
     assert.ok(hold, "fluid-18 offers no physical restraint to release");
@@ -200,7 +210,7 @@ test("/3d tube controls remain reachable on a narrow viewport", { timeout: 90_00
   try {
     await page.setViewport({ width: 390, height: 844, deviceScaleFactor: 1 });
     await openAssembly(page);
-    await page.click(".tube-toggle");
+    await openTubes(page);
     await waitForResult(page, { runId: "fluid-18", scenario: "straight" });
     const boxes = await page.evaluate(() => [".tube-run", ".tube-scenario", ".tube-omit", ".tube-reset"]
       .map((selector) => {
@@ -236,7 +246,7 @@ test("/3d unchanged carb-2 tube does not acquire new contacts from resampling", 
   const page = await browser.newPage();
   try {
     await openAssembly(page);
-    await page.click(".tube-toggle");
+    await openTubes(page);
     await waitForResult(page, { runId: "fluid-18", scenario: "straight" });
     await page.select(".tube-run", "carb-2");
     await waitForResult(page, { runId: "carb-2", scenario: "straight" });
@@ -280,7 +290,7 @@ test("/3d refuses unavailable and stale tube route data without drawing a scenar
         } else request.continue();
       });
       await openAssembly(page);
-      await page.click(".tube-toggle");
+      await openTubes(page);
       await page.waitForFunction(() => document.querySelector(".tube-panel")?.dataset.state === "error",
         { timeout: 10_000 });
       assert.equal(await page.evaluate(() => !!window.__hsm.scene.getObjectByName("tube-overlay")?.visible), false);
