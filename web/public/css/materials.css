@@ -82,6 +82,7 @@
 .bom-order { display: flex; margin-left: auto; border: 1px solid var(--border); border-radius: 5px; overflow: hidden; }
 .bom-tools .bom-order button { border: 0; border-radius: 0; background: transparent; color: var(--text-2); font-size: 0.75rem; }
 .bom-tools .bom-order button[aria-pressed=true] { background: var(--surface-2); color: var(--text); font-weight: 600; }
+.bom-tools > button[aria-pressed=true] { border-color: var(--accent); color: var(--accent); font-weight: 600; }
 .bom-columns { display: flex; justify-content: space-between; gap: 12px; margin: 0 -10px; padding: 10px 7px 7px 28px; border-bottom: 1px solid var(--border); color: var(--text-3); font-size: 0.68rem; letter-spacing: .05em; text-transform: uppercase; }
 .bom-tree { margin: 0 -10px; }
 .bom-row { position: relative; display: flex; align-items: center; gap: 4px; min-height: 50px; border-bottom: 1px solid var(--border); padding-left: calc(min(var(--depth), 5) * 12px); }
