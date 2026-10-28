@@ -1,0 +1,109 @@
+{
+  "views": [
+    {
+      "name": "bottom-ports",
+      "caption": "The bottom plate from below: street elbows with push-fit adapters before, one-piece push-fit elbows after",
+      "before": "bottom-ports-before.webp",
+      "after": "bottom-ports-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 558.6,
+          "y": 414.8,
+          "label": "Port 1 · CO2 in",
+          "at": [
+            0,
+            -19.05,
+            20.8
+          ]
+        },
+        {
+          "x": 649.8,
+          "y": 492.9,
+          "label": "Port 3 · soda out",
+          "at": [
+            0,
+            19.05,
+            20.8
+          ]
+        }
+      ],
+      "model": "cold-core-layout/cold-core-assembly.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          128.69467850954553,
+          -159.73794040055566,
+          -179.3028332370708
+        ],
+        "target": [
+          -2,
+          0,
+          24
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 175.6020422136154,
+        "far": 653.1274636895891,
+        "aspect": 1.3333333333333333
+      },
+      "highlight": [
+        "carbonator-elbow-co2-in",
+        "carbonator-elbow-carb-water-out"
+      ],
+      "ghost": [],
+      "only": [
+        "endcap-bottom",
+        "carbonator-elbow-co2-in",
+        "carbonator-elbow-carb-water-out",
+        "collet-co2-in",
+        "collet-carb-water-out",
+        "line-co2-in",
+        "line-carb-water-out"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "cold-core-layout/cold-core-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "870392c9a21b5f6ee9c4e8554afe95a7aa3404f314a17131ea206956fbb779f7",
+          "commit": "cf109463727143f4b247e2802bd2750296a03a51",
+          "taken": "2026-10-28T16:16:48.797Z",
+          "published": false
+        },
+        "after": {
+          "payload": "cold-core-layout/cold-core-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "1635f6eb0aa3831a0b441430613f000392ce94fcae58ca8e25e80cda7d037702",
+          "commit": "d95267c5025bf0e1254cc7040b6fcd47910a127a",
+          "published": false
+        }
+      },
+      "changed": [
+        "collet-carb-water-out",
+        "collet-co2-in",
+        "line-water-in",
+        "line-carb-water-out",
+        "foam-cap-top",
+        "carbonator-elbow-carb-water-out",
+        "carbonator-elbow-co2-in",
+        "line-co2-in",
+        "reservoir-grip-a-fill",
+        "reservoir-grip-b-draw",
+        "line-reservoir-a-fill",
+        "line-reservoir-b",
+        "reservoir-a-cap",
+        "reservoir-b-cap",
+        "foam-cap-lid-top"
+      ],
+      "withinMeshing": [
+        "evap-coil"
+      ]
+    }
+  ]
+}
