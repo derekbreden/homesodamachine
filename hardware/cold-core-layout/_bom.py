@@ -32,18 +32,17 @@ PARTS = (
     ("316 tube", "OnlineMetals #12498", ("carbonator-tube",)),
     ("endcap plates", "SendCutSend 1/4\"-thick 316 SS circular endcap plate",
      ("endcap-bottom", "endcap-top")),
-    ("carbonator elbows", "TAISHER 2PCS 316L SS 90° Barstock Street Elbow",
-     ("carbonator-elbow-co2-in", "carbonator-elbow-carb-water-out",
-      "carbonator-elbow-water-in", "carbonator-elbow-prv")),
+    ("top-plate elbows", "TAISHER 2PCS 316L SS 90° Barstock Street Elbow",
+     ("carbonator-elbow-water-in", "carbonator-elbow-prv")),
+    ("bottom-plate elbows", "neoFit AME4-N2-E",
+     ("carbonator-elbow-co2-in", "carbonator-elbow-carb-water-out")),
     ("water inlet jet", "Water-inlet jet cap", ("water-inlet-jet-cap-nominal",)),
     ("upper float stop", "Carbonator upper float stop", ("float-stop-carb-top",)),
     ("PRV", "Control Devices SV-125", ("prv-sv125",)),
     ("PTFE thread tape", "Millrose 70894 Nickel Guard", ()),
 
-    # §3 / §4 / §9 — the collets that land on carbonator elbows
-    ("water PTC collets", "John Guest PP010822E",
-     ("collet-carb-water-out", "collet-water-in")),
-    ("gas PTC collet", "PI010822S", ("collet-co2-in",)),
+    # §3 — the collet that lands on the top water elbow
+    ("water PTC collet", "John Guest PP010822E", ("collet-water-in",)),
     ("reservoir B fill stem elbow", "NeoFit ATEU44W", ("reservoir-b-fill-lower",)),
     ("reservoir B fill union elbow", "John Guest PP0308E", ("reservoir-b-fill-upper",)),
 

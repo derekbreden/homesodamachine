@@ -1713,11 +1713,9 @@
           },
           {
             "material": "HSM-000010",
-            "quantity": 3,
+            "quantity": 1,
             "unit": "ea",
             "bodies": [
-              "carbonator-elbow-co2-in",
-              "carbonator-elbow-carb-water-out",
               "carbonator-elbow-prv"
             ]
           },
@@ -1736,19 +1734,19 @@
           },
           {
             "material": "HSM-000013",
-            "quantity": 2,
+            "quantity": 1,
             "unit": "ea",
             "bodies": [
-              "collet-carb-water-out",
               "collet-water-in"
             ]
           },
           {
-            "material": "HSM-000014",
-            "quantity": 1,
+            "material": "HSM-000375",
+            "quantity": 2,
             "unit": "ea",
             "bodies": [
-              "collet-co2-in"
+              "carbonator-elbow-co2-in",
+              "carbonator-elbow-carb-water-out"
             ]
           },
           {
@@ -7525,6 +7523,32 @@
           "path": "ledger/bom.md"
         }
       ]
+    },
+    {
+      "id": "HSM-000375",
+      "description": "neoFit AME4-N2-E \u00b7 1/4 inch tube \u00d7 1/4 inch NPTF male elbow",
+      "kind": "purchased",
+      "aliases": [
+        "bottom-plate elbows",
+        "carbonator push-fit elbows",
+        "AME4-N2-E"
+      ],
+      "contexts": [
+        {
+          "material": "HSM-000004"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Carbonator assembly",
+          "path": "assembly/pressure-vessel.md"
+        },
+        {
+          "title": "Fitting specification",
+          "path": "ledger/bom.md"
+        }
+      ],
+      "manufacturer_number": "AME4-N2-E"
     }
   ]
 }

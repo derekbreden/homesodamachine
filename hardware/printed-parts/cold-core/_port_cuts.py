@@ -19,8 +19,8 @@ import fits
 
 from _cold_core_interface import (
     wall_and_floor_thickness,
+    carbonator_support_ring_height,
     outer_shell_wall,
-    hole_shift_from_edge,
     foam_shell_outer_height,
     water_outlet_climb_x,
     co2_inlet_y,
@@ -34,13 +34,22 @@ from _cold_core_interface import (
 )
 from _support_ring import slot_angular_width, slot_clock, slot_count
 
-# [17](FRONT_FACE_PORT_Z) — Z of the carbonator's two bottom-plate lines where they
-# leave their own fittings: the carbonated-water outlet and the CO2 inlet, both
-# hole_shift_from_edge in from the +Z outer face of the shell's floor. One band of the
-# shell's height carries both, one either side of the plate's own axis in Y, and both
+# [20.8](FRONT_FACE_PORT_Z) — Z of the carbonator's two bottom-plate lines where they
+# leave their own fittings: the carbonated-water outlet and the CO2 inlet. Each bottom port
+# carries a one-piece push-fit male elbow (neoFit AME4-N2-E), and this is the socket axis it
+# turns its line onto, `bottom_port_drop` below the carbonator tube's bottom end. One band of
+# the shell's height carries both, one either side of the plate's own axis in Y, and both
 # have to cross the carbonator support ring to get out of it. THEY CROSS IT IN DIFFERENT
 # SLOTS: two lines on one crossing would be two tubes in one ⌀[7.5](PORT_HOLE_DIAMETER) passage.
-front_face_port_z = hole_shift_from_edge + wall_and_floor_thickness
+#   The drop is the elbow's reach off the plate less the plate's one-thickness recess into the
+# tube. Off neoFit's Male Elbow NPTF drawing, AME4-N2 row (thread A 0.520 in, overall E
+# 1.256 in, body ⌀P 0.610 in), the socket axis stands E − A − P/2 = 0.431 in over the thread's
+# shoulder. Threaded into the tapped plate as deep as the street elbow's model takes — the
+# small end 0.26 in past the outer face — the shoulder stands 0.260 in off it: the axis is
+# 0.691 in (17.55 mm) off the plate, 11.2 mm below the tube's end. The installed engagement is
+# unmeasured; `cold-core-layout/_carbonator.py` prints this storey against the catalog reach.
+bottom_port_drop = 11.2
+front_face_port_z = wall_and_floor_thickness + carbonator_support_ring_height - bottom_port_drop
 
 # WHERE THE CARBONATED-WATER OUTLET LEAVES THE RING, and the one thing this module says
 # about that line: it crosses at a SLOT, on the column it CLIMBS, so the line turns once

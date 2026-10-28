@@ -162,8 +162,8 @@ TAIL_LINES = ("evap-tail-inlet", "evap-tail-outlet")
 # The fitting each line is MADE UP ON at either end. A body a line lands on is not a body it
 # has to route around, so it is out of that line's own obstacle set — and only that line's.
 MADE_UP_ON = {
-    "co2-in": ("collet-co2-in", "carbonator-elbow-co2-in"),
-    "carb-water-out": ("collet-carb-water-out", "carbonator-elbow-carb-water-out"),
+    "co2-in": ("carbonator-elbow-co2-in",),
+    "carb-water-out": ("carbonator-elbow-carb-water-out",),
     "water-in": ("collet-water-in", "carbonator-elbow-water-in"),
     # The vent starts IN the shroud's own bore, so the cup it leaves is not a body it routes
     # around — it is the fitting this line is made up on.
@@ -532,10 +532,6 @@ def build_card(a) -> Scorecard:
                "The elbow bore and installed tip projection are unmeasured layout assumptions; "
                "the model does not establish the weld land, penetration or pressure integrity.",
                "Qualify the coupon, passage and made-up port using assembly/water-inlet-jet.md."]),
-        Check("gas-adapter-envelope", "The gas collet matches its acquired PI010822S",
-              "goal", "warn", "shared nominal envelope", "measured gas-adapter envelope",
-              ["The gas port carries the PI010822S identity and gray acetal material; "
-               "its envelope is represented by the existing PP010822E layout reference until measured."]),
         _goal("placed", "Every body the core carries is placed", len(placed), len(placed),
               "a solid per body"),
         _goal("located", "Every port a placed body declares is positioned",

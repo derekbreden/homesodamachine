@@ -25,14 +25,14 @@ planes the appliance reads off the stack.
 |---|---|
 | foam stack | shell, both caps, both lids — loaded from `foam-assembly` |
 | carbonator | 5" × 0.065" 316 tube, two 1/4" endcap plates recessed one thickness in, the 1/8" 316L float rod between their blind registers |
-| carbonator fittings | four TAISHER street elbows, one per tapped port; the SV-125 and its shroud on port 4 |
+| carbonator fittings | two TAISHER street elbows on the top plate's ports and two neoFit AME4-N2-E push-fit male elbows on the bottom plate's; the SV-125 and its shroud on port 4 |
 | pockets | both reservoirs and their caps |
 | lines | the eight `_internal_routes` centrelines — both reservoirs' dip tubes among them — each drawn at the arc its corridor leaves |
 | coil | the wrap as an exact helix on the carbonator's own radius, and both tails to their slot stations |
 | inlet jet | nominal 316 cap, Ø9.5 × 2 mm with a 1/16-inch passage, on the top water elbow's male tip |
 | pockets | both rods, both floats, six flush TPU grips and two independent air tubes |
 | sensing | ten reeds — two on the bridge, four per reservoir — and both 1-wire probes |
-| collets | two PP010822E water adapters and one PI010822S gas adapter on the carbonator elbows |
+| collets | one PP010822E water adapter on the top water elbow |
 
 The [carbonator closure-assembly drawing](carbonator-vessel-weldment-drawing.pdf)
 shows the vessel before permanent fittings, with cap recesses, clocking, closure
@@ -55,7 +55,6 @@ writes. `bom-covered` is the axis the work is on.
 | `arcs-hold` | every corner turns at the stock arc |
 | `floats-couple` | ASA Aero bodies keep at least 1 mm upright wall clearance; float-edge to reed-center distance stays within the provisional 18 mm maximum, with installed switching unmeasured |
 | `inlet-jet-qualified` | the cap is a nominal layout; its actual weld land, joint and installed projection await the fabrication trial |
-| `gas-adapter-envelope` | the PI010822S gas adapter uses the existing nominal collet envelope until the acquired fitting is measured |
 
 ```
 tools/cad-venv/bin/python hardware/cold-core-layout/cold_core_assembly.py
@@ -68,7 +67,10 @@ bore and threaded engagement are layout assumptions, not measurements of the acq
 Two figures are struck off parts this repo owns rather than off a catalog:
 the elbow hex is sized by the ⌀19 bore `prv-shroud` presents to it, and the male leg's standoff
 is `hole_shift_from_edge + plate_recess`, which is where the shell's own storeys put the band
-each line crosses on.
+each line crosses on. The bottom plate's push-fit elbows are the AME4-N2 row of neoFit's Male
+Elbow NPTF drawing. `_port_cuts.bottom_port_drop` puts the bottom band on their socket axis at
+the street elbow's nominal thread engagement, and `_carbonator.report` prints the two figures
+against each other.
 
 The inlet cap touches that elbow model's male tip and points down into the headspace. Its
 nominal dimensions come from the [inlet-jet fabrication procedure](/hardware/assembly/water-inlet-jet.md).

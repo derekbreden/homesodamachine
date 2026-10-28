@@ -1,8 +1,9 @@
 """The carbonator, in the foam shell's own frame.
 
 A 5" OD × 0.065" wall 316 tube with a 1/4"-thick circular plate recessed into each end and
-fillet-welded there, the 1/8" 316L float rod welded between the plates' blind registers, and a
-TAISHER street elbow made up on each of the four tapped 1/4" NPT ports.
+fillet-welded there, the 1/8" 316L float rod welded between the plates' blind registers, a
+TAISHER street elbow made up on each of the top plate's two tapped 1/4" NPT ports, and a neoFit
+AME4-N2-E push-fit male elbow on each of the bottom plate's two.
 
   Z         the shell's own. The tube's bottom sits one floor slab and one support ring up
             (`carbonator_bottom_z`); every figure below is struck off that.
@@ -17,8 +18,8 @@ the tube, end to end.
 
 THE ELBOWS ARE PLACED BY THE STOREYS, NOT BY THEIR OWN REACH. `front_face_port_z` and
 `top_band_z` are where the shell's lines cross those bands, and an elbow's corner is what has
-to arrive there. `ELBOW_AXIS_OFFSET` is that standoff struck off the shell, and `main` holds
-it against `_fittings.ELBOW_LEG` — the same distance read off the catalog part.
+to arrive there. `BOTTOM_AXIS_OFFSET` and `ELBOW_AXIS_OFFSET` are those standoffs struck off
+the shell, and `report` holds each against the same distance read off its catalog part.
 """
 
 from __future__ import annotations
@@ -89,8 +90,13 @@ UPPER_STOP_BORE = _endcap.register_drill_diameter * IN
 
 # --- The elbows ---------------------------------------------------------------
 # The standoff from a plate's outer face to the lateral axis its elbow turns onto, struck off
-# the shell's own storeys. It reads the same at both plates.
+# the shell's own storeys. The top plate's street elbows turn on the band over the tube's end;
+# the bottom plate's push-fit male elbows turn on the band their own socket axis sets.
 ELBOW_AXIS_OFFSET = hole_shift_from_edge + PLATE_RECESS
+BOTTOM_AXIS_OFFSET = bottom_plate_z[0] - front_face_port_z
+# The bottom elbow's catalog reach at the street elbow's nominal engagement: the shoulder stands
+# the thread's unengaged length off the plate, and the socket axis its own reach over that.
+BOTTOM_CATALOG_OFFSET = F.MALE_ELBOW_THREAD - F.ELBOW_MALE_LEN + F.MALE_ELBOW_AXIS_REACH
 
 # Which port carries what. `up` is the direction the male leg threads, `out` the way the
 # female socket faces once the elbow is made up.
@@ -107,13 +113,18 @@ PORTS = {
 }
 
 
+def axis_offset(name: str) -> float:
+    """How far off its plate's outer face a port's elbow turns its line."""
+    return BOTTOM_AXIS_OFFSET if PORTS[name]["plate"] == "bottom" else ELBOW_AXIS_OFFSET
+
+
 def port_corner(name: str) -> tuple:
     """Where one port's elbow crosses — the point its two leg axes share."""
     spec = PORTS[name]
     if spec["plate"] == "bottom":
-        z = bottom_plate_z[0] - ELBOW_AXIS_OFFSET
+        z = bottom_plate_z[0] - axis_offset(name)
     else:
-        z = top_plate_z[1] + ELBOW_AXIS_OFFSET
+        z = top_plate_z[1] + axis_offset(name)
     return (0.0, spec["y"], z)
 
 
@@ -198,26 +209,37 @@ def rod_length() -> float:
 
 
 def build_elbows() -> dict:
-    """The four street elbows, name → `(solid, mouth)`.
+    """The four port elbows, name → `(solid, mouth)`.
 
-    The male leg is `ELBOW_AXIS_OFFSET` — the plate face is where it stops."""
-    return {name: F.street_elbow(corner=port_corner(name), up=port_up(name), out=port_out(name),
-                                 up_leg=ELBOW_AXIS_OFFSET, male_len=male_len(name))
-            for name in PORTS}
+    A street elbow's male leg is `ELBOW_AXIS_OFFSET` — the plate face is where it stops. A
+    bottom port's push-fit elbow is one moulding, so its own figures place its thread."""
+    out = {}
+    for name in PORTS:
+        if PORTS[name]["plate"] == "bottom":
+            out[name] = F.male_elbow(corner=port_corner(name), up=port_up(name),
+                                     out=port_out(name))
+        else:
+            out[name] = F.street_elbow(corner=port_corner(name), up=port_up(name),
+                                       out=port_out(name), up_leg=ELBOW_AXIS_OFFSET,
+                                       male_len=male_len(name))
+    return out
 
 
 def male_len(name: str) -> float:
-    """The nominal male engagement drawn on each identical purchased elbow.
+    """The nominal male engagement drawn past the plate's outer face.
 
     This layout does not establish the installed NPT engagement or the tip's projection
-    through a tapped plate; both are measured during the inlet-jet fit trial."""
+    through a tapped plate; the inlet-jet fit trial measures the street elbow's, and the bench
+    fit of a bottom elbow in a tapped scrap of the plate measures its own."""
+    if PORTS[name]["plate"] == "bottom":
+        return F.MALE_ELBOW_THREAD - (BOTTOM_AXIS_OFFSET - F.MALE_ELBOW_AXIS_REACH)
     return F.ELBOW_MALE_LEN
 
 
 def port_male_tip(name: str) -> tuple:
     """The nominal tip of the male leg, in the direction it enters the carbonator."""
     return tuple(cq.Vector(*port_corner(name))
-                 + cq.Vector(*port_up(name)).multiply(ELBOW_AXIS_OFFSET + male_len(name)))
+                 + cq.Vector(*port_up(name)).multiply(axis_offset(name) + male_len(name)))
 
 
 def bodies() -> dict:
@@ -256,6 +278,9 @@ def report() -> None:
     # the catalog part reaches. A gap here is a fitting that cannot put its mouth on the band.
     print(f"    elbow standoff  {ELBOW_AXIS_OFFSET:.2f} off the plate face (shell storeys) "
           f"vs {F.ELBOW_LEG:.2f} (catalog leg) — Δ{F.ELBOW_LEG - ELBOW_AXIS_OFFSET:+.2f}")
+    print(f"    bottom standoff {BOTTOM_AXIS_OFFSET:.2f} off the plate face (shell storeys) "
+          f"vs {BOTTOM_CATALOG_OFFSET:.2f} (catalog reach at the nominal engagement) — "
+          f"Δ{BOTTOM_CATALOG_OFFSET - BOTTOM_AXIS_OFFSET:+.2f}")
     for name in PORTS:
         c = port_corner(name)
         m = mouths()[name]
