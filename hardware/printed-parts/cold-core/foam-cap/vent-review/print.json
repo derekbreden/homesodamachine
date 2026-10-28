@@ -1,0 +1,371 @@
+{
+  "part": "HSM-000020",
+  "preparation": {
+    "piece": "foam-cap-lid-top",
+    "printer": "Mark1",
+    "connection_key": "H2C",
+    "nozzle": {
+      "side": "left",
+      "diameter_mm": 0.4,
+      "flow": "Standard",
+      "hardened": true,
+      "reason": "Top lid: hardened left 0.4 mm Standard nozzle with the shared PET-GF process.",
+      "sliced_diameter_mm": 0.4,
+      "sliced_volume_type": "Standard"
+    },
+    "material": "Polymaker Fiberon PET-GF15, black",
+    "bed_type": "Textured PEI Plate",
+    "requested_z_trim_mm": 0.18,
+    "emitted_textured_trim_mm": 0.16,
+    "project": ".cache/prints/trial/2026-10-28-foam-cap-lid-top-mark1-06d1c98d/2026-10-28-foam-cap-lid-top-mark1-06d1c98d.3mf",
+    "project_sha256": "0e0dcffacf34cd7d2fd44a160ef2b9a32d6d700bc36f206586fe1dfc857efcce",
+    "profile": "hardware/printed-parts/petgf.3mf",
+    "profile_sha256": "45c16e8c8517e0a205107d7b9f7412d013f51a8de7ecf86125cc940079d37ed0",
+    "settings_sha256": "8260452bae9cf42ed8016bca971ee73ed8c4437f00091b5665e63af9ae153d61",
+    "settings_changes": {
+      "extruder_ams_count": {
+        "from": [
+          "1#0|4#1",
+          "1#0|4#0"
+        ],
+        "to": [
+          "1#0|4#0",
+          "1#0|4#0"
+        ],
+        "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface."
+      },
+      "support_filament": {
+        "from": "0",
+        "to": "1",
+        "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface."
+      },
+      "support_interface_filament": {
+        "from": "0",
+        "to": "1",
+        "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface."
+      },
+      "flush_into_support": {
+        "from": "1",
+        "to": "0",
+        "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface."
+      },
+      "filament_colour": {
+        "from": [
+          "#000000"
+        ],
+        "to": [
+          "#000000"
+        ],
+        "reason": "Mark1's loaded black PET-GF colour reading."
+      },
+      "wall_loops": {
+        "from": "2",
+        "to": "3",
+        "reason": "Derek selected 2.38 mm standing walls, packed with six perimeter beads."
+      },
+      "wall_generator": {
+        "from": "classic",
+        "to": "classic",
+        "reason": "Three fixed-width perimeters from each wall boundary."
+      },
+      "sparse_infill_pattern": {
+        "from": "gyroid",
+        "to": "gyroid",
+        "reason": "Retain 15% gyroid in thicker regions."
+      },
+      "enable_support": {
+        "from": "1",
+        "to": "1",
+        "reason": "Tree(auto)/Default supports the rectangular WAGO well end walls and B-fill pocket roofs. The return and water-check pedestals have peaked tie passages. Retain native automatic support choices."
+      }
+    },
+    "profile_changes": {
+      "machine_start_gcode": {
+        "from_sha256": "3cc9e41520dbf5622d6f9a96bce734db9d11b0b48b49f2abec047a6e01dc6a92",
+        "to_sha256": "409b1516f0401361a02b18a34420c10ca83bc33615e8896cade2fea42edee871",
+        "requested_z_trim_mm": 0.18
+      },
+      "printer_settings_id": {
+        "from": "Bambu Lab H2C 0.4 nozzle 04 first layer by agent",
+        "to": "Bambu Lab H2C 0.4 Standard +0.18 Z trim"
+      },
+      "print_compatible_printers": {
+        "from": [
+          "Bambu Lab H2C 0.4 nozzle"
+        ],
+        "to": [
+          "Bambu Lab H2C 0.4 nozzle",
+          "Bambu Lab H2C 0.4 Standard +0.18 Z trim"
+        ]
+      }
+    },
+    "usable_plate_mm": [
+      [
+        0.0,
+        0.0
+      ],
+      [
+        325.0,
+        320.0
+      ]
+    ],
+    "plate_border_mm": 20.0,
+    "brim_allowance_mm": 0.0,
+    "plate_offset_mm": null,
+    "objects": [
+      {
+        "name": "foam-cap-lid-top",
+        "identify_id": 1901,
+        "object_id": 2,
+        "stl": "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl",
+        "stl_sha256": "82864e8ce06a4fb8074d314131ff035fed7f85fe2f038c6806ffb7d73d60ec6d",
+        "step_sha256": "52662ad3d7731af35b1f3660da4badb9c7abaf15f1fe93c34e4a1068b7de514e",
+        "facets": 93260,
+        "closed": {
+          "edges": 139890,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "inconsistent_edges": 0,
+          "bodies": 1,
+          "closed_oriented_single_body": true
+        },
+        "pose": null,
+        "pose_rotation": [
+          [
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "yaw_degrees": 0,
+        "source_center_mm": [
+          0.0,
+          3.75,
+          25.325000762939453
+        ],
+        "build_rotation": [
+          [
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "translation_mm": [
+          162.5,
+          160.0,
+          25.325000762939457
+        ],
+        "plate_bounds_mm": [
+          [
+            21.300003051757812,
+            66.05000305175781,
+            0.0
+          ],
+          [
+            303.6999969482422,
+            253.9499969482422,
+            50.650001525878906
+          ]
+        ],
+        "model_bed_margin_mm": 21.300003051757812,
+        "seam_enforcer": null,
+        "object_settings": {},
+        "features": [],
+        "ranges": [],
+        "verify_spans": [],
+        "ribbons": [],
+        "tie_windows": [],
+        "modifiers": [
+          {
+            "name": "Reservoir A fore direct C2 pair and lid root",
+            "source_bounds_mm": [
+              [
+                110.05000000000001,
+                44.925,
+                2.4000000000000057
+              ],
+              [
+                118.05000000000001,
+                69.575,
+                10.5
+              ]
+            ],
+            "plate_bounds_mm": [
+              [
+                272.55,
+                201.175,
+                2.4000000000000092
+              ],
+              [
+                280.55,
+                225.825,
+                10.500000000000004
+              ]
+            ],
+            "sparse_infill_density": "100%"
+          }
+        ],
+        "fins": [],
+        "regions": {
+          "record": "hardware/printed-parts/cold-core/foam-cap/fore-snap-print-regions.json",
+          "record_sha256": "f8fe335ea7e24d8bdbdeb943e2062708434aaffa984ed56724237a754698b504",
+          "part_process_overrides": null
+        }
+      }
+    ],
+    "pause": null,
+    "show_faces": ".cache/prints/trial/2026-10-28-foam-cap-lid-top-mark1-06d1c98d/show-faces.npz",
+    "spec": "hardware/printed-parts/enclosure/trial-preparation/pieces.json",
+    "spec_sha256": "34d549fc8e7e0b9ec3f80e6b533b0d4647fece413029daf1d8fc992d4a0a23dc",
+    "tool_sha256": {
+      "hardware/printed-parts/enclosure/trial-preparation/_derive.py": "31256357a16f37d9f1516ce1ee1636c97559dfe54a1a2050ae661d622e6b3189",
+      "hardware/printed-parts/enclosure/trial-preparation/_mesh.py": "7ab22db36e370608f52df3709c4af1994c8e804ee06e101dcbf79210db99eead",
+      "hardware/printed-parts/enclosure/trial-preparation/_native.py": "1c99ce10842a141a942a19d7def2329512d14b676c00618496187e0d93cd29da",
+      "hardware/printed-parts/enclosure/trial-preparation/_seam.py": "9ffa509df701826563e18388fd3bcc57c604f4b2b8e5e4288821ddcd00bcb176",
+      "hardware/printed-parts/enclosure/trial-preparation/labels.py": "c326a74b104b894d81dcfd8eb00c93ebf602291816decaf241a01cf4818b672d",
+      "hardware/printed-parts/enclosure/trial-preparation/prepare.py": "525be245521bd721c1ee6795f37e80d9f1e9ace9c4f8fa08b857f88e83388d9a",
+      "hardware/printed-parts/enclosure/trial-preparation/review.py": "9bd303fe370842fd34eb559dc5f53f887f75c42e478c598737397dd49dd539f7",
+      "hardware/printed-parts/enclosure/trial-preparation/step_meshes.py": "b50f7b50f52f1e8516be3b1fc9ecdb10e87fb188f8b9bebc0fac56737320fc44"
+    },
+    "prepared_utc": "2026-10-28T05:43:30+00:00",
+    "sliced": true,
+    "submitted": false,
+    "archive": ".cache/prints/trial/2026-10-28-foam-cap-lid-top-mark1-06d1c98d/2026-10-28-foam-cap-lid-top-mark1-06d1c98d.gcode.3mf",
+    "archive_sha256": "e03247e91290e65efad2f5b3fb8124cba4f733560ec00cc7cb4b9f6418e958f9",
+    "gcode_sha256": "0bcbb25e81430dbee0e017cbe8a6fd9127f7687d5fca09c0be85276c58521f28",
+    "estimated_seconds": 19310.7890625,
+    "slicer_warnings": []
+  },
+  "review": {
+    "archive": ".cache/prints/trial/2026-10-28-foam-cap-lid-top-mark1-06d1c98d/2026-10-28-foam-cap-lid-top-mark1-06d1c98d.gcode.3mf",
+    "archive_sha256": "e03247e91290e65efad2f5b3fb8124cba4f733560ec00cc7cb4b9f6418e958f9",
+    "gcode_md5_matches": true,
+    "emitted_z_trim_mm": [
+      0.0,
+      0.16
+    ],
+    "expected_emitted_textured_trim_mm": 0.16,
+    "layers": 211,
+    "project_check": true,
+    "bead_envelope_plate_mm": [
+      [
+        21.200000000000003,
+        65.95
+      ],
+      [
+        303.8,
+        254.05
+      ]
+    ],
+    "bed_margins_mm": {
+      "left": 21.200000000000003,
+      "front": 65.95,
+      "right": 21.19999999999999,
+      "back": 65.94999999999999
+    },
+    "minimum_bed_margin_mm": 21.19999999999999,
+    "bed_border_mm": 20.0,
+    "fine_and_transition_bands": [],
+    "support_roads": 44763,
+    "show_face_minimum_bead_clearance_mm": null,
+    "show_face_contacts": [],
+    "tie_window_support_crossings": [],
+    "ribbon_support_crossings": [],
+    "ribbons": [],
+    "fine_band_unbacked_roads": [],
+    "first_second_layer_stack": {
+      "1901": {
+        "second_layer_model_bead_area_mm2": 48796.11292012084,
+        "fraction_over_first_layer": 0.9941003904138612,
+        "second_layer_centerline_outside_first_mm": 117.46870871662978
+      }
+    },
+    "solid_host_deposition": [
+      {
+        "object": 1901,
+        "name": "Reservoir A fore direct C2 pair and lid root",
+        "plate_bounds_mm": [
+          [
+            272.55,
+            201.175,
+            2.4000000000000092
+          ],
+          [
+            280.55,
+            225.825,
+            10.500000000000004
+          ]
+        ],
+        "samples": [
+          {
+            "print_z_mm": 2.84,
+            "coverage": 0.9895879259057295,
+            "stock_mm2": 197.19999999999982
+          },
+          {
+            "print_z_mm": 6.68,
+            "coverage": 0.9968780500559099,
+            "stock_mm2": 197.19990205000906
+          },
+          {
+            "print_z_mm": 10.28,
+            "coverage": 0.9982560171446504,
+            "stock_mm2": 96.18854792928062
+          }
+        ],
+        "minimum_coverage": 0.9895879259057295
+      }
+    ],
+    "support_topology": {
+      "1901": {
+        "support_bodies": 8,
+        "interface_islands": null,
+        "bed_rooted_bodies": 3,
+        "model_rooted_bodies": 5,
+        "shortest_build_up_mm": null,
+        "bodies_without_interface_labels": 1,
+        "explicit_interface_islands": 10,
+        "shortest_labelled_build_up_mm": 0.24
+      }
+    },
+    "scope": "Commanded paths and bead envelopes from this archive. Support removal, surface finish, fit and strength are physical observations.",
+    "checks": {
+      "archive": true,
+      "z_trim": true,
+      "bed_border": true,
+      "fine_and_transition_bands": true,
+      "show_faces_support_free": true,
+      "tie_windows_support_free": true,
+      "ribbons_support_free_and_printed": true,
+      "solid_hosts_sampled": true
+    },
+    "pass": true
+  },
+  "execution": {
+    "isolated_slicer_seconds": 10,
+    "isolated_slicer_peak_rss_mb": 776,
+    "available_system_memory_percent_before_slice": 26,
+    "other_CAD_jobs_running_at_start": false,
+    "review_peak_rss_mb": 145
+  }
+}

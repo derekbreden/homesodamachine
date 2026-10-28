@@ -1,0 +1,53 @@
+{
+  "views": [
+    {
+      "name": "vent",
+      "caption": "The vent passes the valve wall and lower connector with 1.5 mm nominal air to the WAGO.",
+      "before": "vent-before.webp",
+      "after": "vent-after.webp",
+      "width": 920,
+      "height": 640,
+      "marks": [],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          -70.0,
+          110.0,
+          320.0
+        ],
+        "target": [
+          32.0,
+          229.0,
+          269.0
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 32.5,
+        "aspect": 1.4375
+      },
+      "only": [
+        "cold-core/foam-cap-lid-top",
+        "cold-core/wago-v12",
+        "cold-core/tube-reservoir-air-b",
+        "cold-core/valve-v-b"
+      ],
+      "rendering": "Opaque CPU z-buffer drawing of the full published viewer triangles; cap stock shown matte grey for legibility. One camera for snapshot and current geometry; no mesh decimation. Browser renderer exceeded the session memory limit.",
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "5bea2c319aa1422cb54ae8aa9a186d597105feeb521d5d4d07490c57b067f09a"
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "sha256": "3540d14706293dc5014625f1cc17802171cc2ebe53bf874dde3aeeccff51cedc"
+        }
+      },
+      "highlight": []
+    }
+  ]
+}

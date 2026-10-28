@@ -1,0 +1,17 @@
+{
+  "scope": "Incremental print triangulation: retain the published 0.005 mm / 0.05 rad mesh and apply the source-matched changed rectangular stock/pockets. Extend the original vent bore polygon, retaining its own sampled circle. Exact native equivalent is bound by build.json.",
+  "input_sha256": "7bcc54f627339e94a679df4911b677f4aad8395d47c5ba278bb5331d28c70d68",
+  "stl_sha256": "82864e8ce06a4fb8074d314131ff035fed7f85fe2f038c6806ffb7d73d60ec6d",
+  "vent_polygon_vertices": 501,
+  "cleanup_surface_movement_bound_mm": 0.0001,
+  "maximum_vent_circle_radial_error_mm": 8.291840160268293e-06,
+  "facets": 93260,
+  "watertight": true,
+  "winding_consistent": true,
+  "bodies": 1,
+  "volume_change_mm3": 3477.0897894586087,
+  "serialized_watertight": true,
+  "serialized_single_solid": true,
+  "payload_sha256": "316f267d313ab4d56fb257c2597d7afd7a94c1b88e7c9dc535a302dc56b4cdde",
+  "payload_independently_verified": true
+}
