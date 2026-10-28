@@ -3,6 +3,10 @@
 **Accepted on Mark2 as task 1379343230 at 00:54:33 CDT on October 27, 2026.**
 Native estimate: **31 h 37 min**, **1,449.9 g**, 889 layers.
 
+**Completed shell accepted as a success by Derek on October 28, 2026.**
+Retain the production settings below; the
+[physical result](#physical-result--success-2026-10-28) records the visible seam defect.
+
 The smooth shell has continuous 2.38 mm standing walls, a 2 mm floor and two
 7.5 mm round clearance holes for the nominal 6.35 mm copper tails. Its casing
 is 282.4 × 180.4 × 213.4 mm. The reservoir pocket stock and floor match the
@@ -50,9 +54,7 @@ Copper insertion follows [cold-core assembly §5](../../../../../assembly/cold-c
 feed the bare ends through the holes while lowering the core, support the copper
 while forming its broad curves, inspect for kinks/flattening and seal the annuli
 with burnished 3M 425 collars before pouring foam. The part, seam treatment and
-assembly sequence are the intended production design. This preparation records
-commanded paths and geometric checks; the completed shell's finish, integrity,
-fit and insertion still require inspection before use in an assembled unit.
+assembly sequence are the production design.
 
 Density metadata uses Polymaker's [1.43 g/cm³ specification](https://fiberon.polymaker.com/wp-content/uploads/TDS_FIBERON-PET-GF15_V1.0_EN.pdf). The [metadata review](metadata-review.json) confirms that the correction leaves every executable G-code command unchanged. The [machine review](machine-review.json) records the explicit shell placement and absence of cover bodies.
 
@@ -75,3 +77,26 @@ finish and first-layer adhesion are not inferred from that status.
 At **00:56:58 CDT**, the [fresh readback](startup-progress.json) reported RUNNING,
 layer 0/889, with print error 0 and HMS empty. The file preparation was 100%;
 startup was in progress.
+
+## Physical result — success (2026-10-28)
+
+Derek accepts the completed shell for the internal cold core and retains the
+current production settings. The seam has a small but conspicuous visual defect,
+visible in the overview and close-ups. He does not see the scarf helping the
+finish. An exterior show surface would need further iteration.
+
+The part feels solid to Derek, and he sees no reason to regard the seam as a
+structural defect. He expects no interference with assembly.
+
+The [physical-result record](physical-result/physical-result.json) binds this
+assessment to task **1379343230**, preserves his full wording and identifies the
+five original photographs by SHA256. His disposition: "So please make a note of
+all of that and call it a success, as far as such things go."
+
+![Completed cold-core shell with the small, conspicuous seam defect visible on its long wall.](physical-result/photos/04-overview.jpg)
+
+Original photographs: [1 — seam close-up](physical-result/photos/01-seam-closeup.jpg),
+[2 — seam close-up](physical-result/photos/02-seam-closeup.jpg),
+[3 — wall detail](physical-result/photos/03-wall-detail.jpg),
+[4 — overview](physical-result/photos/04-overview.jpg),
+[5 — seam detail](physical-result/photos/05-seam-detail.jpg).

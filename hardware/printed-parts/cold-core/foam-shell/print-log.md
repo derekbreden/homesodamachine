@@ -20,7 +20,23 @@ Default remains enabled and generates no supports. Accepted as task
 **1379343230** at **2026-10-27 00:54:33 CDT / 05:54:33 UTC**, with PREPARE,
 print error 0 and HMS empty. Timelapse and bed leveling are On; flow and nozzle
 offset calibration are Auto. The submitted archive is byte-identical to the
-reviewed preparation. No physical result is recorded for this article.
+reviewed preparation.
+
+### Result — success (2026-10-28)
+
+Derek accepts the completed shell as a successful internal cold-core print and
+retains the current production settings. The seam has a small but very noticeable
+visual defect. He sees no apparent benefit from the scarf; an exterior show
+surface would need further iteration.
+
+Derek reports: "Everything seems solid enough, and I don't think this is going
+to interfere with assembly in any way." He sees no reason to regard the seam as
+a structural defect.
+
+The [physical result](prints/2026-10-26-mark2-round-ports-a2/physical-result/physical-result.json)
+preserves his full report and all five original photographs with SHA256 hashes.
+The [production record](prints/2026-10-26-mark2-round-ports-a2/README.md#physical-result--success-2026-10-28)
+shows the photographed finish.
 
 ## Stock
 
