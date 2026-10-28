@@ -1,0 +1,170 @@
+{
+  "scope": "Manual native review of the rotated carbonator sensors, upright full float travel including bore play, and dedicated cup/lid cable opening; no recurring check added.",
+  "rod_xy_shell_mm": [
+    0.0,
+    -41.849000000000004
+  ],
+  "reed_xy_shell_mm": [
+    0.0,
+    -64.75
+  ],
+  "reservoir_sensing_y_shell_mm": 32.5,
+  "carbonator_reed_to_reservoir_magnet_axes_mm": [
+    144.03688763646625,
+    144.03688763646625
+  ],
+  "float_body_sweep_z_shell_mm": [
+    46.2,
+    167.70000000000002
+  ],
+  "float_sweep_radius_mm": 18.8125,
+  "float_sweep_clearances": {
+    "tube": {
+      "distance_mm": 1.187499999999993,
+      "overlap_mm3": 0.0
+    },
+    "endcap-bottom": {
+      "distance_mm": 1.5,
+      "overlap_mm3": 0.0
+    },
+    "endcap-top": {
+      "distance_mm": 4.0,
+      "overlap_mm3": 0.0
+    },
+    "inlet-jet": {
+      "distance_mm": 1.745999999999981,
+      "overlap_mm3": 0.0
+    },
+    "co2-in": {
+      "distance_mm": 1.2460000000000022,
+      "overlap_mm3": 0.0
+    },
+    "carb-water-out": {
+      "distance_mm": 35.03964470424893,
+      "overlap_mm3": 0.0
+    },
+    "water-in": {
+      "distance_mm": 3.745999999999981,
+      "overlap_mm3": 0.0
+    },
+    "prv": {
+      "distance_mm": 35.683002970602125,
+      "overlap_mm3": 0.0
+    }
+  },
+  "upper_stop": {
+    "height_mm": 4.0,
+    "outer_diameter_mm": 9.5,
+    "through_bore_mm": 3.571875,
+    "minimum_length_mm": 3.8,
+    "minimum_length_jet_clearance_mm": 1.545999999999981
+  },
+  "cable_passage": {
+    "points_mm": [
+      [
+        74.0,
+        323.8,
+        232.4
+      ],
+      [
+        74.0,
+        323.8,
+        255.4
+      ]
+    ],
+    "bend_radius_mm": 5.5,
+    "bore_diameter_mm": 7.5,
+    "column_outer_diameter_mm": 12.26,
+    "native_probes": {
+      "cup": {
+        "packed_loom_diameter_mm": 4.0,
+        "overlap_mm3": 0.0,
+        "native_axis_xy_mm": [
+          0.0,
+          74.0
+        ]
+      },
+      "lid": {
+        "packed_loom_diameter_mm": 4.0,
+        "overlap_mm3": 0.0,
+        "native_axis_xy_mm": [
+          0.0,
+          74.0
+        ]
+      }
+    }
+  },
+  "calibration": {
+    "magnet_travel_above_tube_rim_mm": [
+      28.2,
+      121.70000000000002
+    ],
+    "provisional_reed_centres_mm": [
+      58.33184375843412,
+      86.48389407533519
+    ],
+    "nominal_stop_headspace_displacement_ml": 0.24344738365943064
+  },
+  "drawing_review": {
+    "endcap": "END-CAP-01 Rev E; register location, A-A register section, enlarged detail B, unchanged threaded-port requirements; source and annotation/routing reviews completed.",
+    "weldment": "CV-WLD-01 Rev C; YZ section direction, registers, upper stop definition, item 5, cap/rod dimensions and notes; source and annotation/routing reviews completed.",
+    "coil": "EVAP-01 Rev C; bridge relief azimuth -Y, revision/date and both sheet title blocks checked against current source; annotation and routing/composition reviews completed."
+  },
+  "limits": [
+    "Upright envelope includes full radial guide play; tilt, printed expansion, actual elbow/jet projection, stop attachment and installed reed switching require physical qualification."
+  ],
+  "sha256": {
+    "hardware/printed-parts/cold-core/_cold_core_interface.py": "e97ea267e80b839f1817c5696890e53ee711343f25d7a31d128d09175a8781e0",
+    "hardware/cold-core-layout/_carbonator.py": "7e75a3f4adc35d0193c188d352282d8796fa7b962702f2bb910c80de554d7d21",
+    "hardware/cold-core-layout/_internals.py": "ee2d1e3fbf7d1a3737af93e86c8b2574c78714ba5fb13c5136eb2d3f28266775",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step": "f2f48827ab9115be3174f0c9d28fc407a92931d735c3efcd162a328972878718",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step": "841d727786e3a1f9c6d0be98425f7e4aa7c7d8cb8938828d8808c698b7063149",
+    "hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step": "9a3e80cf259dc325a12d59b845e54f3576e4016037f43a5f9c953a3a41ef4185",
+    "hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole-drawing.pdf": "5d08728194f22d931878138b19af2e56d8db718ed2d97c3cbde51203a5855ad9",
+    "hardware/cold-core-layout/carbonator-vessel-weldment-drawing.pdf": "dc3f825d9cbd9c261c483543d41dc1d2dab179da1877602144e76e6426c589ba",
+    "hardware/cold-core-layout/evaporator-coil-drawing.pdf": "ead6e9ca24dfa606a2f4240f7f6065840f6b33c33fd230b4cc35945904cfe172",
+    "hardware/wiring/installed/bundle-routes.json": "add88c4b3c800d00976d1a52ae48ed4c816d9671950fb052ddc59d66f6139563",
+    "hardware/wiring/installed/bundles.py": "0bb65b7683e948ef063a5377ddf5d8401565f0fa6c26f16f23d500584784d0a7",
+    "hardware/wiring/installed/terminals.py": "5ac4dd6b1ce78e7ebd9106006f9bd52bc94892a7d7f1d7f06430ef8d1ba6da1f"
+  },
+  "wiring": {
+    "scope": "Manual native intersections of the four relocated carbonator reed wires against all nearby physical bodies and other conductors. Only intended terminal contacts within the existing 8.5 mm endpoint rule are excluded.",
+    "checked_wires": [
+      "J7-CLO",
+      "J7-CHI",
+      "J7-carb-earth-1",
+      "J7-carb-earth-2"
+    ],
+    "native_queries": 327,
+    "physical_interferences": [],
+    "wire_interferences": [],
+    "lengths_mm": {
+      "J7-CLO": 388.913,
+      "J7-CHI": 356.225,
+      "J7-carb-earth-1": 28.152,
+      "J7-carb-earth-2": 395.744
+    },
+    "minimum_bends_mm": {
+      "J7-CLO": 1.4506613185430612,
+      "J7-CHI": 0.8799999999999999,
+      "J7-carb-earth-1": null,
+      "J7-carb-earth-2": 1.3199999999999998
+    },
+    "assembly_step_sha256": "c601245aa27f47e380610fe2159839ae1a35ab47e80e76fc03a39dd393156f4a",
+    "manifest_sha256": "a134b34c3c6673e0a782cf4debcdafe5ea0f6d9333f5353a40c92b5f9f1b6146",
+    "preparation_blank_mm": 500.0,
+    "longest_relocated_wire_mm": 395.744,
+    "upper_dressing": "Straight lid exit; free conductors pass west beneath the pump and approach the PCB from its west side."
+  },
+  "combined_exports": {
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step": "f2f48827ab9115be3174f0c9d28fc407a92931d735c3efcd162a328972878718",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.stl": "263b609526495cdb6384a37f1051fdd6cf0dbe62ae80c1dd0f64c1b3ed60b11c",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step.mesh": "4fd3129189d107722f34d14687b7815b1676c2544e82b6fbe3f3b3beac0bc1f6",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step": "841d727786e3a1f9c6d0be98425f7e4aa7c7d8cb8938828d8808c698b7063149",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl": "38d824af559c855ea5ba24abfdfeeae590842cf5f2d42dc3d6b65d2dd844e4f5",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh": "b1e3e6297a14587a1abd3c94e9bd01d5fa3ca6b5d23e522edb2acccbc9243092",
+    "hardware/cold-core-layout/cold-core-assembly.step": "316a773ab6e252ed89098c5ea11f068c27d64f7a26b805627fa175d5d1734b82",
+    "hardware/manifold-layout/enclosure-assembly.step": "c601245aa27f47e380610fe2159839ae1a35ab47e80e76fc03a39dd393156f4a",
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": "fb994e476988df5672c61730886aac1be0d31ec4e9c2a5c196c7cbe8c74d2107"
+  }
+}

@@ -410,8 +410,8 @@
   },
   "guide": {
     "axisXZ": [
-      0,
-      -41.849000000000004
+      41.849000000000004,
+      -0.0
     ],
     "diameter": 3.175,
     "rangeY": [
@@ -436,9 +436,9 @@
     ],
     "magnetCenterBelowWater": 8.766105924664824,
     "position": [
-      0,
+      41.849000000000004,
       "level-8.766",
-      -41.849000000000004
+      -0.0
     ],
     "freeboardAtSizingDensity": 5.233894075335176,
     "material": {
@@ -454,22 +454,22 @@
     {
       "file": "carbonator-hardware-full.json",
       "compressedFile": "carbonator-hardware-full.json.gz",
-      "meshes": 18,
-      "triangles": 20212,
-      "bytes": 1212610,
-      "compressedBytes": 240610,
+      "meshes": 19,
+      "triangles": 21052,
+      "bytes": 1253450,
+      "compressedBytes": 251672,
       "source": "hardware/cold-core-layout/cold-core-assembly.step",
-      "sourceSha256": "f8abee782cb4483131839efa791101aaeb236795c5e32fd27b344e9a2eab8f50"
+      "sourceSha256": "316a773ab6e252ed89098c5ea11f068c27d64f7a26b805627fa175d5d1734b82"
     },
     {
       "file": "carbonator-hardware-section.json",
       "compressedFile": "carbonator-hardware-section.json.gz",
-      "meshes": 16,
-      "triangles": 11506,
-      "bytes": 699537,
-      "compressedBytes": 135262,
+      "meshes": 17,
+      "triangles": 10410,
+      "bytes": 629335,
+      "compressedBytes": 126321,
       "source": "hardware/cold-core-layout/cold-core-assembly.step",
-      "sourceSha256": "f8abee782cb4483131839efa791101aaeb236795c5e32fd27b344e9a2eab8f50"
+      "sourceSha256": "316a773ab6e252ed89098c5ea11f068c27d64f7a26b805627fa175d5d1734b82"
     },
     {
       "file": "magnetic-float-cad.json",
@@ -477,14 +477,14 @@
       "meshes": 2,
       "triangles": 2520,
       "bytes": 139230,
-      "compressedBytes": 24235,
+      "compressedBytes": 24239,
       "source": "hardware/printed-parts/cold-core/magnetic-float/all-aero/assembly.step",
       "sourceSha256": "8a8166649e23bb9be37a099cc59603e0d43ba692e78871302f44688168c78a3d"
     }
   ],
   "notes": [
     "The same STEP shapes supply full hardware and exact Boolean half sections; all hardware needs no further coordinate rotation.",
-    "The half-space z<=0 passes through the port axes and retains the complete rod and float behind the section plane.",
+    "The half-space z<=0 passes through the port axes and sections the rod and float on the current sensing plane.",
     "sectionFaceIndices is a flat vertex-index list of cut triangles; sectionTriangleOrdinals gives their face IDs in the original full index buffer.",
     "Water and gas centerlines follow the layout elbow bores. The 6.35mm elbow bore is the repo's nominal layout placeholder, not a purchased-part measurement.",
     "Reference collets model an external solid envelope without a flow bore. Fluid through that envelope is an explanatory overlay, not measured connector internals.",
