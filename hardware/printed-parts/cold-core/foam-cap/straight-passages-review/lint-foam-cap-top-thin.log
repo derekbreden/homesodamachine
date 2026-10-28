@@ -1,0 +1,43 @@
+foam-cap-top.stl · 355198 printed facets · 7 findings
+answers: hardware/printed-parts/lint-answers/cold-core/foam-cap/foam-cap-top.lint-answers · read hardware/printed-parts/lint-answers/AGENTS.md before writing one
+
+  [thin] 2.000 mm of material at its thinnest · 105738.1 mm² of surface under 2.5 mm · spans 282.4 × 180.4 × 13.3 mm · in 178 pieces
+    file: hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step
+    click: x=-117.631 y=27.071 z=13.429
+    click: x=-115.819 y=27.917 z=13.429
+
+  [thin] 2.000 mm of material at its thinnest · 2401.4 mm² of surface under 2.5 mm · spans 18.8 × 52.4 × 13.2 mm · in 17 pieces
+    file: hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step
+    click: x=132.982 y=-26.289 z=0.150
+    click: x=132.982 y=-26.289 z=2.150
+    answered: Specified cup-floor section: Derek selected the 2.38 mm vertical casing while retaining the existing 2 mm floors, pocket heights and passage datums. The floor is the stack's 2.0 mm floor section above its 0.15 mm seat clearance, which leaves 2.05 mm under the B-fill pockets. The horizontal water-in and soda traverses keep 2.10 mm of backing beneath their bores.
+    alternatives: A 3 mm floor raises the traverses and pockets a millimetre in a 14.65 mm cup, which moves where their R14 bends cross into the lid, or makes the cup taller and moves the cap face.
+
+  [thin] 2.050 mm of material at its thinnest · 659.5 mm² of surface under 2.5 mm · spans 27.6 × 20.1 × 2.1 mm · in 3 pieces
+    file: hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step
+    click: x=86.814 y=-46.562 z=0.150
+    click: x=86.814 y=-46.562 z=2.200
+
+  [thin] 2.100 mm of material at its thinnest · 248.8 mm² of surface under 2.5 mm · spans 23.2 × 9.2 × 2.5 mm · in 11 pieces
+    file: hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step
+    click: x=37.319 y=-33.197 z=2.250
+    click: x=37.319 y=-33.197 z=0.150
+    answered: Specified cup-floor section: Derek selected the 2.38 mm vertical casing while retaining the existing 2 mm floors, pocket heights and passage datums. The floor is the stack's 2.0 mm floor section above its 0.15 mm seat clearance, which leaves 2.05 mm under the B-fill pockets. The horizontal water-in and soda traverses keep 2.10 mm of backing beneath their bores.
+    alternatives: A 3 mm floor raises the traverses and pockets a millimetre in a 14.65 mm cup, which moves where their R14 bends cross into the lid, or makes the cup taller and moves the cap face.
+
+  [thin] 2.380 mm of material at its thinnest · 66.3 mm² of surface under 2.5 mm · spans 14.4 × 4.5 × 6.4 mm · in 3 pieces
+    file: hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step
+    click: x=133.813 y=29.750 z=13.172
+    click: x=133.843 y=32.129 z=13.172
+
+  [thin] 2.380 mm of material at its thinnest · 183.5 mm² of surface under 2.5 mm · spans 14.7 × 32.8 × 6.5 mm · in 17 pieces
+    file: hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step
+    click: x=133.860 y=22.251 z=13.168
+    click: x=133.889 y=19.871 z=13.168
+    answered: Specified cold-core section: Derek selected smooth 2.38 mm standing casing walls and conduit stock for the whole casing, with three Classic loops from each boundary. This is the cold-core exception to the enclosure's ordinary 3 mm section; printed strength and lifetime are not established by the slice.
+    alternatives: A 3 mm section changes the selected six-bead packing and takes additional foam space; the current section is Derek's explicit geometry choice.
+
+  [thin] 2.380 mm of material at its thinnest · 210.5 mm² of surface under 2.5 mm · spans 2.5 × 50.4 × 2.4 mm · in 24 pieces
+    file: hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step
+    click: x=112.670 y=0.408 z=7.992
+    click: x=115.050 y=0.408 z=8.000

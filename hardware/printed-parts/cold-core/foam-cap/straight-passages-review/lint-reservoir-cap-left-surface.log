@@ -1,0 +1,49 @@
+reservoir-cap-left.stl · 28614 printed facets · 7 findings
+answers: hardware/printed-parts/lint-answers/cold-core/reservoir/reservoir-cap-left.lint-answers · read hardware/printed-parts/lint-answers/AGENTS.md before writing one
+
+  [ledge] 2.39 mm² flat face 0° off facing the bed · 3.2 × 2.6 mm · 4.0 mm up
+    file: hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.step
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=-90.205 y=2.772 z=5.000
+    click: x=-90.205 y=2.772 z=5.000
+
+  [ledge] 17.87 mm² flat face 0° off facing the bed · 5.8 × 5.8 mm · 4.2 mm up
+    file: hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.step
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=-124.316 y=-66.020 z=4.750
+    click: x=-124.316 y=-66.020 z=4.750
+    answered: The six flat counterbore floors are the M3 socket-head bearing faces. Their 5.8 mm diameter and depth seat the selected screw heads below the exterior face; these retained hardware seats require flat head contact.
+    alternatives: Sloping the floors removes the screw-head bearing plane. Filling the counterbores makes the heads project into the 0.4 mm gap beneath the foam cap.
+
+  [ledge] 17.87 mm² flat face 0° off facing the bed · 5.8 × 5.8 mm · 4.2 mm up
+    file: hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.step
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=-122.184 y=66.020 z=4.750
+    click: x=-122.184 y=66.020 z=4.750
+    answered: The six flat counterbore floors are the M3 socket-head bearing faces. Their 5.8 mm diameter and depth seat the selected screw heads below the exterior face; these retained hardware seats require flat head contact.
+    alternatives: Sloping the floors removes the screw-head bearing plane. Filling the counterbores makes the heads project into the 0.4 mm gap beneath the foam cap.
+
+  [ledge] 17.87 mm² flat face 0° off facing the bed · 5.8 × 5.8 mm · 4.2 mm up
+    file: hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.step
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=-125.128 y=-0.862 z=4.750
+    click: x=-125.128 y=-0.862 z=4.750
+    answered: The six flat counterbore floors are the M3 socket-head bearing faces. Their 5.8 mm diameter and depth seat the selected screw heads below the exterior face; these retained hardware seats require flat head contact.
+    alternatives: Sloping the floors removes the screw-head bearing plane. Filling the counterbores makes the heads project into the 0.4 mm gap beneath the foam cap.
+
+  [ledge] 17.87 mm² flat face 0° off facing the bed · 5.8 × 5.8 mm · 4.2 mm up
+    file: hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.step
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=-88.628 y=-0.862 z=4.750
+    click: x=-88.628 y=-0.862 z=4.750
+    answered: The six flat counterbore floors are the M3 socket-head bearing faces. Their 5.8 mm diameter and depth seat the selected screw heads below the exterior face; these retained hardware seats require flat head contact.
+    alternatives: Sloping the floors removes the screw-head bearing plane. Filling the counterbores makes the heads project into the 0.4 mm gap beneath the foam cap.
+
+  [ledge] 17.87 mm² flat face 0° off facing the bed · 5.8 × 5.8 mm · 4.2 mm up
+    file: hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.step
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=-56.893 y=-65.774 z=4.750
+    click: x=-56.893 y=-65.774 z=4.750
+    answered: The six flat counterbore floors are the M3 socket-head bearing faces. Their 5.8 mm diameter and depth seat the selected screw heads below the exterior face; these retained hardware seats require flat head contact.
+    alternatives: Sloping the floors removes the screw-head bearing plane. Filling the counterbores makes the heads project into the 0.4 mm gap beneath the foam cap.
+
+  [ledge] 17.87 mm² flat face 0° off facing the bed · 5.8 × 5.8 mm · 4.2 mm up
+    file: hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.step
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=-56.910 y=65.790 z=4.750
+    click: x=-56.910 y=65.790 z=4.750
+    answered: The six flat counterbore floors are the M3 socket-head bearing faces. Their 5.8 mm diameter and depth seat the selected screw heads below the exterior face; these retained hardware seats require flat head contact.
+    alternatives: Sloping the floors removes the screw-head bearing plane. Filling the counterbores makes the heads project into the 0.4 mm gap beneath the foam cap.
