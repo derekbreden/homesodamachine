@@ -151,7 +151,8 @@ constexpr uint32_t kCleanWaterFillPlannedMs = 90000;
 constexpr uint32_t kCleanFlushPlannedMs     = 150000;
 constexpr uint32_t kCleanFlushTailMs        = 8000;
 constexpr uint32_t kCleanReedPeriodMs       = kFillReedPeriodMs;
-// Between steps every valve is closed for this long, after the pump has stopped.
+// Between steps the pump stops and V-A closes immediately. The other valves
+// remain open this long for coast-down, then close before the next step.
 constexpr uint32_t kCleanSettleMs           = kFillParkDwellMs;
 constexpr uint8_t  kReservoirReedEmpty      = 1u << 0;   // bit 0 of a reservoir's closed-reed mask
 

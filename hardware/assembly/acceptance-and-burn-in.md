@@ -113,7 +113,17 @@ Repeat step 6 with Channel B selected. Same metered dispense, same measurements,
 
 From the bench-acceptance UI, run "clean cycle, Channel A." Firmware executes the topology-table sequence (per [`/hardware/topology/fluid-topology.md`](/hardware/topology/fluid-topology.md) "Air Purge Through A", then "Clean Water Fill → Reservoir A" followed by "Clean Flush A (water out)"): with the funnel dry, pump A draws air from it through to the gooseneck, pushing the flavor tube's concentrate ahead of it; then tap-water source fills the flavor reservoir A through the manifold, and the same path that dispenses syrup is run to flush it out the gooseneck into the target glass. The target glass receives faintly-tinted rinse water.
 
-Repeat with "clean cycle, Channel B."
+During each water-fill step, confirm the selected flavor pump turns forward while V-A and
+that channel's select and reservoir-return valves are open. The other flavor pump and the
+carbonator refill relay stay off. A full reed ends the fill; the planned 90 s is its upper
+limit. A reservoir already full at the start of the step skips the water fill and proceeds
+to flushing. At a stop, the pump drive stops and V-A closes immediately; the remaining path
+stays open for 250 ms of coast-down before its valves close. A stopped head's slow gravity
+leakage is not the cleaning flow.
+
+Repeat with "clean cycle, Channel B." Stop one water-fill step and confirm the inlet closes,
+the motor stops, and the machine returns to idle with every flavor valve closed; then run
+that channel's complete cleaning cycle.
 
 **Pass:** the clean cycle completes without intervention; rinse-water emerging at the gooseneck is faintly tinted on the first pass and runs clear on a follow-up pass if commanded; no leak anywhere in the manifold during the clean cycle; firmware reports both cycles complete and ready. **Fail:** any solenoid valve fails to open or close as expected (firmware will normally flag this on the enclosure display); rinse never runs clear (suggests a reservoir-internal cleanability problem, escalate); any leak observed.
 
