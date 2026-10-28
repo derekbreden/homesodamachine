@@ -1,0 +1,284 @@
+{
+  "schema": 1,
+  "created_utc": "2026-10-28T16:57:20.856346+00:00",
+  "scope": "Manual post-publication classification of the shared flavor roof snaps at Y354 and Y390. Existing complete lint output was read; geometry lint and CAD were not rerun. Only the existing 4mm C2 spring answer entry and this receipt changed.",
+  "published_context": {
+    "source_commit": "a33f36f062b0cf1259792013f255f0b37fdc1123",
+    "primary_native_sha256": "593d13874cb902ce14696a0fe062a0a99093e9e9fd7766746960adf1d1197754",
+    "back_top_step_sha256": "8974d38f391b349b6bb7d17903b3e7a531cfb10441703982948bc1c7f9a3285f"
+  },
+  "raw_lint": {
+    "path": ".cache/roof-snap-integration/lint-all.txt",
+    "sha256": "eff60d70a614e3999262aa1261680e8f5cc2f99c9c2dee5acad673666219c9f3",
+    "complete_queue_job": {
+      "label": "published roof bases full lint detail",
+      "exit_code": 0,
+      "elapsed_seconds": 46
+    },
+    "header": "enclosure-back-top.stl \u00b7 978192 printed facets \u00b7 34 findings \u00b7 44 answered",
+    "printed_facets": 978192,
+    "ranked_findings_reported": 34,
+    "separately_answered_reported": 44,
+    "all_displayed_instances": 78,
+    "all_displayed_class_counts": {
+      "thin": 26,
+      "ledge": 8,
+      "sliver": 6,
+      "ceiling": 34,
+      "slope": 4
+    },
+    "already_explained_instances_in_original_output": 70,
+    "new_unanchored_instances_in_original_output": 8
+  },
+  "instructions_read": "hardware/printed-parts/lint-answers/AGENTS.md",
+  "source_artifact_and_answer_sha256": {
+    "hardware/scripts/geometry_lint.py": "4f8d892298728db824cf895e4416660aa0be4ba6033331ddcf83da9920af08af",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": "9c8d7d565cb4702249fc1984d4f212df7650bbfd354b7dff17b20a179ad3f8ac",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "8974d38f391b349b6bb7d17903b3e7a531cfb10441703982948bc1c7f9a3285f",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh": "ce85cd70cdb916631bb44e4128053ed278d96570588b4d90f77fddc138d24330",
+    "hardware/printed-parts/enclosure/enclosure/_route_snaps.py": "863a741a0d4025361c12d5397b0150a289fa8ffb6706a876dd8c002ae68e2967",
+    "hardware/printed-parts/enclosure/enclosure/_tube_snap_sites.py": "a6bb2521934e5c34aaaa153740344bd3616bfd9ba97a5b8315b3445f3fbd4798",
+    "hardware/printed-parts/cadlib/route_snap.py": "e9d1b350d7c639adc125ab01a99022d8a4eaaffac9c8278616722de0ec99ef47",
+    "hardware/printed-parts/lint-answers/enclosure/enclosure/enclosure-back-top.lint-answers": "20790fb95302e3e40e4f3f1a4a9b905a06d27b9fa2738f97b3ecc59b48ba0a18",
+    "hardware/printed-parts/lint-answers/AGENTS.md": "990cf7ec6c738dc3449cae1a08548e91f16c902020caf74492828805a0d429c5",
+    "hardware/printed-parts/enclosure/enclosure/route-snap-review/roof-guided-production.json": "1b7244e8ff40504600e7d394b2f98e43647c5a744d6bdd34794accbafe15982e",
+    "hardware/printed-parts/enclosure/enclosure/route-snap-review/roof-guided-groups.json": "fcc29c2dd0cf6b4e6f8abd34a204a29d4ecc2d772ad6328d4535a8355d8c4524",
+    "hardware/printed-parts/enclosure/enclosure/route-snap-review/post-publication-lint-review.json": "0f43f073aaca604169d3c5fec0f73da7f306f99dab15b72f738fcfaedc23f65f"
+  },
+  "classification": {
+    "new_functional_spring_instances": [
+      {
+        "finding_class": "thin",
+        "classification": "required_functional_circular_spring",
+        "seat_id": "tube-snap-flavor-b-roof-354",
+        "arm_side": "negative-X",
+        "thickness_mm": 1.52,
+        "summary": "[thin] 1.520 mm of material at its thinnest \u00b7 55.1 mm\u00b2 of surface under 2.5 mm \u00b7 spans 2.1 \u00d7 6.2 \u00d7 4.6 mm \u00b7 in 5 pieces",
+        "anchors_mm": [
+          [
+            -58.569,
+            355.0,
+            342.939
+          ],
+          [
+            -57.05,
+            355.0,
+            342.957
+          ]
+        ],
+        "exact_current_answer_anchors_present": true
+      },
+      {
+        "finding_class": "thin",
+        "classification": "required_functional_circular_spring",
+        "seat_id": "tube-snap-flavor-b-roof-390",
+        "arm_side": "negative-X",
+        "thickness_mm": 1.52,
+        "summary": "[thin] 1.520 mm of material at its thinnest \u00b7 55.1 mm\u00b2 of surface under 2.5 mm \u00b7 spans 2.1 \u00d7 6.2 \u00d7 4.6 mm \u00b7 in 5 pieces",
+        "anchors_mm": [
+          [
+            -58.569,
+            391.0,
+            342.939
+          ],
+          [
+            -57.05,
+            391.0,
+            342.957
+          ]
+        ],
+        "exact_current_answer_anchors_present": true
+      },
+      {
+        "finding_class": "thin",
+        "classification": "required_functional_circular_spring",
+        "seat_id": "tube-snap-flavor-b-roof-354",
+        "arm_side": "positive-X",
+        "thickness_mm": 1.52,
+        "summary": "[thin] 1.520 mm of material at its thinnest \u00b7 25.2 mm\u00b2 of surface under 1.6 mm \u00b7 spans 1.8 \u00d7 6.0 \u00d7 1.9 mm \u00b7 in 8 pieces",
+        "anchors_mm": [
+          [
+            -51.431,
+            353.0,
+            342.939
+          ],
+          [
+            -52.95,
+            353.0,
+            342.957
+          ]
+        ],
+        "exact_current_answer_anchors_present": true
+      },
+      {
+        "finding_class": "thin",
+        "classification": "required_functional_circular_spring",
+        "seat_id": "tube-snap-flavor-a-roof-354",
+        "arm_side": "negative-X",
+        "thickness_mm": 1.52,
+        "summary": "[thin] 1.520 mm of material at its thinnest \u00b7 25.2 mm\u00b2 of surface under 1.6 mm \u00b7 spans 1.8 \u00d7 6.0 \u00d7 1.9 mm \u00b7 in 8 pieces",
+        "anchors_mm": [
+          [
+            -48.569,
+            355.0,
+            342.939
+          ],
+          [
+            -47.05,
+            355.0,
+            342.957
+          ]
+        ],
+        "exact_current_answer_anchors_present": true
+      },
+      {
+        "finding_class": "thin",
+        "classification": "required_functional_circular_spring",
+        "seat_id": "tube-snap-flavor-a-roof-354",
+        "arm_side": "positive-X",
+        "thickness_mm": 1.52,
+        "summary": "[thin] 1.520 mm of material at its thinnest \u00b7 55.0 mm\u00b2 of surface under 2.5 mm \u00b7 spans 2.1 \u00d7 6.2 \u00d7 4.6 mm \u00b7 in 5 pieces",
+        "anchors_mm": [
+          [
+            -41.431,
+            353.0,
+            342.939
+          ],
+          [
+            -42.95,
+            353.0,
+            342.957
+          ]
+        ],
+        "exact_current_answer_anchors_present": true
+      },
+      {
+        "finding_class": "thin",
+        "classification": "required_functional_circular_spring",
+        "seat_id": "tube-snap-flavor-b-roof-390",
+        "arm_side": "positive-X",
+        "thickness_mm": 1.52,
+        "summary": "[thin] 1.520 mm of material at its thinnest \u00b7 25.2 mm\u00b2 of surface under 1.6 mm \u00b7 spans 1.8 \u00d7 6.0 \u00d7 1.9 mm \u00b7 in 8 pieces",
+        "anchors_mm": [
+          [
+            -51.431,
+            389.0,
+            342.939
+          ],
+          [
+            -52.95,
+            389.0,
+            342.957
+          ]
+        ],
+        "exact_current_answer_anchors_present": true
+      },
+      {
+        "finding_class": "thin",
+        "classification": "required_functional_circular_spring",
+        "seat_id": "tube-snap-flavor-a-roof-390",
+        "arm_side": "negative-X",
+        "thickness_mm": 1.52,
+        "summary": "[thin] 1.520 mm of material at its thinnest \u00b7 25.2 mm\u00b2 of surface under 1.6 mm \u00b7 spans 1.8 \u00d7 6.0 \u00d7 1.9 mm \u00b7 in 8 pieces",
+        "anchors_mm": [
+          [
+            -48.569,
+            391.0,
+            342.939
+          ],
+          [
+            -47.05,
+            391.0,
+            342.957
+          ]
+        ],
+        "exact_current_answer_anchors_present": true
+      },
+      {
+        "finding_class": "thin",
+        "classification": "required_functional_circular_spring",
+        "seat_id": "tube-snap-flavor-a-roof-390",
+        "arm_side": "positive-X",
+        "thickness_mm": 1.52,
+        "summary": "[thin] 1.520 mm of material at its thinnest \u00b7 55.0 mm\u00b2 of surface under 2.5 mm \u00b7 spans 2.1 \u00d7 6.2 \u00d7 4.6 mm \u00b7 in 5 pieces",
+        "anchors_mm": [
+          [
+            -41.431,
+            389.0,
+            342.939
+          ],
+          [
+            -42.95,
+            389.0,
+            342.957
+          ]
+        ],
+        "exact_current_answer_anchors_present": true
+      }
+    ],
+    "new_geometry_defect_instances": [],
+    "new_edge_seam_step_bump_sliver_instances": [],
+    "new_ceiling_instances": [],
+    "new_ledge_instances": [],
+    "other_existing_instances": {
+      "count": 70,
+      "disposition": "Existing explanations retained; no new waiver or geometry judgment for those features."
+    }
+  },
+  "ordinary_stock": {
+    "shared_bridge_size_mm": [
+      3.06,
+      8.0,
+      3.1
+    ],
+    "stations": [
+      354,
+      390
+    ],
+    "below_3mm_exception": "Only the 1.52 mm working circular spring section; ordinary bridge stock is not waived.",
+    "native_group_evidence": [
+      {
+        "id": "tube-snap-flavor-roof-354",
+        "native_valid": true,
+        "native_solids": 1,
+        "missing_from_generated_back_top_mm3": 0
+      },
+      {
+        "id": "tube-snap-flavor-roof-390",
+        "native_valid": true,
+        "native_solids": 1,
+        "missing_from_generated_back_top_mm3": 0
+      }
+    ]
+  },
+  "answer_update": {
+    "path": "hardware/printed-parts/lint-answers/enclosure/enclosure/enclosure-back-top.lint-answers",
+    "only_existing_entry_changed": true,
+    "other_answer_blocks_byte_identical": true,
+    "reason": "[thin] Required spring section of the five 4 mm tube seats: these ten readings identify both free curved arms of the four flavor seats at Y354/Y390 and the retained vent seat, each with a 4.10 mm bore, 1.52 mm radial wing thickness, 125.421 degree wrap per wing and 8 mm axial span (`_tube_snap_sites.py`, `cadlib/route_snap.py:tube_clip`). The circular spring section preserves the proportionally scaled selected 2.40 mm C2 section for the smaller tube. The shared filled flavor-root bridges retain 3.06 x 8 x 3.1 mm ordinary stock; this exception applies only to the working curved springs. The 4 mm compliance and fit remain modeled estimates, with physical fit, insertion, holding, fatigue and the complete enclosure print unqualified.",
+    "alternatives": "alternatives: A 3 mm radial wing nearly doubles thickness relative to this bore and changes the curved spring's stiffness and insertion response rather than preserving the selected C2 proportions. Filling the opening prevents tube insertion. Opening the tips or reducing their wrap changes retention; a separate cap changes the requested integral snap interface and needs its own fit.",
+    "new_readings_anchored": 8,
+    "new_paired_pick_coordinates": 16,
+    "retained_vent_readings": 2,
+    "retained_vent_paired_pick_coordinates": 4,
+    "obsolete_flavor_readings_removed": 4,
+    "obsolete_flavor_paired_pick_coordinates_removed": 8,
+    "exact_coordinate_review_complete": true,
+    "new_unanchored_instances_after_coordinate_review": 0,
+    "geometry_lint_rerun": false
+  },
+  "prior_review": {
+    "path": "hardware/printed-parts/enclosure/enclosure/route-snap-review/post-publication-lint-review.json",
+    "sha256": "0f43f073aaca604169d3c5fec0f73da7f306f99dab15b72f738fcfaedc23f65f",
+    "all_displayed_instances": 76,
+    "all_displayed_class_counts": {
+      "sliver": 6,
+      "slope": 4,
+      "thin": 22,
+      "ledge": 10,
+      "ceiling": 34
+    }
+  },
+  "physical_scope": "The 4.10 mm bore and 1.52 mm circular spring remain modeled estimates for 4 mm tube. Physical fit, insertion, holding, fatigue and complete enclosure print/support cleanup are not qualified here.",
+  "recurring_checks_added": false
+}
