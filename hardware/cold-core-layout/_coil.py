@@ -101,8 +101,9 @@ BRIDGE_AXIAL_RAMP = max(_bridge.axial_ramp_length, BRIDGE_RAMP)
 # carries the tube's own surface (`wrap_points` swells for the rest), and no finer: every body
 # in the pack is met with this one, and a spline with a thousand poles is felt on every build.
 WRAP_SAMPLES_PER_TURN = 96
-# The bridge stands on the register azimuth, which is the shell's +X.
-_bridge_azimuth = 0.0
+# The bridge stands on the carbonator register's installed azimuth.
+from _cold_core_interface import carbonator_sensor_azimuth
+_bridge_azimuth = carbonator_sensor_azimuth
 
 
 def _ease(t: float) -> float:

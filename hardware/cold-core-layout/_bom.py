@@ -36,6 +36,7 @@ PARTS = (
      ("carbonator-elbow-co2-in", "carbonator-elbow-carb-water-out",
       "carbonator-elbow-water-in", "carbonator-elbow-prv")),
     ("water inlet jet", "Water-inlet jet cap", ("water-inlet-jet-cap-nominal",)),
+    ("upper float stop", "Carbonator upper float stop", ("float-stop-carb-top",)),
     ("PRV", "Control Devices SV-125", ("prv-sv125",)),
     ("PTFE thread tape", "Millrose 70894 Nickel Guard", ()),
 

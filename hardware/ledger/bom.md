@@ -28,6 +28,7 @@ An earlier racetrack-body alternative (304 SS body half-sheets + dished racetrac
 | SendCutSend 1/4"-thick 316 SS circular endcap plate (`endcap-circular-2hole.dxf`) | 4.860" diameter with 2× 7/16" tap-pilot holes for 1/4" NPT; SCS SG019619 Apr 24: 20 @ $28.96 + tax = $621.19 ÷ 20 = $31.06/ea; [2](END_CAPS) plates per carbonator | 2 | $31.06 | $62.12 <!--@cut-parts--><!--parts HSM-000009--> |
 | [TAISHER 2PCS 316L SS 90° Barstock Street Elbow, 1/4" NPT M × 1/4" NPT F](https://www.amazon.com/dp/B0CZ38MYL1) | all four carbonator-port elbows (water inlet + carbonated-water outlet + CO2 inlet + PRV port); assembly in [`assembly/pressure-vessel.md`](/hardware/assembly/pressure-vessel.md). [4](CARBONATOR_PORTS) elbows per build = 2 packs/build. Amazon 112-6323725 May 13: $20.99 + $1.52 tax = $22.51 ($11.26/ea × 4 = $45.04) | 4 (2 pk) | $11.26 | $45.04 <!--@plumbing--><!--parts HSM-000010--> |
 | [Water-inlet jet cap, 316 SS, nominal Ø9.5 × 2 mm with 1/16-inch passage](https://www.amazon.com/dp/B0FYCJJXCS) | Cut from the Hosifiy nominal 3/8-inch × 400 mm rod; welded to the tank-facing end of the existing Port 2 elbow. Fit, root fusion and flow require the [qualification procedure](/hardware/assembly/water-inlet-jet.md). Order 112-0884852-3444230: $10.71/rod. Provisional yield is 30 caps: six 60 mm handling blanks, five caps per blank at 4 mm pitch (2 mm cap plus cutting/finishing allowance), with the 40 mm gripping tails and blank-separation waste fully allocated. $10.71/30 = $0.36 each. Actual yield, rejected coupons and tool wear remain unmeasured; initial destructive qualification is development stock. | 1 cap (1/30 rod allowance) | $0.36 | $0.36 <!--@carbonation--><!--parts HSM-000011--> |
+| Carbonator upper float stop, 316 SS, nominal Ø9.5 × 4 mm with Ø9/64-inch through bore | Cut from the acquired Hosifiy B0FYCJJXCS 400 mm round stock and tack concentrically over the top plate’s blind register per [CV-WLD-01](/hardware/cold-core-layout/carbonator-vessel-weldment-drawing.pdf). Finished length 4.0 +0.0/−0.2 mm. Provisional stock allowance: six 60 mm handling blanks, three stops per blank at 6 mm pitch including cut/finish allowance; gripping tails and separation waste allocated. $10.71/18 = $0.60 each. Actual yield and stop attachment remain unqualified. | 1 stop (1/18 rod allowance) | $0.60 | $0.60 <!--@carbonation--><!--parts HSM-000004--> |
 | [Millrose 70894 Nickel Guard anti-seize PTFE tape](https://www.amazon.com/dp/B07C9ZV4PG) | The unit's PTFE anti-seize / thread-seal tape (10% nickel flake, for SS-on-SS anti-galling), a 1/2" × 600" roll — the production thread tape for **every** NPT joint in the build, not just the carbonator: the [4](CARBONATOR_PORTS) SS-into-SS carbonator ports taped twice (hydro-test plugs + final fittings, per [`assembly/pressure-vessel.md`](/hardware/assembly/pressure-vessel.md)) plus the ≥8 water/CO2 plumbing joints (per [`assembly/internal-plumbing.md`](/hardware/assembly/internal-plumbing.md)) ≈ ~16 taped joints × ~4–5" ≈ ~75"/build, so the 600" roll covers ~8 builds. Amazon 112-0019658 Apr 4: $21.52 ÷ 8 = $2.69/build | ~1/8 roll (~75") | $2.69 | $2.69 <!--@consumables--><!--parts HSM-000004:12 HSM-000341:1--> |
 | [Tap Magic EP-Xtra pipe-tap cutting fluid, 16 oz (size variant on listing B00DHMHSGM)](https://www.amazon.com/dp/B00DHMHSGM) | required for hand-tapping 1/4" NPT into 1/4"-thick 316 SS plate; ~$0.50 of fluid per carbonator | 1 | $0.50 | $0.50 <!--@consumables--><!--parts HSM-000009--> |
 | [Cantesco P101S-A red visible dye penetrant, solvent-removable aerosol](https://www.amazon.com/dp/B00T46ZH5E) | Dye-penetrant (PT) inspection of the two closure fillet welds before hydro, per [`assembly/pressure-vessel.md`](/hardware/assembly/pressure-vessel.md) step 6. One 16 oz can sprays ~20 carbonators' worth of ~32" fillet; $24.45/20 | 1 (of ~20) | $1.22 | $1.22 <!--@consumables--><!--parts HSM-000004--> |
@@ -331,7 +332,7 @@ The papers packed with each machine ([`assembly/finish-pack-ship.md`](/hardware/
 | Section | $ |
 |---|---:|
 | 1. Controllers + electronics | [$175.03](BOM_SEC1) |
-| 2. Carbonator (plan A, 316L) | [$197.07](BOM_SEC2) |
+| 2. Carbonator (plan A, 316L) | [$197.67](BOM_SEC2) |
 | 3. Water inlet | [$178.09](BOM_SEC3) |
 | 4. CO2 subsystem | [$147.03](BOM_SEC4) |
 | 5. Refrigeration | [$143.06](BOM_SEC5) |
@@ -345,7 +346,7 @@ The papers packed with each machine ([`assembly/finish-pack-ship.md`](/hardware/
 | 13. Mechanical attach hardware | [$16.85](BOM_SEC13) |
 | 14. Cold kit | [$4.29](BOM_SEC14) |
 | 15. Customer documentation | [$25.14](BOM_SEC15) |
-| **Total** | **[$1,483.92](BOM_GRAND)** |
+| **Total** | **[$1,484.52](BOM_GRAND)** |
 
 ## External / user-supplied (not shipped)
 

@@ -33,7 +33,7 @@ WALL = 0.031 * 25.4
 CUT_LENGTH = math.ceil(source.cut_length())
 CUT_PLUS = 10
 MATERIAL_ID = 'HSM-000015'
-REVISION = 'B'
+REVISION = 'C'
 REVIEW_REGIONS = [
  (1,'elevation',35,442,687,756),
  (1,'plan-upper',35,265,687,439),
@@ -222,7 +222,7 @@ def requirements(c):
  '1. Units: mm. O is the winding axis in X,Y. Z=0 is the cold-core shell base plane. Form and inspect on a fixture locating that axis and the shell exits. This drawing defines the coil before final refrigeration tie-in.',
  '2. Material: soft ACR copper, continuous and clean. No joint within the core. Form nine full turns plus the 180° upper-end clocking. The helix rises CCW from H1 to H2 when viewed from +Z.',
  '3. Tail geometry is the tangent sequence on sheet 2. Coordinate stations are tube-centerline points. All bends are R15; preserve the stated straight lengths and exit directions. The working-tail dimensions are measured from E, before refrigeration trimming.',
- f'4. Fit to the nominal Ø{2*source.carbonator_outer_radius:.0f} vessel with the foil thermal interface. Over the reed bridge, raise the tube centerline {source.BRIDGE_LIFT:.2f} ±0.5 radially and blend smoothly at R12.7 MIN. Bridge zone Z {source.BRIDGE_Z[0]:.2f}-{source.BRIDGE_Z[1]:.2f} REF, centered on +X. Preserve reed clearance and thermal contact elsewhere.',
+ f'4. Fit to the nominal Ø{2*source.carbonator_outer_radius:.0f} vessel with the foil thermal interface. Over the reed bridge, raise the tube centerline {source.BRIDGE_LIFT:.2f} ±0.5 radially and blend smoothly at R12.7 MIN. Bridge zone Z {source.BRIDGE_Z[0]:.2f}-{source.BRIDGE_Z[1]:.2f} REF, centered on -Y. Preserve reed clearance and thermal contact elsewhere.',
  '5. Use the undersized mandrel for rough forming; feed stock and adjust winding to the finished dimensions on the vessel fixture. Acceptance is the specified finished form, not the mandrel groove or an assumed springback.',
  '6. Reject kinks, creases, cracks and visible flattening. Square-cut and deburr both ends; remove chips and cutting fluid, preserve the open bore and cap the ends until tie-in. Verify the formed coil and both feed-throughs before foam.',
  '7. Refrigeration joint preparation, heat protection, brazing and leak acceptance follow assembly/refrigerant-loop.md. Trim working tails only at that assembly operation.'
@@ -313,14 +313,14 @@ def build_pdf(path):
  c=canvas.Canvas(str(path),pagesize=SHEET,invariant=1,pageCompression=1)
  c.setTitle('Evaporator coil - production engineering drawing')
  c.setAuthor('Home Soda Machine / Codex')
- c.setSubject('EVAP-01 Rev B: complete formed tube, R15 tangent tails and production form tables')
+ c.setSubject('EVAP-01 Rev C: complete formed tube, R15 tangent tails and production form tables')
  frame(c,SHEET);elevation(c);plan(c);dimension_table(c);requirements(c)
  title_block(c,SHEET,'EVAPORATOR COIL','EVAP-01','ACR COPPER TUBE','1 PER COLD CORE',MATERIAL_ID,
-  ('PRODUCTION PART','FORMED COIL'),revision=REVISION,sheet_label='1 OF 2')
+  ('PRODUCTION PART','FORMED COIL'),revision=REVISION,sheet_label='1 OF 2',date='2026-10-28')
  c.showPage()
  frame(c,SHEET);table(c,'inlet',47,605);table(c,'outlet',635,1190);side_view(c);forming_notes(c);tube_section(c);bridge_section(c)
  title_block(c,SHEET,'EVAPORATOR COIL / TAIL FORMS','EVAP-01','ACR COPPER TUBE','1 PER COLD CORE',MATERIAL_ID,
-  ('PRODUCTION PART','FORMED COIL'),revision=REVISION,sheet_label='2 OF 2')
+  ('PRODUCTION PART','FORMED COIL'),revision=REVISION,sheet_label='2 OF 2',date='2026-10-28')
  c.showPage();c.save()
 
 

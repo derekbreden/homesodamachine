@@ -100,7 +100,7 @@ def build_conduit_columns(height):
     for name, centre in cap_conduits.items():
         if name in ('reservoir-b-fill', 'water-in', 'carb-water-out'):
             continue
-        if name in cap_passive_guides or name in cap_cable_guides:
+        if (name in cap_passive_guides or name in cap_cable_guides) and centre != cap_conduit_floor_xy[name]:
             if name in cap_cable_guides:
                 points = _above_mounts.cable_guide_points(name)['points_mm'][1:-1]
                 plan = [ _above_mounts.above_core.world_to_cap(p)[:2] for p in points]

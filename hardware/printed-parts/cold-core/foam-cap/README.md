@@ -192,11 +192,19 @@ The upper passages follow the installed equipment:
   the cup floor beside the lower riser. The plain upper guide is a boundary
   in one uncut tube that follows the accepted R14 holder directly into the
   meter inlet. No extra fitting or tube cut occurs at the guide.
-- Reed and sensor looms have separate lower entries and upper exits. Their
+- The carbonator's three reed conductors use a straight Ø7.5 mm passage through
+  the upper cup and top lid at shell (0, −74) mm / enclosure
+  (74, 323.8, 253.4) mm. A floor-rooted Ø12.26 mm column keeps pour foam out.
+  Its nominal packed loom is 4.0 mm across. Seal its warm-side exit with its
+  own foil collar. The three conductors turn west beneath the pump housing,
+  then rise along the clear west PCB approach to J7 and the common WAGO.
+  The shared upper dressing uses nominal 3 mm bends; individual pin and reed
+  fanouts have their measured model radii in the wiring worksheet.
+- The two reservoir reed looms and temperature/earth loom have separate lower entries and upper exits. Their
   7.5 mm passages make 5.5 mm turns within the cup. Reed B crosses at world
   Y205 around the PCB columns; the sensor loom follows its named curved corridor.
-  Nominal packed loom diameters are 5.0 mm for each reed bundle and 6.6 mm for
-  the sensor/earth bundle.
+  Nominal packed loom diameters are 5.0 mm for each reed bundle and 6.6 mm retained envelope for
+  the temperature/earth bundle.
 
 B-fill's lower fitting pocket has a flat floor at world Z235.6 and ceiling at
 Z251.4. Its flat cover ends at Z254.45, retaining 3.05 mm stock. The upper

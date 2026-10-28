@@ -8,7 +8,7 @@ TAISHER street elbow made up on each of the four tapped 1/4" NPT ports.
             (`carbonator_bottom_z`); every figure below is struck off that.
   ±Y        the port axis. All four ports stand `carbonator_port_offset` off the carbonator's axis
             on it, two under the carbonator and two over it.
-  +X        the register azimuth — the rod, and the reed bridge on the outside of the wall.
+  −Y        the register azimuth — the rod, and the reed bridge on the outside of the wall.
 
 Each plate is set one plate thickness in from its tube end, and that recess is where the
 closure fillet is laid (`assembly/pressure-vessel.md`). So the interior runs
@@ -47,6 +47,9 @@ from _cold_core_interface import (                      # noqa: E402
     carbonator_port_offset,
     wall_and_floor_thickness,
     water_inlet_port_y,
+    carbonator_sensor_axis,
+    carbonator_float_top_stop_height,
+    carbonator_float_top_stop_diameter,
 )
 from _port_cuts import front_face_port_z                # noqa: E402
 import _internal_routes as _R                           # noqa: E402
@@ -77,8 +80,12 @@ PORT_TAP_D = _endcap.hole_diameter * IN          # 7/16" tap drill for 1/4"-18 N
 
 # --- The float rod ------------------------------------------------------------
 ROD_D = 0.125 * IN                               # 1/8" 316L, Tandefio B0CY4DWJFQ
-ROD_X = _endcap.register_radius * IN             # off the axis on +X, clear of both ports
+ROD_RADIUS = _endcap.register_radius * IN
+ROD_XY = tuple(ROD_RADIUS * v for v in carbonator_sensor_axis)
 REGISTER_DEPTH = _endcap.register_depth * IN     # blind, drilled from the inside face
+UPPER_STOP_H = carbonator_float_top_stop_height
+UPPER_STOP_D = carbonator_float_top_stop_diameter  # acquired nominal 3/8-inch 316 stock
+UPPER_STOP_BORE = _endcap.register_drill_diameter * IN
 
 # --- The elbows ---------------------------------------------------------------
 # The standoff from a plate's outer face to the lateral axis its elbow turns onto, struck off
@@ -164,7 +171,7 @@ def build_plate(which: str) -> cq.Solid:
     direction = -1.0 if which == "bottom" else +1.0
     plate = plate.cut(cq.Solid.makeCylinder(
         _endcap.register_drill_diameter * IN / 2, REGISTER_DEPTH,
-        cq.Vector(ROD_X, 0, inside_z), cq.Vector(0, 0, direction)))
+        cq.Vector(*ROD_XY, inside_z), cq.Vector(0, 0, direction)))
     return plate
 
 
@@ -174,7 +181,16 @@ def build_rod() -> cq.Solid:
     z0 = interior_z[0] - REGISTER_DEPTH
     z1 = interior_z[1] + REGISTER_DEPTH
     return cq.Solid.makeCylinder(ROD_D / 2, z1 - z0,
-                                 cq.Vector(ROD_X, 0, z0), cq.Vector(0, 0, 1))
+                                 cq.Vector(*ROD_XY, z0), cq.Vector(0, 0, 1))
+
+
+def build_upper_float_stop() -> cq.Solid:
+    """316 annular stop tacked to the top plate's inside face around R1."""
+    base = cq.Vector(*ROD_XY, interior_z[1] - UPPER_STOP_H)
+    outer = cq.Solid.makeCylinder(UPPER_STOP_D / 2, UPPER_STOP_H, base)
+    bore = cq.Solid.makeCylinder(UPPER_STOP_BORE / 2, UPPER_STOP_H + 2,
+                                 base - cq.Vector(0, 0, 1))
+    return outer.cut(bore)
 
 
 def rod_length() -> float:
@@ -211,6 +227,7 @@ def bodies() -> dict:
         "endcap-bottom": build_plate("bottom"),
         "endcap-top": build_plate("top"),
         "float-rod-carb": build_rod(),
+        "float-stop-carb-top": build_upper_float_stop(),
     }
     for name, (solid, _mouth) in build_elbows().items():
         out[f"carbonator-elbow-{name}"] = solid
@@ -233,7 +250,8 @@ def report() -> None:
     print(f"    plate-to-bore   {slip:.3f} mm slip on ⌀{TUBE_ID:.3f} bore")
     print(f"    interior        z {interior_z[0]:.2f}..{interior_z[1]:.2f} "
           f"({interior_z[1] - interior_z[0]:.1f} mm of column)")
-    print(f"    float rod       ⌀{ROD_D:.3f} × {rod_length():.1f} at x {ROD_X:+.2f}")
+    print(f"    float rod       ⌀{ROD_D:.3f} × {rod_length():.1f} at XY {ROD_XY}")
+    print(f"    upper stop      ⌀{UPPER_STOP_D:g} × {UPPER_STOP_H:g}, bore {UPPER_STOP_BORE:.4f}")
     # The two readings of one distance: what the storeys ask an elbow to stand off, and what
     # the catalog part reaches. A gap here is a fitting that cannot put its mouth on the band.
     print(f"    elbow standoff  {ELBOW_AXIS_OFFSET:.2f} off the plate face (shell storeys) "

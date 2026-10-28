@@ -46,6 +46,8 @@ from _cold_core_interface import (
     carbonator_height,
     carbonator_support_ring_height,
     wall_and_floor_thickness,
+    carbonator_float_top_stop_height,
+    carbonator_float_top_stop_diameter,
 )
 from _cold_core_interface import evap_tail_low_z, evap_tail_high_z
 import fits as _fits
@@ -53,6 +55,7 @@ from coil_mandrel import pitch, tube_radius, wrap_length
 from endcap_circular_dxf import (
     tube_id,
     register_radius,
+    register_drill_diameter,
     disc_thickness,
 )
 
@@ -101,7 +104,10 @@ tube_id_mm = tube_id * 25.4
 interior_area = math.pi / 4 * (tube_id_mm**2 - _float.guide_diameter**2)
 # [12.01 mL](ML_PER_MM) of water per mm of level; [1497 mL](INTERIOR_ML) if it were full.
 volume_per_mm = interior_area / 1000
-interior_volume_ml = volume_per_mm * interior_height - _float.displacement_cc
+upper_stop_volume_ml = (math.pi / 4 * (carbonator_float_top_stop_diameter**2
+                         - (register_drill_diameter * 25.4)**2)
+                         * carbonator_float_top_stop_height / 1000)
+interior_volume_ml = volume_per_mm * interior_height - _float.displacement_cc - upper_stop_volume_ml
 
 serving_volume_ml = 355.0  # 12 US fl oz, the app's default serving
 syrup_dilution = 20.0      # 1 part SodaStream-compatible syrup : 20 parts water
@@ -122,7 +128,8 @@ low_level_z = high_level_z - serving_level_rise
 
 headspace_height = interior_ceiling_z - high_level_z
 _immersed_float_cc = _float.design_mass_g / _float.water_density
-headspace_ml = headspace_height * volume_per_mm - (_float.displacement_cc - _immersed_float_cc)
+headspace_ml = (headspace_height * volume_per_mm
+                - (_float.displacement_cc - _immersed_float_cc) - upper_stop_volume_ml)
 reserve_height = low_level_z - interior_floor_z
 reserve_ml = reserve_height * volume_per_mm - _immersed_float_cc
 stored_ml = (high_level_z - interior_floor_z) * volume_per_mm - _immersed_float_cc
@@ -140,10 +147,10 @@ reed_high_z = high_level_z + magnet_lead_above_surface
 float_height = _float.height
 rod_tack_fillet = 1.5   # the tack bead the float lands on at the rod base
 
-# [28.2 mm](MAGNET_LOWEST) to [125.7 mm](MAGNET_HIGHEST) — where the
-# RC62 midplane can be, between the tack bead and the top plate.
+# [28.2 mm](MAGNET_LOWEST) to [121.7 mm](MAGNET_HIGHEST) — where the
+# RC62 midplane can be, between the tack bead and the upper register stop.
 magnet_lowest_z = interior_floor_z + rod_tack_fillet + float_height / 2
-magnet_highest_z = interior_ceiling_z - float_height / 2
+magnet_highest_z = interior_ceiling_z - carbonator_float_top_stop_height - float_height / 2
 
 # Running room for the ASA Aero body, read from the shared 20 mm rod datum.
 # Finished expansion/alignment and installed switching are unmeasured.

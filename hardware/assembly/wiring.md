@@ -118,7 +118,7 @@ Continuity-test each signal run end-to-end before zip-tying down.
 
 Bundle by zone:
 
-- **Core bundle** — the J4 temperature loom, the J6 + J7 reed looms (SIG-1/2/3/10/11) and the carbonator's chassis-ground bond, from the cap's sensor and reed passages to the PCB, the lid WAGOs and the stack ([`/hardware/printed-parts/cold-core/reservoir/level-sensing.md`](/hardware/printed-parts/cold-core/reservoir/level-sensing.md) for the reed columns).
+- **Core bundle** — the J4 temperature loom, the J6 + J7 reed looms (SIG-1/2/3/10/11) and the carbonator's chassis-ground bond, from the cap's temperature/earth passage, two reservoir reed passages and dedicated straight carbonator-reed passage to the PCB, the lid WAGOs and the stack ([`/hardware/printed-parts/cold-core/reservoir/level-sensing.md`](/hardware/printed-parts/cold-core/reservoir/level-sensing.md) for the reed columns).
 - **Back-top bundle** — the ends landed on the open back-top: DC-1, DC-2, the three join pigtails, the PE bus, J5, the V-A and V-K legs and the meter's leads, dressed along back-top's west and east walls to the funnel opening. J3 stays at the keystone until its housing seats.
 - **Manifold bundle** — the J1 + J2 manifold trunks (DC-6/DC-7/DC-8) from the front coils toward the main board, carried in the front column until their housings seat. Braided-sleeve and zip tie; fan-out happens at the manifold.
 - **Compressor bundle** — the [18 AWG](COMP_LEAD_AWG) SJOOW jacketed lead from step 2 is its own bundle, up the fore floor lane; zip-tie tie-down points only.

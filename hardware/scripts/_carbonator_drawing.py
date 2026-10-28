@@ -35,7 +35,7 @@ CAP_D = carb.PLATE_D / MM
 CAP_T = carb.PLATE_T / MM
 RECESS = carb.PLATE_RECESS / MM
 ROD_D = carb.ROD_D / MM
-ROD_X = carb.ROD_X / MM
+ROD_RADIUS = carb.ROD_RADIUS / MM
 FLOAT_D = float_interface.diameter / MM
 FLOAT_H = float_interface.height / MM
 REG_D = cap.register_drill_diameter
@@ -64,7 +64,7 @@ def frame(c, sheet):
 
 
 def title_block(c, sheet, title, drawing, material, quantity, part_id,
-                revision="A", status=("PROTOTYPE", "FOR REVIEW")):
+                revision="A", status=("PROTOTYPE", "FOR REVIEW"), date="2026-10-26"):
     """Common family title block, independently sized for A and B sheets."""
     right, bottom, top = sheet[0] - 27, 27, 143
     left = right - 562
@@ -86,7 +86,7 @@ def title_block(c, sheet, title, drawing, material, quantity, part_id,
         text(c, x, 73, value, 8.5, bold=True)
     fields = ((left, left + 175, "DRAWING", drawing),
               (left + 175, left + 220, "REV", revision),
-              (left + 220, left + 335, "DATE", "2026-10-26"),
+              (left + 220, left + 335, "DATE", date),
               (left + 335, left + 452, "SCALE", "AS SHOWN"),
               (left + 452, right, "SHEET", "1 OF 1"))
     for i, (a, b, label, value) in enumerate(fields):

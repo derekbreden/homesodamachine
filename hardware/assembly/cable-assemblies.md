@@ -40,7 +40,7 @@ two 3P cover the one six-way wafer and reach four counts besides.
 | J4 SENSORS | [7](J4_PINS) | 4P + 3P | [650 mm](LOOM_J4) | the 1-wire and flow pairs (`3V3`/`IO26`, `V5`/`IO25`) on the 4P; the shared `GND` on the 3P, two reserved conductors trimmed at the housing; the flow pair seats after the box closes |
 | J5 RELAYS | [4](J5_PINS) | 4P | [350 mm](LOOM_J5) | both Teyleten modules |
 | J6 REEDS A | [5](J6_PINS) | 5P | [600 mm](LOOM_J6) | reservoir A's column entire — four reeds and the common |
-| J7 REEDS B | [7](J7_PINS) | 5P + 3P | [500 mm](LOOM_J7) | reservoir B's column on the 5P; `CLO`/`CHI` on the 3P, third conductor trimmed |
+| J7 REEDS B | [7](J7_PINS) | 5P + 3P | [500 mm](LOOM_J7) | reservoir B's column on the 5P; `CLO`/`CHI` and their common on the 3P; peel commons to the lid WAGO before the housing |
 | J9 DISPLAY | [4](J9_PINS) | 4P | [400 mm](LOOM_J9) | the 4.3B's RS485 pair and its 12 V |
 | J11 GAS | [4](J11_PINS) | 4P | [600 mm](LOOM_J11) | the MQ-6 |
 | J13 PUMPS | [4](J13_PINS) | 4P | [500 mm](LOOM_J13) | both pumps' motor tabs, the pump end split into one pair per pump |
@@ -83,6 +83,12 @@ route and modeled length. Its [worksheet](../wiring/enclosure-wiring.csv) is a
 routing record, not a finished cut list. Each reservoir column uses one continuous
 common with four insulated reed taps; the carbonator pair shares a separate
 common. Their Wagos join the column/pair commons to the board return.
+The carbonator's 3P leaves through its own straight cup/lid passage at
+world (74, 323.8, 253.4) mm, turns west beneath the pump, and rises on the
+west PCB approach. Retain its common through that passage to the lid WAGO;
+trim only the unused ribbon end above its branch. The 500 mm preparation
+blank covers the modeled carbonator paths; final dressing and service reserve
+are set on the assembled core.
 
 ### XH contacts
 
