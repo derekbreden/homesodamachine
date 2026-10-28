@@ -8,6 +8,10 @@
 #include "ble_image.h"
 #include "fw_version.h"
 #include "phone_bridge.h"
+#include "phone_trust.h"
+
+// NimBLE's own permission for every subscription it registers.
+extern "C" void ble_gatts_set_clt_cfg_perm_flags(uint8_t flags);
 
 // ESP's connection reattempt restarts advertising from a field set this code
 // never fills, and leaves an empty advertisement on air. platformio.ini
@@ -95,6 +99,9 @@ struct Link {
   uint16_t handle;   // BLE_HS_CONN_HANDLE_NONE when the row is empty
   uint16_t mtu;
   uint32_t gen;      // which connection, since a handle is used again
+  bool     secured;  // encryption was settled, one way or the other
+  bool     bonded;   // encrypted under a bond, so `id` names the phone
+  PhoneId  id;       // the phone's identity address, which a bond resolves
 };
 static portMUX_TYPE linksMux = portMUX_INITIALIZER_UNLOCKED;
 static Link         links[CONFIG_BT_NIMBLE_MAX_CONNECTIONS];
@@ -115,7 +122,7 @@ static void linkUp(uint16_t handle) {
   portENTER_CRITICAL(&linksMux);
   for (Link &l : links) {
     if (l.handle != BLE_HS_CONN_HANDLE_NONE) continue;
-    l = {handle, 23, ++linkGen};
+    l = {handle, 23, ++linkGen, false, false, {}};
     break;
   }
   portEXIT_CRITICAL(&linksMux);
@@ -125,6 +132,18 @@ static void linkMtuIs(uint16_t handle, uint16_t mtu) {
   portENTER_CRITICAL(&linksMux);
   for (Link &l : links)
     if (l.handle == handle) l.mtu = mtu;
+  portEXIT_CRITICAL(&linksMux);
+}
+
+static void linkSecured(uint16_t handle, bool bonded, uint8_t idType, const uint8_t *id) {
+  portENTER_CRITICAL(&linksMux);
+  for (Link &l : links) {
+    if (l.handle != handle || (l.secured && l.bonded == bonded)) continue;
+    l.secured = true;
+    l.bonded = bonded;
+    l.id.type = idType;
+    memcpy(l.id.addr, id, sizeof(l.id.addr));
+  }
   portEXIT_CRITICAL(&linksMux);
 }
 
@@ -160,6 +179,96 @@ static void adopt(const Link &l) {
   useMtu(l.mtu);
 }
 
+// ── Where each phone stands ──────────────────────────────────────────────
+// loop()'s own view, one row per link: worked out again when the link bonds
+// or the trusted phones change, and sent to the phone when it moves. A phone
+// also hears it each time it asks who the machine is, which it does once its
+// notifications are on — a move before that has no one listening.
+struct Standing {
+  uint16_t handle;
+  uint32_t gen;
+  bool     secured;
+  bool     bonded;
+  uint32_t trustGen;
+  uint8_t  state;     // TRUST_STATE_*
+  uint32_t sinceMs;   // when this connection came up
+};
+static Standing standing[CONFIG_BT_NIMBLE_MAX_CONNECTIONS];
+
+static uint8_t standingOf(uint16_t handle, uint32_t gen) {
+  for (const Standing &s : standing)
+    if (s.handle == handle && s.gen == gen) return s.state;
+  return TRUST_STATE_UNPAIRED;
+}
+
+static bool fits(uint16_t len, uint16_t mtu);
+
+// One frame to one link, while it is still the same connection.
+static bool notifyLink(uint16_t handle, uint32_t gen, uint8_t type, const void *data, uint16_t len) {
+  if (!txChar) return false;
+  Link l;
+  if (!linkFind(handle, l) || l.gen != gen || !fits(len, l.mtu)) return false;
+  uint8_t frame[3 + 16];
+  if (len > sizeof(frame) - 3) return false;
+  frame[0] = type;
+  frame[1] = (uint8_t)(len & 0xFF);
+  frame[2] = (uint8_t)(len >> 8);
+  memcpy(frame + 3, data, len);
+  txChar->setValue(frame, 3 + len);
+  return txChar->notify(handle);
+}
+
+static void sendTrust(uint16_t handle, uint32_t gen, uint8_t outcome) {
+  BleTrustPayload t{standingOf(handle, gen),
+                    (uint8_t)(phoneTrustAsking(handle, gen) ? 1 : 0), outcome};
+  notifyLink(handle, gen, BLE_FRAME_TRUST, &t, sizeof(t));
+}
+
+static void settleStanding(const Link *now) {
+  const uint32_t trustGen = phoneTrustGeneration();
+  for (size_t i = 0; i < CONFIG_BT_NIMBLE_MAX_CONNECTIONS; i++) {
+    const Link &l = now[i];
+    Standing &s = standing[i];
+    if (l.handle == BLE_HS_CONN_HANDLE_NONE) {
+      s = Standing{BLE_HS_CONN_HANDLE_NONE, 0, false, false, 0, TRUST_STATE_UNPAIRED, 0};
+      continue;
+    }
+    const bool fresh = s.handle != l.handle || s.gen != l.gen;
+    if (!fresh && s.secured == l.secured && s.bonded == l.bonded && s.trustGen == trustGen) continue;
+    if (l.secured && (fresh || !s.secured)) {
+      char line[64];
+      snprintf(line, sizeof(line), "BLE: phone %02X%02X%02X%02X%02X%02X %s after %lu ms",
+               l.id.addr[5], l.id.addr[4], l.id.addr[3], l.id.addr[2], l.id.addr[1], l.id.addr[0],
+               l.bonded ? "bonded" : "did not bond",
+               (unsigned long)(fresh ? 0 : millis() - s.sinceMs));
+      baseLinkSay(line);
+    }
+    const uint8_t state = !l.bonded ? TRUST_STATE_UNPAIRED
+                        : phoneTrustKnows(l.id) ? TRUST_STATE_TRUSTED
+                        : TRUST_STATE_VIEWER;
+    const bool moved = !fresh && state != s.state;
+    s = Standing{l.handle, l.gen, l.secured, l.bonded, trustGen, state,
+                 fresh ? millis() : s.sinceMs};
+    if (moved || (fresh && l.bonded)) sendTrust(l.handle, l.gen, TRUST_OUTCOME_NONE);
+  }
+}
+
+bool bleLinkUp(uint16_t handle, uint32_t gen) {
+  Link l;
+  return linkFind(handle, l) && l.gen == gen;
+}
+
+void bleLinkTrustEnded(uint16_t handle, uint32_t gen, uint8_t outcome) {
+  if (outcome == TRUST_OUTCOME_TRUSTED) {
+    for (Standing &s : standing) {
+      if (s.handle != handle || s.gen != gen) continue;
+      s.state = TRUST_STATE_TRUSTED;
+      s.trustGen = phoneTrustGeneration();
+    }
+  }
+  sendTrust(handle, gen, outcome);
+}
+
 // Once a pass, before anything is sent: which links are up, whether the
 // session is still one of them, and the MTU frames are sized to.
 static void settleLinks() {
@@ -188,6 +297,8 @@ static void settleLinks() {
   if (held) useMtu(held->mtu);
   else if (first) adopt(*first);
   else useMtu(23);   // the next phone negotiates its own
+
+  settleStanding(now);
 }
 
 // A frame from a link that is not the session makes it the session, unless the
@@ -486,8 +597,24 @@ void bleLinkOnSrcNeed(uint32_t offset, uint16_t len) { bleOtaOnSrcNeed(offset, l
 void bleLinkOnSrcEnd(const OtaStatePayload &state)   { bleOtaOnSrcEnd(state); }
 
 // ── NimBLE callbacks ──────────────────────────────────────────────────────
+// Whatever a link carries says how it is secured, so a phone is known by its
+// bond from the first frame it sends encrypted, whether or not the stack's own
+// word that encryption changed arrived for this connection.
+static void secureFrom(NimBLEConnInfo &info) {
+  if (!info.isEncrypted()) return;
+  const NimBLEAddress id = info.getIdAddress();
+  linkSecured(info.getConnHandle(), info.isBonded(), id.getType(), id.getVal());
+}
+
+class TxCB : public NimBLECharacteristicCallbacks {
+  void onSubscribe(NimBLECharacteristic *, NimBLEConnInfo &info, uint16_t sub) override {
+    if (sub) secureFrom(info);
+  }
+};
+
 class RxCB : public NimBLECharacteristicCallbacks {
   void onWrite(NimBLECharacteristic *chr, NimBLEConnInfo &info) override {
+    secureFrom(info);
     NimBLEAttValue raw = chr->getValue();
     const uint8_t next = (uint8_t)((rxHead + 1) % RX_RING);
     if (raw.length() > RX_FRAME || next == rxTail) { ++stageDrops; return; }
@@ -510,6 +637,11 @@ class ServerCB : public NimBLEServerCallbacks {
     // the transfer rate. Ask for the shortest iOS grants.
     server->updateConnParams(info.getConnHandle(), 12, 24, 0, 200);
   }
+  void onAuthenticationComplete(NimBLEConnInfo &info) override {
+    const NimBLEAddress id = info.getIdAddress();
+    linkSecured(info.getConnHandle(), info.isBonded() && info.isEncrypted(),
+                id.getType(), id.getVal());
+  }
   void onDisconnect(NimBLEServer *, NimBLEConnInfo &info, int reason) override {
     linkDown(info.getConnHandle());
     Serial.printf("BLE: disconnected, reason 0x%x\n", reason);
@@ -526,12 +658,24 @@ class ServerCB : public NimBLEServerCallbacks {
 
 void bleLinkBegin() {
   for (Link &l : links) l.handle = BLE_HS_CONN_HANDLE_NONE;
+  for (Standing &s : standing) s.handle = BLE_HS_CONN_HANDLE_NONE;
+  phoneTrustBegin();
 
   char name[32];
   advertisedName(name, sizeof(name));
   NimBLEDevice::init(name);
   NimBLEDevice::setMTU(517);
   NimBLEDevice::setPower(ESP_PWR_LVL_P9);
+  // Bonded, Secure Connections, and no passkey: the faucet has no keypad and
+  // the phone is in the hand of whoever just set it up. A bond is what lets a
+  // phone be known again on its next connection.
+  NimBLEDevice::setSecurityAuth(true, false, true);
+  NimBLEDevice::setSecurityIOCap(BLE_HS_IO_NO_INPUT_OUTPUT);
+  // Subscribing to TX takes an encrypted link. iOS meets the refusal by
+  // encrypting under the phone's bond, or, for a phone with none, by asking
+  // its owner to pair — the way Apple's accessory guidelines have pairing
+  // begin.
+  ble_gatts_set_clt_cfg_perm_flags(BLE_ATT_F_READ | BLE_ATT_F_WRITE | BLE_ATT_F_WRITE_ENC);
 
   server = NimBLEDevice::createServer();
   server->setCallbacks(new ServerCB());
@@ -543,6 +687,7 @@ void bleLinkBegin() {
 
   NimBLEService *svc = server->createService(NUS_SERVICE);
   txChar = svc->createCharacteristic(NUS_TX, NIMBLE_PROPERTY::NOTIFY);
+  txChar->setCallbacks(new TxCB());
   NimBLECharacteristic *rx =
       svc->createCharacteristic(NUS_RX, NIMBLE_PROPERTY::WRITE | NIMBLE_PROPERTY::WRITE_NR);
   rx->setCallbacks(new RxCB());
@@ -572,6 +717,83 @@ void bleLinkBegin() {
 
 static uint32_t lastTouchTxMs = 0;
 
+// What a phone may ask over the bridge without being trusted: to read. Any
+// other request changes the machine.
+static bool bridgeReads(uint8_t type) {
+  return type == MSG_STATUS_REQ || type == MSG_FLAVOR_QUERY || type == MSG_RATIO_QUERY ||
+         type == MSG_FILL_QUERY || type == MSG_CLEAN_QUERY || type == MSG_SOUND_CFG_GET ||
+         type == MSG_PRIME_SESSION_QUERY;
+}
+
+static bool changesMachine(uint8_t type, const uint8_t *payload, uint16_t plen) {
+  switch (type) {
+    case BLE_FRAME_OTA_BEGIN:
+    case BLE_FRAME_OTA_DATA:
+    case BLE_FRAME_IMG_BEGIN:
+    case BLE_FRAME_IMG_DATA:
+    case BLE_FRAME_IMG_END:
+    case BLE_FRAME_IMG_ERASE:
+    case BLE_FRAME_ART_SET:
+      return true;
+    case BLE_FRAME_MACHINE_REQ:
+      return plen < sizeof(BridgeHeader) || !bridgeReads(payload[1]);
+    default:
+      return type == BLE_TEXT && plen >= 9 && !memcmp(payload, "IDENTITY ", 9);
+  }
+}
+
+// A change from a phone the machine does not trust, answered as refused in the
+// form that change's own answer takes. The rest of a transfer whose start was
+// refused is dropped.
+static void refuseUntrusted(const Link &l, uint8_t type, const uint8_t *payload, uint16_t plen) {
+  switch (type) {
+    case BLE_FRAME_MACHINE_REQ:
+      if (plen >= 1) bleLinkDeliver(l.handle, l.gen, payload[0], BRIDGE_ERR_UNTRUSTED, nullptr, 0);
+      return;
+    case BLE_FRAME_IMG_BEGIN:
+    case BLE_FRAME_IMG_ERASE: {
+      BleImgAck ack{plen ? payload[0] : (uint8_t)0, BLE_IMG_FAILED, BLE_IMG_ERR_UNTRUSTED, 0};
+      notify(BLE_FRAME_IMG_ACK, &ack, sizeof(ack));
+      return;
+    }
+    case BLE_FRAME_ART_SET:
+      bleImagePublishArt();   // the faces as they stand, which the phone settles back to
+      return;
+    case BLE_FRAME_OTA_BEGIN: {
+      OtaStatePayload st{OTA_STATE_FAILED, OTA_ERR_UNTRUSTED, 0};
+      notify(BLE_FRAME_OTA_END, &st, sizeof(st));
+      return;
+    }
+    case BLE_TEXT:
+      sayToPhone("ERR:IDENTITY:UNTRUSTED");
+      return;
+    default:
+      return;
+  }
+}
+
+// A phone asking to be trusted, or withdrawing its ask. A link not encrypted
+// under a bond has nothing to keep the phone by.
+static void onTrustAsk(const Link &l, const BleTrustAskPayload &req) {
+  if (req.reason == TRUST_CANCEL) {
+    phoneTrustWithdraw(l.handle, l.gen);
+    return;
+  }
+  if (standingOf(l.handle, l.gen) == TRUST_STATE_TRUSTED) {
+    sendTrust(l.handle, l.gen, TRUST_OUTCOME_TRUSTED);
+    return;
+  }
+  if (!l.bonded) {
+    sendTrust(l.handle, l.gen, TRUST_OUTCOME_UNPAIRED);
+    return;
+  }
+  if (!phoneTrustAsk(l.handle, l.gen, l.id, req)) {
+    sendTrust(l.handle, l.gen, TRUST_OUTCOME_BUSY);
+    return;
+  }
+  sendTrust(l.handle, l.gen, TRUST_OUTCOME_NONE);
+}
+
 static void dispatchFrame(const uint8_t *work, uint16_t len) {
   if (len < 3) return;
   const uint8_t type = work[0];
@@ -593,12 +815,27 @@ static void dispatchFrame(const uint8_t *work, uint16_t len) {
     baseLinkTouched();
   }
 
+  Link from;
+  if (!linkFind(replyTo, from)) return;
+  if (changesMachine(type, payload, plen) &&
+      standingOf(from.handle, from.gen) != TRUST_STATE_TRUSTED) {
+    refuseUntrusted(from, type, payload, plen);
+    return;
+  }
+  if (type == BLE_FRAME_TRUST_ASK && plen >= sizeof(BleTrustAskPayload)) {
+    BleTrustAskPayload req;
+    memcpy(&req, payload, sizeof(req));
+    onTrustAsk(from, req);
+    return;
+  }
+
   if (bleOtaHandleFrame(type, payload, plen)) return;
   if (bleImageHandleFrame(type, payload, plen)) return;
   if (type == BLE_TEXT && plen == 8 && !memcmp(payload, "IDENTITY", 8)) {
     sendIdentity();
     sendVersions();
     sendBridgeVersion();
+    sendTrust(from.handle, from.gen, TRUST_OUTCOME_NONE);
     versionsAskedAtMs = 0;   // and ask the main board again, in case it has news
     return;
   }
@@ -647,6 +884,7 @@ void bleLinkService() {
   bleOtaService();
   bleImageService();   // whatever a read-back still owes the phone
   phoneBridgeService();
+  phoneTrustService();
 
   // A RADIO THAT HAS STOPPED IS A MACHINE NO PHONE CAN FIND, and nothing else
   // on this board reads it. It advertises whenever there is room for another

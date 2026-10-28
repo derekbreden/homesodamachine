@@ -396,6 +396,13 @@ void onMessage(ProtoLink *link, const uint8_t *frame, uint16_t len) {
     if (type == MSG_OTA_SRC_BEGIN) { otaOnSrcBegin(payload, plen); return; }
     if (type == MSG_OTA_SRC_DATA)  { otaOnSrcData(payload, plen);  return; }
 
+    // A trust ask showing or closing on the faucet, and what forgetting found:
+    // the enclosure shows the same ask, so each goes on to it.
+    if (type == MSG_TRUST_SHOW || type == MSG_TRUST_CLOSE || type == MSG_RESP_TRUST_FORGET) {
+        linkRelay(type, payload, (uint8_t)(plen < 255 ? plen : 255));
+        return;
+    }
+
     // The faucet has no console in the appliance. This is the one it borrows.
     if (type == MSG_TEXT) {
         char text[96];
@@ -719,6 +726,10 @@ void faucetLinkReadStatus(FaucetLinkStatus &status) {
 }
 
 bool faucetLinkSendOta(uint8_t type, const void *data, uint16_t len) {
+    return faucet.trySend(type, data, len) >= 0;
+}
+
+bool faucetLinkRelay(uint8_t type, const void *data, uint16_t len) {
     return faucet.trySend(type, data, len) >= 0;
 }
 

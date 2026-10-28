@@ -74,7 +74,10 @@ struct SoftwareUpdateView: View {
             title("An update is ready")
             Note("This usually takes a few minutes. Keep your device near the machine and leave the machine plugged in.")
             ActionButton(title: "Update now") {
-                ble.startUpdateAll(behind, on: model) { try await catalog.payload(for: $0) }
+                Task {
+                    guard await ble.ensureTrusted(.update) else { return }
+                    ble.startUpdateAll(behind, on: model) { try await catalog.payload(for: $0) }
+                }
             }
             .disabled(!ble.linked)
             if !ble.linked { Note("Bring your device near the machine to install it.") }
