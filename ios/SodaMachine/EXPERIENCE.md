@@ -5,6 +5,14 @@ reading, edit, and operation identifies the appliance it belongs to. Available
 width changes the arrangement of these destinations; it does not change the
 person's location, pending edits, or task.
 
+Use the platform's navigation components: native navigation stacks, a TabView
+with the sidebar-adaptable style, menus, and task-scoped sheets. iPhone and iPad
+use the system's tab and sidebar arrangements. Appliance cards and content keep
+their palette and bounded layout. Familiar interactions, clear feedback, and
+preserved context follow Apple's [design principles](https://developer.apple.com/design/human-interface-guidelines/design-principles),
+[tab guidance](https://developer.apple.com/design/human-interface-guidelines/tab-bars),
+and [modality guidance](https://developer.apple.com/design/human-interface-guidelines/modality).
+
 ## Navigation and appliance context
 
 Each destination has its own navigation stack. A pushed page has ordinary Back
@@ -22,7 +30,7 @@ the checked machine leaves the current task in place.
 Machines with colliding display names include their known unit identifiers.
 
 **Your machines** is an explicitly named, app-level management presentation,
-available from Settings and the wide sidebar. It remains available independently
+available from Settings. It remains available independently
 of whether a machine is selected. A record can be removed without opening that
 machine first. **Open machine** deliberately selects it, closes management, and
 opens its overview, including when it is already selected.
@@ -32,6 +40,12 @@ underneath management. Removing the current machine keeps management open with
 no automatic replacement. Remaining records are offered for explicit selection.
 When no records remain, closing management reveals first-run setup. A directory
 with records and no selection offers **Choose a machine**.
+
+Removal completes the system accessory relationship before clearing a
+system-managed record from the app. A temporarily unavailable accessory session
+does not mean the machine is unpaired. A failure retains the record and explains
+how to retry. Removal leaves the appliance's shared name and settings intact;
+re-pairing establishes a fresh device relationship and requires machine Trust.
 
 ## Editing and confirmation
 
@@ -103,7 +117,9 @@ Back, tabs, interactive pop, and machine switching follow the same operation
 policy. While a phone-started Fill or Clean is being attended and connected,
 the existing navigation lock applies consistently. Loss of connection permits
 leaving, explains that the cycle may continue, and retains its context for
-recovery. An observed result remains available until acknowledged. Fill and
+recovery. An observed result remains available until acknowledged or superseded
+by a newer authoritative run. Active progress takes precedence over an older
+result, including its Stop control. Fill and
 Clean snapshots have no run token or history: recovery uses the machine's
 reported channel and outcome, without attributing a different run to the
 original task. Prime follows its reported session token.
@@ -172,6 +188,12 @@ Review the following on available physical devices. Care start/stop journeys
 use the demo unless the appliance is prepared for the physical operation.
 These checks are specific to this experience task and are not build or commit
 hooks.
+
+The pure navigation, draft, removal, and firmware-comparison checks run manually
+on macOS with `python3 ios/SodaMachine/Checks/run.py`. They compile the app's
+actual Foundation/Observation sources and use no simulator. They do not verify
+SwiftUI view lifetimes, gestures, or Bluetooth transport; those need the
+source review and physical-device journeys below.
 
 1. Change a ratio, open Images, cancel or choose an image, and return. Retain the
    ratio draft and confirm only the chosen image.
