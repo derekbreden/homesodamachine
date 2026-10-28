@@ -63,6 +63,15 @@ V-B return bearing belongs to the core lid. Thread its retaining tie before
 seating the fitting. Keep the tie on the fixed body band and leave both
 release collets free.
 
+The funnel drain's NeoFit outlet stem is 16.7 mm long past its shoulder:
+15.7 mm nominal seated depth plus 1 mm showing above the union's collet.
+Use the received union's actual insertion mark when cutting it. Its collar
+has 1 mm air to the cradle's lower aft face. Connect its R14.07 S-offset to
+V-B's inlet with both receiving ends fully seated. The V-B return elbow's
+forward leg sits in the lid's filled pedestal; thread its tie through the
+peaked passage before seating the elbow, then close the tie on the fixed
+body band.
+
 ## Procedure
 
 ### 1. Folded gas group
