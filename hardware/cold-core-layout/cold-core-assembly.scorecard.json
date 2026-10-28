@@ -59,7 +59,7 @@
    "label": "Every corner turns at the stock arc",
    "kind": "gate",
    "status": "pass",
-   "value": "24/24 corners at stock",
+   "value": "14/14 corners at stock",
    "target": "14.00 mm",
    "detail": [],
    "active": true
@@ -93,23 +93,11 @@
    "active": true
   },
   {
-   "id": "gas-adapter-envelope",
-   "label": "The gas collet matches its acquired PI010822S",
-   "kind": "goal",
-   "status": "warn",
-   "value": "shared nominal envelope",
-   "target": "measured gas-adapter envelope",
-   "detail": [
-    "The gas port carries the PI010822S identity and gray acetal material; its envelope is represented by the existing PP010822E layout reference until measured."
-   ],
-   "active": true
-  },
-  {
    "id": "placed",
    "label": "Every body the core carries is placed",
    "kind": "goal",
    "status": "pass",
-   "value": "57/57",
+   "value": "55/55",
    "target": "a solid per body",
    "detail": [],
    "active": false
@@ -139,7 +127,7 @@
    "label": "A feature of another placed part locates every body",
    "kind": "goal",
    "status": "fail",
-   "value": "55/57",
+   "value": "53/55",
    "target": "a located joint per body",
    "detail": [
     "probe-carbonator-ds18b20: foil tape",
@@ -154,8 +142,6 @@
   "carbonator-elbow-prv",
   "carbonator-elbow-water-in",
   "carbonator-tube",
-  "collet-carb-water-out",
-  "collet-co2-in",
   "collet-water-in",
   "endcap-bottom",
   "endcap-top",
@@ -215,13 +201,13 @@
    "to": "carb-water-out.end",
    "stock": "1/4\" LLDPE",
    "od": 6.35,
-   "length": 380.71,
+   "length": 349.23,
    "bend": 14.0,
    "radius": 14.0,
    "minBend": 14.0,
    "ratio": 1.0,
    "grade": "B",
-   "reach": 230.51,
+   "reach": 227.09,
    "reachGrade": "D",
    "binding": null,
    "corners": [
@@ -266,22 +252,10 @@
      "radius": 14.0,
      "ratio": 1.0,
      "grade": "B"
-    },
-    {
-     "at": 8,
-     "radius": 14.0,
-     "ratio": 1.0,
-     "grade": "B"
-    },
-    {
-     "at": 9,
-     "radius": 14.0,
-     "ratio": 1.0,
-     "grade": "B"
     }
    ],
    "need": {
-    "detour": 1.652
+    "detour": 1.538
    }
   },
   {
@@ -291,13 +265,13 @@
    "to": "carbonator.co2-in",
    "stock": "1/4\" LLDPE",
    "od": 6.35,
-   "length": 265.61,
+   "length": 260.94,
    "bend": 14.0,
    "radius": 14.0,
    "minBend": 14.0,
    "ratio": 1.0,
    "grade": "B",
-   "reach": 222.84,
+   "reach": 218.94,
    "reachGrade": "C",
    "binding": null,
    "corners": [
@@ -380,31 +354,18 @@
    "to": "reservoir-a-fill.end",
    "stock": "1/4\" LLDPE",
    "od": 6.35,
-   "length": 25.84,
+   "length": 25.25,
    "bend": 14.0,
    "radius": 14.0,
    "minBend": 14.0,
    "ratio": 1.0,
-   "grade": "B",
-   "reach": 25.49,
-   "reachGrade": "C",
+   "grade": null,
+   "reach": 25.25,
+   "reachGrade": "B",
    "binding": null,
-   "corners": [
-    {
-     "at": 1,
-     "radius": 14.0,
-     "ratio": 1.0,
-     "grade": "B"
-    },
-    {
-     "at": 2,
-     "radius": 14.0,
-     "ratio": 1.0,
-     "grade": "B"
-    }
-   ],
+   "corners": [],
    "need": {
-    "detour": 1.014
+    "detour": 1.0
    }
   },
   {
@@ -414,31 +375,18 @@
    "to": "reservoir-b.end",
    "stock": "1/4\" LLDPE",
    "od": 6.35,
-   "length": 225.57,
+   "length": 224.97,
    "bend": 14.0,
    "radius": 14.0,
    "minBend": 14.0,
    "ratio": 1.0,
-   "grade": "B",
-   "reach": 225.0,
-   "reachGrade": "C",
+   "grade": null,
+   "reach": 224.97,
+   "reachGrade": "B",
    "binding": null,
-   "corners": [
-    {
-     "at": 1,
-     "radius": 14.0,
-     "ratio": 1.0,
-     "grade": "B"
-    },
-    {
-     "at": 2,
-     "radius": 14.0,
-     "ratio": 1.0,
-     "grade": "B"
-    }
-   ],
+   "corners": [],
    "need": {
-    "detour": 1.003
+    "detour": 1.0
    }
   },
   {
@@ -482,14 +430,14 @@
    "to": "water-in.end",
    "stock": "1/4\" LLDPE",
    "od": 6.35,
-   "length": 229.66,
+   "length": 87.55,
    "bend": 14.0,
    "radius": 14.0,
    "minBend": 14.0,
    "ratio": 1.0,
    "grade": "B",
-   "reach": 106.5,
-   "reachGrade": "F",
+   "reach": 68.58,
+   "reachGrade": "C",
    "binding": null,
    "corners": [
     {
@@ -497,34 +445,10 @@
      "radius": 14.0,
      "ratio": 1.0,
      "grade": "B"
-    },
-    {
-     "at": 2,
-     "radius": 14.0,
-     "ratio": 1.0,
-     "grade": "B"
-    },
-    {
-     "at": 3,
-     "radius": 14.0,
-     "ratio": 1.0,
-     "grade": "B"
-    },
-    {
-     "at": 4,
-     "radius": 14.0,
-     "ratio": 1.0,
-     "grade": "B"
-    },
-    {
-     "at": 5,
-     "radius": 14.0,
-     "ratio": 1.0,
-     "grade": "B"
     }
    ],
    "need": {
-    "detour": 2.156
+    "detour": 1.277
    }
   }
  ]
