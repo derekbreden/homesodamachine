@@ -135,7 +135,7 @@ struct SoundView: View {
             case .success:
                 if let held = ble.appliance.sound?.value, held.sameChoices(as: wanted) {
                     draft = nil
-                    nav.back()
+                    nav.back(from: .sound)
                 } else {
                     draft = nil
                     problem = "The machine kept different settings. They’re shown above."
@@ -187,7 +187,7 @@ struct RenameView: View {
         Task {
             guard await ble.ensureTrusted(.name) else { return }
             ble.rename(m, to: name)
-            nav.back()
+            nav.back(from: .rename)
         }
     }
 }

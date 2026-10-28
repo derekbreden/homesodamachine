@@ -54,8 +54,11 @@ final class Navigator {
     var path: [AppRoute] { stacks[tab] ?? [] }
     var top: AppRoute? { path.last }
 
+    /// A page over the one showing, on the tab in front, so Back returns to
+    /// exactly where it was opened from — whichever button, header or sidebar
+    /// opened it. The page already showing is not opened over itself.
     func push(_ route: AppRoute) {
-        guard !locked else { return }
+        guard !locked, top != route else { return }
         stacks[tab, default: []].append(route)
     }
 
@@ -64,16 +67,20 @@ final class Navigator {
         _ = stacks[tab]?.popLast()
     }
 
+    /// A page closing itself once the machine has answered: only while it is
+    /// still the page on top of its own tab, wherever someone has gone since.
+    func back(from route: AppRoute) {
+        guard !locked else { return }
+        for t in [tab] + AppTab.allCases where stacks[t]?.last == route {
+            stacks[t]?.removeLast()
+            return
+        }
+    }
+
     /// A tab chosen again goes back to its top.
     func select(_ next: AppTab) {
         guard !locked else { return }
         if next == tab { stacks[next] = [] } else { tab = next }
-    }
-
-    /// One page on a tab, from anywhere.
-    func open(_ route: AppRoute, on tab: AppTab) {
-        self.tab = tab
-        stacks[tab] = [route]
     }
 
     /// The Machine tab, every tab back to its top, unlocked.
@@ -194,7 +201,7 @@ struct PageHeader: View {
                     .accessibilityLabel("Back")
                 }
                 if isTop && nav.tab == .machine && !sidebar {
-                    Button { nav.open(.machines, on: .settings) } label: {
+                    Button { nav.push(.machines) } label: {
                         HStack(spacing: 9) {
                             Text(ble.current?.displayName ?? "").font(.largeTitle.weight(.semibold))
                             Image(systemName: "chevron.down").font(.caption.weight(.semibold))
@@ -211,7 +218,7 @@ struct PageHeader: View {
                 }
                 Spacer(minLength: 8)
                 if isTop && nav.tab != .machine && !sidebar {
-                    Button { nav.open(.machines, on: .settings) } label: {
+                    Button { nav.push(.machines) } label: {
                         HStack(spacing: 6) {
                             Text(ble.current?.displayName ?? "")
                             Image(systemName: "chevron.down").font(.caption2)
@@ -298,7 +305,7 @@ struct SideNavigation: View {
                 Text("Soda Machine").font(.subheadline.weight(.semibold))
             }
             .padding(.bottom, 24)
-            Button { nav.open(.machines, on: .settings) } label: {
+            Button { nav.push(.machines) } label: {
                 HStack {
                     VStack(alignment: .leading, spacing: 5) {
                         Text(ble.current?.displayName ?? "").font(.headline)
@@ -326,7 +333,7 @@ struct SideNavigation: View {
                 .accessibilityAddTraits(selected ? .isSelected : [])
             }
             Spacer(minLength: 32)
-            Button { nav.open(.machines, on: .settings) } label: {
+            Button { nav.push(.machines) } label: {
                 Label("Your machines", systemImage: "square.stack").frame(minHeight: 44)
             }
             .foregroundStyle(Theme.textSecondary)

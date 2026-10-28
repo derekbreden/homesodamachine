@@ -106,7 +106,7 @@ struct MachineNotices: View {
                 Notice(title: "Update your machine",
                        message: "Its software can’t share readings or take changes from this app yet.",
                        icon: "arrow.down.circle")
-                ActionButton(title: "Software Update", primary: false) { nav.open(.update, on: .settings) }
+                ActionButton(title: "Software Update", primary: false) { nav.push(.update) }
             }
         }
         if let ask = ble.trustAsk, ask.quiet, ask.ended == nil {
@@ -370,7 +370,7 @@ struct FlavorDetailView: View {
             let answer = await ble.selectFlavor(channel)
             selecting = false
             switch answer {
-            case .success: if ble.appliance.selection?.value.channel == channel { nav.back() }
+            case .success: if ble.appliance.selection?.value.channel == channel { nav.back(from: .flavor(channel)) }
             case .failure(let e): problem = e.message
             }
         }
