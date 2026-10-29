@@ -214,13 +214,12 @@ foam-cap stacks.
 
 The outer **−X** wall carries one round copper feed-through on each lane.
 Reservoir B's reed loom leaves through a top-open notch in this wall's upper
-rim, directly beside its dry reed channel. The notch is 10 mm wide and 6 mm
-deep: world X−37.5…−27.5, from the Z233.4 rim down to Z227.4, opening on
-the fore face at Y182.6. It is one rectangular slot from the dry reed
-channel out through the wall. B's channel walls stand [2.38 mm](FSHELL_WALL_T)
-outside the notch's sides for the shell's full height and separate the
-outlet from the foam cavity. The cap's floor closes over the ribbon when
-the cap is seated. The remaining wall continues below the notch.
+rim: the top 6 mm of its dry reed channel, opened through the wall at the
+channel's own 8 mm width. The notch spans world X−36.5…−28.5, from the Z233.4
+rim down to Z227.4, opening on the fore face at Y182.6. Its sides are the
+channel's sides, and the channel's walls separate it from the foam cavity.
+The cap's floor closes over the ribbon when the cap is seated. The remaining
+wall continues below the notch.
 
 Six fluid lines leave through the upper cap face; B-fill enters its fore
 face. Reservoir A's reed cable, the carbonator reed cable and the sensor/earth
@@ -421,7 +420,7 @@ enclosure’s exterior relief chase.
 | # | Pass-through | Opening | Carries |
 |---|---|---|---|
 | 1 | Reed cable (+X) | straight top-cap reed conduit directly above its channel | reservoir A's 5P reed ribbon; bends are dressed above the lid |
-| 2 | Reed cable (−X) | 10 × 6 mm top-open shell-rim notch | reservoir B's four signals and continuous common in one 5P ribbon, dressed externally to J7 and the reed-common WAGO |
+| 2 | Reed cable (−X) | 8 × 6 mm top-open shell-rim notch | reservoir B's four signals and continuous common in one 5P ribbon, dressed externally to J7 and the reed-common WAGO |
 | 3 | Copper evaporator inlet | port-lane hole | 1/4" OD ACR copper, made up on the condenser's own outlet pick across the plane the two bodies share |
 | 4 | Copper evaporator outlet | west-lane hole | 1/4" OD ACR copper, made up on the compressor's own suction pick across that same plane |
 | 5 | PRV vent | **+Y flank** | short 1/4" OD LLDPE from the prv-shroud’s barrel into the enclosure’s west-wall relief chase, which opens outside the cabinet (see [`prv-shroud`](/hardware/printed-parts/cold-core/prv-shroud/)) |
@@ -604,8 +603,8 @@ the masks and trim any external foam flush.
 Drop the pre-soldered reed columns into the still-open reed channels.
 Thread reservoir A's free ribbon vertically through its straight cap passage
 at world X−32.5/Y458.3, then dress its bends above the Z253.4 lid face.
-Lay reservoir B's complete 5P ribbon flat in the shell-rim notch, leaving its free end outside
-the fore face. Its four signal conductors reach J7; its continuous common
+Press reservoir B's complete 5P ribbon into the 8 mm shell-rim notch, where
+the 8.5 mm ribbon seats with a slight curl, leaving its free end outside the fore face. Its four signal conductors reach J7; its continuous common
 reaches the existing reed-common WAGO. Dress that external loom beside the
 PCB with slack for its removable connections.
 
