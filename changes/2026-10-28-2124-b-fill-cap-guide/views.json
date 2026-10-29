@@ -1,0 +1,204 @@
+{
+  "views": [
+    {
+      "name": "route",
+      "caption": "The continuous B-fill tube enters the cap below the original PCB, with a short external approach and no buried fitting pair.",
+      "before": "route-before.webp",
+      "after": "route-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 709.3,
+          "y": 496.5,
+          "r": 33,
+          "label": "Cap face entry",
+          "at": [
+            -43.5,
+            182.6,
+            247.55
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          -197.54467842874138,
+          288.7109788165561,
+          480.06801989072807
+        ],
+        "target": [
+          -19,
+          204,
+          252
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 141.5240690091427,
+        "far": 504.5275163435452,
+        "aspect": 1.3333333333333333
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [
+        "cold-core/pcba",
+        "cold-core/line-reservoir-b-fill",
+        "cold-core/reservoir-b-fill-lower",
+        "cold-core/reservoir-b-fill-upper",
+        "tube-fluid-24",
+        "reservoir-b-fill-turn"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "8da6db37ffec0f62b92e45a7e1ce9dc071b87ce84faffa7466a65a418fa45707",
+          "commit": "0accdab79d299749b47d100a92010cd1b0b1eff1",
+          "taken": "2026-10-29T00:31:20.524Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "file",
+          "sha256": "dda7b908da78e3545a66232391b45b4ec4c00ad7133be9416413ba1f9778c027",
+          "commit": null
+        }
+      },
+      "changed": [
+        "cold-core/reservoir-b-fill-upper",
+        "cold-core/reservoir-b-fill-lower",
+        "wire-J2-OUT1",
+        "wire-J1-OUT4",
+        "wire-J2-OUT2",
+        "wire-J1-OUT8",
+        "tube-fluid-24",
+        "wire-J1-OUT3",
+        "wire-J1-OUT5",
+        "cold-core/line-reservoir-b-fill",
+        "wire-J2-FAN",
+        "wire-J1-OUT7",
+        "wire-J1-COM",
+        "wire-J2-COM",
+        "wire-J1-OUT6",
+        "cold-core/foam-cap-lid-top",
+        "cold-core/foam-cap-top",
+        "reservoir-b-fill-turn",
+        "wire-J2-positive-K"
+      ],
+      "withinMeshing": []
+    },
+    {
+      "name": "cap-section",
+      "caption": "The cap cup carries a rectangular filled block. Its lid closes the compensated tube groove; the fore clamp holes stand at the straight-inlet tangent.",
+      "before": "cap-section-before.webp",
+      "after": "cap-section-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 593.5,
+          "y": 435.6,
+          "r": 45.8,
+          "label": "Inlet tangent",
+          "at": [
+            -43.5,
+            219.3,
+            247.55
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          -143.38025841871962,
+          301.7457551356957,
+          351.56335522015956
+        ],
+        "target": [
+          -43.5,
+          218,
+          244
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 0.34949034094038695,
+        "far": 522.6854157121506,
+        "aspect": 1.3333333333333333,
+        "section": {
+          "at": [
+            -43.5,
+            219.3,
+            245
+          ],
+          "normal": [
+            -1,
+            0,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [
+        "cold-core/line-reservoir-b-fill"
+      ],
+      "ghost": [],
+      "only": [
+        "cold-core/foam-cap-top",
+        "cold-core/foam-cap-lid-top",
+        "cold-core/line-reservoir-b-fill",
+        "cold-core/reservoir-b-fill-lower",
+        "cold-core/reservoir-b-fill-upper"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "8da6db37ffec0f62b92e45a7e1ce9dc071b87ce84faffa7466a65a418fa45707",
+          "commit": "0accdab79d299749b47d100a92010cd1b0b1eff1",
+          "taken": "2026-10-29T00:31:20.524Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "file",
+          "sha256": "dda7b908da78e3545a66232391b45b4ec4c00ad7133be9416413ba1f9778c027",
+          "commit": null
+        }
+      },
+      "changed": [
+        "cold-core/reservoir-b-fill-upper",
+        "cold-core/reservoir-b-fill-lower",
+        "wire-J2-OUT1",
+        "wire-J1-OUT4",
+        "wire-J2-OUT2",
+        "wire-J1-OUT8",
+        "tube-fluid-24",
+        "wire-J1-OUT3",
+        "wire-J1-OUT5",
+        "cold-core/line-reservoir-b-fill",
+        "wire-J2-FAN",
+        "wire-J1-OUT7",
+        "wire-J1-COM",
+        "wire-J2-COM",
+        "wire-J1-OUT6",
+        "cold-core/foam-cap-lid-top",
+        "cold-core/foam-cap-top",
+        "reservoir-b-fill-turn",
+        "wire-J2-positive-K"
+      ],
+      "withinMeshing": []
+    }
+  ]
+}
