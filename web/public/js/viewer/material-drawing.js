@@ -10,7 +10,7 @@ const button = (text, label) => {
 
 // The workspace owns navigation and document controls. The embedded reader
 // renders the sheet; its camera-bearing model stays mounted behind it.
-export function mountMaterialDrawing(wrapper, { onShowDrawing } = {}) {
+export function mountMaterialDrawing(wrapper) {
   const workspace = wrapper.closest(".cad-workspace");
   const switcher = document.createElement("div");
   switcher.className = "material-view-switch";
@@ -78,7 +78,7 @@ export function mountMaterialDrawing(wrapper, { onShowDrawing } = {}) {
     subject.hidden = !selected.subject;
     wrapper.classList.add("drawing-open");
     model.setAttribute("aria-pressed", "false"); drawing.setAttribute("aria-pressed", "true");
-    onShowDrawing?.(); stopAnimate();
+    stopAnimate();
   }
   function setDrawing(doc) {
     if (selected?.path === doc?.path) {
@@ -120,7 +120,7 @@ export function mountMaterialDrawing(wrapper, { onShowDrawing } = {}) {
   page.addEventListener("keydown", event => { if (event.key === "Enter") { command("page", { page: page.value }); page.blur(); } });
   model.addEventListener("click", showModel); drawing.addEventListener("click", () => showDrawing());
   window.addEventListener(HSM_EVENTS.STEP_MOUNTED, mounted); window.addEventListener("message", message);
-  return { setDrawing, showDrawing, drawingPath: () => selected?.path, closeDrawing: () => {
+  return { setDrawing, showDrawing, drawingPath: () => selected?.path, showing: () => showing, closeDrawing: () => {
     const closed = showModel(); if (closed) model.focus(); return closed;
   }, dispose: () => {
     window.removeEventListener(HSM_EVENTS.STEP_MOUNTED, mounted); window.removeEventListener("message", message);
