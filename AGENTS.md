@@ -50,21 +50,6 @@ Co-Authored-By: <the harness's line, when it adds one>
 
 Every change to the enclosure's geometry has an entry in [`changes/`](changes/README.md), shown at [homesodamachine.com/changes](https://homesodamachine.com/changes): a before and an after picture of what changed, from one camera, with a short lede. The before is the snapshot taken ahead of the rebuild, `node tools/changes/change.mjs snapshot`; nothing else keeps it. [`changes/README.md`](changes/README.md) has the rest. Recording follows the change and never holds it up.
 
-## Placement Sequence
-
-The machine is placed in this order:
-
-1. Envelope: the outer box and footprint, front face and faucet, seams between printed pieces, service openings.
-2. Modules: cold core and compressor, PSU, pump cartridge, flavor manifold.
-3. Hardware: valves, fittings, flow meter, regulator, check valves, PCB, display.
-4. Hardware mounts: printed sockets, pedestals, saddles, walls.
-5. Tubes: soda, flavor, gas and drain routes between ports.
-6. Cables
-7. WAGOs
-8. Tube mounts: tube snaps, tie and strap passages.
-9. Cable mounts: cable clips.
-
-When you move something, only what comes earlier in the sequence can be in its way. Nothing later blocks the move: remove or ignore whatever later item is in the way, make the move, then rebuild what you displaced, in sequence order, before you finish.
 
 ## What Runs Every Time
 
