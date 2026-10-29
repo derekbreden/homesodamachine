@@ -1,0 +1,87 @@
+{
+  "views": [
+    {
+      "name": "j11-hook",
+      "caption": "Cut through the hook\u2019s mid-span to show its filled root and retaining lip below the vents.",
+      "before": "j11-hook-before.webp",
+      "after": "j11-hook-after.webp",
+      "width": 1200,
+      "height": 840,
+      "marks": [
+        {
+          "x": 581.4,
+          "y": 555.8,
+          "r": 70,
+          "label": "Solid-band root",
+          "at": [
+            -94.5,
+            90,
+            12
+          ]
+        }
+      ],
+      "model": "printed-parts/enclosure/enclosure/enclosure-front-bottom.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          166.14634972011442,
+          -309.53284572325293,
+          238.39306514778914
+        ],
+        "target": [
+          -95.5,
+          93,
+          17
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 18,
+        "near": 257.72540241872355,
+        "far": 830.4660147750046,
+        "aspect": 1.4285714285714286,
+        "section": {
+          "at": [
+            0,
+            90,
+            0
+          ],
+          "normal": [
+            0,
+            -1,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [
+        "enclosure-front-bottom"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh",
+          "from": "snapshot",
+          "sha256": "5760a79bc2a499ce99f49e15a5b24dadefb7bcb12f31c17756467364286a1e92",
+          "commit": "d7fc10b6f878d4aef4ad9f57560bb589cedc1efa",
+          "taken": "2026-10-29T16:39:24.618Z",
+          "published": true
+        },
+        "after": {
+          "payload": "printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh",
+          "from": "file",
+          "sha256": "1ec2696fc7ade1471cd95e8c54dd1b9a3949ebdd48e673d6fca7487583a0aee0",
+          "commit": "36303a3c496ba7ffabf529ef833e6733773e9b22"
+        }
+      },
+      "changed": [
+        "enclosure-front-bottom"
+      ],
+      "withinMeshing": []
+    }
+  ]
+}
