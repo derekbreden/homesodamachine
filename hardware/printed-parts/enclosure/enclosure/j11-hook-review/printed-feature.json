@@ -1,0 +1,35 @@
+{
+  "schema": 1,
+  "scope": "Post-publication manual reading of the printed front-bottom, with the new J11 hook findings identified by their exact pick anchors.",
+  "published_pointer_commit": "ca07276ae281a0351d49a299627fb64911d9a018",
+  "stl_sha256": "d131b22b420e376edb74cd6be9038234b5b1c54309511302f594888062e3361b",
+  "print_axis_world": [
+    0,
+    0,
+    1
+  ],
+  "new_feature_findings": [
+    {
+      "class": "sliver",
+      "click_world_mm": [
+        -96.675,
+        90.0,
+        21.875
+      ]
+    },
+    {
+      "class": "ledge",
+      "click_world_mm": [
+        -96.55,
+        87.333,
+        21.875
+      ]
+    }
+  ],
+  "disposition": "Both findings identify the required flat retaining underside of the accepted 4P entry section. Exact feature answers record its 0.75 mm projection, 1.45 mm mouth and the consequences of changing that working geometry.",
+  "answers": "hardware/printed-parts/lint-answers/enclosure/enclosure/enclosure-front-bottom.lint-answers",
+  "structural_stock_mm": 3.0,
+  "full_span_mm": 16.0,
+  "root": "Filled 45 degree corbel attached across the solid wall band.",
+  "physical_scope": "The 4P entry section is accepted; the complete installed J11 loom is represented by nominal wire and terminal geometry."
+}
