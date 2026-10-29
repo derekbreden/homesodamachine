@@ -1,0 +1,124 @@
+{
+  "views": [
+    {
+      "name": "front-cable-bank",
+      "caption": "Two upward-opening channels share one filled lid-rooted base and a common wall.",
+      "before": "front-cable-bank-before.webp",
+      "after": "front-cable-bank-after.webp",
+      "width": 1200,
+      "height": 840,
+      "marks": [
+        {
+          "x": 404.9,
+          "y": 452.6,
+          "r": 107.7,
+          "label": "Shared cable bank",
+          "at": [
+            71.5,
+            184.6,
+            263
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          354.0108125173141,
+          -154.0385156466426,
+          522.9788867349819
+        ],
+        "target": [
+          76.7,
+          192.6,
+          263
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 19.5,
+        "near": 428.56470870573776,
+        "far": 985.8747668447513,
+        "aspect": 1.4285714285714286,
+        "section": {
+          "at": [
+            0,
+            203,
+            0
+          ],
+          "normal": [
+            0,
+            1,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [
+        "cold-core/foam-cap-lid-top"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "8da6db37ffec0f62b92e45a7e1ce9dc071b87ce84faffa7466a65a418fa45707",
+          "commit": "0accdab79d299749b47d100a92010cd1b0b1eff1",
+          "taken": "2026-10-29T00:06:52.392Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "file",
+          "sha256": "9469a3b0cb83436165cc2f0abbdc1f3501b5791d64225c5aa22ca0524ad2b173",
+          "commit": "fc302ce151abf4982b6d9f52b445ee3797462a35"
+        }
+      },
+      "changed": [
+        "cold-core/reservoir-b-fill-upper",
+        "cold-core/reservoir-b-fill-lower",
+        "cold-core/carbonator-earth-locknut",
+        "terminal-carbonator-pe",
+        "cold-core/carbonator-earth-screw",
+        "cold-core/carbonator-earth-tab",
+        "wire-J2-OUT1",
+        "wire-J1-OUT4",
+        "wire-J2-OUT2",
+        "wire-J1-OUT8",
+        "tube-fluid-24",
+        "wire-PE-carbonator",
+        "wire-J1-OUT3",
+        "wire-J1-OUT5",
+        "cold-core/line-reservoir-b-fill",
+        "wire-J7-RB2",
+        "wire-J7-RB3",
+        "wire-J7-RB1",
+        "wire-J2-FAN",
+        "wire-J7-RB4",
+        "wire-J7-earth-4",
+        "wire-J1-OUT7",
+        "wire-J1-COM",
+        "wire-J2-COM",
+        "wire-J1-OUT6",
+        "wire-J6-RA3",
+        "wire-J6-RA2",
+        "wire-J6-RA4",
+        "wire-J6-GND",
+        "wire-J6-RA1",
+        "cold-core/foam-cap-lid-top",
+        "cold-core/foam-cap-top",
+        "reservoir-b-fill-turn",
+        "wire-J2-positive-K",
+        "cold-core/foam-shell"
+      ],
+      "withinMeshing": [
+        "wire-AC5-N",
+        "wire-J4-IO26"
+      ]
+    }
+  ]
+}

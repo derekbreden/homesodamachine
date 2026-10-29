@@ -11,5 +11,13 @@
   "live_viewer_native_source_sha256": "de4173da9bd4f49c91fe2ee7fbcfdaf3572ac4e57d87b5c591f0d02187228cff",
   "live_viewer_matches_published_object": true,
   "live_payload_url": "https://objects.homesodamachine.com/s-694db150996dcd350de297419cba117749c20d1c69918d2d9fa420c26af9fbc2.gz",
-  "live_member_map_verified": true
+  "live_member_map_verified": true,
+  "heel_integration": {
+    "pointer_commit": "ab51952e2",
+    "subsequent_published_lid_sha256": "b393122ec89ba0b136d56cd150d6f586b5aa39f9370f985977fac6a1785fce8c",
+    "published_after_payload_sha256": "9469a3b0cb83436165cc2f0abbdc1f3501b5791d64225c5aa22ca0524ad2b173",
+    "published_after_native_sha256": "18d23efab634529f3f5e4fcd4e7c2d23812a06443fafa9c5e1ba4ad14e6e39a0",
+    "published_after_pointer_commit": "fc302ce15",
+    "scope": "Bank seats retained while the broad heel chamfer is included in the source-built current lid."
+  }
 }
