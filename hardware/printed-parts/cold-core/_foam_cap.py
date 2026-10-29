@@ -179,10 +179,6 @@ def build_conduit_bores(height, radius=cap_conduit_bore_radius, overshoot=0.0,
             passage = build_route(route['points_mm'], route['bend_radius_mm'], radius)
             passage = _above_mounts.world_shape_in_cap(passage).translate((0., 0., top_cap_height))
             bores = bores.union(passage.intersect(band))
-        xy = cap_conduit_floor_xy['reservoir-b-fill']
-        stem = (cq.Workplane('XY').workplane(offset=-overshoot)
-                .center(*xy).circle(radius).extrude(height+overshoot))
-        bores = bores.union(stem)
     water_air = _above_mounts.world_shape_in_cap(_above_mounts.water_in_features()['cut'])
     if frame == 'cup':
         water_air = water_air.translate((0.,0.,top_cap_height))
