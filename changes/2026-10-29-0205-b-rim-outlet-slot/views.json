@@ -9,13 +9,13 @@
       "height": 900,
       "marks": [
         {
-          "x": 316.8,
+          "x": 357.9,
           "y": 430.6,
           "r": 82.3,
           "label": "channel wall",
           "at": [
             -134.5,
-            25.62,
+            26.62,
             203.5
           ]
         }
@@ -72,9 +72,9 @@
         "after": {
           "payload": "printed-parts/cold-core/foam-shell/foam-shell.step.mesh",
           "from": "tree",
-          "sha256": "c0f5d1b1a85e010f5d233b35c53c467a0929166e625b29d819193dfbfe2c8653",
-          "commit": "3d87593492dc60e593195c3f520ef7387e0d00a3",
-          "published": true
+          "sha256": "5507ef3a6ea7a2eebaa5413a1552d5e0c5c8b1f3e7c0d788748dcd1d77998345",
+          "commit": "daee7e7ff7a1a79a42e29e05fbb5db458d126ad8",
+          "published": false
         }
       },
       "changed": [
@@ -154,8 +154,8 @@
         "after": {
           "payload": "printed-parts/cold-core/foam-shell/foam-shell.step.mesh",
           "from": "tree",
-          "sha256": "c0f5d1b1a85e010f5d233b35c53c467a0929166e625b29d819193dfbfe2c8653",
-          "commit": "3d87593492dc60e593195c3f520ef7387e0d00a3",
+          "sha256": "5507ef3a6ea7a2eebaa5413a1552d5e0c5c8b1f3e7c0d788748dcd1d77998345",
+          "commit": "9e1dbb9576533e0cab8ed2ec2a475fe6a94c331a",
           "published": true
         }
       },
