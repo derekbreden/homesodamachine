@@ -228,16 +228,15 @@ loom use separate upper-cap passages. See Penetrations.
 
 #### Seam channel
 
-A [9.5 mm](SEAM_CHANNEL_W) wide, [1 mm](SEAM_CHANNEL_D) deep channel runs down the +Y
-flank's centre line, x = 0, the column the PRV vent leaves by. Its two inside corners give
-the outer wall's seam a place to land on every layer. It is the vent's
-⌀[7.5 mm](TUBE_HOLE_D) bore with a [1 mm](SEAM_CHANNEL_LAND) land either side, so the vent
-opens in the channel's floor. The channel stops [13 mm](FOIL_LAND) short of each end, where
-the foil bands seal on the plain face, and its floor runs out to the face at 45° at both ends.
+A [9.5 mm](SEAM_CHANNEL_W) wide, [1.5 mm](SEAM_CHANNEL_D) deep channel runs the full height
+of the +Y flank on its centre line, x = 0, the column the PRV vent leaves by, and opens
+through the shell's top and bottom faces. Its two inside corners give the outer wall's seam a
+place to land on every layer. It is the vent's ⌀[7.5 mm](TUBE_HOLE_D) bore with a
+[1 mm](SEAM_CHANNEL_LAND) land either side, so the vent opens in the channel's floor.
 
 The wall folds inward behind the channel over its width plus one wall section either side,
-so every horizontal section through the fold is [2.38 mm](FSHELL_WALL_T) thick. The fold
-reaches one channel depth past each end of the channel and runs out on the inner face at 45°.
+so every horizontal section through the fold is [2.38 mm](FSHELL_WALL_T) thick. The fold runs
+the full height with the channel.
 
 ### foam_cap and foam_cap_lid
 
@@ -287,8 +286,9 @@ the four 0.15 mm seating allowances, making the physical core shorter.
 The bottom lid's pad ends and top cap's flush deck columns have the same
 axial allowance; their radial fits retain their own dimensions.
 
-The shell, cups and lids have plain vertical outer faces under the foil bands. Foil sits
-on these faces within a 0.30 mm per-side allowance around the casing. Each corner pilot
+The cups and lids have plain vertical outer faces under the foil bands, and so does the
+shell but for the seam channel, which runs under both bands. Foil sits on these faces within
+a 0.30 mm per-side allowance around the casing. Each corner pilot
 retains at least 1.69 mm radial wall through its depth; the shared clamp axes
 stand independently of the ordinary wall thickness.
 
@@ -306,7 +306,9 @@ the screw heads. The band
 spans those small dry side openings. Keep the axial driver openings on
 the lid's flat outer face, mounting seats and fluid passages clear. Burnish
 the foil onto the smooth lands around the openings without wrinkles or
-air channels. At B's upper-rim cable exit, burnish a local foil collar from
+air channels. Where each band crosses the seam channel, burnish it into the
+channel, against both walls and the floor, and onto the edge of the cup floor
+that closes the channel's end. At B's upper-rim cable exit, burnish a local foil collar from
 the casing onto the ribbon, closing the opening around it and joining the
 perimeter band. Keep the ribbon flat in its notch before clamping the cap;
 the cap seats on the surrounding printed rim. This local seam seal is not

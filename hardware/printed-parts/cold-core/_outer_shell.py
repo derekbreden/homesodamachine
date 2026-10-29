@@ -5,11 +5,10 @@ exterior wall arc, two short webs filling to the flanking flat walls — the
 cylinder + corner-fill teardrop idiom of the reservoir pocket-corner supports."""
 
 import cadquery as cq
-from world_workplane import WorldWorkplane, xy_plane_z_up, yz_plane_x_up
+from world_workplane import WorldWorkplane, xy_plane_z_up
 import fits
 from _cold_core_interface import (
     attachment_stations,
-    casing_foil_land,
     seam_channel_depth,
     seam_channel_width,
     outer_shell_wall,
@@ -107,36 +106,20 @@ def build_attachment_bosses(height, oversize=0.0):
     return bosses.intersect(_rounded_footprint(height).unwrap())
 
 
-def _ramped_slab(half_width, face_y, depth, z0, z1):
-    """A slab |x| <= `half_width` reaching `depth` toward -Y off the plane y = `face_y`, from
-    z0 to z1. Its depth runs out at 45 degrees at both ends, so its upper end is no ledge and
-    its lower end grows out of the face; the back runs 1 mm past the plane for the boolean."""
-    over = 1.0
-    return (
-        WorldWorkplane(yz_plane_x_up)
-        .workplane(offset=-half_width)
-        .polyline([(face_y + over, z0 - over), (face_y - depth, z0 + depth),
-                   (face_y - depth, z1 - depth), (face_y + over, z1 + over)])
-        .close()
-        .extrude(2.0 * half_width)
-        .unwrap()
-    )
-
-
 def fold_seam_channel(shell):
-    """The seam channel down the +Y flank's centre line, between the two foil lands.
+    """The seam channel down the +Y flank's centre line, end face to end face.
 
     The flank gives up the channel and the wall's inner face takes the same depth back over
     the channel's width plus one section either side, so every horizontal section through the
-    fold is still `outer_shell_wall` thick. The fold reaches one depth past each end of the
-    channel, where it runs out on the same 45 degrees."""
+    fold is still `outer_shell_wall` thick."""
     face_y = outer_shell_y_length / 2.0
-    z0, z1 = casing_foil_land, foam_shell_outer_height - casing_foil_land
-    d = seam_channel_depth
-    channel = _ramped_slab(seam_channel_width / 2.0, face_y, d, z0, z1)
-    fold = _ramped_slab(seam_channel_width / 2.0 + outer_shell_wall, face_y - outer_shell_wall,
-                        d, z0 - d, z1 + d)
-    return shell.cut(channel).union(fold)
+    floor_y = face_y - seam_channel_depth
+    half = seam_channel_width / 2.0
+    h = foam_shell_outer_height
+    fold = make_box((-half - outer_shell_wall, half + outer_shell_wall),
+                    (floor_y - outer_shell_wall, floor_y), (0.0, h))
+    channel = make_box((-half, half), (floor_y, face_y + 1.0), (-1.0, h + 1.0))
+    return shell.union(fold).cut(channel)
 
 
 def build_outer_shell():
