@@ -8,6 +8,7 @@ import { openMaterial, materialHash } from "./material-nav.js";
 import { makeMaterialSearch } from "./material-search.js";
 import { componentLocation, stepLabel, stepLocation } from "/contracts/step-locations.js";
 import { mountMaterialDrawing } from "./material-drawing.js";
+import { mountMaterialSheet } from "./material-sheet.js";
 import { rollupCost, directCost, laborUsd, money, duration, runText, COST_KINDS } from "/contracts/part-costs.js";
 
 const el = (tag, className, text) => {
@@ -47,9 +48,11 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
   workspace.append(panel);
   const wrapper = workspace.querySelector(".cad-wrapper");
   const toggle = wrapper ? el("button", "materials-toggle", "Materials") : null;
+  const sheet = wrapper ? mountMaterialSheet({ workspace, panel }) : null;
   function setOpen(open) {
     workspace.classList.toggle("materials-open", open);
     toggle?.setAttribute("aria-expanded", String(open));
+    sheet?.setOpen(open);
   }
   if (toggle) {
     toggle.type = "button";
@@ -165,6 +168,7 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
   function select(id, path = [], { fromModel = false } = {}) {
     if (!fromModel) clearComponentSelection();
     modelPick = fromModel;
+    if (!fromModel) sheet?.reveal();
     selectedBody = null;
     selected = id; selectedPath = path;
     render();
@@ -650,6 +654,7 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
   const handle = { select, setRoot, sync, applyRoute, leave, closeDrawing: () => drawingView?.closeDrawing(), dispose: () => {
     disposed = true;
     drawingView?.dispose();
+    sheet?.dispose();
     window.removeEventListener(HSM_EVENTS.STEP_MOUNTED, sync);
     window.removeEventListener(HSM_EVENTS.MATERIAL_PICKED, picked);
     window.removeEventListener(HSM_EVENTS.FAUCET_OPTIONS, sync);
