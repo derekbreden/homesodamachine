@@ -51,6 +51,8 @@
 .material-panel { grid-area: 2 / 2; position: relative; box-sizing: border-box; min-width: 0; height: 100%; background: var(--surface); color: var(--text); border-left: 1px solid var(--border); display: flex; flex-direction: column; touch-action: pan-y; }
 .cad-workspace:not(.materials-open) > .material-panel { display: none; }
 .material-panel > .material-search { width: auto; padding: 16px 16px 12px; flex-shrink: 0; }
+.material-sheet-grabber { display: none; position: sticky; top: 0; z-index: 3; flex-shrink: 0; justify-content: center; align-items: center; height: 22px; margin-bottom: -10px; background: var(--surface); cursor: grab; touch-action: none; }
+.material-sheet-grabber::before { content: ""; width: 36px; height: 5px; border-radius: 3px; background: var(--text-3); }
 .material-panel .material-search label { grid-template-columns: auto minmax(0, 1fr); align-items: center; font-size: 0.8rem; }
 .material-panel .material-search input { font-size: 0.8rem; min-height: 44px; padding: 10px; background: var(--bg); }
 .material-panel .material-search-status { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
@@ -158,12 +160,15 @@
 }
 @media (max-width: 700px) {
   .assembly-row { grid-template-columns: minmax(0, 1fr); }
-  /* The pane shares the screen with the model, as it does beside it on wider screens:
-     the model above, the pane in the lower half. */
-  .cad-workspace.materials-open { grid-template: auto minmax(0, 1fr) minmax(0, 1fr) / minmax(0, 1fr); }
-  .cad-workspace > .material-panel { grid-area: 3 / 1; border-left: 0; border-top: 1px solid var(--border); overflow-y: auto; overscroll-behavior: contain; }
+  /* The pane shares the screen with the model, as it does beside it on wider screens: the
+     model above, the pane a sheet below it, at the height material-sheet.js sets. Below its
+     top height the list doesn't scroll natively, so a drag raises the sheet first. */
+  .cad-workspace.materials-open { grid-template: auto minmax(0, 1fr) var(--sheet-height, 50%) / minmax(0, 1fr); }
+  .cad-workspace > .material-panel { grid-area: 3 / 1; border-left: 0; border-top: 1px solid var(--border); overflow-y: hidden; overscroll-behavior: contain; touch-action: none; }
+  .cad-workspace > .material-panel.sheet-top { overflow-y: auto; touch-action: pan-y; }
   .cad-workspace > .material-panel > .material-panel-scroll { flex: none; overflow: visible; }
-  .material-panel .material-search-results { max-height: max(120px, calc(50dvh - 150px)); }
+  .cad-workspace > .material-panel > .material-sheet-grabber { display: flex; }
+  .material-panel .material-search-results { max-height: max(96px, calc(var(--sheet-height, 50dvh) - 104px)); }
   .material-record-workspace > .material-panel { flex-basis: 100%; width: 100%; }
 }
 @media (max-width: 360px) {

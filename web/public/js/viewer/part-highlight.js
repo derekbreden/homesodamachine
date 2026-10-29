@@ -16,7 +16,7 @@
 // registry and the material catalog's bindings use.
 
 import * as THREE from "three";
-import { scene, camera, controls, holdCameraPose, releaseCameraPose } from "./scene.js";
+import { scene, camera, controls, holdCameraPose, releaseCameraPose, visibleShare } from "./scene.js";
 import { state } from "./state.js";
 import { setFocusFade } from "./xray.js";
 import { makeToolChip } from "./tool-rail.js";
@@ -87,13 +87,14 @@ function flyTo({ position, target, up = camera.up }) {
   requestAnimationFrame(step);
 }
 
+// Frame `box` in the part of the canvas a phone's Materials sheet leaves uncovered.
 function flyToBox(box) {
   if (box.isEmpty()) return;
   const center = box.getCenter(new THREE.Vector3());
   const size = box.getSize(new THREE.Vector3());
   const maxDim = Math.max(size.x, size.y, size.z, 2);
   const dir = camera.position.clone().sub(controls.target).normalize();
-  flyTo({ position: center.clone().addScaledVector(dir, maxDim * 2.4), target: center });
+  flyTo({ position: center.clone().addScaledVector(dir, maxDim * 2.4 / visibleShare()), target: center });
 }
 
 function solidsBox(meshes) {

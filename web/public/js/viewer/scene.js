@@ -284,22 +284,63 @@ export function resizeRenderer() {
   const parent = renderer.domElement.parentElement;
   let w = 0, h = 0;
   if (parent && parent !== canvasHost) {
-    const r = parent.getBoundingClientRect();
-    w = Math.floor(r.width);
-    h = Math.floor(r.height);
+    // The layout size, not the rect on screen: the viewer opens with a scale transition, and a
+    // ResizeObserver never reports the transform settling.
+    w = parent.clientWidth;
+    h = parent.clientHeight + viewInset;
   }
-  if (w === 0 || h === 0) {
+  if (w === 0 || h === viewInset) {
     w = window.innerWidth;
     h = window.innerHeight;
   }
-  renderer.setSize(w, h, false);
+  // Resizing clears the drawing buffer, so an unchanged size is not set again.
+  const ratio = renderer.getPixelRatio();
+  if (w !== drawnSize.w || h !== drawnSize.h || ratio !== drawnSize.ratio) {
+    renderer.setSize(w, h, false);
+    Object.assign(drawnSize, { w, h, ratio });
+  }
   // Also re-apply CSS size — setSize(...,false) doesn't touch style, and we
   // want the canvas to actually fill the wrapper's content box.
   renderer.domElement.style.width = w + "px";
   renderer.domElement.style.height = h + "px";
   camera.aspect = w / h;
+  if (viewInset) camera.setViewOffset(w, h, 0, viewInset / 2, w, h);
+  else camera.clearViewOffset();
   camera.updateProjectionMatrix();
   navigation.resize();
+}
+const drawnSize = { w: 0, h: 0, ratio: 0 };
+
+// A phone's Materials sheet covers the bottom of the model. The canvas keeps its full height
+// under the sheet, so moving it never reallocates the drawing buffer or rescales a gesture
+// in progress, and the view's centre sits in the part left uncovered: framing puts a part
+// there. `hold` keeps the picture still while the centre moves, as a map stays put under a
+// sheet; without it the picture re-centres in what is left. `goal` is the inset a moving sheet
+// is settling at, which framing aims for.
+let viewInset = 0;
+let goalInset = 0;
+export function setViewInset(px, { hold = true, goal = px } = {}) {
+  px = Math.max(0, Math.round(px));
+  goalInset = Math.max(0, Math.round(goal));
+  if (px === viewInset) return;
+  if (hold) {
+    // The centre rises by half the change; the camera rises with it, so nothing on screen moves.
+    const height = renderer.domElement.clientHeight || 1;
+    const perPixel = 2 * camera.position.distanceTo(controls.target)
+      * Math.tan(THREE.MathUtils.degToRad(camera.fov) / 2) / height;
+    const shift = new THREE.Vector3(0, 1, 0).applyQuaternion(camera.quaternion)
+      .multiplyScalar((px - viewInset) / 2 * perPixel);
+    camera.position.add(shift);
+    controls.target.add(shift);
+  }
+  viewInset = px;
+  resizeRenderer();
+}
+
+// The share of the canvas's height the sheet leaves uncovered, once it settles.
+export function visibleShare() {
+  const height = drawnSize.h || renderer.domElement.clientHeight || 1;
+  return Math.max(0.2, Math.min(1, (height - goalInset) / height));
 }
 
 // Mounted geometry and scene siblings share the navigation camera depth.

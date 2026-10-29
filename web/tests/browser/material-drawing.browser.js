@@ -220,7 +220,7 @@ test("phone searches open the pane under the model; drawings keep the pane and t
     await assertPane(page, true);
     // The pane takes the lower part of the screen, and the model stays in view above it.
     const split = await page.evaluate(() => {
-      const model = document.querySelector("canvas.cad-viewport").getBoundingClientRect();
+      const model = document.querySelector(".cad-wrapper").getBoundingClientRect();
       const pane = document.querySelector(".material-panel").getBoundingClientRect();
       return { model: model.height, gap: pane.top - model.bottom };
     });
@@ -283,7 +283,7 @@ test("direct links and responsive layout apply the pane rules without storing a 
     // A phone-width screen moves the open pane under the model rather than closing it.
     await page.setViewport({ width: 390, height: 844 });
     await page.waitForFunction(() => document.querySelector(".material-panel").getBoundingClientRect().top
-      >= document.querySelector("canvas.cad-viewport").getBoundingClientRect().bottom - 1);
+      >= document.querySelector(".cad-wrapper").getBoundingClientRect().bottom - 1);
     await assertPane(page, true);
     await page.click(".materials-toggle");
     await assertPane(page, false);
