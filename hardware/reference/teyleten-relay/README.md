@@ -10,7 +10,9 @@ unthreaded bearing tips at the board. The 5.35 mm pilot preserves at least
 4.31 mm of backing beneath the selected outer flute envelope. The [wall-mount record](../../mechanical-qualification/enclosure-above-core/wall-mount-review.json)
 defines the native pin-clearance and fastener scope; actual board fit and
 retention remain unqualified.
-SRD-style SPDT relay, 10 A @ 250 VAC; 3.3 V coil.
+The acquired module contains a **Songle SRD-03VDC-SL-C** SPDT relay,
+10 A @ 250 VAC, with a **3 V nominal coil**. The [seller's connection diagram](https://www.amazon.com/dp/B07XGZSYJV)
+specifies **3.3 V at the module's VCC terminal**; `IN` is the high-level trigger.
 
 `teyleten-relay.step` is a generated stand-in. It's a generic reseller board with
 no controlled drawing, so geometry is **calipered**, not from a datasheet.
