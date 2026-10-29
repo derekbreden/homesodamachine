@@ -1,0 +1,356 @@
+{
+  "piece": "foam-shell",
+  "printer": "Mark2",
+  "connection_key": "Mark2",
+  "nozzle": {
+    "side": "left",
+    "diameter_mm": 0.4,
+    "flow": "Standard",
+    "hardened": true,
+    "reason": "Smooth 2.38 mm cold-core casing: 0.42 mm outer and 0.45 mm inner lines at 0.24 mm layers, three loops from each boundary.",
+    "sliced_diameter_mm": 0.4,
+    "sliced_volume_type": "Standard"
+  },
+  "material": "Polymaker Fiberon PET-GF15, black",
+  "bed_type": "Textured PEI Plate",
+  "requested_z_trim_mm": 0.04,
+  "emitted_textured_trim_mm": 0.02,
+  "project": ".cache/prints/2026-10-29-cold-core-seam-channel/preparation/2026-10-29-foam-shell-mark2-d68bb179.3mf",
+  "project_sha256": "c09b392be957be1572b451f2e2bba8d90bdd9b0887cef6984d8b8f4bfc5ecf79",
+  "profile": "hardware/printed-parts/petgf.3mf",
+  "profile_sha256": "45c16e8c8517e0a205107d7b9f7412d013f51a8de7ecf86125cc940079d37ed0",
+  "settings_sha256": "18c9826b30a4dc0b3f007c6550f326830438e21444701e0e00de113c1e9f3844",
+  "settings_changes": {
+    "extruder_ams_count": {
+      "from": [
+        "1#0|4#1",
+        "1#0|4#0"
+      ],
+      "to": [
+        "1#0|4#0",
+        "1#0|4#0"
+      ],
+      "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface."
+    },
+    "support_filament": {
+      "from": "0",
+      "to": "1",
+      "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface."
+    },
+    "support_interface_filament": {
+      "from": "0",
+      "to": "1",
+      "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface."
+    },
+    "flush_into_support": {
+      "from": "1",
+      "to": "0",
+      "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface."
+    },
+    "filament_colour": {
+      "from": [
+        "#000000"
+      ],
+      "to": [
+        "#161616"
+      ],
+      "reason": "Mark2's loaded black PET-GF colour reading."
+    },
+    "wall_loops": {
+      "from": "2",
+      "to": "3",
+      "reason": "Derek selected 2.38 mm standing walls, packed with six perimeter beads."
+    },
+    "wall_generator": {
+      "from": "classic",
+      "to": "classic",
+      "reason": "Three fixed-width perimeters from each wall boundary."
+    },
+    "sparse_infill_pattern": {
+      "from": "gyroid",
+      "to": "gyroid",
+      "reason": "Retain 15% gyroid in thicker regions."
+    },
+    "enable_support": {
+      "from": "1",
+      "to": "1",
+      "reason": "Tree(auto)/Default decides support at the round copper passages and blind insert roofs; native support placement is reviewed for this production geometry."
+    },
+    "outer_wall_speed": {
+      "from": [
+        "200",
+        "200",
+        "200",
+        "200",
+        "200"
+      ],
+      "to": [
+        "100",
+        "100",
+        "100",
+        "100",
+        "100"
+      ],
+      "reason": "Full-height production shell: gentler deposition and motion through the continuous 2.38 mm walls."
+    },
+    "inner_wall_speed": {
+      "from": [
+        "300",
+        "300",
+        "300",
+        "300",
+        "300"
+      ],
+      "to": [
+        "150",
+        "150",
+        "150",
+        "150",
+        "150"
+      ],
+      "reason": "Full-height production shell: gentler deposition and motion through the continuous 2.38 mm walls."
+    },
+    "outer_wall_acceleration": {
+      "from": [
+        "5000",
+        "5000",
+        "5000",
+        "5000",
+        "5000"
+      ],
+      "to": [
+        "1500",
+        "1500",
+        "1500",
+        "1500",
+        "1500"
+      ],
+      "reason": "Full-height production shell: gentler deposition and motion through the continuous 2.38 mm walls."
+    },
+    "inner_wall_acceleration": {
+      "from": [
+        "0",
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "to": [
+        "3000",
+        "3000",
+        "3000",
+        "3000",
+        "3000"
+      ],
+      "reason": "Full-height production shell: gentler deposition and motion through the continuous 2.38 mm walls."
+    },
+    "default_acceleration": {
+      "from": [
+        "8000",
+        "8000",
+        "8000",
+        "8000",
+        "8000"
+      ],
+      "to": [
+        "3000",
+        "3000",
+        "3000",
+        "3000",
+        "3000"
+      ],
+      "reason": "Full-height production shell: gentler deposition and motion through the continuous 2.38 mm walls."
+    },
+    "travel_acceleration": {
+      "from": [
+        "10000",
+        "10000",
+        "10000",
+        "10000",
+        "10000"
+      ],
+      "to": [
+        "5000",
+        "5000",
+        "5000",
+        "5000",
+        "5000"
+      ],
+      "reason": "Full-height production shell: gentler deposition and motion through the continuous 2.38 mm walls."
+    },
+    "support_type": {
+      "from": "tree(auto)",
+      "to": "tree(auto)",
+      "reason": "Tree(auto)/Default decides support at the round copper passages and blind insert roofs; native support placement is reviewed for this production geometry."
+    },
+    "support_style": {
+      "from": "default",
+      "to": "default",
+      "reason": "Tree(auto)/Default decides support at the round copper passages and blind insert roofs; native support placement is reviewed for this production geometry."
+    },
+    "filament_density": {
+      "from": [
+        "1.29"
+      ],
+      "to": [
+        "1.43"
+      ],
+      "reason": "Polymaker Fiberon PET-GF15 TDS density is 1.43 g/cm3; this corrects feed-mass and cost reporting without changing extrusion volume. https://fiberon.polymaker.com/wp-content/uploads/TDS_FIBERON-PET-GF15_V1.0_EN.pdf"
+    }
+  },
+  "profile_changes": {
+    "machine_start_gcode": {
+      "from_sha256": "3cc9e41520dbf5622d6f9a96bce734db9d11b0b48b49f2abec047a6e01dc6a92",
+      "to_sha256": "b09bc598f2ed7c29dceb227188593905dfc663f0391b98ff708ef00e7ce01bee",
+      "requested_z_trim_mm": 0.04
+    },
+    "printer_settings_id": {
+      "from": "Bambu Lab H2C 0.4 nozzle 04 first layer by agent",
+      "to": "Bambu Lab H2C 0.4 Standard +0.04 Z trim"
+    },
+    "print_compatible_printers": {
+      "from": [
+        "Bambu Lab H2C 0.4 nozzle"
+      ],
+      "to": [
+        "Bambu Lab H2C 0.4 nozzle",
+        "Bambu Lab H2C 0.4 Standard +0.04 Z trim"
+      ]
+    }
+  },
+  "usable_plate_mm": [
+    [
+      0.0,
+      0.0
+    ],
+    [
+      325.0,
+      320.0
+    ]
+  ],
+  "plate_border_mm": 20.0,
+  "brim_allowance_mm": 0.0,
+  "plate_offset_mm": null,
+  "objects": [
+    {
+      "name": "foam-shell",
+      "identify_id": 1901,
+      "object_id": 2,
+      "stl": "hardware/printed-parts/cold-core/foam-shell/foam-shell.stl",
+      "stl_sha256": "925487a53bed2793f3357269230f15420dbcc5c85b95fdaef8ae69372eb6a445",
+      "step_sha256": "0600e2c4e118c28bdc9c6b203494d5e7331abbadc16ab246b86fb3771d45e875",
+      "facets": 50976,
+      "closed": {
+        "edges": 76464,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "inconsistent_edges": 0,
+        "bodies": 1,
+        "closed_oriented_single_body": true
+      },
+      "pose": null,
+      "pose_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "yaw_degrees": 0,
+      "source_center_mm": [
+        0.0,
+        0.0,
+        106.699996948
+      ],
+      "build_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "translation_mm": [
+        162.5,
+        160.0,
+        106.699996948
+      ],
+      "plate_bounds_mm": [
+        [
+          21.300003051999994,
+          69.800003052,
+          0.0
+        ],
+        [
+          303.69999694800003,
+          250.199996948,
+          213.399993896
+        ]
+      ],
+      "model_bed_margin_mm": 21.300003051999965,
+      "seam_enforcer": {
+        "axis": "y",
+        "center_mm": 88.95,
+        "half_width_mm": 0.25,
+        "face_axis": "x",
+        "face_coordinate_mm": 4.75,
+        "face_sign": -1,
+        "reason": "Seat the plain seam in the seam channel's +X inside corner: a strip of the channel's side wall along that corner, the full height of the shell, where it faces across the channel rather than out of it.",
+        "source_facets": 47944,
+        "project_facets": 50976,
+        "painted_facets": 5,
+        "maximum_source_plane_error_mm": 7.701954005123746e-10,
+        "maximum_source_facet_area_error_mm2": 1.1099541197268081e-07
+      },
+      "object_settings": {},
+      "features": [],
+      "ranges": [],
+      "verify_spans": [],
+      "ribbons": [],
+      "tie_windows": [],
+      "modifiers": [],
+      "fins": []
+    }
+  ],
+  "pause": null,
+  "show_faces": ".cache/prints/2026-10-29-cold-core-seam-channel/preparation/show-faces.npz",
+  "spec": "hardware/printed-parts/enclosure/trial-preparation/pieces.json",
+  "spec_sha256": "e92f79081cbeff51889fec126c534202f470ff67de8c2fea2ecba6e90910dc28",
+  "tool_sha256": {
+    "hardware/printed-parts/enclosure/trial-preparation/_derive.py": "31256357a16f37d9f1516ce1ee1636c97559dfe54a1a2050ae661d622e6b3189",
+    "hardware/printed-parts/enclosure/trial-preparation/_mesh.py": "7ab22db36e370608f52df3709c4af1994c8e804ee06e101dcbf79210db99eead",
+    "hardware/printed-parts/enclosure/trial-preparation/_native.py": "1c99ce10842a141a942a19d7def2329512d14b676c00618496187e0d93cd29da",
+    "hardware/printed-parts/enclosure/trial-preparation/_seam.py": "9ffa509df701826563e18388fd3bcc57c604f4b2b8e5e4288821ddcd00bcb176",
+    "hardware/printed-parts/enclosure/trial-preparation/labels.py": "c326a74b104b894d81dcfd8eb00c93ebf602291816decaf241a01cf4818b672d",
+    "hardware/printed-parts/enclosure/trial-preparation/prepare.py": "525be245521bd721c1ee6795f37e80d9f1e9ace9c4f8fa08b857f88e83388d9a",
+    "hardware/printed-parts/enclosure/trial-preparation/review.py": "9bd303fe370842fd34eb559dc5f53f887f75c42e478c598737397dd49dd539f7",
+    "hardware/printed-parts/enclosure/trial-preparation/step_meshes.py": "b50f7b50f52f1e8516be3b1fc9ecdb10e87fb188f8b9bebc0fac56737320fc44"
+  },
+  "prepared_utc": "2026-10-29T07:41:44+00:00",
+  "sliced": true,
+  "submitted": false,
+  "archive": ".cache/prints/2026-10-29-cold-core-seam-channel/preparation/2026-10-29-foam-shell-mark2-d68bb179.gcode.3mf",
+  "archive_sha256": "16d4b9f8ec695b096b1eb935a67071af35a70f7131ffbb8086f6a7f61cb37a2e",
+  "gcode_sha256": "3193a4fd9634476371d08b5db680aefb57f38b9a1fd2792ff710e094a8d550ac",
+  "estimated_seconds": 112620.0234375,
+  "slicer_warnings": []
+}

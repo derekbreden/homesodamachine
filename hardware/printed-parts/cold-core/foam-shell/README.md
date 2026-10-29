@@ -634,10 +634,9 @@ current shared [`petgf.3mf`](../../petgf.3mf), including the
 
 The production shell is prepared alone, upright and floor-down. Tree(auto)/Default
 supplies the automatic support decision for its passages and insert roofs.
-The selected faucet A2 contour treatment uses a 60 mm scarf, 10% start height,
-ten steps, 0% scarf gap and the coupled 150% ordinary gap. Wiping is off.
-A seam-enforcer strip at native X60, Y−90.2 starts the scarf on an uninterrupted
-long-wall span, clear of the attachment pockets and copper/PRV ports.
+The outer wall's seam is a plain aligned seam: 15% gap, no scarf and the profile's
+2 mm wipe. A seam-enforcer strip on the seam channel's +X side wall, against its inside
+corner, starts every layer's outer wall in that corner.
 
 Outer walls request 100 mm/s and 1,500 mm/s²; inner walls request 150 mm/s and
 3,000 mm/s². Default acceleration is 3,000 mm/s² and travel acceleration is

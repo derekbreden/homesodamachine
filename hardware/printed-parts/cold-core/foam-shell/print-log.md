@@ -6,6 +6,19 @@ Geometry: the full cold-core foam shell, from [`foam_shell.py`](/hardware/printe
 
 The launch record binds the exact `foam-shell.stl` embedded in the sliced project. The current shell, caps and lid edges have smooth surfaces. Historical fluted projects remain identified with their own attempts below.
 
+## Seam channel print — Mark2 (2026-10-29)
+
+Derek: "Apologies, I meant mark2, your settings look good, just different z offset for mark2, and go ahead and start it, thanks."
+
+The shell with the full-height 9.5 × 1.5 mm seam channel prints the production recipe
+below without the faucet A2 package: an aligned seam with a 15% gap, no scarf and the
+profile's 2 mm wipe, painted into the channel's +X inside corner. 888 of 889 layers start
+their exterior wall at that corner; layer 1 starts 0.2 mm up the channel's side wall.
+Mark2's +0.04 mm trim emits G29.1 Z0.02. Native estimate **31 h 17 min**, **1,452.4 g**,
+889 layers. Accepted as task **1386110458** at **02:57:02 CDT**; RUNNING at layer 0/889
+with print error 0 and HMS empty. The [print record](prints/2026-10-29-mark2-seam-channel/README.md)
+binds the project, archive, seam reading and launch.
+
 ## Production print — round copper exits / A2 seam
 
 The full shell job on Mark2 uses two 7.5 mm copper holes, continuous
