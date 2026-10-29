@@ -1,0 +1,35 @@
+{
+  "schema": 1,
+  "scope": "Post-publication manual geometry reading of the printed front-top, restricted in this review to the added fan hook. Other piece findings retain their existing feature answers.",
+  "published_pointer_commit": "f81fa80ea79a8964c72c14c05f3fe2d5e26a7d00",
+  "stl_sha256": "7328fa519d2ab084d73de52cb6642fb363a972ecdca3607692473bec223f9a61",
+  "print_axis_world": [
+    0,
+    0,
+    1
+  ],
+  "new_feature_findings": [
+    {
+      "class": "sliver",
+      "click_world_mm": [
+        96.675,
+        150.0,
+        195.025
+      ]
+    },
+    {
+      "class": "ledge",
+      "click_world_mm": [
+        96.8,
+        147.333,
+        195.025
+      ]
+    }
+  ],
+  "disposition": "Both readings identify the same functional retaining underside. Its 0.75 mm projection gives the accepted entry section a 1.45 mm mouth across the 2.20 mm seat for nominal 1.70 mm insulation. Feature-specific reasons and larger alternatives are recorded at the exact two pick anchors.",
+  "answers": "hardware/printed-parts/lint-answers/enclosure/enclosure/enclosure-front-top.lint-answers",
+  "structural_stock_mm": 3.0,
+  "full_span_mm": 16.0,
+  "root": "Filled 45 degree corbel",
+  "physical_scope": "Accepted 4P entry section; the installed two-lead hook has not been physically tested."
+}
