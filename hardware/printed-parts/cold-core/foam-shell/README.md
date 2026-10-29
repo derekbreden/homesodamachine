@@ -222,8 +222,9 @@ The cap's floor closes over the conductors when the cap is seated. The remaining
 wall continues below the notch.
 
 Six fluid lines leave through the upper cap face; B-fill enters its fore
-face. Reservoir A's reed cable, the carbonator reed cable and the sensor/earth
-loom use separate upper-cap passages. See Penetrations.
+face. Reservoir A's reed cable uses its aligned upper-cap passage. The
+carbonator's temperature bus, reed pair and PE lead share one straight
+seven-core west-side passage at world X−48/Y347. See Penetrations.
 
 #### Seam channel
 
@@ -402,7 +403,7 @@ both ends of that.
 
 ## Penetrations
 
-Sixteen pass-throughs total — twelve tube lines and four cable looms. The
+Fifteen pass-throughs total — twelve tube lines and three cable looms. The
 liquid, gas and refrigerant tubes are **1/4" OD (6.35 mm nominal, about 6.5 mm
 measured)**; the two reservoir air tubes are **4 mm OD**. Passive quarter-inch
 passages through printed material are ⌀[7.5 mm](TUBE_HOLE_D), with 0.5 mm radial air around the measured
@@ -431,10 +432,9 @@ enclosure’s exterior relief chase.
 | 10 | Reservoir B draw | **top-cap conduit** `reservoir-b` | one continuous dip tube through the cap's 3.5 mm passive shift and B's draw bore to its floor |
 | 11 | Reservoir A fill | **top-cap conduit** `reservoir-a-fill` | through the cap's 3.5 mm passive shift to A's fill bore, **above its liquid** |
 | 12 | Reservoir B fill | **fore-facing R14 cap guide** `reservoir-b-fill` | one continuous tube through the full-height printed block into B's fill grip, ending in the headspace |
-| 13 | Sensor and earth loom | top-cap `sensor-cable` passage | temperature-bus conductors and carbonator earth lead |
-| 14 | Carbonator reed loom | straight top-cup/lid `carbonator-reeds` passage at shell (0, −74) mm | CLO, CHI and their shared common, to J7 and its common WAGO |
-| 15 | Reservoir A air | dedicated Ø5.2 mm upper-cup/lid passage | 4 mm OD tube from A’s cap grip to 6 mm above the outer lid |
-| 16 | Reservoir B air | dedicated Ø5.2 mm upper-cup/lid passage | 4 mm OD tube from B’s cap grip to 6 mm above the outer lid |
+| 13 | Shared sensor and earth loom | straight Ø7.5 mm cup/lid `sensor-cable` passage at world X−48/Y347 | temperature V/DATA/GND, carbonator CLO/CHI/common and green 16 AWG PE |
+| 14 | Reservoir A air | dedicated Ø5.2 mm upper-cup/lid passage | 4 mm OD tube from A’s cap grip to 6 mm above the outer lid |
+| 15 | Reservoir B air | dedicated Ø5.2 mm upper-cup/lid passage | 4 mm OD tube from B’s cap grip to 6 mm above the outer lid |
 
 **The carbonator and both reservoirs are filled high and drawn low** — the carbonator at
 its two plates, each reservoir through its cap, from above the liquid and from its floor. Nothing that enters one can leave
@@ -593,6 +593,15 @@ The longest required traverse for the foam is around the back of the
 coil at the ±X azimuths — the foam has to work through the embedded
 helical wraps and fill the 14.62 mm blanket out to the centerward wall's
 carbonator-side face, ~110 mm of arc to reach around from the ±Y entry.
+
+The carbonator's seven-core loom is laid before this pour. Feed the
+parallel temperature bus at the coil probe first, then continue to the
+carbonator-wall probe. The coil-side feed turns aft below the PRV vent at
+world Z184 and rises at Y347. Keep the two east-side reeds fixed; their
+three leads cross the open head at Z225/Y352. Gather the temperature and
+reed conductors with the green 16 AWG upper-rim bond lead at world X−48/Y347,
+ready for the straight shared cap guide. These body-side transitions remain
+free leads while the shell is open; foam closes around them during the pour.
 
 Before the pour, mask the clearance gaps around installed tubes at the
 outer exits with removable tape on the dry side. Keep tube mouths, collets and reed channels open. After cure, remove

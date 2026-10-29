@@ -70,7 +70,7 @@ def placements():
         'J1 valve common and eight A-H coil branches')
     put('wago-manb', '415', 'front-top', EAST_FLANK, (95.05, 177.65, 243.),
         'J2 valve common, I/J/K coils and condenser fan')
-    put('ground-stack', 'ground-stack', 'cold-core', IDENTITY, (37., 195., 259.4),
+    put('ground-stack', 'ground-stack', 'cold-core', IDENTITY, (-53., 339., 259.4),
         'C14 earth feed and exposed-metal bond branches')
     return rows
 

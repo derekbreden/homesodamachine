@@ -772,19 +772,16 @@ cap_fluid_conduits = {
 # passage opens into the main foam cavity.
 cap_cable_floor_conduits = {
     "reed-cable-a": reed_cable_conduit_xy(+1),
-    # The potted temperature probes and earth lead leave
-    # the main foam cavity through one shared passage, west of the pump.
-    "sensor-cable": (-36.0, -74.0),
-    # The carbonator's three reed conductors rise outside the coil on -Y.
-    "carbonator-reeds": (0.0, 74.0),
+    # Temperature 3P, carbonator reeds 3P and the dedicated PE lead
+    # gather above the vessel and rise straight through the cap.
+    "sensor-cable": (-23.2, -48.0),
 }
 cap_cable_conduits = {name: _above_mounts.cap_guide_xy(name, xy)
                       for name, xy in cap_cable_floor_conduits.items()}
 cap_conduits = {**cap_fluid_conduits, **cap_cable_conduits}
 # Water, soda, A-fill, both draws and gas have aligned straight cap entries.
 # B-fill enters the cap's front face and turns to its retained lower reservoir seat.
-# Reservoir A's cable guide is directly above its floor entry; the other
-# flexible cable entries retain their routed upper guides.
+# Both cable guides stand directly above their floor entries.
 cap_conduit_floor_xy = {
     **cap_conduits,
     **cap_cable_floor_conduits,

@@ -7,7 +7,7 @@ from __future__ import annotations
 
 
 def carbonator_ring(ea):
-    """Closed M3 lug on the welded tab, with its crimp barrel pointing up."""
+    """Closed M3 lug on the existing upper tube rim, barrel pointing up."""
     import cadquery as cq
     from .terminals import carbonator_bond_datums
     d = carbonator_bond_datums(ea)
@@ -26,8 +26,8 @@ def add_terminations(assembly,attachments,connections,routes):
     records[name] = {
         'kind': 'M3 closed-ring earth terminal',
         'terminal_ids': ['carbonator.PE'],
-        'attachment': 'cold-core/carbonator-earth-tab',
-        'status': 'Nominal owned M3 / 22–16 AWG ring envelope; metal clamp defined by shared tab datums',
+        'attachment': 'cold-core/carbonator-tube',
+        'status': 'Nominal owned M3 / 22–16 AWG ring envelope; metal clamp defined by shared rim datums',
         'tongue_thickness_mm': attachments.ea._gnd.tongue_t,
         'barrel_diameter_mm': attachments.ea._gnd.barrel_d,
         'barrel_length_mm': attachments.ea._gnd.barrel_len,
