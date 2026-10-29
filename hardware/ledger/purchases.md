@@ -816,7 +816,9 @@ Printed copies of the [install guide](/hardware/install-guide/README.md). Lulu o
 |---|---|
 | **Google Pixel 10a unlocked Android phone, 128 GB Obsidian (2026 model)** | Android development handset for the soda-machine app's Android side (`android/`). [B0GHRHXVN1](https://www.amazon.com/dp/B0GHRHXVN1). |
 | **Smooth-On XTC-3D 3D-print smoothing epoxy, 6.4 oz (~$19.99) — optional** | Self-leveling epoxy base coat under the §21 core's clear-acrylic seal, only if the 0.08 mm core texture still telegraphs through the acrylic alone. Fills/seals; not the release face. [B01BKSLI9M](https://www.amazon.com/dp/B01BKSLI9M). |
-| **McMaster 90923A216 M3 × 0.5 stainless locknut with captive external-tooth washer** | One per carbonator earth tab, per [the attachment procedure](/hardware/assembly/pressure-vessel.md#external-earth-tab). Supplier pack of 50; price pending. Required purchase, not ordered. [Part specification](https://www.mcmaster.com/product/90923A216/). |
+| **DIN 6797A M3 external-tooth washer, A2 stainless, 0.4 mm** | One per carbonator upper-rim earth clamp; ID3.2–3.38 mm, OD5.7–6.0 mm. Required, not recorded as acquired. Supplier and price unselected. [Attachment procedure](/hardware/assembly/pressure-vessel.md#upper-rim-earth-bond). |
+| **M3 × 0.5 tap suitable for 316L stainless, with a compatible hand driver** | Upper-rim earth-clamp thread through the vessel's 1.651 mm rim. Required tooling, not recorded as acquired. Supplier and price unselected. |
+| **Ø2.5 mm drill suitable for 316L stainless** | Tap drill for the upper-rim M3 × 0.5 earth-clamp hole. Required tooling, not recorded as acquired. Supplier and price unselected. |
 
 ---
 

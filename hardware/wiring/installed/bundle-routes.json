@@ -248,11 +248,80 @@
         "bend_radius_mm": 2.0,
         "entry_stations": [
           {
-            "terminal": "ground.compressor",
-            "offset": [
-              14.7,
-              -11.67268,
-              32.03801
+            "point_mm": [
+              -60.5,
+              326.0,
+              271.0
+            ]
+          },
+          {
+            "point_mm": [
+              -48.0,
+              337.0,
+              274.0
+            ]
+          },
+          {
+            "point_mm": [
+              -44.0,
+              330.0,
+              281.0
+            ]
+          },
+          {
+            "point_mm": [
+              -44.0,
+              284.0,
+              281.0
+            ]
+          },
+          {
+            "point_mm": [
+              -44.0,
+              284.0,
+              305.0
+            ]
+          },
+          {
+            "point_mm": [
+              11.600000000000001,
+              254.23669,
+              305.22722
+            ]
+          },
+          {
+            "point_mm": [
+              11.6,
+              246.23669,
+              297.22722
+            ]
+          },
+          {
+            "point_mm": [
+              11.6,
+              210.23669,
+              289.22722
+            ]
+          },
+          {
+            "point_mm": [
+              27.6,
+              202.23669,
+              289.22722
+            ]
+          },
+          {
+            "point_mm": [
+              47.2,
+              178.23669,
+              297.22722
+            ]
+          },
+          {
+            "point_mm": [
+              47.2,
+              175.53309136594,
+              295.13801
             ]
           }
         ],
@@ -851,61 +920,118 @@
   "temperature-bus": {
     "jacket": false,
     "kind": "Temperature sensor bus",
-    "description": "Continuous temperature-bus conductors pass the carbonator probe taps and follow one shared path to the coil probe taps.",
+    "description": "The parallel temperature bus joins the coil probe first, then continues outside the evaporator copper around the fore quarter of the vessel to the bulk-temperature probe taps.",
     "stations": [
       {
-        "terminal": "temp-carbonator.DATA",
-        "offset": [
-          0,
-          0,
-          -3
+        "point_mm": [
+          -84.0,
+          323.8,
+          177.8
         ]
       },
       {
-        "terminal": "temp-carbonator.DATA",
-        "offset": [
-          0,
-          0,
-          -11
+        "point_mm": [
+          -74.0,
+          323.8,
+          167.8
         ]
       },
       {
-        "terminal": "temp-carbonator.DATA",
-        "offset": [
-          -12,
-          0,
-          -11
+        "point_mm": [
+          -74.0,
+          323.8,
+          130.38421052631
         ]
       },
       {
-        "terminal": "temp-carbonator.DATA",
-        "offset": [
-          -42.2,
-          10.753,
-          6.737208
+        "point_mm": [
+          -73.36691974166197,
+          314.1410617757162,
+          130.38421052631
         ]
       },
       {
-        "terminal": "temp-coil.DATA",
-        "offset": [
-          0,
-          0,
-          -18
+        "point_mm": [
+          -71.47851114539105,
+          304.6473906624135,
+          130.38421052631
         ]
       },
       {
-        "terminal": "temp-coil.DATA",
-        "offset": [
-          0,
-          0,
-          -10
+        "point_mm": [
+          -68.36708540583523,
+          295.4814260049834,
+          130.38421052631
+        ]
+      },
+      {
+        "point_mm": [
+          -64.08587988004847,
+          286.8,
+          130.38421052631
+        ]
+      },
+      {
+        "point_mm": [
+          -58.7081471815514,
+          278.7516542533547,
+          130.38421052631
+        ]
+      },
+      {
+        "point_mm": [
+          -52.32590180780453,
+          271.47409819219547,
+          130.38421052631
+        ]
+      },
+      {
+        "point_mm": [
+          -45.048345746645346,
+          265.0918528184486,
+          130.38421052631
+        ]
+      },
+      {
+        "point_mm": [
+          -37.000000000000036,
+          259.7141201199516,
+          130.38421052631
+        ]
+      },
+      {
+        "point_mm": [
+          -28.318573995016685,
+          255.4329145941648,
+          130.38421052631
+        ]
+      },
+      {
+        "point_mm": [
+          -19.152609337586526,
+          252.32148885460896,
+          130.38421052631
+        ]
+      },
+      {
+        "point_mm": [
+          -9.65893822428382,
+          250.43308025833804,
+          130.38421052631
+        ]
+      },
+      {
+        "point_mm": [
+          -8.0,
+          249.8,
+          130.38421052631
         ]
       }
     ],
     "bend_radius_mm": 3.0,
     "fanout_tangent_mm": [
       3.0,
-      2.0
+      4.0
     ],
     "route_status": "proposed",
     "cores": {
@@ -925,18 +1051,9 @@
     "fanouts": {
       "temp-bus-V": {
         "entry_stations": [],
-        "exit_stations": [
-          {
-            "terminal": "temp-coil.V",
-            "offset": [
-              0,
-              0,
-              -3
-            ]
-          }
-        ],
+        "exit_stations": [],
         "end_lands_mm": [
-          0.0,
+          4.0,
           0.0
         ],
         "bend_radius_mm": 2.0,
@@ -944,18 +1061,9 @@
       },
       "temp-bus-DATA": {
         "entry_stations": [],
-        "exit_stations": [
-          {
-            "terminal": "temp-coil.DATA",
-            "offset": [
-              0,
-              0,
-              -3
-            ]
-          }
-        ],
+        "exit_stations": [],
         "end_lands_mm": [
-          0.0,
+          4.0,
           0.0
         ],
         "bend_radius_mm": 2.0,
@@ -963,18 +1071,9 @@
       },
       "temp-bus-GND": {
         "entry_stations": [],
-        "exit_stations": [
-          {
-            "terminal": "temp-coil.GND",
-            "offset": [
-              0,
-              0,
-              -3
-            ]
-          }
-        ],
+        "exit_stations": [],
         "end_lands_mm": [
-          0.0,
+          4.0,
           0.0
         ],
         "bend_radius_mm": 2.0,
@@ -984,364 +1083,461 @@
   },
   "sensor-cable": {
     "jacket": false,
-    "kind": "Four-conductor temperature/earth loom",
-    "description": "Three 22 AWG temperature-bus conductors and one 16 AWG protective-earth conductor share the native sensor passage.",
-    "passage": "sensor-cable",
-    "entry_family": "cap-cable",
+    "kind": "Carbonator signal loom",
+    "description": "Six 22 AWG temperature and reed conductors surround the separate 16 AWG protective-earth core through the straight west cap port. The signal trunk follows one accessible west approach to its existing PCB and WAGO fanouts.",
+    "stations": [
+      {
+        "point_mm": [
+          -26.0,
+          264.0,
+          281.0
+        ]
+      },
+      {
+        "point_mm": [
+          -44.0,
+          284.0,
+          281.0
+        ]
+      },
+      {
+        "point_mm": [
+          -44.0,
+          330.0,
+          281.0
+        ]
+      },
+      {
+        "point_mm": [
+          -48.0,
+          347.0,
+          274.0
+        ]
+      },
+      {
+        "point_mm": [
+          -48.0,
+          347.0,
+          234.0
+        ]
+      }
+    ],
     "packed_diameter_mm": 6.6,
     "bend_radius_mm": 5.5,
     "fanout_tangent_mm": [
-      4.0,
-      2.0
+      3.0,
+      0.0
     ],
     "route_status": "proposed",
     "cores": {
-      "PE-carbonator": [
-        0.0,
-        0.0
-      ],
       "J4-3V3": [
         2.45,
         0.0
       ],
       "J4-IO26": [
         1.225,
-        2.121762
+        2.121762239
       ],
       "temp-GND": [
         -1.225,
-        2.121762
+        2.121762239
+      ],
+      "J7-CLO": [
+        -2.45,
+        0.0
+      ],
+      "J7-CHI": [
+        -1.225,
+        -2.121762239
+      ],
+      "J7-carb-earth-2": [
+        1.225,
+        -2.121762239
       ]
     },
     "fanouts": {
       "J4-3V3": {
         "entry_stations": [
           {
-            "terminal": "J4.3V3",
-            "offset": [
-              -2.35001,
-              61.29708,
-              5.6
+            "point_mm": [
+              -16.1999938965,
+              217.70292002005,
+              275.0
             ]
           },
           {
-            "terminal": "J4.3V3",
-            "offset": [
-              -30.35001,
-              121.29708,
-              9.6
+            "point_mm": [
+              -24.0,
+              217.70292002005,
+              281.0
             ]
           }
         ],
         "exit_stations": [
           {
-            "terminal": "temp-carbonator.V",
-            "offset": [
-              -50.0,
-              90.0,
-              101.999998
+            "point_mm": [
+              -45.59239866990815,
+              347.45382357292226,
+              228.0
             ]
           },
           {
-            "terminal": "temp-carbonator.V",
-            "offset": [
-              -48.0,
-              86.0,
-              99.999998
+            "point_mm": [
+              -74.0,
+              345.15,
+              215.0
             ]
           },
           {
-            "terminal": "temp-carbonator.V",
-            "offset": [
-              -48.0,
-              80.0,
-              99.999998
+            "point_mm": [
+              -74.0,
+              345.15,
+              181.95000000000002
             ]
           },
           {
-            "terminal": "temp-carbonator.V",
-            "offset": [
-              -44.0,
-              76.0,
-              101.999998
+            "point_mm": [
+              -84.0,
+              345.15,
+              181.95000000000002
             ]
           },
           {
-            "terminal": "temp-carbonator.V",
-            "offset": [
-              -32.0,
-              64.0,
-              101.999998
-            ]
-          },
-          {
-            "terminal": "temp-carbonator.V",
-            "offset": [
-              -0.0,
-              0.0,
-              81.999998
-            ]
-          },
-          {
-            "terminal": "temp-carbonator.V",
-            "offset": [
-              -0.0,
-              0.0,
-              1.999998
+            "point_mm": [
+              -84.0,
+              321.95,
+              183.8
             ]
           }
         ],
         "end_lands_mm": [
           6.0,
-          2.0
+          4.0
         ],
-        "bend_radius_mm": 2.0,
+        "bend_radius_mm": 3.0,
         "route_status": "proposed"
       },
       "J4-IO26": {
         "entry_stations": [
           {
-            "terminal": "J4.IO26",
-            "offset": [
-              -23.57501,
-              61.17532,
-              3.6
+            "point_mm": [
+              -16.1999938965,
+              227.70292002005,
+              275.0
             ]
           },
           {
-            "terminal": "J4.IO26",
-            "offset": [
-              -31.57501,
-              109.17532,
-              9.6
+            "point_mm": [
+              -24.0,
+              227.70292002005,
+              281.0
             ]
           }
         ],
         "exit_stations": [
           {
-            "terminal": "temp-carbonator.DATA",
-            "offset": [
-              -70.0,
-              112.0,
-              101.999998
+            "point_mm": [
+              -46.403176592017516,
+              345.1418678726836,
+              228.0
             ]
           },
           {
-            "terminal": "temp-carbonator.DATA",
-            "offset": [
-              -22.0,
-              60.0,
-              99.999998
+            "point_mm": [
+              -74.0,
+              347.0,
+              215.0
             ]
           },
           {
-            "terminal": "temp-carbonator.DATA",
-            "offset": [
-              -0.0,
-              4.0,
-              85.999998
+            "point_mm": [
+              -74.0,
+              347.0,
+              183.8
             ]
           },
           {
-            "terminal": "temp-carbonator.DATA",
-            "offset": [
-              -0.0,
-              0.0,
-              81.999998
+            "point_mm": [
+              -84.0,
+              347.0,
+              183.8
             ]
           },
           {
-            "terminal": "temp-carbonator.DATA",
-            "offset": [
-              -0.0,
-              0.0,
-              1.999998
+            "point_mm": [
+              -84.0,
+              323.8,
+              183.8
             ]
           }
         ],
         "end_lands_mm": [
           6.0,
-          2.0
+          4.0
         ],
-        "bend_radius_mm": 2.0,
+        "bend_radius_mm": 3.0,
         "route_status": "proposed"
       },
       "temp-GND": {
         "entry_stations": [
           {
             "point_mm": [
-              18.0,
-              216.0,
-              271.9
+              24.8,
+              210.25,
+              296.0
             ]
           },
           {
             "point_mm": [
               14.0,
-              216.0,
-              271.9
+              210.25,
+              296.0
             ]
           },
           {
             "point_mm": [
-              0.0,
-              232.0,
-              267.9
-            ]
-          },
-          {
-            "point_mm": [
-              -2.0,
-              234.0,
-              267.9
-            ]
-          },
-          {
-            "point_mm": [
-              -46.0,
-              294.0,
-              271.9
-            ]
-          },
-          {
-            "point_mm": [
-              -50.224999999999994,
-              336.87824,
-              277.99999999999994
+              -26.0,
+              242.0,
+              296.0
             ]
           }
         ],
         "exit_stations": [
           {
-            "terminal": "temp-carbonator.GND",
-            "offset": [
-              -33.0,
-              65.0,
-              101.999998
-            ]
-          },
-          {
-            "terminal": "temp-carbonator.GND",
-            "offset": [
-              -0.0,
-              1.0,
-              81.999998
-            ]
-          },
-          {
-            "terminal": "temp-carbonator.GND",
-            "offset": [
-              -0.0,
-              0.0,
-              0.999998
-            ]
-          }
-        ],
-        "end_lands_mm": [
-          3,
-          2.0
-        ],
-        "bend_radius_mm": 2.0,
-        "route_status": "proposed"
-      },
-      "PE-carbonator": {
-        "entry_stations": [
-          {
             "point_mm": [
-              36.0,
-              213.0,
-              272.0
+              -48.81077792210937,
+              344.68804429976126,
+              228.0
             ]
           },
-          {
-            "point_mm": [
-              33.0,
-              210.0,
-              269.0
-            ]
-          },
-          {
-            "point_mm": [
-              27.0,
-              210.0,
-              263.0
-            ]
-          },
-          {
-            "point_mm": [
-              24.0,
-              213.0,
-              260.0
-            ]
-          },
-          {
-            "point_mm": [
-              18.0,
-              219.0,
-              263.0
-            ]
-          },
-          {
-            "point_mm": [
-              12.0,
-              261.0,
-              269.0
-            ]
-          },
-          {
-            "point_mm": [
-              9.0,
-              267.0,
-              269.0
-            ]
-          },
-          {
-            "point_mm": [
-              -21.0,
-              297.0,
-              272.0
-            ]
-          },
-          {
-            "point_mm": [
-              -22.69047619047619,
-              300.0,
-              276.14285714285717
-            ]
-          },
-          {
-            "point_mm": [
-              -49.0,
-              339.0,
-              278.0
-            ]
-          }
-        ],
-        "exit_stations": [
           {
             "point_mm": [
               -74.0,
-              359.8,
-              227.0
+              348.85,
+              215.0
             ]
           },
           {
             "point_mm": [
-              -68.0,
-              359.8,
-              227.0
+              -74.0,
+              348.85,
+              185.65
             ]
           },
           {
             "point_mm": [
-              -42.85,
-              347.0,
-              227.0
+              -84.0,
+              348.85,
+              185.65
+            ]
+          },
+          {
+            "point_mm": [
+              -84.0,
+              325.65,
+              183.8
             ]
           }
         ],
         "end_lands_mm": [
-          4.0,
+          3.0,
+          4.0
+        ],
+        "bend_radius_mm": 3.0,
+        "route_status": "proposed"
+      },
+      "J7-CLO": {
+        "entry_stations": [
+          {
+            "point_mm": [
+              -16.1999938965,
+              262.20292002005,
+              275.0
+            ]
+          },
+          {
+            "point_mm": [
+              -20.0,
+              252.0,
+              281.0
+            ]
+          }
+        ],
+        "exit_stations": [
+          {
+            "point_mm": [
+              -50.40760133009185,
+              346.54617642707774,
+              228.0
+            ]
+          },
+          {
+            "point_mm": [
+              -48.0,
+              350.15,
+              223.15
+            ]
+          },
+          {
+            "point_mm": [
+              78.0,
+              350.15,
+              223.15
+            ]
+          },
+          {
+            "point_mm": [
+              78.0,
+              323.8,
+              223.15
+            ]
+          },
+          {
+            "point_mm": [
+              78.0,
+              323.8,
+              117.33184375843
+            ]
+          }
+        ],
+        "end_lands_mm": [
+          6.0,
+          2.0
+        ],
+        "bend_radius_mm": 3.0,
+        "route_status": "proposed"
+      },
+      "J7-CHI": {
+        "entry_stations": [
+          {
+            "point_mm": [
+              -16.1999938965,
+              264.70292002005,
+              275.0
+            ]
+          },
+          {
+            "point_mm": [
+              -20.0,
+              252.0,
+              283.0
+            ]
+          }
+        ],
+        "exit_stations": [
+          {
+            "point_mm": [
+              -49.596823407982484,
+              348.8581321273164,
+              228.0
+            ]
+          },
+          {
+            "point_mm": [
+              -48.0,
+              352.0,
+              225.0
+            ]
+          },
+          {
+            "point_mm": [
+              79.85,
+              352.0,
+              225.0
+            ]
+          },
+          {
+            "point_mm": [
+              79.85,
+              323.8,
+              225.0
+            ]
+          },
+          {
+            "point_mm": [
+              79.85,
+              323.8,
+              145.48389407533
+            ]
+          }
+        ],
+        "end_lands_mm": [
+          6.0,
+          2.0
+        ],
+        "bend_radius_mm": 3.0,
+        "route_status": "proposed"
+      },
+      "J7-carb-earth-2": {
+        "entry_stations": [
+          {
+            "point_mm": [
+              24.8,
+              268.85,
+              296.0
+            ]
+          },
+          {
+            "point_mm": [
+              14.0,
+              268.85,
+              296.0
+            ]
+          },
+          {
+            "point_mm": [
+              -20.0,
+              250.0,
+              290.0
+            ]
+          }
+        ],
+        "exit_stations": [
+          {
+            "point_mm": [
+              -47.18922207789063,
+              349.31195570023874,
+              228.0
+            ]
+          },
+          {
+            "point_mm": [
+              -48.0,
+              353.85,
+              226.85
+            ]
+          },
+          {
+            "point_mm": [
+              81.7,
+              353.85,
+              226.85
+            ]
+          },
+          {
+            "point_mm": [
+              81.7,
+              326.6,
+              226.85
+            ]
+          },
+          {
+            "point_mm": [
+              81.7,
+              326.6,
+              136.48389407533
+            ]
+          },
+          {
+            "point_mm": [
+              72.75,
+              326.6,
+              136.48389407533
+            ]
+          }
+        ],
+        "end_lands_mm": [
+          3.0,
           4.0
         ],
         "bend_radius_mm": 3.0,
@@ -1349,276 +1545,68 @@
       }
     }
   },
-  "carbonator-reeds": {
+  "carbonator-earth": {
     "jacket": false,
-    "kind": "Three-conductor carbonator-reed loom",
-    "description": "Two carbonator level signals and their continuous common rise outside the coil on -Y through a straight cup/lid passage, then pass beneath the pump to the clear west PCB approach.",
-    "passage": "carbonator-reeds",
-    "entry_family": "cap-cable",
-    "packed_diameter_mm": 4.0,
+    "kind": "Carbonator protective earth",
+    "description": "The 16 AWG protective-earth conductor occupies the center of the seven-core cap section and peels directly to the lid ring star. Its closed ring bonds the drilled vessel rim before potting.",
+    "stations": [
+      {
+        "point_mm": [
+          -48.0,
+          347.0,
+          260.0
+        ]
+      },
+      {
+        "point_mm": [
+          -48.0,
+          347.0,
+          234.0
+        ]
+      }
+    ],
+    "packed_diameter_mm": 6.6,
     "bend_radius_mm": 5.5,
     "fanout_tangent_mm": [
       4.0,
-      2.0
+      0.0
     ],
     "route_status": "proposed",
     "cores": {
-      "J7-CLO": [
-        -0.952628,
-        -0.55
-      ],
-      "J7-CHI": [
-        0.952628,
-        -0.55
-      ],
-      "J7-carb-earth-2": [
+      "PE-carbonator": [
         0.0,
-        1.1
+        0.0
       ]
     },
     "fanouts": {
-      "J7-CLO": {
+      "PE-carbonator": {
+        "entry_stations": [
+          {
+            "terminal": "ground.carbonator",
+            "offset": [
+              -4.0,
+              6.9282032303,
+              7.0
+            ]
+          }
+        ],
         "exit_stations": [
           {
-            "terminal": "reed-carb-1.signal",
-            "offset": [
-              4.6,
-              3.0,
-              100.0
-            ]
-          },
-          {
-            "terminal": "reed-carb-1.signal",
-            "offset": [
-              4.6,
-              3.0,
-              0.0
+            "point_mm": [
+              -48.0,
+              347.0,
+              228.0
             ]
           }
         ],
         "end_lands_mm": [
-          1.5,
-          2.0
+          8.0,
+          4.0
         ],
-        "bend_radius_mm": 2.0,
-        "route_status": "proposed",
-        "entry_stations": [
-          {
-            "point_mm": [
-              -14.199993896484361,
-              263.2029200200504,
-              270.9
-            ]
-          },
-          {
-            "point_mm": [
-              -15.199993896484361,
-              264.2029200200504,
-              274.9
-            ]
-          },
-          {
-            "point_mm": [
-              -17.19999389648436,
-              267.2029200200504,
-              278.9
-            ]
-          },
-          {
-            "point_mm": [
-              -17.19999389648436,
-              284.2029200200504,
-              278.9
-            ]
-          },
-          {
-            "point_mm": [
-              -36.19999389648436,
-              306.2029200200504,
-              280.2
-            ]
-          },
-          {
-            "point_mm": [
-              -45.19999389648436,
-              331.2029200200504,
-              280.9
-            ]
-          },
-          {
-            "point_mm": [
-              -44.0,
-              339.45,
-              280.447372
-            ]
-          }
-        ],
-        "endpoint_tangent_fraction": 0.9
-      },
-      "J7-CHI": {
-        "exit_stations": [
-          {
-            "terminal": "reed-carb-2.signal",
-            "offset": [
-              6.4,
-              -2.0,
-              75.0
-            ]
-          },
-          {
-            "terminal": "reed-carb-2.signal",
-            "offset": [
-              6.4,
-              -2.0,
-              0.0
-            ]
-          }
-        ],
-        "end_lands_mm": [
-          1.0,
-          2.0
-        ],
-        "bend_radius_mm": 2.0,
-        "route_status": "proposed",
-        "entry_stations": [
-          {
-            "point_mm": [
-              -18.19999389648436,
-              264.7029200200504,
-              269.4
-            ]
-          },
-          {
-            "point_mm": [
-              -20.19999389648436,
-              268.7029200200504,
-              270.4
-            ]
-          },
-          {
-            "point_mm": [
-              -42.19999389648436,
-              329.7029200200504,
-              283.4
-            ]
-          },
-          {
-            "point_mm": [
-              -44.0,
-              339.45,
-              282.352628
-            ]
-          }
-        ],
-        "endpoint_tangent_fraction": 0.9
-      },
-      "J7-carb-earth-2": {
-        "exit_stations": [
-          {
-            "terminal": "reed-carb-2.GND",
-            "offset": [
-              0.15,
-              -2.68,
-              98.0
-            ]
-          },
-          {
-            "terminal": "reed-carb-2.GND",
-            "offset": [
-              0.15,
-              3.0,
-              85.0
-            ]
-          },
-          {
-            "terminal": "reed-carb-2.GND",
-            "offset": [
-              0.15,
-              3.0,
-              8.0
-            ]
-          },
-          {
-            "terminal": "reed-carb-2.GND",
-            "offset": [
-              0.15,
-              0.0,
-              8.0
-            ]
-          }
-        ],
-        "end_lands_mm": [
-          3.0,
-          2.0
-        ],
-        "bend_radius_mm": 2.0,
-        "route_status": "proposed",
-        "entry_stations": [
-          {
-            "point_mm": [
-              -12.2,
-              296.85,
-              292.3666666666667
-            ]
-          },
-          {
-            "point_mm": [
-              -33.2,
-              329.85,
-              289.3666666666667
-            ]
-          },
-          {
-            "point_mm": [
-              -35.2,
-              331.85,
-              289.3666666666667
-            ]
-          },
-          {
-            "point_mm": [
-              -44.0,
-              341.1,
-              281.4
-            ]
-          }
-        ],
-        "endpoint_tangent_fraction": 0.9
+        "bend_radius_mm": 3.0,
+        "route_status": "proposed"
       }
-    },
-    "above_cap_stations_mm": [
-      [
-        -54.0,
-        340.0,
-        281.4
-      ],
-      [
-        -60.0,
-        340.0,
-        281.4
-      ],
-      [
-        -54.0,
-        334.0,
-        275.4
-      ],
-      [
-        -50.0,
-        332.0,
-        271.4
-      ],
-      [
-        -8.0,
-        323.8,
-        257.4
-      ],
-      [
-        74.0,
-        323.8,
-        257.4
-      ]
-    ],
-    "above_cap_bend_radius_mm": 3.0
+    }
   },
   "condenser-fan-pair": {
     "jacket": false,

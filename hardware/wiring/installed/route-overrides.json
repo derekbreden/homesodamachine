@@ -1250,64 +1250,22 @@
       {
         "point_mm": [
           -22.0,
-          327.0,
+          347.0,
           325.5
         ]
       },
       {
         "point_mm": [
-          -14.0,
-          315.0,
-          321.5
+          -42.0,
+          332.0,
+          293.0
         ]
       },
       {
         "point_mm": [
-          -6.0,
-          303.0,
-          309.5
-        ]
-      },
-      {
-        "point_mm": [
-          5.5,
-          284.0096189432334,
-          304.29999999999995
-        ]
-      },
-      {
-        "point_mm": [
-          20.5,
-          215.00961894323342,
-          283.29999999999995
-        ]
-      },
-      {
-        "point_mm": [
-          23.5,
-          212.00961894323342,
-          280.29999999999995
-        ]
-      },
-      {
-        "point_mm": [
-          32.5,
-          203.00961894323342,
-          268.29999999999995
-        ]
-      },
-      {
-        "point_mm": [
-          38.5,
-          188.00961894323342,
-          268.29999999999995
-        ]
-      },
-      {
-        "point_mm": [
-          41.5,
-          182.00961894323342,
-          262.29999999999995
+          -48.5,
+          325.0,
+          275.0
         ]
       }
     ],
@@ -1318,7 +1276,7 @@
     "bend_radius_mm": 3.0,
     "preserve_stations": true,
     "route_status": "proposed",
-    "note": "Local dressing around the V-B valve, return bearing and connected tubing; electrical endpoints, cable passages and fixed retainers retain their datums."
+    "note": "The rear PE inlet branch reaches the nearby lid ring star through the free west connection region."
   },
   "AC2-N": {
     "stations": [

@@ -87,9 +87,10 @@ power box. The front lead uses the reference's 35 mm side and the aft lead its
 Final donor contacts remain unlocated beside the native power-cover envelope.
 
 Exact compressor, fan, pump-motor, diaphragm-pump and display terminal details
-remain unlocated. The carbonator's earth ring clamps to its welded top-plate
-tab; its wire mouth and upward barrel share the metal attachment's datums.
-Only its fanout below the existing sensor/earth conduit follows that attachment.
+remain unlocated. The carbonator's earth ring clamps directly to the existing
+upper vessel rim. Its wire mouth and upward barrel share the rim attachment's
+datums. The lead joins the shared west-side sensor riser above the vessel
+plate and terminates at the lid earth star at world (−53, 339, 259.4) mm.
 Power-wire insulation
 ODs and recovered heat-shrink dimensions are editable layout allowances. Those
 allowances do not establish a reason to change the surrounding hardware.
@@ -107,20 +108,25 @@ conductors leave the dry reed channel through
 the shell-rim notch and rise outside the cap beside the B-fill block. Its four
 signals terminate at J7, and its common terminates at `wago-reeds-b`. Below the
 cap, four signals descend around the reed envelopes and the common runs beside
-them. The temperature bus also
-has a shared three-conductor path between probes. Its tangential splice rows
+them. The temperature bus has one shared three-conductor path between probes.
+The incoming V/DATA/GND leads feed the coil probe first, then continue to the
+carbonator-wall probe. The coil-side route turns aft below the PRV vent at
+world Z184, then rises at Y347 to the shared riser. Its tangential splice rows
 are proposed harness joints; they do not specify the TO-92 package pin order.
-The incoming feeds approach the first row from above, with the bus continuing
-below the taps toward the second probe.
 
 Reservoir A uses its top-cap reed conduit. Reservoir B uses an 8 mm-wide outlet
 cut 6 mm below the shell's top edge, with its conductors laid through the open rim
-before the cap is seated. The three temperature-bus conductors and carbonator
-earth lead share the separate Ø7.5 mm `sensor-cable` conduit, west of the pump.
-The three carbonator-reed conductors use the straight `carbonator-reeds` passage.
-Its axis comes from the cap reference and is recorded in `cable_passages` in
-the resolved model. These internal leads are laid in the foam annulus before
-the body pour, with their free ends threaded through the cap and lid.
+before the cap is seated. The shared west-side Ø7.5 mm `sensor-cable` passage
+at world X−48/Y347 carries seven conductors: the three temperature-bus leads,
+CLO, CHI, their continuous common and the green 16 AWG carbonator PE lead.
+Its straight printed guide crosses the cup and lid, ending on Z253.4. The
+nominal packed loom envelope is 6.6 mm. The fixed east-side reeds retain
+their positions; their three leads transfer over the open vessel head at
+world Z225/Y352 to the west riser. Lay these free lead transitions while the
+body is open, before the foam pour. Thread the free ends through the cup and
+lid before fitting the outside terminations. Above the lid the signal looms
+follow the west PCB approach; PE peels toward the adjacent earth star. The
+temperature and reed commons keep their separate existing WAGO connections.
 
 ## Routing and assembly
 

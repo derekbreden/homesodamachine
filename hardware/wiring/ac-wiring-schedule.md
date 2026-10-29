@@ -220,11 +220,11 @@ Single-point chassis ground at the core-lid ring-terminal stack, bonded back thr
 - Separate ground bonds are [16 AWG](AWG_MAINS_U) green-insulated stranded wire with ring terminals at the bus and metalwork. AC-6 is the green 18 AWG conductor inside the SJOOW compressor cord, as specified in its run row.
 - The chassis bond gives the appliance Class I status: if a fault energizes any exposed metal part, fault current returns to the building ground through the C14 cord and trips the upstream breaker before the user touches anything.
 
-The stack's inlet bond uses its northeast-facing lug, the carbonator bond its
-northwest-facing lug, and AC-6 its southwest-facing lug. Keep the inlet bond's
-nominal 6 mm straight entry and the fore paired-tube tie head on the east side.
-Fasten the stack before dressing AC4-H and AC5-N through the fore connection
-area; hold those flexible leads clear of its vertical driver during service.
+The stack stands at enclosure X−53/Y339/Z259.4 on the core lid. Its inlet bond
+uses the northeast-facing lug, the carbonator bond the northwest-facing lug,
+and AC-6 the southwest-facing lug. Keep the inlet bond's nominal 6 mm straight
+entry. Fasten all three rings while the core lid is open, before closing
+back-top; dress the compressor branch into its retained jacket corridor.
 The complete installed harness has no simultaneous driver-clearance or
 flexible handling-force qualification.
 

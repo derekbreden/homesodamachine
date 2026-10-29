@@ -1645,20 +1645,17 @@
           },
           {
             "material": "HSM-000363",
-            "quantity": 13,
+            "quantity": 12,
             "unit": "ea",
-            "note": "Six through each reservoir cap and gasket; one clamps the carbonator earth bond's ring to the earth tab.",
-            "bodies": [
-              "carbonator-earth-screw"
-            ]
+            "note": "Six M3 x 12 screws through each reservoir cap and gasket."
           },
           {
-            "material": "HSM-000377",
+            "material": "HSM-000381",
             "quantity": 1,
             "unit": "ea",
-            "note": "Carbonator earth clamp, on the earth tab's bare face opposite the ring.",
+            "note": "A2 stainless DIN 6797A M3 tooth washer under the carbonator rim clamp screw, above the closed-ring tongue.",
             "bodies": [
-              "carbonator-earth-locknut"
+              "carbonator-earth-lockwasher"
             ]
           },
           {
@@ -1677,6 +1674,15 @@
             "quantity": 3,
             "unit": "ea",
             "note": "Three recessed B-fill passage clamps in a triangle; close before fitting the PCB."
+          },
+          {
+            "material": "HSM-000382",
+            "quantity": 1,
+            "unit": "ea",
+            "note": "Acquired 304 stainless M3 x 12 stock finished to 4 mm under the head; clamps the closed ring and tooth washer into the tapped upper tube rim.",
+            "bodies": [
+              "carbonator-earth-screw"
+            ]
           }
         ]
       }
@@ -1706,7 +1712,7 @@
         }
       ],
       "bom": {
-        "scope": "Vessel, port fittings, pressure relief, captive magnetic float, welded guide rod and external earth tab. Filler wire, thread tape, inspection and passivation supplies are costed on the vessel itself.",
+        "scope": "Vessel, port fittings, pressure relief, captive magnetic float, welded guide rod and top-register float stop. The upper tube rim carries the tapped earth-clamp interface. Filler wire, thread tape, inspection and passivation supplies are costed on the vessel itself.",
         "source": "assembly/pressure-vessel.md",
         "items": [
           {
@@ -1778,14 +1784,6 @@
             "unit": "ea",
             "bodies": [
               "float-rod-carb"
-            ]
-          },
-          {
-            "material": "HSM-000376",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "carbonator-earth-tab"
             ]
           }
         ]
@@ -7580,21 +7578,6 @@
       "aliases": [
         "earth tab",
         "carbonator-earth-tab"
-      ],
-      "contexts": [
-        {
-          "material": "HSM-000004"
-        }
-      ],
-      "documents": [
-        {
-          "title": "External earth tab",
-          "path": "assembly/pressure-vessel.md"
-        },
-        {
-          "title": "Tab stock and allocation",
-          "path": "ledger/bom.md"
-        }
       ]
     },
     {
@@ -7605,21 +7588,6 @@
         "McMaster 90923A216",
         "earth-clamp locknut",
         "carbonator-earth-locknut"
-      ],
-      "contexts": [
-        {
-          "material": "HSM-000003"
-        }
-      ],
-      "documents": [
-        {
-          "title": "Carbonator earth clamp",
-          "path": "assembly/pressure-vessel.md"
-        },
-        {
-          "title": "Fastener specification",
-          "path": "ledger/bom.md"
-        }
       ],
       "manufacturer_number": "90923A216"
     },
@@ -7685,6 +7653,59 @@
         {
           "title": "AC wiring schedule",
           "path": "wiring/ac-wiring-schedule.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000381",
+      "description": "M3 external-tooth washer \u00b7 DIN 6797A, A2 stainless",
+      "kind": "purchased",
+      "aliases": [
+        "carbonator earth-clamp washer",
+        "carbonator-earth-lockwasher",
+        "M3 tooth washer",
+        "DIN 6797 A"
+      ],
+      "contexts": [
+        {
+          "material": "HSM-000003"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Upper-rim earth clamp",
+          "path": "assembly/pressure-vessel.md"
+        },
+        {
+          "title": "Fastener specification and allocation",
+          "path": "ledger/bom.md"
+        }
+      ],
+      "manufacturer_number": "DIN 6797 A M3"
+    },
+    {
+      "id": "HSM-000382",
+      "description": "M3 \u00d7 4 socket-head screw \u00b7 carbonator earth clamp, 304 stainless",
+      "kind": "manufactured",
+      "aliases": [
+        "carbonator earth-clamp screw",
+        "carbonator-earth-screw",
+        "BNUOK M3x12 stainless stock finished to M3x4",
+        "B0DJQGMQZM"
+      ],
+      "contexts": [
+        {
+          "material": "HSM-000003"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Upper-rim earth clamp and screw preparation",
+          "path": "assembly/pressure-vessel.md"
+        },
+        {
+          "title": "Acquired screw stock and allocation",
+          "path": "ledger/bom.md"
         }
       ]
     }

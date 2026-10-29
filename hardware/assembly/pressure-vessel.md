@@ -8,7 +8,7 @@ Design intent and material rationale live in [`/hardware/README.md`](/hardware/R
 
 In: commodity 316L SS tube (OnlineMetals #12498) + laser-cut 316L SS end plates (SendCutSend [`endcap-circular-2hole.dxf`](/hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.dxf)) + the small parts listed under "Inputs" below.
 
-Out: one tapped, welded, hydro-tested and passivated carbonator with its captive float, four port elbows, qualified water-inlet jet and external earth tab — ready for evaporator coil wrap. The two end plates are the identical purchased SendCutSend blanks, each with two 7/16-inch tap-pilot holes.
+Out: one tapped, welded, hydro-tested and passivated carbonator with its captive float, four port elbows, qualified water-inlet jet and upper-rim earth-clamp interface — ready for evaporator coil wrap. The two end plates are the identical purchased SendCutSend blanks, each with two 7/16-inch tap-pilot holes.
 
 The refill pump is the G Ganen B07F35PTFR diaphragm pump, powered by the existing Mean Well supply. Its flow through the jet against carbonator pressure is a bench reading still to be made. The conditional higher-pressure arrangement and its decision criteria live in [`future/carbonation-plan-b.md`](/future/carbonation-plan-b.md).
 
@@ -38,8 +38,7 @@ Per-unit BOM lives in [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §2 (
 | **Control Devices SV-125 safety valve, 1/4" NPT, 125 PSI** | B01G2F6EMY (size SV-125) | **Port 4 dedicated PRV — installed after passivation per step 9 below, via the SS 90° elbow to orient the body laterally.** The 125 PSI set pressure stands above the G Ganen's outlet switch and the primary regulator's 75 PSI factory setting, so neither the refill pump nor a failed-open secondary lifts it; it is not a vessel safety factor. 49 SCFM relief capacity. |
 | Millrose PTFE thread-seal tape | B07C9ZV4PG | Anti-seize for 4 NPT ports (test plugs during hydro + final fittings after passivation) |
 | ER316L .030 filler wire | STARTECHWELD B09BKFBXT9 | Matches 316L parent metal. |
-| Earth tab, 12 × 17 × 1.5 mm, two upper corners R2 | Acquired 304 stainless sheet | One Ø3.6 mm through hole in the tab, 12 mm above its base. Welds to the top plate's outside face. |
-| Dedicated carbonator earth clamp | M3 × 12 stainless socket screw; M3 / #4 22–16 AWG ring terminal; McMaster 90923A216 captive external-tooth stainless locknut | Screw and ring are acquired. The captive locknut is the specified stainless clamp hardware; see the [earth-tab attachment](#external-earth-tab) below. |
+| Dedicated carbonator earth clamp | Finished M3 × 4 stainless socket screw; DIN 6797A M3 A2 external-tooth washer, 0.4 mm; M3 / #4 22–16 AWG closed ring | Shorten one acquired M3 × 12 screw to 4 mm; the ring is acquired. The toothed washer is required and not recorded as acquired. See the [upper-rim attachment](#upper-rim-earth-bond). |
 | Cambro 6 QT polycarbonate square container | B001BZEQ44 | Reusable passivation tub; bath condition and reuse limits need qualification |
 | Viva Doria food-grade citric acid | B0C5NQM8S1 | Made up to ~4 % solution, sufficient to contact all interior and exterior surfaces |
 | Tap Magic EP-Xtra cutting fluid | B00DHMHSGM | ~$0.50 of fluid per carbonator for NPT tapping |
@@ -48,6 +47,11 @@ Per-unit BOM lives in [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §2 (
 | Lint-free cleanroom wipes, 9" × 9" (cellulose/polyester) | B0GD16CMYL | PT wipe-off + reading surface. Excess penetrant wiped with isopropyl alcohol (in stock) dampened on a wipe — never sprayed on the part. |
 
 Tooling (per-carbonator-amortized only — single-asset tools live in [`/hardware/ledger/purchases.md`](/hardware/ledger/purchases.md), not here): XLaserlab X1 Pro laser welder, WEN 4208T drill press, LingGan M35 cobalt 1/4-18 NPT pipe tap + Drill America DWT adjustable tap wrench, Brown & Sharpe spring tap guide, Drill Hulk 9/64" M35 cobalt drill bit (rod register), JNB Pro 82° M35 cobalt countersink set (port-hole chamfer, step 1), Noga NG8150 swivel-blade deburr tool (plate + tube edges, steps 1 and 3), 3M Scotch-Brite 7447 very-fine hand pads (weld-surface prep, step 3), Knipex 70 11 110 diagonal cutters and 1/4"-shank flap wheels in a drill (stuck wire, step 3), argon at the welder, hydro test rig (see step 7).
+
+The upper-rim bond also needs a Ø2.5 mm drill suitable for 316L stainless,
+an M3 × 0.5 tap and a driver that holds that tap. These tools are not recorded
+as acquired in the [tool ledger](/hardware/ledger/tools.md); their unpriced
+requirements are listed with the [remaining purchases](/hardware/ledger/purchases.md#still-needed--likely-to-buy).
 
 ## CO2 supply and pressure protection
 
@@ -73,7 +77,7 @@ The first-tap rig and hand sequence are captured in [`/hardware/tapping-plan-202
 
 **Plate clocking.** Both plates are welded with their port pairs on the same axis, and the rod register — beyond the negative port on each plate's port diameter — is what holds them together: the rod is tack-welded into the bottom plate's register and must enter the top plate's at closure, so a plate turned relative to the other has no register to meet. That register is what clocks the two plates to each other, and it is what leaves the carbonator ONE port axis instead of two. In the cold core that axis is the foam shell's **±Y** (`_cold_core_interface.carbonator_port_offset`). Nothing above the carbonator has to stand over a port to be fed: every port turns its line laterally at its own elbow (step 9), so the top cap's water-inlet conduit stands where the run above the lid wants it and reaches the plate through the band under the cap floor ([`cold-core.md`](/hardware/assembly/cold-core.md) step 5).
 
-The register is on the loose cap drawing's −X axis, beyond its negative port. In the foam shell the rod and reed bridge stand on **−Y**, opposite the reservoirs' **+Y** sensing stations. The upper register carries a 4 mm stainless float stop; the three carbonator reed conductors leave through the dedicated `carbonator-reeds` cup/lid passage and land at J7 and its common WAGO. The reed mount and height tolerances are in [`reed-bridge/README.md`](/hardware/printed-parts/cold-core/reed-bridge/README.md).
+The register is on the loose cap drawing's −X axis, beyond its negative port. In the foam shell the rod and reed bridge stand on **−Y**, opposite the reservoirs' **+Y** sensing stations. The upper register carries a 4 mm stainless float stop; the three carbonator reed conductors transfer over the open vessel head before foaming, then leave through the shared west-side sensor passage and land at J7 and its common WAGO. The reed mount and height tolerances are in [`reed-bridge/README.md`](/hardware/printed-parts/cold-core/reed-bridge/README.md).
 
 **Rod register (both plates, same drill-press setup, before any welding).** Drill the level-sensing rod register into the **inside** face: a blind **9/64" hole, 0.10" deep to the drill-point tip**, at **(−[1.6476](REGISTER_RADIUS_IN)", 0)**, a radius of **[41.849 mm](REGISTER_RADIUS_MM)** — on the −X cap axis, beyond the negative port. Position / diameter / depth are the source-of-truth constants in [`endcap_circular_dxf.py`](/hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py); the [finished-cap drawing](/hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole-drawing.pdf) locates R1 in its coordinate table and dimensions the drill point in detail B. The 0.10" depth leaves 0.15" of the 1/4" plate intact — **this hole must not break through; it forms part of the carbonator pressure boundary.** The nominal [43.5 PSI](WORKING_PSI) CO2 feed setting does not rate that boundary. Clamp the disc, run the press at its slowest speed (~740 RPM) with Tap Magic, set the depth stop to 0.10" (to the tip), and prove it on a scrap disc before a real plate. Both plates get the identical hole: the **bottom**-plate register seats and squares the rod for its tack weld (step 2); the **top**-plate register captures the rod tip at closure (step 5). Drilling now — before welding and before the citric passivation (step 8) — lets the fresh-cut 316L passivate with the rest of the carbonator.
 
@@ -100,51 +104,43 @@ model gives 1.746 mm to the jet cap. Stop attachment, inlet projection, float
 tilt and free travel require physical qualification before closure. See
 [CV-WLD-01](/hardware/cold-core-layout/carbonator-vessel-weldment-drawing.pdf).
 
-### External earth tab
+### Upper-rim earth bond
 
-Cut the **12 mm-wide × 17 mm-high × 1.5 mm-thick** tab from the acquired 304
-stainless sheet. Round the two upper corners R2 and deburr every edge. Drill
-one **Ø3.6 mm through hole**, centered across the width and **12 mm above the
-base**; the acquired 9/64-inch bit makes a nominal 3.572 mm clearance hole.
-The hole is in this separate tab only. Do not drill the top plate for this bond.
-
-Weld the tab upright on the **outside face of the loose top plate**, before
-vessel closure and before the float is installed. The source is
+The green 16 AWG carbonator earth lead clamps directly to the existing upper
+vessel rim. Its radial M3 × 0.5 attachment is defined by
 [`_carbonator_bond.py`](/hardware/cold-core-layout/_carbonator_bond.py).
-In the finished-cap drawing's coordinates, with its two ports on X and the
-register on −X, the tab base is centered at **X40.0 / Y−23.2 mm**; its width
-runs along Y and its hole axis along X. In the cold-core assembly frame this
-is **X23.2 / Y40.0 mm**, with the tab base on the plate's outside face and
-its width along X. In the installed appliance the base is at
-**X−40 / Y347 / Z198.05 mm**. The tab stands over solid plate, clear of both
-ports and the closure fillet at the rim. Its hole axis is at **Z210.05 mm**,
-leaving room above the tube rim for the screw driver and nut socket.
 
-Clamp the tab square to the plate and make a **1.5 mm-leg base fillet along
-each 12 mm side**, using the existing argon-shielded laser process and ER316L
-filler. Direct the heat into the thick plate and wash onto the tab. Keep the
-tab hole and its ring-contact face clear of weld. Clean the tab and its welds
-with the rest of the vessel before passivation. The tab is an external welded
-attachment; its bolt ends above the plate and does not enter the pressure
-boundary.
+Locate the nominal hole center **3.5 mm above the top plate's outside face**,
+**2.85 mm below the tube's upper end**. Its azimuth is **64.20° counterclockwise
+from +X** in the cold-core frame, whose ports lie on ±Y and whose rod register
+lies on −Y. The hole axis points radially inward. In the installed appliance,
+the exterior ring-contact point is **X−57.1722/Y351.4332/Z201.55 mm**.
 
-After passivation and before the cold-core body foam pour, crimp the **green
-16 AWG earth lead** into the acquired steel-side M3 / #4 ring terminal. Keep
-its opposite end unterminated until it has passed through both the printed
-upper cup and lid; crimp the lid-side ring at cold-core assembly step 5. Assemble from
-the screw head: **M3 × 12 stainless screw → ring tongue → bare tab → captive
-external-tooth locknut 90923A216**. Put the ring
-directly against the tab's west face in the appliance, with its barrel pointing
-up toward the existing sensor/earth passage. The captive teeth bear on the
-opposite bare tab face. The locknut maker specifies tightening until the teeth
-bite into the material; see [the part specification](https://www.mcmaster.com/product/90923A216/).
-Keep paint, adhesive and sealant out of the metal contact
-stack. Hold the screw while tightening the nut so the tab and crimp do not twist.
-Check the steel-to-ring connection before it is buried, as required by
-[`wiring.md`](/hardware/assembly/wiring.md). Route the free lead with the three
-temperature-sensor conductors through the existing cap passage per
-[`cold-core.md`](/hardware/assembly/cold-core.md); fit this clamp before the
-foil and body foam hide the plate.
+Drill and tap after closure welding and weld dressing, before passivation.
+Keep the finished bore and the complete installed screw-tip envelope above
+the actual closure-weld toe; the nominal station applies where the finished
+toe leaves that envelope clear. Clamp the vessel with its upper recess
+accessible, drill **Ø2.5 mm** radially through the proud rim, and tap
+**M3 × 0.5 through the 1.651 mm wall**. Deburr both sides and remove the chips
+from the open recess. The nominal thread engagement is 1.651 mm, about 3.3
+pitches, with 1.35 mm of steel between the thread's upper edge and the tube end.
+
+Finish one acquired **M3 × 12 stainless screw to 4 mm under the head** and
+deburr its thread end. After passivation and before the cold-core body foam
+pour, crimp the green 16 AWG lead into the acquired M3 / #4 closed ring.
+Assemble outside the vessel, from the screw head: **M3 × 4 stainless screw →
+DIN 6797A M3 A2 external-tooth washer, 0.4 mm → 0.8 mm ring tongue → bare
+tapped rim**. The washer's specified ID is 3.2–3.38 mm and OD is 5.7–6.0 mm.
+Hold the ring with its barrel upward while tightening. Keep paint, adhesive
+and sealant out of the metal contact stack. The 1.2 mm washer/ring stack leaves
+1.149 mm of screw projection beyond the tube ID. Check the steel-to-ring bond
+before it is buried, as required by [`wiring.md`](/hardware/assembly/wiring.md).
+
+Keep the opposite wire end free until it has passed through the shared
+seven-core sensor riser at world X−48/Y347 and both cap pieces. Crimp its
+outside ring afterward and land it at the adjacent lid earth star during
+[cold-core assembly](/hardware/assembly/cold-core.md). Fit the steel-side
+clamp before foil and body foam cover its contact faces.
 
 ### 2. Prepare the bottom plate — tack the float rod
 
@@ -253,7 +249,7 @@ A finished carbonator is:
 - Water-inlet jet elbow qualified, cleaned, passivated and fitted to Port 2; jet exit clear into headspace
 - Push-fit elbows fitted to Ports 1 and 3 and aimed at their lines; dedicated unobstructed PRV path through Port 4
 - Float rod welded into bottom plate; ASA Aero float and RC62 captive
-- External earth tab welded to the top plate, with its hole and bare clamp faces accessible for the carbonator earth lead before the body foam pour
+- Upper vessel rim prepared for its dedicated M3 earth clamp, with the bare contact faces accessible for the carbonator bond before the body foam pour
 - PRV pull-ring tested free and snappy during prv-shroud subassembly build (per that part's README, step 2)
 - Externally clean — no scale, no flux, no oxide bloom
 
