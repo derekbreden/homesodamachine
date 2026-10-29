@@ -1619,5 +1619,180 @@
       ]
     ],
     "above_cap_bend_radius_mm": 3.0
+  },
+  "condenser-fan-pair": {
+    "jacket": false,
+    "kind": "Two-conductor condenser-fan branch",
+    "description": "The two 1.70 mm condenser-fan leads share the east-wall clip and one transported lower course. The negative retains its upper J2 manifold-bank passage; the positive leaves the manifold common directly.",
+    "bend_radius_mm": 10.0,
+    "fanout_tangent_mm": [
+      4.0,
+      4.0
+    ],
+    "route_status": "proposed",
+    "cores": {
+      "J2-FAN": [
+        0.0,
+        0.925
+      ],
+      "J2-positive-fan": [
+        0.0,
+        -0.925
+      ]
+    },
+    "stations": [
+      {
+        "point_mm": [
+          97.4,
+          160.0,
+          193.0
+        ]
+      },
+      {
+        "point_mm": [
+          97.4,
+          132.0,
+          193.0
+        ]
+      },
+      {
+        "point_mm": [
+          92.2,
+          125.0,
+          180.0
+        ]
+      },
+      {
+        "point_mm": [
+          92.2,
+          125.0,
+          154.0
+        ]
+      },
+      {
+        "point_mm": [
+          92.2,
+          90.0,
+          150.0
+        ]
+      },
+      {
+        "point_mm": [
+          90.5,
+          65.0,
+          150.0
+        ]
+      }
+    ],
+    "fanouts": {
+      "J2-FAN": {
+        "end_lands_mm": [
+          6.0,
+          6.0
+        ],
+        "bend_radius_mm": 4.0,
+        "route_status": "proposed",
+        "entry_stations": [
+          {
+            "point_mm": [
+              -36.97993789648436,
+              271.2029200200504,
+              291.15
+            ]
+          },
+          {
+            "point_mm": [
+              -36.97993789648436,
+              206.7,
+              291.15
+            ]
+          },
+          {
+            "point_mm": [
+              79.3,
+              206.7,
+              291.15
+            ]
+          },
+          {
+            "point_mm": [
+              79.3,
+              206.7,
+              259.35
+            ]
+          },
+          {
+            "point_mm": [
+              79.3,
+              178.0,
+              259.35
+            ]
+          },
+          {
+            "point_mm": [
+              79.3,
+              164.0,
+              259.35
+            ]
+          },
+          {
+            "point_mm": [
+              97.4,
+              164.0,
+              259.35
+            ]
+          }
+        ],
+        "exit_stations": [
+          {
+            "point_mm": [
+              89.5,
+              56.0,
+              150.925
+            ]
+          }
+        ]
+      },
+      "J2-positive-fan": {
+        "end_lands_mm": [
+          4.0,
+          6.0
+        ],
+        "bend_radius_mm": 4.0,
+        "route_status": "proposed",
+        "entry_stations": [
+          {
+            "point_mm": [
+              83.5,
+              162.0,
+              242.0
+            ]
+          },
+          {
+            "point_mm": [
+              94.5,
+              164.0,
+              238.0
+            ]
+          },
+          {
+            "point_mm": [
+              94.5,
+              164.0,
+              192.075
+            ]
+          }
+        ],
+        "exit_stations": [
+          {
+            "point_mm": [
+              91.5,
+              56.0,
+              149.075
+            ]
+          }
+        ]
+      }
+    }
   }
 }
