@@ -28,7 +28,7 @@ See [mechanical assembly](enclosure-mechanical.md) for the closing sequence.
 | Water split and flavor-water control | Trimmed NeoFit ATBU444-E stem tee, YZMSZ fixed 0.3 MPa native 1/4-inch push-connect regulator, V-A |
 | Carbonator fill | V-K, G Ganen pump, two printed TPU pump elbows and four trial clamps, single neoFit ACHV44-E 1/4-inch water check |
 | Gas feed | PISCO RVFUP1/4-1/4-0.3 regulator, separate neoFit ACHV44-E 1/4-inch check, five trimmed NeoFit stem elbows |
-| Core/reservoir interfaces | Existing carbonator fittings; two below-lid B-fill fittings; selected passive cap guides |
+| Core/reservoir interfaces | Existing carbonator fittings; continuous B-fill tube through its fore-entry guide; selected passive cap guides |
 | Soda and flavor outputs | DIGITEN meter, rear soda bulkhead, two 4 mm dispense reducers and rear flavor bulkheads |
 
 Use white 1/4-inch LLDPE for water, blue for carbonated water, black for the
