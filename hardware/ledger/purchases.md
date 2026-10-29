@@ -816,6 +816,7 @@ Printed copies of the [install guide](/hardware/install-guide/README.md). Lulu o
 |---|---|
 | **Google Pixel 10a unlocked Android phone, 128 GB Obsidian (2026 model)** | Android development handset for the soda-machine app's Android side (`android/`). [B0GHRHXVN1](https://www.amazon.com/dp/B0GHRHXVN1). |
 | **Smooth-On XTC-3D 3D-print smoothing epoxy, 6.4 oz (~$19.99) — optional** | Self-leveling epoxy base coat under the §21 core's clear-acrylic seal, only if the 0.08 mm core texture still telegraphs through the acrylic alone. Fills/seals; not the release face. [B01BKSLI9M](https://www.amazon.com/dp/B01BKSLI9M). |
+| **McMaster 90923A216 M3 × 0.5 stainless locknut with captive external-tooth washer** | One per carbonator earth tab, per [the attachment procedure](/hardware/assembly/pressure-vessel.md#external-earth-tab). Supplier pack of 50; price pending. Required purchase, not ordered. [Part specification](https://www.mcmaster.com/product/90923A216/). |
 
 ---
 
