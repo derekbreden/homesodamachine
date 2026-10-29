@@ -350,20 +350,16 @@ async function fetchMeshes(file, headers, { mounted = false } = {}) {
   }
 }
 
-// WHAT THE PICTURE CAME OFF, SAID WHERE IT IS KNOWN. The route says `step:` and the pill says
-// the piece's name, and for the fluted pieces the payload beside the solid is what was drawn.
-// Only this function knows which of the two it read, and it knows it here — the breadcrumb and
-// the pill are built before the fetch lands, so a title set there would state a surface nobody
-// had chosen yet. `surfaceText` is the sentence, said on hover where there is room for it.
+// WHAT THE PICTURE CAME OFF, SAID WHERE IT IS KNOWN. The route says `step:` and the breadcrumb
+// says the piece's name, and for the fluted pieces the payload beside the solid is what was drawn.
+// Only this function knows which of the two it read, and it knows it here — the breadcrumb is
+// built before the fetch lands, so a title set there would state a surface nobody had chosen
+// yet. `surfaceText` is the sentence, said on hover where there is room for it.
 function nameSurface(file, surface) {
   const wrapper = state.currentCadWrapper;
   if (!wrapper) return;                      // headless: no chrome to name
-  const said = surfaceText(file, surface);
-  const card = wrapper.closest(".cv-card");
-  const pill = card && (card.querySelector(".cad-title") || card.querySelector(".cv-filename"));
-  if (pill) pill.title = said;
   const here = (wrapper.closest(".cad-workspace") || wrapper).querySelector(".cad-crumb-here");
-  if (here) here.title = said;
+  if (here) here.title = surfaceText(file, surface);
 }
 
 export async function loadStepFile(file, { preserveCamera = false } = {}) {

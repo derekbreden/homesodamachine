@@ -46,8 +46,6 @@ import { mountFaucetOptions } from "./faucet-options.js";
 import { mountFlavorPath } from "./flavor-path.js";
 import { HSM_EVENTS } from "/contracts/client-events.js";
 import { mountMaterialPanel } from "./material-panel.js";
-import { stepLocation } from "/contracts/step-locations.js";
-import { materialForView } from "/contracts/materials.js";
 import { dismissViewerHistory } from "./viewer-history.js";
 
 // Reset-view button: re-frames the current part with the format's default
@@ -118,17 +116,6 @@ function makeResetViewButton() {
   return btn;
 }
 
-function shortName(file, ext = ".step") {
-  const location = stepLocation(file);
-  const material = ext === ".step" && materialForView(state.materialCatalog, file, { finish: state.faucetFinish });
-  if (material) return { name: material.description, dir: location.file };
-  if (location.component) return { name: location.component.split("/").at(-1), dir: location.file };
-  const parts = file.split("/");
-  const name = parts.pop().replace(ext, "");
-  const dir = parts.join("/");
-  return { name, dir };
-}
-
 // ext + hashPrefix per kind; the loader is resolved at open time via
 // getLoader(type) (loaders.js) so a fresh modal always runs current code.
 const CAD_KINDS = {
@@ -166,9 +153,6 @@ export function openCadDetail(type, file, pushHistory = true, path = null) {
   stage.append(wrapper);
   const header = document.createElement("header"); header.className = "cad-workspace-header";
   const context = document.createElement("div"); context.className = "cad-context";
-  const title = document.createElement("div"); title.className = "cad-title";
-  title.textContent = materialForView(state.materialCatalog, file, { finish: state.faucetFinish })?.description || shortName(file, kind.ext).name;
-  context.append(title);
   const viewTools = document.createElement("div"); viewTools.className = "cad-view-tools";
   const views = document.createElement("div"); views.className = "cad-view-slot";
   const documentTools = document.createElement("div"); documentTools.className = "cad-document-slot";
@@ -268,7 +252,6 @@ export function openCadDetail(type, file, pushHistory = true, path = null) {
 
   ContentViewer.open({
     content: workspace,
-    filename: shortName(file, kind.ext).name,
     onOpen: () => {
       const close = workspace.closest(".cv-card")?.querySelector(".cv-close");
       if (close) actions.append(close);

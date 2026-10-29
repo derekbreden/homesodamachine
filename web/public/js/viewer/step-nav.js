@@ -109,14 +109,8 @@ export function setTrail(files, pushedHistory = false) {
 }
 
 // ── Breadcrumb ──────────────────────────────────────────────────────────────
-// Stands where ContentViewer's filename pill stands, and takes its place while
-// there is a trail to show; with no trail the pill says it on its own.
-function filenamePill(wrapper) {
-  const heading = wrapper?.closest(".cad-workspace")?.querySelector(".cad-title");
-  if (heading) return heading;
-  const card = wrapper && wrapper.closest(".cv-card");
-  return card ? card.querySelector(".cv-filename") : null;
-}
+// Stands at the left of the workspace toolbar while there is a trail to show;
+// the toolbar carries no title.
 
 // WHAT THE PICTURE CAME OFF, ON THE THING THAT NAMES THE PICTURE. The route says `step:` and
 // the name says `.step`, and for the fluted pieces neither is what was drawn — the payload
@@ -126,25 +120,16 @@ function surfaceOfOpen(file) {
   return surfaceText(file, state.mountedDetail && state.mountedDetail.surface);
 }
 
-function setFilename(file) {
-  const pill = filenamePill(state.currentCadWrapper);
-  if (!pill) return;
-  pill.textContent = label(file);
-  pill.title = surfaceOfOpen(file);
-}
-
 function syncCrumb(file) {
   const wrapper = state.currentCadWrapper;
   if (!wrapper) return;
   const context = wrapper.closest(".cad-workspace")?.querySelector(".cad-context") || wrapper;
   let crumb = context.querySelector(".cad-crumb");
-  const pill = filenamePill(wrapper);
 
-  // Nothing above this model: the pill says its name on its own, and the crumb
-  // stands empty rather than hidden-but-still-reading as the last walk taken.
+  // Nothing above this model: the crumb stands empty rather than
+  // hidden-but-still-reading as the last walk taken.
   if (!trail.length) {
     if (crumb) { crumb.classList.remove("show"); crumb.textContent = ""; }
-    if (pill) pill.style.display = "";
     return;
   }
   if (!crumb) {
@@ -176,15 +161,14 @@ function syncCrumb(file) {
   crumb.appendChild(here);
   crumb.classList.add("show");
   crumb.scrollLeft = crumb.scrollWidth;
-  if (pill) pill.style.display = "none";
 }
 
 // ── The move ────────────────────────────────────────────────────────────────
 // Everything the open modal shows that belongs to a particular file, brought
-// over to `file`: its camera, name, scorecard bar and the port/box chips that
-// bar mounts, and which file the editor writes to. A component step carries
-// the live camera in either direction; every unrelated move takes the camera
-// stored for its file.
+// over to `file`: its camera, breadcrumb, scorecard bar and the port/box chips
+// that bar mounts, and which file the editor writes to. A component step
+// carries the live camera in either direction; every unrelated move takes the
+// camera stored for its file.
 async function showStep(file, push, view = null) {
   const from = state.mountedDetail && state.mountedDetail.file;
   if (!from || file === from) return false;
@@ -219,7 +203,6 @@ async function showStep(file, push, view = null) {
   } else {
     applyCameraState(file);
   }
-  setFilename(file);
   syncCrumb(file);
   if (state.currentCadWrapper) {
     mountScorecard(state.currentCadWrapper, file);
