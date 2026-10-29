@@ -493,70 +493,6 @@
           "value": "1",
           "reason": "Tree(auto)/Default decides support at the round copper passages and blind insert roofs; native support placement is reviewed for this production geometry."
         },
-        "seam_position": {
-          "value": "back",
-          "reason": "Selected faucet A2 contour seam package, transferred intact to the production shell."
-        },
-        "override_filament_scarf_seam_setting": {
-          "value": "1",
-          "reason": "Selected faucet A2 contour seam package, transferred intact to the production shell."
-        },
-        "seam_slope_conditional": {
-          "value": "1",
-          "reason": "Selected faucet A2 contour seam package, transferred intact to the production shell."
-        },
-        "scarf_angle_threshold": {
-          "value": "155",
-          "reason": "Selected faucet A2 contour seam package, transferred intact to the production shell."
-        },
-        "seam_slope_entire_loop": {
-          "value": "0",
-          "reason": "Selected faucet A2 contour seam package, transferred intact to the production shell."
-        },
-        "seam_slope_steps": {
-          "value": "10",
-          "reason": "Selected faucet A2 contour seam package, transferred intact to the production shell."
-        },
-        "seam_slope_inner_walls": {
-          "value": "1",
-          "reason": "Selected faucet A2 contour seam package, transferred intact to the production shell."
-        },
-        "seam_slope_min_length": {
-          "value": "60",
-          "reason": "Selected faucet A2 contour seam package, transferred intact to the production shell."
-        },
-        "seam_slope_start_height": {
-          "value": "10%",
-          "reason": "Selected faucet A2 contour seam package, transferred intact to the production shell."
-        },
-        "seam_slope_type": {
-          "value": "external",
-          "reason": "Selected faucet A2 contour seam package, transferred intact to the production shell."
-        },
-        "seam_gap": {
-          "value": "150%",
-          "reason": "Selected faucet A2 contour seam package, transferred intact to the production shell."
-        },
-        "seam_slope_gap": {
-          "value": "0%",
-          "reason": "Selected faucet A2 contour seam package, transferred intact to the production shell."
-        },
-        "filament_wipe": {
-          "value": [
-            "0",
-            "0",
-            "0"
-          ],
-          "reason": "Retain the selected faucet wipe-off treatment at all active filament variants."
-        },
-        "filament_wipe_distance": {
-          "value": [
-            "0",
-            "0",
-            "0"
-          ],
-          "reason": "Retain the selected faucet wipe-off treatment at all active filament variants."
-        },
         "outer_wall_speed": {
           "value": [
             "100",
@@ -637,17 +573,17 @@
         {
           "stl": "hardware/printed-parts/cold-core/foam-shell/foam-shell.stl",
           "seam_enforcer": {
-            "axis": "x",
-            "center_mm": 60.0,
+            "axis": "y",
+            "center_mm": 88.95,
             "half_width_mm": 0.25,
-            "face_axis": "y",
-            "face_coordinate_mm": -90.2,
+            "face_axis": "x",
+            "face_coordinate_mm": 4.75,
             "face_sign": -1,
-            "reason": "Start the 60 mm scarf on an uninterrupted long-wall span, clear of the X40 and X131.5 insert bosses and all port openings."
+            "reason": "Seat the plain seam in the seam channel's +X inside corner: a strip of the channel's side wall along that corner, the full height of the shell, where it faces across the channel rather than out of it."
           }
         }
       ],
-      "pose_reason": "Floor on the bed; the production shell retains its native upright pose. Tree(auto)/Default, localized PET-GF cooling and the explicitly placed A2 scarf are saved in this entry."
+      "pose_reason": "Floor on the bed; the production shell retains its native upright pose. Tree(auto)/Default, localized PET-GF cooling and the plain seam painted into the seam channel's corner are saved in this entry."
     },
     "foam-cap-bottom": {
       "printer": "Mark2",

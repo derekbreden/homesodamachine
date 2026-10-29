@@ -1,0 +1,57 @@
+{
+  "printer": "Mark2",
+  "observed_at": "2026-10-29T07:57:02.353321+00:00",
+  "accepted_observed_at_central": "2026-10-29T02:57:02-05:00",
+  "archive": {
+    "name": "cold-core-shell-seam-channel-2026-10-29.gcode.3mf",
+    "sha256": "16d4b9f8ec695b096b1eb935a67071af35a70f7131ffbb8086f6a7f61cb37a2e",
+    "gcode_sha256": "3193a4fd9634476371d08b5db680aefb57f38b9a1fd2792ff710e094a8d550ac",
+    "slots": {
+      "1": {
+        "type": "PET-CF",
+        "colour": "161616"
+      }
+    },
+    "objects": [
+      "foam-shell"
+    ]
+  },
+  "source_archive": ".cache/prints/2026-10-29-cold-core-seam-channel/preparation/2026-10-29-foam-shell-mark2-d68bb179.gcode.3mf",
+  "archive_repackaged": false,
+  "geometry_commit": "daee7e7ff7a1a79a42e29e05fbb5db458d126ad8",
+  "printer_task_id": "1386110458",
+  "printer_report": {
+    "command": "project_file",
+    "result": "SUCCESS",
+    "err_code": 0,
+    "subtask_name": "cold-core-shell-seam-channel-2026-10-29.gcode.3mf"
+  },
+  "gcode_state": "PREPARE",
+  "print_error": 0,
+  "readback": {
+    "observed_at": "2026-10-29T07:59:22+00:00",
+    "job_id": "1386110458",
+    "gcode_state": "RUNNING",
+    "layer_num": 0,
+    "total_layer_num": 889,
+    "print_error": 0,
+    "hms": []
+  },
+  "options": {
+    "Timelapse": "On",
+    "Auto bed leveling": "On",
+    "Flow dynamic calibration": "Auto",
+    "Nozzle Offset Calibration": "Auto"
+  },
+  "filament_mapping": "Left External PET-CF (loaded black PET-GF15)",
+  "material": "black Polymaker Fiberon PET-GF15; external spool 254, printer PET-CF #161616",
+  "nozzle": "fixed left hardened 0.4 mm Standard (HS01-0.4)",
+  "method": "tools/bambu_send.py through Bambu Connect, run with the dialog's printer names given as Mark1 and Mark2; Bambu Connect shows Mark1 by that name, and H2C is its connection key.",
+  "earlier_sends": "Four earlier sender runs stopped before Send and left Mark2 idle on its previous job: three read the dialog's Mark1 selector as no dialog, and one re-import under the already loaded name did not load.",
+  "shared_circuit": {
+    "other_printer": "Mark1",
+    "other_state": "FINISH, idle, observed 2026-10-29T07:48:50Z",
+    "other_job_started_within_minimum": false,
+    "minimum_seconds": 180
+  }
+}
