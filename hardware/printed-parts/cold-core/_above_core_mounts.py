@@ -603,7 +603,8 @@ def cable_guide_points(name):
                               (*upper_xy, spec['cap_face_z_mm']+2.)),
                 'bend_radius_mm': 5.5}
     if name == 'reed-cable-b':
-        plan = (lower_xy, (lower_xy[0], 205.), (upper_xy[0], 205.), upper_xy)
+        # The first leg steps east of the B-fill clamp insert at X-33/Y205.6.
+        plan = (lower_xy, (-23., 205.), (upper_xy[0], 205.), upper_xy)
     elif name == 'sensor-cable':
         plan = (lower_xy, (lower_xy[0], upper_xy[1]), upper_xy)
     else:

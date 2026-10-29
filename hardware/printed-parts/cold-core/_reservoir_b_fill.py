@@ -1,8 +1,9 @@
 """Continuous B-fill tube guide and the local cup/lid clamp, in appliance XYZ.
 
-The R14, D6.8 teardrop, 2 mm section and 0.5 mm mouths use the accepted
-holder geometry in future/tube-bend-holder-exploration. The inlet extends to
-the front cap face; the outlet turns directly into the reservoir seat.
+The R14 bend and 6.8 mm bore use the accepted holder's tube envelope.
+The cap passage is circular, with 0.5 mm insertion lead-ins and a supported
+roof allowance toward print-up. The inlet extends to the front cap face;
+the outlet turns directly into the reservoir seat.
 """
 from functools import lru_cache
 import importlib
@@ -32,7 +33,7 @@ def passage():
     tip = (x, y, floor - 5.4)
     face = layout.specification()['cap_face_z_mm']
     lift_y = y - BEND_RADIUS * (1.0 - math.sin(math.pi / 4.0))
-    fore_y = y - BEND_RADIUS
+    fore_y = front + 23.0
     clamp_stations = []
     for name, axis in (('aft', (x, y + 9.0)),
                        ('fore-west', (x - 10.5, fore_y)),
@@ -49,6 +50,7 @@ def passage():
         'route_points_world_mm': (entry, (x, y, entry[2]), tip),
         'bend_radius_mm': BEND_RADIUS,
         'channel_diameter_mm': CHANNEL_DIAMETER,
+        'channel_section': 'round',
         'wall_mm': WALL,
         'outlet_leg_mm': 0.0,
         'mouth_lead_in_mm': MOUTH,
@@ -80,13 +82,6 @@ def passage():
     }
 
 
-def _teardrop(wp, x, z, radius):
-    k = radius / math.sqrt(2.0)
-    return (wp.moveTo(x + k, z + k).lineTo(x, z + math.sqrt(2.0) * radius)
-            .lineTo(x - k, z + k)
-            .threePointArc((x, z - radius), (x + k, z + k)).close())
-
-
 def _body_section():
     import cadquery as cq
     outer = CHANNEL_RADIUS + WALL
@@ -98,7 +93,7 @@ def _body_section():
 
 def _channel_section():
     import cadquery as cq
-    return _teardrop(cq.Workplane('XZ'), BEND_RADIUS, CHANNEL_CENTRE, CHANNEL_RADIUS)
+    return cq.Workplane('XZ').moveTo(BEND_RADIUS, CHANNEL_CENTRE).circle(CHANNEL_RADIUS)
 
 
 def _mouth():
@@ -106,15 +101,15 @@ def _mouth():
     def at(y, radius):
         plane = cq.Plane(origin=(0.0, y, 0.0), xDir=(1.0, 0.0, 0.0),
                          normal=(0.0, -1.0, 0.0))
-        return _teardrop(cq.Workplane(plane), BEND_RADIUS,
-                         CHANNEL_CENTRE, radius).wires().val()
+        return (cq.Workplane(plane).moveTo(BEND_RADIUS, CHANNEL_CENTRE)
+                .circle(radius).wires().val())
     return cq.Solid.makeLoft([
         at(-0.3, CHANNEL_RADIUS + MOUTH + 0.3),
         at(MOUTH + 0.05, CHANNEL_RADIUS - 0.05)], ruled=True)
 
 
 def holder_sections(inlet_leg, outlet_leg=0.0):
-    """Accepted outer body and complete channel, with an extended inlet leg."""
+    """Reference outer body and circular cap channel, with an extended inlet leg."""
     import cadquery as cq
     axis = ((0.0, 0.0, 0.0), (0.0, 1.0, 0.0))
     mirror = cq.Vector(math.sqrt(0.5), -math.sqrt(0.5), 0.0)
