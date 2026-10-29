@@ -52,6 +52,11 @@ contains the cup and matching lid cropped from the production pieces, with
 the fore pair at Y205.60. Its receipt records the native archive and printer
 task. The full lid's print preparation uses the current source STL.
 
+Derek accepted the local test's physical fit and tube clamping on 2026-10-29:
+“Turned out well. Clamps the tube well where it needs to be. All fits.” The
+[physical result](../prints/2026-10-28-b-fill-round-fore-20560/physical-result.json)
+identifies the tested cup and lid, their round channel and final fore clamps.
+
 The [post-publication surface reading](post-publication-review.json) records
 the published STL review. The cup's 1.569 mm exposed flat meets the rounded
 cable carrier; a normal ray at the diagnostic pick crosses 33.0 mm of
