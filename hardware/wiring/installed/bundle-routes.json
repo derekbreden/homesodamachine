@@ -1782,5 +1782,353 @@
         ]
       }
     }
+  },
+  "gas-sensor-ribbon": {
+    "jacket": false,
+    "kind": "Four-conductor gas-sensor loom",
+    "description": "The four J11 conductors leave the board together, descend in the open gap between the west valve columns, cross the enclosure seam inboard, and share the low west-wall hook. The transported lower ribbon rises above the sensor board before its fore pin fanouts.",
+    "core_section_frame": "Initial section components transport into a vertical 1.85mm conductor pitch at the Y82..98 hook land.",
+    "bend_radius_mm": 4.5,
+    "fanout_tangent_mm": [
+      4.0,
+      4.0
+    ],
+    "route_status": "guided",
+    "cores": {
+      "J11-GND": [
+        0.0,
+        2.775
+      ],
+      "J11-V5": [
+        0.0,
+        0.925
+      ],
+      "J11-DOUT": [
+        -0.0,
+        -0.925
+      ],
+      "J11-AOUT": [
+        -0.0,
+        -2.775
+      ]
+    },
+    "stations": [
+      {
+        "point_mm": [
+          -48.0,
+          170.0,
+          240.0
+        ]
+      },
+      {
+        "point_mm": [
+          -48.0,
+          160.0,
+          240.0
+        ]
+      },
+      {
+        "point_mm": [
+          -48.0,
+          160.0,
+          175.0
+        ]
+      },
+      {
+        "point_mm": [
+          -48.0,
+          120.0,
+          175.0
+        ]
+      },
+      {
+        "point_mm": [
+          -48.0,
+          120.0,
+          140.0
+        ]
+      },
+      {
+        "point_mm": [
+          -97.4,
+          120.0,
+          140.0
+        ]
+      },
+      {
+        "point_mm": [
+          -97.4,
+          120.0,
+          18.0
+        ]
+      },
+      {
+        "point_mm": [
+          -97.4,
+          77.5,
+          18.0
+        ]
+      },
+      {
+        "point_mm": [
+          -97.4,
+          77.5,
+          36.0
+        ]
+      },
+      {
+        "point_mm": [
+          -97.4,
+          56.0,
+          36.0
+        ]
+      }
+    ],
+    "fanouts": {
+      "J11-GND": {
+        "entry_stations": [
+          {
+            "point_mm": [
+              -18.89999389648436,
+              177.9,
+              264.0
+            ]
+          },
+          {
+            "point_mm": [
+              -18.89999389648436,
+              177.9,
+              242.775
+            ]
+          },
+          {
+            "point_mm": [
+              -18.89999389648436,
+              180.8,
+              242.775
+            ]
+          },
+          {
+            "point_mm": [
+              -48.0,
+              180.8,
+              242.775
+            ]
+          }
+        ],
+        "exit_stations": [
+          {
+            "point_mm": [
+              -97.4,
+              50.0,
+              38.775
+            ]
+          },
+          {
+            "point_mm": [
+              -71.9,
+              32.0,
+              38.775
+            ]
+          },
+          {
+            "point_mm": [
+              -71.9,
+              32.0,
+              14.27
+            ]
+          }
+        ],
+        "end_lands_mm": [
+          3.0,
+          4.0
+        ],
+        "bend_radius_mm": 4.0,
+        "route_status": "guided"
+      },
+      "J11-V5": {
+        "entry_stations": [
+          {
+            "point_mm": [
+              -21.39999389648436,
+              177.9,
+              264.0
+            ]
+          },
+          {
+            "point_mm": [
+              -21.39999389648436,
+              177.9,
+              240.925
+            ]
+          },
+          {
+            "point_mm": [
+              -21.39999389648436,
+              180.8,
+              240.925
+            ]
+          },
+          {
+            "point_mm": [
+              -48.0,
+              180.8,
+              240.925
+            ]
+          }
+        ],
+        "exit_stations": [
+          {
+            "point_mm": [
+              -97.4,
+              50.0,
+              36.925
+            ]
+          },
+          {
+            "point_mm": [
+              -71.9,
+              36.0,
+              36.925
+            ]
+          },
+          {
+            "point_mm": [
+              -71.9,
+              36.0,
+              16.81
+            ]
+          }
+        ],
+        "end_lands_mm": [
+          3.0,
+          4.0
+        ],
+        "bend_radius_mm": 4.0,
+        "route_status": "guided"
+      },
+      "J11-DOUT": {
+        "entry_stations": [
+          {
+            "point_mm": [
+              -23.89999389648436,
+              177.9,
+              264.0
+            ]
+          },
+          {
+            "point_mm": [
+              -23.89999389648436,
+              177.9,
+              239.075
+            ]
+          },
+          {
+            "point_mm": [
+              -23.89999389648436,
+              180.8,
+              239.075
+            ]
+          },
+          {
+            "point_mm": [
+              -48.0,
+              180.8,
+              239.075
+            ]
+          }
+        ],
+        "exit_stations": [
+          {
+            "point_mm": [
+              -97.4,
+              50.0,
+              35.075
+            ]
+          },
+          {
+            "point_mm": [
+              -71.9,
+              28.0,
+              35.075
+            ]
+          },
+          {
+            "point_mm": [
+              -71.9,
+              28.0,
+              11.73
+            ]
+          }
+        ],
+        "end_lands_mm": [
+          3.0,
+          4.0
+        ],
+        "bend_radius_mm": 4.0,
+        "route_status": "guided"
+      },
+      "J11-AOUT": {
+        "entry_stations": [
+          {
+            "point_mm": [
+              -26.39999389648436,
+              177.9,
+              264.0
+            ]
+          },
+          {
+            "point_mm": [
+              -26.39999389648436,
+              177.9,
+              237.225
+            ]
+          },
+          {
+            "point_mm": [
+              -26.39999389648436,
+              180.8,
+              237.225
+            ]
+          },
+          {
+            "point_mm": [
+              -48.0,
+              180.8,
+              237.225
+            ]
+          }
+        ],
+        "exit_stations": [
+          {
+            "point_mm": [
+              -97.4,
+              50.0,
+              33.225
+            ]
+          },
+          {
+            "point_mm": [
+              -71.9,
+              24.0,
+              33.225
+            ]
+          },
+          {
+            "point_mm": [
+              -71.9,
+              24.0,
+              9.19
+            ]
+          }
+        ],
+        "end_lands_mm": [
+          3.0,
+          4.0
+        ],
+        "bend_radius_mm": 4.0,
+        "route_status": "guided"
+      }
+    }
   }
 }

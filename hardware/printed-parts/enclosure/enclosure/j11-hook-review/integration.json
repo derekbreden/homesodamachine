@@ -1,0 +1,131 @@
+{
+  "schema": 1,
+  "scope": "Integral front-bottom J11 hook and four complete modeled gas-sensor lead paths. The other 94 conductor paths, terminal datums, physical parts and their placements remain retained.",
+  "changed_wires": [
+    "J11-AOUT",
+    "J11-DOUT",
+    "J11-GND",
+    "J11-V5"
+  ],
+  "unchanged_route_count": 94,
+  "native_wires": [
+    {
+      "id": "J11-GND",
+      "native_readback_valid": true,
+      "target_product": "wire-J11-GND",
+      "replaced_brep_record": 98913,
+      "records_added": 2021,
+      "unrelated_record_bytes_identical": true,
+      "retained_record_bytes_sha256": "47e47065ce5c51cb017dd5e8964c7613ffebfc42b0a2d347452b33c6ab4d8d23",
+      "dangling_references": 0
+    },
+    {
+      "id": "J11-V5",
+      "native_readback_valid": true,
+      "target_product": "wire-J11-V5",
+      "replaced_brep_record": 98155,
+      "records_added": 2021,
+      "unrelated_record_bytes_identical": true,
+      "retained_record_bytes_sha256": "b2516cd3929359504f77c26698638109acd3779a35b897dcc53b3774a7857646",
+      "dangling_references": 0
+    },
+    {
+      "id": "J11-DOUT",
+      "native_readback_valid": true,
+      "target_product": "wire-J11-DOUT",
+      "replaced_brep_record": 99671,
+      "records_added": 2021,
+      "unrelated_record_bytes_identical": true,
+      "retained_record_bytes_sha256": "f5f43ac4aa9653ce0e573b499a0ed7726b6939283473d41fb70e353eec0aae6f",
+      "dangling_references": 0
+    },
+    {
+      "id": "J11-AOUT",
+      "native_readback_valid": true,
+      "target_product": "wire-J11-AOUT",
+      "replaced_brep_record": 100108,
+      "records_added": 2021,
+      "unrelated_record_bytes_identical": true,
+      "retained_record_bytes_sha256": "c5892808e0f43f87fe4ef644d3c37f80b0b8103f3a94e47330a7a175bd748c86",
+      "dangling_references": 0
+    }
+  ],
+  "wire_payload": {
+    "changed_rows": [
+      "wire-J11-AOUT",
+      "wire-J11-DOUT",
+      "wire-J11-GND",
+      "wire-J11-V5"
+    ],
+    "unrelated_rows": 110,
+    "unrelated_array_digest": "dbfd60c06183a37cb57904c9e7e746a3d023636c9e7e749deb665db9f89438c1"
+  },
+  "merger": {
+    "schema": 1,
+    "scope": "Wiring-only integration; existing physical parts retained",
+    "physical_step_sha256": "44fed55cd20aeb14147ab59cb10ad28b2f3504f6e4a5b94497dfab887a74c077",
+    "installed_step_sha256": "efe928fc8a7d8ec6f8bbb94a0bfe4e84a5bc9bf98a5d71d22682376616501b25",
+    "physical_records_retained": 2652873,
+    "physical_meshes_retained": 447,
+    "wiring_meshes": 114,
+    "all_retained_viewer_arrays_identical": true,
+    "wiring_step_sha256": "fd6a475c52a285b57b2a7da6a3db72d0f566eb7b912cca597915eb232407ee9d"
+  },
+  "physical_scene_sha256": "44fed55cd20aeb14147ab59cb10ad28b2f3504f6e4a5b94497dfab887a74c077",
+  "host_integration": [
+    {
+      "relative": "hardware/printed-parts/enclosure/enclosure/enclosure.step",
+      "source_sha256": "1c8aed132ef0b78c2288acfb58590c4ccd910b040101a4a50e599c3279fc364b",
+      "output_sha256": "f371f27eecb51f4418b794e34c96f53c8723832b9ee760224d2f6f2bc958a5c0",
+      "identity_frame": true,
+      "native": {
+        "target_product": "enclosure_front_bottom",
+        "replaced_brep_record": 97,
+        "records_added": 101939,
+        "unrelated_record_bytes_identical": true,
+        "retained_record_bytes_sha256": "93fc16b5ecddc6cc41e8560848952fcfd2464f032eea6db88a36256976a80ec2",
+        "dangling_references": 0
+      },
+      "payload": {
+        "changed_rows": [
+          "enclosure_front_bottom"
+        ],
+        "unrelated_rows": 24,
+        "unrelated_array_digest": "e9908b80db52929374632fede812c1235322e7e9e8c6738f7e4d982d18c6a8eb"
+      }
+    },
+    {
+      "relative": "hardware/manifold-layout/enclosure-assembly.step",
+      "source_sha256": "53e76d19542585138a497df7f632a6e8ae6e781b8db6cfb2b8cc763f24b43a74",
+      "output_sha256": "dd25ea0cb39dd2aa9b2abd3b22b0ce0c0ae230ab10f49afea8aecbbe36c72703",
+      "identity_frame": true,
+      "native": {
+        "target_product": "enclosure-front-bottom",
+        "replaced_brep_record": 694902,
+        "records_added": 101939,
+        "unrelated_record_bytes_identical": true,
+        "retained_record_bytes_sha256": "f726e436f07bc0c21fbb4c9531258c3dfa56a64c5db06f26c82203c04b8cd56e",
+        "dangling_references": 0
+      },
+      "payload": {
+        "changed_rows": [
+          "enclosure-front-bottom"
+        ],
+        "unrelated_rows": 560,
+        "unrelated_array_digest": "16026c148368d201a5e70fd57940ac8f4a6ccaa802173cd4e31b9d65b546c278"
+      }
+    }
+  ],
+  "scenes": [],
+  "outputs": {
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step": "42764e50812853933aeb665748776ae234fb16d9f8621ae7c8249289147314a9",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl": "d131b22b420e376edb74cd6be9038234b5b1c54309511302f594888062e3361b",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh": "1ec2696fc7ade1471cd95e8c54dd1b9a3949ebdd48e673d6fca7487583a0aee0",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.step": "f371f27eecb51f4418b794e34c96f53c8723832b9ee760224d2f6f2bc958a5c0",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh": "c63713fb815c96fc76369d7d424335efb99253b750e0dd8017ca329ef21e675e",
+    "hardware/manifold-layout/enclosure-assembly.step": "efe928fc8a7d8ec6f8bbb94a0bfe4e84a5bc9bf98a5d71d22682376616501b25",
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": "e082deeb476f95a3a7be836c8f05f8982f8e0bf79b6a1906f6f8a68308f70705",
+    "hardware/wiring/enclosure-wiring.step": "fd6a475c52a285b57b2a7da6a3db72d0f566eb7b912cca597915eb232407ee9d",
+    "hardware/wiring/enclosure-wiring.step.mesh": "498bcbbe3c263bff81c442bb585092340f11d9268aeed5682e26dfc240f4898d"
+  }
+}
