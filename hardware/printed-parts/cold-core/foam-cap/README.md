@@ -263,8 +263,8 @@ The upper passages follow the installed equipment:
 - The temperature/earth loom follows its own 7.5 mm passage with 5.5 mm turns
   within the cup. Its retained bundle envelope is 6.6 mm.
 - Reservoir B's reed loom leaves through the shell's top-open 8 × 6 mm rim
-  notch at world X−36.5…−28.5/Y182.6/Z227.4…233.4. Lay its complete 5P
-  ribbon in the open notch after the body foam has cured and the reed column
+  notch at world X−36.5…−28.5/Y182.6/Z227.4…233.4. Lay its five
+  conductors in the open notch after the body foam has cured and the reed column
   is installed. The cap's floor closes over this short dry exit. The loom
   rises externally beside the PCB; its four signals reach J7 and its common
   reaches the existing reed-common WAGO.

@@ -43,15 +43,14 @@ It is not embedded in foam. Reservoir A's ribbon rises vertically through a
 straight **[7.5 mm](CONDUIT_BORE_D)** passage through the cup and lid,
 directly above its reed channel at appliance X−32.5/Y458.3. Its upper mouth
 is on the Z253.4 lid face; the ribbon's bends and jogging are dressed above
-that face. Reservoir B's complete 5P ribbon
-leaves directly through an 8 mm wide, 6 mm deep notch in the shell's upper
+that face. Reservoir B's five conductors
+leave directly through an 8 mm wide, 6 mm deep notch in the shell's upper
 fore rim: the top of its own reed channel, opened through the wall. In
 appliance coordinates the notch spans X−36.5…−28.5, opens at Y182.6 and lies
-between Z227.4 and the Z233.4 rim. Press the ribbon into this open notch
-before seating the cap; the 8.5 mm ribbon seats with a slight curl. The
-cap's floor closes over it. The short dry guide remains separated from the
-foam cavity, and an exterior foil cable collar closes the opening around the
-ribbon. Its external route rises beside the PCB: four signals reach J7 and
+between Z227.4 and the Z233.4 rim. Lay them into this open notch before
+seating the cap; the cap's floor closes over them. The short dry guide
+remains separated from the foam cavity, and an exterior foil cable collar
+closes the opening around the conductors. Their external route rises beside the PCB: four signals reach J7 and
 the continuous common reaches the existing reed-common WAGO.
 
 The fluid draw is a dip tube down through the reservoir's own cap
