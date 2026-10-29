@@ -1,0 +1,86 @@
+{
+  "views": [
+    {
+      "name": "channel",
+      "caption": "The +Y flank around the PRV vent, cut at z 188 to show the wall in section",
+      "before": "channel-before.webp",
+      "after": "channel-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 616.3,
+          "y": 334.3,
+          "r": 148.5,
+          "label": "9.5 × 1 mm seam channel",
+          "at": [
+            0,
+            89.7,
+            188
+          ]
+        }
+      ],
+      "model": "printed-parts/cold-core/foam-shell/foam-shell.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          16.480293075310673,
+          116.88272696303505,
+          213.0450143131041
+        ],
+        "target": [
+          0,
+          88.5,
+          181
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 0.3177573074835419,
+        "far": 556.1612943388393,
+        "aspect": 1.3333333333333333,
+        "section": {
+          "at": [
+            0,
+            88,
+            188
+          ],
+          "normal": [
+            0,
+            0,
+            1
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "printed-parts/cold-core/foam-shell/foam-shell.step.mesh",
+          "from": "snapshot",
+          "sha256": "e459caa7c367e4d40c6464b978d46a0ce66ddec784d0d9caed675a4262a6654b",
+          "commit": "91a09de7d60f1506a61fede15b560d35e8684582",
+          "taken": "2026-10-29T03:50:19.479Z",
+          "published": true
+        },
+        "after": {
+          "payload": "printed-parts/cold-core/foam-shell/foam-shell.step.mesh",
+          "from": "tree",
+          "sha256": "44409b0affdae01ce7e43e762068a77f06c29c873beaec326ecea5709ac8febd",
+          "commit": "64ecd23ffc91b4b3118e10a65d89add2ea6fff90",
+          "published": true
+        }
+      },
+      "changed": [
+        "foam-shell"
+      ],
+      "withinMeshing": []
+    }
+  ]
+}
