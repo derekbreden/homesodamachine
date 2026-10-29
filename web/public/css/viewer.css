@@ -319,7 +319,6 @@
   opacity: 0;
   pointer-events: none !important;
 }
-.cv-card:has(.cad-gesturing) > .cv-filename { opacity: 0; }
 
 /* Same pill as .reset-view across the wrapper. One convention runs through
    every control in the rail: white on the accent is lit, --text-2 on the dark
