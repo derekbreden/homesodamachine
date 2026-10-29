@@ -15,7 +15,11 @@
   },
   "unproven": {
     "_": "source.commit does not describe these members: an uncommitted path below reaches the rule that cuts one, its rule would not cut, or an interactive publication explicitly deferred that rule.",
-    "paths": [],
+    "paths": [
+      "hardware/manifold-layout/enclosure-assembly.facts.json",
+      "hardware/scripts/flute_payload.py",
+      "tools/publish_now.py"
+    ],
     "members": [
       "hardware/assembly/scenes/glb/back-half.glb",
       "hardware/assembly/scenes/glb/back-top.glb",
@@ -2682,7 +2686,7 @@
     "hardware/reference/meanwell-irm90/meanwell-irm90.step": "27cc1e5c3f5bf010f6df8a15a4b9b96dfef7b3836eee4905347e8a0035d033d7",
     "hardware/reference/molex-micro-fit-4/molex-micro-fit-4-panel.step": "29d0cff41861a2a32b4f911e58c3eda5959cc32a15585c6b6f213fd6e3c54e6c",
     "hardware/reference/mq6-gas-sensor/mq6-gas-sensor.step": "b3707fb5112ceee44ed47d0b1c1adeed17979ec6e06f187009d2eaee0c740ee1",
-    "hardware/reference/multiplex-asse1022/multiplex-asse1022.step": "1dcb9c16d5a954336fe89c9072c62b854077be74b3fda15e9e0b338eae10d083",
+    "hardware/reference/multiplex-asse1022/multiplex-asse1022.step": "8d357ab7bf93f99130ea024c00c35e0f4e93e0f4de4613e15215db0c0a02c069",
     "hardware/reference/neofit-bulkhead/neofit-bulkhead.step": "2184e37910d99200d94f279cd777914a5b886843388bba8ebf9f99580cf8bf54",
     "hardware/reference/neofit-drain-bulkhead/neofit-drain-bulkhead.step": "eed03d46507391f6fb5f6c9f23908fe5a8a4e39c0f0d987d36c46222645fe88f",
     "hardware/reference/neofit-flow-control/neofit-flow-control.step": "11b2c1d4645f1afd20704e90b981ca18749a6ab7ce7aa323f2c1f5d4f6bd6aba",
@@ -4301,7 +4305,7 @@
     "hardware/reference/meanwell-irm90/meanwell-irm90.step": 1787354099,
     "hardware/reference/molex-micro-fit-4/molex-micro-fit-4-panel.step": 1791566298,
     "hardware/reference/mq6-gas-sensor/mq6-gas-sensor.step": 1787354099,
-    "hardware/reference/multiplex-asse1022/multiplex-asse1022.step": 1787356215,
+    "hardware/reference/multiplex-asse1022/multiplex-asse1022.step": 1793316034,
     "hardware/reference/neofit-achv44-check/neofit-achv44-check.step": 1792893021,
     "hardware/reference/neofit-bulkhead/neofit-bulkhead.step": 1792893021,
     "hardware/reference/neofit-drain-bulkhead/neofit-drain-bulkhead.step": 1792893021,
