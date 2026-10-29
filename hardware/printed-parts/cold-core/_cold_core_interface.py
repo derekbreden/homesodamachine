@@ -759,7 +759,7 @@ cap_fluid_conduits = {
     "reservoir-a": reservoir_draw_conduit_xy(+1),
     "reservoir-b": _above_mounts.cap_guide_xy("B-draw", reservoir_draw_conduit_xy(-1)),
     "reservoir-a-fill": _above_mounts.cap_guide_xy("A-fill", reservoir_fill_conduit_xy(+1)),
-    "reservoir-b-fill": _above_mounts.cap_guide_xy("B-fill", reservoir_fill_conduit_xy(-1)),
+    "reservoir-b-fill": reservoir_fill_conduit_xy(-1),
     "carb-water-out": _above_mounts.cap_guide_xy("carb-water-out", (52.2, -port_lane_mid_y)),
     "co2-in": _above_mounts.gas_guide_xy(),
 }
@@ -779,7 +779,7 @@ cap_cable_conduits = {name: _above_mounts.cap_guide_xy(name, xy)
                       for name, xy in cap_cable_floor_conduits.items()}
 cap_conduits = {**cap_fluid_conduits, **cap_cable_conduits}
 # Water, soda, A-fill, both draws and gas have aligned straight cap entries.
-# B-fill retains its separate lower reservoir entry and fitted cap link.
+# B-fill enters the cap's front face and turns to its retained lower reservoir seat.
 # Flexible cable entries retain their independently routed upper guides.
 cap_conduit_floor_xy = {
     **cap_conduits,

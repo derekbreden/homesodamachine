@@ -34,8 +34,29 @@ the upward-facing check elbow, with about 192 mm exposed tube.
 The soda tube turns above the tank inside the open main body, then rises
 straight through world (50, 342.4148) mm into its retained external insulation.
 Each guide has a Ø7.5 mm bore; the water and soda columns have 3 mm radial stock.
-B-fill's fitted link and cover remain unresolved; HSM-000020 is not released
-for printing while that cap traversal remains.
+
+B-fill enters the cap's Y− face at world (−43.5, 182.6, 247.55) mm and follows
+an R14 turn to the existing reservoir seat at X−43.5/Y233.3. The continuous
+tube ends at Z228.15, 1 mm below the reservoir cap plate. Its Ø6.8 mm teardrop
+passage has 0.5 mm mouth lead-ins. A full-height solid rib and crossbar occupy
+the guide's complete cup height; the lid closes the channel above them.
+
+The lid prints plate-down, with +Z as print-up. The supported channel crown
+retreats 0.25 mm toward +Z while its lower envelope and tube axis stay fixed.
+The flat Z253.4 lid face leaves 2.20 mm above the compensated throat and
+1.70 mm at the entry lead-in. The cup/lid seating faces retain their 0.15 mm
+printed-fit allowance, including where the screws clamp them.
+
+Three recessed M3 × 10 screws fasten the lid into RX-M3×5.7 inserts in the
+cup's filled stock. The aft axis is (−43.5, 242.3) mm; the fore pair is
+X−54.0/−33.0 at Y227.1995 mm. They form a triangle around the bend's lift
+region. Each blind insert pilot is Ø4 × 9 mm; the lid has a Ø3.3 clearance
+hole and a Ø5.8 × 3.15 mm head recess. The 5.7 mm insert receives the full
+thread length, with 1.40 mm nominal screw-tip air and 5.30 mm blind backing.
+Install the inserts with the cup open. Tighten all three lid clamps before
+foaming, threading the tube or installing the PCB. Later clamp access
+requires PCB removal. The [B-fill channel review](b-fill-channel-review/README.md)
+records the installed interfaces and supported-face geometry.
 
 The edge-on flow meter, both collar bearings, continuous external inlet,
 accepted R14 holder and one 63 mm square-ended foam piece belong to back-top.
@@ -208,13 +229,9 @@ The upper passages follow the installed equipment:
 - B-draw and A-fill have aligned reservoir seats and straight Ø7.5 mm guides.
   Both reservoir seats are 3.5 mm east of their vessel's original stations;
   the warm routes and upper guides retain their installed datums.
-- B-fill uses a trimmed NeoFit stem elbow through its original plain reservoir
-  bore, a short exposed tube and a JG PP0308E union elbow. The upper socket is
-  at enclosure world (−33, 287.5, 264.56239) mm. The approximately 15.6 mm exposed link
-  excludes socket insertion; the JG insertion depth is unmeasured. The lower
-  stem ends 1 mm below the reservoir cap's fill boss in the headspace. This
-  remaining cap traversal is under layout review; this lid is not released
-  for a production print.
+- B-fill uses one continuous tube from the external valve connection through
+  the front-facing R14 guide into its reservoir's original fill seat. Three
+  recessed lid screws surround the bend's lift region.
 - The pressure-water inlet turns below the cup floor, passes straight through
   world (−53, 288.7265, 253.4) mm, and forms an exposed R18 arch into the check's
   upward-facing outlet elbow. The Ø7.5 mm column has 3 mm radial stock. The
@@ -240,26 +257,15 @@ The upper passages follow the installed equipment:
   Nominal packed loom diameters are 5.0 mm for each reed bundle and 6.6 mm retained envelope for
   the temperature/earth bundle.
 
-B-fill's lower fitting pocket has a flat floor at world Z235.6 and ceiling at
-Z251.4. Its flat cover ends at Z254.45, retaining 3.05 mm stock. The upper
-fitting has a separate broad 2.4 mm retaining cover ending at Z254.75, with
-0.25 mm nominal air to the PCB solder tails. One plain transition joins each
-cover to the lid; the pocket walls retain at least 3 mm stock. The short
-link opens into the dry pocket beneath the plain lid. Assemble both fittings
-and their prepared link in the open cup before the lid goes on for the cap pour. The upper
-horizontal barrel bears upward against its cover; the PCB is not a restraint.
-The original 2 mm cup floor remains around the lower stem entry. Mask the
-fitting pockets and link during the foam pour, including their dry lid joints.
-The [local fitting review](b-fill-pair-review.json) and
-[manual reader](b_fill_pair_review.py) scope these CAD readings. The 2.4 mm
-section is specific to this internal cover; it does not qualify pull strength,
-printed tolerance, support removal, pressure sealing, condensation or life.
+B-fill's printed rib and clamp crossbar fill their entire cup-height footprint.
+The existing Reed-B passage crosses their shared stock and retains its own
+bore subtraction. Mask the dry tube passage and its mouths for the cap pour.
+Thread the tube with all three local lid clamps tightened, leaving its
+source end free for the final plumbing handoff. Lower its short end through
+the existing reservoir liquid grip as the core cap is installed.
 Terminate both J10 power leads on the loose PCB before fastening the board
-to the core, then land their free ends at the core WAGOs. The captured upper
-fitting overlaps the optional 8 mm straight J10-V12 wire-entry witness;
-the current installed lead and vertical screw tools clear it. Installed
-wire insertion/withdrawal service is unqualified and may require unbolting
-and staging the PCB and flexible leads.
+to the core, then land their free ends at the core WAGOs. The B-fill clamp
+drivers occupy the PCB footprint, so their assembly precedes PCB installation.
 
 The [straight-passage review](straight-passages-review.json) binds the four
 revised guides to their exported cup/lid and reservoir-cap geometry. Each
