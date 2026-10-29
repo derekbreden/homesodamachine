@@ -1,0 +1,261 @@
+{
+  "scope": "Local cap and lid print coupons only; production geometry is retained.",
+  "production_step_sha256": {
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step": "a1e01f74048be10f915f63aa68f3843b3348c075d170adae6ce41c00cc1812d9",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step": "78f297cf829c5119fdea0d87b552bcac88fb0f179a8f85153a49419c0f8383f2"
+  },
+  "generator_sha256": "89849521761c79357e31b7429eb88cade8fc9ab3652ec28ac17f28ef09f7e589",
+  "world_crop_mm": [
+    [
+      -60.0,
+      182.60000000000002,
+      233.55
+    ],
+    [
+      -27.0,
+      248.3,
+      253.4
+    ]
+  ],
+  "aft_screw_y_mm": 242.3,
+  "variants": {
+    "current": {
+      "fore_screw_y_mm": 219.3,
+      "fore_span_mm": 36.69999999999999,
+      "aft_span_mm": 23.0,
+      "pieces": {
+        "cup": {
+          "valid": true,
+          "solids": 1,
+          "world_bounds_mm": [
+            -60.0000001,
+            182.59999987786648,
+            233.54999990000002,
+            -26.9999999,
+            248.3000001,
+            247.8500001000039
+          ],
+          "native_bounds_mm": [
+            75.4999999,
+            -60.0000001,
+            0.14999989999999933,
+            141.20000012213353,
+            -26.9999999,
+            14.450000100003907
+          ],
+          "volume_mm3": 28000.215664414845,
+          "step": ".cache/prints/2026-10-28-b-fill-local/current/cup.step",
+          "step_sha256": "6126c281172c6b662fa152156563547416794c7af9926692ee3588e0620d2289",
+          "stl": ".cache/prints/2026-10-28-b-fill-local/current/cup.stl",
+          "stl_sha256": "2b52fd042b1570666cd6d8e87a400da2fa2953e6aa9fbc9c284435bbe4587176"
+        },
+        "lid": {
+          "valid": true,
+          "solids": 1,
+          "world_bounds_mm": [
+            -60.0000001,
+            182.59999990000003,
+            247.99999989999975,
+            -26.9999999,
+            248.3000001,
+            253.4000001
+          ],
+          "native_bounds_mm": [
+            75.4999999,
+            -60.0000001,
+            -1.0000026662005936e-07,
+            141.20000009999998,
+            -26.9999999,
+            5.400000100000006
+          ],
+          "volume_mm3": 10638.816667289406,
+          "step": ".cache/prints/2026-10-28-b-fill-local/current/lid.step",
+          "step_sha256": "16c3f7cc7f77537bf44a2c0ba2da377dcf40edd768d9eb22d936e7f6547ba783",
+          "stl": ".cache/prints/2026-10-28-b-fill-local/current/lid.stl",
+          "stl_sha256": "ce1d8dc3b9baeb0433215e1918526632aac448af9571b86c713003995c624eed"
+        }
+      },
+      "cup_lid_overlap_mm3": 0.0
+    },
+    "midpoint": {
+      "fore_screw_y_mm": 212.45000000000002,
+      "fore_span_mm": 29.849999999999994,
+      "aft_span_mm": 29.849999999999994,
+      "pieces": {
+        "cup": {
+          "valid": true,
+          "solids": 1,
+          "world_bounds_mm": [
+            -60.0000001,
+            182.59999987786648,
+            233.54999990000002,
+            -26.9999999,
+            248.3000001,
+            247.8500001000039
+          ],
+          "native_bounds_mm": [
+            75.4999999,
+            -60.0000001,
+            0.14999989999999933,
+            141.20000012213353,
+            -26.9999999,
+            14.450000100003907
+          ],
+          "volume_mm3": 28000.215662641946,
+          "step": ".cache/prints/2026-10-28-b-fill-local/midpoint/cup.step",
+          "step_sha256": "ae7dd32b980893ba46a2b9ed95546bca798dffbfa0de5383ff45add5fdfcf32b",
+          "stl": ".cache/prints/2026-10-28-b-fill-local/midpoint/cup.stl",
+          "stl_sha256": "7b290fbbedffafcf9e86f563284d96d85a092864ac2a8a1b1f31d1c861391e1d"
+        },
+        "lid": {
+          "valid": true,
+          "solids": 1,
+          "world_bounds_mm": [
+            -60.0000001,
+            182.59999990000003,
+            247.99999989999975,
+            -26.9999999,
+            248.3000001,
+            253.4000001
+          ],
+          "native_bounds_mm": [
+            75.4999999,
+            -60.0000001,
+            -1.0000026662005936e-07,
+            141.20000009999998,
+            -26.9999999,
+            5.400000100000006
+          ],
+          "volume_mm3": 10638.816674446507,
+          "step": ".cache/prints/2026-10-28-b-fill-local/midpoint/lid.step",
+          "step_sha256": "c4d5ba1077f37b6b00821e28c38dd550de924cbc037f3e6bfdbd07168aa9c37f",
+          "stl": ".cache/prints/2026-10-28-b-fill-local/midpoint/lid.stl",
+          "stl_sha256": "eb320bd9c5370fc9e47613767d8cbd128365e690a6e36b5fb8b937f16d5a49ef"
+        }
+      },
+      "cup_lid_overlap_mm3": 0.0
+    }
+  },
+  "normal_seating_allowance_mm": 0.15000000000000568,
+  "roof_allowance_mm": 0.25,
+  "cup_mouth_relief_mm": 0.5,
+  "production_print_up_retained": true,
+  "diagnostic_pick_faces": [
+    {
+      "native_point_mm": [
+        93.184,
+        -43.289,
+        13.608
+      ],
+      "faces": [
+        {
+          "kind": "curved",
+          "parameters": "",
+          "nearest_mm": [
+            93.183462289582,
+            -43.288948599412244,
+            13.608627613927268
+          ],
+          "distance_mm": 0.0008280541985580169
+        }
+      ]
+    },
+    {
+      "native_point_mm": [
+        93.184,
+        -43.289,
+        14.45
+      ],
+      "faces": [
+        {
+          "kind": "plane",
+          "parameters": "n x=+0.000 y=+0.000 z=+1.000",
+          "nearest_mm": [
+            93.184,
+            -43.289,
+            14.45
+          ],
+          "distance_mm": 0.0
+        }
+      ]
+    },
+    {
+      "native_point_mm": [
+        101.503,
+        -48.19,
+        13.95
+      ],
+      "faces": [
+        {
+          "kind": "plane",
+          "parameters": "n x=-0.000 y=-0.000 z=+1.000",
+          "nearest_mm": [
+            101.503,
+            -48.19,
+            13.95
+          ],
+          "distance_mm": 0.0
+        },
+        {
+          "kind": "curved",
+          "parameters": "",
+          "nearest_mm": [
+            101.50335650475486,
+            -48.18832017079616,
+            13.948358436564185
+          ],
+          "distance_mm": 0.0023756372425325577
+        },
+        {
+          "kind": "curved",
+          "parameters": "",
+          "nearest_mm": [
+            101.50105719062,
+            -48.18622789778,
+            13.95
+          ],
+          "distance_mm": 0.004243025270383799
+        }
+      ]
+    },
+    {
+      "native_point_mm": [
+        101.504,
+        -48.188,
+        13.948
+      ],
+      "faces": [
+        {
+          "kind": "curved",
+          "parameters": "",
+          "nearest_mm": [
+            101.5039143820936,
+            -48.188403499220904,
+            13.948394311038877
+          ],
+          "distance_mm": 0.0005706340706139498
+        },
+        {
+          "kind": "plane",
+          "parameters": "n x=-0.000 y=-0.000 z=+1.000",
+          "nearest_mm": [
+            101.504,
+            -48.188,
+            13.95
+          ],
+          "distance_mm": 0.0019999999999988916
+        },
+        {
+          "kind": "curved",
+          "parameters": "",
+          "nearest_mm": [
+            101.50105719062,
+            -48.18622789778,
+            13.95
+          ],
+          "distance_mm": 0.003974980921358058
+        }
+      ]
+    }
+  ]
+}

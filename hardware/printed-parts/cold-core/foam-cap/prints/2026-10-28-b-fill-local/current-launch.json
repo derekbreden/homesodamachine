@@ -1,0 +1,38 @@
+{
+  "observed_at": "2026-10-29T02:52:02.006467+00:00",
+  "job_id": "1385666436",
+  "gcode_state": "RUNNING",
+  "subtask_name": "bfill-current-cup-lid-mark1-20261028.gcode.3mf",
+  "print_error": 0,
+  "hms": [],
+  "upload": {
+    "file_size": 0,
+    "finish_size": 0,
+    "message": "Good",
+    "oss_url": "",
+    "progress": 0,
+    "sequence_id": "0903",
+    "speed": 0,
+    "status": "idle",
+    "task_id": "",
+    "time_remaining": 0,
+    "trouble_id": ""
+  },
+  "nozzle_target_temper": 200.0,
+  "bed_target_temper": 24.0,
+  "printer": "Mark1",
+  "variant": "current",
+  "archive": ".cache/prints/2026-10-28-b-fill-local/current/mark1/bfill-current-cup-lid-mark1-20261028.gcode.3mf",
+  "archive_sha256": "ebc12bbaef81bb977d3c22eaae519c1b3c7f642945b7407cf36bcec5980103dd",
+  "gcode_sha256": "f7dd671933d1d1a60938461db4fb61f714ce25aa094862285fc67acf03993d9a",
+  "method": "Bambu Connect, using native UI after automated import did not reach the import page",
+  "filament_mapping": "Left External PET-CF (loaded PET-GF)",
+  "options": {
+    "Timelapse": "On",
+    "Auto bed leveling": "On",
+    "Flow dynamic calibration": "Auto",
+    "Nozzle Offset Calibration": "Auto"
+  },
+  "bed_clear_authorization": "Derek: Both printers are available and ready. Send one test print to each.",
+  "submitted": true
+}

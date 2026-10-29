@@ -1,0 +1,102 @@
+{
+  "schema": 1,
+  "piece": "B-fill local cup and lid",
+  "inputs": {
+    "gcode": "plate_1.gcode",
+    "gcode_sha256": "40db414e0eb853ef596b0f71bcdb3c47c443236c2e83e716f0d14d3831b2be75",
+    "model": null,
+    "model_sha256": null,
+    "profile": null,
+    "profile_sha256": null
+  },
+  "slicer": "BambuStudio 02.08.02.61",
+  "first_layer_z_mm": 0.2,
+  "coordinate_frame": null,
+  "slicer_settings": {
+    "layer_height": "0.24",
+    "support_bottom_z_distance": "0.3",
+    "support_interface_bottom_layers": "2",
+    "support_interface_spacing": "0.5",
+    "support_interface_top_layers": "2",
+    "support_object_xy_distance": "0.4",
+    "support_on_build_plate_only": "0",
+    "support_style": "default",
+    "support_threshold_angle": "35",
+    "support_top_z_distance": "0.45",
+    "support_type": "tree(auto)"
+  },
+  "summary": {
+    "support_bodies": 1,
+    "interface_islands": 3,
+    "bed_rooted_bodies": 1,
+    "model_rooted_bodies": 0,
+    "shortest_build_up_mm": 1.68,
+    "bodies_without_interface_labels": 0,
+    "explicit_interface_islands": 3,
+    "shortest_labelled_build_up_mm": 1.68
+  },
+  "trees": [
+    {
+      "id": "tree-1",
+      "root": "bed",
+      "base_z_mm": 0.2,
+      "first_interface_z_mm": 1.88,
+      "shortest_build_up_mm": 1.68,
+      "top_z_mm": 2.6,
+      "bbox_xy_mm": [
+        187.6,
+        156.8,
+        234.8,
+        162.8
+      ],
+      "interfaces": [
+        "interface-1",
+        "interface-2",
+        "interface-3"
+      ],
+      "interface_reading": "explicit_feature"
+    }
+  ],
+  "interfaces": [
+    {
+      "id": "interface-1",
+      "first_z_mm": 1.88,
+      "last_z_mm": 2.6,
+      "bbox_xy_mm": [
+        192.0,
+        158.0,
+        232.8,
+        162.0
+      ],
+      "tree": "tree-1",
+      "build_up_mm": 1.68
+    },
+    {
+      "id": "interface-2",
+      "first_z_mm": 1.88,
+      "last_z_mm": 1.88,
+      "bbox_xy_mm": [
+        197.2,
+        160.8,
+        198.4,
+        161.6
+      ],
+      "tree": "tree-1",
+      "build_up_mm": 1.68
+    },
+    {
+      "id": "interface-3",
+      "first_z_mm": 1.88,
+      "last_z_mm": 1.88,
+      "bbox_xy_mm": [
+        232.4,
+        158.0,
+        233.2,
+        159.2
+      ],
+      "tree": "tree-1",
+      "build_up_mm": 1.68
+    }
+  ],
+  "interface_feature_policy": "All support bodies are retained; unlabelled interfaces have unknown contact count and build-up."
+}
