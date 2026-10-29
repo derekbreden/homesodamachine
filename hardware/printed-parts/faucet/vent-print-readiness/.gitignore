@@ -1,5 +1,4 @@
-# The native archive is the retained printable payload.
-# These extracted paths and coordinate-only scratch projects are reproducible.
+# Extracted G-code and coordinate-only scratch projects, each reproducible from its native archive.
 */plate_*.gcode
 */all-layer-beads.gcode
 */coordinates-*.3mf
