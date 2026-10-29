@@ -119,6 +119,8 @@ def cable_bank(origin, *, seat_heights=(13.30, 7.75), seat_depth=2.20,
     The profile lies in X/Z and the cables run along Y. Each cavity retains
     cable_hook's entry chamfer and flat retaining underside. The first
     cavity has the taller wall; the middle wall belongs to both seats.
+    A full-span 45 degree outer heel clears the neighboring head pocket
+    while keeping the complete floor beneath both cable seats.
     """
     first, second = seat_heights
     a, b = stock, stock + seat_depth
@@ -126,7 +128,8 @@ def cable_bank(origin, *, seat_heights=(13.30, 7.75), seat_depth=2.20,
     width = 3 * stock + 2 * seat_depth
     roof_a, roof_b = stock + first, stock + second
     top_a, top_b = roof_a + stock + beak, roof_b + stock + beak
-    points = [(0., -ROOT_OVERLAP), (width, -ROOT_OVERLAP),
+    points = [(0., -ROOT_OVERLAP), (width-stock, -ROOT_OVERLAP),
+              (width, stock-ROOT_OVERLAP),
               (width, top_b), (d, top_b), (d-beak, top_b-beak),
               (d-beak, roof_b), (d, roof_b), (d, stock), (c, stock),
               (c, top_a), (b, top_a), (b-beak, top_a-beak),
