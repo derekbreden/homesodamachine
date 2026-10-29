@@ -109,7 +109,7 @@ def _mouth():
 
 
 def holder_sections(inlet_leg, outlet_leg=0.0):
-    """Reference outer body and circular cap channel, with an extended inlet leg."""
+    """Accepted outer body and complete channel, with an extended inlet leg."""
     import cadquery as cq
     axis = ((0.0, 0.0, 0.0), (0.0, 1.0, 0.0))
     mirror = cq.Vector(math.sqrt(0.5), -math.sqrt(0.5), 0.0)
