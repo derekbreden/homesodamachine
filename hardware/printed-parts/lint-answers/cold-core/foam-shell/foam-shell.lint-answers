@@ -17,3 +17,17 @@ click: x=40.083 y=-85.848 z=10.750
 click: x=-39.787 y=-86.074 z=10.750
 click: x=39.983 y=87.150 z=10.750
 click: x=-40.637 y=86.303 z=10.750
+
+[step] The linter is wrong here: these are not two features left unreconciled. They are the floor of the 9.5 × 1.0 mm seam channel Derek selected against the flank it is cut into, and the fold that keeps the 2.38 mm section behind it against the wall's inner face. The step check reads any parallel pair up to 1.0 mm apart as a leftover, and a 1.0 mm channel sits on that bound.
+alternatives: A channel deeper than 1.0 mm leaves the check but moves the fold that much nearer the PRV shroud's cap end, which stands 1.2 mm off the fold. A channel without the fold thins the wall to 1.38 mm the length of the flank and keeps the floor's step. A V-section has no parallel planes, and Derek ruled out every channel narrower than the vent hole.
+file: hardware/printed-parts/cold-core/foam-shell/foam-shell.step
+click: x=0.000 y=86.820 z=106.700
+click: x=0.000 y=89.200 z=106.700
+
+[sliver] The linter is wrong here: these strips are the 1.0 mm side walls of the seam channel and of its fold, faces of a recess with the full 2.38 mm section behind them, not a ligament thinner than 1.6 mm. Their depth is the channel's depth, and the channel walls are the inside corners the outer wall's seam is placed in.
+alternatives: Walls deeper than 1.6 mm bring the fold within 0.6 mm of the PRV shroud's cap end. Sloped walls leave the axis-aligned check but open the inside corners the seam is placed in.
+file: hardware/printed-parts/cold-core/foam-shell/foam-shell.step
+click: x=-7.130 y=87.320 z=106.700
+click: x=7.130 y=87.320 z=106.700
+click: x=4.750 y=89.700 z=106.700
+click: x=-4.750 y=89.700 z=106.700
