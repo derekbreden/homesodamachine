@@ -1483,27 +1483,24 @@
         ],
         "exit_stations": [
           {
-            "terminal": "carbonator.PE",
-            "offset": [
-              -137.5,
-              36.0,
-              32.599999
+            "point_mm": [
+              -74.0,
+              359.8,
+              227.0
             ]
           },
           {
-            "terminal": "carbonator.PE",
-            "offset": [
-              -131.5,
-              36.0,
-              32.599999
+            "point_mm": [
+              -68.0,
+              359.8,
+              227.0
             ]
           },
           {
-            "terminal": "carbonator.PE",
-            "offset": [
-              4.0,
-              0.0,
-              17.599999
+            "point_mm": [
+              -42.85,
+              347.0,
+              224.0
             ]
           }
         ],

@@ -86,8 +86,11 @@ power box. The front lead uses the reference's 35 mm side and the aft lead its
 20 mm side. The compressor earth uses the existing downward-facing ring lug.
 Final donor contacts remain unlocated beside the native power-cover envelope.
 
-Exact compressor, fan, pump-motor, diaphragm-pump and display terminal details,
-and the carbonator's metal bond landing remain unlocated. Power-wire insulation
+Exact compressor, fan, pump-motor, diaphragm-pump and display terminal details
+remain unlocated. The carbonator's earth ring clamps to its welded top-plate
+tab; its wire mouth and upward barrel share the metal attachment's datums.
+Only its fanout below the existing sensor/earth conduit follows that attachment.
+Power-wire insulation
 ODs and recovered heat-shrink dimensions are editable layout allowances. Those
 allowances do not establish a reason to change the surrounding hardware.
 

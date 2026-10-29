@@ -6,10 +6,32 @@ on-hand copies' manufacturing tolerances remain outside this representation.
 from __future__ import annotations
 
 
+def carbonator_ring(ea):
+    """Closed M3 lug on the welded tab, with its crimp barrel pointing up."""
+    import cadquery as cq
+    from .terminals import carbonator_bond_datums
+    d = carbonator_bond_datums(ea)
+    plane = cq.Plane(origin=d['contact_point_mm'], xDir=d['wire_outward'],
+                     normal=d['contact_outward'])
+    return ea._gnd._ring(0., 0.).val().moved(cq.Location(plane))
+
+
 def add_terminations(assembly,attachments,connections,routes):
     import cadquery as cq
     records={}
     terminals=attachments.terminals
+    name = 'terminal-carbonator-pe'
+    assembly.add(carbonator_ring(attachments.ea), name=name,
+                 color=cq.Color(.32, .55, .30))
+    records[name] = {
+        'kind': 'M3 closed-ring earth terminal',
+        'terminal_ids': ['carbonator.PE'],
+        'attachment': 'cold-core/carbonator-earth-tab',
+        'status': 'Nominal owned M3 / 22–16 AWG ring envelope; metal clamp defined by shared tab datums',
+        'tongue_thickness_mm': attachments.ea._gnd.tongue_t,
+        'barrel_diameter_mm': attachments.ea._gnd.barrel_d,
+        'barrel_length_mm': attachments.ea._gnd.barrel_len,
+    }
     for header in ('J1','J2','J3','J4','J5','J6','J7','J9','J11','J13'):
         # Include empty cavities in the physical housing, independently of
         # whether their contact is populated in the electrical graph.

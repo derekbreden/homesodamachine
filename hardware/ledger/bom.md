@@ -26,6 +26,9 @@ An earlier racetrack-body alternative (304 SS body half-sheets + dished racetrac
 |---|---|---:|---:|---:|
 | OnlineMetals #12498 — 5" OD × 0.065" wall 316 welded SS round tube | cut to 6.0" length (MTRs required); OnlineMetals #1020857414 Apr 24: 10 @ $67.35 + ship + tax = $736.73 ÷ 10 = $73.67/ea | 1 | $73.67 | $73.67 <!--@pipes--><!--parts HSM-000008--> |
 | SendCutSend 1/4"-thick 316 SS circular endcap plate (`endcap-circular-2hole.dxf`) | 4.860" diameter with 2× 7/16" tap-pilot holes for 1/4" NPT; SCS SG019619 Apr 24: 20 @ $28.96 + tax = $621.19 ÷ 20 = $31.06/ea; [2](END_CAPS) plates per carbonator | 2 | $31.06 | $62.12 <!--@cut-parts--><!--parts HSM-000009--> |
+| Carbonator earth tab, 304 stainless, 12 × 13 × 1.5 mm | Cut from the acquired B0DFXXQZD3 4 × 6-inch sheet; two upper R2 corners and one Ø3.6 hole. Welded to the top plate per [the metal attachment procedure](/hardware/assembly/pressure-vessel.md#external-earth-tab). Blank allocation: $48.24 / 6 sheets × 156 / 15483.84 mm². | 1 | $0.08 | $0.08 <!--@cut-parts--> |
+| [Carbonator earth-clamp screw, BNUOK M3 × 12 mm, 304 stainless](https://www.amazon.com/dp/B0DJQGMQZM) | One acquired screw from the 120-pack, additional to the twelve reservoir-cap screws in §13. Head clamps the closed ring directly to the bare tab. $8.66 / 120. | 1 | $0.07 | $0.07 <!--@fasteners--> |
+| [McMaster 90923A216 M3 captive external-tooth stainless locknut](https://www.mcmaster.com/90923A216/) | Opposite face of the carbonator earth tab. 5.5 mm across flats, 3.3 mm high, 6.5 mm captive tooth-washer OD. Required purchase; not recorded as acquired. Price pending, excluded from the priced subtotal. The green wire and M3 closed ring are already allocated in §11. | 1 | — | — <!--@fasteners--> |
 | [TAISHER 2PCS 316L SS 90° Barstock Street Elbow, 1/4" NPT M × 1/4" NPT F](https://www.amazon.com/dp/B0CZ38MYL1) | the top plate's two carbonator-port elbows: Port 2, the water inlet that carries the welded jet, and Port 4, the PRV port; assembly in [`assembly/pressure-vessel.md`](/hardware/assembly/pressure-vessel.md). 2 elbows per build = 1 pack/build. Amazon 112-6323725 May 13: $20.99 + $1.52 tax = $22.51 ($11.26/ea × 2 = $22.52) | 2 (1 pk) | $11.26 | $22.52 <!--@plumbing--><!--parts HSM-000010--> |
 | [neoFit AME4-N2-E 1/4" tube × 1/4" NPTF male elbow, black acetal](https://www.freshwatersystems.com/products/neofit-acetal-black-male-elbow-1-4-tube-x-1-4-nptf) | the bottom plate's two carbonator-port elbows: Port 1, the CO2 inlet, and Port 3, the carbonated-water outlet. One acetal piece threads into the plate's tapped 1/4" NPT and turns the line 90° into its own push-fit socket, EPDM O-ring; the tube pushes straight in with no adapter. Aimed at its line within neoFit's 1.1 ft·lb thread allowance per [`assembly/pressure-vessel.md`](/hardware/assembly/pressure-vessel.md) step 9. FWS WEBFWS100715944 Oct 28: $49.13 delivered for 20 = $2.4565/ea, ON-ORDER | 2 (of 20) | $2.4565 | $4.91 <!--@plumbing--><!--parts HSM-000375--> |
 | [Water-inlet jet cap, 316 SS, nominal Ø9.5 × 2 mm with 1/16-inch passage](https://www.amazon.com/dp/B0FYCJJXCS) | Cut from the Hosifiy nominal 3/8-inch × 400 mm rod; welded to the tank-facing end of the existing Port 2 elbow. Fit, root fusion and flow require the [qualification procedure](/hardware/assembly/water-inlet-jet.md). Order 112-0884852-3444230: $10.71/rod. Provisional yield is 30 caps: six 60 mm handling blanks, five caps per blank at 4 mm pitch (2 mm cap plus cutting/finishing allowance), with the 40 mm gripping tails and blank-separation waste fully allocated. $10.71/30 = $0.36 each. Actual yield, rejected coupons and tool wear remain unmeasured; initial destructive qualification is development stock. | 1 cap (1/30 rod allowance) | $0.36 | $0.36 <!--@carbonation--><!--parts HSM-000011--> |
@@ -332,7 +335,7 @@ The papers packed with each machine ([`assembly/finish-pack-ship.md`](/hardware/
 | Section | $ |
 |---|---:|
 | 1. Controllers + electronics | [$175.03](BOM_SEC1) |
-| 2. Carbonator (plan A, 316L) | [$180.06](BOM_SEC2) |
+| 2. Carbonator (plan A, 316L) | [$180.21](BOM_SEC2) |
 | 3. Water inlet | [$178.09](BOM_SEC3) |
 | 4. CO2 subsystem | [$145.61](BOM_SEC4) |
 | 5. Refrigeration | [$143.06](BOM_SEC5) |
@@ -346,7 +349,7 @@ The papers packed with each machine ([`assembly/finish-pack-ship.md`](/hardware/
 | 13. Mechanical attach hardware | [$17.39](BOM_SEC13) |
 | 14. Cold kit | [$4.29](BOM_SEC14) |
 | 15. Customer documentation | [$25.14](BOM_SEC15) |
-| **Total** | **[$1,460.67](BOM_GRAND)** |
+| **Total** | **[$1,460.82](BOM_GRAND)** |
 
 ## External / user-supplied (not shipped)
 

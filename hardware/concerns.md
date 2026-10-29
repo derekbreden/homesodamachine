@@ -12,6 +12,7 @@ and regulatory basis is [`/business/regulatory.md`](/business/regulatory.md), an
 
 | Concern | Answer |
 | --- | --- |
+| Earthing the faucet's under-counter plate | Derek: “Adding earth to carbonator only sounds good to me.” The faucet retains its single four-conductor modular display connection. The carbonator has the dedicated protective-earth bond specified in [wiring](/hardware/assembly/wiring.md#1-chassis-ground-bonds-single-point-ground-on-the-cold-core-lid). |
 | Foam pour heat and expansion | Derek reports several earlier pours into PETG-printed foam shells in which nothing melted and no surface was too hot to touch ([cold core](/hardware/assembly/cold-core.md)). |
 | Braze heat beside printed parts | A wet-rag clamp at each braze, and the PETG plug face inspected afterward ([refrigerant loop](/hardware/assembly/refrigerant-loop.md)). |
 | Hydrocarbon at the braze, and the drier's moisture | Argon flows through the opened loop from the first cut until vacuum ([refrigerant loop](/hardware/assembly/refrigerant-loop.md), [regulatory](/business/regulatory.md)). |
