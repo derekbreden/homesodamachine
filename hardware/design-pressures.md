@@ -5,6 +5,14 @@ document; [`hardware/README.md`](/hardware/README.md) describes the subsystems i
 
 ## Optimised
 
+**Ten years in a kitchen.** The machine is built to pour for ten years. No test runs that
+long, so the tests that can run rank what fails first, and a choice is judged by whether it
+moves the first failure later. Every joint, seal and moving part is a candidate, which
+usually makes the simpler design the answer. An addition earns its place by protecting
+something likelier to fail than itself: each clean-water fill runs its pump, rinsing the tube
+that holds syrup between pours, and adds no wet joint. A way to replace a part earns its
+place only when it outlasts the part it replaces.
+
 **Volume, and the machine in the space the customer has for it.** The enclosure goes under a
 counter. Every millimetre of envelope is a millimetre of someone's kitchen.
 
