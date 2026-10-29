@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
-"""Submit a sliced .gcode.3mf to H2C or Mark2 through Bambu Connect and verify the printer took it.
+"""Submit a sliced .gcode.3mf to Mark1 (`H2C`) or Mark2 through Bambu Connect and verify the printer took it.
 
-The steps are the ones a hand performs in the application, each one read back before
-the next: the target's device page (which is what the send dialog offers as its
-printer), the import, the dialog, the filament mapping, the print options, Send, and
-the printer's own report over MQTT. `tools/bambu-ax` presses the controls in place;
+The printer is named by its connection key, and the application's controls by the name
+Bambu Connect shows for it. The steps are the ones a hand performs in the application,
+each one read back before the next: the target's device page (which is what the send
+dialog offers as its printer), the import, the dialog, the filament mapping, the print
+options, Send, and the printer's own report over MQTT. `tools/bambu-ax` presses the controls in place;
 the filament popover absent from accessibility is read visually by the shared
 foreground picker and verified by the tile it fills in.
 """
@@ -24,6 +25,7 @@ import bambu_print  # noqa: E402
 
 AX = Path(__file__).resolve().parent / "bambu-ax" / "bambu-ax"
 PRINTERS = ("H2C", "Mark2")
+DISPLAY_NAMES = bambu_print.DISPLAY_NAMES
 STANDING_OPTIONS = {
     "Timelapse": "On",
     "Auto bed leveling": "On",
@@ -115,7 +117,8 @@ def dialog(nodes):
 
 def selector(nodes):
     groups = find(nodes, role="AXGroup", ends=" chevron_down")
-    names = [g["label"].rsplit(" ", 1)[0] for g in groups if g["label"].rsplit(" ", 1)[0] in PRINTERS]
+    names = [g["label"].rsplit(" ", 1)[0] for g in groups
+             if g["label"].rsplit(" ", 1)[0] in DISPLAY_NAMES.values()]
     return names[0] if names else None
 
 
@@ -284,6 +287,7 @@ def main():
         fail(f"{archive} is not a sliced .gcode.3mf")
     wanted = dict(STANDING_OPTIONS, Timelapse=args.timelapse)
     printer = bambu_printer.configured_printers()[args.printer]
+    shown = DISPLAY_NAMES[args.printer]
 
     before = status(printer)
     if before.get("gcode_state") in BUSY:
@@ -308,11 +312,11 @@ def main():
         # 1. The send dialog offers the device page last viewed as its printer.
         ax("press", "Devices", "--role", "AXLink")
         time.sleep(1.5)
-        ax("press", args.printer, "--role", "AXLink")
+        ax("press", shown, "--role", "AXLink")
         if not wait_for(8, lambda n: find(n, role="AXStaticText", label="Printing Progress")
-                        and find(n, role="AXStaticText", label=args.printer)):
-            fail(f"could not open {args.printer}'s device page")
-        print(f"device page: {args.printer}")
+                        and find(n, role="AXStaticText", label=shown)):
+            fail(f"could not open {shown}'s device page")
+        print(f"device page: {shown}")
 
         # 2. Import, and read the file summary back.
         output = ax("import", str(archive))
@@ -329,7 +333,7 @@ def main():
         if not nodes:
             fail("the Send to print dialog did not open")
         name = selector(nodes)
-        if name != args.printer:
+        if name != shown:
             # The printer popover is out of the tree, like the filament one: clicked by position
             # from the selector's own origin, and judged by what the selector reads afterwards.
             row = PRINTERS.index(args.printer)
@@ -337,11 +341,11 @@ def main():
             for attempt in range(POPOVER_TRIES):
                 time.sleep(DIALOG_SETTLE)
                 sel = [g for g in find(nodes, role="AXGroup", ends=" chevron_down")
-                       if g["label"].rsplit(" ", 1)[0] in PRINTERS][0]
+                       if g["label"].rsplit(" ", 1)[0] in DISPLAY_NAMES.values()][0]
                 x, y = sel["x"], sel["y"]
                 clicked = ax("click", str(x + SELECTOR_TEXT[0]), str(y + SELECTOR_TEXT[1]),
                              str(x + PRINTER_ROW[0]), str(y + PRINTER_ROW[1] + PRINTER_ROW_PITCH * row))
-                taken = wait_for(5, lambda n: dialog(n) and selector(n) == args.printer and n)
+                taken = wait_for(5, lambda n: dialog(n) and selector(n) == shown and n)
                 if taken:
                     nodes = taken
                     break
@@ -352,11 +356,11 @@ def main():
                     break
             else:
                 ax("press", "cancel", "--role", "AXButton", check=False)
-                fail(f"the dialog offers {name}, not {args.printer}, and the printer popover did not "
+                fail(f"the dialog offers {name}, not {shown}, and the printer popover did not "
                      f"take it in {POPOVER_TRIES} tries: " + "; ".join(tries))
             if not nodes:
                 fail(f"the dialog closed under the printer popover clicks: " + "; ".join(tries))
-            print(f"dialog: offered {name}; chose {args.printer} in the printer popover")
+            print(f"dialog: offered {name}; chose {shown} in the printer popover")
             name = selector(nodes)
         print(f"dialog: printer {name}")
 
