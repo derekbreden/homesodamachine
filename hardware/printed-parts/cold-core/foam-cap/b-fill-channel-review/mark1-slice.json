@@ -1,0 +1,364 @@
+{
+  "scope": "One manual native slice review of this source STL and Mark1 archive. The receipt establishes commanded geometry and print settings; physical surface, support removal and installed fit are separate observations.",
+  "piece": "foam-cap-lid-top",
+  "part_number": "HSM-000020",
+  "clamp_stations": [
+    {
+      "name": "aft",
+      "axis_world_xy_mm": [
+        -43.5,
+        242.3
+      ],
+      "screw_length_mm": 10.0,
+      "insert": "RX-M3x5.7",
+      "insert_length_mm": 5.7,
+      "insert_face_world_z_mm": 247.85,
+      "head_seat_world_z_mm": 250.25
+    },
+    {
+      "name": "fore-west",
+      "axis_world_xy_mm": [
+        -54.0,
+        219.3
+      ],
+      "screw_length_mm": 10.0,
+      "insert": "RX-M3x5.7",
+      "insert_length_mm": 5.7,
+      "insert_face_world_z_mm": 247.85,
+      "head_seat_world_z_mm": 250.25
+    },
+    {
+      "name": "fore-east",
+      "axis_world_xy_mm": [
+        -33.0,
+        219.3
+      ],
+      "screw_length_mm": 10.0,
+      "insert": "RX-M3x5.7",
+      "insert_length_mm": 5.7,
+      "insert_face_world_z_mm": 247.85,
+      "head_seat_world_z_mm": 250.25
+    }
+  ],
+  "entry_world_mm": [
+    -43.5,
+    182.60000000000002,
+    247.55
+  ],
+  "source_commit": "08a592b43e25d065a1a7f06f8e51be9f17e89bdd",
+  "recorded_at_source_commit": "9105503d1ed64750a03bbd0d2dfdf012b9b70a44",
+  "prepared_utc": "2026-10-29T02:26:05+00:00",
+  "printer": "Mark1",
+  "nozzle": {
+    "side": "left",
+    "diameter_mm": 0.4,
+    "flow": "Standard",
+    "hardened": true,
+    "reason": "Top lid: hardened left 0.4 mm Standard nozzle with the shared PET-GF process.",
+    "sliced_diameter_mm": 0.4,
+    "sliced_volume_type": "Standard"
+  },
+  "material": "Polymaker Fiberon PET-GF15, black",
+  "bed_type": "Textured PEI Plate",
+  "profile": "hardware/printed-parts/petgf.3mf",
+  "profile_sha256": "45c16e8c8517e0a205107d7b9f7412d013f51a8de7ecf86125cc940079d37ed0",
+  "spec": "hardware/printed-parts/enclosure/trial-preparation/pieces.json",
+  "spec_sha256": "127c7321a93394df411df9bf34498decb4a3ff33dbff07e9656e65fca1475c0c",
+  "settings_sha256": "a2d5614c14853de0fd16aedc11b3e7f4c4cf0e58ab06802aa78c160f0a83c077",
+  "stl": "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl",
+  "stl_sha256": "548fa910203275b4f1911edadd4e4c4b7d1ef496a165807d1b3407954d86ff89",
+  "step_sha256": "78f297cf829c5119fdea0d87b552bcac88fb0f179a8f85153a49419c0f8383f2",
+  "closed": {
+    "edges": 129309,
+    "boundary_edges": 0,
+    "nonmanifold_edges": 0,
+    "inconsistent_edges": 0,
+    "bodies": 1,
+    "closed_oriented_single_body": true
+  },
+  "local_archive": ".cache/readiness-traverse-print/.cache/prints/bfill-box/2026-10-28-foam-cap-lid-top-mark1-3f9bc55b/2026-10-28-foam-cap-lid-top-mark1-3f9bc55b.gcode.3mf",
+  "archive_sha256": "e74f6d8a5fed5a151a4cef312200d8e34b0ccc7b8c0e44ac831770f8b167f201",
+  "project_sha256": "7ff4720f1283af57f92d73c235172f0ee2e6873673f2588b5603559ac443ac42",
+  "gcode_sha256": "9e0d7a036ed6cfba9c2f251339f01ae6241ac13783b8aa82084f209448ca2a15",
+  "estimated_seconds": 19581.099609375,
+  "slicer_warnings": [],
+  "requested_z_trim_mm": 0.18,
+  "emitted_textured_trim_mm": 0.16,
+  "plate_offset_mm": {
+    "value": [
+      -1.0,
+      0.0
+    ],
+    "reason": "Keep the complete native model and support bead envelope at least 20 mm inside the usable Mark1 bed."
+  },
+  "settings_changes": {
+    "extruder_ams_count": {
+      "from": [
+        "1#0|4#1",
+        "1#0|4#0"
+      ],
+      "to": [
+        "1#0|4#0",
+        "1#0|4#0"
+      ],
+      "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface."
+    },
+    "support_filament": {
+      "from": "0",
+      "to": "1",
+      "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface."
+    },
+    "support_interface_filament": {
+      "from": "0",
+      "to": "1",
+      "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface."
+    },
+    "flush_into_support": {
+      "from": "1",
+      "to": "0",
+      "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface."
+    },
+    "filament_colour": {
+      "from": [
+        "#000000"
+      ],
+      "to": [
+        "#000000"
+      ],
+      "reason": "Mark1's loaded black PET-GF colour reading."
+    },
+    "wall_loops": {
+      "from": "2",
+      "to": "3",
+      "reason": "Derek selected 2.38 mm standing walls, packed with six perimeter beads."
+    },
+    "wall_generator": {
+      "from": "classic",
+      "to": "classic",
+      "reason": "Three fixed-width perimeters from each wall boundary."
+    },
+    "sparse_infill_pattern": {
+      "from": "gyroid",
+      "to": "gyroid",
+      "reason": "Retain 15% gyroid in thicker regions."
+    },
+    "enable_support": {
+      "from": "1",
+      "to": "1",
+      "reason": "Tree(auto)/Default supports the WAGO well end walls and B-fill channel roof where the slicer needs it. The return and water-check pedestals have peaked tie passages. Retain native automatic support choices."
+    },
+    "raft_first_layer_expansion": {
+      "from": "-1",
+      "to": "0.5",
+      "reason": "Limit the initial support-foot flange for this wide lid while retaining Tree(auto)/Default, support contacts and branch diameters."
+    }
+  },
+  "fore_snap_region": {
+    "record": "hardware/printed-parts/cold-core/foam-cap/fore-snap-print-regions.json",
+    "record_sha256": "ae250932995beb586d3ab0011648b23aeca87ad9a05365af20915bc2bf043fa2",
+    "part_process_overrides": null
+  },
+  "support": {
+    "support_type": "tree(auto)",
+    "support_style": "default",
+    "support_object_xy_distance": "0.4",
+    "max_bridge_length": "0",
+    "tree_support_branch_diameter": "2",
+    "tree_support_branch_diameter_angle": "5",
+    "brim_type": "auto_brim"
+  },
+  "cooling": {
+    "fan_min_speed": [
+      "0"
+    ],
+    "fan_max_speed": [
+      "0"
+    ],
+    "overhang_fan_speed": [
+      "70"
+    ],
+    "overhang_fan_threshold": [
+      "50%"
+    ],
+    "additional_cooling_fan_speed": [
+      "0"
+    ]
+  },
+  "review": {
+    "archive": ".cache/prints/bfill-box/2026-10-28-foam-cap-lid-top-mark1-3f9bc55b/2026-10-28-foam-cap-lid-top-mark1-3f9bc55b.gcode.3mf",
+    "archive_sha256": "e74f6d8a5fed5a151a4cef312200d8e34b0ccc7b8c0e44ac831770f8b167f201",
+    "gcode_md5_matches": true,
+    "emitted_z_trim_mm": [
+      0.0,
+      0.16
+    ],
+    "expected_emitted_textured_trim_mm": 0.16,
+    "layers": 211,
+    "project_check": true,
+    "bead_envelope_plate_mm": [
+      [
+        20.1776695,
+        65.92766950000001
+      ],
+      [
+        304.645877,
+        254.07233050000002
+      ]
+    ],
+    "bed_margins_mm": {
+      "left": 20.1776695,
+      "front": 65.92766950000001,
+      "right": 20.354123000000016,
+      "back": 65.92766949999998
+    },
+    "minimum_bed_margin_mm": 20.1776695,
+    "bed_border_mm": 20.0,
+    "fine_and_transition_bands": [],
+    "support_roads": 38301,
+    "show_face_minimum_bead_clearance_mm": null,
+    "show_face_contacts": [],
+    "tie_window_support_crossings": [],
+    "ribbon_support_crossings": [],
+    "ribbons": [],
+    "fine_band_unbacked_roads": [],
+    "first_second_layer_stack": {
+      "1901": {
+        "second_layer_model_bead_area_mm2": 49209.501919962546,
+        "fraction_over_first_layer": 0.9940731115873322,
+        "second_layer_centerline_outside_first_mm": 122.1386927786726
+      }
+    },
+    "solid_host_deposition": [
+      {
+        "object": 1901,
+        "name": "Reservoir A fore direct C2 pair and lid root",
+        "plate_bounds_mm": [
+          [
+            271.55,
+            201.175,
+            2.4000000000000057
+          ],
+          [
+            279.55,
+            225.825,
+            10.5
+          ]
+        ],
+        "samples": [
+          {
+            "print_z_mm": 2.84,
+            "coverage": 0.9895879259057295,
+            "stock_mm2": 197.19999999999982
+          },
+          {
+            "print_z_mm": 6.68,
+            "coverage": 0.9968780500559098,
+            "stock_mm2": 197.19990205000906
+          },
+          {
+            "print_z_mm": 10.28,
+            "coverage": 0.9982560134029419,
+            "stock_mm2": 96.18854792928062
+          }
+        ],
+        "minimum_coverage": 0.9895879259057295
+      }
+    ],
+    "support_topology": {
+      "1901": {
+        "support_bodies": 7,
+        "interface_islands": null,
+        "bed_rooted_bodies": 1,
+        "model_rooted_bodies": 6,
+        "shortest_build_up_mm": null,
+        "bodies_without_interface_labels": 1,
+        "explicit_interface_islands": 9,
+        "shortest_labelled_build_up_mm": 0.24
+      }
+    },
+    "scope": "Commanded paths and bead envelopes from this archive. Support removal, surface finish, fit and strength are physical observations.",
+    "checks": {
+      "archive": true,
+      "z_trim": true,
+      "bed_border": true,
+      "fine_and_transition_bands": true,
+      "show_faces_support_free": true,
+      "tie_windows_support_free": true,
+      "ribbons_support_free_and_printed": true,
+      "solid_hosts_sampled": true
+    },
+    "pass": true
+  },
+  "project_check": {
+    "project_sha256_matches": true,
+    "objects": [
+      {
+        "name": "foam-cap-lid-top",
+        "vertices": 43029,
+        "source_sha256_matches": true,
+        "embedded_vertex_error_mm": 5.00045285178885e-07,
+        "source_comparison": "source vertices in order",
+        "seam_painted_facets": 0,
+        "placed_bounds_mm": [
+          [
+            20.300003000000004,
+            66.050003,
+            -2.3700000184589953e-07
+          ],
+          [
+            302.699997,
+            253.949997,
+            50.650001763
+          ]
+        ],
+        "bed_contact_z_mm": -2.3700000184589953e-07,
+        "blocked_facets": 0,
+        "partially_painted_facets": 0,
+        "parts": {
+          "normal_part": 1,
+          "modifier_part": 1
+        },
+        "layer_ranges": [],
+        "ribbon_and_fin_parts": 0,
+        "modifiers_expected": 1
+      }
+    ],
+    "z_trim_block": [
+      "+0.0",
+      "0.18 - 0.01",
+      "0.18 - 0.02",
+      "0.18 + 0.01",
+      "0.18"
+    ],
+    "cooling": {
+      "fan_min_speed": [
+        "0"
+      ],
+      "fan_max_speed": [
+        "0"
+      ],
+      "overhang_fan_speed": [
+        "70"
+      ],
+      "overhang_fan_threshold": [
+        "50%"
+      ],
+      "additional_cooling_fan_speed": [
+        "0"
+      ]
+    },
+    "support": {
+      "support_type": "tree(auto)",
+      "support_style": "default",
+      "support_object_xy_distance": "0.4",
+      "max_bridge_length": "0",
+      "tree_support_branch_diameter": "2",
+      "tree_support_branch_diameter_angle": "5",
+      "brim_type": "auto_brim"
+    },
+    "problems": [],
+    "pass": true
+  },
+  "automatic_check_added": false,
+  "submitted": false
+}

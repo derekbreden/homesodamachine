@@ -791,6 +791,10 @@
         "enable_support": {
           "value": "1",
           "reason": "Tree(auto)/Default supports the WAGO well end walls and B-fill channel roof where the slicer needs it. The return and water-check pedestals have peaked tie passages. Retain native automatic support choices."
+        },
+        "raft_first_layer_expansion": {
+          "value": "0.5",
+          "reason": "Limit the initial support-foot flange for this wide lid while retaining Tree(auto)/Default, support contacts and branch diameters."
         }
       },
       "plate_border_mm": 20.0,
@@ -801,7 +805,14 @@
           "regions_file": "hardware/printed-parts/cold-core/foam-cap/fore-snap-print-regions.json"
         }
       ],
-      "pose_reason": "As exported: the lid's 48,900 mm2 flat face is its Z0 face, the walls and wells standing up from it."
+      "pose_reason": "As exported: the lid's 48,900 mm2 flat face is its Z0 face, the walls and wells standing up from it.",
+      "plate_offset_mm": {
+        "value": [
+          -1.0,
+          0.0
+        ],
+        "reason": "Keep the complete native model and support bead envelope at least 20 mm inside the usable Mark1 bed."
+      }
     },
     "labels": {
       "printer": "Mark2",

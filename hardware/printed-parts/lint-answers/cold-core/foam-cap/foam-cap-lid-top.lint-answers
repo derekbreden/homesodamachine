@@ -60,6 +60,20 @@ click: x=133.673 y=-84.269 z=2.250
 click: x=133.673 y=-84.269 z=0.000
 click: x=132.636 y=83.613 z=0.000
 click: x=132.636 y=83.613 z=2.250
+click: x=81.541 y=-46.380 z=0.000
+click: x=81.541 y=-46.380 z=2.250
+click: x=-41.840 y=84.276 z=0.000
+click: x=-41.840 y=84.276 z=2.250
+click: x=84.265 y=-43.749 z=0.000
+click: x=84.265 y=-43.749 z=2.250
+click: x=103.103 y=-51.522 z=0.000
+click: x=103.103 y=-51.522 z=2.250
+click: x=101.855 y=-32.086 z=0.000
+click: x=101.855 y=-32.086 z=2.250
+click: x=107.290 y=-54.522 z=0.000
+click: x=107.290 y=-54.522 z=2.250
+click: x=107.340 y=-32.583 z=0.000
+click: x=107.340 y=-32.583 z=2.250
 
 [thin] Deliberate functional C2 spring section: these five ranked surface groups belong to the six free jaws above the tube equators, four on the fore Reservoir A pair and two on the V-A feed seat. Their measured 2.400 mm wall is the C2 section Derek selected with the 6.35 mm bore on Mark2 task 1379240291, recorded in future/snap-fit-tests/2026-10-26-mark2-combined/physical-result.json. Ordinary stock below the equators remains filled; the V-A root retains 5.025 mm below its bore. Only the working upper jaws use this specific flexure exception. This answer preserves the thinness ranking and establishes no full-lid force, lifetime or print result.
 alternatives: Increasing the jaws to 3 mm while keeping the same bore increases each outer radius by 0.6 mm and changes the selected spring section. On the fore pair it also consumes 1.2 mm of spread space: preserving the current conservative 1 mm-per-jaw envelope and its 0.35 mm opposing gap requires wider tube spacing and another routing change. Filling above the equators joins the free jaws and closes the press-in mouths. A rigid cradle with a separate closure adds a part and an assembly step instead of providing the selected direct snap.
@@ -74,6 +88,7 @@ click: x=70.301 y=5.426 z=13.695
 click: x=70.301 y=7.826 z=13.667
 click: x=70.301 y=16.574 z=13.695
 click: x=70.301 y=14.174 z=13.667
+
 [sliver] The strip reading measures the 0.75 mm projection of each functional J1/J2 retaining lip, not the hook's material thickness. Each lip has 3 mm stock behind its flat underside and spans the bank's full 16 mm cable width. The 2.2 mm seat depth, 0.75 mm lip and 45-degree entry use the accepted cable-hook section. The two lips retain the front-going leads in the separate J1 and J2 cavities; the seven-lead J1 grouping retains its stated physical-fit scope.
 alternatives: Removing the projection opens the retaining mouth to the full seat depth and removes the selected capture. Filling below it occupies the cable cavity. Thickening the projection into that cavity changes the accepted entry and retention section. This finding conflates the functional lip's reach with a thin structural wall.
 file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
@@ -85,3 +100,11 @@ alternatives: Removing or sloping the retaining underside changes the selected c
 file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
 click: x=128.533 y=74.700 z=21.700
 click: x=128.533 y=79.900 z=16.150
+
+[thin] Specific B-fill channel-cover section: the 6.8 mm guide and its 0.25 mm supported-roof allowance leave 2.20 mm of retaining roof beneath the Z253.4 lid face. Three recessed M3x10 screws clamp this cover to the full-height cup block on both sides of the bend. This is the named channel cover, rather than an ordinary standing wall. The production-source receipt in foam-cap/b-fill-channel-review/native-review.json records its roof, clamps and 1.60 mm gap to the original PCB. The fit reading does not establish a measured load rating.
+alternatives: Raising this roof to obtain 3 mm stock spends 0.8 mm of the 1.60 mm PCB-tail gap. Lowering the channel changes its selected fore entry and the bend's intersection with the cup floor and reservoir grip. The specific cover section retains the reviewed channel and component datums.
+file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
+click: x=139.635 y=-43.537 z=3.200
+click: x=139.635 y=-43.537 z=5.400
+click: x=122.089 y=-43.539 z=5.400
+click: x=122.089 y=-43.538 z=3.200

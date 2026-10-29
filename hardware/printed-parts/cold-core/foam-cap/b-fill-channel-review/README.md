@@ -45,3 +45,11 @@ no build or commit check.
 
 These readings cover the stated source geometry. The combined assembly
 export, print slice and physical fit have their own artifact scopes.
+
+The [Mark1 slice receipt](mark1-slice.json) binds HSM-000020's current STEP
+and STL, with the fore clamp row at Y219.3, to the reviewed native archive:
+black PET-GF on the hardened left
+0.4 mm Standard nozzle, Tree(auto)/Default supports and the saved Z trim.
+The complete commanded bead envelope retains at least 20.178 mm of bed
+margin. The slicer estimates 5 hours 26 minutes; the archive has not been
+submitted to a printer.

@@ -50,8 +50,10 @@ fit and donor terminal locations retain their stated qualification limits.
 The rear H/G connectors share a vertical row beside the C14 inlet; N stands
 14.5 mm forward on its own broad rear-rooted well. Their wire entries face
 forward and their levers open upward. The four core-side
-221-413 connectors form a fore–aft column beside the PCB; wire entries face
-−X toward the PCB and levers face upward. The printed wells capture each connector's blank
+221-413 connectors sit in two vertical pairs on the PCB-facing back of V-B's
+wall. The fore pair holds sensor common above V12; the aft pair holds
+reservoir-B common above GND. Their wire entries face fore or aft and their
+levers open west toward the PCB. The printed wells capture each connector's blank
 rear half with 3 mm stock. The manifold common connectors retain their native
 front-top stations and their two lever faces remain accessible from the front
 assembly's open interior and through the funnel opening. The three joins have no
