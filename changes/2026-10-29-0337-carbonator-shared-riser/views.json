@@ -1,0 +1,237 @@
+{
+  "views": [
+    {
+      "name": "shared-riser",
+      "caption": "The sensor and earth leads gather above the vessel, rise through one cap passage and reach the nearby earth junction.",
+      "before": "shared-riser-before.webp",
+      "after": "shared-riser-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 605.3,
+          "y": 467.5,
+          "r": 17.6,
+          "label": "shared riser",
+          "at": [
+            -48,
+            347,
+            244
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          -324.79621948767215,
+          487.3981097438361,
+          445.3573536413705
+        ],
+        "target": [
+          -10,
+          330,
+          225
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 193.5362036853587,
+        "far": 875.0535004834729,
+        "aspect": 1.3333333333333333
+      },
+      "highlight": [],
+      "ghost": [
+        "cold-core/foam-cap-top",
+        "cold-core/foam-cap-lid-top"
+      ],
+      "only": [
+        "cold-core/carbonator-tube",
+        "cold-core/endcap-top",
+        "cold-core/evap-coil",
+        "cold-core/probe-*",
+        "cold-core/reed-carb-*",
+        "cold-core/reed-bridge",
+        "cold-core/carbonator-earth-*",
+        "terminal-carbonator-pe",
+        "cold-core/ground-stack*",
+        "wire-J4-3V3",
+        "wire-J4-IO26",
+        "wire-temp-GND",
+        "wire-temp-bus-*",
+        "wire-J7-CLO",
+        "wire-J7-CHI",
+        "wire-J7-carb-earth-*",
+        "wire-PE-carbonator",
+        "cold-core/foam-cap-top",
+        "cold-core/foam-cap-lid-top"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "f8228893cc21013c1c46aa94f438385f1198314cf6743c6280e1a6645965c764",
+          "commit": "5633d0fada9b50eba545444665c4f58420121e47",
+          "taken": "2026-10-29T07:54:01.188Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "1b82dd3ccc7dbf2e7acb32c1f918ada8b71323598bc9806aa95df3ac3ce59427",
+          "commit": "03ec864c7dc674872fa0ddc73e3a18421cd27ce2",
+          "published": true
+        }
+      },
+      "changed": [
+        "cold-core/carbonator-earth-lockwasher",
+        "cold-core/carbonator-earth-locknut",
+        "cold-core/carbonator-earth-tab",
+        "wire-AC6-PE",
+        "cold-core/ground-stack",
+        "wire-PE-bus",
+        "wire-PE-carbonator",
+        "wire-temp-GND",
+        "wire-J4-IO26",
+        "wire-J4-3V3",
+        "wire-J7-CLO",
+        "wire-J7-CHI",
+        "wire-J7-carb-earth-2",
+        "wire-J2-FAN",
+        "wire-J2-positive-fan",
+        "wire-temp-bus-V",
+        "wire-temp-bus-DATA",
+        "cold-core/carbonator-earth-screw",
+        "wire-temp-bus-GND",
+        "terminal-carbonator-pe",
+        "cold-core/foam-cap-top",
+        "cold-core/probe-coil-ds18s20",
+        "cold-core/foam-cap-lid-top",
+        "enclosure-front-top",
+        "wire-J7-RB2",
+        "wire-J7-RB3",
+        "wire-J7-RB1",
+        "wire-J7-RB4",
+        "wire-J7-earth-4"
+      ],
+      "withinMeshing": [
+        "cold-core/carbonator-tube"
+      ]
+    },
+    {
+      "name": "rim-bond",
+      "caption": "The closed earth ring fastens into the existing rim above the recessed closure plate.",
+      "before": "rim-bond-before.webp",
+      "after": "rim-bond-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 604.9,
+          "y": 538.5,
+          "r": 31.8,
+          "label": "rim clamp",
+          "at": [
+            -57.1722,
+            351.4332,
+            201.55
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          -139.81275251420772,
+          391.89283038186704,
+          247.3612233396479
+        ],
+        "target": [
+          -49,
+          348,
+          207
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 0.368930932330576,
+        "far": 509.0156337009556,
+        "aspect": 1.3333333333333333
+      },
+      "highlight": [
+        "cold-core/carbonator-earth-tab",
+        "cold-core/carbonator-earth-screw",
+        "cold-core/carbonator-earth-locknut",
+        "cold-core/carbonator-earth-lockwasher",
+        "terminal-carbonator-pe"
+      ],
+      "ghost": [],
+      "only": [
+        "cold-core/carbonator-tube",
+        "cold-core/endcap-top",
+        "cold-core/carbonator-earth-*",
+        "terminal-carbonator-pe",
+        "wire-PE-carbonator"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "f8228893cc21013c1c46aa94f438385f1198314cf6743c6280e1a6645965c764",
+          "commit": "5633d0fada9b50eba545444665c4f58420121e47",
+          "taken": "2026-10-29T07:54:01.188Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "1b82dd3ccc7dbf2e7acb32c1f918ada8b71323598bc9806aa95df3ac3ce59427",
+          "commit": "03ec864c7dc674872fa0ddc73e3a18421cd27ce2",
+          "published": true
+        }
+      },
+      "changed": [
+        "cold-core/carbonator-earth-lockwasher",
+        "cold-core/carbonator-earth-locknut",
+        "cold-core/carbonator-earth-tab",
+        "wire-AC6-PE",
+        "cold-core/ground-stack",
+        "wire-PE-bus",
+        "wire-PE-carbonator",
+        "wire-temp-GND",
+        "wire-J4-IO26",
+        "wire-J4-3V3",
+        "wire-J7-CLO",
+        "wire-J7-CHI",
+        "wire-J7-carb-earth-2",
+        "wire-J2-FAN",
+        "wire-J2-positive-fan",
+        "wire-temp-bus-V",
+        "wire-temp-bus-DATA",
+        "cold-core/carbonator-earth-screw",
+        "wire-temp-bus-GND",
+        "terminal-carbonator-pe",
+        "cold-core/foam-cap-top",
+        "cold-core/probe-coil-ds18s20",
+        "cold-core/foam-cap-lid-top",
+        "enclosure-front-top",
+        "wire-J7-RB2",
+        "wire-J7-RB3",
+        "wire-J7-RB1",
+        "wire-J7-RB4",
+        "wire-J7-earth-4"
+      ],
+      "withinMeshing": [
+        "cold-core/carbonator-tube"
+      ]
+    }
+  ]
+}
