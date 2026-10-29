@@ -174,19 +174,19 @@ def reservoir_draw_conduit_xy(side):
 
 # Foil sits on the plain casing within a 0.30 mm per-face envelope allowance.
 casing_foil_allowance = 0.30
-# Each end's foil band seals on at least this much of the shell's plain face.
+# Each end's foil band reaches at least this far onto the shell.
 casing_foil_land = 13.0
 outer_shell_x_length = 282.4
 outer_shell_y_length = 180.4
 
 # THE SEAM CHANNEL. The outer wall's seam lands in an inside corner, and a flat flank has none:
 # a shallow channel down the +Y flank's centre line, the column the PRV vent leaves by, gives it
-# two. It is the vent's bore with `seam_channel_land` either side, and it stops one foil land
-# short of each end so both foil bands seal on a plain face. The wall folds in behind it, so
-# its section stays `outer_shell_wall` throughout.
+# two. It is the vent's bore with `seam_channel_land` either side, and it runs the shell's full
+# height, end face to end face. The wall folds in behind it, so its section stays
+# `outer_shell_wall` throughout.
 seam_channel_land = 1.0
 seam_channel_width = 2.0 * (port_hole_radius + seam_channel_land)
-seam_channel_depth = 1.0
+seam_channel_depth = 1.5
 bag_pocket_outermost_x = bag_pocket_far_inner_x + wall_thickness
 outer_shell_foam_gap = (
     outer_shell_y_length / 2 - outer_shell_wall - bag_pocket_width / 2
