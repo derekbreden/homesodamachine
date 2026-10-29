@@ -52,6 +52,16 @@ after(async () => {
   }
 });
 
+// The card scales in as the viewer opens, and a model can mount before it stands at
+// full size. A pixel read off the canvas before then is not the pixel under the
+// pointer once the card settles.
+function settled(page) {
+  return page.waitForFunction(() => {
+    const canvas = window.__hsm.renderer.domElement;
+    return Math.abs(canvas.getBoundingClientRect().width - canvas.clientWidth) < 0.5;
+  });
+}
+
 test("/pcb view toggle exposes inner copper planes in stack order", async (t) => {
   const page = await browser.newPage();
   try {
@@ -101,6 +111,7 @@ test("/3d opening a selected component and returning keep the exact view", async
       { timeout: 30_000 },
       assembly,
     );
+    await settled(page);
 
     // Look squarely at a patch of the rear wall that nothing stands in front of,
     // then select it through the same canvas gesture a person uses. The patch is
@@ -243,6 +254,7 @@ test("/3d zoom reaches the picked rear surface and leaves it as the orbit focus"
       { timeout: 30_000 },
       file,
     );
+    await settled(page);
 
     // Look through the open front below the ceiling, keeping the model centre
     // as the orbit target. Pick a visible rear-wall patch beyond that target.
@@ -355,6 +367,7 @@ test("/3d zoom crosses a picked surface instead of stalling against it", async (
       { timeout: 30_000 },
       file,
     );
+    await settled(page);
 
     // The centre ray from the default framing lands on the model's nearest
     // surface. Wheel toward it until the camera stands on its far side.
