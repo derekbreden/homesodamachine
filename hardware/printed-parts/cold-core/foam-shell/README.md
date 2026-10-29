@@ -216,8 +216,9 @@ The outer **−X** wall carries one round copper feed-through on each lane.
 Reservoir B's reed loom leaves through a top-open notch in this wall's upper
 rim, directly beside its dry reed channel. The notch is 10 mm wide and 6 mm
 deep: world X−37.5…−27.5, from the Z233.4 rim down to Z227.4, opening on
-the fore face at Y182.6. Its short dry guide joins the reed channel; the
-surrounding stock separates it from the foam cavity. The cap's floor closes
+the fore face at Y182.6. Its short dry guide blends into the existing 8 mm
+reed channel. The two flank extensions rise on shallow ramps, and the
+surrounding stock separates the outlet from the foam cavity. The cap's floor closes
 over the ribbon when the cap is seated. The remaining wall continues below
 the notch.
 
