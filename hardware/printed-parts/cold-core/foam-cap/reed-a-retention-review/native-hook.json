@@ -1,0 +1,80 @@
+{
+  "schema": 1,
+  "scope": "Source lid carrying one integral Reservoir A level-lead hook at the installed Y388 station, with full rectangular stock below the seat.",
+  "source_extra_vs_held_plus_hook_mm3": 0,
+  "source_missing_vs_held_plus_hook_mm3": 0,
+  "valid": true,
+  "solids": 1,
+  "site": {
+    "id": "reservoir-a-levels",
+    "host": "foam-cap-lid-top",
+    "origin": [
+      -58.6,
+      388.0,
+      253.4
+    ],
+    "seat_depth": 2.2,
+    "seat_height": 9.6,
+    "span": 16.0,
+    "stock": 3.0,
+    "beak": 0.75,
+    "target_centers": {
+      "J6-GND": [
+        -54.5,
+        388.0,
+        257.5
+      ],
+      "J6-RA4": [
+        -54.5,
+        388.0,
+        259.35
+      ],
+      "J6-RA3": [
+        -54.5,
+        388.0,
+        261.2
+      ],
+      "J6-RA2": [
+        -54.5,
+        388.0,
+        263.05
+      ],
+      "J6-RA1": [
+        -54.5,
+        388.0,
+        264.9
+      ]
+    },
+    "stock_basis": "Five nominal 1.70 mm insulated 22 AWG leads on 1.85 mm pitch.",
+    "fit_scope": "The accepted cable entry and retaining lip with a five-lead seat; complete installed dressing retains its physical-fit scope."
+  },
+  "previous_step_sha256": "04c49978a57bcfc7344f0d6be5ceb3c3cc4043c5630c442d0afcb1567f524d36",
+  "removed_mm3": 0,
+  "added_mm3": 1715.6999999999975,
+  "root_overlap_mm3": 13.119999999998507,
+  "printed_facets": 80008,
+  "stl_watertight": true,
+  "world_brep_sha256": "cafdae54c2e449d6c0e2e8631ffaed5263dc7e8e3f952441a5bdeddf88d8947d",
+  "sha256": {
+    "step": "7e84c63be970a0a35acfb971c83de87f389eb6bd1670fb84694bd80c776b9985",
+    "stl": "d900e6a8c535ff9115d3c91c8e06c5527b20e88af6698ae64a87f8af87ec8327",
+    "step.mesh": "d5c8ba785e30a8d1c5beba8d010a004a669efc6c0807345f421387357dc1e33d"
+  },
+  "payload": {
+    "triangles": 80008,
+    "regions": 192,
+    "vertices": 69892,
+    "decimation_mm": 0.0,
+    "crease_deg": 30.0
+  },
+  "approved_shape_translation_world_mm": [
+    0.0,
+    8.0,
+    0.0
+  ],
+  "print_axis_world": [
+    0,
+    0,
+    1
+  ]
+}

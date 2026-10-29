@@ -422,6 +422,7 @@ def build_top_lid():
         lid = lid.cut(_above_mounts.world_shape_in_cap(passage))
     lid = lid.union(_above_mounts.world_shape_in_cap(_above_mounts.va_feed_snap()))
     lid = lid.union(_above_mounts.world_shape_in_cap(_above_mounts.manifold_cable_bank()))
+    lid = lid.union(_above_mounts.world_shape_in_cap(_above_mounts.rear_level_cable_hook()))
     # Both straight vents stand clear of the equipment mounts. Their openings
     # cross the lid plate; the valve wall remains continuous above it.
     return cut_reservoir_air_bores(lid, -.1, lid_total_height + .1).clean()

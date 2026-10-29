@@ -100,6 +100,11 @@ def bezier_hulls(control,depth=5):
 def segment_bounds(segment,radius):
     radius+=.001
     kind=segment['kind']
+    if kind=='spline':
+        from hardware.wiring.installed.model import sampled_segments
+        points=sampled_segments([segment],.25)
+        margin=segment['maximum_sample_step_mm']/2
+        return [point_bounds([a,b],radius+margin)for a,b in zip(points,points[1:])]
     if 'start_mm' in segment:
         points=[segment['start_mm'],segment['end_mm']]
         if kind=='arc':points.insert(1,segment['midpoint_mm'])

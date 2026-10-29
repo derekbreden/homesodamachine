@@ -75,6 +75,16 @@ def manifold_cable_bank():
                       ('seat_depth', 'seat_heights', 'span', 'stock', 'beak')})
 
 
+def rear_level_cable_hook():
+    """One filled lid hook for the Reservoir A leads, in appliance coordinates."""
+    sys.path[:0] = [str(HW.parent), str(HW / 'printed-parts' / 'cadlib')]
+    from hardware.wiring.installed.retainers import rear_level_hook_site
+    from route_snap import floor_cable_hook
+    site = rear_level_hook_site()
+    return floor_cable_hook(site['origin'], **{key: site[key] for key in
+                            ('seat_depth', 'seat_height', 'span', 'stock', 'beak')})
+
+
 def mounting_points(name, holes):
     """Native mounting-hole points at their cap XY stations."""
     frame = above_core.pose(name)

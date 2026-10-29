@@ -400,13 +400,13 @@
   "reed-column-a": {
     "jacket": false,
     "kind": "Reed-column cable",
-    "description": "Five conductors rise vertically from reservoir A's dry reed channel through one aligned cap bore. Their turns remain above the lid; four signal lanes and one continuous common spine occupy the reed channel.",
+    "description": "Five continuous reservoir A reed conductors follow the lid beside the PSU, open into an ordered five-wire ribbon through the integral level hook, then repack above the aligned rear cap bore. Four signal lanes and one common spine continue through the dry reed channel.",
     "bend_radius_mm": 3.5,
     "fanout_tangent_mm": [
       4.0,
       2.0
     ],
-    "route_status": "proposed",
+    "route_status": "guided",
     "cores": {
       "J6-RA1": [
         1.3348780407186633,
@@ -455,7 +455,7 @@
           3.0
         ],
         "bend_radius_mm": 2.0,
-        "route_status": "proposed",
+        "route_status": "guided",
         "entry_stations": [
           {
             "point_mm": [
@@ -491,7 +491,7 @@
           3.0
         ],
         "bend_radius_mm": 2.0,
-        "route_status": "proposed",
+        "route_status": "guided",
         "entry_stations": [
           {
             "point_mm": [
@@ -527,7 +527,7 @@
           3.0
         ],
         "bend_radius_mm": 2.0,
-        "route_status": "proposed",
+        "route_status": "guided",
         "entry_stations": [
           {
             "point_mm": [
@@ -563,7 +563,7 @@
           3.0
         ],
         "bend_radius_mm": 2.0,
-        "route_status": "proposed",
+        "route_status": "guided",
         "entry_stations": [
           {
             "point_mm": [
@@ -591,7 +591,7 @@
           4.0
         ],
         "bend_radius_mm": 2.0,
-        "route_status": "proposed",
+        "route_status": "guided",
         "entry_stations": [
           {
             "terminal": "J6.GND",
@@ -648,7 +648,56 @@
           232.4
         ]
       }
-    ]
+    ],
+    "level_hook": {
+      "order_bottom_to_top": [
+        "J6-GND",
+        "J6-RA4",
+        "J6-RA3",
+        "J6-RA2",
+        "J6-RA1"
+      ],
+      "high_point_mm": [
+        -49.0,
+        350.0,
+        281.0
+      ],
+      "seat_entry_mm": [
+        -54.5,
+        376.0,
+        261.2
+      ],
+      "return_controls_mm": [
+        [
+          -54.5,
+          414.0,
+          261.2
+        ],
+        [
+          -54.5,
+          438.0,
+          261.2
+        ],
+        [
+          -46.0,
+          446.0,
+          260.5
+        ],
+        [
+          -36.0,
+          446.0,
+          260.5
+        ]
+      ],
+      "pitch_mm": 1.85,
+      "pack_radius_mm": 1.65,
+      "drop_opening_fraction": 0.0,
+      "hook_straight_y_mm": [
+        380.0,
+        396.0
+      ],
+      "grade": "quintic"
+    }
   },
   "reed-column-b": {
     "jacket": false,
