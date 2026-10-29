@@ -2688,6 +2688,7 @@ genrule(
         "pysrc/hardware/wiring/installed/bundles.py",
         "pysrc/hardware/wiring/installed/connections.py",
         "hardware/wiring/installed/connector-map.json",
+        "pysrc/hardware/wiring/installed/manifold_bank_routes.py",
         "pysrc/hardware/wiring/installed/model.py",
         "pysrc/hardware/wiring/installed/retainers.py",
         "hardware/wiring/installed/route-overrides.json",
@@ -3450,6 +3451,8 @@ genrule(
         "pysrc/hardware/scripts/_routing.py",
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/hardware/scripts/_stated_bounds.py",
+        "pysrc/hardware/wiring/installed/__init__.py",
+        "pysrc/hardware/wiring/installed/retainers.py",
         "pysrc/tools/docgen/__init__.py",
     ],
     outs = [
@@ -5334,6 +5337,7 @@ genrule(
         "pysrc/hardware/wiring/installed/build.py",
         "pysrc/hardware/wiring/installed/bundles.py",
         "pysrc/hardware/wiring/installed/connections.py",
+        "pysrc/hardware/wiring/installed/manifold_bank_routes.py",
         "pysrc/hardware/wiring/installed/model.py",
         "pysrc/hardware/wiring/installed/retainers.py",
         "pysrc/hardware/wiring/installed/routes.py",
@@ -13452,6 +13456,14 @@ genrule(
     name = "pysrc-e9501852844f",
     srcs = ["hardware/wiring/installed/connections.py"],
     outs = ["pysrc/hardware/wiring/installed/connections.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
+    name = "pysrc-5eb709297e5d",
+    srcs = ["hardware/wiring/installed/manifold_bank_routes.py"],
+    outs = ["pysrc/hardware/wiring/installed/manifold_bank_routes.py"],
     tools = ["tools/bazel/pysrc.py"],
     cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
 )
