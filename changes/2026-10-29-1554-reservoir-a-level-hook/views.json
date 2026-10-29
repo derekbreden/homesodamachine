@@ -1,0 +1,87 @@
+{
+  "views": [
+    {
+      "name": "reed-a-hook",
+      "caption": "A section through the hook exposes its filled lid root, wire seat and retaining lip.",
+      "before": "reed-a-hook-before.webp",
+      "after": "reed-a-hook-after.webp",
+      "width": 1200,
+      "height": 840,
+      "marks": [
+        {
+          "x": 600,
+          "y": 526.7,
+          "r": 32.2,
+          "label": "Filled root",
+          "at": [
+            -64.2,
+            -54.5,
+            6.8
+          ]
+        }
+      ],
+      "model": "printed-parts/cold-core/foam-cap/foam-cap-lid-top.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          382.71696122672824,
+          -255.61263255202772,
+          167.22093642935488
+        ],
+        "target": [
+          -64.2,
+          -54.5,
+          10.8
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 15,
+        "near": 269.25694972765683,
+        "far": 826.5670096997017,
+        "aspect": 1.4285714285714286,
+        "section": {
+          "at": [
+            -64.2,
+            0,
+            0
+          ],
+          "normal": [
+            1,
+            0,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [
+        "foam-cap-lid-top"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh",
+          "from": "snapshot",
+          "sha256": "8f004f56335d19d67a5b88b79595c7a3a4d5ea0326663c8c76df534ea4d3aef2",
+          "commit": "102d30187ce04571972426c371f84067c0917ad2",
+          "taken": "2026-10-29T20:30:56.391Z",
+          "published": true
+        },
+        "after": {
+          "payload": "printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh",
+          "from": "file",
+          "sha256": "d5c8ba785e30a8d1c5beba8d010a004a669efc6c0807345f421387357dc1e33d",
+          "commit": "50931019a464f0555d4a47abc74c61eb51b2a439"
+        }
+      },
+      "changed": [
+        "foam-cap-lid-top"
+      ],
+      "withinMeshing": []
+    }
+  ]
+}
