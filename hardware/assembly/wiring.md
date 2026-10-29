@@ -51,7 +51,7 @@ Bond, from each target to the stack:
 
 The stack is bonded to the C14 inlet's earth pin through AC-1's green conductor (C14 earth → rear PE WAGO) and the PE-bus pigtail (rear PE WAGO → stack).
 
-Prepare [~400 mm](EARTH_BUS_LEN) for the rear PE WAGO-to-stack bond and [~500 mm](EARTH_CARBONATOR_LEN) for the carbonator bond. Their modeled paths are 295.531 mm and 314.670 mm, leaving 104.469 mm and 185.330 mm for terminations and dressing. Trim the carbonator lead after dressing it from its fitted steel-side clamp through the sensor passage to the lid stack. The short AC-1 earth pigtail from C14 to the rear WAGO has its own cut.
+Prepare [~400 mm](EARTH_BUS_LEN) for the rear PE WAGO-to-stack bond and [~500 mm](EARTH_CARBONATOR_LEN) for the carbonator bond. Their modeled paths are 295.531 mm and 313.226 mm, leaving 104.469 mm and 186.774 mm for terminations and dressing. Trim the carbonator lead after dressing it from its fitted steel-side clamp through the sensor passage to the lid stack. The short AC-1 earth pigtail from C14 to the rear WAGO has its own cut.
 
 The stack is made through the funnel opening once the box is closed. The carbonator bond takes the northwest-facing lug, the inlet PE bus the northeast-facing lug and AC-6 the southwest-facing lug; the flat washer and M3 × 8 close the stack ([`electronics-bay.md`](/hardware/assembly/electronics-bay.md) step 5). Leave the inlet bond's nominal 6 mm straight entry before its bend and keep the fore paired-tube tie head on its east side. Fasten the stack before making the compressor's two joins. The installed harness is not qualified to remain in the stack's vertical driver path.
 
