@@ -150,4 +150,5 @@ def cut_reed_channel_openings(foam_shell):
 
 
 # A's cable continues into its cap bore. B's cable turns out through the
-# locally backed shell-rim notch before the top cap is seated.
+# shell-rim notch before the top cap is seated; `_reed_b_outlet` stands B's
+# channel walls one wall outside that notch for the shell's full height.

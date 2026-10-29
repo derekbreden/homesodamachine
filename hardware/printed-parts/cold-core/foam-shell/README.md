@@ -216,11 +216,11 @@ The outer **−X** wall carries one round copper feed-through on each lane.
 Reservoir B's reed loom leaves through a top-open notch in this wall's upper
 rim, directly beside its dry reed channel. The notch is 10 mm wide and 6 mm
 deep: world X−37.5…−27.5, from the Z233.4 rim down to Z227.4, opening on
-the fore face at Y182.6. Its short dry guide blends into the existing 8 mm
-reed channel. The two flank extensions rise on shallow ramps, and the
-surrounding stock separates the outlet from the foam cavity. The cap's floor closes
-over the ribbon when the cap is seated. The remaining wall continues below
-the notch.
+the fore face at Y182.6. It is one rectangular slot from the dry reed
+channel out through the wall. B's channel walls stand [2.38 mm](FSHELL_WALL_T)
+outside the notch's sides for the shell's full height and separate the
+outlet from the foam cavity. The cap's floor closes over the ribbon when
+the cap is seated. The remaining wall continues below the notch.
 
 Six fluid lines leave through the upper cap face; B-fill enters its fore
 face. Reservoir A's reed cable, the carbonator reed cable and the sensor/earth
