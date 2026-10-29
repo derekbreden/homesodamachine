@@ -1,5 +1,5 @@
 {
-  "scope": "Single manual review of the final source-built rectangular B-fill cup/lid leaves, compensated channel, parting-mouth relief and tangent-row clamps. Parent integration and physical print are separate.",
+  "scope": "Manual native review of round B-fill channel, Y205.60 clamps and Reed-B clearance.",
   "passage": {
     "entry_world_mm": [
       -43.5,
@@ -30,6 +30,7 @@
     ],
     "bend_radius_mm": 14.0,
     "channel_diameter_mm": 6.8,
+    "channel_section": "round",
     "wall_mm": 2.0,
     "outlet_leg_mm": 0.0,
     "mouth_lead_in_mm": 0.5,
@@ -89,7 +90,7 @@
         "name": "fore-west",
         "axis_world_xy_mm": [
           -54.0,
-          219.3
+          205.60000000000002
         ],
         "screw_length_mm": 10.0,
         "insert": "RX-M3x5.7",
@@ -101,7 +102,7 @@
         "name": "fore-east",
         "axis_world_xy_mm": [
           -33.0,
-          219.3
+          205.60000000000002
         ],
         "screw_length_mm": 10.0,
         "insert": "RX-M3x5.7",
@@ -125,66 +126,12 @@
   },
   "cup": {
     "valid": true,
-    "solids": 1,
-    "faces": 441,
-    "bounds_mm": [
-      -90.2000001,
-      182.59999987786608,
-      233.54999990000002,
-      90.2000001,
-      465.0000001,
-      257.0
-    ]
+    "solids": 1
   },
   "lid": {
     "valid": true,
-    "solids": 1,
-    "faces": 247,
-    "bounds_mm": [
-      -90.2000001,
-      182.5999999,
-      247.9999999,
-      97.7000001,
-      465.0000001,
-      298.65000000000003
-    ]
+    "solids": 1
   },
-  "guide": {
-    "valid": true,
-    "solids": 2,
-    "faces": 297,
-    "bounds_mm": [
-      -60.0000001,
-      182.59999987786608,
-      233.54999990000002,
-      -26.9999999,
-      248.3000001,
-      253.4000001
-    ]
-  },
-  "cup_lid_overlap_mm3": 0.0,
-  "channel_to_cup_material_mm3": 0.0,
-  "channel_to_lid_material_mm3": 0.0,
-  "reed_air_obstruction_in_cup_mm3": 0.0,
-  "straight_crown_world_z_mm": 251.1999999999981,
-  "roof_stock_at_straight_mm": 2.200000000001893,
-  "guide_to_original_pcb": {
-    "gap_mm": 1.5999999999999943,
-    "overlap_mm3": 0.0
-  },
-  "guide_to_original_posts": {
-    "gap_mm": 8.800006103515635,
-    "overlap_mm3": 0.0
-  },
-  "pour_world_xy_mm": [
-    -73.0,
-    212.60000000000002
-  ],
-  "guide_to_pour": {
-    "gap_mm": 3.000000000000007,
-    "overlap_mm3": 0.0
-  },
-  "old_upper_opening_unfilled_mm3": 0.0,
   "clamps": [
     {
       "name": "aft",
@@ -197,125 +144,145 @@
       "insert_length_mm": 5.7,
       "insert_face_world_z_mm": 247.85,
       "head_seat_world_z_mm": 250.25,
-      "pilot_to_channel": {
+      "pilot_to_tube_channel": {
         "gap_mm": 4.198668940469449,
         "overlap_mm3": 0.0
       },
-      "head_to_channel": {
-        "gap_mm": 8.573303601967915,
+      "insert_to_reed_air": {
+        "gap_mm": 38.56408059210056,
         "overlap_mm3": 0.0
       },
-      "seating_gap_mm": 0.15000000000000568,
-      "screw_to_pcb": {
-        "gap_mm": 1.75,
+      "pilot_to_reed_air": {
+        "gap_mm": 37.62558609911892,
         "overlap_mm3": 0.0
       },
-      "driver_to_pcb": {
-        "gap_mm": 0.0,
-        "overlap_mm3": 402.12408484885447
-      },
-      "receiving_projection_mm": 7.599999999999994,
-      "screw_tip_air_mm": 1.4000000000000057,
-      "blind_backing_mm": 5.299999999999983
+      "nominal_seating_gap_mm": 0.15000000000000568
     },
     {
       "name": "fore-west",
       "axis_world_xy_mm": [
         -54.0,
-        219.3
+        205.60000000000002
       ],
       "screw_length_mm": 10.0,
       "insert": "RX-M3x5.7",
       "insert_length_mm": 5.7,
       "insert_face_world_z_mm": 247.85,
       "head_seat_world_z_mm": 250.25,
-      "pilot_to_channel": {
-        "gap_mm": 3.691673887931479,
+      "pilot_to_tube_channel": {
+        "gap_mm": 5.100000000000001,
         "overlap_mm3": 0.0
       },
-      "head_to_channel": {
-        "gap_mm": 3.7142890432165365,
+      "insert_to_reed_air": {
+        "gap_mm": 20.81713942145119,
         "overlap_mm3": 0.0
       },
-      "seating_gap_mm": 0.15000000000000568,
-      "screw_to_pcb": {
-        "gap_mm": 3.75,
+      "pilot_to_reed_air": {
+        "gap_mm": 21.083090195966502,
         "overlap_mm3": 0.0
       },
-      "driver_to_pcb": {
-        "gap_mm": 0.0,
-        "overlap_mm3": 117.83929425424789
-      },
-      "receiving_projection_mm": 7.599999999999994,
-      "screw_tip_air_mm": 1.4000000000000057,
-      "blind_backing_mm": 5.299999999999983
+      "nominal_seating_gap_mm": 0.15000000000000568
     },
     {
       "name": "fore-east",
       "axis_world_xy_mm": [
         -33.0,
-        219.3
+        205.60000000000002
       ],
       "screw_length_mm": 10.0,
       "insert": "RX-M3x5.7",
       "insert_length_mm": 5.7,
       "insert_face_world_z_mm": 247.85,
       "head_seat_world_z_mm": 250.25,
-      "pilot_to_channel": {
+      "pilot_to_tube_channel": {
         "gap_mm": 5.100000000000001,
         "overlap_mm3": 0.0
       },
-      "head_to_channel": {
-        "gap_mm": 4.585142453331685,
+      "insert_to_reed_air": {
+        "gap_mm": 2.8589484590635315,
         "overlap_mm3": 0.0
       },
-      "seating_gap_mm": 0.15000000000000568,
-      "screw_to_pcb": {
-        "gap_mm": 3.75,
+      "pilot_to_reed_air": {
+        "gap_mm": 3.116254619991368,
         "overlap_mm3": 0.0
       },
-      "driver_to_pcb": {
-        "gap_mm": 0.0,
-        "overlap_mm3": 75.1326945343321
-      },
-      "receiving_projection_mm": 7.599999999999994,
-      "screw_tip_air_mm": 1.4000000000000057,
-      "blind_backing_mm": 5.299999999999983
+      "nominal_seating_gap_mm": 0.15000000000000568
     }
   ],
-  "lift_reference_barycentric_weights": [
-    0.4304128233309417,
-    0.28479358833452917,
-    0.28479358833452917
-  ],
-  "lift_reference_inside_screw_triangle": true,
+  "reed_b_route": {
+    "points_mm": [
+      [
+        -32.5,
+        189.3,
+        232.4
+      ],
+      [
+        -32.5,
+        189.3,
+        241.4
+      ],
+      [
+        -23.0,
+        205.0,
+        241.4
+      ],
+      [
+        26.0,
+        205.0,
+        241.4
+      ],
+      [
+        26.0,
+        190.0,
+        241.4
+      ],
+      [
+        26.0,
+        190.0,
+        255.4
+      ]
+    ],
+    "bend_radius_mm": 5.5
+  },
+  "straight_section_x_span_mm": 6.799999999999997,
+  "straight_crown_world_z_mm": 251.20000000000002,
+  "roof_stock_at_straight_mm": 2.1999999999999886,
+  "cup_lid_overlap_mm3": 0.0,
+  "channel_to_cup_material_mm3": 0.0,
+  "channel_to_lid_material_mm3": 0.0,
+  "reed_air_obstruction_in_cup_mm3": 0.0,
+  "supported_roof_allowance_mm": 0.25,
   "source_sha256": {
-    "hardware/printed-parts/cold-core/_reservoir_b_fill.py": "dab11e80d7e7d2f05084c40053bc2f1e6991cc9ca510a947be7b2637ad4d38b0",
-    "hardware/printed-parts/cold-core/_above_core_mounts.py": "90f618faabe43edee6fdb2771babae6f1f2937700b68c5d73b65a36be36c11ce",
+    "hardware/printed-parts/cold-core/_reservoir_b_fill.py": "bb3cc99923b0e52aae8e939f0466e748799fd752391e83d44e8186f5866b0001",
+    "hardware/printed-parts/cold-core/_above_core_mounts.py": "c35f7abc5405355a99a352e18d9e94728156647a501c973cbbfc25db760f59b1",
+    "hardware/printed-parts/cold-core/_cold_core_interface.py": "cfcf16fab86a2cf55be17ed78349f892db961fccc5575dfbc13dbcf984987c2b",
     "hardware/printed-parts/cold-core/_foam_cap.py": "121616b48ff7dd2d5f5a8d7c1d643d8a5d0fe23bd206966c6e92ac9a2ae979f5",
-    "hardware/printed-parts/cold-core/_cold_core_interface.py": "793da6ba873785a8998fffd645f5021c6f7fc191cb720caff6f1d737131b0f2f",
-    "hardware/printed-parts/cold-core/foam-cap/foam_cap.py": "cebef7b55b072264a96b71698787c87970f7a487ea705016c641f14d8451640a"
+    "hardware/printed-parts/cold-core/_internal_routes.py": "b34cbec174119647ee3331f52c255b1f37e328302daa4adc7a16ac0e32e386d8",
+    "hardware/printed-parts/cold-core/foam-cap/foam_cap.py": "cebef7b55b072264a96b71698787c87970f7a487ea705016c641f14d8451640a",
+    "hardware/manifold-layout/above-core.json": "040047d7fb70ee58b6c0bc0f530e43f8360509f2e71cd7cf2d4fa3b3f59c9c4e",
+    "hardware/wiring/installed/retainers.py": "455e968ab1e71af7f28255682190fba154f3957a790740a1fc36c4e3d2bb32a1",
+    "hardware/printed-parts/cadlib/route_snap.py": "9b97c4703042890b38d36123506496ac3a1515cc799657c46b8f4abe28bf72ee"
   },
   "leaf_build_receipts": {
     "foam-cap-top": {
       "piece": "foam-cap-top",
       "valid": true,
       "solids": 1,
-      "faces": 441,
+      "faces": 303,
       "bounds_mm": [
         -141.20000009999998,
         -90.2000001,
         0.14999989999999894,
-        141.20000012213393,
+        141.20000010037143,
         90.2000001,
         23.6
       ],
-      "volume_mm3": 187572.37038763732,
-      "seconds": 19.926235874998383,
+      "volume_mm3": 188363.75746662752,
+      "seconds": 23.519413625006564,
       "source_sha256": {
-        "hardware/printed-parts/cold-core/_reservoir_b_fill.py": "dab11e80d7e7d2f05084c40053bc2f1e6991cc9ca510a947be7b2637ad4d38b0",
-        "hardware/printed-parts/cold-core/_above_core_mounts.py": "90f618faabe43edee6fdb2771babae6f1f2937700b68c5d73b65a36be36c11ce",
-        "hardware/printed-parts/cold-core/_cold_core_interface.py": "793da6ba873785a8998fffd645f5021c6f7fc191cb720caff6f1d737131b0f2f",
+        "hardware/printed-parts/cold-core/_reservoir_b_fill.py": "bb3cc99923b0e52aae8e939f0466e748799fd752391e83d44e8186f5866b0001",
+        "hardware/printed-parts/cold-core/_above_core_mounts.py": "c35f7abc5405355a99a352e18d9e94728156647a501c973cbbfc25db760f59b1",
+        "hardware/printed-parts/cold-core/_cold_core_interface.py": "cfcf16fab86a2cf55be17ed78349f892db961fccc5575dfbc13dbcf984987c2b",
         "hardware/printed-parts/cold-core/_foam_cap.py": "121616b48ff7dd2d5f5a8d7c1d643d8a5d0fe23bd206966c6e92ac9a2ae979f5",
         "hardware/printed-parts/cold-core/_internal_routes.py": "b34cbec174119647ee3331f52c255b1f37e328302daa4adc7a16ac0e32e386d8",
         "hardware/printed-parts/cold-core/foam-cap/foam_cap.py": "cebef7b55b072264a96b71698787c87970f7a487ea705016c641f14d8451640a",
@@ -324,30 +291,30 @@
         "hardware/printed-parts/cadlib/route_snap.py": "9b97c4703042890b38d36123506496ac3a1515cc799657c46b8f4abe28bf72ee"
       },
       "artifacts": {
-        "step": "a1e01f74048be10f915f63aa68f3843b3348c075d170adae6ce41c00cc1812d9",
-        "stl": "c5e51166a71e0fd03e32540fd584c811a0ddb8c62232f2e60a869e53eb90d67d",
-        "step.mesh": "47479c7171466c9043342316bc6bc796a3b4b1552359111507f75cca9f80568e"
+        "step": "43b74848b5901f46b109eff65a5a47ca5aafd244f1ad426fd0dd5b7ecc962100",
+        "stl": "84fc212b42e4a720cf33138cc0689a13306dd2b7d27810295ea31d20b88dbd11",
+        "step.mesh": "1af18e2a397674cbf49679b8071ef154bc44c046fefc8432a8206eddba7bbf72"
       }
     },
     "foam-cap-lid-top": {
       "piece": "foam-cap-lid-top",
       "valid": true,
       "solids": 1,
-      "faces": 247,
+      "faces": 244,
       "bounds_mm": [
         -141.20000009999998,
         -90.2000001,
-        -1.0000000177635683e-07,
-        141.2000001,
+        -1e-07,
+        141.20000009999998,
         97.7000001,
         50.650000000000034
       ],
-      "volume_mm3": 304971.5768655742,
-      "seconds": 11.991210625041276,
+      "volume_mm3": 305011.34784101177,
+      "seconds": 15.799698124988936,
       "source_sha256": {
-        "hardware/printed-parts/cold-core/_reservoir_b_fill.py": "dab11e80d7e7d2f05084c40053bc2f1e6991cc9ca510a947be7b2637ad4d38b0",
-        "hardware/printed-parts/cold-core/_above_core_mounts.py": "90f618faabe43edee6fdb2771babae6f1f2937700b68c5d73b65a36be36c11ce",
-        "hardware/printed-parts/cold-core/_cold_core_interface.py": "793da6ba873785a8998fffd645f5021c6f7fc191cb720caff6f1d737131b0f2f",
+        "hardware/printed-parts/cold-core/_reservoir_b_fill.py": "bb3cc99923b0e52aae8e939f0466e748799fd752391e83d44e8186f5866b0001",
+        "hardware/printed-parts/cold-core/_above_core_mounts.py": "c35f7abc5405355a99a352e18d9e94728156647a501c973cbbfc25db760f59b1",
+        "hardware/printed-parts/cold-core/_cold_core_interface.py": "cfcf16fab86a2cf55be17ed78349f892db961fccc5575dfbc13dbcf984987c2b",
         "hardware/printed-parts/cold-core/_foam_cap.py": "121616b48ff7dd2d5f5a8d7c1d643d8a5d0fe23bd206966c6e92ac9a2ae979f5",
         "hardware/printed-parts/cold-core/_internal_routes.py": "b34cbec174119647ee3331f52c255b1f37e328302daa4adc7a16ac0e32e386d8",
         "hardware/printed-parts/cold-core/foam-cap/foam_cap.py": "cebef7b55b072264a96b71698787c87970f7a487ea705016c641f14d8451640a",
@@ -356,16 +323,10 @@
         "hardware/printed-parts/cadlib/route_snap.py": "9b97c4703042890b38d36123506496ac3a1515cc799657c46b8f4abe28bf72ee"
       },
       "artifacts": {
-        "step": "78f297cf829c5119fdea0d87b552bcac88fb0f179a8f85153a49419c0f8383f2",
-        "stl": "548fa910203275b4f1911edadd4e4c4b7d1ef496a165807d1b3407954d86ff89",
-        "step.mesh": "30cb41b77cf7dbe0a913bbb869886b3a8686aa3df23f9240411129c3f35b589b"
+        "step": "a19de766bcf3a1f5f025145c7ad65ee042478ba1564cf5deb03a709c44b330e2",
+        "stl": "708183e19b63698e21b0452f1a8e4883ab4a561a668ff958a9d6d5b5a672ebec",
+        "step.mesh": "c7a98457830bf4dfbbf3ce1af9616493ee72b79419e372ab49a12fdd4249fe54"
       }
     }
-  },
-  "removed_parting_lip_point_distances_mm": [
-    0.28360289298484465,
-    0.5090241534435761,
-    0.4731017088441729
-  ],
-  "cup_mouth_relief_obstruction_mm3": 0.0
+  }
 }

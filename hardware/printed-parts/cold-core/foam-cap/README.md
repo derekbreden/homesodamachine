@@ -37,7 +37,7 @@ Each guide has a Ø7.5 mm bore; the water and soda columns have 3 mm radial stoc
 
 B-fill enters the cap's Y− face at world (−43.5, 182.6, 247.55) mm and follows
 an R14 turn to the existing reservoir seat at X−43.5/Y233.3. The continuous
-tube ends at Z228.15, 1 mm below the reservoir cap plate. Its Ø6.8 mm teardrop
+tube ends at Z228.15, 1 mm below the reservoir cap plate. Its circular Ø6.8 mm
 passage has 0.5 mm mouth lead-ins. One plain rectangular block occupies
 world X−60.0…−27.0/Y182.6…248.3 through the complete cup height; the lid closes
 the channel above it. The Ø20 foam-pour opening is at world (−73.0, 212.6),
@@ -52,7 +52,7 @@ printed-fit allowance, including where the screws clamp them.
 
 Three recessed M3 × 10 screws fasten the lid into RX-M3×5.7 inserts in the
 cup's filled stock. The aft axis is (−43.5, 242.3) mm; the fore pair is
-X−54.0/−33.0 at Y219.3 mm, aligned with the arc-to-straight inlet transition.
+X−54.0/−33.0 at Y205.6 mm, 23.0 mm aft of the inlet face.
 They form a triangle around the bend's lift
 region. Each blind insert pilot is Ø4 × 9 mm; the lid has a Ø3.3 clearance
 hole and a Ø5.8 × 3.15 mm head recess. The 5.7 mm insert receives the full
@@ -262,8 +262,8 @@ The upper passages follow the installed equipment:
   the temperature/earth bundle.
 
 B-fill's rectangular printed block fills its entire cup-height footprint.
-The existing Reed-B passage crosses their shared stock and retains its own
-bore subtraction. Mask the dry tube passage and its mouths for the cap pour.
+The Reed-B passage steps east to X−23 at Y205 before crossing the shared stock,
+clear of the fore-east clamp insert; its lower and upper entries retain their datums. Mask the dry tube passage and its mouths for the cap pour.
 Thread the tube with all three local lid clamps tightened, leaving its
 source end free for the final plumbing handoff. Lower its short end through
 the existing reservoir liquid grip as the core cap is installed.
