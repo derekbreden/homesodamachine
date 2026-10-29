@@ -746,15 +746,8 @@ water_outlet_climb_x = -48.5
 # never opened. Every turn keeps the stock bend radius.
 water_outlet_upper_climb_x = -35.0
 water_outlet_drift_z = (evap_tail_low_z + lldpe_tube_od + 2.0, 140.0)
-# THE TWO REED CABLES LEAVE BY THE LID, each up the channel its own column stands in. A reed
-# channel is a cavity open from the shell's floor to its top face (`_reed_channels`), so the
-# cable's way out is the slot it is already lying in and a bore in the cap over the mouth of it.
-# The column drops into the channel at `assembly/cold-core.md` step 7 and the cap goes on after
-# it, so what this bore passes is the cable and never the column. It stands on the cavity's own
-# centre, one figure for both sides.
-#   The bore is wider than the cavity and stands proud of it either side in X; what it owes is
-# that it OPEN on the cavity rather than clip its corner, which is `_reed_channels` bound
-# `reed-cable-conduit-stands-over-its-channel`.
+# Reservoir A's ribbon leaves through the cap. B's ribbon leaves the shell
+# rim through `_reed_b_outlet`; its dry channel and sensing axis stay fixed.
 reed_cable_conduit_x = reed_column_axis_x
 reed_cable_conduit_y = level_rod_y
 
@@ -779,7 +772,6 @@ cap_fluid_conduits = {
 # passage opens into the main foam cavity.
 cap_cable_floor_conduits = {
     "reed-cable-a": reed_cable_conduit_xy(+1),
-    "reed-cable-b": reed_cable_conduit_xy(-1),
     # The potted temperature probes and earth lead leave
     # the main foam cavity through one shared passage, west of the pump.
     "sensor-cable": (-36.0, -74.0),
@@ -791,7 +783,8 @@ cap_cable_conduits = {name: _above_mounts.cap_guide_xy(name, xy)
 cap_conduits = {**cap_fluid_conduits, **cap_cable_conduits}
 # Water, soda, A-fill, both draws and gas have aligned straight cap entries.
 # B-fill enters the cap's front face and turns to its retained lower reservoir seat.
-# Flexible cable entries retain their independently routed upper guides.
+# Reservoir A's cable guide is directly above its floor entry; the other
+# flexible cable entries retain their routed upper guides.
 cap_conduit_floor_xy = {
     **cap_conduits,
     **cap_cable_floor_conduits,

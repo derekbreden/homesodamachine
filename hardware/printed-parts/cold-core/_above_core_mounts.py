@@ -585,9 +585,9 @@ def passive_guide_points(lower_xy, upper_xy, start_z, end_z, bend_start_z, radiu
 def cable_guide_points(name):
     """Flexible loom corridor in world XYZ, retaining the original lower entry.
 
-    The horizontal station clears the cup floor and finishes both 5.5 mm turns
-    below the lid. Reed B and the sensor loom pass around the equipment insert
-    columns. The radius specifies a printed passage, not cable qualification.
+    Reservoir A rises straight over its reed channel. The sensor loom passes
+    around the equipment insert columns below the lid.
+    The radius specifies a printed passage, not cable qualification.
     """
     core = importlib.import_module('_cold_core_interface')
     spec = above_core.specification()
@@ -602,10 +602,7 @@ def cable_guide_points(name):
         return {'points_mm': ((*lower_xy, cup_bottom-1.),
                               (*upper_xy, spec['cap_face_z_mm']+2.)),
                 'bend_radius_mm': 5.5}
-    if name == 'reed-cable-b':
-        # The first leg steps east of the B-fill clamp insert at X-33/Y205.6.
-        plan = (lower_xy, (-23., 205.), (upper_xy[0], 205.), upper_xy)
-    elif name == 'sensor-cable':
+    if name == 'sensor-cable':
         plan = (lower_xy, (lower_xy[0], upper_xy[1]), upper_xy)
     else:
         plan = (lower_xy, upper_xy)

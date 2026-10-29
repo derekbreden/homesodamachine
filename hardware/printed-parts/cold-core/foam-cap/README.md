@@ -255,15 +255,24 @@ The upper passages follow the installed equipment:
   then rise along the clear west PCB approach to J7 and the common WAGO.
   The shared upper dressing uses nominal 3 mm bends; individual pin and reed
   fanouts have their measured model radii in the wiring worksheet.
-- The two reservoir reed looms and temperature/earth loom have separate lower entries and upper exits. Their
-  7.5 mm passages make 5.5 mm turns within the cup. Reed B crosses at world
-  Y205 around the PCB columns; the sensor loom follows its named curved corridor.
-  Nominal packed loom diameters are 5.0 mm for each reed bundle and 6.6 mm retained envelope for
-  the temperature/earth bundle.
+- Reservoir A's reed loom rises vertically through a straight Ø7.5 mm cup
+  and lid passage directly above its reed channel, at world X−32.5/Y458.3.
+  Its upper mouth is on the Z253.4 lid face. Thread the complete 5P ribbon
+  straight through this passage; its bends and jogging are dressed above
+  the lid. The nominal packed reed bundle is 5.0 mm across.
+- The temperature/earth loom follows its own 7.5 mm passage with 5.5 mm turns
+  within the cup. Its retained bundle envelope is 6.6 mm.
+- Reservoir B's reed loom leaves through the shell's top-open 10 × 6 mm rim
+  notch at world X−37.5…−27.5/Y182.6/Z227.4…233.4. Lay its complete 5P
+  ribbon in the open notch after the body foam has cured and the reed column
+  is installed. The cap's floor closes over this short dry exit. The loom
+  rises externally beside the PCB; its four signals reach J7 and its common
+  reaches the existing reed-common WAGO.
 
 B-fill's rectangular printed block fills its entire cup-height footprint.
-The Reed-B passage steps east to X−23 at Y205 before crossing the shared stock,
-clear of the fore-east clamp insert; its lower and upper entries retain their datums. Mask the dry tube passage and its mouths for the cap pour.
+Its surrounding stock is continuous around the tube channel and clamp
+pilots. Reservoir B's reed ribbon stays outside the cup and lid. Mask the
+dry tube passage and its mouths for the cap pour.
 Thread the tube with all three local lid clamps tightened, leaving its
 source end free for the final plumbing handoff. Lower its short end through
 the existing reservoir liquid grip as the core cap is installed.
