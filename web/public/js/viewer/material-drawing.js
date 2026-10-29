@@ -48,8 +48,6 @@ export function mountMaterialDrawing(wrapper) {
   download.textContent = "Download PDF"; download.setAttribute("download", "");
   menuBody.append(menuZoom, pages, full, download); menu.append(summary, menuBody);
   tools.append(zoom, menu); workspace.querySelector(".cad-document-slot").append(tools);
-  const subject = document.createElement("span"); subject.className = "cad-drawing-subject"; subject.hidden = true;
-  workspace.querySelector(".cad-context").append(subject);
 
   let selected = null, frame = null, showing = false;
   const command = (command, extra = {}) => frame?.contentWindow?.postMessage({
@@ -57,7 +55,7 @@ export function mountMaterialDrawing(wrapper) {
   }, location.origin);
   function showModel() {
     if (!showing) return false;
-    showing = false; menu.open = false; tools.hidden = true; subject.hidden = true;
+    showing = false; menu.open = false; tools.hidden = true;
     wrapper.classList.remove("drawing-open");
     if (frame) frame.hidden = true;
     model.setAttribute("aria-pressed", "true"); drawing.setAttribute("aria-pressed", "false");
@@ -75,18 +73,12 @@ export function mountMaterialDrawing(wrapper) {
       wrapper.append(frame);
     }
     showing = true; frame.hidden = false; tools.hidden = false;
-    subject.hidden = !selected.subject;
     wrapper.classList.add("drawing-open");
     model.setAttribute("aria-pressed", "false"); drawing.setAttribute("aria-pressed", "true");
     stopAnimate();
   }
   function setDrawing(doc) {
-    if (selected?.path === doc?.path) {
-      selected = doc;
-      subject.textContent = doc?.subject ? " / " + doc.subject : "";
-      subject.hidden = !showing || !doc?.subject;
-      return;
-    }
+    if (selected?.path === doc?.path) { selected = doc; return; }
     showModel(); frame?.remove(); frame = null; selected = doc;
     switcher.hidden = !doc;
     for (const control of [out, fit, into, menuOut, menuIn]) control.disabled = true;
@@ -94,7 +86,6 @@ export function mountMaterialDrawing(wrapper) {
       const path = doc.path.split("/").map(encodeURIComponent).join("/");
       full.href = "/read/" + path; download.href = "/docs/" + path + "?download=1";
       drawing.title = doc.title;
-      subject.textContent = doc.subject ? " / " + doc.subject : "";
     }
   }
   const mounted = () => { if (showing) stopAnimate(); };
@@ -124,6 +115,6 @@ export function mountMaterialDrawing(wrapper) {
     const closed = showModel(); if (closed) model.focus(); return closed;
   }, dispose: () => {
     window.removeEventListener(HSM_EVENTS.STEP_MOUNTED, mounted); window.removeEventListener("message", message);
-    frame?.remove(); switcher.remove(); tools.remove(); subject.remove();
+    frame?.remove(); switcher.remove(); tools.remove();
   } };
 }

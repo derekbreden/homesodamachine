@@ -303,7 +303,7 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
     }
     const drawings = current?.documents?.filter(doc => doc.kind === "engineering-drawing" && doc.path.endsWith(".pdf")) || [];
     const activeDrawing = drawings.find(doc => doc.path === drawingView?.drawingPath()) || drawings[0];
-    if (!keepDrawing) drawingView?.setDrawing(activeDrawing ? { ...activeDrawing, subject: selected !== root ? current.description : null } : null);
+    if (!keepDrawing) drawingView?.setDrawing(activeDrawing || null);
     headHost.replaceChildren(head);
     const rows = explodeBom(state.materialCatalog, root, options());
     const used = current ? materialUses(state.materialCatalog, current.id, options()) : { assemblies: [], tools: [], equipment: [] };
@@ -568,7 +568,7 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
         link.append(el("span", "material-document-kind", "Engineering drawing"));
         if (drawingView) link.addEventListener("click", event => {
           if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
-          event.preventDefault(); drawingView.showDrawing({ ...d, subject: selected !== root ? d.owner : null });
+          event.preventDefault(); drawingView.showDrawing(d);
         });
       }
       link.append(el("strong", "", d.title), el("span", "", ownDrawing(d) ? "Open in Drawing →" : "PDF" + (d.inherited ? " · " + d.owner : ""))); content.append(link);

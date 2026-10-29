@@ -207,9 +207,11 @@ The same response carries `costs`: [`lib/part-costs.js`](/web/lib/part-costs.js)
 
 3D thumbnails and plain model or material links start with the material companion collapsed. Search results carry `?panel=materials` and open it, including in new tabs and browser Back/Forward. The **Materials** button opens the pane beside the model on wider screens and as a sheet under it on phones, so the model stays in view either way; that manual choice applies to the current view. Component selection updates the material record while preserving whether the panel is open or closed. Closing the panel lets go of a part chosen in it, so the model is whole and opaque again under the same camera, and a drawing being read stays open; material records without geometry open directly as a full panel. `material-panel.js` owns pane visibility and its button state; navigation applies the destination's intent through `applyRoute`.
 
-The workspace has one toolbar for the part name or breadcrumb, **3D / Drawing**,
-drawing controls, **Materials**, and Close. It uses one row on desktop and two
-when the view controls need their own row on phones. The embedded reader renders
+The workspace has one toolbar for the breadcrumb, **3D / Drawing**, drawing
+controls, **Materials**, and Close; it carries no title. It uses one row on
+desktop and on phones in 3D. Phones give the drawing controls a second row, and
+the view switch joins them there beside a breadcrumb or on screens 360 px wide
+and narrower. The embedded reader renders
 the sheet without a second header. Zoom and Fit stay in the workspace toolbar;
 the drawing's **⋯** menu holds the full reader, PDF download, and pagination for
 multi-page documents. On narrow phones, zoom steps also move into that menu.

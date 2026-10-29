@@ -102,10 +102,10 @@ test("one workspace toolbar contains navigation, view mode and document controls
       const switcher = document.querySelector(".material-view-switch").getBoundingClientRect();
       const header = document.querySelector(".cad-workspace-header").getBoundingClientRect();
       return { height: header.height, sameRow: Math.abs((crumb.top + crumb.bottom) - (switcher.top + switcher.bottom)) < 2,
-        titleHidden: getComputedStyle(document.querySelector(".cv-filename")).display === "none" };
+        untitled: !document.querySelector(".cad-title, .cv-filename") };
     });
     assert.ok(layout.height <= 80 && layout.sameRow, "navigation and view mode should share one toolbar row");
-    assert.equal(layout.titleHidden, true);
+    assert.equal(layout.untitled, true, "the toolbar carries no title");
     await page.click(".material-view-switch button:last-child");
     await drawingReady(page);
     await page.screenshot({ path: path.join(reviewDir, "desktop-drawing.png") });
@@ -285,6 +285,8 @@ test("direct links and responsive layout apply the pane rules without storing a 
     await page.waitForFunction(() => document.querySelector(".material-panel").getBoundingClientRect().top
       >= document.querySelector(".cad-wrapper").getBoundingClientRect().bottom - 1);
     await assertPane(page, true);
+    assert.equal(await page.$eval(".cad-workspace-header", header => header.getBoundingClientRect().height <= 80), true,
+      "a phone keeps the 3D toolbar on one row");
     await page.click(".materials-toggle");
     await assertPane(page, false);
     await page.reload({ waitUntil: "domcontentloaded" });
