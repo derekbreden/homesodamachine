@@ -636,9 +636,9 @@
     ]
   },
   "terminal_status_counts": {
-    "modeled": 21,
     "nominal": 147,
-    "unlocated": 16
+    "modeled": 22,
+    "unlocated": 15
   },
   "terminals": {
     "J1.COM": {
@@ -2047,20 +2047,20 @@
     },
     "carbonator.PE": {
       "id": "carbonator.PE",
-      "part": "cold-core/carbonator-tube",
+      "part": "cold-core/carbonator-earth-tab",
       "point": [
-        63.50000000514755,
-        323.7999997999999,
-        194.4
+        -42.85,
+        347.0,
+        215.05
       ],
       "outward": [
-        1.0,
         0.0,
-        0.0
+        0.0,
+        1.0
       ],
-      "kind": "metal-bond",
-      "basis": "Metal landing unresolved; plastic cap fasteners do not establish continuity",
-      "status": "unlocated",
+      "kind": "ring-barrel",
+      "basis": "M3 closed ring on the welded top-plate earth tab; shared tab/fastener and ring-barrel datums",
+      "status": "modeled",
       "pin": ""
     },
     "compressor.H": {
@@ -6136,6 +6136,17 @@
       "terminal_ids": [
         "fuse.out"
       ]
+    },
+    "terminal-carbonator-pe": {
+      "kind": "M3 closed-ring earth terminal",
+      "terminal_ids": [
+        "carbonator.PE"
+      ],
+      "attachment": "cold-core/carbonator-earth-tab",
+      "status": "Nominal owned M3 / 22\u201316 AWG ring envelope; metal clamp defined by shared tab datums",
+      "tongue_thickness_mm": 0.8,
+      "barrel_diameter_mm": 4.2,
+      "barrel_length_mm": 6.0
     }
   },
   "bundles": {
@@ -8305,27 +8316,24 @@
           ],
           "exit_stations": [
             {
-              "terminal": "carbonator.PE",
-              "offset": [
-                -137.5,
-                36.0,
-                32.599999
+              "point_mm": [
+                -74.0,
+                359.8,
+                227.0
               ]
             },
             {
-              "terminal": "carbonator.PE",
-              "offset": [
-                -131.5,
-                36.0,
-                32.599999
+              "point_mm": [
+                -68.0,
+                359.8,
+                227.0
               ]
             },
             {
-              "terminal": "carbonator.PE",
-              "offset": [
-                4.0,
-                0.0,
-                17.599999
+              "point_mm": [
+                -42.85,
+                347.0,
+                224.0
               ]
             }
           ],
@@ -12845,7 +12853,7 @@
       "stock": "earth16",
       "schedule": "earth bonds",
       "service": "fixed",
-      "note": "Carbonator metal landing is unresolved; a plastic cap screw is not an electrical bond.",
+      "note": "Closed ring clamped directly to the welded stainless top-plate earth tab; fitted before the body foam pour.",
       "points_mm": [
         [
           32.5,
@@ -12963,29 +12971,29 @@
           230.4
         ],
         [
-          -73.99999999485246,
-          359.7999997999999,
-          226.999999
+          -74.0,
+          359.8,
+          227.0
         ],
         [
-          -67.99999999485246,
-          359.7999997999999,
-          226.999999
+          -68.0,
+          359.8,
+          227.0
         ],
         [
-          67.50000000514754,
-          323.7999997999999,
-          211.999999
+          -42.85,
+          347.0,
+          224.0
         ],
         [
-          67.50000000514754,
-          323.7999997999999,
-          194.4
+          -42.85,
+          347.0,
+          219.05
         ],
         [
-          63.50000000514755,
-          323.7999997999999,
-          194.4
+          -42.85,
+          347.0,
+          215.05
         ]
       ],
       "segments": [
@@ -13529,154 +13537,119 @@
             232.4
           ],
           "end_mm": [
-            -73.99999999711737,
-            359.79999988799995,
-            229.37599944000002
+            -74.0,
+            359.8,
+            229.376
           ],
-          "length_mm": 3.0240005599999926
+          "length_mm": 3.024000000000001
         },
         {
           "kind": "arc",
           "start_mm": [
-            -73.99999999711737,
-            359.79999988799995,
-            229.37599944000002
+            -74.0,
+            359.8,
+            229.376
           ],
           "midpoint_mm": [
-            -73.30408557887945,
-            359.79999982577453,
-            227.6959134166364
+            -73.30408571209924,
+            359.8,
+            227.69591428790076
           ],
           "end_mm": [
-            -71.62399955485246,
-            359.7999997999999,
-            226.999999
+            -71.624,
+            359.8,
+            227.0
           ],
-          "radius_mm": 2.3760004422649206,
-          "angle_radians": 1.5707963258416484,
-          "length_mm": 3.732212764907869
-        },
-        {
-          "kind": "line",
-          "start_mm": [
-            -71.62399955485246,
-            359.7999997999999,
-            226.999999
-          ],
-          "end_mm": [
-            -68.42314511193213,
-            359.7999997999999,
-            226.999999
-          ],
-          "length_mm": 3.200854442920331
-        },
-        {
-          "kind": "arc",
-          "start_mm": [
-            -68.42314511193213,
-            359.7999997999999,
-            226.999999
-          ],
-          "midpoint_mm": [
-            -68.0041473740606,
-            359.7728576928332,
-            226.98868978868055
-          ],
-          "end_mm": [
-            -67.59336309505301,
-            359.6919634280975,
-            226.95498384504066
-          ],
-          "radius_mm": 3.0,
-          "angle_radians": 0.2802480247812884,
-          "length_mm": 0.8407440743438652
-        },
-        {
-          "kind": "line",
-          "start_mm": [
-            -67.59336309505301,
-            359.6919634280975,
-            226.95498384504066
-          ],
-          "end_mm": [
-            64.90903245454119,
-            324.4883749425964,
-            212.28682197608188
-          ],
-          "length_mm": 137.88158847812716
-        },
-        {
-          "kind": "arc",
-          "start_mm": [
-            64.90903245454119,
-            324.4883749425964,
-            212.28682197608188
-          ],
-          "midpoint_mm": [
-            66.7570780012276,
-            323.9973812918163,
-            211.30915891800268
-          ],
-          "end_mm": [
-            67.50000000514754,
-            323.7999997999999,
-            209.30384607317106
-          ],
-          "radius_mm": 3.0,
-          "angle_radians": 1.4642123298620362,
-          "length_mm": 4.392636989586109
-        },
-        {
-          "kind": "line",
-          "start_mm": [
-            67.50000000514754,
-            323.7999997999999,
-            209.30384607317106
-          ],
-          "end_mm": [
-            67.50000000514754,
-            323.7999997999999,
-            196.16
-          ],
-          "length_mm": 13.143846073171062
-        },
-        {
-          "kind": "arc",
-          "start_mm": [
-            67.50000000514754,
-            323.7999997999999,
-            196.16
-          ],
-          "midpoint_mm": [
-            66.98450794003587,
-            323.7999997999999,
-            194.91549206511166
-          ],
-          "end_mm": [
-            65.74000000514755,
-            323.7999997999999,
-            194.4
-          ],
-          "radius_mm": 1.7599999999999967,
+          "radius_mm": 2.376000000000002,
           "angle_radians": 1.5707963267948966,
-          "length_mm": 2.7646015351590125
+          "length_mm": 3.7322120724646775
         },
         {
           "kind": "line",
           "start_mm": [
-            65.74000000514755,
-            323.7999997999999,
-            194.4
+            -71.624,
+            359.8,
+            227.0
           ],
           "end_mm": [
-            63.50000000514755,
-            323.7999997999999,
-            194.4
+            -68.73680911224515,
+            359.8,
+            227.0
           ],
-          "length_mm": 2.240000000000002
+          "length_mm": 2.8871908877548407
+        },
+        {
+          "kind": "arc",
+          "start_mm": [
+            -68.73680911224515,
+            359.8,
+            227.0
+          ],
+          "midpoint_mm": [
+            -68.02126512427492,
+            359.7157010757757,
+            226.98024243963494
+          ],
+          "end_mm": [
+            -67.34702391493614,
+            359.46767022310866,
+            226.92211020854108
+          ],
+          "radius_mm": 3.0,
+          "angle_radians": 0.48167216648890365,
+          "length_mm": 1.445016499466711
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            -67.34702391493614,
+            359.46767022310866,
+            226.92211020854108
+          ],
+          "end_mm": [
+            -45.24100837504797,
+            348.2168949185135,
+            224.2852097465266
+          ],
+          "length_mm": 24.944119789057257
+        },
+        {
+          "kind": "arc",
+          "start_mm": [
+            -45.24100837504797,
+            348.2168949185135,
+            224.2852097465266
+          ],
+          "midpoint_mm": [
+            -43.53567520591512,
+            347.34897187418346,
+            223.30808393860647
+          ],
+          "end_mm": [
+            -42.85,
+            347.0,
+            221.3020194789867
+          ],
+          "radius_mm": 3.0000000000000004,
+          "angle_radians": 1.4648861317201989,
+          "length_mm": 4.394658395160597
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            -42.85,
+            347.0,
+            221.3020194789867
+          ],
+          "end_mm": [
+            -42.85,
+            347.0,
+            215.05
+          ],
+          "length_mm": 6.252019478986682
         }
       ],
-      "length_mm": 439.211,
+      "length_mm": 314.67,
       "minimum_bend_mm": 0.31448950571592477,
       "route_status": "proposed",
       "routing_note": "Three 22 AWG temperature-bus conductors and one 16 AWG protective-earth conductor share the native sensor passage."
@@ -47167,20 +47140,20 @@
     "Nominal and unlocated terminals remain visible in the graph and manifest; no exact donor termination is invented.",
     "The electrical graph does not qualify grounding, mains isolation, current capacity or energization."
   ],
-  "physical_scene_sha256": "dec1c80236221b0975e892770df3338844a69d301cd4d0252fb7fe1434164d62",
+  "physical_scene_sha256": "d801bc724e20be2f2d8fda0888346dae6e84a81bde56d185c60d083f17536d0d",
   "source_sha256": {
-    "hardware/wiring/installed/build.py": "f2b5afebfab50efd9f88ea86bd0be872412c43b38333e6521b87b4e6b1e62f90",
-    "hardware/wiring/installed/connections.py": "11528d05f94efb932dd4b9eee07f01578a401fc8bf37ff9d9cab50b3bd058000",
+    "hardware/wiring/installed/build.py": "123bf9cce507123738d9bcb1da96aaf320e2975667986b219d1dbf17e3c89889",
+    "hardware/wiring/installed/connections.py": "685ca2826b330d1ef21845168fd29284e360161b4c28775d80df075dbe494cfc",
     "hardware/wiring/installed/model.py": "66f6a6ea2228d7a75bb9175f803c9b1c2b02ea05ac074b5da160e66a6722cfac",
-    "hardware/wiring/installed/terminals.py": "5ac4dd6b1ce78e7ebd9106006f9bd52bc94892a7d7f1d7f06430ef8d1ba6da1f",
+    "hardware/wiring/installed/terminals.py": "699ec5c76cd561e698fbab628da2f3ff2d657a509a166d9c83dbdadf976dcde2",
     "hardware/wiring/installed/routes.py": "416f2480ff534bac3ea0600a374a66c971e997fec2313305ee561cad53fcac8a",
     "hardware/wiring/installed/retainers.py": "455e968ab1e71af7f28255682190fba154f3957a790740a1fc36c4e3d2bb32a1",
     "hardware/wiring/installed/manifold_bank_routes.py": "a6721e4a66c4cb733b076b1353ffebbd02a3cbf839cc46f088bb709420dafa5f",
     "hardware/wiring/installed/route-overrides.json": "0b25349fc1b91b8ac626de3f7071c87dd0cd0c9164f4cdc4733759bb7f7f782b",
-    "hardware/wiring/installed/terminations.py": "3ce8d897dc7b2266bae24bfcbfc4210c96f584ffb044f57b17b503719d2ac7e6",
+    "hardware/wiring/installed/terminations.py": "4254cae8bed69bcf4e41039d0e235e3af886326f06b5df32769dc8f4e9513707",
     "hardware/wiring/installed/step_merge.py": "9766a94b2b75fdb65342c5eb110dc7d68a15dbe8011b95dd6434b629921450db",
     "hardware/wiring/installed/bundles.py": "0bb65b7683e948ef063a5377ddf5d8401565f0fa6c26f16f23d500584784d0a7",
-    "hardware/wiring/installed/bundle-routes.json": "3b064e26066a45ae5f09af7648d18357d3569fc01c940da21205d9049902f3e1",
+    "hardware/wiring/installed/bundle-routes.json": "00b144939a4dbc9926d133e1cc9d3e086c322ef8a3b7be356b8f3ad3ee29f53e",
     "hardware/wiring/installed/connector-map.json": "8986c0f9b7e7394d965af41546f90fd4425f8ccb98a6360db6bbff8ba64a2126",
     "hardware/manifold-layout/above_core.py": "0ad87c7c252ab3cfe803c0f2a63a9374d06d0005591509031328ad6e3203988f",
     "hardware/manifold-layout/above-core.json": "040047d7fb70ee58b6c0bc0f530e43f8360509f2e71cd7cf2d4fa3b3f59c9c4e",
@@ -47189,7 +47162,11 @@
     "hardware/printed-parts/enclosure/enclosure/enclosure.py": "c3b98b8e4bc113dc0952372d5ab00bee7e76081b9b38681a76674118de863d9b",
     "hardware/printed-parts/enclosure/enclosure/_fixed_pump_mount.py": "465214f98f1930f45a8f79a774db9def71b9070687159f7cad5682781087ca00",
     "hardware/printed-parts/cold-core/_above_core_mounts.py": "90f618faabe43edee6fdb2771babae6f1f2937700b68c5d73b65a36be36c11ce",
-    "hardware/printed-parts/cold-core/_cold_core_interface.py": "15ddcac75e8f5699b1b225b73f92bfc70f51f238f4eeeb58407005cbb9ab9bbd",
+    "hardware/printed-parts/cold-core/_cold_core_interface.py": "cfcf16fab86a2cf55be17ed78349f892db961fccc5575dfbc13dbcf984987c2b",
+    "hardware/printed-parts/cold-core/_foam_cap.py": "121616b48ff7dd2d5f5a8d7c1d643d8a5d0fe23bd206966c6e92ac9a2ae979f5",
+    "hardware/cold-core-layout/_carbonator.py": "485eafd424f043da2fe2063dbfdba6846795ebfe1f15abbb424f49c9fe3081e2",
+    "hardware/cold-core-layout/_carbonator_bond.py": "d4f9f65e51c802bbf35eeb6d0891c24b626c211834b3077fb6ae970386ef7723",
+    "hardware/reference/ground-ring-stack/ground_ring_stack.py": "9d4b4ca2b5a61f00667412a2f247aca6fd3e4a80e516cdeed0ada0afa659ad73",
     "hardware/assembly/harnesses/j2.json": "34ef4ac5c41910851100fd36a3f549b2028586440e250d0ebce949c8783c30a5",
     "hardware/assembly/harnesses/j13.json": "ea324cc287dce7e8040ab8d3db355c8b6648cf9737dbd8e5598963eb33a2b7e1"
   }
