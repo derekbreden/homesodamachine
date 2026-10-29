@@ -1,0 +1,326 @@
+{
+  "views": [
+    {
+      "name": "b-route",
+      "caption": "B's complete five-conductor ribbon leaves below the cap and rises outside the B-fill block.",
+      "before": "b-route-before.webp",
+      "after": "b-route-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 537.9,
+          "y": 596.5,
+          "r": 15.1,
+          "label": "Rim outlet",
+          "at": [
+            -32.5,
+            182.6,
+            230.4
+          ]
+        },
+        {
+          "x": 760.4,
+          "y": 427.1,
+          "r": 13.6,
+          "label": "Cap exit closed",
+          "at": [
+            26,
+            190,
+            253.4
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          -113.23559897412309,
+          10.208001865230756,
+          336.55639916064615
+        ],
+        "target": [
+          -5,
+          207,
+          248
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 97.17627154288579,
+        "far": 819.7817989986688,
+        "aspect": 1.3333333333333333
+      },
+      "highlight": [
+        "wire-J7-RB*",
+        "wire-J7-earth-4"
+      ],
+      "ghost": [],
+      "only": [
+        "cold-core/foam-shell",
+        "cold-core/foam-cap-top",
+        "cold-core/foam-cap-lid-top",
+        "wire-J7-RB*",
+        "wire-J7-earth-4"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "0cb290e99c707b299210c2a7afcf6519e642393f21c764dde28075bba889a465",
+          "commit": "2a03481fc061c1bcb9ed91832c5490efe07bb808",
+          "taken": "2026-10-29T04:51:29.539Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "e80649f09b42f2244f592460aa6c900d379af92c182a8f3d82abc3890a849e53",
+          "commit": "c269b3b1f5c11577cb763cd6c9145f67fd13fb27",
+          "published": true
+        }
+      },
+      "changed": [
+        "wire-J7-RB2",
+        "wire-J7-RB3",
+        "wire-J7-RB1",
+        "wire-J7-RB4",
+        "wire-J7-earth-4",
+        "wire-J6-RA3",
+        "wire-J6-RA2",
+        "wire-J6-RA4",
+        "wire-J6-GND",
+        "wire-J6-RA1",
+        "cold-core/foam-cap-top",
+        "cold-core/foam-cap-lid-top",
+        "cold-core/foam-shell"
+      ],
+      "withinMeshing": [
+        "wire-AC5-N",
+        "wire-J4-IO26"
+      ]
+    },
+    {
+      "name": "b-notch",
+      "caption": "The rim opening is 10 mm wide and extends only 6 mm down; the shell remains closed below it.",
+      "before": "b-notch-before.webp",
+      "after": "b-notch-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 505.6,
+          "y": 451.6,
+          "r": 13.2,
+          "label": "10 mm wide",
+          "at": [
+            -37.5,
+            182.6,
+            230.4
+          ]
+        },
+        {
+          "x": 600,
+          "y": 506.3,
+          "r": 13.1,
+          "label": "6 mm down",
+          "at": [
+            -32.5,
+            182.6,
+            227.4
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          -32.5,
+          126.4121203887344,
+          242.84933351447845
+        ],
+        "target": [
+          -32.5,
+          183,
+          230.4
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 0.4282963491490757,
+        "far": 651.4522419041101,
+        "aspect": 1.3333333333333333
+      },
+      "highlight": [
+        "wire-J7-RB*",
+        "wire-J7-earth-4"
+      ],
+      "ghost": [],
+      "only": [
+        "cold-core/foam-shell",
+        "cold-core/foam-cap-top",
+        "wire-J7-RB*",
+        "wire-J7-earth-4"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "0cb290e99c707b299210c2a7afcf6519e642393f21c764dde28075bba889a465",
+          "commit": "2a03481fc061c1bcb9ed91832c5490efe07bb808",
+          "taken": "2026-10-29T04:51:29.539Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "e80649f09b42f2244f592460aa6c900d379af92c182a8f3d82abc3890a849e53",
+          "commit": "c269b3b1f5c11577cb763cd6c9145f67fd13fb27",
+          "published": true
+        }
+      },
+      "changed": [
+        "wire-J7-RB2",
+        "wire-J7-RB3",
+        "wire-J7-RB1",
+        "wire-J7-RB4",
+        "wire-J7-earth-4",
+        "wire-J6-RA3",
+        "wire-J6-RA2",
+        "wire-J6-RA4",
+        "wire-J6-GND",
+        "wire-J6-RA1",
+        "cold-core/foam-cap-top",
+        "cold-core/foam-cap-lid-top",
+        "cold-core/foam-shell"
+      ],
+      "withinMeshing": [
+        "wire-AC5-N",
+        "wire-J4-IO26"
+      ]
+    },
+    {
+      "name": "a-passage",
+      "caption": "A's passage rises straight over its reed channel; its ribbon turns above the lid and below the network jack.",
+      "before": "a-passage-before.webp",
+      "after": "a-passage-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 671,
+          "y": 535.5,
+          "r": 11.6,
+          "label": "Straight passage",
+          "at": [
+            -32.5,
+            458.3,
+            244
+          ]
+        },
+        {
+          "x": 663.1,
+          "y": 404.3,
+          "r": 11.5,
+          "label": "Turn above lid",
+          "at": [
+            -32.5,
+            454,
+            260.5
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          7.158863083993239,
+          588.3512925963314,
+          282.4088896501707
+        ],
+        "target": [
+          -25,
+          450,
+          254
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 14.847039680668786,
+        "far": 719.049345904702,
+        "aspect": 1.3333333333333333,
+        "section": {
+          "at": [
+            -32.5,
+            458.3,
+            243.5
+          ],
+          "normal": [
+            0.226408,
+            0.974033,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [
+        "wire-J6-*"
+      ],
+      "ghost": [],
+      "only": [
+        "cold-core/foam-cap-top",
+        "cold-core/foam-cap-lid-top",
+        "wire-J6-*",
+        "keystone*"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "0cb290e99c707b299210c2a7afcf6519e642393f21c764dde28075bba889a465",
+          "commit": "2a03481fc061c1bcb9ed91832c5490efe07bb808",
+          "taken": "2026-10-29T04:51:29.539Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "9469a3b0cb83436165cc2f0abbdc1f3501b5791d64225c5aa22ca0524ad2b173",
+          "commit": "f9ed9e601de5cedaa0d397ded53e825dcd03e94c",
+          "published": true
+        }
+      },
+      "changed": [
+        "wire-J7-RB2",
+        "wire-J7-RB3",
+        "wire-J7-RB1",
+        "wire-J7-RB4",
+        "wire-J7-earth-4",
+        "wire-J6-RA3",
+        "wire-J6-RA2",
+        "wire-J6-RA4",
+        "wire-J6-GND",
+        "wire-J6-RA1",
+        "cold-core/foam-cap-top",
+        "cold-core/foam-cap-lid-top",
+        "cold-core/foam-shell"
+      ],
+      "withinMeshing": [
+        "wire-AC5-N",
+        "wire-J4-IO26"
+      ]
+    }
+  ]
+}
