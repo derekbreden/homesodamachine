@@ -120,6 +120,10 @@ def write_manifest(manifest,scene_step):
            ROOT/'hardware/printed-parts/enclosure/enclosure/_fixed_pump_mount.py',
            ROOT/'hardware/printed-parts/cold-core/_above_core_mounts.py',
            ROOT/'hardware/printed-parts/cold-core/_cold_core_interface.py',
+           ROOT/'hardware/printed-parts/cold-core/_foam_cap.py',
+           ROOT/'hardware/cold-core-layout/_carbonator.py',
+           ROOT/'hardware/cold-core-layout/_carbonator_bond.py',
+           ROOT/'hardware/reference/ground-ring-stack/ground_ring_stack.py',
            ROOT/'hardware/assembly/harnesses/j2.json',ROOT/'hardware/assembly/harnesses/j13.json']
     manifest['source_sha256']={str(p.relative_to(ROOT)):digest(p) for p in paths}
     OUT.with_suffix('.json').write_text(json.dumps(manifest,indent=2)+'\n')

@@ -28,6 +28,26 @@ def centre(shape):
     return tuple((a+b)/2 for a, b in zip(lo, hi))
 
 
+def carbonator_bond_datums(ea):
+    """Carry the shared steel contact and crimp mouth with the cold core."""
+    import above_core as layout
+    from _foam_cap import top_cap_height
+    bond = ea._cca._V._bond
+    d = bond.datums(ea._cca._V.top_plate_z[1])
+    def world(point):
+        x, y, z = point
+        return layout.point(layout.cap_lid_pose(),
+                            (-x, -y, z - ea._cci.foam_shell_outer_height
+                             - top_cap_height))
+    def axis(direction):
+        return layout.vector(layout.cap_lid_pose()['rotation'],
+                             (-direction[0], -direction[1], direction[2]))
+    return {**d, 'contact_point_mm': world(d['contact_point_mm']),
+            'contact_outward': axis(d['contact_outward']),
+            'wire_exit_mm': world(d['wire_exit_mm']),
+            'wire_outward': axis(d['wire_outward'])}
+
+
 class Attachments:
     def __init__(self, scene, ea):
         self.scene = {n.replace("_", "-"): s for n, (s, _c) in scene.items()
@@ -360,9 +380,13 @@ class Attachments:
         for i,label in enumerate(('positive','negative')):
             self.put('diaphragm.'+label,'g-ganen-pump',(c[0]+(i-.5)*4.,hi[1],c[2]),(0,1,0),'factory-lead',
                      'Proposed motor-lead approach; scan records casing/lead transition regions, not terminal polarity','unlocated')
-        lo,hi=bounds(self.part('carbonator-tube'));c=centre(self.part('carbonator-tube'))
-        self.put('carbonator.PE','cold-core/carbonator-tube',(hi[0],c[1],hi[2]-10),(1,0,0),'metal-bond',
-                 'Metal landing unresolved; plastic cap fasteners do not establish continuity','unlocated')
+        # The terminal is the ring's wire mouth, rather than an arbitrary point
+        # on the vessel bounds. Carry its shared steel/fastener datums through
+        # the same cap pose as the rest of the cold core.
+        d = carbonator_bond_datums(self.ea)
+        self.put('carbonator.PE','cold-core/carbonator-earth-tab',
+                 d['wire_exit_mm'],d['wire_outward'],'ring-barrel',
+                 'M3 closed ring on the welded top-plate earth tab; shared tab/fastener and ring-barrel datums')
 
     def record(self):
         return {k:asdict(v) for k,v in sorted(self.terminals.items())}
