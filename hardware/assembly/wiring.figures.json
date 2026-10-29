@@ -12,8 +12,6 @@
     "COMP_LEAD_AWG": "18 AWG",
     "COMP_LEAD_LEN": "~700 mm",
     "DC_BUS_V": "12 V",
-    "EARTH_BUS_LEN": "~400 mm",
-    "EARTH_CARBONATOR_LEN": "~500 mm",
     "FAN_RUN_LEN": "~650 mm",
     "JOIN_LEN": "~300 mm",
     "JST_PITCH": "2.5 mm",

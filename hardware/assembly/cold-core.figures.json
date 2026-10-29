@@ -28,7 +28,7 @@
     "POUR_D": "20 mm",
     "PROT_INLET": "200 mm",
     "PROT_OUTLET": "175 mm",
-    "REED_CONDUIT_XY": "reed-cable-a (130.2, 14), reed-cable-b (-133.8, -26)",
+    "REED_CONDUIT_XY": "reed-cable-a (134.5, 32.5)",
     "REED_HIGH_Z": "86.484 mm",
     "REED_LOW_Z": "58.332 mm",
     "RESERVOIR_GAP": "0.25 mm",
