@@ -1,0 +1,308 @@
+{
+  "scope": "Approved cable bank, retained original PCB and all ten plugs. Exact native local body/root/cavity check against d073 appliance. Flexible conductors are redressed separately; loading is a straight nominal lead/web envelope toZ290, with the removable funnel frame absent.",
+  "source_native_sha256": "d073f62616bef15232d55ecdb8b1f843cf118d917750f90408eeb6a380428189",
+  "site": {
+    "id": "front-manifold-bank",
+    "host": "foam-cap-lid-top",
+    "origin": [
+      70.0,
+      192.6,
+      253.4
+    ],
+    "seat_depth": 2.2,
+    "seat_heights": [
+      13.3,
+      7.75
+    ],
+    "span": 16.0,
+    "stock": 3.0,
+    "beak": 0.75,
+    "target_centers": {
+      "J1-OUT8": [
+        74.1,
+        192.6,
+        257.5
+      ],
+      "J1-OUT7": [
+        74.1,
+        192.6,
+        259.35
+      ],
+      "J1-OUT6": [
+        74.1,
+        192.6,
+        261.2
+      ],
+      "J1-OUT5": [
+        74.1,
+        192.6,
+        263.05
+      ],
+      "J1-OUT4": [
+        74.1,
+        192.6,
+        264.90000000000003
+      ],
+      "J1-OUT3": [
+        74.1,
+        192.6,
+        266.75
+      ],
+      "J1-COM": [
+        74.1,
+        192.6,
+        268.6
+      ],
+      "J2-COM": [
+        79.3,
+        192.6,
+        257.5
+      ],
+      "J2-FAN": [
+        79.3,
+        192.6,
+        259.34999999999997
+      ],
+      "J2-OUT2": [
+        79.3,
+        192.6,
+        261.2
+      ],
+      "J2-OUT1": [
+        79.3,
+        192.6,
+        263.04999999999995
+      ]
+    },
+    "stock_basis": "Eleven nominal 1.70 mm insulated 22 AWG leads on 1.85 mm pitch; the V-A, V-B and V-K branches split before this bank.",
+    "fit_scope": "The 2.2 mm depth, retaining lip and four-lead section use the accepted cable coupon. The seven-lead grouping and installed dressing retain their physical-fit scope."
+  },
+  "bank_bounds_mm": [
+    [
+      70.0,
+      184.6,
+      253.3
+    ],
+    [
+      83.4,
+      200.6,
+      273.45
+    ]
+  ],
+  "bank_valid": true,
+  "bank_solids": 1,
+  "union_valid": true,
+  "union_solids": 1,
+  "root_overlap_mm3": 21.43641918923537,
+  "added_volume_mm3": 2913.00347097998,
+  "nominal_seated_leads": [
+    {
+      "id": "J1-OUT8",
+      "bank_overlap_mm3": 0
+    },
+    {
+      "id": "J1-OUT7",
+      "bank_overlap_mm3": 0
+    },
+    {
+      "id": "J1-OUT6",
+      "bank_overlap_mm3": 0
+    },
+    {
+      "id": "J1-OUT5",
+      "bank_overlap_mm3": 0
+    },
+    {
+      "id": "J1-OUT4",
+      "bank_overlap_mm3": 0
+    },
+    {
+      "id": "J1-OUT3",
+      "bank_overlap_mm3": 0
+    },
+    {
+      "id": "J1-COM",
+      "bank_overlap_mm3": 0
+    },
+    {
+      "id": "J2-COM",
+      "bank_overlap_mm3": 0
+    },
+    {
+      "id": "J2-FAN",
+      "bank_overlap_mm3": 0
+    },
+    {
+      "id": "J2-OUT2",
+      "bank_overlap_mm3": 0
+    },
+    {
+      "id": "J2-OUT1",
+      "bank_overlap_mm3": 0
+    }
+  ],
+  "neighbors": [
+    {
+      "name": "wago-mana",
+      "bank_gap_mm": 2.6499999999999915,
+      "bank_overlap_mm3": 0.0,
+      "loading_overlap_mm3": {
+        "J1": 0.0,
+        "J2": 0.0
+      }
+    },
+    {
+      "name": "tube-fluid-14",
+      "bank_gap_mm": 2.825000000000003,
+      "bank_overlap_mm3": 0.0,
+      "loading_overlap_mm3": {
+        "J1": 0.0,
+        "J2": 0.0
+      }
+    },
+    {
+      "name": "tube-fluid-16",
+      "bank_gap_mm": 16.325000000001424,
+      "bank_overlap_mm3": 0.0,
+      "loading_overlap_mm3": {
+        "J1": 0.0,
+        "J2": 0.0
+      }
+    },
+    {
+      "name": "464/cold-core/foam-cap-top",
+      "bank_gap_mm": 5.450000000000017,
+      "bank_overlap_mm3": 0.0,
+      "loading_overlap_mm3": {
+        "J1": 0.0,
+        "J2": 0.0
+      }
+    },
+    {
+      "name": "464/cold-core/foam-cap-lid-top",
+      "bank_gap_mm": 0.0,
+      "bank_overlap_mm3": 21.43641918923537,
+      "loading_overlap_mm3": {
+        "J1": 0.0,
+        "J2": 0.0
+      }
+    },
+    {
+      "name": "enclosure-front-top",
+      "bank_gap_mm": 8.099999999999994,
+      "bank_overlap_mm3": 0.0,
+      "loading_overlap_mm3": {
+        "J1": 0.0,
+        "J2": 0.0
+      }
+    },
+    {
+      "name": "tube-fluid-18",
+      "bank_gap_mm": 16.359999999999985,
+      "bank_overlap_mm3": 0.0,
+      "loading_overlap_mm3": {
+        "J1": 0.0,
+        "J2": 0.0
+      }
+    },
+    {
+      "name": "enclosure-back-top",
+      "bank_gap_mm": 8.099999999999994,
+      "bank_overlap_mm3": 0.0,
+      "loading_overlap_mm3": {
+        "J1": 0.0,
+        "J2": 0.0
+      }
+    },
+    {
+      "name": "installed-wiring/wire-PE-carbonator",
+      "bank_gap_mm": 35.18083674251514,
+      "bank_overlap_mm3": 0.0,
+      "loading_overlap_mm3": {
+        "J1": 0.0,
+        "J2": 0.0
+      }
+    },
+    {
+      "name": "installed-wiring/wire-J1-COM",
+      "bank_gap_mm": 2.6500000000000057,
+      "bank_overlap_mm3": 0.0,
+      "loading_overlap_mm3": {
+        "J1": 0.0,
+        "J2": 0.0
+      }
+    },
+    {
+      "name": "installed-wiring/wire-J1-positive-A",
+      "bank_gap_mm": 2.5982595892083675,
+      "bank_overlap_mm3": 0.0,
+      "loading_overlap_mm3": {
+        "J1": 0.0,
+        "J2": 0.0
+      }
+    },
+    {
+      "name": "installed-wiring/wire-J1-positive-C",
+      "bank_gap_mm": 8.677837812924151,
+      "bank_overlap_mm3": 0.0,
+      "loading_overlap_mm3": {
+        "J1": 0.0,
+        "J2": 0.0
+      }
+    },
+    {
+      "name": "installed-wiring/wire-J1-positive-D",
+      "bank_gap_mm": 12.457236556566269,
+      "bank_overlap_mm3": 0.0,
+      "loading_overlap_mm3": {
+        "J1": 0.0,
+        "J2": 0.0
+      }
+    },
+    {
+      "name": "installed-wiring/wire-J1-OUT6",
+      "bank_gap_mm": 20.903936678779594,
+      "bank_overlap_mm3": 0.0,
+      "loading_overlap_mm3": {
+        "J1": 0.0,
+        "J2": 0.0
+      }
+    },
+    {
+      "name": "installed-wiring/wire-J1-OUT7",
+      "bank_gap_mm": 23.946605987436577,
+      "bank_overlap_mm3": 0.0,
+      "loading_overlap_mm3": {
+        "J1": 0.0,
+        "J2": 0.0
+      }
+    },
+    {
+      "name": "installed-wiring/wire-J2-COM",
+      "bank_gap_mm": 1.8723610201712095,
+      "bank_overlap_mm3": 0.0,
+      "loading_overlap_mm3": {
+        "J1": 0.0,
+        "J2": 0.0
+      }
+    },
+    {
+      "name": "installed-wiring/wire-J2-FAN",
+      "bank_gap_mm": 28.229782122598532,
+      "bank_overlap_mm3": 0.0,
+      "loading_overlap_mm3": {
+        "J1": 0.0,
+        "J2": 0.0
+      }
+    },
+    {
+      "name": "installed-wiring/wire-J2-positive-K",
+      "bank_gap_mm": 0.0,
+      "bank_overlap_mm3": 4.599601506189731,
+      "loading_overlap_mm3": {
+        "J1": 0.0,
+        "J2": 0.0
+      }
+    }
+  ]
+}
