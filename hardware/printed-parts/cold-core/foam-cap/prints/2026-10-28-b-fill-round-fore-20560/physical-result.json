@@ -1,0 +1,23 @@
+{
+  "schema": 1,
+  "part": "B-fill local cap cup and matching lid",
+  "status": "accepted for physical fit and tube clamping",
+  "authority": "Derek's direct physical observation",
+  "observed_date": "2026-10-29",
+  "observation": "Turned out well. Clamps the tube well where it needs to be. All fits.",
+  "printer": "Mark1",
+  "printer_task_id": "1385812966",
+  "launch_record": "launch.json",
+  "geometry_record": "geometry.json",
+  "archive_sha256": "b6b13d3110765e35f085e4ebe99e4e3371c3fdf8557b6a8db22b2dd7efa701dd",
+  "source_commit": "062fabae8",
+  "tested_configuration": {
+    "channel_section": "round",
+    "channel_diameter_mm": 6.8,
+    "supported_roof_allowance_mm": 0.25,
+    "fore_screw_centers_world_xy_mm": [[-54.0, 205.6], [-33.0, 205.6]],
+    "aft_screw_center_world_xy_mm": [-43.5, 242.3],
+    "screws": "3 x M3 x 10 recessed",
+    "inserts": "3 x RX-M3x5.7"
+  }
+}
