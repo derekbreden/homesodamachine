@@ -106,6 +106,7 @@ def write_manifest(manifest,scene_step):
     paths=[Path(__file__),Path(__file__).with_name('connections.py'),
            Path(__file__).with_name('model.py'),Path(__file__).with_name('terminals.py'),
            Path(__file__).with_name('routes.py'),Path(__file__).with_name('retainers.py'),
+           Path(__file__).with_name('manifold_bank_routes.py'),
            Path(__file__).with_name('route-overrides.json'),
            Path(__file__).with_name('terminations.py'),
            Path(__file__).with_name('step_merge.py'),

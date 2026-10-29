@@ -1,0 +1,214 @@
+{
+  "schema": 1,
+  "scope": "Frozen twelve-wire native geometry for targeted integration into the separately published current parent. Eleven new bank paths plus only the V-K positive approach; all other terminal and wire records remain with the parent. This does not authorize stale parent replacement.",
+  "provider_sha256": "a6721e4a66c4cb733b076b1353ffebbd02a3cbf839cc46f088bb709420dafa5f",
+  "frozen_geometry_sha256": "72145f6a94a76a6aba3c1094219ebf70cc299345279adf7d7c3438e3b8b1c481",
+  "bank_site": {
+    "id": "front-manifold-bank",
+    "host": "foam-cap-lid-top",
+    "origin": [
+      70.0,
+      192.6,
+      253.4
+    ],
+    "seat_depth": 2.2,
+    "seat_heights": [
+      13.3,
+      7.75
+    ],
+    "span": 16.0,
+    "stock": 3.0,
+    "beak": 0.75,
+    "target_centers": {
+      "J1-OUT8": [
+        74.1,
+        192.6,
+        257.5
+      ],
+      "J1-OUT7": [
+        74.1,
+        192.6,
+        259.35
+      ],
+      "J1-OUT6": [
+        74.1,
+        192.6,
+        261.2
+      ],
+      "J1-OUT5": [
+        74.1,
+        192.6,
+        263.05
+      ],
+      "J1-OUT4": [
+        74.1,
+        192.6,
+        264.90000000000003
+      ],
+      "J1-OUT3": [
+        74.1,
+        192.6,
+        266.75
+      ],
+      "J1-COM": [
+        74.1,
+        192.6,
+        268.6
+      ],
+      "J2-COM": [
+        79.3,
+        192.6,
+        257.5
+      ],
+      "J2-FAN": [
+        79.3,
+        192.6,
+        259.34999999999997
+      ],
+      "J2-OUT2": [
+        79.3,
+        192.6,
+        261.2
+      ],
+      "J2-OUT1": [
+        79.3,
+        192.6,
+        263.04999999999995
+      ]
+    },
+    "stock_basis": "Eleven nominal 1.70 mm insulated 22 AWG leads on 1.85 mm pitch; the V-A, V-B and V-K branches split before this bank.",
+    "fit_scope": "The 2.2 mm depth, retaining lip and four-lead section use the accepted cable coupon. The seven-lead grouping and installed dressing retain their physical-fit scope."
+  },
+  "wire_count": 12,
+  "untouched_route_count": 86,
+  "fixed_hardware_result": "No introduced rigid contacts in the scoped native checks. Absolute own-bank air is 0.25mm for eleven seated leads, 0.401473mm for the V-K bypass. FAN clears front-bottom by0.400mm.",
+  "seat_spans_mm": {
+    "bank": 16,
+    "VK": 8
+  },
+  "initial_header_straights_min_mm": 18.8,
+  "terminal_records_retained": true,
+  "routes": [
+    {
+      "id": "J1-COM",
+      "native_valid": true,
+      "native_solids": 1,
+      "native_brep_sha256": "8da45c2453c01b7576573560e7f6834925f77e1b9c39c6f333fae52137636615",
+      "route_length_mm": 290.114,
+      "minimum_bend_mm": 1.5463,
+      "start": "J1.COM",
+      "end": "wago-mana.1"
+    },
+    {
+      "id": "J1-OUT3",
+      "native_valid": true,
+      "native_solids": 1,
+      "native_brep_sha256": "dd4254f76bbdb53e43fbea0700b304327b8f28bc54f3e4fb787a028d8acbff8d",
+      "route_length_mm": 464.126,
+      "minimum_bend_mm": 2.0,
+      "start": "J1.OUT3",
+      "end": "V-C.negative"
+    },
+    {
+      "id": "J1-OUT4",
+      "native_valid": true,
+      "native_solids": 1,
+      "native_brep_sha256": "d61ddd112a11c891e7b81e2ce306cea3859c22e90271ffbad0937eed30cd5f72",
+      "route_length_mm": 521.34,
+      "minimum_bend_mm": 2.0,
+      "start": "J1.OUT4",
+      "end": "V-D.negative"
+    },
+    {
+      "id": "J1-OUT5",
+      "native_valid": true,
+      "native_solids": 1,
+      "native_brep_sha256": "bf7edda2d1eec89b0e0776cb78f669daddec25d62dc0e8fa34d7feb9e47fd311",
+      "route_length_mm": 391.648,
+      "minimum_bend_mm": 2.0,
+      "start": "J1.OUT5",
+      "end": "V-E.negative"
+    },
+    {
+      "id": "J1-OUT6",
+      "native_valid": true,
+      "native_solids": 1,
+      "native_brep_sha256": "17725a52c32acb1160035ac7fc5a8324f4be711e38525e9002c597dbd97331bf",
+      "route_length_mm": 331.716,
+      "minimum_bend_mm": 2.0,
+      "start": "J1.OUT6",
+      "end": "V-F.negative"
+    },
+    {
+      "id": "J1-OUT7",
+      "native_valid": true,
+      "native_solids": 1,
+      "native_brep_sha256": "73b471fe145c89bbd3d45467e19da9c79e3ad2010ffdb1bd0af0dda6408a1175",
+      "route_length_mm": 407.04,
+      "minimum_bend_mm": 2.0,
+      "start": "J1.OUT7",
+      "end": "V-G.negative"
+    },
+    {
+      "id": "J1-OUT8",
+      "native_valid": true,
+      "native_solids": 1,
+      "native_brep_sha256": "be58c5bf8540bc3fcb64ec95e492cb2dfe0902184b8e04598db250bf73f9319b",
+      "route_length_mm": 452.053,
+      "minimum_bend_mm": 2.0,
+      "start": "J1.OUT8",
+      "end": "V-H.negative"
+    },
+    {
+      "id": "J2-OUT1",
+      "native_valid": true,
+      "native_solids": 1,
+      "native_brep_sha256": "81f2a1edfeb3f75f7dd77078b428fb91e40b58223ddec49e11b54dff50aae246",
+      "route_length_mm": 505.746,
+      "minimum_bend_mm": 2.0,
+      "start": "J2.OUT1",
+      "end": "V-I.negative"
+    },
+    {
+      "id": "J2-OUT2",
+      "native_valid": true,
+      "native_solids": 1,
+      "native_brep_sha256": "7435d7d00c934cdaa0288e15edc19e7f1dd165ce3d1ca0425083d9b6f4cd879b",
+      "route_length_mm": 507.722,
+      "minimum_bend_mm": 2.0,
+      "start": "J2.OUT2",
+      "end": "V-J.negative"
+    },
+    {
+      "id": "J2-FAN",
+      "native_valid": true,
+      "native_solids": 1,
+      "native_brep_sha256": "5a0b400c576e4d3b59ae1922a41be7ba5cef81b3df1faa5e2e074651656c7227",
+      "route_length_mm": 516.441,
+      "minimum_bend_mm": 1.32,
+      "start": "J2.FAN",
+      "end": "fan.negative"
+    },
+    {
+      "id": "J2-COM",
+      "native_valid": true,
+      "native_solids": 1,
+      "native_brep_sha256": "0ccf6b7fe0373a6341dcb57ce2819143d28230f3f2cdcc952767e905c2c7676f",
+      "route_length_mm": 294.572,
+      "minimum_bend_mm": 2.0,
+      "start": "J2.COM",
+      "end": "wago-manb.1"
+    },
+    {
+      "id": "J2-positive-K",
+      "native_valid": true,
+      "native_solids": 1,
+      "native_brep_sha256": "45cca66ac8f358cda6c12c5f3bcf9d8143efc9ab89a02754cd9bd65588dc4fd8",
+      "route_length_mm": 258.86,
+      "minimum_bend_mm": 1.467,
+      "start": "wago-manb.5",
+      "end": "V-K.positive"
+    }
+  ],
+  "flexible_scope": "Source segments deliberately retain flexible layout scope. Boundary fluid18/28 and older fluid24 contacts are explicit in normal-up-probe.json. The incoming under-PCB fluid24 route is supplied separately. Wire-to-wire fore packing is reported in wire-spacing.json; no exact all-wire physical clearance claim."
+}

@@ -1,0 +1,85 @@
+{
+  "scope": "Broad3mm full-span outer-heel chamfer removes only bank-root material next to the corner head pocket. All cable seats, beaks and3mm cavity floors remain unchanged.",
+  "valid": true,
+  "solids": 1,
+  "added_mm3": 0,
+  "removed_mm3": 67.28358081076655,
+  "tiny_root_faces_below_0p1_mm2": [],
+  "site": {
+    "id": "front-manifold-bank",
+    "host": "foam-cap-lid-top",
+    "origin": [
+      70.0,
+      192.6,
+      253.4
+    ],
+    "seat_depth": 2.2,
+    "seat_heights": [
+      13.3,
+      7.75
+    ],
+    "span": 16.0,
+    "stock": 3.0,
+    "beak": 0.75,
+    "target_centers": {
+      "J1-OUT8": [
+        74.1,
+        192.6,
+        257.5
+      ],
+      "J1-OUT7": [
+        74.1,
+        192.6,
+        259.35
+      ],
+      "J1-OUT6": [
+        74.1,
+        192.6,
+        261.2
+      ],
+      "J1-OUT5": [
+        74.1,
+        192.6,
+        263.05
+      ],
+      "J1-OUT4": [
+        74.1,
+        192.6,
+        264.90000000000003
+      ],
+      "J1-OUT3": [
+        74.1,
+        192.6,
+        266.75
+      ],
+      "J1-COM": [
+        74.1,
+        192.6,
+        268.6
+      ],
+      "J2-COM": [
+        79.3,
+        192.6,
+        257.5
+      ],
+      "J2-FAN": [
+        79.3,
+        192.6,
+        259.34999999999997
+      ],
+      "J2-OUT2": [
+        79.3,
+        192.6,
+        261.2
+      ],
+      "J2-OUT1": [
+        79.3,
+        192.6,
+        263.04999999999995
+      ]
+    },
+    "stock_basis": "Eleven nominal 1.70 mm insulated 22 AWG leads on 1.85 mm pitch; the V-A, V-B and V-K branches split before this bank.",
+    "fit_scope": "The 2.2 mm depth, retaining lip and four-lead section use the accepted cable coupon. The seven-lead grouping and installed dressing retain their physical-fit scope."
+  },
+  "source_sha256": "9b97c4703042890b38d36123506496ac3a1515cc799657c46b8f4abe28bf72ee"
+}

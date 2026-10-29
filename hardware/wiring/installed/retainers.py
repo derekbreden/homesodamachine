@@ -94,6 +94,10 @@ def cable_sites():
 
 def dress_guides(connection, guides, attachments, saved):
     """Dress retained cable groups without moving their terminals."""
+    from .manifold_bank_routes import dress_manifold_bank_guides
+    bank_guides = dress_manifold_bank_guides(connection, guides, attachments, saved)
+    if bank_guides is not None:
+        guides = bank_guides
     target = next((site['target_centers'][connection.id] for site in cable_sites()
                    if connection.id in site['target_centers']), None)
     if target is None:
