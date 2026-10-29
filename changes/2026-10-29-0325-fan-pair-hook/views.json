@@ -75,7 +75,7 @@
           "payload": "printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh",
           "from": "file",
           "sha256": "beafa7e92634151f4c2dbf8ebb857e82bdabaf4c4a81b25f03553d6ad913dad4",
-          "commit": "eed6eaf77cd19f632caf99f255e85273335f7e01"
+          "commit": "fa3be41c0c8a39082043bd34df0a8799ffef3720"
         }
       },
       "changed": [
