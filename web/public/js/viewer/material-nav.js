@@ -5,7 +5,7 @@ import { dismissViewerHistory } from "./viewer-history.js";
 
 export function materialHash(id, { tab = null, panel = null } = {}) {
   const query = new URLSearchParams();
-  if (tab === "bom") query.set("tab", tab);
+  if (tab === "bom" || tab === "cost") query.set("tab", tab);
   if (panel === "materials") query.set("panel", panel);
   return "material:" + encodeURIComponent(id) + (query.size ? "?" + query : "");
 }

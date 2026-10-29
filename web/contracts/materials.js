@@ -30,14 +30,125 @@ export function bomItems(material, options = {}) {
     !item.when || Object.entries(item.when).every(([key, value]) => !options[key] || options[key] === value));
 }
 
+// A text's search words. Case, accents and subscripts fold away (CO₂ is co2),
+// a size reads the same with or without its space (16awg is 16 AWG, m3x8 is
+// M3 × 8) and a plural reads as its singular.
+export function searchWords(text) {
+  return String(text ?? "").normalize("NFKD").toLowerCase().replace(/\p{M}/gu, "").replace(/×/g, " x ")
+    .replace(/(\d)\.(?=\d)/g, "$1\0").replace(/[^a-z0-9\0]+/g, " ")
+    .replace(/(\d)(?=[a-z])/g, "$1 ").replace(/([a-z])(?=\d)/g, "$1 ").replace(/\0/g, ".")
+    .split(" ").filter(Boolean).map((word) => /^[a-z]{4,}$/.test(word) && /[^s]s$/.test(word) ? word.slice(0, -1) : word);
+}
+
+// Words the build records use interchangeably. Each group's spellings find one another.
+const SEARCH_SYNONYMS = [["earth", "ground"], ["zip tie", "cable tie"], ["ptfe", "teflon", "thread tape"],
+  ["push to connect", "push connect", "push fit", "quick connect"], ["screw", "bolt"], ["r600a", "isobutane"],
+  ["psu", "power supply"], ["o ring", "oring"], ["braze", "brazing", "silver solder"]].map((group) => group.map(searchWords));
+
+// A query is a list of terms, each a set of alternative word runs. A typed word
+// is one run, so "16awg" reads as 16 AWG in that order; a synonym phrase
+// spanning whole typed words brings in its group's other spellings. A word of
+// three or more letters matches the start of a word, numbers and shorter words
+// match whole, and the query's last word matches as a prefix while it is typed.
+export function searchTerms(query) {
+  const typed = String(query ?? "").trim().split(/\s+/).map(searchWords).filter((run) => run.length);
+  const phraseEnd = (start, run) => {
+    for (let end = start, words = []; end < typed.length && words.length < run.length; end++) {
+      words.push(...typed[end]);
+      if (words.length === run.length && words.every((word, i) => word === run[i])) return end;
+    }
+    return -1;
+  };
+  const terms = [];
+  for (let start = 0; start < typed.length;) {
+    let end = start, group = null, spelled = null;
+    for (const spellings of SEARCH_SYNONYMS) for (const run of spellings) {
+      const last = phraseEnd(start, run);
+      if (last >= end && (!group || last > end)) { end = last; group = spellings; spelled = run; }
+    }
+    const typing = end === typed.length - 1;
+    const runs = group ? [spelled, ...group.filter((run) => run !== spelled)] : [typed[start]];
+    terms.push(runs.map((run, r) => Object.assign(run.map((word, i) =>
+      ({ word, prefix: (typing && i === run.length - 1) || (word.length >= 3 && /^[a-z]+$/.test(word)) })), { synonym: r > 0 })));
+    start = end + 1;
+  }
+  return terms;
+}
+
+// The first of a term's runs found in the words: the spelling typed, then its synonyms.
+const runIn = (term, words) => term.find((run) => words.some((_, at) => run.every(({ word, prefix }, i) =>
+  words[at + i] === word || (prefix && words[at + i]?.startsWith(word)))));
+
+export function termsMatch(terms, words) {
+  return terms.length > 0 && terms.every((term) => runIn(term, words));
+}
+
+// What search reads, built once per served catalog. A material is found by its
+// own names first, then by the listing it is bought as, then by its model
+// files. Stock and supplies have no part number of their own; their ledger
+// lines, costed on the parts and assemblies that use them, are results too.
+const searchIndexes = new WeakMap();
+function searchIndex(catalog) {
+  if (searchIndexes.has(catalog)) return searchIndexes.get(catalog);
+  const direct = catalog.costs?.direct || {};
+  const asin = (href) => href?.match(/\/dp\/([A-Z0-9]{10})/)?.[1] || "";
+  const materials = (catalog.materials || []).map((material) => ({
+    material,
+    fields: [
+      { weight: 3, words: searchWords([material.id, material.description, material.manufacturer_number, ...(material.aliases || [])].join(" ")) },
+      { weight: 2, words: searchWords((direct[material.id]?.elements || []).filter((element) => element.kind === "price")
+        .map((element) => `${element.label} ${asin(element.href)}`).join(" ")) },
+      { weight: 1, words: searchWords((material.models || []).map((model) => model.file).join(" ")) },
+    ],
+  }));
+  const lines = new Map();
+  for (const [id, cost] of Object.entries(direct)) for (const element of cost.elements || []) {
+    if (!["price", "stock", "supplies"].includes(element.kind)) continue;
+    const line = lines.get(element.label) || { label: element.label, href: element.href || null, kinds: new Set(), holders: [] };
+    line.kinds.add(element.kind);
+    line.holders.push({ id, usd: element.usd || 0 });
+    lines.set(element.label, line);
+  }
+  const index = {
+    materials,
+    lines: [...lines.values()].filter((line) => !line.kinds.has("price")).map((line) => ({
+      ...line, holders: line.holders.sort((a, b) => b.usd - a.usd), words: searchWords(`${line.label} ${asin(line.href)}`),
+    })),
+  };
+  searchIndexes.set(catalog, index);
+  return index;
+}
+
+// Hits ranked by where each term matched: a material's own names outrank a
+// ledger line, which outranks a model file path, and a synonym ranks below the
+// spelling typed. A line costed only on parts already found is left out.
+export function searchCatalog(catalog, query) {
+  const terms = searchTerms(query);
+  if (!catalog || !terms.length) return [];
+  const index = searchIndex(catalog), hits = [];
+  const scored = (fields) => {
+    let score = 0;
+    const found = terms.every((term) => fields.some(({ weight, words }) => {
+      const run = runIn(term, words);
+      if (run) score += weight - (run.synonym ? 0.5 : 0);
+      return run;
+    }));
+    return found ? score : 0;
+  };
+  for (const { material, fields } of index.materials) {
+    const score = scored(fields);
+    if (score) hits.push({ material, score });
+  }
+  const found = new Set(hits.map((hit) => hit.material.id));
+  for (const line of index.lines) {
+    const score = line.holders.every((holder) => found.has(holder.id)) ? 0 : scored([{ weight: 2, words: line.words }]);
+    if (score) hits.push({ line, score });
+  }
+  return hits.sort((a, b) => b.score - a.score || !!a.line - !!b.line);
+}
+
 export function searchMaterials(catalog, query) {
-  const normalized = (text) => text.toLocaleLowerCase().replace(/×/g, "x");
-  const words = normalized(query).trim().split(/\s+/).filter(Boolean);
-  return (catalog?.materials || []).filter((m) => {
-    const text = [m.id, m.description, m.manufacturer_number, ...(m.aliases || []),
-      ...(m.models || []).map((model) => model.file.replace(/[-_/]/g, " "))].join(" ");
-    return words.every((word) => normalized(text).includes(word));
-  });
+  return searchCatalog(catalog, query).filter((hit) => hit.material).map((hit) => hit.material);
 }
 
 // Each occurrence keeps its full path, so a reused part can appear at multiple
