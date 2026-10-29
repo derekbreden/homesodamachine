@@ -34,6 +34,27 @@ def manifold_bank_site():
     }
 
 
+def rear_level_hook_site():
+    """Reservoir A's five level leads beside the PSU, after the sensor fork."""
+    wires = ('J6-GND', 'J6-RA4', 'J6-RA3', 'J6-RA2', 'J6-RA1')
+    return {
+        'id': 'reservoir-a-levels',
+        'host': 'foam-cap-lid-top',
+        'origin': (-58.6, 388., 253.4),
+        'seat_depth': 2.2,
+        'seat_height': 9.6,
+        'span': 16.,
+        'stock': 3.,
+        'beak': .75,
+        'target_centers': {
+            wire: (-54.5, 388., 257.5+i*1.85)
+            for i, wire in enumerate(wires)
+        },
+        'stock_basis': 'Five nominal 1.70 mm insulated 22 AWG leads on 1.85 mm pitch.',
+        'fit_scope': 'The accepted cable entry and retaining lip with a five-lead seat; complete installed dressing retains its physical-fit scope.',
+    }
+
+
 def cable_sites():
     """One row per hook, using cable_hook's explicit frame and section keys."""
     return ({

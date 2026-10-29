@@ -1,0 +1,8 @@
+{
+  "scope": "Five changed J6 conductors versus only the 93 retained baseline wire paths. Exact line/arc projection removes retained owned centreline portions; local old distance at the same retained-wire witness separates existing contact from candidate introductions. Samples are at <=0.10mm path spacing; potential contacts need exact native confirmation. No production geometry or frozen exports mutated.",
+  "baseline_manifest_sha256": "07f189e0c7d532c36c41c7608b9ab36084ab56e81b508da34ac2442eb99248e6",
+  "native_review_sha256": "b97f818a29bfe3bb8b9b371c293cf1b6f8eb34d7ee5af60b6cc673741ea1affc",
+  "retained_wire_count": 93,
+  "candidates": [],
+  "existing_local_contacts": []
+}

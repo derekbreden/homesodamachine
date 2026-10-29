@@ -2,7 +2,7 @@
 import json
 import math
 from pathlib import Path
-from .model import Route, add, sub, mul, unit, dot, norm, rounded_segments
+from .model import Route, add, sub, mul, unit, dot, norm, rounded_segments, spline_segment, sampled_segments
 
 SOURCE=Path(__file__).with_name('bundle-routes.json')
 
@@ -135,6 +135,69 @@ def entry_stations(connection,b,attachments,first):
     return [attachments.station(s) for s in b['fanouts'][connection.id].get('entry_stations',[])]
 
 
+def reed_level_segments(segments, recipe, identity=None):
+    """Open the packed reed cable into its level hook, then repack at the bore.
+
+    Endpoint approaches and the cap-passage tail retain their original native
+    lines/arcs. Only the free middle is re-formed from this compact recipe.
+    """
+    start=recipe['high_point_mm'];end=recipe['seat_entry_mm'];controls=recipe['return_controls_mm']
+    order=recipe['order_bottom_to_top'];index=order.index(identity)if identity else None
+    prefix=[]
+    for old in segments:
+        s=dict(old);a,b=s['start_mm'],s['end_mm']
+        if s['kind']=='line' and a[1]<start[1]<b[1] and abs(a[2]-b[2])<1e-8:
+            s['end_mm']=add(a,mul(sub(b,a),(start[1]-a[1])/(b[1]-a[1])))
+            s['length_mm']=norm(sub(s['end_mm'],a));prefix.append(s);break
+        prefix.append(s)
+    else:raise ValueError('Reed cable has no high fore-aft span')
+    for i,s in enumerate(segments):
+        p=s['start_mm']
+        if s['kind']=='arc' and abs(p[0]-controls[-1][0])<1e-7 and 443<p[1]<449 and 258<p[2]<263:
+            tail=segments[i:];break
+    else:raise ValueError('Reed cable has no rear cap-passage approach')
+    def ease(t):return 6*t**5-15*t**4+10*t**3
+    def section(t,mode):
+        if index is None:return 0.,0.
+        phase=ease(t);packed_pitch=2*recipe['pack_radius_mm']*math.sin(math.pi/5)
+        if mode=='drop':
+            phi=-2*math.pi/5*(1-phase);theta=-math.pi
+            pitch=(packed_pitch*(1-phase)+recipe['pitch_mm']*phase)*(1+recipe['drop_opening_fraction']*math.sin(math.pi*t)**2)
+        else:
+            phi=-2*math.pi/5*phase;theta=-math.pi+math.pi/2*phase
+            pitch=recipe['pitch_mm']*(1-phase)+packed_pitch*phase
+        if abs(phi)<1e-8:return 0.,(index-2)*pitch
+        radius=pitch/(2*math.sin(abs(phi)/2));angles=[theta+(j-2)*phi for j in range(5)]
+        return (radius*(math.cos(angles[index])-sum(map(math.cos,angles))/5),
+                radius*(math.sin(angles[index])-sum(map(math.sin,angles))/5))
+    delta=sub(end,start);across=(delta[0],0.,delta[2]);ey=(0.,1.,0.)
+    def centre(t,mode):
+        if mode=='return':
+            a,b,c,d=controls
+            p=add(add(mul(a,(1-t)**3),mul(b,3*(1-t)**2*t)),add(mul(c,3*(1-t)*t*t),mul(d,t**3)))
+            tangent=add(add(mul(sub(b,a),3*(1-t)**2),mul(sub(c,b),6*(1-t)*t)),mul(sub(d,c),3*t*t))
+            return p,tangent
+        # A curvature-continuous grade also keeps the uncurling conductors
+        # smooth; two tangent circular arcs would kink their offset sections.
+        p=add(start,add(mul(ey,delta[1]*t),mul(across,ease(t))))
+        tangent=add(mul(ey,delta[1]),mul(across,30*t*t*(t-1)**2))
+        return p,tangent
+    def curve(mode):
+        result=[]
+        for j in range(21):
+            t=j/20;p,tangent=centre(t,mode);tangent=unit(tangent)
+            u=unit(cross(tangent,(0.,0.,1.)));v=cross(u,tangent);a,b=section(t,mode)
+            result.append(add(p,add(mul(u,a),mul(v,b))))
+        return result
+    drop=curve('drop');repack=curve('return')
+    drop[0]=prefix[-1]['end_mm'];repack[-1]=tail[0]['start_mm']
+    low_start=drop[-1];low_end=repack[0]
+    middle=[spline_segment(drop,[(0.,1.,0.),(0.,1.,0.)]),
+            {'kind':'line','start_mm':low_start,'end_mm':low_end,'length_mm':norm(sub(low_end,low_start))},
+            spline_segment(repack,[(0.,1.,0.),(1.,0.,0.)])]
+    return prefix+middle+tail
+
+
 def core_route(connection,attachments):
     for id,b in definitions().items():
         if connection.id not in b['cores']:continue
@@ -159,6 +222,12 @@ def core_route(connection,attachments):
                     sum(s['length_mm'] for s in segments),min(radii) if radii else None,
                     fan.get('route_status',b['route_status']),
                     b.get('description','Shared SJOOW jacket with transported core sections and individually dressed end fanouts.'))
+        if b.get('level_hook'):
+            route.segments=reed_level_segments(route.segments,b['level_hook'],connection.id)
+            route.points=sampled_segments(route.segments,.6)
+            route.length_mm=sum(s['length_mm']for s in route.segments)
+            radii=[s.get('radius_mm',s.get('minimum_bend_mm'))for s in route.segments if s['kind']!='line']
+            route.minimum_bend_mm=min(r for r in radii if r is not None)
         return route
     return None
 
@@ -169,9 +238,12 @@ def add_jackets(assembly,attachments):
     for id,b in definitions().items():
         points,shared=centreline(b,attachments)
         if not b.get('jacket',True):
+            if b.get('level_hook'):
+                shared=reed_level_segments(shared,b['level_hook'])
+                points=sampled_segments(shared,.6)
             records[id]={**b,'geometry_name':None,'points_mm':points,'segments':shared,
                          'length_mm':sum(s['length_mm'] for s in shared),
-                         'minimum_bend_mm':min((s['radius_mm'] for s in shared if s['kind']=='arc'),default=None)}
+                         'minimum_bend_mm':min((s.get('radius_mm',s.get('minimum_bend_mm')) for s in shared if s['kind']!='line'),default=None)}
             continue
         segments=trimmed(shared,b['end_trim_mm'],b['end_trim_mm'])
         edges=[]
