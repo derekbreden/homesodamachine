@@ -43,8 +43,6 @@ PARTS = (
 
     # §3 — the collet that lands on the top water elbow
     ("water PTC collet", "John Guest PP010822E", ("collet-water-in",)),
-    ("reservoir B fill stem elbow", "NeoFit ATEU44W", ("reservoir-b-fill-lower",)),
-    ("reservoir B fill union elbow", "John Guest PP0308E", ("reservoir-b-fill-upper",)),
 
     # §5 — refrigeration
     ("evaporator coil", "GOORY 1/4\" OD × 50 ft ACR copper coil",

@@ -291,8 +291,7 @@ SCENES = (
     Scene(
         "cap-lid", "Foam shell top cap lid assembly",
         roots=("foam-assembly",),
-        inner=("foam-cap-top", "foam-cap-lid-top", "reservoir-b-fill-lower",
-               "reservoir-b-fill-upper", "line-reservoir-b-fill"),
+        inner=("foam-cap-top", "foam-cap-lid-top", "line-reservoir-b-fill"),
         flip=None, also=(),
         later=(),
         cam=(0.35, -0.2, 1.0), up=(-1.7, 1.0, 0), zoom=2.9, look="crown",
@@ -597,7 +596,7 @@ def named(scene, runs, assembly=None):
     derived -= {INNER_ROOT_HELD+n for n in promoted if n in derived}
     derived |= set(scene.also)
     # Resolve each complete tube before taking another unit out. The populated
-    # cap carries the B-fill link and its loose external continuation together.
+    # cap carries the continuous B-fill tube and its loose source end together.
     derived |= {half for line, half in crossings(runs).items() if line in derived}
     derived -= set(scene.later)
     derived -= {INNER_ROOT_HELD+n for n in promoted if n in derived}

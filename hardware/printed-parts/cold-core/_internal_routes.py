@@ -24,9 +24,9 @@ WHERE EACH LINE GOES, and what it does at the end of it:
   reservoir-a      each reservoir's dip tube: the draw line itself, straight down from its
   reservoir-b      conduit through the bore in that reservoir's own cap to the floor, its
                    mouth the lowest point a line reaches in the cavity.
-  reservoir-a-fill onto the bore in that reservoir's own cap, opening into the HEADSPACE
-  reservoir-b-fill above the liquid. Face to face with the conduit over it, so these two
-                   have no run in the shell at all — they are the gap between two bores.
+  reservoir-a-fill through its aligned guide into the reservoir's headspace.
+  reservoir-b-fill from the cap's Y− side entry, through the integral R14 channel
+                   and vertically into the original reservoir fill seat.
 
 The carbonator and both reservoirs are filled high and drawn low. Nothing that enters
 one can leave without crossing it, which is what the air-purge and clean-flush service modes run on.
@@ -302,7 +302,7 @@ def _routes():
         "reservoir-a-fill": reservoir_guide_route("reservoir-a-fill",
             reservoir_cap_z + _reservoir.cap_wall_height - 1.0),
         "reservoir-b-fill": [world_point_in_shell(p) for p in
-            _above_mounts.reservoir_b_fill_link()['exposed_route_world_mm']],
+            _above_mounts.reservoir_b_fill_passage()['route_points_world_mm']],
     }
 
 
