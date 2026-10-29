@@ -40,8 +40,8 @@ J2-OUT1,J2,J2.OUT1,J2.OUT1,V-I.negative,22,505.746,proposed,nominal,modeled,fixe
 J2-positive-I,J2,V12,wago-manb.2,V-I.positive,22,192.389,proposed,nominal,modeled,fixed
 J2-OUT2,J2,J2.OUT2,J2.OUT2,V-J.negative,22,507.722,proposed,nominal,nominal,fixed
 J2-positive-J,J2,V12,wago-manb.3,V-J.positive,22,172.371,proposed,nominal,nominal,fixed
-J2-FAN,J2,J2.FAN,J2.FAN,fan.negative,22,516.441,proposed,nominal,unlocated,fixed
-J2-positive-fan,J2,V12,wago-manb.4,fan.positive,22,188.68,proposed,nominal,unlocated,fixed
+J2-FAN,J2,J2.FAN,J2.FAN,fan.negative,22,500.868,proposed,nominal,unlocated,fixed
+J2-positive-fan,J2,V12,wago-manb.4,fan.positive,22,224.62,proposed,nominal,unlocated,fixed
 J2-OUT3,J2,J2.OUT3,J2.OUT3,V-K.negative,22,236.599,proposed,nominal,modeled,fixed
 J2-positive-K,J2,V12,wago-manb.5,V-K.positive,22,258.86,proposed,nominal,modeled,fixed
 J13-AM2,J13,AM2,J13.AM2,pump-a.2,22,291.769,proposed,nominal,unlocated,fixed
