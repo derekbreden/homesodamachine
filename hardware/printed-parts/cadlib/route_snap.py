@@ -111,6 +111,26 @@ def cable_origin(centre, outward, profile_up, *, seat_depth=2.20,
     return (cq.Vector(*centre)-n*(seat_depth/2.)-p*seat_middle).toTuple()
 
 
+def floor_cable_hook(origin, *, seat_height=9.60, seat_depth=2.20,
+                     span=CABLE_SPAN, stock=CABLE_STOCK, beak=.75):
+    """One upward-entry seat on a complete rectangular floor.
+
+    The profile lies in X/Z and the cable runs along Y. The root overlaps
+    its host face; both walls and the floor retain the stated stock.
+    """
+    inner = stock + seat_depth
+    width = 2 * stock + seat_depth
+    roof = stock + seat_height
+    top = roof + stock + beak
+    points = [(0., -ROOT_OVERLAP), (width, -ROOT_OVERLAP),
+              (width, top), (inner, top), (inner-beak, top-beak),
+              (inner-beak, roof), (inner, roof), (inner, stock),
+              (stock, stock), (stock, top), (0., top)]
+    plane = cq.Plane(origin=cq.Vector(*origin)+cq.Vector(0., span/2., 0.),
+                     xDir=(1., 0., 0.), normal=(0., -1., 0.))
+    return _prism(points, plane, span).clean()
+
+
 def cable_bank(origin, *, seat_heights=(13.30, 7.75), seat_depth=2.20,
                span=CABLE_SPAN, stock=CABLE_STOCK, beak=.75):
     """Two upward-entry cable seats on one filled floor-rooted base.

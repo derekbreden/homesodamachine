@@ -140,19 +140,75 @@ def rounded_segments(points, radius=4.0, *, keep_collinear=False,
     return out
 
 
+def segment_edge(segment):
+    """Reconstruct one recorded native centreline edge."""
+    import cadquery as cq
+    a,b=(cq.Vector(*segment[k])for k in ('start_mm','end_mm'))
+    if segment['kind']=='line':return cq.Edge.makeLine(a,b)
+    if segment['kind']=='arc':return cq.Edge.makeThreePointArc(a,cq.Vector(*segment['midpoint_mm']),b)
+    if segment['kind']=='spline':
+        return cq.Edge.makeSpline([cq.Vector(*p)for p in segment['interpolation_points_mm']],
+                                  tangents=[cq.Vector(*p)for p in segment['endpoint_derivatives']],
+                                  parameters=segment['parameters'],scale=False)
+    raise ValueError(('Unknown wire segment',segment['kind']))
+
+
+def spline_segment(points, tangents):
+    """Record a smooth native span and its arc-length samples for pure readers."""
+    count=len(points)-1
+    derivatives=[]
+    for direction,a,b,c in [(tangents[0],*points[:3]),(tangents[1],*reversed(points[-3:]))]:
+        derivative=mul(sub(sub(mul(b,4),c),mul(a,3)),count/2)
+        derivatives.append(mul(unit(direction),abs(dot(derivative,unit(direction)))))
+    segment={'kind':'spline','start_mm':points[0],'end_mm':points[-1],
+             'interpolation_points_mm':points,'endpoint_tangents':tangents,
+             'endpoint_derivatives':derivatives,'parameters':[i/count for i in range(count+1)]}
+    edge=segment_edge(segment);length=edge.Length();count=max(2,math.ceil(length/.25))
+    segment.update(length_mm=length,
+                   sampled_points_mm=[edge.positionAt(i/count).toTuple()for i in range(count+1)],
+                   maximum_sample_step_mm=length/count,
+                   minimum_bend_mm=min((1/k for k in edge.curvatures([i/200 for i in range(201)])if k>1e-12),default=None))
+    return segment
+
+
+def sampled_segments(segments, step=1.):
+    """Sample recorded lines, circular arcs and smooth spans without importing CAD.
+
+    Smooth spans retain native arc-length samples at no more than 0.25 mm;
+    intermediate display/search points interpolate those recorded samples.
+    """
+    points=[]
+    def append_line(a,b):
+        count=max(1,math.ceil(norm(sub(b,a))/step))
+        points.extend(add(a,mul(sub(b,a),i/count))for i in range(count))
+    for s in segments:
+        a,b=s['start_mm'],s['end_mm']
+        if s['kind']=='line':append_line(a,b)
+        elif s['kind']=='spline':
+            for p,q in zip(s['sampled_points_mm'],s['sampled_points_mm'][1:]):append_line(p,q)
+        elif s['kind']=='arc':
+            u,v=sub(s['midpoint_mm'],a),sub(b,a)
+            cross=lambda x,y:(x[1]*y[2]-x[2]*y[1],x[2]*y[0]-x[0]*y[2],x[0]*y[1]-x[1]*y[0])
+            n=cross(u,v)
+            centre=add(a,mul(add(mul(cross(n,u),dot(v,v)),mul(cross(v,n),dot(u,u))),1/(2*dot(n,n))))
+            x=mul(sub(a,centre),1/s['radius_mm']);y=cross(unit(n),x)
+            count=max(2,math.ceil(s['length_mm']/step))
+            points.extend(add(centre,mul(add(mul(x,math.cos(s['angle_radians']*i/count)),mul(y,math.sin(s['angle_radians']*i/count))),s['radius_mm']))for i in range(count))
+        else:raise ValueError(('Unknown wire segment',s['kind']))
+    if segments:points.append(tuple(segments[-1]['end_mm']))
+    return points
+
+
 def shape(route, diameter, inner_diameter=None):
     import cadquery as cq
-    edges = []
-    for s in route.segments:
-        a, b = cq.Vector(*s["start_mm"]), cq.Vector(*s["end_mm"])
-        edges.append(cq.Edge.makeLine(a, b) if s["kind"] == "line" else
-                     cq.Edge.makeThreePointArc(a, cq.Vector(*s["midpoint_mm"]), b))
+    edges=[segment_edge(s)for s in route.segments]
     path = cq.Wire.assembleEdges(edges)
     start = cq.Vector(*route.segments[0]["start_mm"])
     tangent = edges[0].tangentAt(0)
     profile = cq.Wire.makeCircle(diameter/2, start, tangent)
     holes = [] if inner_diameter is None else [cq.Wire.makeCircle(inner_diameter/2, start, tangent)]
-    return cq.Solid.sweep(profile, holes, path, makeSolid=True, isFrenet=False)
+    body=cq.Solid.sweep(profile, holes, path, makeSolid=True, isFrenet=False)
+    return body.fix() if any(s['kind']=='spline'for s in route.segments) else body
 
 
 def finish(connection, points, note="", radius=None, *, endpoint_tangent_fraction=.44):

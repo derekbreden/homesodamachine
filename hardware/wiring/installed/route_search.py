@@ -17,7 +17,7 @@ ROOT=Path(__file__).resolve().parents[3]
 sys.path.insert(0,str(ROOT))
 import fcl
 import numpy as np
-from hardware.wiring.installed.model import STOCK, Connection, rounded_segments
+from hardware.wiring.installed.model import STOCK, Connection, rounded_segments, sampled_segments
 from hardware.wiring.installed.review import load_mesh,base_name
 
 OUT=Path(__file__).with_name('route-overrides.json')
@@ -33,24 +33,7 @@ def capsule(a,b,r):
 
 
 def sampled(segments,step=1.):
-    points=[]
-    for s in segments:
-        a,b=np.array(s['start_mm']),np.array(s['end_mm'])
-        if s['kind']=='line':
-            n=max(1,math.ceil(np.linalg.norm(b-a)/step))
-            points.extend(a+(b-a)*t/n for t in range(n))
-        else:
-            mid=np.array(s['midpoint_mm']);u=mid-a;v=b-a;n=np.cross(u,v);n/=np.linalg.norm(n)
-            # Circumcentre of the three arc points.
-            cross=np.cross(u,v);den=2*np.dot(cross,cross)
-            centre=a+(np.cross(cross,u)*np.dot(v,v)+np.cross(v,cross)*np.dot(u,u))/den
-            x=(a-centre)/s['radius_mm'];y=np.cross(n,x)
-            ang=math.atan2(np.dot(b-centre,y),np.dot(b-centre,x))
-            if ang<0:ang+=2*math.pi
-            count=max(2,math.ceil(s['length_mm']/step))
-            points.extend(centre+s['radius_mm']*(x*math.cos(ang*t/count)+y*math.sin(ang*t/count)) for t in range(count))
-    points.append(np.array(segments[-1]['end_mm']))
-    return np.array(points)
+    return np.asarray(sampled_segments(segments,step))
 
 
 def tube_mesh(points,radius):

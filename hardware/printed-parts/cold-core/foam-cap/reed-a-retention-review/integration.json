@@ -1,0 +1,574 @@
+{
+  "schema": 1,
+  "scope": "Integral Reservoir A lid hook and five complete modeled level-sensor lead paths. The other 93 conductor paths, terminal datums, physical parts and their placements remain retained.",
+  "changed_wires": [
+    "J6-GND",
+    "J6-RA1",
+    "J6-RA2",
+    "J6-RA3",
+    "J6-RA4"
+  ],
+  "unchanged_route_count": 93,
+  "native_wires": [
+    {
+      "id": "J6-GND",
+      "native_readback_valid": true,
+      "target_product": "wire-J6-GND",
+      "replaced_brep_record": 73976,
+      "records_added": 6374,
+      "unrelated_record_bytes_identical": true,
+      "retained_record_bytes_sha256": "01837861120cb20f3d49f3dc72ead69aa874804fe12f45895477ac12b90f1344",
+      "dangling_references": 0
+    },
+    {
+      "id": "J6-RA4",
+      "native_readback_valid": true,
+      "target_product": "wire-J6-RA4",
+      "replaced_brep_record": 79706,
+      "records_added": 4880,
+      "unrelated_record_bytes_identical": true,
+      "retained_record_bytes_sha256": "5bb841bbecc330613b832b563ff95064e026d7194d7c7c69d6528d6dc42624f4",
+      "dangling_references": 0
+    },
+    {
+      "id": "J6-RA3",
+      "native_readback_valid": true,
+      "target_product": "wire-J6-RA3",
+      "replaced_brep_record": 78191,
+      "records_added": 4544,
+      "unrelated_record_bytes_identical": true,
+      "retained_record_bytes_sha256": "1093b498fbe26bc515d5abf472a6051845ba041f9e406cb7c0cc57c2ec18a5f4",
+      "dangling_references": 0
+    },
+    {
+      "id": "J6-RA2",
+      "native_readback_valid": true,
+      "target_product": "wire-J6-RA2",
+      "replaced_brep_record": 76676,
+      "records_added": 5408,
+      "unrelated_record_bytes_identical": true,
+      "retained_record_bytes_sha256": "7e35ccdeba776706aa71b47fc4107a61e647f3aeca6662f689b1c4c3b0a48e75",
+      "dangling_references": 0
+    },
+    {
+      "id": "J6-RA1",
+      "native_readback_valid": true,
+      "target_product": "wire-J6-RA1",
+      "replaced_brep_record": 75161,
+      "records_added": 5052,
+      "unrelated_record_bytes_identical": true,
+      "retained_record_bytes_sha256": "166370e2df83bd57a21fa83b733d51ab87bafa4fda42955fe40c9f7326ea09ea",
+      "dangling_references": 0
+    }
+  ],
+  "wire_payload": {
+    "changed_rows": [
+      "wire-J6-GND",
+      "wire-J6-RA1",
+      "wire-J6-RA2",
+      "wire-J6-RA3",
+      "wire-J6-RA4"
+    ],
+    "unrelated_rows": 109,
+    "unrelated_array_digest": "b9f5a1a100746679e6121f43db637d2277b07e436bf035d8beb17390d33673c7"
+  },
+  "merger": {
+    "schema": 1,
+    "scope": "Wiring-only integration; existing physical parts retained",
+    "physical_step_sha256": "61d494959579dc5578638ed333a40d5e8f4789b021f1c5ff965f9cce87f4960f",
+    "installed_step_sha256": "6a66e9dd57fbe3fe1ec4333154e64958babab9b7d71b648cc3469d83063039a0",
+    "physical_records_retained": 2673061,
+    "physical_meshes_retained": 447,
+    "wiring_meshes": 114,
+    "all_retained_viewer_arrays_identical": true,
+    "wiring_step_sha256": "0d714f6c05ad88f9351046748198adadbb12302a498966b6ab6600d0c3e18a00"
+  },
+  "physical_scene_sha256": "61d494959579dc5578638ed333a40d5e8f4789b021f1c5ff965f9cce87f4960f",
+  "host_integration": {
+    "schema": 1,
+    "scope": "Only the new lid BRep replaces one rooted prototype in each held parent; all other STEP records and appliance mesh arrays retained. J6 wire graft is separate.",
+    "replayed_from_original_pinned_baselines": true,
+    "baseline_catalog_sha256": "ef440e7c7367370ff866d91569cb4f8ebd9488523b09ac6a474d32cc7a0305b4",
+    "frame_proof_sha256": "8804a3192816deb5e16ebc06495a0d0059159890eb285c16062e948b24929f8f",
+    "parents": [
+      {
+        "mode": "foam",
+        "relative": "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step",
+        "source_sha256": "a5ce7216eef54d2e19fe44a57d655da1a17a1a28c4bcab3867e4d3e057273163",
+        "staged_sha256": "d1cf5cc8ad10443e78966bd4b2b71531f1d415e43a234063eb05ff7bd0f489a6",
+        "native": {
+          "target_product": "foam-cap-lid-top",
+          "replaced_brep_record": 38246,
+          "records_added": 20188,
+          "unrelated_record_bytes_identical": true,
+          "retained_record_bytes_sha256": "8907f537664a8978e240594f82e2e4b5ed4f10b737b106a2a0d9f7b5371bf558",
+          "dangling_references": 0
+        },
+        "owning_frame_proof": {
+          "old_frame_proven": true,
+          "held_leaf_sha256": "8a2fa58624fdd8b32b4297b386ae18a568e39b58e1fa9870fd0632d21508473a",
+          "old_expected_signature": {
+            "valid": true,
+            "solids": 1,
+            "volume_mm3": 305614.2698132628,
+            "area_mm2": 122180.9842235645,
+            "bounds_mm": [
+              [
+                -141.20000009999998,
+                -97.7000001,
+                227.99999989999975
+              ],
+              [
+                141.20000009999998,
+                90.2000001,
+                278.65000000000003
+              ]
+            ]
+          },
+          "held_actual_signature": {
+            "valid": true,
+            "solids": 1,
+            "volume_mm3": 305614.2698121569,
+            "area_mm2": 122180.98422421273,
+            "bounds_mm": [
+              [
+                -141.20000009999998,
+                -97.7000001,
+                228.00000009999974
+              ],
+              [
+                141.2000001,
+                90.20000010000003,
+                278.6500002
+              ]
+            ]
+          },
+          "old_missing_volume_mm3": 0,
+          "old_extra_volume_mm3": 0,
+          "native_lid_to_parent_rotation": [
+            [
+              -1,
+              0,
+              0
+            ],
+            [
+              0,
+              -1,
+              0
+            ],
+            [
+              0,
+              0,
+              1
+            ]
+          ],
+          "native_lid_to_parent_translation_mm": [
+            0.0,
+            0.0,
+            228.0
+          ],
+          "occurrence_frame": [
+            [
+              1.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "fresh_posed_step_sha256": "af566ea4eeeb8baef0ec3e2100e5a14fd50904b97db418724a07c1e7ab77f283",
+          "fresh_posed_signature": {
+            "valid": true,
+            "solids": 1,
+            "volume_mm3": 307329.9690263932,
+            "area_mm2": 123362.81728628752,
+            "bounds_mm": [
+              [
+                -141.20000009999998,
+                -97.7000001,
+                227.9999999
+              ],
+              [
+                141.20000009999998,
+                90.2000001,
+                278.65
+              ]
+            ]
+          },
+          "fresh_posed_readback_delta_mm3": 0
+        }
+      },
+      {
+        "mode": "core",
+        "relative": "hardware/cold-core-layout/cold-core-assembly.step",
+        "source_sha256": "b273e9e583ec2152a3d302323a70d6a6e035cf487c06ab8aefdefab1b024a203",
+        "staged_sha256": "ae4de886f79f757288193b5d055d7534271e1dcd17dd8d6210cb0f88650e4e6d",
+        "native": {
+          "target_product": "foam-cap-lid-top",
+          "replaced_brep_record": 38478,
+          "records_added": 20188,
+          "unrelated_record_bytes_identical": true,
+          "retained_record_bytes_sha256": "48e118c183216a5cf4a3ebad1eb43d46d4398f6f147440c44624883599bd863b",
+          "dangling_references": 0
+        },
+        "owning_frame_proof": {
+          "old_frame_proven": true,
+          "held_leaf_sha256": "81b12af1908e3e5ca209aad2c2cdb38c6e6d7e52ce6120f482850e4efc78e2f6",
+          "old_expected_signature": {
+            "valid": true,
+            "solids": 1,
+            "volume_mm3": 305614.2698132628,
+            "area_mm2": 122180.9842235645,
+            "bounds_mm": [
+              [
+                -141.20000009999998,
+                -97.7000001,
+                227.99999989999975
+              ],
+              [
+                141.20000009999998,
+                90.2000001,
+                278.65000000000003
+              ]
+            ]
+          },
+          "held_actual_signature": {
+            "valid": true,
+            "solids": 1,
+            "volume_mm3": 305614.2698121569,
+            "area_mm2": 122180.98422421273,
+            "bounds_mm": [
+              [
+                -141.20000009999998,
+                -97.7000001,
+                228.00000009999974
+              ],
+              [
+                141.2000001,
+                90.20000010000003,
+                278.6500002
+              ]
+            ]
+          },
+          "old_missing_volume_mm3": 0,
+          "old_extra_volume_mm3": 0,
+          "native_lid_to_parent_rotation": [
+            [
+              -1,
+              0,
+              0
+            ],
+            [
+              0,
+              -1,
+              0
+            ],
+            [
+              0,
+              0,
+              1
+            ]
+          ],
+          "native_lid_to_parent_translation_mm": [
+            0.0,
+            0.0,
+            228.0
+          ],
+          "occurrence_frame": [
+            [
+              1.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "fresh_posed_step_sha256": "5f6d5bbe1f2291d5833be00558e6846468197c2fd392930ec90f65c40e9a447b",
+          "fresh_posed_signature": {
+            "valid": true,
+            "solids": 1,
+            "volume_mm3": 307329.9690263932,
+            "area_mm2": 123362.81728628752,
+            "bounds_mm": [
+              [
+                -141.20000009999998,
+                -97.7000001,
+                227.9999999
+              ],
+              [
+                141.20000009999998,
+                90.2000001,
+                278.65
+              ]
+            ]
+          },
+          "fresh_posed_readback_delta_mm3": 0
+        }
+      },
+      {
+        "mode": "appliance",
+        "relative": "hardware/manifold-layout/enclosure-assembly.step",
+        "source_sha256": "efe928fc8a7d8ec6f8bbb94a0bfe4e84a5bc9bf98a5d71d22682376616501b25",
+        "staged_sha256": "168e515b07654b7b69ec2f0483ef3f12572cf56b15bcd7f4b337b03cf2ba0951",
+        "native": {
+          "target_product": "cold-core/foam-cap-lid-top",
+          "replaced_brep_record": 1188452,
+          "records_added": 20188,
+          "unrelated_record_bytes_identical": true,
+          "retained_record_bytes_sha256": "00eb6adcdc446958a43829d57d90d3db70c2a107c8e483d7dee5c20d3ea4ffe0",
+          "dangling_references": 0
+        },
+        "owning_frame_proof": {
+          "old_frame_proven": true,
+          "held_leaf_sha256": "08c464dea9a6240a627bd4edaf5f271de6d0c0cb49f883ac3a7243bb039ae1b2",
+          "old_expected_signature": {
+            "valid": true,
+            "solids": 1,
+            "volume_mm3": 305614.2698132621,
+            "area_mm2": 122180.9842235645,
+            "bounds_mm": [
+              [
+                -90.2000001,
+                182.59999990000003,
+                247.99999989999975
+              ],
+              [
+                97.7000001,
+                465.0000001,
+                298.65000000000003
+              ]
+            ]
+          },
+          "held_actual_signature": {
+            "valid": true,
+            "solids": 1,
+            "volume_mm3": 305614.269812139,
+            "area_mm2": 122180.98422423808,
+            "bounds_mm": [
+              [
+                -90.2000001,
+                182.59999989999997,
+                248.00000009999974
+              ],
+              [
+                97.7000001,
+                465.0000001,
+                298.6500002
+              ]
+            ]
+          },
+          "old_missing_volume_mm3": 0,
+          "old_extra_volume_mm3": 0,
+          "native_lid_to_parent_rotation": [
+            [
+              0,
+              1,
+              0
+            ],
+            [
+              -1,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              1
+            ]
+          ],
+          "native_lid_to_parent_translation_mm": [
+            0.0,
+            323.8,
+            248.0
+          ],
+          "occurrence_frame": [
+            [
+              1.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "fresh_posed_step_sha256": "80c9b8d62e72cc4d9aec1044af1caead70a91d4366e17d676e54e96013ac5fa0",
+          "fresh_posed_signature": {
+            "valid": true,
+            "solids": 1,
+            "volume_mm3": 307329.96902636794,
+            "area_mm2": 123362.81728631313,
+            "bounds_mm": [
+              [
+                -90.2000001,
+                182.5999999,
+                247.99999989999975
+              ],
+              [
+                97.7000001,
+                465.0000001,
+                298.65
+              ]
+            ]
+          },
+          "fresh_posed_readback_delta_mm3": 0
+        },
+        "payload": {
+          "changed_rows": [
+            "cold-core/foam-cap-lid-top"
+          ],
+          "unrelated_rows": 560,
+          "unrelated_array_digest": "b3ab76d76f4a25bb4ff54be95eda8e7729757abc2d6ff5c0a9bced313c1f9671",
+          "staged_sha256": "09314f2d7e8e97198eee5895d96f96fdf569dc29353c0112bb1a8dc9332ae77a",
+          "unrelated_arrays_readback_identical": true,
+          "replacement_coordinates": "Parent physical/world Z-up frame"
+        }
+      }
+    ],
+    "installed_into_worktree": {
+      "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step": "d1cf5cc8ad10443e78966bd4b2b71531f1d415e43a234063eb05ff7bd0f489a6",
+      "hardware/cold-core-layout/cold-core-assembly.step": "ae4de886f79f757288193b5d055d7534271e1dcd17dd8d6210cb0f88650e4e6d",
+      "hardware/manifold-layout/enclosure-assembly.step.mesh": "09314f2d7e8e97198eee5895d96f96fdf569dc29353c0112bb1a8dc9332ae77a",
+      "hardware/manifold-layout/enclosure-assembly.step": "168e515b07654b7b69ec2f0483ef3f12572cf56b15bcd7f4b337b03cf2ba0951",
+      "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step": "7e84c63be970a0a35acfb971c83de87f389eb6bd1670fb84694bd80c776b9985",
+      "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl": "d900e6a8c535ff9115d3c91c8e06c5527b20e88af6698ae64a87f8af87ec8327",
+      "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh": "d5c8ba785e30a8d1c5beba8d010a004a669efc6c0807345f421387357dc1e33d"
+    },
+    "no_cq_or_ocp_imports": true
+  },
+  "scenes": {
+    "schema": 1,
+    "scope": "Only the lid POSITION/NORMAL/index primitive is rebound in four held installation GLBs. All nodes/transforms/materials and all preexisting BIN bytes remain exact; J6 wires are absent from these scenes.",
+    "replayed_from_original_pinned_baselines": true,
+    "baseline_catalog_sha256": "ef440e7c7367370ff866d91569cb4f8ebd9488523b09ac6a474d32cc7a0305b4",
+    "scenes": [
+      {
+        "relative": "hardware/assembly/scenes/glb/back-half.glb",
+        "source_sha256": "b8ee2a44db9c331a1c7bf9ad5218f7152148f152a7e345975d2d98934eb178c5",
+        "staged_sha256": "3e95f72bac31a6454613796214f2be4ac5a340e20aedfb8e33c91bce4a062174",
+        "changed_mesh_name": "cold-core/foam-cap-lid-top",
+        "node_index": 60,
+        "mesh_index": 260,
+        "replacement_arrays_frame": "Appliance WORLD Z-up; existing node converts Z-up to glTF Y-up.",
+        "all_node_transforms_and_materials_identical": true,
+        "all_unrelated_mesh_metadata_identical": true,
+        "all_existing_binary_arrays_identical": true,
+        "only_appended_new_lid_arrays": true,
+        "source_appliance_payload_sha256": "09314f2d7e8e97198eee5895d96f96fdf569dc29353c0112bb1a8dc9332ae77a"
+      },
+      {
+        "relative": "hardware/assembly/scenes/glb/cap-lid-fill.glb",
+        "source_sha256": "542f65e7ffef295faa079d55e7655817e17074b23f8dcd945ace2298f21adf76",
+        "staged_sha256": "bec3d4a34225044817a1ac466964f8d925e6ad4e1080c9a4198815f6a9ace9d8",
+        "changed_mesh_name": "cold-core/foam-cap-lid-top",
+        "node_index": 0,
+        "mesh_index": 1,
+        "replacement_arrays_frame": "Appliance WORLD Z-up; existing node converts Z-up to glTF Y-up.",
+        "all_node_transforms_and_materials_identical": true,
+        "all_unrelated_mesh_metadata_identical": true,
+        "all_existing_binary_arrays_identical": true,
+        "only_appended_new_lid_arrays": true,
+        "source_appliance_payload_sha256": "09314f2d7e8e97198eee5895d96f96fdf569dc29353c0112bb1a8dc9332ae77a"
+      },
+      {
+        "relative": "hardware/assembly/scenes/glb/cap-lid.glb",
+        "source_sha256": "fd7335fd46fe94121bbba116c637ae5f5860f95dbab908076c4ed71bf694bfdb",
+        "staged_sha256": "ca9f516d214049d93ce970657295d33979d6829c4bbb46e238df59176135c05d",
+        "changed_mesh_name": "cold-core/foam-cap-lid-top",
+        "node_index": 3,
+        "mesh_index": 72,
+        "replacement_arrays_frame": "Appliance WORLD Z-up; existing node converts Z-up to glTF Y-up.",
+        "all_node_transforms_and_materials_identical": true,
+        "all_unrelated_mesh_metadata_identical": true,
+        "all_existing_binary_arrays_identical": true,
+        "only_appended_new_lid_arrays": true,
+        "source_appliance_payload_sha256": "09314f2d7e8e97198eee5895d96f96fdf569dc29353c0112bb1a8dc9332ae77a"
+      },
+      {
+        "relative": "hardware/assembly/scenes/glb/cold-core.glb",
+        "source_sha256": "bb286f33817b2ff9bfdc0d316fd95f9191f68424f993a083187242752e93b508",
+        "staged_sha256": "0b4d216a17336974ef38c56ab24e219d5e7d7addc3f4d575616def4a16ac147a",
+        "changed_mesh_name": "cold-core/foam-cap-lid-top",
+        "node_index": 29,
+        "mesh_index": 137,
+        "replacement_arrays_frame": "Appliance WORLD Z-up; existing node converts Z-up to glTF Y-up.",
+        "all_node_transforms_and_materials_identical": true,
+        "all_unrelated_mesh_metadata_identical": true,
+        "all_existing_binary_arrays_identical": true,
+        "only_appended_new_lid_arrays": true,
+        "source_appliance_payload_sha256": "09314f2d7e8e97198eee5895d96f96fdf569dc29353c0112bb1a8dc9332ae77a"
+      }
+    ],
+    "installed_into_worktree": {
+      "hardware/assembly/scenes/glb/back-half.glb": "3e95f72bac31a6454613796214f2be4ac5a340e20aedfb8e33c91bce4a062174",
+      "hardware/assembly/scenes/glb/cap-lid-fill.glb": "bec3d4a34225044817a1ac466964f8d925e6ad4e1080c9a4198815f6a9ace9d8",
+      "hardware/assembly/scenes/glb/cap-lid.glb": "ca9f516d214049d93ce970657295d33979d6829c4bbb46e238df59176135c05d",
+      "hardware/assembly/scenes/glb/cold-core.glb": "0b4d216a17336974ef38c56ab24e219d5e7d7addc3f4d575616def4a16ac147a"
+    },
+    "no_cq_or_ocp_imports": true
+  },
+  "outputs": {
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step": "7e84c63be970a0a35acfb971c83de87f389eb6bd1670fb84694bd80c776b9985",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl": "d900e6a8c535ff9115d3c91c8e06c5527b20e88af6698ae64a87f8af87ec8327",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh": "d5c8ba785e30a8d1c5beba8d010a004a669efc6c0807345f421387357dc1e33d",
+    "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step": "d1cf5cc8ad10443e78966bd4b2b71531f1d415e43a234063eb05ff7bd0f489a6",
+    "hardware/cold-core-layout/cold-core-assembly.step": "ae4de886f79f757288193b5d055d7534271e1dcd17dd8d6210cb0f88650e4e6d",
+    "hardware/manifold-layout/enclosure-assembly.step": "6a66e9dd57fbe3fe1ec4333154e64958babab9b7d71b648cc3469d83063039a0",
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": "1181b9bf8047d9715811389daa422321054c9d8cd4bfed305f08ef93d56c862a",
+    "hardware/wiring/enclosure-wiring.step": "0d714f6c05ad88f9351046748198adadbb12302a498966b6ab6600d0c3e18a00",
+    "hardware/wiring/enclosure-wiring.step.mesh": "ee0317f32ce5c80a09af16873f3f7e8ca433141bfca8b46ff96be7f87d663cbc",
+    "hardware/assembly/scenes/glb/back-half.glb": "3e95f72bac31a6454613796214f2be4ac5a340e20aedfb8e33c91bce4a062174",
+    "hardware/assembly/scenes/glb/cap-lid-fill.glb": "bec3d4a34225044817a1ac466964f8d925e6ad4e1080c9a4198815f6a9ace9d8",
+    "hardware/assembly/scenes/glb/cap-lid.glb": "ca9f516d214049d93ce970657295d33979d6829c4bbb46e238df59176135c05d",
+    "hardware/assembly/scenes/glb/cold-core.glb": "0b4d216a17336974ef38c56ab24e219d5e7d7addc3f4d575616def4a16ac147a"
+  }
+}

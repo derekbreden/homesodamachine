@@ -1,0 +1,293 @@
+{
+  "schema": 1,
+  "scope": "Five complete J6 routes from the compact production recipe, exact terminal endpoints, original cap-tail lines/arcs, and one local integral level hook. Bounded physical/wire questions only; no appliance build or physical wire-form qualification.",
+  "proximity_scope": "Only the two changed free curves and intervening low hook straight. Original PCB prefixes and cap-passage tails remain source-held; their existing contacts are not rerouted.",
+  "source_sha256": {
+    "hardware/wiring/installed/bundle-routes.json": "264fe711f86d8233d14ec3a421d35c87d00c4092fb6e8e68fed00234e2bff953",
+    "hardware/wiring/installed/bundles.py": "d90546642ccee650d4e895d230cd153b8270a2ee613b484bb040fbe03c94ce4a",
+    "hardware/wiring/installed/model.py": "d55956a640ebc105ab10ea13bdfb502a57fd7a97dcfe08a7fbd94f18aa839193"
+  },
+  "baseline_manifest_sha256": "07f189e0c7d532c36c41c7608b9ab36084ab56e81b508da34ac2442eb99248e6",
+  "baseline_physical_native_sha256": "efe928fc8a7d8ec6f8bbb94a0bfe4e84a5bc9bf98a5d71d22682376616501b25",
+  "world_lid_sha256": "cafdae54c2e449d6c0e2e8631ffaed5263dc7e8e3f952441a5bdeddf88d8947d",
+  "hook": {
+    "slot_x_mm": -54.5,
+    "center_y_mm": 388.0,
+    "center_z_mm": 261.2,
+    "straight_land_y_mm": [
+      380,
+      396
+    ],
+    "order_bottom_to_top": [
+      "J6-GND",
+      "J6-RA4",
+      "J6-RA3",
+      "J6-RA2",
+      "J6-RA1"
+    ]
+  },
+  "wires": [
+    {
+      "id": "J6-GND",
+      "native_valid": true,
+      "native_solids": 1,
+      "endpoints_exact": true,
+      "full_hook_land": true,
+      "length_mm": 336.01,
+      "minimum_modeled_bend_mm": 2.0,
+      "preparation_blank_mm": 600.0,
+      "preparation_reserve_mm": 263.99,
+      "hook_air_mm": 0.25000000000000144
+    },
+    {
+      "id": "J6-RA4",
+      "native_valid": true,
+      "native_solids": 1,
+      "endpoints_exact": true,
+      "full_hook_land": true,
+      "length_mm": 309.185,
+      "minimum_modeled_bend_mm": 1.012000073391882,
+      "preparation_blank_mm": 600.0,
+      "preparation_reserve_mm": 290.815,
+      "hook_air_mm": 0.25000000000000144
+    },
+    {
+      "id": "J6-RA3",
+      "native_valid": true,
+      "native_solids": 1,
+      "endpoints_exact": true,
+      "full_hook_land": true,
+      "length_mm": 359.443,
+      "minimum_modeled_bend_mm": 1.0741768941845653,
+      "preparation_blank_mm": 600.0,
+      "preparation_reserve_mm": 240.55700000000002,
+      "hook_air_mm": 0.25000000000000144
+    },
+    {
+      "id": "J6-RA2",
+      "native_valid": true,
+      "native_solids": 1,
+      "endpoints_exact": true,
+      "full_hook_land": true,
+      "length_mm": 412.578,
+      "minimum_modeled_bend_mm": 1.0741768925601556,
+      "preparation_blank_mm": 600.0,
+      "preparation_reserve_mm": 187.42200000000003,
+      "hook_air_mm": 0.25000000000000144
+    },
+    {
+      "id": "J6-RA1",
+      "native_valid": true,
+      "native_solids": 1,
+      "endpoints_exact": true,
+      "full_hook_land": true,
+      "length_mm": 466.067,
+      "minimum_modeled_bend_mm": 1.074176893132663,
+      "preparation_blank_mm": 600.0,
+      "preparation_reserve_mm": 133.933,
+      "hook_air_mm": 0.25000000000000144
+    }
+  ],
+  "held_sections": [
+    {
+      "id": "J6-GND",
+      "sections": [
+        {
+          "section": "prefix",
+          "segment_count": 8,
+          "maximum_numeric_delta_mm": 0.0
+        },
+        {
+          "section": "tail",
+          "segment_count": 9,
+          "maximum_numeric_delta_mm": 0.0
+        }
+      ]
+    },
+    {
+      "id": "J6-RA4",
+      "sections": [
+        {
+          "section": "prefix",
+          "segment_count": 8,
+          "maximum_numeric_delta_mm": 0.0
+        },
+        {
+          "section": "tail",
+          "segment_count": 13,
+          "maximum_numeric_delta_mm": 0.0
+        }
+      ]
+    },
+    {
+      "id": "J6-RA3",
+      "sections": [
+        {
+          "section": "prefix",
+          "segment_count": 8,
+          "maximum_numeric_delta_mm": 0.0
+        },
+        {
+          "section": "tail",
+          "segment_count": 13,
+          "maximum_numeric_delta_mm": 0.0
+        }
+      ]
+    },
+    {
+      "id": "J6-RA2",
+      "sections": [
+        {
+          "section": "prefix",
+          "segment_count": 8,
+          "maximum_numeric_delta_mm": 0.0
+        },
+        {
+          "section": "tail",
+          "segment_count": 13,
+          "maximum_numeric_delta_mm": 0.0
+        }
+      ]
+    },
+    {
+      "id": "J6-RA1",
+      "sections": [
+        {
+          "section": "prefix",
+          "segment_count": 8,
+          "maximum_numeric_delta_mm": 0.0
+        },
+        {
+          "section": "tail",
+          "segment_count": 13,
+          "maximum_numeric_delta_mm": 0.0
+        }
+      ]
+    }
+  ],
+  "pairs": [
+    {
+      "a": "J6-GND",
+      "b": "J6-RA4",
+      "native_centerline_distance_mm": 1.849999999999966,
+      "nominal_round_tube_air_mm": 0.14999999999996594,
+      "overlap_mm3": 0,
+      "basis": "Exact native centreline-edge distance and 0.85 mm round sweeps; Boolean only if their tube envelopes overlap."
+    },
+    {
+      "a": "J6-GND",
+      "b": "J6-RA3",
+      "native_centerline_distance_mm": 3.1384865037739593,
+      "nominal_round_tube_air_mm": 1.4384865037739594,
+      "overlap_mm3": 0,
+      "basis": "Exact native centreline-edge distance and 0.85 mm round sweeps; Boolean only if their tube envelopes overlap."
+    },
+    {
+      "a": "J6-GND",
+      "b": "J6-RA2",
+      "native_centerline_distance_mm": 3.138486503774031,
+      "nominal_round_tube_air_mm": 1.4384865037740309,
+      "overlap_mm3": 0,
+      "basis": "Exact native centreline-edge distance and 0.85 mm round sweeps; Boolean only if their tube envelopes overlap."
+    },
+    {
+      "a": "J6-GND",
+      "b": "J6-RA1",
+      "native_centerline_distance_mm": 1.9396913325651894,
+      "nominal_round_tube_air_mm": 0.23969133256518949,
+      "overlap_mm3": 0,
+      "basis": "Exact native centreline-edge distance and 0.85 mm round sweeps; Boolean only if their tube envelopes overlap."
+    },
+    {
+      "a": "J6-RA4",
+      "b": "J6-RA3",
+      "native_centerline_distance_mm": 1.8500000000000227,
+      "nominal_round_tube_air_mm": 0.15000000000002278,
+      "overlap_mm3": 0,
+      "basis": "Exact native centreline-edge distance and 0.85 mm round sweeps; Boolean only if their tube envelopes overlap."
+    },
+    {
+      "a": "J6-RA4",
+      "b": "J6-RA2",
+      "native_centerline_distance_mm": 3.138486503774061,
+      "nominal_round_tube_air_mm": 1.438486503774061,
+      "overlap_mm3": 0,
+      "basis": "Exact native centreline-edge distance and 0.85 mm round sweeps; Boolean only if their tube envelopes overlap."
+    },
+    {
+      "a": "J6-RA4",
+      "b": "J6-RA1",
+      "native_centerline_distance_mm": 3.138486503774031,
+      "nominal_round_tube_air_mm": 1.4384865037740309,
+      "overlap_mm3": 0,
+      "basis": "Exact native centreline-edge distance and 0.85 mm round sweeps; Boolean only if their tube envelopes overlap."
+    },
+    {
+      "a": "J6-RA3",
+      "b": "J6-RA2",
+      "native_centerline_distance_mm": 1.8500000000000227,
+      "nominal_round_tube_air_mm": 0.15000000000002278,
+      "overlap_mm3": 0,
+      "basis": "Exact native centreline-edge distance and 0.85 mm round sweeps; Boolean only if their tube envelopes overlap."
+    },
+    {
+      "a": "J6-RA3",
+      "b": "J6-RA1",
+      "native_centerline_distance_mm": 3.1384865037739766,
+      "nominal_round_tube_air_mm": 1.4384865037739767,
+      "overlap_mm3": 0,
+      "basis": "Exact native centreline-edge distance and 0.85 mm round sweeps; Boolean only if their tube envelopes overlap."
+    },
+    {
+      "a": "J6-RA2",
+      "b": "J6-RA1",
+      "native_centerline_distance_mm": 1.849999999999966,
+      "nominal_round_tube_air_mm": 0.14999999999996594,
+      "overlap_mm3": 0,
+      "basis": "Exact native centreline-edge distance and 0.85 mm round sweeps; Boolean only if their tube envelopes overlap."
+    }
+  ],
+  "hook_neighbors": [
+    {
+      "name": "psu",
+      "air_mm": 3.8999999999999986,
+      "overlap_mm3": 0,
+      "source_sha256": "6e6034d69d9dbb95f7172ba85a423708aa919d49df25f3016e6ff91a99b759df"
+    },
+    {
+      "name": "tube-fluid-28",
+      "air_mm": 71.25245729666685,
+      "overlap_mm3": 0,
+      "source_sha256": "67d213be59632fc21c7574ebee5cef1bf9272c8d8775de41a1af564084e4cdc4"
+    },
+    {
+      "name": "cold-core/tube-water-5",
+      "air_mm": 23.075228529676988,
+      "overlap_mm3": 0,
+      "source_sha256": "29d1c5e2235ab559d42cfea252f30e83c1283847b15d99a23257dfb4801bc21e"
+    },
+    {
+      "name": "cold-core/foam-cap-top",
+      "air_mm": 16.851086503030587,
+      "overlap_mm3": 0,
+      "source_sha256": "d8fa86399353d1d910a9bd16277bc89379160a02d38084f807f42f4df7525f47"
+    }
+  ],
+  "physical_context_count": 48,
+  "exact_physical_candidates": 5,
+  "other_wire_count": 93,
+  "other_wire_candidate_count": 0,
+  "legacy_sampler_check": {
+    "route_count": 98,
+    "sample_counts_unchanged": true,
+    "maximum_coordinate_delta_mm": 1.0338396805309458e-12
+  },
+  "limits": [
+    "Wire forming and fatigue remain physical harness properties; modeled bend radii describe this installation.",
+    "Existing source-held PCB prefix/cap-tail contacts were not redesigned by this retention change."
+  ],
+  "passed": true,
+  "raw_native_review_sha256": "b97f818a29bfe3bb8b9b371c293cf1b6f8eb34d7ee5af60b6cc673741ea1affc",
+  "other_wire_screen_sha256": "7c5fdaa2751cbbca65d7c253142637b18de151cc53a5799358fb1bfe13715f94",
+  "final_wire_index_sha256": "1c739ba9e4fa7ed72a9213072ef694c221d653a9545eac4e7fa18818afbf17df"
+}
