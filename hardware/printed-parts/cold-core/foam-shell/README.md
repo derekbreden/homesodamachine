@@ -212,10 +212,18 @@ Each carries a heat-set insert pocket at each end (drilled in from each face) �
 [20](STACK_INSERTS) inserts total, [10](FACE_SCREWS) per face, for fastening the
 foam-cap stacks.
 
-The outer **−X** wall carries one round copper feed-through on each lane. **Nothing else crosses it** — this face is mated against the
-refrigeration base, so a bore struck here opens into that base rather than into the
-machine. All seven fluid lines leave by the top cap's conduits, along with the
-two reservoir reed cables, carbonator reed cable and sensor/earth loom in their own passages. See Penetrations.
+The outer **−X** wall carries one round copper feed-through on each lane.
+Reservoir B's reed loom leaves through a top-open notch in this wall's upper
+rim, directly beside its dry reed channel. The notch is 10 mm wide and 6 mm
+deep: world X−37.5…−27.5, from the Z233.4 rim down to Z227.4, opening on
+the fore face at Y182.6. Its short dry guide joins the reed channel; the
+surrounding stock separates it from the foam cavity. The cap's floor closes
+over the ribbon when the cap is seated. The remaining wall continues below
+the notch.
+
+Six fluid lines leave through the upper cap face; B-fill enters its fore
+face. Reservoir A's reed cable, the carbonator reed cable and the sensor/earth
+loom use separate upper-cap passages. See Penetrations.
 
 #### Seam channel
 
@@ -297,7 +305,11 @@ the screw heads. The band
 spans those small dry side openings. Keep the axial driver openings on
 the lid's flat outer face, mounting seats and fluid passages clear. Burnish
 the foil onto the smooth lands around the openings without wrinkles or
-air channels. This local seam seal is not a complete cold-core vapor-barrier or lifetime qualification.
+air channels. At B's upper-rim cable exit, burnish a local foil collar from
+the casing onto the ribbon, closing the opening around it and joining the
+perimeter band. Keep the ribbon flat in its notch before clamping the cap;
+the cap seats on the surrounding printed rim. This local seam seal is not
+a complete cold-core vapor-barrier or lifetime qualification.
 
 [3M's technical data](https://multimedia.3m.com/mws/media/2366321O/3m-aluminum-foil-tape-425.pdf)
 identifies low moisture-vapor transmission and moisture-barrier use in
@@ -395,17 +407,18 @@ passages through printed material are ⌀[7.5 mm](TUBE_HOLE_D), with 0.5 mm radi
 tube for insertion below the reservoirs and through the cap. These passages
 do not retain the tube. Faucet and organizer fits use their own dimensions.
 
-**THE CORE IS REACHED THROUGH ITS LID.** All seven fluid lines leave by the TOP, each up a
-conduit through the foam cap and its lid (`_cold_core_interface.cap_conduits`), and the
-service bay stands on the face they open on. What is left on the −X face — the one the
-enclosure's quarter turn puts at the front of the machine, mated flat against the
-refrigeration base — is the two copper evaporator lines through their round holes. The PRV vent crosses
-the +Y flank into the enclosure’s exterior relief chase.
+Six fluid lines pass through the upper cap face into the service bay.
+B-fill enters the cap's fore face and turns down into its reservoir.
+Reservoir B's five-conductor reed ribbon leaves through the shell's upper-rim
+notch on that fore face; its external route rises beside the PCB to J7 and
+the reed-common WAGO. The two copper evaporator lines cross the shell's −X
+face through round holes. The PRV vent crosses the +Y flank into the
+enclosure’s exterior relief chase.
 
 | # | Pass-through | Opening | Carries |
 |---|---|---|---|
-| 1 | Reed cable (+X) | top-cap reed conduit | the reservoir-A level reeds' cable |
-| 2 | Reed cable (−X) | top-cap reed conduit | the reservoir-B level reeds' cable |
+| 1 | Reed cable (+X) | straight top-cap reed conduit directly above its channel | reservoir A's 5P reed ribbon; bends are dressed above the lid |
+| 2 | Reed cable (−X) | 10 × 6 mm top-open shell-rim notch | reservoir B's four signals and continuous common in one 5P ribbon, dressed externally to J7 and the reed-common WAGO |
 | 3 | Copper evaporator inlet | port-lane hole | 1/4" OD ACR copper, made up on the condenser's own outlet pick across the plane the two bodies share |
 | 4 | Copper evaporator outlet | west-lane hole | 1/4" OD ACR copper, made up on the compressor's own suction pick across that same plane |
 | 5 | PRV vent | **+Y flank** | short 1/4" OD LLDPE from the prv-shroud’s barrel into the enclosure’s west-wall relief chase, which opens outside the cabinet (see [`prv-shroud`](/hardware/printed-parts/cold-core/prv-shroud/)) |
@@ -415,7 +428,7 @@ the +Y flank into the enclosure’s exterior relief chase.
 | 9 | Reservoir A draw | **top-cap conduit** `reservoir-a` | A's dip tube: straight down through the draw bore in A's own cap to **its floor** |
 | 10 | Reservoir B draw | **top-cap conduit** `reservoir-b` | one continuous dip tube through the cap's 3.5 mm passive shift and B's draw bore to its floor |
 | 11 | Reservoir A fill | **top-cap conduit** `reservoir-a-fill` | through the cap's 3.5 mm passive shift to A's fill bore, **above its liquid** |
-| 12 | Reservoir B fill | **two fitted cap pockets** `reservoir-b-fill` | an upper JG elbow, short tube and lower trimmed NeoFit stem through B's fill bore, ending in the headspace |
+| 12 | Reservoir B fill | **fore-facing R14 cap guide** `reservoir-b-fill` | one continuous tube through the full-height printed block into B's fill grip, ending in the headspace |
 | 13 | Sensor and earth loom | top-cap `sensor-cable` passage | temperature-bus conductors and carbonator earth lead |
 | 14 | Carbonator reed loom | straight top-cup/lid `carbonator-reeds` passage at shell (0, −74) mm | CLO, CHI and their shared common, to J7 and its common WAGO |
 | 15 | Reservoir A air | dedicated Ø5.2 mm upper-cup/lid passage | 4 mm OD tube from A’s cap grip to 6 mm above the outer lid |
@@ -585,11 +598,20 @@ the masks and trim any external foam flush.
 
 ### Final assembly (after the body foam pour has cured)
 
-Drop the pre-soldered reed columns into the still-open reed channels,
-then seat the foam-filled top cap onto the body's top edge with
+Drop the pre-soldered reed columns into the still-open reed channels.
+Thread reservoir A's free ribbon vertically through its straight cap passage
+at world X−32.5/Y458.3, then dress its bends above the Z253.4 lid face.
+Lay reservoir B's complete 5P ribbon flat in the shell-rim notch, leaving its free end outside
+the fore face. Its four signal conductors reach J7; its continuous common
+reaches the existing reed-common WAGO. Dress that external loom beside the
+PCB with slack for its removable connections.
+
+Seat the foam-filled top cap onto the body's top edge with
 [10](FACE_SCREWS) M3 × 25 SHCS into the top-face inserts, and the bottom cap
 (mouth-down) under the body with [10](FACE_SCREWS) more into the bottom-face
-inserts. Apply the exterior seam tape as specified under "Dry casing seams".
+inserts. Keep B's ribbon inside the notch while the surrounding cap faces
+seat. Apply the exterior seam tape and B's local cable collar as specified
+under "Dry casing seams".
 
 ## Nominal walls and functional stock
 

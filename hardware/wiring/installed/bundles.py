@@ -107,7 +107,7 @@ def centreline(b,attachments):
         first=tuple(source_points[0])
         points=source_points
         if not b.get('above_cap_stations_mm'):
-            top=(first[0],first[1],265. if b['passage']=='reed-cable-b' else 270.)
+            top=(first[0],first[1],270.)
             segments.insert(0,{'kind':'line','start_mm':top,'end_mm':first,
                                'length_mm':math.dist(top,first)})
             points=[top,*source_points]
@@ -130,9 +130,6 @@ def entry_stations(connection,b,attachments,first):
             z=300.+(int(connection.start[-1]) if connection.start[-1].isdigit() else 0)*1.8
             return [(p[0],p[1],282.),(-49.,p[1],282.),(-49.,280.5,282.),
                     (-49.,280.5,z),(-49.,first[1],z),(first[0],first[1],z)]
-        if b['passage']=='reed-cable-b':
-            return [(p[0],p[1],282.),(32.,p[1],282.),(32.,first[1],282.),
-                    (first[0],first[1],282.)]
         return [(p[0],p[1],282.),(p[0],280.5,282.),(-49.,280.5,282.),
                 (-49.,first[1],282.),(first[0],first[1],282.)]
     return [attachments.station(s) for s in b['fanouts'][connection.id].get('entry_stations',[])]
