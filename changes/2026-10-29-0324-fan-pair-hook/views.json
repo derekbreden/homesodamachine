@@ -1,0 +1,87 @@
+{
+  "views": [
+    {
+      "name": "fan-pair-hook",
+      "caption": "Cut through the hook\u2019s mid-span to show its filled root and retaining lip.",
+      "before": "fan-pair-hook-before.webp",
+      "after": "fan-pair-hook-after.webp",
+      "width": 1200,
+      "height": 840,
+      "marks": [
+        {
+          "x": 621.6,
+          "y": 491.6,
+          "r": 81.3,
+          "label": "Integral fan hook",
+          "at": [
+            94.5,
+            150,
+            189.5
+          ]
+        }
+      ],
+      "model": "printed-parts/enclosure/enclosure/enclosure-front-top.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          -171.60060179639373,
+          -257.9240027636826,
+          417.00820152002547
+        ],
+        "target": [
+          95.5,
+          153,
+          191
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 15.5,
+        "near": 212.4409900749913,
+        "far": 797.1208925358558,
+        "aspect": 1.4285714285714286,
+        "section": {
+          "at": [
+            0,
+            150,
+            0
+          ],
+          "normal": [
+            0,
+            -1,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [
+        "enclosure-front-top"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh",
+          "from": "snapshot",
+          "sha256": "2a915fe72308cc6c9253a611cfb7669faee83eddb9b37d418ff31fbe5391f10b",
+          "commit": "5633d0fada9b50eba545444665c4f58420121e47",
+          "taken": "2026-10-29T07:56:17.109Z",
+          "published": true
+        },
+        "after": {
+          "payload": "printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh",
+          "from": "file",
+          "sha256": "beafa7e92634151f4c2dbf8ebb857e82bdabaf4c4a81b25f03553d6ad913dad4",
+          "commit": "eed6eaf77cd19f632caf99f255e85273335f7e01"
+        }
+      },
+      "changed": [
+        "enclosure-front-top"
+      ],
+      "withinMeshing": []
+    }
+  ]
+}
