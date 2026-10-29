@@ -1,0 +1,92 @@
+{
+  "schema": 1,
+  "scope": "One additive integral J11 hook on the solid lower west-wall band, matching the approved section. Local hardware uses the recorded native world-frame leaves.",
+  "site": {
+    "id": "j11-west-ribbon",
+    "host": "enclosure-front-bottom",
+    "origin": [
+      -98.5,
+      90.0,
+      5.925
+    ],
+    "outward": [
+      1.0,
+      0.0,
+      0.0
+    ],
+    "profile_up": [
+      0.0,
+      0.0,
+      1.0
+    ],
+    "seat_depth": 2.2,
+    "seat_height": 7.75,
+    "span": 16.0,
+    "stock": 3.0,
+    "beak": 0.75,
+    "centre_world_mm": [
+      -97.4,
+      90.0,
+      18.0
+    ],
+    "target_centers": {
+      "J11-GND": [
+        -97.4,
+        90.0,
+        20.775
+      ],
+      "J11-V5": [
+        -97.4,
+        90.0,
+        18.925
+      ],
+      "J11-DOUT": [
+        -97.4,
+        90.0,
+        17.075
+      ],
+      "J11-AOUT": [
+        -97.4,
+        90.0,
+        15.225
+      ]
+    },
+    "stock_basis": "Bare 4P 22 AWG ribbon, nominal 1.70 mm conductor OD on 1.85 mm pitch.",
+    "fit_scope": "The accepted 4P seat and entry section on a full solid wall root below the ventilation field; installed harness dressing remains a physical observation.",
+    "kind": "cable"
+  },
+  "host_valid": true,
+  "host_solids": 1,
+  "host_step_sha256": "42764e50812853933aeb665748776ae234fb16d9f8621ae7c8249289147314a9",
+  "baseline_step_sha256": "ea3f189b042ec9cacef8fa11f7a7cbec5338b247c79b98cbf0c12c6fd24567c6",
+  "removed_mm3": 0,
+  "added_mm3": 1058.4200000000005,
+  "expected_addition_mm3": 1058.4200000000003,
+  "root_overlap_mm3": 13.199999999999285,
+  "full_root_on_solid_stock": true,
+  "print_axis_world": [
+    0,
+    0,
+    1
+  ],
+  "neighbors": [
+    {
+      "name": "77/compressor/1",
+      "shape_source_sha256": "a81ffe890c8a05d0a162ee8eb25cd377bf187d75074a196693eccc25b2ccd883",
+      "air_mm": 17.250995980407716,
+      "overlap_mm3": 0
+    },
+    {
+      "name": "77/compressor/2",
+      "shape_source_sha256": "a054aa4061806037dd36419324d13f83f69f97c99c589580c3fac5c530252ccb",
+      "air_mm": 66.19275356864979,
+      "overlap_mm3": 0
+    },
+    {
+      "name": "mq6-sensor",
+      "shape_source_sha256": "a5875cae6184c794c7fa51a753fb083ad18a6bb38036c376cb0500b985fd8554",
+      "air_mm": 15.262044423995103,
+      "overlap_mm3": 0
+    }
+  ]
+}

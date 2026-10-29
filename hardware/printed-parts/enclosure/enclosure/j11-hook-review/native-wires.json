@@ -1,0 +1,147 @@
+{
+  "schema": 1,
+  "scope": "Manual complete four-conductor J11 geometry review. Source/terminal poses are nominal routing datums; the numerical bends describe this layout rather than a physical wire-form qualification. No recurring check is installed.",
+  "bundle_id": "gas-sensor-ribbon",
+  "bundle_source_sha256": "09aa38d660c81fe0be7f501058de4083d61f67d3d09600fcebdaad9f1f4402bb",
+  "baseline_manifest_sha256": "e2b1786091b797ef861c14071210f75409994ec93b71b7cd86610707b3213169",
+  "baseline_physical_native_sha256": "53e76d19542585138a497df7f632a6e8ae6e781b8db6cfb2b8cc763f24b43a74",
+  "host_sha256": {
+    "enclosure-front-bottom": "42764e50812853933aeb665748776ae234fb16d9f8621ae7c8249289147314a9",
+    "enclosure-front-top": "896e50ceca37eaa74b5b19a1f2d70d8e3efb73d826c3e0b75198ddc6da0c22f0"
+  },
+  "context_index_sha256": "327bef2cc4fbc35473c6fec0da94e87bc9e5524fda1748e3af8c526953e4202f",
+  "native_context_count": 77,
+  "exact_context_candidate_count": 9,
+  "exact_native_neighbors": [
+    "compressor/1",
+    "mq6-sensor",
+    "yb-stem-elbow/1",
+    "tube-fluid-18",
+    "tube-fluid-28",
+    "tube-fluid-26",
+    "cold-core/pcba",
+    "elbow-cradle",
+    "cold-core/foam-cap-lid-top"
+  ],
+  "capsule_separation": {
+    "maximum_centerline_sampling_mm": 0.25,
+    "insulation_radius_mm": 0.85,
+    "half_sample_distance_bound_mm": 0.125
+  },
+  "hook": {
+    "centre_world_mm": [
+      -97.4,
+      90.0,
+      18.0
+    ],
+    "full_straight_y_mm": [
+      82.0,
+      98.0
+    ],
+    "conductor_order_top_to_bottom": [
+      "J11-GND",
+      "J11-V5",
+      "J11-DOUT",
+      "J11-AOUT"
+    ]
+  },
+  "wires": [
+    {
+      "id": "J11-GND",
+      "native_brep_sha256": "cee46ca1b715d447ad5c6d749cadc7e7c051e026041db38e0afd36beb9aa3dd0",
+      "native_valid": true,
+      "native_solids": 1,
+      "endpoints_exact": true,
+      "full_hook_land": true,
+      "length_mm": 542.742,
+      "minimum_modeled_bend_mm": 0.9238297195964246,
+      "preparation_blank_mm": 600.0,
+      "preparation_reserve_mm": 57.25778638769202,
+      "hook_air_mm": 0.2500000000000142,
+      "contacts": []
+    },
+    {
+      "id": "J11-V5",
+      "native_brep_sha256": "9ae4105e7397e9305242cc2ae8354598187f9f53970bcea065347a35dc950c23",
+      "native_valid": true,
+      "native_solids": 1,
+      "endpoints_exact": true,
+      "full_hook_land": true,
+      "length_mm": 532.157,
+      "minimum_modeled_bend_mm": 0.9238336774158056,
+      "preparation_blank_mm": 600.0,
+      "preparation_reserve_mm": 67.84293838167082,
+      "hook_air_mm": 0.2500000000000142,
+      "contacts": []
+    },
+    {
+      "id": "J11-DOUT",
+      "native_brep_sha256": "69edeae6381bbcf169133e4032ea63fab50dcba6addf7e9e26aeadf39923ba04",
+      "native_valid": true,
+      "native_solids": 1,
+      "endpoints_exact": true,
+      "full_hook_land": true,
+      "length_mm": 546.841,
+      "minimum_modeled_bend_mm": 0.9238336774158056,
+      "preparation_blank_mm": 600.0,
+      "preparation_reserve_mm": 53.15927261219906,
+      "hook_air_mm": 0.2500000000000142,
+      "contacts": []
+    },
+    {
+      "id": "J11-AOUT",
+      "native_brep_sha256": "691a054b20b12d16104713e1e1f0259784a14958899d2cf493deec8f1cea5164",
+      "native_valid": true,
+      "native_solids": 1,
+      "endpoints_exact": true,
+      "full_hook_land": true,
+      "length_mm": 553.682,
+      "minimum_modeled_bend_mm": 0.9238336774158056,
+      "preparation_blank_mm": 600.0,
+      "preparation_reserve_mm": 46.31764379782908,
+      "hook_air_mm": 0.2500000000000018,
+      "contacts": []
+    }
+  ],
+  "pairs": [
+    {
+      "a": "J11-GND",
+      "b": "J11-V5",
+      "air_mm": 0.14999999999997762,
+      "overlap_mm3": 0
+    },
+    {
+      "a": "J11-GND",
+      "b": "J11-DOUT",
+      "air_mm": 0.8399999999999961,
+      "overlap_mm3": 0
+    },
+    {
+      "a": "J11-GND",
+      "b": "J11-AOUT",
+      "air_mm": 1.200000000000017,
+      "overlap_mm3": 0
+    },
+    {
+      "a": "J11-V5",
+      "b": "J11-DOUT",
+      "air_mm": 0.14999999999997726,
+      "overlap_mm3": 0
+    },
+    {
+      "a": "J11-V5",
+      "b": "J11-AOUT",
+      "air_mm": 1.2000000000503188,
+      "overlap_mm3": 0
+    },
+    {
+      "a": "J11-DOUT",
+      "b": "J11-AOUT",
+      "air_mm": 0.14999999999996375,
+      "overlap_mm3": 0
+    }
+  ],
+  "passed": true,
+  "raw_native_review_sha256": "83318b4f29255fd37345e1ac4145eda158cceb3492e19da3d5e0d2dcd50c4011",
+  "frozen_wire_index_sha256": "04a9b018d2f53eeb134f350ba782ba20e0602f9ec261752c472ec6ff75013471"
+}
