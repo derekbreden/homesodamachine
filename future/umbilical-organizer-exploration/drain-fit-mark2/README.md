@@ -22,7 +22,7 @@ holds both reports on the L article. This print has not been submitted.
 - Editable project:
   [`2026-10-09-organizer-d430-petgf-left04-z004-mark2.3mf`](2026-10-09-organizer-d430-petgf-left04-z004-mark2.3mf).
 - Native archive to send:
-  [`2026-10-09-organizer-d430-petgf-left04-z004-mark2.gcode.3mf`](2026-10-09-organizer-d430-petgf-left04-z004-mark2.gcode.3mf).
+  [`2026-10-09-organizer-d430-petgf-left04-z004-mark2.gcode.3mf`](https://github.com/derekbreden/homesodamachine/blob/33d50d2ecd2a0fb6b518483a44c8031e3a0c1617/future/umbilical-organizer-exploration/drain-fit-mark2/2026-10-09-organizer-d430-petgf-left04-z004-mark2.gcode.3mf).
 - Source mesh: [`parts/umbilical-organizer-q6.65-d4.30.stl`](parts/umbilical-organizer-q6.65-d4.30.stl),
   byte-identical to the production STL.
 - Manual preparation: [`../prepare_drain_fit.py`](../prepare_drain_fit.py). It

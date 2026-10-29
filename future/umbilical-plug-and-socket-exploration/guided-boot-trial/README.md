@@ -13,7 +13,7 @@ and a matching wider socket. It is not included in this project or qualified by 
 | File | Purpose |
 | --- | --- |
 | [Editable project](guided-boot-mark2-z004.3mf) | Two centered blue parts, saved settings and placement |
-| [Native sliced archive](guided-boot-mark2-z004.gcode.3mf) | About 2 h 22 min; 63.54 g at the saved profile density |
+| [Native sliced archive](https://github.com/derekbreden/homesodamachine/blob/33d50d2ecd2a0fb6b518483a44c8031e3a0c1617/future/umbilical-plug-and-socket-exploration/guided-boot-trial/guided-boot-mark2-z004.gcode.3mf) | About 2 h 22 min; 63.54 g at the saved profile density |
 | [Print record](guided-boot-mark2-z004.print.json) | Source meshes, settings, hashes and full-bead bed margin |
 | [Native review](native-review.json) | First-layer and chamfer overlap, wall counts and effective settings |
 | [Support audit](support-audit.json) | Both support bodies, including their contact locations and removal access |

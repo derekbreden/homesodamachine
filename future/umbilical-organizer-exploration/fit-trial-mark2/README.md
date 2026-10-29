@@ -28,7 +28,7 @@ chamfers and 0.6 mm outer-rim chamfers; their smooth tube contact is 9.2 mm long
 The editable project is
 [`2026-10-09-organizer-three-fits-petgf-left04-z004-mark2.3mf`](2026-10-09-organizer-three-fits-petgf-left04-z004-mark2.3mf).
 The submitted native archive is
-[`2026-10-09-organizer-three-fits-petgf-left04-z004-mark2.gcode.3mf`](2026-10-09-organizer-three-fits-petgf-left04-z004-mark2.gcode.3mf).
+[`2026-10-09-organizer-three-fits-petgf-left04-z004-mark2.gcode.3mf`](https://github.com/derekbreden/homesodamachine/blob/33d50d2ecd2a0fb6b518483a44c8031e3a0c1617/future/umbilical-organizer-exploration/fit-trial-mark2/2026-10-09-organizer-three-fits-petgf-left04-z004-mark2.gcode.3mf).
 Source meshes are in [`parts/`](parts/). Manual preparation is
 [`../prepare_print.py`](../prepare_print.py); it does not submit a print.
 

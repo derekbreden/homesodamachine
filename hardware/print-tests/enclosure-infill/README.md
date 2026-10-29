@@ -40,7 +40,7 @@ joints. Their results do not establish complete-machine lifting or drop capacity
 
 ## Mark2 v1
 
-The [reviewed native archive](mark2-v1/native.gcode.3mf) uses the fixed left
+The [reviewed native archive](https://github.com/derekbreden/homesodamachine/blob/33d50d2ecd2a0fb6b518483a44c8031e3a0c1617/hardware/print-tests/enclosure-infill/mark2-v1/native.gcode.3mf) uses the fixed left
 hardened standard-flow 0.4 mm nozzle, external black PET-GF, Textured PEI and
 Mark2's +0.04 mm requested/+0.02 mm emitted trim. It estimates **2 h 37 min**
 and **116 g** at the PET-GF15 density of 1.43 g/cm³; the saved profile's

@@ -59,7 +59,7 @@ higher overhang entries capped at 10 mm/s. Its actual lip commands are
 verified; it is not submitted.
 
 - [Editable project](2026-10-13-compact-single-elbow-tpu85a-outer10-t215-engineering-right06-z000-mark1.3mf)
-- [Native archive](2026-10-13-compact-single-elbow-tpu85a-outer10-t215-engineering-right06-z000-mark1.gcode.3mf)
+- [Native archive](https://github.com/derekbreden/homesodamachine/blob/33d50d2ecd2a0fb6b518483a44c8031e3a0c1617/future/pump-elbow-exploration/prints/2026-10-13-compact-single-tpu85a-t215-engineering-z000-mark1/2026-10-13-compact-single-elbow-tpu85a-outer10-t215-engineering-right06-z000-mark1.gcode.3mf)
 - [Manual preparation script](prepare_mark1.py)
 
 The script prepares a slice offline. It does not connect to a printer or submit

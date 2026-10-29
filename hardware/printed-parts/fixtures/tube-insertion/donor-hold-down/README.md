@@ -50,7 +50,7 @@ orientation.
 The editable native project is
 [`ready/donor-hold-down-half-body-tpu85a-right06-z018-mark1.3mf`](ready/donor-hold-down-half-body-tpu85a-right06-z018-mark1.3mf).
 The reviewed print archive is
-[`ready/donor-hold-down-half-body-tpu85a-right06-z018-mark1.gcode.3mf`](ready/donor-hold-down-half-body-tpu85a-right06-z018-mark1.gcode.3mf).
+[`ready/donor-hold-down-half-body-tpu85a-right06-z018-mark1.gcode.3mf`](https://github.com/derekbreden/homesodamachine/blob/33d50d2ecd2a0fb6b518483a44c8031e3a0c1617/hardware/printed-parts/fixtures/tube-insertion/donor-hold-down/ready/donor-hold-down-half-body-tpu85a-right06-z018-mark1.gcode.3mf).
 Both use Mark1's right fixed 0.6 mm nozzle, external black TPU 85A spool
 255, textured PEI, 0.18 mm layers, a 0.30 mm first layer and 100% zig-zag
 infill. The user Z trim is Mark1's standard +0.18 mm; the emitted plate

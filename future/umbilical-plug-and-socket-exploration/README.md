@@ -169,8 +169,8 @@ and front cable pocket. It is an unpowered tactile article with filled magnet po
 
 | Job | Parts | Pause | Print |
 | --- | --- | --- | --- |
-| [`machine-side`](print/machine-side-mark2.3mf) · [sliced](print/machine-side-mark2.gcode.3mf) | Socket, retainer, wall coupon | Before Z [25.88](UMB_PAUSE_SOCKET): two bars into the cup floor | [2 h 39 min](UMB_TIME_SOCKET), [87](UMB_G_SOCKET) g |
-| [`plug-side`](print/plug-side-mark2.3mf) · [sliced](print/plug-side-mark2.gcode.3mf) | Plug, tube key | Before Z [18.68](UMB_PAUSE_PLUG): two bars into the face | [58 min](UMB_TIME_PLUG), [28](UMB_G_PLUG) g |
+| [`machine-side`](print/machine-side-mark2.3mf) · [sliced](https://github.com/derekbreden/homesodamachine/blob/33d50d2ecd2a0fb6b518483a44c8031e3a0c1617/future/umbilical-plug-and-socket-exploration/print/machine-side-mark2.gcode.3mf) | Socket, retainer, wall coupon | Before Z [25.88](UMB_PAUSE_SOCKET): two bars into the cup floor | [2 h 39 min](UMB_TIME_SOCKET), [87](UMB_G_SOCKET) g |
+| [`plug-side`](print/plug-side-mark2.3mf) · [sliced](https://github.com/derekbreden/homesodamachine/blob/33d50d2ecd2a0fb6b518483a44c8031e3a0c1617/future/umbilical-plug-and-socket-exploration/print/plug-side-mark2.gcode.3mf) | Plug, tube key | Before Z [18.68](UMB_PAUSE_PLUG): two bars into the face | [58 min](UMB_TIME_PLUG), [28](UMB_G_PLUG) g |
 
 These saved jobs omit the guided boot and fabric/foam tuck. They use black PET-GF on
 [Mark2](UMB_PRINTER)'s left 0.4 mm nozzle with the

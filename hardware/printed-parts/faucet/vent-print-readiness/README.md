@@ -26,11 +26,11 @@ shared tip or the extended Industrial cover.
 
 | Retained plate | Native archive |
 | --- | --- |
-| Sculpted rigid faucet | [Archive](faucet-black-z018-h2c/faucet-black-z018-h2c.gcode.3mf) |
-| Industrial rigid faucet | [Archive](faucet-industrial-black-z018-h2c/faucet-industrial-black-z018-h2c.gcode.3mf) |
-| Sculpted bungs and counter gasket | [Archive](vent-bungs-tpu85a-h2c/vent-bungs-tpu85a-h2c.gcode.3mf) |
-| Industrial bungs and counter gasket | [Archive](vent-bungs-industrial-tpu85a-h2c/vent-bungs-industrial-tpu85a-h2c.gcode.3mf) |
-| Perimeter insertion tool | [Archive](vent-seal-tool-petgf-z018-h2c/vent-seal-tool-petgf-z018-h2c.gcode.3mf) |
+| Sculpted rigid faucet | [Archive](https://github.com/derekbreden/homesodamachine/blob/33d50d2ecd2a0fb6b518483a44c8031e3a0c1617/hardware/printed-parts/faucet/vent-print-readiness/faucet-black-z018-h2c/faucet-black-z018-h2c.gcode.3mf) |
+| Industrial rigid faucet | [Archive](https://github.com/derekbreden/homesodamachine/blob/33d50d2ecd2a0fb6b518483a44c8031e3a0c1617/hardware/printed-parts/faucet/vent-print-readiness/faucet-industrial-black-z018-h2c/faucet-industrial-black-z018-h2c.gcode.3mf) |
+| Sculpted bungs and counter gasket | [Archive](https://github.com/derekbreden/homesodamachine/blob/33d50d2ecd2a0fb6b518483a44c8031e3a0c1617/hardware/printed-parts/faucet/vent-print-readiness/vent-bungs-tpu85a-h2c/vent-bungs-tpu85a-h2c.gcode.3mf) |
+| Industrial bungs and counter gasket | [Archive](https://github.com/derekbreden/homesodamachine/blob/33d50d2ecd2a0fb6b518483a44c8031e3a0c1617/hardware/printed-parts/faucet/vent-print-readiness/vent-bungs-industrial-tpu85a-h2c/vent-bungs-industrial-tpu85a-h2c.gcode.3mf) |
+| Perimeter insertion tool | [Archive](https://github.com/derekbreden/homesodamachine/blob/33d50d2ecd2a0fb6b518483a44c8031e3a0c1617/hardware/printed-parts/faucet/vent-print-readiness/vent-seal-tool-petgf-z018-h2c/vent-seal-tool-petgf-z018-h2c.gcode.3mf) |
 
 Physical observations remain beside the parts and in the
 [mechanical qualification index](../../../mechanical-qualification/README.md).
