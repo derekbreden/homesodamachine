@@ -195,7 +195,7 @@ def build_conduit_bores(height, radius=cap_conduit_bore_radius, overshoot=0.0,
 
 
 def build_conduit_entry_reliefs(z_inner):
-    """Every conduit's countersink in the LID, lofted from the bore's own radius at `z_inner`
+    """Leaning-line countersinks in the LID, lofted from the bore's own radius at `z_inner`
     — one wall under the outer face — out to `cap_conduit_entry_relief_radius` at that face,
     which is where a line leaves.
 
@@ -203,7 +203,9 @@ def build_conduit_entry_reliefs(z_inner):
     extrude; a loft runs between two wires and takes one station at a time."""
     cones = None
     for name, centre in cap_conduits.items():
-        if name in ('reservoir-b-fill','water-in'):
+        # The shared sensor loom stays vertical until above the lid. Its
+        # straight mouth needs no leaning-tube relief beside the earth boss.
+        if name in ('reservoir-b-fill','water-in','sensor-cable'):
             continue
         cone = (
             WorldWorkplane(xy_plane_z_up)

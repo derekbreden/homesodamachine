@@ -248,7 +248,8 @@ The upper passages follow the installed equipment:
   The uncut tube follows the accepted R14 holder directly into the meter
   inlet. No extra fitting or tube cut occurs at the guide.
 - One shared west-side Ø7.5 mm sensor passage rises straight through the cup
-  and lid at world X−48/Y347, opening on the Z253.4 lid face. Its seven cores
+  and lid at world X−48/Y347, opening on the Z253.4 lid face. The mouth stays
+  Ø7.5 mm to that face; the exposed loom bends above the lid. Its seven cores
   are the temperature bus's V/DATA/GND, the carbonator reeds' CLO/CHI/common,
   and the green 16 AWG protective-earth lead. The nominal packed envelope is
   6.6 mm. The two reed positions remain on the vessel's east side; their

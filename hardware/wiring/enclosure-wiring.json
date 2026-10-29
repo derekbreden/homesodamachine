@@ -47520,7 +47520,7 @@
     "Nominal and unlocated terminals remain visible in the graph and manifest; no exact donor termination is invented.",
     "The electrical graph does not qualify grounding, mains isolation, current capacity or energization."
   ],
-  "physical_scene_sha256": "b85f21c370cf5a4a824e1a8453b15389e6f0b60042511e983ca2b8fd9d7ebc6b",
+  "physical_scene_sha256": "b75195fe5d928bea4a9e18e8225cd53ece1e679ee0fb1005bedd2729823b3a1e",
   "source_sha256": {
     "hardware/wiring/installed/build.py": "123bf9cce507123738d9bcb1da96aaf320e2975667986b219d1dbf17e3c89889",
     "hardware/wiring/installed/connections.py": "b17109f1986daa958a37a57115d0623e3a4a05666f0bfa56e0e897106d1d8b0a",
@@ -47543,7 +47543,7 @@
     "hardware/printed-parts/enclosure/enclosure/_fixed_pump_mount.py": "465214f98f1930f45a8f79a774db9def71b9070687159f7cad5682781087ca00",
     "hardware/printed-parts/cold-core/_above_core_mounts.py": "dac2f8b746fe84cc6f5a9efd0c6f20e597356ce2bb729b8ad3e877cd41f98eac",
     "hardware/printed-parts/cold-core/_cold_core_interface.py": "387ba3854023179ae862498559f5881cdd178af284bdefd834a1c607dd6cc575",
-    "hardware/printed-parts/cold-core/_foam_cap.py": "121616b48ff7dd2d5f5a8d7c1d643d8a5d0fe23bd206966c6e92ac9a2ae979f5",
+    "hardware/printed-parts/cold-core/_foam_cap.py": "349b319393b96c81f5d0422ed01aec7c14804a0e9970777bac9790271708ac26",
     "hardware/cold-core-layout/_carbonator.py": "375eb7231e5aae2c712ddb8d54a9fe25dfdcba26ce68464a8d741884e9ebcf2a",
     "hardware/cold-core-layout/_carbonator_bond.py": "0f9a7fd741fa64f6d6fdb856cce93cc5f5c96abb8f8d11669015f001d9581b86",
     "hardware/reference/ground-ring-stack/ground_ring_stack.py": "9d4b4ca2b5a61f00667412a2f247aca6fd3e4a80e516cdeed0ada0afa659ad73",
