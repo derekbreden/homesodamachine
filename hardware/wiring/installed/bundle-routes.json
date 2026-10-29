@@ -331,8 +331,8 @@
   "reed-column-a": {
     "jacket": false,
     "kind": "Reed-column cable",
-    "description": "Five conductors share the cap bore and a parallel turn; four signal lanes and one continuous common spine occupy the existing reed channel.",
-    "bend_radius_mm": 5.5,
+    "description": "Five conductors rise vertically from reservoir A's dry reed channel through one aligned cap bore. Their turns remain above the lid; four signal lanes and one continuous common spine occupy the reed channel.",
+    "bend_radius_mm": 3.5,
     "fanout_tangent_mm": [
       4.0,
       2.0
@@ -340,24 +340,24 @@
     "route_status": "proposed",
     "cores": {
       "J6-RA1": [
-        0.5098780407186635,
-        -1.5692432518870032
+        1.3348780407186633,
+        -0.9698456662825805
       ],
       "J6-RA2": [
-        -1.3348780407186631,
-        -0.969845666282581
+        -0.5098780407186629,
+        -1.5692432518870034
       ],
       "J6-RA3": [
-        -1.3348780407186633,
-        0.9698456662825803
+        -1.65,
+        0.0
       ],
       "J6-RA4": [
-        0.5098780407186627,
-        1.5692432518870034
+        -0.5098780407186636,
+        1.5692432518870032
       ],
       "J6-GND": [
-        1.65,
-        2.0206672185931328e-16
+        1.334878040718663,
+        0.9698456662825807
       ]
     },
     "fanouts": {
@@ -393,54 +393,6 @@
               -46.0,
               279.5692400200504,
               278.0
-            ]
-          },
-          {
-            "terminal": "J6.RA1",
-            "offset": [
-              28.00987,
-              109.46633,
-              9.6
-            ]
-          },
-          {
-            "terminal": "J6.RA1",
-            "offset": [
-              36.00987,
-              121.46633,
-              1.6
-            ]
-          },
-          {
-            "terminal": "J6.RA1",
-            "offset": [
-              44.00987,
-              157.46633,
-              1.6
-            ]
-          },
-          {
-            "terminal": "J6.RA1",
-            "offset": [
-              56.00987,
-              169.46633,
-              1.6
-            ]
-          },
-          {
-            "terminal": "J6.RA1",
-            "offset": [
-              56.00987,
-              201.46633,
-              1.6
-            ]
-          },
-          {
-            "terminal": "J6.RA1",
-            "offset": [
-              64.00987,
-              217.46633,
-              9.6
             ]
           }
         ]
@@ -478,30 +430,6 @@
               278.9698420200504,
               278.0
             ]
-          },
-          {
-            "terminal": "J6.RA2",
-            "offset": [
-              42.16512,
-              151.3668,
-              25.6
-            ]
-          },
-          {
-            "terminal": "J6.RA2",
-            "offset": [
-              54.16512,
-              163.3668,
-              25.6
-            ]
-          },
-          {
-            "terminal": "J6.RA2",
-            "offset": [
-              62.16512,
-              219.3668,
-              9.6
-            ]
           }
         ]
       },
@@ -537,30 +465,6 @@
               -46.0,
               281.03015002005037,
               278.0
-            ]
-          },
-          {
-            "terminal": "J6.RA3",
-            "offset": [
-              42.16512,
-              159.92723,
-              1.6
-            ]
-          },
-          {
-            "terminal": "J6.RA3",
-            "offset": [
-              54.16512,
-              171.92723,
-              1.6
-            ]
-          },
-          {
-            "terminal": "J6.RA3",
-            "offset": [
-              62.16512,
-              219.92723,
-              9.6
             ]
           }
         ]
@@ -598,46 +502,6 @@
               284.4307580200504,
               278.0
             ]
-          },
-          {
-            "terminal": "J6.RA4",
-            "offset": [
-              36.00987,
-              119.3972,
-              23.6
-            ]
-          },
-          {
-            "terminal": "J6.RA4",
-            "offset": [
-              36.00987,
-              141.82796,
-              23.6
-            ]
-          },
-          {
-            "terminal": "J6.RA4",
-            "offset": [
-              36.00987,
-              181.82796,
-              23.6
-            ]
-          },
-          {
-            "terminal": "J6.RA4",
-            "offset": [
-              64.00987,
-              217.82796,
-              9.6
-            ]
-          },
-          {
-            "terminal": "J6.RA4",
-            "offset": [
-              64.00987,
-              221.82796,
-              9.6
-            ]
           }
         ]
       },
@@ -667,78 +531,64 @@
               61.89707,
               9.6
             ]
-          },
-          {
-            "terminal": "J6.GND",
-            "offset": [
-              34.49999,
-              125.89707,
-              21.1
-            ]
-          },
-          {
-            "terminal": "J6.GND",
-            "offset": [
-              34.49999,
-              133.89707,
-              21.1
-            ]
-          },
-          {
-            "terminal": "J6.GND",
-            "offset": [
-              34.49999,
-              173.89707,
-              21.1
-            ]
-          },
-          {
-            "terminal": "J6.GND",
-            "offset": [
-              34.49999,
-              177.89707,
-              21.1
-            ]
-          },
-          {
-            "terminal": "J6.GND",
-            "offset": [
-              34.49999,
-              185.89707,
-              21.1
-            ]
-          },
-          {
-            "terminal": "J6.GND",
-            "offset": [
-              65.14999,
-              221.89707,
-              5.6
-            ]
-          },
-          {
-            "terminal": "J6.GND",
-            "offset": [
-              65.14999,
-              225.89707,
-              9.6
-            ]
           }
         ]
       }
     },
-    "passage": "reed-cable-a",
-    "entry_family": "cap-cable",
-    "packed_diameter_mm": 5.0
+    "packed_diameter_mm": 5.0,
+    "stations": [
+      {
+        "point_mm": [
+          -49.0,
+          300.0,
+          281.0
+        ]
+      },
+      {
+        "point_mm": [
+          -49.0,
+          446.0,
+          281.0
+        ]
+      },
+      {
+        "point_mm": [
+          -49.0,
+          446.0,
+          260.5
+        ]
+      },
+      {
+        "point_mm": [
+          -32.5,
+          446.0,
+          260.5
+        ]
+      },
+      {
+        "point_mm": [
+          -32.5,
+          458.3,
+          260.5
+        ]
+      },
+      {
+        "point_mm": [
+          -32.5,
+          458.3,
+          232.4
+        ]
+      }
+    ]
   },
   "reed-column-b": {
     "jacket": false,
     "kind": "Reed-column cable",
-    "description": "Five conductors share the cap bore and a parallel turn; four signal lanes and one continuous common spine occupy the existing reed channel.",
+    "description": "Five conductors leave reservoir B's dry reed channel through the shell-rim notch and follow one exposed route beside the cap. Four signals terminate at J7; the common terminates at wago-reeds-b. Four signal lanes and one continuous common spine occupy the reed channel.",
     "bend_radius_mm": 5.5,
     "fanout_tangent_mm": [
       4.0,
-      2.0
+      0.0
     ],
     "route_status": "proposed",
     "cores": {
@@ -767,12 +617,10 @@
       "J7-earth-4": {
         "exit_stations": [
           {
-            "passage": "reed-cable-b",
-            "end": 1,
-            "offset": [
-              -2.8,
-              0,
-              -11.8
+            "point_mm": [
+              -35.3,
+              189.3,
+              220.0
             ]
           }
         ],
@@ -780,7 +628,7 @@
           3,
           4.0
         ],
-        "bend_radius_mm": 2.0,
+        "bend_radius_mm": 4.0,
         "route_status": "proposed",
         "entry_stations": [
           {
@@ -792,37 +640,23 @@
           },
           {
             "point_mm": [
-              14.0,
-              246.0,
-              281.9
-            ]
-          },
-          {
-            "point_mm": [
-              16.0,
-              238.0,
-              279.9
-            ]
-          },
-          {
-            "point_mm": [
               8.0,
-              206.0,
-              267.9
+              270.0,
+              291.0
             ]
           },
           {
             "point_mm": [
-              18.0,
-              196.0,
-              263.9
+              -8.0,
+              270.0,
+              291.0
             ]
           },
           {
             "point_mm": [
-              24.35,
-              190.0,
-              269.0
+              -20.0,
+              268.0,
+              288.0
             ]
           }
         ]
@@ -830,12 +664,10 @@
       "J7-RB1": {
         "exit_stations": [
           {
-            "passage": "reed-cable-b",
-            "end": 1,
-            "offset": [
-              -1.4,
-              -2,
-              -11.8
+            "point_mm": [
+              -33.9,
+              187.3,
+              220.0
             ]
           },
           {
@@ -857,17 +689,9 @@
           {
             "terminal": "J7.RB1",
             "offset": [
-              33.69012,
-              -43.77216,
-              2.6
-            ]
-          },
-          {
-            "terminal": "J7.RB1",
-            "offset": [
-              41.69012,
-              -63.77216,
-              2.6
+              -7.8,
+              0.0,
+              12.6
             ]
           }
         ]
@@ -875,12 +699,10 @@
       "J7-RB2": {
         "exit_stations": [
           {
-            "passage": "reed-cable-b",
-            "end": 1,
-            "offset": [
-              1.4,
-              -2,
-              -11.8
+            "point_mm": [
+              -31.1,
+              187.3,
+              220.0
             ]
           },
           {
@@ -902,17 +724,9 @@
           {
             "terminal": "J7.RB2",
             "offset": [
-              39.53487,
-              -61.67277,
-              0.6000000000000001
-            ]
-          },
-          {
-            "terminal": "J7.RB2",
-            "offset": [
-              43.53487,
-              -65.67277,
-              2.6
+              -7.8,
+              0.0,
+              12.6
             ]
           }
         ]
@@ -920,12 +734,10 @@
       "J7-RB3": {
         "exit_stations": [
           {
-            "passage": "reed-cable-b",
-            "end": 1,
-            "offset": [
-              1.4,
-              2,
-              -11.8
+            "point_mm": [
+              -31.1,
+              191.3,
+              220.0
             ]
           },
           {
@@ -947,17 +759,9 @@
           {
             "terminal": "J7.RB3",
             "offset": [
-              39.53487,
-              -66.23307,
-              0.6000000000000001
-            ]
-          },
-          {
-            "terminal": "J7.RB3",
-            "offset": [
-              43.53487,
-              -66.23307,
-              2.6
+              -7.8,
+              0.0,
+              12.6
             ]
           }
         ]
@@ -965,12 +769,10 @@
       "J7-RB4": {
         "exit_stations": [
           {
-            "passage": "reed-cable-b",
-            "end": 1,
-            "offset": [
-              -1.4,
-              2,
-              -11.8
+            "point_mm": [
+              -33.9,
+              191.3,
+              220.0
             ]
           },
           {
@@ -992,25 +794,59 @@
           {
             "terminal": "J7.RB4",
             "offset": [
-              37.69012,
-              -64.13368,
-              2.6
-            ]
-          },
-          {
-            "terminal": "J7.RB4",
-            "offset": [
-              41.69012,
-              -68.13368,
-              2.6
+              -7.8,
+              0.0,
+              12.6
             ]
           }
         ]
       }
     },
-    "passage": "reed-cable-b",
-    "entry_family": "cap-cable",
-    "packed_diameter_mm": 5.0
+    "packed_diameter_mm": 5.0,
+    "stations": [
+      {
+        "point_mm": [
+          -26.0,
+          242.0,
+          281.0
+        ]
+      },
+      {
+        "point_mm": [
+          -36.5,
+          242.0,
+          281.0
+        ]
+      },
+      {
+        "point_mm": [
+          -36.5,
+          176.0,
+          281.0
+        ]
+      },
+      {
+        "point_mm": [
+          -36.5,
+          176.0,
+          230.4
+        ]
+      },
+      {
+        "point_mm": [
+          -32.5,
+          189.3,
+          230.4
+        ]
+      },
+      {
+        "point_mm": [
+          -32.5,
+          189.3,
+          220.0
+        ]
+      }
+    ]
   },
   "temperature-bus": {
     "jacket": false,

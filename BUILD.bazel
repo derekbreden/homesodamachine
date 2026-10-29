@@ -3535,6 +3535,7 @@ genrule(
         "pysrc/hardware/printed-parts/cold-core/_internal_routes.py",
         "pysrc/hardware/printed-parts/cold-core/_outer_shell.py",
         "pysrc/hardware/printed-parts/cold-core/_port_cuts.py",
+        "pysrc/hardware/printed-parts/cold-core/_reed_b_outlet.py",
         "pysrc/hardware/printed-parts/cold-core/_reed_channels.py",
         "pysrc/hardware/printed-parts/cold-core/_reservoir_pocket_walls.py",
         "pysrc/hardware/printed-parts/cold-core/_reservoir_ports.py",
@@ -11888,6 +11889,14 @@ genrule(
     name = "pysrc-52eb36d86594",
     srcs = ["hardware/printed-parts/cold-core/_port_cuts.py"],
     outs = ["pysrc/hardware/printed-parts/cold-core/_port_cuts.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
+    name = "pysrc-07f138f6dd91",
+    srcs = ["hardware/printed-parts/cold-core/_reed_b_outlet.py"],
+    outs = ["pysrc/hardware/printed-parts/cold-core/_reed_b_outlet.py"],
     tools = ["tools/bazel/pysrc.py"],
     cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
 )

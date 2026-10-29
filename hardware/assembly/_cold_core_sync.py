@@ -147,11 +147,10 @@ def main():
         # The strip between a bag pocket's own wall and the shell's — the band
         # the water inlet's line climbs to reach its cap conduit.
         "FORWARD_BAND": f"{forward_band_width:.4g} mm",
-        # Where each reed cable leaves the core: the bore the cap stands over its own
-        # channel's mouth, in the SHELL's frame — the frame the channel is drawn in.
+        # Reservoir A's cap guide, in the shell's frame. B leaves at the shell rim.
         "REED_CONDUIT_XY": ", ".join(
             f"{n} ({cap_conduit_shell_xy(n)[0]:.4g}, {cap_conduit_shell_xy(n)[1]:.4g})"
-            for n in ("reed-cable-a", "reed-cable-b")),
+            for n in ("reed-cable-a",)),
         # Reservoir-to-pocket clearance — why the pockets take no foam.
         "RESERVOIR_GAP": f"{reservoir_clearance:.4g} mm",
         # ─── Output envelope (line 113) ───────────────────────────────

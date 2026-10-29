@@ -101,17 +101,23 @@ signals and one continuous common, with insulated local taps. The carbonator's
 reed pair also shares one common. Each reservoir column's common is a straight
 spine beside the reeds, with short local soldered taps.
 
-Each reservoir column's five conductors share a transported section through
-the cap bore and its upper turn. Below the cap, four signals descend around
-the reed envelopes and the common runs beside them. The temperature bus also
+Reservoir A's five conductors rise vertically through an aligned cap bore over
+the dry reed channel, with their turns above the lid. Reservoir B's five
+conductors leave the dry reed channel through
+the shell-rim notch and rise outside the cap beside the B-fill block. Its four
+signals terminate at J7, and its common terminates at `wago-reeds-b`. Below the
+cap, four signals descend around the reed envelopes and the common runs beside
+them. The temperature bus also
 has a shared three-conductor path between probes. Its tangential splice rows
 are proposed harness joints; they do not specify the TO-92 package pin order.
 The incoming feeds approach the first row from above, with the bus continuing
 below the taps toward the second probe.
 
-The two reservoir reed columns each use their own top-cap conduit. The three
-temperature-bus conductors, three carbonator-reed conductors and carbonator
+Reservoir A uses its top-cap reed conduit. Reservoir B uses a 10 mm-wide outlet
+cut 6 mm below the shell's top edge, with the ribbon laid through the open rim
+before the cap is seated. The three temperature-bus conductors and carbonator
 earth lead share the separate Ø7.5 mm `sensor-cable` conduit, west of the pump.
+The three carbonator-reed conductors use the straight `carbonator-reeds` passage.
 Its axis comes from the cap reference and is recorded in `cable_passages` in
 the resolved model. These internal leads are laid in the foam annulus before
 the body pour, with their free ends threaded through the cap and lid.

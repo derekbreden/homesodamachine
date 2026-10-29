@@ -39,11 +39,22 @@ The foam shell's channel is a three-sided box projecting outward from the
 reservoir's far wall, centered on the same +Y rod/reed plane. It is open at the
 top and has a bottom shelf. The column drops into this dry channel after the
 foam pour has cured; it is mechanically captured by the shelf, sides and cap.
-It is not embedded in foam. The cable rises directly through the cap's
-**[7.5 mm](CONDUIT_BORE_D)** conduit at
-[reed-cable-a (130.2, 14), reed-cable-b (-133.8, -26)](REED_CONDUIT_XY).
-The −X face stays flat against the refrigeration base. The fluid draw is a dip
-tube down through the reservoir's own cap ([floor and dip tube](floor-and-dip-tube.md)).
+It is not embedded in foam. Reservoir A's ribbon rises vertically through a
+straight **[7.5 mm](CONDUIT_BORE_D)** passage through the cup and lid,
+directly above its reed channel at appliance X−32.5/Y458.3. Its upper mouth
+is on the Z253.4 lid face; the ribbon's bends and jogging are dressed above
+that face. Reservoir B's complete 5P ribbon
+leaves directly through a 10 mm wide, 6 mm deep notch in the shell's upper
+fore rim, beside its own reed channel. In appliance coordinates the notch
+spans X−37.5…−27.5, opens at Y182.6 and lies between Z227.4 and the Z233.4
+rim. Lay the ribbon flat into this open notch before seating the cap; the
+cap's floor closes over it. The short dry guide remains separated from the
+foam cavity, and an exterior foil cable collar closes the opening around the
+ribbon. Its external route rises beside the PCB: four signals reach J7 and
+the continuous common reaches the existing reed-common WAGO.
+
+The fluid draw is a dip tube down through the reservoir's own cap
+([floor and dip tube](floor-and-dip-tube.md)).
 
 The greatest float-edge-to-reed-center distance is **11.063 mm**, including
 upright bore play; the corresponding RC62-edge distance is 19.538 mm. The
@@ -81,8 +92,8 @@ purchased parts are in [BOM §12](/hardware/ledger/bom.md).
 Removing the cap releases the rod's upper register. Lift the rod and float out
 of the lower boss, or leave the rod standing and lift the float off it. The
 reed column can be withdrawn through its open channel after the cap is lifted.
-Confirm the 6 × 8 mm channel and cable exit pass the soldered/laced column
-before fixing its final wire layout. Reservoir leak acceptance applies to the
+Release B's ribbon from its open rim notch as the column is lifted; the
+column does not pass through the cable exit. Reservoir leak acceptance applies to the
 reservoir prints that were tested; it does not establish foam-float immersion,
 pressure life or flavor compatibility.
 

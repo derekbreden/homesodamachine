@@ -57,12 +57,9 @@ reed_envelope_y_range = (reed_cavity_y_range[0] - w, reed_cavity_y_range[1] + w)
 # that pocket's own far wall.
 reed_line_clearance = lldpe_tube_od / 2.0
 
-# THE TWO CONDUITS THAT ARE OVER A CHANNEL ON PURPOSE, as `conduit -> the side whose channel it
-# stands on`. What comes down every other bore is a line, and a line over a cavity is the failure
-# the fence above catches; what comes UP these two is that channel's own reed cable, so standing
-# off its channel is the one thing either of them must not do. The pairing is data so the machine
-# can refuse it: `reed_cable_conduits_stand_over_their_own` holds each to the side it names.
-REED_CABLE_CONDUITS = {"reed-cable-a": +1, "reed-cable-b": -1}
+# Reservoir A's conduit stands above its own reed channel. Reservoir B
+# leaves at the shell rim and has no cap conduit.
+REED_CABLE_CONDUITS = {"reed-cable-a": +1}
 
 
 def reed_channel_plan_room(x, y):
@@ -152,8 +149,5 @@ def cut_reed_channel_openings(foam_shell):
     return foam_shell
 
 
-# A CABLE LEAVES BY THE TOP OF THE SLOT IT IS ALREADY IN. The channel is open from the shell's
-# floor to its top face, so the column's own cavity is the whole of the run: the cable rises the
-# way it was laced and meets the bore the cap stands over that mouth
-# (`_cold_core_interface.reed_cable_conduit_xy`). Nothing crosses a pocket wall, nothing runs the
-# port lane, and no bore is struck in the face the refrigeration base is mated to.
+# A's cable continues into its cap bore. B's cable turns out through the
+# locally backed shell-rim notch before the top cap is seated.

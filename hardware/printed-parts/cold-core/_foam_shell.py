@@ -13,16 +13,12 @@ from _reed_channels import (
     build_reed_channels,
     cut_reed_channel_openings,
 )
+import _reed_b_outlet
 
 
 def build_full_shell():
-    # NOTHING HERE GIVES WAY TO A LINE. Each reservoir stands on its pocket's own floor and is
-    # filled and drawn through its cap, so no line crosses a pocket; the outer shell, the
-    # carbonator support ring and the reed channels all fence a line, and
-    # `_internal_routes.report_routes` reads what that costs at every build.
-    #   THE OUTER SHELL IS FENCE, and that is what sends six of the seven lines up to the lid.
-    # The one opening in the skin is `cut_prv_vent_port`, below: named for the single line it
-    # lets out, so opening the skin stays a decision about that line.
+    # Reservoir fluid lines enter through their caps. B's dry reed ribbon
+    # leaves through the open shell rim, closed above by the top cap floor.
     foam_shell = (
         build_reservoir_pocket_walls()
         .union(build_carbonator_support_ring())
@@ -37,4 +33,4 @@ def build_full_shell():
         cut_reed_channel_openings,
     ):
         foam_shell = cut(foam_shell)
-    return foam_shell
+    return _reed_b_outlet.apply(foam_shell)
