@@ -65,6 +65,16 @@ def va_feed_snap():
                      print_up=(0., 0., 1.))
 
 
+def manifold_cable_bank():
+    """One filled J1/J2 cable bank on the lid, in appliance coordinates."""
+    sys.path[:0] = [str(HW.parent), str(HW / 'printed-parts' / 'cadlib')]
+    from hardware.wiring.installed.retainers import manifold_bank_site
+    from route_snap import cable_bank
+    site = manifold_bank_site()
+    return cable_bank(site['origin'], **{key: site[key] for key in
+                      ('seat_depth', 'seat_heights', 'span', 'stock', 'beak')})
+
+
 def mounting_points(name, holes):
     """Native mounting-hole points at their cap XY stations."""
     frame = above_core.pose(name)

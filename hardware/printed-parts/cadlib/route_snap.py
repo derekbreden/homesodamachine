@@ -109,3 +109,29 @@ def cable_origin(centre, outward, profile_up, *, seat_depth=2.20,
     n,p=_unit(outward),_unit(profile_up)
     seat_middle=seat_depth+2*stock+seat_height/2.
     return (cq.Vector(*centre)-n*(seat_depth/2.)-p*seat_middle).toTuple()
+
+
+def cable_bank(origin, *, seat_heights=(13.30, 7.75), seat_depth=2.20,
+               span=CABLE_SPAN, stock=CABLE_STOCK, beak=.75):
+    """Two upward-entry cable seats on one filled floor-rooted base.
+
+    ``origin`` is the left edge of the base on its host face, at mid-span.
+    The profile lies in X/Z and the cables run along Y. Each cavity retains
+    cable_hook's entry chamfer and flat retaining underside. The first
+    cavity has the taller wall; the middle wall belongs to both seats.
+    """
+    first, second = seat_heights
+    a, b = stock, stock + seat_depth
+    c, d = 2 * stock + seat_depth, 2 * (stock + seat_depth)
+    width = 3 * stock + 2 * seat_depth
+    roof_a, roof_b = stock + first, stock + second
+    top_a, top_b = roof_a + stock + beak, roof_b + stock + beak
+    points = [(0., -ROOT_OVERLAP), (width, -ROOT_OVERLAP),
+              (width, top_b), (d, top_b), (d-beak, top_b-beak),
+              (d-beak, roof_b), (d, roof_b), (d, stock), (c, stock),
+              (c, top_a), (b, top_a), (b-beak, top_a-beak),
+              (b-beak, roof_a), (b, roof_a), (b, stock), (a, stock),
+              (a, top_a), (0., top_a)]
+    plane = cq.Plane(origin=cq.Vector(*origin)+cq.Vector(0., span/2., 0.),
+                     xDir=(1., 0., 0.), normal=(0., -1., 0.))
+    return _prism(points, plane, span).clean()
