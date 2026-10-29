@@ -38,7 +38,7 @@ Per-unit BOM lives in [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §2 (
 | **Control Devices SV-125 safety valve, 1/4" NPT, 125 PSI** | B01G2F6EMY (size SV-125) | **Port 4 dedicated PRV — installed after passivation per step 9 below, via the SS 90° elbow to orient the body laterally.** The 125 PSI set pressure stands above the G Ganen's outlet switch and the primary regulator's 75 PSI factory setting, so neither the refill pump nor a failed-open secondary lifts it; it is not a vessel safety factor. 49 SCFM relief capacity. |
 | Millrose PTFE thread-seal tape | B07C9ZV4PG | Anti-seize for 4 NPT ports (test plugs during hydro + final fittings after passivation) |
 | ER316L .030 filler wire | STARTECHWELD B09BKFBXT9 | Matches 316L parent metal. |
-| Earth tab, 12 × 13 × 1.5 mm, two upper corners R2 | Acquired 304 stainless sheet | One Ø3.6 mm through hole in the tab, 8 mm above its base. Welds to the top plate's outside face. |
+| Earth tab, 12 × 17 × 1.5 mm, two upper corners R2 | Acquired 304 stainless sheet | One Ø3.6 mm through hole in the tab, 12 mm above its base. Welds to the top plate's outside face. |
 | Dedicated carbonator earth clamp | M3 × 12 stainless socket screw; M3 / #4 22–16 AWG ring terminal; McMaster 90923A216 captive external-tooth stainless locknut | Screw and ring are acquired. The captive locknut is the specified stainless clamp hardware; see the [earth-tab attachment](#external-earth-tab) below. |
 | Cambro 6 QT polycarbonate square container | B001BZEQ44 | Reusable passivation tub; bath condition and reuse limits need qualification |
 | Viva Doria food-grade citric acid | B0C5NQM8S1 | Made up to ~4 % solution, sufficient to contact all interior and exterior surfaces |
@@ -102,9 +102,9 @@ tilt and free travel require physical qualification before closure. See
 
 ### External earth tab
 
-Cut the **12 mm-wide × 13 mm-high × 1.5 mm-thick** tab from the acquired 304
+Cut the **12 mm-wide × 17 mm-high × 1.5 mm-thick** tab from the acquired 304
 stainless sheet. Round the two upper corners R2 and deburr every edge. Drill
-one **Ø3.6 mm through hole**, centered across the width and **8 mm above the
+one **Ø3.6 mm through hole**, centered across the width and **12 mm above the
 base**; the acquired 9/64-inch bit makes a nominal 3.572 mm clearance hole.
 The hole is in this separate tab only. Do not drill the top plate for this bond.
 
@@ -117,7 +117,8 @@ runs along Y and its hole axis along X. In the cold-core assembly frame this
 is **X23.2 / Y40.0 mm**, with the tab base on the plate's outside face and
 its width along X. In the installed appliance the base is at
 **X−40 / Y347 / Z198.05 mm**. The tab stands over solid plate, clear of both
-ports and the closure fillet at the rim.
+ports and the closure fillet at the rim. Its hole axis is at **Z210.05 mm**,
+leaving room above the tube rim for the screw driver and nut socket.
 
 Clamp the tab square to the plate and make a **1.5 mm-leg base fillet along
 each 12 mm side**, using the existing argon-shielded laser process and ER316L
@@ -128,7 +129,9 @@ attachment; its bolt ends above the plate and does not enter the pressure
 boundary.
 
 After passivation and before the cold-core body foam pour, crimp the **green
-16 AWG earth lead** into the acquired M3 / #4 ring terminal. Assemble from
+16 AWG earth lead** into the acquired steel-side M3 / #4 ring terminal. Keep
+its opposite end unterminated until it has passed through both the printed
+upper cup and lid; crimp the lid-side ring at cold-core assembly step 5. Assemble from
 the screw head: **M3 × 12 stainless screw → ring tongue → bare tab → captive
 external-tooth locknut 90923A216**. Put the ring
 directly against the tab's west face in the appliance, with its barrel pointing
