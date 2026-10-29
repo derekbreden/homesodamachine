@@ -206,13 +206,17 @@ assert not _cover, (
     f"— add the cut-part row, its cable gland and its bond back with it")
 
 # Foam-cap hardware: one clamp insert + one M3 × 25 screw per station per face, both faces, PLUS
-# the top cap's pump and PCB columns, each with a full-length M3
-# insert. The upright V-B wall takes no separate mount fasteners.
+# the top cap's pump and PCB columns and three local B-fill passage clamps,
+# each with a full-length M3 insert. The upright V-B wall takes no separate
+# mount fasteners.
+b_fill_clamp_fasteners_per_build = len(
+    _selected_cap.reservoir_b_fill_passage()['clamp_stations'])
 foam_cap_deck_inserts_per_build = sum(len(deck_mount_xy(n)) for n in deck_mounts)
 pump_mount_screws_per_build = len(deck_mount_xy("g-ganen-pump"))
 foam_cap_clamp_inserts_per_build = inserts_per_foam_cap_face * foam_cap_faces
 foam_cap_inserts_per_build = (foam_cap_clamp_inserts_per_build
-                              + foam_cap_deck_inserts_per_build)
+                              + foam_cap_deck_inserts_per_build
+                              + b_fill_clamp_fasteners_per_build)
 foam_cap_screws_per_build = foam_cap_clamp_inserts_per_build  # 1:1 clamp only
 
 # Reservoir-cap hardware (12 inserts + 12 M3 × 12 screws).
@@ -332,8 +336,8 @@ m3x8_per_build = (shelf_pcba_screws_per_build + cond_screws_per_build + shelf_gr
                   + faucet_display_cover_screws_per_build
                   + touchflo_screws_per_build)
 
-# C14 uses M3×10.
-m3x10_per_build = c14_screws_per_build
+# C14 and the cap's three local B-fill passage clamps use M3 × 10.
+m3x10_per_build = c14_screws_per_build + b_fill_clamp_fasteners_per_build
 m3x20_per_build = pump_mount_screws_per_build
 
 # The PCB stack belongs to the cap; PSU and relay stacks belong to the wall.
@@ -402,6 +406,7 @@ total_m3_screws_per_build = (
     + faucet_display_cover_screws_per_build
     + pump_retainer_screws_per_build
     + c14_screws_per_build
+    + b_fill_clamp_fasteners_per_build
     + dock_fixture_locks_per_build
     + roof_closure_screws_per_build
 )
@@ -527,6 +532,8 @@ def main(*, only_bom=False):
             f"{display_cover_inserts_per_build} inserts."),
         "M3X10_TOTAL": f"{m3x10_per_build:.4g}",
         "M3X10_COST": pack_line_cost(m3x10_per_build, "8.57", 120),
+        "B_FILL_CLAMP_SCREWS": f"{b_fill_clamp_fasteners_per_build:.4g}",
+        "B_FILL_CLAMP_INSERTS": f"{b_fill_clamp_fasteners_per_build:.4g}",
         "M3X20_TOTAL": f"{m3x20_per_build:.4g}",
         "M3X20_COST": pack_line_cost(m3x20_per_build, "8.14", 60),
         "FUNNEL_FRAME_SCREWS": f"{funnel_frame_screws_per_build:.4g}",

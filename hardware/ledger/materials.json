@@ -1623,9 +1623,9 @@
           },
           {
             "material": "HSM-000164",
-            "quantity": 40,
+            "quantity": 43,
             "unit": "ea",
-            "note": "Twenty foam-cap clamp bosses, eight deck-mount columns and twelve reservoir-cap inserts."
+            "note": "Twenty foam-cap face clamps, eight equipment columns, twelve reservoir-cap inserts and three B-fill passage clamps."
           },
           {
             "material": "HSM-000137",
@@ -1640,28 +1640,16 @@
             "note": "Six through each reservoir cap and gasket."
           },
           {
-            "material": "HSM-000330",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "reservoir-b-fill-lower"
-            ],
-            "note": "Reservoir B fill stem elbow at its cap bore."
-          },
-          {
-            "material": "HSM-000074",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "reservoir-b-fill-upper"
-            ],
-            "note": "Reservoir B fill union elbow below the lid."
-          },
-          {
             "material": "HSM-000365",
             "quantity": 2,
             "unit": "ea",
             "note": "Cut 31.25 mm, one through each reservoir cap's air grip."
+          },
+          {
+            "material": "HSM-000139",
+            "quantity": 3,
+            "unit": "ea",
+            "note": "Three recessed B-fill passage clamps in a triangle; close before fitting the PCB."
           }
         ]
       }

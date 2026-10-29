@@ -82,14 +82,17 @@ coordinates. The scoped native routing record is
 The carbonator's existing water and soda fitting datums stay fixed. The gas guide
 is at X77.5/Y368.7622 and its below-lid route retains the carbonator fitting and
 support-ring lane. Reservoir A fill and B draw pass straight through the cap,
-with their reservoir seats aligned to the upper guides. Reservoir B fill uses a trimmed stem elbow at its cap bore, a short tube and
-a JG elbow below the lid, with the upward exit aft of the PCB at X−33/Y287.5.
-The reservoir cap bores remain on their own native datums. The lower fitting
-has a 3.05 mm cover; a broad 2.4 mm upper cover retains the upward-facing
-fitting beneath the PCB tails with 0.25 mm nominal CAD air. The original
-cup-floor section remains intact outside the named bores. Assemble the pair
-and short link in the open cup before its lid goes on for the cap pour; these
-clearances do not qualify physical fit or retention loads.
+with their reservoir seats aligned to the upper guides. Reservoir B fill is
+one continuous black quarter-inch tube from V-I's stem elbow through the
+cap's fore-facing entry and integral R14 channel into its original TPU fill
+grip. The existing V-I elbow is clocked 15° east of aft. The reservoir cap
+and body retain their native datums.
+
+Close the three local recessed M3 × 10 clamps into full-length inserts on
+the bench. Thread the tube through the fore entry and around the guide,
+leaving its V-I end free. Mask the dry passage during the cap pour and
+fit the PCB after the clamps are closed.
+The cap's entry is a boundary in one tube, with no fitting or stock cut.
 
 The soda tube rises from the fixed bottom outlet beside the coil, turns toward
 its guide in the open main body at Z219.4, and passes straight through the cup
