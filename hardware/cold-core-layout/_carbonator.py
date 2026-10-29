@@ -54,6 +54,7 @@ from _cold_core_interface import (                      # noqa: E402
 )
 from _port_cuts import front_face_port_z                # noqa: E402
 import _internal_routes as _R                           # noqa: E402
+import _carbonator_bond as _bond                        # noqa: E402
 
 _cut = _hw / "cut-parts" / "carbonation" / "endcaps-circular"
 sys.path.insert(0, str(_cut))
@@ -250,7 +251,9 @@ def bodies() -> dict:
         "endcap-top": build_plate("top"),
         "float-rod-carb": build_rod(),
         "float-stop-carb-top": build_upper_float_stop(),
+        "carbonator-earth-tab": _bond.build_tab(top_plate_z[1]),
     }
+    out.update(_bond.build_hardware(top_plate_z[1]))
     for name, (solid, _mouth) in build_elbows().items():
         out[f"carbonator-elbow-{name}"] = solid
     return out

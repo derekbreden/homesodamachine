@@ -42,20 +42,20 @@ Dress each free end so it lies within the funnel opening's footprint once the bo
 
 ### 1. Chassis-ground bonds (single-point ground on the cold-core lid)
 
-Chassis grounding is via discrete green wires from the exposed metal parts back to one ring-terminal stack on the cold-core lid. Per [`/hardware/wiring/ac-wiring-schedule.md`](/hardware/wiring/ac-wiring-schedule.md) "Grounding strategy", all bonds are [16 AWG](AWG_AC_MAIN) green-insulated, with ring terminals at both ends.
+Chassis grounding is via discrete green wires from the exposed metal parts back to one ring-terminal stack on the cold-core lid. The separate carbonator lead and rear PE-bus pigtail are [16 AWG](AWG_AC_MAIN) green-insulated, with rings at their screw landings. The compressor's AC-6 bond is the green [18 AWG](COMP_LEAD_AWG) core of its jacketed power lead.
 
 Bond, from each target to the stack:
 
-- **Carbonator** — the bond needs a metal landing on the stainless shell. The printed foam-cap screw closes on a heat-set insert in plastic and defines no contact with that steel. The [installed wiring model](/hardware/wiring/README.md) carries `carbonator.PE` as an unlocated landing (Open item 2). Its lead leaves the cap through the sensor passage with the core's other potted lines ([`electronics-bay.md`](/hardware/assembly/electronics-bay.md) step 1).
+- **Carbonator** — crimp a closed M3 / #4 ring onto the green 16 AWG lead and clamp it directly to the welded stainless tab on the top plate, at enclosure X−40/Y347/Z198.05 mm. The M3 × 12 stainless screw clamps the ring tongue against bare steel; the captive external-tooth locknut bears on the opposite tab face. The barrel points upward toward the existing sensor/earth passage. Fit the clamp before the foil and body pour, following [the earth-tab fabrication and clamp sequence](/hardware/assembly/pressure-vessel.md#external-earth-tab). The lead leaves through the sensor passage with the core's other potted lines ([`electronics-bay.md`](/hardware/assembly/electronics-bay.md) step 1).
 - **Compressor body** — ring terminal under the compressor's own earth screw at its terminal box, landed with front-bottom open ([`enclosure-mechanical.md`](/hardware/assembly/enclosure-mechanical.md) §3). **Not under a floor screw.** The compressor stands on four rubber grommets and the posts under them are printed PET-GF, so a ring on one of those heads reaches rubber and plastic and touches no compressor metal at all. The earth screw is on the can. **This is the machine's only bond to the refrigeration metalwork**, and it is run AC-6 in [`/hardware/wiring/ac-wiring-schedule.md`](/hardware/wiring/ac-wiring-schedule.md): the G conductor of the same jacketed lead that carries AC-4 and AC-5 to the donor assembly's factory-external electrical interface, so the bond arrives with the power it protects.
 
 The stack is bonded to the C14 inlet's earth pin through AC-1's green conductor (C14 earth → rear PE WAGO) and the PE-bus pigtail (rear PE WAGO → stack).
 
-Prepare [~400 mm](EARTH_BUS_LEN) for the rear PE WAGO-to-stack bond and [~500 mm](EARTH_CARBONATOR_LEN) for the carbonator bond. Their modeled paths are 295.531 mm and 423.501 mm, leaving 104.469 mm and 76.499 mm for terminations and dressing. The carbonator's metal landing is unlocated; trim at the actual landing. The short AC-1 earth pigtail from C14 to the rear WAGO has its own cut.
+Prepare [~400 mm](EARTH_BUS_LEN) for the rear PE WAGO-to-stack bond and [~500 mm](EARTH_CARBONATOR_LEN) for the carbonator bond. Their modeled paths are 295.531 mm and 314.670 mm, leaving 104.469 mm and 185.330 mm for terminations and dressing. Trim the carbonator lead after dressing it from its fitted steel-side clamp through the sensor passage to the lid stack. The short AC-1 earth pigtail from C14 to the rear WAGO has its own cut.
 
 The stack is made through the funnel opening once the box is closed. The carbonator bond takes the northwest-facing lug, the inlet PE bus the northeast-facing lug and AC-6 the southwest-facing lug; the flat washer and M3 × 8 close the stack ([`electronics-bay.md`](/hardware/assembly/electronics-bay.md) step 5). Leave the inlet bond's nominal 6 mm straight entry before its bend and keep the fore paired-tube tie head on its east side. Fasten the stack before making the compressor's two joins. The installed harness is not qualified to remain in the stack's vertical driver path.
 
-Check each bond from its metal to its ring before that metal is closed in: the carbonator's before the body pour, the compressor's with front-bottom open. Once the stack is fastened, the closed-box check in step 3 reads C14's earth pin to the stack.
+Check each bond from its metal to its free ring before that metal is closed in: the carbonator's before the body pour, the compressor's with front-bottom open. Record a low-resistance bond measurement rather than relying only on a continuity beeper; subtract the test-lead resistance. After the stack is fastened, check C14's earth pin to each ring's exposed metal and to the compressor body. The carbonator's steel-side clamp is already buried at this stage, so retain its pre-pour steel-to-free-ring reading with the assembly record. These assembly readings do not replace the appliance's protective-bond qualification.
 
 ### 2. AC mains (C14 → distribution → relay #1 → compressor + PSU)
 
@@ -148,7 +148,6 @@ The chassis is the input to [`firmware-and-commissioning.md`](/hardware/assembly
 ## Open items
 
 1. **The current donor compressor's external electrical interface is not recorded.** Unit A establishes a black/white pigtail pattern for that donor only. The current BOM uses Frigidaire Unit B, whose external lead colors, connector family, polarity mapping, and retained harness length remain pending teardown. Preserve Unit B's donor-side termination at harvest, identify it at the bench, and specify a recognized mating connector or splice for AC-4/5 in the schedule and BOM. Do not inherit Unit A's wire-color assumptions; direct access to the terminal block under the cover is not the fallback.
-2. **The carbonator's metal bond landing is not located.** The body pour buries the carbonator, so the bond's landing on its steel is made before that pour.
 
 ## Sources
 [value](NAME) texts are updated by:

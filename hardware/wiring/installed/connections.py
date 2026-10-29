@@ -65,7 +65,7 @@ def connections():
     wire("AC6-PE", "Compressor", "PE", "ground.compressor", "compressor.PE", "earth18", "AC-6")
     wire("PE-bus", "Earth bonds", "PE", "wago-g.2", "ground.inlet", "earth16", "AC-1")
     wire("PE-carbonator", "Earth bonds", "PE", "ground.carbonator", "carbonator.PE", "earth16", "earth bonds",
-         note="Carbonator metal landing is unresolved; a plastic cap screw is not an electrical bond.")
+         note="Closed ring clamped directly to the welded stainless top-plate earth tab; fitted before the body foam pour.")
     for net, pole in (("V12", "v12"), ("GND", "gnd")):
         wire("DC1-"+net, "12V power", net, "psu."+net, f"wago-{pole}.1", "power16", "DC-1")
         wire("DC4-"+net, "12V power", net, f"wago-{pole}.3", "J10."+net, "power16", "DC-4")
