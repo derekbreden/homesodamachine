@@ -202,9 +202,9 @@ foam_cap_lid_pour_radius = 10.0
 foam_cap_lid_vent_radius = 3.0
 foam_cap_lid_hole_inset = 30.0
 # The TOP lid's pour hole stands in its fore-west quarter, over open cavity: west of the
-# reed-B cable column and the B-fill carrier, clear of the PCB's fore-west post. At the
+# reed-B cable column and the B-fill block, clear of the PCB's fore-west post. At the
 # centreline station it would open onto that cable column's top and under a WAGO well.
-top_lid_pour_xy = (outer_shell_x_length / 2 - foam_cap_lid_hole_inset, -64.0)
+top_lid_pour_xy = (outer_shell_x_length / 2 - foam_cap_lid_hole_inset, -73.0)
 # The top lid's vents stand this much nearer its −X end, clear of the A-fill guide's entry
 # countersink.
 top_lid_vent_setback = 2.5

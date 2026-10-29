@@ -38,18 +38,22 @@ Each guide has a Ø7.5 mm bore; the water and soda columns have 3 mm radial stoc
 B-fill enters the cap's Y− face at world (−43.5, 182.6, 247.55) mm and follows
 an R14 turn to the existing reservoir seat at X−43.5/Y233.3. The continuous
 tube ends at Z228.15, 1 mm below the reservoir cap plate. Its Ø6.8 mm teardrop
-passage has 0.5 mm mouth lead-ins. A full-height solid rib and crossbar occupy
-the guide's complete cup height; the lid closes the channel above them.
+passage has 0.5 mm mouth lead-ins. One plain rectangular block occupies
+world X−60.0…−27.0/Y182.6…248.3 through the complete cup height; the lid closes
+the channel above it. The Ø20 foam-pour opening is at world (−73.0, 212.6),
+3 mm clear of the block.
 
 The lid prints plate-down, with +Z as print-up. The supported channel crown
 retreats 0.25 mm toward +Z while its lower envelope and tube axis stay fixed.
+The cup's channel opening has a 0.5 mm parting-edge relief to remove tapered lips.
 The flat Z253.4 lid face leaves 2.20 mm above the compensated throat and
 1.70 mm at the entry lead-in. The cup/lid seating faces retain their 0.15 mm
 printed-fit allowance, including where the screws clamp them.
 
 Three recessed M3 × 10 screws fasten the lid into RX-M3×5.7 inserts in the
 cup's filled stock. The aft axis is (−43.5, 242.3) mm; the fore pair is
-X−54.0/−33.0 at Y227.1995 mm. They form a triangle around the bend's lift
+X−54.0/−33.0 at Y219.3 mm, aligned with the arc-to-straight inlet transition.
+They form a triangle around the bend's lift
 region. Each blind insert pilot is Ø4 × 9 mm; the lid has a Ø3.3 clearance
 hole and a Ø5.8 × 3.15 mm head recess. The 5.7 mm insert receives the full
 thread length, with 1.40 mm nominal screw-tip air and 5.30 mm blind backing.
@@ -257,7 +261,7 @@ The upper passages follow the installed equipment:
   Nominal packed loom diameters are 5.0 mm for each reed bundle and 6.6 mm retained envelope for
   the temperature/earth bundle.
 
-B-fill's printed rib and clamp crossbar fill their entire cup-height footprint.
+B-fill's rectangular printed block fills its entire cup-height footprint.
 The existing Reed-B passage crosses their shared stock and retains its own
 bore subtraction. Mask the dry tube passage and its mouths for the cap pour.
 Thread the tube with all three local lid clamps tightened, leaving its

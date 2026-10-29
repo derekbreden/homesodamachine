@@ -32,7 +32,7 @@ def passage():
     tip = (x, y, floor - 5.4)
     face = layout.specification()['cap_face_z_mm']
     lift_y = y - BEND_RADIUS * (1.0 - math.sin(math.pi / 4.0))
-    fore_y = lift_y - 2.0
+    fore_y = y - BEND_RADIUS
     clamp_stations = []
     for name, axis in (('aft', (x, y + 9.0)),
                        ('fore-west', (x - 10.5, fore_y)),
@@ -52,6 +52,7 @@ def passage():
         'wall_mm': WALL,
         'outlet_leg_mm': 0.0,
         'mouth_lead_in_mm': MOUTH,
+        'cup_mouth_relief_mm': MOUTH,
         'supported_roof_allowance_mm': fits.supported_surface,
         'print_up_world': (0.0, 0.0, 1.0),
         'bend_end_world_mm': (x, y, tangent_z),
@@ -64,12 +65,9 @@ def passage():
         'roof_top_world_z_mm': face,
         'throat_roof_stock_mm': face - (entry[2] + CHANNEL_RADIUS + fits.supported_surface),
         'entry_leadin_roof_stock_mm': face - (entry[2] + CHANNEL_RADIUS + MOUTH + fits.supported_surface),
-        'stock_min_world_mm': (x - 8.0, front, floor),
-        'stock_max_world_mm': (x + 7.0, y + 15.0, face),
+        'stock_min_world_mm': (x - 16.5, front, floor),
+        'stock_max_world_mm': (x + 16.5, y + 15.0, face),
         'clamp_stations': clamp_stations,
-        'clamp_crossbar_centre_world_xy_mm': (x, fore_y),
-        'clamp_crossbar_length_mm': 33.0,
-        'clamp_crossbar_width_mm': 12.0,
         # Mid-arc reference for the requested three-point clamp, not a force prediction.
         'lift_reference_world_mm': (x, lift_y, floor + BEND_RADIUS * math.cos(math.pi / 4.0)),
         'clamp_insert': 'RX-M3x5.7',
@@ -132,6 +130,37 @@ def holder_sections(inlet_leg, outlet_leg=0.0):
     return body.val(), channel.val().fuse(start, end).clean()
 
 
+def _cup_mouth_relief(channel, cup_height):
+    """A shallow lead-in removes the channel's tapered cup-parting edges."""
+    import cadquery as cq
+    core = importlib.import_module('_cold_core_interface')
+    layout = importlib.import_module('above_core')
+    mounts = importlib.import_module('_above_core_mounts')
+    local = mounts.world_shape_in_cap(channel).translate((0.0, 0.0, cup_height))
+    top = cup_height - core.cap_lid_clearance
+    def section(z):
+        wires = cq.Workplane('XY').newObject([local]).section(z).wires().vals()
+        return max(wires, key=lambda wire: cq.Face.makeFromWires(wire).Area())
+    lower = section(top - MOUTH)
+    upper = (cq.Workplane('XY').newObject([section(top)]).toPending()
+             .offset2D(MOUTH, 'arc').wires().val().translate((0.0, 0.0, 0.05)))
+    def matched(wire):
+        # Matched sections avoid the degenerate spline edges at the parting
+        # intersections. These facets describe only the small mouth bevel;
+        # the R14 tube bearing and supported roof remain analytic surfaces.
+        points = [wire.positionAt(i / 384.0) for i in range(384)]
+        area = sum(a.x * b.y - b.x * a.y
+                   for a, b in zip(points, points[1:] + points[:1]))
+        if area < 0.0:
+            points.reverse()
+        start = max(range(len(points)), key=lambda i: (round(points[i].x, 3), -points[i].y))
+        points = points[start:] + points[:start]
+        return cq.Wire.makePolygon(points + [points[0]])
+    relief = cq.Solid.makeLoft([matched(lower), matched(upper)], ruled=True)
+    return relief.translate((0.0, 0.0, -cup_height)).moved(
+        layout.frame_location(layout.cap_lid_pose()))
+
+
 @lru_cache(maxsize=2)
 def features(cup_height):
     """Full-height cup stock, compensated channel roof and three blind clamps."""
@@ -150,14 +179,11 @@ def features(cup_height):
     # only the crown toward print-up; the nominal lower envelope stays fixed.
     channel = channel.fuse(channel.translate((0.0, 0.0, up))).clean()
     body = body.fuse(body.translate((0.0, 0.0, up))).clean()
+    mouth_relief = _cup_mouth_relief(channel, cup_height)
     def box(lo, hi):
         return cq.Solid.makeBox(*(b - a for a, b in zip(lo, hi)), cq.Vector(*lo))
     low, high = data['stock_min_world_mm'], data['stock_max_world_mm']
-    bx, by = data['clamp_crossbar_centre_world_xy_mm']
-    crossbar = (cq.Workplane('XY').workplane(offset=low[2]).center(bx, by)
-                .slot2D(data['clamp_crossbar_length_mm'], data['clamp_crossbar_width_mm'])
-                .extrude(high[2] - low[2]).val())
-    stock = box(low, high).fuse(body, crossbar).clean()
+    stock = box(low, high)
     cup_top = data['cup_top_world_z_mm']
     lid_bottom = data['lid_bottom_world_z_mm']
     face = data['lid_face_world_z_mm']
@@ -174,11 +200,12 @@ def features(cup_height):
                                face - data['clamp_head_recess_depth_mm'], face + 0.1))
     bb = stock.BoundingBox()
     cup = stock.intersect(box((bb.xmin - 1.0, front - 1.0, low[2] - 0.1),
-                              (bb.xmax + 1.0, bb.ymax + 1.0, cup_top)))
+                              (bb.xmax + 1.0, bb.ymax + 1.0, lid_bottom)))
     lid = stock.intersect(box((bb.xmin - 1.0, front - 1.0, lid_bottom),
                               (bb.xmax + 1.0, bb.ymax + 1.0, roof_top + 0.1)))
     return {'cup_add': cup, 'lid_add': lid,
-            'cut': channel.fuse(*pilots, *shafts, *heads).clean(),
+            'cut': channel.fuse(mouth_relief, *pilots, *shafts, *heads).clean(),
             'channel_air': channel, 'clamp_pilots': pilots,
+            'cup_mouth_air': mouth_relief,
             'clamp_head_air': heads, 'holder_outer': body,
             'roof_top_z_mm': roof_top}

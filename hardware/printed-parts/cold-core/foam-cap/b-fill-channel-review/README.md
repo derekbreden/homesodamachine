@@ -2,18 +2,19 @@
 
 The cap's front-facing guide turns one continuous 1/4-inch tube at R14 from
 world (−43.5, 182.6, 247.55) to the existing reservoir seat at X−43.5/Y233.3.
-Its short end reaches Z228.15. The guide's rib and rounded clamp crossbar
-fill the complete cup-height footprint, with three recessed M3 × 10 screws
+Its short end reaches Z228.15. A plain rectangular block spans world
+X−60.0…−27.0/Y182.6…248.3 through the complete cup-height footprint, with three recessed M3 × 10 screws
 and full RX-M3×5.7 inserts fastening the lid above them.
 
 The supported channel crown has 0.25 mm of relief toward print-up (+Z).
 The nominal axis and lower envelope stay fixed. The straight crown reaches
 Z251.20 beneath the Z253.4 lid face, retaining 2.20 mm of roof stock.
+The cup's channel opening has a 0.5 mm lead-in at its parting edge.
 The accepted 0.5 mm mouth lead-in has 1.70 mm of roof above it. The normal
 0.15 mm printed seating allowance remains at every clamped cup/lid face.
 
-The fore screws occupy X−54.0/−33.0 at Y227.1995. They straddle the tube
-2 mm toward Y− from the mid-arc lift reference. The aft screw remains at
+The fore screws occupy X−54.0/−33.0 at Y219.3. They straddle the tube at
+the arc-to-straight inlet transition. The aft screw remains at
 (−43.5, 242.3). The lift reference lies inside this screw triangle. This is
 the specified load-support arrangement; the reference does not predict a
 measured force or establish a load rating.
@@ -34,10 +35,11 @@ no build or commit check.
 | Cup/lid material overlap | 0 mm³ |
 | Tube-channel obstruction in cup or lid | 0 mm³ |
 | Reed-B passage obstruction in cup | 0 mm³ |
+| Removed parting-lip pick clearance | 0.284 / 0.509 / 0.473 mm |
 | Nominal seating gap at each clamp | 0.15 mm |
 | Guide to original PCB and plug housings | 1.60 mm |
 | Recessed screw to original PCB | 1.75 mm |
-| Guide to original Ø20 pour opening | 1.696 mm |
+| Guide to Ø20 pour opening at X−73.0/Y212.6 | 3.000 mm |
 | Minimum clamp-pilot to channel gap | 3.692 mm |
 | Material missing at the closed upper opening | 0 mm³ |
 
