@@ -1,0 +1,169 @@
+{
+  "scope": "Manual review of the five Reed-B conductors in the shared printed diagonal cap passage; no automatic check added.",
+  "route_ids": [
+    "J7-RB1",
+    "J7-RB2",
+    "J7-RB3",
+    "J7-RB4",
+    "J7-earth-4"
+  ],
+  "source_sha256": {
+    "hardware/printed-parts/cold-core/_above_core_mounts.py": "c35f7abc5405355a99a352e18d9e94728156647a501c973cbbfc25db760f59b1",
+    "hardware/printed-parts/cold-core/_cold_core_interface.py": "cfcf16fab86a2cf55be17ed78349f892db961fccc5575dfbc13dbcf984987c2b",
+    "hardware/printed-parts/cold-core/_internal_routes.py": "b34cbec174119647ee3331f52c255b1f37e328302daa4adc7a16ac0e32e386d8",
+    "hardware/manifold-layout/above_core.py": "0ad87c7c252ab3cfe803c0f2a63a9374d06d0005591509031328ad6e3203988f",
+    "hardware/manifold-layout/above-core.json": "040047d7fb70ee58b6c0bc0f530e43f8360509f2e71cd7cf2d4fa3b3f59c9c4e",
+    "hardware/wiring/installed/model.py": "66f6a6ea2228d7a75bb9175f803c9b1c2b02ea05ac074b5da160e66a6722cfac",
+    "hardware/wiring/installed/connections.py": "685ca2826b330d1ef21845168fd29284e360161b4c28775d80df075dbe494cfc",
+    "hardware/wiring/installed/bundles.py": "0bb65b7683e948ef063a5377ddf5d8401565f0fa6c26f16f23d500584784d0a7",
+    "hardware/wiring/installed/bundle-routes.json": "f1c57eefa1ec9d777a741b030291af1a7a33d22c5433ad1d15ac5f1cd4345ebd"
+  },
+  "native_valid_one_solid": true,
+  "printed_corridor": {
+    "points_mm": [
+      [
+        -32.5,
+        189.3,
+        232.4
+      ],
+      [
+        -32.5,
+        189.3,
+        241.4
+      ],
+      [
+        -23.0,
+        205.0,
+        241.4
+      ],
+      [
+        26.0,
+        205.0,
+        241.4
+      ],
+      [
+        26.0,
+        190.0,
+        241.4
+      ],
+      [
+        26.0,
+        190.0,
+        255.4
+      ]
+    ],
+    "bend_radius_mm": 5.5
+  },
+  "analytic_section_packing": {
+    "scope": "Analytic section-packing bound for the five transported Reed-B cores along the shared native printed-cap corridor; external fanouts are outside this bound.",
+    "formula": "max(hypot(core_section_x,core_section_y) + wire_od/2)",
+    "cores": [
+      {
+        "id": "J7-earth-4",
+        "section_offset_mm": [
+          -1.65,
+          -2.0206672185931328e-16
+        ],
+        "offset_norm_mm": 1.65,
+        "stock": "ribbon22",
+        "wire_od_mm": 1.7,
+        "outer_radius_bound_mm": 2.5
+      },
+      {
+        "id": "J7-RB1",
+        "section_offset_mm": [
+          -0.5098780407186635,
+          1.5692432518870032
+        ],
+        "offset_norm_mm": 1.65,
+        "stock": "ribbon22",
+        "wire_od_mm": 1.7,
+        "outer_radius_bound_mm": 2.5
+      },
+      {
+        "id": "J7-RB2",
+        "section_offset_mm": [
+          1.3348780407186631,
+          0.969845666282581
+        ],
+        "offset_norm_mm": 1.6500000000000001,
+        "stock": "ribbon22",
+        "wire_od_mm": 1.7,
+        "outer_radius_bound_mm": 2.5
+      },
+      {
+        "id": "J7-RB3",
+        "section_offset_mm": [
+          1.3348780407186633,
+          -0.9698456662825803
+        ],
+        "offset_norm_mm": 1.65,
+        "stock": "ribbon22",
+        "wire_od_mm": 1.7,
+        "outer_radius_bound_mm": 2.5
+      },
+      {
+        "id": "J7-RB4",
+        "section_offset_mm": [
+          -0.5098780407186627,
+          -1.5692432518870034
+        ],
+        "offset_norm_mm": 1.65,
+        "stock": "ribbon22",
+        "wire_od_mm": 1.7,
+        "outer_radius_bound_mm": 2.5
+      }
+    ],
+    "maximum_outer_radius_mm": 2.5,
+    "packed_diameter_bound_mm": 5.0,
+    "bore_radius_mm": 3.75,
+    "bore_diameter_mm": 7.5,
+    "minimum_radial_air_mm": 1.25,
+    "shared_native_minimum_bend_radius_mm": 5.499999999999971,
+    "printed_guide_radius_mm": 5.5,
+    "pass": true,
+    "bore_source_chain": [
+      {
+        "file": "hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "line": 84,
+        "expression": "passage_tube_od = 6.5"
+      },
+      {
+        "file": "hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "line": 85,
+        "expression": "port_hole_radius = passage_tube_od / 2.0 + 0.5"
+      },
+      {
+        "file": "hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "line": 634,
+        "expression": "cap_conduit_bore_radius = port_hole_radius"
+      }
+    ],
+    "printed_cut_source": {
+      "file": "hardware/printed-parts/cold-core/_foam_cap.py",
+      "definition_line": 145,
+      "cable_route_cut_line": 177,
+      "default_radius_cup_call_line": 277,
+      "default_radius_lid_call_line": 394
+    },
+    "source_sha256": {
+      "hardware/printed-parts/cold-core/_above_core_mounts.py": "c35f7abc5405355a99a352e18d9e94728156647a501c973cbbfc25db760f59b1",
+      "hardware/printed-parts/cold-core/_cold_core_interface.py": "cfcf16fab86a2cf55be17ed78349f892db961fccc5575dfbc13dbcf984987c2b",
+      "hardware/printed-parts/cold-core/_foam_cap.py": "121616b48ff7dd2d5f5a8d7c1d643d8a5d0fe23bd206966c6e92ac9a2ae979f5",
+      "hardware/wiring/installed/bundle-routes.json": "f1c57eefa1ec9d777a741b030291af1a7a33d22c5433ad1d15ac5f1cd4345ebd",
+      "hardware/wiring/installed/model.py": "66f6a6ea2228d7a75bb9175f803c9b1c2b02ea05ac074b5da160e66a6722cfac"
+    },
+    "basis": "bundles.offset_path transports each section by rigid rotations, preserving its offset norm. The wire has circular section. The source cap bore follows the same native centreline and radius, so each full insulated conductor fits inside its swept bore by this radial bound."
+  },
+  "unchanged_other_routes": 93,
+  "earth_wire_length_mm": 313.226,
+  "earth_wire_exit_world_mm": [
+    -42.85,
+    347,
+    219.05
+  ],
+  "native_parent_scope": "Two final round B-fill cap leaves and these five conductors; published earth metal and all other conductors retained.",
+  "limits": [
+    "Packing is a source geometry bound; it does not establish physical loom dressing or printed bore fit."
+  ]
+}
