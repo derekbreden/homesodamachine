@@ -315,7 +315,9 @@ records an accepted Studio send with LAN acceleration using this packaging.
 ```
 
 `bambu_send.py` performs the procedure below and reads each step back before the next.
-When Bambu Connect is not running it starts it with `open -g` and waits for its window.
+It takes the connection key, `H2C` or `Mark2`, and finds the printer in Bambu Connect by
+the name the application shows for it, Mark1 or Mark2. When Bambu Connect is not running
+it starts it with `open -g` and waits for its window.
 `--dry-run` stops at the Send button and cancels the dialog. `--timelapse Off` departs
 from the standing options. It exits non-zero, with the dialog cancelled, on any reading
 that is not the one expected, and it ends with the printer's own MQTT report of the job.
@@ -360,7 +362,7 @@ that costs the screen says so. Accessibility trust comes from the calling proces
    keystroke typed elsewhere in that window takes the popover with it, so the two clicks
    are retried, up to three times, until the selector reads the target. The device page
    opened in step 1 does not decide it:
-   on 2026-09-20 the dialog offered H2C three times after Mark2's page was opened and
+   on 2026-09-20 the dialog offered Mark1 three times after Mark2's page was opened and
    settled.
 4. **Map the filament.** Both senders use `bambu_print.map_external_spools`.
    It selects the card in the required nozzle column, reads the opened popover’s
