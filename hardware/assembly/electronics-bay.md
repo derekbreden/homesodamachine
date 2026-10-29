@@ -124,10 +124,11 @@ records the current rigid-slide and final-connection limits.
    opening's footprint once the box is closed, clear of the seams and every
    sliding surface, and flag it with its run ID. Retain the specified direct
    solid-wire clamp and stranded-wire termination choices.
-4. On the open core, land the two prepared J10 power leads on the loose PCB
-   before fastening it, `V12` and `GND` each in the clamp beside its silk
-   label; the captured upper B-fill fitting limits a straight lead-entry
-   approach at the installed board. Mount the PCB, pump, V-B and ground boss
+4. On the open core, close the three B-fill lid clamps and thread the tube
+   before installing the PCB, per [cold-core.md](cold-core.md); the board
+   covers the clamp-driver approaches. Land the two prepared J10 power
+   leads on the loose PCB, `V12` and `GND` each in the clamp beside its silk
+   label. Mount the PCB, pump, V-B and ground boss
    on their core features. Land the J10 leads' free ends in the V12 and GND
    junctions, and the pump negative in GND. Land the pump positive on the
    pump's lead and dress it forward to the funnel opening. Land V-B's leg on
