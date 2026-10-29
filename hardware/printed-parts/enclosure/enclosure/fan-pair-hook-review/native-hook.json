@@ -1,0 +1,112 @@
+{
+  "schema": 1,
+  "scope": "One additive integral front-top fan-pair hook with the approved native section. Neighbor checks use the listed retained native shapes.",
+  "site": {
+    "id": "fan-east-pair",
+    "host": "enclosure-front-top",
+    "origin": [
+      98.5,
+      150.0,
+      182.775
+    ],
+    "outward": [
+      -1.0,
+      0.0,
+      0.0
+    ],
+    "profile_up": [
+      0.0,
+      0.0,
+      1.0
+    ],
+    "seat_depth": 2.2,
+    "seat_height": 4.05,
+    "span": 16.0,
+    "stock": 3.0,
+    "beak": 0.75,
+    "centre_world_mm": [
+      97.4,
+      150.0,
+      193.0
+    ],
+    "target_centers": {
+      "J2-FAN": [
+        97.4,
+        150.0,
+        193.925
+      ],
+      "J2-positive-fan": [
+        97.4,
+        150.0,
+        192.075
+      ]
+    },
+    "stock_basis": "Two nominal 1.70 mm insulated 22 AWG fan leads on 1.85 mm pitch.",
+    "fit_scope": "The accepted retaining lip and 2.2 mm seat depth retain the fan-only pair; the donor fan landing remains unlocated.",
+    "kind": "cable"
+  },
+  "approved_hook_exact": true,
+  "host_valid": true,
+  "host_solids": 1,
+  "host_removed_mm3": 0,
+  "host_added_mm3": 880.8199999999995,
+  "expected_hook_addition_mm3": 880.8200000000013,
+  "host_step_sha256": "896e50ceca37eaa74b5b19a1f2d70d8e3efb73d826c3e0b75198ddc6da0c22f0",
+  "baseline_host_step_sha256": "75fce7c595b401e5475d54dbe173615bec8a21ad5756401a0d1357e4925ec05f",
+  "printed_stl_sha256": "7328fa519d2ab084d73de52cb6642fb363a972ecdca3607692473bec223f9a61",
+  "print_axis_world": [
+    0,
+    0,
+    1
+  ],
+  "root": "Full 16 mm span; filled 45 degree corbel; 3 mm stock.",
+  "neighbors": [
+    {
+      "name": "condenser+fan",
+      "cached_shape_sha256": "2deda22770ba5f4269df2f44d9dd39c42b0b6adb2c8dbab2d396a8c1c0c5b493",
+      "overlap_mm3": 0,
+      "gap_mm": 36.69149254254998
+    },
+    {
+      "name": "valve-v-g",
+      "cached_shape_sha256": "bdf2436862f730c79c8abe2566cf8613377a96c560ff60351d8731b51a59f468",
+      "overlap_mm3": 0,
+      "gap_mm": 2.730000000000004
+    },
+    {
+      "name": "104/coil-v-g/1",
+      "cached_shape_sha256": "74387364f40437e09b8c4539173f9b586410a103207f506bbc32218547bfaa23",
+      "overlap_mm3": 0,
+      "gap_mm": 2.730000000000004
+    },
+    {
+      "name": "104/coil-v-g/2",
+      "cached_shape_sha256": "cae5c1bfed1f293913d11bf33f64b84ef5b060cd24179a89f6848cc2dd566147",
+      "overlap_mm3": 0,
+      "gap_mm": 34.432885238461715
+    },
+    {
+      "name": "104/coil-v-g/3",
+      "cached_shape_sha256": "72bae0224cce2d2dc28a4cad4a2ec96ff5ea2a4ddc0e4c75927544eb5e298375",
+      "overlap_mm3": 0,
+      "gap_mm": 26.29204389678549
+    },
+    {
+      "name": "enclosure-pump-retainer",
+      "cached_shape_sha256": "1d8629436ea094318fd7c9a1579d4c4e68043cab791011ccabdacaf65287f18a",
+      "overlap_mm3": 0,
+      "gap_mm": 59.735
+    },
+    {
+      "name": "tee-y-d",
+      "cached_shape_sha256": "982dd9c1f71dc557283dacbc8e7f0da0f4c40544c0cc830b32270ddd7479a801",
+      "overlap_mm3": 0,
+      "gap_mm": 27.509216993664722
+    },
+    {
+      "name": "enclosure-front-bottom",
+      "overlap_mm3": 0.0,
+      "gap_mm": 7.875
+    }
+  ]
+}

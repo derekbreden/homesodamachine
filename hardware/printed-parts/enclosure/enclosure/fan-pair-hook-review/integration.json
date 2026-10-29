@@ -1,0 +1,132 @@
+{
+  "schema": 1,
+  "scope": "Integral front-top fan-pair hook and two complete modeled fan lead paths. The other 96 conductor paths, terminal datums, physical parts and their placements remain retained.",
+  "changed_wires": [
+    "J2-FAN",
+    "J2-positive-fan"
+  ],
+  "unchanged_route_count": 96,
+  "native_wires": [
+    {
+      "id": "J2-FAN",
+      "native_readback_valid": true,
+      "target_product": "wire-J2-FAN",
+      "replaced_brep_record": 40199,
+      "records_added": 1700,
+      "unrelated_record_bytes_identical": true,
+      "retained_record_bytes_sha256": "7db429475892b92dffa86e31aa73cc50087ace2db18ffcae33eccc23fad7955c",
+      "dangling_references": 0
+    },
+    {
+      "id": "J2-positive-fan",
+      "native_readback_valid": true,
+      "target_product": "wire-J2-positive-fan",
+      "replaced_brep_record": 41278,
+      "records_added": 1486,
+      "unrelated_record_bytes_identical": true,
+      "retained_record_bytes_sha256": "ba890807c27f536f6514e40d6b6d299331b504ad351f2b35e037128548f1507a",
+      "dangling_references": 0
+    }
+  ],
+  "wire_payload": {
+    "changed_rows": [
+      "wire-J2-FAN",
+      "wire-J2-positive-fan"
+    ],
+    "unrelated_rows": 112,
+    "unrelated_array_digest": "b08a6d90e4b640d2cb8134078b87cd4452f70e0337c32176b0e340819a32a510"
+  },
+  "merger": {
+    "schema": 1,
+    "scope": "Wiring-only integration; existing physical parts retained",
+    "physical_step_sha256": "69b89f9e4775e505750db300964899e5431df1e98aefc432b1cd6e23e5554906",
+    "installed_step_sha256": "f1a36ea69c749343bdde1f0214077497b5c3799d1183a76b9bcad5768fb3f60e",
+    "physical_records_retained": 2601169,
+    "physical_meshes_retained": 448,
+    "wiring_meshes": 114,
+    "all_retained_viewer_arrays_identical": true,
+    "wiring_step_sha256": "38ce4464cd7a396530ee3278521f985bde142b89ee882f81a5402f6c30dd5b46"
+  },
+  "physical_scene_sha256": "69b89f9e4775e505750db300964899e5431df1e98aefc432b1cd6e23e5554906",
+  "host_integration": [
+    {
+      "relative": "hardware/printed-parts/enclosure/enclosure/enclosure.step",
+      "source_sha256": "dc5827053dca5c58ab3566faea10c1dd6e5e212d94c2181943d4e60adb02e83b",
+      "output_sha256": "1c8aed132ef0b78c2288acfb58590c4ccd910b040101a4a50e599c3279fc364b",
+      "identity_frame": true,
+      "native": {
+        "target_product": "enclosure_front_top",
+        "replaced_brep_record": 105517,
+        "records_added": 48907,
+        "unrelated_record_bytes_identical": true,
+        "retained_record_bytes_sha256": "603a23415d5ec4e07fb0e648ef7dfa6193d2845b747b2c061885312d33d4343b",
+        "dangling_references": 0
+      },
+      "payload": {
+        "changed_rows": [
+          "enclosure_front_top"
+        ],
+        "unrelated_rows": 24,
+        "unrelated_array_digest": "7ad1e241ffc1bf74d3b461918a076f0f82451272ff4bf6924c37325a93fe005e"
+      }
+    },
+    {
+      "relative": "hardware/manifold-layout/enclosure-assembly.step",
+      "source_sha256": "7a30b3dea2e0b4034cd2a6bb700fa7f27dd4c63f9a73ed6415377f879cf67f75",
+      "output_sha256": "f3b381346e9e1346469e7709baf4b593cb8a7b596d06b900f3bc720db6d20a56",
+      "identity_frame": true,
+      "native": {
+        "target_product": "enclosure-front-top",
+        "replaced_brep_record": 801915,
+        "records_added": 48907,
+        "unrelated_record_bytes_identical": true,
+        "retained_record_bytes_sha256": "b68bb7e488cce4059205c77a2f0d52ab3d4a891e985bfb55a0e005d0403a9f5c",
+        "dangling_references": 0
+      },
+      "payload": {
+        "changed_rows": [
+          "enclosure-front-top"
+        ],
+        "unrelated_rows": 561,
+        "unrelated_array_digest": "4e36594fd887cfcbb7445e03996503e8aecbaa1e33f0ecb1d197c03c01c75cdb"
+      }
+    }
+  ],
+  "scenes": [
+    {
+      "source_relative": "hardware/assembly/scenes/glb/pump-mount.glb",
+      "source_sha256": "6c9124a078ff794f88a08e7f9b947052b6044b3d7cd9d263fca3a7f1a4d75d26",
+      "staged": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/fan-pair-production/staged/glb/pump-mount.glb",
+      "staged_sha256": "946b02e5a2a9f4c405740b01905bf9c08fd711c56b477c8ca036dea4af0b2dc4",
+      "updated_nodes": [
+        "enclosure-front-top"
+      ],
+      "removed_cap_nodes": 0,
+      "unchanged_geometry_materials_transforms_identical": true
+    },
+    {
+      "source_relative": "hardware/assembly/scenes/glb/front-top.glb",
+      "source_sha256": "379aeb730df9f7a9c131d99b7f317508a77e8abeffa455642a176c94ae6fdf78",
+      "staged": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/fan-pair-production/staged/glb/front-top.glb",
+      "staged_sha256": "b6a9c4582ed41012cec5656ea61f4e7b126f5ef11b4fb34540c75a7fb64cd159",
+      "updated_nodes": [
+        "enclosure-front-top"
+      ],
+      "removed_cap_nodes": 0,
+      "unchanged_geometry_materials_transforms_identical": true
+    }
+  ],
+  "outputs": {
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "896e50ceca37eaa74b5b19a1f2d70d8e3efb73d826c3e0b75198ddc6da0c22f0",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": "7328fa519d2ab084d73de52cb6642fb363a972ecdca3607692473bec223f9a61",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh": "beafa7e92634151f4c2dbf8ebb857e82bdabaf4c4a81b25f03553d6ad913dad4",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.step": "1c8aed132ef0b78c2288acfb58590c4ccd910b040101a4a50e599c3279fc364b",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh": "340b361a140fdf9bf2c8f1d2fb0d7c5a1521c8df77545c0d956588e1ff6dec70",
+    "hardware/manifold-layout/enclosure-assembly.step": "f1a36ea69c749343bdde1f0214077497b5c3799d1183a76b9bcad5768fb3f60e",
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": "6e1f96b2c7e87b7a2eb8524056363e161e763a3fed21ede4561c8b31183f1c5b",
+    "hardware/wiring/enclosure-wiring.step": "38ce4464cd7a396530ee3278521f985bde142b89ee882f81a5402f6c30dd5b46",
+    "hardware/wiring/enclosure-wiring.step.mesh": "15a84402a045541cd14889bd19d0a7b9043a0aa3702e6897a42a902001a995b7",
+    "hardware/assembly/scenes/glb/pump-mount.glb": "946b02e5a2a9f4c405740b01905bf9c08fd711c56b477c8ca036dea4af0b2dc4",
+    "hardware/assembly/scenes/glb/front-top.glb": "b6a9c4582ed41012cec5656ea61f4e7b126f5ef11b4fb34540c75a7fb64cd159"
+  }
+}

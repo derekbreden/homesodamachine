@@ -1,0 +1,10 @@
+{
+  "scope": "Two changed fan conductors versus only the 96 retained baseline wire paths. Exact line/arc projection removes retained owned centreline portions; local old distance at the same retained-wire witness separates existing contact from candidate introductions. Samples are at <=0.10mm path spacing; potential contacts need exact native confirmation. No production geometry or frozen exports mutated.",
+  "baseline_manifest_sha256": "7339d4e62d3dda37d4fef5c4764ae2a40b4f87200524b59022da21058e9b1b52",
+  "frozen_wire_index_sha256": "e7388a5a76ba1e31cf70e33906357b789141a3da62fd6f0ba7656551c9754868",
+  "retained_wire_count": 96,
+  "candidates": [],
+  "existing_local_contacts": [],
+  "status": "complete: zero newly introduced proximity candidates against the 96 retained paths",
+  "exact_native_followups_needed": 0
+}
