@@ -22,9 +22,13 @@ See `marketing/target-market.md` for details.
 
 Don't ask Derek what the repo already answers. What he owns and has on hand is in [`hardware/ledger/`](hardware/ledger/): every purchase in `purchases.md`, sorted by role into `bom.md`, `tools.md` and `inventory.md`.
 
-## Amazon Prime
+## Sourcing
 
-You have access to my Chrome which is signed in to my amazon through your MCP. I only care about Amazon Prime listings. Non-Prime listings are non-existent as far as I am concerned. Do not read them. Do not mention them. They do not exist.
+Two things decide where a part comes from: lead time and volume. It ships from stock and arrives in days, and it is the high-volume part for its job, the one most people buy for that job today.
+
+Amazon Prime is the default because a Prime listing usually has both. Any other store that has both is a source I'll like: a manufacturer's or distributor's own shop that ships the part from stock, such as FWS, Digi-Key, Mouser or the maker itself. On Amazon, a listing without the Prime logo doesn't count. Do not read it. Do not mention it.
+
+Your MCP reaches my Chrome on this Mac, which is signed in to my Amazon. The Windows laptop is my work laptop. Never use its Chrome.
 
 ## History
 
