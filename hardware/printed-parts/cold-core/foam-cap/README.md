@@ -63,6 +63,20 @@ with the surrounding stock. Seat the feed before finally dressing
 before separating back-top from the core. The [V-A feed review](va-feed-snap-review/README.md)
 records this station and its fit scope.
 
+The front-going J1/J2 leads use one integral two-channel bank at world
+X70–83.4/Y184.6–200.6 mm. The bank has a filled 3 mm base, 3 mm outer and
+shared walls, and a 16 mm cable span. Both seats open toward +Z, following
+the lid's flat-underside print orientation. Their 2.2 mm clear depth,
+0.75 mm retaining beak and 45° entry use the accepted cable-hook section.
+
+Seven J1 leads occupy the 13.3 mm high cavity; four J2 leads occupy the
+7.75 mm cavity. The V-A, V-B and V-K branches leave before this station.
+Dress the front leads with the funnel frame removed. The four-lead section
+has physical coupon acceptance; the seven-lead grouping and installed
+harness fit retain their physical-fit scope. The
+[manifold cable-bank review](manifold-bank-review/README.md) records the
+native host, retained hardware and dressed conductors.
+
 Thread the V-B holder before seating the fitting and dress its tie before
 final upper connections. Complete J10 power termination and seat J11 before
 fitting the selected return; that return occupies J10's vertical screwdriver

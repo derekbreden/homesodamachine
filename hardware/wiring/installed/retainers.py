@@ -1,9 +1,37 @@
 """Integral cable-retainer datums and their local installed guide stations.
 
 All coordinates use enclosure-world millimetres. This module is pure data and
-route dressing; the enclosure constructs each hook with cadlib.route_snap.
+route dressing; each host constructs its clips with cadlib.route_snap.
 Terminal positions and the remaining guide stations belong to the wiring model.
 """
+
+
+def manifold_bank_site():
+    """The lid's front-going J1/J2 leads, beside the retained PCB."""
+    groups = (
+        ('J1', 74.1, 263.05,
+         ('J1-OUT8', 'J1-OUT7', 'J1-OUT6', 'J1-OUT5',
+          'J1-OUT4', 'J1-OUT3', 'J1-COM')),
+        ('J2', 79.3, 260.275,
+         ('J2-COM', 'J2-FAN', 'J2-OUT2', 'J2-OUT1')),
+    )
+    return {
+        'id': 'front-manifold-bank',
+        'host': 'foam-cap-lid-top',
+        'origin': (70., 192.6, 253.4),
+        'seat_depth': 2.2,
+        'seat_heights': (13.3, 7.75),
+        'span': 16.,
+        'stock': 3.,
+        'beak': .75,
+        'target_centers': {
+            wire: (x, 192.6, z+(i-(len(wires)-1)/2.)*1.85)
+            for _group, x, z, wires in groups
+            for i, wire in enumerate(wires)
+        },
+        'stock_basis': 'Eleven nominal 1.70 mm insulated 22 AWG leads on 1.85 mm pitch; the V-A, V-B and V-K branches split before this bank.',
+        'fit_scope': 'The 2.2 mm depth, retaining lip and four-lead section use the accepted cable coupon. The seven-lead grouping and installed dressing retain their physical-fit scope.',
+    }
 
 
 def cable_sites():
@@ -65,7 +93,7 @@ def cable_sites():
 
 
 def dress_guides(connection, guides, attachments, saved):
-    """Dress the three retained cable groups without moving their terminals."""
+    """Dress retained cable groups without moving their terminals."""
     target = next((site['target_centers'][connection.id] for site in cable_sites()
                    if connection.id in site['target_centers']), None)
     if target is None:
