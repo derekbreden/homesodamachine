@@ -96,7 +96,7 @@ records the current rigid-slide and final-connection limits.
 1. Prepare the cold-core internal wiring and the lid-mounted equipment while
    their entries and screws are exposed. Each reservoir reed column has one
    five-conductor loom. A rises straight through the cup and lid before
-   turning toward J6. Lay B's ribbon through the 10 × 6 mm shell-rim notch
+   turning toward J6. Lay B's ribbon through the 8 × 6 mm shell-rim notch
    before seating the cap, then dress it outside the B-fill block to J7 and
    the existing common WAGO. The `sensor-cable` passage
    carries the temperature supply, data and common together with the

@@ -113,7 +113,7 @@ are proposed harness joints; they do not specify the TO-92 package pin order.
 The incoming feeds approach the first row from above, with the bus continuing
 below the taps toward the second probe.
 
-Reservoir A uses its top-cap reed conduit. Reservoir B uses a 10 mm-wide outlet
+Reservoir A uses its top-cap reed conduit. Reservoir B uses an 8 mm-wide outlet
 cut 6 mm below the shell's top edge, with the ribbon laid through the open rim
 before the cap is seated. The three temperature-bus conductors and carbonator
 earth lead share the separate Ø7.5 mm `sensor-cable` conduit, west of the pump.
