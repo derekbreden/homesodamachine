@@ -1,0 +1,92 @@
+{
+  "schema": 1,
+  "scope": "Manual live viewer check of downloaded object bytes and native source hashes.",
+  "checked_utc": "2026-10-29T20:56:58.482205+00:00",
+  "pointer_commit": "c49ebe5d3866d7d2a08a2a11c191cfff1ef8ff9a",
+  "passed": true,
+  "checks": [
+    {
+      "relative": "hardware/manifold-layout/enclosure-assembly.step.mesh",
+      "url": "https://objects.homesodamachine.com/s-1181b9bf8047d9715811389daa422321054c9d8cd4bfed305f08ef93d56c862a.gz",
+      "sha256": "1181b9bf8047d9715811389daa422321054c9d8cd4bfed305f08ef93d56c862a",
+      "native_source_sha256": "6a66e9dd57fbe3fe1ec4333154e64958babab9b7d71b648cc3469d83063039a0",
+      "mesh_count": 561
+    },
+    {
+      "relative": "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh",
+      "url": "https://objects.homesodamachine.com/s-d5c8ba785e30a8d1c5beba8d010a004a669efc6c0807345f421387357dc1e33d.gz",
+      "sha256": "d5c8ba785e30a8d1c5beba8d010a004a669efc6c0807345f421387357dc1e33d",
+      "native_source_sha256": "7e84c63be970a0a35acfb971c83de87f389eb6bd1670fb84694bd80c776b9985",
+      "mesh_count": 1
+    },
+    {
+      "relative": "hardware/wiring/enclosure-wiring.step.mesh",
+      "url": "https://objects.homesodamachine.com/s-ee0317f32ce5c80a09af16873f3f7e8ca433141bfca8b46ff96be7f87d663cbc.gz",
+      "sha256": "ee0317f32ce5c80a09af16873f3f7e8ca433141bfca8b46ff96be7f87d663cbc",
+      "native_source_sha256": "0d714f6c05ad88f9351046748198adadbb12302a498966b6ab6600d0c3e18a00",
+      "mesh_count": 114
+    }
+  ],
+  "published_object_map": [
+    {
+      "relative": "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step",
+      "sha256": "7e84c63be970a0a35acfb971c83de87f389eb6bd1670fb84694bd80c776b9985",
+      "url": "https://objects.homesodamachine.com/s-7e84c63be970a0a35acfb971c83de87f389eb6bd1670fb84694bd80c776b9985.gz"
+    },
+    {
+      "relative": "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh",
+      "sha256": "d5c8ba785e30a8d1c5beba8d010a004a669efc6c0807345f421387357dc1e33d",
+      "url": "https://objects.homesodamachine.com/s-d5c8ba785e30a8d1c5beba8d010a004a669efc6c0807345f421387357dc1e33d.gz"
+    },
+    {
+      "relative": "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step",
+      "sha256": "d1cf5cc8ad10443e78966bd4b2b71531f1d415e43a234063eb05ff7bd0f489a6",
+      "url": "https://objects.homesodamachine.com/s-d1cf5cc8ad10443e78966bd4b2b71531f1d415e43a234063eb05ff7bd0f489a6.gz"
+    },
+    {
+      "relative": "hardware/cold-core-layout/cold-core-assembly.step",
+      "sha256": "ae4de886f79f757288193b5d055d7534271e1dcd17dd8d6210cb0f88650e4e6d",
+      "url": "https://objects.homesodamachine.com/s-ae4de886f79f757288193b5d055d7534271e1dcd17dd8d6210cb0f88650e4e6d.gz"
+    },
+    {
+      "relative": "hardware/manifold-layout/enclosure-assembly.step",
+      "sha256": "6a66e9dd57fbe3fe1ec4333154e64958babab9b7d71b648cc3469d83063039a0",
+      "url": "https://objects.homesodamachine.com/s-6a66e9dd57fbe3fe1ec4333154e64958babab9b7d71b648cc3469d83063039a0.gz"
+    },
+    {
+      "relative": "hardware/manifold-layout/enclosure-assembly.step.mesh",
+      "sha256": "1181b9bf8047d9715811389daa422321054c9d8cd4bfed305f08ef93d56c862a",
+      "url": "https://objects.homesodamachine.com/s-1181b9bf8047d9715811389daa422321054c9d8cd4bfed305f08ef93d56c862a.gz"
+    },
+    {
+      "relative": "hardware/wiring/enclosure-wiring.step",
+      "sha256": "0d714f6c05ad88f9351046748198adadbb12302a498966b6ab6600d0c3e18a00",
+      "url": "https://objects.homesodamachine.com/s-0d714f6c05ad88f9351046748198adadbb12302a498966b6ab6600d0c3e18a00.gz"
+    },
+    {
+      "relative": "hardware/wiring/enclosure-wiring.step.mesh",
+      "sha256": "ee0317f32ce5c80a09af16873f3f7e8ca433141bfca8b46ff96be7f87d663cbc",
+      "url": "https://objects.homesodamachine.com/s-ee0317f32ce5c80a09af16873f3f7e8ca433141bfca8b46ff96be7f87d663cbc.gz"
+    },
+    {
+      "relative": "hardware/assembly/scenes/glb/back-half.glb",
+      "sha256": "3e95f72bac31a6454613796214f2be4ac5a340e20aedfb8e33c91bce4a062174",
+      "url": "https://objects.homesodamachine.com/s-3e95f72bac31a6454613796214f2be4ac5a340e20aedfb8e33c91bce4a062174.gz"
+    },
+    {
+      "relative": "hardware/assembly/scenes/glb/cap-lid-fill.glb",
+      "sha256": "bec3d4a34225044817a1ac466964f8d925e6ad4e1080c9a4198815f6a9ace9d8",
+      "url": "https://objects.homesodamachine.com/s-bec3d4a34225044817a1ac466964f8d925e6ad4e1080c9a4198815f6a9ace9d8.gz"
+    },
+    {
+      "relative": "hardware/assembly/scenes/glb/cap-lid.glb",
+      "sha256": "ca9f516d214049d93ce970657295d33979d6829c4bbb46e238df59176135c05d",
+      "url": "https://objects.homesodamachine.com/s-ca9f516d214049d93ce970657295d33979d6829c4bbb46e238df59176135c05d.gz"
+    },
+    {
+      "relative": "hardware/assembly/scenes/glb/cold-core.glb",
+      "sha256": "0b4d216a17336974ef38c56ab24e219d5e7d7addc3f4d575616def4a16ac147a",
+      "url": "https://objects.homesodamachine.com/s-0b4d216a17336974ef38c56ab24e219d5e7d7addc3f4d575616def4a16ac147a.gz"
+    }
+  ]
+}
