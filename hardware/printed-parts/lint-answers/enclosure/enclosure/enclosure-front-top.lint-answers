@@ -48,3 +48,13 @@ click: x=-99.050 y=30.004 z=165.045
 click: x=-99.050 y=66.511 z=165.045
 click: x=99.050 y=30.004 z=165.045
 click: x=99.050 y=66.511 z=165.045
+
+[sliver] Functional retaining underside of the approved fan-pair cable hook. The 0.75 mm projection closes the 2.20 mm seat to a 1.45 mm entry mouth for nominal 1.70 mm insulation, matching the accepted 4P cable clip's entry section. The flat underside supplies the catch after the insulation passes the mouth. The projection and mouth are the intentional retention geometry; the hook's structural section is 3 mm.
+alternatives: A 3 mm projection closes the existing seat completely; keeping the same mouth with that projection requires a 4.45 mm deep seat, adding 2.25 mm of cable movement behind the catch. Reducing the projection opens the mouth toward the cable diameter and reduces capture. Sloping the retaining underside supplies an exit ramp instead of the flat catch.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+click: x=96.675 y=150.000 z=195.025
+
+[ledge] Functional flat catch of the approved fan-pair cable hook, using the accepted 4P clip's 0.75 mm retaining projection and 1.45 mm entry mouth for nominal 1.70 mm insulation. Its underside retains the pair after insertion; the 45 degree entry is on the opposite side.
+alternatives: A sloped underside permits the cable to cam back through the mouth. Increasing the projection to 3 mm requires a 4.45 mm deep seat to preserve the mouth, adding 2.25 mm of movement behind the catch. Filling the entry prevents insertion from above.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+click: x=96.800 y=147.333 z=195.025
