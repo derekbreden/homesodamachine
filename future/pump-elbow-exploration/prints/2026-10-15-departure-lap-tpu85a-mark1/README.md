@@ -55,12 +55,12 @@ Every native line is unchanged and in order; replay also preserves all
 its MD5 member differ between the native and processed archives. Complete
 exterior loops on layers 17–33 command 10 mm/s.
 
-The [native slice](2026-10-15-elbow-pair-tpu85a-lap020-right06-z000-mark1-native.gcode.3mf)
+The [native slice](https://github.com/derekbreden/homesodamachine/blob/33d50d2ecd2a0fb6b518483a44c8031e3a0c1617/future/pump-elbow-exploration/prints/2026-10-15-departure-lap-tpu85a-mark1/2026-10-15-elbow-pair-tpu85a-lap020-right06-z000-mark1-native.gcode.3mf)
 estimates **121 minutes / 8.57 g**. Inserted motion adds approximately
 **32.5 minutes**, for a planning estimate of **about 2 hours 35 minutes**,
 excluding acceleration overhead. Native thumbnails and displayed time
 estimates do not include the inserted moves. The
-[processed archive](2026-10-15-elbow-pair-tpu85a-lap020-right06-z000-mark1.gcode.3mf)
+[processed archive](https://github.com/derekbreden/homesodamachine/blob/33d50d2ecd2a0fb6b518483a44c8031e3a0c1617/future/pump-elbow-exploration/prints/2026-10-15-departure-lap-tpu85a-mark1/2026-10-15-elbow-pair-tpu85a-lap020-right06-z000-mark1.gcode.3mf)
 is the print file. Reslicing the editable project does not retain the laps.
 
 `prepare_mark1.py` slices offline and invokes the post-processor. It neither

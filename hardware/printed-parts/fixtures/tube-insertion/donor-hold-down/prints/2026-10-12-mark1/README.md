@@ -12,7 +12,7 @@ this job to continue. This record establishes submission and observed
 startup, with no physical fit or hand-pressure result.
 
 - [Editable native project](donor-hold-down-tpu85a-right06-z018-mark1.3mf)
-- [Exact launched slice](donor-hold-down-tpu85a-right06-z018-mark1.gcode.3mf)
+- [Exact launched slice](https://github.com/derekbreden/homesodamachine/blob/33d50d2ecd2a0fb6b518483a44c8031e3a0c1617/hardware/printed-parts/fixtures/tube-insertion/donor-hold-down/prints/2026-10-12-mark1/donor-hold-down-tpu85a-right06-z018-mark1.gcode.3mf)
 - [Project settings](donor-hold-down-tpu85a-right06-z018-mark1.print.json)
 - [Native slice review](donor-hold-down-tpu85a-right06-z018-mark1.readiness.json)
 - [Observed startup](startup.json)

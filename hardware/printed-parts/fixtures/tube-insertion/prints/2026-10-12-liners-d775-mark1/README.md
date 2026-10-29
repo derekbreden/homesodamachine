@@ -7,14 +7,14 @@ confirms 0.75 mm of radial material inside the channel with the original
 outside envelope preserved.
 
 The [editable project](2026-10-12-tube-insertion-liners-d775-tpu85a-right06-z000-mark1.3mf)
-and [native slice](2026-10-12-tube-insertion-liners-d775-tpu85a-right06-z000-mark1.gcode.3mf)
+and [native slice](https://github.com/derekbreden/homesodamachine/blob/33d50d2ecd2a0fb6b518483a44c8031e3a0c1617/hardware/printed-parts/fixtures/tube-insertion/prints/2026-10-12-liners-d775-mark1/2026-10-12-tube-insertion-liners-d775-tpu85a-right06-z000-mark1.gcode.3mf)
 use Mark1's right fixed 0.6 mm hotend, black TPU 85A on external spool 255,
 textured PEI, 0.00 mm user Z trim, and a 2 mm model gap. Stock plate
 compensation remains enabled. The [slice record](2026-10-12-tube-insertion-liners-d775-tpu85a-right06-z000-mark1.readiness.json)
 records unchanged process settings, no supports, 155 layers, a 1 h 09 min
 estimate and 9.4 g of filament.
 
-Open the [plain G-code](2026-10-12-tube-insertion-liners-d775-tpu85a-right06-z000-mark1.gcode)
+Open the [plain G-code](https://github.com/derekbreden/homesodamachine/blob/33d50d2ecd2a0fb6b518483a44c8031e3a0c1617/hardware/printed-parts/fixtures/tube-insertion/prints/2026-10-12-liners-d775-mark1/2026-10-12-tube-insertion-liners-d775-tpu85a-right06-z000-mark1.gcode)
 in Bambu Studio to inspect the exact launched toolpaths. Its bytes are
 extracted from `Metadata/plate_1.gcode` in the native archive and match the
 SHA-256 in the slice and launch records. Opening the editable project loads

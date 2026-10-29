@@ -52,13 +52,13 @@ and eight contours within deposited terminal beads.
 
 ## Files and estimate
 
-The [native slice](2026-10-16-elbow-pair-tpu85a-lap040-normal-right06-z000-mark1-native.gcode.3mf)
+The [native slice](https://github.com/derekbreden/homesodamachine/blob/33d50d2ecd2a0fb6b518483a44c8031e3a0c1617/future/pump-elbow-exploration/prints/2026-10-16-departure-lap040-normal-lift-tpu85a-mark1/2026-10-16-elbow-pair-tpu85a-lap040-normal-right06-z000-mark1-native.gcode.3mf)
 estimates 121 minutes / 8.57 g. The laps add approximately 32 minutes of
 commanded motion, giving a planning estimate of **about 2 hours 33 minutes**
 before acceleration overhead. Native thumbnails and displayed time estimates
 exclude the added laps.
 
-The [processed archive](2026-10-16-elbow-pair-tpu85a-lap040-normal-right06-z000-mark1.gcode.3mf)
+The [processed archive](https://github.com/derekbreden/homesodamachine/blob/33d50d2ecd2a0fb6b518483a44c8031e3a0c1617/future/pump-elbow-exploration/prints/2026-10-16-departure-lap040-normal-lift-tpu85a-mark1/2026-10-16-elbow-pair-tpu85a-lap040-normal-right06-z000-mark1.gcode.3mf)
 is the print file. `prepare_mark1.py` slices offline and calls
 [`departure_lap.py`](../../departure_lap.py) with `height=.4`; it does not send
 or alter global presets. Reslicing the editable project alone omits the lap.

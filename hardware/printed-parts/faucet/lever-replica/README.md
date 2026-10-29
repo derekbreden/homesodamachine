@@ -25,8 +25,8 @@ the faucet's finish; [faucet shell assembly](../faucet-shell/ASSEMBLY.md) fits i
 | [lever-replica-side-down.stl](lever-replica-side-down.stl) | Accepted shape with its right side on the print bed |
 | [lever-replica-petgf.3mf](lever-replica-petgf.3mf) | One lever using the shared PET-GF settings and +0.18 mm Z trim |
 | [lever-replica-petgf-white.3mf](lever-replica-petgf-white.3mf) | The same lever at +0.04 mm Z trim, for Mark2 |
-| [lever-black-petgf-z018-h2c.gcode.3mf](lever-black-petgf-z018-h2c.gcode.3mf) | Native H2C slice; submitted jobs are identified by hashes in the job record |
-| [lever-original-wide-white-z004-mark2.gcode.3mf](lever-original-wide-white-z004-mark2.gcode.3mf) | Completed and physically accepted white lever at +0.04 mm on Mark2 |
+| [lever-black-petgf-z018-h2c.gcode.3mf](https://github.com/derekbreden/homesodamachine/blob/33d50d2ecd2a0fb6b518483a44c8031e3a0c1617/hardware/printed-parts/faucet/lever-replica/lever-black-petgf-z018-h2c.gcode.3mf) | Native H2C slice; submitted jobs are identified by hashes in the job record |
+| [lever-original-wide-white-z004-mark2.gcode.3mf](https://github.com/derekbreden/homesodamachine/blob/33d50d2ecd2a0fb6b518483a44c8031e3a0c1617/hardware/printed-parts/faucet/lever-replica/lever-original-wide-white-z004-mark2.gcode.3mf) | Completed and physically accepted white lever at +0.04 mm on Mark2 |
 | [print-jobs.json](print-jobs.json) | Printer completion, physical observations, material/nozzle and job hashes |
 | [physical-acceptance.json](physical-acceptance.json) | Derek's fit/function confirmation for the exact accepted mesh |
 | [scan-fit.json](scan-fit.json) | Donor-reference/observed-point distances, normals and mesh validity |

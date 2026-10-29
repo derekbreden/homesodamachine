@@ -65,11 +65,11 @@ The [independent command review](emitted-command-review.json) confirms all
 archive members change. The conservative full-bead envelope is at least
 135.66 mm inside the right nozzle's usable bed area.
 
-The [native slice](2026-10-16-elbow-pair-cutaway-web-tpu85a-right06-z000-mark1-native.gcode.3mf)
+The [native slice](https://github.com/derekbreden/homesodamachine/blob/33d50d2ecd2a0fb6b518483a44c8031e3a0c1617/future/pump-elbow-exploration/prints/2026-10-16-cutaway-web-tpu85a-mark1/2026-10-16-elbow-pair-cutaway-web-tpu85a-right06-z000-mark1-native.gcode.3mf)
 estimates **2 hours 17 minutes / 9.14 g**. Routing adds short detours and lifts;
 allow roughly **2 hours 20 minutes**. Native preview travel and time estimates
 exclude the replaced routes. The
-[processed archive](2026-10-16-elbow-pair-cutaway-web-tpu85a-right06-z000-mark1.gcode.3mf)
+[processed archive](https://github.com/derekbreden/homesodamachine/blob/33d50d2ecd2a0fb6b518483a44c8031e3a0c1617/future/pump-elbow-exploration/prints/2026-10-16-cutaway-web-tpu85a-mark1/2026-10-16-elbow-pair-cutaway-web-tpu85a-right06-z000-mark1.gcode.3mf)
 is the selected print file. `prepare_mark1.py` builds both models, slices the
 pair and invokes the manual router. Reslicing the editable project omits
 that routing step.

@@ -19,7 +19,7 @@ held best; removal was quite easy and insertion a little harder. Derek requests
 thicker wings and more circumferential wrap in a 3 × 3 comparison, keeping that
 same smallest bore. No numerical force or physical bore measurement was reported.
 
-- [Ready native print archive](2026-10-26-tube-snap-three-bores-mark2-f10f7183/2026-10-26-tube-snap-three-bores-mark2-f10f7183.gcode.3mf)
+- [Ready native print archive](https://github.com/derekbreden/homesodamachine/blob/33d50d2ecd2a0fb6b518483a44c8031e3a0c1617/future/tube-snap-exploration/prints/2026-10-26-mark2-organizer-fit/2026-10-26-tube-snap-three-bores-mark2-f10f7183/2026-10-26-tube-snap-three-bores-mark2-f10f7183.gcode.3mf)
 - [Editable project](2026-10-26-tube-snap-three-bores-mark2-f10f7183/2026-10-26-tube-snap-three-bores-mark2-f10f7183.3mf)
 - [Native preview](2026-10-26-tube-snap-three-bores-mark2-f10f7183/plate_1.png)
 - [Offline preparation and native review](offline-review.json)

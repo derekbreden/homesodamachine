@@ -31,7 +31,7 @@ archive as RUNNING with print error 0 and no HMS entries. The
 [launch context](launch-context.json) records the user instructions,
 [fresh two-printer preflight](preflight.json) and shared-circuit startup spacing.
 
-- [Native print archive](2026-10-26-tube-snap-retention-matrix-mark2-4f9f9960/2026-10-26-tube-snap-retention-matrix-mark2-4f9f9960.gcode.3mf)
+- [Native print archive](https://github.com/derekbreden/homesodamachine/blob/33d50d2ecd2a0fb6b518483a44c8031e3a0c1617/future/tube-snap-exploration/prints/2026-10-26-mark2-retention-matrix/2026-10-26-tube-snap-retention-matrix-mark2-4f9f9960/2026-10-26-tube-snap-retention-matrix-mark2-4f9f9960.gcode.3mf)
 - [Editable project](2026-10-26-tube-snap-retention-matrix-mark2-4f9f9960/2026-10-26-tube-snap-retention-matrix-mark2-4f9f9960.3mf)
 - [Native preview](2026-10-26-tube-snap-retention-matrix-mark2-4f9f9960/plate_1.png)
 - [Offline source and native review](offline-review.json)

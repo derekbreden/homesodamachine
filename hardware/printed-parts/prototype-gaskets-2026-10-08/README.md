@@ -4,7 +4,7 @@ Mark2 uses the loaded TPU 85A through the fixed right 0.6 mm nozzle and external
 slot 255. Its requested +0.04 mm trim emits `G29.1 Z0.02` on Textured PEI.
 Timelapse and bed leveling are on at Send; probing clump detection is off.
 
-The separate [tube gasket](ready/2026-10-08-touch-flo-tube-gasket-tpu85a-right06-mark2.gcode.3mf)
+The separate [tube gasket](https://github.com/derekbreden/homesodamachine/blob/33d50d2ecd2a0fb6b518483a44c8031e3a0c1617/hardware/printed-parts/prototype-gaskets-2026-10-08/ready/2026-10-08-touch-flo-tube-gasket-tpu85a-right06-mark2.gcode.3mf)
 uses the unchanged mesh and core process from
 [the accepted Touch-Flo / 3/8 LLDPE fit project](../faucet/tpu-o-ring/tpu-o-ring-85A-6mm.3mf).
 Its [May 30 fit record](../faucet/tpu-o-ring/print-log.md) establishes that combined
@@ -13,7 +13,7 @@ seat. The old print's physical nozzle diameter is not established. The native
 147.09 mm complete bead inset. The estimate is 11 minutes including startup.
 [tube-launch.json](tube-launch.json) binds the single accepted transaction.
 
-The [flat plate](ready/2026-10-08-prototype-flat-gaskets-tpu85a-right06-mark2.gcode.3mf)
+The [flat plate](https://github.com/derekbreden/homesodamachine/blob/33d50d2ecd2a0fb6b518483a44c8031e3a0c1617/hardware/printed-parts/prototype-gaskets-2026-10-08/ready/2026-10-08-prototype-flat-gaskets-tpu85a-right06-mark2.gcode.3mf)
 contains two reservoir cap perimeter gaskets, two dry bulkhead washers, two vent
 filter retaining rings, the machine display gasket, and one counter gasket for
 the printed September 18 white Sculpted faucet. That counter gasket retains the

@@ -57,7 +57,7 @@ Timelapse and bed leveling are On; flow dynamic and nozzle offset calibration
 are Auto. Mark1's preceding acceptance was 39 min 58 s earlier, exceeding
 the 180-second startup interval.
 
-- [Exact launched native archive](2026-10-13-industrial-base-tip-full-rear-seam-petgf-left04-z004-mark2.gcode.3mf)
+- [Exact launched native archive](https://github.com/derekbreden/homesodamachine/blob/33d50d2ecd2a0fb6b518483a44c8031e3a0c1617/hardware/printed-parts/faucet/industrial/prints/2026-10-13-complete-rear-seam-base-tip-mark2/2026-10-13-industrial-base-tip-full-rear-seam-petgf-left04-z004-mark2.gcode.3mf)
 - [Editable evaluation project](2026-10-13-industrial-base-tip-full-rear-seam-petgf-left04-z004-mark2.3mf)
 - [Source, settings and authorization](2026-10-13-industrial-base-tip-full-rear-seam-petgf-left04-z004-mark2.print.json)
 - [Launch receipt](launch.json)

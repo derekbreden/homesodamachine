@@ -22,7 +22,7 @@ without a material adhesion, cooling or sag model.
 
 - [Print mesh](downward-fill-single-elbow-print.stl)
 - [Editable project](2026-10-13-downward-fill-single-elbow-tpu85a-right06-z018-mark1.3mf)
-- [Native archive](2026-10-13-downward-fill-single-elbow-tpu85a-right06-z018-mark1.gcode.3mf)
+- [Native archive](https://github.com/derekbreden/homesodamachine/blob/33d50d2ecd2a0fb6b518483a44c8031e3a0c1617/future/pump-elbow-exploration/prints/2026-10-13-downward-fill-single-tpu85a-mark1/2026-10-13-downward-fill-single-elbow-tpu85a-right06-z018-mark1.gcode.3mf)
 - [Native readback](2026-10-13-downward-fill-single-elbow-tpu85a-right06-z018-mark1.readiness.json)
 - [Generator snapshot](bed-supported-elbow-source.txt) and [socket snapshot](socket-source.txt)
 

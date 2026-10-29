@@ -42,7 +42,7 @@ Every second-layer wall segment intersects the first-layer commanded footprint;
 that reading does not establish physical adhesion.
 
 - [Editable project](2026-10-09-organizer-saved-plus010-plus020-petgf-left04-z004-mark2.3mf)
-- [Native print archive](2026-10-09-organizer-saved-plus010-plus020-petgf-left04-z004-mark2.gcode.3mf)
+- [Native print archive](https://github.com/derekbreden/homesodamachine/blob/33d50d2ecd2a0fb6b518483a44c8031e3a0c1617/future/umbilical-organizer-exploration/diameter-increments-mark2/2026-10-09-organizer-saved-plus010-plus020-petgf-left04-z004-mark2.gcode.3mf)
 - [Preparation, source hashes and native checks](2026-10-09-organizer-saved-plus010-plus020-petgf-left04-z004-mark2.print.json)
 - [Native preview](plate_1.png) and [first/second-layer contact review](first-second-layer-review.json)
 - [Fresh both-printer preflight](preflight.json), [launch plan](launch-plan.json) and [launch receipt](launch.json)

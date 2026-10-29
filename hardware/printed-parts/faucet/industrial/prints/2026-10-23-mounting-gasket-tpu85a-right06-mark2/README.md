@@ -6,9 +6,9 @@ binds task **1368637649** to the reviewed processed archive. The native estimate
 is **43 minutes / 5.88 g**, with ten layers. Processed part motion is nominally
 36.5 minutes, excluding startup, shutdown and acceleration effects.
 
-Use the [processed print archive](2026-10-23-industrial-mounting-gasket-tpu85a-right06-z000-mark2-continuous-layers.gcode.3mf)
+Use the [processed print archive](https://github.com/derekbreden/homesodamachine/blob/33d50d2ecd2a0fb6b518483a44c8031e3a0c1617/hardware/printed-parts/faucet/industrial/prints/2026-10-23-mounting-gasket-tpu85a-right06-mark2/2026-10-23-industrial-mounting-gasket-tpu85a-right06-z000-mark2-continuous-layers.gcode.3mf)
 directly. Reslicing the [editable project](2026-10-23-industrial-mounting-gasket-tpu85a-right06-z000-mark2.3mf)
-produces the separate [native source slice](2026-10-23-industrial-mounting-gasket-tpu85a-right06-z000-mark2.gcode.3mf).
+produces the separate [native source slice](https://github.com/derekbreden/homesodamachine/blob/33d50d2ecd2a0fb6b518483a44c8031e3a0c1617/hardware/printed-parts/faucet/industrial/prints/2026-10-23-mounting-gasket-tpu85a-right06-mark2/2026-10-23-industrial-mounting-gasket-tpu85a-right06-z000-mark2.gcode.3mf).
 
 ## Part and recipe
 

@@ -43,7 +43,7 @@ review's CAD Z80–237 scope did not include those regions. The
 [current complete preparation](../../seam-placement/rear-center-v2/README.md)
 includes the stage shoulders and a matching tip rear meridian.
 
-- [Exact launched native archive](2026-10-13-industrial-base-rear-seam-petgf-left04-z004-mark2.gcode.3mf)
+- [Exact launched native archive](https://github.com/derekbreden/homesodamachine/blob/33d50d2ecd2a0fb6b518483a44c8031e3a0c1617/hardware/printed-parts/faucet/industrial/prints/2026-10-13-rear-seam-base-only-mark2/2026-10-13-industrial-base-rear-seam-petgf-left04-z004-mark2.gcode.3mf)
 - [Editable one-time project](2026-10-13-industrial-base-rear-seam-petgf-left04-z004-mark2.3mf)
 - [Source, retained meshes and exception scope](2026-10-13-industrial-base-rear-seam-petgf-left04-z004-mark2.print.json)
 - [Measured emitted seam starts](seam-starts.json)

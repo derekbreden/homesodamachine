@@ -12,7 +12,7 @@ and key are separate articles.
 | File | Contents |
 | --- | --- |
 | [Editable project](tactile-mark1-z018.3mf) | Six parts with reviewed placement and settings |
-| [Native sliced archive](tactile-mark1-z018.gcode.3mf) | Estimated 3 h 59 min, 138.05 g at the saved filament density |
+| [Native sliced archive](https://github.com/derekbreden/homesodamachine/blob/33d50d2ecd2a0fb6b518483a44c8031e3a0c1617/future/umbilical-plug-and-socket-exploration/tactile-trial/tactile-mark1-z018.gcode.3mf) | Estimated 3 h 59 min, 138.05 g at the saved filament density |
 | [Print record](tactile-mark1-z018.print.json) | Source hashes, embedded mesh fidelity, geometry, settings and emitted toolpaths |
 
 The socket and plug have **filled magnet pockets**. They need no SB443-IN magnets or pause,

@@ -25,7 +25,7 @@ leveling are On; flow dynamic and nozzle offset calibration are Auto.
 Mark2 task 1335906696 was accepted more than five hours before this start.
 
 - [Editable project](2026-10-13-tpu-o-ring-85a-right06-z018-mark1.3mf)
-- [Exact launched native slice](2026-10-13-tpu-o-ring-85a-right06-z018-mark1.gcode.3mf)
+- [Exact launched native slice](https://github.com/derekbreden/homesodamachine/blob/33d50d2ecd2a0fb6b518483a44c8031e3a0c1617/hardware/printed-parts/faucet/tpu-o-ring/prints/2026-10-13-tpu85a-right06-mark1/2026-10-13-tpu-o-ring-85a-right06-z018-mark1.gcode.3mf)
 - [Source mesh hashes and settings changes](2026-10-13-tpu-o-ring-85a-right06-z018-mark1.print.json)
 - [Native checksums, bead envelope and estimate](2026-10-13-tpu-o-ring-85a-right06-z018-mark1.readiness.json)
 - [Launch receipt and shared-circuit spacing](launch.json)

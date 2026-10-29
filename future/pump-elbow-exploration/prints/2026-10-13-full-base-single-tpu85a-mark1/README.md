@@ -21,7 +21,7 @@ Mark1 recipe uses loaded black TPU 85A, the right fixed 0.6 mm nozzle,
 Maximum flow is 2.2 mm³/s; Mark1's +0.18 mm user trim emits `G29.1 Z0.16`.
 Timelapse and bed leveling are On; flow and nozzle offset calibration are Auto.
 
-- [Native print archive](2026-10-13-full-base-single-elbow-tpu85a-right06-z018-mark1.gcode.3mf)
+- [Native print archive](https://github.com/derekbreden/homesodamachine/blob/33d50d2ecd2a0fb6b518483a44c8031e3a0c1617/future/pump-elbow-exploration/prints/2026-10-13-full-base-single-tpu85a-mark1/2026-10-13-full-base-single-elbow-tpu85a-right06-z018-mark1.gcode.3mf)
 - [Editable project](2026-10-13-full-base-single-elbow-tpu85a-right06-z018-mark1.3mf)
 - [Actual print mesh](full-base-single-elbow-print.stl)
 - [Native CAD](full-base-single-elbow.step)

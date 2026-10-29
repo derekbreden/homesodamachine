@@ -21,7 +21,7 @@ This result accepts visible stringing quality and records a qualitative seal
 comparison for the identified recipe.
 
 The [submission record](submission.json) binds a byte-identical copy of the
-[processed archive](../2026-10-16-deposited-links-siraya85a-mark1/2026-10-16-elbows-deposited-links-siraya85a-right06-z000-mark1.gcode.3mf)
+[processed archive](https://github.com/derekbreden/homesodamachine/blob/33d50d2ecd2a0fb6b518483a44c8031e3a0c1617/future/pump-elbow-exploration/prints/2026-10-16-deposited-links-siraya85a-mark1/2026-10-16-elbows-deposited-links-siraya85a-right06-z000-mark1.gcode.3mf)
 to the submitted filename. Its G-code SHA-256 is
 `2e2052b96de0fc177a27430732a133e15cfe40eddcf4799ec901eaa64a6fcbe0`.
 The embedded checksum matches. Use this processed archive directly; reslicing

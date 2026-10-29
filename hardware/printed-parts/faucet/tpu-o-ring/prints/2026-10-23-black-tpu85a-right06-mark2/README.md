@@ -5,10 +5,10 @@ Mark2 accepted one black Bambu TPU 85A sleeve on **2026-10-23 at 16:38 CDT**.
 The [launch receipt](launch.json) binds the submitted processed archive to task
 **1368570348**. The source estimate is **11 minutes / 0.40 g**, with 87 layers.
 
-Use the [processed print archive](2026-10-23-touch-flo-sleeve-tpu85a-right06-z000-mark2-continuous-cap.gcode.3mf)
+Use the [processed print archive](https://github.com/derekbreden/homesodamachine/blob/33d50d2ecd2a0fb6b518483a44c8031e3a0c1617/hardware/printed-parts/faucet/tpu-o-ring/prints/2026-10-23-black-tpu85a-right06-mark2/2026-10-23-touch-flo-sleeve-tpu85a-right06-z000-mark2-continuous-cap.gcode.3mf)
 directly. It includes the cap routing; reslicing the
 [editable project](2026-10-23-touch-flo-sleeve-tpu85a-right06-z000-mark2.3mf)
-produces the [native source slice](2026-10-23-touch-flo-sleeve-tpu85a-right06-z000-mark2.gcode.3mf).
+produces the [native source slice](https://github.com/derekbreden/homesodamachine/blob/33d50d2ecd2a0fb6b518483a44c8031e3a0c1617/hardware/printed-parts/faucet/tpu-o-ring/prints/2026-10-23-black-tpu85a-right06-mark2/2026-10-23-touch-flo-sleeve-tpu85a-right06-z000-mark2.gcode.3mf).
 
 ## Recipe and fit basis
 

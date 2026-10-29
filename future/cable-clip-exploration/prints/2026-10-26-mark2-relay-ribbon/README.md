@@ -21,7 +21,7 @@ Z6 mm. Overall print height is 25.70 mm. The 0.75 mm retaining lip keeps its
 flat underside.
 
 - [Editable project](2026-10-26-relay-ribbon-4p-upright-mark2-78832950/2026-10-26-relay-ribbon-4p-upright-mark2-78832950.3mf)
-- [Native print archive](2026-10-26-relay-ribbon-4p-upright-mark2-78832950/2026-10-26-relay-ribbon-4p-upright-mark2-78832950.gcode.3mf)
+- [Native print archive](https://github.com/derekbreden/homesodamachine/blob/33d50d2ecd2a0fb6b518483a44c8031e3a0c1617/future/cable-clip-exploration/prints/2026-10-26-mark2-relay-ribbon/2026-10-26-relay-ribbon-4p-upright-mark2-78832950/2026-10-26-relay-ribbon-4p-upright-mark2-78832950.gcode.3mf)
 - [Native preview](2026-10-26-relay-ribbon-4p-upright-mark2-78832950/plate_1.png)
 - [Physical result](physical-result.json), [photo 1](physical-photo-1.jpg) and [photo 2](physical-photo-2.jpg)
 - [Accepted launch receipt](launch.json), [launch context](launch-context.json) and [preflight](preflight.json)

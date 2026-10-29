@@ -10,7 +10,7 @@ flat-sided portion to the donor centreline. Its hand face stands 2 mm above
 the PET-GF walls and prints face-down. The 12.8 mm compression tongue fits
 the 11.8 mm canyon. [Dimensions](dimensions.json) identify this shape.
 
-- [Exact launched slice](donor-hold-down-half-body-tpu85a-right06-z018-mark1.gcode.3mf)
+- [Exact launched slice](https://github.com/derekbreden/homesodamachine/blob/33d50d2ecd2a0fb6b518483a44c8031e3a0c1617/hardware/printed-parts/fixtures/tube-insertion/donor-hold-down/prints/2026-10-12-half-body-mark1/donor-hold-down-half-body-tpu85a-right06-z018-mark1.gcode.3mf)
 - [Editable native project](donor-hold-down-half-body-tpu85a-right06-z018-mark1.3mf)
 - [Project settings](donor-hold-down-half-body-tpu85a-right06-z018-mark1.print.json)
 - [Native slice review](donor-hold-down-half-body-tpu85a-right06-z018-mark1.readiness.json)

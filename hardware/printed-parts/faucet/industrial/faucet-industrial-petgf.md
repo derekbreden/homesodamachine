@@ -86,7 +86,7 @@ mapping before sending. Optional `--slice-output <empty-directory>` performs a
 local native slice without contacting a printer.
 
 The current [prepared project](faucet-industrial-petgf.3mf),
-[native archive](faucet-industrial-petgf.gcode.3mf),
+[native archive](https://github.com/derekbreden/homesodamachine/blob/33d50d2ecd2a0fb6b518483a44c8031e3a0c1617/hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.gcode.3mf),
 [preparation](faucet-industrial-petgf.print.json),
 [support reading](faucet-industrial-petgf.support-audit.json) and
 [readiness](faucet-industrial-petgf.readiness.json) describe the complete
