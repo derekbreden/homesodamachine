@@ -1,0 +1,87 @@
+{
+  "scope": "Local coupons cropped from the production Y205.60 cap leaves.",
+  "world_crop_mm": [
+    [
+      -60.0,
+      182.60000000000002,
+      233.55
+    ],
+    [
+      -27.0,
+      248.3,
+      253.4
+    ]
+  ],
+  "generator_sha256": "7741b1727917186af07dabb44e22081e4f32845ae81db5e4c06b4ff20be481bb",
+  "clamp_stations": [
+    {
+      "name": "aft",
+      "axis_world_xy_mm": [
+        -43.5,
+        242.3
+      ],
+      "screw_length_mm": 10.0,
+      "insert": "RX-M3x5.7",
+      "insert_length_mm": 5.7,
+      "insert_face_world_z_mm": 247.85,
+      "head_seat_world_z_mm": 250.25
+    },
+    {
+      "name": "fore-west",
+      "axis_world_xy_mm": [
+        -54.0,
+        205.60000000000002
+      ],
+      "screw_length_mm": 10.0,
+      "insert": "RX-M3x5.7",
+      "insert_length_mm": 5.7,
+      "insert_face_world_z_mm": 247.85,
+      "head_seat_world_z_mm": 250.25
+    },
+    {
+      "name": "fore-east",
+      "axis_world_xy_mm": [
+        -33.0,
+        205.60000000000002
+      ],
+      "screw_length_mm": 10.0,
+      "insert": "RX-M3x5.7",
+      "insert_length_mm": 5.7,
+      "insert_face_world_z_mm": 247.85,
+      "head_seat_world_z_mm": 250.25
+    }
+  ],
+  "roof_allowance_mm": 0.25,
+  "normal_seating_allowance_mm": 0.15000000000000568,
+  "production_print_up_retained": true,
+  "source_step_sha256": {
+    "foam-cap-top": "43b74848b5901f46b109eff65a5a47ca5aafd244f1ad426fd0dd5b7ecc962100",
+    "foam-cap-lid-top": "a19de766bcf3a1f5f025145c7ad65ee042478ba1564cf5deb03a709c44b330e2"
+  },
+  "variants": {
+    "round20560": {
+      "fore_screw_y_mm": 205.60000000000002,
+      "pieces": {
+        "cup": {
+          "valid": true,
+          "solids": 1,
+          "volume_mm3": 28478.247868941286,
+          "step": ".cache/prints/2026-10-28-b-fill-round-fore-20560/round20560/cup.step",
+          "step_sha256": "d18683c33b04dac17461bcd8561ca3a3a70fb7cb207a8b86ec4c114d0c1abf44",
+          "stl": ".cache/prints/2026-10-28-b-fill-round-fore-20560/round20560/cup.stl",
+          "stl_sha256": "8cb167b2be393953a6ac540c12e23b79c258aae6523a7d7b78ecaea5364930f7"
+        },
+        "lid": {
+          "valid": true,
+          "solids": 1,
+          "volume_mm3": 10678.58125541232,
+          "step": ".cache/prints/2026-10-28-b-fill-round-fore-20560/round20560/lid.step",
+          "step_sha256": "102b6e76d49f09e99712c59c0080eaf2448e85909b5ebb1e0b25ede5763ac99c",
+          "stl": ".cache/prints/2026-10-28-b-fill-round-fore-20560/round20560/lid.stl",
+          "stl_sha256": "b6800881f94e4d593137437435b852909bc181b826cd94a09cccbd226b9f17b7"
+        }
+      },
+      "cup_lid_overlap_mm3": 0.0
+    }
+  }
+}
