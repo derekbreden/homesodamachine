@@ -585,8 +585,8 @@ def passive_guide_points(lower_xy, upper_xy, start_z, end_z, bend_start_z, radiu
 def cable_guide_points(name):
     """Flexible loom corridor in world XYZ, retaining the original lower entry.
 
-    Reservoir A rises straight over its reed channel. The sensor loom passes
-    around the equipment insert columns below the lid.
+    Reservoir A rises straight over its reed channel. The seven carbonator
+    conductors share a straight guide west of the pump.
     The radius specifies a printed passage, not cable qualification.
     """
     core = importlib.import_module('_cold_core_interface')

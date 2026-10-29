@@ -241,10 +241,10 @@ PROBE_STANDOFF = F.TO92_W * 0.71
 def probes() -> dict:
     carbonator_z = _C.gap_z_near(180.0, (_V.interior_z[0] + _V.interior_z[1]) / 2.0)
     carbonator_at = (-(carbonator_outer_radius + PROBE_STANDOFF), 0.0, carbonator_z)
-    # One wrap back from the outlet tail, in the gap between two wraps and against the carbonator —
-    # which is where the tape that holds it can reach it.
-    coil_at = _C._at(_C.AZ_OUT, _C.gap_z_near(_C.AZ_OUT, _C.evap_tail_high_z - _C.PITCH),
-                     carbonator_outer_radius + PROBE_STANDOFF).toTuple()
+    # The flat package face touches the suction-end copper at its centre
+    # height. Foil holds it to the tube; the lead row dresses below that contact.
+    coil_at = _C._at(_C.AZ_OUT, _C.evap_tail_high_z,
+                     _C.WIND_R + _C.TUBE_R + F.TO92_W / 2.0).toTuple()
     return {"probe-carbonator-ds18b20": F.to92(centre=carbonator_at, axis=(0, 0, 1)),
             "probe-coil-ds18s20": F.to92(centre=coil_at, axis=(0, 0, 1))}
 

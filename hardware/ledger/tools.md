@@ -27,6 +27,15 @@ For per-unit BOM parts, see [bom.md](/hardware/ledger/bom.md). For non-BOM/non-t
 | **Bosch DSB1013 Daredevil spade bit** | [B001NGPAA0](https://www.amazon.com/dp/B001NGPAA0), [purchases.md §1](/hardware/ledger/purchases.md) | 1" × 6", for 1" through-holes in fixture stock. | [$5.35](T_SPADE_BIT) |
 | **MOTOKU 38 mm round die handle** | [B073ZX58PH](https://www.amazon.com/dp/B073ZX58PH), [purchases.md §1](/hardware/ledger/purchases.md) | Companion to Drill America die kit for chasing external threads on test fittings. | [$15.00](T_DIE_HANDLE) |
 
+The carbonator's upper-rim earth clamp requires the following additional
+metalworking tools. They are not recorded as acquired; supplier and price
+are unselected, as listed under [remaining purchases](/hardware/ledger/purchases.md#still-needed--likely-to-buy).
+
+| Tool | Source | Role | Cost |
+|---|---|---|---:|
+| **M3 × 0.5 tap with compatible hand driver** | Not recorded as acquired | Taps the carbonator's 1.651 mm upper rim for its dedicated earth-clamp screw; suitable for 316L stainless. | — |
+| **Ø2.5 mm drill** | Not recorded as acquired | Tap drill for the upper-rim M3 × 0.5 thread; suitable for 316L stainless. | — |
+
 ## Hydro / pressure testing
 
 | Tool | Source | Notes | $ |

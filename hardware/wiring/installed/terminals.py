@@ -384,9 +384,9 @@ class Attachments:
         # on the vessel bounds. Carry its shared steel/fastener datums through
         # the same cap pose as the rest of the cold core.
         d = carbonator_bond_datums(self.ea)
-        self.put('carbonator.PE','cold-core/carbonator-earth-tab',
+        self.put('carbonator.PE','cold-core/'+d['body'],
                  d['wire_exit_mm'],d['wire_outward'],'ring-barrel',
-                 'M3 closed ring on the welded top-plate earth tab; shared tab/fastener and ring-barrel datums')
+                 'M3 closed ring on the tapped upper tube rim; shared rim/fastener and ring-barrel datums')
 
     def record(self):
         return {k:asdict(v) for k,v in sorted(self.terminals.items())}

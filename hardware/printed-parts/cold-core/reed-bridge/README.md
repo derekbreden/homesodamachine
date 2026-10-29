@@ -137,10 +137,13 @@ before printing the bridge/setting gauge or fixing the reed heights.
 4. Seat the bridge on the mark; a wrap of 3M 425 over each ramp end holds
    it. Skin the carbonator per [`cold-core.md`](/hardware/assembly/cold-core.md)
    §1 — the foil goes over the bridge, burnished down onto both ramps.
-5. Lead the three conductors up the −Y register line outside the coil,
-   through the straight `carbonator-reeds` passage in the upper cup and lid.
-   Its installed shell-frame axis is (0, −74) mm; the enclosure exit is
-   (74, 323.8, 253.4) mm. Dress the free ends to J7 and the reed-common WAGO.
+5. Keep the reed bridge at its register azimuth. Lead CLO, CHI and their
+   continuous common up outside the coil, then transfer them over the open
+   vessel head at enclosure Z225/Y352 before the body foam pour. Join the
+   shared west-side seven-core loom at X−48/Y347; its other cores are the
+   three temperature-bus leads and green 16 AWG carbonator earth lead. The
+   short Ø7.5 mm guide rises straight through the cup and lid to Z253.4.
+   Dress the three reed ends to J7 and the existing reed-common WAGO.
 
 ## Sources
 [value](NAME) texts are updated by:

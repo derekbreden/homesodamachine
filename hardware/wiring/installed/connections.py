@@ -65,7 +65,7 @@ def connections():
     wire("AC6-PE", "Compressor", "PE", "ground.compressor", "compressor.PE", "earth18", "AC-6")
     wire("PE-bus", "Earth bonds", "PE", "wago-g.2", "ground.inlet", "earth16", "AC-1")
     wire("PE-carbonator", "Earth bonds", "PE", "ground.carbonator", "carbonator.PE", "earth16", "earth bonds",
-         note="Closed ring clamped directly to the welded stainless top-plate earth tab; fitted before the body foam pour.")
+         note="Closed ring clamped directly to the drilled stainless vessel rim; fitted before the body foam pour.")
     for net, pole in (("V12", "v12"), ("GND", "gnd")):
         wire("DC1-"+net, "12V power", net, "psu."+net, f"wago-{pole}.1", "power16", "DC-1")
         wire("DC4-"+net, "12V power", net, f"wago-{pole}.3", "J10."+net, "power16", "DC-4")
@@ -88,14 +88,14 @@ def connections():
         wire("J13-"+label, "J13", label, "J13."+label, motor, schedule="DC-5")
     for label, pin in (("V5", 2), ("GND", 3), ("IO35", 4), ("IO33", 5)):
         wire("J3-"+label, "J3", label, "J3."+label, f"keystone.{pin}", schedule="SIG-6")
-    for label, target in (("3V3", "temp-carbonator.V"), ("IO26", "temp-carbonator.DATA"),
+    for label, target in (("3V3", "temp-coil.V"), ("IO26", "temp-coil.DATA"),
                            ("V5", "flow.V"), ("IO25", "flow.PULSE"), ("GND", "wago-sensors.1")):
         wire("J4-"+label, "J4", label, "J4."+label, target, schedule="SIG-1 / SIG-4")
-    wire("temp-GND", "J4", "GND", "wago-sensors.2", "temp-carbonator.GND", schedule="SIG-1")
+    wire("temp-GND", "J4", "GND", "wago-sensors.2", "temp-coil.GND", schedule="SIG-1")
     wire("flow-GND", "J4", "GND", "wago-sensors.3", "flow.GND", schedule="SIG-4")
     for label in ("V", "DATA", "GND"):
         wire("temp-bus-"+label, "J4", {"V":"3V3","DATA":"IO26","GND":"GND"}[label],
-             "temp-carbonator."+label, "temp-coil."+label, schedule="SIG-1",
+             "temp-coil."+label, "temp-carbonator."+label, schedule="SIG-1",
              note="Parallel 1-wire bus; insulated branch joint layout is proposed.")
     for label in ("V5", "GND"):
         wire("J5-"+label, "J5", label, "J5."+label, "relay-1."+label, schedule="LV-3")

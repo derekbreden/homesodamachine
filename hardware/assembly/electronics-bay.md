@@ -98,12 +98,15 @@ records the current rigid-slide and final-connection limits.
    five-conductor loom. A rises straight through the cup and lid before
    turning toward J6. Lay B's loom through the 8 × 6 mm shell-rim notch
    before seating the cap, then dress it outside the B-fill block to J7 and
-   the existing common WAGO. The `sensor-cable` passage
-   carries the temperature supply, data and common together with the
-   carbonator PE lead. Route the carbonator's `CLO`, `CHI` and shared common
-   through the separate straight `carbonator-reeds` passage. Thread the cup
-   and lid over the free earth-wire end before crimping its lid-side ring.
-   Follow each loom's printed guide along its modeled path. Complete the
+   the existing common WAGO. The shared straight `sensor-cable` passage at
+   world X−48/Y347 carries seven cores: temperature V/DATA/GND, carbonator
+   CLO/CHI/common, and the green 16 AWG PE lead. Feed the temperature bus at
+   the coil probe first; its free leads turn aft below the PRV vent at Z184
+   and rise at Y347. Keep the east reeds fixed and lay their transfer across
+   the open head at Z225/Y352 before the body pour. Thread the cup and lid
+   over all seven free ends before crimping the outside earth ring. Dress
+   the signals along the west PCB approach and PE toward the lid star at
+   (−53, 339, 259.4) mm. Complete the
    cold-core assembly in
    [cold-core.md](cold-core.md).
 2. On open back-top, seat V-A/V-K with their fitted plumbing. Land their legs
@@ -142,13 +145,15 @@ records the current rigid-slide and final-connection limits.
    its housing. Seat J6, J7 and J4 at the PCB, J4 with cavities 4 and 5 empty.
    Populate the sensor and reservoir-B common junctions without adding
    junctions to the continuous reservoir-A reed common.
+   Before closing back-top, with the cold-core lid exposed, stack the three
+   ground rings on the boss at world (−53, 339, 259.4) mm: carbonator bond at
+   120°, inlet PE bus at 300° and compressor PE at 240°, followed by the flat
+   washer and M3 × 8. Angles run from +X toward +Y about +Z. Keep each final
+   entry straight into its crimp barrel and dress the branches toward their
+   actual destinations before the rear enclosure closes.
 5. Close the box per [enclosure-mechanical.md](enclosure-mechanical.md); the
    front-bottom and front-top looms have landed at their devices by then
    ([wiring.md](wiring.md)). Through the funnel opening, with the frame out:
-   - Stack the ground rings on the lid boss: carbonator bond at 120°, inlet PE bus at
-     300° and compressor PE at 240°, then the flat washer and M3 × 8. Angles run from
-     +X toward +Y about +Z. Dress the inlet earth feed around the fore side of the
-     stack, keeping its last 6 mm straight into the crimp barrel.
    - Land the free ends of DC-1 and DC-2 in the V12 and GND junctions.
    - Make the three joins: the compressor's switched-H core with the relay 1
      NO pigtail, its neutral core with the N-junction pigtail, and the pump

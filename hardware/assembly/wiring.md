@@ -35,25 +35,33 @@ Each conductor's end lands at the first stage where the end is reachable, and th
 | Front-bottom, open on the bench | [`enclosure-mechanical.md`](/hardware/assembly/enclosure-mechanical.md) §3, before front-top slides on | The compressor end of the SJOOW lead: SF76E splice, donor interface, and the AC-6 ring on the can's earth screw. Both fan leads: J2's `FAN` leg and its positive branch. The J11 loom's MQ-6 end. |
 | Front-top, open on the bench | [`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) §3, before front-top slides on | J1 and J2 at the front coils V-C through V-J, and their `COM` feeds in front-top's 221-420 and 221-415 |
 | Back-top, open on the bench | [`enclosure-mechanical.md`](/hardware/assembly/enclosure-mechanical.md) §1–§2 and [`electronics-bay.md`](/hardware/assembly/electronics-bay.md) steps 2–3 | AC-1, AC-2 and AC-3, complete. The back-top ends of DC-1, DC-2, the three join pigtails, the PE bus and J5. J3 at the keystone. The V-A and V-K legs at their blades. The meter's leads. |
-| Cold core, open on its cart | [`cold-core.md`](/hardware/assembly/cold-core.md) and [`electronics-bay.md`](/hardware/assembly/electronics-bay.md) steps 1 and 4 | J10 on the loose PCB and into the V12/GND WAGOs. J4's temperature conductors, J6 and J7. The pump negative in the GND WAGO, and the pump positive dressed to the opening. V-B's leg at its blades. The carbonator bond. |
-| Through the funnel opening | box closed, frame out ([`electronics-bay.md`](/hardware/assembly/electronics-bay.md) step 5) | Every board housing not yet seated, with its loose contacts. The free ends of DC-1 and DC-2 in the V12/GND WAGOs. The front-top positives. The three joins. The ground stack's rings. |
+| Cold core, open on its cart | [`cold-core.md`](/hardware/assembly/cold-core.md) and [`electronics-bay.md`](/hardware/assembly/electronics-bay.md) steps 1 and 4 | J10 on the loose PCB and into the V12/GND WAGOs. J4's temperature conductors, J6 and J7. The pump negative in the GND WAGO, and the pump positive dressed to the opening. V-B's leg at its blades. The carbonator bond and all three lid-star rings before back-top closes. |
+| Through the funnel opening | box closed, frame out ([`electronics-bay.md`](/hardware/assembly/electronics-bay.md) step 5) | Every board housing not yet seated, with its loose contacts. The free ends of DC-1 and DC-2 in the V12/GND WAGOs. The front-top positives. The three joins. |
 
 Dress each free end so it lies within the funnel opening's footprint once the box is closed, clear of the seams, the rails and every surface that slides. Label each free end with its run ID while it waits.
 
 ### 1. Chassis-ground bonds (single-point ground on the cold-core lid)
 
-Chassis grounding is via discrete green wires from the exposed metal parts back to one ring-terminal stack on the cold-core lid. The separate carbonator lead and rear PE-bus pigtail are [16 AWG](AWG_AC_MAIN) green-insulated, with rings at their screw landings. The compressor's AC-6 bond is the green [18 AWG](COMP_LEAD_AWG) core of its jacketed power lead.
+Chassis grounding is via discrete green wires from the exposed metal parts back to one ring-terminal stack at world (−53, 339, 259.4) mm on the cold-core lid. The separate carbonator lead and rear PE-bus pigtail are [16 AWG](AWG_AC_MAIN) green-insulated, with rings at their screw landings. The compressor's AC-6 bond is the green [18 AWG](COMP_LEAD_AWG) core of its jacketed power lead.
 
 Bond, from each target to the stack:
 
-- **Carbonator** — crimp a closed M3 / #4 ring onto the green 16 AWG lead and clamp it directly to the welded stainless tab on the top plate, at enclosure X−40/Y347/Z198.05 mm. The M3 × 12 stainless screw clamps the ring tongue against bare steel; the captive external-tooth locknut bears on the opposite tab face. The barrel points upward toward the existing sensor/earth passage. Fit the clamp before the foil and body pour, following [the earth-tab fabrication and clamp sequence](/hardware/assembly/pressure-vessel.md#external-earth-tab). The lead leaves through the sensor passage with the core's other potted lines ([`electronics-bay.md`](/hardware/assembly/electronics-bay.md) step 1).
+- **Carbonator** — crimp a closed M3 / #4 ring onto the green 16 AWG lead and clamp it directly to bare steel on the existing upper vessel rim, using [the rim attachment and clamp sequence](/hardware/assembly/pressure-vessel.md#upper-rim-earth-bond). Fit the steel-side clamp before foil and the body pour. Bring the free wire into the shared west-side seven-core `sensor-cable` passage at world X−48/Y347, thread both cap pieces, then crimp its outside ring for the adjacent lid star.
 - **Compressor body** — ring terminal under the compressor's own earth screw at its terminal box, landed with front-bottom open ([`enclosure-mechanical.md`](/hardware/assembly/enclosure-mechanical.md) §3). **Not under a floor screw.** The compressor stands on four rubber grommets and the posts under them are printed PET-GF, so a ring on one of those heads reaches rubber and plastic and touches no compressor metal at all. The earth screw is on the can. **This is the machine's only bond to the refrigeration metalwork**, and it is run AC-6 in [`/hardware/wiring/ac-wiring-schedule.md`](/hardware/wiring/ac-wiring-schedule.md): the G conductor of the same jacketed lead that carries AC-4 and AC-5 to the donor assembly's factory-external electrical interface, so the bond arrives with the power it protects.
 
 The stack is bonded to the C14 inlet's earth pin through AC-1's green conductor (C14 earth → rear PE WAGO) and the PE-bus pigtail (rear PE WAGO → stack).
 
-Prepare [~400 mm](EARTH_BUS_LEN) for the rear PE WAGO-to-stack bond and [~500 mm](EARTH_CARBONATOR_LEN) for the carbonator bond. Their modeled paths are 295.531 mm and 313.226 mm, leaving 104.469 mm and 186.774 mm for terminations and dressing. Trim the carbonator lead after dressing it from its fitted steel-side clamp through the sensor passage to the lid stack. The short AC-1 earth pigtail from C14 to the rear WAGO has its own cut.
+Prepare the green bond leads from the allocated stock and trim after dressing
+all three branches to the relocated star. Keep the carbonator lead's outside
+end free until it has passed through the shared cap guide. The short AC-1
+earth pigtail from C14 to the rear WAGO has its own cut.
 
-The stack is made through the funnel opening once the box is closed. The carbonator bond takes the northwest-facing lug, the inlet PE bus the northeast-facing lug and AC-6 the southwest-facing lug; the flat washer and M3 × 8 close the stack ([`electronics-bay.md`](/hardware/assembly/electronics-bay.md) step 5). Leave the inlet bond's nominal 6 mm straight entry before its bend and keep the fore paired-tube tie head on its east side. Fasten the stack before making the compressor's two joins. The installed harness is not qualified to remain in the stack's vertical driver path.
+Fasten the star while the cold-core lid is exposed, before back-top closes.
+The carbonator bond takes the northwest-facing lug, the inlet PE bus the
+northeast-facing lug and AC-6 the southwest-facing lug; the flat washer and
+M3 × 8 close the stack ([`electronics-bay.md`](/hardware/assembly/electronics-bay.md)
+step 4). Dress the rear PE feed, compressor lead and short carbonator bond
+as three distinct branches, retaining their final straight crimp entries.
 
 Check each bond from its metal to its free ring before that metal is closed in: the carbonator's before the body pour, the compressor's with front-bottom open. Record a low-resistance bond measurement rather than relying only on a continuity beeper; subtract the test-lead resistance. After the stack is fastened, check C14's earth pin to each ring's exposed metal and to the compressor body. The carbonator's steel-side clamp is already buried at this stage, so retain its pre-pour steel-to-free-ring reading with the assembly record. These assembly readings do not replace the appliance's protective-bond qualification.
 
@@ -118,7 +126,7 @@ Continuity-test each signal run end-to-end before zip-tying down.
 
 Bundle by zone:
 
-- **Core bundle** — the J4 temperature loom, the J6 + J7 reed looms (SIG-1/2/3/10/11) and the carbonator's chassis-ground bond, from the cap's temperature/earth passage, two reservoir reed passages and dedicated straight carbonator-reed passage to the PCB, the lid WAGOs and the stack ([`/hardware/printed-parts/cold-core/reservoir/level-sensing.md`](/hardware/printed-parts/cold-core/reservoir/level-sensing.md) for the reed columns).
+- **Core bundle** — the J4 temperature loom, the J6 + J7 reed looms (SIG-1/2/3/10/11) and the carbonator's chassis-ground bond, from the shared seven-core west riser, reservoir A's straight cap passage and reservoir B's shell-rim outlet to the PCB, the lid WAGOs and the adjacent star ([`/hardware/printed-parts/cold-core/reservoir/level-sensing.md`](/hardware/printed-parts/cold-core/reservoir/level-sensing.md) for the reed columns).
 - **Back-top bundle** — the ends landed on the open back-top: DC-1, DC-2, the three join pigtails, the PE bus, J5, the V-A and V-K legs and the meter's leads, dressed along back-top's west and east walls to the funnel opening. J3 stays at the keystone until its housing seats.
 - **Manifold bundle** — the J1 + J2 manifold trunks (DC-6/DC-7/DC-8) from the front coils toward the main board, carried in the front column until their housings seat. Braided-sleeve and zip tie; fan-out happens at the manifold.
 - **Compressor bundle** — the [18 AWG](COMP_LEAD_AWG) SJOOW jacketed lead from step 2 is its own bundle, up the fore floor lane; zip-tie tie-down points only.

@@ -165,7 +165,7 @@ def build_tube() -> cq.Solid:
                                   cq.Vector(0, 0, carbonator_bottom_z), cq.Vector(0, 0, 1))
     bore = cq.Solid.makeCylinder(TUBE_ID / 2, carbonator_height + 2,
                                  cq.Vector(0, 0, carbonator_bottom_z - 1), cq.Vector(0, 0, 1))
-    return outer.cut(bore)
+    return _bond.cut_tube(outer.cut(bore), top_plate_z[1])
 
 
 def build_plate(which: str) -> cq.Solid:
@@ -251,7 +251,6 @@ def bodies() -> dict:
         "endcap-top": build_plate("top"),
         "float-rod-carb": build_rod(),
         "float-stop-carb-top": build_upper_float_stop(),
-        "carbonator-earth-tab": _bond.build_tab(top_plate_z[1]),
     }
     out.update(_bond.build_hardware(top_plate_z[1]))
     for name, (solid, _mouth) in build_elbows().items():
