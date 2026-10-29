@@ -1,0 +1,168 @@
+{
+  "views": [
+    {
+      "name": "flanks",
+      "caption": "Cut across B's channel at its axis, looking toward the fore face",
+      "before": "flanks-before.webp",
+      "after": "flanks-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 316.8,
+          "y": 430.6,
+          "r": 82.3,
+          "label": "channel wall",
+          "at": [
+            -134.5,
+            25.62,
+            203.5
+          ]
+        }
+      ],
+      "model": "printed-parts/cold-core/foam-shell/foam-shell.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          -109.43456790612181,
+          32.5,
+          211.77290123285738
+        ],
+        "target": [
+          -134.5,
+          32.5,
+          203
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 0.31030623498475496,
+        "far": 552.4357269099123,
+        "aspect": 1.3333333333333333,
+        "section": {
+          "at": [
+            -134.5,
+            32.5,
+            200
+          ],
+          "normal": [
+            1,
+            0,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "printed-parts/cold-core/foam-shell/foam-shell.step.mesh",
+          "from": "snapshot",
+          "sha256": "ee2209f51c51509aa0d76b648263b74faabd4663b17c54febc99ca1541db9532",
+          "commit": "ec5089c09a267814e0214680803f8a8f7de3b298",
+          "taken": "2026-10-29T06:58:18.763Z",
+          "published": true
+        },
+        "after": {
+          "payload": "printed-parts/cold-core/foam-shell/foam-shell.step.mesh",
+          "from": "tree",
+          "sha256": "c0f5d1b1a85e010f5d233b35c53c467a0929166e625b29d819193dfbfe2c8653",
+          "commit": "3d87593492dc60e593195c3f520ef7387e0d00a3",
+          "published": true
+        }
+      },
+      "changed": [
+        "foam-shell"
+      ],
+      "withinMeshing": []
+    },
+    {
+      "name": "notch",
+      "caption": "Cut across the notch 3 mm below the rim, looking down",
+      "before": "notch-before.webp",
+      "after": "notch-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 600,
+          "y": 618.8,
+          "r": 129.9,
+          "label": "rim outlet",
+          "at": [
+            -139.35,
+            32.5,
+            210.4
+          ]
+        }
+      ],
+      "model": "printed-parts/cold-core/foam-shell/foam-shell.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          -141.26979515789216,
+          32.5,
+          231.47918063156862
+        ],
+        "target": [
+          -136,
+          32.5,
+          210.4
+        ],
+        "up": [
+          1,
+          0,
+          0
+        ],
+        "fov": 45,
+        "near": 0.3825349641778128,
+        "far": 588.5500915064413,
+        "aspect": 1.3333333333333333,
+        "section": {
+          "at": [
+            -136,
+            32.5,
+            210.4
+          ],
+          "normal": [
+            0,
+            0,
+            1
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "printed-parts/cold-core/foam-shell/foam-shell.step.mesh",
+          "from": "snapshot",
+          "sha256": "ee2209f51c51509aa0d76b648263b74faabd4663b17c54febc99ca1541db9532",
+          "commit": "ec5089c09a267814e0214680803f8a8f7de3b298",
+          "taken": "2026-10-29T06:58:18.763Z",
+          "published": true
+        },
+        "after": {
+          "payload": "printed-parts/cold-core/foam-shell/foam-shell.step.mesh",
+          "from": "tree",
+          "sha256": "c0f5d1b1a85e010f5d233b35c53c467a0929166e625b29d819193dfbfe2c8653",
+          "commit": "3d87593492dc60e593195c3f520ef7387e0d00a3",
+          "published": true
+        }
+      },
+      "changed": [
+        "foam-shell"
+      ],
+      "withinMeshing": []
+    }
+  ]
+}
