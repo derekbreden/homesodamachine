@@ -2051,7 +2051,7 @@
       "point": [
         -42.85,
         347.0,
-        215.05
+        219.05
       ],
       "outward": [
         0.0,
@@ -8333,7 +8333,7 @@
               "point_mm": [
                 -42.85,
                 347.0,
-                224.0
+                227.0
               ]
             }
           ],
@@ -12983,17 +12983,17 @@
         [
           -42.85,
           347.0,
-          224.0
+          227.0
+        ],
+        [
+          -42.85,
+          347.0,
+          223.05
         ],
         [
           -42.85,
           347.0,
           219.05
-        ],
-        [
-          -42.85,
-          347.0,
-          215.05
         ]
       ],
       "segments": [
@@ -13572,84 +13572,84 @@
             227.0
           ],
           "end_mm": [
-            -68.73680911224515,
+            -68.7195067493788,
             359.8,
             227.0
           ],
-          "length_mm": 2.8871908877548407
+          "length_mm": 2.9044932506212007
         },
         {
           "kind": "arc",
           "start_mm": [
-            -68.73680911224515,
+            -68.7195067493788,
             359.8,
             227.0
           ],
           "midpoint_mm": [
-            -68.02126512427492,
-            359.7157010757757,
-            226.98024243963494
+            -68.01984142587823,
+            359.7172707167986,
+            227.0
           ],
           "end_mm": [
-            -67.34702391493614,
-            359.46767022310866,
-            226.92211020854108
+            -67.35876464284034,
+            359.4736456233939,
+            227.0
           ],
           "radius_mm": 3.0,
-          "angle_radians": 0.48167216648890365,
-          "length_mm": 1.445016499466711
+          "angle_radians": 0.47077902534643634,
+          "length_mm": 1.412337076039309
         },
         {
           "kind": "line",
           "start_mm": [
-            -67.34702391493614,
-            359.46767022310866,
-            226.92211020854108
+            -67.35876464284034,
+            359.4736456233939,
+            227.0
           ],
           "end_mm": [
-            -45.24100837504797,
-            348.2168949185135,
-            224.2852097465266
+            -45.5236456233939,
+            348.36074210653845,
+            227.0
           ],
-          "length_mm": 24.944119789057257
+          "length_mm": 24.50038871463737
         },
         {
           "kind": "arc",
           "start_mm": [
-            -45.24100837504797,
-            348.2168949185135,
-            224.2852097465266
+            -45.5236456233939,
+            348.36074210653845,
+            227.0
           ],
           "midpoint_mm": [
-            -43.53567520591512,
-            347.34897187418346,
-            223.30808393860647
+            -43.63309267260234,
+            347.39855213555904,
+            226.12132034355963
           ],
           "end_mm": [
             -42.85,
             347.0,
-            221.3020194789867
+            224.0
           ],
-          "radius_mm": 3.0000000000000004,
-          "angle_radians": 1.4648861317201989,
-          "length_mm": 4.394658395160597
+          "radius_mm": 3.0,
+          "angle_radians": 1.5707963267948966,
+          "length_mm": 4.71238898038469
         },
         {
           "kind": "line",
           "start_mm": [
             -42.85,
             347.0,
-            221.3020194789867
+            224.0
           ],
           "end_mm": [
             -42.85,
             347.0,
-            215.05
+            219.05
           ],
-          "length_mm": 6.252019478986682
+          "length_mm": 4.949999999999989
         }
       ],
-      "length_mm": 314.67,
+      "length_mm": 313.226,
       "minimum_bend_mm": 0.31448950571592477,
       "route_status": "proposed",
       "routing_note": "Three 22 AWG temperature-bus conductors and one 16 AWG protective-earth conductor share the native sensor passage."
@@ -47140,7 +47140,7 @@
     "Nominal and unlocated terminals remain visible in the graph and manifest; no exact donor termination is invented.",
     "The electrical graph does not qualify grounding, mains isolation, current capacity or energization."
   ],
-  "physical_scene_sha256": "d801bc724e20be2f2d8fda0888346dae6e84a81bde56d185c60d083f17536d0d",
+  "physical_scene_sha256": "d6ec79329219b8120a902d2c399c6b77a7c19ff2400b7855657b14c1ed16fc73",
   "source_sha256": {
     "hardware/wiring/installed/build.py": "123bf9cce507123738d9bcb1da96aaf320e2975667986b219d1dbf17e3c89889",
     "hardware/wiring/installed/connections.py": "685ca2826b330d1ef21845168fd29284e360161b4c28775d80df075dbe494cfc",
@@ -47153,7 +47153,7 @@
     "hardware/wiring/installed/terminations.py": "4254cae8bed69bcf4e41039d0e235e3af886326f06b5df32769dc8f4e9513707",
     "hardware/wiring/installed/step_merge.py": "9766a94b2b75fdb65342c5eb110dc7d68a15dbe8011b95dd6434b629921450db",
     "hardware/wiring/installed/bundles.py": "0bb65b7683e948ef063a5377ddf5d8401565f0fa6c26f16f23d500584784d0a7",
-    "hardware/wiring/installed/bundle-routes.json": "00b144939a4dbc9926d133e1cc9d3e086c322ef8a3b7be356b8f3ad3ee29f53e",
+    "hardware/wiring/installed/bundle-routes.json": "f1c57eefa1ec9d777a741b030291af1a7a33d22c5433ad1d15ac5f1cd4345ebd",
     "hardware/wiring/installed/connector-map.json": "8986c0f9b7e7394d965af41546f90fd4425f8ccb98a6360db6bbff8ba64a2126",
     "hardware/manifold-layout/above_core.py": "0ad87c7c252ab3cfe803c0f2a63a9374d06d0005591509031328ad6e3203988f",
     "hardware/manifold-layout/above-core.json": "040047d7fb70ee58b6c0bc0f530e43f8360509f2e71cd7cf2d4fa3b3f59c9c4e",

@@ -1,0 +1,153 @@
+{
+  "scope": "Manual review of the carbonator steel-side protective-earth attachment and its below-cap wire fanout. This record adds no automatic check.",
+  "review_date": "2026-10-28",
+  "attachment": {
+    "tab_material": "304 stainless sheet",
+    "tab_dimensions_mm": [
+      12,
+      17,
+      1.5
+    ],
+    "tab_base_world_mm": [
+      -40,
+      347,
+      198.05
+    ],
+    "tab_hole_diameter_mm": 3.6,
+    "tab_hole_world_mm": [
+      -40,
+      347,
+      210.05
+    ],
+    "weld": "Two 1.5 mm-leg base fillets, each 12 mm long, onto the outside of the 6.35 mm stainless top plate",
+    "pressure_wall_penetration": false,
+    "clamp_order": [
+      "acquired M3x12 stainless socket screw",
+      "acquired M3 / 22\u201316 AWG closed-ring tongue",
+      "bare stainless tab",
+      "90923A216 captive external-tooth stainless locknut"
+    ],
+    "locknut_acquisition": "Required purchase; not recorded as acquired",
+    "ring_contacts": "Ring directly against tab and screw head; native overlap zero at both interfaces",
+    "native_root": "Full 12 x 1.5 mm root strip supported by the steel top plate",
+    "tool_access_mm": {
+      "9mm_nut_tool_to_vessel_rim": 1.15,
+      "6.35mm_driver_to_vessel_rim": 2.475
+    }
+  },
+  "wire": {
+    "id": "PE-carbonator",
+    "stock": "Green 16 AWG stranded silicone",
+    "wire_exit_world_mm": [
+      -42.85,
+      347,
+      219.05
+    ],
+    "length_mm": 313.226,
+    "preparation_stock_mm": 500,
+    "reserved_for_termination_and_dressing_mm": 186.774,
+    "segments_sha256": "7e623ecd60d9fb1447854c255f44466429a71b2a7508becdbc0461333196c309",
+    "passage": "Existing 7.5 mm sensor/earth passage in both upper cup and lid",
+    "assembly": "Crimp steel-side ring first. Thread the opposite bare end through cup and lid, then crimp its lid-side ring and check steel-to-ring continuity before the body pour."
+  },
+  "native_results": {
+    "tab_screw_nut_each_valid_single_solid": true,
+    "wire_valid_single_solid": true,
+    "ring_valid_single_solid": true,
+    "pressure_plate_overlap_mm3": 0.0,
+    "hardware_complete_box_world_mm": [
+      [
+        -44.95,
+        341,
+        198.05
+      ],
+      [
+        -29.55,
+        353,
+        219.05
+      ]
+    ]
+  },
+  "neighbor_and_wire_reading": {
+    "scope": "Current published-mesh conservative complete hardware+ring AABB screen, plus only changed PE exit-tail centreline/room reading. No generic wire clearance floor. Ring crimp mouth and intended plate weld contact are explicit interfaces. Native leaf owner retains clamp mating/strength scope.",
+    "source_sha256": "4fbd8798162af97d01e0d527f8081fa422f69d190ef4fdcf30d070b7694b97b6",
+    "first_31_segments_numerically_unchanged": true,
+    "stations_checked": 33,
+    "wire_radius_mm": 1.5,
+    "station_pitch_max_mm": 1.5,
+    "terminal_mouth_skip_last_mm": 2.0,
+    "room_rule": "Eight radial rays; flag only all directions blocked within0.5mm outside the wire radius. Surface proximity/contact alone is not a failure.",
+    "hardware_flagged_pairs": [],
+    "nearest_nonintersecting_bbox_gaps": [
+      {
+        "name": "cold-core/prv-shroud",
+        "bbox_lower_bound_gap_mm": 5.649993896484375
+      },
+      {
+        "name": "cold-core/line-carb-water-out",
+        "bbox_lower_bound_gap_mm": 7.324999618530267
+      },
+      {
+        "name": "cold-core/carbonator-elbow-prv",
+        "bbox_lower_bound_gap_mm": 8.034576416015625
+      },
+      {
+        "name": "cold-core/evap-coil",
+        "bbox_lower_bound_gap_mm": 8.476422119140636
+      },
+      {
+        "name": "cold-core/prv-sv125",
+        "bbox_lower_bound_gap_mm": 8.95111083984375
+      },
+      {
+        "name": "cold-core/foam-cap-top",
+        "bbox_lower_bound_gap_mm": 14.5
+      },
+      {
+        "name": "tube-fluid-18",
+        "bbox_lower_bound_gap_mm": 14.822189331054688
+      },
+      {
+        "name": "tube-fluid-28",
+        "bbox_lower_bound_gap_mm": 14.822189331054688
+      },
+      {
+        "name": "cold-core/collet-water-in",
+        "bbox_lower_bound_gap_mm": 18.495110698848933
+      },
+      {
+        "name": "cold-core/reservoir-a",
+        "bbox_lower_bound_gap_mm": 23.126068115234375
+      },
+      {
+        "name": "enclosure-back-bottom",
+        "bbox_lower_bound_gap_mm": 23.2499969482422
+      },
+      {
+        "name": "cold-core/reservoir-a-cap",
+        "bbox_lower_bound_gap_mm": 23.295500968085136
+      },
+      {
+        "name": "cold-core/reservoir-a-gasket",
+        "bbox_lower_bound_gap_mm": 23.33291601381723
+      },
+      {
+        "name": "cold-core/line-water-in",
+        "bbox_lower_bound_gap_mm": 23.350311279296875
+      }
+    ],
+    "through_solid": [],
+    "inside_ambiguities": [],
+    "pinched": []
+  },
+  "source_sha256": {
+    "hardware/cold-core-layout/_carbonator_bond.py": "d4f9f65e51c802bbf35eeb6d0891c24b626c211834b3077fb6ae970386ef7723",
+    "hardware/wiring/installed/terminals.py": "699ec5c76cd561e698fbab628da2f3ff2d657a509a166d9c83dbdadf976dcde2",
+    "hardware/wiring/installed/terminations.py": "4254cae8bed69bcf4e41039d0e235e3af886326f06b5df32769dc8f4e9513707",
+    "hardware/wiring/installed/bundle-routes.json": "f1c57eefa1ec9d777a741b030291af1a7a33d22c5433ad1d15ac5f1cd4345ebd"
+  },
+  "limits": [
+    "Geometry defines the attachment and assembly sequence; it does not record a physical weld, crimp, tightening or protective-bond test.",
+    "Perform and record the steel-to-ring bond reading before foam covers the attachment."
+  ]
+}
