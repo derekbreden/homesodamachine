@@ -37,7 +37,7 @@
         }
       ],
       "bom": {
-        "scope": "Machine contents: fitted tubing, inlet fittings, fasteners and the eleven bench harnesses. The installation water tube and cylinder tether ship in the install kit. Wire, tubing stock and supplies are costed on the parts and assemblies that use them; cut lengths follow the build records.",
+        "scope": "Machine contents: fitted tubing, inlet fittings, fasteners, the eleven bench harnesses, the inlet earth bond and the compressor lead. The installation water tube and cylinder tether ship in the install kit. Wire, tubing stock and supplies are costed on the parts and assemblies that use them; cut lengths follow the build records.",
         "source": "ledger/bom.md",
         "items": [
           {
@@ -936,6 +936,16 @@
             "unit": "ea"
           },
           {
+            "material": "HSM-000379",
+            "quantity": 1,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-000380",
+            "quantity": 1,
+            "unit": "ea"
+          },
+          {
             "material": "HSM-000354",
             "quantity": 1,
             "unit": "ea",
@@ -1400,7 +1410,7 @@
         }
       ],
       "bom": {
-        "scope": "Carbonator, insulation stack, reservoirs, sensing hardware and the fasteners that close them. Foam, tape and other supplies are costed on the cold core itself.",
+        "scope": "Carbonator, insulation stack, reservoirs, sensing hardware, the carbonator earth bond and the fasteners that close them. Foam, tape and other supplies are costed on the cold core itself.",
         "source": "cold-core-layout/_bom.py",
         "items": [
           {
@@ -1635,9 +1645,26 @@
           },
           {
             "material": "HSM-000363",
-            "quantity": 12,
+            "quantity": 13,
             "unit": "ea",
-            "note": "Six through each reservoir cap and gasket."
+            "note": "Six through each reservoir cap and gasket; one clamps the carbonator earth bond's ring to the earth tab.",
+            "bodies": [
+              "carbonator-earth-screw"
+            ]
+          },
+          {
+            "material": "HSM-000377",
+            "quantity": 1,
+            "unit": "ea",
+            "note": "Carbonator earth clamp, on the earth tab's bare face opposite the ring.",
+            "bodies": [
+              "carbonator-earth-locknut"
+            ]
+          },
+          {
+            "material": "HSM-000378",
+            "quantity": 1,
+            "unit": "ea"
           },
           {
             "material": "HSM-000365",
@@ -1679,7 +1706,7 @@
         }
       ],
       "bom": {
-        "scope": "Vessel, port fittings, pressure relief, captive magnetic float and welded guide rod. Filler wire, thread tape, inspection and passivation supplies are costed on the vessel itself.",
+        "scope": "Vessel, port fittings, pressure relief, captive magnetic float, welded guide rod and external earth tab. Filler wire, thread tape, inspection and passivation supplies are costed on the vessel itself.",
         "source": "assembly/pressure-vessel.md",
         "items": [
           {
@@ -1751,6 +1778,14 @@
             "unit": "ea",
             "bodies": [
               "float-rod-carb"
+            ]
+          },
+          {
+            "material": "HSM-000376",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "carbonator-earth-tab"
             ]
           }
         ]
@@ -3174,7 +3209,7 @@
         }
       ],
       "bom": {
-        "scope": "The inlet, carbonator and compressor earth bonds' ring lugs under one flat washer and M3 \u00d7 8 screw, into the short insert in the core-lid ground boss. The lugs are crimped on their bonds; terminal and wire stock are in the cost BOM.",
+        "scope": "The inlet, carbonator and compressor earth bonds' ring lugs under one flat washer and M3 \u00d7 8 screw, into the short insert in the core-lid ground boss. The lugs are crimped on the carbonator and inlet earth bonds and the compressor lead, which carry their terminal and wire costs.",
         "source": "reference/ground-ring-stack/README.md",
         "items": [
           {
@@ -7537,6 +7572,121 @@
         }
       ],
       "manufacturer_number": "AME4-N2-E"
+    },
+    {
+      "id": "HSM-000376",
+      "description": "Carbonator earth tab \u00b7 304 stainless",
+      "kind": "manufactured",
+      "aliases": [
+        "earth tab",
+        "carbonator-earth-tab"
+      ],
+      "contexts": [
+        {
+          "material": "HSM-000004"
+        }
+      ],
+      "documents": [
+        {
+          "title": "External earth tab",
+          "path": "assembly/pressure-vessel.md"
+        },
+        {
+          "title": "Tab stock and allocation",
+          "path": "ledger/bom.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000377",
+      "description": "M3 captive external-tooth locknut \u00b7 stainless",
+      "kind": "purchased",
+      "aliases": [
+        "McMaster 90923A216",
+        "earth-clamp locknut",
+        "carbonator-earth-locknut"
+      ],
+      "contexts": [
+        {
+          "material": "HSM-000003"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Carbonator earth clamp",
+          "path": "assembly/pressure-vessel.md"
+        },
+        {
+          "title": "Fastener specification",
+          "path": "ledger/bom.md"
+        }
+      ],
+      "manufacturer_number": "90923A216"
+    },
+    {
+      "id": "HSM-000378",
+      "description": "Carbonator earth bond \u00b7 16 AWG green",
+      "kind": "manufactured",
+      "aliases": [
+        "PE-carbonator",
+        "carbonator bond",
+        "carbonator earth lead",
+        "carbonator PE lead"
+      ],
+      "documents": [
+        {
+          "title": "Chassis-ground bonds",
+          "path": "assembly/wiring.md"
+        },
+        {
+          "title": "Carbonator earth clamp",
+          "path": "assembly/pressure-vessel.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000379",
+      "description": "Inlet earth bond \u00b7 16 AWG green",
+      "kind": "manufactured",
+      "aliases": [
+        "PE-bus",
+        "inlet PE bus",
+        "inlet earth feed",
+        "PE-bus pigtail"
+      ],
+      "documents": [
+        {
+          "title": "Chassis-ground bonds",
+          "path": "assembly/wiring.md"
+        },
+        {
+          "title": "Electronics bay",
+          "path": "assembly/electronics-bay.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000380",
+      "description": "Compressor lead \u00b7 18/3 SJOOW",
+      "kind": "manufactured",
+      "aliases": [
+        "AC-4",
+        "AC-5",
+        "AC-6",
+        "AC6-PE",
+        "compressor earth bond",
+        "compressor cord"
+      ],
+      "documents": [
+        {
+          "title": "AC mains",
+          "path": "assembly/wiring.md"
+        },
+        {
+          "title": "AC wiring schedule",
+          "path": "wiring/ac-wiring-schedule.md"
+        }
+      ]
     }
   ]
 }
