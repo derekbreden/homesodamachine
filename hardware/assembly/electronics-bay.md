@@ -95,12 +95,13 @@ records the current rigid-slide and final-connection limits.
 
 1. Prepare the cold-core internal wiring and the lid-mounted equipment while
    their entries and screws are exposed. Each reservoir reed column has one
-   five-conductor loom. The sensor passage carries the temperature supply,
-   data and common, the two carbonator-reed signals and their common, and the
-   carbonator PE lead. The printed passages retain the original lower entries
-   and guide the upper exits clear of the equipment. Follow these curved
-   passages; a straight chord between the lower and upper mouths does not
-   describe their path. Complete the cold-core assembly in
+   five-conductor loom through its own passage. The `sensor-cable` passage
+   carries the temperature supply, data and common together with the
+   carbonator PE lead. Route the carbonator's `CLO`, `CHI` and shared common
+   through the separate straight `carbonator-reeds` passage. Thread the cup
+   and lid over the free earth-wire end before crimping its lid-side ring.
+   Follow each loom's printed guide along its modeled path. Complete the
+   cold-core assembly in
    [cold-core.md](cold-core.md).
 2. On open back-top, seat V-A/V-K with their fitted plumbing. Land their legs
    on the downward blades: J1 `OUT1` and positive-A at V-A, J2 `OUT3` and
