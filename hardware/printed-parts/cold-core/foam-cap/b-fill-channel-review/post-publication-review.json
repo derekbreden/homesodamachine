@@ -1,0 +1,35 @@
+{
+  "scope": "Manual interpretation of the published surface-lint face-width finding and a full-cup Reed-B air check.",
+  "cup_step_sha256": "43b74848b5901f46b109eff65a5a47ca5aafd244f1ad426fd0dd5b7ecc962100",
+  "surface_finding": {
+    "class": "sliver",
+    "face_strip_width_mm": 1.569,
+    "native_point_mm": [
+      138.036,
+      -27.0,
+      8.3
+    ],
+    "normal_into_material": [
+      0,
+      -1,
+      0
+    ],
+    "normal_material_intervals_y_mm": [
+      [
+        -60.0,
+        -27.0,
+        33.0
+      ]
+    ],
+    "material_backing_at_pick_mm": 33.0,
+    "interpretation": "Narrow exposed flat on the rectangular B-fill block where it meets the rounded cable carrier. The strip width is the extent of that face, not a freestanding fin thickness."
+  },
+  "reed_b_air_obstruction_in_full_cup_mm3": 0.0,
+  "surface_lint_classes": [
+    "step",
+    "bump",
+    "sliver"
+  ],
+  "lid_surface_findings": 0,
+  "native_thickness_and_fit_receipt": "native-review.json"
+}
