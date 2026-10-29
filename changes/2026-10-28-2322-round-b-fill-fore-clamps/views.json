@@ -1,0 +1,142 @@
+{
+  "views": [
+    {
+      "name": "channel",
+      "caption": "The lid groove uses the round tube envelope, with 0.25 mm upward print allowance and 2.20 mm roof stock.",
+      "before": "channel-before.webp",
+      "after": "channel-after.webp",
+      "width": 1200,
+      "height": 900,
+      "model": "printed-parts/cold-core/foam-cap/foam-cap-lid-top.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          151.2866102039634,
+          -45.97448644340437,
+          2.870654237476164
+        ],
+        "target": [
+          120,
+          -43.5,
+          2.7
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 0.32164801045091657,
+        "far": 503.78404213133206,
+        "aspect": 1.3333333333333333,
+        "section": {
+          "at": [
+            120,
+            -43.5,
+            2.7
+          ],
+          "normal": [
+            1,
+            0,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh",
+          "from": "snapshot",
+          "sha256": "572a86c0a4cb1d6cc70c526726660e74786299ac682e8f175dc654febf9b77c3",
+          "commit": "d8e470f1cfdf9f080966e5ffb2f2410025d4e3a0",
+          "taken": "2026-10-29T04:00:35.749Z",
+          "published": true
+        },
+        "after": {
+          "payload": "printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh",
+          "from": "file",
+          "sha256": "c7a98457830bf4dfbbf3ce1af9616493ee72b79419e372ab49a12fdd4249fe54",
+          "commit": null,
+          "published": true
+        }
+      },
+      "changed": [
+        "foam-cap-lid-top"
+      ],
+      "withinMeshing": []
+    },
+    {
+      "name": "clamps",
+      "caption": "The fore pair at Y205.60 stands 23.0 mm aft of the inlet face; the aft screw remains at Y242.3.",
+      "before": "clamps-before.webp",
+      "after": "clamps-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 665.6,
+          "y": 528.5,
+          "r": 23.4,
+          "label": "Fore pair \u00b7 Y205.60",
+          "at": [
+            118.2,
+            -54,
+            5.4
+          ]
+        }
+      ],
+      "model": "printed-parts/cold-core/foam-cap/foam-cap-lid-top.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          139.74242048872443,
+          -55.76876413999553,
+          143.72027747121297
+        ],
+        "target": [
+          109,
+          -43.5,
+          2.7
+        ],
+        "up": [
+          0,
+          1,
+          0
+        ],
+        "fov": 45,
+        "near": 0.38516421908920606,
+        "far": 535.5421464504768,
+        "aspect": 1.3333333333333333
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh",
+          "from": "snapshot",
+          "sha256": "572a86c0a4cb1d6cc70c526726660e74786299ac682e8f175dc654febf9b77c3",
+          "commit": "d8e470f1cfdf9f080966e5ffb2f2410025d4e3a0",
+          "taken": "2026-10-29T04:00:35.749Z",
+          "published": true
+        },
+        "after": {
+          "payload": "printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh",
+          "from": "file",
+          "sha256": "c7a98457830bf4dfbbf3ce1af9616493ee72b79419e372ab49a12fdd4249fe54",
+          "commit": null,
+          "published": true
+        }
+      },
+      "changed": [
+        "foam-cap-lid-top"
+      ],
+      "withinMeshing": []
+    }
+  ]
+}

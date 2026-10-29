@@ -1,0 +1,25 @@
+{
+  "observed_at": "2026-10-29T04:28:05.679479+00:00",
+  "job_id": "1385812966",
+  "gcode_state": "RUNNING",
+  "subtask_name": "bfill-round20560-cup-lid-mark1-20261028.gcode.3mf",
+  "print_error": 0,
+  "hms": [],
+  "layer_num": 0,
+  "total_layer_num": 60,
+  "mc_remaining_time": 51,
+  "printer": "Mark1",
+  "submitted": true,
+  "archive": ".cache/prints/2026-10-28-b-fill-round-fore-20560/round20560/mark1/bfill-round20560-cup-lid-mark1-20261028.gcode.3mf",
+  "archive_sha256": "b6b13d3110765e35f085e4ebe99e4e3371c3fdf8557b6a8db22b2dd7efa701dd",
+  "gcode_sha256": "bd76c813110285668bd5815c0f12828bcde6b7f51eb4eb829f28cd49e35644c8",
+  "method": "Bambu Connect native UI",
+  "filament_mapping": "Left External PET-CF (loaded PET-GF)",
+  "options": {
+    "Timelapse": "On",
+    "Auto bed leveling": "On",
+    "Flow dynamic calibration": "Auto",
+    "Nozzle Offset Calibration": "Auto"
+  },
+  "source_commit": "062fabae8"
+}
