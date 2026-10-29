@@ -218,7 +218,7 @@ rim: the top 6 mm of its dry reed channel, opened through the wall at the
 channel's own 8 mm width. The notch spans world X−36.5…−28.5, from the Z233.4
 rim down to Z227.4, opening on the fore face at Y182.6. Its sides are the
 channel's sides, and the channel's walls separate it from the foam cavity.
-The cap's floor closes over the ribbon when the cap is seated. The remaining
+The cap's floor closes over the conductors when the cap is seated. The remaining
 wall continues below the notch.
 
 Six fluid lines leave through the upper cap face; B-fill enters its fore
@@ -308,8 +308,8 @@ the foil onto the smooth lands around the openings without wrinkles or
 air channels. Where each band crosses the seam channel, burnish it into the
 channel, against both walls and the floor, and onto the edge of the cup floor
 that closes the channel's end. At B's upper-rim cable exit, burnish a local foil collar from
-the casing onto the ribbon, closing the opening around it and joining the
-perimeter band. Keep the ribbon flat in its notch before clamping the cap;
+the casing onto the conductors, closing the opening around them and joining the
+perimeter band. Keep them down in the notch before clamping the cap;
 the cap seats on the surrounding printed rim. This local seam seal is not
 a complete cold-core vapor-barrier or lifetime qualification.
 
@@ -411,8 +411,8 @@ do not retain the tube. Faucet and organizer fits use their own dimensions.
 
 Six fluid lines pass through the upper cap face into the service bay.
 B-fill enters the cap's fore face and turns down into its reservoir.
-Reservoir B's five-conductor reed ribbon leaves through the shell's upper-rim
-notch on that fore face; its external route rises beside the PCB to J7 and
+Reservoir B's five reed conductors leave through the shell's upper-rim
+notch on that fore face; their external route rises beside the PCB to J7 and
 the reed-common WAGO. The two copper evaporator lines cross the shell's −X
 face through round holes. The PRV vent crosses the +Y flank into the
 enclosure’s exterior relief chase.
@@ -420,7 +420,7 @@ enclosure’s exterior relief chase.
 | # | Pass-through | Opening | Carries |
 |---|---|---|---|
 | 1 | Reed cable (+X) | straight top-cap reed conduit directly above its channel | reservoir A's 5P reed ribbon; bends are dressed above the lid |
-| 2 | Reed cable (−X) | 8 × 6 mm top-open shell-rim notch | reservoir B's four signals and continuous common in one 5P ribbon, dressed externally to J7 and the reed-common WAGO |
+| 2 | Reed cable (−X) | 8 × 6 mm top-open shell-rim notch | reservoir B's four signals and continuous common, dressed externally to J7 and the reed-common WAGO |
 | 3 | Copper evaporator inlet | port-lane hole | 1/4" OD ACR copper, made up on the condenser's own outlet pick across the plane the two bodies share |
 | 4 | Copper evaporator outlet | west-lane hole | 1/4" OD ACR copper, made up on the compressor's own suction pick across that same plane |
 | 5 | PRV vent | **+Y flank** | short 1/4" OD LLDPE from the prv-shroud’s barrel into the enclosure’s west-wall relief chase, which opens outside the cabinet (see [`prv-shroud`](/hardware/printed-parts/cold-core/prv-shroud/)) |
@@ -603,15 +603,15 @@ the masks and trim any external foam flush.
 Drop the pre-soldered reed columns into the still-open reed channels.
 Thread reservoir A's free ribbon vertically through its straight cap passage
 at world X−32.5/Y458.3, then dress its bends above the Z253.4 lid face.
-Press reservoir B's complete 5P ribbon into the 8 mm shell-rim notch, where
-the 8.5 mm ribbon seats with a slight curl, leaving its free end outside the fore face. Its four signal conductors reach J7; its continuous common
+Lay reservoir B's five conductors into the 8 mm shell-rim notch, leaving
+their free ends outside the fore face. Its four signal conductors reach J7; its continuous common
 reaches the existing reed-common WAGO. Dress that external loom beside the
 PCB with slack for its removable connections.
 
 Seat the foam-filled top cap onto the body's top edge with
 [10](FACE_SCREWS) M3 × 25 SHCS into the top-face inserts, and the bottom cap
 (mouth-down) under the body with [10](FACE_SCREWS) more into the bottom-face
-inserts. Keep B's ribbon inside the notch while the surrounding cap faces
+inserts. Keep B's conductors inside the notch while the surrounding cap faces
 seat. Apply the exterior seam tape and B's local cable collar as specified
 under "Dry casing seams".
 
