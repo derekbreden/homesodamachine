@@ -14,7 +14,13 @@ and a `kind`. New records take the next unused number above the highest allocate
 number. Existing numbers stay with their material when descriptions, manufacturer
 numbers or file paths change. Allocated numbers are never reused.
 
-`aliases` and `manufacturer_number` are searchable vocabulary. A material can have
+`aliases` and `manufacturer_number` are searchable vocabulary, alongside the id,
+description and model file paths. Search also reads the cost lines on each part:
+a bought part is found by its purchase listing and ASIN, and stock and supplies
+are results of their own that open the Cost tab of a part using them. Case,
+plurals and the space between a size and its unit do not change a match; the
+synonyms search treats as one word are in
+[`materials.js`](../../web/contracts/materials.js). A material can have
 several model files and documents. A numbered assembly describes a coherent unit;
 its identity alone makes no promise about separate stocking, sale or replacement.
 Build and service documents establish those meanings and their acceptance scope.

@@ -1,13 +1,18 @@
 import { state } from "./state.js";
-import { searchMaterials, bomCounts, bomCountText } from "/contracts/materials.js";
+import { searchCatalog, searchTerms, searchWords, termsMatch, materialIndex, bomCounts, bomCountText } from "/contracts/materials.js";
+import { COST_KINDS } from "/contracts/part-costs.js";
 import { openMaterial, materialHash } from "./material-nav.js";
 import { stepHash, parseStepHash } from "./step-nav.js";
 
 const modelLabel = (file) => file.split("/").at(-1).replace(/\.step$/, "").replace(/[-_]/g, " ");
 const searchView = { panel: "materials" };
+const costView = { panel: "materials", tab: "cost" };
+const fileWords = new Map();
+const wordsOf = (file) => fileWords.get(file) || fileWords.set(file, searchWords(file)).get(file);
 
 // The same description lookup serves the grid and the model companion. CAD
 // representations without catalog identities remain discoverable by file name.
+// Stock and supplies open on the Cost tab of a part that uses them.
 export function makeMaterialSearch({ compact = false } = {}) {
   const host = document.createElement("div");
   host.className = "material-search" + (compact ? " compact" : "");
@@ -25,42 +30,47 @@ export function makeMaterialSearch({ compact = false } = {}) {
   status.className = "material-search-status";
   status.setAttribute("role", "status");
   label.append(input); host.append(label, status, results);
+  function result(href, titleText, metaText, open) {
+    const link = document.createElement("a");
+    link.href = href;
+    const title = document.createElement("strong"); title.textContent = titleText;
+    const meta = document.createElement("span"); meta.textContent = metaText;
+    link.append(title, meta);
+    link.addEventListener("click", (event) => {
+      if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+      event.preventDefault(); input.value = ""; update(); open();
+    });
+    results.append(link);
+  }
   function update() {
     results.replaceChildren();
     const query = input.value.trim();
     results.hidden = !query;
     if (!query) { status.textContent = ""; return; }
-    const materials = searchMaterials(state.materialCatalog, query);
+    const hits = searchCatalog(state.materialCatalog, query);
+    const terms = searchTerms(query);
     const represented = new Set((state.materialCatalog?.materials || []).flatMap((m) => (m.models || []).map((model) => model.file)));
-    const words = query.toLowerCase().split(/\s+/);
     const files = state.allFiles.filter((file) => !represented.has(file) &&
-      !file.split("/").some((part) => part === "out" || part.startsWith("_")) &&
-      words.every((word) => file.replace(/[-_/]/g, " ").toLowerCase().includes(word)));
-    const count = materials.length + files.length;
+      !file.split("/").some((part) => part === "out" || part.startsWith("_")) && termsMatch(terms, wordsOf(file)));
+    const count = hits.length + files.length;
     status.textContent = count ? `${count} result${count === 1 ? "" : "s"}${count > 40 ? " · showing the first 40" : ""}` : "No matches. Try another description or part number.";
-    for (const m of materials.slice(0, 40)) {
-      const link = document.createElement("a");
-      link.href = "/3d#" + materialHash(m.id, searchView);
-      const title = document.createElement("strong"); title.textContent = m.description;
-      const meta = document.createElement("span"); meta.textContent = `${m.id} · ${m.kind}`;
-      const counts = bomCounts(state.materialCatalog, m.id, { finish: state.faucetFinish });
-      if (counts.total) meta.textContent += " · " + bomCountText(counts);
-      link.append(title, meta);
-      link.addEventListener("click", (event) => {
-        if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
-        event.preventDefault(); input.value = ""; update(); openMaterial(m.id, true, searchView);
-      });
-      results.append(link);
+    const index = materialIndex(state.materialCatalog);
+    for (const { material: m, line } of hits.slice(0, 40)) {
+      if (m) {
+        let meta = `${m.id} · ${m.kind}`;
+        const counts = bomCounts(state.materialCatalog, m.id, { finish: state.faucetFinish });
+        if (counts.total) meta += " · " + bomCountText(counts);
+        result("/3d#" + materialHash(m.id, searchView), m.description, meta, () => openMaterial(m.id, true, searchView));
+        continue;
+      }
+      const holder = line.holders[0].id;
+      const users = line.holders.map((h) => index.get(h.id)?.description).filter(Boolean);
+      const kinds = COST_KINDS.filter((kind) => line.kinds.has(kind.id)).map((kind, i) => i ? kind.label.toLowerCase() : kind.label).join(" and ");
+      result("/3d#" + materialHash(holder, costView), line.label,
+        `${kinds} for ${users[0]}${users.length > 1 ? ` +${users.length - 1} more` : ""}`, () => openMaterial(holder, true, costView));
     }
-    for (const file of files.slice(0, Math.max(0, 40 - materials.length))) {
-      const link = document.createElement("a");
-      link.href = "/3d#" + stepHash([file], searchView);
-      const title = document.createElement("strong"); title.textContent = modelLabel(file);
-      const meta = document.createElement("span"); meta.textContent = "CAD model · " + file;
-      link.append(title, meta);
-      link.addEventListener("click", async (event) => {
-        if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
-        event.preventDefault(); input.value = ""; update();
+    for (const file of files.slice(0, Math.max(0, 40 - hits.length))) {
+      result("/3d#" + stepHash([file], searchView), modelLabel(file), "CAD model · " + file, async () => {
         if (state.currentCadWrapper) {
           const { drillTo, jumpToStep } = await import("./step-nav.js");
           if (state.mountedDetail?.type === "step") await drillTo(file);
@@ -72,7 +82,6 @@ export function makeMaterialSearch({ compact = false } = {}) {
         history.replaceState(history.state, "", "#" + stepHash(parseStepHash(location.hash.slice(1)), searchView));
         state.materialPanel?.applyRoute(searchView);
       });
-      results.append(link);
     }
   }
   input.addEventListener("input", update);
