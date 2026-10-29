@@ -1,0 +1,94 @@
+{
+  "views": [
+    {
+      "name": "attachment",
+      "caption": "The external steel tab and green lead define the carbonator earth connection before the foam pour.",
+      "before": "attachment-before.webp",
+      "after": "attachment-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 599.0,
+          "y": 431.9,
+          "r": 48.0,
+          "label": "\u00d83.6 tab hole",
+          "at": [
+            -40.75,
+            347.0,
+            210.05
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "position": [
+          -145.0,
+          335.0,
+          260.0
+        ],
+        "target": [
+          -40.0,
+          347.0,
+          208.0
+        ],
+        "up": [
+          0.0,
+          0.0,
+          1.0
+        ],
+        "half": 37.5,
+        "orthographic": true,
+        "section": null
+      },
+      "highlight": [
+        "cold-core/carbonator-earth-tab"
+      ],
+      "ghost": [],
+      "only": [
+        "cold-core/endcap-top",
+        "cold-core/carbonator-tube",
+        "cold-core/carbonator-elbow-water-in",
+        "cold-core/carbonator-elbow-prv",
+        "cold-core/carbonator-earth-tab",
+        "cold-core/carbonator-earth-screw",
+        "cold-core/carbonator-earth-locknut",
+        "terminal-carbonator-pe",
+        "wire-PE-carbonator"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "dda7b908da78e3545a66232391b45b4ec4c00ad7133be9416413ba1f9778c027",
+          "commit": "91a09de7d60f1506a61fede15b560d35e8684582",
+          "taken": "2026-10-29T03:43:15.965Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "0cb290e99c707b299210c2a7afcf6519e642393f21c764dde28075bba889a465",
+          "commit": "f501a1bef4f0e56f0e6606a5ddd309b379608dcc",
+          "published": true
+        }
+      },
+      "renderer": {
+        "name": "bounded-numpy-pillow-opaque-rasterizer",
+        "script": "tmp/readiness-b-fill-port-survey/carbonator-pe/earth-change-render.py",
+        "standard_renderer": "tools/changes/change.mjs",
+        "fallback_reason": "Standard renderer stopped by the assigned .4 GB resident cap before it wrote images.",
+        "geometry": "Unmodified published/snapshot triangle arrays; same orthographic camera; opaque surfaces; source colors with a tab highlight.",
+        "source_sha256": "f6e4cd06607723d7f24bc986c2215b8ff49b258f895c13d40327629d23bc5062"
+      },
+      "changed": [
+        "cold-core/carbonator-earth-tab",
+        "cold-core/carbonator-earth-screw",
+        "cold-core/carbonator-earth-locknut",
+        "terminal-carbonator-pe",
+        "wire-PE-carbonator"
+      ]
+    }
+  ]
+}
