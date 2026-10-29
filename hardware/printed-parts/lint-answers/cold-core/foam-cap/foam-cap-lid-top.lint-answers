@@ -11,11 +11,6 @@ alternatives: An open-topped slot cuts the ridge that carries both tubes' groove
 file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
 click: x=19.800 y=90.250 z=5.175
 
-[ceiling] Functional lower B-fill fitting pocket: the flat underside at world Z251.4 clears the fixed lower elbow and retains its 3.05 mm roof to Z254.45. This open-bottom dry pocket receives the fitting before the lid closes. Retain Tree(auto)/Default support decisions; actual support release, retention force and print quality are unqualified.
-alternatives: Filling the pocket obstructs the elbow. Changing its ceiling or fitting station requires reconciling the fixed reservoir stem and direct link; the flat pocket preserves those selected interfaces.
-file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
-click: x=84.119 y=-42.264 z=3.400
-
 [thin] Unavoidable without moving the stack's clamp stations: each clamp screw's Ø3.3 clearance hole stands on the shared attachment station, 4 mm in from the bare outside face at the shell's Ø8 boss centre. The plain casing face reserves 0.30 mm for foil inside the enclosure envelope, leaving 2.04–2.05 mm of wall below the head pocket floor.
 alternatives: Moving the stations inboard moves the shell's bosses and every cap's and lid's holes, Derek's printed shell among them. Moving the outside face outward spends the reserved foil allowance. Carrying the head pocket's outward slot down through the plate removes the wall and leaves the screw's floor open to the side.
 file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
@@ -66,12 +61,6 @@ click: x=133.673 y=-84.269 z=0.000
 click: x=132.636 y=83.613 z=0.000
 click: x=132.636 y=83.613 z=2.250
 
-[thin] Specific B-fill retaining-cover section: this printed pair spans 2.401 mm through the nominal 2.4 mm dry cover above the upper fitting at world X-33/Y287.5. Its top is Z254.75, leaving 0.25 mm nominal air to the fixed PCB tails. The upper fitting reaches its upward stop after 0.2 mm translation. This cover-specific section is accepted under the printed-parts thinner-cover exception; pull strength, printed fit and lifetime remain unqualified. The local native and printed scopes are recorded in foam-cap/b-fill-pair-review.json and b-fill-printed-review.json.
-alternatives: A 3 mm cover raises the same flat roof to Z255.35 and intersects the fixed PCB tails by 24.2728 mm3. An open pocket removes the upward stop. Either changes the selected fit or retention interface; the simple 2.4 mm cover preserves both.
-file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
-click: x=55.658 y=-36.746 z=4.350
-click: x=55.658 y=-36.746 z=6.750
-
 [thin] Deliberate functional C2 spring section: these five ranked surface groups belong to the six free jaws above the tube equators, four on the fore Reservoir A pair and two on the V-A feed seat. Their measured 2.400 mm wall is the C2 section Derek selected with the 6.35 mm bore on Mark2 task 1379240291, recorded in future/snap-fit-tests/2026-10-26-mark2-combined/physical-result.json. Ordinary stock below the equators remains filled; the V-A root retains 5.025 mm below its bore. Only the working upper jaws use this specific flexure exception. This answer preserves the thinness ranking and establishes no full-lid force, lifetime or print result.
 alternatives: Increasing the jaws to 3 mm while keeping the same bore increases each outer radius by 0.6 mm and changes the selected spring section. On the fore pair it also consumes 1.2 mm of spread space: preserving the current conservative 1 mm-per-jaw envelope and its 0.35 mm opposing gap requires wider tube spacing and another routing change. Filling above the equators joins the free jaws and closes the press-in mouths. A rigid cradle with a separate closure adds a part and an assembly step instead of providing the selected direct snap.
 file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
@@ -85,3 +74,14 @@ click: x=70.301 y=5.426 z=13.695
 click: x=70.301 y=7.826 z=13.667
 click: x=70.301 y=16.574 z=13.695
 click: x=70.301 y=14.174 z=13.667
+[sliver] The strip reading measures the 0.75 mm projection of each functional J1/J2 retaining lip, not the hook's material thickness. Each lip has 3 mm stock behind its flat underside and spans the bank's full 16 mm cable width. The 2.2 mm seat depth, 0.75 mm lip and 45-degree entry use the accepted cable-hook section. The two lips retain the front-going leads in the separate J1 and J2 cavities; the seven-lead J1 grouping retains its stated physical-fit scope.
+alternatives: Removing the projection opens the retaining mouth to the full seat depth and removes the selected capture. Filling below it occupies the cable cavity. Thickening the projection into that cavity changes the accepted entry and retention section. This finding conflates the functional lip's reach with a thin structural wall.
+file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
+click: x=131.200 y=74.825 z=21.700
+click: x=131.200 y=80.025 z=16.150
+
+[ledge] Functional flat retaining undersides of the J1/J2 cable hooks. Each 12 mm2 face is the 0.75 mm projection across the 16 mm cable span, backed by 3 mm hook stock. Its flat underside catches the leads beneath the 45-degree entry. The 2.2 mm seat depth, lip and entry follow the accepted cable-hook section; the installed seven-lead J1 grouping has its own physical-fit scope. Tree(auto)/Default supplies the current native support decisions.
+alternatives: Removing or sloping the retaining underside changes the selected cable capture; filling beneath it closes the cable seat. The overhang is the named retaining interface, rather than a cut remnant between unrelated features.
+file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
+click: x=128.533 y=74.700 z=21.700
+click: x=128.533 y=79.900 z=16.150
