@@ -154,10 +154,14 @@ def cap_conduit_axis_out():
 
 
 def cap_conduit_mouth(name):
-    """Actual upper mouth and outward axis in the native core frame."""
+    """Actual cap mouth and outward axis in the native core frame."""
     if name == 'reservoir-b-fill':
-        point = _above_mounts.reservoir_b_fill_link()['upper_mouth_world_mm']
-        return routes.world_point_in_shell(point), cap_conduit_axis
+        passage = _above_mounts.reservoir_b_fill_passage()
+        point = passage['entry_world_mm']
+        mouth = routes.world_point_in_shell(point)
+        outside = routes.world_point_in_shell(tuple(
+            p+a for p,a in zip(point, passage['outward_axis_world'])))
+        return mouth, tuple(b-a for a,b in zip(mouth,outside))
     x, y = cap_conduit_station(name)
     return (x, y, cap_face_z), cap_conduit_axis
 
@@ -168,15 +172,8 @@ def cap_passage_probe(name, radius):
         route = _above_mounts.cable_guide_points(name)
         points = [routes.world_point_in_shell(p) for p in route['points_mm']]
         return routes.build_route(points, route['bend_radius_mm'], radius)
-    if name in cap_passive_guides or name in ('water-in', 'carb-water-out'):
+    if name in cap_passive_guides or name in ('water-in', 'carb-water-out', 'reservoir-b-fill'):
         return routes.build_route(routes.routes[name], routes.route_bend_radius, radius)
-    if name == 'reservoir-b-fill':
-        shapes = [routes.build_route(routes.routes[name], routes.route_bend_radius, radius)]
-        for world in _above_mounts.reservoir_b_fill_parts().values():
-            shapes.append(_above_mounts.world_shape_in_cap(world)
-                          .rotate((0.,0.,0.),(0.,0.,1.),180.)
-                          .translate((0.,0.,foam_shell_outer_height+top_cap_height)))
-        return cq.Compound.makeCompound(shapes)
     x,y = cap_conduit_station(name)
     return cq.Solid.makeCylinder(radius,cap_face_z-foam_shell_outer_height+2.,
         cq.Vector(x,y,foam_shell_outer_height-1.))
@@ -312,11 +309,14 @@ def _report(placed):
           % (start.x, start.y, end.x, end.y, co2_inlet_xyz[2], reach.Length,
              "clear  OK" if blocked <= 1e-6 else "** BLOCKED by %.3f mm^3" % blocked))
 
-    # Read each actual upper passage: shifted tubes, cable detours and the
-    # B-fill native fitting pair have distinct lower and upper stations.
+    # Read each actual passage, including the cable detours and B-fill's
+    # side entry with its vertical reservoir outlet.
     probe_r = cap_conduit_bore_radius - 0.3
     for cname in cap_conduits:
-        probe = cap_passage_probe(cname, probe_r)
+        # The R14 B-fill channel uses the holder's D6.8 section rather than
+        # the ordinary D7.5 vertical guide. Read its actual tube envelope.
+        radius = routes.line_radius if cname == 'reservoir-b-fill' else probe_r
+        probe = cap_passage_probe(cname, radius)
         blocked = {name: placed[name][0].intersect(probe).Volume()
                    for name in ("foam-cap-top", "foam-cap-lid-top")}
         lower_x, lower_y = spin_xy(cap_conduit_floor_xy[cname])

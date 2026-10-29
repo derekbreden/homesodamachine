@@ -47,6 +47,7 @@ from _cold_core_interface import (  # noqa: E402
     top_band_to_cap,
     wall_and_floor_thickness,
 )
+import _above_core_mounts as _cap_mounts
 sys.path.insert(0, str(_hw / "printed-parts" / "cold-core" / "reservoir"))
 from reservoir import insert_positions_for_side_plus_1  # noqa: E402
 from _foam_cap import cap_face_z, stack_floor_z  # noqa: E402
@@ -63,6 +64,7 @@ CAP_CLAMP_INSERTS = len(attachment_xy_positions) * 2
 CAP_FACE_SCREWS = len(attachment_xy_positions)
 CAP_DECK_INSERTS = sum(len(deck_mount_xy(n)) for n in deck_mounts)
 RESERVOIR_INSERTS = len(insert_positions_for_side_plus_1) * 2
+B_FILL_CLAMPS = len(_cap_mounts.reservoir_b_fill_passage()['clamp_stations'])
 
 _coil_mandrel_gen = load_module(
     "cold_core_coil_mandrel_gen",
@@ -123,8 +125,9 @@ def main():
         "INSERT_POCKET_D": f"{insert_pocket_radius * 2:.4g} mm",
         "INSERT_LEN": f"{insert_length:.4g} mm",
         "INSERT_RELIEF": f"{insert_pocket_depth - insert_length:.4g} mm",
-        "CC_INSERTS": f"{CAP_CLAMP_INSERTS + CAP_DECK_INSERTS + RESERVOIR_INSERTS}",
-        "CAP_INSERTS": f"{CAP_CLAMP_INSERTS + CAP_DECK_INSERTS}",
+        "CC_INSERTS": f"{CAP_CLAMP_INSERTS + CAP_DECK_INSERTS + RESERVOIR_INSERTS + B_FILL_CLAMPS}",
+        "CAP_INSERTS": f"{CAP_CLAMP_INSERTS + CAP_DECK_INSERTS + B_FILL_CLAMPS}",
+        "B_FILL_CLAMPS": str(B_FILL_CLAMPS),
         "CAP_CLAMP_INSERTS": f"{CAP_CLAMP_INSERTS}",
         "CAP_FACE_SCREWS": f"{CAP_FACE_SCREWS}",
         "CAP_DECK_INSERTS": f"{CAP_DECK_INSERTS}",

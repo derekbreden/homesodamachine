@@ -92,8 +92,6 @@ HELD_BY = {
     "evap-tail-inlet": "copper feed-through",
     "evap-tail-outlet": "copper feed-through",
     "water-inlet-jet-cap-nominal": "water elbow tip weld (unqualified)",
-    "reservoir-b-fill-lower": "cap pocket and reservoir fill bore",
-    "reservoir-b-fill-upper": "cap pocket",
 }
 for _n in _V.PORTS:
     HELD_BY[f"carbonator-elbow-{_n}"] = "plate thread"
@@ -132,7 +130,6 @@ def held_for(name: str) -> str:
 JOINED = {frozenset(p) for p in (
     ("evap-coil", "evap-tail-inlet"),
     ("evap-coil", "evap-tail-outlet"),
-    ("reservoir-b-fill-lower", "reservoir-grip-b-fill"),
     ("tube-reservoir-air-a", "reservoir-grip-a-air"),
     ("tube-reservoir-air-b", "reservoir-grip-b-air"),
 )}
@@ -168,7 +165,7 @@ MADE_UP_ON = {
     # The vent starts IN the shroud's own bore, so the cup it leaves is not a body it routes
     # around — it is the fitting this line is made up on.
     "prv-vent": ("prv-shroud",),
-    "reservoir-b-fill": ("reservoir-b-fill-lower", "reservoir-b-fill-upper"),
+    "reservoir-b-fill": ("reservoir-grip-b-fill",),
     "reservoir-a": ("reservoir-grip-a-draw",),
     "reservoir-b": ("reservoir-grip-b-draw",),
     "reservoir-a-fill": ("reservoir-grip-a-fill",),
@@ -229,8 +226,6 @@ def build_bodies() -> dict:
     placed["reed-bridge"] = (_load(_cold / "reed-bridge" / "reed-bridge.step")
         .rotate((0, 0, 0), (0, 0, 1), carbonator_sensor_azimuth)
         .translate((0, 0, _V.carbonator_bottom_z)))
-    for name,world in _above_mounts.reservoir_b_fill_parts().items():
-        placed[name] = _world_in_core(world)
     for name,(world,_colour,_carry) in _above_parts.core_components().items():
         placed[name] = _world_in_core(world)
     for name,specification in _above_routes.core_route_specs().items():

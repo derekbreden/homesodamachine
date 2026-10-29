@@ -26,8 +26,7 @@ def stem_elbow_names():
 
 def core_stem_elbow_names():
     """Cold-core-owned stems, excluded from the warm component builder."""
-    names = ['reservoir-b-fill-lower'] if 'reservoir_b_fill_link' in layout.specification() else []
-    return tuple(names)
+    return ()
 
 
 def union_elbow_names():
@@ -40,5 +39,4 @@ def union_elbow_names():
 
 def core_union_elbow_names():
     """Two-socket JG elbows owned by the cold-core assembly."""
-    names = ['reservoir-b-fill-upper'] if 'reservoir_b_fill_link' in layout.specification() else []
-    return tuple(names)
+    return ()

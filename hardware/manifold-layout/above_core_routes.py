@@ -202,9 +202,6 @@ def _station(carries, name, port):
         point, axis, diameter = ((-30.5 if port == 'inlet' else 30.5), 0., 0.), (
             (-1. if port == 'inlet' else 1.), 0., 0.), 6.35
     elif name == 'foam-assembly':
-        if port == 'reservoir-b-fill' and 'reservoir_b_fill_link' in layout.specification():
-            mount = parts._module('above_core_route_mounts', 'printed-parts/cold-core/_above_core_mounts.py')
-            return tuple(mount.reservoir_b_fill_link()['upper_mouth_world_mm']), (0., 0., 1.), 6.35
         import enclosure_assembly as assembly
         point, axis = assembly.cap_conduit(port)
         diameter = 6.35
@@ -368,7 +365,6 @@ def route_specifications(station):
           source_depth=14., destination_depth=10., suffix=[vent_turn, vent_arc])
 
     specifications.update(reservoir_a_route_specs())
-    # B-fill's JG mouth is above the lid; its lower stem/link belong to the core.
     b_draw = station('foam-assembly', 'reservoir-b')[0]
     b_draw_target = station('valve-v-h', 'inlet')[0]
     b_draw_z = 295.7
@@ -387,16 +383,9 @@ def route_specifications(station):
           source_depth=0.,
           suffix=[b_draw_rise_first, b_draw_rise_second, b_draw_down],
           note='B draw completes its westward offset aft of the drain cradle, then enters V-H from the fore corridor')
-    b_fill = station('foam-assembly', 'reservoir-b-fill')[0]
-    b_fill_start, b_fill_axis, _ = station('reservoir-b-fill-turn', 'socket')
-    b_fill_lane = (b_fill_start[0], 225., 287.)
-    b_fill_segments = [
-        _line(_sub(b_fill_start, _mul(b_fill_axis, 16.891)), b_fill_start),
-        _ease_lane(b_fill_start, b_fill_lane),
-        _bezier([b_fill_lane, (b_fill_start[0], 265., 287.),
-                 (b_fill[0], b_fill[1], b_fill[2]+35.), b_fill])]
+    b_fill = layout.specification()['reservoir_b_fill_external']
     route('fluid-24', ('reservoir-b-fill-turn', 'socket'), ('foam-assembly', 'reservoir-b-fill'),
-          [], native_segments=b_fill_segments,
-          source_depth=16.891, destination_depth=0.,
-          note='B fill passes low below the flavor aisle and curves gently into its existing upper JG socket')
+          [], native_segments=b_fill['segments'], radius=b_fill['minimum_radius_mm'],
+          source_depth=b_fill['source_depth_mm'], destination_depth=0.,
+          note='B fill follows two exposed circular arcs to the fore cap entry')
     return specifications

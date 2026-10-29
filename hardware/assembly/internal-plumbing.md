@@ -317,27 +317,11 @@ The aft nominal closed tie path is
 unqualified. Fore snap insertion force, fit and retention have no physical acceptance. The [route record](/hardware/mechanical-qualification/enclosure-above-core/reservoir-a-route-review.json)
 preserves the selected line/arc definitions and contact scope.
 
-V-F's outlet, V-E's inlet and V-I's outlet each receive one ATEU44W stem
-elbow on front-top. Cut each male stem to its valve's marked tube stop
-(12.7 mm nominal in CAD), seat it fully and point the tube socket aft. The
-reservoir tubes leave these sockets below the funnel frame, then rise gently
-to the Z295.5 free runs. The nominal tube/frame gap is 1.225 mm. Flavor A's
-4 mm crossover runs at Y156/Z288.5; the J9 display ribbon's free bends pass
-below it while the printed cable mouth and connector positions remain fixed.
+V-F's outlet and V-E's inlet each receive one ATEU44W stem elbow on front-top. Cut each male stem to the valve's marked tube stop (12.7 mm nominal in CAD), seat it fully and point its tube socket aft. Their reservoir tubes rise gently to the Z295.5 free runs beneath the funnel frame, with 1.225 mm nominal tube/frame air. V-I's outlet takes the same trimmed stem elbow with its socket clocked 15° east of aft. Its B-fill tube descends toward the fore-facing cap entry. Flavor A's 4 mm crossover runs at Y156/Z288.5; the J9 display ribbon's free bends pass below it while the printed cable mouth and connector positions retain their datums.
 
-Reservoir B fill turns through two actual compact fittings below the lid and emerges aft of the PCB at X−33/Y287.5. Its lower stem enters the reservoir cap's existing fill bore; the approximately 15.6 mm exposed link excludes the unmeasured JG socket insertion. Assemble the pair and link in the open cup before the top cap's pour ([cold core](cold-core.md) §3); the lid then closes over the lower 3.05 mm and upper 2.4 mm retaining covers. The upper cover has 0.25 mm nominal CAD air to the PCB tails; physical fit and retention load remain unqualified. A-fill and B-draw use shallow guide offsets. Dress and tag the front-top ends on the bench, and connect the remaining ends through the funnel opening before the frame goes in. Keep access to the lower returns' elbows and their collets.
+Prepare B-fill as one continuous black 1/4-inch LLDPE tube from V-I to reservoir B's headspace. Seat three full-length RX-M3x5.7 inserts in the cup's clamp pilots, fit the lid and tighten its three recessed M3 × 10 clamps. Thread the tube through the fore-facing entry, around the guide and out the cup floor with the V-I end free, then install the PCB. Mask the dry passage joint and both mouths during the cap pour. The lower tube passes through the TPU fill grip at world X−43.5/Y233.3 and ends nominally at Z228.15, 1 mm below the reservoir plate; the short tip may remain slightly angled. A-fill and B-draw pass through their aligned straight guides. Dress and tag the front-top ends on the bench, then make the flexible handoffs through the funnel opening before fitting the frame.
 
-The drawn `fluid-24` span is [211.974 mm](RESERVOIR_B_FILL_WARM), including
-the 16.891 mm receiving length in V-I's stem elbow and ending at the upper JG socket
-face. Add the actual JG receiving mark when preparing that physical tube;
-the cap's separate short link is another piece. Dress the flexible `J1-OUT1`
-fanout above the B-fill tube where they pass. Terminate both J10 power
-leads on the loose PCB before fastening the board to the core, then connect
-their free ends to the core WAGOs. The captured B-fill fitting clears the
-installed lead and vertical screw tools but overlaps the optional straight
-wire-entry witness. Installed retermination and flexible service handling
-remain unqualified. Disconnect/stage the flexible B-fill tube for the
-recorded vertical J5/J6/J13 withdrawal approaches.
+The drawn external `fluid-24` span includes the nominal 16.891 mm receiving length in V-I's stem elbow. The cap-entry boundary divides the CAD spans of one physical blank; measure the complete route through the passage to the reservoir tip and use the actual V-I receiving mark when preparing it. Keep the source end free while seating the cap and completing its three clamps, then insert it into V-I's clocked elbow. Terminate both J10 power leads on the loose PCB before fastening it to the core, then land their free ends at the core WAGOs. Stage the flexible B-fill tube clear of the J5/J6/J13 withdrawal approaches when handling those connectors.
 
 The carbonated-water riser leaves `carb-water-out` directly for the rear middle-right rear
 bulkhead through the DIGITEN meter. Flavor A leaves V-G on `fluid-18`; flavor B leaves
@@ -459,8 +443,8 @@ safe to energize solely because the CAD paths connect.
 
 Each reservoir lid has two flush TPU 90A liquid-tube spools and one smaller
 air-tube spool in matching 45° countersinks. The dip tubes remain continuous
-from the draw fittings to the floors. B-fill retains its captured trimmed
-stem elbow; A-fill extends 1 mm through the flat lid into the headspace.
+from the draw fittings to the floors. Both continuous fill tubes end 1 mm
+below their reservoir plates, open to the headspace.
 
 Cut two nominal 31.25 mm pieces of white 4 mm OD / 2.5 mm ID LLDPE. Feed each
 through its dedicated foam-cap passage and air grip, leaving 6 mm above the
