@@ -1,0 +1,28 @@
+{
+  "observed_at": "2026-10-29T02:55:44.349475+00:00",
+  "job_id": "1385672893",
+  "gcode_state": "RUNNING",
+  "subtask_name": "bfill-midpoint-cup-lid-mark2-20261028.gcode.3mf",
+  "print_error": 0,
+  "hms": [],
+  "layer_num": 0,
+  "total_layer_num": 60,
+  "mc_remaining_time": 51,
+  "printer": "Mark2",
+  "variant": "midpoint",
+  "archive": ".cache/prints/2026-10-28-b-fill-local/midpoint/mark2/bfill-midpoint-cup-lid-mark2-20261028.gcode.3mf",
+  "archive_sha256": "5e086909485683bbad6d49baa7cf766f5e45c80f5cc9cf20a1c021df8a821251",
+  "gcode_sha256": "40db414e0eb853ef596b0f71bcdb3c47c443236c2e83e716f0d14d3831b2be75",
+  "method": "Bambu Connect native UI",
+  "filament_mapping": "Left External PET-CF (loaded PET-GF)",
+  "options": {
+    "Timelapse": "On",
+    "Auto bed leveling": "On",
+    "Flow dynamic calibration": "Auto",
+    "Nozzle Offset Calibration": "Auto"
+  },
+  "elapsed_since_first_acceptance_observed_seconds": 222.343008,
+  "second_send_after_utc": "2026-10-29T02:55:13+00:00",
+  "submitted": true,
+  "minimum_start_spacing_seconds": 190.993533
+}
