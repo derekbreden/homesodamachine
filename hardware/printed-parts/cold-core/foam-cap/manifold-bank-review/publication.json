@@ -1,0 +1,15 @@
+{
+  "pointer_commit": "03a4dd38f9fb3e9901fcd3d055948f826e9b7e1d",
+  "outputs": {
+    "hardware/manifold-layout/enclosure-assembly.step": "de4173da9bd4f49c91fe2ee7fbcfdaf3572ac4e57d87b5c591f0d02187228cff",
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": "694db150996dcd350de297419cba117749c20d1c69918d2d9fa420c26af9fbc2",
+    "hardware/wiring/enclosure-wiring.step": "d7099ca9a024457c40f04421f32eb08fac3f4b86661daaed731304f4b736c71f",
+    "hardware/wiring/enclosure-wiring.step.mesh": "85c941f047cedd84dcdd98864da545543b770979baf3cdc36b6c60d4b1d4a402"
+  },
+  "retained_physical_step_bytes_identical": true,
+  "retained_physical_viewer_arrays_identical": true,
+  "live_viewer_native_source_sha256": "de4173da9bd4f49c91fe2ee7fbcfdaf3572ac4e57d87b5c591f0d02187228cff",
+  "live_viewer_matches_published_object": true,
+  "live_payload_url": "https://objects.homesodamachine.com/s-694db150996dcd350de297419cba117749c20d1c69918d2d9fa420c26af9fbc2.gz",
+  "live_member_map_verified": true
+}
