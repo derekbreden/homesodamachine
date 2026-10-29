@@ -1,0 +1,165 @@
+{
+  "units": "mm",
+  "method": "Unit-scale observations to analytic CAD tessellated at 0.025 mm; no distance rejection.",
+  "model_source_sha256": "b5721046ffd06d10d2d0b325177c8a0f4a0fc4c522b1bb7ef7c490147b6f84b0",
+  "step_sha256": "8d357ab7bf93f99130ea024c00c35e0f4e93e0f4de4613e15215db0c0a02c069",
+  "scan_evidence_sha256": "965398d840ffe559807d23e945a91019ff037057a7f07438692fa4ce00514018",
+  "retained_cloud_sha256": "bf5faf6abb5ad9bc9ad3cf8a472649e9857b1ae205ecf046d702235e451644a9",
+  "observation_voxel_mm": 0.3,
+  "solid_valid": true,
+  "solids": 1,
+  "bounds_mm": {
+    "min": [
+      -0.0054750242009409785,
+      -16.55174586426432,
+      -0.0023916733874156933
+    ],
+    "max": [
+      65.0639727830743,
+      16.55327698932842,
+      41.945220557515896
+    ]
+  },
+  "interfaces": {
+    "inlet": [
+      [
+        0.0,
+        0.0,
+        27.45
+      ],
+      [
+        -1.0,
+        0.0,
+        0.0
+      ]
+    ],
+    "outlet": [
+      [
+        65.05,
+        0.0,
+        27.45
+      ],
+      [
+        1.0,
+        0.0,
+        0.0
+      ]
+    ],
+    "vent": [
+      [
+        24.65,
+        0.07,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        -1.0
+      ]
+    ]
+  },
+  "all_retained_observations": {
+    "samples": 53646,
+    "p50_p90_p95_p99_max_mm": [
+      0.06491197913251776,
+      0.28625109672036275,
+      0.4530812185483051,
+      0.673930385425377,
+      2.1213500930235174
+    ],
+    "fraction_within_0_25_mm": 0.8856205495283899,
+    "fraction_within_0_50_mm": 0.9600902210789248
+  },
+  "features": {
+    "inlet_thread_envelope_and_mouth": {
+      "samples": 7559,
+      "p50_p90_p95_p99_max_mm": [
+        0.27178196821781153,
+        0.6323356096566274,
+        0.694772744083805,
+        0.795492701338669,
+        0.9666277235755432
+      ],
+      "fraction_within_0_25_mm": 0.4684482074348459,
+      "fraction_within_0_50_mm": 0.7698108215372403
+    },
+    "inlet_collar": {
+      "samples": 5272,
+      "p50_p90_p95_p99_max_mm": [
+        0.06542822750649321,
+        0.19713025404724233,
+        0.23150668180872708,
+        0.24875016965767477,
+        0.25965118362346357
+      ],
+      "fraction_within_0_25_mm": 0.9918437025796661,
+      "fraction_within_0_50_mm": 1.0
+    },
+    "main_wrench": {
+      "samples": 9872,
+      "p50_p90_p95_p99_max_mm": [
+        0.04967387873260311,
+        0.1311998589854189,
+        0.16504086014445943,
+        0.22942082612670622,
+        0.5092858131673541
+      ],
+      "fraction_within_0_25_mm": 0.9961507293354943,
+      "fraction_within_0_50_mm": 0.9997974068071313
+    },
+    "body_waist": {
+      "samples": 3098,
+      "p50_p90_p95_p99_max_mm": [
+        0.024296720063324617,
+        0.13158135828353953,
+        0.14421484871178855,
+        0.16351976036162974,
+        0.22408028517486236
+      ],
+      "fraction_within_0_25_mm": 1.0,
+      "fraction_within_0_50_mm": 1.0
+    },
+    "outlet_cap": {
+      "samples": 11953,
+      "p50_p90_p95_p99_max_mm": [
+        0.06428451538086222,
+        0.12492389903605453,
+        0.15395186436714592,
+        0.19543798026388481,
+        0.3439802254330098
+      ],
+      "fraction_within_0_25_mm": 0.999414372960763,
+      "fraction_within_0_50_mm": 1.0
+    },
+    "outlet_thread_and_flare_mouth": {
+      "samples": 9591,
+      "p50_p90_p95_p99_max_mm": [
+        0.07640927330698849,
+        0.38913509657239503,
+        0.47732709677406193,
+        0.6195460675697319,
+        2.1213500930235174
+      ],
+      "fraction_within_0_25_mm": 0.7929308726931499,
+      "fraction_within_0_50_mm": 0.9583984985924304
+    },
+    "vent": {
+      "samples": 6301,
+      "p50_p90_p95_p99_max_mm": [
+        0.05757280697546026,
+        0.1351202693316262,
+        0.1591570522586328,
+        0.2219317545808603,
+        0.45933463820842196
+      ],
+      "fraction_within_0_25_mm": 0.9930169814315188,
+      "fraction_within_0_50_mm": 1.0
+    }
+  },
+  "limits": [
+    "The coated optical scale and paint thickness are not independently calibrated.",
+    "One putty-mounted orientation leaves the lower body sectors unobserved; the CAD continues fitted regular hexes and turned profiles there.",
+    "The two fitted wrench axes differ slightly; the reference uses their mean axis and coaxial ports.",
+    "Threads use crest envelopes. Bore depths and pressure-bearing interiors are not established by this capture."
+  ]
+}
