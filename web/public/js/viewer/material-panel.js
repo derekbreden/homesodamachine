@@ -647,8 +647,8 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
   // Visibility belongs to this navigation. Manual toggles last for this view;
   // model links start closed, and material lookups open the pane.
   function applyRoute({ panel = null, tab: requestedTab = null } = {}) {
-    tab = requestedTab === "bom" ? "bom" : null;
-    setOpen(panel === "materials" || requestedTab === "bom");
+    tab = requestedTab === "bom" || requestedTab === "cost" ? requestedTab : null;
+    setOpen(panel === "materials" || !!tab);
     render();
   }
   const handle = { select, setRoot, sync, applyRoute, leave, closeDrawing: () => drawingView?.closeDrawing(), dispose: () => {

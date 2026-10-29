@@ -51,7 +51,7 @@ function wantFromHash(raw) {
     const [identity, query = ""] = raw.slice("material:".length).split("?");
     const id = decodeHash(identity);
     const params = new URLSearchParams(query);
-    const tab = params.get("tab") === "bom" ? "bom" : null;
+    const tab = ["bom", "cost"].includes(params.get("tab")) ? params.get("tab") : null;
     const panel = params.get("panel");
     const file = modelForMaterial(state.materialCatalog, id)?.file;
     const remembered = history.state?.materialPath;
