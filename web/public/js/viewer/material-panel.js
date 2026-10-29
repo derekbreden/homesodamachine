@@ -46,7 +46,6 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
   panel.setAttribute("aria-label", "Material explorer");
   workspace.append(panel);
   const wrapper = workspace.querySelector(".cad-wrapper");
-  const mobile = matchMedia("(max-width: 700px), (hover: none) and (pointer: coarse)");
   const toggle = wrapper ? el("button", "materials-toggle", "Materials") : null;
   function setOpen(open) {
     workspace.classList.toggle("materials-open", open);
@@ -54,13 +53,15 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
   }
   if (toggle) {
     toggle.type = "button";
-    toggle.addEventListener("click", () => setOpen(!workspace.classList.contains("materials-open")));
+    toggle.addEventListener("click", () => {
+      const open = !workspace.classList.contains("materials-open");
+      setOpen(open);
+      if (!open) dropSelection();
+    });
     workspace.querySelector(".cad-header-actions").append(toggle);
     setOpen(false);
   }
-  const closeOnMobile = () => { if (mobile.matches) setOpen(false); };
-  mobile.addEventListener("change", closeOnMobile);
-  const drawingView = wrapper ? mountMaterialDrawing(wrapper, { onShowDrawing: closeOnMobile }) : null;
+  const drawingView = wrapper ? mountMaterialDrawing(wrapper) : null;
   let root = material || materialForFile(state.materialCatalog, file)?.id;
   let selected = root, selectedPath = [], tab = null;
   let selectedBody = null;
@@ -77,6 +78,7 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
   let status = "";
   // The selection came from a click in the model rather than from this pane or a search.
   let modelPick = false;
+  let keepDrawing = false; // a render that leaves the drawing being read in place
   function contextPath() {
     const parent = materialForFile(state.materialCatalog, lastFile);
     return parent && parent.id !== root ? explodeBom(state.materialCatalog, parent.id, options()).find((r) => r.material.id === root)?.path || [] : [];
@@ -204,6 +206,20 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
     return true;
   }
 
+  // Closing the pane lets go of what was chosen in it: the model is whole and opaque again,
+  // under the camera it has, and a drawing being read stays on screen. A part picked in the
+  // model is the picker's, and stays.
+  function dropSelection() {
+    if (modelPick || !hasSubject()) return;
+    const model = contextPath().length ? materialForFile(state.materialCatalog, lastFile) : null;
+    if (model) reroot(model.id);
+    selectedBody = null; selected = root; selectedPath = []; status = "";
+    keepDrawing = !!drawingView?.showing();
+    render();
+    keepDrawing = false;
+    clearHighlight({ owner: "materials" });
+  }
+
   // Another surface took the model's selection, or it was cleared from outside (Reset view,
   // the checks): the panel lets go of its own without touching the model.
   function released() {
@@ -283,7 +299,7 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
     }
     const drawings = current?.documents?.filter(doc => doc.kind === "engineering-drawing" && doc.path.endsWith(".pdf")) || [];
     const activeDrawing = drawings.find(doc => doc.path === drawingView?.drawingPath()) || drawings[0];
-    drawingView?.setDrawing(activeDrawing ? { ...activeDrawing, subject: selected !== root ? current.description : null } : null);
+    if (!keepDrawing) drawingView?.setDrawing(activeDrawing ? { ...activeDrawing, subject: selected !== root ? current.description : null } : null);
     headHost.replaceChildren(head);
     const rows = explodeBom(state.materialCatalog, root, options());
     const used = current ? materialUses(state.materialCatalog, current.id, options()) : { assemblies: [], tools: [], equipment: [] };
@@ -625,16 +641,15 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
   window.addEventListener(HSM_EVENTS.MATERIAL_PICKED, picked);
   window.addEventListener(HSM_EVENTS.FAUCET_OPTIONS, sync);
   // Visibility belongs to this navigation. Manual toggles last for this view;
-  // model links start closed, and material lookups open only on desktop.
+  // model links start closed, and material lookups open the pane.
   function applyRoute({ panel = null, tab: requestedTab = null } = {}) {
     tab = requestedTab === "bom" ? "bom" : null;
-    setOpen(!mobile.matches && (panel === "materials" || requestedTab === "bom"));
+    setOpen(panel === "materials" || requestedTab === "bom");
     render();
   }
   const handle = { select, setRoot, sync, applyRoute, leave, closeDrawing: () => drawingView?.closeDrawing(), dispose: () => {
     disposed = true;
     drawingView?.dispose();
-    mobile.removeEventListener("change", closeOnMobile);
     window.removeEventListener(HSM_EVENTS.STEP_MOUNTED, sync);
     window.removeEventListener(HSM_EVENTS.MATERIAL_PICKED, picked);
     window.removeEventListener(HSM_EVENTS.FAUCET_OPTIONS, sync);
