@@ -10,7 +10,7 @@ AC4-fuse,Compressor,H_switched,fuse.out,compressor.H,18,36.777,proposed,nominal,
 AC5-N,Compressor,N,wago-n.3,compressor.N,18,590.281,proposed,nominal,unlocated,fixed
 AC6-PE,Compressor,PE,ground.compressor,compressor.PE,18,333.114,proposed,modeled,unlocated,fixed
 PE-bus,Earth bonds,PE,wago-g.2,ground.inlet,16,306.007,proposed,nominal,modeled,fixed
-PE-carbonator,Earth bonds,PE,ground.carbonator,carbonator.PE,16,439.211,proposed,modeled,unlocated,fixed
+PE-carbonator,Earth bonds,PE,ground.carbonator,carbonator.PE,16,314.67,proposed,modeled,modeled,fixed
 DC1-V12,12V power,V12,psu.V12,wago-v12.1,16,274.825,proposed,nominal,nominal,fixed
 DC4-V12,12V power,V12,wago-v12.3,J10.V12,16,99.824,proposed,nominal,nominal,fixed
 DC1-GND,12V power,GND,psu.GND,wago-gnd.1,16,222.586,proposed,nominal,nominal,fixed
