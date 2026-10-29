@@ -1,0 +1,39 @@
+{
+  "schema": 1,
+  "scope": "Post-publication manual reading of the printed lid, identifying the two new hook readings by exact native-part pick anchors.",
+  "published_pointer_commit": "c49ebe5d3866d7d2a08a2a11c191cfff1ef8ff9a",
+  "stl_sha256": "d900e6a8c535ff9115d3c91c8e06c5527b20e88af6698ae64a87f8af87ec8327",
+  "print_axis_world": [
+    0,
+    0,
+    1
+  ],
+  "new_feature_findings": [
+    {
+      "class_name": "sliver",
+      "click_native_mm": [
+        -64.2,
+        -53.775,
+        18.0
+      ]
+    },
+    {
+      "class_name": "ledge",
+      "click_native_mm": [
+        -66.867,
+        -53.9,
+        18.0
+      ]
+    }
+  ],
+  "disposition": "Both readings identify the required retaining underside of the accepted entry profile. Exact feature answers record the working projection, mouth and the consequences of changing that geometry.",
+  "answers": "hardware/printed-parts/lint-answers/cold-core/foam-cap/foam-cap-lid-top.lint-answers",
+  "structural_stock_mm": 3.0,
+  "full_span_mm": 16.0,
+  "root": "Full rectangular floor joined across the lid.",
+  "installed_hook_station_world_mm": [
+    -54.5,
+    388.0,
+    261.2
+  ]
+}
