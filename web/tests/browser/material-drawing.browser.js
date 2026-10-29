@@ -115,7 +115,7 @@ test("one workspace toolbar contains navigation, view mode and document controls
     await page.setViewport({ width: 390, height: 844 });
     await page.goForward();
     await materialReady(page);
-    await assertPane(page, false);
+    await assertPane(page, true);
     assert.equal(await page.$eval(".cad-crumb.show", crumb => {
       const rect = crumb.getBoundingClientRect();
       const toggle = document.querySelector(".materials-toggle").getBoundingClientRect();
@@ -206,7 +206,7 @@ test("material search opens the pane and features a working drawing beside the p
   } finally { await page.close(); }
 });
 
-test("phone searches start closed; manually opened materials and drawing preserve the model", async () => {
+test("phone searches open the pane under the model; drawings keep the pane and the model's camera", async () => {
   const page = await browser.newPage();
   const errors = [];
   page.on("pageerror", error => errors.push(error.message));
@@ -217,14 +217,19 @@ test("phone searches start closed; manually opened materials and drawing preserv
     await page.type(".material-search input", "HSM-000009");
     await page.click(".material-search-results a");
     await materialReady(page);
-    await assertPane(page, false);
-    await page.click(".materials-toggle");
+    await assertPane(page, true);
+    // The pane takes the lower part of the screen, and the model stays in view above it.
+    const split = await page.evaluate(() => {
+      const model = document.querySelector("canvas.cad-viewport").getBoundingClientRect();
+      const pane = document.querySelector(".material-panel").getBoundingClientRect();
+      return { model: model.height, gap: pane.top - model.bottom };
+    });
+    assert.ok(split.model > 200 && split.gap >= 0, JSON.stringify(split));
     assert.ok(await page.$(".cad-workspace.materials-open .material-drawing-feature"));
     const pose = await cameraPose(page);
     await page.click(".material-drawing-feature");
     const frame = await drawingReady(page);
-    assert.equal(await page.$(".cad-workspace.materials-open"), null);
-    assert.equal(await page.$eval(".materials-toggle", button => button.getAttribute("aria-expanded")), "false");
+    await assertPane(page, true);
     assert.equal(await frame.evaluate(() => document.documentElement.scrollWidth > innerWidth), false);
     await page.click(".drawing-zoom button:last-child");
     await frame.waitForFunction(() => document.querySelector(".pdf-viewport").getAttribute("aria-busy") === "false");
@@ -234,15 +239,13 @@ test("phone searches start closed; manually opened materials and drawing preserv
     await page.waitForSelector(".cad-wrapper:not(.drawing-open)");
     assert.equal(await page.$eval(".material-view-switch button[aria-pressed=true]", button => button.textContent), "3D");
     assert.deepEqual(await cameraPose(page), pose);
-    await page.click(".materials-toggle");
-    assert.ok(await page.$(".cad-workspace.materials-open .material-drawing-feature"));
     await page.type(".material-panel .material-search input", "HSM-000008");
     await page.click(".material-panel .material-search-results a");
     await materialReady(page, "cut-parts/carbonation/carbonator-tube/carbonator-tube.step");
-    await assertPane(page, false);
+    await assertPane(page, true);
     await page.goBack();
     await materialReady(page);
-    await assertPane(page, false);
+    await assertPane(page, true);
     assert.deepEqual(errors, []);
   } finally { await page.close(); }
 });
@@ -277,17 +280,19 @@ test("direct links and responsive layout apply the pane rules without storing a 
     await page.goto(baseUrl + searchUrl, { waitUntil: "domcontentloaded" });
     await materialReady(page);
     await assertPane(page, true);
+    // A phone-width screen moves the open pane under the model rather than closing it.
     await page.setViewport({ width: 390, height: 844 });
-    await page.waitForFunction(() => !document.querySelector(".cad-workspace.materials-open"));
-    await assertPane(page, false);
-    await page.click(".materials-toggle");
+    await page.waitForFunction(() => document.querySelector(".material-panel").getBoundingClientRect().top
+      >= document.querySelector("canvas.cad-viewport").getBoundingClientRect().bottom - 1);
     await assertPane(page, true);
+    await page.click(".materials-toggle");
+    await assertPane(page, false);
     await page.reload({ waitUntil: "domcontentloaded" });
     await materialReady(page);
-    await assertPane(page, false);
+    await assertPane(page, true);
     await page.goto(baseUrl + materialUrl + "?tab=bom", { waitUntil: "domcontentloaded" });
     await materialReady(page);
-    await assertPane(page, false);
+    await assertPane(page, true);
     await page.setViewport({ width: 1440, height: 1000 });
     await page.reload({ waitUntil: "domcontentloaded" });
     await materialReady(page);
@@ -295,7 +300,7 @@ test("direct links and responsive layout apply the pane rules without storing a 
     await page.setViewport({ width: 844, height: 390, isMobile: true, hasTouch: true });
     await page.goto(baseUrl + searchUrl, { waitUntil: "domcontentloaded" });
     await materialReady(page);
-    await assertPane(page, false);
+    await assertPane(page, true);
     await page.click(".material-view-switch button:last-child");
     await drawingReady(page);
     assert.equal(await page.$eval(".cad-workspace-header", header => header.getBoundingClientRect().height <= 80), true,
