@@ -26,4 +26,7 @@ Install the heat-sets, remove the lid groove's supports and clamp with three
 M3 × 10 screws before comparing tube insertion and lid lift.
 
 Mark1 accepted task **1385812966** with no print errors. The slicer estimate is
-51 minutes. Physical fit awaits the completed test.
+51 minutes. Derek confirmed the completed test on 2026-10-29: “Turned out
+well. Clamps the tube well where it needs to be. All fits.” The
+[physical result](physical-result.json) binds this fit and clamp acceptance
+to the printed archive and its production-source geometry.
