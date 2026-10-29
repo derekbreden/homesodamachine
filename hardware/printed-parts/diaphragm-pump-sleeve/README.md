@@ -56,7 +56,7 @@ hand fit over the barb crests needs.
 Use the
 [accepted deposited-path pair](/future/pump-elbow-exploration/prints/2026-10-22-deposited-links-siraya85a-mark2/README.md)
 and its
-[processed archive](/future/pump-elbow-exploration/prints/2026-10-16-deposited-links-siraya85a-mark1/2026-10-16-elbows-deposited-links-siraya85a-right06-z000-mark1.gcode.3mf).
+[processed archive](https://github.com/derekbreden/homesodamachine/blob/33d50d2ecd2a0fb6b518483a44c8031e3a0c1617/future/pump-elbow-exploration/prints/2026-10-16-deposited-links-siraya85a-mark1/2026-10-16-elbows-deposited-links-siraya85a-right06-z000-mark1.gcode.3mf).
 The accepted Mark2 print uses the right 0.6 mm nozzle, glued Engineering Plate,
 zero user Z trim, 225°C first layer and 215°C normal layers, six walls, 100%
 infill, 10 mm/s outer walls and no supports. It prints through turns along the

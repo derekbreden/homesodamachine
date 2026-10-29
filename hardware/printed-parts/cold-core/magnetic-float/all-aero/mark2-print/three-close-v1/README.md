@@ -43,7 +43,7 @@ repairability require the physical print; this slice establishes geometry,
 commanded paths and timing.
 
 - [Prepared project](2026-10-08-three-floats-close-asa-aero-right04-engineering-mark2.3mf)
-- [Native print archive](2026-10-08-three-floats-close-asa-aero-right04-engineering-mark2.gcode.3mf)
+- [Native print archive](https://github.com/derekbreden/homesodamachine/blob/33d50d2ecd2a0fb6b518483a44c8031e3a0c1617/hardware/printed-parts/cold-core/magnetic-float/all-aero/mark2-print/three-close-v1/2026-10-08-three-floats-close-asa-aero-right04-engineering-mark2.gcode.3mf)
 - [Native review](native-review.json)
 - [Pause forecast](pause-forecast.json)
 - [Frozen geometry and source hashes](source-snapshot/manifest.json)

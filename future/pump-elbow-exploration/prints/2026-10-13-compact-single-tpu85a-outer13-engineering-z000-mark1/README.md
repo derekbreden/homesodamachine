@@ -32,7 +32,7 @@ not establish that sagging and upward curl vary monotonically or balance at
 this value. Printed quality, socket fit and sealing remain unqualified.
 
 - [Editable project](2026-10-13-compact-single-elbow-tpu85a-outer13-engineering-right06-z000-mark1.3mf)
-- [Native archive](2026-10-13-compact-single-elbow-tpu85a-outer13-engineering-right06-z000-mark1.gcode.3mf)
+- [Native archive](https://github.com/derekbreden/homesodamachine/blob/33d50d2ecd2a0fb6b518483a44c8031e3a0c1617/future/pump-elbow-exploration/prints/2026-10-13-compact-single-tpu85a-outer13-engineering-z000-mark1/2026-10-13-compact-single-elbow-tpu85a-outer13-engineering-right06-z000-mark1.gcode.3mf)
 - [Manual preparation script](prepare_mark1.py)
 
 The preparation script does not connect to a printer or submit a job.

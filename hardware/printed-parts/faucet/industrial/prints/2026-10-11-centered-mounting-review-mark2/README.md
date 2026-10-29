@@ -7,7 +7,7 @@ saved filament density. All model/support/brim beads remain at least
 **44.86 mm** from the usable plate edges.
 
 The [prepared project](2026-10-11-industrial-faucet-centered-mount-shoulders012-petgf-left04-z004-mark2.3mf)
-and [native archive](2026-10-11-industrial-faucet-centered-mount-shoulders012-petgf-left04-z004-mark2.gcode.3mf)
+and [native archive](https://github.com/derekbreden/homesodamachine/blob/33d50d2ecd2a0fb6b518483a44c8031e3a0c1617/hardware/printed-parts/faucet/industrial/prints/2026-10-11-centered-mounting-review-mark2/2026-10-11-industrial-faucet-centered-mount-shoulders012-petgf-left04-z004-mark2.gcode.3mf)
 are offline review artifacts. No print is submitted or authorized by this
 preparation. The final seam/scarf choice and number of 0.24 mm model layers
 above supports await the

@@ -22,7 +22,7 @@ The material is rejected for the reported stiffness. No pressure or retained
 grip result is established.
 
 - [Editable project](2026-10-13-compact-single-elbow-tpuams-right06-z018-mark1.3mf)
-- [Native archive](2026-10-13-compact-single-elbow-tpuams-right06-z018-mark1.gcode.3mf)
+- [Native archive](https://github.com/derekbreden/homesodamachine/blob/33d50d2ecd2a0fb6b518483a44c8031e3a0c1617/future/pump-elbow-exploration/prints/2026-10-13-compact-single-tpuams-mark1/2026-10-13-compact-single-elbow-tpuams-right06-z018-mark1.gcode.3mf)
 - [Native readback](2026-10-13-compact-single-elbow-tpuams-right06-z018-mark1.readiness.json)
 - [Print mesh](compact-single-elbow-print.stl) and [source snapshot](elbow-source.txt)
 

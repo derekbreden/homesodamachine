@@ -31,7 +31,7 @@ printer-left and about 66° on printer-right at layer 28, with approximately
 radius decreases; equal leg-axis angles do not give equal underside slopes.
 
 - [Editable project](2026-10-13-compact-single-elbow-tpu85a-engineering-right06-z000-mark1.3mf)
-- [Native archive](2026-10-13-compact-single-elbow-tpu85a-engineering-right06-z000-mark1.gcode.3mf)
+- [Native archive](https://github.com/derekbreden/homesodamachine/blob/33d50d2ecd2a0fb6b518483a44c8031e3a0c1617/future/pump-elbow-exploration/prints/2026-10-13-compact-single-tpu85a-engineering-z000-mark1/2026-10-13-compact-single-elbow-tpu85a-engineering-right06-z000-mark1.gcode.3mf)
 - [Native readback](2026-10-13-compact-single-elbow-tpu85a-engineering-right06-z000-mark1.readiness.json)
 - [Print mesh](compact-single-elbow-print.stl)
 - [Preparation reading](preparation-printer-status.json)

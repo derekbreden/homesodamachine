@@ -18,7 +18,7 @@ recipe. The standalone native estimate is **14 min 12 s** and **3.98 g** using
 the saved profile density.
 
 - [Editable project](2026-10-26-tube-snap-c2-three-bores-mark2-cf1d0d5d/2026-10-26-tube-snap-c2-three-bores-mark2-cf1d0d5d.3mf)
-- [Native print archive](2026-10-26-tube-snap-c2-three-bores-mark2-cf1d0d5d/2026-10-26-tube-snap-c2-three-bores-mark2-cf1d0d5d.gcode.3mf)
+- [Native print archive](https://github.com/derekbreden/homesodamachine/blob/33d50d2ecd2a0fb6b518483a44c8031e3a0c1617/future/tube-snap-exploration/prints/2026-10-26-mark2-c2-three-bores/2026-10-26-tube-snap-c2-three-bores-mark2-cf1d0d5d/2026-10-26-tube-snap-c2-three-bores-mark2-cf1d0d5d.gcode.3mf)
 - [Native preview](2026-10-26-tube-snap-c2-three-bores-mark2-cf1d0d5d/plate_1.png)
 - [Offline preparation and native review](offline-review.json)
 - [Individual wing and layer-contact reading](path-review.json)

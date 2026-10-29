@@ -75,7 +75,7 @@ backed bead footprints with **99.50%** minimum sampled stock coverage. Every
 sampled cable wall/corbel/hook component contacts previous-layer model material.
 
 - [Editable project](2026-10-26-tube-and-cable-snaps-wall9-cooled-mark2-2179a771/2026-10-26-tube-and-cable-snaps-wall9-cooled-mark2-2179a771.3mf)
-- [Native print archive](2026-10-26-tube-and-cable-snaps-wall9-cooled-mark2-2179a771/2026-10-26-tube-and-cable-snaps-wall9-cooled-mark2-2179a771.gcode.3mf)
+- [Native print archive](https://github.com/derekbreden/homesodamachine/blob/33d50d2ecd2a0fb6b518483a44c8031e3a0c1617/future/snap-fit-tests/2026-10-26-mark2-combined/2026-10-26-tube-and-cable-snaps-wall9-cooled-mark2-2179a771/2026-10-26-tube-and-cable-snaps-wall9-cooled-mark2-2179a771.gcode.3mf)
 - [Native preview](2026-10-26-tube-and-cable-snaps-wall9-cooled-mark2-2179a771/plate_1.png)
 - [Source bindings and preparation](offline-review.json)
 - [Manual bead/contact reading](path-review.json)

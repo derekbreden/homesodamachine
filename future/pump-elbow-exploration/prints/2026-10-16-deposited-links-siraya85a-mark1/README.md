@@ -4,7 +4,7 @@
 **1344414329** entered PREPARE without print errors on 2026-10-16 at
 03:57 CDT. The [launch receipt](launch.json) identifies the submitted
 `2026-10-16-elbows-siraya-links.gcode.3mf`, a byte-identical copy of the
-[reviewed print archive](2026-10-16-elbows-deposited-links-siraya85a-right06-z000-mark1.gcode.3mf).
+[reviewed print archive](https://github.com/derekbreden/homesodamachine/blob/33d50d2ecd2a0fb6b518483a44c8031e3a0c1617/future/pump-elbow-exploration/prints/2026-10-16-deposited-links-siraya85a-mark1/2026-10-16-elbows-deposited-links-siraya85a-right06-z000-mark1.gcode.3mf).
 Allow approximately **2 hours / 8.55 g**. Native archive previews and timing
 describe the source slice; the figure below reads the processed G-code.
 

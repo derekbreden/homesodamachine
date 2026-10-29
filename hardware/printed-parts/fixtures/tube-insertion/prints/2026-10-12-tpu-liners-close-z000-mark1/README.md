@@ -8,7 +8,7 @@ gap**. The native full-bead envelopes retain at least **1.789 mm** between
 objects and **143.39 mm** of bed-edge clearance.
 
 The [native project](2026-10-12-tube-insertion-liners-tpu85a-right06-z000-close-mark1.3mf)
-and [reviewed G-code archive](2026-10-12-tube-insertion-liners-tpu85a-right06-z000-close-mark1.gcode.3mf)
+and [reviewed G-code archive](https://github.com/derekbreden/homesodamachine/blob/33d50d2ecd2a0fb6b518483a44c8031e3a0c1617/hardware/printed-parts/fixtures/tube-insertion/prints/2026-10-12-tpu-liners-close-z000-mark1/2026-10-12-tube-insertion-liners-tpu85a-right06-z000-close-mark1.gcode.3mf)
 use Mark1's **right fixed 0.6 mm hotend**, black TPU 85A on external spool
 255, and Textured PEI. The requested user Z trim is **0.00 mm** for this
 print. Native startup emits `G29.1 Z0` and then `G29.1 Z-0.02`, retaining

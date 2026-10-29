@@ -12,7 +12,7 @@ heel and a smooth reduction into the smaller leg. Its integral 88.9 mm² foot
 rests on the bed; both sockets rise at 45°.
 
 - [Editable project](2026-10-13-continuous-body-elbows-tpu85a-right06-z018-mark1.3mf)
-- [Submitted native archive](2026-10-13-continuous-body-elbows-tpu85a-right06-z018-mark1.gcode.3mf)
+- [Submitted native archive](https://github.com/derekbreden/homesodamachine/blob/33d50d2ecd2a0fb6b518483a44c8031e3a0c1617/future/pump-elbow-exploration/prints/2026-10-13-continuous-body-tpu85a-mark1/2026-10-13-continuous-body-elbows-tpu85a-right06-z018-mark1.gcode.3mf)
 - [Recipe and mesh binding](2026-10-13-continuous-body-elbows-tpu85a-right06-z018-mark1.print.json)
 - [Native slice readback](2026-10-13-continuous-body-elbows-tpu85a-right06-z018-mark1.readiness.json)
 - [Exported print-source snapshot](elbow-source.txt)

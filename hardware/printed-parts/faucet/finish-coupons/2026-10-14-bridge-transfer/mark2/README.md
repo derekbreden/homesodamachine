@@ -41,7 +41,7 @@ standard-flow 0.4 mm, Textured PEI and its +0.04 mm requested trim
 usable bed boundary. Native coordinates, arc and extrusion words are preserved
 through the fan/feed treatment; A and all supports retain native fan/feed.
 
-Use the [print-only archive](2026-10-14-faucet-foot-bridge-transfer-petgf-left04-z004-mark2-print-only.gcode.3mf)
+Use the [print-only archive](https://github.com/derekbreden/homesodamachine/blob/33d50d2ecd2a0fb6b518483a44c8031e3a0c1617/hardware/printed-parts/faucet/finish-coupons/2026-10-14-bridge-transfer/mark2/2026-10-14-faucet-foot-bridge-transfer-petgf-left04-z004-mark2-print-only.gcode.3mf)
 without reslicing. G-code SHA-256:
 `dd4572ee9439b93fe32d7656107a284c8e2701b38c1146e384626d8e7c98ed78`.
 The separate launch receipt will bind an accepted job to this archive.
