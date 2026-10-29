@@ -1,0 +1,30 @@
+{
+  "schema": 1,
+  "scope": "Manual live viewer check of downloaded object bytes and native source hashes.",
+  "checked_utc": "2026-10-29T17:24:10.628833+00:00",
+  "pointer_commit": "ca07276ae281a0351d49a299627fb64911d9a018",
+  "passed": true,
+  "checks": [
+    {
+      "relative": "hardware/manifold-layout/enclosure-assembly.step.mesh",
+      "url": "https://objects.homesodamachine.com/s-e082deeb476f95a3a7be836c8f05f8982f8e0bf79b6a1906f6f8a68308f70705.gz",
+      "sha256": "e082deeb476f95a3a7be836c8f05f8982f8e0bf79b6a1906f6f8a68308f70705",
+      "native_source_sha256": "efe928fc8a7d8ec6f8bbb94a0bfe4e84a5bc9bf98a5d71d22682376616501b25",
+      "mesh_count": 561
+    },
+    {
+      "relative": "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh",
+      "url": "https://objects.homesodamachine.com/s-1ec2696fc7ade1471cd95e8c54dd1b9a3949ebdd48e673d6fca7487583a0aee0.gz",
+      "sha256": "1ec2696fc7ade1471cd95e8c54dd1b9a3949ebdd48e673d6fca7487583a0aee0",
+      "native_source_sha256": "42764e50812853933aeb665748776ae234fb16d9f8621ae7c8249289147314a9",
+      "mesh_count": 1
+    },
+    {
+      "relative": "hardware/wiring/enclosure-wiring.step.mesh",
+      "url": "https://objects.homesodamachine.com/s-498bcbbe3c263bff81c442bb585092340f11d9268aeed5682e26dfc240f4898d.gz",
+      "sha256": "498bcbbe3c263bff81c442bb585092340f11d9268aeed5682e26dfc240f4898d",
+      "native_source_sha256": "fd6a475c52a285b57b2a7da6a3db72d0f566eb7b912cca597915eb232407ee9d",
+      "mesh_count": 114
+    }
+  ]
+}
