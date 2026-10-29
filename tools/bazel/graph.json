@@ -2002,6 +2002,7 @@
       "hardware/wiring/installed/bundles.py",
       "hardware/wiring/installed/connections.py",
       "hardware/wiring/installed/connector-map.json",
+      "hardware/wiring/installed/manifold_bank_routes.py",
       "hardware/wiring/installed/model.py",
       "hardware/wiring/installed/retainers.py",
       "hardware/wiring/installed/route-overrides.json",
@@ -2525,6 +2526,8 @@
       "hardware/scripts/_routing.py",
       "hardware/scripts/_run_lock.py",
       "hardware/scripts/_stated_bounds.py",
+      "hardware/wiring/installed/__init__.py",
+      "hardware/wiring/installed/retainers.py",
       "tools/docgen/__init__.py"
     ],
     "rewritten": [
@@ -4246,6 +4249,7 @@
       "hardware/wiring/installed/build.py",
       "hardware/wiring/installed/bundles.py",
       "hardware/wiring/installed/connections.py",
+      "hardware/wiring/installed/manifold_bank_routes.py",
       "hardware/wiring/installed/model.py",
       "hardware/wiring/installed/retainers.py",
       "hardware/wiring/installed/routes.py",
@@ -8011,6 +8015,7 @@
       "hardware/wiring/installed/bundles.py",
       "hardware/wiring/installed/connections.py",
       "hardware/wiring/installed/connector-map.json",
+      "hardware/wiring/installed/manifold_bank_routes.py",
       "hardware/wiring/installed/model.py",
       "hardware/wiring/installed/retainers.py",
       "hardware/wiring/installed/route-overrides.json",
