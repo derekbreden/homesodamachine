@@ -51,3 +51,9 @@ The [local Mark1 test](../prints/2026-10-28-b-fill-round-fore-20560/README.md)
 contains the cup and matching lid cropped from the production pieces, with
 the fore pair at Y205.60. Its receipt records the native archive and printer
 task. The full lid's print preparation uses the current source STL.
+
+The [post-publication surface reading](post-publication-review.json) records
+the published STL review. The cup's 1.569 mm exposed flat meets the rounded
+cable carrier; a normal ray at the diagnostic pick crosses 33.0 mm of
+continuous block material. The lid has no unaddressed findings in the
+step/bump/sliver review. The full cup's Reed-B passage has 0 mm³ obstruction.
