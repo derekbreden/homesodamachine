@@ -147,7 +147,7 @@ len_faucet_inboard_mm = 400  # J3 → rear-wall SIG-6 keystone, with termination
 len_reeds_b_mm = 500     # Reservoir B: 401 mm continuous common plus fitting reserve.
 len_fan_mm = 650         # J2 FAN → condenser-crown approach (~543 mm), plus donor-lead reserve
 len_reeds_a_mm = 600     # Reservoir A: 512 mm continuous common plus fitting reserve.
-len_gas_mm = 600         # SIG-12 → the MQ-6 low on the rear cabinet floor, the longest in the box (582)
+len_gas_mm = 600         # SIG-12 → MQ-6 on front-bottom, including dressing reserve
 len_compressor_mm = 700  # Hot stock: 606.306 mm main + 36.777 mm fuse continuation; 56.918 mm nominal termination/dressing reserve. Separate pieces; trim after routing.
 # Back-top pigtails to the three lever-nut joins under the funnel opening: relay 1 NO
 # and WAGO-N (AC-4/AC-5, 16 AWG solid) and relay 2 NO (DC-3, 16 AWG stranded), each
