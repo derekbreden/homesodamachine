@@ -108,3 +108,13 @@ click: x=139.635 y=-43.537 z=3.200
 click: x=139.635 y=-43.537 z=5.400
 click: x=122.089 y=-43.539 z=5.400
 click: x=122.089 y=-43.538 z=3.200
+
+[sliver] Functional retaining underside of the approved Reservoir A level-lead hook. Its 0.75 mm projection closes the 2.20 mm seat to a 1.45 mm entry mouth for nominal 1.70 mm insulation, matching the accepted cable clip's entry section. The flat underside catches the five leads after insertion. The hook's walls and full floor retain 3 mm structural stock.
+alternatives: A 3 mm projection closes this seat completely; retaining the same mouth with that projection requires a 4.45 mm deep seat, adding 2.25 mm of cable movement behind the catch. Reducing the projection opens the mouth toward the conductor diameter. Sloping the underside supplies an exit ramp instead of a flat catch.
+file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
+click: x=-64.200 y=-53.775 z=18.000
+
+[ledge] Functional flat catch of the approved Reservoir A level-lead hook. The accepted 0.75 mm retaining projection and 1.45 mm mouth retain nominal 1.70 mm insulated leads; the entry chamfer is on the opposite side of this face.
+alternatives: A sloped underside lets the cable cam out through the mouth. Increasing the projection to 3 mm requires a 4.45 mm deep seat to preserve the mouth, adding 2.25 mm of movement behind the catch. Filling the entry prevents insertion from above.
+file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
+click: x=-66.867 y=-53.900 z=18.000
