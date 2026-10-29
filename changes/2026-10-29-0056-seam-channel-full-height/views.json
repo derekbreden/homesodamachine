@@ -1,0 +1,168 @@
+{
+  "views": [
+    {
+      "name": "top-end",
+      "caption": "Cut along the channel's centre line at the top of the +Y flank",
+      "before": "top-end-before.webp",
+      "after": "top-end-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 641.4,
+          "y": 317.9,
+          "r": 103.2,
+          "label": "seam channel",
+          "at": [
+            0,
+            89.45,
+            207
+          ]
+        }
+      ],
+      "model": "printed-parts/cold-core/foam-shell/foam-shell.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          25.02091143213291,
+          96.18428355666357,
+          212.67433419178207
+        ],
+        "target": [
+          0,
+          88.4,
+          203.5
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 0.29057200530271887,
+        "far": 542.5686120688944,
+        "aspect": 1.3333333333333333,
+        "section": {
+          "at": [
+            0,
+            88,
+            203
+          ],
+          "normal": [
+            1,
+            0,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "printed-parts/cold-core/foam-shell/foam-shell.step.mesh",
+          "from": "snapshot",
+          "sha256": "a51f0b9fc50610aec871afaaf49919d7fb8195dae44352de4d4a15514bcd649f",
+          "commit": "aa2a81b4d31e328ae94736c049024600ce9bf9b1",
+          "taken": "2026-10-29T05:54:23.551Z",
+          "published": true
+        },
+        "after": {
+          "payload": "printed-parts/cold-core/foam-shell/foam-shell.step.mesh",
+          "from": "tree",
+          "sha256": "ee2209f51c51509aa0d76b648263b74faabd4663b17c54febc99ca1541db9532",
+          "commit": "3c907da43882bbd9df60443c3cf634f442797873",
+          "published": true
+        }
+      },
+      "changed": [
+        "foam-shell"
+      ],
+      "withinMeshing": []
+    },
+    {
+      "name": "plan",
+      "caption": "Cut across the +Y flank at mid-height, looking down",
+      "before": "plan-before.webp",
+      "after": "plan-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 632.3,
+          "y": 499.9,
+          "r": 144.5,
+          "label": "seam channel",
+          "at": [
+            0,
+            89.45,
+            120
+          ]
+        }
+      ],
+      "model": "printed-parts/cold-core/foam-shell/foam-shell.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          4.817359909648537,
+          96.97124783736736,
+          136.57171808919097
+        ],
+        "target": [
+          0,
+          88.3,
+          120
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 0.20316446133669955,
+        "far": 498.8648400858847,
+        "aspect": 1.3333333333333333,
+        "section": {
+          "at": [
+            0,
+            88,
+            120
+          ],
+          "normal": [
+            0,
+            0,
+            1
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "printed-parts/cold-core/foam-shell/foam-shell.step.mesh",
+          "from": "snapshot",
+          "sha256": "a51f0b9fc50610aec871afaaf49919d7fb8195dae44352de4d4a15514bcd649f",
+          "commit": "aa2a81b4d31e328ae94736c049024600ce9bf9b1",
+          "taken": "2026-10-29T05:54:23.551Z",
+          "published": true
+        },
+        "after": {
+          "payload": "printed-parts/cold-core/foam-shell/foam-shell.step.mesh",
+          "from": "tree",
+          "sha256": "ee2209f51c51509aa0d76b648263b74faabd4663b17c54febc99ca1541db9532",
+          "commit": "3c907da43882bbd9df60443c3cf634f442797873",
+          "published": true
+        }
+      },
+      "changed": [
+        "foam-shell"
+      ],
+      "withinMeshing": []
+    }
+  ]
+}
