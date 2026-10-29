@@ -217,6 +217,19 @@ refrigeration base, so a bore struck here opens into that base rather than into 
 machine. All seven fluid lines leave by the top cap's conduits, along with the
 two reservoir reed cables, carbonator reed cable and sensor/earth loom in their own passages. See Penetrations.
 
+#### Seam channel
+
+A [9.5 mm](SEAM_CHANNEL_W) wide, [1 mm](SEAM_CHANNEL_D) deep channel runs down the +Y
+flank's centre line, x = 0, the column the PRV vent leaves by. Its two inside corners give
+the outer wall's seam a place to land on every layer. It is the vent's
+⌀[7.5 mm](TUBE_HOLE_D) bore with a [1 mm](SEAM_CHANNEL_LAND) land either side, so the vent
+opens in the channel's floor. The channel stops [13 mm](FOIL_LAND) short of each end, where
+the foil bands seal on the plain face, and its floor runs out to the face at 45° at both ends.
+
+The wall folds inward behind the channel over its width plus one wall section either side,
+so every horizontal section through the fold is [2.38 mm](FSHELL_WALL_T) thick. The fold
+reaches one channel depth past each end of the channel and runs out on the inner face at 45°.
+
 ### foam_cap and foam_cap_lid
 
 The `foam_cap` is a cup matching the outer shell's footprint,
@@ -265,14 +278,14 @@ the four 0.15 mm seating allowances, making the physical core shorter.
 The bottom lid's pad ends and top cap's flush deck columns have the same
 axial allowance; their radial fits retain their own dimensions.
 
-The shell, cups and lids have plain vertical outer faces. Foil sits on these
-faces within a 0.30 mm per-side allowance around the casing. Each corner pilot
+The shell, cups and lids have plain vertical outer faces under the foil bands. Foil sits
+on these faces within a 0.30 mm per-side allowance around the casing. Each corner pilot
 retains at least 1.69 mm radial wall through its depth; the shared clamp axes
 stand independently of the ordinary wall thickness.
 
 Seal each assembled end with one continuous band of the already-owned
 **3M 425 aluminum foil tape**, covering both its cap/shell and cap/lid
-joints, reaching at least 13 mm onto the shell. Trim the 50.8 mm stock to the
+joints, reaching at least [13 mm](FOIL_LAND) onto the shell. Trim the 50.8 mm stock to the
 assembled end, ending at the lid's outside
 edge without folding onto its flat bearing face. Apply to clean, dry parts
 at room temperature. Press around the rounded corners and burnish the
