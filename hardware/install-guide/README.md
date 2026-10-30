@@ -61,7 +61,9 @@ silhouettes of the source solids define the housing and phone; finer lines disti
 bezel, recessed glass and three tube ends. The output is the app's tintable vector asset.
 
 The concentrate bottle has a rounded PET body, tapered shoulders, an open ribbed neck, dark
-liquid and a wrapped COLA concentrate label. The bottle and framed display are snapshots from
+liquid and a wrapped COLA concentrate label. It pours from the front, tipped just past level
+with its mouth over the funnel's and its concentrate settled level; the motion cue follows its
+base's swing. The bottle and framed display are snapshots from
 `tools/install-guide/fill_scene.py`, whose funnel and display positions follow the current
 enclosure assembly. The funnel is drawn without its lift-off cover, as it stands during a fill.
 `assets/fill-scene-inputs.json` records the source hashes and motion cue;

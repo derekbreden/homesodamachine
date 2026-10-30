@@ -53,13 +53,16 @@
     const labelTexture = await textureLoader.loadAsync(o.labelUrl);
     labelTexture.colorSpace = THREE.SRGBColorSpace;
     labelTexture.anisotropy = renderer.capabilities.getMaxAnisotropy();
+    // Wrapped in the bottle's own frame, mouth at the origin and base up +Z, then tipped with it.
+    // Its middle faces the camera.
     const positions = [], normals = [], uvs = [], indices = [];
-    const count = 160, angle = Math.atan2(-1, .65);
+    const tilt = (90-o.tip)*Math.PI/180;
+    const count = 160, angle = Math.atan2(o.cam[1]*Math.cos(tilt)+o.cam[2]*Math.sin(tilt), o.cam[0]);
     for (let j = 0; j < 2; j++) {
-      const z = o.mouth[2]+72+j*106, radius = 32.25+j*.43;
+      const z = 72+j*106, radius = 32.25+j*.43;
       for (let i = 0; i <= count; i++) {
         const u = i/count, theta = angle+2*Math.PI*(u-.5);
-        positions.push(o.mouth[0]+radius*Math.cos(theta), o.mouth[1]+radius*Math.sin(theta), z);
+        positions.push(radius*Math.cos(theta), radius*Math.sin(theta), z);
         normals.push(Math.cos(theta), Math.sin(theta), 0);
         uvs.push(1-u, 1-j);
       }
@@ -75,6 +78,8 @@
     const bottleLabel = new THREE.Mesh(geometry,
       new THREE.MeshStandardMaterial({map: labelTexture, roughness: .62, metalness: .015}));
     bottleLabel.name = "bottle-label";
+    bottleLabel.rotation.x = tilt;
+    bottleLabel.position.set(...o.mouth);
     currentGroup.add(bottleLabel);
   }
 }

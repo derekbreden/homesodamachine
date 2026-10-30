@@ -226,12 +226,20 @@ def item(n, title, s, y, x=RIGHT, w=RW, size=13):
     return 51+para(s, x, y+51, w, size, 18)
 
 
-def arrow(x1, y1, x2, y2, head=9):
+def arrow(*points, head=9):
+    """An arrow through x, y pairs: two draw it straight, more follow a curve to its head."""
+    path = list(zip(points[::2], points[1::2]))
+    x2, y2 = path.pop()
+    while len(path) > 1 and math.hypot(x2-path[-1][0], y2-path[-1][1]) < head:
+        path.pop()
+    x1, y1 = path[-1]
     length = math.hypot(x2-x1, y2-y1)
     ux, uy = (x2-x1)/length, (y2-y1)/length
     bx, by = x2-head*ux, y2-head*uy
     shaft = c.beginPath()
-    shaft.moveTo(x1, H-y1)
+    shaft.moveTo(path[0][0], H-path[0][1])
+    for x, y in path[1:]:
+        shaft.lineTo(x, H-y)
     shaft.lineTo(bx, H-by)
     tip = c.beginPath()
     tip.moveTo(x2, H-y2)
@@ -723,16 +731,15 @@ end()
 
 # Interior 26
 header('Bottle first. Then start.', 'YOUR FIRST GLASS / FILL BOTH FLAVORS', 6)
-p = pic('steps/fill-ready.png', M, 133, 278, 279, crop=(295, 330, 1555, 1450))
-arrow(*projected(p, FILL['arrow']['start'], *FILL_POSE),
-      *projected(p, FILL['arrow']['end'], *FILL_POSE), head=10)
+p = pic('steps/fill-ready.png', M, 133, 278, 279, crop=(180, 480, 1360, 1500))
+arrow(*[v for point in FILL['arrow'] for v in projected(p, point, *FILL_POSE)], head=10)
 item('3 / ADD CONCENTRATE', 'Lift off the funnel cover', 'Wipe off water and debris. Lift by the front edge, then invert one whole 14.8 fl oz (440 mL) bottle into the funnel.', 146)
 item('4 / START', 'Tap Start filling', 'Let the machine draw the concentrate into the selected reservoir.', 309)
 end()
 
 # Interior 27
 header('Wait for Filled. Then repeat.', 'YOUR FIRST GLASS / FILL BOTH FLAVORS', 6)
-pic('steps/fill-ready.png', M, 130, 278, 282, crop=(295, 330, 1555, 1450))
+pic('steps/fill-ready.png', M, 130, 278, 282, crop=(180, 480, 1360, 1500))
 item('5 / FILLED', 'Remove the empty bottle', 'When the display says Filled, the bottle is in the reservoir. Press the cover down until it rests evenly on the brim.', 145)
 item('6 / OTHER FLAVOR', 'Repeat the same sequence', 'Select the other image, open Fill, lift off the cover, put its bottle in the funnel, then tap Start filling.', 295)
 end()
