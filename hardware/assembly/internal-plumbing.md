@@ -305,8 +305,8 @@ unbroken through its plain core guide. Only the connection points and
 paired-anchor centres/axes are fixed; the bends and displayed lengths between
 them illustrate routing and may change to clear installed hardware and
 wires. The current drawn warm spans are
-[452.830 mm](RESERVOIR_A_FILL_WARM) for `fluid-14` fill and
-[394.059 mm](RESERVOIR_A_DRAW_WARM) for `fluid-16` draw. Each includes the
+[450.797 mm](RESERVOIR_A_FILL_WARM) for `fluid-14` fill and
+[392.027 mm](RESERVOIR_A_DRAW_WARM) for `fluid-16` draw. Each includes the
 16.891 mm receiving length in its front-valve ATEU44W stem elbow. For the physical blank,
 continue through the guide to the reservoir fill bore or dip-tube tip and
 replace the socket allowance with its actual fully seated insertion mark.
