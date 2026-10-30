@@ -1,4 +1,4 @@
-"""Frozen YZMSZ fixed 0.3 MPa water-regulator estimate; NumPy only."""
+"""Frozen scan-fitted YZMSZ fixed 0.3 MPa regulator exterior; NumPy only."""
 from pathlib import Path
 import copy
 import json
@@ -23,7 +23,7 @@ def instances(rotation=None, translation=None):
              "rotation": np.eye(3).tolist() if rotation is None else np.array(rotation).tolist(),
              "translation": [0.0, 0.0, 0.0] if translation is None else list(translation),
              "kind": "component", "role": "regulator", "context": True,
-             "label": "YZMSZ 0.3 MPa water regulator · estimated size"}]
+             "label": "YZMSZ 0.3 MPa water regulator · scanned exterior"}]
 
 
 def ports(rotation=None, translation=None):

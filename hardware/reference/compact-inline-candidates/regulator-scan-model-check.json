@@ -1,0 +1,96 @@
+{
+  "units": "mm",
+  "method": "All physically retained native observations to reopened four-body STEP tessellated at 0.025 mm; no scale fit or CAD-distance rejection.",
+  "model_source_sha256": "d9d474667db68a6d15f8359beba10e7db97eb38eaec4e28ff120dfa273638a6c",
+  "parameters_sha256": "e85f6df4271059429976c0f4ba5886029bfce52739fc8f995656ed7b9c5a6f61",
+  "step_sha256": "afdabad8d1023c09c74be96d96a4c409966e7d6d09565dc1991062b0de842523",
+  "scan_evidence_sha256": "ad3494a570a91fd1c6192a82f6af6211d9ad4c3350e30edb7376f2d743e0efcf",
+  "retained_cloud_sha256": "773a6dd846d11ace0aabc05ab4964e72e624e69f8929ac20166953c0fa657d44",
+  "observation_voxel_mm": 0.3,
+  "native_assembly_valid": true,
+  "native_solid_count": 4,
+  "each_solid_valid": [
+    true,
+    true,
+    true,
+    true
+  ],
+  "stl_union_valid": true,
+  "stl_union_solids": 1,
+  "stl_watertight": true,
+  "stl_triangles": 35546,
+  "bounds_mm": [
+    [
+      -10.8274,
+      -10.82525974535241,
+      0.0
+    ],
+    [
+      10.8274,
+      10.825259745352408,
+      62.814282797599
+    ]
+  ],
+  "extent_mm": [
+    21.6548,
+    21.650519490704816,
+    62.814282797599
+  ],
+  "all_retained_observations": {
+    "samples": 37393,
+    "p50_p90_p95_p99_max_mm": [
+      0.13457163782187528,
+      0.3604201917838608,
+      0.4477567499610335,
+      0.6232727243760674,
+      1.3108558050844923
+    ],
+    "fraction_within_0_25_mm": 0.7612922204690717,
+    "fraction_within_0_50_mm": 0.9674805444869361
+  },
+  "regions": {
+    "inlet_collet_and_long_neck": {
+      "samples": 8005,
+      "p50_p90_p95_p99_max_mm": [
+        0.2437624521732675,
+        0.5360150281240892,
+        0.617513319882033,
+        0.7556127972336354,
+        1.3108558050844923
+      ],
+      "fraction_within_0_25_mm": 0.5131792629606496,
+      "fraction_within_0_50_mm": 0.8687070580886945
+    },
+    "main_housing_and_rings": {
+      "samples": 15620,
+      "p50_p90_p95_p99_max_mm": [
+        0.0802517384397746,
+        0.2376669081530993,
+        0.305621912711663,
+        0.4176235311654194,
+        0.5397731041550771
+      ],
+      "fraction_within_0_25_mm": 0.9149167733674776,
+      "fraction_within_0_50_mm": 0.9995518565941102
+    },
+    "outlet_fitting_and_collet": {
+      "samples": 13768,
+      "p50_p90_p95_p99_max_mm": [
+        0.17729236612184676,
+        0.336964151788419,
+        0.39495095288135834,
+        0.5116247069580573,
+        0.7545952335139606
+      ],
+      "fraction_within_0_25_mm": 0.731260894828588,
+      "fraction_within_0_50_mm": 0.9885241138872748
+    }
+  },
+  "limits": [
+    "Paint thickness and absolute optical scale are not independently calibrated.",
+    "Putty-hidden lower sectors continue the fitted rotational exterior.",
+    "The visible housing is modeled as round; embossed markings, molding seams and collet finger slots are omitted.",
+    "Material boundaries and hidden joint continuation are display interpretations.",
+    "The 17 mm socket depth follows the OEM catalog; the scan does not qualify insertion stops, seals or pressure performance."
+  ]
+}

@@ -40,4 +40,4 @@ def instance(kind="check", rotation=None, translation=None, name=None):
             "translation": [0., 0., 0.] if translation is None else list(translation),
             "kind": "component", "role": "gas", "context": True,
             "label": "Fluidfit HCVU1/4-1/4G · OEM dimensioned layout candidate" if check else
-                     "PISCO RVFUP1/4-1/4-0.3 · OEM dimensioned layout candidate"}
+                     "PISCO RVFUP1/4-1/4-0.3 · scanned exterior"}

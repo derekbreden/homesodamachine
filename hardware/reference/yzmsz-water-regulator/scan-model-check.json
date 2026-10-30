@@ -1,0 +1,100 @@
+{
+  "units": "mm",
+  "method": "All physically retained native observations to reopened STEP tessellated at 0.025 mm; no scale fit or CAD-distance rejection.",
+  "model_source_sha256": "3a3eca8266d6ad83408e2640f097bc4a2c7ea0dd83ef012edf93bd15dbd6e3c6",
+  "parameters_sha256": "078df0097af8af534ce1b0701e27d9ea7e109f75af1bcb8a6d5517fe5c810816",
+  "step_sha256": "80ad0ffbdd68a008240ac77d089afa0a9f658aa76ca04dd875df0200f5014e2c",
+  "scan_evidence_sha256": "d1459257494f2cf260ee6213cc7eac1bec37a829ed4b37a6458974993fed533c",
+  "retained_cloud_sha256": "70d92d56c1fcbfdcf26d38d69456dbbe0fec7fc723bcc533de81592ba4b235eb",
+  "observation_voxel_mm": 0.3,
+  "native_solid_valid": true,
+  "native_solid_count": 1,
+  "bounds_mm": [
+    [
+      -7.43360928367915e-16,
+      -13.772876973980518,
+      -13.7756
+    ],
+    [
+      68.117304652632,
+      13.772876973980516,
+      13.775600000000003
+    ]
+  ],
+  "extent_mm": [
+    68.117304652632,
+    27.545753947961032,
+    27.5512
+  ],
+  "all_retained_observations": {
+    "samples": 58895,
+    "p50_p90_p95_p99_max_mm": [
+      0.08202227810261663,
+      0.24355789678441855,
+      0.3640274564093769,
+      0.9465976001802914,
+      2.411524205624402
+    ],
+    "fraction_within_0_25_mm": 0.9038797860599371,
+    "fraction_within_0_50_mm": 0.9696748450632482
+  },
+  "regions": {
+    "inlet_collet_and_collar": {
+      "samples": 10032,
+      "p50_p90_p95_p99_max_mm": [
+        0.12516466847601332,
+        0.6038858517582852,
+        0.9473918173867912,
+        1.5926016657625715,
+        2.411524205624402
+      ],
+      "fraction_within_0_25_mm": 0.7052432216905901,
+      "fraction_within_0_50_mm": 0.8722089314194578
+    },
+    "windowed_cap": {
+      "samples": 16616,
+      "p50_p90_p95_p99_max_mm": [
+        0.07911764528375674,
+        0.16907512291889681,
+        0.2175471493430637,
+        0.609616507014822,
+        1.2824479999964478
+      ],
+      "fraction_within_0_25_mm": 0.9596774193548387,
+      "fraction_within_0_50_mm": 0.9858570052961001
+    },
+    "long_housing": {
+      "samples": 17280,
+      "p50_p90_p95_p99_max_mm": [
+        0.06711138107646719,
+        0.1195184393853202,
+        0.13671878836261367,
+        0.14957125209036076,
+        0.19600794154985843
+      ],
+      "fraction_within_0_25_mm": 1.0,
+      "fraction_within_0_50_mm": 1.0
+    },
+    "outlet_neck_and_collet": {
+      "samples": 14967,
+      "p50_p90_p95_p99_max_mm": [
+        0.10887854708398542,
+        0.2899829560270699,
+        0.3632156363202097,
+        0.7028428957329693,
+        1.6860702021504586
+      ],
+      "fraction_within_0_25_mm": 0.8641010222489477,
+      "fraction_within_0_50_mm": 0.9820271263446249
+    }
+  },
+  "limits": [
+    "Paint thickness and optical scale are not independently calibrated.",
+    "Putty-hidden lower sectors continue the fitted rotational exterior.",
+    "Window cutters approximate the exposed openings; the obscured fourth window follows opposing symmetry.",
+    "Collet finger gaps, embossed lettering and the flow arrow are omitted.",
+    "Mouth recesses and 15 mm insertion are display estimates; hidden regulator internals and seals are unqualified."
+  ],
+  "stl_watertight": true,
+  "stl_triangles": 38450
+}

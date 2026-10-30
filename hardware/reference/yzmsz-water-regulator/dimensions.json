@@ -2,8 +2,8 @@
   "units": "mm",
   "part": "YZMSZ fixed 0.3 MPa water pressure regulator, ASIN B0CGS34P93",
   "selected_variant": "1/4 inch O.D. 0.3 MPa Pressure",
-  "status": "Purchased reference; exterior layout estimate",
-  "canonical_frame": "Native +X flow; broad/windowed inlet mouth X0 to narrow-neck outlet mouth X67",
+  "status": "Purchased reference; scan-fitted exterior",
+  "canonical_frame": "Native +X flow; broad/windowed inlet release face X0 to narrow-neck outlet release face at measured length",
   "published": {
     "tube_od_mm": 6.35,
     "connection_type": "Native push-connect at both ends",
@@ -12,101 +12,273 @@
     "application": "Reverse osmosis and household water filtration",
     "housing_material": "Engineering plastic, exact polymer unspecified"
   },
-  "estimated_envelope": {
-    "tube_mouth_span_mm": 67.0,
-    "maximum_diameter_mm": 27.0,
-    "length_range_mm": [
-      60.0,
-      74.0
-    ],
-    "diameter_range_mm": [
-      24.0,
-      30.0
-    ],
+  "measured_envelope": {
+    "tube_mouth_span_mm": 68.11731242701278,
+    "maximum_diameter_mm": 27.5512,
     "profile_x_radius_mm": [
       [
         0.0,
-        5.8
+        6.6956
       ],
       [
-        1.8,
-        5.8
+        0.075,
+        6.6956
       ],
       [
-        1.8,
-        8.0
+        0.375,
+        6.9081
       ],
       [
-        4.0,
-        8.0
+        0.825,
+        7.0389
       ],
       [
-        4.0,
-        10.5
+        2.325,
+        7.1487
       ],
       [
-        7.0,
-        10.5
+        3.075,
+        7.1318
       ],
       [
-        7.0,
-        12.6
+        3.525,
+        7.2509
       ],
       [
-        9.0,
-        12.6
+        4.575,
+        7.2681
       ],
       [
-        9.0,
-        13.5
+        4.875,
+        7.3525
       ],
       [
-        23.5,
-        13.5
+        5.025,
+        7.7241
       ],
       [
-        27.0,
-        12.0
+        5.175,
+        10.1222
       ],
       [
-        50.0,
-        12.0
+        5.325,
+        10.2715
       ],
       [
-        52.5,
-        11.0
+        5.775,
+        10.3886
       ],
       [
-        52.5,
-        7.0
+        9.525,
+        10.3006
       ],
       [
-        56.0,
-        7.0
+        9.675,
+        10.5251
       ],
       [
-        57.0,
-        9.6
+        9.825,
+        13.3685
       ],
       [
-        63.0,
-        9.6
+        9.975,
+        13.5381
       ],
       [
-        64.5,
-        7.5
+        10.275,
+        13.6378
       ],
       [
-        65.0,
-        5.8
+        11.625,
+        13.6382
       ],
       [
-        67.0,
-        5.8
+        12.375,
+        13.7687
+      ],
+      [
+        12.825,
+        13.7756
+      ],
+      [
+        15.675,
+        13.6525
+      ],
+      [
+        19.275,
+        13.6519
+      ],
+      [
+        21.375,
+        13.5583
+      ],
+      [
+        23.775,
+        13.5384
+      ],
+      [
+        24.525,
+        13.3958
+      ],
+      [
+        26.775,
+        12.7577
+      ],
+      [
+        27.525,
+        12.6571
+      ],
+      [
+        30.225,
+        12.5989
+      ],
+      [
+        31.275,
+        12.6578
+      ],
+      [
+        41.325,
+        12.6293
+      ],
+      [
+        47.175,
+        12.525
+      ],
+      [
+        47.775,
+        12.3894
+      ],
+      [
+        48.075,
+        12.2282
+      ],
+      [
+        48.375,
+        11.9936
+      ],
+      [
+        48.675,
+        11.5307
+      ],
+      [
+        48.825,
+        7.2426
+      ],
+      [
+        48.975,
+        6.7754
+      ],
+      [
+        49.275,
+        6.4324
+      ],
+      [
+        49.425,
+        6.3781
+      ],
+      [
+        50.325,
+        6.334
+      ],
+      [
+        50.775,
+        6.6035
+      ],
+      [
+        50.925,
+        6.8482
+      ],
+      [
+        51.225,
+        7.5403
+      ],
+      [
+        51.375,
+        8.0806
+      ],
+      [
+        51.825,
+        8.5763
+      ],
+      [
+        52.125,
+        8.7719
+      ],
+      [
+        52.725,
+        8.8438
+      ],
+      [
+        55.725,
+        8.817
+      ],
+      [
+        55.875,
+        8.9561
+      ],
+      [
+        56.175,
+        9.8022
+      ],
+      [
+        56.325,
+        9.9924
+      ],
+      [
+        56.625,
+        10.0705
+      ],
+      [
+        61.575,
+        10.195
+      ],
+      [
+        62.475,
+        10.1635
+      ],
+      [
+        62.625,
+        10.1127
+      ],
+      [
+        62.925,
+        9.7856
+      ],
+      [
+        63.075,
+        7.2492
+      ],
+      [
+        63.675,
+        7.2757
+      ],
+      [
+        64.425,
+        7.0927
+      ],
+      [
+        64.875,
+        6.8717
+      ],
+      [
+        65.625,
+        6.9364
+      ],
+      [
+        66.225,
+        6.8653
+      ],
+      [
+        66.675,
+        6.8821
+      ],
+      [
+        68.1173,
+        6.6128
       ]
     ],
-    "basis": "Seller photo proportions and dimensioned Frizzlife PRV01 66.802 x 26.67 mm housing as a size proxy; common manufacture is not established",
-    "scope": "Exterior layout estimate, not a measured or manufacturer-dimensioned envelope. End shoulder positions, collet sizes, window recesses, open display bore and 15 mm tube insertion are estimates."
+    "basis": "872-frame native MINI 2 capture, 0.10 mm fusion, rigid registration at unit scale; scan-evidence.json",
+    "scope": "Fitted exterior with rotational continuation below the putty boundary. Window cuts approximate their observed opening. Blind bore closures and 15 mm insertion remain display estimates."
   },
   "tube_ports": {
     "inlet": {
@@ -126,7 +298,7 @@
     },
     "outlet": {
       "point_mm": [
-        67.0,
+        68.11731242701278,
         0.0,
         0.0
       ],
@@ -152,11 +324,11 @@
         0.0,
         0.0
       ],
-      "native_face_area_mm2": 74.01395942316704
+      "native_face_area_mm2": 8.108637123855175
     },
     "outlet_push_connect_mouth": {
       "point_mm": [
-        67.0,
+        68.11731242701278,
         0.0,
         0.0
       ],
@@ -165,31 +337,31 @@
         0.0,
         0.0
       ],
-      "native_face_area_mm2": 74.01395942316704
+      "native_face_area_mm2": 4.646804589501403
     }
   },
   "geometry": {
     "yzmsz-water-regulator": {
       "mesh": "geometry/yzmsz-water-regulator.npz",
-      "mesh_sha256": "16a6f10174b160630ca6e0db4b2d39616337712ec002f533a79069f28558a1c6",
+      "mesh_sha256": "5a54a29f4f92dccfa5945fc8b514c56e349cd86335e09609798e1367f594b3d4",
       "step": "geometry/yzmsz-water-regulator.step",
-      "step_sha256": "ea55169a72b0fb7a257a22143247293c67ea1fbebd0306eae53ae07c452de1ea",
+      "step_sha256": "80ad0ffbdd68a008240ac77d089afa0a9f658aa76ca04dd875df0200f5014e2c",
       "bounds_mm": [
         [
-          -6.436411724981112e-16,
-          -13.498489379882812,
-          -13.5
+          -7.430282068806682e-16,
+          -13.77405834197998,
+          -13.77560043334961
         ],
         [
-          67.0,
-          13.498489379882812,
-          13.49395751953125
+          68.11730194091797,
+          13.77405834197998,
+          13.769434928894043
         ]
       ],
       "valid_native_solid": true,
       "native_solid_count": 1,
-      "volume_mm3": 25192.154682340384,
-      "triangles": 5516
+      "volume_mm3": 26228.16414627396,
+      "triangles": 22584
     }
   },
   "sources": [
@@ -203,15 +375,12 @@
       "title": "Selected fixed-regulator seller photograph",
       "url": "https://m.media-amazon.com/images/I/31M3PQOoBYL._AC_.jpg",
       "supports": "Stepped cylindrical housing, two visible cap windows, axial collets, and embossed flow arrow from broad cap end toward narrow-neck connector end; not a dimensioned drawing"
-    },
-    {
-      "title": "Frizzlife PRV01 manufacturer dimension drawing, used only as a scale proxy",
-      "url": "https://www.frizzlife.com/cdn/shop/files/PRV013_77f49cde-2932-4349-856b-636ef15aa6ae_1.jpg?v=1758007365&width=2000",
-      "supports": "A photographed housing of similar proportions has 2.63 inch overall length and 1.05 inch maximum diameter; this does not establish YZMSZ dimensions or common manufacture"
     }
   ],
+  "scan_evidence_sha256": "d1459257494f2cf260ee6213cc7eac1bec37a829ed4b37a6458974993fed533c",
+  "reference_parameters_sha256": "078df0097af8af534ce1b0701e27d9ea7e109f75af1bcb8a6d5517fe5c810816",
   "unpublished": [
-    "Exact physical dimensions",
+    "Calibrated absolute dimensions and paint thickness",
     "Outlet pressure tolerance and flow curve",
     "Maximum inlet pressure and service temperature",
     "Exact housing polymer"

@@ -1,16 +1,16 @@
-"""Editable OEM-dimensioned inline fitting layout references.
-
-Manual CAD-queue build. PISCO and Fluidfit use exact imperial family rows.
-"""
+"""Scan-fitted PISCO regulator and OEM-dimensioned Fluidfit reference."""
 from pathlib import Path
+import argparse
 import hashlib
 import json
-import math
+import sys
 
 import cadquery as cq
 import numpy as np
 
 HERE = Path(__file__).resolve().parent
+sys.path.insert(0, str(HERE.parents[1] / 'scripts'))
+from _cadq_export import export_assembly
 LENGTH = 45.5
 MAX_DIAMETER = 15.5
 TUBE_DIAMETER = 6.35
@@ -28,15 +28,10 @@ CHECK_PROFILE = [
 ]
 REG_LENGTH = 62.4
 REG_INSERTION = 17.
-REG_FRONT_PROFILE = [
-    (2., 6.2), (3.2, 6.2), (3.8, 7.4), (4.4, 7.5),
-    (17., 7.5), (18., 9.8), (18.8, 10.), (24.7, 10.),
-    (24.7, 10.75), (26.5, 10.75),
-]
-REG_REAR_PROFILE = [
-    (42.2, 10.), (52.8, 10.), (53.2, 9.7), (54., 7.2),
-    (55., 5.6), (59.4, 5.6), (60.4, 5.8),
-]
+
+
+def regulator_parameters():
+    return json.loads((HERE/'regulator-scan-parameters.json').read_text())
 
 
 def sha(path):
@@ -64,19 +59,24 @@ def check_parts():
 
 
 def regulator_parts():
+    data = regulator_parameters()
+    length = data['length_mm']
     sockets = cylinder(TUBE_DIAMETER/2, -.01, REG_INSERTION).fuse(
-        cylinder(TUBE_DIAMETER/2, REG_LENGTH-REG_INSERTION, REG_LENGTH+.01))
-    # The source'sL1 andL2 land at24.7 and42.2 from the inlet, respectively.
-    #20AF clipped byØ21.5 is a wrench-profile estimate within the stated max.
-    hexagon = (cq.Workplane("XY").workplane(offset=26.5)
-        .polygon(6, 20/math.cos(math.pi/6)).extrude(42.2-26.5).val()
-        .intersect(cylinder(10.75, 26.5, 42.2)))
-    body = turned(REG_FRONT_PROFILE).fuse(hexagon).clean().cut(sockets)
-    outlet_body = turned(REG_REAR_PROFILE).cut(sockets)
-    inlet_collet = cylinder(6.75, 0., 2.).cut(sockets)
-    outlet_collet = cylinder(6.75, 60.4, REG_LENGTH).cut(sockets)
-    return [("body", body), ("outlet_fitting", outlet_body),
-            ("inlet_collet", inlet_collet), ("outlet_collet", outlet_collet)]
+        cylinder(TUBE_DIAMETER/2, length-REG_INSERTION, length+.01))
+    # The visibly enlarged inlet guide is a scan-fitted display counterbore.
+    # The regulating mechanism and the hidden transition to seals are omitted.
+    sockets = sockets.fuse(cylinder(4.0, -.01, 6.8))
+    sockets = sockets.fuse(cq.Solid.makeCone(4., TUBE_DIAMETER/2, .7,
+                          cq.Vector(0, 0, length+.01), cq.Vector(0, 0, -1)))
+    profile = np.array(data['profile_z_radius_mm'])
+    result = []
+    for name in ('body', 'outlet_fitting', 'inlet_collet', 'outlet_collet'):
+        lo, hi = data['component_ranges_mm'][name]
+        middle = profile[(profile[:, 0] > lo) & (profile[:, 0] < hi)]
+        trimmed = [[lo, float(np.interp(lo, profile[:, 0], profile[:, 1]))],
+                   *middle.tolist(), [hi, float(np.interp(hi, profile[:, 0], profile[:, 1]))]]
+        result.append((name, turned(trimmed).cut(sockets).clean()))
+    return result
 
 
 def export_candidate(candidate, title, pieces):
@@ -100,7 +100,7 @@ def export_candidate(candidate, title, pieces):
             "valid_native_solid": bool(solid.isValid()), "native_solid_count": len(solid.Solids()),
             "volume_mm3": float(solid.Volume()), "triangles": len(f)})
     step = folder/(candidate+".step")
-    assembly.export(str(step))
+    export_assembly(assembly, str(step))
     v, f = np.vstack(merged_v), np.vstack(merged_f)
     mesh = folder/(candidate+".npz")
     np.savez_compressed(mesh, v=v, f=f)
@@ -112,10 +112,16 @@ def export_candidate(candidate, title, pieces):
 
 
 def main():
-    check = export_candidate("candidate-check", "Fluidfit_HCVU_quarter_inch_layout", check_parts())
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--regulator-only', action='store_true', help='Export only the scanned PISCO reference.')
+    args = parser.parse_args()
+    check = (json.loads((HERE/'dimensions.json').read_text())['fluidfit_hcvu_quarter']
+             if args.regulator_only else export_candidate("candidate-check", "Fluidfit_HCVU_quarter_inch_layout", check_parts()))
     regulator = export_candidate("candidate-regulator", "PISCO_RVFUP_quarter_inch_layout", regulator_parts())
+    fitted = regulator_parameters()
+    actual_length = fitted['length_mm']
     dimensions = {
-        "units": "mm", "model_scope": "Off-the-shelf layout candidates; no purchasing, installation or gas qualification implied",
+        "units": "mm", "model_scope": "PISCO scanned exterior and Fluidfit OEM-dimensioned layout; no pressure-performance qualification implied",
         "canonical_frame": "Flow+Z, inlet release faceZ0, outlet release faceZlength; radial axesX/Y",
         "pisco_rvfup_quarter": {
             "requested_code": "RVFUP1/4-1/4-0.3", "dimensioned_oem_family": "RVFUP1/4-1/4 with preset code",
@@ -128,17 +134,20 @@ def main():
                 "inlet": {"point_mm": [0., 0., 0.], "outward_axis": [0., 0., -1.],
                           "tube_od_mm": TUBE_DIAMETER, "insertion_mm": REG_INSERTION,
                           "tube_stop_mm": [0., 0., REG_INSERTION]},
-                "outlet": {"point_mm": [0., 0., REG_LENGTH], "outward_axis": [0., 0., 1.],
+                "outlet": {"point_mm": [0., 0., actual_length], "outward_axis": [0., 0., 1.],
                            "tube_od_mm": TUBE_DIAMETER, "insertion_mm": REG_INSERTION,
-                           "tube_stop_mm": [0., 0., REG_LENGTH-REG_INSERTION]},
+                           "tube_stop_mm": [0., 0., actual_length-REG_INSERTION]},
             },
-            "flow_mapping": "OEM long-neckIN is nativeZ0; short-neckOUT is nativeZ62.4; normal regulated flow+Z",
+            "flow_mapping": "Long-neck IN is native Z0; short-neck OUT is at the measured mouth span; normal regulated flow +Z",
             "published_axial_landmarks_from_inlet_mm": {"B_minus_L1": 24.7, "B_minus_L2": 42.2},
-            "estimated_form": {"front_profile_z_radius_mm": REG_FRONT_PROFILE,
-                "rear_profile_z_radius_mm": REG_REAR_PROFILE,
-                "central_wrench_af_mm": 20., "central_wrench_clipped_max_diameter_mm": 21.5,
-                "central_wrench_span_z_mm": [26.5, 42.2], "collet_outer_diameter_mm": 13.5,
-                "scope": "Undimensioned necks, collets, wrench flats and material boundaries follow the OEM drawing/photo approximately; measured landmarks and maximum envelope remain fixed"},
+            "fitted_exterior": {"mouth_span_mm": actual_length,
+                "maximum_profile_diameter_mm": 2*max(r for z, r in fitted['profile_z_radius_mm']),
+                "profile_z_radius_mm": fitted['profile_z_radius_mm'],
+                "component_ranges_mm": fitted['component_ranges_mm'],
+                "basis": "1,819-frame native MINI 2 capture at 0.10 mm fusion; regulator-scan-evidence.json",
+                "scope": "Round housing, necks, retaining rings and release caps fitted from the exposed scan; hidden lower sectors continued rotationally; material boundaries are display interpretations"},
+            "scan_evidence_sha256": sha(HERE/'regulator-scan-evidence.json'),
+            "scan_parameters_sha256": sha(HERE/'regulator-scan-parameters.json'),
             "socket_scope": "Both blind bores reach17mm from release face, without modeling regulator internals",
             "operating_scope": "OEM specifies air and permits reverse free flow; retain a separate downstream check. Exact CO2 service is not established by this layout reference.",
             "source_materials": "OEM construction includes PBT resin body, aluminum fitting body, NBR/HNBR seals and POM release rings; the native solids estimate the visible material split",
