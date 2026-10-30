@@ -19,7 +19,7 @@ https://claude.ai/artifact/RppC6x7HmYNP8n2d6EyTMN.
 | Label tiles | [1.8](TILE_T) mm tiles in [2](CHANNEL_DEPTH) mm channels between side rails. The bottom tiles stand on the channel floor at Z[252](TILE_SEAT_Z). The TAP tile is bored d[19.28](TAP_BORE_D) on the PP010822E's axis. |
 | DIGITEN flow meter | Straight into the soda union: its outlet collet face is on the union's inboard collet face, with no tube showing. The larger side is down. |
 | Soda inlet | Production's continuous inlet, laid off the meter's inlet: the printed R[14](BEND_R) bend holder, the 1/4 in tube and one [52](FOAM_LEN) mm piece of 1 in foam. The bend starts [4](BEND_OFF_METER) mm off the meter's mouth and turns straight down, [28.6](DROP_LEN) mm to the cold-core cap's face. |
-| V-K, its stem elbow and its wall | Production's arrangement, moved [1.4](VK_EAST) mm east, [11.2](VK_AFT) mm aft and [7.0](VK_DOWN) mm down, until the elbow's release face is on the union tee's east collet face. The elbow's socket is [0.2](VK_TILT)° off the tee's run. The wall carries V-K's posts as production's does and reaches the side wall's inner face instead of the cap, with a [1.9](VK_ARM) mm arm. |
+| V-K, its stem elbows and its wall | Production's arrangement, moved [1.4](VK_EAST) mm east, [11.2](VK_AFT) mm aft and [7.0](VK_DOWN) mm down, until the top elbow's release face is on the union tee's east collet face. The top elbow's socket is [0.2](VK_TILT)° off the tee's run. The outlet elbow, under V-K, stands in a pocket in the cold-core cap's lid. The wall carries V-K's posts as production's does and reaches the side wall's inner face instead of the cap, with a [1.9](VK_ARM) mm arm. |
 | G Ganen carbonator pump | Where production stands it on the cold-core cap, without its elbows |
 | neoFit [ACVUS-44](../../../reference/neofit-acvus44-check/README.md) stem check valve | Its stem in the Pisco's outlet, up to the collar on the outlet's release face, with the tip [1.4](CHECK_TIP_SHORT) mm short of the tube stop. The socket faces forward, its mouth at Y[383.6](CHECK_MOUTH_Y). |
 | CO2 tube | Red 1/4 in LLDPE, [100](CO2_LEN) mm from the check's socket to the cap at X[59.1](CO2_LAND_X) Y[354.7](CO2_LAND_Y), between V-K and the pump, and on straight down past the carbonator's rim. It leaves the socket straight forward, turns down in one bend no tighter than R[25](CO2_BEND), and comes onto the cap in an S no tighter than R[52](CO2_S_R). |
@@ -68,9 +68,19 @@ the two reservoirs are drawn.
 
 ## The stub
 
-The stub is the shortest, in 0.5 mm steps, that stands V-K, its elbow and its wall
+The stub is the shortest, in 0.5 mm steps, that stands V-K, its elbows and its wall
 [1](VK_CLEAR) mm off the soda inlet. At [9.5](STUB) mm, V-K's back is [1.0](VK_TO_SODA) mm in front of
 the foam on the drop.
+
+## V-K's outlet elbow in the cap
+
+V-K's outlet elbow stands [5.5](ELBOW_INTO_LID) mm into the cold-core cap's [5.4](LID_T) mm lid. It is
+snapped into place after the back assembly rides home over the core, so the lid has a pocket only
+where the elbow stands. The pocket is the elbow's lower half turned about its socket axis in
+[6](POCKET_STEPS) plain steps, [0.25](POCKET_GAP) mm or more off the elbow and [0.35](POCKET_FLOOR_GAP) mm at
+the floor. It is [5.8](POCKET_DEPTH) mm deep, through the lid, so one flat block under the lid backs it
+with [3](POCKET_WALL) mm under the pocket's floor. The block stands [3.4](BACKING_BELOW_LID) mm down into
+the foam.
 
 ## The CO2 line
 
@@ -110,9 +120,11 @@ No two parts overlap, apart from:
 
 - the scanned fittings' own thread mating;
 - the tube's [15.7](METER_INSERTION) mm insertion into the meter's inlet;
-- the stem elbow in V-K, as production stands them: its tip [5.3](STEM_PAST_PORT) mm past the bottom of
-  V-K's modelled port, and its hub [0.21](HUB_INTO_VK) mm into the top of the port's boss;
-- the elbow's release face, [0.02](FOLD_INTO_TEE) mm into the union tee's collet on one side, from the
+- the stem elbows in V-K, as production stands them: the top one's tip [5.3](STEM_PAST_PORT) mm past the
+  bottom of V-K's modelled inlet port and its hub [0.21](HUB_INTO_VK) mm into the top of the port's boss,
+  and the outlet one's tip [5.3](OUTLET_STEM_PAST_PORT) mm past the top of its port and its hub
+  [0.21](OUTLET_HUB_INTO_VK) mm into the bottom of that port's boss;
+- the top elbow's release face, [0.02](FOLD_INTO_TEE) mm into the union tee's collet on one side, from the
   [0.2](VK_TILT)° between them.
 
 ## Rebuild

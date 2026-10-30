@@ -1,6 +1,6 @@
 {
  "title": "Rear-port rebuild",
- "lede": "Back-top cut to the port corner, without its mounting brackets: the 9 mm ceiling, the rear wall and the east side wall, with the label tiles outside in channels between side rails. Inside are the four bulkheads, the ASSE chain out to a JG union tee on a 9.5 mm stub, the Pisco with a neoFit ACVUS-44 check in its outlet, the flow meter straight into the soda union, the meter's inlet turned straight down through production's R14 holder under 1 in foam, and the G Ganen carbonator pump where production stands it, without its elbows. V-K (amber), its stem elbow and its printed wall stand as production stands them, moved with the union tee; the wall reaches the side wall instead of the cap. The CO2 tube, red, leaves the check forward in one bend, comes onto the cap in an S between V-K and the pump, and runs straight down past the carbonator's rim. A shows the water split and V-K alone, G the CO2 tube among its neighbours, and H the tube beside the carbonator, its coil and the two reservoirs under the cap. B and F are cut at X77.5, D at X60. I to M show the seats on back-top and the snap caps that hold the ASSE chain, the Pisco and the meter in them: in place, with the caps off, and cut across.",
+ "lede": "Back-top cut to the port corner, without its mounting brackets: the 9 mm ceiling, the rear wall and the east side wall, with the label tiles outside in channels between side rails. Inside are the four bulkheads, the ASSE chain out to a JG union tee on a 9.5 mm stub, the Pisco with a neoFit ACVUS-44 check in its outlet, the flow meter straight into the soda union, the meter's inlet turned straight down through production's R14 holder under 1 in foam, and the G Ganen carbonator pump where production stands it, without its elbows. V-K (amber), its stem elbows and its printed wall stand as production stands them, moved with the union tee; the wall reaches the side wall instead of the cap. The CO2 tube, red, leaves the check forward in one bend, comes onto the cap in an S between V-K and the pump, and runs straight down past the carbonator's rim. A shows the water split and V-K alone, G the CO2 tube among its neighbours, and H the tube beside the carbonator, its coil and the two reservoirs under the cap. B and F are cut at X77.5, D at X60. I to M show the seats on back-top and the snap caps that hold the ASSE chain, the Pisco and the meter in them: in place, with the caps off, and cut across. N shows V-K's outlet elbow in its pocket in the cold-core cap's lid, and O the same cut across the elbow's socket where it is fullest.",
  "frame": "each",
  "sync": false,
  "columns": 2,
@@ -31,6 +31,7 @@
       "water-split-stub*",
       "jg-pp0208e*",
       "tee-fold*",
+      "lower-valve-elbow*",
       "vk-solenoid*",
       "vk-wall*",
       "soda-*",
@@ -444,6 +445,7 @@
       "vk-solenoid*",
       "vk-wall*",
       "tee-fold*",
+      "lower-valve-elbow*",
       "g-ganen-pump*"
      ]
     }
@@ -662,6 +664,106 @@
      "highlight": [
       "*-snap-cap*"
      ]
+    }
+   ]
+  },
+  {
+   "name": "V-K's outlet elbow in the cap's lid",
+   "view": {
+    "az": -130,
+    "el": 32
+   },
+   "focus": {
+    "center": [
+     68,
+     307.5,
+     255
+    ],
+    "radius": 30
+   },
+   "models": [
+    {
+     "step": "hardware/assembly/scenes/out/rear-port-rebuild-lid.step",
+     "highlight": [
+      "lower-valve-elbow*"
+     ],
+     "ghost": [
+      "vk-wall*"
+     ]
+    }
+   ],
+   "marks": [
+    {
+     "at": [
+      56.4,
+      307.5,
+      253.4
+     ],
+     "text": "pocket 0.25 mm off the elbow",
+     "dx": -60,
+     "dy": 40
+    },
+    {
+     "at": [
+      72.0,
+      300.0,
+      253.4
+     ],
+     "text": "5.5 mm into the 5.4 mm lid",
+     "dx": -40,
+     "dy": -60
+    }
+   ]
+  },
+  {
+   "name": "Cut across the outlet elbow at X62.8",
+   "view": {
+    "az": 180,
+    "el": 0
+   },
+   "focus": {
+    "center": [
+     62.8,
+     307.5,
+     251
+    ],
+    "radius": 15
+   },
+   "models": [
+    {
+     "step": "hardware/assembly/scenes/out/rear-port-rebuild-lid-at-62.8.step"
+    }
+   ],
+   "marks": [
+    {
+     "at": [
+      62.8,
+      307.5,
+      247.59
+     ],
+     "text": "0.35 mm at the floor",
+     "dx": 70,
+     "dy": 10
+    },
+    {
+     "at": [
+      62.8,
+      307.5,
+      244.59
+     ],
+     "text": "3 mm under the floor: a block under the lid",
+     "dx": 60,
+     "dy": 40
+    },
+    {
+     "at": [
+      62.8,
+      318.5,
+      250.7
+     ],
+     "text": "5.4 mm lid",
+     "dx": -60,
+     "dy": 20
     }
    ]
   }
