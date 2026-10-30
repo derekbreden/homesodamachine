@@ -12,8 +12,8 @@ All six labels are [32](RING_OD) mm wide, with [2](RING_LOWER_RADIUS) mm lower-c
 | fitting | John Guest PP1208E | neoFit ABU44 |
 | width | [32](RING_OD) | [32.00](CO2_RING_OD) |
 | bore | Ø[17.44](RING_BORE) | Ø[17.3](CO2_RING_BORE) |
-| height | [29.79](RING_TALL) mm | [30.01](CO2_RING_TALL) mm |
-| volume | [1.47](RING_VOL) cm³ | [1.41](CO2_RING_VOL) cm³ |
+| height | [29.02](RING_TALL) mm | [30.01](CO2_RING_TALL) mm |
+| volume | [1.42](RING_VOL) cm³ | [1.41](CO2_RING_VOL) cm³ |
 
 The 4 mm OVER chip is [32](RING_OD) × 29.789 mm, with a Ø15.3 mm barrel opening and a 2 mm mounting thickness. Its bottom edge is 11 mm below the bore axis. The OVER word stands 0.48 mm proud, in black on white.
 
