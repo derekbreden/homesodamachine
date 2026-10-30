@@ -206,7 +206,7 @@ def _station(carries, name, port):
         point, axis = assembly.cap_conduit(port)
         diameter = 6.35
     elif name in ('soda-stem-elbow', 'carbonator-fold', 'soda-outlet-return-stem'):
-        point, axis, diameter = (0., 19.05, 0.), (0., 1., 0.), 6.35
+        (point, axis), diameter = parts.stem_elbow_reference().socket(), 6.35
     else:
         import _lines
         station, diameter = _lines.STATIONS[name][port]
@@ -247,6 +247,10 @@ def route_specifications(station):
         a, ua, _ = station(*source)
         b, ub, _ = station(*destination)
         outside = [a, *points, b] if suffix is None else [a, *points]
+        # Butted sockets whose release faces overlap leave the tube straight
+        # between the two receiving depths.
+        if not points and suffix is None and prefix is None and _dot(_sub(b, a), ua) < 0.:
+            outside = []
         full = ([_sub(a, _mul(ua, source_depth)), *outside] if prefix is None else
                 [prefix[-1]['points_mm'][-1], *points, *([b] if suffix is None else [])])
         if suffix is None:

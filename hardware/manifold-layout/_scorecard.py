@@ -1209,6 +1209,7 @@ def selected_mate_contacts(a, placed, clashes) -> dict:
         return cq.Solid.makeCylinder(radius + margin, length + 2 * margin,
                                      cq.Vector(*origin), cq.Vector(*direction))
 
+    shoulder = selected_parts.stem_elbow_reference().stem_shoulder()[0][0]
     for stem, (host, depth) in stem_hosts.items():
         pair = frozenset((stem, host))
         if pair not in pending:
@@ -1218,7 +1219,7 @@ def selected_mate_contacts(a, placed, clashes) -> dict:
             start = frame.at('outlet')
             direction = tuple(-v for v in frame.normal('outlet'))
         else:
-            start, direction = a.carries[stem](((-6.0452 - depth, 0., 0.), (1., 0., 0.)))
+            start, direction = a.carries[stem](((shoulder - depth, 0., 0.), (1., 0., 0.)))
         regions[pair] = (cylinder(3.175, start, direction, depth),
                          f'NeoFit Ø6.35 stem, selected {depth:g} mm socket engagement')
 

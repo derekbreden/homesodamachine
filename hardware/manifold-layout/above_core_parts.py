@@ -107,6 +107,11 @@ def tee_reference():
     return _module('above_core_pp0208e', 'reference/tee-connector/tee_connector.py')
 
 
+def stem_elbow_reference():
+    """The scan-fitted ATEU44W: its socket release face and stem shoulder."""
+    return _module('above_core_ateu44w', 'reference/neofit-stem-elbow/neofit_stem_elbow.py')
+
+
 def _frame(rotation=IDENTITY, translation=ORIGIN):
     return {'rotation': rotation, 'translation_mm': translation}
 
@@ -160,7 +165,7 @@ def _asse_cuff(outlet=False):
 @cache
 def stem_elbow(depth=12.7):
     """Stock NeoFit elbow, cut to the receiving socket's specified depth."""
-    shoulder = -6.0452
+    shoulder = stem_elbow_reference().stem_shoulder()[0][0]
     tip = shoulder - float(depth)
     # Only the straight male stem is cut. The body, collet and shoulder are
     # the same native reference for every receiving family.
@@ -366,6 +371,18 @@ def _offset(point, vector, length=1.):
     return [point[i] + vector[i] * length for i in range(3)]
 
 
+def _link(a, axis_a, depth_a, b, axis_b, depth_b):
+    """Tube between two facing sockets, each end at its receiving depth.
+
+    Where one release face stands past the other, the two sockets overlap
+    and the tube runs straight between the two receiving depths.
+    """
+    ends = _offset(a, axis_a, -depth_a), _offset(b, axis_b, -depth_b)
+    if sum((q - p) * u for p, q, u in zip(a, b, axis_a)) < 0.:
+        return list(ends)
+    return [ends[0], list(a), list(b), ends[1]]
+
+
 def port_stations(name):
     """Selected reference's native ``port -> (position, axis, diameter)``.
 
@@ -375,7 +392,7 @@ def port_stations(name):
     its engaged cut end.
     """
     if name in reservoir_gate_elbow_hosts():
-        return {'socket': ((0., 19.05, 0.), (0., 1., 0.), 6.35)}
+        return {'socket': (*stem_elbow_reference().socket(), 6.35)}
     if name in ('valve-v-a', 'valve-v-b', 'vk-solenoid'):
         return {'inlet': ((0., -29.75, 11.05), (0., -1., 0.), 6.35),
                 'outlet': ((0., 29.75, 11.05), (0., 1., 0.), 6.35)}
@@ -523,7 +540,7 @@ def route_specs():
     # Water header socket-to-socket links. Flush shoulder locations set the
     # exterior pose; each tube extends to the named receiving depth.
     part = components()
-    elbow_socket = ((0., 19.05, 0.), (0., 1., 0.))
+    elbow_socket = stem_elbow_reference().socket()
     for name, first, second, depth in (
         ('pump-inlet-link', 'lower-pump-elbow', 'pump-inlet-tpu', 15.),
         ('pump-check-link', 'pump-outlet-tpu', 'discharge-chain', check_reference().socket_depth('inlet')),
@@ -548,9 +565,7 @@ def route_specs():
             a, axis_a = part[first][2](((67., 0., 0.), (1., 0., 0.)))
             b, axis_b = part[second][2](elbow_socket)
             da = 15.
-        add('above-core-' + name,
-            [_offset(a, axis_a, -da), list(a), list(b), _offset(b, axis_b, -depth)],
-            (first, second))
+        add('above-core-' + name, _link(a, axis_a, da, b, axis_b, depth), (first, second))
 
     tee = _module('above_core_branch_tee', 'reference/branch-stem-tees/branch_stem_tees.py')
     p = tee.specification('neofit')['ports']['run_minus']
@@ -578,15 +593,15 @@ def route_specs():
     gas_inlet = d.get('inlet_route', {})
     gas_inlet_points = gas_inlet.get('points_mm', [
         _offset(d['inlet'], (0., 1., 0.), 12.7),
-        _offset(d['c0'], (0., 1., 0.), 19.05-16.891)])
+        _offset(d['c0'], (0., 1., 0.), elbow_socket[0][1]-16.891)])
     add('above-core-gas-inlet', gas_inlet_points,
         ('co2-inlet', 'gas-inlet-elbow'), segments=gas_inlet.get('segments'),
         minimum_radius=gas_inlet.get('minimum_radius_mm'))
     gas_feed, gas_feed_axis = part['gas-lower-b'][2](elbow_socket)
     check_in, check_in_axis = part['gas-check'][2](check_reference().inlet())
-    add('above-core-gas-check-link', [_offset(gas_feed, gas_feed_axis, -16.891),
-                                    list(gas_feed), list(check_in),
-                                    _offset(check_in, check_in_axis, -check_reference().socket_depth('inlet'))],
+    add('above-core-gas-check-link',
+        _link(gas_feed, gas_feed_axis, 16.891,
+              check_in, check_in_axis, check_reference().socket_depth('inlet')),
         ('gas-lower-b', 'gas-check'))
     gas_drop = d.get('core_drop_route', {})
     gas_drop_points = gas_drop.get('points_mm', [
