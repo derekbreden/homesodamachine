@@ -130,7 +130,10 @@
    "pisco-outlet-fitting": 12.19,
    "co2-check": 14.99,
    "bulkhead-carb": 0.01,
-   "enclosure-back-top": 2.1
+   "enclosure-back-top": 2.1,
+   "pisco-snap-cap": 9.48,
+   "meter-seat": 0.25,
+   "meter-snap-cap": 0.15
   }
  },
  "pisco_to_back_top_mm": {
@@ -207,11 +210,15 @@
   },
   "soda-tube_nearest_mm": {
    "digiten-flow": 0.03,
-   "vk-solenoid": 10.56
+   "vk-solenoid": 10.56,
+   "meter-seat": 8.0,
+   "meter-snap-cap": 4.92
   },
   "soda-bend-holder_nearest_mm": {
    "digiten-flow": 1.0,
-   "vk-solenoid": 8.34
+   "vk-solenoid": 8.34,
+   "meter-seat": 3.95,
+   "meter-snap-cap": 12.56
   },
   "soda-insulation_nearest_mm": {
    "co2-check": 12.44,
@@ -219,6 +226,8 @@
    "digiten-flow": 1.0,
    "vk-solenoid": 1.04,
    "g-ganen-pump": 8.59,
+   "meter-seat": 1.49,
+   "meter-snap-cap": 12.49,
    "co2-tube": 6.58
   }
  },
@@ -327,6 +336,8 @@
    "vk-solenoid": 14.67,
    "jg-pp0208e": 9.2,
    "water-split-stub": 14.07,
+   "asse-snap-cap": 5.03,
+   "meter-snap-cap": 8.56,
    "co2-tube": 8.98
   }
  },
@@ -346,6 +357,12 @@
    "enclosure-back-top": 10.11,
    "digiten-flow": 14.99,
    "soda-insulation": 12.44,
+   "asse-seat": 11.44,
+   "asse-snap-cap": 9.99,
+   "pisco-seat": 3.24,
+   "pisco-snap-cap": 3.06,
+   "meter-seat": 9.17,
+   "meter-snap-cap": 7.61,
    "co2-tube": 0.0
   },
   "socket_mouth_y": 383.59,
@@ -411,7 +428,340 @@
    "enclosure-back-top": 14.83,
    "soda-insulation": 6.58,
    "vk-solenoid": 3.01,
-   "g-ganen-pump": 8.98
+   "g-ganen-pump": 8.98,
+   "asse-snap-cap": 14.7,
+   "meter-seat": 13.85,
+   "meter-snap-cap": 12.33
   }
+ },
+ "seats": {
+  "built_from": {
+   "asse": {
+    "station": {
+     "axis_x": 37.25,
+     "y0": 396.4532545933732,
+     "y1": 438.11429292628446,
+     "split": 335.0,
+     "neck": 18.27219696049002,
+     "ledge": 19.122196960490022,
+     "inner": 19.372196960490022,
+     "outer": 22.372196960490022,
+     "hook": 18.52219696049002,
+     "bearing": 338.0,
+     "catch": 338.4,
+     "tip": 341.4,
+     "ceiling": 341.9
+    },
+    "seat_runs": [
+     [
+      370.0,
+      377.5000000000017,
+      14.507026931583635
+     ],
+     [
+      377.5000000000017,
+      409.40000000000896,
+      16.80000000000002
+     ],
+     [
+      409.40000000000896,
+      428.1000000000132,
+      14.620257653371018
+     ],
+     [
+      428.1000000000132,
+      432.0000000000141,
+      13.258954804702725
+     ],
+     [
+      432.0000000000141,
+      457.2000000000198,
+      13.025615239451724
+     ],
+     [
+      457.2000000000198,
+      474.2000000000237,
+      9.979239239082952
+     ],
+     [
+      474.2000000000237,
+      476.70000000002426,
+      8.98189036762079
+     ],
+     [
+      476.70000000002426,
+      479.1000000000248,
+      7.963238116896621
+     ],
+     [
+      479.1000000000248,
+      480.9000000000252,
+      5.997811497469209
+     ]
+    ],
+    "cap_runs": [
+     [
+      395.5000000000058,
+      409.40000000000896,
+      16.700000000000017
+     ],
+     [
+      409.40000000000896,
+      413.90000000001,
+      14.519207166076228
+     ],
+     [
+      424.9000000000125,
+      428.1000000000132,
+      14.368430329607351
+     ],
+     [
+      428.1000000000132,
+      433.10000000001435,
+      13.157079487786522
+     ],
+     [
+      433.10000000001435,
+      437.10000000001526,
+      8.994486082609667
+     ],
+     [
+      437.10000000001526,
+      439.20000000001573,
+      8.793984169174783
+     ]
+    ],
+    "hex_y": [
+     412.35325459337315,
+     426.50325459337313
+    ],
+    "gagira_fore_y": 438.26429292628444,
+    "vent": [
+     [
+      9.799999999999999,
+      413.6380413992889,
+      321.70735748874307
+     ],
+     [
+      22.424032522296795,
+      425.56846778745734,
+      334.1526425112569
+     ]
+    ]
+   },
+   "pisco": {
+    "station": {
+     "axis_x": 77.5,
+     "y0": 420.34571720240064,
+     "y1": 436.0,
+     "split": 335.0,
+     "neck": 11.585382388688384,
+     "ledge": 12.435382388688383,
+     "inner": 12.685382388688383,
+     "outer": 15.685382388688383,
+     "hook": 11.835382388688384,
+     "bearing": 338.0,
+     "catch": 338.4,
+     "tip": 341.4,
+     "ceiling": 341.9
+    },
+    "step_face_y": 424.02500000000003,
+    "body_r": 10.5569,
+    "neck_r": 6.374
+   },
+   "meter": {
+    "station": {
+     "axis_x": 0.0,
+     "y0": 397.0,
+     "y1": 435.0,
+     "split": 0.0,
+     "neck": 21.299999999999955,
+     "ledge": 22.149999999999956,
+     "inner": 22.399999999999956,
+     "outer": 25.399999999999956,
+     "hook": 21.549999999999955,
+     "bearing": 3.0,
+     "catch": 3.4,
+     "tip": 6.4,
+     "ceiling": 6.9
+    },
+    "split_x": 84.55,
+    "axis": [
+     416.01,
+     287.1
+    ],
+    "lower_wall_from_y": 420.51
+   }
+  },
+  "asse-seat": {
+   "bbox": [
+    14.88,
+    393.2,
+    334.99,
+    59.62,
+    465.8,
+    346.5
+   ],
+   "faces": 40,
+   "cm3": 25.66,
+   "pump_ride_mm": null,
+   "pump_ride_at_mm": 0.0,
+   "nearest_mm": {
+    "jg-pp010822e": 1.88,
+    "gagira-coupling": 0.32,
+    "multiplex-asse1022": 0.25,
+    "jg-pi4512f6s": 3.31,
+    "asse-snap-cap": 0.25,
+    "pisco-snap-cap": 2.25
+   },
+   "held_mm": 0.25,
+   "held_nearest": "multiplex-asse1022",
+   "slide_mm": 0.25,
+   "slide_at_mm": 11.0,
+   "slide_nearest": "multiplex-asse1022"
+  },
+  "asse-snap-cap": {
+   "bbox": [
+    14.88,
+    396.45,
+    308.29,
+    59.62,
+    438.12,
+    341.4
+   ],
+   "faces": 53,
+   "cm3": 13.99,
+   "pump_ride_mm": 5.02,
+   "pump_ride_at_mm": 2.0,
+   "nearest_mm": {
+    "gagira-coupling": 0.15,
+    "multiplex-asse1022": 0.15,
+    "jg-pi4512f6s": 5.43,
+    "enclosure-back-top": 4.6,
+    "g-ganen-pump": 5.02,
+    "asse-seat": 0.25,
+    "pisco-seat": 2.19,
+    "pisco-snap-cap": 2.19
+   },
+   "held_mm": 0.15,
+   "held_nearest": "multiplex-asse1022",
+   "way_on_mm": 0.113,
+   "way_on_at_mm": 7.0,
+   "way_on_nearest": "multiplex-asse1022"
+  },
+  "pisco-seat": {
+   "bbox": [
+    61.81,
+    417.09,
+    335.0,
+    93.19,
+    465.8,
+    346.5
+   ],
+   "faces": 26,
+   "cm3": 14.54,
+   "pump_ride_mm": null,
+   "pump_ride_at_mm": 0.0,
+   "nearest_mm": {
+    "pisco-body": 0.17,
+    "pisco-outlet-fitting": 0.28,
+    "pisco-outlet-collet": 4.64,
+    "co2-check": 3.24,
+    "asse-snap-cap": 2.19,
+    "pisco-snap-cap": 0.25
+   },
+   "held_mm": 0.169,
+   "held_nearest": "pisco-body",
+   "slide_mm": 0.164,
+   "slide_at_mm": 16.0,
+   "slide_nearest": "pisco-outlet-fitting"
+  },
+  "pisco-snap-cap": {
+   "bbox": [
+    61.81,
+    420.34,
+    314.44,
+    93.19,
+    436.0,
+    341.4
+   ],
+   "faces": 22,
+   "cm3": 3.66,
+   "pump_ride_mm": null,
+   "pump_ride_at_mm": 0.0,
+   "nearest_mm": {
+    "pisco-body": 2.6,
+    "pisco-outlet-fitting": 0.15,
+    "pisco-outlet-collet": 0.64,
+    "co2-check": 3.06,
+    "enclosure-back-top": 4.6,
+    "asse-seat": 2.26,
+    "asse-snap-cap": 2.19,
+    "pisco-seat": 0.25,
+    "meter-seat": 3.48,
+    "meter-snap-cap": 1.94
+   },
+   "held_mm": 0.15,
+   "held_nearest": "pisco-outlet-fitting",
+   "way_on_mm": 0.15,
+   "way_on_at_mm": 0.0,
+   "way_on_nearest": "pisco-outlet-fitting"
+  },
+  "meter-seat": {
+   "bbox": [
+    84.54,
+    386.0,
+    261.7,
+    99.0,
+    446.0,
+    312.5
+   ],
+   "faces": 39,
+   "cm3": 20.7,
+   "pump_ride_mm": null,
+   "pump_ride_at_mm": 0.0,
+   "nearest_mm": {
+    "bulkhead-carb": 1.46,
+    "bulkhead-flavor-a": 4.49,
+    "digiten-flow": 0.25,
+    "soda-bend-holder": 3.95,
+    "soda-insulation": 1.49,
+    "pisco-snap-cap": 3.49,
+    "meter-snap-cap": 0.25
+   },
+   "held_mm": 0.25,
+   "held_nearest": "digiten-flow",
+   "slide_mm": 0.25,
+   "slide_at_mm": 12.0,
+   "slide_nearest": "digiten-flow"
+  },
+  "meter-snap-cap": {
+   "bbox": [
+    64.95,
+    397.0,
+    261.7,
+    90.95,
+    435.0,
+    312.5
+   ],
+   "faces": 33,
+   "cm3": 17.51,
+   "pump_ride_mm": null,
+   "pump_ride_at_mm": 0.0,
+   "nearest_mm": {
+    "pisco-body": 5.93,
+    "pisco-outlet-fitting": 5.1,
+    "digiten-flow": 0.15,
+    "soda-tube": 4.92,
+    "pisco-snap-cap": 1.94,
+    "meter-seat": 0.25
+   },
+   "held_mm": 0.15,
+   "held_nearest": "digiten-flow",
+   "way_on_mm": 0.15,
+   "way_on_at_mm": 0.0,
+   "way_on_nearest": "digiten-flow"
+  },
+  "back_top_solids": 1
  }
 }

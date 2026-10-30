@@ -32,9 +32,32 @@ Today's back-top, with:
 - both roof pockets filled back to the full [9](ROOF_T) mm roof;
 - the [6](LAND_T) mm clamping land carried down to the dropped bottom nuts;
 - each column's chip pockets opened into one channel, with side rails and no bottom rail;
+- a seat for each of the ASSE chain, the Pisco and the meter;
 - no mounting brackets. The fillet where the side wall meets the rear wall stays.
 
 It is cropped to the port corner.
+
+## Seats and snap caps
+
+Back-top is inverted on the bench for assembly. The ASSE chain, the Pisco and the meter each drop into
+a seat [16](SLIDE) mm ahead of their stations and slide aft into place. The PP010822E's and the Pisco's
+noses go through the rear wall, and the meter goes onto the soda union's stub. Each seat is one block
+on back-top with its part's upper side cut into it in plain steps, swept forward by the slide. The
+ASSE's steps are also swept [1.5](SNAP_THREAD) mm either way, how far a taped joint may leave the body
+from its station. Along the slide every part stays [0.16](SLIDE_GAP) mm or more off its seat.
+
+A snap cap then holds each part's other side. It is one half pipe under the part. Its two
+[3](SNAP_WING) mm side walls rise past the part's axis as the springs, each hooking
+[0.6](SNAP_REACH) mm over a ledge in a pocket in the seat's flank. The pocket's ends are the cap's
+end shoulders. The other walls are [3](SNAP_WALL) mm.
+
+| Cap | Goes on | Holds |
+|---|---|---|
+| ASSE | From below | The outlet bonnet round, the main wrench's lower faces and the inlet thread. Its aft end bears on the GAGIRA's fore face, and a notch in its west wall passes the vent. |
+| Pisco | From below | The outlet fitting. Its lip stands in front of the step down to the outlet's neck. |
+| Meter | From the west | The housing's west end and rim, in a block whose top and bottom walls run east past the housing. The bottom wall stops short of the lead's slot. |
+
+Each cap stands [0.15](CAP_GAP) mm or more off what it holds, and [0.11](WAY_ON_GAP) mm or more on its way on.
 
 ## Straight down past the cap
 
@@ -78,6 +101,10 @@ the bend's foot. It bends no tighter than R[52](CO2_S_R).
   foam.
 - The CO2 tube is [3.0](CO2_TO_VK) mm from V-K and [9.0](CO2_TO_PUMP) mm from the pump. Under the cap it
   is [0.0](CO2_TO_RIM) mm from the carbonator and [18.7](CO2_TO_RESERVOIR) mm from reservoir A.
+- The ASSE's snap cap is [5.0](PUMP_UNDER_ASSE_CAP) mm over the pump, the nearest it comes as back-top rides
+  forward over the core.
+- The meter's seat is [1.5](METER_SEAT_TO_FOAM) mm from the foam and [1.5](METER_SEAT_TO_UNION) mm from the
+  soda union.
 
 No two parts overlap, apart from:
 
