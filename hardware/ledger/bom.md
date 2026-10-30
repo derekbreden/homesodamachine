@@ -125,7 +125,7 @@ The soda inlet bend holder is PET-GF with the accepted 2 mm wall, 3 mm legs and 
 |---|---:|---|---:|---:|
 | Cold-core inner shell (foam-shell) | 1 | PET-GF | 1.450 | $36.28 <!--@printed--><!--parts HSM-000018--> |
 | Cold-core foam cap — top | 1 | PET-GF | 0.238 | $5.94 <!--@printed--><!--parts HSM-000019--> |
-| Cold-core foam cap lid — top | 1 | PET-GF | 0.262 | $6.54 <!--@printed--><!--parts HSM-000020--> |
+| Cold-core foam cap lid — top | 1 | PET-GF | 0.264 | $6.60 <!--@printed--><!--parts HSM-000020--> |
 | Cold-core foam cap — bottom | 1 | PET-GF | 0.184 | $4.60 <!--@printed--><!--parts HSM-000021--> |
 | Cold-core foam cap lid — bottom | 1 | PET-GF | 0.141 | $3.52 <!--@printed--><!--parts HSM-000022--> |
 | PRV shroud | 1 | PETG | 0.008 | $0.09 <!--@printed--><!--parts HSM-000024--> |
@@ -133,7 +133,7 @@ The soda inlet bend holder is PET-GF with the accepted 2 mm wall, 3 mm legs and 
 | Flavor reservoir body — right | 1 | PETG (translucent) | 0.378 | $4.24 <!--@printed--><!--parts HSM-000026--> |
 | Flavor reservoir cap — left | 1 | PETG (translucent) | 0.058 | $0.65 <!--@printed--><!--parts HSM-000027--> |
 | Flavor reservoir cap — right | 1 | PETG (translucent) | 0.058 | $0.65 <!--@printed--><!--parts HSM-000028--> |
-| Enclosure — front bottom + front top (two quadrants) | 1 set | PET-GF | 1.588 | $39.73 <!--@printed--><!--parts HSM-000078:630 HSM-000079:956--> |
+| Enclosure — front bottom + front top (two quadrants) | 1 set | PET-GF | 1.589 | $39.75 <!--@printed--><!--parts HSM-000078:630 HSM-000079:956--> |
 | Enclosure — pump retainer | 1 | PET-GF | 0.133 | $3.32 <!--@printed--><!--parts HSM-000082--> |
 | Carbonator reed bridge | 1 | PETG | 0.008 | $0.09 <!--@printed--><!--parts HSM-000029--> |
 | Enclosure — back bottom + back top (two quadrants) | 1 set | PET-GF | 1.455 | $36.40 <!--@printed--><!--parts HSM-000080:688.8 HSM-000081:766.1--> |
@@ -152,9 +152,9 @@ The soda inlet bend holder is PET-GF with the accepted 2 mm wall, 3 mm legs and 
 | Funnel frame | 1 | PET-GF | 0.259 | $6.49 <!--@printed--><!--parts HSM-000072--> |
 | Funnel cover | 1 | PETG | 0.134 | $1.50 <!--@printed--><!--parts HSM-000071--> |
 | Funnel drain-elbow cradle | 1 | PET-GF | 0.011 | $0.28 <!--@printed--><!--parts HSM-000073--> |
-| **Printed parts total** | | | **~6.96** | **[$159.92](BOM_SEC7)** |
+| **Printed parts total** | | | **~6.96** | **[$160.00](BOM_SEC7)** |
 
-By material: PETG ≈ 1.03 kg / $11.50 — of which the four translucent reservoir parts are ≈ 0.87 kg / $9.76 — and PET-GF ≈ 5.93 kg / $148.41.
+By material: PETG ≈ 1.03 kg / $11.50 — of which the four translucent reservoir parts are ≈ 0.87 kg / $9.76 — and PET-GF ≈ 5.93 kg / $148.48.
 
 These geometry-based estimates use the shared wall and sparse-infill recipes.
 They exclude the additional material in the enclosure's
@@ -339,7 +339,7 @@ The papers packed with each machine ([`assembly/finish-pack-ship.md`](/hardware/
 | 4. CO2 subsystem | [$145.61](BOM_SEC4) |
 | 5. Refrigeration | [$143.06](BOM_SEC5) |
 | 6. Cold core insulation | [$18.64](BOM_SEC6) |
-| 7. Printed parts (PETG + PET-GF) | [$159.92](BOM_SEC7) |
+| 7. Printed parts (PETG + PET-GF) | [$160.00](BOM_SEC7) |
 | 8. Flavor subsystem | [$268.99](BOM_SEC8) |
 | 9. Dispensing | [$78.64](BOM_SEC9) |
 | 10. UI | [$0.00](BOM_SEC10) |
@@ -348,7 +348,7 @@ The papers packed with each machine ([`assembly/finish-pack-ship.md`](/hardware/
 | 13. Mechanical attach hardware | [$17.39](BOM_SEC13) |
 | 14. Cold kit | [$4.29](BOM_SEC14) |
 | 15. Customer documentation | [$25.14](BOM_SEC15) |
-| **Total** | **[$1,459.92](BOM_GRAND)** |
+| **Total** | **[$1,460.00](BOM_GRAND)** |
 
 ## External / user-supplied (not shipped)
 
