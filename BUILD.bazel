@@ -8042,6 +8042,46 @@ cp hardware/reference/asse1022-assembly/README.md $$O2
 )
 
 genrule(
+    name = "asse1022-threaded-chain",
+    srcs = [
+        "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+        "pysrc/hardware/reference/asse1022-threaded-chain/asse1022_threaded_chain.py",
+        "hardware/reference/asse1022-threaded-chain/reference-parameters.json",
+        "pysrc/hardware/reference/multiplex-asse1022/multiplex_asse1022.py",
+        "pysrc/hardware/scripts/_cadq_export.py",
+        "pysrc/hardware/scripts/_material_base.py",
+        "pysrc/hardware/scripts/_materials.py",
+        "pysrc/hardware/scripts/_mesh_payload.py",
+        "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/tools/docgen/__init__.py",
+    ],
+    outs = [
+        "out/asse1022-threaded-chain/hardware/reference/asse1022-threaded-chain/asse1022-threaded-chain.step",
+    ],
+    cmd = """
+set -e
+O0=$$PWD/$(location out/asse1022-threaded-chain/hardware/reference/asse1022-threaded-chain/asse1022-threaded-chain.step)
+for f in $(SRCS); do
+  case $$f in
+    */node_modules/*) continue;;
+    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
+    */pysrc/*) t=$${f##*/pysrc/};;
+    *) t=$$f;;
+  esac
+  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
+done
+for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
+  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
+done
+cd work
+ln -sfn $$HSM_WORKSPACE/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/asse1022-threaded-chain/asse1022_threaded_chain.py > /dev/null
+cp hardware/reference/asse1022-threaded-chain/asse1022-threaded-chain.step $$O0
+""",
+)
+
+genrule(
     name = "basics-mtb-0606wp",
     srcs = [
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
@@ -12729,6 +12769,14 @@ genrule(
 )
 
 genrule(
+    name = "pysrc-5b844a4b8674",
+    srcs = ["hardware/reference/asse1022-threaded-chain/asse1022_threaded_chain.py"],
+    outs = ["pysrc/hardware/reference/asse1022-threaded-chain/asse1022_threaded_chain.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
     name = "pysrc-694882aaa15e",
     srcs = ["hardware/reference/basics-mtb-0606wp/basics_mtb_0606wp.py"],
     outs = ["pysrc/hardware/reference/basics-mtb-0606wp/basics_mtb_0606wp.py"],
@@ -13752,6 +13800,7 @@ filegroup(
         ":cradle-trial",
         ":elbow-cradle",
         ":asse1022-assembly",
+        ":asse1022-threaded-chain",
         ":basics-mtb-0606wp",
         ":beduan-solenoid",
         ":compressor",
