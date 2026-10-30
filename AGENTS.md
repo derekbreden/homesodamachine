@@ -79,6 +79,13 @@ For requested dimensioned mechanical part drawings, use the
 finished-part requirements, generation, and separate annotation and layout
 reviews within that drawing task.
 
+## Worktrees
+
+Make a worktree with [`tools/worktree.py`](tools/worktree.py), which takes the
+arguments of `git worktree add`. It clones the main checkout's files and memo
+caches, so a worktree costs almost no disk until something in it changes, and
+its first build reads back the parts the main checkout already drew.
+
 ## Publishing
 
 Complete requested repository changes by committing and pushing to `main` without asking for separate confirmation.
