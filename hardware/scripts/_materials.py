@@ -55,6 +55,7 @@ M_JG_WHITE_PP = cq.Color(0.90, 0.90, 0.87)
 M_JG_GREY_ACETAL = cq.Color(0.55, 0.56, 0.57)
 M_NEOFIT_ACETAL = cq.Color(0.14, 0.14, 0.15)   # neoFit's black acetal bulkhead bodies
 M_NEOFIT_WHITE_ACETAL = cq.Color(0.90, 0.91, 0.88)   # neoFit's white acetal ATEU44W stem elbows
+M_POM_ORANGE = cq.Color(0.95, 0.36, 0.05)   # the YDS butterfly clamps' POM keys, off Derek's photograph
 # Bambu PETG Basic Black 30105, and what comes off it: the drip pan, the fuse clamp, the two
 # copper-line plugs, the PRV shroud and the reed bridge. Sampled off the store's own product
 # photograph, and the triple `_y_wall_dimensions.port_colors` draws black LLDPE at.
@@ -68,7 +69,8 @@ M_SILICONE_BLACK = cq.Color(0.08, 0.08, 0.08)
 # Unpigmented food-grade silicone — the uxcell flat washer under each reservoir
 # bulkhead (`ledger/bom.md` §8).
 M_SILICONE_CLEAR = cq.Color(0.92, 0.92, 0.90, 0.60)
-# Sealproof clear PVC, the vent telltale stub over the ASSE 1022's barb.
+# Clear PVC: Sealproof's vent telltale stub over the ASSE 1022's barb, and neoPure's PVCR-0610 on
+# the pump's barbs.
 M_PVC_CLEAR = cq.Color(0.85, 0.90, 0.92, 0.45)
 # Opaque sintered PTFE reference material.
 M_PTFE_WHITE = cq.Color(0.93, 0.93, 0.92)
@@ -240,6 +242,7 @@ FINISHES = [
     (M_JG_GREY_ACETAL,   0.35, _DIELECTRIC),   # acetal is slick in the hand
     (M_NEOFIT_ACETAL,    0.35, _DIELECTRIC),
     (M_NEOFIT_WHITE_ACETAL, 0.35, _DIELECTRIC),
+    (M_POM_ORANGE,       0.35, _DIELECTRIC),
     (M_PETG_BLACK,       0.45, _DIELECTRIC),   # the flank that blooms bronze in flute-evidence/02
     (M_PETGF_BLACK,      0.85, _DIELECTRIC),   # glass fill scatters; it holds neutral in that frame
     (M_PETG_TRANSLUCENT, 0.40, _DIELECTRIC),   # the black stock's own gloss, on a clear spool
