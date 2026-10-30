@@ -328,13 +328,6 @@ def settle(pre: str, landed: str, base: str, dissolved: list, dry: bool) -> None
             for h, s, when, who in beat_by(base, landed, p)[:3]:
                 print(f"      met {h} {s} ({when})" + (f" — session {who}" if who else ""),
                       file=sys.stderr)
-                if who.startswith("http"):
-                    print(f"        to ask them: SendMessage to {who.rsplit('/', 1)[-1]} from a "
-                          "session on the Mac; it answers in its own transcript",
-                          file=sys.stderr)
-                elif who:
-                    print(f"        to ask them: SendMessage to \"{who}\" from a session here",
-                          file=sys.stderr)
         print("    resolve them, then commit those files by name; this runs again with the "
               "commit.", file=sys.stderr)
     if dissolved:
