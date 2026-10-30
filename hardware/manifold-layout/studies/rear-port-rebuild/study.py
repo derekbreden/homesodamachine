@@ -11,9 +11,10 @@ routed before its turn. Placed so far, on back-top's port corner cut down to its
 - the DIGITEN meter, straight into the soda bulkhead with no tube showing, larger side down;
 - the meter's inlet turned straight down by production's bend holder, foam and tube, to the
   cold-core cap's face;
-- V-K, the stem elbow into its top port and its wall, as production stands them, moved with the
-  tee; the wall reaches the side wall instead of the cap, and the stub is the shortest that stands
-  V-K clear of the soda inlet;
+- V-K, the stem elbows into its top port and its outlet and its wall, as production stands them,
+  moved with the tee; the wall reaches the side wall instead of the cap, and the stub is the
+  shortest that stands V-K clear of the soda inlet;
+- the cold-core cap's lid under V-K, with a pocket where the outlet elbow stands in it;
 - the G Ganen carbonator pump, where production stands it on the cap, without its elbows;
 - the neoFit ACVUS-44 stem check valve in the Pisco's outlet;
 - the CO2 tube, off the check's socket in one bend, then an S onto the cap between V-K and the
@@ -283,10 +284,11 @@ def tee_centre(stub):
     return nose + flow * (stub + union_tee.REACH)
 
 
-# --- V-K, its stem elbow and its wall, as production stands them, moved with the tee ------------
-# Production stands V-K on tee-fold's stem and presses V-K's posts into an upright wall rooted on
-# the cap. All three move together until tee-fold's release face, from its reference, is on the
-# union tee's east collet face; the wall reaches the side wall instead of the cap.
+# --- V-K, its stem elbows and its wall, as production stands them, moved with the tee -----------
+# Production stands V-K on tee-fold's stem, plugs lower-valve-elbow's stem into V-K's outlet and
+# presses V-K's posts into an upright wall rooted on the cap. All four move together until
+# tee-fold's release face, from its reference, is on the union tee's east collet face; the wall
+# reaches the side wall instead of the cap.
 fold_face, fold_axis = comps['tee-fold'][2](stem_elbow.socket())
 
 
@@ -302,17 +304,17 @@ wall = cq.Solid.makeBox(*(hi[i] - lo[i] for i in range(3)), cq.Vector(*lo)).cut(
     valve_seat.build_port_channel(2. * valve_seat.seat_half_y + 2.).val().moved(at_vk))
 # The stub is the shortest, in half millimetres, that stands the group VK_CLEAR off the soda inlet.
 VK_CLEAR = 1.0
-group = np.concatenate([pts(comps['vk-solenoid'][0]), pts(comps['tee-fold'][0]), pts(wall)])
+group = np.concatenate([pts(comps[n][0]) for n in ('vk-solenoid', 'tee-fold', 'lower-valve-elbow')] + [pts(wall)])
 inlet = cKDTree(np.concatenate([pts(parts[n][0], 0.4) for n in SODA]))
 STUB = next(float(s) for s in np.arange(0., 30.01, 0.5) if inlet.query(group + vk_shift(s))[0].min() >= VK_CLEAR)
 SHIFT = vk_shift(STUB)
 MOVE = cq.Location(cq.Vector(*SHIFT))
-for n in ('vk-solenoid', 'tee-fold'):
+for n in ('vk-solenoid', 'tee-fold', 'lower-valve-elbow'):
     parts[n] = (comps[n][0].moved(MOVE), comps[n][1])
 arm = cq.Solid.makeBox(SIDE_WALL_X - hi[0] - SHIFT[0], hi[1] - lo[1], hi[2] - lo[2],
                        cq.Vector(hi[0] + SHIFT[0], lo[1] + SHIFT[1], lo[2] + SHIFT[2]))
 parts['vk-wall'] = (wall.moved(MOVE).fuse(arm).clean(), M_PETGF_BLACK)
-VK = ('vk-solenoid', 'tee-fold', 'vk-wall')
+VK = ('vk-solenoid', 'tee-fold', 'lower-valve-elbow', 'vk-wall')
 tee_at = tee_centre(STUB)
 tee_x = np.cross(-flow, east)                      # the tee's run on its Z, its branch on its +Y
 parts['jg-pp0208e'] = (union_tee.build_jg_pp0208e_tee().val().moved(layout.frame_location({
@@ -336,6 +338,37 @@ fb = import_step(str(HW / 'printed-parts/cold-core/foam-assembly/foam-assembly.s
 wb = facts['bodies']['foam-assembly']
 CORE = cq.Location(cq.Vector(wb[0] - fb.xmin, wb[1] - fb.ymin, wb[2] - fb.zmin)) * yaw
 core = {n: (s.val() if hasattr(s, 'val') else s).moved(CORE) for n, s in cca.build_bodies().items()}
+
+# --- V-K's outlet elbow in the cap's lid --------------------------------------------------------
+# The elbow snaps into V-K's outlet once the back assembly has ridden home over the core, so the lid
+# has a pocket only where the elbow stands: the elbow's lower half turned about its socket axis in
+# plain steps, a running fit off it and the cavity floor's allowance under it. Where the pocket
+# leaves the lid less than WALL of stock, one flat block under the lid backs it.
+LID = 'foam-cap-lid-top'
+elbow = parts['lower-valve-elbow'][0]
+hub = np.array(comps['lower-valve-elbow'][2](((0., 0., 0.), (0., 1., 0.)))[0]) + SHIFT   # its socket points west
+lower_half = slide_seats.surface_points(elbow)
+lower_half = lower_half[lower_half[:, 2] <= hub[2] + .01]
+eb = elbow.BoundingBox()
+# A quarter turn about Z lays the socket axis along Y, where the seats' envelope and turned steps work,
+# in bins that the running fit spans whole along the axis.
+BIN = 0.05
+xs, r_elbow = slide_seats.envelope(np.stack([-lower_half[:, 1], lower_half[:, 0], lower_half[:, 2]], axis=1),
+                                   (-hub[1], hub[2]), eb.xmin - 2., eb.xmax + 2., BIN)
+room = slide_seats.swept(r_elbow, fits.running, fits.running, BIN)
+pocket_steps = slide_seats.steps(xs, np.where(room > 0, room + fits.running, 0.), step=BIN)
+POCKET_CUT = round(float(xs[int(np.argmax(r_elbow))]), 1)          # the socket at its fullest
+pocket = slide_seats.turned(pocket_steps, (-hub[1], hub[2] - fits.layer_transition)).rotate((0, 0, 0), (0, 0, 1), -90)
+lid = core[LID]
+lid_under = lid.BoundingBox().zmin
+pb = pocket.BoundingBox()
+thin = pocket.intersect(slide_seats.box(pb.xmin - 1., pb.xmax + 1., pb.ymin - 1., pb.ymax + 1., pb.zmin - 1.,
+                                        lid_under + slide_seats.WALL)).BoundingBox()
+W = slide_seats.WALL
+backing = slide_seats.box(thin.xmin - W, thin.xmax + W, thin.ymin - W, thin.ymax + W, pb.zmin - W,
+                          lid_under + slide_seats.INTO)
+lid_piece = lid.intersect(slide_seats.box(40., SIDE_WALL_X, 285., 340., lid_under - 10., CEILING))
+lid_piece = lid_piece.fuse(backing).cut(pocket).clean()
 
 # --- label tiles --------------------------------------------------------------------------------
 WHITE, BLUE = cq.Color(0.92, 0.92, 0.90), cq.Color(0.16, 0.36, 0.76)
@@ -574,6 +607,23 @@ result['vk'] = {'shift_mm': [round(float(c), 3) for c in SHIFT], 'tee_east_mouth
 for n in VK:
     print(f'== {n} {bbox(parts[n][0])}')
     result['vk'][f'{n}_nearest_mm'] = nearest(n, [m for m in placed if m not in VK])
+lb = backing.BoundingBox()
+backing_to_core = {n: round(backing.distance(s), 2) for n, s in core.items()
+                   if n != LID and s.BoundingBox().zmax > lb.zmin - 10. and s.BoundingBox().xmax > lb.xmin - 10.}
+result['vk_outlet_pocket'] = {
+    'elbow_into_lid_mm': round(CAP_Z - eb.zmin, 2), 'elbow_in_lid_mm3': round(elbow.intersect(lid).Volume(), 1),
+    'steps': [[round(v, 2) for v in s] for s in pocket_steps], 'axis': [round(float(c), 3) for c in hub],
+    'gap_mm': round(elbow.distance(lid_piece), 3),
+    'floor_gap_mm': round(elbow.distance(lid_piece.intersect(slide_seats.box(
+        POCKET_CUT - 1., POCKET_CUT + 1., hub[1] - 1., hub[1] + 1., pb.zmin - 5., hub[2] - 5.))), 3),
+    'pocket_depth_mm': round(CAP_Z - pb.zmin, 2), 'lid_under': round(lid_under, 2),
+    'backing': bbox(backing), 'backing_below_lid_mm': round(lid_under - lb.zmin, 2),
+    'backing_to_core_mm': dict(sorted(backing_to_core.items(), key=lambda kv: kv[1])[:4])}
+op = result['vk_outlet_pocket']
+print(f'== V-K\'s outlet elbow {op["elbow_into_lid_mm"]:.2f} mm into the lid ({op["elbow_in_lid_mm3"]:.0f} mm3); its '
+      f'pocket in {len(pocket_steps)} steps, {op["pocket_depth_mm"]:.2f} deep, {op["gap_mm"]:.3f} mm off the elbow and '
+      f'{op["floor_gap_mm"]:.3f} at the floor; the block under it {op["backing_below_lid_mm"]:.2f} mm under the lid, '
+      f'{bbox(backing)}; nearest core bodies {op["backing_to_core_mm"]}')
 for n in ('g-ganen-pump', 'co2-check'):
     print(f'== {n} {bbox(parts[n][0])}')
     result[n] = {'bbox': bbox(parts[n][0]), 'nearest_mm': nearest(n, [m for m in placed if m != n])}
@@ -705,6 +755,11 @@ scene('rear-port-rebuild-snaps-off', around, SNAP,
       {n: cq.Location(cq.Vector(*(-24. * np.array(slide_seats.ON[n])))) for n in slide_seats.CAPS})
 for y in SNAP_CUTS:
     scene(f'rear-port-rebuild-snaps-at-{y:g}', cq.Solid.makeBox(120., 480. - y, 120., cq.Vector(-10., y, 240.)), SNAP)
+# V-K's outlet elbow in its pocket in the lid, whole and cut across the socket where it is fullest.
+parts[LID] = (lid_piece, cca._style.colour_for(LID))
+scene('rear-port-rebuild-lid', None, (*VK, LID))
+scene(f'rear-port-rebuild-lid-at-{POCKET_CUT:g}',
+      cq.Solid.makeBox(SIDE_WALL_X - POCKET_CUT, 100., 120., cq.Vector(POCKET_CUT, 270., 230.)), (*VK, LID))
 
 # --- the README's figures ---------------------------------------------------------------------
 sys.path.insert(0, str(HW.parent / 'tools'))
@@ -725,9 +780,10 @@ def overlap_depth(a, b, axis):
     return o['bbox'][axis + 3] - o['bbox'][axis] if o else float('nan')
 
 
-# tee-fold in V-K: the stem's tip below the port's floor, and the hub on the port's boss, low to high.
-fold_in_vk = sorted(next(v for k, v in result['overlaps'].items() if set(k.split(' x ')) == {'tee-fold', 'vk-solenoid'})
-                    ['pieces'], key=lambda b: b[2])
+# tee-fold in V-K: the stem's tip below the port's floor, and the hub on the port's boss, low to high;
+# the outlet elbow the other way up.
+fold_in_vk, outlet_in_vk = (sorted(next(v for k, v in result['overlaps'].items() if set(k.split(' x ')) == {n, 'vk-solenoid'})
+                                   ['pieces'], key=lambda b: b[2]) for n in ('tee-fold', 'lower-valve-elbow'))
 
 
 substitute_md(HERE / 'README.md', {
@@ -768,6 +824,8 @@ substitute_md(HERE / 'README.md', {
     'CO2_TO_VK': f'{co2["nearest_mm"]["vk-solenoid"]:.1f}', 'CO2_TO_PUMP': f'{co2["nearest_mm"]["g-ganen-pump"]:.1f}',
     'STEM_PAST_PORT': f'{fold_in_vk[0][5] - fold_in_vk[0][2]:.1f}',
     'HUB_INTO_VK': f'{fold_in_vk[-1][5] - fold_in_vk[-1][2]:.2f}',
+    'OUTLET_STEM_PAST_PORT': f'{outlet_in_vk[-1][5] - outlet_in_vk[-1][2]:.1f}',
+    'OUTLET_HUB_INTO_VK': f'{outlet_in_vk[0][5] - outlet_in_vk[0][2]:.2f}',
     'SLIDE': f'{slide_seats.SLIDE:g}', 'SNAP_THREAD': f'{slide_seats.THREAD:g}', 'SNAP_WING': f'{slide_seats.WING:g}',
     'SNAP_REACH': f'{slide_seats.REACH:g}', 'SNAP_WALL': f'{slide_seats.WALL:g}',
     'SLIDE_GAP': f'{min(snaps[n]["slide_mm"] for n in slide_seats.SEATS):.2f}',
@@ -776,4 +834,8 @@ substitute_md(HERE / 'README.md', {
     'PUMP_UNDER_ASSE_CAP': f'{snaps["asse-snap-cap"]["pump_ride_mm"]:.1f}',
     'METER_SEAT_TO_FOAM': f'{snaps["meter-seat"]["nearest_mm"]["soda-insulation"]:.1f}',
     'METER_SEAT_TO_UNION': f'{snaps["meter-seat"]["nearest_mm"]["bulkhead-carb"]:.1f}',
+    'ELBOW_INTO_LID': f'{op["elbow_into_lid_mm"]:.1f}', 'LID_T': f'{CAP_Z - op["lid_under"]:.1f}',
+    'POCKET_STEPS': f'{len(op["steps"])}', 'POCKET_GAP': f'{op["gap_mm"]:.2f}',
+    'POCKET_FLOOR_GAP': f'{op["floor_gap_mm"]:.2f}', 'POCKET_DEPTH': f'{op["pocket_depth_mm"]:.1f}',
+    'POCKET_WALL': f'{slide_seats.WALL:g}', 'BACKING_BELOW_LID': f'{op["backing_below_lid_mm"]:.1f}',
 })
