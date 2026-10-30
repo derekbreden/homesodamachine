@@ -56,11 +56,9 @@ BOX_Y0, BOX_Y1 = 5.0, 467.0
 BOX_Z0, BOX_Z1 = -6.0, 361.0
 BOX_MID_X = (BOX_X0 + BOX_X1) / 2.0
 
-#: The current assembly's funnel bounds locate its mouth in the top face.
+#: The current assembly's funnel: its bounds reach the brim, and its mouth is centred here in plan.
 FUNNEL_BOUNDS = json.loads(MACHINE_FACTS.read_text())["bodies"]["funnel"]
-HOPPER_X0, HOPPER_X1 = FUNNEL_BOUNDS[0], FUNNEL_BOUNDS[3]
-HOPPER_Y0, HOPPER_Y1 = FUNNEL_BOUNDS[1], FUNNEL_BOUNDS[4]
-HOPPER_MID = ((HOPPER_X0 + HOPPER_X1) / 2.0, (HOPPER_Y0 + HOPPER_Y1) / 2.0)
+FUNNEL_MOUTH = tuple(json.loads(MACHINE_FACTS.read_text())["box"]["funnel"])
 PORT_FACE_Y = 476.5
 PORT_Z_UPPER, PORT_Z_LOWER = 336.2, 273.8
 PORT_X_WEST, PORT_X_EAST = -78.1, -37.8
@@ -79,6 +77,12 @@ FILTER_D, FILTER_L = 63.0, 311.0
 BOTTLE_D, BOTTLE_H = 72.0, 190.0
 BOTTLE_NECK_D, BOTTLE_NECK_H = 27.0, 34.0
 TUBE_D = 6.35
+
+# Poured from the front, base toward the cabinet door and tipped this far past level, which
+# empties it: the mouth over the centre of the funnel's, the bottle's lowest point this far over
+# the brim.
+BOTTLE_TIP = 20.0
+BOTTLE_CLEARANCE = 3.0
 
 STONE = cq.Color(0.55, 0.55, 0.58, 1.0)
 CABINET = cq.Color(0.74, 0.70, 0.64, 1.0)
@@ -501,7 +505,7 @@ def s_plate_sideways():
 
 
 def s_bottle_in_funnel():
-    """The one action after the last push: a 440 mL bottle upended over the funnel.
+    """The one action after the last push: a 440 mL bottle tipped past level over the funnel.
 
     The funnel's lift-off cover comes off for every fill, so the machine stands here without it.
     """
@@ -509,21 +513,22 @@ def s_bottle_in_funnel():
     for child in cq.Assembly.load(str(MACHINE_STEP)).children:
         if child.name != "funnel-cover":
             a.add(child)
-    mouth_x = (HOPPER_X0 + HOPPER_X1) / 2.0
-    mouth_y = (HOPPER_Y0 + HOPPER_Y1) / 2.0
-    top = FUNNEL_BOUNDS[5]
-    # Neck down in the funnel's throat, shoulder just clear of the mouth, body above it.
-    neck_z = top - 16.0
-    _add(a, _cyl(mouth_x, mouth_y, neck_z, BOTTLE_NECK_D, BOTTLE_NECK_H),
-         "bottle-neck", BOTTLE_PET)
-    shoulder = neck_z + BOTTLE_NECK_H
-    _add(a, cq.Workplane("XY", origin=(mouth_x, mouth_y, shoulder))
-         .circle(BOTTLE_NECK_D / 2.0).workplane(offset=26.0).circle(BOTTLE_D / 2.0).loft(),
-         "bottle-shoulder", BOTTLE_PET)
-    _add(a, _cyl(mouth_x, mouth_y, shoulder + 26.0, BOTTLE_D, BOTTLE_H),
-         "bottle-body", CONCENTRATE)
-    _add(a, _cyl(mouth_x, mouth_y, shoulder + 26.0 + BOTTLE_H, BOTTLE_D * 0.62, 4.0),
-         "bottle-base", BOTTLE_PET)
+    # Built mouth down at the origin, then tipped about the mouth toward the cabinet door.
+    shoulder = BOTTLE_NECK_H
+    body = shoulder + 26.0
+    parts = [
+        (_cyl(0.0, 0.0, 0.0, BOTTLE_NECK_D, BOTTLE_NECK_H), "bottle-neck", BOTTLE_PET),
+        (cq.Workplane("XY", origin=(0.0, 0.0, shoulder)).circle(BOTTLE_NECK_D / 2.0)
+         .workplane(offset=26.0).circle(BOTTLE_D / 2.0).loft(), "bottle-shoulder", BOTTLE_PET),
+        (_cyl(0.0, 0.0, body, BOTTLE_D, BOTTLE_H), "bottle-body", CONCENTRATE),
+        (_cyl(0.0, 0.0, body + BOTTLE_H, BOTTLE_D * 0.62, 4.0), "bottle-base", BOTTLE_PET),
+    ]
+    parts = [(shape.rotate((0, 0, 0), (1, 0, 0), 90.0 - BOTTLE_TIP), name, colour)
+             for shape, name, colour in parts]
+    lowest = min(shape.val().BoundingBox().zmin for shape, _, _ in parts)
+    mouth = (*FUNNEL_MOUTH, FUNNEL_BOUNDS[5] + BOTTLE_CLEARANCE - lowest)
+    for shape, name, colour in parts:
+        _add(a, shape.translate(mouth), name, colour)
     return a
 
 
@@ -639,8 +644,9 @@ SCENES = {
     "stop-closed": (s_stop_closed, dict(cam=(1.05, 1.70, 0.62), target=(-6.0, 44.0, 96.0), span=86.0, size="1250x1150", trim=False)),
     "tee-before": (s_tee_before, dict(cam=(1.05, 1.70, 0.62), target=(-6.0, 44.0, 112.0), span=132.0, size="1250x1150", trim=False)),
     "tee-after": (s_tee_after, dict(cam=(1.05, 1.70, 0.62), target=(-6.0, 44.0, 112.0), span=132.0, size="1250x1150", trim=False)),
-    "bottle-in-funnel": (s_bottle_in_funnel, dict(cam=(0.55, -1.0, 0.62),
-                          target=(0.0, 150.0, 405.0), span=395.0, size="1500x1180")),
+    # Well round to the side and low, so the tipped bottle's mouth reads below its base.
+    "bottle-in-funnel": (s_bottle_in_funnel, dict(cam=(1.0, -0.5, 0.45),
+                          target=(20.0, 215.0, 190.0), span=265.0, size="1500x1180")),
     "kitchen-push": (s_kitchen_push, dict(cam=(1.05, -1.72, 0.72), target=(-46.0, 8.0, 100.0),
                                           span=88.0, size="1500x980", trim=False)),
     "kitchen-hose": (s_kitchen_hose, dict(cam=(1.05, 1.70, 0.62), target=(10.0, 53.0, 150.0),

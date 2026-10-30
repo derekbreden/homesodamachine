@@ -33,10 +33,16 @@ import _enclosure_interface
 
 ASSEMBLY_FACTS = json.loads(FACTS.read_text())
 FUNNEL_BOUNDS = ASSEMBLY_FACTS['bodies']['funnel']
-# This approach pose keeps the bottle mouth 34 mm above the funnel brim.
-MOUTH = ((FUNNEL_BOUNDS[0] + FUNNEL_BOUNDS[3]) / 2,
-         (FUNNEL_BOUNDS[1] + FUNNEL_BOUNDS[4]) / 2, FUNNEL_BOUNDS[5] + 34)
-CAMERA = (.65, -1, .5)
+# Poured from the front, base toward the cabinet door and tipped TIP degrees past level, which
+# empties it: the mouth over the centre of the funnel's, the bottle's lowest point CLEARANCE mm
+# over the brim.
+TIP = 20
+CLEARANCE = 3
+AXIS = (0, -math.cos(math.radians(TIP)), math.sin(math.radians(TIP)))  # mouth to base
+CAMERA = (1, -.5, .45)
+TARGET = (0, 150, 380)
+SPAN = 230
+SWING_R, SWING_FROM = 225, 0
 DISPLAY_PROFILE = _swept_top.profile(ASSEMBLY_FACTS['box']['outer'])
 SCREEN = dict(width=103.5, height=62.1, angle_deg=_swept_top.ANGLE,
               origin=[p - n * (_enclosure_interface.display_bezel_depth - 1 - .05)
@@ -50,7 +56,11 @@ def visible(name):
 
 
 def bottle():
-    a = cq.Assembly(name='concentrate-bottle')
+    """The bottle as it pours, and the centre of its mouth.
+
+    Built mouth down at the origin, then tipped about the mouth toward the cabinet door. The
+    concentrate keeps its volume and settles level.
+    """
     outer = (cq.Workplane('XZ').moveTo(0, 0).lineTo(13.5, 0)
              .lineTo(13.5, 23).threePointArc((14.3, 29), (18, 34))
              .lineTo(29, 52).threePointArc((31.8, 58), (32, 66))
@@ -65,25 +75,47 @@ def bottle():
               .threePointArc((21, 201), (25, 203)).lineTo(25, 206)
               .lineTo(0, 206).close().revolve())
     shell = outer.cut(inside).cut(recess)
-    liquid = inside.intersect(cq.Workplane('XY').box(80, 80, 186,
-                                                   centered=(True, True, False)))
+    volume = (inside.intersect(cq.Workplane('XY').box(80, 80, 186, centered=(True, True, False)))
+              .val().Volume())
     grip = cq.Workplane('XY').workplane(offset=2).circle(15.2).circle(13.4).extrude(17)
-    a.add(shell.translate(MOUTH), name='bottle-pet', color=cq.Color(.85, .89, .9))
-    a.add(liquid.translate(MOUTH), name='bottle-concentrate', color=cq.Color(.22, .09, .035))
-    a.add(grip.translate(MOUTH), name='bottle-collar', color=cq.Color(.065, .065, .065))
+    parts = [(shell, 'bottle-pet', cq.Color(.85, .89, .9)),
+             (grip, 'bottle-collar', cq.Color(.065, .065, .065))]
     for i in range(36):
         rib = (cq.Workplane('XY').box(1.1, .8, 14)
                .translate((15.25, 0, 10.5)).rotate((0, 0, 0), (0, 0, 1), i*10))
-        a.add(rib.translate(MOUTH), name=f'bottle-grip-{i}', color=cq.Color(.08, .08, .08))
+        parts.append((rib, f'bottle-grip-{i}', cq.Color(.08, .08, .08)))
     for z, radius, height in [(0, 14.5, 1.6), (20.5, 15.4, 1.8), (24, 14.6, 1.2)]:
         ring = cq.Workplane('XY').workplane(offset=z).circle(radius).circle(11.5).extrude(height)
-        a.add(ring.translate(MOUTH), name=f'bottle-ring-{z}', color=cq.Color(.81, .85, .86))
-    return a
+        parts.append((ring, f'bottle-ring-{z}', cq.Color(.81, .85, .86)))
+
+    def tipped(shape):
+        return shape.rotate((0, 0, 0), (1, 0, 0), 90 - TIP)
+
+    parts = [(tipped(shape), name, color) for shape, name, color in parts]
+    inside = tipped(inside)
+    bounds = inside.val().BoundingBox()
+
+    def settled(level):
+        return inside.intersect(cq.Workplane('XY', origin=(0, 0, bounds.zmin - 1))
+                                .box(400, 400, level - bounds.zmin + 1,
+                                     centered=(True, True, False)))
+
+    low, high = bounds.zmin, bounds.zmax
+    for _ in range(20):
+        level = (low + high) / 2
+        low, high = (level, high) if settled(level).val().Volume() < volume else (low, level)
+    parts.insert(1, (settled(low), 'bottle-concentrate', cq.Color(.22, .09, .035)))
+    lowest = min(shape.val().BoundingBox().zmin for shape, _, _ in parts)
+    mouth = (*ASSEMBLY_FACTS['box']['funnel'], FUNNEL_BOUNDS[5] + CLEARANCE - lowest)
+    a = cq.Assembly(name='concentrate-bottle')
+    for shape, name, color in parts:
+        a.add(shape.translate(mouth), name=name, color=color)
+    return a, mouth
 
 
 def scene():
     original = cq.Assembly.load(str(SOURCE))
-    props = bottle()
+    props, mouth = bottle()
     a = cq.Assembly(name='fill-with-concentrate')
     for child in original.children:
         if visible(child.name):
@@ -97,7 +129,7 @@ def scene():
     meshes = [m for m in current if visible(m['name'])]
     meshes.extend(_mesh_payload.from_assembly(props))
     _mesh_payload.write(meshes, path.with_suffix('.step.mesh'), src=_mesh_payload.source_digest(path))
-    return path
+    return path, mouth
 
 
 def label(kind):
@@ -151,7 +183,7 @@ def renderer():
     replace('from "../../web/server.js"', f'from {(ROOT/"web/server.js").as_uri()!r}')
     replace('import sharp from "sharp";', f'import {{ createRequire }} from "module"; const sharp = createRequire({str(RENDERER)!r})("sharp");')
     replace('const REPO_ROOT = path.resolve(__dirname, "..", "..");', f'const REPO_ROOT = {str(ROOT)!r};')
-    replace('const opts = defaults();\n  if (entry.cam', 'const opts = defaults();\n  opts.labelUrl = entry.labelUrl;\n  opts.fillScreen = entry.fillScreen;\n  opts.view = entry.view;\n  opts.mouth = entry.mouth;\n  opts.screen = entry.screen;\n  if (entry.cam')
+    replace('const opts = defaults();\n  if (entry.cam', 'const opts = defaults();\n  opts.labelUrl = entry.labelUrl;\n  opts.fillScreen = entry.fillScreen;\n  opts.view = entry.view;\n  opts.mouth = entry.mouth;\n  opts.tip = entry.tip;\n  opts.screen = entry.screen;\n  if (entry.cam')
     replace('if (page && pageSize === want) {', 'if (false) {')
     replace('renderer.render(scene, cam);', (Path(__file__).with_name('fill_materials.js')).read_text()+'\nrenderer.render(scene, cam);')
     path = OUT/'render-fill.mjs'; path.write_text(source)
@@ -168,17 +200,18 @@ def main():
                         help='copy registered reference artwork or print artwork to the install guide')
     args = parser.parse_args()
     OUT.mkdir(parents=True, exist_ok=True)
-    step = scene()
+    step, mouth = scene()
     screen = 'data:image/png;base64,'+base64.b64encode((DIR/'assets/fill-screen.png').read_bytes()).decode()
     jobs = []
     for kind in (['neutral', 'pepsi'] if args.compare else [args.label]):
         jobs.append(dict(step=str(step.relative_to(HARDWARE)), out=str(OUT/f'fill-{kind}.png'),
-                         labelUrl=label(kind), fillScreen=screen, view='fill', mouth=MOUTH, screen=SCREEN,
-                         cam=CAMERA, target=(0, 140, 465), span=265, size='1600x1500',
+                         labelUrl=label(kind), fillScreen=screen, view='fill', mouth=mouth, tip=TIP,
+                         screen=SCREEN, cam=CAMERA, target=TARGET, span=SPAN, size='1600x1500',
                          up=(0, 0, 1), bg='#ffffff', transparent=True, solid=True,
                          ortho=True, trim=False, ground=False, fog=False))
         jobs.append(dict(jobs[-1], out=str(OUT/f'bottle-{kind}.png'), view='bottle',
-                         target=(MOUTH[0], MOUTH[1], MOUTH[2] + 102), span=114, size='900x1350', trim=True))
+                         target=[m + 102 * a for m, a in zip(mouth, AXIS)], span=114,
+                         size='1350x900', trim=True))
     jobs.append(dict(jobs[0], out=str(OUT/'fill-screen-framed.png'), view='frame',
                      cam=DISPLAY_PROFILE['normal'], target=SCREEN['origin'], span=46,
                      size='1800x1020', trim=True))
@@ -190,12 +223,12 @@ def main():
     manifest = OUT/'jobs.json'; manifest.write_text(json.dumps(jobs, indent=2)+'\n')
     subprocess.run(['node', str(renderer()), '--jobs', str(manifest)], cwd=ROOT, check=True)
     if args.publish:
-        publish(args)
+        publish(args, mouth)
     for job in jobs:
         print(job['out'])
 
 
-def publish(args):
+def publish(args, mouth):
     fill = OUT / f'fill-{args.label}.png'
     frame = OUT / 'fill-screen-framed.png'
     if args.scale == 1:
@@ -204,17 +237,19 @@ def publish(args):
         for source, target in targets:
             target.parent.mkdir(parents=True, exist_ok=True)
             shutil.copy2(source, target)
-        right = (1 / math.hypot(1, CAMERA[0]), CAMERA[0] / math.hypot(1, CAMERA[0]))
-        side = [MOUTH[0] + 42.5 * right[0], MOUTH[1] + 42.5 * right[1]]
+        # The motion cue: the base's swing round the mouth as it tips, just beyond the base.
+        swing = [[mouth[0], mouth[1] - SWING_R * math.cos(math.radians(angle)),
+                  mouth[2] + SWING_R * math.sin(math.radians(angle))]
+                 for angle in range(SWING_FROM, TIP + 1, 2)]
         inputs = dict(
             sources={str(p.relative_to(ROOT)): hashlib.sha256(p.read_bytes()).hexdigest()
                      for p in (SOURCE, SOURCE.with_suffix('.step.mesh'), FACTS,
                                Path(_swept_top.__file__).resolve(),
                                Path(_enclosure_interface.__file__).resolve(),
                                Path(__file__), Path(__file__).with_name('fill_materials.js'))},
-            funnel_bounds=FUNNEL_BOUNDS, bottle_mouth=MOUTH, screen=SCREEN,
-            pose=dict(cam=CAMERA, target=(0, 140, 465), span=265, size=(1600, 1500)),
-            arrow=dict(start=[*side, MOUTH[2] + 175], end=[*side, MOUTH[2] + 5]),
+            funnel_bounds=FUNNEL_BOUNDS, bottle_mouth=mouth, bottle_tip=TIP, screen=SCREEN,
+            pose=dict(cam=CAMERA, target=TARGET, span=SPAN, size=(1600, 1500)),
+            arrow=swing,
             artwork={str(p.relative_to(ROOT)): hashlib.sha256(p.read_bytes()).hexdigest()
                      for _, p in targets},
         )

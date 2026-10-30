@@ -384,8 +384,8 @@
         2.0,
         2.0
       ],
-      "coordinate_reference_sha256": "fcfaa7ccff9633e9744f902d57af829aa1b9bbd332bc37b275f3ff5da0b4f0fc",
-      "render_sha256": "4c5be3f43de7af0cbeea633fa4f9fe6b2da0ad54e57608ad7598f7ef1eb62827"
+      "coordinate_reference_sha256": "7935b146b3b17a82f3c8e58098eb46b9a9d9c47643e1aa15aea81df9a13e4bd7",
+      "render_sha256": "09ee912de8e2f4f95a7b20629da4cfa70716e68ff6c478552c37aa7274c3d254"
     },
     "steps/connect-rear-connected.png": {
       "reference_size": [
