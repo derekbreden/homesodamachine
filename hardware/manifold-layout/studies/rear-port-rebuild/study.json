@@ -89,35 +89,6 @@
     ]
    ]
   },
-  "vk-solenoid x lower-valve-elbow": {
-   "mm3": 95.945,
-   "bbox": [
-    72.95,
-    302.71,
-    261.88,
-    82.57,
-    312.34,
-    274.65
-   ],
-   "pieces": [
-    [
-     74.58,
-     304.35,
-     269.38,
-     80.93,
-     310.7,
-     274.65
-    ],
-    [
-     72.95,
-     302.71,
-     261.88,
-     82.57,
-     312.34,
-     262.09
-    ]
-   ]
-  },
   "tee-fold x jg-pp0208e": {
    "mm3": 0.219,
    "bbox": [
@@ -136,6 +107,27 @@
      56.7,
      307.59,
      332.27
+    ]
+   ]
+  },
+  "suction-reducer x co2-tube": {
+   "mm3": 72.472,
+   "bbox": [
+    50.86,
+    348.88,
+    274.41,
+    55.99,
+    354.81,
+    288.51
+   ],
+   "pieces": [
+    [
+     50.86,
+     348.88,
+     274.41,
+     55.99,
+     354.81,
+     288.51
     ]
    ]
   }
@@ -254,7 +246,7 @@
    "enclosure-back-top": 8.3,
    "digiten-flow": 1.0,
    "vk-solenoid": 1.04,
-   "g-ganen-pump": 8.59,
+   "suction-reducer": 13.66,
    "meter-seat": 1.49,
    "meter-snap-cap": 12.49,
    "co2-tube": 6.58
@@ -273,15 +265,13 @@
     "jg-pp061208w": 9.5,
     "enclosure-back-top": 10.21,
     "vk-solenoid": 14.43,
-    "tee-fold": 0.01,
-    "vk-wall": 11.05,
-    "g-ganen-pump": 9.2
+    "tee-fold": 0.02,
+    "vk-wall": 11.05
    },
    "water-split-stub": {
     "jg-pi4512f6s": 2.72,
     "jg-pp061208w": 0.07,
-    "enclosure-back-top": 14.78,
-    "g-ganen-pump": 14.07
+    "enclosure-back-top": 14.78
    }
   }
  },
@@ -309,20 +299,12 @@
     321.38
    ],
    "tee-fold": [
-    56.67,
-    299.62,
+    56.68,
+    299.59,
     308.61,
     82.84,
-    315.43,
-    335.33
-   ],
-   "lower-valve-elbow": [
-    56.67,
-    299.62,
-    247.93,
-    82.84,
-    315.43,
-    274.65
+    315.46,
+    335.36
    ],
    "vk-wall": [
     58.96,
@@ -339,101 +321,44 @@
    "soda-bend-holder": 8.34,
    "soda-insulation": 1.04,
    "jg-pp0208e": 14.43,
-   "g-ganen-pump": 14.67,
+   "suction-reducer": 5.71,
    "co2-tube": 3.02
   },
   "tee-fold_nearest_mm": {
    "enclosure-back-top": 10.68,
-   "jg-pp0208e": 0.01
+   "jg-pp0208e": 0.0
   },
-  "lower-valve-elbow_nearest_mm": {},
   "vk-wall_nearest_mm": {
    "enclosure-back-top": 0.0,
    "jg-pp0208e": 11.05
   }
  },
- "vk_outlet_pocket": {
-  "elbow_into_lid_mm": 5.47,
-  "elbow_in_lid_mm3": 883.1,
-  "steps": [
-   [
-    56.42,
-    60.47,
-    7.55
-   ],
-   [
-    60.47,
-    71.02,
-    8.15
-   ],
-   [
-    71.02,
-    72.62,
-    7.51
-   ],
-   [
-    72.62,
-    79.07,
-    5.41
-   ],
-   [
-    79.07,
-    81.27,
-    5.2
-   ],
-   [
-    81.27,
-    83.12,
-    4.13
-   ]
-  ],
-  "axis": [
-   77.759,
-   307.526,
-   255.835
-  ],
-  "gap_mm": 0.252,
-  "floor_gap_mm": 0.349,
-  "pocket_depth_mm": 5.81,
-  "lid_under": 248.0,
-  "backing": [
-   53.42,
-   297.9,
-   244.59,
-   84.27,
-   317.16,
-   248.5
-  ],
-  "backing_below_lid_mm": 3.41,
-  "backing_to_core_mm": {
-   "foam-cap-top": 3.55
-  }
- },
  "g-ganen-pump": {
   "bbox": [
-   -38.37,
-   283.11,
+   -62.87,
+   300.11,
    253.02,
-   56.63,
-   445.77,
+   32.13,
+   462.77,
    313.93
   ],
   "nearest_mm": {
-   "gagira-coupling": 14.03,
-   "multiplex-asse1022": 10.13,
-   "jg-pi4512f6s": 7.44,
-   "jg-pp061208w": 9.03,
-   "bulkhead-drain": 4.59,
-   "bulkhead-drain-nut": 13.5,
-   "bulkhead-flavor-b": 8.95,
-   "bulkhead-flavor-b-nut": 13.72,
-   "soda-insulation": 8.59,
-   "vk-solenoid": 14.67,
-   "jg-pp0208e": 9.2,
-   "water-split-stub": 14.07,
-   "asse-snap-cap": 5.03,
-   "meter-snap-cap": 8.56,
-   "co2-tube": 8.98
+   "bulkhead-flavor-b": 1.19,
+   "bulkhead-flavor-b-nut": 3.52,
+   "enclosure-back-top": 0.01
+  },
+  "aft_mm": 17.0,
+  "west_mm": 24.5,
+  "clear_mm": 1.0,
+  "to_bulkheads_mm": {
+   "bulkhead-carb": 49.32,
+   "bulkhead-carb-nut": 47.93,
+   "bulkhead-drain": 21.32,
+   "bulkhead-drain-nut": 19.27,
+   "bulkhead-flavor-a": 38.86,
+   "bulkhead-flavor-a-nut": 37.84,
+   "bulkhead-flavor-b": 1.19,
+   "bulkhead-flavor-b-nut": 3.52
   }
  },
  "co2-check": {
@@ -463,6 +388,66 @@
   "socket_mouth_y": 383.59,
   "tip_short_of_tube_stop_mm": 1.4,
   "under_ceiling_mm": 10.1
+ },
+ "pump_joints": {
+  "suction": {
+   "tube_mm": 23.39,
+   "mouth": [
+    55.99,
+    346.81,
+    280.2
+   ],
+   "bands": {
+    "barb": {
+     "x_mm": -6.69,
+     "d_mm": 15.51
+    },
+    "stem": {
+     "x_mm": 5.0,
+     "d_mm": 15.09
+    }
+   },
+   "nearest_mm": {
+    "tube": {},
+    "reducer": {
+     "soda-insulation": 13.67,
+     "vk-solenoid": 5.7,
+     "co2-tube": 0.02
+    },
+    "barb-clamp": {},
+    "barb-key": {},
+    "stem-clamp": {},
+    "stem-key": {
+     "jg-pi4512f6s": 14.16
+    }
+   }
+  },
+  "discharge": {
+   "tube_mm": 23.14,
+   "mouth": [
+    -86.48,
+    346.76,
+    280.53
+   ],
+   "bands": {
+    "barb": {
+     "x_mm": -6.57,
+     "d_mm": 15.59
+    },
+    "stem": {
+     "x_mm": 5.0,
+     "d_mm": 15.09
+    }
+   },
+   "nearest_mm": {
+    "tube": {},
+    "reducer": {},
+    "barb-clamp": {},
+    "barb-key": {},
+    "stem-clamp": {},
+    "stem-key": {}
+   }
+  }
  },
  "co2_tube": {
   "from": [
@@ -523,7 +508,7 @@
    "enclosure-back-top": 14.83,
    "soda-insulation": 6.58,
    "vk-solenoid": 3.01,
-   "g-ganen-pump": 8.98,
+   "suction-reducer": 0.02,
    "asse-snap-cap": 14.7,
    "meter-seat": 13.85,
    "meter-snap-cap": 12.33
@@ -726,14 +711,13 @@
    ],
    "faces": 53,
    "cm3": 13.99,
-   "pump_ride_mm": 5.02,
-   "pump_ride_at_mm": 2.0,
+   "pump_ride_mm": null,
+   "pump_ride_at_mm": 0.0,
    "nearest_mm": {
     "gagira-coupling": 0.15,
     "multiplex-asse1022": 0.15,
     "jg-pi4512f6s": 5.43,
     "enclosure-back-top": 4.6,
-    "g-ganen-pump": 5.02,
     "asse-seat": 0.25,
     "pisco-seat": 2.19,
     "pisco-snap-cap": 2.19
