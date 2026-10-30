@@ -28,6 +28,7 @@ and regulatory basis is [`/business/regulatory.md`](/business/regulatory.md), an
 | Enclosure walls and infill | Two wall loops and 15% gyroid, with local solid reinforcement at loaded features ([infill and deposited structure](/hardware/mechanical-qualification/README.md#infill-and-deposited-structure)). Derek: “I don’t see why we need more walls or increased infill percent.” |
 | Insulated wires touching a surface or another wire | Derek: “I think the rules are different for wires. It is true that I don't care if the wire is flat against something. That doesn't matter at all. But it would also be a problem if a wire is running through like a 1 millimeter channel, if it's restricted on all sides. So it's not that it has to be 1 millimeter away from everything in every dimension, but it needs some room to exist.” The [routing rule](/hardware/wiring/README.md#routing-and-assembly) follows this room requirement. |
 | The cold core's seam-channel fold close to the PRV shroud | Derek: “If there's a reason we can't be right up against the PRV let me know.” The fold behind the [seam channel](/hardware/printed-parts/cold-core/foam-shell/README.md#seam-channel) stands about 0.7 mm off the shroud's end. |
+| Where the ASSE outlet cap's wrench flats stand | The scan fits the outlet cap's flats at their own clock, 0.9° against the main wrench's 0.3° ([Multiplex ASSE 1022](/hardware/reference/multiplex-asse1022/README.md)). Derek: “We have the hex modeled, what is the part you don't know? It clearly has a turn in our model” |
 
 ## Packed, shipped and stored
 
