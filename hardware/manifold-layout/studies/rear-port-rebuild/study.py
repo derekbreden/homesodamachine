@@ -16,8 +16,8 @@ routed before its turn. Placed so far, on back-top's port corner cut down to its
   V-K clear of the soda inlet;
 - the G Ganen carbonator pump, where production stands it on the cap, without its elbows;
 - the neoFit ACVUS-44 stem check valve in the Pisco's outlet;
-- the CO2 tube, off the check's socket in one bend and straight down onto the cap, between V-K
-  and the pump.
+- the CO2 tube, off the check's socket in one bend, then an S onto the cap between V-K and the
+  pump, and straight down past the carbonator's rim.
 
 Back-top is today's piece with its six old bores plugged, both roof pockets filled back to the
 full roof, the clamping land carried down to the dropped bottom nuts, the new bores, each column's
@@ -47,6 +47,7 @@ for p in ('scripts', 'manifold-layout', 'printed-parts/cadlib', 'reference/asse1
     sys.path.insert(0, str(HW / p))
 
 import cadquery as cq  # noqa: E402
+from OCP.BRepAdaptor import BRepAdaptor_Surface  # noqa: E402
 from OCP.gp import gp_Trsf  # noqa: E402
 import above_core as layout  # noqa: E402
 import above_core_parts as acp  # noqa: E402
@@ -355,10 +356,13 @@ for name, (x, row, bore, centre_xz, colour, text, ink) in TILES.items():
         text, 5.0, 0.48, halign='center', valign='center', font='Helvetica', kind='bold').val()
     parts[name + '-word'] = (word, ink)
 
-# --- the CO2 tube, off the check's socket in one bend and straight down onto the cap -------------
-# The tube leaves the check's socket straight forward, turns down in one bend no tighter than
-# CO2_BEND and comes straight down onto the cap. Of the routes that do, it is the shortest that
-# stands CO2_GAP off every part; where it lands is wherever that route comes down.
+# --- the CO2 tube, off the check's socket in one bend, then an S onto a straight past the rim ----
+# The tube leaves the check's socket straight forward and turns down in one bend no tighter than
+# CO2_BEND onto a straight drop. Of the bends that do, it is the shortest that stands CO2_GAP off
+# every part. Under the cap the tube runs straight from the coil's top up to the floor, on the
+# bend's drop pushed straight out from the carbonator's axis until the tube just touches the
+# carbonator's rim. From the floor, the gentlest S that stands CO2_GAP off every part brings it
+# onto the bend's foot.
 CO2_BEND, CO2_GAP = 25.0, 3.0
 co2_r = sel['tube_od_mm'] / 2.
 check_mouth = MOUTH_Y - check_tip - acvus.LENGTH
@@ -368,16 +372,21 @@ neighbours = cKDTree(np.concatenate([pts(s, 0.4) for n, (s, _) in parts.items()
 ts = np.linspace(0., 1., 81)[None, :, None]
 
 
-def co2_route(top, a, b):
-    """The bends off the socket onto a drop from `top`, for arrays of tangent lengths `a` off the socket
-    and `b` onto the drop: (samples, tightest radius, length to the cap)."""
-    a, b, top = np.asarray(a, float)[:, None, None], np.asarray(b, float)[:, None, None], np.asarray(top, float)
-    c = (co2_from, co2_from + a * np.array([0., -1., 0.]), top + b * np.array([0., 0., 1.]), top)
+def curve(c):
+    """Samples, tightest radius and length of the cubic Beziers on control points c."""
     B = (1 - ts) ** 3 * c[0] + 3 * (1 - ts) ** 2 * ts * c[1] + 3 * (1 - ts) * ts ** 2 * c[2] + ts ** 3 * c[3]
     d1 = 3 * (1 - ts) ** 2 * (c[1] - c[0]) + 6 * (1 - ts) * ts * (c[2] - c[1]) + 3 * ts ** 2 * (c[3] - c[2])
     d2 = 6 * (1 - ts) * (c[2] - 2 * c[1] + c[0]) + 6 * ts * (c[3] - 2 * c[2] + c[1])
     k = np.linalg.norm(np.cross(d1, d2), axis=2) / np.linalg.norm(d1, axis=2) ** 3
-    return B, 1. / k.max(1), np.linalg.norm(np.diff(B, axis=1), axis=2).sum(1) + top[2] - CAP_Z
+    return B, 1. / k.max(1), np.linalg.norm(np.diff(B, axis=1), axis=2).sum(1)
+
+
+def co2_route(top, a, b):
+    """The bends off the socket onto a drop from `top`, for arrays of tangent lengths `a` off the socket
+    and `b` onto the drop: (samples, tightest radius, length to the cap)."""
+    a, b, top = np.asarray(a, float)[:, None, None], np.asarray(b, float)[:, None, None], np.asarray(top, float)
+    B, radius, length = curve((co2_from, co2_from + a * np.array([0., -1., 0.]), top + b * up, top))
+    return B, radius, length + top[2] - CAP_Z
 
 
 def co2_length(v):
@@ -409,13 +418,29 @@ while step.max() > 0.05:
     else:
         step = step / 2.
 co2_top, CO2_A, CO2_B = v[:3], float(v[3]), float(v[4])
-co2_radius, co2_len = (float(r[0]) for r in co2_route(co2_top, [CO2_A], [CO2_B])[1:])
-co2_ctrl = (co2_from, co2_from + CO2_A * np.array([0., -1., 0.]), co2_top + CO2_B * np.array([0., 0., 1.]), co2_top)
-co2_land = np.array([co2_top[0], co2_top[1], CAP_Z])
+co2_ctrl = (co2_from, co2_from + CO2_A * np.array([0., -1., 0.]), co2_top + CO2_B * up, co2_top)
+_, r, n = curve(co2_ctrl)
+co2_radius, co2_bend_len = float(r[0]), float(n[0])
+# The carbonator's rim is its tube's outer cylinder, the largest; the straight stands a tube radius
+# outside it, under the cap from the coil's top up.
+carb_axis, carb_r = max(((np.array([c.Location().X(), c.Location().Y()]), c.Radius())
+                         for c in (BRepAdaptor_Surface(f.wrapped).Cylinder() for f in core['carbonator-tube'].Faces()
+                                   if f.geomType() == 'CYLINDER')), key=lambda ar: ar[1])
+out = co2_top[:2] - carb_axis
+co2_push = carb_r + co2_r - float(np.linalg.norm(out))
+co2_land = np.array([*(carb_axis + out / np.linalg.norm(out) * (carb_r + co2_r)), CAP_Z])
+co2_low = np.array([co2_land[0], co2_land[1], core['evap-coil'].BoundingBox().zmax])
+pq = np.array(list(itertools.product(np.arange(1., 30.01, 0.25), repeat=2)))
+S, r, n = curve((co2_land, co2_land + pq[:, 0, None, None] * up, co2_top - pq[:, 1, None, None] * up, co2_top))
+i = next(i for i in np.argsort(-r) if neighbours.query(S[i])[0].min() - co2_r >= CO2_GAP)
+CO2_P, CO2_Q = (float(q) for q in pq[i])
+co2_s_radius, co2_len = float(r[i]), co2_bend_len + float(n[i])     # the S, and the tube from the socket to the floor
+co2_s = (co2_top, co2_top - CO2_Q * up, co2_land + CO2_P * up, co2_land)
 co2_end = co2_from + np.array([0., acvus.INSERTION, 0.])            # the tube's end in the check's socket
 path = cq.Wire.assembleEdges([cq.Edge.makeLine(cq.Vector(*co2_end), cq.Vector(*co2_from)),
                               cq.Edge.makeBezier([cq.Vector(*q) for q in co2_ctrl]),
-                              cq.Edge.makeLine(cq.Vector(*co2_top), cq.Vector(*co2_land))])
+                              cq.Edge.makeBezier([cq.Vector(*q) for q in co2_s]),
+                              cq.Edge.makeLine(cq.Vector(*co2_land), cq.Vector(*co2_low))])
 ring = cq.Workplane(cq.Plane(origin=tuple(co2_end), xDir=(1., 0., 0.), normal=(0., -1., 0.))).circle(
     co2_r).circle(sel['tube_id_mm'] / 2.)
 parts['co2-tube'] = (ring.sweep(path).val(), cq.Color(*(c / 255. for c in SPOOLS['red'].rgb)))
@@ -545,25 +570,29 @@ print(f'== the check\'s collar on the Pisco\'s outlet face Y{MOUTH_Y - check_tip
       f'{result["co2-check"]["tip_short_of_tube_stop_mm"]} mm short of the tube stop, its socket mouth Y{check_mouth:.2f}')
 
 
-# Under the cap where the tube lands: in from the carbonator's tube and from the coil wound on it,
-# each read as round about its own box's centre, and off reservoir A.
-def in_from(body):
-    b = core[body].BoundingBox()
-    return (b.xmax - b.xmin) / 2. - math.dist(co2_land[:2], ((b.xmin + b.xmax) / 2., (b.ymin + b.ymax) / 2.))
-
-
-co2_below = cq.Solid.makeCylinder(co2_r, CAP_Z, cq.Vector(co2_land[0], co2_land[1], 0.), cq.Vector(0., 0., 1.))
+# Under the cap, the straight against the core's bodies; the foam it passes through is left out.
+straight = cq.Solid.makeCylinder(co2_r, CAP_Z - co2_low[2], cq.Vector(*co2_low), cq.Vector(0., 0., 1.))
+co2_core = {}
+for n, s in core.items():
+    b = s.BoundingBox()
+    if not n.startswith('foam-') and b.xmin - 30. < co2_land[0] < b.xmax + 30. and b.ymin - 30. < co2_land[1] < b.ymax + 30.:
+        co2_core[n] = round(straight.distance(s), 2)
+co2_core = dict(sorted(co2_core.items(), key=lambda kv: kv[1]))
 result['co2_tube'] = {
-    'from': [round(float(c), 3) for c in co2_from], 'drop_top': [round(float(c), 3) for c in co2_top],
-    'landing': [round(float(c), 3) for c in co2_land], 'tangents_mm': [round(CO2_A, 2), round(CO2_B, 2)],
-    'tightest_radius_mm': round(float(co2_radius), 2), 'visible_length_mm': round(float(co2_len), 1),
-    'in_from_carbonator_mm': round(in_from('carbonator-tube'), 2), 'in_from_coil_mm': round(in_from('evap-coil'), 2),
-    'to_reservoir_a_mm': round(co2_below.distance(core['reservoir-a']), 2)}
-print(f'== CO2 tube: {co2_len:.1f} mm from the check\'s socket mouth Y{check_mouth:.2f}, straight down from '
-      f'Z{co2_top[2]:.1f} onto the cap at X{co2_land[0]:.2f} Y{co2_land[1]:.2f}; tangents {CO2_A:.1f} and {CO2_B:.1f} mm, '
-      f'R{co2_radius:.1f} at its tightest; {result["co2_tube"]["in_from_carbonator_mm"]} mm in from the carbonator\'s '
-      f'outer face, {result["co2_tube"]["in_from_coil_mm"]} mm in from the coil\'s, '
-      f'{result["co2_tube"]["to_reservoir_a_mm"]} mm off reservoir A')
+    'from': [round(float(c), 3) for c in co2_from], 'bend_foot': [round(float(c), 3) for c in co2_top],
+    'floor': [round(float(c), 3) for c in co2_land], 'low': [round(float(c), 3) for c in co2_low],
+    'bend_tangents_mm': [round(CO2_A, 2), round(CO2_B, 2)], 'bend_radius_mm': round(co2_radius, 2),
+    's_tangents_mm': [CO2_P, CO2_Q], 's_radius_mm': round(co2_s_radius, 2),
+    'carbonator_axis': [round(float(c), 3) for c in carb_axis], 'carbonator_r': round(carb_r, 3),
+    'pushed_out_mm': round(co2_push, 2), 'to_floor_mm': round(co2_len, 1),
+    'straight_mm': round(CAP_Z - co2_low[2], 1), 'straight_to_core_mm': co2_core}
+print(f'== CO2 tube: one bend off the check\'s socket mouth Y{check_mouth:.2f} onto its foot at ({co2_top[0]:.2f}, '
+      f'{co2_top[1]:.2f}, {co2_top[2]:.1f}), tangents {CO2_A:.1f} and {CO2_B:.1f} mm, R{co2_radius:.1f} at its tightest; '
+      f'an S onto the floor at X{co2_land[0]:.2f} Y{co2_land[1]:.2f}, {co2_push:.2f} mm out from under the foot, '
+      f'tangents {CO2_P:g} and {CO2_Q:g} mm, R{co2_s_radius:.1f} at its tightest; {co2_len:.1f} mm to the floor, then '
+      f'straight down {CAP_Z - co2_low[2]:.1f} mm to the coil\'s top')
+for n, d in co2_core.items():
+    print(f'  the straight under the cap: {n:32} {d:6.2f} mm')
 result['co2_tube']['nearest_mm'] = nearest('co2-tube', [m for m in placed if m not in ('co2-tube', 'co2-check')])
 json.dump(result, open(HERE / 'study.json', 'w'), indent=1)
 
@@ -654,8 +683,10 @@ substitute_md(HERE / 'README.md', {
     'CHECK_TO_FOAM': f'{check["nearest_mm"]["soda-insulation"]:.1f}',
     'CO2_LAND_X': f'{co2_land[0]:.1f}', 'CO2_LAND_Y': f'{co2_land[1]:.1f}', 'CO2_LEN': f'{co2_len:.0f}',
     'CO2_BEND': f'{CO2_BEND:g}', 'CO2_GAP': f'{CO2_GAP:g}', 'CO2_DROP': f'{co2_top[2] - CAP_Z:.0f}',
-    'CO2_IN_CARBONATOR': f'{co2["in_from_carbonator_mm"]:.1f}', 'CO2_IN_COIL': f'{co2["in_from_coil_mm"]:.1f}',
-    'CO2_TO_RESERVOIR': f'{co2["to_reservoir_a_mm"]:.1f}',
+    'CO2_S_R': f'{co2_s_radius:.0f}', 'CO2_PUSH': f'{co2_push:.1f}', 'CO2_STRAIGHT': f'{CAP_Z - co2_low[2]:.0f}',
+    'CO2_LOW_Z': f'{co2_low[2]:.1f}', 'CAP_FACE': f'{CAP_Z:g}',
+    'CO2_TO_RIM': f'{co2["straight_to_core_mm"]["carbonator-tube"]:.1f}',
+    'CO2_TO_RESERVOIR': f'{co2["straight_to_core_mm"]["reservoir-a"]:.1f}',
     'CO2_TO_VK': f'{co2["nearest_mm"]["vk-solenoid"]:.1f}', 'CO2_TO_PUMP': f'{co2["nearest_mm"]["g-ganen-pump"]:.1f}',
     'STEM_PAST_PORT': f'{fold_in_vk[0][5] - fold_in_vk[0][2]:.1f}',
     'HUB_INTO_VK': f'{fold_in_vk[-1][5] - fold_in_vk[-1][2]:.2f}',

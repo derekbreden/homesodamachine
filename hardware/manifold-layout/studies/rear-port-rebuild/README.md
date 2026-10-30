@@ -22,7 +22,7 @@ https://claude.ai/artifact/RppC6x7HmYNP8n2d6EyTMN.
 | V-K, its stem elbow and its wall | Production's arrangement, moved [1.4](VK_EAST) mm east, [11.2](VK_AFT) mm aft and [7.0](VK_DOWN) mm down, until the elbow's release face is on the union tee's east collet face. The elbow's socket is [0.2](VK_TILT)° off the tee's run. The wall carries V-K's posts as production's does and reaches the side wall's inner face instead of the cap, with a [1.9](VK_ARM) mm arm. |
 | G Ganen carbonator pump | Where production stands it on the cold-core cap, without its elbows |
 | neoFit [ACVUS-44](../../../reference/neofit-acvus44-check/README.md) stem check valve | Its stem in the Pisco's outlet, up to the collar on the outlet's release face, with the tip [1.4](CHECK_TIP_SHORT) mm short of the tube stop. The socket faces forward, its mouth at Y[383.6](CHECK_MOUTH_Y). |
-| CO2 tube | Red 1/4 in LLDPE, [99](CO2_LEN) mm from the check's socket to the cap at X[54.0](CO2_LAND_X) Y[352.0](CO2_LAND_Y), between V-K and the pump. It leaves the socket straight forward, turns down in one bend no tighter than R[25](CO2_BEND), and comes straight down its last [36](CO2_DROP) mm. |
+| CO2 tube | Red 1/4 in LLDPE, [100](CO2_LEN) mm from the check's socket to the cap at X[59.1](CO2_LAND_X) Y[354.7](CO2_LAND_Y), between V-K and the pump, and on straight down past the carbonator's rim. It leaves the socket straight forward, turns down in one bend no tighter than R[25](CO2_BEND), and comes onto the cap in an S no tighter than R[52](CO2_S_R). |
 
 ## Back-top
 
@@ -51,12 +51,17 @@ the foam on the drop.
 
 ## The CO2 line
 
-Of the routes that leave the check's socket straight forward, turn down in one bend no tighter than
-R[25](CO2_BEND) and come straight down onto the cap, the tube is the shortest that stands
-[3](CO2_GAP) mm off every part. The nearest part is V-K, [3.0](CO2_TO_VK) mm off.
+The bend off the check's socket is the shortest of those that leave it straight forward, turn down
+no tighter than R[25](CO2_BEND) onto a straight drop, and stand [3](CO2_GAP) mm off every part. The
+nearest part is V-K, [3.0](CO2_TO_VK) mm off.
 
-It lands over the carbonator's top, [2.6](CO2_IN_CARBONATOR) mm in from the carbonator's outer face and
-[8.9](CO2_IN_COIL) mm in from the coil's, and [22.6](CO2_TO_RESERVOIR) mm in front of reservoir A.
+Under the cap the tube runs straight down beside the carbonator, [5.8](CO2_PUSH) mm out from under the
+bend's foot, straight away from the carbonator's axis: there it just touches the carbonator's rim. The
+straight runs [64](CO2_STRAIGHT) mm, from the coil's top at Z[189.6](CO2_LOW_Z) up to the floor, the
+cap's face at Z[253.4](CAP_FACE). The tube is drawn down to the coil's top.
+
+From the floor, the gentlest S that stands [3](CO2_GAP) mm off every part rises [36](CO2_DROP) mm onto
+the bend's foot. It bends no tighter than R[52](CO2_S_R).
 
 ## Clearances
 
@@ -71,7 +76,8 @@ It lands over the carbonator's top, [2.6](CO2_IN_CARBONATOR) mm in from the carb
   [8.6](PUMP_TO_FOAM) mm from the foam and [9.2](PUMP_TO_TEE) mm from the union tee.
 - The check valve is [10.1](CHECK_UNDER_CEILING) mm under the ceiling and [12.4](CHECK_TO_FOAM) mm over the
   foam.
-- The CO2 tube is [3.0](CO2_TO_VK) mm from V-K and [9.3](CO2_TO_PUMP) mm from the pump.
+- The CO2 tube is [3.0](CO2_TO_VK) mm from V-K and [9.0](CO2_TO_PUMP) mm from the pump. Under the cap it
+  is [0.0](CO2_TO_RIM) mm from the carbonator and [18.7](CO2_TO_RESERVOIR) mm from reservoir A.
 
 No two parts overlap, apart from:
 
