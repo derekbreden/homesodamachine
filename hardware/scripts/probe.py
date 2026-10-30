@@ -1,10 +1,13 @@
-"""Geometry probe — ask the placed solids a question instead of reasoning about them.
+"""Geometry probe — exact questions put to the placed machine, built whole.
 
 The whole placed machine as one flat `{name: shape}` world — `enclosure_assembly`'s pack
 bodies, the enclosure display and the funnel seated in the walls, the four printed
 enclosure pieces and the routed tubes — with the queries that answer where a part
 is, how close two parts come, what a candidate volume runs into, how far a
 line can travel before it hits something, and where a piece of a routed line can stand.
+
+Where a solid stands in a scene, and the move along an axis that seats it against another or
+clears it off one, `where.py` reads off the scene's mesh payload and builds nothing.
 
 The world is one `enclosure_assembly.build_enclosure_assembly()`, body for body: `w.parts` are the
 bodies, `w.pieces` are the box's four printable pieces, and both are in the one
