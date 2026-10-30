@@ -219,7 +219,7 @@
    "digiten-flow": 1.0,
    "vk-solenoid": 1.04,
    "g-ganen-pump": 8.59,
-   "co2-tube": 12.29
+   "co2-tube": 6.58
   }
  },
  "water_split": {
@@ -294,7 +294,7 @@
    "soda-insulation": 1.04,
    "jg-pp0208e": 14.43,
    "g-ganen-pump": 14.67,
-   "co2-tube": 3.04
+   "co2-tube": 3.02
   },
   "tee-fold_nearest_mm": {
    "enclosure-back-top": 10.68,
@@ -327,7 +327,7 @@
    "vk-solenoid": 14.67,
    "jg-pp0208e": 9.2,
    "water-split-stub": 14.07,
-   "co2-tube": 9.26
+   "co2-tube": 8.98
   }
  },
  "co2-check": {
@@ -358,30 +358,60 @@
    383.586,
    328.0
   ],
-  "drop_top": [
+  "bend_foot": [
    54.0,
    352.0,
    289.4
   ],
-  "landing": [
-   54.0,
-   352.0,
+  "floor": [
+   59.101,
+   354.664,
    253.4
   ],
-  "tangents_mm": [
+  "low": [
+   59.101,
+   354.664,
+   189.574
+  ],
+  "bend_tangents_mm": [
    23.75,
    24.53
   ],
-  "tightest_radius_mm": 25.02,
-  "visible_length_mm": 99.4,
-  "in_from_carbonator_mm": 2.58,
-  "in_from_coil_mm": 8.93,
-  "to_reservoir_a_mm": 22.61,
+  "bend_radius_mm": 25.02,
+  "s_tangents_mm": [
+   15.0,
+   15.0
+  ],
+  "s_radius_mm": 51.9,
+  "carbonator_axis": [
+   -0.0,
+   323.8
+  ],
+  "carbonator_r": 63.5,
+  "pushed_out_mm": 5.76,
+  "to_floor_mm": 99.9,
+  "straight_mm": 63.8,
+  "straight_to_core_mm": {
+   "carbonator-tube": 0.0,
+   "endcap-top": 1.78,
+   "evap-coil": 5.22,
+   "reservoir-a": 18.73,
+   "reservoir-a-cap": 18.73,
+   "reservoir-a-gasket": 18.73,
+   "float-stop-carb-top": 27.43,
+   "float-rod-carb": 30.6,
+   "reed-bridge": 31.07,
+   "float-carb": 39.71,
+   "reed-carb-2": 51.67,
+   "reed-carb-1": 77.11,
+   "endcap-bottom": 124.89,
+   "carbonator-elbow-co2-in": 131.45
+  },
   "nearest_mm": {
    "enclosure-back-top": 14.83,
-   "soda-insulation": 12.28,
-   "vk-solenoid": 3.02,
-   "g-ganen-pump": 9.26
+   "soda-insulation": 6.58,
+   "vk-solenoid": 3.01,
+   "g-ganen-pump": 8.98
   }
  }
 }
