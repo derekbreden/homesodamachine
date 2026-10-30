@@ -1,6 +1,7 @@
 {
-  "part": "NeoFit 1/4-inch tube \u00d7 1/4-inch stem elbow",
-  "geometry_status": "Supplier envelope dimensions with estimated molded form and axis-intersection datum; not a scan",
+  "part": "neoFit ATEU44W 1/4-inch tube x 1/4-inch stem elbow",
+  "material_id": "HSM-000330",
+  "geometry_status": "Editable exterior fitted to two opposing sprayed MINI 2 specimens; nominal orthogonal crossing and 6.35 mm straight male diameter",
   "units": "mm",
   "sources": [
     {
@@ -18,20 +19,8 @@
       "local_copy": "source/stem-elbow-dimensions.pdf"
     },
     {
-      "url": "https://www.freshwatersystems.com/products/neofit-polypropylene-natural-white-stem-elbow-1-4-tube-od-x-1-4-stem",
-      "role": "PTEU44-W material variant named by first displayed user link; similar photographed form, no variant-specific dimension drawing located"
-    },
-    {
-      "path": "hardware/reference/jg-pp0308e-elbow/README.md",
-      "role": "Scanned John Guest 1/4-inch elbow: precedent for separate body/collet representation, not NeoFit dimensions"
-    },
-    {
-      "path": "hardware/reference/jg-pp0208e-tee/README.md",
-      "role": "Measured 10 mm tube stop from pressed sleeve and 1.65 mm sleeve stroke; evidence that receiving insertion must be host-specific"
-    },
-    {
-      "path": "hardware/reference/neofit-flavor-reducer/README.md",
-      "role": "Supplier-derived NeoFit stem reference; its listed 21.006 mm male stem length agrees with ATEU44 row. This is not a NeoFit scan"
+      "path": "scan-evidence.json",
+      "role": "868-frame native capture of the two prepared ATEU44W specimens, separate rigid registrations, fitted faces and profiles"
     }
   ],
   "published_ATEU44_row": {
@@ -52,109 +41,105 @@
     "overall_socket_axis_mm": 25.0952,
     "B_interpretation": "Axial socket engagement: mouth to illustrated tube stop. Internal teeth/seals and moving-collet endpoint are not dimensioned"
   },
-  "derived_and_estimated_geometry": {
-    "stem_tip_reach_mm": 27.051,
-    "stem_tip_derivation": "E minus P/2: stem tip to crossing, using socket collar radial maximum as the overall E endpoint",
-    "stem_shoulder_reach_mm": 6.0452,
-    "stem_shoulder_derivation": "stem tip reach minus published free stem A",
-    "socket_mouth_reach_mm": 19.05,
-    "socket_mouth_derivation": "L minus 6.0452 mm hub back reach, assuming the hub has equal back reach on its orthogonal axes",
-    "socket_mouth_plausible_range_mm": [
-      18.05,
-      20.05
+  "fitted_geometry": {
+    "stem_tip_reach_mm": 27.02535353479422,
+    "stem_shoulder_reach_mm": 6.113547528963171,
+    "free_stem_mm": 20.91180600583105,
+    "socket_mouth_reach_mm": 21.082366093950743,
+    "maximum_socket_collar_od_mm": 15.79486,
+    "bend_radius_mm": 5.066279836802499,
+    "nominal_constraints": [
+      "Orthogonal intersecting axes",
+      "Straight male stem diameter 6.35 mm"
     ],
-    "flow_bore_mm": 4.3,
-    "flow_bore_status": "Illustrative passage only; not measured on this fitting",
-    "hub_shape_status": "Rounded block and revolved socket bands estimated from supplier photographs and line drawing",
-    "collet_status": "Circular layout envelope; lip, grab ring, seal, ovality, release stroke and operation endpoint are not qualified",
-    "range_status": "Study uncertainty, not manufacturing tolerance"
+    "flow_bore_display_mm": 4.3,
+    "collet_outer_ellipse": {
+      "major_envelope_mm": 12.22928,
+      "minor_envelope_mm": 10.288800568529199,
+      "clock_degrees": 17.03463042580008,
+      "center_xz_mm": [
+        -0.06848629126006257,
+        -0.05282793793301456
+      ]
+    }
   },
   "canonical_interfaces": {
     "socket_mouth": {
       "point": [
-        0.0,
-        19.05,
-        0.0
+        0,
+        21.082366093950743,
+        0
       ],
       "outward_axis": [
-        0.0,
-        1.0,
-        0.0
+        0,
+        1,
+        0
       ]
     },
     "socket_nominal_stop": {
       "point": [
-        0.0,
-        2.159,
-        0.0
-      ]
+        0,
+        4.191366093950744,
+        0
+      ],
+      "status": "Published family engagement applied from the captured representative release face; internal stop is not directly scanned"
     },
     "stem_tip": {
       "point": [
-        -27.051,
-        0.0,
-        0.0
+        -27.02535353479422,
+        0,
+        0
       ],
       "insertion_axis": [
-        -1.0,
-        0.0,
-        0.0
+        -1,
+        0,
+        0
       ]
     },
     "stem_shoulder": {
       "point": [
-        -6.0452,
-        0.0,
-        0.0
+        -6.113547528963171,
+        0,
+        0
       ],
       "outward_axis": [
-        -1.0,
-        0.0,
-        0.0
+        -1,
+        0,
+        0
       ]
     }
   },
   "seated_mating_estimates": {
-    "equation": "Host mouth X = insertion - 27.051; shoulder-to-host gap = 21.0058 - insertion; bend-axis projection from host = 27.051 - insertion",
+    "equation": "Host mouth X = insertion - stem tip reach; shoulder gap = free stem length - insertion",
     "neofit_female_row": {
       "host_insertion_mm": 16.891,
       "host_mouth_point": [
-        -10.16,
-        0.0,
-        0.0
+        -10.134353534794222,
+        0,
+        0
       ],
-      "shoulder_gap_mm": 4.1148,
-      "bend_axis_projection_mm": 10.16
+      "shoulder_gap_mm": 4.0208060058310515,
+      "bend_axis_projection_mm": 10.134353534794222
     },
     "unknown_valve_or_check_socket": {
-      "status": "Best layout estimate for unmeasured VK/check receiving sockets, not a supplier specification",
-      "nominal_insertion_mm": 12.7,
+      "status": "Layout estimate for an unmeasured receiving socket; supply its actual engagement when known",
+      "host_insertion_mm": 12.7,
+      "host_mouth_point": [
+        -14.325353534794221,
+        0,
+        0
+      ],
+      "shoulder_gap_mm": 8.21180600583105,
+      "bend_axis_projection_mm": 14.325353534794221,
       "plausible_insertion_range_mm": [
-        10.0,
-        15.0
-      ],
-      "host_mouth_point_nominal": [
-        -14.351,
-        0.0,
-        0.0
-      ],
-      "nominal_shoulder_gap_mm": 8.3058,
-      "nominal_bend_axis_projection_mm": 14.351,
-      "bend_axis_projection_range_mm": [
-        12.051,
-        17.051
+        10,
+        15
       ]
-    },
-    "interactions": [
-      "The inserted male stem occupies the host's female tube corridor; that intentional overlap is not a body collision",
-      "A positive shoulder gap is expected when the male tip bottoms before the shoulder meets the host collet",
-      "Replacement of a union elbow removes that elbow's receiving socket and tube link; it does not add this stem elbow after the union elbow",
-      "The release collet remains a moving part; the displayed gap is a seating estimate, not a release-tool qualification"
-    ]
+    }
   },
   "material_variants": {
-    "ATEU44W_solid_white_acetal": "Uses ATEU44 family dimensions as best envelope estimate. Product photograph supports same form, but exact suffix-specific dimensions are not independently supplied",
-    "ATEU44-W_natural_white_acetal": "ATEU44 family drawing is linked from this product page",
-    "PTEU44-W_polypropylene": "Same envelope may be used as a provisional layout estimate; separate PP tooling dimensions are not established. No identical-geometry claim or duplicate mesh"
+    "ATEU44W_solid_white_acetal": "The two specimens identify this reference. Published family engagement remains a supplier dimension.",
+    "ATEU44-W_natural_white_acetal": "Source listing for the family dimensional drawing; exact suffix-specific mold geometry is not established.",
+    "PTEU44-W_polypropylene": "Separate tooling geometry is not established; this scan does not assert material-variant equivalence."
   }
 }

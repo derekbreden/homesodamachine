@@ -1,0 +1,204 @@
+{
+  "units": "mm",
+  "material_id": "HSM-000330",
+  "method": "Each physically retained specimen compared independently to the reopened exported STEP; rigid native scale, no CAD-distance rejection.",
+  "model_source_sha256": "92c10e004f6c3bdb59b3ca90e9c587bcb5854e3362d9b5a09a5a7a7dd50fe1e1",
+  "parameters_sha256": "a6d4486619514f64cad829bd281c90216c04cb94813d2784adea6a8a23fd5d8f",
+  "frozen_parameter_snapshot_sha256": "a6d4486619514f64cad829bd281c90216c04cb94813d2784adea6a8a23fd5d8f",
+  "step_sha256": "3019e6b26531b3e2d9b9454a689264ae45c352d0fc28ca9712928a90e7f42f53",
+  "scan_evidence_sha256": "3e0b546b32ac3c669df6d45378f6d28642550becc5c6e87d00e01f29baa7b559",
+  "observation_voxel_mm": 0.25,
+  "cad_tessellation_mm": 0.025,
+  "native_assembly_valid": true,
+  "native_solid_count": 2,
+  "each_solid_valid": [
+    true,
+    true
+  ],
+  "stl_watertight": true,
+  "stl_shells": 2,
+  "stl_zero_area_triangles_removed": 2,
+  "stl_triangles": 22022,
+  "extent_mm": [
+    34.92278,
+    26.16237000000001,
+    15.79173782639202
+  ],
+  "ports": {
+    "socket": [
+      [
+        0.0,
+        21.082366093950743,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ]
+    ],
+    "stem_tip": [
+      [
+        -27.02535353479422,
+        0.0,
+        0.0
+      ],
+      [
+        -1.0,
+        0.0,
+        0.0
+      ]
+    ],
+    "stem_shoulder": [
+      [
+        -6.113547528963171,
+        0.0,
+        0.0
+      ],
+      [
+        -1.0,
+        0.0,
+        0.0
+      ]
+    ]
+  },
+  "all_observations": {
+    "samples": 48171,
+    "p50_p90_p95_p99_max_mm": [
+      0.05578950826873852,
+      0.1499927454682031,
+      0.20338007487839516,
+      0.38249800262826683,
+      2.0845811830364607
+    ],
+    "fraction_within_0_25_mm": 0.9680720765605862,
+    "fraction_within_0_50_mm": 0.9947686367316435
+  },
+  "specimens": {
+    "a": {
+      "retained_cloud_sha256": "f7d0c9d488d00dca86faabc57adfa6104a01e75b767b6901e540112ab35a65ba",
+      "all_observations": {
+        "samples": 21724,
+        "p50_p90_p95_p99_max_mm": [
+          0.055084963342438745,
+          0.12016196516311463,
+          0.16768203339449278,
+          0.34936810174054217,
+          1.1404309515766904
+        ],
+        "fraction_within_0_25_mm": 0.9791474866507089,
+        "fraction_within_0_50_mm": 0.9952587000552384
+      },
+      "regions": {
+        "straight_stem": {
+          "samples": 9776,
+          "p50_p90_p95_p99_max_mm": [
+            0.04687538440141178,
+            0.09494886155306971,
+            0.13178500156952905,
+            0.3015400771201404,
+            0.5700176787973735
+          ],
+          "fraction_within_0_25_mm": 0.9847585924713584,
+          "fraction_within_0_50_mm": 0.9995908346972177
+        },
+        "bend_and_shoulder": {
+          "samples": 6565,
+          "p50_p90_p95_p99_max_mm": [
+            0.061596485026382555,
+            0.14131788723342556,
+            0.20944897040110486,
+            0.6154416420462725,
+            1.1404309515766904
+          ],
+          "fraction_within_0_25_mm": 0.9638994668697639,
+          "fraction_within_0_50_mm": 0.9850723533891851
+        },
+        "socket_fixed_body": {
+          "samples": 5383,
+          "p50_p90_p95_p99_max_mm": [
+            0.06236838841871884,
+            0.13524271532142854,
+            0.1729740503192144,
+            0.2646688877445938,
+            0.507330376399563
+          ],
+          "fraction_within_0_25_mm": 0.9875534088798068,
+          "fraction_within_0_50_mm": 0.9998142299832807
+        }
+      }
+    },
+    "b": {
+      "retained_cloud_sha256": "fc9eef517f19a7afaa7971c764d33fc3fdb9e8810827777deedf76213b5232ec",
+      "all_observations": {
+        "samples": 26447,
+        "p50_p90_p95_p99_max_mm": [
+          0.05667575645172791,
+          0.16913494835975557,
+          0.22996233496938337,
+          0.39856731529755635,
+          2.0845811830364607
+        ],
+        "fraction_within_0_25_mm": 0.9589745528793436,
+        "fraction_within_0_50_mm": 0.9943660906719098
+      },
+      "regions": {
+        "straight_stem": {
+          "samples": 4524,
+          "p50_p90_p95_p99_max_mm": [
+            0.05436468665833653,
+            0.15268981733298256,
+            0.17611522564787474,
+            0.21211783087722577,
+            0.2920445290253386
+          ],
+          "fraction_within_0_25_mm": 0.9960212201591512,
+          "fraction_within_0_50_mm": 1.0
+        },
+        "bend_and_shoulder": {
+          "samples": 6570,
+          "p50_p90_p95_p99_max_mm": [
+            0.06404481786855373,
+            0.14524104125505774,
+            0.21269885809695416,
+            0.32092874507329455,
+            0.45561942097979424
+          ],
+          "fraction_within_0_25_mm": 0.9627092846270928,
+          "fraction_within_0_50_mm": 1.0
+        },
+        "socket_fixed_body": {
+          "samples": 12351,
+          "p50_p90_p95_p99_max_mm": [
+            0.051821157378286145,
+            0.17785581204389836,
+            0.2684223612583525,
+            0.6484184820290486,
+            2.0845811830364607
+          ],
+          "fraction_within_0_25_mm": 0.9430815318597684,
+          "fraction_within_0_50_mm": 0.9879361994980164
+        },
+        "release_collet": {
+          "samples": 3002,
+          "p50_p90_p95_p99_max_mm": [
+            0.07553312492282543,
+            0.2049309293929908,
+            0.24010013662719823,
+            0.30522677399258863,
+            0.456951049082521
+          ],
+          "fraction_within_0_25_mm": 0.9603597601598934,
+          "fraction_within_0_50_mm": 1.0
+        }
+      }
+    }
+  },
+  "limits": [
+    "Paint thickness, absolute optical scale and specimen-to-specimen variation are not independently calibrated.",
+    "The nominal 90-degree crossing and straight 6.35 mm male diameter are modeling constraints; source clouds are not rescaled.",
+    "Specimen A supplies the free stem tip and shoulder, specimen B the socket release face and exposed nose; the two registrations remain separate.",
+    "Putty-hidden sectors are completed by rotational and bend symmetry. Fine collet finger slots, lettering and mold seams are omitted.",
+    "The 4.3 mm flow bore, hidden transitions and collet underside are display geometry; 16.891 mm insertion is the published family value, not measured seal or grip geometry."
+  ]
+}
