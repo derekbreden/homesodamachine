@@ -5953,6 +5953,25 @@
       "hardware/reference/asse1022-assembly/asse1022-assembly.step"
     ]
   },
+  "hardware/reference/asse1022-threaded-chain/asse1022_threaded_chain.py": {
+    "reads": [
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+      "hardware/reference/asse1022-threaded-chain/asse1022-threaded-chain.step",
+      "hardware/reference/asse1022-threaded-chain/asse1022_threaded_chain.py",
+      "hardware/reference/asse1022-threaded-chain/reference-parameters.json",
+      "hardware/reference/multiplex-asse1022/multiplex_asse1022.py",
+      "hardware/scripts/_cadq_export.py",
+      "hardware/scripts/_material_base.py",
+      "hardware/scripts/_materials.py",
+      "hardware/scripts/_mesh_payload.py",
+      "hardware/scripts/_run_lock.py",
+      "tools/docgen/__init__.py"
+    ],
+    "rewritten": [],
+    "writes": [
+      "hardware/reference/asse1022-threaded-chain/asse1022-threaded-chain.step"
+    ]
+  },
   "hardware/reference/basics-mtb-0606wp/basics_mtb_0606wp.py": {
     "reads": [
       "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",

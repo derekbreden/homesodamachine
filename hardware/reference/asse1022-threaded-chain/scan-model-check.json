@@ -1,0 +1,208 @@
+{
+  "units": "mm",
+  "method": "Retained native observations to CAD tessellation at 0.025 mm; unit-scale rigid registration; no CAD-distance rejection.",
+  "source_sha256": "37f2d3b6480bac2eaaaba6b1b8c406c5aa64c7e6a3ef13d41ecc0979ca3b71f5",
+  "parameters_sha256": "49d49cc3c225470c45f1ec44bfa869e435d721d0b04847abd893d846d0262da9",
+  "bare_asse_source_sha256": "b5721046ffd06d10d2d0b325177c8a0f4a0fc4c522b1bb7ef7c490147b6f84b0",
+  "step_sha256": "66c58f9436aaf72e12e23ccf7d061d8c2de15f2830395c4a95afa7e67d50ca54",
+  "scan_evidence_sha256": "e3fc2f283f828815c0263d52cd7bf9e3c0c9c067f60c7e7d3fb56e3e653b9bd1",
+  "retained_cloud_sha256": "863c40920e829e682f85fe0515832be20f217267b4ded06e48f3e0d102032be5",
+  "observation_voxel_mm": 0.3,
+  "components": {
+    "pp010822e": {
+      "valid": true,
+      "solid_count": 1,
+      "vertices": 9031,
+      "triangles": 9858
+    },
+    "gagira": {
+      "valid": true,
+      "solid_count": 1,
+      "vertices": 6930,
+      "triangles": 7640
+    },
+    "pi4512f6s": {
+      "valid": true,
+      "solid_count": 1,
+      "vertices": 15840,
+      "triangles": 17308
+    },
+    "pp061208w": {
+      "valid": true,
+      "solid_count": 1,
+      "vertices": 10740,
+      "triangles": 12794
+    },
+    "multiplex-asse1022": {
+      "valid": true,
+      "solid_count": 1,
+      "vertices": 19142,
+      "triangles": 21590
+    },
+    "atbu444-e": {
+      "valid": true,
+      "solid_count": 1,
+      "vertices": 17444,
+      "triangles": 20162
+    }
+  },
+  "bounds_mm": [
+    [
+      -36.615684063549324,
+      -20.382075394284584,
+      -3.1635101647661116e-16
+    ],
+    [
+      127.15875656852084,
+      20.706210520141276,
+      41.942323699954315
+    ]
+  ],
+  "extent_mm": [
+    163.77444063207017,
+    41.08828591442586,
+    41.942323699954315
+  ],
+  "ports": {
+    "vent": [
+      [
+        24.65,
+        0.07,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        -1.0
+      ]
+    ],
+    "inlet": [
+      [
+        -36.54674540662688,
+        0.33528511897342195,
+        27.675858982281966
+      ],
+      [
+        -0.9999109550376714,
+        0.0018869859320481959,
+        0.013210650239268805
+      ]
+    ],
+    "outlet_plus": [
+      [
+        118.50785106822661,
+        20.46897820991319,
+        28.034337706289563
+      ],
+      [
+        -0.013576484029076458,
+        0.999116397489193,
+        0.03977566278046345
+      ]
+    ],
+    "outlet_minus": [
+      [
+        119.06004740314124,
+        -20.16808302516476,
+        26.416542174019774
+      ],
+      [
+        0.013576484029076458,
+        -0.999116397489193,
+        -0.03977566278046345
+      ]
+    ]
+  },
+  "all_retained_observations": {
+    "samples": 119046,
+    "p50_p90_p95_p99_max_mm": [
+      0.0660760691447666,
+      0.23599545387351223,
+      0.3752407550473684,
+      0.9765795198518689,
+      1.5278048895142582
+    ],
+    "fraction_within_0_25_mm": 0.9083463535104077,
+    "fraction_within_0_50_mm": 0.9677435613124339
+  },
+  "regions": {
+    "pp010822e": {
+      "samples": 6618,
+      "p50_p90_p95_p99_max_mm": [
+        0.08278922819393283,
+        0.2728830907651739,
+        0.37422532449937146,
+        0.5727882788424751,
+        0.8719727345553776
+      ],
+      "fraction_within_0_25_mm": 0.8875793291024479,
+      "fraction_within_0_50_mm": 0.97537020247809
+    },
+    "gagira": {
+      "samples": 16334,
+      "p50_p90_p95_p99_max_mm": [
+        0.03181784439470188,
+        0.11739469755130333,
+        0.13878484250779607,
+        0.19964222563615058,
+        0.4679889752435564
+      ],
+      "fraction_within_0_25_mm": 0.9986531161993388,
+      "fraction_within_0_50_mm": 1.0
+    },
+    "asse": {
+      "samples": 44062,
+      "p50_p90_p95_p99_max_mm": [
+        0.060359005395324725,
+        0.1795225224094025,
+        0.25577152348801085,
+        0.5978818485947959,
+        1.4352500915527315
+      ],
+      "fraction_within_0_25_mm": 0.9482774272615859,
+      "fraction_within_0_50_mm": 0.9815714220870592
+    },
+    "pi4512f6s": {
+      "samples": 26427,
+      "p50_p90_p95_p99_max_mm": [
+        0.07298872879265579,
+        0.2789138138176924,
+        0.5272174215331149,
+        1.209241810028462,
+        1.5278048895142582
+      ],
+      "fraction_within_0_25_mm": 0.8825822075907216,
+      "fraction_within_0_50_mm": 0.9478563590267529
+    },
+    "pp061208w": {
+      "samples": 8645,
+      "p50_p90_p95_p99_max_mm": [
+        0.05731354232012683,
+        0.18332349181254287,
+        0.23399554131218142,
+        0.37667414365940455,
+        0.4773183249680226
+      ],
+      "fraction_within_0_25_mm": 0.9588201272411798,
+      "fraction_within_0_50_mm": 1.0
+    },
+    "atbu444-e": {
+      "samples": 16960,
+      "p50_p90_p95_p99_max_mm": [
+        0.13884023234729978,
+        0.4633210908754561,
+        0.6830212935868493,
+        1.0980705784804567,
+        1.1838012814715968
+      ],
+      "fraction_within_0_25_mm": 0.7401533018867924,
+      "fraction_within_0_50_mm": 0.9123231132075472
+    }
+  },
+  "limits": [
+    "Optical scale and paint thickness are not independently calibrated.",
+    "Putty-hidden underside sectors use continuation of fitted analytic profiles.",
+    "The capture locates visible assembled surfaces, not hidden thread contacts, collet teeth, seals or pressure-bearing internals.",
+    "Blind mouth closures and buried joint continuations are unqualified display geometry."
+  ]
+}
