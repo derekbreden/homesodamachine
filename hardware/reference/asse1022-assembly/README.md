@@ -48,11 +48,11 @@ assembly's own, and `port(name)` reads one off its station's seat:
 
 | terminal | station port | position | out |
 |---|---|---|---|
-| `port("tube-in")` | `jg-pp010822e.tube_port` | [(-36.00, 0.00, 27.00)](ASSE_TUBE_IN) | −X |
-| `port("tube-out")` | `flare38-14ptc.tube_port` | [(104.00, 0.00, 27.00)](ASSE_TUBE_OUT) | +X |
-| `port("vent-tip")` | `multiplex-asse1022.vent` | [(32.00, 0.00, 0.00)](ASSE_VENT_TIP) | −Z |
+| `port("tube-in")` | `jg-pp010822e.tube_port` | [(-36.30, 0.00, 27.45)](ASSE_TUBE_IN) | −X |
+| `port("tube-out")` | `flare38-14ptc.tube_port` | [(102.20, 0.00, 27.45)](ASSE_TUBE_OUT) | +X |
+| `port("vent-tip")` | `multiplex-asse1022.vent` | [(24.65, 0.07, 0.00)](ASSE_VENT_TIP) | −Z |
 
-Overall [140.0 × 33.0 × 41.3 mm](ASSE_ENVELOPE) for the water-fitting chain.
+Overall [138.5 × 33.1 × 41.9 mm](ASSE_ENVELOPE) for the water-fitting chain.
 The exposed vent tip is the actual reference barb datum, with no hose stub.
 The installed TPU sleeve and the two-bend R25 return are separate appliance
 members. The sleeve's printable sockets are trial fit dimensions; its expanded
