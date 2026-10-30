@@ -61,6 +61,7 @@ and regulatory basis is [`/business/regulatory.md`](/business/regulatory.md), an
 | Concern | Answer |
 | --- | --- |
 | Overpour | Overpour is expected customer behavior. The funnel's continuous silicone apron carries it across the exposed frame joints to the exterior sides, with a broad, flat underside resting on the roof ([funnel](/hardware/printed-parts/zone-c/funnel/README.md), [overflow review](/hardware/printed-parts/zone-c/funnel/overflow-review/README.md)). |
+| Pouring a bottle under a deep sink basin | Derek: “who is going to actually turn the bottle completely vertical, when one need only tip barely over the horizon for the bottle to empty.” |
 | Water and debris from above | The [lift-off cover](/hardware/printed-parts/zone-c/funnel-cover/README.md) covers the mouth between fills. The funnel's integral silicone apron covers the exposed frame/roof joints and upper seam screw wells, reaches both exterior sides, and rests flat on the roof ([overflow review](/hardware/printed-parts/zone-c/funnel/overflow-review/README.md)). |
 | The funnel cover staying seated | Derek: “I am skeptical of the utility of the small deformations in the face of the friction already present, plus the fact that this will always be held in by gravity during its service life.” |
 | The funnel's push-on drain seal | Derek calls it “a witch hunt (silicone leak, may happen, may not, no solid evidence it will)”. |
