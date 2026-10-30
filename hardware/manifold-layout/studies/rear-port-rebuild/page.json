@@ -1,0 +1,284 @@
+{
+ "title": "Rear-port rebuild",
+ "lede": "Back-top cut to the port corner, without its mounting brackets: the 9 mm ceiling, the rear wall and the east side wall, with the label tiles outside in channels between side rails. Inside are the four bulkheads, the ASSE chain, the Pisco and the flow meter (amber), straight into the soda union, larger side down. The meter's inlet turns straight down through production's printed R14 holder under 1 in foam, to the cold-core cap. No other routes. A is cut at X60, C on the Pisco and meter axis, D under Z313.",
+ "frame": "each",
+ "sync": false,
+ "columns": 2,
+ "panels": [
+  {
+   "name": "Against the side wall",
+   "view": {
+    "az": 196,
+    "el": -8
+   },
+   "focus": {
+    "center": [
+     80,
+     410,
+     300
+    ],
+    "radius": 66
+   },
+   "models": [
+    {
+     "step": "hardware/assembly/scenes/out/rear-port-rebuild-corner.step",
+     "highlight": [
+      "pisco-*",
+      "digiten-flow*"
+     ]
+    }
+   ],
+   "marks": [
+    {
+     "at": [
+      80.0,
+      430.0,
+      346.0
+     ],
+     "text": "9 mm roof, 7.1 mm over the Pisco",
+     "dx": 50,
+     "dy": -28
+    },
+    {
+     "at": [
+      77.1,
+      440.0,
+      305.1
+     ],
+     "text": "meter 12.1 mm under the Pisco",
+     "dx": -70,
+     "dy": 10
+    },
+    {
+     "at": [
+      77.5,
+      446.51,
+      288.0
+     ],
+     "text": "collet faces meet: no tube showing",
+     "dx": -40,
+     "dy": 55
+    },
+    {
+     "at": [
+      96.4,
+      426.1,
+      272.6
+     ],
+     "text": "screw heads 2.1 mm off the side wall",
+     "dx": 30,
+     "dy": 55
+    },
+    {
+     "at": [
+      64.9,
+      370.0,
+      282.0
+     ],
+     "text": "foam over the R14 holder",
+     "dx": 20,
+     "dy": -70
+    }
+   ]
+  },
+  {
+   "name": "Rear face",
+   "view": "back",
+   "focus": {
+    "center": [
+     57.4,
+     472,
+     304
+    ],
+    "radius": 57
+   },
+   "models": [
+    {
+     "step": "hardware/assembly/scenes/out/rear-port-rebuild.step",
+     "highlight": [
+      "pisco-*",
+      "digiten-flow*"
+     ]
+    }
+   ],
+   "marks": [
+    {
+     "at": [
+      77.5,
+      480.8,
+      334.2
+     ],
+     "text": "CO2 tile bored d13.86 for the neck",
+     "dx": -30,
+     "dy": -45
+    },
+    {
+     "at": [
+      37.48,
+      480.8,
+      337.0
+     ],
+     "text": "TAP hole and tile d19.3",
+     "dx": 30,
+     "dy": -45
+    },
+    {
+     "at": [
+      37.25,
+      471.3,
+      252.0
+     ],
+     "text": "no bottom rail: tiles stand on the channel floor",
+     "dx": 20,
+     "dy": 40
+    }
+   ]
+  },
+  {
+   "name": "Section at the Pisco and meter axis",
+   "view": "right",
+   "focus": {
+    "center": [
+     77.5,
+     410,
+     300
+    ],
+    "radius": 68
+   },
+   "models": [
+    {
+     "step": "hardware/assembly/scenes/out/rear-port-rebuild-section.step",
+     "highlight": [
+      "pisco-*",
+      "digiten-flow*"
+     ]
+    }
+   ],
+   "marks": [
+    {
+     "at": [
+      77.5,
+      452.0,
+      350.5
+     ],
+     "text": "9 mm roof",
+     "dx": -40,
+     "dy": -20
+    },
+    {
+     "at": [
+      77.5,
+      467.3,
+      342.0
+     ],
+     "text": "4 mm wall + 1.8 mm tile",
+     "dx": 45,
+     "dy": -25
+    },
+    {
+     "at": [
+      77.5,
+      465.2,
+      337.5
+     ],
+     "text": "shoulder 0.1 mm off the inner face",
+     "dx": -80,
+     "dy": -30
+    },
+    {
+     "at": [
+      77.5,
+      446.51,
+      300.0
+     ],
+     "text": "meter collet face on the union's",
+     "dx": 40,
+     "dy": 60
+    },
+    {
+     "at": [
+      77.5,
+      368.4,
+      295.1
+     ],
+     "text": "printed R14 holder, 4 mm off the meter",
+     "dx": -40,
+     "dy": -40
+    },
+    {
+     "at": [
+      77.5,
+      354.81,
+      268.0
+     ],
+     "text": "1 in foam over the 1/4 in tube",
+     "dx": -30,
+     "dy": 10
+    },
+    {
+     "at": [
+      77.5,
+      367.51,
+      253.4
+     ],
+     "text": "lands on the cap's CO2 inlet guide",
+     "dx": 40,
+     "dy": 30
+    }
+   ]
+  },
+  {
+   "name": "Plan under Z313: where the drop lands",
+   "view": "top",
+   "focus": {
+    "center": [
+     66,
+     372,
+     280
+    ],
+    "radius": 52
+   },
+   "models": [
+    {
+     "step": "hardware/assembly/scenes/out/rear-port-rebuild-plan.step",
+     "highlight": [
+      "pisco-*",
+      "digiten-flow*"
+     ]
+    }
+   ],
+   "marks": [
+    {
+     "at": [
+      50.0,
+      342.41,
+      253.4
+     ],
+     "text": "soda guide into the carbonator",
+     "dx": -30,
+     "dy": 40
+    },
+    {
+     "at": [
+      77.5,
+      367.51,
+      304.7
+     ],
+     "text": "drop: 27.5 mm east, 25.1 mm aft of the soda guide",
+     "dx": 30,
+     "dy": 45
+    },
+    {
+     "at": [
+      77.5,
+      368.76,
+      253.4
+     ],
+     "text": "CO2 inlet guide, under the drop",
+     "dx": 40,
+     "dy": -40
+    }
+   ]
+  }
+ ]
+}
