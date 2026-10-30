@@ -1327,6 +1327,7 @@
       "hardware/printed-parts/zone-c/funnel/funnel.step",
       "hardware/printed-parts/zone-c/funnel/funnel.step.mesh",
       "hardware/reference/asse1022-assembly/asse1022-assembly.step",
+      "hardware/reference/asse1022-threaded-chain/asse1022-threaded-chain.step",
       "hardware/reference/basics-mtb-0606wp/basics-mtb-0606wp.step",
       "hardware/reference/beduan-solenoid/beduan-solenoid.step",
       "hardware/reference/branch-stem-tees/john-guest-ci580808w-estimate.step",
@@ -1410,6 +1411,7 @@
       "//:asse-drip-pan",
       "//:asse-straight-cuffs",
       "//:asse1022-assembly",
+      "//:asse1022-threaded-chain",
       "//:basics-mtb-0606wp",
       "//:beduan-solenoid",
       "//:bulkhead-ring",
@@ -2924,7 +2926,8 @@
     "hardware/printed-parts/cold-core/reservoir/reservoir-cap-right.step.mesh": "a75e89059625e4b9b44b239a985b54f551ac896efc1d4543ec3b4ecf2594dd72",
     "hardware/printed-parts/cold-core/reservoir/reservoir-tube-grip.step": "06e1ff34d5355fcbb44e0f0fcef30394c870e9ccaa09ec04e3a9aa6c655db680",
     "hardware/printed-parts/cold-core/reservoir/reservoir-tube-grip.step.mesh": "b6e7e5db71e92492ee542707e92e3058e4bf386ff9300ace7b70e0f300c981ec",
-    "hardware/printed-parts/cold-core/reservoir/reservoir-tube-grip.stl": "36ed5abf114123d2e34da6fc6af92e3fd57693589475cee5589a539bcb92dea1"
+    "hardware/printed-parts/cold-core/reservoir/reservoir-tube-grip.stl": "36ed5abf114123d2e34da6fc6af92e3fd57693589475cee5589a539bcb92dea1",
+    "hardware/reference/asse1022-threaded-chain/asse1022-threaded-chain.step": "66c58f9436aaf72e12e23ccf7d061d8c2de15f2830395c4a95afa7e67d50ca54"
   },
   "sidecars": {
     "hardware/cold-core-layout/cold-core-assembly.scorecard.json": "0efe18f534dcd301c7dc65fe4088ca0bb59da7a46c51de6947bba00eac0cca8d",
@@ -4264,6 +4267,7 @@
     "hardware/printed-parts/zone-c/funnel/funnel.step": 1792893021,
     "hardware/printed-parts/zone-c/funnel/funnel.step.mesh": 1792893021,
     "hardware/reference/asse1022-assembly/asse1022-assembly.step": 1791611789,
+    "hardware/reference/asse1022-threaded-chain/asse1022-threaded-chain.step": 1793319172,
     "hardware/reference/basics-mtb-0606wp/basics-mtb-0606wp.step": 1787578592,
     "hardware/reference/beduan-solenoid/beduan-solenoid.step": 1789884737,
     "hardware/reference/branch-stem-tees/john-guest-ci580808w-estimate.step": 1792738887,
