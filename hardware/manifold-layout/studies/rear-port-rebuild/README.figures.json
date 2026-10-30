@@ -4,6 +4,7 @@
     "BEND_OFF_METER": "4",
     "BEND_R": "14",
     "CAP_FACE": "253.4",
+    "CAP_GAP": "0.15",
     "CHANNEL_DEPTH": "2",
     "CHECK_MOUTH_Y": "383.6",
     "CHECK_TIP_SHORT": "1.4",
@@ -37,6 +38,8 @@
     "HUB_INTO_VK": "0.21",
     "LAND_T": "6",
     "METER_INSERTION": "15.7",
+    "METER_SEAT_TO_FOAM": "1.5",
+    "METER_SEAT_TO_UNION": "1.5",
     "METER_TO_SIDE_WALL": "2.1",
     "METER_UNDER_PISCO": "12.1",
     "MOUTH_Y": "480.8",
@@ -49,10 +52,17 @@
     "PUMP_TO_FOAM": "8.6",
     "PUMP_TO_OVER": "4.6",
     "PUMP_TO_TEE": "9.2",
+    "PUMP_UNDER_ASSE_CAP": "5.0",
     "ROOF_T": "9",
     "ROW_1": "328",
     "ROW_2": "296",
     "ROW_3": "264",
+    "SLIDE": "16",
+    "SLIDE_GAP": "0.16",
+    "SNAP_REACH": "0.6",
+    "SNAP_THREAD": "1.5",
+    "SNAP_WALL": "3",
+    "SNAP_WING": "3",
     "STEM_PAST_PORT": "5.3",
     "STUB": "9.5",
     "STUB_CUT": "42.7",
@@ -67,6 +77,7 @@
     "VK_EAST": "1.4",
     "VK_TILT": "0.2",
     "VK_TO_SIDE_WALL": "4.0",
-    "VK_TO_SODA": "1.0"
+    "VK_TO_SODA": "1.0",
+    "WAY_ON_GAP": "0.11"
   }
 }
