@@ -17,14 +17,16 @@ routed before its turn. Placed so far, on back-top's port corner cut down to its
 - the G Ganen carbonator pump, where production stands it on the cap, without its elbows;
 - the neoFit ACVUS-44 stem check valve in the Pisco's outlet;
 - the CO2 tube, off the check's socket in one bend, then an S onto the cap between V-K and the
-  pump, and straight down past the carbonator's rim.
+  pump, and straight down past the carbonator's rim;
+- a seat on back-top for each of the ASSE chain, the Pisco and the meter, and a snap cap that holds
+  each in its seat (slide_seats.py).
 
 Back-top is today's piece with its six old bores plugged, both roof pockets filled back to the
 full roof, the clamping land carried down to the dropped bottom nuts, the new bores, each column's
 chip pockets opened into one channel, and no mounting brackets. It is cropped to the port corner,
 CROP.
 
-Writes the four scenes page.json draws into hardware/assembly/scenes/out/, the measurements to
+Writes the scenes page.json draws into hardware/assembly/scenes/out/, the measurements to
 study.json, and their figures into README.md.
 
     tools/cad-venv/bin/python hardware/manifold-layout/studies/rear-port-rebuild/study.py
@@ -58,6 +60,7 @@ import jg_pp0208e_tee as union_tee  # noqa: E402
 import jg_pp061208w as reducer_ref  # noqa: E402
 import neofit_acvus44_check as acvus  # noqa: E402
 import neofit_stem_elbow as stem_elbow  # noqa: E402
+import slide_seats  # noqa: E402
 import soda_inlet  # noqa: E402
 import _above_core_mounts as mounts  # noqa: E402
 import valve_seat  # noqa: E402
@@ -356,6 +359,16 @@ for name, (x, row, bore, centre_xz, colour, text, ink) in TILES.items():
         text, 5.0, 0.48, halign='center', valign='center', font='Helvetica', kind='bold').val()
     parts[name + '-word'] = (word, ink)
 
+# --- the seats on back-top, and the snap caps that hold the parts in them ------------------------
+# With back-top inverted on the bench, the ASSE chain, the Pisco and the meter each slide aft into a
+# seat, and a snap cap holds each there. The seats print as part of back-top; they are drawn apart
+# from it until the scenes.
+seated, seat_numbers = slide_seats.build(parts, (X_W, ROWS[0]), TO_WORLD, (X_E, ROWS[0]), MOUTH_Y, CEILING,
+                                         WALL_IN, SIDE_WALL_X, meter, METER)
+for n, s in seated.items():
+    parts[n] = (s, M_PETGF_BLACK)
+HOLDS = {'asse': slide_seats.CHAIN, 'pisco': (*PISCO, 'co2-check'), 'meter': ('digiten-flow',)}
+
 # --- the CO2 tube, off the check's socket in one bend, then an S onto a straight past the rim ----
 # The tube leaves the check's socket straight forward and turns down in one bend no tighter than
 # CO2_BEND onto a straight drop. Of the bends that do, it is the shortest that stands CO2_GAP off
@@ -466,6 +479,8 @@ pump_cloud = tree(parts['g-ganen-pump'][0], 0.5)
 for i, a in enumerate(names_all):
     for b in names_all[i + 1:]:
         if a.startswith('pisco-') and b.startswith('pisco-'):
+            continue
+        if 'enclosure-back-top' in (a, b) and {a, b} & set(slide_seats.SEATS):
             continue
         sa, sb = parts[a][0], parts[b][0]
         ba, bb = sa.BoundingBox(), sb.BoundingBox()
@@ -594,15 +609,66 @@ print(f'== CO2 tube: one bend off the check\'s socket mouth Y{check_mouth:.2f} o
 for n, d in co2_core.items():
     print(f'  the straight under the cap: {n:32} {d:6.2f} mm')
 result['co2_tube']['nearest_mm'] = nearest('co2-tube', [m for m in placed if m not in ('co2-tube', 'co2-check')])
+
+# The seats and snap caps, exactly: each against the parts it holds, in place, along the slide and
+# along the cap's way on; and the pump under them as back-top rides forward over the core, which in
+# back-top's frame takes the pump through every station fore of its own.
+print('== seats and snap caps')
+result['seats'] = {'built_from': seat_numbers}
+pump_pts = pts(parts['g-ganen-pump'][0], 0.5)
+for n in slide_seats.SOLIDS:
+    s = parts[n][0]
+    b = s.BoundingBox()
+    print(f'  {n:16} {len(s.Faces()):3d} faces, {s.Volume() / 1000.:5.2f} cm^3, {bbox(s)}')
+    P = pump_pts[(pump_pts[:, 0] > b.xmin - 6.) & (pump_pts[:, 0] < b.xmax + 6.) & (pump_pts[:, 2] > b.zmin - 6.)
+                 & (pump_pts[:, 2] < b.zmax + 6.)]
+    ride = (math.inf, 0.)
+    for t in np.arange(0., 160.01, 0.5):
+        Q = P - np.array([0., t, 0.])
+        Q = Q[(Q[:, 1] > b.ymin - 6.) & (Q[:, 1] < b.ymax + 6.)]
+        if len(Q) and (d := float(tree(s, 0.2).query(Q)[0].min())) < ride[0]:
+            ride = (d, float(t))
+    if ride[0] < math.inf:
+        print(f'    the pump rides past {ride[0]:.2f} mm off, {ride[1]:.1f} mm fore of its station')
+    result['seats'][n] = {'bbox': bbox(s), 'faces': len(s.Faces()), 'cm3': round(s.Volume() / 1000., 2),
+                          'pump_ride_mm': round(ride[0], 2) if ride[0] < math.inf else None, 'pump_ride_at_mm': ride[1],
+                          'nearest_mm': nearest(n, [m for m in placed if m != n and not (
+                              n in slide_seats.SEATS and m in (*slide_seats.SEATS, 'enclosure-back-top'))], 6.)}
+for key, held in HOLDS.items():
+    seat_n, snap_n = f'{key}-seat', f'{key}-snap-cap'
+    seat, snap = parts[seat_n][0], parts[snap_n][0]
+    way = np.array(slide_seats.ON[snap_n])
+    fore = list(np.arange(0., slide_seats.SLIDE + 0.01, 1.)) + ([slide_seats.SLIDE + slide_seats.VAR] if key == 'meter' else [])
+    slide = min((seat.distance(parts[h][0].moved(cq.Location(cq.Vector(0., -t, 0.)))), float(t), h) for t in fore for h in held)
+    way_on = min((snap.moved(cq.Location(cq.Vector(*(-t * way)))).distance(parts[h][0]), float(t), h)
+                 for t in np.arange(0., 12.01, 1.) for h in held)
+    seat_at, snap_at = (min((x.distance(parts[h][0]), h) for h in held) for x in (seat, snap))
+    result['seats'][seat_n].update({'held_mm': round(seat_at[0], 3), 'held_nearest': seat_at[1],
+                                    'slide_mm': round(slide[0], 3), 'slide_at_mm': slide[1], 'slide_nearest': slide[2]})
+    result['seats'][snap_n].update({'held_mm': round(snap_at[0], 3), 'held_nearest': snap_at[1],
+                                    'way_on_mm': round(way_on[0], 3), 'way_on_at_mm': way_on[1], 'way_on_nearest': way_on[2]})
+    print(f'  {key}: seat {seat_at[0]:.3f} mm off {seat_at[1]}, {slide[0]:.3f} mm on the slide ({slide[2]}, {slide[1]:g} mm '
+          f'fore); cap {snap_at[0]:.3f} mm off {snap_at[1]}, {way_on[0]:.3f} mm on its way on ({way_on[2]}, {way_on[1]:g} mm out)')
+# The seats print as part of back-top.
+back_top = parts['enclosure-back-top'][0]
+for n in slide_seats.SEATS:
+    back_top = back_top.fuse(parts.pop(n)[0])
+parts['enclosure-back-top'] = (back_top.clean(), M_PETGF_BLACK)
+result['seats']['back_top_solids'] = len(parts['enclosure-back-top'][0].Solids())
+print(f'  back-top with its seats: {result["seats"]["back_top_solids"]} solid')
 json.dump(result, open(HERE / 'study.json', 'w'), indent=1)
 
 # --- scenes -----------------------------------------------------------------------------------
 
 
-def scene(name, keep=None):
+def scene(name, keep=None, only=None, moves={}):
     a = cq.Assembly(name=name)
     box = keep.BoundingBox() if keep is not None else None
     for n, (s, colour) in parts.items():
+        if only is not None and n not in only:
+            continue
+        if n in moves:
+            s = s.moved(moves[n])
         b = s.BoundingBox()
         if keep is None or (box.xmin <= b.xmin and b.xmax <= box.xmax and box.ymin <= b.ymin and b.ymax <= box.ymax
                             and box.zmin <= b.zmin and b.zmax <= box.zmax):
@@ -628,6 +694,17 @@ under = cq.Assembly(name='rear-port-rebuild-core')
 for n in ('carbonator-tube', 'endcap-top', 'evap-coil', 'reservoir-a', 'reservoir-b'):
     under.add(core[n], name=n, color=cca._style.colour_for(n))
 export_assembly(under, str(OUT / 'rear-port-rebuild-core.step'))
+# The seats and snap caps, among the parts they hold and their neighbours: in place, with the caps
+# 24 mm back along their way on, and cut across at the outlet bonnet, the vent and the inlet thread.
+SNAP = ('enclosure-back-top', *slide_seats.CHAIN, *PISCO, 'co2-check', 'digiten-flow', *slide_seats.CAPS, *SODA,
+        'bulkhead-carb', 'bulkhead-carb-nut', 'bulkhead-flavor-a', 'bulkhead-flavor-a-nut')
+SNAP_CUTS = (401.5, 419.6, 436.0)
+around = cq.Solid.makeBox(120., 97., 120., cq.Vector(-10., 383., 240.))
+scene('rear-port-rebuild-snaps', around, SNAP)
+scene('rear-port-rebuild-snaps-off', around, SNAP,
+      {n: cq.Location(cq.Vector(*(-24. * np.array(slide_seats.ON[n])))) for n in slide_seats.CAPS})
+for y in SNAP_CUTS:
+    scene(f'rear-port-rebuild-snaps-at-{y:g}', cq.Solid.makeBox(120., 480. - y, 120., cq.Vector(-10., y, 240.)), SNAP)
 
 # --- the README's figures ---------------------------------------------------------------------
 sys.path.insert(0, str(HW.parent / 'tools'))
@@ -639,6 +716,7 @@ vk = result['vk']
 pump = result['g-ganen-pump']['nearest_mm']
 check = result['co2-check']
 co2 = result['co2_tube']
+snaps = result['seats']
 CHAIN = ('jg-pp010822e', 'gagira-coupling', 'multiplex-asse1022', 'jg-pi4512f6s', 'jg-pp061208w')
 
 
@@ -690,4 +768,12 @@ substitute_md(HERE / 'README.md', {
     'CO2_TO_VK': f'{co2["nearest_mm"]["vk-solenoid"]:.1f}', 'CO2_TO_PUMP': f'{co2["nearest_mm"]["g-ganen-pump"]:.1f}',
     'STEM_PAST_PORT': f'{fold_in_vk[0][5] - fold_in_vk[0][2]:.1f}',
     'HUB_INTO_VK': f'{fold_in_vk[-1][5] - fold_in_vk[-1][2]:.2f}',
+    'SLIDE': f'{slide_seats.SLIDE:g}', 'SNAP_THREAD': f'{slide_seats.THREAD:g}', 'SNAP_WING': f'{slide_seats.WING:g}',
+    'SNAP_REACH': f'{slide_seats.REACH:g}', 'SNAP_WALL': f'{slide_seats.WALL:g}',
+    'SLIDE_GAP': f'{min(snaps[n]["slide_mm"] for n in slide_seats.SEATS):.2f}',
+    'CAP_GAP': f'{min(snaps[n]["held_mm"] for n in slide_seats.CAPS):.2f}',
+    'WAY_ON_GAP': f'{min(snaps[n]["way_on_mm"] for n in slide_seats.CAPS):.2f}',
+    'PUMP_UNDER_ASSE_CAP': f'{snaps["asse-snap-cap"]["pump_ride_mm"]:.1f}',
+    'METER_SEAT_TO_FOAM': f'{snaps["meter-seat"]["nearest_mm"]["soda-insulation"]:.1f}',
+    'METER_SEAT_TO_UNION': f'{snaps["meter-seat"]["nearest_mm"]["bulkhead-carb"]:.1f}',
 })

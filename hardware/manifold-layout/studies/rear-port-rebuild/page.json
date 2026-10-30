@@ -1,6 +1,6 @@
 {
  "title": "Rear-port rebuild",
- "lede": "Back-top cut to the port corner, without its mounting brackets: the 9 mm ceiling, the rear wall and the east side wall, with the label tiles outside in channels between side rails. Inside are the four bulkheads, the ASSE chain out to a JG union tee on a 9.5 mm stub, the Pisco with a neoFit ACVUS-44 check in its outlet, the flow meter straight into the soda union, the meter's inlet turned straight down through production's R14 holder under 1 in foam, and the G Ganen carbonator pump where production stands it, without its elbows. V-K (amber), its stem elbow and its printed wall stand as production stands them, moved with the union tee; the wall reaches the side wall instead of the cap. The CO2 tube, red, leaves the check forward in one bend, comes onto the cap in an S between V-K and the pump, and runs straight down past the carbonator's rim. A shows the water split and V-K alone, G the CO2 tube among its neighbours, and H the tube beside the carbonator, its coil and the two reservoirs under the cap. B and F are cut at X77.5, D at X60.",
+ "lede": "Back-top cut to the port corner, without its mounting brackets: the 9 mm ceiling, the rear wall and the east side wall, with the label tiles outside in channels between side rails. Inside are the four bulkheads, the ASSE chain out to a JG union tee on a 9.5 mm stub, the Pisco with a neoFit ACVUS-44 check in its outlet, the flow meter straight into the soda union, the meter's inlet turned straight down through production's R14 holder under 1 in foam, and the G Ganen carbonator pump where production stands it, without its elbows. V-K (amber), its stem elbow and its printed wall stand as production stands them, moved with the union tee; the wall reaches the side wall instead of the cap. The CO2 tube, red, leaves the check forward in one bend, comes onto the cap in an S between V-K and the pump, and runs straight down past the carbonator's rim. A shows the water split and V-K alone, G the CO2 tube among its neighbours, and H the tube beside the carbonator, its coil and the two reservoirs under the cap. B and F are cut at X77.5, D at X60. I to M show the seats on back-top and the snap caps that hold the ASSE chain, the Pisco and the meter in them: in place, with the caps off, and cut across.",
  "frame": "each",
  "sync": false,
  "columns": 2,
@@ -552,6 +552,116 @@
      "text": "reservoir A, 18.7 mm behind the tube",
      "dx": -40,
      "dy": -45
+    }
+   ]
+  },
+  {
+   "name": "Seats and snap caps, from below",
+   "view": {
+    "az": 215,
+    "el": -24
+   },
+   "focus": {
+    "center": [
+     58,
+     418,
+     312
+    ],
+    "radius": 70
+   },
+   "models": [
+    {
+     "step": "hardware/assembly/scenes/out/rear-port-rebuild-snaps.step",
+     "highlight": [
+      "*-snap-cap*"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Snap caps off",
+   "caption": "The ASSE's and the Pisco's caps 24 mm down, the meter's 24 mm west",
+   "view": {
+    "az": 215,
+    "el": -24
+   },
+   "focus": {
+    "center": [
+     55,
+     418,
+     308
+    ],
+    "radius": 76
+   },
+   "models": [
+    {
+     "step": "hardware/assembly/scenes/out/rear-port-rebuild-snaps-off.step",
+     "highlight": [
+      "*-snap-cap*"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Through the outlet bonnet",
+   "caption": "Section at Y401.5, looking aft",
+   "view": "front",
+   "focus": {
+    "center": [
+     58,
+     401,
+     312
+    ],
+    "radius": 52
+   },
+   "models": [
+    {
+     "step": "hardware/assembly/scenes/out/rear-port-rebuild-snaps-at-401.5.step",
+     "highlight": [
+      "*-snap-cap*"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Through the vent",
+   "caption": "Section at Y419.6: the main wrench's lower faces, the notch the vent passes, and the meter's cap from the west",
+   "view": "front",
+   "focus": {
+    "center": [
+     58,
+     420,
+     312
+    ],
+    "radius": 52
+   },
+   "models": [
+    {
+     "step": "hardware/assembly/scenes/out/rear-port-rebuild-snaps-at-419.6.step",
+     "highlight": [
+      "*-snap-cap*"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Through the inlet thread",
+   "caption": "Section at Y436: the ASSE cap's end bears on the GAGIRA",
+   "view": "front",
+   "focus": {
+    "center": [
+     58,
+     436,
+     318
+    ],
+    "radius": 52
+   },
+   "models": [
+    {
+     "step": "hardware/assembly/scenes/out/rear-port-rebuild-snaps-at-436.step",
+     "highlight": [
+      "*-snap-cap*"
+     ]
     }
    ]
   }
