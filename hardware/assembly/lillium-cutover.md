@@ -28,7 +28,7 @@ every part used in the working assembly.
 **In this build:**
 - The four enclosure quadrants, the pump cradle and its clamp, and the tee carrier
   ([prototype record](/hardware/printed-parts/enclosure/lillium-prototype-2026-10-07/README.md),
-  [current back top](/hardware/printed-parts/drain-readiness/prints/2026-10-08-current-back-top-mark1/README.md)).
+  [back top](/hardware/printed-parts/drain-readiness/prints/2026-10-10-current-back-top-bridge50-mark1/README.md)).
 - Front-top's manifold: V-C–V-J, Y-A–Y-G, both KPHM600 pumps.
 - Both reservoirs in the foam shell, with their caps, gaskets, floats, rods and reed columns.
 - The DIGITEN meter; the rear wall's TAP, SODA and two FLAVOR fittings, the C14 inlet and the
@@ -83,10 +83,11 @@ every part used in the working assembly.
   prints: both reservoir cap gaskets, dry bulkhead washers and vent rings, the machine display
   gasket, the faucet's thimble and its counter gaskets
   ([prototype gaskets](/hardware/printed-parts/prototype-gaskets-2026-10-08/README.md)).
-- **Printing:** the back-top
-  ([record](/hardware/printed-parts/drain-readiness/prints/2026-10-08-current-back-top-mark1/README.md)),
-  and three ASA Aero floats, two of them this build's, with their RC62s going in at the print's
-  pause.
+- **Back-top:** the October 10 print
+  ([record](/hardware/printed-parts/drain-readiness/prints/2026-10-10-current-back-top-bridge50-mark1/README.md)),
+  whose sliding-groove supports grew up from the plate and stuck in its walls.
+- **Printing:** three ASA Aero floats, two of them this build's, with their RC62s going in at the
+  print's pause.
 - **Not printed:** the rear wall's chips at its current width, for TAP, SODA and both FLAVOR
   fittings, plus the tube collars and the DATA plate
   ([label plates](/hardware/printed-parts/drain-readiness/README.md#identification-plates): White,
