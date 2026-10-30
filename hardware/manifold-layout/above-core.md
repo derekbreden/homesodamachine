@@ -124,10 +124,9 @@ separately for cleaning.
 
 Prepare the PSU, relays, meter, rear fittings and their connections with
 back-top open on the bench. Complete the accessible central handoffs before
-installing the funnel frame. The common upper M5 knuckle bearing is
-Z318.0 on front-top, with back-top’s underside at Z318.25. The upper joints
-use acquired M5 × 50 screws and the lower joints use
-M5 × 120 screws.
+installing the funnel frame. Four M5 screws close the quadrants through the
+corner knuckle stacks in
+[Seams + corner stacks](../printed-parts/enclosure/enclosure/README.md#seams--corner-stacks).
 
 ## Evidence scope
 
