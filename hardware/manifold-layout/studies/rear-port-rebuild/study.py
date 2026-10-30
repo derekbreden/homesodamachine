@@ -306,7 +306,8 @@ wall = cq.Solid.makeBox(*(hi[i] - lo[i] for i in range(3)), cq.Vector(*lo)).cut(
 VK_CLEAR = 1.0
 group = np.concatenate([pts(comps[n][0]) for n in ('vk-solenoid', 'tee-fold', 'lower-valve-elbow')] + [pts(wall)])
 inlet = cKDTree(np.concatenate([pts(parts[n][0], 0.4) for n in SODA]))
-STUB = next(float(s) for s in np.arange(0., 30.01, 0.5) if inlet.query(group + vk_shift(s))[0].min() >= VK_CLEAR)
+STUB = next(float(s) for s in np.arange(0., 30.01, 0.5)
+            if inlet.query(group + vk_shift(s), distance_upper_bound=VK_CLEAR)[0].min() >= VK_CLEAR)
 SHIFT = vk_shift(STUB)
 MOVE = cq.Location(cq.Vector(*SHIFT))
 for n in ('vk-solenoid', 'tee-fold', 'lower-valve-elbow'):
@@ -534,7 +535,7 @@ def nearest(name, others, reach=15.):
     P = pts(parts[name][0])
     found = {}
     for n in others:
-        d, _ = tree(parts[n][0]).query(P, k=1)
+        d, _ = tree(parts[n][0]).query(P, k=1, distance_upper_bound=reach)
         j = d.argmin()
         if d[j] < reach:
             found[n] = round(float(d[j]), 2)
@@ -676,7 +677,7 @@ for n in slide_seats.SOLIDS:
     for t in np.arange(0., 160.01, 0.5):
         Q = P - np.array([0., t, 0.])
         Q = Q[(Q[:, 1] > b.ymin - 6.) & (Q[:, 1] < b.ymax + 6.)]
-        if len(Q) and (d := float(tree(s, 0.2).query(Q)[0].min())) < ride[0]:
+        if len(Q) and (d := float(tree(s, 0.2).query(Q, distance_upper_bound=ride[0])[0].min())) < ride[0]:
             ride = (d, float(t))
     if ride[0] < math.inf:
         print(f'    the pump rides past {ride[0]:.2f} mm off, {ride[1]:.1f} mm fore of its station')
