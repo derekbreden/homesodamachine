@@ -15,18 +15,21 @@ routed before its turn. Placed so far, on back-top's port corner cut down to its
   tee; the wall reaches the side wall instead of the cap, and the stub is the shortest that stands
   V-K clear of the soda inlet;
 - the G Ganen carbonator pump, where production stands it on the cap, without its elbows;
-- the neoFit ACVUS-44 stem check valve in the Pisco's outlet.
+- the neoFit ACVUS-44 stem check valve in the Pisco's outlet;
+- the CO2 tube, off the check's socket in one bend and straight down onto the cap, between V-K
+  and the pump.
 
 Back-top is today's piece with its six old bores plugged, both roof pockets filled back to the
 full roof, the clamping land carried down to the dropped bottom nuts, the new bores, each column's
 chip pockets opened into one channel, and no mounting brackets. It is cropped to the port corner,
 CROP.
 
-Writes the three scenes page.json draws into hardware/assembly/scenes/out/, the measurements to
+Writes the four scenes page.json draws into hardware/assembly/scenes/out/, the measurements to
 study.json, and their figures into README.md.
 
     tools/cad-venv/bin/python hardware/manifold-layout/studies/rear-port-rebuild/study.py
 """
+import itertools
 import json
 import math
 import sys
@@ -352,6 +355,71 @@ for name, (x, row, bore, centre_xz, colour, text, ink) in TILES.items():
         text, 5.0, 0.48, halign='center', valign='center', font='Helvetica', kind='bold').val()
     parts[name + '-word'] = (word, ink)
 
+# --- the CO2 tube, off the check's socket in one bend and straight down onto the cap -------------
+# The tube leaves the check's socket straight forward, turns down in one bend no tighter than
+# CO2_BEND and comes straight down onto the cap. Of the routes that do, it is the shortest that
+# stands CO2_GAP off every part; where it lands is wherever that route comes down.
+CO2_BEND, CO2_GAP = 25.0, 3.0
+co2_r = sel['tube_od_mm'] / 2.
+check_mouth = MOUTH_Y - check_tip - acvus.LENGTH
+co2_from = np.array([X_E, check_mouth, ROWS[0]])
+neighbours = cKDTree(np.concatenate([pts(s, 0.4) for n, (s, _) in parts.items()
+                                     if not n.startswith(('tile-', 'face-rail-', 'co2-check')) and not n.endswith('-word')]))
+ts = np.linspace(0., 1., 81)[None, :, None]
+
+
+def co2_route(top, a, b):
+    """The bends off the socket onto a drop from `top`, for arrays of tangent lengths `a` off the socket
+    and `b` onto the drop: (samples, tightest radius, length to the cap)."""
+    a, b, top = np.asarray(a, float)[:, None, None], np.asarray(b, float)[:, None, None], np.asarray(top, float)
+    c = (co2_from, co2_from + a * np.array([0., -1., 0.]), top + b * np.array([0., 0., 1.]), top)
+    B = (1 - ts) ** 3 * c[0] + 3 * (1 - ts) ** 2 * ts * c[1] + 3 * (1 - ts) * ts ** 2 * c[2] + ts ** 3 * c[3]
+    d1 = 3 * (1 - ts) ** 2 * (c[1] - c[0]) + 6 * (1 - ts) * ts * (c[2] - c[1]) + 3 * ts ** 2 * (c[3] - c[2])
+    d2 = 6 * (1 - ts) * (c[2] - 2 * c[1] + c[0]) + 6 * ts * (c[3] - 2 * c[2] + c[1])
+    k = np.linalg.norm(np.cross(d1, d2), axis=2) / np.linalg.norm(d1, axis=2) ** 3
+    return B, 1. / k.max(1), np.linalg.norm(np.diff(B, axis=1), axis=2).sum(1) + top[2] - CAP_Z
+
+
+def co2_length(v):
+    """The route's length for v = (drop x, drop y, drop top z, a, b), or infinity where it bends tighter
+    than CO2_BEND or comes within CO2_GAP of a part."""
+    if v[2] < CAP_Z or v[3] <= 0. or v[4] <= 0.:
+        return math.inf
+    B, radius, length = co2_route(v[:3], [v[3]], [v[4]])
+    drop = np.column_stack([np.full(40, v[0]), np.full(40, v[1]), np.linspace(v[2], CAP_Z, 40)])
+    gap = neighbours.query(np.concatenate([B[0], drop]))[0].min() - co2_r
+    return length[0] if radius[0] >= CO2_BEND and gap >= CO2_GAP else math.inf
+
+
+# The shortest on a coarse grid, then walked shorter in halving steps.
+ab = np.array(list(itertools.product(np.arange(5., 60.1, 5.), repeat=2)))
+grid = []
+for top in itertools.product(np.arange(40., 64.1, 2.), np.arange(292., 368.1, 4.), np.arange(CAP_Z, 316., 6.)):
+    _, radius, length = co2_route(top, ab[:, 0], ab[:, 1])
+    grid += [(length[i], *top, *ab[i]) for i in np.nonzero(radius >= CO2_BEND)[0]]
+v = np.array(next(g[1:] for g in sorted(grid) if co2_length(g[1:]) < math.inf))
+f, step = co2_length(v), np.array([1., 2., 3., 2.5, 2.5])
+while step.max() > 0.05:
+    for i, sign in itertools.product(range(5), (1., -1.)):
+        w = v.copy()
+        w[i] += sign * step[i]
+        if (fw := co2_length(w)) < f - 1e-6:
+            v, f = w, fw
+            break
+    else:
+        step = step / 2.
+co2_top, CO2_A, CO2_B = v[:3], float(v[3]), float(v[4])
+co2_radius, co2_len = (float(r[0]) for r in co2_route(co2_top, [CO2_A], [CO2_B])[1:])
+co2_ctrl = (co2_from, co2_from + CO2_A * np.array([0., -1., 0.]), co2_top + CO2_B * np.array([0., 0., 1.]), co2_top)
+co2_land = np.array([co2_top[0], co2_top[1], CAP_Z])
+co2_end = co2_from + np.array([0., acvus.INSERTION, 0.])            # the tube's end in the check's socket
+path = cq.Wire.assembleEdges([cq.Edge.makeLine(cq.Vector(*co2_end), cq.Vector(*co2_from)),
+                              cq.Edge.makeBezier([cq.Vector(*q) for q in co2_ctrl]),
+                              cq.Edge.makeLine(cq.Vector(*co2_top), cq.Vector(*co2_land))])
+ring = cq.Workplane(cq.Plane(origin=tuple(co2_end), xDir=(1., 0., 0.), normal=(0., -1., 0.))).circle(
+    co2_r).circle(sel['tube_id_mm'] / 2.)
+parts['co2-tube'] = (ring.sweep(path).val(), cq.Color(*(c / 255. for c in SPOOLS['red'].rgb)))
+
 # --- measurements -----------------------------------------------------------------------------
 result = {'rows_z': ROWS, 'grid_drop_mm': round(GRID_DROP, 3), 'tile_seat_z': STOP_Z,
           'tap_hole_d': round(TAP_HOLE, 3), 'tap_tile_bore_d': round(TAP_BORE, 3),
@@ -469,13 +537,34 @@ for n in VK:
 for n in ('g-ganen-pump', 'co2-check'):
     print(f'== {n} {bbox(parts[n][0])}')
     result[n] = {'bbox': bbox(parts[n][0]), 'nearest_mm': nearest(n, [m for m in placed if m != n])}
-check_mouth = MOUTH_Y - check_tip - acvus.LENGTH
 result['co2-check'].update({
     'socket_mouth_y': round(check_mouth, 2),
     'tip_short_of_tube_stop_mm': round(dims['ports']['outlet']['insertion_mm'] - acvus.SHOULDER, 2),
     'under_ceiling_mm': round(CEILING - parts['co2-check'][0].BoundingBox().zmax, 2)})
 print(f'== the check\'s collar on the Pisco\'s outlet face Y{MOUTH_Y - check_tip - acvus.SHOULDER:.2f}, its stem tip '
       f'{result["co2-check"]["tip_short_of_tube_stop_mm"]} mm short of the tube stop, its socket mouth Y{check_mouth:.2f}')
+
+
+# Under the cap where the tube lands: in from the carbonator's tube and from the coil wound on it,
+# each read as round about its own box's centre, and off reservoir A.
+def in_from(body):
+    b = core[body].BoundingBox()
+    return (b.xmax - b.xmin) / 2. - math.dist(co2_land[:2], ((b.xmin + b.xmax) / 2., (b.ymin + b.ymax) / 2.))
+
+
+co2_below = cq.Solid.makeCylinder(co2_r, CAP_Z, cq.Vector(co2_land[0], co2_land[1], 0.), cq.Vector(0., 0., 1.))
+result['co2_tube'] = {
+    'from': [round(float(c), 3) for c in co2_from], 'drop_top': [round(float(c), 3) for c in co2_top],
+    'landing': [round(float(c), 3) for c in co2_land], 'tangents_mm': [round(CO2_A, 2), round(CO2_B, 2)],
+    'tightest_radius_mm': round(float(co2_radius), 2), 'visible_length_mm': round(float(co2_len), 1),
+    'in_from_carbonator_mm': round(in_from('carbonator-tube'), 2), 'in_from_coil_mm': round(in_from('evap-coil'), 2),
+    'to_reservoir_a_mm': round(co2_below.distance(core['reservoir-a']), 2)}
+print(f'== CO2 tube: {co2_len:.1f} mm from the check\'s socket mouth Y{check_mouth:.2f}, straight down from '
+      f'Z{co2_top[2]:.1f} onto the cap at X{co2_land[0]:.2f} Y{co2_land[1]:.2f}; tangents {CO2_A:.1f} and {CO2_B:.1f} mm, '
+      f'R{co2_radius:.1f} at its tightest; {result["co2_tube"]["in_from_carbonator_mm"]} mm in from the carbonator\'s '
+      f'outer face, {result["co2_tube"]["in_from_coil_mm"]} mm in from the coil\'s, '
+      f'{result["co2_tube"]["to_reservoir_a_mm"]} mm off reservoir A')
+result['co2_tube']['nearest_mm'] = nearest('co2-tube', [m for m in placed if m not in ('co2-tube', 'co2-check')])
 json.dump(result, open(HERE / 'study.json', 'w'), indent=1)
 
 # --- scenes -----------------------------------------------------------------------------------
@@ -504,6 +593,12 @@ scene('rear-port-rebuild')
 scene('rear-port-rebuild-section', cq.Solid.makeBox(X_E + 100., 250., 200., cq.Vector(-100., 250., 200.)))
 # East of X60, so the Pisco and the meter can be seen side-on against the side wall from inside.
 scene('rear-port-rebuild-corner', cq.Solid.makeBox(60., 250., 200., cq.Vector(60., 250., 200.)))
+# Under the cap: the carbonator, the coil wound on it and the two reservoirs, drawn with the whole
+# scene to show where the CO2 tube lands on the core.
+under = cq.Assembly(name='rear-port-rebuild-core')
+for n in ('carbonator-tube', 'endcap-top', 'evap-coil', 'reservoir-a', 'reservoir-b'):
+    under.add(core[n], name=n, color=cca._style.colour_for(n))
+export_assembly(under, str(OUT / 'rear-port-rebuild-core.step'))
 
 # --- the README's figures ---------------------------------------------------------------------
 sys.path.insert(0, str(HW.parent / 'tools'))
@@ -514,6 +609,7 @@ past_cap = near['straight_down_to_core_mm']
 vk = result['vk']
 pump = result['g-ganen-pump']['nearest_mm']
 check = result['co2-check']
+co2 = result['co2_tube']
 CHAIN = ('jg-pp010822e', 'gagira-coupling', 'multiplex-asse1022', 'jg-pi4512f6s', 'jg-pp061208w')
 
 
@@ -556,6 +652,11 @@ substitute_md(HERE / 'README.md', {
     'CHECK_MOUTH_Y': f'{check["socket_mouth_y"]:.1f}', 'CHECK_TIP_SHORT': f'{check["tip_short_of_tube_stop_mm"]:.1f}',
     'CHECK_UNDER_CEILING': f'{check["under_ceiling_mm"]:.1f}',
     'CHECK_TO_FOAM': f'{check["nearest_mm"]["soda-insulation"]:.1f}',
+    'CO2_LAND_X': f'{co2_land[0]:.1f}', 'CO2_LAND_Y': f'{co2_land[1]:.1f}', 'CO2_LEN': f'{co2_len:.0f}',
+    'CO2_BEND': f'{CO2_BEND:g}', 'CO2_GAP': f'{CO2_GAP:g}', 'CO2_DROP': f'{co2_top[2] - CAP_Z:.0f}',
+    'CO2_IN_CARBONATOR': f'{co2["in_from_carbonator_mm"]:.1f}', 'CO2_IN_COIL': f'{co2["in_from_coil_mm"]:.1f}',
+    'CO2_TO_RESERVOIR': f'{co2["to_reservoir_a_mm"]:.1f}',
+    'CO2_TO_VK': f'{co2["nearest_mm"]["vk-solenoid"]:.1f}', 'CO2_TO_PUMP': f'{co2["nearest_mm"]["g-ganen-pump"]:.1f}',
     'STEM_PAST_PORT': f'{fold_in_vk[0][5] - fold_in_vk[0][2]:.1f}',
     'HUB_INTO_VK': f'{fold_in_vk[-1][5] - fold_in_vk[-1][2]:.2f}',
 })

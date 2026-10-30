@@ -2,7 +2,8 @@
 
 The above-core arrangement rebuilt from the rear ports inward, the hardest part to place first.
 Each part goes where it has to be and is measured against what is already placed. Routes and
-thin tubes come last; the soda inlet and the water split's stub are the only tubes drawn.
+thin tubes come last; the soda inlet, the water split's stub and the CO2 tube are the only tubes
+drawn.
 
 The [study](study.py) writes the scenes the [page spec](page.json) draws, the measurements in
 [study.json](study.json), and the figures below. The page is published at
@@ -21,6 +22,7 @@ https://claude.ai/artifact/RppC6x7HmYNP8n2d6EyTMN.
 | V-K, its stem elbow and its wall | Production's arrangement, moved [1.4](VK_EAST) mm east, [11.2](VK_AFT) mm aft and [7.0](VK_DOWN) mm down, until the elbow's release face is on the union tee's east collet face. The elbow's socket is [0.2](VK_TILT)° off the tee's run. The wall carries V-K's posts as production's does and reaches the side wall's inner face instead of the cap, with a [1.9](VK_ARM) mm arm. |
 | G Ganen carbonator pump | Where production stands it on the cold-core cap, without its elbows |
 | neoFit [ACVUS-44](../../../reference/neofit-acvus44-check/README.md) stem check valve | Its stem in the Pisco's outlet, up to the collar on the outlet's release face, with the tip [1.4](CHECK_TIP_SHORT) mm short of the tube stop. The socket faces forward, its mouth at Y[383.6](CHECK_MOUTH_Y). |
+| CO2 tube | Red 1/4 in LLDPE, [99](CO2_LEN) mm from the check's socket to the cap at X[54.0](CO2_LAND_X) Y[352.0](CO2_LAND_Y), between V-K and the pump. It leaves the socket straight forward, turns down in one bend no tighter than R[25](CO2_BEND), and comes straight down its last [36](CO2_DROP) mm. |
 
 ## Back-top
 
@@ -38,13 +40,23 @@ It is cropped to the port corner.
 
 The drop comes down at X[77.5](DROP_X) Y[367.5](DROP_Y). Carried on straight down past the cap's face,
 its tube clears reservoir A by [10.5](DROP_TO_RESERVOIR) mm, the evaporator coil by [15.9](DROP_TO_COIL) mm
-and the carbonator by [22.3](DROP_TO_CARBONATOR) mm. The cold core is not drawn.
+and the carbonator by [22.3](DROP_TO_CARBONATOR) mm. Of the cold core, only the carbonator, its coil and
+the two reservoirs are drawn.
 
 ## The stub
 
 The stub is the shortest, in 0.5 mm steps, that stands V-K, its elbow and its wall
 [1](VK_CLEAR) mm off the soda inlet. At [9.5](STUB) mm, V-K's back is [1.0](VK_TO_SODA) mm in front of
 the foam on the drop.
+
+## The CO2 line
+
+Of the routes that leave the check's socket straight forward, turn down in one bend no tighter than
+R[25](CO2_BEND) and come straight down onto the cap, the tube is the shortest that stands
+[3](CO2_GAP) mm off every part. The nearest part is V-K, [3.0](CO2_TO_VK) mm off.
+
+It lands over the carbonator's top, [2.6](CO2_IN_CARBONATOR) mm in from the carbonator's outer face and
+[8.9](CO2_IN_COIL) mm in from the coil's, and [22.6](CO2_TO_RESERVOIR) mm in front of reservoir A.
 
 ## Clearances
 
@@ -59,12 +71,13 @@ the foam on the drop.
   [8.6](PUMP_TO_FOAM) mm from the foam and [9.2](PUMP_TO_TEE) mm from the union tee.
 - The check valve is [10.1](CHECK_UNDER_CEILING) mm under the ceiling and [12.4](CHECK_TO_FOAM) mm over the
   foam.
+- The CO2 tube is [3.0](CO2_TO_VK) mm from V-K and [9.3](CO2_TO_PUMP) mm from the pump.
 
 No two parts overlap, apart from:
 
 - the scanned fittings' own thread mating;
 - the tube's [15.7](METER_INSERTION) mm insertion into the meter's inlet;
-- the stem elbow in V-K, as production stands them: its tip [5.2](STEM_PAST_PORT) mm past the bottom of
+- the stem elbow in V-K, as production stands them: its tip [5.3](STEM_PAST_PORT) mm past the bottom of
   V-K's modelled port, and its hub [0.21](HUB_INTO_VK) mm into the top of the port's boss;
 - the elbow's release face, [0.02](FOLD_INTO_TEE) mm into the union tee's collet on one side, from the
   [0.2](VK_TILT)° between them.

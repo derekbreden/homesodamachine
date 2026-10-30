@@ -1,6 +1,6 @@
 {
  "title": "Rear-port rebuild",
- "lede": "Back-top cut to the port corner, without its mounting brackets: the 9 mm ceiling, the rear wall and the east side wall, with the label tiles outside in channels between side rails. Inside are the four bulkheads, the ASSE chain out to a JG union tee on a 9.5 mm stub, the Pisco with a neoFit ACVUS-44 check in its outlet, the flow meter straight into the soda union, the meter's inlet turned straight down through production's R14 holder under 1 in foam, and the G Ganen carbonator pump where production stands it, without its elbows. V-K (amber), its stem elbow and its printed wall stand as production stands them, moved with the union tee; the wall reaches the side wall instead of the cap. A shows the water split and V-K alone. B and F are cut at X77.5, D at X60.",
+ "lede": "Back-top cut to the port corner, without its mounting brackets: the 9 mm ceiling, the rear wall and the east side wall, with the label tiles outside in channels between side rails. Inside are the four bulkheads, the ASSE chain out to a JG union tee on a 9.5 mm stub, the Pisco with a neoFit ACVUS-44 check in its outlet, the flow meter straight into the soda union, the meter's inlet turned straight down through production's R14 holder under 1 in foam, and the G Ganen carbonator pump where production stands it, without its elbows. V-K (amber), its stem elbow and its printed wall stand as production stands them, moved with the union tee; the wall reaches the side wall instead of the cap. The CO2 tube, red, leaves the check forward in one bend and comes straight down onto the cap between V-K and the pump. A shows the water split and V-K alone, G the CO2 tube among its neighbours, and H the tube over the carbonator, its coil and the two reservoirs under the cap. B and F are cut at X77.5, D at X60.",
  "frame": "each",
  "sync": false,
  "columns": 2,
@@ -413,6 +413,135 @@
      "text": "check's collar on the outlet's release face",
      "dx": 10,
      "dy": 45
+    }
+   ]
+  },
+  {
+   "name": "The CO2 tube: one bend, then straight down",
+   "view": {
+    "az": -110,
+    "el": 45
+   },
+   "focus": {
+    "center": [
+     62,
+     366,
+     292
+    ],
+    "radius": 52
+   },
+   "models": [
+    {
+     "step": "hardware/assembly/scenes/out/rear-port-rebuild.step",
+     "highlight": [
+      "co2-tube*"
+     ],
+     "only": [
+      "co2-*",
+      "pisco-*",
+      "digiten-flow*",
+      "soda-*",
+      "vk-solenoid*",
+      "vk-wall*",
+      "tee-fold*",
+      "g-ganen-pump*"
+     ]
+    }
+   ],
+   "marks": [
+    {
+     "at": [
+      75.7,
+      373.0,
+      330.0
+     ],
+     "text": "one bend, R25 at its tightest",
+     "dx": 45,
+     "dy": -40
+    },
+    {
+     "at": [
+      57.0,
+      349.8,
+      301.0
+     ],
+     "text": "3.0 mm off V-K",
+     "dx": 70,
+     "dy": -5
+    },
+    {
+     "at": [
+      54.0,
+      348.8,
+      271.0
+     ],
+     "text": "straight down its last 36 mm",
+     "dx": -85,
+     "dy": -5
+    },
+    {
+     "at": [
+      52.5,
+      349.0,
+      258.0
+     ],
+     "text": "9.3 mm off the pump",
+     "dx": -60,
+     "dy": 45
+    }
+   ]
+  },
+  {
+   "name": "Where it lands on the core",
+   "view": {
+    "az": -60,
+    "el": 60
+   },
+   "focus": {
+    "center": [
+     30,
+     345,
+     235
+    ],
+    "radius": 115
+   },
+   "models": [
+    {
+     "step": "hardware/assembly/scenes/out/rear-port-rebuild-core.step"
+    },
+    {
+     "step": "hardware/assembly/scenes/out/rear-port-rebuild.step",
+     "only": [
+      "co2-*",
+      "soda-*",
+      "pisco-*",
+      "digiten-flow*"
+     ],
+     "highlight": [
+      "co2-tube*"
+     ]
+    }
+   ],
+   "marks": [
+    {
+     "at": [
+      54.0,
+      348.8,
+      256.0
+     ],
+     "text": "lands 2.6 mm inside the carbonator's rim",
+     "dx": 60,
+     "dy": 35
+    },
+    {
+     "at": [
+      0.0,
+      404.6,
+      222.0
+     ],
+     "text": "reservoir A, 22.6 mm behind the tube",
+     "dx": -40,
+     "dy": -45
     }
    ]
   }
