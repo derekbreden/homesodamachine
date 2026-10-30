@@ -4,14 +4,18 @@ Each part goes where it has to be and is measured against what is already placed
 routed before its turn. Placed so far, on back-top's port corner cut down to its walls:
 
 - the PISCO regulator, its long-neck inlet through a hole of its own at the CO2 station;
-- the scanned threaded ASSE chain on TAP;
+- the scanned threaded ASSE chain on TAP, out of its PP061208W on a stub of tube into a JG PP0208E
+  union tee;
 - the four remaining bulkheads, dropped with the grid;
 - the label tiles, in channels between side rails;
 - the DIGITEN meter, straight into the soda bulkhead with no tube showing, larger side down;
 - the meter's inlet turned straight down by production's bend holder, foam and tube, to the
   cold-core cap's face;
 - V-K, the stem elbow into its top port and its wall, as production stands them, moved with the
-  tee; the wall reaches the side wall instead of the cap.
+  tee; the wall reaches the side wall instead of the cap, and the stub is the shortest that stands
+  V-K clear of the soda inlet;
+- the G Ganen carbonator pump, where production stands it on the cap, without its elbows;
+- the neoFit ACVUS-44 stem check valve in the Pisco's outlet.
 
 Back-top is today's piece with its six old bores plugged, both roof pockets filled back to the
 full roof, the clamping land carried down to the dropped bottom nuts, the new bores, each column's
@@ -34,6 +38,8 @@ from scipy.spatial import cKDTree
 HERE = Path(__file__).resolve().parent
 HW = HERE.parents[2]
 for p in ('scripts', 'manifold-layout', 'printed-parts/cadlib', 'reference/asse1022-threaded-chain',
+          'reference/jg-pp0208e-tee', 'reference/jg-pp061208w', 'reference/neofit-acvus44-check',
+          'reference/neofit-stem-elbow',
           'cold-core-layout', 'printed-parts/cold-core', 'printed-parts/cold-core/foam-assembly'):
     sys.path.insert(0, str(HW / p))
 
@@ -44,12 +50,16 @@ import above_core_parts as acp  # noqa: E402
 import asse1022_threaded_chain as tc  # noqa: E402
 import cold_core_assembly as cca  # noqa: E402
 import fits  # noqa: E402
+import jg_pp0208e_tee as union_tee  # noqa: E402
+import jg_pp061208w as reducer_ref  # noqa: E402
+import neofit_acvus44_check as acvus  # noqa: E402
+import neofit_stem_elbow as stem_elbow  # noqa: E402
 import soda_inlet  # noqa: E402
 import _above_core_mounts as mounts  # noqa: E402
 import valve_seat  # noqa: E402
 from _cadq_export import export_assembly, import_step  # noqa: E402
-from _materials import (M_ALUMINIUM, M_JG_GREY_ACETAL, M_MOULDED_BLACK, M_NITRILE_BLACK,  # noqa: E402
-                        M_PETGF_BLACK)
+from _materials import (M_ALUMINIUM, M_JG_BLACK_PP, M_JG_GREY_ACETAL, M_MOULDED_BLACK,  # noqa: E402
+                        M_NEOFIT_WHITE_ACETAL, M_NITRILE_BLACK, M_PETGF_BLACK)
 from _routing import SPOOLS  # noqa: E402
 
 OUT = HW / 'assembly' / 'scenes' / 'out'
@@ -64,7 +74,7 @@ X_W, X_E = 37.25, 77.5
 CEILING = 346.0                                       # the 9 mm roof's inner face
 WALL_IN, FLOOR_Y, FACE_Y = 465.3, 469.3, 471.3        # land inner face, chip floor, flange plane
 SIDE_WALL_X = 98.5                                    # the east side wall's inner face
-CROP = cq.Solid.makeBox(108., 474. - 305., 356. - 230., cq.Vector(0., 305., 230.))
+CROP = cq.Solid.makeBox(108., 474. - 285., 356. - 230., cq.Vector(0., 285., 230.))
 CAP_Z = facts['faces']['foam-assembly.cap']
 
 # --- the scanned chain on TAP -------------------------------------------------------------------
@@ -73,13 +83,9 @@ t = gp_Trsf()
 t.SetValues(0, 0, 1, X_W - tc.bfp.BODY_CENTER_Z, -1, 0, 0, MOUTH_Y + ports['inlet'][0][0], 0, -1, 0, ROWS[0])
 TO_WORLD = cq.Location(t)
 native = tc.parts()
-tee_rec = tc.parameters()['atbu444-e']
-T0 = cq.Vector(*tee_rec['origin_mm'])
-STEMAX = cq.Vector(*[tee_rec['rotation'][i][0] for i in range(3)])
-native['atbu444-e'] = native['atbu444-e'].rotate(T0, T0 + STEMAX, 90.)
 names = {'pp010822e': 'jg-pp010822e', 'gagira': 'gagira-coupling', 'multiplex-asse1022': 'multiplex-asse1022',
-         'pi4512f6s': 'jg-pi4512f6s', 'pp061208w': 'jg-pp061208w', 'atbu444-e': 'neofit-atbu444e'}
-parts = {names[k]: (s.moved(TO_WORLD), tc.COLORS[k]) for k, s in native.items()}
+         'pi4512f6s': 'jg-pi4512f6s', 'pp061208w': 'jg-pp061208w'}
+parts = {names[k]: (native[k].moved(TO_WORLD), tc.COLORS[k]) for k in names}
 tap_axis = cq.Vertex.makeVertex(*ports['inlet'][0]).moved(TO_WORLD).Center()
 
 # --- the Pisco: native +Z (flow) runs world -Y, its inlet release face on the mouth plane --------
@@ -95,6 +101,12 @@ for solid in acp.native_reference('gas-regulator').Solids():
     pisco_native[key] = solid
     parts['pisco-' + key.replace('_', '-')] = (solid.moved(cq.Location(t)), COLOURS[key])
 PISCO = [n for n in parts if n.startswith('pisco-')]
+# The ACVUS-44's stem in the Pisco's outlet, its collar on the outlet's release face; its +X runs
+# with the Pisco's flow.
+check_tip = dims['ports']['outlet']['point_mm'][2] - acvus.SHOULDER
+t2 = gp_Trsf()
+t2.SetValues(0, 1, 0, X_E, -1, 0, 0, MOUTH_Y - check_tip, 0, 0, 1, ROWS[0])
+parts['co2-check'] = (acvus.build().moved(cq.Location(t2)), M_NEOFIT_WHITE_ACETAL)
 # Its hole is one slip (enclosure_assembly.PORT_HOLE_SLIP) over the widest of what passes it.
 vs = np.array([(v.x, v.y, v.z) for s in pisco_native.values() for v in s.tessellate(0.01, 0.1)[0]])
 through = vs[vs[:, 2] <= MOUTH_Y - WALL_IN]
@@ -146,7 +158,7 @@ for x in (X_W, X_E):
 back = back.intersect(CROP).clean()
 # No mounting brackets: everything inside the ceiling, rear-wall and side-wall planes goes, except
 # the fillet where the side wall meets the rear wall.
-inside = cq.Solid.makeBox(SIDE_WALL_X, 462.3 - 305., CEILING - 230., cq.Vector(0., 305., 230.))
+inside = cq.Solid.makeBox(SIDE_WALL_X, 462.3 - 285., CEILING - 230., cq.Vector(0., 285., 230.))
 fillet = [s for s in back.intersect(inside).Solids() if s.BoundingBox().xmin > 94.]
 back = back.cut(inside)
 for s in fillet:
@@ -208,37 +220,106 @@ parts['soda-bend-holder'] = (holder, M_PETGF_BLACK)
 parts['soda-insulation'] = (foam.cut(holder).clean(), M_NITRILE_BLACK)
 SODA = ('soda-tube', 'soda-bend-holder', 'soda-insulation')
 
+CLOUDS = {}
+
+
+def pts(shape, step=0.3):
+    """Points over the shape's surface, `step` apart, kept for the next ask. A shape of thousands
+    of faces, the pump's scanned envelope, tessellates coarsely and is sampled 0.5 mm apart by area
+    alone, without its vertices."""
+    heavy = len(shape.Faces()) > 5000
+    step = max(step, 0.5) if heavy else step
+    key = (id(shape), step)
+    if key in CLOUDS:
+        return CLOUDS[key]
+    vs, ts = shape.tessellate(0.2, 0.5) if heavy else shape.tessellate(0.03, 0.1)
+    vs = np.array([(q.x, q.y, q.z) for q in vs])
+    tri = vs[np.array(ts)]
+    a, b, c = tri[:, 0], tri[:, 1], tri[:, 2]
+    area = 0.5 * np.linalg.norm(np.cross(b - a, c - a), axis=1)
+    rng = np.random.default_rng(1)
+    n = (np.floor(area / step ** 2 + rng.random(len(area))) if heavy else np.ceil(area / step ** 2)).astype(int)
+    i = np.repeat(np.arange(len(tri)), n)
+    r1, r2 = np.sqrt(rng.random(len(i)))[:, None], rng.random(len(i))[:, None]
+    cloud = (1 - r1) * a[i] + r1 * (1 - r2) * b[i] + r1 * r2 * c[i]
+    CLOUDS[key] = cloud if heavy else np.concatenate([cloud, vs])
+    return CLOUDS[key]
+
+
+TREES = {}
+
+
+def tree(shape, step=0.4):
+    cloud = pts(shape, step)
+    if id(cloud) not in TREES:
+        TREES[id(cloud)] = cKDTree(cloud)
+    return TREES[id(cloud)]
+
+
+# --- the water split: a JG PP0208E union tee on a stub of tube out of the PP061208W -------------
+# A stub of 1/4" tube runs from the reducer's collet into the union tee's branch, and the tee's run
+# stands square to it, east-west.
+reducer = tc.parameters()['pp061208w']
+
+
+def chain_point(record, x):
+    return np.array(tc.placed(cq.Vertex.makeVertex(x, 0., 0.), record).moved(TO_WORLD).Center().toTuple())
+
+
+nose = chain_point(reducer, reducer['visible_axial_range_mm'][1])     # the reducer's 1/4" collet face
+flow = chain_point(reducer, reducer['visible_axial_range_mm'][1] + 1.) - nose
+east = np.array([1., 0., 0.]) - flow * flow[0]
+east /= np.linalg.norm(east)
+
+
+def tee_centre(stub):
+    return nose + flow * (stub + union_tee.REACH)
+
+
 # --- V-K, its stem elbow and its wall, as production stands them, moved with the tee ------------
-# Production butts tee-fold's socket mouth on the tee's east run mouth, stands V-K on tee-fold's
-# stem and presses V-K's posts into an upright wall rooted on the cap. All three move with the
-# scanned tee's east run mouth; the wall reaches the side wall instead of the cap.
+# Production stands V-K on tee-fold's stem and presses V-K's posts into an upright wall rooted on
+# the cap. All three move together until tee-fold's release face, from its reference, is on the
+# union tee's east collet face; the wall reaches the side wall instead of the cap.
+fold_face, fold_axis = comps['tee-fold'][2](stem_elbow.socket())
 
 
-def tee_run(name):
-    point, outward = ports['outlet_' + name]
-    a, b = (cq.Vertex.makeVertex(*p).rotate(T0, T0 + STEMAX, 90.).moved(TO_WORLD).Center()
-            for p in (point, [point[i] + outward[i] for i in range(3)]))
-    return np.array(a.toTuple()), np.array((b - a).toTuple())
+def vk_shift(stub):
+    return tee_centre(stub) + east * union_tee.REACH - np.array(fold_face)
 
 
-tee_mouth, tee_axis = max((tee_run(n) for n in ('plus', 'minus')), key=lambda run: run[1][0])
-run_plus = acp._module('above_core_branch_tee', 'reference/branch-stem-tees/branch_stem_tees.py').specification(
-    'neofit')['ports']['run_plus']
-prod_mouth, prod_axis = comps['water-split'][2]((run_plus['position'], run_plus['outward']))
-SHIFT = tee_mouth - np.array(prod_mouth)
-MOVE = cq.Location(cq.Vector(*SHIFT))
-for n in ('vk-solenoid', 'tee-fold'):
-    parts[n] = (comps[n][0].moved(MOVE), comps[n][1])
 seat = mounts.valve_support_datums('vk-solenoid')
 lo, hi = seat['bearing_min_world_mm'], seat['bearing_max_world_mm']
 at_vk = layout.location('vk-solenoid')
 wall = cq.Solid.makeBox(*(hi[i] - lo[i] for i in range(3)), cq.Vector(*lo)).cut(
     valve_seat.build_sockets().val().moved(at_vk),
-    valve_seat.build_port_channel(2. * valve_seat.seat_half_y + 2.).val().moved(at_vk)).moved(MOVE)
+    valve_seat.build_port_channel(2. * valve_seat.seat_half_y + 2.).val().moved(at_vk))
+# The stub is the shortest, in half millimetres, that stands the group VK_CLEAR off the soda inlet.
+VK_CLEAR = 1.0
+group = np.concatenate([pts(comps['vk-solenoid'][0]), pts(comps['tee-fold'][0]), pts(wall)])
+inlet = cKDTree(np.concatenate([pts(parts[n][0], 0.4) for n in SODA]))
+STUB = next(float(s) for s in np.arange(0., 30.01, 0.5) if inlet.query(group + vk_shift(s))[0].min() >= VK_CLEAR)
+SHIFT = vk_shift(STUB)
+MOVE = cq.Location(cq.Vector(*SHIFT))
+for n in ('vk-solenoid', 'tee-fold'):
+    parts[n] = (comps[n][0].moved(MOVE), comps[n][1])
 arm = cq.Solid.makeBox(SIDE_WALL_X - hi[0] - SHIFT[0], hi[1] - lo[1], hi[2] - lo[2],
                        cq.Vector(hi[0] + SHIFT[0], lo[1] + SHIFT[1], lo[2] + SHIFT[2]))
-parts['vk-wall'] = (wall.fuse(arm).clean(), M_PETGF_BLACK)
+parts['vk-wall'] = (wall.moved(MOVE).fuse(arm).clean(), M_PETGF_BLACK)
 VK = ('vk-solenoid', 'tee-fold', 'vk-wall')
+tee_at = tee_centre(STUB)
+tee_x = np.cross(-flow, east)                      # the tee's run on its Z, its branch on its +Y
+parts['jg-pp0208e'] = (union_tee.build_jg_pp0208e_tee().val().moved(layout.frame_location({
+    'rotation': [[tee_x[i], -flow[i], east[i]] for i in range(3)],
+    'translation_mm': [float(c) for c in tee_at]})), M_JG_BLACK_PP)
+stub_from = nose - flow * reducer_ref.TUBE_INSERTION_DEPTH
+stub_len = reducer_ref.TUBE_INSERTION_DEPTH + STUB + union_tee.INSERTION
+parts['water-split-stub'] = (cq.Solid.makeCylinder(sel['tube_od_mm'] / 2., stub_len, cq.Vector(*stub_from), cq.Vector(*flow))
+                             .cut(cq.Solid.makeCylinder(sel['tube_id_mm'] / 2., stub_len, cq.Vector(*stub_from),
+                                                        cq.Vector(*flow))),
+                             cq.Color(*(c / 255. for c in SPOOLS['white'].rgb)))
+
+# --- the carbonator pump, where production stands it on the cap, without its elbows -------------
+parts['g-ganen-pump'] = comps['g-ganen-pump'][:2]
 
 # --- the cold core, where the machine stands it, for the drop below the cap ----------------------
 # The core builds in foam-assembly's frame; the machine turns that frame a quarter about +Z and
@@ -287,6 +368,8 @@ def bbox(shape):
 print('== exact overlaps (mm^3)')
 overlaps = {}
 names_all = [n for n in parts if not n.endswith('-word')]
+# The pump meets a part in an exact boolean only where their sampled surfaces come within 0.5 mm.
+pump_cloud = tree(parts['g-ganen-pump'][0], 0.5)
 for i, a in enumerate(names_all):
     for b in names_all[i + 1:]:
         if a.startswith('pisco-') and b.startswith('pisco-'):
@@ -295,32 +378,22 @@ for i, a in enumerate(names_all):
         ba, bb = sa.BoundingBox(), sb.BoundingBox()
         if ba.xmax < bb.xmin or bb.xmax < ba.xmin or ba.ymax < bb.ymin or bb.ymax < ba.ymin or ba.zmax < bb.zmin or bb.zmax < ba.zmin:
             continue
+        if 'g-ganen-pump' in (a, b) and pump_cloud.query(pts(sb if a == 'g-ganen-pump' else sa, 0.5))[0].min() > 0.5:
+            continue
         common = sa.intersect(sb)
         v = common.Volume()
         if v > 1e-3:
-            overlaps[f'{a} x {b}'] = {'mm3': round(v, 3), 'bbox': bbox(common)}
+            overlaps[f'{a} x {b}'] = {'mm3': round(v, 3), 'bbox': bbox(common),
+                                      'pieces': [bbox(x) for x in common.Solids()]}
             print(f'  {a} x {b}: {v:.3f} at {bbox(common)}')
 result['overlaps'] = overlaps
-
-
-def pts(shape, step=0.3):
-    vs, ts = shape.tessellate(0.03, 0.1)
-    vs = np.array([(q.x, q.y, q.z) for q in vs])
-    tri = vs[np.array(ts)]
-    a, b, c = tri[:, 0], tri[:, 1], tri[:, 2]
-    area = 0.5 * np.linalg.norm(np.cross(b - a, c - a), axis=1)
-    n = np.ceil(area / step ** 2).astype(int)
-    i = np.repeat(np.arange(len(tri)), n)
-    rng = np.random.default_rng(1)
-    r1, r2 = np.sqrt(rng.random(len(i)))[:, None], rng.random(len(i))[:, None]
-    return np.concatenate([(1 - r1) * a[i] + r1 * (1 - r2) * b[i] + r1 * r2 * c[i], vs])
 
 
 def nearest(name, others, reach=15.):
     P = pts(parts[name][0])
     found = {}
     for n in others:
-        d, _ = cKDTree(pts(parts[n][0], 0.4)).query(P, k=1)
+        d, _ = tree(parts[n][0]).query(P, k=1)
         j = d.argmin()
         if d[j] < reach:
             found[n] = round(float(d[j]), 2)
@@ -373,16 +446,36 @@ result['soda_inlet'].update({
 for n in SODA:
     print(f'== {n} {bbox(parts[n][0])}')
     result['soda_inlet'][f'{n}_nearest_mm'] = nearest(n, [m for m in placed if m not in SODA])
-tilt = math.degrees(math.acos(min(1., abs(float(np.dot(tee_axis, prod_axis))))))
+print(f'== water split: a {STUB:g} mm stub out of the reducer\'s collet face ({nose[0]:.2f}, {nose[1]:.2f}, '
+      f'{nose[2]:.2f}); the union tee stands at ({tee_at[0]:.2f}, {tee_at[1]:.2f}, {tee_at[2]:.2f}); the tube is cut '
+      f'{stub_len:.1f} mm')
+result['water_split'] = {'stub_mm': STUB, 'stub_cut_mm': round(stub_len, 2),
+                         'tee_centre': [round(float(c), 3) for c in tee_at],
+                         'nearest_mm': {n: nearest(n, [m for m in placed if m not in ('jg-pp0208e', 'water-split-stub')])
+                                        for n in ('jg-pp0208e', 'water-split-stub')}}
+tee_mouth = tee_at + east * union_tee.REACH
+tilt = math.degrees(math.acos(min(1., abs(float(np.dot(east, fold_axis))))))
+vk_gap = float(inlet.query(group + SHIFT)[0].min())
 print(f'== V-K, tee-fold and the wall moved ({SHIFT[0]:.2f}, {SHIFT[1]:.2f}, {SHIFT[2]:.2f}) to the tee\'s east run '
-      f'mouth ({tee_mouth[0]:.2f}, {tee_mouth[1]:.2f}, {tee_mouth[2]:.2f}); the scanned run is {tilt:.2f} deg off '
-      f'production\'s; the arm out to the side wall is {SIDE_WALL_X - hi[0] - SHIFT[0]:.2f} mm')
+      f'mouth ({tee_mouth[0]:.2f}, {tee_mouth[1]:.2f}, {tee_mouth[2]:.2f}); tee-fold\'s socket is {tilt:.2f} deg off '
+      f'the run; the arm out to the side wall is {SIDE_WALL_X - hi[0] - SHIFT[0]:.2f} mm; {vk_gap:.2f} mm off the soda inlet')
 result['vk'] = {'shift_mm': [round(float(c), 3) for c in SHIFT], 'tee_east_mouth': [round(float(c), 3) for c in tee_mouth],
-                'run_tilt_deg': round(tilt, 2), 'arm_mm': round(SIDE_WALL_X - hi[0] - SHIFT[0], 2),
+                'socket_tilt_deg': round(tilt, 2), 'arm_mm': round(SIDE_WALL_X - hi[0] - SHIFT[0], 2),
+                'to_soda_inlet_mm': round(vk_gap, 2),
                 'bboxes': {n: bbox(parts[n][0]) for n in VK}}
 for n in VK:
     print(f'== {n} {bbox(parts[n][0])}')
     result['vk'][f'{n}_nearest_mm'] = nearest(n, [m for m in placed if m not in VK])
+for n in ('g-ganen-pump', 'co2-check'):
+    print(f'== {n} {bbox(parts[n][0])}')
+    result[n] = {'bbox': bbox(parts[n][0]), 'nearest_mm': nearest(n, [m for m in placed if m != n])}
+check_mouth = MOUTH_Y - check_tip - acvus.LENGTH
+result['co2-check'].update({
+    'socket_mouth_y': round(check_mouth, 2),
+    'tip_short_of_tube_stop_mm': round(dims['ports']['outlet']['insertion_mm'] - acvus.SHOULDER, 2),
+    'under_ceiling_mm': round(CEILING - parts['co2-check'][0].BoundingBox().zmax, 2)})
+print(f'== the check\'s collar on the Pisco\'s outlet face Y{MOUTH_Y - check_tip - acvus.SHOULDER:.2f}, its stem tip '
+      f'{result["co2-check"]["tip_short_of_tube_stop_mm"]} mm short of the tube stop, its socket mouth Y{check_mouth:.2f}')
 json.dump(result, open(HERE / 'study.json', 'w'), indent=1)
 
 # --- scenes -----------------------------------------------------------------------------------
@@ -390,8 +483,15 @@ json.dump(result, open(HERE / 'study.json', 'w'), indent=1)
 
 def scene(name, keep=None):
     a = cq.Assembly(name=name)
+    box = keep.BoundingBox() if keep is not None else None
     for n, (s, colour) in parts.items():
-        if keep is not None:
+        b = s.BoundingBox()
+        if keep is None or (box.xmin <= b.xmin and b.xmax <= box.xmax and box.ymin <= b.ymin and b.ymax <= box.ymax
+                            and box.zmin <= b.zmin and b.zmax <= box.zmax):
+            pass
+        elif b.xmax < box.xmin or box.xmax < b.xmin or b.ymax < box.ymin or box.ymax < b.ymin:
+            continue
+        else:
             s = s.intersect(keep)
             if s.Volume() < 1e-3:
                 continue
@@ -401,9 +501,9 @@ def scene(name, keep=None):
 
 scene('rear-port-rebuild')
 # West of the Pisco and meter axis, X77.5, to show the wall's section and the inlet's.
-scene('rear-port-rebuild-section', cq.Solid.makeBox(X_E, 200., 200., cq.Vector(0., 300., 200.)))
+scene('rear-port-rebuild-section', cq.Solid.makeBox(X_E + 100., 250., 200., cq.Vector(-100., 250., 200.)))
 # East of X60, so the Pisco and the meter can be seen side-on against the side wall from inside.
-scene('rear-port-rebuild-corner', cq.Solid.makeBox(60., 200., 200., cq.Vector(60., 300., 200.)))
+scene('rear-port-rebuild-corner', cq.Solid.makeBox(60., 250., 200., cq.Vector(60., 250., 200.)))
 
 # --- the README's figures ---------------------------------------------------------------------
 sys.path.insert(0, str(HW.parent / 'tools'))
@@ -412,12 +512,19 @@ to_back = result['pisco_to_back_top_mm']
 near = result['soda_inlet']
 past_cap = near['straight_down_to_core_mm']
 vk = result['vk']
-vk_back = vk['bboxes']['vk-solenoid'][4]
+pump = result['g-ganen-pump']['nearest_mm']
+check = result['co2-check']
+CHAIN = ('jg-pp010822e', 'gagira-coupling', 'multiplex-asse1022', 'jg-pi4512f6s', 'jg-pp061208w')
 
 
 def overlap_depth(a, b, axis):
     o = next((v for k, v in result['overlaps'].items() if set(k.split(' x ')) == {a, b}), None)
     return o['bbox'][axis + 3] - o['bbox'][axis] if o else float('nan')
+
+
+# tee-fold in V-K: the stem's tip below the port's floor, and the hub on the port's boss, low to high.
+fold_in_vk = sorted(next(v for k, v in result['overlaps'].items() if set(k.split(' x ')) == {'tee-fold', 'vk-solenoid'})
+                    ['pieces'], key=lambda b: b[2])
 
 
 substitute_md(HERE / 'README.md', {
@@ -439,11 +546,16 @@ substitute_md(HERE / 'README.md', {
     'FOAM_TO_SIDE_WALL': f'{near["soda-insulation_nearest_mm"].get("enclosure-back-top", float("nan")):.1f}',
     'DROP_TO_RESERVOIR': f'{past_cap["reservoir-a"]:.1f}', 'DROP_TO_COIL': f'{past_cap["evap-coil"]:.1f}',
     'DROP_TO_CARBONATOR': f'{past_cap["carbonator-tube"]:.1f}',
-    'VK_AFT': f'{SHIFT[1]:.1f}', 'VK_DOWN': f'{-SHIFT[2]:.1f}', 'VK_TILT': f'{tilt:.1f}', 'VK_ARM': f'{vk["arm_mm"]:.1f}',
-    'VK_BACK_Y': f'{vk_back:.1f}', 'VK_PAST_DROP': f'{vk_back - start[1]:.1f}',
-    'VK_TO_METER': f'{vk["vk-solenoid_nearest_mm"]["digiten-flow"]:.1f}',
+    'VK_EAST': f'{SHIFT[0]:.1f}', 'VK_AFT': f'{SHIFT[1]:.1f}', 'VK_DOWN': f'{-SHIFT[2]:.1f}', 'VK_TILT': f'{tilt:.1f}',
+    'VK_ARM': f'{vk["arm_mm"]:.1f}', 'VK_TO_SODA': f'{vk["to_soda_inlet_mm"]:.1f}',
     'VK_TO_SIDE_WALL': f'{vk["vk-solenoid_nearest_mm"]["enclosure-back-top"]:.1f}',
-    'VK_INTO_HOLDER': f'{overlap_depth("vk-solenoid", "soda-bend-holder", 1):.1f}',
-    'FOLD_INTO_TEE': f'{overlap_depth("tee-fold", "neofit-atbu444e", 0):.1f}',
-    'STEM_PAST_PORT': f'{overlap_depth("tee-fold", "vk-solenoid", 2):.1f}',
+    'FOLD_INTO_TEE': f'{overlap_depth("tee-fold", "jg-pp0208e", 0):.2f}',
+    'STUB': f'{STUB:g}', 'STUB_CUT': f'{stub_len:.1f}', 'VK_CLEAR': f'{VK_CLEAR:g}',
+    'PUMP_TO_OVER': f'{pump["bulkhead-drain"]:.1f}', 'PUMP_TO_ASSE': f'{min(pump[n] for n in CHAIN if n in pump):.1f}',
+    'PUMP_TO_TEE': f'{pump["jg-pp0208e"]:.1f}', 'PUMP_TO_FOAM': f'{pump["soda-insulation"]:.1f}',
+    'CHECK_MOUTH_Y': f'{check["socket_mouth_y"]:.1f}', 'CHECK_TIP_SHORT': f'{check["tip_short_of_tube_stop_mm"]:.1f}',
+    'CHECK_UNDER_CEILING': f'{check["under_ceiling_mm"]:.1f}',
+    'CHECK_TO_FOAM': f'{check["nearest_mm"]["soda-insulation"]:.1f}',
+    'STEM_PAST_PORT': f'{fold_in_vk[0][5] - fold_in_vk[0][2]:.1f}',
+    'HUB_INTO_VK': f'{fold_in_vk[-1][5] - fold_in_vk[-1][2]:.2f}',
 })
