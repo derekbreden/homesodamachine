@@ -1,0 +1,160 @@
+{
+ "rows_z": [
+  328.0,
+  296.0,
+  264.0
+ ],
+ "grid_drop_mm": 10.376,
+ "tile_seat_z": 252.0,
+ "tap_hole_d": 19.307,
+ "tap_tile_bore_d": 19.276,
+ "pisco_hole_d": 13.857,
+ "overlaps": {
+  "jg-pi4512f6s x jg-pp061208w": {
+   "mm3": 0.356,
+   "bbox": [
+    31.96,
+    356.06,
+    322.68,
+    42.36,
+    356.16,
+    331.26
+   ]
+  },
+  "digiten-flow x soda-tube": {
+   "mm3": 170.232,
+   "bbox": [
+    74.32,
+    391.51,
+    292.82,
+    80.68,
+    401.21,
+    299.18
+   ]
+  }
+ },
+ "meter": {
+  "bbox": [
+   68.1,
+   385.51,
+   269.5,
+   96.4,
+   446.51,
+   305.15
+  ],
+  "inlet_mouth": [
+   77.5,
+   385.51,
+   296.0
+  ],
+  "nearest_mm": {
+   "pisco-body": 12.12,
+   "pisco-outlet-fitting": 12.19,
+   "bulkhead-carb": 0.01,
+   "enclosure-back-top": 2.1
+  }
+ },
+ "pisco_to_back_top_mm": {
+  "rear wall, the 6 mm field": 0.09,
+  "ceiling": 7.18,
+  "east side wall": 7.51,
+  "9 mm stock east of the field": 3.4
+ },
+ "multiplex-asse1022_under_ceiling_mm": 1.45,
+ "gagira-coupling_under_ceiling_mm": 6.95,
+ "soda_inlet": {
+  "mouth": [
+   77.5,
+   385.51,
+   296.0
+  ],
+  "arc_end": [
+   77.5,
+   381.51,
+   296.0
+  ],
+  "bend_centre": [
+   77.5,
+   381.51,
+   282.0
+  ],
+  "arc_start": [
+   77.5,
+   367.51,
+   282.0
+  ],
+  "on_cap": [
+   77.5,
+   367.51,
+   253.4
+  ],
+  "soda_guide": [
+   50.00000000514755,
+   342.4147997999999,
+   253.4
+  ],
+  "co2_inlet_guide": [
+   77.50000000514756,
+   368.7621997999999,
+   253.4
+  ],
+  "drop_from_soda_guide_mm": {
+   "east": 27.5,
+   "aft": 25.1,
+   "apart": 37.23
+  },
+  "drop_from_co2_inlet_guide_mm": 1.25,
+  "cap_material_z": {
+   "soda guide": [],
+   "CO2 inlet guide": [],
+   "drop axis": [],
+   "beside the soda guide": [
+    233.55,
+    235.55,
+    248.0,
+    253.4
+   ]
+  },
+  "foam_length_mm": 52.49,
+  "bboxes": {
+   "soda-tube": [
+    74.32,
+    364.33,
+    253.4,
+    80.68,
+    401.21,
+    299.18
+   ],
+   "soda-bend-holder": [
+    70.69,
+    362.11,
+    279.0,
+    82.9,
+    384.51,
+    301.4
+   ],
+   "soda-insulation": [
+    64.8,
+    354.81,
+    254.5,
+    90.2,
+    384.51,
+    308.7
+   ]
+  },
+  "soda-tube_nearest_mm": {
+   "digiten-flow": 0.03,
+   "cold-core-foam-cap-top": 5.55,
+   "cold-core-foam-cap-lid-top": 0.7
+  },
+  "soda-bend-holder_nearest_mm": {
+   "digiten-flow": 1.0
+  },
+  "soda-insulation_nearest_mm": {
+   "enclosure-back-top": 8.3,
+   "digiten-flow": 1.0,
+   "cold-core-foam-cap-top": 6.65,
+   "cold-core-foam-cap-lid-top": 1.1
+  }
+ }
+}
