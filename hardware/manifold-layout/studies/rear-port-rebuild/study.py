@@ -9,14 +9,16 @@ routed before its turn. Placed so far, on back-top's port corner cut down to its
 - the label tiles, in channels between side rails;
 - the DIGITEN meter, straight into the soda bulkhead with no tube showing, larger side down;
 - the meter's inlet turned straight down by production's bend holder, foam and tube, to the
-  cold-core cap.
+  cold-core cap's face;
+- V-K, the stem elbow into its top port and its wall, as production stands them, moved with the
+  tee; the wall reaches the side wall instead of the cap.
 
 Back-top is today's piece with its six old bores plugged, both roof pockets filled back to the
 full roof, the clamping land carried down to the dropped bottom nuts, the new bores, each column's
-chip pockets opened into one channel, and no mounting brackets. It and the cap's two top layers
-are cropped to the port corner, CROP.
+chip pockets opened into one channel, and no mounting brackets. It is cropped to the port corner,
+CROP.
 
-Writes the four scenes page.json draws into hardware/assembly/scenes/out/, the measurements to
+Writes the three scenes page.json draws into hardware/assembly/scenes/out/, the measurements to
 study.json, and their figures into README.md.
 
     tools/cad-venv/bin/python hardware/manifold-layout/studies/rear-port-rebuild/study.py
@@ -43,6 +45,8 @@ import asse1022_threaded_chain as tc  # noqa: E402
 import cold_core_assembly as cca  # noqa: E402
 import fits  # noqa: E402
 import soda_inlet  # noqa: E402
+import _above_core_mounts as mounts  # noqa: E402
+import valve_seat  # noqa: E402
 from _cadq_export import export_assembly, import_step  # noqa: E402
 from _materials import (M_ALUMINIUM, M_JG_GREY_ACETAL, M_MOULDED_BLACK, M_NITRILE_BLACK,  # noqa: E402
                         M_PETGF_BLACK)
@@ -59,10 +63,9 @@ GRID_DROP = ROW_OLD - ROWS[0]
 X_W, X_E = 37.25, 77.5
 CEILING = 346.0                                       # the 9 mm roof's inner face
 WALL_IN, FLOOR_Y, FACE_Y = 465.3, 469.3, 471.3        # land inner face, chip floor, flange plane
-CROP = cq.Solid.makeBox(108., 474. - 330., 356. - 230., cq.Vector(0., 330., 230.))
+SIDE_WALL_X = 98.5                                    # the east side wall's inner face
+CROP = cq.Solid.makeBox(108., 474. - 305., 356. - 230., cq.Vector(0., 305., 230.))
 CAP_Z = facts['faces']['foam-assembly.cap']
-SODA_GUIDE = facts['card_ports']['foam-assembly']['carb-water-out']['pos']
-CO2_GUIDE = facts['card_ports']['foam-assembly']['co2-in']['pos']
 
 # --- the scanned chain on TAP -------------------------------------------------------------------
 ports = tc.ports()
@@ -143,7 +146,7 @@ for x in (X_W, X_E):
 back = back.intersect(CROP).clean()
 # No mounting brackets: everything inside the ceiling, rear-wall and side-wall planes goes, except
 # the fillet where the side wall meets the rear wall.
-inside = cq.Solid.makeBox(98.5, 462.3 - 330., CEILING - 230., cq.Vector(0., 330., 230.))
+inside = cq.Solid.makeBox(SIDE_WALL_X, 462.3 - 305., CEILING - 230., cq.Vector(0., 305., 230.))
 fillet = [s for s in back.intersect(inside).Solids() if s.BoundingBox().xmin > 94.]
 back = back.cut(inside)
 for s in fillet:
@@ -205,18 +208,46 @@ parts['soda-bend-holder'] = (holder, M_PETGF_BLACK)
 parts['soda-insulation'] = (foam.cut(holder).clean(), M_NITRILE_BLACK)
 SODA = ('soda-tube', 'soda-bend-holder', 'soda-insulation')
 
-# --- the cold-core cap's two top layers, where the machine stands the core ----------------------
+# --- V-K, its stem elbow and its wall, as production stands them, moved with the tee ------------
+# Production butts tee-fold's socket mouth on the tee's east run mouth, stands V-K on tee-fold's
+# stem and presses V-K's posts into an upright wall rooted on the cap. All three move with the
+# scanned tee's east run mouth; the wall reaches the side wall instead of the cap.
+
+
+def tee_run(name):
+    point, outward = ports['outlet_' + name]
+    a, b = (cq.Vertex.makeVertex(*p).rotate(T0, T0 + STEMAX, 90.).moved(TO_WORLD).Center()
+            for p in (point, [point[i] + outward[i] for i in range(3)]))
+    return np.array(a.toTuple()), np.array((b - a).toTuple())
+
+
+tee_mouth, tee_axis = max((tee_run(n) for n in ('plus', 'minus')), key=lambda run: run[1][0])
+run_plus = acp._module('above_core_branch_tee', 'reference/branch-stem-tees/branch_stem_tees.py').specification(
+    'neofit')['ports']['run_plus']
+prod_mouth, prod_axis = comps['water-split'][2]((run_plus['position'], run_plus['outward']))
+SHIFT = tee_mouth - np.array(prod_mouth)
+MOVE = cq.Location(cq.Vector(*SHIFT))
+for n in ('vk-solenoid', 'tee-fold'):
+    parts[n] = (comps[n][0].moved(MOVE), comps[n][1])
+seat = mounts.valve_support_datums('vk-solenoid')
+lo, hi = seat['bearing_min_world_mm'], seat['bearing_max_world_mm']
+at_vk = layout.location('vk-solenoid')
+wall = cq.Solid.makeBox(*(hi[i] - lo[i] for i in range(3)), cq.Vector(*lo)).cut(
+    valve_seat.build_sockets().val().moved(at_vk),
+    valve_seat.build_port_channel(2. * valve_seat.seat_half_y + 2.).val().moved(at_vk)).moved(MOVE)
+arm = cq.Solid.makeBox(SIDE_WALL_X - hi[0] - SHIFT[0], hi[1] - lo[1], hi[2] - lo[2],
+                       cq.Vector(hi[0] + SHIFT[0], lo[1] + SHIFT[1], lo[2] + SHIFT[2]))
+parts['vk-wall'] = (wall.fuse(arm).clean(), M_PETGF_BLACK)
+VK = ('vk-solenoid', 'tee-fold', 'vk-wall')
+
+# --- the cold core, where the machine stands it, for the drop below the cap ----------------------
 # The core builds in foam-assembly's frame; the machine turns that frame a quarter about +Z and
 # stands it on the foam assembly's box in the facts.
 yaw = cq.Location(cq.Vector(), cq.Vector(0., 0., 1.), 90.)
 fb = import_step(str(HW / 'printed-parts/cold-core/foam-assembly/foam-assembly.step')).val().moved(yaw).BoundingBox()
 wb = facts['bodies']['foam-assembly']
 CORE = cq.Location(cq.Vector(wb[0] - fb.xmin, wb[1] - fb.ymin, wb[2] - fb.zmin)) * yaw
-for c in cca.build_assembly().children:
-    if c.name in ('foam-cap-lid-top', 'foam-cap-top'):
-        s = c.obj.val() if hasattr(c.obj, 'val') else c.obj
-        parts['cold-core-' + c.name] = (s.moved(CORE).intersect(CROP).clean(), c.color or M_PETGF_BLACK)
-CAP = ('cold-core-foam-cap-lid-top', 'cold-core-foam-cap-top')
+core = {n: (s.val() if hasattr(s, 'val') else s).moved(CORE) for n, s in cca.build_bodies().items()}
 
 # --- label tiles --------------------------------------------------------------------------------
 WHITE, BLUE = cq.Color(0.92, 0.92, 0.90), cq.Color(0.16, 0.36, 0.76)
@@ -318,33 +349,40 @@ for n in ('multiplex-asse1022', 'gagira-coupling'):
     result[f'{n}_under_ceiling_mm'] = round(CEILING - top, 2)
     print(f'  {n} top Z{top:.2f}: {CEILING - top:.2f} under the ceiling')
 
-west, aft = start[0] - SODA_GUIDE[0], start[1] - SODA_GUIDE[1]
-to_co2 = math.hypot(start[0] - CO2_GUIDE[0], start[1] - CO2_GUIDE[1])
 print(f'== soda inlet: holder {sel["holder_to_meter_mm"]} mm off the meter mouth Y{mouth[1]:.2f}, bend centre '
       f'({centre[0]:.2f}, {centre[1]:.2f}, {centre[2]:.2f}); the drop comes down at X{start[0]:.2f} Y{start[1]:.2f} '
       f'from Z{start[2]:.2f} to the cap face Z{CAP_Z}')
-print(f'  {west:.2f} mm east and {aft:.2f} mm aft of the soda guide ({SODA_GUIDE[0]:.2f}, {SODA_GUIDE[1]:.2f}), '
-      f'{math.hypot(west, aft):.2f} mm apart; {to_co2:.2f} mm off the CO2 inlet guide ({CO2_GUIDE[0]:.2f}, '
-      f'{CO2_GUIDE[1]:.2f})')
-cap = parts[CAP[0]][0].fuse(parts[CAP[1]][0])
-probes = {}
-for label, (x, y) in (('soda guide', SODA_GUIDE[:2]), ('CO2 inlet guide', CO2_GUIDE[:2]), ('drop axis', start[:2]),
-                      ('beside the soda guide', (SODA_GUIDE[0], SODA_GUIDE[1] + 10.))):
-    hit = cap.intersect(cq.Solid.makeCylinder(0.05, 100., cq.Vector(x, y, 200.), cq.Vector(0., 0., 1.)))
-    probes[label] = sorted({round(v.Z, 2) for v in hit.Vertices()})
-    print(f'  cap material on a vertical line through the {label}: Z {probes[label] or "none"}')
+# Carried on straight down past the cap face, the tube runs among the core's bodies; the foam it
+# passes through is left out.
+drop = cq.Solid.makeCylinder(sel['tube_od_mm'] / 2., CAP_Z, cq.Vector(start[0], start[1], 0.), cq.Vector(0., 0., 1.))
+below = {}
+for n, s in core.items():
+    b = s.BoundingBox()
+    if not n.startswith('foam-') and b.xmin - 30. < start[0] < b.xmax + 30. and b.ymin - 30. < start[1] < b.ymax + 30.:
+        below[n] = round(drop.distance(s), 2)
+below = dict(sorted(below.items(), key=lambda kv: kv[1]))
+for n, d in below.items():
+    print(f'  straight down past the cap: {n:32} {d:6.2f} mm')
 soda = {'mouth': mouth, 'arc_end': end, 'bend_centre': centre, 'arc_start': start, 'on_cap': low}
 result['soda_inlet'] = {k: [round(float(c), 3) for c in v] for k, v in soda.items()}
 result['soda_inlet'].update({
-    'soda_guide': SODA_GUIDE, 'co2_inlet_guide': CO2_GUIDE,
-    'drop_from_soda_guide_mm': {'east': round(west, 2), 'aft': round(aft, 2), 'apart': round(math.hypot(west, aft), 2)},
-    'drop_from_co2_inlet_guide_mm': round(to_co2, 2), 'cap_material_z': probes,
+    'straight_down_to_core_mm': below,
     'foam_length_mm': round(start[2] - low[2] - sel['foam']['start_above_guide_mm'] + BEND_R * math.pi / 2.
                             + H['leg_mm'] + sel['holder_to_meter_mm'] - sel['foam']['end_before_meter_mm'], 2),
     'bboxes': {n: bbox(parts[n][0]) for n in SODA}})
 for n in SODA:
     print(f'== {n} {bbox(parts[n][0])}')
     result['soda_inlet'][f'{n}_nearest_mm'] = nearest(n, [m for m in placed if m not in SODA])
+tilt = math.degrees(math.acos(min(1., abs(float(np.dot(tee_axis, prod_axis))))))
+print(f'== V-K, tee-fold and the wall moved ({SHIFT[0]:.2f}, {SHIFT[1]:.2f}, {SHIFT[2]:.2f}) to the tee\'s east run '
+      f'mouth ({tee_mouth[0]:.2f}, {tee_mouth[1]:.2f}, {tee_mouth[2]:.2f}); the scanned run is {tilt:.2f} deg off '
+      f'production\'s; the arm out to the side wall is {SIDE_WALL_X - hi[0] - SHIFT[0]:.2f} mm')
+result['vk'] = {'shift_mm': [round(float(c), 3) for c in SHIFT], 'tee_east_mouth': [round(float(c), 3) for c in tee_mouth],
+                'run_tilt_deg': round(tilt, 2), 'arm_mm': round(SIDE_WALL_X - hi[0] - SHIFT[0], 2),
+                'bboxes': {n: bbox(parts[n][0]) for n in VK}}
+for n in VK:
+    print(f'== {n} {bbox(parts[n][0])}')
+    result['vk'][f'{n}_nearest_mm'] = nearest(n, [m for m in placed if m not in VK])
 json.dump(result, open(HERE / 'study.json', 'w'), indent=1)
 
 # --- scenes -----------------------------------------------------------------------------------
@@ -366,14 +404,22 @@ scene('rear-port-rebuild')
 scene('rear-port-rebuild-section', cq.Solid.makeBox(X_E, 200., 200., cq.Vector(0., 300., 200.)))
 # East of X60, so the Pisco and the meter can be seen side-on against the side wall from inside.
 scene('rear-port-rebuild-corner', cq.Solid.makeBox(60., 200., 200., cq.Vector(60., 300., 200.)))
-# Under Z313, clear of the Pisco and the roof, to see the drop over the cap from above.
-scene('rear-port-rebuild-plan', cq.Solid.makeBox(150., 200., 113., cq.Vector(-20., 300., 200.)))
 
 # --- the README's figures ---------------------------------------------------------------------
 sys.path.insert(0, str(HW.parent / 'tools'))
 from docgen import substitute_md  # noqa: E402
 to_back = result['pisco_to_back_top_mm']
 near = result['soda_inlet']
+past_cap = near['straight_down_to_core_mm']
+vk = result['vk']
+vk_back = vk['bboxes']['vk-solenoid'][4]
+
+
+def overlap_depth(a, b, axis):
+    o = next((v for k, v in result['overlaps'].items() if set(k.split(' x ')) == {a, b}), None)
+    return o['bbox'][axis + 3] - o['bbox'][axis] if o else float('nan')
+
+
 substitute_md(HERE / 'README.md', {
     'PISCO_HOLE_D': f'{PISCO_HOLE:.2f}', 'TAP_HOLE_D': f'{TAP_HOLE:.2f}', 'TAP_BORE_D': f'{TAP_BORE:.2f}',
     'GRID_DROP': f'{GRID_DROP:.2f}', 'TILE_SEAT_Z': f'{STOP_Z:g}',
@@ -389,9 +435,15 @@ substitute_md(HERE / 'README.md', {
     'METER_INSERTION': f'{sel["meter_insertion_estimate_mm"]:g}',
     'BEND_OFF_METER': f'{H["leg_mm"] + sel["holder_to_meter_mm"]:g}', 'BEND_R': f'{BEND_R:g}',
     'DROP_X': f'{start[0]:.1f}', 'DROP_Y': f'{start[1]:.1f}', 'DROP_LEN': f'{start[2] - CAP_Z:.1f}',
-    'SODA_GUIDE_X': f'{SODA_GUIDE[0]:.1f}', 'SODA_GUIDE_Y': f'{SODA_GUIDE[1]:.1f}',
-    'DROP_EAST': f'{west:.1f}', 'DROP_AFT': f'{aft:.1f}', 'DROP_APART': f'{math.hypot(west, aft):.1f}',
-    'DROP_CO2_OFF': f'{to_co2:.2f}', 'FOAM_LEN': f'{near["foam_length_mm"]:.0f}',
+    'FOAM_LEN': f'{near["foam_length_mm"]:.0f}',
     'FOAM_TO_SIDE_WALL': f'{near["soda-insulation_nearest_mm"].get("enclosure-back-top", float("nan")):.1f}',
-    'FOAM_TO_CAP': f'{near["soda-insulation_nearest_mm"].get(CAP[0], float("nan")):.1f}',
+    'DROP_TO_RESERVOIR': f'{past_cap["reservoir-a"]:.1f}', 'DROP_TO_COIL': f'{past_cap["evap-coil"]:.1f}',
+    'DROP_TO_CARBONATOR': f'{past_cap["carbonator-tube"]:.1f}',
+    'VK_AFT': f'{SHIFT[1]:.1f}', 'VK_DOWN': f'{-SHIFT[2]:.1f}', 'VK_TILT': f'{tilt:.1f}', 'VK_ARM': f'{vk["arm_mm"]:.1f}',
+    'VK_BACK_Y': f'{vk_back:.1f}', 'VK_PAST_DROP': f'{vk_back - start[1]:.1f}',
+    'VK_TO_METER': f'{vk["vk-solenoid_nearest_mm"]["digiten-flow"]:.1f}',
+    'VK_TO_SIDE_WALL': f'{vk["vk-solenoid_nearest_mm"]["enclosure-back-top"]:.1f}',
+    'VK_INTO_HOLDER': f'{overlap_depth("vk-solenoid", "soda-bend-holder", 1):.1f}',
+    'FOLD_INTO_TEE': f'{overlap_depth("tee-fold", "neofit-atbu444e", 0):.1f}',
+    'STEM_PAST_PORT': f'{overlap_depth("tee-fold", "vk-solenoid", 2):.1f}',
 })
