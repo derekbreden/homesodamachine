@@ -1,26 +1,27 @@
 {
   "sources": {
-    "hardware/manifold-layout/enclosure-assembly.step": "d28fae3e26ff40557b3ca0e044cbf7104ed18c7038420e35a2b809a595f97f7a",
-    "hardware/manifold-layout/enclosure-assembly.step.mesh": "fdd6d1a709316c1a6fd0b1d84c4d6d7cac8a6c2e18829858b6f0f923d9a69fb7",
-    "hardware/manifold-layout/enclosure-assembly.facts.json": "c0d0ff81ee5f4523907ab5c07e1310afef8447a63b1310c1d7b56a0a41f60942",
+    "hardware/manifold-layout/enclosure-assembly.step": "6a66e9dd57fbe3fe1ec4333154e64958babab9b7d71b648cc3469d83063039a0",
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": "1181b9bf8047d9715811389daa422321054c9d8cd4bfed305f08ef93d56c862a",
+    "hardware/manifold-layout/enclosure-assembly.facts.json": "59bf517420d64c4ed908bae913f87598493612d29a47dd1a0215cdec5d272161",
     "hardware/printed-parts/enclosure/enclosure/_swept_top.py": "347f941b2b2aed2aa5af26373fc4dcfb852390bab61f8d60cb2d538926221a22",
-    "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py": "0999d5d2a4e54a546e5d1759ff24611ef988eeed74bbb94bbdbf5af470774356",
-    "tools/install-guide/fill_scene.py": "d865daeaf3ddd4e39e9dabc59278388396c262dd9e97a53824ccc8929ada306d",
-    "tools/install-guide/fill_materials.js": "7523d10b9cf603eaf20c9ca5401db03dff5104acefca0f00d412add21ba1b2e3"
+    "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py": "264bb52da73675dcd41f7fff8bc5fce6eabd06336fc3cf8b7a9b8560c21e5040",
+    "tools/install-guide/fill_scene.py": "cb0814d00e77390f73bdf2bd3321efe065fe64879d1efd29cb2f5ad95f0b74ee",
+    "tools/install-guide/fill_materials.js": "00ab6a5eb26fa9d75d826d144fd3c15acd34e28d2a3ae27a0149de5966d7f9c8"
   },
   "funnel_bounds": [
-    -89.5,
-    98.70849207672,
-    306.0499999,
-    89.5,
-    230.391507923281,
-    355.0
+    -107.5,
+    86.99999207672,
+    306.04999979999997,
+    107.5,
+    277.391507923281,
+    357.9999999
   ],
   "bottle_mouth": [
     0.0,
-    164.55000000000052,
-    389.0
+    179.19575,
+    374.6500728067775
   ],
+  "bottle_tip": 20,
   "screen": {
     "width": 103.5,
     "height": 62.1,
@@ -28,40 +29,85 @@
     "origin": [
       0.0,
       51.06710506462308,
-      326.6901955839924
+      326.6901954839924
     ]
   },
   "pose": {
     "cam": [
-      0.65,
-      -1,
-      0.5
+      1,
+      -0.5,
+      0.45
     ],
     "target": [
       0,
-      140,
-      465
+      150,
+      380
     ],
-    "span": 265,
+    "span": 230,
     "size": [
       1600,
       1500
     ]
   },
-  "arrow": {
-    "start": [
-      35.63385369277707,
-      187.71200490030563,
-      564.0
+  "arrow": [
+    [
+      0.0,
+      -45.804249999999996,
+      374.6500728067775
     ],
-    "end": [
-      35.63385369277707,
-      187.71200490030563,
-      394.0
+    [
+      0.0,
+      -45.667186079296556,
+      382.5024595648402
+    ],
+    [
+      0.0,
+      -45.256161308460435,
+      390.34527939920565
+    ],
+    [
+      0.0,
+      -44.571676457861486,
+      398.1689770419995
+    ],
+    [
+      0.0,
+      -43.61456546685332,
+      405.9640205227922
+    ],
+    [
+      0.0,
+      -42.385994427746795,
+      413.7209127818368
+    ],
+    [
+      0.0,
+      -40.88746016510626,
+      421.4302032407733
+    ],
+    [
+      0.0,
+      -39.120788412099216,
+      429.0824993167027
+    ],
+    [
+      0.0,
+      -37.08813158612176,
+      436.6684778656023
+    ],
+    [
+      0.0,
+      -34.79196616640954,
+      444.1788965411406
+    ],
+    [
+      0.0,
+      -32.2350896768294,
+      451.60460505505296
     ]
-  },
+  ],
   "artwork": {
-    "hardware/install-guide/assets/reference/fill-ready.png": "fcfaa7ccff9633e9744f902d57af829aa1b9bbd332bc37b275f3ff5da0b4f0fc",
+    "hardware/install-guide/assets/reference/fill-ready.png": "7935b146b3b17a82f3c8e58098eb46b9a9d9c47643e1aa15aea81df9a13e4bd7",
     "hardware/install-guide/assets/reference/fill-screen-framed.png": "dabe7f476f5f80f9c438377ad47b1379058ff4cb8dd910fd11abfaa855cec05c"
   }
 }
