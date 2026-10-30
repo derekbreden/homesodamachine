@@ -1,0 +1,134 @@
+{
+  "units": "mm",
+  "material_id": "HSM-000061",
+  "method": "All physically retained native observations to reopened STEP at 0.025 mm tessellation; no scale fit or CAD-distance rejection.",
+  "model_source_sha256": "97743ecaa9529ab351da4563dbda20a783b69afc04a8834a26cb572810e30243",
+  "parameters_sha256": "94ca62eae9afc8396e83d6398120e3af16a67db7372d4db9617fe52a5e39eed5",
+  "frozen_parameter_snapshot_sha256": "94ca62eae9afc8396e83d6398120e3af16a67db7372d4db9617fe52a5e39eed5",
+  "step_sha256": "854cbc8e5329f9c72b75c92d02192b826aaf377a0f371562e03d9227079ad948",
+  "scan_evidence_sha256": "b65271a1f5ef5970958ea068cecf00059cd2b8bdccf777155755ec0d2defe332",
+  "retained_cloud_sha256": "16096716ed4120e58b09e131e8da287d270eb9ae875529c71d37118228b0c96d",
+  "observation_voxel_mm": 0.25,
+  "native_assembly_valid": true,
+  "native_solid_count": 2,
+  "each_solid_valid": [
+    true,
+    true
+  ],
+  "stl_watertight": true,
+  "stl_triangles": 22446,
+  "bounds_mm": [
+    [
+      -10.22951,
+      -21.4610960753,
+      -10.227487930406184
+    ],
+    [
+      10.22951,
+      11.827402874738,
+      10.227487930406182
+    ]
+  ],
+  "extent_mm": [
+    20.45902,
+    33.288498950038,
+    20.454975860812368
+  ],
+  "ports": {
+    "outboard": [
+      [
+        0.0,
+        11.827402874737649,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ]
+    ],
+    "inboard": [
+      [
+        0.0,
+        -21.461096075301846,
+        0.0
+      ],
+      [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    ]
+  },
+  "panel_seat_y_mm": 0.0,
+  "captured_nut_front_y_mm": -5.528094773442568,
+  "all_retained_observations": {
+    "samples": 36481,
+    "p50_p90_p95_p99_max_mm": [
+      0.11120263467166504,
+      0.392467794512043,
+      0.5710863613033954,
+      0.9393295677837438,
+      1.2705087288896106
+    ],
+    "fraction_within_0_25_mm": 0.7887119322386996,
+    "fraction_within_0_50_mm": 0.9353910254653107
+  },
+  "regions": {
+    "outboard_head_and_fixed_flange": {
+      "samples": 14130,
+      "p50_p90_p95_p99_max_mm": [
+        0.11551556769624349,
+        0.34437495747206365,
+        0.4613842229667203,
+        0.8542525449140366,
+        1.2705087288896106
+      ],
+      "fraction_within_0_25_mm": 0.7866242038216561,
+      "fraction_within_0_50_mm": 0.9580325548478414
+    },
+    "exposed_thread_barrel": {
+      "samples": 6109,
+      "p50_p90_p95_p99_max_mm": [
+        0.2369275669024959,
+        0.6677688377777662,
+        0.8822965704735659,
+        1.008578926490582,
+        1.0485548009538663
+      ],
+      "fraction_within_0_25_mm": 0.5216893108528401,
+      "fraction_within_0_50_mm": 0.8235390407595351
+    },
+    "nut_zone": {
+      "samples": 8374,
+      "p50_p90_p95_p99_max_mm": [
+        0.07996721779647456,
+        0.1835045654407512,
+        0.21321698898280148,
+        0.36947019412822235,
+        1.0182484945550494
+      ],
+      "fraction_within_0_25_mm": 0.9754000477668976,
+      "fraction_within_0_50_mm": 0.9934320515882493
+    },
+    "inboard_thread_and_head": {
+      "samples": 7868,
+      "p50_p90_p95_p99_max_mm": [
+        0.11337762448560432,
+        0.4208423009141716,
+        0.6846786657129504,
+        0.9103056251838566,
+        1.1318218270930769
+      ],
+      "fraction_within_0_25_mm": 0.8010930350788003,
+      "fraction_within_0_50_mm": 0.9198017285205897
+    }
+  },
+  "limits": [
+    "Paint thickness and absolute optical scale are not independently calibrated.",
+    "Putty-hidden lower sectors continue the fitted turned and hexagonal forms.",
+    "The barrel uses an M15 crest envelope; thread grooves and hidden engagement are not modeled.",
+    "Collet finger slots and molded markings are omitted; mouth bevels and through bore are display geometry.",
+    "The captured nut pose does not define the installed panel stack or qualify thread engagement, seals or tube retention."
+  ]
+}
