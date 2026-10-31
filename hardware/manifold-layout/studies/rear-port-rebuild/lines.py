@@ -7,12 +7,14 @@ rear-port-lines.page.json, for tools/viz/build.py.
 - The union tee and V-K's group as study.py stands them: V-K on tee-fold, V-K's wall with its arm to
   the east wall, and the elbow in V-K's outlet, its socket aft. Off the tee's free run, west: fluid-1,
   then the YZMSZ flow regulator, straight on.
-- Off the regulator, production's link and elbow and V-A on them, with V-A's wall: production's
-  regulator, link, elbow, V-A and wall move together by the one rigid move M that stands
-  production's regulator on this one.
+- Off the regulator, production's link and elbow, moved with production's regulator by the one rigid
+  move M that stands it on this one. The elbow turns about the link until its stem points aft, and
+  V-A, on the stem, turns with it, then half a turn about its own port axis, so its legs stand up
+  into production's plinth (valve_seat.build_seat), which runs from V-A's bearing face up into the
+  ceiling.
 - The split's stub bends once, up, in one arc over the SPAN it shows, and the tee turns with the
   arc's end. Everything on the tee moves with the tee's centre, unturned, until the regulator's top
-  stands a running fit under the ceiling. V-A's wall root reaches down to the cap lid's top face.
+  stands a running fit under the ceiling.
 - The regulator hangs in a seat from the ceiling and a snap cap holds it there, as slide_seats.py
   builds the ASSE's: the seat is one block from slide_seats' SPLIT up to the ceiling over the broad
   inlet cap and the housing, the regulator's upper side cut into it at a running fit; the cap is a
@@ -24,16 +26,17 @@ rear-port-lines.page.json, for tools/viz/build.py.
   socket of the elbow in V-K's bottom port, and its own socket faces back up to the suction reducer.
 - The suction joint's 3/8" tube bends down in one arc, as short as reaches, so a 1/4" stub with no
   length showing runs straight from the reducer's collet into the flipped elbow's socket.
-- The discharge joint runs straight. A stem elbow stands in its reducer's collet and an ACVUS-44 stem
-  check in the elbow's socket. water-5 leaves the check's socket and bends down at BEND_R, the tightest
+- The discharge joint bends DISCHARGE_BEND down, as pump_barb_joint.py bends one: its reducer and the
+  clamp on its stem turn about the barb's tip. A stem elbow stands in the reducer's collet and an
+  ACVUS-44 stem check in the elbow's socket. water-5 leaves the check's socket and bends down at BEND_R, the tightest
   bend 1/4" LLDPE takes, onto a plumb drop that starts at the cold-core cap lid's top face and runs
   down until it lands on the first part under it. The elbow turns down from aft as far as that bend
   allows.
 - The C14 stands where production stands it.
-- The two Teyleten relays hang from the ceiling, their backs as far under it as production stands
-  them off the west wall, CLEAR east of that wall, in the order and along the run production stands
-  them on it. The holes at each end of both boards make one line, and one bar from the ceiling runs
-  under all four.
+- The two Teyleten relays hang from the ceiling side by side, running east-west, their backs as far
+  under it as production stands them off the west wall, CLEAR east of that wall and CLEAR aft of V-A.
+  The holes at each end of both boards make one line, and one bar from the ceiling runs under all
+  four.
 - The Mean Well IRM-90 hangs from the ceiling on four bosses, its base up and PSU_STAND under the
   ceiling, as production stands it off the wall. Its AC end stands CLEAR fore of the rear wall and
   its east face CLEAR west of the ASSE's seat and cap.
@@ -98,12 +101,13 @@ CORE = ('cold-core/carbonator-tube*', 'cold-core/endcap-top*', 'cold-core/endcap
         'cold-core/foam-shell*', 'cold-core/foam-cap-top*', 'cold-core/foam-cap-lid-top*')     # the cold core drawn under it all
 Z = np.array([0., 0., 1.])
 ON_TEE = ('tee-fold', 'vk-solenoid', 'vk-wall', 'lower-valve-elbow', 'fluid-1', 'flow-regulator', 'reg-va-link',
-          'reg-va-elbow', 'valve-v-a', 'va-wall')                      # everything on the union tee
+          'reg-va-elbow', 'valve-v-a')                                 # everything on the union tee
 GROUP = ('jg-pp0208e', *ON_TEE)
 SUPERSEDED = ('g-ganen-pump', 'suction-', 'discharge-', 'jg-pp0208e', 'tee-fold', 'vk-', 'lower-valve-elbow',
               'water-split-stub', 'multiplex-asse1022')    # the study's, which this file draws again
 SEAT_SPAN = (9.8, 48.4)        # on the regulator from its inlet face: its broad cap's step to its housing's shoulder
 CAP_SPAN = (27.5, 47.2)        # the housing's straight run, which the snap cap holds
+DISCHARGE_BEND = 15.0          # degrees down, the discharge joint's 3/8" tube under V-A
 MOUTH = pj.reducer.LENGTH - pj.CUT_X
 
 
@@ -124,6 +128,13 @@ def square(v, to):
 
 def block(lo, hi):
     return cq.Solid.makeBox(*(hi[i] - lo[i] for i in range(3)), cq.Vector(*lo))
+
+
+def located(loc, p, d):
+    """`p` and `d` moved by `loc`."""
+    trsf = loc.wrapped.Transformation()
+    rot = np.array([[trsf.Value(i, j) for j in (1, 2, 3)] for i in (1, 2, 3)])
+    return rot @ p + np.array([trsf.Value(i, 4) for i in (1, 2, 3)]), rot @ d
 
 
 def overlap(s, o):
@@ -198,7 +209,7 @@ parts['fluid-1'] = (tube_run(free_mouth - west * union_tee.INSERTION, west, unio
                     pj.M_PVC_CLEAR)
 reg_in = free_mouth + west * SPAN
 
-# --- off the regulator, V-A on production's link and elbow, and V-A's wall -------------------------------
+# --- off the regulator, production's link and elbow, the elbow turned aft, and V-A hung on it -------------
 prod_in, prod_flow = (np.array(v, float) for v in comps['flow-regulator'][2](((0., 0., 0.), (1., 0., 0.))))
 k = np.cross(prod_flow, west)
 K = np.array([[0., -k[2], k[1]], [k[2], 0., -k[0]], [-k[1], k[0], 0.]])
@@ -215,23 +226,31 @@ def carried(name, station):
     return R_M @ p + T_M, R_M @ d
 
 
+def turned_about(point, axis, angle):
+    """The turn of `angle` radians about the line through `point` along `axis`."""
+    return (cq.Location(cq.Vector(*point)) * cq.Location(cq.Vector(), cq.Vector(*axis), math.degrees(angle))
+            * cq.Location(cq.Vector(*-point)))
+
+
 # The elbow's mouth on the regulator's outlet release face, so the link shows no length, as production draws
 # it; production's code stands the elbow `link_gap` along the flow from that face, into the regulator.
 reg_out, out_w = carried('flow-regulator', ((REGULATOR_LENGTH, 0., 0.), (1., 0., 0.)))
 elbow_mouth, _ = carried('reg-va-elbow', acp.stem_elbow_reference().socket())
 link_gap = float((elbow_mouth - reg_out) @ out_w)
 M_VA = cq.Location(cq.Vector(*(-link_gap * out_w))) * M
+# The elbow turns about the link until its stem points aft, carrying V-A on the stem; V-A then turns half a
+# turn about its own port axis, the stem's, when that is what stands its legs up.
+elbow_at, stem_way = carried('reg-va-elbow', ((0., 0., 0.), (-1., 0., 0.)))     # its crossing and its stem's way
+elbow_at = elbow_at - link_gap * out_w
+aft_way = square(np.array([0., 1., 0.]), out_w)
+TO_AFT = turned_about(elbow_at, out_w, math.atan2(float(np.cross(stem_way, aft_way) @ out_w), float(stem_way @ aft_way)))
+_, legs = located(TO_AFT, np.zeros(3), carried('valve-v-a', ((0., 0., 0.), (0., 0., -1.)))[1])
+LEGS_UP = TO_AFT if legs[2] > 0. else turned_about(elbow_at, aft_way, math.pi) * TO_AFT
 parts['flow-regulator'] = (comps['flow-regulator'][0].moved(M), comps['flow-regulator'][1])
-for n in ('reg-va-elbow', 'valve-v-a'):
-    parts[n] = (comps[n][0].moved(M_VA), comps[n][1])
+parts['reg-va-elbow'] = (comps['reg-va-elbow'][0].moved(TO_AFT * M_VA), comps['reg-va-elbow'][1])
+parts['valve-v-a'] = (comps['valve-v-a'][0].moved(LEGS_UP * M_VA), comps['valve-v-a'][1])
 parts['reg-va-link'] = (tube_run(reg_out - out_w * 15., out_w, 15. + 16.891), pj.M_PVC_CLEAR)   # production's depths
-va = mounts.valve_support_datums('valve-v-a')
-at_va = layout.location('valve-v-a')
-root_lo = (*va['root_min_world_mm'][:2], min(CAP_Z - T_M[2], va['root_max_world_mm'][2]) - 20.)   # still past the cap once bent
-wall = block(va['bearing_min_world_mm'], va['bearing_max_world_mm']).fuse(block(root_lo, va['root_max_world_mm'])).cut(
-    valve_seat.build_sockets().val().moved(at_va),
-    valve_seat.build_port_channel(2. * valve_seat.seat_half_y + 2.).val().moved(at_va))
-parts['va-wall'] = (wall.moved(M_VA), M_PETGF_BLACK)
+AT_VA = LEGS_UP * M_VA * layout.location('valve-v-a')           # V-A's own frame, in this one
 
 # --- one bend in the split's stub, the tee turned with the bend's end, everything on it moved ---------
 # The stub bends up in one arc over the SPAN it shows. The tee's branch takes the arc's end, so the tee
@@ -273,7 +292,6 @@ g.SetValues(*TURN[0], T_G[0], *TURN[1], T_G[1], *TURN[2], T_G[2])
 parts['jg-pp0208e'] = (parts['jg-pp0208e'][0].moved(cq.Location(g)), M_JG_BLACK_PP)
 for n in ON_TEE:
     parts[n] = (parts[n][0].moved(cq.Location(cq.Vector(*LIFT))), parts[n][1])
-parts['va-wall'] = (parts['va-wall'][0].cut(block((-200., 0., CAP_Z - 100.), (200., 800., CAP_Z))).clean(), M_PETGF_BLACK)
 on_top = max(ON_TEE, key=lambda n: tops[n][:, 2].max())
 stub_arc = cq.Wire.assembleEdges([cq.Edge.makeThreePointArc(*(cq.Vector(*p) for p in (nose, bent(TH, .5)[0], stub_end)))])
 ring = cq.Workplane(cq.Plane(origin=tuple(nose), xDir=tuple(rise), normal=tuple(flow))).circle(TUBE_OD / 2.) \
@@ -287,6 +305,13 @@ parts['water-split-stub'] = (tube_run(nose - flow * reducer_ref.TUBE_INSERTION_D
 def moved(p):
     """A point on the tee's group, moved with the tee's centre."""
     return p + LIFT
+
+
+# --- V-A's plinth: production's, from V-A's bearing face up into the ceiling --------------------------------
+va_at = cq.Location(cq.Vector(*LIFT)) * AT_VA
+bearing_z = cq.Vertex.makeVertex(0., 0., valve_seat.seat_top_z).moved(va_at).Center().z
+PLINTH = CEILING + slide_seats.INTO - bearing_z - valve_seat.seat_top_z     # build_seat's `seat`, past the bearing plane
+parts['va-seat'] = (valve_seat.build_seat(PLINTH).val().moved(va_at), M_PETGF_BLACK)
 
 
 # --- the regulator's seat and snap cap, as slide_seats.py builds the ASSE's ------------------------------
@@ -388,9 +413,9 @@ parts['suction-elbow'] = (acp.stem_elbow(stem_elbow.SOCKET_INSERTION).moved(
 tip_d, rot_d, keys_d = frames['discharge']
 tip_d = tip_d - np.array([0., forward, 0.])
 at_d = layout.frame_location({'rotation': rot_d.tolist(), 'translation_mm': [float(c) for c in tip_d]})
-for n, (s, c) in pj.build('discharge', (keys_d,) * 2).items():
+for n, (s, c) in pj.build('discharge', (keys_d,) * 2, DISCHARGE_BEND).items():
     parts[f'discharge-{n}'] = (s.moved(at_d), c)
-p, o = (np.array(v, float) for v in pj.mouth('discharge'))
+p, o = (np.array(v, float) for v in pj.mouth('discharge', DISCHARGE_BEND))
 d_mouth, out = tip_d + rot_d @ p, rot_d @ o
 aft = square(np.array([0., 1., 0.]), out)
 over = square(square(Z, out), aft)              # up, square to the elbow's stem and to aft
@@ -468,13 +493,16 @@ water_5 = cq.Workplane(cq.Plane(origin=tuple(port_at), xDir=tuple(up), normal=tu
 parts['water-5'] = (tube_run(port_at - way * acvus.INSERTION, way, acvus.INSERTION)
                     .fuse(water_5, tube_run(foot, -Z, drop)).clean(), pj.M_PVC_CLEAR)
 
-# --- the relays on the ceiling, and the C14 where production stands it ----------------------------------
+# --- the relays on the ceiling, east-west, and the C14 where production stands it ------------------------
 relays = ('relay-1', 'relay-2')
 backs_up = cq.Location(cq.Vector(), cq.Vector(0., 1., 0.), 90.)       # the face that bears on the wall, to the ceiling
+EAST_WEST = cq.Location(cq.Vector(), cq.Vector(0., 0., 1.), 90.) * backs_up     # production's north-south run, turned
 RELAY_STAND = min(comps[n][0].BoundingBox().xmin for n in relays) - WEST_WALL_X     # production's, off the wall
-backs = {n: comps[n][0].moved(backs_up) for n in relays}
-to_ceiling = cq.Location(cq.Vector(WEST_WALL_X + CLEAR - min(b.BoundingBox().xmin for b in backs.values()), 0.,
-                                   CEILING - RELAY_STAND - max(b.BoundingBox().zmax for b in backs.values())))
+backs = {n: comps[n][0].moved(EAST_WEST) for n in relays}
+boxes = [b.BoundingBox() for b in backs.values()]
+va_aft = max(parts[n][0].BoundingBox().ymax for n in ('valve-v-a', 'va-seat'))
+to_ceiling = cq.Location(cq.Vector(WEST_WALL_X + CLEAR - min(b.xmin for b in boxes), va_aft + CLEAR - min(b.ymin for b in boxes),
+                                   CEILING - RELAY_STAND - max(b.zmax for b in boxes)))
 for n in relays:
     parts[n] = (backs[n].moved(to_ceiling), comps[n][1])
 parts['c14-inlet'] = comps['c14-inlet'][:2]
@@ -490,13 +518,6 @@ parts['psu'] = (psu.moved(psu_at), psu_colour)
 
 
 # --- the bosses: the Mean Well's and the relays' bars, on the ceiling -----------------------------------
-def located(loc, p, d):
-    """`p` and `d` moved by `loc`."""
-    trsf = loc.wrapped.Transformation()
-    rot = np.array([[trsf.Value(i, j) for j in (1, 2, 3)] for i in (1, 2, 3)])
-    return rot @ p + np.array([trsf.Value(i, 4) for i in (1, 2, 3)]), rot @ d
-
-
 def boss(holes, n, length):
     """From the bodies' mounting plane at `holes` along `n`, `length` to the wall or ceiling: one boss on a
     lone hole, one bar over holes in a line."""
@@ -520,11 +541,11 @@ ends = {}
 for name in relays:
     for sx in (-1., 1.):
         for sy in (-1., 1.):
-            p, n = located(to_ceiling, *located(backs_up, *(np.array(v, float) for v in comps[name][2](
+            p, n = located(to_ceiling, *located(EAST_WEST, *(np.array(v, float) for v in comps[name][2](
                 ((sx * teyleten.hole_dx, sy * teyleten.hole_dy, 0.), (0., 0., -1.))))))
-            ends.setdefault(round(p[1], 1), []).append(p)
-for end, y in zip(('fore', 'aft'), sorted(ends)):
-    holes = sorted(ends[y], key=lambda h: h[0])
+            ends.setdefault(round(p[0], 1), []).append(p)
+for end, x in zip(('west', 'east'), sorted(ends)):
+    holes = sorted(ends[x], key=lambda h: h[1])
     bosses.append((f'relay-{end}-bar', boss(holes, n, (CEILING - holes[0][2]) / n[2])))
 parts.update({n: (s, M_PETGF_BLACK) for n, s in bosses})
 
@@ -535,27 +556,32 @@ out_step = OUT / 'rear-port-lines.step'
 export_assembly(a, str(out_step))
 
 # --- what clashes, and the page: the rebuild without what this file draws again, these parts, the core ---
-ADDED = (*GROUP, 'water-split-stub', 'regulator-seat', 'regulator-snap-cap', 'multiplex-asse1022', 'psu', *relays,
+ADDED = (*GROUP, 'water-split-stub', 'va-seat', 'regulator-seat', 'regulator-snap-cap', 'multiplex-asse1022', 'psu', *relays,
          'c14-inlet', *(n for n, _ in bosses))
 # Everything on the tee moves as one, so what overlaps among it is study.py's and production's.
 MATES = {frozenset(m) for m in (('water-split-stub', 'jg-pp0208e'), ('jg-pp0208e', 'tee-fold'), ('jg-pp0208e', 'fluid-1'),
                                 ('lower-valve-elbow', 'suction-elbow'),
-                                ('regulator-seat', 'enclosure-back-top'))}     # the seat reaches INTO the ceiling
+                                ('regulator-seat', 'enclosure-back-top'),     # the seats reach INTO the ceiling
+                                ('va-seat', 'enclosure-back-top'))}
 clashes = [(n, o, v) for i, n in enumerate(ADDED) for o in parts if o not in ADDED[:i + 1] and not {n, o} <= set(ON_TEE)
            for v in [overlap(parts[n][0], parts[o][0])] if v > .5 and frozenset((n, o)) not in MATES]
 # What this file stands among the study's own fittings, seats and caps.
 rebuilt = import_assembly(OUT / 'rear-port-rebuild.step')
-AMONG = ('regulator-seat', 'regulator-snap-cap', 'multiplex-asse1022', 'psu', *relays, *(n for n, _ in bosses))
+AMONG = ('regulator-seat', 'regulator-snap-cap', 'multiplex-asse1022', 'reg-va-elbow', 'valve-v-a', 'va-seat', 'psu', *relays, *(n for n, _ in bosses))
 clashes += [(n, o, v) for n in AMONG for o, (s, _) in rebuilt.items()
             if not o.startswith(SUPERSEDED) and frozenset((n, o)) not in MATES
             for v in [overlap(parts[n][0], s)] if v > .5]
 reg_pts = tops['flow-regulator'] + LIFT
 reg_top = reg_pts[reg_pts[:, 2].argmax()]
 into_cap = CAP_Z - parts['lower-valve-elbow'][0].BoundingBox().zmin
-psu_boss, relay_bar = parts['psu-boss-1'][0].BoundingBox(), parts['relay-fore-bar'][0].BoundingBox()
+psu_boss, relay_bar = parts['psu-boss-1'][0].BoundingBox(), parts['relay-west-bar'][0].BoundingBox()
 stand, bar = psu_boss.zlen, relay_bar.zlen
 seat_box, cap_box = parts['regulator-seat'][0].BoundingBox(), parts['regulator-snap-cap'][0].BoundingBox()
 asse_box = parts['multiplex-asse1022'][0].BoundingBox()
+va_box, plinth_box = parts['valve-v-a'][0].BoundingBox(), parts['va-seat'][0].BoundingBox()
+reducer_box = parts['discharge-reducer'][0].BoundingBox()
+va_group = cq.Compound.makeCompound([parts[n][0] for n in ('reg-va-elbow', 'valve-v-a', 'va-seat', 'discharge-tube',
+                                                           'discharge-reducer', 'discharge-elbow', 'discharge-check')]).BoundingBox()
 vent = cq.Vertex.makeVertex(tc.bfp.VENT_X, tc.bfp.VENT_Y, 0.).moved(TO_WORLD).Center()       # its tip, turned down
 vent_tip = [X_W, vent.y, ROW_0 - (X_W - vent.x)]
 psu_box, relay_box = parts['psu'][0].BoundingBox(), cq.Compound.makeCompound(
@@ -564,26 +590,25 @@ everything = cq.Compound.makeCompound([s for s, _ in parts.values()]).BoundingBo
 tee_group = cq.Compound.makeCompound([parts[n][0] for n in (*GROUP, 'water-split-stub')]).BoundingBox()
 spec = {
     'title': 'Pump to V-K',
-    'lede': (f"The regulator hangs in a seat from the ceiling, its top a {fits.running:g} mm running fit under it, and a "
-             f"snap cap under its housing holds it there, as the ASSE's seat and cap hold the ASSE: the seat runs "
-             f"{SEAT_SPAN[1] - SEAT_SPAN[0]:.1f} mm along the regulator over its broad inlet cap and its housing, "
-             f"{2. * W:.1f} mm wide, and the cap holds "
-             f"{CAP_SPAN[1] - CAP_SPAN[0]:.1f} mm of the housing. To stand it there the split's stub bends once, "
-             f"{math.degrees(TH):.1f}° up at R{SPAN / TH:.0f} over the {SPAN:g} mm it shows, and the union tee turns with "
-             f"its end; everything on the tee moves with its centre, unturned, {LIFT[2]:.1f} mm up and {LIFT[1]:.1f} mm "
-             f"aft: V-K with its wall and elbows, fluid-1, the regulator, V-A and its wall. The pump follows V-K's elbow, "
-             f"{forward:.1f} mm forward of the study's. The ASSE body turns a quarter about its axis, its vent down, the "
-             f"vent's tip at z {vent_tip[2]:.1f}. The Mean Well hangs from the ceiling, base up, on four "
-             f"Ø{interface.mount_boss_dia:g} bosses {stand:.1f} mm long, its AC end {CLEAR:g} mm fore of the rear wall and "
-             f"its east face {CLEAR:g} mm west of the ASSE's seat and cap. The relays hang from the ceiling side by side, "
-             f"{RELAY_STAND:.2f} mm under it as production stands them off the wall, {CLEAR:g} mm east of the west wall, "
-             f"one bar {bar:.1f} mm long under each end. The walls and the ceiling are not drawn. Amber: the regulator's "
-             f"seat and cap, the ASSE body, the Mean Well and the relays. Clashes as drawn: "
+    'lede': (f"V-A hangs from the ceiling on the regulator's elbow. The elbow turns about the link until its stem "
+             f"points aft, and V-A, on the stem, turns with it and half a turn about its port axis, so its legs stand up "
+             f"into production's plinth, {PLINTH + valve_seat.seat_top_z:.1f} mm from V-A's bearing face into the ceiling. "
+             f"Under it the discharge joint's 3/8\" tube bends {DISCHARGE_BEND:g}° down, and the elbow on its reducer "
+             f"turns {math.degrees(TILT):.1f}° down from aft so water-5 still meets the cap lid at R{BEND_R:g}. The relays "
+             f"hang from the ceiling side by side, running east-west, {RELAY_STAND:.2f} mm under it, {CLEAR:g} mm east of "
+             f"the west wall and {CLEAR:g} mm aft of V-A, one bar {bar:.1f} mm long under each end. The regulator hangs "
+             f"in its seat, its top a {fits.running:g} mm running fit under the ceiling, a snap cap under its housing; the "
+             f"split's stub bends {math.degrees(TH):.1f}° up at R{SPAN / TH:.0f} to stand it there, everything on the tee "
+             f"moved with the tee's centre, unturned. The pump follows V-K's elbow, {forward:.1f} mm forward of the "
+             f"study's. The ASSE body turns a quarter about its axis, its vent down. The Mean Well hangs base up "
+             f"{CLEAR:g} mm fore of the rear wall and {CLEAR:g} mm west of the ASSE's seat and cap. The walls and the "
+             f"ceiling are not drawn. Amber: V-A, its plinth and its elbow, the discharge joint's tube and reducer, and "
+             f"the relays. Clashes as drawn: "
              f"{'; '.join(f'{n} with {o}, {v:.0f} mm³' for n, o, v in clashes) or 'none'}."),
     'columns': 1,
     'sync': False,
     'panels': [{
-        'name': 'The regulator in its seat, the Mean Well by the ASSE, the relays on the ceiling',
+        'name': 'V-A on the ceiling, the discharge tube bent down under it, the relays east-west',
         'view': {'az': 240, 'el': 15},
         'focus': {'center': [everything.center.x, everything.center.y, (CAP_Z + CEILING) / 2.],
                   'radius': math.hypot(everything.xlen, everything.ylen, CEILING - CAP_Z) * .42},
@@ -592,26 +617,28 @@ spec = {
              'only': sorted(n for n in rebuild if not n.startswith(SUPERSEDED)),
              'ghost': ['enclosure-back-top', 'face-rail-*', 'tile-*', 'co2-tube']},
             {'step': 'hardware/assembly/scenes/out/rear-port-lines.step',
-             'highlight': ['regulator-seat*', 'regulator-snap-cap*', 'multiplex-asse1022*', 'psu', *relays]},
+             'highlight': ['valve-v-a*', 'va-seat*', 'reg-va-elbow*', 'discharge-tube*', 'discharge-reducer*', *relays]},
             {'step': 'hardware/manifold-layout/enclosure-assembly.step', 'only': list(CORE),
              'ghost': ['cold-core/foam-*']}],
         'marks': [
-            {'at': [seat_box.center.x, seat_box.center.y, seat_box.zmax], 'text': 'regulator seat and snap cap',
-             'dx': -60, 'dy': -50},
-            {'at': [psu_box.xmin, psu_box.ymin, psu_box.zmax], 'text': 'Mean Well, aft by the ASSE',
-             'dx': -40, 'dy': -90},
-            {'at': [relay_box.center.x, relay_box.ymin, relay_box.zmin], 'text': 'relays on the ceiling',
-             'dx': -70, 'dy': 50}]}, {
-        'name': "The regulator in its seat and snap cap, from the front and west",
-        'view': {'az': 215, 'el': 12},
-        'focus': {'center': [seat_box.center.x, seat_box.center.y, (cap_box.zmin + CEILING) / 2.],
-                  'radius': math.hypot(seat_box.xlen, seat_box.ylen, CEILING - cap_box.zmin) * .6},
+            {'at': [va_box.xmin, va_box.ymin, va_box.center.z], 'text': 'V-A on the ceiling', 'dx': -60, 'dy': -60},
+            {'at': [relay_box.center.x, relay_box.ymin, relay_box.zmax], 'text': 'relays east-west', 'dx': -40, 'dy': -70},
+            {'at': [reducer_box.center.x, reducer_box.center.y, reducer_box.center.z],
+             'text': f'3/8" tube {DISCHARGE_BEND:g}° down', 'dx': -60, 'dy': 70}]}, {
+        'name': "V-A on the regulator's elbow, in its plinth, and the discharge joint under it, from the west",
+        'view': {'az': 180, 'el': 8},
+        'focus': {'center': [va_group.center.x, va_group.center.y, va_group.center.z],
+                  'radius': math.hypot(va_group.ylen, va_group.zlen) * .62},
         'models': [
             {'step': 'hardware/assembly/scenes/out/rear-port-lines.step',
-             'only': [f'{n}*' for n in ('flow-regulator', 'regulator-seat', 'regulator-snap-cap', 'fluid-1', 'reg-va-link')],
-             'highlight': ['regulator-seat*', 'regulator-snap-cap*']}],
+             'only': [f'{n}*' for n in ('flow-regulator', 'regulator-seat', 'regulator-snap-cap', 'reg-va-link',
+                                        'reg-va-elbow', 'valve-v-a', 'va-seat', 'discharge-', 'water-5', 'g-ganen-pump')],
+             'highlight': ['valve-v-a*', 'va-seat*', 'reg-va-elbow*', 'discharge-tube*', 'discharge-reducer*']}],
         'marks': [
-            {'at': reg_top.tolist(), 'text': f'top {CEILING - reg_top[2]:.2f} mm under the ceiling', 'dx': 50, 'dy': -50}]}, {
+            {'at': [plinth_box.center.x, plinth_box.center.y, plinth_box.zmax],
+             'text': f'plinth, {PLINTH + valve_seat.seat_top_z:.1f} mm to the ceiling', 'dx': 60, 'dy': -40},
+            {'at': [reducer_box.center.x, reducer_box.center.y, reducer_box.center.z],
+             'text': f'{DISCHARGE_BEND:g}° down', 'dx': 60, 'dy': 50}]}, {
         'name': "The ASSE turned a quarter, its vent down through the study's snap cap, from below and west",
         'view': {'az': 200, 'el': -30},
         'focus': {'center': [asse_box.center.x, asse_box.center.y, asse_box.center.z],
@@ -632,11 +659,11 @@ def span_of(b):
 
 print(f'stub bent {math.degrees(TH):.2f} deg at R{SPAN / TH:.1f}; {on_top} on top, regulator top z {reg_top[2]:.2f}; '
       f'everything on the tee moved {np.round(LIFT, 2).tolist()}; lower elbow {into_cap:.2f} mm into the cap lid; '
-      f'V-A wall {span_of(parts["va-wall"][0].BoundingBox())}')
+      f'V-A {span_of(va_box)}, its plinth {PLINTH + valve_seat.seat_top_z:.2f} mm deep {span_of(plinth_box)}')
 print(f'pump {forward:.2f} mm forward (aft {shift[1]:.2f}); 3/8 tube free {free:.2f} mm, bent {math.degrees(th):.2f} deg '
       f'(R{free / th:.1f}), leaned {math.degrees(psi):.2f} deg; collet mouth {np.round(mouth, 2).tolist()}; miss '
       f'{np.round(miss((forward, free, th, psi)), 5).tolist()}')
-print(f'discharge collet {np.round(d_mouth, 2).tolist()}; elbow {math.degrees(TILT):.2f} deg down; check port '
+print(f'discharge bent {DISCHARGE_BEND:g} deg down, collet {np.round(d_mouth, 2).tolist()}; elbow {math.degrees(TILT):.2f} deg down; check port '
       f'{np.round(port_at, 2).tolist()}, bend {90. - math.degrees(dip):.2f} deg at R{BEND_R:g}; drop at '
       f'{np.round(drop_xy, 2).tolist()} from z {drop_top:.2f}, {drop:.2f} mm down onto {land_on} at z {land_z:.2f} '
       f'({CAP_Z - land_z:.2f} under the cap face)')
