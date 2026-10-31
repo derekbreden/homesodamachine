@@ -49,10 +49,11 @@ OVER/SODA, and the bottom flavor B/flavor A. The 1.8 mm identification tiles
 slide into continuous channels between side rails and stand on the channel
 floor at Z252. C14 is at X−68.5/Z330 and RJ11 at X−64/Z291.5.
 
-The common chassis joint is Z150. The front pumps, tees, valves and their
-straight upper and lower links retain their selected stations. The lowest
-tee-return elbow is Z150.913, above the entering front wall. The upper links
-have 15.251 mm exposed tube. The funnel return descends from V-B to Y-B.
+The common chassis joint is Z160. The lowest tee-return elbow is Z160.913,
+above the entering front wall. The four straight upper links have 5.251 mm
+exposed tube. The lower returns use two tangent arcs between parallel socket
+axes, R18.084 on the inner pair and R19.360 on the outer pair. Their rear
+mouths stand 3.749 mm lower. The funnel return descends from V-B to Y-B.
 
 ## Continuous tubes
 
@@ -103,8 +104,9 @@ its west cap. Fit the vent cup and direct OVER return with both ties accessible.
 
 Build the pump and its clamped joints on the open core. Tighten its four screws
 before loading tubes into the lid snaps. Complete the below-lid tube routes
-before closing the core. Carry free cross-quadrant ends while positioning
-back-top; make their central handoffs through the funnel opening. Install the
+before closing the core. Keep the pump's suction elbow and its short
+quarter-inch inlet link loose while positioning back-top. Carry free
+cross-quadrant ends and make their central handoffs through the funnel opening. Install the
 removable frame, drain assembly and silicone funnel after these connections.
 
 The [internal plumbing procedure](../assembly/internal-plumbing.md) gives the
