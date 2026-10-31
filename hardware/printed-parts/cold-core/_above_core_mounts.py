@@ -79,7 +79,9 @@ def flavor_snaps():
     wall = valve_support_datums('valve-v-b')
     x0, y0 = wall['root_min_world_mm'][0], wall['root_max_world_mm'][1]-.1
     z0 = above_core.specification()['cap_face_z_mm']-.1
-    bridge = cq.Solid.makeBox(30.5-x0,266.-y0,293.4-z0,cq.Vector(x0,y0,z0))
+    # Join the clip's full root plane without entering its bore or free jaws.
+    front = 266.-(4.1/2.+1.52)+.1
+    bridge = cq.Solid.makeBox(30.5-x0,front-y0,296.-z0,cq.Vector(x0,y0,z0))
     result['flavor-a'] = result['flavor-a'].fuse(bridge).clean()
     return result
 
