@@ -101,7 +101,7 @@ fn xml(s: &str) -> String {
     s.replace('&', "&amp;").replace('<', "&lt;").replace('>', "&gt;").replace('"', "&quot;")
 }
 
-fn crc32(data: &[u8]) -> u32 {
+pub(crate) fn crc32(data: &[u8]) -> u32 {
     let mut table = [0u32; 256];
     for (i, e) in table.iter_mut().enumerate() {
         let mut c = i as u32;
