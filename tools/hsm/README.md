@@ -134,6 +134,53 @@ Off Render, the site's server (`npm start` in `web`) answers `/api/hsm` with the
 
 The deployed site answers `/api/hsm` with a 404, and its viewer does neither.
 
+## Kernel
+
+`hsm-kernel` (`tools/hsm/kernel`) builds solids as closed triangle meshes that record where
+every face came from. Each triangle names a face record: the exact surface it lies on (plane,
+cylinder, cone, sphere, torus, or a free surface), the builder that made it, the generator line
+that called the builder (`#[track_caller]`), and the boolean that brought it into the solid.
+
+Profiles are drawn exactly with lines, arcs, circles, Béziers, corner fillets and offsets
+(`Loop`, `Pen`, `Profile`) on a workplane (`Plane`) named as CadQuery names them. The builders
+extrude (straight, both ways, drafted), revolve, sweep along lines and arcs, loft ruled sections,
+set text from a font's outlines, and make boxes, cylinders, cones, spheres, tori, wedges and
+hulls. All of them cut curves into points by one rule (0.005 mm chord, 0.05 rad, ring counts a
+multiple of 8 from a canonical seam), so a surface gets the same vertices from any builder and
+coincident faces meet point for point.
+
+Union, cut, intersect and plane split run on Manifold. Each operand face goes in as a run of its
+own, so the result keeps every face record. Coordinates of different operands within 10⁻⁸ mm
+are one coordinate, and a component thinner than the rule is dropped. Volume, area, centroid,
+inertia and bounds come from the mesh. The writers make binary STL, 3MF, GLB (face records in
+its extras) and the `.step.mesh` payload `hsm` reads, the same bytes for the same solid on every
+run. Without the `manifold` feature the kernel is pure Rust and builds for wasm32; its booleans
+then return an error.
+
+`examples/fuse_clamp.rs` is the fuse clamp on the kernel:
+
+```rust
+let part = Plane::YZ.at(v3(-PART_X / 2.0, 0.0, 0.0)).extrude(&Profile::polygon(&profile()), PART_X)?;
+let channel = Plane::XY.at(v3(0.0, 0.0, CHANNEL_Z / 2.0)).cuboid(PART_X + 2.0, CHANNEL_H, CHANNEL_Z);
+let clamp = part.cut(&channel)?;
+let body = Body { name: "fuse-clamp", color: Some([0.02, 0.02, 0.02]), solid: &clamp };
+write_payload(out.join("fuse-clamp.step.mesh"), &[body], None, None)?;
+```
+
+```sh
+cargo run --release --manifest-path tools/hsm/Cargo.toml -p hsm-kernel --example fuse_clamp -- <out dir>
+hsm --root <out dir> --scene fuse-clamp.step.mesh where fuse-clamp
+```
+
+Its face records read `PLANE extrude at kernel/examples/fuse_clamp.rs:60` and `PLANE box at
+kernel/examples/fuse_clamp.rs:61, cut at kernel/examples/fuse_clamp.rs:62`.
+
+The kernel's tests hold every builder and boolean to OCCT's volume and bounds for the same model
+within the rule (`tests/occt_reference.py` writes those with plain CadQuery), and booleans to
+Manifold run plainly on the same operands, sixty holes in one cut among them. They hold the fuse
+clamp to its published STEP's volume and STL's surface, two processes to the same bytes, and the
+crate to a wasm32 build. The text tests read the system's Arial and Helvetica.
+
 ## Explicit validation
 
 ```sh
@@ -141,6 +188,4 @@ cargo test --release --manifest-path tools/hsm/Cargo.toml
 python3 -m unittest discover -s tools -p test_publish_manifest.py
 ```
 
-These run only when requested. They do not join any build, edit or commit path. The kernel's
-analytic profiles, exact booleans, native/browser equivalence, Rust part generators, renderers
-and drawing writers are separate work from this payload query service.
+These run only when requested. They do not join any build, edit or commit path.
