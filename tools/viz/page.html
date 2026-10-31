@@ -291,6 +291,11 @@ async function buildGroup(p) {
         : mesh.color ? new THREE.Color(mesh.color[0], mesh.color[1], mesh.color[2])
         : new THREE.Color(PLAIN);
       const solid = new THREE.Mesh(geo, material(color, role === "hi" ? [0.5, 0.05] : mesh.finish, role));
+      if (use.overlay) {
+        // What two solids share lies inside both: it is drawn through whatever stands in front of it.
+        Object.assign(solid.material, { depthTest: false, depthWrite: false, transparent: true, opacity: 0.85 });
+        solid.renderOrder = 1;
+      }
       solid.name = mesh.name || "";
       solid.userData.ghost = role === "ghost";
       group.add(solid);
@@ -356,7 +361,7 @@ function addMarks(panel, marks) {
     label.className = "viz-mark";
     label.textContent = m.text;
     layer.append(label);
-    return { at: new THREE.Vector3(...m.at), dx: m.dx ?? 18, dy: m.dy ?? -18, parts: [halo, line, dot, label] };
+    return { at: new THREE.Vector3(...m.at), dx: m.dx ?? 18, dy: m.dy ?? -18, through: !!m.through, parts: [halo, line, dot, label] };
   });
   panel.stage.append(layer);
 }
@@ -411,7 +416,7 @@ function hideMarks(panel) {
     ray.set(panel.camera.position, to.normalize());
     ray.far = dist;
     const hit = ray.intersectObjects(solids, false)[0];
-    const behind = !!hit && hit.distance < dist - Math.max(0.5, dist * 0.004);
+    const behind = !m.through && !!hit && hit.distance < dist - Math.max(0.5, dist * 0.004);
     m.parts.forEach((el) => el.classList.toggle("is-behind", behind));
   }
 }
