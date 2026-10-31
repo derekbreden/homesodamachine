@@ -788,6 +788,7 @@ MADE_AS = {
     "mate":      "made up across the plane its two bodies share",
     "elbows":    "made by a stem elbow in each collet and one straight LLDPE tube between them",
     "turn":      "made by a quarter turn and the step off it",
+    "threaded":  "made up on its fittings' threads",
     "not drawn": "still to route",
 }
 UNMADE = "not drawn"
@@ -882,7 +883,7 @@ def load_connections(runs, joints=(), native_connections=None) -> list[Connectio
         missing = [rid for rid in group['native_routes'] if rid not in drawn]
         c.made = UNMADE if missing else group['made']
         c.blocked = "missing native tubes: " + ", ".join(missing) if missing else ""
-        c.note = ", ".join(group['native_routes']) or "direct fitting joint"
+        c.note = ", " + (", ".join(group['native_routes']) or "direct fitting joint")
     return conns
 
 
@@ -1788,7 +1789,7 @@ def _routed(conns) -> Check:
         "a connection is MADE when the machine holds a path for it: a run `_lines.py` draws, one "
         "of the pack's own constructions — a butt between two collets, a fixed TPU return with "
         "straight links, a permanent pump dock, or a quarter turn and the step off it — or a joint made up across a plane two bodies already "
-        "share",
+        "share or on its fittings' threads",
         ", ".join(f"{h} {n}" for h, n in sorted(by_how.items(), key=lambda kv: (-kv[1], kv[0])))
         + f" — {len(missing)} still to route",
         "by circuit — " + ", ".join(f"{k} {d}/{t}" for k, (d, t) in sorted(by_kind.items())),
