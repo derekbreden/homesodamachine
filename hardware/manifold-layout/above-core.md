@@ -40,7 +40,7 @@ The port columns are X37.25 and X77.5; rows are Z328, Z296 and Z264. TAP's bore
 follows the scanned inlet adapter's axis. The top row is TAP/CO2, the middle
 OVER/SODA, and the bottom flavor B/flavor A. The 1.8 mm identification tiles
 slide into continuous channels between side rails and stand on the channel
-floor at Z252. C14 is at X−68.5/Z330 and RJ11 at X−30/Z274.376.
+floor at Z252. C14 is at X−68.5/Z330 and RJ11 at X−64/Z291.5.
 
 ## Continuous tubes
 

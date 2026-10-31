@@ -424,15 +424,17 @@ def stacked_well_towers(stock, inner):
 
 
 def rear_well_tower(stock, ceiling):
-    """Back-top's stacked rear-wall wells as one tower over the depth they all share, from the
-    lowest well's foot to the ceiling, so no well's top hangs a few millimetres under the next
-    well or under the ceiling of a piece that prints ceiling-down. The pockets are cut after."""
-    boxes = [solid.BoundingBox() for solid in stock.Solids()]
-    x0, x1 = max(b.xmin for b in boxes), min(b.xmax for b in boxes)
-    y0, y1 = max(b.ymin for b in boxes), min(b.ymax for b in boxes)
-    if x1 <= x0 or y1 <= y0:
-        return stock
-    return stock.fuse(box(x0, x1, y0, y1, min(b.zmin for b in boxes), ceiling+.01)).clean()
+    """Roof each rear WAGO well back to the wall at 45 degrees for print-down."""
+    wall=layout.specification()['enclosure']['rear_y_mm']-9.+.5
+    roofs=[]
+    for solid in stock.Solids():
+        b=solid.BoundingBox()
+        run=max(0.,wall-b.ymin)
+        if run:
+            roofs.append((cq.Workplane('YZ')
+                .polyline([(b.ymin,b.zmax),(wall,b.zmax),(wall,b.zmax+run)])
+                .close().extrude(b.xmax-b.xmin).val().translate((b.xmin,0.,0.))))
+    return stock.fuse(*roofs).clean() if roofs else stock
 
 
 def apply(piece, box_spec, y_side, z_side):

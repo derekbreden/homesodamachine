@@ -84,7 +84,7 @@
       ],
       "translation_mm": [
         -13.648139953613281,
-        406.8,
+        398.8,
         348.5
       ],
       "reference": "hardware/reference/meanwell-irm90/meanwell-irm90.step"
@@ -2073,8 +2073,8 @@
         "name": "psu-running-well",
         "xmin": -39.89813995361328,
         "xmax": 13.35,
-        "ymin": 352.05,
-        "ymax": 461.55,
+        "ymin": 344.05,
+        "ymax": 453.55,
         "zmax": 348.75
       }
     ],
@@ -4462,9 +4462,9 @@
       },
       "keystone": {
         "face_center_mm": [
-          -30,
+          -64,
           471.3,
-          274.3760478805363
+          291.5
         ],
         "receptacle": "Existing RiteAV lip, pocket, insertion ease and snap catches; no decorative trim"
       }
@@ -4488,8 +4488,8 @@
       253.4
     ],
     "sensor-cable": [
-      -48.0,
-      347.0,
+      -78.0,
+      320.0,
       253.4
     ],
     "water-in": [
@@ -4882,7 +4882,7 @@
       "square_cut_mm": 61.0,
       "start_above_guide_mm": 1.1,
       "end_before_meter_mm": 1.0,
-      "occupied_model_scope": "One square-cut piece of owned foam compresses around the holder and locally against the four accepted neighboring bodies. Native display subtraction estimates occupied space; it is not a shaped cut pattern, measured strain, fit tolerance or thermal result."
+      "occupied_model_scope": "One square-cut piece of owned foam compresses around the holder and locally against the four accepted neighboring bodies and the two V-K lead exits. Native display subtraction estimates occupied space; it is not a shaped cut pattern, measured strain, fit tolerance or thermal result."
     },
     "assembly": "Slide the foam over the tube and accepted bend holder, insert the tube into the meter, load the meter seat forward and slide aft onto the soda union stub, then fit the west snap cap."
   },
@@ -4906,7 +4906,7 @@
         ]
       ],
       "translation_mm": [
-        -68.15,
+        -48.15,
         462.3,
         313.9349999
       ]
@@ -5060,11 +5060,13 @@
       "th": 0.39015822819533486,
       "psi": 0.011321208675009565,
       "DISCHARGE_BEND": 15.0,
-      "STEM_ROLL": 75.0,
+      "STEM_ROLL": -150.0,
       "PLINTH": 3.4800518525096207,
       "suction_keys": 1,
       "discharge_keys": -1,
-      "suction_stem_keys": -1
+      "suction_stem_keys": -1,
+      "suction_barb_roll": 60.0,
+      "discharge_barb_roll": -60.0
     },
     "water_split_stub": {
       "points_mm": [

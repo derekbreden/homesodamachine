@@ -1,11 +1,11 @@
 {
   "schema": 1,
-  "scope": "The mesh and packing fields describe only their explicit artifact hashes. The separate current_artifact_binding records actual wiring readback and scoped native resolutions of the listed witnesses; it does not rerun the mesh scene, contacts or wire packing.",
-  "manifest_sha256": "f7840792440df6fdec99a5e6fefcfa4c63c6e1fe66e9605ff8c2f26055984290",
-  "assembly_step_sha256": "43598be1c2950565ba9548fc8671de6790815a44c34445edc3e367d09f372d19",
-  "assembly_mesh_sha256": "8ce6379a5dab629fbe6c3d8a0edb37441e96df8577e21df31ab3f07bdf62c132",
-  "wire_count": 98,
-  "physical_mesh_count": 442,
+  "scope": "One manual full-scene mesh interference review of every wire and cable jacket against larger bodies; wire-to-wire and wire-to-tube contacts are excluded. Tessellated penetration is a routing witness, not a native-solid or physical assembly qualification.",
+  "manifest_sha256": "bd5001b01d8ae0e2151d16dd76ee97da9ea7a0bee4e8aa50aa6dee73e9202d3e",
+  "assembly_step_sha256": "ca97ae6843b072a36ed69bca4acee23c759af25e1e5a4dab064d446706e60424",
+  "assembly_mesh_sha256": "a82cdfab54e1205cb0c9bb51681da3bc108baf1680b4d9d972780d2e6a0623ce",
+  "wire_count": 101,
+  "physical_mesh_count": 414,
   "coverage_missing": [],
   "physical_interference_pairs": [
     {
@@ -14,4248 +14,947 @@
       "point_mm": [
         -68.509,
         435.6,
-        328.856
+        325.944
       ],
       "mesh_penetration_mm": 0.041,
       "contacts": 2
     },
     {
-      "wire": "AC4-H",
-      "part": "tube-fluid-16",
+      "wire": "DC3-positive",
+      "part": "wiring-junction-pump-positive",
       "point_mm": [
-        49.504,
-        155.833,
-        257.623
+        -35.6,
+        245.7,
+        278.0
       ],
-      "mesh_penetration_mm": 2.2416,
-      "contacts": 293
+      "mesh_penetration_mm": 4.0763,
+      "contacts": 10
     },
     {
-      "wire": "AC5-N",
-      "part": "tube-fluid-16",
+      "wire": "J1-OUT7",
+      "part": "coil-v-g/3",
       "point_mm": [
-        48.172,
-        159.75,
-        257.414
+        82.069,
+        141.0,
+        221.516
       ],
-      "mesh_penetration_mm": 2.9709,
-      "contacts": 159
-    },
-    {
-      "wire": "AC6-PE",
-      "part": "tube-fluid-16",
-      "point_mm": [
-        47.159,
-        160.244,
-        259.364
-      ],
-      "mesh_penetration_mm": 2.3985,
-      "contacts": 123
-    },
-    {
-      "wire": "PE-bus",
-      "part": "tube-fluid-14",
-      "point_mm": [
-        46.0,
-        193.729,
-        260.703
-      ],
-      "mesh_penetration_mm": 9.5421,
-      "contacts": 229
-    },
-    {
-      "wire": "PE-bus",
-      "part": "tube-fluid-16",
-      "point_mm": [
-        59.624,
-        194.578,
-        260.061
-      ],
-      "mesh_penetration_mm": 11.8765,
-      "contacts": 228
-    },
-    {
-      "wire": "DC3-negative",
-      "part": "cold-core/foam-cap-lid-top",
-      "point_mm": [
-        -10.3,
-        284.7,
-        277.463
-      ],
-      "mesh_penetration_mm": 14.1693,
-      "contacts": 56
-    },
-    {
-      "wire": "J1-OUT1",
-      "part": "valve-v-a/6",
-      "point_mm": [
-        -84.66,
-        337.22,
-        262.0
-      ],
-      "mesh_penetration_mm": 0.1306,
+      "mesh_penetration_mm": 0.0531,
       "contacts": 2
     },
     {
-      "wire": "J1-positive-A",
-      "part": "valve-v-a/7",
+      "wire": "J2-OUT1",
+      "part": "coil-v-i/3",
       "point_mm": [
-        -68.142,
-        337.741,
-        262.0
+        -88.77,
+        148.853,
+        291.5
       ],
-      "mesh_penetration_mm": 0.1487,
+      "mesh_penetration_mm": 0.0632,
+      "contacts": 1
+    },
+    {
+      "wire": "J2-OUT2",
+      "part": "coil-v-j/2",
+      "point_mm": [
+        -80.477,
+        137.0,
+        221.531
+      ],
+      "mesh_penetration_mm": 0.0397,
       "contacts": 2
-    },
-    {
-      "wire": "J1-positive-B",
-      "part": "cold-core/valve-v-b/6",
-      "point_mm": [
-        90.498,
-        272.004,
-        287.064
-      ],
-      "mesh_penetration_mm": 0.1021,
-      "contacts": 6
-    },
-    {
-      "wire": "J1-positive-D",
-      "part": "tube-fluid-16",
-      "point_mm": [
-        51.497,
-        152.885,
-        261.925
-      ],
-      "mesh_penetration_mm": 3.1688,
-      "contacts": 80
-    },
-    {
-      "wire": "J1-positive-H",
-      "part": "tube-fluid-14",
-      "point_mm": [
-        37.976,
-        164.503,
-        239.398
-      ],
-      "mesh_penetration_mm": 31.4765,
-      "contacts": 258
-    },
-    {
-      "wire": "J2-COM",
-      "part": "tube-fluid-14",
-      "point_mm": [
-        49.554,
-        200.136,
-        267.839
-      ],
-      "mesh_penetration_mm": 10.531,
-      "contacts": 88
-    },
-    {
-      "wire": "J2-OUT3",
-      "part": "tube-fluid-16",
-      "point_mm": [
-        84.488,
-        336.924,
-        262.0
-      ],
-      "mesh_penetration_mm": 6.4532,
-      "contacts": 185
-    },
-    {
-      "wire": "J2-OUT3",
-      "part": "cold-core/g-ganen-pump/1",
-      "point_mm": [
-        5.153,
-        286.935,
-        301.972
-      ],
-      "mesh_penetration_mm": 5.7004,
-      "contacts": 200
-    },
-    {
-      "wire": "J2-OUT3",
-      "part": "cold-core/g-ganen-pump/3",
-      "point_mm": [
-        20.75,
-        286.263,
-        301.992
-      ],
-      "mesh_penetration_mm": 17.5981,
-      "contacts": 130
-    },
-    {
-      "wire": "J2-positive-K",
-      "part": "vk-solenoid/6",
-      "point_mm": [
-        69.769,
-        337.248,
-        262.0
-      ],
-      "mesh_penetration_mm": 0.1581,
-      "contacts": 4
-    },
-    {
-      "wire": "J2-positive-K",
-      "part": "tube-fluid-14",
-      "point_mm": [
-        71.526,
-        335.917,
-        259.796
-      ],
-      "mesh_penetration_mm": 20.2412,
-      "contacts": 256
-    },
-    {
-      "wire": "J2-positive-K",
-      "part": "tube-fluid-16",
-      "point_mm": [
-        86.5,
-        325.957,
-        261.171
-      ],
-      "mesh_penetration_mm": 1.9813,
-      "contacts": 56
-    },
-    {
-      "wire": "J4-V5",
-      "part": "tube-fluid-14",
-      "point_mm": [
-        68.143,
-        379.761,
-        270.013
-      ],
-      "mesh_penetration_mm": 2.9854,
-      "contacts": 189
-    },
-    {
-      "wire": "J4-V5",
-      "part": "tube-fluid-16",
-      "point_mm": [
-        59.0,
-        358.525,
-        270.211
-      ],
-      "mesh_penetration_mm": 7.8409,
-      "contacts": 180
-    },
-    {
-      "wire": "J4-IO25",
-      "part": "tube-fluid-14",
-      "point_mm": [
-        65.802,
-        382.467,
-        269.382
-      ],
-      "mesh_penetration_mm": 2.6788,
-      "contacts": 177
-    },
-    {
-      "wire": "J4-IO25",
-      "part": "tube-fluid-16",
-      "point_mm": [
-        59.0,
-        357.895,
-        269.777
-      ],
-      "mesh_penetration_mm": 9.8193,
-      "contacts": 180
-    },
-    {
-      "wire": "flow-GND",
-      "part": "tube-fluid-14",
-      "point_mm": [
-        67.894,
-        379.245,
-        269.505
-      ],
-      "mesh_penetration_mm": 2.9808,
-      "contacts": 179
-    },
-    {
-      "wire": "flow-GND",
-      "part": "tube-fluid-16",
-      "point_mm": [
-        59.0,
-        358.525,
-        270.211
-      ],
-      "mesh_penetration_mm": 11.8247,
-      "contacts": 182
     }
   ],
-  "wire_packing_pairs": [
-    {
-      "a": "AC1-L",
-      "b": "AC1-PE",
-      "point_mm": [
-        -69.384,
-        446.3,
-        328.252
-      ],
-      "mesh_penetration_mm": 9.5832
-    },
-    {
-      "a": "AC1-L",
-      "b": "AC2-N",
-      "point_mm": [
-        -58.054,
-        455.827,
-        317.737
-      ],
-      "mesh_penetration_mm": 19.4874
-    },
-    {
-      "a": "AC1-L",
-      "b": "DC3-positive",
-      "point_mm": [
-        -24.232,
-        440.221,
-        296.505
-      ],
-      "mesh_penetration_mm": 5.1179
-    },
-    {
-      "a": "AC1-N",
-      "b": "AC1-PE",
-      "point_mm": [
-        -63.15,
-        429.111,
-        327.581
-      ],
-      "mesh_penetration_mm": 8.684
-    },
-    {
-      "a": "AC1-N",
-      "b": "AC2-N",
-      "point_mm": [
-        -33.654,
-        424.155,
-        317.563
-      ],
-      "mesh_penetration_mm": 0.2285
-    },
-    {
-      "a": "AC1-PE",
-      "b": "PE-bus",
-      "point_mm": [
-        -32.733,
-        431.834,
-        334.848
-      ],
-      "mesh_penetration_mm": 1.3748
-    },
-    {
-      "a": "AC2-L",
-      "b": "AC2-N",
-      "point_mm": [
-        -56.272,
-        458.864,
-        299.391
-      ],
-      "mesh_penetration_mm": 0.8732
-    },
-    {
-      "a": "AC2-L",
-      "b": "AC3-L",
-      "point_mm": [
-        -43.33,
-        437.329,
-        298.061
-      ],
-      "mesh_penetration_mm": 1.3566
-    },
-    {
-      "a": "AC2-L",
-      "b": "DC3-positive",
-      "point_mm": [
-        -34.441,
-        437.194,
-        298.006
-      ],
-      "mesh_penetration_mm": 0.4755
-    },
-    {
-      "a": "AC2-N",
-      "b": "AC5-N",
-      "point_mm": [
-        -27.959,
-        353.098,
-        320.733
-      ],
-      "mesh_penetration_mm": 8.0758
-    },
-    {
-      "a": "AC4-H",
-      "b": "AC5-N",
-      "point_mm": [
-        2.674,
-        271.548,
-        321.284
-      ],
-      "mesh_penetration_mm": 14.6517
-    },
-    {
-      "a": "AC4-H",
-      "b": "PE-bus",
-      "point_mm": [
-        26.127,
-        211.262,
-        288.279
-      ],
-      "mesh_penetration_mm": 2.6193
-    },
-    {
-      "a": "AC4-H",
-      "b": "DC3-positive",
-      "point_mm": [
-        -57.563,
-        422.342,
-        315.986
-      ],
-      "mesh_penetration_mm": 0.7038
-    },
-    {
-      "a": "AC5-N",
-      "b": "AC6-PE",
-      "point_mm": [
-        47.054,
-        175.849,
-        296.804
-      ],
-      "mesh_penetration_mm": 0.4827
-    },
-    {
-      "a": "AC5-N",
-      "b": "PE-bus",
-      "point_mm": [
-        26.746,
-        207.587,
-        289.478
-      ],
-      "mesh_penetration_mm": 7.0506
-    },
-    {
-      "a": "PE-bus",
-      "b": "J1-positive-A",
-      "point_mm": [
-        41.987,
-        209.502,
-        292.024
-      ],
-      "mesh_penetration_mm": 17.6726
-    },
-    {
-      "a": "PE-bus",
-      "b": "J2-OUT3",
-      "point_mm": [
-        4.707,
-        291.578,
-        306.648
-      ],
-      "mesh_penetration_mm": 0.3706
-    },
-    {
-      "a": "PE-bus",
-      "b": "J9-V12",
-      "point_mm": [
-        24.648,
-        204.007,
-        289.828
-      ],
-      "mesh_penetration_mm": 0.2231
-    },
-    {
-      "a": "PE-carbonator",
-      "b": "DC1-V12",
-      "point_mm": [
-        1.324,
-        226.0,
-        270.569
-      ],
-      "mesh_penetration_mm": 20.8691
-    },
-    {
-      "a": "PE-carbonator",
-      "b": "DC1-GND",
-      "point_mm": [
-        -25.114,
-        278.5,
-        274.076
-      ],
-      "mesh_penetration_mm": 12.7007
-    },
-    {
-      "a": "PE-carbonator",
-      "b": "DC2-V12",
-      "point_mm": [
-        -46.561,
-        336.78,
-        276.482
-      ],
-      "mesh_penetration_mm": 10.8803
-    },
-    {
-      "a": "PE-carbonator",
-      "b": "J2-COM",
-      "point_mm": [
-        30.847,
-        207.122,
-        263.433
-      ],
-      "mesh_penetration_mm": 1.9671
-    },
-    {
-      "a": "PE-carbonator",
-      "b": "J3-V5",
-      "point_mm": [
-        -46.561,
-        336.78,
-        276.482
-      ],
-      "mesh_penetration_mm": 30.4586
-    },
-    {
-      "a": "PE-carbonator",
-      "b": "J3-GND",
-      "point_mm": [
-        -46.837,
-        336.628,
-        276.304
-      ],
-      "mesh_penetration_mm": 29.4517
-    },
-    {
-      "a": "PE-carbonator",
-      "b": "J3-IO35",
-      "point_mm": [
-        -46.561,
-        336.78,
-        276.482
-      ],
-      "mesh_penetration_mm": 31.4385
-    },
-    {
-      "a": "PE-carbonator",
-      "b": "J3-IO33",
-      "point_mm": [
-        -17.331,
-        354.659,
-        268.087
-      ],
-      "mesh_penetration_mm": 30.1909
-    },
-    {
-      "a": "PE-carbonator",
-      "b": "J4-3V3",
-      "point_mm": [
-        -19.31,
-        279.061,
-        274.555
-      ],
-      "mesh_penetration_mm": 4.8879
-    },
-    {
-      "a": "PE-carbonator",
-      "b": "J4-IO26",
-      "point_mm": [
-        -72.664,
-        360.483,
-        229.376
-      ],
-      "mesh_penetration_mm": 2.8287
-    },
-    {
-      "a": "PE-carbonator",
-      "b": "temp-GND",
-      "point_mm": [
-        -75.452,
-        360.175,
-        232.4
-      ],
-      "mesh_penetration_mm": 2.8153
-    },
-    {
-      "a": "PE-carbonator",
-      "b": "flow-GND",
-      "point_mm": [
-        -12.108,
-        277.069,
-        270.583
-      ],
-      "mesh_penetration_mm": 36.5963
-    },
-    {
-      "a": "PE-carbonator",
-      "b": "J6-RA1",
-      "point_mm": [
-        -49.607,
-        337.785,
-        277.916
-      ],
-      "mesh_penetration_mm": 0.7712
-    },
-    {
-      "a": "PE-carbonator",
-      "b": "J7-CLO",
-      "point_mm": [
-        -49.673,
-        337.302,
-        277.389
-      ],
-      "mesh_penetration_mm": 0.1123
-    },
-    {
-      "a": "PE-carbonator",
-      "b": "J7-CHI",
-      "point_mm": [
-        -48.491,
-        335.405,
-        277.984
-      ],
-      "mesh_penetration_mm": 1.9279
-    },
-    {
-      "a": "PE-carbonator",
-      "b": "J7-carb-earth-2",
-      "point_mm": [
-        -46.561,
-        336.78,
-        276.482
-      ],
-      "mesh_penetration_mm": 0.5349
-    },
-    {
-      "a": "DC1-V12",
-      "b": "DC4-V12",
-      "point_mm": [
-        -8.869,
-        223.763,
-        261.788
-      ],
-      "mesh_penetration_mm": 0.3689
-    },
-    {
-      "a": "DC1-V12",
-      "b": "DC2-V12",
-      "point_mm": [
-        -9.214,
-        217.034,
-        260.438
-      ],
-      "mesh_penetration_mm": 0.9433
-    },
-    {
-      "a": "DC1-V12",
-      "b": "J1-OUT1",
-      "point_mm": [
-        -55.417,
-        312.705,
-        259.793
-      ],
-      "mesh_penetration_mm": 0.7717
-    },
-    {
-      "a": "DC1-V12",
-      "b": "J1-OUT2",
-      "point_mm": [
-        3.109,
-        226.0,
-        272.871
-      ],
-      "mesh_penetration_mm": 33.0449
-    },
-    {
-      "a": "DC1-V12",
-      "b": "J1-OUT6",
-      "point_mm": [
-        -0.5,
-        221.526,
-        271.777
-      ],
-      "mesh_penetration_mm": 4.283
-    },
-    {
-      "a": "DC1-V12",
-      "b": "J1-OUT7",
-      "point_mm": [
-        -0.5,
-        221.934,
-        270.444
-      ],
-      "mesh_penetration_mm": 3.9533
-    },
-    {
-      "a": "DC1-V12",
-      "b": "J2-COM",
-      "point_mm": [
-        3.998,
-        278.0,
-        271.416
-      ],
-      "mesh_penetration_mm": 30.8854
-    },
-    {
-      "a": "DC1-V12",
-      "b": "J2-FAN",
-      "point_mm": [
-        3.934,
-        278.0,
-        271.06
-      ],
-      "mesh_penetration_mm": 35.0558
-    },
-    {
-      "a": "DC1-V12",
-      "b": "J3-V5",
-      "point_mm": [
-        -0.5,
-        282.498,
-        271.416
-      ],
-      "mesh_penetration_mm": 17.2539
-    },
-    {
-      "a": "DC1-V12",
-      "b": "J3-GND",
-      "point_mm": [
-        -0.5,
-        282.498,
-        271.416
-      ],
-      "mesh_penetration_mm": 17.9811
-    },
-    {
-      "a": "DC1-V12",
-      "b": "J3-IO35",
-      "point_mm": [
-        -0.5,
-        279.635,
-        270.878
-      ],
-      "mesh_penetration_mm": 16.738
-    },
-    {
-      "a": "DC1-V12",
-      "b": "J3-IO33",
-      "point_mm": [
-        -0.5,
-        282.498,
-        271.416
-      ],
-      "mesh_penetration_mm": 17.4131
-    },
-    {
-      "a": "DC1-V12",
-      "b": "temp-GND",
-      "point_mm": [
-        -10.331,
-        221.635,
-        269.306
-      ],
-      "mesh_penetration_mm": 0.7505
-    },
-    {
-      "a": "DC1-V12",
-      "b": "flow-GND",
-      "point_mm": [
-        1.58,
-        278.0,
-        270.315
-      ],
-      "mesh_penetration_mm": 22.4962
-    },
-    {
-      "a": "DC1-V12",
-      "b": "J7-RB1",
-      "point_mm": [
-        16.946,
-        208.427,
-        270.288
-      ],
-      "mesh_penetration_mm": 15.9238
-    },
-    {
-      "a": "DC1-V12",
-      "b": "J7-RB2",
-      "point_mm": [
-        22.485,
-        193.09,
-        268.53
-      ],
-      "mesh_penetration_mm": 21.6855
-    },
-    {
-      "a": "DC1-V12",
-      "b": "J7-RB3",
-      "point_mm": [
-        22.01,
-        191.682,
-        268.736
-      ],
-      "mesh_penetration_mm": 21.1808
-    },
-    {
-      "a": "DC1-V12",
-      "b": "J7-RB4",
-      "point_mm": [
-        20.775,
-        195.478,
-        270.48
-      ],
-      "mesh_penetration_mm": 18.6035
-    },
-    {
-      "a": "DC4-V12",
-      "b": "DC1-GND",
-      "point_mm": [
-        -11.213,
-        251.497,
-        263.6
-      ],
-      "mesh_penetration_mm": 6.2328
-    },
-    {
-      "a": "DC4-V12",
-      "b": "DC2-V12",
-      "point_mm": [
-        -10.16,
-        224.197,
-        260.12
-      ],
-      "mesh_penetration_mm": 0.7776
-    },
-    {
-      "a": "DC4-V12",
-      "b": "J7-GND",
-      "point_mm": [
-        -10.38,
-        268.91,
-        267.563
-      ],
-      "mesh_penetration_mm": 7.1211
-    },
-    {
-      "a": "DC1-GND",
-      "b": "DC4-GND",
-      "point_mm": [
-        -9.49,
-        247.92,
-        261.45
-      ],
-      "mesh_penetration_mm": 0.6843
-    },
-    {
-      "a": "DC1-GND",
-      "b": "DC2-V12",
-      "point_mm": [
-        -8.315,
-        249.0,
-        260.811
-      ],
-      "mesh_penetration_mm": 1.1067
-    },
-    {
-      "a": "DC1-GND",
-      "b": "DC3-negative",
-      "point_mm": [
-        -10.771,
-        252.733,
-        261.802
-      ],
-      "mesh_penetration_mm": 0.8117
-    },
-    {
-      "a": "DC1-GND",
-      "b": "J1-OUT2",
-      "point_mm": [
-        5.173,
-        255.0,
-        273.548
-      ],
-      "mesh_penetration_mm": 13.5616
-    },
-    {
-      "a": "DC1-GND",
-      "b": "J2-COM",
-      "point_mm": [
-        -10.717,
-        250.898,
-        272.694
-      ],
-      "mesh_penetration_mm": 0.9404
-    },
-    {
-      "a": "DC1-GND",
-      "b": "J2-OUT3",
-      "point_mm": [
-        -24.854,
-        276.548,
-        274.769
-      ],
-      "mesh_penetration_mm": 0.7893
-    },
-    {
-      "a": "DC1-GND",
-      "b": "J4-3V3",
-      "point_mm": [
-        3.0,
-        276.643,
-        273.829
-      ],
-      "mesh_penetration_mm": 22.2306
-    },
-    {
-      "a": "DC1-GND",
-      "b": "J4-V5",
-      "point_mm": [
-        6.877,
-        272.5,
-        273.583
-      ],
-      "mesh_penetration_mm": 9.5416
-    },
-    {
-      "a": "DC1-GND",
-      "b": "J4-IO25",
-      "point_mm": [
-        7.143,
-        272.5,
-        273.829
-      ],
-      "mesh_penetration_mm": 9.4425
-    },
-    {
-      "a": "DC1-GND",
-      "b": "J7-RB4",
-      "point_mm": [
-        -10.631,
-        251.173,
-        273.645
-      ],
-      "mesh_penetration_mm": 0.477
-    },
-    {
-      "a": "DC1-GND",
-      "b": "J7-CLO",
-      "point_mm": [
-        -22.337,
-        314.0,
-        274.471
-      ],
-      "mesh_penetration_mm": 14.8112
-    },
-    {
-      "a": "DC1-GND",
-      "b": "J7-CHI",
-      "point_mm": [
-        -26.825,
-        292.755,
-        274.501
-      ],
-      "mesh_penetration_mm": 18.5302
-    },
-    {
-      "a": "DC4-GND",
-      "b": "DC2-V12",
-      "point_mm": [
-        -8.769,
-        247.283,
-        261.131
-      ],
-      "mesh_penetration_mm": 0.8984
-    },
-    {
-      "a": "DC4-GND",
-      "b": "DC3-negative",
-      "point_mm": [
-        -9.199,
-        251.195,
-        261.924
-      ],
-      "mesh_penetration_mm": 1.7155
-    },
-    {
-      "a": "DC2-V12",
-      "b": "DC3-negative",
-      "point_mm": [
-        -9.54,
-        314.029,
-        268.278
-      ],
-      "mesh_penetration_mm": 16.9098
-    },
-    {
-      "a": "DC2-V12",
-      "b": "J3-V5",
-      "point_mm": [
-        -15.4,
-        208.806,
-        274.523
-      ],
-      "mesh_penetration_mm": 30.4844
-    },
-    {
-      "a": "DC2-V12",
-      "b": "J3-IO35",
-      "point_mm": [
-        -15.358,
-        211.298,
-        274.307
-      ],
-      "mesh_penetration_mm": 37.5776
-    },
-    {
-      "a": "DC2-V12",
-      "b": "J3-IO33",
-      "point_mm": [
-        -15.407,
-        213.812,
-        274.522
-      ],
-      "mesh_penetration_mm": 28.8477
-    },
-    {
-      "a": "DC2-V12",
-      "b": "J7-GND",
-      "point_mm": [
-        -7.793,
-        259.583,
-        262.36
-      ],
-      "mesh_penetration_mm": 1.145
-    },
-    {
-      "a": "DC2-V12",
-      "b": "J7-earth-4",
-      "point_mm": [
-        -2.902,
-        234.779,
-        266.767
-      ],
-      "mesh_penetration_mm": 8.0406
-    },
-    {
-      "a": "DC3-positive",
-      "b": "DC3-negative",
-      "point_mm": [
-        -12.465,
-        448.652,
-        278.748
-      ],
-      "mesh_penetration_mm": 0.733
-    },
-    {
-      "a": "DC3-negative",
-      "b": "J3-V5",
-      "point_mm": [
-        -19.959,
-        367.112,
-        272.63
-      ],
-      "mesh_penetration_mm": 6.2799
-    },
-    {
-      "a": "DC3-negative",
-      "b": "J3-GND",
-      "point_mm": [
-        -30.339,
-        435.201,
-        276.223
-      ],
-      "mesh_penetration_mm": 6.8689
-    },
-    {
-      "a": "DC3-negative",
-      "b": "J3-IO35",
-      "point_mm": [
-        -19.687,
-        367.164,
-        272.398
-      ],
-      "mesh_penetration_mm": 6.647
-    },
-    {
-      "a": "DC3-negative",
-      "b": "J3-IO33",
-      "point_mm": [
-        -18.821,
-        356.161,
-        267.935
-      ],
-      "mesh_penetration_mm": 5.7865
-    },
-    {
-      "a": "DC3-negative",
-      "b": "J6-GND",
-      "point_mm": [
-        -19.165,
-        440.236,
-        275.175
-      ],
-      "mesh_penetration_mm": 2.3248
-    },
-    {
-      "a": "DC3-negative",
-      "b": "J6-RA3",
-      "point_mm": [
-        -23.202,
-        405.809,
-        269.269
-      ],
-      "mesh_penetration_mm": 7.6498
-    },
-    {
-      "a": "DC3-negative",
-      "b": "J6-RA4",
-      "point_mm": [
-        -14.432,
-        446.66,
-        278.219
-      ],
-      "mesh_penetration_mm": 0.4819
-    },
-    {
-      "a": "DC3-negative",
-      "b": "J7-GND",
-      "point_mm": [
-        -8.645,
-        258.638,
-        262.36
-      ],
-      "mesh_penetration_mm": 0.2215
-    },
-    {
-      "a": "DC3-negative",
-      "b": "J7-carb-earth-2",
-      "point_mm": [
-        -10.633,
-        314.226,
-        266.072
-      ],
-      "mesh_penetration_mm": 12.0749
-    },
-    {
-      "a": "J1-COM",
-      "b": "J1-OUT1",
-      "point_mm": [
-        -70.786,
-        270.781,
-        274.61
-      ],
-      "mesh_penetration_mm": 0.1275
-    },
-    {
-      "a": "J1-COM",
-      "b": "J2-COM",
-      "point_mm": [
-        36.824,
-        205.35,
-        268.769
-      ],
-      "mesh_penetration_mm": 1.9313
-    },
-    {
-      "a": "J1-COM",
-      "b": "J6-GND",
-      "point_mm": [
-        -77.054,
-        230.017,
-        275.093
-      ],
-      "mesh_penetration_mm": 37.9902
-    },
-    {
-      "a": "J1-COM",
-      "b": "J6-RA1",
-      "point_mm": [
-        -77.225,
-        240.045,
-        274.964
-      ],
-      "mesh_penetration_mm": 29.8419
-    },
-    {
-      "a": "J1-COM",
-      "b": "J6-RA2",
-      "point_mm": [
-        -77.4,
-        237.616,
-        274.731
-      ],
-      "mesh_penetration_mm": 31.9332
-    },
-    {
-      "a": "J1-COM",
-      "b": "J6-RA3",
-      "point_mm": [
-        -77.48,
-        235.135,
-        274.689
-      ],
-      "mesh_penetration_mm": 34.0174
-    },
-    {
-      "a": "J1-COM",
-      "b": "J6-RA4",
-      "point_mm": [
-        -77.452,
-        232.615,
-        274.86
-      ],
-      "mesh_penetration_mm": 36.0769
-    },
-    {
-      "a": "J1-COM",
-      "b": "J9-B",
-      "point_mm": [
-        -67.667,
-        268.487,
-        276.259
-      ],
-      "mesh_penetration_mm": 2.6535
-    },
-    {
-      "a": "J1-COM",
-      "b": "J9-A",
-      "point_mm": [
-        -4.865,
-        217.536,
-        277.84
-      ],
-      "mesh_penetration_mm": 2.3695
-    },
-    {
-      "a": "J1-positive-A",
-      "b": "J6-RA1",
-      "point_mm": [
-        -51.719,
-        315.802,
-        315.108
-      ],
-      "mesh_penetration_mm": 33.1103
-    },
-    {
-      "a": "J1-OUT2",
-      "b": "J1-OUT3",
-      "point_mm": [
-        -65.698,
-        271.09,
-        273.96
-      ],
-      "mesh_penetration_mm": 0.4401
-    },
-    {
-      "a": "J1-OUT2",
-      "b": "J1-OUT4",
-      "point_mm": [
-        -62.657,
-        270.773,
-        274.416
-      ],
-      "mesh_penetration_mm": 0.6453
-    },
-    {
-      "a": "J1-OUT2",
-      "b": "J1-OUT5",
-      "point_mm": [
-        -60.703,
-        270.654,
-        274.466
-      ],
-      "mesh_penetration_mm": 0.5895
-    },
-    {
-      "a": "J1-OUT2",
-      "b": "J1-OUT6",
-      "point_mm": [
-        -55.898,
-        270.398,
-        274.255
-      ],
-      "mesh_penetration_mm": 0.6222
-    },
-    {
-      "a": "J1-OUT2",
-      "b": "J1-OUT7",
-      "point_mm": [
-        -53.378,
-        270.316,
-        274.216
-      ],
-      "mesh_penetration_mm": 0.6566
-    },
-    {
-      "a": "J1-OUT2",
-      "b": "J1-OUT8",
-      "point_mm": [
-        -52.517,
-        270.801,
-        274.442
-      ],
-      "mesh_penetration_mm": 0.5697
-    },
-    {
-      "a": "J1-OUT2",
-      "b": "J2-COM",
-      "point_mm": [
-        -65.918,
-        271.782,
-        274.889
-      ],
-      "mesh_penetration_mm": 20.6514
-    },
-    {
-      "a": "J1-OUT2",
-      "b": "J2-OUT1",
-      "point_mm": [
-        -46.48,
-        270.522,
-        274.326
-      ],
-      "mesh_penetration_mm": 0.5565
-    },
-    {
-      "a": "J1-OUT2",
-      "b": "J2-OUT2",
-      "point_mm": [
-        -43.981,
-        270.013,
-        274.501
-      ],
-      "mesh_penetration_mm": 0.5384
-    },
-    {
-      "a": "J1-OUT2",
-      "b": "J2-FAN",
-      "point_mm": [
-        -65.922,
-        271.639,
-        275.036
-      ],
-      "mesh_penetration_mm": 20.568
-    },
-    {
-      "a": "J1-OUT2",
-      "b": "J4-3V3",
-      "point_mm": [
-        -17.013,
-        219.683,
-        273.963
-      ],
-      "mesh_penetration_mm": 49.8373
-    },
-    {
-      "a": "J1-OUT2",
-      "b": "J4-IO26",
-      "point_mm": [
-        -17.71,
-        229.277,
-        274.281
-      ],
-      "mesh_penetration_mm": 40.2839
-    },
-    {
-      "a": "J1-OUT2",
-      "b": "J4-V5",
-      "point_mm": [
-        42.918,
-        308.746,
-        273.258
-      ],
-      "mesh_penetration_mm": 43.5378
-    },
-    {
-      "a": "J1-OUT2",
-      "b": "J4-IO25",
-      "point_mm": [
-        43.089,
-        306.892,
-        273.235
-      ],
-      "mesh_penetration_mm": 40.9066
-    },
-    {
-      "a": "J1-OUT2",
-      "b": "temp-GND",
-      "point_mm": [
-        -11.041,
-        224.942,
-        270.489
-      ],
-      "mesh_penetration_mm": 42.9409
-    },
-    {
-      "a": "J1-OUT2",
-      "b": "J7-CLO",
-      "point_mm": [
-        -18.67,
-        278.823,
-        273.575
-      ],
-      "mesh_penetration_mm": 10.7591
-    },
-    {
-      "a": "J1-OUT2",
-      "b": "J7-CHI",
-      "point_mm": [
-        -25.523,
-        293.201,
-        273.503
-      ],
-      "mesh_penetration_mm": 24.7746
-    },
-    {
-      "a": "J1-OUT3",
-      "b": "J1-positive-C",
-      "point_mm": [
-        38.911,
-        133.165,
-        184.272
-      ],
-      "mesh_penetration_mm": 21.901
-    },
-    {
-      "a": "J1-OUT3",
-      "b": "J1-OUT4",
-      "point_mm": [
-        -62.09,
-        268.949,
-        274.073
-      ],
-      "mesh_penetration_mm": 1.5542
-    },
-    {
-      "a": "J1-OUT3",
-      "b": "J1-OUT5",
-      "point_mm": [
-        -42.484,
-        249.868,
-        270.218
-      ],
-      "mesh_penetration_mm": 2.3858
-    },
-    {
-      "a": "J1-OUT3",
-      "b": "J11-GND",
-      "point_mm": [
-        -30.416,
-        192.633,
-        260.518
-      ],
-      "mesh_penetration_mm": 12.9334
-    },
-    {
-      "a": "J1-positive-C",
-      "b": "J1-positive-E",
-      "point_mm": [
-        34.817,
-        157.844,
-        227.997
-      ],
-      "mesh_penetration_mm": 17.7173
-    },
-    {
-      "a": "J1-positive-C",
-      "b": "J1-OUT7",
-      "point_mm": [
-        71.251,
-        168.277,
-        272.926
-      ],
-      "mesh_penetration_mm": 34.5881
-    },
-    {
-      "a": "J1-positive-C",
-      "b": "J2-FAN",
-      "point_mm": [
-        45.465,
-        170.357,
-        245.169
-      ],
-      "mesh_penetration_mm": 15.261
-    },
-    {
-      "a": "J1-OUT4",
-      "b": "J2-OUT2",
-      "point_mm": [
-        -65.084,
-        162.883,
-        238.19
-      ],
-      "mesh_penetration_mm": 6.1801
-    },
-    {
-      "a": "J1-OUT5",
-      "b": "J1-positive-E",
-      "point_mm": [
-        34.905,
-        156.919,
-        226.424
-      ],
-      "mesh_penetration_mm": 10.2259
-    },
-    {
-      "a": "J1-OUT5",
-      "b": "J1-OUT8",
-      "point_mm": [
-        -54.645,
-        225.455,
-        271.327
-      ],
-      "mesh_penetration_mm": 18.1387
-    },
-    {
-      "a": "J1-OUT5",
-      "b": "J2-OUT1",
-      "point_mm": [
-        -29.927,
-        218.036,
-        271.902
-      ],
-      "mesh_penetration_mm": 35.2176
-    },
-    {
-      "a": "J1-OUT5",
-      "b": "J2-OUT2",
-      "point_mm": [
-        -29.982,
-        218.069,
-        270.776
-      ],
-      "mesh_penetration_mm": 17.0896
-    },
-    {
-      "a": "J1-positive-E",
-      "b": "J1-OUT7",
-      "point_mm": [
-        74.839,
-        161.923,
-        258.79
-      ],
-      "mesh_penetration_mm": 16.4268
-    },
-    {
-      "a": "J1-OUT6",
-      "b": "J1-positive-F",
-      "point_mm": [
-        81.97,
-        164.46,
-        272.59
-      ],
-      "mesh_penetration_mm": 12.2848
-    },
-    {
-      "a": "J1-OUT6",
-      "b": "J1-OUT7",
-      "point_mm": [
-        6.53,
-        205.959,
-        269.174
-      ],
-      "mesh_penetration_mm": 4.4802
-    },
-    {
-      "a": "J1-OUT6",
-      "b": "J1-OUT8",
-      "point_mm": [
-        -54.645,
-        225.455,
-        271.327
-      ],
-      "mesh_penetration_mm": 31.8193
-    },
-    {
-      "a": "J1-OUT6",
-      "b": "J2-OUT1",
-      "point_mm": [
-        -82.156,
-        177.854,
-        273.235
-      ],
-      "mesh_penetration_mm": 85.1932
-    },
-    {
-      "a": "J1-OUT6",
-      "b": "J2-OUT2",
-      "point_mm": [
-        -57.872,
-        191.866,
-        265.76
-      ],
-      "mesh_penetration_mm": 58.5756
-    },
-    {
-      "a": "J1-OUT6",
-      "b": "J2-FAN",
-      "point_mm": [
-        35.183,
-        182.398,
-        270.243
-      ],
-      "mesh_penetration_mm": 1.325
-    },
-    {
-      "a": "J1-OUT6",
-      "b": "J3-V5",
-      "point_mm": [
-        -18.623,
-        354.404,
-        267.871
-      ],
-      "mesh_penetration_mm": 58.9198
-    },
-    {
-      "a": "J1-OUT6",
-      "b": "J3-GND",
-      "point_mm": [
-        -20.102,
-        358.406,
-        268.065
-      ],
-      "mesh_penetration_mm": 59.9901
-    },
-    {
-      "a": "J1-OUT6",
-      "b": "J3-IO35",
-      "point_mm": [
-        -17.552,
-        346.767,
-        267.864
-      ],
-      "mesh_penetration_mm": 55.899
-    },
-    {
-      "a": "J1-OUT6",
-      "b": "J3-IO33",
-      "point_mm": [
-        44.965,
-        173.166,
-        270.279
-      ],
-      "mesh_penetration_mm": 55.0733
-    },
-    {
-      "a": "J1-OUT6",
-      "b": "J7-RB1",
-      "point_mm": [
-        18.315,
-        208.455,
-        270.651
-      ],
-      "mesh_penetration_mm": 7.6584
-    },
-    {
-      "a": "J1-OUT6",
-      "b": "J7-RB2",
-      "point_mm": [
-        -14.7,
-        253.047,
-        275.005
-      ],
-      "mesh_penetration_mm": 11.5733
-    },
-    {
-      "a": "J1-OUT6",
-      "b": "J7-RB3",
-      "point_mm": [
-        -14.512,
-        255.675,
-        274.777
-      ],
-      "mesh_penetration_mm": 15.6075
-    },
-    {
-      "a": "J1-OUT6",
-      "b": "J7-RB4",
-      "point_mm": [
-        44.755,
-        172.958,
-        269.999
-      ],
-      "mesh_penetration_mm": 9.4533
-    },
-    {
-      "a": "J1-OUT6",
-      "b": "J7-earth-4",
-      "point_mm": [
-        9.231,
-        214.096,
-        270.678
-      ],
-      "mesh_penetration_mm": 5.6251
-    },
-    {
-      "a": "J1-OUT7",
-      "b": "J1-OUT8",
-      "point_mm": [
-        -54.112,
-        225.392,
-        272.129
-      ],
-      "mesh_penetration_mm": 3.1782
-    },
-    {
-      "a": "J1-OUT7",
-      "b": "J2-OUT1",
-      "point_mm": [
-        5.238,
-        212.215,
-        269.62
-      ],
-      "mesh_penetration_mm": 70.2526
-    },
-    {
-      "a": "J1-OUT7",
-      "b": "J2-OUT2",
-      "point_mm": [
-        5.27,
-        212.283,
-        269.22
-      ],
-      "mesh_penetration_mm": 57.9439
-    },
-    {
-      "a": "J1-OUT7",
-      "b": "J2-FAN",
-      "point_mm": [
-        37.654,
-        181.567,
-        269.342
-      ],
-      "mesh_penetration_mm": 11.5341
-    },
-    {
-      "a": "J1-OUT7",
-      "b": "temp-GND",
-      "point_mm": [
-        4.277,
-        211.331,
-        268.61
-      ],
-      "mesh_penetration_mm": 8.2457
-    },
-    {
-      "a": "J1-OUT7",
-      "b": "J7-RB1",
-      "point_mm": [
-        23.971,
-        189.977,
-        271.153
-      ],
-      "mesh_penetration_mm": 7.0175
-    },
-    {
-      "a": "J1-OUT7",
-      "b": "J7-RB2",
-      "point_mm": [
-        80.242,
-        131.052,
-        221.925
-      ],
-      "mesh_penetration_mm": 18.4711
-    },
-    {
-      "a": "J1-OUT7",
-      "b": "J7-RB3",
-      "point_mm": [
-        27.761,
-        190.235,
-        255.4
-      ],
-      "mesh_penetration_mm": 6.8979
-    },
-    {
-      "a": "J1-OUT7",
-      "b": "J7-RB4",
-      "point_mm": [
-        -14.83,
-        258.041,
-        275.083
-      ],
-      "mesh_penetration_mm": 31.0262
-    },
-    {
-      "a": "J1-OUT7",
-      "b": "J7-earth-4",
-      "point_mm": [
-        6.957,
-        207.155,
-        269.088
-      ],
-      "mesh_penetration_mm": 4.49
-    },
-    {
-      "a": "J1-OUT8",
-      "b": "J2-OUT1",
-      "point_mm": [
-        -53.326,
-        225.383,
-        272.048
-      ],
-      "mesh_penetration_mm": 10.7202
-    },
-    {
-      "a": "J1-OUT8",
-      "b": "J2-OUT2",
-      "point_mm": [
-        -46.029,
-        186.01,
-        262.628
-      ],
-      "mesh_penetration_mm": 2.0606
-    },
-    {
-      "a": "J1-positive-H",
-      "b": "J2-positive-J",
-      "point_mm": [
-        41.375,
-        170.013,
-        241.55
-      ],
-      "mesh_penetration_mm": 2.3013
-    },
-    {
-      "a": "J2-COM",
-      "b": "J2-positive-J",
-      "point_mm": [
-        81.49,
-        172.432,
-        241.248
-      ],
-      "mesh_penetration_mm": 0.7247
-    },
-    {
-      "a": "J2-COM",
-      "b": "J3-V5",
-      "point_mm": [
-        28.462,
-        217.33,
-        269.439
-      ],
-      "mesh_penetration_mm": 44.436
-    },
-    {
-      "a": "J2-COM",
-      "b": "J3-GND",
-      "point_mm": [
-        28.462,
-        217.33,
-        269.439
-      ],
-      "mesh_penetration_mm": 44.6422
-    },
-    {
-      "a": "J2-COM",
-      "b": "J3-IO35",
-      "point_mm": [
-        28.462,
-        217.33,
-        269.439
-      ],
-      "mesh_penetration_mm": 44.3038
-    },
-    {
-      "a": "J2-COM",
-      "b": "J3-IO33",
-      "point_mm": [
-        28.462,
-        217.33,
-        269.439
-      ],
-      "mesh_penetration_mm": 45.8288
-    },
-    {
-      "a": "J2-COM",
-      "b": "J4-3V3",
-      "point_mm": [
-        -16.891,
-        219.687,
-        273.799
-      ],
-      "mesh_penetration_mm": 27.8119
-    },
-    {
-      "a": "J2-COM",
-      "b": "J4-IO26",
-      "point_mm": [
-        -40.439,
-        288.387,
-        274.299
-      ],
-      "mesh_penetration_mm": 10.1526
-    },
-    {
-      "a": "J2-COM",
-      "b": "J4-V5",
-      "point_mm": [
-        42.459,
-        309.06,
-        273.026
-      ],
-      "mesh_penetration_mm": 8.0111
-    },
-    {
-      "a": "J2-COM",
-      "b": "temp-GND",
-      "point_mm": [
-        -10.917,
-        224.99,
-        270.646
-      ],
-      "mesh_penetration_mm": 17.8245
-    },
-    {
-      "a": "J2-COM",
-      "b": "J7-RB2",
-      "point_mm": [
-        -16.058,
-        255.485,
-        272.865
-      ],
-      "mesh_penetration_mm": 0.5609
-    },
-    {
-      "a": "J2-COM",
-      "b": "J7-RB3",
-      "point_mm": [
-        -32.695,
-        269.989,
-        275.109
-      ],
-      "mesh_penetration_mm": 7.5376
-    },
-    {
-      "a": "J2-COM",
-      "b": "J7-RB4",
-      "point_mm": [
-        29.258,
-        218.173,
-        270.683
-      ],
-      "mesh_penetration_mm": 15.7153
-    },
-    {
-      "a": "J2-positive-I",
-      "b": "J2-positive-J",
-      "point_mm": [
-        76.372,
-        174.735,
-        240.728
-      ],
-      "mesh_penetration_mm": 0.7518
-    },
-    {
-      "a": "J2-FAN",
-      "b": "J3-V5",
-      "point_mm": [
-        16.621,
-        213.812,
-        269.658
-      ],
-      "mesh_penetration_mm": 34.0297
-    },
-    {
-      "a": "J2-FAN",
-      "b": "J3-GND",
-      "point_mm": [
-        16.621,
-        213.812,
-        269.658
-      ],
-      "mesh_penetration_mm": 34.1214
-    },
-    {
-      "a": "J2-FAN",
-      "b": "J3-IO35",
-      "point_mm": [
-        16.621,
-        213.812,
-        269.658
-      ],
-      "mesh_penetration_mm": 33.9869
-    },
-    {
-      "a": "J2-FAN",
-      "b": "J3-IO33",
-      "point_mm": [
-        16.576,
-        213.738,
-        270.056
-      ],
-      "mesh_penetration_mm": 33.9134
-    },
-    {
-      "a": "J2-FAN",
-      "b": "J4-3V3",
-      "point_mm": [
-        -16.732,
-        219.692,
-        273.669
-      ],
-      "mesh_penetration_mm": 13.697
-    },
-    {
-      "a": "J2-FAN",
-      "b": "J4-IO26",
-      "point_mm": [
-        -17.71,
-        229.277,
-        274.281
-      ],
-      "mesh_penetration_mm": 15.9818
-    },
-    {
-      "a": "J2-FAN",
-      "b": "temp-GND",
-      "point_mm": [
-        -11.041,
-        224.942,
-        270.489
-      ],
-      "mesh_penetration_mm": 10.7409
-    },
-    {
-      "a": "J2-FAN",
-      "b": "flow-GND",
-      "point_mm": [
-        39.322,
-        292.862,
-        270.501
-      ],
-      "mesh_penetration_mm": 34.0801
-    },
-    {
-      "a": "J2-FAN",
-      "b": "J7-RB1",
-      "point_mm": [
-        16.946,
-        208.427,
-        270.288
-      ],
-      "mesh_penetration_mm": 2.5246
-    },
-    {
-      "a": "J2-FAN",
-      "b": "J7-RB2",
-      "point_mm": [
-        -35.13,
-        269.997,
-        274.963
-      ],
-      "mesh_penetration_mm": 7.2711
-    },
-    {
-      "a": "J2-FAN",
-      "b": "J7-RB3",
-      "point_mm": [
-        23.297,
-        192.457,
-        268.654
-      ],
-      "mesh_penetration_mm": 8.3796
-    },
-    {
-      "a": "J2-FAN",
-      "b": "J7-RB4",
-      "point_mm": [
-        21.567,
-        195.958,
-        270.204
-      ],
-      "mesh_penetration_mm": 4.6143
-    },
-    {
-      "a": "J2-OUT3",
-      "b": "J2-positive-K",
-      "point_mm": [
-        84.68,
-        334.49,
-        258.799
-      ],
-      "mesh_penetration_mm": 7.9231
-    },
-    {
-      "a": "J2-OUT3",
-      "b": "J4-3V3",
-      "point_mm": [
-        2.0,
-        276.946,
-        273.992
-      ],
-      "mesh_penetration_mm": 21.2326
-    },
-    {
-      "a": "J2-OUT3",
-      "b": "J4-IO26",
-      "point_mm": [
-        -34.783,
-        276.749,
-        273.826
-      ],
-      "mesh_penetration_mm": 0.5482
-    },
-    {
-      "a": "J2-OUT3",
-      "b": "J4-V5",
-      "point_mm": [
-        40.1,
-        305.844,
-        305.0
-      ],
-      "mesh_penetration_mm": 31.837
-    },
-    {
-      "a": "J2-OUT3",
-      "b": "J4-IO25",
-      "point_mm": [
-        40.826,
-        304.799,
-        305.0
-      ],
-      "mesh_penetration_mm": 31.6371
-    },
-    {
-      "a": "J2-OUT3",
-      "b": "temp-GND",
-      "point_mm": [
-        2.0,
-        275.441,
-        274.018
-      ],
-      "mesh_penetration_mm": 4.0716
-    },
-    {
-      "a": "J2-OUT3",
-      "b": "flow-GND",
-      "point_mm": [
-        42.154,
-        319.652,
-        261.269
-      ],
-      "mesh_penetration_mm": 15.4883
-    },
-    {
-      "a": "J2-OUT3",
-      "b": "J7-CLO",
-      "point_mm": [
-        -17.389,
-        264.063,
-        274.597
-      ],
-      "mesh_penetration_mm": 12.8951
-    },
-    {
-      "a": "J2-OUT3",
-      "b": "J7-CHI",
-      "point_mm": [
-        -26.918,
-        292.72,
-        274.322
-      ],
-      "mesh_penetration_mm": 17.267
-    },
-    {
-      "a": "J2-positive-K",
-      "b": "J4-IO25",
-      "point_mm": [
-        68.439,
-        336.814,
-        271.481
-      ],
-      "mesh_penetration_mm": 7.1062
-    },
-    {
-      "a": "J2-positive-K",
-      "b": "flow-GND",
-      "point_mm": [
-        69.837,
-        337.856,
-        260.788
-      ],
-      "mesh_penetration_mm": 0.6354
-    },
-    {
-      "a": "J3-V5",
-      "b": "J3-GND",
-      "point_mm": [
-        -16.865,
-        208.805,
-        274.867
-      ],
-      "mesh_penetration_mm": 1.1318
-    },
-    {
-      "a": "J3-V5",
-      "b": "J3-IO35",
-      "point_mm": [
-        -17.365,
-        363.125,
-        275.326
-      ],
-      "mesh_penetration_mm": 6.1277
-    },
-    {
-      "a": "J3-V5",
-      "b": "J3-IO33",
-      "point_mm": [
-        -19.04,
-        367.906,
-        276.038
-      ],
-      "mesh_penetration_mm": 1.6837
-    },
-    {
-      "a": "J3-V5",
-      "b": "J4-3V3",
-      "point_mm": [
-        -15.946,
-        219.722,
-        273.604
-      ],
-      "mesh_penetration_mm": 1.2419
-    },
-    {
-      "a": "J3-V5",
-      "b": "J4-IO26",
-      "point_mm": [
-        -15.93,
-        208.825,
-        275.108
-      ],
-      "mesh_penetration_mm": 7.3391
-    },
-    {
-      "a": "J3-V5",
-      "b": "J4-V5",
-      "point_mm": [
-        -16.263,
-        222.655,
-        273.917
-      ],
-      "mesh_penetration_mm": 0.6168
-    },
-    {
-      "a": "J3-V5",
-      "b": "J4-IO25",
-      "point_mm": [
-        -16.519,
-        225.412,
-        273.877
-      ],
-      "mesh_penetration_mm": 0.6009
-    },
-    {
-      "a": "J3-V5",
-      "b": "J4-GND",
-      "point_mm": [
-        -16.162,
-        217.749,
-        274.169
-      ],
-      "mesh_penetration_mm": 0.7785
-    },
-    {
-      "a": "J3-V5",
-      "b": "J7-GND",
-      "point_mm": [
-        -16.683,
-        267.902,
-        271.76
-      ],
-      "mesh_penetration_mm": 0.8187
-    },
-    {
-      "a": "J3-V5",
-      "b": "J7-RB1",
-      "point_mm": [
-        -16.683,
-        252.902,
-        272.273
-      ],
-      "mesh_penetration_mm": 0.7006
-    },
-    {
-      "a": "J3-V5",
-      "b": "J7-RB2",
-      "point_mm": [
-        -16.501,
-        255.498,
-        272.247
-      ],
-      "mesh_penetration_mm": 0.7749
-    },
-    {
-      "a": "J3-V5",
-      "b": "J7-RB3",
-      "point_mm": [
-        -16.683,
-        257.902,
-        272.255
-      ],
-      "mesh_penetration_mm": 0.8873
-    },
-    {
-      "a": "J3-V5",
-      "b": "J7-RB4",
-      "point_mm": [
-        -16.501,
-        260.498,
-        272.306
-      ],
-      "mesh_penetration_mm": 1.0471
-    },
-    {
-      "a": "J3-V5",
-      "b": "J7-CLO",
-      "point_mm": [
-        -16.098,
-        261.359,
-        268.4
-      ],
-      "mesh_penetration_mm": 1.5317
-    },
-    {
-      "a": "J3-V5",
-      "b": "J7-CHI",
-      "point_mm": [
-        -16.302,
-        265.547,
-        268.4
-      ],
-      "mesh_penetration_mm": 2.4151
-    },
-    {
-      "a": "J3-V5",
-      "b": "J9-B",
-      "point_mm": [
-        -16.502,
-        239.498,
-        273.152
-      ],
-      "mesh_penetration_mm": 0.9974
-    },
-    {
-      "a": "J3-V5",
-      "b": "J9-A",
-      "point_mm": [
-        -15.717,
-        241.902,
-        268.4
-      ],
-      "mesh_penetration_mm": 1.677
-    },
-    {
-      "a": "J3-V5",
-      "b": "J9-GND",
-      "point_mm": [
-        -15.899,
-        242.908,
-        268.4
-      ],
-      "mesh_penetration_mm": 1.8201
-    },
-    {
-      "a": "J3-V5",
-      "b": "J9-V12",
-      "point_mm": [
-        -15.898,
-        246.998,
-        268.4
-      ],
-      "mesh_penetration_mm": 2.7066
-    },
-    {
-      "a": "J3-GND",
-      "b": "J3-IO35",
-      "point_mm": [
-        -17.058,
-        211.291,
-        274.301
-      ],
-      "mesh_penetration_mm": 1.5839
-    },
-    {
-      "a": "J3-GND",
-      "b": "J3-IO33",
-      "point_mm": [
-        -18.483,
-        367.239,
-        275.046
-      ],
-      "mesh_penetration_mm": 4.0948
-    },
-    {
-      "a": "J3-GND",
-      "b": "J4-3V3",
-      "point_mm": [
-        -16.142,
-        219.714,
-        273.548
-      ],
-      "mesh_penetration_mm": 1.1477
-    },
-    {
-      "a": "J3-GND",
-      "b": "J4-IO26",
-      "point_mm": [
-        -38.952,
-        288.956,
-        273.704
-      ],
-      "mesh_penetration_mm": 7.7661
-    },
-    {
-      "a": "J3-GND",
-      "b": "J4-V5",
-      "point_mm": [
-        -16.421,
-        222.785,
-        273.897
-      ],
-      "mesh_penetration_mm": 0.5471
-    },
-    {
-      "a": "J3-GND",
-      "b": "J4-IO25",
-      "point_mm": [
-        -16.606,
-        225.583,
-        273.806
-      ],
-      "mesh_penetration_mm": 0.5841
-    },
-    {
-      "a": "J3-GND",
-      "b": "J4-GND",
-      "point_mm": [
-        -16.173,
-        217.776,
-        273.966
-      ],
-      "mesh_penetration_mm": 0.6064
-    },
-    {
-      "a": "J3-GND",
-      "b": "J6-RA3",
-      "point_mm": [
-        -31.392,
-        434.897,
-        275.191
-      ],
-      "mesh_penetration_mm": 7.6511
-    },
-    {
-      "a": "J3-GND",
-      "b": "J7-GND",
-      "point_mm": [
-        -17.05,
-        267.203,
-        271.76
-      ],
-      "mesh_penetration_mm": 0.6004
-    },
-    {
-      "a": "J3-GND",
-      "b": "J7-RB1",
-      "point_mm": [
-        -17.025,
-        252.406,
-        272.273
-      ],
-      "mesh_penetration_mm": 0.6892
-    },
-    {
-      "a": "J3-GND",
-      "b": "J7-RB2",
-      "point_mm": [
-        -17.025,
-        254.906,
-        272.247
-      ],
-      "mesh_penetration_mm": 0.7246
-    },
-    {
-      "a": "J3-GND",
-      "b": "J7-RB3",
-      "point_mm": [
-        -17.025,
-        257.406,
-        272.255
-      ],
-      "mesh_penetration_mm": 0.8182
-    },
-    {
-      "a": "J3-GND",
-      "b": "J7-RB4",
-      "point_mm": [
-        -17.025,
-        259.906,
-        272.306
-      ],
-      "mesh_penetration_mm": 0.9539
-    },
-    {
-      "a": "J3-GND",
-      "b": "J7-CLO",
-      "point_mm": [
-        -16.683,
-        262.902,
-        268.4
-      ],
-      "mesh_penetration_mm": 1.5542
-    },
-    {
-      "a": "J3-GND",
-      "b": "J7-CHI",
-      "point_mm": [
-        -16.836,
-        265.267,
-        268.4
-      ],
-      "mesh_penetration_mm": 2.4216
-    },
-    {
-      "a": "J3-GND",
-      "b": "J9-B",
-      "point_mm": [
-        -16.683,
-        239.402,
-        273.152
-      ],
-      "mesh_penetration_mm": 1.0333
-    },
-    {
-      "a": "J3-GND",
-      "b": "J9-A",
-      "point_mm": [
-        -16.098,
-        242.047,
-        268.4
-      ],
-      "mesh_penetration_mm": 1.7128
-    },
-    {
-      "a": "J3-GND",
-      "b": "J9-GND",
-      "point_mm": [
-        -16.303,
-        242.859,
-        268.4
-      ],
-      "mesh_penetration_mm": 1.8755
-    },
-    {
-      "a": "J3-GND",
-      "b": "J9-V12",
-      "point_mm": [
-        -16.302,
-        247.047,
-        268.4
-      ],
-      "mesh_penetration_mm": 2.7168
-    },
-    {
-      "a": "J3-IO35",
-      "b": "J3-IO33",
-      "point_mm": [
-        -17.481,
-        363.05,
-        275.477
-      ],
-      "mesh_penetration_mm": 4.4882
-    },
-    {
-      "a": "J3-IO35",
-      "b": "J4-3V3",
-      "point_mm": [
-        -15.946,
-        219.722,
-        273.604
-      ],
-      "mesh_penetration_mm": 1.2726
-    },
-    {
-      "a": "J3-IO35",
-      "b": "J4-IO26",
-      "point_mm": [
-        -38.907,
-        288.974,
-        273.903
-      ],
-      "mesh_penetration_mm": 3.0356
-    },
-    {
-      "a": "J3-IO35",
-      "b": "J4-V5",
-      "point_mm": [
-        -16.634,
-        223.106,
-        273.77
-      ],
-      "mesh_penetration_mm": 0.5994
-    },
-    {
-      "a": "J3-IO35",
-      "b": "J4-IO25",
-      "point_mm": [
-        -16.394,
-        225.256,
-        273.92
-      ],
-      "mesh_penetration_mm": 0.6236
-    },
-    {
-      "a": "J3-IO35",
-      "b": "J4-GND",
-      "point_mm": [
-        -16.162,
-        217.749,
-        274.169
-      ],
-      "mesh_penetration_mm": 0.8766
-    },
-    {
-      "a": "J3-IO35",
-      "b": "J7-GND",
-      "point_mm": [
-        -16.501,
-        267.998,
-        271.76
-      ],
-      "mesh_penetration_mm": 0.9254
-    },
-    {
-      "a": "J3-IO35",
-      "b": "J7-RB1",
-      "point_mm": [
-        -16.302,
-        253.047,
-        272.273
-      ],
-      "mesh_penetration_mm": 0.734
-    },
-    {
-      "a": "J3-IO35",
-      "b": "J7-RB2",
-      "point_mm": [
-        -16.302,
-        255.547,
-        272.247
-      ],
-      "mesh_penetration_mm": 0.823
-    },
-    {
-      "a": "J3-IO35",
-      "b": "J7-RB3",
-      "point_mm": [
-        -16.302,
-        258.047,
-        272.255
-      ],
-      "mesh_penetration_mm": 0.9458
-    },
-    {
-      "a": "J3-IO35",
-      "b": "J7-RB4",
-      "point_mm": [
-        -15.564,
-        260.267,
-        268.4
-      ],
-      "mesh_penetration_mm": 1.3729
-    },
-    {
-      "a": "J3-IO35",
-      "b": "J7-CLO",
-      "point_mm": [
-        -15.564,
-        262.767,
-        268.4
-      ],
-      "mesh_penetration_mm": 2.1704
-    },
-    {
-      "a": "J3-IO35",
-      "b": "J7-CHI",
-      "point_mm": [
-        -15.717,
-        264.003,
-        268.4
-      ],
-      "mesh_penetration_mm": 2.2599
-    },
-    {
-      "a": "J3-IO35",
-      "b": "J9-B",
-      "point_mm": [
-        -16.303,
-        239.547,
-        273.152
-      ],
-      "mesh_penetration_mm": 0.9918
-    },
-    {
-      "a": "J3-IO35",
-      "b": "J9-A",
-      "point_mm": [
-        -15.564,
-        241.767,
-        268.4
-      ],
-      "mesh_penetration_mm": 1.7438
-    },
-    {
-      "a": "J3-IO35",
-      "b": "J9-GND",
-      "point_mm": [
-        -15.564,
-        243.139,
-        268.4
-      ],
-      "mesh_penetration_mm": 1.7163
-    },
-    {
-      "a": "J3-IO35",
-      "b": "J9-V12",
-      "point_mm": [
-        -15.717,
-        246.902,
-        268.4
-      ],
-      "mesh_penetration_mm": 2.7627
-    },
-    {
-      "a": "J3-IO33",
-      "b": "J4-3V3",
-      "point_mm": [
-        -15.946,
-        219.722,
-        273.604
-      ],
-      "mesh_penetration_mm": 1.4055
-    },
-    {
-      "a": "J3-IO33",
-      "b": "J4-IO26",
-      "point_mm": [
-        -15.939,
-        213.83,
-        275.106
-      ],
-      "mesh_penetration_mm": 5.5852
-    },
-    {
-      "a": "J3-IO33",
-      "b": "J4-V5",
-      "point_mm": [
-        -16.634,
-        223.106,
-        273.77
-      ],
-      "mesh_penetration_mm": 0.6068
-    },
-    {
-      "a": "J3-IO33",
-      "b": "J4-IO25",
-      "point_mm": [
-        -16.649,
-        225.931,
-        273.6
-      ],
-      "mesh_penetration_mm": 0.5778
-    },
-    {
-      "a": "J3-IO33",
-      "b": "J4-GND",
-      "point_mm": [
-        -16.162,
-        217.749,
-        274.169
-      ],
-      "mesh_penetration_mm": 0.7628
-    },
-    {
-      "a": "J3-IO33",
-      "b": "J7-GND",
-      "point_mm": [
-        -16.836,
-        267.767,
-        271.76
-      ],
-      "mesh_penetration_mm": 0.6827
-    },
-    {
-      "a": "J3-IO33",
-      "b": "J7-RB1",
-      "point_mm": [
-        -17.008,
-        252.149,
-        272.855
-      ],
-      "mesh_penetration_mm": 0.5958
-    },
-    {
-      "a": "J3-IO33",
-      "b": "J7-RB2",
-      "point_mm": [
-        -16.836,
-        255.267,
-        272.247
-      ],
-      "mesh_penetration_mm": 0.6344
-    },
-    {
-      "a": "J3-IO33",
-      "b": "J7-RB3",
-      "point_mm": [
-        -16.683,
-        257.902,
-        272.255
-      ],
-      "mesh_penetration_mm": 0.741
-    },
-    {
-      "a": "J3-IO33",
-      "b": "J7-RB4",
-      "point_mm": [
-        -16.683,
-        260.402,
-        272.306
-      ],
-      "mesh_penetration_mm": 0.9023
-    },
-    {
-      "a": "J3-IO33",
-      "b": "J7-CLO",
-      "point_mm": [
-        -15.899,
-        262.998,
-        268.4
-      ],
-      "mesh_penetration_mm": 1.2723
-    },
-    {
-      "a": "J3-IO33",
-      "b": "J7-CHI",
-      "point_mm": [
-        -16.302,
-        265.547,
-        268.4
-      ],
-      "mesh_penetration_mm": 1.5735
-    },
-    {
-      "a": "J3-IO33",
-      "b": "J9-B",
-      "point_mm": [
-        -16.502,
-        239.498,
-        273.152
-      ],
-      "mesh_penetration_mm": 0.8246
-    },
-    {
-      "a": "J3-IO33",
-      "b": "J9-A",
-      "point_mm": [
-        -16.502,
-        241.998,
-        273.138
-      ],
-      "mesh_penetration_mm": 0.921
-    },
-    {
-      "a": "J3-IO33",
-      "b": "J9-GND",
-      "point_mm": [
-        -16.683,
-        244.402,
-        273.122
-      ],
-      "mesh_penetration_mm": 1.0146
-    },
-    {
-      "a": "J3-IO33",
-      "b": "J9-V12",
-      "point_mm": [
-        -15.717,
-        246.902,
-        268.4
-      ],
-      "mesh_penetration_mm": 1.5724
-    },
-    {
-      "a": "J4-3V3",
-      "b": "J4-IO26",
-      "point_mm": [
-        -16.135,
-        229.884,
-        274.29
-      ],
-      "mesh_penetration_mm": 1.3756
-    },
-    {
-      "a": "J4-3V3",
-      "b": "J4-V5",
-      "point_mm": [
-        -16.425,
-        223.839,
-        274.0
-      ],
-      "mesh_penetration_mm": 0.4934
-    },
-    {
-      "a": "J4-3V3",
-      "b": "J4-IO25",
-      "point_mm": [
-        -16.205,
-        225.85,
-        274.414
-      ],
-      "mesh_penetration_mm": 0.5579
-    },
-    {
-      "a": "J4-3V3",
-      "b": "J4-GND",
-      "point_mm": [
-        -16.237,
-        220.31,
-        273.998
-      ],
-      "mesh_penetration_mm": 0.4793
-    },
-    {
-      "a": "J4-3V3",
-      "b": "temp-GND",
-      "point_mm": [
-        -49.852,
-        331.141,
-        231.113
-      ],
-      "mesh_penetration_mm": 2.8085
-    },
-    {
-      "a": "J4-3V3",
-      "b": "J6-RA3",
-      "point_mm": [
-        -45.724,
-        338.799,
-        270.0
-      ],
-      "mesh_penetration_mm": 2.2921
-    },
-    {
-      "a": "J4-3V3",
-      "b": "J7-CLO",
-      "point_mm": [
-        -17.702,
-        278.622,
-        273.831
-      ],
-      "mesh_penetration_mm": 1.8624
-    },
-    {
-      "a": "J4-3V3",
-      "b": "J7-CHI",
-      "point_mm": [
-        -25.43,
-        293.236,
-        273.682
-      ],
-      "mesh_penetration_mm": 7.1336
-    },
-    {
-      "a": "J4-3V3",
-      "b": "J7-carb-earth-2",
-      "point_mm": [
-        -72.055,
-        355.793,
-        230.368
-      ],
-      "mesh_penetration_mm": 0.8766
-    },
-    {
-      "a": "J4-3V3",
-      "b": "J9-B",
-      "point_mm": [
-        -15.903,
-        214.75,
-        285.183
-      ],
-      "mesh_penetration_mm": 1.5474
-    },
-    {
-      "a": "J4-3V3",
-      "b": "J9-A",
-      "point_mm": [
-        -16.614,
-        239.74,
-        274.354
-      ],
-      "mesh_penetration_mm": 0.5699
-    },
-    {
-      "a": "J4-3V3",
-      "b": "J9-GND",
-      "point_mm": [
-        -16.791,
-        244.0,
-        274.292
-      ],
-      "mesh_penetration_mm": 0.5307
-    },
-    {
-      "a": "J4-3V3",
-      "b": "J9-V12",
-      "point_mm": [
-        -16.889,
-        246.339,
-        274.242
-      ],
-      "mesh_penetration_mm": 0.5627
-    },
-    {
-      "a": "J4-IO26",
-      "b": "temp-GND",
-      "point_mm": [
-        -50.13,
-        334.752,
-        277.083
-      ],
-      "mesh_penetration_mm": 4.9764
-    },
-    {
-      "a": "J4-IO26",
-      "b": "J7-CLO",
-      "point_mm": [
-        -40.642,
-        288.949,
-        274.122
-      ],
-      "mesh_penetration_mm": 14.4663
-    },
-    {
-      "a": "J4-IO26",
-      "b": "J7-CHI",
-      "point_mm": [
-        -49.221,
-        339.151,
-        278.687
-      ],
-      "mesh_penetration_mm": 1.5541
-    },
-    {
-      "a": "J4-V5",
-      "b": "J4-IO25",
-      "point_mm": [
-        -8.165,
-        233.855,
-        273.416
-      ],
-      "mesh_penetration_mm": 1.3731
-    },
-    {
-      "a": "J4-V5",
-      "b": "J7-RB1",
-      "point_mm": [
-        16.803,
-        208.219,
-        271.535
-      ],
-      "mesh_penetration_mm": 36.5461
-    },
-    {
-      "a": "J4-V5",
-      "b": "J7-RB2",
-      "point_mm": [
-        41.742,
-        309.55,
-        273.746
-      ],
-      "mesh_penetration_mm": 48.9473
-    },
-    {
-      "a": "J4-V5",
-      "b": "J7-RB3",
-      "point_mm": [
-        22.331,
-        191.786,
-        269.812
-      ],
-      "mesh_penetration_mm": 47.5284
-    },
-    {
-      "a": "J4-V5",
-      "b": "J7-RB4",
-      "point_mm": [
-        20.848,
-        195.461,
-        271.605
-      ],
-      "mesh_penetration_mm": 47.0855
-    },
-    {
-      "a": "J4-IO25",
-      "b": "J7-RB1",
-      "point_mm": [
-        17.064,
-        208.401,
-        271.788
-      ],
-      "mesh_penetration_mm": 36.178
-    },
-    {
-      "a": "J4-IO25",
-      "b": "J7-RB2",
-      "point_mm": [
-        22.756,
-        193.155,
-        269.772
-      ],
-      "mesh_penetration_mm": 36.1032
-    },
-    {
-      "a": "J4-IO25",
-      "b": "J7-RB3",
-      "point_mm": [
-        22.331,
-        191.786,
-        269.812
-      ],
-      "mesh_penetration_mm": 36.4706
-    },
-    {
-      "a": "J4-IO25",
-      "b": "J7-RB4",
-      "point_mm": [
-        20.989,
-        195.537,
-        271.733
-      ],
-      "mesh_penetration_mm": 46.5781
-    },
-    {
-      "a": "temp-GND",
-      "b": "J6-RA1",
-      "point_mm": [
-        -50.563,
-        334.587,
-        277.931
-      ],
-      "mesh_penetration_mm": 1.1398
-    },
-    {
-      "a": "temp-GND",
-      "b": "J7-CLO",
-      "point_mm": [
-        -48.919,
-        334.965,
-        277.952
-      ],
-      "mesh_penetration_mm": 1.1948
-    },
-    {
-      "a": "temp-GND",
-      "b": "J7-carb-earth-2",
-      "point_mm": [
-        -67.5,
-        358.75,
-        230.174
-      ],
-      "mesh_penetration_mm": 4.8296
-    },
-    {
-      "a": "temp-GND",
-      "b": "J9-B",
-      "point_mm": [
-        -16.836,
-        239.267,
-        268.4
-      ],
-      "mesh_penetration_mm": 3.3817
-    },
-    {
-      "a": "temp-GND",
-      "b": "J9-A",
-      "point_mm": [
-        -16.953,
-        240.808,
-        268.4
-      ],
-      "mesh_penetration_mm": 2.1786
-    },
-    {
-      "a": "J5-V5",
-      "b": "relay-bus-V5",
-      "point_mm": [
-        -73.034,
-        371.205,
-        313.485
-      ],
-      "mesh_penetration_mm": 0.5148
-    },
-    {
-      "a": "J5-V5",
-      "b": "J5-GND",
-      "point_mm": [
-        -92.645,
-        319.649,
-        283.713
-      ],
-      "mesh_penetration_mm": 3.1755
-    },
-    {
-      "a": "J5-V5",
-      "b": "J5-IO19",
-      "point_mm": [
-        -93.144,
-        284.218,
-        275.641
-      ],
-      "mesh_penetration_mm": 4.4666
-    },
-    {
-      "a": "J5-V5",
-      "b": "J5-IO2",
-      "point_mm": [
-        -95.006,
-        331.357,
-        283.864
-      ],
-      "mesh_penetration_mm": 5.2096
-    },
-    {
-      "a": "relay-bus-V5",
-      "b": "J5-GND",
-      "point_mm": [
-        -70.949,
-        371.635,
-        316.478
-      ],
-      "mesh_penetration_mm": 0.4991
-    },
-    {
-      "a": "relay-bus-V5",
-      "b": "relay-bus-GND",
-      "point_mm": [
-        -71.974,
-        371.605,
-        315.951
-      ],
-      "mesh_penetration_mm": 0.6614
-    },
-    {
-      "a": "relay-bus-V5",
-      "b": "J5-IO19",
-      "point_mm": [
-        -71.0,
-        371.872,
-        317.6
-      ],
-      "mesh_penetration_mm": 0.76
-    },
-    {
-      "a": "J5-GND",
-      "b": "relay-bus-GND",
-      "point_mm": [
-        -70.795,
-        371.758,
-        316.123
-      ],
-      "mesh_penetration_mm": 0.5694
-    },
-    {
-      "a": "J5-GND",
-      "b": "J5-IO19",
-      "point_mm": [
-        -94.559,
-        331.311,
-        287.946
-      ],
-      "mesh_penetration_mm": 3.1068
-    },
-    {
-      "a": "J5-GND",
-      "b": "J5-IO2",
-      "point_mm": [
-        -93.024,
-        319.108,
-        276.95
-      ],
-      "mesh_penetration_mm": 6.5444
-    },
-    {
-      "a": "J5-IO19",
-      "b": "J5-IO2",
-      "point_mm": [
-        -93.024,
-        284.062,
-        276.95
-      ],
-      "mesh_penetration_mm": 5.7308
-    },
-    {
-      "a": "J6-GND",
-      "b": "J6-RA1",
-      "point_mm": [
-        -33.383,
-        455.718,
-        220.508
-      ],
-      "mesh_penetration_mm": 3.861
-    },
-    {
-      "a": "J6-GND",
-      "b": "J6-RA2",
-      "point_mm": [
-        -39.737,
-        290.724,
-        277.56
-      ],
-      "mesh_penetration_mm": 13.456
-    },
-    {
-      "a": "J6-GND",
-      "b": "J6-RA3",
-      "point_mm": [
-        -22.815,
-        405.729,
-        269.366
-      ],
-      "mesh_penetration_mm": 27.6498
-    },
-    {
-      "a": "J6-GND",
-      "b": "J6-earth-3",
-      "point_mm": [
-        -35.666,
-        459.067,
-        219.59
-      ],
-      "mesh_penetration_mm": 0.0268
-    },
-    {
-      "a": "J6-GND",
-      "b": "J6-RA4",
-      "point_mm": [
-        -33.259,
-        460.795,
-        220.455
-      ],
-      "mesh_penetration_mm": 3.8587
-    },
-    {
-      "a": "J6-RA1",
-      "b": "J6-RA2",
-      "point_mm": [
-        -34.616,
-        386.19,
-        293.944
-      ],
-      "mesh_penetration_mm": 6.4924
-    },
-    {
-      "a": "J6-RA1",
-      "b": "J6-RA3",
-      "point_mm": [
-        -50.295,
-        346.868,
-        277.623
-      ],
-      "mesh_penetration_mm": 8.4366
-    },
-    {
-      "a": "J6-RA1",
-      "b": "J6-RA4",
-      "point_mm": [
-        -33.964,
-        455.633,
-        220.644
-      ],
-      "mesh_penetration_mm": 5.0646
-    },
-    {
-      "a": "J6-RA1",
-      "b": "J7-CLO",
-      "point_mm": [
-        -50.362,
-        346.872,
-        277.816
-      ],
-      "mesh_penetration_mm": 5.5363
-    },
-    {
-      "a": "J6-RA1",
-      "b": "J7-CHI",
-      "point_mm": [
-        -50.013,
-        338.816,
-        277.958
-      ],
-      "mesh_penetration_mm": 0.8557
-    },
-    {
-      "a": "J6-earth-1",
-      "b": "J6-earth-2",
-      "point_mm": [
-        -35.601,
-        459.095,
-        35.7
-      ],
-      "mesh_penetration_mm": 0.0491
-    },
-    {
-      "a": "J6-RA2",
-      "b": "J6-RA3",
-      "point_mm": [
-        -76.229,
-        234.619,
-        273.854
-      ],
-      "mesh_penetration_mm": 6.9642
-    },
-    {
-      "a": "J6-RA2",
-      "b": "J6-RA4",
-      "point_mm": [
-        -41.438,
-        413.511,
-        292.334
-      ],
-      "mesh_penetration_mm": 13.9248
-    },
-    {
-      "a": "J6-earth-2",
-      "b": "J6-earth-3",
-      "point_mm": [
-        -35.601,
-        457.505,
-        89.7
-      ],
-      "mesh_penetration_mm": 0.0491
-    },
-    {
-      "a": "J6-RA3",
-      "b": "J6-RA4",
-      "point_mm": [
-        -76.712,
-        232.251,
-        275.362
-      ],
-      "mesh_penetration_mm": 13.5263
-    },
-    {
-      "a": "J7-GND",
-      "b": "J7-earth-4",
-      "point_mm": [
-        -7.242,
-        258.092,
-        262.36
-      ],
-      "mesh_penetration_mm": 0.462
-    },
-    {
-      "a": "J7-RB1",
-      "b": "J7-RB2",
-      "point_mm": [
-        -34.623,
-        187.19,
-        220.574
-      ],
-      "mesh_penetration_mm": 4.0871
-    },
-    {
-      "a": "J7-RB1",
-      "b": "J7-RB3",
-      "point_mm": [
-        -34.4,
-        186.857,
-        220.647
-      ],
-      "mesh_penetration_mm": 5.7643
-    },
-    {
-      "a": "J7-RB1",
-      "b": "J7-RB4",
-      "point_mm": [
-        -15.563,
-        250.003,
-        274.415
-      ],
-      "mesh_penetration_mm": 5.2167
-    },
-    {
-      "a": "J7-RB1",
-      "b": "J7-earth-4",
-      "point_mm": [
-        -33.457,
-        186.682,
-        220.534
-      ],
-      "mesh_penetration_mm": 3.8529
-    },
-    {
-      "a": "J7-earth-1",
-      "b": "J7-earth-2",
-      "point_mm": [
-        -35.601,
-        190.095,
-        35.7
-      ],
-      "mesh_penetration_mm": 0.0491
-    },
-    {
-      "a": "J7-RB2",
-      "b": "J7-RB3",
-      "point_mm": [
-        -31.372,
-        186.59,
-        220.533
-      ],
-      "mesh_penetration_mm": 5.2147
-    },
-    {
-      "a": "J7-RB2",
-      "b": "J7-RB4",
-      "point_mm": [
-        -34.361,
-        191.776,
-        220.651
-      ],
-      "mesh_penetration_mm": 5.7732
-    },
-    {
-      "a": "J7-RB2",
-      "b": "J7-earth-4",
-      "point_mm": [
-        -35.899,
-        189.495,
-        220.702
-      ],
-      "mesh_penetration_mm": 5.4981
-    },
-    {
-      "a": "J7-earth-2",
-      "b": "J7-earth-3",
-      "point_mm": [
-        -35.601,
-        190.095,
-        89.7
-      ],
-      "mesh_penetration_mm": 0.0491
-    },
-    {
-      "a": "J7-RB3",
-      "b": "J7-RB4",
-      "point_mm": [
-        -30.401,
-        190.915,
-        220.476
-      ],
-      "mesh_penetration_mm": 4.1138
-    },
-    {
-      "a": "J7-RB3",
-      "b": "J7-earth-4",
-      "point_mm": [
-        -30.384,
-        191.305,
-        220.592
-      ],
-      "mesh_penetration_mm": 5.5664
-    },
-    {
-      "a": "J7-earth-3",
-      "b": "J7-earth-4",
-      "point_mm": [
-        -34.544,
-        188.912,
-        219.59
-      ],
-      "mesh_penetration_mm": 0.0462
-    },
-    {
-      "a": "J7-RB4",
-      "b": "J7-earth-4",
-      "point_mm": [
-        -33.412,
-        191.897,
-        220.518
-      ],
-      "mesh_penetration_mm": 3.8539
-    },
-    {
-      "a": "J7-CLO",
-      "b": "J7-CHI",
-      "point_mm": [
-        -16.206,
-        266.856,
-        274.839
-      ],
-      "mesh_penetration_mm": 4.0797
-    },
-    {
-      "a": "J9-B",
-      "b": "J9-A",
-      "point_mm": [
-        -15.436,
-        237.759,
-        275.298
-      ],
-      "mesh_penetration_mm": 0.8926
-    },
-    {
-      "a": "J9-A",
-      "b": "J9-GND",
-      "point_mm": [
-        -15.328,
-        240.28,
-        275.237
-      ],
-      "mesh_penetration_mm": 0.7996
-    },
-    {
-      "a": "J9-A",
-      "b": "J9-V12",
-      "point_mm": [
-        7.762,
-        109.51,
-        285.588
-      ],
-      "mesh_penetration_mm": 1.4252
-    },
-    {
-      "a": "J9-GND",
-      "b": "J9-V12",
-      "point_mm": [
-        -15.227,
-        242.804,
-        275.176
-      ],
-      "mesh_penetration_mm": 0.7072
-    },
-    {
-      "a": "J11-V5",
-      "b": "J11-GND",
-      "point_mm": [
-        -21.253,
-        177.606,
-        251.869
-      ],
-      "mesh_penetration_mm": 2.6917
-    },
-    {
-      "a": "J11-V5",
-      "b": "J11-DOUT",
-      "point_mm": [
-        -78.572,
-        81.528,
-        132.05
-      ],
-      "mesh_penetration_mm": 6.5447
-    },
-    {
-      "a": "J11-V5",
-      "b": "J11-AOUT",
-      "point_mm": [
-        -73.404,
-        78.491,
-        135.455
-      ],
-      "mesh_penetration_mm": 6.3939
-    },
-    {
-      "a": "J11-GND",
-      "b": "J11-DOUT",
-      "point_mm": [
-        -71.22,
-        41.609,
-        16.076
-      ],
-      "mesh_penetration_mm": 1.9036
-    },
-    {
-      "a": "J11-GND",
-      "b": "J11-AOUT",
-      "point_mm": [
-        -71.172,
-        41.798,
-        16.014
-      ],
-      "mesh_penetration_mm": 1.8342
-    },
-    {
-      "a": "J11-DOUT",
-      "b": "J11-AOUT",
-      "point_mm": [
-        -74.586,
-        79.745,
-        136.286
-      ],
-      "mesh_penetration_mm": 1.6839
-    }
-  ],
-  "bundle_interference_pairs": [
-    {
-      "bundle": "terminal-compressor-cord-jacket",
-      "part": "tube-fluid-16",
-      "point_mm": [
-        49.441,
-        134.996,
-        185.463
-      ],
-      "mesh_penetration_mm": 72.0013
-    }
-  ],
+  "wire_packing_pairs": [],
+  "bundle_interference_pairs": [],
   "termination_interference_pairs": [],
-  "wires_with_physical_interference": 17,
+  "wires_with_physical_interference": 5,
   "endpoint_contact_scope": "Only the named endpoint part within 8.5 mm of its attachment. All other contact with that part remains in the reading.",
   "native": {
-    "scope": "All standalone native wires and their installed native placements, read back from both STEP files.",
-    "wiring_step_sha256": "f672955d0b055cc6da1c42e77b88c107380e79cdcefc19925c47a9eba13a1bea",
-    "all_valid_single_solids": false,
-    "maximum_installed_bounds_error_mm": 0.0,
-    "invalid": [
-      {
-        "id": "J4-3V3",
-        "valid": false,
-        "solids": 1,
-        "volume_mm3": 992.1591363991444
-      },
-      {
-        "id": "J4-IO26",
-        "valid": false,
-        "solids": 1,
-        "volume_mm3": 990.4751476143539
-      },
-      {
-        "id": "temp-GND",
-        "valid": false,
-        "solids": 1,
-        "volume_mm3": 1060.2301977445948
-      },
-      {
-        "id": "J6-GND",
-        "valid": false,
-        "solids": 1,
-        "volume_mm3": 795.3217310628996
-      },
-      {
-        "id": "J6-RA4",
-        "valid": false,
-        "solids": 1,
-        "volume_mm3": 738.8800632924316
-      },
-      {
-        "id": "J7-RB2",
-        "valid": false,
-        "solids": 1,
-        "volume_mm3": 756.3372057268039
-      },
-      {
-        "id": "J7-RB4",
-        "valid": false,
-        "solids": 1,
-        "volume_mm3": 501.74449298738983
-      },
-      {
-        "id": "J7-CLO",
-        "valid": false,
-        "solids": 1,
-        "volume_mm3": 922.4247464367297
-      },
-      {
-        "id": "J7-CHI",
-        "valid": false,
-        "solids": 1,
-        "volume_mm3": 736.9752218355034
-      },
-      {
-        "id": "J7-carb-earth-2",
-        "valid": false,
-        "solids": 1,
-        "volume_mm3": 791.7845689463993
-      }
-    ],
-    "wire_count": 98,
-    "reference_frame_maximum_extent_residual_mm": 1.2647660696529783e-12,
-    "termination_count": 14,
-    "invalid_terminations": [],
-    "bundles": {
-      "compressor-cord": {
-        "valid": true,
-        "solids": 1,
-        "core_jacket_overlap_mm3": {
-          "AC4-H": 0.0,
-          "AC5-N": 0.0,
-          "AC6-PE": 0.0
-        },
-        "core_pair_overlap_mm3": {
-          "AC4-H / AC5-N": 175.41471164643048,
-          "AC4-H / AC6-PE": 0.0,
-          "AC5-N / AC6-PE": 0.3962588387595913
-        }
-      },
-      "reed-column-a": {
-        "jacket": false,
-        "core_pair_overlap_mm3": {
-          "J6-RA1 / J6-RA2": 66.40460766125608,
-          "J6-RA1 / J6-RA3": 89.99575518909128,
-          "J6-RA1 / J6-RA4": 47.41423121161776,
-          "J6-RA1 / J6-GND": 8.558234670448696,
-          "J6-RA2 / J6-RA3": 84.50203844033388,
-          "J6-RA2 / J6-RA4": 79.49515677630245,
-          "J6-RA2 / J6-GND": 18.732365931630817,
-          "J6-RA3 / J6-RA4": 72.72359241047181,
-          "J6-RA3 / J6-GND": 8.888929754496255,
-          "J6-RA4 / J6-GND": 9.722696433499802
-        }
-      },
-      "reed-column-b": {
-        "jacket": false,
-        "core_pair_overlap_mm3": {
-          "J7-earth-4 / J7-RB1": 12.073846547721322,
-          "J7-earth-4 / J7-RB2": 10.35860034110693,
-          "J7-earth-4 / J7-RB3": 20.659464940617994,
-          "J7-earth-4 / J7-RB4": 18.084244289286005,
-          "J7-RB1 / J7-RB2": 39.47017035010958,
-          "J7-RB1 / J7-RB3": 24.761972074951103,
-          "J7-RB1 / J7-RB4": 38.630259461566375,
-          "J7-RB2 / J7-RB3": 107.65293725425829,
-          "J7-RB2 / J7-RB4": 26.14258224034294,
-          "J7-RB3 / J7-RB4": 29.291994762943844
-        }
-      },
-      "temperature-bus": {
-        "jacket": false,
-        "core_pair_overlap_mm3": {
-          "temp-bus-V / temp-bus-DATA": 0.0,
-          "temp-bus-V / temp-bus-GND": 0.0,
-          "temp-bus-DATA / temp-bus-GND": 0.0
-        }
-      },
-      "sensor-cable": {
-        "jacket": false,
-        "core_pair_overlap_mm3": {
-          "PE-carbonator / J4-3V3": 43.64880814163831,
-          "PE-carbonator / J4-IO26": 16.64573275462498,
-          "PE-carbonator / temp-GND": 5.7318009997491535,
-          "PE-carbonator / J7-CLO": 0.008930048165470968,
-          "PE-carbonator / J7-CHI": 31.358603804732777,
-          "PE-carbonator / J7-carb-earth-2": 1.4220829187870296,
-          "J4-3V3 / J4-IO26": 7.152216165715016,
-          "J4-3V3 / temp-GND": 22.06893113168794,
-          "J4-3V3 / J7-CLO": 25.77716187368163,
-          "J4-3V3 / J7-CHI": 12.891290161905802,
-          "J4-3V3 / J7-carb-earth-2": 45.41775361188967,
-          "J4-IO26 / temp-GND": 64.21464856729726,
-          "J4-IO26 / J7-CLO": 10.241090388065114,
-          "J4-IO26 / J7-CHI": 11.096680597395107,
-          "J4-IO26 / J7-carb-earth-2": 0.0,
-          "temp-GND / J7-CLO": 7.959884073262383,
-          "temp-GND / J7-CHI": 0.0,
-          "temp-GND / J7-carb-earth-2": -0.15136817123645369,
-          "J7-CLO / J7-CHI": 39.50169331216736,
-          "J7-CLO / J7-carb-earth-2": 0.0,
-          "J7-CHI / J7-carb-earth-2": 0.0
-        }
-      }
-    },
-    "unique_connection_ids": true,
-    "populated_board_contacts": 53,
-    "bench_pin_maps_match": {
-      "J2": true,
-      "J13": true
-    }
-  },
-  "current_artifact_binding": {
-    "scope": "Actual current wiring/manifest readback plus scoped dispositions of the recorded mesh witnesses. Equipment receipts keep their named geometry and query scopes. This is not a new whole-scene contact, packing, closing-motion or physical harness qualification.",
+    "scope": "Current source and readback binding for every conductor, jacket and connector, plus exact native dispositions of the five mesh witnesses. Wires and tubes are excluded from wire obstacles.",
+    "wiring_step_sha256": "31db8304c25e6fb208b56ce71b0c5fd4329e17f863e2c3e6d8b46b0ac6b5617b",
+    "assembly_step_sha256": "ca97ae6843b072a36ed69bca4acee23c759af25e1e5a4dab064d446706e60424",
+    "manifest_sha256": "bd5001b01d8ae0e2151d16dd76ee97da9ea7a0bee4e8aa50aa6dee73e9202d3e",
+    "wire_count": 101,
+    "body_count": 120,
+    "all_valid_single_solids": true,
+    "source_curves_match": true,
+    "all_native_shapes_bound": true,
+    "maximum_volume_delta_mm3": 8.857114153215662e-09,
+    "maximum_bounds_delta_mm": 1.0000769634643802e-07,
     "readback_record": {
       "path": "hardware/wiring/installed/above-core-review/installed-wiring-binding.json",
-      "sha256": "d402b055cdc23d55fa17a4017db71e319986c8fc5c9a3dcd956439c86b5a08b2"
+      "sha256": "32802e1ed6e3e90e7f6ad5261f2ed07a25f7868b9d96f63aef55846890ee3398"
     },
-    "assembly_step_sha256": "79483a957d0d56f811942edd7ac6f0210f193f420965eb7e9977e18426cf081f",
-    "wiring_step_sha256": "19aa3cf46d1df76491ad41fbac79f1696d82b784fbfccacf18258ebc428260f9",
-    "manifest_sha256": "d72567894d379f9bcf40938b0e9f2c15b0031c632460d2236d1ff4bae9709e54",
-    "mesh_snapshot_is_current": false,
-    "native_snapshot_is_current": false,
-    "source_route_count": 98,
-    "actual_body_count": 113,
-    "status": "bound",
-    "all_source_curves_match": true,
-    "all_native_shapes_bound": true,
-    "source_invalid_bodies": [],
-    "actual_readback_invalid_bodies": [
-      "wire-J4-3V3",
-      "wire-J4-IO26",
-      "wire-temp-GND",
-      "wire-J6-GND",
-      "wire-J6-RA4",
-      "wire-J7-RB2",
-      "wire-J7-RB4",
-      "wire-J7-CLO",
-      "wire-J7-CHI",
-      "wire-J7-carb-earth-2"
-    ],
-    "installed_readback_invalid_bodies": [
-      "wire-J4-3V3",
-      "wire-J4-IO26",
-      "wire-temp-GND",
-      "wire-J6-GND",
-      "wire-J6-RA4",
-      "wire-J7-RB2",
-      "wire-J7-RB4",
-      "wire-J7-CLO",
-      "wire-J7-CHI",
-      "wire-J7-carb-earth-2"
-    ],
-    "exchange_scope": "Native source solids and geometric agreement are distinct from STEP reader orientation validity. Any listed readback-invalid bodies retain their explicit exchange limitation; no per-wire geometry is altered to silence it.",
-    "physical_pair_dispositions": [
+    "mesh_witness_dispositions": [
       {
         "mesh_pair_index": 0,
-        "wire": "AC1-PE",
         "part": "c14-inlet",
-        "status": "native_zero_mesh_witness",
-        "native_reading_mm3": 0.0,
-        "evidence": {
-          "path": "hardware/wiring/installed/above-core-review/routing-witness-native-review.json",
-          "sha256": "f778d93607266ae734037871c9aac07b2a1a80b9a085786b537abb9380c7d56e",
-          "json_pointer": "/pairs/2",
-          "canonical_json_sha256": "d1adf3831ec4a40fa870ba36fa1501376f30d8e39b2c46e742a81e2c137aa9e8"
-        },
-        "endpoint_scope": "Raw native common is zero; no new mask or body exclusion is used."
+        "wire": "AC1-PE",
+        "raw_common_mm3": 0.0,
+        "outside_8_5mm_endpoint_mm3": 0.0,
+        "common_bounds_inside_endpoint_ball": false,
+        "source_curve_sha256": "2f4e3e5f0b98367201e64405cbc733555c8b0857b70d3ed3dba41d92c24fe12f",
+        "body_brep_sha256": "28c539bf9e3dc25ac54b3101adb2614fcfd3370dc6ab2e4d6196906cdcb1cf59",
+        "status": "native_zero",
+        "endpoint_scope_mm": 8.5
       },
       {
         "mesh_pair_index": 1,
-        "wire": "AC4-H",
-        "part": "tube-fluid-16",
-        "status": "addressed_by_scoped_native_route_and_wire_receipts",
-        "evidence": {
-          "path": "hardware/mechanical-qualification/enclosure-above-core/reservoir-a-route-review.json",
-          "sha256": "b10dac728157da6aec764562aeb0c7222199a664a7f21e0def4775fd252bbfae",
-          "json_pointer": "/current_free_curves",
-          "canonical_json_sha256": "6580043dd2bb627206c6438543029cd6b43beadc351d0d3a53397db85e37c11e"
-        },
-        "tube_brep_sha256": "9f597cb0d076ad07339947c400d51bd48b8e231ebfc9bf948edbbb7f0ee8d5ae"
+        "part": "wiring-junction-pump-positive",
+        "wire": "DC3-positive",
+        "raw_common_mm3": 7.065554889656472,
+        "outside_8_5mm_endpoint_mm3": 0.0,
+        "common_bounds_inside_endpoint_ball": true,
+        "source_curve_sha256": "35c3900ab611ed7c97ef361c877c3b18e876198bdb552183e5fb306742ef5554",
+        "body_basis": "Native wago-h reference translated to final pump-positive join; native source/readback binding covers this body",
+        "status": "native_contact_within_named_attachment",
+        "endpoint_scope_mm": 8.5
       },
       {
         "mesh_pair_index": 2,
-        "wire": "AC5-N",
-        "part": "tube-fluid-16",
-        "status": "addressed_by_scoped_native_route_and_wire_receipts",
-        "evidence": {
-          "path": "hardware/mechanical-qualification/enclosure-above-core/reservoir-a-route-review.json",
-          "sha256": "b10dac728157da6aec764562aeb0c7222199a664a7f21e0def4775fd252bbfae",
-          "json_pointer": "/current_free_curves",
-          "canonical_json_sha256": "6580043dd2bb627206c6438543029cd6b43beadc351d0d3a53397db85e37c11e"
-        },
-        "tube_brep_sha256": "9f597cb0d076ad07339947c400d51bd48b8e231ebfc9bf948edbbb7f0ee8d5ae"
+        "part": "coil-v-g",
+        "wire": "J1-OUT7",
+        "raw_common_mm3": 0.486065457036509,
+        "outside_8_5mm_endpoint_mm3": 0.0,
+        "common_bounds_inside_endpoint_ball": true,
+        "source_curve_sha256": "f1bc1a291c43a6c84534dadb593a96eb8af21c698746287d3285a3c23c670fe6",
+        "body_brep_sha256": "096b383d89f6d1b76f04329b08a1ca570f866961c8094d5e42095ffaa8137924",
+        "status": "native_contact_within_named_attachment",
+        "endpoint_scope_mm": 8.5
       },
       {
         "mesh_pair_index": 3,
-        "wire": "AC6-PE",
-        "part": "tube-fluid-16",
-        "status": "addressed_by_scoped_native_route_and_wire_receipts",
-        "evidence": {
-          "path": "hardware/mechanical-qualification/enclosure-above-core/reservoir-a-route-review.json",
-          "sha256": "b10dac728157da6aec764562aeb0c7222199a664a7f21e0def4775fd252bbfae",
-          "json_pointer": "/current_free_curves",
-          "canonical_json_sha256": "6580043dd2bb627206c6438543029cd6b43beadc351d0d3a53397db85e37c11e"
-        },
-        "tube_brep_sha256": "9f597cb0d076ad07339947c400d51bd48b8e231ebfc9bf948edbbb7f0ee8d5ae"
+        "part": "coil-v-i",
+        "wire": "J2-OUT1",
+        "raw_common_mm3": 0.0,
+        "outside_8_5mm_endpoint_mm3": 0.0,
+        "common_bounds_inside_endpoint_ball": false,
+        "source_curve_sha256": "3f6f600220c5a908e4a8968bbf8df0b434052f7e01ac77f7f1f4a9eb89da558a",
+        "body_brep_sha256": "6d3b77d795fbbd96555416fba90de2863e520f396d6f10b25859d9ca21c96d3a",
+        "status": "native_zero",
+        "endpoint_scope_mm": 8.5
       },
       {
         "mesh_pair_index": 4,
-        "wire": "PE-bus",
-        "part": "tube-fluid-14",
-        "status": "addressed_by_scoped_native_route_and_wire_receipts",
-        "evidence": {
-          "path": "hardware/mechanical-qualification/enclosure-above-core/reservoir-a-route-review.json",
-          "sha256": "b10dac728157da6aec764562aeb0c7222199a664a7f21e0def4775fd252bbfae",
-          "json_pointer": "/current_free_curves",
-          "canonical_json_sha256": "6580043dd2bb627206c6438543029cd6b43beadc351d0d3a53397db85e37c11e"
-        },
-        "tube_brep_sha256": "53edb3e0e7b32f1590581b59e2ee19c6f2940d3e0a4e90a63ea14f29b12af80f"
-      },
-      {
-        "mesh_pair_index": 5,
-        "wire": "PE-bus",
-        "part": "tube-fluid-16",
-        "status": "addressed_by_scoped_native_route_and_wire_receipts",
-        "evidence": {
-          "path": "hardware/mechanical-qualification/enclosure-above-core/reservoir-a-route-review.json",
-          "sha256": "b10dac728157da6aec764562aeb0c7222199a664a7f21e0def4775fd252bbfae",
-          "json_pointer": "/current_free_curves",
-          "canonical_json_sha256": "6580043dd2bb627206c6438543029cd6b43beadc351d0d3a53397db85e37c11e"
-        },
-        "tube_brep_sha256": "9f597cb0d076ad07339947c400d51bd48b8e231ebfc9bf948edbbb7f0ee8d5ae"
-      },
-      {
-        "mesh_pair_index": 6,
-        "wire": "DC3-negative",
-        "part": "cold-core/foam-cap-lid-top",
-        "status": "addressed_by_local_native_wire_correction",
-        "evidence": {
-          "path": "hardware/wiring/installed/above-core-review/routing-witness-native-review.json",
-          "sha256": "f778d93607266ae734037871c9aac07b2a1a80b9a085786b537abb9380c7d56e",
-          "json_pointer": "/DC3_negative_correction",
-          "canonical_json_sha256": "13a2cfdd1fa27ae2231be02ca1fd479c515b55ad43b8f2a61e9e0ebc0cbb27b6"
-        }
-      },
-      {
-        "mesh_pair_index": 7,
-        "wire": "J1-OUT1",
-        "part": "valve-v-a/6",
-        "status": "native_zero_mesh_witness",
-        "native_reading_mm3": 0.0,
-        "evidence": {
-          "path": "hardware/wiring/installed/above-core-review/routing-witness-native-review.json",
-          "sha256": "f778d93607266ae734037871c9aac07b2a1a80b9a085786b537abb9380c7d56e",
-          "json_pointer": "/pairs/3",
-          "canonical_json_sha256": "6ce1a6a4b00d82b07428074e6ee36ca225030c95bcc08b73b368353280c191a0"
-        },
-        "endpoint_scope": "Raw native common is zero; no new mask or body exclusion is used."
-      },
-      {
-        "mesh_pair_index": 8,
-        "wire": "J1-positive-A",
-        "part": "valve-v-a/7",
-        "status": "native_zero_mesh_witness",
-        "native_reading_mm3": 0.0,
-        "evidence": {
-          "path": "hardware/wiring/installed/above-core-review/routing-witness-native-review.json",
-          "sha256": "f778d93607266ae734037871c9aac07b2a1a80b9a085786b537abb9380c7d56e",
-          "json_pointer": "/pairs/4",
-          "canonical_json_sha256": "d32fa689d256da0fe1d34714c3aee1aae69da2c2637be01261994a1945ee82e8"
-        },
-        "endpoint_scope": "Raw native common is zero; no new mask or body exclusion is used."
-      },
-      {
-        "mesh_pair_index": 9,
-        "wire": "J1-positive-B",
-        "part": "cold-core/valve-v-b/6",
-        "status": "native_zero_mesh_witness",
-        "native_reading_mm3": 0.0,
-        "evidence": {
-          "path": "hardware/wiring/installed/above-core-review/routing-witness-native-review.json",
-          "sha256": "f778d93607266ae734037871c9aac07b2a1a80b9a085786b537abb9380c7d56e",
-          "json_pointer": "/pairs/5",
-          "canonical_json_sha256": "577310f4b8c18c9548f0c310c5b8ce0a412d79e78a195e699cb011dbede98d5a"
-        },
-        "endpoint_scope": "Raw native common is zero; no new mask or body exclusion is used."
-      },
-      {
-        "mesh_pair_index": 10,
-        "wire": "J1-positive-D",
-        "part": "tube-fluid-16",
-        "status": "addressed_by_scoped_native_route_and_wire_receipts",
-        "evidence": {
-          "path": "hardware/mechanical-qualification/enclosure-above-core/reservoir-a-route-review.json",
-          "sha256": "b10dac728157da6aec764562aeb0c7222199a664a7f21e0def4775fd252bbfae",
-          "json_pointer": "/current_free_curves",
-          "canonical_json_sha256": "6580043dd2bb627206c6438543029cd6b43beadc351d0d3a53397db85e37c11e"
-        },
-        "tube_brep_sha256": "9f597cb0d076ad07339947c400d51bd48b8e231ebfc9bf948edbbb7f0ee8d5ae"
-      },
-      {
-        "mesh_pair_index": 11,
-        "wire": "J1-positive-H",
-        "part": "tube-fluid-14",
-        "status": "addressed_by_scoped_native_route_and_wire_receipts",
-        "evidence": {
-          "path": "hardware/mechanical-qualification/enclosure-above-core/reservoir-a-route-review.json",
-          "sha256": "b10dac728157da6aec764562aeb0c7222199a664a7f21e0def4775fd252bbfae",
-          "json_pointer": "/current_free_curves",
-          "canonical_json_sha256": "6580043dd2bb627206c6438543029cd6b43beadc351d0d3a53397db85e37c11e"
-        },
-        "tube_brep_sha256": "53edb3e0e7b32f1590581b59e2ee19c6f2940d3e0a4e90a63ea14f29b12af80f"
-      },
-      {
-        "mesh_pair_index": 12,
-        "wire": "J2-COM",
-        "part": "tube-fluid-14",
-        "status": "addressed_by_scoped_native_route_and_wire_receipts",
-        "evidence": {
-          "path": "hardware/mechanical-qualification/enclosure-above-core/reservoir-a-route-review.json",
-          "sha256": "b10dac728157da6aec764562aeb0c7222199a664a7f21e0def4775fd252bbfae",
-          "json_pointer": "/current_free_curves",
-          "canonical_json_sha256": "6580043dd2bb627206c6438543029cd6b43beadc351d0d3a53397db85e37c11e"
-        },
-        "tube_brep_sha256": "53edb3e0e7b32f1590581b59e2ee19c6f2940d3e0a4e90a63ea14f29b12af80f"
-      },
-      {
-        "mesh_pair_index": 13,
-        "wire": "J2-OUT3",
-        "part": "tube-fluid-16",
-        "status": "addressed_by_scoped_native_route_and_wire_receipts",
-        "evidence": {
-          "path": "hardware/mechanical-qualification/enclosure-above-core/reservoir-a-route-review.json",
-          "sha256": "b10dac728157da6aec764562aeb0c7222199a664a7f21e0def4775fd252bbfae",
-          "json_pointer": "/current_free_curves",
-          "canonical_json_sha256": "6580043dd2bb627206c6438543029cd6b43beadc351d0d3a53397db85e37c11e"
-        },
-        "tube_brep_sha256": "9f597cb0d076ad07339947c400d51bd48b8e231ebfc9bf948edbbb7f0ee8d5ae"
-      },
-      {
-        "mesh_pair_index": 14,
-        "wire": "J2-OUT3",
-        "part": "cold-core/g-ganen-pump/1",
-        "status": "addressed_by_local_native_wire_correction",
-        "evidence": {
-          "path": "hardware/wiring/installed/above-core-review/routing-witness-native-review.json",
-          "sha256": "f778d93607266ae734037871c9aac07b2a1a80b9a085786b537abb9380c7d56e",
-          "json_pointer": "/J2_OUT3_pump_correction",
-          "canonical_json_sha256": "33b8dd5e2e60e2360c318874d43cb5c0e2fba47d8ac7edd72f1d258b37ff9e04"
-        }
-      },
-      {
-        "mesh_pair_index": 15,
-        "wire": "J2-OUT3",
-        "part": "cold-core/g-ganen-pump/3",
-        "status": "addressed_by_local_native_wire_correction",
-        "evidence": {
-          "path": "hardware/wiring/installed/above-core-review/routing-witness-native-review.json",
-          "sha256": "f778d93607266ae734037871c9aac07b2a1a80b9a085786b537abb9380c7d56e",
-          "json_pointer": "/J2_OUT3_pump_correction",
-          "canonical_json_sha256": "33b8dd5e2e60e2360c318874d43cb5c0e2fba47d8ac7edd72f1d258b37ff9e04"
-        }
-      },
-      {
-        "mesh_pair_index": 16,
-        "wire": "J2-positive-K",
-        "part": "vk-solenoid/6",
-        "status": "native_zero_mesh_witness",
-        "native_reading_mm3": 0.0,
-        "evidence": {
-          "path": "hardware/wiring/installed/above-core-review/routing-witness-native-review.json",
-          "sha256": "f778d93607266ae734037871c9aac07b2a1a80b9a085786b537abb9380c7d56e",
-          "json_pointer": "/pairs/6",
-          "canonical_json_sha256": "a40d37dd8283413d2cb635121e32bdebc7bda9119b9a4a09eb35a393a59d11d6"
-        },
-        "endpoint_scope": "Raw native common is zero; no new mask or body exclusion is used."
-      },
-      {
-        "mesh_pair_index": 17,
-        "wire": "J2-positive-K",
-        "part": "tube-fluid-14",
-        "status": "addressed_by_scoped_native_route_and_wire_receipts",
-        "evidence": {
-          "path": "hardware/mechanical-qualification/enclosure-above-core/reservoir-a-route-review.json",
-          "sha256": "b10dac728157da6aec764562aeb0c7222199a664a7f21e0def4775fd252bbfae",
-          "json_pointer": "/current_free_curves",
-          "canonical_json_sha256": "6580043dd2bb627206c6438543029cd6b43beadc351d0d3a53397db85e37c11e"
-        },
-        "tube_brep_sha256": "53edb3e0e7b32f1590581b59e2ee19c6f2940d3e0a4e90a63ea14f29b12af80f"
-      },
-      {
-        "mesh_pair_index": 18,
-        "wire": "J2-positive-K",
-        "part": "tube-fluid-16",
-        "status": "addressed_by_scoped_native_route_and_wire_receipts",
-        "evidence": {
-          "path": "hardware/mechanical-qualification/enclosure-above-core/reservoir-a-route-review.json",
-          "sha256": "b10dac728157da6aec764562aeb0c7222199a664a7f21e0def4775fd252bbfae",
-          "json_pointer": "/current_free_curves",
-          "canonical_json_sha256": "6580043dd2bb627206c6438543029cd6b43beadc351d0d3a53397db85e37c11e"
-        },
-        "tube_brep_sha256": "9f597cb0d076ad07339947c400d51bd48b8e231ebfc9bf948edbbb7f0ee8d5ae"
-      },
-      {
-        "mesh_pair_index": 19,
-        "wire": "J4-V5",
-        "part": "tube-fluid-14",
-        "status": "addressed_by_scoped_native_route_and_wire_receipts",
-        "evidence": {
-          "path": "hardware/mechanical-qualification/enclosure-above-core/reservoir-a-route-review.json",
-          "sha256": "b10dac728157da6aec764562aeb0c7222199a664a7f21e0def4775fd252bbfae",
-          "json_pointer": "/current_free_curves",
-          "canonical_json_sha256": "6580043dd2bb627206c6438543029cd6b43beadc351d0d3a53397db85e37c11e"
-        },
-        "tube_brep_sha256": "53edb3e0e7b32f1590581b59e2ee19c6f2940d3e0a4e90a63ea14f29b12af80f"
-      },
-      {
-        "mesh_pair_index": 20,
-        "wire": "J4-V5",
-        "part": "tube-fluid-16",
-        "status": "addressed_by_scoped_native_route_and_wire_receipts",
-        "evidence": {
-          "path": "hardware/mechanical-qualification/enclosure-above-core/reservoir-a-route-review.json",
-          "sha256": "b10dac728157da6aec764562aeb0c7222199a664a7f21e0def4775fd252bbfae",
-          "json_pointer": "/current_free_curves",
-          "canonical_json_sha256": "6580043dd2bb627206c6438543029cd6b43beadc351d0d3a53397db85e37c11e"
-        },
-        "tube_brep_sha256": "9f597cb0d076ad07339947c400d51bd48b8e231ebfc9bf948edbbb7f0ee8d5ae"
-      },
-      {
-        "mesh_pair_index": 21,
-        "wire": "J4-IO25",
-        "part": "tube-fluid-14",
-        "status": "addressed_by_scoped_native_route_and_wire_receipts",
-        "evidence": {
-          "path": "hardware/mechanical-qualification/enclosure-above-core/reservoir-a-route-review.json",
-          "sha256": "b10dac728157da6aec764562aeb0c7222199a664a7f21e0def4775fd252bbfae",
-          "json_pointer": "/current_free_curves",
-          "canonical_json_sha256": "6580043dd2bb627206c6438543029cd6b43beadc351d0d3a53397db85e37c11e"
-        },
-        "tube_brep_sha256": "53edb3e0e7b32f1590581b59e2ee19c6f2940d3e0a4e90a63ea14f29b12af80f"
-      },
-      {
-        "mesh_pair_index": 22,
-        "wire": "J4-IO25",
-        "part": "tube-fluid-16",
-        "status": "addressed_by_scoped_native_route_and_wire_receipts",
-        "evidence": {
-          "path": "hardware/mechanical-qualification/enclosure-above-core/reservoir-a-route-review.json",
-          "sha256": "b10dac728157da6aec764562aeb0c7222199a664a7f21e0def4775fd252bbfae",
-          "json_pointer": "/current_free_curves",
-          "canonical_json_sha256": "6580043dd2bb627206c6438543029cd6b43beadc351d0d3a53397db85e37c11e"
-        },
-        "tube_brep_sha256": "9f597cb0d076ad07339947c400d51bd48b8e231ebfc9bf948edbbb7f0ee8d5ae"
-      },
-      {
-        "mesh_pair_index": 23,
-        "wire": "flow-GND",
-        "part": "tube-fluid-14",
-        "status": "addressed_by_scoped_native_route_and_wire_receipts",
-        "evidence": {
-          "path": "hardware/mechanical-qualification/enclosure-above-core/reservoir-a-route-review.json",
-          "sha256": "b10dac728157da6aec764562aeb0c7222199a664a7f21e0def4775fd252bbfae",
-          "json_pointer": "/current_free_curves",
-          "canonical_json_sha256": "6580043dd2bb627206c6438543029cd6b43beadc351d0d3a53397db85e37c11e"
-        },
-        "tube_brep_sha256": "53edb3e0e7b32f1590581b59e2ee19c6f2940d3e0a4e90a63ea14f29b12af80f"
-      },
-      {
-        "mesh_pair_index": 24,
-        "wire": "flow-GND",
-        "part": "tube-fluid-16",
-        "status": "addressed_by_scoped_native_route_and_wire_receipts",
-        "evidence": {
-          "path": "hardware/mechanical-qualification/enclosure-above-core/reservoir-a-route-review.json",
-          "sha256": "b10dac728157da6aec764562aeb0c7222199a664a7f21e0def4775fd252bbfae",
-          "json_pointer": "/current_free_curves",
-          "canonical_json_sha256": "6580043dd2bb627206c6438543029cd6b43beadc351d0d3a53397db85e37c11e"
-        },
-        "tube_brep_sha256": "9f597cb0d076ad07339947c400d51bd48b8e231ebfc9bf948edbbb7f0ee8d5ae"
+        "part": "coil-v-j",
+        "wire": "J2-OUT2",
+        "raw_common_mm3": 0.48606545703688,
+        "outside_8_5mm_endpoint_mm3": 0.0,
+        "common_bounds_inside_endpoint_ball": true,
+        "source_curve_sha256": "e70af85c2f61da1845f2a2df019ca8084ef408f1d347f09080a43de8cd563962",
+        "body_brep_sha256": "d94ed0769836eb2bb682770cd31aab51b1a484016efe1c437b71e0696a80e2e5",
+        "status": "native_contact_within_named_attachment",
+        "endpoint_scope_mm": 8.5
       }
-    ],
-    "bundle_pair_dispositions": [
+    ]
+  },
+  "unresolved_physical_interference_pairs": [],
+  "larger_body_clearance": "Clear outside the local named electrical attachment contacts.",
+  "preparation_budget": {
+    "scope": "Bench preparation stock against routed insulated centrelines, with continuous commons and the compressor hot/fuse pieces summed. Termination insertion and physical dressing use this reserve; no physical harness qualification is implied.",
+    "manifest_sha256": "bd5001b01d8ae0e2151d16dd76ee97da9ea7a0bee4e8aa50aa6dee73e9202d3e",
+    "conductor_count": 101,
+    "covered_count": 101,
+    "missing": [],
+    "minimum_reserve_mm": 34.649,
+    "cuts": [
       {
-        "mesh_pair_index": 0,
-        "bundle": "terminal-compressor-cord-jacket",
-        "part": "tube-fluid-16",
-        "status": "addressed_by_scoped_native_route_receipt",
-        "evidence": {
-          "path": "hardware/mechanical-qualification/enclosure-above-core/reservoir-a-route-review.json",
-          "sha256": "b10dac728157da6aec764562aeb0c7222199a664a7f21e0def4775fd252bbfae",
-          "json_pointer": "/current_free_curves",
-          "canonical_json_sha256": "6580043dd2bb627206c6438543029cd6b43beadc351d0d3a53397db85e37c11e"
-        }
+        "id": "AC1-L",
+        "routes": [
+          "AC1-L"
+        ],
+        "modeled_length_mm": 77.825,
+        "preparation_mm": 150,
+        "reserve_mm": 72.175
+      },
+      {
+        "id": "AC1-N",
+        "routes": [
+          "AC1-N"
+        ],
+        "modeled_length_mm": 90.027,
+        "preparation_mm": 150,
+        "reserve_mm": 59.973
+      },
+      {
+        "id": "AC1-PE",
+        "routes": [
+          "AC1-PE"
+        ],
+        "modeled_length_mm": 111.299,
+        "preparation_mm": 150,
+        "reserve_mm": 38.701
+      },
+      {
+        "id": "DC4-V12",
+        "routes": [
+          "DC4-V12"
+        ],
+        "modeled_length_mm": 99.824,
+        "preparation_mm": 150,
+        "reserve_mm": 50.176
+      },
+      {
+        "id": "DC4-GND",
+        "routes": [
+          "DC4-GND"
+        ],
+        "modeled_length_mm": 59.78,
+        "preparation_mm": 150,
+        "reserve_mm": 90.22
+      },
+      {
+        "id": "AC2-L",
+        "routes": [
+          "AC2-L"
+        ],
+        "modeled_length_mm": 119.003,
+        "preparation_mm": 200,
+        "reserve_mm": 80.997
+      },
+      {
+        "id": "AC2-N",
+        "routes": [
+          "AC2-N"
+        ],
+        "modeled_length_mm": 91.259,
+        "preparation_mm": 200,
+        "reserve_mm": 108.741
+      },
+      {
+        "id": "AC3-L",
+        "routes": [
+          "AC3-L"
+        ],
+        "modeled_length_mm": 40.374,
+        "preparation_mm": 150,
+        "reserve_mm": 109.626
+      },
+      {
+        "id": "compressor-H",
+        "routes": [
+          "AC4-H",
+          "AC4-fuse"
+        ],
+        "modeled_length_mm": 470.388,
+        "preparation_mm": 700,
+        "reserve_mm": 229.612
+      },
+      {
+        "id": "AC5-N",
+        "routes": [
+          "AC5-N"
+        ],
+        "modeled_length_mm": 421.944,
+        "preparation_mm": 700,
+        "reserve_mm": 278.056
+      },
+      {
+        "id": "AC6-PE",
+        "routes": [
+          "AC6-PE"
+        ],
+        "modeled_length_mm": 603.884,
+        "preparation_mm": 700,
+        "reserve_mm": 96.116
+      },
+      {
+        "id": "AC4-pigtail",
+        "routes": [
+          "AC4-pigtail"
+        ],
+        "modeled_length_mm": 222.604,
+        "preparation_mm": 300,
+        "reserve_mm": 77.396
+      },
+      {
+        "id": "AC5-pigtail",
+        "routes": [
+          "AC5-pigtail"
+        ],
+        "modeled_length_mm": 255.844,
+        "preparation_mm": 300,
+        "reserve_mm": 44.156
+      },
+      {
+        "id": "DC3-pigtail",
+        "routes": [
+          "DC3-pigtail"
+        ],
+        "modeled_length_mm": 216.999,
+        "preparation_mm": 300,
+        "reserve_mm": 83.001
+      },
+      {
+        "id": "DC3-positive",
+        "routes": [
+          "DC3-positive"
+        ],
+        "modeled_length_mm": 253.985,
+        "preparation_mm": 300,
+        "reserve_mm": 46.015
+      },
+      {
+        "id": "PE-bus",
+        "routes": [
+          "PE-bus"
+        ],
+        "modeled_length_mm": 69.994,
+        "preparation_mm": 400,
+        "reserve_mm": 330.006
+      },
+      {
+        "id": "PE-carbonator",
+        "routes": [
+          "PE-carbonator"
+        ],
+        "modeled_length_mm": 318.768,
+        "preparation_mm": 500,
+        "reserve_mm": 181.232
+      },
+      {
+        "id": "DC1-V12",
+        "routes": [
+          "DC1-V12"
+        ],
+        "modeled_length_mm": 315.351,
+        "preparation_mm": 350,
+        "reserve_mm": 34.649
+      },
+      {
+        "id": "DC1-GND",
+        "routes": [
+          "DC1-GND"
+        ],
+        "modeled_length_mm": 285.598,
+        "preparation_mm": 350,
+        "reserve_mm": 64.402
+      },
+      {
+        "id": "DC2-V12",
+        "routes": [
+          "DC2-V12"
+        ],
+        "modeled_length_mm": 268.215,
+        "preparation_mm": 350,
+        "reserve_mm": 81.785
+      },
+      {
+        "id": "DC3-negative",
+        "routes": [
+          "DC3-negative"
+        ],
+        "modeled_length_mm": 226.425,
+        "preparation_mm": 350,
+        "reserve_mm": 123.575
+      },
+      {
+        "id": "J1-OUT1",
+        "routes": [
+          "J1-OUT1"
+        ],
+        "modeled_length_mm": 116.298,
+        "preparation_mm": 600,
+        "reserve_mm": 483.702
+      },
+      {
+        "id": "J1-positive-A",
+        "routes": [
+          "J1-positive-A"
+        ],
+        "modeled_length_mm": 354.884,
+        "preparation_mm": 450,
+        "reserve_mm": 95.116
+      },
+      {
+        "id": "J1-OUT2",
+        "routes": [
+          "J1-OUT2"
+        ],
+        "modeled_length_mm": 179.689,
+        "preparation_mm": 600,
+        "reserve_mm": 420.311
+      },
+      {
+        "id": "J1-positive-B",
+        "routes": [
+          "J1-positive-B"
+        ],
+        "modeled_length_mm": 107.066,
+        "preparation_mm": 450,
+        "reserve_mm": 342.934
+      },
+      {
+        "id": "J1-OUT3",
+        "routes": [
+          "J1-OUT3"
+        ],
+        "modeled_length_mm": 464.126,
+        "preparation_mm": 600,
+        "reserve_mm": 135.874
+      },
+      {
+        "id": "J1-positive-C",
+        "routes": [
+          "J1-positive-C"
+        ],
+        "modeled_length_mm": 159.417,
+        "preparation_mm": 450,
+        "reserve_mm": 290.583
+      },
+      {
+        "id": "J1-OUT4",
+        "routes": [
+          "J1-OUT4"
+        ],
+        "modeled_length_mm": 521.34,
+        "preparation_mm": 600,
+        "reserve_mm": 78.66
+      },
+      {
+        "id": "J1-positive-D",
+        "routes": [
+          "J1-positive-D"
+        ],
+        "modeled_length_mm": 180.202,
+        "preparation_mm": 450,
+        "reserve_mm": 269.798
+      },
+      {
+        "id": "J1-OUT5",
+        "routes": [
+          "J1-OUT5"
+        ],
+        "modeled_length_mm": 391.648,
+        "preparation_mm": 600,
+        "reserve_mm": 208.352
+      },
+      {
+        "id": "J1-positive-E",
+        "routes": [
+          "J1-positive-E"
+        ],
+        "modeled_length_mm": 97.378,
+        "preparation_mm": 450,
+        "reserve_mm": 352.622
+      },
+      {
+        "id": "J1-OUT6",
+        "routes": [
+          "J1-OUT6"
+        ],
+        "modeled_length_mm": 331.716,
+        "preparation_mm": 600,
+        "reserve_mm": 268.284
+      },
+      {
+        "id": "J1-positive-F",
+        "routes": [
+          "J1-positive-F"
+        ],
+        "modeled_length_mm": 39.149,
+        "preparation_mm": 450,
+        "reserve_mm": 410.851
+      },
+      {
+        "id": "J1-OUT7",
+        "routes": [
+          "J1-OUT7"
+        ],
+        "modeled_length_mm": 407.04,
+        "preparation_mm": 600,
+        "reserve_mm": 192.96
+      },
+      {
+        "id": "J1-positive-G",
+        "routes": [
+          "J1-positive-G"
+        ],
+        "modeled_length_mm": 87.77,
+        "preparation_mm": 450,
+        "reserve_mm": 362.23
+      },
+      {
+        "id": "J1-OUT8",
+        "routes": [
+          "J1-OUT8"
+        ],
+        "modeled_length_mm": 452.053,
+        "preparation_mm": 600,
+        "reserve_mm": 147.947
+      },
+      {
+        "id": "J1-positive-H",
+        "routes": [
+          "J1-positive-H"
+        ],
+        "modeled_length_mm": 136.073,
+        "preparation_mm": 450,
+        "reserve_mm": 313.927
+      },
+      {
+        "id": "J2-OUT1",
+        "routes": [
+          "J2-OUT1"
+        ],
+        "modeled_length_mm": 505.746,
+        "preparation_mm": 550,
+        "reserve_mm": 44.254
+      },
+      {
+        "id": "J2-positive-I",
+        "routes": [
+          "J2-positive-I"
+        ],
+        "modeled_length_mm": 192.389,
+        "preparation_mm": 450,
+        "reserve_mm": 257.611
+      },
+      {
+        "id": "J2-OUT2",
+        "routes": [
+          "J2-OUT2"
+        ],
+        "modeled_length_mm": 507.722,
+        "preparation_mm": 550,
+        "reserve_mm": 42.278
+      },
+      {
+        "id": "J2-positive-J",
+        "routes": [
+          "J2-positive-J"
+        ],
+        "modeled_length_mm": 172.371,
+        "preparation_mm": 450,
+        "reserve_mm": 277.629
+      },
+      {
+        "id": "J2-positive-fan",
+        "routes": [
+          "J2-positive-fan"
+        ],
+        "modeled_length_mm": 224.62,
+        "preparation_mm": 450,
+        "reserve_mm": 225.38
+      },
+      {
+        "id": "J2-positive-K",
+        "routes": [
+          "J2-positive-K"
+        ],
+        "modeled_length_mm": 242.045,
+        "preparation_mm": 450,
+        "reserve_mm": 207.955
+      },
+      {
+        "id": "J13-AM2",
+        "routes": [
+          "J13-AM2"
+        ],
+        "modeled_length_mm": 291.769,
+        "preparation_mm": 500,
+        "reserve_mm": 208.231
+      },
+      {
+        "id": "J13-AM1",
+        "routes": [
+          "J13-AM1"
+        ],
+        "modeled_length_mm": 290.95,
+        "preparation_mm": 500,
+        "reserve_mm": 209.05
+      },
+      {
+        "id": "J13-BM2",
+        "routes": [
+          "J13-BM2"
+        ],
+        "modeled_length_mm": 294.772,
+        "preparation_mm": 500,
+        "reserve_mm": 205.228
+      },
+      {
+        "id": "J13-BM1",
+        "routes": [
+          "J13-BM1"
+        ],
+        "modeled_length_mm": 303.172,
+        "preparation_mm": 500,
+        "reserve_mm": 196.828
+      },
+      {
+        "id": "J3-V5",
+        "routes": [
+          "J3-V5"
+        ],
+        "modeled_length_mm": 249.795,
+        "preparation_mm": 400,
+        "reserve_mm": 150.205
+      },
+      {
+        "id": "J3-GND",
+        "routes": [
+          "J3-GND"
+        ],
+        "modeled_length_mm": 252.6,
+        "preparation_mm": 400,
+        "reserve_mm": 147.4
+      },
+      {
+        "id": "J3-IO35",
+        "routes": [
+          "J3-IO35"
+        ],
+        "modeled_length_mm": 247.305,
+        "preparation_mm": 400,
+        "reserve_mm": 152.695
+      },
+      {
+        "id": "J3-IO33",
+        "routes": [
+          "J3-IO33"
+        ],
+        "modeled_length_mm": 243.254,
+        "preparation_mm": 400,
+        "reserve_mm": 156.746
+      },
+      {
+        "id": "J6-RA1",
+        "routes": [
+          "J6-RA1"
+        ],
+        "modeled_length_mm": 529.605,
+        "preparation_mm": 650,
+        "reserve_mm": 120.395
+      },
+      {
+        "id": "J6-RA2",
+        "routes": [
+          "J6-RA2"
+        ],
+        "modeled_length_mm": 478.101,
+        "preparation_mm": 650,
+        "reserve_mm": 171.899
+      },
+      {
+        "id": "J6-RA3",
+        "routes": [
+          "J6-RA3"
+        ],
+        "modeled_length_mm": 429.781,
+        "preparation_mm": 650,
+        "reserve_mm": 220.219
+      },
+      {
+        "id": "J6-RA4",
+        "routes": [
+          "J6-RA4"
+        ],
+        "modeled_length_mm": 381.775,
+        "preparation_mm": 650,
+        "reserve_mm": 268.225
+      },
+      {
+        "id": "J7-RB1",
+        "routes": [
+          "J7-RB1"
+        ],
+        "modeled_length_mm": 341.199,
+        "preparation_mm": 500,
+        "reserve_mm": 158.801
+      },
+      {
+        "id": "J7-RB2",
+        "routes": [
+          "J7-RB2"
+        ],
+        "modeled_length_mm": 292.703,
+        "preparation_mm": 500,
+        "reserve_mm": 207.297
+      },
+      {
+        "id": "J7-RB3",
+        "routes": [
+          "J7-RB3"
+        ],
+        "modeled_length_mm": 240.892,
+        "preparation_mm": 500,
+        "reserve_mm": 259.108
+      },
+      {
+        "id": "J7-RB4",
+        "routes": [
+          "J7-RB4"
+        ],
+        "modeled_length_mm": 186.108,
+        "preparation_mm": 500,
+        "reserve_mm": 313.892
+      },
+      {
+        "id": "J9-B",
+        "routes": [
+          "J9-B"
+        ],
+        "modeled_length_mm": 266.759,
+        "preparation_mm": 400,
+        "reserve_mm": 133.241
+      },
+      {
+        "id": "J9-A",
+        "routes": [
+          "J9-A"
+        ],
+        "modeled_length_mm": 268.966,
+        "preparation_mm": 400,
+        "reserve_mm": 131.034
+      },
+      {
+        "id": "J9-GND",
+        "routes": [
+          "J9-GND"
+        ],
+        "modeled_length_mm": 271.517,
+        "preparation_mm": 400,
+        "reserve_mm": 128.483
+      },
+      {
+        "id": "J9-V12",
+        "routes": [
+          "J9-V12"
+        ],
+        "modeled_length_mm": 274.397,
+        "preparation_mm": 400,
+        "reserve_mm": 125.603
+      },
+      {
+        "id": "J11-V5",
+        "routes": [
+          "J11-V5"
+        ],
+        "modeled_length_mm": 532.157,
+        "preparation_mm": 600,
+        "reserve_mm": 67.843
+      },
+      {
+        "id": "J11-GND",
+        "routes": [
+          "J11-GND"
+        ],
+        "modeled_length_mm": 542.742,
+        "preparation_mm": 600,
+        "reserve_mm": 57.258
+      },
+      {
+        "id": "J11-DOUT",
+        "routes": [
+          "J11-DOUT"
+        ],
+        "modeled_length_mm": 546.841,
+        "preparation_mm": 600,
+        "reserve_mm": 53.159
+      },
+      {
+        "id": "J11-AOUT",
+        "routes": [
+          "J11-AOUT"
+        ],
+        "modeled_length_mm": 553.682,
+        "preparation_mm": 600,
+        "reserve_mm": 46.318
+      },
+      {
+        "id": "J1-COM",
+        "routes": [
+          "J1-COM"
+        ],
+        "modeled_length_mm": 290.114,
+        "preparation_mm": 350,
+        "reserve_mm": 59.886
+      },
+      {
+        "id": "J2-COM",
+        "routes": [
+          "J2-COM"
+        ],
+        "modeled_length_mm": 294.572,
+        "preparation_mm": 350,
+        "reserve_mm": 55.428
+      },
+      {
+        "id": "J2-OUT3",
+        "routes": [
+          "J2-OUT3"
+        ],
+        "modeled_length_mm": 161.492,
+        "preparation_mm": 350,
+        "reserve_mm": 188.508
+      },
+      {
+        "id": "J2-FAN",
+        "routes": [
+          "J2-FAN"
+        ],
+        "modeled_length_mm": 500.868,
+        "preparation_mm": 650,
+        "reserve_mm": 149.132
+      },
+      {
+        "id": "J4-V5",
+        "routes": [
+          "J4-V5"
+        ],
+        "modeled_length_mm": 241.316,
+        "preparation_mm": 300,
+        "reserve_mm": 58.684
+      },
+      {
+        "id": "J4-IO25",
+        "routes": [
+          "J4-IO25"
+        ],
+        "modeled_length_mm": 239.413,
+        "preparation_mm": 300,
+        "reserve_mm": 60.587
+      },
+      {
+        "id": "flow-GND",
+        "routes": [
+          "flow-GND"
+        ],
+        "modeled_length_mm": 244.057,
+        "preparation_mm": 300,
+        "reserve_mm": 55.943
+      },
+      {
+        "id": "J4-GND",
+        "routes": [
+          "J4-GND"
+        ],
+        "modeled_length_mm": 59.192,
+        "preparation_mm": 300,
+        "reserve_mm": 240.808
+      },
+      {
+        "id": "J5-IO19",
+        "routes": [
+          "J5-IO19"
+        ],
+        "modeled_length_mm": 182.203,
+        "preparation_mm": 350,
+        "reserve_mm": 167.797
+      },
+      {
+        "id": "J5-IO2",
+        "routes": [
+          "J5-IO2"
+        ],
+        "modeled_length_mm": 195.886,
+        "preparation_mm": 350,
+        "reserve_mm": 154.114
+      },
+      {
+        "id": "J7-CLO",
+        "routes": [
+          "J7-CLO"
+        ],
+        "modeled_length_mm": 491.543,
+        "preparation_mm": 650,
+        "reserve_mm": 158.457
+      },
+      {
+        "id": "J7-CHI",
+        "routes": [
+          "J7-CHI"
+        ],
+        "modeled_length_mm": 470.615,
+        "preparation_mm": 650,
+        "reserve_mm": 179.385
+      },
+      {
+        "id": "temperature-V",
+        "routes": [
+          "J4-3V3",
+          "temp-bus-V"
+        ],
+        "modeled_length_mm": 534.265,
+        "preparation_mm": 650,
+        "reserve_mm": 115.735
+      },
+      {
+        "id": "temperature-DATA",
+        "routes": [
+          "J4-IO26",
+          "temp-bus-DATA"
+        ],
+        "modeled_length_mm": 519.49,
+        "preparation_mm": 650,
+        "reserve_mm": 130.51
+      },
+      {
+        "id": "temperature-GND",
+        "routes": [
+          "temp-GND",
+          "temp-bus-GND"
+        ],
+        "modeled_length_mm": 567.047,
+        "preparation_mm": 650,
+        "reserve_mm": 82.953
+      },
+      {
+        "id": "relay-V5",
+        "routes": [
+          "J5-V5",
+          "relay-bus-V5"
+        ],
+        "modeled_length_mm": 269.525,
+        "preparation_mm": 350,
+        "reserve_mm": 80.475
+      },
+      {
+        "id": "relay-GND",
+        "routes": [
+          "J5-GND",
+          "relay-bus-GND"
+        ],
+        "modeled_length_mm": 280.34,
+        "preparation_mm": 350,
+        "reserve_mm": 69.66
+      },
+      {
+        "id": "reservoir-A-common",
+        "routes": [
+          "J6-GND",
+          "J6-earth-1",
+          "J6-earth-2",
+          "J6-earth-3"
+        ],
+        "modeled_length_mm": 573.633,
+        "preparation_mm": 650,
+        "reserve_mm": 76.367
+      },
+      {
+        "id": "reservoir-B-common",
+        "routes": [
+          "J7-GND",
+          "J7-earth-1",
+          "J7-earth-2",
+          "J7-earth-3",
+          "J7-earth-4"
+        ],
+        "modeled_length_mm": 463.933,
+        "preparation_mm": 500,
+        "reserve_mm": 36.067
+      },
+      {
+        "id": "carbonator-reed-common",
+        "routes": [
+          "J7-carb-earth-2",
+          "J7-carb-earth-1"
+        ],
+        "modeled_length_mm": 559.768,
+        "preparation_mm": 650,
+        "reserve_mm": 90.232
       }
-    ],
-    "unresolved_recorded_witnesses": [],
-    "wire_packing_scope": "The original mesh packing rows and original native bundle readings retain their own artifact scope. No current wire-packing or flexible handling claim is added by this binding.",
-    "metadata_rebind_scope": "Metadata-only physical-artifact rebind. The standalone wiring STEP and CSV are byte-identical; every manifest section except physical-scene provenance and source hashes is semantically identical. The only changed hashed source defines the B-fill printed link cutter. Native source/body signatures, curve comparisons, installed-wire placement readings and ten exchange-validity flags are reused; no STEP readback, source-curve reconstruction, contact or packing query is repeated."
+    ]
   }
 }

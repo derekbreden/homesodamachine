@@ -811,8 +811,9 @@ faces; a pump boss lands on a flat shoulder. A corbel carries the material behin
 those faces. It does not replace the bearing, locating, sliding, sealing, clamping, insertion or
 access face with a slope.
 
-The fixed fluid supports use broad roof/wall roots and separate tie windows.
-The core's ground boss and junction wells belong to its lid. Support removal
+The fixed fluid supports use broad roof/wall roots and separate snap caps.
+The ground boss belongs to back-top; the four DC/sensor junction wells belong
+to the core lid. Support removal
 access is assessed on each current slice before hardware is installed; accepted
 results from a different part or orientation retain their recorded scope.
 

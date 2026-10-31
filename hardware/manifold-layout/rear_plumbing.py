@@ -101,11 +101,16 @@ def components():
         parts._carry(parts._compose(data['suction-joint'], _datum(bend))))
     for name, (xc, diameter) in pj.bands('suction').items():
         steel, key = pj.build_clamp(diameter, xc, j.get('suction_stem_keys',j['suction_keys']) if name=='stem' else j['suction_keys'])
+        if name=='barb':
+            roll=cq.Location(cq.Vector(),cq.Vector(1,0,0),j['suction_barb_roll'])
+            steel,key=steel.moved(roll),key.moved(roll)
         if name == 'stem':
             steel, key = steel.moved(bend), key.moved(bend)
         result['suction-'+name+'-clamp'] = _placed(steel, data['suction-joint'], pj.M_STAINLESS)
         result['suction-'+name+'-key'] = _placed(key, data['suction-joint'], pj.M_POM_ORANGE)
     for name, (shape, color) in pj.build('discharge', (j['discharge_keys'],)*2, j['DISCHARGE_BEND']).items():
+        if name in ('barb-clamp','barb-key'):
+            shape=shape.moved(cq.Location(cq.Vector(),cq.Vector(1,0,0),j['discharge_barb_roll']))
         result['discharge-'+name] = _placed(shape, data['discharge-joint'], color)
     turn = pj.turn('discharge', j['DISCHARGE_BEND'])
     reducer = result['discharge-reducer']
@@ -168,7 +173,7 @@ def ports(name):
 
 @cache
 def seats():
-    """Integral back-top stock and three removable snap caps."""
+    """Integral back-top stock and four removable snap caps."""
     import above_core_parts as parts
     import rear_snaps as snaps
     import fits
@@ -205,17 +210,9 @@ def seats():
     bulkhead = selected['bulkhead-flavor-a']
     source = parts._grid_module(next(r for r in parts._grid() if r['name']=='bulkhead-flavor-a'))
     destination,_ = bulkhead[2](source.port(-1.))
-    radius,aisle = 25.,77.5
-    offset = (destination[0]-aisle,0.,destination[2]-257.)
-    normal = routes._unit(routes._cross((0.,1.,0.),offset))
-    angle = math.acos(1.-routes._norm(offset)/(2.*radius))
-    start = (aisle,destination[1]-2.*radius*math.sin(angle),257.)
-    arc,end = routes._arc(start,(0.,1.,0.),normal,angle,radius)
-    tangent = routes._add(routes._mul((0.,1.,0.),math.cos(angle)),
-                         routes._mul(routes._cross(normal,(0.,1.,0.)),math.sin(angle)))
-    last,_ = routes._arc(end,tangent,tuple(-c for c in normal),angle,radius)
-    path = parts.route_wire({'segments':[arc,last]})
-    corridor = (cq.Workplane(cq.Plane(origin=start,normal=(0.,1.,0.)))
+    segments = _flavor_rear('a', destination)
+    path = parts.route_wire({'segments':segments})
+    corridor = (cq.Workplane(cq.Plane(origin=segments[0]['points_mm'][0],normal=(0.,1.,0.)))
                 .circle(2.5).sweep(path,isFrenet=False,clean=False).val())
     result['meter-snap-cap'] = result['meter-snap-cap'].cut(corridor).clean()
     return result
@@ -319,21 +316,42 @@ def continuations(station):
     return result
 
 
+def _flavor_s_bend(start, heading, offset, axis):
+    import above_core_routes as r
+    radius = 25.
+    # Two equal opposite arcs restore the original tangent.
+    distance = math.sqrt(sum(c*c for c in offset))
+    angle = math.acos(1.-distance/(2.*radius))
+    first,end = r._arc(start,heading,axis,angle,radius)
+    u = np.array(heading,float); n = np.array(axis,float)
+    tangent = math.cos(angle)*u+math.sin(angle)*np.cross(n,u)
+    second,end = r._arc(end,tangent,tuple(-c for c in axis),angle,radius)
+    return [first,second],end
+
+
+def _flavor_rear(flavor, destination):
+    """Shared descending bend, lower straight and rear socket approach."""
+    import above_core_routes as r
+    radius = 25.
+    peak, low_z = (282., 257.) if flavor=='a' else (303.5, destination[2])
+    aisle = 62. if flavor=='a' else 35.
+    start = (aisle, 368. if flavor=='a' else 348., peak)
+    offset = (15.5 if flavor=='a' else 0., 0., low_z-peak)
+    normal = r._unit(r._cross((0.,1.,0.),offset))
+    fall, low = _flavor_s_bend(start,(0.,1.,0.),offset,normal)
+    offset = (destination[0]-low[0],0.,destination[2]-low_z)
+    angle = math.acos(1.-r._norm(offset)/(2.*radius))
+    shift_start = (low[0],destination[1]-2.*radius*math.sin(angle),low_z)
+    normal = r._unit(r._cross((0.,1.,0.),offset))
+    shift, stop = _flavor_s_bend(shift_start,(0.,1.,0.),offset,normal)
+    return [*fall,r._line(low,shift_start),*shift]
+
+
 def flavor_routes(station):
     """Two 4 mm dispense lines through the pump's east aisle, below the meter."""
     import above_core_routes as r
     result = {}
     radius = 25.
-
-    def s_bend(start, heading, offset, axis):
-        # Two equal opposite arcs restore the original tangent.
-        distance = math.sqrt(sum(c*c for c in offset))
-        angle = math.acos(1.-distance/(2.*radius))
-        first,end = r._arc(start,heading,axis,angle,radius)
-        u = np.array(heading,float); n = np.array(axis,float)
-        tangent = math.cos(angle)*u+math.sin(angle)*np.cross(n,u)
-        second,end = r._arc(end,tangent,tuple(-c for c in axis),angle,radius)
-        return [first,second],end
 
     for flavor, valve, lane, cross_y, aisle, cross_z, lift_y in (
             ('a','valve-v-g',-33.,270.,55.5,296.,295.),
@@ -352,28 +370,19 @@ def flavor_routes(station):
         crossing = r._rounded([approach,(lane,cross_y,cross_z),(aisle,cross_y,cross_z),
                                 (aisle,lift_y,cross_z)],radius)
         peak,low_z = (282.,257.) if flavor=='a' else (303.5,destination[2])
-        rise,end = s_bend((aisle,lift_y,cross_z),(0.,1.,0.),(0.,0.,peak-cross_z),
+        rise,end = _flavor_s_bend((aisle,lift_y,cross_z),(0.,1.,0.),(0.,0.,peak-cross_z),
                           (1. if peak>cross_z else -1.,0.,0.))
         transfer = []
         if flavor=='a':
             transfer_start = (aisle,330.,peak)
-            shifted,shift_end = s_bend(transfer_start,(0.,1.,0.),(6.5,0.,0.),(0.,0.,-1.))
+            shifted,shift_end = _flavor_s_bend(transfer_start,(0.,1.,0.),(6.5,0.,0.),(0.,0.,-1.))
             transfer = [r._line(end,transfer_start),*shifted]
             end = shift_end
             aisle = 62.
-        fall_start = (aisle,368. if flavor=='a' else 348.,peak)
-        fall_offset = (15.5 if flavor=='a' else 0.,0.,low_z-peak)
-        fall_normal = r._unit(r._cross((0.,1.,0.),fall_offset))
-        fall,low = s_bend(fall_start,(0.,1.,0.),fall_offset,fall_normal)
-        aisle = low[0]
-        offset = (destination[0]-aisle,0.,destination[2]-low_z)
-        angle = math.acos(1.-r._norm(offset)/(2.*radius))
-        length = 2.*radius*math.sin(angle)
-        shift_start = (aisle,destination[1]-length,low_z)
-        normal = r._unit(r._cross((0.,1.,0.),offset))
-        shift,stop = s_bend(shift_start,(0.,1.,0.),offset,normal)
+        rear = _flavor_rear(flavor,destination)
+        stop = rear[-1]['points_mm'][-1]
         segments = [*lead,r._ease_lane(lead_end,approach),*crossing,*rise,*transfer,
-                    r._line(end,fall_start),*fall,r._line(low,shift_start),*shift,
+                    r._line(end,rear[0]['points_mm'][0]),*rear,
                     r._line(stop,r._sub(destination,r._mul(outward,10.)))]
         points = r._points(segments)
         result['fluid-'+('18' if flavor=='a' else '28')] = {

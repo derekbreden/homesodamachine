@@ -18,7 +18,7 @@ sys.path.insert(0,str(ROOT))
 import fcl
 import numpy as np
 from hardware.wiring.installed.model import STOCK, Connection, rounded_segments, sampled_segments
-from hardware.wiring.installed.review import load_mesh,base_name
+from hardware.wiring.installed.review import load_mesh,base_name,wire_obstacle,same_part
 
 OUT=Path(__file__).with_name('route-overrides.json')
 TMP=ROOT/'tmp/wiring-foundation'
@@ -55,6 +55,7 @@ def tube_mesh(points,radius):
 
 class Navigator:
     def __init__(self,meshes,terminals,terminations=None):
+        meshes={n:m for n,m in meshes.items() if wire_obstacle(n)}
         self.names=list(meshes);self.terminals=terminals
         self.terminations=terminations or {}
         self.objects=[];self.los=[];self.his=[]
@@ -80,7 +81,7 @@ class Navigator:
         self.keepout_radii=np.array(keepout_radii)
         self.actual_radius=None
 
-    def clear(self,a,b,r,ends,packing=True):
+    def clear(self,a,b,r,ends,packing=False):
         a,b=np.asarray(a),np.asarray(b)
         lo=np.minimum(a,b)-r;hi=np.maximum(a,b)+r
         # Preserve each actual mouth. Flexible dressing beyond it is supplied
@@ -89,13 +90,13 @@ class Navigator:
         points=self.keepout_points[keep];d=b-a;length=np.dot(d,d)
         fraction=np.clip((points-a).dot(d)/length,0,1) if length>1e-12 else np.zeros(len(points))
         packing_radius=self.actual_radius if self.actual_radius is not None else r
-        if np.any(np.sum((points-a-fraction[:,None]*d)**2,axis=1)<(packing_radius+self.keepout_radii[keep]+.02)**2):return False
+        if packing and np.any(np.sum((points-a-fraction[:,None]*d)**2,axis=1)<(packing_radius+self.keepout_radii[keep]+.02)**2):return False
         ids=np.flatnonzero(np.all(self.his>=lo,axis=1)&np.all(self.los<=hi,axis=1))
         obj=None
         for i in ids:
             name=base_name(self.names[i])
             members=self.terminations.get(name,{}).get('terminal_ids',[])
-            if any((name==t['part'] or t['id'] in members) and
+            if any((same_part(name,t['part']) or t['id'] in members) and
                    max(np.linalg.norm(a-t['point']),np.linalg.norm(b-t['point']))<=8.3 for t in ends):continue
             key=(int(i),round(r,2),tuple(np.round(a,4)),tuple(np.round(b,4)))
             if key in self.cache:
@@ -157,8 +158,7 @@ class Navigator:
                 while parents[k] is not None:
                     k=parents[k];route.append(tuple(coord(k)))
                 route.append(tuple(start));route.reverse()
-                # Line-of-sight simplification uses the same real obstacles and
-                # already placed wires as the search, rather than spline overshoot.
+                # Line-of-sight simplification uses the same larger bodies as the search.
                 simplified=[route[0]];i=0
                 while i<len(route)-1:
                     j=len(route)-1
@@ -221,7 +221,7 @@ def main():
             if r['id'] in routed_ids:nav.reserve(r,r['points_mm'],STOCK[r['stock']]['od_mm']/2)
         rows=[r for r in rows if r['id'] not in routed_ids]
     # Conduit conductors go first; their passages are the most constrained.
-    # Each later route sees the earlier physical wires.
+    # Conductors and tubing do not obstruct another conductor.
     rows.sort(key=lambda r:(0 if r['id'] in portals else 1,
                             -STOCK[r['stock']]['od_mm'],r['harness'],r['id']))
     failed=[];began=time.time()
@@ -270,8 +270,8 @@ def main():
         overrides[row['id']]={'stations':specs,'bend_radius_mm':2. if radius<1.4 else 3.,
                               'end_lands_mm':[float(np.linalg.norm(start-p)),float(np.linalg.norm(goal-q))],
                               'preserve_stations':True,
-                              'note':'Proposed installed route searched against current physical geometry and earlier conductors; physical dressing remains open.'}
-        nav.reserve(row,points,radius)
+                              'note':'Proposed installed route searched against current larger bodies; physical dressing remains open.'}
+        # Wire-to-wire packing is outside this route search.
         print(f'{number}/{len(rows)} {row["id"]}: {len(points)} stations ({time.time()-began:.1f}s)',flush=True)
         OUT.write_text(json.dumps(overrides,indent=2)+'\n')
         (TMP/'search-failures.json').write_text(json.dumps(failed,indent=2)+'\n')

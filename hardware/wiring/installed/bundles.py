@@ -79,8 +79,9 @@ def trimmed(segments,front,back):
 def centreline(b,attachments):
     if 'passage' in b:
         cached=getattr(attachments,'_shared_cap_cables',{})
-        if b['passage'] in cached:
-            return cached[b['passage']]
+        key=(b['passage'],tuple(tuple(p) for p in b.get('above_cap_stations_mm',())))
+        if key in cached:
+            return cached[key]
         import _above_core_mounts
         import _internal_routes
         corridor=_above_core_mounts.cable_guide_points(b['passage'])
@@ -111,7 +112,7 @@ def centreline(b,attachments):
             segments.insert(0,{'kind':'line','start_mm':top,'end_mm':first,
                                'length_mm':math.dist(top,first)})
             points=[top,*source_points]
-        cached[b['passage']]=(points,segments)
+        cached[key]=(points,segments)
         attachments._shared_cap_cables=cached
         return points,segments
     else:
@@ -153,7 +154,7 @@ def reed_level_segments(segments, recipe, identity=None):
     else:raise ValueError('Reed cable has no high fore-aft span')
     for i,s in enumerate(segments):
         p=s['start_mm']
-        if s['kind']=='arc' and abs(p[0]-controls[-1][0])<1e-7 and 443<p[1]<449 and 258<p[2]<263:
+        if s['kind']=='arc' and abs(p[0]-controls[-1][0])<1e-7 and abs(p[1]-controls[-1][1])<3. and abs(p[2]-controls[-1][2])<3.:
             tail=segments[i:];break
     else:raise ValueError('Reed cable has no rear cap-passage approach')
     def ease(t):return 6*t**5-15*t**4+10*t**3

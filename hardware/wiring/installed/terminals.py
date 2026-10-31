@@ -254,6 +254,16 @@ class Attachments:
                 p,a=carry(local,(0,1,0))
                 self.put(f'{name}.{i+1}',name,p,a,'WAGO-port',
                          'Distinct nominal port centres within native WAGO envelope; bores unmodelled','nominal',i+1)
+        from .terminations import final_join_placements
+        import above_core as layout
+        for name, point in final_join_placements().items():
+            pose = {'rotation':junctions.PORTS_FORE, 'translation_mm':point}
+            for i in range(3):
+                local = (-18.8/2+18.8/3*(i+.5), 18.6/2, 8.4/2)
+                self.put(f'join-{name}.{i+1}', 'wiring-junction-'+name,
+                         layout.point(pose,local), layout.vector(pose['rotation'],(0,1,0)),
+                         'WAGO-port','Nominal port centre in the placed native 221-413 envelope',
+                         'nominal',i+1)
 
     def power(self):
         ea=self.ea

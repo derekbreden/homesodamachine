@@ -56,10 +56,10 @@ def compose(scene, ea):
         'bundles':bundles,
         'routes':[r.record() for r in routes],
         'limits':[
-            'Routes and conductor packing are proposed installed geometry; physical harness dressing and assembly are not accepted by this model.',
+            'Routes are the selected installed geometry. The manual review checks larger-body clearance; wire-to-wire and wire-to-tube contacts are excluded. Physical harness handling remains separate.',
             'Lengths follow the routed insulated conductor centreline; hidden crimp insertion, cut reserve, sleeve fit and final service slack are separate.',
             'Wire bend radii are reported geometric radii, not manufacturer-qualified minima.',
-            'No rigid Faston boot box is imposed on the flexible valve tabs or the pump motor tabs. G/J use a proposed aft exit at the tab engagement region.',
+            'No rigid Faston boot box is imposed on the flexible valve tabs or the pump motor tabs. G/J use an aft exit at the tab engagement region.',
             'Nominal and unlocated terminals remain visible in the graph and manifest; no exact donor termination is invented.',
             'The electrical graph does not qualify grounding, mains isolation, current capacity or energization.',
         ],

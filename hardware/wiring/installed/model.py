@@ -37,7 +37,7 @@ class Route:
     segments: list[dict] = field(default_factory=list)
     length_mm: float = 0.0
     minimum_bend_mm: float | None = None
-    status: str = "proposed"
+    status: str = "selected_layout"
     note: str = ""
 
     def record(self):
