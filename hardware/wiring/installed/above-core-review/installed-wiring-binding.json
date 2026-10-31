@@ -4,8 +4,8 @@
   "scope": "Manual actual installed-wiring STEP/manifest binding to the current source electrical graph and native wiring bodies, including their placements inside the complete appliance STEP. No equipment/contact sweep or mechanical regeneration. Unchanged accepted contact receipts remain separately scoped.",
   "reader_sha256": "c076c0ac4b46d7cc0d3b8d0619c55a106468716762276420ea924d6f7ae85ff2",
   "actual_step_sha256": "e94f8aa422c155d17cc82ed1a447e9cebd5c701c96272df4830f632ab2a06fa3",
-  "actual_manifest_sha256": "f5f98cb561a540878e29dc9dc5815dfb29f352dbbdab2d572384f89d4075cb65",
-  "physical_EA_sha256": "a6bc637969cb169b970e261c7466020c5a8912c2323ffdfa566e53e3230b8e8d",
+  "actual_manifest_sha256": "1d56e27d0a4512bd38dee9e934c4c27a557ea56826c0ea394476dfefe1c9e64b",
+  "physical_EA_sha256": "c43899c17ab94f1144202b9bd43d80a8a12cef7f2e09b742f7c53531c17b3cab",
   "source_sha256": {
     "hardware/wiring/installed/build.py": "ca22378cd710bfcc2786b6227d2bf3a48b267a7b7c06bf8e6e7e004620bdce0e",
     "hardware/wiring/installed/route-overrides.json": "d30f28049c5949167e79683233956fb1f738b417ab8ccd25bb2c2b9597187155",
