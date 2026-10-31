@@ -102,6 +102,11 @@ native = tc.parts()
 names = {'pp010822e': 'jg-pp010822e', 'gagira': 'gagira-coupling', 'multiplex-asse1022': 'multiplex-asse1022',
          'pi4512f6s': 'jg-pi4512f6s', 'pp061208w': 'jg-pp061208w'}
 parts = {names[k]: (native[k].moved(TO_WORLD), tc.COLORS[k]) for k in names}
+# The ASSE body turns a quarter about its axis, its vent down through its snap cap.
+ASSE_TURN = 90.
+parts['multiplex-asse1022'] = (parts['multiplex-asse1022'][0].moved(
+    cq.Location(cq.Vector(X_W, 0., ROWS[0])) * cq.Location(cq.Vector(), cq.Vector(0., -1., 0.), ASSE_TURN)
+    * cq.Location(cq.Vector(-X_W, 0., -ROWS[0]))), parts['multiplex-asse1022'][1])
 tap_axis = cq.Vertex.makeVertex(*ports['inlet'][0]).moved(TO_WORLD).Center()
 
 # --- the Pisco: native +Z (flow) runs world -Y, its inlet release face on the mouth plane --------
@@ -447,8 +452,8 @@ for name, (x, row, bore, centre_xz, colour, text, ink) in TILES.items():
 # With back-top inverted on the bench, the ASSE chain, the Pisco and the meter each slide aft into a
 # seat, and a snap cap holds each there. The seats print as part of back-top; they are drawn apart
 # from it until the scenes.
-seated, seat_numbers = slide_seats.build(parts, (X_W, ROWS[0]), TO_WORLD, (X_E, ROWS[0]), MOUTH_Y, CEILING,
-                                         WALL_IN, SIDE_WALL_X, meter, METER)
+seated, seat_numbers = slide_seats.build(parts, (X_W, ROWS[0]), TO_WORLD, ASSE_TURN, (X_E, ROWS[0]), MOUTH_Y,
+                                         CEILING, WALL_IN, SIDE_WALL_X, meter, METER)
 for n, s in seated.items():
     parts[n] = (s, M_PETGF_BLACK)
 HOLDS = {'asse': slide_seats.CHAIN, 'pisco': (*PISCO, 'co2-check'), 'meter': ('digiten-flow',)}
@@ -915,7 +920,6 @@ substitute_md(HERE / 'README.md', {
        for end, n in (('FORE', 'suction-elbow'), ('AFT', 'lower-valve-elbow')) for i in range(3)},
     'UNDER_VK': f'{joints["suction"]["under_vk_mm"]:.2f}', 'ELBOW_TO_SPADE': f'{joints["suction"]["elbow_to_spade_mm"]:.1f}',
     'OUTLET_INTO_CAP': f'{CAP_Z - line["lower-valve-elbow"]["bbox"][2]:.1f}',
-    'CO2_INTO_REDUCER': f'{overlap_depth("suction-reducer", "co2-tube", 0):.1f}',
     'CO2_INTO_ELBOW': f'{overlap_depth("suction-elbow", "co2-tube", 1):.1f}',
     'CHECK_MOUTH_Y': f'{check["socket_mouth_y"]:.1f}', 'CHECK_TIP_SHORT': f'{check["tip_short_of_tube_stop_mm"]:.1f}',
     'CHECK_UNDER_CEILING': f'{check["under_ceiling_mm"]:.1f}',
