@@ -162,7 +162,7 @@ Served flat via `express.static(public/)`.
 | [`public/boot.js`](/web/public/boot.js) | every page (`<script defer>`) | SW navigate bridge, notifications state mirror + bell + toast + warm-tap auto-redirect, WebSocket owner, `/api/version` deploy/activation check (reloads the page on a new build unless the viewer claims it via `window.__hsmDeploySoft`). Module-local state — never touches `window.__hsm`. |
 | [`public/landing.js`](/web/public/landing.js) | `/` | Loads the film player when its local poster is activated; handles availability signup and feedback. The poster links to YouTube without JavaScript. |
 | [`public/landing/`](/web/public/landing/) | `/` | Kitchen and component illustrations rendered from the current CAD meshes by [`../tools/render/render-kitchen-scene.py`](../tools/render/render-kitchen-scene.py), plus the film poster. The scene renderer is run on demand. |
-| [`public/pretty/`](/web/public/pretty/) | `/pretty/` | Interactive studio view of the PP061208W reducer. Drag to rotate, select Pan to move, scroll or pinch to zoom, and reset the view. Two-finger gestures combine pan and zoom on phones. |
+| [`public/pretty/`](/web/public/pretty/) | `/pretty/`, `/pretty/enclosure/` | Interactive studio views of the PP061208W reducer and full enclosure. Rotate, pan, scroll or pinch to zoom, and reset. The enclosure offers front-open, rear-open, all-open and closed shell views, with a separate core-insulation toggle. |
 | [`public/suppliers/`](/web/public/suppliers/) | `/` | White logos for the landing page's suppliers section, each from the supplier's own site. Fresh Water Systems: its white footer logo. JLCPCB: its header logo, the `logo` glyph (U+E6CC) of its icon font, written as a path. SendCutSend: the approved white logo from its [brand assets](https://sendcutsend.com/brand-assets/) page, its canvas trimmed to the artwork; the approved colors are black, red and white, and only its approved logos may be used. Lulu: its site logo, filled white. |
 | [`public/cost.js`](/web/public/cost.js) | `/cost` | Cost overview navigation and sales scenario controls. Three accordion cards show per-unit cost, investment recovery and the 5/10/20 forecast in that order, with headline totals visible while collapsed. Jump links and direct section links reveal the relevant card; recovery controls update its summary. `cost-recovery.js` shares recovery math and the SVG chart with the server. `batch-forecast.js` selects the 5/10/20 plan, defaults to Parts category, and filters suppliers and stock-covered parts. Compact purchase lists scroll; each item expands for source, lots and stock evidence. The overview, category grouping and all three batch disclosures work without JavaScript. |
 | [`public/unit.js`](/web/public/unit.js) | Unit pages | Opens the included-equipment disclosure from its link and saves preparation checkmarks in this browser, keyed by serial. Navigation and documents are server-rendered links. |
@@ -175,13 +175,21 @@ Served flat via `express.static(public/)`.
 | `public/js/viewer/*.js` | `/3d`, `/charts` | The parts/charts viewer modules — see below. |
 | `public/css/viewer.css` | `/3d`, `/charts` | Viewer-specific styles. |
 
-The standalone `/pretty/` studio uses the tessellated PP061208W reference CAD,
-with its fixed body and release collet kept separate. `reducer.js` records the
-source STL's SHA-256. Movement uses an immediate preview; the stationary view
-refines bounced studio light with a denoising pass. Rendering stops at a sample
-limit and while the page is hidden or offscreen. The responsive WebGL 2 viewer
-uses pinned Three.js, mesh BVH and path-tracer modules from CDNs, with a studio
-preview available when refinement is unsupported. It adds no build dependency.
+The studio's `reducer.js` records the reference STL's SHA-256. `enclosure.js`
+reads the same published colored assembly tessellation as `/3d` and matches its
+linear RGB colors to `/finishes.json`. It groups bodies by finish and cutaway
+visibility for fewer preview draws. Cutaway surfaces remain in one BVH; their
+opacity changes remove them from traced light, while mesh visibility controls
+the immediate preview. This avoids rebuilding the assembly on each shell toggle
+and adds no second assembly asset. A module worker prepares the assembly's BVH
+while its preview remains interactive, and terminates when that work finishes.
+
+Movement uses an immediate preview; the stationary view refines bounced studio
+light with a denoising pass. Rendering stops at a sample limit and while the
+page is hidden or offscreen. Phones use a lower refinement resolution for the
+assembly. The responsive WebGL 2 viewer uses pinned Three.js, mesh BVH and
+path-tracer modules from CDNs, with a studio preview available when refinement
+is unsupported. It adds no build dependency.
 
 ### `public/js/viewer/` — the parts viewer modules
 
