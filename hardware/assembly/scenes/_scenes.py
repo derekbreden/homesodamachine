@@ -73,30 +73,24 @@ BACK_TOP_INLET_HEADER = (
 # These production names map the mounting-parent groups in the accepted
 # funnel-gate assembly-ownership record, with the purchased check references.
 BACK_TOP_CARRIED_COMPONENTS = (
-    "valve-v-a", "vk-solenoid", "psu", "relay-1", "relay-2", "c14-inlet",
-    "keystone-jack", "asse1022-assembly", "asse-inlet-tpu",
-    "asse-outlet-tpu", "asse-drain-adapter", "water-split", "flow-regulator",
-    "reg-va-elbow", "va-outlet-elbow", "tee-fold", "lower-valve-elbow",
-    "lower-pump-elbow", "va-east-turn", "gas-regulator", "gas-check",
-    "gas-inlet-elbow", "gas-lower-a", "gas-lower-b", "gas-upper-a",
-    "gas-upper-b", "soda-stem-elbow", "soda-outlet-return-stem",
+    "valve-v-a", "vk-solenoid", "psu", "relay-1", "relay-2", "c14-inlet", "keystone-jack",
+    "asse1022-assembly", "bulkhead-water", "gagira-coupling", "jg-pi4512f6s", "jg-pp061208w",
+    "asse-drain-adapter", "water-split", "flow-regulator", "reg-va-elbow", "va-outlet-elbow",
+    "va-south-elbow", "tee-fold", "lower-valve-elbow", "gas-regulator", "gas-check", "co2-inlet",
     "digiten-flow", "soda-bend-holder", "soda-continuous-insulation",
+    "asse-snap-cap", "pisco-snap-cap", "meter-snap-cap", "regulator-snap-cap",
     "wago-h", "wago-n", "wago-g",
-    *(name for fitting in ("bulkhead-water", "bulkhead-carb", "bulkhead-drain",
-                           "bulkhead-flavor-a", "bulkhead-flavor-b", "co2-inlet")
-      for name in (fitting, fitting + "-nut")),
+    *(f'{name}-{kind}-{number}' for name in ('psu','relay-1','relay-2')
+      for kind in ('screw','insert') for number in (range(1,5) if name=='psu' else (1,4))),
+    *(name for fitting in ("bulkhead-carb", "bulkhead-drain", "bulkhead-flavor-a", "bulkhead-flavor-b")
+      for name in (fitting,fitting+"-nut")),
 )
 BACK_TOP_CARRIED_TUBES = (
-    "tube-above-core-water-in",
-    "tube-above-core-tee-vk-link",
-    "tube-above-core-reg-va-link",
-    "tube-above-core-tee-regulator",
-    "tube-above-core-va-under-head",
-    "tube-above-core-va-fore-feed",
-    "tube-above-core-gas-inlet",
-    "tube-above-core-gas-check-link",
+    "tube-above-core-water-split-stub", "tube-above-core-tee-vk-link",
+    "tube-above-core-reg-va-link", "tube-above-core-tee-regulator", "tube-drain-vent",
     "tube-soda-meter-bulkhead",
 )
+
 # These drawn spans cross mounting parents. They are explicit final handoffs,
 # rather than extra rigid bodies silently assigned to the cold core.
 BACK_TOP_HANDOFF_TUBES = (
@@ -370,7 +364,7 @@ SCENES = (
         inner=(), flip=None, also=(), later=(),
         # Square on to the +X flank the column stands down, from inside the box.
         cam=(-1.0, -0.25, 0.35), up=(0, 0, 1), zoom=2.8, look="centre",
-        note="The PSU and both relays mount on back-top's dry sidewall. The PCB and ground "
+        note="The PSU mounts in back-top's shallow ceiling well; both relays use its west wall. The PCB and ground "
              "stack remain on the cold-core lid. Rear connection work uses the open subassembly; "
              "the electronics ceiling is continuous.",
     ),

@@ -140,8 +140,9 @@ CARD_PORT_BODIES = (
     "water-split",
     "gas-regulator",
     "gas-check",
-    "asse-inlet-tpu",
-    "asse-outlet-tpu",
+    "jg-pp061208w",
+    "suction-reducer",
+    "discharge-reducer",
 )
 
 

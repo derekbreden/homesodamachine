@@ -281,7 +281,6 @@ MOUNTS = (
     # The check chain lies in a rib printed on the cold core's cap lid — the same plate the pump
     # bolts to, so the tube from the discharge elbow spans no joint
     # (`_cold_core_interface.cap_anchors`, read by `chains-seated`).
-    ("discharge-chain", "foam-assembly", "cradle"),
     # Each elbow pushes onto one of the pump's moulded barbs and its clamp bands close on its own
     # sockets, so all three ride the pump (`RIDES`) and its deck mounts are their fastening.
     *((name, None, "sleeve" if name.endswith("-tpu") else "tube-clamp")
@@ -306,10 +305,6 @@ MOUNTS = (
     ("wago-manb", "enclosure-front-top", "well"),
     ("wago-reeds-b", "foam-assembly", "well"),
     ("wago-sensors", "foam-assembly", "well"),
-    # Bare ASSE body in two open east-sector roof seats, retained by two ties.
-    ("asse1022-assembly", "enclosure-back-top", "cradle"),
-    ("asse-inlet-tpu", "asse1022-assembly", "sleeve"),
-    ("asse-outlet-tpu", "asse1022-assembly", "sleeve"),
     ("asse-drain-adapter", "asse1022-assembly", "sleeve"),
     # The gas sensor drops into two grooved posts printed on the floor of the bay it watches
     # (`enclosure._west_cradle`), and its can stands just off the wall. The sensor
@@ -332,14 +327,11 @@ MOUNTS = (
     # axis counts a PRINTED feature, so the row is open on it and the joint is not.
     ("fuse-clamp", None, "gap-press"),
     # Selected water/gas fittings and source valves ride back-top.
-    ("water-split", "asse-outlet-tpu", "sleeve"),
-    ("flow-regulator", "enclosure-back-top", "cradle"),
     ("vk-solenoid", "enclosure-back-top", "cradle"),
     # EVERY FITTING ON THE +Y WALL OF BACK-TOP IS CLAMPED THROUGH IT. The flange lands on the ring in its
     # pad, the barrel passes a bore struck one `PORT_HOLE_SLIP` over it, and the fitting's own nut
     # draws up on the inside — so the printed material is the clamped member and the joint is a
     # thread made up on it.
-    ("bulkhead-water", "enclosure-back-top", "wall-capture"),
     ("bulkhead-drain", "enclosure-back-top", "wall-capture"),
     ("c14-inlet", "enclosure-back-top", "bosses"),
     ("keystone-jack", "enclosure-back-top", "snap-capture"),
@@ -353,11 +345,6 @@ MOUNTS = (
     ("flavor-reducer-v-j", "valve-v-j", "collet"),
     ("data-ring", "enclosure-back-top", "snap"),
     ("data-ring-word", "data-ring", "well"),
-    ("co2-inlet", "enclosure-back-top", "wall-capture"),
-    # The folded gas bodies sit in tied sidewall saddles. Their connecting
-    # stems make up directly in the purchased sockets.
-    ("gas-check", "enclosure-back-top", "cradle"),
-    ("gas-regulator", "enclosure-back-top", "cradle"),
     ("bulkhead-flavor-a", "enclosure-back-top", "wall-capture"),
     ("bulkhead-flavor-b", "enclosure-back-top", "wall-capture"),
     ("bulkhead-carb", "enclosure-back-top", "wall-capture"),
@@ -389,7 +376,6 @@ MOUNTS = (
     ("nameplate-ink", "nameplate", "well"),
     # Two lid-rooted quarter bearings carry the fixed meter collars. Ties close
     # their open faces without restraining either release collet.
-    ("digiten-flow", "enclosure-back-top", "cradle"),
     # V-A and V-K use back-top's integral seats; V-B's upright belongs to the lid.
     ("valve-v-a", "enclosure-back-top", "cradle"),
     ("valve-v-b", "foam-assembly", "cradle"),
@@ -475,6 +461,7 @@ def _selected_mounts() -> tuple:
         "lower-valve-elbow": ("vk-solenoid", "collet"),
         "lower-pump-elbow": ("lower-valve-elbow", "collet"),
         "reg-va-elbow": ("valve-v-a", "collet"),
+        "va-south-elbow": ("valve-v-a", "collet"),
         "va-outlet-elbow": ("valve-v-a", "collet"),
         "carbonator-fold": ("discharge-chain", "collet"),
         "gas-inlet-elbow": ("gas-regulator", "collet"),
@@ -503,8 +490,36 @@ def _selected_mounts() -> tuple:
     selected = (*bom.stem_elbow_names(), *bom.union_elbow_names(),
                 *bom.core_stem_elbow_names(), *bom.core_union_elbow_names())
     rows = [(name, *fittings[name]) for name in selected if name in fittings]
+    rows.extend((name, host, joint) for name, host, joint in (
+        ('asse1022-assembly', 'enclosure-back-top', 'snap-seat'),
+        ('asse-snap-cap', 'enclosure-back-top', 'snap'),
+        ('regulator-snap-cap', 'enclosure-back-top', 'snap'),
+        ('pisco-snap-cap', 'enclosure-back-top', 'snap'),
+        ('meter-snap-cap', 'enclosure-back-top', 'snap'),
+        ('flow-regulator', 'enclosure-back-top', 'snap-seat'),
+        ('gas-regulator', 'enclosure-back-top', 'snap-seat'),
+        ('co2-inlet', 'gas-regulator', 'purchased-body'),
+        ('digiten-flow', 'enclosure-back-top', 'snap-seat'),
+        ('bulkhead-water', 'gagira-coupling', 'thread'),
+        ('gagira-coupling', 'asse1022-assembly', 'thread'),
+        ('jg-pi4512f6s', 'asse1022-assembly', 'thread'),
+        ('jg-pp061208w', 'jg-pi4512f6s', 'collet'),
+        ('water-split', 'vk-solenoid', 'tube-carried'),
+        ('gas-check', 'gas-regulator', 'collet'),
+        ('discharge-chain', 'carbonator-fold', 'collet'),
+    ))
+    for side in ('suction', 'discharge'):
+        rows.extend((f'{side}-{part}', f'{side}-tube', 'clamped-joint')
+                    for part in ('reducer', 'barb-clamp', 'barb-key', 'stem-clamp', 'stem-key'))
+        rows.append((side+'-tube', 'g-ganen-pump', 'barb'))
+    for name in ('psu', 'relay-1', 'relay-2'):
+        stations = range(1, 5) if name == 'psu' else (1, 4)
+        for i in stations:
+            rows.extend(((f'{name}-screw-{i}', 'enclosure-back-top', 'thread'),
+                         (f'{name}-insert-{i}', 'enclosure-back-top', 'heat-set')))
     for names in layout.specification()['fluid_grid']['assignment']:
-        rows.extend((name+'-nut', name, 'thread') for name in names)
+        rows.extend((name+'-nut', name, 'thread') for name in names
+                    if name not in ('bulkhead-water', 'co2-inlet'))
     for datum in enc._funnel_frame_part.fastener_datums():
         host = f'enclosure-{datum["col"]}-top'
         base = f'funnel-frame-{datum["name"]}'

@@ -65,6 +65,16 @@ def va_feed_snap():
                      print_up=(0., 0., 1.))
 
 
+def flavor_snaps():
+    """Two filled lid-rooted seats on the rear flavor tubes' straight spans."""
+    sys.path.insert(0,str(HW/'printed-parts/cadlib'))
+    from route_snap import tube_clip
+    return {name:tube_clip(centre,(0.,1.,0.),(0.,0.,1.),
+                centre[2]-above_core.specification()['cap_face_z_mm'],
+                tube_od=4.,bore_diameter=4.1,span=8.,wing=1.52,print_up=(0.,0.,1.))
+            for name,centre in (('flavor-a',(77.5,417.,257.)),('flavor-b',(35.,414.,264.)))}
+
+
 def manifold_cable_bank():
     """One filled J1/J2 cable bank on the lid, in appliance coordinates."""
     sys.path[:0] = [str(HW.parent), str(HW / 'printed-parts' / 'cadlib')]
@@ -299,19 +309,6 @@ def union_support_datums():
     """
     import fits
     face = above_core.specification()['cap_face_z_mm']-.15
-    x,y,z = above_core.snapshot_pose('va-east-turn')['translation_mm']
-    radius = _jg_band_radius('z',8.5,11.5)+fits.slip
-    yy = y-10.
-    va = {'stock_min_world_mm':(x-radius-9.,yy-1.5,face),
-          'stock_max_world_mm':(x,yy+1.5,z),
-          'bore_origin_world_mm':(x,yy-1.6,z),
-          'bore_axis_world':(0.,1.,0.), 'bore_length_mm':3.2,
-          'seat_radius_mm':radius,'native_leg':'z','native_band_mm':(8.5,11.5),
-          'tie_window_min_world_mm':(x-radius-5.8,yy-1.6,z-7.),
-          'tie_window_max_world_mm':(x-radius-3.,yy+1.6,z-4.5),
-          'wall_mm':3.,'parent':'enclosure-back-top',
-          'support_implemented':False,
-          'mount_status':'Tube-carried with the back-top V-A plumbing; no independent printed restraint'}
     frame = above_core.snapshot_pose('vb-outlet-return')
     centre = above_core.point(frame,(0.,0.,14.5))
     radius = _jg_band_radius('z',13.,16.)+fits.slip
@@ -340,7 +337,7 @@ def union_support_datums():
           'tie_route_native_down_mm':radius+6.3,
           'centre_world_mm':centre,
           'wall_mm':3.,'parent':'foam-assembly','support_implemented':True}
-    return {'va-east-turn': va, 'vb-outlet-return': vb}
+    return {'vb-outlet-return': vb}
 
 
 def union_supports():
@@ -502,7 +499,7 @@ def union_tie_routes():
 
 
 def meter_tie_routes():
-    return _back_top_meter().meter_tie_routes()
+    return {}
 
 
 def nominal_tie_strips():
@@ -516,8 +513,7 @@ def nominal_tie_strips():
     import cadquery as cq
 
     result = {}
-    routes = {**union_tie_routes(), **meter_tie_routes(),
-              'water-check':check_tie_route()}
+    routes = {**union_tie_routes(), **meter_tie_routes()}
     for name, data in routes.items():
         pieces = []
         for segment in data['segments']:
