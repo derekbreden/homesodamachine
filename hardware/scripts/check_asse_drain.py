@@ -99,6 +99,11 @@ def write(placed, output=OUTPUT, *, names=NAMES, route_specs=None):
         for other, obstacle in shapes.items():
             if other == name or frozenset((name, other)) in CONNECTED:
                 continue
+            leaf = other.rsplit('/', 1)[-1]
+            wire_body = (leaf.startswith(('wire-', 'wiring-', 'terminal-'))
+                         and not leaf.startswith(('wiring-junction-', 'terminal-J')))
+            if name.startswith('tube-') and wire_body:
+                continue
             ob = bounds[other]
             if any(bb[i + 3] + 1 < ob[i] or ob[i + 3] + 1 < bb[i]
                    for i in range(3)):
@@ -145,7 +150,7 @@ def write(placed, output=OUTPUT, *, names=NAMES, route_specs=None):
                ROOT / "hardware/printed-parts/asse-drain-adapter/asse_drain_adapter.py"]
     method = ("Nominal mesh clearance (every body within 0.005 mm of its exact surface)"
               if any(meshed(s) for s in shapes.values()) else "Nominal exact B-rep clearance")
-    result = {"scope": method + " of the direct TPU ASSE sleeve and dedicated drain against the complete installed assembly population, including cold-core bodies and retained flavor returns. Connected interfaces are excluded. The white 4 mm return requires at least 1 mm to every unconnected body. Pump occupied envelopes are read per component. The sleeve's expanded shape is an occupancy approximation. Hardware tolerances, zip-tie heads, actual bending, seals and vent performance are unmeasured.",
+    result = {"scope": method + " of the direct TPU ASSE sleeve and dedicated drain against the complete installed assembly population, including cold-core bodies and retained flavor returns. Connected interfaces are excluded. Tubes exclude flexible conductors and jackets as obstacles; connector housings remain. The white 4 mm return requires at least 1 mm to every other unconnected body. Pump occupied envelopes are read per component. The sleeve's expanded shape is an occupancy approximation. Hardware tolerances, zip-tie heads, actual bending, seals and vent performance are unmeasured.",
               "conservative_cold_core_envelope_included": "foam-assembly" in shapes,
               "installed_body_count": len(shapes), "checked_members": list(names), "checks": checks, "bend_radii": radii,
               "source_sha256": {str(p.relative_to(ROOT)): sha(p) for p in sources},

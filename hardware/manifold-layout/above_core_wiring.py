@@ -53,16 +53,17 @@ def placements():
             (x, 457.5, z), purpose)
     # Two rows on the board-facing back of V-B's wall. Levers open west;
     # wire mouths face away from the shared rear-half holder stock.
-    for name, y, z, turn, purpose in (
-            ('wago-sensors', 228.55, 286.1, WALL_BACK_FORE,
+    vb = layout.pose('valve-v-b')
+    for name, x, y, turn, purpose in (
+            ('wago-sensors', -6.69, -11.05434, WALL_BACK_FORE,
              'PCB J4 / temperature bus / flow meter common'),
-            ('wago-v12', 228.55, 264., WALL_BACK_FORE,
+            ('wago-v12', 15.41, -11.05434, WALL_BACK_FORE,
              'PSU secondary / relay 2 COM / PCB J10 V12'),
-            ('wago-gnd', 250.55, 264., WALL_BACK_AFT,
+            ('wago-gnd', 15.41, 10.94566, WALL_BACK_AFT,
              'PSU secondary / pump negative / PCB J10 GND'),
-            ('wago-reeds-b', 250.55, 286.1, WALL_BACK_AFT,
+            ('wago-reeds-b', -6.69, 10.94566, WALL_BACK_AFT,
              'PCB J7 / reservoir B / carbonator reed common')):
-        put(name, '413', 'cold-core', turn, (29.0, y, z), purpose)
+        put(name, '413', 'cold-core', turn, layout.point(vb,(x,y,-11.)), purpose)
     # These branch points travel with the complete front valve manifold.
     put('wago-mana', '420', 'front-top', EAST_FLANK, (95.20, 185.05, 277.),
         'J1 valve common and eight A-H coil branches')

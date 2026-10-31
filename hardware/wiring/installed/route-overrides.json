@@ -21,27 +21,11 @@
   "J1-positive-C": {
     "stations": [
       {
-        "terminal": "wago-mana.4",
-        "offset": [
-          -15.75,
-          -11.210000000000008,
-          -9.634999999999991
-        ]
-      },
-      {
         "terminal": "V-C.positive",
         "offset": [
-          31.999999999999982,
-          24.000000000000014,
-          41.99999999999994
-        ]
-      },
-      {
-        "terminal": "V-C.positive",
-        "offset": [
-          23.999999999999982,
-          8.000000000000014,
-          13.999999999999943
+          25.1,
+          14.91,
+          9.875
         ]
       }
     ],
@@ -52,56 +36,32 @@
     "bend_radius_mm": 2.0,
     "preserve_stations": true,
     "route_status": "selected_layout",
-    "note": "Selected installed route through its native terminals and retained cable supports."
+    "note": "Dressed through the named retained guides and clear of larger installed bodies. Wires and tubing do not obstruct conductors."
   },
   "J1-positive-D": {
     "stations": [
       {
-        "terminal": "wago-mana.5",
+        "terminal": "V-D.positive",
         "offset": [
-          -21.549999999999997,
-          -15.210000000000008,
-          -15.595000000000027
-        ]
-      },
-      {
-        "terminal": "wago-mana.5",
-        "offset": [
-          -40.95,
-          -32.00999999999999,
-          -35.595
-        ]
-      },
-      {
-        "terminal": "wago-mana.5",
-        "offset": [
-          -44.95,
-          -32.00999999999999,
-          -47.595
+          30.9,
+          26.91,
+          45.875
         ]
       },
       {
         "terminal": "V-D.positive",
         "offset": [
-          23.999999999999982,
-          12.000000000000014,
-          37.99999999999997
+          18.9,
+          14.91,
+          33.875
         ]
       },
       {
         "terminal": "V-D.positive",
         "offset": [
-          19.999999999999982,
-          12.000000000000014,
-          37.99999999999997
-        ]
-      },
-      {
-        "terminal": "V-D.positive",
-        "offset": [
-          3.9999999999999822,
-          4.000000000000014,
-          1.9999999999999716
+          10.9,
+          10.91,
+          13.875
         ]
       }
     ],
@@ -112,7 +72,7 @@
     "bend_radius_mm": 2.0,
     "preserve_stations": true,
     "route_status": "selected_layout",
-    "note": "Selected installed route through its native terminals and retained cable supports."
+    "note": "Dressed through the named retained guides and clear of larger installed bodies. Wires and tubing do not obstruct conductors."
   },
   "J1-positive-E": {
     "stations": [
@@ -472,71 +432,79 @@
         "offset": [
           0.0,
           0.0,
-          20.80000000000001
+          20.8
+        ]
+      },
+      {
+        "terminal": "J1.OUT3",
+        "offset": [
+          1.47986,
+          -59.20292,
+          19.6
         ]
       },
       {
         "terminal": "J1.OUT3",
         "offset": [
           0.0,
-          -66.35292002005039,
-          20.80000000000001
+          -66.20292,
+          20.8
         ]
       },
       {
         "terminal": "V-C.negative",
         "offset": [
-          44.29999999999998,
-          79.75999999999998,
-          117.87499999999994
+          38.2,
+          78.91,
+          113.875
         ]
       },
       {
         "terminal": "V-C.negative",
         "offset": [
-          44.29999999999998,
-          79.75999999999998,
-          95.42499999999995
+          44.3,
+          79.91,
+          111.075
         ]
       },
       {
         "terminal": "V-C.negative",
         "offset": [
-          44.29999999999998,
-          52.90999999999998,
-          95.42499999999995
+          44.3,
+          79.91,
+          88.625
         ]
       },
       {
         "terminal": "V-C.negative",
         "offset": [
-          13.399999999999988,
-          42.90999999999998,
-          95.42499999999995
+          38.2,
+          78.91,
+          89.875
         ]
       },
       {
         "terminal": "V-C.negative",
         "offset": [
-          13.399999999999988,
-          42.90999999999998,
-          -6.0
+          38.2,
+          58.91,
+          89.875
         ]
       },
       {
         "terminal": "V-C.negative",
         "offset": [
-          13.399999999999988,
-          9.909999999999982,
-          -6.0
+          44.3,
+          52.91,
+          88.625
         ]
       },
       {
         "terminal": "V-C.negative",
         "offset": [
-          0.0,
-          9.909999999999982,
-          -6.0
+          10.2,
+          10.91,
+          9.875
         ]
       }
     ],
@@ -547,7 +515,7 @@
     "bend_radius_mm": 2.0,
     "preserve_stations": true,
     "route_status": "selected_layout",
-    "note": "Selected installed route through its native terminals and retained cable supports."
+    "note": "Dressed through the named retained guides and clear of larger installed bodies. Wires and tubing do not obstruct conductors."
   },
   "J1-OUT4": {
     "stations": [
@@ -556,71 +524,103 @@
         "offset": [
           0.0,
           0.0,
-          20.80000000000001
+          20.8
+        ]
+      },
+      {
+        "terminal": "J1.OUT4",
+        "offset": [
+          -1.02001,
+          -59.20292,
+          19.6
         ]
       },
       {
         "terminal": "J1.OUT4",
         "offset": [
           0.0,
-          -64.5029200200504,
-          20.80000000000001
+          -66.20292,
+          20.8
         ]
       },
       {
         "terminal": "J1.OUT4",
         "offset": [
-          137.07999389648435,
-          -64.5029200200504,
-          20.80000000000001
+          130.97999,
+          -67.20292,
+          23.6
         ]
       },
       {
         "terminal": "J1.OUT4",
         "offset": [
-          137.07999389648435,
-          -64.5029200200504,
-          -3.499999999999943
+          137.07999,
+          -66.20292,
+          20.8
+        ]
+      },
+      {
+        "terminal": "J1.OUT4",
+        "offset": [
+          137.07999,
+          -66.20292,
+          -3.5
+        ]
+      },
+      {
+        "terminal": "J1.OUT4",
+        "offset": [
+          130.97999,
+          -67.20292,
+          -4.4
         ]
       },
       {
         "terminal": "V-D.negative",
         "offset": [
-          103.89999999999998,
-          52.90999999999998,
-          93.57499999999999
+          97.8,
+          58.91,
+          85.875
         ]
       },
       {
         "terminal": "V-D.negative",
         "offset": [
-          74.84999999999998,
-          42.90999999999998,
-          93.57499999999999
+          103.9,
+          52.91,
+          86.775
         ]
       },
       {
         "terminal": "V-D.negative",
         "offset": [
-          74.84999999999998,
-          42.90999999999998,
-          -6.0
+          41.8,
+          18.91,
+          33.875
         ]
       },
       {
         "terminal": "V-D.negative",
         "offset": [
-          74.84999999999998,
-          5.909999999999982,
-          -6.0
+          33.8,
+          18.91,
+          33.875
         ]
       },
       {
         "terminal": "V-D.negative",
         "offset": [
-          0.0,
-          5.909999999999982,
-          -6.0
+          25.8,
+          14.91,
+          13.875
+        ]
+      },
+      {
+        "terminal": "V-D.negative",
+        "offset": [
+          9.8,
+          6.91,
+          1.875
         ]
       }
     ],
@@ -631,7 +631,7 @@
     "bend_radius_mm": 2.0,
     "preserve_stations": true,
     "route_status": "selected_layout",
-    "note": "Selected installed route through its native terminals and retained cable supports."
+    "note": "Dressed through the named retained guides and clear of larger installed bodies. Wires and tubing do not obstruct conductors."
   },
   "J1-OUT5": {
     "stations": [
@@ -800,71 +800,95 @@
         "offset": [
           0.0,
           0.0,
-          20.80000000000001
+          20.8
+        ]
+      },
+      {
+        "terminal": "J1.OUT7",
+        "offset": [
+          -0.52012,
+          -59.20292,
+          19.6
         ]
       },
       {
         "terminal": "J1.OUT7",
         "offset": [
           0.0,
-          -58.952920020050385,
-          20.80000000000001
+          -66.20292,
+          20.8
         ]
       },
       {
         "terminal": "V-G.negative",
         "offset": [
-          -7.170000000000002,
-          87.16000000000001,
-          67.97499999999997
+          -13.27,
+          78.91,
+          68.275
         ]
       },
       {
         "terminal": "V-G.negative",
         "offset": [
-          -7.170000000000002,
-          87.16000000000001,
-          38.125
+          -7.17,
+          79.91,
+          65.475
         ]
       },
       {
         "terminal": "V-G.negative",
         "offset": [
-          -7.170000000000002,
-          52.91000000000001,
-          38.125
+          -7.17,
+          79.91,
+          35.625
         ]
       },
       {
         "terminal": "V-G.negative",
         "offset": [
-          -32.519999999999996,
-          42.91000000000001,
-          38.125
+          -9.27,
+          78.91,
+          36.275
         ]
       },
       {
         "terminal": "V-G.negative",
         "offset": [
-          -32.519999999999996,
-          42.91000000000001,
-          0.0
+          -13.27,
+          78.91,
+          36.275
         ]
       },
       {
         "terminal": "V-G.negative",
         "offset": [
-          -32.519999999999996,
-          17.91000000000001,
-          0.0
+          -13.27,
+          58.91,
+          36.275
         ]
       },
       {
         "terminal": "V-G.negative",
         "offset": [
-          0.0,
-          17.91000000000001,
-          0.0
+          -7.17,
+          52.91,
+          35.625
+        ]
+      },
+      {
+        "terminal": "V-G.negative",
+        "offset": [
+          -1.27,
+          34.91,
+          24.275
+        ]
+      },
+      {
+        "terminal": "V-G.negative",
+        "offset": [
+          -1.27,
+          30.91,
+          16.275
         ]
       }
     ],
@@ -875,7 +899,7 @@
     "bend_radius_mm": 2.0,
     "preserve_stations": true,
     "route_status": "selected_layout",
-    "note": "Local dressing around the V-B return bearing and tubing; fixed connector, passage and retainer datums."
+    "note": "Dressed through the named retained guides and clear of larger installed bodies. Wires and tubing do not obstruct conductors."
   },
   "J1-OUT8": {
     "stations": [
@@ -1067,64 +1091,80 @@
         "terminal": "J2.OUT2",
         "offset": [
           0.0,
-          -66.35292002005039,
+          -63.20292,
           22.75
         ]
       },
       {
         "terminal": "J2.OUT2",
         "offset": [
-          123.78004989648436,
-          -66.35292002005039,
+          123.78005,
+          -63.20292,
           22.75
         ]
       },
       {
         "terminal": "J2.OUT2",
         "offset": [
-          123.78004989648436,
-          -66.35292002005039,
-          -7.199999999999989
+          123.78005,
+          -63.20292,
+          -7.2
         ]
       },
       {
         "terminal": "J2.OUT2",
         "offset": [
-          123.78004989648436,
-          -93.20292002005039,
-          -7.199999999999989
+          132.48005,
+          -71.20292,
+          -8.4
         ]
       },
       {
         "terminal": "J2.OUT2",
         "offset": [
-          96.93004989648436,
-          -103.20292002005039,
-          -7.199999999999989
+          132.48005,
+          -87.20292,
+          -8.4
+        ]
+      },
+      {
+        "terminal": "J2.OUT2",
+        "offset": [
+          123.78005,
+          -93.20292,
+          -7.2
         ]
       },
       {
         "terminal": "V-J.negative",
         "offset": [
-          133.71999999999997,
-          42.91000000000001,
-          0.0
+          81.27,
+          50.91,
+          24.275
         ]
       },
       {
         "terminal": "V-J.negative",
         "offset": [
-          133.71999999999997,
-          13.91000000000001,
-          0.0
+          73.27,
+          42.91,
+          16.275
         ]
       },
       {
         "terminal": "V-J.negative",
         "offset": [
-          0.0,
-          13.91000000000001,
-          0.0
+          65.27,
+          30.91,
+          16.275
+        ]
+      },
+      {
+        "terminal": "V-J.negative",
+        "offset": [
+          45.27,
+          30.91,
+          16.275
         ]
       }
     ],
@@ -1135,7 +1175,7 @@
     "bend_radius_mm": 2.0,
     "preserve_stations": true,
     "route_status": "selected_layout",
-    "note": "Selected installed route through its native terminals and retained cable supports."
+    "note": "Dressed through the named retained guides and clear of larger installed bodies. Wires and tubing do not obstruct conductors."
   },
   "DC1-GND": {
     "stations": [
@@ -1283,113 +1323,96 @@
       {
         "terminal": "wago-v12.3",
         "offset": [
-          -4.299988896484361,
-          -2.097029579949549,
-          -1.173330533333342
+          -5.5,
+          -2.2442,
+          1.26667
         ]
       },
       {
         "terminal": "wago-v12.3",
         "offset": [
-          -28.29998889648436,
-          24.90297042005045,
-          -1.173330533333342
+          -17.5,
+          9.7558,
+          1.26667
         ]
       },
       {
         "terminal": "J10.V12",
         "offset": [
-          18.0,
-          -20.0,
-          0.0
+          15.49999,
+          -20.15297,
+          9.44
         ]
       },
       {
         "terminal": "J10.V12",
         "offset": [
-          18.0,
-          -5.0,
-          0.0
+          11.49999,
+          -4.15297,
+          9.44
         ]
       },
       {
         "terminal": "J10.V12",
         "offset": [
-          9.0,
-          4.0,
-          -3.0
+          11.49999,
+          -0.15297,
+          5.44
         ]
       },
       {
         "terminal": "J10.V12",
         "offset": [
-          6.0,
-          7.0,
-          -3.0
-        ]
-      },
-      {
-        "terminal": "J10.V12",
-        "offset": [
-          3.0,
-          4.0,
-          -3.0
+          7.49999,
+          3.84703,
+          1.44
         ]
       }
     ],
     "end_lands_mm": [
-      3,
-      4
+      6.0,
+      6.0
     ],
     "bend_radius_mm": 3.0,
     "preserve_stations": true,
     "route_status": "selected_layout",
-    "note": "Local dressing around the V-B valve, return bearing and connected tubing; electrical endpoints, cable passages and fixed retainers retain their datums.",
-    "endpoint_tangent_fraction": 0.9
+    "note": "Dressed through the named retained guides and clear of larger installed bodies. Wires and tubing do not obstruct conductors."
   },
   "DC2-V12": {
     "stations": [
       {
         "terminal": "wago-v12.2",
         "offset": [
-          -35.79,
-          34.60014,
-          5.50661
+          -5.5,
+          -2.2442,
+          3.0
         ]
       },
       {
         "terminal": "wago-v12.2",
         "offset": [
-          -35.79,
-          50.60014,
-          5.50661
-        ]
-      },
-      {
-        "terminal": "wago-v12.2",
-        "offset": [
-          -55.79,
-          78.60014,
-          5.50661
+          -21.5,
+          13.7558,
+          3.0
         ]
       },
       {
         "terminal": "relay-2.COM",
         "offset": [
-          40.0,
-          -96.0,
-          -40.0
+          26.99,
+          -109.85014,
+          -17.50661
         ]
       }
     ],
-    "preserve_stations": true,
-    "bend_radius_mm": 3.0,
     "end_lands_mm": [
-      8.0,
-      8.0
+      6.0,
+      6.0
     ],
+    "bend_radius_mm": 3.0,
+    "preserve_stations": true,
     "route_status": "selected_layout",
-    "note": "Dressed through retained supports and clear of the larger installed bodies; wires and tubes are excluded from wire obstacles."
+    "note": "Dressed through the named retained guides and clear of larger installed bodies. Wires and tubing do not obstruct conductors."
   },
   "DC3-negative": {
     "stations": [
@@ -1632,73 +1655,57 @@
       {
         "terminal": "wago-mana.2",
         "offset": [
-          -11.800820000000002,
-          -0.8420480000000055,
-          4.128170000000011
+          -10.05,
+          2.9,
+          4.96
         ]
       },
       {
         "terminal": "wago-mana.2",
         "offset": [
-          -38.05,
-          43.89999999999998,
-          25.95999999999998
+          -46.05,
+          30.9,
+          0.96
         ]
       },
       {
         "terminal": "wago-mana.2",
         "offset": [
-          -38.05,
-          63.89999999999998,
-          25.95999999999998
+          -62.05,
+          38.9,
+          4.96
         ]
       },
       {
         "terminal": "wago-mana.2",
         "offset": [
-          -38.05,
-          67.89999999999998,
-          29.95999999999998
+          -86.05,
+          54.9,
+          4.96
         ]
       },
       {
         "terminal": "V-A.positive",
         "offset": [
-          73.82418610843965,
-          -85.20738926124233,
-          18.179624143861588
+          13.82419,
+          -38.20739,
+          -2.82038
         ]
       },
       {
         "terminal": "V-A.positive",
         "offset": [
-          27.824186108439648,
-          -75.20738926124233,
-          23.179624143861588
+          9.82419,
+          -14.20739,
+          1.17962
         ]
       },
       {
         "terminal": "V-A.positive",
         "offset": [
-          27.824186108439648,
-          -55.20738926124233,
-          16.179624143861588
-        ]
-      },
-      {
-        "terminal": "V-A.positive",
-        "offset": [
-          27.824186108439648,
-          -55.20738926124233,
-          -31.820375856138412
-        ]
-      },
-      {
-        "terminal": "V-A.positive",
-        "offset": [
-          4.870084978439635,
-          -32.717628731242314,
-          -31.820375856138412
+          5.82419,
+          -2.20739,
+          1.17962
         ]
       }
     ],
@@ -1709,32 +1716,24 @@
     "bend_radius_mm": 2.0,
     "preserve_stations": true,
     "route_status": "selected_layout",
-    "note": "Local dressing around the V-B valve, return bearing and connected tubing; electrical endpoints, cable passages and fixed retainers retain their datums."
+    "note": "Dressed through the named retained guides and clear of larger installed bodies. Wires and tubing do not obstruct conductors."
   },
   "J1-positive-B": {
     "stations": [
       {
         "terminal": "V-B.positive",
         "offset": [
-          0.0,
-          -34.0,
-          12.0
+          7.1,
+          -33.69854,
+          -11.86
         ]
       },
       {
         "terminal": "V-B.positive",
         "offset": [
-          0.0,
-          -18.0,
-          12.0
-        ]
-      },
-      {
-        "terminal": "V-B.positive",
-        "offset": [
-          0.0,
-          -2.0,
-          8.0
+          7.1,
+          -9.69854,
+          -7.86
         ]
       }
     ],
@@ -1745,7 +1744,7 @@
     "bend_radius_mm": 2.0,
     "preserve_stations": true,
     "route_status": "selected_layout",
-    "note": "Local dressing around the V-B valve, return bearing and connected tubing; electrical endpoints, cable passages and fixed retainers retain their datums."
+    "note": "Dressed through the named retained guides and clear of larger installed bodies. Wires and tubing do not obstruct conductors."
   },
   "J11-DOUT": {
     "stations": [
@@ -2292,47 +2291,63 @@
       {
         "terminal": "J2.OUT3",
         "offset": [
-          43.18793,
-          17.81422,
-          4.68277
+          41.97993,
+          16.79708,
+          3.6
         ]
       },
       {
         "terminal": "V-K.negative",
         "offset": [
-          -32.0,
-          -24.0,
-          4.0
+          -25.208,
+          -25.015,
+          0.41723
         ]
       },
       {
         "terminal": "V-K.negative",
         "offset": [
-          -16.0,
-          -20.0,
-          4.0
+          -21.208,
+          -21.015,
+          4.41723
         ]
       },
       {
         "terminal": "V-K.negative",
         "offset": [
-          -4.0,
-          -8.0,
-          0.0
+          -13.208,
+          -13.015,
+          4.41723
+        ]
+      },
+      {
+        "terminal": "V-K.negative",
+        "offset": [
+          -1.208,
+          -5.015,
+          -3.58277
         ]
       }
     ],
-    "preserve_stations": true,
-    "bend_radius_mm": 2.0,
     "end_lands_mm": [
       6.0,
       4.0
     ],
+    "bend_radius_mm": 2.0,
+    "preserve_stations": true,
     "route_status": "selected_layout",
-    "note": "Dressed through retained supports and clear of the larger installed bodies; wires and tubes are excluded from wire obstacles."
+    "note": "Dressed through the named retained guides and clear of larger installed bodies. Wires and tubing do not obstruct conductors."
   },
   "J2-positive-K": {
     "stations": [
+      {
+        "terminal": "wago-manb.5",
+        "offset": [
+          -5.75,
+          10.55,
+          17.0
+        ]
+      },
       {
         "terminal": "wago-manb.5",
         "offset": [
@@ -2345,22 +2360,22 @@
         "terminal": "V-K.positive",
         "offset": [
           27.092,
-          -82.51714,
-          50.91723
+          -82.515,
+          48.41723
         ]
       },
       {
         "terminal": "V-K.positive",
         "offset": [
           27.092,
-          -67.51714,
-          50.91723
+          -67.515,
+          48.41723
         ]
       },
       {
         "terminal": "V-K.positive",
         "offset": [
-          24.0,
+          26.0,
           -46.0,
           48.0
         ]
@@ -2382,14 +2397,14 @@
         ]
       }
     ],
-    "preserve_stations": true,
-    "bend_radius_mm": 2.0,
     "end_lands_mm": [
       6.0,
       4.0
     ],
+    "bend_radius_mm": 2.0,
+    "preserve_stations": true,
     "route_status": "selected_layout",
-    "note": "Dressed through retained supports and clear of the larger installed bodies; wires and tubes are excluded from wire obstacles."
+    "note": "Dressed through the named retained guides and clear of larger installed bodies. Wires and tubing do not obstruct conductors."
   },
   "J3-GND": {
     "stations": [
@@ -2569,92 +2584,92 @@
       {
         "terminal": "wago-sensors.3",
         "offset": [
-          -8.5,
-          2.56,
-          -0.33333
+          -5.5,
+          1.7558,
+          -4.83333
         ]
       },
       {
         "terminal": "wago-sensors.3",
         "offset": [
-          -12.5,
-          30.56,
-          -0.33333
+          -9.5,
+          9.7558,
+          -4.83333
         ]
       },
       {
         "terminal": "wago-sensors.3",
         "offset": [
-          -4.5,
-          42.56,
-          -0.33333
+          -13.5,
+          49.7558,
+          -12.83333
         ]
       },
       {
         "terminal": "wago-sensors.3",
         "offset": [
-          3.5,
-          50.56,
-          -0.33333
+          -17.5,
+          57.7558,
+          -14.83333
         ]
       },
       {
         "terminal": "wago-sensors.3",
         "offset": [
-          3.5,
-          62.56,
-          -0.33333
-        ]
-      },
-      {
-        "terminal": "wago-sensors.3",
-        "offset": [
-          27.5,
-          86.56,
-          -4.33333
+          72.5,
+          57.7558,
+          -14.83333
         ]
       },
       {
         "terminal": "flow.GND",
         "offset": [
-          -28.0,
-          -72.0,
-          6.0
+          -0.3,
+          -45.81,
+          -5.5
         ]
       },
       {
         "terminal": "flow.GND",
         "offset": [
-          -32.0,
-          -56.0,
-          6.0
+          -0.3,
+          -33.81,
+          2.5
         ]
       },
       {
         "terminal": "flow.GND",
         "offset": [
-          -4.0,
-          -12.0,
-          -2.0
+          -0.3,
+          -21.81,
+          2.5
         ]
       },
       {
         "terminal": "flow.GND",
         "offset": [
-          0.0,
-          -4.0,
-          -2.0
+          -0.3,
+          -17.81,
+          -1.5
+        ]
+      },
+      {
+        "terminal": "flow.GND",
+        "offset": [
+          -2.3,
+          -17.81,
+          -3.5
         ]
       }
     ],
-    "preserve_stations": true,
-    "bend_radius_mm": 2.0,
     "end_lands_mm": [
       6.0,
       6.0
     ],
+    "bend_radius_mm": 2.0,
+    "preserve_stations": true,
     "route_status": "selected_layout",
-    "note": "Dressed through retained supports and clear of the larger installed bodies; wires and tubes are excluded from wire obstacles."
+    "note": "Dressed through the named retained guides and clear of larger installed bodies. Wires and tubing do not obstruct conductors."
   },
   "J5-GND": {
     "stations": [
@@ -2869,37 +2884,29 @@
       {
         "terminal": "J7.GND",
         "offset": [
-          4.0,
-          2.0,
-          12.0
+          0.0,
+          0.0,
+          22.600000000000023
         ]
       },
       {
         "terminal": "wago-reeds-b.1",
         "offset": [
-          -20.999993896484362,
-          9.352920020050362,
-          6.566666666666606
-        ]
-      },
-      {
-        "terminal": "wago-reeds-b.1",
-        "offset": [
-          -14.999993896484362,
-          9.352920020050362,
-          6.566666666666606
+          0.0,
+          3.0,
+          10.166666666666629
         ]
       }
     ],
     "end_lands_mm": [
-      6,
-      3
+      6.0,
+      3.0
     ],
     "bend_radius_mm": 2.0,
+    "endpoint_tangent_fraction": 0.9,
     "preserve_stations": true,
     "route_status": "selected_layout",
-    "note": "Local dressing around the V-B return bearing and tubing; fixed connector, passage and retainer datums.",
-    "endpoint_tangent_fraction": 0.9
+    "note": "The board return passes above the V-B outlet fitting and descends in front of its housing to the Wago mouth."
   },
   "J9-A": {
     "stations": [
@@ -3321,136 +3328,152 @@
       {
         "terminal": "J4.IO25",
         "offset": [
-          44.49999,
-          46.80708,
-          7.1
+          4.19999,
+          46.79708,
+          3.6
         ]
       },
       {
         "terminal": "J4.IO25",
         "offset": [
-          44.49999,
-          54.80708,
-          7.1
+          16.19999,
+          54.79708,
+          -2.4
+        ]
+      },
+      {
+        "terminal": "J4.IO25",
+        "offset": [
+          106.19999,
+          54.79708,
+          -2.4
         ]
       },
       {
         "terminal": "flow.PULSE",
         "offset": [
-          -36.0,
-          -100.0,
-          6.0
+          -0.3,
+          -44.01,
+          -5.5
         ]
       },
       {
         "terminal": "flow.PULSE",
         "offset": [
-          -28.0,
-          -68.0,
-          6.0
+          -0.3,
+          -32.01,
+          2.5
         ]
       },
       {
         "terminal": "flow.PULSE",
         "offset": [
-          -32.0,
-          -56.0,
-          6.0
+          -0.3,
+          -20.01,
+          2.5
         ]
       },
       {
         "terminal": "flow.PULSE",
         "offset": [
-          -4.0,
-          -8.0,
-          -2.0
+          -0.3,
+          -16.01,
+          -1.5
         ]
       },
       {
         "terminal": "flow.PULSE",
         "offset": [
-          0.0,
-          -4.0,
-          -2.0
+          -2.3,
+          -16.01,
+          -3.5
         ]
       }
     ],
-    "preserve_stations": true,
-    "bend_radius_mm": 2.0,
     "end_lands_mm": [
       6.0,
       6.0
     ],
+    "bend_radius_mm": 2.0,
+    "preserve_stations": true,
     "route_status": "selected_layout",
-    "note": "Dressed through retained supports and clear of the larger installed bodies; wires and tubes are excluded from wire obstacles."
+    "note": "Dressed through the named retained guides and clear of larger installed bodies. Wires and tubing do not obstruct conductors."
   },
   "J4-V5": {
     "stations": [
       {
         "terminal": "J4.V5",
         "offset": [
-          44.49999,
-          47.50708,
-          7.1
+          4.19999,
+          49.29708,
+          3.6
         ]
       },
       {
         "terminal": "J4.V5",
         "offset": [
-          44.49999,
-          59.50708,
-          7.1
+          16.19999,
+          57.29708,
+          -2.4
+        ]
+      },
+      {
+        "terminal": "J4.V5",
+        "offset": [
+          106.19999,
+          57.29708,
+          -2.4
         ]
       },
       {
         "terminal": "flow.V",
         "offset": [
-          -36.0,
-          -100.0,
-          6.0
+          -0.3,
+          -42.21,
+          -5.5
         ]
       },
       {
         "terminal": "flow.V",
         "offset": [
-          -28.0,
-          -64.0,
-          6.0
+          -0.3,
+          -30.21,
+          2.5
         ]
       },
       {
         "terminal": "flow.V",
         "offset": [
-          -32.0,
-          -52.0,
-          6.0
+          -0.3,
+          -18.21,
+          2.5
         ]
       },
       {
         "terminal": "flow.V",
         "offset": [
-          -4.0,
-          -8.0,
-          -2.0
+          -0.3,
+          -14.21,
+          -1.5
         ]
       },
       {
         "terminal": "flow.V",
         "offset": [
-          0.0,
-          -4.0,
-          -2.0
+          -2.3,
+          -14.21,
+          -3.5
         ]
       }
     ],
-    "preserve_stations": true,
-    "bend_radius_mm": 2.0,
     "end_lands_mm": [
       6.0,
       6.0
     ],
+    "bend_radius_mm": 2.0,
+    "preserve_stations": true,
     "route_status": "selected_layout",
-    "note": "Dressed through retained supports and clear of the larger installed bodies; wires and tubes are excluded from wire obstacles."
+    "note": "Dressed through the named retained guides and clear of larger installed bodies. Wires and tubing do not obstruct conductors."
   },
   "AC3-L": {
     "stations": [],
@@ -3578,5 +3601,137 @@
     ],
     "route_status": "selected_layout",
     "note": "Dressed through retained supports and clear of the larger installed bodies; wires and tubes are excluded from wire obstacles."
+  },
+  "AC6-PE": {
+    "stations": [
+      {
+        "terminal": "ground.compressor",
+        "offset": [
+          -4.35,
+          -22.0,
+          25.85923
+        ]
+      },
+      {
+        "terminal": "ground.compressor",
+        "offset": [
+          -5.35,
+          -23.0,
+          33.85923
+        ]
+      },
+      {
+        "terminal": "ground.compressor",
+        "offset": [
+          -4.35,
+          -150.0,
+          37.85923
+        ]
+      },
+      {
+        "terminal": "ground.compressor",
+        "offset": [
+          -4.35,
+          -170.0,
+          37.85923
+        ]
+      },
+      {
+        "terminal": "ground.compressor",
+        "offset": [
+          -5.35,
+          -178.0,
+          33.85923
+        ]
+      },
+      {
+        "terminal": "ground.compressor",
+        "offset": [
+          -4.35,
+          -210.0,
+          -6.14077
+        ]
+      },
+      {
+        "terminal": "ground.compressor",
+        "offset": [
+          7.65,
+          -246.0,
+          -42.14077
+        ]
+      },
+      {
+        "terminal": "compressor.PE",
+        "offset": [
+          -37.4,
+          162.25,
+          196.0
+        ]
+      },
+      {
+        "terminal": "compressor.PE",
+        "offset": [
+          -33.4,
+          142.25,
+          180.0
+        ]
+      },
+      {
+        "terminal": "compressor.PE",
+        "offset": [
+          -33.4,
+          130.25,
+          172.0
+        ]
+      },
+      {
+        "terminal": "compressor.PE",
+        "offset": [
+          -13.4,
+          110.25,
+          148.0
+        ]
+      },
+      {
+        "terminal": "compressor.PE",
+        "offset": [
+          -5.4,
+          102.25,
+          144.0
+        ]
+      },
+      {
+        "terminal": "compressor.PE",
+        "offset": [
+          14.6,
+          74.25,
+          96.0
+        ]
+      },
+      {
+        "terminal": "compressor.PE",
+        "offset": [
+          22.6,
+          66.25,
+          88.0
+        ]
+      },
+      {
+        "terminal": "compressor.PE",
+        "offset": [
+          30.6,
+          46.25,
+          68.0
+        ]
+      }
+    ],
+    "end_lands_mm": [
+      6.0,
+      6.0
+    ],
+    "bend_radius_mm": 2.0,
+    "preserve_stations": true,
+    "route_status": "selected_layout",
+    "note": "Dressed through the named retained guides and clear of larger installed bodies. Wires and tubing do not obstruct conductors."
   }
 }
