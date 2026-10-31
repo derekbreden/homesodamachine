@@ -424,7 +424,7 @@ def stacked_well_towers(stock, inner):
 
 
 def rear_well_tower(stock, ceiling):
-    """Roof each rear WAGO well back to the wall at 45 degrees for print-down."""
+    """Roof each rear well to the wall at 45 degrees, with a full 3 mm root."""
     wall=layout.specification()['enclosure']['rear_y_mm']-9.+.5
     roofs=[]
     for solid in stock.Solids():
@@ -432,7 +432,8 @@ def rear_well_tower(stock, ceiling):
         run=max(0.,wall-b.ymin)
         if run:
             roofs.append((cq.Workplane('YZ')
-                .polyline([(b.ymin,b.zmax),(wall,b.zmax),(wall,b.zmax+run)])
+                .polyline([(b.ymin,b.zmax-3.),(b.ymin,b.zmax),
+                           (wall,b.zmax+run),(wall,b.zmax-3.)])
                 .close().extrude(b.xmax-b.xmin).val().translate((b.xmin,0.,0.))))
     return stock.fuse(*roofs).clean() if roofs else stock
 

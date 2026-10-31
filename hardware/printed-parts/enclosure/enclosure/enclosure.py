@@ -8010,7 +8010,9 @@ def _seam_fit_reliefs(piece, box, y_side, z_side):
         if y_side == "back" and z_side == "top":
             # The raised nameplate field carries its complete accepted lips
             # beyond the ordinary rear face; seam trimming retains that field.
-            band = band.fuse(_above_core_shell.rear_identification().receiver_field())
+            identification = _above_core_shell.rear_identification()
+            band = band.fuse(identification.receiver_field(),
+                             *(_ybox(*bounds) for bounds in identification.rail_bounds()))
         piece = piece.intersect(band)
     return piece
 

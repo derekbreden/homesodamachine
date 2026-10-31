@@ -14,7 +14,7 @@ air_tube_id = 2.5
 air_tube_above_casing = 6.0
 air_tube_below_lid = 1.0
 air_passage_diameter = 5.2
-air_passage_wall = 2.0
+air_passage_wall = 3.0
 
 
 def cylinder(xy, z0, z1, diameter):

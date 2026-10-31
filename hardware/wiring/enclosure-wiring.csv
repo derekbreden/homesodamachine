@@ -1,18 +1,18 @@
 wire_id,harness,net,from_terminal,to_terminal,awg,modeled_length_mm,route_status,start_status,end_status,service
-AC1-L,AC inlet,L,c14.L,wago-h.1,16,77.825,selected_layout,nominal,nominal,fixed
-AC1-N,AC inlet,N,c14.N,wago-n.1,16,90.027,selected_layout,nominal,nominal,fixed
-AC1-PE,AC inlet,PE,c14.PE,wago-g.1,16,111.299,selected_layout,nominal,nominal,fixed
-AC2-L,PSU primary,L,wago-h.2,psu.L,16,119.003,selected_layout,nominal,nominal,fixed
-AC2-N,PSU primary,N,wago-n.2,psu.N,16,91.259,selected_layout,nominal,nominal,fixed
-AC3-L,Compressor,L,wago-h.3,relay-1.COM,16,40.374,selected_layout,nominal,nominal,fixed
+AC1-L,AC inlet,L,c14.L,wago-h.1,16,77.795,selected_layout,nominal,nominal,fixed
+AC1-N,AC inlet,N,c14.N,wago-n.1,16,89.785,selected_layout,nominal,nominal,fixed
+AC1-PE,AC inlet,PE,c14.PE,wago-g.1,16,110.299,selected_layout,nominal,nominal,fixed
+AC2-L,PSU primary,L,wago-h.2,psu.L,16,119.29,selected_layout,nominal,nominal,fixed
+AC2-N,PSU primary,N,wago-n.2,psu.N,16,91.435,selected_layout,nominal,nominal,fixed
+AC3-L,Compressor,L,wago-h.3,relay-1.COM,16,40.047,selected_layout,nominal,nominal,fixed
 AC4-pigtail,Compressor,H_switched,relay-1.NO,join-compressor-h.1,16,222.604,selected_layout,nominal,nominal,final join
 AC4-H,Compressor,H_switched,join-compressor-h.2,fuse.in,18,433.611,selected_layout,nominal,nominal,final join
 AC4-fuse,Compressor,H_switched,fuse.out,compressor.H,18,36.777,selected_layout,nominal,unlocated,fixed
-AC5-pigtail,Compressor,N,wago-n.3,join-compressor-n.1,16,255.844,selected_layout,nominal,nominal,final join
-AC5-N,Compressor,N,join-compressor-n.2,compressor.N,18,421.944,selected_layout,nominal,unlocated,final join
-AC6-PE,Compressor,PE,ground.compressor,compressor.PE,18,603.884,selected_layout,modeled,unlocated,fixed
-PE-bus,Earth bonds,PE,wago-g.2,ground.inlet,16,69.994,selected_layout,nominal,modeled,fixed
-PE-carbonator,Earth bonds,PE,ground.carbonator,carbonator.PE,16,318.768,selected_layout,modeled,modeled,fixed
+AC5-pigtail,Compressor,N,wago-n.3,join-compressor-n.1,16,248.451,selected_layout,nominal,nominal,final join
+AC5-N,Compressor,N,join-compressor-n.2,compressor.N,18,467.933,selected_layout,nominal,unlocated,final join
+AC6-PE,Compressor,PE,ground.compressor,compressor.PE,18,603.284,selected_layout,modeled,unlocated,fixed
+PE-bus,Earth bonds,PE,wago-g.2,ground.inlet,16,70.121,selected_layout,nominal,modeled,fixed
+PE-carbonator,Earth bonds,PE,ground.carbonator,carbonator.PE,16,317.553,selected_layout,modeled,modeled,fixed
 DC1-V12,12V power,V12,psu.V12,wago-v12.1,16,315.351,selected_layout,nominal,nominal,fixed
 DC4-V12,12V power,V12,wago-v12.3,J10.V12,16,99.824,selected_layout,nominal,nominal,fixed
 DC1-GND,12V power,GND,psu.GND,wago-gnd.1,16,285.598,selected_layout,nominal,nominal,fixed

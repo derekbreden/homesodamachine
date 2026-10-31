@@ -1,0 +1,143 @@
+{
+  "schema": 1,
+  "scope": "Current nominal continuous conservative JST housing sweeps against the native installed larger bodies. Wires, flexible jackets and free final joins are moved aside. The listed removed plumbing is an assembly/service prerequisite. Latch manipulation and flexible-lead handling are not rigid housing geometry.",
+  "assembly_step_sha256": "0fdd2027ee81c401ec317aef34462b95b366ee6688b5e51ca729b0a85089e4ea",
+  "wiring_step_sha256": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+  "installed_housing_binding": "hardware/wiring/installed/above-core-review/installed-wiring-binding.json",
+  "paths": {
+    "terminal-J1": {
+      "datums": {
+        "initial_bounds_mm": [
+          [
+            -75.37999389648441,
+            268.35292002004996,
+            260.9
+          ],
+          [
+            -50.5799938964844,
+            274.05292002005,
+            268.4
+          ]
+        ],
+        "displacements_mm": [
+          [
+            0,
+            0,
+            17.0
+          ],
+          [
+            0,
+            -8.0,
+            0
+          ]
+        ],
+        "nominal_header_height_mm": 7.0,
+        "lift_mm": 17.0,
+        "source": "https://www.jst-mfg.com/product/pdf/eng/eXH.pdf",
+        "housing_dimensions_mm": [
+          24.800000000000004,
+          5.7000000000000455,
+          7.5
+        ]
+      },
+      "prerequisites": [
+        "Remove funnel and removable frame.",
+        "Release and move the three free final Wagos and their flexible leads aside."
+      ],
+      "all_stages_clear_after_prerequisites": true,
+      "intersecting_retained_bodies": [],
+      "own_header_scope": "The own PCB/header is omitted only during the initial axial disengagement; all later stages include the complete populated board."
+    },
+    "terminal-J2": {
+      "datums": {
+        "initial_bounds_mm": [
+          [
+            -49.37999389648441,
+            268.35292002004996,
+            260.9
+          ],
+          [
+            -32.0799938964844,
+            274.05292002005,
+            268.4
+          ]
+        ],
+        "displacements_mm": [
+          [
+            0,
+            0,
+            17.0
+          ],
+          [
+            0,
+            -8.0,
+            0
+          ]
+        ],
+        "nominal_header_height_mm": 7.0,
+        "lift_mm": 17.0,
+        "source": "https://www.jst-mfg.com/product/pdf/eng/eXH.pdf",
+        "housing_dimensions_mm": [
+          17.300000000000004,
+          5.7000000000000455,
+          7.5
+        ]
+      },
+      "prerequisites": [
+        "Remove funnel and removable frame.",
+        "Release and move the three free final Wagos and their flexible leads aside."
+      ],
+      "all_stages_clear_after_prerequisites": true,
+      "intersecting_retained_bodies": [],
+      "own_header_scope": "The own PCB/header is omitted only during the initial axial disengagement; all later stages include the complete populated board."
+    },
+    "terminal-J11": {
+      "datums": {
+        "initial_bounds_mm": [
+          [
+            -28.800090412957466,
+            195.35271174168452,
+            260.9
+          ],
+          [
+            -16.499897380011333,
+            201.05312829841546,
+            268.4
+          ]
+        ],
+        "displacements_mm": [
+          [
+            0,
+            0,
+            6
+          ],
+          [
+            10,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            20
+          ]
+        ],
+        "source": "https://www.jst-mfg.com/product/pdf/eng/eXH.pdf",
+        "housing_dimensions_mm": [
+          12.300193032946133,
+          5.700416556730943,
+          7.5
+        ]
+      },
+      "prerequisites": [
+        "Remove funnel and removable frame.",
+        "Release and move the three free final Wagos and their flexible leads aside.",
+        "Disconnect and lift out the V-B-to-Y-B return and its outlet turn. Remove the disconnected cradled funnel drain."
+      ],
+      "all_stages_clear_after_prerequisites": true,
+      "intersecting_retained_bodies": [],
+      "own_header_scope": "The own PCB/header is omitted only during the initial axial disengagement; all later stages include the complete populated board."
+    }
+  },
+  "all_paths_clear_after_prerequisites": true
+}

@@ -42,12 +42,12 @@ def housing_witness(initial_bounds, displacements):
 
 def recorded_witnesses():
     """Read the accepted native datums; do not generate or run a review."""
-    record = json.loads((HERE / 'flavor-and-connector-review.json').read_text())
+    record = json.loads((HERE / 'connector-service-review.json').read_text())
     return {
         name: housing_witness(
             path['datums']['initial_bounds_mm'],
             path['datums']['displacements_mm'])
-        for name, path in record['connector_service']['paths'].items()
+        for name, path in record['paths'].items()
     }
 
 

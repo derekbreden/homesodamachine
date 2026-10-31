@@ -207,6 +207,15 @@ ten 221-413 connectors and the two manifold commons, one 221-415 and one
 pump-positive branches beneath the removable funnel frame. Each has two
 populated ports and one unused port. Their separate pigtails preserve the
 open-bench preparation and final through-opening connections.
+The compressor hot and neutral joins sit side by side beneath the opening,
+with neutral west of hot. The pump-positive join sits lower and east of them.
+
+For board service, remove the funnel and frame, release the three free joins
+and lift them with their leads out of the housing paths. Disconnect the
+V-B-to-Y-B return and cradled drain before withdrawing J11. The
+[current housing sweeps](../mechanical-qualification/enclosure-above-core/connector-service-review.json)
+retain J1/J2's 17 mm lift and 8 mm fore movement; J11 lifts 6 mm, moves
+10 mm east and lifts another 20 mm, clearing the installed Reservoir B draw.
 
 The [current routing report](installed/routing-review.json) records all
 conductors, cable jackets and larger connector housings against the actual

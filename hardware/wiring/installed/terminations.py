@@ -10,7 +10,7 @@ def final_join_placements():
     """The three unmounted joins dressed below the removable funnel frame."""
     return {
         'compressor-h': (-65., 247., 290.5),
-        'compressor-n': (-65., 221., 290.5),
+        'compressor-n': (-85., 247., 290.5),
         'pump-positive': (-45., 255., 278.),
     }
 

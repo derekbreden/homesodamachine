@@ -50,7 +50,7 @@ def placements():
                             ('wago-n', -54., 266., 'C14 neutral / PSU primary / compressor'),
                             ('wago-g', -85., 296.5, 'C14 PE / ring-terminal ground bus')):
         put(name, '413', 'back-top', PORTS_FORE,
-            (x, 458.5, z), purpose)
+            (x, 457.5, z), purpose)
     # Two rows on the board-facing back of V-B's wall. Levers open west;
     # wire mouths face away from the shared rear-half holder stock.
     for name, y, z, turn, purpose in (
@@ -153,9 +153,9 @@ def ground_fastener_datums():
             'insert':'RX-M3Sx4', 'insert_length_mm':4.,
             'parent':'back-top','landing_world_mm':landing,
             'axis_outward':layout.vector(pose['rotation'],(0.,0.,1.)),
-            'pilot_diameter_mm':4., 'pilot_depth_mm':7., 'tip_air_mm':2.2,
-            'blind_backing_mm':471.3-landing[1]-7.,
-            'minimum_fluted_backing_mm':471.3-landing[1]-7.-.8,
+            'pilot_diameter_mm':4., 'pilot_depth_mm':5.3, 'tip_air_mm':.5,
+            'blind_backing_mm':471.3-landing[1]-5.3,
+            'minimum_fluted_backing_mm':471.3-landing[1]-5.3-1.2,
             'boss_diameter_mm':10., 'radial_stock_mm':3.}
 
 
@@ -169,7 +169,7 @@ def _features(parent):
             face=cq.Vector(*pose['translation_mm'])
             inward=cq.Vector(*layout.vector(pose['rotation'],(0.,0.,-1.)))
             additions.append(cq.Solid.makeCylinder(5.,8.,face,inward))
-            cuts.append(cq.Solid.makeCylinder(2.,7.01,face-inward*.01,inward))
+            cuts.append(cq.Solid.makeCylinder(2.,5.31,face-inward*.01,inward))
         else:
             stock, pocket = _well(name)
             additions.append(stock)

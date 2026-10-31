@@ -7,14 +7,14 @@ straight and does not make that turn.
 
 | Feature | Relaxed print dimension |
 |---|---|
-| Barb socket | Ø[6.10](BARB_BORE) mm × [9.1](BARB_DEPTH) mm deep |
+| Barb socket | Ø[6.10](BARB_BORE) mm × [8.6](BARB_DEPTH) mm deep |
 | Tube socket | Ø[3.80](TUBE_BORE) mm × [14](TUBE_DEPTH) mm insertion |
 | Socket reach from vent axis | 25.4 mm |
-| Tube axis below vent tip | [6.54](SOCKET_DROP) mm |
-| Internal bore transition | [1.99](REDUCER_LENGTH) mm conical reducer before the turn |
+| Tube axis below vent tip | [4.55](SOCKET_DROP) mm |
+| Internal bore transition | [0.50](REDUCER_LENGTH) mm conical reducer before the turn |
 | Printed drain turn | R4.05 mm, Ø3.8 mm passage |
 | Tie lands | Two, 2.8 mm wide with 0.5 mm recesses |
-| Solid CAD volume | [3.954](VOLUME) cm³ |
+| Solid CAD volume | [4.250](VOLUME) cm³ |
 
 The installed barb mouth stops below the vent hex, with 8.6 mm of stem
 engagement and 0.5 mm of open passage below its tip. The ASSE snap cap has a
@@ -22,6 +22,10 @@ clearance slot around this elbow and leaves both tie lands accessible.
 The installed representation opens the sockets around the reference barb
 and 4 mm tube, conserving nominal annular area. It is a routing envelope;
 fit and sealing require a printed part.
+
+The [installed route review](../../mechanical-qualification/enclosure-above-core/vent-return-review.json)
+records R55.67 mm minimum curvature in the short white return and at least
+1 mm clearance to unconnected bodies. Both 4 mm flavor lines retain R25.
 
 ## Print and assemble
 

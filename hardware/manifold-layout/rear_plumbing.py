@@ -188,11 +188,12 @@ def seats():
         group = [s for s in native.Solids() if lo <= s.Center().z <= hi]
         rows['pisco-'+n.replace('_','-')] = (parts._compound(group).moved(layout.frame_location(plan()['gas_frame'])), selected['gas-regulator'][1])
     meter = parts._module('rear_digiten','reference/digiten-flow-sensor/digiten_flow_sensor.py')
-    result,_ = snaps.build(rows,(37.25,328.),layout.frame_location(plan()['chain_frame']),90.,
+    result,numbers = snaps.build(rows,(37.25,328.),layout.frame_location(plan()['chain_frame']),90.,
                            (77.5,328.),480.8,346.,465.3,98.5,meter,layout.location('digiten-flow'))
     mount = plan()['regulator_mount']
     st, axis = mount['station'], mount['axis']
     a,b = mount['seat_y']; width = st['outer']
+    b = max(b,st['y1']+fits.running+snaps.WALL)
     seat = snaps.box(axis[0]-width,axis[0]+width,a,b,snaps.SPLIT,346.5).cut(snaps.turned(mount['seat_runs'],axis))
     for pocket in snaps.pockets(st): seat = seat.cut(pocket)
     cap = snaps.cap(st,axis[1],mount['cap_bottom'],axis[1]).cut(snaps.turned(mount['cap_runs'],axis))
@@ -201,8 +202,10 @@ def seats():
     # Clear the installed vent sleeve and its two tie lands through the cap.
     sleeve = selected['asse-drain-adapter'][0]
     b = sleeve.BoundingBox()
-    vent_room = snaps.box(b.xmin-fits.running,b.xmax+fits.running,
-                          b.ymin-fits.running,b.ymax+fits.running,b.zmin-1.,328.)
+    lo,hi = numbers['asse']['vent']
+    vent_room = snaps.box(min(b.xmin,lo[0])-fits.running,max(b.xmax,hi[0])+fits.running,
+                          min(b.ymin,lo[1]-snaps.THREAD)-fits.running,
+                          max(b.ymax,hi[1]+snaps.THREAD)+fits.running,b.zmin-1.,328.)
     result['asse-snap-cap'] = result['asse-snap-cap'].cut(vent_room).clean()
     # The flavor-A tube crosses beneath the meter's housing. Its curved
     # passage opens only the lower snap wing, retaining the west spine.
@@ -358,7 +361,7 @@ def flavor_routes(station):
 
     for flavor, valve, lane, cross_y, aisle, cross_z, lift_y in (
             ('a','valve-v-g',-33.,270.,55.5,296.,295.),
-            ('b','valve-v-j',-40.,260.,35.,290.,295.)):
+            ('b','valve-v-j',-40.,266.,35.,290.,295.)):
         source,axis,_ = station(valve,'outlet')
         destination,outward,_ = station('bulkhead-flavor-'+flavor,'tube-in')
         if flavor=='a':
@@ -370,6 +373,11 @@ def flavor_routes(station):
                 (source[0],source[1],288.5),(source[0],source[1]+radius,288.5)],radius)
             lead_end = (source[0],source[1]+radius,288.5)
         approach = (lane,cross_y-radius-10.,cross_z)
+        lane_segments = [r._ease_lane(lead_end,approach)]
+        if flavor=='b':
+            offset = (lane-lead_end[0],0.,cross_z-lead_end[2])
+            normal = r._unit(r._cross((0.,1.,0.),offset))
+            lane_segments,approach = _flavor_s_bend(lead_end,(0.,1.,0.),offset,normal)
         crossing = r._rounded([approach,(lane,cross_y,cross_z),(aisle,cross_y,cross_z),
                                 (aisle,lift_y,cross_z)],radius)
         peak,low_z = (282.,257.) if flavor=='a' else (303.5,destination[2])
@@ -384,7 +392,7 @@ def flavor_routes(station):
             aisle = 62.
         rear = _flavor_rear(flavor,destination)
         stop = rear[-1]['points_mm'][-1]
-        segments = [*lead,r._ease_lane(lead_end,approach),*crossing,*rise,*transfer,
+        segments = [*lead,*lane_segments,*crossing,*rise,*transfer,
                     r._line(end,rear[0]['points_mm'][0]),*rear,
                     r._line(stop,r._sub(destination,r._mul(outward,10.)))]
         points = r._points(segments)
