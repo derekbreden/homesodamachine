@@ -172,6 +172,20 @@ RUN cd /opt/hsm/render && npm ci --no-audit --no-fund
 COPY web/package.json web/package-lock.json /opt/hsm/web/
 RUN cd /opt/hsm/web && npm ci --omit=dev --no-audit --no-fund
 
+# RUST AND CMAKE, FOR THE PARTS THE KERNEL CUTS. `_rust_part.py` builds a part's program with the
+# `cargo` it finds on the action's PATH, and the kernel's booleans are Manifold, which
+# `manifold-csg-sys` clones and builds with CMake the first time. The toolchain is the standalone
+# release, at the version the Mac that cuts these runs, installed under /usr/local so `cargo` and
+# `rustc` are on `.bazelrc`'s PATH with no rustup home for an action to be told about.
+ARG RUST_VERSION=1.99.1
+RUN apt-get update && apt-get install -y --no-install-recommends cmake \
+    && rm -rf /var/lib/apt/lists/* \
+    && curl -fsSL "https://static.rust-lang.org/dist/rust-${RUST_VERSION}-x86_64-unknown-linux-gnu.tar.xz" \
+      | tar -xJ -C /tmp \
+    && "/tmp/rust-${RUST_VERSION}-x86_64-unknown-linux-gnu/install.sh" --prefix=/usr/local \
+      --components=rustc,cargo,rust-std-x86_64-unknown-linux-gnu \
+    && rm -rf "/tmp/rust-${RUST_VERSION}-x86_64-unknown-linux-gnu"
+
 # What the job needs to know to wire the three baked trees into a fresh checkout.
 ENV HSM_CAD_VENV=/opt/hsm/cad-venv \
     HSM_RENDER_MODULES=/opt/hsm/render/node_modules \
@@ -187,6 +201,9 @@ RUN set -eu; \
     rsvg-convert --version; \
     node --version; \
     gh --version; \
+    cargo --version; \
+    rustc --version; \
+    cmake --version; \
     /opt/hsm/cad-venv/bin/python --version
 
 # THE DIGEST OF THE FILES THIS IMAGE WAS MADE OF, carried in the image. `derive` recomputes

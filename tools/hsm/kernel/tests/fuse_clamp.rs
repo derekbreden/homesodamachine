@@ -1,33 +1,38 @@
-//! The fuse clamp rebuilt on the kernel against the part OCCT published: volume within 0.01 % of
-//! the published STEP's, surface within 0.005 mm of the published STL's both ways, and a payload
-//! hsm-geometry reads back as the kernel wrote it.
-#[path = "../examples/fuse_clamp.rs"]
+//! The fuse clamp the kernel cuts, from the numbers its module writes, against the B-rep the
+//! module's `build()` draws: volume within 0.01 % of OCCT's, surface within 0.005 mm of OCCT's mesh
+//! of it both ways, and a payload hsm-geometry reads back as the kernel wrote it.
+#[allow(dead_code)]
+#[path = "../../../../hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.rs"]
 mod fuse_clamp;
 mod common;
 use common::{hausdorff, occt, read_stl};
 use hsm_kernel::*;
 
+fn clamp() -> anyhow::Result<Solid> {
+    fuse_clamp::build(&part::Numbers::read(concat!(env!("CARGO_MANIFEST_DIR"), "/../../../hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.numbers.json"))?)
+}
+
 #[test]
-fn matches_the_published_part() -> anyhow::Result<()> {
-    let clamp = fuse_clamp::build()?;
+fn matches_its_module() -> anyhow::Result<()> {
+    let clamp = clamp()?;
     clamp.check()?;
-    let published = occt("fuse_clamp_published");
-    let rel = (clamp.volume() - published.volume) / published.volume;
+    let module = occt("fuse_clamp_module");
+    let rel = (clamp.volume() - module.volume) / module.volume;
     let (verts, tris) = read_stl(include_bytes!("fixtures/fuse-clamp.stl"));
     let apart = hausdorff((clamp.verts(), clamp.tris()), (&verts, &tris));
     println!(
-        "fuse clamp: volume {:.4} against the published {:.4} ({rel:+.2e}), surfaces {apart:.1e} mm apart",
+        "fuse clamp: volume {:.4} against build()'s {:.4} ({rel:+.2e}), surfaces {apart:.1e} mm apart",
         clamp.volume(),
-        published.volume
+        module.volume
     );
-    assert!(rel.abs() <= 1e-4, "volume {} against the published {}", clamp.volume(), published.volume);
+    assert!(rel.abs() <= 1e-4, "volume {} against build()'s {}", clamp.volume(), module.volume);
     assert!(apart <= 0.005, "the surfaces lie {apart} mm apart");
     Ok(())
 }
 
 #[test]
 fn payload_reads_back() -> anyhow::Result<()> {
-    let clamp = fuse_clamp::build()?;
+    let clamp = clamp()?;
     let body = Body { name: "fuse-clamp", color: Some([0.02, 0.02, 0.02]), solid: &clamp };
     let bytes = payload_bytes(&[body], None, None);
     let payload = hsm_geometry::payload::decode(&bytes)?;
@@ -46,6 +51,6 @@ fn payload_reads_back() -> anyhow::Result<()> {
     {
         assert!((got - want).abs() < 1e-5, "payload bounds {got} against the solid's {want}");
     }
-    assert!(clamp.faces().iter().all(|f| src_line(f.src).starts_with("tools/hsm/kernel/examples/fuse_clamp.rs:")));
+    assert!(clamp.faces().iter().all(|f| src_line(f.src).starts_with("hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.rs:")));
     Ok(())
 }

@@ -121,6 +121,11 @@ rather than bridging, and nothing needs support.
 tools/cad-venv/bin/python hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.py
 ```
 
+The module writes the numbers the part's geometry takes to `fuse-clamp.numbers.json`, and
+[`fuse_clamp.rs`](fuse_clamp.rs) beside it cuts `fuse-clamp.step`, its payload and
+`fuse-clamp.stl` from them on the [kernel](/tools/hsm/README.md#parts-the-kernel-cuts), which
+needs cargo and CMake.
+
 Controls only, including the two bounds this part states about the donor:
 
 ```

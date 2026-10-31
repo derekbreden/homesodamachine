@@ -183,6 +183,11 @@ finally:
     # a generator that cuts nothing of its own has no stamp to carry it, so it is taken here.
     mod = sys.modules.get("_cadq_export")
     read |= set(getattr(mod, "_STEP_READS", ())) | set(getattr(mod, "_READ_TARGETS", ()))
+    # AND A PART THE RUST KERNEL CUTS IS COMPILED AND RUN BELOW PYTHON. `_rust_part` keeps the
+    # sources cargo compiled into its program and the files the program wrote.
+    rust = sys.modules.get("_rust_part")
+    read |= set(getattr(rust, "_READ_TARGETS", ()))
+    wrote |= set(getattr(rust, "_WRITE_TARGETS", ()))
     # A FILE IS CUT WHOLE OR REWRITTEN IN PLACE, and the module that wrote it is the one that
     # knows which. `_cadq_export` draws a solid from nothing; `docgen` reads a
     # doc, replaces the values it manages, and writes the rest of it back. A file of

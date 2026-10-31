@@ -30,6 +30,7 @@ pub mod build;
 pub mod face;
 pub mod mass;
 pub mod math;
+pub mod part;
 pub mod plane;
 pub mod profile;
 pub mod rule;

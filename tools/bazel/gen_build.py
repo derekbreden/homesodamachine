@@ -113,6 +113,14 @@ def _needs_node(srcs: list) -> bool:
     return any(s.startswith(_NODE) for s in srcs)
 
 
+#: What tells a step that runs a part the Rust kernel cuts: a Cargo manifest among what it read
+#: (`hardware/scripts/_rust_part.py`). Cargo compiles into the checkout's own target directory,
+#: which no sandbox may write, so the step runs unsandboxed — and in a work directory of its own,
+#: because unsandboxed steps share one execroot.
+def _needs_cargo(srcs: list) -> bool:
+    return any(s.endswith("Cargo.toml") for s in srcs)
+
+
 #: The three files the `render-step-posed-runtime` glob below excludes, for each consumer to
 #: name directly. They are the whole of what that glob leaves behind.
 _RUNTIME_NAMED_DIRECTLY = ("web/package-lock.json", "web/package.json", "web/server.js")
@@ -243,6 +251,8 @@ def render(gens: tuple, arts: list, srcs: list, optional: list, docs: list, rewr
     # has the file to carry it back to. Twenty generators cut a `README.md`, and a basename is
     # not a name for any of them.
     outs = [f"out/{name}/{a}" for a in (*arts, *docs)]
+    cargo = _needs_cargo(srcs)
+    work = f"work-{name}" if cargo else "work"
     lines = [f'genrule(', f'    name = "{name}",', "    srcs = ["]
     lines += [f'        "{read_from(s, rewritten, producers, name)}",' for s in srcs]
     # NODE RESOLVES ITS OWN IMPORTS, below Python and out of the tracer's sight. The trace sees
@@ -268,11 +278,15 @@ def render(gens: tuple, arts: list, srcs: list, optional: list, docs: list, rewr
         # carry. Vendoring it is what would make this action hermetic; until then it runs
         # outside the sandbox and is the one target here whose inputs are not all declared.
         lines.append('    tags = ["local", "requires-network"],')
+    elif cargo:
+        lines.append('    tags = ["no-sandbox"],')
     elif _needs_node(srcs):
         lines.append('    tags = ["requires-network"],')
     lines += ['    cmd = """', "set -e"]
     for i, o in enumerate(outs):
         lines.append(f"O{i}=$$PWD/$(location {o})")
+    if cargo:
+        lines.append(f"rm -rf {work}")
     lines += [
         # THE COPY IS FOR THE FILES `Path(__file__).resolve()` WALKS OUT OF, which is this
         # repo's own Python. A package tree is read by node, which is content with a symlink,
@@ -289,14 +303,14 @@ def render(gens: tuple, arts: list, srcs: list, optional: list, docs: list, rewr
         f"    */{PYSRC}/*) t=$${{f##*/{PYSRC}/}};;",
         "    *) t=$$f;;",
         "  esac",
-        "  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t",
+        f"  mkdir -p {work}/$$(dirname $$t); cp -L $$f {work}/$$t",
         "done",
         "for d in tools/render/node_modules web/node_modules "
         "hardware/pcb/pcba/node_modules; do",
-        "  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); "
-        "ln -sfn $$PWD/$$d work/$$d; fi",
+        f"  if [ -d $$d ]; then mkdir -p {work}/$$(dirname $$d); "
+        f"ln -sfn $$PWD/$$d {work}/$$d; fi",
         "done",
-        "cd work",
+        f"cd {work}",
         # TWO THINGS DECIDE A SHAPE and the key must hold both. `_realized.key` walks the
         # drawing module's imports, which covers the Python; this is the other half — the
         # solids the action was given, which no import statement reaches. A doc moving is
@@ -320,6 +334,8 @@ def render(gens: tuple, arts: list, srcs: list, optional: list, docs: list, rewr
         lines.append(f"HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D {payload_env}{VENV} {g} > /dev/null")
     for i, made in enumerate((*arts, *docs)):
         lines.append(f"cp {made} $$O{i}")
+    if cargo:
+        lines.append(f"cd .. && rm -rf {work}")
     lines += ['""",', ")"]
     return "\n".join(lines)
 

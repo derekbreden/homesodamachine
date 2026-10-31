@@ -1,6 +1,7 @@
 //! The same models write the same bytes: built twice in one process, and again in a process of
 //! their own, every writer's output hashes alike.
-#[path = "../examples/fuse_clamp.rs"]
+#[allow(dead_code)]
+#[path = "../../../../hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.rs"]
 mod fuse_clamp;
 use hsm_kernel::*;
 use sha2::{Digest, Sha256};
@@ -25,7 +26,7 @@ fn models() -> anyhow::Result<Vec<(&'static str, Solid)>> {
     ];
     let arial = Font::find("Arial", Kind::Regular)?;
     Ok(vec![
-        ("fuse-clamp", fuse_clamp::build()?),
+        ("fuse-clamp", fuse_clamp::build(&part::Numbers::read(concat!(env!("CARGO_MANIFEST_DIR"), "/../../../hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.numbers.json"))?)?),
         ("holes-60", block.cut_all(&pins)?),
         ("ball", Solid::sphere(v3(0.0, 0.0, 40.0), 7.0)?),
         ("ring", Solid::torus(v3(40.0, 0.0, 40.0), v3(1.0, 1.0, 0.0), 10.0, 3.0)?),
