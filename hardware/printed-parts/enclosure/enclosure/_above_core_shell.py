@@ -38,14 +38,14 @@ def ycylinder(radius, x, z, y0, y1):
 
 def psu_fastener_plan():
     """Four short inserts support the drawing's 6.7 ± 1 mm mounting ears."""
-    reach = (12.-7.7, 12.-5.7)
+    reach = (10.-7.7, 10.-5.7)
     pilot = reach[1]+1.
-    return {'count':4, 'screw':'M3x12 SHCS', 'screw_length_mm':12.,
+    return {'count':4, 'screw':'M3x10 SHCS', 'screw_length_mm':10.,
             'insert':'RX-M3Sx4', 'insert_length_mm':4.,
             'ear_thickness_range_mm':(5.7,7.7), 'receiving_range_mm':reach,
             'pilot_depth_mm':pilot, 'minimum_tip_air_mm':1.,
-            'minimum_blind_backing_mm':layout.pose('psu')['translation_mm'][0]-pilot+107.5,
-            'minimum_fluted_backing_mm':layout.pose('psu')['translation_mm'][0]-pilot+107.5-flute_depth,
+            'minimum_blind_backing_mm':355.-layout.pose('psu')['translation_mm'][2]-pilot,
+            'minimum_fluted_backing_mm':355.-layout.pose('psu')['translation_mm'][2]-pilot,
             'maximum_flute_depth_mm':flute_depth,
             'boss_radius_mm':5., 'pilot_radius_mm':2.,
             'parent':'enclosure-back-top', 'load_retention_qualified':False}
@@ -74,54 +74,57 @@ def relay_fastener_plan():
 
 
 def wall_mount_datums():
-    """Native-reference mounting planes and the selected west-wall hosts.
-
-    All four corners bear on pads. Relay screws occupy opposite diagonal
-    corners, keeping a complete 3 mm pilot wall between the stacked boards.
-    These are nominal mechanical interfaces, without load or retention data.
-    """
-    sys.path[:0] = [str(HERE.parents[2] / 'reference' / name)
-                   for name in ('meanwell-irm90','teyleten-relay')]
+    """Native mounting holes on ceiling PSU bosses and west-wall relay bars."""
+    sys.path[:0] = [str(HERE.parents[2]/'reference'/name) for name in ('meanwell-irm90','teyleten-relay')]
     import meanwell_irm90, teyleten_relay
-    result={}
-    for name,source,plan in (('psu',meanwell_irm90,psu_fastener_plan()),
+    result = {}
+    for name, source, plan in (('psu',meanwell_irm90,psu_fastener_plan()),
             ('relay-1',teyleten_relay,relay_fastener_plan()),
             ('relay-2',teyleten_relay,relay_fastener_plan())):
-        stations=[]
+        stations = []
+        axis = layout.vector(layout.pose(name)['rotation'], (0.,0.,1.))
         for index,(hx,hy) in enumerate(source.holes):
-            point=layout.point(layout.pose(name),(hx,hy,0.))
-            face=(point[0]-plan.get('bearing_tip_height_mm',0.),point[1],point[2])
+            point = layout.point(layout.pose(name),(hx,hy,0.))
+            face = tuple(p-plan.get('bearing_tip_height_mm',0.)*u for p,u in zip(point,axis))
+            root = (point[0],point[1],349.25) if name=='psu' else (-98.52,point[1],point[2])
             stations.append({'native_hole_index':index,'position_world_mm':point,
-                'insert_face_world_mm':face,
-                'axis_world':layout.vector(layout.pose(name)['rotation'],(0.,0.,1.)),
+                'insert_face_world_mm':face,'axis_world':axis,
                 'threaded':name=='psu' or index in plan['active_hole_indices'],
-                'stock_root_world_x_mm':-98.52,
-                'standoff_mm':point[0]+98.5})
-        result[name]={**plan,'stations':tuple(stations)}
+                'stock_root_world_mm':root,'stock_root_world_x_mm':root[0],
+                'standoff_mm':sum((p-r)*u for p,r,u in zip(point,root,axis))})
+        result[name] = {**plan,'stations':tuple(stations)}
     return result
 
 
 def _wall_hosts(names):
-    bosses,holes=[],[]
-    for name,plan in wall_mount_datums().items():
-        if name not in names:
-            continue
+    bosses, holes = [], []
+    datums = wall_mount_datums()
+    for name in names:
+        plan = datums[name]
         for station in plan['stations']:
-            x,y,z=station['position_world_mm'];root=station['stock_root_world_x_mm']
-            insert_x=station['insert_face_world_mm'][0]
-            boss=cq.Solid.makeCylinder(plan['boss_radius_mm'],insert_x-root,
-                cq.Vector(root,y,z),cq.Vector(1.,0.,0.))
-            if plan.get('bearing_tip_height_mm',0.):
-                tip=cq.Solid.makeCylinder(plan['bearing_tip_radius_mm'],x-insert_x,
-                    cq.Vector(insert_x,y,z),cq.Vector(1.,0.,0.))
-                boss=boss.fuse(tip).clean()
-            bosses.append(boss)
+            point, face, root, axis = (station[k] for k in
+                ('position_world_mm','insert_face_world_mm','stock_root_world_mm','axis_world'))
+            length = sum((p-r)*u for p,r,u in zip(face,root,axis))
+            bosses.append(cq.Solid.makeCylinder(plan['boss_radius_mm'],length,cq.Vector(*root),cq.Vector(*axis)))
+            tip = plan.get('bearing_tip_height_mm',0.)
+            if tip:
+                bosses.append(cq.Solid.makeCylinder(plan['bearing_tip_radius_mm'],tip,cq.Vector(*face),cq.Vector(*axis)))
             if station['threaded']:
-                holes.append(cq.Solid.makeCylinder(plan['pilot_radius_mm'],
-                    plan['pilot_depth_mm']+.01,cq.Vector(insert_x+.01,y,z),cq.Vector(-1.,0.,0.)))
-                if plan.get('bearing_tip_height_mm',0.):
-                    holes.append(cq.Solid.makeCylinder(plan['screw_clearance_radius_mm'],
-                        x-insert_x+.02,cq.Vector(x+.01,y,z),cq.Vector(-1.,0.,0.)))
+                inward = tuple(-u for u in axis)
+                holes.append(cq.Solid.makeCylinder(plan['pilot_radius_mm'],plan['pilot_depth_mm']+.01,
+                    cq.Vector(*(p+.01*u for p,u in zip(face,axis))),cq.Vector(*inward)))
+                if tip:
+                    holes.append(cq.Solid.makeCylinder(plan['screw_clearance_radius_mm'],tip+.02,
+                        cq.Vector(*(p+.01*u for p,u in zip(point,axis))),cq.Vector(*inward)))
+    # The two boards share one plain bar at each end, with their full pin
+    # envelopes relieved by the short bearing tips.
+    if set(names)=={'relay-1','relay-2'}:
+        stations = [s for name in names for s in datums[name]['stations']]
+        for y in sorted(set(round(s['position_world_mm'][1],6) for s in stations)):
+            row = [s for s in stations if abs(s['position_world_mm'][1]-y)<1e-5]
+            z0,z1 = min(s['position_world_mm'][2] for s in row),max(s['position_world_mm'][2] for s in row)
+            x = min(s['insert_face_world_mm'][0] for s in row)
+            bosses.append(box(-98.52,x,y-5.,y+5.,z0,z1))
     return tuple(bosses),tuple(holes)
 
 
@@ -138,6 +141,34 @@ def psu_bosses():
 def wall_bosses():
     first,second=relay_bosses(),psu_bosses()
     return first[0]+second[0],first[1]+second[1]
+
+
+def mount_hardware():
+    """M3 screws and short inserts on the actual PSU and relay hole axes."""
+    import math
+    from _materials import M_STAINLESS, M_BRASS
+    import above_core_parts as parts
+    rows = {}
+    for name,plan in wall_mount_datums().items():
+        for number,station in enumerate(plan['stations'],1):
+            if not station['threaded']:
+                continue
+            axis = cq.Vector(*station['axis_world'])
+            point = cq.Vector(*station['position_world_mm'])
+            face = cq.Vector(*station['insert_face_world_mm'])
+            head = point+axis*(6.7 if name=='psu' else 1.5)
+            length = plan['screw_length_mm']
+            screw = cq.Solid.makeCylinder(1.5,length,head-axis*length,axis).fuse(
+                cq.Solid.makeCylinder(2.75,3.,head,axis))
+            wide = cq.Vector(1.,0.,0.) if abs(axis.x)<.9 else cq.Vector(0.,1.,0.)
+            plane = cq.Plane(origin=head+axis*1.5,normal=axis,xDir=wide)
+            socket = cq.Workplane(plane).polygon(6,2.5/math.cos(math.pi/6.)).extrude(1.6).val()
+            screw = screw.cut(socket).clean()
+            insert = cq.Solid.makeCylinder(2.3,4.,face,axis*-1.).cut(
+                cq.Solid.makeCylinder(1.25,4.2,face+axis*.1,axis*-1.))
+            for kind,shape,color in (('screw',screw,M_STAINLESS),('insert',insert,M_BRASS)):
+                rows[f'{name}-{kind}-{number}'] = shape,color,parts._carry(parts._frame())
+    return rows
 
 
 def c14_fastener_plan():
@@ -324,18 +355,17 @@ def valve_seat_datums():
 
 @functools.cache
 def valve_seats():
-    """Native full-width valve plates fused to their nearest shell sidewall."""
-    datums = valve_seat_datums()
+    """V-A's ceiling plinth and V-K's full east-wall socket plate."""
     import valve_seat as seat
-
+    import rear_plumbing
     result = {}
-    for name, row in datums.items():
-        low, high = row['stock_min_world_mm'], row['stock_max_world_mm']
-        stock = box(low[0], high[0], low[1], high[1], low[2], high[2])
-        location = layout.location(name)
-        sockets = seat.build_sockets().val().moved(location)
-        channel = seat.build_port_channel(2.*seat.seat_half_y+2.).val().moved(location)
-        result[name] = stock.cut(sockets, channel).clean()
+    result['valve-v-a'] = seat.build_seat(rear_plumbing.plan()['joint']['PLINTH']).val().moved(layout.location('valve-v-a'))
+    row = valve_seat_datums()['vk-solenoid']
+    low,high = row['stock_min_world_mm'],row['stock_max_world_mm']
+    stock = box(low[0],high[0],low[1],high[1],low[2],high[2])
+    location = layout.location('vk-solenoid')
+    result['vk-solenoid'] = stock.cut(seat.build_sockets().val().moved(location),
+        seat.build_port_channel(2.*seat.seat_half_y+2.).val().moved(location)).clean()
     return result
 
 
@@ -351,46 +381,9 @@ def tie_window(axis, lo, hi, a0, a1, z_mid):
 
 @functools.cache
 def fluid_supports():
-    """Broad, open saddles on fixed roof/wall stock, with separate tie paths.
-
-    The horizontal bodies enter from the open half of each saddle. Gas bodies
-    enter from the west. The 0.25 mm radial fit is nominal layout clearance;
-    the restraints do not establish pressure capacity or service life.
-    """
-    result = {}
-    z = layout.pose('asse1022-assembly')['translation_mm'][2]
-    # The aft ASSE bearing shares the meter's broad fore roof column.
-    x = 37.25
-    for index, y in enumerate((340., 364.), 1):
-        if index == 2:
-            import _back_top_meter
-            result['asse-2'] = _back_top_meter.meter_supports()[0]
-            continue
-        radius = 16.75
-        saddle = box(x+7.25, x+radius+9., y-3., y+3., 315.92604788, 355.)
-        saddle = saddle.cut(ycylinder(radius, x, z, y-3.1, y+3.1))
-        saddle = saddle.cut(tie_window('y', y-3.1, y+3.1, x+radius+3., x+radius+5.5, z))
-        result[f'asse-{index}'] = saddle.clean()
-    # The regulator's two diameters retain their own bearings. Its narrow
-    # socket ends and the transverse outlet tube stay free of the supports.
-    y = layout.snapshot_pose('reg')['translation_mm'][1]
-    for index, x, radius in ((1, -5.3541011287684, 13.75),
-                              (2, -29.3541011287684, 12.25)):
-        saddle = box(x-3., x+3., y, y+radius+9., z-radius-3., 355.)
-        bore = cq.Solid.makeCylinder(radius, 6.2, cq.Vector(x-3.1, y, z), cq.Vector(1, 0, 0))
-        saddle = saddle.cut(bore, tie_window('x', x-3.1, x+3.1, y+radius+3., y+radius+5.5, z))
-        result[f'water-regulator-{index}'] = saddle.clean()
-    # Both seats join on common Z293/301 planes as one broad, flat carrier.
-    # Only the two circular bearings and their straight tie slots cut it.
-    for name, y, z, radius in (('gas-regulator', 418.9526, 297., 11.),):
-        x = layout.snapshot_pose(name)['translation_mm'][0]
-        saddle = box(x, 98.51, y-radius-3., y+radius+3., z-4., z+4.)
-        saddle = saddle.cut(zcylinder(radius, x, y, z-4.1, z+4.1),
-                              box(x+radius+3., x+radius+5.5, y-2., y+2., z-4.1, z+4.1))
-        result[name] = saddle.clean()
-    result['gas-check'] = gas_check_support()
-    return result
-
+    """Three slide seats and the regulator's push-up seat, integral with back-top."""
+    import rear_plumbing
+    return {n:s for n,s in rear_plumbing.seats().items() if n.endswith('-seat')}
 
 
 def closure_hardware(x, y, head_seat, insert_top, length=12.):
@@ -470,9 +463,5 @@ def apply(piece, box_spec, y_side, z_side):
         piece = piece.fuse(feature)
     for feature in fluid_supports().values():
         piece = piece.fuse(feature)
-    import _back_top_meter
-    # The fore meter/ASSE column has already joined as fluid_supports' asse-2.
-    for support in _back_top_meter.meter_supports()[1:]:
-        piece = piece.fuse(support)
     # Keep the measured inlet opening clear after all integral mounts join.
     return piece.cut(*c14_rear_cutters())

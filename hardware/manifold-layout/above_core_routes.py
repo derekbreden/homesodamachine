@@ -277,96 +277,9 @@ def route_specifications(station):
         except ValueError as failure:
             unresolved.append({'id': identifier, 'reason': str(failure)})
 
-    # The outlet elbow faces up. Two accessible R18 turns bridge to the
-    # straight inlet guide; the plain guide adds no joint or tube cut.
-    check_mouth = station('carbonator-fold','socket')[0]
-    water_guide = station('foam-assembly','water-in')[0]
-    route('water-5', ('carbonator-fold', 'socket'), ('foam-assembly', 'water-in'),
-          [(*check_mouth[:2],318.5),(*water_guide[:2],318.5)], radius=18.,
-          source_depth=16.891, destination_depth=0., spool='white',
-          note='Accessible R18 water arch from the upward check elbow to the straight cap guide')
-    route('soda-meter-bulkhead', ('digiten-flow', 'outlet'), ('soda-outlet-return-stem', 'socket'), [],
-          spool='blue', source_depth=15.7, destination_depth=16.891,
-          note='Concealed 32.591 mm tube joins the coincident meter and rear-stem collet faces')
-
-    # The flavor pair passes low under the fore reservoir crossings, then
-    # rises gradually through the aisle beside the pump to two shared roof snaps.
-    r = 25.
-    diagonal = math.sqrt(.5)
-    a_source, a_axis, _ = station('valve-v-g', 'outlet')
-    flavor_a, a_port_axis, _ = station('bulkhead-flavor-a', 'tube-in')
-    a_lead = _rounded([_sub(a_source, _mul(a_axis, 10.)), a_source,
-        (a_source[0], a_source[1], 292.5), (35., 156., 288.5),
-        (-45., 156., 288.5), (-45., 181., 288.5)], r)
-    a_drop_x = 64.35
-    a_heading = math.pi/4-math.asin(((flavor_a[0]-a_drop_x)/r-1)/math.sqrt(2))
-    a_east, a_aft = math.cos(a_heading), math.sin(a_heading)
-    a_drop_y = flavor_a[1]-r*(a_east+a_aft)
-    a_turn, a_point = _arc((-45., a_drop_y-r, 343.), (0., 1., 0.),
-                          (0., 0., -1.), math.pi/2, r)
-    a_upper, a_upper_end = _arc((a_drop_x-r, a_drop_y, 343.), (1., 0., 0.),
-                              (0., 1., 0.), math.pi/2, r)
-    a_drop_start = (a_drop_x, a_drop_y, flavor_a[2]+r)
-    a_lower, a_lower_end = _arc(a_drop_start, (0., 0., -1.),
-                              (a_aft, -a_east, 0.), math.pi/2, r)
-    a_return, _ = _arc(a_lower_end, (a_east, a_aft, 0.), (0., 0., 1.),
-                      math.pi/2-a_heading, r)
-    a_segments = [*a_lead, _ease_lane((-45., 181., 288.5), (-33., 260., 296.)),
-        _line((-33., 260., 296.), (-33., 278., 296.)),
-        _bezier([(-33., 278., 296.), (-33., 299.6, 296.),
-                 (-33., 309.8, 310.1), (-33., 316.2, 328.9),
-                 (-45., 326.4, 343.), (-45., 348., 343.)]),
-        _line((-45., 348., 343.), (-45., a_drop_y-r, 343.)), a_turn,
-        _line(a_point, (a_drop_x-r, a_drop_y, 343.)), a_upper,
-        _line(a_upper_end, a_drop_start), a_lower, a_return,
-        _line(flavor_a, _sub(flavor_a, _mul(a_port_axis, 10.)))]
-    route('fluid-18', ('valve-v-g', 'outlet'), ('bulkhead-flavor-a', 'tube-in'),
-          [], native_segments=a_segments,
-          radius=r, spool='flavor-black-4mm', od=4., inside=2.5, source_depth=10.,
-          destination_depth=10.,
-          note='Flavor A follows the paired roof guides to the east rear flavor port')
-
-    b_source, b_axis, _ = station('valve-v-j', 'outlet')
-    flavor_b, b_port_axis, _ = station('bulkhead-flavor-b', 'tube-in')
-    b_lead = _rounded([_sub(b_source, _mul(b_axis, 10.)), b_source,
-        (b_source[0], b_source[1], 288.5), (b_source[0], b_source[1]+r, 288.5)], r)
-    b_turn_y = flavor_b[1]-2*r
-    b_turn, b_point = _arc((-55., b_turn_y, 343.), (0., 1., 0.),
-                          (0., 0., -1.), math.pi/2, r)
-    b_upper, b_upper_end = _arc((flavor_b[0]-r, flavor_b[1]-r, 343.),
-                              (1., 0., 0.), (0., 1., 0.), math.pi/2, r)
-    b_drop_start = (flavor_b[0], flavor_b[1]-r, flavor_b[2]+r)
-    b_lower, _ = _arc(b_drop_start, (0., 0., -1.), (1., 0., 0.), math.pi/2, r)
-    b_segments = [*b_lead, _ease_lane((b_source[0], b_source[1]+r, 288.5),
-                                     (-40., 260., 296.)),
-        _line((-40., 260., 296.), (-40., 278., 296.)),
-        _bezier([(-40., 278., 296.), (-40., 299.6, 296.),
-                 (-40., 309.8, 310.1), (-40., 316.2, 328.9),
-                 (-55., 326.4, 343.), (-55., 348., 343.)]),
-        _line((-55., 348., 343.), (-55., b_turn_y, 343.)), b_turn,
-        _line(b_point, (flavor_b[0]-r, flavor_b[1]-r, 343.)), b_upper,
-        _line(b_upper_end, b_drop_start), b_lower,
-        _line(flavor_b, _sub(flavor_b, _mul(b_port_axis, 10.)))]
-    route('fluid-28', ('valve-v-j', 'outlet'), ('bulkhead-flavor-b', 'tube-in'),
-          [], native_segments=b_segments,
-          radius=r, spool='flavor-black-4mm', od=4., inside=2.5,
-          source_depth=10., destination_depth=10.,
-          note='Flavor B follows the paired roof guides to the west rear flavor port')
-
-    # Vent travels above the dry electronics and drops aft of the motor.
-    vent = station('bulkhead-drain', 'inboard')[0]
-    vent_start = (vent[0]-r*diagonal, vent[1]-r, vent[2]+r*diagonal)
-    vent_arc, _ = _arc(vent_start, (diagonal, 0., -diagonal),
-                           (diagonal, 0., diagonal), math.pi/2, r)
-    vent_turn_start = (vent_start[0]-r*diagonal, vent_start[1], vent[2]+r)
-    vent_turn, vent_turn_end = _arc(vent_turn_start, (1., 0., 0.), (0., 1., 0.), math.pi/4, r)
-    # The foreward S leaves the sleeve on-axis; the long west leg is separated
-    # from both dispense lines by its X/Z lanes.
-    route('drain-vent', ('asse-drain-adapter', 'tube'), ('bulkhead-drain', 'inboard'),
-          [(-35., 355.3849605281867, 342.), (-35., 410., 342.),
-           (-15., vent_start[1], vent_turn_start[2]), vent_turn_start],
-          radius=r, spool='drain-white', od=4., inside=2.5,
-          source_depth=14., destination_depth=10., suffix=[vent_turn, vent_arc])
+    import rear_plumbing
+    specifications.update(rear_plumbing.continuations(station))
+    specifications.update(rear_plumbing.flavor_routes(station))
 
     specifications.update(reservoir_a_route_specs())
     b_draw = station('foam-assembly', 'reservoir-b')[0]

@@ -14,7 +14,7 @@ Load and snap-retain the pumps from below, then assemble the fixed front manifol
 front-top is loose. Fit below-lid core
 plumbing before the PCB, then the pump, V-B and other core equipment.
 Prepare V-A, V-K, their fitted plumbing, the complete inlet header, ASSE and
-gas group on back-top, together with the sidewall PSU, relays, meter and its
+gas group on back-top, together with the ceiling PSU, west-wall relays, meter and its
 external inlet/insulation. Complete rear connections on the open subassembly.
 The electronics ceiling is continuous. Complete the accessible central
 inter-quadrant connections before installing the funnel frame.
@@ -24,10 +24,10 @@ See [mechanical assembly](enclosure-mechanical.md) for the closing sequence.
 
 | Group | Selected parts |
 |---|---|
-| Water protection | Bare Multiplex 19-0897 ASSE 1022, straight printed TPU inlet/outlet cuffs, printed vent adapter |
-| Water split and flavor-water control | Trimmed NeoFit ATBU444-E stem tee, YZMSZ fixed 0.3 MPa native 1/4-inch push-connect regulator, V-A |
-| Carbonator fill | V-K, G Ganen pump, two printed TPU pump elbows and four trial clamps, single neoFit ACHV44-E 1/4-inch water check |
-| Gas feed | PISCO RVFUP1/4-1/4-0.3 regulator, separate neoFit ACHV44-E 1/4-inch check, five trimmed NeoFit stem elbows |
+| Water protection | Multiplex 19-0897 ASSE 1022, PP010822E inlet adapter, GAGIRA coupling, PI4512F6S outlet adapter, PP061208W reducer, printed vent cup |
+| Water split and flavor-water control | John Guest PP0208E union tee, YZMSZ fixed 0.3 MPa native 1/4-inch push-connect regulator, V-A |
+| Carbonator fill | V-K, G Ganen pump, two reinforced 3/8-inch PVC joints, trimmed PP061208W reducers, four YDS butterfly clamps and an ACVUS-44 stem check |
+| Gas feed | PISCO RVFUP1/4-1/4-0.3 regulator, neoFit ACVUS-44 stem check directly in the outlet |
 | Core/reservoir interfaces | Existing carbonator fittings; continuous B-fill tube through its fore-entry guide; selected passive cap guides |
 | Soda and flavor outputs | DIGITEN meter, rear soda bulkhead, two 4 mm dispense reducers and rear flavor bulkheads |
 
@@ -74,106 +74,54 @@ body band.
 
 ## Procedure
 
-### 1. Folded gas group
+### 1. Rear gas group
 
-The upper-right rear bulkhead feeds the PISCO regulator through a stem elbow
-and red tube. The regulator and separate neoFit ACHV44-E check stand on the
-east-wall saddles at X78.2. Five trimmed stem elbows retain their full receiving
-depths and 0.4 mm nominal exposed shaft at each shoulder. Exact R14 S bends
-join the fixed rear bulkhead and the fixed X77.5/Y368.7622 cap guide to this
-folded group. The below-lid route continues to the carbonator's existing gas
-fitting and support-ring lane. That check-to-carbonator leg is one uncut tube
-through the plain gas guide; combine both CAD spans when marking its two
-receiving ends. The lower span is 260.942 mm from the guide to the neoFit
-elbow's socket mouth, plus 16.891 mm nominal insertion into that elbow.
-Replace the socket allowance with its actual fully seated insertion mark.
+Fit the ACVUS-44 stem check directly into the PISCO regulator's outlet, following
+both flow arrows. With back-top inverted, lower the pair into its seat 16 mm
+forward and slide it aft. The regulator's inlet neck passes the CO2 hole;
+its external release face is the rear tube station. Fit the lower snap cap
+with its lip ahead of the outlet neck's shoulder.
 
-For the enclosure slide, fit the last elbow (`gas-upper-b`) to that core
-tube and leave its male stem separate from `gas-upper-a` on back-top.
-Keep the tube and loose elbow clear while V-K passes. Present the elbow
-for the final approximately 20 mm, guiding its aft-pointing stem into the
-fore-facing socket as the column seats. The existing stem joint follows Y;
-its nominal engagement is 16.891 mm. Use the actual receiving mark and keep
-the joint aligned by hand, without using the enclosure screws to seat it.
-
-Thread ties through the two fixed east-wall support windows before seating the
-bodies. Retain their fixed barrels without loading a stem elbow or moving
-release collet. Follow the actual flow arrows. The PISCO reference permits
-reverse free flow, so the separate downstream check belongs to this path.
-Its published air specification does not establish exact CO2 service; retain
-the component compatibility and reverse-sealing qualification limits.
-The ACHV body scale and 16.891 mm receiving depth are explicitly inferred
-from vendor media and neoFit sibling drawings. Verify actual arrow direction
-and seating before use; the CAD reference establishes no sealing performance.
+Insert the continuous red tube into the check. It leaves forward in one bend,
+then an S reaches the straight cap guide at X59.101/Y354.664/Z253.4. The same
+tube continues to the carbonator's gas fitting through the retained lower
+support-ring lane. The guide adds no tube cut or socket. Use the actual fully
+seated marks at the check and carbonator fitting when cutting the blank.
 
 ### 2. Water group
 
-The upper-left rear water fitting feeds the ASSE's straight inlet cuff. The bare
-body lies fore–aft above the pump, with its atmospheric vent west. Its outlet
-cuff receives the trimmed stem tee. One branch feeds the transverse YZMSZ
-regulator and V-A; the other feeds V-K beside the east wall, the pump inlet elbow,
-the pump, the discharge elbow and the neoFit ACHV44-E check.
+TAP enters the PP010822E and GAGIRA threaded inlet chain. The ASSE lies
+fore–aft with its vent downward. Its PI4512F6S and PP061208W outlet fittings
+feed the JG PP0208E union tee through one gently raised stub. The tee's east
+run feeds V-K's upper elbow; its west run feeds the YZMSZ regulator and V-A.
+V-A hangs by its posts in the ceiling plinth. V-K uses the east-wall socket
+plate with its inlet above its outlet.
 
-V-A and V-K mount in back-top's integral socket seats. Clock their underside
-flow arrows downward: the header feeds their upper inlet ports, and their
-lower outlets feed Y-A and the pump respectively. Their terminal blades point
-downward. Seat the bare valves on the open back-top bench, then attach their
-prepared blade leads before fitting the surrounding plumbing. Dress their free
-ends forward to the funnel opening for the final connection
-([wiring](wiring.md#4-cabinet-side-12-v-runs-dc-3-dc-5-through-dc-9)). Physical terminal-housing
-fit and seating force remain unqualified.
+1. Make up the ASSE threaded chain, keeping the two wrench flats aligned.
+   Lower it into its swept hex seat 16 mm forward, slide it aft and fit the
+   lower hex cap. The cap bears against the inlet coupling and passes the vent.
+2. Seat the regulator upward and close its lower snap cap. Fit V-A and V-K,
+   their stem elbows, the tee and the three short header links. Keep release
+   collets accessible. Both opposed regulator links contain their receiving
+   depths with no exposed tube.
+3. Fit the pump's two [reinforced PVC joints](/hardware/reference/pump-barb-joint/README.md).
+   Each has a PP061208W stem trimmed to 10 mm and a butterfly clamp on the barb
+   and reducer stem. The suction tube bends in one arc to the concealed
+   quarter-inch link and the nested elbow in V-K's lower port. Its stem-clamp
+   key points forward; the barb-clamp key points aft.
+4. The discharge joint bends down 15 degrees. Clock its stem clamp to the
+   selected clear position, fit the trimmed stem elbow and insert the ACVUS-44
+   check directly into that elbow. Follow the check's arrow away from the pump.
+5. Fasten the pump while all four driver approaches are open. The continuous
+   white inlet turns R14 from the check into the straight core guide at
+   X−80.417/Y402.999/Z253.4, then reaches the carbonator's existing water
+   fitting. The cap guide adds no joint or tube cut.
+6. Fit the downward vent cup, its two ties and the direct white 4 mm return
+   to OVER. Its [assembly record](asse-drain.md) defines the open faucet outlet.
 
-Thread the two ASSE ties and two regulator ties through their back-top support
-windows before seating the bodies. Fit V-A's and V-K's inlet/outlet elbows,
-the split tee, regulator and all three short header links on that same
-subassembly. The two outer links have no exposed tube between their opposed
-collets. Clock V-A's upper inlet release ear clear of the elbow body; the
-nominal model uses a 15° turn. Keep release collets free to operate and tighten
-ties on the fixed body bands. The complete water header travels with back-top;
-the pump inlet is its connection to the core, and the low V-A feed connects
-to front-top's Y-A. Keep those handoffs accessible through the uncovered roof.
-
-Fit the pump's [TPU elbows](/hardware/printed-parts/diaphragm-pump-sleeve/README.md)
-to the measured barb datums. Inspect both passages for strands first. Each barb
-and tube socket takes its own trial clamp, four per pump. Seat the barb to its
-shelf and the tube to its actual marked engagement, with the clamp band flush
-at the mouth. Turn each clamp's screw housing away from the water check and
-the lid; the model does not draw the housings. Preserve the existing fit/pressure-trial scope; a modeled cuff
-is not a qualified pressure joint.
-
-The check lies fore–aft west of the pump in its lid saddle, arrow away from the
-pump. Its outlet stem elbow faces upward. One continuous white tube arches
-above the lid at R18, enters the straight guide at world (−53, 288.7265) mm,
-and continues to the carbonator's existing water-in adapter. Its lower turn
-is laid in the open main body before potting; the cap contains only a straight
-passage and the lid carries no water joint.
-
-Make up the check group on the open core, with the check's six-inch narrow tie
-already threaded through its east-quarter pedestal ([cold core](cold-core.md) §3):
-
-1. Fasten the pump while all four driver approaches are open.
-2. Seat the discharge TPU elbow on the pump's outlet barb (11 mm), and seat
-   the 31.9 mm link in its tube socket (15 mm).
-3. Seat the check's inlet on the link (16.9 mm). Seat the outlet stem elbow
-   to its 0.4 mm showing mark with its tube socket facing upward.
-4. Lower the fixed check barrel into its open quarter bearing. Feed the
-   continuous inlet through its plain guide and form the exposed R18 arch
-   into the upward-facing outlet socket, using the actual insertion mark.
-5. Close both TPU clamp bands and the check tie, verify the insertion marks,
-   then dress the flexible leads clear of the arch.
-
-The metal-adapter mouth to guide path is 87.551 mm. The warm path is
-208.817 mm including the NeoFit ATEU44 elbow's published 16.891 mm receiving
-allowance (B = 0.665 inch); 191.926 mm is exposed above the guide. The modeled
-exposed path between the two release faces is therefore 279.477 mm. Prepare
-one blank with the actual receiving depths at both ends, adjusted to the
-fitted geometry and seated marks. The plain guide adds no cut or insertion.
-
-The west-facing ASSE adapter feeds the dedicated white 4 mm vent line to the
-middle-left rear bulkhead and the faucet's separate outlet over the bowl.
-Keep that complete atmospheric path open. Vent fitting retention and actual
-made-up performance follow the
-[adapter record](/hardware/printed-parts/asse-drain-adapter/README.md).
+Prepare push-fit ends to the actual receiving-stop marks. The native model
+retains each purchased fitting's frame and nominal insertion allowance; buried
+reference closures do not specify internal hydraulic geometry.
 
 ### 3. Flavor manifold: V-A through V-J + Y-A, Y-B, Y-C, Y-D, Y-F, Y-G + pumps
 
@@ -330,73 +278,36 @@ V-J on `fluid-28`. Complete these routes in §4.
 ### 4. Rear beverage connections
 
 The soda outlet is the middle-right rear fitting. One continuous blue tube
-runs from the carbonator through the plain core guide at world
-(50, 342.4148, 253.4) mm and the accepted R14 printed bend holder directly
-into the DIGITEN inlet. The holder has a 2 mm wall, 3 mm legs and a 6.8 mm
-channel. The guide adds no joint, insertion or physical cut. The meter sits
-in its two back-top sidewall-rooted collar bearings, with its lead root down
-and label east. Its outlet collet meets the rear return fitting's collet; the short
-tube occupies both sockets with no exposed span.
+runs from the carbonator's bottom outlet through the straight guide at
+X77.5/Y359.51/Z253.4, around the accepted R14 holder and into the DIGITEN inlet.
+The holder stands 9 mm from the meter mouth. Slide one square-cut 61 mm piece
+of ID6.35/OD25.4 foam over the tube and holder before connecting the meter.
+Keep both square ends. The occupied foam model describes local compression.
 
-The nominal continuous tube blank is **446.788 mm**: 349.230 mm from the
-neoFit outlet elbow's socket mouth to the plain guide, 16.891 mm into that
-elbow, and 80.667 mm above the guide. The upper span includes the meter's
-estimated 15.7 mm receiving depth. Replace both socket allowances with the
-actual fully seated insertion marks when preparing the physical blank; the
-guide adds no length allowance or cut.
+With back-top inverted, prepare the meter with its inlet and the concealed
+outlet stub. Slide it aft into its east-wall seat and onto the soda union,
+then fit its cap from the west. Its label faces east and its lead root faces
+down. The outlet stub occupies both receiving sockets with no exposed span.
+Use the actual seating marks for the meter and union depths.
 
-Tighten all four pump screws before threading this inlet: the installed tube
-crosses one vertical pump-driver approach. Disconnect and remove the inlet
-for that screw's service. Thread the continuous tube through the holder.
-Square-cut one 63 mm piece
-of the owned CARGEN ID6.35/OD25.4 mm foam and slide it over the tube and holder
-before connecting the meter. Keep the square ends; no axial slit or shaped
-trimming is specified. The nominal foam centreline is 62.867 mm. The foam
-compresses around the holder and locally beside V-K, the pump, its inlet TPU
-elbow and barb band. The occupied CAD display estimates that compression;
-it is not a measured strain, physical air-gap or thermal result. The external
-umbilical retains its five 1-ft foam segments. Meter-body insulation remains
-deferred.
+Flavor A runs from V-G to X77.5/Z264; flavor B runs from V-J to X37.25/Z264.
+Both use black 4 mm tubing with R25 or larger bends. Their free fore runs
+cross below the funnel frame, use the pump's east aisle and enter the rear
+sockets below the meter. Flavor A passes through the relief in the meter
+cap's lower wing. Load their straight rear spans into the upward-opening lid
+snaps at X70/Y412/Z257 and X35/Y414/Z264 before positioning back-top.
+The 4.10 mm bores and 1.52 mm wings are the selected modeled 4 mm section.
 
-Prepare the rear soda connection with back-top on the open bench:
+The reservoir A pair retains its fore and aft anchors. Follow the free aft
+bends in [reservoir-a-routes.json](/hardware/manifold-layout/reservoir-a-routes.json):
+they pass the V-K outlet and the east side of the soda foam before returning
+to their original reservoir mouths. Keep the paired tie and both collets
+accessible while the core is open.
 
-1. Install the soda and adjacent vent/drain bulkheads with their nuts through
-   the rear wall. Keep the white 4 mm drain-vent line disconnected for final
-   dressing through the open roof.
-2. Connect both nested soda stem elbows on back-top and secure the bulkhead
-   nuts while access is open. Prepare the nominal 32.591 mm concealed blue
-   tube between the meter and return elbow: 15.7 mm in the meter and
-   16.891 mm in the return elbow. Replace nominal depths with actual receiving
-   marks. Keep both collars and the rear fittings on their common axis.
-3. Fit the continuous inlet, holder and foam to the meter on the open back-top
-   subassembly. Its plain core guide introduces no physical cut or joint.
-   The actual closing and flexible handoffs remain scoped by the manual
-   assembly record; a drawn mounting parent does not establish rigid closing
-   clearance.
-4. Connect and dress the white drain-vent line with its atmospheric path open.
-   Complete accessible central inter-quadrant leads before fitting the frame.
-
-The [rear assembly record](/hardware/mechanical-qualification/enclosure-above-core/rear-plumbing-assembly.json)
-retains the explicit 0.22493 mm³ nominal soda fitting contact and its finite
-socket scope. Collet fit, connection force, threading and hand/tool access remain
-unqualified. The meter and rear outlet are prepared together on back-top.
-Closing and flexible handoffs are established only to the scope of that record.
-
-Flavor A uses black 4 mm `fluid-18` from V-G to the east rear fitting at
-X77.5/Z274.376. Flavor B uses `fluid-28` from V-J to the west fitting at
-X37.25/Z274.376. Match each faucet tail's flavor collar to that logical socket.
-Seat both tubes in their bulkheads on the open back-top, then press their
-straight roof runs upward into the downward-facing seats at Y354 and Y390.
-Each station carries both tubes on one filled base. The 4.10 mm bores and
-1.52 mm spring wings remain provisional for 4 mm stock.
-
-Carry the free ends ahead of back-top's open front through the closing slide.
-Once the box is closed, connect them at the V-G and V-J reducers through the
-funnel opening. Follow the gentle fore grades and broad rise to the roof;
-retain R25 turns and straight socket entries. Keep the vent and valve leads
-clear of the clip mouths and leave collets accessible. Release the tubes from
-back-top's seats before sliding the quadrant open for service. The removable
-funnel frame carries no flavor-tube seat.
+Carry the loose front dispense ends while positioning back-top. Connect V-G
+and V-J through the uncovered funnel opening, matching each faucet tail's
+collar to its logical rear socket. The removable funnel frame carries no
+flavor-tube seat.
 
 ### 5. Final connections through the funnel opening
 

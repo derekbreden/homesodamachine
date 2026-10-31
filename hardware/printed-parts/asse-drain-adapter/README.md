@@ -1,102 +1,49 @@
-# ASSE 1022 vent adapter sleeve · TPU 85A
+# ASSE 1022 vent elbow · TPU 85A
 
-One TPU 85A sleeve connects the Multiplex 19-0897 atmospheric-vent barb
-directly to the white neoFlo 4 mm OD / 2.5 mm ID LLDPE drain. Two existing
-four-inch nylon zip ties close separate recessed lands, one around each
-inserted part. The customer outcome is a compact connection with an open,
-visible fault discharge and a drain tube that can be routed without a
-separate hose or rigid adapter stack.
-
-This is an **unprinted fit candidate**. The sockets, zip-tie retention,
-water tightness and complete fault discharge have no physical acceptance.
+One printed elbow joins the downward-facing Multiplex 19-0897 vent barb to
+white 4 mm OD / 2.5 mm ID LLDPE. Its tube socket points aft toward OVER on
+the rear face. The short turn is inside the printed elbow; the LLDPE exits
+straight and does not make that turn.
 
 | Feature | Relaxed print dimension |
 |---|---|
-| Barb socket | Ø[6.10](BARB_BORE) mm × [12.8](BARB_DEPTH) mm |
+| Barb socket | Ø[6.10](BARB_BORE) mm × [8.8](BARB_DEPTH) mm |
 | Tube socket | Ø[3.80](TUBE_BORE) mm × [14](TUBE_DEPTH) mm insertion |
-| Bore transition | Smooth taper, [60](TAPER_ANGLE)° above the print bed |
-| Overall length | [28.79](LENGTH) mm |
-| Large / small outside diameter | Ø[14](BARB_OD) / Ø[11.7](TUBE_OD) mm |
-| Minimum relaxed radial wall | [3.45](MIN_WALL) mm, under each tie land |
-| Zip-tie lands | 2.8 mm flat width, 0.5 mm recess, 1 mm sloping shoulders |
-| Solid CAD volume | [3.010](VOLUME) cm³ |
+| Socket reach from vent axis | 25.4 mm |
+| Tube axis below vent tip | 4.55 mm |
+| Printed drain turn | R4.05 mm, Ø3.8 mm passage |
+| Tie lands | Two, 2.8 mm wide with 0.5 mm recesses |
+| Solid CAD volume | [3.684](VOLUME) cm³ |
 
-Both outside diameters derive from one `MIN_WALL` parameter. The plain socket
-walls are 3.95 mm thick, the mouth lead-ins leave 3.55 mm and the tie recesses
-retain 3.45 mm. Both ends are square to the bore.
-The large bore tapers smoothly into the 3.80 mm tube bore. There is no
-internal shelf. A 14 mm insertion mark places the tube across its tie land
-and grips the full small socket. The barb tip ends above the reducer when
-the sleeve mouth is 0.5 mm below the body. The open bore exceeds the tube's
-Ø2.5 mm nominal ID; it is not a vent flow rating.
-
-## Fit basis
-
-[Anderson Brass](https://www.andersonbrass.com/asse-1022-backflow-preventers)
-specifies a 1/4-inch hose barb for the applicable ABF connection. Hose size
-describes the mating hose ID, not the crest diameter. The 6.10 mm socket is
-0.25 mm below that 6.35 mm hose size. The reference model's Ø8 mm cylinder
-is an unmeasured occupied envelope, so it does not establish the socket's
-actual interference. `BARB_BORE` and `BARB_DEPTH` are explicit fit parameters.
-
-The 3.80 mm socket has 0.20 mm nominal diametral interference with the
-4 mm tube. The [organizer's accepted Ø4.40 mm drain bore](../faucet/umbilical-organizer/physical-acceptance.json)
-belongs to rigid PET-GF and a sliding fit. It does not establish the actual
-tube diameter or a TPU sealing-bore correction. The
-[Touch-Flo TPU record](../faucet/tpu-o-ring/print-log.md) establishes successful
-85A seating for that identified part; it supports using available compliant
-stock, without transferring its seal or fit acceptance to this sleeve.
-
-The deployed sleeve has separate printable and installed representations.
-The installed CAD opens the sockets to the reference barb envelope and
-4 mm tube and conserves nominal annular area when increasing the outside
-radii. It is a conservative occupancy approximation for routing, not a
-computed elastomer strain, sealing pressure or retained tie tension.
+The installed barb mouth stops below the vent hex. The ASSE snap cap has a
+clearance slot around this elbow and leaves both tie lands accessible.
+The installed representation opens the sockets around the reference barb
+and 4 mm tube, conserving nominal annular area. It is a routing envelope;
+fit and sealing require a printed part.
 
 ## Print and assemble
 
-Print upright with the large socket on the bed and the small socket up.
-The internal reducer, external taper and bore-entry chamfers rise 60° above the bed;
-recessed tie shoulders expand at 0.5 mm per millimetre of build rise. No supports are needed inside the sealing bores.
-Print it in **Siraya Tech Flex TPU 85A Clear**, the stock the
-[G Ganen elbows](/hardware/printed-parts/diaphragm-pump-sleeve/README.md) print in, dry, one
-part to a plate, with the recipe of the
-[accepted Siraya single](/future/pump-elbow-exploration/prints/2026-10-14-compact-single-siraya85a-overhang10-engineering-z000-mark1/README.md):
-Mark1's right 0.6 mm nozzle, glued Engineering Plate, zero user Z trim, 225°C first layer
-and 215°C normal layers, 100% infill and no supports. Keep hole and contour compensation at
-zero for the first fit. No native project is bound to this mesh yet.
+The STL stands on a small exterior flat with both sockets rising at 45°.
+Print in Siraya Tech Flex TPU 85A Clear using the
+[accepted Siraya recipe](/future/pump-elbow-exploration/prints/2026-10-14-compact-single-siraya85a-overhang10-engineering-z000-mark1/README.md):
+Mark1's right 0.6 mm nozzle, glued Engineering Plate, zero user Z trim,
+225°C first layer, 215°C normal layers and 100% infill. Keep supports out of
+the sealing bores. Keep hole and contour compensation at zero for the first fit.
 
-1. Put two loose four-inch / 2.54 mm-wide ties around their respective lands.
-2. Slide the large socket over the entire vent barb, leaving the sleeve mouth
-   just below the device body. Use water for assembly lubrication if needed.
-   Do not push TPU into the vent opening or pull on the vent fitting.
-3. Square-cut the 4 mm tube. Mark 14 mm from its end and insert until the
-   mark meets the sleeve mouth.
-4. Snug each tie by hand until its joint grips; stop before visibly flattening
-   the tube, distorting the vent fitting or cutting the sleeve. The ties supply
-   retained squeeze independently; interference alone is not a retention claim.
-5. Route the tube with R25-or-larger bends, leaving its initial straight lead
-   unloaded. Clock the tie heads toward the accessible bay and flush-cut tails.
+1. Put loose four-inch, 2.54 mm wide nylon ties around the two recessed lands.
+2. Seat the large socket over the vent barb, stopping below the vent hex.
+3. Square-cut the white 4 mm tube, mark 14 mm and insert to the mark.
+4. Snug each tie without flattening the tube or distorting the fitting;
+   flush-cut the tails and leave the passage open.
+5. Insert the other end into OVER to its receiving mark. The short rear
+   link follows the socket's aft direction with a gentle lateral correction.
 
-An ordinary fit-up decides whether these socket dimensions can be retained:
-both ends must seat without damaged stock, the tube must reach its mark,
-ties must hold without visible ovalization, and the passage must stay open.
-Leakage and axial retention require an assembled result; no numeric pressure,
-pull force or lifetime acceptance is asserted.
-
-The [fault-drip record](../faucet/vent-qualification/README.md) defines the
-unsealed outlet over the bowl. The complete rising 2.5 mm-bore drain has no
-device-specific vent-backpressure approval or physical fault-flow result.
-This connection design does not establish those properties.
-
-The [assembly clearance record](../../manifold-layout/drain-clearance-check.json)
-measures this sleeve and return against the identified saved installed scene,
-including the conservative foam envelope. Its route has two R25 bends and
-110.23 mm of tube outside the sleeve. The nominal minimum gaps are 1.17 mm
-at the sleeve and 1.22 mm at the white return. Other assembly members and
-their viewer surfaces are retained. The prior whole-machine facts and
-scorecard remain evidence of their identified source build; this local
-materialization does not qualify all machine checks.
+The Ø6.10 mm relaxed barb socket and Ø3.80 mm tube socket are explicit fit
+parameters. The reference barb is an occupied envelope, not a measured fit
+coupon. Socket seating, retention, water tightness and complete rising vent
+capacity have no physical acceptance record. The
+[faucet fault-drip record](../faucet/vent-qualification/README.md) defines the
+unsealed outlet over the bowl.
 
 Regenerate from the repository root:
 
