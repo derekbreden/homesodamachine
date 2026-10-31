@@ -365,18 +365,29 @@ def manifest_targets(paths: list) -> tuple[list, list]:
     from collections import defaultdict, deque
     from fnmatch import fnmatchcase
 
-    def glob_match(path, pattern):
-        bits, parts = tuple(path.split("/")), tuple(pattern.split("/"))
+    def glob_matcher(pattern):
+        """One glob pattern as a test on a path. Segments match by `fnmatchcase` and `**` takes
+        any number of whole segments. The pattern's literal leading segments rule most paths
+        out before any segment is matched."""
+        parts = pattern.split("/")
+        fixed = next((k for k, p in enumerate(parts) if any(c in p for c in "*?[")), len(parts))
+        prefix = "/".join(parts[:fixed])
 
-        @lru_cache(maxsize=None)
-        def match(i, j):
-            if j == len(parts):
-                return i == len(bits)
-            if parts[j] == "**":
-                return match(i, j + 1) or (i < len(bits) and match(i + 1, j))
-            return i < len(bits) and fnmatchcase(bits[i], parts[j]) and match(i + 1, j + 1)
+        def matches(path):
+            if fixed and path != prefix and not path.startswith(prefix + "/"):
+                return False
+            bits = path.split("/")
+            ends = {0}  # where in `bits` the parts read so far can stop
+            for part in parts:
+                if part == "**":
+                    ends = set(range(min(ends), len(bits) + 1))
+                else:
+                    ends = {i + 1 for i in ends if i < len(bits) and fnmatchcase(bits[i], part)}
+                if not ends:
+                    return False
+            return len(bits) in ends
 
-        return match(0, 0)
+        return matches
 
     def dependencies(node):
         if isinstance(node, ast.BinOp) and isinstance(node.op, ast.Add):
@@ -408,7 +419,9 @@ def manifest_targets(paths: list) -> tuple[list, list]:
         for kw in call.keywords:
             if kw.arg in {"srcs", "tools", "data"}:
                 fields[kw.arg], patterns = dependencies(kw.value)
-                globs.extend((name, includes, excludes) for includes, excludes in patterns)
+                globs.extend((name, [glob_matcher(p) for p in includes],
+                              [glob_matcher(p) for p in excludes])
+                             for includes, excludes in patterns)
         rules[name] = fields
         for path in fields.get("outs", ()):
             owners[path] = name
@@ -425,8 +438,8 @@ def manifest_targets(paths: list) -> tuple[list, list]:
     pending = deque(owners.get(p, p) for p in paths)
     for path in paths:
         for name, includes, excludes in globs:
-            if (any(glob_match(path, p) for p in includes)
-                    and not any(glob_match(path, p) for p in excludes)):
+            if (any(match(path) for match in includes)
+                    and not any(match(path) for match in excludes)):
                 known_paths.add(path)
                 pending.append(name)
     seen = set()
@@ -468,12 +481,13 @@ def artifact_targets() -> set:
     }
 
 
-def declared_outputs() -> set:
+@lru_cache(maxsize=1)
+def declared_outputs() -> frozenset:
     try:
         graph = json.loads((_ROOT / "tools" / "bazel" / "graph.json").read_text())
     except (OSError, ValueError):
-        return set()
-    return {path for node in graph.values() for path in node.get("writes", ())}
+        return frozenset()
+    return frozenset(path for node in graph.values() for path in node.get("writes", ()))
 
 
 @lru_cache(maxsize=1)
