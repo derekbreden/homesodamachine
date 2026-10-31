@@ -17,6 +17,21 @@ queried unconnected stock intersections are zero. V-K's outlet elbow has
 ceiling, and the tee has 3.622 mm. The fitted core lid remains 0.250 mm
 below the funnel frame.
 
+The [closing-motion review](closing-motion-review.json) covers complete rigid
+translation intervals for the populated front column, empty rear base and
+rear approach over the core. Keep the pump suction elbow and its short
+quarter-inch inlet link loose during that approach. Connect their round
+joints through the uncovered funnel opening after closure. The front room
+cleanup removes stock only; the added flavor-root stock has its own complete
+rear-approach clearance reading.
+
+The [surface review](surface-review.json) reads all seven anomaly classes on
+the four quadrant STLs, pump retainer and core lid. Each named working
+profile retains its own reason and alternatives. The shared motor, PCB and
+display-chimney room has no intervening skins. The flavor clip's rising root
+roof stays below its free jaws. Defined springs, fitted catches and approved
+flute and vent sections retain their specific scopes.
+
 The [drain and flavor check](../../manifold-layout/drain-clearance-check.json)
 checks the adapter, white OVER return and both flavor paths against the installed
 material. The vent return is R55.674 and the two 4 mm flavor lines retain R25.
@@ -29,7 +44,9 @@ drain first. Release the three free final Wagos and move the flexible loom
 aside. J1/J2 lift 17 mm and then move 8 mm fore. For J11, disconnect the
 V-B-to-Y-B return; lift 6 mm, move 10 mm east, then lift another 20 mm.
 Reservoir B's draw fitting stays installed. The nominal housing sweeps are
-clear with those prerequisites. [connector_service.py](connector_service.py)
+clear with those prerequisites. Its current binding retains those housing
+bounds, reads the changed printed stock natively and checks the changed tube
+candidates against the complete stage boxes. [connector_service.py](connector_service.py)
 reproduces the recorded continuous stage bounds without generating a review.
 
 The [installed wiring binding](../../wiring/installed/above-core-review/installed-wiring-binding.json)

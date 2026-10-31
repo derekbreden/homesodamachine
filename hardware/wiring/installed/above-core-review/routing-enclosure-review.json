@@ -1,6 +1,7 @@
 {
-  "assembly_step_sha256": "99b0690d7c6768cbcf68c6ae5a82982132bc097f380d073fe9d471989a23def0",
-  "manifest_sha256": "e3fce06cc0036a71e03ea734b2395e370f649d4ed3ac91b3f5cc29448a7c26ad",
+  "assembly_step_sha256": "c43899c17ab94f1144202b9bd43d80a8a12cef7f2e09b742f7c53531c17b3cab",
+  "assembly_mesh_sha256": "b198dc9180b8db8f6218bf77c8198483b3832d71b8fd586ba3c65518880531cf",
+  "manifest_sha256": "1d56e27d0a4512bd38dee9e934c4c27a557ea56826c0ea394476dfefe1c9e64b",
   "pairs": [
     {
       "wire": "AC1-PE",
@@ -64,7 +65,7 @@
   "all_witnesses_resolved": true,
   "installed_source_binding": {
     "path": "hardware/wiring/installed/above-core-review/installed-wiring-binding.json",
-    "sha256": "b07d51590468ac5043c487d773fc591e99cb4eb8709bb8a3633ce963d30fa560",
+    "sha256": "f4ca60e92caf4aa32e3bd51bae7f24303537f8a4822c3558e9666b819918cba4",
     "all_source_curves_match": true,
     "all_native_shapes_bound": true
   }
