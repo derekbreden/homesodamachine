@@ -1,0 +1,174 @@
+{
+  "source_sha256": {
+    "hardware/manifold-layout/above-core.json": "c9260a5de6c6ec787ea21e9f338dde5ceb6d5e2d22891099b2e95ad6cc610467",
+    "hardware/manifold-layout/rear_plumbing.py": "64979fd179e82c147584f8ca827654910df62027d533befa559d41d807e57b40"
+  },
+  "bodies": {
+    "vk-solenoid": {
+      "bounds_mm": [
+        61.00799977207788,
+        296.81499514598534,
+        268.9327674110736,
+        94.50799977207788,
+        354.11499524598537,
+        328.4327675110736
+      ],
+      "valid": true,
+      "east_wall_gap_mm": 3.9920002279221194,
+      "roof_gap_mm": 17.56723248892638
+    },
+    "water-split": {
+      "bounds_mm": [
+        17.087894060737657,
+        299.5664124938156,
+        321.64448834747,
+        56.594954517280414,
+        327.8744347505131,
+        342.37791200169784
+      ],
+      "valid": true,
+      "east_wall_gap_mm": 41.905045482719586,
+      "roof_gap_mm": 3.622087998302163
+    },
+    "tee-fold": {
+      "bounds_mm": [
+        56.67562967207787,
+        299.96756514598536,
+        315.66441988211045,
+        82.83799987207787,
+        315.76242514598533,
+        342.3753974110736
+      ],
+      "valid": true,
+      "east_wall_gap_mm": 15.662000127922127,
+      "roof_gap_mm": 3.6246025889263933
+    },
+    "lower-valve-elbow": {
+      "bounds_mm": [
+        69.86056977207788,
+        302.78499504598534,
+        254.9901374110736,
+        85.65542977207788,
+        328.9473652459854,
+        281.70111494003675
+      ],
+      "valid": true,
+      "east_wall_gap_mm": 12.84457022792212,
+      "roof_gap_mm": 64.29888505996325
+    },
+    "lower-pump-elbow": {
+      "bounds_mm": [
+        56.23181659209914,
+        312.05758952373014,
+        257.8028659017072,
+        82.83852239531039,
+        342.9595670526933,
+        275.73842028990737
+      ],
+      "valid": true,
+      "east_wall_gap_mm": 15.661477604689608,
+      "roof_gap_mm": 70.26157971009263
+    },
+    "tee-vk-link": {
+      "valid": true,
+      "volume_mm3": 560.5607688546991,
+      "minimum_radius_mm": 554.7328882189191
+    },
+    "tee-regulator": {
+      "valid": true,
+      "volume_mm3": 678.646555936207,
+      "minimum_radius_mm": 531.078185189834
+    }
+  },
+  "pairs": [
+    {
+      "body": "vk-solenoid",
+      "neighbor": "lid",
+      "common_mm3": 0.0,
+      "gap_mm": 11.9890466422886
+    },
+    {
+      "body": "lower-valve-elbow",
+      "neighbor": "lid",
+      "common_mm3": 0.0,
+      "gap_mm": 1.5901374110735844
+    },
+    {
+      "body": "lower-pump-elbow",
+      "neighbor": "lid",
+      "common_mm3": 0.0,
+      "gap_mm": 4.402866001707224
+    }
+  ],
+  "scope": "Manual nominal native review of the V-K local lift, at the bound source hashes. Final placements only; the populated closing path is reviewed separately. Receiving depths retain their selected family estimates; this does not qualify physical receiving sockets or tubing flex.",
+  "solution": {
+    "tee_translation_mm": [
+      -0.3343927365585344,
+      0.0,
+      1.3000000000000114
+    ],
+    "tee_rotation_degrees": 4.588005279977288,
+    "run_tilt_degrees": 3.3921473804038667,
+    "valve_translation_mm": [
+      0.0,
+      -0.0021405093404496256,
+      2.5
+    ],
+    "inlet_stub": {
+      "points_mm": [
+        [
+          37.051537751639145,
+          336.43897043267197,
+          327.81298763934853
+        ],
+        [
+          37.05579233431461,
+          331.5749136401882,
+          328.04225627242676
+        ],
+        [
+          37.02633888407864,
+          326.7742060512037,
+          328.85709970980076
+        ]
+      ],
+      "radius_mm": 40.19225260380474,
+      "length_mm": 9.744884097818526,
+      "turn_degrees": 13.891750137843678
+    },
+    "upper_stub": {
+      "points_mm": [
+        [
+          40.634722314149734,
+          307.798024369687,
+          333.50189225755315
+        ],
+        [
+          57.09341303161215,
+          307.8482487591931,
+          334.2338948026515
+        ],
+        [
+          73.56663367812713,
+          307.86499514598535,
+          334.4779674110736
+        ]
+      ],
+      "radius_mm": 554.7328882189191,
+      "length_mm": 32.95128545726759,
+      "turn_degrees": 3.4033849918182133
+    },
+    "regulator_link_minimum_radius_mm": 531.078185189834,
+    "suction_radius_mm": 40.84126241969967,
+    "suction_free_mm": 13.970292874162034,
+    "left_parts_fixed": true,
+    "roof_and_lid_fixed": true,
+    "residual_mm": 2.316273990014316e-14
+  },
+  "artifact_sha256": {
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "81c0915aceb327d5cfd7955b35f83ca6b9fcd9a86091312fd0a157910cdf817b",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": "3f3c43cee0970786ff0e9481cb0d45c116a703f6edaa19a165b78ecae822146e",
+    "hardware/manifold-layout/enclosure-assembly.step": "1a4dd9e526eee7f53f66cd79c5964b1475d3c1e78bde6f80dd0ffe1f29c3a618",
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": "6c0e05b6f940c06b8ea32c89868a8389644d0c8155cbb066d0336f3f192bd5de"
+  }
+}

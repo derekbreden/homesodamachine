@@ -110,13 +110,16 @@ roughness, including at seating faces; they are not a promise of open space afte
 
 ### 2. Populate the rear connection face
 
-Work with back-top loose. All station centres are world X/Z millimetres:
+Work with back-top loose. The nominal grid is in world X/Z millimetres:
 
 | Row | West fluid column X37.25 | East fluid column X77.5 |
 |---|---|---|
-| Z328 | 1/4-inch water inlet, Ø17.44 bore | 1/4-inch CO2 inlet, Ø17.3 bore |
+| Z328 | 1/4-inch water inlet, Ø19.307 bore | 1/4-inch CO2 inlet, Ø13.857 bore |
 | Z296 | 4 mm atmospheric vent, Ø15.3 bore | 1/4-inch soda outlet, Ø17.44 bore |
 | Z264 | 4 mm flavor B, Ø15.3 bore | 4 mm flavor A, Ø15.3 bore |
+
+The water inlet's fitted bore centre is X37.476/Z327.665. The other five bores
+use the nominal grid centres.
 
 Seat each flange outside and its panel nut on the relieved inside land. The fluid
 panel uses nominal seat planes 6 mm apart. Its 1.8 mm identification tiles slide
@@ -206,7 +209,7 @@ Seat the mains WAGOs in the rear-wall
 wells. The three-ring ground stack mounts below C14 on back-top; core-side junctions go in their lid mounts;
 front manifold commons go in front-top. Leave the cross-quadrant conductor ends
 accessible for final connection. Keep PSU terminal screwdriver approaches clear.
-The ground stack at (−48.15, 462.3, 313.935) mm is assembled on open back-top,
+The ground stack at (−48.15, 461.7, 313.935) mm is assembled on open back-top,
 with the carbonator, C14 PE and compressor rings followed by the flat washer
 and M3 × 8 screw. Its driver enters from the open interior along +Y. Complete
 the carbonator bond before closing back-top over the core. The compressor's

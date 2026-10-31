@@ -182,38 +182,39 @@
   },
   "part_process_overrides": {},
   "source_sha256": {
-    "hardware/printed-parts/enclosure/enclosure/heat-set-review/print_regions.py": "090fba941ce769ed09dd462f3e6f10e546c557ce2429277932ba0cf59e474b7e",
-    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "c3b98b8e4bc113dc0952372d5ab00bee7e76081b9b38681a76674118de863d9b",
+    "hardware/printed-parts/enclosure/enclosure/heat-set-review/print_regions.py": "067b75e33a0d7fd646e22a7eedab8051d3db2bff152d41aaf8fe118b001bba09",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "a4be78d79411a851182c76233ec7acca535f759ee219012c6fb3ce870ede2c3b",
     "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py": "264bb52da73675dcd41f7fff8bc5fce6eabd06336fc3cf8b7a9b8560c21e5040",
     "hardware/printed-parts/enclosure/enclosure/_fixed_pump_mount.py": "465214f98f1930f45a8f79a774db9def71b9070687159f7cad5682781087ca00",
-    "hardware/manifold-layout/enclosure-box.json": "2fc18e48ab70b041610d700244e8517dc4b45510d07cfbaf3febf15f25e2a5b2",
-    "hardware/printed-parts/enclosure/enclosure/_above_core_shell.py": "6e1c16c2ab00c317a6ca9e78f9ac052ea827d8c383d127d02ffc83c9213bef10",
-    "hardware/manifold-layout/above_core.py": "0ad87c7c252ab3cfe803c0f2a63a9374d06d0005591509031328ad6e3203988f",
-    "hardware/manifold-layout/above-core.json": "6b8bb80779f653f3b91f22547fdeb1155f802f63908892f24496a446210a1b40",
-    "hardware/reference/meanwell-irm90/meanwell_irm90.py": "5b3e8b9374caf9a3a61cfd8db3f12f5158ada4405b9692fdc004e9c0e47b7db7",
+    "hardware/manifold-layout/enclosure-box.json": "484bff108de87044b7ea2f98cfbbd4396d246219a4a390380718bfe07e2a13d2",
+    "hardware/printed-parts/enclosure/enclosure/_above_core_shell.py": "545242e29b31c42f6dcc80eb3c7f5150e2f7c653f5d0b9b031a18a7c600c223f",
+    "hardware/manifold-layout/above_core.py": "d3bd71f3c10335d6907e93ff874885e62558c794ce77a043fb22d6f8ed3eb45f",
+    "hardware/manifold-layout/above-core.json": "c9260a5de6c6ec787ea21e9f338dde5ceb6d5e2d22891099b2e95ad6cc610467",
+    "hardware/manifold-layout/above_core_wiring.py": "f3c7797749e3c9f45a53473887e6de87f88bd6571d78d18ba8959e3a3fc9e50f",
+    "hardware/reference/meanwell-irm90/meanwell_irm90.py": "ca42ff08bbab38f67a2842ae03149a697d9e2b3a5b4adf6fc05adc951fc2e54a",
     "hardware/reference/teyleten-relay/teyleten_relay.py": "fe0965a8f3f4a9eab65efac03716dfdd6ef9e93ab658e8c73f3df83af6e7fbe6",
-    "hardware/printed-parts/zone-c/funnel/funnel_frame.py": "2a993b6679da6958825f603be01609cea172253607cbffe2df7eb3ac1a2e93b0",
-    "hardware/printed-parts/zone-c/funnel/funnel.py": "62b3c64da5adb542663062f33b1b007666ac68b952a892e5c63f464240ec7ef2",
-    "hardware/printed-parts/enclosure/pump-dock/dock_structure.py": "76ce41ae82cef8f8862d097bb9fe69c63c1cb6174524e5fe6fe4cea680ab8f21",
+    "hardware/printed-parts/zone-c/funnel/funnel_frame.py": "24f5b689c16e4e2e3367eb5d40843a402f0ed2f12a3dfd36f38c463d0e8bb9e3",
+    "hardware/printed-parts/zone-c/funnel/funnel.py": "a13d348c7cfc0c17d0c5c62c59f7f5e5414b096f6e081182a388c2edf1606df3",
+    "hardware/printed-parts/enclosure/pump-dock/dock_structure.py": "2241aaaa7f320247e60924c396f0ee373c513bb4ad4e26f2be89e659582fa3a7",
     "hardware/printed-parts/enclosure/pump-dock/fixed_returns.py": "d87df161ab0e4409fd7cb4fa720cc0319e0a10485a141ff455aed633b48f7e4c",
     "hardware/printed-parts/petgf.3mf": "45c16e8c8517e0a205107d7b9f7412d013f51a8de7ecf86125cc940079d37ed0"
   },
   "native_artifact_sha256": {
     "front-bottom": {
-      ".step": "ea3f189b042ec9cacef8fa11f7a7cbec5338b247c79b98cbf0c12c6fd24567c6",
-      ".stl": "d8b8b5e71833bdd4ed9e036bc65d29db2df0c8bc03fba751e1e4610062b1e353"
+      ".step": "f92c1804fc368daa3a87802131dfe8a9c2660f87db90de0e53677d73644aad8d",
+      ".stl": "832942e0cfa7254d79df8a23467ce910f0c126be150bd243c3b0c9b0a050ee0d"
     },
     "front-top": {
-      ".step": "75fce7c595b401e5475d54dbe173615bec8a21ad5756401a0d1357e4925ec05f",
-      ".stl": "599efebe368463b1d6ec926f1cc10faf6a5d45e4c899f1ce6dd6f4578637fe04"
+      ".step": "2ab3c2ed742ca44d248a330e5a50d6a8ff22acfc8ecd3d5cece620bd9b8c0dbb",
+      ".stl": "2f694ea685bb56bb43ca794d901ad5ff6692627adc372a76a9355cec3c527196"
     },
     "back-bottom": {
-      ".step": "556b122b134f436f9b9eabb37d4720aee47f093527c6d3c6e8f4c8cf7b10c5aa",
-      ".stl": "b1b4ec646bbdece942222db643a9808432b00687298ea15ce1282e63f22a0d44"
+      ".step": "5b99a289cd320006c0808be978943c8a9f5e41076474a902d009ad6df9f3cf06",
+      ".stl": "810904703d775a0b514f516dfa2b40ee57bb22974c796cf5ee35f56b8095097e"
     },
     "back-top": {
-      ".step": "4a0732e58eca56cbfe07ea5e667a5262f948bf03f65c3bd33932338a34d085bb",
-      ".stl": "4f0d797ef264d0cd36374eb0b6a9afad940c217288421d502e6d67309b9d9c26"
+      ".step": "81c0915aceb327d5cfd7955b35f83ca6b9fcd9a86091312fd0a157910cdf817b",
+      ".stl": "3f3c43cee0970786ff0e9481cb0d45c116a703f6edaa19a165b78ecae822146e"
     },
     "pump-retainer": {
       ".step": "7fc6f0bef4a08eca4400b04c19911f596c28b3d50c7de6f675eb60b1b76e4f80",
@@ -1099,148 +1100,148 @@
         ]
       },
       {
-        "name": "PSU bearing pad, insert host and west wall root 1",
+        "name": "PSU bearing pad, insert host and ceiling root and blind floor 1",
         "machine_bounds_mm": [
-          -107.5,
-          -96.0,
-          346.50001220703126,
-          356.50001220703126,
-          291.9,
-          301.9
+          -2.1481399536132812,
+          7.851860046386719,
+          344.8,
+          354.8,
+          348.5,
+          354.9999999
         ],
         "sparse_infill_density": "100%",
         "sparse_infill_pattern": "zig-zag",
         "applied_source_bounds_mm": [
-          -107.5,
-          -96.0,
-          346.50001220703126,
-          356.50001220703126,
-          291.9,
-          301.9
+          -2.1481399536132812,
+          7.851860046386719,
+          344.8,
+          354.8,
+          348.5,
+          354.9999999
         ],
         "print_bounds_mm": [
-          -107.5,
-          -96.0,
-          -356.50001220703126,
-          -346.50001220703126,
-          53.10000000000002,
-          63.10000000000002
+          -2.1481399536132812,
+          7.851860046386719,
+          -354.8,
+          -344.8,
+          1.0000002248489182e-07,
+          6.5
         ]
       },
       {
-        "name": "PSU bearing pad, insert host and west wall root 2",
+        "name": "PSU bearing pad, insert host and ceiling root and blind floor 2",
         "machine_bounds_mm": [
-          -107.5,
-          -96.0,
-          444.50001220703126,
-          454.50001220703126,
-          291.9,
-          301.9
+          -2.1481399536132812,
+          7.851860046386719,
+          442.8,
+          452.8,
+          348.5,
+          354.9999999
         ],
         "sparse_infill_density": "100%",
         "sparse_infill_pattern": "zig-zag",
         "applied_source_bounds_mm": [
-          -107.5,
-          -96.0,
-          444.50001220703126,
-          454.50001220703126,
-          291.9,
-          301.9
+          -2.1481399536132812,
+          7.851860046386719,
+          442.8,
+          452.8,
+          348.5,
+          354.9999999
         ],
         "print_bounds_mm": [
-          -107.5,
-          -96.0,
-          -454.50001220703126,
-          -444.50001220703126,
-          53.10000000000002,
-          63.10000000000002
+          -2.1481399536132812,
+          7.851860046386719,
+          -452.8,
+          -442.8,
+          1.0000002248489182e-07,
+          6.5
         ]
       },
       {
-        "name": "PSU bearing pad, insert host and west wall root 3",
+        "name": "PSU bearing pad, insert host and ceiling root and blind floor 3",
         "machine_bounds_mm": [
-          -107.5,
-          -96.0,
-          346.50001220703126,
-          356.50001220703126,
-          258.9,
-          268.9
+          -35.14813995361328,
+          -25.14813995361328,
+          344.8,
+          354.8,
+          348.5,
+          354.9999999
         ],
         "sparse_infill_density": "100%",
         "sparse_infill_pattern": "zig-zag",
         "applied_source_bounds_mm": [
-          -107.5,
-          -96.0,
-          346.50001220703126,
-          356.50001220703126,
-          258.9,
-          268.9
+          -35.14813995361328,
+          -25.14813995361328,
+          344.8,
+          354.8,
+          348.5,
+          354.9999999
         ],
         "print_bounds_mm": [
-          -107.5,
-          -96.0,
-          -356.50001220703126,
-          -346.50001220703126,
-          86.10000000000002,
-          96.10000000000002
+          -35.14813995361328,
+          -25.14813995361328,
+          -354.8,
+          -344.8,
+          1.0000002248489182e-07,
+          6.5
         ]
       },
       {
-        "name": "PSU bearing pad, insert host and west wall root 4",
+        "name": "PSU bearing pad, insert host and ceiling root and blind floor 4",
         "machine_bounds_mm": [
-          -107.5,
-          -96.0,
-          444.50001220703126,
-          454.50001220703126,
-          258.9,
-          268.9
+          -35.14813995361328,
+          -25.14813995361328,
+          442.8,
+          452.8,
+          348.5,
+          354.9999999
         ],
         "sparse_infill_density": "100%",
         "sparse_infill_pattern": "zig-zag",
         "applied_source_bounds_mm": [
-          -107.5,
-          -96.0,
-          444.50001220703126,
-          454.50001220703126,
-          258.9,
-          268.9
+          -35.14813995361328,
+          -25.14813995361328,
+          442.8,
+          452.8,
+          348.5,
+          354.9999999
         ],
         "print_bounds_mm": [
-          -107.5,
-          -96.0,
-          -454.50001220703126,
-          -444.50001220703126,
-          86.10000000000002,
-          96.10000000000002
+          -35.14813995361328,
+          -25.14813995361328,
+          -452.8,
+          -442.8,
+          1.0000002248489182e-07,
+          6.5
         ]
       },
       {
         "name": "Relay bearing pad, insert host and west wall root 1",
         "machine_bounds_mm": [
           -107.5,
-          -94.49,
-          359.99999999999994,
-          369.99999999999994,
-          304.4,
-          314.4
+          -96.64,
+          370.8501390792555,
+          380.8501390792555,
+          283.40660569377764,
+          293.40660569377764
         ],
         "sparse_infill_density": "100%",
         "sparse_infill_pattern": "zig-zag",
         "applied_source_bounds_mm": [
           -107.5,
-          -94.49,
-          359.99999999999994,
-          369.99999999999994,
-          304.4,
-          314.4
+          -96.64,
+          370.8501390792555,
+          380.8501390792555,
+          283.40660569377764,
+          293.40660569377764
         ],
         "print_bounds_mm": [
           -107.5,
-          -94.49,
-          -369.99999999999994,
-          -359.99999999999994,
-          40.60000000000002,
-          50.60000000000002
+          -96.64,
+          -380.8501390792555,
+          -370.8501390792555,
+          61.593394306222365,
+          71.59339430622236
         ]
       },
       {
@@ -1248,57 +1249,57 @@
         "machine_bounds_mm": [
           -107.5,
           -94.49,
-          359.99999999999994,
-          369.99999999999994,
-          317.4,
-          327.4
+          373.00013907925546,
+          378.7001390792555,
+          285.5566056937776,
+          291.25660569377766
         ],
         "sparse_infill_density": "100%",
         "sparse_infill_pattern": "zig-zag",
         "applied_source_bounds_mm": [
           -107.5,
           -94.49,
-          359.99999999999994,
-          369.99999999999994,
-          317.4,
-          327.4
+          373.00013907925546,
+          378.7001390792555,
+          285.5566056937776,
+          291.25660569377766
         ],
         "print_bounds_mm": [
           -107.5,
           -94.49,
-          -369.99999999999994,
-          -359.99999999999994,
-          27.600000000000023,
-          37.60000000000002
+          -378.7001390792555,
+          -373.00013907925546,
+          63.74339430622234,
+          69.44339430622239
         ]
       },
       {
         "name": "Relay bearing pad, insert host and west wall root 3",
         "machine_bounds_mm": [
           -107.5,
-          -94.49,
-          425.99999999999994,
-          435.99999999999994,
-          304.4,
-          314.4
+          -96.64,
+          370.8501390792555,
+          380.8501390792555,
+          296.40660569377764,
+          306.40660569377764
         ],
         "sparse_infill_density": "100%",
         "sparse_infill_pattern": "zig-zag",
         "applied_source_bounds_mm": [
           -107.5,
-          -94.49,
-          425.99999999999994,
-          435.99999999999994,
-          304.4,
-          314.4
+          -96.64,
+          370.8501390792555,
+          380.8501390792555,
+          296.40660569377764,
+          306.40660569377764
         ],
         "print_bounds_mm": [
           -107.5,
-          -94.49,
-          -435.99999999999994,
-          -425.99999999999994,
-          40.60000000000002,
-          50.60000000000002
+          -96.64,
+          -380.8501390792555,
+          -370.8501390792555,
+          48.593394306222365,
+          58.593394306222365
         ]
       },
       {
@@ -1306,57 +1307,57 @@
         "machine_bounds_mm": [
           -107.5,
           -94.49,
-          425.99999999999994,
-          435.99999999999994,
-          317.4,
-          327.4
+          373.00013907925546,
+          378.7001390792555,
+          298.5566056937776,
+          304.25660569377766
         ],
         "sparse_infill_density": "100%",
         "sparse_infill_pattern": "zig-zag",
         "applied_source_bounds_mm": [
           -107.5,
           -94.49,
-          425.99999999999994,
-          435.99999999999994,
-          317.4,
-          327.4
+          373.00013907925546,
+          378.7001390792555,
+          298.5566056937776,
+          304.25660569377766
         ],
         "print_bounds_mm": [
           -107.5,
           -94.49,
-          -435.99999999999994,
-          -425.99999999999994,
-          27.600000000000023,
-          37.60000000000002
+          -378.7001390792555,
+          -373.00013907925546,
+          50.74339430622234,
+          56.44339430622239
         ]
       },
       {
         "name": "Relay bearing pad, insert host and west wall root 5",
         "machine_bounds_mm": [
           -107.5,
-          -94.49,
-          360.0,
-          370.0,
-          324.0,
-          334.0
+          -96.64,
+          436.8501390792555,
+          446.8501390792555,
+          283.40660569377764,
+          293.40660569377764
         ],
         "sparse_infill_density": "100%",
         "sparse_infill_pattern": "zig-zag",
         "applied_source_bounds_mm": [
           -107.5,
-          -94.49,
-          360.0,
-          370.0,
-          324.0,
-          334.0
+          -96.64,
+          436.8501390792555,
+          446.8501390792555,
+          283.40660569377764,
+          293.40660569377764
         ],
         "print_bounds_mm": [
           -107.5,
-          -94.49,
-          -370.0,
-          -360.0,
-          21.0,
-          31.0
+          -96.64,
+          -446.8501390792555,
+          -436.8501390792555,
+          61.593394306222365,
+          71.59339430622236
         ]
       },
       {
@@ -1364,57 +1365,57 @@
         "machine_bounds_mm": [
           -107.5,
           -94.49,
-          360.0,
-          370.0,
-          337.0,
-          347.0
+          439.00013907925546,
+          444.7001390792555,
+          285.5566056937776,
+          291.25660569377766
         ],
         "sparse_infill_density": "100%",
         "sparse_infill_pattern": "zig-zag",
         "applied_source_bounds_mm": [
           -107.5,
           -94.49,
-          360.0,
-          370.0,
-          337.0,
-          347.0
+          439.00013907925546,
+          444.7001390792555,
+          285.5566056937776,
+          291.25660569377766
         ],
         "print_bounds_mm": [
           -107.5,
           -94.49,
-          -370.0,
-          -360.0,
-          8.0,
-          18.0
+          -444.7001390792555,
+          -439.00013907925546,
+          63.74339430622234,
+          69.44339430622239
         ]
       },
       {
         "name": "Relay bearing pad, insert host and west wall root 7",
         "machine_bounds_mm": [
           -107.5,
-          -94.49,
-          426.0,
-          436.0,
-          324.0,
-          334.0
+          -96.64,
+          436.8501390792555,
+          446.8501390792555,
+          296.40660569377764,
+          306.40660569377764
         ],
         "sparse_infill_density": "100%",
         "sparse_infill_pattern": "zig-zag",
         "applied_source_bounds_mm": [
           -107.5,
-          -94.49,
-          426.0,
-          436.0,
-          324.0,
-          334.0
+          -96.64,
+          436.8501390792555,
+          446.8501390792555,
+          296.40660569377764,
+          306.40660569377764
         ],
         "print_bounds_mm": [
           -107.5,
-          -94.49,
-          -436.0,
-          -426.0,
-          21.0,
-          31.0
+          -96.64,
+          -446.8501390792555,
+          -436.8501390792555,
+          48.593394306222365,
+          58.593394306222365
         ]
       },
       {
@@ -1422,28 +1423,347 @@
         "machine_bounds_mm": [
           -107.5,
           -94.49,
-          426.0,
-          436.0,
-          337.0,
-          347.0
+          439.00013907925546,
+          444.7001390792555,
+          298.5566056937776,
+          304.25660569377766
         ],
         "sparse_infill_density": "100%",
         "sparse_infill_pattern": "zig-zag",
         "applied_source_bounds_mm": [
           -107.5,
           -94.49,
-          426.0,
-          436.0,
-          337.0,
-          347.0
+          439.00013907925546,
+          444.7001390792555,
+          298.5566056937776,
+          304.25660569377766
         ],
         "print_bounds_mm": [
           -107.5,
           -94.49,
-          -436.0,
-          -426.0,
-          8.0,
-          18.0
+          -444.7001390792555,
+          -439.00013907925546,
+          50.74339430622234,
+          56.44339430622239
+        ]
+      },
+      {
+        "name": "Relay bearing pad, insert host and west wall root 9",
+        "machine_bounds_mm": [
+          -107.5,
+          -96.64,
+          370.85013907925554,
+          380.85013907925554,
+          303.00660569377766,
+          313.00660569377766
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          -107.5,
+          -96.64,
+          370.85013907925554,
+          380.85013907925554,
+          303.00660569377766,
+          313.00660569377766
+        ],
+        "print_bounds_mm": [
+          -107.5,
+          -96.64,
+          -380.85013907925554,
+          -370.85013907925554,
+          41.99339430622234,
+          51.99339430622234
+        ]
+      },
+      {
+        "name": "Relay bearing pad, insert host and west wall root 10",
+        "machine_bounds_mm": [
+          -107.5,
+          -94.49,
+          373.0001390792555,
+          378.70013907925556,
+          305.15660569377764,
+          310.8566056937777
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          -107.5,
+          -94.49,
+          373.0001390792555,
+          378.70013907925556,
+          305.15660569377764,
+          310.8566056937777
+        ],
+        "print_bounds_mm": [
+          -107.5,
+          -94.49,
+          -378.70013907925556,
+          -373.0001390792555,
+          44.14339430622232,
+          49.843394306222365
+        ]
+      },
+      {
+        "name": "Relay bearing pad, insert host and west wall root 11",
+        "machine_bounds_mm": [
+          -107.5,
+          -96.64,
+          370.85013907925554,
+          380.85013907925554,
+          316.00660569377766,
+          326.00660569377766
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          -107.5,
+          -96.64,
+          370.85013907925554,
+          380.85013907925554,
+          316.00660569377766,
+          326.00660569377766
+        ],
+        "print_bounds_mm": [
+          -107.5,
+          -96.64,
+          -380.85013907925554,
+          -370.85013907925554,
+          28.993394306222342,
+          38.99339430622234
+        ]
+      },
+      {
+        "name": "Relay bearing pad, insert host and west wall root 12",
+        "machine_bounds_mm": [
+          -107.5,
+          -94.49,
+          373.0001390792555,
+          378.70013907925556,
+          318.15660569377764,
+          323.8566056937777
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          -107.5,
+          -94.49,
+          373.0001390792555,
+          378.70013907925556,
+          318.15660569377764,
+          323.8566056937777
+        ],
+        "print_bounds_mm": [
+          -107.5,
+          -94.49,
+          -378.70013907925556,
+          -373.0001390792555,
+          31.14339430622232,
+          36.843394306222365
+        ]
+      },
+      {
+        "name": "Relay bearing pad, insert host and west wall root 13",
+        "machine_bounds_mm": [
+          -107.5,
+          -96.64,
+          436.85013907925554,
+          446.85013907925554,
+          303.00660569377766,
+          313.00660569377766
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          -107.5,
+          -96.64,
+          436.85013907925554,
+          446.85013907925554,
+          303.00660569377766,
+          313.00660569377766
+        ],
+        "print_bounds_mm": [
+          -107.5,
+          -96.64,
+          -446.85013907925554,
+          -436.85013907925554,
+          41.99339430622234,
+          51.99339430622234
+        ]
+      },
+      {
+        "name": "Relay bearing pad, insert host and west wall root 14",
+        "machine_bounds_mm": [
+          -107.5,
+          -94.49,
+          439.0001390792555,
+          444.70013907925556,
+          305.15660569377764,
+          310.8566056937777
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          -107.5,
+          -94.49,
+          439.0001390792555,
+          444.70013907925556,
+          305.15660569377764,
+          310.8566056937777
+        ],
+        "print_bounds_mm": [
+          -107.5,
+          -94.49,
+          -444.70013907925556,
+          -439.0001390792555,
+          44.14339430622232,
+          49.843394306222365
+        ]
+      },
+      {
+        "name": "Relay bearing pad, insert host and west wall root 15",
+        "machine_bounds_mm": [
+          -107.5,
+          -96.64,
+          436.85013907925554,
+          446.85013907925554,
+          316.00660569377766,
+          326.00660569377766
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          -107.5,
+          -96.64,
+          436.85013907925554,
+          446.85013907925554,
+          316.00660569377766,
+          326.00660569377766
+        ],
+        "print_bounds_mm": [
+          -107.5,
+          -96.64,
+          -446.85013907925554,
+          -436.85013907925554,
+          28.993394306222342,
+          38.99339430622234
+        ]
+      },
+      {
+        "name": "Relay bearing pad, insert host and west wall root 16",
+        "machine_bounds_mm": [
+          -107.5,
+          -94.49,
+          439.0001390792555,
+          444.70013907925556,
+          318.15660569377764,
+          323.8566056937777
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          -107.5,
+          -94.49,
+          439.0001390792555,
+          444.70013907925556,
+          318.15660569377764,
+          323.8566056937777
+        ],
+        "print_bounds_mm": [
+          -107.5,
+          -94.49,
+          -444.70013907925556,
+          -439.0001390792555,
+          31.14339430622232,
+          36.843394306222365
+        ]
+      },
+      {
+        "name": "Relay bearing pad, insert host and west wall root 17",
+        "machine_bounds_mm": [
+          -107.5,
+          -96.64,
+          370.850139,
+          380.850139,
+          288.40660569377764,
+          321.00660569377766
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          -107.5,
+          -96.64,
+          370.850139,
+          380.850139,
+          288.40660569377764,
+          321.00660569377766
+        ],
+        "print_bounds_mm": [
+          -107.5,
+          -96.64,
+          -380.850139,
+          -370.850139,
+          33.99339430622234,
+          66.59339430622236
+        ]
+      },
+      {
+        "name": "Relay bearing pad, insert host and west wall root 18",
+        "machine_bounds_mm": [
+          -107.5,
+          -96.64,
+          436.850139,
+          446.850139,
+          288.40660569377764,
+          321.00660569377766
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          -107.5,
+          -96.64,
+          436.850139,
+          446.850139,
+          288.40660569377764,
+          321.00660569377766
+        ],
+        "print_bounds_mm": [
+          -107.5,
+          -96.64,
+          -446.850139,
+          -436.850139,
+          33.99339430622234,
+          66.59339430622236
+        ]
+      },
+      {
+        "name": "Ground ring insert host, blind floor and rear wall root",
+        "machine_bounds_mm": [
+          -53.15,
+          -43.15,
+          461.7,
+          471.3,
+          308.9349999,
+          318.9349999
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          -53.15,
+          -43.15,
+          461.7,
+          471.3,
+          308.9349999,
+          318.9349999
+        ],
+        "print_bounds_mm": [
+          -53.15,
+          -43.15,
+          -471.3,
+          -461.7,
+          36.06500010000002,
+          46.06500010000002
         ]
       },
       {
