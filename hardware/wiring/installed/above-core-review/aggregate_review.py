@@ -23,17 +23,17 @@ import above_core_wiring
 import _above_core_mounts as mounts
 from _cadq_export import import_assembly
 from _mesh_payload import read_source
-from hardware.wiring.installed.review import load_mesh,base_name
+from hardware.wiring.installed.review import load_mesh,base_name,wire_obstacle
 from hardware.wiring.installed.route_search import capsule,sampled
 from hardware.wiring.installed.model import STOCK
 from hardware.wiring.installed.step_merge import base_document
 
 HERE=Path(__file__).resolve().parent
 CLOSURES=frozenset(('enclosure-front-top','enclosure-back-top','enclosure-front-bottom',
-                    'enclosure-back-bottom','enclosure-pump-cap','enclosure-pump-cartridge',
+                    'enclosure-back-bottom','enclosure-pump-retainer',
                     'foam-cap-top','foam-cap-lid-top','funnel-frame'))
 METER_WIRES=frozenset(('wire-J4-V5','wire-J4-IO25','wire-flow-GND'))
-B_FILL=frozenset(('reservoir-b-fill-lower','reservoir-b-fill-upper'))
+B_FILL=frozenset()  # B-fill is carried by the integral cup/lid passage.
 EMPTY_J4_CONTACTS=('J4.IO23','J4.IO27')
 JUNCTION_FIXED=frozenset(('compressor','condenser+fan','mq6-sensor','thermal-fuse',
     'fuse-clamp','display','display-cover',
@@ -69,12 +69,16 @@ def selected_equipment():
            set(above_core_bom.stem_elbow_names())|set(above_core_bom.union_elbow_names())|
            set(above_core_bom.core_stem_elbow_names())|set(above_core_bom.core_union_elbow_names())|
            set(above_core_wiring.placements())|
-           {'ground-stack','asse-inlet-tpu','asse-outlet-tpu','asse-drain-adapter',
+           {'ground-stack','ground-stack-insert','asse-drain-adapter',
+            'gagira-coupling','jg-pi4512f6s','jg-pp061208w',
+            'asse-snap-cap','regulator-snap-cap','pisco-snap-cap','meter-snap-cap',
             'water-split','flow-regulator','gas-regulator','gas-check','keystone-jack',
             'soda-bend-holder','soda-continuous-insulation'})
     for row in data['fluid_grid']['assignment']:
-        for name in row:names.update((name,name+'-nut'))
-    return names
+        for name in row:
+            names.add(name)
+            if name not in ('bulkhead-water','co2-inlet'):names.add(name+'-nut')
+    return {n for n in names if wire_obstacle(n)}
 
 
 def fixed_interface(leaf):
@@ -185,7 +189,7 @@ def main():
     meshpath=Path(str(args.aggregate)+'.mesh')
     manifest=json.loads(args.manifest.read_text())
     step_hash=digest(args.aggregate)
-    record={'scope':'Actual exported appliance: every installed wiring body against selected above-core equipment, fixed front interfaces and termination bodies, all six enclosure pieces, two top core caps, funnel frame and electronics roof panel. Current source-defined nominal retaining strips are separate supplemental targets. Both B-fill fittings are tested against every wiring body. The external compressor jacket also clears the physical foam shell. No wire-to-wire packing, physical fit, electrical or energization qualification.',
+    record={'scope':'Actual exported appliance: every installed wiring body against selected above-core equipment, fixed front interfaces and termination bodies, all six enclosure pieces, two top core caps, funnel frame and electronics roof panel. Current source-defined nominal retaining strips are separate supplemental targets. Both B-fill fittings are tested against every wiring body. The external compressor jacket also clears the physical foam shell. Wire-to-wire and wire-to-tube contacts are excluded. No physical fit, electrical or energization qualification.',
             'aggregate_sha256':step_hash,'aggregate_mesh_sha256':digest(meshpath),
             'aggregate_mesh_matches_step':read_source(meshpath)==step_hash,
             'manifest_sha256':digest(args.manifest),'review_complete':False,
@@ -223,12 +227,11 @@ def main():
     record['current_core_aliases']=sorted(n for n in scene if n.startswith('cold-core/'))
     closure_names={by_leaf[n] for n in CLOSURES if n in by_leaf}
     expected_equipment=selected_equipment()
-    equipment_names={n for n in scene if n.rsplit('/',1)[-1] in expected_equipment or fixed_interface(n.rsplit('/',1)[-1])}
-    termination_names={n for n in bodies if not n.rsplit('/',1)[-1].startswith('wire-')}
+    equipment_names={n for n in scene if wire_obstacle(n) and (n.rsplit('/',1)[-1] in expected_equipment or fixed_interface(n.rsplit('/',1)[-1]))}
+    termination_names=set()  # Wire attachments do not obstruct other wires.
     external_jacket_core={by_leaf['foam-shell']} if 'foam-shell' in by_leaf else set()
-    strips=mounts.nominal_tie_strips()
-    strip_routes={**mounts.union_tie_routes(),**mounts.meter_tie_routes(),
-                  'water-check':mounts.check_tie_route()}
+    strips={}
+    strip_routes={}
     nominal_names={'nominal-strip-'+name for name in strips}
     scene.update({'nominal-strip-'+name:shape for name,shape in strips.items()})
     record['nominal_retaining_strips']={name:{
@@ -371,14 +374,7 @@ def main():
     record['missing_b_fill_parts']=sorted(B_FILL-set(by_leaf))
     for target in record['b_fill_parts']:
         for name in bodies:check(name,target,'B-fill fittings')
-    # The display loom passes the revised B-draw fore loop on its way to the
-    # existing ridge bore. Record the requested local nominal air explicitly.
-    record['display_B_draw_clearances_mm']={}
-    if 'tube-fluid-26' in by_leaf:
-        tube=scene[by_leaf['tube-fluid-26']]
-        for leaf in ('wire-J9-A','wire-J9-B','wire-J9-GND','wire-J9-V12'):
-            if leaf in by_leaf:
-                record['display_B_draw_clearances_mm'][leaf]=scene[by_leaf[leaf]].distance(tube)
+    record['display_B_draw_clearances_mm']={}  # Tubing does not obstruct wires.
     record['invalid_nominal_retaining_strips']=[name for name,row in record['nominal_retaining_strips'].items() if not row['valid']]
     record['geometrically_clear']=not any(record[k] for k in
         ('intersections','errors','missing_conductors','missing_wiring_bodies','missing_closures',

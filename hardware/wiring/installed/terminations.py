@@ -6,6 +6,15 @@ on-hand copies' manufacturing tolerances remain outside this representation.
 from __future__ import annotations
 
 
+def final_join_placements():
+    """The three unmounted joins dressed below the removable funnel frame."""
+    return {
+        'compressor-h': (-65., 247., 290.5),
+        'compressor-n': (-65., 221., 290.5),
+        'pump-positive': (-45., 255., 278.),
+    }
+
+
 def carbonator_ring(ea):
     """Closed M3 lug on the existing upper tube rim, barrel pointing up."""
     import cadquery as cq
@@ -20,6 +29,26 @@ def add_terminations(assembly,attachments,connections,routes):
     import cadquery as cq
     records={}
     terminals=attachments.terminals
+    from _cadq_export import import_step
+    import above_core as layout
+    import above_core_wiring as junctions
+    native = import_step(junctions.REFERENCES['413']).val()
+    for id, point in final_join_placements().items():
+        name = 'wiring-junction-'+id
+        pose = {'rotation':junctions.PORTS_FORE, 'translation_mm':point}
+        assembly.add(native.moved(layout.frame_location(pose)), name=name,
+                     color=junctions.C_AC_HUB)
+        used = sorted({t for c in connections for t in (c.start,c.end)
+                       if t.startswith('join-'+id+'.')})
+        records[name] = {
+            'kind':'WAGO 221-413 final connection', 'size':'413',
+            'parent':'final-connections', 'translation_mm':point,
+            'rotation':junctions.PORTS_FORE,
+            'terminal_ids':used,
+            'unused_ports':[i for i in (1,2,3) if f'join-{id}.{i}' not in used],
+            'mount':'Free connector retained by its dressed leads',
+            'assembly':'Connect through the open funnel after closing the quadrants; fit the frame afterward.',
+        }
     name = 'terminal-carbonator-pe'
     assembly.add(carbonator_ring(attachments.ea), name=name,
                  color=cq.Color(.32, .55, .30))

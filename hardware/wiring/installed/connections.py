@@ -12,6 +12,9 @@ UNUSED = {
     "J8": "I2C expansion, unused", "J14": "USB programming, no permanent harness",
     "relay-1.NC": "Normally-closed contact unused", "relay-2.NC": "Normally-closed contact unused",
     "keystone.1": "Unused IDC", "keystone.6": "Unused IDC",
+    "join-compressor-h.3": "Unused third port",
+    "join-compressor-n.3": "Unused third port",
+    "join-pump-positive.1": "Unused port beside the PCB",
 }
 BOUNDARIES = {
     "faucet": "The inboard harness ends at the rear keystone. The umbilical and faucet have their own assembly.",
@@ -21,18 +24,17 @@ BOUNDARIES = {
 
 
 def owner(part):
+    if part.startswith('wiring-junction-'):
+        return 'final-connections'
     if part.startswith('cold-core/') or part in (
-            'pcba','psu','g-ganen-pump','valve-v-a','coil-v-a','valve-v-b','coil-v-b',
-            'vk-solenoid','ground-stack','digiten-flow',
+            'pcba','g-ganen-pump','valve-v-b','coil-v-b',
             'wago-v12','wago-gnd','wago-sensors','wago-reeds-b'):
         return 'cold-core'
     if part in ('pump-a-motor','pump-b-motor'):
         return 'front-top'
     if part in ('compressor','condenser+fan','thermal-fuse','mq6-sensor'):
         return 'front-bottom'
-    if part in ('relay-1','relay-2'):
-        return 'back-top'
-    if part.startswith('coil-v-') or part in ('display','wago-mana','wago-manb'):
+    if part.startswith('coil-v-') and part!='coil-v-a' or part in ('display','wago-mana','wago-manb'):
         return 'front-top'
     return 'back-top'
 
@@ -40,7 +42,7 @@ def owner(part):
 def interfaces(terminals,graph):
     used={t for c in graph for t in (c.start,c.end)}
     buses=[]
-    for part in sorted({terminals[t].part for t in used if t.startswith(('wago-','ground.'))}):
+    for part in sorted({terminals[t].part for t in used if t.startswith(('wago-','ground.','join-'))}):
         ports=sorted(t for t in used if terminals[t].part==part)
         buses.append({'id':part,'terminals':ports,'kind':'ring stack' if part=='ground-stack' else 'WAGO busbar'})
     return {'common_junctions':buses,
@@ -59,9 +61,11 @@ def connections():
     wire("AC2-L", "PSU primary", "L", "wago-h.2", "psu.L", "power16", "AC-2")
     wire("AC2-N", "PSU primary", "N", "wago-n.2", "psu.N", "neutral16", "AC-2")
     wire("AC3-L", "Compressor", "L", "wago-h.3", "relay-1.COM", "power16", "AC-3")
-    wire("AC4-H", "Compressor", "H_switched", "relay-1.NO", "fuse.in", "cord18", "AC-4")
+    wire("AC4-pigtail", "Compressor", "H_switched", "relay-1.NO", "join-compressor-h.1", "power16", "AC-4", "final join")
+    wire("AC4-H", "Compressor", "H_switched", "join-compressor-h.2", "fuse.in", "cord18", "AC-4", "final join")
     wire("AC4-fuse", "Compressor", "H_switched", "fuse.out", "compressor.H", "cord18", "AC-4")
-    wire("AC5-N", "Compressor", "N", "wago-n.3", "compressor.N", "neutral18", "AC-5")
+    wire("AC5-pigtail", "Compressor", "N", "wago-n.3", "join-compressor-n.1", "neutral16", "AC-5", "final join")
+    wire("AC5-N", "Compressor", "N", "join-compressor-n.2", "compressor.N", "neutral18", "AC-5", "final join")
     wire("AC6-PE", "Compressor", "PE", "ground.compressor", "compressor.PE", "earth18", "AC-6")
     wire("PE-bus", "Earth bonds", "PE", "wago-g.2", "ground.inlet", "earth16", "AC-1")
     wire("PE-carbonator", "Earth bonds", "PE", "ground.carbonator", "carbonator.PE", "earth16", "earth bonds",
@@ -70,7 +74,8 @@ def connections():
         wire("DC1-"+net, "12V power", net, "psu."+net, f"wago-{pole}.1", "power16", "DC-1")
         wire("DC4-"+net, "12V power", net, f"wago-{pole}.3", "J10."+net, "power16", "DC-4")
     wire("DC2-V12", "Diaphragm pump", "V12", "wago-v12.2", "relay-2.COM", "power16", "DC-2")
-    wire("DC3-positive", "Diaphragm pump", "pump-switched", "relay-2.NO", "diaphragm.positive", "power16", "DC-3")
+    wire("DC3-pigtail", "Diaphragm pump", "pump-switched", "relay-2.NO", "join-pump-positive.3", "power16", "DC-3", "final join")
+    wire("DC3-positive", "Diaphragm pump", "pump-switched", "join-pump-positive.2", "diaphragm.positive", "power16", "DC-3", "final join")
     wire("DC3-negative", "Diaphragm pump", "GND", "wago-gnd.2", "diaphragm.negative", "power16", "DC-3")
     for j, coils, common in (("J1", "ABCDEFGH", "mana"), ("J2", "IJ", "manb")):
         wire(j+"-COM", j, "V12", j+".COM", f"wago-{common}.1", schedule="DC-6" if j=="J1" else "DC-7")

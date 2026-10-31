@@ -76,7 +76,7 @@ identifies those branches; it does not establish physical cleanup effort.
 **This step is the one place in the build that presses both M3 bodies, and they are indistinguishable in the hand but for length.** RX-M3x5.7 and RX-M3Sx4.0 carry the same ⌀4.6 knurl into the same ⌀4 hole; a short one pressed where the long one belongs is a weaker joint that looks finished, and a long one pressed where it does not fit will not seat flush. Work from two labelled troughs, not one dish:
 
 - **Full-length RX-M3×5.7.** The condenser fingers and the four funnel-frame ledges take full-length inserts. The core's PCB and pump mount columns use the [cold-core mount schedule](/hardware/printed-parts/cold-core/_above_core_mounts.py), with the lid removed for insert installation.
-- **Short RX-M3S×4.0.** The C14's two rear-wall bosses, four PSU hosts, two diagonal hosts per relay and the core lid's ground boss take short inserts. Install them before the purchased bodies. Use M3 × 10 with Ø7 × 0.5 mm washers at C14, M3 × 10 through the PSU ears, M3 × 8 through each relay's two active diagonal holes and M3 × 10 through the ground stack. All four corners of each relay board bear on pads; the other two pads have no insert or screw. The [wall-host schedule](/hardware/printed-parts/enclosure/enclosure/_above_core_shell.py) defines the bearing tips and insert-face datums.
+- **Short RX-M3S×4.0.** The C14's two rear-wall bosses, four PSU hosts, two diagonal hosts per relay and the rear-wall ground boss take short inserts. Install them before the purchased bodies. Use M3 × 10 with Ø7 × 0.5 mm washers at C14, M3 × 10 through the PSU ears, M3 × 8 through each relay's two active diagonal holes and M3 × 8 through the ground stack. All four corners of each relay board bear on pads; the other two pads have no insert or screw. The [wall-host schedule](/hardware/printed-parts/enclosure/enclosure/_above_core_shell.py) defines the bearing tips and insert-face datums.
 - **M5 — eight.** The four posts standing off the floor slab under the compressor's feet, and the Y seam's four corner-stack stations: back-bottom's two knuckles under the Z seam and front-top's two knuckles under the funnel frame, each pressed in from above. Use the M5 tip from the T18 heat-set insert tip kit.
 
 The [native heat-set audit](/hardware/printed-parts/enclosure/enclosure/heat-set-review/README.md)
@@ -114,12 +114,13 @@ Work with back-top loose. All station centres are world X/Z millimetres:
 
 | Row | West fluid column X37.25 | East fluid column X77.5 |
 |---|---|---|
-| Z338.376 | 1/4-inch water inlet, Ø17.44 bore | 1/4-inch CO2 inlet, Ø17.3 bore |
-| Z306.376 | 4 mm atmospheric vent, Ø15.3 bore | 1/4-inch soda outlet, Ø17.44 bore |
-| Z274.376 | 4 mm flavor B, Ø15.3 bore | 4 mm flavor A, Ø15.3 bore |
+| Z328 | 1/4-inch water inlet, Ø17.44 bore | 1/4-inch CO2 inlet, Ø17.3 bore |
+| Z296 | 4 mm atmospheric vent, Ø15.3 bore | 1/4-inch soda outlet, Ø17.44 bore |
+| Z264 | 4 mm flavor B, Ø15.3 bore | 4 mm flavor A, Ø15.3 bore |
 
 Seat each flange outside and its panel nut on the relieved inside land. The fluid
-panel retains a 6 mm clamping stack: 4 mm printed wall and 2 mm identification chip. Keep moving release
+panel uses nominal seat planes 6 mm apart. Its 1.8 mm identification tiles slide
+in continuous side channels over a 4 mm wall land. Keep moving release
 collets free. Actual fitting make-up and insertion witnesses determine physical
 assembly; the reference envelopes do not establish those dimensions.
 
@@ -130,7 +131,7 @@ tapered outline. This fit basis retains the neighboring WAGO wall and full
 3 mm pilot surrounds. Confirm actual seating before tightening; the native
 reference does not qualify the physical fit.
 Two M3 × 10 screws and Ø7 × 0.5 mm washers engage the short inserts in the wall's integral bosses; the washers bridge the flange countersinks. Fit
-RJ11 at X−30/Z274.376 from inside, tang first, and seat its snap latch on the printed
+RJ11 at X−64/Z291.5 from inside, tang first, and seat its snap latch on the printed
 catch. Its receptacle retains the fitted 1 mm shoulder above the swing ease,
 3 mm pocket surround and broad wall-rooted corbel. Complete solder/IDC
 preparation while the piece is accessible and unpowered.
@@ -202,14 +203,14 @@ west wall. Use four M3 × 10 screws through the PSU ears into short inserts.
 Fit the meter to its rear-facing snap seat and prepare its continuous inlet
 and short, straight rear outlet there.
 Seat the mains WAGOs in the rear-wall
-wells. Core-side junctions and ground hardware go in their own lid mounts;
+wells. The three-ring ground stack mounts below C14 on back-top; core-side junctions go in their lid mounts;
 front manifold commons go in front-top. Leave the cross-quadrant conductor ends
 accessible for final connection. Keep PSU terminal screwdriver approaches clear.
-The ground stack at X37/Y195 is made after closing, its four rings at once
-([electronics-bay.md](electronics-bay.md) step 5), before the compressor's H and N
-cores are joined under the opening. For ground-stack service, stage those flexible
-leads clear of the vertical driver. Their installed paths do not provide a clear
-tool column.
+The ground stack at (−48.15, 462.3, 313.935) mm is assembled on open back-top,
+with the carbonator, C14 PE and compressor rings followed by the flat washer
+and M3 × 8 screw. Its driver enters from the open interior along +Y. Complete
+the carbonator bond before closing back-top over the core. The compressor's
+H and N cores join under the funnel opening after closing.
 
 ### 6. Close the box
 

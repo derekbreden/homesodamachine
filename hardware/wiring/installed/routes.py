@@ -60,10 +60,10 @@ def routed(connections, attachments):
             end_lead = 3.
         route = finish(c, [a.point, add(a.point, mul(a.outward, start_lead)),
                            *guides, add(b.point, mul(b.outward, end_lead)), b.point],
-                       saved.get('note', 'Above-core native terminal poses; proposed installed dressing.'),
+                       saved.get('note', 'Selected installed route between native terminal frames.'),
                        saved.get('bend_radius_mm'),
                        endpoint_tangent_fraction=saved.get('endpoint_tangent_fraction',.44))
-        route.status = saved.get('route_status', 'proposed')
+        route.status = saved.get('route_status', 'selected_layout')
         result.append(route)
     return result
 

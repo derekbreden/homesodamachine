@@ -592,7 +592,7 @@ def cable_guide_points(name):
     """Flexible loom corridor in world XYZ, retaining the original lower entry.
 
     Reservoir A rises straight over its reed channel. The seven carbonator
-    conductors share a straight guide west of the pump.
+    conductors share an offset guide opening into the clear west aisle.
     The radius specifies a printed passage, not cable qualification.
     """
     core = importlib.import_module('_cold_core_interface')

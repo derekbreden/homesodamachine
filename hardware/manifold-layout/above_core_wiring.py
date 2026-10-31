@@ -16,7 +16,7 @@ HW = HERE.parent
 sys.path.insert(0, str(HW / 'scripts'))
 import above_core as layout
 from _cadq_export import import_step
-from _materials import C_AC_HUB, C_GND
+from _materials import C_AC_HUB, C_GND, M_BRASS
 
 REFERENCES = {
     '413': HW / 'reference/wago-221/wago-221-413.step',
@@ -45,14 +45,12 @@ def placements():
         rows[name] = dict(size=size, parent=parent, rotation=rotation,
                           translation_mm=tuple(xyz), purpose=purpose)
 
-    # Rear-wall mains branches stay beside C14 and relay 1.
-    # The 19.5 mm pitch clears each lower lever
-    # beneath the next holder's floor.
-    for name, z, purpose in (('wago-h', 292.5, 'C14 live / PSU primary / relay 1 COM'),
-                            ('wago-n', 312.0, 'C14 neutral / PSU primary / compressor'),
-                            ('wago-g', 331.5, 'C14 PE / ring-terminal ground bus')):
+    # Mains branches sit below the ceiling PSU, west of the data jack.
+    for name, x, z, purpose in (('wago-h', -85., 264., 'C14 live / PSU primary / relay 1 COM'),
+                            ('wago-n', -54., 266., 'C14 neutral / PSU primary / compressor'),
+                            ('wago-g', -85., 296.5, 'C14 PE / ring-terminal ground bus')):
         put(name, '413', 'back-top', PORTS_FORE,
-            (-34., 440. if name=='wago-n' else 454.5, z), purpose)
+            (x, 458.5, z), purpose)
     # Two rows on the board-facing back of V-B's wall. Levers open west;
     # wire mouths face away from the shared rear-half holder stock.
     for name, y, z, turn, purpose in (
@@ -70,7 +68,8 @@ def placements():
         'J1 valve common and eight A-H coil branches')
     put('wago-manb', '415', 'front-top', EAST_FLANK, (95.05, 177.65, 243.),
         'J2 valve common, I/J/K coils and condenser fan')
-    put('ground-stack', 'ground-stack', 'cold-core', IDENTITY, (-53., 339., 259.4),
+    ground=layout.specification()['rear_plumbing']['ground-stack']
+    put('ground-stack', 'ground-stack', 'back-top', ground['rotation'], ground['translation_mm'],
         'C14 earth feed and exposed-metal bond branches')
     return rows
 
@@ -80,7 +79,7 @@ def frame(name):
 
 
 def owner(name):
-    return placements()[name]['parent']
+    return placements()['ground-stack' if name=='ground-stack-insert' else name]['parent']
 
 
 def carry(name):
@@ -101,6 +100,10 @@ def components():
         placed = carry(name)
         result[name] = (native.moved(placed.where),
                         C_GND if name == 'ground-stack' else C_AC_HUB, placed)
+    placed=carry('ground-stack')
+    insert=cq.Solid.makeCylinder(2.3,4.,cq.Vector(0,0,-4.)).cut(
+        cq.Solid.makeCylinder(1.25,4.2,cq.Vector(0,0,-4.1)))
+    result['ground-stack-insert']=(insert.moved(placed.where),M_BRASS,placed)
     return result
 
 
@@ -142,15 +145,17 @@ def _union(shapes):
 
 def ground_fastener_datums():
     """Actual three-ring clamp stack, independently of the bolt display envelope."""
-    landing=placements()['ground-stack']['translation_mm'][2]
-    # cap_lid_pose maps native lid Z0, its underside; cap_face_z_mm is the top.
+    pose=placements()['ground-stack']
+    landing=pose['translation_mm']
     return {'screw':'M3x8 SHCS', 'screw_length_mm':8.,
             'ring_count':3, 'tongue_thickness_mm':.8, 'washer_thickness_mm':.8,
             'clamped_thickness_mm':3.2, 'screw_projection_mm':4.8,
             'insert':'RX-M3Sx4', 'insert_length_mm':4.,
-            'landing_z_mm':landing, 'pilot_diameter_mm':4., 'pilot_depth_mm':7.,
-            'pilot_bottom_z_mm':landing-7., 'tip_air_mm':2.2,
-            'blind_backing_mm':landing-7.-layout.cap_lid_pose()['translation_mm'][2],
+            'parent':'back-top','landing_world_mm':landing,
+            'axis_outward':layout.vector(pose['rotation'],(0.,0.,1.)),
+            'pilot_diameter_mm':4., 'pilot_depth_mm':7., 'tip_air_mm':2.2,
+            'blind_backing_mm':471.3-landing[1]-7.,
+            'minimum_fluted_backing_mm':471.3-landing[1]-7.-.8,
             'boss_diameter_mm':10., 'radial_stock_mm':3.}
 
 
@@ -161,9 +166,10 @@ def _features(parent):
             continue
         stations.append({'name': name, **pose})
         if name == 'ground-stack':
-            x, y, z = pose['translation_mm']
-            additions.append(cq.Solid.makeCylinder(5., z-253.4, cq.Vector(x, y, 253.4)))
-            cuts.append(cq.Solid.makeCylinder(2., 8., cq.Vector(x, y, z-7.)))
+            face=cq.Vector(*pose['translation_mm'])
+            inward=cq.Vector(*layout.vector(pose['rotation'],(0.,0.,-1.)))
+            additions.append(cq.Solid.makeCylinder(5.,8.,face,inward))
+            cuts.append(cq.Solid.makeCylinder(2.,7.01,face-inward*.01,inward))
         else:
             stock, pocket = _well(name)
             additions.append(stock)

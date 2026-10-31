@@ -143,11 +143,13 @@ deep, retaining the ordinary 3 mm radial insert wall. Flush pilot bottoms retain
 holes in the lid. The pump retains its purchased rubber sliders and Ø9 × 0.8 mm
 washers; installed rubber compression and isolation remain unqualified.
 
-The separate lid-mounted earth boss is centered at world (−53, 339, 259.4) mm.
-It is Ø10 mm with a Ø4 × 7 mm pilot for one RX-M3Sx4 short insert. Its M3 × 8 screw crosses three 0.8 mm ring tongues
-and one 0.8 mm washer: 4.8 mm projection, 2.2 mm nominal tip air and 4.4 mm
-blind backing. Its fastener datums belong to
-[above_core_wiring.py](../../../manifold-layout/above_core_wiring.py).
+The earth stack belongs to back-top's rear wall below C14, at world
+(−48.15, 462.3, 313.935) mm. Its Ø10 mm boss has a Ø4 × 7 mm blind pilot for
+one RX-M3Sx4 insert. M3 × 8 clamps three 0.8 mm ring tongues and one 0.8 mm
+washer, giving 4.8 mm projection and 2.2 mm tip air. The core's earth lead
+threads through the shared cable guide before its outside ring is crimped;
+it connects to this prepared rear-wall stack before closing. Fastener datums
+belong to [above_core_wiring.py](../../../manifold-layout/above_core_wiring.py).
 
 The four core WAGO junctions form two rows on the board-facing back of V-B’s
 wall. V12 and sensor ports face fore; GND and reed ports face aft. Their
@@ -221,34 +223,33 @@ The upper passages follow the installed equipment:
 - B-fill uses one continuous tube from the external valve connection through
   the front-facing R14 guide into its reservoir's original fill seat. Three
   recessed lid screws surround the bend's lift region.
-- The pressure-water inlet turns below the cup floor, passes straight through
-  world (−53, 288.7265, 253.4) mm, and forms an exposed R18 arch into the check's
-  upward-facing outlet elbow. The Ø7.5 mm column has 3 mm radial stock. The
-  guide is a boundary in one uncut tube, with no fitting or added insertion.
-- The gas guide is straight through the cap; its lower route retains the
-  carbonator fitting and support-ring approach.
-- The soda outlet retains its lower riser beside the coil, then turns at R14
-  in the open main body at world Z219.4. It rises straight through the cup and
-  lid at (50, 342.4148, 253.4) mm. The Ø7.5 mm column has 3 mm radial stock.
-  The uncut tube follows the accepted R14 holder directly into the meter
-  inlet. No extra fitting or tube cut occurs at the guide.
-- One shared west-side Ø7.5 mm sensor passage rises straight through the cup
-  and lid at world X−48/Y347, opening on the Z253.4 lid face. The mouth stays
-  Ø7.5 mm to that face; the exposed loom bends above the lid. Its seven cores
-  are the temperature bus's V/DATA/GND, the carbonator reeds' CLO/CHI/common,
-  and the green 16 AWG protective-earth lead. The nominal packed envelope is
-  6.6 mm. The two reed positions remain on the vessel's east side; their
-  three leads transfer over the open head at Z225/Y352 before the body pour.
-  The temperature feed joins the coil probe first; its route turns aft below
-  the PRV vent at Z184, then rises at Y347. These transitions are free leads
-  in the open body, below the short straight cap guide. Seal the shared
-  warm-side exit with one foil cable collar. Above the lid, the signal looms
-  approach J4/J7 from the west, and PE peels toward the adjacent earth star.
+- The pressure-water inlet passes straight through world
+  (−80.4167, 402.9988, 253.4) mm and turns at R14 to the pump's suction joint.
+  The Ø7.5 mm column has 3 mm radial stock. The guide adds no fitting,
+  insertion or cut to the continuous tube.
+- The gas guide passes through (59.101, 354.664, 253.4) mm. Its lower R14
+  offset clears the copper wrap before descending to the carbonator fitting.
+- The soda outlet retains its lower riser beside the coil, turns at R14
+  inside the open body and rises through (77.5, 359.51, 253.4) mm. Its Ø7.5 mm
+  column has 3 mm radial stock. The uncut tube follows the accepted R14
+  holder directly into the meter inlet.
+- One shared west-side Ø7.5 mm sensor passage enters the cup at world
+  X−48/Y347 and bends at R5.5 to the lid exit at X−78/Y320/Z253.4. Its seven
+  cores are temperature V/DATA/GND, carbonator CLO/CHI/common and the green
+  16 AWG protective-earth lead; their nominal packed envelope is 6.6 mm.
+  The two reeds remain on the vessel's east side; their leads transfer over
+  the open head at Z225/Y352 before pouring. The temperature feed joins the
+  coil probe first and turns aft below the PRV vent at Z184. Lay these
+  internal transitions with the body open. Seal the warm-side exit with one
+  foil cable collar. Above the lid, the signal looms follow the clear west
+  aisle to the PCB, while PE runs aft to the rear-wall star.
 - Reservoir A's reed loom rises vertically through a straight Ø7.5 mm cup
   and lid passage directly above its reed channel, at world X−32.5/Y458.3.
   Its upper mouth is on the Z253.4 lid face. Thread the complete 5P ribbon
   straight through this passage; its bends and jogging are dressed above
-  the lid. The nominal packed reed bundle is 5.0 mm across.
+  the lid. Its return crosses aft of the pump feet at Y450 and passes the
+  lid hook at X−78/Y424 before reaching the PCB. The nominal packed reed
+  bundle is 5.0 mm across.
 - Reservoir B's reed loom leaves through the shell's top-open 8 × 6 mm rim
   notch at world X−36.5…−28.5/Y182.6/Z227.4…233.4. Lay its five
   conductors in the open notch after the body foam has cured and the reed column

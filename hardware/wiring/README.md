@@ -119,13 +119,13 @@ cut 6 mm below the shell's top edge, with its conductors laid through the open r
 before the cap is seated. The shared west-side Ø7.5 mm `sensor-cable` passage
 at world X−48/Y347 carries seven conductors: the three temperature-bus leads,
 CLO, CHI, their continuous common and the green 16 AWG carbonator PE lead.
-Its straight printed guide crosses the cup and lid, ending on Z253.4. The
+Its printed guide bends at R5.5 inside the cup to the lid exit at world X−78/Y320/Z253.4. The
 nominal packed loom envelope is 6.6 mm. The fixed east-side reeds retain
 their positions; their three leads transfer over the open vessel head at
 world Z225/Y352 to the west riser. Lay these free lead transitions while the
 body is open, before the foam pour. Thread the free ends through the cup and
 lid before fitting the outside terminations. Above the lid the signal looms
-follow the west PCB approach; PE peels toward the adjacent earth star. The
+follow the west PCB approach; PE runs aft to the rear-wall earth star. The
 temperature and reed commons keep their separate existing WAGO connections.
 
 ## Routing and assembly
@@ -136,10 +136,11 @@ channel or sending them through solid stock. A uniform 1 mm gap around each
 wire is not a design requirement. Local room readings remain manual design
 reviews; they add no build or commit check.
 
-`proposed` is an installed route for review. `unresolved` means the saved routing
-needs attention; geometry remains visible for complete electrical coverage. An
-unsuccessful bounded route search does not prove that the physical route is
-impossible. The manual routing report names actual mesh intersections separately.
+`selected_layout` identifies the installed course. The manual routing report
+checks its wires and jackets against larger bodies; wire-to-wire and
+wire-to-tube contacts are excluded. Endpoint contact is local to the named
+attachment. Terminal fidelity and physical harness handling retain their
+separate recorded scopes.
 
 The manifest lists every wire crossing between the base, cold core, front-top
 and back-top. The four J13 conductors run from the board on the cold core to
@@ -196,33 +197,25 @@ tools/cad-venv/bin/python hardware/wiring/installed/review.py --native
 `build.py --verify-retained` additionally records the retained viewer arrays for a
 specific integration review. No route search or wiring check joins the build,
 commit or print path. The optional `route_search.py` authoring tool searches against
-the current physical meshes and earlier wires; `--retry` preserves saved routes
+the current larger-body meshes; `--retry` preserves saved routes
 and searches unresolved ones. Its output needs the same route and assembly review
 as hand-authored stations.
 
-The current model has 98 proposed conductor routes and no unresolved routes.
-Sixteen device-terminal locations remain unlocated. Native readback places every
-wire with identical installed bounds. 88 of the 98 wires are valid single solids;
-the other ten are cores of the reed-column and sensor-cable bundles. All 14
-connector and insulation bodies are valid single solids. The compressor jacket
-is a valid single solid with zero native overlap with its cores. Cores overlap
-one another within the compressor cord, both reed columns and the sensor cable.
+The installed graph contains 101 conductor routes. Its twelve WAGOs comprise
+ten 221-413 connectors and the two manifold commons, one 221-415 and one
+221-420. Three 221-413 joins finish the compressor hot, compressor neutral and
+pump-positive branches beneath the removable funnel frame. Each has two
+populated ports and one unused port. Their separate pigtails preserve the
+open-bench preparation and final through-opening connections.
 
-The full mesh review records 25 wire/body pairs and 341 wire/wire pairs. The J13
-conductors meet no body and no other wire. Most wire/body pairs are mains, valve and
-sensor leads crossing the `fluid-14` and `fluid-16` tubes above the core. No jacket or fuse insulation interference appears in the mesh
-reading. These are installed-geometry readings; closing motions and physical
-harness dressing retain the scope described above.
+The [current routing report](installed/routing-review.json) records all
+conductors, cable jackets and larger connector housings against the actual
+installed bodies. It excludes wire-to-wire and wire-to-tube contacts and
+keeps intended contact local to its named attachment. Its preparation budget
+covers individual pieces and continuous commons across local taps.
 
-The [compressor-cable review](installed/compressor-review.json) records no
-hardware or neighboring-wire intersections for its jacket, three cores and
-fuse-to-donor link. Its cores have zero native overlap with each other and with
-the jacket. The fuse leads fit within the reference's available lead lengths.
-
-The [WAGO arrangement review](installed/wago-arrangement-review.json) records nine
-connectors: seven 221-413, one 221-415 and one 221-420. Reservoir A has a continuous
-common from J6. The two west-wall commons each use all three ports of a 221-413.
-The five power blocks run front to rear as +12 V, DC GND, PE, L and N.
-Their 14 connections total 1718 mm with 64 modeled bends. The reservoir-A
-common totals 293 mm. These figures describe installed conductor geometry;
-bench cutting includes the termination and service allowances above.
+The [installed native binding](installed/above-core-review/installed-wiring-binding.json)
+compares the current source curves and bodies with both standalone and
+installed STEP readback. Source validity, geometric agreement and the reader's
+exchange-validity result remain separate fields. Terminal fidelity, physical
+harness handling and closing motion retain their documented scopes.

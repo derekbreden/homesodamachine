@@ -107,8 +107,8 @@ One 22 AWG 4P ribbon carries RELAYS J5 (`GND` / `V5` / `IO2` / `IO19`) from the 
 | DC-3 | Teyleten relay #2 contact output | G Ganen diaphragm pump | + + GND | [16](AWG_MAINS) | [~300 mm](LEN_JOIN) relay pigtail and pump positive; [~350 mm](LEN_PUMP) pump negative | Ferrule in the relay screw cage; WAGO 221-413 join under the funnel opening; female disconnects at the pump; negative into the DC GND WAGO | Budgeted at [5 A](DIAPHRAGM_A); the pump's current is unmeasured. The relay pigtail is landed on the open back-top and the pump's positive on the open core, each dressed to the funnel opening and joined after the box closes. |
 | DC-4 | [12 V](V_DC) distribution block | Board inlet J10 `V12` + `GND` | + + GND | [16](AWG_MAINS) | [~150 mm](LEN_MID) | Solid copper directly in J10 screw cages and WAGO clamps | Everything the main board feeds — [10](SOLENOID_COUNT) manifold valves + the V-K supply valve, both peristaltic pumps, the condenser fan, display [12 V](V_DC), and both logic rails — draws through this run: ~[3.33 A](BOARD_PEAK_A) peak (both pumps priming + [3](MAX_VALVES) valves + the fan), against [32 A](WAGO_RATED_A)-rated WAGO 221-413 lever nuts. The diaphragm pump's [5 A](DIAPHRAGM_A) budget on DC-3 parallels it off the same supply — [8.32 A](COINCIDENT_A) against [6.7 A](PSU_MAX_A) if a refill overlaps a dispense, which is why relay #2 is gated on the dispense window ([`power.mmd`](/hardware/wiring/power.mmd)). As installed, J10's throats face aft: `V12` seats in the west clamp (X−27.5) and `GND` in the east clamp (X−22.5), each beside its silk label. The Q4 pass FET blocks a reversed pair, which leaves the board unpowered. |
 | DC-5 | PUMPS J13 (`AM2` / `AM1` → pump A, `BM2` / `BM1` → pump B) | Both peristaltic pumps' motor tabs inside the integral upper mount | 2 motor pairs, 4 conductors | 22 | [~500 mm](LEN_PUMP_FIXED) | J13 XH → 22 AWG 4P ribbon → four female Fastons on the motor tabs | Each DRV8870 H-bridge drives one motor differentially, so each conductor carries one motor lead at the pump's published ~[0.8 A](PUMP_PEAK_A). Conductor order, +X to −X: `AM2`, `AM1`, `BM2`, `BM1`; the +X pair serves pump A and the −X pair pump B. DC-5 crosses front-top's common rear electrical passage below SIG-7, then splits through the transverse channel to the motor terminal rooms. With front-top loose, thread its bare pump end through that passage and out underneath, crimp and ring out the Fastons, land them on the loose pumps, then raise the prepared pumps and lower retainer motor-first while drawing slack aft. Keep DC-5 bare through the printed channels and below the funnel frame, west of the Y-B stem elbow and over the J6 leads. Plug its XHP-4 into J13 through the funnel opening after closure. |
-| DC-6 | MANIFOLD A J1 (`COM` + `OUT1`–`OUT8`) | 8 Beduan solenoid coils on manifold A | 9-conductor trunk | [22](AWG_SIG) | [~550 mm](LEN_MAN_A) to each coil, `COM` [~300 mm](LEN_MAN_A_COM) to the fan-out, then [~450 mm](LEN_MAN_A_FANOUT) per valve | XH housing at J1; `COM` into a Wago 221-420 at the manifold; female disconnects per valve | Low-side switching: `COM` carries the shared [12 V](V_DC) from the main board's V12 island to every valve +, exploded at the manifold Wago; each valve − returns on its `OUT` conductor to the on-board TBD62083 (U4). Valve ↔ `OUT` mapping per [`valve-control.mmd`](/hardware/wiring/valve-control.mmd). |
-| DC-7 | MANIFOLD B J2 (`COM` + `OUT1`–`OUT2`) | 2 Beduan solenoid coils on manifold B | 5 of the 6-way J2 trunk populated | [22](AWG_SIG) | [~550 mm](LEN_MAN_B) to each coil; `COM` [~300 mm](LEN_MAN_B_COM) to the fan-out, then [~450 mm](LEN_MAN_B_FANOUT) maximum per positive branch | XH housing at J2; `COM` into a Wago 221-415 at the manifold; female disconnects per valve | Same pattern as DC-6. The trunk populates `COM` + `OUT1` + `OUT2` + `FAN` (the fan sink is DC-8) + `OUT3` (V-K's − on run DC-9); `OUT4` is wired on the main board but carries no valve — a spare channel, left unpopulated in the harness. |
+| DC-6 | MANIFOLD A J1 (`COM` + `OUT1`–`OUT8`) | 8 Beduan solenoid coils on manifold A | 9-conductor trunk | [22](AWG_SIG) | [~600 mm](LEN_MAN_A) to each coil, `COM` [~350 mm](LEN_MAN_A_COM) to the fan-out, then [~450 mm](LEN_MAN_A_FANOUT) per valve | XH housing at J1; `COM` into a Wago 221-420 at the manifold; female disconnects per valve | Low-side switching: `COM` carries the shared [12 V](V_DC) from the main board's V12 island to every valve +, exploded at the manifold Wago; each valve − returns on its `OUT` conductor to the on-board TBD62083 (U4). Valve ↔ `OUT` mapping per [`valve-control.mmd`](/hardware/wiring/valve-control.mmd). |
+| DC-7 | MANIFOLD B J2 (`COM` + `OUT1`–`OUT2`) | 2 Beduan solenoid coils on manifold B | 5 of the 6-way J2 trunk populated | [22](AWG_SIG) | [~550 mm](LEN_MAN_B) to each coil; `COM` [~350 mm](LEN_MAN_B_COM) to the fan-out, then [~450 mm](LEN_MAN_B_FANOUT) maximum per positive branch | XH housing at J2; `COM` into a Wago 221-415 at the manifold; female disconnects per valve | Same pattern as DC-6. The trunk populates `COM` + `OUT1` + `OUT2` + `FAN` (the fan sink is DC-8) + `OUT3` (V-K's − on run DC-9); `OUT4` is wired on the main board but carries no valve — a spare channel, left unpopulated in the harness. |
 | DC-8 | MANIFOLD B J2 `FAN` + a `COM` branch off the manifold fan-out | Condenser fan motor ([12 V](V_DC) DC brushless axial, ~[0.35 A](FAN_A)) | + + ULN-sink return | [22](AWG_SIG) | [~650 mm](LEN_FAN) switched return from J2; [~450 mm](LEN_MAN_B_FANOUT) positive from the lower +X-wall Wago | Donor fan lead; its exact terminal position and connector remain unlocated in CAD | The two conductors follow the clear approach to the condenser crown. Bench cuts reserve length for the donor lead and are trimmed at fitting. The fan + ties to the manifold's `COM` fan-out; `FAN` sinks the − side through TBD62083 #2 (U5, MCP23017 0x21 PA3). Flyback via the driver's integrated diode to `COM`. |
 | DC-9 | MANIFOLD B J2 (`OUT3` + a `COM` tap) | V-K water-supply fill/shutoff coil, in back-top's east sidewall mount | 2 conductors off the J2 trunk | [22](AWG_SIG) | [~350 mm](LEN_VK) `OUT3` from the board; positive cut from the [~450 mm](LEN_MAN_B_FANOUT) branch stock, trimmed to the installed route plus termination allowance | Female disconnects at the valve | Low-side switching, same pattern as the manifold valves: `OUT3` sinks V-K's − through TBD62083 #2 (U5, MCP23017 0x21 PA5); + taps the shared J2 `COM` at the lower +X-wall Wago. Both legs land on V-K's blades on the open back-top; `OUT3`'s crimped contact seats in J2 cavity 4, and the positive in its Wago, after the box closes. V-K is a separate part from manifold B — mapping per [`valve-control.mmd`](/hardware/wiring/valve-control.mmd), plumbing per [`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) §2. |
 
@@ -121,13 +121,13 @@ Three looms fan out from single connectors: SENSORS J4 carries SIG-1 / SIG-4 wit
 | # | From | To | Conductors | AWG | Approx. length | Notes |
 |---|---|---|---|---|---|---|
 | SIG-1 | SENSORS J4 `IO26` + `3V3` + `GND` | 1-wire temp bus — DS18B20 (0x28, carbonator wall) + DS18S20 (0x10, evap suction) | data + [3.3 V](V_IO) + GND, parallel-bussed | [22](AWG_SIG) | [~650 mm](LEN_ONEWIRE) to the probes in the core | The [4.7 kΩ](DS18B20_PULLUP) data pull-up is on-board (R9) — nothing in the loom. |
-| SIG-2 | REEDS B J7 `CLO` + `GND` | Reed switch — low (carbonator) | switch + shared GND | [22](AWG_LV) | [~500 mm](LEN_CARB_REEDS) | MCP23017 0x21 PB4, INPUT_PULLUP. |
-| SIG-3 | REEDS B J7 `CHI` + shared GND | Reed switch — high (carbonator) | switch | [22](AWG_LV) | [~500 mm](LEN_CARB_REEDS) | MCP23017 0x21 PB5, INPUT_PULLUP. |
+| SIG-2 | REEDS B J7 `CLO` + `GND` | Reed switch — low (carbonator) | switch + shared GND | [22](AWG_LV) | [~650 mm](LEN_CARB_REEDS) | MCP23017 0x21 PB4, INPUT_PULLUP. |
+| SIG-3 | REEDS B J7 `CHI` + shared GND | Reed switch — high (carbonator) | switch | [22](AWG_LV) | [~650 mm](LEN_CARB_REEDS) | MCP23017 0x21 PB5, INPUT_PULLUP. |
 | SIG-4 | SENSORS J4 `IO25` + `V5` + `GND` | DIGITEN flow meter (on edge between pump and gas group, ports fore–aft and lead root downward) | pulse + [5 V](V_LOGIC) + GND | [22](AWG_LV) | [~300 mm](LEN_FLOW) (internal, above the core lid) | Pulse interrupt; flow detection is internal — does not leave the enclosure. |
-| SIG-6 | FAUCET J3 (1 `IO33` TX / 2 `IO35` RX / 3 `V5` / 4 `GND`) | ESP32-S3-Touch-LCD-1.47 faucet display at the end of the gooseneck | UART + power | 22 in / 28 out | [~400 mm](LEN_FAUCET_INBOARD) inboard + [~2 m](LEN_UMBILICAL) outboard | J3 → 22 AWG black ribbon → RiteAV CAT3 USOC jack at X−30/Z274.376 in the +Y wall of back-top → RJ11 6P4C plug → 28 AWG black ribbon to the display. **J3 3/V5 → jack 2 (white/orange) → C1/VBUS; J3 4/GND → jack 3 (blue) → C2/GND; J3 2/IO35 RX → jack 4 (white/blue) → C3/TXD; J3 1/IO33 TX → jack 5 (orange) → C4/RXD.** Colors name the jack's printed labels; C1 is the outboard ribbon edge marked white at both ends. Contacts 1 and 6 are unused. Direct 3.3 V TTL UART, with [5 V](V_LOGIC) power across the joint. [Oriented plug and jack picture, page 15](https://homesodamachine.com/read/faucet-assembly-guide/faucet-assembly-guide.pdf#page=15). |
+| SIG-6 | FAUCET J3 (1 `IO33` TX / 2 `IO35` RX / 3 `V5` / 4 `GND`) | ESP32-S3-Touch-LCD-1.47 faucet display at the end of the gooseneck | UART + power | 22 in / 28 out | [~400 mm](LEN_FAUCET_INBOARD) inboard + [~2 m](LEN_UMBILICAL) outboard | J3 → 22 AWG black ribbon → RiteAV CAT3 USOC jack at X−64/Z291.5 in the +Y wall of back-top → RJ11 6P4C plug → 28 AWG black ribbon to the display. **J3 3/V5 → jack 2 (white/orange) → C1/VBUS; J3 4/GND → jack 3 (blue) → C2/GND; J3 2/IO35 RX → jack 4 (white/blue) → C3/TXD; J3 1/IO33 TX → jack 5 (orange) → C4/RXD.** Colors name the jack's printed labels; C1 is the outboard ribbon edge marked white at both ends. Contacts 1 and 6 are unused. Direct 3.3 V TTL UART, with [5 V](V_LOGIC) power across the joint. [Oriented plug and jack picture, page 15](https://homesodamachine.com/read/faucet-assembly-guide/faucet-assembly-guide.pdf#page=15). |
 | SIG-7 | DISPLAY J9 (`B` / `A` / `GND` / `V12`) | ESP32-S3-Touch-LCD-4.3B enclosure display on the front face (fixed) | RS485 pair + [12 V](V_DC) + GND | [22](AWG_LV) | [~400 mm](LEN_FRONT_FACE) (flat PCB → front face, internal) | One 22 AWG 4P ribbon (`bom.md` §11). The RS485 transceiver is on-board (U7, COS13487 auto-direction; SM712 ESD array at the connector): A/B on a twisted pair to the 4.3B's onboard SP3485, and the display's 7–36 V screw input takes [12 V](V_DC) off `V12` on the same loom. Fixed mount in the 30° display facet per [`/hardware/printed-parts/enclosure/enclosure/README.md`](/hardware/printed-parts/enclosure/enclosure/README.md). Its ribbon shares front-top's rear electrical mouth with DC-5 and rises through the internal chimney to the display pocket. Keep it bare inside the print and finish the PET braid aft of the common mouth; land the display terminals while the facet is open. |
 | SIG-9 | SENSORS J4 `IO23` + `IO27` | Reserved, unpopulated | No cable | — | — | ASSE discharge is visible at the separate faucet outlet. |
-| SIG-10 | REEDS A J6 (`GND` + `RA1`–`RA4`) | Reservoir A level reeds (4) | 4 switches + shared GND | [22](AWG_LV) | [~600 mm](LEN_REEDS_A) | MCP23017 0x20 PB0–3, INPUT_PULLUP; one continuous `GND` from J6 with insulated taps at the reeds. See [`/hardware/printed-parts/cold-core/reservoir/level-sensing.md`](/hardware/printed-parts/cold-core/reservoir/level-sensing.md). |
+| SIG-10 | REEDS A J6 (`GND` + `RA1`–`RA4`) | Reservoir A level reeds (4) | 4 switches + shared GND | [22](AWG_LV) | [~650 mm](LEN_REEDS_A) | MCP23017 0x20 PB0–3, INPUT_PULLUP; one continuous `GND` from J6 with insulated taps at the reeds. See [`/hardware/printed-parts/cold-core/reservoir/level-sensing.md`](/hardware/printed-parts/cold-core/reservoir/level-sensing.md). |
 | SIG-11 | REEDS B J7 `RB1`–`RB4` + shared GND | Reservoir B level reeds (4) | 4 switches | [22](AWG_LV) | [~500 mm](LEN_REEDS_B) | MCP23017 0x21 PB0–3, INPUT_PULLUP; shares the J7 loom and its cold-core-end Wago 221-413 `GND` with SIG-2 / SIG-3. |
 | SIG-12 | GAS J11 (`GND` / `V5` / `DOUT` / `AOUT`) | MQ-6 combustible-gas / refrigerant-leak sensor, rear cabinet floor | analog + trip + [5 V](V_LOGIC) + GND | [22](AWG_LV) | [~600 mm](LEN_GAS) | One 22 AWG 4P ribbon (`bom.md` §11). `AOUT` (analog level) and `DOUT` (LM393 comparator trip) swing 0–5 V and are divided to 3.3 V on-board before IO39 / IO36, so a plain sensor cable is safe. The sensor heater runs on `V5`. Mounted low — R-600a is heavier than air. |
 
@@ -161,51 +161,30 @@ pose. Valve wire attachments follow the separate metal spades. Proposed wire
 exits permit the flexible tab/disconnect dressing at G/J. The model includes the
 removable XH housing envelopes and the fuse-splice insulation.
 
-Routing status and terminal fidelity are separate. A proposed route remains an
-assembly layout; unresolved routes stay visible and named. Exact donor lead
-terminations, display connectors, motor tabs and the carbonator metal bond
-landing retain their unlocated status. The [manual review](installed/routing-review.json)
-records mesh intersections and native export readings against their artifact
-hashes. It does not qualify physical harness fit or enclosure closing motions.
+The [installed manifest](enclosure-wiring.json) gives each conductor's selected
+centreline, mounting parents, endpoint status and length. The
+[manual review](installed/routing-review.json) binds the larger-body clearance
+readings and preparation budget to those exported artifacts. Wires and tubes
+are excluded from wire obstacles. Donor interfaces and the carbonator metal
+bond retain their stated nominal or unlocated terminal status.
 
-Each reservoir's four reeds share one continuous common in its 5P column, with
-insulated local taps. The Wago joins that column common to the board return.
-The carbonator pair has its own common branch at the reservoir-B Wago. The two
-probes are parallel-bussed on the three 1-wire conductors.
+Each reservoir's four reeds share one continuous common in its 5P column,
+with insulated local taps. Reservoir A's common runs directly to J6; the
+reservoir-B common joins J7 at its WAGO. The carbonator reed pair has its own
+common branch at that WAGO. The two temperature probes are parallel-bussed
+on the three 1-wire conductors. Preparation lengths include the entire
+continuous common across its local taps.
 
-The compressor cable uses [~700 mm](LEN_COMPRESSOR) preparation stock. The installed model
-routes its switched-hot core through to relay #1 in two separate wire pieces: 606.306 mm
-from the relay to the thermal fuse, then a 36.777 mm continuation from the fuse to the
-compressor interface, 643.082 mm in all. The core ends at its join under the funnel
-opening, short of the relay, so the same stock covers it; trim at the join. The shared
-jacket occupies the fore floor lane; its insulated cores fan out to the two joins and
-the lid earth stack. Dress and retain the jacket and fanouts before trimming the
-conductors. The fuse's two leads reach separate insulated splice regions beside the
-donor cover.
+The compressor cable uses [~700 mm](LEN_COMPRESSOR) preparation stock. Its hot
+core and separate fuse continuation share that stock; trim the exposed ends
+after dressing the jacket and fanouts. The fuse's two leads reach separate
+insulated splice regions beside the donor cover. The jacket follows the fore
+floor lane, and the upper fanouts reach the two joins and rear-wall earth
+stack. The fan leads end at the condenser-crown approach.
 
-The model's centreline lengths exclude hidden contact insertion and final cut
-reserve. The bench cuts remain fitting stock; use the current installed route
-and its attachment status before settling a finished length. The fan routes
-end at the condenser-crown approach while its donor lead remains unlocated.
-
-The [local source-native receipts](installed/above-core-review/ground-j2-wiring-review.json)
-and [routing witness receipt](installed/above-core-review/routing-witness-native-review.json)
-give the preparation budget for the dressed fore connections:
-
-| Conductor | Modeled path (mm) | Preparation stock | Nominal reserve (mm) |
-|---|---:|---:|---:|
-| PE-bus, rear PE WAGO → lid stack | 295.531 | [~400 mm](LEN_EARTH_BUS) | 104.469 |
-| PE-carbonator, lid stack → carbonator | 423.501 | [~500 mm](LEN_EARTH_CARBONATOR) | 76.499 |
-| J2-COM | 195.864 | [~300 mm](LEN_MAN_B_COM) | 104.136 |
-| J2-FAN | 329.600 | [~650 mm](LEN_FAN) | 320.400 |
-| DC3-negative | 253.272 | [~350 mm](LEN_PUMP) | 96.728 |
-| J2-positive-K | 260.156 | [~450 mm](LEN_MAN_B_FANOUT) | 189.844 |
-| J2-OUT3 | 277.762 | [~350 mm](LEN_VK) | 72.238 |
-
-AC6-PE's modeled path is 333.114 mm within the same compressor cord; the
-switched-hot budget above governs its common preparation stock. The carbonator
-bond landing and donor fan lead remain unlocated. These reserves are fitting
-allowances, not physical harness-fit measurements.
+Modelled lengths follow insulated conductor centrelines. Bench cuts include
+termination and dressing reserve and are trimmed at their landings. Actual
+hidden insertion and physical harness handling retain their own fit scope.
 
 The peristaltic pumps have no such nut: DC-5 is two DRV8870 H-bridge pairs, each motor driven differentially on its own two conductors, so there is no rail to share and nothing to fan out. Four direct conductors run from J13 to the motor tabs.
 
@@ -213,20 +192,19 @@ Fabrication — bulk cut-to-length all-black wire, crimp tooling, sleeving, and 
 
 ## Grounding strategy
 
-Single-point chassis ground at the core-lid ring-terminal stack, bonded back through the C14 inlet's earth pin to the building's protective earth.
+Single-point chassis ground at the rear-wall ring-terminal stack, bonded back through the C14 inlet's earth pin to the building's protective earth.
 
-- **C14 ground pin** → ground bus on the core lid (run AC-1 carries the green conductor from the inlet to the distribution block's G pole).
+- **C14 ground pin** → ground bus below C14 on back-top (run AC-1 carries the green conductor from the inlet to the distribution block's G pole).
 - **Ground bus** distributes to the compressor body (via AC-6) and the SS carbonator inside the cold core, via short bonding wires. The faucet carries no earth: its only conductors are SIG-6's SELV ribbon, and its tubes are plastic. Chassis grounding is via these discrete bonding wires; there is no metal chassis backbone.
 - Separate ground bonds are [16 AWG](AWG_MAINS_U) green-insulated stranded wire with ring terminals at the bus and metalwork. AC-6 is the green 18 AWG conductor inside the SJOOW compressor cord, as specified in its run row.
 - The chassis bond gives the appliance Class I status: if a fault energizes any exposed metal part, fault current returns to the building ground through the C14 cord and trips the upstream breaker before the user touches anything.
 
-The stack stands at enclosure X−53/Y339/Z259.4 on the core lid. Its inlet bond
-uses the northeast-facing lug, the carbonator bond the northwest-facing lug,
-and AC-6 the southwest-facing lug. Keep the inlet bond's nominal 6 mm straight
-entry. Fasten all three rings while the core lid is open, before closing
-back-top; dress the compressor branch into its retained jacket corridor.
-The complete installed harness has no simultaneous driver-clearance or
-flexible handling-force qualification.
+The stack stands at enclosure (−48.15, 462.3, 313.935) mm on back-top below
+C14. Its inlet barrel points east, the carbonator barrel west and the
+compressor barrel down and east. Keep each crimp entry straight. Fasten all
+three rings and the flat washer under M3 × 8 while back-top is open, then
+connect the carbonator's free bond before closing. Dress the compressor
+branch into its retained jacket corridor.
 
 ## What's not yet decided
 

@@ -1,11 +1,16 @@
 # Installed wiring review
 
+Current routing checks wires and cable jackets against larger installed bodies.
+Wire-to-wire and wire-to-tube contacts are excluded. Endpoint contacts remain
+local to each named attachment. The review and route search are manual commands.
+
 The [installed-wiring binding](installed-wiring-binding.json) compares the
 materialized standalone wiring STEP and manifest with the current electrical
 graph and native source bodies. It records conductor and housing counts from
 that graph, source-curve agreement, geometric signatures and STEP reader
-validity separately. Listed exchange-validity limitations remain explicit even
-when source solids are valid and geometric signatures agree.
+validity separately. The current record binds all 120 bodies and 101 conductor curves; every
+source and readback body is valid. The routing report resolves its five mesh
+witnesses with exact native readings and local attachment bounds.
 
 Run the manual reader after the appliance and its wiring are materialized:
 
@@ -27,7 +32,7 @@ It does not rerun the full mesh scene, equipment contacts or wire packing.
 
 The local contact receipts retain their exact geometry and query scopes:
 
-- [Ground and J2 dressing](ground-j2-wiring-review.json): the lid earth stack,
+- [Ground and J2 dressing](ground-j2-wiring-review.json): its recorded earth-stack fixture,
   fore paired-tube seat and locally dressed bond/COM/FAN paths.
 - [Routing witnesses](routing-witness-native-review.json): named endpoint
   readings, the pump-head subsolid diagnosis and corrected coil/pump guides.

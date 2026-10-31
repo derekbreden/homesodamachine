@@ -3,12 +3,12 @@
 The PCB lies flat on the west side of the cold-core roof, with its long axis
 fore–aft. The diaphragm pump and V-B belong to that core. Back-top carries
 V-A/V-K, their fitted plumbing, the water header, the PSU and both relays.
-The PSU mounts to the dry west sidewall, with the relays above it. The display,
+The PSU mounts base-up in its shallow ceiling recess; both relays mount to the dry west wall. The display,
 the two pumps with their underside retainer and the front valve coils belong to `enclosure-front-top`.
 
 The fore–aft flow meter travels with back-top between the CO₂ group and pump.
-Its two fixed collars sit in integral east-wall carriers; the moving collets
-remain free. Its three leads leave the downward-facing native wire boss.
+Its fixed body sits in an integral east-wall seat with a separate snap cap;
+the moving collets remain free. Its three leads leave the downward-facing native wire boss.
 The accepted R14 holder, continuous inlet and foam sleeve travel with the meter;
 the uncut tube passes through the core's plain guide.
 
@@ -45,11 +45,14 @@ fit and donor terminal locations retain their stated qualification limits.
 | Compressor H join | 221-413 | Free, under the funnel opening | Relay 1 NO pigtail; compressor switched-H core |
 | Compressor N join | 221-413 | Free, under the funnel opening | N junction pigtail; compressor neutral core |
 | Pump positive join | 221-413 | Free, under the funnel opening | Relay 2 NO pigtail; pump positive |
-| Protective-earth ring stack | M3 ring-terminal stack | Cold-core lid | C14 earth feed; compressor earth; carbonator bond lead |
+| Protective-earth ring stack | M3 ring-terminal stack | Back-top rear wall | C14 earth feed; compressor earth; carbonator bond lead |
 
-The rear H/G connectors share a vertical row beside the C14 inlet; N stands
-14.5 mm forward on its own broad rear-rooted well. Their wire entries face
-forward and their levers open upward. The four core-side
+The rear H/G connectors share a column at X−85, with H at Z264 and G at
+Z296.5. N sits beside H at X−54/Z266. All three centres are Y458.5. Their
+wire entries face fore, their levers open upward and their individual wells
+have 45° roofs back to the rear wall. They stand below the PSU and clear
+C14, the ground stack, data jack and pump.
+The four core-side
 221-413 connectors sit in two vertical pairs on the PCB-facing back of V-B's
 wall. The fore pair holds sensor common above V12; the aft pair holds
 reservoir-B common above GND. Their wire entries face fore or aft and their
@@ -58,9 +61,11 @@ rear half with 3 mm stock. The manifold common connectors retain their native
 front-top stations and their two lever faces remain accessible from the front
 assembly's open interior and through the funnel opening. The three joins have no
 well; they go in last, where their leads meet, with one port of each empty.
+Their closed bodies sit beneath the removable frame: H at (−65, 247, 290.5),
+N at (−65, 221, 290.5) and pump positive at (−45, 255, 278) mm.
+Open their levers and finish the joins with the frame removed.
 
-The PSU's wire entries face fore/aft. Its screw axes point inward from the
-west sidewall. Land and inspect these terminals on accessible back-top before
+The PSU's wire entries face fore/aft. Its screw axes point down from the ceiling. Land and inspect these terminals on accessible back-top before
 closing the quadrants; the continuous ceiling provides no separate rear hatch.
 
 ## Inputs
@@ -74,11 +79,12 @@ run IDs and loom labels. Use the specified connector graph.
 The PCB and pump use their own native mounting-hole patterns on the cold-core
 lid/cup columns. The PCB uses M3 × 8 screws through its 1.6 mm board into
 RX-M3×5.7 inserts. The pump retains its specified rubber-pad/washer stack.
-The PSU and relay wall-host stacks are defined by
+The PSU ceiling and relay wall-host stacks are defined by
 [`_above_core_shell.py`](/hardware/printed-parts/enclosure/enclosure/_above_core_shell.py)
 and allocated in the [BOM](/hardware/ledger/bom.md); use the stack assigned to
-each device. The ring stack and its Ø9 × 0.8 flat washer clamp under M3 × 8 into an
-RX-M3S×4 short insert in the upward-facing core-lid boss. Its 3.2 mm clamp
+each device. The ring stack and its Ø7 × 0.8 flat washer clamp under M3 × 8 into an
+RX-M3S×4 short insert in the rear wall below C14. The landing is world
+(−48.15, 462.3, 313.935) mm, with the screw entering aft along +Y. Its 3.2 mm clamp
 stack gives 4.8 mm screw projection into a 7 mm blind pilot.
 
 Tools: ESD mat, suitable wire and contact crimpers, soldering tools for the
@@ -98,15 +104,14 @@ records the current rigid-slide and final-connection limits.
    five-conductor loom. A rises straight through the cup and lid before
    turning toward J6. Lay B's loom through the 8 × 6 mm shell-rim notch
    before seating the cap, then dress it outside the B-fill block to J7 and
-   the existing common WAGO. The shared straight `sensor-cable` passage at
-   world X−48/Y347 carries seven cores: temperature V/DATA/GND, carbonator
+   the existing common WAGO. The shared Ø7.5 mm `sensor-cable` passage enters the cup at
+   world X−48/Y347 and bends at R5.5 to its lid exit at X−78/Y320. It carries seven cores: temperature V/DATA/GND, carbonator
    CLO/CHI/common, and the green 16 AWG PE lead. Feed the temperature bus at
    the coil probe first; its free leads turn aft below the PRV vent at Z184
-   and rise at Y347. Keep the east reeds fixed and lay their transfer across
+   and rise toward the lower guide at Y347. Keep the east reeds fixed and lay their transfer across
    the open head at Z225/Y352 before the body pour. Thread the cup and lid
    over all seven free ends before crimping the outside earth ring. Dress
-   the signals along the west PCB approach and PE toward the lid star at
-   (−53, 339, 259.4) mm. Complete the
+   the signals along the west PCB approach and leave PE free for the rear-wall star. Complete the
    cold-core assembly in
    [cold-core.md](cold-core.md).
 2. On open back-top, seat V-A/V-K with their fitted plumbing. Land their legs
@@ -115,8 +120,8 @@ records the current rigid-slide and final-connection limits.
    Female-housing fit and connection force remain unqualified.
    Seat the rear junctions in their named wells and label their electrical purpose.
    Check that each seated body's levers can open and close before populating
-   it. Fasten the PSU on bare back-top before seating the rear WAGO-H junction;
-   its aft mounting-driver path crosses that connector. Mount the relays and
+   it. Fasten the ceiling PSU and prepare the three-ring ground stack on open back-top
+   before dressing the rear WAGOs. Mount the relays and
    meter, and prepare the meter’s inlet and concealed outlet plumbing. Solder
    J4's flow pair and the sensor-GND branch to the meter's three factory leads,
    heat-shrink each joint, and dress them below V-K's coil, east ahead of the
@@ -137,20 +142,19 @@ records the current rigid-slide and final-connection limits.
    before installing the PCB, per [cold-core.md](cold-core.md); the board
    covers the clamp-driver approaches. Land the two prepared J10 power
    leads on the loose PCB, `V12` and `GND` each in the clamp beside its silk
-   label. Mount the PCB, pump, V-B and ground boss
-   on their core features. Land the J10 leads' free ends in the V12 and GND
+   label. Mount the PCB, pump and V-B on their core features. Land the J10 leads' free ends in the V12 and GND
    junctions, and the pump negative in GND. Land the pump positive on the
    pump's lead and dress it forward to the funnel opening. Land V-B's leg on
    its blades: J1 `OUT2` and positive-B, `OUT2`'s contact crimped but out of
    its housing. Seat J6, J7 and J4 at the PCB, J4 with cavities 4 and 5 empty.
    Populate the sensor and reservoir-B common junctions without adding
    junctions to the continuous reservoir-A reed common.
-   Before closing back-top, with the cold-core lid exposed, stack the three
-   ground rings on the boss at world (−53, 339, 259.4) mm: carbonator bond at
-   120°, inlet PE bus at 300° and compressor PE at 240°, followed by the flat
-   washer and M3 × 8. Angles run from +X toward +Y about +Z. Keep each final
-   entry straight into its crimp barrel and dress the branches toward their
-   actual destinations before the rear enclosure closes.
+   On open back-top, stack the three ground rings on the rear-wall boss below
+   C14: carbonator, inlet PE and compressor PE, followed by the flat washer
+   and M3 × 8 screw. The inlet barrel points east, the carbonator barrel west
+   and the compressor barrel down and east. Keep their final crimp entries
+   straight. Connect the carbonator's free bond lead before the rear assembly
+   closes over the core.
 5. Close the box per [enclosure-mechanical.md](enclosure-mechanical.md); the
    front-bottom and front-top looms have landed at their devices by then
    ([wiring.md](wiring.md)). Through the funnel opening, with the frame out:
@@ -175,8 +179,9 @@ records the current rigid-slide and final-connection limits.
      ([internal plumbing §3](internal-plumbing.md#3-flavor-manifold-v-a-through-v-j--y-a-y-b-y-c-y-d-y-f-y-g--pumps)).
    Keep both shared-passage looms clear of the funnel-frame seats. Keep the leads with their mounting parents and dress each crossing below
    the closing surfaces. Clear the V-B return bearing and its
-   cable-tie path while dressing the leads. Keep the coil leads outside the
-   continuous soda inlet's holder and foam sleeve.
+   cable-tie path while dressing the leads. Keep the coil leads clear of the
+   continuous soda inlet's rigid holder; V-K's two downward leads leave through
+   the locally compressed side of its foam sleeve.
    Route lengths describe centerlines; allow the
    specified termination reserve and assembly slack when fabricating looms.
 6. Inspect the wiring and plumbing in the central four-quadrant connection

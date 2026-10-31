@@ -291,7 +291,8 @@ MOUNTS = (
     ("soda-continuous-insulation", "tube-soda-core-rise", "sleeve"),
     ("relay-1", "enclosure-back-top", "bosses"),
     ("relay-2", "enclosure-back-top", "bosses"),
-    ("ground-stack", "foam-assembly", "bosses"),
+    ("ground-stack", "enclosure-back-top", "bosses"),
+    ("ground-stack-insert", "enclosure-back-top", "heat-set"),
     # The lever nuts are the one column that no boss holds: a 221-413 is a free splice with
     # no hole in it, so the wall's own printed well IS the mount and there is nothing to bolt.
     ("wago-h", "enclosure-back-top", "well"),

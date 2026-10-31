@@ -200,4 +200,26 @@ def foam_occupied(neighbors):
     strain or thermal prediction. The full stock envelope remains separately
     available for its accepted soft-contact receipt.
     """
-    return foam_stock().cut(holder(), *(neighbors[name] for name in SOFT_NEIGHBORS)).clean()
+    import cadquery as cq
+    from above_core_routes import _rounded
+
+    # The two downward coil tabs need their lead exits through the compressed
+    # side of the sleeve. These are occupied-space estimates, like the valve
+    # and pump contacts, rather than cuts in the square-ended stock piece.
+    valve = layout.pose('vk-solenoid')
+    lead_exits = []
+    for x in (-7.45, 7.45):
+        tip = layout.point(valve, (x, 27.1, 52.2))
+        points = [_add(tip, [0., 0., 2.]), _add(tip, [0., 0., -6.]),
+                  _add(tip, [0., -12., -6.])]
+        segments = _rounded(points, 3.)
+        edges = []
+        for segment in segments:
+            p = [cq.Vector(*v) for v in segment['points_mm']]
+            edges.append(cq.Edge.makeThreePointArc(*p) if segment['kind']=='arc'
+                         else cq.Edge.makeLine(*p))
+        path = cq.Wire.assembleEdges(edges)
+        lead_exits.append(cq.Workplane(cq.Plane(origin=points[0], normal=(0.,0.,-1.)))
+                          .circle(2.).sweep(path, isFrenet=False).val())
+    return foam_stock().cut(holder(), *lead_exits,
+                            *(neighbors[name] for name in SOFT_NEIGHBORS)).clean()

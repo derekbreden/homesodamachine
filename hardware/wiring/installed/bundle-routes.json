@@ -6,7 +6,7 @@
     "diameter_basis": "Proposed layout envelope; actual purchased jacket OD remains unmeasured",
     "bend_radius_mm": 24.0,
     "end_trim_mm": 12.0,
-    "route_status": "proposed",
+    "route_status": "selected_layout",
     "cores": {
       "AC4-H": [
         1.6,
@@ -69,58 +69,23 @@
         "entry_stations": [
           {
             "point_mm": [
-              -58.502,
-              423.0,
-              315.9
+              -55.4,
+              233.08777099026304,
+              286.75759312419706
             ]
           },
           {
             "point_mm": [
-              -58.502,
-              390.0,
-              303.4355
+              9.100000000000001,
+              201.58777099026304,
+              288.25759312419706
             ]
           },
           {
             "point_mm": [
-              17.599999999999994,
-              254.23668999999995,
-              305.22722000000005
-            ]
-          },
-          {
-            "point_mm": [
-              21.599999999999994,
-              246.23668999999995,
-              297.22722000000005
-            ]
-          },
-          {
-            "point_mm": [
-              25.599999999999994,
-              210.23668999999995,
-              289.22722000000005
-            ]
-          },
-          {
-            "point_mm": [
-              33.599999999999994,
-              202.23668999999995,
-              289.22722000000005
-            ]
-          },
-          {
-            "point_mm": [
-              49.599999999999994,
-              178.23668999999995,
-              297.22722000000005
-            ]
-          },
-          {
-            "point_mm": [
-              49.599999999999994,
-              174.23668999999995,
-              297.22722000000005
+              15.100000000000001,
+              201.58777099026304,
+              288.25759312419706
             ]
           }
         ],
@@ -144,88 +109,9 @@
         "entry_stations": [
           {
             "point_mm": [
-              -40.266666666666666,
-              418.0,
-              310.0
-            ]
-          },
-          {
-            "point_mm": [
-              -28.799996666666665,
-              352.94028,
-              310.0
-            ]
-          },
-          {
-            "terminal": "wago-n.3",
-            "offset": [
-              19.46667,
-              -113.75972,
-              5.51643
-            ]
-          },
-          {
-            "terminal": "wago-n.3",
-            "offset": [
-              27.46667,
-              -133.75972,
-              1.51643
-            ]
-          },
-          {
-            "terminal": "wago-n.3",
-            "offset": [
-              43.46667,
-              -157.75972,
-              5.51643
-            ]
-          },
-          {
-            "terminal": "wago-n.3",
-            "offset": [
-              63.46667,
-              -181.75972,
-              -18.48357
-            ]
-          },
-          {
-            "terminal": "wago-n.3",
-            "offset": [
-              63.46667,
-              -217.75972,
-              -22.48357
-            ]
-          },
-          {
-            "terminal": "wago-n.3",
-            "offset": [
-              67.46667,
-              -221.75972,
-              -26.48357
-            ]
-          },
-          {
-            "terminal": "wago-n.3",
-            "offset": [
-              75.46667,
-              -229.75972,
-              -26.48357
-            ]
-          },
-          {
-            "terminal": "wago-n.3",
-            "offset": [
-              87.46667,
-              -253.75972,
-              -18.48357
-            ]
-          },
-          {
-            "terminal": "wago-n.3",
-            "offset": [
-              87.46667,
-              -257.75972,
-              -18.48357
+              15.200000000000003,
+              203.29136382441612,
+              290.74680337546005
             ]
           }
         ],
@@ -249,79 +135,23 @@
         "entry_stations": [
           {
             "point_mm": [
-              -60.5,
-              326.0,
-              271.0
+              -40.8,
+              349.88417815610995,
+              301.76838287293407
             ]
           },
           {
             "point_mm": [
-              -48.0,
-              337.0,
-              274.0
+              -40.8,
+              321.88417815610995,
+              301.76838287293407
             ]
           },
           {
             "point_mm": [
-              -44.0,
-              330.0,
-              281.0
-            ]
-          },
-          {
-            "point_mm": [
-              -44.0,
-              284.0,
-              281.0
-            ]
-          },
-          {
-            "point_mm": [
-              -44.0,
-              284.0,
-              305.0
-            ]
-          },
-          {
-            "point_mm": [
-              11.600000000000001,
-              254.23669,
-              305.22722
-            ]
-          },
-          {
-            "point_mm": [
-              11.6,
-              246.23669,
-              297.22722
-            ]
-          },
-          {
-            "point_mm": [
-              11.6,
-              210.23669,
-              289.22722
-            ]
-          },
-          {
-            "point_mm": [
-              27.6,
-              202.23669,
-              289.22722
-            ]
-          },
-          {
-            "point_mm": [
-              47.2,
-              178.23669,
-              297.22722
-            ]
-          },
-          {
-            "point_mm": [
-              47.2,
-              175.53309136594,
-              295.13801
+              -32.8,
+              297.88417815610995,
+              301.76838287293407
             ]
           }
         ],
@@ -394,8 +224,8 @@
         "bend_radius_mm": 1.0
       }
     },
-    "description": "Continuous three-core SJOOW lead through the open front floor lane. The outer jacket ends near the fore connection area; the same three insulated cores fan out to the relay, neutral junction and protective-earth stack without a splice.",
-    "fanout_note": "The modeled jacket stops 12 mm into the fore end of the common centreline. The original continuous insulated H/N/PE cores leave this jacket through the open connection region and reach their existing relay, neutral-junction and earth-stack terminals; no inline splice or added junction is present."
+    "description": "Three-core SJOOW through the fore floor lane. Switched H and neutral fan out to their separate 221-413 joins beneath the funnel; PE remains continuous to the rear-wall earth stack.",
+    "fanout_note": "The jacket ends 12 mm into the fore end of the shared centreline. Its switched-hot and neutral cores finish at the final-connection WAGOs; PE runs continuously to the rear-wall earth stack."
   },
   "reed-column-a": {
     "jacket": false,
@@ -406,7 +236,7 @@
       4.0,
       2.0
     ],
-    "route_status": "guided",
+    "route_status": "selected_layout",
     "cores": {
       "J6-RA1": [
         1.3348780407186633,
@@ -455,7 +285,7 @@
           3.0
         ],
         "bend_radius_mm": 2.0,
-        "route_status": "guided",
+        "route_status": "selected_layout",
         "entry_stations": [
           {
             "point_mm": [
@@ -491,7 +321,7 @@
           3.0
         ],
         "bend_radius_mm": 2.0,
-        "route_status": "guided",
+        "route_status": "selected_layout",
         "entry_stations": [
           {
             "point_mm": [
@@ -527,7 +357,7 @@
           3.0
         ],
         "bend_radius_mm": 2.0,
-        "route_status": "guided",
+        "route_status": "selected_layout",
         "entry_stations": [
           {
             "point_mm": [
@@ -563,7 +393,7 @@
           3.0
         ],
         "bend_radius_mm": 2.0,
-        "route_status": "guided",
+        "route_status": "selected_layout",
         "entry_stations": [
           {
             "point_mm": [
@@ -591,7 +421,7 @@
           4.0
         ],
         "bend_radius_mm": 2.0,
-        "route_status": "guided",
+        "route_status": "selected_layout",
         "entry_stations": [
           {
             "terminal": "J6.GND",
@@ -608,29 +438,29 @@
     "stations": [
       {
         "point_mm": [
-          -49.0,
+          -95.0,
           300.0,
-          281.0
+          282.5
         ]
       },
       {
         "point_mm": [
-          -49.0,
-          446.0,
-          281.0
+          -95.0,
+          450.0,
+          282.5
         ]
       },
       {
         "point_mm": [
-          -49.0,
-          446.0,
+          -95.0,
+          450.0,
           260.5
         ]
       },
       {
         "point_mm": [
           -32.5,
-          446.0,
+          450.0,
           260.5
         ]
       },
@@ -658,34 +488,34 @@
         "J6-RA1"
       ],
       "high_point_mm": [
-        -49.0,
-        350.0,
-        281.0
+        -95.0,
+        386.0,
+        282.5
       ],
       "seat_entry_mm": [
-        -54.5,
-        376.0,
+        -73.9,
+        412.0,
         261.2
       ],
       "return_controls_mm": [
         [
-          -54.5,
-          414.0,
+          -73.9,
+          446.0,
           261.2
         ],
         [
-          -54.5,
-          438.0,
+          -73.9,
+          454.0,
           261.2
         ],
         [
           -46.0,
-          446.0,
+          450.0,
           260.5
         ],
         [
           -36.0,
-          446.0,
+          450.0,
           260.5
         ]
       ],
@@ -693,8 +523,8 @@
       "pack_radius_mm": 1.65,
       "drop_opening_fraction": 0.0,
       "hook_straight_y_mm": [
-        380.0,
-        396.0
+        416.0,
+        432.0
       ],
       "grade": "quintic"
     }
@@ -708,7 +538,7 @@
       4.0,
       0.0
     ],
-    "route_status": "proposed",
+    "route_status": "selected_layout",
     "cores": {
       "J7-earth-4": [
         -1.65,
@@ -747,7 +577,7 @@
           4.0
         ],
         "bend_radius_mm": 4.0,
-        "route_status": "proposed",
+        "route_status": "selected_layout",
         "entry_stations": [
           {
             "point_mm": [
@@ -802,7 +632,7 @@
           3.0
         ],
         "bend_radius_mm": 2.0,
-        "route_status": "proposed",
+        "route_status": "selected_layout",
         "entry_stations": [
           {
             "terminal": "J7.RB1",
@@ -837,7 +667,7 @@
           3.0
         ],
         "bend_radius_mm": 2.0,
-        "route_status": "proposed",
+        "route_status": "selected_layout",
         "entry_stations": [
           {
             "terminal": "J7.RB2",
@@ -872,7 +702,7 @@
           3.0
         ],
         "bend_radius_mm": 2.0,
-        "route_status": "proposed",
+        "route_status": "selected_layout",
         "entry_stations": [
           {
             "terminal": "J7.RB3",
@@ -907,7 +737,7 @@
           3.0
         ],
         "bend_radius_mm": 2.0,
-        "route_status": "proposed",
+        "route_status": "selected_layout",
         "entry_stations": [
           {
             "terminal": "J7.RB4",
@@ -973,7 +803,7 @@
     "stations": [
       {
         "point_mm": [
-          -84.0,
+          -82.5,
           323.8,
           177.8
         ]
@@ -1082,7 +912,7 @@
       3.0,
       4.0
     ],
-    "route_status": "proposed",
+    "route_status": "selected_layout",
     "cores": {
       "temp-bus-V": [
         -1.85,
@@ -1106,7 +936,7 @@
           0.0
         ],
         "bend_radius_mm": 2.0,
-        "route_status": "proposed"
+        "route_status": "selected_layout"
       },
       "temp-bus-DATA": {
         "entry_stations": [],
@@ -1116,7 +946,7 @@
           0.0
         ],
         "bend_radius_mm": 2.0,
-        "route_status": "proposed"
+        "route_status": "selected_layout"
       },
       "temp-bus-GND": {
         "entry_stations": [],
@@ -1126,58 +956,21 @@
           0.0
         ],
         "bend_radius_mm": 2.0,
-        "route_status": "proposed"
+        "route_status": "selected_layout"
       }
     }
   },
   "sensor-cable": {
     "jacket": false,
     "kind": "Carbonator signal loom",
-    "description": "Six 22 AWG temperature and reed conductors surround the separate 16 AWG protective-earth core through the straight west cap port. The signal trunk follows one accessible west approach to its existing PCB and WAGO fanouts.",
-    "stations": [
-      {
-        "point_mm": [
-          -26.0,
-          264.0,
-          281.0
-        ]
-      },
-      {
-        "point_mm": [
-          -44.0,
-          284.0,
-          281.0
-        ]
-      },
-      {
-        "point_mm": [
-          -44.0,
-          330.0,
-          281.0
-        ]
-      },
-      {
-        "point_mm": [
-          -48.0,
-          347.0,
-          274.0
-        ]
-      },
-      {
-        "point_mm": [
-          -48.0,
-          347.0,
-          234.0
-        ]
-      }
-    ],
+    "description": "Six signal conductors surround the separate protective-earth core through the offset cap passage. The signal trunk follows the clear west aisle to its PCB and WAGO fanouts.",
     "packed_diameter_mm": 6.6,
     "bend_radius_mm": 5.5,
     "fanout_tangent_mm": [
       3.0,
       0.0
     ],
-    "route_status": "proposed",
+    "route_status": "selected_layout",
     "cores": {
       "J4-3V3": [
         2.45,
@@ -1264,7 +1057,7 @@
           4.0
         ],
         "bend_radius_mm": 3.0,
-        "route_status": "proposed"
+        "route_status": "selected_layout"
       },
       "J4-IO26": {
         "entry_stations": [
@@ -1325,7 +1118,7 @@
           4.0
         ],
         "bend_radius_mm": 3.0,
-        "route_status": "proposed"
+        "route_status": "selected_layout"
       },
       "temp-GND": {
         "entry_stations": [
@@ -1393,7 +1186,7 @@
           4.0
         ],
         "bend_radius_mm": 3.0,
-        "route_status": "proposed"
+        "route_status": "selected_layout"
       },
       "J7-CLO": {
         "entry_stations": [
@@ -1454,7 +1247,7 @@
           2.0
         ],
         "bend_radius_mm": 3.0,
-        "route_status": "proposed"
+        "route_status": "selected_layout"
       },
       "J7-CHI": {
         "entry_stations": [
@@ -1515,7 +1308,7 @@
           2.0
         ],
         "bend_radius_mm": 3.0,
-        "route_status": "proposed"
+        "route_status": "selected_layout"
       },
       "J7-carb-earth-2": {
         "entry_stations": [
@@ -1590,37 +1383,44 @@
           4.0
         ],
         "bend_radius_mm": 3.0,
-        "route_status": "proposed"
+        "route_status": "selected_layout"
       }
-    }
+    },
+    "passage": "sensor-cable",
+    "above_cap_stations_mm": [
+      [
+        -26.0,
+        264.0,
+        281.0
+      ],
+      [
+        -44.0,
+        284.0,
+        281.0
+      ],
+      [
+        -78.0,
+        284.0,
+        281.0
+      ],
+      [
+        -78.0,
+        320.0,
+        281.0
+      ]
+    ]
   },
   "carbonator-earth": {
     "jacket": false,
     "kind": "Carbonator protective earth",
-    "description": "The 16 AWG protective-earth conductor occupies the center of the seven-core cap section and peels directly to the lid ring star. Its closed ring bonds the drilled vessel rim before potting.",
-    "stations": [
-      {
-        "point_mm": [
-          -48.0,
-          347.0,
-          260.0
-        ]
-      },
-      {
-        "point_mm": [
-          -48.0,
-          347.0,
-          234.0
-        ]
-      }
-    ],
+    "description": "The 16 AWG earth conductor occupies the center of the shared cap passage and reaches the rear-wall ring stack below C14.",
     "packed_diameter_mm": 6.6,
     "bend_radius_mm": 5.5,
     "fanout_tangent_mm": [
       4.0,
       0.0
     ],
-    "route_status": "proposed",
+    "route_status": "selected_layout",
     "cores": {
       "PE-carbonator": [
         0.0,
@@ -1631,11 +1431,31 @@
       "PE-carbonator": {
         "entry_stations": [
           {
-            "terminal": "ground.carbonator",
-            "offset": [
-              -4.0,
-              6.9282032303,
-              7.0
+            "point_mm": [
+              -85.15,
+              447.0,
+              313.935
+            ]
+          },
+          {
+            "point_mm": [
+              -85.15,
+              447.0,
+              283.5
+            ]
+          },
+          {
+            "point_mm": [
+              -85.15,
+              320.0,
+              283.5
+            ]
+          },
+          {
+            "point_mm": [
+              -78.0,
+              320.0,
+              283.5
             ]
           }
         ],
@@ -1653,9 +1473,10 @@
           4.0
         ],
         "bend_radius_mm": 3.0,
-        "route_status": "proposed"
+        "route_status": "selected_layout"
       }
-    }
+    },
+    "passage": "sensor-cable"
   },
   "condenser-fan-pair": {
     "jacket": false,
@@ -1666,7 +1487,7 @@
       4.0,
       4.0
     ],
-    "route_status": "proposed",
+    "route_status": "selected_layout",
     "cores": {
       "J2-FAN": [
         0.0,
@@ -1728,7 +1549,7 @@
           6.0
         ],
         "bend_radius_mm": 4.0,
-        "route_status": "proposed",
+        "route_status": "selected_layout",
         "entry_stations": [
           {
             "point_mm": [
@@ -1796,7 +1617,7 @@
           6.0
         ],
         "bend_radius_mm": 4.0,
-        "route_status": "proposed",
+        "route_status": "selected_layout",
         "entry_stations": [
           {
             "point_mm": [
@@ -1842,7 +1663,7 @@
       4.0,
       4.0
     ],
-    "route_status": "guided",
+    "route_status": "selected_layout",
     "cores": {
       "J11-GND": [
         0.0,
@@ -1993,7 +1814,7 @@
           4.0
         ],
         "bend_radius_mm": 4.0,
-        "route_status": "guided"
+        "route_status": "selected_layout"
       },
       "J11-V5": {
         "entry_stations": [
@@ -2054,7 +1875,7 @@
           4.0
         ],
         "bend_radius_mm": 4.0,
-        "route_status": "guided"
+        "route_status": "selected_layout"
       },
       "J11-DOUT": {
         "entry_stations": [
@@ -2115,7 +1936,7 @@
           4.0
         ],
         "bend_radius_mm": 4.0,
-        "route_status": "guided"
+        "route_status": "selected_layout"
       },
       "J11-AOUT": {
         "entry_stations": [
@@ -2176,7 +1997,7 @@
           4.0
         ],
         "bend_radius_mm": 4.0,
-        "route_status": "guided"
+        "route_status": "selected_layout"
       }
     }
   }

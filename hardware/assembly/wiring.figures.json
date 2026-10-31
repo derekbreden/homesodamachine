@@ -18,7 +18,7 @@
     "PULLUP_R": "4.7 k\u03a9",
     "SIG_DISPLAY_LEN": "~400 mm",
     "SIG_ONEWIRE_LEN": "~650 mm",
-    "SIG_REEDS_A_LEN": "~600 mm",
+    "SIG_REEDS_A_LEN": "~650 mm",
     "SIG_UMBILICAL_LEN": "~2 m",
     "WINDING_R_HIGH": "30 \u03a9",
     "WINDING_R_LOW": "10"
