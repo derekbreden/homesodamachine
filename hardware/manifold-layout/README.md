@@ -29,7 +29,7 @@ The eight front valves stand on two decks in `enclosure-front-top`. Four pump
 tees pass through the tee wall behind its collet plate. Each tee's branch takes
 one prepared pump tube; its upper run reaches a fore valve through a short
 straight tube, and its lower run reaches a rear valve through two trimmed
-NeoFit ATEU44W stem elbows and one straight LLDPE tube. The two source tees,
+NeoFit ATEU44W stem elbows and one gently formed LLDPE tube. The two source tees,
 Y-A and Y-B, meet V-C and V-D through their existing collet butt joints.
 
 Front-top's integral upper pockets and the broad lower retainer capture

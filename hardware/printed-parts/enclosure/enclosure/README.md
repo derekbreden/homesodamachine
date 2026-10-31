@@ -1158,7 +1158,7 @@ snap-fit retainer holds the pumps in front-top.
 
 Each tee's upper collet takes one short tube up to its fore valve at
 [Y108.04](DOCK_FORE_VALVE_Y). Its lower return uses two trimmed stem elbows and one
-straight tube at [Z158.879](DOCK_RETURN_Z) to reach the rear valve. Install all four prepared
+continuous tube with two tangent bends below [Z168.81](DOCK_RETURN_Z) to reach the rear valve. Install all four prepared
 tee, upper-tube and fore-valve groups straight from aft before fitting the rear valve row.
 Complete both rows and the returns while front-top is loose, before its aft slide over the populated
 lower enclosure. The [pump-mount record](../pump-dock/README.md) supplies the fitting
@@ -1197,12 +1197,12 @@ the top and the retaining hooks at the bottom.
 Each hook’s nominal outer face is at |X|99.5. Its relaxed tip spreads outward 0.35 mm;
 the assembly representation uses 0.10 mm at the seated receiver back, |X|99.6. The resulting
 0.25 mm displacement is a geometric spring fit, without a force or lifetime qualification.
-The hook-bearing plane stays at Z165.195. Its receiver floor is at Z = [165.045 mm](PUMP_SNAP_RECEIVER_FLOOR_Z), providing
+The hook-bearing plane stays at Z175.195. Its receiver floor is at Z = [165.045 mm](PUMP_SNAP_RECEIVER_FLOOR_Z), providing
 0.15 mm of static allowance without moving the fitted pump seats.
 
 One centred, [4.5 mm](PUMP_SNAP_PORT_WIDTH) Y-wide screwdriver opening per side passes through |X|98.5–104.5
-and opens from Z160.25. On the right its roof is one continuous 45° face from
-X99.6/Z174.8 to X104.5/Z169.9; the left is mirrored. This corbel leaves 3 mm of outer wall
+and opens from Z170.195. On the right its roof is one continuous 45° face from
+X99.6/Z185.195 to X104.5/Z180.295; the left is mirrored. This corbel leaves 3 mm of outer wall
 and preserves the blade’s path to the wing. The receiver’s lower edge supplies the fulcrum
 for bending the wing inward until its hook clears. Support the pump/retainer unit while
 releasing both hooks and lowering it. Complete pump removal with front-top open and the

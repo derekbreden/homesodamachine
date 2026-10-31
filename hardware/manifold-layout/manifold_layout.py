@@ -97,7 +97,7 @@ BUTT = 0.0            # tube left outside a pair of butted quick-connects
 CARRIER_DROP = (_enc_if.pump_station_drop + _enc_if.manifold_rise
                 + _enc_if.pump_seated_drop - kp.outlet_above_skirt_bottom)
 INNER_LIMB_DROP = _enc_if.inner_limb_drop
-FORE_VALVE_RISE = 10.0
+FORE_VALVE_RISE = 0.0
 FORE_STUB_GAP = FORE_VALVE_RISE + CARRIER_DROP
 # EXPOSED tube between the two sleeve faces, not the cut length swallowed by their collets.
 # The valve's own insertion depth is not measured, so the cut length remains a bench figure.
@@ -111,12 +111,12 @@ FIXED_TEE_AFT_SHIFT = 0.0
 AFT_DECK_AFT_SHIFT = 0.0
 # The rear row's height over its deck reference. The cold-core valves retain their
 # existing seats.
-AFT_PACK_RISE = 8.0
-# V-G and V-J stand as low as V-C and V-D, so all four rear valves' bottom collets stand at one
-# height and each lower return's two stem elbows face each other level.
+AFT_PACK_RISE = 0.5
+# V-G and V-J stand as low as V-C and V-D. Their fully seated elbows
+# face the tee elbows on parallel horizontal axes; the free tubes carry the height step.
 OUTER_AFT_DROP = INNER_LIMB_DROP
 # Existing world lift is independent of the fixed routing's lowest surface.
-WORLD_LIFT = 191.425
+WORLD_LIFT = 201.425
 PACK_ORIGIN_Y = 14.48
 # The collet plate's fore face stands this far aft of the pump barb plane: the cradle's
 # fitted back datum and its frame gap. The pump tube reaches on through the plate to its
@@ -841,7 +841,7 @@ def _authored(segment):
 
 
 def lower_links() -> dict:
-    """Each lower return's straight tube, between its two elbows' socket mouths, as centreline
+    """Each lower return's tube, between its two elbows' socket mouths, as centreline
     segments in the manifold authoring frame."""
     return {cid: tuple(_authored(s) for s in pump_plumbing()[name]['return']['tube'])
             for cid, name in LOWER_CONNECTIONS.items()}
@@ -852,7 +852,7 @@ def lower_tube(segments):
 
 
 def lower_link_length(cid: int) -> float:
-    """A lower return tube's cut stock: its straight between the two elbows and the depth each
+    """A lower return tube's cut stock: its path between the two elbows and the depth each
     elbow's socket takes."""
     return pump_plumbing()[LOWER_CONNECTIONS[cid]]['return']['cut_mm']
 
@@ -862,7 +862,7 @@ def _junction_at_author_x(x):
 
 
 def return_exposed(x: float) -> float:
-    """The lower return tube's straight between its two elbows, at the limb on `x`."""
+    """The lower return tube's free length between its elbows, at the limb on `x`."""
     return pump_plumbing()[_junction_at_author_x(x)]['return']['exposed_mm']
 
 
