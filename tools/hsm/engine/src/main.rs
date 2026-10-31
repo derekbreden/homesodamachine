@@ -1,4 +1,5 @@
 mod mcp;
+mod published;
 mod service;
 mod store;
 
@@ -117,6 +118,7 @@ fn build_id() -> String {
     h.update(include_str!("service.rs"));
     h.update(include_str!("store.rs"));
     h.update(include_str!("mcp.rs"));
+    h.update(include_str!("published.rs"));
     h.update(store::geometry_version());
     format!("{:x}", h.finalize())
 }
@@ -198,6 +200,7 @@ impl Client {
     }
 
     pub fn call(&self, request: &Request) -> Result<Value> {
+        published::ensure(&request.scene)?;
         self.ensure_daemon()?;
         send(&self.socket, request).or_else(|e| {
             // A daemon that went idle between the ping and this request has closed its socket.

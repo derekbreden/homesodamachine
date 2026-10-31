@@ -1,4 +1,12 @@
 {
+  "enabledMcpjsonServers": [
+    "hsm"
+  ],
+  "permissions": {
+    "allow": [
+      "mcp__hsm"
+    ]
+  },
   "hooks": {
     "SessionStart": [
       {

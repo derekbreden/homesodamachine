@@ -52,6 +52,30 @@ fn tools() -> Vec<Value> {
     }).collect()
 }
 
+fn instructions(client: &Client) -> String {
+    format!(
+        "Geometry of the machine as /3d draws it, measured off the mesh payloads of the \
+         checkout at {}: names and world bounds, gaps, overlaps, trial moves, sections and \
+         rays, in mm and mm^3. A query starts no CAD build. Each reply names the payload it \
+         measured, so a source edit shows once its producer exports a new payload. `root` \
+         measures another worktree and `scene` another assembly.",
+        client.root.display()
+    )
+}
+
+/// The checkout a Codex turn runs in. Codex names the turn's git workspaces in each call's
+/// metadata, so the measured checkout follows the turn wherever the server was started.
+fn workspace(client: &Client, params: &Value) -> Option<std::path::PathBuf> {
+    let workspaces = params["_meta"]["x-codex-turn-metadata"]["workspaces"].as_object()?;
+    if workspaces.keys().any(|w| std::path::Path::new(w) == client.root) {
+        return None;
+    }
+    match workspaces.keys().collect::<Vec<_>>()[..] {
+        [only] => Some(only.into()),
+        _ => None,
+    }
+}
+
 fn call(client: &Client, params: &Value) -> Result<Value> {
     let name = params["name"].as_str().context("missing tool name")?;
     let op = name.strip_prefix("hsm_").context("unknown tool")?;
@@ -70,6 +94,7 @@ fn call(client: &Client, params: &Value) -> Result<Value> {
                 .context("root must be a string")
         })
         .transpose()?
+        .or_else(|| workspace(client, params))
         .unwrap_or_else(|| client.root.clone());
     let scene = arguments
         .remove("scene")
@@ -112,7 +137,8 @@ pub fn serve(client: &Client) -> Result<()> {
         let response = match message["method"].as_str() {
             Some("initialize") => Ok(
                 json!({"protocolVersion":"2024-11-05","capabilities":{"tools":{"listChanged":false}},
-                "serverInfo":{"name":"hsm","version":env!("CARGO_PKG_VERSION")}}),
+                "serverInfo":{"name":"hsm","version":env!("CARGO_PKG_VERSION")},
+                "instructions":instructions(client)}),
             ),
             Some("ping") => Ok(json!({})),
             Some("tools/list") => Ok(json!({"tools":tools()})),

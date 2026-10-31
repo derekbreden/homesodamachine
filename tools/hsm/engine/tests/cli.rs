@@ -321,3 +321,135 @@ fn mcp_is_json_rpc_and_uses_the_shared_daemon() {
     assert_eq!(lines[3]["result"]["isError"], true);
     assert_eq!(f.query(&["status"])["result"]["cache"]["payload_loads"], 1);
 }
+
+fn rpc(command: &mut Command, messages: &[Value]) -> Vec<Value> {
+    let mut child = command
+        .arg("mcp")
+        .stdin(Stdio::piped())
+        .stdout(Stdio::piped())
+        .stderr(Stdio::piped())
+        .spawn()
+        .unwrap();
+    let mut input = child.stdin.take().unwrap();
+    for message in messages {
+        writeln!(input, "{message}").unwrap();
+    }
+    drop(input);
+    let out = child.wait_with_output().unwrap();
+    assert!(out.status.success(), "{}", String::from_utf8_lossy(&out.stderr));
+    String::from_utf8(out.stdout)
+        .unwrap()
+        .lines()
+        .map(|l| serde_json::from_str(l).unwrap())
+        .collect()
+}
+
+#[test]
+fn mcp_names_its_checkout_and_follows_a_codex_turns_workspace() {
+    let f = Fixture::new();
+    let other = f.root.join("other");
+    fs::create_dir(&other).unwrap();
+    fs::write(other.join("fixture.step.mesh"), payload(10.0)).unwrap();
+    let turn = |workspaces: Value| {
+        json!({"jsonrpc":"2.0","id":2,"method":"tools/call","params":{"name":"hsm_where",
+            "arguments":{"pattern":"part-one"},
+            "_meta":{"x-codex-turn-metadata":{"workspaces":workspaces}}}})
+    };
+    let lines = rpc(
+        &mut f.command(),
+        &[
+            json!({"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2025-06-18"}}),
+            turn(json!({other.to_str().unwrap(): {"has_changes": false}})),
+            turn(json!({f.root.to_str().unwrap(): {}, other.to_str().unwrap(): {}})),
+        ],
+    );
+    let root = f.root.canonicalize().unwrap();
+    assert!(
+        lines[0]["result"]["instructions"]
+            .as_str()
+            .unwrap()
+            .contains(root.to_str().unwrap())
+    );
+    let measured = |line: &Value| {
+        line["result"]["structuredContent"]["result"]["data"]["parts"][0]["min_mm"][0].clone()
+    };
+    assert_eq!(measured(&lines[1]), 9.0);
+    assert_eq!(measured(&lines[2]), -1.0);
+}
+
+fn sha256(bytes: &[u8]) -> String {
+    use sha2::{Digest, Sha256};
+    format!("{:x}", Sha256::digest(bytes))
+}
+
+fn gzip(bytes: &[u8]) -> Vec<u8> {
+    let mut child = Command::new("gzip")
+        .arg("-c")
+        .stdin(Stdio::piped())
+        .stdout(Stdio::piped())
+        .spawn()
+        .unwrap();
+    child.stdin.take().unwrap().write_all(bytes).unwrap();
+    let out = child.wait_with_output().unwrap();
+    assert!(out.status.success());
+    out.stdout
+}
+
+#[test]
+fn a_worktree_without_its_payload_takes_the_published_one() {
+    let f = Fixture::new();
+    let bytes = payload(0.0);
+    let hash = sha256(&bytes);
+    // A main checkout holding the payload, and a linked worktree of it holding none.
+    let main = f.root.join("main");
+    let worktree = f.root.join("worktree");
+    let gitdir = main.join(".git/worktrees/wt");
+    fs::create_dir_all(&gitdir).unwrap();
+    fs::write(gitdir.join("commondir"), "../..\n").unwrap();
+    fs::create_dir_all(main.join("hardware")).unwrap();
+    fs::write(main.join("hardware/part.step.mesh"), &bytes).unwrap();
+    fs::create_dir_all(worktree.join("hardware")).unwrap();
+    fs::write(worktree.join(".git"), format!("gitdir: {}\n", gitdir.display())).unwrap();
+    let objects = f.root.join("objects");
+    fs::create_dir(&objects).unwrap();
+    fs::write(objects.join(format!("s-{hash}.gz")), gzip(&bytes)).unwrap();
+    let pointers = |hash: &str| {
+        json!({"store":{"url":format!("file://{}/", objects.display()),"objects":"s-"},
+            "solids":{"hardware/part.step.mesh":hash}})
+        .to_string()
+    };
+    fs::write(worktree.join("hardware/cad-artifacts.json"), pointers(&hash)).unwrap();
+    let mesh = worktree.join("hardware/part.step.mesh");
+    let query = || {
+        Command::new(env!("CARGO_BIN_EXE_hsm"))
+            .arg("--root")
+            .arg(&worktree)
+            .args(["--scene", "hardware/part.step", "--socket"])
+            .arg(&f.socket)
+            .arg("--store")
+            .arg(&f.store)
+            .args(["where", "part-one"])
+            .output()
+            .unwrap()
+    };
+    let taken = |out: &std::process::Output, from: &str| {
+        assert!(out.status.success(), "{}", String::from_utf8_lossy(&out.stderr));
+        assert!(String::from_utf8_lossy(&out.stderr).contains(from));
+        assert_eq!(fs::read(&mesh).unwrap(), bytes);
+    };
+
+    taken(&query(), main.to_str().unwrap());
+    fs::remove_file(&mesh).unwrap();
+    fs::remove_file(main.join("hardware/part.step.mesh")).unwrap();
+    taken(&query(), "file://");
+
+    // Bytes the pointer file does not name stay out of the tree.
+    fs::remove_file(&mesh).unwrap();
+    fs::write(main.join("hardware/part.step.mesh"), payload(1.0)).unwrap();
+    fs::write(worktree.join("hardware/cad-artifacts.json"), pointers(&sha256(b"other"))).unwrap();
+    let refused = query();
+    assert!(!refused.status.success());
+    assert!(String::from_utf8_lossy(&refused.stderr).contains("nothing supplied those bytes"));
+    assert!(!mesh.exists());
+    assert!(fs::read_dir(worktree.join("hardware")).unwrap().count() == 1);
+}
