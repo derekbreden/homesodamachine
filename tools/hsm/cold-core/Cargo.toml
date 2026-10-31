@@ -1,0 +1,17 @@
+[package]
+name = "hsm-cold-core"
+version = "0.1.0"
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+publish = false
+
+# Each part's program sits beside the Python module that holds its numbers.
+[[bin]]
+name = "coil-mandrel"
+path = "../../../hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.rs"
+
+[dependencies]
+anyhow.workspace = true
+hsm-kernel = { path = "../kernel" }
+serde_json.workspace = true

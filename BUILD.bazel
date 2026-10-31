@@ -3400,13 +3400,16 @@ cp hardware/printed-parts/cold-core/_cold_core_interface.py $$O0
 genrule(
     name = "coil-mandrel",
     srcs = [
+        "hardware/manifold-layout/above-core.json",
         "pysrc/hardware/manifold-layout/above_core.py",
         "pysrc/hardware/printed-parts/cadlib/fits.py",
-        "pysrc/hardware/printed-parts/cadlib/reeding.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
         "pysrc/hardware/printed-parts/cold-core/_above_core_mounts.py",
         "pysrc/hardware/printed-parts/cold-core/_cold_core_interface.py",
         "hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.py",
+        "hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.rs",
+        "pysrc/hardware/printed-parts/electronics/module_tray.py",
+        "pysrc/hardware/printed-parts/electronics/pcba-tray/pcba_tray.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_anchor_cap_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
@@ -3421,19 +3424,53 @@ genrule(
         "pysrc/hardware/scripts/_cadq_export.py",
         "pysrc/hardware/scripts/_material_base.py",
         "pysrc/hardware/scripts/_materials.py",
-        "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_rust_part.py",
         "pysrc/hardware/scripts/_stated_bounds.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/Cargo.lock",
+        "tools/hsm/Cargo.toml",
+        "tools/hsm/cold-core/Cargo.toml",
+        "tools/hsm/kernel/Cargo.toml",
+        "tools/hsm/kernel/src/boolean.rs",
+        "tools/hsm/kernel/src/build.rs",
+        "tools/hsm/kernel/src/face.rs",
+        "tools/hsm/kernel/src/lib.rs",
+        "tools/hsm/kernel/src/mass.rs",
+        "tools/hsm/kernel/src/math.rs",
+        "tools/hsm/kernel/src/part.rs",
+        "tools/hsm/kernel/src/plane.rs",
+        "tools/hsm/kernel/src/profile.rs",
+        "tools/hsm/kernel/src/rule.rs",
+        "tools/hsm/kernel/src/screw.rs",
+        "tools/hsm/kernel/src/sketch_hull.rs",
+        "tools/hsm/kernel/src/solid.rs",
+        "tools/hsm/kernel/src/step.rs",
+        "tools/hsm/kernel/src/sweep.rs",
+        "tools/hsm/kernel/src/text.rs",
+        "tools/hsm/kernel/src/thru.rs",
+        "tools/hsm/kernel/src/topo.rs",
+        "tools/hsm/kernel/src/triangulate.rs",
+        "tools/hsm/kernel/src/write.rs",
     ],
     outs = [
+        "out/coil-mandrel/hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.numbers.json",
         "out/coil-mandrel/hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step",
+        "out/coil-mandrel/hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step.mesh",
+        "out/coil-mandrel/hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step.npz",
+        "out/coil-mandrel/hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.stl",
         "out/coil-mandrel/hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.py",
     ],
+    tags = ["no-sandbox"],
     cmd = """
 set -e
-O0=$$PWD/$(location out/coil-mandrel/hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step)
-O1=$$PWD/$(location out/coil-mandrel/hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.py)
+O0=$$PWD/$(location out/coil-mandrel/hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.numbers.json)
+O1=$$PWD/$(location out/coil-mandrel/hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step)
+O2=$$PWD/$(location out/coil-mandrel/hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step.mesh)
+O3=$$PWD/$(location out/coil-mandrel/hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step.npz)
+O4=$$PWD/$(location out/coil-mandrel/hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.stl)
+O5=$$PWD/$(location out/coil-mandrel/hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.py)
+rm -rf work-coil-mandrel
 for f in $(SRCS); do
   case $$f in
     */node_modules/*) continue;;
@@ -3441,17 +3478,22 @@ for f in $(SRCS); do
     */pysrc/*) t=$${f##*/pysrc/};;
     *) t=$$f;;
   esac
-  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
+  mkdir -p work-coil-mandrel/$$(dirname $$t); cp -L $$f work-coil-mandrel/$$t
 done
 for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
+  if [ -d $$d ]; then mkdir -p work-coil-mandrel/$$(dirname $$d); ln -sfn $$PWD/$$d work-coil-mandrel/$$d; fi
 done
-cd work
+cd work-coil-mandrel
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.py > /dev/null
-cp hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step $$O0
-cp hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.py $$O1
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.py > /dev/null
+cp hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.numbers.json $$O0
+cp hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step $$O1
+cp hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step.mesh $$O2
+cp hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step.npz $$O3
+cp hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.stl $$O4
+cp hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.py $$O5
+cd .. && rm -rf work-coil-mandrel
 """,
 )
 
