@@ -23,8 +23,8 @@ a **single convex-outline floor**, **no walls**, **heat-set M3 bosses**.
   H-bridges, RS485, the 5 V buck + 3.3 V LDO, and every field connector
   (J1–J14).
 
-Off this tray: AC lives across the strip aft of the main board — the PSU, relay #1 and
-the ground ring-stack each on their own cap columns, the Wago AC distribution in
+Off this tray: AC lives across the strip aft of the main board — the PSU and relay #1
+each on their own cap columns, the Wago AC distribution and its PE block in
 the wall's own Wago wells; the looms land on the
 board's edge connectors per [`/hardware/wiring/ac-wiring-schedule.md`](/hardware/wiring/ac-wiring-schedule.md).
 

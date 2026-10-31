@@ -68,7 +68,6 @@ export const ALIASES = {
   "flow-regulator": "reference/yzmsz-water-regulator/geometry/yzmsz-water-regulator.step",
   "gas-check": "reference/neofit-achv44-check/neofit-achv44-check.step",
   "gas-regulator": "reference/compact-inline-candidates/geometry/candidate-regulator.step",
-  "ground-stack": "reference/ground-ring-stack/ground-ring-stack.step",
   // Two files carry the `funnel` stem — the part, and the mould's casting of it.
   "funnel": "printed-parts/zone-c/funnel/funnel.step",
   "funnel-drain-union": "reference/jg-pp0308e-elbow/jg-pp0308e-elbow.step",
