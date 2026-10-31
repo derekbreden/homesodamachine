@@ -302,13 +302,7 @@ fn merged(part: Part) -> Part {
                 faces.len() as u32 - 1
             };
             match f.surface.key() {
-                Some(k) => {
-                    let sense = match f.surface {
-                        Surface::Plane { n, .. } => n.dot(canonical_axis(n)) > 0.0,
-                        _ => true,
-                    };
-                    *first.entry((k, sense)).or_insert_with(push)
-                }
+                Some(k) => *first.entry((k, f.surface.sense())).or_insert_with(push),
                 None => push(),
             }
         })

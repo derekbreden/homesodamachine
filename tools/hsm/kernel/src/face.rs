@@ -74,6 +74,15 @@ impl Surface {
         }
     }
 
+    /// For a plane, whether its normal points along its key's axis; true for every other surface.
+    /// Two faces on one plane face the same way when their senses agree.
+    pub fn sense(&self) -> bool {
+        match *self {
+            Surface::Plane { n, .. } => n.dot(canonical_axis(n)) > 0.0,
+            _ => true,
+        }
+    }
+
     /// The key coincident surfaces share, or None for a free surface.
     pub fn key(&self) -> Option<SurfaceKey> {
         Some(match *self {
