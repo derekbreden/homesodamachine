@@ -52,7 +52,7 @@ Co-Authored-By: <the harness's line, when it adds one>
 
 ## Missing Tools
 
-A script you write because nothing in the repo answers your question is a tool the repo lacks. [`calibration/principle/Positions.md`](calibration/principle/Positions.md) shows one: a ten-minute search for a part's move, beside the same move read off the scene in a second. Each week a scheduled session runs [`tools/missing_tools.py`](tools/missing_tools.py) over the week's transcripts and brings Derek the questions several sessions answered with code of their own. He decides what joins the repo.
+A script you write because nothing in the repo answers your question is a tool the repo lacks. [`calibration/principle/Positions.md`](calibration/principle/Positions.md) shows one: a ten-minute search for a part's move, beside the same move read off the scene in a second. Derek decides what joins the repo.
 
 ## Enclosure Changes
 
