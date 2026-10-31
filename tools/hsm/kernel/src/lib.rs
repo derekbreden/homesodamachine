@@ -1,0 +1,53 @@
+//! The hsm CAD kernel: mesh-native solids that record where every face came from.
+//!
+//! A `Solid` is a closed triangle mesh in canonical order. Every triangle names a `Face`
+//! record: the exact surface it lies on (plane, cylinder, cone, sphere, torus, or a free
+//! surface), the builder that made it, the generator line that asked for it (`#[track_caller]`),
+//! and the boolean that brought it into the solid, if one did.
+//!
+//! Profiles are drawn exactly (`profile`) — lines, arcs, circles, Béziers, corner fillets and
+//! offsets — on a workplane (`Plane`), and every builder cuts them into points by one rule
+//! (`rule`), so the same surface always gets the same vertices and coincident faces of two
+//! solids meet point for point.
+//!
+//! ```no_run
+//! use hsm_kernel::*;
+//!
+//! # fn main() -> anyhow::Result<()> {
+//! let section = Profile::polygon(&[v2(0.0, 0.0), v2(10.0, 0.0), v2(10.0, 4.0), v2(0.0, 4.0)]);
+//! let bar = Plane::YZ.at(v3(-9.0, 0.0, 0.0)).extrude(&section, 18.0)?;
+//! let slot = Plane::XY.at(v3(0.0, 5.0, 2.0)).cuboid(20.0, 2.0, 2.0);
+//! let part = bar.cut(&slot)?;
+//! println!("{:.3} mm³", part.volume());
+//! write_payload("part.step.mesh", &[Body { name: "part", color: None, solid: &part }], None, None)?;
+//! # Ok(()) }
+//! ```
+//!
+//! Booleans run on Manifold (the `manifold` feature, on by default). Without it the kernel is
+//! pure Rust and builds for wasm32; its booleans then return an error.
+pub mod boolean;
+pub mod build;
+pub mod face;
+pub mod mass;
+pub mod math;
+pub mod plane;
+pub mod profile;
+pub mod rule;
+pub mod solid;
+pub mod sweep;
+pub mod text;
+pub mod topo;
+pub mod triangulate;
+pub mod write;
+
+pub use boolean::{FUZZ, Op};
+pub use face::{Face, Src, Surface, SurfaceKey, Via};
+pub use mass::Mass;
+pub use math::{Affine, V2, V3, v2, v3};
+pub use plane::Plane;
+pub use profile::{Curve, Loop, Pen, Profile, Region, Seg};
+pub use rule::{ANGULAR, GRID, LINEAR, TOLERANCE};
+pub use solid::{Bounds, Solid};
+pub use sweep::{Leg, Path};
+pub use text::{Font, HAlign, Kind, VAlign};
+pub use write::{Body, glb_bytes, payload_bytes, stl_bytes, threemf_bytes, write_3mf, write_glb, write_payload, write_stl};
