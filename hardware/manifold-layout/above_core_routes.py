@@ -293,10 +293,11 @@ def route_specifications(station):
     b_draw_rise_second, _ = _arc(b_draw_rise_mid, (-math.cos(b_draw_rise_angle), 0., math.sin(b_draw_rise_angle)),
                                               (0., -1., 0.), b_draw_rise_angle, 14.)
     b_draw_down, _ = _arc(b_draw_down_start, (-1., 0., 0.), (0., -1., 0.), math.pi/2, 14.)
+    b_draw_aft_x = -22.35  # Fixed lane west of J11's lifted housing path.
     b_draw_fore_x = b_draw_target[0]+33.65
     route('fluid-26', ('foam-assembly', 'reservoir-b'), ('valve-v-h', 'inlet'),
-          [(b_draw[0], b_draw[1], b_draw_z), (b_draw_target[0], 214., b_draw_z),
-           (b_draw_target[0], 138., b_draw_z), (b_draw_fore_x, 138., b_draw_z),
+          [(b_draw[0], b_draw[1], b_draw_z), (b_draw_aft_x, 214., b_draw_z),
+           (b_draw_aft_x, 138., b_draw_z), (b_draw_fore_x, 138., b_draw_z),
            (b_draw_fore_x, b_draw_target[1], b_draw_z), b_draw_rise_start],
           source_depth=0.,
           suffix=[b_draw_rise_first, b_draw_rise_second, b_draw_down],
