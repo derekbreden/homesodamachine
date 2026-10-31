@@ -3057,8 +3057,10 @@ def _print_solid(name, solid, outer):
         fx0, fx1, _fy0, _fy1, fz0, fz1 = disposal_field(outer)
         return solid.cut(_ybox(fx0, fx1, outer[3], outer[3] + disposal_raise + 1.0, fz0, fz1))
     if name == "back-top":
-        x0, x1, _y0, _y1, z0, z1 = _above_core_shell.rear_identification().field_land()
-        return solid.cut(_ybox(x0, x1, outer[3], outer[3] + 10.0, z0, z1))
+        identification = _above_core_shell.rear_identification()
+        for x0, x1, _y0, _y1, z0, z1 in (identification.field_land(), *identification.rail_bounds()):
+            solid = solid.cut(_ybox(x0, x1, outer[3], outer[3] + 10.0, z0, z1))
+        return solid
     return solid
 
 
@@ -3069,9 +3071,10 @@ def _raised_relief(name, solid, outer):
     if name == "back-bottom":
         return disposal_letters(outer)
     if name == "back-top":
-        x0, x1, _y0, _y1, z0, z1 = _above_core_shell.rear_identification().field_land()
-        return solid.intersect(_ybox(x0, x1, outer[3] - disposal_embed, outer[3] + 10.0,
-                                     z0, z1))
+        identification = _above_core_shell.rear_identification()
+        return cq.Compound.makeCompound([
+            solid.intersect(_ybox(x0, x1, outer[3] - disposal_embed, outer[3] + 10.0, z0, z1))
+            for x0, x1, _y0, _y1, z0, z1 in (identification.field_land(), *identification.rail_bounds())])
     return None
 
 
@@ -8775,10 +8778,13 @@ def _silhouette_bound(pieces, box):
             fx0, fx1, _fy0, fy1, fz0, fz1 = disposal_field(box.outer)
             solid = solid.cut(_ybox(fx0, fx1, oy1, fy1, fz0, fz1))
         if name == 'back-top':
-            field = _above_core_shell.rear_identification().receiver_field()
+            identification = _above_core_shell.rear_identification()
+            field = identification.receiver_field()
             exterior = _ybox(ox0-1., ox1+1., oy1,
                              max(oy1, field.BoundingBox().ymax)+1., oz0-1., oz1+1.)
             solid = solid.cut(field.intersect(exterior))
+            for bounds in identification.rail_bounds():
+                solid = solid.cut(_ybox(*bounds))
         b = solid.BoundingBox()
         for label, got, limit, sign in (("-X", b.xmin, ox0, -1.0), ("+X", b.xmax, ox1, 1.0),
                                         ("-Y", b.ymin, oy0, -1.0), ("+Y", b.ymax, oy1, 1.0),

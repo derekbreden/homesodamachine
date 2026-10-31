@@ -7,7 +7,8 @@ seats share [rear_snaps.py](../../../manifold-layout/rear_snaps.py) and
 The ASSE cap holds the lower halves of both hexes, bears against the inlet
 coupling, and passes the downward vent cup through its bottom flat. The Pisco
 cap catches the outlet fitting's neck. The meter cap enters from the west;
-its lower wing passes the flavor-A tube beneath the meter housing. The water
+its lower wing passes the flavor-A tube beneath the meter housing through
+an open fore corner, retaining the aft bearing and both catches. The water
 regulator cap holds the lower half of the housing after it enters its seat
 from below. Each cap is one solid, with two integral spring walls and hooks.
 

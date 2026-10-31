@@ -48,8 +48,9 @@ def _revolve(profile):
 
 
 ELBOW_REACH = 25.4
-SOCKET_DROP = 4.55
-ELBOW_R = SOCKET_DROP-.5
+ELBOW_R = 4.05
+TURN_START_Z = -.5-REDUCER_LENGTH
+SOCKET_DROP = -TURN_START_Z+ELBOW_R
 
 
 def build(*, installed=False):
@@ -70,14 +71,15 @@ def build(*, installed=False):
     barb = cq.Solid.makeCylinder(barb_d/2.,INSTALLED_REACH+.6,
                                 cq.Vector(0.,0.,-.5))
     # The short printed drain turn is separate from the LLDPE's bend rule.
-    a = cq.Vector(0.,0.,-.5)
-    mid = cq.Vector(-ELBOW_R+ELBOW_R/math.sqrt(2.),0.,-.5-ELBOW_R/math.sqrt(2.))
+    a = cq.Vector(0.,0.,TURN_START_Z)
+    mid = cq.Vector(-ELBOW_R+ELBOW_R/math.sqrt(2.),0.,TURN_START_Z-ELBOW_R/math.sqrt(2.))
     b = cq.Vector(-ELBOW_R,0.,-SOCKET_DROP)
     turn = cq.Wire.assembleEdges([cq.Edge.makeThreePointArc(a,mid,b)])
     channel = (cq.Workplane(cq.Plane(origin=a,normal=(0.,0.,-1.)))
                .circle(tube_d/2.).sweep(turn).val())
     bore = cq.Solid.makeCylinder(tube_d/2.,ELBOW_REACH-ELBOW_R+.1,b,cq.Vector(-1.,0.,0.))
-    body = body.cut(barb,channel,bore)
+    transition = cq.Solid.makeCone(tube_d/2.,barb_d/2.,REDUCER_LENGTH,a)
+    body = body.cut(barb,transition,channel,bore)
     for centre,radius,horizontal in ((INSTALLED_REACH-BARB_TIE_Z,rb,False),
                                      (ELBOW_REACH-6.,rt,True)):
         lo,hi = centre-GROOVE_FLAT/2.,centre+GROOVE_FLAT/2.
@@ -118,11 +120,12 @@ def main():
     sys.path.insert(0, str(HARDWARE.parent / "tools"))
     from docgen import substitute_md
     substitute_md(HERE / "README.md", variables={
-        "BARB_BORE": f"{BARB_BORE:.2f}", "BARB_DEPTH": f"{BARB_DEPTH:g}",
+        "BARB_BORE": f"{BARB_BORE:.2f}", "BARB_DEPTH": f"{INSTALLED_REACH+.5:g}",
         "TUBE_BORE": f"{TUBE_BORE:.2f}", "TUBE_DEPTH": f"{TUBE_DEPTH:g}",
         "TAPER_ANGLE": f"{TAPER_ANGLE:g}", "LENGTH": f"{LENGTH:.2f}",
         "BARB_OD": f"{BARB_OD:g}", "TUBE_OD": f"{TUBE_OD:g}",
         "MIN_WALL": f"{MIN_WALL:.2f}",
+        "SOCKET_DROP": f"{SOCKET_DROP:.2f}", "REDUCER_LENGTH": f"{REDUCER_LENGTH:.2f}",
         "VOLUME": f"{shape.Volume()/1000:.3f}",
     })
     print(f"-> {step.name}, {stl.name}, {step.name}.mesh; {shape.Volume()/1000:.3f} cm3")

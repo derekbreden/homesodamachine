@@ -214,7 +214,10 @@ def seats():
     path = parts.route_wire({'segments':segments})
     corridor = (cq.Workplane(cq.Plane(origin=segments[0]['points_mm'][0],normal=(0.,1.,0.)))
                 .circle(2.5).sweep(path,isFrenet=False,clean=False).val())
-    result['meter-snap-cap'] = result['meter-snap-cap'].cut(corridor).clean()
+    # Open the fore end of the lower wing beneath the descending tube. The
+    # aft bearing and both spring catches retain their complete sections.
+    corner = snaps.box(71.25,80.,396.,403.75,260.,267.)
+    result['meter-snap-cap'] = result['meter-snap-cap'].cut(corridor,corner).clean()
     return result
 
 

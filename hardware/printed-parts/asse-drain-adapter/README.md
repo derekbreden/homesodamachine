@@ -7,15 +7,17 @@ straight and does not make that turn.
 
 | Feature | Relaxed print dimension |
 |---|---|
-| Barb socket | Ø[6.10](BARB_BORE) mm × [8.8](BARB_DEPTH) mm |
+| Barb socket | Ø[6.10](BARB_BORE) mm × [9.1](BARB_DEPTH) mm deep |
 | Tube socket | Ø[3.80](TUBE_BORE) mm × [14](TUBE_DEPTH) mm insertion |
 | Socket reach from vent axis | 25.4 mm |
-| Tube axis below vent tip | 4.55 mm |
+| Tube axis below vent tip | [6.54](SOCKET_DROP) mm |
+| Internal bore transition | [1.99](REDUCER_LENGTH) mm conical reducer before the turn |
 | Printed drain turn | R4.05 mm, Ø3.8 mm passage |
 | Tie lands | Two, 2.8 mm wide with 0.5 mm recesses |
-| Solid CAD volume | [3.684](VOLUME) cm³ |
+| Solid CAD volume | [3.954](VOLUME) cm³ |
 
-The installed barb mouth stops below the vent hex. The ASSE snap cap has a
+The installed barb mouth stops below the vent hex, with 8.6 mm of stem
+engagement and 0.5 mm of open passage below its tip. The ASSE snap cap has a
 clearance slot around this elbow and leaves both tie lands accessible.
 The installed representation opens the sockets around the reference barb
 and 4 mm tube, conserving nominal annular area. It is a routing envelope;

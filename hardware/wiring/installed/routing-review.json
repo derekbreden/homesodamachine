@@ -1,9 +1,9 @@
 {
   "schema": 1,
   "scope": "One manual full-scene mesh interference review of every wire and cable jacket against larger bodies; wire-to-wire and wire-to-tube contacts are excluded. Tessellated penetration is a routing witness, not a native-solid or physical assembly qualification.",
-  "manifest_sha256": "bd5001b01d8ae0e2151d16dd76ee97da9ea7a0bee4e8aa50aa6dee73e9202d3e",
-  "assembly_step_sha256": "ca97ae6843b072a36ed69bca4acee23c759af25e1e5a4dab064d446706e60424",
-  "assembly_mesh_sha256": "a82cdfab54e1205cb0c9bb51681da3bc108baf1680b4d9d972780d2e6a0623ce",
+  "manifest_sha256": "b5e290fb02089e2d0e13e44be227ce37b555c2d2cc7d9f1217a5a8fa954dde35",
+  "assembly_step_sha256": "27e17135ffabe9cb886ccd6b74986771b5a72808867a7ab9a267b53c54f3ff82",
+  "assembly_mesh_sha256": "ca26d963b8d440bcd6eead3d835f8b2976a4e1c6712e8fb8fe56874d4da65091",
   "wire_count": 101,
   "physical_mesh_count": 414,
   "coverage_missing": [],
@@ -71,19 +71,19 @@
   "endpoint_contact_scope": "Only the named endpoint part within 8.5 mm of its attachment. All other contact with that part remains in the reading.",
   "native": {
     "scope": "Current source and readback binding for every conductor, jacket and connector, plus exact native dispositions of the five mesh witnesses. Wires and tubes are excluded from wire obstacles.",
-    "wiring_step_sha256": "31db8304c25e6fb208b56ce71b0c5fd4329e17f863e2c3e6d8b46b0ac6b5617b",
-    "assembly_step_sha256": "ca97ae6843b072a36ed69bca4acee23c759af25e1e5a4dab064d446706e60424",
-    "manifest_sha256": "bd5001b01d8ae0e2151d16dd76ee97da9ea7a0bee4e8aa50aa6dee73e9202d3e",
+    "wiring_step_sha256": "1cfa7d822097353ef2015781abbee0f0643b919adddc528ee3a2fc08d6f2a734",
+    "assembly_step_sha256": "27e17135ffabe9cb886ccd6b74986771b5a72808867a7ab9a267b53c54f3ff82",
+    "manifest_sha256": "b5e290fb02089e2d0e13e44be227ce37b555c2d2cc7d9f1217a5a8fa954dde35",
     "wire_count": 101,
     "body_count": 120,
     "all_valid_single_solids": true,
     "source_curves_match": true,
     "all_native_shapes_bound": true,
-    "maximum_volume_delta_mm3": 8.857114153215662e-09,
-    "maximum_bounds_delta_mm": 1.0000769634643802e-07,
+    "maximum_volume_delta_mm3": 8.863253242452629e-09,
+    "maximum_bounds_delta_mm": 1.0000928796216613e-07,
     "readback_record": {
       "path": "hardware/wiring/installed/above-core-review/installed-wiring-binding.json",
-      "sha256": "32802e1ed6e3e90e7f6ad5261f2ed07a25f7868b9d96f63aef55846890ee3398"
+      "sha256": "eef89480d9aec49be0f0269de297c2160853b9113bade721aa4896113c90167c"
     },
     "mesh_witness_dispositions": [
       {
@@ -102,10 +102,10 @@
         "mesh_pair_index": 1,
         "part": "wiring-junction-pump-positive",
         "wire": "DC3-positive",
-        "raw_common_mm3": 7.065554889656472,
+        "raw_common_mm3": 7.065554889653144,
         "outside_8_5mm_endpoint_mm3": 0.0,
         "common_bounds_inside_endpoint_ball": true,
-        "source_curve_sha256": "35c3900ab611ed7c97ef361c877c3b18e876198bdb552183e5fb306742ef5554",
+        "source_curve_sha256": "23a3caf5c1a6ee4a2641dea03843ae1c17a64209aa4aa570e78c1645b3a86c6f",
         "body_basis": "Native wago-h reference translated to final pump-positive join; native source/readback binding covers this body",
         "status": "native_contact_within_named_attachment",
         "endpoint_scope_mm": 8.5
@@ -114,10 +114,10 @@
         "mesh_pair_index": 2,
         "part": "coil-v-g",
         "wire": "J1-OUT7",
-        "raw_common_mm3": 0.486065457036509,
+        "raw_common_mm3": 0.486065457036874,
         "outside_8_5mm_endpoint_mm3": 0.0,
         "common_bounds_inside_endpoint_ball": true,
-        "source_curve_sha256": "f1bc1a291c43a6c84534dadb593a96eb8af21c698746287d3285a3c23c670fe6",
+        "source_curve_sha256": "e70745db873555fd244a5f998bd8e3f04f745605384db0095c5116a632b8d3bc",
         "body_brep_sha256": "096b383d89f6d1b76f04329b08a1ca570f866961c8094d5e42095ffaa8137924",
         "status": "native_contact_within_named_attachment",
         "endpoint_scope_mm": 8.5
@@ -129,7 +129,7 @@
         "raw_common_mm3": 0.0,
         "outside_8_5mm_endpoint_mm3": 0.0,
         "common_bounds_inside_endpoint_ball": false,
-        "source_curve_sha256": "3f6f600220c5a908e4a8968bbf8df0b434052f7e01ac77f7f1f4a9eb89da558a",
+        "source_curve_sha256": "2be59a545628f025410d82c5c36ad9c62cf8de0783abe2f54a0f17fed2aa79f6",
         "body_brep_sha256": "6d3b77d795fbbd96555416fba90de2863e520f396d6f10b25859d9ca21c96d3a",
         "status": "native_zero",
         "endpoint_scope_mm": 8.5
@@ -138,10 +138,10 @@
         "mesh_pair_index": 4,
         "part": "coil-v-j",
         "wire": "J2-OUT2",
-        "raw_common_mm3": 0.48606545703688,
+        "raw_common_mm3": 0.4860654570372327,
         "outside_8_5mm_endpoint_mm3": 0.0,
         "common_bounds_inside_endpoint_ball": true,
-        "source_curve_sha256": "e70af85c2f61da1845f2a2df019ca8084ef408f1d347f09080a43de8cd563962",
+        "source_curve_sha256": "df45b40fcb3f117dbd4a4c1e79ec972dfd1b4f6b2d1f697a4b77f0f1aacd26ba",
         "body_brep_sha256": "d94ed0769836eb2bb682770cd31aab51b1a484016efe1c437b71e0696a80e2e5",
         "status": "native_contact_within_named_attachment",
         "endpoint_scope_mm": 8.5
@@ -152,7 +152,7 @@
   "larger_body_clearance": "Clear outside the local named electrical attachment contacts.",
   "preparation_budget": {
     "scope": "Bench preparation stock against routed insulated centrelines, with continuous commons and the compressor hot/fuse pieces summed. Termination insertion and physical dressing use this reserve; no physical harness qualification is implied.",
-    "manifest_sha256": "bd5001b01d8ae0e2151d16dd76ee97da9ea7a0bee4e8aa50aa6dee73e9202d3e",
+    "manifest_sha256": "b5e290fb02089e2d0e13e44be227ce37b555c2d2cc7d9f1217a5a8fa954dde35",
     "conductor_count": 101,
     "covered_count": 101,
     "missing": [],

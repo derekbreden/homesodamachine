@@ -242,6 +242,12 @@ def build(parts, asse_axis, asse_at, asse_turn, pisco_axis, mouth_y, ceiling, re
         return y, across_flats / 2., clock + asse_turn, max(r for _, r in profile)
 
     wrenches = (wrench(bfp.BODY_PROFILE, bfp.HEX_ACROSS_FLATS, .3), wrench(bfp.CAP_PROFILE, bfp.CAP_ACROSS_FLATS, .9))
+    # Use the sampled round cavity's axial stations for the wrench ends as
+    # well. Round outward so the fitted clearance never decreases, and the
+    # two cuts meet on one end plane rather than leaving a sub-grid step.
+    wrench_rooms = [(math.floor((y0-THREAD)*10.)/10.,
+                     math.ceil((y1+THREAD)*10.)/10., a, k, r)
+                    for (y0,y1),a,k,r in wrenches]
     asse = pts['multiplex-asse1022']
     # The vent hangs from the main wrench's bottom flat: the cap's slot passes it, the seat's sweep
     # leaves it out.
@@ -273,15 +279,15 @@ def build(parts, asse_axis, asse_at, asse_turn, pisco_axis, mouth_y, ceiling, re
     room_steps = steps(ys, room)
     v_lo, v_hi = vent.min(axis=0), vent.max(axis=0)
     snap = cap(st_a, asse_axis[1], None, asse_axis[1], hexed=True).cut(turned(room_steps, asse_axis))
-    for (y0, y1), apothem, clock, corner in wrenches:
-        snap = snap.cut(hex_prism(asse_axis, apothem + s, clock, y0 - THREAD, y1 + THREAD, corner + s))
+    for y0, y1, apothem, clock, corner in wrench_rooms:
+        snap = snap.cut(hex_prism(asse_axis, apothem + s, clock, y0, y1, corner + s))
     slot = box(v_lo[0] - c, v_hi[0] + c, v_lo[1] - THREAD - c, v_hi[1] + THREAD + c, v_lo[2] - 1., asse_axis[1])
     out['asse-snap-cap'] = snap.cut(slot).clean()
     W = st_a['outer']
     seat = box(asse_axis[0] - W, asse_axis[0] + W, cap_y[0] - c - WALL, rear + INTO, split, ceiling + INTO)
     room = turned(asse_steps, asse_axis)
-    for (y0, y1), apothem, clock, corner in wrenches:
-        room = room.fuse(hex_prism(asse_axis, apothem + c, clock, y0 - THREAD - SLIDE, y1 + THREAD, corner + c))
+    for y0, y1, apothem, clock, corner in wrench_rooms:
+        room = room.fuse(hex_prism(asse_axis, apothem + c, clock, y0 - SLIDE, y1, corner + c))
     seat = seat.cut(room)
     for p in pockets(st_a):
         seat = seat.cut(p)
