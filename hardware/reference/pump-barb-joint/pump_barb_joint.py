@@ -11,9 +11,13 @@ The reducer's 1/4" collet carries the line on. The tube is drawn installed: its 
 scanned profile and on the stem, its outside opened to keep its section. Each band is closed on the
 tube's widest outside under it.
 
+A joint can bend down: the reducer and the clamp on its stem turn about the lowest point of the
+barb's tip, where the stem's tip bears on it, and the barb and its clamp stay as they are. The tube
+runs straight on each and creases on the plane halfway between them.
+
 Frame: +X = the port's outward axis, the barb's tip at X = 0, so the tube runs from the barb's root
 at negative X out over the trimmed stem. Each clamp's housing stands on +Z, and its key lies flat in
-the band's plane and runs along +Y or −Y.
+the band's plane and runs along +Y or −Y. Down is −Z.
 
 Run:
     tools/cad-venv/bin/python hardware/reference/pump-barb-joint/pump_barb_joint.py
@@ -111,19 +115,46 @@ def bands(port):
     return {n: (xc, band_d(port, xc)) for n, xc in centres.items()}
 
 
-def mouth():
+def pivot(port):
+    """Where the stem's tip bears on the barb's tip as the joint bends down: the tip's lowest point."""
+    return (0.0, 0.0, -barb(port)[-1][1])
+
+
+def turn(port, bend):
+    """The reducer's move, `bend` degrees down about the pivot."""
+    p = cq.Vector(*pivot(port))
+    return cq.Location(p) * cq.Location(cq.Vector(), cq.Vector(0, 1, 0), bend) * cq.Location(-p)
+
+
+def mouth(port, bend=0.0):
     """The reducer's 1/4" collet mouth: (position, outward axis)."""
-    return (reducer.LENGTH - CUT_X, 0.0, 0.0), (1.0, 0.0, 0.0)
+    tip = cq.Vertex.makeVertex(reducer.LENGTH - CUT_X, 0.0, 0.0).moved(turn(port, bend)).Center()
+    b = math.radians(bend)
+    return tip.toTuple(), (math.cos(b), 0.0, -math.sin(b))
 
 
-def build_tube(port):
-    """The tube, installed: turned about X from its bore and its opened outside."""
+def turned(rows):
+    """The tube over `(x, bore radius)` rows: turned about X from its bore and its opened outside."""
     inner = []
-    for x, r in bore(port):
+    for x, r in rows:
         if not inner or abs(x - inner[-1][0]) > 1e-6 or abs(r - inner[-1][1]) > 1e-6:
             inner.append((x, r))
     outer = [(x, opened(r)) for x, r in inner]
     return cq.Workplane("XY").polyline(outer + inner[::-1]).close().revolve(360.0, (0, 0, 0), (1, 0, 0)).val()
+
+
+def build_tube(port, bend=0.0):
+    """The tube, installed. Bent, its length on the barb and its length on the stem each run on
+    straight past the crease and are cut back to it."""
+    rows = bore(port)
+    if not bend:
+        return turned(rows)
+    on_barb, on_stem = rows[:-2], rows[-2:]
+    past = TUBE_OD * math.tan(math.radians(bend) / 2.0) + 1.0
+    crease = cq.Solid.makeBox(100.0, 200.0, 200.0, cq.Vector(-100.0, -100.0, -100.0)).moved(turn(port, bend / 2.0))
+    barb_side = turned(on_barb + [(past, on_barb[-1][1])]).intersect(crease)
+    stem_side = turned([(-past, on_stem[0][1]), on_stem[1]]).moved(turn(port, bend)).cut(crease)
+    return barb_side.fuse(stem_side).clean()
 
 
 def build_reducer():
@@ -157,12 +188,16 @@ def build_clamp(d, xc, keys):
     return band.fuse(housing, neck).clean(), key
 
 
-def build(port, keys=(-1, -1)):
-    """`{name: (solid, colour)}` for the joint on `port`: the tube, the reducer, and each clamp's
-    steel and key. `keys` gives the side of Y each key runs to, the barb's clamp then the stem's."""
-    out = {"tube": (build_tube(port), M_PVC_CLEAR), "reducer": (build_reducer(), M_JG_WHITE_PP)}
+def build(port, keys=(-1, -1), bend=0.0):
+    """`{name: (solid, colour)}` for the joint on `port`, bent `bend` degrees down: the tube, the
+    reducer, and each clamp's steel and key. `keys` gives the side of Y each key runs to, the barb's
+    clamp then the stem's."""
+    at = turn(port, bend)
+    out = {"tube": (build_tube(port, bend), M_PVC_CLEAR), "reducer": (build_reducer().moved(at), M_JG_WHITE_PP)}
     for (name, (xc, d)), side in zip(bands(port).items(), keys):
         steel, key = build_clamp(d, xc, side)
+        if name == "stem":
+            steel, key = steel.moved(at), key.moved(at)
         out[f"{name}-clamp"] = (steel, M_STAINLESS)
         out[f"{name}-key"] = (key, M_POM_ORANGE)
     return out
@@ -172,7 +207,7 @@ def main():
     for port in PORTS:
         print(f"{port}: tube {tube_length(port):.2f} mm, root at X{root(port):.2f}; "
               + "; ".join(f"{n} band at X{xc:.2f} closed on d{d:.2f}" for n, (xc, d) in bands(port).items()))
-    print(f"reducer stem trimmed to {TRIM:g} mm; the 1/4\" mouth at X{mouth()[0][0]:.2f}")
+    print(f"reducer stem trimmed to {TRIM:g} mm; the 1/4\" mouth at X{mouth('suction')[0][0]:.2f}")
     parts = build("suction")
     a = cq.Assembly(name="pump-barb-joint")
     for name, (solid, colour) in parts.items():

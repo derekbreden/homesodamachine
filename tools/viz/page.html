@@ -211,10 +211,11 @@ let synced = spec.sync !== false;
 let edgesOn = spec.edges !== false;
 const panels = [];
 
+// `pan` is how far the view's target has been moved off the frame's centre, in model millimetres.
 function viewFrom(v) {
-  if (v && typeof v === "object") return { az: v.az ?? -45, el: v.el ?? 35.264, zoom: v.zoom ?? 1 };
+  if (v && typeof v === "object") return { az: v.az ?? -45, el: v.el ?? 35.264, zoom: v.zoom ?? 1, pan: [0, 0, 0] };
   const [az, el] = VIEWS[v] || VIEWS.iso;
-  return { az, el, zoom: 1 };
+  return { az, el, zoom: 1, pan: [0, 0, 0] };
 }
 
 const bytes = new Map();
@@ -315,16 +316,21 @@ function place(panel) {
   const v = synced ? shared : panel.own;
   const az = THREE.MathUtils.degToRad(v.az), el = THREE.MathUtils.degToRad(v.el);
   const dir = new THREE.Vector3(Math.cos(el) * Math.cos(az), Math.cos(el) * Math.sin(az), Math.sin(el));
-  const { center, radius } = frameFor(panel);
+  const { center: middle, radius } = frameFor(panel);
+  const center = middle.clone().add(new THREE.Vector3(...(v.pan || [0, 0, 0])));
   const dist = radius / Math.sin(THREE.MathUtils.degToRad(FOV / 2)) * 1.08 / v.zoom;
   const cam = panel.camera;
   cam.up.set(0, 0, 1);
   if (Math.abs(v.el) > 89) cam.up.set(-Math.cos(az), -Math.sin(az), 0);
   cam.position.copy(center).addScaledVector(dir, dist);
-  cam.near = Math.max(dist - radius * 2.5, dist / 1000);
-  cam.far = dist + radius * 2.5;
+  const reach = cam.position.distanceTo(middle);
+  cam.near = Math.max(reach - radius * 2.5, dist / 200);
+  cam.far = reach + radius * 2.5;
   cam.lookAt(center);
   cam.updateProjectionMatrix();
+  cam.updateMatrixWorld();
+  panel.target = center;
+  panel.dist = dist;
   panel.key.position.copy(center).addScaledVector(KEY_DIR, dist);
   panel.key.target.position.copy(center);
   panel.fill.position.copy(center).addScaledVector(FILL_DIR, dist);
@@ -431,30 +437,90 @@ function resize(panel) {
   draw(panel);
 }
 
+const ZOOM = [0.3, 40];
+const aim = new THREE.Raycaster();
+
+// The model's point under (px, py) on the stage; off the model, the point there on the plane
+// through the target square to the view.
+function pointAt(panel, px, py) {
+  const r = panel.stage.getBoundingClientRect();
+  aim.setFromCamera(new THREE.Vector2(px / r.width * 2 - 1, 1 - py / r.height * 2), panel.camera);
+  const hit = aim.intersectObjects(panel.group.children.filter((c) => c.isMesh && !c.userData.ghost), false)[0];
+  if (hit) return hit.point;
+  const plane = new THREE.Plane().setFromNormalAndCoplanarPoint(panel.camera.getWorldDirection(new THREE.Vector3()), panel.target);
+  return aim.ray.intersectPlane(plane, new THREE.Vector3()) || panel.target.clone();
+}
+
+// Moves the target across the screen with a drag of (dx, dy) pixels: the model follows the pointer.
+function pan(panel, v, dx, dy) {
+  const per = 2 * panel.dist * Math.tan(THREE.MathUtils.degToRad(FOV / 2)) / (panel.stage.getBoundingClientRect().height || 1);
+  const move = new THREE.Vector3().setFromMatrixColumn(panel.camera.matrixWorld, 0).multiplyScalar(-dx * per)
+    .addScaledVector(new THREE.Vector3().setFromMatrixColumn(panel.camera.matrixWorld, 1), dy * per);
+  v.pan = [v.pan[0] + move.x, v.pan[1] + move.y, v.pan[2] + move.z];
+}
+
+// Zooms by `k` about `point`, which keeps its place on the screen; without one, about the target.
+function zoomAt(panel, v, k, point) {
+  const next = Math.max(ZOOM[0], Math.min(ZOOM[1], v.zoom * k));
+  if (point) {
+    const s = 1 - v.zoom / next;
+    v.pan = v.pan.map((c, i) => c + (point.getComponent(i) - panel.target.getComponent(i)) * s);
+  }
+  v.zoom = next;
+}
+
+// A drag turns the view. A right or middle drag, or one with Shift, Ctrl or Cmd held, moves it
+// across; two fingers move it and pinch it. The wheel zooms on the point under the pointer, so a
+// part is reached by pointing at it and scrolling.
 function orbit(panel) {
   const canvas = panel.renderer.domElement;
-  let drag = null;
   const view = () => (synced ? shared : panel.own);
   const changed = () => (synced ? drawAll() : draw(panel));
+  const down = new Map();
+  let mode = null, last = null, aimed = null;
+  const at = (e) => { const r = canvas.getBoundingClientRect(); return { x: e.clientX - r.left, y: e.clientY - r.top }; };
+  const gesture = () => {
+    const ps = [...down.values()];
+    return { x: ps.reduce((s, p) => s + p.x, 0) / ps.length, y: ps.reduce((s, p) => s + p.y, 0) / ps.length,
+             spread: ps.length > 1 ? Math.hypot(ps[0].x - ps[1].x, ps[0].y - ps[1].y) : 0 };
+  };
+  canvas.addEventListener("contextmenu", (e) => e.preventDefault());
   canvas.addEventListener("pointerdown", (e) => {
-    drag = { x: e.clientX, y: e.clientY };
     canvas.setPointerCapture(e.pointerId);
+    down.set(e.pointerId, at(e));
+    mode = down.size > 1 ? "pinch" : (e.button === 1 || e.button === 2 || e.shiftKey || e.ctrlKey || e.metaKey) ? "pan" : "turn";
+    last = gesture();
+    if (mode === "pinch") aimed = { point: pointAt(panel, last.x, last.y) };
   });
   canvas.addEventListener("pointermove", (e) => {
-    if (!drag) return;
-    const v = view();
-    v.az -= (e.clientX - drag.x) * 0.4;
-    v.el = Math.max(-89.5, Math.min(89.5, v.el + (e.clientY - drag.y) * 0.4));
-    drag = { x: e.clientX, y: e.clientY };
+    if (!down.has(e.pointerId)) return;
+    down.set(e.pointerId, at(e));
+    const now = gesture(), v = view();
+    if (mode === "turn") {
+      v.az -= (now.x - last.x) * 0.4;
+      v.el = Math.max(-89.5, Math.min(89.5, v.el + (now.y - last.y) * 0.4));
+    } else {
+      if (mode === "pinch" && last.spread && now.spread) zoomAt(panel, v, now.spread / last.spread, aimed.point);
+      place(panel);
+      pan(panel, v, now.x - last.x, now.y - last.y);
+    }
+    last = now;
     changed();
   });
-  const end = () => { drag = null; };
+  const end = (e) => {
+    down.delete(e.pointerId);
+    if (mode === "pinch") mode = down.size > 1 ? "pinch" : "pan";
+    last = down.size ? gesture() : null;
+  };
   canvas.addEventListener("pointerup", end);
   canvas.addEventListener("pointercancel", end);
   canvas.addEventListener("wheel", (e) => {
     e.preventDefault();
-    const v = view();
-    v.zoom = Math.max(0.3, Math.min(12, v.zoom * Math.exp(-e.deltaY * 0.0015)));
+    const p = at(e);
+    if (!aimed || aimed.x === undefined || Math.hypot(p.x - aimed.x, p.y - aimed.y) > 2 || e.timeStamp - aimed.t > 400)
+      aimed = { ...p, point: pointAt(panel, p.x, p.y) };
+    aimed.t = e.timeStamp;
+    zoomAt(panel, view(), Math.exp(-e.deltaY * (e.ctrlKey ? 0.01 : 0.0015)), aimed.point);
     changed();
   }, { passive: false });
   panel.stage.addEventListener("keydown", (e) => {
@@ -464,8 +530,8 @@ function orbit(panel) {
       e.preventDefault();
       v[step[0]] += step[1];
       v.el = Math.max(-89.5, Math.min(89.5, v.el));
-    } else if (e.key === "+" || e.key === "=") v.zoom = Math.min(12, v.zoom * 1.2);
-    else if (e.key === "-") v.zoom = Math.max(0.3, v.zoom / 1.2);
+    } else if (e.key === "+" || e.key === "=") zoomAt(panel, v, 1.2);
+    else if (e.key === "-") zoomAt(panel, v, 1 / 1.2);
     else return;
     changed();
   });
@@ -507,7 +573,7 @@ async function mount(el, p, hint) {
     showEdges(panel, edgesOn);
     stage.prepend(renderer.domElement);
     if (p.marks && p.marks.length) addMarks(panel, p.marks);
-    note.textContent = hint ? "Drag to turn · scroll to zoom" : "";
+    note.textContent = hint ? "Drag to turn · right-drag or Shift-drag to pan · scroll to zoom where you point" : "";
     note.classList.remove("is-error");
     orbit(panel);
     new ResizeObserver(() => { resize(panel); if (synced) drawAll(); }).observe(stage);
