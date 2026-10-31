@@ -3,7 +3,7 @@
 The planned threaded water-inlet chain, captured as an assembled sample:
 
 **PP010822E → GAGIRA reducing coupling → Multiplex ASSE 1022 → PI4512F6S →
-PP061208W → neoFit ATBU444-E branch stem tee.**
+[PP061208W](../jg-pp061208w/README.md) → neoFit ATBU444-E branch stem tee.**
 
 The STEP contains six named exterior bodies in their captured positions. It
 retains the coupling's round bands and wrench section, the drafted flare nut,
