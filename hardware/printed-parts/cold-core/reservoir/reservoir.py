@@ -852,11 +852,12 @@ def main():
         "RESERVOIR_SEAT_TO_SEAT": f"{reservoir_rod_len + reservoir_rod_clearance:.4g} mm",
         "ROD_END_CLEARANCE": f"{reservoir_rod_clearance:g} mm",
         "REED_PITCH": f"{reservoir_reed_pitch:g} mm",
-        # level-sensing.md — the reed cable leaves up its channel and out the bore the
-        # cap stands over that channel's mouth, stated in the SHELL's frame.
+        # level-sensing.md — reservoir A's reed cable leaves up its channel and out the
+        # bore the cap stands over that channel's mouth, stated in the SHELL's frame. B
+        # leaves at the shell rim.
         "REED_CONDUIT_XY": ", ".join(
             f"{n} ({cap_conduit_shell_xy(n)[0]:.4g}, {cap_conduit_shell_xy(n)[1]:.4g})"
-            for n in ("reed-cable-a", "reed-cable-b")),
+            for n in ("reed-cable-a",)),
         # The floor, the draw's dip tube and what the cavity holds (floor-and-dip-tube.md).
         "DRAW_POSITION_A": "({:.4g}, {:.4g})".format(*draw_position[+1]),
         "DRAW_POSITION_B": "({:.4g}, {:.4g})".format(*draw_position[-1]),

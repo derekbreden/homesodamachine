@@ -221,5 +221,12 @@ def foam_occupied(neighbors):
         path = cq.Wire.assembleEdges(edges)
         lead_exits.append(cq.Workplane(cq.Plane(origin=points[0], normal=(0.,0.,-1.)))
                           .circle(2.).sweep(path, isFrenet=False).val())
-    return foam_stock().cut(holder(), *lead_exits,
-                            *(neighbors[name] for name in SOFT_NEIGHBORS)).clean()
+    # One solid at a time: the neighbours are compounds of overlapping solids, and one
+    # cut against all of them leaves the holder uncut and the sleeve in fragments.
+    foam = foam_stock()
+    for tool in (holder(), *lead_exits, *(neighbors[name] for name in SOFT_NEIGHBORS)):
+        for solid in tool.Solids():
+            foam = foam.cut(solid)
+    # It also leaves specks along the tangent contacts; none is a cubic millimetre.
+    kept = [s for s in foam.clean().Solids() if s.Volume() > 1.]
+    return kept[0] if len(kept) == 1 else cq.Compound.makeCompound(kept)

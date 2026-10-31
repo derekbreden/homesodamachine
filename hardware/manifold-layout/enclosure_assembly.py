@@ -4979,6 +4979,23 @@ def stand_wells(stations) -> tuple:
         for st in stations)
 
 
+def _wire_walk(wire):
+    """The plan points of `wire` in order around it. Its edges come in no order and each runs
+    either way, so each joins the walk at whichever end meets the last point."""
+    runs = []
+    for e in wire.Edges():
+        n = 1 if e.geomType() == "LINE" else 8
+        runs.append([(p.x, p.y) for p in (e.positionAt(k / n) for k in range(n + 1))])
+    walk = runs.pop(0)
+    while runs:
+        last = walk[-1]
+        i, flip = min(((i, flip) for i in range(len(runs)) for flip in (False, True)),
+                      key=lambda c: math.dist(last, runs[c[0]][-1 if c[1] else 0]))
+        run = runs.pop(i)
+        walk += (run[::-1] if flip else run)[1:]
+    return walk[:-1]
+
+
 def _print_down_slopes(piece, up):
     """Every planar face of `piece` that slopes and looks print-down: `(face, footprint)` pairs,
     the footprint its outer wire in plan."""
@@ -4989,15 +5006,7 @@ def _print_down_slopes(piece, up):
         s = f.normalAt().z * (-up)
         if s <= 0.05 or s >= 0.98:
             continue
-        pts = []
-        for e in f.outerWire().Edges():
-            if e.geomType() == "LINE":
-                p = e.startPoint()
-                pts.append((p.x, p.y))
-            else:
-                for k in range(8):
-                    p = e.positionAt(k / 8.0)
-                    pts.append((p.x, p.y))
+        pts = _wire_walk(f.outerWire())
         poly = []
         for p in pts:
             if not poly or abs(poly[-1][0] - p[0]) > 1e-6 or abs(poly[-1][1] - p[1]) > 1e-6:
