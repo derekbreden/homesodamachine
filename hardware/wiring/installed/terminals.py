@@ -219,16 +219,16 @@ class Attachments:
                     a=[0.,0.,0.];a[axis]=float(sign);ends.append((tuple(p),tuple(a)))
                 ends.sort(key=lambda e:abs(e[0][0]))
                 for label,(point,axis) in zip(('positive','negative'),ends):
-                    if letter in 'GJ':
+                    if letter in 'CDGJ':
                         # The disconnect engages the tab below its free tip and
                         # dresses aft in the inter-tier space. No rigid boot box
                         # or immutable straight-tab approach is imposed here.
-                        point=(point[0],point[1],point[2]-4.3)
+                        point=tuple(point[i]-axis[i]*4.3 for i in range(3))
                         axis=(0.,1.,0.)
                     self.put('V-'+letter+'.'+label,name,point,axis,'female-disconnect',
-                             ('Native tab engagement region; proposed aft wire exit with flexible tab/disconnect' if letter in 'GJ' else
+                             ('Native tab engagement region; aft wire exit with flexible tab/disconnect' if letter in 'CDGJ' else
                               'Actual native 6.3 × 0.8 mm metal tab, tip on its long axis; inboard tab assigned positive'),
-                             'nominal' if letter in 'GJ' else 'modeled')
+                             'nominal' if letter in 'CDGJ' else 'modeled')
             elif letter in 'ABK':
                 carry=self.frame(name, self.ea.ml.VALVE_STEP if hasattr(self.ea.ml,'VALVE_STEP') else
                                  HW/'reference/beduan-solenoid/beduan-solenoid.step', ())
