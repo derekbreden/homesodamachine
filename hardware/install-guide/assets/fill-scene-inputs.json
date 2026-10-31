@@ -5,8 +5,8 @@
     "hardware/manifold-layout/enclosure-assembly.facts.json": "59bf517420d64c4ed908bae913f87598493612d29a47dd1a0215cdec5d272161",
     "hardware/printed-parts/enclosure/enclosure/_swept_top.py": "347f941b2b2aed2aa5af26373fc4dcfb852390bab61f8d60cb2d538926221a22",
     "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py": "264bb52da73675dcd41f7fff8bc5fce6eabd06336fc3cf8b7a9b8560c21e5040",
-    "tools/install-guide/fill_scene.py": "cb0814d00e77390f73bdf2bd3321efe065fe64879d1efd29cb2f5ad95f0b74ee",
-    "tools/install-guide/fill_materials.js": "00ab6a5eb26fa9d75d826d144fd3c15acd34e28d2a3ae27a0149de5966d7f9c8"
+    "tools/install-guide/fill_scene.py": "02cfa33c5d00f5e9b0998970342e863a09b1d32df2d815d73149f9de28f344fe",
+    "tools/install-guide/fill_materials.js": "27a8d103b44e9b9f0cd19676b2bde9cd39a7faa49103f27efea16d19bc4ee6d1"
   },
   "funnel_bounds": [
     -107.5,
@@ -108,6 +108,7 @@
   ],
   "artwork": {
     "hardware/install-guide/assets/reference/fill-ready.png": "7935b146b3b17a82f3c8e58098eb46b9a9d9c47643e1aa15aea81df9a13e4bd7",
-    "hardware/install-guide/assets/reference/fill-screen-framed.png": "dabe7f476f5f80f9c438377ad47b1379058ff4cb8dd910fd11abfaa855cec05c"
+    "hardware/install-guide/assets/reference/fill-screen-framed.png": "dabe7f476f5f80f9c438377ad47b1379058ff4cb8dd910fd11abfaa855cec05c",
+    "hardware/install-guide/assets/reference/fill-closed.png": "d5d19e9449b50f5037679bbfe3981d394276c72750dc7f38f046f6a1a0730cce"
   }
 }

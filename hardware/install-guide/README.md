@@ -33,9 +33,10 @@ Numbered page 3 shows every supplied kit item as a vector line drawing, with a c
 customer-supplied checklist in the sidebar. Each item sits inside a light panel with its caption
 centered just beneath the drawing. A towel catches residual water at a loosened fitting.
 The Fill pages show the Big Blue screen inside the machine display's frame, with its
-**Start filling** control. The same screen appears on the machine in the bottle illustration.
-The owner lifts the funnel cover by its front edge before the bottle goes in and presses it
-back down after **Filled**. Page 30 has the funnel and both faces of its cover washed by hand.
+**Start filling** control. The same screen appears on the machine in both funnel views.
+The owner lifts the funnel cover by its front edge, pours the bottle in by hand and presses
+the cover back down after **Filled**. Page 30 has the funnel and both faces of its cover
+washed by hand.
 Its Change a flavor has the owner fill the funnel with water before starting Clean on the old
 flavor; the clean cycle's first step draws the funnel through the line below it and out of the
 faucet. Nothing else in the booklet asks for water in the funnel.
@@ -63,9 +64,10 @@ bezel, recessed glass and three tube ends. The output is the app's tintable vect
 The concentrate bottle has a rounded PET body, tapered shoulders, an open ribbed neck, dark
 liquid and a wrapped COLA concentrate label. It pours from the front, tipped just past level
 with its mouth over the funnel's and its concentrate settled level; the motion cue follows its
-base's swing. The bottle and framed display are snapshots from
+base's swing. The bottle, the closed funnel and the framed display are snapshots from
 `tools/install-guide/fill_scene.py`, whose funnel and display positions follow the current
-enclosure assembly. The funnel is drawn without its lift-off cover, as it stands during a fill.
+enclosure assembly. The pour shows the funnel without its lift-off cover, as it stands during a
+fill; page 27 shows the same view with the bottle gone and the cover back on the brim.
 `assets/fill-scene-inputs.json` records the source hashes and motion cue;
 `assets/fill-screen.svg` and its PNG supply the interface. The display cover shares the
 enclosure's matte black PET-GF appearance. Both Fill views use the same exposure, and the

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Render concentrate bottles and a framed Fill screen from the current appliance."""
+"""Render concentrate bottles, the closed funnel and a framed Fill screen from the current appliance."""
 from pathlib import Path
 import argparse
 import base64
@@ -47,8 +47,9 @@ DISPLAY_PROFILE = _swept_top.profile(ASSEMBLY_FACTS['box']['outer'])
 SCREEN = dict(width=103.5, height=62.1, angle_deg=_swept_top.ANGLE,
               origin=[p - n * (_enclosure_interface.display_bezel_depth - 1 - .05)
                       for p, n in zip(DISPLAY_PROFILE['origin'], DISPLAY_PROFILE['normal'])])
-EXTERIOR = {'funnel', 'funnel-frame', 'nameplate', 'nameplate-ink', 'enclosure-front-top',
-            'enclosure-front-bottom', 'enclosure-back-top', 'enclosure-back-bottom'}
+EXTERIOR = {'funnel', 'funnel-cover', 'funnel-frame', 'nameplate', 'nameplate-ink',
+            'enclosure-front-top', 'enclosure-front-bottom', 'enclosure-back-top',
+            'enclosure-back-bottom'}
 
 
 def visible(name):
@@ -215,6 +216,7 @@ def main():
     jobs.append(dict(jobs[0], out=str(OUT/'fill-screen-framed.png'), view='frame',
                      cam=DISPLAY_PROFILE['normal'], target=SCREEN['origin'], span=46,
                      size='1800x1020', trim=True))
+    jobs.append(dict(jobs[0], out=str(OUT/'fill-closed.png'), view='closed'))
     if args.scale <= 0:
         parser.error('--scale must be positive')
     for job in jobs:
@@ -231,9 +233,11 @@ def main():
 def publish(args, mouth):
     fill = OUT / f'fill-{args.label}.png'
     frame = OUT / 'fill-screen-framed.png'
+    closed = OUT / 'fill-closed.png'
     if args.scale == 1:
         targets = [(fill, DIR / 'assets/reference/fill-ready.png'),
-                   (frame, DIR / 'assets/reference/fill-screen-framed.png')]
+                   (frame, DIR / 'assets/reference/fill-screen-framed.png'),
+                   (closed, DIR / 'assets/reference/fill-closed.png')]
         for source, target in targets:
             target.parent.mkdir(parents=True, exist_ok=True)
             shutil.copy2(source, target)
@@ -261,6 +265,7 @@ def publish(args, mouth):
         for source, name, reference in [
             (fill, 'steps/fill-ready.png', DIR / 'assets/reference/fill-ready.png'),
             (frame, 'fill-screen-framed.png', DIR / 'assets/reference/fill-screen-framed.png'),
+            (closed, 'steps/fill-closed.png', DIR / 'assets/reference/fill-closed.png'),
         ]:
             target = install / name
             shutil.copy2(source, target)
