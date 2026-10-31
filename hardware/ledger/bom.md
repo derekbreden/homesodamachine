@@ -138,7 +138,7 @@ The soda inlet bend holder is PET-GF with the accepted 2 mm wall, 3 mm legs and 
 | Enclosure — back bottom + back top (two quadrants) | 1 set | PET-GF | 1.468 | $36.72 <!--@printed--><!--parts HSM-000080:688.8 HSM-000081:766.1--> |
 | Display cover plate | 1 | PET-GF | 0.012 | $0.31 <!--@printed--><!--parts HSM-000076--> |
 | Bulkhead ring — one per +Y-wall crossing | 6 | PET-GF (blue, white ×2, red, black ×2) | 0.013 | $0.32 <!--@printed--><!--parts HSM-000062:1.27 HSM-000063:1.29 HSM-000064:1.38 HSM-000065:1.38 HSM-000066:1.25 HSM-000067:1.36--> |
-| Tube collar — one per +Y-wall crossing | 6 | PET-GF (blue, white ×2, red, black ×2) | 0.023 | $0.58 <!--@printed--><!--parts HSM-000272:2.48 HSM-000099:2.72 HSM-000100:2.87 HSM-000101:2.87 HSM-000273:2.53 HSM-000102:2.67--> |
+| Tube collar — one per +Y-wall crossing | 6 | PET-GF (blue, white ×2, red, black ×2) | 0.023 | $0.59 <!--@printed--><!--parts HSM-000272:2.48 HSM-000099:2.72 HSM-000100:2.87 HSM-000101:2.87 HSM-000273:2.53 HSM-000102:2.67--> |
 | Collet press — install-kit customer tool | 1 | PET-GF | 0.017 | $0.44 <!--@printed--><!--parts HSM-000372--> |
 | Nameplate — one per unit, serialized | 1 | PET-GF (black + white) | 0.017 | $0.42 <!--@printed--><!--parts HSM-000069--> |
 | Fuse clamp | 1 | PETG | 0.005 | $0.06 <!--@printed--><!--parts HSM-000041--> |
@@ -152,9 +152,9 @@ The soda inlet bend holder is PET-GF with the accepted 2 mm wall, 3 mm legs and 
 | Funnel frame | 1 | PET-GF | 0.259 | $6.49 <!--@printed--><!--parts HSM-000072--> |
 | Funnel cover | 1 | PETG | 0.134 | $1.50 <!--@printed--><!--parts HSM-000071--> |
 | Funnel drain-elbow cradle | 1 | PET-GF | 0.011 | $0.28 <!--@printed--><!--parts HSM-000073--> |
-| **Printed parts total** | | | **~7.01** | **[$161.30](BOM_SEC7)** |
+| **Printed parts total** | | | **~7.01** | **[$161.31](BOM_SEC7)** |
 
-By material: PETG ≈ 1.03 kg / $11.50 — of which the four translucent reservoir parts are ≈ 0.87 kg / $9.76 — and PET-GF ≈ 5.99 kg / $149.77.
+By material: PETG ≈ 1.03 kg / $11.50 — of which the four translucent reservoir parts are ≈ 0.87 kg / $9.76 — and PET-GF ≈ 5.99 kg / $149.78.
 
 These geometry-based estimates use the shared wall and sparse-infill recipes.
 They exclude the additional material in the enclosure's
@@ -339,7 +339,7 @@ The papers packed with each machine ([`assembly/finish-pack-ship.md`](/hardware/
 | 4. CO2 subsystem | [$133.11](BOM_SEC4) |
 | 5. Refrigeration | [$143.06](BOM_SEC5) |
 | 6. Cold core insulation | [$18.64](BOM_SEC6) |
-| 7. Printed parts (PETG + PET-GF) | [$161.30](BOM_SEC7) |
+| 7. Printed parts (PETG + PET-GF) | [$161.31](BOM_SEC7) |
 | 8. Flavor subsystem | [$260.32](BOM_SEC8) |
 | 9. Dispensing | [$78.57](BOM_SEC9) |
 | 10. UI | [$0.00](BOM_SEC10) |
@@ -348,7 +348,7 @@ The papers packed with each machine ([`assembly/finish-pack-ship.md`](/hardware/
 | 13. Mechanical attach hardware | [$20.13](BOM_SEC13) |
 | 14. Cold kit | [$4.29](BOM_SEC14) |
 | 15. Customer documentation | [$25.14](BOM_SEC15) |
-| **Total** | **[$1,433.56](BOM_GRAND)** |
+| **Total** | **[$1,433.57](BOM_GRAND)** |
 
 ## External / user-supplied (not shipped)
 
