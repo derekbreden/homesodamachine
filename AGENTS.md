@@ -50,6 +50,10 @@ Co-Authored-By: <the harness's line, when it adds one>
 
 [`hardware/concerns.md`](hardware/concerns.md) holds concerns that are already answered, so no agent raises them again. Agents are bad at telling a legitimate concern from one that isn't, so an agent never writes its own concern there. Tell Derek the concern. If he convinces you it isn't one, record his answer there. If he doesn't, it is work to do, not a row. If he doesn't respond, you haven't told him yet.
 
+## Missing Tools
+
+A script you write because nothing in the repo answers your question is a tool the repo lacks. When you wrap up, tell Derek what it answered and how long the answer took. He decides what joins the repo. [`calibration/principle/Positions.md`](calibration/principle/Positions.md) shows one: a ten-minute search for a part's move, beside the same move read off the scene in a second. Each week a scheduled session runs [`tools/missing_tools.py`](tools/missing_tools.py) over the week's transcripts and brings Derek the questions several sessions answered with code of their own.
+
 ## Enclosure Changes
 
 Every change to the enclosure's geometry has an entry in [`changes/`](changes/README.md), shown at [homesodamachine.com/changes](https://homesodamachine.com/changes): a before and an after picture of what changed, from one camera, with a short lede. The before is the snapshot taken ahead of the rebuild, `node tools/changes/change.mjs snapshot`; nothing else keeps it. [`changes/README.md`](changes/README.md) has the rest. Recording follows the change and never holds it up.
