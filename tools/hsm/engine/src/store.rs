@@ -4,14 +4,13 @@ use serde_json::json;
 use sha2::{Digest, Sha256};
 use std::{
     collections::BTreeMap,
-    fs::{self, File},
-    io::{BufReader, BufWriter},
+    fs,
     os::unix::fs::MetadataExt,
     path::{Path, PathBuf},
     sync::Arc,
 };
 
-// Cached BVHs are versioned by their reader, geometry code and dependency lock.
+// The daemon's build ID carries this, so a changed reader or dependency lock replaces it.
 pub fn geometry_version() -> String {
     let mut h = Sha256::new();
     h.update(include_str!("../../geometry/src/payload.rs"));
@@ -43,20 +42,16 @@ struct Resident {
 }
 
 pub struct Store {
-    directory: PathBuf,
     paths: BTreeMap<PathBuf, ([u64; 7], String)>,
     resident: BTreeMap<String, Resident>,
     tick: u64,
     budget: u64,
     pub loads: u64,
-    pub restores: u64,
 }
 
 impl Store {
-    pub fn new(directory: PathBuf, budget_mb: u64) -> Result<Self> {
-        fs::create_dir_all(&directory)?;
+    pub fn new(budget_mb: u64) -> Result<Self> {
         Ok(Self {
-            directory: directory.join(geometry_version()),
             paths: BTreeMap::new(),
             resident: BTreeMap::new(),
             tick: 0,
@@ -64,15 +59,13 @@ impl Store {
                 .checked_mul(1024 * 1024)
                 .context("cache budget overflow")?,
             loads: 0,
-            restores: 0,
         })
     }
 
     pub fn status(&self) -> serde_json::Value {
         json!({"resident_payloads": self.resident.len(), "payload_loads": self.loads,
-            "bvh_restores": self.restores, "cache_budget_bytes": self.budget,
-            "estimated_resident_bytes": self.resident.values().map(|v| v.budget).sum::<u64>(),
-            "geometry_cache": self.directory})
+            "cache_budget_bytes": self.budget,
+            "estimated_resident_bytes": self.resident.values().map(|v| v.budget).sum::<u64>()})
     }
 
     pub fn load(&mut self, path: &Path) -> Result<Arc<Payload>> {
@@ -121,24 +114,8 @@ impl Store {
                 break;
             }
         }
-        let cached = self.directory.join(format!("{digest}.bvh"));
-        let restored: Option<Payload> = File::open(&cached)
-            .ok()
-            .and_then(|f| bincode::deserialize_from(BufReader::new(f)).ok());
-        let payload = if let Some(p) = restored.filter(|p| p.digest == digest) {
-            self.restores += 1;
-            p
-        } else {
-            let p = payload::decode(&bytes)?;
-            // Persistence failure costs only the next cold load; the requested
-            // query still has a complete in-memory scene.
-            if let Err(e) = self.save(&cached, &p) {
-                eprintln!("hsm: BVH cache: {e}");
-            }
-            p
-        };
+        let payload = Arc::new(payload::decode(&bytes)?);
         self.loads += 1;
-        let payload = Arc::new(payload);
         self.resident.insert(
             digest,
             Resident {
@@ -148,20 +125,5 @@ impl Store {
             },
         );
         Ok(payload)
-    }
-
-    fn save(&self, dest: &Path, payload: &Payload) -> Result<()> {
-        fs::create_dir_all(&self.directory)?;
-        let tmp = dest.with_extension(format!("{}.tmp", std::process::id()));
-        let result = (|| {
-            let mut writer = BufWriter::new(File::create(&tmp)?);
-            bincode::serialize_into(&mut writer, payload)?;
-            use std::io::Write;
-            writer.flush()?;
-            fs::rename(&tmp, dest)?;
-            Ok(())
-        })();
-        let _ = fs::remove_file(tmp);
-        result
     }
 }

@@ -1,13 +1,13 @@
 use anyhow::{Context, Result, bail, ensure};
 use manifold_csg::Manifold;
 use parry3d_f64::{math::Point, shape::TriMesh};
-use serde::{Deserialize, Serialize};
+use serde::Deserialize;
 use sha2::{Digest, Sha256};
 use std::sync::{Mutex, OnceLock};
 
 pub const PAYLOAD_VERSION: u32 = 3;
 
-#[derive(Deserialize, Serialize)]
+#[derive(Deserialize)]
 pub struct Header {
     pub v: u32,
     pub meshes: Vec<Entry>,
@@ -15,7 +15,7 @@ pub struct Header {
     pub cut: Option<serde_json::Value>,
 }
 
-#[derive(Deserialize, Serialize)]
+#[derive(Deserialize)]
 pub struct Entry {
     pub name: String,
     pub color: Option<[f64; 3]>,
@@ -25,18 +25,15 @@ pub struct Entry {
     pub fac: [usize; 2],
 }
 
-#[derive(Serialize, Deserialize)]
 pub struct Mesh {
     pub name: String,
     pub color: Option<[f64; 3]>,
     pub shape: TriMesh,
     /// Inclusive triangle ranges, in the same order as the viewer's face IDs.
     pub faces: Vec<[u32; 2]>,
-    #[serde(skip)]
     pub(crate) solid: OnceLock<Result<Mutex<Manifold>, String>>,
 }
 
-#[derive(Serialize, Deserialize)]
 pub struct Payload {
     pub digest: String,
     pub source: Option<String>,

@@ -5,10 +5,17 @@ use manifold_csg::{Manifold, MeshGL64};
 use parry3d_f64::{
     bounding_volume::BoundingVolume,
     math::{Isometry, Point, Vector},
+    partitioning::BvhNode,
     query::{self, ClosestPoints, Ray, RayCast},
 };
 use serde::Serialize;
-use std::sync::{Mutex, MutexGuard};
+use std::{
+    cell::Cell,
+    sync::{Mutex, MutexGuard},
+};
+
+/// A boolean leaves a residue of either sign at a contact, smaller than this. It is not penetration.
+pub const CONTACT_RESIDUE_MM3: f64 = 1e-6;
 
 pub fn xyz(p: Point<f64>) -> [f64; 3] {
     [p.x, p.y, p.z]
@@ -16,6 +23,65 @@ pub fn xyz(p: Point<f64>) -> [f64; 3] {
 
 fn pose(by: [f64; 3]) -> Isometry<f64> {
     Isometry::translation(by[0], by[1], by[2])
+}
+
+fn penetration(volume: f64) -> Result<f64> {
+    ensure!(
+        volume.is_finite() && volume > -CONTACT_RESIDUE_MM3,
+        "invalid intersection volume {volume}"
+    );
+    Ok(volume.max(0.0))
+}
+
+/// Separation of two boxes, the first translated by `shift`.
+fn box_gap(lo1: Point<f64>, hi1: Point<f64>, lo2: Point<f64>, hi2: Point<f64>, shift: &Vector<f64>) -> f64 {
+    (0..3)
+        .map(|k| (lo2[k] - hi1[k] - shift[k]).max(lo1[k] + shift[k] - hi2[k]).max(0.0).powi(2))
+        .sum::<f64>()
+        .sqrt()
+}
+
+/// The closest triangle pair no farther apart than `limit`, as (distance, triangle of a,
+/// triangle of b). Both trees descend together, and two boxes farther apart than the best pair
+/// found so far are never opened.
+fn closest_within(a: &Mesh, b: &Mesh, by: [f64; 3], limit: f64) -> Result<Option<(f64, u32, u32)>> {
+    let shift = Vector::from(by);
+    let best = Cell::new(limit);
+    let mut found = None;
+    let near = |n1: &BvhNode, n2: &BvhNode| {
+        box_gap(n1.mins(), n1.maxs(), n2.mins(), n2.maxs(), &shift) <= best.get()
+    };
+    for (i, j) in a.shape.bvh().leaf_pairs(b.shape.bvh(), near) {
+        let d = query::distance(
+            &pose(by),
+            &a.shape.triangle(i),
+            &Isometry::identity(),
+            &b.shape.triangle(j),
+        )
+        .map_err(|_| anyhow!("unsupported triangle distance query"))?;
+        if d <= best.get() && found.is_none_or(|(f, _, _)| d < f) {
+            best.set(d);
+            found = Some((d, i, j));
+            if d == 0.0 {
+                break;
+            }
+        }
+    }
+    Ok(found)
+}
+
+/// The closest triangle pair, searched outward from the separation of the two meshes' boxes.
+fn closest(a: &Mesh, b: &Mesh, by: [f64; 3]) -> Result<(f64, u32, u32)> {
+    let (ba, bb) = (a.shape.local_aabb(), b.shape.local_aabb());
+    let lower = box_gap(ba.mins, ba.maxs, bb.mins, bb.maxs, &Vector::from(by));
+    let mut reach = 0.1;
+    loop {
+        if let Some(hit) = closest_within(a, b, by, lower + reach)? {
+            return Ok(hit);
+        }
+        ensure!(reach.is_finite(), "no closest triangle pair");
+        reach *= 4.0;
+    }
 }
 
 impl Mesh {
@@ -78,12 +144,7 @@ pub fn overlap(a: &Mesh, b: &Mesh, by: [f64; 3]) -> Result<f64> {
     result
         .status()
         .map_err(|e| anyhow!("intersection failed: {e}"))?;
-    let volume = result.volume();
-    ensure!(
-        volume.is_finite() && volume >= 0.0,
-        "invalid intersection volume {volume}"
-    );
-    Ok(volume)
+    penetration(result.volume())
 }
 
 #[derive(Serialize)]
@@ -100,18 +161,23 @@ pub struct Gap {
 }
 
 pub fn gap(a: &Mesh, b: &Mesh, by: [f64; 3]) -> Result<Gap> {
-    let (distance, pa, pb) = match query::closest_points(
-        &pose(by),
-        &a.shape,
-        &Isometry::identity(),
-        &b.shape,
-        f64::MAX,
-    )
-    .map_err(|_| anyhow!("unsupported triangle distance query"))?
-    {
-        ClosestPoints::WithinMargin(pa, pb) => ((pa - pb).norm(), Some(xyz(pa)), Some(xyz(pb))),
-        ClosestPoints::Intersecting => (0.0, None, None),
-        ClosestPoints::Disjoint => return Err(anyhow!("no closest triangle pair")),
+    let (d, i, j) = closest(a, b, by)?;
+    let (distance, pa, pb) = if d == 0.0 {
+        (0.0, None, None)
+    } else {
+        match query::closest_points(
+            &pose(by),
+            &a.shape.triangle(i),
+            &Isometry::identity(),
+            &b.shape.triangle(j),
+            f64::MAX,
+        )
+        .map_err(|_| anyhow!("unsupported triangle distance query"))?
+        {
+            ClosestPoints::WithinMargin(pa, pb) => ((pa - pb).norm(), Some(xyz(pa)), Some(xyz(pb))),
+            ClosestPoints::Intersecting => (0.0, None, None),
+            ClosestPoints::Disjoint => return Err(anyhow!("no closest triangle pair")),
+        }
     };
     // Disjoint AABBs establish separation without needing closed solids.
     let intersects = a
@@ -261,7 +327,10 @@ mod tests {
     use std::sync::OnceLock;
 
     fn cube(size: f64, at: [f64; 3]) -> Mesh {
-        let solid = Manifold::cube(size, size, size, true).translate(at[0], at[1], at[2]);
+        mesh(&Manifold::cube(size, size, size, true).translate(at[0], at[1], at[2]))
+    }
+
+    fn mesh(solid: &Manifold) -> Mesh {
         let (pos, stride, idx) = solid.to_mesh_f64();
         let points = pos
             .chunks_exact(stride)
@@ -302,6 +371,34 @@ mod tests {
         near(g.surface_distance_mm, 4.0);
         near(g.clearance_mm.unwrap(), 0.0);
         near(g.intersection_volume_mm3.unwrap(), 8.0);
+    }
+
+    #[test]
+    fn contact_residue_is_not_penetration() {
+        near(penetration(-3.7e-13).unwrap(), 0.0);
+        near(penetration(2.5).unwrap(), 2.5);
+        assert!(penetration(-0.01).is_err());
+        assert!(penetration(f64::NAN).is_err());
+    }
+
+    #[test]
+    fn closest_pair_matches_every_triangle_pair() {
+        let a = mesh(&Manifold::sphere(1.0, 20));
+        let b = mesh(&Manifold::cube(1.0, 0.6, 1.4, true).rotate(17.0, 31.0, 5.0));
+        for by in [[0.3, 0.0, 0.0], [1.4, 0.2, -0.1], [1.9, 0.0, 0.0], [2.5, 0.7, 0.3], [40.0, -25.0, 9.0]] {
+            let mut brute = f64::MAX;
+            for i in 0..a.shape.indices().len() as u32 {
+                for j in 0..b.shape.indices().len() as u32 {
+                    let d = query::distance(&pose(by), &a.shape.triangle(i), &Isometry::identity(),
+                                            &b.shape.triangle(j)).unwrap();
+                    brute = brute.min(d);
+                }
+            }
+            let (d, _, _) = closest(&a, &b, by).unwrap();
+            assert!((d - brute).abs() < 1e-12, "{by:?}: {d} != {brute}");
+            let g = gap(&a, &b, by).unwrap();
+            assert!((g.surface_distance_mm - brute).abs() < 1e-9, "{by:?}");
+        }
     }
 
     #[test]

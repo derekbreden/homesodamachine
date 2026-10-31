@@ -4,10 +4,11 @@
 One local Rust daemon serves the CLI, an MCP server and a Unix socket. Queries load a scene on
 demand. A saved edit starts no build, query, watcher or check.
 
-Build and install with Rust 1.89 or later, CMake and a C++17 compiler:
+Build and install with Rust 1.89 or later, CMake and a C++17 compiler. `--root ~/.local` puts
+`hsm` in `~/.local/bin`, which this Mac's shells have on `PATH`:
 
 ```sh
-cargo install --path tools/hsm/engine --locked
+cargo install --path tools/hsm/engine --locked --root ~/.local
 hsm where tee-y-a
 hsm gap compressor/1 condenser+fan
 hsm overlap '#6' '#7'
@@ -57,21 +58,22 @@ analytic surfaces or source lines.
 
 ## Process and cache
 
-The first CLI or MCP query starts the daemon. It survives its caller and is shared by all
-worktrees for that user. A changed executable replaces the previous daemon on the next query.
-The default socket is `/tmp/hsm-<uid>/engine.sock`, in a private directory. `--socket` or
-`HSM_SOCKET` selects another service. `hsm daemon` runs it in the foreground.
+The first CLI or MCP query starts the daemon. It survives its caller, is shared by all
+worktrees for that user, and exits after 15 minutes without a query; `--idle-minutes` sets
+that, and 0 keeps it running. A changed executable replaces the previous daemon on the next
+query. The default socket is `/tmp/hsm-<uid>/engine.sock`, in a private directory. `--socket`
+or `HSM_SOCKET` selects another service. `hsm daemon` runs it in the foreground.
 
-Geometry is addressed by the payload digest and a digest of the geometry reader and dependency
-lock. Serialized BVHs persist across restarts in `$XDG_CACHE_HOME/hsm`, `~/Library/Caches/hsm`
-on macOS, or `~/.cache/hsm` on Linux. `--store` or `HSM_STORE` selects a shared store. Unchanged
-files reuse resident geometry by device, inode, size, mtime and ctime. Replaced payloads reload
-on the next request. Two worktrees holding identical bytes share one resident entry.
+Geometry lives only in the daemon's memory, addressed by the payload digest. Unchanged files
+reuse resident geometry by device, inode, size, mtime and ctime. Replaced payloads reload on
+the next request. Two worktrees holding identical bytes share one resident entry.
 
 The daemon executes queries serially. `--cache-mb` sets a conservative resident cache budget
 (default 768 MiB); least recently used scenes are evicted to make room. The estimate includes
 lazy solid copies, but is not a hard process memory limit. Geometry query scratch can consume
-additional memory. The store's `daemon.log` records startup and cache-write errors.
+additional memory. `daemon.log` in the store directory (`--store` or `HSM_STORE`; otherwise
+`$XDG_CACHE_HOME/hsm`, `~/Library/Caches/hsm` on macOS, or `~/.cache/hsm` on Linux) records
+startup errors and idle exits.
 
 ## MCP and socket
 
