@@ -9,7 +9,9 @@ therefore includes the scanned adapter's offset from the nominal grid.
 Each tile slides in a continuous side-rail channel at Y469.3–471.1, retaining
 4 mm of wall before the Y465.3 nut plane and 0.2 mm below the Y471.3 flange.
 The channel floor is Z252. The upper tiles finish at Z355; lower tiles extend
-19.8 mm above their fitting rows. Print face up with the native Y0 back on
+19.8 mm above their fitting rows. The rails retain 3 mm of fore–aft stock at
+Y471.3–474.3, with 3 mm outer roots beside the tile channels. Their complete
+sections remain plain through exterior fluting. Print face up with the native Y0 back on
 the bed. The raised word uses the shared two-colour label process and two
 0.24 mm layers above the face. The accepted TAP/FLAVOR
 [appearance record](../tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-30-bulkhead-raised-mark2-v2/physical-result.json)

@@ -385,6 +385,10 @@ def cut_deck_mounts_lid(lid):
                                              -1.0, lid_cut_through_depth))
                        .cut(_joining_slot(station, (x, y), 2.0 * head_cbore_radius,
                                           head_floor, lid_cut_through_depth)))
+            for station in foam_cap_lid_vent_xy(top=True):
+                if math.dist((x,y),station)-radius-foam_cap_lid_vent_radius < deck_mount_cap_gap:
+                    lid = lid.cut(_joining_slot(station,(x,y),2.0*screw_clearance_radius,
+                                                -1.0,lid_cut_through_depth))
     return lid
 
 
