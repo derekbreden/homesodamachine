@@ -17,6 +17,8 @@ click: x=-56.870 y=461.600 z=280.725
 click: x=-56.870 y=462.900 z=280.725
 click: x=-64.376 y=461.600 z=304.164
 click: x=-64.376 y=463.000 z=304.164
+click: x=-56.695 y=461.600 z=282.293
+click: x=-56.695 y=462.900 z=282.293
 
 [ledge] Accepted receiver wing-slot ends: the print-down ends of the DATA and nameplate wing slots, 2.55 x 2.28 mm, bridged between the slot floor and the lip with their 0.15 + 0.25 mm allowance. verify_geometry.py holds the receiver to the accepted coupon.
 alternatives: 45° slot ends would change the receiver that the accepted nameplate coupon (horizontal-wing-trial/physical-acceptance.json) qualified.
@@ -161,6 +163,7 @@ click: x=-95.566 y=440.240 z=300.862
 alternatives: Sloping or filling behind the keeper changes the latch's capture; the keeper faces toward the opening are the jack's seat.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=-66.492 y=462.467 z=283.320
+click: x=-66.492 y=462.033 z=283.320
 
 [slope] Wrong slope classification for the C14 inlet's body opening: its two lower corner chamfers are the 45° roof faces of a through-opening in back-top's ceiling-down print (Y462.3-468.05), each grown off the opening's vertical side through the profile's corner round and carried by the stock beside it at every layer. The lint takes a level foot only from a plane wall, and the one plane wall either chamfer meets is the flange pocket's floor, along the chamfer's own rising edge.
 alternatives: Read hole roofs separately from sideways corbels. Squaring the opening's corners puts a flat roof over the inlet's chamfered body.
@@ -175,6 +178,7 @@ file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=78.052 y=285.890 z=317.606
 click: x=-78.052 y=285.890 z=317.606
 click: x=78.729 y=297.417 z=315.208
+click: x=78.729 y=297.415 z=317.708
 
 [ceiling] Required gas saddle tops: each is the top of an east-wall saddle (`_above_core_shell.fluid_supports`) round its half-bore, the gas check's at Z297.65 and the gas regulator's at Z305.0. A 45-degree roofward corbel occupies the fitted bodies: the check stands over its saddle at X78.0-86.6 from Z297.8, the regulator and its inlet elbow at X78.0-89.0 from Z305.1. Tree(auto)/Default support stands under each top through the open interior (slice 257a5648, interfaces 30 and 22) and leaves before the gas fittings go in. Physical cleanup remains unqualified.
 alternatives: A corbel east of the bodies leaves the saddle's west part flat over the same air; a different saddle needs its own body clearance.
@@ -372,12 +376,16 @@ click: x=2.508 y=446.345 z=355.000
 click: x=2.508 y=446.345 z=353.800
 click: x=1.011 y=349.024 z=353.800
 click: x=1.011 y=349.024 z=355.000
+click: x=-30.492 y=446.106 z=355.000
+click: x=-30.492 y=446.106 z=353.800
 
 [thin] Fitted meter aft end wall: its 2.44 mm section lies between the complete swept housing pocket ending at Y443.56 and the seat end at Y446. The neighboring CARB receiving union’s occupied envelope begins at Y446.510. This end plane retains the meter’s axial clearance while keeping that neighboring envelope clear.
 alternatives: Growing the wall to 3 mm moves its end to Y446.56, 0.05 mm into the neighboring occupied envelope. Moving the meter fore instead changes its direct SODA stub, both snap interfaces and the R14 inlet/foam holder. Narrowing its fitted pocket spends the housing and axial-position allowance.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=86.216 y=446.000 z=297.297
 click: x=86.216 y=443.560 z=297.297
+click: x=85.861 y=443.560 z=291.716
+click: x=85.861 y=446.000 z=291.716
 
 [ledge] Complete lower boundary of the six-port nut-seat relief: the rectangular field ends at Z250 below the Z264 row, retaining one flat 6 mm rear panel behind the nuts. The ranked face is the east end of that boundary where it meets the rounded case, rather than an added pad. Back-top prints ceiling-down; Tree(auto)/Default approaches through the empty interior before the fittings and labels are installed.
 alternatives: Extending the relief downward changes the wall adjacent to the accepted nameplate receiver. Filling or sloping its floor changes the common nut-installation field; separate local pockets add face breaks around the six fittings.
