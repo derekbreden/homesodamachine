@@ -217,7 +217,8 @@ Helvetica.
 ## Parts the kernel cuts
 
 A part the kernel cuts keeps its numbers in Python and its geometry in Rust, side by side in its
-folder. The fuse clamp (`hardware/printed-parts/refrigeration/fuse-clamp`) is one.
+folder. The fuse clamp (`hardware/printed-parts/refrigeration/fuse-clamp`) is one, and the coil
+mandrel (`hardware/printed-parts/cold-core/coil-mandrel`, crate `tools/hsm/cold-core`) is another.
 
 `fuse_clamp.py` is its generator. It derives every number the part takes from the parts it
 closes on, states its bounds and fills its README, as any generator does, and writes the numbers
