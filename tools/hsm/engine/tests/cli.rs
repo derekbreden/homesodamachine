@@ -7,6 +7,7 @@ use std::{
     os::unix::net::UnixListener,
     path::PathBuf,
     process::{Command, Stdio},
+    sync::atomic::{AtomicUsize, Ordering},
     time::{Duration, SystemTime, UNIX_EPOCH},
 };
 
@@ -104,11 +105,15 @@ fn payload(shift: f32) -> Vec<u8> {
 
 impl Fixture {
     fn new() -> Self {
+        // macOS clocks tick in microseconds, so tests starting together need the counter.
+        static FIXTURES: AtomicUsize = AtomicUsize::new(0);
         let nonce = SystemTime::now()
             .duration_since(UNIX_EPOCH)
             .unwrap()
             .as_nanos();
-        let root = std::env::temp_dir().join(format!("hsm-cli-{}-{nonce}", std::process::id()));
+        let n = FIXTURES.fetch_add(1, Ordering::Relaxed);
+        let root =
+            std::env::temp_dir().join(format!("hsm-cli-{}-{n}-{nonce}", std::process::id()));
         fs::create_dir_all(&root).unwrap();
         fs::write(root.join("fixture.step.mesh"), payload(0.0)).unwrap();
         Self {
@@ -148,6 +153,20 @@ impl Drop for Fixture {
         let _ = self.command().arg("stop").output();
         let _ = fs::remove_dir_all(&self.root);
     }
+}
+
+#[test]
+fn an_idle_daemon_exits_and_the_next_query_starts_another() {
+    let f = Fixture::new();
+    let pid = f.query(&["--idle-minutes", "0.01", "status"])["result"]["pid"].clone();
+    let waiting = std::time::Instant::now();
+    while f.socket.exists() {
+        assert!(waiting.elapsed() < Duration::from_secs(10), "an idle daemon kept its socket");
+        std::thread::sleep(Duration::from_millis(50));
+    }
+    let next = f.query(&["where", "part-one"]);
+    assert_eq!(next["result"]["data"]["parts"][0]["name"], "part-one");
+    assert_ne!(f.query(&["status"])["result"]["pid"], pid);
 }
 
 #[test]
@@ -248,7 +267,7 @@ fn queries_restart_worktrees_and_invalidation() {
     assert_eq!(updated["result"]["data"]["parts"][0]["min_mm"][0], 9.0);
     f.query(&["stop"]);
     f.query(&["where"]);
-    assert_eq!(f.query(&["status"])["result"]["cache"]["bvh_restores"], 1);
+    assert_eq!(f.query(&["status"])["result"]["cache"]["payload_loads"], 1);
     assert_ne!(f.query(&["status"])["result"]["pid"], pid);
 
     fs::write(f.root.join("fixture.step.mesh"), b"bad").unwrap();
