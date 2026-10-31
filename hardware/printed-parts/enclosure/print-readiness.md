@@ -49,7 +49,7 @@ comparison-print results alone do not change it. Local solid reinforcement and s
 surface bands retain their specified settings.
 H2C uses +0.18 mm requested trim (+0.16 mm emitted for Textured PEI);
 Mark2 uses +0.04 mm (+0.02 mm emitted). Both configured printable areas are 325 × 320 mm, with
-at least 15 mm model border. Use a 0.20 mm first bed layer and 0.24 mm layers on
+at least 20 mm border around the complete emitted model, support and brim beads. Use a 0.20 mm first bed layer and 0.24 mm layers on
 expanding print-down show edges, with an additive chamfer/taper and six walls locally.
 Inward/top show rounds use 0.08 mm across their complete curved span. Other regions
 use the normal 0.24 mm profile. Each actual slice reports
@@ -175,7 +175,7 @@ load-capacity or drop result.
 ## Above-core production geometry
 
 The [production arrangement](../../manifold-layout/above-core.md) places the flat
-PCB, pump and V-B on the cold core. Back-top carries the sidewall PSU, raised
+PCB, pump and V-B on the cold core. Back-top carries the ceiling PSU, west-wall
 relays, meter, V-A/V-K and fitted plumbing beneath a continuous rear ceiling.
 Its printable set includes the upper quadrants, cap/cup and lid interfaces,
 compact rear chips and the 35 mm deeper funnel family. The frame installs

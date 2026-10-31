@@ -368,7 +368,7 @@ def flavor_routes(station):
 
     for flavor, valve, lane, cross_y, aisle, cross_z, lift_y in (
             ('a','valve-v-g',-33.,266.,55.5,296.,291.),
-            ('b','valve-v-j',-40.,266.,35.,290.,295.)):
+            ('b','valve-v-j',-40.,274.,35.,293.,299.)):
         source,axis,_ = station(valve,'outlet')
         destination,outward,_ = station('bulkhead-flavor-'+flavor,'tube-in')
         if flavor=='a':

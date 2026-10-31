@@ -115,7 +115,7 @@ AFT_PACK_RISE = 0.5
 # V-G and V-J stand as low as V-C and V-D. Their fully seated elbows
 # face the tee elbows on parallel horizontal axes; the free tubes carry the height step.
 OUTER_AFT_DROP = INNER_LIMB_DROP
-# Existing world lift is independent of the fixed routing's lowest surface.
+# The front pack's height reference is independent of the lowest tube surface.
 WORLD_LIFT = 201.425
 PACK_ORIGIN_Y = 14.48
 # The collet plate's fore face stands this far aft of the pump barb plane: the cradle's
@@ -949,7 +949,7 @@ def bowed(a, b, developed=None, d: float = TUBE_D):
 #
 # Every connection `fluid-topology.md` names between the bodies in this study, and how it is
 # made. A BUTT is two collet faces meeting: there is tube in both quick-connects and none
-# between them, so the study draws no solid for it. The other two are straight lengths.
+# between them, so the study draws no solid for it. Other connections use their stated paths.
 
 def stub_tip(name: str) -> tuple:
     start = barb_station(name)
@@ -1049,7 +1049,7 @@ _bounds.state(
       "pack's to give, not this run's.")
 
 # Each lower connection is a lower return: a stem elbow in a pump tee's lower collet, one
-# straight tube, and a stem elbow in its rear valve's bottom collet.
+# continuous tube, and a stem elbow in its rear valve's bottom collet.
 LOWER_CONNECTIONS = {9: "Y-C", 17: "Y-D", 19: "Y-F", 27: "Y-G"}
 # Compatibility station lookup for topology/accounting callers.
 SPINE = {cid: LIMBS[P[frm.rsplit("-", 1)[0]]["limb"]]["x"]
@@ -1307,7 +1307,7 @@ def report(assy: cq.Assembly) -> dict:
     for cid, frm, to, how in SEGMENTS:
         if how == "spine":
             line = pump_plumbing()[LOWER_CONNECTIONS[cid]]['return']
-            note = (f"{line['exposed_mm']:.3f} mm straight between two stem elbows, "
+            note = (f"{line['exposed_mm']:.3f} mm free tube between two stem elbows, "
                     f"{line['elbows'][1]['showing']:.3f} mm of stem below the valve")
         elif how == "turn":
             note = f"{QUARTER_LEN:.2f} mm — one 90° turn at R{BEND_R:g}"
@@ -1358,7 +1358,7 @@ def report(assy: cq.Assembly) -> dict:
     print(f"fold: hinge at y {HINGE_Y:.2f} z {HINGE_Z:.2f}, decks at z {DECK_Z:.2f} and "
           f"{UPPER_Z:.2f} — {DECK_SEP:g} apart, which {f} standing over {u} sets")
     print(f"lower links: {len(SPINE)} lower returns, each a stem elbow in its pump tee's lower "
-          f"port, one straight tube and a stem elbow in its rear valve; {return_cut(INNER_X):.3f} mm "
+          f"port, one continuous tube and a stem elbow in its rear valve; {return_cut(INNER_X):.3f} mm "
           f"inner and {return_cut(OUTER_X):.3f} mm outer nominal tube stock including insertion")
     steps = [(v, *source_step(v)) for v in SBENDS.values()]
     hairpins = hairpins_drawn()

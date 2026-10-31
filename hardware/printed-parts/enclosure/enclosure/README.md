@@ -1081,16 +1081,16 @@ following the outlines of the pumps. An integral full-depth wing on each side sn
 front-top’s flank receiver.
 
 The pump holder stations are X±52.225, Y45.859, Z214.925. The actual seated flange is
-[214.674 mm](PUMP_FLANGE_Z), [0.251 mm](PUMP_SEATED_DROP) below that holder datum. The
+[224.674 mm](PUMP_FLANGE_Z), [0.251 mm](PUMP_SEATED_DROP) below that holder datum. The
 reference boss and motor share an axis 1 mm toward Y− from the head datum; their upper
 inverse follows Y44.859. Keeping those two axes distinct preserves the fitted lower wells
 and the four existing tube axes.
 
 Each molded skirt is [8 mm](PUMP_SKIRT_DEPTH) deep. Its fitted lower land remains at
-[206.674 mm](PUMP_SKIRT_SUPPORT_Z), with continuous bearing on X−, Y− and X+ and between
+[216.674 mm](PUMP_SKIRT_SUPPORT_Z), with continuous bearing on X−, Y− and X+ and between
 the two tube passages on Y+. The integral upper bearing plane is
-[215.074 mm](PUMP_FIXED_BEARING_Z): the flange datum plus the supported-face allowance.
-The retainer's nonbearing top ends at [214.424 mm](PUMP_RETAINER_TOP_Z), leaving nominal
+[225.074 mm](PUMP_FIXED_BEARING_Z): the flange datum plus the supported-face allowance.
+The retainer's nonbearing top ends at [224.424 mm](PUMP_RETAINER_TOP_Z), leaving nominal
 space between the printed halves. These face allowances describe the CAD and print
 process; they are not a measured axial-play or retention result.
 
@@ -1152,7 +1152,7 @@ owns the complete order.
 ## Fixed plumbing behind the mount
 
 Four purchased PP0208E tees receive the pump tubes on X±82.1 and X±22.35 at
-[Z186.174](DOCK_ROW_Z). Each branch approaches its fixed tube from aft; the pump mount
+[Z196.174](DOCK_ROW_Z). Each branch approaches its fixed tube from aft; the pump mount
 stays in place. The extended branch collet grips the tube and the O-ring seals it. The
 snap-fit retainer holds the pumps in front-top.
 
@@ -1169,7 +1169,7 @@ stations and physical qualification scope.
 Front-top retains its continuous [9 mm](FRONT_WALL) front wall and both
 [9 mm](FRONT_TOP_FLANK) flanks. The underside loading opening spans X−98.5..98.5, from
 Y14 to the tee wall at [Y82.515](DOCK_BAY_FACE_Y). The retainer has running clearance
-around its rectangular core and at the ends of its snap wings. Its bottom is [165.195 mm](PUMP_RETAINER_BOTTOM_Z).
+around its rectangular core and at the ends of its snap wings. Its bottom is [175.195 mm](PUMP_RETAINER_BOTTOM_Z).
 The front face and rounded enclosure corners belong to front-top.
 
 The tee wall is one broad slab, [15.821 mm](DOCK_WALL_T) deep, reaching aft to
@@ -1189,7 +1189,7 @@ rails keep their complete working runs aft of the tee wall.
 
 Each side’s carrier, wing and lower hook share the retainer’s complete Y14.25–82.265 span.
 The receiver spans Y14–82.515, leaving 0.25 mm at either end. The upper region joins the
-wing to the retainer continuously down to Z = [186.195 mm](PUMP_SNAP_ROOT_Z). Below it,
+wing to the retainer continuously down to Z = [196.195 mm](PUMP_SNAP_ROOT_Z). Below it,
 a [2.4 mm](PUMP_SNAP_WING_THICK) wall supplies 16 mm of straight spring above a 5 mm hook:
 [21 mm](PUMP_SNAP_LENGTH) total lower wing height. The roots remain at
 the top and the retaining hooks at the bottom.
@@ -1197,7 +1197,7 @@ the top and the retaining hooks at the bottom.
 Each hook’s nominal outer face is at |X|99.5. Its relaxed tip spreads outward 0.35 mm;
 the assembly representation uses 0.10 mm at the seated receiver back, |X|99.6. The resulting
 0.25 mm displacement is a geometric spring fit, without a force or lifetime qualification.
-The hook-bearing plane stays at Z175.195. Its receiver floor is at Z = [165.045 mm](PUMP_SNAP_RECEIVER_FLOOR_Z), providing
+The hook-bearing plane stays at Z175.195. Its receiver floor is at Z = [175.045 mm](PUMP_SNAP_RECEIVER_FLOOR_Z), providing
 0.15 mm of static allowance without moving the fitted pump seats.
 
 One centred, [4.5 mm](PUMP_SNAP_PORT_WIDTH) Y-wide screwdriver opening per side passes through |X|98.5–104.5

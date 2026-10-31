@@ -16,7 +16,7 @@ populated lower enclosure.
 
 ## Tees and tee wall
 
-One PP0208E stands on each pump port: Y-C and Y-D on pump A, Y-F and Y-G on pump B, west to east Y-G, Y-F, Y-C, Y-D. Each tee's branch faces its pump on the pump tube's axis, [Z186.174](DOCK_ROW_Z); its run stands upright.
+One PP0208E stands on each pump port: Y-C and Y-D on pump A, Y-F and Y-G on pump B, west to east Y-G, Y-F, Y-C, Y-D. Each tee's branch faces its pump on the pump tube's axis, [Z196.174](DOCK_ROW_Z); its run stands upright.
 
 Front-top's bay bulkhead is the tee wall: one flat slab of PET-GF the bay's whole width and height, [15.821 mm](DOCK_WALL_T) thick from the bay face at [Y82.515](DOCK_BAY_FACE_Y) to its aft face at [Y98.336](DOCK_WALL_AFT_Y). Its fore band, the collet plate, [4.675 mm](DOCK_PLATE_T) thick, ends at the bore face, [Y87.19](DOCK_BORE_FACE_Y). Each tee has two teardropped cuts on its branch axis: a [Ø11.93 mm](DOCK_HOLE_D) collet opening through the fore band and a [Ø17 mm](DOCK_BORE) branch bore from the bore face through the wall's aft face, [11.15 mm](DOCK_BORE_DEPTH) long. The collar's [Ø16.5 mm](DOCK_COLLAR_ENVELOPE) reference envelope has [0.25 mm](DOCK_BORE_AIR) of running air. A bottom-open tube-loading gate joins each pair of openings to the underside. The remaining bore-face land stops the fixed branch barrel. The wall also roots the fore valve tray and joins the continuous pump/display body above it.
 
@@ -28,13 +28,13 @@ The bore holds the tee's branch in X and Z. Its fixed branch barrel stops it for
 
 ## Fore valves and upper tubes
 
-V-E, V-F, V-H and V-I stand fixed on their tray posts directly over the tees, bottom collets at [Z222.675](DOCK_FORE_VALVE_Z). Each fore valve's axis is [Y108.04](DOCK_FORE_VALVE_Y), over its tee's run axis, so the short upper tube between them, [15.25 mm](DOCK_UPPER_TUBE) exposed, stands straight.
+V-E, V-F, V-H and V-I stand fixed on their tray posts directly over the tees, bottom collets at [Z222.675](DOCK_FORE_VALVE_Z). Each fore valve's axis is [Y108.04](DOCK_FORE_VALVE_Y), over its tee's run axis, so the short upper tube between them, [5.251 mm](DOCK_UPPER_TUBE) exposed, stands straight.
 
 ## Lower returns
 
 Each lower return joins a tee's lower collet ([Z174.924](DOCK_LOWER_PORT_Z)) to its rear valve's bottom collet with two NeoFit ATEU44W stem elbows and one continuous tube of the machine's black 1/4" LLDPE. Both elbow shoulders stand on their collet faces, with stems cut for full seating. The tee's elbow crosses [6.11 mm](DOCK_ELBOW_DROP) below its collet at [Z168.81](DOCK_RETURN_Z). The rear collets stand at [Z171.175](DOCK_RETURN_VALVE_Z), putting their sockets 3.749 mm lower. Two tangent arcs join the parallel socket mouths: R18.084 on the inner pair and R19.36 on the outer pair. Their exposed lengths are [16.61 mm](DOCK_RETURN_TUBE) and [17.18 mm](DOCK_OUTER_RETURN_TUBE). The outer pair also aims inboard toward V-G and V-J at [X±73.82](DOCK_OUTER_RETURN_X). The stem lengths are 11.65 mm in the tees and 12 mm in the valves; verify the actual fully seated marks when cutting.
 
-The tee elbows' lowest surface is Z160.913, clear of the Z160 front sliding lip. The complete return's lowest surface is [Z157.164](DOCK_RETURN_FLOOR), [11.16 mm](DOCK_CONDENSER_AIR) above the condenser. Both pumps, all four tees and the fore valves retain straight axes. The connecting tubes carry the small height difference.
+The tee elbows' lowest surface is Z160.913, clear of the Z160 front sliding lip. The complete return's lowest surface is [Z157.164](DOCK_RETURN_FLOOR), [11.2 mm](DOCK_CONDENSER_AIR) above the condenser. Both pumps, all four tees and the fore valves retain straight axes. The connecting tubes carry the small height difference.
 
 ## Pump tubes and lower retainer
 
@@ -61,9 +61,9 @@ Each wing, hook and carrier occupies the same Y14.25–82.265 span, 68.015 mm lo
 Its receiver spans Y14–82.515, leaving 0.25 mm at each end. The upper section joins the
 wing to the retainer continuously; the lower [21 mm](PUMP_SNAP_LENGTH) is free to flex,
 with a 16 mm straight spring above its 5 mm hook and a [2.4 mm](PUMP_SNAP_WING_THICK) wall.
-The upper root is at Z = [186.195 mm](PUMP_SNAP_ROOT_Z).
+The upper root is at Z = [196.195 mm](PUMP_SNAP_ROOT_Z).
 The hooks flex inward during upward insertion and spring outward into the receivers.
-The receiver floors at Z = [165.045 mm](PUMP_SNAP_RECEIVER_FLOOR_Z) leave the specified 0.15 mm static allowance below the
+The receiver floors at Z = [175.045 mm](PUMP_SNAP_RECEIVER_FLOOR_Z) leave the specified 0.15 mm static allowance below the
 nominal hook-bearing faces at Z175.195.
 
 One [4.5 mm](PUMP_SNAP_PORT_WIDTH)-wide opening at each receiver’s Y centre admits a small flathead screwdriver
@@ -134,4 +134,5 @@ Material data alone do not establish finished wet-part food-contact suitability.
 
 ## Sources
 [value](NAME) texts are updated by:
+- `/<stdin>`
 - `/hardware/printed-parts/enclosure/enclosure/enclosure.py`
