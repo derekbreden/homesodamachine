@@ -192,8 +192,10 @@ Union, cut, intersect and plane split run on Manifold. Each operand face goes in
 own, so the result keeps every face record. Coordinates of different operands within 10⁻⁸ mm
 are one coordinate, and a component thinner than the rule is dropped. Volume, area, centroid,
 inertia and bounds come from the mesh. The writers make binary STL, 3MF, GLB (face records in
-its extras) and the `.step.mesh` payload `hsm` reads, the same bytes for the same solid on every
-run. Without the `manifold` feature the kernel is pure Rust and builds for wasm32; its booleans
+its extras), the `.step.mesh` payload `hsm` reads, and the STEP meshcad writes: AP242
+triangulated surface sets under each body's name and colour, with the model file a mesh-kernel
+import reads beside it (`<name>.step.npz`). The same solid writes the same bytes on every run.
+Without the `manifold` feature the kernel is pure Rust and builds for wasm32; its booleans
 then return an error.
 
 `examples/fuse_clamp.rs` is the fuse clamp on the kernel:
@@ -217,8 +219,9 @@ kernel/examples/fuse_clamp.rs:61, cut at kernel/examples/fuse_clamp.rs:62`.
 The kernel's tests hold every builder and boolean to OCCT's volume and bounds for the same model
 within the rule (`tests/occt_reference.py` writes those with plain CadQuery), and booleans to
 Manifold run plainly on the same operands, sixty holes in one cut among them. They hold the fuse
-clamp to its published STEP's volume and STL's surface, two processes to the same bytes, and the
-crate to a wasm32 build. The text tests read the system's Arial and Helvetica.
+clamp to its published STEP's volume and STL's surface, two processes to the same bytes, a STEP
+and a model file to the triangles, names and colours they were written from, and the crate to a
+wasm32 build. The text tests read the system's Arial and Helvetica.
 
 ## Explicit validation
 
