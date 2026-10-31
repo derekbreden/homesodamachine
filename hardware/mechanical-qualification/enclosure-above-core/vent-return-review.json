@@ -1,0 +1,226 @@
+{
+  "scope": "Manual native local-window clearance of the printed vent elbow and its 4 mm return. A body outside the tube bounding box expanded by 1 mm cannot violate that clearance. Candidate native solids are clipped to that window before intersection and distance, preserving the complete local question without processing remote faces. Connected receiving interfaces are omitted; wire bodies, jackets and wire-end insulation are excluded. Connector housings and Wagos remain.",
+  "assembly_step_sha256": "0fdd2027ee81c401ec317aef34462b95b366ee6688b5e51ca729b0a85089e4ea",
+  "checks": {
+    "asse-drain-adapter": {
+      "valid": true,
+      "solids": 1,
+      "required_gap_mm": 0.0,
+      "candidates": [
+        {
+          "part": "asse-snap-cap",
+          "common_mm3": 0,
+          "gap_lower_bound_mm": 0.0,
+          "local_material_present": false,
+          "passed": true
+        },
+        {
+          "part": "tube-fluid-18",
+          "common_mm3": 0,
+          "gap_lower_bound_mm": 0.0,
+          "local_material_present": false,
+          "passed": true
+        },
+        {
+          "part": "tube-fluid-28",
+          "common_mm3": 0,
+          "gap_lower_bound_mm": 0.0,
+          "local_material_present": false,
+          "passed": true
+        },
+        {
+          "part": "tube-fluid-14",
+          "common_mm3": 0,
+          "gap_lower_bound_mm": 0.0,
+          "local_material_present": false,
+          "passed": true
+        },
+        {
+          "part": "foam-cap-lid-top",
+          "common_mm3": 0,
+          "gap_lower_bound_mm": 0.0,
+          "local_material_present": false,
+          "passed": true
+        },
+        {
+          "part": "g-ganen-pump",
+          "common_mm3": 0,
+          "gap_lower_bound_mm": 0.0,
+          "local_material_present": false,
+          "passed": true
+        },
+        {
+          "part": "enclosure-back-top",
+          "common_mm3": 0,
+          "gap_lower_bound_mm": 0.0,
+          "local_material_present": false,
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    "tube-drain-vent": {
+      "valid": true,
+      "solids": 1,
+      "required_gap_mm": 1.0,
+      "candidates": [
+        {
+          "part": "bulkhead-drain-nut",
+          "common_mm3": 0,
+          "gap_lower_bound_mm": 1.0,
+          "local_material_present": false,
+          "passed": true
+        },
+        {
+          "part": "tube-fluid-18",
+          "common_mm3": 0,
+          "gap_lower_bound_mm": 1.0,
+          "local_material_present": false,
+          "passed": true
+        },
+        {
+          "part": "tube-fluid-28",
+          "common_mm3": 0,
+          "gap_lower_bound_mm": 1.0,
+          "local_material_present": false,
+          "passed": true
+        },
+        {
+          "part": "foam-cap-lid-top",
+          "common_mm3": 0,
+          "gap_lower_bound_mm": 1.0,
+          "local_material_present": false,
+          "passed": true
+        },
+        {
+          "part": "enclosure-back-top",
+          "common_mm3": 0,
+          "gap_lower_bound_mm": 1.0,
+          "local_material_present": false,
+          "passed": true
+        }
+      ],
+      "passed": true
+    }
+  },
+  "bend_radii": {
+    "drain-vent": {
+      "minimum_radius_mm": 55.674112848721414,
+      "segment_minimum_radii_mm": [
+        null,
+        55.674112848721414,
+        null
+      ],
+      "stock_minimum_mm": 25.0,
+      "passed": true,
+      "source_segments_sha256": "299e950e15edf022743a368ff0a1fc9387b90913eadb610022169ee84a2a6efa"
+    },
+    "fluid-18": {
+      "minimum_radius_mm": 25.0,
+      "segment_minimum_radii_mm": [
+        null,
+        25.0,
+        null,
+        25.0,
+        null,
+        25.0,
+        37.881193577734614,
+        null,
+        25.0,
+        null,
+        25.0,
+        25.0,
+        25.0,
+        null,
+        25.0,
+        25.0,
+        null,
+        25.0,
+        25.0,
+        null,
+        25.0,
+        25.0,
+        null
+      ],
+      "stock_minimum_mm": 25.0,
+      "passed": true,
+      "source_segments_sha256": "e69e6f7431e85422078cb2a8af9b7adfcbf16d153f1f5b46a19b940edb24ecc2"
+    },
+    "fluid-28": {
+      "minimum_radius_mm": 25.0,
+      "segment_minimum_radii_mm": [
+        null,
+        25.0,
+        25.0,
+        25.0,
+        null,
+        25.0,
+        null,
+        25.0,
+        null,
+        25.0,
+        25.0,
+        null,
+        25.0,
+        25.0,
+        null,
+        25.0,
+        25.0,
+        null
+      ],
+      "stock_minimum_mm": 25.0,
+      "passed": true,
+      "source_segments_sha256": "a2fe2fff4e50743401fcc41ab9eba529a2dd50d8ebb5049c564566712900eade"
+    }
+  },
+  "curvature_method": "Every real stationary root of squared Bezier curvature on [0,1], with endpoints, and each circular arc radius. Numerical roots are compared with a dense parameter sample.",
+  "placement_facts_sha256": "00d8d78ca0bc023ba8dc580d1731d06232edc277e88181acc9a7890d6fbb0d32",
+  "passed": true,
+  "flavor_b_clearance": {
+    "payload_sha256": "d085834e77722a0c1a1b0f9e42ce435d170703380f307eed20a4bfd1374a9ea5",
+    "unconnected_mesh_overlaps": [],
+    "connected_receiving_interfaces": [
+      {
+        "part": {
+          "id": "#59",
+          "name": "flavor-reducer-v-j"
+        },
+        "volume_mm3": 0.4554556359286396
+      },
+      {
+        "part": {
+          "id": "#143",
+          "name": "bulkhead-flavor-b"
+        },
+        "volume_mm3": 0.4262473773741805
+      }
+    ],
+    "native_mesh_unknown_followup": [
+      {
+        "part": "ya-stem-elbow",
+        "common_mm3": 0.0
+      },
+      {
+        "part": "drain-outlet-stem",
+        "common_mm3": 0.0
+      },
+      {
+        "part": "yb-stem-elbow",
+        "common_mm3": 0.0
+      },
+      {
+        "part": "carbonator-fold",
+        "common_mm3": 0.0
+      },
+      {
+        "part": "vb-inlet-turn",
+        "common_mm3": 0.0
+      },
+      {
+        "part": "vb-outlet-stem",
+        "common_mm3": 0.0
+      }
+    ],
+    "passed": true
+  }
+}

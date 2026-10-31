@@ -74,6 +74,32 @@ click: x=107.290 y=-54.522 z=0.000
 click: x=107.290 y=-54.522 z=2.250
 click: x=107.340 y=-32.583 z=0.000
 click: x=107.340 y=-32.583 z=2.250
+click: x=-128.892 y=-85.232 z=0.000
+click: x=-128.892 y=-85.232 z=2.250
+click: x=-39.485 y=-83.714 z=0.000
+click: x=-39.485 y=-83.714 z=2.250
+click: x=38.729 y=-84.018 z=0.000
+click: x=38.729 y=-84.018 z=2.250
+click: x=-41.242 y=84.015 z=0.000
+click: x=-41.242 y=84.015 z=2.250
+click: x=84.260 y=-43.792 z=0.000
+click: x=84.260 y=-43.792 z=2.250
+click: x=115.342 y=-54.322 z=0.000
+click: x=115.342 y=-54.322 z=2.250
+click: x=121.013 y=-54.420 z=0.000
+click: x=121.013 y=-54.420 z=2.250
+click: x=117.244 y=-30.265 z=0.000
+click: x=117.244 y=-30.265 z=2.250
+click: x=120.970 y=-32.813 z=0.000
+click: x=120.970 y=-32.813 z=2.250
+click: x=39.247 y=83.750 z=0.000
+click: x=39.247 y=83.750 z=2.250
+click: x=118.771 y=-51.214 z=0.000
+click: x=118.771 y=-51.214 z=2.250
+click: x=118.771 y=-35.786 z=0.000
+click: x=118.771 y=-35.786 z=2.250
+click: x=-131.606 y=-83.398 z=0.000
+click: x=-131.606 y=-83.398 z=2.250
 
 [thin] Deliberate functional C2 spring section: these five ranked surface groups belong to the six free jaws above the tube equators, four on the fore Reservoir A pair and two on the V-A feed seat. Their measured 2.400 mm wall is the C2 section Derek selected with the 6.35 mm bore on Mark2 task 1379240291, recorded in future/snap-fit-tests/2026-10-26-mark2-combined/physical-result.json. Ordinary stock below the equators remains filled; the V-A root retains 5.025 mm below its bore. Only the working upper jaws use this specific flexure exception. This answer preserves the thinness ranking and establishes no full-lid force, lifetime or print result.
 alternatives: Increasing the jaws to 3 mm while keeping the same bore increases each outer radius by 0.6 mm and changes the selected spring section. On the fore pair it also consumes 1.2 mm of spread space: preserving the current conservative 1 mm-per-jaw envelope and its 0.35 mm opposing gap requires wider tube spacing and another routing change. Filling above the equators joins the free jaws and closes the press-in mouths. A rigid cradle with a separate closure adds a part and an assembly step instead of providing the selected direct snap.
@@ -108,13 +134,37 @@ click: x=139.635 y=-43.537 z=3.200
 click: x=139.635 y=-43.537 z=5.400
 click: x=122.089 y=-43.539 z=5.400
 click: x=122.089 y=-43.538 z=3.200
+click: x=121.320 y=-43.508 z=5.400
+click: x=121.320 y=-43.508 z=3.200
 
 [sliver] Functional retaining underside of the approved Reservoir A level-lead hook. Its 0.75 mm projection closes the 2.20 mm seat to a 1.45 mm entry mouth for nominal 1.70 mm insulation, matching the accepted cable clip's entry section. The flat underside catches the five leads after insertion. The hook's walls and full floor retain 3 mm structural stock.
 alternatives: A 3 mm projection closes this seat completely; retaining the same mouth with that projection requires a 4.45 mm deep seat, adding 2.25 mm of cable movement behind the catch. Reducing the projection opens the mouth toward the conductor diameter. Sloping the underside supplies an exit ramp instead of a flat catch.
 file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
-click: x=-64.200 y=-53.775 z=18.000
+click: x=-100.200 y=-73.175 z=18.000
 
 [ledge] Functional flat catch of the approved Reservoir A level-lead hook. The accepted 0.75 mm retaining projection and 1.45 mm mouth retain nominal 1.70 mm insulated leads; the entry chamfer is on the opposite side of this face.
 alternatives: A sloped underside lets the cable cam out through the mouth. Increasing the projection to 3 mm requires a 4.45 mm deep seat to preserve the mouth, adding 2.25 mm of movement behind the catch. Filling the entry prevents insertion from above.
 file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
-click: x=-66.867 y=-53.900 z=18.000
+click: x=-102.867 y=-73.300 z=18.000
+click: x=128.533 y=74.700 z=21.700
+click: x=128.533 y=79.900 z=16.150
+
+[thin] Specific 4 mm flavor-line flexures: these four free jaws use the C2 profile scaled from the 6.35 mm section to the 4 mm bore, giving a 1.52 mm working jaw. Their mouths permit direct press-in insertion; the filled roots retain 3 mm stock. The smaller section is a defined spring, with no transferred claim about measured force or fatigue.
+alternatives: A 3 mm jaw changes the spring section and mouth compliance. Filling above the tube equator closes the loading mouth; a rigid saddle with a separate closure adds a part and an assembly step.
+file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
+click: x=-92.200 y=73.931 z=9.061
+click: x=-92.200 y=75.450 z=9.043
+click: x=-92.200 y=81.069 z=9.061
+click: x=-92.200 y=79.550 z=9.043
+click: x=-89.200 y=31.431 z=16.061
+click: x=-89.200 y=32.950 z=16.043
+click: x=-91.200 y=38.569 z=16.061
+click: x=-91.200 y=37.050 z=16.043
+
+[thin] Retained leaning-line entry at native X−134.5/Y−32.5: the Ø7.5 mm conduit opens through the outer 2 mm of the lid as a 38-degree countersink. The ranked 2.28–2.49 mm section is between this conical tube-bearing mouth and the fixed casing edge. It is the entry profile for the leaning line.
+alternatives: A 3 mm rim requires moving the conduit inward or narrowing the countersink. The first moves its cup column and installed route; the second reduces the specified 38-degree tube-exit allowance.
+file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
+click: x=-138.918 y=-32.556 z=4.257
+click: x=-141.200 y=-32.556 z=4.257
+click: x=-141.200 y=-32.665 z=3.135
+click: x=-139.238 y=-32.616 z=4.668

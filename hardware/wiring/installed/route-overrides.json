@@ -3520,16 +3520,16 @@
       {
         "terminal": "join-compressor-n.1",
         "offset": [
-          -4.0,
-          112.0,
+          16.0,
+          86.0,
           -28.0
         ]
       },
       {
         "terminal": "join-compressor-n.1",
         "offset": [
-          -4.0,
-          0.0,
+          16.0,
+          -12.0,
           -8.0
         ]
       }

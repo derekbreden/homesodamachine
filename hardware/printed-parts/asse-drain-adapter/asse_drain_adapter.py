@@ -20,25 +20,16 @@ from _material_base import M_TPU_BLACK, one_body
 import multiplex_asse1022 as bfp
 
 BARB_BORE = 6.10
-BARB_DEPTH = 8.8
 TUBE_BORE = 3.80
 TUBE_DEPTH = 14.0
-TAPER_ANGLE = 60.0  # Degrees above the print bed.
-REDUCER_LENGTH = (BARB_BORE - TUBE_BORE) / 2 * math.tan(math.radians(TAPER_ANGLE))
-TUBE_START = BARB_DEPTH + REDUCER_LENGTH
-LENGTH = TUBE_START + TUBE_DEPTH
+REDUCER_LENGTH = .50  # Open taper below the vent tip, before the turn.
 MIN_WALL = 3.45  # Shared relaxed radial minimum, under both tie lands.
 GROOVE_DEPTH = .50
 BARB_OD = BARB_BORE + 2 * (MIN_WALL + GROOVE_DEPTH)
 TUBE_OD = TUBE_BORE + 2 * (MIN_WALL + GROOVE_DEPTH)
-OUTER_REDUCER_START = TUBE_START - (BARB_OD - TUBE_OD) / 2 * math.tan(math.radians(TAPER_ANGLE))
-ENTRY = .40
-ENTRY_HEIGHT = ENTRY * math.tan(math.radians(TAPER_ANGLE))
 GROOVE_FLAT = 2.80  # Existing 0.1-inch / 2.54 mm-wide four-inch ties.
 GROOVE_RAMP = 1.0  # At most .5 mm radial growth / mm build rise.
 BARB_TIE_Z = 5.5
-TUBE_TIE_Z = LENGTH - 6.0
-BODY_CLEARANCE = .50
 INSTALLED_REACH = 8.6  # Below the scanned vent hex, on the exposed stem.
 
 
@@ -49,7 +40,7 @@ def _revolve(profile):
 
 ELBOW_REACH = 25.4
 ELBOW_R = 4.05
-TURN_START_Z = -.5-REDUCER_LENGTH
+TURN_START_Z = -REDUCER_LENGTH
 SOCKET_DROP = -TURN_START_Z+ELBOW_R
 
 
@@ -63,13 +54,13 @@ def build(*, installed=False):
     tube_d = 4. if installed else TUBE_BORE
     rb = math.sqrt(BARB_OD**2+barb_d**2-BARB_BORE**2)/2.
     rt = math.sqrt(TUBE_OD**2+tube_d**2-TUBE_BORE**2)/2.
-    cup = cq.Solid.makeCylinder(rb,INSTALLED_REACH+SOCKET_DROP,
-                               cq.Vector(0.,0.,-SOCKET_DROP))
+    cup = cq.Solid.makeCylinder(rb,INSTALLED_REACH+SOCKET_DROP+rt,
+                               cq.Vector(0.,0.,-SOCKET_DROP-rt))
     socket = cq.Solid.makeCylinder(rt,ELBOW_REACH,
         cq.Vector(0.,0.,-SOCKET_DROP),cq.Vector(-1.,0.,0.))
     body = cup.fuse(socket)
-    barb = cq.Solid.makeCylinder(barb_d/2.,INSTALLED_REACH+.6,
-                                cq.Vector(0.,0.,-.5))
+    barb = cq.Solid.makeCylinder(barb_d/2.,INSTALLED_REACH+.1,
+                                cq.Vector(0.,0.,0.))
     # The short printed drain turn is separate from the LLDPE's bend rule.
     a = cq.Vector(0.,0.,TURN_START_Z)
     mid = cq.Vector(-ELBOW_R+ELBOW_R/math.sqrt(2.),0.,TURN_START_Z-ELBOW_R/math.sqrt(2.))
@@ -120,9 +111,8 @@ def main():
     sys.path.insert(0, str(HARDWARE.parent / "tools"))
     from docgen import substitute_md
     substitute_md(HERE / "README.md", variables={
-        "BARB_BORE": f"{BARB_BORE:.2f}", "BARB_DEPTH": f"{INSTALLED_REACH+.5:g}",
+        "BARB_BORE": f"{BARB_BORE:.2f}", "BARB_DEPTH": f"{INSTALLED_REACH:g}",
         "TUBE_BORE": f"{TUBE_BORE:.2f}", "TUBE_DEPTH": f"{TUBE_DEPTH:g}",
-        "TAPER_ANGLE": f"{TAPER_ANGLE:g}", "LENGTH": f"{LENGTH:.2f}",
         "BARB_OD": f"{BARB_OD:g}", "TUBE_OD": f"{TUBE_OD:g}",
         "MIN_WALL": f"{MIN_WALL:.2f}",
         "SOCKET_DROP": f"{SOCKET_DROP:.2f}", "REDUCER_LENGTH": f"{REDUCER_LENGTH:.2f}",

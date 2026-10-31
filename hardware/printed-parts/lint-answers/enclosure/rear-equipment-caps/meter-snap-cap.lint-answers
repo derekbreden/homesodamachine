@@ -1,0 +1,11 @@
+[sliver] Functional spring-hook catch faces: the 0.85 mm reach is 0.60 mm engagement plus 0.25 mm running allowance. Each free spring wall is 3 mm thick, and the flat underside bears on the seat ledge after insertion. The narrow face is the specified retaining projection. Tree(auto)/Default supplies supports through the cap’s open mouth before assembly.
+alternatives: Removing or sloping this bearing lets the hook cam off its ledge. Increasing the reach to 3 mm requires another 2.15 mm of spring travel and wider seat pockets; increasing vertical wall stock does not change the measured horizontal catch face.
+file: hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.step
+click: x=-21.975 y=0.000 z=23.000
+click: x=21.975 y=0.000 z=23.000
+
+[ceiling] Functional spring-hook catch faces: the 0.85 mm reach is 0.60 mm engagement plus 0.25 mm running allowance. Each free spring wall is 3 mm thick, and the flat underside bears on the seat ledge after insertion. The narrow face is the specified retaining projection. Tree(auto)/Default supplies supports through the cap’s open mouth before assembly.
+alternatives: Removing or sloping this bearing lets the hook cam off its ledge. Increasing the reach to 3 mm requires another 2.15 mm of spring travel and wider seat pockets; increasing vertical wall stock does not change the measured horizontal catch face.
+file: hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.step
+click: x=-21.975 y=0.000 z=23.000
+click: x=21.975 y=0.000 z=23.000
