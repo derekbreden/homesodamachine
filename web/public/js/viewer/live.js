@@ -37,6 +37,7 @@ import { mountScorecard } from "./scorecard-3d.js";
 import { afterGesture } from "./scene.js";
 import { HSM_EVENTS } from "/contracts/client-events.js";
 import { isMounted } from "./lazy.js";
+import { stepLocation } from "/contracts/step-locations.js";
 
 function refreshStepCard(file) {
   // The card draws the model, so a STEP that moved is a card that has to redraw:
@@ -96,6 +97,12 @@ function isOpenAs(type, file) {
   return state.currentDetail && state.currentDetail.type === type && state.currentDetail.file === file;
 }
 
+// The open view a STEP draws: the whole model, or one of its components.
+function openStepOf(file) {
+  const open = state.currentDetail;
+  return open?.type === "step" && stepLocation(open.file).file === file ? open.file : null;
+}
+
 // One deferred reload per open file. The gate holds a reload for the length of a
 // drag, every save inside that window lands on the same key, and the ETag that
 // turns a repeat into a 304 isn't set until a load finishes.
@@ -138,11 +145,12 @@ window.addEventListener(HSM_EVENTS.FILES_CHANGED, async (e) => {
       refreshStepCard(file);
       // Reload the model in place, then re-mount the scorecard bar so a live rebuild's fresh
       // verdict (the sidecar is rewritten alongside the .step) replaces the stale one.
-      if (isOpenAs("step", file)) {
+      const open = openStepOf(file);
+      if (open) {
         // A deferred reload can outlive the modal; mountScorecard reads the
         // wrapper's isConnected.
-        reloadCad("step", file).then(() => {
-          if (state.currentCadWrapper) mountScorecard(state.currentCadWrapper, file);
+        reloadCad("step", open).then(() => {
+          if (state.currentCadWrapper) mountScorecard(state.currentCadWrapper, open);
         });
       }
     } else if (file.endsWith(".dxf")) {

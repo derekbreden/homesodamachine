@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "hsm": {
+      "command": "hsm",
+      "args": ["mcp"]
+    }
+  }
+}

@@ -25,6 +25,12 @@ Run commands within the checkout or supply `--root /absolute/worktree`. `--scene
 `machine` (the complete enclosure assembly), `faucet`, `enclosure`, or a payload path relative
 to that root. A `.step` path resolves to its `.step.mesh` sibling; no STEP reader is started.
 
+A checkout without the payload a query asks for, such as a fresh worktree, takes the one
+[`hardware/cad-artifacts.json`](../../hardware/cad-artifacts.json) names: the main checkout's
+copy when it holds those bytes, cloned, or else the published object from the store. Either is
+held to the pointer's SHA-256 before it is renamed into place. A payload on disk is never
+replaced, and nothing is built.
+
 Names match case insensitively, with exact names preferred over substrings. `where` lists all
 matches. Pair queries require one solid for each selector and explain an ambiguous selection.
 `#index` identifies a solid within a specific payload digest; indices can change when a scene
@@ -77,22 +83,30 @@ startup errors and idle exits.
 
 ## MCP and socket
 
-Configure an MCP client to launch the installed executable with the repository root:
+The tools are `hsm_where`, `hsm_gap`, `hsm_overlap`, `hsm_move`, `hsm_section` and `hsm_ray`.
+`hsm mcp` serves them over newline-delimited JSON-RPC on stdio; diagnostic output never enters
+that stream. The server holds no geometry and starts no daemon until a tool is called. Each
+tool accepts an optional `root` and `scene`, so one server can query several worktrees. Without
+`root`, a call measures the checkout the server started in, which its instructions name.
 
-```json
-{
-  "mcpServers": {
-    "hsm": {
-      "command": "hsm",
-      "args": ["--root", "/absolute/path/to/homesodamachine", "mcp"]
-    }
-  }
-}
+Claude Code reads [`.mcp.json`](../../.mcp.json), which runs `hsm mcp`, and
+[`.claude/settings.json`](../../.claude/settings.json) enables that server and allows its tools.
+A session starts its server in the session's directory, so a session in a worktree made by
+`tools/worktree.py` measures that worktree. `claude mcp get hsm` shows the server.
+
+Codex takes its servers from `~/.codex/config.toml`:
+
+```toml
+[mcp_servers.hsm]
+command = "/Users/derekbredensteiner/.local/bin/hsm"
+args = ["mcp"]
+tool_timeout_sec = 600
 ```
 
-The tools are `hsm_where`, `hsm_gap`, `hsm_overlap`, `hsm_move`, `hsm_section` and `hsm_ray`.
-Each accepts an optional `root` and `scene`, so one MCP server can query several worktrees.
-MCP uses newline-delimited JSON-RPC over stdio; diagnostic output never enters that stream.
+Codex names the turn's git workspaces in each call's `_meta`, and a call without `root`
+measures the turn's workspace when it names one other than the server's checkout.
+`tool_timeout_sec` leaves a cold scene and a payload fetch time to finish. `codex mcp list`
+shows the server.
 
 The socket uses one newline-terminated JSON request and response per connection:
 
@@ -102,7 +116,23 @@ The socket uses one newline-terminated JSON request and response per connection:
 
 The response has `ok`, `elapsed_ms`, and either `result` or `error`. A CLI caller can send the
 same request with `hsm request '<json>'`. A failed query exits with status 1. `status`, `ping`
-and `shutdown` need no scene. The web viewer does not yet subscribe to this service.
+and `shutdown` need no scene.
+
+## The local viewer
+
+Off Render, the site's server (`npm start` in `web`) answers `/api/hsm` with the `hsm` on its
+`PATH`, or `HSM_BIN` ([`web/lib/hsm.js`](../../web/lib/hsm.js)), and `/3d` uses it
+([`web/public/js/viewer/hsm.js`](../../web/public/js/viewer/hsm.js)):
+
+- Once a second while a model is open and the page is visible, the page asks again for the
+  file it drew, under the ETag it came with. The server answers off a stat, and a new ETag that
+  holds for another second redraws the model in place, camera kept. Nothing watches a file, so
+  a payload redraws however it was written: by its producer, `sync_tree.py` or
+  `fetch-cad-artifacts`.
+- With **Measure** on in the component panel, a picked body shows its payload index and world
+  bounds, and its clearance to the body picked before it, with the closest points drawn.
+
+The deployed site answers `/api/hsm` with a 404, and its viewer does neither.
 
 ## Explicit validation
 
