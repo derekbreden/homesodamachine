@@ -19,7 +19,7 @@ Their integral slide seats and removable snap caps share the production datums.
 
 V-F's outlet, V-E's inlet and V-I's outlet each take a trimmed ATEU44W stem
 elbow. Their reservoir tubes pass below the funnel frame with 1.225 mm nominal
-air. The 4 mm flavor-A line crosses at Y156/Z288.5; the J9 ribbon's free fore
+air. The 4 mm flavor-A line crosses at Y266/Z296; the J9 ribbon's free fore
 bends pass below it. The fixed cable passage, connectors, valve poses and
 paired reservoir anchors retain their selected stations.
 
@@ -57,7 +57,8 @@ it. The rear ceiling is continuous.
 Keep the cross-quadrant tube ends free while positioning back-top. Make the
 V-A/Y-A, V-K/pump and continuous core-tube handoffs through the open funnel
 area, then fit the frame. The rear equipment is populated on the inverted
-back-top before closure.
+back-top before closure. Keep the pump suction elbow and short quarter-inch
+inlet link loose during approach and make that connection after closure.
 
 The production route definitions retain each fitting's own native geometry
 and receiving-socket insertion estimate. Cut lengths are sums of actual tube

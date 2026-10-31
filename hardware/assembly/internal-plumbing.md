@@ -108,7 +108,10 @@ plate with its inlet above its outlet.
    Each has a PP061208W stem trimmed to 10 mm and a butterfly clamp on the barb
    and reducer stem. The suction tube bends in one arc to the concealed
    quarter-inch link and the nested elbow in V-K's lower port. Its stem-clamp
-   key points forward; the barb-clamp key points aft.
+   key points forward; the barb-clamp key points aft. Keep the pump suction
+   elbow and quarter-inch link loose while closing the rear column over the
+   core. Clock the round joints and seat that link through the open funnel
+   aperture after the column is home.
 4. The discharge joint bends down 15 degrees. Clock its stem clamp to the
    selected clear position, fit the trimmed stem elbow and insert the ACVUS-44
    check directly into that elbow. Follow the check's arrow away from the pump.
@@ -178,7 +181,7 @@ Lay out the ten Beduan valves and the [6](MANIFOLD_TEES) PP0208E tees. Cut stati
 4. **Fit all four tees with their upper tubes and fore valves.** Keep the rear valve row
    absent for this straight approach from aft. The upper tubes are `fluid-10`
    (Y-C to V-E), `fluid-13` (Y-D to V-F), `fluid-20` (Y-F to V-H) and `fluid-23` (Y-G to
-   V-I). Each nominal blank is [38.901 mm](DOCK_UPPER_TAIL): [15.251 mm](DOCK_FORE_LINK)
+   V-I). Each nominal blank is [28.901 mm](DOCK_UPPER_TAIL): [5.251 mm](DOCK_FORE_LINK)
    exposed, [11.65 mm](DOCK_TEE_INSERTION) bottomed in the tee's extended upper collet and
    an estimated [12 mm](DOCK_VALVE_INSERTION) in the valve. Seat uncut tube fully in the
    actual fore valve's bottom collet, mark the tube at the collet face, and cut it the

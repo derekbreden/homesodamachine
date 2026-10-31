@@ -168,7 +168,7 @@ After the compressor is bolted down, check it stands square on its four posts, e
 press into the two valve trays, four seats per deck. Y-C, Y-D, Y-F and Y-G are purchased
 PP0208E pump tees, one on each pump port, each branch standing in a bore through front-top's
 tee wall with its collet extended in the hole ahead of the bore. A short straight upper tube joins each tee to the
-fore valve over it, and a lower return of two stem elbows and a straight tube joins its lower collet to its rear valve. Keep the
+fore valve over it, and a lower return of two stem elbows and one tube with two tangent arcs joins its lower collet to its rear valve. Keep the
 valve terminals and release collets accessible during bench assembly.
 
 **Secure the pumps before fitting the tees or closing front-top.** Set their four tube
@@ -186,7 +186,7 @@ from underneath. Dress the display loom through
 the same wire passage while front-top is loose. The complete bench order is in
 [`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) §3.
 
-`enclosure-front-top` **slides AFT onto `enclosure-front-bottom`** — brought in from the front, standing [97.66 mm](RAIL_TRAVEL_FRONT) proud of the bottom piece's front wall and drawn straight back to its assembled position at the stop blocks aft of the tee wall. The broad shoulder has 0.25 mm of modeled allowance, and each rail end has 0.25 mm to its stop. This is the piece that carries the display facet, front half of the funnel opening, fixed valve trays, tee wall and the manifold prepared at [`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) §3. Both pumps, their lower retainer, the pump tees, upper tubes and lower returns travel with front-top during this chassis slide. The lowest tee-return elbow is Z150.913, above the Z150 entering wall; the upper links have 15.251 mm exposed straight tube. A slide that binds mid-travel is something standing in the channel's lane; a slide that will not close the last millimetre is a foot meeting something on a stop block's face.
+`enclosure-front-top` **slides AFT onto `enclosure-front-bottom`** — brought in from the front, standing [97.66 mm](RAIL_TRAVEL_FRONT) proud of the bottom piece's front wall and drawn straight back to its assembled position at the stop blocks aft of the tee wall. The broad shoulder has 0.25 mm of modeled allowance, and each rail end has 0.25 mm to its stop. This is the piece that carries the display facet, front half of the funnel opening, fixed valve trays, tee wall and the manifold prepared at [`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) §3. Both pumps, their lower retainer, the pump tees, upper tubes and lower returns travel with front-top during this chassis slide. The lowest tee-return elbow is Z160.913, above the Z160 entering wall; the upper links have 5.251 mm exposed straight tube. A slide that binds mid-travel is something standing in the channel's lane; a slide that will not close the last millimetre is a foot meeting something on a stop block's face.
 
 The dock's wet sealing, retention under pressure and endurance remain separate qualifications.
 
@@ -233,7 +233,7 @@ records the local tube-insertion screen and its scope.
 Rotate the pump's TPU inlet elbow up and the lower
 pump-side push-fit elbow down about 45° at their existing round joints, so
 they pass each other during the slide. After the column is home, rotate them
-back to their installed clocking and connect the pump-inlet link
+back to their installed clocking and connect the loose pump-inlet link
 ([Derek's assembly direction](/hardware/mechanical-qualification/enclosure-above-core/pump-inlet-rotation-assembly.json)). The
 [manual closing readings](/hardware/mechanical-qualification/enclosure-above-core/README.md)
 record the named rigid group and seventeen sampled offsets. They do not
