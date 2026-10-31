@@ -13,6 +13,7 @@ use std::{
     io::{BufRead, BufReader, Read, Write},
     os::unix::{
         fs::{OpenOptionsExt, PermissionsExt},
+        io::AsRawFd,
         net::{UnixListener, UnixStream},
         process::CommandExt,
     },
@@ -38,6 +39,9 @@ struct Args {
     store: Option<PathBuf>,
     #[arg(long, global = true, default_value_t = 768)]
     cache_mb: u64,
+    /// Minutes without a query before a daemon this call starts exits; 0 keeps it running.
+    #[arg(long, global = true, default_value_t = 15.0)]
+    idle_minutes: f64,
     #[command(subcommand)]
     command: Action,
 }
@@ -104,6 +108,7 @@ pub struct Client {
     root: PathBuf,
     scene: String,
     cache_mb: u64,
+    idle_minutes: f64,
 }
 
 fn build_id() -> String {
@@ -160,7 +165,9 @@ pub fn scene_path(root: &Path, scene: &str) -> PathBuf {
 
 fn read_message(stream: &mut UnixStream, limit: u64) -> Result<Value> {
     let mut line = String::new();
-    BufReader::new(stream.take(limit)).read_line(&mut line)?;
+    if BufReader::new(stream.take(limit)).read_line(&mut line)? == 0 {
+        return Err(std::io::Error::from(std::io::ErrorKind::UnexpectedEof).into());
+    }
     ensure!(
         line.ends_with('\n'),
         "incomplete or oversized socket message"
@@ -188,13 +195,26 @@ impl Client {
         response["result"]["build_id"] == build_id()
             && response["result"]["cache"]["cache_budget_bytes"]
                 == json!(self.cache_mb.saturating_mul(1048576))
-            && response["result"]["cache"]["geometry_cache"]
-                == json!(self.store.join("geometry").join(store::geometry_version()))
     }
 
     pub fn call(&self, request: &Request) -> Result<Value> {
         self.ensure_daemon()?;
-        send(&self.socket, request)
+        send(&self.socket, request).or_else(|e| {
+            // A daemon that went idle between the ping and this request has closed its socket.
+            // Queries change nothing, so the request goes once more, to a fresh daemon.
+            let gone = e.downcast_ref::<std::io::Error>().is_some_and(|e| {
+                use std::io::ErrorKind::*;
+                matches!(
+                    e.kind(),
+                    NotFound | ConnectionRefused | ConnectionReset | BrokenPipe | UnexpectedEof
+                )
+            });
+            if !gone {
+                return Err(e);
+            }
+            self.ensure_daemon()?;
+            send(&self.socket, request)
+        })
     }
 
     fn ensure_daemon(&self) -> Result<()> {
@@ -259,6 +279,8 @@ impl Client {
             .arg(&self.store)
             .arg("--cache-mb")
             .arg(self.cache_mb.to_string())
+            .arg("--idle-minutes")
+            .arg(self.idle_minutes.to_string())
             .arg("daemon")
             .stdin(Stdio::null())
             .stdout(Stdio::null())
@@ -312,42 +334,87 @@ fn serve(client: &Client) -> Result<()> {
     }
     let listener = UnixListener::bind(&client.socket)?;
     fs::set_permissions(&client.socket, fs::Permissions::from_mode(0o600))?;
-    let mut store = store::Store::new(client.store.join("geometry"), client.cache_mb)?;
+    let mut store = store::Store::new(client.cache_mb)?;
     let build = build_id();
     eprintln!(
         "hsm: pid {} listening at {}",
         std::process::id(),
         client.socket.display()
     );
-    for stream in listener.incoming() {
-        let mut stream = stream?;
-        stream.set_read_timeout(Some(Duration::from_secs(5)))?;
-        let started = Instant::now();
-        let mut stopping = false;
-        let response = (|| -> Result<Value> {
-            let request: Request =
-                serde_json::from_value(read_message(&mut stream, 4 * 1024 * 1024)?)?;
-            stopping = matches!(request.query, Query::Shutdown);
-            service::execute(&mut store, request, &build)
-        })();
-        let response = match response {
-            Ok(result) => {
-                json!({"ok": true, "result": result, "elapsed_ms": started.elapsed().as_secs_f64() * 1000.0})
+    let idle = Duration::from_secs_f64(client.idle_minutes * 60.0);
+    let mut last = Instant::now();
+    loop {
+        if client.idle_minutes > 0.0 && !pending(&listener, idle.saturating_sub(last.elapsed()))? {
+            // The socket goes first, so a new caller starts a fresh daemon; whoever connected
+            // before it went is still answered.
+            fs::remove_file(&client.socket)?;
+            listener.set_nonblocking(true)?;
+            while let Ok((stream, _)) = listener.accept() {
+                answer(stream, &mut store, &build)?;
             }
-            Err(e) => {
-                json!({"ok": false, "error": format!("{e:#}"), "elapsed_ms": started.elapsed().as_secs_f64() * 1000.0})
-            }
-        };
-        // A disconnected caller does not stop the shared service.
-        if serde_json::to_writer(&mut stream, &response).is_ok() {
-            let _ = stream.write_all(b"\n");
+            eprintln!(
+                "hsm: pid {} exiting after {} idle minutes",
+                std::process::id(),
+                client.idle_minutes
+            );
+            return Ok(());
         }
-        if stopping {
+        let (stream, _) = listener.accept()?;
+        if answer(stream, &mut store, &build)? {
             break;
         }
+        last = Instant::now();
     }
     fs::remove_file(&client.socket)?;
     Ok(())
+}
+
+/// Wait up to `timeout` for a caller; true when one is waiting.
+fn pending(listener: &UnixListener, timeout: Duration) -> Result<bool> {
+    let mut fd = libc::pollfd {
+        fd: listener.as_raw_fd(),
+        events: libc::POLLIN,
+        revents: 0,
+    };
+    let ms = timeout.as_millis().min(i32::MAX as u128) as i32;
+    loop {
+        // poll reads one descriptor this process owns and writes only `revents`.
+        let n = unsafe { libc::poll(&mut fd, 1, ms) };
+        if n >= 0 {
+            return Ok(n > 0);
+        }
+        let e = std::io::Error::last_os_error();
+        if e.kind() != std::io::ErrorKind::Interrupted {
+            return Err(e.into());
+        }
+    }
+}
+
+/// Answer one caller; true when it asked the service to stop.
+fn answer(mut stream: UnixStream, store: &mut store::Store, build: &str) -> Result<bool> {
+    // An accepted socket inherits a non-blocking listener's mode on macOS.
+    stream.set_nonblocking(false)?;
+    stream.set_read_timeout(Some(Duration::from_secs(5)))?;
+    let started = Instant::now();
+    let mut stopping = false;
+    let response = (|| -> Result<Value> {
+        let request: Request = serde_json::from_value(read_message(&mut stream, 4 * 1024 * 1024)?)?;
+        stopping = matches!(request.query, Query::Shutdown);
+        service::execute(store, request, build)
+    })();
+    let response = match response {
+        Ok(result) => {
+            json!({"ok": true, "result": result, "elapsed_ms": started.elapsed().as_secs_f64() * 1000.0})
+        }
+        Err(e) => {
+            json!({"ok": false, "error": format!("{e:#}"), "elapsed_ms": started.elapsed().as_secs_f64() * 1000.0})
+        }
+    };
+    // A disconnected caller does not stop the shared service.
+    if serde_json::to_writer(&mut stream, &response).is_ok() {
+        let _ = stream.write_all(b"\n");
+    }
+    Ok(stopping)
 }
 
 fn triple(v: Vec<f64>) -> Result<[f64; 3]> {
@@ -394,7 +461,12 @@ fn run() -> Result<bool> {
         root,
         scene: args.scene,
         cache_mb: args.cache_mb,
+        idle_minutes: args.idle_minutes,
     };
+    ensure!(
+        client.idle_minutes.is_finite() && client.idle_minutes >= 0.0,
+        "--idle-minutes must be a nonnegative number"
+    );
     let query = match args.command {
         Action::Daemon => {
             serve(&client)?;

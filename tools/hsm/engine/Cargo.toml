@@ -14,5 +14,4 @@ sha2.workspace = true
 clap = { version = "4", features = ["derive"] }
 fs2 = "0.4"
 libc = "0.2"
-bincode = "1.3"
 
