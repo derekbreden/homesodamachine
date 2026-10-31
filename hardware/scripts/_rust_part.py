@@ -14,6 +14,15 @@ that writes several file sets answers once for each, a line apiece, and this ret
 and bodies together. `program(crate, name)` builds a program and returns its path, for a run
 with arguments of its own.
 
+A program runs from the checkout's root, and reads a STEP its numbers name by that path:
+
+    "westbrass": _rust_part.step(WESTBRASS_STEP),
+
+`step` returns the STEP's path from the root once a payload cut from it is on disk for
+`hsm_kernel::import::step` to read. For a STEP of B-rep faces that is OCCT's mesh of each solid
+of each body at the kernel's rule, cut once into `.cache/hsm/import/<SHA-256>.step.mesh` under
+the CAD lock. A STEP of triangles is read through the payload its writer cut beside it.
+
 THE TRACE SEES PYTHON, NOT CARGO. What rustc compiled into the program is in the dep-info file
 cargo writes beside it. Those sources under this checkout, with the manifests and the lockfile
 that chose them, are kept in `_READ_TARGETS`, and the files the program wrote in
@@ -29,6 +38,7 @@ checkout's kernel into the other's program. The directory is the checkout's own 
 """
 from __future__ import annotations
 
+import hashlib
 import json
 import os
 import pwd
@@ -87,6 +97,103 @@ def _relative(path: Path) -> str:
     return path.resolve().relative_to(ROOT.resolve()).as_posix()
 
 
+def _workspace() -> Path:
+    return Path(os.environ.get("HSM_WORKSPACE") or ROOT).resolve()
+
+
+#: The kernel's rule (`tools/hsm/kernel/src/rule.rs`): mm, the chord's largest distance from the
+#: curve; rad, the largest turn between two segments.
+LINEAR, ANGULAR = 0.005, 0.05
+
+
+def _src(payload: Path):
+    """The `src` a payload's header names, or None."""
+    try:
+        with open(payload, "rb") as f:
+            return json.loads(f.read(int.from_bytes(f.read(4), "little"))).get("src")
+    except (OSError, ValueError):
+        return None
+
+
+def step(path) -> str:
+    """The STEP at `path` named from the root, once a payload cut from it is on disk."""
+    path = Path(path).resolve()
+    name = _relative(path)
+    data = path.read_bytes()
+    digest = hashlib.sha256(data).hexdigest()
+    _READ_TARGETS.add(name)
+    if b"meshcad tessellated" in data[:200]:
+        beside = path.with_name(path.name + ".mesh")
+        if _src(beside) != digest:
+            raise SystemExit(f"_rust_part: {name} is triangles, and the payload beside it was not "
+                             "cut from it; its own generator cuts both")
+        _READ_TARGETS.add(_relative(beside))
+        return name
+    cached = _workspace() / ".cache" / "hsm" / "import" / f"{digest}.step.mesh"
+    if not cached.is_file():
+        _tessellate(path, cached, digest)
+    return name
+
+
+def _tessellate(path: Path, out: Path, digest: str) -> None:
+    """OCCT's mesh of each solid of each body of the STEP at `path`, one face range per B-rep
+    face, as a payload whose `src` is `digest`. A body of several solids is `name/1`, `name/2`;
+    a body with no name takes the STEP's."""
+    import numpy as np
+    import _cadq_export                  # the CAD lock
+    from OCP.BRep import BRep_Tool
+    from OCP.BRepMesh import BRepMesh_IncrementalMesh
+    from OCP.TopAbs import TopAbs_FACE, TopAbs_REVERSED
+    from OCP.TopExp import TopExp_Explorer
+    from OCP.TopLoc import TopLoc_Location
+    from OCP.TopoDS import TopoDS
+
+    entries, blob = [], bytearray()
+    for body, (shape, color) in sorted(_cadq_export.import_assembly(path).items()):
+        body, solids = body or path.name.removesuffix(".step"), shape.Solids()
+        for k, solid in enumerate(solids, 1):
+            BRepMesh_IncrementalMesh(solid.wrapped, LINEAR, False, ANGULAR, True)
+            pos, idx, fac = [], [], []
+            faces = TopExp_Explorer(solid.wrapped, TopAbs_FACE)
+            while faces.More():
+                face = TopoDS.Face_s(faces.Current())
+                faces.Next()
+                loc = TopLoc_Location()
+                tri = BRep_Tool.Triangulation_s(face, loc)
+                if tri is None or tri.NbTriangles() == 0:
+                    continue
+                trsf, flip, base, first = loc.Transformation(), face.Orientation() == TopAbs_REVERSED, len(pos), len(idx)
+                pos += [tri.Node(i).Transformed(trsf).Coord() for i in range(1, tri.NbNodes() + 1)]
+                for i in range(1, tri.NbTriangles() + 1):
+                    a, b, c = (base + n - 1 for n in tri.Triangle(i).Get())
+                    idx.append((a, c, b) if flip else (a, b, c))
+                fac += [first, len(idx) - 1]
+            if not idx:
+                continue
+            p, t = np.asarray(pos, np.float64), np.asarray(idx, np.int64)
+            n, area = np.zeros_like(p), np.cross(p[t[:, 1]] - p[t[:, 0]], p[t[:, 2]] - p[t[:, 0]])
+            for j in range(3):
+                np.add.at(n, t[:, j], area)
+            n /= np.maximum(np.linalg.norm(n, axis=1), 1e-30)[:, None]
+            entry = {"name": body if len(solids) == 1 else f"{body}/{k}",
+                     "color": list(color.toTuple()[:3]) if color is not None else None}
+            for key, arr in (("pos", p.astype("<f4")), ("nrm", n.astype("<f4")),
+                             ("idx", t.astype("<u4")), ("fac", np.asarray(fac, "<u4"))):
+                entry[key] = [len(blob), arr.size]
+                blob += arr.tobytes()
+            entries.append(entry)
+    head = json.dumps({"v": 3, "meshes": entries, "src": digest}, separators=(",", ":")).encode()
+    head += b" " * (-(len(head) + 4) % 4)
+    # A sandboxed action reads the cache and cannot write it; the program then says what is missing.
+    try:
+        out.parent.mkdir(parents=True, exist_ok=True)
+        temp = out.with_name(f".{out.name}.{os.getpid()}")
+        temp.write_bytes(len(head).to_bytes(4, "little") + head + bytes(blob))
+        os.replace(temp, out)
+    except OSError:
+        pass
+
+
 def program(crate: str, name: str) -> Path:
     """Build `tools/hsm/<crate>`'s program `name`, keep what it was compiled from, and return
     where it is."""
@@ -113,8 +220,8 @@ def cut(crate: str, name: str, numbers: dict, part_dir) -> dict:
         numbers_path.write_text(text)
     _WRITE_TARGETS.add(_relative(numbers_path))
 
-    run = subprocess.run([str(program(crate, name)), str(numbers_path), str(part_dir)],
-                         check=True, stdout=subprocess.PIPE, text=True)
+    run = subprocess.run([str(program(crate, name)), str(numbers_path.resolve()), str(part_dir.resolve())],
+                         check=True, stdout=subprocess.PIPE, text=True, cwd=ROOT)
     said = {"files": [], "bodies": []}
     for line in run.stdout.splitlines():
         if line.strip():

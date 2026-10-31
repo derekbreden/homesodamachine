@@ -28,6 +28,7 @@
 pub mod boolean;
 pub mod build;
 pub mod face;
+pub mod import;
 pub mod mass;
 pub mod math;
 pub mod part;
@@ -46,7 +47,8 @@ pub mod triangulate;
 pub mod write;
 
 pub use boolean::{FUZZ, Op};
-pub use face::{Face, Src, Surface, SurfaceKey, Via, src_line};
+pub use face::{Face, Source, Src, Surface, SurfaceKey, Via, file_src, src_line};
+pub use import::Imported;
 pub use mass::Mass;
 pub use math::{Affine, V2, V3, v2, v3};
 pub use plane::Plane;
