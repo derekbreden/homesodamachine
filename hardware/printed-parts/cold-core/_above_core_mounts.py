@@ -66,13 +66,22 @@ def va_feed_snap():
 
 
 def flavor_snaps():
-    """Two filled lid-rooted seats on the rear flavor tubes' straight spans."""
+    """Open flavor seats; the crossover's filled root joins V-B's wall."""
+    import cadquery as cq
     sys.path.insert(0,str(HW/'printed-parts/cadlib'))
     from route_snap import tube_clip
-    return {name:tube_clip(centre,(0.,1.,0.),(0.,0.,1.),
+    result = {name:tube_clip(centre,axis,(0.,0.,1.),
                 centre[2]-above_core.specification()['cap_face_z_mm'],
                 tube_od=4.,bore_diameter=4.1,span=8.,wing=1.52,print_up=(0.,0.,1.))
-            for name,centre in (('flavor-a',(77.5,417.,257.)),('flavor-b',(35.,414.,264.)))}
+              for name,centre,axis in (
+                  ('flavor-a',(26.5,270.,296.),(1.,0.,0.)),
+                  ('flavor-b',(35.,414.,264.),(0.,1.,0.)))}
+    wall = valve_support_datums('valve-v-b')
+    x0, y0 = wall['root_min_world_mm'][0], wall['root_max_world_mm'][1]-.1
+    z0 = above_core.specification()['cap_face_z_mm']-.1
+    bridge = cq.Solid.makeBox(30.5-x0,270.-y0,293.4-z0,cq.Vector(x0,y0,z0))
+    result['flavor-a'] = result['flavor-a'].fuse(bridge).clean()
+    return result
 
 
 def manifold_cable_bank():

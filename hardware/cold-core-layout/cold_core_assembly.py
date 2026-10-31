@@ -329,7 +329,8 @@ def build_routes(placed: dict) -> dict:
     for name, pts in trimmed_routes().items():
         exempt = MADE_UP_ON.get(name, ())
         obstacles = {n: s for n, s in base.items() if n not in exempt}
-        out[name] = _routes.fit_route(pts, obstacles)
+        bend, tube = _routes.fit_route(pts, obstacles)
+        out[name] = bend, _foam.installed_internal_route(name, tube)
     return out
 
 

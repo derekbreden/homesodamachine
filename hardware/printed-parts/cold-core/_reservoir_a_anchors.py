@@ -1,7 +1,7 @@
 """Reservoir A's fore snap receiver and aft tied seats, in appliance millimetres.
 
-The fore integral C2 pair shares `_reservoir_a_c2`. The aft seat's west
-stock ramps from the lid face under V-K's outlet elbow. Its tie witnesses
+The fore integral C2 pair shares `_reservoir_a_c2`. The aft open seats
+share one filled stepped-height saddle within the casing footprint. Its tie witnesses
 describe routing, not purchased dimensions or physical acceptance.
 """
 from copy import deepcopy
@@ -36,15 +36,9 @@ _SPECIFICATION = {
         {"id": "a-pair-fore-anchor", "label": "Reservoir A fore paired anchor",
          "routes_west_to_east": ["fluid-16", "fluid-14"]},
         {"id": "a-pair-aft-anchor", "label": "Reservoir A aft paired anchor",
-         "tube_centers_world_mm": [[86.5, 304., 259.5], [94., 304., 259.5]],
+         "world_y_mm": 390.,
          "curved_seats": True,
-         "seat_top_z_mm": 256.95,
-         "open_quarter_side": "east",
-         "base_east_of_last_tube_mm": 3.7,
-         # The west stock leaves the lid face at its ordinary root edge and
-         # meets the seat top this far west of the first tube, 1.3 mm short of
-         # the groove lip. V-K's outlet elbow hub stands over the ramp.
-         "west_ramp_top_west_of_first_tube_mm": 3.5,
+         "seat_lip_below_axis_mm": 1.2,
          "routes_west_to_east": ["fluid-16", "fluid-14"]},
     ],
 }
@@ -55,7 +49,11 @@ def specification():
     result = deepcopy(_SPECIFICATION)
     fore = result["stations"][0]
     fore.update(snap.specification())
-    result["stations"][1]["closure"] = "tie"
+    aft = result["stations"][1]
+    aft["closure"] = "tie"
+    aft["tube_centers_world_mm"] = [
+        _route_station(route, aft['world_y_mm'])[0]
+        for route in aft['routes_west_to_east']]
     result["tie_slot_top_z_mm"] = min(
         point[2] for row in result["stations"] if row["closure"] == "tie"
         for point in row["tube_centers_world_mm"]
@@ -118,10 +116,28 @@ def datums():
             ]
         if station.get('curved_seats'):
             held = [_route_station(route, y) for route in station['routes_west_to_east']]
-            result[station['id']].update(
+            row = result[station['id']]
+            row.update(
                 nominal_tube_centers_world_mm=station['tube_centers_world_mm'],
                 tube_centers_world_mm=[p for p, _axis in held],
                 tube_axes_world=[axis for _p, axis in held])
+            lanes = [[_route_station(route, y-half+i*2*half/64) for i in range(65)]
+                     for route in station['routes_west_to_east']]
+            edges = [(min(p[0]-spec['seat_radius_mm']/abs(u[1]) for p,u in lane),
+                      max(p[0]+spec['seat_radius_mm']/abs(u[1]) for p,u in lane))
+                     for lane in lanes]
+            tops = [min(p[2] for p,_u in lane)-station['seat_lip_below_axis_mm']
+                    for lane in lanes]
+            west_edge, east_edge = edges[0][0]-3., edges[-1][1]+3.
+            row['stock_bounds_mm'] = [[west_edge,y-half,spec['root_z_mm']],
+                                      [east_edge,y+half,max(tops)]]
+            row['seat_roof_xz_mm'] = [(west_edge,tops[0]),(edges[0][1],tops[0]),
+                                      (edges[-1][0],tops[-1]),(east_edge,tops[-1])]
+            row['tie_slot_bounds_mm'][0][0] = west_edge
+            row['tie_slot_bounds_mm'][1][0] = east_edge
+            for mouth, xa, xb in zip(row['access_bounds_mm'],
+                                      (west_edge,x1),(x0,east_edge)):
+                mouth[0][0], mouth[1][0], mouth[1][2] = xa, xb, max(tops)+.1
     return result
 
 
@@ -201,6 +217,13 @@ def supports():
             result[name] = snap.base()
             continue
         body = _box(row["stock_bounds_mm"])
+        if 'seat_roof_xz_mm' in row:
+            low, high = row['stock_bounds_mm']
+            outline = [(low[0],low[2]),(high[0],low[2]),
+                       *reversed(row['seat_roof_xz_mm'])]
+            wire = cq.Wire.makePolygon(
+                [cq.Vector(x,low[1],z) for x,z in outline],close=True)
+            body = cq.Solid.extrudeLinear(wire,[],cq.Vector(0,high[1]-low[1],0))
         if "west_ramp_xz_mm" in row:
             body = body.cut(_west_ramp_cutter(row, spec))
         if row.get('curved_seats'):
@@ -239,8 +262,9 @@ def tie_profile(row):
             angle = start+(end-start)*i/12
             points.append((x+r*math.cos(angle), zz+r*math.sin(angle)))
 
-    arc(x0, z, radius, math.pi, math.pi/2)
-    arc(x1, z, radius, math.pi/2, 0)
+    tangent = math.atan2(last[2]-first[2],x1-x0)+math.pi/2
+    arc(x0, z, radius, math.pi, tangent)
+    arc(x1, last[2], radius, tangent, 0)
     arc(x1+radius-turn, bottom+turn, turn, 0, -math.pi/2)
     arc(x0-radius+turn, bottom+turn, turn, -math.pi/2, -math.pi)
     return points
@@ -268,7 +292,7 @@ def tie_witnesses():
         strip = cq.Solid.extrudeLinear(wire(outer.exterior.coords),
                                       [wire(inner.exterior.coords)], cq.Vector(0, -width, 0))
         if row.get("tie_head_side", "west") == "east":
-            x = row["tube_centers_world_mm"][-1][0]
+            x, _y, z = row["tube_centers_world_mm"][-1]
             head = _box([[x+3.55, y-1.9, z-.5], [x+7.25, y+1.9, z+2.9]])
         else:
             head = _box([[x-7.25, y-1.9, z-.5], [x-3.55, y+1.9, z+2.9]])

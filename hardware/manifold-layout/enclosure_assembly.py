@@ -5932,7 +5932,8 @@ def write_scene(a, path=None) -> Path:
     import _machine
     import _scorecard as _card
     import check_asse_drain
-    drain = check_asse_drain.write({**_solids(a), **_core_solids(a)}, output=None)
+    drain = check_asse_drain.write({**_solids(a), **_core_solids(a)}, output=None,
+                                   route_specs=a.native_route_specs)
     report(a, _card.pack_clashes(a))
     card = _card.to_dict(_card.report(a))
     return _machine.write(a, path or _machine.PATH, card=card, drain=drain)
@@ -5995,7 +5996,7 @@ def main():
     if grafted:
         print(f"-> {out.name}.mesh  ({grafted} fluted piece(s))")
     import check_asse_drain
-    check_asse_drain.write({**_solids(a), **_core_solids(a)})
+    check_asse_drain.write({**_solids(a), **_core_solids(a)}, route_specs=a.native_route_specs)
     report(a, _card.pack_clashes(a))
     _card.report(a)
     print(f"-> {_card.write(a, out).name}")

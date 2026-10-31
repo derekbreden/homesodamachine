@@ -49,6 +49,11 @@ OVER/SODA, and the bottom flavor B/flavor A. The 1.8 mm identification tiles
 slide into continuous channels between side rails and stand on the channel
 floor at Z252. C14 is at X−68.5/Z330 and RJ11 at X−64/Z291.5.
 
+The front pumps, pump tees and lower valve row stand 9.6 mm above their
+folded datum. The four fore valves retain their selected stations; their
+upper tubes have 5.651 mm exposed straight length. The lowest lower-return
+elbow is Z160.513, clear of the entering front wall during the chassis slide.
+
 ## Continuous tubes
 
 The soda guide is X77.5/Y359.51/Z253.4. The same blue tube runs from the
@@ -63,18 +68,22 @@ fitting and support-ring lane. The water check feeds an R14 turn into the
 straight guide at X−80.417/Y402.999. Neither guide adds a socket or tube cut.
 
 V-A's feed passes beneath the header, drops in front of the pump and uses the
-low Y-A handoff and upward-opening lid snap at X11/Y254.5/Z261.6. V-B retains
-its frame-carried funnel drain connection and its return to Y-B. Complete
+low Y-A handoff and upward-opening lid snap at X11/Y254.5/Z261.6. V-B has a straight, fully inserted drain link with 1.585 mm exposed tube.
+Its return to Y-B retains at least R24.47; the cross-link has 0.542 mm
+exposed tube between full insertions. Complete
 these connections through the uncovered funnel opening before fitting the frame.
 
 The two black 4 mm dispense lines use the east pump aisle and approach the
-Z264 rear sockets from below the meter. Each has a filled, upward-opening
-lid snap on its rear straight. Their 4.10 mm bores and 1.52 mm spring walls
+Z264 rear sockets from below the meter. Flavor A has an upward-opening crossover snap at
+X26.5/Y270/Z296, backed into V-B’s full wall. Flavor B has its filled
+upward-opening rear snap at X35/Y414/Z264. Their 4.10 mm bores and 1.52 mm spring walls
 retain the selected modeled 4 mm section. Flavor A passes through a relief
 in the meter cap's lower wing. All free 4 mm bends are R25 or larger.
 
-Reservoir A retains its fore paired C2 snaps, aft paired tied seat, front valve
-fittings and reservoir mouths. Its free aft bends pass outside the soda foam.
+Reservoir A uses its fore paired C2 snaps and a filled, open paired saddle
+at Y390, inside the casing footprint. One tie holds both existing curved
+paths in their unequal-height seats. The front valve fittings and reservoir
+mouths retain their datums. Its free aft bends pass outside the soda foam.
 [reservoir-a-routes.json](reservoir-a-routes.json) owns their exact R14 segments.
 The two routes remain continuous through their core guides. Reservoir B retains
 its fore-entry fill passage, three recessed clamps and original TPU fill grip.
