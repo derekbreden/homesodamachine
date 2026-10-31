@@ -34,13 +34,13 @@ two 3P cover the one six-way wafer and reach four counts besides.
 
 | Loom | Conductors | Ribbon | Preparation cut per ribbon | Carries |
 |---|---:|---|---|---|
-| J1 MANIFOLD A | [9](J1_PINS) | 5P + 4P | [550 mm](LOOM_J1) | `OUT1`–`OUT8` to the eight coils, `COM` to the 221-420; `OUT1` and `OUT2` seat after the box closes |
+| J1 MANIFOLD A | [9](J1_PINS) | 5P + 4P | [600 mm](LOOM_J1) | `OUT1`–`OUT8` to the eight coils, `COM` to the 221-420; `OUT1` and `OUT2` seat after the box closes |
 | J2 MANIFOLD B | [6](J2_PINS) | 3P + 3P | [650 mm](LOOM_J2) | five populated; the conductor that would land in contact 3 is trimmed at the housing, not crimped; FAN sets the blank length; `FAN` and `OUT3` seat after the box closes |
 | J3 FAUCET | [4](J3_PINS) | 4P | [400 mm](LOOM_J3) | the inboard half only, board to the keystone on the +Y wall |
 | J4 SENSORS | [7](J4_PINS) | 4P + 3P | [650 mm](LOOM_J4) | the 1-wire and flow pairs (`3V3`/`IO26`, `V5`/`IO25`) on the 4P; the shared `GND` on the 3P, two reserved conductors trimmed at the housing; the flow pair seats after the box closes |
 | J5 RELAYS | [4](J5_PINS) | 4P | [350 mm](LOOM_J5) | both Teyleten modules |
-| J6 REEDS A | [5](J6_PINS) | 5P | [600 mm](LOOM_J6) | reservoir A's column entire — four reeds and the common |
-| J7 REEDS B | [7](J7_PINS) | 5P + 3P | [500 mm](LOOM_J7) | reservoir B's column on the 5P; `CLO`/`CHI` and their common on the 3P; peel commons to the lid WAGO before the housing |
+| J6 REEDS A | [5](J6_PINS) | 5P | [650 mm](LOOM_J6) | reservoir A's column entire — four reeds and the common |
+| J7 REEDS B | [7](J7_PINS) | 5P + 3P | [650 mm](LOOM_J7) | reservoir B's column on the 5P; `CLO`/`CHI` and their common on the 3P; peel commons to the lid WAGO before the housing |
 | J9 DISPLAY | [4](J9_PINS) | 4P | [400 mm](LOOM_J9) | the 4.3B's RS485 pair and its 12 V |
 | J11 GAS | [4](J11_PINS) | 4P | [600 mm](LOOM_J11) | the MQ-6 |
 | J13 PUMPS | [4](J13_PINS) | 4P | [500 mm](LOOM_J13) | both pumps' motor tabs, the pump end split into one pair per pump |
