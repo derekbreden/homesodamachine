@@ -98,6 +98,7 @@ CARRIER_DROP = (_enc_if.pump_station_drop + _enc_if.manifold_rise
                 + _enc_if.pump_seated_drop - kp.outlet_above_skirt_bottom)
 INNER_LIMB_DROP = _enc_if.inner_limb_drop
 FORE_VALVE_RISE = 0.0
+FORE_CHANNEL_INSET = 1.6  # keeps the fore coil yokes clear of the plain flank faces
 FORE_STUB_GAP = FORE_VALVE_RISE + CARRIER_DROP
 # EXPOSED tube between the two sleeve faces, not the cut length swallowed by their collets.
 # The valve's own insertion depth is not measured, so the cut length remains a bench figure.
@@ -151,7 +152,7 @@ LIMB_PITCH = float(os.environ.get("HSM_LIMB_PITCH", BARB_PITCH))
 # The inner limbs are what the crossbar spans, so THEY are what it places: each stands one
 # branch reach and half a crossbar off the mirror plane, and the pumps hang off them.
 INNER_X = TEE_BRANCH + CROSSBAR / 2.0        # the inner limbs' axes
-PUMP_DX = INNER_X + LIMB_PITCH / 2.0         # each pump's centre off the mirror plane
+PUMP_DX = INNER_X + LIMB_PITCH / 2.0         # midpoint of each nominal limb pair
 OUTER_X = PUMP_DX + LIMB_PITCH / 2.0         # the outer limbs'
 OUTER_AFT_INSET = OUTER_X - OUTER_AFT_X
 LIMB_STEP = (BARB_PITCH - LIMB_PITCH) / 2.0  # how far a limb reference steps toward its pump's axis,
@@ -227,11 +228,12 @@ LIMBS = {
         ("V-J", -1), ("Y-G", (0.0, 0.0, -1.0)), ("V-I", +1)]),
 }
 
-PUMPS = {"pump-a": -PUMP_DX, "pump-b": +PUMP_DX}   # each pump under its own channel's limbs
+PUMPS = {"pump-a": -PUMP_DX+FORE_CHANNEL_INSET,
+         "pump-b": +PUMP_DX-FORE_CHANNEL_INSET}
 
 # Each pump tee's branch, as (pump centre, which of the two ports).
-BARB_OF = {"Y-C": (-PUMP_DX, +1), "Y-D": (-PUMP_DX, -1),
-           "Y-F": (+PUMP_DX, -1), "Y-G": (+PUMP_DX, +1)}
+BARB_OF = {"Y-C": (PUMPS['pump-a'], +1), "Y-D": (PUMPS['pump-a'], -1),
+           "Y-F": (PUMPS['pump-b'], -1), "Y-G": (PUMPS['pump-b'], +1)}
 
 # The four purchased tees on the pump ports. Their stations come from `fixed_returns`;
 # the carrier offsets are compatibility arguments and move nothing.
@@ -524,7 +526,8 @@ def source_step(name: str) -> tuple:
 # In the pack's own frame the source valves run along +Z once they are round, and the crown
 # they are stepping toward is −Y.
 SHIFT = {n: source_valve_shift(n) + (SOURCE_TRAVEL,) for n in SOURCE_SPREAD}
-SHIFT.update({n: (0.0, FORE_VALVE_RISE, 0.0) for n in FORE_VALVES})
+SHIFT.update({n: (-math.copysign(FORE_CHANNEL_INSET,P[n]['x']), FORE_VALVE_RISE, 0.0)
+              for n in FORE_VALVES})
 SHIFT.update({n: (0.0, -CARRIER_DROP, 0.0) for n in CARRIER_TEES})
 SHIFT.update({n: (-math.copysign(OUTER_AFT_INSET, P[n]["x"]), 0.0, 0.0)
               for n in ("V-G", "V-J")})
