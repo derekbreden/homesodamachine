@@ -23,10 +23,14 @@
 //! # Ok(()) }
 //! ```
 //!
+//! A solid's edges are picked with CadQuery's selectors (`edge`) and rounded or chamfered
+//! (`round`).
+//!
 //! Booleans run on Manifold (the `manifold` feature, on by default). Without it the kernel is
 //! pure Rust and builds for wasm32; its booleans then return an error.
 pub mod boolean;
 pub mod build;
+pub mod edge;
 pub mod face;
 pub mod import;
 pub mod mass;
@@ -34,6 +38,7 @@ pub mod math;
 pub mod part;
 pub mod plane;
 pub mod profile;
+pub mod round;
 pub mod rule;
 pub mod screw;
 pub mod sketch_hull;
@@ -47,6 +52,7 @@ pub mod triangulate;
 pub mod write;
 
 pub use boolean::{FUZZ, Op};
+pub use edge::{Edge, Edges};
 pub use face::{Face, Source, Src, Surface, SurfaceKey, Via, file_src, src_line};
 pub use import::Imported;
 pub use mass::Mass;

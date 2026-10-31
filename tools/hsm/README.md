@@ -217,10 +217,28 @@ source is the file asked for: `MESH import at hardware/reference/tee-connector/t
 `Solid::from_mesh` makes a solid of any closed mesh. Corners at one point of the grid are one
 vertex, and a mesh left open or folded is an error.
 
+A solid's edges are CadQuery's (`Solid::edges(sel)`, `edge`): a run of mesh edges between two
+faces, broken where a third face meets it, is one `Edge`, a LINE, CIRCLE or OTHER with CadQuery's
+`Center()`. The selectors are CadQuery's strings with its precedence: `|D`, `#D`, `+D`, `-D`,
+`>D`, `<D`, `>D[n]`, `>>D[n]`, `<<D[n]`, `%TYPE`, the named views, and `and`, `or`, `exc` and
+`not` with parentheses. `Solid::face_edges(sel)` is `faces(sel).edges()`, `Edges::select`
+narrows a selection as a chained `.edges(sel)` does, and `Edges::nearest(p)` is
+`NearestToPointSelector`. `Solid::fillet(&edges, r)` and `Solid::chamfer(&edges, d)` round and
+chamfer them (`round`), and every edge that runs on tangent from one of them, as OCCT does.
+Each edge gets one tool: its section between the two faces and the round or chamfer, carried
+straight along a line and turned about a circle's axis, cut from a convex edge and added to a
+concave one. The tool's sides stand 0.001 mm off the faces (`round::STANDOFF`), so it reaches no
+other wall of the solid. Where two rounds meet at a corner, both tools run past it and trim it
+between them. The kernel rounds an edge between two planes, or between planes, cylinders and
+cones about one axis, and refuses three rounds meeting at a corner, a round that ends on a
+slanted face where it may not run on, and a round wider than a face it lies on.
+
 The kernel's tests hold every builder and boolean to OCCT's volume and bounds for the same model
-within the rule (`tests/occt_reference.py` and, for the helix sweeps and lofts,
-`tests/screw_reference.py` and `tests/thru_reference.py` write those with plain CadQuery), lofts
-to every point sampled on OCCT's faces within the rule, hulls to the edges of CadQuery's
+within the rule (`tests/occt_reference.py` and, for the helix sweeps, lofts and rounds,
+`tests/screw_reference.py`, `tests/thru_reference.py` and `tests/round_reference.py` write those
+with plain CadQuery), lofts and rounds to every point sampled on OCCT's faces within the rule
+(the rounds include one beside a fin 0.3 mm away, fills in the corners of 1 mm and 0.8 mm walls,
+and rounds and chamfers along the edges an earlier round made), hulls to the edges of CadQuery's
 (`tests/sketch_hull_reference.py`), and booleans to Manifold run plainly on the same operands,
 sixty holes in one cut among them. They hold the fuse clamp, cut from its numbers, to the
 volume of its module's `build()` and to that B-rep's STL (`tests/fixtures/fuse-clamp.stl`), two
