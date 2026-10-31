@@ -62,6 +62,11 @@ one station and they cannot land apart:
   +Z is out of it into the cabinet, and only the leaves reach behind it.
 - Y is up, 0 on the face's centre — which is the case's own axis and the box's mid-height.
 
+THE KERNEL CUTS THE FILES. This module holds the numbers and writes the ones the geometry takes
+(`numbers()`) to `fuse-clamp.numbers.json`; `fuse_clamp.rs`, beside it, cuts `fuse-clamp.step`,
+its payload and `fuse-clamp.stl` from them (`hardware/scripts/_rust_part.py`). `build()` draws
+the same part in CadQuery, which is the body `enclosure_assembly` seats.
+
 Run:
     tools/cad-venv/bin/python hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.py
 """
@@ -80,8 +85,8 @@ for _p in (_hw / "scripts",
     sys.path.insert(0, str(_p))
 sys.path.insert(0, str(next(p for p in _here.parents
                             if (p / "tools" / "docgen").is_dir()) / "tools"))
-from _cadq_export import export_assembly  # noqa: E402
-from _materials import M_PETG_BLACK, one_body  # noqa: E402
+import _cadq_export  # noqa: E402,F401  the CAD lock, and build-time.md's clock
+from _materials import M_PETG_BLACK, linear  # noqa: E402
 import _overlap  # noqa: E402
 import _stated_bounds as _bounds  # noqa: E402
 import compressor as _comp  # noqa: E402
@@ -199,6 +204,18 @@ def _profile():
     ]
 
 
+def numbers():
+    """What `fuse_clamp.rs` cuts the part from: the profile's corners and the channel, in the
+    cutoff's own frame, and the body's name and colour."""
+    return {
+        "name": "fuse-clamp", "color": list(linear(M_PETG_BLACK)),
+        "part_x": PART_X, "channel_h": CHANNEL_H, "channel_z": CHANNEL_Z,
+        "head_y": HEAD_Y, "head_z": HEAD_Z, "neck_z": NECK_Z,
+        "box_floor": BOX_FLOOR, "plate_top": PLATE_TOP,
+        "leaf_y": LEAF_Y, "leaf_reach": LEAF_REACH, "leaf_lead_in": LEAF_LEAD_IN,
+    }
+
+
 def build():
     """The profile swept the part's one width, with the channel cut through it."""
     section = _profile()
@@ -238,12 +255,15 @@ def selftest():
 
 
 def main():
+    # A run cuts the part; an import of this module is a reader of `build()` and the numbers.
+    import _rust_part
+
     pinch_hold()
-    part = build()
-    bb = part.BoundingBox()
+    said = _rust_part.cut("refrigeration", "fuse-clamp", numbers(), _here.parent)
+    part = said["bodies"][0]
+    (xmin, ymin, zmin), (xmax, ymax, zmax) = part["min"], part["max"]
     print("fuse clamp — the SF76E's case, held on the compressor's power box flank")
-    print(f"  X[{bb.xmin:.2f}, {bb.xmax:.2f}]  Y[{bb.ymin:.2f}, {bb.ymax:.2f}]"
-          f"  Z[{bb.zmin:.2f}, {bb.zmax:.2f}]")
+    print(f"  X[{xmin:.2f}, {xmax:.2f}]  Y[{ymin:.2f}, {ymax:.2f}]  Z[{zmin:.2f}, {zmax:.2f}]")
     print(f"  head    {PART_X:g} x {2 * HEAD_Y:g} x {HEAD_Z:g} on the seating plane, "
           f"{HEAD_PAD:g} of bearing above and below the channel")
     print(f"  channel {CHANNEL_H:g} x {CHANNEL_Z:g} through it — the crown on the Ø{CASE_D:g} "
@@ -255,10 +275,8 @@ def main():
           f"flank")
     print(f"  lead    let go {(PART_X - CASE_L) / 2.0:g} off the case against the {LEAD_STUB:g} "
           f"no-bend zone, {SPLICE_FREE:g} of the short lead left for the splice")
-    print(f"  volume  {part.Volume() / 1000.0:.2f} cm³")
-    out = _here.parent / "fuse-clamp.step"
-    export_assembly(one_body(part, "fuse-clamp", M_PETG_BLACK), str(out))
-    print(f"-> {out.name}")
+    print(f"  volume  {part['volume'] / 1000.0:.2f} cm³")
+    print("-> " + ", ".join(said["files"]))
 
     variables = {
         "CLAMP_TF": f"{TF_C:g}",
@@ -279,7 +297,7 @@ def main():
         "CLAMP_LEAF_Y": f"{LEAF_Y:g}",
         "CLAMP_LEAF_REACH": f"{LEAF_REACH:g}",
         "CLAMP_LEAF_SLOT": f"{LEAF_SLOT:g}",
-        "CLAMP_VOL": f"{part.Volume() / 1000.0:.2f}",
+        "CLAMP_VOL": f"{part['volume'] / 1000.0:.2f}",
     }
     substitute_py_comments(
         Path(__file__),

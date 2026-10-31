@@ -272,6 +272,28 @@ def _hold(held):
         pass
 
 
+def _drawn(path):
+    """(volume mm³, area mm²) off the model file beside a STEP the mesh kernel wrote, or None
+    for a STEP OCCT reads.
+
+    A MESH-KERNEL STEP IS TRIANGLES, and `import_step` refuses one on OCCT, whose reading of it
+    takes the area right and the volume wrong. The model file beside it (`<name>.step.npz`)
+    holds the closed solids the STEP was drawn from, and those are what is measured."""
+    with open(path, "rb") as f:
+        if b"meshcad tessellated" not in f.read(200):
+            return None
+    import numpy as np
+
+    volume = area = 0.0
+    with np.load(path.with_name(path.name + ".npz"), allow_pickle=False) as model:
+        for key in (k for k in model.files if k.startswith("V")):
+            v, t = model[key], model["T" + key[1:]].astype(np.int64)
+            a, b, c = v[t[:, 0]], v[t[:, 1]], v[t[:, 2]]
+            volume += float(np.einsum("ij,ij->i", a, np.cross(b, c)).sum()) / 6.0
+            area += float(np.linalg.norm(np.cross(b - a, c - a), axis=1).sum()) / 2.0
+    return volume, area
+
+
 def measure(rel):
     """(volume cm³, area cm²) for the solid, memoized — a piece may appear in more
     than one row. AREA IS THE SECOND HALF OF A MASS: `laid_cm3` needs the surface
@@ -288,10 +310,13 @@ def measure(rel):
         if isinstance(got, list) and len(got) == 2:
             _SOLIDS[rel] = tuple(got)
         else:
-            from _cadq_export import import_step
+            got = _drawn(path)
+            if got is None:
+                from _cadq_export import import_step
 
-            solid = import_step(str(path)).val()
-            _SOLIDS[rel] = (solid.Volume() / 1000.0, solid.Area() / 100.0)
+                solid = import_step(str(path)).val()
+                got = (solid.Volume(), solid.Area())
+            _SOLIDS[rel] = (got[0] / 1000.0, got[1] / 100.0)
             held[key] = list(_SOLIDS[rel])
             _hold(held)
     return _SOLIDS[rel]

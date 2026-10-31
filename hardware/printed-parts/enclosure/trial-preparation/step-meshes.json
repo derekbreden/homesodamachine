@@ -253,34 +253,6 @@
       "tool_sha256": "b50f7b50f52f1e8516be3b1fc9ecdb10e87fb188f8b9bebc0fac56737320fc44",
       "written_utc": "2026-10-25T08:31:08+00:00"
     },
-    "hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.stl": {
-      "step": "hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.step",
-      "step_sha256": "42258b5738b4bf95869da3af6edb45040213f7c756aafac827f4c014c3d05132",
-      "stl_sha256": "fa07d7cdc2482f51608e1d2532d68383678f5dfaa2890f118f338ef0a4c70206",
-      "bodies": [
-        "fuse-clamp"
-      ],
-      "solids_fused": 1,
-      "result_solids": 1,
-      "tolerance_mm": 0.005,
-      "angle_rad": 0.05,
-      "facets": 68,
-      "volume_mm3": 5556.69,
-      "bounds_mm": [
-        [
-          -9.0,
-          -37.5,
-          -22.0
-        ],
-        [
-          9.0,
-          8.95,
-          6.7
-        ]
-      ],
-      "tool_sha256": "b50f7b50f52f1e8516be3b1fc9ecdb10e87fb188f8b9bebc0fac56737320fc44",
-      "written_utc": "2026-10-25T08:31:10+00:00"
-    },
     "hardware/printed-parts/faucet/tube-collar/tube-collar-water.stl": {
       "step": "hardware/printed-parts/faucet/tube-collar/tube-collar-water.step",
       "step_sha256": "d6899b3e2669fc57fbac1475b4d01df9dbba96db1e9819f3d0434c39192adf9d",

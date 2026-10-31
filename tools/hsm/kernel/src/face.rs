@@ -255,6 +255,6 @@ mod tests {
         let root = Path::new(env!("CARGO_MANIFEST_DIR")).ancestors().nth(3).unwrap();
         let part = root.join("hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.rs");
         assert_eq!(repo_path(part.to_str().unwrap()), "hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.rs");
-        assert_eq!(repo_path("kernel/tests/../examples/fuse_clamp.rs"), "tools/hsm/kernel/examples/fuse_clamp.rs");
+        assert_eq!(repo_path("kernel/tests/../src/face.rs"), "tools/hsm/kernel/src/face.rs");
     }
 }

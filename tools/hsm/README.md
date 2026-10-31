@@ -203,33 +203,67 @@ import reads beside it (`<name>.step.npz`). The same solid writes the same bytes
 Without the `manifold` feature the kernel is pure Rust and builds for wasm32; its booleans
 then return an error.
 
-`examples/fuse_clamp.rs` is the fuse clamp on the kernel:
-
-```rust
-let part = Plane::YZ.at(v3(-PART_X / 2.0, 0.0, 0.0)).extrude(&Profile::polygon(&profile()), PART_X)?;
-let channel = Plane::XY.at(v3(0.0, 0.0, CHANNEL_Z / 2.0)).cuboid(PART_X + 2.0, CHANNEL_H, CHANNEL_Z);
-let clamp = part.cut(&channel)?;
-let body = Body { name: "fuse-clamp", color: Some([0.02, 0.02, 0.02]), solid: &clamp };
-write_payload(out.join("fuse-clamp.step.mesh"), &[body], None, None)?;
-```
-
-```sh
-cargo run --release --manifest-path tools/hsm/Cargo.toml -p hsm-kernel --example fuse_clamp -- <out dir>
-hsm --root <out dir> --scene fuse-clamp.step.mesh where fuse-clamp
-```
-
-Its face records read `PLANE extrude at kernel/examples/fuse_clamp.rs:60` and `PLANE box at
-kernel/examples/fuse_clamp.rs:61, cut at kernel/examples/fuse_clamp.rs:62`.
-
 The kernel's tests hold every builder and boolean to OCCT's volume and bounds for the same model
 within the rule (`tests/occt_reference.py` and, for the helix sweeps and lofts,
 `tests/screw_reference.py` and `tests/thru_reference.py` write those with plain CadQuery), lofts
 to every point sampled on OCCT's faces within the rule, hulls to the edges of CadQuery's
 (`tests/sketch_hull_reference.py`), and booleans to Manifold run plainly on the same operands,
-sixty holes in one cut among them. They hold the fuse
-clamp to its published STEP's volume and STL's surface, two processes to the same bytes, a STEP
-and a model file to the triangles, names and colours they were written from, and the crate to a
-wasm32 build. The text tests read the system's Arial and Helvetica.
+sixty holes in one cut among them. They hold the fuse clamp, cut from its numbers, to the
+volume of its module's `build()` and to that B-rep's STL (`tests/fixtures/fuse-clamp.stl`), two
+processes to the same bytes, a STEP and a model file to the triangles, names and colours they
+were written from, and the crate to a wasm32 build. The text tests read the system's Arial and
+Helvetica.
+
+## Parts the kernel cuts
+
+A part the kernel cuts keeps its numbers in Python and its geometry in Rust, side by side in its
+folder. The fuse clamp (`hardware/printed-parts/refrigeration/fuse-clamp`) is one.
+
+`fuse_clamp.py` is its generator. It derives every number the part takes from the parts it
+closes on, states its bounds and fills its README, as any generator does, and writes the numbers
+the geometry takes (`numbers()`) to `fuse-clamp.numbers.json`, which is committed beside it.
+`fuse_clamp.rs` is the program that cuts the part from them: a `[[bin]]` of its subsystem's crate,
+`tools/hsm/refrigeration`, named `fuse-clamp`. It reads the file with `part::args` and
+`Numbers` (`f`, `pair`, `list`, `color`, `text`), builds the solid, and hands its bodies to
+`part::write_part`. That writes `fuse-clamp.step`, the model file beside it, the payload, whose
+`src` is the STEP's SHA-256, and `fuse-clamp.stl`; leaves a file that holds the same bytes as it
+is; and prints what the files hold. `part::write_shown` writes a set without the STL, for bodies
+the page draws and nothing prints. A program that writes several sets prints each one's answer
+on a line of its own, and its standard output carries nothing else.
+
+The generator runs the program through
+[`hardware/scripts/_rust_part.py`](../../hardware/scripts/_rust_part.py).
+`_rust_part.cut("refrigeration", "fuse-clamp", numbers(), part_dir)` writes the numbers, builds
+the program with cargo from the checkout's workspace (`HSM_WORKSPACE` in a Bazel action), runs
+it, and returns the files and bodies it printed. `_rust_part.program(crate, name)` builds a
+program and returns its path, for a run with arguments of its own. Cargo builds into the checkout's own target directory,
+`tools/hsm/target`, whatever `CARGO_TARGET_DIR` says: cargo judges a crate fresh by its files'
+times, under a name that is the same from every checkout, so a target directory two checkouts
+share links one checkout's kernel into the other's program. The `cargo` it runs is the one on
+`PATH`, else Homebrew's rustup's, else the one in `~/.cargo/bin`.
+
+`tools/bazel/trace_inputs.py` takes what rustc compiled into the program, off its dep-info file,
+with the manifests and the lockfile, and every file the program wrote. The writer's entry in
+`graph.json` names the Rust sources among its reads, so a publish moves the part's members when
+its program or the kernel changes. `gen_build.py` runs a step that read a `Cargo.toml`
+unsandboxed, in a work directory of its own, because cargo writes the checkout's target directory.
+The page cannot read a STEP of triangles (occt-import-js 0.0.23), so the part's folder is in
+`BUNDLED_PAYLOAD_DIRS` in [`tools/cad-artifacts/pack.py`](../cad-artifacts/pack.py), and in
+`BUNDLED_MESH_DIRS` for its STL. The CI image ([`tools/ci-image/Dockerfile`](../ci-image/Dockerfile))
+carries the toolchain and CMake.
+
+A generator on meshcad seats the part off its STEP, whose solids an import takes from the model
+file. `import_step` refuses that STEP on OCCT, so an OCCT generator that seats the part calls a
+CadQuery `build()` in its module instead: the fuse clamp keeps one for `enclosure_assembly`.
+
+```sh
+tools/cad-venv/bin/python hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.py
+hsm --scene hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.step.mesh where fuse-clamp
+```
+
+Its face records read `PLANE extrude at hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.rs:41`
+and `PLANE box at hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.rs:42, cut at
+hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.rs:43`.
 
 ## Explicit validation
 
