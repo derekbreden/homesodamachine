@@ -9,6 +9,7 @@ import itertools
 import json
 import sys
 
+import cadquery as cq
 import trimesh
 
 ROOT = next(p for p in Path(__file__).resolve().parents if (p / 'tools/docgen').is_dir())
@@ -50,9 +51,23 @@ def above_core_regions(box, region):
                                    ('Relay', shell.relay_bosses())):
         for number, shape in enumerate(bosses, start=1):
             bounds = shape_bounds(shape)
-            bounds[0] = min(bounds[0], box.outer[0])
-            region('back-top', f'{label} bearing pad, insert host and west wall root {number}',
+            if label == 'PSU':
+                bounds[5] = max(bounds[5], box.outer[5])
+                root = 'ceiling root and blind floor'
+            else:
+                bounds[0] = min(bounds[0], box.outer[0])
+                root = 'west wall root'
+            region('back-top', f'{label} bearing pad, insert host and {root} {number}',
                    bounds)
+    import above_core_wiring
+    ground = above_core_wiring.ground_fastener_datums()
+    face = ground['landing_world_mm']
+    inward = tuple(-v for v in ground['axis_outward'])
+    host = cq.Solid.makeCylinder(ground['boss_diameter_mm']/2., 8.,
+                                 cq.Vector(*face), cq.Vector(*inward))
+    bounds = shape_bounds(host)
+    bounds[3] = max(bounds[3], box.outer[3])
+    region('back-top', 'Ground ring insert host, blind floor and rear wall root', bounds)
     x, y, z = shell.layout.pose('c14-inlet')['translation_mm']
     fasteners = shell.c14_fastener_plan()
     seat = y - fasteners['flange_thickness_mm']
@@ -155,6 +170,7 @@ def main():
            Path(e._above_core_shell.__file__),
            Path(e._above_core_shell.layout.__file__),
            ROOT/'hardware/manifold-layout/above-core.json',
+           ROOT/'hardware/manifold-layout/above_core_wiring.py',
            ROOT/'hardware/reference/meanwell-irm90/meanwell_irm90.py',
            ROOT/'hardware/reference/teyleten-relay/teyleten_relay.py',
            Path(e._funnel_frame_part.__file__),

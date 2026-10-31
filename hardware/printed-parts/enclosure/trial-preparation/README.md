@@ -83,15 +83,17 @@ for fixed-width brim types.
 | --- | --- | --- | --- | --- |
 | `front-top` | Mark1, left 0.4 | PET-GF black | 0.08 mm band over the R6 roof side edges' level run and the R18 display-to-roof roll | Support XY 0.50 mm |
 | `front-bottom` | Mark1, left 0.4 | PET-GF black | Six-wall band through the handhold lifting-edge transition and its corner returns; 0.8 mm boundary strip of the flat lifting ceiling; removable arc fins along the lifting edges | — |
-| `back-top` | Mark2, left 0.4 | PET-GF black | Six-wall band through the roof side edges on the bed; one ribbon per sliding groove | 50 mm bridge limit; 3 mm tree branches, 0.5° growth; plate offset X −5.4 mm |
+| `back-top` | Mark2, left 0.4 | PET-GF black | Six-wall band through the roof side edges on the bed; one ribbon per sliding groove | 50 mm bridge limit; 3 mm tree branches, 0.5° growth; plate offset X −4.25 mm |
 | `back-bottom` | Mark2, left 0.4 | PET-GF black | Six-wall band through the handhold lifting-edge transition and its corner returns; 0.8 mm boundary strip of the flat lifting ceiling; removable arc fins on feet along the lifting edges | Plate offset Y +18.8 mm |
 | `pump-retainer` | Mark1, left 0.4 | PET-GF black | Broad lower retainer, underside on the bed; build axis +Z | — |
+| `rear-equipment-caps` | Mark2, left 0.4 | PET-GF black | ASSE, Pisco, regulator and meter caps as exported, mouths up; 15 mm spacing | — |
 | `funnel-frame` | Mark2, left 0.4 | PET-GF black | On its lower feet, as exported | No brim or elephant-foot compensation; support XY 0.50 mm |
 | `factory-tools` | Mark2, left 0.4 | PET-GF black | Tube tip setting jig as exported | — |
 | `display-cover` | Mark1, left 0.4 | PET-GF black | Face up, back and wings on the bed, as exported | — |
 | `elbow-cradle` | Mark1, left 0.4 | PET-GF black | On its bottom, as exported | — |
 | `soda-bend-holder` | Mark1, left 0.4 | PET-GF black | The flat back of the D on the bed, as exported | Six walls, 100% zig-zag (the accepted 2026-10-23 article) |
-| `foam-shell`, `foam-cap-top`, `foam-cap-lid-top`, `foam-cap-lid-bottom` | Mark2, left 0.4 Standard | PET-GF black | As exported, each on its flat face | Classic, three loops, 15% gyroid; 0.24 mm layers and 0.20 mm first layer; shell and cups support-free, top lid Tree(auto)/Default |
+| `foam-shell`, `foam-cap-top`, `foam-cap-lid-bottom` | Mark2, left 0.4 Standard | PET-GF black | As exported, each on its flat face | Classic, three loops, 15% gyroid; 0.24 mm layers and 0.20 mm first layer; support-free |
+| `foam-cap-lid-top` | Mark1, left 0.4 Standard | PET-GF black | As exported, on its flat face | Classic, three loops, 15% gyroid; 0.24 mm layers and 0.20 mm first layer; Tree(auto)/Default |
 | `foam-cap-bottom` | Mark2, left 0.4 Standard | PET-GF black | Half a turn about X, onto its flat face | As the other cold-core pieces |
 | `labels` | Mark2, both 0.4 | PET-GF, two colours | [`labels.py`](labels.py) | — |
 | `funnel-cover` | Mark1, left 0.4 | PETG Basic black | [`zone-c/funnel-cover/prepare_print.py`](../../zone-c/funnel-cover/prepare_print.py) | — |

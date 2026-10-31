@@ -39,9 +39,8 @@ frame. The rim at the handhold's R6 lip is in
 | Station | Body | Pilot depth | Nominal host / screw stack |
 | --- | --- | --- | --- |
 | Four Y-seam stack stations | M5, 9.5 mm | Lower 10.5 mm; upper 20.5 mm | Both are pressed into the top of their knuckles: the lower into back-bottom's knuckle under the Z seam, where the M5 × 100 enters from the deep end and its tip stands past the open top; the upper into front-top's lower knuckle above its closed tip pocket. Both keep full 9.5 mm engagement with the ±0.8 mm length allowance |
-| Electronics / ground stations (above-core hosts) | M3 short, 4.0 mm | At least 5.0 mm | Ø8 mm exposed hosts give 2 mm radial material from the Ø4 pilot; four PSU inserts seat on the actual wall face; four PCBA inserts start 2.25 mm behind the PCB mounting face |
+| Electronics / ground stations (above-core hosts) | M3 short, 4.0 mm | At least 5.0 mm | Ø10 mm PSU and relay hosts give 3 mm radial material from the Ø4 pilot; four PSU inserts seat on the ceiling hosts; relay ends neck down only within the pin-field clearance. The rear ground host is Ø8 mm. Four PCBA inserts start 2.25 mm behind the PCB mounting face |
 | Two condenser fingers | M3, 5.7 mm | 9.0 mm | Complete host and supporting finger |
-| Three pump-retainer stations | M3, 5.7 mm | Ø4 × 6.7 mm insert pilot, followed by narrower screw-tip relief | Upward M3×60 from underside head seats; 1 mm steel-tip clearance in front-top’s fixed mount |
 | Two C14 stations (above-core hosts) | M3 short, 4.0 mm | 5.25 mm | Full tunnel stock and closed rear wall |
 | Four compressor posts | M5, 9.5 mm | 10.5 mm | Manufacturer pilot and minimum surrounding stock |
 
