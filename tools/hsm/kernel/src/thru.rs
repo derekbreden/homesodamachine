@@ -1167,6 +1167,41 @@ impl SmoothLoft {
 
     fn solid_at(&self, src: Src) -> Result<Solid> {
         let (us, vs) = self.grid();
+        self.solid_grid(&us, &vs, src)
+    }
+
+    /// The loft as a solid cut on `us` and `vs`, a grid from [`SmoothLoft::grid`]: a caller that
+    /// meets the loft's end with a solid of its own builds that solid on the same points
+    /// ([`SmoothLoft::end_region`]).
+    #[track_caller]
+    pub fn solid_on(&self, us: &[f64], vs: &[f64]) -> Result<Solid> {
+        self.solid_grid(us, vs, Location::caller())
+    }
+
+    /// The first section, or the last, cut at `us` as the loft's own cap is: the region a solid
+    /// that meets the loft's end is extruded or swept from, so the two meet point for point.
+    pub fn end_region(&self, last: bool, us: &[f64]) -> Region {
+        let s = if last { &self.sections[self.sections.len() - 1] } else { &self.sections[0] };
+        let curves = s
+            .edges
+            .iter()
+            .map(|e| match (e, e.circle()) {
+                (LoftEdge::Line { .. }, _) => Curve::Line,
+                (_, Some((c, axis, r))) => Curve::Circle { c, axis, r },
+                _ => Curve::Free("ELLIPSE"),
+            })
+            .collect();
+        let last_edge = s.edges.len() as u32 - 1;
+        Region {
+            loops: vec![RLoop {
+                pts: us.iter().map(|&u| s.at(u)).collect(),
+                seg: us.iter().map(|&u| (u.floor().max(0.0) as u32).min(last_edge)).collect(),
+            }],
+            curves,
+        }
+    }
+
+    fn solid_grid(&self, us: &[f64], vs: &[f64], src: Src) -> Result<Solid> {
         let m = self.sections[0].edges.len();
         let (nu, nv) = (us.len(), vs.len() - 1);
         let mut verts = Vec::with_capacity(nu * vs.len());

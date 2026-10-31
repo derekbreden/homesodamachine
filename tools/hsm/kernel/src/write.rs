@@ -37,13 +37,20 @@ fn widened(p: [f32; 3]) -> V3 {
     V3::from([p[0] as f64, p[1] as f64, p[2] as f64])
 }
 
+/// A solid's triangles as an STL holds them, in f32. Two corners a few nanometres apart can land
+/// on one f32 point, and the triangle between them has no area in the file: it is left out,
+/// because a reader that welds the file's corners folds it into a fin on an edge of its own.
+fn f32_tris(s: &Solid) -> impl Iterator<Item = [[f32; 3]; 3]> + '_ {
+    s.tris
+        .iter()
+        .map(|t| t.map(|i| f32s(s.verts[i as usize])))
+        .filter(|t| tri_normal(widened(t[0]), widened(t[1]), widened(t[2])) != V3::ZERO)
+}
+
 pub fn stl_bytes(solids: &[&Solid]) -> Result<Vec<u8>> {
     let mut tris: Vec<[[f32; 3]; 3]> = vec![];
     for s in solids {
-        let s = s.simplified()?;
-        for t in &s.tris {
-            tris.push(t.map(|i| f32s(s.verts[i as usize])));
-        }
+        tris.extend(f32_tris(&s.simplified()?));
     }
     let mut out = Vec::with_capacity(84 + 50 * tris.len());
     let mut header = STL_HEADER.to_vec();
@@ -411,5 +418,15 @@ mod tests {
     #[test]
     fn crc_of_a_known_string() {
         assert_eq!(crc32(b"123456789"), 0xCBF4_3926);
+    }
+
+    #[test]
+    fn a_triangle_with_no_area_in_f32_stays_out_of_the_stl() {
+        let mut s = crate::plane::Plane::XY.cuboid(20.0, 10.0, 5.0);
+        assert_eq!(f32_tris(&s).count(), 12);
+        let near = s.verts[0] + crate::math::v3(1e-9, 0.0, 0.0);
+        s.verts.push(near);
+        s.tris[0] = [0, s.verts.len() as u32 - 1, 1];
+        assert_eq!(f32_tris(&s).count(), 11);
     }
 }

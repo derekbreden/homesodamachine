@@ -187,7 +187,8 @@ hull round circles and points (`Loop`, `Pen`, `Profile`; `hull_loop` is CadQuery
 `Sketch.hull`) on a workplane (`Plane`) named as CadQuery names them. The builders
 extrude (straight, both ways, drafted), revolve, sweep along lines and arcs or along a helix
 (carried rigidly by the screw motion, or in a rotation-minimizing frame), loft sections ruled
-or through OCCT's own smooth surface (`Solid::thru_sections`, CadQuery's `loft`),
+or through OCCT's own smooth surface (`Solid::thru_sections`, CadQuery's `loft`; a solid that
+meets a smooth loft's end is built on the loft's own end ring, `SmoothLoft::end_region`),
 set text from a font's outlines, and make boxes, cylinders, cones, spheres, tori, wedges and
 hulls. All of them cut curves into points by one rule (0.005 mm chord, 0.05 rad, ring counts a
 multiple of 8 from a canonical seam), so a surface gets the same vertices from any builder and
@@ -196,7 +197,8 @@ coincident faces meet point for point.
 Union, cut, intersect and plane split run on Manifold. Each operand face goes in as a run of its
 own, so the result keeps every face record. Coordinates of different operands within 10⁻⁸ mm
 are one coordinate, and a component thinner than the rule is dropped. Volume, area, centroid,
-inertia and bounds come from the mesh. The writers make binary STL, 3MF, GLB (face records in
+inertia and bounds come from the mesh. The writers make binary STL (leaving out a triangle that
+has no area once its corners are f32), 3MF, GLB (face records in
 its extras), the `.step.mesh` payload `hsm` reads, and the STEP meshcad writes: AP242
 triangulated surface sets under each body's name and colour, with the model file a mesh-kernel
 import reads beside it (`<name>.step.npz`). The same solid writes the same bytes on every run.
@@ -229,8 +231,9 @@ Helvetica.
 ## Parts the kernel cuts
 
 A part the kernel cuts keeps its numbers in Python and its geometry in Rust, side by side in its
-folder. The fuse clamp (`hardware/printed-parts/refrigeration/fuse-clamp`) is one, and the coil
-mandrel (`hardware/printed-parts/cold-core/coil-mandrel`, crate `tools/hsm/cold-core`) is another.
+folder. The fuse clamp (`hardware/printed-parts/refrigeration/fuse-clamp`) is one; the coil
+mandrel (`hardware/printed-parts/cold-core/coil-mandrel`, crate `tools/hsm/cold-core`) and the
+faucet shell (`hardware/printed-parts/faucet/faucet-shell`, crate `tools/hsm/faucet`) are others.
 
 `fuse_clamp.py` is its generator. It derives every number the part takes from the parts it
 closes on, states its bounds and fills its README, as any generator does, and writes the numbers
@@ -241,8 +244,13 @@ the geometry takes (`numbers()`) to `fuse-clamp.numbers.json`, which is committe
 `part::write_part`. That writes `fuse-clamp.step`, the model file beside it, the payload, whose
 `src` is the STEP's SHA-256, and `fuse-clamp.stl`; leaves a file that holds the same bytes as it
 is; and prints what the files hold. `part::write_shown` writes a set without the STL, for bodies
-the page draws and nothing prints. A program that writes several sets prints each one's answer
-on a line of its own, and its standard output carries nothing else.
+the page draws and nothing prints, and `part::write_printed` one without the payload, for a
+printed piece whose payload `hardware/scripts/flute_payload.py` cuts from its STL. A program that
+writes several sets prints each one's answer on a line of its own, and its standard output
+carries nothing else. The faucet shell writes the assembled pair with `write_shown` and each of
+its two prints with `write_printed`. The faucet's programs are `[[bin]]`s of `tools/hsm/faucet`,
+whose library holds what they share: the gooseneck, the display's frame at its tip, and the
+shapes their numbers come in.
 
 The generator runs the program through
 [`hardware/scripts/_rust_part.py`](../../hardware/scripts/_rust_part.py).
@@ -271,7 +279,8 @@ carries the toolchain and CMake.
 
 A generator on meshcad seats the part off its STEP, whose solids an import takes from the model
 file. `import_step` refuses that STEP on OCCT, so an OCCT generator that seats the part calls a
-CadQuery `build()` in its module instead: the fuse clamp keeps one for `enclosure_assembly`.
+CadQuery `build()` in its module instead: the fuse clamp keeps one for `enclosure_assembly`, and
+the faucet shell keeps its builders for `faucet_assembly` and the industrial faucet.
 
 ```sh
 tools/cad-venv/bin/python hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.py
