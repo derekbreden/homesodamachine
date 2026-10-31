@@ -254,6 +254,7 @@ genrule(
         "hardware/manifold-layout/above-core.json",
         "pysrc/hardware/manifold-layout/above_core.py",
         "pysrc/hardware/manifold-layout/above_core_routes.py",
+        "hardware/manifold-layout/reservoir-a-routes.json",
         "pysrc/hardware/manifold-layout/soda_inlet.py",
         "pysrc/hardware/printed-parts/cadlib/fits.py",
         "pysrc/hardware/printed-parts/cadlib/reeding.py",
@@ -411,6 +412,7 @@ genrule(
         "pysrc/hardware/manifold-layout/manifold_layout.py",
         "pysrc/hardware/manifold-layout/rear_plumbing.py",
         "pysrc/hardware/manifold-layout/rear_snaps.py",
+        "hardware/manifold-layout/reservoir-a-routes.json",
         "pysrc/hardware/manifold-layout/soda_inlet.py",
         "pysrc/hardware/printed-parts/asse-drain-adapter/asse_drain_adapter.py",
         "pysrc/hardware/printed-parts/cadlib/fits.py",
@@ -1413,6 +1415,7 @@ genrule(
         "pysrc/hardware/manifold-layout/above_core_routes.py",
         "pysrc/hardware/manifold-layout/rear_plumbing.py",
         "pysrc/hardware/manifold-layout/rear_snaps.py",
+        "hardware/manifold-layout/reservoir-a-routes.json",
         "pysrc/hardware/manifold-layout/soda_inlet.py",
         "pysrc/hardware/printed-parts/asse-drain-adapter/asse_drain_adapter.py",
         "pysrc/hardware/printed-parts/cadlib/fits.py",
@@ -2915,6 +2918,7 @@ genrule(
     srcs = [
         "pysrc/hardware/cold-core-layout/_bom.py",
         "pysrc/hardware/cold-core-layout/_carbonator.py",
+        "pysrc/hardware/cold-core-layout/_carbonator_bond.py",
         "pysrc/hardware/cold-core-layout/_coil.py",
         "pysrc/hardware/cold-core-layout/_cold_core_style.py",
         "pysrc/hardware/cold-core-layout/_cold_scorecard.py",
@@ -2959,6 +2963,7 @@ genrule(
         "pysrc/hardware/printed-parts/cold-core/_port_cuts.py",
         "pysrc/hardware/printed-parts/cold-core/_reed_channels.py",
         "pysrc/hardware/printed-parts/cold-core/_reservoir_a_anchors.py",
+        "pysrc/hardware/printed-parts/cold-core/_reservoir_a_c2.py",
         "pysrc/hardware/printed-parts/cold-core/_reservoir_b_fill.py",
         "pysrc/hardware/printed-parts/cold-core/_reservoir_ports.py",
         "pysrc/hardware/printed-parts/cold-core/_support_ring.py",
@@ -3112,6 +3117,17 @@ genrule(
         "pysrc/hardware/scripts/_seating.py",
         "pysrc/hardware/scripts/_stated_bounds.py",
         "pysrc/hardware/scripts/flute_payload.py",
+        "pysrc/hardware/scripts/meshcad/__init__.py",
+        "pysrc/hardware/scripts/meshcad/build.py",
+        "pysrc/hardware/scripts/meshcad/fillet.py",
+        "pysrc/hardware/scripts/meshcad/grow.py",
+        "pysrc/hardware/scripts/meshcad/imports.py",
+        "pysrc/hardware/scripts/meshcad/rule.py",
+        "pysrc/hardware/scripts/meshcad/scene.py",
+        "pysrc/hardware/scripts/meshcad/solids.py",
+        "pysrc/hardware/scripts/meshcad/sweep.py",
+        "pysrc/hardware/scripts/meshcad/topo.py",
+        "pysrc/hardware/scripts/meshcad/write.py",
         "pysrc/hardware/scripts/pick_text.py",
         "pysrc/tools/docgen/__init__.py",
     ],
@@ -3449,6 +3465,7 @@ genrule(
         "pysrc/hardware/manifold-layout/above_core_routes.py",
         "pysrc/hardware/manifold-layout/rear_plumbing.py",
         "pysrc/hardware/manifold-layout/rear_snaps.py",
+        "hardware/manifold-layout/reservoir-a-routes.json",
         "pysrc/hardware/manifold-layout/soda_inlet.py",
         "pysrc/hardware/printed-parts/asse-drain-adapter/asse_drain_adapter.py",
         "pysrc/hardware/printed-parts/cadlib/fits.py",
@@ -3582,8 +3599,11 @@ genrule(
     srcs = [
         "hardware/manifold-layout/above-core.json",
         "pysrc/hardware/manifold-layout/above_core.py",
+        "pysrc/hardware/manifold-layout/above_core_bom.py",
+        "pysrc/hardware/manifold-layout/above_core_parts.py",
         "pysrc/hardware/manifold-layout/above_core_routes.py",
         "pysrc/hardware/manifold-layout/above_core_wiring.py",
+        "hardware/manifold-layout/reservoir-a-routes.json",
         "pysrc/hardware/manifold-layout/soda_inlet.py",
         "pysrc/hardware/printed-parts/cadlib/fits.py",
         "pysrc/hardware/printed-parts/cadlib/flute_skin.py",
@@ -3703,6 +3723,7 @@ genrule(
         "hardware/manifold-layout/above-core.json",
         "pysrc/hardware/manifold-layout/above_core.py",
         "pysrc/hardware/manifold-layout/above_core_routes.py",
+        "hardware/manifold-layout/reservoir-a-routes.json",
         "pysrc/hardware/printed-parts/cadlib/fits.py",
         "pysrc/hardware/printed-parts/cadlib/flute_skin.py",
         "pysrc/hardware/printed-parts/cadlib/print_mesh.py",
@@ -3966,6 +3987,7 @@ genrule(
         "hardware/manifold-layout/above-core.json",
         "pysrc/hardware/manifold-layout/above_core.py",
         "pysrc/hardware/manifold-layout/above_core_routes.py",
+        "hardware/manifold-layout/reservoir-a-routes.json",
         "pysrc/hardware/printed-parts/cadlib/fits.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
         "pysrc/hardware/printed-parts/cold-core/_above_core_mounts.py",
@@ -4440,6 +4462,7 @@ genrule(
         "pysrc/hardware/manifold-layout/manifold_layout.py",
         "pysrc/hardware/manifold-layout/rear_plumbing.py",
         "pysrc/hardware/manifold-layout/rear_snaps.py",
+        "hardware/manifold-layout/reservoir-a-routes.json",
         "pysrc/hardware/manifold-layout/soda_inlet.py",
         "pysrc/hardware/printed-parts/asse-drain-adapter/asse_drain_adapter.py",
         "pysrc/hardware/printed-parts/cadlib/fits.py",
@@ -5194,6 +5217,7 @@ genrule(
         "pysrc/hardware/manifold-layout/manifold_layout.py",
         "pysrc/hardware/manifold-layout/rear_plumbing.py",
         "pysrc/hardware/manifold-layout/rear_snaps.py",
+        "hardware/manifold-layout/reservoir-a-routes.json",
         "pysrc/hardware/manifold-layout/soda_inlet.py",
         "pysrc/hardware/printed-parts/asse-drain-adapter/asse_drain_adapter.py",
         "pysrc/hardware/printed-parts/cadlib/cable_clip.py",
@@ -5468,6 +5492,7 @@ genrule(
         "pysrc/hardware/manifold-layout/manifold_layout.py",
         "pysrc/hardware/manifold-layout/rear_plumbing.py",
         "pysrc/hardware/manifold-layout/rear_snaps.py",
+        "hardware/manifold-layout/reservoir-a-routes.json",
         "pysrc/hardware/manifold-layout/soda_inlet.py",
         "pysrc/hardware/printed-parts/asse-drain-adapter/asse_drain_adapter.py",
         "pysrc/hardware/printed-parts/cadlib/cable_clip.py",
@@ -5873,6 +5898,7 @@ genrule(
         "pysrc/hardware/manifold-layout/manifold_layout.py",
         "pysrc/hardware/manifold-layout/rear_plumbing.py",
         "pysrc/hardware/manifold-layout/rear_snaps.py",
+        "hardware/manifold-layout/reservoir-a-routes.json",
         "pysrc/hardware/manifold-layout/soda_inlet.py",
         "pysrc/hardware/printed-parts/asse-drain-adapter/asse_drain_adapter.py",
         "pysrc/hardware/printed-parts/cadlib/cable_clip.py",
@@ -6078,6 +6104,7 @@ genrule(
         "pysrc/hardware/manifold-layout/above_core_routes.py",
         "pysrc/hardware/manifold-layout/rear_plumbing.py",
         "pysrc/hardware/manifold-layout/rear_snaps.py",
+        "hardware/manifold-layout/reservoir-a-routes.json",
         "pysrc/hardware/manifold-layout/soda_inlet.py",
         "pysrc/hardware/printed-parts/asse-drain-adapter/asse_drain_adapter.py",
         "pysrc/hardware/printed-parts/cadlib/fits.py",
@@ -6316,6 +6343,7 @@ genrule(
         "pysrc/hardware/manifold-layout/manifold_layout.py",
         "pysrc/hardware/manifold-layout/rear_plumbing.py",
         "pysrc/hardware/manifold-layout/rear_snaps.py",
+        "hardware/manifold-layout/reservoir-a-routes.json",
         "pysrc/hardware/manifold-layout/soda_inlet.py",
         "pysrc/hardware/printed-parts/asse-drain-adapter/asse_drain_adapter.py",
         "pysrc/hardware/printed-parts/cadlib/cable_clip.py",
@@ -10344,6 +10372,7 @@ genrule(
         "pysrc/hardware/manifold-layout/manifold_layout.py",
         "pysrc/hardware/manifold-layout/rear_plumbing.py",
         "pysrc/hardware/manifold-layout/rear_snaps.py",
+        "hardware/manifold-layout/reservoir-a-routes.json",
         "pysrc/hardware/manifold-layout/soda_inlet.py",
         "pysrc/hardware/printed-parts/asse-drain-adapter/asse_drain_adapter.py",
         "pysrc/hardware/printed-parts/cadlib/fits.py",
@@ -10962,6 +10991,7 @@ genrule(
         "hardware/manifold-layout/manifold_layout.py",
         "hardware/manifold-layout/rear_plumbing.py",
         "hardware/manifold-layout/rear_snaps.py",
+        "hardware/manifold-layout/reservoir-a-routes.json",
         "hardware/manifold-layout/soda_inlet.py",
         "hardware/printed-parts/asse-drain-adapter/asse_drain_adapter.py",
         "hardware/printed-parts/cadlib/cable_clip.py",
@@ -11283,6 +11313,7 @@ genrule(
         "pysrc/hardware/manifold-layout/manifold_layout.py",
         "pysrc/hardware/manifold-layout/rear_plumbing.py",
         "pysrc/hardware/manifold-layout/rear_snaps.py",
+        "hardware/manifold-layout/reservoir-a-routes.json",
         "pysrc/hardware/manifold-layout/soda_inlet.py",
         "pysrc/hardware/printed-parts/asse-drain-adapter/asse_drain_adapter.py",
         "pysrc/hardware/printed-parts/cadlib/fits.py",
@@ -12061,6 +12092,14 @@ genrule(
     name = "pysrc-d4e4323e6066",
     srcs = ["hardware/cold-core-layout/_carbonator.py"],
     outs = ["pysrc/hardware/cold-core-layout/_carbonator.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
+    name = "pysrc-8baed5b8d4e9",
+    srcs = ["hardware/cold-core-layout/_carbonator_bond.py"],
+    outs = ["pysrc/hardware/cold-core-layout/_carbonator_bond.py"],
     tools = ["tools/bazel/pysrc.py"],
     cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
 )
@@ -14061,6 +14100,94 @@ genrule(
     name = "pysrc-9a20655b9c4c",
     srcs = ["hardware/scripts/materialize_pump_cartridge.py"],
     outs = ["pysrc/hardware/scripts/materialize_pump_cartridge.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
+    name = "pysrc-bf0d7f4a1d54",
+    srcs = ["hardware/scripts/meshcad/__init__.py"],
+    outs = ["pysrc/hardware/scripts/meshcad/__init__.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
+    name = "pysrc-ef7ad832f146",
+    srcs = ["hardware/scripts/meshcad/build.py"],
+    outs = ["pysrc/hardware/scripts/meshcad/build.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
+    name = "pysrc-94fbc554ff18",
+    srcs = ["hardware/scripts/meshcad/fillet.py"],
+    outs = ["pysrc/hardware/scripts/meshcad/fillet.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
+    name = "pysrc-e1abb4852a33",
+    srcs = ["hardware/scripts/meshcad/grow.py"],
+    outs = ["pysrc/hardware/scripts/meshcad/grow.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
+    name = "pysrc-99815e004fbc",
+    srcs = ["hardware/scripts/meshcad/imports.py"],
+    outs = ["pysrc/hardware/scripts/meshcad/imports.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
+    name = "pysrc-2ca65462d2a8",
+    srcs = ["hardware/scripts/meshcad/rule.py"],
+    outs = ["pysrc/hardware/scripts/meshcad/rule.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
+    name = "pysrc-67f406932a21",
+    srcs = ["hardware/scripts/meshcad/scene.py"],
+    outs = ["pysrc/hardware/scripts/meshcad/scene.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
+    name = "pysrc-8571b3e083d6",
+    srcs = ["hardware/scripts/meshcad/solids.py"],
+    outs = ["pysrc/hardware/scripts/meshcad/solids.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
+    name = "pysrc-38123bbf93db",
+    srcs = ["hardware/scripts/meshcad/sweep.py"],
+    outs = ["pysrc/hardware/scripts/meshcad/sweep.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
+    name = "pysrc-163bdca987af",
+    srcs = ["hardware/scripts/meshcad/topo.py"],
+    outs = ["pysrc/hardware/scripts/meshcad/topo.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
+    name = "pysrc-6b872b58d771",
+    srcs = ["hardware/scripts/meshcad/write.py"],
+    outs = ["pysrc/hardware/scripts/meshcad/write.py"],
     tools = ["tools/bazel/pysrc.py"],
     cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
 )
