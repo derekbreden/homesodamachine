@@ -32,6 +32,16 @@ def print_mesh(solid, tol: float = print_mesh_tol, angle: float = print_mesh_ang
     from OCP.TopLoc import TopLoc_Location
 
     solid = solid.val() if hasattr(solid, "val") else solid
+    import sys
+    meshcad = sys.modules.get("meshcad")
+    if meshcad is not None and meshcad.is_mesh(solid):   # the mesh kernel's solid is its print mesh
+        points, tris = meshcad.arrays(solid)
+        mesh = trimesh.Trimesh(vertices=points, faces=tris, process=True)
+        mesh.vertices = mesh.vertices.astype(np.float32).astype(np.float64)
+        mesh.update_faces(mesh.nondegenerate_faces(height=1e-6))
+        mesh.merge_vertices()
+        mesh.remove_unreferenced_vertices()
+        return mesh
     meshed = solid.copy(mesh=False)
     triangulator = BRepMesh_IncrementalMesh(meshed.wrapped, tol, False, angle, False)
     if not triangulator.IsDone():

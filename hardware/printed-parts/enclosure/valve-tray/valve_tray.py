@@ -44,7 +44,6 @@ import sys
 from pathlib import Path
 
 import cadquery as cq
-from OCP.BRepExtrema import BRepExtrema_DistShapeShape
 
 _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
@@ -160,9 +159,7 @@ def web() -> float:
     does not lay, and the socket opens into the channel over the stretch it does not."""
     sockets = _seat.build_sockets().val()
     channel = build_port_channel(height() + 2.0).val()
-    d = BRepExtrema_DistShapeShape(sockets.wrapped, channel.wrapped)
-    d.Perform()
-    return d.Value()
+    return sockets.distance(channel)
 
 
 def grip() -> float:

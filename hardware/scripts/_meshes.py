@@ -41,6 +41,7 @@ import collections
 import hashlib
 import io
 import os
+import sys
 
 import numpy as np
 import manifold3d
@@ -91,12 +92,20 @@ _CACHE: dict = {}
 Box = collections.namedtuple("Box", "xmin ymin zmin xmax ymax zmax")
 
 
+def is_mesh(shape) -> bool:
+    """Whether the mesh kernel holds `shape` (`hardware/scripts/meshcad`)."""
+    meshcad = sys.modules.get("meshcad")
+    return meshcad is not None and meshcad.is_mesh(shape)
+
+
 def mesh_shape(shape, tolerance=0.5, angular=0.5):
     """(V float64[n,3], F int64[m,3]) for a cq.Shape, meshed at an ABSOLUTE linear deflection.
 
     cq's own `tessellate` meshes with a RELATIVE deflection and walks `poly.Triangles()`, which
     is quadratic per face in OCP; this meshes once with `isRelative=False` and indexes nodes and
     triangles directly.  Winding is flipped on reversed faces so normals point outward."""
+    if is_mesh(shape):
+        return sys.modules["meshcad"].arrays(shape)   # its triangles are the rule's, not re-cut here
     from OCP.BRep import BRep_Tool
     from OCP.BRepMesh import BRepMesh_IncrementalMesh
     from OCP.TopAbs import TopAbs_FACE, TopAbs_Orientation
@@ -148,6 +157,8 @@ def meshed(solid, deflection: float = DEFLECTION):
     is a fair question to ask of it."""
     if isinstance(solid, Manifold):
         return solid
+    if is_mesh(solid):
+        return sys.modules["meshcad"].manifold(solid)  # the mesh kernel's solid is already one
     key = (hash(solid.wrapped), deflection)
     hit = _CACHE.get(key)
     if hit is not None and hit[0].wrapped.IsSame(solid.wrapped):
