@@ -1494,34 +1494,6 @@
     "route_status": "selected_layout",
     "note": "Dressed through retained supports and clear of the larger installed bodies; wires and tubes are excluded from wire obstacles."
   },
-  "PE-bus": {
-    "stations": [
-      {
-        "terminal": "wago-g.2",
-        "offset": [
-          13.85,
-          -3.8,
-          5.235
-        ]
-      },
-      {
-        "terminal": "ground.inlet",
-        "offset": [
-          4.0,
-          -2.0,
-          -2.0
-        ]
-      }
-    ],
-    "preserve_stations": true,
-    "bend_radius_mm": 3.0,
-    "end_lands_mm": [
-      8.0,
-      8.0
-    ],
-    "route_status": "selected_layout",
-    "note": "Dressed through retained supports and clear of the larger installed bodies; wires and tubes are excluded from wire obstacles."
-  },
   "AC2-N": {
     "stations": [],
     "preserve_stations": true,

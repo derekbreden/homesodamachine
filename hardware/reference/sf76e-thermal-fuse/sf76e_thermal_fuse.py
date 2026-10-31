@@ -15,8 +15,7 @@ is the loose envelope rather than the silhouette.
 
 **Only the leads' first 3 mm are modeled.** The datasheet forbids a bend closer
 than 3 mm to the body, so that stub is the length of lead whose pose the part
-fixes; past it the lead is wire and goes where the loom goes. `ground-ring-stack`
-draws its tongues and omits the cable the same way.
+fixes; past it the lead is wire and goes where the loom goes.
 
 Coordinate frame
 ----------------

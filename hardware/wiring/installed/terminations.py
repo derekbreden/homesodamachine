@@ -15,14 +15,24 @@ def final_join_placements():
     }
 
 
+RING_BORE = 3.2  # M3 clearance through the ring's eye
+
+
 def carbonator_ring(ea):
     """Closed M3 lug on the existing upper tube rim, barrel pointing up."""
     import cadquery as cq
     from .terminals import carbonator_bond_datums
     d = carbonator_bond_datums(ea)
+    t, eye = d['ring_tongue_thickness_mm'], d['ring_eye_diameter_mm']
+    barrel, reach = d['ring_barrel_diameter_mm'], d['ring_barrel_length_mm']
+    ring = (cq.Solid.makeCylinder(eye/2, t)
+            .cut(cq.Solid.makeCylinder(RING_BORE/2, t+2, cq.Vector(0, 0, -1)))
+            .fuse(cq.Solid.makeCylinder(barrel/2, reach, cq.Vector(eye/2-1, 0, barrel/2),
+                                        cq.Vector(1, 0, 0)))
+            .clean())
     plane = cq.Plane(origin=d['contact_point_mm'], xDir=d['wire_outward'],
                      normal=d['contact_outward'])
-    return ea._gnd._ring(0., 0.).val().moved(cq.Location(plane))
+    return ring.moved(cq.Location(plane))
 
 
 def add_terminations(assembly,attachments,connections,routes):
@@ -52,14 +62,16 @@ def add_terminations(assembly,attachments,connections,routes):
     name = 'terminal-carbonator-pe'
     assembly.add(carbonator_ring(attachments.ea), name=name,
                  color=cq.Color(.32, .55, .30))
+    from .terminals import carbonator_bond_datums
+    bond = carbonator_bond_datums(attachments.ea)
     records[name] = {
         'kind': 'M3 closed-ring earth terminal',
         'terminal_ids': ['carbonator.PE'],
         'attachment': 'cold-core/carbonator-tube',
         'status': 'Nominal owned M3 / 22–16 AWG ring envelope; metal clamp defined by shared rim datums',
-        'tongue_thickness_mm': attachments.ea._gnd.tongue_t,
-        'barrel_diameter_mm': attachments.ea._gnd.barrel_d,
-        'barrel_length_mm': attachments.ea._gnd.barrel_len,
+        'tongue_thickness_mm': bond['ring_tongue_thickness_mm'],
+        'barrel_diameter_mm': bond['ring_barrel_diameter_mm'],
+        'barrel_length_mm': bond['ring_barrel_length_mm'],
     }
     for header in ('J1','J2','J3','J4','J5','J6','J7','J9','J11','J13'):
         # Include empty cavities in the physical housing, independently of

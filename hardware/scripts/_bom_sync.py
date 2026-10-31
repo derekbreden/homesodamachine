@@ -36,7 +36,6 @@ from faucet_shell import base_pod_centers
 import manifold_layout as ml
 import _facts
 import enclosure_assembly as _ea  # noqa: F401  — holds the closure these docs watch
-import ground_ring_stack as _gnd  # on the path once `enclosure_assembly` is imported
 import enclosure as _enc  # likewise
 import _box_spec
 import _fixed_pump_mount
@@ -50,7 +49,6 @@ import _above_core_shell as _selected_shell
 import _above_core_mounts as _selected_cap
 import _reservoir_a_anchors
 import above_core as _above_core
-import above_core_wiring as _above_core_wiring
 import above_core_bom as _above_core_bom
 
 # The placed pack, for the counts that are the machine's rather than a part's — off the
@@ -236,19 +234,14 @@ faucet_display_cover_screws_per_build = faucet_display_cover_inserts_per_build
 psu_fasteners = _selected_shell.psu_fastener_plan()
 relay_fasteners = _selected_shell.relay_fastener_plan()
 shelf_psu_screws_per_build = psu_fasteners['count']
-shelf_ground_screws_per_build = len(_gnd.holes)
-ground_fasteners = _above_core_wiring.ground_fastener_datums()
 shelf_pcba_screws_per_build = len(deck_mount_xy('pcba'))
 shelf_relay_screws_per_build = (sum(1 for name in _placed if name.startswith("relay-"))
                                 * relay_fasteners['count'])
-shelf_inserts_per_build = shelf_psu_screws_per_build + shelf_ground_screws_per_build
-shelf_screws_per_build = (shelf_ground_screws_per_build + shelf_pcba_screws_per_build
+shelf_inserts_per_build = shelf_psu_screws_per_build
+shelf_screws_per_build = (shelf_pcba_screws_per_build
                           + shelf_psu_screws_per_build + shelf_relay_screws_per_build)
-# The uxcell Ø9 × 0.8 flat washer seats under each pump-foot screw and once on each cap
-# ground stack, above its ring tongues: the stack's 0.8 mm washer layer is this washer.
-ground_stack_washers_per_build = (shelf_ground_screws_per_build
-                                  if ground_fasteners['washer_thickness_mm'] else 0)
-flat_washers_9_per_build = pump_mount_screws_per_build + ground_stack_washers_per_build
+# The uxcell Ø9 × 0.8 flat washer seats under each pump-foot screw.
+flat_washers_9_per_build = pump_mount_screws_per_build
 
 # Floor-slab hardware (assembly/enclosure-mechanical.md §5). The compressor is the one body in
 # the box bolted DOWN to it: `enclosure_assembly.floor_mounts` stands ONE POST PER HOLE in the
@@ -327,9 +320,8 @@ funnel_frame_screws_per_build = len(_enc._funnel_frame_part.fastener_datums())
 roof_closure_screws_per_build = funnel_frame_screws_per_build
 roof_closure_inserts_per_build = roof_closure_screws_per_build
 
-# M3×8 screws retain the PCB, relay diagonals, condenser and faucet base, and close the
-# cap ground stack.
-m3x8_per_build = (shelf_pcba_screws_per_build + cond_screws_per_build + shelf_ground_screws_per_build
+# M3×8 screws retain the PCB, relay diagonals, condenser and faucet base.
+m3x8_per_build = (shelf_pcba_screws_per_build + cond_screws_per_build
                   + shelf_relay_screws_per_build
                   + nameplate_screws_per_build + display_cover_screws_per_build
                   + faucet_display_cover_screws_per_build
@@ -368,7 +360,7 @@ m3x12_per_build = dock_fixture_locks_per_build + roof_closure_screws_per_build
 #
 # Short insert families and the stock available behind their seats:
 #   touch-flo base pods  — the blind pilots receive 4 mm inserts above the locating sockets
-#   PSU/relay wall hosts and cap earth boss — their screws use the short family
+#   PSU/relay wall hosts — their screws use the short family
 m3_long_inserts_per_build = (
     foam_cap_inserts_per_build
     + reservoir_cap_inserts_per_build
@@ -467,12 +459,6 @@ def main(*, only_bom=False):
         "SHELF_INSERTS": f"{shelf_inserts_per_build:.4g}",
         "SHELF_SCREWS": f"{shelf_screws_per_build:.4g}",
         "SHELF_SCREWS_PSU": f"{shelf_psu_screws_per_build:.4g}",
-        "SHELF_SCREWS_GROUND": f"{shelf_ground_screws_per_build:.4g}",
-        "GROUND_STACK_T": f"{ground_fasteners['clamped_thickness_mm']:g}",
-        "GROUND_SCREW_REACH": f"{ground_fasteners['screw_projection_mm']:g}",
-        "GROUND_BORE": f"{ground_fasteners['pilot_depth_mm']:g}",
-        "GROUND_TIP_AIR": f"{ground_fasteners['tip_air_mm']:g}",
-        "GROUND_BOSS_D": f"{ground_fasteners['boss_diameter_mm']:g}",
         "SHELF_SCREWS_PCBA": f"{shelf_pcba_screws_per_build:.4g}",
         "SHELF_SCREWS_RELAY": f"{shelf_relay_screws_per_build:.4g}",
         "COND_INSERTS": f"{cond_inserts_per_build:.4g}",

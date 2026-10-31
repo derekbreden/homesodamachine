@@ -504,7 +504,6 @@ genrule(
         "hardware/reference/g-ganen-pump/under-head-clearance.json",
         "pysrc/hardware/reference/gagira-reducing-coupling/gagira_reducing_coupling.py",
         "pysrc/hardware/reference/gasher-check-valve/gasher_check_valve.py",
-        "pysrc/hardware/reference/ground-ring-stack/ground_ring_stack.py",
         ":out/iec-c14-inlet/hardware/reference/iec-c14-inlet/iec-c14-inlet.step",
         "pysrc/hardware/reference/iec-c14-inlet/iec_c14_inlet.py",
         "pysrc/hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py",
@@ -1014,7 +1013,6 @@ genrule(
         "hardware/reference/g-ganen-pump/under-head-clearance.json",
         "pysrc/hardware/reference/gagira-reducing-coupling/gagira_reducing_coupling.py",
         "pysrc/hardware/reference/gasher-check-valve/gasher_check_valve.py",
-        "pysrc/hardware/reference/ground-ring-stack/ground_ring_stack.py",
         ":out/iec-c14-inlet/hardware/reference/iec-c14-inlet/iec-c14-inlet.step",
         "pysrc/hardware/reference/iec-c14-inlet/iec_c14_inlet.py",
         "pysrc/hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py",
@@ -2779,8 +2777,6 @@ genrule(
         "hardware/reference/g-ganen-pump/under-head-clearance.json",
         "pysrc/hardware/reference/gagira-reducing-coupling/gagira_reducing_coupling.py",
         "pysrc/hardware/reference/gasher-check-valve/gasher_check_valve.py",
-        ":out/ground-ring-stack/hardware/reference/ground-ring-stack/ground-ring-stack.step",
-        "pysrc/hardware/reference/ground-ring-stack/ground_ring_stack.py",
         "pysrc/hardware/reference/hlghlg-check-valve/hlghlg_check_valve.py",
         ":out/iec-c14-inlet/hardware/reference/iec-c14-inlet/iec-c14-inlet.step",
         "pysrc/hardware/reference/iec-c14-inlet/iec_c14_inlet.py",
@@ -3097,8 +3093,6 @@ genrule(
         "hardware/reference/g-ganen-pump/under-head-clearance.json",
         "pysrc/hardware/reference/gagira-reducing-coupling/gagira_reducing_coupling.py",
         "pysrc/hardware/reference/gasher-check-valve/gasher_check_valve.py",
-        ":out/ground-ring-stack/hardware/reference/ground-ring-stack/ground-ring-stack.step",
-        "pysrc/hardware/reference/ground-ring-stack/ground_ring_stack.py",
         ":out/iec-c14-inlet/hardware/reference/iec-c14-inlet/iec-c14-inlet.step",
         "pysrc/hardware/reference/iec-c14-inlet/iec_c14_inlet.py",
         "pysrc/hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py",
@@ -4645,7 +4639,6 @@ genrule(
         "hardware/reference/g-ganen-pump/under-head-clearance.json",
         "pysrc/hardware/reference/gagira-reducing-coupling/gagira_reducing_coupling.py",
         "pysrc/hardware/reference/gasher-check-valve/gasher_check_valve.py",
-        "pysrc/hardware/reference/ground-ring-stack/ground_ring_stack.py",
         ":out/iec-c14-inlet/hardware/reference/iec-c14-inlet/iec-c14-inlet.step",
         "pysrc/hardware/reference/iec-c14-inlet/iec_c14_inlet.py",
         "pysrc/hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py",
@@ -5452,8 +5445,6 @@ genrule(
         "pysrc/hardware/reference/gagira-reducing-coupling/gagira_reducing_coupling.py",
         ":out/gasher-check-valve/hardware/reference/gasher-check-valve/gasher-check-valve.step",
         "pysrc/hardware/reference/gasher-check-valve/gasher_check_valve.py",
-        ":out/ground-ring-stack/hardware/reference/ground-ring-stack/ground-ring-stack.step",
-        "pysrc/hardware/reference/ground-ring-stack/ground_ring_stack.py",
         "pysrc/hardware/reference/hlghlg-check-valve/hlghlg_check_valve.py",
         ":out/iec-c14-inlet/hardware/reference/iec-c14-inlet/iec-c14-inlet.step",
         "pysrc/hardware/reference/iec-c14-inlet/iec_c14_inlet.py",
@@ -6084,7 +6075,6 @@ genrule(
         "hardware/reference/g-ganen-pump/under-head-clearance.json",
         "pysrc/hardware/reference/gagira-reducing-coupling/gagira_reducing_coupling.py",
         "pysrc/hardware/reference/gasher-check-valve/gasher_check_valve.py",
-        "pysrc/hardware/reference/ground-ring-stack/ground_ring_stack.py",
         "pysrc/hardware/reference/hlghlg-check-valve/hlghlg_check_valve.py",
         ":out/iec-c14-inlet/hardware/reference/iec-c14-inlet/iec-c14-inlet.step",
         "pysrc/hardware/reference/iec-c14-inlet/iec_c14_inlet.py",
@@ -6529,7 +6519,6 @@ genrule(
         "hardware/reference/g-ganen-pump/under-head-clearance.json",
         "pysrc/hardware/reference/gagira-reducing-coupling/gagira_reducing_coupling.py",
         "pysrc/hardware/reference/gasher-check-valve/gasher_check_valve.py",
-        "pysrc/hardware/reference/ground-ring-stack/ground_ring_stack.py",
         "pysrc/hardware/reference/hlghlg-check-valve/hlghlg_check_valve.py",
         ":out/iec-c14-inlet/hardware/reference/iec-c14-inlet/iec-c14-inlet.step",
         "pysrc/hardware/reference/iec-c14-inlet/iec_c14_inlet.py",
@@ -9039,44 +9028,6 @@ cp hardware/reference/gasher-check-valve/gasher-check-valve.step $$O0
 )
 
 genrule(
-    name = "ground-ring-stack",
-    srcs = [
-        "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
-        "pysrc/hardware/reference/ground-ring-stack/ground_ring_stack.py",
-        "pysrc/hardware/scripts/_cadq_export.py",
-        "pysrc/hardware/scripts/_material_base.py",
-        "pysrc/hardware/scripts/_materials.py",
-        "pysrc/hardware/scripts/_mesh_payload.py",
-        "pysrc/hardware/scripts/_run_lock.py",
-        "pysrc/tools/docgen/__init__.py",
-    ],
-    outs = [
-        "out/ground-ring-stack/hardware/reference/ground-ring-stack/ground-ring-stack.step",
-    ],
-    cmd = """
-set -e
-O0=$$PWD/$(location out/ground-ring-stack/hardware/reference/ground-ring-stack/ground-ring-stack.step)
-for f in $(SRCS); do
-  case $$f in
-    */node_modules/*) continue;;
-    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
-    */pysrc/*) t=$${f##*/pysrc/};;
-    *) t=$$f;;
-  esac
-  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
-done
-for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
-done
-cd work
-ln -sfn $$HSM_WORKSPACE/.cache .cache
-D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/ground-ring-stack/ground_ring_stack.py > /dev/null
-cp hardware/reference/ground-ring-stack/ground-ring-stack.step $$O0
-""",
-)
-
-genrule(
     name = "hlghlg-check-valve",
     srcs = [
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
@@ -10655,7 +10606,6 @@ genrule(
         "hardware/reference/g-ganen-pump/under-head-clearance.json",
         "pysrc/hardware/reference/gagira-reducing-coupling/gagira_reducing_coupling.py",
         "pysrc/hardware/reference/gasher-check-valve/gasher_check_valve.py",
-        "pysrc/hardware/reference/ground-ring-stack/ground_ring_stack.py",
         ":out/iec-c14-inlet/hardware/reference/iec-c14-inlet/iec-c14-inlet.step",
         "pysrc/hardware/reference/iec-c14-inlet/iec_c14_inlet.py",
         "pysrc/hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py",
@@ -11306,8 +11256,6 @@ genrule(
         "hardware/reference/gagira-reducing-coupling/gagira_reducing_coupling.py",
         ":out/gasher-check-valve/hardware/reference/gasher-check-valve/gasher-check-valve.step",
         "hardware/reference/gasher-check-valve/gasher_check_valve.py",
-        ":out/ground-ring-stack/hardware/reference/ground-ring-stack/ground-ring-stack.step",
-        "hardware/reference/ground-ring-stack/ground_ring_stack.py",
         "hardware/reference/hlghlg-check-valve/hlghlg_check_valve.py",
         ":out/iec-c14-inlet/hardware/reference/iec-c14-inlet/iec-c14-inlet.step",
         "hardware/reference/iec-c14-inlet/iec_c14_inlet.py",
@@ -11538,7 +11486,6 @@ genrule(
         "hardware/reference/g-ganen-pump/under-head-clearance.json",
         "pysrc/hardware/reference/gagira-reducing-coupling/gagira_reducing_coupling.py",
         "pysrc/hardware/reference/gasher-check-valve/gasher_check_valve.py",
-        "pysrc/hardware/reference/ground-ring-stack/ground_ring_stack.py",
         ":out/iec-c14-inlet/hardware/reference/iec-c14-inlet/iec-c14-inlet.step",
         "pysrc/hardware/reference/iec-c14-inlet/iec_c14_inlet.py",
         "pysrc/hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py",
@@ -13638,14 +13585,6 @@ genrule(
 )
 
 genrule(
-    name = "pysrc-ad7743e93b14",
-    srcs = ["hardware/reference/ground-ring-stack/ground_ring_stack.py"],
-    outs = ["pysrc/hardware/reference/ground-ring-stack/ground_ring_stack.py"],
-    tools = ["tools/bazel/pysrc.py"],
-    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
-)
-
-genrule(
     name = "pysrc-24692c243f89",
     srcs = ["hardware/reference/hlghlg-check-valve/hlghlg_check_valve.py"],
     outs = ["pysrc/hardware/reference/hlghlg-check-valve/hlghlg_check_valve.py"],
@@ -14655,7 +14594,6 @@ filegroup(
         ":flare38-14ptc",
         ":gagira-reducing-coupling",
         ":gasher-check-valve",
-        ":ground-ring-stack",
         ":hlghlg-check-valve",
         ":iec-c14-inlet",
         ":jg-bulkhead-union",
