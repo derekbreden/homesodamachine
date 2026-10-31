@@ -253,7 +253,7 @@ def upper_wire_room(e, box):
         e.display_body_offset_slope-e.display_pcb_slope/2.,
         e.display_body_offset_slope+e.display_pcb_slope/2.,
         -depth,e._display_wings.GLASS_SEAT).moved(cq.Location(e.display_plane(box.outer)))
-    return _convex_corridor(e,[motor,pcb])
+    return _convex_corridor(e,[motor,pcb,*wire_cuts(e,box)[2:]])
 
 
 def display_cleanouts(e, box):
