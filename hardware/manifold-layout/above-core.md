@@ -36,6 +36,13 @@ The regulator enters upward. Seats use 0.25 mm running fit; caps use 0.15 mm
 slip fit. The four separate caps are in
 [rear-equipment-caps](../printed-parts/enclosure/rear-equipment-caps/README.md).
 
+V-K stands upright with 17.57 mm to the continuous ceiling. Its lower elbow
+clears the plain lid by 1.59 mm. The water-split run has a 3.39° tilt; its
+short V-K and regulator links retain full receiving depths on gentle R555
+and R531 bends. ASSE, regulator and V-A retain their aligned frames. The
+[native local fit](../mechanical-qualification/enclosure-above-core/vk-local-fit-review.json)
+records the body clearances and tube extrema.
+
 The port columns are X37.25 and X77.5; rows are Z328, Z296 and Z264. TAP's bore
 follows the scanned inlet adapter's axis. The top row is TAP/CO2, the middle
 OVER/SODA, and the bottom flavor B/flavor A. The 1.8 mm identification tiles

@@ -258,6 +258,13 @@ def route_specs():
             ('tee-regulator','water-split','to-flavor',15.7,'flow-regulator','inlet',15.),
             ('pump-inlet-link','suction-reducer','tube',joint().reducer.TUBE_INSERTION_DEPTH,
              'lower-pump-elbow','socket',parts.stem_elbow_reference().SOCKET_INSERTION)):
+        flex = plan().get('flex_links', {}).get(name)
+        if flex:
+            segment = (_arc_three(flex['points_mm']) if flex['kind'] == 'arc'
+                       else routes._bezier(flex['points_mm']))
+            add('above-core-'+name, [segment], (first, second),
+                flex['minimum_radius_mm'])
+            continue
         a,ua = station(first,port_a); b,ub = station(second,port_b)
         points = parts._link(a,ua,depth_a,b,ub,depth_b)
         add('above-core-'+name,[routes._line(points[0],points[-1])],(first,second))
