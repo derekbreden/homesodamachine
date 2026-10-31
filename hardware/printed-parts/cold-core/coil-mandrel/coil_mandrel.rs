@@ -2,9 +2,10 @@
 //! it over the wind zone, and a plain handle ring at either end. `coil_mandrel.py` holds the
 //! numbers and writes them for this program.
 //!
-//!     cargo run --release -p hsm-cold-core --bin coil-mandrel -- <numbers.json> <out dir>
+//!     cargo run --release --manifest-path tools/hsm/cold-core/Cargo.toml --bin coil-mandrel -- \
+//!         <coil-mandrel.numbers.json> <out dir>
 use anyhow::Result;
-use hsm_cold_core::{Numbers, args};
+use hsm_kernel::part::{Numbers, args, write_part};
 use hsm_kernel::*;
 
 /// The ring between two radii, standing over a span of Z.
@@ -36,9 +37,8 @@ pub fn build(n: &Numbers) -> Result<Solid> {
 fn main() -> Result<()> {
     let (n, out) = args()?;
     let mandrel = build(&n)?;
-    let body = Body { name: n.text("name")?, color: Some(n.color("color")?), solid: &mandrel };
-    write_payload(out.join("coil-mandrel.step.mesh"), &[body], None, None)?;
-    write_stl(out.join("coil-mandrel.stl"), &[&mandrel])?;
-    println!("coil-mandrel: {} triangles, {:.1} mm³", mandrel.tris().len(), mandrel.volume());
+    let name = n.text("name")?;
+    let body = Body { name, color: Some(n.color("color")?), solid: &mandrel };
+    println!("{}", write_part(&out, name, &[body])?);
     Ok(())
 }

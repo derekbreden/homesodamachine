@@ -9,13 +9,16 @@ The undersized groove is a rough-forming aid. Feed material from the long
 ends while setting the finished diameter, pitch and turn count on the vessel
 fixture. EVAP-01 and cold-core-layout/_coil.py define the production coil,
 including its opposite tangent exits and complete R15 tail forms.
+
+This module holds the numbers and writes the ones the geometry takes
+(`numbers()`) to `coil-mandrel.numbers.json`; `coil_mandrel.rs`, beside it,
+cuts `coil-mandrel.step`, its payload and `coil-mandrel.stl` from them on the
+kernel (`hardware/scripts/_rust_part.py`).
 """
 
 import math
 import sys
 from pathlib import Path
-
-import cadquery as cq
 
 _here = Path(__file__).resolve()
 sys.path.insert(
@@ -28,8 +31,8 @@ sys.path.insert(
 )
 sys.path.insert(0, str(next(p for p in _here.parents if p.name == "printed-parts") / "cadlib"))
 sys.path.insert(0, str(_here.parents[1]))
-from _cadq_export import export_assembly
-from _materials import M_PETG_BLACK, one_body
+from _materials import M_PETG_BLACK, linear  # CadQuery's import, ahead of the clock
+import _cadq_export  # noqa: F401  the CAD lock, and build-time.md's clock
 from docgen import substitute_py_comments
 from _cold_core_interface import evap_tail_low_z, evap_tail_high_z
 
@@ -199,43 +202,22 @@ upper_handle_z_range = (wind_z_range[1], mandrel_z_range[1])
 # BUILD AND EXPORT
 # ═══════════════════════════════════════════════════════
 
-def hollow_ring(r_range, z_range):
-    r_min, r_max = min(r_range), max(r_range)
-    z_min, z_max = min(z_range), max(z_range)
-    return (
-        cq.Workplane("XY")
-        .transformed(offset=(0, 0, z_min))
-        .circle(r_max).circle(r_min)
-        .extrude(z_max - z_min)
-    )
-
-
-def build_groove_cut():
-    """Helical groove over the wind zone: the groove_profile_radius circle
-    swept along the helix at helix_path_radius."""
-    helix = cq.Wire.makeHelix(
-        pitch=pitch, height=wind_length, radius=helix_path_radius
-    ).translate((0, 0, wind_z_range[0]))
-    helix_start = helix.startPoint().toTuple()
-    profile_plane = cq.Plane(origin=helix_start, xDir=(0, 0, 1), normal=(0, 1, 0))
-    profile = cq.Workplane(profile_plane).circle(groove_profile_radius)
-    return profile.sweep(cq.Workplane(obj=helix), isFrenet=False)
-
-
-def build_mandrel():
-    body = hollow_ring(mandrel_r_range, mandrel_z_range)
-    cut_body = body.cut(build_groove_cut(), clean=False)
-
-    # The swept groove overshoots the wind zone by groove_profile_radius at
-    # each end; re-unioning the handle rings restores their ungrooved walls.
-    lower_handle = hollow_ring(mandrel_r_range, lower_handle_z_range)
-    upper_handle = hollow_ring(mandrel_r_range, upper_handle_z_range)
-    return (cut_body
-            .union(lower_handle, clean=False)
-            .union(upper_handle, clean=False))
+def numbers():
+    """What `coil_mandrel.rs` cuts the mandrel from, and the body's name and colour."""
+    return {
+        "name": "coil-mandrel", "color": list(linear(M_PETG_BLACK)),
+        "mandrel_r_range": list(mandrel_r_range), "mandrel_z_range": list(mandrel_z_range),
+        "lower_handle_z_range": list(lower_handle_z_range),
+        "upper_handle_z_range": list(upper_handle_z_range),
+        "wind_z_range": list(wind_z_range), "wind_length": wind_length, "pitch": pitch,
+        "helix_path_radius": helix_path_radius, "groove_profile_radius": groove_profile_radius,
+    }
 
 
 def main():
+    # A run cuts the mandrel; an import of this module is a reader of its numbers.
+    import _rust_part
+
     print(f"Carbonator OD:               {carbonator_od:.1f} mm (R = {carbonator_radius:.2f})")
     print(f"As-wound undersize:    {net_undersize:.1f} mm radial stretch")
     print(f"Mandrel surface OD:    {mandrel_od:.2f} mm (R = {mandrel_radius:.3f})")
@@ -266,21 +248,12 @@ def main():
     print(f"Total mandrel Z:       {total_length:.1f} mm  (handle {handle_length:.2f} + "
           f"wind {wind_length:.1f} + handle {handle_length:.2f})")
 
-    mandrel = build_mandrel()
-    solids = mandrel.solids().vals()
-    print(f"\nResult: {len(solids)} solid(s)")
-    for i, s in enumerate(solids):
-        bb = s.BoundingBox()
-        print(
-            f"  Solid {i}: X[{bb.xmin:.1f},{bb.xmax:.1f}] "
-            f"Y[{bb.ymin:.1f},{bb.ymax:.1f}] Z[{bb.zmin:.1f},{bb.zmax:.1f}], "
-            f"V={s.Volume():.0f} mm^3, valid={s.isValid()}, "
-            f"faces={len(s.Faces())}"
-        )
-
-    out_path = Path(__file__).resolve().parent / "coil-mandrel.step"
-    export_assembly(one_body(mandrel, "coil-mandrel", M_PETG_BLACK), str(out_path))
-    print(f"\nExported: {out_path}")
+    said = _rust_part.cut("cold-core", "coil-mandrel", numbers(), _here.parent)
+    body = said["bodies"][0]
+    (xmin, ymin, zmin), (xmax, ymax, zmax) = body["min"], body["max"]
+    print(f"\nResult: X[{xmin:.1f},{xmax:.1f}] Y[{ymin:.1f},{ymax:.1f}] Z[{zmin:.1f},{zmax:.1f}], "
+          f"V={body['volume']:.0f} mm^3, {body['triangles']} triangles")
+    print("-> " + ", ".join(said["files"]))
 
     variables = {
         "TUBE_R": f"{tube_radius:.4g} mm",

@@ -141,34 +141,6 @@
       "tool_sha256": "b50f7b50f52f1e8516be3b1fc9ecdb10e87fb188f8b9bebc0fac56737320fc44",
       "written_utc": "2026-10-25T09:59:18+00:00"
     },
-    "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.stl": {
-      "step": "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step",
-      "step_sha256": "ec9e0fcc5fdd752d811766a41e34dfa92a487c6010c86029d4f16c4d369d0f50",
-      "stl_sha256": "95774aeef9b46c56d65028380b6e679ada8ef9f90993e6f58e45795e88960d1c",
-      "bodies": [
-        "coil-mandrel"
-      ],
-      "solids_fused": 1,
-      "result_solids": 1,
-      "tolerance_mm": 0.005,
-      "angle_rad": 0.05,
-      "facets": 570774,
-      "volume_mm3": 280197.514,
-      "bounds_mm": [
-        [
-          -61.5,
-          -61.5,
-          0.0
-        ],
-        [
-          61.5,
-          61.5,
-          157.5
-        ]
-      ],
-      "tool_sha256": "b50f7b50f52f1e8516be3b1fc9ecdb10e87fb188f8b9bebc0fac56737320fc44",
-      "written_utc": "2026-10-25T08:31:03+00:00"
-    },
     "hardware/printed-parts/cold-core/reservoir/reservoir-gasket.stl": {
       "step": "hardware/printed-parts/cold-core/reservoir/reservoir-gasket.step",
       "step_sha256": "8a58fee954f9dfbd8ee844965ff94b5473ee7ef18232276a4a5fa978f5c3ee7b",

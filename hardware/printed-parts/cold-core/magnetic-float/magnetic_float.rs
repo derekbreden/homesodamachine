@@ -1,19 +1,18 @@
 //! The RC62 magnetic float: a PETG envelope, the ASA Aero core and insert fitted inside it, and
 //! the magnet seated between them. `magnetic_float.py` holds the numbers and writes them for this
-//! program, and writes the design figures from the volumes it prints.
+//! program.
 //!
-//!     cargo run --release -p hsm-cold-core --bin magnetic-float -- <numbers.json> <out dir>
+//!     cargo run --release --manifest-path tools/hsm/cold-core/Cargo.toml --bin magnetic-float -- \
+//!         <magnetic-float.numbers.json> <out dir>
+//!     cargo run --release --manifest-path tools/hsm/cold-core/Cargo.toml --bin magnetic-float -- \
+//!         <numbers.json with `check`> --check
 //!
 //! Frame: guide bore on Z, finished bottom at Z = 0. Each piece is written standing on its own
 //! print face; the assembly, its half section and its exploded view stand in the float's frame.
 use anyhow::Result;
-use hsm_cold_core::{Numbers, args};
+use hsm_kernel::part::{Numbers, args, write_part, write_shown};
 use hsm_kernel::*;
 use serde_json::json;
-
-/// What the exploded view lifts the insert and the magnet by.
-const INSERT_LIFT: f64 = 24.0;
-const MAGNET_LIFT: f64 = 10.0;
 
 /// The ring between two radii, standing from `bottom` to `top`.
 fn annulus(outer: f64, inner: f64, bottom: f64, top: f64) -> Result<Solid> {
@@ -142,37 +141,32 @@ fn main() -> Result<()> {
     }
     let (n, out) = args()?;
     let pieces = build(&n)?;
-    let color = |p: &Piece| n.color(&format!("color_{}", p.material));
     let (diameter, height) = (n.f("diameter")?, n.f("height")?);
     let half = Solid::cuboid(v3(-diameter / 2.0 - 1.0, -diameter, -1.0), v3(diameter / 2.0 + 1.0, 0.0, height + 1.0));
     let (mut whole, mut section, mut exploded) = (vec![], vec![], vec![]);
-    let mut volumes = serde_json::Map::new();
     for p in &pieces {
-        let c = color(p)?;
+        let c = n.color(&format!("color_{}", p.material))?;
         let bottom = match p.name {
             "body-aero" => n.f("floor")?,
             "insert-aero" => n.f("insert_bottom")?,
             _ => 0.0,
         };
         let print = p.solid.translate(v3(0.0, 0.0, -bottom));
-        write_payload(out.join(format!("{}.step.mesh", p.name)), &[Body { name: p.name, color: Some(c), solid: &print }], None, None)?;
-        if p.name != "magnet" {
-            write_stl(out.join(format!("{}.stl", p.name)), &[&print])?;
-        }
+        let body = [Body { name: p.name, color: Some(c), solid: &print }];
+        let said = if p.name == "magnet" { write_shown(&out, p.name, &body)? } else { write_part(&out, p.name, &body)? };
+        println!("{said}");
         let lift = match p.name {
-            "insert-aero" => INSERT_LIFT,
-            "magnet" => MAGNET_LIFT,
+            "insert-aero" => n.f("insert_lift")?,
+            "magnet" => n.f("magnet_lift")?,
             _ => 0.0,
         };
         whole.push((p.name, c, p.solid.clone()));
         section.push((p.name, c, p.solid.intersect(&half)?));
         exploded.push((p.name, c, p.solid.translate(v3(0.0, 0.0, lift))));
-        volumes.insert(p.name.into(), json!(p.solid.volume()));
     }
     for (file, view) in [("magnetic-float", &whole), ("section", &section), ("exploded", &exploded)] {
         let bodies: Vec<Body> = view.iter().map(|(name, c, s)| Body { name, color: Some(*c), solid: s }).collect();
-        write_payload(out.join(format!("{file}.step.mesh")), &bodies, None, None)?;
+        println!("{}", write_shown(&out, file, &bodies)?);
     }
-    println!("{}", json!({ "volume_mm3": volumes }));
     Ok(())
 }
