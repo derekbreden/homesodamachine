@@ -13,15 +13,15 @@
     "J7_PINS": "7",
     "J8_PINS": "4",
     "J9_PINS": "4",
-    "LOOM_J1": "550 mm",
+    "LOOM_J1": "600 mm",
     "LOOM_J11": "600 mm",
     "LOOM_J13": "500 mm",
     "LOOM_J2": "650 mm",
     "LOOM_J3": "400 mm",
     "LOOM_J4": "650 mm",
     "LOOM_J5": "350 mm",
-    "LOOM_J6": "600 mm",
-    "LOOM_J7": "500 mm",
+    "LOOM_J6": "650 mm",
+    "LOOM_J7": "650 mm",
     "LOOM_J9": "400 mm"
   }
 }
