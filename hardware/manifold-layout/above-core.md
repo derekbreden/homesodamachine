@@ -49,10 +49,10 @@ OVER/SODA, and the bottom flavor B/flavor A. The 1.8 mm identification tiles
 slide into continuous channels between side rails and stand on the channel
 floor at Z252. C14 is at X−68.5/Z330 and RJ11 at X−64/Z291.5.
 
-The front pumps, pump tees and lower valve row stand 9.6 mm above their
-folded datum. The four fore valves retain their selected stations; their
-upper tubes have 5.651 mm exposed straight length. The lowest lower-return
-elbow is Z160.513, clear of the entering front wall during the chassis slide.
+The common chassis joint is Z150. The front pumps, tees, valves and their
+straight upper and lower links retain their selected stations. The lowest
+tee-return elbow is Z150.913, above the entering front wall. The upper links
+have 15.251 mm exposed tube. The funnel return descends from V-B to Y-B.
 
 ## Continuous tubes
 
@@ -69,7 +69,7 @@ straight guide at X−80.417/Y402.999. Neither guide adds a socket or tube cut.
 
 V-A's feed passes beneath the header, drops in front of the pump and uses the
 low Y-A handoff and upward-opening lid snap at X11/Y254.5/Z261.6. V-B has a straight, fully inserted drain link with 1.585 mm exposed tube.
-Its return to Y-B retains at least R24.47; the cross-link has 0.542 mm
+Its return to Y-B retains at least R24.66; the cross-link has 0.542 mm
 exposed tube between full insertions. Complete
 these connections through the uncovered funnel opening before fitting the frame.
 

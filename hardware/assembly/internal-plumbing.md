@@ -178,7 +178,7 @@ Lay out the ten Beduan valves and the [6](MANIFOLD_TEES) PP0208E tees. Cut stati
 4. **Fit all four tees with their upper tubes and fore valves.** Keep the rear valve row
    absent for this straight approach from aft. The upper tubes are `fluid-10`
    (Y-C to V-E), `fluid-13` (Y-D to V-F), `fluid-20` (Y-F to V-H) and `fluid-23` (Y-G to
-   V-I). Each nominal blank is [29.301 mm](DOCK_UPPER_TAIL): [5.651 mm](DOCK_FORE_LINK)
+   V-I). Each nominal blank is [38.901 mm](DOCK_UPPER_TAIL): [15.251 mm](DOCK_FORE_LINK)
    exposed, [11.65 mm](DOCK_TEE_INSERTION) bottomed in the tee's extended upper collet and
    an estimated [12 mm](DOCK_VALVE_INSERTION) in the valve. Seat uncut tube fully in the
    actual fore valve's bottom collet, mark the tube at the collet face, and cut it the
