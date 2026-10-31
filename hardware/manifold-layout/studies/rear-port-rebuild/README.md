@@ -20,8 +20,9 @@ https://claude.ai/artifact/RppC6x7HmYNP8n2d6EyTMN.
 | DIGITEN flow meter | Straight into the soda union: its outlet collet face is on the union's inboard collet face, with no tube showing. The larger side is down. |
 | Soda inlet | Production's continuous inlet, laid off the meter's inlet: the printed R[14](BEND_R) bend holder, the 1/4 in tube and one [52](FOAM_LEN) mm piece of 1 in foam. The bend starts [4](BEND_OFF_METER) mm off the meter's mouth and turns straight down, [28.6](DROP_LEN) mm to the cold-core cap's face. |
 | V-K, its stem elbow and its wall | Production's arrangement, moved [1.4](VK_EAST) mm east, [11.2](VK_AFT) mm aft and [7.0](VK_DOWN) mm down, until the elbow's release face is on the union tee's east collet face. The elbow's socket is [0.2](VK_TILT)° off the tee's run. The wall carries V-K's posts as production's does and reaches the side wall's inner face instead of the cap, with a [1.9](VK_ARM) mm arm. |
-| G Ganen carbonator pump | From where production stands it on the cold-core cap, [17.0](PUMP_AFT) mm aft and [24.5](PUMP_WEST) mm west, with a [joint](../../../reference/pump-barb-joint/README.md) on each barb |
+| G Ganen carbonator pump | From where production stands it on the cold-core cap, [17.0](PUMP_AFT) mm aft and [24.5](PUMP_WEST) mm west, with a [joint](../../../reference/pump-barb-joint/README.md) on each barb. The suction joint, on V-K's line, bends [13.1](SUCTION_BEND)° down to pass under V-K. |
 | neoFit [ACVUS-44](../../../reference/neofit-acvus44-check/README.md) stem check valve | Its stem in the Pisco's outlet, up to the collar on the outlet's release face, with the tip [1.4](CHECK_TIP_SHORT) mm short of the tube stop. The socket faces forward, its mouth at Y[383.6](CHECK_MOUTH_Y). |
+| Elbows on V-K's line | A neoFit ATEU44W in the suction joint's 1/4 in collet, its socket facing fore, and production's ATEU44W in V-K's bottom port, turned to face aft |
 | CO2 tube | Red 1/4 in LLDPE, [100](CO2_LEN) mm from the check's socket to the cap at X[59.1](CO2_LAND_X) Y[354.7](CO2_LAND_Y), beside V-K, and on straight down past the carbonator's rim. It leaves the socket straight forward, turns down in one bend no tighter than R[25](CO2_BEND), and comes onto the cap in an S no tighter than R[52](CO2_S_R). |
 
 ## Back-top
@@ -82,8 +83,30 @@ nearest is the flavor B bulkhead, [1.2](PUMP_TO_FLAVOR_B) mm off.
 Each barb carries a [joint](../../../reference/pump-barb-joint/README.md): a piece of 3/8 in clear tube,
 [23.4](SUCTION_TUBE) mm on the suction barb and [23.1](DISCHARGE_TUBE) mm on the discharge barb, a
 PP061208W with its stem trimmed to [10](STEM_TRIM) mm, and two YDS clamps with their housings up and
-their keys aft. The joints' 1/4 in collet mouths stand at X[56.0](SUCTION_MOUTH_X) on the suction side
-and X[-86.5](DISCHARGE_MOUTH_X) on the discharge side, both at Y[346.8](JOINT_Y) Z[280.2](JOINT_Z).
+their keys aft.
+
+The suction joint is on V-K's line, and a neoFit ATEU44W stands in its collet. The elbow's stem is
+cut to the collet's [17.5](ELBOW_STEM) mm depth, its shoulder is on the collet's mouth, and its socket
+faces fore toward V-K's bottom port. Straight, the elbow runs into the underside of V-K's coil, so
+the joint bends down until the reducer, its clamp and the elbow pass under it:
+[13.1](SUCTION_BEND)°, the least bend in tenths of a degree at which none of them overlaps V-K. There
+the elbow's hub meets the coil's bottom edge at its terminal end, [0.00](UNDER_VK) mm off, and stands
+[0.3](ELBOW_TO_SPADE) mm from the nearer of V-K's spades, which are drawn bare.
+
+The barb and its clamp stay as they are. The reducer and its clamp turn about the lowest point of
+the barb's tip, where the stem's tip bears on it. The tube runs straight on each and creases on the
+plane halfway between them.
+
+The joints' 1/4 in collet mouths stand at X[56.0](SUCTION_MOUTH_X) Z[272.4](SUCTION_MOUTH_Z) on the
+suction side and X[-86.5](DISCHARGE_MOUTH_X) Z[280.5](DISCHARGE_MOUTH_Z) on the discharge side, both at
+Y[346.8](JOINT_Y).
+
+## V-K's line
+
+Production's elbow stands in V-K's bottom port, moved with V-K and turned [90](OUTLET_TURN)° about the
+port's axis so its socket faces aft, toward the elbow in the suction joint's collet. The suction
+joint's elbow has its socket mouth at X[62.1](LINE_FORE_X) Y[325.8](LINE_FORE_Y) Z[271.0](LINE_FORE_Z), facing fore.
+V-K's has its socket mouth at X[77.8](LINE_AFT_X) Y[328.6](LINE_AFT_Y) Z[255.8](LINE_AFT_Z), facing aft.
 
 ## The CO2 line
 
@@ -121,11 +144,16 @@ No two parts overlap, apart from:
 
 - the scanned fittings' own thread mating;
 - the tube's [15.7](METER_INSERTION) mm insertion into the meter's inlet;
-- the stem elbow in V-K, as production stands them: its tip [5.3](STEM_PAST_PORT) mm past the bottom of
-  V-K's modelled port, and its hub [0.21](HUB_INTO_VK) mm into the top of the port's boss;
+- the stem elbow in V-K's top port, as production stands them: its tip [5.3](STEM_PAST_PORT) mm past the
+  bottom of V-K's modelled port, and its hub [0.21](HUB_INTO_VK) mm into the top of the port's boss;
+- the elbow in V-K's bottom port, as production stands it: its tip [5.3](OUTLET_STEM_PAST_PORT) mm past
+  the top of the modelled port, and its hub [0.21](OUTLET_HUB_INTO_VK) mm into the bottom of the port's
+  boss;
+- the same elbow's underside, [5.5](OUTLET_INTO_CAP) mm below the cold-core cap's face;
 - the elbow's release face, [0.02](FOLD_INTO_TEE) mm into the union tee's collet on one side, from the
   [0.2](VK_TILT)° between them;
-- the suction joint's reducer, its end [5.1](CO2_INTO_REDUCER) mm east into the CO2 tube's S.
+- the suction joint's reducer, its end [5.6](CO2_INTO_REDUCER) mm east into the CO2 tube's S, and the
+  elbow in its collet, [2.1](CO2_INTO_ELBOW) mm aft into the S.
 
 ## Rebuild
 

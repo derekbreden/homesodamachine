@@ -89,6 +89,35 @@
     ]
    ]
   },
+  "vk-solenoid x lower-valve-elbow": {
+   "mm3": 95.945,
+   "bbox": [
+    72.95,
+    302.71,
+    261.88,
+    82.57,
+    312.34,
+    274.65
+   ],
+   "pieces": [
+    [
+     74.58,
+     304.35,
+     269.38,
+     80.93,
+     310.7,
+     274.65
+    ],
+    [
+     72.95,
+     302.71,
+     261.88,
+     82.57,
+     312.34,
+     262.09
+    ]
+   ]
+  },
   "tee-fold x jg-pp0208e": {
    "mm3": 0.219,
    "bbox": [
@@ -111,23 +140,44 @@
    ]
   },
   "suction-reducer x co2-tube": {
-   "mm3": 72.472,
+   "mm3": 54.329,
    "bbox": [
-    50.86,
-    348.88,
-    274.41,
-    55.99,
-    354.81,
-    288.51
+    51.46,
+    349.1,
+    268.91,
+    57.04,
+    355.04,
+    281.52
    ],
    "pieces": [
     [
-     50.86,
-     348.88,
-     274.41,
-     55.99,
-     354.81,
-     288.51
+     51.46,
+     349.1,
+     268.91,
+     57.04,
+     355.04,
+     281.52
+    ]
+   ]
+  },
+  "suction-elbow x co2-tube": {
+   "mm3": 17.979,
+   "bbox": [
+    55.4,
+    349.82,
+    268.44,
+    59.52,
+    351.9,
+    275.99
+   ],
+   "pieces": [
+    [
+     55.4,
+     349.82,
+     268.44,
+     59.52,
+     351.9,
+     275.99
     ]
    ]
   }
@@ -246,7 +296,8 @@
    "enclosure-back-top": 8.3,
    "digiten-flow": 1.0,
    "vk-solenoid": 1.04,
-   "suction-reducer": 13.66,
+   "suction-reducer": 13.46,
+   "suction-elbow": 8.08,
    "meter-seat": 1.49,
    "meter-snap-cap": 12.49,
    "co2-tube": 6.58
@@ -321,8 +372,10 @@
    "soda-bend-holder": 8.34,
    "soda-insulation": 1.04,
    "jg-pp0208e": 14.43,
-   "suction-reducer": 5.71,
-   "co2-tube": 3.02
+   "suction-reducer": 6.87,
+   "suction-elbow": 0.02,
+   "co2-tube": 3.02,
+   "lower-valve-elbow": 0.01
   },
   "tee-fold_nearest_mm": {
    "enclosure-back-top": 10.68,
@@ -330,7 +383,8 @@
   },
   "vk-wall_nearest_mm": {
    "enclosure-back-top": 0.0,
-   "jg-pp0208e": 11.05
+   "jg-pp0208e": 11.05,
+   "lower-valve-elbow": 4.92
   }
  },
  "g-ganen-pump": {
@@ -391,11 +445,12 @@
  },
  "pump_joints": {
   "suction": {
+   "bend_deg": 13.1,
    "tube_mm": 23.39,
    "mouth": [
-    55.99,
+    56.05,
     346.81,
-    280.2
+    272.36
    ],
    "bands": {
     "barb": {
@@ -410,19 +465,31 @@
    "nearest_mm": {
     "tube": {},
     "reducer": {
-     "soda-insulation": 13.67,
-     "vk-solenoid": 5.7,
-     "co2-tube": 0.02
+     "soda-insulation": 13.47,
+     "vk-solenoid": 6.92,
+     "co2-tube": 0.01
     },
     "barb-clamp": {},
     "barb-key": {},
-    "stem-clamp": {},
+    "stem-clamp": {
+     "co2-tube": 14.98
+    },
     "stem-key": {
-     "jg-pi4512f6s": 14.16
+     "jg-pi4512f6s": 14.97
     }
-   }
+   },
+   "under_vk_mm": 0.0,
+   "elbow_under_vk_mm": 0.0,
+   "vk_nearest_at": [
+    66.47,
+    347.78,
+    273.2
+   ],
+   "a_tenth_less_mm": 0.0,
+   "elbow_to_spade_mm": 0.287
   },
   "discharge": {
+   "bend_deg": 0.0,
    "tube_mm": 23.14,
    "mouth": [
     -86.48,
@@ -448,6 +515,70 @@
     "stem-key": {}
    }
   }
+ },
+ "vk_line": {
+  "outlet_turn_deg": 90.0,
+  "suction-elbow": {
+   "bbox": [
+    38.28,
+    325.72,
+    263.04,
+    70.01,
+    351.91,
+    279.39
+   ],
+   "socket_mouth": [
+    62.1,
+    325.75,
+    270.97
+   ],
+   "socket_axis": [
+    0.004,
+    -1.0,
+    -0.001
+   ],
+   "nearest_mm": {
+    "soda-insulation": 8.08,
+    "vk-solenoid": 0.02,
+    "suction-tube": 6.79,
+    "suction-reducer": 0.01,
+    "suction-stem-clamp": 8.26,
+    "suction-stem-key": 13.6,
+    "co2-tube": 0.03,
+    "lower-valve-elbow": 7.98
+   }
+  },
+  "lower-valve-elbow": {
+   "bbox": [
+    69.83,
+    302.44,
+    247.9,
+    85.69,
+    328.61,
+    274.65
+   ],
+   "socket_mouth": [
+    77.76,
+    328.61,
+    255.83
+   ],
+   "socket_axis": [
+    0.0,
+    1.0,
+    0.0
+   ],
+   "nearest_mm": {
+    "enclosure-back-top": 12.85,
+    "vk-solenoid": 0.02,
+    "vk-wall": 4.92,
+    "suction-elbow": 7.98
+   }
+  },
+  "mouth_to_mouth_mm": [
+   15.66,
+   2.86,
+   -15.14
+  ]
  },
  "co2_tube": {
   "from": [
@@ -509,6 +640,8 @@
    "soda-insulation": 6.58,
    "vk-solenoid": 3.01,
    "suction-reducer": 0.02,
+   "suction-stem-clamp": 14.99,
+   "suction-elbow": 0.02,
    "asse-snap-cap": 14.7,
    "meter-seat": 13.85,
    "meter-snap-cap": 12.33

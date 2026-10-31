@@ -1,6 +1,6 @@
 {
  "title": "Rear-port rebuild",
- "lede": "Back-top cut to the port corner, without its mounting brackets: the 9 mm ceiling, the rear wall and the east side wall, with the label tiles outside in channels between side rails. Inside are the four bulkheads, the ASSE chain out to a JG union tee on a 9.5 mm stub, the Pisco with a neoFit ACVUS-44 check in its outlet, the flow meter straight into the soda union, the meter's inlet turned straight down through production's R14 holder under 1 in foam, and the G Ganen carbonator pump, moved aft until its butt meets the rear wall and west until it clears the bulkheads, with a joint on each barb: 3/8 in clear tube, two clamps and a PP061208W trimmed to 10 mm. V-K (amber), its stem elbow and its printed wall stand as production stands them, moved with the union tee; the wall reaches the side wall instead of the cap. The CO2 tube, red, leaves the check forward in one bend, comes onto the cap in an S beside V-K, and runs straight down past the carbonator's rim. A shows the water split and V-K alone, C the pump and its joints, G the CO2 tube among its neighbours, and H the tube beside the carbonator, its coil and the two reservoirs under the cap. B and F are cut at X77.5, D at X60. I to M show the seats on back-top and the snap caps that hold the ASSE chain, the Pisco and the meter in them: in place, with the caps off, and cut across.",
+ "lede": "Back-top cut to the port corner, without its mounting brackets: the 9 mm ceiling, the rear wall and the east side wall, with the label tiles outside in channels between side rails. Inside are the four bulkheads, the ASSE chain out to a JG union tee on a 9.5 mm stub, the Pisco with a neoFit ACVUS-44 check in its outlet, the flow meter straight into the soda union, the meter's inlet turned straight down through production's R14 holder under 1 in foam, and the G Ganen carbonator pump, moved aft until its butt meets the rear wall and west until it clears the bulkheads, with a joint on each barb: 3/8 in clear tube, two clamps and a PP061208W trimmed to 10 mm. V-K (amber), its stem elbow and its printed wall stand as production stands them, moved with the union tee; the wall reaches the side wall instead of the cap. A stem elbow in the suction joint's collet faces fore, the joint bent 13.1° down, the least that takes them under V-K, and production's elbow in V-K's bottom port is turned to face aft. The CO2 tube, red, leaves the check forward in one bend, comes onto the cap in an S beside V-K, and runs straight down past the carbonator's rim. A shows the water split and V-K alone, C the pump and its joints, G the CO2 tube among its neighbours, and H the tube beside the carbonator, its coil and the two reservoirs under the cap. B and F are cut at X77.5, D at X60. I to M show the seats on back-top and the snap caps that hold the ASSE chain, the Pisco and the meter in them: in place, with the caps off, and cut across.",
  "frame": "each",
  "sync": false,
  "columns": 2,
@@ -199,13 +199,23 @@
     },
     {
      "at": [
-      53.4,
-      351.8,
-      281.5
+      54.3,
+      352.1,
+      275.2
      ],
-     "text": "reducer 5.1 mm into the CO2 tube",
+     "text": "reducer 5.6 mm into the CO2 tube",
      "dx": 30,
      "dy": 50
+    },
+    {
+     "at": [
+      66.5,
+      347.8,
+      273.2
+     ],
+     "text": "bent 13.1° down, its elbow 0.00 mm under V-K",
+     "dx": 40,
+     "dy": -40
     }
    ]
   },
@@ -489,11 +499,11 @@
     },
     {
      "at": [
-      53.4,
-      351.8,
-      281.5
+      54.3,
+      352.1,
+      275.2
      ],
-     "text": "the suction reducer's end, 5.1 mm into the S",
+     "text": "the suction reducer's end, 5.6 mm into the S",
      "dx": -70,
      "dy": 50
     }
