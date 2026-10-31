@@ -19,6 +19,7 @@ target's inputs or newly added to a graph that has not been regenerated.
 """
 
 import argparse
+import ast
 import io
 import importlib.util
 import json
@@ -351,6 +352,91 @@ def targets(paths: list) -> list:
                                                ".pdf", ".3mf", ".stl", ".ts", ".tsx", ".sh")):
             out.append(line)
     return sorted(set(out))
+
+
+def manifest_targets(paths: list) -> tuple[list, list]:
+    """Reverse dependencies from the generated BUILD, without starting Bazel.
+
+    Generated-file labels resolve through their producer just as they do in
+    Bazel. Generated literal lists, list concatenation and globs are supported.
+    Globs match the changed paths directly, without walking dependency trees.
+    Unsupported Starlark is an error. This reader never executes BUILD code.
+    """
+    from collections import defaultdict, deque
+    from fnmatch import fnmatchcase
+
+    def glob_match(path, pattern):
+        bits, parts = tuple(path.split("/")), tuple(pattern.split("/"))
+
+        @lru_cache(maxsize=None)
+        def match(i, j):
+            if j == len(parts):
+                return i == len(bits)
+            if parts[j] == "**":
+                return match(i, j + 1) or (i < len(bits) and match(i + 1, j))
+            return i < len(bits) and fnmatchcase(bits[i], parts[j]) and match(i + 1, j + 1)
+
+        return match(0, 0)
+
+    def dependencies(node):
+        if isinstance(node, ast.BinOp) and isinstance(node.op, ast.Add):
+            a, ag = dependencies(node.left)
+            b, bg = dependencies(node.right)
+            return a + b, ag + bg
+        if isinstance(node, ast.Call) and isinstance(node.func, ast.Name) and node.func.id == "glob":
+            includes = ast.literal_eval(node.args[0])
+            excludes = next((ast.literal_eval(kw.value) for kw in node.keywords if kw.arg == "exclude"), [])
+            if len(node.args) != 1 or any(kw.arg not in {"exclude", "allow_empty"} for kw in node.keywords):
+                raise ValueError("unsupported publish manifest glob")
+            return [], [(includes, excludes)]
+        value = ast.literal_eval(node)
+        if not isinstance(value, list) or not all(isinstance(p, str) for p in value):
+            raise ValueError("publish manifest dependency must be a list of paths")
+        return value, []
+
+    rules, owners, globs = {}, {}, []
+    for statement in ast.parse((_ROOT / _BUILD).read_text()).body:
+        if not (isinstance(statement, ast.Expr)
+                and isinstance(statement.value, ast.Call)
+                and isinstance(statement.value.func, ast.Name)
+                and statement.value.func.id in {"genrule", "filegroup"}):
+            raise ValueError("publish manifest requires literal genrule/filegroup declarations")
+        call = statement.value
+        fields = {kw.arg: ast.literal_eval(kw.value) for kw in call.keywords
+                  if kw.arg in {"name", "outs"}}
+        name = fields["name"]
+        for kw in call.keywords:
+            if kw.arg in {"srcs", "tools", "data"}:
+                fields[kw.arg], patterns = dependencies(kw.value)
+                globs.extend((name, includes, excludes) for includes, excludes in patterns)
+        rules[name] = fields
+        for path in fields.get("outs", ()):
+            owners[path] = name
+    readers = defaultdict(set)
+    artifact_rules = set()
+    known_paths = set()
+    for name, rule in rules.items():
+        if any(p.endswith(_CAD_OUTPUTS) for p in rule.get("outs", ())):
+            artifact_rules.add(name)
+        for path in (*rule.get("srcs", ()), *rule.get("tools", ()), *rule.get("data", ())):
+            path = path.removeprefix("//:").removeprefix(":")
+            known_paths.add(path)
+            readers[owners.get(path, path)].add(name)
+    pending = deque(owners.get(p, p) for p in paths)
+    for path in paths:
+        for name, includes, excludes in globs:
+            if (any(glob_match(path, p) for p in includes)
+                    and not any(glob_match(path, p) for p in excludes)):
+                known_paths.add(path)
+                pending.append(name)
+    seen = set()
+    while pending:
+        path = pending.popleft()
+        if path not in seen:
+            seen.add(path)
+            pending.extend(readers.get(path, ()))
+    return (sorted(f"//:{name}" for name in seen & artifact_rules),
+            sorted(set(paths) & known_paths))
 
 
 def sentinel_targets(paths) -> set:
@@ -809,16 +895,21 @@ def main(argv) -> int:
     ap.add_argument("--head", default="HEAD", help="range endpoint used with --base")
     ap.add_argument("--artifacts", action="store_true",
                     help="print only rules that publish members of the CAD bundle")
+    ap.add_argument("--manifest", action="store_true",
+                    help="with --artifacts, read the generated BUILD without starting Bazel")
     ap.add_argument("--all-artifacts", action="store_true",
                     help="print every rule that publishes a CAD bundle member")
     args = ap.parse_args(argv)
+    if args.manifest and not args.artifacts:
+        ap.error("--manifest requires --artifacts")
     if args.cmd == "selftest":
         return selftest()
     if args.all_artifacts:
         write_targets(sorted(artifact_targets()))
         return 0
 
-    say_if_unshimmed()
+    if not args.manifest:
+        say_if_unshimmed()
 
     moved = changed_between(args.base, args.head) if args.base else changed()
     moved = [path for path in moved if not build_inert(path)]
@@ -830,14 +921,18 @@ def main(argv) -> int:
     if not moved:
         print("nothing has moved — a build of this tree holds nothing to do", file=sys.stderr)
         return 0
-    hit, miss = known(moved)
+    if args.manifest:
+        found, hit = manifest_targets(moved)
+    else:
+        hit, miss = known(moved)
     risky = unscoped_changes(moved, hit, args.artifacts, scoped_metadata)
     if risky:
         print(f"{len(risky)} changed CAD path(s) cannot be safely scoped — this slice widens "
               f"to every artifact rule:", file=sys.stderr)
         for p in risky:
             print(f"    {p}", file=sys.stderr)
-    found = targets(hit)
+    if not args.manifest:
+        found = targets(hit)
     if risky:
         # Unknown changes cannot be scoped honestly. The artifact lane can still stay narrower
         # than the docs/tests graph; an ordinary affected build takes the aggregate target.
@@ -854,7 +949,8 @@ def main(argv) -> int:
     # reach for provenance, where naming what an uncommitted packer touches is exactly right.
     if args.why:
         for t in found:
-            reach = [p for p in hit if t in targets([p])]
+            reach = [p for p in hit if t in (manifest_targets([p])[0]
+                     if args.manifest else targets([p]))]
             print(f"{t}\n    " + "\n    ".join(reach))
     else:
         write_targets(found)

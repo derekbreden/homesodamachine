@@ -15,11 +15,12 @@ MOVING THE POINTER FILE DEPLOYS NOTHING. It is not among `render.yaml`'s buildFi
 running container adopts a pointer file that moved and pushes the changed members to open pages.
 `tell_the_site()` below is what makes that immediate rather than a poll away.
 
-OWED IS READ BEFORE ANYTHING IS PUBLISHED, AND IT IS TWO QUESTIONS. `affected.py --artifacts` from
+OWED IS READ BEFORE ANYTHING IS PUBLISHED, AND IT IS TWO QUESTIONS. `affected.py --artifacts --manifest` from
 the commit the pointer file names to HEAD reads SOURCE, and is the only one that sees a change whose
-target has not been built yet. `pack.py --check` reads BYTES, and is the only one that sees a
-solid whose bytes moved with no commit behind them. Neither owing anything means `--write` would
-re-hash 314 MB to arrive at the bundle already published.
+target has not been built yet. The byte manifest sees solids that moved with no commit behind
+them. Digests are reused while device, inode, size, mtime and ctime are unchanged. Source debt is
+memoized against both commits and the graph's stat identities. A warm no-op starts no Bazel
+process and reads no unchanged artifact bytes.
 
 ONE AT A TIME, AND THE LAST REQUEST WINS. Several sessions commit at once and a publish takes
 around a minute, so a second invocation while one is running does not queue behind it — it
@@ -40,6 +41,7 @@ from __future__ import annotations
 
 import argparse
 import hashlib
+import importlib.util
 import json
 import os
 import subprocess
@@ -50,6 +52,7 @@ import urllib.request
 from pathlib import Path
 
 import _single_flight
+from _artifact_digest import hashes as cached_hashes, identity
 
 ROOT = Path(subprocess.run(["git", "rev-parse", "--show-toplevel"],
                            capture_output=True, text=True).stdout.strip() or ".")
@@ -69,17 +72,48 @@ def source_owes() -> list:
     if not pointers.exists():
         return ["//:everything"]
     base = json.loads(pointers.read_text()).get("source", {}).get("commit", "")
+    head = run(["git", "rev-parse", "HEAD"], quiet=True)
+    head.check_returncode()
+    inputs = ["BUILD.bazel", "tools/bazel/graph.json", "tools/bazel/affected.py",
+              "tools/bazel/inventory.py", "tools/bazel/gen_build.py"]
+    key = [base, head.stdout.strip(), [identity(ROOT / p) for p in inputs]]
+    memo = ROOT / ".cache/publish-source-debt.json"
+    try:
+        held = json.loads(memo.read_text())
+        if held.get("key") == key and isinstance(held.get("targets"), list):
+            return held["targets"]
+    except (OSError, ValueError, AttributeError):
+        pass
     if not base or run(["git", "cat-file", "-t", base], quiet=True).returncode != 0:
         return ["//:everything"]
-    got = run([str(PY), "tools/bazel/affected.py", "--artifacts",
+    got = run([sys.executable, "tools/bazel/affected.py", "--artifacts", "--manifest",
                "--base", base, "--head", "HEAD"], quiet=True)
-    return [ln for ln in got.stdout.split() if ln.startswith("//")]
+    if got.returncode:
+        raise RuntimeError(f"could not establish source debt: {got.stderr.strip()}")
+    targets = [ln for ln in got.stdout.split() if ln.startswith("//")]
+    memo.parent.mkdir(parents=True, exist_ok=True)
+    fd, tmp = tempfile.mkstemp(prefix=".publish-debt-", dir=memo.parent)
+    try:
+        with os.fdopen(fd, "w") as stream:
+            json.dump({"key": key, "targets": targets}, stream)
+        os.replace(tmp, memo)
+    finally:
+        Path(tmp).unlink(missing_ok=True)
+    return targets
 
 
 def bytes_drifted() -> bool:
-    """Whether the solids on this disk are the ones the pointer file names. `--check` exits 1 when not."""
-    return run([str(PY), "tools/cad-artifacts/pack.py", "--check"],
-               quiet=True).returncode == 1
+    """Compare current and published manifests, hashing only files whose stat changed."""
+    spec = importlib.util.spec_from_file_location("_publish_pack", ROOT / "tools/cad-artifacts/pack.py")
+    pack = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(pack)
+    held = json.loads((ROOT / "hardware/cad-artifacts.json").read_text())
+    if held.get("solids", {}) != pack.hashes(ROOT, pack.solids(ROOT)):
+        return True
+    rels = [rel for rel in pack.sidecars(ROOT) if (ROOT / rel).is_file()]
+    retired = {rel: digest for rel, digest in held.get("sidecars", {}).items()
+               if rel not in set(pack.sidecars(ROOT))}
+    return held.get("sidecars", {}) != {**retired, **pack.hashes(ROOT, rels)}
 
 
 def owed() -> tuple:
@@ -87,7 +121,7 @@ def owed() -> tuple:
 
     TWO QUESTIONS, AND NEITHER ANSWERS THE OTHER. `affected` reads SOURCE: it names what a
     commit changed, and it is the only one that sees a change whose target has not been built
-    yet. `pack.py --check` reads BYTES: it hashes the tree against the pointer file, and it is the only
+    yet. The digest manifest reads BYTES against the pointer file, and it is the only
     one that sees a solid whose bytes moved with no commit behind them — a rebuild, a carry, or
     a payload recut. Asking only the first is how a tree that had lost the enclosure's flutes
     read as owing nothing while the site drew a smooth box."""
@@ -151,9 +185,10 @@ def enclosure_drift(root: Path = None) -> tuple:
         and Path(rel).name.startswith("enclosure-")
         and rel.endswith((".step", ".stl", ".step.mesh"))
     }
+    current_hashes = cached_hashes(root, sorted(current))
     changed = sorted(
         rel for rel in set(current) | pointed
-        if rel not in current or held.get(rel) != _sha256(current[rel])
+        if rel not in current or held.get(rel) != current_hashes[rel]
     )
     payloads = [
         rel for rel in changed

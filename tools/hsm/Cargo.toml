@@ -1,0 +1,19 @@
+[workspace]
+members = ["geometry", "engine"]
+resolver = "2"
+
+[workspace.package]
+edition = "2024"
+license = "MIT"
+rust-version = "1.89"
+
+[workspace.dependencies]
+anyhow = "1"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+sha2 = "0.10"
+parry3d-f64 = { version = "0.25.1", features = ["serde-serialize", "enhanced-determinism"] }
+
+[profile.release]
+debug = 1
+

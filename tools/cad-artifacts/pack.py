@@ -405,7 +405,9 @@ def hashes(root: Path, rels: list) -> dict:
     The bundle is a function of these and their order, so a set of them equal to the pointer file's is a
     bundle equal to the pointer file's — which is the whole of what `--check` asks, and it asks it without
     compressing 117 MB to find out."""
-    return {rel: _sha256(root / rel) for rel in rels}
+    sys.path.insert(0, str(_ROOT / "tools"))
+    from _artifact_digest import hashes as cached_hashes
+    return cached_hashes(root, rels)
 
 
 def line_times(held: dict, solid_hashes: dict, stamp: int) -> dict:
@@ -527,10 +529,11 @@ def _dirty_artifact_reach(root: Path) -> tuple:
     moved = {path for path in moved if not affected.artifact_presentation_only(path)}
     if not moved:
         return [], [], []
-    hit, miss = affected.known(sorted(moved))
+    found, hit = affected.manifest_targets(sorted(moved))
+    miss = moved - set(hit)
     everywhere = {p for p in moved if affected.artifact_global(p)}
     unlabelled = {p for p in miss if affected.artifact_unknown(p, artifacts_only=True)}
-    reached = ((set(affected.targets(hit)) & affected.artifact_targets())
+    reached = ((set(found) & affected.artifact_targets())
                | affected.sentinel_targets(moved))
     return sorted(reached), sorted(everywhere | unlabelled), sorted(moved)
 
@@ -608,7 +611,7 @@ def _owed_artifact_targets(root: Path) -> list:
             print(f"  deferred rule the graph no longer declares owes nothing: {label}")
         deferred = standing
     script = root / "tools" / "bazel" / "affected.py"
-    args = ([sys.executable, str(script), "--base", source, "--head", "HEAD", "--artifacts"]
+    args = ([sys.executable, str(script), "--base", source, "--head", "HEAD", "--artifacts", "--manifest"]
             if source else [sys.executable, str(script), "--all-artifacts"])
     run = subprocess.run(args, cwd=str(root), capture_output=True, text=True)
     if run.returncode != 0:
