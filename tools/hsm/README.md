@@ -178,7 +178,9 @@ materials, draw with [`tools/render/render-step-posed.js`](../render/render-step
 `hsm-kernel` (`tools/hsm/kernel`) builds solids as closed triangle meshes that record where
 every face came from. Each triangle names a face record: the exact surface it lies on (plane,
 cylinder, cone, sphere, torus, or a free surface), the builder that made it, the generator line
-that called the builder (`#[track_caller]`), and the boolean that brought it into the solid.
+that called the builder (`#[track_caller]`), and the boolean that brought it into the solid. A
+file names that line `path:line` from the checkout's root, as meshcad does, so a part writes the
+same records from every worktree.
 
 Profiles are drawn exactly with lines, arcs, circles, Béziers, corner fillets and offsets
 (`Loop`, `Pen`, `Profile`) on a workplane (`Plane`) named as CadQuery names them. The builders

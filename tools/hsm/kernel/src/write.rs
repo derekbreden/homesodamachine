@@ -4,7 +4,7 @@
 //! the same bytes every run: no timestamps, no order that depends on a hash seed. STL and 3MF
 //! take the solid simplified to the rule's TOLERANCE (`Solid::simplified`); the payload and GLB
 //! take it whole, grouped by the faces a reader sees (`topo::faces`).
-use crate::face::{Face, Surface};
+use crate::face::{Face, Surface, src_line};
 use crate::math::V3;
 use crate::solid::Solid;
 use crate::topo;
@@ -285,9 +285,9 @@ pub fn face_json(f: &Face) -> Value {
     let o = out.as_object_mut().unwrap();
     o.insert("kind".into(), f.surface.kind().into());
     o.insert("op".into(), f.op.into());
-    o.insert("src".into(), format!("{}:{}", f.src.file(), f.src.line()).into());
+    o.insert("src".into(), src_line(f.src).into());
     if let Some(via) = f.via {
-        o.insert("via".into(), format!("{} at {}:{}", via.op, via.src.file(), via.src.line()).into());
+        o.insert("via".into(), format!("{} at {}", via.op, src_line(via.src)).into());
     }
     out
 }
