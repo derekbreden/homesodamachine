@@ -15,7 +15,6 @@ from __future__ import annotations
 
 import json
 import os
-import subprocess
 import sys
 import tempfile
 from functools import lru_cache
@@ -32,7 +31,6 @@ FIXTURE = HARDWARE / "printed-parts" / "fixtures" / "tube-insertion"
 GUIDE = HARDWARE / "tube-insertion-guide"
 ART = GUIDE / "art"
 OUT = GUIDE / "out"
-RENDERER = ROOT / "tools" / "render" / "render-step-posed.js"
 
 for directory in (
     HARDWARE / "scripts",
@@ -43,7 +41,8 @@ for directory in (
 ):
     sys.path.insert(0, str(directory))
 
-from _cadq_export import _per_solid_color
+from _cadq_export import _per_solid_color, _write_mesh_payload
+import _hsm_render
 from _material_base import M_PETGF_BLACK, M_STAINLESS, M_TPU_BLACK, step_safe
 import lever_replica
 import tpu_o_ring
@@ -463,7 +462,9 @@ def render(names):
         for name in names:
             scene = SCENES[name]
             step = work / f"{name}.step"
-            _per_solid_color(scene.build()).export(str(step))
+            colored = _per_solid_color(scene.build())
+            colored.export(str(step))
+            _write_mesh_payload(step, colored)
             job = {
                 "step": str(step.relative_to(HARDWARE)),
                 "out": str(ART / f"{name}.png"),
@@ -477,8 +478,7 @@ def render(names):
                 job["span"] = scene.span
             jobs.append(job)
             print(f"staged {name}")
-        subprocess.run(["node", str(RENDERER), "--jobs", "-"], cwd=ROOT,
-                       input=json.dumps(jobs), text=True, check=True)
+        _hsm_render.render(jobs)
         for job in jobs:
             out = Path(job["out"])
             print(f"-> art/{out.name} ({out.stat().st_size // 1024} KB)")

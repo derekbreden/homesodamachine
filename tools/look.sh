@@ -1,11 +1,10 @@
 #!/usr/bin/env bash
 # look.sh — see a body in the pack, from the three orthographic directions, in one command.
 #
-# render-view.js takes a step path relative to hardware/, an output path,
-# a projection, a context mode and a size — five arguments with one right answer each, where a
-# wrong path root fails silently (it resolves against hardware/ and reports "step file not
-# found"). This fixes every argument that has a right answer and leaves the ones a caller
-# actually chooses: which bodies to look at, and what to ask about them.
+# `hsm render --look` takes a step path relative to hardware/, an output path, a projection, a
+# context mode and a size — five arguments with one right answer each, where a wrong path root
+# names a payload that is not there. This fixes every argument that has a right answer and leaves
+# the ones a caller actually chooses: which bodies to look at, and what to ask about them.
 #
 #   tools/look.sh seaflo-pump                 # one body, three views
 #   tools/look.sh fluid-23,fluid-27           # a pair — the shape a crossing shows up in
@@ -53,10 +52,11 @@ VIEWS="top,front,right"
 SIZE="1600x1200"
 OUT="${TMPDIR:-/tmp}/look"
 PY="$REPO/tools/cad-venv/bin/python"
-VIEW_JS="$REPO/tools/render/render-view.js"
+HSM="${HSM_BIN:-$(command -v hsm || echo "$HOME/.local/bin/hsm")}"
 
 usage() { awk 'NR>1 && /^#/ { sub(/^# ?/, ""); print; next } NR>1 { exit }' "${BASH_SOURCE[0]}"; }
 die() { echo "look: $*" >&2; exit 2; }
+render() { "$HSM" --root "$REPO" render "$@"; }
 
 only=""
 near=""
@@ -85,13 +85,14 @@ while [[ $# -gt 0 ]]; do
     --out=*)   OUT="${1#*=}"; shift ;;
     --help|-h) usage; exit 0 ;;
     --)        shift; extra+=("$@"); break ;;
-    -*)        extra+=("$1"); shift ;;          # anything else goes straight to render-view
+    -*)        extra+=("$1"); shift ;;          # anything else goes straight to hsm render
     *)         only="$1"; shift ;;
   esac
 done
 
 if [[ -n "$list" ]]; then
-  exec node "$VIEW_JS" "$STEP" --list
+  render "$STEP" --list
+  exit
 fi
 
 if [[ -n "$check" ]]; then
@@ -125,7 +126,7 @@ plan_frames() {
 # solid set — a neighbourhood, or a second body at the same scale — is spanned off these numbers.
 boxes=""
 box_table() {
-  if [[ -z "$boxes" ]]; then boxes="$(node "$VIEW_JS" "$STEP" --list)"; fi
+  if [[ -z "$boxes" ]]; then boxes="$(render "$STEP" --list)"; fi
 }
 
 # `<half-span> <centre>` for one named body, the half-span grown by the margin given. The row is
@@ -172,7 +173,7 @@ if [[ -n "$near" ]]; then
     }' <<<"$found")"
 
   plan_frames "$stem"
-  node "$VIEW_JS" "$STEP" "$stem" --views "$VIEWS" \
+  render "$STEP" "$stem" --look --views "$VIEWS" \
     --span "$span" --target "$target" --size "$SIZE" \
     --only "${ranked:+$ranked,}$near" --xray "enclosure-*" --select "$near" \
     --caption "within $within mm: $legend" "${extra[@]+"${extra[@]}"}"
@@ -182,7 +183,6 @@ elif [[ -n "$vs" ]]; then
   [[ -n "$a" && -n "$b" && -z "$rest" ]] || die "--vs takes exactly two body names: --vs a,b"
   stem="$(stem_for "$a-vs-$b")"
   command_line="tools/look.sh --vs $a,$b --views $VIEWS --size $SIZE --step $STEP"
-  also=(--also tools/render/twin.js)
 
   # ONE SPAN FOR BOTH HALVES. A render fits the frame to its own subject, so two subjects rendered
   # apart come back at two scales and the picture lies about which is bigger. Both boxes are read
@@ -198,7 +198,7 @@ elif [[ -n "$vs" ]]; then
   trap 'rm -rf "$work"' EXIT
   for side in "a:$a:$b" "b:$b:$a"; do
     IFS=: read -r tag me other <<<"$side"
-    node "$VIEW_JS" "$STEP" "$work/$tag.png" --views "$VIEWS" \
+    render "$STEP" "$work/$tag.png" --look --views "$VIEWS" \
       --span "$span" --only "$me" --xray "enclosure-*" --size "$SIZE" \
       --caption "twin at one span — this half is $me, beside it $other" \
       "${extra[@]+"${extra[@]}"}"
@@ -206,14 +206,14 @@ elif [[ -n "$vs" ]]; then
 
   plan_frames "$stem"
   for v in ${VIEWS//,/ }; do
-    node "$REPO/tools/render/twin.js" "${stem%.png}.$v.png" "$work/a.$v.png" "$work/b.$v.png"
+    render --twin "${stem%.png}.$v.png" "$work/a.$v.png" "$work/b.$v.png"
   done
 
 else
   stem="$(stem_for "$only")"
   command_line="tools/look.sh '$only' --views $VIEWS --size $SIZE --step $STEP"
   plan_frames "$stem"
-  node "$VIEW_JS" "$STEP" "$stem" --views "$VIEWS" --ortho \
+  render "$STEP" "$stem" --look --views "$VIEWS" --ortho \
     --only "$only" --xray "enclosure-*" --size "$SIZE" "${extra[@]+"${extra[@]}"}"
 fi
 

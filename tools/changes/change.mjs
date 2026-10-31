@@ -34,18 +34,17 @@
 // `render` line that draws it, and a `--section` through it for a change inside a part. The
 // deviation is the reading; the camera is a starting point.
 //
-// `render` DRAWS ONE VIEW OF THE ENTRY. One browser, one page per picture, the /3d viewer as
-// `render-step-posed.js` stands it, with the payload the page asks for answered from the stash
-// rather than the tree: the request for `/meshes/<rel>.mesh` is fulfilled with the bytes given,
-// so the model is drawn at its own path with everything the viewer keys off that path, and no
-// file is put anywhere for it. Both pictures take one camera — computed once, here, off both
-// versions — at one size, and the run fails if the two pages report different ones. Unaimed, it
-// takes the camera `changed` gives the first region that moved; with nothing moved, it looks from
-// the viewer's own front-right-above at the highlighted solids, or at everything shown.
+// `render` DRAWS ONE VIEW OF THE ENTRY with `hsm render`, the engine's renderer of the /3d look,
+// from the stashed bytes rather than the tree's: each version goes to it as a payload file of its
+// own, drawn as the model at its own path, with everything the look keys off that path. Both
+// pictures take one camera — computed once, here, off both versions — at one size, and the run
+// fails if the two reports give different ones. Unaimed, it takes the camera `changed` gives the
+// first region that moved; with nothing moved, it looks from the viewer's own front-right-above at
+// the highlighted solids, or at everything shown.
 //
 // FEWER SOLIDS AND A CUT READ; SEE-THROUGH ONES DO NOT. The pictures are opaque. `--only` drops
-// every other solid and hands the page a payload of just those, so a part-sized view costs a
-// part's worth of parsing, and stands the part on no floor. `--section "x,y,z:nx,ny,nz"` cuts both pictures with one plane through
+// every other solid and hands the renderer a payload of just those, so a part-sized view costs a
+// part's worth of reading, and stands the part on no floor. `--section "x,y,z:nx,ny,nz"` cuts both pictures with one plane through
 // that point and removes the side its normal points to, so a camera on that side looks at the cut;
 // the cut faces are drawn filled in a flat section colour, a darker amber on a highlighted solid.
 // Highlight is the viewer's selection amber, and `--highlight changed` is the solids `changed`
@@ -60,12 +59,6 @@
 // `highlight`, `ghost`, `only`, `xray`, `source` (each payload's sha256 and the commit it stood
 // at) and `changed` / `withinMeshing` (the solids that moved, as `changed` reads them); a section
 // is recorded in `camera`.
-//
-// THIS DOES NOT EXTEND `render-step-posed.js`, AND IT DOES NOT LIVE BESIDE IT, BECAUSE BOTH OF
-// THOSE ARE INPUTS TO THE BUILD. `render-step-posed.js` and `browser.js` are named in the
-// installation-art and plumbing-scene rules, and `:node-packages` hands every file under
-// tools/render/ to four rules more — so an edit there, or a new file, re-renders that art on
-// whoever commits next. This file is no rule's input; it imports them.
 
 import crypto from "crypto";
 import fs from "fs";
@@ -74,8 +67,6 @@ import path from "path";
 import { execFileSync } from "child_process";
 import { createRequire } from "module";
 import { fileURLToPath } from "url";
-
-import { closeBrowser, closeServer, consoleLine, finish, frameBuffer, launchBrowser, PARSE_TIMEOUT, sweepAbandonedBrowsers } from "../render/browser.js";
 
 // sharp is installed beside the renderers it serves (tools/render/package.json), and resolved
 // from there rather than installed a second time here.
@@ -87,21 +78,15 @@ const HARDWARE = path.join(REPO_ROOT, "hardware");
 const POINTERS = path.join(HARDWARE, "cad-artifacts.json");
 const DEFAULT_MODEL = "manifold-layout/enclosure-assembly.step";
 
-// The viewer's own selection colour (component-picker.js SEL), drawn at the finish the viz pages
-// give a highlight (tools/viz/page.html).
-const AMBER = 0xffa733;
-// A cut face: the solid's own colour taken most of the way to a steel blue-grey, a hue no lit
-// surface here has, so a cut never reads as a face that was there — a black shell cuts a mid
-// blue-grey and a white body a pale one — and a highlighted solid cuts a darker amber.
-const SECTION_TINT = 0x8fa6bd;
-const SECTION_MIX = 0.7;
-const SECTION_AMBER = 0xb8700f;
+// The vertical field of view of the viewer's camera (scene.js), which a perspective `--span`
+// sets the distance through.
+const FOV = 45;
 // What `_mesh_payload.py` meshes a model at: a ratio of the mean of its box's three extents.
 // Two meshings of one surface stand within about this of each other.
 const LINEAR_DEFLECTION_RATIO = 0.001;
 
 // A refusal names what was asked wrongly; `main` prints it and exits 2. Thrown rather than exited
-// on, so a browser or server already standing is closed by the `finally` that owns it.
+// on, so the scratch a run made is cleared by the `finally` that owns it.
 class Refusal extends Error {}
 
 function die(msg) {
@@ -310,7 +295,9 @@ function subsetPayload(p, keep) {
     }
     meshes.push(out);
   });
-  const text = Buffer.from(JSON.stringify({ ...head, meshes }));
+  // Padded with spaces, as `_mesh_payload.py` pads it, so the blob starts 4-byte aligned.
+  const json = Buffer.from(JSON.stringify({ ...head, meshes }));
+  const text = Buffer.concat([json, Buffer.from(" ".repeat(-(json.length + 4) & 3))]);
   const len = Buffer.alloc(4);
   len.writeUInt32LE(text.length, 0);
   return Buffer.concat([len, text, ...parts]);
@@ -762,207 +749,51 @@ function parseMarks(list) {
   });
 }
 
-// One picture, composed the way `render-step-posed.js` composes its frame (its `shoot`), with the
-// camera handed in rather than fitted off the subject: both pictures of a view take the same one.
-async function shoot(page, o) {
-  return page.evaluate(async (o) => {
-    const hsm = window.__hsm;
-    const { THREE, renderer, scene, camera, controls, currentGroup } = hsm;
-    const sceneMod = await import("/js/viewer/scene.js");
-    const xray = await import("/js/viewer/xray.js");
-    // No await below this line: scene.js's animate loop refits fog and edge resolution whenever
-    // the task loop is handed back, so the frame is composed in one task (render-step-posed.js).
-    sceneMod.stopAnimate();
-    sceneMod.resetCamera(currentGroup);
-    controls.enabled = false;
-    if (!o.fog) scene.fog = null;
-    if (!o.ground) sceneMod.fitGroundShadow(null);
-    if (xray.isXrayEnabled() !== !!o.xray) xray.setXrayEnabled(!!o.xray, { persist: false });
-
-    const re = (list) => list.map((s) => new RegExp(s));
-    const only = re(o.only), ghost = re(o.ghost), hi = re(o.highlight);
-    const any = (res, name) => res.some((r) => r.test(name));
-    const edges = new Map();
-    currentGroup.traverse((c) => { if (c.userData?.isXrayEdge && c.userData.sourceMesh) edges.set(c.userData.sourceMesh, c); });
-    const amber = new THREE.MeshStandardMaterial({
-      color: o.amber, roughness: 0.5, metalness: 0.05, side: THREE.DoubleSide,
-      polygonOffset: true, polygonOffsetFactor: 1, polygonOffsetUnits: 1,
-    });
-    const counts = { solids: 0, shown: 0, highlighted: 0, ghosted: 0 };
-    for (const mesh of currentGroup.children) {
-      if (!mesh.isMesh || mesh.userData?.isXrayEdge) continue;
-      counts.solids++;
-      const name = mesh.name || "";
-      const line = edges.get(mesh);
-      if (only.length && !any(only, name)) {
-        mesh.visible = false;
-        if (line) line.visible = false;
-        continue;
-      }
-      if (mesh.visible === false) continue;
-      counts.shown++;
-      if (any(hi, name)) {
-        mesh.material = amber;
-        mesh.userData.highlighted = true;
-        counts.highlighted++;
-      } else if (any(ghost, name)) {
-        const base = mesh.userData.baseMaterial || mesh.material;
-        const shell = (Array.isArray(base) ? base[0] : base).clone();
-        shell.transparent = true;
-        shell.opacity = 0.16;
-        shell.depthWrite = false;
-        mesh.material = shell;
-        if (line) line.visible = false;
-        counts.ghosted++;
-      }
-    }
-
-    // THE CUT IS A CLIP AND A CAP. Every material drawn is clipped by the one plane, and each opaque
-    // solid draws its front faces only, with a second pass over the same triangles drawing their
-    // back faces flat in the section colour under the same clip. Where the plane opens a solid,
-    // what shows through the opening is the inside of its far walls — that pass — so the cut reads
-    // as a filled face; a passage the plane opens shows its own walls, lit, because those face the
-    // viewer. A see-through solid is clipped and not capped: its back faces show everywhere.
-    if (o.section) {
-      const n = new THREE.Vector3(...o.section.normal);
-      const plane = new THREE.Plane(n.clone().negate(), n.dot(new THREE.Vector3(...o.section.at)));
-      renderer.localClippingEnabled = true;
-      const caps = [];
-      for (const mesh of [...currentGroup.children]) {
-        if (!mesh.isMesh || mesh.visible === false) continue;
-        const list = Array.isArray(mesh.material) ? mesh.material : [mesh.material];
-        if (mesh.userData?.isXrayEdge) {
-          // LineMaterial's clipping chunk compiles only without alpha-to-coverage (three 0.170).
-          for (const m of list) { m.clippingPlanes = [plane]; m.alphaToCoverage = false; m.needsUpdate = true; }
-          continue;
-        }
-        const cut = list.map((m) => {
-          const c = m.clone();
-          c.clippingPlanes = [plane];
-          if (!c.transparent) c.side = THREE.FrontSide;
-          return c;
-        });
-        mesh.material = Array.isArray(mesh.material) ? cut : cut[0];
-        if (cut.some((m) => m.transparent)) continue;
-        const colour = mesh.userData.highlighted ? new THREE.Color(o.sectionAmber)
-          : (cut[0].color ? cut[0].color.clone() : new THREE.Color(0x8899aa)).lerp(new THREE.Color(o.sectionTint), o.sectionMix);
-        const cap = new THREE.Mesh(mesh.geometry, new THREE.MeshBasicMaterial({ color: colour, side: THREE.BackSide, clippingPlanes: [plane] }));
-        cap.position.copy(mesh.position);
-        cap.quaternion.copy(mesh.quaternion);
-        cap.scale.copy(mesh.scale);
-        cap.userData.sectionCap = true;
-        caps.push(cap);
-      }
-      for (const cap of caps) currentGroup.add(cap);
-      counts.capped = caps.length;
-    }
-
-    const target = new THREE.Vector3(...o.target);
-    const dir = new THREE.Vector3(...o.cam).normalize();
-    const aspect = o.width / o.height;
-    let cam;
-    if (o.ortho) {
-      cam = new THREE.OrthographicCamera(-o.half * aspect, o.half * aspect, o.half, -o.half, 0.01, o.wholeRadius * 100);
-      cam.position.copy(target).addScaledVector(dir, o.wholeRadius * 3);
-    } else {
-      cam = camera;
-      cam.aspect = aspect;
-      const dist = o.span != null ? o.span / Math.tan(THREE.MathUtils.degToRad(cam.fov / 2)) : o.radius * o.zoom;
-      cam.position.copy(target).addScaledVector(dir, dist);
-    }
-    cam.up.set(...o.up);
-    cam.lookAt(target);
-    controls.object = cam;
-    controls.target.copy(target);
-    renderer.setSize(window.innerWidth, window.innerHeight, false);
-    xray.syncEdgeResolution(renderer);
-    sceneMod.fitCameraDepth(cam, new THREE.Vector3(...o.wholeCentre), o.wholeRadius);
-    cam.updateProjectionMatrix();
-    cam.updateMatrixWorld(true);
-
-    const px = (p) => {
-      const v = p.clone().project(cam);
-      return { x: (v.x + 1) / 2 * o.width, y: (1 - v.y) / 2 * o.height, z: v.z };
-    };
-    const screenUp = new THREE.Vector3(0, 1, 0).applyQuaternion(cam.quaternion);
-    const marks = o.marks.map(({ at, rmm, label }) => {
-      const p = new THREE.Vector3(...at);
-      const c = px(p);
-      const r = rmm ? Math.hypot(...(({ x, y }) => [x - c.x, y - c.y])(px(p.clone().addScaledVector(screenUp, rmm)))) : null;
-      return { at, label, r, x: c.x, y: c.y, inFront: c.z > -1 && c.z < 1 };
-    });
-    const drawn = {
-      projection: o.ortho ? "orthographic" : "perspective",
-      position: cam.position.toArray(), target: target.toArray(), up: cam.up.toArray(),
-      ...(o.ortho ? { half: o.half } : { fov: cam.fov }),
-      near: cam.near, far: cam.far, aspect,
-      ...(o.section ? { section: { at: o.section.at, normal: o.section.normal, removes: "the side the normal points to" } } : {}),
-    };
-
-    renderer.setClearColor(o.bg, 1);
-    renderer.render(scene, cam);
-    const png = renderer.domElement.toDataURL("image/png");
-    return { png, drawn, marks, counts };
-  }, o);
+// Where a point lands in a picture, through the view-projection `hsm render` reports: column-major,
+// depth 0..1, so a point between the planes has 0 < z < 1.
+function project(m, [x, y, z], width, height) {
+  const w = m[3] * x + m[7] * y + m[11] * z + m[15];
+  const nx = (m[0] * x + m[4] * y + m[8] * z + m[12]) / w;
+  const ny = (m[1] * x + m[5] * y + m[9] * z + m[13]) / w;
+  const nz = (m[2] * x + m[6] * y + m[10] * z + m[14]) / w;
+  return { x: (nx + 1) / 2 * width, y: (1 - ny) / 2 * height, z: nz };
 }
 
-// A page with the viewer up and `rel` mounted from `payload`. The page asks for the model's bytes
-// at `/meshes/<rel>.mesh`, and that request is answered here; every other request goes to the
-// server but two. `/api/objects` would send the page to the store for the tree's member instead.
-// `/api/steps` lists the models the grid behind the detail draws a card for, and the machine's
-// card parses the same payload again to draw itself — twice the memory, for a picture nobody takes.
-const EMPTY = { "/api/objects": { base: null, objects: {} }, "/api/steps": [] };
-async function openViewer(browser, port, rel, payload, size) {
-  const page = await browser.newPage();
-  await page.setViewport({ width: size.width, height: size.height, deviceScaleFactor: 1 });
-  page.__errors = [];
-  page.on("pageerror", (err) => page.__errors.push(err.message || String(err)));
-  page.on("console", (msg) => {
-    const line = consoleLine(msg);
-    if (line) console.error(line);
-  });
-  const client = await page.createCDPSession();
-  const body = payload.toString("base64");
-  const want = `/meshes/${rel}.mesh`;
-  let served = 0;
-  client.on("Fetch.requestPaused", async (ev) => {
-    const where = decodeURIComponent(new URL(ev.request.url).pathname);
-    try {
-      if (where === want) {
-        served++;
-        await client.send("Fetch.fulfillRequest", {
-          requestId: ev.requestId, responseCode: 200, body,
-          responseHeaders: [{ name: "Content-Type", value: "application/octet-stream" }, { name: "Cache-Control", value: "no-store" }],
-        });
-      } else if (where in EMPTY) {
-        await client.send("Fetch.fulfillRequest", {
-          requestId: ev.requestId, responseCode: 200,
-          body: Buffer.from(JSON.stringify(EMPTY[where])).toString("base64"),
-          responseHeaders: [{ name: "Content-Type", value: "application/json" }, { name: "Cache-Control", value: "no-store" }],
-        });
-      } else {
-        await client.send("Fetch.continueRequest", { requestId: ev.requestId });
-      }
-    } catch (err) {
-      page.__errors.push(`answering ${where}: ${err.message}`);
-    }
-  });
-  await client.send("Fetch.enable", { patterns: [
-    { urlPattern: `*${want}*`, requestStage: "Request" },
-    ...Object.keys(EMPTY).map((p) => ({ urlPattern: `*${p}*`, requestStage: "Request" })),
-  ] });
-
-  const url = `http://localhost:${port}/3d?file=${encodeURIComponent(rel)}`;
-  await page.goto(url, { waitUntil: "domcontentloaded", timeout: 60000 });
-  await page.waitForFunction(() => window.__hsm && window.__hsm.scene && window.__hsm.camera, { timeout: 120000 });
-  try {
-    await page.waitForFunction((r) => window.__hsm.mountedStepFile === r, { timeout: 300000 }, rel);
-  } catch (err) {
-    throw new Error(`the viewer did not mount ${rel}${page.__errors.length ? `: ${page.__errors.join("; ")}` : ""}`);
+// `hsm` as tools/hsm/README.md installs it: HSM_BIN, else the PATH's, else ~/.local/bin.
+function hsmBin() {
+  if (process.env.HSM_BIN) return process.env.HSM_BIN;
+  for (const dir of (process.env.PATH || "").split(path.delimiter)) {
+    if (dir && fs.existsSync(path.join(dir, "hsm"))) return path.join(dir, "hsm");
   }
-  if (!served) throw new Error(`the page drew ${rel} without asking for the payload handed to it`);
-  page.__served = () => served;
-  return page;
+  return path.join(os.homedir(), ".local", "bin", "hsm");
+}
+
+// The two pictures, as one `hsm render` run: one report per job, in order, or the run's refusal.
+function draw(jobs) {
+  let text;
+  try {
+    text = execFileSync(hsmBin(), ["--root", REPO_ROOT, "render", "--jobs", "-", "--json"], {
+      input: JSON.stringify(jobs), encoding: "utf8", maxBuffer: 64 << 20, stdio: ["pipe", "pipe", "inherit"],
+    });
+  } catch (err) {
+    if (err.code === "ENOENT") throw new Refusal(`hsm is not installed: cargo install --path tools/hsm/engine --locked --root ~/.local`);
+    text = err.stdout;
+    if (!text) throw err;
+  }
+  const reports = JSON.parse(text);
+  const failed = reports.filter((r) => r.error);
+  if (failed.length) throw new Error(failed.map((r) => `${r.out}: ${r.error}`).join("\n"));
+  return reports;
+}
+
+// What a picture was drawn from, as views.json keeps it.
+function drawnFrom(c, section) {
+  return {
+    projection: c.projection, position: c.position, target: c.target, up: c.up,
+    ...(c.projection === "orthographic" ? { half: c.half } : { fov: c.fov }),
+    near: c.near, far: c.far, aspect: c.aspect,
+    ...(section ? { section: { at: section.at, normal: section.normal, removes: "the side the normal points to" } } : {}),
+  };
 }
 
 function readViews(file) {
@@ -1030,55 +861,63 @@ async function render(opts) {
   const zoom = Number(opts.zoom ?? 3);
   if (span != null && !(span > 0)) die(`bad --span: ${opts.span}`);
   if (!(zoom > 0)) die(`bad --zoom: ${opts.zoom}`);
-  const o = {
-    width: size.width, height: size.height,
-    cam: opts.cam ? vec(opts.cam, "cam") : region ? region.camera.cam : [1, -1, 1],
-    target: opts.target ? vec(opts.target, "target") : region ? region.camera.target : centre(frame),
-    up: opts.up ? vec(opts.up, "up") : region ? region.camera.up : [0, 0, 1],
-    ortho: !!opts.ortho, span, zoom, radius,
-    half: span ?? radius * 1.1,
-    wholeCentre: centre(whole), wholeRadius: Math.hypot(...extent(whole)) / 2,
-    // The floor's contact shadow is the machine standing on something; a part pulled out of it with
-    // --only stands on nothing, and the shadow under it is a dark blot in a close-up.
-    xray: !!opts.xray, fog: !opts["no-fog"], ground: !opts["no-ground"] && !only.length,
-    bg: opts.bg || "#1a1a2e", amber: AMBER,
-    section: parseSection(opts.section),
-    sectionTint: SECTION_TINT, sectionMix: SECTION_MIX, sectionAmber: SECTION_AMBER,
-    only: only.map((r) => r.source), ghost: ghost.map((r) => r.source), highlight: hi.map((r) => r.source),
-    marks: parseMarks(opts.mark),
-  };
+  const cam = opts.cam ? vec(opts.cam, "cam") : region ? region.camera.cam : [1, -1, 1];
+  const target = opts.target ? vec(opts.target, "target") : region ? region.camera.target : centre(frame);
+  const up = opts.up ? vec(opts.up, "up") : region ? region.camera.up : [0, 0, 1];
+  const ortho = !!opts.ortho;
+  const wholeRadius = Math.hypot(...extent(whole)) / 2;
+  const section = parseSection(opts.section);
+  const marksAsked = parseMarks(opts.mark);
   if (hi.length && !all.some((m) => matchesAny(hi, m.body))) die(`--highlight matched no solid: ${highlightNames.join(", ")}`);
 
-  await sweepAbandonedBrowsers("change.mjs");
-  const { start } = await import("../../web/server.js");
-  const { server } = await start({ port: 0, dev: false, hardwareDir: HARDWARE });
-  const port = server.address().port;
-  let browser;
+  const scratch = fs.mkdtempSync(path.join(os.tmpdir(), "change-"));
   const shots = {};
   try {
-    browser = await launchBrowser({ protocolTimeout: PARSE_TIMEOUT + 60000 });
+    const jobs = [];
+    const sent = {};
     for (const [side, p] of [["before", before], ["after", after]]) {
-      const t0 = Date.now();
-      const bytes = only.length ? subsetPayload(p, kept) : p.buf;
-      const page = await openViewer(browser, port, rel, bytes, size);
-      try {
-        const shot = await shoot(page, o);
-        if (page.__errors.length) throw new Error(`the viewer threw drawing the ${side}: ${page.__errors.join("; ")}`);
-        shots[side] = shot;
-        console.log(`  ${side}: ${shot.counts.shown} of ${shot.counts.solids} solids shown, ` +
-          `${shot.counts.highlighted} highlighted, ${shot.counts.ghosted} ghosted` +
-          `${o.section ? `, ${shot.counts.capped} cut by the section` : ""}; payload ${(bytes.length / 1e6).toFixed(1)} MB ` +
-          `asked for ${page.__served()}x (${((Date.now() - t0) / 1000).toFixed(1)} s)`);
-      } finally {
-        await page.close().catch(() => {});
+      // A version drawn whole goes as its own file, which the renderer keeps warm for the entry's
+      // next view; a part drawn alone goes as a payload of just its solids.
+      let payload = p.file;
+      if (only.length) {
+        payload = path.join(scratch, `${side}.mesh`);
+        fs.writeFileSync(payload, subsetPayload(p, kept));
       }
+      sent[side] = fs.statSync(payload).size;
+      jobs.push({
+        step: rel, payload, out: path.join(scratch, `${side}.png`),
+        size: `${size.width}x${size.height}`, cam, target, up,
+        // An orthographic frame is its half-height; the distance only clears the near plane.
+        ...(ortho
+          ? { ortho: true, span: span ?? radius * 1.1, distance: wholeRadius * 3 }
+          : { distance: span != null ? span / Math.tan((FOV / 2) * Math.PI / 180) : radius * zoom }),
+        // Both pictures fit their planes to both versions, so one camera draws both.
+        depth: { center: centre(whole), radius: wholeRadius },
+        bg: opts.bg || "#1a1a2e",
+        // The floor's contact shadow is the machine standing on something; a part pulled out of
+        // it with --only stands on nothing, and the shadow under it is a dark blot in a close-up.
+        ground: !opts["no-ground"] && !only.length, fog: !opts["no-fog"],
+        xray: opts.xray ? ["*"] : [],
+        highlight: highlightNames, shell: names(opts.ghost),
+        ...(section ? { section: { at: section.at, normal: section.normal } } : {}),
+      });
     }
+    const t0 = Date.now();
+    const reports = draw(jobs);
+    for (const [i, side] of ["before", "after"].entries()) {
+      const r = reports[i];
+      const b = r.bodies;
+      shots[side] = { png: fs.readFileSync(jobs[i].out), camera: r.camera };
+      console.log(`  ${side}: ${b.solid + b.highlight + b.xray + b.shell} of ${r.scene.bodies} solids shown, ` +
+        `${b.highlight} highlighted, ${b.shell} ghosted${section ? ", cut by the section" : ""}; ` +
+        `payload ${(sent[side] / 1e6).toFixed(1)} MB (${(r.ms.total / 1000).toFixed(1)} s)`);
+    }
+    console.log(`  drawn in ${((Date.now() - t0) / 1000).toFixed(1)} s`);
   } finally {
-    await closeBrowser(browser);
-    await closeServer(server);
+    fs.rmSync(scratch, { recursive: true, force: true });
   }
 
-  const a = shots.before.drawn, b = shots.after.drawn;
+  const a = drawnFrom(shots.before.camera, section), b = drawnFrom(shots.after.camera, section);
   const same = ["position", "target", "up"].every((k) => a[k].every((v, i) => Math.abs(v - b[k][i]) < 1e-6)) &&
     a.near === b.near && a.far === b.far && a.fov === b.fov && a.half === b.half &&
     JSON.stringify(a.section) === JSON.stringify(b.section);
@@ -1088,13 +927,18 @@ async function render(opts) {
   const files = {};
   for (const side of ["before", "after"]) {
     const name = `${view}-${side}.webp`;
-    const webp = await sharp(frameBuffer(shots[side].png)).webp({ quality }).toBuffer();
+    const webp = await sharp(shots[side].png).webp({ quality }).toBuffer();
     fs.writeFileSync(path.join(entry, name), webp);
     files[side] = name;
     console.log(`wrote ${path.join(entry, name)} (${size.width}x${size.height}, ${(webp.length / 1024).toFixed(0)} KB)`);
   }
   const marks = [];
-  for (const m of shots.after.marks) {
+  const viewProj = shots.after.camera.view_proj;
+  const screenUp = shots.after.camera.screen_up;
+  for (const { at, rmm, label } of marksAsked) {
+    const c = project(viewProj, at, size.width, size.height);
+    const rim = rmm ? project(viewProj, at.map((v, i) => v + screenUp[i] * rmm), size.width, size.height) : null;
+    const m = { at, label, r: rim ? Math.hypot(rim.x - c.x, rim.y - c.y) : null, x: c.x, y: c.y, inFront: c.z > 0 && c.z < 1 };
     const inFrame = m.inFront && m.x >= 0 && m.x <= size.width && m.y >= 0 && m.y <= size.height;
     if (!inFrame) {
       console.error(`  mark ${fmtv(m.at)}${m.label ? ` (${m.label})` : ""} falls outside the picture and is left out`);
@@ -1119,7 +963,7 @@ async function render(opts) {
     highlight: highlightNames,
     ghost: names(opts.ghost),
     only: names(opts.only),
-    xray: !!o.xray,
+    xray: !!opts.xray,
     source: { before: source(before, rel), after: source(after, rel) },
     changed: moved,
     withinMeshing: near,
@@ -1143,6 +987,12 @@ async function main() {
   if (cmd === "changed") return changed(opts);
   if (cmd === "render") return render(opts);
   die(USAGE);
+}
+
+// The exit, once what was written to stdout has drained into whatever reads it.
+function finish(code) {
+  process.exitCode = code;
+  process.stdout.write("", () => process.exit(code));
 }
 
 main().then(

@@ -2,10 +2,8 @@
 """Render registered views of the closed shutoff and its braided supply."""
 from __future__ import annotations
 
-import json
 import os
 from pathlib import Path
-import subprocess
 import sys
 
 os.environ.setdefault("HSM_NO_BUILD_LOCK", "1")
@@ -18,7 +16,8 @@ OUT = HARDWARE / "install-guide/out/hose-scene"
 ART = HARDWARE / "install-guide/assets"
 sys.path.insert(0, str(HARDWARE / "scripts"))
 sys.path.insert(0, str(HARDWARE / "install-guide/plumbing"))
-from _cadq_export import _per_solid_color
+from _cadq_export import _per_solid_color, _write_mesh_payload
+import _hsm_render
 import plumbing_scenes as plumbing
 
 
@@ -58,7 +57,9 @@ def main():
         assert ("valve-open-waterway" in names) is not attached
         assert ("faucet-supply-free-gasket" in names) is not attached
         step = OUT / f"{scene.name}.step"
-        _per_solid_color(scene).export(str(step))
+        colored = _per_solid_color(scene)
+        colored.export(str(step))
+        _write_mesh_payload(step, colored)
         jobs.append(dict(
             step=str(step.relative_to(HARDWARE)), out=str(ART / f"{scene.name}.png"),
             cam=(1.05, 1.70, 0.62), target=(-6.0, 44.0, 144.0),
@@ -66,10 +67,7 @@ def main():
             bg="#ffffff", transparent=True, solid=True,
             ortho=True, trim=False, ground=False, fog=False,
         ))
-    subprocess.run(
-        ["node", str(ROOT / "tools/render/render-step-posed.js"), "--jobs", "-"],
-        cwd=ROOT, input=json.dumps(jobs), text=True, check=True,
-    )
+    _hsm_render.render(jobs)
     print(ART)
 
 

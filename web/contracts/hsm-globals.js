@@ -1,6 +1,6 @@
 // Globals the viewer hangs on window. The main one, __hsm, is the headless-render escape hatch:
 // web/public/js/viewer/main.js sets it once the module graph has loaded, and the Puppeteer render
-// tools (tools/render/render-step.js, render-dxf.js, render-step-side-by-side.js) read it in-page
+// tools (tools/render/render-step-posed.js, render-dxf.js) read it in-page
 // to pose the camera and trigger a render. Its shape is load-bearing for those tools.
 
 /**

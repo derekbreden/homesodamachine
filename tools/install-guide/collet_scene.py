@@ -8,7 +8,6 @@ import json
 import math
 import os
 from pathlib import Path
-import subprocess
 import sys
 
 from PIL import Image
@@ -19,7 +18,6 @@ ROOT = Path(__file__).resolve().parents[2]
 HARDWARE = ROOT / "hardware"
 OUT = HARDWARE / "install-guide/out/collet"
 ART = HARDWARE / "install-guide/art/release-with-press.png"
-RENDERER = ROOT / "tools/render/render-step-posed.js"
 CAMERA = (1.1, -1.6, 0.9)
 TARGET = (-83.0, 0.0, 36.5)
 SPAN = 19.5
@@ -44,6 +42,7 @@ press = load(
     HARDWARE / "printed-parts/collet-press/collet_press.py",
     "installation_collet_press",
 )
+import _hsm_render  # noqa: E402  (hardware/scripts, on the path `modern` puts it on)
 
 
 def project(point):
@@ -138,10 +137,7 @@ def main():
         "fog": False,
         "transparent": True,
     }
-    subprocess.run(
-        ["node", str(RENDERER), "--jobs", "-"],
-        cwd=ROOT, input=json.dumps([job]), text=True, check=True,
-    )
+    _hsm_render.render([job])
     metadata = {
         "camera": CAMERA,
         "target": TARGET,

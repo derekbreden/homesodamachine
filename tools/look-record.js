@@ -10,8 +10,8 @@
 //   node tools/look-record.js check <dir>            (0 = current, 1 = stale)
 //
 // Beside each PNG it leaves `<png>.scene.json`: the line that redraws the picture, and every
-// repo file whose text could decide it — the STEP itself, this tool chain, and the viewer
-// modules the frame is composed in — each with the hash of its bytes. `check` hashes them
+// repo file whose bytes could decide it — the payload drawn, the renderer that drew it, the
+// finishes it reads and this tool chain — each with the hash of its bytes. `check` hashes them
 // again. What that costs is reading the files, which is the whole bargain: a picture is
 // expensive to draw and cheap to doubt, and the doubting is what runs often.
 //
@@ -26,15 +26,9 @@ import { fileURLToPath } from "url";
 const REPO = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const SIDECAR = ".scene.json";
 
-// The two entries the drawing is walked from: the composer, which pulls in the server that
-// serves the STEP and names the viewer modules it drives; and the page those modules mount in.
-const ROOTS = ["tools/render/render-view.js", "web/public/js/viewer/main.js"];
-// Read rather than imported, so no walk reaches them.
-const LEAVES = ["tools/look.sh", "tools/look-record.js"];
-
-// `from "x"`, `import "x"`, `import("x")`. A specifier that resolves to no file in the repo —
-// every bare package name, and anything this catches inside a comment — is dropped below.
-const SPEC = /(?:\bfrom\s*|\bimport\s*\(?\s*)["']([^"']+)["']/g;
+// What `hsm render` draws a look with besides the payload: its sources, shaders included, and
+// the finishes it reads. A directory stands for every file under it.
+const SOURCES = ["tools/hsm/render/src", "web/public/finishes.json", "tools/look.sh", "tools/look-record.js"];
 
 function hash(file) {
   try {
@@ -44,44 +38,21 @@ function hash(file) {
   }
 }
 
-// A specifier as a file on disk. Relative resolves against the importing file; absolute is a
-// URL the server answers out of web/public, which is how the in-page dynamic imports read.
-function resolve(spec, from) {
-  let base;
-  if (spec.startsWith(".")) base = path.resolve(path.dirname(from), spec);
-  else if (spec.startsWith("/")) base = path.join(REPO, "web", "public", spec);
-  else return null;
-  for (const cand of [base, `${base}.js`, path.join(base, "index.js")]) {
-    if (fs.existsSync(cand) && fs.statSync(cand).isFile()) return cand;
-  }
-  return null;
-}
-
-function walk(roots) {
-  const seen = new Set();
-  const queue = roots.map((r) => path.join(REPO, r)).filter((f) => fs.existsSync(f));
-  while (queue.length) {
-    const file = queue.pop();
-    if (seen.has(file) || file.includes(`${path.sep}node_modules${path.sep}`)) continue;
-    seen.add(file);
-    const text = fs.readFileSync(file, "utf8");
-    for (const m of text.matchAll(SPEC)) {
-      const hit = resolve(m[1], file);
-      if (hit && !seen.has(hit)) queue.push(hit);
-    }
-  }
-  return seen;
+// Every file at or under `abs`.
+function under(abs) {
+  if (!fs.existsSync(abs)) return [];
+  if (!fs.statSync(abs).isDirectory()) return [abs];
+  return fs.readdirSync(abs).flatMap((name) => under(path.join(abs, name)));
 }
 
 function sources({ step, also }) {
-  const files = walk(ROOTS);
-  for (const rel of [...LEAVES, ...also]) {
-    const abs = path.isAbsolute(rel) ? rel : path.join(REPO, rel);
-    if (fs.existsSync(abs)) files.add(abs);
+  const files = new Set();
+  for (const rel of [...SOURCES, ...also]) {
+    for (const abs of under(path.isAbsolute(rel) ? rel : path.join(REPO, rel))) files.add(abs);
   }
-  const stepAbs = path.join(REPO, "hardware", step);
-  if (!fs.existsSync(stepAbs)) throw new Error(`no STEP at ${stepAbs}`);
-  files.add(stepAbs);
+  const payload = path.join(REPO, "hardware", `${step}.mesh`);
+  if (!fs.existsSync(payload)) throw new Error(`no payload at ${payload}`);
+  files.add(payload);
 
   const out = {};
   for (const abs of [...files].sort()) out[path.relative(REPO, abs)] = hash(abs);

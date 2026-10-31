@@ -1,9 +1,8 @@
 #!/usr/bin/env node
 // render-step-posed.js — render STEP files to PNG with a caller-posed camera,
 // for imagery that needs a specific viewpoint (assembly instruction cards).
-// Same server + /3d viewer path as render-step.js; differs in taking the
-// camera, framing, background, and output size from the caller instead of the
-// fixed isometric pose.
+// It stands the server and opens the /3d viewer, and takes the camera,
+// framing, background, and output size from the caller.
 //
 // Usage:
 //   node tools/render/render-step-posed.js <step-file-relative> <output-png> [options]
