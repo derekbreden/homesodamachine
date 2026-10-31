@@ -704,6 +704,14 @@ dependencies = [
 ]
 
 [[package]]
+name = "hsm-refrigeration"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "hsm-kernel",
+]
+
+[[package]]
 name = "hsm-render"
 version = "0.1.0"
 dependencies = [

@@ -1,14 +1,11 @@
 """OCCT's volume, area and bounds for every case the kernel's tests build, written to
-`occt_reference.json` beside this file. Plain CadQuery: it imports no generator and takes no
-CAD lock.
+`occt_reference.json` beside this file. Plain CadQuery, but for one generator: the fuse clamp's
+module, whose `build()` is recorded under `fuse_clamp_module` as the B-rep the part the kernel
+cuts from its numbers is held to. Importing it takes the CAD lock.
 
-    tools/cad-venv/bin/python tools/hsm/kernel/tests/occt_reference.py [published fuse-clamp.step]
-
-With a published `fuse-clamp.step`, its volume, area and bounds are recorded under
-`fuse_clamp_published` with the file's SHA-256.
+    tools/cad-venv/bin/python tools/hsm/kernel/tests/occt_reference.py
 """
 
-import hashlib
 import json
 import math
 import sys
@@ -17,6 +14,7 @@ from pathlib import Path
 import cadquery as cq
 
 HERE = Path(__file__).resolve().parent
+ROOT = HERE.parents[3]
 
 
 def props(shape):
@@ -34,30 +32,6 @@ def holes_60():
     pins = [cq.Solid.makeCylinder(2.5, 12, cq.Vector(5 + 10 * i, 5 + 10 * j, -1))
             for i in range(10) for j in range(6)]
     return block.cut(*pins)
-
-
-def fuse_clamp():
-    """fuse_clamp.build(), its constants read off the donor modules' sources."""
-    face_y, gap, case_d, case_l, lead_stub, slip = 45.0, 15.0, 4.2, 11.0, 3.0, 0.15
-    box_floor = -face_y / 2.0
-    plate_top = box_floor - gap
-    channel_h = case_d + 2.0 * slip
-    channel_z = case_d
-    head_z = channel_z + 2.5
-    part_x = case_l + 2.0 * (lead_stub + 0.5)
-    head_y = channel_h / 2.0 + 6.7
-    neck_z, leaf_y, leaf_reach, lead_in = 3.5, 2.5, 22.0, 1.5
-    section = [
-        (head_y, head_z), (-head_y, head_z), (-head_y, neck_z), (plate_top, neck_z),
-        (plate_top, -leaf_reach + lead_in), (plate_top + lead_in, -leaf_reach),
-        (plate_top + leaf_y, -leaf_reach), (plate_top + leaf_y, 0.0), (box_floor - leaf_y, 0.0),
-        (box_floor - leaf_y, -leaf_reach), (box_floor - lead_in, -leaf_reach),
-        (box_floor, -leaf_reach + lead_in), (box_floor, 0.0), (head_y, 0.0),
-    ]
-    part = (cq.Workplane("YZ", origin=(-part_x / 2.0, 0.0, 0.0))
-            .polyline(section + section[:1]).wire().extrude(part_x))
-    channel = cq.Workplane("XY", origin=(0.0, 0.0, channel_z / 2.0)).box(part_x + 2.0, channel_h, channel_z)
-    return part.cut(channel)
 
 
 def sweep_bend():
@@ -120,17 +94,19 @@ CASES = {
     "text_right_top": lambda: cq.Workplane("XY").text("HSM", 6, 1, halign="right", valign="top"),
     "text_arial_bold": lambda: cq.Workplane("XY").text("AV Ta", 4, 0.6, font="Arial", kind="bold"),
     "text_helvetica_bold": lambda: cq.Workplane("XY").text("Ab8", 5.0, 0.48, font="Helvetica", kind="bold"),
-    "fuse_clamp": fuse_clamp,
 }
+
+
+def fuse_clamp_module():
+    """The fuse clamp's own `build()`, the body `enclosure_assembly` seats."""
+    sys.path.insert(0, str(ROOT / "hardware/printed-parts/refrigeration/fuse-clamp"))
+    import fuse_clamp as module
+    return module.build()
 
 
 def main():
     out = {name: props(make()) for name, make in CASES.items()}
-    if len(sys.argv) > 1:
-        step = Path(sys.argv[1])
-        published = props(cq.importers.importStep(str(step)))
-        published["sha256"] = hashlib.sha256(step.read_bytes()).hexdigest()
-        out["fuse_clamp_published"] = published
+    out["fuse_clamp_module"] = props(fuse_clamp_module())
     path = HERE / "occt_reference.json"
     path.write_text(json.dumps(out, indent=1, sort_keys=True) + "\n")
     print(f"-> {path.name}: {len(out)} cases")

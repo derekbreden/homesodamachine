@@ -184,10 +184,11 @@ BUNDLED_MESH_DIRS = (
     "hardware/printed-parts/enclosure/display-gasket",
     "hardware/printed-parts/enclosure/data-ring",
     "hardware/printed-parts/enclosure/rear-identification",
-    "hardware/printed-parts/refrigeration/fuse-clamp",
     "hardware/printed-parts/faucet/tube-collar",
     "hardware/printed-parts/soda-bend-holder",
     "hardware/printed-parts/asse-straight-cuffs",
+    # The parts the Rust kernel cuts, whose program writes the printed mesh beside the STEP.
+    "hardware/printed-parts/refrigeration/fuse-clamp",
 )
 
 #: Scene meshes the parts viewer opens as themselves. `web/public/js/viewer/parts.js` names `glb`
@@ -212,6 +213,10 @@ BUNDLED_GLB_DIRS = ("hardware/assembly/scenes/glb",)
 # route. Both payloads there are also the cheaper artifact by a wide margin — 13.97 and 2.46 MB
 # against solids of 49.64 and 8.29 — so a browser that finds them fetches a quarter of the bytes
 # and skips the parse.
+#
+# A PART THE RUST KERNEL CUTS HAS NO SURFACE ON THE PAGE BUT ITS PAYLOAD. Its STEP is triangles,
+# which occt-import-js 0.0.23 (OCCT 7.6) reads none of, so a deploy without the payload draws
+# nothing where the part stands.
 #
 # AND THE COLD CORE'S TWO DIRECTORIES ARE HERE FOR THE SAME REASON THE BOX'S IS. Its shell and
 # both caps carry the same show skin off the same field (`cold-core/_show_skin.py`), cut into the
@@ -249,6 +254,7 @@ BUNDLED_PAYLOAD_DIRS = (
     "hardware/printed-parts/fixtures/gun-positioner",
     "hardware/printed-parts/fixtures/gun-positioner-observation",
     "hardware/gun-positioner/mounting",
+    "hardware/printed-parts/refrigeration/fuse-clamp",
 )
 
 # The fit-trial assembly has a viewer payload. Its two separately printable

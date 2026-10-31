@@ -7736,18 +7736,43 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
         "hardware/printed-parts/refrigeration/fuse-clamp/README.md",
         "hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.py",
+        "hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.rs",
         "pysrc/hardware/reference/compressor/compressor.py",
         "pysrc/hardware/reference/sf76e-thermal-fuse/sf76e_thermal_fuse.py",
         "pysrc/hardware/scripts/_cadq_export.py",
         "pysrc/hardware/scripts/_material_base.py",
         "pysrc/hardware/scripts/_materials.py",
-        "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_meshes.py",
         "pysrc/hardware/scripts/_overlap.py",
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_rust_part.py",
         "pysrc/hardware/scripts/_stated_bounds.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/Cargo.lock",
+        "tools/hsm/Cargo.toml",
+        "tools/hsm/kernel/Cargo.toml",
+        "tools/hsm/kernel/src/boolean.rs",
+        "tools/hsm/kernel/src/build.rs",
+        "tools/hsm/kernel/src/face.rs",
+        "tools/hsm/kernel/src/lib.rs",
+        "tools/hsm/kernel/src/mass.rs",
+        "tools/hsm/kernel/src/math.rs",
+        "tools/hsm/kernel/src/part.rs",
+        "tools/hsm/kernel/src/plane.rs",
+        "tools/hsm/kernel/src/profile.rs",
+        "tools/hsm/kernel/src/rule.rs",
+        "tools/hsm/kernel/src/screw.rs",
+        "tools/hsm/kernel/src/sketch_hull.rs",
+        "tools/hsm/kernel/src/solid.rs",
+        "tools/hsm/kernel/src/step.rs",
+        "tools/hsm/kernel/src/sweep.rs",
+        "tools/hsm/kernel/src/text.rs",
+        "tools/hsm/kernel/src/thru.rs",
+        "tools/hsm/kernel/src/topo.rs",
+        "tools/hsm/kernel/src/triangulate.rs",
+        "tools/hsm/kernel/src/write.rs",
+        "tools/hsm/refrigeration/Cargo.toml",
     ] + glob(
         [
             "hardware/printed-parts/refrigeration/fuse-clamp/README.figures.json",
@@ -7755,17 +7780,27 @@ genrule(
         allow_empty = True,
     ),
     outs = [
+        "out/fuse-clamp/hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.numbers.json",
         "out/fuse-clamp/hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.step",
+        "out/fuse-clamp/hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.step.mesh",
+        "out/fuse-clamp/hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.step.npz",
+        "out/fuse-clamp/hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.stl",
         "out/fuse-clamp/hardware/printed-parts/refrigeration/fuse-clamp/README.figures.json",
         "out/fuse-clamp/hardware/printed-parts/refrigeration/fuse-clamp/README.md",
         "out/fuse-clamp/hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.py",
     ],
+    tags = ["no-sandbox"],
     cmd = """
 set -e
-O0=$$PWD/$(location out/fuse-clamp/hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.step)
-O1=$$PWD/$(location out/fuse-clamp/hardware/printed-parts/refrigeration/fuse-clamp/README.figures.json)
-O2=$$PWD/$(location out/fuse-clamp/hardware/printed-parts/refrigeration/fuse-clamp/README.md)
-O3=$$PWD/$(location out/fuse-clamp/hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.py)
+O0=$$PWD/$(location out/fuse-clamp/hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.numbers.json)
+O1=$$PWD/$(location out/fuse-clamp/hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.step)
+O2=$$PWD/$(location out/fuse-clamp/hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.step.mesh)
+O3=$$PWD/$(location out/fuse-clamp/hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.step.npz)
+O4=$$PWD/$(location out/fuse-clamp/hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.stl)
+O5=$$PWD/$(location out/fuse-clamp/hardware/printed-parts/refrigeration/fuse-clamp/README.figures.json)
+O6=$$PWD/$(location out/fuse-clamp/hardware/printed-parts/refrigeration/fuse-clamp/README.md)
+O7=$$PWD/$(location out/fuse-clamp/hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.py)
+rm -rf work-fuse-clamp
 for f in $(SRCS); do
   case $$f in
     */node_modules/*) continue;;
@@ -7773,19 +7808,24 @@ for f in $(SRCS); do
     */pysrc/*) t=$${f##*/pysrc/};;
     *) t=$$f;;
   esac
-  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
+  mkdir -p work-fuse-clamp/$$(dirname $$t); cp -L $$f work-fuse-clamp/$$t
 done
 for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
+  if [ -d $$d ]; then mkdir -p work-fuse-clamp/$$(dirname $$d); ln -sfn $$PWD/$$d work-fuse-clamp/$$d; fi
 done
-cd work
+cd work-fuse-clamp
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.py > /dev/null
-cp hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.step $$O0
-cp hardware/printed-parts/refrigeration/fuse-clamp/README.figures.json $$O1
-cp hardware/printed-parts/refrigeration/fuse-clamp/README.md $$O2
-cp hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.py $$O3
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.py > /dev/null
+cp hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.numbers.json $$O0
+cp hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.step $$O1
+cp hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.step.mesh $$O2
+cp hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.step.npz $$O3
+cp hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.stl $$O4
+cp hardware/printed-parts/refrigeration/fuse-clamp/README.figures.json $$O5
+cp hardware/printed-parts/refrigeration/fuse-clamp/README.md $$O6
+cp hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.py $$O7
+cd .. && rm -rf work-fuse-clamp
 """,
 )
 
@@ -10489,6 +10529,7 @@ genrule(
         ":out/umbilical-organizer/hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.step",
         "pysrc/hardware/printed-parts/faucet/umbilical-organizer/umbilical_organizer.py",
         ":out/fuse-clamp/hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.step",
+        ":out/fuse-clamp/hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.step.npz",
         "pysrc/hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.py",
         ":out/soda-bend-holder/hardware/printed-parts/soda-bend-holder/soda-bend-holder.step",
         "pysrc/hardware/printed-parts/valve-seat/valve_seat.py",
@@ -14028,6 +14069,14 @@ genrule(
     name = "pysrc-03652eee42e2",
     srcs = ["hardware/scripts/_run_lock.py"],
     outs = ["pysrc/hardware/scripts/_run_lock.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
+    name = "pysrc-3784c8a2dcfd",
+    srcs = ["hardware/scripts/_rust_part.py"],
+    outs = ["pysrc/hardware/scripts/_rust_part.py"],
     tools = ["tools/bazel/pysrc.py"],
     cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
 )
