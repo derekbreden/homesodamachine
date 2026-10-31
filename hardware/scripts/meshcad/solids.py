@@ -1051,6 +1051,14 @@ class _Selection(list):
     def Center(self):
         return occ.Shape.CombinedCenter(list(self))
 
+    def distance(self, other):
+        """The least distance from a point (a vertex) to the picked faces' triangles: to the
+        surface itself, where a solid's distance is 0 for any point inside it."""
+        from .fillet import _tri_dist
+        if not hasattr(self, "_tris"):
+            self._tris = np.concatenate([f.topo.t.V[f.topo.t.T[f.tris]] for f in self.Faces()])
+        return float(_tri_dist(vec3(other.Center()), self._tris).min())
+
     @property
     def wrapped(self):
         """The picked faces and edges as one OCCT compound, for code that hands them to OCP."""
