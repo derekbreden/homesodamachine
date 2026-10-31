@@ -52,8 +52,12 @@ floor at Z252. C14 is at X−68.5/Z330 and RJ11 at X−64/Z291.5.
 The common chassis joint is Z160. The lowest tee-return elbow is Z160.913,
 above the entering front wall. The four straight upper links have 5.251 mm
 exposed tube. The lower returns use two tangent arcs between parallel socket
-axes, R18.084 on the inner pair and R19.360 on the outer pair. Their rear
+axes, R18.131 on the inner pair and R18.911 on the outer pair. Their rear
 mouths stand 3.749 mm lower. The funnel return descends from V-B to Y-B.
+The two pumps and their fore valve pairs stand 1.6 mm inboard of the nominal
+limb stations. The inner coils have 8 mm between them; each outer yoke has
+1.25 mm to its plain flank wall. The rear valve row and Y-A/Y-B stay on their
+aligned stations.
 
 ## Continuous tubes
 

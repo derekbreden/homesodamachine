@@ -212,9 +212,9 @@ Lay out the ten Beduan valves and the [6](MANIFOLD_TEES) PP0208E tees. Cut stati
    into its rear valve's bottom collet until its stem bottoms. Turn each pair's sockets to
    face each other. `fluid-9` runs from Y-C to V-C and `fluid-19` from Y-F to V-D; `fluid-17`
    from Y-D to V-G and `fluid-27` from Y-G to V-J lean inboard to their valves. Each is one
-   continuous tube of black LLDPE, cut to [50.40 mm](DOCK_RETURN_INNER) for the inner two and
-   [50.96 mm](DOCK_RETURN_OUTER) for the outer two. Form two tangent arcs between the parallel
-   sockets, R18.084 on the inner pair and R19.36 on the outer pair, with the rear mouths
+   continuous tube of black LLDPE, cut to [50.42 mm](DOCK_RETURN_INNER) for the inner two and
+   [50.76 mm](DOCK_RETURN_OUTER) for the outer two. Form two tangent arcs between the parallel
+   sockets, R18.131 on the inner pair and R18.911 on the outer pair, with the rear mouths
    3.749 mm lower. Keep the [16.89 mm](DOCK_ELBOW_SOCKET) inside each socket straight and
    fully seated. Use actual
    insertion marks and tug-check every push-fit joint. Complete this work while front-top is
