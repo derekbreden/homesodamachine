@@ -1,14 +1,11 @@
 {
   "/hardware/printed-parts/asse-drain-adapter/asse_drain_adapter.py": {
     "BARB_BORE": "6.10",
-    "BARB_DEPTH": "8.8",
-    "BARB_OD": "14",
-    "LENGTH": "24.79",
-    "MIN_WALL": "3.45",
-    "TAPER_ANGLE": "60",
+    "BARB_DEPTH": "9.1",
     "TUBE_BORE": "3.80",
     "TUBE_DEPTH": "14",
-    "TUBE_OD": "11.7",
-    "VOLUME": "3.684"
+    "VOLUME": "3.954",
+    "SOCKET_DROP": "6.54",
+    "REDUCER_LENGTH": "1.99"
   }
 }

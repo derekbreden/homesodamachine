@@ -135,7 +135,7 @@ The soda inlet bend holder is PET-GF with the accepted 2 mm wall, 3 mm legs and 
 | Enclosure — front bottom + front top (two quadrants) | 1 set | PET-GF | 1.589 | $39.75 <!--@printed--><!--parts HSM-000078:630 HSM-000079:956--> |
 | Enclosure — pump retainer | 1 | PET-GF | 0.133 | $3.32 <!--@printed--><!--parts HSM-000082--> |
 | Carbonator reed bridge | 1 | PETG | 0.008 | $0.09 <!--@printed--><!--parts HSM-000029--> |
-| Enclosure — back bottom + back top (two quadrants) | 1 set | PET-GF | 1.466 | $36.69 <!--@printed--><!--parts HSM-000080:688.8 HSM-000081:766.1--> |
+| Enclosure — back bottom + back top (two quadrants) | 1 set | PET-GF | 1.467 | $36.69 <!--@printed--><!--parts HSM-000080:688.8 HSM-000081:766.1--> |
 | Display cover plate | 1 | PET-GF | 0.012 | $0.31 <!--@printed--><!--parts HSM-000076--> |
 | Bulkhead ring — one per +Y-wall crossing | 6 | PET-GF (blue, white ×2, red, black ×2) | 0.013 | $0.32 <!--@printed--><!--parts HSM-000062:1.27 HSM-000063:1.29 HSM-000064:1.38 HSM-000065:1.38 HSM-000066:1.25 HSM-000067:1.36--> |
 | Tube collar — one per +Y-wall crossing | 6 | PET-GF (blue, white ×2, red, black ×2) | 0.023 | $0.58 <!--@printed--><!--parts HSM-000272:2.48 HSM-000099:2.72 HSM-000100:2.87 HSM-000101:2.87 HSM-000273:2.53 HSM-000102:2.67--> |

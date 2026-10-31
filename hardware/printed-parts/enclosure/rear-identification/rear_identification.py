@@ -171,8 +171,8 @@ def receiver_field():
 
 def rail_bounds():
     west,east = above_core.specification()['fluid_grid']['columns_x_mm']
-    return tuple((x0,x1,471.3,472.9,252.,355.) for x0,x1 in (
-        (west-18.15,west-14.),(west+14.,east-14.),(east+14.,east+18.15)))
+    return tuple((x0,x1,471.3,474.3,252.,355.) for x0,x1 in (
+        (west-19.15,west-14.),(west+14.,east-14.),(east+14.,east+19.15)))
 
 
 def apply(piece):
