@@ -8,10 +8,16 @@ rear-port-lines.page.json, for tools/viz/build.py.
   socket of the elbow in V-K's bottom port, and its own socket faces back up to the suction reducer.
 - The suction joint's 3/8" tube bends down in one arc, as short as reaches, so a 1/4" stub with no
   length showing runs straight from the reducer's collet into the flipped elbow's socket.
-- The discharge joint runs straight. A stem elbow stands in its reducer's collet, socket aft; an
-  ACVUS-44 stem check stands in the elbow's socket; water-5 leaves the check's socket, bends down at
-  BEND_R and drops straight into the cold core until it lands on the first part under it.
+- The discharge joint runs straight. A stem elbow stands in its reducer's collet and an ACVUS-44 stem
+  check in the elbow's socket. water-5 leaves the check's socket and bends down at BEND_R, the tightest
+  bend 1/4" LLDPE takes, onto a plumb drop that starts at the cold-core cap lid's top face and runs
+  down until it lands on the first part under it. The elbow turns down from aft as far as that bend
+  allows.
 - Off the union tee's free run, west: fluid-1, then the YZMSZ flow regulator, straight on.
+- The Mean Well IRM-90 stands on the west wall where production stands it, raised until it stands
+  CLEAR over the discharge's parts under it.
+- The two Teyleten relays hang from the ceiling, their backs PAD under it, CLEAR east of the PSU, in
+  the order and along the run production stands them on the west wall.
 Each 1/4" tube between two parts shows SPAN, as the split's stub does."""
 import json
 import math
@@ -21,7 +27,7 @@ from pathlib import Path
 
 import numpy as np
 from OCP.gp import gp_Trsf
-from scipy.optimize import fsolve
+from scipy.optimize import brentq, fsolve
 
 HERE = Path(__file__).resolve().parent
 HW = HERE.parents[2]
@@ -40,6 +46,7 @@ import neofit_stem_elbow as stem_elbow  # noqa: E402
 import pump_barb_joint as pj  # noqa: E402
 from _cadq_export import export_assembly  # noqa: E402
 from _materials import M_NEOFIT_ACETAL, M_NEOFIT_WHITE_ACETAL  # noqa: E402
+from _routing import stock_min  # noqa: E402
 
 OUT = HW / 'assembly' / 'scenes' / 'out'
 study = json.load(open(HERE / 'study.json'))
@@ -47,8 +54,10 @@ facts = json.load(open(HW / 'manifold-layout' / 'enclosure-assembly.facts.json')
 CAP_Z = facts['faces']['foam-assembly.cap']
 X_W, ROW_0 = 37.25, 328.0                       # study.py's west column and top row, where the ASSE chain stands
 SPAN = study['water_split']['stub_mm']
-BEND_R = 25.0                                   # study.py's CO2_BEND, the tightest bend a 1/4" tube takes here
 TUBE_OD, TUBE_ID = 6.35, 4.32
+BEND_R = stock_min('water', TUBE_OD)
+CLEAR = 1.0                                     # study.py's PUMP_CLEAR
+CEILING, PAD = 346.0, 2.0                       # study.py's roof inner face; the pads a relay bears on
 REGULATOR_LENGTH = 68.117                       # the YZMSZ's inlet-to-outlet release faces
 Z = np.array([0., 0., 1.])
 SUPERSEDED = ('g-ganen-pump', 'suction-', 'discharge-')     # the study's pump and joints, which this file draws again
@@ -157,15 +166,42 @@ for n, (s, c) in pj.build('discharge', (keys_d,) * 2).items():
 p, o = (np.array(v, float) for v in pj.mouth('discharge'))
 d_mouth, out = tip_d + rot_d @ p, rot_d @ o
 aft = square(np.array([0., 1., 0.]), out)
+over = square(square(Z, out), aft)              # up, square to the elbow's stem and to aft
 d_crossing = d_mouth + out * stem_elbow.HUB_BACK_REACH
+REACH = stem_elbow.SOCKET_MOUTH_REACH - acvus.SHOULDER + acvus.LENGTH     # the elbow's crossing to the check's port
+
+
+def socket_way(tilt):
+    """The elbow's socket, turned `tilt` radians down from aft about its stem."""
+    return math.cos(tilt) * aft - math.sin(tilt) * over
+
+
+def bend_foot(tilt):
+    """The height at which water-5 runs plumb, the elbow turned `tilt` down: off the check's port the
+    tube turns down at BEND_R."""
+    way = socket_way(tilt)
+    return (d_crossing + way * REACH)[2] - BEND_R * math.sqrt(1. - float(way @ Z) ** 2)
+
+
+TILT = brentq(lambda t: bend_foot(t) - CAP_Z, 0., math.pi / 3.)
+way = socket_way(TILT)
 parts['discharge-elbow'] = (acp.stem_elbow(reducer_ref.TUBE_INSERTION_DEPTH).moved(
-    frame(d_crossing, (out, aft, np.cross(out, aft)))), M_NEOFIT_WHITE_ACETAL)
-stem_tip = d_crossing + aft * (stem_elbow.SOCKET_MOUTH_REACH - acvus.SHOULDER)
-up = square(Z, aft)
-parts['discharge-check'] = (acvus.build().moved(frame(stem_tip, (aft, np.cross(up, aft), up))), M_NEOFIT_WHITE_ACETAL)
-port_at = stem_tip + aft * acvus.LENGTH
-drop_xy = (port_at + aft * BEND_R)[:2]
-drop_top = port_at[2] - BEND_R
+    frame(d_crossing, (out, way, np.cross(out, way)))), M_NEOFIT_WHITE_ACETAL)
+stem_tip = d_crossing + way * (stem_elbow.SOCKET_MOUTH_REACH - acvus.SHOULDER)
+up = square(Z, way)
+parts['discharge-check'] = (acvus.build().moved(frame(stem_tip, (way, np.cross(up, way), up))), M_NEOFIT_WHITE_ACETAL)
+port_at = stem_tip + way * acvus.LENGTH
+level = square(way, Z)
+dip = math.asin(-float(way @ Z))
+
+
+def on_bend(a):
+    """The point on water-5's bend where the tube runs `a` radians below level."""
+    return port_at + BEND_R * ((math.sin(a) - math.sin(dip)) * level + (math.cos(a) - math.cos(dip)) * Z)
+
+
+foot = on_bend(math.pi / 2.)
+drop_xy, drop_top = foot[:2], foot[2]
 
 # Where the drop lands: the highest face under the tube's end, over its whole section, of every part
 # drawn under the bend but the foam caps, which the drop passes through.
@@ -200,14 +236,28 @@ for name, (pos, tri) in under.items():
         if len(z) and z.max() > land_z:
             land_z, land_on = float(z.max()), name
 drop = drop_top - land_z
-centre = port_at - Z * BEND_R
 bend = cq.Wire.assembleEdges([cq.Edge.makeThreePointArc(
-    cq.Vector(*port_at), cq.Vector(*(centre + BEND_R * (aft + Z) / math.sqrt(2.))), cq.Vector(*(centre + aft * BEND_R)))])
-water_5 = cq.Workplane(cq.Plane(origin=tuple(port_at), xDir=tuple(up), normal=tuple(aft))).circle(TUBE_OD / 2.) \
+    cq.Vector(*port_at), cq.Vector(*on_bend((dip + math.pi / 2.) / 2.)), cq.Vector(*foot))])
+water_5 = cq.Workplane(cq.Plane(origin=tuple(port_at), xDir=tuple(up), normal=tuple(way))).circle(TUBE_OD / 2.) \
     .circle(TUBE_ID / 2.).sweep(cq.Workplane().add(bend)).val()
-drop_from = np.array([*drop_xy, drop_top])
-parts['water-5'] = (tube_run(port_at - aft * acvus.INSERTION, aft, acvus.INSERTION)
-                    .fuse(water_5, tube_run(drop_from, -Z, drop)).clean(), pj.M_PVC_CLEAR)
+parts['water-5'] = (tube_run(port_at - way * acvus.INSERTION, way, acvus.INSERTION)
+                    .fuse(water_5, tube_run(foot, -Z, drop)).clean(), pj.M_PVC_CLEAR)
+
+# --- the PSU on the west wall, over the discharge, and the relays on the ceiling ----------------------
+psu, psu_colour, _ = comps['psu']
+box = psu.BoundingBox()
+column = cq.Solid.makeBox(box.xlen, box.ylen, 2. * CEILING, cq.Vector(box.xmin, box.ymin, 0.))
+under_psu = max(s.intersect(column).BoundingBox().zmax for n, (s, _) in parts.items()
+                if n.startswith(('discharge-', 'water-5')) and s.intersect(column).Volume() > 0.)
+psu_lift = under_psu + CLEAR - box.zmin
+parts['psu'] = (psu.moved(cq.Location(cq.Vector(0., 0., psu_lift))), psu_colour)
+backs_up = cq.Location(cq.Vector(), cq.Vector(0., 1., 0.), 90.)       # the face that bears on the wall, to the ceiling
+relays = {n: comps[n][0].moved(backs_up) for n in ('relay-1', 'relay-2')}
+west_edge = min(s.BoundingBox().xmin for s in relays.values())
+top = max(s.BoundingBox().zmax for s in relays.values())
+to_ceiling = cq.Location(cq.Vector(box.xmax + CLEAR - west_edge, 0., CEILING - PAD - top))
+for n, s in relays.items():
+    parts[n] = (s.moved(to_ceiling), comps[n][1])
 
 # --- off the union tee's free run, fluid-1 and the flow regulator -----------------------------------
 t = gp_Trsf()
@@ -242,40 +292,56 @@ export_assembly(a, str(out_step))
 land = [*drop_xy, land_z]
 lit = 'foam-' not in land_on                    # a see-through part stays see-through
 check_mid = (stem_tip + port_at) / 2.
+psu_box, relay_box = parts['psu'][0].BoundingBox(), cq.Compound.makeCompound(
+    [parts[n][0] for n in relays]).BoundingBox()
 spec = {
     'title': 'Pump to V-K',
     'lede': (f"The pump stands {forward:.1f} mm forward of the study's pump. Its 3/8 in suction tube runs {free:.1f} mm and "
              f"bends {math.degrees(th):.1f}° down at R{free / th:.0f}, and a 1/4 in stub runs straight from the reducer's "
-             f"collet into the flipped elbow in V-K's bottom-port elbow. On the discharge, a stem elbow faces aft and an "
-             f"ACVUS-44 stem check stands in it; water-5 bends down at R{BEND_R:g} and drops {drop:.1f} mm straight into the "
-             f"cold core, landing on {land_on.split('/')[-1]} {CAP_Z - land_z:.1f} mm under the cap's face. Off the union "
-             f"tee's free run, fluid-1 and the YZMSZ flow regulator run straight west. Amber: the elbow, the check and "
-             f"water-5{', and the part it lands on' if lit else ''}. The foam, the CO2 tube and the enclosure's back are "
+             f"collet into the flipped elbow in V-K's bottom-port elbow. On the discharge, the stem elbow turns "
+             f"{math.degrees(TILT):.1f}° down from aft, as far as water-5's R{BEND_R:g} bend lets it: off the ACVUS-44 stem "
+             f"check's port, {port_at[2] - CAP_Z:.1f} mm over the cap lid, the tube turns {90. - math.degrees(dip):.1f}° and "
+             f"runs plumb from the lid's top face, {drop:.1f} mm down to {land_on.split('/')[-1]}. The Mean Well stands "
+             f"{psu_lift:.1f} mm higher on the west wall than production stands it, {CLEAR:g} mm over the elbow and check, and "
+             f"the two relays hang from the ceiling beside it. Off the union tee's free run, fluid-1 and the YZMSZ flow "
+             f"regulator run straight west. Amber: the elbow, the check, water-5, the Mean Well and the relays"
+             f"{', and the part water-5 lands on' if lit else ''}. The foam, the CO2 tube and the enclosure's back are "
              f"see-through, and clashes are drawn as they stand."),
     'columns': 1,
     'view': {'az': 240, 'el': 15},
     'panels': [{
-        'name': f"water-5 lands on {land_on.split('/')[-1]}",
+        'name': 'The check turned down, the Mean Well over it, the relays on the ceiling',
         'view': {'az': 240, 'el': 15},
-        'focus': {'center': [-40., 370., (port_at[2] + land_z) / 2.], 'radius': max(130., (port_at[2] - land_z) / 2. + 70.)},
+        'focus': {'center': [-55., 390., 295.], 'radius': 95.},
         'models': [
             {'step': 'hardware/assembly/scenes/out/rear-port-rebuild.step',
              'only': sorted(n for n in rebuild if not n.startswith(SUPERSEDED)),
              'ghost': ['enclosure-back-top', 'face-rail-*', 'tile-*', 'co2-tube']},
             {'step': 'hardware/assembly/scenes/out/rear-port-lines.step',
-             'highlight': ['discharge-elbow*', 'discharge-check*', 'water-5*']},
+             'highlight': ['discharge-elbow*', 'discharge-check*', 'water-5*', 'psu*', 'relay-*']},
             {'step': 'hardware/manifold-layout/enclosure-assembly.step',
-             'only': sorted(n for n in enclosure if n.startswith('cold-core/') and (n in core or 'foam-' in n)),
-             'ghost': ['cold-core/foam-*']}],
+             'only': sorted(n for n in enclosure if n == 'enclosure-back-top'
+                            or n.startswith('cold-core/') and (n in core or 'foam-' in n)),
+             'ghost': ['cold-core/foam-*', 'enclosure-back-top']}],
         'marks': [
-            {'at': check_mid.tolist(), 'text': 'stem elbow aft, ACVUS-44 stem check', 'dx': -40, 'dy': -70},
+            {'at': check_mid.tolist(), 'text': f"check {math.degrees(TILT):.1f}° down, R{BEND_R:g} into the lid",
+             'dx': -50, 'dy': 70},
+            {'at': [psu_box.xmin, psu_box.center.y, psu_box.center.z], 'text': 'Mean Well on the west wall',
+             'dx': -60, 'dy': -50},
+            {'at': [relay_box.center.x, relay_box.center.y, relay_box.zmin], 'text': 'relays on the ceiling',
+             'dx': 40, 'dy': -70},
             {'at': land, 'text': f"lands on {land_on.split('/')[-1]}, z {land_z:.1f}", 'dx': 40, 'dy': 60}]}]}
 if lit:
     spec['panels'][0]['models'][0 if land_on in rebuild else 2]['highlight'] = [land_on]
 json.dump(spec, open(OUT / 'rear-port-lines.page.json', 'w'), indent=1)
 print(f'pump {forward:.2f} mm forward (aft {shift[1]:.2f}); 3/8 tube free {free:.2f} mm, bent {math.degrees(th):.2f} deg '
       f'(R{free / th:.1f}), leaned {math.degrees(psi):.2f} deg; collet mouth {np.round(mouth, 2).tolist()}')
-print(f'discharge collet {np.round(d_mouth, 2).tolist()}; check port {np.round(port_at, 2).tolist()}; drop at '
+print(f'discharge collet {np.round(d_mouth, 2).tolist()}; elbow {math.degrees(TILT):.2f} deg down; check port '
+      f'{np.round(port_at, 2).tolist()}, bend {90. - math.degrees(dip):.2f} deg at R{BEND_R:g}; drop at '
       f'{np.round(drop_xy, 2).tolist()} from z {drop_top:.2f}, {drop:.2f} mm down onto {land_on} at z {land_z:.2f} '
       f'({CAP_Z - land_z:.2f} under the cap face)')
+print(f'psu up {psu_lift:.2f} mm: {np.round([psu_box.xmin, psu_box.ymin, psu_box.zmin], 2).tolist()} to '
+      f'{np.round([psu_box.xmax, psu_box.ymax, psu_box.zmax], 2).tolist()}; relays '
+      f'{np.round([relay_box.xmin, relay_box.ymin, relay_box.zmin], 2).tolist()} to '
+      f'{np.round([relay_box.xmax, relay_box.ymax, relay_box.zmax], 2).tolist()}')
 print('->', out_step, OUT / 'rear-port-lines.page.json')
