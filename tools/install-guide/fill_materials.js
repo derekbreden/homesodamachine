@@ -26,6 +26,11 @@
         part.name === "guide-fill-screen";
     } else if (o.view === "bottle") {
       part.visible = part.name.startsWith("bottle-");
+    } else if (o.view === "closed") {
+      // The fill done: the bottle set down and the cover pressed back onto the brim.
+      part.visible = !part.name.startsWith("bottle-");
+    } else {
+      part.visible = part.name.split("/")[0] !== "funnel-cover";
     }
     if (part.name === "bottle-pet") {
       part.material = new THREE.MeshPhysicalMaterial({
@@ -49,7 +54,7 @@
     }
   }
 
-  if (o.view !== "frame") {
+  if (o.view === "fill" || o.view === "bottle") {
     const labelTexture = await textureLoader.loadAsync(o.labelUrl);
     labelTexture.colorSpace = THREE.SRGBColorSpace;
     labelTexture.anisotropy = renderer.capabilities.getMaxAnisotropy();
