@@ -1,10 +1,10 @@
 """STEP files read as meshes.
 
-A STEP the mesh kernel wrote beside itself (`<name>.step.npz`, `write.write_model`) is read
-back as it was built, face records and all. Any other STEP — a vendor's part, or one an OCCT
-generator still cuts — is tessellated once by OCCT under the rule's tolerances, its faces
-recorded with the surfaces OCCT names, and kept in `.cache/meshcad/` under the digest of its
-bytes, so the next read is a file load.
+A STEP the mesh kernel wrote is read back from the model file beside it (`<name>.step.npz`,
+`write.write_model`), as it was built, face records and all. Any other STEP — a vendor's
+part, or one an OCCT generator still cuts — is tessellated once by OCCT under the rule's
+tolerances, its faces recorded with the surfaces OCCT names, and kept in `.cache/meshcad/`
+under the digest of its bytes, so the next read is a file load.
 """
 
 import hashlib
@@ -48,17 +48,31 @@ def step_solids(path):
     """[MeshSolid] for the STEP at `path`, through the model beside it or the import cache."""
     path = Path(path)
     model = path.with_name(path.name + ".npz")
-    if model.is_file() and (not path.is_file() or model.stat().st_mtime >= path.stat().st_mtime):
+    if model.is_file() and (not path.is_file() or _ours(path)
+                            or model.stat().st_mtime >= path.stat().st_mtime):
         return load_model(model)
     digest = hashlib.sha256(path.read_bytes()).hexdigest()
     cached = CACHE / f"{digest}-{IMPORT_VERSION}.npz"
     if cached.is_file():
         return load_model(cached)
     solids = tessellate_step(path)
-    from .write import write_model
-    CACHE.mkdir(parents=True, exist_ok=True)
-    write_model(solids, cached, names=[""] * len(solids))
-    return load_model(cached)
+    from .write import model_bytes
+    data = model_bytes(solids, names=[""] * len(solids))
+    # A build's sandbox reads the cache and cannot write it; the read goes on without it.
+    try:
+        CACHE.mkdir(parents=True, exist_ok=True)
+        cached.write_bytes(data)
+    except OSError:
+        pass
+    return load_model(data)
+
+
+def _ours(path):
+    """Whether the STEP at `path` is one this kernel wrote (`write.write_step`), whose model
+    file beside it holds the same triangles and their face records."""
+    from .write import STEP_MARK
+    with open(path, "rb") as f:
+        return STEP_MARK.encode() in f.read(200)
 
 
 def tessellate_step(path):

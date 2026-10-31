@@ -1,4 +1,4 @@
-"""Files from mesh solids: STL, 3MF, the viewer's `.step.mesh`, GLB, and the model file.
+"""Files from mesh solids: STL, 3MF, STEP, the viewer's `.step.mesh`, GLB, and the model file.
 
 Every writer here is a function of the triangles alone, so the same solid writes the same
 bytes every run: no timestamps, no ordering that depends on a hash seed. `pack.py` keys on
@@ -204,6 +204,99 @@ def model_items(solids, names=None, colors=None):
     yield "colors", text_array(json.dumps(
         [None if c is None else [round(float(x), 9) for x in c] for c in colors]))
     yield "records", text_array("[" + ",".join(records) + "]")
+
+
+#: The FILE_DESCRIPTION a mesh-kernel STEP carries, which `imports.step_solids` reads to take
+#: the model file beside it instead.
+STEP_MARK = "meshcad tessellated"
+
+
+def write_step(bodies, path):
+    """`bodies` — (name, MeshSolid, linear rgb or None) — as an AP242 STEP of triangulated
+    surface sets: one product per body under its name and colour, under an assembly named for
+    the file when there is more than one.
+
+    OCCT writes the product structure, each body standing as one placeholder triangle whose
+    first point is (k, 0, 0); each placeholder's coordinates and triangles are then written over
+    with the body's own, from its arrays. A STEP reader takes the triangles; a mesh-kernel import
+    takes the model file beside it."""
+    import re
+    import tempfile
+    from pathlib import Path
+    from OCP.BRep import BRep_Builder
+    from OCP.gp import gp_Pnt
+    from OCP.Interface import Interface_Static
+    from OCP.Poly import Poly_Triangle, Poly_Triangulation
+    from OCP.Quantity import Quantity_Color, Quantity_TOC_RGB
+    from OCP.STEPCAFControl import STEPCAFControl_Writer
+    from OCP.STEPControl import STEPControl_AsIs, STEPControl_Controller
+    from OCP.TCollection import TCollection_ExtendedString
+    from OCP.TDataStd import TDataStd_Name
+    from OCP.TDocStd import TDocStd_Document
+    from OCP.TopLoc import TopLoc_Location
+    from OCP.TopoDS import TopoDS_Face
+    from OCP.XCAFDoc import XCAFDoc_ColorType, XCAFDoc_DocumentTool
+    STEPControl_Controller.Init_s()
+    Interface_Static.SetIVal_s("write.step.tessellated", 1)
+    Interface_Static.SetIVal_s("write.step.schema", 5)
+    doc = TDocStd_Document(TCollection_ExtendedString("XmlOcaf"))
+    shapes = XCAFDoc_DocumentTool.ShapeTool_s(doc.Main())
+    colors = XCAFDoc_DocumentTool.ColorTool_s(doc.Main())
+    root = None
+    if len(bodies) > 1:
+        root = shapes.NewShape()
+        TDataStd_Name.Set_s(root, TCollection_ExtendedString(Path(path).name.split(".")[0]))
+    arrays = []
+    for k, (name, solid, rgb) in enumerate(bodies, 1):
+        arrays.append(_triangles(solid))
+        tri = Poly_Triangulation(3, 1, False)
+        for j, p in enumerate(((k, 0, 0), (k, 1, 0), (k, 0, 1)), 1):
+            tri.SetNode(j, gp_Pnt(*map(float, p)))
+        tri.SetTriangle(1, Poly_Triangle(1, 2, 3))
+        face = TopoDS_Face()
+        BRep_Builder().MakeFace(face, tri)
+        label = shapes.AddShape(face, False)
+        TDataStd_Name.Set_s(label, TCollection_ExtendedString(name))
+        if rgb is not None:
+            colors.SetColor(label, Quantity_Color(*map(float, rgb), Quantity_TOC_RGB),
+                            XCAFDoc_ColorType.XCAFDoc_ColorSurf)
+        if root is not None:
+            shapes.AddComponent(root, label, TopLoc_Location())
+    if root is not None:
+        shapes.UpdateAssemblies()
+    writer = STEPCAFControl_Writer()
+    writer.SetColorMode(True)
+    writer.SetNameMode(True)
+    writer.Transfer(doc, STEPControl_AsIs)
+    with tempfile.TemporaryDirectory() as d:
+        skeleton = Path(d) / "skeleton.step"
+        writer.Write(str(skeleton))
+        text = skeleton.read_text()
+    text = text.replace("FILE_DESCRIPTION(('Open CASCADE Model')", f"FILE_DESCRIPTION(('{STEP_MARK}')", 1)
+    coord_of = {int(float(m.group(2))): m.group(1) for m in re.finditer(
+        r"#(\d+) = COORDINATES_LIST\('',3,\(\(([-\d.E+]+),0\.,0\.\)", text)}
+    def entity(eid):
+        start = text.index(f"#{eid} = ")
+        return start, text.index(";\n", start) + 1
+    out, cursor, spans = [], 0, []
+    for k, (V, T) in enumerate(arrays, 1):
+        cid = coord_of[k]
+        spans.append((entity(cid), f"#{cid} = COORDINATES_LIST('',{len(V)},({_step_rows(V, '%.6f')}));"))
+        m = re.search(rf"#(\d+) = TRIANGULATED_SURFACE_SET\('',#{cid},", text)
+        spans.append((entity(m.group(1)), f"#{m.group(1)} = TRIANGULATED_SURFACE_SET('',#{cid},"
+                      f"{len(V)},(),(),({_step_rows(T + 1, '%d')}));"))
+    for (a, b), new in sorted(spans):
+        out += [text[cursor:a], new]
+        cursor = b
+    out.append(text[cursor:])
+    Path(path).write_text("".join(out))
+
+
+def _step_rows(a, fmt):
+    """Rows of `a` as STEP list members, `(x,y,z),(x,y,z)`, a line each."""
+    buf = io.StringIO()
+    np.savetxt(buf, a, fmt=fmt, delimiter=",", newline="),\n(")
+    return "(" + buf.getvalue()[:-3]
 
 
 def text_array(text):
