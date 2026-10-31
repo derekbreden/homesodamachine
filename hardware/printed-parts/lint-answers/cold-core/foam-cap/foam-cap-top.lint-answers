@@ -35,3 +35,11 @@ click: x=-4.593 y=55.446 z=2.250
 click: x=-4.593 y=55.446 z=0.150
 click: x=37.319 y=-33.197 z=2.250
 click: x=37.319 y=-33.197 z=0.150
+click: x=107.889 y=25.016 z=0.150
+click: x=107.889 y=25.016 z=2.150
+
+[thin] Fitted B-fill split-bore rim: the Ø6.8 mm round channel intersects the retained cup/lid parting plane at Z14.45; the lid completes its circular boundary. The 0.892 mm rim is the exposed end of that split-round interface, with the B-fill route and populated PCB clearance retained.
+alternatives: A 3 mm rim needs a lower bore or a jogged parting plane, changing the retained round B-fill guide, lid fit and nearby PCB clearance. Filling the rim enters the specified bore.
+file: hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step
+click: x=93.617 y=-41.674 z=14.450
+click: x=93.867 y=-41.817 z=13.606

@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "scope": "Current nominal continuous conservative JST housing sweeps against the native installed larger bodies. Wires, flexible jackets and free final joins are moved aside. The listed removed plumbing is an assembly/service prerequisite. Latch manipulation and flexible-lead handling are not rigid housing geometry.",
-  "assembly_step_sha256": "0fdd2027ee81c401ec317aef34462b95b366ee6688b5e51ca729b0a85089e4ea",
+  "assembly_step_sha256": "528e255c85f958f190d01a97508a7c5c1ee12f8f9e6c39cfa8349f5d01a56a6c",
   "wiring_step_sha256": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
   "installed_housing_binding": "hardware/wiring/installed/above-core-review/installed-wiring-binding.json",
   "paths": {
@@ -139,5 +139,113 @@
       "own_header_scope": "The own PCB/header is omitted only during the initial axial disengagement; all later stages include the complete populated board."
     }
   },
-  "all_paths_clear_after_prerequisites": true
+  "all_paths_clear_after_prerequisites": true,
+  "preceding_assembly_step_sha256": "0fdd2027ee81c401ec317aef34462b95b366ee6688b5e51ca729b0a85089e4ea",
+  "root_stock_update": {
+    "changed_body": "enclosure-back-top",
+    "added_stock": [
+      {
+        "bounds_xyzxyz_mm": [
+          18.0999988712316,
+          469.299,
+          252.0,
+          21.0999988712316,
+          471.31,
+          355.0
+        ],
+        "unconnected_native_overlaps": []
+      },
+      {
+        "bounds_xyzxyz_mm": [
+          53.399998871231595,
+          469.299,
+          252.0,
+          61.35,
+          471.31,
+          355.0
+        ],
+        "unconnected_native_overlaps": []
+      },
+      {
+        "bounds_xyzxyz_mm": [
+          93.65,
+          469.299,
+          252.0,
+          96.65,
+          471.31,
+          355.0
+        ],
+        "unconnected_native_overlaps": []
+      },
+      {
+        "bounds_xyzxyz_mm": [
+          24.0,
+          455.0,
+          346.0,
+          91.0,
+          465.3,
+          352.0
+        ],
+        "unconnected_native_overlaps": []
+      }
+    ],
+    "unchanged_review_windows": [
+      {
+        "name": "asse-drain-adapter",
+        "bounds_xyzxyz_mm": [
+          29.936233923209997,
+          412.21948851658,
+          290.11676099612833,
+          44.703766076790004,
+          445.00325459337,
+          309.15
+        ]
+      },
+      {
+        "name": "tube-drain-vent",
+        "bounds_xyzxyz_mm": [
+          34.24999877123105,
+          430.00325459337,
+          292.99999989999776,
+          40.32000010000032,
+          460.83890402469,
+          299.00000010000025
+        ]
+      },
+      {
+        "name": "terminal-J1-complete-service-sweep",
+        "bounds_xyzxyz_mm": [
+          -75.37999389648441,
+          260.35292002004996,
+          260.9,
+          -50.5799938964844,
+          274.05292002005,
+          285.4
+        ]
+      },
+      {
+        "name": "terminal-J2-complete-service-sweep",
+        "bounds_xyzxyz_mm": [
+          -49.37999389648441,
+          260.35292002004996,
+          260.9,
+          -32.0799938964844,
+          274.05292002005,
+          285.4
+        ]
+      },
+      {
+        "name": "terminal-J11-complete-service-sweep",
+        "bounds_xyzxyz_mm": [
+          -28.800090412957466,
+          195.35271174168452,
+          260.9,
+          -6.499897380011333,
+          201.05312829841546,
+          294.4
+        ]
+      }
+    ],
+    "reason": "The label-rail roots and the closed upper panel relief add material only outside every recorded vent-clearance window and complete connector-service sweep. Native intersections against every other installed body are zero. The tube and connector shapes, installed curves, and service transforms are unchanged."
+  }
 }

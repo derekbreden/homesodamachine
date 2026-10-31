@@ -1,6 +1,6 @@
 {
   "scope": "Manual native local-window clearance of the printed vent elbow and its 4 mm return. A body outside the tube bounding box expanded by 1 mm cannot violate that clearance. Candidate native solids are clipped to that window before intersection and distance, preserving the complete local question without processing remote faces. Connected receiving interfaces are omitted; wire bodies, jackets and wire-end insulation are excluded. Connector housings and Wagos remain.",
-  "assembly_step_sha256": "0fdd2027ee81c401ec317aef34462b95b366ee6688b5e51ca729b0a85089e4ea",
+  "assembly_step_sha256": "528e255c85f958f190d01a97508a7c5c1ee12f8f9e6c39cfa8349f5d01a56a6c",
   "checks": {
     "asse-drain-adapter": {
       "valid": true,
@@ -174,10 +174,10 @@
     }
   },
   "curvature_method": "Every real stationary root of squared Bezier curvature on [0,1], with endpoints, and each circular arc radius. Numerical roots are compared with a dense parameter sample.",
-  "placement_facts_sha256": "00d8d78ca0bc023ba8dc580d1731d06232edc277e88181acc9a7890d6fbb0d32",
+  "placement_facts_sha256": "9a74f9a4d166dd587bd694159cf2a5d8654fc0cb9f9008e384d9c1208b0e43e5",
   "passed": true,
   "flavor_b_clearance": {
-    "payload_sha256": "d085834e77722a0c1a1b0f9e42ce435d170703380f307eed20a4bfd1374a9ea5",
+    "payload_sha256": "18bc721bbf8f0a0aa1855f2a4f827dedbb51ed988ff2d1be1cef2055ab1ac4f3",
     "unconnected_mesh_overlaps": [],
     "connected_receiving_interfaces": [
       {
@@ -221,6 +221,115 @@
         "common_mm3": 0.0
       }
     ],
-    "passed": true
+    "passed": true,
+    "preceding_payload_sha256": "d085834e77722a0c1a1b0f9e42ce435d170703380f307eed20a4bfd1374a9ea5"
+  },
+  "preceding_assembly_step_sha256": "0fdd2027ee81c401ec317aef34462b95b366ee6688b5e51ca729b0a85089e4ea",
+  "root_stock_update": {
+    "changed_body": "enclosure-back-top",
+    "added_stock": [
+      {
+        "bounds_xyzxyz_mm": [
+          18.0999988712316,
+          469.299,
+          252.0,
+          21.0999988712316,
+          471.31,
+          355.0
+        ],
+        "unconnected_native_overlaps": []
+      },
+      {
+        "bounds_xyzxyz_mm": [
+          53.399998871231595,
+          469.299,
+          252.0,
+          61.35,
+          471.31,
+          355.0
+        ],
+        "unconnected_native_overlaps": []
+      },
+      {
+        "bounds_xyzxyz_mm": [
+          93.65,
+          469.299,
+          252.0,
+          96.65,
+          471.31,
+          355.0
+        ],
+        "unconnected_native_overlaps": []
+      },
+      {
+        "bounds_xyzxyz_mm": [
+          24.0,
+          455.0,
+          346.0,
+          91.0,
+          465.3,
+          352.0
+        ],
+        "unconnected_native_overlaps": []
+      }
+    ],
+    "unchanged_review_windows": [
+      {
+        "name": "asse-drain-adapter",
+        "bounds_xyzxyz_mm": [
+          29.936233923209997,
+          412.21948851658,
+          290.11676099612833,
+          44.703766076790004,
+          445.00325459337,
+          309.15
+        ]
+      },
+      {
+        "name": "tube-drain-vent",
+        "bounds_xyzxyz_mm": [
+          34.24999877123105,
+          430.00325459337,
+          292.99999989999776,
+          40.32000010000032,
+          460.83890402469,
+          299.00000010000025
+        ]
+      },
+      {
+        "name": "terminal-J1-complete-service-sweep",
+        "bounds_xyzxyz_mm": [
+          -75.37999389648441,
+          260.35292002004996,
+          260.9,
+          -50.5799938964844,
+          274.05292002005,
+          285.4
+        ]
+      },
+      {
+        "name": "terminal-J2-complete-service-sweep",
+        "bounds_xyzxyz_mm": [
+          -49.37999389648441,
+          260.35292002004996,
+          260.9,
+          -32.0799938964844,
+          274.05292002005,
+          285.4
+        ]
+      },
+      {
+        "name": "terminal-J11-complete-service-sweep",
+        "bounds_xyzxyz_mm": [
+          -28.800090412957466,
+          195.35271174168452,
+          260.9,
+          -6.499897380011333,
+          201.05312829841546,
+          294.4
+        ]
+      }
+    ],
+    "reason": "The label-rail roots and the closed upper panel relief add material only outside every recorded vent-clearance window and complete connector-service sweep. Native intersections against every other installed body are zero. The tube and connector shapes, installed curves, and service transforms are unchanged."
   }
 }
