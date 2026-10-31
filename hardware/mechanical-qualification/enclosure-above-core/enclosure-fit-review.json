@@ -1,14 +1,14 @@
 {
   "scope": "Manual exact material readings for changed enclosure and lid features and their current installed neighbors. Intentional receiving interfaces remain separately identified. This is nominal geometry, not a physical force or support-cleanup result.",
-  "assembly_step_sha256": "99b0690d7c6768cbcf68c6ae5a82982132bc097f380d073fe9d471989a23def0",
-  "assembly_mesh_sha256": "c0daf38138c43349656125ee4803c1230c85205c511f22c0f9d43d9e1e14e0dc",
+  "assembly_step_sha256": "a6bc637969cb169b970e261c7466020c5a8912c2323ffdfa566e53e3230b8e8d",
+  "assembly_mesh_sha256": "1af6e0eb9ed7dfaec9c145cf097b953cf513b779e804a0e9a4524a431a3d8d17",
   "source_sha256": {
     "hardware/manifold-layout/above-core.json": "dc6cc98ff451fe5665f60b1a0a09fd35fad16fa823ec7fd055b515e3d12217f6",
     "hardware/manifold-layout/manifold_layout.py": "65b12071db64e585d56fee8d876e8ee82d0a38756d097a2c36532093bd5eb07c",
     "hardware/manifold-layout/above_core_wiring.py": "8dce32acf5ec0804f668ddeb2451dd3fae9e189cce39282a5843aabae2824ef5",
-    "hardware/printed-parts/enclosure/enclosure/_fixed_pump_mount.py": "c305b76dcdf1034b691bc855bcff6b280df091a6867f0a435d16084646246d61",
+    "hardware/printed-parts/enclosure/enclosure/_fixed_pump_mount.py": "2d23d74afb79f9fea661eaf84ae3259323fa7b9ee2364a39386b1a4db53b1c13",
     "hardware/printed-parts/cold-core/_reservoir_a_anchors.py": "f727c42ed0433ab36a9e4ec19cee24ddfea0272caa1e4b082c41bde5565eb639",
-    "hardware/printed-parts/cold-core/_above_core_mounts.py": "f0233ee7295ac4d415ab434616c8d89567ddf9767f1587bcf8f3815911f1f1f3"
+    "hardware/printed-parts/cold-core/_above_core_mounts.py": "32ecb830e1cdc7c3048ff7e9043d6e238d31cce93a8c905aeaea2d13aef7e1b7"
   },
   "bodies": {
     "reservoir-a-aft-anchor": {
@@ -35,7 +35,7 @@
         269.57,
         298.3886205420013
       ],
-      "volume_mm3": 2653.8031836436285
+      "volume_mm3": 2667.472600443629
     },
     "vk-solenoid": {
       "valid": true,
@@ -115,7 +115,7 @@
         217.8000001,
         355.00000000002
       ],
-      "volume_mm3": 2574807.7026092047
+      "volume_mm3": 2505010.3940865044
     },
     "enclosure-back-top": {
       "valid": true,
@@ -180,7 +180,7 @@
         464.9999998996301,
         299.6500002
       ],
-      "volume_mm3": 310307.8002886578
+      "volume_mm3": 310319.96171044465
     }
   },
   "changed_stock_pairs": [
@@ -227,6 +227,30 @@
       "gap_mm": 15.219609840168143
     },
     {
+      "body": "reservoir-a-aft-anchor",
+      "neighbor": "wire-AC6-PE",
+      "overlap_mm3": 0,
+      "gap_mm": 85.57997357111368
+    },
+    {
+      "body": "reservoir-a-aft-anchor",
+      "neighbor": "wire-J4-V5",
+      "overlap_mm3": 0,
+      "gap_mm": 21.74258717270102
+    },
+    {
+      "body": "reservoir-a-aft-anchor",
+      "neighbor": "wire-J4-IO25",
+      "overlap_mm3": 0,
+      "gap_mm": 21.736469827754064
+    },
+    {
+      "body": "reservoir-a-aft-anchor",
+      "neighbor": "wire-flow-GND",
+      "overlap_mm3": 0,
+      "gap_mm": 21.731376877171318
+    },
+    {
       "body": "flavor-a-crossover-clip",
       "neighbor": "tube-above-core-va-fore-feed",
       "overlap_mm3": 0,
@@ -267,6 +291,126 @@
       "neighbor": "enclosure-back-top",
       "overlap_mm3": 0,
       "gap_mm": 36.74489829029637
+    },
+    {
+      "body": "flavor-a-crossover-clip",
+      "neighbor": "wire-AC6-PE",
+      "overlap_mm3": 0,
+      "gap_mm": 28.61571332264781
+    },
+    {
+      "body": "flavor-a-crossover-clip",
+      "neighbor": "wire-J1-COM",
+      "overlap_mm3": 0,
+      "gap_mm": 57.673539999999974
+    },
+    {
+      "body": "flavor-a-crossover-clip",
+      "neighbor": "wire-J1-positive-A",
+      "overlap_mm3": 0,
+      "gap_mm": 32.23783355496034
+    },
+    {
+      "body": "flavor-a-crossover-clip",
+      "neighbor": "wire-J1-OUT3",
+      "overlap_mm3": 0,
+      "gap_mm": 56.3475413619049
+    },
+    {
+      "body": "flavor-a-crossover-clip",
+      "neighbor": "wire-J1-OUT4",
+      "overlap_mm3": 0,
+      "gap_mm": 56.341288361747445
+    },
+    {
+      "body": "flavor-a-crossover-clip",
+      "neighbor": "wire-J1-OUT5",
+      "overlap_mm3": 0,
+      "gap_mm": 52.12353999999996
+    },
+    {
+      "body": "flavor-a-crossover-clip",
+      "neighbor": "wire-J1-OUT6",
+      "overlap_mm3": 0,
+      "gap_mm": 50.27353999999997
+    },
+    {
+      "body": "flavor-a-crossover-clip",
+      "neighbor": "wire-J1-OUT7",
+      "overlap_mm3": 0,
+      "gap_mm": 56.3210008198076
+    },
+    {
+      "body": "flavor-a-crossover-clip",
+      "neighbor": "wire-J1-OUT8",
+      "overlap_mm3": 0,
+      "gap_mm": 46.57353999999998
+    },
+    {
+      "body": "flavor-a-crossover-clip",
+      "neighbor": "wire-J2-COM",
+      "overlap_mm3": 0,
+      "gap_mm": 52.12353999999996
+    },
+    {
+      "body": "flavor-a-crossover-clip",
+      "neighbor": "wire-J2-OUT1",
+      "overlap_mm3": 0,
+      "gap_mm": 57.673539999999974
+    },
+    {
+      "body": "flavor-a-crossover-clip",
+      "neighbor": "wire-J2-OUT2",
+      "overlap_mm3": 0,
+      "gap_mm": 52.673539979949965
+    },
+    {
+      "body": "flavor-a-crossover-clip",
+      "neighbor": "wire-J2-FAN",
+      "overlap_mm3": 0,
+      "gap_mm": 53.97353999999996
+    },
+    {
+      "body": "flavor-a-crossover-clip",
+      "neighbor": "wire-J4-V5",
+      "overlap_mm3": 0,
+      "gap_mm": 9.580000020049965
+    },
+    {
+      "body": "flavor-a-crossover-clip",
+      "neighbor": "wire-J4-IO25",
+      "overlap_mm3": 0,
+      "gap_mm": 9.580000020049965
+    },
+    {
+      "body": "flavor-a-crossover-clip",
+      "neighbor": "wire-temp-GND",
+      "overlap_mm3": 0,
+      "gap_mm": 39.78930824776421
+    },
+    {
+      "body": "flavor-a-crossover-clip",
+      "neighbor": "wire-flow-GND",
+      "overlap_mm3": 0,
+      "gap_mm": 9.579999999999984
+    },
+    {
+      "body": "flavor-a-crossover-clip",
+      "neighbor": "wire-J7-CLO",
+      "overlap_mm3": 0,
+      "gap_mm": 37.8506601094204
+    },
+    {
+      "body": "flavor-a-crossover-clip",
+      "neighbor": "wire-J7-CHI",
+      "overlap_mm3": 0,
+      "gap_mm": 37.849993896479994
+    },
+    {
+      "body": "flavor-a-crossover-clip",
+      "neighbor": "wire-J7-carb-earth-2",
+      "overlap_mm3": 0,
+      "gap_mm": 4.149999999999995
     }
   ],
   "fitted_pairs": [
@@ -305,6 +449,90 @@
       "neighbor": "funnel-frame",
       "overlap_mm3": 0,
       "gap_mm": 0.2499996999999894
+    }
+  ],
+  "front_room_cleanup": {
+    "old_step_sha256": "96e550620fcc312dea1a6ae9b5885b5595e140478d4387af0aca851116c66726",
+    "added_volume_mm3": 0,
+    "removed_volume_mm3": 69797.30825604081,
+    "removed_bounds_mm": [
+      -52.65000000000016,
+      20.718299419704557,
+      289.4729998999949,
+      53.65000000000026,
+      89.733859901969,
+      327.0174115419009
+    ],
+    "scope": "Subtractive cleanup only. The removed stock is above the pump bearing shoulders and outside the snap receiver floors; the continuous front closing proof therefore remains conservative."
+  },
+  "flavor_root_cleanup": {
+    "old_step_sha256": "658d68fcd4d278ca87679867a25f5a48717e8ca4d4dba41d3dc9c089191ad6d8",
+    "added_volume_mm3": 12.161417735493782,
+    "removed_volume_mm3": 0,
+    "added_bounds_mm": [
+      24.7,
+      261.62353979963,
+      293.4,
+      30.5,
+      262.43,
+      296.0000002
+    ],
+    "scope": "The added root joins the clip front plane below its equator. Neither the bore nor its free jaws is filled."
+  },
+  "connector_sweep_regressions": [
+    {
+      "connector": "terminal-J1",
+      "neighbor": "enclosure-front-top",
+      "overlap_mm3": 0,
+      "gap_mm": 49.269155272502964
+    },
+    {
+      "connector": "terminal-J1",
+      "neighbor": "enclosure-back-top",
+      "overlap_mm3": 0,
+      "gap_mm": 17.92000610351559
+    },
+    {
+      "connector": "terminal-J1",
+      "neighbor": "foam-cap-lid-top",
+      "overlap_mm3": 0,
+      "gap_mm": 7.4999997999999835
+    },
+    {
+      "connector": "terminal-J2",
+      "neighbor": "enclosure-front-top",
+      "overlap_mm3": 0,
+      "gap_mm": 64.77653226588762
+    },
+    {
+      "connector": "terminal-J2",
+      "neighbor": "enclosure-back-top",
+      "overlap_mm3": 0,
+      "gap_mm": 43.92000610351559
+    },
+    {
+      "connector": "terminal-J2",
+      "neighbor": "foam-cap-lid-top",
+      "overlap_mm3": 0,
+      "gap_mm": 7.4999997999999835
+    },
+    {
+      "connector": "terminal-J11",
+      "neighbor": "enclosure-front-top",
+      "overlap_mm3": 0,
+      "gap_mm": 40.47174769551855
+    },
+    {
+      "connector": "terminal-J11",
+      "neighbor": "enclosure-back-top",
+      "overlap_mm3": 0,
+      "gap_mm": 62.699909587042534
+    },
+    {
+      "connector": "terminal-J11",
+      "neighbor": "foam-cap-lid-top",
+      "overlap_mm3": 0,
+      "gap_mm": 7.4999997999999835
     }
   ],
   "stock_unresolved": [],
