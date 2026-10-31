@@ -178,9 +178,9 @@ materials, draw with [`tools/render/render-step-posed.js`](../render/render-step
 `hsm-kernel` (`tools/hsm/kernel`) builds solids as closed triangle meshes that record where
 every face came from. Each triangle names a face record: the exact surface it lies on (plane,
 cylinder, cone, sphere, torus, or a free surface), the builder that made it, the generator line
-that called the builder (`#[track_caller]`), and the boolean that brought it into the solid. A
-file names that line `path:line` from the checkout's root, as meshcad does, so a part writes the
-same records from every worktree.
+that called the builder (`#[track_caller]`) or the file it was read from, and the boolean that
+brought it into the solid. A file names that line `path:line` from the checkout's root, as
+meshcad does, so a part writes the same records from every worktree.
 
 Profiles are drawn exactly with lines, arcs, circles, Béziers, corner fillets, offsets and the
 hull round circles and points (`Loop`, `Pen`, `Profile`; `hull_loop` is CadQuery's
@@ -202,6 +202,18 @@ triangulated surface sets under each body's name and colour, with the model file
 import reads beside it (`<name>.step.npz`). The same solid writes the same bytes on every run.
 Without the `manifold` feature the kernel is pure Rust and builds for wasm32; its booleans
 then return an error.
+
+Bodies come back in from payloads (`import`). `import::payload(path)` reads every body of a
+`.step.mesh`. `import::step(path)` reads a STEP's bodies through a payload cut from it. A STEP of
+B-rep faces is read through `.cache/hsm/import/<SHA-256>.step.mesh` at the checkout's root,
+OCCT's mesh of it at the kernel's rule, which `_rust_part.step` cuts. A STEP of triangles is
+read through the payload its writer cut beside it, whose `src` is the STEP's SHA-256. Each body
+is an `Imported` (`name`, `color`, `solid`). The solids a payload numbers
+`name/1`, `name/2`, … come back as one body under its name, and `import::body(&bodies, name)`
+picks one out. A payload holds no surfaces, so every face read is a free `MESH` record whose
+source is the file asked for: `MESH import at hardware/reference/tee-connector/tee-connector.step`.
+`Solid::from_mesh` makes a solid of any closed mesh. Corners at one point of the grid are one
+vertex, and a mesh left open or folded is an error.
 
 The kernel's tests hold every builder and boolean to OCCT's volume and bounds for the same model
 within the rule (`tests/occt_reference.py` and, for the helix sweeps and lofts,
@@ -237,11 +249,15 @@ The generator runs the program through
 `_rust_part.cut("refrigeration", "fuse-clamp", numbers(), part_dir)` writes the numbers, builds
 the program with cargo from the checkout's workspace (`HSM_WORKSPACE` in a Bazel action), runs
 it, and returns the files and bodies it printed. `_rust_part.program(crate, name)` builds a
-program and returns its path, for a run with arguments of its own. Cargo builds into the checkout's own target directory,
-`tools/hsm/target`, whatever `CARGO_TARGET_DIR` says: cargo judges a crate fresh by its files'
-times, under a name that is the same from every checkout, so a target directory two checkouts
-share links one checkout's kernel into the other's program. The `cargo` it runs is the one on
-`PATH`, else Homebrew's rustup's, else the one in `~/.cargo/bin`.
+program and returns its path, for a run with arguments of its own. Cargo builds into the
+checkout's own target directory, `tools/hsm/target`, whatever `CARGO_TARGET_DIR` says. The
+`cargo` it runs is the one on `PATH`, else Homebrew's rustup's, else the one in `~/.cargo/bin`.
+
+A program runs from the checkout's root, and its numbers name a STEP it reads by its path from
+there. `_rust_part.step(path)` returns that path once a payload cut from the STEP is on disk. For
+a STEP of B-rep faces with none in the import cache, OCCT meshes each solid of each body at the
+kernel's rule, one face range per B-rep face, into the cache, under the CAD lock. `_rust_part`
+hands the trace the STEP, and for a STEP of triangles the payload beside it.
 
 `tools/bazel/trace_inputs.py` takes what rustc compiled into the program, off its dep-info file,
 with the manifests and the lockfile, and every file the program wrote. The writer's entry in
