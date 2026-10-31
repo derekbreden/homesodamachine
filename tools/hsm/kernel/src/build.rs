@@ -5,7 +5,7 @@
 //! naming the surface it lies on and the generator line that asked for it. A profile's segments
 //! name the curves they came from (`Region`), so an arc becomes one cylinder face when extruded
 //! and one torus or sphere when revolved, whatever number of segments the rule cut it into.
-use crate::face::{Face, Src, Surface};
+use crate::face::{Face, Src, Surface, src_line};
 use crate::math::{TAU, V2, V3, atan2, cos, radians, sin, tan, v2, v3};
 use crate::plane::Plane;
 use crate::profile::{Curve, Loop, Pen, Profile, RLoop, Region};
@@ -352,7 +352,7 @@ pub(crate) fn revolve(
             let t = rel.dot(d);
             let rad = rel - d * t;
             let r = if rad.dot(u) >= -1e-9 { rad.norm() } else { -rad.norm() };
-            ensure!(r >= -1e-9, "{op} profile crosses its axis at {}:{}", src.file(), src.line());
+            ensure!(r >= -1e-9, "{op} profile crosses its axis at {}", src_line(src));
             p2.push(v2(r.max(0.0), t));
         }
         if (i == 0) != (signed_area(&p2) > 0.0) {
