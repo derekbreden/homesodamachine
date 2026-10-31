@@ -4,12 +4,12 @@
   "scope": "Manual actual installed-wiring STEP/manifest binding to the current source electrical graph and native wiring bodies, including their placements inside the complete appliance STEP. No equipment/contact sweep or mechanical regeneration. Unchanged accepted contact receipts remain separately scoped.",
   "reader_sha256": "c076c0ac4b46d7cc0d3b8d0619c55a106468716762276420ea924d6f7ae85ff2",
   "actual_step_sha256": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
-  "actual_manifest_sha256": "cfa0a8440f9c5319672eb1405b3657372bbbc48675f328e44624eaf528ba8805",
-  "physical_EA_sha256": "0fdd2027ee81c401ec317aef34462b95b366ee6688b5e51ca729b0a85089e4ea",
+  "actual_manifest_sha256": "a53eef934675895eab35bdb8ba333d89a9da4608fe767d9dc1cce7f58422f95e",
+  "physical_EA_sha256": "528e255c85f958f190d01a97508a7c5c1ee12f8f9e6c39cfa8349f5d01a56a6c",
   "source_sha256": {
     "hardware/wiring/installed/build.py": "ca22378cd710bfcc2786b6227d2bf3a48b267a7b7c06bf8e6e7e004620bdce0e",
     "hardware/wiring/installed/route-overrides.json": "bca2a98dbd7b3ae9efe38752b1c308dacc54e15dff2e63333da56eeba6fe58ab",
-    "hardware/manifold-layout/above-core.json": "3137993bfbe5d09cf4c2c353bb4a898b7fac5d4e3277d0595536e93d92b6d1e8"
+    "hardware/manifold-layout/above-core.json": "20897cf246a11956cd582b35dcbafb66860e2aeb2ce4b311692683dc95d79bd2"
   },
   "source_body_count": 120,
   "actual_body_count": 120,
@@ -8305,6 +8305,568 @@
   "graph_body_count": 120,
   "missing_routes": [],
   "extra_routes": [],
+  "native_source_cache": {
+    "path": "/Users/derekbredensteiner/Developer/hsm-approved-asse/.cache/final-wiring-source-cache.json",
+    "sha256": "6e55f542be22957867270467eeea9b0966b011200d59f9469ae49f81718edf60",
+    "proofs": {
+      "source_readback_binding_sha256": "b9062c57fb5c0ebe2a4507dc44611bb1ace0862831bdeef383a9a1d03be783bb",
+      "source_body_count": 120,
+      "all_native_shapes_bound": true,
+      "all_readback_bodies_valid": true,
+      "maximum_source_volume_delta_mm3": 8.857114153215662e-09
+    },
+    "generator_sha256": {
+      "hardware/wiring/installed/build.py": "ca22378cd710bfcc2786b6227d2bf3a48b267a7b7c06bf8e6e7e004620bdce0e",
+      "hardware/wiring/installed/retainers.py": "22b3f474029f6d6349d3e2d5cb034e1b7ce403a86dc36f72dfb03d650a129932",
+      "hardware/wiring/installed/terminals.py": "973253b97eb37f506b06226d65d53d3d58185e0aa8e08ee6ba874ed6a031da2a",
+      "hardware/wiring/installed/step_merge.py": "9766a94b2b75fdb65342c5eb110dc7d68a15dbe8011b95dd6434b629921450db",
+      "hardware/wiring/installed/terminations.py": "ac7258f5e5eebe8b8841f32a83f968cfe18b9651db4d909a02ca822581c2d1b8",
+      "hardware/wiring/installed/bundles.py": "968255a2b5bd01ea25d1dcd0b50959af9e562e86c09aff97d12330944e1b3b0c",
+      "hardware/wiring/installed/connections.py": "38c89e4c69a171e929687fadca62ae5087ceed9a85f10057519308ca205e57d8",
+      "hardware/wiring/installed/__init__.py": "ee1b685fb501666211eee4964ae86bb12c9ff7d6ffb75a7410ee0ad4117e3e10",
+      "hardware/wiring/installed/review.py": "a0eba9772222eac4d7fd70403c932d521d38d153622b76a360746ef0c3d2fe5d",
+      "hardware/wiring/installed/manifold_bank_routes.py": "a6721e4a66c4cb733b076b1353ffebbd02a3cbf839cc46f088bb709420dafa5f",
+      "hardware/wiring/installed/model.py": "a954302077080e94d31828a38506a9bd411d13f018243b47c5523b448859d1a1",
+      "hardware/wiring/installed/route_search.py": "9254a447973a003f0d86c92aad62923bdc8fd93b0013849840ac8670774207cc",
+      "hardware/wiring/installed/export_connector_map.py": "6c29e596b3b4284f81ab45a22f06dba4925a00c077b538585a9f4c297bd5ba50",
+      "hardware/wiring/installed/draw.py": "8bb5846471530e8284763470c1b0775e5b5dc875443d2af7cce2717801a9b095",
+      "hardware/wiring/installed/routes.py": "0e7962a671dda7515c8efb3a7edecf6fd96017c921d8bcd540f6d9c076686050"
+    },
+    "body_sha256": {
+      "wire-AC1-L": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "wire-AC1-N": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "wire-AC1-PE": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "wire-AC2-L": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "wire-AC2-N": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "wire-AC3-L": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "wire-AC4-pigtail": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "wire-AC4-H": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "wire-AC4-fuse": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "wire-AC5-pigtail": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "wire-AC5-N": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "wire-AC6-PE": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "wire-PE-bus": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "wire-PE-carbonator": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "wire-DC1-V12": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "wire-DC4-V12": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "wire-DC1-GND": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "wire-DC4-GND": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "wire-DC2-V12": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "wire-DC3-pigtail": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "wire-DC3-positive": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "wire-DC3-negative": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "wire-J1-COM": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "wire-J1-OUT1": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "wire-J1-positive-A": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "wire-J1-OUT2": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "wire-J1-positive-B": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "wire-J1-OUT3": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "wire-J1-positive-C": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "wire-J1-OUT4": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "wire-J1-positive-D": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "wire-J1-OUT5": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "wire-J1-positive-E": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "wire-J1-OUT6": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "wire-J1-positive-F": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "wire-J1-OUT7": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "wire-J1-positive-G": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "wire-J1-OUT8": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "wire-J1-positive-H": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "wire-J2-COM": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "wire-J2-OUT1": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "wire-J2-positive-I": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "wire-J2-OUT2": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "wire-J2-positive-J": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "wire-J2-FAN": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "wire-J2-positive-fan": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "wire-J2-OUT3": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "wire-J2-positive-K": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "wire-J13-AM2": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "wire-J13-AM1": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "wire-J13-BM2": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "wire-J13-BM1": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "wire-J3-V5": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "wire-J3-GND": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "wire-J3-IO35": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "wire-J3-IO33": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "wire-J4-3V3": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "wire-J4-IO26": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "wire-J4-V5": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "wire-J4-IO25": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "wire-J4-GND": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "wire-temp-GND": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "wire-flow-GND": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "wire-temp-bus-V": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "wire-temp-bus-DATA": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "wire-temp-bus-GND": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "wire-J5-V5": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "wire-relay-bus-V5": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "wire-J5-GND": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "wire-relay-bus-GND": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "wire-J5-IO19": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "wire-J5-IO2": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "wire-J6-GND": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "wire-J6-RA1": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "wire-J6-earth-1": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "wire-J6-RA2": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "wire-J6-earth-2": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "wire-J6-RA3": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "wire-J6-earth-3": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "wire-J6-RA4": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "wire-J7-GND": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "wire-J7-RB1": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "wire-J7-earth-1": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "wire-J7-RB2": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "wire-J7-earth-2": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "wire-J7-RB3": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "wire-J7-earth-3": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "wire-J7-RB4": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "wire-J7-earth-4": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "wire-J7-CLO": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "wire-J7-carb-earth-1": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "wire-J7-CHI": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "wire-J7-carb-earth-2": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "wire-J9-B": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "wire-J9-A": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "wire-J9-GND": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "wire-J9-V12": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "wire-J11-V5": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "wire-J11-GND": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "wire-J11-DOUT": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "wire-J11-AOUT": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "wiring-junction-compressor-h": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "wiring-junction-compressor-n": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "wiring-junction-pump-positive": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "terminal-carbonator-pe": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "terminal-J1": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "terminal-J2": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "terminal-J3": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "terminal-J4": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "terminal-J5": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "terminal-J6": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "terminal-J7": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "terminal-J9": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "terminal-J11": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "terminal-J13": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "terminal-fuse-in-lead": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "terminal-fuse-in-splice": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "terminal-fuse-out-lead": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "terminal-fuse-out-splice": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+      "terminal-compressor-cord-jacket": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855"
+    },
+    "source_curve_comparisons": {
+      "AC1-L": {
+        "numeric_count_equal": true,
+        "maximum_numeric_delta_mm": 0.0
+      },
+      "AC1-N": {
+        "numeric_count_equal": true,
+        "maximum_numeric_delta_mm": 0.0
+      },
+      "AC1-PE": {
+        "numeric_count_equal": true,
+        "maximum_numeric_delta_mm": 0.0
+      },
+      "AC2-L": {
+        "numeric_count_equal": true,
+        "maximum_numeric_delta_mm": 0.0
+      },
+      "AC2-N": {
+        "numeric_count_equal": true,
+        "maximum_numeric_delta_mm": 0.0
+      },
+      "AC3-L": {
+        "numeric_count_equal": true,
+        "maximum_numeric_delta_mm": 0.0
+      },
+      "AC4-pigtail": {
+        "numeric_count_equal": true,
+        "maximum_numeric_delta_mm": 0.0
+      },
+      "AC4-H": {
+        "numeric_count_equal": true,
+        "maximum_numeric_delta_mm": 0.0
+      },
+      "AC4-fuse": {
+        "numeric_count_equal": true,
+        "maximum_numeric_delta_mm": 0.0
+      },
+      "AC5-pigtail": {
+        "numeric_count_equal": true,
+        "maximum_numeric_delta_mm": 0.0
+      },
+      "AC5-N": {
+        "numeric_count_equal": true,
+        "maximum_numeric_delta_mm": 0.0
+      },
+      "AC6-PE": {
+        "numeric_count_equal": true,
+        "maximum_numeric_delta_mm": 0.0
+      },
+      "PE-bus": {
+        "numeric_count_equal": true,
+        "maximum_numeric_delta_mm": 0.0
+      },
+      "PE-carbonator": {
+        "numeric_count_equal": true,
+        "maximum_numeric_delta_mm": 0.0
+      },
+      "DC1-V12": {
+        "numeric_count_equal": true,
+        "maximum_numeric_delta_mm": 0.0
+      },
+      "DC4-V12": {
+        "numeric_count_equal": true,
+        "maximum_numeric_delta_mm": 0.0
+      },
+      "DC1-GND": {
+        "numeric_count_equal": true,
+        "maximum_numeric_delta_mm": 0.0
+      },
+      "DC4-GND": {
+        "numeric_count_equal": true,
+        "maximum_numeric_delta_mm": 0.0
+      },
+      "DC2-V12": {
+        "numeric_count_equal": true,
+        "maximum_numeric_delta_mm": 0.0
+      },
+      "DC3-pigtail": {
+        "numeric_count_equal": true,
+        "maximum_numeric_delta_mm": 0.0
+      },
+      "DC3-positive": {
+        "numeric_count_equal": true,
+        "maximum_numeric_delta_mm": 0.0
+      },
+      "DC3-negative": {
+        "numeric_count_equal": true,
+        "maximum_numeric_delta_mm": 0.0
+      },
+      "J1-COM": {
+        "numeric_count_equal": true,
+        "maximum_numeric_delta_mm": 0.0
+      },
+      "J1-OUT1": {
+        "numeric_count_equal": true,
+        "maximum_numeric_delta_mm": 0.0
+      },
+      "J1-positive-A": {
+        "numeric_count_equal": true,
+        "maximum_numeric_delta_mm": 0.0
+      },
+      "J1-OUT2": {
+        "numeric_count_equal": true,
+        "maximum_numeric_delta_mm": 0.0
+      },
+      "J1-positive-B": {
+        "numeric_count_equal": true,
+        "maximum_numeric_delta_mm": 0.0
+      },
+      "J1-OUT3": {
+        "numeric_count_equal": true,
+        "maximum_numeric_delta_mm": 0.0
+      },
+      "J1-positive-C": {
+        "numeric_count_equal": true,
+        "maximum_numeric_delta_mm": 0.0
+      },
+      "J1-OUT4": {
+        "numeric_count_equal": true,
+        "maximum_numeric_delta_mm": 0.0
+      },
+      "J1-positive-D": {
+        "numeric_count_equal": true,
+        "maximum_numeric_delta_mm": 0.0
+      },
+      "J1-OUT5": {
+        "numeric_count_equal": true,
+        "maximum_numeric_delta_mm": 0.0
+      },
+      "J1-positive-E": {
+        "numeric_count_equal": true,
+        "maximum_numeric_delta_mm": 0.0
+      },
+      "J1-OUT6": {
+        "numeric_count_equal": true,
+        "maximum_numeric_delta_mm": 0.0
+      },
+      "J1-positive-F": {
+        "numeric_count_equal": true,
+        "maximum_numeric_delta_mm": 0.0
+      },
+      "J1-OUT7": {
+        "numeric_count_equal": true,
+        "maximum_numeric_delta_mm": 0.0
+      },
+      "J1-positive-G": {
+        "numeric_count_equal": true,
+        "maximum_numeric_delta_mm": 0.0
+      },
+      "J1-OUT8": {
+        "numeric_count_equal": true,
+        "maximum_numeric_delta_mm": 0.0
+      },
+      "J1-positive-H": {
+        "numeric_count_equal": true,
+        "maximum_numeric_delta_mm": 0.0
+      },
+      "J2-COM": {
+        "numeric_count_equal": true,
+        "maximum_numeric_delta_mm": 0.0
+      },
+      "J2-OUT1": {
+        "numeric_count_equal": true,
+        "maximum_numeric_delta_mm": 0.0
+      },
+      "J2-positive-I": {
+        "numeric_count_equal": true,
+        "maximum_numeric_delta_mm": 0.0
+      },
+      "J2-OUT2": {
+        "numeric_count_equal": true,
+        "maximum_numeric_delta_mm": 0.0
+      },
+      "J2-positive-J": {
+        "numeric_count_equal": true,
+        "maximum_numeric_delta_mm": 0.0
+      },
+      "J2-FAN": {
+        "numeric_count_equal": true,
+        "maximum_numeric_delta_mm": 0.0
+      },
+      "J2-positive-fan": {
+        "numeric_count_equal": true,
+        "maximum_numeric_delta_mm": 0.0
+      },
+      "J2-OUT3": {
+        "numeric_count_equal": true,
+        "maximum_numeric_delta_mm": 0.0
+      },
+      "J2-positive-K": {
+        "numeric_count_equal": true,
+        "maximum_numeric_delta_mm": 0.0
+      },
+      "J13-AM2": {
+        "numeric_count_equal": true,
+        "maximum_numeric_delta_mm": 0.0
+      },
+      "J13-AM1": {
+        "numeric_count_equal": true,
+        "maximum_numeric_delta_mm": 0.0
+      },
+      "J13-BM2": {
+        "numeric_count_equal": true,
+        "maximum_numeric_delta_mm": 0.0
+      },
+      "J13-BM1": {
+        "numeric_count_equal": true,
+        "maximum_numeric_delta_mm": 0.0
+      },
+      "J3-V5": {
+        "numeric_count_equal": true,
+        "maximum_numeric_delta_mm": 0.0
+      },
+      "J3-GND": {
+        "numeric_count_equal": true,
+        "maximum_numeric_delta_mm": 0.0
+      },
+      "J3-IO35": {
+        "numeric_count_equal": true,
+        "maximum_numeric_delta_mm": 0.0
+      },
+      "J3-IO33": {
+        "numeric_count_equal": true,
+        "maximum_numeric_delta_mm": 0.0
+      },
+      "J4-3V3": {
+        "numeric_count_equal": true,
+        "maximum_numeric_delta_mm": 0.0
+      },
+      "J4-IO26": {
+        "numeric_count_equal": true,
+        "maximum_numeric_delta_mm": 0.0
+      },
+      "J4-V5": {
+        "numeric_count_equal": true,
+        "maximum_numeric_delta_mm": 0.0
+      },
+      "J4-IO25": {
+        "numeric_count_equal": true,
+        "maximum_numeric_delta_mm": 0.0
+      },
+      "J4-GND": {
+        "numeric_count_equal": true,
+        "maximum_numeric_delta_mm": 0.0
+      },
+      "temp-GND": {
+        "numeric_count_equal": true,
+        "maximum_numeric_delta_mm": 0.0
+      },
+      "flow-GND": {
+        "numeric_count_equal": true,
+        "maximum_numeric_delta_mm": 0.0
+      },
+      "temp-bus-V": {
+        "numeric_count_equal": true,
+        "maximum_numeric_delta_mm": 0.0
+      },
+      "temp-bus-DATA": {
+        "numeric_count_equal": true,
+        "maximum_numeric_delta_mm": 0.0
+      },
+      "temp-bus-GND": {
+        "numeric_count_equal": true,
+        "maximum_numeric_delta_mm": 0.0
+      },
+      "J5-V5": {
+        "numeric_count_equal": true,
+        "maximum_numeric_delta_mm": 0.0
+      },
+      "relay-bus-V5": {
+        "numeric_count_equal": true,
+        "maximum_numeric_delta_mm": 0.0
+      },
+      "J5-GND": {
+        "numeric_count_equal": true,
+        "maximum_numeric_delta_mm": 0.0
+      },
+      "relay-bus-GND": {
+        "numeric_count_equal": true,
+        "maximum_numeric_delta_mm": 0.0
+      },
+      "J5-IO19": {
+        "numeric_count_equal": true,
+        "maximum_numeric_delta_mm": 0.0
+      },
+      "J5-IO2": {
+        "numeric_count_equal": true,
+        "maximum_numeric_delta_mm": 0.0
+      },
+      "J6-GND": {
+        "numeric_count_equal": true,
+        "maximum_numeric_delta_mm": 0.0
+      },
+      "J6-RA1": {
+        "numeric_count_equal": true,
+        "maximum_numeric_delta_mm": 0.0
+      },
+      "J6-earth-1": {
+        "numeric_count_equal": true,
+        "maximum_numeric_delta_mm": 0.0
+      },
+      "J6-RA2": {
+        "numeric_count_equal": true,
+        "maximum_numeric_delta_mm": 0.0
+      },
+      "J6-earth-2": {
+        "numeric_count_equal": true,
+        "maximum_numeric_delta_mm": 0.0
+      },
+      "J6-RA3": {
+        "numeric_count_equal": true,
+        "maximum_numeric_delta_mm": 0.0
+      },
+      "J6-earth-3": {
+        "numeric_count_equal": true,
+        "maximum_numeric_delta_mm": 0.0
+      },
+      "J6-RA4": {
+        "numeric_count_equal": true,
+        "maximum_numeric_delta_mm": 0.0
+      },
+      "J7-GND": {
+        "numeric_count_equal": true,
+        "maximum_numeric_delta_mm": 0.0
+      },
+      "J7-RB1": {
+        "numeric_count_equal": true,
+        "maximum_numeric_delta_mm": 0.0
+      },
+      "J7-earth-1": {
+        "numeric_count_equal": true,
+        "maximum_numeric_delta_mm": 0.0
+      },
+      "J7-RB2": {
+        "numeric_count_equal": true,
+        "maximum_numeric_delta_mm": 0.0
+      },
+      "J7-earth-2": {
+        "numeric_count_equal": true,
+        "maximum_numeric_delta_mm": 0.0
+      },
+      "J7-RB3": {
+        "numeric_count_equal": true,
+        "maximum_numeric_delta_mm": 0.0
+      },
+      "J7-earth-3": {
+        "numeric_count_equal": true,
+        "maximum_numeric_delta_mm": 0.0
+      },
+      "J7-RB4": {
+        "numeric_count_equal": true,
+        "maximum_numeric_delta_mm": 0.0
+      },
+      "J7-earth-4": {
+        "numeric_count_equal": true,
+        "maximum_numeric_delta_mm": 0.0
+      },
+      "J7-CLO": {
+        "numeric_count_equal": true,
+        "maximum_numeric_delta_mm": 0.0
+      },
+      "J7-carb-earth-1": {
+        "numeric_count_equal": true,
+        "maximum_numeric_delta_mm": 0.0
+      },
+      "J7-CHI": {
+        "numeric_count_equal": true,
+        "maximum_numeric_delta_mm": 0.0
+      },
+      "J7-carb-earth-2": {
+        "numeric_count_equal": true,
+        "maximum_numeric_delta_mm": 0.0
+      },
+      "J9-B": {
+        "numeric_count_equal": true,
+        "maximum_numeric_delta_mm": 0.0
+      },
+      "J9-A": {
+        "numeric_count_equal": true,
+        "maximum_numeric_delta_mm": 0.0
+      },
+      "J9-GND": {
+        "numeric_count_equal": true,
+        "maximum_numeric_delta_mm": 0.0
+      },
+      "J9-V12": {
+        "numeric_count_equal": true,
+        "maximum_numeric_delta_mm": 0.0
+      },
+      "J11-V5": {
+        "numeric_count_equal": true,
+        "maximum_numeric_delta_mm": 0.0
+      },
+      "J11-GND": {
+        "numeric_count_equal": true,
+        "maximum_numeric_delta_mm": 0.0
+      },
+      "J11-DOUT": {
+        "numeric_count_equal": true,
+        "maximum_numeric_delta_mm": 0.0
+      },
+      "J11-AOUT": {
+        "numeric_count_equal": true,
+        "maximum_numeric_delta_mm": 0.0
+      }
+    },
+    "termination_metadata_maximum_delta_mm": 0.0,
+    "jacket_geometry_maximum_delta_mm": {
+      "compressor-cord": 0.0
+    },
+    "errors": [],
+    "scope": "Reuse unchanged native source solids only after matching current source curves, termination records and jacket geometry. All actual STEP wiring bodies are read back in this command."
+  },
   "source_curve_comparisons": {
     "AC1-L": {
       "numeric_count_equal": true,
