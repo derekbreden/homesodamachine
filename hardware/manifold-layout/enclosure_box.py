@@ -10,6 +10,11 @@ _ROOT = next(p for p in _HERE.parents if (p / "hardware" / "scripts").is_dir())
 sys.path.insert(0, str(_ROOT / "hardware" / "scripts"))
 sys.path.insert(0, str(_ROOT / "hardware" / "printed-parts" / "enclosure" / "enclosure"))
 
+# Run as a script, the box stands the machine on the mesh kernel (`hardware/scripts/meshcad`).
+if __name__ == "__main__":
+    import meshcad  # noqa: E402
+    meshcad.activate()
+
 import _box_spec  # noqa: E402
 import enclosure as _enc  # noqa: E402
 import enclosure_assembly as _assembly  # noqa: E402

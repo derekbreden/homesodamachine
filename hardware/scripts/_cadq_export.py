@@ -950,9 +950,10 @@ def export_step(model, target_path):
 # --- On the mesh kernel --------------------------------------------------------
 #
 # A generator run on the mesh kernel (`meshcad/run.py`) holds triangles, not a B-rep, so a
-# STEP target is written as what the kernel has: `<name>.step.npz`, the model every
-# mesh-kernel `importStep` of `<name>.step` reads back with its face records, and the
-# `.step.mesh` payload the page draws. The payload of a piece with an `.stl` beside it stays
+# STEP target is written as what the kernel has: the STEP itself as triangles
+# (`write.write_step`), named and coloured as `export_assembly` names and colours it;
+# `<name>.step.npz`, the model every mesh-kernel `importStep` of `<name>.step` reads back with
+# its face records; and the `.step.mesh` payload the page draws. The payload of a piece with an `.stl` beside it stays
 # its flute cutter's, as above.
 
 
@@ -984,6 +985,9 @@ def _export_mesh(bodies, target_path):
     colors = [rgb for _, shape, rgb in bodies
               for _ in (shape.vals() if hasattr(shape, "vals") else [shape])]
     model = target.with_name(target.name + ".npz")
+    stem = target.name.split(".")[0]
+    _atomic_write(target, lambda p: mw.write_step(
+        [(n or stem, s, c) for n, s, c in zip(names, solids, colors)], p))
     _atomic_write(model, lambda p: mw.write_model(solids, p, names, colors))
     if target.with_suffix(".stl").is_file() or os.environ.get("HSM_SKIP_MESH_PAYLOAD"):
         return
