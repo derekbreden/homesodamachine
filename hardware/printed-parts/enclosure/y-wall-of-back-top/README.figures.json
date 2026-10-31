@@ -1,7 +1,7 @@
 {
   "/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py": {
-    "GRID_BOTTOM_Z": "274.376",
-    "GRID_MIDDLE_Z": "306.376",
-    "GRID_TOP_Z": "338.376"
+    "GRID_BOTTOM_Z": "264.000",
+    "GRID_MIDDLE_Z": "296.000",
+    "GRID_TOP_Z": "328.000"
   }
 }

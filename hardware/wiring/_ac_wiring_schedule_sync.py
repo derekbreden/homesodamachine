@@ -109,14 +109,14 @@ solenoid_count = 10
 
 # ─── Run-length design targets ────────────────────────────────────────
 # All values mm except where noted.
-len_short_mm = 150      # AC-3: 60 mm modeled centreline plus termination/dressing reserve.
-len_short_2_mm = 200    # AC-2: 85 mm maximum modeled centreline plus fitting reserve.
-len_dc1_mm = 350        # PSU secondary → core DC WAGOs: 283.293 mm modeled maximum; 66.707 mm reserve.
-len_dc2_mm = 350        # Core V12 WAGO → relay 2: 244 mm plus reserve.
+len_short_mm = 150  # AC-3, including termination and dressing reserve.
+len_short_2_mm = 200  # AC-2, including termination and dressing reserve.
+len_dc1_mm = 350  # PSU secondary to the core DC WAGOs, including fitting reserve.
+len_dc2_mm = 350  # Core V12 WAGO to relay 2, including fitting reserve.
 len_mid_mm = 150        # AC-1 (C14 → distribution block, over the foam-cap top), DC-4
-len_pump_mm = 350       # DC-3: 253.272 mm maximum modeled centreline plus fitting reserve.
-len_earth_bus_mm = 400  # Rear PE WAGO → lid stack: 295.531 mm modeled path; 104.469 mm reserve.
-len_earth_carbonator_mm = 500  # Lid stack → unlocated carbonator bond: 423.501 mm modeled path; 76.499 mm reserve.
+len_pump_mm = 350  # Pump negative to core GND, including fitting reserve.
+len_earth_bus_mm = 400  # Rear PE WAGO to rear-wall ring stack, including fitting reserve.
+len_earth_carbonator_mm = 500  # Rear-wall stack to carbonator bond, including fitting reserve.
 
 # ─── Loom bench cut lengths ───────────────────────────────────────────
 # Manifold cuts use the authored native-clear wire paths in the junction review,
@@ -127,28 +127,28 @@ len_earth_carbonator_mm = 500  # Lid stack → unlocated carbonator bond: 423.50
 # The installed graph supplies continuous-path sums for the revised commons
 # and power leads. Bench cuts include fitting reserve and are trimmed in place;
 # native centreline lengths do not qualify physical harness fit.
-len_relays_mm = 350      # J5 → west-wall relays through the ribbon clip: 279 mm modeled maximum plus fitting reserve.
-len_vk_mm = 350          # DC-9 OUT3 → V-K: 277.762 mm modeled path plus termination/dressing reserve.
-len_man_a_com_mm = 300   # J1 COM → upper front-top 221-420, with board escape and dressing reserve
-len_man_b_com_mm = 300   # J2 COM → lower front-top 221-415, independently of the valve OUT cuts
-len_flow_mm = 300        # SIG-4 → the DIGITEN in the strip ahead of the cold core (256)
+len_relays_mm = 350  # J5 and the two west-wall relays, including the local shared-rail continuations.
+len_vk_mm = 350  # J2 OUT3 to V-K, including fitting reserve.
+len_man_a_com_mm = 350   # J1 COM → upper front-top 221-420, with board escape and dressing reserve
+len_man_b_com_mm = 350   # J2 COM → lower front-top 221-415, independently of the valve OUT cuts
+len_flow_mm = 300  # DIGITEN signals and common, including termination and dressing reserve.
 len_onewire_mm = 650     # Temperature bus: 580 mm longest continuous common plus reserve.
 len_sensors_gnd_mm = 300 # SIG-1/4/9's shared `GND` → the 221-415 on the −X wall aft (284)
 len_reeds_gnd_mm = 300   # SIG-10/11's `GND` → the 221-415 / 221-420 at the reservoirs (274–278)
-len_man_a_mm = 550       # DC-6 OUT1–OUT8 → eight coils; checked H free-wire path 505.369 mm
+len_man_a_mm = 600       # DC-6 OUT1–OUT8 → eight coils, with termination and dressing reserve
 len_moisture_mm = 350    # SIG-9 → the dry LM393 board by the pan's −X-wall cable clip (304)
-len_carb_reeds_mm = 500  # Carbonator reeds: 406 mm maximum modeled path plus reserve.
-len_man_b_mm = 550       # DC-7 OUT1/OUT2 → V-I/V-J; checked I free-wire path 480.455 mm
-len_man_a_fanout_mm = 450  # 221-420 → eight coil positives; V-A's 328 mm path plus termination/dressing reserve
+len_carb_reeds_mm = 650  # Carbonator reeds and continuous common, including the west-aisle transfer and fitting reserve.
+len_man_b_mm = 550       # DC-7 OUT1/OUT2 to V-I/V-J, including fitting reserve.
+len_man_a_fanout_mm = 450  # 221-420 to eight coil positives, including termination and dressing reserve.
 len_man_b_fanout_mm = 450  # Lower front-top 221-415 → I, J, V-K and the condenser-crown lead approach
 len_pump_fixed_mm = 500  # DC-5, J13 → motor tabs through the common electrical passage, with reach to wire loose pumps before underside installation
 len_front_face_mm = 400  # SIG-7 → the 4.3B through the shared electrical passage, with termination and dressing reserve
 len_faucet_inboard_mm = 400  # J3 → rear-wall SIG-6 keystone, with termination/dressing reserve.
-len_reeds_b_mm = 500     # Reservoir B: 401 mm continuous common plus fitting reserve.
+len_reeds_b_mm = 500     # Reservoir B, including its continuous common and fitting reserve.
 len_fan_mm = 650         # J2 FAN → condenser-crown approach (~543 mm), plus donor-lead reserve
-len_reeds_a_mm = 600     # Reservoir A: 512 mm continuous common plus fitting reserve.
+len_reeds_a_mm = 650     # Reservoir A: continuous common through the west hook and aft pump-foot crossing, plus fitting reserve.
 len_gas_mm = 600         # SIG-12 → MQ-6 on front-bottom, including dressing reserve
-len_compressor_mm = 700  # Hot stock: 606.306 mm main + 36.777 mm fuse continuation; 56.918 mm nominal termination/dressing reserve. Separate pieces; trim after routing.
+len_compressor_mm = 700  # Three-core SJOOW from the final joins to the donor, with hot/fuse continuation and fitting reserve.
 # Back-top pigtails to the three lever-nut joins under the funnel opening: relay 1 NO
 # and WAGO-N (AC-4/AC-5, 16 AWG solid) and relay 2 NO (DC-3, 16 AWG stranded), each
 # about 165-200 mm straight from its terminal to the opening's aft edge; the pump-side

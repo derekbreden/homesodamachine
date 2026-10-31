@@ -1270,12 +1270,11 @@ _COND_UNPRINTED = "NOT PRINTED — no piece owns this station"
 # bracket off the +Y wall of back-top over the aft edge of its cap. The stations below are the planes
 # those two are struck on, read off the placed core.
 #
-# The west bracket stands between the PSU and rear jack, its east face on the plane of the jack
-# pocket's west wall, so the jack's body passes it at the pocket's own fit. The east bracket
-# stands three millimetres west of the wet-field recess. Both turn over the
-# same plain aft cap crown, with full-height roots on the unrecessed rear wall.
+# Two aft cap-crown lanes carry the core hold-downs. The west foot stays
+# clear of the reservoir-A cable guide; the east foot stands west of the wet
+# recess. Both keep their full-height roots on the unrecessed rear wall.
 KEYSTONE_FACE = _above.specification()['rear_wall']['dry_openings']['keystone']['face_center_mm']
-CORE_HOLD_LANES = ((-43.6, KEYSTONE_FACE[0] - _enc.keystone_pocket_width() / 2.0), (12.0, 21.0))
+CORE_HOLD_LANES = ((-43.6, -37.5), (12.0, 21.0))
 
 
 def core_stops(foam) -> tuple:

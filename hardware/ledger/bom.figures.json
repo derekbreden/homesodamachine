@@ -24,7 +24,7 @@
     "FLAT_WASHERS_9": "5",
     "FLAT_WASHERS_9_COST": "$0.23",
     "FLAVOR_4MM_COST": "$2.09",
-    "FLAVOR_4MM_FT": "16.08",
+    "FLAVOR_4MM_FT": "16.09",
     "FLAVOR_CUT": "1963",
     "FLOOR_INSERTS": "4",
     "FLOOR_SCREWS": "4",
@@ -71,7 +71,6 @@
     "PP0308E_COST": "$4.57",
     "PP0308E_TOTAL": "2",
     "PP1208E_PANEL": "1",
-    "PP1208E_TOTAL": "1",
     "PRV_VENT_MM": "25 mm",
     "PUMP_MOUNT_SCREWS": "4",
     "PUMP_TUBE_CUT": "33.2 mm",
@@ -128,20 +127,20 @@
     "WASHER_MAX_OD": "29"
   },
   "/hardware/scripts/_bom_totals.py": {
-    "BOM_GRAND": "$1,460.00",
+    "BOM_GRAND": "$1,433.51",
     "BOM_SEC1": "$175.03",
-    "BOM_SEC11": "$35.21",
+    "BOM_SEC11": "$34.63",
     "BOM_SEC12": "$29.78",
-    "BOM_SEC13": "$17.39",
+    "BOM_SEC13": "$20.13",
     "BOM_SEC14": "$4.29",
     "BOM_SEC15": "$25.14",
     "BOM_SEC2": "$180.13",
-    "BOM_SEC3": "$178.09",
-    "BOM_SEC4": "$145.61",
+    "BOM_SEC3": "$169.43",
+    "BOM_SEC4": "$133.11",
     "BOM_SEC5": "$143.06",
     "BOM_SEC6": "$18.64",
-    "BOM_SEC7": "$160.00",
-    "BOM_SEC8": "$268.99",
-    "BOM_SEC9": "$78.64"
+    "BOM_SEC7": "$161.25",
+    "BOM_SEC8": "$260.32",
+    "BOM_SEC9": "$78.57"
   }
 }

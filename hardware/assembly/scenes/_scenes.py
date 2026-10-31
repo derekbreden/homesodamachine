@@ -73,6 +73,7 @@ BACK_TOP_INLET_HEADER = (
 # These production names map the mounting-parent groups in the accepted
 # funnel-gate assembly-ownership record, with the purchased check references.
 BACK_TOP_CARRIED_COMPONENTS = (
+    "ground-stack", "ground-stack-insert",
     "valve-v-a", "vk-solenoid", "psu", "relay-1", "relay-2", "c14-inlet", "keystone-jack",
     "asse1022-assembly", "bulkhead-water", "gagira-coupling", "jg-pi4512f6s", "jg-pp061208w",
     "asse-drain-adapter", "water-split", "flow-regulator", "reg-va-elbow", "va-outlet-elbow",
@@ -217,7 +218,7 @@ SCENES = (
              "looks up and the Y-seam mouth faces the room — the +X wall is seen from where a "
              "hand reaches it. The soda outlet fittings and both rear bulkheads "
              "ride with this piece, together with the meter, its inlet holder and foam, "
-             "the concealed outlet tube and the wall-mounted PSU. "
+             "the concealed outlet tube and the ceiling-mounted PSU. "
              "V-A, V-K, the split tee, regulator and "
              "three header links belong to this back-top assembly. The tray's sleeve stands empty.",
     ),

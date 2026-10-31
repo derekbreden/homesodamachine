@@ -40,14 +40,14 @@ def rear_level_hook_site():
     return {
         'id': 'reservoir-a-levels',
         'host': 'foam-cap-lid-top',
-        'origin': (-58.6, 388., 253.4),
+        'origin': (-78., 424., 253.4),
         'seat_depth': 2.2,
         'seat_height': 9.6,
         'span': 16.,
         'stock': 3.,
         'beak': .75,
         'target_centers': {
-            wire: (-54.5, 388., 257.5+i*1.85)
+            wire: (-73.9, 424., 257.5+i*1.85)
             for i, wire in enumerate(wires)
         },
         'stock_basis': 'Five nominal 1.70 mm insulated 22 AWG leads on 1.85 mm pitch.',
@@ -153,6 +153,8 @@ def cable_sites():
 
 def dress_guides(connection, guides, attachments, saved):
     """Dress retained cable groups without moving their terminals."""
+    if saved.get('preserve_stations') and 'stations' in saved:
+        return guides
     from .manifold_bank_routes import dress_manifold_bank_guides
     bank_guides = dress_manifold_bank_guides(connection, guides, attachments, saved)
     if bank_guides is not None:
@@ -163,28 +165,12 @@ def dress_guides(connection, guides, attachments, saved):
         return guides
     x, _y, z = target
     if connection.id.startswith('J5-'):
-        # The retained web follows the connector's order through the wall
-        # lane. At its aft end the four peeled leads rise ahead of the
-        # existing flank furniture, then cross inboard above V-A to the
-        # front faces of the relays. No conductor changes places in the web.
-        start = attachments.terminals[connection.start].point
-        end = attachments.terminals[connection.end].point
-        inner_x = -73.5
-        lanes = {
-            'J5-GND': (-97.4, 277.4, 336., 350.),
-            'J5-V5': (-90.4, 277.4, 333., 347.),
-            'J5-IO2': (-97.4, 279.3, 334., 356.),
-            'J5-IO19': (-84.5, 279., 338., 353.),
-        }
-        lane_x, rise_y, high_z, cross_y = lanes[connection.id]
-        entry = [(-88.5, start[1], z-4.), (x, 256.5, z)]
-        if connection.id == 'J5-IO19':
-            entry.extend([(x, 277., z), (lane_x, 277., z)])
-        elif lane_x != x:
-            entry.append((x, rise_y-.5, z))
-        return [*entry, (lane_x, rise_y, z), (lane_x, rise_y, high_z),
-                (lane_x, cross_y, high_z), (inner_x, cross_y, high_z),
-                (inner_x, cross_y, end[2]), (inner_x, end[1], end[2])]
+        # The four leads share the west-wall hook and pass below V-A.
+        start=attachments.terminals[connection.start].point
+        end=attachments.terminals[connection.end].point
+        return [(-88.5,start[1],z-4.),(x,256.5,z),
+                (x,357.,z),(-72.,357.,z),(-72.,end[1],z),
+                (-72.,end[1],end[2])]
     if connection.id == 'J2-positive-K':
         # Extend the existing horizontal leg toward the fore side of its
         # corner. The short hook ends before the owner's internal stock.

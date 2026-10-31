@@ -15,24 +15,24 @@ customer's connections. Both columns use 32 mm vertical pitch.
 
 | Row / Z | West / X37.25 | East / X77.5 |
 |---|---|---|
-| [338.376](GRID_TOP_Z) | TAP: PP1208E, white 1/4-inch inlet | CO2: neoFit ABU44-E, red 1/4-inch inlet |
-| [306.376](GRID_MIDDLE_Z) | OVER: ABU44M-E, white 4 mm vent | SODA: PP1208E, blue 1/4-inch outlet |
-| [274.376](GRID_BOTTOM_Z) | FLAVOR: ABU44M-E, black 4 mm B outlet | FLAVOR: ABU44M-E, black 4 mm A outlet |
+| [328.000](GRID_TOP_Z) | TAP: PP010822E threaded inlet chain, white 1/4-inch | CO2: PISCO inlet neck, red 1/4-inch |
+| [296.000](GRID_MIDDLE_Z) | OVER: ABU44M-E, white 4 mm vent | SODA: PP1208E, blue 1/4-inch outlet |
+| [264.000](GRID_BOTTOM_Z) | FLAVOR: ABU44M-E, black 4 mm B outlet | FLAVOR: ABU44M-E, black 4 mm A outlet |
 
 The main rear wall is 9 mm stock. The fluid field retains a 6 mm clamping
-stack between Y465.3 and Y471.3. Each flush 2 mm identification chip replaces
-2 mm of that section, leaving 4 mm of printed wall behind it. Fitting flange,
-chip and wall are clamped by the fitting's own nut. The compact labels retain
-32 mm width, approximately 3.5 mm letter cap height, and the established tube
-colors. Their upper edges finish at Z355.
+stack between Y465.3 and Y471.3. Each 1.8 mm identification tile stands in a
+continuous side-rail channel at Y469.3–471.1, leaving 4 mm of printed wall
+behind it and 0.2 mm below the fitting flange. The 32 mm-wide tiles share a
+Z252 channel floor; the upper pair finish at Z355. TAP's bore follows the
+scanned adapter axis rather than the nominal tile centre.
 
-The water filter is upstream, on the customer's side of TAP. Inside, the white
-line reaches the bare Multiplex ASSE through its straight TPU inlet cuff.
-The outlet cuff receives the branch stem tee feeding V-K and the flavor-water
-regulator. CO2 reaches the compact PISCO secondary and downstream check.
-OVER is a dedicated atmospheric return from the ASSE vent, through the
-umbilical to its separate faucet outlet above the bowl. It is not joined to
-the soda or flavor paths. See [internal plumbing](/hardware/assembly/internal-plumbing.md)
+The water filter is upstream, on the customer's side of TAP. The threaded
+PP010822E–GAGIRA–ASSE–PI4512F6S–PP061208W chain feeds the raised stem tee,
+V-K and the flavor-water regulator. The ASSE vent points down into a TPU cup
+with an aft-facing 4 mm OVER socket. PISCO's own inlet neck crosses the rear
+wall; the ACVUS-44 check plugs directly into its outlet. OVER remains a
+dedicated atmospheric return through the umbilical to its separate faucet
+outlet above the bowl. See [internal plumbing](/hardware/assembly/internal-plumbing.md)
 and [ASSE drain assembly](/hardware/assembly/asse-drain.md).
 
 ## Dry connections and nameplate
@@ -44,7 +44,7 @@ flange countersink. The 3.25 mm flange/washer stack leaves 6.25 mm screw
 projection; the 7.25 mm pilot retains 1 mm nominal tip air and 3 mm backing.
 The C13 cord mates directly to the inlet's native rim and cavity.
 
-The RiteAV RJ11 6P4C receptacle is at X−30/Z274.376. Its native tang and latch
+The RiteAV RJ11 6P4C receptacle is at X−64/Z291.5. Its native tang and latch
 engage the printed catches; the internal SIG-6 loom connects to its IDC
 terminals. The RJ11 is the rectangular data connection, separate from the
 six fluid ports.

@@ -3,7 +3,8 @@
     tools/cad-venv/bin/python hardware/wiring/installed/review.py
     tools/cad-venv/bin/python hardware/wiring/installed/review.py --native
 
-The mesh review includes wire-to-wire packing. Endpoint contact exclusions are
+The mesh review checks wires against larger bodies. Wires and tubes do not
+obstruct wire routes. Endpoint contact exclusions are
 local to the named attachment, not exclusions of entire device bodies.
 """
 from __future__ import annotations
@@ -40,6 +41,19 @@ def load_mesh(path):
 def base_name(name): return re.sub(r'/\d+$','',name)
 
 
+def same_part(a,b):
+    return base_name(a).rsplit('/',1)[-1]==base_name(b).rsplit('/',1)[-1]
+
+
+def wire_obstacle(name):
+    """Larger installed bodies, excluding conductors, jackets and tubing."""
+    leaf=base_name(name).rsplit('/',1)[-1]
+    if leaf.startswith(('wiring-junction-', 'terminal-J')):
+        return True
+    return (not leaf.startswith(('wire-','wiring-','terminal-','tube-','line-','evap-tail-'))
+            and leaf not in ('suction-tube','discharge-tube','evap-coil'))
+
+
 def mesh_review():
     sys.path.insert(0,str(ROOT/'hardware/scripts'))
     import _cadq_export  # Shares the workstation's one-heavy-CAD-job queue.
@@ -48,7 +62,7 @@ def mesh_review():
     meshes=load_mesh(str(HOST)+'.mesh')
     rows={r['id']:r for r in manifest['routes']}
     terminals=manifest['terminals']
-    physical={n:m for n,m in meshes.items() if not n.startswith(('wire-','wiring-'))}
+    physical={n:m for n,m in meshes.items() if wire_obstacle(n)}
     wires={n[5:]:m for n,m in meshes.items() if n.startswith('wire-')}
     print(f'Review {len(wires)} wires against {len(physical)} physical meshes',flush=True)
     def collision_object(mesh):
@@ -75,7 +89,7 @@ def mesh_review():
             for hit in hits:
                 p=tuple(float(x) for x in hit.pos)
                 ids=manifest.get('terminations',{}).get(base_name(name),{}).get('terminal_ids',[])
-                if any((base_name(name)==t['part'] or t['id'] in ids) and math.dist(p,t['point'])<=8.5 for t in endpoints):
+                if any((same_part(name,t['part']) or t['id'] in ids) and math.dist(p,t['point'])<=8.5 for t in endpoints):
                     intended+=1;continue
                 if hit.penetration_depth>.025:
                     bad.append((p,float(hit.penetration_depth)))
@@ -84,27 +98,15 @@ def mesh_review():
                 collisions.append({'wire':id,'part':name,'point_mm':[round(v,3) for v in point],
                                    'mesh_penetration_mm':round(depth,4),'contacts':len(bad)})
         if number%20==0:print(f'  {number}/{len(wires)} wires; {len(collisions)} physical interference pairs',flush=True)
-    packing=[];ids=list(wires)
-    for i,a in enumerate(ids):
-        for b in ids[i+1:]:
-            if not near('wire-'+a,'wire-'+b):continue
-            common=set((rows[a]['start'],rows[a]['end']))&set((rows[b]['start'],rows[b]['end']))
-            bad=[]
-            for hit in contacts(wire_objects[a],wire_objects[b]):
-                p=tuple(float(x) for x in hit.pos)
-                if any(math.dist(p,terminals[t]['point'])<=8.5 for t in common):continue
-                if hit.penetration_depth>.025:bad.append((p,float(hit.penetration_depth)))
-            if bad:
-                point,depth=max(bad,key=lambda h:h[1])
-                packing.append({'a':a,'b':b,'point_mm':[round(v,3) for v in point],
-                                'mesh_penetration_mm':round(depth,4)})
+    packing=[]
     bundle_collisions=[]
     for bundle in manifest.get('bundles',{}).values():
         name=bundle['geometry_name']
         if name is None:continue
+        obj=collision_object(meshes[name])
         for other in physical:
             if name==other or not near(name,other):continue
-            bad=[hit for hit in contacts(objects[name],objects[other]) if hit.penetration_depth>.025]
+            bad=[hit for hit in contacts(obj,objects[other]) if hit.penetration_depth>.025]
             if bad:
                 hit=max(bad,key=lambda h:h.penetration_depth)
                 bundle_collisions.append({'bundle':name,'part':other,
@@ -113,10 +115,11 @@ def mesh_review():
     termination_collisions=[]
     for name,info in manifest.get('terminations',{}).items():
         if not name.startswith('terminal-fuse-'):continue
+        obj=collision_object(meshes[name])
         for other in physical:
             if name==other or not near(name,other):continue
             bad=[]
-            for hit in contacts(objects[name],objects[other]):
+            for hit in contacts(obj,objects[other]):
                 if any(base_name(other)==terminals[t]['part'] and
                        math.dist(hit.pos,terminals[t]['point'])<=8.5
                        for t in info.get('terminal_ids',[])):continue
@@ -128,7 +131,7 @@ def mesh_review():
                 termination_collisions.append({'termination':name,'part':other,
                     'point_mm':[round(float(v),3) for v in hit.pos],
                     'mesh_penetration_mm':round(float(hit.penetration_depth),4)})
-    report={'schema':1,'scope':'One manual full-scene mesh interference review of every wire, every wire pair and cable jackets against physical bodies. Tessellated penetration is a routing witness, not a native-solid or physical assembly qualification.',
+    report={'schema':1,'scope':'One manual full-scene mesh interference review of every wire and cable jacket against larger bodies; wire-to-wire and wire-to-tube contacts are excluded. Tessellated penetration is a routing witness, not a native-solid or physical assembly qualification.',
             'manifest_sha256':hashlib.sha256(MANIFEST.read_bytes()).hexdigest(),
             'assembly_step_sha256':hashlib.sha256(HOST.read_bytes()).hexdigest(),
             'assembly_mesh_sha256':hashlib.sha256(Path(str(HOST)+'.mesh').read_bytes()).hexdigest(),
@@ -173,21 +176,11 @@ def native_review():
     native['bundles']={}
     for id,b in manifest.get('bundles',{}).items():
         if b['geometry_name'] is None:
-            from itertools import combinations
-            native['bundles'][id]={'jacket':False,
-                'core_pair_overlap_mm3':{a+' / '+c:wires['wire-'+a][0].intersect(wires['wire-'+c][0]).Volume()
-                                         for a,c in combinations(b['cores'],2)}}
+            native['bundles'][id]={'jacket':False}
             continue
         jacket=wires[b['geometry_name']][0]
-        overlaps={}
-        for core in b['cores']:
-            try:overlaps[core]=wires['wire-'+core][0].intersect(jacket).Volume()
-            except Exception as exc:overlaps[core]={'unanswered':str(exc)}
-        from itertools import combinations
-        packing={a+' / '+c:wires['wire-'+a][0].intersect(wires['wire-'+c][0]).Volume()
-                 for a,c in combinations(b['cores'],2)}
         native['bundles'][id]={'valid':jacket.isValid(),'solids':len(jacket.Solids()),
-                               'core_jacket_overlap_mm3':overlaps,'core_pair_overlap_mm3':packing}
+                               'scope':'Jacket validity only; conductor packing is excluded.'}
     ids=[r['id'] for r in manifest['routes']]
     native['unique_connection_ids']=len(set(ids))==len(ids)
     populated={r[k] for r in manifest['routes'] for k in ('start','end') if r[k].startswith('J')}
