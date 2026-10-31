@@ -32,7 +32,9 @@ V-E, V-F, V-H and V-I stand fixed on their tray posts directly over the tees, bo
 
 ## Lower returns
 
-Each lower return joins a tee's lower collet ([Z164.924](DOCK_LOWER_PORT_Z)) to its rear valve's bottom collet with two NeoFit ATEU44W stem elbows and one straight tube of the machine's black 1/4" LLDPE. The tee's elbow has its stem cut to the run collet's seat, so its shoulder stands on the collet face and its axes cross [6.05 mm](DOCK_ELBOW_DROP) under it, at [Z158.879](DOCK_RETURN_Z). All four rear valves' bottom collets stand at [Z168.675](DOCK_RETURN_VALVE_Z), and each valve's elbow keeps [3.75 mm](DOCK_STEM_SHOWING) of stem below its collet, so it crosses at the same height. Each elbow's socket opens toward the other and the tube runs level between them: [20.1 mm](DOCK_RETURN_TUBE) exposed on the inner two, [20.69 mm](DOCK_OUTER_RETURN_TUBE) on the outer two, which lean inboard to V-G and V-J at [X±73.82](DOCK_OUTER_RETURN_X). The elbows' lowest surface is [Z151.132](DOCK_RETURN_FLOOR), [5.13 mm](DOCK_CONDENSER_AIR) over the condenser's top at the east-outer station. The tube bends nowhere.
+Each lower return joins a tee's lower collet ([Z174.924](DOCK_LOWER_PORT_Z)) to its rear valve's bottom collet with two NeoFit ATEU44W stem elbows and one continuous tube of the machine's black 1/4" LLDPE. Both elbow shoulders stand on their collet faces, with stems cut for full seating. The tee's elbow crosses [6.11 mm](DOCK_ELBOW_DROP) below its collet at [Z168.81](DOCK_RETURN_Z). The rear collets stand at [Z171.175](DOCK_RETURN_VALVE_Z), putting their sockets 3.749 mm lower. Two tangent arcs join the parallel socket mouths: R18.084 on the inner pair and R19.36 on the outer pair. Their exposed lengths are [16.61 mm](DOCK_RETURN_TUBE) and [17.18 mm](DOCK_OUTER_RETURN_TUBE). The outer pair also aims inboard toward V-G and V-J at [X±73.82](DOCK_OUTER_RETURN_X). The stem lengths are 11.65 mm in the tees and 12 mm in the valves; verify the actual fully seated marks when cutting.
+
+The tee elbows' lowest surface is Z160.913, clear of the Z160 front sliding lip. The complete return's lowest surface is [Z157.164](DOCK_RETURN_FLOOR), [11.16 mm](DOCK_CONDENSER_AIR) above the condenser. Both pumps, all four tees and the fore valves retain straight axes. The connecting tubes carry the small height difference.
 
 ## Pump tubes and lower retainer
 
@@ -47,7 +49,7 @@ removal requires opening the front assembly and disconnecting its plumbing and m
 Each receiver has a central screwdriver opening to flex its wing inward for release.
 
 The pump and display leads share one rear passage through the continuous stock. Its
-22 mm diamond section is centred at X0/Z280; the rear upper half opens as a plain U
+22 mm diamond section is centred at X0/Z290; the rear upper half opens as a plain U
 over the bulkhead lip through Y99. Thread DC-5's
 bare pump end through it before crimping and landing the Fastons on the loose pumps. Draw
 slack aft during motor-first insertion. SIG-7 uses the same passage with the display facet
@@ -62,10 +64,10 @@ with a 16 mm straight spring above its 5 mm hook and a [2.4 mm](PUMP_SNAP_WING_T
 The upper root is at Z = [186.195 mm](PUMP_SNAP_ROOT_Z).
 The hooks flex inward during upward insertion and spring outward into the receivers.
 The receiver floors at Z = [165.045 mm](PUMP_SNAP_RECEIVER_FLOOR_Z) leave the specified 0.15 mm static allowance below the
-nominal hook-bearing faces at Z165.195.
+nominal hook-bearing faces at Z175.195.
 
 One [4.5 mm](PUMP_SNAP_PORT_WIDTH)-wide opening at each receiver’s Y centre admits a small flathead screwdriver
-from below. Its roof is one continuous 45° face, from X99.6/Z174.8 to X104.5/Z169.9 on the
+from below. Its roof is one continuous 45° face, from X99.6/Z185.195 to X104.5/Z180.295 on the
 right, mirrored on the left, leaving 3 mm of outer wall. This solid corbel supports the
 roof while preserving the blade path. Use the receiver’s lower edge as the fulcrum to
 push the wing inward until its hook clears. Support the pump/retainer unit while releasing
@@ -88,7 +90,7 @@ absent while loading and securing the pumps.
    the group in from aft. Push the branch over its fixed pump tube and into its wall bore
    as the fore valve seats on its posts. Check the actual insertion marks. Seat all four
    fore groups before pressing the rear valves onto their tray posts.
-5. Cut and fit the lower-return elbows and straight tubes from the open underside. Use
+5. Cut and fit the lower-return elbows and formed tubes from the open underside. Use
    actual insertion marks and tug-check every push-fit joint. Finish the remaining front
    manifold connections and wiring.
 6. Thread the display loom through the shared passage and leave its end accessible at the
