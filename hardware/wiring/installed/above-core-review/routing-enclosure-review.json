@@ -1,0 +1,71 @@
+{
+  "assembly_step_sha256": "99b0690d7c6768cbcf68c6ae5a82982132bc097f380d073fe9d471989a23def0",
+  "manifest_sha256": "e3fce06cc0036a71e03ea734b2395e370f649d4ed3ac91b3f5cc29448a7c26ad",
+  "pairs": [
+    {
+      "wire": "AC1-PE",
+      "part": "c14-inlet",
+      "point_mm": [
+        -68.509,
+        435.6,
+        325.944
+      ],
+      "mesh_penetration_mm": 0.041,
+      "contacts": 2,
+      "native_overlap_mm3": 0,
+      "native_gap_mm": 0.0,
+      "resolution": "native_zero_material_intersection"
+    },
+    {
+      "wire": "DC3-positive",
+      "part": "wiring-junction-pump-positive",
+      "point_mm": [
+        -35.6,
+        245.7,
+        278.0
+      ],
+      "mesh_penetration_mm": 4.0763,
+      "contacts": 10,
+      "native_overlap_mm3": 7.0655548895865214,
+      "native_gap_mm": 0.0,
+      "native_overlap_bounds_mm": [
+        -46.739136955092036,
+        245.7,
+        278.0,
+        -43.72633327807059,
+        249.3830468034414,
+        279.853407492413
+      ],
+      "attachment_bounds": [
+        {
+          "terminal": "join-pump-positive.2",
+          "maximum_overlap_box_corner_distance_mm": 5.85059237213692
+        }
+      ],
+      "resolution": "bounded_electrical_attachment"
+    },
+    {
+      "wire": "J2-OUT1",
+      "part": "coil-v-i/3",
+      "point_mm": [
+        -88.77,
+        148.853,
+        291.5
+      ],
+      "mesh_penetration_mm": 0.0632,
+      "contacts": 1,
+      "native_overlap_mm3": 0,
+      "native_gap_mm": 0.0,
+      "resolution": "native_zero_material_intersection"
+    }
+  ],
+  "mesh_witnesses_canonical_sha256": "3cc5dda15d854b2ce2be9723dbee64d9e1b9ad28a44bef7f956a31e9c3e1bb53",
+  "scope": "Exact current native material readings of every remaining larger-body mesh witness. Wires and tubing are excluded as conductor obstacles. Named electrical attachment contact is bounded within 8.5 mm of its terminal.",
+  "all_witnesses_resolved": true,
+  "installed_source_binding": {
+    "path": "hardware/wiring/installed/above-core-review/installed-wiring-binding.json",
+    "sha256": "b07d51590468ac5043c487d773fc591e99cb4eb8709bb8a3633ce963d30fa560",
+    "all_source_curves_match": true,
+    "all_native_shapes_bound": true
+  }
+}
