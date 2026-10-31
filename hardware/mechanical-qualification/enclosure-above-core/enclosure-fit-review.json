@@ -1,0 +1,312 @@
+{
+  "scope": "Manual exact material readings for changed enclosure and lid features and their current installed neighbors. Intentional receiving interfaces remain separately identified. This is nominal geometry, not a physical force or support-cleanup result.",
+  "assembly_step_sha256": "99b0690d7c6768cbcf68c6ae5a82982132bc097f380d073fe9d471989a23def0",
+  "assembly_mesh_sha256": "c0daf38138c43349656125ee4803c1230c85205c511f22c0f9d43d9e1e14e0dc",
+  "source_sha256": {
+    "hardware/manifold-layout/above-core.json": "dc6cc98ff451fe5665f60b1a0a09fd35fad16fa823ec7fd055b515e3d12217f6",
+    "hardware/manifold-layout/manifold_layout.py": "65b12071db64e585d56fee8d876e8ee82d0a38756d097a2c36532093bd5eb07c",
+    "hardware/manifold-layout/above_core_wiring.py": "8dce32acf5ec0804f668ddeb2451dd3fae9e189cce39282a5843aabae2824ef5",
+    "hardware/printed-parts/enclosure/enclosure/_fixed_pump_mount.py": "c305b76dcdf1034b691bc855bcff6b280df091a6867f0a435d16084646246d61",
+    "hardware/printed-parts/cold-core/_reservoir_a_anchors.py": "f727c42ed0433ab36a9e4ec19cee24ddfea0272caa1e4b082c41bde5565eb639",
+    "hardware/printed-parts/cold-core/_above_core_mounts.py": "f0233ee7295ac4d415ab434616c8d89567ddf9767f1587bcf8f3815911f1f1f3"
+  },
+  "bodies": {
+    "reservoir-a-aft-anchor": {
+      "valid": true,
+      "solids": 1,
+      "bounds_mm": [
+        38.666485161346436,
+        384.9999998999999,
+        247.9999999,
+        69.71502373712893,
+        395.00000009999997,
+        266.1642401481034
+      ],
+      "volume_mm3": 3738.872299955312
+    },
+    "flavor-a-crossover-clip": {
+      "valid": true,
+      "solids": 1,
+      "bounds_mm": [
+        22.5,
+        261.52353999999997,
+        253.3,
+        30.5,
+        269.57,
+        298.3886205420013
+      ],
+      "volume_mm3": 2653.8031836436285
+    },
+    "vk-solenoid": {
+      "valid": true,
+      "solids": 11,
+      "bounds_mm": [
+        61.007999772077994,
+        296.81499514598,
+        268.93276741107,
+        94.507999772078,
+        354.11499524598,
+        328.43276751107004
+      ],
+      "volume_mm3": 40520.51923011528,
+      "plain_ceiling_gap_mm": 17.56723248892996
+    },
+    "water-split": {
+      "valid": true,
+      "solids": 1,
+      "bounds_mm": [
+        17.08789406073773,
+        299.56641249381124,
+        321.64448834746224,
+        56.59495451728027,
+        327.87443475050804,
+        342.3779120016982
+      ],
+      "volume_mm3": 5888.934419273609,
+      "plain_ceiling_gap_mm": 3.622087998301822
+    },
+    "lower-valve-elbow": {
+      "valid": true,
+      "solids": 2,
+      "bounds_mm": [
+        69.860569772078,
+        302.78499504598,
+        254.99013741107,
+        85.655429772078,
+        328.94736524598005,
+        281.70111494003
+      ],
+      "volume_mm3": 3062.6859403619505
+    },
+    "lower-pump-elbow": {
+      "valid": true,
+      "solids": 2,
+      "bounds_mm": [
+        56.23181659209897,
+        312.05758952373,
+        257.8028659017,
+        82.83852239531,
+        342.95956705269,
+        275.73842028990106
+      ],
+      "volume_mm3": 3134.5544350368987
+    },
+    "valve-v-b": {
+      "valid": true,
+      "solids": 11,
+      "bounds_mm": [
+        32.699999999999996,
+        212.84854,
+        263.65999999999997,
+        90.0000001,
+        272.34854,
+        297.16000010000005
+      ],
+      "volume_mm3": 40520.51923012097
+    },
+    "enclosure-front-top": {
+      "valid": true,
+      "solids": 1,
+      "bounds_mm": [
+        -107.50000010000002,
+        4.999999899999998,
+        160.2499999,
+        107.50000010000001,
+        217.8000001,
+        355.00000000002
+      ],
+      "volume_mm3": 2574807.7026092047
+    },
+    "enclosure-back-top": {
+      "valid": true,
+      "solids": 1,
+      "bounds_mm": [
+        -107.5000001,
+        200.14999999999998,
+        160.2499999,
+        107.5000001,
+        474.3,
+        355.00000005000004
+      ],
+      "volume_mm3": 1594316.9355814096
+    },
+    "enclosure-front-bottom": {
+      "valid": true,
+      "solids": 1,
+      "bounds_mm": [
+        -107.50000010000001,
+        4.9999999,
+        -6.000000200000139,
+        107.50000010000002,
+        217.8,
+        174.8
+      ],
+      "volume_mm3": 1089650.7656999854
+    },
+    "enclosure-back-bottom": {
+      "valid": true,
+      "solids": 1,
+      "bounds_mm": [
+        -107.50000010000001,
+        200.1499998999997,
+        -6.000000200000009,
+        107.50000010000001,
+        471.9000001000005,
+        174.8
+      ],
+      "volume_mm3": 1316354.5240389488
+    },
+    "enclosure-pump-retainer": {
+      "valid": true,
+      "solids": 1,
+      "bounds_mm": [
+        -99.60000009999999,
+        14.2499999,
+        175.1949999,
+        99.60000009999999,
+        82.2650001,
+        224.4240001
+      ],
+      "volume_mm3": 292216.5774326262
+    },
+    "foam-cap-lid-top": {
+      "valid": true,
+      "solids": 1,
+      "bounds_mm": [
+        -90.20000010000005,
+        182.59999969963002,
+        248.00000009999974,
+        90.20000010000005,
+        464.9999998996301,
+        299.6500002
+      ],
+      "volume_mm3": 310307.8002886578
+    }
+  },
+  "changed_stock_pairs": [
+    {
+      "body": "reservoir-a-aft-anchor",
+      "neighbor": "tube-above-core-gas-core-drop",
+      "overlap_mm3": 0,
+      "gap_mm": 27.16100000000631
+    },
+    {
+      "body": "reservoir-a-aft-anchor",
+      "neighbor": "tube-fluid-18",
+      "overlap_mm3": 0,
+      "gap_mm": 4.304922074310211
+    },
+    {
+      "body": "reservoir-a-aft-anchor",
+      "neighbor": "tube-fluid-28",
+      "overlap_mm3": 0,
+      "gap_mm": 1.6664852613464376
+    },
+    {
+      "body": "reservoir-a-aft-anchor",
+      "neighbor": "tube-fluid-14",
+      "overlap_mm3": 0,
+      "gap_mm": 0.14999996136168428
+    },
+    {
+      "body": "reservoir-a-aft-anchor",
+      "neighbor": "tube-fluid-16",
+      "overlap_mm3": 0,
+      "gap_mm": 0.14999998191371564
+    },
+    {
+      "body": "reservoir-a-aft-anchor",
+      "neighbor": "foam-cap-top",
+      "overlap_mm3": 0,
+      "gap_mm": 6.871637154777409
+    },
+    {
+      "body": "reservoir-a-aft-anchor",
+      "neighbor": "enclosure-back-top",
+      "overlap_mm3": 0,
+      "gap_mm": 15.219609840168143
+    },
+    {
+      "body": "flavor-a-crossover-clip",
+      "neighbor": "tube-above-core-va-fore-feed",
+      "overlap_mm3": 0,
+      "gap_mm": 8.324999999999996
+    },
+    {
+      "body": "flavor-a-crossover-clip",
+      "neighbor": "tube-fluid-18",
+      "overlap_mm3": 0,
+      "gap_mm": 0.04999999999996675
+    },
+    {
+      "body": "flavor-a-crossover-clip",
+      "neighbor": "tube-fluid-28",
+      "overlap_mm3": 0,
+      "gap_mm": 4.9745977300731665
+    },
+    {
+      "body": "flavor-a-crossover-clip",
+      "neighbor": "tube-fluid-16",
+      "overlap_mm3": 0,
+      "gap_mm": 19.415793024087346
+    },
+    {
+      "body": "flavor-a-crossover-clip",
+      "neighbor": "foam-cap-top",
+      "overlap_mm3": 0,
+      "gap_mm": 17.749999800000012
+    },
+    {
+      "body": "flavor-a-crossover-clip",
+      "neighbor": "vb-outlet-stem",
+      "overlap_mm3": 0,
+      "gap_mm": 0.9263100000000009
+    },
+    {
+      "body": "flavor-a-crossover-clip",
+      "neighbor": "enclosure-back-top",
+      "overlap_mm3": 0,
+      "gap_mm": 36.74489829029637
+    }
+  ],
+  "fitted_pairs": [
+    {
+      "body": "lower-valve-elbow",
+      "neighbor": "foam-cap-lid-top",
+      "overlap_mm3": 0,
+      "gap_mm": 1.5901372110700152
+    },
+    {
+      "body": "lower-pump-elbow",
+      "neighbor": "foam-cap-lid-top",
+      "overlap_mm3": 0,
+      "gap_mm": 4.402865801700017
+    },
+    {
+      "body": "vk-solenoid",
+      "neighbor": "enclosure-back-top",
+      "overlap_mm3": 0,
+      "gap_mm": 0.0
+    },
+    {
+      "body": "water-split",
+      "neighbor": "enclosure-back-top",
+      "overlap_mm3": 0,
+      "gap_mm": 3.622087998301822
+    },
+    {
+      "body": "valve-v-b",
+      "neighbor": "funnel-frame",
+      "overlap_mm3": 0,
+      "gap_mm": 2.7399998999999866
+    },
+    {
+      "body": "foam-cap-lid-top",
+      "neighbor": "funnel-frame",
+      "overlap_mm3": 0,
+      "gap_mm": 0.2499996999999894
+    }
+  ],
+  "stock_unresolved": [],
+  "fitted_unresolved": []
+}

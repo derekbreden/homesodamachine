@@ -9,14 +9,14 @@
     "hardware/printed-parts/cold-core/foam-cap/prepare_fore_snap_regions.py": "6d54003e0a091a669eadf26446dc2ae0035559c7152c9068aaee46401414cbe6",
     "hardware/printed-parts/cold-core/_reservoir_a_c2.py": "073f314bf227dee8d5326b077fb4d2a050a70cc9164e2688dcb307393aea466e",
     "hardware/manifold-layout/above_core.py": "d3bd71f3c10335d6907e93ff874885e62558c794ce77a043fb22d6f8ed3eb45f",
-    "hardware/manifold-layout/above-core.json": "20897cf246a11956cd582b35dcbafb66860e2aeb2ce4b311692683dc95d79bd2",
-    "hardware/printed-parts/cold-core/_reservoir_a_anchors.py": "9abd50a2cfe048b0e1cafaebfa1ea5e87f2115c02140077a34e5f59b18e381fc",
+    "hardware/manifold-layout/above-core.json": "dc6cc98ff451fe5665f60b1a0a09fd35fad16fa823ec7fd055b515e3d12217f6",
+    "hardware/printed-parts/cold-core/_reservoir_a_anchors.py": "f727c42ed0433ab36a9e4ec19cee24ddfea0272caa1e4b082c41bde5565eb639",
     "hardware/printed-parts/cold-core/foam-cap/foam_cap.py": "3e01029cfc57e042a2141d93c7bb523afdfbb85a7dce8fbba5ac9853f5fa89dc"
   },
   "native_artifact_sha256": {
     "foam-cap-lid-top": {
-      ".step": "965b6fec511ff788324b2ce6961b8b665b09a132c72047c414cb10729d4348fe",
-      ".stl": "06d8da900687f382e035492e7eb453b28745bd5ee28a6facefe7147b6e40c239"
+      ".step": "75f936b19d4e828027954b3e15956a1c4afdb401fb6b55d1c8c4a40a6b9cd135",
+      ".stl": "696fc0a13663785f48e839a01d9cf7ba30cbd930ab25a78b3c32a8442cddeb82"
     }
   },
   "part_process_overrides": {},

@@ -1,12 +1,12 @@
 {
   "schema": 1,
   "scope": "Wiring-only integration; existing physical parts retained",
-  "physical_step_sha256": "560396199e886e87dd20abc3694e225deed40e089cb4f12138b8eaddf00f83cb",
-  "installed_step_sha256": "528e255c85f958f190d01a97508a7c5c1ee12f8f9e6c39cfa8349f5d01a56a6c",
-  "physical_records_retained": 2579662,
-  "physical_meshes_retained": 451,
+  "physical_step_sha256": "df3a37ef149acaf6f604945f93f99b14e334908cc7a3b5ace66d4926b7316400",
+  "installed_step_sha256": "99b0690d7c6768cbcf68c6ae5a82982132bc097f380d073fe9d471989a23def0",
+  "physical_records_retained": 2584642,
+  "physical_meshes_retained": 448,
   "wiring_meshes": 120,
   "all_retained_viewer_arrays_identical": null,
-  "wiring_step_sha256": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+  "wiring_step_sha256": "dbe768db970c86f7308daa4cea899d55f0d03eb73955139f90453041ed4e0e0f",
   "connection_count": 101
 }

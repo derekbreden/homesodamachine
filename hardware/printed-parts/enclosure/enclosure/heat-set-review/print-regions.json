@@ -169,7 +169,7 @@
           0,
           0,
           1.0,
-          -165.19500732421875
+          -175.19500732421875
         ],
         [
           0,
@@ -185,18 +185,18 @@
     "hardware/printed-parts/enclosure/enclosure/heat-set-review/print_regions.py": "067b75e33a0d7fd646e22a7eedab8051d3db2bff152d41aaf8fe118b001bba09",
     "hardware/printed-parts/enclosure/enclosure/enclosure.py": "a4be78d79411a851182c76233ec7acca535f759ee219012c6fb3ce870ede2c3b",
     "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py": "264bb52da73675dcd41f7fff8bc5fce6eabd06336fc3cf8b7a9b8560c21e5040",
-    "hardware/printed-parts/enclosure/enclosure/_fixed_pump_mount.py": "465214f98f1930f45a8f79a774db9def71b9070687159f7cad5682781087ca00",
-    "hardware/manifold-layout/enclosure-box.json": "484bff108de87044b7ea2f98cfbbd4396d246219a4a390380718bfe07e2a13d2",
+    "hardware/printed-parts/enclosure/enclosure/_fixed_pump_mount.py": "c305b76dcdf1034b691bc855bcff6b280df091a6867f0a435d16084646246d61",
+    "hardware/manifold-layout/enclosure-box.json": "afc529dcc91cc4d54adde90d36650d32dddad79be92f3ddc270a2eab457650a1",
     "hardware/printed-parts/enclosure/enclosure/_above_core_shell.py": "545242e29b31c42f6dcc80eb3c7f5150e2f7c653f5d0b9b031a18a7c600c223f",
     "hardware/manifold-layout/above_core.py": "d3bd71f3c10335d6907e93ff874885e62558c794ce77a043fb22d6f8ed3eb45f",
-    "hardware/manifold-layout/above-core.json": "c9260a5de6c6ec787ea21e9f338dde5ceb6d5e2d22891099b2e95ad6cc610467",
-    "hardware/manifold-layout/above_core_wiring.py": "f3c7797749e3c9f45a53473887e6de87f88bd6571d78d18ba8959e3a3fc9e50f",
+    "hardware/manifold-layout/above-core.json": "dc6cc98ff451fe5665f60b1a0a09fd35fad16fa823ec7fd055b515e3d12217f6",
+    "hardware/manifold-layout/above_core_wiring.py": "8dce32acf5ec0804f668ddeb2451dd3fae9e189cce39282a5843aabae2824ef5",
     "hardware/reference/meanwell-irm90/meanwell_irm90.py": "ca42ff08bbab38f67a2842ae03149a697d9e2b3a5b4adf6fc05adc951fc2e54a",
     "hardware/reference/teyleten-relay/teyleten_relay.py": "fe0965a8f3f4a9eab65efac03716dfdd6ef9e93ab658e8c73f3df83af6e7fbe6",
     "hardware/printed-parts/zone-c/funnel/funnel_frame.py": "24f5b689c16e4e2e3367eb5d40843a402f0ed2f12a3dfd36f38c463d0e8bb9e3",
     "hardware/printed-parts/zone-c/funnel/funnel.py": "a13d348c7cfc0c17d0c5c62c59f7f5e5414b096f6e081182a388c2edf1606df3",
     "hardware/printed-parts/enclosure/pump-dock/dock_structure.py": "2241aaaa7f320247e60924c396f0ee373c513bb4ad4e26f2be89e659582fa3a7",
-    "hardware/printed-parts/enclosure/pump-dock/fixed_returns.py": "d87df161ab0e4409fd7cb4fa720cc0319e0a10485a141ff455aed633b48f7e4c",
+    "hardware/printed-parts/enclosure/pump-dock/fixed_returns.py": "b203551dad030a7b3e64e6094b0ed964ebe6edf9d779bf0ed94cc549471471e3",
     "hardware/printed-parts/petgf.3mf": "45c16e8c8517e0a205107d7b9f7412d013f51a8de7ecf86125cc940079d37ed0"
   },
   "native_artifact_sha256": {
@@ -205,20 +205,20 @@
       ".stl": "832942e0cfa7254d79df8a23467ce910f0c126be150bd243c3b0c9b0a050ee0d"
     },
     "front-top": {
-      ".step": "2ab3c2ed742ca44d248a330e5a50d6a8ff22acfc8ecd3d5cece620bd9b8c0dbb",
-      ".stl": "2f694ea685bb56bb43ca794d901ad5ff6692627adc372a76a9355cec3c527196"
+      ".step": "96e550620fcc312dea1a6ae9b5885b5595e140478d4387af0aca851116c66726",
+      ".stl": "57476f5493804ab5e27af19a6a3a6e3e7b6cf9fc003609a09d98950a655b7f48"
     },
     "back-bottom": {
       ".step": "5b99a289cd320006c0808be978943c8a9f5e41076474a902d009ad6df9f3cf06",
       ".stl": "810904703d775a0b514f516dfa2b40ee57bb22974c796cf5ee35f56b8095097e"
     },
     "back-top": {
-      ".step": "81c0915aceb327d5cfd7955b35f83ca6b9fcd9a86091312fd0a157910cdf817b",
-      ".stl": "3f3c43cee0970786ff0e9481cb0d45c116a703f6edaa19a165b78ecae822146e"
+      ".step": "cc0dc2b0e09e023fcf1659034837bd7fd2dd02b3441e862cf7136f6e08098d3a",
+      ".stl": "9b4e6b9df6d3ea862748d34d996bcc7db87d3993e6bc57c9b63813d31a49d1de"
     },
     "pump-retainer": {
-      ".step": "7fc6f0bef4a08eca4400b04c19911f596c28b3d50c7de6f675eb60b1b76e4f80",
-      ".stl": "3650089a671ce9212a73ff9522553543a7e0fa4de942bf52a8e38777ef8b85c1"
+      ".step": "d00bfeab03143f968f44bde31764e7073b8e1fed3b345b82847d5b9d47770e69",
+      ".stl": "bd68e6e962b8482fae79f0991c79f198b15cfbaabe0a0ea810d509214c951d12"
     }
   },
   "pieces": {
@@ -697,7 +697,7 @@
           14.0,
           82.515,
           160.25,
-          195.0
+          205.19500000000002
         ],
         "sparse_infill_density": "100%",
         "sparse_infill_pattern": "zig-zag",
@@ -707,7 +707,7 @@
           14.0,
           82.515,
           160.25,
-          195.0
+          205.19500000000002
         ],
         "print_bounds_mm": [
           -107.5,
@@ -715,7 +715,7 @@
           14.0,
           82.515,
           0.0,
-          34.75
+          44.94500000000002
         ]
       },
       {
@@ -726,7 +726,7 @@
           14.0,
           82.515,
           160.25,
-          195.0
+          205.19500000000002
         ],
         "sparse_infill_density": "100%",
         "sparse_infill_pattern": "zig-zag",
@@ -736,7 +736,7 @@
           14.0,
           82.515,
           160.25,
-          195.0
+          205.19500000000002
         ],
         "print_bounds_mm": [
           98.5,
@@ -744,7 +744,7 @@
           14.0,
           82.515,
           0.0,
-          34.75
+          44.94500000000002
         ]
       },
       {
@@ -1891,8 +1891,8 @@
           -90.94999999999999,
           14.25,
           82.265,
-          165.19500000000002,
-          189.19500000000002
+          175.19500000000002,
+          199.19500000000002
         ],
         "sparse_infill_density": "100%",
         "sparse_infill_pattern": "zig-zag",
@@ -1901,8 +1901,8 @@
           -90.94999999999999,
           14.25,
           82.26499938964844,
-          165.19500732421875,
-          189.19500000000002
+          175.19500732421875,
+          199.19500000000002
         ],
         "print_bounds_mm": [
           -99.8499984741211,
@@ -1920,8 +1920,8 @@
           99.8499984741211,
           14.25,
           82.265,
-          165.19500000000002,
-          189.19500000000002
+          175.19500000000002,
+          199.19500000000002
         ],
         "sparse_infill_density": "100%",
         "sparse_infill_pattern": "zig-zag",
@@ -1930,8 +1930,8 @@
           99.8499984741211,
           14.25,
           82.26499938964844,
-          165.19500732421875,
-          189.19500000000002
+          175.19500732421875,
+          199.19500000000002
         ],
         "print_bounds_mm": [
           90.94999999999999,
