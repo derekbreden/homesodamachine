@@ -100,3 +100,27 @@ fn ruled() {
 fn tilted_planes() {
     check("tilted");
 }
+
+/// A land extruded from a smooth loft's end ring meets the loft point for point: the ring the
+/// land stands on is the loft's own, and the two join into one closed solid.
+#[test]
+fn an_end_region_meets_the_loft() {
+    let all = reference();
+    let surface = SmoothLoft::new(&compatible(&sections(&all["shell_like"])).unwrap()).unwrap();
+    let (us, vs) = surface.grid();
+    let loft = surface.solid_on(&us, &vs).unwrap();
+    let top = surface.end_region(true, &us);
+    let land = Solid::extrude(&top, V3::Z, v3(0.0, 0.0, 10.0)).unwrap();
+    let z = loft.bounds().max.z;
+    let ring = |s: &Solid| {
+        let mut p: Vec<[u64; 3]> =
+            s.verts().iter().filter(|p| p.z == z).map(|p| [p.x.to_bits(), p.y.to_bits(), p.z.to_bits()]).collect();
+        p.sort();
+        p
+    };
+    assert_eq!(ring(&loft), ring(&land));
+    let joined = loft.union(&land).unwrap();
+    joined.check().unwrap();
+    assert_eq!(joined.components().len(), 1);
+    assert!((joined.volume() - loft.volume() - land.volume()).abs() <= 1e-9 * joined.volume());
+}
