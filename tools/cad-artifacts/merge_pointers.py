@@ -7,26 +7,26 @@
 `.gitattributes` names this driver for `hardware/cad-artifacts.json`, and `tools/push.py`
 puts its command in a clone's config the first time it runs there (`merge.cadpointers.driver`), which
 is how a fresh clone, cloud or laptop, comes to have it. git calls it whenever both sides of a
-merge, rebase or cherry-pick moved the pointer file — which two publishes always do, because
-`source.commit` and the bundle move on every one. Without it every concurrent publish stops on
-the pointer file; with it the merge has one right answer, and this is it.
+merge, rebase or cherry-pick moved the pointer file — which two publishes always do. Without it
+every concurrent publish stops on the pointer file; with it the merge has one right answer, and
+this is it.
 
 THE MEMBERS ARE THE POINTERS. `solids` and `sidecars` merge by key. A member one side left alone
 takes the other side's hash, so a publish adds its members to main's without dropping main's. A
 member both sides moved to different hashes takes the incoming side's — the publish being
-brought in is the newer act — and is recorded under `unproven`, so the reconciler cuts it once
-more from the merged source and the pointer file stops guessing. A member one side retired and the
+brought in is the newer act — and its `made` line is marked unproven, so the next publish proves
+it against the merged tree or leaves it to the reconciler. A member one side retired and the
 other left alone is gone.
 
-Each line's time (`moved`) travels with the hash the merged line carries, so a publish on any
-machine can still tell its own newer cut from main's older bytes.
+Each line's time (`moved`) and its `made` line travel with the hash the merged line carries, so a
+publish on any machine can still tell its own newer cut from main's older bytes, and what made
+each member. Where both sides carry that hash, the later time stands, and the `made` line that
+proves the member over one that does not.
 
-`source.commit` becomes the merge-base of the two sources: the debt it implies then covers what
-either side built against, and over-reporting a cut is a rebuild nobody waits on where
-under-reporting is a stale solid nobody is told about. `unproven` is the union of both records.
 `release.objects` stands only when both sides had it, since it promises every member is on the
 release by its own hash. The bundle is the one from the side that cut a new one, main's when
-both did, and it is marked behind whenever the merged members are not the ones it holds.
+both did, and it is marked behind whenever the merged members are not the ones it holds. A key
+`pack.py` does not write stands where both sides hold it alike.
 
 The result is the bytes `pack.py` writes: its key order, its indentation, its escaping. Merging a
 pointer file with itself gives the file back unchanged.
@@ -41,14 +41,8 @@ from pathlib import Path
 
 POINTERS_REL = "hardware/cad-artifacts.json"
 
-#: pack.py's own note, repeated so the merged record reads like one it wrote. The selftest holds
-#: the two strings together.
-UNPROVEN_NOTE = ("source.commit does not describe these members: an uncommitted path below reaches"
-                 " the rule that cuts one, its rule would not cut, or an interactive publication"
-                 " explicitly deferred that rule.")
-
-#: The order pack.py seats the keys in; `unproven` sits after the commit it qualifies.
-KEY_ORDER = ("_", "release", "store", "source", "unproven", "bundle", "solids", "sidecars", "moved")
+#: The order pack.py seats the keys in.
+KEYS = ("_", "release", "store", "bundle", "solids", "sidecars", "moved", "made")
 
 
 def merge_members(base: dict, ours: dict, theirs: dict) -> tuple[dict, list, list]:
@@ -81,60 +75,56 @@ def merge_members(base: dict, ours: dict, theirs: dict) -> tuple[dict, list, lis
         else:
             out[key] = vt
             both.append(key)
-            notes.append(f"{key}: moved on both sides; the incoming hash stands and the member "
-                         "is recorded unproven")
+            notes.append(f"{key}: moved on both sides; the incoming hash stands and its `made` "
+                         "line is unproven")
     return out, both, notes
 
 
-def merge_unproven(base: dict, ours: dict, theirs: dict, extra_members=()) -> dict | None:
-    """The union of both records, plus the members the merge itself could not vouch for."""
-    records = [ours.get("unproven") or {}, theirs.get("unproven") or {}]
-    paths = sorted({p for r in records for p in r.get("paths", ())})
-    members = sorted({m for r in records for m in r.get("members", ())} | set(extra_members))
-    targets = sorted({t for r in records for t in r.get("targets", ())})
-    if not members and not targets:
-        return None
-    out = {"_": UNPROVEN_NOTE, "paths": paths, "members": members}
-    if targets:
-        out["targets"] = targets
+def _proves(line) -> bool:
+    return isinstance(line, dict) and bool(line.get("inputs")) and not line.get("unproven")
+
+
+def merge_made(ours: dict, theirs: dict, lines: dict, both: list) -> dict:
+    """The `made` line for each of `lines`, from a side whose hash it carries: the one that
+    proves the member where both do, else theirs. A member moved on both sides keeps its line
+    unproven."""
+    out = {}
+    for rel, digest in sorted(lines.items()):
+        found = [side_made[rel] for side, side_made in
+                 ((theirs, theirs.get("made") or {}), (ours, ours.get("made") or {}))
+                 if rel in side_made
+                 and {**(side.get("solids") or {}), **(side.get("sidecars") or {})}.get(rel) == digest]
+        if not found:
+            continue
+        line = next((line for line in found if _proves(line)), found[0])
+        out[rel] = {**line, "unproven": True} if rel in both else line
     return out
 
 
-def git_merge_base(a: str, b: str) -> str | None:
-    """The merge-base of two commits, else the older of the two, else nothing.
-
-    Runs in the checkout git invoked the driver from; a shallow clone that cannot see one of the
-    commits falls through each step."""
-    def run(*args):
-        got = subprocess.run(["git", *args], capture_output=True, text=True)
-        return got.stdout.strip() if got.returncode == 0 else None
-    mb = run("merge-base", a, b)
-    if mb:
-        return mb
-    ta, tb = run("log", "-1", "--format=%ct", a), run("log", "-1", "--format=%ct", b)
-    if ta and tb:
-        return a if int(ta) <= int(tb) else b
-    return None
+def _seat(out: dict, ours: dict, theirs: dict) -> dict:
+    """`out` in pack.py's key order, with each key pack.py does not write that both sides hold
+    alike seated after the key it follows in `ours`."""
+    order = [key for key in KEYS if out.get(key) is not None]
+    keys = list(ours)
+    for i, key in enumerate(keys):
+        if key in KEYS or key not in theirs or theirs[key] != ours[key]:
+            continue
+        at = max((j + 1 for j, k in enumerate(order) if k in keys[:i]), default=0)
+        order.insert(at, key)
+        out[key] = ours[key]
+    return {key: out[key] for key in order}
 
 
-def resolve_source(ours: dict, theirs: dict, merge_base=git_merge_base) -> str | None:
-    so = (ours.get("source") or {}).get("commit")
-    st = (theirs.get("source") or {}).get("commit")
-    if so and st and so != st:
-        return merge_base(so, st) or so
-    return so or st
-
-
-def merge(base: dict, ours: dict, theirs: dict, merge_base=git_merge_base) -> tuple[dict, list]:
+def merge(base: dict, ours: dict, theirs: dict) -> tuple[dict, list]:
     """`(merged pointer file, notes)`. `ours` is the side being merged onto (main, in a rebase or a
     cherry-pick); `theirs` is the side being brought in."""
     base, ours, theirs = base or {}, ours or {}, theirs or {}
     # A side with no manifest at all — an emptied file, a side where the pointer file did not exist —
     # contributes nothing, rather than reading as a side that retired every member.
     if not ours:
-        return {k: theirs[k] for k in KEY_ORDER if k in theirs}, []
+        return dict(theirs), []
     if not theirs:
-        return {k: ours[k] for k in KEY_ORDER if k in ours}, []
+        return dict(ours), []
     notes = []
     solids, both_s, n = merge_members(base.get("solids"), ours.get("solids"), theirs.get("solids"))
     notes += n
@@ -178,16 +168,13 @@ def merge(base: dict, ours: dict, theirs: dict, merge_base=git_merge_base) -> tu
         "_": ours.get("_") or theirs.get("_") or base.get("_"),
         "release": release,
         "store": ours.get("store") or theirs.get("store"),
-        "source": None,
-        "unproven": merge_unproven(base, ours, theirs, both_s + both_c),
         "bundle": bundle,
         "solids": solids,
         "sidecars": sidecars,
         "moved": moved or None,
+        "made": merge_made(ours, theirs, {**solids, **sidecars}, both_s + both_c) or None,
     }
-    source = resolve_source(ours, theirs, merge_base)
-    out["source"] = {"commit": source} if source else None
-    return {k: out[k] for k in KEY_ORDER if out.get(k) is not None}, notes
+    return _seat(out, ours, theirs), notes
 
 
 def render(pointers: dict) -> str:
@@ -195,12 +182,11 @@ def render(pointers: dict) -> str:
     return json.dumps(pointers, indent=2, sort_keys=False) + "\n"
 
 
-def merge_texts(base: str, ours: str, theirs: str,
-                merge_base=git_merge_base) -> tuple[str, list]:
+def merge_texts(base: str, ours: str, theirs: str) -> tuple[str, list]:
     """The three files as text; an empty side is a pointer file that did not exist there yet."""
     def load(text):
         return json.loads(text) if text.strip() else {}
-    merged, notes = merge(load(base), load(ours), load(theirs), merge_base)
+    merged, notes = merge(load(base), load(ours), load(theirs))
     return render(merged), notes
 
 
@@ -236,13 +222,11 @@ def selftest() -> int:
         holds += 1
         print(f"  \N{CHECK MARK} {name}")
 
-    def pointers(solids, source="c0", digest="d0", behind=False, objects=True, unproven=None,
-             sidecars=None):
+    def pointers(solids, digest="d0", behind=False, objects=True, made=None, sidecars=None):
         out = {
             "_": "Written by tools/cad-artifacts/pack.py.",
             "release": {"tag": "cad-artifacts", "asset": f"cad-{digest}.tar.gz",
                         "url": f"https://example/{digest}"},
-            "source": {"commit": source},
             "bundle": {"sha256": digest, "bytes": 1, "solids": len(solids)},
             "solids": dict(solids),
             "sidecars": dict(sidecars or {}),
@@ -251,122 +235,127 @@ def selftest() -> int:
             out["release"]["objects"] = "s-"
         if behind:
             out["bundle"]["behind"] = True
-        if unproven:
-            out["unproven"] = unproven
-        return {k: out[k] for k in KEY_ORDER if k in out}
+        if made:
+            out["made"] = made
+        return {k: out[k] for k in KEYS if k in out}
 
-    mb = lambda a, b: f"mb({a},{b})"  # noqa: E731 — the driver's git call, stubbed
+    def line(inputs, commit, unproven=False):
+        return {"inputs": inputs, "commit": commit, **({"unproven": True} if unproven else {})}
+
     base = pointers({"m": "h0", "n": "h0"})
 
-    # Disjoint publishes: each side adds a member and moves its source; both members stand,
-    # the source is their merge-base, the held bundle is behind the union.
-    ours = pointers({"m": "h0", "n": "h0", "a": "ha"}, source="cA", behind=True)
-    theirs = pointers({"m": "h0", "n": "h0", "b": "hb"}, source="cB", behind=True)
-    got, notes = merge(base, ours, theirs, mb)
+    # Disjoint publishes: each side adds a member; both members stand, and the held bundle is
+    # behind the union.
+    ours = pointers({"m": "h0", "n": "h0", "a": "ha"}, behind=True)
+    theirs = pointers({"m": "h0", "n": "h0", "b": "hb"}, behind=True)
+    got, notes = merge(base, ours, theirs)
     hold("disjoint members union", got["solids"], {"a": "ha", "b": "hb", "m": "h0", "n": "h0"})
-    hold("source is the merge-base of the two sources", got["source"], {"commit": "mb(cA,cB)"})
     hold("main's bundle fields stand, behind the union",
          got["bundle"], {"sha256": "d0", "bytes": 1, "solids": 3, "behind": True})
     hold("objects stands when both had it", got["release"].get("objects"), "s-")
     hold("no note for a clean union", notes, [])
-    hold("no unproven record where neither side had one", "unproven" in got, False)
-    hold("key order is pack.py's", list(got), ["_", "release", "source", "bundle", "solids",
-                                                "sidecars"])
+    hold("key order is pack.py's", list(got), ["_", "release", "bundle", "solids", "sidecars"])
 
-    # The same member moved on both sides: the incoming hash stands, recorded unproven.
-    ours = pointers({"m": "hA", "n": "h0"}, source="cA")
-    theirs = pointers({"m": "hB", "n": "h0"}, source="cB")
-    got, notes = merge(base, ours, theirs, mb)
+    # The same member moved on both sides: the incoming hash stands, its line unproven.
+    ours = pointers({"m": "hA", "n": "h0"}, made={"m": line("tA", "cA")})
+    theirs = pointers({"m": "hB", "n": "h0"}, made={"m": line("tB", "cB")})
+    got, notes = merge(base, ours, theirs)
     hold("both moved: incoming hash stands", got["solids"]["m"], "hB")
-    hold("both moved: recorded unproven", got["unproven"],
-         {"_": UNPROVEN_NOTE, "paths": [], "members": ["m"]})
+    hold("both moved: the incoming `made` line, unproven", got["made"],
+         {"m": line("tB", "cB", unproven=True)})
     hold("both moved: named in a note", len(notes), 1)
-    hold("unproven sits after source", list(got)[:4], ["_", "release", "source", "unproven"])
 
     # One side moved a member and the other left it: the moved hash stands either way.
-    got, _ = merge(base, pointers({"m": "hA", "n": "h0"}), pointers({"m": "h0", "n": "h0"}), mb)
+    got, _ = merge(base, pointers({"m": "hA", "n": "h0"}), pointers({"m": "h0", "n": "h0"}))
     hold("main moved, incoming untouched: main's hash", got["solids"]["m"], "hA")
-    got, _ = merge(base, pointers({"m": "h0", "n": "h0"}), pointers({"m": "hB", "n": "h0"}), mb)
+    got, _ = merge(base, pointers({"m": "h0", "n": "h0"}), pointers({"m": "hB", "n": "h0"}))
     hold("incoming moved, main untouched: incoming hash", got["solids"]["m"], "hB")
 
     # A retired member goes when the other side left it alone; stays when the other moved it.
-    got, _ = merge(base, pointers({"n": "h0"}), pointers({"m": "h0", "n": "h0"}), mb)
+    got, _ = merge(base, pointers({"n": "h0"}), pointers({"m": "h0", "n": "h0"}))
     hold("pruned on main, untouched incoming: gone", "m" in got["solids"], False)
-    got, _ = merge(base, pointers({"m": "h0", "n": "h0"}), pointers({"n": "h0"}), mb)
+    got, _ = merge(base, pointers({"m": "h0", "n": "h0"}), pointers({"n": "h0"}))
     hold("pruned incoming, untouched on main: gone", "m" in got["solids"], False)
-    got, notes = merge(base, pointers({"n": "h0"}), pointers({"m": "hB", "n": "h0"}), mb)
+    got, notes = merge(base, pointers({"n": "h0"}),
+                       pointers({"m": "hB", "n": "h0"}, made={"m": line("tB", "cB")}))
     hold("pruned on main, moved incoming: incoming stands", got["solids"].get("m"), "hB")
-    hold("…and is recorded unproven", got["unproven"]["members"], ["m"])
+    hold("…and its `made` line is unproven", got["made"]["m"], line("tB", "cB", unproven=True))
 
     # objects is a promise about every member; one side without it takes it off.
     got, _ = merge(base, pointers({"m": "h0", "n": "h0"}, objects=False),
-                   pointers({"m": "h0", "n": "h0", "b": "hb"}), mb)
+                   pointers({"m": "h0", "n": "h0", "b": "hb"}))
     hold("objects absent when one side lacks it", "objects" in got["release"], False)
 
     # The bundle comes from the side that cut one, and is behind unless it holds the union.
     got, _ = merge(base, pointers({"m": "h0", "n": "h0"}, digest="d0", behind=True),
-                   pointers({"m": "h0", "n": "h0", "b": "hb"}, digest="dB"), mb)
+                   pointers({"m": "h0", "n": "h0", "b": "hb"}, digest="dB"))
     hold("incoming cut a bundle, main held: incoming asset", got["release"]["asset"],
          "cad-dB.tar.gz")
     hold("…and it holds the union, so not behind", got["bundle"].get("behind"), None)
     got, _ = merge(base, pointers({"m": "h0", "n": "h0", "a": "ha"}, digest="dA"),
-                   pointers({"m": "h0", "n": "h0", "b": "hb"}, digest="dB"), mb)
+                   pointers({"m": "h0", "n": "h0", "b": "hb"}, digest="dB"))
     hold("both cut: main's asset", got["release"]["asset"], "cad-dA.tar.gz")
     hold("…behind the union", got["bundle"].get("behind"), True)
 
-    # unproven is the union of both records; a side without one contributes nothing.
-    ua = {"_": UNPROVEN_NOTE, "paths": ["p1"], "members": ["m"], "targets": ["//:t1"]}
-    ub = {"_": UNPROVEN_NOTE, "paths": ["p2"], "members": ["n"]}
-    got, _ = merge(base, pointers({"m": "h0", "n": "h0"}, unproven=ua),
-                   pointers({"m": "h0", "n": "h0"}, unproven=ub), mb)
-    hold("unproven records union", got["unproven"],
-         {"_": UNPROVEN_NOTE, "paths": ["p1", "p2"], "members": ["m", "n"], "targets": ["//:t1"]})
+    # A `made` line travels with the hash the merged line carries.
+    o = pointers({"m": "hA", "n": "h0"},
+                 made={"m": line("tA", "cA"), "n": {"commit": "cA", "unproven": True}})
+    th = pointers({"m": "h0", "n": "h0", "b": "hb"},
+                  made={"m": line("t0", "c0"), "n": line("t0", "c0"), "b": line("tb", "cB")})
+    got, _ = merge(base, o, th)
+    hold("a `made` line travels with the hash its member's line carries",
+         got["made"]["m"], line("tA", "cA"))
+    hold("where both sides carry the hash, the line that proves the member stands",
+         got["made"]["n"], line("t0", "c0"))
+    hold("a member one side made keeps that side's line", got["made"]["b"], line("tb", "cB"))
+    hold("`made` is the last key", list(got)[-1], "made")
 
-    # Sources: equal stands, one missing takes the other, both missing is absent.
-    hold("equal sources stand", resolve_source(pointers({}, source="c"), pointers({}, source="c"), mb), "c")
-    hold("one source missing takes the other",
-         resolve_source({"source": {}}, pointers({}, source="c"), mb), "c")
-    hold("no source on either side", resolve_source({}, {}, mb), None)
-    got, _ = merge(base, {}, pointers({"m": "h0", "n": "h0"}), mb)
+    # A key pack.py does not write stands where both sides hold it alike, and goes where not.
+    old = {"_": "note", "release": {"asset": "cad-d0.tar.gz"}, "source": {"commit": "c0"},
+           "unproven": {"members": ["m"]}, "bundle": {"sha256": "d0"}, "solids": {"m": "h0"},
+           "sidecars": {"s": "x0"}}
+    got, _ = merge(old, old, old)
+    hold("a key pack.py does not write stands in its place where both sides hold it alike",
+         list(got), list(old))
+    got, _ = merge(old, old, {k: v for k, v in old.items() if k != "source"})
+    hold("…and goes where they differ", ("source" in got, "unproven" in got), (False, True))
+
+    got, _ = merge(base, {}, pointers({"m": "h0", "n": "h0"}))
     hold("an empty side gives the other side back", got, pointers({"m": "h0", "n": "h0"}))
-    got, _ = merge({}, pointers({"m": "h0"}, source="cA"), pointers({"n": "h1"}, source="cB"), mb)
+    got, _ = merge({}, pointers({"m": "h0"}), pointers({"n": "h1"}))
     hold("both sides created the pointer file from nothing: union", got["solids"], {"m": "h0", "n": "h1"})
-    hold("…with the merge-base source", got["source"], {"commit": "mb(cA,cB)"})
 
     # A line's time travels with its hash; the later time stands where the hashes agree.
     o = pointers({"m": "hA", "n": "h0"}); o["moved"] = {"m": 20, "n": 5}
     th = pointers({"m": "h0", "n": "h0", "b": "hb"}); th["moved"] = {"m": 1, "n": 7, "b": 9}
-    got, _ = merge(base, o, th, mb)
+    got, _ = merge(base, o, th)
     hold("line times follow the hash taken", got["moved"], {"b": 9, "m": 20, "n": 7})
-    got, _ = merge(base, pointers({"m": "h0"}), pointers({"m": "h0"}), mb)
+    got, _ = merge(base, pointers({"m": "h0"}), pointers({"m": "h0"}))
     hold("no times on either side, none written", "moved" in got, False)
 
     # Sidecars merge like solids.
     got, _ = merge(pointers({}, sidecars={"s": "x0"}), pointers({}, sidecars={"s": "x0", "t": "y"}),
-                   pointers({}, sidecars={"s": "x1"}), mb)
+                   pointers({}, sidecars={"s": "x1"}))
     hold("sidecars merge by key", got["sidecars"], {"s": "x1", "t": "y"})
 
-    # A pointer file merged with itself is the file, byte for byte — the real one, when it is there.
+    # A pointer file merged with itself is the file, byte for byte.
+    text = render(pointers({"m": "h0", "n": "h0"}, made={"m": line("t0", "c0")}))
+    hold("a pointer file merged with itself is itself", merge_texts(text, text, text), (text, []))
     real = Path(__file__).resolve().parents[2] / POINTERS_REL
     if real.is_file():
         text = real.read_text()
-        merged, notes = merge_texts(text, text, text, mb)
-        hold("the real pointer file merged with itself is itself", merged == text and notes == [], True)
-        try:
-            sys.path.insert(0, str(Path(__file__).resolve().parent))
-            import pack  # noqa: E402
-            hold("the unproven note is pack.py's own",
-                 pack.unproven(["p"], ["m"])["_"], UNPROVEN_NOTE)
-        except ImportError:
-            print("  (pack.py not importable here; note comparison skipped)")
+        merged, notes = merge_texts(text, text, text)
+        hold("…and the real one says what it says, in its key order",
+             (json.loads(merged), list(json.loads(merged)), notes),
+             (json.loads(text), list(json.loads(text)), []))
 
     # The driver itself, on files, through the command line.
     import tempfile
     with tempfile.TemporaryDirectory() as tmp:
         o, a, b = (Path(tmp) / n for n in ("O", "A", "B"))
         o.write_text(render(base))
-        a.write_text(render(pointers({"m": "hA", "n": "h0", "a": "ha"}, source="cA")))
-        b.write_text(render(pointers({"m": "hB", "n": "h0"}, source="cB")))
+        a.write_text(render(pointers({"m": "hA", "n": "h0", "a": "ha"})))
+        b.write_text(render(pointers({"m": "hB", "n": "h0"})))
         run = subprocess.run([sys.executable, __file__, str(o), str(a), str(b)],
                              capture_output=True, text=True)
         hold("driver exits 0", run.returncode, 0)

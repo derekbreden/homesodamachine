@@ -114,7 +114,7 @@ The Lillium-fed build, the flavor side in the enclosure with none of the cold co
 
     node web/scripts/fetch-cad-artifacts.mjs              # the solids the pointer file names, onto this disk
 
-A generated `.step` is on this disk and in no index. [`cad-artifacts.json`](/hardware/cad-artifacts.json) names each one by sha256, the release asset carrying them, and the commit each came from — `source.commit` for the bundle, and an `unproven` entry naming the uncommitted paths a pack was cut beside and the members they reach, since a solid mid-edit still ships. [`tools/cad-artifacts/pack.py`](/tools/cad-artifacts/pack.py) builds and points at one, and the deploy runs the fetch above (`render.yaml`). A build cuts them too, so a checkout that runs one needs no fetch. The three harvested solids under [`reference/`](/hardware/reference/) have no builder here and are in the index.
+A generated `.step` is on this disk and in no index. [`cad-artifacts.json`](/hardware/cad-artifacts.json) names each one by sha256, the release asset carrying them, and what each was made from — a `made` line per member with one digest over the inputs its rule read, the commit that line was written at, and `unproven` where the tree no longer holds those inputs or nothing says what cut the bytes, since a solid mid-edit still ships. [`tools/cad-artifacts/pack.py`](/tools/cad-artifacts/pack.py) builds and points at one, and the deploy runs the fetch above (`render.yaml`). A build cuts them too, so a checkout that runs one needs no fetch. The three harvested solids under [`reference/`](/hardware/reference/) have no builder here and are in the index.
 
 ## The design loop
 
