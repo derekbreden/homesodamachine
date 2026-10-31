@@ -3,21 +3,29 @@
 Frame: guide bore on Z, finished bottom at Z=0, roof at positive Z.
 The separate Aero insert seats from Z=47 to the roof underside at Z=57.
 
-This module holds the float's numbers and the figures derived from them. `magnetic_float.rs`
-cuts the pieces on the hsm kernel from the numbers it writes.
+This module holds the float's numbers and the figures derived from them, and writes the numbers
+the geometry takes (`numbers()`) to `magnetic-float.numbers.json`; `magnetic_float.rs`, beside
+it, cuts each piece's STEP and payload, the printed pieces' STLs, and the assembly, section and
+exploded views from them on the kernel (`hardware/scripts/_rust_part.py`).
 """
 
 import argparse
 import json
 import math
+import subprocess
 import sys
+import tempfile
 from pathlib import Path
+
+import cadquery as cq
 
 ROOT = next(p for p in Path(__file__).resolve().parents
             if (p / 'hardware/scripts/_cadq_export.py').is_file())
 sys.path.insert(0, str(ROOT / 'hardware/scripts'))
 sys.path.insert(0, str(ROOT / 'tools'))
-from docgen import substitute_md
+import _cadq_export  # noqa: E402,F401  the CAD lock, and build-time.md's clock
+from _materials import linear  # noqa: E402
+from docgen import substitute_md  # noqa: E402
 
 diameter = 36.0
 height = 60.06
@@ -44,6 +52,8 @@ petg_density = 1.25
 petg_material = 'Bambu PETG Translucent Clear 32101'
 water_density = 1.0
 colors = {'petg': '#D9EBF2', 'aero': '#EBC777', 'magnet': '#707985'}
+insert_lift = 24.0                    # what the exploded view lifts the insert by
+magnet_lift = 10.0                    # and the magnet
 
 outer_radius = diameter / 2
 bore_radius = bore_diameter / 2
@@ -116,11 +126,6 @@ def measurements():
             'pressure_rating': 'Unqualified prototype; no hydrostatic test recorded.'}
 
 
-def _kernel(numbers, *args):
-    """Runs `magnetic_float.rs` on `numbers` with `args`, and returns what it prints."""
-    raise NotImplementedError('the fuse clamp template says how Python runs a part on the kernel')
-
-
 def numbers():
     """What `magnetic_float.rs` cuts the pieces from."""
     return {'diameter': diameter, 'height': height, 'outer_radius': outer_radius,
@@ -130,20 +135,29 @@ def numbers():
             'magnet_height': magnet_height, 'magnet_outer_radius': magnet_od / 2,
             'magnet_inner_radius': magnet_id / 2, 'magnet_tolerance': magnet_tolerance,
             'pocket_outer_radius': magnet_pocket_od / 2, 'pocket_inner_radius': magnet_pocket_id / 2,
-            'insertion_lead': insertion_lead,
-            **{f'color_{material}': color for material, color in colors.items()}}
+            'insertion_lead': insertion_lead, 'insert_lift': insert_lift, 'magnet_lift': magnet_lift,
+            **{f'color_{material}': list(linear(cq.Color(color))) for material, color in colors.items()}}
 
 
 def check(asked):
     """What `magnetic_float.rs --check` measures of the pieces it cuts: whether each is one sound
     solid, and every volume by which they miss the design. `asked` holds the lifts the separate
     pieces are slid in by and the depth of roof the insert must carry."""
-    return json.loads(_kernel({**numbers(), 'check': asked}, '--check'))
+    import _rust_part
+    program = _rust_part.program('cold-core', 'magnetic-float')
+    with tempfile.TemporaryDirectory() as directory:
+        path = Path(directory) / 'magnetic-float.check.json'
+        path.write_text(json.dumps({**numbers(), 'check': asked}))
+        run = subprocess.run([str(program), str(path), '--check'],
+                             check=True, stdout=subprocess.PIPE, text=True)
+    return json.loads(run.stdout)
 
 
 def write(output):
+    # A run cuts the pieces; an import of this module is a reader of its numbers.
+    import _rust_part
     output.mkdir(parents=True, exist_ok=True)
-    _kernel(numbers(), str(output))
+    _rust_part.cut('cold-core', 'magnetic-float', numbers(), output)
     info = measurements()
     (output / 'design.json').write_text(json.dumps(info, indent=2) + '\n')
     readme = output / 'README.md'
