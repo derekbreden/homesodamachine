@@ -121,6 +121,13 @@ import sys
 from dataclasses import dataclass
 from pathlib import Path
 
+# THE WORLD IS READ OFF THE MACHINE'S SCENE FILE (`_machine`), which holds meshes. A process that
+# has not imported CadQuery yet takes the mesh kernel here, so the scene's bodies and every solid
+# a query strikes are the same kind of solid. One that already holds OCCT's builds its world.
+import meshcad
+if "cadquery" not in sys.modules:
+    meshcad.activate()
+
 import cadquery as cq
 
 from OCP.BRepExtrema import BRepExtrema_DistShapeShape
@@ -180,6 +187,8 @@ def shape(obj, label: str = "?"):
     obj = obj.val() if hasattr(obj, "val") else obj
     if hasattr(obj, "bounding_box"):        # already a mesh — `common` hands these back
         return obj
+    if meshcad.is_mesh(obj):                # the mesh kernel's solid or compound: no B-rep
+        return obj
     if not hasattr(obj, "wrapped"):
         raise TypeError(
             f"{label}: cannot read a solid out of {type(obj).__name__} — "
@@ -200,10 +209,13 @@ def box(x: tuple, y: tuple, z: tuple):
             .val())
 
 
-def point(p) -> cq.Vertex:
+def point(p) -> cq.Shape:
     """One world point as a shape, so `gap` and `around` can be asked about a coordinate the
     way they are asked about a body. Exact and dimensionless — a sphere would answer its own
-    radius short."""
+    radius short. The mesh kernel holds solids only, and there it is a cube a nanometre across."""
+    if meshcad.mesh_mode():
+        e = 1e-6
+        return cq.Solid.makeBox(e, e, e, cq.Vector(*(float(c) - e / 2.0 for c in p)))
     return cq.Vertex.makeVertex(*(float(c) for c in p))
 
 
@@ -429,7 +441,7 @@ class Link:
                 f"            {self.where} — graded by {self.gates}")
 
 
-def _chain_of(a, rid: str) -> tuple:
+def _chain_of(rid: str) -> tuple:
     """The derivations in the built assembly that name this run, read off the structures that
     key on a run id — a row added to one of them appears here without this being rewritten.
 
@@ -745,7 +757,7 @@ class World:
     def __init__(self, solids: dict, sources: dict, pieces_held_out: bool = False,
                  frames: dict = None, box=None, runs: dict = None,
                  runs_held_out: bool = False, chains: dict = None,
-                 anchors: dict = None):
+                 anchors: dict = None, machine=None):
         self.solids = solids
         # name → "component" | "display" | "funnel" | "run" | PIECE
         self.sources = sources
@@ -765,6 +777,8 @@ class World:
         # assembly built, in world. `pick` names one when a selection lands on it.
         self._anchors = anchors or {}
         self._boxes = {}                # name → (solid, box), see bb()
+        # The `_machine.Machine` this world was read off, when it was read off a scene.
+        self.machine = machine
 
     # -- what is here --
 
@@ -798,6 +812,8 @@ class World:
         reports its bounds and not this is reporting half of where its answer came from:
         the pieces are what a placement in a full machine runs into first."""
         head = f"{len(self.solids)} bod{'y' if len(self.solids) == 1 else 'ies'}"
+        if self.machine is not None:
+            head += f" off the scene file ({self.machine.measured()})"
         if self.runs_held_out:
             head += ", NO routed tubes (runs=False) — every line on the machine is missing"
         if self.pieces:
@@ -1035,6 +1051,8 @@ class World:
         approximation — a box gap is not a clearance."""
         sa = self.solid(a) if isinstance(a, str) else shape(a, "a")
         sb = self.solid(b) if isinstance(b, str) else shape(b, "b")
+        if meshcad.is_mesh(sa) or meshcad.is_mesh(sb):
+            return sa.distance(sb)
         dss = BRepExtrema_DistShapeShape(sa.wrapped, sb.wrapped)
         if not dss.IsDone():
             raise RuntimeError(
@@ -1648,6 +1666,10 @@ def world(runs: bool = True, pieces: bool = True, reload: bool = False) -> World
     they reach into. `w.measured` says which way a world was built, and both scans print
     it.
 
+    On the mesh kernel the world is the machine's scene file (`_machine.machine()`), read in
+    seconds when no source has moved since it was written, and built and written when one has.
+    OCCT's process builds it.
+
     Memoized per (runs, pieces) — building one places every body in the machine."""
     want_pieces = bool(pieces) and not os.environ.get(SKIP_PIECES)
     key = (bool(runs), want_pieces)
@@ -1656,10 +1678,25 @@ def world(runs: bool = True, pieces: bool = True, reload: bool = False) -> World
     elif key in _WORLDS:
         return _WORLDS[key]
 
-    # The whole machine in one assembly — pack bodies, the funnel and display seated in the
-    # walls, the four printed pieces, the swept runs — carrying the frames and the box it was
-    # built from. The same object the build exports and reports on.
-    a = _assembly().build_enclosure_assembly()
+    # The whole machine — pack bodies, the funnel and display seated in the walls, the four
+    # printed pieces, the swept runs — with the frames and the box it was built from. The same
+    # bodies the build exports and reports on.
+    if meshcad.mesh_mode():
+        _ensure_paths()
+        import _machine
+        m = _machine.machine()
+        placed = {name: m.bodies[name] for name in m.solids}
+        frames, shell, drawn, anchors = m.frames, m.box, m.runs, m.anchors
+    else:
+        m = None
+        a = _assembly().build_enclosure_assembly()
+        placed = {name: solid for name, (solid, _color) in _assembly()._solids(a).items()}
+        frames, shell = getattr(a, "frames", None), getattr(a, "box", None)
+        # The AUTHORED runs come across whether or not their tubes did: they are the
+        # centrelines `_lines` drew, and `reroute` asks what a piece of one could do.
+        drawn = {r.id: r for r in getattr(a, "runs", ())}
+        anchors = {k: tuple(getattr(a, k, ()) or ())
+                   for k in ("tube_anchors", "cap_tube_anchors", "body_anchors")}
 
     solids, sources = {}, {}
 
@@ -1669,7 +1706,7 @@ def world(runs: bool = True, pieces: bool = True, reload: bool = False) -> World
         solids[name] = shape(obj, name)
         sources[name] = source
 
-    for name, (solid, _color) in _assembly()._solids(a).items():
+    for name, solid in placed.items():
         src = _source(name)
         if src == PIECE and not want_pieces:
             continue
@@ -1677,18 +1714,13 @@ def world(runs: bool = True, pieces: bool = True, reload: bool = False) -> World
             continue
         add(name, solid, src)
 
-    # The AUTHORED runs come across whether or not their tubes did: they are the centrelines
-    # `_lines` drew, and `reroute` asks what a piece of one could do. A world built `runs=False`
+    # The authored runs come across whether or not their tubes did. A world built `runs=False`
     # says so in `measured`, which is what a reroute there has to be read against. Each one
-    # arrives with the rest of the build that reads it (`chain`), taken off the same assembly.
-    drawn = {r.id: r for r in getattr(a, "runs", ())}
+    # arrives with the rest of the build that reads it (`chain`).
     _WORLDS[key] = World(solids, sources, pieces_held_out=not want_pieces,
-                         frames=getattr(a, "frames", None), box=getattr(a, "box", None),
-                         runs=drawn, runs_held_out=not runs,
-                         chains={rid: _chain_of(a, rid) for rid in drawn},
-                         anchors={k: tuple(getattr(a, k, ()) or ())
-                                  for k in ("tube_anchors", "cap_tube_anchors",
-                                            "body_anchors")})
+                         frames=frames, box=shell, runs=drawn, runs_held_out=not runs,
+                         chains={rid: _chain_of(rid) for rid in drawn},
+                         anchors=anchors, machine=m)
     return _WORLDS[key]
 
 

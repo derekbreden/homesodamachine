@@ -196,12 +196,15 @@ class Frame:
 _frames: dict = {}
 
 
-def frame(name: str, solid, ports: dict) -> Frame:
+def frame(name: str, solid, ports: dict, bb=None) -> Frame:
     """Register a component's frame. `route`'s "compressor.refrig-discharge" anchors
-    resolve through the registry; an unknown component or port raises with the offending name."""
-    import _boxes                                       # placed solids are memoized; box each once
-
-    f = Frame(name, ports, _boxes.boxed(solid))
+    resolve through the registry; an unknown component or port raises with the offending name.
+    `bb` is the placed solid's box when the solid is not at hand (`_machine` reads it off a
+    scene's document)."""
+    if bb is None:
+        import _boxes                                   # placed solids are memoized; box each once
+        bb = _boxes.boxed(solid)
+    f = Frame(name, ports, bb)
     _frames[name] = f
     return f
 

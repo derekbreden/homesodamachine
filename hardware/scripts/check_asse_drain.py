@@ -28,12 +28,26 @@ def write(placed, output=OUTPUT, *, names=NAMES):
     from OCP.BRepAdaptor import BRepAdaptor_Surface
     from OCP.BRepBndLib import BRepBndLib
     from OCP.Bnd import Bnd_Box
+    meshcad = sys.modules.get("meshcad")
+
+    def meshed(shape):
+        """Whether the mesh kernel holds `shape` (hardware/scripts/meshcad)."""
+        return meshcad is not None and meshcad.is_mesh(shape)
+
+    def surface(face):
+        return face._geomAdaptor() if meshed(face) else BRepAdaptor_Surface(face.wrapped)
+
     shapes = {name: value[0] if isinstance(value, tuple) else value
               for name, value in placed.items()}
     # Conservative bounds reject distant pairs; exact B-rep distance and
-    # intersection assess every remaining pair. Compute these once per body.
+    # intersection assess every remaining pair, or the mesh kernel's on its bodies.
+    # Compute these once per body.
     bounds = {}
     for name, shape in shapes.items():
+        if meshed(shape):
+            bb = shape.BoundingBox()
+            bounds[name] = (bb.xmin, bb.ymin, bb.zmin, bb.xmax, bb.ymax, bb.zmax)
+            continue
         box = Bnd_Box()
         BRepBndLib.Add_s(shape.wrapped, box, False)
         bounds[name] = box.Get()
@@ -67,12 +81,12 @@ def write(placed, output=OUTPUT, *, names=NAMES):
         checks[name] = row
     radii = {}
     for name in set(names) & {"tube-drain-vent"}:
-        values = sorted({round(BRepAdaptor_Surface(face.wrapped).Torus().MajorRadius(), 7)
+        values = sorted({round(surface(face).Torus().MajorRadius(), 7)
                          for face in shapes[name].Faces() if face.geomType() == "TORUS"})
         radii[name] = {"centerline_radii_mm": values,
                        "passed": bool(values) and min(values) >= 25 - 1e-6}
     for name in set(names) & {"tube-fluid-18", "tube-fluid-28"}:
-        surfaces = [BRepAdaptor_Surface(face.wrapped).Torus()
+        surfaces = [surface(face).Torus()
                     for face in shapes[name].Faces() if face.geomType() == "TORUS"]
         values = sorted({round(surface.MajorRadius(), 7) for surface in surfaces})
         radii[name] = {"centerline_radii_mm": values,
@@ -84,12 +98,15 @@ def write(placed, output=OUTPUT, *, names=NAMES):
                ROOT / "hardware/reference/neofit-drain-bulkhead/neofit_drain_bulkhead.py",
                ROOT / "hardware/reference/asse1022-assembly/asse1022_assembly.py",
                ROOT / "hardware/printed-parts/asse-drain-adapter/asse_drain_adapter.py"]
-    result = {"scope": "Nominal exact B-rep clearance of the direct TPU ASSE sleeve and dedicated drain against the complete installed assembly population, including cold-core bodies and retained flavor returns. Connected interfaces are excluded. The white 4 mm return requires at least 1 mm to every unconnected body. Pump occupied envelopes are read per component. The sleeve's expanded shape is an occupancy approximation. Hardware tolerances, zip-tie heads, actual bending, seals and vent performance are unmeasured.",
+    method = ("Nominal mesh clearance (every body within 0.005 mm of its exact surface)"
+              if any(meshed(s) for s in shapes.values()) else "Nominal exact B-rep clearance")
+    result = {"scope": method + " of the direct TPU ASSE sleeve and dedicated drain against the complete installed assembly population, including cold-core bodies and retained flavor returns. Connected interfaces are excluded. The white 4 mm return requires at least 1 mm to every unconnected body. Pump occupied envelopes are read per component. The sleeve's expanded shape is an occupancy approximation. Hardware tolerances, zip-tie heads, actual bending, seals and vent performance are unmeasured.",
               "conservative_cold_core_envelope_included": "foam-assembly" in shapes,
               "installed_body_count": len(shapes), "checked_members": list(names), "checks": checks, "bend_radii": radii,
               "source_sha256": {str(p.relative_to(ROOT)): sha(p) for p in sources},
               "passed": all(c["passed"] for c in checks.values()) and all(c["passed"] for c in radii.values())}
-    output.write_text(json.dumps(result, indent=2) + "\n")
+    if output is not None:                  # None: the reading is the caller's to keep
+        output.write_text(json.dumps(result, indent=2) + "\n")
     print("ASSE drain clearance", result["passed"], flush=True)
     return result
 

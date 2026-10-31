@@ -2986,6 +2986,9 @@ def _keystone_clearances(station: tuple, flavor: float, placed: dict) -> tuple:
         printed = printed.fuse(catches)
     hardware = []
     for name in ("bulkhead-flavor-a", "bulkhead-carb"):
+        if _meshes.is_mesh(printed):
+            hardware.append(printed.distance(placed[name]))
+            continue
         query = _BRepDist(printed.wrapped, placed[name].wrapped)
         if not query.IsDone():
             raise RuntimeError(f"the keystone's exact clearance to {name} could not be read")
@@ -5908,6 +5911,24 @@ def graft_printed_surfaces(a, mesh):
     return landed
 
 
+def write_scene(a, path=None) -> Path:
+    """The built assembly `a` as its scene file, on the mesh kernel: its checks run on the
+    meshes and the bodies written with their readings (`_machine.write`).
+
+    ON THE MESH KERNEL THE MACHINE LEAVES AS ITS SCENE, every body it stood and what a reader
+    needs besides, where OCCT's leaves as a STEP and the payload cut from it. Studies and agents
+    read the scene instead of standing the machine again. The checks' readings go into the
+    scene: the card, the facts and the drain check beside the STEP are one OCCT run's, held to
+    that STEP."""
+    import _machine
+    import _scorecard as _card
+    import check_asse_drain
+    drain = check_asse_drain.write({**_solids(a), **_core_solids(a)}, output=None)
+    report(a, _card.pack_clashes(a))
+    card = _card.to_dict(_card.report(a))
+    return _machine.write(a, path or _machine.PATH, card=card, drain=drain)
+
+
 def main():
     # THIS FILE, UNDER THE NAME EVERYTHING ELSE IMPORTS IT BY. Run as a script it is `__main__`,
     # so a module that does `import enclosure_assembly` gets a SECOND copy — one that has built
@@ -5929,6 +5950,10 @@ def main():
                   or os.environ.get("HSM_BUILD_SOURCE") == "trace")
     a = build_enclosure_assembly(require_box_spec=action)
     out = _here.parent / "enclosure-assembly.step"
+    meshcad = sys.modules.get("meshcad")
+    if meshcad is not None and meshcad.mesh_mode():
+        print(f"-> {write_scene(a).name}")
+        return
     from hardware.wiring.installed.build import export_enclosure
     export_enclosure(a, out)
     print(f"-> {out.name}")

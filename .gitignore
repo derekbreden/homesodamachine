@@ -80,8 +80,10 @@ tools/cad-venv
 *.step
 
 # What a generator run on the mesh kernel writes for a STEP target, read back by the kernel's
-# `importStep` (hardware/scripts/meshcad/write.py, write_model).
+# `importStep` (hardware/scripts/meshcad/write.py, write_model), and the machine it stands, as
+# one file a study reads instead of standing it again (hardware/scripts/_machine.py).
 *.step.npz
+*.scene.npz
 hardware/printed-parts/zone-c/funnel/funnel-frame.stl
 hardware/printed-parts/enclosure/electronics-access-panel/electronics-access-panel.stl
 hardware/printed-parts/enclosure/rear-identification/rear-label-*.stl

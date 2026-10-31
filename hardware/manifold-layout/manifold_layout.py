@@ -1175,9 +1175,13 @@ def extents(shape) -> Extents:
     """A shape's box, as `(xmin, ymin, zmin, xmax, ymax, zmax)`.
 
     Takes either a `Manifold` — what `_overlap.common` hands back — or a cq shape, whose box is
-    read off its surface poles without meshing."""
+    read off its surface poles without meshing, or off its own points on the mesh kernel."""
     if hasattr(shape, "bounding_box"):
         return Extents(*shape.bounding_box())
+    meshcad = sys.modules.get("meshcad")
+    if meshcad is not None and meshcad.is_mesh(shape):
+        b = shape.BoundingBox()
+        return Extents(b.xmin, b.ymin, b.zmin, b.xmax, b.ymax, b.zmax)
     bb = Bnd_Box()
     BRepBndLib.Add_s(shape.wrapped, bb, False)
     return Extents(*bb.Get())

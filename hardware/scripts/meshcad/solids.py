@@ -285,10 +285,7 @@ class MeshShape:
         return MeshCompound([MeshSolid(p) for p in pieces])
 
     def distance(self, other):
-        a, b = _union([s.m for s in self._solids()]), _union(_meshes(other))
-        bb = np.array([a.bounding_box(), b.bounding_box()])
-        span = np.linalg.norm(bb[:, 3:].max(0) - bb[:, :3].min(0)) + 1.0
-        return float(a.min_gap(b, span))
+        return build.gap([s.m for s in self._solids()], _meshes(other))
 
     def distances(self, *others):
         return (self.distance(o) for o in others)
@@ -711,6 +708,28 @@ class MeshFace(MeshShape, occ.Face):
             return self.rec["r"]
         raise ValueError("meshcad: this face has no radius")
 
+    def _geomAdaptor(self):
+        """The surface the face records, as OCCT geometry: what CadQuery's own hands back, so
+        `.Cylinder()`, `.Torus()` and the rest read it as they read an OCCT face's."""
+        from OCP.Geom import (Geom_ConicalSurface, Geom_CylindricalSurface, Geom_Plane,
+                              Geom_SphericalSurface, Geom_ToroidalSurface)
+        from OCP.gp import gp_Ax3, gp_Dir, gp_Pnt
+        rec = self.rec or {}
+        kind = rec.get("kind")
+        if kind == "PLANE":
+            return Geom_Plane(gp_Pnt(*rec["p"]), gp_Dir(*rec["n"]))
+        if kind == "CYLINDER":
+            return Geom_CylindricalSurface(gp_Ax3(gp_Pnt(*rec["p"]), gp_Dir(*rec["d"])), rec["r"])
+        if kind == "CONE":
+            return Geom_ConicalSurface(gp_Ax3(gp_Pnt(*rec["p"]), gp_Dir(*rec["d"])),
+                                       math.atan(rec["slope"]), rec["r"])
+        if kind == "SPHERE":
+            return Geom_SphericalSurface(gp_Ax3(gp_Pnt(*rec["c"]), gp_Dir(0, 0, 1)), rec["r"])
+        if kind == "TORUS":
+            return Geom_ToroidalSurface(gp_Ax3(gp_Pnt(*rec["c"]), gp_Dir(*rec["d"])),
+                                        rec["R"], rec["r"])
+        raise NoBrep(f"meshcad: a {self.geomType()} mesh face records no surface OCCT can hold")
+
     def source(self):
         return self.rec.get("src") if self.rec else None
 
@@ -960,7 +979,7 @@ def extrude_linear(cls, *args, taper=0, **kwargs):
     if len(rest) > 1:
         taper = rest[1]
     if taper:
-        raise NotImplementedError("meshcad: extrude with taper")
+        return MeshSolid(build.solid(build.drafted_prism(loops, normal, vec, taper, caller())))
     return MeshSolid(build.solid(build.prism(loops, normal, vec, caller())))
 
 
