@@ -198,9 +198,9 @@ Lay out the ten Beduan valves and the [6](MANIFOLD_TEES) PP0208E tees. Cut stati
 
 6. **Cut the stem elbows.** Each lower return takes two NeoFit ATEU44W stem elbows. Cut each
    tee elbow's stem square [11.65 mm](DOCK_TEE_ELBOW_STEM) past its shoulder, the run
-   collet's seat, and each valve elbow's [15.75 mm](DOCK_VALVE_ELBOW_STEM) past its shoulder:
-   an estimated [12 mm](DOCK_VALVE_INSERTION) seat in the valve and the
-   [3.75 mm](DOCK_VALVE_ELBOW_SHOWING) of stem that stands below its collet. Take the valve's
+   collet's seat, and each valve elbow's [12 mm](DOCK_VALVE_ELBOW_STEM) past its shoulder:
+   an estimated [12 mm](DOCK_VALVE_INSERTION) seat in the valve, with its shoulder on the
+   collet face. Take the valve's
    seat from the actual received valve's fully seated mark. Chamfer each cut edge so it
    passes the O-ring without scoring it.
 
@@ -209,9 +209,11 @@ Lay out the ten Beduan valves and the [6](MANIFOLD_TEES) PP0208E tees. Cut stati
    into its rear valve's bottom collet until its stem bottoms. Turn each pair's sockets to
    face each other. `fluid-9` runs from Y-C to V-C and `fluid-19` from Y-F to V-D; `fluid-17`
    from Y-D to V-G and `fluid-27` from Y-G to V-J lean inboard to their valves. Each is one
-   straight tube of black LLDPE, cut to [53.88 mm](DOCK_RETURN_INNER) for the inner two and
-   [54.47 mm](DOCK_RETURN_OUTER) for the outer two: the straight between the two sockets and
-   [16.89 mm](DOCK_ELBOW_SOCKET) into each. Push it fully into both sockets. Use actual
+   continuous tube of black LLDPE, cut to [50.40 mm](DOCK_RETURN_INNER) for the inner two and
+   [50.96 mm](DOCK_RETURN_OUTER) for the outer two. Form two tangent arcs between the parallel
+   sockets, R18.084 on the inner pair and R19.36 on the outer pair, with the rear mouths
+   3.749 mm lower. Keep the [16.89 mm](DOCK_ELBOW_SOCKET) inside each socket straight and
+   fully seated. Use actual
    insertion marks and tug-check every push-fit joint. Complete this work while front-top is
    loose, before it closes over the condenser/compressor half.
 

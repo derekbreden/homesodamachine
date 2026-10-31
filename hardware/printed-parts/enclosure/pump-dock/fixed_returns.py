@@ -4,7 +4,7 @@ that join them.
 Coordinates are enclosure millimetres: +Y points inward and +Z points up. Each pump port
 feeds one purchased PP0208E tee, its branch toward the pump and its run upright. The fore
 valve stands over the run on one short straight tube. The lower return reaches the rear valve's
-bottom port: a trimmed NeoFit stem elbow in the tee's lower collet, one straight tube, and a
+bottom port: a trimmed NeoFit stem elbow in the tee's lower collet, one tube, and a
 second stem elbow in the valve.
 
 THE FORE BAND'S AFT FACE IS THE BORE FACE. Each tee's branch bore opens on it, and the tee
@@ -99,17 +99,17 @@ def tee_ports(fore_y, x, z):
 
 def elbow_return(start, end):
     """The lower return from the tee's downward lower collet at `start` to the rear valve's
-    downward bottom collet at `end`: a stem elbow in each, one straight tube between them.
+    downward bottom collet at `end`: a stem elbow in each, one tube between them.
 
     The tee's elbow is cut to the run collet's seat depth, so its shoulder stands on the collet
-    face and its axes cross `ELBOW_DROP` under it. The valve's elbow keeps enough stem below its
-    collet to cross at that same height, so the two sockets face each other on one straight
-    line and the tube between them runs level. Each `elbows` row is the elbow's crossing, the
+    face and its axes cross `ELBOW_DROP` under it. The valve's elbow stands shoulder-to-collet
+    when its port is lower, with a gentle S between the parallel sockets. A higher valve
+    retains enough stem below its collet to put both sockets level. Each `elbows` row is the elbow's crossing, the
     way its socket opens, its stem's length past the shoulder and how much of that stands
     outside the collet."""
     (x0, y0, z0), (x1, y1, z1) = start, end
     z = z0 - ELBOW_DROP
-    showing = z1 - ELBOW_DROP - z
+    showing = max(0.0, z1 - z0)
     spare = elbow.STEM_LENGTH - VALVE_INSERTION_NOMINAL
     if not -1e-9 <= showing <= spare + 1e-9:
         raise ValueError(
@@ -122,26 +122,31 @@ def elbow_return(start, end):
     u = _unit((x1 - x0, y1 - y0, 0.0))
     back = (-u[0], -u[1], 0.0)
     mouth = (x0 + u[0] * elbow.SOCKET_MOUTH_REACH, y0 + u[1] * elbow.SOCKET_MOUTH_REACH, z)
+    rear_z = z1 - ELBOW_DROP - showing
+    rear_mouth = (x1 - u[0] * elbow.SOCKET_MOUTH_REACH,
+                  y1 - u[1] * elbow.SOCKET_MOUTH_REACH, rear_z)
+    segments = s_bend(mouth, rear_mouth, u)
+    developed = sum(s['length_mm'] for s in segments)
     return {"elbows": ({"crossing": (x0, y0, z), "socket": u,
                         "stem": RUN_INSERTION, "showing": 0.0},
-                       {"crossing": (x1, y1, z), "socket": back,
+                       {"crossing": (x1, y1, rear_z), "socket": back,
                         "stem": VALVE_INSERTION_NOMINAL + showing, "showing": showing}),
-            "tube": (_line(mouth, u, exposed),),
-            "exposed_mm": exposed,
-            "cut_mm": exposed + 2.0 * elbow.SOCKET_INSERTION,
-            "floor_z": z - elbow.COLLAR_OD / 2.0}
+            "tube": segments,
+            "exposed_mm": developed,
+            "cut_mm": developed + 2.0 * elbow.SOCKET_INSERTION,
+            "floor_z": min(z, rear_z) - elbow.COLLAR_OD / 2.0}
 
 
-def s_bend(start, end):
-    """A tube from an upward collet at `start` into a downward one at `end`, both axes
-    upright: two equal arcs when the axes are offset, one straight when they are not."""
-    (x0, y0, z0), (x1, y1, z1) = start, end
-    length = z1 - z0
-    offset = math.hypot(x1 - x0, y1 - y0)
-    up = (0.0, 0.0, 1.0)
+def s_bend(start, end, direction=(0.0, 0.0, 1.0)):
+    """Two equal tangent arcs between parallel sockets, or a straight if they align."""
+    up = _unit(direction)
+    delta = tuple(end[i] - start[i] for i in range(3))
+    length = sum(delta[i] * up[i] for i in range(3))
+    lateral = tuple(delta[i] - length * up[i] for i in range(3))
+    offset = math.sqrt(sum(v * v for v in lateral))
     if offset < 1e-9:
         return (_line(start, up, length),)
-    side = _unit((x1 - x0, y1 - y0, 0.0))
+    side = _unit(lateral)
     theta = 2.0 * math.atan2(offset, length)
     r = length / (2.0 * math.sin(theta))
     centre = _add(start, _scale(side, r))

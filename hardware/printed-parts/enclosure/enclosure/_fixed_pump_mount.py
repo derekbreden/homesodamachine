@@ -65,10 +65,10 @@ def snap_datums(e, box):
         receiver_y0=d['y0']-e.fits.running,
         receiver_y1=d['y1']+e.fits.running,
         receiver_z0=e.z_seam+e.fits.running,
-        receiver_z1=e.z_seam+35., receiver_roof_z=e.z_seam+14.8,
+        receiver_z1=floor+WING_LENGTH+3.*e.wall, receiver_roof_z=floor+10.,
         port_inner_x=outer+e.fits.running,
         port_outer_x=box.outer[1]-e.wall,
-        port_y0=cy-2.25, port_y1=cy+2.25)
+        port_y0=cy-2.25, port_y1=cy+2.25, port_z0=floor-5.)
 
 
 def snap_receivers(e, box, piece):
@@ -88,7 +88,7 @@ def snap_receivers(e, box, piece):
             (side*d['receiver_inner_x'], d['receiver_roof_z']+reach)])
         x0, x1 = sorted((side*d['port_inner_x'], side*d['port_outer_x']))
         port = e._ybox(x0, x1, d['port_y0'], d['port_y1'],
-                       d['receiver_z0'], d['receiver_roof_z'])
+                       d['port_z0'], d['receiver_roof_z'])
         roof_drop = d['port_outer_x']-d['receiver_back_x']
         corbel = e._xz_prism(d['port_y0'], d['port_y1'], [
             (side*d['receiver_back_x'], d['receiver_roof_z']),
