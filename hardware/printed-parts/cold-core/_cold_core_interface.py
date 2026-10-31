@@ -956,13 +956,7 @@ for _name in cap_cradles:
 # determine it. `anchor_rows` compares the bore and the sections under its span.
 CapAnchor = namedtuple("CapAnchor", "centre seat_r over_face along closure")
 CapAnchor.__new__.__defaults__ = (None, "x", "tie")
-cap_anchors = {
-    #                             centre         seat_r                  over_face along closure
-    # The tie sits on the fixed barrel, clear of both operating collets.
-    "discharge-chain": CapAnchor(_above_mounts.check_anchor()[0],
-                                  _above_mounts.check_anchor()[1] + fits.slip,
-                                  _above_mounts.check_anchor()[2]),
-}
+cap_anchors = {}
 
 # What a zip tie is, wherever one is cut for on this cap. `enclosure.tie_w` is the same
 # fastener stated for the other box; `enclosure_assembly.check_tie_vocabulary` holds the two
@@ -1432,7 +1426,7 @@ if __name__ == "__main__":
         "LLDPE_TUBE_OD": f"{lldpe_tube_od:.4g}",
         "ENTRY_RELIEF_D": f"{2.0 * cap_conduit_entry_relief_radius:.4g}",
         "ENTRY_SKEW_CEILING": f"{cap_conduit_entry_skew_ceiling:.4g}°",
-        "ANCHOR_LOOP": f"{cap_anchor_tie_loop('discharge-chain'):.3g} mm",
+        "ANCHOR_LOOP": "none",
     }
     substitute_py_comments(
         Path(__file__),

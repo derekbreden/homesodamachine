@@ -59,7 +59,7 @@
    "label": "Every corner turns at the stock arc",
    "kind": "gate",
    "status": "pass",
-   "value": "14/14 corners at stock",
+   "value": "19/19 corners at stock",
    "target": "14.00 mm",
    "detail": [],
    "active": true
@@ -137,6 +137,8 @@
   }
  ],
  "bodies": [
+  "carbonator-earth-lockwasher",
+  "carbonator-earth-screw",
   "carbonator-elbow-carb-water-out",
   "carbonator-elbow-co2-in",
   "carbonator-elbow-prv",
@@ -180,8 +182,6 @@
   "reservoir-a-gasket",
   "reservoir-b",
   "reservoir-b-cap",
-  "reservoir-b-fill-lower",
-  "reservoir-b-fill-upper",
   "reservoir-b-gasket",
   "reservoir-grip-a-air",
   "reservoir-grip-a-draw",
@@ -201,13 +201,13 @@
    "to": "carb-water-out.end",
    "stock": "1/4\" LLDPE",
    "od": 6.35,
-   "length": 349.23,
+   "length": 364.43,
    "bend": 14.0,
    "radius": 14.0,
    "minBend": 14.0,
    "ratio": 1.0,
    "grade": "B",
-   "reach": 227.09,
+   "reach": 240.39,
    "reachGrade": "D",
    "binding": null,
    "corners": [
@@ -255,7 +255,7 @@
     }
    ],
    "need": {
-    "detour": 1.538
+    "detour": 1.516
    }
   },
   {
@@ -265,13 +265,13 @@
    "to": "carbonator.co2-in",
    "stock": "1/4\" LLDPE",
    "od": 6.35,
-   "length": 260.94,
+   "length": 274.05,
    "bend": 14.0,
    "radius": 14.0,
    "minBend": 14.0,
    "ratio": 1.0,
    "grade": "B",
-   "reach": 218.94,
+   "reach": 214.59,
    "reachGrade": "C",
    "binding": null,
    "corners": [
@@ -295,7 +295,7 @@
     }
    ],
    "need": {
-    "detour": 1.192
+    "detour": 1.277
    }
   },
   {
@@ -396,14 +396,42 @@
    "to": "reservoir-b-fill.end",
    "stock": "1/4\" LLDPE",
    "od": 6.35,
-   "length": 15.62,
+   "length": 64.09,
    "bend": 14.0,
    "radius": 14.0,
    "minBend": 14.0,
    "ratio": 1.0,
    "grade": "B",
-   "reach": 15.6,
+   "reach": 54.28,
    "reachGrade": "C",
+   "binding": null,
+   "corners": [
+    {
+     "at": 1,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B"
+    }
+   ],
+   "need": {
+    "detour": 1.181
+   }
+  },
+  {
+   "id": "water-in",
+   "kind": "fluid",
+   "frm": "carbonator.water-in",
+   "to": "water-in.end",
+   "stock": "1/4\" LLDPE",
+   "od": 6.35,
+   "length": 250.35,
+   "bend": 14.0,
+   "radius": 14.0,
+   "minBend": 14.0,
+   "ratio": 1.0,
+   "grade": "B",
+   "reach": 131.41,
+   "reachGrade": "D",
    "binding": null,
    "corners": [
     {
@@ -417,38 +445,40 @@
      "radius": 14.0,
      "ratio": 1.0,
      "grade": "B"
-    }
-   ],
-   "need": {
-    "detour": 1.001
-   }
-  },
-  {
-   "id": "water-in",
-   "kind": "fluid",
-   "frm": "carbonator.water-in",
-   "to": "water-in.end",
-   "stock": "1/4\" LLDPE",
-   "od": 6.35,
-   "length": 87.55,
-   "bend": 14.0,
-   "radius": 14.0,
-   "minBend": 14.0,
-   "ratio": 1.0,
-   "grade": "B",
-   "reach": 68.58,
-   "reachGrade": "C",
-   "binding": null,
-   "corners": [
+    },
     {
-     "at": 1,
+     "at": 3,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B"
+    },
+    {
+     "at": 4,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B"
+    },
+    {
+     "at": 5,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B"
+    },
+    {
+     "at": 6,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B"
+    },
+    {
+     "at": 7,
      "radius": 14.0,
      "ratio": 1.0,
      "grade": "B"
     }
    ],
    "need": {
-    "detour": 1.277
+    "detour": 1.905
    }
   }
  ]

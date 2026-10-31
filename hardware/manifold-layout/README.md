@@ -11,10 +11,11 @@ The connections follow [fluid-topology.md](/hardware/topology/fluid-topology.md)
 Each reservoir has separate fill and draw mouths; segments 14/24 fill them and
 16/26 draw from them. The two source valves connect the water and funnel feeds
 to the front manifold through explicit compact fittings and continuous tubes.
-V-A and V-K mount in back-top's upright socket seats beside the sidewalls.
+V-A hangs from back-top's ceiling socket plinth; V-K uses its east-wall socket seat.
 V-B uses the core lid's upright wall east of the PCB. The PCB and pump also
-remain on the core. Back-top carries the sidewall PSU, both raised relays,
-meter and its continuous inlet, holder and insulation.
+remain on the core. Back-top carries the ceiling PSU, two west-wall relays, the threaded ASSE chain,
+Pisco/check group, meter and its continuous inlet, holder and insulation.
+Their integral slide seats and removable snap caps share the production datums.
 
 V-F's outlet, V-E's inlet and V-I's outlet each take a trimmed ATEU44W stem
 elbow. Their reservoir tubes pass below the funnel frame with 1.225 mm nominal
@@ -53,13 +54,10 @@ the frame with its drain assembly and fitting its four screws. The plug, stub,
 elbow and cradle travel with the frame; disconnect the V-B feed before removing
 it. The rear ceiling is continuous.
 
-Keep the low V-A tube/union chain and the lower pump-side elbow loose during
-the back column's ride over the core. The elbow's transverse stem connection
-is made through the open funnel area after closure. Support the continuous
-meter inlet at its plain core guide and keep cross-quadrant wire ends free.
-The [manual closing readings](/hardware/mechanical-qualification/enclosure-above-core/README.md)
-identify the retained rigid group, sampled offsets and unresolved final-fit
-limits; they do not establish connected flexible handling.
+Keep the cross-quadrant tube ends free while positioning back-top. Make the
+V-A/Y-A, V-K/pump and continuous core-tube handoffs through the open funnel
+area, then fit the frame. The rear equipment is populated on the inverted
+back-top before closure.
 
 The production route definitions retain each fitting's own native geometry
 and receiving-socket insertion estimate. Cut lengths are sums of actual tube

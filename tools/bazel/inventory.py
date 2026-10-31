@@ -259,6 +259,10 @@ IMPLICIT_SOLIDS = {
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step.mesh",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh",
     ),
+    "hardware/printed-parts/enclosure/rear-equipment-caps/rear_equipment_caps.py": tuple(
+        f"hardware/printed-parts/enclosure/rear-equipment-caps/{name}.stl"
+        for name in ("asse-snap-cap", "pisco-snap-cap", "meter-snap-cap", "regulator-snap-cap")
+    ),
     "hardware/manifold-layout/enclosure_assembly.py": (
         "hardware/manifold-layout/enclosure-assembly.step.mesh",
         "hardware/wiring/enclosure-wiring.step.mesh",

@@ -1,11 +1,9 @@
-"""TPU 85A sleeve: ASSE atmospheric-vent barb to 4 mm OD LLDPE.
+"""TPU vent cup with an aft-facing 4 mm drain socket.
 
-Print upright, large socket on the bed. The two sockets have independent
-zip-tie lands. The smooth internal reducer rises 60 degrees above the bed
-into the tube bore. Tube depth is marked at assembly. Dimensions are an
-unprinted fit candidate.
-The 6.10 mm socket is based on the specified 1/4-inch hose size, not a
-measurement of the barb crests. The reference's 8 mm cylinder is an envelope.
+The scanned ASSE's exposed vent stem enters the vertical cup. A printed
+quarter turn carries its open drain to a horizontal socket on native -X.
+Both sockets retain a separate four-inch tie land. Native +Z points into
+its vent mouth; the printable frame tips both bores upward at 45 degrees.
 """
 from pathlib import Path
 import math
@@ -22,7 +20,7 @@ from _material_base import M_TPU_BLACK, one_body
 import multiplex_asse1022 as bfp
 
 BARB_BORE = 6.10
-BARB_DEPTH = 12.8
+BARB_DEPTH = 8.8
 TUBE_BORE = 3.80
 TUBE_DEPTH = 14.0
 TAPER_ANGLE = 60.0  # Degrees above the print bed.
@@ -41,7 +39,7 @@ GROOVE_RAMP = 1.0  # At most .5 mm radial growth / mm build rise.
 BARB_TIE_Z = 5.5
 TUBE_TIE_Z = LENGTH - 6.0
 BODY_CLEARANCE = .50
-INSTALLED_REACH = bfp.BODY_UNDERSIDE_Z - BODY_CLEARANCE
+INSTALLED_REACH = 8.6  # Below the scanned vent hex, on the exposed stem.
 
 
 def _revolve(profile):
@@ -49,55 +47,68 @@ def _revolve(profile):
             .revolve(360, (0, 0), (0, 1)).val())
 
 
-def build(*, installed=False):
-    """Relaxed printable solid, or a conservative expanded occupied envelope.
+ELBOW_REACH = 25.4
+SOCKET_DROP = 4.55
+ELBOW_R = SOCKET_DROP-.5
 
-    The installed view opens sockets to the reference barb envelope and tube
-    OD, and increases outside radii by conserving annular section area. This
-    is placement geometry, not an elastomer deformation or sealing model.
+
+def build(*, installed=False):
+    """One vent cup with an aft-facing 4 mm socket and two tie lands.
+
+    Native -X is the tube exit, +Z points into the vent cup. The cup's
+    upper lip is half a millimetre below the ASSE wrench flat.
     """
     barb_d = bfp.VENT_D if installed else BARB_BORE
-    tube_d = 4.0 if installed else TUBE_BORE
-    barb_od = math.sqrt(BARB_OD**2 + barb_d**2 - BARB_BORE**2)
-    tube_od = math.sqrt(TUBE_OD**2 + tube_d**2 - TUBE_BORE**2)
-    rb, rt = barb_od / 2, tube_od / 2
-    outer = _revolve([
-        (0, 0), (rb, 0), (rb, OUTER_REDUCER_START), (rt, TUBE_START), (rt, LENGTH), (0, LENGTH),
-    ])
-    bore = _revolve([
-        (0, -.1), (barb_d / 2 + ENTRY, -.1),
-        (barb_d / 2 + ENTRY, 0), (barb_d / 2, ENTRY_HEIGHT),
-        (barb_d / 2, BARB_DEPTH), (tube_d / 2, TUBE_START),
-        (tube_d / 2, LENGTH - ENTRY_HEIGHT),
-        (tube_d / 2 + ENTRY, LENGTH),
-        (tube_d / 2 + ENTRY, LENGTH + .1), (0, LENGTH + .1),
-    ])
-    body = outer.cut(bore)
-    for centre, radius in ((BARB_TIE_Z, rb), (TUBE_TIE_Z, rt)):
-        lo, hi = centre - GROOVE_FLAT / 2, centre + GROOVE_FLAT / 2
-        tool = _revolve([
-            (radius, lo - GROOVE_RAMP), (radius - GROOVE_DEPTH, lo),
-            (radius - GROOVE_DEPTH, hi), (radius, hi + GROOVE_RAMP),
-            (radius + 1, hi + GROOVE_RAMP), (radius + 1, lo - GROOVE_RAMP),
-        ])
-        body = body.cut(tool)
-    return body.clean()
+    tube_d = 4. if installed else TUBE_BORE
+    rb = math.sqrt(BARB_OD**2+barb_d**2-BARB_BORE**2)/2.
+    rt = math.sqrt(TUBE_OD**2+tube_d**2-TUBE_BORE**2)/2.
+    cup = cq.Solid.makeCylinder(rb,INSTALLED_REACH+SOCKET_DROP,
+                               cq.Vector(0.,0.,-SOCKET_DROP))
+    socket = cq.Solid.makeCylinder(rt,ELBOW_REACH,
+        cq.Vector(0.,0.,-SOCKET_DROP),cq.Vector(-1.,0.,0.))
+    body = cup.fuse(socket)
+    barb = cq.Solid.makeCylinder(barb_d/2.,INSTALLED_REACH+.6,
+                                cq.Vector(0.,0.,-.5))
+    # The short printed drain turn is separate from the LLDPE's bend rule.
+    a = cq.Vector(0.,0.,-.5)
+    mid = cq.Vector(-ELBOW_R+ELBOW_R/math.sqrt(2.),0.,-.5-ELBOW_R/math.sqrt(2.))
+    b = cq.Vector(-ELBOW_R,0.,-SOCKET_DROP)
+    turn = cq.Wire.assembleEdges([cq.Edge.makeThreePointArc(a,mid,b)])
+    channel = (cq.Workplane(cq.Plane(origin=a,normal=(0.,0.,-1.)))
+               .circle(tube_d/2.).sweep(turn).val())
+    bore = cq.Solid.makeCylinder(tube_d/2.,ELBOW_REACH-ELBOW_R+.1,b,cq.Vector(-1.,0.,0.))
+    body = body.cut(barb,channel,bore)
+    for centre,radius,horizontal in ((INSTALLED_REACH-BARB_TIE_Z,rb,False),
+                                     (ELBOW_REACH-6.,rt,True)):
+        lo,hi = centre-GROOVE_FLAT/2.,centre+GROOVE_FLAT/2.
+        groove = _revolve([(radius,lo-GROOVE_RAMP),(radius-GROOVE_DEPTH,lo),
+            (radius-GROOVE_DEPTH,hi),(radius,hi+GROOVE_RAMP),
+            (radius+1.,hi+GROOVE_RAMP),(radius+1.,lo-GROOVE_RAMP)])
+        if horizontal:
+            groove = groove.rotate((0,0,0),(0,1,0),-90.).translate((0.,0.,-SOCKET_DROP))
+        body = body.cut(groove)
+    # A small exterior flat supports the two upward 45-degree bores in the
+    # print frame. It does not enter either socket or the drain turn.
+    print_pose = body.rotate((0,0,0),(0,1,0),45.)
+    z = print_pose.BoundingBox().zmin
+    flat = cq.Solid.makeBox(100.,100.,1.,cq.Vector(-50.,-50.,z-.4))
+    return print_pose.cut(flat).rotate((0,0,0),(0,1,0),-45.).clean()
 
 
 def placed(vent_tip):
-    """Large mouth up, clear of the body; small mouth points straight down."""
-    x, y, z = vent_tip
-    return (build(installed=True).rotate((0, 0, 0), (1, 0, 0), 180)
-            .translate((x, y, z + INSTALLED_REACH)))
+    """Installed on the scanned barb, with its tube socket along native -X."""
+    return build(installed=True).translate(vent_tip)
 
 
 def tube_mouth(vent_tip):
     x, y, z = vent_tip
-    return (x, y, z + INSTALLED_REACH - LENGTH)
+    return (x-ELBOW_REACH,y,z-SOCKET_DROP)
 
 
 def main():
-    shape = build()
+    shape = build().rotate((0,0,0),(0,1,0),45.)
+    b = shape.BoundingBox()
+    shape = shape.translate((-(b.xmin+b.xmax)/2.,-(b.ymin+b.ymax)/2.,-b.zmin))
     stl = HERE / "asse-drain-adapter.stl"
     step = HERE / "asse-drain-adapter.step"
     cq.exporters.export(shape, str(stl), tolerance=.025, angularTolerance=.08)

@@ -405,7 +405,6 @@ def build_top_lid():
         lid_total_height)
     for name in ('valve-v-b',):
         lid = lid.union(_above_mounts.valve_support(name,lid_total_height))
-    lid = lid.union(_above_mounts.check_support())
     for support in _above_mounts.union_supports().values():
         lid = lid.union(support)
     for passage in _above_mounts.union_support_cuts().values():
@@ -421,6 +420,8 @@ def build_top_lid():
     for passage in _a_anchors.cuts().values():
         lid = lid.cut(_above_mounts.world_shape_in_cap(passage))
     lid = lid.union(_above_mounts.world_shape_in_cap(_above_mounts.va_feed_snap()))
+    for support in _above_mounts.flavor_snaps().values():
+        lid = lid.union(_above_mounts.world_shape_in_cap(support))
     lid = lid.union(_above_mounts.world_shape_in_cap(_above_mounts.manifold_cable_bank()))
     lid = lid.union(_above_mounts.world_shape_in_cap(_above_mounts.rear_level_cable_hook()))
     # Both straight vents stand clear of the equipment mounts. Their openings

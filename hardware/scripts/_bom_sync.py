@@ -128,7 +128,7 @@ reeds_per_carbonator = 2
 # Purchased flavor-manifold fittings come from the pack's own declarations: every Y node is
 # a purchased PP0208E, the four on the pump ports included.
 solenoid_count = sum(1 for n in ml.P if n.startswith("V-"))
-tee_count = len(ml.PURCHASED_TEES)
+tee_count = len(ml.PURCHASED_TEES) + 1  # Rear ASSE-to-V-K/flavor union tee.
 
 # Cable management, vent-adapter lands and paired stations with tie closures
 # use four-inch stock. Each snapped station carries one separate printed cap.
@@ -142,13 +142,12 @@ four_inch_ties_per_build = 15 + 2 + reservoir_a_ties_per_build
 _cap_retaining_paths = {**_selected_cap.meter_tie_routes(),
                         **{name: route for name, route in _selected_cap.union_tie_routes().items()
                            if _selected_cap.union_support_datums()[name]['support_implemented']},
-                        'water-check': _selected_cap.check_tie_route()}
-six_inch_ties_per_build = (len(_selected_shell.fluid_supports())
-                            + len(_cap_retaining_paths))
+                        }
+six_inch_ties_per_build = len(_cap_retaining_paths)
 
 # PP1208E bulkheads: soda umbilical and tap-water inlet. The flavor pair uses 4 mm ABU44M-E.
 panel_umbilical_bulkheads = 1
-panel_water_inlet_bulkheads = 1
+panel_water_inlet_bulkheads = 0
 
 # Per-cap insert counts.
 # Foam caps: `attachment_xy_positions` is the list of (x, y) pairs for one
@@ -337,7 +336,7 @@ m3x8_per_build = (shelf_pcba_screws_per_build + cond_screws_per_build + shelf_gr
                   + touchflo_screws_per_build)
 
 # C14 and the cap's three local B-fill passage clamps use M3 × 10.
-m3x10_per_build = c14_screws_per_build + b_fill_clamp_fasteners_per_build
+m3x10_per_build = c14_screws_per_build + b_fill_clamp_fasteners_per_build + _selected_shell.psu_fastener_plan()['count']
 m3x20_per_build = pump_mount_screws_per_build
 
 # The PCB stack belongs to the cap; PSU and relay stacks belong to the wall.
@@ -359,8 +358,7 @@ c14_screw_reach = c14_screw_len - _c14.FLANGE_T - c14_washer_thickness
 m3x60_per_build = pump_retainer_screws_per_build
 
 # M3 × 12 retains the funnel frame and the PSU's four wall ears.
-m3x12_per_build = (dock_fixture_locks_per_build + roof_closure_screws_per_build
-                   + shelf_psu_screws_per_build)
+m3x12_per_build = dock_fixture_locks_per_build + roof_closure_screws_per_build
 
 # WHICH M3 BODY EACH STATION TAKES. ruthex's short and full-length M3 are the same insert but
 # for the body — same knurl, same recommended hole — so this split is a statement about BORE
@@ -412,11 +410,6 @@ total_m3_screws_per_build = (
 )
 total_m5_screws_per_build = floor_screws_per_build + enclosure_seam_rods_per_build
 
-# The cap check's complete nominal strip needs the allocated six-inch stock.
-# Its installed threading and retention remain unqualified.
-chain_tie_loop = _cap_retaining_paths['water-check']['length_mm']
-
-
 def pack_line_cost(quantity, pack_price, pack_quantity):
     """Allocate the exact paid/list pack price; round only the final line."""
     allocated = Decimal(str(quantity)) * Decimal(pack_price) / Decimal(str(pack_quantity))
@@ -459,7 +452,6 @@ def main(*, only_bom=False):
         "PP1208E_PANEL": f"{panel_umbilical_bulkheads:.4g}",
         "PP1208E_INLET": f"{panel_water_inlet_bulkheads:.4g}",
         "PP1208E_TOTAL": f"{pp1208e_per_build:.4g}",
-        "ANCHOR_LOOP": f"{chain_tie_loop:.3g} mm",
         # Heat-set insert + screw hardware.
         "FOAM_INSERTS": f"{foam_cap_inserts_per_build:.4g}",
         "FOAM_CLAMP_INSERTS": f"{foam_cap_clamp_inserts_per_build:.4g}",

@@ -202,6 +202,10 @@ PARTS = {
     "Faucet lever": ["faucet/lever-replica/lever-replica.step"],
     "Umbilical organizer — below faucet mount": ["faucet/umbilical-organizer/umbilical-organizer.step"],
     "Soda inlet bend holder": ["soda-bend-holder/soda-bend-holder.step"],
+    "Rear equipment snap caps": [
+        f"enclosure/rear-equipment-caps/{name}-snap-cap.step"
+        for name in ("asse", "regulator", "pisco", "meter")
+    ],
     # The funnel's drop-in frame and the cradle that hangs the drain elbow under its web. The
     # silicone funnel itself is cast, and §8 bills it as silicone.
     "Funnel frame": ["zone-c/funnel/funnel-frame.step"],
@@ -221,6 +225,7 @@ GROUP_OF = [
     ("Enclosure — pump retainer",   "ext"),
     ("Display cover plate",         "ext"),
     ("Soda inlet bend holder",       "small"),
+    ("Rear equipment snap caps",     "small"),
     ("Flavor reservoir",            "tight"),
     ("Faucet shell",                "petgf"),
     ("Faucet display cover plate",  "petgf"),

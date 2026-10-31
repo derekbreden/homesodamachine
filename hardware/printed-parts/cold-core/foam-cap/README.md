@@ -6,9 +6,9 @@ leaves 0.30 mm per face for the exterior foil bands. The
 [casing integration receipt](../casing-integration-review.json) records its
 independent mounting, passage and stack-height datums. The PCB lies flat on
 its west half; the diaphragm pump stands aft. V-B seats in
-an integral upright socket wall east of the PCB. The water check rests on
-a fore–aft quarter bearing on a filled lid-rooted pedestal. It opens upward and west,
-leaving the west approach open. The four DC/sensor wells sit on the board-facing back of V-B’s wall,
+an integral upright socket wall east of the PCB. The pump discharge enters
+a stem check through the clamped PVC joint; that check is carried by its
+connected fittings. The four DC/sensor wells sit on the board-facing back of V-B’s wall,
 with levers opening west. The earth boss is accessible from above. Back-top carries V-A, V-K, their fitted
 plumbing, the complete inlet header, PSU, both relays and flow meter.
 
@@ -20,7 +20,7 @@ are A (120, -26) and B (-109, -32.5) mm; the top cup/lid install after their
 shared 180° half-turn. [Tube and grip details](../reservoir/vent.md).
 
 V-B uses the shared V69 socket profile. Its wall travels with the populated
-core. V-A and V-K use back-top's sidewall-rooted seats; their open-bench
+core. V-A hangs from back-top's ceiling seat; V-K uses its east-wall seat; their open-bench
 preparation belongs to [internal plumbing](../../../assembly/internal-plumbing.md).
 Their underside flow arrows point down, with the header at the upper inlets
 and the pump/Y-A feeds at the lower outlets.
@@ -28,12 +28,15 @@ and the pump/Y-A feeds at the lower outlets.
 Water in, soda out, A-fill and both reservoir draws pass straight through
 the cup and lid. A-fill's reservoir seat is shell (102.5, −61) mm; B-draw's
 is (−94.3, 6) mm. Their upper guides and exposed routes retain their stations.
-The water guide stands at world (−53, 288.7265) mm. Its inlet turn is laid in
-the open main body before potting. Above the lid, one exposed R18 arch joins
-the upward-facing check elbow, with about 192 mm exposed tube.
-The soda tube turns above the tank inside the open main body, then rises
-straight through world (50, 342.4148) mm into its retained external insulation.
-Each guide has a Ø7.5 mm bore; the water and soda columns have 3 mm radial stock.
+The water guide stands at world (−80.4167, 402.9988) mm. Below the cup,
+the tube follows the west lane clear of Reservoir A. Its initial diagonal reach clocks the carbonator inlet elbow clear of the
+PRV. An oblique R14 descent and plan turn pass below the PRV body, east of
+its vent, before the tube shifts outward into the west lane. The soda guide is
+world (77.5, 359.51) mm; its continuous blue tube turns inside the open body,
+then rises straight through the cup. The gas guide is world (59.101, 354.664)
+mm. Below the cup, two R14 turns shift the red tube outward beyond the
+copper wrap before it descends in the lower port lane. All three guides
+have Ø7.5 mm bores and retain full R14 tube bends inside the body.
 
 B-fill enters the cap's Y− face at world (−43.5, 182.6, 247.55) mm and follows
 an R14 turn to the existing reservoir seat at X−43.5/Y233.3. The continuous
@@ -62,14 +65,11 @@ foaming, threading the tube or installing the PCB. Later clamp access
 requires PCB removal. The [B-fill channel review](b-fill-channel-review/README.md)
 records the installed interfaces and supported-face geometry.
 
-The edge-on flow meter, both collar bearings, continuous external inlet,
-accepted R14 holder and one 63 mm square-ended foam piece belong to back-top.
-The collar bearings root into its roof. Thread the tube through the
-holder and slide the foam over both before connecting the meter. The holder
-has a 2 mm wall and 3 mm legs; local foam compression remains an estimate
-informed by the recorded physical fit. The core guide is a plain boundary in
-one uncut tube. Tighten the pump screws before connecting that inlet, which
-crosses one pump-driver approach; disconnect it for that screw's service.
+The flow meter, its rear-facing snap seat and cap, continuous external
+inlet, accepted R14 holder and one 61 mm square-ended foam piece belong to
+back-top. Thread the tube through the holder and foam before connecting the
+meter. The holder has a 2 mm wall and 3 mm legs. The core guide is a plain
+boundary in one uncut tube.
 
 The V-B return has a filled 11.24 × 11.5 mm lid pedestal beneath its forward
 leg, with a peaked tie passage and one six-inch narrow tie on the fixed body band.
@@ -117,20 +117,20 @@ east, then lifts another 20 mm. Its first lift clears the selected header by
 envelopes; hand access, flexible lead dressing, clone fit and installed
 tightening force remain unqualified. Nominal 2.5 × 0.8 mm
 strip paths and their line/arc lengths belong to `union_tie_routes()`,
-`check_tie_route()` in the mount helper; `meter_tie_routes()` delegates to
-the back-top bearings. `nominal_tie_strips()` builds their
+the V-B holder in the mount helper. `nominal_tie_strips()` builds their
 complete native witness solids. Purchased tie dimensions, bend/twist transitions, threading,
 head engagement and retention remain unqualified.
 
 | Restraint | Nominal strip route | Allocated tie |
 | --- | ---: | --- |
 | V-B outlet return | 76.96 mm | One 152.4 mm narrow tie |
-| Water-check barrel | 72.34 mm | One 152.4 mm narrow tie |
 
 The [production arrangement](../../../manifold-layout/above-core.md) owns the
 installed component frames. [_above_core_mounts.py](../_above_core_mounts.py)
 carries the native PCB and four identical pump-foot mounting patterns into
-the cap. The PSU mounts on back-top's dry sidewall; its ceiling is continuous.
+the cap. The PSU mounts in back-top's shallow ceiling recess with four M3 × 10
+screws into short inserts. The four rear equipment caps close their integral
+shell seats without ties.
 
 | Equipment | Stations | Screw | Insert | Bearing stack and reach |
 | --- | ---: | --- | --- | --- |
@@ -203,25 +203,10 @@ article and finite native stock witnesses; those fore tie-passage results do not
 the direct C2 interface. The lid and cup use the same smooth print-mesh export. Nearby
 electrical and nominal-tie contacts retain their explicit fixture status.
 
-The [neoFit ACHV44-E water check](../../../reference/neofit-achv44-check/README.md)
-uses an 8.8 mm-long east quarter bearing beginning 0.5 mm inside its fixed barrel
-band. Its full 11.58 × 8.8 mm pedestal reaches the lid directly, ahead of the
-fore pump foot. A transverse tie passage has 2.8 mm width, 1.8 mm straight sides and a
-45° peaked roof at 3.2 mm overall height. It retains 3 mm
-of stock beneath the bearing and at both axial ends. The printed pedestal clears
-all four pump-driver columns. Fasten the pump before seating the check. For pump service,
-release or disconnect the removable check group to clear that driver lane.
-
-The water check's complete nominal 2.5 × 0.8 mm retaining-strip path is
-72.34 mm, read from `check_tie_route()`. Thread it through the pedestal's straight passage
-before seating the check. One six-inch narrow tie is allocated. The
-outlet elbow has 0.4 mm exposed stem ahead of the reference's 16.891 mm
-receiving depth. The check's exterior scale and receiving depth are
-same-family layout inferences. Actual part dimensions, collet release travel,
-tie threading, head engagement and installed retention remain unqualified.
-The manually invoked [bearing review](check_bridge_review.py) records its
-3 mm stock, lid backing and nominal strip against the exported lid in the
-[cap receipt](above-core-native-review.json).
+Two filled, upward-opening 4.1 mm tube clips retain the 4 mm flavor lines:
+A at world (77.5, 417, 257) and B at (35, 414, 264) mm. Their 8 mm spans rise
+from the lid's flat underside. The ASSE, water regulator, PISCO and meter
+are retained on back-top by their separate snap caps.
 
 The cap's ten M3 × 25 closure stations per face, dry seat allowances and
 reservoir cap bores retain their separate interfaces. The V-B wall, the lid's only

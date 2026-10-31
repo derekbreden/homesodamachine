@@ -1,7 +1,7 @@
 """Flush identification chips for the selected six-port rear grid.
 
-The rear flange and nut seating planes stay fixed. Each 2 mm chip replaces
-2 mm of the 6 mm clamping section; its face is the existing flange plane.
+The rear flange and nut seating planes stay fixed. Each 1.8 mm tile slides in a continuous rear channel and keeps its bore
+on the corresponding fitting.
 """
 
 import functools
@@ -30,7 +30,7 @@ from _materials import step_safe
 from print_mesh import write_print_stl
 
 WIDTH = port_chip.WIDTH
-THICK = original.THICK
+THICK = 1.8
 WORD_SIZE = 4.6
 WORD_DEPTH = original.WORD_DEPTH
 WORD_RAISE = original.WORD_RAISE
@@ -68,39 +68,47 @@ def rise():
 
 
 def stations():
-    """World stations and exact clamping planes, from the shared rear datum."""
-    plan = above_core.specification()['rear_wall']
-    relief = plan['interior_panel_relief']
-    return tuple({**port, 'which': STATIONS[port['name']],
-                  'face_y_mm': relief['flange_seat_y_mm'],
-                  'floor_y_mm': relief['flange_seat_y_mm'] - THICK,
-                  'nut_y_mm': relief['nut_seat_y_mm']}
-                 for port in plan['wet_ports'])
+    """Tiles slide in two continuous channels, with their bores on the fittings."""
+    spec = above_core.specification()
+    ports = {p['name']:p for p in spec['rear_wall']['wet_ports']}
+    rows = []
+    for z,names in zip(spec['fluid_grid']['rows_z_mm'],spec['fluid_grid']['assignment']):
+        for x,name in zip(spec['fluid_grid']['columns_x_mm'],names):
+            rows.append({**ports[name],'which':STATIONS[name],
+                'bore_x_mm':ports[name]['center_x_mm'],'bore_z_mm':ports[name]['center_z_mm'],
+                'center_x_mm':x,'center_z_mm':z,'face_y_mm':471.1,'floor_y_mm':469.3,'nut_y_mm':465.3})
+    return tuple(rows)
+
+
+def _station(which):
+    return next(row for row in stations() if row['which']==which)
+
+
+def _top(which):
+    row = _station(which)
+    return 355.-row['center_z_mm'] if row['center_z_mm']==328. else 19.8
 
 
 @functools.cache
 def word(which):
-    flat = cq.Workplane('XY').text(
-        original.STATIONS[which].word, WORD_SIZE, WORD_DEPTH + WORD_RAISE,
-        font=original.WORD_FONT, kind=original.WORD_KIND,
-        halign='center', valign='center')
-    letters = (flat.rotate((0, 0, 0), (1, 0, 0), 90.)
-               .rotate((0, 0, 0), (0, 0, 1), 180.).val())
+    flat = cq.Workplane('XY').text(original.STATIONS[which].word,5.,
+        WORD_DEPTH+WORD_RAISE,font=original.WORD_FONT,kind=original.WORD_KIND,
+        halign='center',valign='center')
+    letters = flat.rotate((0,0,0),(1,0,0),90.).rotate((0,0,0),(0,0,1),180.).val()
     b = letters.BoundingBox()
-    bottom = original.bottom(original.family(which))
-    return letters.translate((-(b.xmin+b.xmax)/2,
-                              THICK-WORD_DEPTH-b.ymin,
-                              (bottom+rise())/2-(b.zmin+b.zmax)/2
-                              + WORD_LIFT.get(which, 0.)))
+    return letters.translate((-(b.xmin+b.xmax)/2.,THICK-WORD_DEPTH-b.ymin,
+                               (12.+_top(which))/2.-(b.zmin+b.zmax)/2.))
 
 
 @functools.cache
 def chip(which):
-    family = original.family(which)
-    blank = port_chip.outline(WIDTH, rise(), original.bottom(family), THICK)
-    bore = cq.Solid.makeCylinder(original.bore_d(family)/2, THICK,
-                                 cq.Vector(), cq.Vector(0, 1, 0))
-    return blank.cut(bore, word(which)).clean()
+    row = _station(which)
+    blank = cq.Solid.makeBox(WIDTH,THICK,_top(which)+12.,cq.Vector(-WIDTH/2.,0.,-12.))
+    diameter = (above_core.specification()['rear_plumbing']['tap_tile_bore_mm']
+                if which=='water' else row['bore_diameter_mm'])
+    bore = cq.Solid.makeCylinder(diameter/2.,THICK+.2,
+        cq.Vector(row['bore_x_mm']-row['center_x_mm'],-.1,row['bore_z_mm']-row['center_z_mm']),cq.Vector(0,1,0))
+    return blank.cut(bore,word(which)).clean()
 
 
 def _colour(rgb):
@@ -161,18 +169,19 @@ def receiver_field():
     return _nameplate_receiver(cq.Compound.makeCompound([]))
 
 
+def rail_bounds():
+    west,east = above_core.specification()['fluid_grid']['columns_x_mm']
+    return tuple((x0,x1,471.3,472.9,252.,355.) for x0,x1 in (
+        (west-18.15,west-14.),(west+14.,east-14.),(east+14.,east+18.15)))
+
+
 def apply(piece):
-    """Cut the flush chips and carry the accepted nameplate on its plain field."""
-    for station in stations():
-        bottom = original.bottom(original.family(station['which']))
-        cutter = port_chip.outline(
-            WIDTH+2*fits.slip, rise()+fits.slip, bottom+fits.slip,
-            THICK+1., station['floor_y_mm'],
-            radius=port_chip.LOWER_CORNER_RADIUS+fits.slip)
-        piece = piece.cut(cutter.translate((station['center_x_mm'], 0,
-                                            station['center_z_mm'])))
-    piece = _nameplate_receiver(piece)
-    return piece.clean()
+    """One open channel per column, with side rails and a flat bottom stop."""
+    for x in above_core.specification()['fluid_grid']['columns_x_mm']:
+        piece = piece.cut(cq.Solid.makeBox(WIDTH+.3,3.5,105.,cq.Vector(x-WIDTH/2.-.15,469.299,252.)))
+    for x0,x1,y0,y1,z0,z1 in rail_bounds():
+        piece = piece.fuse(cq.Solid.makeBox(x1-x0,y1-y0,z1-z0,cq.Vector(x0,y0,z0)))
+    return _nameplate_receiver(piece).clean()
 
 
 def field_land():
@@ -188,7 +197,7 @@ def plain_lands():
     """Keep the complete accepted retaining lips, and the raised field's base, in the exterior
     print mesh."""
     return nameplate.wing_interface.plain_lips(
-        nameplate_station(), nameplate_plan()['face_y_mm']) + (field_land(),)
+        nameplate_station(), nameplate_plan()['face_y_mm']) + (field_land(),) + rail_bounds()
 
 
 def main():

@@ -96,11 +96,19 @@ Only `foam-cap-top` carries the eight cup-rooted equipment columns: four pump fe
 
 Seat three full-length RX-M3x5.7 inserts in the cup's B-fill clamp pilots. Fit the lid and close the three recessed M3 × 10 screws before threading the tube or installing the PCB. Feed reservoir B's continuous black 1/4-inch LLDPE fill tube through the fore-facing entry, around the guide and out the cup floor, with its V-I end free. The lower tube enters the TPU fill grip at world X−43.5/Y233.3 and finishes nominally at Z228.15, 1 mm below the reservoir plate in the headspace; its short tip may remain slightly angled. Mask every tube/cable passage and the dry B-fill passage joint for the cap pour; clear the masks after cure. Keep the source end loose until the populated core and front-top are staged for their final connection. Terminate both J10 power leads on the loose PCB before fastening it to its posts, then land their free ends at the core WAGOs.
 
-V-B presses into the lid's upright wall east of the PCB using the shared [V69 socket fit](/hardware/printed-parts/valve-seat/README.md). Its wall travels with the populated core. V-A and V-K, their fitted elbows and the inlet header are prepared on back-top at [internal plumbing](/hardware/assembly/internal-plumbing.md); they do not mount on this lid. The check saddle, four DC/sensor connector wells and accessible earth boss belong to the core lid. The selected native layout and its qualification limits are recorded in the [cap reference](/hardware/printed-parts/cold-core/foam-cap/README.md). Keep both cap orientations labeled; the top cap and lid install rotated 180° at step 7.
+V-B presses into the lid's upright wall east of the PCB using the shared [V69 socket fit](/hardware/printed-parts/valve-seat/README.md). Its wall travels with the populated core. V-A and V-K, their fitted elbows and the inlet header are prepared on back-top at [internal plumbing](/hardware/assembly/internal-plumbing.md); they do not mount on this lid. Four DC/sensor connector wells belong to the core lid. The selected native layout and its qualification limits are recorded in the [cap reference](/hardware/printed-parts/cold-core/foam-cap/README.md). Keep both cap orientations labeled; the top cap and lid install rotated 180° at step 7.
 
 The G Ganen's four identical rubber feet have nominal 7 mm pads and slide independently along the casing rails. Their full clips reach the fore/aft rail ends, with slot centers at reference X = 9.5 and 67.5 mm and Y = ±38.5 mm. Each M3 × 20 screw sits 1.5 mm outward within its slot so its Ø9 × 0.8 mm washer lies flat clear of the raised shoulder. Align the feet with the printed lid holes and fasten the pump while its four driver approaches are open. Close and seal the cap-clamp screws before installing the PCB over them. Check actual screw passage, flat washer seating, thread engagement and rubber compression during assembly. The [installation reference](/hardware/reference/g-ganen-pump/installation/README.md) carries the cap axes and native checks. The cap's mount stations and conduit pattern identify its installed rotation.
 
-The V-B return has its own integral lid restraint and one six-inch narrow tie. Thread its holder before seating the fitting and dress the tie before final upper plumbing. V-A's low turn and feed travel with back-top on their connected tubing. Fasten the pump before making up its discharge check group, in the order [internal plumbing](internal-plumbing.md) §2 gives, or connecting the continuous soda inlet carried by back-top. The installed inlet crosses one pump-driver approach; disconnect and remove it for that screw's service. Thread the check's six-inch narrow tie through its east-quarter pedestal before seating the fixed barrel. The full-height pedestal stands ahead of the pump foot and leaves all four printed driver approaches open. Remove the check from that column for pump service. The meter, its two collar bearings, external inlet, accepted R14 holder and single 63 mm square-ended foam piece belong to back-top. Prepare those on the open back-top subassembly per [internal plumbing](internal-plumbing.md#4-rear-beverage-connections). Its concealed rear-outlet tube occupies 15.7 mm in the meter and 16.891 mm in the return elbow. The continuous inlet passes through this core's plain guide without a joint or tube cut. Receiving allowances and flexible closing handoffs retain their recorded CAD scope. Printed fit, tie retention and the complete installed fluid path retain their qualification limits.
+The V-B return has its own integral lid restraint and one six-inch narrow tie.
+Thread its holder before seating the fitting. Fasten the pump before making
+up the reinforced PVC joints and discharge stem check, following
+[internal plumbing](internal-plumbing.md) §2. The meter, rear snap seat and
+cap, continuous inlet, R14 holder and single 61 mm square-ended foam piece
+belong to back-top. Prepare them on the open shell. The meter's short rear
+tube joins SODA directly. The inlet continues through the core's plain guide
+without a tube joint or cut. Seat the two 4 mm flavor lines in their separate
+upward-opening lid clips after the larger plumbing is in place.
 
 At the final upper connections, seat the straight white V-A feed in the lid's
 upward-opening C2 clip before finally dressing `PE-carbonator` and `J4-V5`.
@@ -111,7 +119,7 @@ existing datums. Release it from the lid before moving back-top for service.
 [Internal plumbing](internal-plumbing.md#5-final-connections-through-the-funnel-opening)
 gives the connection sequence.
 
-The main PCB uses the full-length inserts prepared here. The PSU and both relays mount on back-top's dry sidewall; their wall inserts are installed during enclosure assembly. The electronics ceiling is continuous.
+The main PCB uses the full-length inserts prepared here. The PSU mounts in back-top's shallow ceiling recess; both relays mount on its dry west wall. Their short inserts are installed during enclosure assembly.
 
 The Reservoir A fill/draw pair uses two integral fore C2 clips on one broad lid
 base at Y209.75, Z258.5 mm, with draw at X50.5 and fill at X64.0 mm. Press each
@@ -212,8 +220,8 @@ The bands restrict cabinet-air entry at the perimeter joints and the collars and
 
 The water and CO2 lines each carry a warm-side check outside the shell.
 
-- **Water-side check:** one [neoFit ACHV44-E 1/4-inch push-connect check](/hardware/reference/neofit-achv44-check/README.md) on the G Ganen pump's west flank. The pump elbow's tube enters its fore inlet; its aft outlet feeds `water-5`. An aft-rooted east quarter bearing and one six-inch narrow tie support its fixed barrel while leaving the pump foot and driver clear. Its outlet elbow faces upward into the exposed R18 arch to the straight water-in guide. One uncut tube continues through that plain guide to the carbonator's water-in adapter; the warm and internal CAD spans belong to the same physical blank. Its purchased-part reference retains the vendor geometry's scale and interface limits; actual fit, cracking pressure and reverse-sealing performance remain unqualified.
-- **CO2-side check:** the selected neoFit ACHV44-E check follows the PISCO regulator on the east wall, with flow toward the carbonator. Trimmed stem elbows form the compact folded path into the cap's gas guide. The [native arrangement](/hardware/manifold-layout/above-core.md) and [check-valve reference](/hardware/reference/neofit-achv44-check/README.md) define the selected bodies and their evidence limits; CAD placement does not qualify gas service or reverse sealing.
+- **Water-side check:** one [neoFit ACVUS44 stem check](/hardware/reference/neofit-acvus44-check/README.md) inserts into the pump discharge elbow after its clamped PVC joint and reducer. Its outlet feeds the continuous white tube through the west cap guide to the carbonator inlet.
+- **CO2-side check:** one ACVUS44 stem check inserts directly into the PISCO outlet, with flow toward the carbonator. The continuous red tube bends into its cap guide. The [production arrangement](/hardware/manifold-layout/above-core.md) defines both fittings and their receiving depths.
 
 ## Output condition
 

@@ -76,7 +76,7 @@ identifies those branches; it does not establish physical cleanup effort.
 **This step is the one place in the build that presses both M3 bodies, and they are indistinguishable in the hand but for length.** RX-M3x5.7 and RX-M3Sx4.0 carry the same ⌀4.6 knurl into the same ⌀4 hole; a short one pressed where the long one belongs is a weaker joint that looks finished, and a long one pressed where it does not fit will not seat flush. Work from two labelled troughs, not one dish:
 
 - **Full-length RX-M3×5.7.** The condenser fingers and the four funnel-frame ledges take full-length inserts. The core's PCB and pump mount columns use the [cold-core mount schedule](/hardware/printed-parts/cold-core/_above_core_mounts.py), with the lid removed for insert installation.
-- **Short RX-M3S×4.0.** The C14's two rear-wall bosses, four PSU hosts, two diagonal hosts per relay and the core lid's ground boss take short inserts. Install them before the purchased bodies. Use M3 × 10 with Ø7 × 0.5 mm washers at C14, M3 × 12 through the PSU ears, M3 × 8 through each relay's two active diagonal holes and M3 × 10 through the ground stack. All four corners of each relay board bear on pads; the other two pads have no insert or screw. The [wall-host schedule](/hardware/printed-parts/enclosure/enclosure/_above_core_shell.py) defines the bearing tips and insert-face datums.
+- **Short RX-M3S×4.0.** The C14's two rear-wall bosses, four PSU hosts, two diagonal hosts per relay and the core lid's ground boss take short inserts. Install them before the purchased bodies. Use M3 × 10 with Ø7 × 0.5 mm washers at C14, M3 × 10 through the PSU ears, M3 × 8 through each relay's two active diagonal holes and M3 × 10 through the ground stack. All four corners of each relay board bear on pads; the other two pads have no insert or screw. The [wall-host schedule](/hardware/printed-parts/enclosure/enclosure/_above_core_shell.py) defines the bearing tips and insert-face datums.
 - **M5 — eight.** The four posts standing off the floor slab under the compressor's feet, and the Y seam's four corner-stack stations: back-bottom's two knuckles under the Z seam and front-top's two knuckles under the funnel frame, each pressed in from above. Use the M5 tip from the T18 heat-set insert tip kit.
 
 The [native heat-set audit](/hardware/printed-parts/enclosure/enclosure/heat-set-review/README.md)
@@ -85,9 +85,10 @@ Use locally solid deposition through these hosts and their roots as specified in
 that review. Installed fit, pullout and assembled drop performance remain physical
 qualification items.
 
-**Prepare the supports on the bench.** Thread the ASSE, regulator and gas-pair
-ties through their fixed-shell windows, and the meter ties through its
-back-top collar-bearing windows. Seat the ASSE, regulator and gas bodies in back-top's supports.
+**Prepare the supports on the bench.** Seat the ASSE, water regulator,
+PISCO and meter in back-top's integral seats and close their separate snap
+caps. The ASSE cap captures the lower halves of both hexes and leaves the
+vent elbow in its bottom slot. Keep release collets clear.
 Fit bare V-A and V-K to its integral seats, attach their prepared blade leads
 and complete their fitted plumbing and inlet header while back-top is open
 on the bench. Mount the PSU, relays and meter on back-top; prepare its
@@ -196,8 +197,10 @@ insert datums in [electronics-bay.md](electronics-bay.md) and the
 [core mount source](/hardware/printed-parts/cold-core/_above_core_mounts.py).
 The lid's below-board fluid fittings and routes go in before the PCB.
 
-Fit the PSU and both relays to back-top's dry west wall. Fit the meter to its
-sidewall-rooted collar bearings and prepare its inlet and rear outlet there.
+Fit the PSU into back-top's shallow ceiling recess and both relays to its dry
+west wall. Use four M3 × 10 screws through the PSU ears into short inserts.
+Fit the meter to its rear-facing snap seat and prepare its continuous inlet
+and short, straight rear outlet there.
 Seat the mains WAGOs in the rear-wall
 wells. Core-side junctions and ground hardware go in their own lid mounts;
 front manifold commons go in front-top. Leave the cross-quadrant conductor ends
@@ -238,21 +241,15 @@ anchor stations and core entries; finish dressing the free spans and connect
 the front ends once the column is home. Their drawn intermediate bends are
 not assembly restraints.
 
-Fit the last CO₂ elbow (`gas-upper-b`) to the core tube before the ride,
-leaving its male stem separate from the header's fore-facing socket
-(`gas-upper-a`). Keep this tube and loose elbow clear while V-K passes.
-For the last approximately 20 mm, present the elbow with its stem pointing
-aft along Y and guide it into the approaching socket. Its modeled engagement
-is 16.891 mm; use the actual receiving mark. This is temporary staging of a
-loose fitting, with its final back-top assignment retained. The
-[staging plan](/hardware/mechanical-qualification/enclosure-above-core/sliding-assembly-staging.json)
-records the coaxial joint and the limits of the local mesh screen.
+Prepare the three continuous core-to-header tubes while the core is open:
+white water inlet, red gas inlet and blue soda outlet. Their plain cap guides
+add no joints. Keep their back-top ends free during the ride, then insert
+white into the pump-discharge stem check, red into the gas stem check and
+blue into the meter. Mark and use each actual receiving depth. The blue
+inlet passes through the straight foam sleeve and R14 holder before its
+meter socket. The meter's rear outlet joins SODA directly.
 
-Preassemble the rear soda fittings and meter together while back-top is open.
-Their concealed blue tube occupies a nominal 15.7 mm in the meter and
-16.891 mm in the return elbow. Replace those allowances with actual receiving
-marks. The core guide adds no joint or physical cut in the inlet tube.
-Keep the atmospheric drain-vent path open while dressing its final connection.
+Keep the atmospheric drain path open while dressing its final connection.
 
 1. **Back column.** Slide back-top fore onto the empty back-bottom from its aft entry position, through the 237.5 mm rail travel to the stops. Keep the wiring ends supported inside the column and clear of its seam. The ASSE, gas group, source valves and header, PSU, relays, meter and external inlet belong to back-top. Keep the funnel frame and named loose handoff pieces separate. The manual readings retain their exact sampled-group scope.
 
@@ -321,7 +318,7 @@ and slides.
 
 ### 7. Check the vent route
 
-The white 4 mm atmospheric-vent line connects the ASSE's west-facing adapter to
+The white 4 mm atmospheric-vent line connects the ASSE's downward vent elbow to
 the middle-left rear fitting and the faucet's separate open outlet over the bowl.
 Keep that entire path unobstructed. Its actual sleeve fit, retention and venting
 performance remain subject to the part's qualification record.

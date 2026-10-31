@@ -13,7 +13,7 @@ def reservoir_gate_elbow_hosts():
 def stem_elbow_names():
     """Warm native NeoFit stem elbows, in their component build order."""
     names = ('tee-fold', 'lower-valve-elbow', 'lower-pump-elbow',
-             'reg-va-elbow', 'va-outlet-elbow', 'carbonator-fold',
+             'reg-va-elbow', 'va-outlet-elbow', 'va-south-elbow', 'carbonator-fold',
              'gas-inlet-elbow', 'gas-lower-a', 'gas-lower-b',
              'gas-upper-a', 'gas-upper-b', 'soda-stem-elbow', 'soda-outlet-return-stem',
              'ya-stem-elbow', 'drain-outlet-stem', 'vb-inlet-turn',

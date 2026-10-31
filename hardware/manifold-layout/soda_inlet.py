@@ -14,8 +14,8 @@ HOLDER_ACCEPTANCE = ('future/tube-bend-holder-exploration/prints/'
                      '2026-10-23-legs-123-w2-petgf-left04-z018-mark1/physical-result.json')
 FOAM_EVIDENCE = ('hardware/reference/cargen-pipe-insulation/'
                  'elbow-fit-2026-10-24/physical-observation.json')
-SOFT_NEIGHBORS = ('vk-solenoid', 'g-ganen-pump', 'pump-inlet-tpu',
-                  'pump-inlet-barb-band')
+SOFT_NEIGHBORS = ('vk-solenoid', 'g-ganen-pump', 'suction-tube',
+                  'suction-barb-clamp')
 RETIRED = ('soda-inlet-stem', 'soda-rise-insulation')
 
 
@@ -188,7 +188,7 @@ def tube():
 
 @cache
 def foam_stock():
-    """Nominal one-piece63mm stock envelope before local compression."""
+    """Nominal one-piece61mm stock envelope before local compression."""
     p = plan()
     return sweep(p['foam_segments'], p['nominal_foam_od_mm']/2., p['nominal_foam_id_mm']/2.)
 

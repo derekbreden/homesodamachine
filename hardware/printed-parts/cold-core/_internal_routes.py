@@ -83,6 +83,9 @@ from _cold_core_interface import (  # noqa: E402
     outer_shell_y_length,
     port_lane_mid_y,
     carbonator_coil_envelope_radius,
+    carbonator_outer_radius,
+    evap_tail_high_z,
+    evap_tail_low_z,
     carbonator_support_ring_height,
     carbonator_top_plate_z,
     carbonator_port_offset,
@@ -232,7 +235,24 @@ def _routes():
     # The drift's middle stands on the coil standoff too, so neither half of its chord cuts
     # in toward the coil by more than 0.12 mm.
     carb_mid_x = (carb_x + carb_upper_x) / 2.0
-    co2_x, co2_lane_y = cap_conduit_shell_xy("co2-in")
+    gas_guide = _above_mounts.above_core.specification()['gas_guide_world_mm']
+    # The guide stands beside the bare tank. Below the cup, a pair of R14
+    # turns shifts the descent out beyond the copper wrap before its top.
+    gas_lower_xy = (77.5, 371.8)
+    gas_shift = math.dist(gas_guide[:2], gas_lower_xy)
+    gas_theta = math.acos(1.0 - gas_shift / (2.0 * route_bend_radius))
+    gas_setback = route_bend_radius * math.tan(gas_theta / 2.0)
+    gas_drop = 2.0 * route_bend_radius * math.sin(gas_theta)
+    gas_turn_z = 230.4
+    water_guide = _above_mounts.above_core.specification()['cap_guides_world_mm']['water-in']
+    # A descending oblique turn finishes east of the PRV vent. Combining
+    # the fall and the plan turn leaves the wall's folded seam untouched.
+    water_theta = math.pi/4.0 + math.asin((14.9/route_bend_radius-1.0)/math.sqrt(2.0))
+    water_setback = route_bend_radius * math.tan(water_theta / 2.0)
+    water_turn_start = -70.5 + route_bend_radius*(math.sin(water_theta)+math.cos(water_theta))
+    water_return_theta = math.acos(1.0 - 7.0 / (2.0 * route_bend_radius))
+    water_return_setback = route_bend_radius * math.tan(water_return_theta / 2.0)
+    water_return_run = 2.0 * route_bend_radius * math.sin(water_return_theta)
     # The carbonated water's LEAN at the top, and the rise it owes anything under the carbonator.
     #   Under the carbonator the only run it could meet is the CO2's reach in, and that reach stops
     # on the carbonator's axis — the CO2 falls the lane's +X half, so its lean never comes out as
@@ -250,7 +270,14 @@ def _routes():
         # One continuous pressure tube turns upward before the cup floor
         # and passes straight through its guide.
         "water-in": [(0.,-carbonator_port_offset,top_band_z)] + [
-            world_point_in_shell(p) for p in _above_mounts.water_in_guide_points()],
+            world_point_in_shell(p) for p in (
+                (-20.0, 283.0, 219.4),
+                (water_turn_start-water_setback, 283.0, 219.4),
+                (-70.5, 283.0, 204.5),
+                (-70.5, 338.0+water_return_setback, 204.5),
+                (-77.5, 338.0+water_return_run-water_return_setback, 204.5),
+                (-77.5, 375.0, 204.5),
+                (*water_guide[:2], 204.5), water_guide)],
         # Each reservoir's dip tube: the draw line, one straight drop from its mouth on the
         # floor up through the cap's draw bore and the conduit over it. It is the same tube
         # the deck run to the draw gate is, so it is laid from above, after the cap is on.
@@ -259,16 +286,13 @@ def _routes():
             cap_conduit_shell_xy("reservoir-a") + (conduit_mouth_z,),
         ],
         "reservoir-b": reservoir_guide_route("reservoir-b", dip_tube_z),
-        # The conduit enters straight through the cap. A shallow shift below
-        # the shell's top reaches the existing lower column before its turn
-        # into the support-ring slot. The two drift corners retain a full
-        # stock arc; the short cap-to-column offset is not a floor hairpin.
-        "co2-in": [
-            (co2_x, co2_lane_y, conduit_mouth_z),
-        ] + ([(co2_x, co2_lane_y, lane_step_top_z),
-              (co2_inlet_lane_xyz[0], co2_lane_y,
-               lane_step_top_z - 2.0 * route_bend_radius)]
-             if abs(co2_x - co2_inlet_lane_xyz[0]) > 1e-9 else []) + [
+        # Straight through the cup and lid, then outward into the existing
+        # lower lane. The support-ring approach retains its own station.
+        "co2-in": [world_point_in_shell(p) for p in (
+            gas_guide,
+            (*gas_guide[:2], gas_turn_z - gas_setback),
+            (*gas_lower_xy, gas_turn_z - gas_drop + gas_setback),
+        )] + [
             co2_inlet_lane_xyz,
             co2_inlet_xyz,
         ],
@@ -492,10 +516,14 @@ def build_routes(obstacles=None):
 
 
 def carbonator_envelope():
-    """The carbonator and its wrapped coil as one cylinder — an obstacle, not a part."""
+    """Tank and wound-coil envelopes at their separate occupied heights."""
     z0, z1 = carbonator_envelope_z_range
-    return cq.Solid.makeCylinder(carbonator_coil_envelope_radius, z1 - z0,
-                                 cq.Vector(0, 0, z0), cq.Vector(0, 0, 1))
+    tank = cq.Solid.makeCylinder(carbonator_outer_radius, z1-z0,
+                                cq.Vector(0,0,z0))
+    coil_lo,coil_hi = evap_tail_low_z-lldpe_tube_od/2., evap_tail_high_z+lldpe_tube_od/2.
+    coil = cq.Solid.makeCylinder(carbonator_coil_envelope_radius,coil_hi-coil_lo,
+                                cq.Vector(0,0,coil_lo))
+    return tank.fuse(coil).clean()
 
 
 def report_routes(fitted, obstacles):

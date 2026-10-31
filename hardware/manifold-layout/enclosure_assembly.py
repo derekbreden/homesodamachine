@@ -4340,7 +4340,9 @@ def build_pack() -> cq.Assembly:
     core = cq.Assembly(name=CORE)
     for _name, _solid, _colour in core_bodies(foam_carry):
         core.add(_solid, name=_name, color=_colour)
-    selected = _above_parts.components()
+    import rear_plumbing
+    selected = {**_above_parts.components(), **rear_plumbing.caps(),
+                **_enc._above_core_shell.mount_hardware()}
     core_equipment = _above.core_equipment_names() & selected.keys()
     for name in sorted(core_equipment):
         solid, colour, _carry = selected[name]
