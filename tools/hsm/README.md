@@ -182,8 +182,9 @@ that called the builder (`#[track_caller]`), and the boolean that brought it int
 file names that line `path:line` from the checkout's root, as meshcad does, so a part writes the
 same records from every worktree.
 
-Profiles are drawn exactly with lines, arcs, circles, Béziers, corner fillets and offsets
-(`Loop`, `Pen`, `Profile`) on a workplane (`Plane`) named as CadQuery names them. The builders
+Profiles are drawn exactly with lines, arcs, circles, Béziers, corner fillets, offsets and the
+hull round circles and points (`Loop`, `Pen`, `Profile`; `hull_loop` is CadQuery's
+`Sketch.hull`) on a workplane (`Plane`) named as CadQuery names them. The builders
 extrude (straight, both ways, drafted), revolve, sweep along lines and arcs or along a helix
 (carried rigidly by the screw motion, or in a rotation-minimizing frame), loft sections ruled
 or through OCCT's own smooth surface (`Solid::thru_sections`, CadQuery's `loft`),
@@ -223,8 +224,9 @@ kernel/examples/fuse_clamp.rs:61, cut at kernel/examples/fuse_clamp.rs:62`.
 The kernel's tests hold every builder and boolean to OCCT's volume and bounds for the same model
 within the rule (`tests/occt_reference.py` and, for the helix sweeps and lofts,
 `tests/screw_reference.py` and `tests/thru_reference.py` write those with plain CadQuery), lofts
-to every point sampled on OCCT's faces within the rule, and booleans to Manifold run plainly on
-the same operands, sixty holes in one cut among them. They hold the fuse
+to every point sampled on OCCT's faces within the rule, hulls to the edges of CadQuery's
+(`tests/sketch_hull_reference.py`), and booleans to Manifold run plainly on the same operands,
+sixty holes in one cut among them. They hold the fuse
 clamp to its published STEP's volume and STL's surface, two processes to the same bytes, a STEP
 and a model file to the triangles, names and colours they were written from, and the crate to a
 wasm32 build. The text tests read the system's Arial and Helvetica.
