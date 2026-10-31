@@ -64,8 +64,12 @@ _py="$root/tools/cad-venv/bin/python"
 # the line above; this only moves the pointer file, so the agent's next tool call does not wait on a
 # minute of packing. It takes a single-flight lock and coalesces, so several sessions
 # committing at once produce one publish of the newest tree rather than a queue of stale ones,
-# and it reads what is owed before it builds — a commit that changed no solid stops there.
+# and it reads what is owed before it builds — a commit that moved no member's bytes and none
+# of what a member was made from stops there.
+#
+# WITHOUT `site`. What is owed is read with the standard library alone, and the graft, the one
+# step that imports the venv's packages, loads `site` before it does.
 mkdir -p "$root/.cache"
-nohup "$_py" "$root/tools/publish_now.py" \
+nohup "$_py" -S "$root/tools/publish_now.py" \
   >>"$root/.cache/publish-now.log" 2>&1 &
 exit 0
