@@ -81,10 +81,11 @@ From the shell, without writing a file:
     tools/cad-venv/bin/python hardware/scripts/lanes.py verify fluid-4 --lane 1 --floor 0.7
     tools/cad-venv/bin/python hardware/scripts/lanes.py selftest
 
-BUILDING THE WORLD IS TWO MINUTES AND NO QUERY PAYS IT. `snapshot` pays it once and writes the
-world down flat; every other call reads what that left, and says on its way past which snapshot it
-read and whether the tree has moved since. A stale reading is a reading about the machine in that
-snapshot — legible, and stated on every result — and `snapshot --reload` is what re-takes it.
+STANDING THE MACHINE IS MINUTES AND NO QUERY PAYS IT. `snapshot` takes the world once, off the
+machine's scene file (`_machine`), and writes it down flat; every other call reads what that
+left, and says on its way past which snapshot it read and whether the tree has moved since. A
+stale reading is a reading about the machine in that snapshot — legible, and stated on every
+result — and `snapshot --reload` is what re-takes it.
 
 `selftest` runs the solver against known-answer geometry — an empty room, a slab across the only
 line, a slot a 0.5 mm floor fits through and a 2 mm floor does not, a sidestep small enough that
@@ -190,43 +191,27 @@ SHORT_LEG = 1.0
 
 # --- the snapshot ---------------------------------------------------------
 #
-# One `build_enclosure_assembly()` is eight minutes, and a scan wants the same world thousands of
-# times. So the world is taken ONCE and written down flat: every body's box, every routed run's
-# centreline, every port's position and axis, and the interior the printed pieces leave.
+# A scan wants the same world thousands of times. So the world is taken ONCE and written down
+# flat: every body's box, every routed run's centreline, every port's position and axis, and the
+# interior the printed pieces leave. It is taken off the machine's scene file (`_machine`), which
+# is read in seconds while it is this tree's and stood again on the mesh kernel when it is not.
 #
-# THE SNAPSHOT IS THE DEFAULT PATH AND A QUERY NEVER BUILDS. `snapshot --reload` is what pays the
-# eight minutes; everything else reads the one already taken off this tree, and where the tree has
-# moved since, the newest on disk — stating on its way past which sources moved under it. A
-# reading off a moved tree is a reading about the machine in that snapshot, which is legible; a
-# query that silently spends eight minutes rebuilding is a query nobody runs twice.
+# THE SNAPSHOT IS THE DEFAULT PATH AND A QUERY NEVER BUILDS. `snapshot --reload` is what takes
+# it; everything else reads the one already taken off this tree, and where the tree has moved
+# since, the newest on disk — stating on its way past which sources moved under it. A reading
+# off a moved tree is a reading about the machine in that snapshot, which is legible; a query
+# that silently stands the machine again is a query nobody runs twice.
 
-#: WHAT DECIDES THE WORLD IS WHAT THE RUN WAS WATCHED READING. `take()` stands the machine by
-#: running `enclosure_assembly`, so a snapshot's sources are that generator's traced reads —
-#: `graph.json`, the same record `gen_build.py` fills an action's sandbox from. Eighty-four files:
-#: the geometry modules, every bought part's module, and the helpers each of them imports.
-#:
-#: A MODULE CAN BE BOUND BY A NAME NO WALK RESOLVES TO A FILE. `kamoer_kphm400`, `pump_case` and
-#: `snap` are reached through a `sys.path` insert into a hyphenated directory, so their import
-#: statements name modules that stand in no package. What a run opens is answered by watching it.
-_FALLBACK_SOURCES = ("manifold-layout/enclosure_assembly.py", "manifold-layout/_lines.py",
-                     "manifold-layout/manifold_layout.py", "scripts/_routing.py",
-                     "printed-parts/enclosure/enclosure/enclosure.py")
-
+#: WHAT DECIDES THE WORLD IS WHAT DECIDES THE MACHINE. `take()` reads the machine's scene, so a
+#: snapshot's sources are the scene's (`_machine.sources`): what `enclosure_assembly` was watched
+#: reading and the mesh kernel that cut its bodies.
 _ROOT = _HW.parent
-_GRAPH = _ROOT / "tools" / "bazel" / "graph.json"
-_WORLD = "hardware/manifold-layout/enclosure_assembly.py"
 
 
 def _sources() -> tuple:
-    """Every file of this repo whose text can decide the world a snapshot holds, repo-relative.
-
-    A tree with no `graph.json` falls back to the five that are certainly in it — enough to name
-    a snapshot, and `measured` says what it is reading off."""
-    try:
-        entry = json.loads(_GRAPH.read_text())[_WORLD]
-    except (OSError, ValueError, KeyError):
-        return tuple(f"hardware/{rel}" for rel in _FALLBACK_SOURCES)
-    return tuple(sorted(p for p in entry.get("reads", ()) if p.endswith(".py")))
+    """Every file of this repo whose text can decide the world a snapshot holds, repo-relative."""
+    import _machine
+    return _machine.sources()
 
 
 _SNAP: dict = {}
@@ -262,8 +247,8 @@ def _source_key(stamps: dict = None) -> str:
 
 #: WHERE A TAKEN WORLD IS KEPT. `.cache/` is this tree's place for what a build can always cut
 #: again — gitignored, regenerable, safe to delete — and it is where `_realized` keeps its solids.
-#: A snapshot is eight minutes of standing the machine and every reader wants the same one, so it
-#: is kept beside them, in a directory that stands.
+#: A snapshot is the machine stood, or its scene read, and every reader wants the same one, so
+#: it is kept beside them, in a directory that stands.
 _CACHE = _ROOT / ".cache" / "lanes"
 
 
@@ -315,13 +300,24 @@ def take() -> dict:
 
     Bodies as boxes, runs as centrelines, ports as (position, axis, bore), and the cavity the
     box's four pieces leave. Nothing here is a summary of a measurement — every number is the
-    placed geometry's own, read off the same assembly the build exports."""
+    placed geometry's own, read off the bodies the build stood: the scene's on the mesh kernel,
+    which a process takes here when nothing has imported CadQuery yet."""
     sys.path.insert(0, str(_ML))
-    import enclosure_assembly as fh                                  # noqa: E402
-    a = fh.build_enclosure_assembly()
-    placed = fh._solids(a)
+    import meshcad                                                   # noqa: E402
+    if "cadquery" not in sys.modules:
+        meshcad.activate()
+    if meshcad.mesh_mode():
+        import _machine                                              # noqa: E402
+        m = _machine.machine()
+        placed = {name: m.bodies[name] for name in m.solids}
+        drawn, frames, shell = list(m.runs.values()), m.frames, m.box
+    else:
+        import enclosure_assembly as fh                              # noqa: E402
+        a = fh.build_enclosure_assembly()
+        placed = {name: solid for name, (solid, _colour) in fh._solids(a).items()}
+        drawn, frames, shell = a.runs, a.frames, a.box
     bodies = {}
-    for name, (solid, _colour) in placed.items():
+    for name, solid in placed.items():
         tag = _tag(name)
         # NEITHER A PIECE NOR A RUN IS BOXED, and neither is boxed here. `cq.Shape.BoundingBox`
         # is `AddOptimal` — a mesh — and on a printed piece that is minutes, not the 0.2 s
@@ -344,18 +340,18 @@ def take() -> dict:
         if fill < FILL_FLOOR:
             bodies[name]["slabs"] = _slabs(solid, box)
     runs = {}
-    for r in a.runs:
+    for r in drawn:
         runs[r.id] = {"frm": r.frm, "to": r.to, "kind": r.kind, "diam": r.diam,
                       "bend": r.bend, "length": r.length,
                       "pts": [list(p) for p in r.pts]}
     import _routing as R                                      # noqa: E402
     ports = {}
-    for comp, frame in a.frames.items():
+    for comp, frame in frames.items():
         for port in frame.ports:
             ports[f"{comp}.{port}"] = {"pos": list(frame.at(port)),
                                        "axis": list(R.normal_of(frame.ports[port][1])),
                                        "diam": frame.diam(port)}
-    inner = list(a.box.inner)
+    inner = list(shell.inner)
     return {"bodies": bodies, "runs": runs, "ports": ports,
             "cavity": [inner[0], inner[1], inner[2], inner[3], inner[4], inner[5]],
             "sources": _stamps(), "taken": time.time()}
@@ -428,8 +424,8 @@ def snapshot(reload: bool = False, build: bool = None, exact: bool = False) -> d
 
     A QUERY DOES NOT BUILD. The exact snapshot for this tree is taken if it is there; otherwise
     the newest one on disk is read and `measured` says which sources moved under it. Only
-    `reload=True` — `snapshot --reload` — pays the eight minutes, and only a machine with no
-    snapshot at all builds without being asked.
+    `reload=True` — `snapshot --reload` — takes it again, and only a machine with no snapshot
+    at all is taken without being asked.
 
     `build=True` restores the other bargain: rebuild whenever the tree has moved. It is for a
     caller who would rather wait than read a stale world, and it is never the default, because
@@ -458,8 +454,9 @@ def snapshot(reload: bool = False, build: bool = None, exact: bool = False) -> d
         _SNAP.update(json.loads(on_disk[0].read_text()))
         return _SNAP
     if not reload and (exact or not on_disk):
-        print("lanes: standing the machine to take a snapshot, about eight minutes. "
-              "`lanes.py snapshot --reload` is what re-takes it.", file=sys.stderr)
+        print("lanes: taking a snapshot off the machine's scene, standing the machine first "
+              "when the scene is not this tree's. `lanes.py snapshot --reload` is what re-takes "
+              "it.", file=sys.stderr)
     snap = take()
     cache.parent.mkdir(parents=True, exist_ok=True)
     cache.write_text(json.dumps(snap))
@@ -1567,8 +1564,9 @@ def verify(lane: Lane, clearance: float = 0.0, skip=()) -> str:
     box-blocked lane standing 0.2 mm off the rib it lies in is clear here. This is the one that
     counts. It holds out exactly what the search held out, and for the same reason.
 
-    It builds `probe`'s world, which is the eight minutes the snapshot exists to avoid — so it is
-    asked of ONE lane, after the enumeration has chosen which one is worth asking about."""
+    It takes `probe`'s world, every body as a solid, which is what the snapshot exists to avoid
+    — so it is asked of ONE lane, after the enumeration has chosen which one is worth asking
+    about."""
     import probe
     import _clearing
     import _routing as R

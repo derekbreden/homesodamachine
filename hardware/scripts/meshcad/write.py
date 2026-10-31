@@ -18,9 +18,15 @@ STL_HEADER = b"meshcad binary STL".ljust(80, b" ")
 
 
 def _arrays(solid):
-    """(V float64, T int64, face index per triangle, face records) of one MeshSolid."""
-    topo = solid._topology().t
-    return topo.V, topo.T, topo.tri_face, [topo.face_record(f) for f in range(len(topo.face_surface))]
+    """(V float64, T int64, face index per triangle, face records) of one MeshSolid: its own
+    mesh, with its fillets applied. A solid whose fillets are pending selects on the solid
+    before them (`MeshSolid.m`), so its selectors' topology is not its own. One the solid does
+    not already hold is taken for the write and let go, without the edges and vertices a
+    selector wants."""
+    from .topo import Topology
+    held = solid._topo if solid._rounds is None else None
+    t = held.t if held is not None else Topology(solid.m)
+    return t.V, t.T, t.tri_face, [t.face_record(f) for f in range(len(t.face_surface))]
 
 
 def _triangles(solid):
@@ -171,50 +177,48 @@ def write_model(solids, path, names=None, colors=None):
     """The mesh model a mesh-kernel run leaves beside each STEP it would have written:
     float64 vertices, triangles, a face per triangle and the face records, per solid, with
     each solid's name and linear colour."""
-    data = model_bytes(solids, names, colors)
     with open(path, "wb") as f:
-        f.write(data)
+        write_npz(f, model_items(solids, names, colors))
 
 
 def model_bytes(solids, names=None, colors=None):
     """`write_model`'s bytes."""
-    return npz_bytes(model_arrays(solids, names, colors))
+    buf = io.BytesIO()
+    write_npz(buf, model_items(solids, names, colors))
+    return buf.getvalue()
 
 
-def model_arrays(solids, names=None, colors=None):
-    """`write_model`'s arrays, by name."""
-    arrays, records = {}, []
+def model_items(solids, names=None, colors=None):
+    """`write_model`'s arrays, by name, each made as the file takes it, so a model of many
+    solids holds one solid's mesh at a time."""
+    records = []
     names = names or [""] * len(solids)
     colors = colors or [None] * len(solids)
     for i, s in enumerate(solids):
         V, T, face, recs = _arrays(s)
-        arrays[f"V{i}"] = V
-        arrays[f"T{i}"] = T.astype(np.uint32)
-        arrays[f"F{i}"] = face.astype(np.uint32)
-        records.append([_jsonable(r) for r in recs])
-    arrays["names"] = np.frombuffer(json.dumps(names).encode(), np.uint8)
-    arrays["colors"] = np.frombuffer(json.dumps(
-        [None if c is None else [round(float(x), 9) for x in c] for c in colors]).encode(), np.uint8)
-    arrays["records"] = np.frombuffer(json.dumps(records, separators=(",", ":")).encode(), np.uint8)
-    return arrays
+        records.append(json.dumps([_jsonable(r) for r in recs], separators=(",", ":")))
+        yield f"V{i}", V
+        yield f"T{i}", T.astype(np.uint32)
+        yield f"F{i}", face.astype(np.uint32)
+    yield "names", text_array(json.dumps(names))
+    yield "colors", text_array(json.dumps(
+        [None if c is None else [round(float(x), 9) for x in c] for c in colors]))
+    yield "records", text_array("[" + ",".join(records) + "]")
 
 
-def npz_bytes(arrays):
-    """`arrays` as an .npz whose bytes are the same whenever the arrays are."""
-    buf = io.BytesIO()
-    np.savez(buf, **arrays)
-    return _stable_npz(buf.getvalue())
+def text_array(text):
+    """`text` as the uint8 array an .npz carries it in."""
+    return np.frombuffer(text.encode(), np.uint8)
 
 
-def _stable_npz(data):
-    """An .npz with its zip entries' timestamps fixed, so equal arrays are equal bytes."""
-    src = zipfile.ZipFile(io.BytesIO(data))
-    out = io.BytesIO()
-    with zipfile.ZipFile(out, "w", zipfile.ZIP_STORED) as z:
-        for info in src.infolist():
-            fixed = zipfile.ZipInfo(info.filename, date_time=(1980, 1, 1, 0, 0, 0))
-            z.writestr(fixed, src.read(info.filename))
-    return out.getvalue()
+def write_npz(f, items):
+    """(name, array) pairs into the binary file `f` as an .npz, each array written as it comes.
+    The entries carry one fixed date, so equal arrays are equal bytes."""
+    with zipfile.ZipFile(f, "w", zipfile.ZIP_STORED) as z:
+        for name, a in items:
+            info = zipfile.ZipInfo(name + ".npy", date_time=(1980, 1, 1, 0, 0, 0))
+            with z.open(info, "w") as out:
+                np.lib.format.write_array(out, np.asanyarray(a), allow_pickle=False)
 
 
 def model_identity(path):

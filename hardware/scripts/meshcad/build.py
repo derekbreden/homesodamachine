@@ -111,7 +111,9 @@ def held(m):
         (np.ones(2 * len(T)), (np.concatenate([T[:, 0], T[:, 1]]), np.concatenate([T[:, 1], T[:, 2]]))),
         shape=(len(mesh.vert_properties),) * 2), directed=False)
     if n == 1:
-        return m
+        # A result that is one component is held to the same rule: a body standing 1e-7 mm
+        # into another, inside OCCT's tolerance, shares a sheet with it and nothing more.
+        return m if 2.0 * abs(m.volume()) >= LINEAR * m.surface_area() else m3d.Manifold()
     V = np.asarray(mesh.vert_properties)[:, :3]
     a, b, c = (V[T[:, k]] - V.mean(0) for k in range(3))
     cr = np.cross(b - a, c - a)
@@ -225,6 +227,86 @@ def _oriented(verts, tris):
     return tris[:, ::-1].copy() if vol < 0 else tris
 
 
+def gap(a, b):
+    """The least distance between two bodies, each a list of Manifolds, as OCCT's
+    `BRepExtrema_DistShapeShape` reads it between solids: 0 where they touch, cross, or one
+    holds the other.
+
+    FCL FINDS IT, in a tree of each surface's triangles: its search goes down only toward pairs
+    that could be nearer than the nearest found so far, so a gap across the machine costs what
+    one across a seam does. Manifold's `min_gap` measures every pair of triangles within the
+    reach it is given, and the reach that holds a gap is not known before the gap is.
+
+    ONLY THE TRIANGLES THAT CAN HOLD IT GO IN THE TREES. Any two vertices bound the gap, since
+    they lie on the surfaces, and the nearest of a few thousand of each body's bound it closely.
+    The gap's two ends then lie on triangles within that reach of the other body's triangles
+    that are left, so each body is cut down to those twice over: a tube beside the pump puts
+    the pump's triangles near the tube in a tree, and the tube's near the pump."""
+    import fcl
+    from scipy.spatial import cKDTree
+    (Va, Ta), (Vb, Tb) = _soup(a), _soup(b)
+    if not len(Ta) or not len(Tb):
+        raise ValueError("meshcad: a distance to a solid that holds nothing")
+    # A nanometre over, so a gap that runs between two vertices is not cropped off by the
+    # rounding of the boxes' sums.
+    reach = float(cKDTree(_strided(Vb)).query(_strided(Va))[0].min()) + 1e-6
+    for _ in range(2):
+        Ta = _near(Va, Ta, Vb, Tb, reach)
+        Tb = _near(Vb, Tb, Va, Ta, reach)
+    d = max(float(fcl.distance(_tree(Va, Ta), _tree(Vb, Tb), fcl.DistanceRequest(),
+                               fcl.DistanceResult())), 0.0)
+    if d > 0.0 and (_holds(a, b, d) or _holds(b, a, d)):
+        return 0.0
+    return d
+
+
+def _soup(ms):
+    """(V, T) of every triangle of the Manifolds `ms` together."""
+    V, T, n = [], [], 0
+    for m in ms:
+        mesh = m.to_mesh64()
+        V.append(np.asarray(mesh.vert_properties, float)[:, :3])
+        T.append(np.asarray(mesh.tri_verts, np.int64).reshape(-1, 3) + n)
+        n += len(V[-1])
+    return np.concatenate(V), np.concatenate(T)
+
+
+def _strided(V, n=4096):
+    """About `n` of the points `V`, evenly through them."""
+    return V[::max(1, len(V) // n)]
+
+
+def _near(V, T, W, U, reach):
+    """The triangles of (V, T) whose boxes come within `reach` of the box around the triangles
+    (W, U)."""
+    P, Q = V[T], W[U].reshape(-1, 3)
+    lo, hi = Q.min(0) - reach, Q.max(0) + reach
+    return T[np.all((P.min(1) <= hi) & (P.max(1) >= lo), axis=1)]
+
+
+def _tree(V, T):
+    import fcl
+    model = fcl.BVHModel()
+    model.beginModel(len(V), len(T))
+    model.addSubModel(V, T)
+    model.endModel()
+    return fcl.CollisionObject(model)
+
+
+def _holds(ms, others, d):
+    """Whether a solid of `ms` holds one of `others`, whose surfaces are `d` apart: a vertex of
+    each other solid is tried, in a cube small enough to lie wholly on one side of the surface."""
+    for o in others:
+        lo, hi = np.reshape(o.bounding_box(), (2, 3))
+        p = np.asarray(o.to_mesh64().vert_properties, float)[0, :3]
+        probe = m3d.Manifold.cube((d / 2.0,) * 3, True).translate(tuple(p))
+        for m in ms:
+            mlo, mhi = np.reshape(m.bounding_box(), (2, 3))
+            if np.all(mlo <= lo) and np.all(hi <= mhi) and (m ^ probe).volume() > 0.0:
+                return True
+    return False
+
+
 def plane_frame(normal):
     d, x, y = axis_frame(normal)
     if np.dot(d, normal) < 0:          # the frame's own sense, so CCW means CCW about `normal`
@@ -318,6 +400,121 @@ def _side_record(curve, a, b, vec, src, op):
                                                            vec / np.linalg.norm(vec))) < 1e-9:
         return record("CYLINDER", src, op, p=curve.center, d=canonical_axis(curve.axis), r=curve.r)
     return record("EXTRUSION", src, op)
+
+
+def drafted_prism(loops, normal, vec, taper, src, op="extrude"):
+    """`prism` with its sides drafted `taper` degrees, as OCCT's draft prism drafts them: the
+    profile carried |vec| along its own normal toward `vec`, its region grown by
+    -|vec| tan(taper) at the far end, so a positive taper narrows it. A line stays straight
+    and its side is a plane; an arc keeps its centre and its side is a cone."""
+    vec = np.asarray(vec, float)
+    up = np.asarray(normal, float) * (1.0 if np.dot(vec, normal) > 0 else -1.0)
+    up = up / np.linalg.norm(up)
+    h = float(np.linalg.norm(vec))
+    grow = -h * math.tan(math.radians(taper))
+    loops, _ = orient_loops([clean_loop(lp) for lp in loops], up)
+    loops = [_finer(lp, up, grow) for lp in loops]
+    _, x, y = plane_frame(up)
+    base = np.concatenate([lp.pts for lp in loops])
+    top = np.concatenate([_drafted(lp, up, grow) for lp in loops]) + h * up
+    n = len(base)
+    verts = np.concatenate([base, top])
+    split = np.cumsum([len(lp.pts) for lp in loops])[:-1]
+    under = cap_triangles([np.stack([p @ x, p @ y], 1) for p in np.split(base, split)])
+    over = cap_triangles([np.stack([p @ x, p @ y], 1) for p in np.split(top, split)])
+    tris = [under[:, ::-1], over + n]
+    fids = [np.zeros(len(under), np.int64), np.ones(len(over), np.int64)]
+    records = [record("PLANE", src, op, p=base[0], n=-up), record("PLANE", src, op, p=top[0], n=up)]
+    curve_face = {}
+    off = 0
+    for lp in loops:
+        m = len(lp.pts)
+        i = np.arange(m) + off
+        j = (np.arange(m) + 1) % m + off
+        quad = np.concatenate([np.stack([i, j, j + n], 1), np.stack([i, j + n, i + n], 1)])
+        face = np.empty(m, np.int64)
+        for k in range(m):
+            key = (id(lp.curves), int(lp.seg[k]))
+            if key not in curve_face:
+                curve_face[key] = len(records)
+                curve = lp.curves[lp.seg[k]]
+                a, b = base[off + k], base[off + (k + 1) % m]
+                if curve.kind == "CIRCLE":
+                    rec = record("CONE", src, op, p=np.asarray(curve.center, float), d=up,
+                                 r=curve.r, slope=_bulge(curve, a, b, up) * grow / h)
+                elif curve.kind == "LINE":
+                    nrm = np.cross(b - a, top[off + k] - a)
+                    rec = record("PLANE", src, op, p=a, n=nrm / np.linalg.norm(nrm))
+                else:
+                    rec = record("BSPLINE", src, op)
+                records.append(rec)
+            face[k] = curve_face[key]
+        tris.append(quad)
+        fids.append(np.concatenate([face, face]))
+        off += m
+    tris = _oriented(verts, np.concatenate(tris))
+    return Part(verts, tris, np.concatenate(fids), records)
+
+
+def _bulge(curve, a, b, up):
+    """+1 where the region's outside on the arc from `a` to `b` is away from its centre, -1
+    where it is toward it."""
+    out = np.cross(b - a, up)
+    return 1.0 if np.dot((a + b) / 2 - np.asarray(curve.center, float), out) > 0 else -1.0
+
+
+def _drafted(lp, up, grow):
+    """The loop's points moved `grow` out of its region in its own plane, each along the
+    normals of the curves it joins, a line's own and an arc's radius, mitred where they meet."""
+    p = lp.pts
+    chord = np.cross(np.roll(p, -1, axis=0) - p, up)
+    chord /= np.linalg.norm(chord, axis=1)[:, None]
+
+    def normal(k, at):
+        curve = lp.curves[lp.seg[k]]
+        if curve.kind != "CIRCLE":
+            return chord[k]
+        u = at - np.asarray(curve.center, float)
+        u -= np.dot(u, up) * up
+        u /= np.linalg.norm(u)
+        return u if np.dot(u, chord[k]) > 0 else -u
+
+    out = np.empty_like(p)
+    for k in range(len(p)):
+        n_in, n_out = normal(k - 1, p[k]), normal(k, p[k])
+        out[k] = p[k] + grow * (n_in + n_out) / (1.0 + np.dot(n_in, n_out))
+    return out
+
+
+def _finer(lp, up, grow):
+    """`lp` with each segment on an arc the draft grows cut as fine as the rule cuts the arc
+    at its far end, and refused where the draft closes an arc."""
+    p, seg = lp.pts, lp.seg
+    m = len(p)
+    pts, segs = [], []
+    for k in range(m):
+        pts.append(p[k])
+        segs.append(seg[k])
+        curve = lp.curves[seg[k]]
+        if curve.kind != "CIRCLE":
+            continue
+        a, b = p[k], p[(k + 1) % m]
+        far = curve.r + _bulge(curve, a, b, up) * grow
+        if far <= 1e-9:
+            raise ValueError("meshcad: a draft that closes an arc")
+        f = math.ceil(ring_count(far) / ring_count(curve.r) - 1e-9)
+        if f <= 1:
+            continue
+        c = np.asarray(curve.center, float)
+        v0, v1 = a - c, b - c
+        phi = math.atan2(np.dot(np.cross(v0, v1), up), np.dot(v0, v1))
+        for i in range(1, f):
+            t = phi * i / f
+            pts.append(c + v0 * math.cos(t) + np.cross(up, v0) * math.sin(t))
+            segs.append(seg[k])
+    if len(pts) == m:
+        return lp
+    return Loop(np.array(pts), np.array(segs, np.int64), lp.curves)
 
 
 def _zipper(a_idx, a_ang, b_idx, b_ang, closed):
