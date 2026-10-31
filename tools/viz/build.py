@@ -48,7 +48,9 @@ each label stands `dx`, `dy` pixels off its point on a leader and follows it as 
 
 `only` keeps the solids whose names match and drops the rest from the page; `highlight` draws
 matches in the viewer's selection amber; `ghost` draws them translucent and leaves them out of
-the framing. Names are the solid names the viewer's picker shows; `--list-solids` prints them.
+the framing. A model's `"overlay": true` draws its solids through whatever stands in front of
+them, for what two solids share, which lies inside both; a mark's `"through": true` keeps its
+label full where the piece hides its point. Names are the solid names the viewer's picker shows; `--list-solids` prints them.
 Panels are lettered A, B, C in order unless a panel gives its own `label`.
 """
 
@@ -294,7 +296,7 @@ def normalise(spec: dict, base: Path) -> dict:
         p = dict(p)
         p.setdefault("label", chr(ord("A") + i) if i < 26 else str(i + 1))
         if "step" in p:
-            p["models"] = [{"step": p.pop("step"), **{k: p.pop(k) for k in ("only", "highlight", "ghost", "color") if k in p}}]
+            p["models"] = [{"step": p.pop("step"), **{k: p.pop(k) for k in ("only", "highlight", "ghost", "color", "overlay") if k in p}}]
         for m in p.get("models", []):
             m["step"] = resolve(m["step"])
         for k in ("image", "html"):
@@ -395,7 +397,7 @@ def render(spec: dict) -> tuple[str, Models]:
                         roles[k] = "ghost"
                 if m.get("highlight") and "hi" not in roles.values():
                     raise VizError(f"`highlight` {m['highlight']} matches no solid in {meta['step']}")
-                uses.append({"model": mid, "roles": roles, "color": m.get("color")})
+                uses.append({"model": mid, "roles": roles, "color": m.get("color"), "overlay": bool(m.get("overlay"))})
                 sources.append(f"{tag} · {esc(meta['step'])}: {meta['tris']:,} triangles in "
                                f"{meta['solids']} solid{'s' if meta['solids'] != 1 else ''}"
                                f"{ROUTES[meta['route']]}")
