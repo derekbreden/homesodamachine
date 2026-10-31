@@ -25,7 +25,7 @@ def sha(path):
 
 
 def centerline_radii(segments):
-    """Actual circular radii and every cubic Bezier curvature extremum."""
+    """Actual circular radii and every polynomial Bezier curvature extremum."""
     import math
     import numpy as np
     from numpy.polynomial import Polynomial as P
@@ -40,12 +40,12 @@ def centerline_radii(segments):
                           / (2*np.linalg.norm(np.cross(b-a, c-a))))
             continue
         q = np.asarray(segment['control_points_mm'], dtype=float)
-        if q.shape != (4, 3):
-            raise ValueError('The ASSE return requires a cubic Bezier centerline')
-        v = [P([q[0, k], 3*(q[1, k]-q[0, k]),
-                3*(q[2, k]-2*q[1, k]+q[0, k]),
-                q[3, k]-3*q[2, k]+3*q[1, k]-q[0, k]]).deriv()
-             for k in range(3)]
+        if q.ndim != 2 or q.shape[1] != 3 or len(q) < 2:
+            raise ValueError('A Bezier centerline needs at least two 3D control points')
+        degree = len(q)-1
+        basis = [math.comb(degree,i)*P([0.,1.])**i*P([1.,-1.])**(degree-i)
+                 for i in range(degree+1)]
+        v = [sum(b*q[i,k] for i,b in enumerate(basis)).deriv() for k in range(3)]
         a = [p.deriv() for p in v]
         cross = [v[1]*a[2]-v[2]*a[1], v[2]*a[0]-v[0]*a[2],
                  v[0]*a[1]-v[1]*a[0]]
