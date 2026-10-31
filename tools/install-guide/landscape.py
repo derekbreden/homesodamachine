@@ -532,7 +532,7 @@ text('Front', 165, 391, 11, 'Regular', MUTED)
 text('Machine envelope', RIGHT, 152, 17, 'Bold', NAVY)
 para('<b>8-1/2 in wide</b><br/><b>18-3/8 in deep</b><br/><b>14-3/8 in tall, with cover</b>', RIGHT, 187, RW, 13, 20)
 para('Leave <b>2-3/8 in behind</b> and <b>1-5/8 in on each side.</b> Keep the side air paths open.', RIGHT, 268, RW)
-para('Above: room to invert a bottle into the funnel.<br/><br/>Beside it: space for the cylinder, about 5-1/4 in across and 18 in tall, plus its regulator.', RIGHT, 338, RW, 12, 17, limit=102)
+para('Above: room to tip a bottle just past level over the funnel.<br/><br/>Beside it: space for the cylinder, about 5-1/4 in across and 18 in tall, plus its regulator.', RIGHT, 338, RW, 12, 17, limit=102)
 end()
 
 # Interior 5
@@ -733,15 +733,15 @@ end()
 header('Bottle first. Then start.', 'YOUR FIRST GLASS / FILL BOTH FLAVORS', 6)
 p = pic('steps/fill-ready.png', M, 133, 278, 279, crop=(180, 480, 1360, 1500))
 arrow(*[v for point in FILL['arrow'] for v in projected(p, point, *FILL_POSE)], head=10)
-item('3 / ADD CONCENTRATE', 'Lift off the funnel cover', 'Wipe off water and debris. Lift by the front edge, then invert one whole 14.8 fl oz (440 mL) bottle into the funnel.', 146)
+item('3 / ADD CONCENTRATE', 'Lift off the funnel cover', 'Wipe off water and debris. Lift by the front edge, then tip one whole 14.8&nbsp;fl&nbsp;oz (440&nbsp;mL) bottle just past level over the funnel until it empties.', 146)
 item('4 / START', 'Tap Start filling', 'Let the machine draw the concentrate into the selected reservoir.', 309)
 end()
 
 # Interior 27
 header('Wait for Filled. Then repeat.', 'YOUR FIRST GLASS / FILL BOTH FLAVORS', 6)
-pic('steps/fill-ready.png', M, 130, 278, 282, crop=(180, 480, 1360, 1500))
-item('5 / FILLED', 'Remove the empty bottle', 'When the display says Filled, the bottle is in the reservoir. Press the cover down until it rests evenly on the brim.', 145)
-item('6 / OTHER FLAVOR', 'Repeat the same sequence', 'Select the other image, open Fill, lift off the cover, put its bottle in the funnel, then tap Start filling.', 295)
+pic('steps/fill-closed.png', M, 130, 278, 282, crop=(180, 480, 1360, 1500))
+item('5 / FILLED', 'Replace the funnel cover', 'When the display says Filled, the concentrate is in the reservoir. Press the cover down until it rests evenly on the brim.', 145)
+item('6 / OTHER FLAVOR', 'Repeat the same sequence', 'Select the other image, open Fill, lift off the cover, pour in its bottle, then tap Start filling.', 295)
 end()
 
 # Interior 28
@@ -768,7 +768,7 @@ end()
 # Interior 30
 header('Keep it ready', 'AFTER INSTALLATION')
 text('Top up a flavor', M, 148, 17, 'Bold', NAVY)
-para('Use the Fill sequence on pages 25-27. If the display says <b>Full</b>, concentrate remains in the funnel. Stop adding, remove the bottle and replace the cover.', M, 180, 263, 12, 17, limit=102)
+para('Use the Fill sequence on pages 25-27. If the display says <b>Full</b>, concentrate remains in the funnel. Add no more and replace the cover.', M, 180, 263, 12, 17, limit=102)
 text('Change a flavor', M, 280, 17, 'Bold', NAVY)
 para('Fill the funnel with water first. Then select the old flavor, open Clean and tap Start cleaning; the water rinses the line below the funnel. When it finishes, fill the new flavor.', M, 312, 263, 12, 17, limit=68)
 text('Rinse the funnel', RIGHT, 148, 17, 'Bold', NAVY)

@@ -494,6 +494,22 @@
           1
         ]
       }
+    },
+    "steps/fill-closed.png": {
+      "reference_size": [
+        1600,
+        1500
+      ],
+      "render_size": [
+        3200,
+        3000
+      ],
+      "scale": [
+        2.0,
+        2.0
+      ],
+      "coordinate_reference_sha256": "d5d19e9449b50f5037679bbfe3981d394276c72750dc7f38f046f6a1a0730cce",
+      "render_sha256": "6e0d2814e9786857cde43749a863effc3a6323bdca3fec69bdb5db88e12e986a"
     }
   }
 }
