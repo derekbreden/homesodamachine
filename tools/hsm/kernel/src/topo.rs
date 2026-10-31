@@ -19,7 +19,8 @@ pub struct Faces {
 
 #[derive(Clone, PartialEq, Eq, Hash)]
 enum Key {
-    Surface(SurfaceKey),
+    /// The surface, and for a plane which way it faces.
+    Surface(SurfaceKey, bool),
     Own(u32),
 }
 
@@ -94,7 +95,7 @@ pub fn faces(s: &Solid) -> Faces {
         .iter()
         .enumerate()
         .map(|(i, f)| {
-            let key = f.surface.key().map(Key::Surface).unwrap_or(Key::Own(i as u32));
+            let key = f.surface.key().map(|k| Key::Surface(k, f.surface.sense())).unwrap_or(Key::Own(i as u32));
             let next = labels.len() as u32;
             *labels.entry(key).or_insert(next)
         })
