@@ -217,7 +217,9 @@ Helvetica.
 ## Parts the kernel cuts
 
 A part the kernel cuts keeps its numbers in Python and its geometry in Rust, side by side in its
-folder. The fuse clamp (`hardware/printed-parts/refrigeration/fuse-clamp`) is one.
+folder. The fuse clamp (`hardware/printed-parts/refrigeration/fuse-clamp`) is one. The coil
+mandrel and the magnetic float (`hardware/printed-parts/cold-core/coil-mandrel` and
+`magnetic-float`, crate `tools/hsm/cold-core`) are two more.
 
 `fuse_clamp.py` is its generator. It derives every number the part takes from the parts it
 closes on, states its bounds and fills its README, as any generator does, and writes the numbers
@@ -229,14 +231,17 @@ the geometry takes (`numbers()`) to `fuse-clamp.numbers.json`, which is committe
 `src` is the STEP's SHA-256, and `fuse-clamp.stl`; leaves a file that holds the same bytes as it
 is; and prints what the files hold. `part::write_shown` writes a set without the STL, for bodies
 the page draws and nothing prints. A program that writes several sets prints each one's answer
-on a line of its own, and its standard output carries nothing else.
+on a line of its own, and its standard output carries nothing else. The magnetic float's program
+writes seven: a set with an STL for each printed piece, and a set without one for the magnet and
+for the assembly, section and exploded views.
 
 The generator runs the program through
 [`hardware/scripts/_rust_part.py`](../../hardware/scripts/_rust_part.py).
 `_rust_part.cut("refrigeration", "fuse-clamp", numbers(), part_dir)` writes the numbers, builds
 the program with cargo from the checkout's workspace (`HSM_WORKSPACE` in a Bazel action), runs
 it, and returns the files and bodies it printed. `_rust_part.program(crate, name)` builds a
-program and returns its path, for a run with arguments of its own. Cargo builds into the checkout's own target directory,
+program and returns its path, for a run with arguments of its own: the float's `verify.py`
+runs its program with `--check` for the volumes by which the pieces miss the design. Cargo builds into the checkout's own target directory,
 `tools/hsm/target`, whatever `CARGO_TARGET_DIR` says: cargo judges a crate fresh by its files'
 times, under a name that is the same from every checkout, so a target directory two checkouts
 share links one checkout's kernel into the other's program. The `cargo` it runs is the one on
