@@ -238,6 +238,24 @@ def inverse_cuts(e, box):
     return out
 
 
+def upper_wire_room(e, box):
+    """One open motor/display room, with the fitted bearing and wing pockets retained."""
+    d = datums(e, box)
+    radius = e.cap_terminal_crown_r(box)
+    base = d['flange_z']+e._tray.motor_crown-e.wall+radius-e._tray.can_half
+    peak = base+radius*math.tan(math.radians(e.teardrop_roof_angle))
+    x0 = e.display_body_offset_x-e.display_pcb_x/2.
+    x1 = e.display_body_offset_x+e.display_pcb_x/2.
+    motor = e._yz_prism(x0,x1,[(d['motor_y']-radius,base),
+                              (d['motor_y']+radius,base),(d['motor_y'],peak)])
+    depth = e.display_facet_thickness+e.display_pcb_cut_through
+    pcb = e._ybox(x0,x1,
+        e.display_body_offset_slope-e.display_pcb_slope/2.,
+        e.display_body_offset_slope+e.display_pcb_slope/2.,
+        -depth,e._display_wings.GLASS_SEAT).moved(cq.Location(e.display_plane(box.outer)))
+    return _convex_corridor(e,[motor,pcb])
+
+
 def display_cleanouts(e, box):
     """Two plain wing-support access branches open into the empty PCB room."""
     wings = e._display_wings
@@ -256,7 +274,7 @@ def display_cleanouts(e, box):
 
 def fixed_cuts(e, box):
     out=[loading_opening(e,box), *inverse_cuts(e,box), *wire_cuts(e,box),
-         *display_cleanouts(e,box)]
+         upper_wire_room(e,box), *display_cleanouts(e,box)]
     plate=box.pack.collet_plate
     for x,z in plate['holes']:
         out.append(e._ybox(x-TUBE_GATE_WIDTH/2.,x+TUBE_GATE_WIDTH/2.,
