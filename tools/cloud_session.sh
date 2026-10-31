@@ -17,14 +17,16 @@
 # (95 of 124 members differ across the two wheels). A session here can
 # build, check, derive and compare, and a commit it makes lands on main by itself.
 #
-# IT PUBLISHES TO THE SITE'S STORE. The GitHub release refuses a cloud session's writes:
-# Anthropic's egress proxy answers a release-asset upload with 415 and a release API write with
-# 403, "Creating, editing, or deleting releases is not permitted for this session type",
-# measured 2026-09-15; `git push` is allowed. The site is not the release: `pack.py` PUTs each
-# member a machine cut to homesodamachine.com/objects/ by hash, where the service holds it on
-# its own disk and serves it (web/lib/objects.js), and moves the pointer lines for exactly
-# those members. So a commit here lands on main by itself and its geometry reaches the site the
-# way the Mac's does, from `publish_now.py` off the post-commit hook.
+# IT PUBLISHES TO THE SITE'S STORE. `pack.py` PUTs each member a machine cut to
+# homesodamachine.com/objects/ by hash. The service keeps it in Cloudflare R2 and redirects
+# reads to objects.homesodamachine.com (web/lib/objects.js), and the pointer lines name exactly
+# those members. A commit here lands on main by itself and its geometry reaches the site
+# from `publish_now.py` off the post-commit hook.
+#
+# RESTRICTED NETWORKS ALLOW BOTH ASSET HOSTS: homesodamachine.com and
+# objects.homesodamachine.com. The root domain's entry does not cover the object subdomain.
+# Public reads need no secret. Use curl or a descriptive application User-Agent for Python
+# preflights, as `pack.py` does: Cloudflare rejects the default urllib client with error 1010.
 #
 # WHAT EACH STEP BUYS:
 #   node 22                     `npm test` hands node a glob node 20 does not expand
