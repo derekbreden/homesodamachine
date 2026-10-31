@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#111b25">
+  <title>Studio · PP061208W · Home Soda Machine</title>
+  <meta name="description" content="Turn, pan and zoom the scanned John Guest reducer under soft studio lighting. Touch controls for phone and desktop.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./studio.css">
+  <link rel="icon" href="/pwa-icons/favicon-32.png">
+  <script type="importmap">
+  {"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.181.1/build/three.module.js","three/":"https://cdn.jsdelivr.net/npm/three@0.181.1/","three-mesh-bvh":"https://cdn.jsdelivr.net/npm/three-mesh-bvh@0.9.5/build/index.module.js"}}
+  </script>
+</head>
+<body>
+  <main id="pretty-studio" data-pretty-studio>
+    <header class="pretty-heading">
+      <div>
+        <p class="pretty-eyebrow">Home Soda Machine · Studio</p>
+        <h1>PP061208W</h1>
+        <p class="pretty-subtitle">3/8″ stem · 1/4″ push-connect</p>
+      </div>
+      <a class="pretty-home" href="/">Home</a>
+    </header>
+    <div class="pretty-stage" data-stage role="img" aria-label="Interactive three-dimensional view of the scanned John Guest reducer, with studio lighting.">
+      <img class="pretty-poster" data-poster src="./poster.jpg" alt="White reducer on a blue studio surface" width="1200" height="750">
+      <p class="pretty-loading" data-loading>Opening the view…</p>
+    </div>
+    <div class="pretty-toolbar">
+      <div class="pretty-actions" role="group" aria-label="Drag action">
+        <button class="btn cursor-interaction" type="button" data-mode="rotate" aria-pressed="true">Rotate</button>
+        <button class="btn cursor-interaction" type="button" data-mode="pan" aria-pressed="false">Pan</button>
+      </div>
+      <div class="pretty-actions" role="group" aria-label="Zoom and view">
+        <button class="btn cursor-interaction" type="button" data-zoom="out" aria-label="Zoom out">−</button>
+        <button class="btn cursor-interaction" type="button" data-zoom="in" aria-label="Zoom in">+</button>
+        <button class="btn cursor-interaction" type="button" data-reset>Reset view</button>
+      </div>
+      <label class="form-check pretty-soft"><input class="form-check-input" type="checkbox" data-soft checked><span class="form-check-label">Soft light</span></label>
+    </div>
+    <div class="pretty-caption">
+      <p data-help>Drag to rotate · scroll to zoom · right-drag to pan</p>
+      <p data-status role="status" aria-live="polite">Studio lighting</p>
+    </div>
+  </main>
+  <script type="module">
+    import { mountStudio } from './studio.js';
+    import { reducer } from './reducer.js';
+    import { createInlineMobileTheme } from './theme.js';
+    const root = document.getElementById('pretty-studio');
+    mountStudio(root, reducer, createInlineMobileTheme(root));
+  </script>
+</body>
+</html>
