@@ -1,9 +1,9 @@
 {
   "schema": 1,
   "scope": "One manual full-scene mesh interference review of every wire and cable jacket against larger bodies; wire-to-wire and wire-to-tube contacts are excluded. Tessellated penetration is a routing witness, not a native-solid or physical assembly qualification.",
-  "manifest_sha256": "cfa0a8440f9c5319672eb1405b3657372bbbc48675f328e44624eaf528ba8805",
-  "assembly_step_sha256": "0fdd2027ee81c401ec317aef34462b95b366ee6688b5e51ca729b0a85089e4ea",
-  "assembly_mesh_sha256": "d085834e77722a0c1a1b0f9e42ce435d170703380f307eed20a4bfd1374a9ea5",
+  "manifest_sha256": "a53eef934675895eab35bdb8ba333d89a9da4608fe767d9dc1cce7f58422f95e",
+  "assembly_step_sha256": "528e255c85f958f190d01a97508a7c5c1ee12f8f9e6c39cfa8349f5d01a56a6c",
+  "assembly_mesh_sha256": "18bc721bbf8f0a0aa1855f2a4f827dedbb51ed988ff2d1be1cef2055ab1ac4f3",
   "wire_count": 101,
   "physical_mesh_count": 414,
   "coverage_missing": [],
@@ -72,8 +72,8 @@
   "native": {
     "scope": "Current source and readback binding for every conductor, jacket and connector, plus exact native dispositions of the five mesh witnesses. Wires and tubes are excluded from wire obstacles.",
     "wiring_step_sha256": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
-    "assembly_step_sha256": "0fdd2027ee81c401ec317aef34462b95b366ee6688b5e51ca729b0a85089e4ea",
-    "manifest_sha256": "cfa0a8440f9c5319672eb1405b3657372bbbc48675f328e44624eaf528ba8805",
+    "assembly_step_sha256": "528e255c85f958f190d01a97508a7c5c1ee12f8f9e6c39cfa8349f5d01a56a6c",
+    "manifest_sha256": "a53eef934675895eab35bdb8ba333d89a9da4608fe767d9dc1cce7f58422f95e",
     "wire_count": 101,
     "body_count": 120,
     "all_valid_single_solids": true,
@@ -83,7 +83,7 @@
     "maximum_bounds_delta_mm": 1.0000769634643802e-07,
     "readback_record": {
       "path": "hardware/wiring/installed/above-core-review/installed-wiring-binding.json",
-      "sha256": "b9062c57fb5c0ebe2a4507dc44611bb1ace0862831bdeef383a9a1d03be783bb"
+      "sha256": "1aaa615a253b6bad9344c3c37157f5d4269e434872ed21247b4d3652ac907903"
     },
     "mesh_witness_dispositions": [
       {

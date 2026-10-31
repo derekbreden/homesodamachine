@@ -175,11 +175,19 @@ def rail_bounds():
         (west-19.15,west-14.),(west+14.,east-14.),(east+14.,east+19.15)))
 
 
+def rail_roots():
+    """Full roots outside the sliding tile channels, into the rear corner stock."""
+    west,east = above_core.specification()['fluid_grid']['columns_x_mm']
+    half = (WIDTH+.3)/2.
+    return tuple((x0,x1,469.299,471.31,252.,355.) for x0,x1 in (
+        (west-19.15,west-half),(west+half,east-half),(east+half,east+19.15)))
+
+
 def apply(piece):
     """One open channel per column, with side rails and a flat bottom stop."""
     for x in above_core.specification()['fluid_grid']['columns_x_mm']:
         piece = piece.cut(cq.Solid.makeBox(WIDTH+.3,3.5,105.,cq.Vector(x-WIDTH/2.-.15,469.299,252.)))
-    for x0,x1,y0,y1,z0,z1 in rail_bounds():
+    for x0,x1,y0,y1,z0,z1 in (*rail_roots(),*rail_bounds()):
         piece = piece.fuse(cq.Solid.makeBox(x1-x0,y1-y0,z1-z0,cq.Vector(x0,y0,z0)))
     return _nameplate_receiver(piece).clean()
 

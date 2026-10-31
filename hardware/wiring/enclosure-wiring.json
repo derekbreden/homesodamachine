@@ -86978,7 +86978,7 @@
     "Nominal and unlocated terminals remain visible in the graph and manifest; no exact donor termination is invented.",
     "The electrical graph does not qualify grounding, mains isolation, current capacity or energization."
   ],
-  "physical_scene_sha256": "71cc55443132980b86eae5b6e748b36bb0566b98dadbad745cf4c8d85d6ef353",
+  "physical_scene_sha256": "560396199e886e87dd20abc3694e225deed40e089cb4f12138b8eaddf00f83cb",
   "source_sha256": {
     "hardware/wiring/installed/build.py": "ca22378cd710bfcc2786b6227d2bf3a48b267a7b7c06bf8e6e7e004620bdce0e",
     "hardware/wiring/installed/connections.py": "38c89e4c69a171e929687fadca62ae5087ceed9a85f10057519308ca205e57d8",
@@ -86994,9 +86994,9 @@
     "hardware/wiring/installed/bundle-routes.json": "c6d39080c459ce706d65de2990566e6b6cc040015ac954639563cb212f88482e",
     "hardware/wiring/installed/connector-map.json": "8986c0f9b7e7394d965af41546f90fd4425f8ccb98a6360db6bbff8ba64a2126",
     "hardware/manifold-layout/above_core.py": "d3bd71f3c10335d6907e93ff874885e62558c794ce77a043fb22d6f8ed3eb45f",
-    "hardware/manifold-layout/above-core.json": "3137993bfbe5d09cf4c2c353bb4a898b7fac5d4e3277d0595536e93d92b6d1e8",
+    "hardware/manifold-layout/above-core.json": "20897cf246a11956cd582b35dcbafb66860e2aeb2ce4b311692683dc95d79bd2",
     "hardware/manifold-layout/above_core_wiring.py": "f3c7797749e3c9f45a53473887e6de87f88bd6571d78d18ba8959e3a3fc9e50f",
-    "hardware/manifold-layout/enclosure-box.json": "5fb24383d62b3292663bc09aeff21b164c3fecb2ee1859b4fd50648e85d96508",
+    "hardware/manifold-layout/enclosure-box.json": "484bff108de87044b7ea2f98cfbbd4396d246219a4a390380718bfe07e2a13d2",
     "hardware/printed-parts/enclosure/enclosure/enclosure.py": "a4be78d79411a851182c76233ec7acca535f759ee219012c6fb3ce870ede2c3b",
     "hardware/printed-parts/enclosure/enclosure/_fixed_pump_mount.py": "465214f98f1930f45a8f79a774db9def71b9070687159f7cad5682781087ca00",
     "hardware/printed-parts/cold-core/_above_core_mounts.py": "402ea8be97ee4b9dc97166a5397a24664cc6606bdbcad6fbfc98cc908ae8587e",
