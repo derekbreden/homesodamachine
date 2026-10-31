@@ -2,16 +2,76 @@
 //! generator line that asked for it.
 use crate::math::{Affine, V3, atan};
 use crate::rule::canonical_axis;
+use std::collections::BTreeMap;
 use std::fmt;
 use std::panic::Location;
 use std::path::{Component, Path, PathBuf};
+use std::sync::Mutex;
 
-/// The generator line that asked for a face, as `#[track_caller]` reports it.
-pub type Src = &'static Location<'static>;
+/// Where a face came from: the generator line that asked for it, as `#[track_caller]` reports
+/// it, or the file it was read from (`file_src`).
+pub type Src = &'static dyn Source;
 
-/// `path:line` of a generator line, the path from the checkout's root, as meshcad writes its own.
+/// A file, and the line in it when the face came from a generator's line.
+pub trait Source: fmt::Debug + Sync {
+    /// A generator's file as rustc names it, or a read file by the name its reader gave it.
+    fn file(&self) -> &str;
+    fn line(&self) -> Option<u32>;
+    fn column(&self) -> Option<u32>;
+}
+
+impl Source for Location<'static> {
+    fn file(&self) -> &str {
+        Location::file(self)
+    }
+    fn line(&self) -> Option<u32> {
+        Some(Location::line(self))
+    }
+    fn column(&self) -> Option<u32> {
+        Some(Location::column(self))
+    }
+}
+
+impl PartialEq for dyn Source {
+    fn eq(&self, other: &Self) -> bool {
+        self.file() == other.file() && self.line() == other.line() && self.column() == other.column()
+    }
+}
+
+#[derive(Debug)]
+struct ReadFile(String);
+
+impl Source for ReadFile {
+    fn file(&self) -> &str {
+        &self.0
+    }
+    fn line(&self) -> Option<u32> {
+        None
+    }
+    fn column(&self) -> Option<u32> {
+        None
+    }
+}
+
+/// The source of a face read from the file `name`, one per name for the run.
+pub fn file_src(name: &str) -> Src {
+    static NAMES: Mutex<BTreeMap<String, &'static ReadFile>> = Mutex::new(BTreeMap::new());
+    let mut names = NAMES.lock().unwrap_or_else(|e| e.into_inner());
+    if let Some(&src) = names.get(name) {
+        return src;
+    }
+    let src: &'static ReadFile = Box::leak(Box::new(ReadFile(name.to_string())));
+    names.insert(name.to_string(), src);
+    src
+}
+
+/// `path:line` of a generator line, the path from the checkout's root, as meshcad writes its own;
+/// a read file's name alone.
 pub fn src_line(src: Src) -> String {
-    format!("{}:{}", repo_path(src.file()), src.line())
+    match src.line() {
+        Some(line) => format!("{}:{line}", repo_path(src.file())),
+        None => src.file().to_string(),
+    }
 }
 
 /// A source file as rustc has it, named from the checkout's root. Cargo hands rustc a source
