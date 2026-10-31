@@ -940,8 +940,57 @@ def _write_payload_beside(target_path, source=None):
 def export_step(model, target_path):
     """cq.exporters.export with atomic write."""
     import cadquery as cq
+    if getattr(cq, "MESH", False):
+        _export_mesh([("", model, None)], target_path)
+        return
     _atomic_write(target_path, lambda p: cq.exporters.export(model, p))
     _write_payload_beside(target_path, model)
+
+
+# --- On the mesh kernel --------------------------------------------------------
+#
+# A generator run on the mesh kernel (`meshcad/run.py`) holds triangles, not a B-rep, so a
+# STEP target is written as what the kernel has: `<name>.step.npz`, the model every
+# mesh-kernel `importStep` of `<name>.step` reads back with its face records, and the
+# `.step.mesh` payload the page draws. The payload of a piece with an `.stl` beside it stays
+# its flute cutter's, as above.
+
+
+def _mesh_bodies(assembly, parent=None):
+    """[(name, shape, linear rgb)] for every body of `assembly`, stood where it stands."""
+    from OCP.Quantity import Quantity_TypeOfColor
+    loc = assembly.loc if parent is None else parent * assembly.loc
+    out = []
+    if assembly.obj is not None:
+        vals = assembly.obj.vals() if hasattr(assembly.obj, "vals") else [assembly.obj]
+        solids = [s.moved(loc) for v in vals for s in v.Solids()]
+        rgb = (list(assembly.color.wrapped.GetRGB().Values(Quantity_TypeOfColor.Quantity_TOC_RGB))
+               if assembly.color is not None else None)
+        if rgb is not None and len(solids) > 1:
+            out += [(f"{assembly.name}{SOLID_INDEX_SEP}{i}", s, rgb) for i, s in enumerate(solids, 1)]
+        else:
+            out += [(assembly.name, s, rgb) for s in solids]
+    for child in assembly.children:
+        out += _mesh_bodies(child, loc)
+    return out
+
+
+def _export_mesh(bodies, target_path):
+    mw = sys.modules["meshcad"].writer()
+    target = Path(target_path).resolve()
+    solids = [s for _, shape, _ in bodies for s in (shape.vals() if hasattr(shape, "vals") else [shape])]
+    names = [name for name, shape, _ in bodies
+             for _ in (shape.vals() if hasattr(shape, "vals") else [shape])]
+    colors = [rgb for _, shape, rgb in bodies
+              for _ in (shape.vals() if hasattr(shape, "vals") else [shape])]
+    model = target.with_name(target.name + ".npz")
+    _atomic_write(model, lambda p: mw.write_model(solids, p, names, colors))
+    if target.with_suffix(".stl").is_file() or os.environ.get("HSM_SKIP_MESH_PAYLOAD"):
+        return
+    import _mesh_payload
+    meshes = [m for name, shape, rgb in bodies for m in mw.payload_meshes(shape, name, rgb)]
+    _atomic_write(target.with_name(target.name + ".mesh"),
+                  lambda p: mw.write_payload(meshes, p, src=_mesh_payload.source_digest(model)))
 
 
 #: What separates a body from the index of one of its solids, in the names
@@ -1004,6 +1053,10 @@ def export_assembly(assembly, target_path, **kwargs):
     handed over beside it is taken from that same assembly — the two routes into
     the viewer have to agree, and agreeing on the uncolored one is not the way.
     Keyword arguments pass through to CadQuery's exporter, including STEP precision."""
+    import cadquery as cq
+    if getattr(cq, "MESH", False):
+        _export_mesh(_mesh_bodies(assembly), target_path)
+        return
     colored = _per_solid_color(assembly)
     _atomic_write(target_path, lambda p: colored.export(p, **kwargs))
     _write_payload_beside(target_path, colored)

@@ -27,6 +27,7 @@ import hashlib
 import io
 import json
 import os
+import sys
 
 from OCP.Bnd import Bnd_Box
 from OCP.BRepTools import BRepTools
@@ -46,6 +47,12 @@ _DIR = _realized._ROOT / ".cache" / "boxes"
 # the pile passes this, as `_meshes` does it.
 KEEP_BYTES = 1 << 24
 _pruned = False
+
+
+def _mesh(shape) -> bool:
+    """Whether the mesh kernel holds `shape` (`hardware/scripts/meshcad`)."""
+    meshcad = sys.modules.get("meshcad")
+    return meshcad is not None and meshcad.is_mesh(shape)
 
 
 def _named(shape) -> str:
@@ -118,6 +125,8 @@ def _kept(solid):
 
 def boxed(solid):
     """The solid's optimal bounding box, memoized by identity and kept on disk."""
+    if _mesh(solid):
+        return solid.BoundingBox()               # a mesh's own extents are exact and cheap
     key = hash(solid.wrapped)
     hit = _CACHE.get(key)
     if hit is not None and hit[0].wrapped.IsSame(solid.wrapped):
@@ -139,6 +148,8 @@ def loose(solid):
     pair on this is sound; a slack box only lets a pair through to the query that would have
     answered anyway. A caller that reads a FACE off the box — where a body stands, how tall the
     machine is — wants `boxed`, because slack there is a body in the wrong place."""
+    if _mesh(solid):
+        return solid.BoundingBox()
     key = hash(solid.wrapped)
     hit = _LOOSE_CACHE.get(key)
     if hit is not None and hit[0].wrapped.IsSame(solid.wrapped):
@@ -159,6 +170,8 @@ def boxed_solids(shape) -> list:
     The list is memoized against its parent, and each box in it through `boxed`, so a body that
     two shapes are both built from is boxed once between them. Read-only: callers share the list,
     as they share the pack `build()` hands back."""
+    if _mesh(shape):
+        return [s.BoundingBox() for s in shape.Solids()]
     key = id(shape.wrapped)
     hit = _SOLIDS_CACHE.get(key)
     if hit is not None:
