@@ -33,8 +33,7 @@ every part used in the working assembly.
 - Both reservoirs in the foam shell, with their caps, gaskets, floats, rods and reed columns.
 - The DIGITEN meter; the rear wall's TAP, SODA and two FLAVOR fittings, the C14 inlet and the
   RJ11 keystone.
-- The electronics bay's Mean Well IRM-90-12ST, main board, ground stack and five Wago 221-413
-  lever nuts.
+- The electronics bay's Mean Well IRM-90-12ST, main board and five Wago 221-413 lever nuts.
 - The machine display in front-top's facet, and the funnel frame.
 - The white Sculpted faucet with its display, and its umbilical.
 
@@ -160,21 +159,19 @@ Populate it inverted, ceiling down
    CARGEN: the line is cold and the cabinet is not.
 4. **The electronics bay** ([electronics bay](electronics-bay.md)). The five Wago 221-413 lever nuts
    press into their wall wells, labeled H, N, G, +, GND. Then bolt up the bodies: the
-   IRM-90-12ST on its four bosses after preforming and landing its unpowered solid-wire pigtails, the main board on its four (ESD-safe), and the ground stack
-   under its M3×10.
+   IRM-90-12ST on its four bosses after preforming and landing its unpowered solid-wire pigtails, and the main board on its four (ESD-safe).
 5. **Mains and 12 V:**
 
    | Run | From → to | Termination |
    |---|---|---|
    | AC-1 | C14 tabs → the H, N, G Wagos | 16 AWG solid black/white/green, soldered at the C14 ([wiring §2](wiring.md#2-ac-mains-c14--distribution--relay-1--compressor--psu)); stripped directly in the Wagos |
    | AC-2 | the H and N WAGOs → PSU L and N | 16 AWG solid black/white, stripped directly in both clamps; the PSU has no earth terminal |
-   | G leg | the G Wago → the ground stack | ferrule; ring at the stack |
    | DC-1 | PSU + and − → the + and GND WAGOs | 16 AWG solid black, stripped directly in both clamps |
    | DC-4 | the + and GND WAGOs → J10 | 16 AWG solid black, stripped directly in both clamps; `V12` and `GND` each in the clamp beside its silk label |
 
    AC-3 to AC-6 (the compressor's), DC-2 and DC-3 (the water pump's) and the J5 loom are not built.
    Run [electronics bay §7](electronics-bay.md#7-pre-power-continuity--isolation-check)'s
-   continuity checks: no H–N, H–G or N–G continuity, J10's `V12` to PSU +, the stack to the C14
+   continuity checks: no H–N, H–G or N–G continuity, J10's `V12` to PSU +, the G Wago to the C14
    earth pin.
 
 ## 4. The pump cradle

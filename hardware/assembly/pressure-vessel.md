@@ -137,9 +137,9 @@ and sealant out of the metal contact stack. The 1.2 mm washer/ring stack leaves
 before it is buried, as required by [`wiring.md`](/hardware/assembly/wiring.md).
 
 Keep the opposite wire end free until it has passed through the shared
-seven-core sensor riser at world X−48/Y347 and both cap pieces. Crimp its
-outside ring afterward and land it at the adjacent lid earth star during
-[cold-core assembly](/hardware/assembly/cold-core.md). Fit the steel-side
+seven-core sensor riser at world X−48/Y347 and both cap pieces. Ferrule it
+afterward and land it in port 2 of the rear PE WAGO below C14
+([`electronics-bay.md`](/hardware/assembly/electronics-bay.md) step 4). Fit the steel-side
 clamp before foil and body foam cover its contact faces.
 
 ### 2. Prepare the bottom plate — tack the float rod

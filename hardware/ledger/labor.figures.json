@@ -11,13 +11,13 @@
     "ROOF_CLOSURE_SCREWS": "4",
     "SEAM_INSERTS": "4",
     "SEAM_RODS": "4",
-    "SHELF_INSERTS": "5",
-    "SHELF_SCREWS": "13",
+    "SHELF_INSERTS": "4",
+    "SHELF_SCREWS": "28",
     "SOLENOIDS": "10",
-    "TOTAL_INSERTS": "68",
-    "TOTAL_M3_INSERTS": "60",
+    "TOTAL_INSERTS": "86",
+    "TOTAL_M3_INSERTS": "78",
     "TOTAL_M5_INSERTS": "8",
-    "TOTAL_SCREWS": "68",
+    "TOTAL_SCREWS": "86",
     "TOUCHFLO_SCREWS": "3"
   },
   "/hardware/scripts/_labor_totals.py": {

@@ -69,7 +69,7 @@ def selected_equipment():
            set(above_core_bom.stem_elbow_names())|set(above_core_bom.union_elbow_names())|
            set(above_core_bom.core_stem_elbow_names())|set(above_core_bom.core_union_elbow_names())|
            set(above_core_wiring.placements())|
-           {'ground-stack','ground-stack-insert','asse-drain-adapter',
+           {'asse-drain-adapter',
             'gagira-coupling','jg-pi4512f6s','jg-pp061208w',
             'asse-snap-cap','regulator-snap-cap','pisco-snap-cap','meter-snap-cap',
             'water-split','flow-regulator','gas-regulator','gas-check','keystone-jack',
