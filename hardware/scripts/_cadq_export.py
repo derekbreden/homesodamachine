@@ -688,6 +688,13 @@ def import_step(path):
         _STEP_READS.add(p.relative_to(_ROOT).as_posix())
     except ValueError:
         pass                             # a solid outside this repo is nothing this tree cuts
+    # A STEP the mesh kernel wrote is triangles. OCCT reads it as one open face, whose volume
+    # and distances are wrong without a word, so only a mesh-kernel run may read it.
+    if not getattr(cq, "MESH", False):
+        with open(p, "rb") as f:
+            if b"meshcad tessellated" in f.read(200):
+                raise ValueError(f"{p.name} was cut on the mesh kernel; a reader of it runs there too "
+                                 "(`meshcad.activate()` in its __main__)")
     return cq.importers.importStep(str(p))
 
 
@@ -728,6 +735,19 @@ def import_assembly(path):
         _STEP_READS.add(p.relative_to(_ROOT).as_posix())
     except ValueError:
         pass
+    # A mesh-kernel STEP is drawn triangles; its model file holds the solids, names and colours.
+    model = p.with_name(p.name + ".npz")
+    if getattr(cq, "MESH", False) and model.is_file():
+        from meshcad.imports import load_model
+        from meshcad.write import model_identity
+        bodies = {}
+        for (name, rgb), solid in zip(model_identity(model), load_model(model)):
+            shade = cq.Color(*rgb, 1.0, False) if rgb is not None else None
+            bodies.setdefault(_SOLID_INDEX_RE.sub("", name), []).append((solid, shade))
+        return {name: (found[0][0] if len(found) == 1
+                       else cq.Compound.makeCompound([s for s, _c in found]),
+                       next((c for _s, c in found if c is not None), None))
+                for name, found in bodies.items()}
     doc = TDocStd_Document(TCollection_ExtendedString("hsm"))
     reader = STEPCAFControl_Reader()
     reader.SetNameMode(True)
@@ -976,7 +996,7 @@ def _mesh_bodies(assembly, parent=None):
     return out
 
 
-def _export_mesh(bodies, target_path):
+def _export_mesh(bodies, target_path, root_name=None):
     mw = sys.modules["meshcad"].writer()
     target = Path(target_path).resolve()
     solids = [s for _, shape, _ in bodies for s in (shape.vals() if hasattr(shape, "vals") else [shape])]
@@ -986,13 +1006,21 @@ def _export_mesh(bodies, target_path):
               for _ in (shape.vals() if hasattr(shape, "vals") else [shape])]
     model = target.with_name(target.name + ".npz")
     stem = target.name.split(".")[0]
+    # The STEP and the payload are drawn and handed on, not cut from: both carry one drawing of
+    # each solid, at the deflection OCCT's export meshes the model at. The model file keeps
+    # the solid.
+    import _mesh_payload
+    boxes = [s.BoundingBox() for s in solids]
+    size = [max(getattr(b, k + "max") for b in boxes) - min(getattr(b, k + "min") for b in boxes)
+            for k in "xyz"]
+    deflection = sum(size) / 3.0 * _mesh_payload.LINEAR_DEFLECTION_RATIO
+    drawn = [mw.drawn(s, deflection) for s in solids]
     _atomic_write(target, lambda p: mw.write_step(
-        [(n or stem, s, c) for n, s, c in zip(names, solids, colors)], p))
+        [(n or stem, a, c) for n, a, c in zip(names, drawn, colors)], p, root_name or stem))
     _atomic_write(model, lambda p: mw.write_model(solids, p, names, colors))
     if target.with_suffix(".stl").is_file() or os.environ.get("HSM_SKIP_MESH_PAYLOAD"):
         return
-    import _mesh_payload
-    meshes = [m for name, shape, rgb in bodies for m in mw.payload_meshes(shape, name, rgb)]
+    meshes = [mw.drawn_payload(n, c, *a) for n, a, c in zip(names, drawn, colors)]
     _atomic_write(target.with_name(target.name + ".mesh"),
                   lambda p: mw.write_payload(meshes, p, src=_mesh_payload.source_digest(model)))
 
@@ -1059,7 +1087,7 @@ def export_assembly(assembly, target_path, **kwargs):
     Keyword arguments pass through to CadQuery's exporter, including STEP precision."""
     import cadquery as cq
     if getattr(cq, "MESH", False):
-        _export_mesh(_mesh_bodies(assembly), target_path)
+        _export_mesh(_mesh_bodies(assembly), target_path, assembly.name)
         return
     colored = _per_solid_color(assembly)
     _atomic_write(target_path, lambda p: colored.export(p, **kwargs))

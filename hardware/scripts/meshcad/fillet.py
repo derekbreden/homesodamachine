@@ -35,7 +35,17 @@ def _round(solid, edges, profile, op, radius=None):
     from .solids import MeshSolid
     src = caller()
     base, fill, cut = solid.rounds()
+    rounded = list(getattr(solid, "_rounded", ()))
+    ends = np.array([p for e in edges if not e.closed for p in (e.pts[0], e.pts[-1])]).reshape(-1, 3)
+    if rounded and len(ends) and np.min(np.linalg.norm(
+            ends[:, None] - np.array(rounded)[None], axis=2)) < 1e-6:
+        # An edge that runs on from one this run has rounded is not where the selector found it
+        # (`MeshSolid.m`): the run ends, and the round takes the solid as it now stands.
+        solid = MeshSolid(solid.m)
+        edges = _carried(solid, edges)
+        base, fill, cut, rounded = solid, [], [], []
     fill, cut = list(fill), list(cut)
+    rounded += [p for e in edges if not e.closed for p in (e.pts[0], e.pts[-1])]
     for e in edges:
         try:
             tool, convex = _tool(e, profile, src, op)
@@ -45,7 +55,45 @@ def _round(solid, edges, profile, op, radius=None):
             tool, convex = _rolled(e, radius, src, op)
         if tool is not None:
             (cut if convex else fill).append(tool)
-    return MeshSolid(None, (base, fill, cut))
+    out = MeshSolid(None, (base, fill, cut))
+    out._rounded = rounded
+    return out
+
+
+def _carried(solid, edges):
+    """`edges`, selected on the solid before a run of rounds, as the edges of `solid` after it:
+    each one between the same two surfaces, and every edge running on from those tangentially
+    along one of them, as OCCT carries a round round a tangent chain."""
+    from .topo import surface_key
+    topo = solid._topology()
+    t = topo.t
+    key = lambda tt, f: surface_key(tt.face_record(f), ("F", id(tt), f))
+    pair = lambda tt, fs: frozenset(key(tt, f) for f in fs)
+    wanted = {pair(e.topo.t, e.face_ids) for e in edges}
+    chosen = {i for i, ch in enumerate(t.edges) if pair(t, ch["faces"]) in wanted}
+
+    def tangent(ch, v):
+        pts = t.V[ch["verts"]]
+        d = pts[1] - pts[0] if ch["verts"][0] == v else pts[-2] - pts[-1]
+        return d / np.linalg.norm(d)
+
+    grew = True
+    while grew:
+        grew = False
+        for i in list(chosen):
+            ch = t.edges[i]
+            if ch["closed"]:
+                continue
+            for v in (ch["verts"][0], ch["verts"][-1]):
+                for j, other in enumerate(t.edges):
+                    if j in chosen or other["closed"] or v not in (other["verts"][0], other["verts"][-1]):
+                        continue
+                    if not set(ch["faces"]) & set(other["faces"]):
+                        continue
+                    if np.dot(tangent(ch, v), tangent(other, v)) < -math.cos(math.radians(5)):
+                        chosen.add(j)
+                        grew = True
+    return [topo.edge_objs[i] for i in sorted(chosen)]
 
 
 class _Corner:
@@ -205,6 +253,20 @@ def _foot(curve, n, x):
     return c + r * v / np.linalg.norm(v)
 
 
+#: How far a round's tool stands past the faces it meets, where they are flat. Past them is the
+#: part's own material wherever another wall stands near, so a hair and no more.
+REACH = 0.02
+
+
+def _sagitta(surface, d):
+    """How far `surface` bows off its tangent plane over `d` from a contact, plus `REACH`."""
+    r = {"PLANE": None, "SPHERE": "r", "CYLINDER": "r", "CONE": "r", "TORUS": "r"}[surface.kind]
+    if r is None:
+        return REACH
+    rf = float(surface.rec[r])
+    return (rf if d >= rf else d * d / (2 * rf)) + REACH
+
+
 def _fillet_profile(corner, R):
     s = -1.0 if corner.convex else 1.0
     off = [_offset_hits(corner.curves[i], corner.n[i], s, R) for i in (0, 1)]
@@ -219,7 +281,7 @@ def _fillet_profile(corner, R):
     t1, t2 = _foot(corner.curves[0], corner.n[0], center), _foot(corner.curves[1], corner.n[1], center)
     corner.radius = R
     arc = _arc2(center, R, t1, t2)
-    reach = max(0.25 * R, 0.02)
+    reach = REACH
     for i in (0, 1):
         if corner.curves[i][0] == "CIRCLE":
             chord = np.linalg.norm((t1, t2)[i])
@@ -246,7 +308,7 @@ def _chamfer_profile(corner, d1, d2):
     t2 = d2 * corner.u[1]
     corner.radius = None
     side = 1.0 if corner.convex else -1.0
-    reach = 0.25 * max(d1, d2)
+    reach = REACH
     m = corner.n[0] + corner.n[1]
     m = m / max(np.linalg.norm(m), 1e-9)
     o = side * m * reach * 2.0 / max(np.linalg.norm(corner.n[0] + corner.n[1]), 0.2)
@@ -457,7 +519,9 @@ def _rolled(edge, R, src, op):
 
     step = 2 * math.pi / ring_count(R)
     m = max(2, math.ceil(max(x[3] for x in stations) / step))
-    reach = max(0.25 * R, 0.02) + 0.02
+    # Past the contacts by as far as any face the ball touched bows off its tangent plane.
+    span = R * math.tan(max(x[3] for x in stations) / 2)
+    reach = REACH + max(_sagitta(f, span) for f in surfaces.values() if f is not None)
     sections, normals = [], []
     for c, u1, u2, phi, t in stations:
         w = u2 - np.dot(u1, u2) * u1

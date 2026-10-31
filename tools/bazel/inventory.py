@@ -380,6 +380,13 @@ def tracked() -> list:
     # pointer file. Its producer write and consumer read still need to survive the trace filter so that
     # this inventory can create the edge on that very first pass.
     files += [path for paths in IMPLICIT_SOLIDS.values() for path in paths]
+    # The mesh kernel's model files: a reader of a mesh-kernel STEP takes the solids from the
+    # one beside it (`meshcad.imports.step_solids`), so they pass between actions as the STEP
+    # does. They are ignored and never bundled.
+    files += subprocess.run(["git", "-C", str(_ROOT), "ls-files", "--others", "--ignored",
+                             "--exclude-standard", "--", "hardware/*.step.npz",
+                             "hardware/*.scene.npz"],
+                            capture_output=True, text=True, check=True).stdout.split()
     return sorted(f for f in set(files) if not build_inert(f))
 
 

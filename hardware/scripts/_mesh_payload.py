@@ -199,6 +199,17 @@ def from_assembly(assembly):
     """
     placed = [(name, color if len(solids) == 1 else None, solid)
               for name, color, solids in _placed(assembly) for solid in solids]
+    import sys
+    if "meshcad" in sys.modules and sys.modules["meshcad"].mesh_mode():
+        # Mesh-kernel solids are drawn as its STEP writer draws them, at the same deflection.
+        mw = sys.modules["meshcad"].writer()
+        boxes = [s.BoundingBox() for _, _, s in placed]
+        size = [max(getattr(b, k + "max") for b in boxes) - min(getattr(b, k + "min") for b in boxes)
+                for k in "xyz"]
+        tol = sum(size) / 3.0 * LINEAR_DEFLECTION_RATIO
+        rgb = lambda c: list(c.wrapped.GetRGB().Values(Quantity_TypeOfColor.Quantity_TOC_RGB)) if c else None
+        return [mw.drawn_payload(name, rgb(color), V, T)
+                for name, color, solid in placed for V, T in [mw.drawn(solid, tol)] if len(T)]
     meshed = _mesh_all([s for _, _, s in placed], deflection(assembly.toCompound().wrapped))
     return [m for (name, color, _), solid in zip(placed, meshed)
             if (m := _mesh(solid, name, color))]
