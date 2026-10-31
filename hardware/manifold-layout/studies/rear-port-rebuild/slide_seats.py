@@ -7,8 +7,10 @@ stub. A seat is one block, the part's upper side cut into it, swept forward by S
 passes every station on its way. A snap cap then holds the part's other side at its station: one
 half pipe under the part, its two side walls rising past the part's axis as the springs, each
 hooking over a ledge in a pocket in the seat's flank. Each pocket's ends are the cap's end
-shoulders. The ASSE's and the Pisco's caps go on from below. The meter's is the same snap turned a
-quarter about Y and goes on from the west.
+shoulders. The ASSE's seat stands down to the body's axis, through its wrenches' side corners, and
+its cap is the lower half of a hex pipe about them, so the two hold the wrenches' flats. The ASSE's
+and the Pisco's caps go on from below. The meter's is the same snap turned a quarter about Y and
+goes on from the west.
 
 World frame: -Y fore, +Z up, +X east.
 """
@@ -24,7 +26,7 @@ import fits
 SLIDE = 16.0        # the aft travel that puts the PP010822E's and the Pisco's noses through the wall
 THREAD = 1.5        # how far a taped joint may leave the ASSE body from its drawn station, either way
 WALL = 3.0
-SPLIT = 335.0       # the ASSE's and the Pisco's seats stand down to here, just over the ASSE's vent
+SPLIT = 335.0       # the Pisco's seat, and lines.py's regulator seat, stand down to here
 INTO = 0.5          # how far each seat runs into the walls it joins
 WING = 3.0          # each side wall, the spring from the cap's axis plane up to its hook
 REACH = 0.6         # how far a hook reaches over its ledge
@@ -176,11 +178,12 @@ def pockets(s):
     return out
 
 
-def cap(s, base, bottom, axis_z=None):
+def cap(s, base, bottom, axis_z=None, hexed=False):
     """One cap, extruded over the station's Y span: a body under `base` and its two side walls
     rising from `base` to their hooks. With an axis the body is a half pipe about it down to
-    `bottom`, its sides running tangent from the side walls' outer faces; without one it is a
-    block the full width of the side walls down to `bottom`."""
+    `bottom`, its sides running tangent from the side walls' outer faces, or, `hexed`, the lower
+    half of a hex about it, its side corners on those faces; without one it is a block the full
+    width of the side walls down to `bottom`."""
     c, W, wi, h = s['axis_x'], s['outer'], s['inner'], s['hook']
     catch, tip = s['catch'], s['tip']
     y = s['y0']
@@ -197,6 +200,9 @@ def cap(s, base, bottom, axis_z=None):
     edges = run(west) + run([west[-1], east[0]]) + run(east)
     if axis_z is None:
         edges += run([east[-1], (c + W, bottom), (c - W, bottom), west[0]])
+    elif hexed:
+        low = axis_z - W * math.sqrt(3.) / 2.
+        edges += run([east[-1], (c + W / 2., low), (c - W / 2., low), west[0]])
     else:
         r = axis_z - bottom
         tx, tz = r * r / W, -r * math.sqrt(max(1. - (r / W) ** 2, 0.))
@@ -212,12 +218,13 @@ def at_world(location, point):
 
 # --- the three seats and their caps -----------------------------------------------------------------
 
-def build(parts, asse_axis, asse_at, pisco_axis, mouth_y, ceiling, rear, side, meter, meter_at):
+def build(parts, asse_axis, asse_at, asse_turn, pisco_axis, mouth_y, ceiling, rear, side, meter, meter_at):
     """The six solids against the placed parts, and the numbers they were built from.
 
     `parts` maps names to (solid, colour) as the study places them; `asse_at` is the chain's
-    location, `meter_at` the meter's and `meter` its reference module; `ceiling`, `rear` and
-    `side` are the inner faces of the roof, the rear wall's land and the side wall."""
+    location and `asse_turn` the degrees the ASSE body turns about its axis from it, its wrenches'
+    clock with it; `meter_at` is the meter's location and `meter` its reference module; `ceiling`,
+    `rear` and `side` are the inner faces of the roof, the rear wall's land and the side wall."""
     import multiplex_asse1022 as bfp
     HW = Path(__file__).resolve().parents[3]
     pts = {n: surface_points(parts[n][0]) for n in (*CHAIN, *(n for n in parts if n.startswith('pisco-')), 'co2-check')}
@@ -227,55 +234,60 @@ def build(parts, asse_axis, asse_at, pisco_axis, mouth_y, ceiling, rear, side, m
 
     # --- ASSE: the GAGIRA stops on the land; the body may sit THREAD either way of it ---------------
     ys, r_g = envelope(np.concatenate([pts['gagira-coupling'], pts['jg-pp010822e']]), asse_axis, LO, HI)
-    apothem = bfp.HEX_ACROSS_FLATS / 2.
-    corner = max(r for _, r in bfp.BODY_PROFILE)
-    # The main wrench runs over the body's turned profile from its rise off the collar to where it
-    # falls back to the barrel.
-    xs, rs = np.array(bfp.BODY_PROFILE).T
-    peak = int(np.argmax(rs))
-    hex_x = (xs[0], xs[peak + int(np.argmax(rs[peak:] <= rs[-1]))])
-    hex_y = sorted(float(at_world(asse_at, (x, 0., bfp.BODY_CENTER_Z))[1]) for x in hex_x)
-    clock = 0.3                                   # as multiplex_asse1022.build() turns the wrench
-    body = np.concatenate([pts['multiplex-asse1022'], pts['jg-pi4512f6s']])
-    # The vent stands west of the wrench's west flat and under SPLIT: the cap clears it, the seat's
-    # sweep leaves it out.
-    west = asse_axis[0] - apothem - 0.5
-    vent = body[body[:, 0] < west]
-    body = body[body[:, 0] >= west]
-    rr = np.hypot(body[:, 0] - asse_axis[0], body[:, 2] - asse_axis[1])
-    on_hex = (body[:, 1] > hex_y[0]) & (body[:, 1] < hex_y[1])
-    body = body[~on_hex | (rr <= bfp.BODY_PROFILE[-1][1])]     # the main wrench is its own prism
+
+    def wrench(profile, across_flats, clock):
+        """A wrench's Y span, apothem, clock and corner radius, as multiplex_asse1022.build() cuts it
+        and the study turns it."""
+        y = sorted(float(at_world(asse_at, (x, 0., bfp.BODY_CENTER_Z))[1]) for x in (profile[0][0], profile[-1][0]))
+        return y, across_flats / 2., clock + asse_turn, max(r for _, r in profile)
+
+    wrenches = (wrench(bfp.BODY_PROFILE, bfp.HEX_ACROSS_FLATS, .3), wrench(bfp.CAP_PROFILE, bfp.CAP_ACROSS_FLATS, .9))
+    asse = pts['multiplex-asse1022']
+    # The vent hangs from the main wrench's bottom flat: the cap's slot passes it, the seat's sweep
+    # leaves it out.
+    under = asse_axis[1] - bfp.HEX_ACROSS_FLATS / 2. - .5
+    vent, asse = asse[asse[:, 2] < under], asse[asse[:, 2] >= under]
+    rr = np.hypot(asse[:, 0] - asse_axis[0], asse[:, 2] - asse_axis[1])
+    keep = np.ones(len(asse), bool)
+    for (y0, y1), apothem, _, _ in wrenches:      # each wrench is its own prism
+        keep &= (asse[:, 1] <= y0) | (asse[:, 1] >= y1) | (rr <= apothem)
+    body = np.concatenate([asse[keep], pts['jg-pi4512f6s']])
     _, r_b = envelope(body, asse_axis, LO, HI)
     cav = np.maximum(swept(r_g, 0., SLIDE), swept(r_b, THREAD, SLIDE + THREAD))
     cav = np.where(cav > 0, cav + c, 0.)
     asse_steps = steps(ys, cav)
-    hex_cav = hex_prism(asse_axis, apothem + c, clock, hex_y[0] - THREAD - SLIDE, hex_y[1] + THREAD, corner + c)
-    # One half pipe from the outlet bonnet's full round to the GAGIRA's fore face, which it bears on.
+    # One hex half pipe from the outlet bonnet's full round to the GAGIRA's fore face, which it bears
+    # on. The seat stands down to the body's axis.
     bonnet = max(x for x, r in bfp.CAP_PROFILE if r == max(r for _, r in bfp.CAP_PROFILE))
     gag_fore = parts['gagira-coupling'][0].BoundingBox().ymin
     cap_y = (float(at_world(asse_at, (bonnet, 0., bfp.BODY_CENTER_Z))[1]) - s, gag_fore - s)
+    split = asse_axis[1] + c
     m = (ys >= cap_y[0] - .25) & (ys <= cap_y[1] + .25)
-    st_a = station(asse_axis[0], half_width(cav[m].max(), SPLIT, asse_axis[1]) + WALL, *cap_y)
-    # The cap's room: the body's lower round swept by the thread either way, head on; the main
-    # wrench's lower faces; a notch for the vent, open upward, to the wrench's west flat.
+    widest = max(cav[m].max(), *(corner + c for *_, corner in wrenches))
+    st_a = station(asse_axis[0], half_width(widest, split, asse_axis[1]) + WALL, *cap_y, split=split)
+    # The cap's room: the body's lower round swept by the thread either way, head on; both wrenches'
+    # lower faces; a slot through its bottom flat for the vent.
     _, r_low = envelope(body[body[:, 2] <= asse_axis[1] + .01], asse_axis, LO, HI)
     room = swept(r_low, THREAD, THREAD)
     room = np.where((ys >= cap_y[0] - 1.) & (ys <= cap_y[1] + 1.) & (room > 0), room + s, 0.)
     room_steps = steps(ys, room)
-    r_top = max(r for _, _, r in room_steps)
     v_lo, v_hi = vent.min(axis=0), vent.max(axis=0)
-    notch = box(0., asse_axis[0] - apothem + c, v_lo[1] - THREAD - c, v_hi[1] + THREAD + c, v_lo[2] - c, ceiling)
-    out['asse-snap-cap'] = (cap(st_a, asse_axis[1], asse_axis[1] - r_top - WALL, asse_axis[1])
-                            .cut(turned(room_steps, asse_axis))
-                            .cut(hex_prism(asse_axis, apothem + s, clock, hex_y[0] - THREAD, hex_y[1] + THREAD, corner + s))
-                            .cut(notch).clean())
+    snap = cap(st_a, asse_axis[1], None, asse_axis[1], hexed=True).cut(turned(room_steps, asse_axis))
+    for (y0, y1), apothem, clock, corner in wrenches:
+        snap = snap.cut(hex_prism(asse_axis, apothem + s, clock, y0 - THREAD, y1 + THREAD, corner + s))
+    slot = box(v_lo[0] - c, v_hi[0] + c, v_lo[1] - THREAD - c, v_hi[1] + THREAD + c, v_lo[2] - 1., asse_axis[1])
+    out['asse-snap-cap'] = snap.cut(slot).clean()
     W = st_a['outer']
-    seat = box(asse_axis[0] - W, asse_axis[0] + W, cap_y[0] - c - WALL, rear + INTO, SPLIT, ceiling + INTO)
-    seat = seat.cut(turned(asse_steps, asse_axis).fuse(hex_cav))
+    seat = box(asse_axis[0] - W, asse_axis[0] + W, cap_y[0] - c - WALL, rear + INTO, split, ceiling + INTO)
+    room = turned(asse_steps, asse_axis)
+    for (y0, y1), apothem, clock, corner in wrenches:
+        room = room.fuse(hex_prism(asse_axis, apothem + c, clock, y0 - THREAD - SLIDE, y1 + THREAD, corner + c))
+    seat = seat.cut(room)
     for p in pockets(st_a):
         seat = seat.cut(p)
     out['asse-seat'] = seat.clean()
-    numbers['asse'] = {'station': st_a, 'seat_runs': asse_steps, 'cap_runs': room_steps, 'hex_y': hex_y,
+    numbers['asse'] = {'station': st_a, 'seat_runs': asse_steps, 'cap_runs': room_steps,
+                       'wrenches': [{'y': y, 'apothem': a, 'clock': k, 'corner': r} for y, a, k, r in wrenches],
                        'gagira_fore_y': gag_fore, 'vent': [v_lo.tolist(), v_hi.tolist()]}
 
     # --- Pisco: one rigid piece; its check rides in its outlet collet ---------------------------

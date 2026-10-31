@@ -14,13 +14,13 @@ https://claude.ai/artifact/RppC6x7HmYNP8n2d6EyTMN.
 | Part | Where it stands |
 |---|---|
 | PISCO RVFUP1/4-1/4-0.3 regulator | Its long-neck inlet passes a hole of its own, d[13.86](PISCO_HOLE_D), at the CO2 station, X[77.5](CO2_X) Z[328](ROW_1). The inlet release face is on the mouth plane, Y[480.8](MOUTH_Y). The shoulder is [0.09](PISCO_ON_LAND) mm off the clamping land's inner face. |
-| Scanned threaded ASSE chain | On TAP, through a d[19.31](TAP_HOLE_D) hole on the PP010822E's own axis. A [9.5](STUB) mm stub of 1/4 in tube, cut [42.7](STUB_CUT) mm, runs from the PP061208W's collet into the branch of a JG PP0208E union tee. The tee's run stands square to the stub, east-west. |
+| Scanned threaded ASSE chain | On TAP, through a d[19.31](TAP_HOLE_D) hole on the PP010822E's own axis. A [9.5](STUB) mm stub of 1/4 in tube, cut [40.9](STUB_CUT) mm, runs from the PP061208W's collet into the branch of a JG PP0208E union tee. The tee's run stands square to the stub, east-west. |
 | Soda, OVER, flavor A and flavor B bulkheads | Dropped [10.38](GRID_DROP) mm with the grid, to rows Z[328](ROW_1), Z[296](ROW_2) and Z[264](ROW_3) |
 | Label tiles | [1.8](TILE_T) mm tiles in [2](CHANNEL_DEPTH) mm channels between side rails. The bottom tiles stand on the channel floor at Z[252](TILE_SEAT_Z). The TAP tile is bored d[19.28](TAP_BORE_D) on the PP010822E's axis. |
 | DIGITEN flow meter | Straight into the soda union: its outlet collet face is on the union's inboard collet face, with no tube showing. The larger side is down. |
 | Soda inlet | Production's continuous inlet, laid off the meter's inlet: the printed R[14](BEND_R) bend holder, the 1/4 in tube and one [52](FOAM_LEN) mm piece of 1 in foam. The bend starts [4](BEND_OFF_METER) mm off the meter's mouth and turns straight down, [28.6](DROP_LEN) mm to the cold-core cap's face. |
 | V-K, its stem elbow and its wall | Production's arrangement, moved [1.4](VK_EAST) mm east, [11.2](VK_AFT) mm aft and [7.0](VK_DOWN) mm down, until the elbow's release face is on the union tee's east collet face. The elbow's socket is [0.2](VK_TILT)° off the tee's run. The wall carries V-K's posts as production's does and reaches the side wall's inner face instead of the cap, with a [1.9](VK_ARM) mm arm. |
-| G Ganen carbonator pump | From where production stands it on the cold-core cap, [17.0](PUMP_AFT) mm aft and [24.5](PUMP_WEST) mm west, with a [joint](../../../reference/pump-barb-joint/README.md) on each barb. The suction joint, on V-K's line, bends [13.1](SUCTION_BEND)° down to pass under V-K. |
+| G Ganen carbonator pump | From where production stands it on the cold-core cap, [17.0](PUMP_AFT) mm aft and [24.5](PUMP_WEST) mm west, with a [joint](../../../reference/pump-barb-joint/README.md) on each barb. The suction joint, on V-K's line, bends [0](SUCTION_BEND)° down to pass under V-K. |
 | neoFit [ACVUS-44](../../../reference/neofit-acvus44-check/README.md) stem check valve | Its stem in the Pisco's outlet, up to the collar on the outlet's release face, with the tip [1.4](CHECK_TIP_SHORT) mm short of the tube stop. The socket faces forward, its mouth at Y[383.6](CHECK_MOUTH_Y). |
 | Elbows on V-K's line | A neoFit ATEU44W in the suction joint's 1/4 in collet, its socket facing fore, and production's ATEU44W in V-K's bottom port, turned to face aft |
 | CO2 tube | Red 1/4 in LLDPE, [100](CO2_LEN) mm from the check's socket to the cap at X[59.1](CO2_LAND_X) Y[354.7](CO2_LAND_Y), beside V-K, and on straight down past the carbonator's rim. It leaves the socket straight forward, turns down in one bend no tighter than R[25](CO2_BEND), and comes onto the cap in an S no tighter than R[52](CO2_S_R). |
@@ -47,18 +47,19 @@ on back-top with its part's upper side cut into it in plain steps, swept forward
 ASSE's steps are also swept [1.5](SNAP_THREAD) mm either way, how far a taped joint may leave the body
 from its station. Along the slide every part stays [0.16](SLIDE_GAP) mm or more off its seat.
 
-A snap cap then holds each part's other side. It is one half pipe under the part. Its two
-[3](SNAP_WING) mm side walls rise past the part's axis as the springs, each hooking
-[0.6](SNAP_REACH) mm over a ledge in a pocket in the seat's flank. The pocket's ends are the cap's
-end shoulders. The other walls are [3](SNAP_WALL) mm.
+A snap cap then holds each part's other side. The ASSE's is the lower half of a hex pipe about
+its wrenches, and its seat stands down to the body's axis and holds their upper half. The Pisco's
+is a half pipe under it. Each cap's two [3](SNAP_WING) mm side walls rise past the part's axis as
+the springs, each hooking [0.6](SNAP_REACH) mm over a ledge in a pocket in the seat's flank. The
+pocket's ends are the cap's end shoulders. The other walls are [3](SNAP_WALL) mm.
 
 | Cap | Goes on | Holds |
 |---|---|---|
-| ASSE | From below | The outlet bonnet round, the main wrench's lower faces and the inlet thread. Its aft end bears on the GAGIRA's fore face, and a notch in its west wall passes the vent. |
+| ASSE | From below | The lower flats of the main wrench and the outlet bonnet, and the inlet thread. Its aft end bears on the GAGIRA's fore face, and a slot through its bottom flat passes the vent. |
 | Pisco | From below | The outlet fitting. Its lip stands in front of the step down to the outlet's neck. |
 | Meter | From the west | The housing's west end and rim, in a block whose top and bottom walls run east past the housing. The bottom wall stops short of the lead's slot. |
 
-Each cap stands [0.15](CAP_GAP) mm or more off what it holds, and [0.11](WAY_ON_GAP) mm or more on its way on.
+Each cap stands [0.15](CAP_GAP) mm or more off what it holds, and [0.15](WAY_ON_GAP) mm or more on its way on.
 
 ## Straight down past the cap
 
@@ -86,26 +87,26 @@ PP061208W with its stem trimmed to [10](STEM_TRIM) mm, and two YDS clamps with t
 their keys aft.
 
 The suction joint is on V-K's line, and a neoFit ATEU44W stands in its collet. The elbow's stem is
-cut to the collet's [17.5](ELBOW_STEM) mm depth, its shoulder is on the collet's mouth, and its socket
+cut to the collet's [15.6867](ELBOW_STEM) mm depth, its shoulder is on the collet's mouth, and its socket
 faces fore toward V-K's bottom port. Straight, the elbow runs into the underside of V-K's coil, so
 the joint bends down until the reducer, its clamp and the elbow pass under it:
-[13.1](SUCTION_BEND)°, the least bend in tenths of a degree at which none of them overlaps V-K. There
-the elbow's hub meets the coil's bottom edge at its terminal end, [0.00](UNDER_VK) mm off, and stands
-[0.3](ELBOW_TO_SPADE) mm from the nearer of V-K's spades, which are drawn bare.
+[0](SUCTION_BEND)°, the least bend in tenths of a degree at which none of them overlaps V-K. There
+the elbow's hub meets the coil's bottom edge at its terminal end, [2.50](UNDER_VK) mm off, and stands
+[12.3](ELBOW_TO_SPADE) mm from the nearer of V-K's spades, which are drawn bare.
 
 The barb and its clamp stay as they are. The reducer and its clamp turn about the lowest point of
 the barb's tip, where the stem's tip bears on it. The tube runs straight on each and creases on the
 plane halfway between them.
 
-The joints' 1/4 in collet mouths stand at X[56.0](SUCTION_MOUTH_X) Z[272.4](SUCTION_MOUTH_Z) on the
-suction side and X[-86.5](DISCHARGE_MOUTH_X) Z[280.5](DISCHARGE_MOUTH_Z) on the discharge side, both at
+The joints' 1/4 in collet mouths stand at X[45.5](SUCTION_MOUTH_X) Z[280.2](SUCTION_MOUTH_Z) on the
+suction side and X[-76.0](DISCHARGE_MOUTH_X) Z[280.4](DISCHARGE_MOUTH_Z) on the discharge side, both at
 Y[346.8](JOINT_Y).
 
 ## V-K's line
 
 Production's elbow stands in V-K's bottom port, moved with V-K and turned [90](OUTLET_TURN)° about the
 port's axis so its socket faces aft, toward the elbow in the suction joint's collet. The suction
-joint's elbow has its socket mouth at X[62.1](LINE_FORE_X) Y[325.8](LINE_FORE_Y) Z[271.0](LINE_FORE_Z), facing fore.
+joint's elbow has its socket mouth at X[51.7](LINE_FORE_X) Y[325.7](LINE_FORE_Y) Z[280.2](LINE_FORE_Z), facing fore.
 V-K's has its socket mouth at X[77.8](LINE_AFT_X) Y[328.6](LINE_AFT_Y) Z[255.8](LINE_AFT_Z), facing aft.
 
 ## The CO2 line
@@ -126,7 +127,7 @@ rises [36](CO2_DROP) mm onto the bend's foot. It bends no tighter than R[52](CO2
 
 - The Pisco is [7.2](PISCO_UNDER_CEILING) mm under the ceiling, [7.5](PISCO_TO_SIDE_WALL) mm from the
   side wall and [3.3](PISCO_TO_STOCK) mm from the full-thickness stock east of the port field.
-- The ASSE is [1.45](ASSE_UNDER_CEILING) mm under the ceiling.
+- The ASSE is [3.50](ASSE_UNDER_CEILING) mm under the ceiling.
 - The meter is [12.1](METER_UNDER_PISCO) mm under the Pisco and [2.1](METER_TO_SIDE_WALL) mm from the
   side wall.
 - The foam is [8.3](FOAM_TO_SIDE_WALL) mm from the side wall.
@@ -152,8 +153,7 @@ No two parts overlap, apart from:
 - the same elbow's underside, [5.5](OUTLET_INTO_CAP) mm below the cold-core cap's face;
 - the elbow's release face, [0.02](FOLD_INTO_TEE) mm into the union tee's collet on one side, from the
   [0.2](VK_TILT)° between them;
-- the suction joint's reducer, its end [5.6](CO2_INTO_REDUCER) mm east into the CO2 tube's S, and the
-  elbow in its collet, [2.1](CO2_INTO_ELBOW) mm aft into the S.
+- the elbow in the suction joint's collet, [2.9](CO2_INTO_ELBOW) mm aft into the CO2 tube's S.
 
 ## Rebuild
 

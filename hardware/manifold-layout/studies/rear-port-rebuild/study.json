@@ -139,45 +139,24 @@
     ]
    ]
   },
-  "suction-reducer x co2-tube": {
-   "mm3": 54.329,
-   "bbox": [
-    51.46,
-    349.1,
-    268.91,
-    57.04,
-    355.04,
-    281.52
-   ],
-   "pieces": [
-    [
-     51.46,
-     349.1,
-     268.91,
-     57.04,
-     355.04,
-     281.52
-    ]
-   ]
-  },
   "suction-elbow x co2-tube": {
-   "mm3": 17.979,
+   "mm3": 26.455,
    "bbox": [
-    55.4,
-    349.82,
-    268.44,
-    59.52,
-    351.9,
-    275.99
+    51.31,
+    348.94,
+    276.75,
+    55.95,
+    351.87,
+    284.47
    ],
    "pieces": [
     [
-     55.4,
-     349.82,
-     268.44,
-     59.52,
-     351.9,
-     275.99
+     51.31,
+     348.94,
+     276.75,
+     55.95,
+     351.87,
+     284.47
     ]
    ]
   }
@@ -213,7 +192,7 @@
   "east side wall": 7.49,
   "9 mm stock east of the field": 3.34
  },
- "multiplex-asse1022_under_ceiling_mm": 1.45,
+ "multiplex-asse1022_under_ceiling_mm": 3.5,
  "gagira-coupling_under_ceiling_mm": 6.95,
  "soda_inlet": {
   "mouth": [
@@ -296,8 +275,6 @@
    "enclosure-back-top": 8.3,
    "digiten-flow": 1.0,
    "vk-solenoid": 1.04,
-   "suction-reducer": 13.46,
-   "suction-elbow": 8.08,
    "meter-seat": 1.49,
    "meter-snap-cap": 12.49,
    "co2-tube": 6.58
@@ -305,7 +282,7 @@
  },
  "water_split": {
   "stub_mm": 9.5,
-  "stub_cut_mm": 42.7,
+  "stub_cut_mm": 40.89,
   "tee_centre": [
    37.177,
    307.442,
@@ -320,9 +297,9 @@
     "vk-wall": 11.05
    },
    "water-split-stub": {
-    "jg-pi4512f6s": 2.72,
+    "jg-pi4512f6s": 4.27,
     "jg-pp061208w": 0.07,
-    "enclosure-back-top": 14.78
+    "enclosure-back-top": 14.8
    }
   }
  },
@@ -372,8 +349,7 @@
    "soda-bend-holder": 8.34,
    "soda-insulation": 1.04,
    "jg-pp0208e": 14.43,
-   "suction-reducer": 6.87,
-   "suction-elbow": 0.02,
+   "suction-elbow": 2.52,
    "co2-tube": 3.02,
    "lower-valve-elbow": 0.01
   },
@@ -431,8 +407,8 @@
    "enclosure-back-top": 10.11,
    "digiten-flow": 14.99,
    "soda-insulation": 12.44,
-   "asse-seat": 11.44,
-   "asse-snap-cap": 9.99,
+   "asse-seat": 8.6,
+   "asse-snap-cap": 8.46,
    "pisco-seat": 3.24,
    "pisco-snap-cap": 3.06,
    "meter-seat": 9.17,
@@ -445,12 +421,12 @@
  },
  "pump_joints": {
   "suction": {
-   "bend_deg": 13.1,
+   "bend_deg": 0.0,
    "tube_mm": 23.39,
    "mouth": [
-    56.05,
-    346.81,
-    272.36
+    45.53,
+    346.76,
+    280.18
    ],
    "bands": {
     "barb": {
@@ -465,36 +441,32 @@
    "nearest_mm": {
     "tube": {},
     "reducer": {
-     "soda-insulation": 13.47,
-     "vk-solenoid": 6.92,
-     "co2-tube": 0.01
+     "co2-tube": 5.66
     },
     "barb-clamp": {},
     "barb-key": {},
-    "stem-clamp": {
-     "co2-tube": 14.98
-    },
+    "stem-clamp": {},
     "stem-key": {
-     "jg-pi4512f6s": 14.97
+     "jg-pi4512f6s": 14.16
     }
    },
-   "under_vk_mm": 0.0,
-   "elbow_under_vk_mm": 0.0,
+   "under_vk_mm": 2.496,
+   "elbow_under_vk_mm": 2.496,
    "vk_nearest_at": [
-    66.47,
-    347.78,
-    273.2
+    61.71,
+    331.87,
+    283.03
    ],
-   "a_tenth_less_mm": 0.0,
-   "elbow_to_spade_mm": 0.287
+   "a_tenth_less_mm": 2.489,
+   "elbow_to_spade_mm": 12.273
   },
   "discharge": {
    "bend_deg": 0.0,
    "tube_mm": 23.14,
    "mouth": [
-    -86.48,
-    346.76,
-    280.53
+    -76.02,
+    346.74,
+    280.42
    ],
    "bands": {
     "barb": {
@@ -520,32 +492,32 @@
   "outlet_turn_deg": 90.0,
   "suction-elbow": {
    "bbox": [
-    38.28,
-    325.72,
-    263.04,
-    70.01,
-    351.91,
-    279.39
+    29.82,
+    325.67,
+    272.26,
+    59.65,
+    351.87,
+    288.12
    ],
    "socket_mouth": [
-    62.1,
-    325.75,
-    270.97
+    51.74,
+    325.7,
+    280.19
    ],
    "socket_axis": [
-    0.004,
+    0.005,
     -1.0,
-    -0.001
+    0.0
    ],
    "nearest_mm": {
-    "soda-insulation": 8.08,
-    "vk-solenoid": 0.02,
-    "suction-tube": 6.79,
-    "suction-reducer": 0.01,
-    "suction-stem-clamp": 8.26,
-    "suction-stem-key": 13.6,
-    "co2-tube": 0.03,
-    "lower-valve-elbow": 7.98
+    "vk-solenoid": 2.52,
+    "g-ganen-pump": 7.95,
+    "suction-tube": 1.59,
+    "suction-reducer": 0.0,
+    "suction-barb-clamp": 10.95,
+    "suction-stem-clamp": 4.37,
+    "suction-stem-key": 10.1,
+    "co2-tube": 0.01
    }
   },
   "lower-valve-elbow": {
@@ -570,14 +542,13 @@
    "nearest_mm": {
     "enclosure-back-top": 12.85,
     "vk-solenoid": 0.02,
-    "vk-wall": 4.92,
-    "suction-elbow": 7.98
+    "vk-wall": 4.92
    }
   },
   "mouth_to_mouth_mm": [
-   15.66,
-   2.86,
-   -15.14
+   26.02,
+   2.91,
+   -24.36
   ]
  },
  "co2_tube": {
@@ -639,10 +610,10 @@
    "enclosure-back-top": 14.83,
    "soda-insulation": 6.58,
    "vk-solenoid": 3.01,
-   "suction-reducer": 0.02,
-   "suction-stem-clamp": 14.99,
-   "suction-elbow": 0.02,
-   "asse-snap-cap": 14.7,
+   "suction-reducer": 5.66,
+   "suction-elbow": 0.01,
+   "asse-seat": 13.18,
+   "asse-snap-cap": 13.18,
    "meter-seat": 13.85,
    "meter-snap-cap": 12.33
   }
@@ -654,42 +625,32 @@
      "axis_x": 37.25,
      "y0": 396.4532545933732,
      "y1": 438.11429292628446,
-     "split": 335.0,
-     "neck": 18.27219696049002,
-     "ledge": 19.122196960490022,
-     "inner": 19.372196960490022,
-     "outer": 22.372196960490022,
-     "hook": 18.52219696049002,
-     "bearing": 338.0,
-     "catch": 338.4,
-     "tip": 341.4,
-     "ceiling": 341.9
+     "split": 328.25,
+     "neck": 19.798139777963513,
+     "ledge": 20.648139777963515,
+     "inner": 20.898139777963515,
+     "outer": 23.898139777963515,
+     "hook": 20.048139777963513,
+     "bearing": 331.25,
+     "catch": 331.65,
+     "tip": 334.65,
+     "ceiling": 335.15
     },
     "seat_runs": [
      [
       370.0,
-      377.5000000000017,
-      14.507026931583635
-     ],
-     [
-      377.5000000000017,
-      409.40000000000896,
-      16.80000000000002
-     ],
-     [
-      409.40000000000896,
       428.1000000000132,
-      14.620257653371018
+      14.61499999999998
      ],
      [
       428.1000000000132,
       432.0000000000141,
-      13.258954804702725
+      13.257279532969243
      ],
      [
       432.0000000000141,
       457.2000000000198,
-      13.025615239451724
+      13.025084998414538
      ],
      [
       457.2000000000198,
@@ -715,50 +676,61 @@
     "cap_runs": [
      [
       395.5000000000058,
-      409.40000000000896,
-      16.700000000000017
-     ],
-     [
-      409.40000000000896,
-      413.90000000001,
-      14.519207166076228
+      414.00000000001,
+      14.514939964313667
      ],
      [
       424.9000000000125,
       428.1000000000132,
-      14.368430329607351
+      14.474514188704799
      ],
      [
       428.1000000000132,
       433.10000000001435,
-      13.157079487786522
+      13.157279532969243
      ],
      [
       433.10000000001435,
       437.10000000001526,
-      8.994486082609667
+      8.995016554960548
      ],
      [
       437.10000000001526,
       439.20000000001573,
-      8.793984169174783
+      8.792773406198853
      ]
     ],
-    "hex_y": [
-     412.35325459337315,
-     426.50325459337313
+    "wrenches": [
+     {
+      "y": [
+       408.1532545933731,
+       426.50325459337313
+      ],
+      "apothem": 14.325,
+      "clock": 90.3,
+      "corner": 16.17
+     },
+     {
+      "y": [
+       395.05325459337314,
+       408.1532545933731
+      ],
+      "apothem": 14.365,
+      "clock": 90.9,
+      "corner": 16.55
+     }
     ],
     "gagira_fore_y": 438.26429292628444,
     "vent": [
      [
-      9.799999999999999,
+      31.097357488743093,
       413.6380413992889,
-      321.70735748874307
+      300.5499999999999
      ],
      [
-      22.424032522296795,
+      43.542642511256915,
       425.56846778745734,
-      334.1526425112569
+      313.1743458739744
      ]
     ]
    },
@@ -808,57 +780,60 @@
   },
   "asse-seat": {
    "bbox": [
-    14.88,
+    13.35,
     393.2,
-    334.99,
-    59.62,
+    328.25,
+    61.15,
     465.8,
     346.5
    ],
-   "faces": 40,
-   "cm3": 25.66,
+   "faces": 56,
+   "cm3": 39.68,
    "pump_ride_mm": null,
    "pump_ride_at_mm": 0.0,
    "nearest_mm": {
-    "jg-pp010822e": 1.88,
+    "jg-pp010822e": 1.66,
     "gagira-coupling": 0.32,
     "multiplex-asse1022": 0.25,
-    "jg-pi4512f6s": 3.31,
+    "jg-pi4512f6s": 1.83,
+    "pisco-body": 5.54,
+    "pisco-outlet-fitting": 5.57,
     "asse-snap-cap": 0.25,
-    "pisco-snap-cap": 2.25
+    "pisco-snap-cap": 0.67
    },
    "held_mm": 0.25,
    "held_nearest": "multiplex-asse1022",
    "slide_mm": 0.25,
-   "slide_at_mm": 11.0,
+   "slide_at_mm": 4.0,
    "slide_nearest": "multiplex-asse1022"
   },
   "asse-snap-cap": {
    "bbox": [
-    14.88,
+    13.35,
     396.45,
-    308.29,
-    59.62,
+    307.3,
+    61.15,
     438.12,
-    341.4
+    334.65
    ],
-   "faces": 53,
-   "cm3": 13.99,
+   "faces": 57,
+   "cm3": 18.05,
    "pump_ride_mm": null,
    "pump_ride_at_mm": 0.0,
    "nearest_mm": {
     "gagira-coupling": 0.15,
     "multiplex-asse1022": 0.15,
-    "jg-pi4512f6s": 5.43,
-    "enclosure-back-top": 4.6,
+    "jg-pi4512f6s": 4.56,
+    "pisco-body": 5.58,
+    "pisco-outlet-fitting": 5.58,
     "asse-seat": 0.25,
-    "pisco-seat": 2.19,
-    "pisco-snap-cap": 2.19
+    "pisco-seat": 0.75,
+    "pisco-snap-cap": 0.67
    },
    "held_mm": 0.15,
    "held_nearest": "multiplex-asse1022",
-   "way_on_mm": 0.113,
-   "way_on_at_mm": 7.0,
+   "way_on_mm": 0.15,
+   "way_on_at_mm": 0.0,
    "way_on_nearest": "multiplex-asse1022"
   },
   "pisco-seat": {
@@ -879,7 +854,7 @@
     "pisco-outlet-fitting": 0.28,
     "pisco-outlet-collet": 4.64,
     "co2-check": 3.24,
-    "asse-snap-cap": 2.19,
+    "asse-snap-cap": 0.76,
     "pisco-snap-cap": 0.25
    },
    "held_mm": 0.169,
@@ -907,8 +882,8 @@
     "pisco-outlet-collet": 0.64,
     "co2-check": 3.06,
     "enclosure-back-top": 4.6,
-    "asse-seat": 2.26,
-    "asse-snap-cap": 2.19,
+    "asse-seat": 0.67,
+    "asse-snap-cap": 0.67,
     "pisco-seat": 0.25,
     "meter-seat": 3.48,
     "meter-snap-cap": 1.94
