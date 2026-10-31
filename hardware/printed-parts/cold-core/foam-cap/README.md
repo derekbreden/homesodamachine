@@ -207,7 +207,7 @@ the direct C2 interface. The lid and cup use the same smooth print-mesh export. 
 electrical and nominal-tie contacts retain their explicit fixture status.
 
 Two filled, upward-opening 4.1 mm tube clips retain the 4 mm flavor lines:
-A at world (26.5, 270, 296), along +X, and B at (35, 414, 264) mm, along
+A at world (26.5, 266, 296), along +X, and B at (35, 414, 264) mm, along
 +Y. Both use 8 mm spans. A's filled root joins V-B’s broad wall; B rises
 from the plain lid face. The ASSE, water regulator, PISCO and meter
 are retained on back-top by their separate snap caps.

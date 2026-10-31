@@ -74,12 +74,12 @@ def flavor_snaps():
                 centre[2]-above_core.specification()['cap_face_z_mm'],
                 tube_od=4.,bore_diameter=4.1,span=8.,wing=1.52,print_up=(0.,0.,1.))
               for name,centre,axis in (
-                  ('flavor-a',(26.5,270.,296.),(1.,0.,0.)),
+                  ('flavor-a',(26.5,266.,296.),(1.,0.,0.)),
                   ('flavor-b',(35.,414.,264.),(0.,1.,0.)))}
     wall = valve_support_datums('valve-v-b')
     x0, y0 = wall['root_min_world_mm'][0], wall['root_max_world_mm'][1]-.1
     z0 = above_core.specification()['cap_face_z_mm']-.1
-    bridge = cq.Solid.makeBox(30.5-x0,270.-y0,293.4-z0,cq.Vector(x0,y0,z0))
+    bridge = cq.Solid.makeBox(30.5-x0,266.-y0,293.4-z0,cq.Vector(x0,y0,z0))
     result['flavor-a'] = result['flavor-a'].fuse(bridge).clean()
     return result
 

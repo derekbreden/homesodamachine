@@ -75,7 +75,7 @@ these connections through the uncovered funnel opening before fitting the frame.
 
 The two black 4 mm dispense lines use the east pump aisle and approach the
 Z264 rear sockets from below the meter. Flavor A has an upward-opening crossover snap at
-X26.5/Y270/Z296, backed into V-B’s full wall. Flavor B has its filled
+X26.5/Y266/Z296, backed into V-B’s full wall. Flavor B has its filled
 upward-opening rear snap at X35/Y414/Z264. Their 4.10 mm bores and 1.52 mm spring walls
 retain the selected modeled 4 mm section. Flavor A passes through a relief
 in the meter cap's lower wing. All free 4 mm bends are R25 or larger.

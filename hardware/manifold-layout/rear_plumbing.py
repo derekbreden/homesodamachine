@@ -367,7 +367,7 @@ def flavor_routes(station):
     radius = 25.
 
     for flavor, valve, lane, cross_y, aisle, cross_z, lift_y in (
-            ('a','valve-v-g',-33.,270.,55.5,296.,295.),
+            ('a','valve-v-g',-33.,266.,55.5,296.,291.),
             ('b','valve-v-j',-40.,266.,35.,290.,295.)):
         source,axis,_ = station(valve,'outlet')
         destination,outward,_ = station('bulkhead-flavor-'+flavor,'tube-in')
