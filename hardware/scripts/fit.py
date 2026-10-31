@@ -109,15 +109,17 @@ import sys
 from dataclasses import dataclass, field
 from pathlib import Path
 
-import cadquery as cq
-
-import _overlap
-
 _HERE = Path(__file__).resolve().parent
 if str(_HERE) not in sys.path:
     sys.path.insert(0, str(_HERE))
 
+# `probe` before CadQuery: its world is the machine's scene, read on the mesh kernel, and a
+# process takes the kernel only while nothing has imported CadQuery.
 import probe                                                        # noqa: E402
+
+import cadquery as cq                                               # noqa: E402
+
+import _overlap                                                     # noqa: E402
 from _seating import _carry_axis, _carry_point                      # noqa: E402  — one carry,
 from _cadq_export import import_step  # noqa: E402
 # shared with the seats the placed bodies read through

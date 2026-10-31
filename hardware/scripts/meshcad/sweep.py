@@ -12,7 +12,7 @@ import numpy as np
 
 from . import build
 from .build import Part, _oriented, cap_triangles, orient_loops, plane_frame, record
-from .rule import ANGULAR, LINEAR, ring_count
+from .rule import ANGULAR, LINEAR, canonical_axis, ring_count
 
 
 def _edges(wire):
@@ -437,8 +437,53 @@ def sweep(loops, normal, path, isFrenet, mode, src):
             sections.append(p + local[:, :1] * t + local[:, 1:2] * r + local[:, 2:3] * s)
         per_loop.append((sections, np.asarray(lp.seg)))
     if len(per_loop) == 1:
-        return _bands(per_loop[0][0], per_loop[0][1], closed, src, "sweep")
-    return _holed(per_loop, closed, src, "sweep")
+        part = _bands(per_loop[0][0], per_loop[0][1], closed, src, "sweep")
+    else:
+        part = _holed(per_loop, closed, src, "sweep")
+    # The walls' records come first, loop after loop, one per band and profile curve. A loop that
+    # is one circle has one face per band, in band order, each on the surface its path edge
+    # carries the circle through: a tube's outside and its bore alike.
+    nb = len(P) if closed else len(P) - 1
+    base = 0
+    for lp in loops:
+        rode = _rode(lp, path, P, T, src)
+        if rode is not None:
+            for i, e in enumerate(band[:nb]):
+                if rode[e] is not None:
+                    part.records[base + i] = rode[e]
+        base += nb * len({int(s) for s in lp.seg})
+    return part
+
+
+def _rode(loop, path, P, T, src):
+    """Per path edge, the surface one loop of a profile riding the path sweeps — a line's
+    cylinder, an arc's torus, as OCCT makes them, or None for another curve — or None when the
+    loop is not one circle centred on the path's start, square to it."""
+    from OCP.BRepAdaptor import BRepAdaptor_Curve
+    from OCP.GeomAbs import GeomAbs_Circle, GeomAbs_Line
+    curves = {int(s) for s in loop.seg}
+    if len(curves) != 1:
+        return None
+    circle = loop.curves[curves.pop()]
+    if (circle.kind != "CIRCLE" or np.linalg.norm(np.asarray(circle.center) - P[0]) > 1e-6
+            or np.linalg.norm(np.cross(np.asarray(circle.axis, float), T[0])) > 1e-6):
+        return None
+    out = []
+    for e in _edges(path):
+        ad = BRepAdaptor_Curve(e.wrapped)
+        k = ad.GetType()
+        if k == GeomAbs_Line:
+            line = ad.Line()
+            out.append(record("CYLINDER", src, "sweep", p=np.array(line.Location().Coord()),
+                              d=canonical_axis(line.Direction().Coord()), r=circle.r))
+        elif k == GeomAbs_Circle:
+            arc = ad.Circle()
+            out.append(record("TORUS", src, "sweep", c=np.array(arc.Location().Coord()),
+                              d=np.array(arc.Axis().Direction().Coord()), R=arc.Radius(),
+                              r=circle.r))
+        else:
+            out.append(None)
+    return out
 
 
 def _holed(per_loop, closed_path, src, op):

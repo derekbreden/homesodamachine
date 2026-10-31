@@ -11,6 +11,9 @@ import sys
 ROOT = Path(__file__).resolve().parents[2]
 CACHE = ROOT / ".cache/pump-elbow-exploration/world"
 sys.path.insert(0, str(ROOT / "hardware/scripts"))
+# CadQuery before probe: the capture is native B-reps, so this process stays on OCCT's kernel
+# and builds its world rather than reading the mesh scene.
+import cadquery  # noqa: F401
 import probe
 
 

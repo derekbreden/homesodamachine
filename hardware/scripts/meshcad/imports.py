@@ -20,7 +20,7 @@ from .rule import ANGULAR, LINEAR, snap
 _ROOT = Path(__file__).resolve().parents[3]
 CACHE = _ROOT / ".cache" / "meshcad" / "import"
 #: Moves when the tessellation of a STEP would come out differently.
-IMPORT_VERSION = 1
+IMPORT_VERSION = 2
 
 
 def load_model(path):
@@ -75,9 +75,18 @@ def tessellate_step(path):
     out = []
     exp = TopExp_Explorer(shape, TopAbs_SOLID)
     while exp.More():
-        out.append(occ_solid_mesh(TopoDS.Solid_s(exp.Current()), str(path)))
+        out.append(occ_solid_mesh(TopoDS.Solid_s(exp.Current()), _named(path)))
         exp.Next()
     return out
+
+
+def _named(path):
+    """`path` as a face record names it: from the repo's root when it lies in this tree, as a
+    generator's line is, so one STEP is one record in every checkout."""
+    try:
+        return Path(path).resolve().relative_to(_ROOT).as_posix()
+    except ValueError:
+        return str(path)
 
 
 def occ_solid_mesh(solid, src=None):

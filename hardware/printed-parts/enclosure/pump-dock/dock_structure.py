@@ -154,6 +154,23 @@ def elbow_host(name):
     return ('tee-' if host.startswith('y-') else 'valve-') + host
 
 
+def _surface(face):
+    """The surface `face` lies on, read as its kernel reads it (`hardware/scripts/meshcad`)."""
+    meshcad = sys.modules.get('meshcad')
+    if meshcad is not None and meshcad.is_mesh(face):
+        return face._geomAdaptor()
+    from OCP.BRepAdaptor import BRepAdaptor_Surface
+    return BRepAdaptor_Surface(face.wrapped)
+
+
+def _on(face):
+    """A point on `face`: its middle in (u, v), or a corner of it on a mesh, which has none."""
+    meshcad = sys.modules.get('meshcad')
+    if meshcad is not None and meshcad.is_mesh(face):
+        return face.Vertices()[0].Center()
+    return face.positionAt(0.5, 0.5)
+
+
 def stem_overlap(elbow, host):
     """`(inside, outside)`: the volume a placed stem elbow shares with the fitting its stem is
     bottomed in, and how much of that lies outside the stem itself.
@@ -161,23 +178,22 @@ def stem_overlap(elbow, host):
     The tee is drawn with a tube-clear bore and the valve without its port's full bore, so the two
     share at most the stem. Anything they share outside it, the elbow's hub or shoulder in its
     host, is an interference."""
-    from OCP.BRepAdaptor import BRepAdaptor_Surface
     r = stem_elbow.STEM_OD / 2.0
 
     def outer(face):
         # The stem's surface faces away from its axis; the socket's bore, the one other
         # cylinder of its radius, faces in.
-        axis = BRepAdaptor_Surface(face.wrapped).Cylinder().Axis()
+        axis = _surface(face).Cylinder().Axis()
         o = cq.Vector(axis.Location().X(), axis.Location().Y(), axis.Location().Z())
         d = cq.Vector(axis.Direction().X(), axis.Direction().Y(), axis.Direction().Z())
-        p = face.positionAt(0.5, 0.5)
+        p = _on(face)
         off = p - (o + d * (p - o).dot(d))
         return face.normalAt(p).dot(off) > 0.0
 
     faces = [face for face in elbow.Faces() if face.geomType() == 'CYLINDER'
-             and abs(BRepAdaptor_Surface(face.wrapped).Cylinder().Radius() - r) < 1e-3
+             and abs(_surface(face).Cylinder().Radius() - r) < 1e-3
              and outer(face)]
-    axis = BRepAdaptor_Surface(faces[0].wrapped).Cylinder().Axis()
+    axis = _surface(faces[0]).Cylinder().Axis()
     o = cq.Vector(axis.Location().X(), axis.Location().Y(), axis.Location().Z())
     d = cq.Vector(axis.Direction().X(), axis.Direction().Y(), axis.Direction().Z())
     t = [(p - o).dot(d) for face in faces for p in (v.Center() for v in face.Vertices())]
