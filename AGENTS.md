@@ -23,10 +23,12 @@ See `marketing/target-market.md` for details.
 Don't ask Derek what the repo already answers. What he owns and has on hand is in [`hardware/ledger/`](hardware/ledger/): every purchase in `purchases.md`, sorted by role into `bom.md`, `tools.md` and `inventory.md`.
 
 For geometry questions about the machine, [`hsm`](tools/hsm/README.md) measures the mesh
-payloads in the checkout: `hsm where <name>`, `hsm gap <a> <b>`, `hsm overlap <a> <b>`,
-`hsm move <name> --by <x> <y> <z>`, `hsm section` and `hsm ray`. A query starts no CAD build.
-Each reply names the payload it measured, so a source edit shows once its producer exports a
-new payload. `--root` picks another worktree and `--scene` another assembly.
+payloads in the checkout. Claude Code and Codex sessions have its tools: `hsm_where`,
+`hsm_gap`, `hsm_overlap`, `hsm_move`, `hsm_section` and `hsm_ray`. In a shell they are
+`hsm where <name>`, `hsm gap <a> <b>`, `hsm overlap <a> <b>`, `hsm move <name> --by <x> <y> <z>`,
+`hsm section` and `hsm ray`. A query starts no CAD build. Each reply names the payload it
+measured, so a source edit shows once its producer exports a new payload. `root` (`--root`)
+picks another worktree and `scene` (`--scene`) another assembly.
 
 ## Sourcing
 

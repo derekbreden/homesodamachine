@@ -32,6 +32,7 @@ import { drillTo, drillToComponent } from "./step-nav.js";
 import { makePanelCollapse } from "./tool-rail.js";
 import { syncTubeVisibility } from "./tube-overlay-host.js";
 import { refreshHighlight, fadedBody } from "./part-highlight.js";
+import { renderMeasure } from "./hsm.js";
 
 const LS_KEY = "step-component-pick";
 const SEL = 0xffa733;   // selection highlight — warm amber (distinct from edge yellow, part-highlight cyan, find magenta)
@@ -320,6 +321,12 @@ function buildPanel() {
   panel.appendChild(identity);
   panel._identity = identity;
 
+  // What hsm measures of the selection, where the server has one (hsm.js).
+  const measure = document.createElement("div");
+  measure.className = "component-measure";
+  panel.appendChild(measure);
+  panel._measure = measure;
+
   const actions = document.createElement("div");
   actions.className = "component-actions";
 
@@ -430,6 +437,11 @@ function showPanel() {
     body.textContent = `CAD body: ${selection}`;
     panel._identity.appendChild(body);
   }
+  renderMeasure(panel._measure, selection, {
+    file: state.mountedDetail?.sourceFile,
+    solids: selection ? frontMeshes().filter((m) => m.name === selection).length : 0,
+    label: componentName,
+  });
   panel._close.style.display = selection ? "" : "none";
   const already = selection && standsHidden(selection);
   panel._hideBtn.style.display = selection ? "block" : "none";
@@ -527,7 +539,11 @@ function showPanel() {
   panel.classList.add("show");
 }
 
-function hidePanel() { if (panel) panel.classList.remove("show"); }
+function hidePanel() {
+  if (!panel) return;
+  panel.classList.remove("show");
+  renderMeasure(panel._measure, null, {});
+}
 
 // --- pointer wiring (attached once; act only when enabled + STEP open) ---
 let downX = 0, downY = 0;
