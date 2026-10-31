@@ -1,5 +1,6 @@
 mod mcp;
 mod published;
+mod render;
 mod service;
 mod store;
 
@@ -97,6 +98,8 @@ enum Action {
         #[arg(long, default_value_t = 1e6)]
         max_distance: f64,
     },
+    /// Pictures of a payload, drawn on the GPU as /3d draws them.
+    Render(render::RenderArgs),
     /// Send a JSON request using the socket protocol.
     Request {
         json: String,
@@ -119,6 +122,8 @@ fn build_id() -> String {
     h.update(include_str!("store.rs"));
     h.update(include_str!("mcp.rs"));
     h.update(include_str!("published.rs"));
+    h.update(include_str!("render.rs"));
+    h.update(hsm_render::source_digest());
     h.update(store::geometry_version());
     format!("{:x}", h.finalize())
 }
@@ -488,6 +493,7 @@ fn run() -> Result<bool> {
             println!("{}", serde_json::to_string_pretty(&response)?);
             return Ok(response["ok"] == true);
         }
+        Action::Render(args) => return render::run(&client, args),
         Action::Status => Query::Status,
         Action::Where { pattern } => Query::Where { pattern },
         Action::Gap { a, b } => Query::Gap { a, b },

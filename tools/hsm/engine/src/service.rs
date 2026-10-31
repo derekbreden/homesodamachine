@@ -44,6 +44,13 @@ pub enum Query {
         #[serde(default = "ray_max")]
         max_distance: f64,
     },
+    /// A picture drawn by the resident renderer, or with `list` the bodies it would draw.
+    Render {
+        root: PathBuf,
+        job: Box<hsm_render::job::Job>,
+        #[serde(default)]
+        list: bool,
+    },
 }
 
 fn ray_max() -> f64 {
@@ -127,10 +134,16 @@ pub fn execute(store: &mut Store, request: Request, build_id: &str) -> Result<Va
         }
         Query::Status => {
             return Ok(
-                json!({"build_id": build_id, "pid": std::process::id(), "cache": store.status()}),
+                json!({"build_id": build_id, "pid": std::process::id(), "cache": store.status(),
+                "render": crate::render::status()}),
             );
         }
         Query::Shutdown => return Ok(json!({"stopping": true})),
+        Query::Render {
+            ref root,
+            ref job,
+            list,
+        } => return crate::render::execute(root, job, list),
         _ => (),
     }
     let started = Instant::now();
