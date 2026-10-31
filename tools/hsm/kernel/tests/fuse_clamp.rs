@@ -46,6 +46,6 @@ fn payload_reads_back() -> anyhow::Result<()> {
     {
         assert!((got - want).abs() < 1e-5, "payload bounds {got} against the solid's {want}");
     }
-    assert!(clamp.faces().iter().all(|f| f.src.file().ends_with("examples/fuse_clamp.rs")));
+    assert!(clamp.faces().iter().all(|f| src_line(f.src).starts_with("tools/hsm/kernel/examples/fuse_clamp.rs:")));
     Ok(())
 }

@@ -43,7 +43,7 @@ pub mod triangulate;
 pub mod write;
 
 pub use boolean::{FUZZ, Op};
-pub use face::{Face, Src, Surface, SurfaceKey, Via};
+pub use face::{Face, Src, Surface, SurfaceKey, Via, src_line};
 pub use mass::Mass;
 pub use math::{Affine, V2, V3, v2, v3};
 pub use plane::Plane;

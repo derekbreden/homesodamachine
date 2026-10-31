@@ -4,9 +4,35 @@ use crate::math::{Affine, V3, atan};
 use crate::rule::canonical_axis;
 use std::fmt;
 use std::panic::Location;
+use std::path::{Component, Path, PathBuf};
 
 /// The generator line that asked for a face, as `#[track_caller]` reports it.
 pub type Src = &'static Location<'static>;
+
+/// `path:line` of a generator line, the path from the checkout's root, as meshcad writes its own.
+pub fn src_line(src: Src) -> String {
+    format!("{}:{}", repo_path(src.file()), src.line())
+}
+
+/// A source file as rustc has it, named from the checkout's root. Cargo hands rustc a source
+/// inside the workspace by its path from the workspace and one outside it whole, which would
+/// name the checkout that built it.
+fn repo_path(file: &str) -> String {
+    let workspace = Path::new(env!("CARGO_MANIFEST_DIR")).parent().unwrap();
+    let root = workspace.parent().and_then(Path::parent).unwrap();
+    let file = workspace.join(file);
+    let mut path = PathBuf::new();
+    for c in file.strip_prefix(root).unwrap_or(&file).components() {
+        match c {
+            Component::ParentDir => {
+                path.pop();
+            }
+            Component::CurDir => {}
+            c => path.push(c),
+        }
+    }
+    path.to_string_lossy().into_owned()
+}
 
 /// The exact surface a face lies on. Normals point out of the solid.
 #[derive(Clone, Copy, Debug, PartialEq)]
@@ -212,10 +238,23 @@ impl Face {
 
 impl fmt::Display for Face {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write!(f, "{} {} at {}:{}", self.surface.kind(), self.op, self.src.file(), self.src.line())?;
+        write!(f, "{} {} at {}", self.surface.kind(), self.op, src_line(self.src))?;
         if let Some(v) = self.via {
-            write!(f, ", {} at {}:{}", v.op, v.src.file(), v.src.line())?;
+            write!(f, ", {} at {}", v.op, src_line(v.src))?;
         }
         Ok(())
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn sources_are_named_from_the_root() {
+        let root = Path::new(env!("CARGO_MANIFEST_DIR")).ancestors().nth(3).unwrap();
+        let part = root.join("hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.rs");
+        assert_eq!(repo_path(part.to_str().unwrap()), "hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.rs");
+        assert_eq!(repo_path("kernel/tests/../examples/fuse_clamp.rs"), "tools/hsm/kernel/examples/fuse_clamp.rs");
     }
 }

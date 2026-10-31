@@ -147,7 +147,7 @@ pub(crate) use backend::{boolean, split};
 #[cfg(feature = "manifold")]
 mod backend {
     use super::{FUZZ, Op, halfspace, result_face};
-    use crate::face::Src;
+    use crate::face::{Src, src_line};
     use crate::math::V3;
     use crate::plane::Plane;
     use crate::rule::{LINEAR, TOLERANCE};
@@ -183,7 +183,7 @@ mod backend {
         let what = || {
             s.faces
                 .first()
-                .map(|f| format!("{} at {}:{}", f.op, f.src.file(), f.src.line()))
+                .map(|f| format!("{} at {}", f.op, src_line(f.src)))
                 .unwrap_or_default()
         };
         let mesh = MeshGL64::new_with_options(&props, 3, &tris, MeshGL64Options::new().runs(&run_index, &run_ids))
@@ -399,7 +399,7 @@ mod backend {
         (via, flip): (&'static str, bool),
         src: Src,
     ) -> Result<Solid> {
-        m.status().map_err(|e| anyhow!("the {via} at {}:{} failed: {e}", src.file(), src.line()))?;
+        m.status().map_err(|e| anyhow!("the {via} at {} failed: {e}", src_line(src)))?;
         let r = read(&m);
         let keep = held(&r);
         let mut pairs: Vec<(usize, u32)> = vec![];
