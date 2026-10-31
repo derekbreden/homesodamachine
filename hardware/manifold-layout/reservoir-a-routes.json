@@ -704,7 +704,7 @@
         }
       ],
       "reverse": false,
-      "illustrative_length_mm": 447.675189,
+      "illustrative_length_mm": 444.55973,
       "note": "Continuous fill tube through the fore snap at Z258.5, below V-B, then rising to Z259.5 for the curved aft seat and fixed reservoir fill guide."
     },
     "fluid-16": {
@@ -1289,7 +1289,7 @@
         }
       ],
       "reverse": true,
-      "illustrative_length_mm": 407.906883,
+      "illustrative_length_mm": 408.533458,
       "note": "Continuous draw tube from the fixed reservoir guide through the curved aft seat at Z259.5 and fore snap at Z258.5, below V-B, to its fixed front stem elbow."
     }
   },
