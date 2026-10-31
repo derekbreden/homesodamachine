@@ -75,6 +75,31 @@ if _ENTRY is not None and not os.environ.get("HSM_NO_BUILD_LOCK"):
 # to tell an abandoned file from one a live build is still writing.
 from _run_lock import _alive as _pid_alive
 
+# --- Loops over OCP collections ------------------------------------------------
+# A PYTHON LOOP OVER AN OCP COLLECTION ENDS IN A C++ EXCEPTION. OCP's iterators say they are
+# done by throwing, and each throw costs about 9 ms on this Mac: the unwinder searches every
+# loaded library at each step, and pybind11 rethrows it on its way to Python. CadQuery's
+# Faces(), Edges(), Wires() and Solids() loop that way, hundreds of times in one reservoir run.
+# So every collection hands a loop its first Size() items and stops there: the same items in
+# the same order, and the loop ends in Python. CadQuery has loaded OCP before this module in
+# nearly every generator; a process that has not loaded it is left alone and never loads it here.
+def _end_ocp_loops_in_python():
+    import itertools
+    import types
+
+    def sized(each):
+        return lambda collection: itertools.islice(each(collection), collection.Size())
+
+    for module in vars(sys.modules["OCP.OCP"]).values():
+        if isinstance(module, types.ModuleType):
+            for cls in vars(module).values():
+                if isinstance(cls, type) and "__iter__" in cls.__dict__ and hasattr(cls, "Size"):
+                    cls.__iter__ = sized(cls.__iter__)
+
+
+if "OCP.OCP" in sys.modules:
+    _end_ocp_loops_in_python()
+
 # STEP files embed a wall-clock timestamp in the FILE_NAME header. Without
 # normalization, every run produces different bytes for identical source —
 # which churns git status and burns agent tokens chasing a non-change.
