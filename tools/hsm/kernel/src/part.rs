@@ -3,7 +3,7 @@
 //! The module derives every number the part's geometry takes — from the parts it closes on, the
 //! fits, the interfaces it meets — and writes them to `<name>.numbers.json` beside the part, so
 //! each number keeps one home and every Python reader of it reads the same module. The part's
-//! program reads that file and nothing else:
+//! program reads that file, and the files its numbers name (`import`):
 //!
 //! ```text
 //! <program> <numbers.json> <out dir>
