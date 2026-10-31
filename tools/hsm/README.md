@@ -1,7 +1,7 @@
 # hsm
 
-`hsm` answers geometry questions from the same version 3 triangle payloads that `/3d` displays.
-One local Rust daemon serves the CLI, an MCP server and a Unix socket. Queries load a scene on
+`hsm` answers geometry questions from the same version 3 triangle payloads that `/3d` displays,
+and draws pictures of them. One local Rust daemon serves the CLI, an MCP server and a Unix socket. Queries load a scene on
 demand. A saved edit starts no build, query, watcher or check.
 
 Build and install with Rust 1.89 or later, CMake and a C++17 compiler. `--root ~/.local` puts
@@ -133,6 +133,45 @@ Off Render, the site's server (`npm start` in `web`) answers `/api/hsm` with the
   bounds, and its clearance to the body picked before it, with the closest points drawn.
 
 The deployed site answers `/api/hsm` with a 404, and its viewer does neither.
+
+## Render
+
+`hsm render` draws a payload as `/3d` draws it: the viewer's colours, `web/public/finishes.json`,
+its studio light, x-ray, contact shadow and fog. The daemon draws with wgpu, on Metal here, and
+starts no browser, server or STEP reader. Its device, pipelines and last scenes stay warm, so a
+picture of the whole machine takes a fresh daemon about three seconds and a warm one about a
+tenth of that.
+
+```sh
+hsm render manifold-layout/enclosure-assembly.step /tmp/machine.png
+hsm render manifold-layout/enclosure-assembly.step /tmp/valve.png --highlight valve-v-a --xray '*'
+hsm render manifold-layout/enclosure-assembly.step /tmp/cut.png --section=-81,343,315:1,-1,1
+hsm render manifold-layout/enclosure-assembly.step /tmp/compressor.png --only compressor --look --views top,front
+hsm render manifold-layout/enclosure-assembly.step --list
+hsm render --jobs jobs.json --json
+```
+
+The camera looks at the framed box from `1,-1,1` with +Z up unless `--view`, `--cam`, `--up`,
+`--target`, `--zoom`, `--span` or `--distance` says otherwise, and `--orbit` sweeps it. Bodies
+are named by comma-separated `*` globs: `--only` keeps a subject and hands the rest to
+`--context`, and `--xray`, `--ghost`, `--shell`, `--hide`, `--highlight` and `--select` each give
+a set its look. `--clip` and `--section` cut, and the cut is filled flat. `--look` is
+`tools/look.sh`'s frame, a hue per body with a legend, labels, grid and scale bar; `--pick`,
+`--ray` and `--gap` measure in the picture and print what they found. `hsm render --help` lists
+every option.
+
+Lines run along B-rep face boundaries, from the face ranges in the payload, and along the viewer's
+30° crease where a mesh states no faces. A `--jobs` file is an array of jobs whose keys are the
+flags' names; a key a job leaves out takes the flag's value. Each picture is one request to the
+daemon, so a long list never holds up a geometry query. `--json` gives each picture's report: the
+camera with its view-projection, the bodies in each role, and the milliseconds each stage took.
+The scenes kept warm hold up to 1 GiB between them, CPU and GPU; the least recently drawn goes
+first.
+
+[`tools/look.sh`](../look.sh), [`tools/changes/change.mjs`](../changes/change.mjs) and the guide
+art scripts, by way of [`hardware/scripts/_hsm_render.py`](../../hardware/scripts/_hsm_render.py),
+draw with it. The Bazel art rules, and the installation scenes that bring their own three.js
+materials, draw with [`tools/render/render-step-posed.js`](../render/render-step-posed.js).
 
 ## Kernel
 

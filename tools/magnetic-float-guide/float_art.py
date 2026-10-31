@@ -25,7 +25,6 @@ import hashlib
 import json
 import os
 from pathlib import Path
-import subprocess
 import sys
 import tempfile
 
@@ -40,10 +39,10 @@ HARDWARE = ROOT / "hardware"
 FLOAT = HARDWARE / "printed-parts" / "cold-core" / "magnetic-float" / "all-aero"
 INTERFACE = FLOAT.parents[1] / "_float_interface.py"
 ART = HARDWARE / "magnetic-float-guide" / "art"
-RENDERER = ROOT / "tools" / "render" / "render-step-posed.js"
 sys.path.insert(0, str(HARDWARE / "scripts"))
 sys.path.insert(0, str(FLOAT))
-from _cadq_export import _per_solid_color
+from _cadq_export import _per_solid_color, _write_mesh_payload
+import _hsm_render
 from _material_base import step_safe
 import all_aero_float as mf
 
@@ -245,14 +244,16 @@ def digest(path):
 
 def render(names):
     ART.mkdir(parents=True, exist_ok=True)
-    # STEP paths must be served beneath hardware/. Staged files disappear at exit.
+    # A step is named beneath hardware/. Staged files disappear at exit.
     with tempfile.TemporaryDirectory(prefix=".staging-", dir=ART) as directory:
         staging = Path(directory)
         jobs = []
         for name in names:
             spec = SCENES[name]
             path = staging / f"{name}.step"
-            _per_solid_color(spec.build()).export(str(path))
+            colored = _per_solid_color(spec.build())
+            colored.export(str(path))
+            _write_mesh_payload(path, colored)
             jobs.append({"step": str(path.relative_to(HARDWARE)),
                          "out": str(ART / f"{name}.png"),
                          "cam": list(spec.cam), "up": [0, 0, 1], "size": spec.size,
@@ -260,8 +261,7 @@ def render(names):
                          "ortho": True, "ground": False, "fog": False,
                          "transparent": True})
             print(f"staged {name}", flush=True)
-        subprocess.run(["node", str(RENDERER), "--jobs", "-"], cwd=ROOT,
-                       input=json.dumps(jobs), text=True, check=True)
+        _hsm_render.render(jobs)
     for name in names:
         path = ART / f"{name}.png"
         with Image.open(path) as image:

@@ -23,7 +23,6 @@ head and length. Nothing here is a dimension.
 
 from __future__ import annotations
 
-import json
 import math
 import os
 import shutil
@@ -46,7 +45,6 @@ FIXTURE = HARDWARE / "printed-parts" / "fixtures" / "weld-rotator"
 GUIDE = HARDWARE / "weld-rotator-guide"
 ART = GUIDE / "art"
 OUT = GUIDE / "out"
-RENDERER = ROOT / "tools" / "render" / "render-step-posed.js"
 
 sys.path.insert(0, str(HARDWARE / "scripts"))
 sys.path.insert(0, str(FIXTURE))
@@ -59,7 +57,8 @@ from _material_base import (  # noqa: E402
     M_TPU_BLACK,
     step_safe,
 )
-from _cadq_export import _per_solid_color  # noqa: E402
+from _cadq_export import _per_solid_color, _write_mesh_payload  # noqa: E402
+import _hsm_render  # noqa: E402
 
 import weld_rotator as wr  # noqa: E402
 import _rotator_interface as interface  # noqa: E402
@@ -807,7 +806,9 @@ def render(names: list[str]) -> None:
         for name in names:
             scene = SCENES[name]
             step = work / f"{name}.step"
-            _per_solid_color(scene.build()).export(str(step))
+            colored = _per_solid_color(scene.build())
+            colored.export(str(step))
+            _write_mesh_payload(step, colored)
             job = {
                 "step": str(step.relative_to(HARDWARE)),
                 "out": str(ART / f"{name}.png"),
@@ -830,8 +831,7 @@ def render(names: list[str]) -> None:
                 job["zoom"] = scene.zoom
             jobs.append(job)
             print(f"  staged {name}")
-        subprocess.run(["node", str(RENDERER), "--jobs", "-"], cwd=ROOT,
-                       input=json.dumps(jobs), text=True, check=True)
+        _hsm_render.render(jobs)
         for job in jobs:
             out = Path(job["out"])
             _clear_background(out)

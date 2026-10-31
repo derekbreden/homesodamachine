@@ -50,5 +50,5 @@ That's it. There is no central router config, no decorator metadata, no plugin r
 
 - **Module-load side effects are minimal.** Imports may register module-level constants, but no module starts a server, opens a connection, or schedules a timer at import time. Wiring happens inside the exported `mountXxxRoutes` so server boot order is deterministic.
 - **DB optionality.** Modules that touch Postgres check `if (!pool) return [...empty...]` at the call boundary, so the dev server (no DATABASE_URL) and the smoke tests both work without a database.
-- **`window.__hsm` is reserved** for the `/3d` viewer's Puppeteer escape hatch (see [`tools/render/render-step.js`](/tools/render/render-step.js)). Don't write to it from server-side modules or `boot.js`.
+- **`window.__hsm` is reserved** for the `/3d` viewer's Puppeteer escape hatch (see [`tools/render/render-step-posed.js`](/tools/render/render-step-posed.js)). Don't write to it from server-side modules or `boot.js`.
 - **Inline JS in lib/ is a smell.** If a page needs more than ~10 lines of client-side code, extract to `public/<page>.js` linked via `<script src="..." defer>`. The exception is the synchronous pre-paint class flips in `shell.js` HEAD_TAGS, which must run during head parse to avoid FOUC.

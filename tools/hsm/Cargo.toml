@@ -1,5 +1,5 @@
 [workspace]
-members = ["geometry", "engine", "kernel"]
+members = ["geometry", "engine", "kernel", "render"]
 resolver = "2"
 
 [workspace.package]

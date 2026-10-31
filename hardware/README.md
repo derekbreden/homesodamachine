@@ -120,7 +120,7 @@ A generated `.step` is on this disk and in no index. [`cad-artifacts.json`](/har
 
     source → changed solid → local view → pointer moved → /3d
 
-The local render and the deployed viewer are two stops on one geometry path. [`tools/look.sh`](/tools/look.sh) opens a generated STEP from this disk through the same `/3d` viewer the headless renderers drive. [`pack.py --write`](/tools/cad-artifacts/pack.py) packages the generated solids on this disk; after its pointer file is committed and pushed, Render fetches that bundle and `/3d` serves it. Each commit runs [`publish_now.py`](/tools/publish_now.py) from `.githooks/post-commit`, which publishes the solids on this disk and moves the pointer file. The solid an agent judges locally is the solid that goes in front of Derek.
+The local render and the deployed viewer are two stops on one geometry path. [`tools/look.sh`](/tools/look.sh) draws a generated STEP's payload from this disk, the bytes `/3d` serves, in the viewer's look, with [`hsm render`](/tools/hsm/README.md#render). [`pack.py --write`](/tools/cad-artifacts/pack.py) packages the generated solids on this disk; after its pointer file is committed and pushed, Render fetches that bundle and `/3d` serves it. Each commit runs [`publish_now.py`](/tools/publish_now.py) from `.githooks/post-commit`, which publishes the solids on this disk and moves the pointer file. The solid an agent judges locally is the solid that goes in front of Derek.
 
 A repository-wide build is not a viewing boundary. A generator, focused Bazel target, [`where.py`](/hardware/scripts/where.py), [`probe.py`](/hardware/scripts/probe.py), or [`fit.py`](/hardware/scripts/fit.py) answers the current design question; the next local picture follows it immediately. Broader builds and checks answer broader questions when those questions arise. The iteration speed that matters is the time from an edit to the next informed look — first by the agent, then by Derek.
 
@@ -206,8 +206,8 @@ back off the canvas in the task that drew it (`browser.js` `frameBuffer` carries
 nothing here is a race and a redraw of unmoved geometry lands byte-identical — eight runs of
 one scene and eight of one part, one hash each.
 
-A view of any STEP, from any angle, is `tools/look.sh` — drawn when someone asks for one, so
-there is none of it in the tree to go stale.
+A view of any STEP, from any angle, is `hsm render` or `tools/look.sh` — drawn when someone
+asks for one, so there is none of it in the tree to go stale.
 
 WHAT THE ACTIONS RUN WITH IS THE MACHINE'S, not the tree's. `tools/cad-venv` holds the
 interpreter and its packages, `node_modules` the renderer's, and `rsvg-convert` and `blender`

@@ -11,9 +11,7 @@ This manual document tool is outside the appliance build and publish paths.
 """
 from __future__ import annotations
 
-import json
 import os
-import subprocess
 import sys
 import tempfile
 from pathlib import Path
@@ -26,7 +24,8 @@ HARDWARE = ROOT / "hardware"
 GUIDE = HARDWARE / "faucet-assembly-guide"
 ART = GUIDE / "art"
 sys.path.insert(0, str(HARDWARE / "scripts"))
-from _cadq_export import _per_solid_color
+from _cadq_export import _per_solid_color, _write_mesh_payload
+import _hsm_render
 
 FAUCET = HARDWARE / "printed-parts/faucet"
 ACCENT = cq.Color(0.91, 0.34, 0.18)
@@ -105,16 +104,16 @@ def render(names):
         for name in names:
             build, cam, up = SCENES[name]
             step = Path(scratch) / (name + ".step")
-            _per_solid_color(build()).export(str(step))
+            colored = _per_solid_color(build())
+            colored.export(str(step))
+            _write_mesh_payload(step, colored)
             jobs.append({"step": str(step.relative_to(HARDWARE)),
                          "out": str(ART / (name + ".png")),
                          "cam": cam, "up": up, "size": "1500x1500",
                          "bg": "#ffffff", "transparent": True,
                          "trim": True, "solid": True, "ortho": True,
                          "ground": False, "fog": False})
-        subprocess.run(["node", str(ROOT / "tools/render/render-step-posed.js"),
-                        "--jobs", "-"], input=json.dumps(jobs), text=True,
-                       cwd=ROOT, check=True)
+        _hsm_render.render(jobs)
 
 
 if __name__ == "__main__":
