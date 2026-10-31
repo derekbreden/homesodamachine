@@ -16,10 +16,12 @@ routed before its turn. Placed so far, on back-top's port corner cut down to its
   V-K clear of the soda inlet;
 - the G Ganen carbonator pump, moved aft from where production stands it on the cap until its butt
   meets the rear wall, then west until it stands clear of the bulkheads, with a joint on each barb
-  (reference/pump-barb-joint);
+  (reference/pump-barb-joint); the suction joint, on V-K's line, carries a stem elbow in its collet
+  and bends down until they pass under V-K;
 - the neoFit ACVUS-44 stem check valve in the Pisco's outlet;
 - the CO2 tube, off the check's socket in one bend, then an S onto the cap beside V-K, and
   straight down past the carbonator's rim;
+- production's elbow in V-K's outlet, its socket turned aft;
 - a seat on back-top for each of the ASSE chain, the Pisco and the meter, and a snap cap that holds
   each in its seat (slide_seats.py).
 
@@ -53,6 +55,7 @@ for p in ('scripts', 'manifold-layout', 'printed-parts/cadlib', 'reference/asse1
 import cadquery as cq  # noqa: E402
 from OCP.BRepAdaptor import BRepAdaptor_Surface  # noqa: E402
 from OCP.Bnd import Bnd_Box  # noqa: E402
+from OCP.BRepExtrema import BRepExtrema_DistShapeShape  # noqa: E402
 from OCP.BRepBndLib import BRepBndLib  # noqa: E402
 from OCP.gp import gp_Trsf  # noqa: E402
 import above_core as layout  # noqa: E402
@@ -348,20 +351,66 @@ PUMP_WEST = next(float(w) for w in np.arange(0., 60.01, 0.5)
                                     distance_upper_bound=PUMP_CLEAR)[0].min() >= PUMP_CLEAR)
 pump_shift = np.array([-PUMP_WEST, PUMP_AFT, 0.])
 parts['g-ganen-pump'] = (pump_at.moved(cq.Location(cq.Vector(*pump_shift))), pump_colour)
-joint_at = {}
+joint_at, joint_keys = {}, {}
 for port in pump_joint.PORTS:
     tip, axis = (np.array(v, float) for v in pump_carry(pump_joint.pump.port(pump_joint.PORTS[port])))
     tip += pump_shift
     lift = np.array([0., 0., 1.]) - axis * axis[2]
     lift /= np.linalg.norm(lift)
     side = np.cross(lift, axis)
-    keys = 1 if side[1] > 0 else -1
+    joint_keys[port] = 1 if side[1] > 0 else -1
     joint_at[port] = layout.frame_location({'rotation': [[axis[i], side[i], lift[i]] for i in range(3)],
                                             'translation_mm': [float(c) for c in tip]})
-    for n, (s, colour) in pump_joint.build(port, (keys, keys)).items():
+
+
+def joint_point(port, p):
+    return np.array(cq.Vertex.makeVertex(*p).moved(joint_at[port]).Center().toTuple())
+
+
+def square_to(v, axis):
+    v = v - axis * float(np.dot(v, axis))
+    return v / np.linalg.norm(v)
+
+
+# The suction joint is on V-K's line. A neoFit ATEU44W stands in its 1/4" collet, the stem cut to the
+# collet's depth and the shoulder on the collet's mouth, its socket turned fore toward V-K's bottom
+# port. Straight, the elbow runs into the underside of V-K's coil, so the joint bends down until the
+# reducer, its clamp and the elbow pass under: the least bend, in tenths of a degree, that stands them
+# clear of V-K.
+def collet_elbow(bend):
+    """The elbow in the suction joint's collet, the joint bent `bend`: (solid, the crossing of its
+    stem's and socket's axes, the way its socket faces)."""
+    collet, collet_axis = (np.array(v, float) for v in pump_joint.mouth('suction', bend))
+    at = joint_point('suction', collet)
+    outward = joint_point('suction', collet + collet_axis) - at        # the elbow's stem points the other way
+    fore = square_to(np.array([0., -1., 0.]), outward)
+    crossing = at + outward * stem_elbow.HUB_BACK_REACH
+    return acp.stem_elbow(reducer_ref.TUBE_INSERTION_DEPTH).moved(layout.frame_location({
+        'rotation': [[outward[i], fore[i], np.cross(outward, fore)[i]] for i in range(3)],
+        'translation_mm': [float(c) for c in crossing]})), crossing, fore
+
+
+suction_straight = pump_joint.build('suction', (joint_keys['suction'],) * 2)
+
+
+def under_vk(bend):
+    """The gap from V-K to the reducer, its clamp and the elbow, the suction joint bent `bend`."""
+    turn = pump_joint.turn('suction', bend)
+    near = [suction_straight[n][0].moved(turn).moved(joint_at['suction']) for n in ('reducer', 'stem-clamp', 'stem-key')]
+    return min(s.distance(parts['vk-solenoid'][0]) for s in (*near, collet_elbow(bend)[0]))
+
+
+whole = next(b for b in range(31) if under_vk(b) > 0.)
+JOINT_BEND = {'suction': next(round(float(b), 1) for b in np.arange(max(whole - 0.9, 0.), whole + 0.01, 0.1)
+                              if under_vk(b) > 0.),
+              'discharge': 0.}
+for port in pump_joint.PORTS:
+    for n, (s, colour) in pump_joint.build(port, (joint_keys[port],) * 2, JOINT_BEND[port]).items():
         parts[f'{port}-{n}'] = (s.moved(joint_at[port]), colour)
-PUMP = ('g-ganen-pump', *(f'{port}-{n}' for port in pump_joint.PORTS
-                          for n in ('tube', 'reducer', 'barb-clamp', 'barb-key', 'stem-clamp', 'stem-key')))
+elbow, elbow_crossing, elbow_fore = collet_elbow(JOINT_BEND['suction'])
+parts['suction-elbow'] = (elbow, M_NEOFIT_WHITE_ACETAL)
+PUMP = ('g-ganen-pump', 'suction-elbow', *(f'{port}-{n}' for port in pump_joint.PORTS
+                                           for n in ('tube', 'reducer', 'barb-clamp', 'barb-key', 'stem-clamp', 'stem-key')))
 
 # --- the cold core, where the machine stands it, for the drop below the cap ----------------------
 # The core builds in foam-assembly's frame; the machine turns that frame a quarter about +Z and
@@ -494,6 +543,23 @@ ring = cq.Workplane(cq.Plane(origin=tuple(co2_end), xDir=(1., 0., 0.), normal=(0
     co2_r).circle(sel['tube_id_mm'] / 2.)
 parts['co2-tube'] = (ring.sweep(path).val(), cq.Color(*(c / 255. for c in SPOOLS['red'].rgb)))
 
+# --- V-K's outlet elbow --------------------------------------------------------------------------
+# Production's elbow in V-K's outlet, moved with V-K and turned about the outlet's axis until its
+# socket points aft, toward the elbow in the suction joint's collet.
+outlet_at, outlet_axis = (np.array(v, float) for v in comps['vk-solenoid'][2](acp.port_stations('vk-solenoid')['outlet'][:2]))
+outlet_at += SHIFT
+socket_was = square_to(np.array(comps['lower-valve-elbow'][2](stem_elbow.socket())[1], float), outlet_axis)
+socket_to = square_to(np.array([0., 1., 0.]), outlet_axis)
+outlet_turn = math.degrees(math.atan2(float(np.dot(np.cross(socket_was, socket_to), outlet_axis)),
+                                      float(np.dot(socket_was, socket_to))))
+parts['lower-valve-elbow'] = (comps['lower-valve-elbow'][0].moved(MOVE).moved(
+    cq.Location(cq.Vector(*outlet_at)) * cq.Location(cq.Vector(), cq.Vector(*outlet_axis), outlet_turn)
+    * cq.Location(cq.Vector(*-outlet_at))), comps['lower-valve-elbow'][1])
+# Each elbow on V-K's line: the crossing of its stem's and socket's axes, and the way its socket faces.
+VK_LINE = {'suction-elbow': (elbow_crossing, elbow_fore),
+           'lower-valve-elbow': (np.array(comps['lower-valve-elbow'][2](((0., 0., 0.), (1., 0., 0.)))[0]) + SHIFT,
+                                 socket_to)}
+
 # --- measurements -----------------------------------------------------------------------------
 result = {'rows_z': ROWS, 'grid_drop_mm': round(GRID_DROP, 3), 'tile_seat_z': STOP_Z,
           'tap_hole_d': round(TAP_HOLE, 3), 'tap_tile_bore_d': round(TAP_BORE, 3),
@@ -620,16 +686,43 @@ result['g-ganen-pump'].update({'aft_mm': round(PUMP_AFT, 2), 'west_mm': PUMP_WES
                                'to_bulkheads_mm': nearest('g-ganen-pump', BULKHEADS, math.inf)})
 result['pump_joints'] = {}
 for port in pump_joint.PORTS:
-    joint_mouth = np.array(cq.Vertex.makeVertex(*pump_joint.mouth()[0]).moved(joint_at[port]).Center().toTuple())
-    print(f'== the {port} joint: tube {pump_joint.tube_length(port):.2f} mm, the 1/4" mouth at ({joint_mouth[0]:.1f}, '
-          f'{joint_mouth[1]:.1f}, {joint_mouth[2]:.1f})')
+    joint_mouth = joint_point(port, pump_joint.mouth(port, JOINT_BEND[port])[0])
+    print(f'== the {port} joint, bent {JOINT_BEND[port]:g} deg down: tube {pump_joint.tube_length(port):.2f} mm, the 1/4" '
+          f'mouth at ({joint_mouth[0]:.1f}, {joint_mouth[1]:.1f}, {joint_mouth[2]:.1f})')
     result['pump_joints'][port] = {
+        'bend_deg': JOINT_BEND[port],
         'tube_mm': round(pump_joint.tube_length(port), 2), 'mouth': [round(float(c), 2) for c in joint_mouth],
         'bands': {n: {'x_mm': round(xc, 2), 'd_mm': round(d, 2)} for n, (xc, d) in pump_joint.bands(port).items()},
         'nearest_mm': {}}
     for n in ('tube', 'reducer', 'barb-clamp', 'barb-key', 'stem-clamp', 'stem-key'):
         print(f'  {port}-{n} {bbox(parts[f"{port}-{n}"][0])}')
         result['pump_joints'][port]['nearest_mm'][n] = nearest(f'{port}-{n}', [m for m in placed if m not in PUMP])
+# Where the bent suction joint passes under V-K: the gap, the point of V-K it is nearest, and the gap a
+# tenth of a degree less bent. V-K's spades, its two pieces under a millimetre thick, are drawn bare.
+pair = BRepExtrema_DistShapeShape(parts['suction-elbow'][0].wrapped, parts['vk-solenoid'][0].wrapped)
+pair.Perform()
+touch = pair.PointOnShape2(1)
+spade = min(BRepExtrema_DistShapeShape(parts['suction-elbow'][0].wrapped, s.wrapped).Value()
+            for s in parts['vk-solenoid'][0].Solids() if s.BoundingBox().ylen < 1.)
+result['pump_joints']['suction'].update({
+    'under_vk_mm': round(under_vk(JOINT_BEND['suction']), 3), 'elbow_under_vk_mm': round(pair.Value(), 3),
+    'vk_nearest_at': [round(touch.X(), 2), round(touch.Y(), 2), round(touch.Z(), 2)],
+    'a_tenth_less_mm': round(under_vk(JOINT_BEND['suction'] - 0.1), 3), 'elbow_to_spade_mm': round(spade, 3)})
+print(f'== the suction joint bent {JOINT_BEND["suction"]:g} deg passes {result["pump_joints"]["suction"]["under_vk_mm"]:.3f} mm '
+      f'under V-K (the elbow {pair.Value():.3f} mm, nearest V-K at ({touch.X():.1f}, {touch.Y():.1f}, {touch.Z():.1f})); a tenth '
+      f'less, {result["pump_joints"]["suction"]["a_tenth_less_mm"]:.3f} mm; the elbow {spade:.3f} mm off V-K\'s nearer spade')
+# V-K's line: where each elbow's socket mouth stands and faces, and what each comes near.
+result['vk_line'] = {'outlet_turn_deg': round(outlet_turn, 2)}
+for n, (crossing, facing) in VK_LINE.items():
+    mouth_at = crossing + facing * stem_elbow.SOCKET_MOUTH_REACH
+    print(f'== {n} {bbox(parts[n][0])}; its socket mouth at ({mouth_at[0]:.1f}, {mouth_at[1]:.1f}, {mouth_at[2]:.1f}), '
+          f'facing ({facing[0]:.2f}, {facing[1]:.2f}, {facing[2]:.2f})')
+    result['vk_line'][n] = {'bbox': bbox(parts[n][0]), 'socket_mouth': [round(float(c), 2) for c in mouth_at],
+                            'socket_axis': [round(float(c), 3) for c in facing],
+                            'nearest_mm': nearest(n, [m for m in placed if m != n])}
+apart = np.array(result['vk_line']['lower-valve-elbow']['socket_mouth']) - np.array(result['vk_line']['suction-elbow']['socket_mouth'])
+result['vk_line']['mouth_to_mouth_mm'] = [round(float(c), 2) for c in apart]
+print(f'== from the suction elbow\'s socket mouth to the outlet elbow\'s: ({apart[0]:.1f}, {apart[1]:.1f}, {apart[2]:.1f})')
 result['co2-check'].update({
     'socket_mouth_y': round(check_mouth, 2),
     'tip_short_of_tube_stop_mm': round(dims['ports']['outlet']['insertion_mm'] - acvus.SHOULDER, 2),
@@ -768,6 +861,7 @@ past_cap = near['straight_down_to_core_mm']
 vk = result['vk']
 pump_to = result['g-ganen-pump']['to_bulkheads_mm']
 joints = result['pump_joints']
+line = result['vk_line']
 check = result['co2-check']
 co2 = result['co2_tube']
 snaps = result['seats']
@@ -779,9 +873,10 @@ def overlap_depth(a, b, axis):
     return o['bbox'][axis + 3] - o['bbox'][axis] if o else float('nan')
 
 
-# tee-fold in V-K: the stem's tip below the port's floor, and the hub on the port's boss, low to high.
-fold_in_vk = sorted(next(v for k, v in result['overlaps'].items() if set(k.split(' x ')) == {'tee-fold', 'vk-solenoid'})
-                    ['pieces'], key=lambda b: b[2])
+# tee-fold in V-K: the stem's tip below the port's floor, and the hub on the port's boss, low to high;
+# the outlet elbow the other way up.
+fold_in_vk, outlet_in_vk = (sorted(next(v for k, v in result['overlaps'].items() if set(k.split(' x ')) == {n, 'vk-solenoid'})
+                                   ['pieces'], key=lambda b: b[2]) for n in ('tee-fold', 'lower-valve-elbow'))
 
 
 substitute_md(HERE / 'README.md', {
@@ -813,8 +908,15 @@ substitute_md(HERE / 'README.md', {
     'STEM_TRIM': f'{pump_joint.TRIM:g}', 'SUCTION_TUBE': f'{joints["suction"]["tube_mm"]:.1f}',
     'DISCHARGE_TUBE': f'{joints["discharge"]["tube_mm"]:.1f}', 'SUCTION_MOUTH_X': f'{joints["suction"]["mouth"][0]:.1f}',
     'DISCHARGE_MOUTH_X': f'{joints["discharge"]["mouth"][0]:.1f}', 'JOINT_Y': f'{joints["suction"]["mouth"][1]:.1f}',
-    'JOINT_Z': f'{joints["suction"]["mouth"][2]:.1f}',
+    'SUCTION_MOUTH_Z': f'{joints["suction"]["mouth"][2]:.1f}', 'DISCHARGE_MOUTH_Z': f'{joints["discharge"]["mouth"][2]:.1f}',
+    'SUCTION_BEND': f'{JOINT_BEND["suction"]:g}', 'ELBOW_STEM': f'{reducer_ref.TUBE_INSERTION_DEPTH:g}',
+    'OUTLET_TURN': f'{abs(line["outlet_turn_deg"]):.0f}',
+    **{f'LINE_{end}_{"XYZ"[i]}': f'{line[n]["socket_mouth"][i]:.1f}'
+       for end, n in (('FORE', 'suction-elbow'), ('AFT', 'lower-valve-elbow')) for i in range(3)},
+    'UNDER_VK': f'{joints["suction"]["under_vk_mm"]:.2f}', 'ELBOW_TO_SPADE': f'{joints["suction"]["elbow_to_spade_mm"]:.1f}',
+    'OUTLET_INTO_CAP': f'{CAP_Z - line["lower-valve-elbow"]["bbox"][2]:.1f}',
     'CO2_INTO_REDUCER': f'{overlap_depth("suction-reducer", "co2-tube", 0):.1f}',
+    'CO2_INTO_ELBOW': f'{overlap_depth("suction-elbow", "co2-tube", 1):.1f}',
     'CHECK_MOUTH_Y': f'{check["socket_mouth_y"]:.1f}', 'CHECK_TIP_SHORT': f'{check["tip_short_of_tube_stop_mm"]:.1f}',
     'CHECK_UNDER_CEILING': f'{check["under_ceiling_mm"]:.1f}',
     'CHECK_TO_FOAM': f'{check["nearest_mm"]["soda-insulation"]:.1f}',
@@ -827,6 +929,8 @@ substitute_md(HERE / 'README.md', {
     'CO2_TO_VK': f'{co2["nearest_mm"]["vk-solenoid"]:.1f}',
     'STEM_PAST_PORT': f'{fold_in_vk[0][5] - fold_in_vk[0][2]:.1f}',
     'HUB_INTO_VK': f'{fold_in_vk[-1][5] - fold_in_vk[-1][2]:.2f}',
+    'OUTLET_STEM_PAST_PORT': f'{outlet_in_vk[-1][5] - outlet_in_vk[-1][2]:.1f}',
+    'OUTLET_HUB_INTO_VK': f'{outlet_in_vk[0][5] - outlet_in_vk[0][2]:.2f}',
     'SLIDE': f'{slide_seats.SLIDE:g}', 'SNAP_THREAD': f'{slide_seats.THREAD:g}', 'SNAP_WING': f'{slide_seats.WING:g}',
     'SNAP_REACH': f'{slide_seats.REACH:g}', 'SNAP_WALL': f'{slide_seats.WALL:g}',
     'SLIDE_GAP': f'{min(snaps[n]["slide_mm"] for n in slide_seats.SEATS):.2f}',

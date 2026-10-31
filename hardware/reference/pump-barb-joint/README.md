@@ -17,6 +17,10 @@ scanned profile and the stem, and its outside opens to keep the tube's section. 
 the tube's widest outside under it. Its frame has +X on the port's outward axis and the barb's tip
 at X = 0.
 
+A joint can be drawn bent down. The reducer and its clamp turn about the lowest point of the barb's
+tip, where the stem's tip bears on it, and the barb and its clamp stay as they are. The tube runs
+straight on each and creases on the plane halfway between them.
+
 | From the barb's tip, mm | Suction | Discharge |
 |---|---:|---:|
 | Tube's end, at the barb's root | −13.39 | −13.14 |
