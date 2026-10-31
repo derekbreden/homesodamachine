@@ -6,6 +6,7 @@ import subprocess
 import shutil
 import sys
 import tempfile
+import time
 import unittest
 from unittest.mock import patch
 
@@ -13,6 +14,8 @@ TOOLS = Path(__file__).resolve().parent
 sys.path.insert(0, str(TOOLS))
 sys.path.insert(0, str(TOOLS / "bazel"))
 import affected
+import _artifact_digest
+import _artifact_inputs
 from _artifact_digest import Digests, hashes
 import publish_now
 
@@ -74,7 +77,7 @@ class DigestTests(unittest.TestCase):
         wanted = hashes(self.root, ["part.step"])
         cache = Digests(self.root)
         with patch.object(Path, "open", side_effect=AssertionError("unchanged bytes were read")):
-            self.assertEqual(cache.digest(self.part), wanted["part.step"])
+            self.assertEqual(cache.digest("part.step"), wanted["part.step"])
 
     def test_same_size_edit_with_restored_mtime_invalidates_the_cache(self):
         before = self.part.stat()
@@ -93,52 +96,172 @@ class DigestTests(unittest.TestCase):
         self.assertEqual(hashes(self.root, ["part.step"])["part.step"], publish_now._sha256(self.part))
 
 
-class DebtTests(unittest.TestCase):
-    def test_warm_source_debt_skips_the_dependency_process(self):
-        with tempfile.TemporaryDirectory() as tmp:
-            root = Path(tmp)
-            paths = ["hardware/cad-artifacts.json", "BUILD.bazel", "tools/bazel/graph.json",
-                     "tools/bazel/affected.py", "tools/bazel/inventory.py", "tools/bazel/gen_build.py"]
-            for rel in paths:
-                p = root / rel
-                p.parent.mkdir(parents=True, exist_ok=True)
-                p.write_text("{}")
-            (root / paths[0]).write_text(json.dumps({"source": {"commit": "base"}}))
-            calls = []
+class ListingTests(unittest.TestCase):
+    """The walk lists again only a directory whose stat identity moved."""
 
-            def run(args, quiet=False):
-                calls.append(args)
-                out = "head\n" if args[:2] == ["git", "rev-parse"] else ""
-                return subprocess.CompletedProcess(args, 0, out, "")
+    def setUp(self):
+        self.temp = tempfile.TemporaryDirectory()
+        self.root = Path(self.temp.name)
+        self.addCleanup(self.temp.cleanup)
+        self.pack = publish_now._pack()
+        self.cap = self.root / "hardware/printed-parts/cap"
+        self.cap.mkdir(parents=True)
+        (self.cap / "cap.step").write_bytes(b"cap")
 
-            with patch.object(publish_now, "ROOT", root), patch.object(publish_now, "run", run):
-                self.assertEqual(publish_now.source_owes(), [])
-                self.assertTrue(any("--manifest" in c for c in calls))
-                calls.clear()
-                self.assertEqual(publish_now.source_owes(), [])
-                self.assertEqual(calls, [["git", "rev-parse", "HEAD"]])
-                (root / "BUILD.bazel").write_text("changed")
-                calls.clear()
-                publish_now.source_owes()
-                self.assertTrue(any("--manifest" in c for c in calls))
+    def settled(self):
+        return patch.object(_artifact_digest.time, "time_ns",
+                            return_value=time.time_ns() + 2 * _artifact_digest.SETTLED_NS)
 
-    def test_dependency_process_failure_cannot_mean_nothing_is_owed(self):
-        with tempfile.TemporaryDirectory() as tmp:
-            root = Path(tmp)
-            for rel in ["hardware/cad-artifacts.json", "BUILD.bazel", "tools/bazel/graph.json",
-                        "tools/bazel/affected.py", "tools/bazel/inventory.py", "tools/bazel/gen_build.py"]:
-                p = root / rel
-                p.parent.mkdir(parents=True, exist_ok=True)
-                p.write_text(json.dumps({"source": {"commit": "base"}}))
+    def test_a_settled_directory_is_not_listed_again(self):
+        with self.settled():
+            first = self.pack.solids(self.root)
+        with self.settled(), patch.object(_artifact_digest.os, "scandir",
+                                          side_effect=AssertionError("listed again")):
+            self.assertEqual(self.pack.solids(self.root), first)
 
-            def run(args, quiet=False):
-                if "--manifest" in args:
-                    return subprocess.CompletedProcess(args, 1, "", "manifest failed")
-                return subprocess.CompletedProcess(args, 0, "head", "")
+    def test_a_member_added_or_removed_is_seen(self):
+        with self.settled():
+            self.pack.solids(self.root)
+            (self.cap / "lid.step").write_bytes(b"lid")
+            (self.cap / "cap.step").unlink()
+            self.assertEqual(self.pack.solids(self.root), ["hardware/printed-parts/cap/lid.step"])
 
-            with patch.object(publish_now, "ROOT", root), patch.object(publish_now, "run", run):
-                with self.assertRaisesRegex(RuntimeError, "manifest failed"):
-                    publish_now.source_owes()
+    def test_a_directory_still_settling_is_listed_again(self):
+        self.pack.solids(self.root)
+        with patch.object(_artifact_digest.os, "scandir", side_effect=OSError("listed again")):
+            self.assertEqual(self.pack.solids(self.root), [])
+
+
+def git(root, *args, stdin=None):
+    return subprocess.run(["git", "-C", str(root), *args], input=stdin, capture_output=True,
+                          text=True, check=True).stdout
+
+
+class IndexTests(unittest.TestCase):
+    """`staged` reads the index file itself, and says what `git ls-files --stage` says."""
+
+    def setUp(self):
+        self.temp = tempfile.TemporaryDirectory()
+        self.addCleanup(self.temp.cleanup)
+        self.root = Path(self.temp.name)
+        git(self.root, "init", "-q")
+        files = {"a.py": "a", "dir/b.py": "b", "dir/run.sh": "#!/bin/sh\n",
+                 "dir/" + "y" * 200 + ".py": "long"}
+        for rel, text in files.items():
+            (self.root / rel).parent.mkdir(parents=True, exist_ok=True)
+            (self.root / rel).write_text(text)
+        (self.root / "dir/run.sh").chmod(0o755)
+        (self.root / "link").symlink_to("a.py")
+        git(self.root, "add", "--", *files, "link")
+
+    def listed(self):
+        out = {}
+        for row in git(self.root, "ls-files", "--stage", "-z").split("\0"):
+            meta, _tab, path = row.partition("\t")
+            fields = meta.split()
+            if len(fields) == 3 and fields[2] == "0":
+                out[path] = fields[1]
+        return out
+
+    def test_the_index_file_reads_as_git_lists_it(self):
+        self.assertEqual(_artifact_inputs.staged(self.root), self.listed())
+
+    def test_a_conflict_is_not_staged_and_an_intent_to_add_entry_reads_empty(self):
+        (self.root / "later.py").write_text("later")
+        git(self.root, "add", "-N", "later.py")
+        blob = git(self.root, "hash-object", "-w", "a.py").strip()
+        git(self.root, "update-index", "--index-info",
+            stdin="".join(f"100644 {blob} {stage}\tclash.py\n" for stage in (1, 2, 3)))
+        got = _artifact_inputs.staged(self.root)
+        self.assertNotIn("clash.py", got)
+        self.assertEqual(got["later.py"], git(self.root, "hash-object", "--stdin", stdin="").strip())
+        self.assertEqual(got, self.listed())
+
+    def test_a_layout_this_does_not_read_goes_to_git(self):
+        for flags in (["--index-version", "4"], ["--split-index"]):
+            git(self.root, "update-index", *flags)
+            index = (self.root / ".git/index").read_bytes()
+            self.assertIsNone(_artifact_inputs._read_index(index))
+            self.assertEqual(_artifact_inputs.staged(self.root), self.listed())
+
+    def test_a_blob_id_is_the_one_git_gives_the_bytes(self):
+        for rel in ("a.py", "dir/run.sh", "link"):
+            self.assertEqual(_artifact_inputs.blob_id(self.root / rel), self.listed()[rel])
+        self.assertEqual(_artifact_inputs.blob_id(self.root / "absent.py"), "-")
+
+
+class OwedTests(unittest.TestCase):
+    """What `publish_now.owed` reads off a tree whose one rule writes a part from its source."""
+
+    PART = "hardware/printed-parts/example/part.step"
+    SOURCE = "hardware/printed-parts/example/part.py"
+
+    def setUp(self):
+        self.temp = tempfile.TemporaryDirectory()
+        self.addCleanup(self.temp.cleanup)
+        self.root = Path(self.temp.name)
+        (self.root / "tools/cad-artifacts").mkdir(parents=True)
+        (self.root / "tools/docgen").mkdir()
+        (self.root / "tools/bazel").mkdir()
+        shutil.copyfile(TOOLS / "cad-artifacts/pack.py", self.root / "tools/cad-artifacts/pack.py")
+        for rel, text in ((self.SOURCE, "part"), (self.PART, "solid"), ("README.md", "docs")):
+            (self.root / rel).parent.mkdir(parents=True, exist_ok=True)
+            (self.root / rel).write_text(text)
+        (self.root / "tools/bazel/graph.json").write_text(json.dumps(
+            {self.SOURCE: {"reads": [self.SOURCE], "writes": [self.PART]}}))
+        git(self.root, "init", "-q")
+        git(self.root, "add", "--", self.SOURCE, "README.md")
+        self.pointer({self.PART: {"inputs": self.tree()[self.PART], "commit": "c"}})
+
+    def patched(self):
+        return patch.object(publish_now, "ROOT", self.root)
+
+    def tree(self):
+        with self.patched():
+            pack = publish_now._pack()
+            return pack.tree_digests(self.root, pack.Graph.load(self.root),
+                                     {self.PART: publish_now._sha256(self.root / self.PART)})
+
+    def pointer(self, made):
+        lines = {self.PART: publish_now._sha256(self.root / self.PART)}
+        (self.root / publish_now.POINTERS).write_text(json.dumps({"solids": lines, "made": made}))
+        git(self.root, "add", "--", publish_now.POINTERS)
+
+    def owed(self):
+        with self.patched():
+            return publish_now.owed()
+
+    def commit_to(self, rel, text):
+        (self.root / rel).write_text(text)
+        git(self.root, "add", "--", rel)
+
+    def test_a_docs_commit_owes_nothing_and_starts_no_process(self):
+        self.commit_to("README.md", "docs, edited")
+        with patch.object(subprocess, "run", side_effect=AssertionError("a process started")), \
+                patch.object(subprocess, "Popen", side_effect=AssertionError("a process started")):
+            self.assertEqual(self.owed(), publish_now.Owed("", [], [], []))
+
+    def test_an_edit_to_what_a_member_reads_owes_its_line(self):
+        self.commit_to(self.SOURCE, "part, moved")
+        self.assertEqual(self.owed().inputs, [self.PART])
+        self.commit_to(self.SOURCE, "part")
+        self.assertEqual(self.owed().inputs, [])
+
+    def test_bytes_that_moved_with_no_commit_are_owed(self):
+        (self.root / self.PART).write_text("recut")
+        self.assertEqual(self.owed().moved, [self.PART])
+
+    def test_a_member_with_no_line_owes_one_and_one_with_nothing_to_say_waits(self):
+        self.pointer({})
+        self.assertEqual(self.owed().inputs, [self.PART])
+        self.pointer({self.PART: {"commit": "c", "unproven": True}})
+        self.commit_to(self.SOURCE, "part, moved")
+        self.assertEqual(self.owed().inputs, [])
+
+    def test_a_pointer_file_the_index_does_not_hold_is_owed_as_it_stands(self):
+        path = self.root / publish_now.POINTERS
+        path.write_text(path.read_text() + "\n")
+        self.assertEqual(self.owed().heal, [publish_now.POINTERS])
 
 
 class ByteDriftTests(unittest.TestCase):
@@ -165,23 +288,26 @@ class ByteDriftTests(unittest.TestCase):
         with patch.object(publish_now, "ROOT", self.root):
             return publish_now.bytes_drifted()
 
-    def test_source_independent_bytes_additions_deletions_and_sidecars(self):
-        self.assertFalse(self.drifted())
+    def test_source_independent_bytes_additions_and_sidecars(self):
+        part = self.part.relative_to(self.root).as_posix()
+        self.assertEqual(self.drifted(), [])
         self.part.write_bytes(b"new solid")
-        self.assertTrue(self.drifted())
+        self.assertEqual(self.drifted(), [part])
         self.part.write_bytes(b"solid")
-        self.assertFalse(self.drifted())
+        self.assertEqual(self.drifted(), [])
         extra = self.part.with_name("extra.step")
         extra.write_bytes(b"extra")
-        self.assertTrue(self.drifted())
+        self.assertEqual(self.drifted(), [extra.relative_to(self.root).as_posix()])
         extra.unlink()
-        self.assertFalse(self.drifted())
+        self.assertEqual(self.drifted(), [])
         self.score.write_text('{"score":2}')
-        self.assertTrue(self.drifted())
+        self.assertEqual(self.drifted(), [self.score.relative_to(self.root).as_posix()])
         self.score.write_text('{"score":1}')
-        self.assertFalse(self.drifted())
+        self.assertEqual(self.drifted(), [])
+
+    def test_a_member_this_disk_does_not_hold_keeps_its_line(self):
         self.part.unlink()
-        self.assertTrue(self.drifted())
+        self.assertEqual(self.drifted(), [])
 
     def test_an_unreadable_pointer_cannot_mean_unchanged_bytes(self):
         (self.root / "hardware/cad-artifacts.json").write_text("bad")

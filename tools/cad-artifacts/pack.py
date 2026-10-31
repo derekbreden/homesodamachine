@@ -11,19 +11,20 @@
     tools/cad-venv/bin/python tools/cad-artifacts/pack.py --retire   # take dead assets off it
     tools/cad-venv/bin/python tools/cad-artifacts/pack.py selftest   # the bundle, on fixtures
 
-`hardware/cad-artifacts.json` names the source commit, the asset by its own sha256, every
-solid inside it, and each tracked scorecard the viewer reads by sha256; it is committed. The
-scorecards stay outside the geometry tar and move atomically with its pointer file. The asset is content-addressed
-(`cad-<sha16>.tar.gz`) and never
-rewritten, so a checkout resolves to the bundle its own commit was packed against.
-`web/scripts/fetch-cad-artifacts.mjs` reads the pointer file at deploy and holds the download to both
-hashes before anything is extracted.
+`hardware/cad-artifacts.json` names the asset by its own sha256, every solid inside it, each
+tracked scorecard the viewer reads by sha256, and what each member was made from; it is
+committed. The scorecards stay outside the geometry tar and move atomically with its pointer
+file. The asset is content-addressed (`cad-<sha16>.tar.gz`) and never rewritten, so a checkout
+resolves to the bundle its own commit was packed against. `web/scripts/fetch-cad-artifacts.mjs`
+reads the pointer file at deploy and holds the download to both hashes before anything is
+extracted.
 
-THE BUNDLE CARRIES WHAT THIS DISK HOLDS, and `source.commit` is where that came from. Where the
-disk stood outside HEAD, `unproven` says so: the uncommitted paths the pack was cut beside and
-the members those paths reach. Nothing is withheld for it — a solid mid-edit is a solid to look
-at — and a reader asking where one came from gets the answer instead of the assumption.
-`unproven` is absent from a pointer file packed off a tree standing at HEAD.
+THE BUNDLE CARRIES WHAT THIS DISK HOLDS, and `made` says what each member was made from. A
+member a rule in `tools/bazel/graph.json` writes has a line there: `inputs`, one digest over the
+ids of what its writers read when its bytes were cut (`tools/_artifact_inputs.py`); `commit`,
+where that line was written; and `unproven` where the tree's inputs are not those, or where
+nothing says what cut the bytes. Nothing is withheld for it — a solid mid-edit is a solid to look
+at.
 
 THE BUNDLE CARRIES NO FACT ABOUT THE MACHINE THAT PACKED IT. Members go in sorted, and the mtime,
 uid, gid, uname, gname and mode a tar can hold are dropped; the gzip header carries no mtime. A
@@ -39,26 +40,18 @@ out is `NOT_BUNDLED_DIRS` and `HARVESTED` below. `--check` holds what the walk f
 `tools/bazel/graph.json` declares, and names anything the graph does not carry.
 """
 
-import argparse
-import concurrent.futures as cf
-import datetime as dt
-import gzip
 import hashlib
-import io
 import json
 import os
-import re
-import shutil
 import subprocess
 import sys
-import tarfile
-import tempfile
 import time
 from pathlib import Path
-from urllib.request import Request, urlopen
 
 _HERE = Path(__file__).resolve()
 _ROOT = next(p for p in _HERE.parents if (p / "tools" / "docgen").is_dir())
+sys.path.insert(0, str(_HERE.parents[1]))
+from _artifact_inputs import Graph, blob_id, committed, on_disk, staged  # noqa: E402
 
 POINTERS = _ROOT / "hardware" / "cad-artifacts.json"
 TAG = "cad-artifacts"
@@ -308,9 +301,12 @@ def solids(root: Path) -> list:
     `hardware/`, repo-relative and sorted.
 
     Off the disk, tracked or not: an artifact the index does not hold is one a fresh clone still
-    has to be sent, and it is the pointer file that carries it into the index."""
-    hw = root / "hardware"
-    if not hw.is_dir():
+    has to be sent, and it is the pointer file that carries it into the index. One pass over
+    `hardware/`, which steps into no `NOT_BUNDLED_DIRS` tree and follows no link, and lists
+    again only a directory whose stat identity moved."""
+    from _artifact_digest import Listings
+
+    if not (root / "hardware").is_dir():
         return []
     skip = tuple(f"{d}/" for d in NOT_BUNDLED_DIRS)
     meshes = tuple(f"{d}/" for d in BUNDLED_MESH_DIRS)
@@ -318,57 +314,52 @@ def solids(root: Path) -> list:
     payloads = tuple(f"{d}/" for d in BUNDLED_PAYLOAD_DIRS)
     art = tuple(f"{d}/" for d in BUNDLED_ART_DIRS)
     boards = tuple(f"{d}/" for d in BUNDLED_BOARD_DIRS)
-    out = []
-    walk = list(hw.rglob("*.step"))
-    for d in BUNDLED_MESH_DIRS:
-        walk += list((root / d).rglob("*.stl"))
-    for d in BUNDLED_PAYLOAD_DIRS:
-        walk += list((root / d).rglob("*.step.mesh"))
-    walk += [root / rel for rel in BUNDLED_PAYLOAD_FILES if (root / rel).is_file()]
-    for d in BUNDLED_GLB_DIRS:
-        walk += list((root / d).rglob("*.glb"))
-    for d in BUNDLED_ART_DIRS:
-        walk += [q for q in (root / d).rglob("*")
-                 if q.is_file() and q.name.endswith(BUNDLED_ART_SUFFIXES)]
-    walk += [root / rel for rel in BUNDLED_ART_FILES if (root / rel).is_file()]
-    for d in BUNDLED_BOARD_DIRS:
-        walk += [p for p in (root / d).rglob("*")
-                 if p.is_file() and not p.name.endswith(BOARD_NOT_BUNDLED)]
-    for p in walk:
-        if not p.is_file() or p.is_symlink():
+    singles = set(BUNDLED_PAYLOAD_FILES) | set(BUNDLED_ART_FILES)
+    listings = Listings(root)
+    out, todo = [], ["hardware"]
+    while todo:
+        here = todo.pop()
+        held = listings.listing(here)
+        if held is None:
             continue
-        rel = p.relative_to(root).as_posix()
-        if rel.startswith(skip) or rel in HARVESTED:
-            continue
-        # A board directory carries its whole rendered set, so what a suffix says about a file
-        # elsewhere says nothing there. The two it does not carry are named.
-        if rel.startswith(boards):
-            if p.name.endswith(BOARD_NOT_BUNDLED):
+        dirs, files = held
+        for name in dirs:
+            rel = f"{here}/{name}"
+            # A dependency's own test fixtures are solids on this disk that no part of
+            # this machine is made of. `occt-import-js` ships eight.
+            if name != "node_modules" and not f"{rel}/".startswith(skip):
+                todo.append(rel)
+        for name in files:
+            rel = f"{here}/{name}"
+            if rel in HARVESTED:
                 continue
-            out.append(rel)
-            continue
-        if p.suffix == ".stl" and not rel.startswith(meshes):
-            continue
-        if p.suffix == ".glb" and not rel.startswith(scenes):
-            continue
-        if p.suffix == ".mesh" and not (rel.startswith(payloads) or rel in BUNDLED_PAYLOAD_FILES):
-            continue
-        if p.name.endswith(BUNDLED_ART_SUFFIXES) and not rel.startswith(art):
-            continue
-        # A dependency's own test fixtures are solids on this disk that no part of this machine
-        # is made of. `occt-import-js` ships eight.
-        if "node_modules/" in rel:
-            continue
-        # An atomic-export temp caught mid-write (`.NAME.step.PID.RAND.step`) is not one.
-        if p.name.startswith("."):
-            continue
-        out.append(rel)
+            # A board directory carries its whole rendered set, so what a suffix says about
+            # a file elsewhere says nothing there. The two it does not carry are named.
+            if rel.startswith(boards):
+                if not name.endswith(BOARD_NOT_BUNDLED):
+                    out.append(rel)
+                continue
+            # An atomic-export temp caught mid-write (`.NAME.step.PID.RAND.step`) is not one.
+            if name.startswith("."):
+                continue
+            if (name.endswith(".step")
+                    or (name.endswith(".stl") and rel.startswith(meshes))
+                    or (name.endswith(".step.mesh") and rel.startswith(payloads))
+                    or (name.endswith(".glb") and rel.startswith(scenes))
+                    or (name.endswith(BUNDLED_ART_SUFFIXES) and rel.startswith(art))
+                    or rel in singles):
+                out.append(rel)
+    listings.save()
     return sorted(out)
 
 
 def build(root: Path, rels: list, dest) -> str:
     """Write the bundle at `dest` and return its sha256. A member carries its path and its
     bytes; every other field a tar can hold is set flat."""
+    import gzip
+    import io
+    import tarfile
+
     raw = io.BytesIO()
     with tarfile.open(fileobj=raw, mode="w", format=tarfile.GNU_FORMAT) as tar:
         for rel in rels:
@@ -457,6 +448,9 @@ def object_url(held: dict, digest: str):
 
 
 def download_object(url: str) -> bytes:
+    import gzip
+    from urllib.request import Request, urlopen
+
     with urlopen(Request(url, headers={"User-Agent": "pack.py"}), timeout=120) as resp:
         return gzip.decompress(resp.read())
 
@@ -496,29 +490,12 @@ def _head(root: Path) -> str:
                           capture_output=True, text=True, check=True).stdout.strip()
 
 
-def publication_source(held: dict, head: str, publish_held: bool):
-    """The source field for a cut: prior proof for held bytes, current HEAD after reconcile."""
-    if not publish_held:
-        return {"commit": head}
-    prior = held.get("source", {})
-    return dict(prior) if prior.get("commit") else None
-
-
 def _dirty_artifact_reach(root: Path) -> tuple:
-    """`(artifact rules the tree's edits reach, edits nothing bounds, every edit either way)`.
+    """`(artifact rules the tree's edits reach, the edits)`.
 
     Ignored generated solids are intentionally absent from what `affected.changed` reports; they
-    are the bytes being packed. What is left is the working tree standing outside HEAD — asked
-    of HEAD by content, so a stale stat cache cannot spend an unlabelled path here — and the
-    rules on the left are the ones a member has to be under for HEAD not to describe it.
-
-    TWO KINDS OF EDIT HAVE NO RULES TO NAME, and they go in the middle. An unlabelled path is
-    one bazel names as a source of no rule, so nothing says which outputs it reaches. An
-    `artifact_global` one is named — `.bazelrc`, `BUILD.bazel`, the image and workflow trees —
-    and reaches every action by describing or executing it rather than by being read, which is
-    reach an rdeps walk over source labels does not show. Either one puts every member in the
-    record rather than a nameable few.
-    """
+    are the bytes being packed. What is left is the working tree standing outside HEAD, asked of
+    HEAD by content, and the rules it reaches are the ones a reconciliation leaves uncut."""
     sys.path.insert(0, str(root / "tools" / "bazel"))
     import affected
 
@@ -528,41 +505,95 @@ def _dirty_artifact_reach(root: Path) -> tuple:
     moved -= set(sidecars(root)) | set(read_pointers(root).get("sidecars", {}))
     moved = {path for path in moved if not affected.artifact_presentation_only(path)}
     if not moved:
-        return [], [], []
-    found, hit = affected.manifest_targets(sorted(moved))
-    miss = moved - set(hit)
-    everywhere = {p for p in moved if affected.artifact_global(p)}
-    unlabelled = {p for p in miss if affected.artifact_unknown(p, artifacts_only=True)}
+        return [], []
+    found, _hit = affected.manifest_targets(sorted(moved))
     reached = ((set(found) & affected.artifact_targets())
                | affected.sentinel_targets(moved))
-    return sorted(reached), sorted(everywhere | unlabelled), sorted(moved)
+    return sorted(reached), sorted(moved)
 
 
-def unproven(dirty: list, members, targets=()) -> dict:
-    """What a publication could not put under `source.commit`, as the pointer file carries it.
+#: How much newer than a member one of its generated inputs may stand and still be what its cut
+#: read. `sync_tree --write` copies one build's outputs in path order, so a part copied after
+#: the assembly that reads it stands newer by the copies between them.
+GENERATED_SKEW_NS = 60 * 10**9
 
-    THE BUNDLE SHIPS WHAT THIS DISK HOLDS. A member whose rule an uncommitted path reaches, or
-    whose rule would not cut, still travels — seeing the geometry that is actually here is what
-    the site is for — and this is the pointer file saying which members those were, so a reader asking
-    where a solid came from gets an answer rather than an assumption.
 
-    `paths` is empty where nothing was uncommitted and a rule simply would not cut. `targets`
-    persists rules deliberately deferred by an interactive publication, so the ordinary
-    reconciliation path still owes them after the held bytes have acquired their own pointer file.
-    Empty is the ordinary answer, and then `source.commit` describes every member on its own.
-    """
-    if not members and not targets:
-        return {}
-    out = {
-        "_": "source.commit does not describe these members: an uncommitted path below reaches"
-             " the rule that cuts one, its rule would not cut, or an interactive publication"
-             " explicitly deferred that rule.",
-        "paths": sorted(dirty),
-        "members": sorted(members),
-    }
-    if targets:
-        out["targets"] = sorted(set(targets))
+def cut_after_inputs(root: Path, rel: str, graph: Graph) -> bool:
+    """Whether `rel` was written after each input it reads last changed: an authored input no
+    later than the member, a generated one no more than `GENERATED_SKEW_NS` later."""
+    try:
+        written = (root / rel).stat().st_mtime_ns
+    except OSError:
+        return False
+    for path in graph.inputs(rel):
+        try:
+            changed = (root / path).stat().st_mtime_ns
+        except OSError:
+            continue
+        if changed > written + (GENERATED_SKEW_NS if path in graph.writers else 0):
+            return False
+    return True
+
+
+def _line(inputs: str = None, commit: str = None, unproven: bool = False) -> dict:
+    """One `made` line, its keys in the order the pointer file holds them."""
+    out = {"inputs": inputs, "commit": commit, "unproven": unproven or None}
+    return {key: value for key, value in out.items() if value}
+
+
+def made_lines(held: dict, members, head: str, tree: dict, cut: dict = None,
+               derived=(), moved=(), refuted=()) -> dict:
+    """The `made` line for each of `members`.
+
+    `tree` is each member's input digest as the tree commits it, and `cut` as this disk holds
+    it. A member in `derived` was cut from this disk and is recorded off `cut`. A member whose
+    bytes `moved` otherwise, or that has no line yet, is unproven with nothing to say what cut
+    it. The rest keep their lines, unproven where `tree` is not their inputs or `refuted`
+    names them."""
+    out = {}
+    for rel in sorted(members):
+        line = held.get(rel) if isinstance(held.get(rel), dict) else None
+        if rel in derived:
+            out[rel] = _line(cut[rel], head, cut[rel] != tree[rel])
+        elif rel in moved or not line:
+            out[rel] = _line(commit=head, unproven=True)
+        elif not line.get("inputs"):
+            out[rel] = line
+        elif line["inputs"] == tree[rel] and rel not in refuted:
+            out[rel] = _line(line["inputs"], head) if line.get("unproven") else line
+        elif line.get("unproven"):
+            out[rel] = line
+        else:
+            out[rel] = _line(line["inputs"], line.get("commit"), True)
     return out
+
+
+def made_moves(held: dict, tree: dict) -> list:
+    """The members whose `made` line moves though no bytes do: one with no line, a proven line
+    whose inputs the tree has moved off, and an unproven one the tree has come back to."""
+    out = []
+    for rel, digest in tree.items():
+        line = held.get(rel)
+        if not isinstance(line, dict):
+            out.append(rel)
+        elif line.get("inputs") and (line["inputs"] == digest) == bool(line.get("unproven")):
+            out.append(rel)
+    return sorted(out)
+
+
+def tree_digests(root: Path, graph: Graph, lines: dict, index: dict = None) -> dict:
+    """The input digest, as the tree commits it, of each declared member `lines` names."""
+    ident = committed(staged(root) if index is None else index, lines)
+    return {rel: graph.digest(rel, ident) for rel in lines if rel in graph.writers}
+
+
+def made_for(held: dict, lines: dict, head: str, tree: dict, cut: dict = None,
+             derived=(), moved=(), refuted=()) -> dict:
+    """The pointer file's `made`: a line for each declared member `lines` names, and the line
+    each undeclared one already has."""
+    out = made_lines(held, tree, head, tree, cut, derived, moved, refuted)
+    out.update({rel: line for rel, line in held.items() if rel in lines and rel not in out})
+    return dict(sorted(out.items()))
 
 
 def _members_of_targets(root: Path, labels: set) -> set:
@@ -589,36 +620,13 @@ def _members_of_targets(root: Path, labels: set) -> set:
     return out
 
 
-def _standing_debt(labels: set, build_text: str) -> set:
-    """The deferred labels whose rules `BUILD.bazel` still declares.
-
-    A RULE THE GRAPH HAS RETIRED OWES NOTHING. A deferred label persists in the pointer file so a later
-    plain `--write` cuts it; one whose rule has since left the graph has no cut that could ever
-    pay it, and carrying it on is the pointer file naming a target that is not there."""
-    declared = {f"//:{name}" for name in re.findall(r'^\s*name = "([^"]+)"', build_text, re.M)}
-    return {label for label in labels if label in declared}
-
-
-def _owed_artifact_targets(root: Path) -> list:
-    """Artifact rules changed since the source commit, plus explicitly deferred rules."""
-    held = read_pointers(root)
-    source = held.get("source", {}).get("commit", "")
-    deferred = set(held.get("unproven", {}).get("targets", ()))
-    build = root / "BUILD.bazel"
-    if deferred and build.is_file():
-        standing = _standing_debt(deferred, build.read_text())
-        for label in sorted(deferred - standing):
-            print(f"  deferred rule the graph no longer declares owes nothing: {label}")
-        deferred = standing
-    script = root / "tools" / "bazel" / "affected.py"
-    args = ([sys.executable, str(script), "--base", source, "--head", "HEAD", "--artifacts", "--manifest"]
-            if source else [sys.executable, str(script), "--all-artifacts"])
-    run = subprocess.run(args, cwd=str(root), capture_output=True, text=True)
-    if run.returncode != 0:
-        raise SystemExit(f"could not establish artifact debt:\n{run.stderr}")
-    return sorted(deferred | {
-        line for line in run.stdout.splitlines() if line.startswith("//:")
-    })
+def _owed_artifact_targets(root: Path, made: dict, tree: dict) -> list:
+    """The rules owning a member whose `made` line does not prove it against the tree."""
+    def proven(rel, digest):
+        line = made.get(rel)
+        return (isinstance(line, dict) and not line.get("unproven")
+                and line.get("inputs") == digest)
+    return _targets_for_members(root, {rel for rel, d in tree.items() if not proven(rel, d)})[0]
 
 
 def _behind(root: Path, targets: list) -> bool:
@@ -714,13 +722,17 @@ def _targets_for_members(root: Path, members: set) -> tuple:
     return sorted(targets), sorted(remaining)
 
 
+#: The pointer file's keys, in the order it holds them.
+KEYS = ("_", "release", "store", "bundle", "solids", "sidecars", "moved", "made")
+
+
 def pointers_for(root: Path, rels: list, digest: str, size: int, solid_hashes: dict = None,
-             sidecar_hashes: dict = None, record: dict = None, held: dict = None,
+             sidecar_hashes: dict = None, made: dict = None, held: dict = None,
              stamp: int = None) -> dict:
     asset = f"cad-{digest[:16]}.tar.gz"
     slug = _origin_slug(root)
     solid_hashes = solid_hashes if solid_hashes is not None else hashes(root, rels)
-    return _with_record({
+    return {
         "_": "The pointer file: main points at these bytes on the release, by hash. Written by"
              " tools/cad-artifacts/pack.py; web/scripts/fetch-cad-artifacts.mjs reads it at deploy.",
         "release": {
@@ -729,30 +741,20 @@ def pointers_for(root: Path, rels: list, digest: str, size: int, solid_hashes: d
             "url": f"https://github.com/{slug}/releases/download/{TAG}/{asset}",
         },
         "store": {"url": STORE_URL, "objects": OBJECT_PREFIX},
-        "source": {"commit": _head(root)},
         "bundle": {"sha256": digest, "bytes": size, "solids": len(rels)},
         "solids": solid_hashes,
         "sidecars": sidecar_hashes if sidecar_hashes is not None
                     else hashes(root, sidecars(root)),
         "moved": line_times(held or {}, solid_hashes, stamp if stamp is not None else int(time.time())),
-    }, record or {})
+        "made": made or None,
+    }
 
 
-def _with_record(pointers: dict, record: dict) -> dict:
-    """`pointer file` with `unproven` set to `record`, seated after the commit it qualifies.
-
-    `source.commit` describes every member on its own when the record is empty, so an empty one
-    is the field's absence rather than an empty object."""
-    out = {}
-    for key, value in pointers.items():
-        if key == "unproven":
-            continue
-        out[key] = value
-        if key == "source" and record:
-            out["unproven"] = record
-    if record and "unproven" not in out:
-        out["unproven"] = record
-    return out
+def _pointer_file(data: dict) -> dict:
+    """`data` as the pointer file holds it: the keys `KEYS` names, in that order, and each
+    member map in path order."""
+    return {key: dict(sorted(data[key].items())) if key in ("solids", "sidecars") else data[key]
+            for key in KEYS if data.get(key) is not None}
 
 
 def read_pointers(root: Path = _ROOT) -> dict:
@@ -764,7 +766,7 @@ def read_pointers(root: Path = _ROOT) -> dict:
 
 def _write_pointers(data: dict) -> None:
     POINTERS.parent.mkdir(parents=True, exist_ok=True)
-    POINTERS.write_text(json.dumps(data, indent=2, sort_keys=False) + "\n")
+    POINTERS.write_text(json.dumps(_pointer_file(data), indent=2, sort_keys=False) + "\n")
 
 
 def _declared(root: Path) -> set:
@@ -794,8 +796,10 @@ def _declared(root: Path) -> set:
     return declared
 
 
-def sidecars(root: Path) -> list:
+def sidecars(root: Path, graph: Graph = None) -> list:
     """Graph-declared scorecards served directly from the committed tree, repo-relative."""
+    if graph is not None:
+        return sorted(rel for rel in graph.writers if rel.endswith(".scorecard.json"))
     try:
         graph = json.loads((root / "tools" / "bazel" / "graph.json").read_text())
     except (OSError, ValueError):
@@ -806,6 +810,15 @@ def sidecars(root: Path) -> list:
         for path in (node.get("writes") or [])
         if str(path).endswith(".scorecard.json")
     })
+
+
+def sidecar_lines(root: Path, held: dict, graph: Graph = None) -> dict:
+    """Each scorecard's line: the hash of the one the tree holds, and the line the pointer file
+    already has for one the tree does not hold."""
+    present = [rel for rel in sidecars(root, graph) if (root / rel).is_file()]
+    here = set(present)
+    kept = {rel: digest for rel, digest in held.get("sidecars", {}).items() if rel not in here}
+    return {**kept, **hashes(root, present)}
 
 
 def sidecar_debt_targets(root: Path) -> list:
@@ -842,40 +855,45 @@ def _undeclared(root: Path, rels: list) -> list:
 def _retirement_evidence(root: Path, retired: list) -> list:
     """Retired paths with nothing to show for their retirement.
 
-    A SOURCE THAT IS GONE FROM THE TREE HAS ALREADY ANSWERED. The range below asks whether a
-    producer moved since the published cut, which a rename older than that cut cannot satisfy —
-    the commit that took the file away is behind the base, so no diff over `base..HEAD` will
-    ever hold it, and the entry can never be retired. Whether the file is there now does not
+    Each is asked of the commit its `made` line was written at: whether a producer the graph
+    named there has moved since, or is gone from the tree. A path with no line has no commit to
+    ask.
+
+    A SOURCE THAT IS GONE FROM THE TREE HAS ALREADY ANSWERED. A rename older than that commit is
+    behind it, so no diff over `commit..HEAD` holds it; whether the file is there now does not
     depend on a range at all."""
-    if not retired:
-        return []
-    source = read_pointers(root).get("source", {}).get("commit", "")
-    if not source:
-        return list(retired)
-    old = subprocess.run(
-        ["git", "-C", str(root), "show", f"{source}:tools/bazel/graph.json"],
-        capture_output=True, text=True)
-    moved = subprocess.run(
-        ["git", "-C", str(root), "diff", "--name-only", source, "HEAD"],
-        capture_output=True, text=True)
-    if old.returncode != 0 or moved.returncode != 0:
-        return list(retired)
-    try:
-        graph = json.loads(old.stdout)
-    except ValueError:
-        return list(retired)
-    changed = set(moved.stdout.splitlines())
-    unexplained = []
+    made = read_pointers(root).get("made") or {}
+    by_commit = {}
     for rel in retired:
-        producers = {gen for gen, seen in graph.items() if rel in seen.get("writes", ())}
-        if producers:
-            explained = (bool(producers & changed)
-                         or not any((root / gen).is_file() for gen in producers))
-        else:
-            explained = "tools/bazel/inventory.py" in changed
-        if not explained:
-            unexplained.append(rel)
-    return unexplained
+        line = made.get(rel)
+        by_commit.setdefault(line.get("commit", "") if isinstance(line, dict) else "",
+                             []).append(rel)
+    unexplained = list(by_commit.pop("", []))
+    for commit, rels in sorted(by_commit.items()):
+        old = subprocess.run(
+            ["git", "-C", str(root), "show", f"{commit}:tools/bazel/graph.json"],
+            capture_output=True, text=True)
+        moved = subprocess.run(
+            ["git", "-C", str(root), "diff", "--name-only", commit, "HEAD"],
+            capture_output=True, text=True)
+        try:
+            graph = json.loads(old.stdout) if old.returncode == 0 else None
+        except ValueError:
+            graph = None
+        if graph is None or moved.returncode != 0:
+            unexplained += rels
+            continue
+        changed = set(moved.stdout.splitlines())
+        for rel in rels:
+            producers = {gen for gen, seen in graph.items() if rel in seen.get("writes", ())}
+            if producers:
+                explained = (bool(producers & changed)
+                             or not any((root / gen).is_file() for gen in producers))
+            else:
+                explained = "tools/bazel/inventory.py" in changed
+            if not explained:
+                unexplained.append(rel)
+    return sorted(unexplained)
 
 
 def retired_outputs(root: Path) -> list:
@@ -1051,6 +1069,8 @@ def too_new(assets: list, now: float = None) -> set:
 
     AN ASSET THIS FUNCTION CANNOT DATE IS NEW. A sweep with no ground to say when something
     landed has no ground to delete it, and the cost of keeping one is one slot."""
+    import datetime as dt
+
     now = time.time() if now is None else now
     out = set()
     for asset in assets:
@@ -1136,6 +1156,8 @@ def room(root: Path, keep_cuts: int = CUTS_KEPT) -> dict:
 
 def retire(root: Path, keep_cuts: int = CUTS_KEPT, unreachable_only: bool = False) -> int:
     """Take the retirable assets off the release, unreachable first, and report the room won."""
+    import concurrent.futures as cf
+
     state = room(root, keep_cuts)
     going = list(state["unreachable"]) + ([] if unreachable_only else list(state["superseded"]))
     if not going:
@@ -1145,6 +1167,7 @@ def retire(root: Path, keep_cuts: int = CUTS_KEPT, unreachable_only: bool = Fals
           f"{len(state['unreachable'])} asset(s) no commit names"
           + ("" if unreachable_only
              else f", {len(state['superseded'])} outside the last {keep_cuts} cut(s)"))
+
     def drop(name: str):
         """Take one asset off. Returns the name on failure, None on success."""
         return None if _gh(root, "release", "delete-asset", TAG, name,
@@ -1238,6 +1261,8 @@ def objects_to_send(rels: list, solid_hashes: dict, known: set) -> list:
 
 def put_object(url: str, staged: Path) -> bool:
     """One gzipped member up to the store by hash; True when the store holds it afterwards."""
+    from urllib.request import Request, urlopen
+
     try:
         req = Request(url, data=staged.read_bytes(), method="PUT",
                       headers={"Content-Type": "application/gzip", "User-Agent": "pack.py"})
@@ -1251,6 +1276,8 @@ def put_object(url: str, staged: Path) -> bool:
 def objects_in_store(hashes) -> set:
     """Which of these hashes the store already holds, asked one by one; a store that does not
     answer holds nothing, and every member is sent."""
+    from urllib.request import Request, urlopen
+
     out = set()
     for digest in set(hashes):
         try:
@@ -1279,6 +1306,11 @@ def upload_objects(root: Path, rels: list, solid_hashes: dict, known: set) -> bo
     THE BUNDLE IS STILL WRITTEN AND STILL UPLOADED. A container with no solids at all reads one
     asset rather than 124, and a pointer file this does not finish is a pointer file the tarball still answers.
     """
+    import concurrent.futures as cf
+    import gzip
+    import shutil
+    import tempfile
+
     todo = objects_to_send(rels, solid_hashes, known)
     if not todo:
         print("  every member is already on the release under its own hash")
@@ -1321,6 +1353,8 @@ def upload(root: Path, bundle: Path, asset: str, digest: str, size: int) -> None
     The name carries the bundle's own hash, so a name already on the release holds these bytes
     and the upload is skipped. An upload that died partway also leaves the name taken, holding a
     truncated asset — `--clobber` is what lands on that one."""
+    import tempfile
+
     listing = _gh(root, "release", "view", TAG, "--json", "assets")
     if listing.returncode != 0:
         made = _gh(root, "release", "create", TAG,
@@ -1348,23 +1382,61 @@ def upload(root: Path, bundle: Path, asset: str, digest: str, size: int) -> None
     print(f"  uploaded {asset}")
 
 
-def cut_whole_bundle(held: dict, rels: list, now: dict, sidecar_now: dict,
-                     unproven_now: dict) -> int:
+def made_here(root: Path, held: dict, graph: Graph, index: dict, head: str, lines: dict,
+              walked: dict, moved: set, grafted: set = frozenset()) -> dict:
+    """The `made` a held publish writes for `lines`.
+
+    A member of `moved` cut after every input it reads is recorded off the ids of those inputs
+    on this disk, with `walked` holding each member's hash as this disk held it before anything
+    was adopted. The rest of `moved`, and whatever the enclosure graft wrote, has nothing to say
+    what cut it."""
+    tree = tree_digests(root, graph, lines, index)
+    derived = {rel for rel in set(moved) & set(tree)
+               if rel not in grafted and cut_after_inputs(root, rel, graph)}
+    ident = on_disk(root, index, lines, walked, graph)
+    cut = {rel: graph.digest(rel, ident) for rel in derived}
+    return made_for(held.get("made") or {}, lines, head, tree, cut, derived, set(moved) - derived)
+
+
+def _unproven(made: dict) -> str:
+    count = sum(1 for line in made.values() if line.get("unproven"))
+    return f" — {count} of {len(made)} member(s) unproven" if count else ""
+
+
+def _bundle_on_release(held: dict, rels: list) -> None:
+    """The bundle the pointer file names, put back on the release where the release does not
+    hold it at its size and digest."""
+    import tempfile
+
+    release, bundle = held.get("release", {}), held.get("bundle", {})
+    if _release_asset_matches(_ROOT, release.get("asset", ""), bundle.get("sha256", ""),
+                              bundle.get("bytes", -1)):
+        return
+    with tempfile.TemporaryDirectory() as d:
+        path = Path(d) / "bundle.tar.gz"
+        digest = build(_ROOT, rels, path)
+        if digest != bundle.get("sha256"):
+            raise SystemExit("equal member hashes built a different bundle digest")
+        upload(_ROOT, path, release["asset"], digest, path.stat().st_size)
+
+
+def cut_whole_bundle(held: dict, rels: list, now: dict, sidecar_now: dict, made: dict) -> int:
     """The bundle a held publish left behind, cut whole and pointed at.
 
     The members it lacked are on the release by their own hashes, which is what a reader
     fetches by; this is the one asset that answers a pointer file without `objects`, made current
-    by the reconciler's plain `--write`. The members and
-    their hashes are the pointer file's own; only the bundle and the source move."""
+    by the reconciler's plain `--write`. The members and their hashes are the pointer file's own;
+    only the bundle and the `made` lines move."""
+    import tempfile
+
     release = held.get("release", {})
     with tempfile.TemporaryDirectory() as d:
         path = Path(d) / "bundle.tar.gz"
         digest = build(_ROOT, rels, path)
         size = path.stat().st_size
-        data = pointers_for(_ROOT, rels, digest, size, now, sidecar_now, unproven_now, held=held)
+        data = pointers_for(_ROOT, rels, digest, size, now, sidecar_now, made, held=held)
         if release.get("objects"):
             data["release"]["objects"] = release["objects"]
-        data["source"] = {"commit": _head(_ROOT)}
         make_room(_ROOT, 1)
         upload(_ROOT, path, data["release"]["asset"], digest, size)
     _write_pointers(data)
@@ -1373,13 +1445,135 @@ def cut_whole_bundle(held: dict, rels: list, now: dict, sidecar_now: dict,
     return 0
 
 
+def cut_bundle(held: dict, rels: list, now: dict, sidecar_now: dict, made: dict,
+               known: set) -> int:
+    """A whole bundle of `rels` up on the release with every member it lacks, and pointed at."""
+    import tempfile
+
+    total = sum((_ROOT / r).stat().st_size for r in rels)
+    with tempfile.TemporaryDirectory() as d:
+        bundle = Path(d) / "bundle.tar.gz"
+        digest = build(_ROOT, rels, bundle)
+        size = bundle.stat().st_size
+        data = pointers_for(_ROOT, rels, digest, size, now, sidecar_now, made, held=held)
+        print(f"bundle {data['release']['asset']} — {size / 1e6:.1f} MB "
+              f"({100 * size / total:.0f}% of the tree's bytes)")
+        # THIS CUT'S OWN BUNDLE PLUS EVERY MEMBER THAT MOVED, asked for before a byte goes up.
+        # AND ASKED AGAIN AFTERWARDS, because retiring is what winning the room means. A member
+        # this pointer file does not name can stand on the release under an older pointer file's window and go
+        # in the same sweep — `known` was read before that and would have this run skip an
+        # object it no longer holds, leaving `objects` claiming a set the release is short of.
+        if make_room(_ROOT, 1 + sum(1 for r in rels if now[r] not in known)):
+            known = objects_on_release(_ROOT)
+        upload(_ROOT, bundle, data["release"]["asset"], digest, size)
+        complete = upload_objects(_ROOT, rels, now, known)
+
+    # `objects` says EVERY member of this pointer file is on the release under its own hash, so a reader
+    # may fetch what it is missing rather than the whole bundle. One upload that did not land
+    # leaves it off, and the pointer file is read from the bundle the way a pointer file without it is — the
+    # claim is about the whole set, so a partial one is not a smaller claim but a false one.
+    if complete:
+        data["release"]["objects"] = OBJECT_PREFIX
+
+    _write_pointers(data)
+    print(f"pointed at from {POINTERS.relative_to(_ROOT)}{_unproven(made)}")
+    return 0
+
+
+def publish_held(grafted: set) -> int:
+    """`--write --publish-held`: what this machine cut since main's pointers moved goes up on its
+    own hash, and each member's `made` line moves with what moved. Nothing here asks Bazel.
+
+    WHAT A HELD PUBLISH MOVES IS WHAT THIS MACHINE CUT, and the rest of the file is main's. A
+    copy older than its line is taken from the release before anything else is decided, so the
+    lines describe a disk that holds main's bytes for every member this machine did not cut."""
+    held = read_pointers()
+    graph = Graph.load(_ROOT)
+    index = staged(_ROOT)
+    head = _head(_ROOT)
+    rels = solids(_ROOT)
+    now = hashes(_ROOT, rels)
+    sidecar_now = sidecar_lines(_ROOT, held, graph)
+    walked = {**now, **sidecar_now}
+
+    pinned = list(rels)
+    if held.get("solids"):
+        mtimes = {rel: int((_ROOT / rel).stat().st_mtime) for rel in rels}
+        built, fresh, stale, absent = held_publish_plan(held, rels, now, mtimes)
+        if stale:
+            print(f"{len(stale)} member(s) on this disk are older than main's pointers; taking main's bytes")
+            for rel in adopt(_ROOT, held, stale):
+                now[rel] = held["solids"][rel]
+        if absent:
+            print(f"{len(absent)} member(s) main points at are not on this disk; their lines stand")
+        pinned = built + fresh
+        if pinned:
+            print(f"{len(built)} member(s) cut here since main's pointers moved and {len(fresh)} new; "
+                  "those lines move")
+    held_sidecars = held.get("sidecars", {})
+    side_moved = [rel for rel, digest in sidecar_now.items() if held_sidecars.get(rel) != digest]
+    lines = {**held.get("solids", {}), **{rel: now[rel] for rel in pinned}}
+    moved = set(pinned) | set(side_moved)
+    made = made_here(_ROOT, held, graph, index, head, {**lines, **sidecar_now}, walked, moved,
+                     grafted)
+
+    if not pinned:
+        held_made = held.get("made") or {}
+        shifted = sum(1 for rel in set(made) | set(held_made) if made.get(rel) != held_made.get(rel))
+        if not side_moved and not shifted:
+            print("no unpublished bytes or `made` lines are held")
+            return 0
+        held["sidecars"], held["made"] = sidecar_now, made
+        _write_pointers(held)
+        print(f"{len(side_moved)} scorecard(s) and {shifted} `made` line(s) moved, and no member's "
+              f"bytes{_unproven(made)}")
+        return 0
+
+    known = objects_on_release(_ROOT)
+
+    # A HELD PUBLISH PUTS UP WHAT MOVED AND NOTHING ELSE. Every member of a pointer file is on the
+    # release under its own hash, and that is what `fetch-cad-artifacts.mjs` reads by
+    # (`release.objects`); the bundle is one asset holding all of them for a pointer file without that
+    # lane. Tarring and uploading it costs the whole tree — 173 MB and most of the minute a
+    # publish took — to move one member the site never reads from it. So the post-commit path
+    # sends the objects that moved, keeps the bundle the pointer file already names and says so with
+    # `bundle.behind`; the reconciler's plain `--write` cuts a whole one. A held
+    # publish with no bundle to keep, or one whose objects did not all land, cuts the bundle
+    # here, so a pointer file always names an asset that answers for it.
+    prior_bundle = held.get("bundle", {})
+    if prior_bundle.get("sha256"):
+        known |= objects_in_store(now[r] for r in pinned)
+        if make_room(_ROOT, sum(1 for r in pinned if now[r] not in known)):
+            known = objects_on_release(_ROOT) | objects_in_store(now[r] for r in pinned)
+        if upload_objects(_ROOT, pinned, now, known):
+            data = pointers_for(_ROOT, sorted(lines), prior_bundle["sha256"],
+                                prior_bundle.get("bytes", 0), lines, sidecar_now, made, held=held)
+            data["bundle"] = {**prior_bundle, "behind": True}
+            data["release"]["objects"] = OBJECT_PREFIX
+            _write_pointers(data)
+            print(f"{len(pinned)} member(s) up on their own hash; "
+                  f"{data['release']['asset']} stays behind for the reconciler")
+            print(f"pointed at from {POINTERS.relative_to(_ROOT)}{_unproven(made)}")
+            return 0
+        print("  not every object landed; cutting the bundle so this pointer file reads whole")
+        known = objects_on_release(_ROOT)
+    whole = {**now, **sidecar_now}
+    return cut_bundle(held, rels, now, sidecar_now,
+                      made_here(_ROOT, held, graph, index, head, whole, walked, moved, grafted),
+                      known)
+
+
 def main(argv) -> int:
+    import argparse
+
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("mode", nargs="?", choices=["selftest"])
     ap.add_argument("--write", action="store_true", help="build, upload and move the pointer file")
     ap.add_argument("--publish-held", action="store_true",
                     help="with --write, publish bytes already on disk without cutting their "
                          "producer rules")
+    ap.add_argument("--grafted", action="append", default=[], metavar="PATH",
+                    help="with --publish-held, a member the enclosure graft wrote")
     ap.add_argument("--check", action="store_true", help="1 if the pointer file does not name this tree")
     ap.add_argument("--prune", action="store_true",
                     help="remove pointed-at members no longer declared by the build graph")
@@ -1397,6 +1591,8 @@ def main(argv) -> int:
 
     if args.publish_held and not args.write:
         ap.error("--publish-held is only valid with --write")
+    if args.grafted and not args.publish_held:
+        ap.error("--grafted is only valid with --publish-held")
     if args.mode == "selftest":
         return selftest()
     if args.room:
@@ -1423,25 +1619,19 @@ def main(argv) -> int:
         return prune(_ROOT, args.allow_retired)
     if args.allow_retired:
         ap.error("--allow-retired is only valid with --prune")
+    if args.publish_held:
+        return publish_held(set(args.grafted))
 
-    if args.write:
-        reached, unbounded, dirty = _dirty_artifact_reach(_ROOT)
-        quarantined, unheld = set(reached), set()
-        owed = _owed_artifact_targets(_ROOT)
-    else:
-        reached, unbounded, dirty = [], [], []
-        quarantined, unheld = set(), set()
-        owed = []
-
+    graph = Graph.load(_ROOT)
     rels = solids(_ROOT)
     total = sum((_ROOT / r).stat().st_size for r in rels)
     print(f"{len(rels)} generated solid(s), {total / 1e6:.1f} MB in the tree")
 
     # A SCORECARD THE GRAPH DECLARES AND THE TREE DOES NOT HOLD IS NOT PINNABLE, and that is the
-    # whole of what follows from it. It leaves this pass and the rest are pointed at around it.
-    sidecar_rels = [rel for rel in sidecars(_ROOT) if (_ROOT / rel).is_file()]
-    absent_sidecars = sorted(set(sidecars(_ROOT)) - set(sidecar_rels))
-    for rel in absent_sidecars:
+    # whole of what follows from it. It keeps the line it has and the rest are pointed at around it.
+    declared_sidecars = sidecars(_ROOT, graph)
+    sidecar_rels = [rel for rel in declared_sidecars if (_ROOT / rel).is_file()]
+    for rel in sorted(set(declared_sidecars) - set(sidecar_rels)):
         print(f"  no scorecard in the tree for a rule that declares one: {rel}")
 
     loose, missing = _graph_gaps(_ROOT, rels)
@@ -1456,107 +1646,58 @@ def main(argv) -> int:
 
     held = read_pointers()
     now = hashes(_ROOT, rels)
-    sidecar_now = hashes(_ROOT, sidecar_rels)
 
     # AN EMPTY SOLID IS WHAT THIS TREE HOLDS FOR THAT PART, so it ships and the record names it.
     # A part that renders as nothing is the state of the work, told on the site rather than here.
-    hollow = barren(_ROOT, now)
-    for line in hollow:
+    for line in barren(_ROOT, now):
         print(f"  {line}")
 
     # Retirement takes a public thing away, which `--prune` does deliberately and this does not.
     # A scorecard whose producer is gone keeps the pointer it has until that runs.
-    retired_sidecars = sorted(set(held.get("sidecars", {})) - set(sidecar_rels))
-    keep_pointed = {rel: held["sidecars"][rel] for rel in retired_sidecars}
-    if keep_pointed:
-        print(f"  {len(keep_pointed)} scorecard(s) hold their point at; --prune retires one")
-    sidecar_now = {**keep_pointed, **sidecar_now}
-    changed_members = {rel for rel, digest in now.items()
-                       if held.get("solids", {}).get(rel) != digest}
-    changed_sidecars = {rel for rel, digest in sidecar_now.items()
-                        if held.get("sidecars", {}).get(rel) != digest}
-    changed_targets, unowned = _targets_for_members(
-        _ROOT, changed_members | changed_sidecars)
-    deferred = set()
+    kept = set(held.get("sidecars", {})) - set(sidecar_rels)
+    if kept:
+        print(f"  {len(kept)} scorecard(s) hold their point at; --prune retires one")
+    sidecar_now = sidecar_lines(_ROOT, held, graph)
+    made = held.get("made") or {}
     if args.write:
-        target_debt = set(owed) | set(changed_targets)
-        if args.publish_held:
-            # THE POST-COMMIT PATH PUBLISHES THE CUT ALREADY STANDING ON THIS MACHINE. Mapping a
-            # grafted assembly payload back to its canonical producer is still useful provenance,
-            # but asking Bazel for that producer here puts the whole motion scorecard back in the
-            # visual-release path. Persist the labels instead; plain `--write` owes them next time.
-            deferred = target_debt | quarantined
-            quarantined |= deferred
-            would_not_cut, unheld = [], set()
-            if deferred:
-                print(f"publishing held bytes; {len(deferred)} producer target(s) stay owed")
-        else:
-            # A rule an uncommitted edit reaches has nothing at HEAD to be cut against, and the
-            # record is what says so; the rest are cut and carried here.
-            would_not_cut, unheld = carry_the_cut(
-                _ROOT, sorted(target_debt - quarantined))
-            quarantined |= set(would_not_cut)
+        index, head = staged(_ROOT), _head(_ROOT)
+        reached, dirty = _dirty_artifact_reach(_ROOT)
+        was = {**held.get("solids", {}), **held.get("sidecars", {})}
+        bytes_moved = {rel for rel, digest in {**now, **sidecar_now}.items()
+                       if was.get(rel) != digest}
+        tree = tree_digests(_ROOT, graph, {**now, **sidecar_now}, index)
+        debt = (set(_owed_artifact_targets(_ROOT, made, tree))
+                | set(_targets_for_members(_ROOT, bytes_moved)[0]))
+        # A rule an uncommitted edit reaches has nothing at HEAD to be cut against, and the
+        # record is what says so; the rest are cut and carried here.
+        would_not_cut, unheld = carry_the_cut(_ROOT, sorted(debt - set(reached)))
+        carried = debt - set(reached) - set(would_not_cut)
         # The carry writes bazel-bin into the tree, so the bytes this points at are read after it.
         rels = solids(_ROOT)
         now = hashes(_ROOT, rels)
-        sidecar_now = hashes(_ROOT, sidecar_rels)
-
-    # WHAT A HELD PUBLISH MOVES IS WHAT THIS MACHINE CUT, and the rest of the file is main's.
-    # A copy older than its line is taken from the release before anything else is decided, so
-    # `now` describes a disk that holds main's bytes for every member this machine did not cut.
-    pinned_rels, absent = [], []
-    if args.write and args.publish_held and held.get("solids"):
-        mtimes = {rel: int((_ROOT / rel).stat().st_mtime) for rel in rels}
-        built, fresh, stale, absent = held_publish_plan(held, rels, now, mtimes)
-        if stale:
-            print(f"{len(stale)} member(s) on this disk are older than main's pointers; taking main's bytes")
-            for rel in adopt(_ROOT, held, stale):
-                now[rel] = held["solids"][rel]
-        if absent:
-            print(f"{len(absent)} member(s) main points at are not on this disk; their lines stand")
-        pinned_rels = built + fresh
-        if pinned_rels:
-            print(f"{len(built)} member(s) cut here since main's pointers moved and {len(fresh)} new; "
-                  "those lines move")
-
-    # Three ways a member ends up outside `source.commit`, and one record for all of them: its
-    # rule is reached by an uncommitted path, its rule would not cut, or no rule claims it at
-    # all. A solid on this disk that nothing produces is still a solid on this disk.
-    unproven_members = (set(now) if unbounded else (
-        _members_of_targets(_ROOT, quarantined) | set(unowned) | set(loose) | unheld
-        | {line.split(" ", 1)[0] for line in hollow}) & set(now))
-    unheld_targets = set(_targets_for_members(_ROOT, set(unheld))[0])
-    unproven_targets = quarantined | unheld_targets
-    unproven_now = (unproven(dirty, unproven_members, unproven_targets)
-                    if args.write else {})
-    if unproven_now:
-        print(f"{len(unproven_members)} of {len(now)} member(s) are outside "
-              f"{_head(_ROOT)[:12]}, and the pointer file records them")
-        for path in dirty[:8]:
-            print(f"  uncommitted: {path}")
-    same_solids = (not pinned_rels) if (args.write and args.publish_held and held.get("solids")) \
-        else held.get("solids") == now
+        sidecar_now = sidecar_lines(_ROOT, held, graph)
+        lines = {**now, **sidecar_now}
+        tree = tree_digests(_ROOT, graph, lines, index)
+        # A MEMBER THIS TREE HOLDS THE CUT OF IS WHAT ITS INPUTS ON THIS DISK MAKE. One whose
+        # bytes are not that cut's, or that reads one, is refuted, whatever its line said.
+        derived = {rel for rel in _members_of_targets(_ROOT, carried) & set(tree)
+                   if rel not in unheld and not graph.inputs(rel) & unheld}
+        ident = on_disk(_ROOT, index, lines, lines, graph)
+        bytes_moved = {rel for rel, digest in lines.items() if was.get(rel) != digest}
+        made = made_for(made, lines, head, tree, {rel: graph.digest(rel, ident) for rel in derived},
+                        derived, bytes_moved - derived, unheld)
+        if _unproven(made):
+            print(f"{head[:12]}:{_unproven(made)}")
+            for path in dirty[:8]:
+                print(f"  uncommitted: {path}")
+    same_solids = held.get("solids") == now
     same_sidecars = held.get("sidecars") == sidecar_now
     if same_solids and same_sidecars:
-        # A SOURCE CHANGE WITH NO MATERIALIZED BYTES IS THE RECONCILER'S WORK. Advancing the
-        # source or adding a debt-only pointer file here makes the interactive path hide that source
-        # range from the reconciler without putting anything new in front of the user.
-        if args.publish_held:
-            print("no unpublished bytes are held; leaving producer debt to reconciliation")
-            return 0
         if args.write:
             release = held.get("release", {})
-            bundle = held.get("bundle", {})
-            if bundle.get("behind"):
-                return cut_whole_bundle(held, rels, now, sidecar_now, unproven_now)
-            if not _release_asset_matches(_ROOT, release.get("asset", ""),
-                                          bundle.get("sha256", ""), bundle.get("bytes", -1)):
-                with tempfile.TemporaryDirectory() as d:
-                    path = Path(d) / "bundle.tar.gz"
-                    digest = build(_ROOT, rels, path)
-                    if digest != bundle.get("sha256"):
-                        raise SystemExit("equal member hashes built a different bundle digest")
-                    upload(_ROOT, path, release["asset"], digest, path.stat().st_size)
+            if held.get("bundle", {}).get("behind"):
+                return cut_whole_bundle(held, rels, now, sidecar_now, made)
+            _bundle_on_release(held, rels)
             # AND THE OBJECT PATH, WHICH NOTHING ELSE PUTS BACK. `objects` is written only where
             # a cut moves geometry, so a pointer file that lost it cannot regain it while the tree
             # stands still — and losing it takes one refused upload, which a full release gives
@@ -1573,13 +1714,11 @@ def main(argv) -> int:
                 release["objects"] = OBJECT_PREFIX
             else:
                 release.pop("objects", None)
-            if (held.get("source", {}).get("commit") != _head(_ROOT)
-                    or held.get("unproven", {}) != unproven_now
-                    or release.get("objects") != objects_was):
-                held["source"] = {"commit": _head(_ROOT)}
-                _write_pointers(_with_record(held, unproven_now))
-                print(f"pointer file names this tree — {held['release']['asset']}; source advanced"
-                      + (f", {len(unproven_now['members'])} unproven" if unproven_now else ""))
+            if (held.get("made") or {}) != made or release.get("objects") != objects_was:
+                held["made"] = made
+                _write_pointers(held)
+                print(f"pointer file names this tree — {held['release']['asset']}; its records "
+                      f"moved{_unproven(made)}")
                 return 0
         print(f"pointer file names this tree — {held['release']['asset']}")
         return 0
@@ -1620,104 +1759,24 @@ def main(argv) -> int:
 
     if same_solids:
         release = held.get("release", {})
-        bundle = held.get("bundle", {})
-        if bundle.get("behind") and not args.publish_held:
-            return cut_whole_bundle(held, rels, now, sidecar_now, unproven_now)
-        if not _release_asset_matches(_ROOT, release.get("asset", ""),
-                                      bundle.get("sha256", ""), bundle.get("bytes", -1)):
-            with tempfile.TemporaryDirectory() as d:
-                path = Path(d) / "bundle.tar.gz"
-                digest = build(_ROOT, rels, path)
-                if digest != bundle.get("sha256"):
-                    raise SystemExit("equal member hashes built a different bundle digest")
-                upload(_ROOT, path, release["asset"], digest, path.stat().st_size)
-        source = publication_source(held, _head(_ROOT), args.publish_held)
-        if source:
-            held["source"] = source
-        else:
-            held.pop("source", None)
-        held["sidecars"] = sidecar_now
-        _write_pointers(_with_record(held, unproven_now))
+        if held.get("bundle", {}).get("behind"):
+            return cut_whole_bundle(held, rels, now, sidecar_now, made)
+        _bundle_on_release(held, rels)
+        held["sidecars"], held["made"] = sidecar_now, made
+        _write_pointers(held)
         print(f"pointed at current scorecards without rebuilding {release['asset']}")
         return 0
 
-    known = objects_on_release(_ROOT)
-
-    # A HELD PUBLISH PUTS UP WHAT MOVED AND NOTHING ELSE. Every member of a pointer file is on the
-    # release under its own hash, and that is what `fetch-cad-artifacts.mjs` reads by
-    # (`release.objects`); the bundle is one asset holding all of them for a pointer file without that
-    # lane. Tarring and uploading it costs the whole tree — 173 MB and most of the minute a
-    # publish took — to move one member the site never reads from it. So the post-commit path
-    # sends the objects that moved, keeps the bundle the pointer file already names and says so with
-    # `bundle.behind`; the reconciler's plain `--write` cuts a whole one. A held
-    # publish with no bundle to keep, or one whose objects did not all land, takes the road
-    # below and cuts the bundle here, so a pointer file always names an asset that answers for it.
-    prior_bundle = held.get("bundle", {})
-    if args.publish_held and prior_bundle.get("sha256"):
-        lines = {**held.get("solids", {}), **{rel: now[rel] for rel in pinned_rels}}
-        known |= objects_in_store(now[r] for r in pinned_rels)
-        if make_room(_ROOT, sum(1 for r in pinned_rels if now[r] not in known)):
-            known = objects_on_release(_ROOT) | objects_in_store(now[r] for r in pinned_rels)
-        if upload_objects(_ROOT, pinned_rels, now, known):
-            data = pointers_for(_ROOT, sorted(lines), prior_bundle["sha256"], prior_bundle.get("bytes", 0),
-                            lines, sidecar_now, unproven_now, held=held)
-            data["bundle"] = {**prior_bundle, "behind": True}
-            data["release"]["objects"] = OBJECT_PREFIX
-            source = publication_source(held, _head(_ROOT), args.publish_held)
-            if source:
-                data["source"] = source
-            else:
-                data.pop("source", None)
-            _write_pointers(data)
-            print(f"{len(pinned_rels)} member(s) up on their own hash; "
-                  f"{data['release']['asset']} stays behind for the reconciler")
-            print(f"pointed at from {POINTERS.relative_to(_ROOT)}"
-                  + (f" — {len(unproven_now['members'])} member(s) recorded unproven"
-                     if unproven_now else ""))
-            return 0
-        print("  not every object landed; cutting the bundle so this pointer file reads whole")
-        known = objects_on_release(_ROOT)
-
-    with tempfile.TemporaryDirectory() as d:
-        bundle = Path(d) / "bundle.tar.gz"
-        digest = build(_ROOT, rels, bundle)
-        size = bundle.stat().st_size
-        data = pointers_for(_ROOT, rels, digest, size, now, sidecar_now, unproven_now, held=held)
-        # Keep the last reconciled source as the affected-target base. The held member hashes
-        # describe what is visible now; `unproven.targets` names what must still be cut, and a
-        # plain publication advances this field once those bytes have been built and carried.
-        source = publication_source(held, _head(_ROOT), args.publish_held)
-        if source:
-            data["source"] = source
-        else:
-            data.pop("source", None)
-        print(f"bundle {data['release']['asset']} — {size / 1e6:.1f} MB "
-              f"({100 * size / total:.0f}% of the tree's bytes)")
-        # THIS CUT'S OWN BUNDLE PLUS EVERY MEMBER THAT MOVED, asked for before a byte goes up.
-        # AND ASKED AGAIN AFTERWARDS, because retiring is what winning the room means. A member
-        # this pointer file does not name can stand on the release under an older pointer file's window and go
-        # in the same sweep — `known` was read before that and would have this run skip an
-        # object it no longer holds, leaving `objects` claiming a set the release is short of.
-        if make_room(_ROOT, 1 + sum(1 for r in rels if now[r] not in known)):
-            known = objects_on_release(_ROOT)
-        upload(_ROOT, bundle, data["release"]["asset"], digest, size)
-        complete = upload_objects(_ROOT, rels, now, known)
-
-    # `objects` says EVERY member of this pointer file is on the release under its own hash, so a reader
-    # may fetch what it is missing rather than the whole bundle. One upload that did not land
-    # leaves it off, and the pointer file is read from the bundle the way a pointer file without it is — the
-    # claim is about the whole set, so a partial one is not a smaller claim but a false one.
-    if complete:
-        data["release"]["objects"] = OBJECT_PREFIX
-
-    _write_pointers(data)
-    print(f"pointed at from {POINTERS.relative_to(_ROOT)}"
-          + (f" — {len(unproven_now['members'])} member(s) recorded unproven"
-             if unproven_now else ""))
-    return 0
+    return cut_bundle(held, rels, now, sidecar_now, made, objects_on_release(_ROOT))
 
 
 def selftest() -> int:
+    import datetime as dt
+    import gzip
+    import shutil
+    import tarfile
+    import tempfile
+
     holds = 0
 
     def hold(label, got, want):
@@ -1791,6 +1850,10 @@ def selftest() -> int:
         hold("retired solids and scorecards leave the pointer file together",
              retired_outputs(root), ["hardware/retired/old.scorecard.json",
                                      "hardware/retired/old.step"])
+        hold("a scorecard the tree does not hold keeps the line it has",
+             sidecar_lines(root, read_pointers(root)),
+             {"hardware/retired/old.scorecard.json": "gone",
+              "hardware/printed-parts/cap/cap.scorecard.json": _sha256(scorecard)})
 
         hold("a pointer file names its bundle and one asset per member and scorecard sha",
              sorted(pointer_assets({"solids": {"a.step": "aa"},
@@ -1829,51 +1892,6 @@ def selftest() -> int:
         hold("a cut whose pointer file is on disk and in no commit is neither unreachable nor stale",
              swept, (["obj-dead.gz"], []))
 
-        # A publication under way beside somebody's open file. Both members still ship;
-        # what the record adds is which uncommitted paths reach them.
-        note = ("source.commit does not describe these members: an uncommitted path below"
-                " reaches the rule that cuts one, its rule would not cut, or an interactive"
-                " publication explicitly deferred that rule.")
-        hold("the record names the edits and the members they reach",
-             unproven(["hardware/manifold-layout/enclosure_assembly.py"],
-                      {"b.step", "a.step"}),
-             {"_": note,
-              "paths": ["hardware/manifold-layout/enclosure_assembly.py"],
-              "members": ["a.step", "b.step"]})
-        hold("a member of a rule that would not cut is recorded with no path to name",
-             unproven([], {"a.step"}),
-             {"_": note, "paths": [], "members": ["a.step"]})
-        hold("an interactive cut persists the exact producer debt",
-             unproven([], {"a.step"}, {"//:enclosure-assembly", "//:enclosure"}),
-             {"_": note, "paths": [], "members": ["a.step"],
-              "targets": ["//:enclosure", "//:enclosure-assembly"]})
-        hold("a deferred rule the graph has retired owes nothing",
-             _standing_debt({"//:enclosure", "//:ceiling-panel"},
-                            'genrule(\n    name = "enclosure",\n)\n'),
-             {"//:enclosure"})
-        hold("a deferred rule remains debt even when it owns no bundled member",
-             unproven([], set(), {"//:scene-only"}),
-             {"_": note, "paths": [], "members": [], "targets": ["//:scene-only"]})
-        held_cut = {"source": {"commit": "old"},
-                    "unproven": unproven([], {"a.step"}, {"//:enclosure"}),
-                    "solids": {"a.step": "sha"}}
-        hold("a held publication preserves the last reconciled source",
-             publication_source(held_cut, "new", True), {"commit": "old"})
-        reconciled = dict(held_cut)
-        reconciled["source"] = publication_source(held_cut, "new", False)
-        hold("an ordinary reconciliation advances source and clears persisted targets",
-             _with_record(reconciled, {}),
-             {"source": {"commit": "new"}, "solids": {"a.step": "sha"}})
-        hold("held bytes without prior source proof do not acquire it",
-             publication_source({}, "new", True), None)
-        hold("and a tree that cut everything at HEAD writes no record at all",
-             unproven([], set()), {})
-        hold("the record is seated on the commit it qualifies",
-             list(_with_record({"source": {}, "solids": {}}, {"paths": [], "members": []})),
-             ["source", "unproven", "solids"])
-        hold("and is the field's absence when there is nothing to record",
-             _with_record({"source": {}, "unproven": {"paths": []}, "solids": {}}, {}),
-             {"source": {}, "solids": {}})
         shutil.rmtree(hw / "printed-parts" / "enclosure")
 
         a, b = root / "a.tar.gz", root / "b.tar.gz"
@@ -1969,8 +1987,110 @@ def selftest() -> int:
         hold("an object that does not hash to its line is left as it was",
              (root / "hardware" / "x.step").read_text(), "older")
 
-    print(f"pack selftest {holds}/45")
-    return 0 if holds == 45 else 1
+    # WHAT EACH MEMBER WAS MADE FROM. The cap reads its source; the assembly reads the cap and a
+    # handoff nothing names, which reads the assembly's source.
+    with tempfile.TemporaryDirectory() as d:
+        root = Path(d)
+        sources = ("src/cap.py", "src/asm.py", "gen/cap.py", "gen/handoff.py", "gen/asm.py")
+        for rel in sources + ("hw/cap.step", "hw/asm.step"):
+            (root / rel).parent.mkdir(parents=True, exist_ok=True)
+            (root / rel).write_text(rel)
+        g = Graph({
+            "gen/cap.py": {"reads": ["src/cap.py"], "writes": ["hw/cap.step"]},
+            "gen/handoff.py": {"reads": ["src/asm.py"], "writes": ["hw/handoff.mesh"]},
+            "gen/asm.py": {"reads": ["hw/cap.step", "hw/handoff.mesh"], "writes": ["hw/asm.step"]},
+        })
+        index = {rel: blob_id(root / rel) for rel in sources}
+        lines = {"hw/cap.step": "c1", "hw/asm.step": "a1"}
+        tree = tree_digests(root, g, lines, index)
+        hold("a member's inputs move with a member it reads",
+             tree_digests(root, g, {**lines, "hw/cap.step": "c2"}, index)["hw/asm.step"]
+             != tree["hw/asm.step"], True)
+        hold("…and not with one it does not",
+             tree_digests(root, g, {**lines, "hw/asm.step": "a2"}, index)["hw/cap.step"],
+             tree["hw/cap.step"])
+        hold("a handoff nothing names counts as its writer's inputs",
+             tree_digests(root, g, lines, {**index, "src/asm.py": "edited"})["hw/asm.step"]
+             != tree["hw/asm.step"], True)
+
+        def at(rel, s):
+            os.utime(root / rel, (1_700_000_000 + s, 1_700_000_000 + s))
+
+        for rel in sources:
+            at(rel, 0)
+        at("hw/cap.step", 10)
+        at("hw/asm.step", 20)
+        hold("a member written after every input it reads was cut from them",
+             cut_after_inputs(root, "hw/cap.step", g), True)
+        at("src/cap.py", 11)
+        hold("an input edited after the member was not what its cut read",
+             cut_after_inputs(root, "hw/cap.step", g), False)
+        at("src/cap.py", 0)
+        at("hw/cap.step", 50)
+        hold("a part copied within a minute after the assembly reading it is what the cut read",
+             cut_after_inputs(root, "hw/asm.step", g), True)
+        at("hw/cap.step", 140)
+        hold("…and one copied later than that is not",
+             cut_after_inputs(root, "hw/asm.step", g), False)
+        at("hw/cap.step", 10)
+
+        head = "h2"
+        proven = {"inputs": "t1", "commit": "h1"}
+        hold("a proven line stands while the tree holds its inputs",
+             made_lines({"m": proven}, ["m"], head, {"m": "t1"}), {"m": proven})
+        hold("an input the tree moves off leaves it unproven at the commit it was made",
+             made_lines({"m": proven}, ["m"], head, {"m": "t2"}),
+             {"m": {"inputs": "t1", "commit": "h1", "unproven": True}})
+        hold("…and the tree coming back to those inputs proves it here",
+             made_lines({"m": {**proven, "unproven": True}}, ["m"], head, {"m": "t1"}),
+             {"m": {"inputs": "t1", "commit": head}})
+        hold("a member cut on this disk is recorded off what its cut read",
+             made_lines({}, ["m"], head, {"m": "t1"}, {"m": "w1"}, derived={"m"}),
+             {"m": {"inputs": "w1", "commit": head, "unproven": True}})
+        hold("…and is proven where the tree holds that",
+             made_lines({}, ["m"], head, {"m": "t1"}, {"m": "t1"}, derived={"m"}),
+             {"m": {"inputs": "t1", "commit": head}})
+        hold("bytes that moved uncut, and a member with no line, have nothing to say what cut them",
+             made_lines({"m": proven}, ["m", "n"], head, {"m": "t1", "n": "t9"}, moved={"m"}),
+             {"m": {"commit": head, "unproven": True}, "n": {"commit": head, "unproven": True}})
+        hold("that line stands until its bytes move",
+             made_lines({"m": {"commit": "h1", "unproven": True}}, ["m"], head, {"m": "t1"}),
+             {"m": {"commit": "h1", "unproven": True}})
+        hold("a cut that does not reproduce the bytes leaves a proven line unproven",
+             made_lines({"m": proven}, ["m"], head, {"m": "t1"}, refuted={"m"}),
+             {"m": {"inputs": "t1", "commit": "h1", "unproven": True}})
+        hold("a line moves with no bytes for no line, inputs moved off, and inputs come back",
+             made_moves({"a": proven, "b": proven, "c": {**proven, "unproven": True},
+                         "d": {**proven, "unproven": True}, "e": {"commit": "h1", "unproven": True}},
+                        {"a": "t1", "b": "t2", "c": "t1", "d": "t2", "e": "t3", "f": "t1"}),
+             ["b", "c", "f"])
+        hold("an undeclared member keeps its line, and one the pointer file drops leaves `made`",
+             made_for({"u": proven, "gone": proven}, {"u": "x", "m": "y"}, head, {"m": "t1"}),
+             {"m": {"commit": head, "unproven": True}, "u": proven})
+
+        walked = {"hw/cap.step": "c1", "hw/asm.step": "a1"}
+        here = made_here(root, {}, g, index, head, lines, walked, {"hw/cap.step"})
+        hold("a held publish proves a member cut after the inputs the tree commits",
+             here["hw/cap.step"], {"inputs": tree["hw/cap.step"], "commit": head})
+        hold("a member the graft wrote has nothing to say what cut it",
+             made_here(root, {}, g, index, head, lines, walked, {"hw/cap.step"},
+                       {"hw/cap.step"})["hw/cap.step"], {"commit": head, "unproven": True})
+        (root / "src/cap.py").write_text("uncommitted")
+        at("src/cap.py", 0)
+        edited = made_here(root, {}, g, index, head, lines, walked, {"hw/cap.step"})["hw/cap.step"]
+        hold("a cut from an uncommitted edit is recorded off the edit, unproven",
+             (edited.get("unproven"), edited.get("inputs") not in (None, tree["hw/cap.step"])),
+             (True, True))
+
+    hold("the pointer file holds its keys in order, and only those",
+         list(_pointer_file({"made": {}, "source": {"commit": "c"}, "solids": {},
+                             "unproven": {"members": []}, "_": "note"})),
+         ["_", "solids", "made"])
+    hold("…and its members in path order",
+         list(_pointer_file({"solids": {"b": "1", "a": "2"}})["solids"]), ["a", "b"])
+
+    print(f"pack selftest {holds}/57")
+    return 0 if holds == 57 else 1
 
 
 if __name__ == "__main__":
