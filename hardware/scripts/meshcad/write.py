@@ -29,12 +29,42 @@ def _arrays(solid):
     return t.V, t.T, t.tri_face, [t.face_record(f) for f in range(len(t.face_surface))]
 
 
-def _triangles(solid):
+def _triangles(solid, tolerance=TOLERANCE):
     """(V float64, T int64) of one MeshSolid, for a writer that needs no faces: the solid
-    simplified to the rule's TOLERANCE, so no sliver the booleans left reaches a file."""
-    mesh = solid.m.simplify(TOLERANCE).to_mesh64()
+    simplified to `tolerance`, at least the rule's TOLERANCE, so no sliver the booleans left
+    reaches a file."""
+    mesh = solid.m.simplify(max(tolerance, TOLERANCE)).to_mesh64()
     return (np.asarray(mesh.vert_properties, float)[:, :3],
             np.asarray(mesh.tri_verts, np.int64).reshape(-1, 3))
+
+
+#: The share of a drawn solid's triangles `drawn` collapses, and how hard. One fixed rung, not
+#: `flute_payload`'s verified ladder: across the assembly scene it lands every solid but the
+#: thin clamps and tubes inside the viewer's deflection, and those within a millimetre.
+DRAWN_REDUCTION = 0.9
+DRAWN_AGGRESSION = 4.0
+
+
+def drawn(solid, tolerance):
+    """(V float64, T int64) of one MeshSolid as a reader draws it, not as it prints: simplified
+    to `tolerance`, then nine in ten triangles collapsed."""
+    V, T = _triangles(solid, tolerance)
+    if len(T) <= 500:
+        return V, T
+    import fast_simplification
+    v, f = fast_simplification.simplify(V.astype(np.float32), T.astype(np.uint32),
+                                        DRAWN_REDUCTION, agg=DRAWN_AGGRESSION)
+    return v.astype(np.float64), f.astype(np.int64)
+
+
+def drawn_payload(name, color, V, T):
+    """One `_mesh_payload` mesh entry from drawn arrays, split at the viewer's creases."""
+    import trimesh
+    import flute_payload
+    pos, nrm, idx, fac = flute_payload.creased(trimesh.Trimesh(V, T, process=False))
+    return {"name": name, "color": color, "pos": pos.astype(np.float32),
+            "nrm": nrm.astype(np.float32), "idx": np.asarray(idx, np.uint32),
+            "fac": np.asarray(fac, np.uint32)}
 
 
 def _solids(shape):
@@ -211,10 +241,11 @@ def model_items(solids, names=None, colors=None):
 STEP_MARK = "meshcad tessellated"
 
 
-def write_step(bodies, path):
-    """`bodies` — (name, MeshSolid, linear rgb or None) — as an AP242 STEP of triangulated
-    surface sets: one product per body under its name and colour, under an assembly named for
-    the file when there is more than one.
+def write_step(bodies, path, root_name="model", tolerance=TOLERANCE):
+    """`bodies` — (name, MeshSolid or its drawn (V, T), linear rgb or None) — as an AP242 STEP
+    of triangulated surface sets: one product per body under its name and colour, under an
+    assembly named `root_name` when there is more than one, each solid simplified to
+    `tolerance`.
 
     OCCT writes the product structure, each body standing as one placeholder triangle whose
     first point is (k, 0, 0); each placeholder's coordinates and triangles are then written over
@@ -245,10 +276,10 @@ def write_step(bodies, path):
     root = None
     if len(bodies) > 1:
         root = shapes.NewShape()
-        TDataStd_Name.Set_s(root, TCollection_ExtendedString(Path(path).name.split(".")[0]))
+        TDataStd_Name.Set_s(root, TCollection_ExtendedString(root_name))
     arrays = []
     for k, (name, solid, rgb) in enumerate(bodies, 1):
-        arrays.append(_triangles(solid))
+        arrays.append(solid if isinstance(solid, tuple) else _triangles(solid, tolerance))
         tri = Poly_Triangulation(3, 1, False)
         for j, p in enumerate(((k, 0, 0), (k, 1, 0), (k, 0, 1)), 1):
             tri.SetNode(j, gp_Pnt(*map(float, p)))
@@ -281,7 +312,7 @@ def write_step(bodies, path):
     out, cursor, spans = [], 0, []
     for k, (V, T) in enumerate(arrays, 1):
         cid = coord_of[k]
-        spans.append((entity(cid), f"#{cid} = COORDINATES_LIST('',{len(V)},({_step_rows(V, '%.6f')}));"))
+        spans.append((entity(cid), f"#{cid} = COORDINATES_LIST('',{len(V)},({_step_rows(V, '%.4f')}));"))
         m = re.search(rf"#(\d+) = TRIANGULATED_SURFACE_SET\('',#{cid},", text)
         spans.append((entity(m.group(1)), f"#{m.group(1)} = TRIANGULATED_SURFACE_SET('',#{cid},"
                       f"{len(V)},(),(),({_step_rows(T + 1, '%d')}));"))
