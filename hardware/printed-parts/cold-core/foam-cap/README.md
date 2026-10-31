@@ -105,15 +105,16 @@ native host, retained hardware and dressed conductors.
 Thread the V-B holder before seating the fitting and dress its tie before
 final upper connections. Complete J10 power termination and seat J11 before
 fitting the selected return; that return occupies J10's vertical screwdriver
-corridors in the recorded access study. The recorded J11 housing path belongs to the X−50 return variant. The native
+corridors in the recorded access study. The native
 review includes the source-scoped pump and PCB mounting tools,
 seven JST housing withdrawal columns, both KF301 screw axes and 8 mm straight
 wire-entry lands. J1, J2 and J11 use the complete housing paths in the
-[connector service record](../../../mechanical-qualification/enclosure-above-core/flavor-and-connector-review.json):
+[connector service record](../../../mechanical-qualification/enclosure-above-core/connector-service-review.json):
 J1 and J2 lift 17 mm, then move 8 mm fore to a disengaged staging position.
-With the funnel, frame and attached drain removed, J11 lifts 6 mm, moves 6 mm
-east, then lifts another 20 mm. Its first lift clears the selected header by
-1.30 mm. These are CAD access
+Move the three free final Wagos and their leads aside before housing service.
+With the funnel, frame, attached drain and disconnected V-B-to-Y-B return
+removed, J11 lifts 6 mm, moves 10 mm east, then lifts another 20 mm. The
+Reservoir B draw stays installed. These are CAD access
 envelopes; hand access, flexible lead dressing, clone fit and installed
 tightening force remain unqualified. Nominal 2.5 × 0.8 mm
 strip paths and their line/arc lengths belong to `union_tie_routes()`,
@@ -144,9 +145,9 @@ holes in the lid. The pump retains its purchased rubber sliders and Ø9 × 0.8 m
 washers; installed rubber compression and isolation remain unqualified.
 
 The earth stack belongs to back-top's rear wall below C14, at world
-(−48.15, 462.3, 313.935) mm. Its Ø10 mm boss has a Ø4 × 7 mm blind pilot for
+(−48.15, 461.7, 313.935) mm. Its Ø10 mm boss has a Ø4 × 5.3 mm blind pilot for
 one RX-M3Sx4 insert. M3 × 8 clamps three 0.8 mm ring tongues and one 0.8 mm
-washer, giving 4.8 mm projection and 2.2 mm tip air. The core's earth lead
+washer, giving 4.8 mm projection, 0.5 mm tip air and at least 3.1 mm fluted backing. The core's earth lead
 threads through the shared cable guide before its outside ring is crimped;
 it connects to this prepared rear-wall stack before closing. Fastener datums
 belong to [above_core_wiring.py](../../../manifold-layout/above_core_wiring.py).

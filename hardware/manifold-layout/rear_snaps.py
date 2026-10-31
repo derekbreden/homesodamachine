@@ -387,6 +387,6 @@ def build(parts, asse_axis, asse_at, asse_turn, pisco_axis, mouth_y, ceiling, re
     # The lower wall's hook has no ledge over the lead's slot; the wall stops short of it.
     slot_aft = wy(half) + aft + c + .75
     out['meter-snap-cap'] = body.cut(box(core, MX + 10., CAP_Y[0] - 7., slot_aft, MZ - W - 1.,
-                                         MZ - st_m['inner'] + .01)).clean()
+                                         MZ - st_m['hook'] + .1)).clean()
     numbers['meter'] = {'station': st_m, 'split_x': MX, 'axis': [MY, MZ], 'lower_wall_from_y': slot_aft}
     return {n: out[n] for n in SOLIDS}, numbers

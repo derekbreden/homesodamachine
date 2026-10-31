@@ -123,7 +123,7 @@ The soda inlet bend holder is PET-GF with the accepted 2 mm wall, 3 mm legs and 
 | Part | Qty | Material | Mass (kg) | $ |
 |---|---:|---|---:|---:|
 | Cold-core inner shell (foam-shell) | 1 | PET-GF | 1.450 | $36.28 <!--@printed--><!--parts HSM-000018--> |
-| Cold-core foam cap — top | 1 | PET-GF | 0.244 | $6.10 <!--@printed--><!--parts HSM-000019--> |
+| Cold-core foam cap — top | 1 | PET-GF | 0.244 | $6.12 <!--@printed--><!--parts HSM-000019--> |
 | Cold-core foam cap lid — top | 1 | PET-GF | 0.262 | $6.56 <!--@printed--><!--parts HSM-000020--> |
 | Cold-core foam cap — bottom | 1 | PET-GF | 0.184 | $4.60 <!--@printed--><!--parts HSM-000021--> |
 | Cold-core foam cap lid — bottom | 1 | PET-GF | 0.141 | $3.52 <!--@printed--><!--parts HSM-000022--> |
@@ -135,7 +135,7 @@ The soda inlet bend holder is PET-GF with the accepted 2 mm wall, 3 mm legs and 
 | Enclosure — front bottom + front top (two quadrants) | 1 set | PET-GF | 1.589 | $39.75 <!--@printed--><!--parts HSM-000078:630 HSM-000079:956--> |
 | Enclosure — pump retainer | 1 | PET-GF | 0.133 | $3.32 <!--@printed--><!--parts HSM-000082--> |
 | Carbonator reed bridge | 1 | PETG | 0.008 | $0.09 <!--@printed--><!--parts HSM-000029--> |
-| Enclosure — back bottom + back top (two quadrants) | 1 set | PET-GF | 1.467 | $36.69 <!--@printed--><!--parts HSM-000080:688.8 HSM-000081:766.1--> |
+| Enclosure — back bottom + back top (two quadrants) | 1 set | PET-GF | 1.470 | $36.77 <!--@printed--><!--parts HSM-000080:688.8 HSM-000081:766.1--> |
 | Display cover plate | 1 | PET-GF | 0.012 | $0.31 <!--@printed--><!--parts HSM-000076--> |
 | Bulkhead ring — one per +Y-wall crossing | 6 | PET-GF (blue, white ×2, red, black ×2) | 0.013 | $0.32 <!--@printed--><!--parts HSM-000062:1.27 HSM-000063:1.29 HSM-000064:1.38 HSM-000065:1.38 HSM-000066:1.25 HSM-000067:1.36--> |
 | Tube collar — one per +Y-wall crossing | 6 | PET-GF (blue, white ×2, red, black ×2) | 0.023 | $0.58 <!--@printed--><!--parts HSM-000272:2.48 HSM-000099:2.72 HSM-000100:2.87 HSM-000101:2.87 HSM-000273:2.53 HSM-000102:2.67--> |
@@ -147,14 +147,14 @@ The soda inlet bend holder is PET-GF with the accepted 2 mm wall, 3 mm legs and 
 | Above-counter plate | 1 | PET-GF | 0.009 | $0.22 <!--@printed--><!--parts HSM-000092 HSM-000111--> |
 | Faucet lever | 1 | PET-GF | 0.004 | $0.09 <!--@printed--><!--parts HSM-000268--> |
 | Umbilical organizer — below faucet mount | 1 | PET-GF | 0.005 | $0.12 <!--@printed--><!--parts HSM-000098--> |
-| Rear equipment snap caps | 4 | PET-GF | 0.033 | $0.81 <!--@printed--> |
+| Rear equipment snap caps | 4 | PET-GF | 0.032 | $0.81 <!--@printed--> |
 | Soda inlet bend holder | 1 | PET-GF | 0.003 | $0.06 <!--@printed--><!--parts HSM-000358--> |
 | Funnel frame | 1 | PET-GF | 0.259 | $6.49 <!--@printed--><!--parts HSM-000072--> |
 | Funnel cover | 1 | PETG | 0.134 | $1.50 <!--@printed--><!--parts HSM-000071--> |
 | Funnel drain-elbow cradle | 1 | PET-GF | 0.011 | $0.28 <!--@printed--><!--parts HSM-000073--> |
-| **Printed parts total** | | | **~7.01** | **[$161.25](BOM_SEC7)** |
+| **Printed parts total** | | | **~7.01** | **[$161.35](BOM_SEC7)** |
 
-By material: PETG ≈ 1.03 kg / $11.50 — of which the four translucent reservoir parts are ≈ 0.87 kg / $9.76 — and PET-GF ≈ 5.98 kg / $149.73.
+By material: PETG ≈ 1.03 kg / $11.50 — of which the four translucent reservoir parts are ≈ 0.87 kg / $9.76 — and PET-GF ≈ 5.99 kg / $149.82.
 
 These geometry-based estimates use the shared wall and sparse-infill recipes.
 They exclude the additional material in the enclosure's
@@ -191,7 +191,7 @@ Soft seals, the [TPU 85A ASSE drain sleeve](/hardware/printed-parts/asse-drain-a
 |---|---|---:|---:|---:|
 | [Westbrass A2031-NL-62 8" Touch-Flo dispenser faucet, matte black](https://www.amazon.com/dp/B0BXFW1J38) | donor faucet; its body, washer and nut, with the printed lever in place of its own; assembly sequence in [`printed-parts/faucet/faucet-shell/ASSEMBLY.md`](/hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.md) "Base joint" | 1 | $32.18 | $32.18 <!--@faucet--><!--parts HSM-000089--> |
 | SendCutSend 0.060" 316 SS under-counter plate (`under_counter_plate.dxf`) | dimensions + role in [`printed-parts/faucet/faucet-shell/ASSEMBLY.md`](/hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.md) "Tubes and countertop mounting"; SCS S064D925 May 10: 10 @ $2.85 + $5.00 ship + $2.79 tax = $36.29 ÷ 10 = $3.63/ea | 1 | $3.63 | $3.63 <!--@cut-parts--><!--parts HSM-000269--> |
-| [neoFlo black 4 mm OD LLDPE, 100 ft (LLDPE4M-BLACK)](https://www.freshwatersystems.com/products/black-4mm-od-lldpe-polyethylene-tubing?variant=50723039248568) | **Flavor dispense, V-G/V-J to the glass.** 4 mm OD / 2.5 mm ID; R25 minimum. Two continuous [1963](FLAVOR_CUT) mm faucet/umbilical runs plus the two internal valve-to-bulkhead routes. Internal native paths include nominal 10 mm insertion at each end; use the actual receiving marks when cutting blanks. Black through either faucet finish. FWS catalog checked 2026-10-21: $13/100 ft = $0.13/ft; shipping/tax unallocated. | ~[16.09](FLAVOR_4MM_FT) ft (of 100 ft) | $0.13 | [$2.09](FLAVOR_4MM_COST) <!--@plumbing--><!--parts HSM-000107:3926 HSM-000304:632.3 HSM-000303:501.3--> |
+| [neoFlo black 4 mm OD LLDPE, 100 ft (LLDPE4M-BLACK)](https://www.freshwatersystems.com/products/black-4mm-od-lldpe-polyethylene-tubing?variant=50723039248568) | **Flavor dispense, V-G/V-J to the glass.** 4 mm OD / 2.5 mm ID; R25 minimum. Two continuous [1963](FLAVOR_CUT) mm faucet/umbilical runs plus the two internal valve-to-bulkhead routes. Internal native paths include nominal 10 mm insertion at each end; use the actual receiving marks when cutting blanks. Black through either faucet finish. FWS catalog checked 2026-10-21: $13/100 ft = $0.13/ft; shipping/tax unallocated. | ~[16.08](FLAVOR_4MM_FT) ft (of 100 ft) | $0.13 | [$2.09](FLAVOR_4MM_COST) <!--@plumbing--><!--parts HSM-000107:3926 HSM-000304:632.3 HSM-000303:501.3--> |
 | [neoFit ARD4M4-E 4 mm tube × 1/4" stem reducer](https://www.freshwatersystems.com/products/neofit-acetal-black-stem-reducer-4mm-5-32-tube-x-1-4-stem?variant=42404048339128) | One directly in V-G-O and one in V-J-O. Each accepts the 4 mm dispense run. Bag of 10 recorded delivered October 9, WEBFWS100711469 ([purchases.md §3](/hardware/ledger/purchases.md)). FWS single-unit list $1.20, shipping/tax unallocated. | 2 | $1.20 | $2.40 <!--@plumbing--><!--parts HSM-000357--> |
 | [neoFit ABU44M-E 4 mm black acetal bulkhead](https://www.freshwatersystems.com/products/neofit-acetal-black-bulkhead-connector-4mm-5-32-tube) | Two rear-wall **FLAVOR** ports. M15 × 1.5 barrel; matching metric-bore black identification chips. The separate OVER port in §3 takes a third fitting from the same delivered bag of ten. FWS single-unit list $2.78, shipping/tax unallocated. | 2 | $2.78 | $5.56 <!--@plumbing--><!--parts HSM-000061--> |
 | [neoFlo White 3/8" OD LLDPE tubing, 25 ft (LLDPE6-WHITE)](https://www.freshwatersystems.com/products/white-3-8-od-lldpe-polyethylene-tubing) | **White faucet — the soda faucet tube**, the 3/8" tube from the TPU thimble in the Westbrass's top port to the printed tip, cut [330](SODA_FAUCET_CUT) mm ([`assembly/faucet-and-umbilical.md`](/hardware/assembly/faucet-and-umbilical.md) §1). A Black faucet cuts the same length from the black 3/8" stock (FWS `WEBFWS100673540`, [purchases.md](/hardware/ledger/purchases.md)). FWS list, 25 ft @ $6.50 = $0.26/ft. | [1.08](SODA_FAUCET_FT) ft (of 25 ft) | $0.26 | $0.28 <!--@plumbing--><!--parts HSM-000106--> |
@@ -302,7 +302,7 @@ The T18 heat-set tip kit ([B0CS662NVK](https://www.amazon.com/dp/B0CS662NVK)) an
 | [ruthex RX-M3S × 4 short heat-set inserts, 100 pc](https://www.amazon.com/dp/B09ZHSGHXD) | Ø4 recommended pilot. [3](TOUCHFLO_INSERTS) faucet base, [5](SHELF_INSERTS) PSU/ground, [20](SHELF_SCREWS_RELAY) relay diagonals and [2](C14_INSERTS) C14. The PCB mounts use full-length inserts. Amazon 112-4234665: $10.71/100. | [30](M3_SHORT_INSERTS) (of 100 pk) | $0.11 | [$3.21](M3_SHORT_INSERTS_COST) <!--@fasteners--><!--parts HSM-000104 HSM-000136--> |
 | [ruthex M5 Threaded Inserts, 50 pc, RX-M5x9.5 brass heat-set](https://www.amazon.com/dp/B07YSVXWS8) | M5 × 9.5 mm L × 7.1 mm OD knurled brass, Ø6.4 recommended pilot with at least 2.6 mm surrounding wall. [8](TOTAL_M5_INSERTS) per build: [4](FLOOR_SCREWS) compressor floor posts and [4](SEAM_INSERTS) Y-seam anchors, two in back-bottom and two in front-top. Blind relief and screw-tip clearance are checked on the complete printed hosts. Amazon 112-6038990-5011450 Aug 11: $9.99 + $0.72 tax = $10.71 ÷ 50 = $0.2142/ea | [8](TOTAL_M5_INSERTS) (of 50 pk) | $0.21 | [$1.71](M5_INSERTS_COST) <!--@fasteners--><!--parts HSM-000132--> |
 | [BNUOK M3 × 25 mm DIN 912 socket head cap, 12.9 alloy steel, black oxide, 60 pc](https://www.amazon.com/dp/B0DJQGF665) | foam-cap clamp screws (10 top + 10 bottom, each through cap lid + cap into a shell-face insert); Amazon 112-2495614 May 10: $7.99 + $0.58 tax = $8.57 ÷ 60 = $0.1428/ea | [20](FOAM_SCREWS) (of 60 pk) | $0.14 | $2.86 <!--@fasteners--><!--parts HSM-000137--> |
-| [BNUOK M3 × 8 mm socket head cap, 12.9 alloy steel, black oxide, 120 pc](https://www.amazon.com/dp/B0DJQGPRPV) | [30](M3X8_TOTAL) per build: [3](TOUCHFLO_SCREWS) faucet base, [4](SHELF_SCREWS_PCBA) PCB, [20](SHELF_SCREWS_RELAY) relay diagonals, [2](COND_SCREWS) condenser and [1](SHELF_SCREWS_GROUND) ground stack. PCB screws cross the [1.6](PCBA_BOARD_T) mm board into full-length cap inserts, with [6.4](PCBA_SCREW_REACH) mm projection and [3.35](PCBA_SCREW_TIP) mm pilot tip air. Each relay screw crosses its [1.5](RELAY_BOARD_T) mm board and [2.15](RELAY_BEARING_TIP) mm unthreaded bearing tip before its short insert: [4.35](RELAY_SCREW_REACH) mm receiving projection, full [4](RELAY_INSERT_LEN) mm insert engagement and [1](RELAY_SCREW_TIP) mm tip air in the [5.35](RELAY_BORE) mm pilot. Blind backing is [5.51](RELAY_BACKING) mm at the nominal outer wall and at least [4.31](RELAY_FLUTED_BACKING) mm beneath its flute envelope. The [3.2](GROUND_STACK_T) mm ring/washer stack leaves [4.8](GROUND_SCREW_REACH) mm reach in the ground stack's short insert, with [2.2](GROUND_TIP_AIR) mm tip air in its [7](GROUND_BORE) mm blind pilot. The rear-wall boss is Ø[10](GROUND_BOSS_D). Amazon 112-6198023: $7.71/120. | [30](M3X8_TOTAL) (of 120 pk) | $0.06 | [$1.93](M3X8_COST) <!--@fasteners--><!--parts HSM-000103 HSM-000138--> |
+| [BNUOK M3 × 8 mm socket head cap, 12.9 alloy steel, black oxide, 120 pc](https://www.amazon.com/dp/B0DJQGPRPV) | [30](M3X8_TOTAL) per build: [3](TOUCHFLO_SCREWS) faucet base, [4](SHELF_SCREWS_PCBA) PCB, [20](SHELF_SCREWS_RELAY) relay diagonals, [2](COND_SCREWS) condenser and [1](SHELF_SCREWS_GROUND) ground stack. PCB screws cross the [1.6](PCBA_BOARD_T) mm board into full-length cap inserts, with [6.4](PCBA_SCREW_REACH) mm projection and [3.35](PCBA_SCREW_TIP) mm pilot tip air. Each relay screw crosses its [1.5](RELAY_BOARD_T) mm board and [2.15](RELAY_BEARING_TIP) mm unthreaded bearing tip before its short insert: [4.35](RELAY_SCREW_REACH) mm receiving projection, full [4](RELAY_INSERT_LEN) mm insert engagement and [1](RELAY_SCREW_TIP) mm tip air in the [5.35](RELAY_BORE) mm pilot. Blind backing is [5.51](RELAY_BACKING) mm at the nominal outer wall and at least [4.31](RELAY_FLUTED_BACKING) mm beneath its flute envelope. The [3.2](GROUND_STACK_T) mm ring/washer stack leaves [4.8](GROUND_SCREW_REACH) mm reach in the ground stack's short insert, with [0.5](GROUND_TIP_AIR) mm tip air in its [5.3](GROUND_BORE) mm blind pilot. The rear-wall boss is Ø[10](GROUND_BOSS_D). Amazon 112-6198023: $7.71/120. | [30](M3X8_TOTAL) (of 120 pk) | $0.06 | [$1.93](M3X8_COST) <!--@fasteners--><!--parts HSM-000103 HSM-000138--> |
 | [BNUOK M3 × 12 mm socket head cap, 12.9 alloy steel, black oxide, 120 pc](https://www.amazon.com/dp/B0DJQGVK8S) | Four funnel-frame screws per build. Amazon 112-0144900: $8.57/120, acquired. | [4](M3X12_TOTAL) (of 120 pk) | $0.07 | [$0.29](M3X12_COST) <!--@fasteners--><!--parts HSM-000140--> |
 | [BNUOK M3 × 12 mm socket head cap, 304 stainless steel, 120 pc](https://www.amazon.com/dp/B0DJQGMQZM) | [12](RES_SCREWS) per build, the reservoir-cap screws: [6](RES_INSERTS_PER_CAP) through each cap and its TPU gasket into the cap's full-length inserts (item 2 above). Amazon 112-3709957-5726619 Jun 2: $8.66/120, ACQUIRED. | [12](RES_SCREWS) (of 120 pk) | $0.07 | [$0.87](RES_SCREWS_COST) <!--@fasteners--><!--parts HSM-000363--> |
 | [BNUOK M3 × 10 mm socket head cap, 12.9 alloy steel, black oxide, 120 pc](https://www.amazon.com/dp/B0DJQGGDP2) | [9](M3X10_TOTAL) screws: [4](SHELF_SCREWS_PSU) through the ceiling PSU ears, [2](C14_SCREWS) at C14 and [3](B_FILL_CLAMP_SCREWS) at the cap's three B-fill passage clamps. C14 uses two Ø7 × 0.5 mm washers; its 3.25 mm flange/washer stack leaves [6.25](C14_SCREW_REACH) mm projection and 1 mm pilot tip air. Amazon 112-6542724: $8.57/120. | [9](M3X10_TOTAL) (of 120 pk) | $0.07 | [$0.64](M3X10_COST) <!--@fasteners--><!--parts HSM-000139--> |
@@ -339,7 +339,7 @@ The papers packed with each machine ([`assembly/finish-pack-ship.md`](/hardware/
 | 4. CO2 subsystem | [$133.11](BOM_SEC4) |
 | 5. Refrigeration | [$143.06](BOM_SEC5) |
 | 6. Cold core insulation | [$18.64](BOM_SEC6) |
-| 7. Printed parts (PETG + PET-GF) | [$161.25](BOM_SEC7) |
+| 7. Printed parts (PETG + PET-GF) | [$161.35](BOM_SEC7) |
 | 8. Flavor subsystem | [$260.32](BOM_SEC8) |
 | 9. Dispensing | [$78.57](BOM_SEC9) |
 | 10. UI | [$0.00](BOM_SEC10) |
@@ -348,7 +348,7 @@ The papers packed with each machine ([`assembly/finish-pack-ship.md`](/hardware/
 | 13. Mechanical attach hardware | [$20.13](BOM_SEC13) |
 | 14. Cold kit | [$4.29](BOM_SEC14) |
 | 15. Customer documentation | [$25.14](BOM_SEC15) |
-| **Total** | **[$1,433.51](BOM_GRAND)** |
+| **Total** | **[$1,433.61](BOM_GRAND)** |
 
 ## External / user-supplied (not shipped)
 

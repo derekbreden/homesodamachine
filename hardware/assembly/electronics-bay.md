@@ -48,7 +48,7 @@ fit and donor terminal locations retain their stated qualification limits.
 | Protective-earth ring stack | M3 ring-terminal stack | Back-top rear wall | C14 earth feed; compressor earth; carbonator bond lead |
 
 The rear H/G connectors share a column at X−85, with H at Z264 and G at
-Z296.5. N sits beside H at X−54/Z266. All three centres are Y458.5. Their
+Z296.5. N sits beside H at X−54/Z266. All three centres are Y457.5. Their
 wire entries face fore, their levers open upward and their individual wells
 have 45° roofs back to the rear wall. They stand below the PSU and clear
 C14, the ground stack, data jack and pump.
@@ -84,8 +84,9 @@ The PSU ceiling and relay wall-host stacks are defined by
 and allocated in the [BOM](/hardware/ledger/bom.md); use the stack assigned to
 each device. The ring stack and its Ø7 × 0.8 flat washer clamp under M3 × 8 into an
 RX-M3S×4 short insert in the rear wall below C14. The landing is world
-(−48.15, 462.3, 313.935) mm, with the screw entering aft along +Y. Its 3.2 mm clamp
-stack gives 4.8 mm screw projection into a 7 mm blind pilot.
+(−48.15, 461.7, 313.935) mm, with the screw entering aft along +Y. Its 3.2 mm clamp
+stack gives 4.8 mm screw projection into a 5.3 mm blind pilot, with 0.5 mm tip air
+and at least 3.1 mm backing beneath the exterior flutes.
 
 Tools: ESD mat, suitable wire and contact crimpers, soldering tools for the
 specified soldered joints, helping hands, insulated driver and multimeter.

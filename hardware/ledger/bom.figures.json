@@ -24,7 +24,7 @@
     "FLAT_WASHERS_9": "5",
     "FLAT_WASHERS_9_COST": "$0.23",
     "FLAVOR_4MM_COST": "$2.09",
-    "FLAVOR_4MM_FT": "16.09",
+    "FLAVOR_4MM_FT": "16.08",
     "FLAVOR_CUT": "1963",
     "FLOOR_INSERTS": "4",
     "FLOOR_SCREWS": "4",
@@ -44,11 +44,11 @@
     "FUNNEL_MIX_ALLOWANCE": "10%",
     "FUNNEL_VOLUME_ML": "331.0",
     "GROMMET_SQUEEZE": "0.4",
-    "GROUND_BORE": "7",
+    "GROUND_BORE": "5.3",
     "GROUND_BOSS_D": "10",
     "GROUND_SCREW_REACH": "4.8",
     "GROUND_STACK_T": "3.2",
-    "GROUND_TIP_AIR": "2.2",
+    "GROUND_TIP_AIR": "0.5",
     "LAID_FT": "13.15 ft",
     "M3X10_COST": "$0.64",
     "M3X10_TOTAL": "9",
@@ -127,7 +127,7 @@
     "WASHER_MAX_OD": "29"
   },
   "/hardware/scripts/_bom_totals.py": {
-    "BOM_GRAND": "$1,433.51",
+    "BOM_GRAND": "$1,433.61",
     "BOM_SEC1": "$175.03",
     "BOM_SEC11": "$34.63",
     "BOM_SEC12": "$29.78",
@@ -139,7 +139,7 @@
     "BOM_SEC4": "$133.11",
     "BOM_SEC5": "$143.06",
     "BOM_SEC6": "$18.64",
-    "BOM_SEC7": "$161.25",
+    "BOM_SEC7": "$161.35",
     "BOM_SEC8": "$260.32",
     "BOM_SEC9": "$78.57"
   }

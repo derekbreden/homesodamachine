@@ -40,9 +40,16 @@ Each conductor's end lands at the first stage where the end is reachable, and th
 
 Dress each free end so it lies within the funnel opening's footprint once the box is closed, clear of the seams, the rails and every surface that slides. Label each free end with its run ID while it waits.
 
+For board service, remove the funnel and frame, release the three free joins
+and move them with their leads aside before lifting J1/J2. Disconnect the
+V-B-to-Y-B return and cradled drain before J11 withdrawal. The
+[current native housing paths](/hardware/mechanical-qualification/enclosure-above-core/connector-service-review.json)
+use 17 mm up then 8 mm fore for J1/J2, and 6 mm up, 10 mm east, then
+20 mm up for J11; the Reservoir B draw stays installed.
+
 ### 1. Chassis-ground bonds (single-point ground on the rear wall)
 
-Chassis grounding is via discrete green wires from the exposed metal parts back to one ring-terminal stack at world (−48.15, 462.3, 313.935) mm on back-top below C14. The separate carbonator lead and rear PE-bus pigtail are [16 AWG](AWG_AC_MAIN) green-insulated, with rings at their screw landings. The compressor's AC-6 bond is the green [18 AWG](COMP_LEAD_AWG) core of its jacketed power lead.
+Chassis grounding is via discrete green wires from the exposed metal parts back to one ring-terminal stack at world (−48.15, 461.7, 313.935) mm on back-top below C14. The separate carbonator lead and rear PE-bus pigtail are [16 AWG](AWG_AC_MAIN) green-insulated, with rings at their screw landings. The compressor's AC-6 bond is the green [18 AWG](COMP_LEAD_AWG) core of its jacketed power lead.
 
 Bond, from each target to the stack:
 

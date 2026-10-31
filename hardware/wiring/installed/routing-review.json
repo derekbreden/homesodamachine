@@ -1,9 +1,9 @@
 {
   "schema": 1,
   "scope": "One manual full-scene mesh interference review of every wire and cable jacket against larger bodies; wire-to-wire and wire-to-tube contacts are excluded. Tessellated penetration is a routing witness, not a native-solid or physical assembly qualification.",
-  "manifest_sha256": "b5e290fb02089e2d0e13e44be227ce37b555c2d2cc7d9f1217a5a8fa954dde35",
-  "assembly_step_sha256": "27e17135ffabe9cb886ccd6b74986771b5a72808867a7ab9a267b53c54f3ff82",
-  "assembly_mesh_sha256": "ca26d963b8d440bcd6eead3d835f8b2976a4e1c6712e8fb8fe56874d4da65091",
+  "manifest_sha256": "cfa0a8440f9c5319672eb1405b3657372bbbc48675f328e44624eaf528ba8805",
+  "assembly_step_sha256": "0fdd2027ee81c401ec317aef34462b95b366ee6688b5e51ca729b0a85089e4ea",
+  "assembly_mesh_sha256": "d085834e77722a0c1a1b0f9e42ce435d170703380f307eed20a4bfd1374a9ea5",
   "wire_count": 101,
   "physical_mesh_count": 414,
   "coverage_missing": [],
@@ -71,19 +71,19 @@
   "endpoint_contact_scope": "Only the named endpoint part within 8.5 mm of its attachment. All other contact with that part remains in the reading.",
   "native": {
     "scope": "Current source and readback binding for every conductor, jacket and connector, plus exact native dispositions of the five mesh witnesses. Wires and tubes are excluded from wire obstacles.",
-    "wiring_step_sha256": "1cfa7d822097353ef2015781abbee0f0643b919adddc528ee3a2fc08d6f2a734",
-    "assembly_step_sha256": "27e17135ffabe9cb886ccd6b74986771b5a72808867a7ab9a267b53c54f3ff82",
-    "manifest_sha256": "b5e290fb02089e2d0e13e44be227ce37b555c2d2cc7d9f1217a5a8fa954dde35",
+    "wiring_step_sha256": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
+    "assembly_step_sha256": "0fdd2027ee81c401ec317aef34462b95b366ee6688b5e51ca729b0a85089e4ea",
+    "manifest_sha256": "cfa0a8440f9c5319672eb1405b3657372bbbc48675f328e44624eaf528ba8805",
     "wire_count": 101,
     "body_count": 120,
     "all_valid_single_solids": true,
     "source_curves_match": true,
     "all_native_shapes_bound": true,
-    "maximum_volume_delta_mm3": 8.863253242452629e-09,
-    "maximum_bounds_delta_mm": 1.0000928796216613e-07,
+    "maximum_volume_delta_mm3": 8.857114153215662e-09,
+    "maximum_bounds_delta_mm": 1.0000769634643802e-07,
     "readback_record": {
       "path": "hardware/wiring/installed/above-core-review/installed-wiring-binding.json",
-      "sha256": "eef89480d9aec49be0f0269de297c2160853b9113bade721aa4896113c90167c"
+      "sha256": "b9062c57fb5c0ebe2a4507dc44611bb1ace0862831bdeef383a9a1d03be783bb"
     },
     "mesh_witness_dispositions": [
       {
@@ -93,7 +93,7 @@
         "raw_common_mm3": 0.0,
         "outside_8_5mm_endpoint_mm3": 0.0,
         "common_bounds_inside_endpoint_ball": false,
-        "source_curve_sha256": "2f4e3e5f0b98367201e64405cbc733555c8b0857b70d3ed3dba41d92c24fe12f",
+        "source_curve_sha256": "5aaf1fab19a4a68fc7804322521e1c33d5e0b9c333bbeb54bfb89ee64296275d",
         "body_brep_sha256": "28c539bf9e3dc25ac54b3101adb2614fcfd3370dc6ab2e4d6196906cdcb1cf59",
         "status": "native_zero",
         "endpoint_scope_mm": 8.5
@@ -102,10 +102,10 @@
         "mesh_pair_index": 1,
         "part": "wiring-junction-pump-positive",
         "wire": "DC3-positive",
-        "raw_common_mm3": 7.065554889653144,
+        "raw_common_mm3": 7.065554889656472,
         "outside_8_5mm_endpoint_mm3": 0.0,
         "common_bounds_inside_endpoint_ball": true,
-        "source_curve_sha256": "23a3caf5c1a6ee4a2641dea03843ae1c17a64209aa4aa570e78c1645b3a86c6f",
+        "source_curve_sha256": "35c3900ab611ed7c97ef361c877c3b18e876198bdb552183e5fb306742ef5554",
         "body_basis": "Native wago-h reference translated to final pump-positive join; native source/readback binding covers this body",
         "status": "native_contact_within_named_attachment",
         "endpoint_scope_mm": 8.5
@@ -114,10 +114,10 @@
         "mesh_pair_index": 2,
         "part": "coil-v-g",
         "wire": "J1-OUT7",
-        "raw_common_mm3": 0.486065457036874,
+        "raw_common_mm3": 0.486065457036509,
         "outside_8_5mm_endpoint_mm3": 0.0,
         "common_bounds_inside_endpoint_ball": true,
-        "source_curve_sha256": "e70745db873555fd244a5f998bd8e3f04f745605384db0095c5116a632b8d3bc",
+        "source_curve_sha256": "f1bc1a291c43a6c84534dadb593a96eb8af21c698746287d3285a3c23c670fe6",
         "body_brep_sha256": "096b383d89f6d1b76f04329b08a1ca570f866961c8094d5e42095ffaa8137924",
         "status": "native_contact_within_named_attachment",
         "endpoint_scope_mm": 8.5
@@ -129,7 +129,7 @@
         "raw_common_mm3": 0.0,
         "outside_8_5mm_endpoint_mm3": 0.0,
         "common_bounds_inside_endpoint_ball": false,
-        "source_curve_sha256": "2be59a545628f025410d82c5c36ad9c62cf8de0783abe2f54a0f17fed2aa79f6",
+        "source_curve_sha256": "3f6f600220c5a908e4a8968bbf8df0b434052f7e01ac77f7f1f4a9eb89da558a",
         "body_brep_sha256": "6d3b77d795fbbd96555416fba90de2863e520f396d6f10b25859d9ca21c96d3a",
         "status": "native_zero",
         "endpoint_scope_mm": 8.5
@@ -138,10 +138,10 @@
         "mesh_pair_index": 4,
         "part": "coil-v-j",
         "wire": "J2-OUT2",
-        "raw_common_mm3": 0.4860654570372327,
+        "raw_common_mm3": 0.48606545703688,
         "outside_8_5mm_endpoint_mm3": 0.0,
         "common_bounds_inside_endpoint_ball": true,
-        "source_curve_sha256": "df45b40fcb3f117dbd4a4c1e79ec972dfd1b4f6b2d1f697a4b77f0f1aacd26ba",
+        "source_curve_sha256": "e70af85c2f61da1845f2a2df019ca8084ef408f1d347f09080a43de8cd563962",
         "body_brep_sha256": "d94ed0769836eb2bb682770cd31aab51b1a484016efe1c437b71e0696a80e2e5",
         "status": "native_contact_within_named_attachment",
         "endpoint_scope_mm": 8.5
@@ -152,7 +152,7 @@
   "larger_body_clearance": "Clear outside the local named electrical attachment contacts.",
   "preparation_budget": {
     "scope": "Bench preparation stock against routed insulated centrelines, with continuous commons and the compressor hot/fuse pieces summed. Termination insertion and physical dressing use this reserve; no physical harness qualification is implied.",
-    "manifest_sha256": "b5e290fb02089e2d0e13e44be227ce37b555c2d2cc7d9f1217a5a8fa954dde35",
+    "manifest_sha256": "cfa0a8440f9c5319672eb1405b3657372bbbc48675f328e44624eaf528ba8805",
     "conductor_count": 101,
     "covered_count": 101,
     "missing": [],
@@ -163,27 +163,27 @@
         "routes": [
           "AC1-L"
         ],
-        "modeled_length_mm": 77.825,
+        "modeled_length_mm": 77.795,
         "preparation_mm": 150,
-        "reserve_mm": 72.175
+        "reserve_mm": 72.205
       },
       {
         "id": "AC1-N",
         "routes": [
           "AC1-N"
         ],
-        "modeled_length_mm": 90.027,
+        "modeled_length_mm": 89.785,
         "preparation_mm": 150,
-        "reserve_mm": 59.973
+        "reserve_mm": 60.215
       },
       {
         "id": "AC1-PE",
         "routes": [
           "AC1-PE"
         ],
-        "modeled_length_mm": 111.299,
+        "modeled_length_mm": 110.299,
         "preparation_mm": 150,
-        "reserve_mm": 38.701
+        "reserve_mm": 39.701
       },
       {
         "id": "DC4-V12",
@@ -208,27 +208,27 @@
         "routes": [
           "AC2-L"
         ],
-        "modeled_length_mm": 119.003,
+        "modeled_length_mm": 119.29,
         "preparation_mm": 200,
-        "reserve_mm": 80.997
+        "reserve_mm": 80.71
       },
       {
         "id": "AC2-N",
         "routes": [
           "AC2-N"
         ],
-        "modeled_length_mm": 91.259,
+        "modeled_length_mm": 91.435,
         "preparation_mm": 200,
-        "reserve_mm": 108.741
+        "reserve_mm": 108.565
       },
       {
         "id": "AC3-L",
         "routes": [
           "AC3-L"
         ],
-        "modeled_length_mm": 40.374,
+        "modeled_length_mm": 40.047,
         "preparation_mm": 150,
-        "reserve_mm": 109.626
+        "reserve_mm": 109.953
       },
       {
         "id": "compressor-H",
@@ -245,18 +245,18 @@
         "routes": [
           "AC5-N"
         ],
-        "modeled_length_mm": 421.944,
+        "modeled_length_mm": 467.933,
         "preparation_mm": 700,
-        "reserve_mm": 278.056
+        "reserve_mm": 232.067
       },
       {
         "id": "AC6-PE",
         "routes": [
           "AC6-PE"
         ],
-        "modeled_length_mm": 603.884,
+        "modeled_length_mm": 603.284,
         "preparation_mm": 700,
-        "reserve_mm": 96.116
+        "reserve_mm": 96.716
       },
       {
         "id": "AC4-pigtail",
@@ -272,9 +272,9 @@
         "routes": [
           "AC5-pigtail"
         ],
-        "modeled_length_mm": 255.844,
+        "modeled_length_mm": 248.451,
         "preparation_mm": 300,
-        "reserve_mm": 44.156
+        "reserve_mm": 51.549
       },
       {
         "id": "DC3-pigtail",
@@ -299,18 +299,18 @@
         "routes": [
           "PE-bus"
         ],
-        "modeled_length_mm": 69.994,
+        "modeled_length_mm": 70.121,
         "preparation_mm": 400,
-        "reserve_mm": 330.006
+        "reserve_mm": 329.879
       },
       {
         "id": "PE-carbonator",
         "routes": [
           "PE-carbonator"
         ],
-        "modeled_length_mm": 318.768,
+        "modeled_length_mm": 317.553,
         "preparation_mm": 500,
-        "reserve_mm": 181.232
+        "reserve_mm": 182.447
       },
       {
         "id": "DC1-V12",
