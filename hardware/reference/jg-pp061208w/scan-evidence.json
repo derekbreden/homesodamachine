@@ -1,0 +1,259 @@
+{
+  "units": "mm",
+  "source": "Previously archived complete threaded ASSE chain; no new scan or raw-frame copy.",
+  "capture_manifest": {
+    "path": "/Users/derekbredensteiner/Documents/3D Scans/2026-10-29-asse1022-threaded-chain/capture-manifest.json",
+    "sha256": "0e993ffe36745031285de90d3d7e20426b1b6aa4a9d45e0cee1afb3a83e2e62e"
+  },
+  "registered_chain_cloud": {
+    "path": "/Users/derekbredensteiner/Documents/3D Scans/2026-10-29-asse1022-threaded-chain/registered-chain.ply",
+    "sha256": "863c40920e829e682f85fe0515832be20f217267b4ded06e48f3e0d102032be5",
+    "points": 929429
+  },
+  "chain_parameters": {
+    "path": "hardware/reference/asse1022-threaded-chain/reference-parameters.json",
+    "sha256": "49d49cc3c225470c45f1ec44bfa869e435d721d0b04847abd893d846d0262da9"
+  },
+  "chain_scan_evidence": {
+    "path": "hardware/reference/asse1022-threaded-chain/scan-evidence.json",
+    "sha256": "e3fc2f283f828815c0263d52cd7bf9e3c0c9c067f60c7e7d3fb56e3e653b9bd1"
+  },
+  "source_component": {
+    "name": "John Guest PP061208W",
+    "origin_mm": [
+      0.0,
+      -1.2594064023937555,
+      26.783960295491386
+    ],
+    "rotation": [
+      [
+        0.9999006182304766,
+        -0.01341462891749083,
+        -0.004336057347023858
+      ],
+      [
+        0.013414502787343326,
+        0.9999100198172864,
+        -5.8171834587589795e-05
+      ],
+      [
+        0.004336447541365958,
+        0.0,
+        0.9999905975671577
+      ]
+    ],
+    "visible_profile": [
+      [
+        88.175,
+        5.381
+      ],
+      [
+        88.675,
+        5.481
+      ],
+      [
+        89.275,
+        4.721
+      ],
+      [
+        93.075,
+        4.805
+      ],
+      [
+        93.475,
+        4.962
+      ],
+      [
+        93.875,
+        5.358
+      ],
+      [
+        94.075,
+        6.281
+      ],
+      [
+        94.275,
+        6.59
+      ],
+      [
+        94.675,
+        6.858
+      ],
+      [
+        95.475,
+        6.959
+      ],
+      [
+        98.075,
+        6.951
+      ],
+      [
+        98.475,
+        7.11
+      ],
+      [
+        99.275,
+        7.921
+      ],
+      [
+        99.675,
+        8.184
+      ],
+      [
+        102.875,
+        8.293
+      ],
+      [
+        103.275,
+        8.26
+      ],
+      [
+        103.675,
+        8.045
+      ],
+      [
+        103.875,
+        7.277
+      ],
+      [
+        104.075,
+        7.076
+      ],
+      [
+        105.475,
+        7.252
+      ],
+      [
+        105.875,
+        7.055
+      ],
+      [
+        106.075,
+        6.118
+      ],
+      [
+        106.275,
+        5.486
+      ],
+      [
+        106.675,
+        5.305
+      ],
+      [
+        107.825,
+        5.253
+      ]
+    ],
+    "axis_fit": {
+      "bands_mm": [
+        [
+          88.5,
+          93.6
+        ],
+        [
+          94.5,
+          107.6
+        ]
+      ],
+      "samples": 15646,
+      "normal_ray_residual_mm": {
+        "mean": 0.022558609736978565,
+        "median": 0.01811517474043841,
+        "rms": 0.377306129139093,
+        "p05": -0.30985204399069827,
+        "p95": 0.35178083411824873,
+        "abs_p95": 0.5867396550414545,
+        "min": -5.88331837341922,
+        "max": 7.002597654622807,
+        "n": 15646
+      }
+    },
+    "visible_axial_range_mm": [
+      88.175,
+      107.825
+    ]
+  },
+  "faces": {
+    "socket_release_face": {
+      "station_mm": 107.76171740799833,
+      "normal": [
+        0.999629615595353,
+        -0.0054096374880343474,
+        0.026671472530309367
+      ],
+      "samples": 1579,
+      "plane_residual_mm": {
+        "mean": 2.3922036682847865e-13,
+        "median": 0.002217810292048303,
+        "rms": 0.04497474157562924,
+        "p05": -0.07327866966541434,
+        "p95": 0.0711800910590493,
+        "abs_p95": 0.09349323486296077,
+        "min": -0.1691742282470431,
+        "max": 0.12435851511225393,
+        "n": 1579
+      },
+      "selection_x_radius_sign": [
+        107.3,
+        108.2,
+        4,
+        4.8,
+        1
+      ]
+    },
+    "body_shoulder": {
+      "station_mm": 94.12561645217995,
+      "normal": [
+        -0.9999199849650591,
+        0.007534181444704992,
+        0.010161681821155375
+      ],
+      "samples": 1432,
+      "plane_residual_mm": {
+        "mean": -1.2027002609221458e-14,
+        "median": 0.002797631330089482,
+        "rms": 0.055671183302660396,
+        "p05": -0.09327096201010777,
+        "p95": 0.08556521453234235,
+        "abs_p95": 0.09840890195422984,
+        "min": -0.1596501048914241,
+        "max": 0.10670734978194527,
+        "n": 1432
+      },
+      "selection_x_radius_sign": [
+        93.75,
+        94.25,
+        5.45,
+        6.2,
+        -1
+      ]
+    }
+  },
+  "coordinate_scale_factor": 1.0,
+  "source_axis_to_part_translation_x_mm": -75.83561645217995,
+  "comparison_selection": {
+    "source_axis_x_mm": [
+      89.5,
+      108.05
+    ],
+    "maximum_radial_distance_mm": 9.0,
+    "exclude_inserted_tee_stem": "At source-axis X>107.5, radial distance <=3.7 belongs to the inserted tee stem and is excluded.",
+    "host_boundary": "X<89.5 belongs to the neighboring flare adapter mouth or its unresolved junction.",
+    "selection_policy": "Fixed physical part bounds, with no CAD-distance rejection."
+  },
+  "nominal_completion": {
+    "nominal_stem_diameter_mm": 9.525,
+    "nominal_free_stem_to_shoulder_mm": 18.29,
+    "stem_tip_chamfer_display_mm": 0.6,
+    "tube_bore_display_diameter_mm": 6.48,
+    "through_bore_display_diameter_mm": 5.84,
+    "body_face_to_stop_display_mm": 14.1
+  },
+  "limits": [
+    "The assembly hides the male tip. The 18.29 mm stem-to-shoulder length is retained nominal geometry, not a measured tip or insertion stop.",
+    "Straight male diameter is nominal 3/8 inch (9.525 mm); the registered observations are not rescaled.",
+    "Internal bores, tube stop, lead-in chamfer and collet underside are display geometry; engagement, seals and release travel are not measured.",
+    "Putty-hidden sectors continue the fitted rotational envelope. Small collet slots and molded markings are omitted.",
+    "Coating thickness and absolute optical scale are not independently calibrated."
+  ]
+}

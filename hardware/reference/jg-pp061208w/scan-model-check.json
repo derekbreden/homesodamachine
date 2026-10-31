@@ -1,0 +1,123 @@
+{
+  "units": "mm",
+  "part": "John Guest PP061208W",
+  "method": "Physically isolated reducer observations from the existing ASSE assembly, rigidly placed in the standalone frame. No rescaling or CAD-distance rejection.",
+  "model_source_sha256": "6e35463ff73988e2cac0f1cd4f2ca5345d0b5aa896d31728ef2f0e7db65058e5",
+  "parameters_sha256": "605b991c076da190a2655bdeda8b7d49691228aa4dbbbada204f4be7200971e4",
+  "step_sha256": "5b9d3c1bba5bc098056a0a8395ddb260188dabfcf9152460b5f39855cb8c13af",
+  "scan_evidence_sha256": "9cecaf4a67a686bd0d3e359e17212f48c60dac4e0830dc77ca6e87b353f66ce7",
+  "source_cloud_sha256": "863c40920e829e682f85fe0515832be20f217267b4ded06e48f3e0d102032be5",
+  "retained_observations": 62962,
+  "observation_voxel_mm": 0.25,
+  "cad_tessellation_mm": 0.025,
+  "native_assembly_valid": true,
+  "native_solid_count": 2,
+  "each_solid_valid": [
+    true,
+    true
+  ],
+  "stl_watertight": true,
+  "stl_shells": 2,
+  "extent_mm": [
+    31.926100955818,
+    16.586,
+    16.582721441566306
+  ],
+  "stem_trim_api_valid": true,
+  "ports": {
+    "stem_tip": [
+      [
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        -1.0,
+        0.0,
+        0.0
+      ]
+    ],
+    "stem_shoulder": [
+      [
+        18.29,
+        0.0,
+        0.0
+      ],
+      [
+        -1.0,
+        0.0,
+        0.0
+      ]
+    ],
+    "tube_port": [
+      [
+        31.926100955818384,
+        0.0,
+        0.0
+      ],
+      [
+        1.0,
+        0.0,
+        0.0
+      ]
+    ]
+  },
+  "all_observations": {
+    "samples": 11524,
+    "p50_p90_p95_p99_max_mm": [
+      0.055027352471826135,
+      0.16851176180263042,
+      0.2026929023969455,
+      0.2765555137477858,
+      0.35328840710961235
+    ],
+    "fraction_within_0_25_mm": 0.9788267962513016,
+    "fraction_within_0_50_mm": 1.0
+  },
+  "regions": {
+    "exposed_stem": {
+      "samples": 1310,
+      "p50_p90_p95_p99_max_mm": [
+        0.0634377309232881,
+        0.09425563347780115,
+        0.11386096530001166,
+        0.19138868815535962,
+        0.2929048098595797
+      ],
+      "fraction_within_0_25_mm": 0.9984732824427481,
+      "fraction_within_0_50_mm": 1.0
+    },
+    "fixed_body": {
+      "samples": 9042,
+      "p50_p90_p95_p99_max_mm": [
+        0.05180655011955426,
+        0.17662258748565757,
+        0.20923438580379375,
+        0.2777596741013166,
+        0.33299320305203595
+      ],
+      "fraction_within_0_25_mm": 0.9750055297500553,
+      "fraction_within_0_50_mm": 1.0
+    },
+    "release_collet": {
+      "samples": 1110,
+      "p50_p90_p95_p99_max_mm": [
+        0.07222792141880774,
+        0.1555179529497446,
+        0.19360707588081852,
+        0.28262085242618296,
+        0.35328840710961235
+      ],
+      "fraction_within_0_25_mm": 0.9855855855855856,
+      "fraction_within_0_50_mm": 1.0
+    }
+  },
+  "limits": [
+    "The assembly hides the male tip. The 18.29 mm stem-to-shoulder length is retained nominal geometry, not a measured tip or insertion stop.",
+    "Straight male diameter is nominal 3/8 inch (9.525 mm); the registered observations are not rescaled.",
+    "Internal bores, tube stop, lead-in chamfer and collet underside are display geometry; engagement, seals and release travel are not measured.",
+    "Putty-hidden sectors continue the fitted rotational envelope. Small collet slots and molded markings are omitted.",
+    "Coating thickness and absolute optical scale are not independently calibrated."
+  ],
+  "one_off_check_seconds": 6.7786934999749064
+}
