@@ -9,8 +9,10 @@ materialized standalone wiring STEP and manifest with the current electrical
 graph and native source bodies. It records conductor and housing counts from
 that graph, source-curve agreement, geometric signatures and STEP reader
 validity separately. The current record binds all 120 bodies and 101 conductor curves; every
-source and readback body is valid. The routing report resolves its five mesh
-witnesses with exact native readings and local attachment bounds.
+source and readback body is valid. The [enclosure routing review](routing-enclosure-review.json) resolves the three remaining
+mesh witnesses with exact native readings: two contain no material overlap, and the
+third is wholly inside its named electrical attachment. There are no unresolved
+larger-body contacts.
 
 Run the manual reader after the appliance and its wiring are materialized:
 

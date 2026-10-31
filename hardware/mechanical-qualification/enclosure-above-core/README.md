@@ -10,14 +10,17 @@ native placements; the rear nut-seat relief ends at the continuous ceiling.
 
 ## Current native records
 
-The [vent-return review](vent-return-review.json) binds the printed TPU
-elbow, direct white OVER return and both 4 mm flavor paths to the exported
-appliance. It checks native material inside complete clearance windows,
-with receiving interfaces identified separately. The elbow has no
-unconnected-body overlap; the white return has at least 1 mm clearance.
-Actual curve extrema give R55.674 for the vent return and R25 for both
-flavor lines. The flavor-B mesh follow-up resolves its six ambiguous mesh
-neighbors as native-zero intersections.
+The [enclosure fit review](enclosure-fit-review.json) binds the changed lid
+anchors, flavor restraint, V-B and V-K to the exported native appliance. All
+queried unconnected stock intersections are zero. V-K's outlet elbow has
+1.590 mm of lid clearance, its body has 17.567 mm below the continuous
+ceiling, and the tee has 3.622 mm. The fitted core lid remains 0.250 mm
+below the funnel frame.
+
+The [drain and flavor check](../../manifold-layout/drain-clearance-check.json)
+checks the adapter, white OVER return and both flavor paths against the installed
+material. The vent return is R55.674 and the two 4 mm flavor lines retain R25.
+The receiver interfaces are identified separately.
 
 The [connector-service review](connector-service-review.json) records complete
 continuous conservative nominal housing sweeps for J1, J2 and J11 against
@@ -32,8 +35,8 @@ reproduces the recorded continuous stage bounds without generating a review.
 The [installed wiring binding](../../wiring/installed/above-core-review/installed-wiring-binding.json)
 reads all 120 native wiring bodies and compares all 101 conductor curves
 with their current source. The [routing review](../../wiring/installed/routing-review.json)
-checks larger bodies, excluding wires and tubes as wire obstacles. Its five
-mesh witnesses are resolved by exact native readings: either zero material
+checks larger bodies, excluding wires and tubes as wire obstacles. Its three
+mesh witnesses are resolved in the [enclosure routing review](../../wiring/installed/above-core-review/routing-enclosure-review.json): either zero material
 intersection or contact wholly inside the named electrical attachment.
 There are no unresolved larger-body contacts. Every preparation cut covers
 its installed route.
