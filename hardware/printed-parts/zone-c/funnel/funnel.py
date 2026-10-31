@@ -134,6 +134,9 @@ def _cyl(r, z_top, z_bot, cx, cy):
 def normal_envelope(shape, distance, faces=None, *, rounds_first=False):
     """Filled envelope with a normal skin and round edge and vertex joins."""
     whole_body = faces is None
+    meshcad = sys.modules.get("meshcad")
+    if whole_body and meshcad is not None and meshcad.mesh_mode():
+        return meshcad.offset(shape, distance)
     if whole_body:
         offset = BRepOffsetAPI_MakeOffsetShape()
         offset.PerformByJoin(shape.wrapped, distance, 1e-5,

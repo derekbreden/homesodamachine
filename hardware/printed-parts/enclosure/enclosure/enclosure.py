@@ -2950,8 +2950,12 @@ def _raked_letter(face, depth):
              if abs(side.normalAt(side.Center()).z) < 1e-6 and side.normalAt(side.Center()).y < -1e-9]
     if not under:
         return level
-    wedges = cq.Shape.cast(BRepPrimAPI_MakePrism(cq.Compound.makeCompound(under).wrapped,
-                                                gp_Vec(0.0, -depth, -depth)).Shape())
+    meshcad = sys.modules.get("meshcad")
+    if meshcad is not None and meshcad.mesh_mode():
+        wedges = meshcad.prism(under, (0.0, -depth, -depth))
+    else:
+        wedges = cq.Shape.cast(BRepPrimAPI_MakePrism(cq.Compound.makeCompound(under).wrapped,
+                                                    gp_Vec(0.0, -depth, -depth)).Shape())
     box = level.BoundingBox()
     root = cq.Solid.makeBox(box.xlen + 2.0, box.ylen + 2.0 * depth + 2.0, depth,
                             cq.Vector(box.xmin - 1.0, box.ymin - depth - 1.0, 0.0))
@@ -8758,7 +8762,8 @@ def _silhouette_bound(pieces, box):
     `build_piece` clips each piece to the rounded silhouette before it fuses its furniture, so a
     feature fused after that clip and drawn past a face of the box would stand outside the
     machine. The disposal lettering and the backed nameplate receiver stand
-    proud of the rear wall. Only those named exterior features are excepted.
+    proud of the rear wall. Only those named exterior features are excepted: the
+    lettering's field to the letters' own height, and the receiver's field.
     """
     ox0, ox1, oy0, oy1, oz0, oz1 = box.outer
     over = []
@@ -8767,7 +8772,8 @@ def _silhouette_bound(pieces, box):
             continue
         solid = piece.val()
         if name == "back-bottom":
-            solid = solid.cut(disposal_letters(box.outer))
+            fx0, fx1, _fy0, fy1, fz0, fz1 = disposal_field(box.outer)
+            solid = solid.cut(_ybox(fx0, fx1, oy1, fy1, fz0, fz1))
         if name == 'back-top':
             field = _above_core_shell.rear_identification().receiver_field()
             exterior = _ybox(ox0-1., ox1+1., oy1,
@@ -8883,12 +8889,17 @@ def export_pump_dock(box):
     step = _here.parent / (stem + ".step")
     stl = step.with_suffix(".stl")
     export_assembly(one_body(shape, stem, M_PETGF_BLACK), str(step))
-    _piece_mesh(shape).export(str(stl))
-    flute_payload.cut(step, stl)
+    printed = _piece_mesh(shape)
+    printed.export(str(stl))
+    meshcad = sys.modules.get("meshcad")
+    if meshcad is not None and meshcad.mesh_mode():
+        meshcad.writer().print_payload(step, printed)
+    else:
+        flute_payload.cut(step, stl)
 
 
 def _export_pieces(pieces, assy):
-    refused = []
+    refused, payloads = [], []
     box = _last_box[0]
     outer = box.outer
     # Every assembly piece is meshed once. The plate's envelope also contributes a
@@ -8939,6 +8950,18 @@ def _export_pieces(pieces, assy):
                 f"{written.is_watertight}, over {len(written.faces)} facets")
         print(f"-> enclosure-{name}.stl  ({len(mesh.faces)} facets, "
               f"{'watertight' if mesh.is_watertight else 'NOT WATERTIGHT'})")
+        # ON THE MESH KERNEL THE PAGE'S PAYLOAD IS CUT IN THIS PASS TOO, off the print in hand,
+        # rather than by `flute_payload_enclosure.py` reading this STL back.
+        meshcad = sys.modules.get("meshcad")
+        if meshcad is not None and meshcad.mesh_mode():
+            payloads.append((_here.parent / f"enclosure-{name}.step", mesh.vertices, mesh.faces))
+        # And this piece's meshes, with all a check cached on them, go before the next is struck.
+        del mesh, written
+    # THE PAYLOADS WAIT FOR THE LAST PIECE, so the meshes every flute was struck against, and
+    # what each query built on them, are let go before the largest reduction measures itself.
+    del bodies, steel, berthed, rails
+    for step, vertices, faces in payloads:
+        meshcad.writer().print_payload(step, trimesh.Trimesh(vertices, faces, process=False))
     if box.pack.collet_plate:
         export_pump_dock(box)
     export_assembly(assy, str(_here.parent / "enclosure.step"))

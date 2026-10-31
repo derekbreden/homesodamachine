@@ -182,6 +182,9 @@ def forming_clearance():
 
 
 def merge_edges(shape):
+    meshcad = sys.modules.get("meshcad")
+    if meshcad is not None and meshcad.is_mesh(shape):
+        return shape                          # a mesh has no edges to merge
     merge = ShapeUpgrade_UnifySameDomain(shape.wrapped, True, False, False)
     merge.Build()
     return cq.Shape.cast(merge.Shape())

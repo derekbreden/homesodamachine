@@ -126,6 +126,9 @@ def toolchain() -> str:
                 held.append(f"{dist}=={version(dist)}")
             except PackageNotFoundError:
                 held.append(f"{dist}==absent")
+        meshcad = sys.modules.get("meshcad")
+        if meshcad is not None and meshcad.mesh_mode():
+            held.append(meshcad.toolchain())     # the mesh kernel draws; OCCT only cuts profiles
         _TOOLCHAIN = " ".join(held)
     return _TOOLCHAIN
 
@@ -291,6 +294,9 @@ def realized(name: str, build):
     through BREP, drawn or kept, and a 20 MB artifact does not churn on whether a local
     directory happened to be populated. `DISABLED` skips the disk, not the round trip, so the
     run that proves the kept work honest is comparing the one thing that differs."""
+    meshcad = sys.modules.get("meshcad")
+    if meshcad is not None and meshcad.mesh_mode():
+        return _realized_mesh(meshcad, name, build)
     from OCP.BRep import BRep_Builder
     from OCP.BRepTools import BRepTools
     from OCP.TopoDS import TopoDS_Shape
@@ -321,6 +327,30 @@ def realized(name: str, build):
         except Exception:
             pass                                 # a cache that cannot be written is not an error
     return off_brep(text)
+
+
+def _realized_mesh(meshcad, name, build):
+    """`realized` on the mesh kernel. Every shape leaves through the kernel's model bytes, drawn
+    or kept, for the reason every OCCT shape leaves through BREP."""
+    import cadquery as cq
+
+    path = generation() / f"{name}.npz"
+    if not DISABLED and path.is_file():
+        try:
+            return cq.Workplane(obj=meshcad.from_model(path.read_bytes()))
+        except Exception:
+            pass                                 # an entry that cannot be read is a miss
+    made = build()
+    data = meshcad.model_bytes(made)
+    if not DISABLED:
+        try:
+            path.parent.mkdir(parents=True, exist_ok=True)
+            tmp = path.with_suffix(f".{os.getpid()}.tmp")
+            tmp.write_bytes(data)
+            os.replace(tmp, path)
+        except Exception:
+            pass
+    return cq.Workplane(obj=meshcad.from_model(data))
 
 
 def selftest():

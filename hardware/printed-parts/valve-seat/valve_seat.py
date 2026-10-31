@@ -14,8 +14,6 @@ from pathlib import Path
 
 import cadquery as cq
 
-from OCP.BRepExtrema import BRepExtrema_DistShapeShape
-
 _here = Path(__file__).resolve()
 _hardware = next(p for p in _here.parents if p.name == "hardware")
 sys.path.insert(0, str(_hardware / "reference" / "beduan-solenoid"))
@@ -103,9 +101,7 @@ def seat_volume(seat):
 
 
 def _distance(a, b):
-    d = BRepExtrema_DistShapeShape(a.wrapped, b.wrapped)
-    d.Perform()
-    return d.Value()
+    return a.distance(b)
 
 
 def port_clearance():
