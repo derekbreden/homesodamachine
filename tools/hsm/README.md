@@ -185,7 +185,8 @@ same records from every worktree.
 Profiles are drawn exactly with lines, arcs, circles, Béziers, corner fillets and offsets
 (`Loop`, `Pen`, `Profile`) on a workplane (`Plane`) named as CadQuery names them. The builders
 extrude (straight, both ways, drafted), revolve, sweep along lines and arcs or along a helix
-(carried rigidly by the screw motion, or in a rotation-minimizing frame), loft ruled sections,
+(carried rigidly by the screw motion, or in a rotation-minimizing frame), loft sections ruled
+or through OCCT's own smooth surface (`Solid::thru_sections`, CadQuery's `loft`),
 set text from a font's outlines, and make boxes, cylinders, cones, spheres, tori, wedges and
 hulls. All of them cut curves into points by one rule (0.005 mm chord, 0.05 rad, ring counts a
 multiple of 8 from a canonical seam), so a surface gets the same vertices from any builder and
@@ -220,9 +221,10 @@ Its face records read `PLANE extrude at kernel/examples/fuse_clamp.rs:60` and `P
 kernel/examples/fuse_clamp.rs:61, cut at kernel/examples/fuse_clamp.rs:62`.
 
 The kernel's tests hold every builder and boolean to OCCT's volume and bounds for the same model
-within the rule (`tests/occt_reference.py` and, for the helix sweeps, `tests/screw_reference.py`
-write those with plain CadQuery), and booleans to Manifold run plainly on the same operands,
-sixty holes in one cut among them. They hold the fuse
+within the rule (`tests/occt_reference.py` and, for the helix sweeps and lofts,
+`tests/screw_reference.py` and `tests/thru_reference.py` write those with plain CadQuery), lofts
+to every point sampled on OCCT's faces within the rule, and booleans to Manifold run plainly on
+the same operands, sixty holes in one cut among them. They hold the fuse
 clamp to its published STEP's volume and STL's surface, two processes to the same bytes, a STEP
 and a model file to the triangles, names and colours they were written from, and the crate to a
 wasm32 build. The text tests read the system's Arial and Helvetica.
