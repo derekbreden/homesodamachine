@@ -178,7 +178,7 @@ Lay out the ten Beduan valves and the [6](MANIFOLD_TEES) PP0208E tees. Cut stati
 4. **Fit all four tees with their upper tubes and fore valves.** Keep the rear valve row
    absent for this straight approach from aft. The upper tubes are `fluid-10`
    (Y-C to V-E), `fluid-13` (Y-D to V-F), `fluid-20` (Y-F to V-H) and `fluid-23` (Y-G to
-   V-I). Each nominal blank is [38.901 mm](DOCK_UPPER_TAIL): [15.251 mm](DOCK_FORE_LINK)
+   V-I). Each nominal blank is [29.301 mm](DOCK_UPPER_TAIL): [5.651 mm](DOCK_FORE_LINK)
    exposed, [11.65 mm](DOCK_TEE_INSERTION) bottomed in the tee's extended upper collet and
    an estimated [12 mm](DOCK_VALVE_INSERTION) in the valve. Seat uncut tube fully in the
    actual fore valve's bottom collet, mark the tube at the collet face, and cut it the
@@ -240,10 +240,10 @@ until the tip touches the floor
 
 Reservoir A’s two continuous tubes use two integral fore C2 clips on one broad base
 and one aft tied seat. Draw is west of fill: their centreline X stations are
-50.5/64.0 mm at the fore clips, Y209.75 and Z258.5 mm, and 86.5/94 mm at the aft
-seat, Y304 and Z259.5 mm. Press each tube down through its clip's open +Z mouth.
+50.5/64.0 mm at the fore clips, Y209.75 and Z258.5 mm, and approximately X45.584/Z267.4 and X61.144/Z259.5 at the aft
+saddle, Y390 mm. Its open grooves follow the actual curved paths. Press each tube down through its clip's open +Z mouth.
 For removal, release the exposed jaws and lift the tube upward.
-At the aft seat, Y304 mm, thread one four-inch narrow tie through the empty transverse
+At the aft saddle, Y390 mm, thread one four-inch narrow tie through the empty transverse
 slot before laying in the pair; retain both tubes there with that shared tie on the
 open core.
 Leave the front valve ends free during the column slide and dress the
@@ -260,9 +260,9 @@ continue through the guide to the reservoir fill bore or dip-tube tip and
 replace the socket allowance with its actual fully seated insertion mark.
 The guide adds no fitting, insertion or cut. Tighten the pump screws before
 threading the draw tube; remove that tube for the affected screw's service.
-The aft nominal closed tie path is
-47.182 mm before head engagement and tail; threading and retention remain
-unqualified. Fore snap insertion force, fit and retention have no physical acceptance. The [route record](/hardware/mechanical-qualification/enclosure-above-core/reservoir-a-route-review.json)
+The aft saddle has full 3 mm outside stock and 3 mm above its open tie
+passage. Its unequal-height nominal tie witness includes no loose tail;
+threading and retention remain unqualified. Fore snap insertion force, fit and retention have no physical acceptance. The [route record](/hardware/mechanical-qualification/enclosure-above-core/reservoir-a-route-review.json)
 preserves the selected line/arc definitions and contact scope.
 
 V-F's outlet and V-E's inlet each receive one ATEU44W stem elbow on front-top. Cut each male stem to the valve's marked tube stop (12.7 mm nominal in CAD), seat it fully and point its tube socket aft. Their reservoir tubes rise gently to the Z295.5 free runs beneath the funnel frame, with 1.225 mm nominal tube/frame air. V-I's outlet takes the same trimmed stem elbow with its socket clocked 15° east of aft. Its B-fill tube descends toward the fore-facing cap entry. Flavor A's 4 mm crossover runs at Y156/Z288.5; the J9 display ribbon's free bends pass below it while the printed cable mouth and connector positions retain their datums.

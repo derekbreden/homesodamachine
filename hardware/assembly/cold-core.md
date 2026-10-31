@@ -124,7 +124,7 @@ The main PCB uses the full-length inserts prepared here. The PSU mounts in back-
 The Reservoir A fill/draw pair uses two integral fore C2 clips on one broad lid
 base at Y209.75, Z258.5 mm, with draw at X50.5 and fill at X64.0 mm. Press each
 continuous tube downward through its open +Z mouth. For removal, release the
-exposed jaws and lift the tube upward. At the aft station, Y304 mm, thread one four-inch narrow tie
+exposed jaws and lift the tube upward. At the aft station, Y390 mm, thread one four-inch narrow tie
 through the empty transverse slot before laying in the pair; one common tie retains
 both tubes there. Its slot has 3 mm of seat floor above it. Their plain cap guides add
 no joint or physical tube cut; follow the combined warm/internal preparation in

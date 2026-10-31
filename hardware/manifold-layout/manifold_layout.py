@@ -97,7 +97,7 @@ BUTT = 0.0            # tube left outside a pair of butted quick-connects
 CARRIER_DROP = (_enc_if.pump_station_drop + _enc_if.manifold_rise
                 + _enc_if.pump_seated_drop - kp.outlet_above_skirt_bottom)
 INNER_LIMB_DROP = _enc_if.inner_limb_drop
-FORE_VALVE_RISE = 10.0
+FORE_VALVE_RISE = 0.4
 FORE_STUB_GAP = FORE_VALVE_RISE + CARRIER_DROP
 # EXPOSED tube between the two sleeve faces, not the cut length swallowed by their collets.
 # The valve's own insertion depth is not measured, so the cut length remains a bench figure.
@@ -116,7 +116,7 @@ AFT_PACK_RISE = 8.0
 # height and each lower return's two stem elbows face each other level.
 OUTER_AFT_DROP = INNER_LIMB_DROP
 # Existing world lift is independent of the fixed routing's lowest surface.
-WORLD_LIFT = 191.425
+WORLD_LIFT = 201.025
 PACK_ORIGIN_Y = 14.48
 # The collet plate's fore face stands this far aft of the pump barb plane: the cradle's
 # fitted back datum and its frame gap. The pump tube reaches on through the plate to its

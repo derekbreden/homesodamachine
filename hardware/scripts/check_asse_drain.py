@@ -24,7 +24,45 @@ def sha(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def write(placed, output=OUTPUT, *, names=NAMES):
+def centerline_radii(segments):
+    """Actual circular radii and every cubic Bezier curvature extremum."""
+    import math
+    import numpy as np
+    from numpy.polynomial import Polynomial as P
+
+    values = []
+    for segment in segments:
+        if segment['kind'] == 'line':
+            continue
+        if segment['kind'] == 'arc':
+            a, b, c = np.asarray(segment['points_mm'], dtype=float)
+            values.append(math.dist(a, b)*math.dist(b, c)*math.dist(c, a)
+                          / (2*np.linalg.norm(np.cross(b-a, c-a))))
+            continue
+        q = np.asarray(segment['control_points_mm'], dtype=float)
+        if q.shape != (4, 3):
+            raise ValueError('The ASSE return requires a cubic Bezier centerline')
+        v = [P([q[0, k], 3*(q[1, k]-q[0, k]),
+                3*(q[2, k]-2*q[1, k]+q[0, k]),
+                q[3, k]-3*q[2, k]+3*q[1, k]-q[0, k]]).deriv()
+             for k in range(3)]
+        a = [p.deriv() for p in v]
+        cross = [v[1]*a[2]-v[2]*a[1], v[2]*a[0]-v[0]*a[2],
+                 v[0]*a[1]-v[1]*a[0]]
+        speed2 = sum(p*p for p in v)
+        cross2 = sum(p*p for p in cross)
+        stationary = cross2.deriv()*speed2-3*cross2*speed2.deriv()
+        candidates = [0., 1., *[float(t.real) for t in stationary.roots()
+                                if abs(t.imag) < 1.e-8 and 0. <= t.real <= 1.]]
+        radii = [0. if speed2(t) <= 1.e-16 else
+                 math.sqrt(max(0., speed2(t))**3/cross2(t))
+                 for t in candidates if cross2(t) > 1.e-16 or speed2(t) <= 1.e-16]
+        if radii:
+            values.append(min(radii))
+    return sorted(set(round(r, 7) for r in values))
+
+
+def write(placed, output=OUTPUT, *, names=NAMES, route_specs=None):
     from OCP.BRepAdaptor import BRepAdaptor_Surface
     from OCP.BRepBndLib import BRepBndLib
     from OCP.Bnd import Bnd_Box
@@ -81,10 +119,15 @@ def write(placed, output=OUTPUT, *, names=NAMES):
         checks[name] = row
     radii = {}
     for name in set(names) & {"tube-drain-vent"}:
-        values = sorted({round(surface(face).Torus().MajorRadius(), 7)
-                         for face in shapes[name].Faces() if face.geomType() == "TORUS"})
+        spec = (route_specs or {}).get('drain-vent')
+        values = (centerline_radii(spec['segments']) if spec else
+                  sorted({round(surface(face).Torus().MajorRadius(), 7)
+                          for face in shapes[name].Faces() if face.geomType() == "TORUS"}))
         radii[name] = {"centerline_radii_mm": values,
-                       "passed": bool(values) and min(values) >= 25 - 1e-6}
+                       "method": ("Producer centerline; circular arcs and cubic curvature extrema"
+                                  if spec else "Native toroidal faces"),
+                       "passed": (bool(values) or bool(spec and spec['segments']))
+                                 and (not values or min(values) >= 25 - 1e-6)}
     for name in set(names) & {"tube-fluid-18", "tube-fluid-28"}:
         surfaces = [surface(face).Torus()
                     for face in shapes[name].Faces() if face.geomType() == "TORUS"]
@@ -95,6 +138,8 @@ def write(placed, output=OUTPUT, *, names=NAMES):
     sources = [Path(__file__), ROOT / "hardware/manifold-layout/_drain.py",
                ROOT / "hardware/manifold-layout/enclosure_assembly.py",
                ROOT / "hardware/manifold-layout/_lines.py",
+               ROOT / "hardware/manifold-layout/rear_plumbing.py",
+               ROOT / "hardware/manifold-layout/above-core.json",
                ROOT / "hardware/reference/neofit-drain-bulkhead/neofit_drain_bulkhead.py",
                ROOT / "hardware/reference/asse1022-assembly/asse1022_assembly.py",
                ROOT / "hardware/printed-parts/asse-drain-adapter/asse_drain_adapter.py"]
@@ -132,7 +177,9 @@ def main():
     placed = import_assembly(native)
     if not any(name.startswith("cold-core/") for name in placed):
         raise ValueError("The exported assembly contains no cold-core bodies")
-    result = write({**placed, "foam-assembly": foam})
+    saved = json.loads(_facts.ARTIFACT.read_text())
+    specs = {r['id']: r for r in saved['native_runs']}
+    result = write({**placed, "foam-assembly": foam}, route_specs=specs)
     result["serialized_input_sha256"] = {
         str(p.relative_to(ROOT)): sha(p)
         for p in (native, assembly.FOAM_STEP)
