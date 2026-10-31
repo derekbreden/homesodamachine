@@ -15,8 +15,8 @@
   },
   "native_artifact_sha256": {
     "foam-cap-lid-top": {
-      ".step": "658d68fcd4d278ca87679867a25f5a48717e8ca4d4dba41d3dc9c089191ad6d8",
-      ".stl": "696fc0a13663785f48e839a01d9cf7ba30cbd930ab25a78b3c32a8442cddeb82"
+      ".step": "f99c2d51a8ae15285985ac97acf31f8e45f03ea478f6f0891580e9e431888737",
+      ".stl": "86eed7e768e70d303ffad7a9ad675bb24d811b9e965e1faf38d201e86503c3a7"
     }
   },
   "part_process_overrides": {},
