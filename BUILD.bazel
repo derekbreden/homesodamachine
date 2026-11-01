@@ -1789,7 +1789,9 @@ genrule(
         "tools/hsm/Cargo.toml",
         "tools/hsm/faucet/Cargo.toml",
         "tools/hsm/faucet/src/assembly.rs",
+        "tools/hsm/faucet/src/display.rs",
         "tools/hsm/faucet/src/lib.rs",
+        "tools/hsm/faucet/src/shell.rs",
         "tools/hsm/kernel/Cargo.toml",
         "tools/hsm/kernel/src/boolean.rs",
         "tools/hsm/kernel/src/build.rs",
@@ -1798,6 +1800,7 @@ genrule(
         "tools/hsm/kernel/src/face.rs",
         "tools/hsm/kernel/src/import.rs",
         "tools/hsm/kernel/src/lib.rs",
+        "tools/hsm/kernel/src/mapped.rs",
         "tools/hsm/kernel/src/mass.rs",
         "tools/hsm/kernel/src/math.rs",
         "tools/hsm/kernel/src/part.rs",
@@ -1987,7 +1990,9 @@ genrule(
         "tools/hsm/Cargo.toml",
         "tools/hsm/faucet/Cargo.toml",
         "tools/hsm/faucet/src/assembly.rs",
+        "tools/hsm/faucet/src/display.rs",
         "tools/hsm/faucet/src/lib.rs",
+        "tools/hsm/faucet/src/shell.rs",
         "tools/hsm/kernel/Cargo.toml",
         "tools/hsm/kernel/src/boolean.rs",
         "tools/hsm/kernel/src/build.rs",
@@ -1996,6 +2001,7 @@ genrule(
         "tools/hsm/kernel/src/face.rs",
         "tools/hsm/kernel/src/import.rs",
         "tools/hsm/kernel/src/lib.rs",
+        "tools/hsm/kernel/src/mapped.rs",
         "tools/hsm/kernel/src/mass.rs",
         "tools/hsm/kernel/src/math.rs",
         "tools/hsm/kernel/src/part.rs",
@@ -2096,6 +2102,7 @@ genrule(
         ":out/industrial-faucet/hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.step.mesh",
         ":out/industrial-faucet/hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.stl",
         ":out/industrial-faucet/hardware/printed-parts/faucet/industrial/industrial-display-cover-seated.step",
+        ":out/industrial-faucet/hardware/printed-parts/faucet/industrial/industrial-display-cover-seated.step.mesh",
         ":out/industrial-faucet/hardware/printed-parts/faucet/industrial/industrial-display-cover.step",
         ":out/industrial-faucet/hardware/printed-parts/faucet/industrial/industrial-display-cover.step.mesh",
         ":out/industrial-faucet/hardware/printed-parts/faucet/industrial/industrial-display-cover.stl",
@@ -2138,7 +2145,9 @@ genrule(
         "tools/hsm/Cargo.toml",
         "tools/hsm/faucet/Cargo.toml",
         "tools/hsm/faucet/src/assembly.rs",
+        "tools/hsm/faucet/src/display.rs",
         "tools/hsm/faucet/src/lib.rs",
+        "tools/hsm/faucet/src/shell.rs",
         "tools/hsm/kernel/Cargo.toml",
         "tools/hsm/kernel/src/boolean.rs",
         "tools/hsm/kernel/src/build.rs",
@@ -2147,6 +2156,7 @@ genrule(
         "tools/hsm/kernel/src/face.rs",
         "tools/hsm/kernel/src/import.rs",
         "tools/hsm/kernel/src/lib.rs",
+        "tools/hsm/kernel/src/mapped.rs",
         "tools/hsm/kernel/src/mass.rs",
         "tools/hsm/kernel/src/math.rs",
         "tools/hsm/kernel/src/part.rs",
@@ -3648,6 +3658,7 @@ genrule(
         "tools/hsm/kernel/src/face.rs",
         "tools/hsm/kernel/src/import.rs",
         "tools/hsm/kernel/src/lib.rs",
+        "tools/hsm/kernel/src/mapped.rs",
         "tools/hsm/kernel/src/mass.rs",
         "tools/hsm/kernel/src/math.rs",
         "tools/hsm/kernel/src/part.rs",
@@ -7076,46 +7087,97 @@ genrule(
         "pysrc/hardware/printed-parts/faucet/faucet_paths.py",
         "pysrc/hardware/printed-parts/faucet/industrial/industrial_display_cover.py",
         "pysrc/hardware/printed-parts/faucet/industrial/industrial_faucet.py",
-        "pysrc/hardware/printed-parts/faucet/vent_seals.py",
+        "hardware/printed-parts/faucet/industrial/industrial_faucet.rs",
         "pysrc/hardware/scripts/_cadq_export.py",
         "pysrc/hardware/scripts/_material_base.py",
         "pysrc/hardware/scripts/_materials.py",
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_rust_part.py",
         "pysrc/hardware/scripts/_stated_bounds.py",
         "pysrc/hardware/scripts/flute_payload.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/Cargo.lock",
+        "tools/hsm/Cargo.toml",
+        "tools/hsm/faucet/Cargo.toml",
+        "tools/hsm/faucet/src/assembly.rs",
+        "tools/hsm/faucet/src/display.rs",
+        "tools/hsm/faucet/src/lib.rs",
+        "tools/hsm/faucet/src/shell.rs",
+        "tools/hsm/kernel/Cargo.toml",
+        "tools/hsm/kernel/src/boolean.rs",
+        "tools/hsm/kernel/src/build.rs",
+        "tools/hsm/kernel/src/dxf.rs",
+        "tools/hsm/kernel/src/edge.rs",
+        "tools/hsm/kernel/src/face.rs",
+        "tools/hsm/kernel/src/import.rs",
+        "tools/hsm/kernel/src/lib.rs",
+        "tools/hsm/kernel/src/mapped.rs",
+        "tools/hsm/kernel/src/mass.rs",
+        "tools/hsm/kernel/src/math.rs",
+        "tools/hsm/kernel/src/part.rs",
+        "tools/hsm/kernel/src/plane.rs",
+        "tools/hsm/kernel/src/profile.rs",
+        "tools/hsm/kernel/src/round.rs",
+        "tools/hsm/kernel/src/rule.rs",
+        "tools/hsm/kernel/src/screw.rs",
+        "tools/hsm/kernel/src/sketch_hull.rs",
+        "tools/hsm/kernel/src/solid.rs",
+        "tools/hsm/kernel/src/spline.rs",
+        "tools/hsm/kernel/src/step.rs",
+        "tools/hsm/kernel/src/sweep.rs",
+        "tools/hsm/kernel/src/text.rs",
+        "tools/hsm/kernel/src/thru.rs",
+        "tools/hsm/kernel/src/topo.rs",
+        "tools/hsm/kernel/src/triangulate.rs",
+        "tools/hsm/kernel/src/write.rs",
     ],
     outs = [
         "out/industrial-faucet/hardware/printed-parts/faucet/industrial/industrial-above-counter-gasket.step",
         "out/industrial-faucet/hardware/printed-parts/faucet/industrial/industrial-above-counter-gasket.step.mesh",
+        "out/industrial-faucet/hardware/printed-parts/faucet/industrial/industrial-above-counter-gasket.step.npz",
         "out/industrial-faucet/hardware/printed-parts/faucet/industrial/industrial-above-counter-gasket.stl",
         "out/industrial-faucet/hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.step",
         "out/industrial-faucet/hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.step.mesh",
+        "out/industrial-faucet/hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.step.npz",
         "out/industrial-faucet/hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.stl",
         "out/industrial-faucet/hardware/printed-parts/faucet/industrial/industrial-display-cover-seated.step",
+        "out/industrial-faucet/hardware/printed-parts/faucet/industrial/industrial-display-cover-seated.step.mesh",
+        "out/industrial-faucet/hardware/printed-parts/faucet/industrial/industrial-display-cover-seated.step.npz",
         "out/industrial-faucet/hardware/printed-parts/faucet/industrial/industrial-display-cover.step",
         "out/industrial-faucet/hardware/printed-parts/faucet/industrial/industrial-display-cover.step.mesh",
+        "out/industrial-faucet/hardware/printed-parts/faucet/industrial/industrial-display-cover.step.npz",
         "out/industrial-faucet/hardware/printed-parts/faucet/industrial/industrial-display-cover.stl",
+        "out/industrial-faucet/hardware/printed-parts/faucet/industrial/industrial-faucet.numbers.json",
         "out/industrial-faucet/hardware/printed-parts/faucet/industrial/industrial-shell-base.step",
         "out/industrial-faucet/hardware/printed-parts/faucet/industrial/industrial-shell-base.step.mesh",
+        "out/industrial-faucet/hardware/printed-parts/faucet/industrial/industrial-shell-base.step.npz",
         "out/industrial-faucet/hardware/printed-parts/faucet/industrial/industrial-shell-base.stl",
     ],
+    tags = ["no-sandbox"],
     cmd = """
 set -e
 O0=$$PWD/$(location out/industrial-faucet/hardware/printed-parts/faucet/industrial/industrial-above-counter-gasket.step)
 O1=$$PWD/$(location out/industrial-faucet/hardware/printed-parts/faucet/industrial/industrial-above-counter-gasket.step.mesh)
-O2=$$PWD/$(location out/industrial-faucet/hardware/printed-parts/faucet/industrial/industrial-above-counter-gasket.stl)
-O3=$$PWD/$(location out/industrial-faucet/hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.step)
-O4=$$PWD/$(location out/industrial-faucet/hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.step.mesh)
-O5=$$PWD/$(location out/industrial-faucet/hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.stl)
-O6=$$PWD/$(location out/industrial-faucet/hardware/printed-parts/faucet/industrial/industrial-display-cover-seated.step)
-O7=$$PWD/$(location out/industrial-faucet/hardware/printed-parts/faucet/industrial/industrial-display-cover.step)
-O8=$$PWD/$(location out/industrial-faucet/hardware/printed-parts/faucet/industrial/industrial-display-cover.step.mesh)
-O9=$$PWD/$(location out/industrial-faucet/hardware/printed-parts/faucet/industrial/industrial-display-cover.stl)
-O10=$$PWD/$(location out/industrial-faucet/hardware/printed-parts/faucet/industrial/industrial-shell-base.step)
-O11=$$PWD/$(location out/industrial-faucet/hardware/printed-parts/faucet/industrial/industrial-shell-base.step.mesh)
-O12=$$PWD/$(location out/industrial-faucet/hardware/printed-parts/faucet/industrial/industrial-shell-base.stl)
+O2=$$PWD/$(location out/industrial-faucet/hardware/printed-parts/faucet/industrial/industrial-above-counter-gasket.step.npz)
+O3=$$PWD/$(location out/industrial-faucet/hardware/printed-parts/faucet/industrial/industrial-above-counter-gasket.stl)
+O4=$$PWD/$(location out/industrial-faucet/hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.step)
+O5=$$PWD/$(location out/industrial-faucet/hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.step.mesh)
+O6=$$PWD/$(location out/industrial-faucet/hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.step.npz)
+O7=$$PWD/$(location out/industrial-faucet/hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.stl)
+O8=$$PWD/$(location out/industrial-faucet/hardware/printed-parts/faucet/industrial/industrial-display-cover-seated.step)
+O9=$$PWD/$(location out/industrial-faucet/hardware/printed-parts/faucet/industrial/industrial-display-cover-seated.step.mesh)
+O10=$$PWD/$(location out/industrial-faucet/hardware/printed-parts/faucet/industrial/industrial-display-cover-seated.step.npz)
+O11=$$PWD/$(location out/industrial-faucet/hardware/printed-parts/faucet/industrial/industrial-display-cover.step)
+O12=$$PWD/$(location out/industrial-faucet/hardware/printed-parts/faucet/industrial/industrial-display-cover.step.mesh)
+O13=$$PWD/$(location out/industrial-faucet/hardware/printed-parts/faucet/industrial/industrial-display-cover.step.npz)
+O14=$$PWD/$(location out/industrial-faucet/hardware/printed-parts/faucet/industrial/industrial-display-cover.stl)
+O15=$$PWD/$(location out/industrial-faucet/hardware/printed-parts/faucet/industrial/industrial-faucet.numbers.json)
+O16=$$PWD/$(location out/industrial-faucet/hardware/printed-parts/faucet/industrial/industrial-shell-base.step)
+O17=$$PWD/$(location out/industrial-faucet/hardware/printed-parts/faucet/industrial/industrial-shell-base.step.mesh)
+O18=$$PWD/$(location out/industrial-faucet/hardware/printed-parts/faucet/industrial/industrial-shell-base.step.npz)
+O19=$$PWD/$(location out/industrial-faucet/hardware/printed-parts/faucet/industrial/industrial-shell-base.stl)
+rm -rf work-industrial-faucet
 for f in $(SRCS); do
   case $$f in
     */node_modules/*) continue;;
@@ -7123,28 +7185,36 @@ for f in $(SRCS); do
     */pysrc/*) t=$${f##*/pysrc/};;
     *) t=$$f;;
   esac
-  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
+  mkdir -p work-industrial-faucet/$$(dirname $$t); cp -L $$f work-industrial-faucet/$$t
 done
 for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
+  if [ -d $$d ]; then mkdir -p work-industrial-faucet/$$(dirname $$d); ln -sfn $$PWD/$$d work-industrial-faucet/$$d; fi
 done
-cd work
+cd work-industrial-faucet
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
 HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/faucet/industrial/industrial_faucet.py > /dev/null
 cp hardware/printed-parts/faucet/industrial/industrial-above-counter-gasket.step $$O0
 cp hardware/printed-parts/faucet/industrial/industrial-above-counter-gasket.step.mesh $$O1
-cp hardware/printed-parts/faucet/industrial/industrial-above-counter-gasket.stl $$O2
-cp hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.step $$O3
-cp hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.step.mesh $$O4
-cp hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.stl $$O5
-cp hardware/printed-parts/faucet/industrial/industrial-display-cover-seated.step $$O6
-cp hardware/printed-parts/faucet/industrial/industrial-display-cover.step $$O7
-cp hardware/printed-parts/faucet/industrial/industrial-display-cover.step.mesh $$O8
-cp hardware/printed-parts/faucet/industrial/industrial-display-cover.stl $$O9
-cp hardware/printed-parts/faucet/industrial/industrial-shell-base.step $$O10
-cp hardware/printed-parts/faucet/industrial/industrial-shell-base.step.mesh $$O11
-cp hardware/printed-parts/faucet/industrial/industrial-shell-base.stl $$O12
+cp hardware/printed-parts/faucet/industrial/industrial-above-counter-gasket.step.npz $$O2
+cp hardware/printed-parts/faucet/industrial/industrial-above-counter-gasket.stl $$O3
+cp hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.step $$O4
+cp hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.step.mesh $$O5
+cp hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.step.npz $$O6
+cp hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.stl $$O7
+cp hardware/printed-parts/faucet/industrial/industrial-display-cover-seated.step $$O8
+cp hardware/printed-parts/faucet/industrial/industrial-display-cover-seated.step.mesh $$O9
+cp hardware/printed-parts/faucet/industrial/industrial-display-cover-seated.step.npz $$O10
+cp hardware/printed-parts/faucet/industrial/industrial-display-cover.step $$O11
+cp hardware/printed-parts/faucet/industrial/industrial-display-cover.step.mesh $$O12
+cp hardware/printed-parts/faucet/industrial/industrial-display-cover.step.npz $$O13
+cp hardware/printed-parts/faucet/industrial/industrial-display-cover.stl $$O14
+cp hardware/printed-parts/faucet/industrial/industrial-faucet.numbers.json $$O15
+cp hardware/printed-parts/faucet/industrial/industrial-shell-base.step $$O16
+cp hardware/printed-parts/faucet/industrial/industrial-shell-base.step.mesh $$O17
+cp hardware/printed-parts/faucet/industrial/industrial-shell-base.step.npz $$O18
+cp hardware/printed-parts/faucet/industrial/industrial-shell-base.stl $$O19
+cd .. && rm -rf work-industrial-faucet
 """,
 )
 
@@ -8057,6 +8127,7 @@ genrule(
         "tools/hsm/kernel/src/face.rs",
         "tools/hsm/kernel/src/import.rs",
         "tools/hsm/kernel/src/lib.rs",
+        "tools/hsm/kernel/src/mapped.rs",
         "tools/hsm/kernel/src/mass.rs",
         "tools/hsm/kernel/src/math.rs",
         "tools/hsm/kernel/src/part.rs",
