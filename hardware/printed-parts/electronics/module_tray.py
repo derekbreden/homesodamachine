@@ -5,20 +5,18 @@ Tight flush packing, a single convex-outline floor, no walls, heat-set M3 boss
 mounting. A board reference exposes ``length`` (X), ``width`` (Y), ``holes``
 [(dx,dy), ...] and ``build()``; a ``Mount`` places it at centre ``c`` rotated
 ``rot`` degrees about Z. Boards with holes stand on heat-set bosses; boards with
-no holes (tiny adhesive parts) rest on the floor."""
+no holes (tiny adhesive parts) rest on the floor.
+
+The numbers import alone: CadQuery and the materials load when a builder runs."""
 
 import math
 import sys
 from dataclasses import dataclass
 from pathlib import Path
 
-import cadquery as cq
-
 _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
 sys.path.insert(0, str(_hw / "scripts"))
-
-from _materials import C_PCBA, M_PETG_BLACK       # noqa: E402
 
 floor_t = 3.0           # base-plate thickness
 margin = 8.0            # part-to-plate-edge margin
@@ -74,6 +72,7 @@ def _boss_spec(hole_dia):
 
 
 def _insert_boss(px, py, boss_d, bore_d, depth):
+    import cadquery as cq
     top = floor_t + board_standoff
     boss = (cq.Workplane("XY").cylinder(board_standoff, boss_d / 2.0, centered=(True, True, False))
             .translate((px, py, floor_t)))
@@ -102,6 +101,7 @@ def build_module_tray(mounts):
     mounting hole sits nearer a board edge than its boss radius, so every boss
     lands fully on the floor — plus a heat-set standoff boss (M2 or M3, sized
     per board) at each mounting hole. No walls."""
+    import cadquery as cq
     pts = []
     for m in mounts:
         pts += _rect_corners(m.c[0], m.c[1], m.ref.length, m.ref.width, m.rot)
@@ -117,24 +117,23 @@ def build_module_tray(mounts):
     return tray
 
 
-# The tray prints off the same black spool every other printed body on this machine does — it
-# is bench geometry rather than a shipped part (`pcba-tray/README.md`), which changes what it
-# costs and not what it is made of.
-TRAY_COLOR = M_PETG_BLACK
-_COLORS = {
-    # Black mask, white silk — what `pcb/pcba/order.md` places the board at.
-    "pcba": C_PCBA,
-}
-
-
 def build_module_assembly(mounts, name):
+    import cadquery as cq
+    from _materials import C_PCBA, M_PETG_BLACK
+    # The tray prints off the same black spool every other printed body on this machine does
+    # (`pcba-tray/README.md`).
+    tray_color = M_PETG_BLACK
+    colors = {
+        # Black mask, white silk — what `pcb/pcba/order.md` places the board at.
+        "pcba": C_PCBA,
+    }
     assy = cq.Assembly(name=name)
-    assy.add(build_module_tray(mounts).val(), name="tray", color=TRAY_COLOR)
+    assy.add(build_module_tray(mounts).val(), name="tray", color=tray_color)
     for i, m in enumerate(mounts):
         # Every board seats at the standoff height; hole-less boards (tiny
         # adhesive parts) ride at the same level, tucked against a neighbour.
         s = (m.ref.build().val().rotate((0, 0, 0), (0, 0, 1), m.rot)
              .translate((m.c[0], m.c[1], floor_t + board_standoff)))
         assy.add(s, name="%s%d" % (m.ref.name, i),
-                 color=_COLORS.get(m.ref.name, C_PCBA))
+                 color=colors.get(m.ref.name, C_PCBA))
     return assy
