@@ -88,6 +88,9 @@ def _load(path):
         return import_shell(path)
     if Path(path).parent == CAP_DIR:
         return import_cap_part(path)
+    if Path(path).parent == RESERVOIR_DIR:
+        import reservoir
+        return reservoir.import_part(path)
     return import_step(str(path)).val()
 
 
