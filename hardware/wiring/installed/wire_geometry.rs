@@ -138,7 +138,13 @@ fn main() -> Result<()> {
     let span = upper - lower;
     let deflection =
         (span.x + span.y + span.z) / 3.0 * numbers.f("presentation_deflection_ratio")?;
-    let presentation_tolerance = deflection.min(hsm_kernel::LINEAR);
+    let angular = numbers.f("presentation_angular_deflection_rad")?;
+    let radius = routes
+        .iter()
+        .filter_map(|route| route["diameter_mm"].as_f64())
+        .fold(f64::INFINITY, f64::min)
+        / 2.0;
+    let presentation_tolerance = deflection.min(radius * (1.0 - (angular / 2.0).cos()));
     let presentation: Vec<Solid> = fine
         .iter()
         .map(|solid| solid.simplified_to(presentation_tolerance))
@@ -157,6 +163,7 @@ fn main() -> Result<()> {
     std::fs::create_dir_all(&output)?;
     let document = json!({"schema":"hsm-installed-wires-1","frame":"Enclosure assembly XYZ; Z up",
                           "presentation_tolerance_mm":presentation_tolerance,
+                          "presentation_angular_deflection_rad":angular,
                           "alpha_by_name":names.iter().map(|name|((*name).to_owned(),json!(1.0))).collect::<serde_json::Map<_,_>>()});
     let said = part::write_assembly(&output, numbers.text("name")?, &bodies, Some(&document))?;
     println!("{said}");

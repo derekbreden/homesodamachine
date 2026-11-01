@@ -14,7 +14,9 @@ def numbers(routes, stock):
     """Ordered recorded segments, insulation diameters, and the source's linear materials."""
     from _occt_color import rgba
     from _payload_rules import LINEAR_DEFLECTION_RATIO
+    from _mesh_payload import ANGULAR_DEFLECTION
     return {'name':'installed-wiring','presentation_deflection_ratio':LINEAR_DEFLECTION_RATIO,
+            'presentation_angular_deflection_rad':ANGULAR_DEFLECTION,
             'routes':[{'name':'wire-'+r['id'],'diameter_mm':stock[r['stock']]['od_mm'],
                        'linear_rgb':rgba(tuple(stock[r['stock']]['color']),{})[:3],
                        'segments':r['segments']} for r in routes]}
