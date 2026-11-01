@@ -1,11 +1,11 @@
 {
-  "schema": "cold-core-kernel-cap-print-review/1",
-  "scope": "Four Rust cap STLs sliced with the accepted native recipes. Records emitted paths, solid-region coverage, bed envelopes and the unchanged lid-driver envelopes.",
-  "geometry_source_commit": "580ce0619ccdec1e45a710c81a34317c58cb0c08",
+  "schema": "cold-core-kernel-cap-print-review/2",
+  "scope": "Four identified Rust cap STLs with the accepted recipes. Current lid and continuous 3.1 mm clip have emitted slice, bed, solid-region and driver readings; the bottom and B-fill guide retain identical qualified bytes.",
+  "geometry_source_commit": "7320c7c39a9d4e1485cb7dbcc3b95aa85d0802fb",
   "artifact_root": "/Users/derekbredensteiner/Developer/homesodamachine",
   "print_binding_inputs": {
-    "path": ".cache/port-foam-cap/proof/print-binding-inputs.json",
-    "sha256": "8eaf25a16155d1f5ebc8fd739f130e8a77d7699c5fe7a7c1529024f59742077e"
+    "path": ".cache/combined-finish/handoffs/foam-cap/current-7320/candidate-identity.json",
+    "sha256": "bb503d0b3b56d4e4fe908c6f9b87892aa4f3b78f185f52c6c91315eedb64d17b"
   },
   "parts": {
     "foam-cap-bottom": {
@@ -642,30 +642,6 @@
       }
     },
     "foam-cap-lid-top": {
-      "physical_stl": "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl",
-      "physical_stl_sha256": "6eed3264fdcdbdf92385851ee30f38a0c07033c6f1ed3a3ad2bf2ea6338ca404",
-      "step_sha256": "fb3898e98859cc66abd4fd3fb5d86f3e90334d39189cbfb2f3136a45d392b52f",
-      "captured_meshes": {
-        ".stl": {
-          "path": ".cache/combined-finish/handoffs/foam-cap/candidate-meshes/foam-cap-lid-top.stl",
-          "sha256": "6eed3264fdcdbdf92385851ee30f38a0c07033c6f1ed3a3ad2bf2ea6338ca404"
-        },
-        ".step": {
-          "path": ".cache/combined-finish/handoffs/foam-cap/candidate-meshes/foam-cap-lid-top.step",
-          "sha256": "fb3898e98859cc66abd4fd3fb5d86f3e90334d39189cbfb2f3136a45d392b52f"
-        }
-      },
-      "preparation_directory": ".cache/combined-finish/handoffs/foam-cap/prepared-print/2026-11-01-foam-cap-lid-top-mark1-6a7690fe",
-      "preparation_sha256": "694927e4e9a23f6f11eba325b3d82ebb38ea642483838a62f84a2a38e189c12f",
-      "audited_preparation_input": {
-        "path": ".cache/combined-finish/handoffs/foam-cap/prepared-print/2026-11-01-foam-cap-lid-top-mark1-6a7690fe/preparation.json",
-        "sha256": "694927e4e9a23f6f11eba325b3d82ebb38ea642483838a62f84a2a38e189c12f"
-      },
-      "project": ".cache/combined-finish/handoffs/foam-cap/prepared-print/2026-11-01-foam-cap-lid-top-mark1-6a7690fe/2026-11-01-foam-cap-lid-top-mark1-6a7690fe.3mf",
-      "project_sha256": "203db2aa431aa788317aaddcaf7abf01cd73f0be1be3a2b21b95f005e53bf069",
-      "archive": ".cache/combined-finish/handoffs/foam-cap/prepared-print/2026-11-01-foam-cap-lid-top-mark1-6a7690fe/2026-11-01-foam-cap-lid-top-mark1-6a7690fe.gcode.3mf",
-      "archive_sha256": "a8d5432059cd7fe38a77faf4d512cfadd406fc1c43d44bb3d5a582f5b937d846",
-      "gcode_sha256": "f6fe771cf979da6d839d9889ddc9e5eb959fbcabf64a01b3e39a395d216c7e92",
       "printer": "Mark1",
       "nozzle": {
         "side": "left",
@@ -681,6 +657,22 @@
       "profile": "hardware/printed-parts/petgf.3mf",
       "profile_sha256": "45c16e8c8517e0a205107d7b9f7412d013f51a8de7ecf86125cc940079d37ed0",
       "settings_sha256": "a2d5614c14853de0fd16aedc11b3e7f4c4cf0e58ab06802aa78c160f0a83c077",
+      "requested_z_trim_mm": 0.18,
+      "emitted_textured_trim_mm": 0.16,
+      "physical_stl": "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl",
+      "physical_stl_sha256": "740af94b1081a930329fa244abb7d9de61747fa2be13eec1c6bf5b356f366937",
+      "step_sha256": "28bd6924651e179081aff8728265cb49ec5bab6773f2c4c73610ea8fe666b777",
+      "preparation_directory": ".cache/combined-finish/handoffs/foam-cap/current-7320/prepared-print/2026-11-01-foam-cap-lid-top-mark1-b8cf5316",
+      "preparation_sha256": "a294417dbfeea8d5015649e44df4a126d74521ce12d63578ee18f938bfb9105d",
+      "audited_preparation_input": {
+        "path": ".cache/combined-finish/handoffs/foam-cap/current-7320/prepared-print/2026-11-01-foam-cap-lid-top-mark1-b8cf5316/preparation.json",
+        "sha256": "a294417dbfeea8d5015649e44df4a126d74521ce12d63578ee18f938bfb9105d"
+      },
+      "project": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/combined-finish/handoffs/foam-cap/current-7320/prepared-print/2026-11-01-foam-cap-lid-top-mark1-b8cf5316/2026-11-01-foam-cap-lid-top-mark1-b8cf5316.3mf",
+      "project_sha256": "5d0dfbc22b1a4cdb855f8a53c96e0ffca3e147b1c6828f24065422c851cd7c7b",
+      "archive": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/combined-finish/handoffs/foam-cap/current-7320/prepared-print/2026-11-01-foam-cap-lid-top-mark1-b8cf5316/2026-11-01-foam-cap-lid-top-mark1-b8cf5316.gcode.3mf",
+      "archive_sha256": "c9eb10d4dd36d0c1d5b67a2c93393e316e6e3c51f6562d673568b374914781d6",
+      "gcode_sha256": "67acaee4ec09f50123e33eb76d94399ea9a8a145e2de6b1282d01523082993c7",
       "recipe_values": {
         "initial_layer_print_height": "0.2",
         "layer_height": "0.24",
@@ -711,49 +703,6 @@
           "0"
         ]
       },
-      "requested_z_trim_mm": 0.18,
-      "emitted_textured_trim_mm": 0.16,
-      "build_rotation": [
-        [
-          1.0,
-          0.0,
-          0.0
-        ],
-        [
-          0.0,
-          1.0,
-          0.0
-        ],
-        [
-          0.0,
-          0.0,
-          1.0
-        ]
-      ],
-      "yaw_degrees": 0,
-      "source_center_mm": [
-        0.0,
-        0.0,
-        26.825000762939453
-      ],
-      "translation_mm": [
-        161.5,
-        160.0,
-        26.825000762939453
-      ],
-      "plate_bounds_mm": [
-        [
-          20.300003051757812,
-          69.80000305175781,
-          0.0
-        ],
-        [
-          302.6999969482422,
-          250.1999969482422,
-          53.650001525878906
-        ]
-      ],
-      "model_bed_margin_mm": 20.300003051757812,
       "modifier_count": 15,
       "tie_windows": [
         {
@@ -801,134 +750,50 @@
           ]
         }
       ],
-      "native_reference": {
-        "captured_directory": ".cache/combined-finish/handoffs/foam-cap/native-print/foam-cap-lid-top",
-        "physical_stl_sha256": "f24c17a1834784b3917672483c3b8e0a14350479e96793998dbe024a38da5275",
-        "current_step_sha256": "ad76a2c28f490dcb08e9ab64cf5847fa4a316c68ea73a996789c19b391bd7bdb",
-        "sliced_step_sha256": "ad76a2c28f490dcb08e9ab64cf5847fa4a316c68ea73a996789c19b391bd7bdb",
-        "preparation_sha256": "796fd87ef038bda8c24d35639199260ef4cd887af5358f3ee81c0fbced2f1dc2",
-        "project_sha256": "29ae9bcf338e03d23818358501821e67e928467536fad76c55bf525a2b8f4bc9",
-        "archive_sha256": "6584665e257034c8ebae8b97d062e3bb96ea2beca68c5d03bd30a8eeffba34b9",
-        "gcode_sha256": "e29cf9296182abfe0a96f79eee7741a5a550be1b3461b6eb59b9eb74dce96c2e"
-      },
-      "comparison": {
-        "embedded_settings_exact": true,
-        "modifier_records_exact": true,
-        "extra_part_geometry_and_metadata_exact": true,
-        "tie_window_records_exact": true,
-        "pose_maximum_numeric_deltas_mm": {
-          "source_center_mm": 0.0,
-          "translation_mm": 0.0,
-          "plate_bounds_mm": 0.0
-        },
-        "support_bodies": {
-          "native": 5,
-          "kernel": 5
-        },
-        "interface_islands": {
-          "native": 7,
-          "kernel": 7
-        },
-        "minimum_bed_margin_mm": {
-          "native": 20.172437000000002,
-          "kernel": 20.1979985
-        },
-        "minimum_sampled_solid_region_coverage": {
-          "native": 0.9847768467296437,
-          "kernel": 0.984824836518806
-        },
-        "first_second_layer_stack": {
-          "native": {
-            "1901": {
-              "second_layer_model_bead_area_mm2": 49727.54188642229,
-              "fraction_over_first_layer": 0.9954169637211233,
-              "second_layer_centerline_outside_first_mm": 59.26146584230755
-            }
-          },
-          "kernel": {
-            "1901": {
-              "second_layer_model_bead_area_mm2": 49728.84607398135,
-              "fraction_over_first_layer": 0.9954102130313061,
-              "second_layer_centerline_outside_first_mm": 58.391019793530994
-            }
-          }
-        },
-        "estimated_print_seconds": {
-          "native": 25764.50390625,
-          "kernel": 25778.4765625
-        }
-      },
-      "project_check": {
-        "project_sha256_matches": true,
-        "objects": [
-          {
-            "name": "foam-cap-lid-top",
-            "vertices": 18847,
-            "source_sha256_matches": true,
-            "embedded_vertex_error_mm": 4.999999987376214e-07,
-            "source_comparison": "source vertices in order",
-            "seam_painted_facets": 0,
-            "placed_bounds_mm": [
-              [
-                20.300003000000004,
-                69.800003,
-                -2.3700000184589953e-07
-              ],
-              [
-                302.699997,
-                250.199997,
-                53.650001763
-              ]
-            ],
-            "bed_contact_z_mm": -2.3700000184589953e-07,
-            "blocked_facets": 0,
-            "partially_painted_facets": 0,
-            "parts": {
-              "normal_part": 1,
-              "support_blocker": 1,
-              "modifier_part": 15
-            },
-            "layer_ranges": [],
-            "ribbon_and_fin_parts": 0,
-            "modifiers_expected": 15
-          }
+      "submitted": false,
+      "pass": true,
+      "build_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
         ],
-        "z_trim_block": [
-          "+0.0",
-          "0.18 - 0.01",
-          "0.18 - 0.02",
-          "0.18 + 0.01",
-          "0.18"
+        [
+          0.0,
+          1.0,
+          0.0
         ],
-        "cooling": {
-          "fan_min_speed": [
-            "0"
-          ],
-          "fan_max_speed": [
-            "0"
-          ],
-          "overhang_fan_speed": [
-            "70"
-          ],
-          "overhang_fan_threshold": [
-            "50%"
-          ],
-          "additional_cooling_fan_speed": [
-            "0"
-          ]
-        },
-        "support": {
-          "support_type": "tree(auto)",
-          "support_style": "default",
-          "support_object_xy_distance": "0.4",
-          "max_bridge_length": "0",
-          "tree_support_branch_diameter": "2",
-          "tree_support_branch_diameter_angle": "5",
-          "brim_type": "auto_brim"
-        },
-        "problems": [],
-        "pass": true
-      },
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "yaw_degrees": 0,
+      "source_center_mm": [
+        0.0,
+        0.0,
+        26.825000762939453
+      ],
+      "translation_mm": [
+        161.5,
+        160.0,
+        26.825000762939453
+      ],
+      "plate_bounds_mm": [
+        [
+          20.300003051757812,
+          69.80000305175781,
+          0.0
+        ],
+        [
+          302.6999969482422,
+          250.1999969482422,
+          53.650001525878906
+        ]
+      ],
+      "model_bed_margin_mm": 20.300003051757812,
+      "project_check": true,
       "layers": 224,
       "checks": {
         "archive": true,
@@ -940,7 +805,6 @@
         "ribbons_support_free_and_printed": true,
         "solid_hosts_sampled": true
       },
-      "pass": true,
       "minimum_bed_margin_mm": 20.1979985,
       "bed_border_mm": 20.0,
       "bead_envelope_plate_mm": [
@@ -953,21 +817,7 @@
           250.30200150000002
         ]
       ],
-      "support_roads": 40924,
-      "support_summary": {
-        "support_bodies": 5,
-        "interface_islands": 7,
-        "bed_rooted_bodies": 1,
-        "model_rooted_bodies": 4,
-        "shortest_build_up_mm": 4.08,
-        "bodies_without_interface_labels": 0,
-        "explicit_interface_islands": 7,
-        "shortest_labelled_build_up_mm": 4.08
-      },
-      "support_audit": {
-        "path": ".cache/combined-finish/handoffs/foam-cap/prepared-print/2026-11-01-foam-cap-lid-top-mark1-6a7690fe/support-audit-1901.json",
-        "sha256": "e66572df01e4464dc82a4564b2b5cdd2e6a1850c55cf3452af5ce1311515e0af"
-      },
+      "support_roads": 40881,
       "solid_host_deposition": [
         {
           "object": 1901,
@@ -1021,7 +871,7 @@
           "samples": [
             {
               "print_z_mm": 0.44,
-              "coverage": 0.998112048495932,
+              "coverage": 0.9981121506418918,
               "stock_mm2": 178.2563115611185
             },
             {
@@ -1055,7 +905,7 @@
           "samples": [
             {
               "print_z_mm": 0.44,
-              "coverage": 0.9981689584356681,
+              "coverage": 0.9981693502837338,
               "stock_mm2": 178.2563060397205
             },
             {
@@ -1089,7 +939,7 @@
           "samples": [
             {
               "print_z_mm": 0.44,
-              "coverage": 0.9984905788223072,
+              "coverage": 0.9984902688326557,
               "stock_mm2": 178.2563115611185
             },
             {
@@ -1123,7 +973,7 @@
           "samples": [
             {
               "print_z_mm": 0.44,
-              "coverage": 0.9981723732368035,
+              "coverage": 0.9981724055690507,
               "stock_mm2": 178.25631157017966
             },
             {
@@ -1157,21 +1007,21 @@
           "samples": [
             {
               "print_z_mm": 0.44,
-              "coverage": 0.9981663090073186,
+              "coverage": 0.9981660382161286,
               "stock_mm2": 178.25630595142815
             },
             {
               "print_z_mm": 3.8,
-              "coverage": 0.9848313233710054,
+              "coverage": 0.9848313233710055,
               "stock_mm2": 115.49812394166301
             },
             {
               "print_z_mm": 7.16,
-              "coverage": 0.997885549286183,
+              "coverage": 0.9978855562718292,
               "stock_mm2": 115.49812460554355
             }
           ],
-          "minimum_coverage": 0.9848313233710054
+          "minimum_coverage": 0.9848313233710055
         },
         {
           "object": 1901,
@@ -1191,7 +1041,7 @@
           "samples": [
             {
               "print_z_mm": 0.44,
-              "coverage": 0.9983770001613751,
+              "coverage": 0.9983769006345696,
               "stock_mm2": 178.25631157017966
             },
             {
@@ -1225,21 +1075,21 @@
           "samples": [
             {
               "print_z_mm": 0.44,
-              "coverage": 0.9980879163436975,
+              "coverage": 0.9980861804730037,
               "stock_mm2": 172.49686822471782
             },
             {
               "print_z_mm": 3.8,
-              "coverage": 0.9855172745152428,
+              "coverage": 0.9855171310289375,
               "stock_mm2": 109.73866935536682
             },
             {
               "print_z_mm": 7.16,
-              "coverage": 0.9966248895412462,
+              "coverage": 0.9966239056922429,
               "stock_mm2": 109.73866993385853
             }
           ],
-          "minimum_coverage": 0.9855172745152428
+          "minimum_coverage": 0.9855171310289375
         },
         {
           "object": 1901,
@@ -1259,7 +1109,7 @@
           "samples": [
             {
               "print_z_mm": 0.44,
-              "coverage": 0.9974006067780932,
+              "coverage": 0.9974005248487844,
               "stock_mm2": 178.25632542818417
             },
             {
@@ -1269,7 +1119,7 @@
             },
             {
               "print_z_mm": 7.16,
-              "coverage": 0.996743446671556,
+              "coverage": 0.9967429210927848,
               "stock_mm2": 115.49812719311299
             }
           ],
@@ -1293,7 +1143,7 @@
           "samples": [
             {
               "print_z_mm": 0.44,
-              "coverage": 0.9975480354017902,
+              "coverage": 0.9975471242829398,
               "stock_mm2": 178.25632042400863
             },
             {
@@ -1327,7 +1177,7 @@
           "samples": [
             {
               "print_z_mm": 0.44,
-              "coverage": 0.9980459301834504,
+              "coverage": 0.9980469816308003,
               "stock_mm2": 178.25632041742514
             },
             {
@@ -1337,7 +1187,7 @@
             },
             {
               "print_z_mm": 7.16,
-              "coverage": 0.9965797282026163,
+              "coverage": 0.9965808368232816,
               "stock_mm2": 115.4981223731935
             }
           ],
@@ -1366,16 +1216,16 @@
             },
             {
               "print_z_mm": 5.72,
-              "coverage": 0.9910249019502304,
+              "coverage": 0.9910251875836983,
               "stock_mm2": 243.4386737980465
             },
             {
               "print_z_mm": 10.76,
-              "coverage": 0.9985678873021403,
+              "coverage": 0.9985642238467882,
               "stock_mm2": 65.94695376676195
             }
           ],
-          "minimum_coverage": 0.9910249019502304
+          "minimum_coverage": 0.9910251875836983
         },
         {
           "object": 1901,
@@ -1400,16 +1250,16 @@
             },
             {
               "print_z_mm": 5.72,
-              "coverage": 0.9910794053944602,
+              "coverage": 0.9910793893189765,
               "stock_mm2": 243.4386755162225
             },
             {
               "print_z_mm": 10.76,
-              "coverage": 0.998297458704531,
+              "coverage": 0.9982954255057144,
               "stock_mm2": 83.58814817757936
             }
           ],
-          "minimum_coverage": 0.9910794053944602
+          "minimum_coverage": 0.9910793893189765
         },
         {
           "object": 1901,
@@ -1434,16 +1284,16 @@
             },
             {
               "print_z_mm": 5.72,
-              "coverage": 0.991074763392145,
+              "coverage": 0.991075214094804,
               "stock_mm2": 243.4386770205285
             },
             {
               "print_z_mm": 10.76,
-              "coverage": 0.998545768837643,
+              "coverage": 0.9985456036768351,
               "stock_mm2": 65.94694168047903
             }
           ],
-          "minimum_coverage": 0.991074763392145
+          "minimum_coverage": 0.991075214094804
         },
         {
           "object": 1901,
@@ -1468,26 +1318,70 @@
             },
             {
               "print_z_mm": 5.72,
-              "coverage": 0.9922287588021007,
+              "coverage": 0.9922281784174874,
               "stock_mm2": 243.438678738675
             },
             {
               "print_z_mm": 10.76,
-              "coverage": 0.9985398317497836,
+              "coverage": 0.9985417417732432,
               "stock_mm2": 65.94694129501899
             }
           ],
-          "minimum_coverage": 0.9922287588021007
+          "minimum_coverage": 0.9922281784174874
         }
       ],
+      "support_summary": {
+        "1901": {
+          "support_bodies": 5,
+          "interface_islands": 7,
+          "bed_rooted_bodies": 1,
+          "model_rooted_bodies": 4,
+          "shortest_build_up_mm": 4.08,
+          "bodies_without_interface_labels": 0,
+          "explicit_interface_islands": 7,
+          "shortest_labelled_build_up_mm": 4.08
+        }
+      },
       "slicer_warnings": [],
-      "submitted": false,
+      "captured_meshes": {
+        ".step": {
+          "path": ".cache/combined-finish/handoffs/foam-cap/current-7320/kernel/foam-cap-lid-top.step",
+          "sha256": "28bd6924651e179081aff8728265cb49ec5bab6773f2c4c73610ea8fe666b777"
+        },
+        ".stl": {
+          "path": ".cache/combined-finish/handoffs/foam-cap/current-7320/kernel/foam-cap-lid-top.stl",
+          "sha256": "740af94b1081a930329fa244abb7d9de61747fa2be13eec1c6bf5b356f366937"
+        }
+      },
+      "accepted_recipe_reference": {
+        "project": ".cache/combined-finish/handoffs/foam-cap/prepared-print/2026-11-01-foam-cap-lid-top-mark1-6a7690fe/2026-11-01-foam-cap-lid-top-mark1-6a7690fe.3mf",
+        "project_sha256": "203db2aa431aa788317aaddcaf7abf01cd73f0be1be3a2b21b95f005e53bf069",
+        "preparation": {
+          "path": ".cache/combined-finish/handoffs/foam-cap/prepared-print/2026-11-01-foam-cap-lid-top-mark1-6a7690fe/preparation.json",
+          "sha256": "694927e4e9a23f6f11eba325b3d82ebb38ea642483838a62f84a2a38e189c12f"
+        }
+      },
+      "comparison": {
+        "embedded_settings_exact": true,
+        "modifier_records_exact": true,
+        "tie_window_records_exact": true,
+        "pose_maximum_numeric_deltas_mm": {
+          "source_center_mm": 0.0,
+          "translation_mm": 0.0,
+          "plate_bounds_mm": 0.0
+        },
+        "minimum_sampled_solid_region_coverage": 0.984824836518806
+      },
       "review_artifact_sha256": {
-        "review.json": "c74dcac17be0d3eb45d4f9cc631b74061b0b68ce7fc419df197da0ed1ea35921",
+        "preparation.json": "a294417dbfeea8d5015649e44df4a126d74521ce12d63578ee18f938bfb9105d",
+        "support-audit-1901.json": "336c676b25000459bf5e3da8f8d8824ff347a3cbb31cbdab22c83bef9902fc29",
+        "slice-command.json": "8ddc6533183ce58266828a4165751f4e0087c92b15acd03fdafcf60f846ea3a2",
+        "2026-11-01-foam-cap-lid-top-mark1-b8cf5316.gcode.3mf": "c9eb10d4dd36d0c1d5b67a2c93393e316e6e3c51f6562d673568b374914781d6",
         "project-check.json": "7fed56253dafbd68f605714e361253c76353926501064445d40f4a115e0d9b44",
-        "support-audit-1901.json": "e66572df01e4464dc82a4564b2b5cdd2e6a1850c55cf3452af5ce1311515e0af",
-        "slice-command.json": "6f2a1b27bcb8f07d867da45dfa4d1c58b1fe42ea6505b0610802d861b7c0498a",
-        "slice-result.json": "6b472105682fbca826a3c2c1b488b3885a6b4939fded49a9086c2e8483b9edd4"
+        "2026-11-01-foam-cap-lid-top-mark1-b8cf5316.3mf": "5d0dfbc22b1a4cdb855f8a53c96e0ffca3e147b1c6828f24065422c851cd7c7b",
+        "review.json": "9bc767319f26138ab3d8fd8b712d54da446cb3d18371451dd026505523970891",
+        "slice-result.json": "4cbd77ac11d675f4400a9477a3196a8a07652413df85013201bf21e19ad1a908",
+        "coordinates-1901.3mf": "e32b993a07e3778c6ffb1776ee9973f6e56a4e3a84748c46b08f02378b8804d0"
       }
     },
     "reservoir-b-fill-guide": {
@@ -1782,30 +1676,6 @@
       }
     },
     "pump-snap-cap": {
-      "physical_stl": "hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.stl",
-      "physical_stl_sha256": "64f7e408e6a09e5cf650a452c4da5eb2006b12712581e6816fc5f766e7ae89d9",
-      "step_sha256": "64b881c3dbc9b4d3d81f153445373364daf6f735cdacf6eb51738e742383eb84",
-      "captured_meshes": {
-        ".stl": {
-          "path": ".cache/combined-finish/handoffs/foam-cap/candidate-meshes/pump-snap-cap.stl",
-          "sha256": "64f7e408e6a09e5cf650a452c4da5eb2006b12712581e6816fc5f766e7ae89d9"
-        },
-        ".step": {
-          "path": ".cache/combined-finish/handoffs/foam-cap/candidate-meshes/pump-snap-cap.step",
-          "sha256": "64b881c3dbc9b4d3d81f153445373364daf6f735cdacf6eb51738e742383eb84"
-        }
-      },
-      "preparation_directory": ".cache/combined-finish/handoffs/foam-cap/prepared-print/2026-11-01-pump-snap-cap-mark2-2ce34395",
-      "preparation_sha256": "479cd8b3149f1f4d0a67d77abfd9d6c2b402ea762d822e25e59e2704b0b6ebac",
-      "audited_preparation_input": {
-        "path": ".cache/combined-finish/handoffs/foam-cap/prepared-print/2026-11-01-pump-snap-cap-mark2-2ce34395/preparation.json",
-        "sha256": "479cd8b3149f1f4d0a67d77abfd9d6c2b402ea762d822e25e59e2704b0b6ebac"
-      },
-      "project": ".cache/combined-finish/handoffs/foam-cap/prepared-print/2026-11-01-pump-snap-cap-mark2-2ce34395/2026-11-01-pump-snap-cap-mark2-2ce34395.3mf",
-      "project_sha256": "cd374af619fa0118007eb20f365ad370cb7dbd88875691777b235859394fcfae",
-      "archive": ".cache/combined-finish/handoffs/foam-cap/prepared-print/2026-11-01-pump-snap-cap-mark2-2ce34395/2026-11-01-pump-snap-cap-mark2-2ce34395.gcode.3mf",
-      "archive_sha256": "0c181e1aa7f2aa1ecb5a8034b585a2aa9ff858dc5af6662e19ef37b8a4d7c32e",
-      "gcode_sha256": "2c9208642e528d94eac5669165df744c35d07d021adca7226d819b8da1e5f511",
       "printer": "Mark2",
       "nozzle": {
         "side": "left",
@@ -1821,6 +1691,22 @@
       "profile": "hardware/printed-parts/petgf.3mf",
       "profile_sha256": "45c16e8c8517e0a205107d7b9f7412d013f51a8de7ecf86125cc940079d37ed0",
       "settings_sha256": "8812d2d1af151f821740c7b87eafe8683f0cc5fc1f750c32e324c2fa901a8949",
+      "requested_z_trim_mm": 0.04,
+      "emitted_textured_trim_mm": 0.02,
+      "physical_stl": "hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.stl",
+      "physical_stl_sha256": "10492e3ce2ed959df08d48e35238da848cd5a2e406cd8bf23af2c65faa3ac192",
+      "step_sha256": "b013a938e449b7fe15b5ac04a1df08b65a91b2401f7083ed20ee1f44eabef325",
+      "preparation_directory": ".cache/combined-finish/handoffs/foam-cap/current-7320/prepared-print/2026-11-01-pump-snap-cap-mark2-3ddc5aef",
+      "preparation_sha256": "d70f54494755203374ff03b078ff3a92fda27003e769d942bce0a53812624437",
+      "audited_preparation_input": {
+        "path": ".cache/combined-finish/handoffs/foam-cap/current-7320/prepared-print/2026-11-01-pump-snap-cap-mark2-3ddc5aef/preparation.json",
+        "sha256": "d70f54494755203374ff03b078ff3a92fda27003e769d942bce0a53812624437"
+      },
+      "project": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/combined-finish/handoffs/foam-cap/current-7320/prepared-print/2026-11-01-pump-snap-cap-mark2-3ddc5aef/2026-11-01-pump-snap-cap-mark2-3ddc5aef.3mf",
+      "project_sha256": "d95e53d414ccbc1d26e2e8251ce4c3d58c089387ed58b2159d81a63230788eb4",
+      "archive": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/combined-finish/handoffs/foam-cap/current-7320/prepared-print/2026-11-01-pump-snap-cap-mark2-3ddc5aef/2026-11-01-pump-snap-cap-mark2-3ddc5aef.gcode.3mf",
+      "archive_sha256": "e0c1d8f11f25c8e50faf3dee6bf33b3d1d1363eb5c7c4134af4fbd1478cddd4c",
+      "gcode_sha256": "89f03cf0a3dbb0a64d005dd4fa8bf19e9728bb89594ad2c93409f3a15a28afb4",
       "recipe_values": {
         "initial_layer_print_height": "0.2",
         "layer_height": "0.24",
@@ -1851,8 +1737,10 @@
           "0"
         ]
       },
-      "requested_z_trim_mm": 0.04,
-      "emitted_textured_trim_mm": 0.02,
+      "modifier_count": 0,
+      "tie_windows": [],
+      "submitted": false,
+      "pass": true,
       "build_rotation": [
         [
           1.0,
@@ -1884,144 +1772,17 @@
       "plate_bounds_mm": [
         [
           127.17081832885742,
-          143.09524726867676,
+          142.74524688720703,
           0.0
         ],
         [
           197.82918167114258,
-          176.90475273132324,
+          177.25475311279297,
           54.5
         ]
       ],
       "model_bed_margin_mm": 127.17081832885742,
-      "modifier_count": 0,
-      "tie_windows": [],
-      "native_reference": {
-        "captured_directory": ".cache/combined-finish/handoffs/foam-cap/native-print/pump-snap-cap",
-        "physical_stl_sha256": "711ff10ac4a9cd04b003cde0b84ca143b3da28e02656e5d30324a7966fceee55",
-        "current_step_sha256": "55743e58f003430b1b1d0b4964012e4c0c96190fc275c78b50021dded6b9e702",
-        "sliced_step_sha256": "e3712f238243bd862e3e429b32d520b253c59624b567d5112f2ba20f895ff800",
-        "preparation_sha256": "1a48a0e255ea801410100ffbfc22170a9018f73229321b46f8f6305c40d3cf4e",
-        "project_sha256": "8753a51ec9f89cbc2b428054c99552f165222ddc9e336cb2dabdf02d78075766",
-        "archive_sha256": "8b184bff4832bb51cedacde9e7fe88bb864df0d95e2f66e5c7760536acf28369",
-        "gcode_sha256": "170ee1b417ba5175c8d7b66f6909360199852fcfd601dcdc8f23b4908e0323d9"
-      },
-      "comparison": {
-        "embedded_settings_exact": true,
-        "modifier_records_exact": true,
-        "extra_part_geometry_and_metadata_exact": true,
-        "tie_window_records_exact": true,
-        "pose_maximum_numeric_deltas_mm": {
-          "source_center_mm": 3.467448550509289e-12,
-          "translation_mm": 3.467448550509289e-12,
-          "plate_bounds_mm": 6.934897101018578e-12
-        },
-        "support_bodies": {
-          "native": 0,
-          "kernel": 0
-        },
-        "interface_islands": {
-          "native": 0,
-          "kernel": 0
-        },
-        "minimum_bed_margin_mm": {
-          "native": 127.002318,
-          "kernel": 127.002318
-        },
-        "minimum_sampled_solid_region_coverage": {
-          "native": null,
-          "kernel": null
-        },
-        "first_second_layer_stack": {
-          "native": {
-            "1901": {
-              "second_layer_model_bead_area_mm2": 331.20804923526225,
-              "fraction_over_first_layer": 0.8954488228459498,
-              "second_layer_centerline_outside_first_mm": 3.400638737835626
-            }
-          },
-          "kernel": {
-            "1901": {
-              "second_layer_model_bead_area_mm2": 331.2333936595806,
-              "fraction_over_first_layer": 0.8954387380366245,
-              "second_layer_centerline_outside_first_mm": 3.3466685679754846
-            }
-          }
-        },
-        "estimated_print_seconds": {
-          "native": 2397.1689453125,
-          "kernel": 2393.533447265625
-        }
-      },
-      "project_check": {
-        "project_sha256_matches": true,
-        "objects": [
-          {
-            "name": "pump-snap-cap",
-            "vertices": 288,
-            "source_sha256_matches": true,
-            "embedded_vertex_error_mm": 4.962158186572196e-07,
-            "source_comparison": "source vertices in order",
-            "seam_painted_facets": 0,
-            "placed_bounds_mm": [
-              [
-                127.170818,
-                143.095247,
-                0.0
-              ],
-              [
-                197.829182,
-                176.904753,
-                54.5
-              ]
-            ],
-            "bed_contact_z_mm": 0.0,
-            "blocked_facets": 0,
-            "partially_painted_facets": 0,
-            "parts": {
-              "normal_part": 1
-            },
-            "layer_ranges": [],
-            "ribbon_and_fin_parts": 0,
-            "modifiers_expected": 0
-          }
-        ],
-        "z_trim_block": [
-          "+0.0",
-          "0.04 - 0.01",
-          "0.04 - 0.02",
-          "0.04 + 0.01",
-          "0.04"
-        ],
-        "cooling": {
-          "fan_min_speed": [
-            "0"
-          ],
-          "fan_max_speed": [
-            "0"
-          ],
-          "overhang_fan_speed": [
-            "70"
-          ],
-          "overhang_fan_threshold": [
-            "50%"
-          ],
-          "additional_cooling_fan_speed": [
-            "0"
-          ]
-        },
-        "support": {
-          "support_type": "tree(auto)",
-          "support_style": "default",
-          "support_object_xy_distance": "0.4",
-          "max_bridge_length": "0",
-          "tree_support_branch_diameter": "2",
-          "tree_support_branch_diameter_angle": "5",
-          "brim_type": "auto_brim"
-        },
-        "problems": [],
-        "pass": true
-      },
+      "project_check": true,
       "layers": 227,
       "checks": {
         "archive": true,
@@ -2033,222 +1794,88 @@
         "ribbons_support_free_and_printed": true,
         "solid_hosts_sampled": true
       },
-      "pass": true,
       "minimum_bed_margin_mm": 127.002318,
       "bed_border_mm": 80.0,
       "bead_envelope_plate_mm": [
         [
           127.002318,
-          142.926318
+          142.57631800000001
         ],
         [
           197.997682,
-          177.073682
+          177.42368199999999
         ]
       ],
       "support_roads": 0,
-      "support_summary": {
-        "support_bodies": 0,
-        "interface_islands": 0,
-        "bed_rooted_bodies": 0,
-        "model_rooted_bodies": 0,
-        "shortest_build_up_mm": null,
-        "bodies_without_interface_labels": 0,
-        "explicit_interface_islands": 0,
-        "shortest_labelled_build_up_mm": null
-      },
-      "support_audit": {
-        "path": ".cache/combined-finish/handoffs/foam-cap/prepared-print/2026-11-01-pump-snap-cap-mark2-2ce34395/support-audit-1901.json",
-        "sha256": "5a29794309aeee55cd8c966f4939ba8e2ded35369a6c47e9eed667d251e6cc1a"
-      },
       "solid_host_deposition": [],
+      "support_summary": {
+        "1901": {
+          "support_bodies": 0,
+          "interface_islands": 0,
+          "bed_rooted_bodies": 0,
+          "model_rooted_bodies": 0,
+          "shortest_build_up_mm": null,
+          "bodies_without_interface_labels": 0,
+          "explicit_interface_islands": 0,
+          "shortest_labelled_build_up_mm": null
+        }
+      },
       "slicer_warnings": [],
-      "submitted": false,
+      "captured_meshes": {
+        ".step": {
+          "path": ".cache/combined-finish/handoffs/foam-cap/current-7320/kernel/pump-snap-cap.step",
+          "sha256": "b013a938e449b7fe15b5ac04a1df08b65a91b2401f7083ed20ee1f44eabef325"
+        },
+        ".stl": {
+          "path": ".cache/combined-finish/handoffs/foam-cap/current-7320/kernel/pump-snap-cap.stl",
+          "sha256": "10492e3ce2ed959df08d48e35238da848cd5a2e406cd8bf23af2c65faa3ac192"
+        }
+      },
+      "accepted_recipe_reference": {
+        "project": ".cache/combined-finish/handoffs/foam-cap/prepared-print/2026-11-01-pump-snap-cap-mark2-2ce34395/2026-11-01-pump-snap-cap-mark2-2ce34395.3mf",
+        "project_sha256": "cd374af619fa0118007eb20f365ad370cb7dbd88875691777b235859394fcfae",
+        "preparation": {
+          "path": ".cache/combined-finish/handoffs/foam-cap/prepared-print/2026-11-01-pump-snap-cap-mark2-2ce34395/preparation.json",
+          "sha256": "479cd8b3149f1f4d0a67d77abfd9d6c2b402ea762d822e25e59e2704b0b6ebac"
+        }
+      },
+      "comparison": {
+        "embedded_settings_exact": true,
+        "modifier_records_exact": true,
+        "tie_window_records_exact": true,
+        "pose_maximum_numeric_deltas_mm": {
+          "source_center_mm": 0.0,
+          "translation_mm": 0.0,
+          "plate_bounds_mm": 0.35000038146972656
+        },
+        "minimum_sampled_solid_region_coverage": null
+      },
       "review_artifact_sha256": {
-        "review.json": "16a240662da42b07cc7a6698fb88ec25acad575811d7d09636c9b4296df0b7dd",
-        "project-check.json": "1ecf960e9f5fc10107cff2e3ed3f7045c9bb26d713f968603984f8641cd4bfa2",
-        "support-audit-1901.json": "5a29794309aeee55cd8c966f4939ba8e2ded35369a6c47e9eed667d251e6cc1a",
-        "slice-command.json": "bd27e8744f3829888b545fa144fcb29c03825fd265def8ac962a54e37c787994",
-        "slice-result.json": "6d94692ed6fe83e0ba950520638321cfe876b93bc8a56e9c92f30c2b9af6874b"
+        "preparation.json": "d70f54494755203374ff03b078ff3a92fda27003e769d942bce0a53812624437",
+        "2026-11-01-pump-snap-cap-mark2-3ddc5aef.gcode.3mf": "e0c1d8f11f25c8e50faf3dee6bf33b3d1d1363eb5c7c4134af4fbd1478cddd4c",
+        "support-audit-1901.json": "d30d014de53d7be6e4bbfa3e55088cbdad88c4930812a6a9f9c2333fcc60e9ae",
+        "slice-command.json": "321a07a084bcbde22c339c722e7d73a2395a0bdc11f8e9581f5933ab45f96f1a",
+        "2026-11-01-pump-snap-cap-mark2-3ddc5aef.3mf": "d95e53d414ccbc1d26e2e8251ce4c3d58c089387ed58b2159d81a63230788eb4",
+        "project-check.json": "121c0b779d3d8a3f090375f1da93177625dc60f376b8688ef16d3069a9817264",
+        "review.json": "8ff260244b5f7b9f7226779bbde332d348a8c35f486c7f00b68fca99d970f971",
+        "slice-result.json": "2d3a304806a2e21985ff4eff33bf33e0884d476df30b5f32c51f8dab00617a26",
+        "coordinates-1901.3mf": "9ffdddab42149d43c83367bf13ef2f8c1bde8e343ae276c2609a9e32abdf5880"
       }
     }
   },
   "reports": {
-    "native-print-inventory.json": {
-      "path": ".cache/combined-finish/handoffs/foam-cap/native-print-inventory.json",
-      "sha256": "549132e8b514716106570a4dcb3f33c25505a0d3d3d665b342c1dcaf29927f06"
-    },
-    "native-print-capture.json": {
-      "path": ".cache/combined-finish/handoffs/foam-cap/native-print-capture.json",
-      "sha256": "c9174a4882b6491a35050beef2d3adbd4a4b076aa511113155c085d997ff134d"
-    },
-    "candidate-print-recipe-audit.json": {
-      "path": ".cache/combined-finish/handoffs/foam-cap/candidate-print-recipe-audit.json",
-      "sha256": "36307229db596255c01e8acf9f64d1ceb7d6dfd5b47c33713f0a01039e8df5cb"
-    }
+    ".cache/combined-finish/handoffs/foam-cap/current-7320/candidate-identity.json": "bb503d0b3b56d4e4fe908c6f9b87892aa4f3b78f185f52c6c91315eedb64d17b",
+    ".cache/combined-finish/handoffs/foam-cap/current-7320/parity-and-driver.json": "b574784fb37984e46a10e29062fcd9f498c9b10509b4de7005c9b47df7f3e598"
   },
   "m5_driver_reading": {
-    "record": ".cache/combined-finish/handoffs/foam-cap/m5-candidate-driver-review.json",
-    "sha256": "ffab8f0a520819879ab583db2f667b35f182b4a66a7e8a3446d93d93cc2889f7",
-    "reading": {
-      "schema": "cold-core-m5-lid-driver-candidate-review/1",
-      "scope": "Straight 2.4 mm radius, 80 mm long driver envelopes above the 7.4 mm lid face at all ten M5 closure axes, measured against the current printed lid and integral pump clip. Separate equipment and a purchased tool are outside this measurement.",
-      "candidate_stl": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/port-foam-cap/worktree/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl",
-      "candidate_stl_sha256": "6eed3264fdcdbdf92385851ee30f38a0c07033c6f1ed3a3ad2bf2ea6338ca404",
-      "reference_review": "hardware/printed-parts/cold-core/foam-cap/m5-lid-driver-review.json",
-      "reference_review_sha256": "dbedb6d9006f26cd261bc3aa4b8697598cd79254878791da098cf9db75cdae01",
-      "reference_physical_stl_sha256": "f24c17a1834784b3917672483c3b8e0a14350479e96793998dbe024a38da5275",
-      "input_packet": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/port-foam-cap/proof/print-binding-inputs.json",
-      "input_packet_sha256": "8eaf25a16155d1f5ebc8fd739f130e8a77d7699c5fe7a7c1529024f59742077e",
-      "watertight": true,
-      "connected_components": 1,
-      "manifold_status": "Error.NoError",
-      "lid_native_top_face_z_mm": 7.4,
-      "driver_native_start_z_mm": 7.4001,
-      "driver_radius_mm": 2.4,
-      "driver_height_mm": 80.0,
-      "cylinder_segments": 64,
-      "method": "Solid intersections against the source STL in the native lid frame.",
-      "rows": [
-        {
-          "station": 1,
-          "lid_native_xy_mm": [
-            135.4,
-            60
-          ],
-          "appliance_xy_mm": [
-            60,
-            188.4
-          ],
-          "overlap_mm3": 0.0
-        },
-        {
-          "station": 2,
-          "lid_native_xy_mm": [
-            135.4,
-            0
-          ],
-          "appliance_xy_mm": [
-            0,
-            188.4
-          ],
-          "overlap_mm3": 0.0
-        },
-        {
-          "station": 3,
-          "lid_native_xy_mm": [
-            135.4,
-            -60
-          ],
-          "appliance_xy_mm": [
-            -60,
-            188.4
-          ],
-          "overlap_mm3": 0.0
-        },
-        {
-          "station": 4,
-          "lid_native_xy_mm": [
-            -135.4,
-            60
-          ],
-          "appliance_xy_mm": [
-            60,
-            459.2
-          ],
-          "overlap_mm3": 0.0
-        },
-        {
-          "station": 5,
-          "lid_native_xy_mm": [
-            -135.4,
-            0
-          ],
-          "appliance_xy_mm": [
-            0,
-            459.2
-          ],
-          "overlap_mm3": 0.0
-        },
-        {
-          "station": 6,
-          "lid_native_xy_mm": [
-            -135.4,
-            -60
-          ],
-          "appliance_xy_mm": [
-            -60,
-            459.2
-          ],
-          "overlap_mm3": 0.0
-        },
-        {
-          "station": 7,
-          "lid_native_xy_mm": [
-            -45,
-            84.4
-          ],
-          "appliance_xy_mm": [
-            84.4,
-            368.8
-          ],
-          "overlap_mm3": 0.0
-        },
-        {
-          "station": 8,
-          "lid_native_xy_mm": [
-            -45,
-            -84.4
-          ],
-          "appliance_xy_mm": [
-            -84.4,
-            368.8
-          ],
-          "overlap_mm3": 0.0
-        },
-        {
-          "station": 9,
-          "lid_native_xy_mm": [
-            -110,
-            84.4
-          ],
-          "appliance_xy_mm": [
-            84.4,
-            433.8
-          ],
-          "overlap_mm3": 0.0
-        },
-        {
-          "station": 10,
-          "lid_native_xy_mm": [
-            -110,
-            -84.4
-          ],
-          "appliance_xy_mm": [
-            -84.4,
-            433.8
-          ],
-          "overlap_mm3": 0.0
-        }
-      ],
-      "collisions": [],
-      "pass": true
-    }
+    "path": ".cache/combined-finish/handoffs/foam-cap/current-7320/parity-and-driver.json",
+    "sha256": "b574784fb37984e46a10e29062fcd9f498c9b10509b4de7005c9b47df7f3e598",
+    "scope": "All ten 2.4 mm radius, 80 mm driver envelopes are empty against the current native control and current identified Rust lid."
   },
   "preparation_context": {
-    "source_root": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/worktrees/cold-core-cap-print-binding",
-    "spec": "hardware/printed-parts/enclosure/trial-preparation/pieces.json",
-    "spec_sha256": "2eb222aeacc4f06c9225ef70ef51bfa069c83b96507016f567ab2888a5cb517d",
-    "tool_sha256": {
-      "hardware/printed-parts/enclosure/trial-preparation/_derive.py": "1a3469b8f1a2a0cbfb29ffe07e7c709bb985373f2ebfa417eb9bff70e69be8be",
-      "hardware/printed-parts/enclosure/trial-preparation/_mesh.py": "7ab22db36e370608f52df3709c4af1994c8e804ee06e101dcbf79210db99eead",
-      "hardware/printed-parts/enclosure/trial-preparation/_native.py": "1c99ce10842a141a942a19d7def2329512d14b676c00618496187e0d93cd29da",
-      "hardware/printed-parts/enclosure/trial-preparation/_seam.py": "9ffa509df701826563e18388fd3bcc57c604f4b2b8e5e4288821ddcd00bcb176",
-      "hardware/printed-parts/enclosure/trial-preparation/labels.py": "b7eab37bf384b7d47e3ee7c0eed2afbf2451200ca5b0ee42c2eb47ec43fce783",
-      "hardware/printed-parts/enclosure/trial-preparation/prepare.py": "bc5495142592e777cb1b94eb2cfe06e64ba15ee6bae94f3e95e62a556741b513",
-      "hardware/printed-parts/enclosure/trial-preparation/review.py": "9bd303fe370842fd34eb559dc5f53f887f75c42e478c598737397dd49dd539f7",
-      "hardware/printed-parts/enclosure/trial-preparation/step_meshes.py": "b50f7b50f52f1e8516be3b1fc9ecdb10e87fb188f8b9bebc0fac56737320fc44"
-    }
+    "physical_source": "7320c7c39",
+    "region_boxes_and_process_settings": "Accepted values retained; only the identified lid STEP/STL binding changes.",
+    "bottom_and_guide": "Existing qualified projects retained with identical geometry bytes."
   },
   "all_four_slices_pass": true,
   "native_physical_print_and_driver_records_retained": true
