@@ -3,6 +3,8 @@
 The rectangular cover carries the display during axial placement. Its broad
 preformed wings spread around the rigid neck and seat in the shared grooves.
 """
+
+from __future__ import annotations
 from dataclasses import dataclass
 from pathlib import Path
 import sys
