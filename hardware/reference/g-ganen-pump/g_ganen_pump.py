@@ -108,6 +108,8 @@ def build_parts():
     data = parameters()
     parts = {'rigid_casing_envelope': _casing(data)}
     for row in data['casing_shell_envelopes']:
+        if not row.get('rendered', True):
+            continue
         parts[row['id']+'_external_envelope'] = _hull(row['external_envelope'])
     can = data['motor_can_envelope']
     axis = cq.Vector(*can['axis_direction'])

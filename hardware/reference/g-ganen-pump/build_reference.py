@@ -32,10 +32,161 @@ def hull(points):
             'scope': 'Convex external clearance envelope of selected observations; holes and hidden clip cavities are filled, not measured material.'}
 
 
+def _sample_outline(outline, count):
+    """Keep each measured corner while sharing the remaining vertices by length."""
+    lengths = np.linalg.norm(np.diff(outline, axis=0), axis=1)
+    shares = lengths/lengths.sum()*(count-1)
+    counts = np.maximum(1, np.floor(shares).astype(int))
+    while counts.sum() < count-1:
+        counts[np.argmax(shares-counts)] += 1
+    while counts.sum() > count-1:
+        counts[np.argmax(np.where(counts > 1, counts-shares, -np.inf))] -= 1
+    vertices = [outline[0]]
+    for first, last, steps in zip(outline, outline[1:], counts):
+        vertices.extend(first+(last-first)*t/steps for t in range(1, steps+1))
+    return vertices
+
+
+def motor_underside(sections, observation, motor):
+    """Continue observed rigid features through slider occlusions, excluding leads.
+
+    The rail profile is observed between the sliders in both exposed views.
+    Its axial continuation preserves the transverse grooves. The molded wire
+    cover has an observed end face; beyond it the motor can and rear cap supply
+    the rigid surface, independently of the flexible wires crossing them.
+    """
+    original = json.loads(json.dumps(sections))
+    stations = np.array([row['x_mm'] for row in original])
+    vertices = np.array([row['vertices_mm'] for row in original])
+    training = np.array(observation['rail_profile_stations_mm'])
+    known = np.array([next(row['vertices_mm'] for row in original if row['x_mm'] == x)
+                      for x in training])
+    fit = np.linalg.lstsq(np.column_stack((training, np.ones(len(training)))),
+                          known[:, :, 1:3].reshape(len(training), -1), rcond=None)[0]
+    template = known[len(known)//2, :, 1:3]
+    rails = (np.abs(template[:, 0]) > 14.) & (template[:, 1] < 24.)
+    center = (np.abs(template[:, 0]) < 14.) & (template[:, 1] < 16.)
+    cover_ids = np.flatnonzero((np.abs(template[:, 0]) < 8.) & (template[:, 1] < 14.))
+    angles = np.arctan2(template[:, 1]-32., template[:, 0])
+    cover_end = observation['wire_cover_rear_end_x_mm']
+    rail_end = observation['fixed_rail_rear_end_x_mm']
+    half_step = observation['end_face_axial_allowance_mm']
+    added = [cover_end-half_step, cover_end+half_step,
+             rail_end-half_step, rail_end+half_step]
+
+    # The clean negative-Y cap arc is visible in both scans. The photographed
+    # leads cross its positive-Y side, whose radial measurements are excluded.
+    cap_stations = observation['rear_cap_profile_stations_mm']
+    cap_radii = []
+    for x in cap_stations:
+        row = next(item for item in original if item['x_mm'] == x)
+        yz = np.array(row['vertices_mm'])[:, 1:3]
+        radius = np.linalg.norm(yz-[0., 32.], axis=1)
+        for i, angle in enumerate(angles):
+            if -np.pi/2 < angle < 0.:
+                radius[i] = radius[len(radius)//2-1-i]
+        cap_radii.append(radius)
+
+    result = []
+    for x in sorted(set(stations.tolist()+added)):
+        index = int(np.clip(np.searchsorted(stations, x), 1, len(stations)-1))
+        share = (x-stations[index-1])/(stations[index]-stations[index-1])
+        points = vertices[index-1]*(1-share)+vertices[index]*share
+        points[:, 0] = x
+        if 0. <= x <= rail_end-half_step:
+            continued = (np.array([x, 1.]) @ fit).reshape(-1, 2)
+            axis = np.array(motor['reference_axis_direction_toward_rear'])
+            origin = np.array(motor['reference_axis_point'])
+            axis_z = origin[2]+axis[2]*(x-origin[0])/axis[0]
+            for rail in observation['rail_face_planes']:
+                side = rail['side']
+                ids = np.flatnonzero(rails & (template[:, 0]*side > 0.))
+                a, b, c = [np.array(rail['planes'][name]['z_ax_plus_by_plus_c'])
+                           for name in ('outer_upper', 'outer_lower', 'inner_return')]
+
+                def intersection(u, v):
+                    y = ((v[0]-u[0])*x+v[2]-u[2])/(u[1]-v[1])
+                    return np.array([y, u[0]*x+u[1]*y+u[2]])
+
+                offset = c[0]*x+c[2]-axis_z
+                roots = np.roots([1.+c[1]**2, 2.*c[1]*offset,
+                                  offset**2-motor['radius_mm']**2])
+                y = min((float(v.real) for v in roots if abs(v.imag) < 1e-8 and v.real*side > 0.),
+                        key=lambda v: abs(abs(v)-15.))
+                join = np.array([y, c[0]*x+c[1]*y+c[2]])
+                outer = ids[0] if side < 0 else ids[-1]
+                z = continued[outer, 1]
+                start = np.array([(z-a[0]*x-a[2])/a[1], z])
+                outline = [start, intersection(a, b), intersection(b, c), join]
+                rail_vertices = _sample_outline(outline, len(ids))
+                if side > 0:
+                    rail_vertices.reverse()
+                points[ids, 1:3] = rail_vertices
+            if x <= cover_end-half_step:
+                floor_x, floor_y, floor_c = observation['wire_cover_floor_plane']['coefficients']
+                floor_z = floor_x*x+floor_c
+                bottom_normal = np.array([-floor_y, 1.])
+                bottom_normal /= np.linalg.norm(bottom_normal)
+                outline = []
+                for cover in observation['wire_cover_side_profiles']:
+                    side = cover['side']
+                    a, b, c = cover['side_plane']['coefficients']
+                    d = a*x+c
+                    z = min(np.roots([1.+b*b, 2.*(b*d-axis_z),
+                                      d*d+axis_z*axis_z-motor['radius_mm']**2]))
+                    join = np.array([d+b*z, z])
+                    y = (d+b*floor_z)/(1.-b*floor_y)
+                    corner = np.array([y, floor_y*y+floor_z])
+                    side_normal = np.array([-float(side), side*b])
+                    side_normal /= np.linalg.norm(side_normal)
+                    radius = cover['bottom_corner_radius_mm']
+                    center_round = corner+radius*np.linalg.solve(
+                        np.vstack((bottom_normal, side_normal)), np.ones(2))
+                    lower = center_round-radius*bottom_normal
+                    wall = center_round-radius*side_normal
+                    first, last = (wall, lower) if side < 0 else (lower, wall)
+                    angle = np.arctan2(*(first-center_round)[::-1])
+                    turn = (np.arctan2(*(last-center_round)[::-1])-angle) % (2.*np.pi)
+                    outline.extend([join, wall] if side < 0 else [lower])
+                    for fraction in (1./3., 2./3., 1.):
+                        theta = angle+turn*fraction
+                        outline.append(center_round+radius*np.array([np.cos(theta), np.sin(theta)]))
+                    if side > 0:
+                        outline.append(join)
+                points[cover_ids, 1:3] = _sample_outline(outline, len(cover_ids))
+        if cover_end+half_step <= x <= rail_end-half_step:
+            axis = np.array(motor['reference_axis_direction_toward_rear'])
+            origin = np.array(motor['reference_axis_point'])
+            z = origin[2]+axis[2]*(x-origin[0])/axis[0]
+            dz = 32.-z
+            radius = (-dz*np.sin(angles)
+                      + np.sqrt(motor['radius_mm']**2-dz**2*np.cos(angles)**2))
+            points[center, 1] = radius[center]*np.cos(angles[center])
+            points[center, 2] = 32.+radius[center]*np.sin(angles[center])
+        if x >= rail_end+half_step:
+            share_cap = np.clip((x-cap_stations[0])/(cap_stations[1]-cap_stations[0]), 0., 1.)
+            radius = cap_radii[0]*(1-share_cap)+cap_radii[1]*share_cap
+            yz = np.column_stack((radius*np.cos(angles), 32.+radius*np.sin(angles)))
+            lower = (points[:, 2] < 24.) | (yz[:, 1] < 24.)
+            points[lower, 1:3] = yz[lower]
+        row = next((json.loads(json.dumps(item)) for item in original if item['x_mm'] == x),
+                   {'x_mm': x, 'scope': 'Axial end of a photographed rigid underside feature.'})
+        row['vertices_mm'] = points.tolist()
+        if x >= 0.:
+            row['underside_source'] = 'underside-observation/rigid-underside.json'
+            coverage = {key: row.pop(key) for key in
+                        ('observed_bins', 'angular_bins', 'longest_interpolated_angle_degrees') if key in row}
+            if coverage:
+                row['source_radial_coverage'] = coverage
+        result.append(row)
+    return result
+
+
 def run():
     paths = [HERE/'registered-measurements.json', HERE/'casing-sections.json', HERE/'scan-evidence.json',
-             HERE/'scan-measurements.json', HERE/'interface-measurements.json']
-    measured, section_ledger, evidence, initial, interfaces = [json.loads(path.read_text()) for path in paths]
+             HERE/'scan-measurements.json', HERE/'interface-measurements.json',
+             HERE/'underside-observation/rigid-underside.json']
+    measured, section_ledger, evidence, initial, interfaces, underside = [json.loads(path.read_text()) for path in paths]
     sections = []
     for item in section_ledger['sections']:
         angle = np.array([row['angle_radians'] for row in item['bins']])
@@ -49,6 +200,7 @@ def run():
         sections.append({'x_mm': item['x_mm'], 'vertices_mm': vertices.tolist(),
                          'observed_bins': int(observed.sum()), 'angular_bins': len(angle),
                          'longest_interpolated_angle_degrees': item['longest_unobserved_angle_degrees']})
+    sections = motor_underside(sections, underside, initial['motor'])
     # Observed planar ends are measured separately from radial sections. Their
     # native facets can extend the nearest complete section by less than 0.5 mm.
     clouds = []
@@ -202,8 +354,9 @@ def run():
     lower_vertices = np.array([point for section in sections for point in section['vertices_mm']
                                if 0 <= point[0] <= 76 and point[2] < 24])
     casing_shells.append({'id': 'lower_cradle_occupied', 'external_envelope': hull(lower_vertices),
+                          'rendered': False,
                           'selection_window_mm': {'x': [0., 76.], 'z_upper': 24.},
-                          'scope': 'Conservative envelope of the observed lower cradle sections. It fills reentrant underside channels that cannot be represented as one radial surface; it is not actual material or a replacement rail clip.'})
+                          'scope': 'Coarse convex clearance bound of the rigid underside profiles. It is metadata only; the casing profiles supply the visible grooves and finite wire cover. Bearing surfaces use the separately observed wire-cover plane and extent.'})
     for side in (-1, 1):
         selected = []
         for p, n, identity in clouds[1:]:
@@ -227,8 +380,9 @@ def run():
             'crown_molded_features': interfaces['crown_molded_features'],
             'sliding_rails': interfaces['sliding_rails'],
             'lead_exit_regions': interfaces['lead_exit_regions'],
+            'rigid_underside': underside,
             'flow_authority': evidence['flow_port_identity'],
-            'input_sha256': {path.name: hashlib.sha256(path.read_bytes()).hexdigest() for path in paths},
+            'input_sha256': {str(path.relative_to(HERE)): hashlib.sha256(path.read_bytes()).hexdigest() for path in paths},
             'tool_sha256': {name: hashlib.sha256((HERE/name).read_bytes()).hexdigest()
                             for name in ('build_reference.py', 'g_ganen_pump.py', 'scan_tools.py')},
             'limits': ['Occupied envelopes are not actual material or mass volumes.',
