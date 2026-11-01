@@ -1941,6 +1941,7 @@ genrule(
         "hardware/printed-parts/faucet/asse-vent-seals/asse-vent-upstream-bung.step.mesh",
         ":out/vent-seals/hardware/printed-parts/faucet/asse-vent-seals/asse-vent-upstream-bung.stl",
         ":out/faucet-display-cover/hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover-seated.step",
+        ":out/faucet-display-cover/hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover-seated.step.mesh",
         ":out/faucet-display-cover/hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step",
         ":out/flute-payload-faucet/hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step.mesh",
         ":out/faucet-display-cover/hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl",
@@ -2084,6 +2085,7 @@ genrule(
         ":out/above-counter-plate/hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step",
         "pysrc/hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py",
         ":out/faucet-display-cover/hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover-seated.step",
+        ":out/faucet-display-cover/hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover-seated.step.mesh",
         "pysrc/hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py",
         ":out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step",
         ":out/flute-payload-faucet/hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step.mesh",
@@ -7059,17 +7061,51 @@ genrule(
         "pysrc/hardware/printed-parts/faucet/_faucet_interface.py",
         "hardware/printed-parts/faucet/faucet-display-cover/README.md",
         "pysrc/hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.rs",
         "pysrc/hardware/printed-parts/faucet/faucet-shell/faucet_shell.py",
         "pysrc/hardware/printed-parts/faucet/faucet_paths.py",
         "pysrc/hardware/scripts/_cadq_export.py",
         "pysrc/hardware/scripts/_material_base.py",
         "pysrc/hardware/scripts/_materials.py",
-        "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_rust_part.py",
         "pysrc/hardware/scripts/_stated_bounds.py",
-        "pysrc/hardware/scripts/flute_payload.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/Cargo.lock",
+        "tools/hsm/Cargo.toml",
+        "tools/hsm/faucet/Cargo.toml",
+        "tools/hsm/faucet/src/assembly.rs",
+        "tools/hsm/faucet/src/display.rs",
+        "tools/hsm/faucet/src/lib.rs",
+        "tools/hsm/faucet/src/shell.rs",
+        "tools/hsm/kernel/Cargo.toml",
+        "tools/hsm/kernel/src/boolean.rs",
+        "tools/hsm/kernel/src/build.rs",
+        "tools/hsm/kernel/src/dxf.rs",
+        "tools/hsm/kernel/src/edge.rs",
+        "tools/hsm/kernel/src/face.rs",
+        "tools/hsm/kernel/src/import.rs",
+        "tools/hsm/kernel/src/lib.rs",
+        "tools/hsm/kernel/src/mapped.rs",
+        "tools/hsm/kernel/src/mass.rs",
+        "tools/hsm/kernel/src/math.rs",
+        "tools/hsm/kernel/src/part.rs",
+        "tools/hsm/kernel/src/plane.rs",
+        "tools/hsm/kernel/src/profile.rs",
+        "tools/hsm/kernel/src/round.rs",
+        "tools/hsm/kernel/src/rule.rs",
+        "tools/hsm/kernel/src/screw.rs",
+        "tools/hsm/kernel/src/sketch_hull.rs",
+        "tools/hsm/kernel/src/solid.rs",
+        "tools/hsm/kernel/src/spline.rs",
+        "tools/hsm/kernel/src/step.rs",
+        "tools/hsm/kernel/src/sweep.rs",
+        "tools/hsm/kernel/src/text.rs",
+        "tools/hsm/kernel/src/thru.rs",
+        "tools/hsm/kernel/src/topo.rs",
+        "tools/hsm/kernel/src/triangulate.rs",
+        "tools/hsm/kernel/src/write.rs",
     ] + glob(
         [
             "hardware/printed-parts/faucet/faucet-display-cover/README.figures.json",
@@ -7078,18 +7114,28 @@ genrule(
     ),
     outs = [
         "out/faucet-display-cover/hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover-seated.step",
+        "out/faucet-display-cover/hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover-seated.step.mesh",
+        "out/faucet-display-cover/hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover-seated.step.npz",
+        "out/faucet-display-cover/hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.numbers.json",
         "out/faucet-display-cover/hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step",
+        "out/faucet-display-cover/hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step.npz",
         "out/faucet-display-cover/hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl",
         "out/faucet-display-cover/hardware/printed-parts/faucet/faucet-display-cover/README.figures.json",
         "out/faucet-display-cover/hardware/printed-parts/faucet/faucet-display-cover/README.md",
     ],
+    tags = ["no-sandbox"],
     cmd = """
 set -e
 O0=$$PWD/$(location out/faucet-display-cover/hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover-seated.step)
-O1=$$PWD/$(location out/faucet-display-cover/hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step)
-O2=$$PWD/$(location out/faucet-display-cover/hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl)
-O3=$$PWD/$(location out/faucet-display-cover/hardware/printed-parts/faucet/faucet-display-cover/README.figures.json)
-O4=$$PWD/$(location out/faucet-display-cover/hardware/printed-parts/faucet/faucet-display-cover/README.md)
+O1=$$PWD/$(location out/faucet-display-cover/hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover-seated.step.mesh)
+O2=$$PWD/$(location out/faucet-display-cover/hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover-seated.step.npz)
+O3=$$PWD/$(location out/faucet-display-cover/hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.numbers.json)
+O4=$$PWD/$(location out/faucet-display-cover/hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step)
+O5=$$PWD/$(location out/faucet-display-cover/hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step.npz)
+O6=$$PWD/$(location out/faucet-display-cover/hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl)
+O7=$$PWD/$(location out/faucet-display-cover/hardware/printed-parts/faucet/faucet-display-cover/README.figures.json)
+O8=$$PWD/$(location out/faucet-display-cover/hardware/printed-parts/faucet/faucet-display-cover/README.md)
+rm -rf work-faucet-display-cover
 for f in $(SRCS); do
   case $$f in
     */node_modules/*) continue;;
@@ -7097,20 +7143,25 @@ for f in $(SRCS); do
     */pysrc/*) t=$${f##*/pysrc/};;
     *) t=$$f;;
   esac
-  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
+  mkdir -p work-faucet-display-cover/$$(dirname $$t); cp -L $$f work-faucet-display-cover/$$t
 done
 for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
+  if [ -d $$d ]; then mkdir -p work-faucet-display-cover/$$(dirname $$d); ln -sfn $$PWD/$$d work-faucet-display-cover/$$d; fi
 done
-cd work
+cd work-faucet-display-cover
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py > /dev/null
 cp hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover-seated.step $$O0
-cp hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step $$O1
-cp hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl $$O2
-cp hardware/printed-parts/faucet/faucet-display-cover/README.figures.json $$O3
-cp hardware/printed-parts/faucet/faucet-display-cover/README.md $$O4
+cp hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover-seated.step.mesh $$O1
+cp hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover-seated.step.npz $$O2
+cp hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.numbers.json $$O3
+cp hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step $$O4
+cp hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step.npz $$O5
+cp hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl $$O6
+cp hardware/printed-parts/faucet/faucet-display-cover/README.figures.json $$O7
+cp hardware/printed-parts/faucet/faucet-display-cover/README.md $$O8
+cd .. && rm -rf work-faucet-display-cover
 """,
 )
 
