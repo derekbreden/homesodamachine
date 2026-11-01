@@ -289,6 +289,8 @@ def components():
     for name in layout.valve_names():
         add(name, valve_native(name), C_VALVE, layout.pose(name))
     add('g-ganen-pump', pump_native(), M_DONOR_BLACK, layout.pose('g-ganen-pump'))
+    import _above_core_mounts
+    add('pump-snap-cap', _above_core_mounts.pump_snap_cap(), M_PETGF_BLACK, _frame())
     adapter = _module('above_core_vent_adapter', 'printed-parts/asse-drain-adapter/asse_drain_adapter.py')
     add('asse-drain-adapter', adapter.placed(rear_plumbing.chain().bfp.vent()[0]), M_TPU_BLACK,
         layout.pose('asse1022-assembly'))

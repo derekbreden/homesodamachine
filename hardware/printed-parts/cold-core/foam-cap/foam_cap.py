@@ -408,8 +408,6 @@ def build_top_lid():
             lid_total_height, names=tuple(n for n in cap_anchors if n != 'discharge-chain')),
         lid_total_height)
     lid = lid.union(_above_mounts.world_shape_in_cap(_above_mounts.pump_cradle()))
-    for passage in _above_mounts.pump_tie_cuts():
-        lid = lid.cut(_above_mounts.world_shape_in_cap(passage))
     for name in ('valve-v-b',):
         lid = lid.union(_above_mounts.valve_support(name,lid_total_height))
     for support in _above_mounts.union_supports().values():
@@ -466,6 +464,7 @@ def main():
     # the same flag as the caps they close, not one derived from the other.
     lid_bottom = build_foam_cap_lid(open_down=True)
     lid_top = build_top_lid()
+    pump_snap = _above_mounts.pump_snap_printable()
 
     assert len(cap_top.solids().vals()) == 1, "cap_top must be a single solid"
     # Every plinth and anchor joins the lid.
@@ -492,16 +491,22 @@ def main():
             (cap_top, "foam-cap-top", _mat.C_CAP_TOP),
             (cap_bottom, "foam-cap-bottom", _mat.C_CAP_BOTTOM),
             (lid_top, "foam-cap-lid-top", _mat.C_CAP_LID_TOP),
-            (lid_bottom, "foam-cap-lid-bottom", _mat.C_CAP_LID_BOTTOM)):
+            (lid_bottom, "foam-cap-lid-bottom", _mat.C_CAP_LID_BOTTOM),
+            (pump_snap, "pump-snap-cap", _mat.M_PETGF_BLACK)):
         export_assembly(one_body(shape, name, colour), str(_here / f"{name}.step"))
     print("-> foam-cap-top.step")
     print("-> foam-cap-bottom.step")
     print("-> foam-cap-lid-top.step")
     print("-> foam-cap-lid-bottom.step")
+    print("-> pump-snap-cap.step")
 
     for shape, name in ((cap_top, "foam-cap-top"), (cap_bottom, "foam-cap-bottom"),
-                        (lid_top, "foam-cap-lid-top"), (lid_bottom, "foam-cap-lid-bottom")):
+                        (lid_top, "foam-cap-lid-top"), (lid_bottom, "foam-cap-lid-bottom"),
+                        (pump_snap, "pump-snap-cap")):
         write_bed_file(shape, _here / f"{name}.stl")
+    import flute_payload
+    flute_payload.cut(_here / 'pump-snap-cap.step', _here / 'pump-snap-cap.stl',
+                      preserve_print_triangles=True)
 
     variables = {
         "LID_Z_H": f"{lid_total_height:.4g} mm",

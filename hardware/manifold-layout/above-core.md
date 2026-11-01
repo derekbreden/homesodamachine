@@ -10,8 +10,8 @@ wiring use those same frames. Front is −Y, rear is +Y and up is +Z.
 
 The enclosure body is 215 × 466.3 × 361 mm. The cold-core lid face is Z253.4.
 Back-top has a 9 mm roof and rear wall. The PSU's shallow running well retains
-8.05 mm of roof over its body. Its four M3 × 10 screws enter short RX-M3S × 4
-inserts; the modeled ear range gives 2.3–4.3 mm of screw projection and 1 mm
+7.75 mm of roof over its body. Its four M3 × 10 screws enter short RX-M3S × 4
+inserts; the modeled ear range gives 2.3–4.3 mm of screw projection and 0.7 mm
 of tip air. The four blind pilots end below the full 3 mm roof show skin.
 
 | Equipment | Arrangement | Support |
@@ -23,7 +23,7 @@ of tip air. The four blind pilots end below the full 3 mm roof show skin.
 | YZMSZ water regulator | East–west, above the pump | Integral ceiling seat and lower snap cap |
 | V-A | Hangs from the ceiling, its four posts upward; outlet turns east and then fore | Full-width integral socket plinth |
 | V-K | Beside the east wall, inlet up and outlet down | Integral full socket wall |
-| G Ganen pump | Motor fore–aft, suction east, discharge west; complete rubber feet and legs removed | Lid casing bearing and two joined wide-tie loops |
+| G Ganen pump | Motor fore–aft, suction east, discharge west; complete rubber feet and legs removed | Lid half pipe, removable upper snap and rail-end stops |
 | Pump joints | Reinforced 3/8-inch PVC, trimmed PP061208W reducers and two butterfly clamps per barb | Clamped barb and reducer engagements |
 | Pump discharge check | ACVUS-44 stem directly in the discharge elbow | Discharge joint; continuous inlet enters the core guide |
 | Mean Well IRM-90 | Base upward in its shallow ceiling well, AC end aft | Four integral ceiling hosts |
@@ -44,7 +44,7 @@ and R531 bends. ASSE, regulator and V-A retain their aligned frames. The
 records the body clearances and tube extrema.
 
 The water elbows retain 0.4 mm exposed male shoulder lands outside their full
-receiving depths. The suction PVC uses two tangent arcs, minimum R39.968,
+receiving depths. The suction PVC uses two tangent arcs, minimum R33.030,
 while the bare pump and V-K keep their aligned body frames.
 
 The port columns are X37.25 and X77.5; rows are Z328, Z296 and Z264. TAP's bore
@@ -69,7 +69,7 @@ external inlet and holder. The meter and soda union share a concealed tube.
 
 The gas check's socket feeds one bend, then an S to the guide at
 X59.101/Y354.664. The gas tube remains continuous to the carbonator's gas
-fitting and support-ring lane. The water check feeds two tangent bends, minimum R14.923, into the
+fitting and support-ring lane. The water check feeds two tangent bends, minimum R15.055, into the
 straight guide at X−82.5/Y420. Neither guide adds a socket or tube cut.
 
 V-A's feed crosses above the pump and descends east of the regulator. Its
@@ -114,8 +114,8 @@ regulator and V-A/V-K header. Prepare the meter with its continuous inlet,
 holder, foam and concealed outlet tube, slide it onto the soda union and fit
 its west cap. Fit the vent cup and direct OVER return with both ties accessible.
 
-Build the bare pump and its clamped joints on the open core. Tighten its two motor loops
-before loading tubes into the lid snaps. Complete the below-lid tube routes
+Lower the bare pump into its half-pipe cradle on the open core and close its upper
+snap cap. Fit its clamped joints before loading tubes into the lid snaps. Complete the below-lid tube routes
 before closing the core. Keep the pump's suction elbow and its short
 quarter-inch inlet link loose while positioning back-top. Carry free
 cross-quadrant ends and make their central handoffs through the funnel opening. Install the
