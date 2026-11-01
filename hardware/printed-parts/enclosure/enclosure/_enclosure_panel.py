@@ -220,3 +220,62 @@ def numbers(shell, box):
     from _materials import linear
     return dict(structure_numbers, color=linear(shell.PIECE_COLORS['back-bottom']),
                 panel=graph.document(result))
+
+
+def print_numbers(shell, box):
+    """The complete back-bottom print recipe, including the exterior field's live phase.
+
+    Other rear plain lands are above this panel. Read their exact pure bounds and
+    a conservative bound on the receiver pad before excluding them from its rail.
+    The warning land is calculated in Rust from the raked glyphs it actually built.
+    """
+    import _enclosure_skin
+    identification = shell._above_core_shell.rear_identification()
+    station = identification.nameplate_station()
+    wing = identification.nameplate.wing_interface
+    plan = identification.nameplate_plan()
+    # apply()'s pad extends ph/2 to each side, plus one end margin. This wider
+    # whole-height bound contains it while the accepted run-out/end margins each
+    # remain within half the body height. Cutting the pad cannot enlarge that bound.
+    runout = max(2.0, wing.FLOOR_STOCK+wing.RUNOUT_LEAD)
+    end_margin = shell.wall+shell.fits.supported_surface
+    if max(runout, end_margin) > wing.HEIGHT/2:
+        raise ValueError('the receiver pad exceeds the back-bottom disjoint bound')
+    pad_floor = station.z-wing.HEIGHT-2*wing.FACE_SLIP
+    other = [*identification.rail_bounds(),
+             *wing.plain_lips(station, plan['face_y_mm']),
+             shell._above_core_shell.keystone_land()]
+    if box.pack.nameplate:
+        other.extend(shell._nameplate_fit.plain_lips(box.pack.nameplate, box.outer[3]))
+    if box.pack.keystone:
+        other.extend(shell._data_fit.plain_lips(box.pack.keystone, box.outer[3]))
+    panel_top = max(box.splits[1]+shell.z_rise, shell._handhold_levels(box.inner)[2])
+    if min(pad_floor, *(land[4] for land in other)) <= panel_top:
+        raise ValueError('a rear plain land reaches the back-bottom print boundary')
+    rail = shell._flute_skin.Rail(at=lambda s: shell.plan_at(s, box.outer),
+                                  length=shell.plan_perimeter(box.outer))
+    out = numbers(shell, box)
+    out.update(_enclosure_skin.field_numbers([rail], shell.flute_pitch(box.outer),
+                                             shell.flute_depth, shell.flute_rise))
+    out['print'] = {'warning_margin': shell.disposal_margin,
+                    'warning_raise': shell.disposal_raise, 'wall': shell.wall}
+    out['disjoint_lands'] = {'panel_top': panel_top, 'receiver_pad_floor': pad_floor,
+                              'other_bounds': other}
+    return out
+
+
+def cut(shell, box, directory):
+    """Write one native-free back-bottom part through the installed engine and print payload."""
+    import _rust_part
+    import trimesh
+    from meshcad.write import print_payload
+    said = _rust_part.cut('enclosure-shell', 'enclosure-panel', print_numbers(shell, box),
+                          directory)
+    step = Path(directory)/'enclosure-back-bottom.step'
+    printed = trimesh.load_mesh(step.with_suffix('.stl'))
+    loose = shell._flute_skin.non_manifold_edges(printed)
+    if loose or not printed.is_watertight:
+        raise ValueError(f'{step.with_suffix(".stl").name}: {loose} non-manifold edges, '
+                          f'watertight={printed.is_watertight}')
+    print_payload(step, printed)
+    return said
