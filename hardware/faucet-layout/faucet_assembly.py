@@ -56,13 +56,13 @@ Regenerate:
     tools/cad-venv/bin/python hardware/faucet-layout/faucet_assembly.py
 """
 
+from __future__ import annotations
+
 import functools
 import json
 import math
 import sys
 from pathlib import Path
-
-import cadquery as cq
 
 _here = Path(__file__).resolve()
 sys.path.insert(
@@ -73,6 +73,11 @@ sys.path.insert(
     0,
     str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"),
 )
+if __name__ == "__main__":
+    import _rust_part
+    _rust_part.start()
+
+import cadquery as cq
 from _cadq_export import import_step
 import _materials as _mat
 from docgen import substitute_py_comments
@@ -434,6 +439,21 @@ def _gooseneck_segments(start, tangent, bend1_r, bend2_r):
 _paths = faucet_shell._paths
 
 
+def _legs_json(legs):
+    """`faucet_paths` legs as the kernel's paths read them: `{"line": [a, b]}`,
+    `{"arc": [a, mid, b]}`, `{"spline": points}` and `{"hermite": [a, b, ta, tb]}`."""
+    return [{kind: [[float(c) for c in p] for p in (rest[0] if kind == "spline" else rest)]}
+            for kind, *rest in legs]
+
+
+def _scalar_dimensions(paths=None, hulls=None):
+    """Dimensions of the same paths and circle hulls the kernel cuts."""
+    import _rust_part
+
+    return _rust_part.check("faucet", "faucet-metrics",
+                            {"paths": paths or {}, "hulls": hulls or {}})
+
+
 def _legs_wire(legs):
     """`faucet_paths` legs as one CadQuery wire."""
     return cq.Wire.assembleEdges([_paths.leg_edge(leg) for leg in legs])
@@ -475,11 +495,6 @@ def build_soda_faucet_tube():
 
 def _length(path):
     return path.wire().val().Length()
-
-
-# The soda faucet tube as the bench cuts it: bottomed on the thimble's cap and square at the printed
-# tip, in the faucet's finish. Rounded up, since the outlet is trimmed flush there.
-soda_faucet_cut_length = float(math.ceil(_length(_soda_faucet_path())))
 
 
 def _faucet_flavor_path(x_sign=1):
@@ -576,13 +591,22 @@ def flavor_centerlines(x_sign):
 def flavor_path_above_pack(x_sign):
     """Flavor centreline from the printed tip to the pack's first plane."""
     in_pack = (gather_start_z - gather_rise(x_sign)) - umbilical_z_bottom
-    return (_length(_faucet_flavor_path(x_sign)) + _length(_step_path(x_sign, gather_start_z))
-            + 2.0 * umbilical_bend_radius * gather_theta(x_sign) + in_pack)
+    if x_sign in flavor_sides:
+        suffix = "pos" if x_sign > 0 else "neg"
+        lengths = _factory_metrics["lengths"]
+        carried = lengths["flavor_" + suffix] + lengths["step_" + suffix]
+    else:
+        lengths = _scalar_dimensions(paths={
+            "flavor": _legs_json(_paths.path_legs("flavor", under_counter_plate_bottom_z, x_sign)),
+            "step": _legs_json(_step_legs(x_sign, gather_start_z)),
+        })["lengths"]
+        carried = lengths["flavor"] + lengths["step"]
+    return carried + 2.0 * umbilical_bend_radius * gather_theta(x_sign) + in_pack
 
 
 def flavor_path_above_foot():
     """Flavor centreline above the shell foot — the faucet's run less its straight below Z = 0."""
-    return _length(_faucet_flavor_path()) + under_counter_plate_bottom_z
+    return _factory_metrics["lengths"]["flavor_pos"] + under_counter_plate_bottom_z
 
 
 flavor_tube_z_bottom = umbilical_tail_z
@@ -713,7 +737,10 @@ def _hull_face(grow: float):
 
 def bundle_girth(grow: float = None) -> float:
     """The perimeter the braid closes on, and the figure a braid is bought by."""
-    return max(w.Length() for w in _hull_face(cable_lane if grow is None else grow).Wires())
+    grow = cable_lane if grow is None else grow
+    if grow == cable_lane:
+        return _factory_metrics["hulls"]["pack"]["perimeter"]
+    return _scalar_dimensions(hulls={"pack": _bundle_circles(grow)})["hulls"]["pack"]["perimeter"]
 
 
 def bundle_bore() -> float:
@@ -721,27 +748,28 @@ def bundle_bore() -> float:
     return bundle_girth() / math.pi
 
 
+def _bare_bundle_circles(grow=0.0):
+    return [(0.0, 0.0, soda_umbilical_tube_r + grow),
+            (return_x(+1), flavor_tube_depth_lower, flavor_tube_r + grow),
+            (return_x(-1), flavor_tube_depth_lower, flavor_tube_r + grow),
+            (drain_tail_x, drain_bypass_y, drain_tube_r + grow)]
+
+
 def bare_bundle_hull(grow: float = 0.0) -> cq.Sketch:
     """Bare blue, flavor and drain tube envelope above the foam."""
-    return _hull([(0.0, 0.0, soda_umbilical_tube_r + grow),
-                  (return_x(+1), flavor_tube_depth_lower, flavor_tube_r + grow),
-                  (return_x(-1), flavor_tube_depth_lower, flavor_tube_r + grow),
-                  (drain_tail_x, drain_bypass_y, drain_tube_r + grow)])
+    return _hull(_bare_bundle_circles(grow))
 
 
 def bare_bundle_girth() -> float:
     """The perimeter the braid closes on over the bare tubes, beside `bundle_girth` over the pack. The
     braid is bought by the larger of the two."""
-    face = (cq.Workplane(xy_plane_z_up).placeSketch(bare_bundle_hull(cable_lane))
-            .extrude(1.0).faces("<Z").val())
-    return max(w.Length() for w in face.Wires())
+    return _factory_metrics["hulls"]["bare"]["perimeter"]
 
 
 # [0.7511 mm](SLEEVE_CENTER_Y) behind the Westbrass's axis — the pack's own centre of area, which is what
 # a collar's flag is turned away from. Ø[31.18 mm](SLEEVE_BORE) is what the braid opens to over it
 # — a 1" nominal PET braid that expands 50% (`ledger/bom.md` §11; the wall above is the figure the
 # assembly draws it at).
-sleeve_center_y = _hull_face(cable_lane).Center().y
 # THE BRAID'S RUN IS THE FOAM'S, AND THE TOP ONE COVERS THE MOUNTING RETURNS. One braid segment goes over
 # each foam segment as that segment seats (`faucet-and-umbilical.md` §3), so the two stop on one
 # plane at the wall and the installer's trim takes one of each; the top segment runs on above its
@@ -805,8 +833,18 @@ def _splay_path(x_sign):
 
 # Every bend spends more tube than its vertical drop. The factory cut
 # includes this splay and the complete route above the pack.
-splay_extra_length = (_splay_path(+1).wire().val().Length()
-                     - (splay_top_z - umbilical_tail_z))
+_dimension_paths = {"soda": _legs_json(_soda_faucet_legs()), "splay": _legs_json(_splay_legs(+1))}
+for _side in flavor_sides:
+    _suffix = "pos" if _side > 0 else "neg"
+    _dimension_paths["flavor_" + _suffix] = _legs_json(
+        _paths.path_legs("flavor", under_counter_plate_bottom_z, _side))
+    _dimension_paths["step_" + _suffix] = _legs_json(_step_legs(_side, gather_start_z))
+_factory_metrics = _scalar_dimensions(paths=_dimension_paths,
+    hulls={"pack": _bundle_circles(cable_lane), "bare": _bare_bundle_circles(cable_lane)})
+# The soda tube bottoms on the thimble's cap and is trimmed flush at the printed tip.
+soda_faucet_cut_length = float(math.ceil(_factory_metrics["lengths"]["soda"]))
+sleeve_center_y = _factory_metrics["hulls"]["pack"]["center"][1]
+splay_extra_length = _factory_metrics["lengths"]["splay"] - (splay_top_z - umbilical_tail_z)
 # One complete tip-to-tail cut for each black flavor tube, using the longer path.
 flavor_cut_length = float(math.ceil(
     blue_cut_length + max(flavor_path_above_pack(+1), flavor_path_above_pack(-1))
@@ -901,9 +939,11 @@ def drain_path():
     return _legs_wire(drain_legs())
 
 
+@functools.lru_cache(maxsize=None)
 def drain_factory_cut_length():
     """Complete external factory run, including the supplied cabinet/service reach."""
-    return float(math.ceil(drain_path().Length()+blue_cut_length-umbilical_drawn))
+    length = _scalar_dimensions(paths={"drain": _legs_json(drain_legs())})["lengths"]["drain"]
+    return float(math.ceil(length + blue_cut_length - umbilical_drawn))
 
 
 def build_drain_tube(envelope=False):
@@ -933,6 +973,16 @@ def _lever_rest_offset(lever):
     `lever_top_z` and its aft extent to `lever_aft_y`."""
     bounds = lever.val().BoundingBox()
     return (0.0, lever_aft_y - bounds.ymax, lever_top_z - bounds.zmax)
+
+
+def _lever_frame_offset():
+    """Seat the lever on the exact bounds its STEP producer records."""
+    from _cadq_export import note_read
+
+    path = _lever_step.with_suffix(".frame.json")
+    note_read(path)
+    bounds = json.loads(path.read_text())["bounds_mm"]
+    return (0.0, lever_aft_y - bounds[1][1], lever_top_z - bounds[1][2])
 
 
 def build_lever_at(angle_deg=0.0):
@@ -1071,17 +1121,12 @@ def _tip_centerline_world():
 def _display_seat():
     """The turn about world X, in degrees, and then the move that seat a display part on the tip."""
     tip_below_horiz_rad = (gn_bend1_sweep_rad + gn_bend2_sweep_rad) - math.pi / 2.0
-    tip_end, up_gooseneck, top_normal = faucet_shell._tip_frame()
-    seat = (
-        tip_end
-        + top_normal.multiply(faucet_shell.display_floor_n)
-        + up_gooseneck.multiply(
-            display_housing_length / 2.0
-            + faucet_shell.display_s_bottom
-            + faucet_shell.display_cradle_clearance
-        )
-    )
-    return math.degrees(tip_below_horiz_rad), seat.toTuple()
+    tip_end, up_gooseneck, top_normal = faucet_shell._tip_frame_data()
+    along = (display_housing_length / 2.0 + faucet_shell.display_s_bottom
+             + faucet_shell.display_cradle_clearance)
+    seat = tuple(a + b * faucet_shell.display_floor_n for a, b in zip(tip_end, top_normal))
+    seat = tuple(a + b * along for a, b in zip(seat, up_gooseneck))
+    return math.degrees(tip_below_horiz_rad), seat
 
 
 def _seat_on_tip(part):
@@ -1182,9 +1227,14 @@ countertop_hole_margin = shank_hole_margin(countertop_hole_center_y)
 
 def gasket_hole_cover():
     """Narrowest gasket band outside the drilled hole, around the whole oval."""
-    gasket_bottom = above_counter_gasket.build_above_counter_gasket().faces("<Z").val()
-    hole_center = cq.Vertex.makeVertex(0.0, countertop_hole_center_y, gasket_bottom.Center().z)
-    return gasket_bottom.outerWire().distance(hole_center) - hole_radius
+    rx, ry = faucet_shell.foot_width / 2.0, faucet_shell.foot_depth / 2.0
+    dy = countertop_hole_center_y - faucet_shell.foot_center_y
+    candidates = [abs(ry - dy), abs(-ry - dy)]
+    if ry != rx:
+        sine = ry * dy / (ry * ry - rx * rx)
+        if -1.0 <= sine <= 1.0:
+            candidates.append(math.hypot(rx * math.sqrt(1.0 - sine * sine), ry * sine - dy))
+    return min(candidates) - hole_radius
 
 
 def build_countertop():
@@ -1463,12 +1513,6 @@ def _section(wire):
     return out
 
 
-def _legs_json(legs):
-    """`faucet_paths` legs as the kernel's paths read them: `{"line": [a, b]}`,
-    `{"arc": [a, mid, b]}`, `{"spline": points}` and `{"hermite": [a, b, ta, tb]}`."""
-    return [{kind: [[float(c) for c in p] for p in (rest[0] if kind == "spline" else rest)]}
-            for kind, *rest in legs]
-
 
 def _moved_legs(legs, by):
     """`legs` carried by `by`; a hermite's tangents are directions and stay as they are."""
@@ -1533,18 +1577,36 @@ def numbers():
     def rounded(width, length, r, z0, z1):
         return {"width": width, "length": length, "r": r, "z": [z0, z1]}
 
+    def ribbon_section(origin, normal, width, clearance):
+        profile = {"slot": [shell.signal_lane_width, shell.signal_lane_depth]} if clearance else {
+            "rect": [width, shell.signal_ribbon_max_depth]}
+        return {"origin": origin, "xdir": [1.0, 0.0, 0.0], "normal": normal, **profile}
+
+    def lower_section(row):
+        z, x, y, width, depth, rounded, angle = row
+        angle = math.radians(angle)
+        return {"origin": [x, y, z], "xdir": [math.cos(angle), math.sin(angle), 0.0],
+                "normal": [0.0, 0.0, 1.0], "slot" if rounded else "rect": [width, depth]}
+
+    def sleeve_neck(wall):
+        return [{"hull": _bare_bundle_circles(cable_lane + wall),
+                 "z": gather_start_z, "bottom_face": True},
+                {"origin": [*umbilical_organizer.CENTRE_XY, organizer_bottom_z],
+                 "xdir": [1.0, 0.0, 0.0], "normal": [0.0, 0.0, 1.0],
+                 "circle": umbilical_organizer.OD / 2 + wall}]
+
     shell = faucet_shell
     shell_step = _faucet_printed_dir / "faucet-shell" / "faucet-shell.step"
     turn, seat = _display_seat()
     screen_z = display_total_depth - display_screen_depth
     ribbon_spans = []
-    for kind, *span in shell._ribbon_spans(False):
+    for kind, *span in shell._ribbon_spans(False, section=ribbon_section):
         if kind == "extrude":
-            ribbon_spans.append({"extrude": {"section": _section(span[0]), "by": floats(span[1])}})
+            ribbon_spans.append({"extrude": {"section": span[0], "by": floats(span[1])}})
         elif kind == "loft":
-            ribbon_spans.append({"loft": [_section(w) for w in span[0]]})
+            ribbon_spans.append({"loft": span[0]})
         else:
-            ribbon_spans.append({"sweep": {"section": _section(span[0]),
+            ribbon_spans.append({"sweep": {"section": span[0],
                                            "arc": [floats(p) for p in span[1]]}})
     note_read(under_counter_dxf)
     return {
@@ -1562,7 +1624,7 @@ def numbers():
                                 "z": [soda_umbilical_tube_z_bottom, soda_umbilical_tube_z_top]},
         "drain_tube": {"r": drain_tube_r, "r_in": _fi.drain_tube_id / 2,
                        "legs": _legs_json(drain_legs())},
-        "lever": placed(_lever_step, _lever_rest_offset(import_step(_lever_step))),
+        "lever": placed(_lever_step, _lever_frame_offset()),
         "above_counter_plate": _rust_part.step(
             _faucet_printed_dir / "above-counter-plate" / "above-counter-plate.step"),
         "above_counter_gasket": _rust_part.step(
@@ -1595,14 +1657,14 @@ def numbers():
             "turn": turn, "seat": floats(seat),
         },
         "ribbon": {
-            "lower": [_section(w) for w in shell._lower_signal_wires(*shell.lower_signal_ribbon)],
+            "lower": [lower_section(row) for row in shell._lower_signal_profiles(*shell.lower_signal_ribbon)],
             "plate_z": under_counter_plate_bottom_z,
             "return": {"width": cable_width, "depth": cable_lane,
                        "legs": _legs_json(_ribbon_return_legs())},
             "spans": ribbon_spans,
-            "display": [_section(w) for w in shell._display_ribbon_sections(
+            "display": shell._display_ribbon_frames(
                 shell.signal_ribbon_max_width, shell.signal_ribbon_max_depth,
-                shell.display_ribbon_top_n)],
+                shell.display_ribbon_top_n),
         },
         "countertop": {"size": countertop_slab_xy, "z": [countertop_bottom_z, countertop_top_z],
                        "hole": [0.0, countertop_hole_center_y, hole_radius]},
@@ -1618,8 +1680,7 @@ def numbers():
             "pack": {"outer": [floats(c) for c in _bundle_circles(cable_lane + sleeve_wall)],
                      "inner": [floats(c) for c in _bundle_circles(cable_lane)],
                      "z": [sleeve_z_bottom, umbilical_z_bottom]},
-            "neck": {"outer": [_section(w) for w in _sleeve_neck_wires(sleeve_wall)],
-                     "inner": [_section(w) for w in _sleeve_neck_wires(0.0)]},
+            "neck": {"outer": sleeve_neck(sleeve_wall), "inner": sleeve_neck(0.0)},
             "ring": {"centre": floats(umbilical_organizer.CENTRE_XY),
                      "r": umbilical_organizer.OD / 2, "z": [organizer_bottom_z, organizer_top_z]},
         },

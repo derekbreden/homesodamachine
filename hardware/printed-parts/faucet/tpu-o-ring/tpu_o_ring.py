@@ -1,6 +1,8 @@
 """TPU o-ring — printed-TPU thimble that seals the 3/8" soda faucet tube
 into the harvested Westbrass's top water port. See README.md."""
 
+from __future__ import annotations
+
 import sys
 from pathlib import Path
 
