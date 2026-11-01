@@ -1,0 +1,11 @@
+{
+  "source": {
+    "commit": "7320c7c39a9d4e1485cb7dbcc3b95aa85d0802fb",
+    "path": "hardware/reference/neofit-achv44-check/neofit_achv44_check.py",
+    "sha256": "a05bb8c69df5ee919985a0280fc04be1a425c71c605a6c9b846ab991c6e0f719"
+  },
+  "members": {
+    "neofit-achv44-check.step": "6cba8b0db77eb05d3488c114d184e9bb8a691db49b681dcacbcfe833f7da2c82",
+    "neofit-achv44-check.step.mesh": "d4c3bc20fc3e5094d853e0bd556e75ba60806bda96daf32d524d43a117eb3890"
+  }
+}
