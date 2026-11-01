@@ -316,7 +316,7 @@ geometry takes (`numbers()`) to `fuse-clamp.numbers.json`, which is committed be
 `fuse_clamp.rs` is the program that cuts the part from them: a `[[bin]]` of its subsystem's crate,
 `tools/hsm/refrigeration`, named `fuse-clamp`. It reads the file with `part::args` and `Numbers`
 (`f`, `pair`, `list`, `color`, `text`), builds the solid, refuses one that the fuse's case, grown by
-the contact tolerance, does not touch, and hands its bodies to `part::write_part`. That writes
+the contact tolerance, does not touch, and hands its bodies to `part::write_part_with_sources`. That writes
 `fuse-clamp.step`, the model file beside it, the payload, whose `src` is the STEP's SHA-256, and
 `fuse-clamp.stl`; leaves a file that holds the same bytes as it is; and prints what the files hold.
 The STEP and the STL take each solid simplified once, at the kernel's rule. `part::write_shown`
@@ -335,6 +335,15 @@ tip, the shapes their numbers come in, `shell`, the shell's stock and the cutter
 faucet also cuts its own round stock with, `display`, the lips and the relaxed print both display
 covers are cut with, and `assembly`, the faucet and its umbilical as the bench bags them, which both
 assemblies cut from the numbers `faucet_assembly.py` writes.
+
+`write::payload_bytes_with_sources` and `part::write_part_with_sources` add optional
+`face_sources` to each payload mesh: one contributor array per displayed `fac` range.
+Contributors carry `src`, `op`, and an optional `via` operation/source pair. A source
+explicitly recorded as unknown stays `null`; a wholly unknown record is a null contributor.
+A displayed face can join triangles from
+several builders, so the list includes every contributing source. The picker carries
+these records into its copied face text. The fine model retains each triangle's own
+record. Older payloads remain readable; the existing writer entry points retain their bytes.
 
 A generator that cuts a part begins its own run before it imports anything else:
 
