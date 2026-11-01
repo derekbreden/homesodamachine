@@ -524,7 +524,7 @@ genrule(
         "hardware/reference/compact-inline-candidates/geometry/candidate-regulator.step",
         "pysrc/hardware/reference/compressor/compressor.py",
         "pysrc/hardware/reference/condenser-block/condenser_block.py",
-        ":out/digiten-flow-sensor/hardware/reference/digiten-flow-sensor/digiten-flow-sensor.step",
+        "hardware/reference/digiten-flow-sensor/digiten-flow-sensor.step",
         "pysrc/hardware/reference/digiten-flow-sensor/digiten_flow_sensor.py",
         "pysrc/hardware/reference/flare38-14ptc/flare38_14ptc.py",
         "pysrc/hardware/reference/g-ganen-pump/common-foot/g_ganen_foot.py",
@@ -1072,7 +1072,7 @@ genrule(
         "hardware/reference/compact-inline-candidates/geometry/candidate-regulator.step",
         "pysrc/hardware/reference/compressor/compressor.py",
         "pysrc/hardware/reference/condenser-block/condenser_block.py",
-        ":out/digiten-flow-sensor/hardware/reference/digiten-flow-sensor/digiten-flow-sensor.step",
+        "hardware/reference/digiten-flow-sensor/digiten-flow-sensor.step",
         "pysrc/hardware/reference/digiten-flow-sensor/digiten_flow_sensor.py",
         "pysrc/hardware/reference/flare38-14ptc/flare38_14ptc.py",
         "pysrc/hardware/reference/g-ganen-pump/common-foot/g_ganen_foot.py",
@@ -1610,7 +1610,7 @@ genrule(
         "pysrc/hardware/reference/beduan-solenoid/beduan_solenoid.py",
         "hardware/reference/compact-inline-candidates/dimensions.json",
         "hardware/reference/compact-inline-candidates/geometry/candidate-regulator.step",
-        ":out/digiten-flow-sensor/hardware/reference/digiten-flow-sensor/digiten-flow-sensor.step",
+        "hardware/reference/digiten-flow-sensor/digiten-flow-sensor.step",
         "pysrc/hardware/reference/digiten-flow-sensor/digiten_flow_sensor.py",
         "pysrc/hardware/reference/g-ganen-pump/common-foot/g_ganen_foot.py",
         "pysrc/hardware/reference/g-ganen-pump/g_ganen_pump.py",
@@ -3290,7 +3290,7 @@ genrule(
         "hardware/reference/compact-inline-candidates/geometry/candidate-regulator.step",
         "pysrc/hardware/reference/compressor/compressor.py",
         "pysrc/hardware/reference/condenser-block/condenser_block.py",
-        ":out/digiten-flow-sensor/hardware/reference/digiten-flow-sensor/digiten-flow-sensor.step",
+        "hardware/reference/digiten-flow-sensor/digiten-flow-sensor.step",
         "pysrc/hardware/reference/digiten-flow-sensor/digiten_flow_sensor.py",
         "pysrc/hardware/reference/flare38-14ptc/flare38_14ptc.py",
         "pysrc/hardware/reference/g-ganen-pump/common-foot/g_ganen_foot.py",
@@ -3322,7 +3322,7 @@ genrule(
         "pysrc/hardware/reference/mq6-gas-sensor/mq6_gas_sensor.py",
         ":out/multiplex-asse1022/hardware/reference/multiplex-asse1022/multiplex-asse1022.step",
         "pysrc/hardware/reference/multiplex-asse1022/multiplex_asse1022.py",
-        ":out/neofit-achv44-check/hardware/reference/neofit-achv44-check/neofit-achv44-check.step",
+        "hardware/reference/neofit-achv44-check/neofit-achv44-check.step",
         "pysrc/hardware/reference/neofit-achv44-check/neofit_achv44_check.py",
         "pysrc/hardware/reference/neofit-acvus44-check/neofit_acvus44_check.py",
         "pysrc/hardware/reference/neofit-bulkhead/neofit_bulkhead.py",
@@ -3684,7 +3684,7 @@ genrule(
         "hardware/reference/compact-inline-candidates/geometry/candidate-regulator.step",
         "pysrc/hardware/reference/compressor/compressor.py",
         "pysrc/hardware/reference/condenser-block/condenser_block.py",
-        ":out/digiten-flow-sensor/hardware/reference/digiten-flow-sensor/digiten-flow-sensor.step",
+        "hardware/reference/digiten-flow-sensor/digiten-flow-sensor.step",
         "pysrc/hardware/reference/digiten-flow-sensor/digiten_flow_sensor.py",
         "pysrc/hardware/reference/flare38-14ptc/flare38_14ptc.py",
         "pysrc/hardware/reference/g-ganen-pump/common-foot/g_ganen_foot.py",
@@ -3714,7 +3714,7 @@ genrule(
         "pysrc/hardware/reference/mq6-gas-sensor/mq6_gas_sensor.py",
         ":out/multiplex-asse1022/hardware/reference/multiplex-asse1022/multiplex-asse1022.step",
         "pysrc/hardware/reference/multiplex-asse1022/multiplex_asse1022.py",
-        ":out/neofit-achv44-check/hardware/reference/neofit-achv44-check/neofit-achv44-check.step",
+        "hardware/reference/neofit-achv44-check/neofit-achv44-check.step",
         "pysrc/hardware/reference/neofit-achv44-check/neofit_achv44_check.py",
         "pysrc/hardware/reference/neofit-acvus44-check/neofit_acvus44_check.py",
         "pysrc/hardware/reference/neofit-bulkhead/neofit_bulkhead.py",
@@ -4272,7 +4272,7 @@ genrule(
         "pysrc/hardware/reference/beduan-solenoid/beduan_solenoid.py",
         "hardware/reference/compact-inline-candidates/dimensions.json",
         "hardware/reference/compact-inline-candidates/geometry/candidate-regulator.step",
-        ":out/digiten-flow-sensor/hardware/reference/digiten-flow-sensor/digiten-flow-sensor.step",
+        "hardware/reference/digiten-flow-sensor/digiten-flow-sensor.step",
         "pysrc/hardware/reference/digiten-flow-sensor/digiten_flow_sensor.py",
         "pysrc/hardware/reference/g-ganen-pump/common-foot/g_ganen_foot.py",
         "pysrc/hardware/reference/g-ganen-pump/g_ganen_pump.py",
@@ -5638,7 +5638,7 @@ genrule(
         "hardware/reference/compact-inline-candidates/geometry/candidate-regulator.step",
         "pysrc/hardware/reference/compressor/compressor.py",
         "pysrc/hardware/reference/condenser-block/condenser_block.py",
-        ":out/digiten-flow-sensor/hardware/reference/digiten-flow-sensor/digiten-flow-sensor.step",
+        "hardware/reference/digiten-flow-sensor/digiten-flow-sensor.step",
         "pysrc/hardware/reference/digiten-flow-sensor/digiten_flow_sensor.py",
         "pysrc/hardware/reference/flare38-14ptc/flare38_14ptc.py",
         "pysrc/hardware/reference/g-ganen-pump/common-foot/g_ganen_foot.py",
@@ -6452,7 +6452,7 @@ genrule(
         "pysrc/hardware/reference/beduan-solenoid/beduan_solenoid.py",
         "hardware/reference/compact-inline-candidates/dimensions.json",
         "hardware/reference/compact-inline-candidates/geometry/candidate-regulator.step",
-        ":out/digiten-flow-sensor/hardware/reference/digiten-flow-sensor/digiten-flow-sensor.step",
+        "hardware/reference/digiten-flow-sensor/digiten-flow-sensor.step",
         "pysrc/hardware/reference/digiten-flow-sensor/digiten_flow_sensor.py",
         "pysrc/hardware/reference/g-ganen-pump/common-foot/g_ganen_foot.py",
         "pysrc/hardware/reference/g-ganen-pump/g_ganen_pump.py",
@@ -7011,7 +7011,7 @@ genrule(
         "hardware/reference/compact-inline-candidates/geometry/candidate-regulator.step",
         "pysrc/hardware/reference/compressor/compressor.py",
         "pysrc/hardware/reference/condenser-block/condenser_block.py",
-        ":out/digiten-flow-sensor/hardware/reference/digiten-flow-sensor/digiten-flow-sensor.step",
+        "hardware/reference/digiten-flow-sensor/digiten-flow-sensor.step",
         "pysrc/hardware/reference/digiten-flow-sensor/digiten_flow_sensor.py",
         "pysrc/hardware/reference/flare38-14ptc/flare38_14ptc.py",
         "pysrc/hardware/reference/g-ganen-pump/common-foot/g_ganen_foot.py",
@@ -7153,7 +7153,7 @@ genrule(
         "pysrc/hardware/reference/beduan-solenoid/beduan_solenoid.py",
         "hardware/reference/compact-inline-candidates/dimensions.json",
         "hardware/reference/compact-inline-candidates/geometry/candidate-regulator.step",
-        ":out/digiten-flow-sensor/hardware/reference/digiten-flow-sensor/digiten-flow-sensor.step",
+        "hardware/reference/digiten-flow-sensor/digiten-flow-sensor.step",
         "pysrc/hardware/reference/digiten-flow-sensor/digiten_flow_sensor.py",
         "pysrc/hardware/reference/g-ganen-pump/common-foot/g_ganen_foot.py",
         "pysrc/hardware/reference/g-ganen-pump/g_ganen_pump.py",
@@ -7536,7 +7536,7 @@ genrule(
         "hardware/reference/compact-inline-candidates/geometry/candidate-regulator.step",
         "pysrc/hardware/reference/compressor/compressor.py",
         "pysrc/hardware/reference/condenser-block/condenser_block.py",
-        ":out/digiten-flow-sensor/hardware/reference/digiten-flow-sensor/digiten-flow-sensor.step",
+        "hardware/reference/digiten-flow-sensor/digiten-flow-sensor.step",
         "pysrc/hardware/reference/digiten-flow-sensor/digiten_flow_sensor.py",
         "pysrc/hardware/reference/flare38-14ptc/flare38_14ptc.py",
         "pysrc/hardware/reference/g-ganen-pump/common-foot/g_ganen_foot.py",
@@ -10043,49 +10043,6 @@ cp hardware/reference/asse1022-threaded-chain/asse1022-threaded-chain.step $$O0
 )
 
 genrule(
-    name = "basics-mtb-0606wp",
-    srcs = [
-        "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
-        "pysrc/hardware/reference/basics-mtb-0606wp/basics_mtb_0606wp.py",
-        "pysrc/hardware/scripts/_cadq_export.py",
-        "pysrc/hardware/scripts/_material_base.py",
-        "pysrc/hardware/scripts/_materials.py",
-        "pysrc/hardware/scripts/_mesh_payload.py",
-        "pysrc/hardware/scripts/_payload_rules.py",
-        "pysrc/hardware/scripts/_run_lock.py",
-        "pysrc/hardware/scripts/_run_slots.py",
-        "pysrc/tools/docgen/__init__.py",
-        "tools/hsm/run-slots.defaults.json",
-        "tools/run-slots.mjs",
-        "pysrc/tools/run.py",
-    ],
-    outs = [
-        "out/basics-mtb-0606wp/hardware/reference/basics-mtb-0606wp/basics-mtb-0606wp.step",
-    ],
-    cmd = """
-set -e
-O0=$$PWD/$(location out/basics-mtb-0606wp/hardware/reference/basics-mtb-0606wp/basics-mtb-0606wp.step)
-for f in $(SRCS); do
-  case $$f in
-    */node_modules/*) continue;;
-    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
-    */pysrc/*) t=$${f##*/pysrc/};;
-    *) t=$$f;;
-  esac
-  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
-done
-for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
-done
-cd work
-ln -sfn $$HSM_WORKSPACE/.cache .cache
-D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/basics-mtb-0606wp/basics_mtb_0606wp.py > /dev/null
-cp hardware/reference/basics-mtb-0606wp/basics-mtb-0606wp.step $$O0
-""",
-)
-
-genrule(
     name = "beduan-solenoid",
     srcs = [
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
@@ -10200,65 +10157,6 @@ cp hardware/reference/compressor/compressor.step $$O0
 cp hardware/reference/compressor/README.figures.json $$O1
 cp hardware/reference/compressor/README.md $$O2
 cp hardware/reference/compressor/compressor.py $$O3
-""",
-)
-
-genrule(
-    name = "digiten-flow-sensor",
-    srcs = [
-        "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
-        "hardware/reference/digiten-flow-sensor/README.md",
-        "pysrc/hardware/reference/digiten-flow-sensor/digiten_flow_sensor.py",
-        "pysrc/hardware/scripts/_cadq_export.py",
-        "pysrc/hardware/scripts/_material_base.py",
-        "pysrc/hardware/scripts/_materials.py",
-        "pysrc/hardware/scripts/_mesh_payload.py",
-        "pysrc/hardware/scripts/_payload_rules.py",
-        "pysrc/hardware/scripts/_realized.py",
-        "pysrc/hardware/scripts/_run_lock.py",
-        "pysrc/hardware/scripts/_run_slots.py",
-        "pysrc/tools/docgen/__init__.py",
-        "tools/hsm/run-slots.defaults.json",
-        "tools/run-slots.mjs",
-        "pysrc/tools/run.py",
-    ] + glob(
-        [
-            "hardware/reference/digiten-flow-sensor/README.figures.json",
-        ],
-        allow_empty = True,
-    ),
-    outs = [
-        "out/digiten-flow-sensor/hardware/reference/digiten-flow-sensor/digiten-flow-sensor.step",
-        "out/digiten-flow-sensor/hardware/reference/digiten-flow-sensor/model-check.json",
-        "out/digiten-flow-sensor/hardware/reference/digiten-flow-sensor/README.figures.json",
-        "out/digiten-flow-sensor/hardware/reference/digiten-flow-sensor/README.md",
-    ],
-    cmd = """
-set -e
-O0=$$PWD/$(location out/digiten-flow-sensor/hardware/reference/digiten-flow-sensor/digiten-flow-sensor.step)
-O1=$$PWD/$(location out/digiten-flow-sensor/hardware/reference/digiten-flow-sensor/model-check.json)
-O2=$$PWD/$(location out/digiten-flow-sensor/hardware/reference/digiten-flow-sensor/README.figures.json)
-O3=$$PWD/$(location out/digiten-flow-sensor/hardware/reference/digiten-flow-sensor/README.md)
-for f in $(SRCS); do
-  case $$f in
-    */node_modules/*) continue;;
-    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
-    */pysrc/*) t=$${f##*/pysrc/};;
-    *) t=$$f;;
-  esac
-  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
-done
-for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
-done
-cd work
-ln -sfn $$HSM_WORKSPACE/.cache .cache
-D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/digiten-flow-sensor/digiten_flow_sensor.py > /dev/null
-cp hardware/reference/digiten-flow-sensor/digiten-flow-sensor.step $$O0
-cp hardware/reference/digiten-flow-sensor/model-check.json $$O1
-cp hardware/reference/digiten-flow-sensor/README.figures.json $$O2
-cp hardware/reference/digiten-flow-sensor/README.md $$O3
 """,
 )
 
@@ -10388,49 +10286,6 @@ ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
 HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/gasher-check-valve/gasher_check_valve.py > /dev/null
 cp hardware/reference/gasher-check-valve/gasher-check-valve.step $$O0
-""",
-)
-
-genrule(
-    name = "hlghlg-check-valve",
-    srcs = [
-        "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
-        "pysrc/hardware/reference/hlghlg-check-valve/hlghlg_check_valve.py",
-        "pysrc/hardware/scripts/_cadq_export.py",
-        "pysrc/hardware/scripts/_material_base.py",
-        "pysrc/hardware/scripts/_materials.py",
-        "pysrc/hardware/scripts/_mesh_payload.py",
-        "pysrc/hardware/scripts/_payload_rules.py",
-        "pysrc/hardware/scripts/_run_lock.py",
-        "pysrc/hardware/scripts/_run_slots.py",
-        "pysrc/tools/docgen/__init__.py",
-        "tools/hsm/run-slots.defaults.json",
-        "tools/run-slots.mjs",
-        "pysrc/tools/run.py",
-    ],
-    outs = [
-        "out/hlghlg-check-valve/hardware/reference/hlghlg-check-valve/hlghlg-check-valve.step",
-    ],
-    cmd = """
-set -e
-O0=$$PWD/$(location out/hlghlg-check-valve/hardware/reference/hlghlg-check-valve/hlghlg-check-valve.step)
-for f in $(SRCS); do
-  case $$f in
-    */node_modules/*) continue;;
-    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
-    */pysrc/*) t=$${f##*/pysrc/};;
-    *) t=$$f;;
-  esac
-  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
-done
-for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
-done
-cd work
-ln -sfn $$HSM_WORKSPACE/.cache .cache
-D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/hlghlg-check-valve/hlghlg_check_valve.py > /dev/null
-cp hardware/reference/hlghlg-check-valve/hlghlg-check-valve.step $$O0
 """,
 )
 
@@ -10708,52 +10563,6 @@ cp hardware/reference/jg-pp061208w/jg-pp061208w.step $$O0
 )
 
 genrule(
-    name = "jhyossthi-pogo-dock",
-    srcs = [
-        "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
-        "pysrc/hardware/reference/jhyossthi-pogo-dock/jhyossthi_pogo_dock.py",
-        "pysrc/hardware/scripts/_cadq_export.py",
-        "pysrc/hardware/scripts/_material_base.py",
-        "pysrc/hardware/scripts/_materials.py",
-        "pysrc/hardware/scripts/_mesh_payload.py",
-        "pysrc/hardware/scripts/_payload_rules.py",
-        "pysrc/hardware/scripts/_run_lock.py",
-        "pysrc/hardware/scripts/_run_slots.py",
-        "pysrc/tools/docgen/__init__.py",
-        "tools/hsm/run-slots.defaults.json",
-        "tools/run-slots.mjs",
-        "pysrc/tools/run.py",
-    ],
-    outs = [
-        "out/jhyossthi-pogo-dock/hardware/reference/jhyossthi-pogo-dock/pogo-dock-female.step",
-        "out/jhyossthi-pogo-dock/hardware/reference/jhyossthi-pogo-dock/pogo-dock-male.step",
-    ],
-    cmd = """
-set -e
-O0=$$PWD/$(location out/jhyossthi-pogo-dock/hardware/reference/jhyossthi-pogo-dock/pogo-dock-female.step)
-O1=$$PWD/$(location out/jhyossthi-pogo-dock/hardware/reference/jhyossthi-pogo-dock/pogo-dock-male.step)
-for f in $(SRCS); do
-  case $$f in
-    */node_modules/*) continue;;
-    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
-    */pysrc/*) t=$${f##*/pysrc/};;
-    *) t=$$f;;
-  esac
-  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
-done
-for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
-done
-cd work
-ln -sfn $$HSM_WORKSPACE/.cache .cache
-D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/jhyossthi-pogo-dock/jhyossthi_pogo_dock.py > /dev/null
-cp hardware/reference/jhyossthi-pogo-dock/pogo-dock-female.step $$O0
-cp hardware/reference/jhyossthi-pogo-dock/pogo-dock-male.step $$O1
-""",
-)
-
-genrule(
     name = "kamoer-kphm400",
     srcs = [
         "pysrc/hardware/printed-parts/cadlib/snap.py",
@@ -10887,52 +10696,6 @@ cp hardware/reference/multiplex-asse1022/multiplex-asse1022.step $$O0
 )
 
 genrule(
-    name = "neofit-achv44-check",
-    srcs = [
-        "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
-        "pysrc/hardware/reference/neofit-achv44-check/neofit_achv44_check.py",
-        "pysrc/hardware/scripts/_cadq_export.py",
-        "pysrc/hardware/scripts/_material_base.py",
-        "pysrc/hardware/scripts/_materials.py",
-        "pysrc/hardware/scripts/_mesh_payload.py",
-        "pysrc/hardware/scripts/_payload_rules.py",
-        "pysrc/hardware/scripts/_run_lock.py",
-        "pysrc/hardware/scripts/_run_slots.py",
-        "pysrc/tools/docgen/__init__.py",
-        "tools/hsm/run-slots.defaults.json",
-        "tools/run-slots.mjs",
-        "pysrc/tools/run.py",
-    ],
-    outs = [
-        "out/neofit-achv44-check/hardware/reference/neofit-achv44-check/neofit-achv44-check.step",
-        "out/neofit-achv44-check/hardware/reference/neofit-achv44-check/neofit-achv44-check.step.mesh",
-    ],
-    cmd = """
-set -e
-O0=$$PWD/$(location out/neofit-achv44-check/hardware/reference/neofit-achv44-check/neofit-achv44-check.step)
-O1=$$PWD/$(location out/neofit-achv44-check/hardware/reference/neofit-achv44-check/neofit-achv44-check.step.mesh)
-for f in $(SRCS); do
-  case $$f in
-    */node_modules/*) continue;;
-    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
-    */pysrc/*) t=$${f##*/pysrc/};;
-    *) t=$$f;;
-  esac
-  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
-done
-for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
-done
-cd work
-ln -sfn $$HSM_WORKSPACE/.cache .cache
-D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/neofit-achv44-check/neofit_achv44_check.py > /dev/null
-cp hardware/reference/neofit-achv44-check/neofit-achv44-check.step $$O0
-cp hardware/reference/neofit-achv44-check/neofit-achv44-check.step.mesh $$O1
-""",
-)
-
-genrule(
     name = "neofit-bulkhead",
     srcs = [
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
@@ -11020,92 +10783,6 @@ cp hardware/reference/neofit-drain-bulkhead/neofit-drain-bulkhead.step $$O0
 )
 
 genrule(
-    name = "neofit-flavor-reducer",
-    srcs = [
-        "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
-        "pysrc/hardware/reference/neofit-flavor-reducer/neofit_flavor_reducer.py",
-        "pysrc/hardware/scripts/_cadq_export.py",
-        "pysrc/hardware/scripts/_material_base.py",
-        "pysrc/hardware/scripts/_materials.py",
-        "pysrc/hardware/scripts/_mesh_payload.py",
-        "pysrc/hardware/scripts/_payload_rules.py",
-        "pysrc/hardware/scripts/_run_lock.py",
-        "pysrc/hardware/scripts/_run_slots.py",
-        "pysrc/tools/docgen/__init__.py",
-        "tools/hsm/run-slots.defaults.json",
-        "tools/run-slots.mjs",
-        "pysrc/tools/run.py",
-    ],
-    outs = [
-        "out/neofit-flavor-reducer/hardware/reference/neofit-flavor-reducer/neofit-flavor-reducer.step",
-    ],
-    cmd = """
-set -e
-O0=$$PWD/$(location out/neofit-flavor-reducer/hardware/reference/neofit-flavor-reducer/neofit-flavor-reducer.step)
-for f in $(SRCS); do
-  case $$f in
-    */node_modules/*) continue;;
-    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
-    */pysrc/*) t=$${f##*/pysrc/};;
-    *) t=$$f;;
-  esac
-  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
-done
-for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
-done
-cd work
-ln -sfn $$HSM_WORKSPACE/.cache .cache
-D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/neofit-flavor-reducer/neofit_flavor_reducer.py > /dev/null
-cp hardware/reference/neofit-flavor-reducer/neofit-flavor-reducer.step $$O0
-""",
-)
-
-genrule(
-    name = "neofit-flow-control",
-    srcs = [
-        "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
-        "pysrc/hardware/reference/neofit-flow-control/neofit_flow_control.py",
-        "pysrc/hardware/scripts/_cadq_export.py",
-        "pysrc/hardware/scripts/_material_base.py",
-        "pysrc/hardware/scripts/_materials.py",
-        "pysrc/hardware/scripts/_mesh_payload.py",
-        "pysrc/hardware/scripts/_payload_rules.py",
-        "pysrc/hardware/scripts/_run_lock.py",
-        "pysrc/hardware/scripts/_run_slots.py",
-        "pysrc/tools/docgen/__init__.py",
-        "tools/hsm/run-slots.defaults.json",
-        "tools/run-slots.mjs",
-        "pysrc/tools/run.py",
-    ],
-    outs = [
-        "out/neofit-flow-control/hardware/reference/neofit-flow-control/neofit-flow-control.step",
-    ],
-    cmd = """
-set -e
-O0=$$PWD/$(location out/neofit-flow-control/hardware/reference/neofit-flow-control/neofit-flow-control.step)
-for f in $(SRCS); do
-  case $$f in
-    */node_modules/*) continue;;
-    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
-    */pysrc/*) t=$${f##*/pysrc/};;
-    *) t=$$f;;
-  esac
-  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
-done
-for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
-done
-cd work
-ln -sfn $$HSM_WORKSPACE/.cache .cache
-D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/neofit-flow-control/neofit_flow_control.py > /dev/null
-cp hardware/reference/neofit-flow-control/neofit-flow-control.step $$O0
-""",
-)
-
-genrule(
     name = "riteav-keystone",
     srcs = [
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
@@ -11145,49 +10822,6 @@ ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
 HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/riteav-keystone/riteav_keystone.py > /dev/null
 cp hardware/reference/riteav-keystone/riteav-keystone.step $$O0
-""",
-)
-
-genrule(
-    name = "seaflo-22-pump",
-    srcs = [
-        "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
-        "pysrc/hardware/reference/seaflo-22-pump/seaflo_22_pump.py",
-        "pysrc/hardware/scripts/_cadq_export.py",
-        "pysrc/hardware/scripts/_material_base.py",
-        "pysrc/hardware/scripts/_materials.py",
-        "pysrc/hardware/scripts/_mesh_payload.py",
-        "pysrc/hardware/scripts/_payload_rules.py",
-        "pysrc/hardware/scripts/_run_lock.py",
-        "pysrc/hardware/scripts/_run_slots.py",
-        "pysrc/tools/docgen/__init__.py",
-        "tools/hsm/run-slots.defaults.json",
-        "tools/run-slots.mjs",
-        "pysrc/tools/run.py",
-    ],
-    outs = [
-        "out/seaflo-22-pump/hardware/reference/seaflo-22-pump/seaflo-22-pump.step",
-    ],
-    cmd = """
-set -e
-O0=$$PWD/$(location out/seaflo-22-pump/hardware/reference/seaflo-22-pump/seaflo-22-pump.step)
-for f in $(SRCS); do
-  case $$f in
-    */node_modules/*) continue;;
-    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
-    */pysrc/*) t=$${f##*/pysrc/};;
-    *) t=$$f;;
-  esac
-  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
-done
-for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
-done
-cd work
-ln -sfn $$HSM_WORKSPACE/.cache .cache
-D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/seaflo-22-pump/seaflo_22_pump.py > /dev/null
-cp hardware/reference/seaflo-22-pump/seaflo-22-pump.step $$O0
 """,
 )
 
@@ -11322,52 +10956,6 @@ D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.
 HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/shok-blok-regulator/shok_blok_regulator.py > /dev/null
 cp hardware/reference/shok-blok-regulator/shok-blok-regulator.step $$O0
 cp hardware/reference/shok-blok-regulator/shok-blok-regulator.step.mesh $$O1
-""",
-)
-
-genrule(
-    name = "soda-rise-insulation",
-    srcs = [
-        "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
-        "pysrc/hardware/reference/soda-rise-insulation/soda_rise_insulation.py",
-        "pysrc/hardware/scripts/_cadq_export.py",
-        "pysrc/hardware/scripts/_material_base.py",
-        "pysrc/hardware/scripts/_materials.py",
-        "pysrc/hardware/scripts/_mesh_payload.py",
-        "pysrc/hardware/scripts/_payload_rules.py",
-        "pysrc/hardware/scripts/_run_lock.py",
-        "pysrc/hardware/scripts/_run_slots.py",
-        "pysrc/tools/docgen/__init__.py",
-        "tools/hsm/run-slots.defaults.json",
-        "tools/run-slots.mjs",
-        "pysrc/tools/run.py",
-    ],
-    outs = [
-        "out/soda-rise-insulation/hardware/reference/soda-rise-insulation/soda-rise-insulation.step",
-        "out/soda-rise-insulation/hardware/reference/soda-rise-insulation/soda-rise-insulation.step.mesh",
-    ],
-    cmd = """
-set -e
-O0=$$PWD/$(location out/soda-rise-insulation/hardware/reference/soda-rise-insulation/soda-rise-insulation.step)
-O1=$$PWD/$(location out/soda-rise-insulation/hardware/reference/soda-rise-insulation/soda-rise-insulation.step.mesh)
-for f in $(SRCS); do
-  case $$f in
-    */node_modules/*) continue;;
-    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
-    */pysrc/*) t=$${f##*/pysrc/};;
-    *) t=$$f;;
-  esac
-  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
-done
-for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
-done
-cd work
-ln -sfn $$HSM_WORKSPACE/.cache .cache
-D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/soda-rise-insulation/soda_rise_insulation.py > /dev/null
-cp hardware/reference/soda-rise-insulation/soda-rise-insulation.step $$O0
-cp hardware/reference/soda-rise-insulation/soda-rise-insulation.step.mesh $$O1
 """,
 )
 
@@ -11562,49 +11150,6 @@ cp hardware/reference/waveshare-43b-display/waveshare-43b-display.step $$O0
 cp hardware/reference/waveshare-43b-display/README.figures.json $$O1
 cp hardware/reference/waveshare-43b-display/README.md $$O2
 cp hardware/reference/waveshare-43b-display/waveshare_43b_display.py $$O3
-""",
-)
-
-genrule(
-    name = "worm-clamp",
-    srcs = [
-        "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
-        "pysrc/hardware/reference/worm-clamp/worm_clamp.py",
-        "pysrc/hardware/scripts/_cadq_export.py",
-        "pysrc/hardware/scripts/_material_base.py",
-        "pysrc/hardware/scripts/_materials.py",
-        "pysrc/hardware/scripts/_mesh_payload.py",
-        "pysrc/hardware/scripts/_payload_rules.py",
-        "pysrc/hardware/scripts/_run_lock.py",
-        "pysrc/hardware/scripts/_run_slots.py",
-        "pysrc/tools/docgen/__init__.py",
-        "tools/hsm/run-slots.defaults.json",
-        "tools/run-slots.mjs",
-        "pysrc/tools/run.py",
-    ],
-    outs = [
-        "out/worm-clamp/hardware/reference/worm-clamp/worm-clamp.step",
-    ],
-    cmd = """
-set -e
-O0=$$PWD/$(location out/worm-clamp/hardware/reference/worm-clamp/worm-clamp.step)
-for f in $(SRCS); do
-  case $$f in
-    */node_modules/*) continue;;
-    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
-    */pysrc/*) t=$${f##*/pysrc/};;
-    *) t=$$f;;
-  esac
-  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
-done
-for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
-done
-cd work
-ln -sfn $$HSM_WORKSPACE/.cache .cache
-D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/worm-clamp/worm_clamp.py > /dev/null
-cp hardware/reference/worm-clamp/worm-clamp.step $$O0
 """,
 )
 
@@ -11890,7 +11435,7 @@ genrule(
         "hardware/reference/compact-inline-candidates/geometry/candidate-regulator.step",
         "pysrc/hardware/reference/compressor/compressor.py",
         "pysrc/hardware/reference/condenser-block/condenser_block.py",
-        ":out/digiten-flow-sensor/hardware/reference/digiten-flow-sensor/digiten-flow-sensor.step",
+        "hardware/reference/digiten-flow-sensor/digiten-flow-sensor.step",
         "pysrc/hardware/reference/digiten-flow-sensor/digiten_flow_sensor.py",
         "pysrc/hardware/reference/flare38-14ptc/flare38_14ptc.py",
         "pysrc/hardware/reference/g-ganen-pump/common-foot/g_ganen_foot.py",
@@ -12605,7 +12150,7 @@ genrule(
         "hardware/reference/compact-inline-candidates/geometry/candidate-regulator.step",
         "hardware/reference/compressor/compressor.py",
         "hardware/reference/condenser-block/condenser_block.py",
-        ":out/digiten-flow-sensor/hardware/reference/digiten-flow-sensor/digiten-flow-sensor.step",
+        "hardware/reference/digiten-flow-sensor/digiten-flow-sensor.step",
         "hardware/reference/digiten-flow-sensor/digiten_flow_sensor.py",
         "hardware/reference/flare38-14ptc/flare38_14ptc.py",
         "hardware/reference/g-ganen-pump/common-foot/g_ganen_foot.py",
@@ -12644,7 +12189,7 @@ genrule(
         "hardware/reference/mq6-gas-sensor/mq6_gas_sensor.py",
         ":out/multiplex-asse1022/hardware/reference/multiplex-asse1022/multiplex-asse1022.step",
         "hardware/reference/multiplex-asse1022/multiplex_asse1022.py",
-        ":out/neofit-achv44-check/hardware/reference/neofit-achv44-check/neofit-achv44-check.step",
+        "hardware/reference/neofit-achv44-check/neofit-achv44-check.step",
         "hardware/reference/neofit-achv44-check/neofit_achv44_check.py",
         "hardware/reference/neofit-acvus44-check/neofit_acvus44_check.py",
         ":out/neofit-bulkhead/hardware/reference/neofit-bulkhead/neofit-bulkhead.step",
@@ -12883,7 +12428,7 @@ genrule(
         "hardware/reference/compact-inline-candidates/geometry/candidate-regulator.step",
         "pysrc/hardware/reference/compressor/compressor.py",
         "pysrc/hardware/reference/condenser-block/condenser_block.py",
-        ":out/digiten-flow-sensor/hardware/reference/digiten-flow-sensor/digiten-flow-sensor.step",
+        "hardware/reference/digiten-flow-sensor/digiten-flow-sensor.step",
         "pysrc/hardware/reference/digiten-flow-sensor/digiten_flow_sensor.py",
         "pysrc/hardware/reference/flare38-14ptc/flare38_14ptc.py",
         "pysrc/hardware/reference/g-ganen-pump/common-foot/g_ganen_foot.py",
@@ -14965,14 +14510,6 @@ genrule(
 )
 
 genrule(
-    name = "pysrc-694882aaa15e",
-    srcs = ["hardware/reference/basics-mtb-0606wp/basics_mtb_0606wp.py"],
-    outs = ["pysrc/hardware/reference/basics-mtb-0606wp/basics_mtb_0606wp.py"],
-    tools = ["tools/bazel/pysrc.py"],
-    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
-)
-
-genrule(
     name = "pysrc-384fe881e91a",
     srcs = ["hardware/reference/beduan-solenoid/beduan_solenoid.py"],
     outs = ["pysrc/hardware/reference/beduan-solenoid/beduan_solenoid.py"],
@@ -15141,14 +14678,6 @@ genrule(
 )
 
 genrule(
-    name = "pysrc-9f047309b266",
-    srcs = ["hardware/reference/jhyossthi-pogo-dock/jhyossthi_pogo_dock.py"],
-    outs = ["pysrc/hardware/reference/jhyossthi-pogo-dock/jhyossthi_pogo_dock.py"],
-    tools = ["tools/bazel/pysrc.py"],
-    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
-)
-
-genrule(
     name = "pysrc-978fdb8cfba7",
     srcs = ["hardware/reference/kamoer-kphm400/kamoer_kphm400.py"],
     outs = ["pysrc/hardware/reference/kamoer-kphm400/kamoer_kphm400.py"],
@@ -15229,14 +14758,6 @@ genrule(
 )
 
 genrule(
-    name = "pysrc-ab588bafb842",
-    srcs = ["hardware/reference/neofit-flow-control/neofit_flow_control.py"],
-    outs = ["pysrc/hardware/reference/neofit-flow-control/neofit_flow_control.py"],
-    tools = ["tools/bazel/pysrc.py"],
-    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
-)
-
-genrule(
     name = "pysrc-d10cada680d0",
     srcs = ["hardware/reference/neofit-stem-elbow/neofit_stem_elbow.py"],
     outs = ["pysrc/hardware/reference/neofit-stem-elbow/neofit_stem_elbow.py"],
@@ -15301,14 +14822,6 @@ genrule(
 )
 
 genrule(
-    name = "pysrc-98ca2a8954d6",
-    srcs = ["hardware/reference/soda-rise-insulation/soda_rise_insulation.py"],
-    outs = ["pysrc/hardware/reference/soda-rise-insulation/soda_rise_insulation.py"],
-    tools = ["tools/bazel/pysrc.py"],
-    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
-)
-
-genrule(
     name = "pysrc-f2dd19d25181",
     srcs = ["hardware/reference/taprite-3741-regulator/taprite_3741_regulator.py"],
     outs = ["pysrc/hardware/reference/taprite-3741-regulator/taprite_3741_regulator.py"],
@@ -15352,14 +14865,6 @@ genrule(
     name = "pysrc-26d871b0be38",
     srcs = ["hardware/reference/waveshare-43b-display/waveshare_43b_display.py"],
     outs = ["pysrc/hardware/reference/waveshare-43b-display/waveshare_43b_display.py"],
-    tools = ["tools/bazel/pysrc.py"],
-    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
-)
-
-genrule(
-    name = "pysrc-bfd57478beff",
-    srcs = ["hardware/reference/worm-clamp/worm_clamp.py"],
-    outs = ["pysrc/hardware/reference/worm-clamp/worm_clamp.py"],
     tools = ["tools/bazel/pysrc.py"],
     cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
 )
@@ -16127,40 +15632,30 @@ filegroup(
         ":elbow-cradle",
         ":asse1022-assembly",
         ":asse1022-threaded-chain",
-        ":basics-mtb-0606wp",
         ":beduan-solenoid",
         ":compressor",
-        ":digiten-flow-sensor",
         ":flare38-14ptc",
         ":gagira-reducing-coupling",
         ":gasher-check-valve",
-        ":hlghlg-check-valve",
         ":iec-c14-inlet",
         ":jg-bulkhead-union",
         ":jg-pp010822e",
         ":jg-pp0208e-tee",
         ":jg-pp0408w",
         ":jg-pp061208w",
-        ":jhyossthi-pogo-dock",
         ":kamoer-kphm400",
         ":molex-micro-fit-4",
         ":multiplex-asse1022",
-        ":neofit-achv44-check",
         ":neofit-bulkhead",
         ":neofit-drain-bulkhead",
-        ":neofit-flavor-reducer",
-        ":neofit-flow-control",
         ":riteav-keystone",
-        ":seaflo-22-pump",
         ":seaflo-discharge-chain",
         ":sf76e-thermal-fuse",
         ":shok-blok-regulator",
-        ":soda-rise-insulation",
         ":taprite-3741-regulator",
         ":tee-connector",
         ":westbrass-reference",
         ":waveshare-43b-display",
-        ":worm-clamp",
         ":wr1110-regulator",
         ":yyfkgcp-pogo-4p",
         ":bom-masses",
