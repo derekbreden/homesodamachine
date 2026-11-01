@@ -15,22 +15,16 @@ Coordinate convention -- the same wall frame as ``riteav_keystone``:
   +Z = the keyed/latching side. The enclosure turns this side down into the empty pump bay.
   X completes the right-handed frame.
 
-Run:
-    tools/cad-venv/bin/python hardware/reference/molex-micro-fit-4/molex_micro_fit_4.py
-    tools/cad-venv/bin/python hardware/reference/molex-micro-fit-4/molex_micro_fit_4.py selftest
+Geometry is in the frozen STEPs and display payloads beside this module.
+`frozen-asset.json` records their bytes and source snapshot.
 """
 
-import sys
 from pathlib import Path
 
-import cadquery as cq
-
 _here = Path(__file__).resolve()
-_hw = next(p for p in _here.parents if p.name == "hardware")
-sys.path.insert(0, str(_hw / "scripts"))
-sys.path.insert(0, str(_hw / "printed-parts" / "cadlib"))
-from _cadq_export import export_assembly  # noqa: E402
-from _materials import M_DONOR_BLACK, one_body  # noqa: E402
+STEP_PATH = _here.parent / "molex-micro-fit-4-panel.step"
+PAYLOAD_PATH = _here.parent / "molex-micro-fit-4-panel.step.mesh"
+ASSET_MANIFEST_PATH = _here.parent / "frozen-asset.json"
 
 STEP = _here.parent / "molex-micro-fit-4-panel.step"
 
@@ -130,35 +124,6 @@ def panel_profile(slip: float = CUT_SLIP):
     ]
 
 
-def panel_cut(host_t: float, panel_t: float = PANEL_T):
-    """Return the through cut plus the cavity-side thinning pocket for a ``host_t`` wall.
-
-    Positive extrusion off an XZ workplane runs toward -Y, which is into the panel in this
-    module's frame. The returned cutter therefore starts just outside Y=0 and finishes just
-    behind the host wall.
-    """
-    if not (PANEL_T_MIN <= panel_t <= PANEL_T_MAX):
-        raise ValueError(f"Micro-Fit panel must be {PANEL_T_MIN:.2f}--{PANEL_T_MAX:.2f} mm")
-    if host_t < panel_t:
-        raise ValueError("Micro-Fit host wall is thinner than its local panel")
-    through = (
-        cq.Workplane("XZ")
-        .polyline(panel_profile())
-        .close()
-        .extrude(host_t + 0.04)
-        .translate((0.0, 0.02, 0.0))
-    )
-    if host_t <= panel_t + 1e-9:
-        return through.val()
-    recess = (
-        cq.Workplane("XZ")
-        .rect(RECESS_W, RECESS_H)
-        .extrude(host_t - panel_t + 0.02)
-        .translate((0.0, -panel_t + 0.01, CUT_KEY_H / 2.0))
-    )
-    return through.union(recess).val()
-
-
 def panel_footprint() -> tuple:
     """The cavity-face land reserved around the mounted housing, as ``(X, Z)``."""
     return (RECESS_W, RECESS_H)
@@ -169,149 +134,11 @@ def panel_cutout() -> tuple:
     return (CUT_EAR_W + 2.0 * CUT_SLIP, CUT_TOTAL_H + 2.0 * CUT_SLIP)
 
 
-def build_fixed():
-    """Conservative solid for the fixed 43020-0400 housing and its two panel ears."""
-    # Start at the outboard mating end. Extruding on XZ toward -Y leaves the wire side inboard.
-    body = (
-        cq.Workplane("XZ")
-        .rect(BODY_W, BODY_H)
-        .extrude(BODY_D)
-        .translate((0.0, MOUTH_PROUD, 0.0))
-    )
-
-    # The integral ears grow from the side faces and ramp to the customer-drawing D envelope.
-    # Their trailing faces stand just behind the 2 mm panel, so they are the purchased snap and
-    # no printed PET-GF feature is asked to flex.
-    # The drawing's wide D-band is the lower 4.06 mm of the cut-out, not a band centred on the
-    # housing. Put the ears in that band so their deflection sweep passes through the opening
-    # and closes behind the panel without entering its upper shoulders.
-    z0 = -CUT_BODY_H / 2.0 + 0.10
-    for sx in (-1.0, 1.0):
-        x_body = sx * BODY_W / 2.0
-        x_tip = sx * EAR_W / 2.0
-        ear = (
-            cq.Workplane("XY")
-            .polyline([
-                (x_body, 0.4),
-                (x_tip, -PANEL_T - 0.2),
-                (x_body, -PANEL_T - EAR_RAMP_D),
-            ])
-            .close()
-            .extrude(EAR_H)
-            .translate((0.0, 0.0, z0))
-        )
-        body = body.union(ear)
-
-    # The rigid lower shoulder bears on the punch-side face while the two flexible ears close
-    # on the opposite face. Its inboard face is exactly Y=0, so the assembly records contact
-    # with the wall without drawing either nylon or PET-GF through the other.
-    stop_z0 = -CUT_BODY_H / 2.0 - PANEL_STOP_H + 0.25
-    stop = cq.Solid.makeBox(
-        PANEL_STOP_W, PANEL_STOP_D, PANEL_STOP_H,
-        cq.Vector(-PANEL_STOP_W / 2.0, 0.0, stop_z0),
-    )
-    body = body.union(stop)
-
-    # Four visible terminal mouths, two rows by two columns. Their shape identifies the part in
-    # assembly renders without pretending to reproduce the terminal-locking detail.
-    for x in (-CONTACT_PITCH / 2.0, CONTACT_PITCH / 2.0):
-        for z in (-CONTACT_PITCH / 2.0, CONTACT_PITCH / 2.0):
-            cavity = (
-                cq.Workplane("XZ")
-                .rect(CAVITY, CAVITY)
-                .extrude(CAVITY_D)
-                .translate((x, MOUTH_PROUD + 0.01, z))
-            )
-            body = body.cut(cavity)
-    return body.val()
-
-
-def build_free_envelope():
-    """Conservative diagnostic envelope for the mated ``43025-0400`` housing.
-
-    This is deliberately not a cosmetic purchased-part model. The full body and its
-    latching crown are enough to prove that the user's hand motion can pull the mate
-    clear of the fixed housing and lower it into the empty pump bay.
-    """
-    body = cq.Solid.makeBox(
-        FREE_BODY_W,
-        FREE_BODY_D,
-        FREE_BODY_H,
-        cq.Vector(-FREE_BODY_W / 2.0, FREE_MATE_Y, -FREE_BODY_H / 2.0),
-    )
-    latch = cq.Solid.makeBox(
-        FREE_BODY_W,
-        FREE_LATCH_D,
-        FREE_LATCH_H + 0.01,
-        cq.Vector(
-            -FREE_BODY_W / 2.0,
-            FREE_WIRE_Y - FREE_LATCH_D,
-            FREE_BODY_H / 2.0 - 0.01,
-        ),
-    )
-    return body.fuse(latch)
-
-
-def selftest() -> int:
-    ok = True
-    if not (PANEL_T_MIN <= PANEL_T <= PANEL_T_MAX):
-        print("FAIL: the local panel is outside Molex's thickness range")
-        ok = False
-    if not (CUT_EAR_W > CUT_BODY_W > BODY_W and CUT_TOTAL_H > CUT_BODY_H):
-        print("FAIL: the keyed cut-out does not clear the four-circuit body")
-        ok = False
-    if min((RECESS_W - CUT_EAR_W) / 2.0, (RECESS_H - CUT_TOTAL_H) / 2.0) < 2.0:
-        print("FAIL: the panel recess leaves less than 2 mm of printed land")
-        ok = False
-    cut = panel_cut(3.0)
-    fixed = build_fixed()
-    free = build_free_envelope()
-    if not cut.isValid() or len(cut.Solids()) != 1:
-        print("FAIL: the panel cutter is not one valid solid")
-        ok = False
-    if not fixed.isValid() or len(fixed.Solids()) != 1:
-        print("FAIL: the fixed housing is not one valid solid")
-        ok = False
-    if not free.isValid() or len(free.Solids()) != 1:
-        print("FAIL: the removable housing envelope is not one valid solid")
-        ok = False
-    profile = panel_profile()
-    cut_w = max(p[0] for p in profile) - min(p[0] for p in profile)
-    cut_h = max(p[1] for p in profile) - min(p[1] for p in profile)
-    expected_cut_w, expected_cut_h = panel_cutout()
-    if abs(cut_w - expected_cut_w) > 0.02 or abs(cut_h - expected_cut_h) > 0.02:
-        print(f"FAIL: panel cut-out is {cut_w:.3f} × {cut_h:.3f} mm, not "
-              f"{expected_cut_w:.3f} × {expected_cut_h:.3f} mm")
-        ok = False
-    bb = fixed.BoundingBox()
-    if abs(bb.ymin + INBOARD_D) > 0.02 or abs(bb.ymax - MOUTH_PROUD) > 0.02:
-        print(f"FAIL: housing depth is {bb.ymin:.3f}..{bb.ymax:.3f}, not "
-              f"{-INBOARD_D:.3f}..{MOUTH_PROUD:.3f}")
-        ok = False
-    fbb = free.BoundingBox()
-    expected_free = (
-        -FREE_BODY_W / 2.0, FREE_BODY_W / 2.0,
-        FREE_MATE_Y, FREE_WIRE_Y,
-        -FREE_BODY_H / 2.0, FREE_BODY_H / 2.0 + FREE_LATCH_H,
-    )
-    got_free = (fbb.xmin, fbb.xmax, fbb.ymin, fbb.ymax, fbb.zmin, fbb.zmax)
-    if any(abs(got - expected) > 0.02 for got, expected in zip(got_free, expected_free)):
-        print(f"FAIL: removable envelope is {got_free}, not {expected_free}")
-        ok = False
-    if abs(MATED_OVERLAP - 6.12) > 0.001 or abs(SERVICE_PULL - 7.12) > 0.001:
-        print(f"FAIL: unmate travel is {MATED_OVERLAP:.3f} mm plus "
-              f"{SERVICE_AIR:.3f} mm service air")
-        ok = False
-    print("PASS: molex-micro-fit-4 housing and panel agree" if ok else "FAIL")
-    return 0 if ok else 1
-
-
 def main():
-    export_assembly(one_body(build_fixed(), "molex-micro-fit-4-panel", M_DONOR_BLACK), STEP)
-    print(f"-> {STEP}")
+    print("molex-micro-fit-4-panel")
+    print(f"  STEP: {STEP_PATH}")
+    print(f"  Display payload: {PAYLOAD_PATH}")
 
 
 if __name__ == "__main__":
-    if len(sys.argv) > 1 and sys.argv[1] == "selftest":
-        sys.exit(selftest())
     main()
