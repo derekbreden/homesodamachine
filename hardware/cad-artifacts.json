@@ -29,7 +29,7 @@
     "hardware/assembly/scenes/glb/funnel-drain.glb": "c9d0a67a073ee12bba7c6a6ea0ab483660edc1422d9472b010d30285fe515a04",
     "hardware/assembly/scenes/glb/pump-cartridge.glb": "8329920973ebf1302d8a0d0e3053f8fbd41766bd3e5fe57909db932a2c1ecb2e",
     "hardware/assembly/scenes/glb/pump-mount.glb": "83104b10d3fcaae9cc27a5f69c96acc3609ae86067d69efdd6cc94863c808d53",
-    "hardware/cold-core-layout/cold-core-assembly.step": "4acc6bfb083583e3f15dd3159bd7d69a342cd884d2263888443f0b798d5e91cd",
+    "hardware/cold-core-layout/cold-core-assembly.step": "ca7ab32e1ebdc5899ebb0ec1b7aa989a6851f64cef60b96702c4c7eb2d39745b",
     "hardware/cut-parts/carbonation/carbonator-tube/carbonator-tube.step": "bed4d5c11ec06b9f7d62b4c74baa60d38820f2c7a5e28d56d47fd4c1c9582cfa",
     "hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step": "9a3e80cf259dc325a12d59b845e54f3576e4016037f43a5f9c953a3a41ef4185",
     "hardware/faucet-layout/faucet-assembly.step": "0a8456113e631c8387854cf3b7f4b889cc81eeca54d3b76de1f17d785a21cc09",
@@ -1450,7 +1450,7 @@
     "hardware/assembly/scenes/glb/funnel-drain.glb": 1793491282,
     "hardware/assembly/scenes/glb/pump-cartridge.glb": 1792921613,
     "hardware/assembly/scenes/glb/pump-mount.glb": 1793491282,
-    "hardware/cold-core-layout/cold-core-assembly.step": 1793491282,
+    "hardware/cold-core-layout/cold-core-assembly.step": 1793491837,
     "hardware/cut-parts/carbonation/carbonator-tube/carbonator-tube.step": 1792391966,
     "hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step": 1793170988,
     "hardware/faucet-layout/faucet-assembly.step": 1792570180,
@@ -2903,7 +2903,8 @@
       "unproven": true
     },
     "hardware/cold-core-layout/cold-core-assembly.step": {
-      "commit": "85af386e27171451966cf067809dad9bdc4220f7",
+      "inputs": "b195b9b191828ee57530dbefd817de1e29ae37a18eb24be2216501c751eaff07",
+      "commit": "3e5a2b09a4ec7e17c5e249920a60df05a23f9352",
       "unproven": true
     },
     "hardware/cut-parts/carbonation/carbonator-tube/carbonator-tube.step": {
