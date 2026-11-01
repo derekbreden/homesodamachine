@@ -41,7 +41,7 @@ def cap_lid_pose():
 
 def core_equipment_names():
     """Above-core equipment and fitted elbows carried by the cold-core lid."""
-    return frozenset(('pcba', 'g-ganen-pump', 'pump-snap-cap', 'pump-snap-cap-rear', 'valve-v-b',
+    return frozenset(('pcba', 'g-ganen-pump', 'pump-snap-cap', 'valve-v-b',
                       'discharge-chain', 'carbonator-fold',
                       'vb-inlet-turn', 'vb-outlet-stem', 'vb-outlet-return',
                       'lower-pump-elbow',

@@ -80,7 +80,7 @@ cold-core equipment lid.
 It uses M3 × 8 screws through its 1.6 mm board into
 RX-M3×5.7 inserts. Slide the complete rubber foot-and-leg assemblies off the
 water pump's fixed rails. Lower the bare pump into the lid's fitted half pipe
-and close its 32 mm primary and 16 mm rear snaps before installing the PCB, per the
+and close its continuous 54.5 mm upper clip before installing the PCB, per the
 [pump installation](../reference/g-ganen-pump/installation/README.md).
 The PSU ceiling and relay wall-host stacks are defined by
 [`_above_core_shell.py`](/hardware/printed-parts/enclosure/enclosure/_above_core_shell.py)
