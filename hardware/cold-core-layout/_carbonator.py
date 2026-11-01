@@ -261,7 +261,7 @@ def mouths() -> dict:
     return {name: mouth for name, (_solid, mouth) in build_elbows().items()}
 
 
-def report() -> None:
+def report(*, port_mouths=None) -> None:
     print("  carbonator")
     print(f"    tube            ⌀{TUBE_OD:.1f} × {TUBE_WALL:.3f} wall × {carbonator_height:.1f}, "
           f"z {carbonator_bottom_z:.2f}..{carbonator_top_z:.2f}")
@@ -283,9 +283,9 @@ def report() -> None:
           f"Δ{BOTTOM_CATALOG_OFFSET - BOTTOM_AXIS_OFFSET:+.2f}")
     for name in PORTS:
         c = port_corner(name)
-        m = mouths()[name]
+        pos = mouths()[name].pos if port_mouths is None else port_mouths[name]['position']
         print(f"    {name:15} corner ({c[0]:+.1f}, {c[1]:+.2f}, {c[2]:.2f})  "
-              f"mouth ({m.pos[0]:+.1f}, {m.pos[1]:+.2f}, {m.pos[2]:.2f})")
+              f"mouth ({pos[0]:+.1f}, {pos[1]:+.2f}, {pos[2]:.2f})")
     # Both bands the shell's own lines cross at, against the corners that have to meet them.
     for band, name in ((front_face_port_z, "co2-in"),
                        (carbonator_top_plate_z + hole_shift_from_edge, "water-in")):
