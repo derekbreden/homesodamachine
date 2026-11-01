@@ -1,0 +1,6542 @@
+{
+  "scope": "Exact unchanged appliance plus four corrected native bodies. Baseline all-pair material screen is retained; every named red-gate witness has a native reading, finite mating-region resolution and explicit remaining relay-head findings. Complete changed-body neighborhoods are independently queried, including wires at the corrected cradle. The generic 1 mm spacing row is an informational goal; it does not replace required local fitted allowances.",
+  "baseline_assembly_step_sha256": "43de7a97158cfb3d2b9de706d7370fcb1c8b6c32dcb2d9cc09404d443c725655",
+  "corrected_bodies": [
+    "elbow-cradle",
+    "soda-bend-holder",
+    "tube-soda-core-rise",
+    "soda-continuous-insulation"
+  ],
+  "geometry_reading": {
+    "scope": "Corrected continuous sweep frame. Current cradle and rigid holder retain the separately measured geometry; current tube/foam use the same chosen centerline, constant section, and exact per-solid larger-body contact readings. Superseded Frenet bodies are not current fit evidence.",
+    "plan": {
+      "selection": "Continuous R14 inlet beneath the rear meter, on the soda union axis",
+      "holder": {
+        "wall_mm": 2.0,
+        "leg_mm": 3.0,
+        "legs": "both sides of the90-degree turn",
+        "channel_d_mm": 6.8,
+        "centreline_bend_r_mm": 14.0,
+        "turn_degrees": 90.0
+      },
+      "physical_acceptance": "future/tube-bend-holder-exploration/prints/2026-10-23-legs-123-w2-petgf-left04-z018-mark1/physical-result.json",
+      "foam_fit_evidence": "hardware/reference/cargen-pipe-insulation/elbow-fit-2026-10-24/physical-observation.json",
+      "core_guide_mm": [
+        77.5,
+        359.51,
+        253.4
+      ],
+      "guide_outward": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "meter_mouth_mm": [
+        77.5,
+        385.51,
+        296.0
+      ],
+      "meter_insertion_mm": 15.7,
+      "meter_insertion_basis": "Nominal DIGITEN layout estimate; actual receiving depth is unmeasured.",
+      "flow_axis": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "arc_start_mm": [
+        77.5,
+        360.76,
+        282.0
+      ],
+      "bend_center_mm": [
+        77.5,
+        374.76,
+        282.0
+      ],
+      "arc_mid_mm": [
+        77.5,
+        364.8605050633883,
+        291.8994949366117
+      ],
+      "arc_end_mm": [
+        77.5,
+        374.76,
+        296.0
+      ],
+      "holder_rotation": [
+        [
+          -0.0,
+          0.0,
+          -1.0
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          -0.0,
+          1.0,
+          0.0
+        ]
+      ],
+      "holder_translation_mm": [
+        82.9,
+        374.76,
+        282.0
+      ],
+      "holder_to_meter_mm": 7.75,
+      "tube_segments": [
+        {
+          "kind": "bezier",
+          "control_points_mm": [
+            [
+              77.5,
+              359.51,
+              253.4
+            ],
+            [
+              77.5,
+              359.51,
+              262.93333333333334
+            ],
+            [
+              77.5,
+              360.76,
+              272.4666666666667
+            ],
+            [
+              77.5,
+              360.76,
+              282.0
+            ]
+          ]
+        },
+        {
+          "kind": "arc",
+          "points_mm": [
+            [
+              77.5,
+              360.76,
+              282.0
+            ],
+            [
+              77.5,
+              364.8605050633883,
+              291.8994949366117
+            ],
+            [
+              77.5,
+              374.76,
+              296.0
+            ]
+          ],
+          "radius_mm": 14.0,
+          "center_mm": [
+            77.5,
+            374.76,
+            282.0
+          ],
+          "axis": [
+            -1.0,
+            0.0,
+            0.0
+          ],
+          "angle_rad": 1.5707963267948966
+        },
+        {
+          "kind": "line",
+          "points_mm": [
+            [
+              77.5,
+              374.76,
+              296.0
+            ],
+            [
+              77.5,
+              401.21,
+              296.0
+            ]
+          ]
+        }
+      ],
+      "foam_segments": [
+        {
+          "kind": "bezier",
+          "control_points_mm": [
+            [
+              77.5,
+              359.5154050978607,
+              254.50000000000003
+            ],
+            [
+              77.5,
+              359.6043047337279,
+              263.6666666666667
+            ],
+            [
+              77.5,
+              360.76,
+              272.83333333333337
+            ],
+            [
+              77.5,
+              360.76,
+              282.0
+            ]
+          ]
+        },
+        {
+          "kind": "arc",
+          "points_mm": [
+            [
+              77.5,
+              360.76,
+              282.0
+            ],
+            [
+              77.5,
+              364.8605050633883,
+              291.8994949366117
+            ],
+            [
+              77.5,
+              374.76,
+              296.0
+            ]
+          ],
+          "radius_mm": 14.0,
+          "center_mm": [
+            77.5,
+            374.76,
+            282.0
+          ],
+          "axis": [
+            -1.0,
+            0.0,
+            0.0
+          ],
+          "angle_rad": 1.5707963267948966
+        },
+        {
+          "kind": "line",
+          "points_mm": [
+            [
+              77.5,
+              374.76,
+              296.0
+            ],
+            [
+              77.5,
+              384.51,
+              296.0
+            ]
+          ]
+        }
+      ],
+      "tube_od_mm": 6.35,
+      "tube_id_mm": 4.24,
+      "nominal_foam_id_mm": 6.35,
+      "nominal_foam_od_mm": 25.4,
+      "nominal_foam_cut_length_mm": 59.27388254255301,
+      "guide_transition_minimum_radius_lower_bound_mm": 109.0613333333333,
+      "foam_cut_mm": 61.0,
+      "accepted_soft_neighbors": [
+        "vk-solenoid",
+        "g-ganen-pump",
+        "suction-tube",
+        "suction-barb-clamp"
+      ],
+      "foam_model_scope": "One square-cut piece of owned foam compresses around the holder and locally against the four accepted neighboring bodies and the two V-K lead exits. Native display subtraction estimates occupied space; it is not a shaped cut pattern, measured strain, fit tolerance or thermal result.",
+      "assembly": "Slide the foam over the tube and accepted bend holder, insert the tube into the meter, load the meter seat forward and slide aft onto the soda union stub, then fit the west snap cap."
+    },
+    "bodies": {
+      "elbow-cradle": {
+        "bounds_mm": [
+          -18.150000000000002,
+          167.9557499,
+          279.24203711049074,
+          18.150000000000002,
+          197.9059101,
+          306.05
+        ],
+        "valid": true,
+        "solids": 1
+      },
+      "soda-bend-holder": {
+        "bounds_mm": [
+          70.69167378793148,
+          355.35999989999993,
+          278.9999999,
+          82.9000001,
+          377.7600001,
+          301.40000010000006
+        ],
+        "valid": true,
+        "solids": 1
+      },
+      "tube-soda-core-rise": {
+        "bounds_mm": [
+          74.3249999,
+          356.33499989999984,
+          253.39999989999976,
+          80.67500010000005,
+          401.21,
+          299.17500010000003
+        ],
+        "valid": true,
+        "solids": 1
+      },
+      "soda-continuous-insulation": {
+        "bounds_mm": [
+          64.7999999,
+          346.8160021983811,
+          254.37683928713412,
+          90.20000010000012,
+          384.51,
+          308.7000001
+        ],
+        "valid": true,
+        "solids": 1
+      }
+    },
+    "pairs": [
+      {
+        "parts": [
+          "digiten-flow",
+          "tube-soda-core-rise"
+        ],
+        "overlap_mm3": 170.4447112154987,
+        "method": "Per-solid native common with AABB prefilter"
+      },
+      {
+        "parts": [
+          "soda-bend-holder",
+          "tube-soda-core-rise"
+        ],
+        "overlap_mm3": 0,
+        "method": "Per-solid native common with AABB prefilter"
+      },
+      {
+        "parts": [
+          "soda-continuous-insulation",
+          "tube-soda-core-rise"
+        ],
+        "overlap_mm3": 0,
+        "method": "Per-solid native common with AABB prefilter"
+      },
+      {
+        "parts": [
+          "meter-snap-cap",
+          "tube-soda-core-rise"
+        ],
+        "overlap_mm3": 0,
+        "method": "Per-solid native common with AABB prefilter"
+      },
+      {
+        "parts": [
+          "tube-above-core-gas-core-drop",
+          "tube-soda-core-rise"
+        ],
+        "overlap_mm3": 0,
+        "method": "Per-solid native common with AABB prefilter"
+      },
+      {
+        "parts": [
+          "tube-fluid-18",
+          "tube-soda-core-rise"
+        ],
+        "overlap_mm3": 0,
+        "method": "Per-solid native common with AABB prefilter"
+      },
+      {
+        "parts": [
+          "tube-fluid-14",
+          "tube-soda-core-rise"
+        ],
+        "overlap_mm3": 0,
+        "method": "Per-solid native common with AABB prefilter"
+      },
+      {
+        "parts": [
+          "tube-fluid-16",
+          "tube-soda-core-rise"
+        ],
+        "overlap_mm3": 0,
+        "method": "Per-solid native common with AABB prefilter"
+      },
+      {
+        "parts": [
+          "foam-cap-lid-top",
+          "tube-soda-core-rise"
+        ],
+        "overlap_mm3": 0,
+        "method": "Per-solid native common with AABB prefilter"
+      },
+      {
+        "parts": [
+          "line-carb-water-out",
+          "tube-soda-core-rise"
+        ],
+        "overlap_mm3": 0,
+        "method": "Per-solid native common with AABB prefilter"
+      },
+      {
+        "parts": [
+          "line-co2-in",
+          "tube-soda-core-rise"
+        ],
+        "overlap_mm3": 0,
+        "method": "Per-solid native common with AABB prefilter"
+      },
+      {
+        "parts": [
+          "enclosure-back-top",
+          "tube-soda-core-rise"
+        ],
+        "overlap_mm3": 0,
+        "method": "Per-solid native common with AABB prefilter"
+      },
+      {
+        "parts": [
+          "soda-continuous-insulation",
+          "vk-solenoid"
+        ],
+        "overlap_mm3": 0,
+        "method": "Per-solid native common with AABB prefilter"
+      },
+      {
+        "parts": [
+          "soda-bend-holder",
+          "soda-continuous-insulation"
+        ],
+        "overlap_mm3": 0,
+        "method": "Per-solid native common with AABB prefilter"
+      },
+      {
+        "parts": [
+          "soda-continuous-insulation",
+          "tube-soda-core-rise"
+        ],
+        "overlap_mm3": 0,
+        "method": "Per-solid native common with AABB prefilter"
+      },
+      {
+        "parts": [
+          "soda-continuous-insulation",
+          "tube-above-core-gas-core-drop"
+        ],
+        "overlap_mm3": 0,
+        "method": "Per-solid native common with AABB prefilter"
+      },
+      {
+        "parts": [
+          "soda-continuous-insulation",
+          "tube-above-core-va-fore-feed"
+        ],
+        "overlap_mm3": 0,
+        "method": "Per-solid native common with AABB prefilter"
+      },
+      {
+        "parts": [
+          "soda-continuous-insulation",
+          "tube-fluid-18"
+        ],
+        "overlap_mm3": 0,
+        "method": "Per-solid native common with AABB prefilter"
+      },
+      {
+        "parts": [
+          "soda-continuous-insulation",
+          "tube-fluid-14"
+        ],
+        "overlap_mm3": 0,
+        "method": "Per-solid native common with AABB prefilter"
+      },
+      {
+        "parts": [
+          "soda-continuous-insulation",
+          "tube-fluid-16"
+        ],
+        "overlap_mm3": 0,
+        "method": "Per-solid native common with AABB prefilter"
+      },
+      {
+        "parts": [
+          "foam-cap-lid-top",
+          "soda-continuous-insulation"
+        ],
+        "overlap_mm3": 0,
+        "method": "Per-solid native common with AABB prefilter"
+      },
+      {
+        "parts": [
+          "enclosure-back-top",
+          "soda-continuous-insulation"
+        ],
+        "overlap_mm3": 0,
+        "method": "Per-solid native common with AABB prefilter"
+      },
+      {
+        "parts": [
+          "soda-continuous-insulation",
+          "wire-J1-positive-A"
+        ],
+        "overlap_mm3": 0,
+        "method": "Per-solid native common with AABB prefilter"
+      },
+      {
+        "parts": [
+          "soda-continuous-insulation",
+          "wire-J2-OUT3"
+        ],
+        "overlap_mm3": 0,
+        "method": "Per-solid native common with AABB prefilter"
+      },
+      {
+        "parts": [
+          "soda-continuous-insulation",
+          "wire-J2-positive-K"
+        ],
+        "overlap_mm3": 0,
+        "method": "Per-solid native common with AABB prefilter"
+      },
+      {
+        "parts": [
+          "soda-continuous-insulation",
+          "wire-J4-V5"
+        ],
+        "overlap_mm3": 0,
+        "method": "Per-solid native common with AABB prefilter"
+      },
+      {
+        "parts": [
+          "soda-continuous-insulation",
+          "wire-J4-IO25"
+        ],
+        "overlap_mm3": 0,
+        "method": "Per-solid native common with AABB prefilter"
+      },
+      {
+        "parts": [
+          "soda-continuous-insulation",
+          "wire-flow-GND"
+        ],
+        "overlap_mm3": 0,
+        "method": "Per-solid native common with AABB prefilter"
+      },
+      {
+        "parts": [
+          "soda-continuous-insulation",
+          "wire-J7-CLO"
+        ],
+        "overlap_mm3": 0,
+        "method": "Per-solid native common with AABB prefilter"
+      },
+      {
+        "parts": [
+          "soda-continuous-insulation",
+          "wire-J7-CHI"
+        ],
+        "overlap_mm3": 0,
+        "method": "Per-solid native common with AABB prefilter"
+      },
+      {
+        "parts": [
+          "soda-continuous-insulation",
+          "wire-J7-carb-earth-2"
+        ],
+        "overlap_mm3": 0,
+        "method": "Per-solid native common with AABB prefilter"
+      }
+    ],
+    "pass": true,
+    "constant_section_reading": {
+      "native_volume_mm3": 1352.6195589155675,
+      "constant_section_expected_volume_mm3": 1352.6194885498016,
+      "relative_volume_error": 5.202184830705995e-08,
+      "transition_sections": [
+        {
+          "t": 0.2,
+          "z_mm": 259.12,
+          "section_area_mm2": 17.567914754232227,
+          "nominal_area_mm2": 17.56508450267088,
+          "relative_error": 0.00016112940196302857
+        },
+        {
+          "t": 0.4,
+          "z_mm": 264.84000000000003,
+          "section_area_mm2": 17.584362944408994,
+          "nominal_area_mm2": 17.584366787006367,
+          "relative_error": 2.185234998383862e-07
+        },
+        {
+          "t": 0.5,
+          "z_mm": 267.7,
+          "section_area_mm2": 17.587314984528547,
+          "nominal_area_mm2": 17.587317520373293,
+          "relative_error": 1.4418598764104684e-07
+        },
+        {
+          "t": 0.6,
+          "z_mm": 270.56,
+          "section_area_mm2": 17.584364370285698,
+          "nominal_area_mm2": 17.584366787006367,
+          "relative_error": 1.3743575177835261e-07
+        },
+        {
+          "t": 0.8,
+          "z_mm": 276.28,
+          "section_area_mm2": 17.565101145975802,
+          "nominal_area_mm2": 17.56508450267088,
+          "relative_error": 9.47522052534048e-07
+        }
+      ]
+    }
+  },
+  "foam_display_correction": {
+    "scope": "Current corrected-frame occupied foam excludes its own tube and the named accepted soft neighbors. This is an installed compression estimate; the stock remains one square-cut61mm sleeve.",
+    "own_tube_remaining_overlap_mm3": 0
+  },
+  "selected_native_mates": {
+    "pairs": [
+      {
+        "parts": [
+          "tee-fold",
+          "vk-solenoid"
+        ],
+        "basis": "Finite NeoFit male profile and own release-collet interface; selected 12.7 mm engagement",
+        "common_mm3": 95.94518528607315,
+        "outside_mate_region_mm3": 0.0,
+        "pass": true
+      },
+      {
+        "parts": [
+          "reg-va-elbow",
+          "valve-v-a"
+        ],
+        "basis": "Finite NeoFit male profile and own release-collet interface; selected 12.7 mm engagement",
+        "common_mm3": 95.94518528634836,
+        "outside_mate_region_mm3": 0.0,
+        "pass": true
+      },
+      {
+        "parts": [
+          "va-outlet-elbow",
+          "valve-v-a"
+        ],
+        "basis": "Finite NeoFit male profile and own release-collet interface; selected 12.7 mm engagement",
+        "common_mm3": 95.9451852866506,
+        "outside_mate_region_mm3": 0.0,
+        "pass": true
+      },
+      {
+        "parts": [
+          "valve-v-b",
+          "vb-inlet-turn"
+        ],
+        "basis": "Finite NeoFit male profile and own release-collet interface; selected 12.7 mm engagement",
+        "common_mm3": 95.94518528601402,
+        "outside_mate_region_mm3": 0.0,
+        "pass": true
+      },
+      {
+        "parts": [
+          "valve-v-b",
+          "vb-outlet-stem"
+        ],
+        "basis": "Finite NeoFit male profile and own release-collet interface; selected 12.7 mm engagement",
+        "common_mm3": 99.82597714306728,
+        "outside_mate_region_mm3": 0.0,
+        "pass": true
+      },
+      {
+        "parts": [
+          "lower-valve-elbow",
+          "vk-solenoid"
+        ],
+        "basis": "Finite NeoFit male profile and own release-collet interface; selected 12.7 mm engagement",
+        "common_mm3": 95.94518528611317,
+        "outside_mate_region_mm3": 0.0,
+        "pass": true
+      },
+      {
+        "parts": [
+          "tee-y-a",
+          "ya-stem-elbow"
+        ],
+        "basis": "Finite NeoFit male profile and own release-collet interface; selected 15.7 mm engagement",
+        "common_mm3": 5.736412226890714,
+        "outside_mate_region_mm3": 0.024822585296254175,
+        "pass": true
+      },
+      {
+        "parts": [
+          "tee-y-b",
+          "yb-stem-elbow"
+        ],
+        "basis": "Finite NeoFit male profile and own release-collet interface; selected 15.7 mm engagement",
+        "common_mm3": 5.736412227115611,
+        "outside_mate_region_mm3": 0.024822585297931497,
+        "pass": true
+      },
+      {
+        "parts": [
+          "va-outlet-elbow",
+          "va-south-elbow"
+        ],
+        "basis": "Finite NeoFit male profile and own release-collet interface; selected 16.891 mm engagement",
+        "common_mm3": 3.0316450588617068,
+        "outside_mate_region_mm3": 0.048491642838346755,
+        "pass": true
+      },
+      {
+        "parts": [
+          "reservoir-a-fill-turn",
+          "valve-v-f"
+        ],
+        "basis": "Finite NeoFit male profile and own release-collet interface; selected 12.7 mm engagement",
+        "common_mm3": 95.94518528628413,
+        "outside_mate_region_mm3": 0.0,
+        "pass": true
+      },
+      {
+        "parts": [
+          "reservoir-a-draw-turn",
+          "valve-v-e"
+        ],
+        "basis": "Finite NeoFit male profile and own release-collet interface; selected 12.7 mm engagement",
+        "common_mm3": 95.94518528628437,
+        "outside_mate_region_mm3": 0.0,
+        "pass": true
+      },
+      {
+        "parts": [
+          "reservoir-b-fill-turn",
+          "valve-v-i"
+        ],
+        "basis": "Finite NeoFit male profile and own release-collet interface; selected 12.7 mm engagement",
+        "common_mm3": 95.94518528632253,
+        "outside_mate_region_mm3": 0.0,
+        "pass": true
+      },
+      {
+        "parts": [
+          "bulkhead-carb",
+          "tube-soda-meter-bulkhead"
+        ],
+        "basis": "bulkhead-carb.tube-in: \u00d86.35 \u00d7 12.7 mm nominal insertion",
+        "common_mm3": 148.00268400333968,
+        "outside_mate_region_mm3": 0.0,
+        "pass": true
+      },
+      {
+        "parts": [
+          "tube-above-core-tee-vk-link",
+          "water-split"
+        ],
+        "basis": "water-split.to-vk: \u00d86.35 \u00d7 15.7 mm nominal insertion",
+        "common_mm3": 0.10168212175053373,
+        "outside_mate_region_mm3": 0.10168212175053373,
+        "pass": true
+      },
+      {
+        "parts": [
+          "tee-fold",
+          "tube-above-core-tee-vk-link"
+        ],
+        "basis": "tee-fold.socket: \u00d86.35 \u00d7 16.891 mm nominal insertion; selected R554.733 curved stub, 0.257216 mm maximum radial sag",
+        "common_mm3": 2.9105134300140474,
+        "outside_mate_region_mm3": -3.551479196013674e-06,
+        "pass": true
+      },
+      {
+        "parts": [
+          "tube-above-core-tee-regulator",
+          "water-split"
+        ],
+        "basis": "water-split.to-flavor: \u00d86.35 \u00d7 15.7 mm nominal insertion",
+        "common_mm3": 0.08990587984217102,
+        "outside_mate_region_mm3": 0.08990587984217102,
+        "pass": true
+      },
+      {
+        "parts": [
+          "flow-regulator",
+          "tube-above-core-tee-regulator"
+        ],
+        "basis": "flow-regulator.inlet: \u00d86.35 \u00d7 15 mm nominal insertion",
+        "common_mm3": 0.0,
+        "outside_mate_region_mm3": 0.0,
+        "pass": true
+      },
+      {
+        "parts": [
+          "suction-reducer",
+          "suction-tube"
+        ],
+        "basis": "Own trimmed reducer stem and rounded shoulder inside its PVC sleeve",
+        "common_mm3": 16.25964944448887,
+        "outside_mate_region_mm3": 0.0,
+        "pass": true
+      },
+      {
+        "parts": [
+          "discharge-reducer",
+          "discharge-tube"
+        ],
+        "basis": "Own trimmed reducer stem and rounded shoulder inside its PVC sleeve",
+        "common_mm3": 16.259649444560754,
+        "outside_mate_region_mm3": 0.0,
+        "pass": true
+      },
+      {
+        "parts": [
+          "psu-insert-1",
+          "psu-screw-1"
+        ],
+        "basis": "M3 shaft in its own short insert thread annulus",
+        "common_mm3": 7.127488332832014,
+        "outside_mate_region_mm3": 0.0,
+        "pass": true
+      },
+      {
+        "parts": [
+          "enclosure-back-top",
+          "psu-insert-1"
+        ],
+        "basis": "RX-M3S\u00d74 knurl in its own finite wall pilot annulus",
+        "common_mm3": 16.21061809252349,
+        "outside_mate_region_mm3": 0.0,
+        "pass": true
+      },
+      {
+        "parts": [
+          "psu-insert-2",
+          "psu-screw-2"
+        ],
+        "basis": "M3 shaft in its own short insert thread annulus",
+        "common_mm3": 7.127488332832014,
+        "outside_mate_region_mm3": 0.0,
+        "pass": true
+      },
+      {
+        "parts": [
+          "enclosure-back-top",
+          "psu-insert-2"
+        ],
+        "basis": "RX-M3S\u00d74 knurl in its own finite wall pilot annulus",
+        "common_mm3": 16.21061809252349,
+        "outside_mate_region_mm3": 0.0,
+        "pass": true
+      },
+      {
+        "parts": [
+          "psu-insert-3",
+          "psu-screw-3"
+        ],
+        "basis": "M3 shaft in its own short insert thread annulus",
+        "common_mm3": 7.127488332832016,
+        "outside_mate_region_mm3": 0.0,
+        "pass": true
+      },
+      {
+        "parts": [
+          "enclosure-back-top",
+          "psu-insert-3"
+        ],
+        "basis": "RX-M3S\u00d74 knurl in its own finite wall pilot annulus",
+        "common_mm3": 16.21061809252347,
+        "outside_mate_region_mm3": 0.0,
+        "pass": true
+      },
+      {
+        "parts": [
+          "psu-insert-4",
+          "psu-screw-4"
+        ],
+        "basis": "M3 shaft in its own short insert thread annulus",
+        "common_mm3": 7.127488332832016,
+        "outside_mate_region_mm3": 0.0,
+        "pass": true
+      },
+      {
+        "parts": [
+          "enclosure-back-top",
+          "psu-insert-4"
+        ],
+        "basis": "RX-M3S\u00d74 knurl in its own finite wall pilot annulus",
+        "common_mm3": 16.210618092523486,
+        "outside_mate_region_mm3": 0.0,
+        "pass": true
+      },
+      {
+        "parts": [
+          "relay-1-insert-1",
+          "relay-1-screw-1"
+        ],
+        "basis": "M3 shaft in its own short insert thread annulus",
+        "common_mm3": 8.639379797372037,
+        "outside_mate_region_mm3": 0.0,
+        "pass": true
+      },
+      {
+        "parts": [
+          "enclosure-back-top",
+          "relay-1-insert-1"
+        ],
+        "basis": "RX-M3S\u00d74 knurl in its own finite wall pilot annulus",
+        "common_mm3": 16.210618092523717,
+        "outside_mate_region_mm3": 0.0,
+        "pass": true
+      },
+      {
+        "parts": [
+          "relay-1-insert-4",
+          "relay-1-screw-4"
+        ],
+        "basis": "M3 shaft in its own short insert thread annulus",
+        "common_mm3": 8.639379797372037,
+        "outside_mate_region_mm3": 0.0,
+        "pass": true
+      },
+      {
+        "parts": [
+          "enclosure-back-top",
+          "relay-1-insert-4"
+        ],
+        "basis": "RX-M3S\u00d74 knurl in its own finite wall pilot annulus",
+        "common_mm3": 16.210618092523717,
+        "outside_mate_region_mm3": 0.0,
+        "pass": true
+      },
+      {
+        "parts": [
+          "relay-2-insert-1",
+          "relay-2-screw-1"
+        ],
+        "basis": "M3 shaft in its own short insert thread annulus",
+        "common_mm3": 8.639379797372037,
+        "outside_mate_region_mm3": 0.0,
+        "pass": true
+      },
+      {
+        "parts": [
+          "enclosure-back-top",
+          "relay-2-insert-1"
+        ],
+        "basis": "RX-M3S\u00d74 knurl in its own finite wall pilot annulus",
+        "common_mm3": 16.210618092523717,
+        "outside_mate_region_mm3": 0.0,
+        "pass": true
+      },
+      {
+        "parts": [
+          "relay-2-insert-4",
+          "relay-2-screw-4"
+        ],
+        "basis": "M3 shaft in its own short insert thread annulus",
+        "common_mm3": 8.639379797372037,
+        "outside_mate_region_mm3": 0.0,
+        "pass": true
+      },
+      {
+        "parts": [
+          "enclosure-back-top",
+          "relay-2-insert-4"
+        ],
+        "basis": "RX-M3S\u00d74 knurl in its own finite wall pilot annulus",
+        "common_mm3": 16.210618092523717,
+        "outside_mate_region_mm3": 0.0,
+        "pass": true
+      },
+      {
+        "parts": [
+          "digiten-flow",
+          "tube-soda-core-rise"
+        ],
+        "basis": "digiten-flow.inlet: \u00d86.35 \u00d7 15.7 mm nominal insertion",
+        "common_mm3": 170.23151008392472,
+        "outside_mate_region_mm3": 0.0,
+        "pass": true
+      }
+    ],
+    "scope": "Finite nominal mating regions only; physical insertion, sealing and retention remain unqualified."
+  },
+  "fore_stem_mates": [
+    {
+      "stem": "stem-elbow-y-g",
+      "host": "tee-y-g",
+      "common_mm3": 3.0003394061249145,
+      "outside_profile_mm3": 0.017341235644076573
+    },
+    {
+      "stem": "stem-elbow-v-j",
+      "host": "valve-v-j",
+      "common_mm3": 80.07580192986376,
+      "outside_profile_mm3": 0.0
+    },
+    {
+      "stem": "stem-elbow-y-f",
+      "host": "tee-y-f",
+      "common_mm3": 3.000339406132547,
+      "outside_profile_mm3": 0.017341235643764785
+    },
+    {
+      "stem": "stem-elbow-v-d",
+      "host": "valve-v-d",
+      "common_mm3": 80.07580193004033,
+      "outside_profile_mm3": 0.0
+    },
+    {
+      "stem": "stem-elbow-y-c",
+      "host": "tee-y-c",
+      "common_mm3": 3.000339406132548,
+      "outside_profile_mm3": 0.017341235643764785
+    },
+    {
+      "stem": "stem-elbow-v-c",
+      "host": "valve-v-c",
+      "common_mm3": 80.07580193004033,
+      "outside_profile_mm3": 0.0
+    },
+    {
+      "stem": "stem-elbow-y-d",
+      "host": "tee-y-d",
+      "common_mm3": 3.000339406126298,
+      "outside_profile_mm3": 0.017341235644823306
+    },
+    {
+      "stem": "stem-elbow-v-g",
+      "host": "valve-v-g",
+      "common_mm3": 80.07580192988239,
+      "outside_profile_mm3": 0.0
+    }
+  ],
+  "remaining_material_findings": [
+    {
+      "parts": [
+        "relay-1",
+        "relay-1-screw-4"
+      ],
+      "gates": [
+        "clearance-floor",
+        "pack-closes"
+      ],
+      "native_overlap_mm3": 1.1426342182314113,
+      "native_gap_mm": 0.0,
+      "common_bounds_mm": [
+        -92.99,
+        439.10013907925,
+        300.26096177003103,
+        -89.99,
+        439.35013907925,
+        302.40660569377
+      ],
+      "common_brep_sha256": "4501725a8bbdda709d01f7aa56138133c7185631c29463306905525abc166fa6"
+    },
+    {
+      "parts": [
+        "relay-2",
+        "relay-2-screw-4"
+      ],
+      "gates": [
+        "clearance-floor",
+        "pack-closes"
+      ],
+      "native_overlap_mm3": 1.142634218231432,
+      "native_gap_mm": 0.0,
+      "common_bounds_mm": [
+        -92.99,
+        439.10013907925,
+        319.860961770031,
+        -89.99,
+        439.35013907925,
+        322.00660569377
+      ],
+      "common_brep_sha256": "3adfd01dfc6e38f756d1cabc560b73dd684c994ba85d3aad333c3241291b940a"
+    }
+  ],
+  "flank": {
+    "passed": true,
+    "value": "least air 0.52 mm, at valve-v-a",
+    "detail": []
+  },
+  "source_sha256": {
+    "hardware/manifold-layout/_scorecard.py": "51f6bf070338269be755a7294d5a01eff32337faa092b00b4ac3b1fe82fe6ae5",
+    "hardware/manifold-layout/above-core.json": "11f17543b8e0ff7f5d77309e7840137f7d11ff19018d4fb22422b87d0f852c93",
+    "hardware/manifold-layout/enclosure_assembly.py": "23fbcd86f7673a62258e5676d42f0bd798b51414835abed5461b3c08d46b9f85",
+    "hardware/manifold-layout/soda_inlet.py": "aec17aff656334d56ed10c4705da2a09929d031b4984c40745ec14f6be1337b7",
+    "hardware/printed-parts/enclosure/pump-dock/dock_structure.py": "9bf17c2ade88ca156c9d859840067829d700ebccded368469ea4ea50700f9013",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "714d711887daea29672206c6837fd3e7e096aace51070fc528b8f24d08bafc0c",
+    "hardware/printed-parts/enclosure/enclosure/_above_core_shell.py": "620361d6a68fd2bd94cc1e66cb566b909e194e535cb507ff0703cc26f0f8b59f"
+  },
+  "assembly_step_sha256": "c264aefc6a1a1304af27e06af353ba9819de9be0daf85c3647c2a01058f7ebd7",
+  "assembly_mesh_sha256": "ac4c208beb6a0104bc76c3a766093f1435c75ad662f22af6725bfc25c3815db5",
+  "elapsed_seconds": 25.277943458000664,
+  "unchanged_viewer_solid_count": 569,
+  "unchanged_viewer_arrays_identical": true,
+  "native_copy_binding": {
+    "scope": "The parent exporter substitutes only the four listed native bodies. Every other imported native shape is passed through unchanged. Round-trip body names, solid/face counts, bounds, volume, area and centers are checked against the retained exact baseline. Unchanged viewer arrays, including all printed skins and wiring, are byte-identical. The retained round-trip invariants were read on the preceding intermediate export. This export uses the same exact baseline objects and changes only the corrected tube and occupied foam; unchanged meshes remain exact copies.",
+    "body_count": 409,
+    "bodies": [
+      {
+        "name": "compressor",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 2.3283064365386963e-10,
+        "area_delta_mm2": 8.731149137020111e-11
+      },
+      {
+        "name": "condenser+fan",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "mq6-sensor",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 1.5370460459962487e-09,
+        "area_delta_mm2": 2.4283508537337184e-10
+      },
+      {
+        "name": "thermal-fuse",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "fuse-clamp",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "tee-y-a",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 3.310560714453459e-10,
+        "area_delta_mm2": 1.3642420526593924e-10
+      },
+      {
+        "name": "valve-v-c",
+        "maximum_bounds_delta_mm": 1.0000000116860974e-07,
+        "volume_delta_mm3": 7.812346666469239e-05,
+        "area_delta_mm2": 5.366238929127576e-05
+      },
+      {
+        "name": "coil-v-c",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 1.3096723705530167e-10,
+        "area_delta_mm2": 7.275957614183426e-11
+      },
+      {
+        "name": "valve-v-e",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 7.81234703026712e-05,
+        "area_delta_mm2": 5.3662392019759864e-05
+      },
+      {
+        "name": "coil-v-e",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 1.3460521586239338e-10,
+        "area_delta_mm2": 7.639755494892597e-11
+      },
+      {
+        "name": "valve-v-g",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 7.812365947756916e-05,
+        "area_delta_mm2": 5.366245204641018e-05
+      },
+      {
+        "name": "coil-v-g",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 1.3460521586239338e-10,
+        "area_delta_mm2": 7.275957614183426e-11
+      },
+      {
+        "name": "valve-v-f",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 7.812357216607779e-05,
+        "area_delta_mm2": 5.366250388760818e-05
+      },
+      {
+        "name": "coil-v-f",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 1.2369127944111824e-10,
+        "area_delta_mm2": 7.275957614183426e-11
+      },
+      {
+        "name": "tee-y-b",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 3.310560714453459e-10,
+        "area_delta_mm2": 1.3733369996771216e-10
+      },
+      {
+        "name": "valve-v-d",
+        "maximum_bounds_delta_mm": 9.999999406318238e-08,
+        "volume_delta_mm3": 7.812349576852284e-05,
+        "area_delta_mm2": 5.366238565329695e-05
+      },
+      {
+        "name": "coil-v-d",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 1.3096723705530167e-10,
+        "area_delta_mm2": 7.275957614183426e-11
+      },
+      {
+        "name": "valve-v-h",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 7.812348485458642e-05,
+        "area_delta_mm2": 5.366240475268569e-05
+      },
+      {
+        "name": "coil-v-h",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 1.127773430198431e-10,
+        "area_delta_mm2": 6.548361852765083e-11
+      },
+      {
+        "name": "valve-v-j",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 7.812365220161155e-05,
+        "area_delta_mm2": 5.36624620508519e-05
+      },
+      {
+        "name": "coil-v-j",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 1.4551915228366852e-10,
+        "area_delta_mm2": 7.639755494892597e-11
+      },
+      {
+        "name": "valve-v-i",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 7.812340845703147e-05,
+        "area_delta_mm2": 5.366237928683404e-05
+      },
+      {
+        "name": "coil-v-i",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 1.2369127944111824e-10,
+        "area_delta_mm2": 7.09405867382884e-11
+      },
+      {
+        "name": "pump-a-head",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "pump-a-boss",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "pump-a-motor",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "pump-b-head",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "pump-b-boss",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "pump-b-motor",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "tube-fluid-10",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 1.9610979506978765e-12,
+        "area_delta_mm2": 1.1539214028744027e-11
+      },
+      {
+        "name": "tube-fluid-11",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "tube-fluid-12",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "tube-fluid-13",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 1.9468870959826745e-12,
+        "area_delta_mm2": 1.1539214028744027e-11
+      },
+      {
+        "name": "tube-fluid-20",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 1.9753088054130785e-12,
+        "area_delta_mm2": 1.1539214028744027e-11
+      },
+      {
+        "name": "tube-fluid-21",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "tube-fluid-22",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "tube-fluid-23",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 1.9753088054130785e-12,
+        "area_delta_mm2": 1.1539214028744027e-11
+      },
+      {
+        "name": "tube-fluid-9",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "tube-fluid-17",
+        "maximum_bounds_delta_mm": 9.999499184232263e-08,
+        "volume_delta_mm3": 5.684341886080802e-14,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "tube-fluid-19",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "tube-fluid-27",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 1.1368683772161603e-13,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "flavor-reducer-v-g",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "flavor-reducer-v-j",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "psu",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 5.820766091346741e-11,
+        "area_delta_mm2": 8.731149137020111e-11
+      },
+      {
+        "name": "relay-1",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 1.0913936421275139e-11,
+        "area_delta_mm2": 1.7280399333685637e-11
+      },
+      {
+        "name": "relay-2",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 1.0913936421275139e-11,
+        "area_delta_mm2": 1.8189894035458565e-11
+      },
+      {
+        "name": "c14-inlet",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 8.185452315956354e-12,
+        "area_delta_mm2": 9.094947017729282e-12
+      },
+      {
+        "name": "asse1022-assembly",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 3.3877331588882953e-06,
+        "area_delta_mm2": 4.697649274021387e-07
+      },
+      {
+        "name": "digiten-flow",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 7.385096978396177e-10,
+        "area_delta_mm2": 1.1095835361629725e-10
+      },
+      {
+        "name": "valve-v-a",
+        "maximum_bounds_delta_mm": 5.684341886080802e-14,
+        "volume_delta_mm3": 1.8189894035458565e-10,
+        "area_delta_mm2": 2.9831426218152046e-10
+      },
+      {
+        "name": "vk-solenoid",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 2.764863893389702e-10,
+        "area_delta_mm2": 2.9467628337442875e-10
+      },
+      {
+        "name": "asse-drain-adapter",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 3.738023224286735e-10,
+        "area_delta_mm2": 2.646629582159221e-10
+      },
+      {
+        "name": "bulkhead-water",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 1.0413714335300028e-10,
+        "area_delta_mm2": 6.639311322942376e-11
+      },
+      {
+        "name": "gagira-coupling",
+        "maximum_bounds_delta_mm": 5.684341886080802e-14,
+        "volume_delta_mm3": 5.275069270282984e-10,
+        "area_delta_mm2": 2.141860022675246e-10
+      },
+      {
+        "name": "jg-pi4512f6s",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 3.710738383233547e-10,
+        "area_delta_mm2": 2.5556801119819283e-10
+      },
+      {
+        "name": "jg-pp061208w",
+        "maximum_bounds_delta_mm": 5.684341886080802e-14,
+        "volume_delta_mm3": 5.502442945726216e-11,
+        "area_delta_mm2": 9.890754881780595e-11
+      },
+      {
+        "name": "water-split",
+        "maximum_bounds_delta_mm": 1.4566126083082054e-13,
+        "volume_delta_mm3": 1.800799509510398e-10,
+        "area_delta_mm2": 9.094947017729282e-11
+      },
+      {
+        "name": "flow-regulator",
+        "maximum_bounds_delta_mm": 7.105427357601002e-15,
+        "volume_delta_mm3": 3.0086084734648466e-09,
+        "area_delta_mm2": 9.649738785810769e-10
+      },
+      {
+        "name": "co2-inlet",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 2.2453150450019166e-12,
+        "area_delta_mm2": 1.1311840353300795e-11
+      },
+      {
+        "name": "gas-regulator",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 7.257767720147967e-10,
+        "area_delta_mm2": 4.547473508864641e-10
+      },
+      {
+        "name": "gas-check",
+        "maximum_bounds_delta_mm": 8.526512829121202e-14,
+        "volume_delta_mm3": 1.5916157281026244e-10,
+        "area_delta_mm2": 1.7280399333685637e-10
+      },
+      {
+        "name": "keystone-jack",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "tee-fold",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 1.1732481652870774e-10,
+        "area_delta_mm2": 5.866240826435387e-11
+      },
+      {
+        "name": "lower-valve-elbow",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 1.1732481652870774e-10,
+        "area_delta_mm2": 5.866240826435387e-11
+      },
+      {
+        "name": "reg-va-elbow",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 1.1641532182693481e-10,
+        "area_delta_mm2": 5.911715561524034e-11
+      },
+      {
+        "name": "va-outlet-elbow",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 1.1641532182693481e-10,
+        "area_delta_mm2": 5.911715561524034e-11
+      },
+      {
+        "name": "va-south-elbow",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 1.1550582712516189e-10,
+        "area_delta_mm2": 5.911715561524034e-11
+      },
+      {
+        "name": "ya-stem-elbow",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 1.191438059322536e-10,
+        "area_delta_mm2": 5.911715561524034e-11
+      },
+      {
+        "name": "drain-outlet-stem",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 1.1459633242338896e-10,
+        "area_delta_mm2": 5.866240826435387e-11
+      },
+      {
+        "name": "yb-stem-elbow",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 1.2005330063402653e-10,
+        "area_delta_mm2": 5.6843418860808015e-11
+      },
+      {
+        "name": "reservoir-a-fill-turn",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 1.1641532182693481e-10,
+        "area_delta_mm2": 5.775291356258094e-11
+      },
+      {
+        "name": "reservoir-a-draw-turn",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 1.1596057447604835e-10,
+        "area_delta_mm2": 5.775291356258094e-11
+      },
+      {
+        "name": "reservoir-b-fill-turn",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 1.405169314239174e-10,
+        "area_delta_mm2": 3.6834535421803594e-11
+      },
+      {
+        "name": "bulkhead-drain",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 2.8946942620677873e-07,
+        "area_delta_mm2": 1.1258498489041813e-07
+      },
+      {
+        "name": "bulkhead-drain-nut",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 1.3005774235352874e-10,
+        "area_delta_mm2": 6.048139766789973e-11
+      },
+      {
+        "name": "bulkhead-carb",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 3.0831870390102267e-10,
+        "area_delta_mm2": 1.3369572116062045e-10
+      },
+      {
+        "name": "bulkhead-carb-nut",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 1.0459189070388675e-10,
+        "area_delta_mm2": 4.2518877307884395e-11
+      },
+      {
+        "name": "bulkhead-flavor-b",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 2.894666977226734e-07,
+        "area_delta_mm2": 1.1258362064836547e-07
+      },
+      {
+        "name": "bulkhead-flavor-b-nut",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 1.3005774235352874e-10,
+        "area_delta_mm2": 6.048139766789973e-11
+      },
+      {
+        "name": "bulkhead-flavor-a",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 2.8940485208295286e-07,
+        "area_delta_mm2": 1.1255997378611937e-07
+      },
+      {
+        "name": "bulkhead-flavor-a-nut",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 1.3005774235352874e-10,
+        "area_delta_mm2": 6.048139766789973e-11
+      },
+      {
+        "name": "asse-snap-cap",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 7.166818249970675e-10,
+        "area_delta_mm2": 1.227817847393453e-10
+      },
+      {
+        "name": "pisco-snap-cap",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 9.094947017729282e-13,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "meter-snap-cap",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 5.040881660534069e-05,
+        "area_delta_mm2": 0.000244840457526152
+      },
+      {
+        "name": "regulator-snap-cap",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "psu-screw-1",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "psu-insert-1",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "psu-screw-2",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "psu-insert-2",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "psu-screw-3",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "psu-insert-3",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "psu-screw-4",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "psu-insert-4",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "relay-1-screw-1",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "relay-1-insert-1",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "relay-1-screw-4",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "relay-1-insert-4",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "relay-2-screw-1",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "relay-2-insert-1",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "relay-2-screw-4",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "relay-2-insert-4",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "wago-h",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "wago-n",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "wago-g",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "wago-mana",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "wago-manb",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "tube-refrig-1",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 9.919176591210999e-12
+      },
+      {
+        "name": "tube-refrig-2",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 9.549694368615746e-12
+      },
+      {
+        "name": "tube-refrig-3",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 3.228706191293895e-11,
+        "area_delta_mm2": 8.708411769475788e-11
+      },
+      {
+        "name": "tube-above-core-drain-vb-east-link",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 1.4210854715202004e-11,
+        "area_delta_mm2": 7.980816008057445e-11
+      },
+      {
+        "name": "tube-above-core-vb-yb-link",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 6.59383658785373e-12,
+        "area_delta_mm2": 1.064108801074326e-10
+      },
+      {
+        "name": "tube-above-core-water-split-stub",
+        "maximum_bounds_delta_mm": 1.2079226507921703e-12,
+        "volume_delta_mm3": 1.8417267710901797e-11,
+        "area_delta_mm2": 6.912159733474255e-11
+      },
+      {
+        "name": "tube-above-core-tee-vk-link",
+        "maximum_bounds_delta_mm": 1.0007767059505568e-07,
+        "volume_delta_mm3": 5.684341886080801e-13,
+        "area_delta_mm2": 9.094947017729282e-13
+      },
+      {
+        "name": "tube-above-core-reg-va-link",
+        "maximum_bounds_delta_mm": 5.684341886080802e-14,
+        "volume_delta_mm3": 1.2164491636212915e-11,
+        "area_delta_mm2": 7.02584657119587e-11
+      },
+      {
+        "name": "tube-above-core-tee-regulator",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 1.5916157281026244e-12,
+        "area_delta_mm2": 2.2737367544323206e-13
+      },
+      {
+        "name": "tube-soda-meter-bulkhead",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 1.0743406164692715e-11,
+        "area_delta_mm2": 6.24140739091672e-11
+      },
+      {
+        "name": "tube-above-core-gas-core-drop",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 5.4569682106375694e-11,
+        "area_delta_mm2": 3.728928277269006e-11
+      },
+      {
+        "name": "tube-above-core-va-fore-feed",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 2.9467628337442875e-10,
+        "area_delta_mm2": 2.2737367544323206e-10
+      },
+      {
+        "name": "tube-drain-vent",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 4.263256414560601e-12,
+        "area_delta_mm2": 3.296918293926865e-11
+      },
+      {
+        "name": "tube-fluid-18",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 4.656612873077393e-10,
+        "area_delta_mm2": 1.673470251262188e-10
+      },
+      {
+        "name": "tube-fluid-28",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 1.1323209037072957e-10,
+        "area_delta_mm2": 1.7462298274040222e-10
+      },
+      {
+        "name": "tube-fluid-14",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 2.7284841053187847e-11,
+        "area_delta_mm2": 2.964952727779746e-10
+      },
+      {
+        "name": "tube-fluid-16",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 6.366462912410498e-12,
+        "area_delta_mm2": 3.4560798667371273e-10
+      },
+      {
+        "name": "tube-fluid-26",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 1.0277290130034089e-10,
+        "area_delta_mm2": 1.964508555829525e-10
+      },
+      {
+        "name": "tube-fluid-24",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 6.298250809777528e-11,
+        "area_delta_mm2": 2.546585164964199e-11
+      },
+      {
+        "name": "cold-core/cap-clamp-top-1",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "cold-core/cap-clamp-top-2",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "cold-core/cap-clamp-top-3",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "cold-core/cap-clamp-top-4",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "cold-core/cap-clamp-top-5",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "cold-core/cap-clamp-top-6",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "cold-core/cap-clamp-top-7",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "cold-core/cap-clamp-top-8",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "cold-core/cap-clamp-top-9",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "cold-core/cap-clamp-top-10",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "cold-core/cap-clamp-bottom-1",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "cold-core/cap-clamp-bottom-2",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "cold-core/cap-clamp-bottom-3",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "cold-core/cap-clamp-bottom-4",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "cold-core/cap-clamp-bottom-5",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "cold-core/cap-clamp-bottom-6",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "cold-core/cap-clamp-bottom-7",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "cold-core/cap-clamp-bottom-8",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "cold-core/cap-clamp-bottom-9",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "cold-core/cap-clamp-bottom-10",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "cold-core/reservoir-b-fill-guide",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.00011574056816243683,
+        "area_delta_mm2": 0.00016028371783249895
+      },
+      {
+        "name": "cold-core/foam-shell",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 5.122274160385132e-08,
+        "area_delta_mm2": 5.3551048040390015e-09
+      },
+      {
+        "name": "cold-core/foam-cap-lid-top",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 1.979060471057892e-09,
+        "area_delta_mm2": 3.4924596548080444e-10
+      },
+      {
+        "name": "cold-core/foam-cap-bottom",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 1.862645149230957e-09,
+        "area_delta_mm2": 7.275957614183426e-10
+      },
+      {
+        "name": "cold-core/carbonator-tube",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 2.7939677238464355e-09,
+        "area_delta_mm2": 7.887138053774834e-09
+      },
+      {
+        "name": "cold-core/endcap-bottom",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "cold-core/endcap-top",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "cold-core/float-rod-carb",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "cold-core/float-stop-carb-top",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "cold-core/carbonator-earth-screw",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "cold-core/carbonator-earth-lockwasher",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "cold-core/carbonator-elbow-co2-in",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 2.0419047359609976e-06,
+        "area_delta_mm2": 3.862024186673807e-06
+      },
+      {
+        "name": "cold-core/carbonator-elbow-carb-water-out",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 2.1464074961841106e-10,
+        "area_delta_mm2": 9.731593308970332e-11
+      },
+      {
+        "name": "cold-core/carbonator-elbow-water-in",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 6.002665031701326e-11,
+        "area_delta_mm2": 3.54702933691442e-11
+      },
+      {
+        "name": "cold-core/carbonator-elbow-prv",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 4.9112713895738125e-11,
+        "area_delta_mm2": 3.637978807091713e-11
+      },
+      {
+        "name": "cold-core/reservoir-a",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 2.9103830456733704e-10,
+        "area_delta_mm2": 1.7462298274040222e-10
+      },
+      {
+        "name": "cold-core/reservoir-a-cap",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 2.255546860396862e-10,
+        "area_delta_mm2": 1.964508555829525e-10
+      },
+      {
+        "name": "cold-core/reservoir-a-gasket",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 2.637534635141492e-11,
+        "area_delta_mm2": 3.54702933691442e-11
+      },
+      {
+        "name": "cold-core/reservoir-b",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 2.9103830456733704e-10,
+        "area_delta_mm2": 1.4551915228366852e-10
+      },
+      {
+        "name": "cold-core/reservoir-b-cap",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 1.1641532182693481e-10,
+        "area_delta_mm2": 1.9281287677586079e-10
+      },
+      {
+        "name": "cold-core/reservoir-b-gasket",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 1.7553247744217515e-10,
+        "area_delta_mm2": 1.8189894035458565e-11
+      },
+      {
+        "name": "cold-core/reservoir-grip-a-fill",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 5.684341886080802e-14,
+        "area_delta_mm2": 3.694822225952521e-12
+      },
+      {
+        "name": "cold-core/reservoir-grip-a-draw",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 8.526512829121202e-14,
+        "area_delta_mm2": 3.694822225952521e-12
+      },
+      {
+        "name": "cold-core/reservoir-grip-a-air",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 1.5631940186722204e-13,
+        "area_delta_mm2": 2.4442670110147446e-12
+      },
+      {
+        "name": "cold-core/tube-reservoir-air-a",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "cold-core/reservoir-grip-b-fill",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 8.526512829121202e-14,
+        "area_delta_mm2": 3.694822225952521e-12
+      },
+      {
+        "name": "cold-core/reservoir-grip-b-draw",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 5.684341886080802e-14,
+        "area_delta_mm2": 3.694822225952521e-12
+      },
+      {
+        "name": "cold-core/reservoir-grip-b-air",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 1.2789769243681803e-13,
+        "area_delta_mm2": 2.4442670110147446e-12
+      },
+      {
+        "name": "cold-core/tube-reservoir-air-b",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "cold-core/evap-coil",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "cold-core/evap-tail-inlet",
+        "maximum_bounds_delta_mm": 1.7053025658242404e-13,
+        "volume_delta_mm3": 5.002220859751105e-10,
+        "area_delta_mm2": 1.2096279533579946e-10
+      },
+      {
+        "name": "cold-core/evap-tail-outlet",
+        "maximum_bounds_delta_mm": 5.684341886080802e-14,
+        "volume_delta_mm3": 3.4942786442115903e-09,
+        "area_delta_mm2": 2.582964953035116e-10
+      },
+      {
+        "name": "cold-core/water-inlet-jet-cap-nominal",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "cold-core/collet-water-in",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 5.393303581513464e-10,
+        "area_delta_mm2": 3.10592440655455e-10
+      },
+      {
+        "name": "cold-core/float-carb",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "cold-core/reed-carb-1",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "cold-core/reed-carb-2",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "cold-core/float-rod-a",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "cold-core/float-a",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "cold-core/reed-a-1",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "cold-core/reed-a-2",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "cold-core/reed-a-3",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "cold-core/reed-a-4",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "cold-core/float-rod-b",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "cold-core/float-b",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "cold-core/reed-b-1",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "cold-core/reed-b-2",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "cold-core/reed-b-3",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "cold-core/reed-b-4",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "cold-core/probe-carbonator-ds18b20",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "cold-core/probe-coil-ds18s20",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 1.4210854715202004e-14,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "cold-core/prv-sv125",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 2.0372681319713593e-10,
+        "area_delta_mm2": 8.776623872108757e-11
+      },
+      {
+        "name": "cold-core/prv-shroud",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 2.0208972273394465e-09,
+        "area_delta_mm2": 9.713403414934874e-10
+      },
+      {
+        "name": "cold-core/reed-bridge",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 4.547473508864641e-12,
+        "area_delta_mm2": 9.094947017729282e-13
+      },
+      {
+        "name": "cold-core/line-carb-water-out",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 3.614331944845617e-09,
+        "area_delta_mm2": 3.5197444958612323e-10
+      },
+      {
+        "name": "cold-core/line-co2-in",
+        "maximum_bounds_delta_mm": 9.999796191095811e-08,
+        "volume_delta_mm3": 1.7917045624926686e-09,
+        "area_delta_mm2": 2.737579052336514e-10
+      },
+      {
+        "name": "cold-core/line-prv-vent",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 4.206412995699793e-12,
+        "area_delta_mm2": 2.6147972675971687e-12
+      },
+      {
+        "name": "cold-core/line-reservoir-a",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 1.8189894035458565e-12,
+        "area_delta_mm2": 2.937667886726558e-10
+      },
+      {
+        "name": "cold-core/line-reservoir-a-fill",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 3.296918293926865e-11
+      },
+      {
+        "name": "cold-core/line-reservoir-b",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 1.8189894035458565e-12,
+        "area_delta_mm2": 2.937667886726558e-10
+      },
+      {
+        "name": "cold-core/line-reservoir-b-fill",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 1.9622348190750927e-10,
+        "area_delta_mm2": 5.502442945726216e-11
+      },
+      {
+        "name": "cold-core/line-water-in",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 3.332388587296009e-09,
+        "area_delta_mm2": 2.3283064365386963e-10
+      },
+      {
+        "name": "cold-core/carbonator-fold",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 9.5042196335271e-11,
+        "area_delta_mm2": 7.412381819449365e-11
+      },
+      {
+        "name": "cold-core/discharge-barb-clamp",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 4.547473508864641e-13,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "cold-core/discharge-barb-key",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 5.9117155615240335e-12,
+        "area_delta_mm2": 5.4569682106375694e-12
+      },
+      {
+        "name": "cold-core/discharge-chain",
+        "maximum_bounds_delta_mm": 2.8421709430404007e-13,
+        "volume_delta_mm3": 1.609805622138083e-10,
+        "area_delta_mm2": 1.737134880386293e-10
+      },
+      {
+        "name": "cold-core/discharge-reducer",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 1.0231815394945443e-10,
+        "area_delta_mm2": 1.1027623258996755e-10
+      },
+      {
+        "name": "cold-core/discharge-stem-clamp",
+        "maximum_bounds_delta_mm": 2.3092638912203256e-12,
+        "volume_delta_mm3": 1.730313670122996e-10,
+        "area_delta_mm2": 9.094947017729282e-13
+      },
+      {
+        "name": "cold-core/discharge-stem-key",
+        "maximum_bounds_delta_mm": 5.684341886080802e-14,
+        "volume_delta_mm3": 8.185452315956354e-12,
+        "area_delta_mm2": 1.2278178473934531e-11
+      },
+      {
+        "name": "cold-core/discharge-tube",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 1.000444171950221e-11,
+        "area_delta_mm2": 4.274625098332763e-11
+      },
+      {
+        "name": "cold-core/g-ganen-pump",
+        "maximum_bounds_delta_mm": 3.552713678800501e-15,
+        "volume_delta_mm3": 2.4317996576428413e-06,
+        "area_delta_mm2": 1.9406434148550034e-07
+      },
+      {
+        "name": "cold-core/lower-pump-elbow",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 1.1550582712516189e-10,
+        "area_delta_mm2": 5.911715561524034e-11
+      },
+      {
+        "name": "cold-core/pcba",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "cold-core/pump-snap-cap",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 2.9103830456733704e-11,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "cold-core/suction-barb-clamp",
+        "maximum_bounds_delta_mm": 1.4210854715202004e-14,
+        "volume_delta_mm3": 1.3642420526593924e-12,
+        "area_delta_mm2": 2.2737367544323206e-13
+      },
+      {
+        "name": "cold-core/suction-barb-key",
+        "maximum_bounds_delta_mm": 5.684341886080802e-14,
+        "volume_delta_mm3": 9.549694368615746e-12,
+        "area_delta_mm2": 1.546140993013978e-11
+      },
+      {
+        "name": "cold-core/suction-reducer",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 1.0186340659856796e-10,
+        "area_delta_mm2": 1.1027623258996755e-10
+      },
+      {
+        "name": "cold-core/suction-stem-clamp",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 3.524291969370097e-11,
+        "area_delta_mm2": 2.3646862246096134e-11
+      },
+      {
+        "name": "cold-core/suction-stem-key",
+        "maximum_bounds_delta_mm": 5.684341886080802e-14,
+        "volume_delta_mm3": 1.8189894035458565e-12,
+        "area_delta_mm2": 1.3642420526593924e-12
+      },
+      {
+        "name": "cold-core/suction-tube",
+        "maximum_bounds_delta_mm": 1.0658141036401503e-14,
+        "volume_delta_mm3": 8.640199666842818e-12,
+        "area_delta_mm2": 2.773958840407431e-11
+      },
+      {
+        "name": "cold-core/valve-v-b",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 2.1100277081131935e-10,
+        "area_delta_mm2": 4.984030965715647e-10
+      },
+      {
+        "name": "cold-core/vb-inlet-turn",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 1.1823431123048067e-10,
+        "area_delta_mm2": 5.866240826435387e-11
+      },
+      {
+        "name": "cold-core/vb-outlet-return",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 2.0509105524979532e-10,
+        "area_delta_mm2": 1.1732481652870774e-10
+      },
+      {
+        "name": "cold-core/vb-outlet-stem",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 1.1687006917782128e-10,
+        "area_delta_mm2": 5.866240826435387e-11
+      },
+      {
+        "name": "cold-core/wago-sensors",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "cold-core/wago-v12",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "cold-core/wago-gnd",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "cold-core/wago-reeds-b",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "cold-core/tube-above-core-vb-yb-cross",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 1.1482370609883219e-11,
+        "area_delta_mm2": 7.253220246639103e-11
+      },
+      {
+        "name": "cold-core/tube-above-core-pump-inlet-link",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 1.2050804798491299e-11,
+        "area_delta_mm2": 7.185008144006133e-11
+      },
+      {
+        "name": "cold-core/tube-water-5",
+        "maximum_bounds_delta_mm": 1.7053025658242404e-13,
+        "volume_delta_mm3": 8.981260180007666e-12,
+        "area_delta_mm2": 3.7061909097246826e-11
+      },
+      {
+        "name": "funnel",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 7.848313543945551e-06,
+        "area_delta_mm2": 9.563227649778128e-07
+      },
+      {
+        "name": "funnel-cover",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 6.984919309616089e-10,
+        "area_delta_mm2": 2.9103830456733704e-11
+      },
+      {
+        "name": "funnel-frame",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0011877277866005898,
+        "area_delta_mm2": 0.0001716936385491863
+      },
+      {
+        "name": "bulkhead-ring-water",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "bulkhead-ring-water-word",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "bulkhead-ring-co2",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "bulkhead-ring-co2-word",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "bulkhead-ring-drain",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "bulkhead-ring-drain-word",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "bulkhead-ring-carb",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "bulkhead-ring-carb-word",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "bulkhead-ring-flavor-b",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "bulkhead-ring-flavor-b-word",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "bulkhead-ring-flavor-a",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "bulkhead-ring-flavor-a-word",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "nameplate",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 1.2187229003757238e-10,
+        "area_delta_mm2": 3.637978807091713e-12
+      },
+      {
+        "name": "nameplate-ink",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 9.981704351957887e-11,
+        "area_delta_mm2": 9.094947017729282e-13
+      },
+      {
+        "name": "funnel-frame-front-west-screw",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "funnel-frame-front-west-insert",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "funnel-frame-front-east-screw",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "funnel-frame-front-east-insert",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "funnel-frame-back-west-screw",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "funnel-frame-back-west-insert",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "funnel-frame-back-east-screw",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "funnel-frame-back-east-insert",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "funnel-drain-union",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 1.0732037480920553e-10,
+        "area_delta_mm2": 5.911715561524034e-11
+      },
+      {
+        "name": "display",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "display-cover",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 1.3460521586239338e-10,
+        "area_delta_mm2": 1.4551915228366852e-11
+      },
+      {
+        "name": "display-gasket",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 4.547473508864641e-13,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "enclosure-front-bottom",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 3.958120942115784e-09,
+        "area_delta_mm2": 5.820766091346741e-11
+      },
+      {
+        "name": "enclosure-front-top",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 4.656612873077393e-10,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "enclosure-back-bottom",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 2.8405338525772095e-08,
+        "area_delta_mm2": 6.984919309616089e-10
+      },
+      {
+        "name": "enclosure-back-top",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 8.381903171539307e-09,
+        "area_delta_mm2": 1.1641532182693481e-10
+      },
+      {
+        "name": "enclosure-pump-retainer",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "y-seam-west-lower-screw",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "y-seam-west-lower-insert",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "y-seam-west-upper-screw",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "y-seam-west-upper-insert",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "y-seam-east-lower-screw",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "y-seam-east-lower-insert",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "y-seam-east-upper-screw",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "y-seam-east-upper-insert",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "tee-y-g",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 3.310560714453459e-10,
+        "area_delta_mm2": 1.3733369996771216e-10
+      },
+      {
+        "name": "stem-elbow-y-g",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 7.003109203651547e-11,
+        "area_delta_mm2": 1.064108801074326e-10
+      },
+      {
+        "name": "stem-elbow-v-j",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 7.23048287909478e-11,
+        "area_delta_mm2": 1.0686562745831907e-10
+      },
+      {
+        "name": "tee-y-f",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 3.310560714453459e-10,
+        "area_delta_mm2": 1.3733369996771216e-10
+      },
+      {
+        "name": "stem-elbow-y-f",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 7.048583938740194e-11,
+        "area_delta_mm2": 1.0732037480920553e-10
+      },
+      {
+        "name": "stem-elbow-v-d",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 7.048583938740194e-11,
+        "area_delta_mm2": 1.07775122160092e-10
+      },
+      {
+        "name": "tee-y-c",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 3.310560714453459e-10,
+        "area_delta_mm2": 1.3733369996771216e-10
+      },
+      {
+        "name": "stem-elbow-y-c",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 7.003109203651547e-11,
+        "area_delta_mm2": 1.0686562745831907e-10
+      },
+      {
+        "name": "stem-elbow-v-c",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 7.003109203651547e-11,
+        "area_delta_mm2": 1.07775122160092e-10
+      },
+      {
+        "name": "tee-y-d",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 3.310560714453459e-10,
+        "area_delta_mm2": 1.3733369996771216e-10
+      },
+      {
+        "name": "stem-elbow-y-d",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 7.048583938740194e-11,
+        "area_delta_mm2": 1.0732037480920553e-10
+      },
+      {
+        "name": "stem-elbow-v-g",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 6.821210263296962e-11,
+        "area_delta_mm2": 1.0822986951097846e-10
+      },
+      {
+        "name": "wire-AC1-L",
+        "maximum_bounds_delta_mm": 1.0000360362028005e-07,
+        "volume_delta_mm3": 9.117684385273606e-11,
+        "area_delta_mm2": 4.240519047016278e-11
+      },
+      {
+        "name": "wire-AC1-N",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 1.0390976967755705e-10,
+        "area_delta_mm2": 4.2518877307884395e-11
+      },
+      {
+        "name": "wire-AC1-PE",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 2.0895640773233026e-10,
+        "area_delta_mm2": 4.9112713895738125e-11
+      },
+      {
+        "name": "wire-AC2-L",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 8.230927051045e-11,
+        "area_delta_mm2": 6.684786058031023e-11
+      },
+      {
+        "name": "wire-AC2-N",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 3.069544618483633e-11,
+        "area_delta_mm2": 6.52562448522076e-11
+      },
+      {
+        "name": "wire-AC3-L",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 3.041122909053229e-11,
+        "area_delta_mm2": 1.9952040020143613e-11
+      },
+      {
+        "name": "wire-AC4-pigtail",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 8.799361239653081e-11,
+        "area_delta_mm2": 1.141415850725025e-10
+      },
+      {
+        "name": "wire-AC4-H",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 4.236881068209186e-09,
+        "area_delta_mm2": 2.0736479200422764e-10
+      },
+      {
+        "name": "wire-AC4-fuse",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 2.5863755581667647e-12,
+        "area_delta_mm2": 1.3130829756846651e-11
+      },
+      {
+        "name": "wire-AC5-pigtail",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 6.139089236967266e-12,
+        "area_delta_mm2": 1.432454155292362e-10
+      },
+      {
+        "name": "wire-AC5-N",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 4.343746695667505e-09,
+        "area_delta_mm2": 2.3146640160121024e-10
+      },
+      {
+        "name": "wire-AC6-PE",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 6.184563972055912e-11,
+        "area_delta_mm2": 3.255991032347083e-10
+      },
+      {
+        "name": "wire-PE-carbonator",
+        "maximum_bounds_delta_mm": 1.0000002248489182e-07,
+        "volume_delta_mm3": 1.844000507844612e-10,
+        "area_delta_mm2": 1.432454155292362e-10
+      },
+      {
+        "name": "wire-DC1-V12",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 1.3214958016760647e-09,
+        "area_delta_mm2": 1.8189894035458565e-10
+      },
+      {
+        "name": "wire-DC4-V12",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 5.95719029661268e-11,
+        "area_delta_mm2": 5.0590642786119133e-11
+      },
+      {
+        "name": "wire-DC1-GND",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 2.9672264645341784e-10,
+        "area_delta_mm2": 1.6007106751203537e-10
+      },
+      {
+        "name": "wire-DC4-GND",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 2.3987922759260982e-11,
+        "area_delta_mm2": 2.55226950685028e-11
+      },
+      {
+        "name": "wire-DC2-V12",
+        "maximum_bounds_delta_mm": 1.0000388783737435e-07,
+        "volume_delta_mm3": 6.648406269960105e-10,
+        "area_delta_mm2": 1.532498572487384e-10
+      },
+      {
+        "name": "wire-DC3-pigtail",
+        "maximum_bounds_delta_mm": 1.0000036354540498e-07,
+        "volume_delta_mm3": 4.749836080009118e-10,
+        "area_delta_mm2": 1.2869350030086935e-10
+      },
+      {
+        "name": "wire-DC3-positive",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 3.474269760772586e-10,
+        "area_delta_mm2": 1.623448042664677e-10
+      },
+      {
+        "name": "wire-DC3-negative",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 1.0438725439598784e-09,
+        "area_delta_mm2": 1.4279066817834973e-10
+      },
+      {
+        "name": "wire-J1-COM",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 9.109726306633092e-10,
+        "area_delta_mm2": 9.868017514236271e-11
+      },
+      {
+        "name": "wire-J1-OUT1",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 3.490185918053612e-11,
+        "area_delta_mm2": 3.9108272176235914e-11
+      },
+      {
+        "name": "wire-J1-positive-A",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 1.8917489796876907e-10,
+        "area_delta_mm2": 9.140421752817929e-11
+      },
+      {
+        "name": "wire-J1-OUT2",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 2.7324631446390413e-10,
+        "area_delta_mm2": 5.6843418860808015e-11
+      },
+      {
+        "name": "wire-J1-positive-B",
+        "maximum_bounds_delta_mm": 9.999013173001003e-08,
+        "volume_delta_mm3": 6.662048690486699e-11,
+        "area_delta_mm2": 3.4788172342814505e-11
+      },
+      {
+        "name": "wire-J1-OUT3",
+        "maximum_bounds_delta_mm": 2.6005864128819667e-12,
+        "volume_delta_mm3": 1.4142642612569034e-09,
+        "area_delta_mm2": 1.3369572116062045e-10
+      },
+      {
+        "name": "wire-J1-positive-C",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 1.617195266589988e-10,
+        "area_delta_mm2": 5.047695594839752e-11
+      },
+      {
+        "name": "wire-J1-OUT4",
+        "maximum_bounds_delta_mm": 1.0000815109378891e-07,
+        "volume_delta_mm3": 1.296825757890474e-09,
+        "area_delta_mm2": 1.468833943363279e-10
+      },
+      {
+        "name": "wire-J1-positive-D",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 1.028297447192017e-10,
+        "area_delta_mm2": 5.650235834764317e-11
+      },
+      {
+        "name": "wire-J1-OUT5",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 7.241851562866941e-11,
+        "area_delta_mm2": 1.305124897044152e-10
+      },
+      {
+        "name": "wire-J1-positive-E",
+        "maximum_bounds_delta_mm": 9.999951089412207e-08,
+        "volume_delta_mm3": 3.424815986363683e-11,
+        "area_delta_mm2": 3.149125404888764e-11
+      },
+      {
+        "name": "wire-J1-OUT6",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 4.214371074340306e-10,
+        "area_delta_mm2": 1.1095835361629725e-10
+      },
+      {
+        "name": "wire-J1-positive-F",
+        "maximum_bounds_delta_mm": 2.2737367544323206e-13,
+        "volume_delta_mm3": 1.1254996934439987e-11,
+        "area_delta_mm2": 1.1311840353300795e-11
+      },
+      {
+        "name": "wire-J1-OUT7",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 1.0805933925439604e-09,
+        "area_delta_mm2": 1.1596057447604835e-10
+      },
+      {
+        "name": "wire-J1-positive-G",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 6.295408638834488e-11,
+        "area_delta_mm2": 2.7000623958883807e-11
+      },
+      {
+        "name": "wire-J1-OUT8",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 8.35825630929321e-10,
+        "area_delta_mm2": 1.509761204943061e-10
+      },
+      {
+        "name": "wire-J1-positive-H",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 1.1527845344971865e-10,
+        "area_delta_mm2": 4.4224179873708636e-11
+      },
+      {
+        "name": "wire-J2-COM",
+        "maximum_bounds_delta_mm": 1.0000587735703448e-07,
+        "volume_delta_mm3": 8.005827112356201e-10,
+        "area_delta_mm2": 1.014086592476815e-10
+      },
+      {
+        "name": "wire-J2-OUT1",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 5.190941010368988e-10,
+        "area_delta_mm2": 1.7189449863508344e-10
+      },
+      {
+        "name": "wire-J2-positive-I",
+        "maximum_bounds_delta_mm": 1.0000226779993682e-07,
+        "volume_delta_mm3": 1.2846612662542611e-10,
+        "area_delta_mm2": 6.320988177321851e-11
+      },
+      {
+        "name": "wire-J2-OUT2",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 2.396518539171666e-10,
+        "area_delta_mm2": 1.5870682545937598e-10
+      },
+      {
+        "name": "wire-J2-positive-J",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 5.820766091346741e-11,
+        "area_delta_mm2": 5.6843418860808015e-11
+      },
+      {
+        "name": "wire-J2-FAN",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 5.832134775118902e-10,
+        "area_delta_mm2": 1.5506884665228426e-10
+      },
+      {
+        "name": "wire-J2-positive-fan",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 2.1543655748246238e-10,
+        "area_delta_mm2": 6.048139766789973e-11
+      },
+      {
+        "name": "wire-J2-OUT3",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 4.945377440890297e-11,
+        "area_delta_mm2": 5.775291356258094e-11
+      },
+      {
+        "name": "wire-J2-positive-K",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 8.155893738148734e-10,
+        "area_delta_mm2": 8.139977580867708e-11
+      },
+      {
+        "name": "wire-J13-AM2",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 3.5765879147220403e-10,
+        "area_delta_mm2": 9.822542779147625e-11
+      },
+      {
+        "name": "wire-J13-AM1",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 3.1457147997571155e-10,
+        "area_delta_mm2": 9.799805411603302e-11
+      },
+      {
+        "name": "wire-J13-BM2",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 7.303242455236614e-10,
+        "area_delta_mm2": 9.890754881780595e-11
+      },
+      {
+        "name": "wire-J13-BM1",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 7.473772711819038e-10,
+        "area_delta_mm2": 1.0163603292312473e-10
+      },
+      {
+        "name": "wire-J3-V5",
+        "maximum_bounds_delta_mm": 2.2737367544323206e-13,
+        "volume_delta_mm3": 1.6370904631912708e-11,
+        "area_delta_mm2": 8.890310709830374e-11
+      },
+      {
+        "name": "wire-J3-GND",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 2.9558577807620168e-12,
+        "area_delta_mm2": 8.93578544491902e-11
+      },
+      {
+        "name": "wire-J3-IO35",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 3.149125404888764e-11,
+        "area_delta_mm2": 8.799361239653081e-11
+      },
+      {
+        "name": "wire-J3-IO33",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 6.389200279954821e-11,
+        "area_delta_mm2": 8.708411769475788e-11
+      },
+      {
+        "name": "wire-J4-3V3",
+        "maximum_bounds_delta_mm": 7.105427357601002e-14,
+        "volume_delta_mm3": 7.401013135677204e-10,
+        "area_delta_mm2": 9.845280146691948e-11
+      },
+      {
+        "name": "wire-J4-IO26",
+        "maximum_bounds_delta_mm": 1.9895196601282805e-13,
+        "volume_delta_mm3": 6.085656423238106e-10,
+        "area_delta_mm2": 8.93578544491902e-11
+      },
+      {
+        "name": "wire-J4-V5",
+        "maximum_bounds_delta_mm": 1.0000647421293252e-07,
+        "volume_delta_mm3": 6.729123924742453e-10,
+        "area_delta_mm2": 9.981704351957887e-11
+      },
+      {
+        "name": "wire-J4-IO25",
+        "maximum_bounds_delta_mm": 9.99999087980541e-08,
+        "volume_delta_mm3": 7.16227077646181e-10,
+        "area_delta_mm2": 1.000444171950221e-10
+      },
+      {
+        "name": "wire-J4-GND",
+        "maximum_bounds_delta_mm": 7.133849067031406e-12,
+        "volume_delta_mm3": 3.456079866737127e-11,
+        "area_delta_mm2": 1.5290879673557356e-11
+      },
+      {
+        "name": "wire-temp-GND",
+        "maximum_bounds_delta_mm": 1.2789769243681803e-13,
+        "volume_delta_mm3": 1.737134880386293e-10,
+        "area_delta_mm2": 1.0368239600211382e-10
+      },
+      {
+        "name": "wire-flow-GND",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 5.111360223963857e-10,
+        "area_delta_mm2": 9.981704351957887e-11
+      },
+      {
+        "name": "wire-temp-bus-V",
+        "maximum_bounds_delta_mm": 2.220446049250313e-16,
+        "volume_delta_mm3": 4.446860657481011e-10,
+        "area_delta_mm2": 5.6274984672199935e-11
+      },
+      {
+        "name": "wire-temp-bus-DATA",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 3.200284481863491e-10,
+        "area_delta_mm2": 5.5933924159035087e-11
+      },
+      {
+        "name": "wire-temp-bus-GND",
+        "maximum_bounds_delta_mm": 1.199040866595169e-14,
+        "volume_delta_mm3": 4.6270542952697724e-11,
+        "area_delta_mm2": 5.6274984672199935e-11
+      },
+      {
+        "name": "wire-J5-V5",
+        "maximum_bounds_delta_mm": 1.6484591469634324e-12,
+        "volume_delta_mm3": 1.892885848064907e-10,
+        "area_delta_mm2": 7.435119186993688e-11
+      },
+      {
+        "name": "wire-relay-bus-V5",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 2.2751578399038408e-11,
+        "area_delta_mm2": 9.777068044058979e-12
+      },
+      {
+        "name": "wire-J5-GND",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 2.369233698118478e-10,
+        "area_delta_mm2": 7.548806024715304e-11
+      },
+      {
+        "name": "wire-relay-bus-GND",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 3.1661784305470064e-11,
+        "area_delta_mm2": 1.2278178473934531e-11
+      },
+      {
+        "name": "wire-J5-IO19",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 3.0735236578038894e-10,
+        "area_delta_mm2": 6.082245818106458e-11
+      },
+      {
+        "name": "wire-J5-IO2",
+        "maximum_bounds_delta_mm": 3.424815986363683e-12,
+        "volume_delta_mm3": 3.9119640860008076e-10,
+        "area_delta_mm2": 6.52562448522076e-11
+      },
+      {
+        "name": "wire-J6-GND",
+        "maximum_bounds_delta_mm": 5.684341886080802e-14,
+        "volume_delta_mm3": 7.847802407923155e-10,
+        "area_delta_mm2": 9.958966984413564e-11
+      },
+      {
+        "name": "wire-J6-RA1",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 1.8267201085109264e-09,
+        "area_delta_mm2": 1.496118784416467e-10
+      },
+      {
+        "name": "wire-J6-earth-1",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 1.7053025658242404e-13,
+        "area_delta_mm2": 1.8985701899509877e-11
+      },
+      {
+        "name": "wire-J6-RA2",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 1.464741217205301e-09,
+        "area_delta_mm2": 1.3096723705530167e-10
+      },
+      {
+        "name": "wire-J6-earth-2",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 1.7053025658242404e-13,
+        "area_delta_mm2": 1.9042545318370685e-11
+      },
+      {
+        "name": "wire-J6-RA3",
+        "maximum_bounds_delta_mm": 9.745218676471268e-08,
+        "volume_delta_mm3": 1.2383907233015634e-09,
+        "area_delta_mm2": 1.1323209037072957e-10
+      },
+      {
+        "name": "wire-J6-earth-3",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 1.7053025658242404e-13,
+        "area_delta_mm2": 1.8985701899509877e-11
+      },
+      {
+        "name": "wire-J6-RA4",
+        "maximum_bounds_delta_mm": 1.1468159755168017e-11,
+        "volume_delta_mm3": 1.0210214895778336e-09,
+        "area_delta_mm2": 9.57243173616007e-11
+      },
+      {
+        "name": "wire-J7-GND",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 7.784706212987658e-11,
+        "area_delta_mm2": 2.0179413695586845e-11
+      },
+      {
+        "name": "wire-J7-RB1",
+        "maximum_bounds_delta_mm": 9.999519079428865e-08,
+        "volume_delta_mm3": 6.352252057695296e-10,
+        "area_delta_mm2": 9.117684385273606e-11
+      },
+      {
+        "name": "wire-J7-earth-1",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 2.2737367544323206e-13,
+        "area_delta_mm2": 1.8985701899509877e-11
+      },
+      {
+        "name": "wire-J7-RB2",
+        "maximum_bounds_delta_mm": 2.5011104298755527e-12,
+        "volume_delta_mm3": 4.686739885073621e-10,
+        "area_delta_mm2": 9.049472282640636e-11
+      },
+      {
+        "name": "wire-J7-earth-2",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 2.2737367544323206e-13,
+        "area_delta_mm2": 1.9042545318370685e-11
+      },
+      {
+        "name": "wire-J7-RB3",
+        "maximum_bounds_delta_mm": 9.999502026403206e-08,
+        "volume_delta_mm3": 4.6151171773090027e-10,
+        "area_delta_mm2": 5.4569682106375694e-11
+      },
+      {
+        "name": "wire-J7-earth-3",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 2.2737367544323206e-13,
+        "area_delta_mm2": 1.8985701899509877e-11
+      },
+      {
+        "name": "wire-J7-RB4",
+        "maximum_bounds_delta_mm": 9.999871508625802e-08,
+        "volume_delta_mm3": 3.1735680749989115e-10,
+        "area_delta_mm2": 5.0818016461562365e-11
+      },
+      {
+        "name": "wire-J7-earth-4",
+        "maximum_bounds_delta_mm": 7.815970093361102e-14,
+        "volume_delta_mm3": 6.779146133339964e-10,
+        "area_delta_mm2": 6.775735528208315e-11
+      },
+      {
+        "name": "wire-J7-CLO",
+        "maximum_bounds_delta_mm": 1.4210854715202004e-14,
+        "volume_delta_mm3": 2.0129391486989334e-09,
+        "area_delta_mm2": 1.3324097380973399e-10
+      },
+      {
+        "name": "wire-J7-carb-earth-1",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 6.394884621840902e-14,
+        "area_delta_mm2": 9.890754881780595e-12
+      },
+      {
+        "name": "wire-J7-CHI",
+        "maximum_bounds_delta_mm": 5.684341886080802e-14,
+        "volume_delta_mm3": 1.767602952895686e-09,
+        "area_delta_mm2": 1.2505552149377763e-10
+      },
+      {
+        "name": "wire-J7-carb-earth-2",
+        "maximum_bounds_delta_mm": 4.263256414560601e-14,
+        "volume_delta_mm3": 1.4688339433632791e-09,
+        "area_delta_mm2": 1.4551915228366852e-10
+      },
+      {
+        "name": "wire-J9-B",
+        "maximum_bounds_delta_mm": 3.552713678800501e-15,
+        "volume_delta_mm3": 3.957438821089454e-10,
+        "area_delta_mm2": 8.93578544491902e-11
+      },
+      {
+        "name": "wire-J9-A",
+        "maximum_bounds_delta_mm": 7.815970093361102e-14,
+        "volume_delta_mm3": 3.9892711356515065e-10,
+        "area_delta_mm2": 8.958522812463343e-11
+      },
+      {
+        "name": "wire-J9-GND",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 3.9949554775375873e-10,
+        "area_delta_mm2": 9.072209650184959e-11
+      },
+      {
+        "name": "wire-J9-V12",
+        "maximum_bounds_delta_mm": 9.999973116237015e-08,
+        "volume_delta_mm3": 4.013145371573046e-10,
+        "area_delta_mm2": 9.117684385273606e-11
+      },
+      {
+        "name": "wire-J11-V5",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 1.3430963008431718e-09,
+        "area_delta_mm2": 1.559783413540572e-10
+      },
+      {
+        "name": "wire-J11-GND",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 1.4535999071085826e-09,
+        "area_delta_mm2": 1.5825207810848951e-10
+      },
+      {
+        "name": "wire-J11-DOUT",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 1.4349552657222375e-09,
+        "area_delta_mm2": 1.5916157281026244e-10
+      },
+      {
+        "name": "wire-J11-AOUT",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 1.459966370020993e-09,
+        "area_delta_mm2": 1.6279955161735415e-10
+      },
+      {
+        "name": "wiring-junction-compressor-h",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "wiring-junction-compressor-n",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "wiring-junction-pump-positive",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "terminal-carbonator-pe",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 5.002220859751105e-12,
+        "area_delta_mm2": 5.201172825763933e-12
+      },
+      {
+        "name": "terminal-J1",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "terminal-J2",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "terminal-J3",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "terminal-J4",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "terminal-J5",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "terminal-J6",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "terminal-J7",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "terminal-J9",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "terminal-J11",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "terminal-J13",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "terminal-fuse-in-lead",
+        "maximum_bounds_delta_mm": 9.999984840192155e-08,
+        "volume_delta_mm3": 4.206412995699793e-12,
+        "area_delta_mm2": 5.8122395785176195e-12
+      },
+      {
+        "name": "terminal-fuse-in-splice",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "terminal-fuse-out-lead",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 5.648814749292796e-13,
+        "area_delta_mm2": 3.176126028847648e-12
+      },
+      {
+        "name": "terminal-fuse-out-splice",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 0.0,
+        "area_delta_mm2": 0.0
+      },
+      {
+        "name": "terminal-compressor-cord-jacket",
+        "maximum_bounds_delta_mm": 0.0,
+        "volume_delta_mm3": 1.8917489796876907e-10,
+        "area_delta_mm2": 6.075424607843161e-10
+      }
+    ],
+    "unchanged_native_wiring_bodies": 119,
+    "retained_readback_export_sha256": "f94d4bc2ace716cab7afc59618895d0f384379d27feaef6b4c8c3211bfaabfad"
+  },
+  "current_changed_body_neighbors": [
+    {
+      "parts": [
+        "elbow-cradle",
+        "ya-stem-elbow"
+      ],
+      "gap_mm": 3.053115538713229,
+      "overlap_mm3": 0
+    },
+    {
+      "parts": [
+        "drain-outlet-stem",
+        "elbow-cradle"
+      ],
+      "gap_mm": 1.0,
+      "overlap_mm3": 0
+    },
+    {
+      "parts": [
+        "elbow-cradle",
+        "yb-stem-elbow"
+      ],
+      "gap_mm": 1.3604817502047641,
+      "overlap_mm3": 0
+    },
+    {
+      "parts": [
+        "elbow-cradle",
+        "tube-above-core-vb-yb-link"
+      ],
+      "gap_mm": 5.349273502690913,
+      "overlap_mm3": 0
+    },
+    {
+      "parts": [
+        "elbow-cradle",
+        "tube-above-core-va-fore-feed"
+      ],
+      "gap_mm": 10.724677042838485,
+      "overlap_mm3": 0
+    },
+    {
+      "parts": [
+        "elbow-cradle",
+        "tube-fluid-18"
+      ],
+      "gap_mm": 9.955749999999995,
+      "overlap_mm3": 0
+    },
+    {
+      "parts": [
+        "elbow-cradle",
+        "tube-fluid-28"
+      ],
+      "gap_mm": 36.67537293672866,
+      "overlap_mm3": 0
+    },
+    {
+      "parts": [
+        "elbow-cradle",
+        "tube-fluid-16"
+      ],
+      "gap_mm": 10.187728014892775,
+      "overlap_mm3": 0.0
+    },
+    {
+      "parts": [
+        "elbow-cradle",
+        "tube-fluid-26"
+      ],
+      "gap_mm": 4.125,
+      "overlap_mm3": 0
+    },
+    {
+      "parts": [
+        "elbow-cradle",
+        "foam-cap-lid-top"
+      ],
+      "gap_mm": 8.476362693155618,
+      "overlap_mm3": 0
+    },
+    {
+      "parts": [
+        "elbow-cradle",
+        "funnel"
+      ],
+      "gap_mm": 0.0,
+      "overlap_mm3": 0
+    },
+    {
+      "parts": [
+        "elbow-cradle",
+        "funnel-frame"
+      ],
+      "gap_mm": 0.15000000000000213,
+      "overlap_mm3": 0
+    },
+    {
+      "parts": [
+        "elbow-cradle",
+        "funnel-drain-union"
+      ],
+      "gap_mm": 0.14999999999981564,
+      "overlap_mm3": 0
+    },
+    {
+      "parts": [
+        "elbow-cradle",
+        "enclosure-front-top"
+      ],
+      "gap_mm": 56.292037110490014,
+      "overlap_mm3": 0
+    },
+    {
+      "parts": [
+        "elbow-cradle",
+        "wire-AC4-H"
+      ],
+      "gap_mm": 1.55996516898989,
+      "overlap_mm3": 0
+    },
+    {
+      "parts": [
+        "elbow-cradle",
+        "wire-AC5-N"
+      ],
+      "gap_mm": 2.627871653623494,
+      "overlap_mm3": 0
+    },
+    {
+      "parts": [
+        "elbow-cradle",
+        "wire-AC6-PE"
+      ],
+      "gap_mm": 9.280799032336862,
+      "overlap_mm3": 0
+    },
+    {
+      "parts": [
+        "elbow-cradle",
+        "wire-J1-COM"
+      ],
+      "gap_mm": 4.24409,
+      "overlap_mm3": 0
+    },
+    {
+      "parts": [
+        "elbow-cradle",
+        "wire-J1-positive-A"
+      ],
+      "gap_mm": 23.450430257817967,
+      "overlap_mm3": 0
+    },
+    {
+      "parts": [
+        "elbow-cradle",
+        "wire-J1-OUT3"
+      ],
+      "gap_mm": 5.640596915948807,
+      "overlap_mm3": 0
+    },
+    {
+      "parts": [
+        "elbow-cradle",
+        "wire-J1-positive-C"
+      ],
+      "gap_mm": 59.501242712067196,
+      "overlap_mm3": 0
+    },
+    {
+      "parts": [
+        "elbow-cradle",
+        "wire-J1-OUT4"
+      ],
+      "gap_mm": 5.648160829150118,
+      "overlap_mm3": 0
+    },
+    {
+      "parts": [
+        "elbow-cradle",
+        "wire-J1-positive-D"
+      ],
+      "gap_mm": 39.86183014091748,
+      "overlap_mm3": 0
+    },
+    {
+      "parts": [
+        "elbow-cradle",
+        "wire-J1-OUT5"
+      ],
+      "gap_mm": 9.794090000000011,
+      "overlap_mm3": 0
+    },
+    {
+      "parts": [
+        "elbow-cradle",
+        "wire-J1-OUT6"
+      ],
+      "gap_mm": 11.644090000000006,
+      "overlap_mm3": 0
+    },
+    {
+      "parts": [
+        "elbow-cradle",
+        "wire-J1-OUT7"
+      ],
+      "gap_mm": 5.672690908279964,
+      "overlap_mm3": 0
+    },
+    {
+      "parts": [
+        "elbow-cradle",
+        "wire-J1-OUT8"
+      ],
+      "gap_mm": 15.344089999999994,
+      "overlap_mm3": 0
+    },
+    {
+      "parts": [
+        "elbow-cradle",
+        "wire-J1-positive-H"
+      ],
+      "gap_mm": 43.58215983580953,
+      "overlap_mm3": 0
+    },
+    {
+      "parts": [
+        "elbow-cradle",
+        "wire-J2-COM"
+      ],
+      "gap_mm": 9.794090000000011,
+      "overlap_mm3": 0
+    },
+    {
+      "parts": [
+        "elbow-cradle",
+        "wire-J2-OUT1"
+      ],
+      "gap_mm": 0.6057500000000005,
+      "overlap_mm3": 0
+    },
+    {
+      "parts": [
+        "elbow-cradle",
+        "wire-J2-positive-I"
+      ],
+      "gap_mm": 19.697363934880105,
+      "overlap_mm3": 0
+    },
+    {
+      "parts": [
+        "elbow-cradle",
+        "wire-J2-OUT2"
+      ],
+      "gap_mm": 9.24409002005001,
+      "overlap_mm3": 0
+    },
+    {
+      "parts": [
+        "elbow-cradle",
+        "wire-J2-FAN"
+      ],
+      "gap_mm": 7.9440899999999885,
+      "overlap_mm3": 0
+    },
+    {
+      "parts": [
+        "elbow-cradle",
+        "wire-J13-AM2"
+      ],
+      "gap_mm": 22.580085392306195,
+      "overlap_mm3": 0
+    },
+    {
+      "parts": [
+        "elbow-cradle",
+        "wire-J13-AM1"
+      ],
+      "gap_mm": 22.707122819195792,
+      "overlap_mm3": 0
+    },
+    {
+      "parts": [
+        "elbow-cradle",
+        "wire-J13-BM2"
+      ],
+      "gap_mm": 22.841613944371694,
+      "overlap_mm3": 0
+    },
+    {
+      "parts": [
+        "elbow-cradle",
+        "wire-J13-BM1"
+      ],
+      "gap_mm": 22.728348559432725,
+      "overlap_mm3": 0
+    },
+    {
+      "parts": [
+        "elbow-cradle",
+        "wire-J7-RB1"
+      ],
+      "gap_mm": 22.73593538263506,
+      "overlap_mm3": 0
+    },
+    {
+      "parts": [
+        "elbow-cradle",
+        "wire-J7-RB2"
+      ],
+      "gap_mm": 21.996019580901724,
+      "overlap_mm3": 0
+    },
+    {
+      "parts": [
+        "elbow-cradle",
+        "wire-J7-RB3"
+      ],
+      "gap_mm": 20.071192557347533,
+      "overlap_mm3": 0
+    },
+    {
+      "parts": [
+        "elbow-cradle",
+        "wire-J7-RB4"
+      ],
+      "gap_mm": 19.621351824365323,
+      "overlap_mm3": 0
+    },
+    {
+      "parts": [
+        "elbow-cradle",
+        "wire-J7-earth-4"
+      ],
+      "gap_mm": 21.25,
+      "overlap_mm3": 0
+    },
+    {
+      "parts": [
+        "elbow-cradle",
+        "wire-J9-B"
+      ],
+      "gap_mm": 2.099999103515998,
+      "overlap_mm3": 0
+    },
+    {
+      "parts": [
+        "elbow-cradle",
+        "wire-J9-A"
+      ],
+      "gap_mm": 4.099999103515998,
+      "overlap_mm3": 0
+    },
+    {
+      "parts": [
+        "elbow-cradle",
+        "wire-J9-GND"
+      ],
+      "gap_mm": 6.028407744316546,
+      "overlap_mm3": 0
+    },
+    {
+      "parts": [
+        "elbow-cradle",
+        "wire-J9-V12"
+      ],
+      "gap_mm": 7.317774256867459,
+      "overlap_mm3": 0
+    },
+    {
+      "parts": [
+        "soda-bend-holder",
+        "vk-solenoid"
+      ],
+      "gap_mm": 1.2506486531464567,
+      "overlap_mm3": 0.0
+    },
+    {
+      "parts": [
+        "soda-bend-holder",
+        "tube-above-core-gas-core-drop"
+      ],
+      "gap_mm": 13.76461419556737,
+      "overlap_mm3": 0
+    },
+    {
+      "parts": [
+        "soda-bend-holder",
+        "tube-fluid-18"
+      ],
+      "gap_mm": 6.691673887930989,
+      "overlap_mm3": 0
+    },
+    {
+      "parts": [
+        "soda-bend-holder",
+        "tube-fluid-14"
+      ],
+      "gap_mm": 18.917465740143452,
+      "overlap_mm3": 0
+    },
+    {
+      "parts": [
+        "soda-bend-holder",
+        "tube-fluid-16"
+      ],
+      "gap_mm": 12.877168317681884,
+      "overlap_mm3": 0
+    },
+    {
+      "parts": [
+        "foam-cap-lid-top",
+        "soda-bend-holder"
+      ],
+      "gap_mm": 25.599999999999994,
+      "overlap_mm3": 0
+    },
+    {
+      "parts": [
+        "enclosure-back-top",
+        "soda-bend-holder"
+      ],
+      "gap_mm": 9.013562659707983,
+      "overlap_mm3": 0
+    },
+    {
+      "parts": [
+        "soda-bend-holder",
+        "wire-J1-positive-A"
+      ],
+      "gap_mm": 124.40106119348707,
+      "overlap_mm3": 0
+    },
+    {
+      "parts": [
+        "soda-bend-holder",
+        "wire-flow-GND"
+      ],
+      "gap_mm": 16.19047703984233,
+      "overlap_mm3": 0
+    },
+    {
+      "parts": [
+        "soda-bend-holder",
+        "wire-J7-carb-earth-2"
+      ],
+      "gap_mm": 51.415013980554576,
+      "overlap_mm3": 0.0
+    },
+    {
+      "parts": [
+        "digiten-flow",
+        "tube-soda-core-rise"
+      ],
+      "overlap_mm3": 170.4447112154987,
+      "method": "Per-solid native common with AABB prefilter",
+      "gap_mm": 0.0
+    },
+    {
+      "parts": [
+        "soda-bend-holder",
+        "tube-soda-core-rise"
+      ],
+      "overlap_mm3": 0,
+      "method": "Per-solid native common with AABB prefilter",
+      "gap_mm": 0.2056009260152286
+    },
+    {
+      "parts": [
+        "soda-continuous-insulation",
+        "tube-soda-core-rise"
+      ],
+      "overlap_mm3": 0,
+      "method": "Per-solid native common with AABB prefilter",
+      "gap_mm": 0.0
+    },
+    {
+      "parts": [
+        "meter-snap-cap",
+        "tube-soda-core-rise"
+      ],
+      "overlap_mm3": 0,
+      "method": "Per-solid native common with AABB prefilter",
+      "gap_mm": 4.924999976869613
+    },
+    {
+      "parts": [
+        "tube-above-core-gas-core-drop",
+        "tube-soda-core-rise"
+      ],
+      "overlap_mm3": 0,
+      "method": "Per-solid native common with AABB prefilter",
+      "gap_mm": 12.676479364297393
+    },
+    {
+      "parts": [
+        "tube-fluid-18",
+        "tube-soda-core-rise"
+      ],
+      "overlap_mm3": 0,
+      "method": "Per-solid native common with AABB prefilter",
+      "gap_mm": 10.325000000000003
+    },
+    {
+      "parts": [
+        "tube-fluid-14",
+        "tube-soda-core-rise"
+      ],
+      "overlap_mm3": 0,
+      "method": "Per-solid native common with AABB prefilter",
+      "gap_mm": 10.15000000000002
+    },
+    {
+      "parts": [
+        "tube-fluid-16",
+        "tube-soda-core-rise"
+      ],
+      "overlap_mm3": 0,
+      "method": "Per-solid native common with AABB prefilter",
+      "gap_mm": 10.149999999999991
+    },
+    {
+      "parts": [
+        "foam-cap-lid-top",
+        "tube-soda-core-rise"
+      ],
+      "overlap_mm3": 0,
+      "method": "Per-solid native common with AABB prefilter",
+      "gap_mm": 0.5749999066818097
+    },
+    {
+      "parts": [
+        "line-carb-water-out",
+        "tube-soda-core-rise"
+      ],
+      "overlap_mm3": 0,
+      "method": "Per-solid native common with AABB prefilter",
+      "gap_mm": 0.0
+    },
+    {
+      "parts": [
+        "line-co2-in",
+        "tube-soda-core-rise"
+      ],
+      "overlap_mm3": 0,
+      "method": "Per-solid native common with AABB prefilter",
+      "gap_mm": 12.676479389766191
+    },
+    {
+      "parts": [
+        "enclosure-back-top",
+        "tube-soda-core-rise"
+      ],
+      "overlap_mm3": 0,
+      "method": "Per-solid native common with AABB prefilter",
+      "gap_mm": 7.991427318135119
+    },
+    {
+      "parts": [
+        "soda-continuous-insulation",
+        "vk-solenoid"
+      ],
+      "overlap_mm3": 0,
+      "method": "Per-solid native common with AABB prefilter",
+      "gap_mm": 0.0
+    },
+    {
+      "parts": [
+        "soda-bend-holder",
+        "soda-continuous-insulation"
+      ],
+      "overlap_mm3": 0,
+      "method": "Per-solid native common with AABB prefilter",
+      "gap_mm": 0.0
+    },
+    {
+      "parts": [
+        "soda-continuous-insulation",
+        "tube-soda-core-rise"
+      ],
+      "overlap_mm3": 0,
+      "method": "Per-solid native common with AABB prefilter",
+      "gap_mm": 0.0
+    },
+    {
+      "parts": [
+        "soda-continuous-insulation",
+        "tube-above-core-gas-core-drop"
+      ],
+      "overlap_mm3": 0,
+      "method": "Per-solid native common with AABB prefilter",
+      "gap_mm": 3.1626278012321953
+    },
+    {
+      "parts": [
+        "soda-continuous-insulation",
+        "tube-above-core-va-fore-feed"
+      ],
+      "overlap_mm3": 0,
+      "method": "Per-solid native common with AABB prefilter",
+      "gap_mm": 65.36984299760984
+    },
+    {
+      "parts": [
+        "soda-continuous-insulation",
+        "tube-fluid-18"
+      ],
+      "overlap_mm3": 0,
+      "method": "Per-solid native common with AABB prefilter",
+      "gap_mm": 0.8000000000000398
+    },
+    {
+      "parts": [
+        "soda-continuous-insulation",
+        "tube-fluid-14"
+      ],
+      "overlap_mm3": 0,
+      "method": "Per-solid native common with AABB prefilter",
+      "gap_mm": 0.625
+    },
+    {
+      "parts": [
+        "soda-continuous-insulation",
+        "tube-fluid-16"
+      ],
+      "overlap_mm3": 0,
+      "method": "Per-solid native common with AABB prefilter",
+      "gap_mm": 0.625
+    },
+    {
+      "parts": [
+        "foam-cap-lid-top",
+        "soda-continuous-insulation"
+      ],
+      "overlap_mm3": 0,
+      "method": "Per-solid native common with AABB prefilter",
+      "gap_mm": 0.976839387134163
+    },
+    {
+      "parts": [
+        "enclosure-back-top",
+        "soda-continuous-insulation"
+      ],
+      "overlap_mm3": 0,
+      "method": "Per-solid native common with AABB prefilter",
+      "gap_mm": 1.490000000000009
+    },
+    {
+      "parts": [
+        "soda-continuous-insulation",
+        "wire-J1-positive-A"
+      ],
+      "overlap_mm3": 0,
+      "method": "Per-solid native common with AABB prefilter",
+      "gap_mm": null
+    },
+    {
+      "parts": [
+        "soda-continuous-insulation",
+        "wire-J2-OUT3"
+      ],
+      "overlap_mm3": 0,
+      "method": "Per-solid native common with AABB prefilter",
+      "gap_mm": null
+    },
+    {
+      "parts": [
+        "soda-continuous-insulation",
+        "wire-J2-positive-K"
+      ],
+      "overlap_mm3": 0,
+      "method": "Per-solid native common with AABB prefilter",
+      "gap_mm": null
+    },
+    {
+      "parts": [
+        "soda-continuous-insulation",
+        "wire-J4-V5"
+      ],
+      "overlap_mm3": 0,
+      "method": "Per-solid native common with AABB prefilter",
+      "gap_mm": null
+    },
+    {
+      "parts": [
+        "soda-continuous-insulation",
+        "wire-J4-IO25"
+      ],
+      "overlap_mm3": 0,
+      "method": "Per-solid native common with AABB prefilter",
+      "gap_mm": null
+    },
+    {
+      "parts": [
+        "soda-continuous-insulation",
+        "wire-flow-GND"
+      ],
+      "overlap_mm3": 0,
+      "method": "Per-solid native common with AABB prefilter",
+      "gap_mm": null
+    },
+    {
+      "parts": [
+        "soda-continuous-insulation",
+        "wire-J7-CLO"
+      ],
+      "overlap_mm3": 0,
+      "method": "Per-solid native common with AABB prefilter",
+      "gap_mm": null
+    },
+    {
+      "parts": [
+        "soda-continuous-insulation",
+        "wire-J7-CHI"
+      ],
+      "overlap_mm3": 0,
+      "method": "Per-solid native common with AABB prefilter",
+      "gap_mm": null
+    },
+    {
+      "parts": [
+        "soda-continuous-insulation",
+        "wire-J7-carb-earth-2"
+      ],
+      "overlap_mm3": 0,
+      "method": "Per-solid native common with AABB prefilter",
+      "gap_mm": null
+    },
+    {
+      "parts": [
+        "digiten-flow",
+        "soda-continuous-insulation"
+      ],
+      "gap_mm": 1.0000000000000568,
+      "overlap_mm3": 0.0
+    }
+  ],
+  "soda_route_facts": {
+    "id": "soda-core-rise",
+    "frm": "foam-assembly.carb-water-out",
+    "to": "digiten-flow.inlet",
+    "length": 77.07390150777397,
+    "corners": 2,
+    "bend": 14.0,
+    "diam": 6.35,
+    "made": "drawn",
+    "segments": [
+      {
+        "kind": "bezier",
+        "control_points_mm": [
+          [
+            77.5,
+            359.51,
+            253.4
+          ],
+          [
+            77.5,
+            359.51,
+            262.93333333333334
+          ],
+          [
+            77.5,
+            360.76,
+            272.4666666666667
+          ],
+          [
+            77.5,
+            360.76,
+            282.0
+          ]
+        ]
+      },
+      {
+        "kind": "arc",
+        "points_mm": [
+          [
+            77.5,
+            360.76,
+            282.0
+          ],
+          [
+            77.5,
+            364.8605050633883,
+            291.8994949366117
+          ],
+          [
+            77.5,
+            374.76,
+            296.0
+          ]
+        ],
+        "radius_mm": 14.0,
+        "center_mm": [
+          77.5,
+          374.76,
+          282.0
+        ],
+        "axis": [
+          -1.0,
+          0.0,
+          0.0
+        ],
+        "angle_rad": 1.5707963267948966
+      },
+      {
+        "kind": "line",
+        "points_mm": [
+          [
+            77.5,
+            374.76,
+            296.0
+          ],
+          [
+            77.5,
+            401.21,
+            296.0
+          ]
+        ]
+      }
+    ],
+    "spool": "blue"
+  },
+  "current_changed_bodies": {
+    "elbow-cradle": {
+      "bounds_mm": [
+        -18.150000000000002,
+        167.9557499,
+        279.24203711049074,
+        18.150000000000002,
+        197.9059101,
+        306.05
+      ],
+      "valid": true,
+      "solids": 1
+    },
+    "soda-bend-holder": {
+      "bounds_mm": [
+        70.69167378793148,
+        355.35999989999993,
+        278.9999999,
+        82.9000001,
+        377.7600001,
+        301.40000010000006
+      ],
+      "valid": true,
+      "solids": 1
+    },
+    "tube-soda-core-rise": {
+      "bounds_mm": [
+        74.3249999,
+        356.33499989999984,
+        253.39999989999976,
+        80.67500010000005,
+        401.21,
+        299.17500010000003
+      ],
+      "valid": true,
+      "solids": 1
+    },
+    "soda-continuous-insulation": {
+      "bounds_mm": [
+        64.7999999,
+        346.8160021983811,
+        254.37683928713412,
+        90.20000010000012,
+        384.51,
+        308.7000001
+      ],
+      "valid": true,
+      "solids": 1
+    }
+  },
+  "vk_holder_gap_mm": 1.2506486531464567,
+  "all_changed_body_unconnected_material_contacts_clear": true,
+  "closure_binding": {
+    "scope": "The complete retained closing intervals remove the drain cradle with its funnel/frame and dress the soda holder, tube and occupied foam after rigid quadrant closure. None of the four substituted bodies belongs to a retained moving or stationary set. All members of those sets have unchanged native geometry and byte-identical viewer arrays.",
+    "baseline_record_sha256": "c3eeebd45c9f3321c7e73cd8fdb246ae981833a71cc37dbbe1c8174ce45f35ce"
+  },
+  "service_binding": {
+    "scope": "The cradle is removed with the funnel/frame as the existing prerequisite. Each other changed body is disjoint from every complete retained housing stage box. All housing and other obstacle geometry is unchanged.",
+    "pairs": [
+      {
+        "connector": "terminal-J1",
+        "stage": 0,
+        "body": "soda-bend-holder",
+        "complete_sweep_aabb_clear": true
+      },
+      {
+        "connector": "terminal-J1",
+        "stage": 0,
+        "body": "soda-continuous-insulation",
+        "complete_sweep_aabb_clear": true
+      },
+      {
+        "connector": "terminal-J1",
+        "stage": 0,
+        "body": "tube-soda-core-rise",
+        "complete_sweep_aabb_clear": true
+      },
+      {
+        "connector": "terminal-J1",
+        "stage": 1,
+        "body": "soda-bend-holder",
+        "complete_sweep_aabb_clear": true
+      },
+      {
+        "connector": "terminal-J1",
+        "stage": 1,
+        "body": "soda-continuous-insulation",
+        "complete_sweep_aabb_clear": true
+      },
+      {
+        "connector": "terminal-J1",
+        "stage": 1,
+        "body": "tube-soda-core-rise",
+        "complete_sweep_aabb_clear": true
+      },
+      {
+        "connector": "terminal-J2",
+        "stage": 0,
+        "body": "soda-bend-holder",
+        "complete_sweep_aabb_clear": true
+      },
+      {
+        "connector": "terminal-J2",
+        "stage": 0,
+        "body": "soda-continuous-insulation",
+        "complete_sweep_aabb_clear": true
+      },
+      {
+        "connector": "terminal-J2",
+        "stage": 0,
+        "body": "tube-soda-core-rise",
+        "complete_sweep_aabb_clear": true
+      },
+      {
+        "connector": "terminal-J2",
+        "stage": 1,
+        "body": "soda-bend-holder",
+        "complete_sweep_aabb_clear": true
+      },
+      {
+        "connector": "terminal-J2",
+        "stage": 1,
+        "body": "soda-continuous-insulation",
+        "complete_sweep_aabb_clear": true
+      },
+      {
+        "connector": "terminal-J2",
+        "stage": 1,
+        "body": "tube-soda-core-rise",
+        "complete_sweep_aabb_clear": true
+      },
+      {
+        "connector": "terminal-J11",
+        "stage": 0,
+        "body": "soda-bend-holder",
+        "complete_sweep_aabb_clear": true
+      },
+      {
+        "connector": "terminal-J11",
+        "stage": 0,
+        "body": "soda-continuous-insulation",
+        "complete_sweep_aabb_clear": true
+      },
+      {
+        "connector": "terminal-J11",
+        "stage": 0,
+        "body": "tube-soda-core-rise",
+        "complete_sweep_aabb_clear": true
+      },
+      {
+        "connector": "terminal-J11",
+        "stage": 1,
+        "body": "soda-bend-holder",
+        "complete_sweep_aabb_clear": true
+      },
+      {
+        "connector": "terminal-J11",
+        "stage": 1,
+        "body": "soda-continuous-insulation",
+        "complete_sweep_aabb_clear": true
+      },
+      {
+        "connector": "terminal-J11",
+        "stage": 1,
+        "body": "tube-soda-core-rise",
+        "complete_sweep_aabb_clear": true
+      },
+      {
+        "connector": "terminal-J11",
+        "stage": 2,
+        "body": "soda-bend-holder",
+        "complete_sweep_aabb_clear": true
+      },
+      {
+        "connector": "terminal-J11",
+        "stage": 2,
+        "body": "soda-continuous-insulation",
+        "complete_sweep_aabb_clear": true
+      },
+      {
+        "connector": "terminal-J11",
+        "stage": 2,
+        "body": "tube-soda-core-rise",
+        "complete_sweep_aabb_clear": true
+      }
+    ]
+  },
+  "tube_display_tessellation": {
+    "native_shape_unchanged": true,
+    "linear_deflection_mm": 0.02,
+    "triangle_count": 16484,
+    "constant_section_reading": {
+      "native_volume_mm3": 1352.6195589155675,
+      "constant_section_expected_volume_mm3": 1352.6194885498016,
+      "relative_volume_error": 5.202184830705995e-08,
+      "transition_sections": [
+        {
+          "t": 0.2,
+          "z_mm": 259.12,
+          "section_area_mm2": 17.567914754232227,
+          "nominal_area_mm2": 17.56508450267088,
+          "relative_error": 0.00016112940196302857
+        },
+        {
+          "t": 0.4,
+          "z_mm": 264.84000000000003,
+          "section_area_mm2": 17.584362944408994,
+          "nominal_area_mm2": 17.584366787006367,
+          "relative_error": 2.185234998383862e-07
+        },
+        {
+          "t": 0.5,
+          "z_mm": 267.7,
+          "section_area_mm2": 17.587314984528547,
+          "nominal_area_mm2": 17.587317520373293,
+          "relative_error": 1.4418598764104684e-07
+        },
+        {
+          "t": 0.6,
+          "z_mm": 270.56,
+          "section_area_mm2": 17.584364370285698,
+          "nominal_area_mm2": 17.584366787006367,
+          "relative_error": 1.3743575177835261e-07
+        },
+        {
+          "t": 0.8,
+          "z_mm": 276.28,
+          "section_area_mm2": 17.565101145975802,
+          "nominal_area_mm2": 17.56508450267088,
+          "relative_error": 9.47522052534048e-07
+        }
+      ]
+    },
+    "scope": "Current corrected-frame native tube, finely meshed. The same0.02mm budget draws each changed body;569unchanged solid arrays retain the exact baseline bytes."
+  },
+  "current_tube_export_readback": {
+    "parent_step_sha256": "c264aefc6a1a1304af27e06af353ba9819de9be0daf85c3647c2a01058f7ebd7",
+    "valid": true,
+    "solids": 1,
+    "volume_mm3": 1352.6195589152373,
+    "midpoint_section_area_mm2": 17.587314984451833,
+    "expected_midpoint_section_area_mm2": 17.587317520373293
+  },
+  "schema": "enclosure-assembly-gate-review/1",
+  "original_red_gate_native_reading": {
+    "scope": "Exact native current-body reading of every pair named by the three red gates. The cold-core shell/caps are queried as their actual installed printed material, with separate purchased equipment retained by name. No pair is accepted or ignored by this diagnostic reading.",
+    "assembly_step_sha256": "43de7a97158cfb3d2b9de706d7370fcb1c8b6c32dcb2d9cc09404d443c725655",
+    "assembly_mesh_sha256": "99c6fbd1328a9dc22b0ddf7ca6c0480ae7e08277b4d060c464f690d845bd02fb",
+    "original_scorecard_sha256": "918ec0733dc28690e9c04a1287d9a52e570cd4aee2d49adc2c0c11fe3efaaeb0",
+    "reader_sha256": "5f06cbd88955194e03da94c276c30c12a338bd374ce7c56f6db0735a8026525e",
+    "pairs": [
+      {
+        "parts": [
+          "above-core-gas-core-drop",
+          "vk-solenoid"
+        ],
+        "gates": [
+          "clearance-floor"
+        ],
+        "native_overlap_mm3": 0.0,
+        "native_gap_mm": 0.7701981934701788
+      },
+      {
+        "parts": [
+          "above-core-tee-regulator",
+          "above-core-water-split-stub"
+        ],
+        "gates": [
+          "clearance-floor"
+        ],
+        "native_overlap_mm3": 0.0,
+        "native_gap_mm": 0.8838834764833419
+      },
+      {
+        "parts": [
+          "above-core-tee-vk-link",
+          "above-core-water-split-stub"
+        ],
+        "gates": [
+          "clearance-floor"
+        ],
+        "native_overlap_mm3": 0.0,
+        "native_gap_mm": 0.8838834764884459
+      },
+      {
+        "parts": [
+          "above-core-va-fore-feed",
+          "foam-assembly"
+        ],
+        "gates": [
+          "clearance-floor"
+        ],
+        "native_overlap_mm3": 0.0,
+        "native_gap_mm": 0.0
+      },
+      {
+        "parts": [
+          "above-core-va-fore-feed",
+          "funnel-frame"
+        ],
+        "gates": [
+          "clearance-floor"
+        ],
+        "native_overlap_mm3": 0.0,
+        "native_gap_mm": 0.666335846777081
+      },
+      {
+        "parts": [
+          "above-core-va-fore-feed",
+          "pcba"
+        ],
+        "gates": [
+          "clearance-floor"
+        ],
+        "native_overlap_mm3": 0.0,
+        "native_gap_mm": 0.4413286387228505
+      },
+      {
+        "parts": [
+          "asse-drain-adapter",
+          "asse-snap-cap"
+        ],
+        "gates": [
+          "clearance-floor"
+        ],
+        "native_overlap_mm3": 0.0,
+        "native_gap_mm": 0.25000009999999406
+      },
+      {
+        "parts": [
+          "asse-snap-cap",
+          "asse1022-assembly"
+        ],
+        "gates": [
+          "clearance-floor"
+        ],
+        "native_overlap_mm3": 0.0,
+        "native_gap_mm": 0.1499999999910546
+      },
+      {
+        "parts": [
+          "asse-snap-cap",
+          "gagira-coupling"
+        ],
+        "gates": [
+          "clearance-floor"
+        ],
+        "native_overlap_mm3": 0.0,
+        "native_gap_mm": 0.15413361487011087
+      },
+      {
+        "parts": [
+          "asse-snap-cap",
+          "pisco-snap-cap"
+        ],
+        "gates": [
+          "clearance-floor"
+        ],
+        "native_overlap_mm3": 0.0,
+        "native_gap_mm": 0.6664778333480044
+      },
+      {
+        "parts": [
+          "bulkhead-carb",
+          "bulkhead-ring-flavor-a"
+        ],
+        "gates": [
+          "clearance-floor"
+        ],
+        "native_overlap_mm3": 0.0,
+        "native_gap_mm": 0.7955501241279317
+      },
+      {
+        "parts": [
+          "bulkhead-carb",
+          "digiten-flow"
+        ],
+        "gates": [
+          "clearance-floor"
+        ],
+        "native_overlap_mm3": 0.0,
+        "native_gap_mm": 0.0
+      },
+      {
+        "parts": [
+          "bulkhead-carb",
+          "tube-soda-meter-bulkhead"
+        ],
+        "gates": [
+          "pack-closes"
+        ],
+        "native_overlap_mm3": 148.00268400333968,
+        "native_gap_mm": 0.0,
+        "common_bounds_mm": [
+          74.325,
+          450.51,
+          292.825,
+          80.675,
+          459.21,
+          299.175
+        ],
+        "common_brep_sha256": "e454453030e25de30c242398705905d7b99e82bd2f47fc6108b45b73ff4f3c30"
+      },
+      {
+        "parts": [
+          "bulkhead-flavor-a-nut",
+          "foam-assembly"
+        ],
+        "gates": [
+          "clearance-floor"
+        ],
+        "native_overlap_mm3": 0.0,
+        "native_gap_mm": 0.20769515457999432
+      },
+      {
+        "parts": [
+          "bulkhead-flavor-b-nut",
+          "foam-assembly"
+        ],
+        "gates": [
+          "clearance-floor"
+        ],
+        "native_overlap_mm3": 0.0,
+        "native_gap_mm": 0.20769515457999432
+      },
+      {
+        "parts": [
+          "bulkhead-ring-carb",
+          "bulkhead-ring-co2"
+        ],
+        "gates": [
+          "clearance-floor"
+        ],
+        "native_overlap_mm3": 0.0,
+        "native_gap_mm": 0.19999999999998863
+      },
+      {
+        "parts": [
+          "bulkhead-ring-carb",
+          "bulkhead-ring-flavor-a"
+        ],
+        "gates": [
+          "clearance-floor"
+        ],
+        "native_overlap_mm3": 0.0,
+        "native_gap_mm": 0.19999999999998863
+      },
+      {
+        "parts": [
+          "bulkhead-ring-co2",
+          "gas-regulator"
+        ],
+        "gates": [
+          "clearance-floor"
+        ],
+        "native_overlap_mm3": 0.0,
+        "native_gap_mm": 0.1501999999999839
+      },
+      {
+        "parts": [
+          "bulkhead-ring-drain",
+          "bulkhead-ring-flavor-b"
+        ],
+        "gates": [
+          "clearance-floor"
+        ],
+        "native_overlap_mm3": 0.0,
+        "native_gap_mm": 0.19999999999998863
+      },
+      {
+        "parts": [
+          "bulkhead-ring-drain",
+          "bulkhead-ring-water"
+        ],
+        "gates": [
+          "clearance-floor"
+        ],
+        "native_overlap_mm3": 0.0,
+        "native_gap_mm": 0.19999999999998863
+      },
+      {
+        "parts": [
+          "carbonator-fold",
+          "discharge-reducer"
+        ],
+        "gates": [
+          "clearance-floor"
+        ],
+        "native_overlap_mm3": 0.0,
+        "native_gap_mm": 4.977147724587594e-12
+      },
+      {
+        "parts": [
+          "digiten-flow",
+          "meter-snap-cap"
+        ],
+        "gates": [
+          "clearance-floor"
+        ],
+        "native_overlap_mm3": 0.0,
+        "native_gap_mm": 0.14996127533167955
+      },
+      {
+        "parts": [
+          "discharge-barb-clamp",
+          "discharge-barb-key"
+        ],
+        "gates": [
+          "clearance-floor"
+        ],
+        "native_overlap_mm3": 0.0,
+        "native_gap_mm": 1.6288020205793701e-12
+      },
+      {
+        "parts": [
+          "discharge-barb-clamp",
+          "discharge-stem-clamp"
+        ],
+        "gates": [
+          "clearance-floor"
+        ],
+        "native_overlap_mm3": 0.0,
+        "native_gap_mm": 0.4628645265838395
+      },
+      {
+        "parts": [
+          "discharge-reducer",
+          "discharge-tube"
+        ],
+        "gates": [
+          "pack-closes"
+        ],
+        "native_overlap_mm3": 16.259649444560754,
+        "native_gap_mm": 0.0,
+        "common_bounds_mm": [
+          -64.7158937216744,
+          328.7268423566435,
+          268.1916650650118,
+          -60.921509037494815,
+          341.4452088929593,
+          280.51043214112866
+        ],
+        "common_brep_sha256": "8177bc6a942706832a3166c2023b16ed2a5a2d2119d892cd9e47d60e4f1162b7"
+      },
+      {
+        "parts": [
+          "discharge-reducer",
+          "g-ganen-pump"
+        ],
+        "gates": [
+          "clearance-floor"
+        ],
+        "native_overlap_mm3": 0.0,
+        "native_gap_mm": 2.4085533233346986e-11
+      },
+      {
+        "parts": [
+          "discharge-stem-clamp",
+          "discharge-stem-key"
+        ],
+        "gates": [
+          "clearance-floor"
+        ],
+        "native_overlap_mm3": 0.0,
+        "native_gap_mm": 5.728578676879116e-14
+      },
+      {
+        "parts": [
+          "elbow-cradle",
+          "funnel"
+        ],
+        "gates": [
+          "pack-closes"
+        ],
+        "native_overlap_mm3": 1372.1157209967732,
+        "native_gap_mm": 0.0,
+        "common_bounds_mm": [
+          -18.15000010000001,
+          167.9557499,
+          306.0499999,
+          18.150000100000003,
+          199.75814010000008,
+          316.19493721049
+        ],
+        "common_brep_sha256": "b0920d939a11b7d028aeacf598843b6636b0de1f752b6bd4e80783569b521d3b"
+      },
+      {
+        "parts": [
+          "elbow-cradle",
+          "funnel-drain-union"
+        ],
+        "gates": [
+          "pack-closes"
+        ],
+        "native_overlap_mm3": 323.22047760052556,
+        "native_gap_mm": 0.0,
+        "common_bounds_mm": [
+          -7.8701031820672345,
+          174.1157499,
+          282.4155271884982,
+          7.87010318206757,
+          191.81920905454825,
+          296.32145850750095
+        ],
+        "common_brep_sha256": "245ed42695d235bfad8952abf94ab911ac554cc8bdb4de656a62fd95aa7113c9"
+      },
+      {
+        "parts": [
+          "elbow-cradle",
+          "funnel-frame"
+        ],
+        "gates": [
+          "pack-closes"
+        ],
+        "native_overlap_mm3": 167.19666913713382,
+        "native_gap_mm": 0.0,
+        "common_bounds_mm": [
+          -10.01,
+          167.95575,
+          299.9,
+          10.010000000000002,
+          199.75814000000003,
+          300.55493711049
+        ],
+        "common_brep_sha256": "85a6ff51c6d11ffb171bb4d6dec9a94e433b3168b81d54ca40d0cdc990158c40"
+      },
+      {
+        "parts": [
+          "enclosure-back-top",
+          "fluid-14"
+        ],
+        "gates": [
+          "clearance-floor"
+        ],
+        "native_overlap_mm3": 0.0,
+        "native_gap_mm": 0.0
+      },
+      {
+        "parts": [
+          "enclosure-back-top",
+          "psu-insert-1"
+        ],
+        "gates": [
+          "pack-closes"
+        ],
+        "native_overlap_mm3": 16.21061809252349,
+        "native_gap_mm": 0.0,
+        "common_bounds_mm": [
+          0.551860046387,
+          347.5,
+          347.0,
+          5.151860046387,
+          352.1,
+          351.0
+        ],
+        "common_brep_sha256": "bd1135d62db3777c1b398c06af03cf40387316061c8f09f5ad15004941a028e8"
+      },
+      {
+        "parts": [
+          "enclosure-back-top",
+          "psu-insert-2"
+        ],
+        "gates": [
+          "pack-closes"
+        ],
+        "native_overlap_mm3": 16.21061809252349,
+        "native_gap_mm": 0.0,
+        "common_bounds_mm": [
+          0.551860046387,
+          445.5,
+          347.0,
+          5.151860046387,
+          450.1,
+          351.0
+        ],
+        "common_brep_sha256": "54b33381580ae1367771cbc81bbdfea6228d4bb0803a238ac112235be35c13b3"
+      },
+      {
+        "parts": [
+          "enclosure-back-top",
+          "psu-insert-3"
+        ],
+        "gates": [
+          "pack-closes"
+        ],
+        "native_overlap_mm3": 16.21061809252347,
+        "native_gap_mm": 0.0,
+        "common_bounds_mm": [
+          -32.448139953609996,
+          347.5,
+          347.0,
+          -27.848139953609998,
+          352.1,
+          351.0
+        ],
+        "common_brep_sha256": "b69168901eb1c97a1bdb062e27f269d86ffec60a67a6d87c8a929455a7de4f00"
+      },
+      {
+        "parts": [
+          "enclosure-back-top",
+          "psu-insert-4"
+        ],
+        "gates": [
+          "pack-closes"
+        ],
+        "native_overlap_mm3": 16.210618092523486,
+        "native_gap_mm": 0.0,
+        "common_bounds_mm": [
+          -32.448139953609996,
+          445.5,
+          347.0,
+          -27.848139953609998,
+          450.1,
+          351.0
+        ],
+        "common_brep_sha256": "ca85cd8d41766f4251564dabcb3c47d98d1aa7ed127b500928887f34201b5eae"
+      },
+      {
+        "parts": [
+          "enclosure-back-top",
+          "relay-1-insert-1"
+        ],
+        "gates": [
+          "pack-closes"
+        ],
+        "native_overlap_mm3": 16.210618092523717,
+        "native_gap_mm": 0.0,
+        "common_bounds_mm": [
+          -100.64,
+          373.55013907925,
+          286.10660569377,
+          -96.64,
+          378.15013907925004,
+          290.70660569377003
+        ],
+        "common_brep_sha256": "6f095b5bbc9dcc5cfccf46468cf5c385541da898a16f5046cc5016256c47ce34"
+      },
+      {
+        "parts": [
+          "enclosure-back-top",
+          "relay-1-insert-4"
+        ],
+        "gates": [
+          "pack-closes"
+        ],
+        "native_overlap_mm3": 16.210618092523717,
+        "native_gap_mm": 0.0,
+        "common_bounds_mm": [
+          -100.64,
+          439.55013907925,
+          299.10660569377,
+          -96.64,
+          444.15013907925004,
+          303.70660569377003
+        ],
+        "common_brep_sha256": "2f6567cabe111661522dd29b5eeda9626acf2c3cdc710b3ed638480b58015afd"
+      },
+      {
+        "parts": [
+          "enclosure-back-top",
+          "relay-1-screw-1"
+        ],
+        "gates": [
+          "back-top-flank-clear"
+        ],
+        "native_overlap_mm3": 0.0,
+        "native_gap_mm": 0.19999999999996387
+      },
+      {
+        "parts": [
+          "enclosure-back-top",
+          "relay-1-screw-4"
+        ],
+        "gates": [
+          "back-top-flank-clear"
+        ],
+        "native_overlap_mm3": 0.0,
+        "native_gap_mm": 0.19999999999996387
+      },
+      {
+        "parts": [
+          "enclosure-back-top",
+          "relay-2-insert-1"
+        ],
+        "gates": [
+          "pack-closes"
+        ],
+        "native_overlap_mm3": 16.210618092523717,
+        "native_gap_mm": 0.0,
+        "common_bounds_mm": [
+          -100.64,
+          373.55013907925,
+          305.70660569377,
+          -96.64,
+          378.15013907925004,
+          310.30660569377
+        ],
+        "common_brep_sha256": "22a50bc72b4c54d1fcab23a5e91d8366d125743246fd9f73e658fa5a4508a5fe"
+      },
+      {
+        "parts": [
+          "enclosure-back-top",
+          "relay-2-insert-4"
+        ],
+        "gates": [
+          "pack-closes"
+        ],
+        "native_overlap_mm3": 16.210618092523717,
+        "native_gap_mm": 0.0,
+        "common_bounds_mm": [
+          -100.64,
+          439.55013907925,
+          318.70660569377,
+          -96.64,
+          444.15013907925004,
+          323.30660569377
+        ],
+        "common_brep_sha256": "42c500649948a639368842f6ac7efe1136564964d2c0dbfe596013f8c2f300ad"
+      },
+      {
+        "parts": [
+          "enclosure-back-top",
+          "relay-2-screw-1"
+        ],
+        "gates": [
+          "back-top-flank-clear"
+        ],
+        "native_overlap_mm3": 0.0,
+        "native_gap_mm": 0.19999999999996387
+      },
+      {
+        "parts": [
+          "enclosure-back-top",
+          "relay-2-screw-4"
+        ],
+        "gates": [
+          "back-top-flank-clear"
+        ],
+        "native_overlap_mm3": 0.0,
+        "native_gap_mm": 0.19999999999996387
+      },
+      {
+        "parts": [
+          "flow-regulator",
+          "regulator-snap-cap"
+        ],
+        "gates": [
+          "clearance-floor"
+        ],
+        "native_overlap_mm3": 0.0,
+        "native_gap_mm": 0.24262353222093758
+      },
+      {
+        "parts": [
+          "flow-regulator",
+          "tube-above-core-tee-regulator"
+        ],
+        "gates": [
+          "pack-closes"
+        ],
+        "native_overlap_mm3": 0.0,
+        "native_gap_mm": 8.881784197001252e-16
+      },
+      {
+        "parts": [
+          "fluid-14",
+          "fluid-16"
+        ],
+        "gates": [
+          "clearance-floor"
+        ],
+        "native_overlap_mm3": 0.0,
+        "native_gap_mm": 0.04050776531310914
+      },
+      {
+        "parts": [
+          "fluid-14",
+          "fluid-18"
+        ],
+        "gates": [
+          "clearance-floor"
+        ],
+        "native_overlap_mm3": 0.0,
+        "native_gap_mm": 1.106237493187915
+      },
+      {
+        "parts": [
+          "fluid-14",
+          "meter-snap-cap"
+        ],
+        "gates": [
+          "clearance-floor"
+        ],
+        "native_overlap_mm3": 0.0,
+        "native_gap_mm": 0.7750000000000057
+      },
+      {
+        "parts": [
+          "fluid-14",
+          "soda-continuous-insulation"
+        ],
+        "gates": [
+          "clearance-floor"
+        ],
+        "native_overlap_mm3": 0.0,
+        "native_gap_mm": 0.625
+      },
+      {
+        "parts": [
+          "fluid-16",
+          "lower-valve-elbow"
+        ],
+        "gates": [
+          "clearance-floor"
+        ],
+        "native_overlap_mm3": 0.0,
+        "native_gap_mm": 0.47721725654292246
+      },
+      {
+        "parts": [
+          "fluid-16",
+          "soda-continuous-insulation"
+        ],
+        "gates": [
+          "clearance-floor"
+        ],
+        "native_overlap_mm3": 0.0,
+        "native_gap_mm": 0.625
+      },
+      {
+        "parts": [
+          "fluid-18",
+          "foam-assembly"
+        ],
+        "gates": [
+          "clearance-floor"
+        ],
+        "native_overlap_mm3": 0.0,
+        "native_gap_mm": 0.049999899999988884
+      },
+      {
+        "parts": [
+          "fluid-18",
+          "meter-snap-cap"
+        ],
+        "gates": [
+          "clearance-floor"
+        ],
+        "native_overlap_mm3": 0.0,
+        "native_gap_mm": 0.49999999457991695
+      },
+      {
+        "parts": [
+          "fluid-18",
+          "soda-continuous-insulation"
+        ],
+        "gates": [
+          "clearance-floor"
+        ],
+        "native_overlap_mm3": 0.0,
+        "native_gap_mm": 0.7999999999999972
+      },
+      {
+        "parts": [
+          "fluid-28",
+          "foam-assembly"
+        ],
+        "gates": [
+          "clearance-floor"
+        ],
+        "native_overlap_mm3": 0.0,
+        "native_gap_mm": 0.049999999995654396
+      },
+      {
+        "parts": [
+          "foam-assembly",
+          "funnel-frame"
+        ],
+        "gates": [
+          "clearance-floor"
+        ],
+        "native_overlap_mm3": 0.0,
+        "native_gap_mm": 0.25
+      },
+      {
+        "parts": [
+          "foam-assembly",
+          "vb-outlet-stem"
+        ],
+        "gates": [
+          "clearance-floor"
+        ],
+        "native_overlap_mm3": 0.0,
+        "native_gap_mm": 0.9263100999999665
+      },
+      {
+        "parts": [
+          "funnel",
+          "funnel-frame-back-east-screw"
+        ],
+        "gates": [
+          "clearance-floor"
+        ],
+        "native_overlap_mm3": 0.0,
+        "native_gap_mm": 0.19999999999998863
+      },
+      {
+        "parts": [
+          "funnel",
+          "funnel-frame-back-west-screw"
+        ],
+        "gates": [
+          "clearance-floor"
+        ],
+        "native_overlap_mm3": 0.0,
+        "native_gap_mm": 0.19999999999998863
+      },
+      {
+        "parts": [
+          "funnel",
+          "funnel-frame-front-east-screw"
+        ],
+        "gates": [
+          "clearance-floor"
+        ],
+        "native_overlap_mm3": 0.0,
+        "native_gap_mm": 0.19999999999998863
+      },
+      {
+        "parts": [
+          "funnel",
+          "funnel-frame-front-west-screw"
+        ],
+        "gates": [
+          "clearance-floor"
+        ],
+        "native_overlap_mm3": 0.0,
+        "native_gap_mm": 0.19999999999998863
+      },
+      {
+        "parts": [
+          "g-ganen-pump",
+          "pump-snap-cap"
+        ],
+        "gates": [
+          "clearance-floor"
+        ],
+        "native_overlap_mm3": 0.0,
+        "native_gap_mm": 0.1500723588087585
+      },
+      {
+        "parts": [
+          "gas-regulator",
+          "pisco-snap-cap"
+        ],
+        "gates": [
+          "clearance-floor"
+        ],
+        "native_overlap_mm3": 0.0,
+        "native_gap_mm": 0.14999999999999147
+      },
+      {
+        "parts": [
+          "lower-pump-elbow",
+          "suction-reducer"
+        ],
+        "gates": [
+          "clearance-floor"
+        ],
+        "native_overlap_mm3": 0.0,
+        "native_gap_mm": 0.24999609394943695
+      },
+      {
+        "parts": [
+          "lower-valve-elbow",
+          "vk-solenoid"
+        ],
+        "gates": [
+          "pack-closes"
+        ],
+        "native_overlap_mm3": 95.94518528611579,
+        "native_gap_mm": 0.0,
+        "common_bounds_mm": [
+          72.94609346207805,
+          303.0530888359801,
+          268.93276741107,
+          82.56990608207794,
+          312.67690145598,
+          281.70111494003
+        ],
+        "common_brep_sha256": "48a82bc4025f656bb72fcc308b6e08e2e3da777d7ac8c151e940537331ed7297"
+      },
+      {
+        "parts": [
+          "psu",
+          "psu-insert-1"
+        ],
+        "gates": [
+          "clearance-floor"
+        ],
+        "native_overlap_mm3": 0.0,
+        "native_gap_mm": 0.0
+      },
+      {
+        "parts": [
+          "psu",
+          "psu-insert-2"
+        ],
+        "gates": [
+          "clearance-floor"
+        ],
+        "native_overlap_mm3": 0.0,
+        "native_gap_mm": 0.0
+      },
+      {
+        "parts": [
+          "psu",
+          "psu-insert-3"
+        ],
+        "gates": [
+          "clearance-floor"
+        ],
+        "native_overlap_mm3": 0.0,
+        "native_gap_mm": 0.0
+      },
+      {
+        "parts": [
+          "psu",
+          "psu-insert-4"
+        ],
+        "gates": [
+          "clearance-floor"
+        ],
+        "native_overlap_mm3": 0.0,
+        "native_gap_mm": 0.0
+      },
+      {
+        "parts": [
+          "psu",
+          "psu-screw-1"
+        ],
+        "gates": [
+          "clearance-floor"
+        ],
+        "native_overlap_mm3": 0.0,
+        "native_gap_mm": 0.0
+      },
+      {
+        "parts": [
+          "psu",
+          "psu-screw-2"
+        ],
+        "gates": [
+          "clearance-floor"
+        ],
+        "native_overlap_mm3": 0.0,
+        "native_gap_mm": 0.0
+      },
+      {
+        "parts": [
+          "psu",
+          "psu-screw-3"
+        ],
+        "gates": [
+          "clearance-floor"
+        ],
+        "native_overlap_mm3": 0.0,
+        "native_gap_mm": 0.0
+      },
+      {
+        "parts": [
+          "psu",
+          "psu-screw-4"
+        ],
+        "gates": [
+          "clearance-floor"
+        ],
+        "native_overlap_mm3": 0.0,
+        "native_gap_mm": 0.0
+      },
+      {
+        "parts": [
+          "psu-insert-1",
+          "psu-screw-1"
+        ],
+        "gates": [
+          "clearance-floor",
+          "pack-closes"
+        ],
+        "native_overlap_mm3": 7.127488332832014,
+        "native_gap_mm": 0.0,
+        "common_bounds_mm": [
+          1.3518600463869999,
+          348.3,
+          347.0,
+          4.351860046387,
+          351.3,
+          350.3
+        ],
+        "common_brep_sha256": "f20ea4ca74453cb54f0964beccd0710de9a60364ef0a1c0baf2809a7ed9bcdcf"
+      },
+      {
+        "parts": [
+          "psu-insert-2",
+          "psu-screw-2"
+        ],
+        "gates": [
+          "clearance-floor",
+          "pack-closes"
+        ],
+        "native_overlap_mm3": 7.127488332832014,
+        "native_gap_mm": 0.0,
+        "common_bounds_mm": [
+          1.3518600463869999,
+          446.3,
+          347.0,
+          4.351860046387,
+          449.3,
+          350.3
+        ],
+        "common_brep_sha256": "923895331253b98032ee544db81bd15dd2c0531256d10f6993270da25fe817e3"
+      },
+      {
+        "parts": [
+          "psu-insert-3",
+          "psu-screw-3"
+        ],
+        "gates": [
+          "clearance-floor",
+          "pack-closes"
+        ],
+        "native_overlap_mm3": 7.127488332832016,
+        "native_gap_mm": 0.0,
+        "common_bounds_mm": [
+          -31.64813995361,
+          348.3,
+          347.0,
+          -28.64813995361,
+          351.3,
+          350.3
+        ],
+        "common_brep_sha256": "f3f99838fb2356aa27ff51657bbc3555f07d5e7b6e48e5393ef8c87081f05f95"
+      },
+      {
+        "parts": [
+          "psu-insert-4",
+          "psu-screw-4"
+        ],
+        "gates": [
+          "clearance-floor",
+          "pack-closes"
+        ],
+        "native_overlap_mm3": 7.127488332832016,
+        "native_gap_mm": 0.0,
+        "common_bounds_mm": [
+          -31.64813995361,
+          446.3,
+          347.0,
+          -28.64813995361,
+          449.3,
+          350.3
+        ],
+        "common_brep_sha256": "aa39aa7a3e55b05eabb76de8c3d32e417f710669ec0835669cf99ef4059e2b2b"
+      },
+      {
+        "parts": [
+          "reg-va-elbow",
+          "valve-v-a"
+        ],
+        "gates": [
+          "pack-closes"
+        ],
+        "native_overlap_mm3": 95.9451852859942,
+        "native_gap_mm": 0.0,
+        "common_bounds_mm": [
+          -85.86051111513063,
+          313.29434177622136,
+          327.15804935148174,
+          -76.23678896609178,
+          326.09720095704677,
+          336.7818619714883
+        ],
+        "common_brep_sha256": "9ffeefe602f28c5231ad467092243ecf40e9ef1bf2791b4ec368f5cfa2eb1059"
+      },
+      {
+        "parts": [
+          "relay-1",
+          "relay-1-screw-1"
+        ],
+        "gates": [
+          "clearance-floor"
+        ],
+        "native_overlap_mm3": 0.0,
+        "native_gap_mm": 0.0
+      },
+      {
+        "parts": [
+          "relay-1",
+          "relay-1-screw-4"
+        ],
+        "gates": [
+          "clearance-floor",
+          "pack-closes"
+        ],
+        "native_overlap_mm3": 1.1426342182314113,
+        "native_gap_mm": 0.0,
+        "common_bounds_mm": [
+          -92.99,
+          439.10013907925,
+          300.26096177003103,
+          -89.99,
+          439.35013907925,
+          302.40660569377
+        ],
+        "common_brep_sha256": "4501725a8bbdda709d01f7aa56138133c7185631c29463306905525abc166fa6"
+      },
+      {
+        "parts": [
+          "relay-1-insert-1",
+          "relay-1-screw-1"
+        ],
+        "gates": [
+          "clearance-floor",
+          "pack-closes"
+        ],
+        "native_overlap_mm3": 8.639379797372037,
+        "native_gap_mm": 0.0,
+        "common_bounds_mm": [
+          -100.64,
+          374.35013907925,
+          286.90660569377,
+          -96.64,
+          377.35013907925,
+          289.90660569377
+        ],
+        "common_brep_sha256": "90c971b8984e219e33dc49b9dfd8b879610d29eabd73672238411232b3019cb8"
+      },
+      {
+        "parts": [
+          "relay-1-insert-4",
+          "relay-1-screw-4"
+        ],
+        "gates": [
+          "clearance-floor",
+          "pack-closes"
+        ],
+        "native_overlap_mm3": 8.639379797372037,
+        "native_gap_mm": 0.0,
+        "common_bounds_mm": [
+          -100.64,
+          440.35013907925,
+          299.90660569377,
+          -96.64,
+          443.35013907925,
+          302.90660569377
+        ],
+        "common_brep_sha256": "7c5493a96b9fef55da258e2257db3b3cad1519ce68b1d75ff48c3c102612bc14"
+      },
+      {
+        "parts": [
+          "relay-2",
+          "relay-2-screw-1"
+        ],
+        "gates": [
+          "clearance-floor"
+        ],
+        "native_overlap_mm3": 0.0,
+        "native_gap_mm": 0.0
+      },
+      {
+        "parts": [
+          "relay-2",
+          "relay-2-screw-4"
+        ],
+        "gates": [
+          "clearance-floor",
+          "pack-closes"
+        ],
+        "native_overlap_mm3": 1.142634218231432,
+        "native_gap_mm": 0.0,
+        "common_bounds_mm": [
+          -92.99,
+          439.10013907925,
+          319.860961770031,
+          -89.99,
+          439.35013907925,
+          322.00660569377
+        ],
+        "common_brep_sha256": "3adfd01dfc6e38f756d1cabc560b73dd684c994ba85d3aad333c3241291b940a"
+      },
+      {
+        "parts": [
+          "relay-2-insert-1",
+          "relay-2-screw-1"
+        ],
+        "gates": [
+          "clearance-floor",
+          "pack-closes"
+        ],
+        "native_overlap_mm3": 8.639379797372037,
+        "native_gap_mm": 0.0,
+        "common_bounds_mm": [
+          -100.64,
+          374.35013907925,
+          306.50660569377,
+          -96.64,
+          377.35013907925,
+          309.50660569377
+        ],
+        "common_brep_sha256": "fa950c3291b09b599c0f06b55f21db36bd64dd5eda96a6a7347ddce9f7101370"
+      },
+      {
+        "parts": [
+          "relay-2-insert-4",
+          "relay-2-screw-4"
+        ],
+        "gates": [
+          "clearance-floor",
+          "pack-closes"
+        ],
+        "native_overlap_mm3": 8.639379797372037,
+        "native_gap_mm": 0.0,
+        "common_bounds_mm": [
+          -100.64,
+          440.35013907925,
+          319.50660569377,
+          -96.64,
+          443.35013907925,
+          322.50660569377
+        ],
+        "common_brep_sha256": "cda65440fcd3c046fd7d6fc9780f16076eca93081f4f4d751ec71f823b55c810"
+      },
+      {
+        "parts": [
+          "reservoir-a-draw-turn",
+          "valve-v-e"
+        ],
+        "gates": [
+          "pack-closes"
+        ],
+        "native_overlap_mm3": 95.94518528628839,
+        "native_gap_mm": 0.0,
+        "common_bounds_mm": [
+          17.53809369000006,
+          103.22809369000007,
+          269.40665247103,
+          27.161906309999942,
+          112.85190631,
+          282.175
+        ],
+        "common_brep_sha256": "6064eb5f15c64710992804a446c09935cb223090e84da438ef7d4f29e86ba298"
+      },
+      {
+        "parts": [
+          "reservoir-a-fill-turn",
+          "valve-v-f"
+        ],
+        "gates": [
+          "pack-closes"
+        ],
+        "native_overlap_mm3": 95.94518528628834,
+        "native_gap_mm": 0.0,
+        "common_bounds_mm": [
+          77.28809369000005,
+          103.22809369000007,
+          269.40665247103,
+          86.91190630999994,
+          112.85190631,
+          282.175
+        ],
+        "common_brep_sha256": "00c9cabf429c9f08158ba4c9d937525f0b8944b0ec88a3e54b29f5d904e26e10"
+      },
+      {
+        "parts": [
+          "reservoir-b-fill-turn",
+          "valve-v-i"
+        ],
+        "gates": [
+          "pack-closes"
+        ],
+        "native_overlap_mm3": 95.94518528631136,
+        "native_gap_mm": 0.0,
+        "common_bounds_mm": [
+          -86.91190630999994,
+          103.22809369000007,
+          269.40665247103,
+          -77.28809369000005,
+          112.85190630999995,
+          282.175
+        ],
+        "common_brep_sha256": "5185a3dfbacbc2e5604c891501b2e9ce9d0b83ed31d8b0c07f172c1872094ed6"
+      },
+      {
+        "parts": [
+          "soda-bend-holder",
+          "vk-solenoid"
+        ],
+        "gates": [
+          "clearance-floor"
+        ],
+        "native_overlap_mm3": 0.0,
+        "native_gap_mm": 0.0010122844311961574
+      },
+      {
+        "parts": [
+          "stem-elbow-v-c",
+          "valve-v-c"
+        ],
+        "gates": [
+          "pack-closes"
+        ],
+        "native_overlap_mm3": 80.07580193003325,
+        "native_gap_mm": 0.0,
+        "common_bounds_mm": [
+          17.594219217135322,
+          161.48421921713532,
+          171.175,
+          27.10578078286468,
+          170.9957807828647,
+          183.175
+        ],
+        "common_brep_sha256": "a88740bbfbcf4d7e1eb82bca1b1ddc89bab5abc07b7fedaa8ea8aca6fba9f0b0"
+      },
+      {
+        "parts": [
+          "stem-elbow-v-d",
+          "valve-v-d"
+        ],
+        "gates": [
+          "pack-closes"
+        ],
+        "native_overlap_mm3": 80.07580193003325,
+        "native_gap_mm": 0.0,
+        "common_bounds_mm": [
+          -27.10578078286468,
+          161.48421921713532,
+          171.175,
+          -17.594219217135322,
+          170.9957807828647,
+          183.175
+        ],
+        "common_brep_sha256": "d4bac35cda416e117c1ee9ca0b2b2567ad158cbe6bd68520131f8e4388ceb308"
+      },
+      {
+        "parts": [
+          "stem-elbow-v-g",
+          "valve-v-g"
+        ],
+        "gates": [
+          "pack-closes"
+        ],
+        "native_overlap_mm3": 80.07580193004621,
+        "native_gap_mm": 0.0,
+        "common_bounds_mm": [
+          69.06421921713532,
+          161.48421921713532,
+          171.175,
+          78.57578078286467,
+          170.9957807828647,
+          183.175
+        ],
+        "common_brep_sha256": "a1d5b9c97e631c7903b7e79566ddc8c77ad37df1a0e016816fec6d57b09f75d9"
+      },
+      {
+        "parts": [
+          "stem-elbow-v-j",
+          "valve-v-j"
+        ],
+        "gates": [
+          "pack-closes"
+        ],
+        "native_overlap_mm3": 80.0758019300478,
+        "native_gap_mm": 0.0,
+        "common_bounds_mm": [
+          -78.57578078286467,
+          161.48421921713532,
+          171.175,
+          -69.06421921713532,
+          170.9957807828647,
+          183.175
+        ],
+        "common_brep_sha256": "e04624c1ac5bc7cfefc08fcb3c4b7b7b041d7168c2a0bbd0fe8a70b6159d5466"
+      },
+      {
+        "parts": [
+          "stem-elbow-y-c",
+          "tee-y-c"
+        ],
+        "gates": [
+          "pack-closes"
+        ],
+        "native_overlap_mm3": 3.0003394060812436,
+        "native_gap_mm": 0.0,
+        "common_bounds_mm": [
+          17.594219217135315,
+          103.28421921713532,
+          174.9239998999912,
+          27.105780782864688,
+          113.7550001,
+          175.2517585710299
+        ],
+        "common_brep_sha256": "8912e0826eaaaaa9cf7c45bd7a0be69bfa3d24b8e025a4bc14341deac8379582"
+      },
+      {
+        "parts": [
+          "stem-elbow-y-d",
+          "tee-y-d"
+        ],
+        "gates": [
+          "pack-closes"
+        ],
+        "native_overlap_mm3": 3.000339406075915,
+        "native_gap_mm": 0.0,
+        "common_bounds_mm": [
+          77.3442192171353,
+          103.28421921713532,
+          174.9239998999922,
+          86.85578078286468,
+          113.75500010122684,
+          175.25175857103937
+        ],
+        "common_brep_sha256": "bb71c3cc8ec03e63db3e482d3df2c5b07021aaa7ec13a87186550549a63ce1aa"
+      },
+      {
+        "parts": [
+          "stem-elbow-y-f",
+          "tee-y-f"
+        ],
+        "gates": [
+          "pack-closes"
+        ],
+        "native_overlap_mm3": 3.0003394060812427,
+        "native_gap_mm": 0.0,
+        "common_bounds_mm": [
+          -27.105780782864688,
+          103.28421921713532,
+          174.9239998999912,
+          -17.594219217135315,
+          113.7550001,
+          175.2517585710299
+        ],
+        "common_brep_sha256": "31f5ac5348237d59623ec0f117c6caa9dcf2471679d43a4c4a67092a2a37d807"
+      },
+      {
+        "parts": [
+          "stem-elbow-y-g",
+          "tee-y-g"
+        ],
+        "gates": [
+          "pack-closes"
+        ],
+        "native_overlap_mm3": 3.0003394060746222,
+        "native_gap_mm": 0.0,
+        "common_bounds_mm": [
+          -86.85578078286468,
+          103.28421921713532,
+          174.92399989999498,
+          -77.3442192171353,
+          113.75500010122576,
+          175.25175857103434
+        ],
+        "common_brep_sha256": "78c9cc670412eea6c03476a2bf566d38f6556e1c7794f34a5e47fb1efccc7c99"
+      },
+      {
+        "parts": [
+          "suction-barb-clamp",
+          "suction-barb-key"
+        ],
+        "gates": [
+          "clearance-floor"
+        ],
+        "native_overlap_mm3": 0.0,
+        "native_gap_mm": 5.362626830915139e-13
+      },
+      {
+        "parts": [
+          "suction-reducer",
+          "suction-tube"
+        ],
+        "gates": [
+          "pack-closes"
+        ],
+        "native_overlap_mm3": 16.25964944448887,
+        "native_gap_mm": 0.0,
+        "common_bounds_mm": [
+          41.93473104691099,
+          329.10086310690275,
+          267.1795028888467,
+          46.248798890524164,
+          341.81926794413727,
+          279.3258120323157
+        ],
+        "common_brep_sha256": "7202ce5bc745b81e0a9d03b039ff55c4770a5e4b1197193a633515f391f96237"
+      },
+      {
+        "parts": [
+          "suction-stem-clamp",
+          "suction-stem-key"
+        ],
+        "gates": [
+          "clearance-floor"
+        ],
+        "native_overlap_mm3": 0.0,
+        "native_gap_mm": 0.0
+      },
+      {
+        "parts": [
+          "tee-fold",
+          "tube-above-core-tee-vk-link"
+        ],
+        "gates": [
+          "pack-closes"
+        ],
+        "native_overlap_mm3": 2.9105134300140474,
+        "native_gap_mm": 0.0,
+        "common_bounds_mm": [
+          56.67562966989109,
+          304.6723813558728,
+          331.04488040140757,
+          58.678000472078004,
+          311.0241414790243,
+          334.5955278172377
+        ],
+        "common_brep_sha256": "6d3b647f70205d98eb1eb61ee8bcb5a2ba446f7cf7083f88ad7dc42a670f8c16"
+      },
+      {
+        "parts": [
+          "tee-fold",
+          "vk-solenoid"
+        ],
+        "gates": [
+          "pack-closes"
+        ],
+        "native_overlap_mm3": 95.94518528612112,
+        "native_gap_mm": 0.0,
+        "common_bounds_mm": [
+          72.94609346207801,
+          303.0530888359801,
+          315.66441988211,
+          82.56990608207794,
+          312.67690145597993,
+          328.43276741107
+        ],
+        "common_brep_sha256": "5a139f868a455b36f7fe8984b5673c8dd413402f98473145e746dbe8c85e30db"
+      },
+      {
+        "parts": [
+          "tee-y-a",
+          "ya-stem-elbow"
+        ],
+        "gates": [
+          "pack-closes"
+        ],
+        "native_overlap_mm3": 5.7364122274561415,
+        "native_gap_mm": 0.0,
+        "common_bounds_mm": [
+          17.53809369000006,
+          161.42809369000008,
+          272.77889389999916,
+          28.065000100000255,
+          171.05190630999994,
+          273.17500010000043
+        ],
+        "common_brep_sha256": "2f64bea707a385a28be0d78d443ea15359adec77e13fc8bb0f20187294ee2044"
+      },
+      {
+        "parts": [
+          "tee-y-b",
+          "yb-stem-elbow"
+        ],
+        "gates": [
+          "pack-closes"
+        ],
+        "native_overlap_mm3": 5.736412227461836,
+        "native_gap_mm": 0.0,
+        "common_bounds_mm": [
+          -27.161906309999942,
+          161.42809369000008,
+          272.77889389999035,
+          -17.53809369000006,
+          171.9550001,
+          273.17500010001083
+        ],
+        "common_brep_sha256": "d47d516175203a6bf48b10737c81d54bb67606d46518016503d9396de3bcf1af"
+      },
+      {
+        "parts": [
+          "tube-above-core-tee-regulator",
+          "water-split"
+        ],
+        "gates": [
+          "pack-closes"
+        ],
+        "native_overlap_mm3": 0.08990587984217102,
+        "native_gap_mm": 0.0,
+        "common_bounds_mm": [
+          17.174298049114007,
+          305.6830449061902,
+          334.78995317648054,
+          18.928582889582902,
+          309.63666695798,
+          335.5698739467035
+        ],
+        "common_brep_sha256": "cf8cf728152db825d76cce40ed178f437b9b2f11549d0b17386f0182202f7391"
+      },
+      {
+        "parts": [
+          "tube-above-core-tee-vk-link",
+          "water-split"
+        ],
+        "gates": [
+          "pack-closes"
+        ],
+        "native_overlap_mm3": 0.10168212175053373,
+        "native_gap_mm": 0.0,
+        "common_bounds_mm": [
+          54.70206415035037,
+          305.66032777825257,
+          330.9815097342451,
+          56.508785469308314,
+          309.69849201732256,
+          331.9116626743872
+        ],
+        "common_brep_sha256": "b68f35b4806e8b0a589c54d8f5813acf180aed349bc83fdae1226860700323c3"
+      },
+      {
+        "parts": [
+          "va-outlet-elbow",
+          "va-south-elbow"
+        ],
+        "gates": [
+          "clearance-floor",
+          "pack-closes"
+        ],
+        "native_overlap_mm3": 3.0316440557049424,
+        "native_gap_mm": 0.0,
+        "common_bounds_mm": [
+          -60.80240469570959,
+          373.08761120965147,
+          327.2141570868977,
+          -60.2258976186547,
+          383.70694197658776,
+          336.72572112387775
+        ],
+        "common_brep_sha256": "d45a5831b7d8e01ecb8e1fa5f008a826e2cdd6b370d91b260fed25da00ba9530"
+      },
+      {
+        "parts": [
+          "va-outlet-elbow",
+          "valve-v-a"
+        ],
+        "gates": [
+          "pack-closes"
+        ],
+        "native_overlap_mm3": 95.94518528657754,
+        "native_gap_mm": 0.0,
+        "common_bounds_mm": [
+          -86.11850652683813,
+          360.0326526547332,
+          327.15803434328177,
+          -76.49478437779945,
+          372.83551183555863,
+          336.7818469632882
+        ],
+        "common_brep_sha256": "72cfc8429bbd4a6ddd4e4fe48d526747af3839bd402bbc866d3f29a38d32a8c6"
+      },
+      {
+        "parts": [
+          "valve-v-b",
+          "vb-inlet-turn"
+        ],
+        "gates": [
+          "pack-closes"
+        ],
+        "native_overlap_mm3": 95.94518528612146,
+        "native_gap_mm": 0.0,
+        "common_bounds_mm": [
+          38.93809369000006,
+          212.84854,
+          275.5980936900001,
+          48.56190630999994,
+          225.61688752896,
+          285.22190630999995
+        ],
+        "common_brep_sha256": "07b70fa13fc19f47ec11ff6ee229e79a96ec472519fdadee26749f09566bac3f"
+      },
+      {
+        "parts": [
+          "valve-v-b",
+          "vb-outlet-stem"
+        ],
+        "gates": [
+          "pack-closes"
+        ],
+        "native_overlap_mm3": 99.82597714384538,
+        "native_gap_mm": 0.0,
+        "common_bounds_mm": [
+          36.84999989999999,
+          259.58019247103,
+          275.5980936900001,
+          48.56190630999994,
+          272.34854010000004,
+          285.22190630999995
+        ],
+        "common_brep_sha256": "3a7f1c44d64706741d36bfa7b6ada786de357281b920dde3c4ebf7ac2dd95d81"
+      },
+      {
+        "parts": [
+          "vb-outlet-return",
+          "vb-outlet-stem"
+        ],
+        "gates": [
+          "clearance-floor"
+        ],
+        "native_overlap_mm3": 0.0,
+        "native_gap_mm": 0.5417639617920003
+      }
+    ],
+    "elapsed_seconds": 56.371203583999886,
+    "wall_fastener_controls": [
+      {
+        "name": "psu-screw-1",
+        "actual_inside_own_lane": true,
+        "displaced_10mm_rejected": true
+      },
+      {
+        "name": "psu-insert-1",
+        "actual_inside_own_lane": true,
+        "displaced_10mm_rejected": true
+      },
+      {
+        "name": "psu-screw-2",
+        "actual_inside_own_lane": true,
+        "displaced_10mm_rejected": true
+      },
+      {
+        "name": "psu-insert-2",
+        "actual_inside_own_lane": true,
+        "displaced_10mm_rejected": true
+      },
+      {
+        "name": "psu-screw-3",
+        "actual_inside_own_lane": true,
+        "displaced_10mm_rejected": true
+      },
+      {
+        "name": "psu-insert-3",
+        "actual_inside_own_lane": true,
+        "displaced_10mm_rejected": true
+      },
+      {
+        "name": "psu-screw-4",
+        "actual_inside_own_lane": true,
+        "displaced_10mm_rejected": true
+      },
+      {
+        "name": "psu-insert-4",
+        "actual_inside_own_lane": true,
+        "displaced_10mm_rejected": true
+      },
+      {
+        "name": "relay-1-screw-1",
+        "actual_inside_own_lane": true,
+        "displaced_10mm_rejected": true
+      },
+      {
+        "name": "relay-1-insert-1",
+        "actual_inside_own_lane": true,
+        "displaced_10mm_rejected": true
+      },
+      {
+        "name": "relay-1-screw-4",
+        "actual_inside_own_lane": true,
+        "displaced_10mm_rejected": true
+      },
+      {
+        "name": "relay-1-insert-4",
+        "actual_inside_own_lane": true,
+        "displaced_10mm_rejected": true
+      },
+      {
+        "name": "relay-2-screw-1",
+        "actual_inside_own_lane": true,
+        "displaced_10mm_rejected": true
+      },
+      {
+        "name": "relay-2-insert-1",
+        "actual_inside_own_lane": true,
+        "displaced_10mm_rejected": true
+      },
+      {
+        "name": "relay-2-screw-4",
+        "actual_inside_own_lane": true,
+        "displaced_10mm_rejected": true
+      },
+      {
+        "name": "relay-2-insert-4",
+        "actual_inside_own_lane": true,
+        "displaced_10mm_rejected": true
+      }
+    ],
+    "wall_fastener_mate_controls": {
+      "pairs": [
+        {
+          "parts": [
+            "psu-insert-1",
+            "psu-screw-1"
+          ],
+          "basis": "M3 shaft in its own short insert thread annulus",
+          "common_mm3": 7.127488332832014,
+          "outside_mate_region_mm3": 0.0,
+          "pass": true
+        },
+        {
+          "parts": [
+            "enclosure-back-top",
+            "psu-insert-1"
+          ],
+          "basis": "RX-M3S\u00d74 knurl in its own finite wall pilot annulus",
+          "common_mm3": 16.21061809252349,
+          "outside_mate_region_mm3": 0.0,
+          "pass": true
+        },
+        {
+          "parts": [
+            "psu-insert-2",
+            "psu-screw-2"
+          ],
+          "basis": "M3 shaft in its own short insert thread annulus",
+          "common_mm3": 7.127488332832014,
+          "outside_mate_region_mm3": 0.0,
+          "pass": true
+        },
+        {
+          "parts": [
+            "enclosure-back-top",
+            "psu-insert-2"
+          ],
+          "basis": "RX-M3S\u00d74 knurl in its own finite wall pilot annulus",
+          "common_mm3": 16.21061809252349,
+          "outside_mate_region_mm3": 0.0,
+          "pass": true
+        },
+        {
+          "parts": [
+            "psu-insert-3",
+            "psu-screw-3"
+          ],
+          "basis": "M3 shaft in its own short insert thread annulus",
+          "common_mm3": 7.127488332832016,
+          "outside_mate_region_mm3": 0.0,
+          "pass": true
+        },
+        {
+          "parts": [
+            "enclosure-back-top",
+            "psu-insert-3"
+          ],
+          "basis": "RX-M3S\u00d74 knurl in its own finite wall pilot annulus",
+          "common_mm3": 16.21061809252347,
+          "outside_mate_region_mm3": 0.0,
+          "pass": true
+        },
+        {
+          "parts": [
+            "psu-insert-4",
+            "psu-screw-4"
+          ],
+          "basis": "M3 shaft in its own short insert thread annulus",
+          "common_mm3": 7.127488332832016,
+          "outside_mate_region_mm3": 0.0,
+          "pass": true
+        },
+        {
+          "parts": [
+            "enclosure-back-top",
+            "psu-insert-4"
+          ],
+          "basis": "RX-M3S\u00d74 knurl in its own finite wall pilot annulus",
+          "common_mm3": 16.210618092523486,
+          "outside_mate_region_mm3": 0.0,
+          "pass": true
+        },
+        {
+          "parts": [
+            "relay-1-insert-1",
+            "relay-1-screw-1"
+          ],
+          "basis": "M3 shaft in its own short insert thread annulus",
+          "common_mm3": 8.639379797372037,
+          "outside_mate_region_mm3": 0.0,
+          "pass": true
+        },
+        {
+          "parts": [
+            "enclosure-back-top",
+            "relay-1-insert-1"
+          ],
+          "basis": "RX-M3S\u00d74 knurl in its own finite wall pilot annulus",
+          "common_mm3": 16.210618092523717,
+          "outside_mate_region_mm3": 0.0,
+          "pass": true
+        },
+        {
+          "parts": [
+            "relay-1-insert-4",
+            "relay-1-screw-4"
+          ],
+          "basis": "M3 shaft in its own short insert thread annulus",
+          "common_mm3": 8.639379797372037,
+          "outside_mate_region_mm3": 0.0,
+          "pass": true
+        },
+        {
+          "parts": [
+            "enclosure-back-top",
+            "relay-1-insert-4"
+          ],
+          "basis": "RX-M3S\u00d74 knurl in its own finite wall pilot annulus",
+          "common_mm3": 16.210618092523717,
+          "outside_mate_region_mm3": 0.0,
+          "pass": true
+        },
+        {
+          "parts": [
+            "relay-2-insert-1",
+            "relay-2-screw-1"
+          ],
+          "basis": "M3 shaft in its own short insert thread annulus",
+          "common_mm3": 8.639379797372037,
+          "outside_mate_region_mm3": 0.0,
+          "pass": true
+        },
+        {
+          "parts": [
+            "enclosure-back-top",
+            "relay-2-insert-1"
+          ],
+          "basis": "RX-M3S\u00d74 knurl in its own finite wall pilot annulus",
+          "common_mm3": 16.210618092523717,
+          "outside_mate_region_mm3": 0.0,
+          "pass": true
+        },
+        {
+          "parts": [
+            "relay-2-insert-4",
+            "relay-2-screw-4"
+          ],
+          "basis": "M3 shaft in its own short insert thread annulus",
+          "common_mm3": 8.639379797372037,
+          "outside_mate_region_mm3": 0.0,
+          "pass": true
+        },
+        {
+          "parts": [
+            "enclosure-back-top",
+            "relay-2-insert-4"
+          ],
+          "basis": "RX-M3S\u00d74 knurl in its own finite wall pilot annulus",
+          "common_mm3": 16.210618092523717,
+          "outside_mate_region_mm3": 0.0,
+          "pass": true
+        }
+      ],
+      "scope": "Finite nominal mating regions only; physical insertion, sealing and retention remain unqualified."
+    },
+    "outside_mate_region_control": {
+      "parts": [
+        "psu-insert-1",
+        "psu-screw-1"
+      ],
+      "basis": "M3 shaft in its own short insert thread annulus",
+      "common_mm3": 63.999999999999986,
+      "outside_mate_region_mm3": 63.999999999999986,
+      "pass": false
+    }
+  },
+  "unresolved_relay_scope": "Both relay terminal-block envelopes are approximate calipered reference geometry. Each selected M3\u00d78 socket head overlaps the modeled terminal block by0.25mm and1.142634mm\u00b3. This finding remains an active pack gate pending actual relay/head fit evidence or a qualified mounting change.",
+  "spacing_scope": "The generic1mm spacing preference is informational. Every original below1mm witness has an exact native reading. Named fitted interfaces and physical soft contacts retain their explicit allowances; the changed hard holder/V-K clearance is now over1mm. This does not qualify arbitrary small gaps as printable fits."
+}

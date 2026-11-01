@@ -63,8 +63,10 @@ mouths stand 3.749 mm lower. The funnel return descends from V-B to Y-B.
 
 The soda guide is X77.5/Y359.51/Z253.4. The same blue tube runs from the
 carbonator's bottom outlet, through the cap and the accepted R14 holder, into
-the meter. The holder has 2 mm walls and 3 mm legs; it stands 9 mm from the
-meter mouth. One square-cut 61 mm piece of ID6.35/OD25.4 foam covers the
+the meter. The holder has 2 mm walls and 3 mm legs; it stands 7.75 mm from the
+meter mouth. A tangent S transition offsets the tube 1.25 mm from the fixed
+core guide into the holder, with a minimum-radius lower bound of 109.061 mm.
+One square-cut 61 mm piece of ID6.35/OD25.4 foam covers the
 external inlet and holder. The meter and soda union share a concealed tube.
 
 The gas check's socket feeds one bend, then an S to the guide at
