@@ -164,6 +164,14 @@ impl Path {
         Ok(self.curve(Spline::through(&pts)?))
     }
 
+    /// The clamped cubic through the recorded points and parameters, with unscaled endpoint
+    /// derivatives. The supplied interpolation points remain the curve's points.
+    pub fn clamped_spline(self, points: &[V3], parameters: &[f64], derivatives: [V3; 2]) -> Result<Path> {
+        ensure!(points.first().is_some_and(|&p| (p - self.at).norm() < 1e-7),
+                "a clamped spline that does not start where the path ends");
+        Ok(self.curve(Spline::clamped(points, parameters, derivatives)?))
+    }
+
     /// The cubic from the path's end to `end`, leaving along `t0` and arriving along `t1`
     /// (`Spline::hermite`).
     pub fn spline_to(self, end: V3, t0: V3, t1: V3) -> Result<Path> {
