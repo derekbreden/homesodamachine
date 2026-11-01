@@ -90,6 +90,7 @@ ROOT = Path(__file__).resolve().parents[2]
 
 _READ_TARGETS: set = set()
 _WRITE_TARGETS: set = set()
+_ENGINE_SOCKET: str | None = None
 
 #: Where this run's seconds start, on `time.perf_counter`'s clock: the process's own start, once
 #: `start` has run.
@@ -488,8 +489,18 @@ def program(crate: str, name: str) -> Path:
 
 
 def _socket() -> str:
-    """Where the part engine listens: `hsm`'s own socket, unless `HSM_SOCKET` names another."""
-    return os.environ.get("HSM_SOCKET") or f"/tmp/hsm-{os.getuid()}/engine.sock"
+    """The installed build's endpoint, unless `HSM_SOCKET` names another."""
+    if os.environ.get("HSM_SOCKET"):
+        return os.environ["HSM_SOCKET"]
+    global _ENGINE_SOCKET
+    if _ENGINE_SOCKET is None:
+        _ENGINE_SOCKET = f"/tmp/hsm-{os.getuid()}/engine.sock"
+        if hsm := _hsm():
+            said = subprocess.run([hsm, "endpoint"], capture_output=True, text=True,
+                                  env={**os.environ, "HOME": str(_home())})
+            if said.returncode == 0:
+                _ENGINE_SOCKET = json.loads(said.stdout)["socket"]
+    return _ENGINE_SOCKET
 
 
 def _hsm():
@@ -535,9 +546,9 @@ def _engine(crate: str, name: str, args) -> dict | None:
         hsm = _hsm()
         if attempt or hsm is None:
             return None
-        # `hsm status` starts the daemon, or replaces one an older binary started.
+        # Start the installed build on the endpoint it named. A live incompatible service stays.
         env = {**os.environ, "HOME": str(_home())}
-        cmd = [hsm, *(["--socket", os.environ["HSM_SOCKET"]] if os.environ.get("HSM_SOCKET") else []), "status"]
+        cmd = [hsm, "--socket", _socket(), "status"]
         if subprocess.run(cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, env=env).returncode:
             return None
     return None
