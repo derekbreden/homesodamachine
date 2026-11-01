@@ -20,12 +20,12 @@
   },
   "native_artifact_sha256": {
     "foam-cap-lid-top": {
-      ".step": "10e2b53eeffc36d05080d79298c5f6fed217e0f3f1ad5d9319a37d3a0150acf1",
-      ".stl": "068b9351b0c8be91489213a9b5da5260515a7c12cf8cdbf40888ef4b6efd2a90"
+      ".step": "28bd6924651e179081aff8728265cb49ec5bab6773f2c4c73610ea8fe666b777",
+      ".stl": "740af94b1081a930329fa244abb7d9de61747fa2be13eec1c6bf5b356f366937"
     },
     "foam-cap-bottom": {
-      ".step": "5405075b66f7853c84ddfcc1d911845e4aab4303f6a06e3b08d18b6a08bd3e36",
-      ".stl": "7e737e724d7031189e98a7b32bc4147a064c3055845f63949d76b30091c80387"
+      ".step": "91ddfea3e9ca8cf046cb385a8d7e653b0b2deb3a343d6b1c9170ead4ed7c5929",
+      ".stl": "acdcff8c0842d7158aa15ed797dc22ef6173eb27f662f7e19d505000f4c84e0a"
     },
     "foam-shell": {
       ".step": "6f9445c5100eda24e79e6986d1acba16b1335dba3484bffb0b64af2f28449c13",
