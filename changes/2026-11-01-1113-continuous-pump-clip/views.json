@@ -1,0 +1,149 @@
+{
+  "views": [
+    {
+      "name": "mount",
+      "caption": "One continuous 54.5 mm clip retains the pump in a 61 mm saddle with 3 mm solid outer ends.",
+      "before": "mount-before.webp",
+      "after": "mount-after.webp",
+      "width": 1000,
+      "height": 700,
+      "marks": [
+        {
+          "x": 506.2,
+          "y": 193.9,
+          "r": 53.8,
+          "label": "Continuous pump clip",
+          "at": [
+            -15.368269,
+            415.567749,
+            312.31546
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          77.038907710894,
+          818.80791127076,
+          581.5448087318186
+        ],
+        "target": [
+          -15,
+          413,
+          282
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 52,
+        "near": 371.2932996488254,
+        "far": 926.736284994906,
+        "aspect": 1.4285714285714286
+      },
+      "highlight": [
+        "cold-core/pump-snap-cap"
+      ],
+      "ghost": [],
+      "only": [
+        "cold-core/foam-cap-lid-top",
+        "cold-core/pump-snap-cap"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "9ce25f72ed4dbc17d7ce60e81fbc26a924b87ce81c01b61f69605c48f58c3698",
+          "commit": "54b5a291fc5b04a8d5bf167e4c9178e398b78d8b",
+          "taken": "2026-11-01T07:38:52.615Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "d7b582e366f5b56f14b8e41de9317821d2cb436e30e3f0d2082d2ee61bdca400",
+          "commit": "e4c1181ba6f9f3d36a08e9447b2b6b264ea698a3",
+          "published": false
+        }
+      },
+      "changed": [
+        "cold-core/foam-cap-top",
+        "cold-core/foam-cap-lid-bottom",
+        "funnel-drain-union",
+        "cold-core/reservoir-b-fill-guide",
+        "cold-core/cap-clamp-bottom-1",
+        "cold-core/cap-clamp-bottom-10",
+        "cold-core/cap-clamp-bottom-2",
+        "cold-core/cap-clamp-bottom-3",
+        "cold-core/cap-clamp-bottom-4",
+        "cold-core/cap-clamp-bottom-5",
+        "cold-core/cap-clamp-bottom-6",
+        "cold-core/cap-clamp-bottom-7",
+        "cold-core/cap-clamp-bottom-8",
+        "cold-core/cap-clamp-bottom-9",
+        "cold-core/cap-clamp-top-1",
+        "cold-core/cap-clamp-top-10",
+        "cold-core/cap-clamp-top-2",
+        "cold-core/cap-clamp-top-3",
+        "cold-core/cap-clamp-top-4",
+        "cold-core/cap-clamp-top-5",
+        "cold-core/cap-clamp-top-6",
+        "cold-core/cap-clamp-top-7",
+        "cold-core/cap-clamp-top-8",
+        "cold-core/cap-clamp-top-9",
+        "funnel-drain-stub",
+        "cold-core/pump-snap-cap",
+        "cold-core/foam-cap-bottom",
+        "cold-core/foam-cap-lid-top",
+        "cold-core/foam-shell",
+        "elbow-cradle",
+        "drain-outlet-stem",
+        "tube-above-core-drain-vb-east-link",
+        "cold-core/line-water-in",
+        "cold-core/vb-inlet-turn",
+        "cold-core/line-co2-in",
+        "wire-PE-carbonator",
+        "wire-J7-carb-earth-2",
+        "wire-temp-GND",
+        "wire-J4-IO26",
+        "wire-J7-CHI",
+        "wire-J4-3V3",
+        "wire-J7-CLO",
+        "cold-core/suction-tube",
+        "cold-core/discharge-tube",
+        "cold-core/suction-barb-clamp",
+        "cold-core/discharge-barb-clamp",
+        "cold-core/suction-barb-key",
+        "cold-core/discharge-barb-key",
+        "cold-core/g-ganen-pump",
+        "cold-core/carbonator-fold",
+        "cold-core/discharge-chain",
+        "cold-core/discharge-reducer",
+        "cold-core/tube-water-5",
+        "cold-core/discharge-stem-clamp",
+        "cold-core/discharge-stem-key"
+      ],
+      "withinMeshing": [
+        "tube-above-core-vb-yb-link",
+        "cold-core/carbonator-elbow-co2-in",
+        "tube-above-core-gas-core-drop",
+        "funnel-frame",
+        "tube-fluid-18",
+        "wire-DC3-negative",
+        "wire-DC3-positive",
+        "cold-core/evap-coil",
+        "wire-J6-RA3",
+        "tube-above-core-tee-regulator",
+        "wire-J6-RA1",
+        "wire-J6-GND",
+        "wire-J6-RA4",
+        "wire-J6-RA2",
+        "wire-J7-RB1",
+        "funnel"
+      ]
+    }
+  ]
+}
