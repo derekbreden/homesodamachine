@@ -756,7 +756,7 @@ def leg_caps(run: Run) -> list:
     return out
 
 
-def centreline(run: Run) -> cq.Wire:
+def centreline(run: Run) -> "cq.Wire":
     """The run's centreline as a wire: straights joined by a tangent arc at each corner, every
     one at the radius that corner seats (`run.radii`)."""
     pts = run.pts
@@ -795,7 +795,7 @@ def centreline(run: Run) -> cq.Wire:
     return cq.Wire.assembleEdges(edges)
 
 
-def tube(run: Run) -> cq.Solid:
+def tube(run: Run) -> "cq.Solid":
     """Sweep the run's bore Ø along its centreline."""
     path = centreline(run)
     d0 = _unit(run.pts[0], run.pts[1])

@@ -106,7 +106,6 @@ from _port_cuts import (  # noqa: E402
 import reservoir as _reservoir  # noqa: E402
 import prv_shroud as _shroud  # noqa: E402
 from _routing import stock_min, stock_of  # noqa: E402
-import _overlap  # noqa: E402
 
 
 line_radius = lldpe_tube_od / 2.0
@@ -496,6 +495,7 @@ def fit_route(points, obstacles):
     at the stock arc and stepping down until it fits is how the corridor states its own
     answer, and the answer is what `report_routes` prints. A line that fits nowhere down
     to `bend_floor` comes back at the floor, still meeting something, and fails there."""
+    import _overlap
     for rung in bend_ladder:
         bend = route_bend_radius * rung
         if bend < bend_floor:
@@ -539,6 +539,7 @@ def report_routes(fitted, obstacles):
     corner comes to — and the pack's own SHORT LIST is the last line printed, so a corner the
     core forces under the stock arc is on the page, with the number, rather than found at the
     bench."""
+    import _overlap
     print("  internal routes: %d lines in %s, stock arc %.4g mm — %s"
           % (len(fitted), route_stock.name, route_bend_radius, route_stock.source))
     short = []

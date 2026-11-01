@@ -40,3 +40,20 @@ def build_full_shell():
                  .rotate((0.,0.,0.),(0.,0.,1.),180.)
                  .translate((0.,0.,foam_shell_outer_height+top_cap_height)))
     return _reed_b_outlet.apply(foam_shell.cut(entry_air))
+
+
+def import_shell(path):
+    """The shell for the caller's active kernel.
+
+    Mesh callers import the emitted full-precision model. Native callers keep
+    this module's construction surfaces while their assembly still uses OCCT.
+    """
+    import cadquery as cq
+    from _cadq_export import import_step
+
+    if not getattr(cq, 'MESH', False):
+        with open(path, 'rb') as stream:
+            triangles = b'meshcad tessellated' in stream.read(200)
+        if triangles:
+            return build_full_shell().val()
+    return import_step(str(path)).val()

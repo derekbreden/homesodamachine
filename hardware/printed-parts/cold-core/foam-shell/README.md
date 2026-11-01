@@ -126,13 +126,15 @@ outside floor. Print the R14 holder flat on its D back. Its teardrop channel
 prints without trapped tunnel supports. Follow the repository's Tree(auto)/Default
 policy for other accessible supports; no new support override is prescribed here.
 
-Use the smooth `.stl` print exports. The STEP carries native construction geometry;
-the `.step.mesh` is the viewer surface. The physical print is the part.
+Use the smooth `.stl` print export. The kernel writes the STEP and the full-precision
+`.step.npz` model beside it; `.step.mesh` is the viewer surface cut from the STL.
+Native assembly callers retain the shell's construction builder.
 
 Assembly sequence: [cold-core assembly](../../../assembly/cold-core.md).
 Component geometry: [cold-core layout](../../../cold-core-layout/README.md).
 Top and bottom details: [closure reference](../foam-cap/README.md).
 
 ## Sources
-[value](NAME) texts are updated by:
-- `/hardware/printed-parts/cold-core/foam-shell/foam_shell.py`
+
+[Python datums](foam_shell.py), [kernel geometry](foam_shell.rs), and
+[native construction builder](../_foam_shell.py).
