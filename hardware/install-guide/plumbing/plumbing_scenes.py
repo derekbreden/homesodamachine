@@ -21,9 +21,7 @@ Run from the repository root:
 from __future__ import annotations
 
 import argparse
-import json
 import math
-import subprocess
 import sys
 from pathlib import Path
 
@@ -36,10 +34,10 @@ HARDWARE = next(parent for parent in HERE.parents if parent.name == "hardware")
 ROOT = HARDWARE.parent
 OUT = HERE / "out"
 ART = HERE / "art"
-RENDERER = ROOT / "tools" / "render" / "render-step-posed.js"
 
 sys.path.insert(0, str(HARDWARE / "scripts"))
-from _cadq_export import export_assembly  # noqa: E402
+from _cadq_export import _payload_current, _per_solid_color, _write_mesh_payload, export_assembly  # noqa: E402
+import _hsm_render  # noqa: E402
 
 
 # One explicit viewport for all four states.  The wall slab is also identical in every STEP,
@@ -597,13 +595,7 @@ def _render(step_paths: dict[str, Path], art_dir: Path) -> None:
                 "fog": False,
             }
         )
-    subprocess.run(
-        ["node", str(RENDERER), "--jobs", "-"],
-        cwd=ROOT,
-        input=json.dumps(jobs),
-        text=True,
-        check=True,
-    )
+    _hsm_render.render(jobs)
     expected_size = tuple(int(value) for value in RENDER_SIZE.split("x"))
     for name in SCENE_NAMES:
         path = art_dir / f"{name}.png"
@@ -657,6 +649,10 @@ def main() -> None:
         bounds = compound.BoundingBox()
         path = output_dir / f"{name}.step"
         export_assembly(scene, str(path))
+        # A BUILD ACTION WRITES NO PAYLOAD BESIDE AN EXPORT (`HSM_SKIP_MESH_PAYLOAD`), and the
+        # renderer draws nothing else, so a run that renders writes its own.
+        if args.render and not _payload_current(path, Path(f"{path}.mesh")):
+            _write_mesh_payload(path, _per_solid_color(scene))
         step_paths[name] = path
         print(
             f"{name}: "

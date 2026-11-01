@@ -55,8 +55,6 @@ PYSRC = "pysrc"
 _NODE = ("tools/render/", "web/")
 _NODE_RUNTIME_CONSUMERS = {
     "hardware/install-guide/installation_art.py": ":render-step-posed-runtime",
-    "hardware/install-guide/plumbing/modern/render_modern_tee.py": ":render-step-posed-runtime",
-    "hardware/install-guide/plumbing/plumbing_scenes.py": ":render-step-posed-runtime",
 }
 _NODE_RUNTIME_SUPPORT = {
     ":render-card-runtime": {
@@ -110,7 +108,7 @@ def _no_cycles(wants: dict) -> None:
 
 
 def _needs_node(srcs: list) -> bool:
-    return any(s.startswith(_NODE) for s in srcs)
+    return any(s.startswith(_NODE) and s.endswith((".js", ".mjs", ".cjs")) for s in srcs)
 
 
 #: What tells a step that runs a part the Rust kernel cuts: a Cargo manifest among what it read

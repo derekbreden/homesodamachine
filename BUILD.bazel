@@ -2594,20 +2594,38 @@ genrule(
     srcs = [
         "pysrc/hardware/install-guide/plumbing/modern/render_modern_tee.py",
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
-        ":out/jg-pp0408w/hardware/reference/jg-pp0408w/jg-pp0408w.step",
         "pysrc/hardware/reference/jg-pp0408w/jg_pp0408w.py",
         "pysrc/hardware/scripts/_cadq_export.py",
+        "pysrc/hardware/scripts/_hsm_render.py",
         "pysrc/hardware/scripts/_material_base.py",
         "pysrc/hardware/scripts/_materials.py",
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_rust_part.py",
         "pysrc/tools/docgen/__init__.py",
-        "tools/render/browser.js",
-        "tools/render/render-step-posed.js",
-        "web/public/js/viewer/scene.js",
-        "web/server.js",
-        ":node-packages",
-        ":render-step-posed-runtime",
+        "tools/hsm/Cargo.lock",
+        "tools/hsm/Cargo.toml",
+        "tools/hsm/render/Cargo.toml",
+        "tools/hsm/render/src/annotate.rs",
+        "tools/hsm/render/src/bin/hsm-render.rs",
+        "tools/hsm/render/src/camera.rs",
+        "tools/hsm/render/src/env.rs",
+        "tools/hsm/render/src/gpu.rs",
+        "tools/hsm/render/src/image.rs",
+        "tools/hsm/render/src/job.rs",
+        "tools/hsm/render/src/lib.rs",
+        "tools/hsm/render/src/overlay.rs",
+        "tools/hsm/render/src/payload.rs",
+        "tools/hsm/render/src/pick.rs",
+        "tools/hsm/render/src/plan.rs",
+        "tools/hsm/render/src/scene.rs",
+        "tools/hsm/render/src/shaders/common.wgsl",
+        "tools/hsm/render/src/shaders/env.wgsl",
+        "tools/hsm/render/src/shaders/line.wgsl",
+        "tools/hsm/render/src/shaders/shadow.wgsl",
+        "tools/hsm/render/src/shaders/surface.wgsl",
+        "tools/hsm/render/src/shadow.rs",
+        "web/public/finishes.json",
     ],
     outs = [
         "out/render-modern-tee/hardware/install-guide/plumbing/modern/art/modern-release-pressed.png",
@@ -2620,7 +2638,7 @@ genrule(
         "out/render-modern-tee/hardware/install-guide/plumbing/modern/art/modern-water-off.png",
         "out/render-modern-tee/hardware/install-guide/plumbing/modern/art/modern-water-on.png",
     ],
-    tags = ["requires-network"],
+    tags = ["no-sandbox"],
     cmd = """
 set -e
 O0=$$PWD/$(location out/render-modern-tee/hardware/install-guide/plumbing/modern/art/modern-release-pressed.png)
@@ -2632,6 +2650,7 @@ O5=$$PWD/$(location out/render-modern-tee/hardware/install-guide/plumbing/modern
 O6=$$PWD/$(location out/render-modern-tee/hardware/install-guide/plumbing/modern/art/modern-tee-tug-check.png)
 O7=$$PWD/$(location out/render-modern-tee/hardware/install-guide/plumbing/modern/art/modern-water-off.png)
 O8=$$PWD/$(location out/render-modern-tee/hardware/install-guide/plumbing/modern/art/modern-water-on.png)
+rm -rf work-render-modern-tee
 for f in $(SRCS); do
   case $$f in
     */node_modules/*) continue;;
@@ -2639,12 +2658,12 @@ for f in $(SRCS); do
     */pysrc/*) t=$${f##*/pysrc/};;
     *) t=$$f;;
   esac
-  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
+  mkdir -p work-render-modern-tee/$$(dirname $$t); cp -L $$f work-render-modern-tee/$$t
 done
 for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
+  if [ -d $$d ]; then mkdir -p work-render-modern-tee/$$(dirname $$d); ln -sfn $$PWD/$$d work-render-modern-tee/$$d; fi
 done
-cd work
+cd work-render-modern-tee
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
 HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/install-guide/plumbing/modern/render_modern_tee.py > /dev/null
@@ -2657,6 +2676,7 @@ cp hardware/install-guide/plumbing/modern/art/modern-tee-line-ready.png $$O5
 cp hardware/install-guide/plumbing/modern/art/modern-tee-tug-check.png $$O6
 cp hardware/install-guide/plumbing/modern/art/modern-water-off.png $$O7
 cp hardware/install-guide/plumbing/modern/art/modern-water-on.png $$O8
+cd .. && rm -rf work-render-modern-tee
 """,
 )
 
@@ -2665,12 +2685,33 @@ genrule(
     srcs = [
         "pysrc/hardware/install-guide/plumbing/plumbing_scenes.py",
         "pysrc/hardware/scripts/_cadq_export.py",
+        "pysrc/hardware/scripts/_hsm_render.py",
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_run_lock.py",
-        "tools/render/browser.js",
-        "tools/render/render-step-posed.js",
-        "web/server.js",
-        ":render-step-posed-runtime",
+        "pysrc/hardware/scripts/_rust_part.py",
+        "tools/hsm/Cargo.lock",
+        "tools/hsm/Cargo.toml",
+        "tools/hsm/render/Cargo.toml",
+        "tools/hsm/render/src/annotate.rs",
+        "tools/hsm/render/src/bin/hsm-render.rs",
+        "tools/hsm/render/src/camera.rs",
+        "tools/hsm/render/src/env.rs",
+        "tools/hsm/render/src/gpu.rs",
+        "tools/hsm/render/src/image.rs",
+        "tools/hsm/render/src/job.rs",
+        "tools/hsm/render/src/lib.rs",
+        "tools/hsm/render/src/overlay.rs",
+        "tools/hsm/render/src/payload.rs",
+        "tools/hsm/render/src/pick.rs",
+        "tools/hsm/render/src/plan.rs",
+        "tools/hsm/render/src/scene.rs",
+        "tools/hsm/render/src/shaders/common.wgsl",
+        "tools/hsm/render/src/shaders/env.wgsl",
+        "tools/hsm/render/src/shaders/line.wgsl",
+        "tools/hsm/render/src/shaders/shadow.wgsl",
+        "tools/hsm/render/src/shaders/surface.wgsl",
+        "tools/hsm/render/src/shadow.rs",
+        "web/public/finishes.json",
     ],
     outs = [
         "out/plumbing-scenes/hardware/install-guide/plumbing/art/plumbing-pre-tee.png",
@@ -2682,7 +2723,7 @@ genrule(
         "out/plumbing-scenes/hardware/install-guide/plumbing/out/plumbing-valve-off.step",
         "out/plumbing-scenes/hardware/install-guide/plumbing/out/plumbing-valve-on.step",
     ],
-    tags = ["requires-network"],
+    tags = ["no-sandbox"],
     cmd = """
 set -e
 O0=$$PWD/$(location out/plumbing-scenes/hardware/install-guide/plumbing/art/plumbing-pre-tee.png)
@@ -2693,6 +2734,7 @@ O4=$$PWD/$(location out/plumbing-scenes/hardware/install-guide/plumbing/out/plum
 O5=$$PWD/$(location out/plumbing-scenes/hardware/install-guide/plumbing/out/plumbing-tee-installed.step)
 O6=$$PWD/$(location out/plumbing-scenes/hardware/install-guide/plumbing/out/plumbing-valve-off.step)
 O7=$$PWD/$(location out/plumbing-scenes/hardware/install-guide/plumbing/out/plumbing-valve-on.step)
+rm -rf work-plumbing-scenes
 for f in $(SRCS); do
   case $$f in
     */node_modules/*) continue;;
@@ -2700,12 +2742,12 @@ for f in $(SRCS); do
     */pysrc/*) t=$${f##*/pysrc/};;
     *) t=$$f;;
   esac
-  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
+  mkdir -p work-plumbing-scenes/$$(dirname $$t); cp -L $$f work-plumbing-scenes/$$t
 done
 for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
+  if [ -d $$d ]; then mkdir -p work-plumbing-scenes/$$(dirname $$d); ln -sfn $$PWD/$$d work-plumbing-scenes/$$d; fi
 done
-cd work
+cd work-plumbing-scenes
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
 HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/install-guide/plumbing/plumbing_scenes.py > /dev/null
@@ -2717,6 +2759,7 @@ cp hardware/install-guide/plumbing/out/plumbing-pre-tee.step $$O4
 cp hardware/install-guide/plumbing/out/plumbing-tee-installed.step $$O5
 cp hardware/install-guide/plumbing/out/plumbing-valve-off.step $$O6
 cp hardware/install-guide/plumbing/out/plumbing-valve-on.step $$O7
+cd .. && rm -rf work-plumbing-scenes
 """,
 )
 
@@ -12322,35 +12365,56 @@ genrule(
         "pysrc/hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py",
         "pysrc/hardware/printed-parts/faucet/faucet-shell/faucet_shell.py",
         "pysrc/hardware/printed-parts/faucet/faucet_paths.py",
+        ":out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-replica.step",
         "pysrc/hardware/printed-parts/faucet/tpu-o-ring/tpu_o_ring.py",
         ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-carb.step",
         ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-drain.step",
         ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-a.step",
         ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-b.step",
         "pysrc/hardware/printed-parts/faucet/tube-collar/tube_collar.py",
+        "pysrc/hardware/printed-parts/faucet/umbilical-organizer/umbilical_organizer.py",
         "pysrc/hardware/printed-parts/faucet/vent_seals.py",
         "pysrc/hardware/reference/iec-c14-inlet/iec_c14_inlet.py",
         "pysrc/hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py",
-        ":out/jg-pp0408w/hardware/reference/jg-pp0408w/jg-pp0408w.step",
-        "pysrc/hardware/reference/jg-pp0408w/jg_pp0408w.py",
         "pysrc/hardware/reference/neofit-bulkhead/neofit_bulkhead.py",
         "pysrc/hardware/reference/neofit-drain-bulkhead/neofit_drain_bulkhead.py",
+        "hardware/reference/touch-flo-faucet/display-reference/buttons.json",
         "hardware/reference/touch-flo-faucet/display-reference/component-envelopes.json",
         ":out/westbrass-reference/hardware/reference/touch-flo-faucet/westbrass-reference/westbrass-reference.step",
         "pysrc/hardware/scripts/_cadq_export.py",
+        "pysrc/hardware/scripts/_hsm_render.py",
         "pysrc/hardware/scripts/_material_base.py",
         "pysrc/hardware/scripts/_materials.py",
-        "pysrc/hardware/scripts/_measuring.py",
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_rust_part.py",
         "pysrc/hardware/scripts/_stated_bounds.py",
         "pysrc/hardware/scripts/flute_payload.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/Cargo.lock",
+        "tools/hsm/Cargo.toml",
+        "tools/hsm/render/Cargo.toml",
+        "tools/hsm/render/src/annotate.rs",
+        "tools/hsm/render/src/bin/hsm-render.rs",
+        "tools/hsm/render/src/camera.rs",
+        "tools/hsm/render/src/env.rs",
+        "tools/hsm/render/src/gpu.rs",
+        "tools/hsm/render/src/image.rs",
+        "tools/hsm/render/src/job.rs",
+        "tools/hsm/render/src/lib.rs",
+        "tools/hsm/render/src/overlay.rs",
+        "tools/hsm/render/src/payload.rs",
+        "tools/hsm/render/src/pick.rs",
+        "tools/hsm/render/src/plan.rs",
+        "tools/hsm/render/src/scene.rs",
+        "tools/hsm/render/src/shaders/common.wgsl",
+        "tools/hsm/render/src/shaders/env.wgsl",
+        "tools/hsm/render/src/shaders/line.wgsl",
+        "tools/hsm/render/src/shaders/shadow.wgsl",
+        "tools/hsm/render/src/shaders/surface.wgsl",
+        "tools/hsm/render/src/shadow.rs",
         "pysrc/tools/install-guide/opening_scene.py",
-        "tools/render/browser.js",
-        "tools/render/render-step-posed.js",
-        "web/server.js",
-        ":node-packages",
+        "web/public/finishes.json",
     ] + glob(
         [
             "hardware/install-guide/assets/print-resolution.json",
@@ -12362,12 +12426,13 @@ genrule(
         "out/opening-scene/hardware/install-guide/assets/opening.png",
         "out/opening-scene/hardware/install-guide/assets/print-resolution.json",
     ],
-    tags = ["requires-network"],
+    tags = ["no-sandbox"],
     cmd = """
 set -e
 O0=$$PWD/$(location out/opening-scene/hardware/install-guide/assets/opening-faucet-outline.svg)
 O1=$$PWD/$(location out/opening-scene/hardware/install-guide/assets/opening.png)
 O2=$$PWD/$(location out/opening-scene/hardware/install-guide/assets/print-resolution.json)
+rm -rf work-opening-scene
 for f in $(SRCS); do
   case $$f in
     */node_modules/*) continue;;
@@ -12375,18 +12440,19 @@ for f in $(SRCS); do
     */pysrc/*) t=$${f##*/pysrc/};;
     *) t=$$f;;
   esac
-  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
+  mkdir -p work-opening-scene/$$(dirname $$t); cp -L $$f work-opening-scene/$$t
 done
 for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
+  if [ -d $$d ]; then mkdir -p work-opening-scene/$$(dirname $$d); ln -sfn $$PWD/$$d work-opening-scene/$$d; fi
 done
-cd work
+cd work-opening-scene
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
 HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/install-guide/opening_scene.py > /dev/null
 cp hardware/install-guide/assets/opening-faucet-outline.svg $$O0
 cp hardware/install-guide/assets/opening.png $$O1
 cp hardware/install-guide/assets/print-resolution.json $$O2
+cd .. && rm -rf work-opening-scene
 """,
 )
 
@@ -14378,6 +14444,14 @@ genrule(
     name = "pysrc-44f8294f7742",
     srcs = ["hardware/scripts/_funnel_casting.py"],
     outs = ["pysrc/hardware/scripts/_funnel_casting.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
+    name = "pysrc-ffa6b3e10f60",
+    srcs = ["hardware/scripts/_hsm_render.py"],
+    outs = ["pysrc/hardware/scripts/_hsm_render.py"],
     tools = ["tools/bazel/pysrc.py"],
     cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
 )

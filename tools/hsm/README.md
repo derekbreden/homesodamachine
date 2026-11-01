@@ -174,10 +174,12 @@ with no daemon. The CI image has no GPU, and Mesa's lavapipe answers Vulkan ther
 - Five pictures of the machine take 7–13 s on four vCPUs there, against about a second on Metal.
 - Metal draws the same picture in different bytes: mean |Δ| under 0.3 of 255 a channel.
 
-[`tools/look.sh`](../look.sh), [`tools/changes/change.mjs`](../changes/change.mjs) and the guide
-art scripts, by way of [`hardware/scripts/_hsm_render.py`](../../hardware/scripts/_hsm_render.py),
-draw with it. The Bazel art rules, and the installation scenes that bring their own three.js
-materials, draw with [`tools/render/render-step-posed.js`](../render/render-step-posed.js).
+[`tools/look.sh`](../look.sh) and [`tools/changes/change.mjs`](../changes/change.mjs) draw with
+it. The guide art scripts, and the Bazel rules for the plumbing art and the opening scene, draw
+with `hsm-render` by way of [`hardware/scripts/_hsm_render.py`](../../hardware/scripts/_hsm_render.py),
+which builds it from the checkout. The other Bazel art rules, and the installation scenes that
+bring their own three.js materials, draw with
+[`tools/render/render-step-posed.js`](../render/render-step-posed.js).
 
 ## Kernel
 
