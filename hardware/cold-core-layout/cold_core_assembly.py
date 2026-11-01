@@ -387,10 +387,15 @@ def write_model(a, path=MODEL_OUT):
           if child.color is not None else None))
         for child in a.children
     ]
+    document = {
+        "frame": "foam assembly source",
+        "schema": "hsm-cold-core-model-1",
+        "alpha_by_name": {child.name: float(child.color.wrapped.Alpha())
+                          for child in a.children if child.color is not None},
+    }
     path = Path(path)
     temporary = path.with_name(f".{path.name}.{os.getpid()}.tmp")
-    scene.write(bodies, temporary,
-                {"frame": "foam assembly source", "schema": "hsm-cold-core-model-1"})
+    scene.write(bodies, temporary, document, preserve_partitions=True)
     os.replace(temporary, path)
     note_write(path)
     return path
