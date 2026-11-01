@@ -120,11 +120,18 @@ def optional_late_connection_probe():
     static.update({name: row[0] for name, row in junctions.items()})
     static.update({'digiten-flow': meter, 'actual-back-top-rear': wall})
     label_paths = []
+    native_labels = None
+    if not getattr(cq, 'MESH', False):
+        native_labels = parts._module('rear_assembly_labels',
+            'printed-parts/enclosure/rear-identification/rear_identification.py')
+        label_paths.append(Path(native_labels.__file__))
     for name in ('carb', 'drain'):
         path = ROOT / f'hardware/printed-parts/enclosure/rear-identification/rear-label-{name}.step'
         label_paths.append(path)
         row = next(row for row in parts._grid() if row['name'] == 'bulkhead-' + name)
-        static['actual-' + name + '-label'] = import_step(path).val().translate(
+        label = (import_step(path).val() if native_labels is None
+                 else cq.Compound.makeCompound([native_labels.chip(name), native_labels.word(name)]))
+        static['actual-' + name + '-label'] = label.translate(
             (row['x'], row['flange_y']-2., row['z']))
     region = np.array([[20., 395., 285.], [100., 500., 350.]])
     for name, spec in specs.items():
