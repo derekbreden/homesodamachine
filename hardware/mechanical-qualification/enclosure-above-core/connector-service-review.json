@@ -677,8 +677,8 @@
     "all_current_regressions_clear": true
   },
   "current_native_binding": {
-    "assembly_step_sha256": "649b4e02bddfbac99a0e741c793cf0e74b016c55a302c0bb1dd951c7fc69e3e1",
-    "assembly_mesh_sha256": "a5efb94dd683fba1341351e8424d958ecd204b480f34762459609b6ff9f93729",
+    "assembly_step_sha256": "eddd15bc11620321a5d7f1d0fb66d7a28f9f3731a8f282ca2477af451af28daa",
+    "assembly_mesh_sha256": "d7b582e366f5b56f14b8e41de9317821d2cb436e30e3f0d2082d2ee61bdca400",
     "scope": "The recorded complete nominal housing stages and unchanged housing datums retain their baseline. Current changed lid/casing/pump/PSU stock and routes are queried against every complete stage witness.",
     "changed_stock_and_routes": [
       {

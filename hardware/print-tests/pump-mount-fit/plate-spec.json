@@ -1,0 +1,101 @@
+{
+  "schema": 1,
+  "profile": "hardware/printed-parts/petgf.3mf",
+  "filament_mapping": {
+    "extruder_ams_count": [
+      "1#0|4#0",
+      "1#0|4#0"
+    ],
+    "support_filament": "1",
+    "support_interface_filament": "1",
+    "flush_into_support": "0"
+  },
+  "printers": {
+    "Mark1": {
+      "connection_key": "H2C",
+      "z_trim_mm": 0.18,
+      "filament_colour": "#000000"
+    },
+    "Mark2": {
+      "z_trim_mm": 0.04,
+      "filament_colour": "#161616"
+    }
+  },
+  "pieces": {
+    "pump-fit-base": {
+      "printer": "Mark1",
+      "nozzle": {
+        "side": "left",
+        "diameter_mm": 0.4,
+        "flow": "Standard",
+        "hardened": true,
+        "reason": "Top lid: hardened left 0.4 mm Standard nozzle with the shared PET-GF process."
+      },
+      "material": "Polymaker Fiberon PET-GF15, black",
+      "plate_border_mm": 80,
+      "parts": [
+        {
+          "name": "pump-mount-base",
+          "stl": "hardware/print-tests/pump-mount-fit/parts/pump-mount-base.stl"
+        }
+      ],
+      "pose_reason": "Flat 7.4 mm lid underside on the bed, matching the production lid orientation.",
+      "settings": {
+        "wall_loops": {
+          "value": "3",
+          "reason": "Retain the production lid receiver wall count."
+        },
+        "wall_generator": {
+          "value": "classic",
+          "reason": "Retain the production fixed-width perimeter recipe."
+        },
+        "sparse_infill_pattern": {
+          "value": "gyroid",
+          "reason": "Retain the production 15% gyroid bulk recipe."
+        },
+        "enable_support": {
+          "value": "1",
+          "reason": "Tree(auto)/Default supports the outward-open hook-pocket ceilings with accessible cleanup."
+        }
+      }
+    },
+    "pump-fit-clip": {
+      "printer": "Mark2",
+      "nozzle": {
+        "side": "left",
+        "diameter_mm": 0.4,
+        "flow": "Standard",
+        "hardened": true,
+        "reason": "Every abrasive stock runs on the left hotend (hardware/ledger/tools.md, Which hotends fit an H2C). Mark2's 2026-10-24 jobs ran black PET-GF on its fixed left hardened 0.4 mm Standard-flow hotend (faucet/industrial/prints/2026-10-24-buttons-sculpted-bands020-mark2/README.md, task 1372253517)."
+      },
+      "material": "Polymaker Fiberon PET-GF15, black",
+      "spacing_mm": 15,
+      "parts": [
+        {
+          "name": "pump-snap-cap",
+          "stl": "hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.stl"
+        }
+      ],
+      "pose_reason": "The continuous 54.5 mm clip stands on one axial end as exported. Its arch, 3 mm spring wings and hooks grow as vertical walls with no intermediate cutouts; retain PET-GF Tree(auto)/Default.",
+      "plate_border_mm": 80.0,
+      "settings": {
+        "wall_loops": {
+          "value": "3",
+          "reason": "Three Classic perimeters from each face of the 3.1 mm spring arch and 3 mm wings."
+        },
+        "wall_generator": {
+          "value": "classic",
+          "reason": "Retain the cold-core fixed-width perimeter recipe."
+        },
+        "sparse_infill_density": {
+          "value": "100%",
+          "reason": "The complete spring arch, hooks and wing roots retain solid stock."
+        },
+        "sparse_infill_pattern": {
+          "value": "zig-zag",
+          "reason": "Solid deposition through the complete small retaining cap."
+        }
+      }
+    }
+  }
+}

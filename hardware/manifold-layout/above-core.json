@@ -5037,10 +5037,6 @@
       20.0,
       74.5
     ],
-    "rail_stop_native_y_mm": [
-      -29.0,
-      -26.0
-    ],
     "rail_stop_native_z_mm": 19.0,
     "rail_stop_native_x_mm": [
       [
@@ -5052,10 +5048,14 @@
         83.0
       ]
     ],
-    "insertion": "Bare pump lowers vertically onto the plain lid; fixed rails and molded wire cover pass through open rooms. One continuous 54.5 mm upper clip snaps down after seating. Its continuous pockets retain 3 mm solid axial stock at both outer ends; flank wings remain 3 mm. Two low stops bound axial movement at the fixed negative-Y rail ends.",
+    "insertion": "Bare pump lowers vertically into the open motor saddle; fixed rails and molded cover pass through open rooms. One continuous 54.5 mm clip snaps down after seating. Its pockets retain 3 mm solid axial stock at both outer ends. Broad stock flush with the saddle outside wall joins the two fixed-rail end stops; the straight rail corridor between them stays open.",
     "print_pose": "Snap cap stands on one axial end; arch, spring wings and hooks print as vertical walls.",
     "cap_arch_wall_mm": 3.1,
     "contact_scope": "Motor-side saddle native X16.75\u201377.75 and one continuous upper clip X20\u201374.5. End stops contact only fixed motor rail ends; the rough head underside remains clear throughout axial free play. The central wire-cover and lead corridor stays open.",
-    "axial_end_stock_mm": 3.0
+    "axial_end_stock_mm": 3.0,
+    "rail_stop_contact_native_y_mm": [
+      -29.0,
+      -26.0
+    ]
   }
 }

@@ -27,8 +27,9 @@ The selected saddle and snap bear in the approved motor/cylinder region. The
 middle/head underside is excluded from mounting contact. The clean forward tip
 is unused as a support. The axial stops act only on the fixed motor rail ends.
 The annotated [mount review](mount-review.json) records the selected regions;
-[mount-contact-check.json](mount-contact-check.json) records the source layout
-bounds through the near-seam travel.
+the [native installation check](../installation/native-installation-check.json)
+records installed contact, clearance and placement/removal checks against the
+exported mount.
 
 The fixed side-rail mesh agrees with 728 and 922 disjoint scan points at median
 distances 0.029 and 0.032 mm, with p95 distances 0.112 and 0.141 mm. These are

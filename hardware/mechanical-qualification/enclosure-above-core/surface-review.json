@@ -6540,18 +6540,18 @@
       "artifacts": {
         ".step": {
           "path": "hardware/printed-parts/cold-core/foam-shell/foam-shell.step",
-          "sha256": "6f9445c5100eda24e79e6986d1acba16b1335dba3484bffb0b64af2f28449c13"
+          "sha256": "a716b44ef657e0355fbceae6c2dcba6a4de45feefad6417245149f26abef5ad7"
         },
         ".stl": {
           "path": "hardware/printed-parts/cold-core/foam-shell/foam-shell.stl",
-          "sha256": "a8fc1a29ded8daaaae3498e0af15b5923d6149c187f68ba0790cba81773d92cf"
+          "sha256": "132c06ecc887624ae36c98c168f97efaa533deb278a4b93a3d2f725455d93164"
         },
         ".step.mesh": {
           "path": "hardware/printed-parts/cold-core/foam-shell/foam-shell.step.mesh",
-          "sha256": "07ebf3dec12ace0cdc4ded418eed6b02ffa73c5e0cd347296ac29d52c20c81a4"
+          "sha256": "a380128b3febfa7107dfcdd4c2e339c2e32c472f2472770c7eb7d71209c58247"
         }
       },
-      "log_sha256": "6728056e00430256186fb7013d37e1664afe625d97b33bd7da852393cb00d25e",
+      "log_sha256": "77c32863cc95910d0a788012068d7c97b16eec7a4aedd02ab54572efa88cdde7",
       "classes_read": [
         "step",
         "bump",
@@ -6562,7 +6562,7 @@
         "ledge"
       ],
       "answers_path": "hardware/printed-parts/lint-answers/cold-core/foam-shell/foam-shell.lint-answers",
-      "answers_sha256": "78e57ce2aa42239e281d0299dab38a0f960f553384ed3a44b99721a93df4ffc2",
+      "answers_sha256": "2a3179e69118784f7b05771898a6b09f3b5f7c25e0271921843a6cabc574f0c6",
       "answer_entries": [
         {
           "class": "sliver",
@@ -6581,7 +6581,9 @@
           "alternatives": "A 3 mm floor raises the selected 253.4 mm cold-core stack by 1 mm or takes 1 mm from its foam depth. Increasing all walls changes the specified casing section and internal routing room. The retained ordinary section follows Derek's casing dimensions; it is not a remnant of a neighboring cut.",
           "clicks": [
             "x=-135.716 y=6.278 z=0.000",
-            "x=-135.716 y=6.278 z=2.000"
+            "x=-135.716 y=6.278 z=2.000",
+            "x=-138.803 y=-78.957 z=2.000",
+            "x=-138.803 y=-78.957 z=0.000"
           ]
         },
         {
@@ -6590,7 +6592,9 @@
           "alternatives": "Increasing it to 2.5 mm changes the selected wall section and takes 0.12 mm from the adjacent PRV-shroud room. Growing the outside instead changes the fixed casing footprint and the channel's mating position.",
           "clicks": [
             "x=-3.366 y=88.700 z=193.088",
-            "x=-3.366 y=86.320 z=193.088"
+            "x=-3.366 y=86.320 z=193.088",
+            "x=-4.735 y=86.320 z=182.829",
+            "x=-4.735 y=88.700 z=182.829"
           ]
         }
       ],
@@ -6603,10 +6607,10 @@
       "findings": [
         {
           "class": "thin",
-          "reading": "2.000 mm of material at its thinnest \u00b7 775066.0 mm\u00b2 of surface under 2.5 mm \u00b7 spans 282.4 \u00d7 180.4 \u00d7 224.8 mm \u00b7 in 34 pieces",
+          "reading": "2.000 mm of material at its thinnest \u00b7 774927.1 mm\u00b2 of surface under 2.5 mm \u00b7 spans 282.4 \u00d7 180.4 \u00d7 224.8 mm \u00b7 in 37 pieces",
           "clicks": [
-            "x=-135.716 y=6.278 z=0.000",
-            "x=-135.716 y=6.278 z=2.000"
+            "x=-138.803 y=-78.957 z=2.000",
+            "x=-138.803 y=-78.957 z=0.000"
           ],
           "answer_indices": [
             1
@@ -6615,10 +6619,10 @@
         },
         {
           "class": "thin",
-          "reading": "2.380 mm of material at its thinnest \u00b7 861.7 mm\u00b2 of surface under 2.5 mm \u00b7 spans 9.5 \u00d7 2.4 \u00d7 48.8 mm \u00b7 in 2 pieces",
+          "reading": "2.380 mm of material at its thinnest \u00b7 864.0 mm\u00b2 of surface under 2.5 mm \u00b7 spans 9.5 \u00d7 2.4 \u00d7 49.4 mm \u00b7 in 2 pieces",
           "clicks": [
-            "x=-3.366 y=88.700 z=193.088",
-            "x=-3.366 y=86.320 z=193.088"
+            "x=-4.735 y=86.320 z=182.829",
+            "x=-4.735 y=88.700 z=182.829"
           ],
           "answer_indices": [
             2
@@ -6673,34 +6677,47 @@
       "published_artifacts": {
         ".step": {
           "path": "hardware/printed-parts/cold-core/foam-shell/foam-shell.step",
-          "sha256": "6f9445c5100eda24e79e6986d1acba16b1335dba3484bffb0b64af2f28449c13"
+          "sha256": "a716b44ef657e0355fbceae6c2dcba6a4de45feefad6417245149f26abef5ad7"
         },
         ".stl": {
           "path": "hardware/printed-parts/cold-core/foam-shell/foam-shell.stl",
-          "sha256": "a8fc1a29ded8daaaae3498e0af15b5923d6149c187f68ba0790cba81773d92cf"
+          "sha256": "132c06ecc887624ae36c98c168f97efaa533deb278a4b93a3d2f725455d93164"
         },
         ".step.mesh": {
           "path": "hardware/printed-parts/cold-core/foam-shell/foam-shell.step.mesh",
-          "sha256": "07ebf3dec12ace0cdc4ded418eed6b02ffa73c5e0cd347296ac29d52c20c81a4"
+          "sha256": "a380128b3febfa7107dfcdd4c2e339c2e32c472f2472770c7eb7d71209c58247"
         }
+      },
+      "retained_published_reader": {
+        "path": "hardware/printed-parts/cold-core/foam-shell/kernel-print-review.json",
+        "sha256": "f213adf9fb5b6ac941bfb6a15aab31576c89bcb2a6080a4240a0241ded704bb7",
+        "json_pointer": "/post_publication_surface_review",
+        "artifact_root": "/Users/derekbredensteiner/Developer/homesodamachine",
+        "log": ".cache/combined-finish/handoffs/foam-shell/post-publication-lint.log",
+        "publication_commit": "13ae299537210d03e8248504704eae3eae005895"
+      },
+      "native_geometry_basis": {
+        "path": "hardware/printed-parts/cold-core/foam-shell/printability-review.json",
+        "sha256": "bdc94a4aea80e7d2d6bfb0e4c1344362d3da7abc48e5f76e8ecd35c64a1b75c8",
+        "native_step_sha256": "6f9445c5100eda24e79e6986d1acba16b1335dba3484bffb0b64af2f28449c13"
       }
     },
     "foam-cap-lid-top": {
       "artifacts": {
         ".step": {
           "path": "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step",
-          "sha256": "ad76a2c28f490dcb08e9ab64cf5847fa4a316c68ea73a996789c19b391bd7bdb"
+          "sha256": "10e2b53eeffc36d05080d79298c5f6fed217e0f3f1ad5d9319a37d3a0150acf1"
         },
         ".stl": {
           "path": "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl",
-          "sha256": "f24c17a1834784b3917672483c3b8e0a14350479e96793998dbe024a38da5275"
+          "sha256": "068b9351b0c8be91489213a9b5da5260515a7c12cf8cdbf40888ef4b6efd2a90"
         },
         ".step.mesh": {
           "path": "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh",
-          "sha256": "3cfe2e3fb9e8f766e0a000ded04f977430f7da6432e9b88b5c00157a88219d3b"
+          "sha256": "b10f654a8ad3d5facbc8687e2e482d4cff0c8e4da14a254b98596b3dc97e6943"
         }
       },
-      "log_sha256": "3a9db2f2ad1fe84457163b59f9f840c252dc2f289140e221a1fe7add8b039c09",
+      "log_sha256": "1920d830648273b4f148abf3f94132d08cc511d099d591ac3703515313a4d2f4",
       "classes_read": [
         "step",
         "bump",
@@ -6711,7 +6728,7 @@
         "ledge"
       ],
       "answers_path": "hardware/printed-parts/lint-answers/cold-core/foam-cap/foam-cap-lid-top.lint-answers",
-      "answers_sha256": "a59246777acd5650e2696571c05177835faab119537ec8ba7b7c40a0da49e168",
+      "answers_sha256": "0e6d48c936768dffd1b4cab27cc3289565fe82151c1527dabe019351a8fe9d28",
       "answer_entries": [
         {
           "class": "ceiling",
@@ -6874,8 +6891,8 @@
           "reason": "Functional receiving catch roofs for the continuous pump clip. Each 55 mm long flat projects 0.85 mm, the 0.6 mm catch engagement plus 0.25 mm running allowance. The ledges retain their 3 mm structural height and solid 3 mm axial end lands. The 0.85 mm face width is the catch reach, rather than a freestanding wall thickness. Both pockets open directly to the flanks. The actual lid slice requests no supports in the pump saddle; the short catch roofs print without filling these pockets.",
           "alternatives": "Removing or sloping these flats removes the positive retaining bearing or creates a release ramp. A 1.6 mm projection adds 0.75 mm of required spring deflection and deeper mating pockets. Filling beneath the roofs prevents the upper clip from seating or releasing.",
           "clicks": [
-            "x=-91.768 y=16.286 z=36.779",
-            "x=-91.768 y=-47.022 z=36.779"
+            "x=-91.768 y=16.286 z=35.279",
+            "x=-91.768 y=-47.022 z=35.279"
           ]
         },
         {
@@ -6883,8 +6900,8 @@
           "reason": "Functional receiving catch roofs for the continuous pump clip. Each 55 mm long flat projects 0.85 mm, the 0.6 mm catch engagement plus 0.25 mm running allowance. The ledges retain their 3 mm structural height and solid 3 mm axial end lands. The 0.85 mm face width is the catch reach, rather than a freestanding wall thickness. Both pockets open directly to the flanks. The actual lid slice requests no supports in the pump saddle; the short catch roofs print without filling these pockets.",
           "alternatives": "Removing or sloping these flats removes the positive retaining bearing or creates a release ramp. A 1.6 mm projection adds 0.75 mm of required spring deflection and deeper mating pockets. Filling beneath the roofs prevents the upper clip from seating or releasing.",
           "clicks": [
-            "x=-91.768 y=16.286 z=36.779",
-            "x=-91.768 y=-47.022 z=36.779"
+            "x=-91.768 y=16.286 z=35.279",
+            "x=-91.768 y=-47.022 z=35.279"
           ]
         }
       ],
@@ -6901,7 +6918,7 @@
           "class": "sliver",
           "reading": "0.850 mm strip, 55.0 mm long",
           "clicks": [
-            "x=-91.768 y=16.286 z=36.779"
+            "x=-91.768 y=16.286 z=35.279"
           ],
           "answer_indices": [
             11
@@ -6912,7 +6929,7 @@
           "class": "sliver",
           "reading": "0.850 mm strip, 55.0 mm long",
           "clicks": [
-            "x=-91.768 y=-47.022 z=36.779"
+            "x=-91.768 y=-47.022 z=35.279"
           ],
           "answer_indices": [
             11
@@ -6920,87 +6937,10 @@
           "disposition": "specific_functional_or_approved_profile"
         },
         {
-          "class": "sliver",
-          "reading": "0.750 mm strip, 16.0 mm long",
-          "clicks": [
-            "x=131.200 y=74.825 z=23.700"
-          ],
-          "answer_indices": [
-            4
-          ],
-          "disposition": "specific_functional_or_approved_profile"
-        },
-        {
-          "class": "sliver",
-          "reading": "0.750 mm strip, 16.0 mm long",
-          "clicks": [
-            "x=-100.200 y=-73.175 z=20.000"
-          ],
-          "answer_indices": [
-            7
-          ],
-          "disposition": "specific_functional_or_approved_profile"
-        },
-        {
-          "class": "sliver",
-          "reading": "0.750 mm strip, 16.0 mm long",
-          "clicks": [
-            "x=131.200 y=80.025 z=18.150"
-          ],
-          "answer_indices": [
-            4
-          ],
-          "disposition": "specific_functional_or_approved_profile"
-        },
-        {
           "class": "ceiling",
-          "reading": "82 mm\u00b2 flat print-down face at z=50.650 \u00b7 9.5 \u00d7 8.7 mm \u00b7 drop 19.1\u201319.1 mm to material below",
+          "reading": "47 mm\u00b2 flat print-down face at z=35.279 \u00b7 55.0 \u00d7 0.8 mm \u00b7 drop 3.9\u20133.9 mm to material below",
           "clicks": [
-            "x=74.981 y=17.500 z=50.650"
-          ],
-          "answer_indices": [
-            0
-          ],
-          "disposition": "specific_functional_or_approved_profile"
-        },
-        {
-          "class": "ceiling",
-          "reading": "82 mm\u00b2 flat print-down face at z=28.550 \u00b7 9.5 \u00d7 8.7 mm \u00b7 drop 19.1\u201319.1 mm to material below",
-          "clicks": [
-            "x=74.981 y=17.500 z=28.550"
-          ],
-          "answer_indices": [
-            0
-          ],
-          "disposition": "specific_functional_or_approved_profile"
-        },
-        {
-          "class": "ceiling",
-          "reading": "82 mm\u00b2 flat print-down face at z=50.650 \u00b7 9.4 \u00d7 8.7 mm \u00b7 drop 19.1\u201319.1 mm to material below",
-          "clicks": [
-            "x=87.531 y=17.500 z=50.650"
-          ],
-          "answer_indices": [
-            0
-          ],
-          "disposition": "specific_functional_or_approved_profile"
-        },
-        {
-          "class": "ceiling",
-          "reading": "82 mm\u00b2 flat print-down face at z=28.550 \u00b7 9.4 \u00d7 8.7 mm \u00b7 drop 19.1\u201319.1 mm to material below",
-          "clicks": [
-            "x=87.531 y=17.500 z=28.550"
-          ],
-          "answer_indices": [
-            0
-          ],
-          "disposition": "specific_functional_or_approved_profile"
-        },
-        {
-          "class": "ceiling",
-          "reading": "47 mm\u00b2 flat print-down face at z=36.779 \u00b7 55.0 \u00d7 0.8 mm \u00b7 drop 3.9\u20133.9 mm to material below",
-          "clicks": [
-            "x=-91.768 y=16.286 z=36.779"
+            "x=-91.768 y=16.286 z=35.279"
           ],
           "answer_indices": [
             12
@@ -7009,23 +6949,12 @@
         },
         {
           "class": "ceiling",
-          "reading": "47 mm\u00b2 flat print-down face at z=36.779 \u00b7 55.0 \u00d7 0.8 mm \u00b7 drop 3.9\u20133.9 mm to material below",
+          "reading": "47 mm\u00b2 flat print-down face at z=35.279 \u00b7 55.0 \u00d7 0.8 mm \u00b7 drop 3.9\u20133.9 mm to material below",
           "clicks": [
-            "x=-91.768 y=-47.022 z=36.779"
+            "x=-91.768 y=-47.022 z=35.279"
           ],
           "answer_indices": [
             12
-          ],
-          "disposition": "specific_functional_or_approved_profile"
-        },
-        {
-          "class": "ceiling",
-          "reading": "50 mm\u00b2 flat print-down face at z=7.175 \u00b7 15.6 \u00d7 3.2 mm \u00b7 drop 1.6\u20131.6 mm to material below",
-          "clicks": [
-            "x=-66.200 y=53.364 z=7.175"
-          ],
-          "answer_indices": [
-            1
           ],
           "disposition": "specific_functional_or_approved_profile"
         },
@@ -7469,20 +7398,108 @@
             5
           ],
           "disposition": "specific_functional_or_approved_profile"
+        },
+        {
+          "class": "sliver",
+          "reading": "0.750 mm strip, 16.0 mm long",
+          "clicks": [
+            "x=131.200 y=74.825 z=23.700"
+          ],
+          "answer_indices": [
+            4
+          ],
+          "disposition": "specific_functional_or_approved_profile"
+        },
+        {
+          "class": "sliver",
+          "reading": "0.750 mm strip, 16.0 mm long",
+          "clicks": [
+            "x=-100.200 y=-73.175 z=20.000"
+          ],
+          "answer_indices": [
+            7
+          ],
+          "disposition": "specific_functional_or_approved_profile"
+        },
+        {
+          "class": "sliver",
+          "reading": "0.750 mm strip, 16.0 mm long",
+          "clicks": [
+            "x=131.200 y=80.025 z=18.150"
+          ],
+          "answer_indices": [
+            4
+          ],
+          "disposition": "specific_functional_or_approved_profile"
+        },
+        {
+          "class": "ceiling",
+          "reading": "82 mm\u00b2 flat print-down face at z=50.650 \u00b7 9.5 \u00d7 8.7 mm \u00b7 drop 19.1\u201319.1 mm to material below",
+          "clicks": [
+            "x=74.981 y=17.500 z=50.650"
+          ],
+          "answer_indices": [
+            0
+          ],
+          "disposition": "specific_functional_or_approved_profile"
+        },
+        {
+          "class": "ceiling",
+          "reading": "82 mm\u00b2 flat print-down face at z=28.550 \u00b7 9.5 \u00d7 8.7 mm \u00b7 drop 19.1\u201319.1 mm to material below",
+          "clicks": [
+            "x=74.981 y=17.500 z=28.550"
+          ],
+          "answer_indices": [
+            0
+          ],
+          "disposition": "specific_functional_or_approved_profile"
+        },
+        {
+          "class": "ceiling",
+          "reading": "82 mm\u00b2 flat print-down face at z=50.650 \u00b7 9.4 \u00d7 8.7 mm \u00b7 drop 19.1\u201319.1 mm to material below",
+          "clicks": [
+            "x=87.531 y=17.500 z=50.650"
+          ],
+          "answer_indices": [
+            0
+          ],
+          "disposition": "specific_functional_or_approved_profile"
+        },
+        {
+          "class": "ceiling",
+          "reading": "82 mm\u00b2 flat print-down face at z=28.550 \u00b7 9.4 \u00d7 8.7 mm \u00b7 drop 19.1\u201319.1 mm to material below",
+          "clicks": [
+            "x=87.531 y=17.500 z=28.550"
+          ],
+          "answer_indices": [
+            0
+          ],
+          "disposition": "specific_functional_or_approved_profile"
+        },
+        {
+          "class": "ceiling",
+          "reading": "50 mm\u00b2 flat print-down face at z=7.175 \u00b7 15.6 \u00d7 3.2 mm \u00b7 drop 1.6\u20131.6 mm to material below",
+          "clicks": [
+            "x=-66.200 y=53.364 z=7.175"
+          ],
+          "answer_indices": [
+            1
+          ],
+          "disposition": "specific_functional_or_approved_profile"
         }
       ],
       "published_artifacts": {
         ".step": {
           "path": "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step",
-          "sha256": "ad76a2c28f490dcb08e9ab64cf5847fa4a316c68ea73a996789c19b391bd7bdb"
+          "sha256": "10e2b53eeffc36d05080d79298c5f6fed217e0f3f1ad5d9319a37d3a0150acf1"
         },
         ".stl": {
           "path": "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl",
-          "sha256": "f24c17a1834784b3917672483c3b8e0a14350479e96793998dbe024a38da5275"
+          "sha256": "068b9351b0c8be91489213a9b5da5260515a7c12cf8cdbf40888ef4b6efd2a90"
         },
         ".step.mesh": {
           "path": "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh",
-          "sha256": "3cfe2e3fb9e8f766e0a000ded04f977430f7da6432e9b88b5c00157a88219d3b"
+          "sha256": "b10f654a8ad3d5facbc8687e2e482d4cff0c8e4da14a254b98596b3dc97e6943"
         }
       }
     },
@@ -7790,18 +7807,18 @@
       "artifacts": {
         ".step": {
           "path": "hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.step",
-          "sha256": "e3712f238243bd862e3e429b32d520b253c59624b567d5112f2ba20f895ff800"
+          "sha256": "980e312bf0fc394c884724d39db1aa64f17d8e5440de37e1c4d4d93ab9494dcd"
         },
         ".stl": {
           "path": "hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.stl",
-          "sha256": "711ff10ac4a9cd04b003cde0b84ca143b3da28e02656e5d30324a7966fceee55"
+          "sha256": "24a2481d9606ee004ff3a19617b426b6285e74eeef07ae41375e4e54e6cd402c"
         },
         ".step.mesh": {
           "path": "hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.step.mesh",
-          "sha256": "95a5dfe4b6afddad33dc1950d521ac3afa640a8d5f523ae7a86966ba55efa9d5"
+          "sha256": "906731cf56eb92e70813a5e90f1e3f489efe6b792c6a7e53b5ca60afeda87220"
         }
       },
-      "log_sha256": "93afc0d94f385eb0710a09e56f8c354452e00453551da2983540b0b57cf9906f",
+      "log_sha256": "01754599936841102f6e9dff3a544c6f54c967bb0de1286c358cd99cbda83a36",
       "classes_read": [
         "step",
         "bump",
@@ -7812,53 +7829,31 @@
         "ledge"
       ],
       "answers_path": "hardware/printed-parts/lint-answers/cold-core/foam-cap/pump-snap-cap.lint-answers",
-      "answers_sha256": "64ad11d4d9876d4f1de1fc7827dd8e4d7c1c5d0c9ed8af20397c401300e4dfcb",
+      "answers_sha256": "24e21c7204fc85fbe17539e4892619cc41708f78adb32184792162fda6c87834",
       "answer_entries": [
         {
           "class": "sliver",
           "reason": "Functional snap-hook catch faces and 45\u00b0 entry bevels on the two 3 mm high hooks. Each catch face projects 0.85 mm: the required 0.6 mm engagement plus 0.25 mm running clearance. Its diagonal entry face is 1.202 mm wide. Those are the dimensions of the working catch profile, rather than 0.85 mm or 1.202 mm wall sections; the spring wings are 3 mm thick. The full 54.5 mm extrusion prints axially with no supports or interrupted wings.",
           "alternatives": "A 1.6 mm catch projection requires another 0.75 mm of spring deflection and deeper receiving pockets, changing the snap's assembly force and engagement. Removing the flats removes the catch bearing. Rounding the entry face still requires the flat retention bearing beneath it.",
           "clicks": [
-            "x=-31.904 y=13.905 z=27.250",
-            "x=31.904 y=13.905 z=27.250",
-            "x=31.904 y=16.480 z=27.250",
-            "x=-31.904 y=16.480 z=27.250"
-          ]
-        },
-        {
-          "class": "thin",
-          "reason": "The continuous working spring arch is nominally 2.4 mm between the 3 mm wings. Its exported minimum is 2.322 mm: the fitted motor bore follows the measured barrel axis while the outside profile stays straight. This is the named flexure, with three Classic loops and 100% solid infill in the actual support-free slice. The native fit clears the motor and mating lid; physical snap force and vibration life are not established by that reading.",
-          "alternatives": "A 3 mm outer arch adds 0.6 mm above the present crown, exceeding the measured 0.311 mm PSU gap at this placement. Growing into the motor bore consumes its 0.15 mm static fit allowance. A thicker arch also changes the spring's stiffness; the selected working section retains the fitted motor envelope and available PSU room.",
-          "clicks": [
-            "x=-0.351 y=-16.900 z=2.147",
-            "x=-0.332 y=-14.578 z=2.140"
+            "x=-31.904 y=14.255 z=27.250",
+            "x=31.904 y=14.255 z=27.250",
+            "x=31.904 y=16.830 z=27.250",
+            "x=-31.904 y=16.830 z=27.250"
           ]
         }
       ],
       "counts_by_class": {
-        "thin": 1,
         "sliver": 4
       },
       "unreviewed": [],
       "prior_cosmetic_priority_findings": [],
       "findings": [
         {
-          "class": "thin",
-          "reading": "2.322 mm of material at its thinnest \u00b7 5246.4 mm\u00b2 of surface under 2.5 mm \u00b7 spans 45.7 \u00d7 13.7 \u00d7 52.0 mm \u00b7 in 13 pieces",
-          "clicks": [
-            "x=-0.351 y=-16.900 z=2.147",
-            "x=-0.332 y=-14.578 z=2.140"
-          ],
-          "answer_indices": [
-            1
-          ],
-          "disposition": "specific_functional_or_approved_profile"
-        },
-        {
           "class": "sliver",
           "reading": "0.850 mm strip, 54.5 mm long",
           "clicks": [
-            "x=-31.904 y=13.905 z=27.250"
+            "x=-31.904 y=14.255 z=27.250"
           ],
           "answer_indices": [
             0
@@ -7869,7 +7864,7 @@
           "class": "sliver",
           "reading": "0.850 mm strip, 54.5 mm long",
           "clicks": [
-            "x=31.904 y=13.905 z=27.250"
+            "x=31.904 y=14.255 z=27.250"
           ],
           "answer_indices": [
             0
@@ -7880,7 +7875,7 @@
           "class": "sliver",
           "reading": "1.202 mm strip, 54.5 mm long",
           "clicks": [
-            "x=31.904 y=16.480 z=27.250"
+            "x=31.904 y=16.830 z=27.250"
           ],
           "answer_indices": [
             0
@@ -7891,7 +7886,7 @@
           "class": "sliver",
           "reading": "1.202 mm strip, 54.5 mm long",
           "clicks": [
-            "x=-31.904 y=16.480 z=27.250"
+            "x=-31.904 y=16.830 z=27.250"
           ],
           "answer_indices": [
             0
@@ -7902,18 +7897,17 @@
       "published_artifacts": {
         ".step": {
           "path": "hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.step",
-          "sha256": "df18b1f5deb6e7bcd3b2875efa18c5ea028f0f1866b66d834910298513a7db83"
+          "sha256": "980e312bf0fc394c884724d39db1aa64f17d8e5440de37e1c4d4d93ab9494dcd"
         },
         ".stl": {
           "path": "hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.stl",
-          "sha256": "711ff10ac4a9cd04b003cde0b84ca143b3da28e02656e5d30324a7966fceee55"
+          "sha256": "24a2481d9606ee004ff3a19617b426b6285e74eeef07ae41375e4e54e6cd402c"
         },
         ".step.mesh": {
           "path": "hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.step.mesh",
-          "sha256": "ce4d271337be7874b7a8800f19445973f7c80811789094b92a92427f37877c8b"
+          "sha256": "906731cf56eb92e70813a5e90f1e3f489efe6b792c6a7e53b5ca60afeda87220"
         }
-      },
-      "native_companion_binding": "This physical STL matches the published STL exactly. Native companion files name the local import used by this review; the published standalone companions retain their canonical export hashes separately."
+      }
     },
     "enclosure-front-top": {
       "artifacts": {
@@ -8506,27 +8500,32 @@
   },
   "retained_front_top_baseline_sha256": "4c90f66781508cd08b6944961a4fd9a8c1add7c862ed7b18b74671bebc6dffaa",
   "publication_binding": {
-    "mechanical_commit": "4ccd45989",
+    "mechanical_commit": "ebb268b1724f99b0f2f9fb91dddb82272a6e18ab",
     "live_mesh_readback": {
-      "commit": "4ccd45989",
+      "commit": "ebb268b1724f99b0f2f9fb91dddb82272a6e18ab",
       "verified": [
         {
           "path": "hardware/manifold-layout/enclosure-assembly.step.mesh",
-          "sha256": "a5efb94dd683fba1341351e8424d958ecd204b480f34762459609b6ff9f93729",
+          "sha256": "d7b582e366f5b56f14b8e41de9317821d2cb436e30e3f0d2082d2ee61bdca400",
           "live_matches": true
         },
         {
           "path": "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh",
-          "sha256": "3cfe2e3fb9e8f766e0a000ded04f977430f7da6432e9b88b5c00157a88219d3b",
+          "sha256": "b10f654a8ad3d5facbc8687e2e482d4cff0c8e4da14a254b98596b3dc97e6943",
           "live_matches": true
         },
         {
-          "path": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh",
-          "sha256": "3433029050f2072b1b4aa62611e976a0ea8b5644b3c6ea3b6dcc1954227b1b90",
+          "path": "hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.step.mesh",
+          "sha256": "906731cf56eb92e70813a5e90f1e3f489efe6b792c6a7e53b5ca60afeda87220",
+          "live_matches": true
+        },
+        {
+          "path": "hardware/reference/g-ganen-pump/g-ganen-pump.step.mesh",
+          "sha256": "6c7e82cec104661f3eec463f5351bf620caf9b88fe6ec0f409bf96fcdcf4c05e",
           "live_matches": true
         }
       ]
     },
-    "scope": "Each of the ten reviewed physical STL hashes equals its current published pointer. All seven classes were read after the mechanical parent publication; the byte-identical front-top retains its specifically bound baseline."
+    "scope": "Changed lid and clip were read after publication. The exact published shell uses its separately recorded seven-class reading; other physical STL readings retain byte-identical bindings."
   }
 }

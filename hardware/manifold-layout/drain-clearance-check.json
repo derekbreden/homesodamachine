@@ -46,12 +46,12 @@
         },
         {
           "name": "foam-assembly",
-          "gap_mm": 13.9184167,
+          "gap_mm": 14.4562985,
           "overlap_mm3": 0
         },
         {
           "name": "cold-core/foam-cap-lid-top",
-          "gap_mm": 13.9184167,
+          "gap_mm": 14.4562985,
           "overlap_mm3": 0
         }
       ],
@@ -89,12 +89,12 @@
         },
         {
           "name": "foam-assembly",
-          "gap_mm": 18.1350079,
+          "gap_mm": 18.936344,
           "overlap_mm3": 0
         },
         {
           "name": "cold-core/foam-cap-lid-top",
-          "gap_mm": 18.1350079,
+          "gap_mm": 18.936344,
           "overlap_mm3": 0
         }
       ],
@@ -282,27 +282,27 @@
         },
         {
           "name": "discharge-barb-clamp",
-          "gap_mm": 59.3381731,
+          "gap_mm": 59.7366266,
           "overlap_mm3": 0
         },
         {
           "name": "discharge-barb-key",
-          "gap_mm": 63.3129816,
+          "gap_mm": 63.1701518,
           "overlap_mm3": 0
         },
         {
           "name": "discharge-stem-clamp",
-          "gap_mm": 69.1281295,
+          "gap_mm": 69.6542388,
           "overlap_mm3": 0
         },
         {
           "name": "discharge-tube",
-          "gap_mm": 66.948252,
+          "gap_mm": 67.3037944,
           "overlap_mm3": 0
         },
         {
           "name": "g-ganen-pump",
-          "gap_mm": 22.4178419,
+          "gap_mm": 22.417896,
           "overlap_mm3": 0
         },
         {
@@ -322,12 +322,12 @@
         },
         {
           "name": "suction-barb-clamp",
-          "gap_mm": 32.7887034,
+          "gap_mm": 32.7951891,
           "overlap_mm3": 0
         },
         {
           "name": "suction-barb-key",
-          "gap_mm": 36.6963168,
+          "gap_mm": 36.3343411,
           "overlap_mm3": 0
         },
         {
@@ -670,47 +670,47 @@
         },
         {
           "name": "carbonator-fold",
-          "gap_mm": 69.8217393,
+          "gap_mm": 70.1757443,
           "overlap_mm3": 0
         },
         {
           "name": "discharge-barb-clamp",
-          "gap_mm": 48.865234,
+          "gap_mm": 49.2573078,
           "overlap_mm3": 0
         },
         {
           "name": "discharge-barb-key",
-          "gap_mm": 53.7896075,
+          "gap_mm": 53.5413669,
           "overlap_mm3": 0
         },
         {
           "name": "discharge-chain",
-          "gap_mm": 88.4956089,
+          "gap_mm": 88.8722057,
           "overlap_mm3": 0
         },
         {
           "name": "discharge-reducer",
-          "gap_mm": 64.5424029,
+          "gap_mm": 64.8759793,
           "overlap_mm3": 0
         },
         {
           "name": "discharge-stem-clamp",
-          "gap_mm": 58.3278019,
+          "gap_mm": 58.8728605,
           "overlap_mm3": 0
         },
         {
           "name": "discharge-stem-key",
-          "gap_mm": 37.7697332,
+          "gap_mm": 38.2316112,
           "overlap_mm3": 0
         },
         {
           "name": "discharge-tube",
-          "gap_mm": 56.6738261,
+          "gap_mm": 57.0175219,
           "overlap_mm3": 0
         },
         {
           "name": "g-ganen-pump",
-          "gap_mm": 14.4178317,
+          "gap_mm": 14.4178368,
           "overlap_mm3": 0
         },
         {
@@ -720,17 +720,17 @@
         },
         {
           "name": "pump-snap-cap",
-          "gap_mm": 17.3134897,
+          "gap_mm": 16.6101552,
           "overlap_mm3": 0
         },
         {
           "name": "suction-barb-clamp",
-          "gap_mm": 16.0704657,
+          "gap_mm": 16.9590866,
           "overlap_mm3": 0
         },
         {
           "name": "suction-barb-key",
-          "gap_mm": 14.8513393,
+          "gap_mm": 14.8539931,
           "overlap_mm3": 0
         },
         {
@@ -750,7 +750,7 @@
         },
         {
           "name": "suction-tube",
-          "gap_mm": 16.935359,
+          "gap_mm": 17.1911846,
           "overlap_mm3": 0
         },
         {
@@ -800,7 +800,7 @@
         },
         {
           "name": "tube-water-5",
-          "gap_mm": 110.9412488,
+          "gap_mm": 110.9327489,
           "overlap_mm3": 0
         },
         {
@@ -941,7 +941,7 @@
     "hardware/manifold-layout/enclosure_assembly.py": "faf674f92c6e4779e813c650e04f58798dc80bc9e4a2660a83b504f491c30021",
     "hardware/manifold-layout/_lines.py": "c8688372a9c8afbd98709ddf760d608a8e78e0b83ca79533cf392292f30a310f",
     "hardware/manifold-layout/rear_plumbing.py": "e17d80e9772b954907588ef46fe4f739f0e52f45d855ae8cf68bc4bdf002c37c",
-    "hardware/manifold-layout/above-core.json": "14fb752d47435e1f5ecc74d3f09ff7d564e80d5e42932f6d1f66902f9ed30aac",
+    "hardware/manifold-layout/above-core.json": "c9bbd58dea6cf603caca97829050be5afdbcf329e9d65d52d4b812e24f6fc4db",
     "hardware/reference/neofit-drain-bulkhead/neofit_drain_bulkhead.py": "97743ecaa9529ab351da4563dbda20a783b69afc04a8834a26cb572810e30243",
     "hardware/reference/asse1022-assembly/asse1022_assembly.py": "4481085380d131f5d85696f5c366058382b07577c6881a274495e5d67ec2b3eb",
     "hardware/printed-parts/asse-drain-adapter/asse_drain_adapter.py": "be1b0af71d436b0cea6f69ffb0ba26fbc67c436308d43cd8793c203cfac09205"

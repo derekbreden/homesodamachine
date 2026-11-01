@@ -1,0 +1,59 @@
+{
+  "archive": "hardware/print-tests/pump-mount-fit/prints/2026-11-01-pump-fit-base-mark1-fac38622/2026-11-01-pump-fit-base-mark1-fac38622.gcode.3mf",
+  "archive_sha256": "0277b6d021bff8a24e65aecfc62dcce6a73905e5d9c22483bb623312f0c6dea2",
+  "gcode_md5_matches": true,
+  "emitted_z_trim_mm": [
+    0.0,
+    0.16
+  ],
+  "expected_emitted_textured_trim_mm": 0.16,
+  "layers": 160,
+  "project_check": true,
+  "bead_envelope_plate_mm": [
+    [
+      114.78500000000001,
+      121.656
+    ],
+    [
+      210.215,
+      198.344
+    ]
+  ],
+  "bed_margins_mm": {
+    "left": 114.78500000000001,
+    "front": 121.656,
+    "right": 114.785,
+    "back": 121.656
+  },
+  "minimum_bed_margin_mm": 114.785,
+  "bed_border_mm": 80,
+  "fine_and_transition_bands": [],
+  "support_roads": 0,
+  "show_face_minimum_bead_clearance_mm": null,
+  "show_face_contacts": [],
+  "tie_window_support_crossings": [],
+  "ribbon_support_crossings": [],
+  "ribbons": [],
+  "fine_band_unbacked_roads": [],
+  "first_second_layer_stack": {
+    "1901": {
+      "second_layer_model_bead_area_mm2": 7310.56705880178,
+      "fraction_over_first_layer": 0.9922656443770033,
+      "second_layer_centerline_outside_first_mm": 13.592776737886302
+    }
+  },
+  "solid_host_deposition": [],
+  "support_topology": {},
+  "scope": "Commanded paths and bead envelopes from this archive. Support removal, surface finish, fit and strength are physical observations.",
+  "checks": {
+    "archive": true,
+    "z_trim": true,
+    "bed_border": true,
+    "fine_and_transition_bands": true,
+    "show_faces_support_free": true,
+    "tie_windows_support_free": true,
+    "ribbons_support_free_and_printed": true,
+    "solid_hosts_sampled": true
+  },
+  "pass": true
+}
