@@ -1,12 +1,12 @@
 {
   "schema": "enclosure-closing-motion-review/2",
   "scope": "Fresh complete rigid front-column, rear-base and rear-over-core closing intervals on the current physical quadrant STLs. Pump and cap admission are additionally checked with back-top separated, pump joints/leads disconnected and cap released; only their own intended seated interfaces are omitted. Cross-parent flexible spans and the loose pump inlet elbow and its short inlet link are connected through the uncovered funnel aperture after closure. This establishes nominal rigid travel, not flexure force or flexible handling.",
-  "current_assembly_step_sha256": "eddd15bc11620321a5d7f1d0fb66d7a28f9f3731a8f282ca2477af451af28daa",
-  "current_payload_sha256": "d7b582e366f5b56f14b8e41de9317821d2cb436e30e3f0d2082d2ee61bdca400",
+  "current_assembly_step_sha256": "43de7a97158cfb3d2b9de706d7370fcb1c8b6c32dcb2d9cc09404d443c725655",
+  "current_payload_sha256": "99c6fbd1328a9dc22b0ddf7ca6c0480ae7e08277b4d060c464f690d845bd02fb",
   "current_stl_sha256": {
     "front-top": "169a9a2dad02b09dde59d4e19f2e49e632c55e5ca1531de880140f27cb5b4d9b",
     "front-bottom": "4831c305bf5f080898b2f9011f9eef4a103cd9b85ce38f096210a2e58f5cbadc",
-    "back-top": "e6470d251cc02343a931652bec192038b660c97393f88a97ee6172da9757b413",
+    "back-top": "863574898e98f143a9383f2951d2ce00fd00d68502c34a90d66ac40beb6d2d59",
     "back-bottom": "c9fa5fb8726465cd7cae16075fc3ece8f8ada0c045defb4822a197b637b6c5c2"
   },
   "assembly_prerequisites": [
@@ -15,13 +15,13 @@
     "Separate back-top and disconnect pump joints/leads before pump service; release and remove the continuous cap before lifting the pump."
   ],
   "current_complete_motion_reading": {
-    "payload_sha256": "d7b582e366f5b56f14b8e41de9317821d2cb436e30e3f0d2082d2ee61bdca400",
+    "payload_sha256": "99c6fbd1328a9dc22b0ddf7ca6c0480ae7e08277b4d060c464f690d845bd02fb",
     "mesh_source": "hardware/manifold-layout/enclosure-assembly.step.mesh",
     "method": "Complete translation intervals certified from triangle-surface distances using the 1-Lipschitz translation bound. Broad-phase separation uses complete swept AABBs. Any surface contact or unresolved interval remains a witness for native follow-up. Cross-parent tubes and the loose pump inlet elbow are connected after closure through the funnel opening, per the accepted rotating-joint assembly sequence. This does not infer flexible handling or printed force.",
     "printed_mesh_sha256": {
       "front-top": "169a9a2dad02b09dde59d4e19f2e49e632c55e5ca1531de880140f27cb5b4d9b",
       "front-bottom": "4831c305bf5f080898b2f9011f9eef4a103cd9b85ce38f096210a2e58f5cbadc",
-      "back-top": "e6470d251cc02343a931652bec192038b660c97393f88a97ee6172da9757b413",
+      "back-top": "863574898e98f143a9383f2951d2ce00fd00d68502c34a90d66ac40beb6d2d59",
       "back-bottom": "c9fa5fb8726465cd7cae16075fc3ece8f8ada0c045defb4822a197b637b6c5c2"
     },
     "checks": {
@@ -85,6 +85,8 @@
           "valve-v-h",
           "valve-v-i",
           "valve-v-j",
+          "wago-mana",
+          "wago-manb",
           "ya-stem-elbow",
           "yb-stem-elbow"
         ],
@@ -515,6 +517,14 @@
             "certified_surface_separation_lower_bound_mm": 1.983562839594148
           },
           {
+            "moving": "wago-mana",
+            "stationary": "foam-cap-lid-top",
+            "status": "clear_distance_intervals",
+            "queries": 4,
+            "minimum_queried_surface_distance_mm": 6.263728276385902,
+            "certified_surface_separation_lower_bound_mm": 0.15997827638590234
+          },
+          {
             "moving": "yb-stem-elbow",
             "stationary": "foam-cap-lid-top",
             "status": "clear_distance_intervals",
@@ -606,6 +616,9 @@
           "va-south-elbow",
           "valve-v-a",
           "vk-solenoid",
+          "wago-g",
+          "wago-h",
+          "wago-n",
           "water-split"
         ],
         "stationary": [
@@ -705,6 +718,9 @@
           "va-south-elbow",
           "valve-v-a",
           "vk-solenoid",
+          "wago-g",
+          "wago-h",
+          "wago-n",
           "water-split"
         ],
         "stationary": [
@@ -833,8 +849,8 @@
             "stationary": "foam-cap-lid-top",
             "status": "clear_distance_intervals",
             "queries": 7,
-            "minimum_queried_surface_distance_mm": 11.628255754237461,
-            "certified_surface_separation_lower_bound_mm": 2.253255754237461
+            "minimum_queried_surface_distance_mm": 11.603885720572963,
+            "certified_surface_separation_lower_bound_mm": 2.228885720572963
           },
           {
             "moving": "asse-snap-cap",
@@ -881,16 +897,16 @@
             "stationary": "foam-cap-lid-top",
             "status": "clear_distance_intervals",
             "queries": 3,
-            "minimum_queried_surface_distance_mm": 43.83420694247567,
-            "certified_surface_separation_lower_bound_mm": 6.334206942475667
+            "minimum_queried_surface_distance_mm": 39.457103612655374,
+            "certified_surface_separation_lower_bound_mm": 1.9571036126553736
           },
           {
             "moving": "bulkhead-drain-nut",
             "stationary": "foam-cap-lid-top",
             "status": "clear_distance_intervals",
             "queries": 2,
-            "minimum_queried_surface_distance_mm": 75.94587982620877,
-            "certified_surface_separation_lower_bound_mm": 0.9458798262087669
+            "minimum_queried_surface_distance_mm": 75.94609747451942,
+            "certified_surface_separation_lower_bound_mm": 0.9460974745194193
           },
           {
             "moving": "bulkhead-flavor-a",
@@ -1034,7 +1050,7 @@
             "status": "clear_distance_intervals",
             "queries": 9,
             "minimum_queried_surface_distance_mm": 27.867118330527774,
-            "certified_surface_separation_lower_bound_mm": 7.216988219552249
+            "certified_surface_separation_lower_bound_mm": 7.216988219552263
           },
           {
             "moving": "enclosure-back-top",
@@ -1609,8 +1625,8 @@
             "stationary": "foam-cap-lid-top",
             "status": "clear_distance_intervals",
             "queries": 4,
-            "minimum_queried_surface_distance_mm": 19.296550107938604,
-            "certified_surface_separation_lower_bound_mm": 0.5465501079386037
+            "minimum_queried_surface_distance_mm": 18.945552300064737,
+            "certified_surface_separation_lower_bound_mm": 0.19555230006473678
           },
           {
             "moving": "tube-soda-meter-bulkhead",
@@ -1643,6 +1659,38 @@
             "queries": 20,
             "minimum_queried_surface_distance_mm": 11.096825600560125,
             "certified_surface_separation_lower_bound_mm": 1.7218256005601251
+          },
+          {
+            "moving": "wago-g",
+            "stationary": "foam-cap-lid-top",
+            "status": "clear_distance_intervals",
+            "queries": 3,
+            "minimum_queried_surface_distance_mm": 47.80375945827414,
+            "certified_surface_separation_lower_bound_mm": 10.303759458274143
+          },
+          {
+            "moving": "wago-h",
+            "stationary": "foam-cap-lid-top",
+            "status": "clear_distance_intervals",
+            "queries": 5,
+            "minimum_queried_surface_distance_mm": 10.600006103515625,
+            "certified_surface_separation_lower_bound_mm": 1.225006103515625
+          },
+          {
+            "moving": "wago-n",
+            "stationary": "foam-cap-lid-top",
+            "status": "clear_distance_intervals",
+            "queries": 5,
+            "minimum_queried_surface_distance_mm": 11.520881069162986,
+            "certified_surface_separation_lower_bound_mm": 2.1458810691629857
+          },
+          {
+            "moving": "wago-n",
+            "stationary": "g-ganen-pump",
+            "status": "clear_distance_intervals",
+            "queries": 3,
+            "minimum_queried_surface_distance_mm": 37.64092227485247,
+            "certified_surface_separation_lower_bound_mm": 0.14092227485247122
           }
         ]
       },
@@ -1784,7 +1832,8 @@
                   433.010200884862,
                   259.257668611975
                 ]
-              ]
+              ],
+              "payload_sha256": "d7b582e366f5b56f14b8e41de9317821d2cb436e30e3f0d2082d2ee61bdca400"
             },
             "native_near_seat_interval_certificate": [
               {
@@ -1825,9 +1874,7 @@
               }
             ],
             "upper_physical_mesh_interval_certificate": {
-              "scope": "Complete 0.5\u201380 mm vertical pump admission against the physical lid STL, transformed by the production cap pose. The viewer simplification is not substituted for this fitted interface.",
-              "payload_sha256": "d7b582e366f5b56f14b8e41de9317821d2cb436e30e3f0d2082d2ee61bdca400",
-              "physical_lid_stl_sha256": "068b9351b0c8be91489213a9b5da5260515a7c12cf8cdbf40888ef4b6efd2a90",
+              "physical_lid_stl_sha256": "4f0fc7e699f9f41a91ebeebf527f3ddf2334f60d64e83531d5c8b7a958d7d3c0",
               "lid_pose": {
                 "rotation": [
                   [
@@ -1858,16 +1905,16 @@
               ],
               "result": {
                 "status": "clear_distance_intervals",
-                "queries": 117,
+                "queries": 123,
                 "minimum_queried_surface_distance_mm": 0.11075816422823902,
-                "certified_surface_separation_lower_bound_mm": 0.025280062090267674
+                "certified_surface_separation_lower_bound_mm": 0.025280062090273336
               },
-              "elapsed_seconds": 0.629656667006202
+              "scope": "Complete interval against the exact physical lid STL. The near-seat0..0.5mm interval is certified separately using actual native gaps and the print tessellation allowance."
             },
             "native_input_binding": {
               "reference_parameters_sha256": "69ac39b3b5ec8a4de1c5b6abee49ef0335d3b96df61e358c5b2db1f23d808ffe",
-              "above_core_json_sha256": "c9bbd58dea6cf603caca97829050be5afdbcf329e9d65d52d4b812e24f6fc4db",
-              "lid_step_sha256": "10e2b53eeffc36d05080d79298c5f6fed217e0f3f1ad5d9319a37d3a0150acf1"
+              "above_core_json_sha256": "b886818274572dd35d0b7f5f2da255e855ff1e4420d7a74c2e1c81ea91b45a5a",
+              "lid_step_sha256": "fd455d4fd3b6466abed3aa882356fb4310e355b43a249786dc7e06fde7723a81"
             },
             "native_offset_readings": [
               {
@@ -1905,7 +1952,8 @@
                 "gap_mm": 0.2530292257937674,
                 "overlap_mm3": 0
               }
-            ]
+            ],
+            "retained_other_core_geometry_binding": "Every other core body is unchanged under the retained exact physical arrays or native analytic comparison in enclosure-fit-review.json. Core-mounted WAGOs have additional complete service travel readings below."
           }
         ]
       },
@@ -2010,19 +2058,216 @@
             "minimum_queried_surface_distance_mm": 0.2772027809188283,
             "certified_surface_separation_lower_bound_mm": 0.038895375798419285
           }
-        ]
+        ],
+        "retained_geometry_basis": {
+          "payload_sha256": "d7b582e366f5b56f14b8e41de9317821d2cb436e30e3f0d2082d2ee61bdca400",
+          "scope": "The cap and retained purchased core bodies are unchanged. Its own released lid catches are omitted as the specifically named spring interface. The current core WAGOs have the separately recorded complete vertical sweep reading.",
+          "fit_record_sha256": "feae41c6accc1890e6b65ef48a5de8657513e2d662389f45312057b93ae88c99"
+        }
       }
     },
-    "scope": "Fresh complete rigid front-column, rear-base and rear-over-core closing intervals on the current physical quadrant STLs. Pump and cap admission are additionally checked with back-top separated, pump joints/leads disconnected and cap released; only their own intended seated interfaces are omitted. Cross-parent flexible spans and the loose pump inlet elbow and its short inlet link are connected through the uncovered funnel aperture after closure. This establishes nominal rigid travel, not flexure force or flexible handling.",
-    "assembly_step_sha256": "eddd15bc11620321a5d7f1d0fb66d7a28f9f3731a8f282ca2477af451af28daa",
-    "cap_lift_omission": "The lid is omitted only from cap lift because its two catches are the released spring interface. The complete actual lid remains in the bare-pump admission check. The cap remains clear of every retained purchased core body.",
+    "scope": "Fresh complete rigid front-column, rear-base and rear-over-core translation intervals against the exact current physical quadrant STLs and current installed core, including all mounted WAGO bodies. Cross-parent flexible spans and the named pump inlet handoff remain loose until the rigid quadrants are seated. Wire handling and physical flexure force are separate.",
+    "assembly_step_sha256": "43de7a97158cfb3d2b9de706d7370fcb1c8b6c32dcb2d9cc09404d443c725655",
     "unresolved": [],
+    "mounted_wagos_in_motion": {
+      "back": [
+        "wago-g",
+        "wago-h",
+        "wago-n"
+      ],
+      "front": [
+        "wago-mana",
+        "wago-manb"
+      ],
+      "core": [
+        "wago-gnd",
+        "wago-reeds-b",
+        "wago-sensors",
+        "wago-v12"
+      ]
+    },
+    "physical_pump_upper_admission": {
+      "physical_lid_stl_sha256": "4f0fc7e699f9f41a91ebeebf527f3ddf2334f60d64e83531d5c8b7a958d7d3c0",
+      "lid_pose": {
+        "rotation": [
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            -1,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            1
+          ]
+        ],
+        "translation_mm": [
+          0.0,
+          323.8,
+          246.0
+        ]
+      },
+      "interval_mm": [
+        0.5,
+        80.0
+      ],
+      "result": {
+        "status": "clear_distance_intervals",
+        "queries": 123,
+        "minimum_queried_surface_distance_mm": 0.11075816422823902,
+        "certified_surface_separation_lower_bound_mm": 0.025280062090273336
+      },
+      "scope": "Complete interval against the exact physical lid STL. The near-seat0..0.5mm interval is certified separately using actual native gaps and the print tessellation allowance."
+    },
+    "core_wago_pump_service": [
+      {
+        "moving": "g-ganen-pump",
+        "wago": "wago-gnd",
+        "result": {
+          "status": "clear_aabb",
+          "queries": 0
+        }
+      },
+      {
+        "moving": "pump-snap-cap",
+        "wago": "wago-gnd",
+        "result": {
+          "status": "clear_aabb",
+          "queries": 0
+        }
+      },
+      {
+        "moving": "g-ganen-pump",
+        "wago": "wago-reeds-b",
+        "result": {
+          "status": "clear_aabb",
+          "queries": 0
+        }
+      },
+      {
+        "moving": "pump-snap-cap",
+        "wago": "wago-reeds-b",
+        "result": {
+          "status": "clear_aabb",
+          "queries": 0
+        }
+      },
+      {
+        "moving": "g-ganen-pump",
+        "wago": "wago-sensors",
+        "result": {
+          "status": "clear_aabb",
+          "queries": 0
+        }
+      },
+      {
+        "moving": "pump-snap-cap",
+        "wago": "wago-sensors",
+        "result": {
+          "status": "clear_aabb",
+          "queries": 0
+        }
+      },
+      {
+        "moving": "g-ganen-pump",
+        "wago": "wago-v12",
+        "result": {
+          "status": "clear_aabb",
+          "queries": 0
+        }
+      },
+      {
+        "moving": "pump-snap-cap",
+        "wago": "wago-v12",
+        "result": {
+          "status": "clear_aabb",
+          "queries": 0
+        }
+      }
+    ],
     "pass": true,
-    "elapsed_seconds": 246.10492866700224,
-    "screening_resolution": {
-      "scope": "The near-seated viewer/pump tessellation witness is retained. Complete 0\u20130.5 mm travel is certified by native endpoint distances and the 1-Lipschitz bound, with 0.005 mm physical-print deflection plus 0.0001 mm float/transform allowance subtracted. Complete 0.5\u201380 mm travel uses the actual physical lid STL and the recorded pump triangles. No geometry or interface omission resolves this witness.",
-      "original_reading_sha256": "47889ba3e95e144c6f14a62ec39e054f519383fc6d5779e8883576684b7a50da"
-    }
+    "elapsed_seconds": 319.4555662500061,
+    "native_near_seat_readings": [
+      {
+        "offset_z_mm": 0.0,
+        "gap_mm": 0.14652078805502425,
+        "overlap_mm3": 0
+      },
+      {
+        "offset_z_mm": 0.078125,
+        "gap_mm": 0.17582113933321825,
+        "overlap_mm3": 0
+      },
+      {
+        "offset_z_mm": 0.15625,
+        "gap_mm": 0.2036218091852369,
+        "overlap_mm3": 0
+      },
+      {
+        "offset_z_mm": 0.25,
+        "gap_mm": 0.2350426723035975,
+        "overlap_mm3": 0
+      },
+      {
+        "offset_z_mm": 0.5,
+        "gap_mm": 0.2530292257937674,
+        "overlap_mm3": 0
+      },
+      {
+        "offset_z_mm": 1.0,
+        "gap_mm": 0.2530292257937674,
+        "overlap_mm3": 0
+      },
+      {
+        "offset_z_mm": 2.0,
+        "gap_mm": 0.2530292257937674,
+        "overlap_mm3": 0
+      }
+    ],
+    "native_near_seat_interval_certificate": [
+      {
+        "offset_interval_mm": [
+          0.0,
+          0.078125
+        ],
+        "native_gap_lower_bound_mm": 0.12210846369412126,
+        "physical_lid_allowance_mm": 0.0051,
+        "physical_lid_gap_lower_bound_mm": 0.11700846369412127
+      },
+      {
+        "offset_interval_mm": [
+          0.078125,
+          0.15625
+        ],
+        "native_gap_lower_bound_mm": 0.15065897425922758,
+        "physical_lid_allowance_mm": 0.0051,
+        "physical_lid_gap_lower_bound_mm": 0.1455589742592276
+      },
+      {
+        "offset_interval_mm": [
+          0.15625,
+          0.25
+        ],
+        "native_gap_lower_bound_mm": 0.1724572407444172,
+        "physical_lid_allowance_mm": 0.0051,
+        "physical_lid_gap_lower_bound_mm": 0.1673572407444172
+      },
+      {
+        "offset_interval_mm": [
+          0.25,
+          0.5
+        ],
+        "native_gap_lower_bound_mm": 0.11903594904868245,
+        "physical_lid_allowance_mm": 0.0051,
+        "physical_lid_gap_lower_bound_mm": 0.11393594904868246
+      }
+    ],
+    "cap_lift_omission": "The lid is omitted only from cap lift because its two catches are the released spring interface. The complete actual lid remains in the bare-pump admission check. The cap remains clear of every retained purchased core body."
   },
   "unresolved_after_prerequisites": [],
   "all_recorded_rigid_closing_intervals_clear_after_prerequisites": true,

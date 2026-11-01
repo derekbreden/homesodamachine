@@ -1,11 +1,11 @@
 {
   "schema": 1,
   "scope": "One manual full-scene mesh interference review of every wire and cable jacket against larger bodies; wire-to-wire and wire-to-tube contacts are excluded. Tessellated penetration is a routing witness, not a native-solid or physical assembly qualification.",
-  "manifest_sha256": "1d56e27d0a4512bd38dee9e934c4c27a557ea56826c0ea394476dfefe1c9e64b",
-  "assembly_step_sha256": "c43899c17ab94f1144202b9bd43d80a8a12cef7f2e09b742f7c53531c17b3cab",
-  "assembly_mesh_sha256": "b198dc9180b8db8f6218bf77c8198483b3832d71b8fd586ba3c65518880531cf",
-  "wire_count": 101,
-  "physical_mesh_count": 411,
+  "manifest_sha256": "2014cb424bd823115f40412491965b2b0189f6c829eca5957d6ad19abfde1f62",
+  "assembly_step_sha256": "43de7a97158cfb3d2b9de706d7370fcb1c8b6c32dcb2d9cc09404d443c725655",
+  "assembly_mesh_sha256": "99c6fbd1328a9dc22b0ddf7ca6c0480ae7e08277b4d060c464f690d845bd02fb",
+  "wire_count": 100,
+  "physical_mesh_count": 417,
   "coverage_missing": [],
   "physical_interference_pairs": [
     {
@@ -18,17 +18,6 @@
       ],
       "mesh_penetration_mm": 0.041,
       "contacts": 2
-    },
-    {
-      "wire": "DC3-positive",
-      "part": "wiring-junction-pump-positive",
-      "point_mm": [
-        -35.6,
-        245.7,
-        278.0
-      ],
-      "mesh_penetration_mm": 4.0763,
-      "contacts": 10
     },
     {
       "wire": "J2-OUT1",
@@ -45,29 +34,1035 @@
   "wire_packing_pairs": [],
   "bundle_interference_pairs": [],
   "termination_interference_pairs": [],
-  "wires_with_physical_interference": 3,
+  "wires_with_physical_interference": 2,
   "endpoint_contact_scope": "Only the named endpoint part within 8.5 mm of its attachment. All other contact with that part remains in the reading.",
   "native": {
-    "scope": "All current standalone and installed native wiring bodies, and all source conductor curves, read by the bound manual reader.",
-    "binding_record": {
-      "path": "hardware/wiring/installed/above-core-review/installed-wiring-binding.json",
-      "sha256": "f4ca60e92caf4aa32e3bd51bae7f24303537f8a4822c3558e9666b819918cba4"
-    },
-    "wiring_step_sha256": "e94f8aa422c155d17cc82ed1a447e9cebd5c701c96272df4830f632ab2a06fa3",
+    "scope": "All standalone native wires and their installed native placements, read back from both STEP files.",
+    "wiring_step_sha256": "2a8c293144335980423a212a1c462efefc2b7e5f218a2223664dce6d87ed8c27",
     "all_valid_single_solids": true,
-    "wire_count": 101,
-    "native_body_count": 120,
-    "all_source_curves_match": true,
-    "all_native_shapes_bound": true,
-    "maximum_installed_bounds_error_mm": 0.0
-  },
-  "native_resolution": {
-    "scope": "All remaining mesh witnesses resolved by exact material readings of the current native bodies.",
-    "record": {
-      "path": "hardware/wiring/installed/above-core-review/routing-enclosure-review.json",
-      "sha256": "e0d8fc49678c24149f36d63b3f0f84708b2a5f2c05b101d52a2ae607c9b60184"
+    "maximum_installed_bounds_error_mm": 0.0,
+    "invalid": [],
+    "wire_count": 100,
+    "reference_frame_maximum_extent_residual_mm": 7.105427357601002e-15,
+    "termination_count": 18,
+    "invalid_terminations": [],
+    "bundles": {
+      "compressor-cord": {
+        "valid": true,
+        "solids": 1,
+        "scope": "Jacket validity only; conductor packing is excluded."
+      },
+      "reed-column-a": {
+        "jacket": false
+      },
+      "reed-column-b": {
+        "jacket": false
+      },
+      "temperature-bus": {
+        "jacket": false
+      },
+      "sensor-cable": {
+        "jacket": false
+      },
+      "carbonator-earth": {
+        "jacket": false
+      },
+      "condenser-fan-pair": {
+        "jacket": false
+      },
+      "gas-sensor-ribbon": {
+        "jacket": false
+      }
     },
-    "all_witnesses_resolved": true,
-    "unresolved_pairs": []
+    "unique_connection_ids": true,
+    "populated_board_contacts": 53,
+    "bench_pin_maps_match": {
+      "J2": true,
+      "J13": true
+    }
+  },
+  "unaugmented_mesh_screen_sha256": "0f2a6cbfd862f4ccf660221067b80cab7045c3cdbbda3d47907f8f89d0ddeceb",
+  "physical_interference_pairs_sha256": "461f0d8fcf0aefbd0166fe423e9bfc071d45fba59283cc49e53dbc1103c69611",
+  "native_resolution": {
+    "path": "hardware/wiring/installed/contact-review.json",
+    "sha256": "4d5f62dcd3fdcda59d9a6f11355dc04b997d2b5b6e1730ba78e4d083510dc831",
+    "native_zero_pairs": [
+      {
+        "wire": "AC1-PE",
+        "part": "c14-inlet",
+        "mesh_pair_indices": [
+          0
+        ],
+        "whole_overlap_mm3": 0.0,
+        "outside_endpoint_overlap_mm3": 0.0,
+        "local_endpoint_nodes": []
+      },
+      {
+        "wire": "J2-OUT1",
+        "part": "coil-v-i",
+        "mesh_pair_indices": [
+          1
+        ],
+        "whole_overlap_mm3": 0.0,
+        "outside_endpoint_overlap_mm3": 0.0,
+        "local_endpoint_nodes": []
+      }
+    ],
+    "unresolved": []
+  },
+  "all_recorded_larger_body_wire_contacts_clear": true,
+  "preparation_lengths": {
+    "source": "hardware/wiring/_ac_wiring_schedule_sync.py",
+    "source_sha256": "bcdfb94659e38d8289a8fa24a83307778b6d31efffe824a6bd117829aefb6f87",
+    "scope": "Developed lengths from this actual exported manifest compared with current preparation stock. The compressor hot allocation includes both AC4-H and AC4-fuse pieces; the reservoir-A common includes all three continuing earth spans. Remaining stock is a nominal cutting allowance, not physical dressing or termination qualification.",
+    "groups": [
+      {
+        "group": "AC-1 inlet pigtails",
+        "schedule_constant": "len_mid_mm",
+        "prepared_length_mm": 150,
+        "maximum_developed_path_mm": 110.299,
+        "minimum_remaining_preparation_mm": 39.701,
+        "members": [
+          {
+            "route_ids": [
+              "AC1-L"
+            ],
+            "missing_routes": [],
+            "developed_path_mm": 77.795,
+            "remaining_preparation_mm": 72.205
+          },
+          {
+            "route_ids": [
+              "AC1-N"
+            ],
+            "missing_routes": [],
+            "developed_path_mm": 79.915,
+            "remaining_preparation_mm": 70.085
+          },
+          {
+            "route_ids": [
+              "AC1-PE"
+            ],
+            "missing_routes": [],
+            "developed_path_mm": 110.299,
+            "remaining_preparation_mm": 39.701
+          }
+        ]
+      },
+      {
+        "group": "AC-2 fixed 16 AWG",
+        "schedule_constant": "len_short_2_mm",
+        "prepared_length_mm": 200,
+        "maximum_developed_path_mm": 128.794,
+        "minimum_remaining_preparation_mm": 71.206,
+        "members": [
+          {
+            "route_ids": [
+              "AC2-L"
+            ],
+            "missing_routes": [],
+            "developed_path_mm": 118.334,
+            "remaining_preparation_mm": 81.666
+          },
+          {
+            "route_ids": [
+              "AC2-N"
+            ],
+            "missing_routes": [],
+            "developed_path_mm": 128.794,
+            "remaining_preparation_mm": 71.206
+          }
+        ]
+      },
+      {
+        "group": "AC-3 relay supply",
+        "schedule_constant": "len_short_mm",
+        "prepared_length_mm": 150,
+        "maximum_developed_path_mm": 40.047,
+        "minimum_remaining_preparation_mm": 109.953,
+        "members": [
+          {
+            "route_ids": [
+              "AC3-L"
+            ],
+            "missing_routes": [],
+            "developed_path_mm": 40.047,
+            "remaining_preparation_mm": 109.953
+          }
+        ]
+      },
+      {
+        "group": "DC-1 fixed 16 AWG",
+        "schedule_constant": "len_dc1_mm",
+        "prepared_length_mm": 350,
+        "maximum_developed_path_mm": 309.262,
+        "minimum_remaining_preparation_mm": 40.738,
+        "members": [
+          {
+            "route_ids": [
+              "DC1-V12"
+            ],
+            "missing_routes": [],
+            "developed_path_mm": 309.262,
+            "remaining_preparation_mm": 40.738
+          },
+          {
+            "route_ids": [
+              "DC1-GND"
+            ],
+            "missing_routes": [],
+            "developed_path_mm": 276.707,
+            "remaining_preparation_mm": 73.293
+          }
+        ]
+      },
+      {
+        "group": "DC-2 fixed 16 AWG",
+        "schedule_constant": "len_dc2_mm",
+        "prepared_length_mm": 350,
+        "maximum_developed_path_mm": 257.137,
+        "minimum_remaining_preparation_mm": 92.863,
+        "members": [
+          {
+            "route_ids": [
+              "DC2-V12"
+            ],
+            "missing_routes": [],
+            "developed_path_mm": 257.137,
+            "remaining_preparation_mm": 92.863
+          }
+        ]
+      },
+      {
+        "group": "DC-3 pump",
+        "schedule_constant": "len_pump_mm",
+        "prepared_length_mm": 350,
+        "maximum_developed_path_mm": 284.282,
+        "minimum_remaining_preparation_mm": 65.718,
+        "members": [
+          {
+            "route_ids": [
+              "DC3-positive"
+            ],
+            "missing_routes": [],
+            "developed_path_mm": 284.282,
+            "remaining_preparation_mm": 65.718
+          },
+          {
+            "route_ids": [
+              "DC3-negative"
+            ],
+            "missing_routes": [],
+            "developed_path_mm": 248.724,
+            "remaining_preparation_mm": 101.276
+          }
+        ]
+      },
+      {
+        "group": "DC-4 fixed 16 AWG",
+        "schedule_constant": "len_mid_mm",
+        "prepared_length_mm": 150,
+        "maximum_developed_path_mm": 97.997,
+        "minimum_remaining_preparation_mm": 52.003,
+        "members": [
+          {
+            "route_ids": [
+              "DC4-V12"
+            ],
+            "missing_routes": [],
+            "developed_path_mm": 97.997,
+            "remaining_preparation_mm": 52.003
+          },
+          {
+            "route_ids": [
+              "DC4-GND"
+            ],
+            "missing_routes": [],
+            "developed_path_mm": 52.382,
+            "remaining_preparation_mm": 97.618
+          }
+        ]
+      },
+      {
+        "group": "compressor SJOOW stock",
+        "schedule_constant": "len_compressor_mm",
+        "prepared_length_mm": 700,
+        "maximum_developed_path_mm": 650.616,
+        "minimum_remaining_preparation_mm": 49.384,
+        "members": [
+          {
+            "route_ids": [
+              "AC4-H",
+              "AC4-fuse"
+            ],
+            "missing_routes": [],
+            "developed_path_mm": 468.157,
+            "remaining_preparation_mm": 231.843
+          },
+          {
+            "route_ids": [
+              "AC5-N"
+            ],
+            "missing_routes": [],
+            "developed_path_mm": 468.108,
+            "remaining_preparation_mm": 231.892
+          },
+          {
+            "route_ids": [
+              "AC6-PE"
+            ],
+            "missing_routes": [],
+            "developed_path_mm": 650.616,
+            "remaining_preparation_mm": 49.384
+          }
+        ]
+      },
+      {
+        "group": "J13 pump ribbon",
+        "schedule_constant": "len_pump_fixed_mm",
+        "prepared_length_mm": 500,
+        "maximum_developed_path_mm": 303.988,
+        "minimum_remaining_preparation_mm": 196.012,
+        "members": [
+          {
+            "route_ids": [
+              "J13-AM2"
+            ],
+            "missing_routes": [],
+            "developed_path_mm": 292.598,
+            "remaining_preparation_mm": 207.402
+          },
+          {
+            "route_ids": [
+              "J13-AM1"
+            ],
+            "missing_routes": [],
+            "developed_path_mm": 291.776,
+            "remaining_preparation_mm": 208.224
+          },
+          {
+            "route_ids": [
+              "J13-BM2"
+            ],
+            "missing_routes": [],
+            "developed_path_mm": 295.594,
+            "remaining_preparation_mm": 204.406
+          },
+          {
+            "route_ids": [
+              "J13-BM1"
+            ],
+            "missing_routes": [],
+            "developed_path_mm": 303.988,
+            "remaining_preparation_mm": 196.012
+          }
+        ]
+      },
+      {
+        "group": "manifold A common",
+        "schedule_constant": "len_man_a_com_mm",
+        "prepared_length_mm": 350,
+        "maximum_developed_path_mm": 302.016,
+        "minimum_remaining_preparation_mm": 47.984,
+        "members": [
+          {
+            "route_ids": [
+              "J1-COM"
+            ],
+            "missing_routes": [],
+            "developed_path_mm": 302.016,
+            "remaining_preparation_mm": 47.984
+          }
+        ]
+      },
+      {
+        "group": "manifold A returns",
+        "schedule_constant": "len_man_a_mm",
+        "prepared_length_mm": 600,
+        "maximum_developed_path_mm": 463.955,
+        "minimum_remaining_preparation_mm": 136.045,
+        "members": [
+          {
+            "route_ids": [
+              "J1-OUT1"
+            ],
+            "missing_routes": [],
+            "developed_path_mm": 116.298,
+            "remaining_preparation_mm": 483.702
+          },
+          {
+            "route_ids": [
+              "J1-OUT2"
+            ],
+            "missing_routes": [],
+            "developed_path_mm": 172.822,
+            "remaining_preparation_mm": 427.178
+          },
+          {
+            "route_ids": [
+              "J1-OUT3"
+            ],
+            "missing_routes": [],
+            "developed_path_mm": 406.722,
+            "remaining_preparation_mm": 193.278
+          },
+          {
+            "route_ids": [
+              "J1-OUT4"
+            ],
+            "missing_routes": [],
+            "developed_path_mm": 444.743,
+            "remaining_preparation_mm": 155.257
+          },
+          {
+            "route_ids": [
+              "J1-OUT5"
+            ],
+            "missing_routes": [],
+            "developed_path_mm": 403.55,
+            "remaining_preparation_mm": 196.45
+          },
+          {
+            "route_ids": [
+              "J1-OUT6"
+            ],
+            "missing_routes": [],
+            "developed_path_mm": 343.618,
+            "remaining_preparation_mm": 256.382
+          },
+          {
+            "route_ids": [
+              "J1-OUT7"
+            ],
+            "missing_routes": [],
+            "developed_path_mm": 355.723,
+            "remaining_preparation_mm": 244.277
+          },
+          {
+            "route_ids": [
+              "J1-OUT8"
+            ],
+            "missing_routes": [],
+            "developed_path_mm": 463.955,
+            "remaining_preparation_mm": 136.045
+          }
+        ]
+      },
+      {
+        "group": "manifold A positive branches",
+        "schedule_constant": "len_man_a_fanout_mm",
+        "prepared_length_mm": 450,
+        "maximum_developed_path_mm": 269.258,
+        "minimum_remaining_preparation_mm": 180.742,
+        "members": [
+          {
+            "route_ids": [
+              "J1-positive-A"
+            ],
+            "missing_routes": [],
+            "developed_path_mm": 269.258,
+            "remaining_preparation_mm": 180.742
+          },
+          {
+            "route_ids": [
+              "J1-positive-B"
+            ],
+            "missing_routes": [],
+            "developed_path_mm": 104.879,
+            "remaining_preparation_mm": 345.121
+          },
+          {
+            "route_ids": [
+              "J1-positive-C"
+            ],
+            "missing_routes": [],
+            "developed_path_mm": 149.317,
+            "remaining_preparation_mm": 300.683
+          },
+          {
+            "route_ids": [
+              "J1-positive-D"
+            ],
+            "missing_routes": [],
+            "developed_path_mm": 167.505,
+            "remaining_preparation_mm": 282.495
+          },
+          {
+            "route_ids": [
+              "J1-positive-E"
+            ],
+            "missing_routes": [],
+            "developed_path_mm": 97.378,
+            "remaining_preparation_mm": 352.622
+          },
+          {
+            "route_ids": [
+              "J1-positive-F"
+            ],
+            "missing_routes": [],
+            "developed_path_mm": 39.149,
+            "remaining_preparation_mm": 410.851
+          },
+          {
+            "route_ids": [
+              "J1-positive-G"
+            ],
+            "missing_routes": [],
+            "developed_path_mm": 85.7,
+            "remaining_preparation_mm": 364.3
+          },
+          {
+            "route_ids": [
+              "J1-positive-H"
+            ],
+            "missing_routes": [],
+            "developed_path_mm": 136.073,
+            "remaining_preparation_mm": 313.927
+          }
+        ]
+      },
+      {
+        "group": "manifold B common",
+        "schedule_constant": "len_man_b_com_mm",
+        "prepared_length_mm": 350,
+        "maximum_developed_path_mm": 307.472,
+        "minimum_remaining_preparation_mm": 42.528,
+        "members": [
+          {
+            "route_ids": [
+              "J2-COM"
+            ],
+            "missing_routes": [],
+            "developed_path_mm": 307.472,
+            "remaining_preparation_mm": 42.528
+          }
+        ]
+      },
+      {
+        "group": "manifold B returns",
+        "schedule_constant": "len_man_b_mm",
+        "prepared_length_mm": 550,
+        "maximum_developed_path_mm": 518.646,
+        "minimum_remaining_preparation_mm": 31.354,
+        "members": [
+          {
+            "route_ids": [
+              "J2-OUT1"
+            ],
+            "missing_routes": [],
+            "developed_path_mm": 518.646,
+            "remaining_preparation_mm": 31.354
+          },
+          {
+            "route_ids": [
+              "J2-OUT2"
+            ],
+            "missing_routes": [],
+            "developed_path_mm": 475.796,
+            "remaining_preparation_mm": 74.204
+          }
+        ]
+      },
+      {
+        "group": "manifold B positive branches",
+        "schedule_constant": "len_man_b_fanout_mm",
+        "prepared_length_mm": 450,
+        "maximum_developed_path_mm": 241.805,
+        "minimum_remaining_preparation_mm": 208.195,
+        "members": [
+          {
+            "route_ids": [
+              "J2-positive-I"
+            ],
+            "missing_routes": [],
+            "developed_path_mm": 192.389,
+            "remaining_preparation_mm": 257.611
+          },
+          {
+            "route_ids": [
+              "J2-positive-J"
+            ],
+            "missing_routes": [],
+            "developed_path_mm": 172.089,
+            "remaining_preparation_mm": 277.911
+          },
+          {
+            "route_ids": [
+              "J2-positive-fan"
+            ],
+            "missing_routes": [],
+            "developed_path_mm": 224.62,
+            "remaining_preparation_mm": 225.38
+          },
+          {
+            "route_ids": [
+              "J2-positive-K"
+            ],
+            "missing_routes": [],
+            "developed_path_mm": 241.805,
+            "remaining_preparation_mm": 208.195
+          }
+        ]
+      },
+      {
+        "group": "condenser fan return",
+        "schedule_constant": "len_fan_mm",
+        "prepared_length_mm": 650,
+        "maximum_developed_path_mm": 513.768,
+        "minimum_remaining_preparation_mm": 136.232,
+        "members": [
+          {
+            "route_ids": [
+              "J2-FAN"
+            ],
+            "missing_routes": [],
+            "developed_path_mm": 513.768,
+            "remaining_preparation_mm": 136.232
+          }
+        ]
+      },
+      {
+        "group": "V-K return",
+        "schedule_constant": "len_vk_mm",
+        "prepared_length_mm": 350,
+        "maximum_developed_path_mm": 178.403,
+        "minimum_remaining_preparation_mm": 171.597,
+        "members": [
+          {
+            "route_ids": [
+              "J2-OUT3"
+            ],
+            "missing_routes": [],
+            "developed_path_mm": 178.403,
+            "remaining_preparation_mm": 171.597
+          }
+        ]
+      },
+      {
+        "group": "J9 display",
+        "schedule_constant": "len_front_face_mm",
+        "prepared_length_mm": 400,
+        "maximum_developed_path_mm": 285.342,
+        "minimum_remaining_preparation_mm": 114.658,
+        "members": [
+          {
+            "route_ids": [
+              "J9-B"
+            ],
+            "missing_routes": [],
+            "developed_path_mm": 278.548,
+            "remaining_preparation_mm": 121.452
+          },
+          {
+            "route_ids": [
+              "J9-A"
+            ],
+            "missing_routes": [],
+            "developed_path_mm": 280.496,
+            "remaining_preparation_mm": 119.504
+          },
+          {
+            "route_ids": [
+              "J9-GND"
+            ],
+            "missing_routes": [],
+            "developed_path_mm": 282.763,
+            "remaining_preparation_mm": 117.237
+          },
+          {
+            "route_ids": [
+              "J9-V12"
+            ],
+            "missing_routes": [],
+            "developed_path_mm": 285.342,
+            "remaining_preparation_mm": 114.658
+          }
+        ]
+      },
+      {
+        "group": "J3 faucet inboard",
+        "schedule_constant": "len_faucet_inboard_mm",
+        "prepared_length_mm": 400,
+        "maximum_developed_path_mm": 261.989,
+        "minimum_remaining_preparation_mm": 138.011,
+        "members": [
+          {
+            "route_ids": [
+              "J3-V5"
+            ],
+            "missing_routes": [],
+            "developed_path_mm": 260.189,
+            "remaining_preparation_mm": 139.811
+          },
+          {
+            "route_ids": [
+              "J3-GND"
+            ],
+            "missing_routes": [],
+            "developed_path_mm": 261.989,
+            "remaining_preparation_mm": 138.011
+          },
+          {
+            "route_ids": [
+              "J3-IO35"
+            ],
+            "missing_routes": [],
+            "developed_path_mm": 256.759,
+            "remaining_preparation_mm": 143.241
+          },
+          {
+            "route_ids": [
+              "J3-IO33"
+            ],
+            "missing_routes": [],
+            "developed_path_mm": 254.089,
+            "remaining_preparation_mm": 145.911
+          }
+        ]
+      },
+      {
+        "group": "temperature bus",
+        "schedule_constant": "len_onewire_mm",
+        "prepared_length_mm": 650,
+        "maximum_developed_path_mm": 567.662,
+        "minimum_remaining_preparation_mm": 82.338,
+        "members": [
+          {
+            "route_ids": [
+              "J4-3V3",
+              "temp-bus-V"
+            ],
+            "missing_routes": [],
+            "developed_path_mm": 534.265,
+            "remaining_preparation_mm": 115.735
+          },
+          {
+            "route_ids": [
+              "J4-IO26",
+              "temp-bus-DATA"
+            ],
+            "missing_routes": [],
+            "developed_path_mm": 519.49,
+            "remaining_preparation_mm": 130.51
+          },
+          {
+            "route_ids": [
+              "temp-GND",
+              "temp-bus-GND"
+            ],
+            "missing_routes": [],
+            "developed_path_mm": 567.662,
+            "remaining_preparation_mm": 82.338
+          }
+        ]
+      },
+      {
+        "group": "sensor common pigtail",
+        "schedule_constant": "len_sensors_gnd_mm",
+        "prepared_length_mm": 300,
+        "maximum_developed_path_mm": 51.795,
+        "minimum_remaining_preparation_mm": 248.205,
+        "members": [
+          {
+            "route_ids": [
+              "J4-GND"
+            ],
+            "missing_routes": [],
+            "developed_path_mm": 51.795,
+            "remaining_preparation_mm": 248.205
+          }
+        ]
+      },
+      {
+        "group": "flow meter",
+        "schedule_constant": "len_flow_mm",
+        "prepared_length_mm": 350,
+        "maximum_developed_path_mm": 308.79,
+        "minimum_remaining_preparation_mm": 41.21,
+        "members": [
+          {
+            "route_ids": [
+              "J4-V5"
+            ],
+            "missing_routes": [],
+            "developed_path_mm": 304.56,
+            "remaining_preparation_mm": 45.44
+          },
+          {
+            "route_ids": [
+              "J4-IO25"
+            ],
+            "missing_routes": [],
+            "developed_path_mm": 303.876,
+            "remaining_preparation_mm": 46.124
+          },
+          {
+            "route_ids": [
+              "flow-GND"
+            ],
+            "missing_routes": [],
+            "developed_path_mm": 308.79,
+            "remaining_preparation_mm": 41.21
+          }
+        ]
+      },
+      {
+        "group": "relay logic",
+        "schedule_constant": "len_relays_mm",
+        "prepared_length_mm": 350,
+        "maximum_developed_path_mm": 280.34,
+        "minimum_remaining_preparation_mm": 69.66,
+        "members": [
+          {
+            "route_ids": [
+              "J5-V5",
+              "relay-bus-V5"
+            ],
+            "missing_routes": [],
+            "developed_path_mm": 269.525,
+            "remaining_preparation_mm": 80.475
+          },
+          {
+            "route_ids": [
+              "J5-GND",
+              "relay-bus-GND"
+            ],
+            "missing_routes": [],
+            "developed_path_mm": 280.34,
+            "remaining_preparation_mm": 69.66
+          },
+          {
+            "route_ids": [
+              "J5-IO19"
+            ],
+            "missing_routes": [],
+            "developed_path_mm": 182.203,
+            "remaining_preparation_mm": 167.797
+          },
+          {
+            "route_ids": [
+              "J5-IO2"
+            ],
+            "missing_routes": [],
+            "developed_path_mm": 195.886,
+            "remaining_preparation_mm": 154.114
+          }
+        ]
+      },
+      {
+        "group": "reservoir A leads",
+        "schedule_constant": "len_reeds_a_mm",
+        "prepared_length_mm": 650,
+        "maximum_developed_path_mm": 573.633,
+        "minimum_remaining_preparation_mm": 76.367,
+        "members": [
+          {
+            "route_ids": [
+              "J6-GND",
+              "J6-earth-1",
+              "J6-earth-2",
+              "J6-earth-3"
+            ],
+            "missing_routes": [],
+            "developed_path_mm": 573.633,
+            "remaining_preparation_mm": 76.367
+          },
+          {
+            "route_ids": [
+              "J6-RA1"
+            ],
+            "missing_routes": [],
+            "developed_path_mm": 529.605,
+            "remaining_preparation_mm": 120.395
+          },
+          {
+            "route_ids": [
+              "J6-RA2"
+            ],
+            "missing_routes": [],
+            "developed_path_mm": 478.101,
+            "remaining_preparation_mm": 171.899
+          },
+          {
+            "route_ids": [
+              "J6-RA3"
+            ],
+            "missing_routes": [],
+            "developed_path_mm": 429.781,
+            "remaining_preparation_mm": 220.219
+          },
+          {
+            "route_ids": [
+              "J6-RA4"
+            ],
+            "missing_routes": [],
+            "developed_path_mm": 381.775,
+            "remaining_preparation_mm": 268.225
+          }
+        ]
+      },
+      {
+        "group": "reservoir B leads",
+        "schedule_constant": "len_reeds_b_mm",
+        "prepared_length_mm": 500,
+        "maximum_developed_path_mm": 399.844,
+        "minimum_remaining_preparation_mm": 100.156,
+        "members": [
+          {
+            "route_ids": [
+              "J7-earth-4",
+              "J7-earth-1",
+              "J7-earth-2",
+              "J7-earth-3"
+            ],
+            "missing_routes": [],
+            "developed_path_mm": 399.844,
+            "remaining_preparation_mm": 100.156
+          },
+          {
+            "route_ids": [
+              "J7-RB1"
+            ],
+            "missing_routes": [],
+            "developed_path_mm": 341.199,
+            "remaining_preparation_mm": 158.801
+          },
+          {
+            "route_ids": [
+              "J7-RB2"
+            ],
+            "missing_routes": [],
+            "developed_path_mm": 292.703,
+            "remaining_preparation_mm": 207.297
+          },
+          {
+            "route_ids": [
+              "J7-RB3"
+            ],
+            "missing_routes": [],
+            "developed_path_mm": 240.892,
+            "remaining_preparation_mm": 259.108
+          },
+          {
+            "route_ids": [
+              "J7-RB4"
+            ],
+            "missing_routes": [],
+            "developed_path_mm": 186.108,
+            "remaining_preparation_mm": 313.892
+          }
+        ]
+      },
+      {
+        "group": "reed common pigtail",
+        "schedule_constant": "len_reeds_gnd_mm",
+        "prepared_length_mm": 300,
+        "maximum_developed_path_mm": 66.919,
+        "minimum_remaining_preparation_mm": 233.081,
+        "members": [
+          {
+            "route_ids": [
+              "J7-GND"
+            ],
+            "missing_routes": [],
+            "developed_path_mm": 66.919,
+            "remaining_preparation_mm": 233.081
+          }
+        ]
+      },
+      {
+        "group": "carbonator reed leads",
+        "schedule_constant": "len_carb_reeds_mm",
+        "prepared_length_mm": 650,
+        "maximum_developed_path_mm": 551.457,
+        "minimum_remaining_preparation_mm": 98.543,
+        "members": [
+          {
+            "route_ids": [
+              "J7-carb-earth-2",
+              "J7-carb-earth-1"
+            ],
+            "missing_routes": [],
+            "developed_path_mm": 551.457,
+            "remaining_preparation_mm": 98.543
+          },
+          {
+            "route_ids": [
+              "J7-CLO"
+            ],
+            "missing_routes": [],
+            "developed_path_mm": 491.543,
+            "remaining_preparation_mm": 158.457
+          },
+          {
+            "route_ids": [
+              "J7-CHI"
+            ],
+            "missing_routes": [],
+            "developed_path_mm": 470.615,
+            "remaining_preparation_mm": 179.385
+          }
+        ]
+      },
+      {
+        "group": "gas sensor",
+        "schedule_constant": "len_gas_mm",
+        "prepared_length_mm": 600,
+        "maximum_developed_path_mm": 553.682,
+        "minimum_remaining_preparation_mm": 46.318,
+        "members": [
+          {
+            "route_ids": [
+              "J11-V5"
+            ],
+            "missing_routes": [],
+            "developed_path_mm": 532.157,
+            "remaining_preparation_mm": 67.843
+          },
+          {
+            "route_ids": [
+              "J11-GND"
+            ],
+            "missing_routes": [],
+            "developed_path_mm": 542.742,
+            "remaining_preparation_mm": 57.258
+          },
+          {
+            "route_ids": [
+              "J11-DOUT"
+            ],
+            "missing_routes": [],
+            "developed_path_mm": 546.841,
+            "remaining_preparation_mm": 53.159
+          },
+          {
+            "route_ids": [
+              "J11-AOUT"
+            ],
+            "missing_routes": [],
+            "developed_path_mm": 553.682,
+            "remaining_preparation_mm": 46.318
+          }
+        ]
+      }
+    ],
+    "routes_without_numeric_preparation_stock": [
+      {
+        "id": "AC4-pigtail",
+        "developed_path_mm": 222.604
+      },
+      {
+        "id": "AC5-pigtail",
+        "developed_path_mm": 241.568
+      },
+      {
+        "id": "DC3-pigtail",
+        "developed_path_mm": 216.999
+      },
+      {
+        "id": "PE-carbonator",
+        "developed_path_mm": 275.505
+      }
+    ]
   }
 }
