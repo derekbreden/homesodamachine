@@ -284,7 +284,7 @@
    "to": "carbonator.co2-in",
    "stock": "1/4\" LLDPE",
    "od": 6.35,
-   "length": 274.05,
+   "length": 270.59,
    "bend": 14.0,
    "radius": 14.0,
    "minBend": 14.0,
@@ -314,7 +314,7 @@
     }
    ],
    "need": {
-    "detour": 1.277
+    "detour": 1.261
    }
   },
   {
@@ -443,7 +443,7 @@
    "to": "water-in.end",
    "stock": "1/4\" LLDPE",
    "od": 6.35,
-   "length": 267.34,
+   "length": 267.82,
    "bend": 14.0,
    "radius": 14.0,
    "minBend": 14.0,
@@ -497,7 +497,7 @@
     }
    ],
    "need": {
-    "detour": 1.84
+    "detour": 1.843
    }
   }
  ]
