@@ -227,9 +227,6 @@ IMPLICIT_SOLIDS = {
         "hardware/printed-parts/enclosure/nameplate/nameplate-001.step.mesh",
         "hardware/printed-parts/enclosure/nameplate/nameplate-receiver.step.mesh",
     ),
-    "hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py": (
-        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.stl",
-    ),
     # The socket trial's print mesh is written by OCCT, and its payload is cut from that mesh by
     # `flute_payload.cut`, which leaves it unwritten when the bytes already stand.
     "hardware/printed-parts/fixtures/valve-socket-fit/valve_socket_fit.py": (
@@ -239,9 +236,6 @@ IMPLICIT_SOLIDS = {
     "hardware/printed-parts/faucet/lever-replica/lever_replica.py": (
         "hardware/printed-parts/faucet/lever-replica/lever-replica.stl",
         "hardware/printed-parts/faucet/lever-replica/lever-replica-side-down.stl",
-    ),
-    "hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py": (
-        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.stl",
     ),
     "hardware/printed-parts/cold-core/magnetic-float/magnetic_float.py": tuple(
         f"hardware/printed-parts/cold-core/magnetic-float/{name}.step.mesh"
