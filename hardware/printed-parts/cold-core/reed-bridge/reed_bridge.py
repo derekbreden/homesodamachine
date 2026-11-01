@@ -22,11 +22,10 @@ the wall-preloaded donut rides. The part is symmetric about the XZ plane
 apart from the lead groove.
 """
 
+import argparse
 import math
 import sys
 from pathlib import Path
-
-import cadquery as cq
 
 _here = Path(__file__).resolve()
 _hardware = next(p for p in _here.parents if p.name == "hardware")
@@ -38,6 +37,13 @@ sys.path.insert(
 sys.path.insert(0, str(_here.parents[1]))
 sys.path.insert(0, str(_here.parents[1] / "coil-mandrel"))
 sys.path.insert(0, str(_hardware / "cut-parts" / "carbonation" / "endcaps-circular"))
+
+if __name__ == '__main__':
+    import _rust_part
+    _rust_part.start()
+
+import cadquery as cq
+
 from _cadq_export import export_assembly
 from _materials import M_PETG_BLACK, one_body
 from docgen import substitute_md, substitute_py_comments
@@ -349,6 +355,54 @@ def build_setting_gauge():
     )
 
 
+def numbers():
+    """The bridge's native profiles and cutters for reed_bridge.rs."""
+    from _materials import linear
+
+    def box(x, y, z):
+        return [list(x), list(y), list(z)]
+
+    outline = [(0.0, 0.0)]
+    for i in range(49):
+        angle = -bridge_half_angle + 2 * bridge_half_angle * i / 48
+        radius = _plan_outline_radius(angle)
+        outline.append((radius * math.cos(angle), radius * math.sin(angle)))
+    pockets, notches = [], []
+    for reed_z in (reed_low_z, reed_high_z):
+        pockets.append(box((inner_radius - overcut, plateau_radius + overcut),
+                           (-pocket_width / 2, pocket_width / 2),
+                           (reed_z - pocket_length / 2, reed_z + pocket_length / 2)))
+        for z in (reed_z - pocket_length / 2,
+                  reed_z + pocket_length / 2 - lead_notch_length):
+            notches.append(box((skirt_radius, plateau_radius + overcut),
+                               (-pocket_width / 2, lead_groove_y + lead_groove_width / 2),
+                               (z, z + lead_notch_length)))
+    return {
+        "ridge_section": [(inner_radius, bridge_z_bottom),
+                          (skirt_radius, bridge_z_bottom),
+                          (plateau_radius, plateau_z_bottom),
+                          (plateau_radius, plateau_z_top),
+                          (skirt_radius, bridge_z_top),
+                          (inner_radius, bridge_z_top)],
+        "plan_outline": outline,
+        "plan_bottom": bridge_z_bottom - overcut,
+        "plan_height": bridge_height + 2 * overcut,
+        "pockets": pockets, "notches": notches,
+        "lead_groove": box((skirt_radius, plateau_radius + overcut),
+                           (lead_groove_y - lead_groove_width / 2,
+                            lead_groove_y + lead_groove_width / 2),
+                           (plateau_z_bottom, bridge_z_top + overcut)),
+        "gauge_section": [(inner_radius - gauge_hook_depth, -gauge_hook_height),
+                          (inner_radius + gauge_wall, -gauge_hook_height),
+                          (inner_radius + gauge_wall, bridge_z_bottom),
+                          (inner_radius, bridge_z_bottom),
+                          (inner_radius, 0.0),
+                          (inner_radius - gauge_hook_depth, 0.0)],
+        "gauge_arc_degrees": gauge_arc_degrees,
+        "color": list(linear(M_PETG_BLACK)),
+    }
+
+
 def _report(name, shape):
     solids = shape.solids().vals()
     assert len(solids) == 1, f"{name}: expected 1 solid, got {len(solids)}"
@@ -364,7 +418,7 @@ def _report(name, shape):
     return solid
 
 
-def main():
+def main(output=None, native=False):
     assert reed_low_z > magnet_lowest_z, "low reed below the donut's reach"
     assert reed_high_z < magnet_highest_z, "high reed above the donut's reach"
 
@@ -388,15 +442,28 @@ def main():
     print(f"Copper carried:         {wraps_carried:.2f} wraps x {effective_lift_arc:.1f} mm "
           f"= {carried_copper:.0f} mm")
 
+    out_dir = Path(output) if output is not None else _here.parent
+    out_dir.mkdir(parents=True, exist_ok=True)
+    if native:
+        bridge = build_reed_bridge()
+        gauge = build_setting_gauge()
+        bridge_solid = _report("reed-bridge.step", bridge)
+        gauge_solid = _report("reed-bridge-setting-gauge.step", gauge)
+        export_assembly(one_body(bridge, "reed-bridge", M_PETG_BLACK),
+                        str(out_dir / "reed-bridge.step"))
+        export_assembly(one_body(gauge, "reed-bridge-setting-gauge", M_PETG_BLACK),
+                        str(out_dir / "reed-bridge-setting-gauge.step"))
+        bridge_volume, gauge_volume = bridge_solid.Volume(), gauge_solid.Volume()
+    else:
+        import _rust_part
+        bodies = _rust_part.cut('cold-core', 'reed-bridge', numbers(), out_dir)['bodies']
+        bridge_volume, gauge_volume = (body['volume'] for body in bodies)
+
+    document(bridge_volume, gauge_volume)
+
+
+def document(bridge_volume, gauge_volume):
     out_dir = _here.parent
-    bridge = build_reed_bridge()
-    gauge = build_setting_gauge()
-    bridge_solid = _report("reed-bridge.step", bridge)
-    gauge_solid = _report("reed-bridge-setting-gauge.step", gauge)
-    export_assembly(one_body(bridge, "reed-bridge", M_PETG_BLACK),
-                    str(out_dir / "reed-bridge.step"))
-    export_assembly(one_body(gauge, "reed-bridge-setting-gauge", M_PETG_BLACK),
-                    str(out_dir / "reed-bridge-setting-gauge.step"))
 
     variables = {
         "BAND_BOTTOM": f"{band_bottom_z:.4g} mm",
@@ -443,8 +510,8 @@ def main():
         "LEAD_GROOVE_D": f"{lead_groove_depth:.4g} mm",
         "WRAPS_CARRIED": f"{wraps_carried:.3g}",
         "CARRIED_COPPER": f"{carried_copper:.0f} mm",
-        "BRIDGE_VOL": f"{bridge_solid.Volume() / 1000:.3g} cm³",
-        "GAUGE_VOL": f"{gauge_solid.Volume() / 1000:.3g} cm³",
+        "BRIDGE_VOL": f"{bridge_volume / 1000:.3g} cm³",
+        "GAUGE_VOL": f"{gauge_volume / 1000:.3g} cm³",
         "GAUGE_ARC_DEG": f"{gauge_arc_degrees:.3g}°",
     }
     substitute_md(
@@ -464,5 +531,24 @@ def main():
     print(f"-> {Path(__file__).name} (self)")
 
 
-if __name__ == "__main__":
-    main()
+def import_part(path):
+    """The emitted bridge or gauge for the caller's native or f64 mesh API."""
+    from _cadq_export import import_step
+    path = Path(path)
+    if not getattr(cq, 'MESH', False):
+        with path.open('rb') as stream:
+            triangles = b'meshcad tessellated' in stream.read(200)
+        if triangles:
+            if path.stem == 'reed-bridge':
+                return build_reed_bridge().val()
+            if path.stem == 'reed-bridge-setting-gauge':
+                return build_setting_gauge().val()
+    return import_step(str(path)).val()
+
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--native', action='store_true', help='Run the retained native builders')
+    parser.add_argument('--output', type=Path, default=_here.parent)
+    args = parser.parse_args()
+    main(args.output, native=args.native)
