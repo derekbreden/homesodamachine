@@ -6998,23 +6998,6 @@
       "hardware/reference/digiten-flow-sensor/model-check.json"
     ]
   },
-  "hardware/reference/ffl38barb38/ffl38barb38.py": {
-    "reads": [
-      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
-      "hardware/reference/ffl38barb38/ffl38barb38.py",
-      "hardware/reference/ffl38barb38/ffl38barb38.step",
-      "hardware/scripts/_cadq_export.py",
-      "hardware/scripts/_material_base.py",
-      "hardware/scripts/_materials.py",
-      "hardware/scripts/_mesh_payload.py",
-      "hardware/scripts/_run_lock.py",
-      "tools/docgen/__init__.py"
-    ],
-    "rewritten": [],
-    "writes": [
-      "hardware/reference/ffl38barb38/ffl38barb38.step"
-    ]
-  },
   "hardware/reference/flare38-14ptc/flare38_14ptc.py": {
     "reads": [
       "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
@@ -7193,23 +7176,6 @@
     "rewritten": [],
     "writes": [
       "hardware/reference/jg-pp061208w/jg-pp061208w.step"
-    ]
-  },
-  "hardware/reference/jg-pp451223w/jg_pp451223w.py": {
-    "reads": [
-      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
-      "hardware/reference/jg-pp451223w/jg-pp451223w.step",
-      "hardware/reference/jg-pp451223w/jg_pp451223w.py",
-      "hardware/scripts/_cadq_export.py",
-      "hardware/scripts/_material_base.py",
-      "hardware/scripts/_materials.py",
-      "hardware/scripts/_mesh_payload.py",
-      "hardware/scripts/_run_lock.py",
-      "tools/docgen/__init__.py"
-    ],
-    "rewritten": [],
-    "writes": [
-      "hardware/reference/jg-pp451223w/jg-pp451223w.step"
     ]
   },
   "hardware/reference/jhyossthi-pogo-dock/jhyossthi_pogo_dock.py": {

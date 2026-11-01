@@ -9274,44 +9274,6 @@ cp hardware/reference/digiten-flow-sensor/README.md $$O3
 )
 
 genrule(
-    name = "ffl38barb38",
-    srcs = [
-        "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
-        "pysrc/hardware/reference/ffl38barb38/ffl38barb38.py",
-        "pysrc/hardware/scripts/_cadq_export.py",
-        "pysrc/hardware/scripts/_material_base.py",
-        "pysrc/hardware/scripts/_materials.py",
-        "pysrc/hardware/scripts/_mesh_payload.py",
-        "pysrc/hardware/scripts/_run_lock.py",
-        "pysrc/tools/docgen/__init__.py",
-    ],
-    outs = [
-        "out/ffl38barb38/hardware/reference/ffl38barb38/ffl38barb38.step",
-    ],
-    cmd = """
-set -e
-O0=$$PWD/$(location out/ffl38barb38/hardware/reference/ffl38barb38/ffl38barb38.step)
-for f in $(SRCS); do
-  case $$f in
-    */node_modules/*) continue;;
-    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
-    */pysrc/*) t=$${f##*/pysrc/};;
-    *) t=$$f;;
-  esac
-  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
-done
-for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
-done
-cd work
-ln -sfn $$HSM_WORKSPACE/.cache .cache
-D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/ffl38barb38/ffl38barb38.py > /dev/null
-cp hardware/reference/ffl38barb38/ffl38barb38.step $$O0
-""",
-)
-
-genrule(
     name = "flare38-14ptc",
     srcs = [
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
@@ -9703,44 +9665,6 @@ ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
 HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/jg-pp061208w/jg_pp061208w.py > /dev/null
 cp hardware/reference/jg-pp061208w/jg-pp061208w.step $$O0
-""",
-)
-
-genrule(
-    name = "jg-pp451223w",
-    srcs = [
-        "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
-        "pysrc/hardware/reference/jg-pp451223w/jg_pp451223w.py",
-        "pysrc/hardware/scripts/_cadq_export.py",
-        "pysrc/hardware/scripts/_material_base.py",
-        "pysrc/hardware/scripts/_materials.py",
-        "pysrc/hardware/scripts/_mesh_payload.py",
-        "pysrc/hardware/scripts/_run_lock.py",
-        "pysrc/tools/docgen/__init__.py",
-    ],
-    outs = [
-        "out/jg-pp451223w/hardware/reference/jg-pp451223w/jg-pp451223w.step",
-    ],
-    cmd = """
-set -e
-O0=$$PWD/$(location out/jg-pp451223w/hardware/reference/jg-pp451223w/jg-pp451223w.step)
-for f in $(SRCS); do
-  case $$f in
-    */node_modules/*) continue;;
-    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
-    */pysrc/*) t=$${f##*/pysrc/};;
-    *) t=$$f;;
-  esac
-  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
-done
-for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
-done
-cd work
-ln -sfn $$HSM_WORKSPACE/.cache .cache
-D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/jg-pp451223w/jg_pp451223w.py > /dev/null
-cp hardware/reference/jg-pp451223w/jg-pp451223w.step $$O0
 """,
 )
 
@@ -14004,14 +13928,6 @@ genrule(
 )
 
 genrule(
-    name = "pysrc-5bffa49a57fb",
-    srcs = ["hardware/reference/ffl38barb38/ffl38barb38.py"],
-    outs = ["pysrc/hardware/reference/ffl38barb38/ffl38barb38.py"],
-    tools = ["tools/bazel/pysrc.py"],
-    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
-)
-
-genrule(
     name = "pysrc-9d9589e8ef67",
     srcs = ["hardware/reference/flare38-14ptc/flare38_14ptc.py"],
     outs = ["pysrc/hardware/reference/flare38-14ptc/flare38_14ptc.py"],
@@ -14143,14 +14059,6 @@ genrule(
     name = "pysrc-311222439a09",
     srcs = ["hardware/reference/jg-pp061208w/jg_pp061208w.py"],
     outs = ["pysrc/hardware/reference/jg-pp061208w/jg_pp061208w.py"],
-    tools = ["tools/bazel/pysrc.py"],
-    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
-)
-
-genrule(
-    name = "pysrc-b3e6c0d66b40",
-    srcs = ["hardware/reference/jg-pp451223w/jg_pp451223w.py"],
-    outs = ["pysrc/hardware/reference/jg-pp451223w/jg_pp451223w.py"],
     tools = ["tools/bazel/pysrc.py"],
     cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
 )
@@ -15121,7 +15029,6 @@ filegroup(
         ":beduan-solenoid",
         ":compressor",
         ":digiten-flow-sensor",
-        ":ffl38barb38",
         ":flare38-14ptc",
         ":gagira-reducing-coupling",
         ":gasher-check-valve",
@@ -15132,7 +15039,6 @@ filegroup(
         ":jg-pp0208e-tee",
         ":jg-pp0408w",
         ":jg-pp061208w",
-        ":jg-pp451223w",
         ":jhyossthi-pogo-dock",
         ":kamoer-kphm400",
         ":meanwell-irm90",

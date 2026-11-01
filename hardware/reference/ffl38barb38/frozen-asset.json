@@ -1,0 +1,11 @@
+{
+  "source": {
+    "commit": "15b2cff1ab2b027d1bbc908f9568e8cc25b40593",
+    "path": "hardware/reference/ffl38barb38/ffl38barb38.py",
+    "sha256": "57bb04ad0d2a6cf574e6231f6bcdf3da1e051c78a2380bcc86107c89311f3872"
+  },
+  "members": {
+    "ffl38barb38.step": "4153c62185bb0dc3f19c6a3142441e0859578e1538bee2ac0a3b84d5ad2bccc2",
+    "ffl38barb38.step.mesh": "11364abda960f7d36f5638f401285349932e4181b83e9016d9c34f8561577a21"
+  }
+}
