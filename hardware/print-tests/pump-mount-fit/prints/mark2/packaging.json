@@ -1,0 +1,19 @@
+{
+  "source_archive": "/Users/derekbredensteiner/Developer/hsm-approved-asse/.cache/prints/enclosure-continuous-clip-final-2eb222ae/2026-11-01-pump-snap-cap-mark2-35cdf671/2026-11-01-pump-snap-cap-mark2-35cdf671.gcode.3mf",
+  "source_archive_sha256": "a2a6254bbac2c2165f822b042d129ac9c9e463215acdede9a8c139a4ba96c0f9",
+  "print_only_archive": "/Users/derekbredensteiner/Developer/hsm-pump-underside/hardware/print-tests/pump-mount-fit/prints/mark2/2026-11-01-pump-fit-clip-mark2.gcode.3mf",
+  "print_only_archive_sha256": "744b29b85bae060041b0b01bd5a806df5c727743986c54d13d78d47f934ffc45",
+  "gcode_sha256": {
+    "Metadata/plate_1.gcode": "946b40e0fd696ca67cd2439c13426a4112d3c0b5a8de576fca490c8ff9b5f0f9"
+  },
+  "gcode_byte_identical": true,
+  "changed_container_entries": [
+    "3D/3dmodel.model",
+    "Metadata/model_settings.config"
+  ],
+  "omitted_editable_geometry_entries": [
+    "3D/Objects/object_1.model",
+    "3D/_rels/3dmodel.model.rels",
+    "Metadata/cut_information.xml"
+  ]
+}

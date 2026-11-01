@@ -1,0 +1,31 @@
+{
+  "printer": "H2C",
+  "observed_at": "2026-11-01T19:01:33.592708+00:00",
+  "archive": {
+    "name": "2026-11-01-pump-fit-base-mark1-fac38622-print-only.gcode.3mf",
+    "sha256": "921f9aa0ca0e39782116f194aac30dbfea8cb2df4e6f1fb3cc126c3b1c3b2ff4",
+    "gcode_sha256": "37c762d3f0c438e8cc3a412775a0bbb3bc25a5c152d4f2c0240c8fd7ce5de50b",
+    "slots": {
+      "1": {
+        "type": "PET-CF",
+        "colour": "000000"
+      }
+    },
+    "objects": [
+      "pump-mount-base"
+    ]
+  },
+  "printer_task_id": "1397740351",
+  "gcode_state": "RUNNING",
+  "subtask_name": "2026-11-01-pump-fit-base-mark1-fac38622-print-only.gcode.3mf",
+  "print_error": 0,
+  "hms": [],
+  "layer_num": 0,
+  "total_layer_num": 160,
+  "mc_remaining_time": 89,
+  "printer_display_name": "Mark1",
+  "previous_printer_accepted_no_later_than_utc": "2026-11-01T18:47:52.352159+00:00",
+  "launch_observations_apart_seconds": 821.240549,
+  "mark1_confirmed_idle_at_utc": "2026-11-01T18:58:59.200908+00:00",
+  "minimum_start_spacing_seconds": 666.848749
+}

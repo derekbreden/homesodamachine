@@ -1,0 +1,14 @@
+[
+  "/Applications/BambuStudio.app/Contents/MacOS/BambuStudio",
+  "--slice",
+  "0",
+  "--arrange",
+  "0",
+  "--orient",
+  "0",
+  "--outputdir",
+  "/Users/derekbredensteiner/Developer/hsm-pump-underside/hardware/print-tests/pump-mount-fit/prints/2026-11-01-pump-fit-base-mark1-fac38622/native",
+  "--export-3mf",
+  "2026-11-01-pump-fit-base-mark1-fac38622.gcode.3mf",
+  "/Users/derekbredensteiner/Developer/hsm-pump-underside/hardware/print-tests/pump-mount-fit/prints/2026-11-01-pump-fit-base-mark1-fac38622/2026-11-01-pump-fit-base-mark1-fac38622.3mf"
+]
