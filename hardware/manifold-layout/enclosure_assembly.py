@@ -182,7 +182,6 @@ import foam_assembly as _foam                         # noqa: E402
 # envelope is the outside of, in the envelope's own frame — see `core_bodies`.
 import cold_core_assembly as _cca                     # noqa: E402
 import _cold_core_interface as _cci                   # noqa: E402
-import beduan_solenoid as _beduan                     # noqa: E402
 import iec_c14_inlet as _c14                          # noqa: E402
 import riteav_keystone as _keystone                   # noqa: E402
 import jg_bulkhead_union as _jg                       # noqa: E402
@@ -4064,8 +4063,7 @@ def build_vk(foam_carry):
     The Beduan's box is centred on its mounting datum and floored on that post-end plane
     (`cradle_rows` reads it back the same way), so the centre of the box's floor is the station
     that lands on the seat."""
-    body = _beduan.build_beduan_solenoid()
-    body = body.val() if hasattr(body, "val") else body
+    body = _above_parts.native_reference("valve")
     b = box(body)
     (cx, cy), _yaw, seat = _cci.cap_cradles["vk-solenoid"]
     x, y = _foam.spin_xy((cx, cy))
