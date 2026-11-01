@@ -39,7 +39,7 @@ vertically onto broad fitted floors; the cover room ends at the plain lid face.
 One continuous 54.5 mm clip spans native X20–74.5, with a 2.4 mm working arch
 and 3 mm wings. Its continuous side pockets span X19.75–74.75; the seat leaves
 3 mm of solid axial stock at each end. The clip closes after seating the bare
-motor and prints on one axial end with a constant profile.
+motor and prints on one axial end with a constant outside profile.
 The [pump installation](../../../reference/g-ganen-pump/installation/README.md)
 owns the bearing datums, axial stops and removable sliders.
 
