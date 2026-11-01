@@ -9091,9 +9091,24 @@ def _produced_back_bottom(box):
     return {'back-bottom': cq.Workplane(obj=structural)}
 
 
+def _produced_back_top(box):
+    """The complete back-top print with its structural body for the mesh assembly."""
+    meshcad = sys.modules.get('meshcad')
+    if meshcad is None or not meshcad.mesh_mode():
+        return {}
+    import _enclosure_back_top
+    if not _enclosure_back_top.can_cut(sys.modules[__name__], box):
+        return {}
+    from meshcad.imports import load_model
+    _enclosure_back_top.cut(sys.modules[__name__], box, _here.parent)
+    structural = load_model(_here.parent/'enclosure-back-top.step.npz')[0]
+    return {'back-top': cq.Workplane(obj=structural)}
+
+
 def main():
     core, box = machine_of()
     produced = _produced_back_bottom(box)
+    produced.update(_produced_back_top(box))
     pieces, assy = build_pieces(box, produced=produced)
     print("enclosure:")
     _report_slide(pieces, box)     # the slides swept and the catches lifted, into BOUNDS
