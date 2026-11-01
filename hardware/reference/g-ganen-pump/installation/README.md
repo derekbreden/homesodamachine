@@ -7,14 +7,13 @@ switch and measured barbs. The [purchased-foot reference](../common-foot/README.
 describes the supplied sliders.
 
 The pump installs at +90° about Z, with discharge toward enclosure −X. Its native
-origin is **(−15.368269, 368.317761, 251.697963) mm**. The molded cable cover
-sets the rigid casing's low point at Z253.55, retaining a 0.15 mm printed-face
-allowance above the plain lid at Z253.4. The forward head tip sits higher.
+origin is **(−15.368269, 368.317761, 250.197963) mm**. The molded cable cover
+sets the rigid casing's low point at Z254.408545, retaining 1.008545 mm of air above the plain lid at Z253.4. The forward head tip sits higher.
 Production poses
 and connected fitting frames belong to [above-core.json](../../../manifold-layout/above-core.json).
 
 The lid-integrated half pipe supports the motor over native X16.75–77.75. Its
-continuous 54.5 mm upper clip spans X20–74.5. It uses a 2.4 mm working spring arch, 3 mm wings and
+continuous 54.5 mm upper clip spans X20–74.5. It uses a 3.1 mm nominal arch, 3 mm wings and
 0.6 mm hook engagement. The upper motor bore clears the largest retained upper
 barrel high spot with the shared 0.15 mm per-face static allowance. The lower
 seat gives the admitted barrel 0.25 mm running clearance. Open rooms admit the complete fixed rails and molded wire cover
@@ -43,12 +42,12 @@ lift the pump vertically. The snap cap prints on one axial end, keeping the
 arch, wings and hooks vertical, with three Classic loops and a solid core.
 
 The discharge group follows the pump datum. The suction PVC bend has a
-13.167051 mm free span on two tangent arcs of at least R33.030 and unchanged
+13.050841 mm free span on two tangent arcs of at least R23.369 and unchanged
 receiving lengths. Both water male fittings retain 0.4 mm of exposed shaft
 outside their complete receiving depths. Its
 connector rolls about its existing V-K stem axis; the opposed sockets retain
 a straight 0.25 mm exposed stub. The
-check outlet's two opposed bends retain at least **R15.055** and reach the straight water-in guide at
+check outlet's two opposed bends retain at least **R14.246** and reach the straight water-in guide at
 **(−82.5, 420, 253.4) mm**. The regulator, ASSE and large valves
 retain their orthogonal placement.
 
