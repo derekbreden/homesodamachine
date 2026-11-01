@@ -137,10 +137,10 @@ The deployed site answers `/api/hsm` with a 404, and its viewer does neither.
 ## Render
 
 `hsm render` draws a payload as `/3d` draws it: the viewer's colours, `web/public/finishes.json`,
-its studio light, x-ray, contact shadow and fog. The daemon draws with wgpu, on Metal here, and
-starts no browser, server or STEP reader. Its device, pipelines and last scenes stay warm, so a
-picture of the whole machine takes a fresh daemon about three seconds and a warm one about a
-tenth of that.
+its studio light, x-ray, contact shadow and fog. The daemon draws with wgpu, on Metal on a Mac
+and on Vulkan elsewhere, and starts no browser, server or STEP reader. Its device, pipelines and
+last scenes stay warm, so a picture of the whole machine takes a fresh daemon about three seconds
+and a warm one about a tenth of that.
 
 ```sh
 hsm render manifold-layout/enclosure-assembly.step /tmp/machine.png
@@ -167,6 +167,12 @@ daemon, so a long list never holds up a geometry query. `--json` gives each pict
 camera with its view-projection, the bodies in each role, and the milliseconds each stage took.
 The scenes kept warm hold up to 1 GiB between them, CPU and GPU; the least recently drawn goes
 first.
+
+`hsm-render --jobs FILE|-` (`tools/hsm/render`'s program) draws the same jobs in its own process,
+with no daemon. The CI image has no GPU, and Mesa's lavapipe answers Vulkan there on the CPU.
+- On lavapipe a picture is the same bytes on every runner, whatever its CPU or thread count.
+- Five pictures of the machine take 7–13 s on four vCPUs there, against about a second on Metal.
+- Metal draws the same picture in different bytes: mean |Δ| under 0.3 of 255 a channel.
 
 [`tools/look.sh`](../look.sh), [`tools/changes/change.mjs`](../changes/change.mjs) and the guide
 art scripts, by way of [`hardware/scripts/_hsm_render.py`](../../hardware/scripts/_hsm_render.py),
