@@ -18,8 +18,6 @@ Run:
 import sys
 from pathlib import Path
 
-import cadquery as cq
-
 _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
 for _p in (_hw / "scripts",
@@ -28,6 +26,11 @@ for _p in (_hw / "scripts",
     sys.path.insert(0, str(_p))
 sys.path.insert(0, str(next(p for p in _here.parents
                             if (p / "tools" / "docgen").is_dir()) / "tools"))
+if __name__ == "__main__":
+    import _rust_part
+    _rust_part.start()
+
+import cadquery as cq                                    # noqa: E402
 import kamoer_kphm400 as _kp                              # noqa: E402
 import pump_case as _pc                                   # noqa: E402
 import fits                                             # noqa: E402
@@ -332,9 +335,38 @@ def trays_of_machine(facts):
     """The collar sources the enclosure places, as `{name: root}` — one off each pump, as the
     artifact carries them from the run that stood the machine.
 
-    The doc-only `main` hands in the artifact and imports the assembly that decides it. Keeping
-    those run dependencies in `main` leaves the shape functions' source closure at this part."""
+    The doc-only `main` hands in the artifact. Keeping that run dependency in `main` leaves
+    the shape functions' source closure at this part."""
     return facts.pump_trays
+
+
+def numbers(trays):
+    """The case's original polygon stock, axial stations and the machine's collar roots."""
+    footprint = _pc.rounded_rect_profile(_pc.footprint_x, _pc.footprint_y, _pc.corner_r)
+    ramp_end = _pc.rounded_rect_profile(
+        _pc.footprint_x - 2 * _pc.ramp_from_skirt_to_octagon_height,
+        _pc.footprint_y - 2 * _pc.ramp_from_skirt_to_octagon_height, _pc.corner_r)
+    return {
+        "ramp_sections": [[0.0, footprint], [_pc.base_thickness, footprint],
+                          [_pc.bore_bottom_z, ramp_end]],
+        "bore_wall": _pc.bore_wall_profile, "bore": _pc.bore_profile,
+        "bore_depth": _pc.bore_depth, "boss_depth": boss_depth,
+        "tower_start": _pc.cylinder_top_z, "tower_end": _pc.cylinder_bottom_z,
+        "tower_outer_radius": _pc.cylinder_r_outer,
+        "tower_inner_radius": _pc.cylinder_r_inner,
+        "tower_bore_start": _pc.bore_bottom_z - _pc.overcut,
+        "tower_bore_end": (_pc.bore_bottom_z + _pc.tower_height
+                           - _pc.tower_cap_thickness),
+        "rear_axis_y_shift": rear_axis_y_shift,
+        "half_width": half_width(), "far_reach": far_reach(), "depth": depth(),
+        "plate": _pc.base_thickness, "case_half": case_half,
+        "head_box": [[-_kp.head_w / 2, -_kp.head_w / 2, _kp.head_front_z],
+                     [_kp.head_w / 2, _kp.head_w / 2, _kp.base_plane_z]],
+        "motor_radius": _kp.motor_dia / 2, "motor_end": _kp.motor_end_z,
+        "trays": [[name, root] for name, root in sorted(trays.items())],
+        "section_stations": [0.0, boss_depth], "section_rise": 0.05,
+        "section_thickness": 0.02, "section_span": 1e3,
+    }
 
 
 def selftest() -> int:
@@ -403,21 +435,21 @@ def selftest() -> int:
 
 
 def main():
-    sys.path.insert(0, str(_hw / "manifold-layout"))
-    import enclosure_assembly as _ea                            # noqa: PLC0415,F401
+    import _rust_part                                           # noqa: PLC0415
     import _facts                                               # noqa: PLC0415
 
     trays = trays_of_machine(_facts.read())
+    measured = _rust_part.check("enclosure-components", "pump-tray", numbers(trays))
     print(f"Pump clamp collar — {len(trays)} fused into the top clamp: {', '.join(sorted(trays))}")
     total, storey = 0.0, (0.0, 0.0)
-    for name, root in sorted(trays.items()):
-        solid = build_pump_tray(root).val()
-        total += solid.Volume()
-        storey = storeys(root)
+    for row in measured["trays"]:
+        name, root = row["name"], trays[row["name"]]
+        total += row["volume"]
+        storey = row["storeys"]
         print(f"  {name}: {2 * half_width():g} x {root + far_reach():g}, {SHOULDER:g} of "
               f"shoulder over {boss_depth:g} of bore, rooted {root:g} mm off the pump's axis")
-        print(f"    material {solid.Volume() / 1000.0:.2f} cm^3, valid {solid.isValid()}, "
-              f"fouls the pump by {fouled_volume(root):.6f} mm^3")
+        print(f"    material {row['volume'] / 1000.0:.2f} cm^3, valid {row['valid']}, "
+              f"fouls the pump by {row['fouled_volume']:.6f} mm^3")
         print(f"    covers {storey[0]:.0f} mm^2 on the head's crown and {storey[1]:.0f} on the "
               f"boss's")
     root = next(iter(sorted(trays.values())))
