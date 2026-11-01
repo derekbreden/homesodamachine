@@ -1322,33 +1322,33 @@
     "hardware/printed-parts/zone-c/funnel-cover/funnel-cover.step": "5e7b0c51c4e46673310c843da1848e3d6efcea08e3bae60510ca340573628702",
     "hardware/printed-parts/zone-c/funnel-cover/funnel-cover.step.mesh": "2d2d9acb9b02e28ab90af1945117d197c9ce2e180763d0b4378bd45a8bc6b1b1",
     "hardware/printed-parts/zone-c/funnel-cover/funnel-cover.stl": "1b4a759f88e659c90cd0b3cb5bd843f84f57087cb01014b92bf3c7c8882a8a00",
-    "hardware/printed-parts/zone-c/funnel-mold/assembly.step": "28c3eaaabfc60e05e66512f5b47d60946d25c4170e19663123caf5286e088f1e",
-    "hardware/printed-parts/zone-c/funnel-mold/assembly.step.mesh": "3aa82df30f6b1a86ac759934c4baa819ca97f71d54fc849078ea40986860cdca",
-    "hardware/printed-parts/zone-c/funnel-mold/backs.step": "29da1a9a3d25a13b43f0d1c6dc80e877689f2cc0dcf64ba2a7213a63234f7c80",
-    "hardware/printed-parts/zone-c/funnel-mold/backs.step.mesh": "9f3faf1913dbf4e27ff047abaab37d7f0c9d5131df039e03005d38196d72db23",
+    "hardware/printed-parts/zone-c/funnel-mold/assembly.step": "639d7e5f6025b7188bba0383aed138f56749252643c8971fd38fb12f807a8700",
+    "hardware/printed-parts/zone-c/funnel-mold/assembly.step.mesh": "3cb07f5b917f168dc66a924e53169289d5b07fa7a7f93bcc2881242d5caf9a05",
+    "hardware/printed-parts/zone-c/funnel-mold/backs.step": "648e7a0965643c79e869812338f7fc6d14250034ab6f556740c844b25894054b",
+    "hardware/printed-parts/zone-c/funnel-mold/backs.step.mesh": "d87dd570520e839c232e581b6ebfd49f7435a63b111e5390cc9148b9531fa273",
     "hardware/printed-parts/zone-c/funnel-mold/cavity.step": "5d9d7c80d71aa7df5894f20526d14456a1b92d8af0cb011d5ad069902e8fbaee",
     "hardware/printed-parts/zone-c/funnel-mold/cavity.step.mesh": "0f1463ae5b0148dc0b16dcaca5c2b50bfd6d97c438a9c390ad64af2a7db70918",
-    "hardware/printed-parts/zone-c/funnel-mold/cavity.stl": "bd31ecd8d3d0c8d42776e1a76404ad45392f2c79d54ad515cab699f97ee07529",
-    "hardware/printed-parts/zone-c/funnel-mold/core.step": "ef28872b87a34df57a27baa386831d9fdf089beb0bc83ee1475156b6a2676208",
-    "hardware/printed-parts/zone-c/funnel-mold/core.step.mesh": "5608a2661e2a497cd22e75bc8b76bf74f47ffed9c1ec75c93e330582df71da32",
-    "hardware/printed-parts/zone-c/funnel-mold/core.stl": "3aea5ded800828320ea44034822f3c953d85b1c8fefb79484b1c56fc2017a4f1",
+    "hardware/printed-parts/zone-c/funnel-mold/cavity.stl": "ec9c34441170bdad2bbec4f2db8889e6963cb53a150af890936d65d494fff86c",
+    "hardware/printed-parts/zone-c/funnel-mold/core.step": "58e55ffef75cf28bc7959f8a9831e2d6026ced735ee0ce9189c42345765738c8",
+    "hardware/printed-parts/zone-c/funnel-mold/core.step.mesh": "01520ce33e7d86e4f7abde61e03e948b74ea37f89bc7dab9733828887017d23b",
+    "hardware/printed-parts/zone-c/funnel-mold/core.stl": "b04150c8e6a700163db1f9fa6da211d28f017c68c9a6d3ecc210baabbddd9bbb",
     "hardware/printed-parts/zone-c/funnel-mold/funnel.step": "887431660a6124d2d6750d9ab945912457f0700b9756e8de6e4a6154fecce6d7",
     "hardware/printed-parts/zone-c/funnel-mold/funnel.step.mesh": "95f06fa17a50c918b5dccd64e1945a2364856b282827d62bb8a8f60db80f28f0",
-    "hardware/printed-parts/zone-c/funnel-mold/overview.step": "4ffcd1d23ab2655b0826e5a906903413fd10968a1a99449491bab2d267200b2a",
-    "hardware/printed-parts/zone-c/funnel-mold/overview.step.mesh": "55ececbc43e4fb3d3a2adedbfa7e8a4083626b9dd5a768343f7ad9558c02dabe",
+    "hardware/printed-parts/zone-c/funnel-mold/overview.step": "aae83257c3a7cb240a37e64c827c693d03ef5e402b157b6406eef3a1eb394db7",
+    "hardware/printed-parts/zone-c/funnel-mold/overview.step.mesh": "ee4b1b419cb4d388761d51cab36fcbbd22d694c6556326d9d768872bbd5469b1",
     "hardware/printed-parts/zone-c/funnel-mold/rod.step": "bb9c804d693a9f7a0d3410887c936ee68158ad239809c1cca44972c7184ba2fb",
     "hardware/printed-parts/zone-c/funnel-mold/rod.step.mesh": "ef8d26340993e008490c48018e59ab2b39d8a0e832a37329718dca7b3d0049bf",
-    "hardware/printed-parts/zone-c/funnel-mold/section.step": "5ef560dae387cddbbe41764c1d499c86812c957f7bf9ca29e09526f52e6b34ca",
-    "hardware/printed-parts/zone-c/funnel-mold/section.step.mesh": "1cb73bacf487588f8652409c798049c6b25fd58a4846d472facc0e1fe2c5722c",
-    "hardware/printed-parts/zone-c/funnel/cradle-trial/test-cradle.step": "8ba9276a8ae678b45e7eca2539e8efb1846aa3383f43c4173dd089d69ee7519a",
+    "hardware/printed-parts/zone-c/funnel-mold/section.step": "df83618e8bdeebbaa37fc84914c72304b7d232b0374682fae4c2d55c744c9930",
+    "hardware/printed-parts/zone-c/funnel-mold/section.step.mesh": "e6ab6c74d28346c742d3b898c6a713ba45586e5b789554afa225c155b61b9525",
+    "hardware/printed-parts/zone-c/funnel/cradle-trial/test-cradle.step": "df19a7a2720d133eade484005a914c4ade3f7c53d38f7049d6b59d933e70f7b5",
     "hardware/printed-parts/zone-c/funnel/cradle-trial/test-cradle.step.mesh": "d17152cde22f5739a9b0fffb607a77f6c53262c87ab77a53d044ae942dd5f124",
-    "hardware/printed-parts/zone-c/funnel/cradle-trial/test-cradle.stl": "2cb28f86008f073d50a6297477ad70d0422b464379df85b9a338a1d016780ef8",
-    "hardware/printed-parts/zone-c/funnel/cradle-trial/test-receiver.step": "5b6370b76b65888d2f2a9e01f065adfc45f759a9d5e9d8ae882bbb8232a0837c",
+    "hardware/printed-parts/zone-c/funnel/cradle-trial/test-cradle.stl": "91ea0bab447ae8c323ec9473ed9a8293714c38b012497005d272191442099aff",
+    "hardware/printed-parts/zone-c/funnel/cradle-trial/test-receiver.step": "9fa49132149d94685ca246f14ca79031a8546fa2799b8d39e10446ecd9b81695",
     "hardware/printed-parts/zone-c/funnel/cradle-trial/test-receiver.step.mesh": "32dd8d14156e0861911ac5fa5ab149fbb6bc9044bd68752a3f79926ceb280f84",
-    "hardware/printed-parts/zone-c/funnel/cradle-trial/test-receiver.stl": "c69771771f15fc418ae307f38c8fdb450f22998d877b502426de2da2b0066589",
-    "hardware/printed-parts/zone-c/funnel/elbow-cradle.step": "636411c93528680f0283ae0c27d46001a752f0d60818785662d3597e923649f4",
-    "hardware/printed-parts/zone-c/funnel/elbow-cradle.step.mesh": "4e1f6fa18c18ea5b1303220ba205b71e7b99c850893d200b1c9f07ee3ce8539f",
-    "hardware/printed-parts/zone-c/funnel/elbow-cradle.stl": "b0afff03e40fdf937eb5ef5221bad9902950e544d2933d258005a7283d0cc12c",
+    "hardware/printed-parts/zone-c/funnel/cradle-trial/test-receiver.stl": "12669f6def8c6a67549a5d69a751f94b84bdb19239a017641a6043f1bb560efd",
+    "hardware/printed-parts/zone-c/funnel/elbow-cradle.step": "1e9690887ff1574396feeb858ad81f0bc2fc1cb6a4053b29bdc51c4a058ee60e",
+    "hardware/printed-parts/zone-c/funnel/elbow-cradle.step.mesh": "ff1fb7f09a85d4d3320459c3a057f926c6b6507578da92cf99f3c890cbbfc1af",
+    "hardware/printed-parts/zone-c/funnel/elbow-cradle.stl": "91ea0bab447ae8c323ec9473ed9a8293714c38b012497005d272191442099aff",
     "hardware/printed-parts/zone-c/funnel/funnel-frame.step": "da7434235fcae032f9cd10a37c27e28a019910413023c8291c70b5b9a8f9831a",
     "hardware/printed-parts/zone-c/funnel/funnel-frame.step.mesh": "8abaa20cb27099b4bba24f371268090e1af8dfcf9174e3b28d3314713f03398c",
     "hardware/printed-parts/zone-c/funnel/funnel-frame.stl": "b61d9ba8ba32153b8e64d51e08a52c6d7dfa61bb2e8e538a1c47be2495b3a6dc",
@@ -2743,33 +2743,33 @@
     "hardware/printed-parts/zone-c/funnel-cover/funnel-cover.step": 1792893021,
     "hardware/printed-parts/zone-c/funnel-cover/funnel-cover.step.mesh": 1792893021,
     "hardware/printed-parts/zone-c/funnel-cover/funnel-cover.stl": 1792893021,
-    "hardware/printed-parts/zone-c/funnel-mold/assembly.step": 1792893021,
-    "hardware/printed-parts/zone-c/funnel-mold/assembly.step.mesh": 1792893021,
-    "hardware/printed-parts/zone-c/funnel-mold/backs.step": 1792893021,
-    "hardware/printed-parts/zone-c/funnel-mold/backs.step.mesh": 1792893021,
+    "hardware/printed-parts/zone-c/funnel-mold/assembly.step": 1793495877,
+    "hardware/printed-parts/zone-c/funnel-mold/assembly.step.mesh": 1793495877,
+    "hardware/printed-parts/zone-c/funnel-mold/backs.step": 1793495877,
+    "hardware/printed-parts/zone-c/funnel-mold/backs.step.mesh": 1793495877,
     "hardware/printed-parts/zone-c/funnel-mold/cavity.step": 1792893021,
     "hardware/printed-parts/zone-c/funnel-mold/cavity.step.mesh": 1792893021,
-    "hardware/printed-parts/zone-c/funnel-mold/cavity.stl": 1792937530,
-    "hardware/printed-parts/zone-c/funnel-mold/core.step": 1792893021,
-    "hardware/printed-parts/zone-c/funnel-mold/core.step.mesh": 1792893021,
-    "hardware/printed-parts/zone-c/funnel-mold/core.stl": 1793113745,
+    "hardware/printed-parts/zone-c/funnel-mold/cavity.stl": 1793495877,
+    "hardware/printed-parts/zone-c/funnel-mold/core.step": 1793495877,
+    "hardware/printed-parts/zone-c/funnel-mold/core.step.mesh": 1793495877,
+    "hardware/printed-parts/zone-c/funnel-mold/core.stl": 1793495877,
     "hardware/printed-parts/zone-c/funnel-mold/funnel.step": 1792893021,
     "hardware/printed-parts/zone-c/funnel-mold/funnel.step.mesh": 1792893021,
-    "hardware/printed-parts/zone-c/funnel-mold/overview.step": 1792893021,
-    "hardware/printed-parts/zone-c/funnel-mold/overview.step.mesh": 1792893021,
+    "hardware/printed-parts/zone-c/funnel-mold/overview.step": 1793495877,
+    "hardware/printed-parts/zone-c/funnel-mold/overview.step.mesh": 1793495877,
     "hardware/printed-parts/zone-c/funnel-mold/rod.step": 1792471442,
     "hardware/printed-parts/zone-c/funnel-mold/rod.step.mesh": 1792471442,
-    "hardware/printed-parts/zone-c/funnel-mold/section.step": 1792893021,
-    "hardware/printed-parts/zone-c/funnel-mold/section.step.mesh": 1792893021,
-    "hardware/printed-parts/zone-c/funnel/cradle-trial/test-cradle.step": 1792391966,
+    "hardware/printed-parts/zone-c/funnel-mold/section.step": 1793495877,
+    "hardware/printed-parts/zone-c/funnel-mold/section.step.mesh": 1793495877,
+    "hardware/printed-parts/zone-c/funnel/cradle-trial/test-cradle.step": 1793495877,
     "hardware/printed-parts/zone-c/funnel/cradle-trial/test-cradle.step.mesh": 1792060413,
-    "hardware/printed-parts/zone-c/funnel/cradle-trial/test-cradle.stl": 1792391966,
-    "hardware/printed-parts/zone-c/funnel/cradle-trial/test-receiver.step": 1792391966,
+    "hardware/printed-parts/zone-c/funnel/cradle-trial/test-cradle.stl": 1793495877,
+    "hardware/printed-parts/zone-c/funnel/cradle-trial/test-receiver.step": 1793495877,
     "hardware/printed-parts/zone-c/funnel/cradle-trial/test-receiver.step.mesh": 1792060413,
-    "hardware/printed-parts/zone-c/funnel/cradle-trial/test-receiver.stl": 1792391966,
-    "hardware/printed-parts/zone-c/funnel/elbow-cradle.step": 1793159759,
-    "hardware/printed-parts/zone-c/funnel/elbow-cradle.step.mesh": 1793159759,
-    "hardware/printed-parts/zone-c/funnel/elbow-cradle.stl": 1793159759,
+    "hardware/printed-parts/zone-c/funnel/cradle-trial/test-receiver.stl": 1793495877,
+    "hardware/printed-parts/zone-c/funnel/elbow-cradle.step": 1793495877,
+    "hardware/printed-parts/zone-c/funnel/elbow-cradle.step.mesh": 1793495877,
+    "hardware/printed-parts/zone-c/funnel/elbow-cradle.stl": 1793495877,
     "hardware/printed-parts/zone-c/funnel/funnel-frame.step": 1792899377,
     "hardware/printed-parts/zone-c/funnel/funnel-frame.step.mesh": 1792899377,
     "hardware/printed-parts/zone-c/funnel/funnel-frame.stl": 1792899377,
@@ -4400,19 +4400,23 @@
       "unproven": true
     },
     "hardware/printed-parts/zone-c/funnel-mold/assembly.step": {
-      "commit": "d2c7e36f5c616919c8be5d1ccb8205b0fbac8540",
+      "inputs": "808f69b254cab5a029df89b4b509290e12de14f6163b21d4f4bbcef056b3687a",
+      "commit": "141d93fda5888449eb25e7fc8937bf0e3f39bd71",
       "unproven": true
     },
     "hardware/printed-parts/zone-c/funnel-mold/assembly.step.mesh": {
-      "commit": "d2c7e36f5c616919c8be5d1ccb8205b0fbac8540",
+      "inputs": "808f69b254cab5a029df89b4b509290e12de14f6163b21d4f4bbcef056b3687a",
+      "commit": "141d93fda5888449eb25e7fc8937bf0e3f39bd71",
       "unproven": true
     },
     "hardware/printed-parts/zone-c/funnel-mold/backs.step": {
-      "commit": "d2c7e36f5c616919c8be5d1ccb8205b0fbac8540",
+      "inputs": "808f69b254cab5a029df89b4b509290e12de14f6163b21d4f4bbcef056b3687a",
+      "commit": "141d93fda5888449eb25e7fc8937bf0e3f39bd71",
       "unproven": true
     },
     "hardware/printed-parts/zone-c/funnel-mold/backs.step.mesh": {
-      "commit": "d2c7e36f5c616919c8be5d1ccb8205b0fbac8540",
+      "inputs": "808f69b254cab5a029df89b4b509290e12de14f6163b21d4f4bbcef056b3687a",
+      "commit": "141d93fda5888449eb25e7fc8937bf0e3f39bd71",
       "unproven": true
     },
     "hardware/printed-parts/zone-c/funnel-mold/cavity.step": {
@@ -4424,19 +4428,23 @@
       "unproven": true
     },
     "hardware/printed-parts/zone-c/funnel-mold/cavity.stl": {
-      "commit": "d2c7e36f5c616919c8be5d1ccb8205b0fbac8540",
+      "inputs": "808f69b254cab5a029df89b4b509290e12de14f6163b21d4f4bbcef056b3687a",
+      "commit": "141d93fda5888449eb25e7fc8937bf0e3f39bd71",
       "unproven": true
     },
     "hardware/printed-parts/zone-c/funnel-mold/core.step": {
-      "commit": "d2c7e36f5c616919c8be5d1ccb8205b0fbac8540",
+      "inputs": "808f69b254cab5a029df89b4b509290e12de14f6163b21d4f4bbcef056b3687a",
+      "commit": "141d93fda5888449eb25e7fc8937bf0e3f39bd71",
       "unproven": true
     },
     "hardware/printed-parts/zone-c/funnel-mold/core.step.mesh": {
-      "commit": "d2c7e36f5c616919c8be5d1ccb8205b0fbac8540",
+      "inputs": "808f69b254cab5a029df89b4b509290e12de14f6163b21d4f4bbcef056b3687a",
+      "commit": "141d93fda5888449eb25e7fc8937bf0e3f39bd71",
       "unproven": true
     },
     "hardware/printed-parts/zone-c/funnel-mold/core.stl": {
-      "commit": "d2c7e36f5c616919c8be5d1ccb8205b0fbac8540",
+      "inputs": "808f69b254cab5a029df89b4b509290e12de14f6163b21d4f4bbcef056b3687a",
+      "commit": "141d93fda5888449eb25e7fc8937bf0e3f39bd71",
       "unproven": true
     },
     "hardware/printed-parts/zone-c/funnel-mold/funnel.step": {
@@ -4448,11 +4456,13 @@
       "unproven": true
     },
     "hardware/printed-parts/zone-c/funnel-mold/overview.step": {
-      "commit": "d2c7e36f5c616919c8be5d1ccb8205b0fbac8540",
+      "inputs": "808f69b254cab5a029df89b4b509290e12de14f6163b21d4f4bbcef056b3687a",
+      "commit": "141d93fda5888449eb25e7fc8937bf0e3f39bd71",
       "unproven": true
     },
     "hardware/printed-parts/zone-c/funnel-mold/overview.step.mesh": {
-      "commit": "d2c7e36f5c616919c8be5d1ccb8205b0fbac8540",
+      "inputs": "808f69b254cab5a029df89b4b509290e12de14f6163b21d4f4bbcef056b3687a",
+      "commit": "141d93fda5888449eb25e7fc8937bf0e3f39bd71",
       "unproven": true
     },
     "hardware/printed-parts/zone-c/funnel-mold/rod.step": {
@@ -4464,15 +4474,18 @@
       "unproven": true
     },
     "hardware/printed-parts/zone-c/funnel-mold/section.step": {
-      "commit": "d2c7e36f5c616919c8be5d1ccb8205b0fbac8540",
+      "inputs": "808f69b254cab5a029df89b4b509290e12de14f6163b21d4f4bbcef056b3687a",
+      "commit": "141d93fda5888449eb25e7fc8937bf0e3f39bd71",
       "unproven": true
     },
     "hardware/printed-parts/zone-c/funnel-mold/section.step.mesh": {
-      "commit": "d2c7e36f5c616919c8be5d1ccb8205b0fbac8540",
+      "inputs": "808f69b254cab5a029df89b4b509290e12de14f6163b21d4f4bbcef056b3687a",
+      "commit": "141d93fda5888449eb25e7fc8937bf0e3f39bd71",
       "unproven": true
     },
     "hardware/printed-parts/zone-c/funnel/cradle-trial/test-cradle.step": {
-      "commit": "d2c7e36f5c616919c8be5d1ccb8205b0fbac8540",
+      "inputs": "ea1b13000554d6c213159d21f78d2bede478b41e8cfcb1a39cb1a48acec40fec",
+      "commit": "141d93fda5888449eb25e7fc8937bf0e3f39bd71",
       "unproven": true
     },
     "hardware/printed-parts/zone-c/funnel/cradle-trial/test-cradle.step.mesh": {
@@ -4480,11 +4493,13 @@
       "unproven": true
     },
     "hardware/printed-parts/zone-c/funnel/cradle-trial/test-cradle.stl": {
-      "commit": "d2c7e36f5c616919c8be5d1ccb8205b0fbac8540",
+      "inputs": "ea1b13000554d6c213159d21f78d2bede478b41e8cfcb1a39cb1a48acec40fec",
+      "commit": "141d93fda5888449eb25e7fc8937bf0e3f39bd71",
       "unproven": true
     },
     "hardware/printed-parts/zone-c/funnel/cradle-trial/test-receiver.step": {
-      "commit": "d2c7e36f5c616919c8be5d1ccb8205b0fbac8540",
+      "inputs": "ea1b13000554d6c213159d21f78d2bede478b41e8cfcb1a39cb1a48acec40fec",
+      "commit": "141d93fda5888449eb25e7fc8937bf0e3f39bd71",
       "unproven": true
     },
     "hardware/printed-parts/zone-c/funnel/cradle-trial/test-receiver.step.mesh": {
@@ -4492,19 +4507,23 @@
       "unproven": true
     },
     "hardware/printed-parts/zone-c/funnel/cradle-trial/test-receiver.stl": {
-      "commit": "d2c7e36f5c616919c8be5d1ccb8205b0fbac8540",
+      "inputs": "ea1b13000554d6c213159d21f78d2bede478b41e8cfcb1a39cb1a48acec40fec",
+      "commit": "141d93fda5888449eb25e7fc8937bf0e3f39bd71",
       "unproven": true
     },
     "hardware/printed-parts/zone-c/funnel/elbow-cradle.step": {
-      "commit": "d2c7e36f5c616919c8be5d1ccb8205b0fbac8540",
+      "inputs": "d79125d9213e43f685c395750b48073b4b9b32446974180ed89d0bd27d2ef0b3",
+      "commit": "141d93fda5888449eb25e7fc8937bf0e3f39bd71",
       "unproven": true
     },
     "hardware/printed-parts/zone-c/funnel/elbow-cradle.step.mesh": {
-      "commit": "d2c7e36f5c616919c8be5d1ccb8205b0fbac8540",
+      "inputs": "d79125d9213e43f685c395750b48073b4b9b32446974180ed89d0bd27d2ef0b3",
+      "commit": "141d93fda5888449eb25e7fc8937bf0e3f39bd71",
       "unproven": true
     },
     "hardware/printed-parts/zone-c/funnel/elbow-cradle.stl": {
-      "commit": "d2c7e36f5c616919c8be5d1ccb8205b0fbac8540",
+      "inputs": "d79125d9213e43f685c395750b48073b4b9b32446974180ed89d0bd27d2ef0b3",
+      "commit": "141d93fda5888449eb25e7fc8937bf0e3f39bd71",
       "unproven": true
     },
     "hardware/printed-parts/zone-c/funnel/funnel-frame.step": {
