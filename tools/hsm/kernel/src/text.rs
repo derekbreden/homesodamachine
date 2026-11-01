@@ -122,6 +122,7 @@ impl Font {
     pub fn open(path: impl AsRef<Path>, index: u32) -> Result<Font> {
         let path = path.as_ref();
         let data = std::fs::read(path).with_context(|| format!("reading {}", path.display()))?;
+        crate::reads::read(path, &data);
         Font::from_bytes(data, index).with_context(|| format!("in {}", path.display()))
     }
 
