@@ -202,18 +202,14 @@ assert not _cover, (
     f"cover over the compressor "
     f"— add the cut-part row, its cable gland and its bond back with it")
 
-# Foam-cap hardware: one clamp insert + one M3 × 25 screw per station per face, both faces, PLUS
-# the top cap's pump and PCB columns and three local B-fill passage clamps,
-# each with a full-length M3 insert. The upright V-B wall takes no separate
-# mount fasteners.
-b_fill_clamp_fasteners_per_build = len(
-    _selected_cap.reservoir_b_fill_passage()['clamp_stations'])
+# Casing hardware: one M5 insert and M5 × 100 screw per station per face, plus
+# the lid's PCB posts, each with a full-length M3 insert. The M5 casing
+# closures are counted separately. The B-fill holder takes no fasteners.
+b_fill_clamp_fasteners_per_build = 0
 foam_cap_deck_inserts_per_build = sum(len(deck_mount_xy(n)) for n in deck_mounts)
 pump_mount_screws_per_build = 0
 foam_cap_clamp_inserts_per_build = inserts_per_foam_cap_face * foam_cap_faces
-foam_cap_inserts_per_build = (foam_cap_clamp_inserts_per_build
-                              + foam_cap_deck_inserts_per_build
-                              + b_fill_clamp_fasteners_per_build)
+foam_cap_inserts_per_build = foam_cap_deck_inserts_per_build
 foam_cap_screws_per_build = foam_cap_clamp_inserts_per_build  # 1:1 clamp only
 
 # Reservoir-cap hardware (12 inserts + 12 M3 × 12 screws).
@@ -381,12 +377,11 @@ m3_short_inserts_per_build = (
 
 # Combined heat-set insert count across the appliance, by thread.
 total_m3_inserts_per_build = m3_long_inserts_per_build + m3_short_inserts_per_build
-total_m5_inserts_per_build = floor_inserts_per_build + enclosure_seam_inserts_per_build
+total_m5_inserts_per_build = floor_inserts_per_build + enclosure_seam_inserts_per_build + foam_cap_clamp_inserts_per_build
 
 # And the screws that go into them. `labor.md` §8 prices both passes off these two figures.
 total_m3_screws_per_build = (
-    foam_cap_screws_per_build
-    + pump_mount_screws_per_build
+    pump_mount_screws_per_build
     + reservoir_cap_screws_per_build
     + touchflo_screws_per_build
     + shelf_screws_per_build
@@ -400,7 +395,7 @@ total_m3_screws_per_build = (
     + dock_fixture_locks_per_build
     + roof_closure_screws_per_build
 )
-total_m5_screws_per_build = floor_screws_per_build + enclosure_seam_rods_per_build
+total_m5_screws_per_build = floor_screws_per_build + enclosure_seam_rods_per_build + foam_cap_screws_per_build
 
 def pack_line_cost(quantity, pack_price, pack_quantity):
     """Allocate the exact paid/list pack price; round only the final line."""
@@ -522,6 +517,8 @@ def main(*, only_bom=False):
         "M3X12_TOTAL": f"{m3x12_per_build:.4g}",
         "M3X12_COST": pack_line_cost(m3x12_per_build, "8.57", 120),
         "SEAM_RODS": f"{enclosure_seam_rods_per_build:.4g}",
+        "M5X100_TOTAL": f"{enclosure_seam_rods_per_build+foam_cap_screws_per_build:.4g}",
+        "M5X100_COST": pack_line_cost(enclosure_seam_rods_per_build+foam_cap_screws_per_build,"7.70",20),
         "SEAM_SCREW_UNIT_COST": pack_line_cost(1, "7.70", 20),
         "SEAM_SCREWS_COST": pack_line_cost(enclosure_seam_rods_per_build, "7.70", 20),
         "SEAM_INSERTS": f"{enclosure_seam_inserts_per_build:.4g}",

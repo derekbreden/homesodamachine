@@ -14,10 +14,15 @@ from _cold_core_interface import (
     outer_shell_wall,
     wall_and_floor_thickness,
     foam_shell_outer_height,
+    foam_shell_rim_z,
     outer_shell_x_length,
     outer_shell_y_length,
     attachment_xy_positions,
     screw_boss_size,
+    screw_guard_diameter,
+    screw_clearance_radius,
+    bottom_screw_bore_depth,
+    top_screw_bore_depth,
     corner_round_radius,
     insert_pocket_radius,
     insert_pocket_depth,
@@ -56,7 +61,7 @@ def trim_cup_floor(cup, z0, z1, wall=None):
     return cup.cut(cavity_plan(z0, z1, wall=wall))
 
 
-def build_attachment_bosses(height, oversize=0.0):
+def build_attachment_bosses(height, oversize=0.0, diameter=None):
     """The ⌀screw_boss_size cylindrical boss + teardrop corner-fill webs at each station in
     `attachment_stations`, extruded to `height` and trimmed flush to the rounded footprint.
     Shared by the outer shell and the foam-cap stack; lid pads and their
@@ -81,7 +86,7 @@ def build_attachment_bosses(height, oversize=0.0):
     that sign is neither — and a web run to a wall picked by it would sweep the whole half of
     the shell between the boss and that wall, which unions in silently and reads only as a
     part that came out heavy."""
-    r = screw_boss_size / 2 + oversize
+    r = (screw_boss_size if diameter is None else diameter) / 2 + oversize
     corner_x = outer_shell_x_length / 2
     corner_y = outer_shell_y_length / 2
     bosses = (
@@ -115,7 +120,7 @@ def fold_seam_channel(shell):
     face_y = outer_shell_y_length / 2.0
     floor_y = face_y - seam_channel_depth
     half = seam_channel_width / 2.0
-    h = foam_shell_outer_height
+    h = foam_shell_rim_z
     fold = make_box((-half - outer_shell_wall, half + outer_shell_wall),
                     (floor_y - outer_shell_wall, floor_y), (0.0, h))
     channel = make_box((-half, half), (floor_y, face_y + 1.0), (-1.0, h + 1.0))
@@ -124,16 +129,19 @@ def fold_seam_channel(shell):
 
 def build_outer_shell():
     """Continuous standing walls, fixed floor, cap attachment bosses and the seam channel."""
-    h = foam_shell_outer_height
+    h = foam_shell_rim_z
     shell = _rounded_footprint(h).cut(cavity_plan(wall_and_floor_thickness, h))
 
-    return fold_seam_channel(shell.union(build_attachment_bosses(h))).unwrap()
+    guards = build_attachment_bosses(h, diameter=screw_guard_diameter)
+    shoulder_h = insert_pocket_depth + 3.0
+    shoulders = build_attachment_bosses(shoulder_h)
+    shoulders = shoulders.union(build_attachment_bosses(shoulder_h).translate(
+        (0.0, 0.0, h - shoulder_h)))
+    return fold_seam_channel(shell.union(guards).union(shoulders)).unwrap()
 
 
 def cut_insert_pockets(foam_shell):
-    """Heat-set insert pockets in every boss on both faces — each
-    cap's M3 SHCS threads into an insert pressed from its own face, so every
-    boss carries a pocket at z=0 and another at z=foam_shell_outer_height."""
+    """M5 insert pilots at both shell faces, with blind passages for the tails."""
     def insert_pockets_at(z_floor, depth=insert_pocket_depth):
         return (
             WorldWorkplane(xy_plane_z_up)
@@ -146,5 +154,11 @@ def cut_insert_pockets(foam_shell):
     # opening. Their extra depth budgets the retained bridge skin without moving
     # the insert mouths or the upper, upward-opening pockets.
     bottom_pockets = insert_pockets_at(0, insert_pocket_depth + fits.supported_surface).unwrap()
-    top_pockets = insert_pockets_at(foam_shell_outer_height - insert_pocket_depth).unwrap()
-    return foam_shell.cut(bottom_pockets).cut(top_pockets)
+    top_pockets = insert_pockets_at(foam_shell_rim_z - insert_pocket_depth).unwrap()
+    def tails(z0, depth):
+        return (WorldWorkplane(xy_plane_z_up).workplane(offset=z0)
+                .pushPoints(attachment_xy_positions).circle(screw_clearance_radius)
+                .extrude(depth)).unwrap()
+    return (foam_shell.cut(bottom_pockets).cut(top_pockets)
+            .cut(tails(0.0, bottom_screw_bore_depth + fits.supported_surface))
+            .cut(tails(foam_shell_rim_z - top_screw_bore_depth, top_screw_bore_depth)))
