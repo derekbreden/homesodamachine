@@ -8,13 +8,13 @@ The JSON is keyed by route ID. Each route supplies segments, od_mm and id_mm;
 segments are line/arc points_mm or Bezier control_points_mm. The context is an
 explicit exported snapshot. Only the supplied tube bodies are replaced.
 
-Build the program once with:
-    CARGO_BUILD_JOBS=2 cargo build --release --locked --manifest-path tools/hsm/Cargo.toml \
-        -p hsm-kernel --example route-preview
+Each request uses the regular Rust part builder and Cargo's fingerprints to
+build current sources. The first run and source changes can compile Rust;
+unchanged sources reuse their existing build. HSM_WORKSPACE selects the
+source checkout, as it does for the other Rust parts.
 
 This command starts no CadQuery process, takes no CAD lock, and writes no
-production export. It uses the program in this checkout unless --kernel-bin
-names another built copy.
+production export. Build time and tube-generation time are reported separately.
 """
 from __future__ import annotations
 
@@ -91,16 +91,12 @@ def main():
     parser.add_argument("--routes", required=True, type=Path)
     parser.add_argument("--scene", required=True, type=Path)
     parser.add_argument("--output", required=True, type=Path)
-    parser.add_argument("--kernel-bin", type=Path,
-                        default=ROOT / "tools/hsm/target/release/examples/route-preview")
     parser.add_argument("--contacts", action="store_true", help="query every changed tube against the context with hsm")
     parser.add_argument("--id-mm", type=float, help="explicit bore diameter for routes whose JSON omits id_mm")
     args = parser.parse_args()
     routes, scene, output = args.routes.resolve(), args.scene.resolve(), args.output.resolve()
-    if output in (routes, scene, args.kernel_bin.resolve()):
+    if output in (routes, scene):
         parser.error("the output must differ from every input")
-    if not args.kernel_bin.is_file():
-        parser.error("route-preview is not built; see the build command above, or use --kernel-bin")
     route_bytes, context = routes.read_bytes(), scene.read_bytes()
     routes_file_digest = hashlib.sha256(route_bytes).hexdigest()
     if args.id_mm is not None:
@@ -110,6 +106,13 @@ def main():
         route_bytes = json.dumps(specifications, sort_keys=True, separators=(",", ":")).encode()
     routes_digest = hashlib.sha256(route_bytes).hexdigest()
     context_digest = hashlib.sha256(context).hexdigest()
+    import _rust_part
+    os.environ.setdefault("CARGO_BUILD_JOBS", "2")
+    build_start = time.monotonic()
+    kernel_bin = _rust_part.program("kernel", "route-preview").resolve()
+    build_wall = time.monotonic() - build_start
+    if output == kernel_bin:
+        parser.error("the output must differ from the tube program")
     output.parent.mkdir(parents=True, exist_ok=True)
     with tempfile.TemporaryDirectory(prefix="route-preview-", dir=output.parent) as scratch:
         scratch = Path(scratch)
@@ -117,7 +120,7 @@ def main():
         snapshot.write_bytes(route_bytes)
         tubes = scratch / "tubes.step.mesh"
         cut_start = time.monotonic()
-        cut = subprocess.run([str(args.kernel_bin.resolve()), str(snapshot), str(tubes)],
+        cut = subprocess.run([str(kernel_bin), str(snapshot), str(tubes)],
                              text=True, capture_output=True, check=True)
         cut_wall = time.monotonic() - cut_start
         kernel = json.loads(cut.stdout)
@@ -129,7 +132,8 @@ def main():
     report = {"scene": str(output), "context": str(scene), "context_sha256": context_digest,
               "routes_file_sha256": routes_file_digest, "routes_sha256": routes_digest,
               "payload_sha256": hashlib.sha256(payload).hexdigest(),
-              "replaced": names, "kernel_process_wall_seconds": cut_wall, "kernel": kernel}
+              "replaced": names, "kernel_binary": str(kernel_bin), "build_seconds": build_wall,
+              "kernel_process_wall_seconds": cut_wall, "kernel": kernel}
     if args.contacts:
         report["contacts"] = {}
         for name in names:
