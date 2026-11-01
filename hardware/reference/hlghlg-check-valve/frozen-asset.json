@@ -1,0 +1,11 @@
+{
+  "source": {
+    "commit": "7320c7c39a9d4e1485cb7dbcc3b95aa85d0802fb",
+    "path": "hardware/reference/hlghlg-check-valve/hlghlg_check_valve.py",
+    "sha256": "d73f456e74da803936df944ccefbdef241c0cabbc13f83d6dbb8253af6bb22bd"
+  },
+  "members": {
+    "hlghlg-check-valve.step": "4d6081ce0a082adf6e37db80ccd3192784767a3ed42a99665c186e058b52b0cb",
+    "hlghlg-check-valve.step.mesh": "0e9048ba2e654bc3a2a0f2fb8fa89c13bdc832d4a25aaecd18bc093d0b9a7dc4"
+  }
+}
