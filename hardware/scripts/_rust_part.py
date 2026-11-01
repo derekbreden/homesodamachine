@@ -621,12 +621,13 @@ def check(crate: str, name: str, numbers: dict):
         return json.loads(run(crate, name, path, "--check"))
 
 
-def cut(crate: str, name: str, numbers: dict, part_dir) -> dict:
+def cut(crate: str, name: str, numbers: dict, part_dir, *, numbers_name: str | None = None) -> dict:
     """Write `numbers`, build `tools/hsm/<crate>`'s program `name` and run it into `part_dir`,
-    and return what it says it wrote."""
+    and return what it says it wrote. `numbers_name` sets the numbers file's stem; by default
+    it is the program's `name`."""
     global _CUT
     part_dir = Path(part_dir)
-    numbers_path = part_dir / f"{name}.numbers.json"
+    numbers_path = part_dir / f"{name if numbers_name is None else numbers_name}.numbers.json"
     text = json.dumps(numbers, indent=1, sort_keys=True) + "\n"
     if not numbers_path.is_file() or numbers_path.read_text() != text:
         numbers_path.write_text(text)
