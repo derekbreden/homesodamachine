@@ -464,6 +464,7 @@ pub fn acquire(key: &str, incoming: Option<Lease>, timing: bool) -> Result<Lease
         admission.lock_exclusive()?;
         let mut held = Vec::new();
         let mut active = std::collections::BTreeSet::new();
+        let mut newest_busy_start = 0;
         for slot in 0..capacity() {
             let file = open(&lock_path(Some(slot))?)?;
             match file.try_lock_exclusive() {
@@ -473,16 +474,15 @@ pub fn acquire(key: &str, incoming: Option<Lease>, timing: bool) -> Result<Lease
                     active.insert(
                         record["token"].as_str().map(str::to_owned).unwrap_or_else(|| format!("slot:{slot}")),
                     );
+                    newest_busy_start = newest_busy_start.max(record["started_unix_ms"].as_u64().unwrap_or(0));
                 }
                 Err(e) => return Err(e.into()),
             }
         }
         let now = SystemTime::now().duration_since(UNIX_EPOCH)?.as_millis() as u64;
         let stamp = directory()?.join("admission.json");
-        let previous: Value =
-            fs::read(&stamp).ok().and_then(|b| serde_json::from_slice(&b).ok()).unwrap_or_else(|| json!({}));
         let spaced = active.is_empty()
-            || now.saturating_sub(previous["last_start_unix_ms"].as_u64().unwrap_or(0)) as f64
+            || now.saturating_sub(newest_busy_start) as f64
                 >= defaults().stagger_seconds * 1000.0;
         let available = if timing {
             active.is_empty() && held.len() == capacity()
@@ -495,7 +495,7 @@ pub fn acquire(key: &str, incoming: Option<Lease>, timing: bool) -> Result<Lease
             }
             for entry in &mut held {
                 entry.file.set_len(0)?;
-                entry.file.write_all(format!("{}\n", json!({"v":1,"kind":"run","token":token,"pid":std::process::id(),"key":key,"slot":entry.slot})).as_bytes())?;
+                entry.file.write_all(format!("{}\n", json!({"v":1,"kind":"run","token":token,"pid":std::process::id(),"key":key,"slot":entry.slot,"started_unix_ms":now})).as_bytes())?;
             }
             fs::write(&stamp, format!("{}\n", json!({"v":1,"last_start_unix_ms":now})))?;
             return Ok(Lease { held, cad: None, compiler: None, profile: key.to_owned() });

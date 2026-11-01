@@ -2,7 +2,8 @@
 
 `hsm-run-slots` and `hardware/scripts/_run_slots.py` share four host-wide flock
 slots. New logical runs use the live count in `/tmp/hsm-<uid>/heavy/count`
-(default 4, range 1–4). Concurrent starts are spaced 30 seconds apart; a start
+(default 4, range 1–4). A concurrent start waits until the newest start among
+still-active runs is 30 seconds old. A completed run adds no delay; a start
 with no active run is immediate. Timing reserves all four slots. New roots wait
 at macOS pressure level 4 or used swap above 10 GiB. Admitted descendants keep
 running and share their parent's lease.
@@ -25,8 +26,8 @@ Kept part answers and the six ordinary mesh queries book no new heavy slot.
 
 Descriptors carry ownership. `slot.N.lock`, `cad.lock` and `compiler.lock` hold
 JSON with `v:1`, `kind`, `token` and diagnostic `pid`. Slot records also name
-`slot` and `key`. `admission.lock` protects scans and
-`admission.json` (`v:1,last_start_unix_ms`) records the last root start. Busy slot
+`slot`, `key` and `started_unix_ms`. `admission.lock` protects scans and
+`admission.json` (`v:1,last_start_unix_ms`) records the last root start for diagnostics. Busy slot
 records with one token count as one logical root. Decreasing the live count
 waits for existing roots to drain without terminating them.
 
