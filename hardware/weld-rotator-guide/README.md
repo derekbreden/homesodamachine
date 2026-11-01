@@ -2,7 +2,7 @@
 
 48 pages, 8.5 × 11 in, one picture per step: print, heat-set inserts, base, bearing, drive,
 nest, copper contact, controller, and six commissioning gates. Served at
-[homesodamachine.com/drawings](https://homesodamachine.com/drawings) and printed one-up on
+[homesodamachine.com/guides](https://homesodamachine.com/guides) and printed one-up on
 Letter.
 
 The fixture is [`fixtures/weld-rotator/`](/hardware/printed-parts/fixtures/weld-rotator/README.md),
@@ -42,7 +42,7 @@ The guide goes stale when the fixture moves, until a person runs the two command
 | `style.css` | The page system. 2550 × 3300 px = 8.5 × 11 in at 300 dpi. |
 | `art/*.png` | 37 pictures, drawn from the fixture's own CadQuery by `rotator_art.py`. |
 | `weld-rotator-guide.pdf` | The bound book. |
-| `weld-rotator-guide.cover.png` | The cover thumbnail the drawings shelf shows. |
+| `weld-rotator-guide.cover.png` | The cover thumbnail the guides page shows. |
 | `weld-rotator-guide.pdf.json` | The sidecar `web/lib/walk.js` finds the PDF through. |
 | `out/` | Page renders and staged STEPs. Regenerable, gitignored, unbundled. |
 

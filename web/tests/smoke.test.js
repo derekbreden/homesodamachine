@@ -59,7 +59,7 @@ const routes = [
   { path: "/",         expect: 200, ct: "text/html" },
   { path: "/3d",       expect: 200, ct: "text/html" },
   { path: "/charts",   expect: 200, ct: "text/html" },
-  { path: "/drawings", expect: 200, ct: "text/html" },
+  { path: "/guides",   expect: 200, ct: "text/html" },
   { path: "/cost",     expect: 200, ct: "text/html" },
   { path: "/spin",     expect: 200, ct: "text/html" },
   { path: "/weld-position", expect: 200, ct: "text/html" },
@@ -72,6 +72,7 @@ const routes = [
   { path: "/dev/diagrams", expect: 301 },
   { path: "/dev/mermaid",  expect: 301 },
   { path: "/dev/settings", expect: 301 },
+  { path: "/drawings",     expect: 301 },
 
   // JSON APIs that don't touch Postgres
   { path: "/api/steps",           expect: 200, ct: "application/json" },

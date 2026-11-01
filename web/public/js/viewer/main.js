@@ -36,7 +36,7 @@ window.__hsm = {
 
 function setupNav() {
   // The shell already renders the nav with absolute hrefs (/3d, /charts,
-  // /drawings); this just sets the active class for client-side
+  // /guides); this just sets the active class for client-side
   // navigation cases.
   const section = currentSection();
   for (const a of document.querySelectorAll("#site-nav a[data-nav]")) {
@@ -46,7 +46,7 @@ function setupNav() {
   const titleMap = {
     parts: "Parts · Home Soda Machine",
     charts: "Charts · Home Soda Machine",
-    drawings: "Drawings · Home Soda Machine",
+    guides: "Guides · Home Soda Machine",
     pcb: "Boards · Home Soda Machine",
   };
   document.title = titleMap[section] || document.title;
