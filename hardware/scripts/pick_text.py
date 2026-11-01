@@ -72,6 +72,24 @@ def fpt(p) -> str:
     return f"x={fnum(p.x)} y={fnum(p.y)} z={fnum(p.z)}"
 
 
+def source_line(records) -> str:
+    """The contributing records, without assigning a primary owner."""
+    words = []
+    where = lambda src: src if isinstance(src, str) and src else "unknown source"
+    for record in records or [None]:
+        if record is None:
+            words.append("unknown provenance")
+            continue
+        word = where(record.get("src"))
+        if record.get("op"):
+            word += f" · {record['op']}"
+        via = record.get("via")
+        if isinstance(via, dict):
+            word += " · via " + (f"{via['op']} at " if via.get("op") else "") + where(via.get("src"))
+        words.append(word)
+    return "sources: " + "; ".join(words)
+
+
 # --- raw-number composers ---
 
 def straight(a, b, label: str = "edge") -> str:
