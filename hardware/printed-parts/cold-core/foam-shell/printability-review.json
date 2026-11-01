@@ -2,9 +2,9 @@
   "schema": "cold-core-printability-review/1",
   "scope": "Current stable shell, open bottom cap and independent B-fill guide. Exact physical STL bytes retain the named native Bambu slices; exchange metadata is bound separately. Pump support and reference are outside this independent casing publication. Native geometry establishes material clearance and emitted paths, not printed fit, support release force or structural life. No printer was contacted.",
   "current_native_files": {
-    "hardware/printed-parts/cold-core/foam-shell/foam-shell.step": "5c62394f778266c266b8a239dcea443592a358b98ccaa97c02c2cbc70e324b3d",
-    "hardware/printed-parts/cold-core/foam-shell/foam-shell.stl": "3e2df5c20a57200e56a27dbba0ca512e2f2b9c5d795777bed16de18db7952501",
-    "hardware/printed-parts/cold-core/foam-shell/foam-shell.step.mesh": "9ab339295f5d12a7bcf61ab1c019b491865288bc6ba997c87c9ce651ff691685",
+    "hardware/printed-parts/cold-core/foam-shell/foam-shell.step": "ad683dc205a653d39b15ca3bd7d78ac033a1cced689ad5fed0c34e56faae790f",
+    "hardware/printed-parts/cold-core/foam-shell/foam-shell.stl": "e5fed94fd2f2b4004080d792db8d9c089db6499722036b16501c38bb29dfc549",
+    "hardware/printed-parts/cold-core/foam-shell/foam-shell.step.mesh": "92b472b5da0c491ac0865688ece1fb8fea54c858df94e6123c7ffbdf39041a98",
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step": "5405075b66f7853c84ddfcc1d911845e4aab4303f6a06e3b08d18b6a08bd3e36",
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl": "7e737e724d7031189e98a7b32bc4147a064c3055845f63949d76b30091c80387",
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step.mesh": "8e95d61a3bb2f92dbeb6823481edaaaeaf71a3dd239e757c86d87993cf27ec37",
@@ -13,7 +13,7 @@
     "hardware/printed-parts/cold-core/foam-cap/reservoir-b-fill-guide.step.mesh": "222dc2dfe04909040eef3d80c4e97018632291841a43bc6b480f51b973b1548e"
   },
   "retained_context_native_review": {
-    "scope": "Native exported complete M5 casing after self-supporting bottom pilot/tail tapers, one continuous11.6mm host section, peaked B cable side window and fitted CO2/water paths. Actual ports, M5 axes, fasteners, insert engagement and outside casing datums stay fixed. Nominal geometry only; printed force/cleanup and wet sealing are not qualified.",
+    "scope": "Native exported complete M5 casing after self-supporting bottom pilot/tail tapers, one continuous11.6mm host section, peaked B cable side window, tapered sensor-window roofs and fitted CO2/water paths. Actual ports, M5 axes, fasteners, insert engagement and outside casing datums stay fixed. Nominal geometry only; printed force/cleanup and wet sealing are not qualified.",
     "valid": true,
     "solids": 1,
     "pairs": [
@@ -689,20 +689,21 @@
     "tail_radial_stock_mm": 3.1999999999999997,
     "insert_radial_stock_mm": 2.5999999999999996,
     "files": {
-      "hardware/printed-parts/cold-core/foam-shell/foam-shell.step": "5c62394f778266c266b8a239dcea443592a358b98ccaa97c02c2cbc70e324b3d",
-      "hardware/printed-parts/cold-core/foam-shell/foam-shell.stl": "3e2df5c20a57200e56a27dbba0ca512e2f2b9c5d795777bed16de18db7952501",
-      "hardware/printed-parts/cold-core/foam-shell/foam-shell.step.mesh": "9ab339295f5d12a7bcf61ab1c019b491865288bc6ba997c87c9ce651ff691685",
-      "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step": "1b3c63bd10584a60815570d17850582bfbae3229ddd1b7e600c9f8435ab4d200",
-      "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step.mesh": "dd55896e91a03d6cdcedefc649fbe48ed6692963d625be8d51c92c90cc5bb330",
-      "hardware/cold-core-layout/cold-core-assembly.step": "c63007ab941f1a8c025870700105d758fde1d48ef34e8bde29d7f168f75ba927",
-      "hardware/cold-core-layout/cold-core-assembly.step.mesh": "51f0416fa7cfe5ec0990364f976f0fd19e858972001bdcd55765daacd82430fe"
+      "hardware/printed-parts/cold-core/foam-shell/foam-shell.step": "ad683dc205a653d39b15ca3bd7d78ac033a1cced689ad5fed0c34e56faae790f",
+      "hardware/printed-parts/cold-core/foam-shell/foam-shell.stl": "e5fed94fd2f2b4004080d792db8d9c089db6499722036b16501c38bb29dfc549",
+      "hardware/printed-parts/cold-core/foam-shell/foam-shell.step.mesh": "92b472b5da0c491ac0865688ece1fb8fea54c858df94e6123c7ffbdf39041a98",
+      "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step": "50ab1481e24e90f7f17d0ce3797d0bd115d089500790645bab7a5d01ba0ddeaa",
+      "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step.mesh": "108f7b2333d60d4b17736d8c565dd36e01fefe8cb2f91b6b7177f61c362e14fa",
+      "hardware/cold-core-layout/cold-core-assembly.step": "1b0ecc63fc5024b5a04fa026499450a11f2a734f1c265be6510a8c12704dc95d",
+      "hardware/cold-core-layout/cold-core-assembly.step.mesh": "73e4a2c3f0f4ac40eff8991fc67aec33ce9a71bf006d165298fb83fea29805a6"
     },
     "source_sha256": {
       "hardware/printed-parts/cold-core/_cold_core_interface.py": "fa6571183b1a1e6274a232d90acf5d4052a21df7c9571ded8cab32ada03b9af3",
       "hardware/printed-parts/cold-core/_outer_shell.py": "8d7dc9ac69dd78d31705046aa60654cc73347798e40235c01473cf5e6f165beb",
       "hardware/printed-parts/cold-core/_reed_b_outlet.py": "5bf2fb7268a598178b40cfb63cad17309dfa781215668ef1c00297e796341885",
       "hardware/printed-parts/cold-core/_internal_routes.py": "6166cdab9483824380309de96a60193d33d829cb9e9487aa234297305d7adcdd",
-      "hardware/printed-parts/cold-core/_port_cuts.py": "9710799e781b1be205c769d0d79edd7a27d4e0cf4c8a7c86ae098f5683048718"
+      "hardware/printed-parts/cold-core/_port_cuts.py": "9710799e781b1be205c769d0d79edd7a27d4e0cf4c8a7c86ae098f5683048718",
+      "hardware/printed-parts/cold-core/_reed_channels.py": "24c25fe9059deb6104d6dcf77953035563cdbafe96cea8c18095a4a07569c876"
     },
     "actual_route_rows": [
       {
@@ -753,18 +754,18 @@
     ],
     "unresolved": [],
     "pass": true,
-    "elapsed_seconds": 24.57417966600042,
-    "peak_resident_set_bytes": 1175552000
+    "elapsed_seconds": 27.96454487500887,
+    "peak_resident_set_bytes": 1189724160
   },
   "parts": {
     "foam-shell": {
       "physical_stl": "hardware/printed-parts/cold-core/foam-shell/foam-shell.stl",
-      "physical_stl_sha256": "3e2df5c20a57200e56a27dbba0ca512e2f2b9c5d795777bed16de18db7952501",
-      "current_native_step_sha256": "5c62394f778266c266b8a239dcea443592a358b98ccaa97c02c2cbc70e324b3d",
-      "native_slice_step_sha256": "5c62394f778266c266b8a239dcea443592a358b98ccaa97c02c2cbc70e324b3d",
-      "preparation_directory": ".cache/prints/enclosure-continuous-clip-final-2eb222ae/2026-11-01-foam-shell-mark2-21008fb6",
-      "preparation_sha256": "d32a92cc780d39c814571feb0f21308c0fef80dd570591d4afae0dbf4d114ced",
-      "archive_sha256": "4807a4877f2830b469df8e682f812a92f698c815d65df7364fa3cefde5e7ea96",
+      "physical_stl_sha256": "e5fed94fd2f2b4004080d792db8d9c089db6499722036b16501c38bb29dfc549",
+      "current_native_step_sha256": "ad683dc205a653d39b15ca3bd7d78ac033a1cced689ad5fed0c34e56faae790f",
+      "native_slice_step_sha256": "ad683dc205a653d39b15ca3bd7d78ac033a1cced689ad5fed0c34e56faae790f",
+      "preparation_directory": ".cache/prints/enclosure-continuous-clip-final-2eb222ae/2026-11-01-foam-shell-mark2-f08a95e8",
+      "preparation_sha256": "80d89b091a202f558eb8264f1f1ba643fbdef020b5feb2c21daf8b3cfb290077",
+      "archive_sha256": "77774cc114ecf09622aec70feb133f773cc5db8e67d634968d62df7dc1807f83",
       "printer": "Mark2",
       "nozzle": {
         "side": "left",
@@ -985,7 +986,7 @@
           "samples": [
             {
               "print_z_mm": 0.44,
-              "coverage": 0.9972242114743347,
+              "coverage": 0.9972246187833944,
               "stock_mm2": 224.77577442204029
             },
             {
@@ -1053,7 +1054,7 @@
           "samples": [
             {
               "print_z_mm": 0.44,
-              "coverage": 0.9973642329755223,
+              "coverage": 0.9973632448858055,
               "stock_mm2": 224.7757744220406
             },
             {
@@ -1199,11 +1200,11 @@
             },
             {
               "print_z_mm": 225.56,
-              "coverage": 0.9937828650152363,
+              "coverage": 0.9937839806040268,
               "stock_mm2": 102.2118798128912
             }
           ],
-          "minimum_coverage": 0.9937828650152363
+          "minimum_coverage": 0.9937839806040268
         },
         {
           "object": 1901,
@@ -1267,11 +1268,11 @@
             },
             {
               "print_z_mm": 225.56,
-              "coverage": 0.9941709999886974,
+              "coverage": 0.994170954278764,
               "stock_mm2": 102.2119076816982
             }
           ],
-          "minimum_coverage": 0.9941709999886974
+          "minimum_coverage": 0.994170954278764
         },
         {
           "object": 1901,
@@ -1314,11 +1315,11 @@
           "piece": "foam-shell",
           "inputs": {
             "gcode": "support-labels-1901.gcode",
-            "gcode_sha256": "32dd301c685b12deec1fae548f89d6bb7ca90e09b10215585e1ccb434c438c41",
+            "gcode_sha256": "8d35bc3c20a45fd5508ec1aed3c59e28f77587523aaf95ead0e78851e2743f2c",
             "model": "/Users/derekbredensteiner/Developer/hsm-approved-asse/hardware/printed-parts/cold-core/foam-shell/foam-shell.stl",
-            "model_sha256": "3e2df5c20a57200e56a27dbba0ca512e2f2b9c5d795777bed16de18db7952501",
-            "profile": ".cache/prints/enclosure-continuous-clip-final-2eb222ae/2026-11-01-foam-shell-mark2-21008fb6/2026-11-01-foam-shell-mark2-21008fb6.3mf",
-            "profile_sha256": "144d5a1330389c6fc93594234b1484bb928d4a369d8fcabfae6822a175b3381e"
+            "model_sha256": "e5fed94fd2f2b4004080d792db8d9c089db6499722036b16501c38bb29dfc549",
+            "profile": ".cache/prints/enclosure-continuous-clip-final-2eb222ae/2026-11-01-foam-shell-mark2-f08a95e8/2026-11-01-foam-shell-mark2-f08a95e8.3mf",
+            "profile_sha256": "5b4af32fc71af833a5c33fcb54649c7e24de186c9ead2b7570351c36063d53d7"
           },
           "slicer": "BambuStudio 02.08.02.61",
           "first_layer_z_mm": 0.2,
