@@ -8,12 +8,14 @@
 //
 // `file` is the model's `.step` under hardware/, the name the page opens it by, so a query reads
 // the payload /meshes served the page. The daemon behind hsm re-reads a payload that moved, and
-// none of this watches a file: the page asks /meshes whether its payload moved
-// (public/js/viewer/hsm.js), and /meshes answers off a stat.
+// none of this watches a file. tools/run.py reports a successful outer producer's changed
+// outputs on the existing files-changed channel; the page also polls /meshes for other writes.
 
 import { execFile } from "node:child_process";
 import fs from "node:fs";
 import path from "node:path";
+import { randomUUID } from "node:crypto";
+import { WS } from "../contracts/ws-frames.js";
 
 // The fields each query takes, as the hsm socket protocol names them.
 const OPS = {
@@ -37,14 +39,30 @@ function findHsm() {
   return null;
 }
 
-export function mountHsmRoutes(app, { hardwareDir }) {
+export function mountHsmRoutes(app, { hardwareDir, broadcast }) {
   // Looked up until found, so an hsm installed while the server runs answers the next ask.
   let bin = null;
   const hsm = () => (bin ??= findHsm());
+  const root = fs.realpathSync(path.dirname(hardwareDir));
+  const notify = randomUUID();
 
   app.get("/api/hsm", (_req, res) => {
     res.set("Cache-Control", "no-store");
-    res.json({ hsm: Boolean(hsm()) });
+    res.json({ hsm: Boolean(hsm()), root, notify });
+  });
+
+  // The wrapper waits for the full command, including payload postprocessing, to exit 0.
+  // The process token and root bind the completion to this local server and checkout.
+  app.post("/api/hsm/files-changed", (req, res) => {
+    const local = ["127.0.0.1", "::1", "::ffff:127.0.0.1"].includes(req.socket.remoteAddress);
+    if (!local || req.get("X-HSM-Notify") !== notify || req.body?.root !== root) {
+      return res.sendStatus(403);
+    }
+    const files = Array.isArray(req.body.files) ? req.body.files : [];
+    if (files.some(file => typeof file !== "string" || file.includes("..") || path.isAbsolute(file)
+        || !/\.(step|glb|dxf|pdf|mmd)$/.test(file))) return res.sendStatus(400);
+    if (files.length) broadcast?.({ type: WS.FILES_CHANGED, files: [...new Set(files)] });
+    res.sendStatus(204);
   });
 
   app.post("/api/hsm", (req, res) => {
