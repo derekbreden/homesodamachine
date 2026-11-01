@@ -1,6 +1,6 @@
 # Installed enclosure wiring
 
-The enclosure's electrical graph and proposed installed geometry live together in
+The enclosure's electrical graph and selected installed geometry live together in
 this model. Every insulated conductor has a stable ID, two named attachments, a
 stock profile, an assembly owner and a routed centreline. Each distribution bus
 is an explicit electrical interface.
@@ -209,7 +209,7 @@ the current larger-body meshes; `--retry` preserves saved routes
 and searches unresolved ones. Its output needs the same route and assembly review
 as hand-authored stations.
 
-The installed graph contains 101 conductor routes. Its twelve WAGOs comprise
+The installed graph contains 100 conductor routes. Its twelve WAGOs comprise
 ten 221-413 connectors and the two manifold commons, one 221-415 and one
 221-420. Three 221-413 joins finish the compressor hot, compressor neutral and
 pump-positive branches beneath the removable funnel frame. Each has two
@@ -217,6 +217,15 @@ populated ports and one unused port. Their separate pigtails preserve the
 open-bench preparation and final through-opening connections.
 The compressor hot and neutral joins sit side by side beneath the opening,
 with neutral west of hot. The pump-positive join sits lower and east of them.
+
+The front-going J1 leads pass below those free joins before rising into the
+Z297.6 crossing above the drain stem and V-B inlet fitting. J2 and J9 use the
+same crossing height below the funnel frame. The manifold leads descend into
+their two fixed lid channels; the display ribbon retains the shared rear
+electrical mouth and chimney. The faucet leads pass west of the pump head
+and butterfly keys. The rear neutral WAGO's mouths stand west of the
+continuous pump seat. The diaphragm-pump leads follow the saddle's outside
+aisles before turning toward the motor's aft lead exits.
 
 For board service, remove the funnel and frame, release the three free joins
 and lift them with their leads out of the housing paths. Disconnect the
