@@ -1872,7 +1872,9 @@ def build_bulkhead_rings(stations):
     out = []
     for x, z, _fitting, _ring_family, which, fluid in stations.values():
         station = (_ring.seat(), (x, floor, z))
-        cut, lettering = _ring.split(import_step(str(_ring.STEPS[which])).val())
+        cut, lettering = (_ring.split(import_step(str(_ring.STEPS[which])).val())
+                          if getattr(cq, 'MESH', False)
+                          else (_ring.build_ring(which), _ring.build_word(which)))
         chip, _carry = seat_body(cut, (), seat=ring_name(which), station=station)
         word, _wcarry = seat_body(lettering, (), seat=word_name(which), station=station)
         out.append((ring_name(which), chip,
