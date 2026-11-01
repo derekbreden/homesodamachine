@@ -123,10 +123,10 @@ def wiring_passages(e, box):
     rear_z = motor_end+2.776
     cross_z = rear_z+4.
     rear_y = box.pack.collet_plate['wall_aft_y']+0.664
-    plane = e.display_plane(box.outer)
-    back = (plane.origin + plane.xDir*0.5 + plane.yDir*(-1.)
-            - plane.zDir*(e.display_facet_thickness+e.display_pcb_cut_through-1.))
-    link = back-plane.zDir*6.
+    back = e._display_point(box.outer,
+        (.5,-1.,-(e.display_facet_thickness+e.display_pcb_cut_through-1.)))
+    normal = e._facet_geom(box.outer)[1]
+    link = tuple(p-n*6. for p,n in zip(back,normal))
     return {
         'front-top-electrical': dict(
             points_mm=[(0., rear_y, rear_z), (0., cy, rear_z)],
@@ -141,8 +141,8 @@ def wiring_passages(e, box):
             points_mm=[(0., 79., cross_z), (0., 78., 321.)],
             bounds_mm=[-10., 10., 72., 84., rear_z, 334.]),
         'front-top-display-link': dict(
-            points_mm=[link.toTuple(), (0., 78., 321.)],
-            terminal_entry_mm=(back+plane.zDir*2.).toTuple(),
+            points_mm=[link, (0., 78., 321.)],
+            terminal_entry_mm=tuple(p+n*2. for p,n in zip(back,normal)),
             diamond_half_span_mm=DISPLAY_LINK_HALF_SPAN),
     }
 
@@ -152,10 +152,9 @@ def _diamond_y(x, y, z, r):
                                cq.Vector(x+r,y,z), cq.Vector(x,y,z-r)], close=True)
 
 
-def _convex_corridor(e, shapes):
-    """One straight-sided display cable room containing its entry and chimney."""
-    vertices=[vertex.Center() for shape in shapes for vertex in shape.Vertices()]
-    points=sorted(set((p.y,p.z) for p in vertices))
+def _corridor_profile(vertices):
+    """The straight-sided cable room's X span and convex Y/Z outline."""
+    points=sorted(set((p[1],p[2]) for p in vertices))
     def turn(a,b,c):
         return (b[0]-a[0])*(c[1]-a[1])-(b[1]-a[1])*(c[0]-a[0])
     def chain(sequence):
@@ -166,7 +165,14 @@ def _convex_corridor(e, shapes):
             result.append(point)
         return result
     outline=chain(points)[:-1]+chain(reversed(points))[:-1]
-    return e._yz_prism(min(p.x for p in vertices),max(p.x for p in vertices),outline)
+    return (min(p[0] for p in vertices),max(p[0] for p in vertices)),outline
+
+
+def _convex_corridor(e, shapes):
+    """One straight-sided display cable room containing its entry and chimney."""
+    vertices=[vertex.Center().toTuple() for shape in shapes for vertex in shape.Vertices()]
+    span,outline=_corridor_profile(vertices)
+    return e._yz_prism(*span,outline)
 
 
 def wire_cuts(e, box):
@@ -260,7 +266,7 @@ def display_cleanouts(e, box):
     """Two plain wing-support access branches open into the empty PCB room."""
     wings = e._display_wings
     reach = wings.COVER_X/2. + wings.WING_REACH + wings.TIP_AIR
-    depth = 12.
+    depth = e._display_cut_exit_depth()
     roof = wings.GLASS_SEAT-e.wall
     floor = wings.BACK+wings.WING_THICK+wings.BEARING_AIR-depth
     y0 = -wings.WING_SPAN/2.-wings.END_AIR-depth*math.tan(math.radians(wings.ANGLE))
