@@ -1,0 +1,43 @@
+{
+  "jobs": [
+    {
+      "plate": "rear-retention-mark1",
+      "printer": "Mark1",
+      "connection_key": "H2C",
+      "preparation": "hardware/print-tests/rear-snap-retention/prints/2026-11-01-rear-retention-mark1-mark1-422bf475",
+      "archive": "hardware/print-tests/rear-snap-retention/prints/2026-11-01-rear-retention-mark1-mark1-422bf475/2026-11-01-rear-retention-mark1-mark1-422bf475.gcode.3mf",
+      "print_only_archive": "hardware/print-tests/rear-snap-retention/prints/2026-11-01-rear-retention-mark1-mark1-422bf475/2026-11-01-rear-retention-mark1-mark1-422bf475-print-only.gcode.3mf",
+      "gcode_sha256": "672e96ba69c825100b6c8fe22139bb1cde4fc7016eacaccd418cb7b7c4f33adb",
+      "estimated_seconds": 13108.931640625,
+      "filament_g": 120.61,
+      "minimum_bed_margin_mm": 79.96094,
+      "requested_z_trim_mm": 0.18,
+      "emitted_trim_mm": 0.16,
+      "native_review_pass": true,
+      "submitted": true,
+      "printer_task_id": "1398257516",
+      "launch_record": "hardware/print-tests/rear-snap-retention/prints/2026-11-01-rear-retention-mark1-mark1-422bf475/launch.json",
+      "accepted_at_utc": "2026-11-01T22:03:50.358701+00:00"
+    },
+    {
+      "plate": "rear-retention-mark2",
+      "printer": "Mark2",
+      "connection_key": "Mark2",
+      "preparation": "hardware/print-tests/rear-snap-retention/prints/2026-11-01-rear-retention-mark2-mark2-5162141f",
+      "archive": "hardware/print-tests/rear-snap-retention/prints/2026-11-01-rear-retention-mark2-mark2-5162141f/2026-11-01-rear-retention-mark2-mark2-5162141f.gcode.3mf",
+      "print_only_archive": "hardware/print-tests/rear-snap-retention/prints/2026-11-01-rear-retention-mark2-mark2-5162141f/2026-11-01-rear-retention-mark2-mark2-5162141f-print-only.gcode.3mf",
+      "gcode_sha256": "9fad694378d3b809cc936316439fd9294cfbc164292c73b258ab643540c0dd7a",
+      "estimated_seconds": 9519.5634765625,
+      "filament_g": 87.98,
+      "minimum_bed_margin_mm": 93.05844,
+      "requested_z_trim_mm": 0.04,
+      "emitted_trim_mm": 0.02,
+      "native_review_pass": true,
+      "submitted": true,
+      "printer_task_id": "1398266343",
+      "launch_record": "hardware/print-tests/rear-snap-retention/prints/2026-11-01-rear-retention-mark2-mark2-5162141f/launch.json",
+      "accepted_at_utc": "2026-11-01T22:07:25.740300+00:00"
+    }
+  ],
+  "accepted_start_separation_seconds": 215.381599
+}

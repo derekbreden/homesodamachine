@@ -75,6 +75,86 @@ def workspace_root():
     return here
 
 
+def viewer_producer(command, root):
+    """A local viewer and the outputs of one outer hardware Python producer, when known."""
+    if os.environ.get('HSM_VIEWER_PRODUCER') or not Path(command[0]).name.startswith('python'):
+        return None
+    script = next((Path(arg).resolve() for arg in command[1:] if arg.endswith('.py')), None)
+    if script is None or not script.is_relative_to(root / 'hardware'):
+        return None
+    import socket
+    candidates = [('127.0.0.1', 3000), ('127.0.0.1', 3001)]
+    if url := os.environ.get('HSM_VIEWER_URL'):
+        from urllib.parse import urlsplit
+        parsed = urlsplit(url)
+        if parsed.scheme != 'http' or parsed.hostname not in ('localhost', '127.0.0.1', '::1'):
+            return None
+        candidates = [(parsed.hostname, parsed.port or 80)]
+    for host, port in candidates:
+        try:
+            with socket.create_connection((host, port), timeout=0.05) as sock:
+                import http.client
+                from contextlib import closing
+                with closing(http.client.HTTPConnection(host, port, timeout=0.05)) as connection:
+                    connection.sock = sock
+                    connection.request('GET', '/api/hsm')
+                    response = connection.getresponse()
+                    data = json.loads(response.read()) if response.status == 200 else {}
+            if isinstance(data, dict) and data.get('root') == str(root) and isinstance(data.get('notify'), str):
+                graph = root / 'tools/bazel/graph.json'
+                try:
+                    writes = json.loads(graph.read_text())[script.relative_to(root).as_posix()]['writes']
+                    outputs = [root / name for name in writes]
+                except (OSError, ValueError, KeyError):
+                    outputs = []
+                return (host, port, data['notify'], root, script.parent, outputs)
+        except (OSError, ValueError):
+            pass                                # no local viewer; no output scan or extra work
+    return None
+
+
+def viewer_snapshot(producer):
+    """Only the declared outputs and the producer's own directory, including new files."""
+    if producer is None:
+        return {}
+    _host, _port, _token, root, directory, outputs = producer
+    paths = set(outputs) | set(directory.iterdir())
+    found = {}
+    for path in paths:
+        if path.name.startswith('.') or not path.is_relative_to(root / 'hardware'):
+            continue
+        if not path.name.endswith(('.step', '.step.mesh', '.glb', '.dxf', '.pdf', '.mmd')):
+            continue
+        try:
+            st = path.stat()
+            found[path] = (st.st_dev, st.st_ino, st.st_size, st.st_mtime_ns)
+        except OSError:
+            pass
+    return found
+
+
+def viewer_completed(producer, before):
+    if producer is None:
+        return
+    host, port, token, root, _directory, _outputs = producer
+    files = set()
+    for path, stamp in viewer_snapshot(producer).items():
+        if before.get(path) != stamp:
+            name = path.relative_to(root / 'hardware').as_posix()
+            files.add(name.removesuffix('.mesh') if name.endswith('.step.mesh') else name)
+    if files:
+        import http.client
+        from contextlib import closing
+        try:
+            with closing(http.client.HTTPConnection(host, port, timeout=0.1)) as connection:
+                connection.request('POST', '/api/hsm/files-changed',
+                                   json.dumps({'root': str(root), 'files': sorted(files)}),
+                                   {'Content-Type': 'application/json', 'X-HSM-Notify': token})
+                connection.getresponse().read()
+        except OSError:
+            pass                                # polling remains the fallback
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--count', type=int)
@@ -94,6 +174,11 @@ def main():
     if not command:
         parser.error('name a command after --')
     key = args.key or script_key(command)
+    try:
+        producer = viewer_producer(command, workspace_root())
+        before = viewer_snapshot(producer)
+    except Exception:
+        producer, before = None, {}             # optional notification never holds a command
     stable = None
     guard = None
     program = Path(command[0]).name
@@ -126,6 +211,8 @@ def main():
     env = slots.child_env()
     env['CARGO_BUILD_JOBS'] = '2'
     env['CMAKE_BUILD_PARALLEL_LEVEL'] = '2'
+    if Path(command[0]).name.startswith('python'):
+        env['HSM_VIEWER_PRODUCER'] = '1'          # nested helpers cannot announce the outer run
     descriptors = slots.pass_fds()
     if program in ('bazel', 'bazelisk'):
         # A persistent JVM must not retain this caller's lease. Actions use the broker.
@@ -146,6 +233,11 @@ def main():
         slots._broker = None
         if guard is not None:
             os.close(guard)
+    if child.returncode == 0:
+        try:
+            viewer_completed(producer, before)
+        except Exception:
+            pass                                # polling remains the fallback
     return child.returncode if child.returncode >= 0 else 128 - child.returncode
 
 

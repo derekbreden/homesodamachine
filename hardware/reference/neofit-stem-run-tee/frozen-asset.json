@@ -1,0 +1,11 @@
+{
+  "source": {
+    "commit": "7320c7c39a9d4e1485cb7dbcc3b95aa85d0802fb",
+    "path": "hardware/reference/neofit-stem-run-tee/neofit_stem_run_tee.py",
+    "sha256": "10dfbcc2215aeaa97cd852dfe1b08aea12538ee7508304d8a55a682e440e8cbe"
+  },
+  "members": {
+    "neofit-stem-run-tee.step": "25d95678f224be25fc5be06f52455f179445db245cfd810e8caa9f620cce6956",
+    "neofit-stem-run-tee.step.mesh": "321d16f7c8a6436c68a2e0e0b412038b91aafb91410029b20294685af08c3a6f"
+  }
+}

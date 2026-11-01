@@ -105,7 +105,9 @@ class Attachments:
         key = (part, str(reference), str(turns))
         if key in self.frames:
             return self.frames[key]
-        ref = import_step(str(reference)).val()
+        ref = (self.ea._pcba.board.build().val()
+               if part == "pcba" and not getattr(cq, "MESH", False)
+               else import_step(str(reference)).val())
         import above_core as layout
         import above_core_wiring as junctions
         explicit = junctions.frame(part)

@@ -1,0 +1,11 @@
+{
+  "source": {
+    "commit": "7320c7c39a9d4e1485cb7dbcc3b95aa85d0802fb",
+    "path": "hardware/reference/worm-clamp/worm_clamp.py",
+    "sha256": "0518fad8d86886811ed0b261eb7dbc97f20dbf819b018d9bed2ddcf8a3a4e8f9"
+  },
+  "members": {
+    "worm-clamp.step": "87d7406a23653f1903267074844297dd9003fa066e2daf0d392cb3a46ac52dda",
+    "worm-clamp.step.mesh": "2b9fc9020991b824c510d39c3f1a6b076a2c329922e4c3651facfa65fdac9cb8"
+  }
+}

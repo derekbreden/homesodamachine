@@ -165,14 +165,6 @@ IMPLICIT_SOLIDS = {
         f"hardware/printed-parts/soda-bend-holder/soda-bend-holder.{suffix}"
         for suffix in ("step", "stl", "step.mesh")
     ),
-    "hardware/reference/soda-rise-insulation/soda_rise_insulation.py": (
-        "hardware/reference/soda-rise-insulation/soda-rise-insulation.step",
-        "hardware/reference/soda-rise-insulation/soda-rise-insulation.step.mesh",
-    ),
-    "hardware/reference/neofit-achv44-check/neofit_achv44_check.py": (
-        "hardware/reference/neofit-achv44-check/neofit-achv44-check.step",
-        "hardware/reference/neofit-achv44-check/neofit-achv44-check.step.mesh",
-    ),
     "hardware/printed-parts/enclosure/rear-identification/rear_identification.py": tuple(
         f"hardware/printed-parts/enclosure/rear-identification/rear-label-{station}.{suffix}"
         for station in ("water", "co2", "drain", "carb", "flavor-a", "flavor-b")
@@ -235,9 +227,6 @@ IMPLICIT_SOLIDS = {
         "hardware/printed-parts/enclosure/nameplate/nameplate-001.step.mesh",
         "hardware/printed-parts/enclosure/nameplate/nameplate-receiver.step.mesh",
     ),
-    "hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py": (
-        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.stl",
-    ),
     # The socket trial's print mesh is written by OCCT, and its payload is cut from that mesh by
     # `flute_payload.cut`, which leaves it unwritten when the bytes already stand.
     "hardware/printed-parts/fixtures/valve-socket-fit/valve_socket_fit.py": (
@@ -247,9 +236,6 @@ IMPLICIT_SOLIDS = {
     "hardware/printed-parts/faucet/lever-replica/lever_replica.py": (
         "hardware/printed-parts/faucet/lever-replica/lever-replica.stl",
         "hardware/printed-parts/faucet/lever-replica/lever-replica-side-down.stl",
-    ),
-    "hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py": (
-        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.stl",
     ),
     "hardware/printed-parts/cold-core/magnetic-float/magnetic_float.py": tuple(
         f"hardware/printed-parts/cold-core/magnetic-float/{name}.step.mesh"
