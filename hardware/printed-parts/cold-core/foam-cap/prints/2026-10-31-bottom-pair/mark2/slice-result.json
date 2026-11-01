@@ -1,0 +1,71 @@
+{
+  "error_string": "Success.",
+  "export_time": 4292,
+  "layer_height": 0.23999999463558197,
+  "plate_index": 0,
+  "prepare_time": 176,
+  "return_code": 0,
+  "sliced_plates": [
+    {
+      "feature_type_times": {
+        "Bottom surface": 1184.14404296875,
+        "Bridge": 4382.12939453125,
+        "Custom": 305.42755126953125,
+        "Flush": 15.0,
+        "Gap infill": 16.760334014892578,
+        "Inner wall": 280.7087097167969,
+        "Internal solid infill": 3511.253173828125,
+        "Outer wall": 168.137451171875,
+        "Overhang wall": 53.61616134643555,
+        "Sparse infill": 316.2462463378906,
+        "Top surface": 711.91162109375,
+        "Travel": 234.6680450439453,
+        "Undefined": 224.97608947753906
+      },
+      "filament_change_times": 0,
+      "filaments": [
+        {
+          "filament_id": "GFT01",
+          "id": 1,
+          "main_used_g": 124.22457122802734,
+          "total_used_g": 124.22457122802734
+        }
+      ],
+      "generate_support_material_time": 202,
+      "id": 1,
+      "infill_time": 6396,
+      "layer_filament_change": 0,
+      "main_predication": 10843.78125,
+      "make_perimeters_time": 1549,
+      "obj_cached_cnt": 0,
+      "objects": [
+        {
+          "bbox": {
+            "depth": 180.39999389648438,
+            "height": 5.400000095367432,
+            "width": 282.3999938964844,
+            "x": 21.300003051757812,
+            "y": 69.80000305175781,
+            "z": 3.1628433205810325e-10
+          },
+          "id": 5,
+          "name": "foam-cap-lid-bottom",
+          "triangle_count": 23504
+        }
+      ],
+      "sliced_time": 11004,
+      "sliced_time_with_cache": 2714,
+      "total_predication": 11169.5166015625,
+      "triangle_count": 23504,
+      "warning_message": ""
+    }
+  ],
+  "sparse_infill_density": 15.0,
+  "upward_compatible_machine": [
+    "Bambu Lab H2S 0.4 nozzle",
+    "Bambu Lab H2D 0.4 nozzle",
+    "Bambu Lab H2D Pro 0.4 nozzle",
+    "Bambu Lab A2L 0.4 nozzle"
+  ],
+  "wall_loops": 3
+}
