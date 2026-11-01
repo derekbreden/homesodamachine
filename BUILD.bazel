@@ -641,6 +641,7 @@ genrule(
         "hardware/assembly/faucet-and-umbilical.md",
         "pysrc/hardware/cut-parts/faucet/under-counter-plate/under_counter_plate.py",
         "pysrc/hardware/faucet-layout/faucet_assembly.py",
+        "hardware/faucet-layout/faucet_metrics.rs",
         ":out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.facts.json",
         ":out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.scorecard.json",
         "pysrc/hardware/printed-parts/cadlib/fits.py",
@@ -681,11 +682,53 @@ genrule(
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/hardware/scripts/_run_slots.py",
+        "pysrc/hardware/scripts/_rust_part.py",
         "pysrc/hardware/scripts/_stated_bounds.py",
         "pysrc/hardware/scripts/flute_payload.py",
         "pysrc/marketing/_install_envelope_sync.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/Cargo.lock",
+        "tools/hsm/Cargo.toml",
+        "tools/hsm/faucet/Cargo.toml",
+        "tools/hsm/faucet/src/assembly.rs",
+        "tools/hsm/faucet/src/counter.rs",
+        "tools/hsm/faucet/src/display.rs",
+        "tools/hsm/faucet/src/lib.rs",
+        "tools/hsm/faucet/src/metrics.rs",
+        "tools/hsm/faucet/src/shell.rs",
+        "tools/hsm/kernel/Cargo.toml",
+        "tools/hsm/kernel/src/boolean.rs",
+        "tools/hsm/kernel/src/build.rs",
+        "tools/hsm/kernel/src/dxf.rs",
+        "tools/hsm/kernel/src/edge.rs",
+        "tools/hsm/kernel/src/face.rs",
+        "tools/hsm/kernel/src/import.rs",
+        "tools/hsm/kernel/src/lib.rs",
+        "tools/hsm/kernel/src/mapped.rs",
+        "tools/hsm/kernel/src/mass.rs",
+        "tools/hsm/kernel/src/math.rs",
+        "tools/hsm/kernel/src/part.rs",
+        "tools/hsm/kernel/src/plane.rs",
+        "tools/hsm/kernel/src/profile.rs",
+        "tools/hsm/kernel/src/reads.rs",
+        "tools/hsm/kernel/src/round.rs",
+        "tools/hsm/kernel/src/round/rolled.rs",
+        "tools/hsm/kernel/src/rule.rs",
+        "tools/hsm/kernel/src/screw.rs",
+        "tools/hsm/kernel/src/sketch_hull.rs",
+        "tools/hsm/kernel/src/solid.rs",
+        "tools/hsm/kernel/src/spline.rs",
+        "tools/hsm/kernel/src/step.rs",
+        "tools/hsm/kernel/src/sweep.rs",
+        "tools/hsm/kernel/src/text.rs",
+        "tools/hsm/kernel/src/thru.rs",
+        "tools/hsm/kernel/src/topo.rs",
+        "tools/hsm/kernel/src/triangulate.rs",
+        "tools/hsm/kernel/src/write.rs",
         "tools/hsm/run-slots.defaults.json",
+        "tools/hsm/run-slots/Cargo.toml",
+        "tools/hsm/run-slots/src/ipc.rs",
+        "tools/hsm/run-slots/src/lib.rs",
         "tools/run-slots.mjs",
         "pysrc/tools/run.py",
     ] + glob(
@@ -698,10 +741,12 @@ genrule(
         "out/faucet-and-umbilical-sync/hardware/assembly/faucet-and-umbilical.figures.json",
         "out/faucet-and-umbilical-sync/hardware/assembly/faucet-and-umbilical.md",
     ],
+    tags = ["no-sandbox"],
     cmd = """
 set -e
 O0=$$PWD/$(location out/faucet-and-umbilical-sync/hardware/assembly/faucet-and-umbilical.figures.json)
 O1=$$PWD/$(location out/faucet-and-umbilical-sync/hardware/assembly/faucet-and-umbilical.md)
+rm -rf work-faucet-and-umbilical-sync
 for f in $(SRCS); do
   case $$f in
     */node_modules/*) continue;;
@@ -709,17 +754,18 @@ for f in $(SRCS); do
     */pysrc/*) t=$${f##*/pysrc/};;
     *) t=$$f;;
   esac
-  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
+  mkdir -p work-faucet-and-umbilical-sync/$$(dirname $$t); cp -L $$f work-faucet-and-umbilical-sync/$$t
 done
 for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
+  if [ -d $$d ]; then mkdir -p work-faucet-and-umbilical-sync/$$(dirname $$d); ln -sfn $$PWD/$$d work-faucet-and-umbilical-sync/$$d; fi
 done
-cd work
+cd work-faucet-and-umbilical-sync
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
 HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/assembly/_faucet_and_umbilical_sync.py > /dev/null
 cp hardware/assembly/faucet-and-umbilical.figures.json $$O0
 cp hardware/assembly/faucet-and-umbilical.md $$O1
+cd .. && rm -rf work-faucet-and-umbilical-sync
 """,
 )
 
@@ -1945,6 +1991,7 @@ genrule(
         "tools/hsm/faucet/src/counter.rs",
         "tools/hsm/faucet/src/display.rs",
         "tools/hsm/faucet/src/lib.rs",
+        "tools/hsm/faucet/src/metrics.rs",
         "tools/hsm/faucet/src/shell.rs",
         "tools/hsm/kernel/Cargo.toml",
         "tools/hsm/kernel/src/boolean.rs",
@@ -2075,6 +2122,7 @@ genrule(
         ":out/under-counter-plate/hardware/cut-parts/faucet/under-counter-plate/under-counter-plate.dxf",
         "hardware/faucet-layout/faucet_assembly.py",
         "hardware/faucet-layout/faucet_assembly.rs",
+        "hardware/faucet-layout/faucet_metrics.rs",
         "pysrc/hardware/printed-parts/cadlib/fits.py",
         "pysrc/hardware/printed-parts/cadlib/flute_skin.py",
         "pysrc/hardware/printed-parts/cadlib/port_chip.py",
@@ -2118,6 +2166,7 @@ genrule(
         ":out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell.step.mesh",
         "pysrc/hardware/printed-parts/faucet/faucet-shell/faucet_shell.py",
         "pysrc/hardware/printed-parts/faucet/faucet_paths.py",
+        ":out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-replica.frame.json",
         ":out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-replica.step",
         ":out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-replica.step.mesh",
         ":out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-replica.stl",
@@ -2159,6 +2208,7 @@ genrule(
         "tools/hsm/faucet/src/counter.rs",
         "tools/hsm/faucet/src/display.rs",
         "tools/hsm/faucet/src/lib.rs",
+        "tools/hsm/faucet/src/metrics.rs",
         "tools/hsm/faucet/src/shell.rs",
         "tools/hsm/kernel/Cargo.toml",
         "tools/hsm/kernel/src/boolean.rs",
@@ -2244,6 +2294,7 @@ genrule(
         "pysrc/hardware/faucet-layout/faucet_assembly.py",
         "pysrc/hardware/faucet-layout/faucet_industrial_assembly.py",
         "hardware/faucet-layout/faucet_industrial_assembly.rs",
+        "hardware/faucet-layout/faucet_metrics.rs",
         "pysrc/hardware/printed-parts/cadlib/fits.py",
         "pysrc/hardware/printed-parts/cadlib/flute_skin.py",
         "pysrc/hardware/printed-parts/cadlib/port_chip.py",
@@ -2288,6 +2339,7 @@ genrule(
         ":out/industrial-faucet/hardware/printed-parts/faucet/industrial/industrial-shell-base.step.mesh",
         ":out/industrial-faucet/hardware/printed-parts/faucet/industrial/industrial-shell-base.stl",
         "pysrc/hardware/printed-parts/faucet/industrial/industrial_display_cover.py",
+        ":out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-replica.frame.json",
         ":out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-replica.step",
         ":out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-replica.step.mesh",
         ":out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-replica.stl",
@@ -2329,6 +2381,7 @@ genrule(
         "tools/hsm/faucet/src/counter.rs",
         "tools/hsm/faucet/src/display.rs",
         "tools/hsm/faucet/src/lib.rs",
+        "tools/hsm/faucet/src/metrics.rs",
         "tools/hsm/faucet/src/shell.rs",
         "tools/hsm/kernel/Cargo.toml",
         "tools/hsm/kernel/src/boolean.rs",
@@ -2409,6 +2462,7 @@ genrule(
     srcs = [
         ":out/under-counter-plate/hardware/cut-parts/faucet/under-counter-plate/under-counter-plate.dxf",
         "pysrc/hardware/faucet-layout/faucet_assembly.py",
+        "hardware/faucet-layout/faucet_metrics.rs",
         "pysrc/hardware/install-guide/_cad_art.py",
         "pysrc/hardware/install-guide/_install_art.py",
         "pysrc/hardware/install-guide/plumbing/modern/render_modern_tee.py",
@@ -2468,6 +2522,42 @@ genrule(
         "pysrc/tools/docgen/__init__.py",
         "tools/hsm/Cargo.lock",
         "tools/hsm/Cargo.toml",
+        "tools/hsm/faucet/Cargo.toml",
+        "tools/hsm/faucet/src/assembly.rs",
+        "tools/hsm/faucet/src/counter.rs",
+        "tools/hsm/faucet/src/display.rs",
+        "tools/hsm/faucet/src/lib.rs",
+        "tools/hsm/faucet/src/metrics.rs",
+        "tools/hsm/faucet/src/shell.rs",
+        "tools/hsm/kernel/Cargo.toml",
+        "tools/hsm/kernel/src/boolean.rs",
+        "tools/hsm/kernel/src/build.rs",
+        "tools/hsm/kernel/src/dxf.rs",
+        "tools/hsm/kernel/src/edge.rs",
+        "tools/hsm/kernel/src/face.rs",
+        "tools/hsm/kernel/src/import.rs",
+        "tools/hsm/kernel/src/lib.rs",
+        "tools/hsm/kernel/src/mapped.rs",
+        "tools/hsm/kernel/src/mass.rs",
+        "tools/hsm/kernel/src/math.rs",
+        "tools/hsm/kernel/src/part.rs",
+        "tools/hsm/kernel/src/plane.rs",
+        "tools/hsm/kernel/src/profile.rs",
+        "tools/hsm/kernel/src/reads.rs",
+        "tools/hsm/kernel/src/round.rs",
+        "tools/hsm/kernel/src/round/rolled.rs",
+        "tools/hsm/kernel/src/rule.rs",
+        "tools/hsm/kernel/src/screw.rs",
+        "tools/hsm/kernel/src/sketch_hull.rs",
+        "tools/hsm/kernel/src/solid.rs",
+        "tools/hsm/kernel/src/spline.rs",
+        "tools/hsm/kernel/src/step.rs",
+        "tools/hsm/kernel/src/sweep.rs",
+        "tools/hsm/kernel/src/text.rs",
+        "tools/hsm/kernel/src/thru.rs",
+        "tools/hsm/kernel/src/topo.rs",
+        "tools/hsm/kernel/src/triangulate.rs",
+        "tools/hsm/kernel/src/write.rs",
         "tools/hsm/render/Cargo.toml",
         "tools/hsm/render/src/annotate.rs",
         "tools/hsm/render/src/bin/hsm-render.rs",
@@ -2580,6 +2670,7 @@ genrule(
         "firmware/src_faucet/images/flavor1_faucet.h",
         ":out/under-counter-plate/hardware/cut-parts/faucet/under-counter-plate/under-counter-plate.dxf",
         "pysrc/hardware/faucet-layout/faucet_assembly.py",
+        "hardware/faucet-layout/faucet_metrics.rs",
         "pysrc/hardware/install-guide/_cad_art.py",
         "pysrc/hardware/install-guide/installation_art.py",
         ":out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.facts.json",
@@ -2635,6 +2726,42 @@ genrule(
         "pysrc/tools/docgen/__init__.py",
         "tools/hsm/Cargo.lock",
         "tools/hsm/Cargo.toml",
+        "tools/hsm/faucet/Cargo.toml",
+        "tools/hsm/faucet/src/assembly.rs",
+        "tools/hsm/faucet/src/counter.rs",
+        "tools/hsm/faucet/src/display.rs",
+        "tools/hsm/faucet/src/lib.rs",
+        "tools/hsm/faucet/src/metrics.rs",
+        "tools/hsm/faucet/src/shell.rs",
+        "tools/hsm/kernel/Cargo.toml",
+        "tools/hsm/kernel/src/boolean.rs",
+        "tools/hsm/kernel/src/build.rs",
+        "tools/hsm/kernel/src/dxf.rs",
+        "tools/hsm/kernel/src/edge.rs",
+        "tools/hsm/kernel/src/face.rs",
+        "tools/hsm/kernel/src/import.rs",
+        "tools/hsm/kernel/src/lib.rs",
+        "tools/hsm/kernel/src/mapped.rs",
+        "tools/hsm/kernel/src/mass.rs",
+        "tools/hsm/kernel/src/math.rs",
+        "tools/hsm/kernel/src/part.rs",
+        "tools/hsm/kernel/src/plane.rs",
+        "tools/hsm/kernel/src/profile.rs",
+        "tools/hsm/kernel/src/reads.rs",
+        "tools/hsm/kernel/src/round.rs",
+        "tools/hsm/kernel/src/round/rolled.rs",
+        "tools/hsm/kernel/src/rule.rs",
+        "tools/hsm/kernel/src/screw.rs",
+        "tools/hsm/kernel/src/sketch_hull.rs",
+        "tools/hsm/kernel/src/solid.rs",
+        "tools/hsm/kernel/src/spline.rs",
+        "tools/hsm/kernel/src/step.rs",
+        "tools/hsm/kernel/src/sweep.rs",
+        "tools/hsm/kernel/src/text.rs",
+        "tools/hsm/kernel/src/thru.rs",
+        "tools/hsm/kernel/src/topo.rs",
+        "tools/hsm/kernel/src/triangulate.rs",
+        "tools/hsm/kernel/src/write.rs",
         "tools/hsm/render/Cargo.toml",
         "tools/hsm/render/src/annotate.rs",
         "tools/hsm/render/src/bin/hsm-render.rs",
@@ -7469,6 +7596,7 @@ genrule(
         "tools/hsm/faucet/src/counter.rs",
         "tools/hsm/faucet/src/display.rs",
         "tools/hsm/faucet/src/lib.rs",
+        "tools/hsm/faucet/src/metrics.rs",
         "tools/hsm/faucet/src/shell.rs",
         "tools/hsm/kernel/Cargo.toml",
         "tools/hsm/kernel/src/boolean.rs",
@@ -7579,6 +7707,7 @@ genrule(
         "tools/hsm/faucet/src/counter.rs",
         "tools/hsm/faucet/src/display.rs",
         "tools/hsm/faucet/src/lib.rs",
+        "tools/hsm/faucet/src/metrics.rs",
         "tools/hsm/faucet/src/shell.rs",
         "tools/hsm/kernel/Cargo.toml",
         "tools/hsm/kernel/src/boolean.rs",
@@ -7697,6 +7826,7 @@ genrule(
         "tools/hsm/faucet/src/counter.rs",
         "tools/hsm/faucet/src/display.rs",
         "tools/hsm/faucet/src/lib.rs",
+        "tools/hsm/faucet/src/metrics.rs",
         "tools/hsm/faucet/src/shell.rs",
         "tools/hsm/kernel/Cargo.toml",
         "tools/hsm/kernel/src/boolean.rs",
@@ -7828,6 +7958,7 @@ genrule(
         "tools/hsm/faucet/src/counter.rs",
         "tools/hsm/faucet/src/display.rs",
         "tools/hsm/faucet/src/lib.rs",
+        "tools/hsm/faucet/src/metrics.rs",
         "tools/hsm/faucet/src/shell.rs",
         "tools/hsm/kernel/Cargo.toml",
         "tools/hsm/kernel/src/boolean.rs",
@@ -7971,6 +8102,7 @@ genrule(
     outs = [
         "out/lever-replica/hardware/printed-parts/faucet/lever-replica/geometry-check.json",
         "out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-replica-side-down.stl",
+        "out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-replica.frame.json",
         "out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-replica.step",
         "out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-replica.step.mesh",
         "out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-replica.stl",
@@ -7979,9 +8111,10 @@ genrule(
 set -e
 O0=$$PWD/$(location out/lever-replica/hardware/printed-parts/faucet/lever-replica/geometry-check.json)
 O1=$$PWD/$(location out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-replica-side-down.stl)
-O2=$$PWD/$(location out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-replica.step)
-O3=$$PWD/$(location out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-replica.step.mesh)
-O4=$$PWD/$(location out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-replica.stl)
+O2=$$PWD/$(location out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-replica.frame.json)
+O3=$$PWD/$(location out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-replica.step)
+O4=$$PWD/$(location out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-replica.step.mesh)
+O5=$$PWD/$(location out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-replica.stl)
 for f in $(SRCS); do
   case $$f in
     */node_modules/*) continue;;
@@ -8000,9 +8133,10 @@ D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.
 HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/faucet/lever-replica/lever_replica.py > /dev/null
 cp hardware/printed-parts/faucet/lever-replica/geometry-check.json $$O0
 cp hardware/printed-parts/faucet/lever-replica/lever-replica-side-down.stl $$O1
-cp hardware/printed-parts/faucet/lever-replica/lever-replica.step $$O2
-cp hardware/printed-parts/faucet/lever-replica/lever-replica.step.mesh $$O3
-cp hardware/printed-parts/faucet/lever-replica/lever-replica.stl $$O4
+cp hardware/printed-parts/faucet/lever-replica/lever-replica.frame.json $$O2
+cp hardware/printed-parts/faucet/lever-replica/lever-replica.step $$O3
+cp hardware/printed-parts/faucet/lever-replica/lever-replica.step.mesh $$O4
+cp hardware/printed-parts/faucet/lever-replica/lever-replica.stl $$O5
 """,
 )
 
@@ -8424,6 +8558,7 @@ genrule(
     name = "faucet-display-snap-trial",
     srcs = [
         "pysrc/hardware/faucet-layout/faucet_assembly.py",
+        "hardware/faucet-layout/faucet_metrics.rs",
         "pysrc/hardware/printed-parts/cadlib/fits.py",
         "pysrc/hardware/printed-parts/cadlib/flute_skin.py",
         "pysrc/hardware/printed-parts/cadlib/petgf_cooling.py",
@@ -8463,10 +8598,52 @@ genrule(
         "pysrc/hardware/scripts/_payload_rules.py",
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/hardware/scripts/_run_slots.py",
+        "pysrc/hardware/scripts/_rust_part.py",
         "pysrc/hardware/scripts/_stated_bounds.py",
         "pysrc/hardware/scripts/flute_payload.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/Cargo.lock",
+        "tools/hsm/Cargo.toml",
+        "tools/hsm/faucet/Cargo.toml",
+        "tools/hsm/faucet/src/assembly.rs",
+        "tools/hsm/faucet/src/counter.rs",
+        "tools/hsm/faucet/src/display.rs",
+        "tools/hsm/faucet/src/lib.rs",
+        "tools/hsm/faucet/src/metrics.rs",
+        "tools/hsm/faucet/src/shell.rs",
+        "tools/hsm/kernel/Cargo.toml",
+        "tools/hsm/kernel/src/boolean.rs",
+        "tools/hsm/kernel/src/build.rs",
+        "tools/hsm/kernel/src/dxf.rs",
+        "tools/hsm/kernel/src/edge.rs",
+        "tools/hsm/kernel/src/face.rs",
+        "tools/hsm/kernel/src/import.rs",
+        "tools/hsm/kernel/src/lib.rs",
+        "tools/hsm/kernel/src/mapped.rs",
+        "tools/hsm/kernel/src/mass.rs",
+        "tools/hsm/kernel/src/math.rs",
+        "tools/hsm/kernel/src/part.rs",
+        "tools/hsm/kernel/src/plane.rs",
+        "tools/hsm/kernel/src/profile.rs",
+        "tools/hsm/kernel/src/reads.rs",
+        "tools/hsm/kernel/src/round.rs",
+        "tools/hsm/kernel/src/round/rolled.rs",
+        "tools/hsm/kernel/src/rule.rs",
+        "tools/hsm/kernel/src/screw.rs",
+        "tools/hsm/kernel/src/sketch_hull.rs",
+        "tools/hsm/kernel/src/solid.rs",
+        "tools/hsm/kernel/src/spline.rs",
+        "tools/hsm/kernel/src/step.rs",
+        "tools/hsm/kernel/src/sweep.rs",
+        "tools/hsm/kernel/src/text.rs",
+        "tools/hsm/kernel/src/thru.rs",
+        "tools/hsm/kernel/src/topo.rs",
+        "tools/hsm/kernel/src/triangulate.rs",
+        "tools/hsm/kernel/src/write.rs",
         "tools/hsm/run-slots.defaults.json",
+        "tools/hsm/run-slots/Cargo.toml",
+        "tools/hsm/run-slots/src/ipc.rs",
+        "tools/hsm/run-slots/src/lib.rs",
         "tools/run-slots.mjs",
         "pysrc/tools/run.py",
     ],
@@ -8479,6 +8656,7 @@ genrule(
         "out/faucet-display-snap-trial/hardware/printed-parts/fixtures/faucet-display-snap/faucet-display-fit-trial.step.mesh",
         "out/faucet-display-snap-trial/hardware/printed-parts/fixtures/faucet-display-snap/trial-geometry.json",
     ],
+    tags = ["no-sandbox"],
     cmd = """
 set -e
 O0=$$PWD/$(location out/faucet-display-snap-trial/hardware/printed-parts/fixtures/faucet-display-snap/display-trial-cover.step)
@@ -8488,6 +8666,7 @@ O3=$$PWD/$(location out/faucet-display-snap-trial/hardware/printed-parts/fixture
 O4=$$PWD/$(location out/faucet-display-snap-trial/hardware/printed-parts/fixtures/faucet-display-snap/faucet-display-fit-trial.step)
 O5=$$PWD/$(location out/faucet-display-snap-trial/hardware/printed-parts/fixtures/faucet-display-snap/faucet-display-fit-trial.step.mesh)
 O6=$$PWD/$(location out/faucet-display-snap-trial/hardware/printed-parts/fixtures/faucet-display-snap/trial-geometry.json)
+rm -rf work-faucet-display-snap-trial
 for f in $(SRCS); do
   case $$f in
     */node_modules/*) continue;;
@@ -8495,12 +8674,12 @@ for f in $(SRCS); do
     */pysrc/*) t=$${f##*/pysrc/};;
     *) t=$$f;;
   esac
-  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
+  mkdir -p work-faucet-display-snap-trial/$$(dirname $$t); cp -L $$f work-faucet-display-snap-trial/$$t
 done
 for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
+  if [ -d $$d ]; then mkdir -p work-faucet-display-snap-trial/$$(dirname $$d); ln -sfn $$PWD/$$d work-faucet-display-snap-trial/$$d; fi
 done
-cd work
+cd work-faucet-display-snap-trial
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
 HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/fixtures/faucet-display-snap/faucet_display_snap_trial.py > /dev/null
@@ -8511,6 +8690,7 @@ cp hardware/printed-parts/fixtures/faucet-display-snap/display-trial-housing.stl
 cp hardware/printed-parts/fixtures/faucet-display-snap/faucet-display-fit-trial.step $$O4
 cp hardware/printed-parts/fixtures/faucet-display-snap/faucet-display-fit-trial.step.mesh $$O5
 cp hardware/printed-parts/fixtures/faucet-display-snap/trial-geometry.json $$O6
+cd .. && rm -rf work-faucet-display-snap-trial
 """,
 )
 
@@ -11553,6 +11733,7 @@ genrule(
         "pysrc/hardware/cold-core-layout/cold_core_assembly.py",
         "pysrc/hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py",
         "pysrc/hardware/faucet-layout/faucet_assembly.py",
+        "hardware/faucet-layout/faucet_metrics.rs",
         "hardware/ledger/bom.md",
         "hardware/ledger/labor.md",
         "pysrc/hardware/manifold-layout/_drain.py",
@@ -11819,7 +12000,48 @@ genrule(
         "pysrc/hardware/scripts/pick_text.py",
         "pysrc/hardware/wiring/_ac_wiring_schedule_sync.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/Cargo.lock",
+        "tools/hsm/Cargo.toml",
+        "tools/hsm/faucet/Cargo.toml",
+        "tools/hsm/faucet/src/assembly.rs",
+        "tools/hsm/faucet/src/counter.rs",
+        "tools/hsm/faucet/src/display.rs",
+        "tools/hsm/faucet/src/lib.rs",
+        "tools/hsm/faucet/src/metrics.rs",
+        "tools/hsm/faucet/src/shell.rs",
+        "tools/hsm/kernel/Cargo.toml",
+        "tools/hsm/kernel/src/boolean.rs",
+        "tools/hsm/kernel/src/build.rs",
+        "tools/hsm/kernel/src/dxf.rs",
+        "tools/hsm/kernel/src/edge.rs",
+        "tools/hsm/kernel/src/face.rs",
+        "tools/hsm/kernel/src/import.rs",
+        "tools/hsm/kernel/src/lib.rs",
+        "tools/hsm/kernel/src/mapped.rs",
+        "tools/hsm/kernel/src/mass.rs",
+        "tools/hsm/kernel/src/math.rs",
+        "tools/hsm/kernel/src/part.rs",
+        "tools/hsm/kernel/src/plane.rs",
+        "tools/hsm/kernel/src/profile.rs",
+        "tools/hsm/kernel/src/reads.rs",
+        "tools/hsm/kernel/src/round.rs",
+        "tools/hsm/kernel/src/round/rolled.rs",
+        "tools/hsm/kernel/src/rule.rs",
+        "tools/hsm/kernel/src/screw.rs",
+        "tools/hsm/kernel/src/sketch_hull.rs",
+        "tools/hsm/kernel/src/solid.rs",
+        "tools/hsm/kernel/src/spline.rs",
+        "tools/hsm/kernel/src/step.rs",
+        "tools/hsm/kernel/src/sweep.rs",
+        "tools/hsm/kernel/src/text.rs",
+        "tools/hsm/kernel/src/thru.rs",
+        "tools/hsm/kernel/src/topo.rs",
+        "tools/hsm/kernel/src/triangulate.rs",
+        "tools/hsm/kernel/src/write.rs",
         "tools/hsm/run-slots.defaults.json",
+        "tools/hsm/run-slots/Cargo.toml",
+        "tools/hsm/run-slots/src/ipc.rs",
+        "tools/hsm/run-slots/src/lib.rs",
         "tools/run-slots.mjs",
         "pysrc/tools/run.py",
     ] + glob(
@@ -11835,12 +12057,14 @@ genrule(
         "out/bom-masses/hardware/ledger/labor.figures.json",
         "out/bom-masses/hardware/ledger/labor.md",
     ],
+    tags = ["no-sandbox"],
     cmd = """
 set -e
 O0=$$PWD/$(location out/bom-masses/hardware/ledger/bom.figures.json)
 O1=$$PWD/$(location out/bom-masses/hardware/ledger/bom.md)
 O2=$$PWD/$(location out/bom-masses/hardware/ledger/labor.figures.json)
 O3=$$PWD/$(location out/bom-masses/hardware/ledger/labor.md)
+rm -rf work-bom-masses
 for f in $(SRCS); do
   case $$f in
     */node_modules/*) continue;;
@@ -11848,12 +12072,12 @@ for f in $(SRCS); do
     */pysrc/*) t=$${f##*/pysrc/};;
     *) t=$$f;;
   esac
-  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
+  mkdir -p work-bom-masses/$$(dirname $$t); cp -L $$f work-bom-masses/$$t
 done
 for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
+  if [ -d $$d ]; then mkdir -p work-bom-masses/$$(dirname $$d); ln -sfn $$PWD/$$d work-bom-masses/$$d; fi
 done
-cd work
+cd work-bom-masses
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
 HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/scripts/_bom_masses.py > /dev/null
@@ -11864,6 +12088,7 @@ cp hardware/ledger/bom.figures.json $$O0
 cp hardware/ledger/bom.md $$O1
 cp hardware/ledger/labor.figures.json $$O2
 cp hardware/ledger/labor.md $$O3
+cd .. && rm -rf work-bom-masses
 """,
 )
 
@@ -13095,6 +13320,7 @@ genrule(
     srcs = [
         ":out/under-counter-plate/hardware/cut-parts/faucet/under-counter-plate/under-counter-plate.dxf",
         "pysrc/hardware/faucet-layout/faucet_assembly.py",
+        "hardware/faucet-layout/faucet_metrics.rs",
         "pysrc/hardware/install-guide/_cad_art.py",
         "pysrc/hardware/install-guide/_install_art.py",
         "pysrc/hardware/install-guide/plumbing/plumbing_scenes.py",
@@ -13147,7 +13373,48 @@ genrule(
         "pysrc/hardware/scripts/_stated_bounds.py",
         "pysrc/hardware/scripts/flute_payload.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/Cargo.lock",
+        "tools/hsm/Cargo.toml",
+        "tools/hsm/faucet/Cargo.toml",
+        "tools/hsm/faucet/src/assembly.rs",
+        "tools/hsm/faucet/src/counter.rs",
+        "tools/hsm/faucet/src/display.rs",
+        "tools/hsm/faucet/src/lib.rs",
+        "tools/hsm/faucet/src/metrics.rs",
+        "tools/hsm/faucet/src/shell.rs",
+        "tools/hsm/kernel/Cargo.toml",
+        "tools/hsm/kernel/src/boolean.rs",
+        "tools/hsm/kernel/src/build.rs",
+        "tools/hsm/kernel/src/dxf.rs",
+        "tools/hsm/kernel/src/edge.rs",
+        "tools/hsm/kernel/src/face.rs",
+        "tools/hsm/kernel/src/import.rs",
+        "tools/hsm/kernel/src/lib.rs",
+        "tools/hsm/kernel/src/mapped.rs",
+        "tools/hsm/kernel/src/mass.rs",
+        "tools/hsm/kernel/src/math.rs",
+        "tools/hsm/kernel/src/part.rs",
+        "tools/hsm/kernel/src/plane.rs",
+        "tools/hsm/kernel/src/profile.rs",
+        "tools/hsm/kernel/src/reads.rs",
+        "tools/hsm/kernel/src/round.rs",
+        "tools/hsm/kernel/src/round/rolled.rs",
+        "tools/hsm/kernel/src/rule.rs",
+        "tools/hsm/kernel/src/screw.rs",
+        "tools/hsm/kernel/src/sketch_hull.rs",
+        "tools/hsm/kernel/src/solid.rs",
+        "tools/hsm/kernel/src/spline.rs",
+        "tools/hsm/kernel/src/step.rs",
+        "tools/hsm/kernel/src/sweep.rs",
+        "tools/hsm/kernel/src/text.rs",
+        "tools/hsm/kernel/src/thru.rs",
+        "tools/hsm/kernel/src/topo.rs",
+        "tools/hsm/kernel/src/triangulate.rs",
+        "tools/hsm/kernel/src/write.rs",
         "tools/hsm/run-slots.defaults.json",
+        "tools/hsm/run-slots/Cargo.toml",
+        "tools/hsm/run-slots/src/ipc.rs",
+        "tools/hsm/run-slots/src/lib.rs",
         "pysrc/tools/install-guide/kit_art.py",
         "tools/run-slots.mjs",
         "pysrc/tools/run.py",
@@ -13163,6 +13430,7 @@ genrule(
         "out/kit-art/hardware/install-guide/assets/kit/regulator-and-tether.svg",
         "out/kit-art/hardware/install-guide/assets/kit/water-tees.svg",
     ],
+    tags = ["no-sandbox"],
     cmd = """
 set -e
 O0=$$PWD/$(location out/kit-art/hardware/install-guide/assets/kit/cold-kit.svg)
@@ -13174,6 +13442,7 @@ O5=$$PWD/$(location out/kit-art/hardware/install-guide/assets/kit/machine.svg)
 O6=$$PWD/$(location out/kit-art/hardware/install-guide/assets/kit/power-cord.svg)
 O7=$$PWD/$(location out/kit-art/hardware/install-guide/assets/kit/regulator-and-tether.svg)
 O8=$$PWD/$(location out/kit-art/hardware/install-guide/assets/kit/water-tees.svg)
+rm -rf work-kit-art
 for f in $(SRCS); do
   case $$f in
     */node_modules/*) continue;;
@@ -13181,12 +13450,12 @@ for f in $(SRCS); do
     */pysrc/*) t=$${f##*/pysrc/};;
     *) t=$$f;;
   esac
-  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
+  mkdir -p work-kit-art/$$(dirname $$t); cp -L $$f work-kit-art/$$t
 done
 for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
+  if [ -d $$d ]; then mkdir -p work-kit-art/$$(dirname $$d); ln -sfn $$PWD/$$d work-kit-art/$$d; fi
 done
-cd work
+cd work-kit-art
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
 HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/install-guide/kit_art.py > /dev/null
@@ -13199,6 +13468,7 @@ cp hardware/install-guide/assets/kit/machine.svg $$O5
 cp hardware/install-guide/assets/kit/power-cord.svg $$O6
 cp hardware/install-guide/assets/kit/regulator-and-tether.svg $$O7
 cp hardware/install-guide/assets/kit/water-tees.svg $$O8
+cd .. && rm -rf work-kit-art
 """,
 )
 
