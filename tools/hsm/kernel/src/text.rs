@@ -1,7 +1,7 @@
-//! Text as solids: a font's glyph outlines laid out as OCCT lays them, then extruded.
+//! Text as solids: a font's glyph outlines laid out on a plane, then extruded.
 //!
 //! A font unit is size / units-per-em millimetres. Each glyph advances the pen by its horizontal
-//! advance plus the 'kern' table's kerning for the pair. Across, the line starts at x = 0
+//! advance, with optional pair kerning from the 'kern' table. Across, the line starts at x = 0
 //! (`Left`), is centered on it (`Center`) or ends at it (`Right`), by its whole advance. Up and
 //! down, the baseline is at y = 0 (`Bottom`), the ascender is (`Top`), or the line's height is
 //! centered on it (`Center`): the baseline half the line spacing less the ascender from y = 0,
@@ -182,8 +182,14 @@ impl Font {
     }
 
     /// The outlines of `text` laid out at `size` mm, in a plane's coordinates: one profile per
-    /// solid contour, with its holes.
+    /// solid contour, with its holes. Pair kerning is enabled.
     pub fn profiles(&self, text: &str, size: f64, halign: HAlign, valign: VAlign) -> Result<Vec<Profile>> {
+        self.profiles_with_kerning(text, size, halign, valign, true)
+    }
+
+    /// The outlines of `text` with optional pair kerning, otherwise advancing each glyph by
+    /// its horizontal advance alone.
+    pub fn profiles_with_kerning(&self, text: &str, size: f64, halign: HAlign, valign: VAlign, pair_kerning: bool) -> Result<Vec<Profile>> {
         ensure!(size > 0.0, "text of size {size}");
         ensure!(!text.contains('\n'), "text of more than one line");
         let face = self.face();
@@ -205,7 +211,7 @@ impl Font {
         let mut pens = vec![];
         let mut pen = 0.0;
         for (i, &g) in glyphs.iter().enumerate() {
-            if i > 0 {
+            if pair_kerning && i > 0 {
                 pen += kern(glyphs[i - 1], g);
             }
             pens.push(pen);

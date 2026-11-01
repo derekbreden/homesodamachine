@@ -55,6 +55,41 @@ def committed(part: Path, name: str) -> dict:
 
 
 class APartsRun(unittest.TestCase):
+    def test_numbers_filename_can_differ_from_the_binary(self):
+        said = probe("""
+            import tempfile
+            from pathlib import Path
+            import _rust_part as part
+            calls = []
+            def engine(crate, name, args):
+                path = Path(args[0])
+                numbers = json.loads(path.read_text())
+                calls.append([crate, name, path.name, numbers])
+                return {"sources": [part._relative(path)], "stderr": "", "hit": True,
+                        "stdout": json.dumps({"files": [f"nameplate-{numbers['unit']:03d}.step"],
+                                              "bodies": []})}
+            part._engine = engine
+            with tempfile.TemporaryDirectory(dir=part.ROOT / ".cache") as tmp:
+                part.cut("enclosure", "nameplate", {"unit": 1}, tmp)
+                part.cut("enclosure", "nameplate", {"unit": 2}, tmp,
+                         numbers_name="nameplate-002")
+                files = {p.name: json.loads(p.read_text()) for p in Path(tmp).glob("*.json")}
+                print(json.dumps({"calls": calls, "files": files,
+                                  "reads": sorted(Path(p).name for p in part._READ_TARGETS),
+                                  "writes": sorted(Path(p).name for p in part._WRITE_TARGETS),
+                                  "ocp": "OCP.OCP" in sys.modules}))
+        """)
+        self.assertEqual(said["calls"], [
+            ["enclosure", "nameplate", "nameplate.numbers.json", {"unit": 1}],
+            ["enclosure", "nameplate", "nameplate-002.numbers.json", {"unit": 2}],
+        ])
+        self.assertEqual(said["files"], {"nameplate.numbers.json": {"unit": 1},
+                                        "nameplate-002.numbers.json": {"unit": 2}})
+        self.assertEqual(said["reads"], ["nameplate-002.numbers.json", "nameplate.numbers.json"])
+        self.assertEqual(said["writes"], ["nameplate-001.step", "nameplate-002.numbers.json",
+                                         "nameplate-002.step", "nameplate.numbers.json"])
+        self.assertFalse(said["ocp"])
+
     def test_numbers_load_neither_cadquery_nor_ocp(self):
         for part, module, name in ((MANDREL, "coil_mandrel", "coil-mandrel"),
                                    (CLAMP, "fuse_clamp", "fuse-clamp")):
