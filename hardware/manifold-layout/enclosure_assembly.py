@@ -1266,8 +1266,7 @@ def collet_plate_spec(mcarry, tray_stations, valve_trays=()) -> dict:
             "assembly_state": "seated"}
 
 
-EXTRUSION_W = 0.42           # the outer-wall bead the box's own profile lays
-                             # (`printed-parts/enclosure/enclosure/print-log.md`)
+from _enclosure_interface import extrusion_w as EXTRUSION_W
 
 
 # What a probe stands in from the edge of the feature it reads, so a face the box drew exactly
