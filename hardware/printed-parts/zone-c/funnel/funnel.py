@@ -13,8 +13,6 @@ import math
 import sys
 from pathlib import Path
 
-import cadquery as cq
-
 _here = Path(__file__).resolve()
 _repo = next(p for p in _here.parents if (p / "hardware" / "scripts" / "_cadq_export.py").is_file())
 # _repo is this EDITION's root; tools/ is shared machinery with one copy at the
@@ -22,10 +20,24 @@ _repo = next(p for p in _here.parents if (p / "hardware" / "scripts" / "_cadq_ex
 _tools = next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"
 sys.path.insert(0, str(_repo / "hardware" / "scripts"))
 sys.path.insert(0, str(_tools))
-from _cadq_export import export_assembly
-from _materials import M_SILICONE_BLACK, one_body
-from docgen import substitute_md
-import elbow_cradle
+
+
+def __getattr__(name):
+    if name == "cq":
+        import cadquery as value
+    elif name == "elbow_cradle":
+        import elbow_cradle as value
+    elif name == "export_assembly":
+        from _cadq_export import export_assembly as value
+    elif name in ("M_SILICONE_BLACK", "one_body"):
+        import _materials
+        value = getattr(_materials, name)
+    elif name == "substitute_md":
+        from docgen import substitute_md as value
+    else:
+        raise AttributeError(name)
+    globals()[name] = value
+    return value
 
 # --- funnel parameters ------------------------------------------------------
 collar_w = 165.0  # collar footprint in X, inside the top-wall frame
@@ -74,6 +86,7 @@ drain_local = (neck_dx, neck_dy, -drop + plug_lift)
 
 def _box(w, d, z0, z1, cx, cy):
     """Axis-aligned box of footprint w×d centered at (cx, cy), spanning z[z0,z1]."""
+    import cadquery as cq
     return (
         cq.Workplane("XY").box(w, d, z1 - z0, centered=(True, True, False))
         .translate((cx, cy, z0)).val()
@@ -81,17 +94,20 @@ def _box(w, d, z0, z1, cx, cy):
 
 
 def _rounded_wire(w, d, radius, z, cx=0.0, cy=0.0):
+    import cadquery as cq
     wire = cq.Workplane("XY", origin=(cx, cy, z)).rect(w, d).val()
     return wire.fillet2D(radius, wire.Vertices())
 
 
 def _rounded_box(w, d, radius, z0, z1, cx=0.0, cy=0.0):
+    import cadquery as cq
     return cq.Solid.extrudeLinear(_rounded_wire(w, d, radius, z0, cx, cy), [],
                                  cq.Vector(0.0, 0.0, z1 - z0))
 
 
 def _loft_rc(w0, d0, cx0, cy0, z0, r1, cx1, cy1, z1, corner_r=0.0):
     """Loft from a rounded rectangle to the offset circular outlet."""
+    import cadquery as cq
     top = (_rounded_wire(w0, d0, corner_r, z0, cx0, cy0) if corner_r
            else cq.Workplane("XY", origin=(cx0, cy0, z0)).rect(w0, d0).val())
     bottom = cq.Wire.makeCircle(r1, cq.Vector(cx1, cy1, z1), cq.Vector(0, 0, 1))
@@ -101,6 +117,7 @@ def _loft_rc(w0, d0, cx0, cy0, z0, r1, cx1, cy1, z1, corner_r=0.0):
 def brim_plan(grow, z0, z1, cx=0.0, cy=0.0, front=0.0):
     """The brim's plan grown by `grow`, and its front edge carried `front` further toward the
     display: square front corners against the display wall, rounded aft corners."""
+    import cadquery as cq
     x, y, r = (collar_w / 2.0 + brim_overhang + grow, collar_d / 2.0 + brim_overhang + grow,
                brim_corner_r + grow)
     k = r * (1.0 - math.sqrt(0.5))
@@ -123,11 +140,13 @@ def apron():
 
 
 def _cyl(r, z_top, z_bot, cx, cy):
+    import cadquery as cq
     return cq.Solid.makeCylinder(r, z_top - z_bot, cq.Vector(cx, cy, z_bot), cq.Vector(0, 0, 1))
 
 
 def normal_envelope(shape, distance, faces=None, *, rounds_first=False):
     """Filled envelope with a normal skin and round edge and vertex joins."""
+    import cadquery as cq
     whole_body = faces is None
     meshcad = sys.modules.get("meshcad")
     if whole_body and meshcad is not None and meshcad.mesh_mode():
@@ -192,6 +211,9 @@ def build_solids(drop=drop, ramp_wall=collar_wall, outer_air=0.0, plug=True, bri
     Clearance grows the forming primitives along their own normal faces. `plug` and `brim`
     leave those blocks out of the envelope, for a receiver that cuts its own.
     """
+    import cadquery as cq
+    import _cadq_export  # Keep the native collection-iteration setup with the CAD load.
+    import elbow_cradle
     from cadquery.occ_impl.shapes import fuse as fuse_shapes
     w, d = collar_w, collar_d
     cx = cy = 0.0
@@ -255,6 +277,7 @@ def build_solids(drop=drop, ramp_wall=collar_wall, outer_air=0.0, plug=True, bri
 
 
 def build(drop=drop):
+    import cadquery as cq
     from cadquery.occ_impl.shapes import cut as cut_shapes
     solid, cavity, m = build_solids(drop)
     fill = cavity.intersect(_box(600, 600, m["end_z"], m["top_z"], 0, 0)).Volume()
@@ -265,6 +288,11 @@ def build(drop=drop):
 
 
 def main():
+    import cadquery as cq
+    import elbow_cradle
+    from _cadq_export import export_assembly
+    from _materials import M_SILICONE_BLACK, one_body
+    from docgen import substitute_md
     funnel, (w, d, total, end_z, fill) = build()
     out = _here.parent / "funnel.step"
     # The funnel is cast in platinum-cure silicone, and the STEP says so — the card's own picture
