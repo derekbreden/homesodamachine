@@ -4,6 +4,7 @@ import assert from "node:assert/strict";
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 import { start } from "../../server.js";
 import { launchBrowser, closeBrowser, closeServer } from "../../../tools/render/browser.js";
 
@@ -65,7 +66,17 @@ test("live STEP reloads retain one renderer and release departed x-ray geometry"
       };
     });
     await page.setRequestInterception(true);
+    const stepSource = await fs.readFile(fileURLToPath(new URL("../../public/js/viewer/step.js", import.meta.url)), "utf8");
     page.on("request", request => {
+      const url = new URL(request.url());
+      if (url.pathname === "/js/viewer/step.js" && url.searchParams.get("v") === "lifetime-compat") {
+        return request.respond({ status: 200, contentType: "text/javascript",
+          body: stepSource.replace('from "./xray.js"', 'from "/test-legacy-xray.js"') });
+      }
+      if (url.pathname === "/test-legacy-xray.js") {
+        return request.respond({ status: 200, contentType: "text/javascript",
+          body: 'export { applyXray, syncEdgeResolution, setMeshMaterial } from "/js/viewer/xray.js";' });
+      }
       if (request.url().includes("occt-import-js.js")) {
         return request.respond({ status: 200, contentType: "text/javascript", body:
           `window.occtimportjs = async () => { window.__occtStarts = (window.__occtStarts || 0) + 1; return { ReadStepFile: () => (${JSON.stringify({ meshes: [mesh] })}) }; };` });
@@ -123,6 +134,13 @@ test("live STEP reloads retain one renderer and release departed x-ray geometry"
     assert.equal(parsed.shared, true);
     assert.equal(parsed.starts, 1, "fallback loads created multiple STEP parser instances");
     assert.equal(parsed.mounted, fallback);
+    // An open tab retains its shared modules when a fresh leaf arrives on deploy.
+    const compatible = await page.evaluate(async f => {
+      const { loadStepFile } = await import("/js/viewer/step.js?v=lifetime-compat");
+      await loadStepFile(f, { preserveCamera: true });
+      return window.__hsm.mountedStepFile;
+    }, file);
+    assert.equal(compatible, file, "the new loader rejected an older tab's x-ray API");
     assert.deepEqual(errors, []);
     t.diagnostic(JSON.stringify({ ...readback, fallbackParserStarts: parsed.starts }));
   } finally {
