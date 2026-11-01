@@ -20,7 +20,7 @@ use std::{
         net::{UnixListener, UnixStream},
         process::CommandExt,
     },
-    path::{Path, PathBuf},
+    path::{Component, Path, PathBuf},
     process::{Command, Stdio},
     sync::Arc,
     thread,
@@ -64,6 +64,8 @@ enum Action {
     Mcp,
     Status,
     Stop,
+    /// This executable's build, default service endpoint and resolved executable path; starts no daemon.
+    Endpoint,
     /// Names, world bounds, dimensions and stable payload indices.
     Where {
         #[arg(default_value = "")]
@@ -115,6 +117,7 @@ enum Action {
 }
 
 pub struct Client {
+    executable: PathBuf,
     socket: PathBuf,
     store: PathBuf,
     root: PathBuf,
@@ -158,6 +161,34 @@ fn cache_dir() -> Result<PathBuf> {
     } else {
         ".cache/hsm"
     }))
+}
+
+/// Resolve the existing prefix without creating a store an `endpoint` call only names.
+fn store_path(path: &Path) -> Result<PathBuf> {
+    for parent in path.ancestors() {
+        if let Ok(mut full) = parent.canonicalize() {
+            for component in path.strip_prefix(parent)?.components() {
+                match component {
+                    Component::ParentDir => { full.pop(); }
+                    Component::CurDir => (),
+                    component => full.push(component.as_os_str()),
+                }
+            }
+            return Ok(full);
+        }
+    }
+    bail!("cannot resolve store {}", path.display())
+}
+
+fn configuration(store: &Path, cache_mb: u64, build_mb: u64, keep_mb: u64) -> Value {
+    json!({"store": store, "cache_mb": cache_mb, "build_mb": build_mb, "keep_mb": keep_mb})
+}
+
+fn default_socket(configuration: &Value) -> PathBuf {
+    let mut hash = Sha256::new();
+    hash.update(build_id());
+    hash.update(configuration.to_string());
+    runtime_dir().join(format!("engine-{:x}.sock", hash.finalize()))
 }
 
 fn private_directory(path: &Path) -> Result<()> {
@@ -214,10 +245,22 @@ fn control(query: Query) -> Request {
 }
 
 impl Client {
-    fn compatible(&self, response: &Value) -> bool {
-        response["result"]["build_id"] == build_id()
-            && response["result"]["cache"]["cache_budget_bytes"]
-                == json!(self.cache_mb.saturating_mul(1048576))
+    fn configuration(&self) -> Value {
+        configuration(&self.store, self.cache_mb, self.build_mb, self.keep_mb)
+    }
+
+    fn compatible(&self, response: &Value) -> Result<()> {
+        ensure!(
+            response["ok"] == true && response["result"]["build_id"] == build_id(),
+            "{} serves hsm build {}; this client is build {}; use its default endpoint or stop that daemon explicitly",
+            self.socket.display(), response["result"]["build_id"], build_id()
+        );
+        ensure!(
+            response["result"]["configuration"] == self.configuration(),
+            "{} serves configuration {}; requested {}; use the default endpoint or stop that daemon explicitly",
+            self.socket.display(), response["result"]["configuration"], self.configuration()
+        );
+        Ok(())
     }
 
     pub fn call(&self, request: &Request) -> Result<Value> {
@@ -243,8 +286,8 @@ impl Client {
 
     fn ensure_daemon(&self) -> Result<()> {
         let ping = || send(&self.socket, &control(Query::Ping));
-        if ping().ok().is_some_and(|p| self.compatible(&p)) {
-            return Ok(());
+        if let Ok(p) = ping() {
+            return self.compatible(&p);
         }
         let parent = self
             .socket
@@ -260,10 +303,7 @@ impl Client {
             .open(self.socket.with_extension("start.lock"))?;
         startup.lock_exclusive()?;
         if let Ok(p) = ping() {
-            if self.compatible(&p) {
-                return Ok(());
-            }
-            send(&self.socket, &control(Query::Shutdown))?;
+            return self.compatible(&p);
         }
         // Socket removal precedes destruction of the old scene. Wait for its
         // lifetime lock as well, so the replacement can acquire that lock.
@@ -295,7 +335,7 @@ impl Client {
             .append(true)
             .mode(0o600)
             .open(self.store.join("daemon.log"))?;
-        let mut command = Command::new(std::env::current_exe()?);
+        let mut command = Command::new(&self.executable);
         command
             .args(["--socket"])
             .arg(&self.socket)
@@ -327,10 +367,7 @@ impl Client {
         let start = Instant::now();
         while start.elapsed() < Duration::from_secs(10) {
             if let Ok(p) = ping() {
-                ensure!(
-                    self.compatible(&p),
-                    "socket serves another hsm build or configuration"
-                );
+                self.compatible(&p)?;
                 return Ok(());
             }
             thread::sleep(Duration::from_millis(20));
@@ -365,6 +402,7 @@ fn serve(client: &Client) -> Result<()> {
     let mut store = store::Store::new(client.cache_mb)?;
     let builds = Arc::new(build::Builder::new(&client.store, client.build_mb)?);
     let build = build_id();
+    let configuration = client.configuration();
     eprintln!(
         "hsm: pid {} listening at {}",
         std::process::id(),
@@ -391,7 +429,7 @@ fn serve(client: &Client) -> Result<()> {
             fs::remove_file(&client.socket)?;
             listener.set_nonblocking(true)?;
             while let Ok((stream, _)) = listener.accept() {
-                answer(stream, &mut store, &builds, &build)?;
+                answer(stream, &mut store, &builds, &build, &configuration)?;
             }
             builds.wait_idle();
             if let Err(e) = builds.prune(client.keep_mb.saturating_mul(1 << 20)) {
@@ -405,7 +443,7 @@ fn serve(client: &Client) -> Result<()> {
             return Ok(());
         }
         let (stream, _) = listener.accept()?;
-        if answer(stream, &mut store, &builds, &build)? {
+        if answer(stream, &mut store, &builds, &build, &configuration)? {
             break;
         }
         last = Instant::now();
@@ -447,6 +485,7 @@ fn answer(
     store: &mut store::Store,
     builds: &Arc<build::Builder>,
     build: &str,
+    configuration: &Value,
 ) -> Result<bool> {
     // An accepted socket inherits a non-blocking listener's mode on macOS.
     stream.set_nonblocking(false)?;
@@ -482,7 +521,12 @@ fn answer(
     }
     let response = request.and_then(|request| {
         stopping = matches!(request.query, Query::Shutdown);
-        service::execute(store, builds, request, build)
+        let identifies_service = matches!(request.query, Query::Ping | Query::Status);
+        let mut result = service::execute(store, builds, request, build)?;
+        if identifies_service {
+            result["configuration"] = configuration.clone();
+        }
+        Ok(result)
     });
     reply(stream, response, started);
     Ok(stopping)
@@ -517,18 +561,6 @@ fn run() -> Result<bool> {
                 .to_path_buf()
         })
         .canonicalize()?;
-    let socket = args
-        .socket
-        .or_else(|| std::env::var_os("HSM_SOCKET").map(PathBuf::from))
-        .unwrap_or_else(|| runtime_dir().join("engine.sock"));
-    if socket.parent() == Some(runtime_dir().as_path()) {
-        private_directory(&runtime_dir())?;
-    }
-    let socket = if socket.is_absolute() {
-        socket
-    } else {
-        cwd.join(socket)
-    };
     let store = match args.store {
         Some(path) => path,
         None => cache_dir()?,
@@ -538,7 +570,18 @@ fn run() -> Result<bool> {
     } else {
         cwd.join(store)
     };
+    let store = store_path(&store)?;
+    let socket = args.socket
+        .or_else(|| std::env::var_os("HSM_SOCKET").map(PathBuf::from))
+        .unwrap_or_else(|| default_socket(&configuration(&store, args.cache_mb, args.build_mb, args.keep_mb)));
+    if socket.parent() == Some(runtime_dir().as_path()) {
+        private_directory(&runtime_dir())?;
+    }
+    let socket = if socket.is_absolute() { socket } else { cwd.join(socket) };
     let client = Client {
+        // Installations retain each build at an immutable path. Resolve the command's symlink
+        // now, so this client can restart its own daemon after a later installation.
+        executable: std::env::current_exe()?.canonicalize()?,
         socket,
         store,
         root,
@@ -553,6 +596,13 @@ fn run() -> Result<bool> {
         "--idle-minutes must be a nonnegative number"
     );
     let query = match args.command {
+        Action::Endpoint => {
+            println!("{}", serde_json::to_string_pretty(&json!({
+                "build_id": build_id(), "socket": client.socket, "executable": client.executable,
+                "configuration": client.configuration()
+            }))?);
+            return Ok(true);
+        }
         Action::Daemon => {
             serve(&client)?;
             return Ok(true);
