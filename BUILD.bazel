@@ -4149,6 +4149,7 @@ genrule(
         "out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step",
         "out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl",
         "out/foam-cap/hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.step",
+        "out/foam-cap/hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.step.mesh",
         "out/foam-cap/hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.stl",
         "out/foam-cap/hardware/printed-parts/cold-core/foam-cap/reservoir-b-fill-guide.step",
         "out/foam-cap/hardware/printed-parts/cold-core/foam-cap/reservoir-b-fill-guide.stl",
@@ -4160,9 +4161,10 @@ O1=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-
 O2=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step)
 O3=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl)
 O4=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.step)
-O5=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.stl)
-O6=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/reservoir-b-fill-guide.step)
-O7=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/reservoir-b-fill-guide.stl)
+O5=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.step.mesh)
+O6=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.stl)
+O7=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/reservoir-b-fill-guide.step)
+O8=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/reservoir-b-fill-guide.stl)
 for f in $(SRCS); do
   case $$f in
     */node_modules/*) continue;;
@@ -4178,15 +4180,16 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/cold-core/foam-cap/foam_cap.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/cold-core/foam-cap/foam_cap.py > /dev/null
 cp hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step $$O0
 cp hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl $$O1
 cp hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step $$O2
 cp hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl $$O3
 cp hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.step $$O4
-cp hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.stl $$O5
-cp hardware/printed-parts/cold-core/foam-cap/reservoir-b-fill-guide.step $$O6
-cp hardware/printed-parts/cold-core/foam-cap/reservoir-b-fill-guide.stl $$O7
+cp hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.step.mesh $$O5
+cp hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.stl $$O6
+cp hardware/printed-parts/cold-core/foam-cap/reservoir-b-fill-guide.step $$O7
+cp hardware/printed-parts/cold-core/foam-cap/reservoir-b-fill-guide.stl $$O8
 """,
 )
 
