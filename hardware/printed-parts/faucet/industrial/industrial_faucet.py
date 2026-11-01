@@ -10,14 +10,17 @@ base's cavities in CadQuery for the geometry check that reads them.
 from pathlib import Path
 import sys
 
-import cadquery as cq
-
 HERE = Path(__file__).resolve().parent
 FAUCET = HERE.parent
 HARDWARE = next(parent for parent in HERE.parents if parent.name == "hardware")
 for directory in (HARDWARE / "scripts", FAUCET, FAUCET / "faucet-shell",
                   FAUCET / "above-counter-plate", FAUCET / "above-counter-gasket"):
     sys.path.insert(0, str(directory))
+if __name__ == "__main__":
+    import _rust_part
+    _rust_part.start()
+
+import cadquery as cq
 
 from _materials import M_TPU_BLACK, linear
 import faucet_shell as shell

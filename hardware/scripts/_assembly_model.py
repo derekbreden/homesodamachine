@@ -7,7 +7,10 @@ their own caller; this module does not substitute a drawing for a model.
 """
 from __future__ import annotations
 
+from contextlib import contextmanager
+import json
 from pathlib import Path
+import tempfile
 
 _KEEP_COLOR = object()
 
@@ -55,3 +58,23 @@ def measure(instances, queries):
 
     return _rust_part.check("machine", "machine-assembly-model",
                             numbers(instances, queries=queries))
+
+
+def location(location):
+    """The exact three by four matrix carried by an installed CQ location."""
+    transform = location.wrapped.Transformation()
+    return [[transform.Value(row + 1, col + 1) for col in range(4)]
+            for row in range(3)]
+
+
+@contextmanager
+def placed(instances):
+    """A temporary fine model assembled by Rust, available until the reader exits."""
+    import _rust_part
+
+    with tempfile.TemporaryDirectory(prefix="hsm-placed-model-") as directory:
+        output = Path(directory)
+        path = output / "placed.numbers.json"
+        path.write_text(json.dumps(numbers(instances, name="placed"), sort_keys=True) + "\n")
+        _rust_part.run("machine", "machine-assembly-model", path, output)
+        yield output / "placed.step.npz"

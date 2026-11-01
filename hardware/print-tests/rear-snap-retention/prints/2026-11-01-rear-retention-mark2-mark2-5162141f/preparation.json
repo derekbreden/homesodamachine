@@ -1,0 +1,594 @@
+{
+  "piece": "rear-retention-mark2",
+  "printer": "Mark2",
+  "connection_key": "Mark2",
+  "nozzle": {
+    "side": "left",
+    "diameter_mm": 0.4,
+    "flow": "Standard",
+    "hardened": true,
+    "reason": "Every abrasive stock runs on the left hotend (hardware/ledger/tools.md, Which hotends fit an H2C). Mark2's 2026-10-24 jobs ran black PET-GF on its fixed left hardened 0.4 mm Standard-flow hotend (faucet/industrial/prints/2026-10-24-buttons-sculpted-bands020-mark2/README.md, task 1372253517).",
+    "sliced_diameter_mm": 0.4,
+    "sliced_volume_type": "Standard"
+  },
+  "material": "Polymaker Fiberon PET-GF15, black",
+  "bed_type": "Textured PEI Plate",
+  "requested_z_trim_mm": 0.04,
+  "emitted_textured_trim_mm": 0.02,
+  "project": "hardware/print-tests/rear-snap-retention/prints/2026-11-01-rear-retention-mark2-mark2-5162141f/2026-11-01-rear-retention-mark2-mark2-5162141f.3mf",
+  "project_sha256": "121f550543e6d370458cbc949afe1ee06a135c292e567825bd3ace0d2bf076d7",
+  "profile": "hardware/printed-parts/petgf.3mf",
+  "profile_sha256": "45c16e8c8517e0a205107d7b9f7412d013f51a8de7ecf86125cc940079d37ed0",
+  "settings_sha256": "9ec932e56f44be2a559a6247710e66aef9d476ff4c4dcc5c01d0fd10f1701e03",
+  "settings_changes": {
+    "extruder_ams_count": {
+      "from": [
+        "1#0|4#1",
+        "1#0|4#0"
+      ],
+      "to": [
+        "1#0|4#0",
+        "1#0|4#0"
+      ],
+      "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface."
+    },
+    "support_filament": {
+      "from": "0",
+      "to": "1",
+      "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface."
+    },
+    "support_interface_filament": {
+      "from": "0",
+      "to": "1",
+      "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface."
+    },
+    "flush_into_support": {
+      "from": "1",
+      "to": "0",
+      "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface."
+    },
+    "filament_colour": {
+      "from": [
+        "#000000"
+      ],
+      "to": [
+        "#161616"
+      ],
+      "reason": "Mark2's loaded black PET-GF colour reading."
+    },
+    "wall_loops": {
+      "from": "2",
+      "to": "3",
+      "reason": "Three Classic walls fill the specific 1.3 mm spring leaves."
+    },
+    "wall_generator": {
+      "from": "classic",
+      "to": "classic",
+      "reason": "Retain the production fixed-width wall recipe."
+    },
+    "sparse_infill_density": {
+      "from": "15%",
+      "to": "15%",
+      "reason": "Production receiver bulk recipe; caps have a local solid override."
+    },
+    "sparse_infill_pattern": {
+      "from": "gyroid",
+      "to": "gyroid",
+      "reason": "Production receiver bulk recipe."
+    },
+    "enable_support": {
+      "from": "1",
+      "to": "1",
+      "reason": "Tree(auto)/Default supports the actual retention ceilings in production orientation."
+    }
+  },
+  "profile_changes": {
+    "machine_start_gcode": {
+      "from_sha256": "3cc9e41520dbf5622d6f9a96bce734db9d11b0b48b49f2abec047a6e01dc6a92",
+      "to_sha256": "b09bc598f2ed7c29dceb227188593905dfc663f0391b98ff708ef00e7ce01bee",
+      "requested_z_trim_mm": 0.04
+    },
+    "printer_settings_id": {
+      "from": "Bambu Lab H2C 0.4 nozzle 04 first layer by agent",
+      "to": "Bambu Lab H2C 0.4 Standard +0.04 Z trim"
+    },
+    "print_compatible_printers": {
+      "from": [
+        "Bambu Lab H2C 0.4 nozzle"
+      ],
+      "to": [
+        "Bambu Lab H2C 0.4 nozzle",
+        "Bambu Lab H2C 0.4 Standard +0.04 Z trim"
+      ]
+    }
+  },
+  "usable_plate_mm": [
+    [
+      0.0,
+      0.0
+    ],
+    [
+      325.0,
+      320.0
+    ]
+  ],
+  "plate_border_mm": 40.0,
+  "brim_allowance_mm": 0.0,
+  "plate_offset_mm": null,
+  "objects": [
+    {
+      "name": "pump-cap",
+      "identify_id": 1901,
+      "object_id": 2,
+      "stl": "hardware/print-tests/rear-snap-retention/parts/pump-cap.stl",
+      "stl_sha256": "7280b84b686e19d8a3936c343804cbe8cace0f0ae8bec1ef1b664f277d325f0a",
+      "step_sha256": "a1e6fcb769768915aa4aba87dfe39f8866f797383938e02c271e8b69cb836f28",
+      "facets": 904,
+      "closed": {
+        "edges": 1356,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "inconsistent_edges": 0,
+        "bodies": 1,
+        "closed_oriented_single_body": true
+      },
+      "pose": null,
+      "pose_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "yaw_degrees": 0,
+      "source_center_mm": [
+        0.0,
+        0.0010690689086914062,
+        27.25000000000344
+      ],
+      "build_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "translation_mm": [
+        146.64999961853027,
+        124.0,
+        27.24999999999656
+      ],
+      "plate_bounds_mm": [
+        [
+          110.77081871032715,
+          102.70131587982178,
+          0.0
+        ],
+        [
+          182.5291805267334,
+          145.29868412017822,
+          54.49999999999312
+        ]
+      ],
+      "model_bed_margin_mm": 102.70131587982178,
+      "seam_enforcer": null,
+      "object_settings": {
+        "sparse_infill_density": {
+          "value": "100%",
+          "reason": "Solid stock through each retaining cap and spring root."
+        },
+        "sparse_infill_pattern": {
+          "value": "zig-zag",
+          "reason": "Solid cap deposition."
+        }
+      },
+      "features": [],
+      "ranges": [],
+      "verify_spans": [],
+      "ribbons": [],
+      "tie_windows": [],
+      "modifiers": [],
+      "fins": []
+    },
+    {
+      "name": "meter-seat",
+      "identify_id": 1902,
+      "object_id": 4,
+      "stl": "hardware/print-tests/rear-snap-retention/parts/meter-seat.stl",
+      "stl_sha256": "22f5caa26d14448642bb65a3946b2e57dcbc8d892856b808f57403f101418756",
+      "step_sha256": "0847506e73ce1074a4898693a6d9be14aa2855f1269399426556008f785f1be8",
+      "facets": 1518,
+      "closed": {
+        "edges": 2277,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "inconsistent_edges": 0,
+        "bodies": 1,
+        "closed_oriented_single_body": true
+      },
+      "pose": null,
+      "pose_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "yaw_degrees": 0,
+      "source_center_mm": [
+        0.0,
+        0.0,
+        25.950000762939453
+      ],
+      "build_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "translation_mm": [
+        161.17499923706055,
+        187.29868412017822,
+        25.950000762939453
+      ],
+      "plate_bounds_mm": [
+        [
+          152.69999885559082,
+          157.29868412017822,
+          0.0
+        ],
+        [
+          169.64999961853027,
+          217.29868412017822,
+          51.900001525878906
+        ]
+      ],
+      "model_bed_margin_mm": 102.70131587982178,
+      "seam_enforcer": null,
+      "object_settings": {},
+      "features": [],
+      "ranges": [],
+      "verify_spans": [],
+      "ribbons": [],
+      "tie_windows": [],
+      "modifiers": [],
+      "fins": []
+    },
+    {
+      "name": "meter-cap",
+      "identify_id": 1903,
+      "object_id": 6,
+      "stl": "hardware/print-tests/rear-snap-retention/parts/meter-cap.stl",
+      "stl_sha256": "669b2cb3c5b62c0d1a93641c25ca677355d8d86e31cbbf4a8a2e1ac52091fb92",
+      "step_sha256": "d11450221d42cfef111f12443a20f533114754d82e8041e9ee2664f0143680b8",
+      "facets": 5606,
+      "closed": {
+        "edges": 8409,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "inconsistent_edges": 0,
+        "bodies": 1,
+        "closed_oriented_single_body": true
+      },
+      "pose": null,
+      "pose_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "yaw_degrees": 90,
+      "source_center_mm": [
+        0.0,
+        0.0,
+        13.444999744824216
+      ],
+      "build_rotation": [
+        [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "translation_mm": [
+        121.69999885559082,
+        187.29868412017822,
+        13.444999644824222
+      ],
+      "plate_bounds_mm": [
+        [
+          102.69999885559082,
+          161.34868335723877,
+          0.0
+        ],
+        [
+          140.69999885559082,
+          213.24868488311768,
+          26.889999289648443
+        ]
+      ],
+      "model_bed_margin_mm": 102.69999885559082,
+      "seam_enforcer": null,
+      "object_settings": {
+        "sparse_infill_density": {
+          "value": "100%",
+          "reason": "Solid stock through each retaining cap and spring root."
+        },
+        "sparse_infill_pattern": {
+          "value": "zig-zag",
+          "reason": "Solid cap deposition."
+        }
+      },
+      "features": [],
+      "ranges": [],
+      "verify_spans": [],
+      "ribbons": [],
+      "tie_windows": [],
+      "modifiers": [],
+      "fins": []
+    },
+    {
+      "name": "regulator-seat",
+      "identify_id": 1904,
+      "object_id": 8,
+      "stl": "hardware/print-tests/rear-snap-retention/parts/regulator-seat.stl",
+      "stl_sha256": "29b6b147b26a78bf88ee8b705932f42075ce42b8bb2b02631c3f4e7572d53302",
+      "step_sha256": "4e021ee9a58473c32049c86c8c066cfc3ad07ca709f7f0ce9900ec835845f4bd",
+      "facets": 1348,
+      "closed": {
+        "edges": 2022,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "inconsistent_edges": 0,
+        "bodies": 1,
+        "closed_oriented_single_body": true
+      },
+      "pose": null,
+      "pose_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "yaw_degrees": 0,
+      "source_center_mm": [
+        0.0,
+        0.0,
+        7.25
+      ],
+      "build_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "translation_mm": [
+        201.97500038146973,
+        187.29868412017822,
+        7.25
+      ],
+      "plate_bounds_mm": [
+        [
+          181.64999961853027,
+          166.945481300354,
+          0.0
+        ],
+        [
+          222.30000114440918,
+          207.65188694000244,
+          14.5
+        ]
+      ],
+      "model_bed_margin_mm": 102.69999885559082,
+      "seam_enforcer": null,
+      "object_settings": {},
+      "features": [],
+      "ranges": [],
+      "verify_spans": [],
+      "ribbons": [],
+      "tie_windows": [],
+      "modifiers": [],
+      "fins": []
+    },
+    {
+      "name": "regulator-cap",
+      "identify_id": 1905,
+      "object_id": 10,
+      "stl": "hardware/print-tests/rear-snap-retention/parts/regulator-cap.stl",
+      "stl_sha256": "f37662513ba5d4d7e8963751bf3e8c836726dfd6e73deb342deb29ef0acacb4f",
+      "step_sha256": "594f5a9e1232af3e935e7836086815ed5a503ea9874041ea6c33e7e5a349732b",
+      "facets": 680,
+      "closed": {
+        "edges": 1020,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "inconsistent_edges": 0,
+        "bodies": 1,
+        "closed_oriented_single_body": true
+      },
+      "pose": null,
+      "pose_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "yaw_degrees": 0,
+      "source_center_mm": [
+        0.0,
+        0.0,
+        13.270503997802741
+      ],
+      "build_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "translation_mm": [
+        204.37918090820312,
+        124.0,
+        13.270503997802727
+      ],
+      "plate_bounds_mm": [
+        [
+          194.5291805267334,
+          103.64679718017578,
+          0.0
+        ],
+        [
+          214.22918128967285,
+          144.35320281982422,
+          26.541007995605455
+        ]
+      ],
+      "model_bed_margin_mm": 103.64679718017578,
+      "seam_enforcer": null,
+      "object_settings": {
+        "sparse_infill_density": {
+          "value": "100%",
+          "reason": "Solid stock through each retaining cap and spring root."
+        },
+        "sparse_infill_pattern": {
+          "value": "zig-zag",
+          "reason": "Solid cap deposition."
+        }
+      },
+      "features": [],
+      "ranges": [],
+      "verify_spans": [],
+      "ribbons": [],
+      "tie_windows": [],
+      "modifiers": [],
+      "fins": []
+    }
+  ],
+  "pause": null,
+  "show_faces": "hardware/print-tests/rear-snap-retention/prints/2026-11-01-rear-retention-mark2-mark2-5162141f/show-faces.npz",
+  "spec": "hardware/print-tests/rear-snap-retention/plate-spec.json",
+  "spec_sha256": "b7fc40716b68285e157ea6ddd3bb3d81064fda51d505fa3c3fcfaa01c4a350ab",
+  "tool_sha256": {
+    "hardware/printed-parts/enclosure/trial-preparation/_derive.py": "2ffa3fc3e716cfc6d1663f69767228eb0f6d9f8da147ffc2c90de2097cdac6e4",
+    "hardware/printed-parts/enclosure/trial-preparation/_mesh.py": "7ab22db36e370608f52df3709c4af1994c8e804ee06e101dcbf79210db99eead",
+    "hardware/printed-parts/enclosure/trial-preparation/_native.py": "1c99ce10842a141a942a19d7def2329512d14b676c00618496187e0d93cd29da",
+    "hardware/printed-parts/enclosure/trial-preparation/_seam.py": "9ffa509df701826563e18388fd3bcc57c604f4b2b8e5e4288821ddcd00bcb176",
+    "hardware/printed-parts/enclosure/trial-preparation/labels.py": "b7eab37bf384b7d47e3ee7c0eed2afbf2451200ca5b0ee42c2eb47ec43fce783",
+    "hardware/printed-parts/enclosure/trial-preparation/prepare.py": "bc5495142592e777cb1b94eb2cfe06e64ba15ee6bae94f3e95e62a556741b513",
+    "hardware/printed-parts/enclosure/trial-preparation/review.py": "9bd303fe370842fd34eb559dc5f53f887f75c42e478c598737397dd49dd539f7",
+    "hardware/printed-parts/enclosure/trial-preparation/step_meshes.py": "b50f7b50f52f1e8516be3b1fc9ecdb10e87fb188f8b9bebc0fac56737320fc44"
+  },
+  "prepared_utc": "2026-11-01T22:02:46+00:00",
+  "sliced": true,
+  "submitted": false,
+  "archive": "hardware/print-tests/rear-snap-retention/prints/2026-11-01-rear-retention-mark2-mark2-5162141f/2026-11-01-rear-retention-mark2-mark2-5162141f.gcode.3mf",
+  "archive_sha256": "ed6fbea49942afaa9378e50f9034d0e8e86fe17703acf1d6f72ca457ac01295b",
+  "gcode_sha256": "9fad694378d3b809cc936316439fd9294cfbc164292c73b258ab643540c0dd7a",
+  "estimated_seconds": 9519.5634765625,
+  "slicer_warnings": []
+}

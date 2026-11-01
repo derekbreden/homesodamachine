@@ -28,12 +28,18 @@ from hardware.wiring.installed.terminals import Attachments
 OUT=ROOT/'hardware/wiring/enclosure-wiring'
 
 
-def compose(scene, ea):
-    import cadquery as cq
+def routed_inputs(scene, ea):
+    """Resolve the installed route records and their attachment/connection context."""
     at=Attachments(scene,ea)
     at.resolve()
     graph=connections()
     routes=routed(graph,at)
+    return at,graph,routes
+
+
+def compose(scene, ea):
+    import cadquery as cq
+    at,graph,routes=routed_inputs(scene,ea)
     assembly=cq.Assembly(name='installed-wiring')
     for route in routes:
         stock=STOCK[route.connection.stock]

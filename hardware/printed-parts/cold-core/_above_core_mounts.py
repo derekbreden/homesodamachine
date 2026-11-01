@@ -253,7 +253,7 @@ def _pump_motor_room(datum, *, seat=False):
 
 
 def pump_snap_cap(index=0):
-    """One 3.1 mm spring arch and two integral 3 mm wings, in world axes."""
+    """One 3.1 mm arch and two integral 1.3 mm spring wings, in world axes."""
     import rear_snaps
     import fits
     d = pump_cradle_datums()['caps'][index]

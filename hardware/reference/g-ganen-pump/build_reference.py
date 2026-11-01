@@ -52,7 +52,7 @@ def motor_underside(sections, observation, motor):
 
     The rail profile is observed between the sliders in both exposed views.
     Its axial continuation preserves the transverse grooves. The molded wire
-    cover has a level lower face at its rear height and an observed end face;
+    cover has a lower face projecting 1 mm farther down at its front than rear;
     beyond it the motor can and rear cap supply the rigid surface, independently
     of the flexible wires crossing them.
     """

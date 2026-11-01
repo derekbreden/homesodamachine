@@ -301,7 +301,8 @@ folder. The fuse clamp (`hardware/printed-parts/refrigeration/fuse-clamp`) is on
 mandrel and the magnetic float (`hardware/printed-parts/cold-core/coil-mandrel` and
 `magnetic-float`, crate `tools/hsm/cold-core`), the
 faucet shell (`hardware/printed-parts/faucet/faucet-shell`, crate `tools/hsm/faucet`), its
-display cover (`hardware/printed-parts/faucet/faucet-display-cover`), the industrial faucet
+display cover (`hardware/printed-parts/faucet/faucet-display-cover`), the above-counter plate
+and gasket (`hardware/printed-parts/faucet/above-counter-plate` and `above-counter-gasket`), the industrial faucet
 (`hardware/printed-parts/faucet/industrial`) and the two faucet assemblies
 (`hardware/faucet-layout`), all of the same crate, are others.
 
@@ -335,6 +336,30 @@ tip, the shapes their numbers come in, `shell`, the shell's stock and the cutter
 faucet also cuts its own round stock with, `display`, the lips and the relaxed print both display
 covers are cut with, and `assembly`, the faucet and its umbilical as the bench bags them, which both
 assemblies cut from the numbers `faucet_assembly.py` writes.
+
+`part::write_part` and `part::write_shown` include optional `face_sources` in each
+payload mesh: one contributor array per displayed `fac` range, emitted by
+`write::payload_bytes_with_sources`.
+Contributors carry `src`, `op`, and an optional `via` operation/source pair. A source
+explicitly recorded as unknown stays `null`; a wholly unknown record is a null contributor.
+A displayed face can join triangles from
+several builders, so the list includes every contributing source. The picker carries
+these records into its copied face text. The fine model retains each triangle's own
+record. Older payloads remain readable. `write::payload_bytes` emits the header without
+contributor metadata; both encoders emit identical geometry arrays.
+
+Payload imports retain each displayed range's complete contributor set. The analytic
+surface stays intact, and no member becomes its primary owner. Fine model records can
+carry that set in `contributors`, with `src:null` and an empty primary `op`; wholly null
+records stay null. Transforms preserve the set. Repeated imports share one immutable
+allocation per distinct complete set for the process lifetime.
+
+`write::PrintOutput` captures prepared print bodies as STL bytes with the exact record
+index of each emitted facet. Its `model_bytes` stores `print-F<i>.npy` and
+`print-records.npy` in the existing fine archive, with an STL path and digest in
+`document.printed`. Fine arrays/records and caller document fields stay intact. A reader
+uses the map only for those bound STL bytes; an absent or stale binding supplies no
+attribution. The shared part writer uses its existing fine-model export.
 
 A generator that cuts a part begins its own run before it imports anything else:
 

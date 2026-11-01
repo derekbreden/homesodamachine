@@ -1,0 +1,11 @@
+{
+  "source": {
+    "commit": "7320c7c39a9d4e1485cb7dbcc3b95aa85d0802fb",
+    "path": "hardware/reference/jg-pp0408w/jg_pp0408w.py",
+    "sha256": "25261c2422d20e1fe597e7486981efc6b2ab1eb0e63f5633f46bf0db194d7a11"
+  },
+  "members": {
+    "jg-pp0408w.step": "987eccd988d461a87babb024bc4cd7e538777467449bfceea7ead8ed5d4dfded",
+    "jg-pp0408w.step.mesh": "c9e764f9809d9305385f97d83e3f4894f83ec97a4f7765eeb073e224508c105a"
+  }
+}

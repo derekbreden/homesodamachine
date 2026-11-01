@@ -8,8 +8,9 @@ use crate::face::{Face, Surface, src_line};
 use crate::math::V3;
 use crate::solid::Solid;
 use crate::topo;
-use anyhow::{Context, Result};
+use anyhow::{Context, Result, ensure};
 use serde_json::{Value, json};
+use sha2::{Digest, Sha256};
 use std::path::Path;
 
 /// One named, coloured solid of a file.
@@ -37,14 +38,73 @@ fn widened(p: [f32; 3]) -> V3 {
     V3::from([p[0] as f64, p[1] as f64, p[2] as f64])
 }
 
+fn f32_triangle(s: &Solid, t: &[u32; 3]) -> Option<[[f32; 3]; 3]> {
+    let tri = t.map(|i| f32s(s.verts[i as usize]));
+    (tri_normal(widened(tri[0]), widened(tri[1]), widened(tri[2])) != V3::ZERO).then_some(tri)
+}
+
 /// A solid's triangles as an STL holds them, in f32. Two corners a few nanometres apart can land
 /// on one f32 point, and the triangle between them has no area in the file: it is left out,
 /// because a reader that welds the file's corners folds it into a fin on an edge of its own.
 fn f32_tris(s: &Solid) -> impl Iterator<Item = [[f32; 3]; 3]> + '_ {
     s.tris
         .iter()
-        .map(|t| t.map(|i| f32s(s.verts[i as usize])))
-        .filter(|t| tri_normal(widened(t[0]), widened(t[1]), widened(t[2])) != V3::ZERO)
+        .filter_map(|t| f32_triangle(s, t))
+}
+
+/// An emitted STL and its exact facet-to-record map. Bodies are already in their print form;
+/// their source records and order are captured by the same f32 filter that emits each facet.
+pub struct PrintOutput {
+    bytes: Vec<u8>,
+    pub(crate) faces: Vec<Vec<u32>>,
+    pub(crate) records: Vec<Vec<Value>>,
+    names: Vec<String>,
+    colors: Vec<Option<[f64; 3]>>,
+}
+
+impl PrintOutput {
+    pub fn new(bodies: &[Body]) -> PrintOutput {
+        let mut tris = vec![];
+        let mut faces = vec![];
+        for body in bodies {
+            let mut emitted = vec![];
+            for (i, t) in body.solid.tris.iter().enumerate() {
+                if let Some(tri) = f32_triangle(body.solid, t) {
+                    tris.push(tri);
+                    emitted.push(body.solid.face_of[i]);
+                }
+            }
+            faces.push(emitted);
+        }
+        PrintOutput {
+            bytes: stl_from(&tris), faces,
+            records: bodies.iter().map(|b| b.solid.faces.iter().map(face_json).collect()).collect(),
+            names: bodies.iter().map(|b| b.name.to_owned()).collect(),
+            colors: bodies.iter().map(|b| b.color).collect(),
+        }
+    }
+
+    pub fn stl_bytes(&self) -> &[u8] { &self.bytes }
+
+    /// The fine model with this print's bound mapping in the same archive. Fine arrays and
+    /// records stay untouched; the printed table has its own actual records and facet order.
+    pub fn model_bytes(&self, fine: &[Body], path: &str, document: Option<&Value>) -> Result<Vec<u8>> {
+        ensure!(fine.len() == self.names.len() && fine.iter().zip(&self.names).zip(&self.colors)
+            .all(|((body, name), color)| body.name == name.as_str() && body.color == *color),
+            "fine and printed body identities differ");
+        let mut document = document.cloned().unwrap_or_else(|| json!({}));
+        let object = document.as_object_mut().context("print-bound model document is an object")?;
+        let mut first = 0;
+        let bodies: Vec<_> = self.faces.iter().enumerate().map(|(i, faces)| {
+            let body = json!({"body":i,"first":first,"count":faces.len(),"faces":format!("print-F{i}.npy")});
+            first += faces.len();
+            body
+        }).collect();
+        object.insert("printed".into(), json!({"v":1,"path":path,
+            "sha256":format!("{:x}",Sha256::digest(&self.bytes)),
+            "records":"print-records.npy","bodies":bodies}));
+        Ok(crate::step::model_with_print(fine, &document, self))
+    }
 }
 
 /// The bytes of a binary STL of `solids`, each simplified as a file takes it, one at a time.
@@ -192,14 +252,37 @@ struct Arrays {
     nrm: Vec<f32>,
     idx: Vec<u32>,
     fac: Vec<u32>,
+    face_sources: Vec<Value>,
 }
 
-fn arrays(s: &Solid) -> Arrays {
+fn arrays(s: &Solid, sources: bool) -> Arrays {
     let faces = topo::faces(s);
-    let mut a = Arrays { pos: vec![], nrm: vec![], idx: vec![], fac: vec![] };
+    let mut a = Arrays { pos: vec![], nrm: vec![], idx: vec![], fac: vec![], face_sources: vec![] };
     let mut base = 0u32;
     let mut first = 0u32;
     for (f, tris) in faces.tris.iter().enumerate() {
+        if sources {
+            let records: std::collections::BTreeSet<_> = tris.iter().map(|&t| s.face_of[t as usize]).collect();
+            let mut origins = vec![];
+            for r in records {
+                let face = &s.faces[r as usize];
+                let src = |s: crate::face::Src| if s.recorded() { Some(src_line(s)) } else { None };
+                let inherited = face.src.contributors();
+                let projected = if let Some(records) = inherited { records.to_vec() } else { vec![face_json(face)] };
+                for mut origin in projected {
+                    if let Some(record) = origin.as_object_mut() {
+                        if inherited.is_none() {
+                            record.retain(|key, _| matches!(key.as_str(), "src" | "op" | "via"));
+                        }
+                        if let Some(via) = face.via {
+                            record.insert("via".into(), json!({"src": src(via.src), "op": via.op}));
+                        }
+                    }
+                    if !origins.contains(&origin) { origins.push(origin); }
+                }
+            }
+            a.face_sources.push(Value::Array(origins));
+        }
         let record = &s.faces[faces.record[f] as usize];
         let mut local: Vec<u32> = vec![];
         let mut slot = std::collections::HashMap::new();
@@ -251,10 +334,20 @@ fn color_json(c: Option<[f64; 3]>) -> String {
 /// padded with spaces to a multiple of four, then the arrays. `src` names what the payload was
 /// cut from; `cut` is the reduction it records.
 pub fn payload_bytes(bodies: &[Body], src: Option<&str>, cut: Option<&Value>) -> Vec<u8> {
+    payload(bodies, src, cut, false)
+}
+
+/// `payload_bytes` with each displayed face's contributing operation/source records. A face
+/// can join triangles from several operations; its contributor list preserves all of them.
+pub fn payload_bytes_with_sources(bodies: &[Body], src: Option<&str>, cut: Option<&Value>) -> Vec<u8> {
+    payload(bodies, src, cut, true)
+}
+
+fn payload(bodies: &[Body], src: Option<&str>, cut: Option<&Value>, sources: bool) -> Vec<u8> {
     let mut blob: Vec<u8> = vec![];
     let mut entries = vec![];
     for b in bodies {
-        let a = arrays(b.solid);
+        let a = arrays(b.solid, sources);
         let mut put = |bytes: Vec<u8>, n: usize| -> String {
             let at = blob.len();
             blob.extend(bytes);
@@ -264,8 +357,9 @@ pub fn payload_bytes(bodies: &[Body], src: Option<&str>, cut: Option<&Value>) ->
         let nrm = put(a.nrm.iter().flat_map(|x| x.to_le_bytes()).collect(), a.nrm.len());
         let idx = put(a.idx.iter().flat_map(|x| x.to_le_bytes()).collect(), a.idx.len());
         let fac = put(a.fac.iter().flat_map(|x| x.to_le_bytes()).collect(), a.fac.len());
+        let origins = if sources { format!(r#", "face_sources":{}"#, Value::Array(a.face_sources)) } else { String::new() };
         entries.push(format!(
-            r#"{{"name":{},"color":{},"pos":{pos},"nrm":{nrm},"idx":{idx},"fac":{fac}}}"#,
+            r#"{{"name":{},"color":{},"pos":{pos},"nrm":{nrm},"idx":{idx},"fac":{fac}{origins}}}"#,
             Value::from(b.name),
             color_json(b.color)
         ));
@@ -291,6 +385,9 @@ pub fn payload_bytes(bodies: &[Body], src: Option<&str>, cut: Option<&Value>) ->
 /// What a face record says in a file: its surface and its parameters, the builder and line that
 /// made it, and the boolean that brought it in.
 pub fn face_json(f: &Face) -> Value {
+    if f.record_null {
+        return Value::Null;
+    }
     let v = |p: V3| json!([r9(p.x), r9(p.y), r9(p.z)]);
     let mut out = match f.surface {
         Surface::Plane { p, n } => json!({"p": v(p), "n": v(n)}),
@@ -304,6 +401,9 @@ pub fn face_json(f: &Face) -> Value {
     o.insert("kind".into(), f.surface.kind().into());
     o.insert("op".into(), f.op.into());
     o.insert("src".into(), if f.src.recorded() { src_line(f.src).into() } else { Value::Null });
+    if let Some(records) = f.src.contributors() {
+        o.insert("contributors".into(), Value::Array(records.to_vec()));
+    }
     if let Some(via) = f.via {
         o.insert("via".into(), format!("{} at {}", via.op, src_line(via.src)).into());
     }
@@ -317,6 +417,7 @@ fn r9(x: f64) -> f64 {
 
 /// A binary glTF with one node per body. Each primitive's triangles run face by face, and
 /// `extras.faces` lists per face its first triangle, its count and its record (`face_json`).
+/// A whole-null record uses `{"record": null}` beside its range.
 pub fn glb_bytes(bodies: &[Body]) -> Vec<u8> {
     let mut blob: Vec<u8> = vec![];
     let mut views = vec![];
@@ -331,6 +432,9 @@ pub fn glb_bytes(bodies: &[Body]) -> Vec<u8> {
         let mut listed = vec![];
         for (f, tris) in faces.tris.iter().enumerate() {
             let mut rec = face_json(&s.faces[faces.record[f] as usize]);
+            if rec.is_null() {
+                rec = json!({"record": null});
+            }
             let o = rec.as_object_mut().unwrap();
             o.insert("first".into(), (order.len() as u64).into());
             o.insert("count".into(), (tris.len() as u64).into());
