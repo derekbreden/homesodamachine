@@ -10,6 +10,14 @@ publish = false
 name = "enclosure-skin"
 path = "../../../hardware/printed-parts/enclosure/enclosure/enclosure_skin.rs"
 
+[[bin]]
+name = "enclosure-structure"
+path = "../../../hardware/printed-parts/enclosure/enclosure/enclosure_structure.rs"
+
+[[bin]]
+name = "enclosure-panel"
+path = "../../../hardware/printed-parts/enclosure/enclosure/enclosure_panel.rs"
+
 [dependencies]
 anyhow.workspace = true
 hsm-kernel = { path = "../kernel" }
