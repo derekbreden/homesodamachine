@@ -185,7 +185,7 @@ def answers_path(stl):
 PRINT_UP = {"enclosure-back-top": -1.0, "funnel-mold/core": -1.0,
             # reservoir/prepare_print.py beds each cap on its exterior Z+ face.
             "reservoir/reservoir-cap-left": -1.0, "reservoir/reservoir-cap-right": -1.0,
-            "foam-cap/foam-cap-bottom": -1.0, "prv-shroud/prv-shroud": -1.0,
+            "prv-shroud/prv-shroud": -1.0,
             "asse-straight-cuffs/asse-inlet-cuff": -1.0, "asse-straight-cuffs/asse-outlet-cuff": -1.0,
             **{f"tube-collar/tube-collar-{which}": -1.0
                for which in ("water", "co2", "drain", "carb", "flavor-a", "flavor-b")},

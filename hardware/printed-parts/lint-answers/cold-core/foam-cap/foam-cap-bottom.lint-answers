@@ -1,7 +1,19 @@
-[thin] Specified floor/plate section: Derek selected the 2.38 mm standing casing while retaining the 2 mm floors and stack-height datums. The bottom cap's floor is the stack's 2.0 mm floor section, the same one the shell and the top cap carry.
-alternatives: A 3 mm floor or plate raises the stack by a millimetre at each end or takes it from the foam. The retained floors and stack height are part of Derek's selected casing revision.
+[ceiling] Ten functional flat M5 screw-head bearings. The Ø8.5 × 5 mm socket heads require these Z5.4 mm planes; each pocket opens through the casing wall for its driver and support removal. The actual Normal(auto)/Snug slice has exactly ten short support bodies, all below Z5.03 mm and in these open mouths, with 21.019 mm minimum full-bead bed margin. Remove them outward before hardware and foil. See cold-core/foam-shell/printability-review.json for their individual footprints. Physical release force is not established by this access reading.
+alternatives: Tapering the bearing replaces the head's flat load surface. Opening it upward removes the screw-head bearing. Automatic Tree(auto)/Default trials, including zero extra support-foot flange, cross this wide cap's required 20 mm bed border; the compact normal choice is scoped to these ten pockets.
 file: hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step
-click: x=-136.962 y=-81.990 z=15.850
-click: x=-136.962 y=-81.990 z=17.850
-click: x=44.786 y=86.612 z=17.850
-click: x=44.786 y=86.612 z=15.850
+click: x=45.000 y=-85.050 z=5.400
+click: x=45.000 y=85.050 z=5.400
+click: x=110.000 y=-85.050 z=5.400
+click: x=110.000 y=85.050 z=5.400
+click: x=-136.050 y=0.000 z=5.400
+click: x=136.050 y=0.000 z=5.400
+click: x=-136.050 y=60.000 z=5.400
+click: x=-136.050 y=-60.000 z=5.400
+click: x=136.050 y=-60.000 z=5.400
+click: x=136.050 y=60.000 z=5.400
+
+[thin] Specified 2 mm floor and 2.38 mm standing casing section. Derek selected these sections and the 253.4 mm assembled cold-core height. The sampled pair spans the ordinary floor, rather than a cut remnant or a tapered fin. All ten M5 head pads and their wall/floor roots have separate 100% solid deposition modifiers.
+alternatives: A 3 mm floor raises the retained stack by 1 mm or reduces the foam depth by 1 mm; that changes the specified floor and stack. Additional local head-bearing stock is already part of the M5 pads and their solid root regions.
+file: hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step
+click: x=-137.843 y=-82.565 z=0.000
+click: x=-137.843 y=-82.565 z=2.000

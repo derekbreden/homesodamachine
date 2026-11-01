@@ -18,7 +18,7 @@ import _reed_b_outlet
 
 def build_full_shell():
     # Reservoir fluid lines enter through their caps. B's dry reed ribbon
-    # leaves through the open shell rim, closed above by the top cap floor.
+    # leaves through its peaked fore side window below the shell rim.
     foam_shell = (
         build_reservoir_pocket_walls()
         .union(build_carbonator_support_ring())
