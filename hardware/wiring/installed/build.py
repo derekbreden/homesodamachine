@@ -16,6 +16,10 @@ import sys
 
 ROOT=Path(__file__).resolve().parents[3]
 sys.path[:0]=[str(ROOT),str(ROOT/'hardware/scripts'),str(ROOT/'hardware/manifold-layout')]
+# Run as a script, the wiring is routed on the mesh kernel (`hardware/scripts/meshcad`).
+if __name__=='__main__':
+    import meshcad
+    meshcad.activate()
 from hardware.wiring.installed.connections import connections, interfaces, UNUSED, BOUNDARIES
 from hardware.wiring.installed.model import STOCK, shape
 from hardware.wiring.installed.routes import routed

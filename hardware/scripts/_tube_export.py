@@ -154,7 +154,13 @@ def export(a):
                                      'printed-parts/asse-straight-cuffs/asse_straight_cuffs.py')
     _vent = ea._above_parts._module('above_core_vent_adapter',
                                     'printed-parts/asse-drain-adapter/asse_drain_adapter.py')
+    import rear_plumbing
+    _reducer = rear_plumbing.joint().reducer
     END_KINDS.update({
+        **{reducer: ("collet", float(_reducer.TUBE_INSERTION_DEPTH),
+                     "jg_pp061208w.TUBE_INSERTION_DEPTH: the PP061208W reducer's 1/4 in collet, "
+                     "mouth to tube stop")
+           for reducer in ("jg-pp061208w", "suction-reducer")},
         **{cuff: ("socket", float(_pump_elbow.TUBE_DEPTH),
                   "diaphragm_pump_sleeve.TUBE_DEPTH: the TPU sleeve's tube socket, mouth to shelf")
            for cuff in ("pump-inlet-tpu", "pump-outlet-tpu")},
