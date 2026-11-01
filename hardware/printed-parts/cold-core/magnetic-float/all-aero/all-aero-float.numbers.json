@@ -1,0 +1,23 @@
+{
+ "bore_diameter": 4.8,
+ "color_aero": [
+  0.854992687702179,
+  0.7758223414421082,
+  0.5520114898681641
+ ],
+ "color_magnet": [
+  0.17144109308719635,
+  0.20507870614528656,
+  0.24620139598846436
+ ],
+ "diameter": 36.0,
+ "height": 28.0,
+ "insertion_lift": 9.0,
+ "magnet_id": 9.525,
+ "magnet_od": 19.05,
+ "magnet_seat": 12.4125,
+ "magnet_thickness": 3.175,
+ "pocket_id": 9.225,
+ "pocket_od": 19.35,
+ "pocket_roof": 16.0125
+}
