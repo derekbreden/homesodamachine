@@ -396,15 +396,19 @@ def cut_reservoir_air_bores(shape, z0, z1):
 
 
 def main():
+    import flute_payload
     lid_top = build_top_lid()
     cap_bottom = build_bottom_cap()
     for shape,name,colour in (
         (lid_top,'foam-cap-lid-top',_mat.C_CAP_LID_TOP),
         (cap_bottom,'foam-cap-bottom',_mat.C_CAP_BOTTOM),
         (_reservoir_b_fill.guide_native(),'reservoir-b-fill-guide',_mat.C_CAP_TOP),
-        (_above_mounts.pump_snap_printable(),'pump-snap-cap',_mat.M_PETGF_BLACK)):
+        (_above_mounts.pump_snap_printable(),'pump-snap-cap',_mat.M_PETGF_BLACK),
+        (_above_mounts.pump_snap_printable(1),'pump-snap-cap-rear',_mat.M_PETGF_BLACK)):
         export_assembly(one_body(shape,name,colour),str(_here/f'{name}.step'))
         write_bed_file(shape,_here/f'{name}.stl')
+        flute_payload.cut(_here/f'{name}.step',_here/f'{name}.stl',
+                          preserve_print_triangles=name.startswith('pump-snap-cap'))
         print(f'-> {name}.step / .stl')
     for name in ('foam-cap-top','foam-cap-lid-bottom'):
         for suffix in ('.step','.step.mesh','.stl'):

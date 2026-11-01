@@ -267,7 +267,8 @@ IMPLICIT_SOLIDS = {
         for suffix in ("step", "stl", "step.mesh")
     ),
     "hardware/printed-parts/cold-core/foam-cap/foam_cap.py": tuple(
-        f"hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.{suffix}"
+        f"hardware/printed-parts/cold-core/foam-cap/{name}.{suffix}"
+        for name in ("pump-snap-cap", "pump-snap-cap-rear")
         for suffix in ("step", "stl")
     ),
     "hardware/printed-parts/enclosure/rear-equipment-caps/rear_equipment_caps.py": tuple(

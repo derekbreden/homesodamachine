@@ -12,8 +12,9 @@ fixed lower casing retains a 0.15 mm printed-face allowance above the plain
 lid at Z253.4. Production poses
 and connected fitting frames belong to [above-core.json](../../../manifold-layout/above-core.json).
 
-The lid-integrated half pipe supports the motor over native X25–60. Its separate
-upper cap spans X35–51 and uses a 2.4 mm working spring arch, 3 mm wings and
+The lid-integrated half pipe supports the motor over native X16.75–77.75. Its
+32 mm primary upper cap spans X20–52; the 16 mm rear cap spans X58.5–74.5.
+Their centers are 30.5 mm apart. Each uses a 2.4 mm working spring arch, 3 mm wings and
 0.6 mm hook engagement. The upper motor bore clears the largest retained upper
 barrel high spot with the shared 0.15 mm per-face static allowance. The lower
 seat gives the admitted barrel 0.25 mm running clearance. Open rooms admit the complete fixed rails and molded wire cover
@@ -24,14 +25,21 @@ Primary saddle and snap contact stays within the measured motor band. The
 stop faces meet only the fixed rail ends; the rough head underside stays
 clear throughout axial free play.
 
-Slide all four complete foot-and-leg assemblies off their fixed rails. Lower
-the bare pump vertically into the open cradle, then press the upper cap down
-until both hooks seat. Both spring pockets remain accessible with back-top separated from the core. Complete the cap-clamp screws before fitting the PCB. Fit
+The primary pockets span X19.75–52.25 and the rear pockets X58.25–74.75.
+The continuous seat retains 3 mm beyond the two outer pocket ends and a
+6 mm solid web between pockets. Cover and lead admission remain open through
+the complete seat.
+
+Slide all four complete foot-and-leg assemblies off their fixed rails. Complete
+the lid's ten M5 clamps while its equipment mounts are empty. Lower
+the bare pump vertically into the open cradle, then press both caps down
+until all four hooks seat, then fit the PCB. The spring pockets remain accessible
+with back-top separated from the core. Fit
 the two clamped PVC joints and discharge check while the core is open. Keep the
 suction elbow and its short inlet link loose for the populated rear-shell
 approach, then seat those round joints through the uncovered funnel opening.
 For pump removal, separate back-top from the core, disconnect the pump joints
-and leads, release both cap hooks and
+and leads, release the two hooks on each cap and
 lift the pump vertically. The snap cap prints on one axial end, keeping the
 arch, wings and hooks vertical, with three Classic loops and a solid core.
 
@@ -44,6 +52,10 @@ a straight 0.25 mm exposed stub. The
 check outlet's two opposed bends retain at least **R15.055** and reach the straight water-in guide at
 **(−82.5, 420, 253.4) mm**. The regulator, ASSE and large valves
 retain their orthogonal placement.
+
+Each square-cut PVC end starts 0.9 mm outward of the first scanned barb
+profile station to clear the molded head/root. The complete 9 mm clamp bands
+retain at least 1.62 mm to each usable barb end.
 
 `g_ganen_installation.build_parts()` and `rigid_shape()` expose the bare installed
 reference. `mount_holes()` and `feet_shapes()` are empty. The stock slider

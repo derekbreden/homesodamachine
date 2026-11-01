@@ -1,0 +1,187 @@
+{
+  "scope": "Six consecutive face crossings of each flank through the actual exported lid at world Z284 mm. Wires and Wagos are not in this part payload.",
+  "rays": [
+    {
+      "flank": "east",
+      "world_x_mm": 18.5,
+      "world_z_mm": 284,
+      "payload_sha256": "724a05df9359fbf0f2ab11aaa9b35f67ac49cae5d0b659c36ff54b7592111aa4",
+      "hits": [
+        {
+          "native_point_mm": [
+            -61.26776123046875,
+            18.5,
+            38
+          ],
+          "world_y_mm": 385.06776123046876,
+          "normal": [
+            1,
+            0,
+            0
+          ]
+        },
+        {
+          "native_point_mm": [
+            -64.26776123046875,
+            18.5,
+            38
+          ],
+          "world_y_mm": 388.06776123046876,
+          "normal": [
+            1,
+            0,
+            0
+          ]
+        },
+        {
+          "native_point_mm": [
+            -96.76776123046876,
+            18.5,
+            38
+          ],
+          "world_y_mm": 420.56776123046876,
+          "normal": [
+            1,
+            0,
+            0
+          ]
+        },
+        {
+          "native_point_mm": [
+            -102.76776123046876,
+            18.5,
+            38
+          ],
+          "world_y_mm": 426.56776123046876,
+          "normal": [
+            1,
+            0,
+            0
+          ]
+        },
+        {
+          "native_point_mm": [
+            -119.26776123046876,
+            18.5,
+            38
+          ],
+          "world_y_mm": 443.06776123046876,
+          "normal": [
+            1,
+            0,
+            0
+          ]
+        },
+        {
+          "native_point_mm": [
+            -122.26776123046876,
+            18.5,
+            38
+          ],
+          "world_y_mm": 446.06776123046876,
+          "normal": [
+            1,
+            0,
+            0
+          ]
+        }
+      ],
+      "solid_spans_mm": [
+        3,
+        6,
+        3
+      ]
+    },
+    {
+      "flank": "west",
+      "world_x_mm": -49,
+      "world_z_mm": 284,
+      "payload_sha256": "724a05df9359fbf0f2ab11aaa9b35f67ac49cae5d0b659c36ff54b7592111aa4",
+      "hits": [
+        {
+          "native_point_mm": [
+            -61.26776123046875,
+            -49,
+            38
+          ],
+          "world_y_mm": 385.06776123046876,
+          "normal": [
+            1,
+            0,
+            0
+          ]
+        },
+        {
+          "native_point_mm": [
+            -64.26776123046875,
+            -49,
+            38
+          ],
+          "world_y_mm": 388.06776123046876,
+          "normal": [
+            1,
+            0,
+            0
+          ]
+        },
+        {
+          "native_point_mm": [
+            -96.76776123046876,
+            -49,
+            38
+          ],
+          "world_y_mm": 420.56776123046876,
+          "normal": [
+            1,
+            0,
+            0
+          ]
+        },
+        {
+          "native_point_mm": [
+            -102.76776123046876,
+            -49,
+            38
+          ],
+          "world_y_mm": 426.56776123046876,
+          "normal": [
+            1,
+            0,
+            0
+          ]
+        },
+        {
+          "native_point_mm": [
+            -119.26776123046876,
+            -49,
+            38
+          ],
+          "world_y_mm": 443.06776123046876,
+          "normal": [
+            1,
+            0,
+            0
+          ]
+        },
+        {
+          "native_point_mm": [
+            -122.26776123046876,
+            -49,
+            38
+          ],
+          "world_y_mm": 446.06776123046876,
+          "normal": [
+            1,
+            0,
+            0
+          ]
+        }
+      ],
+      "solid_spans_mm": [
+        3,
+        6,
+        3
+      ]
+    }
+  ]
+}

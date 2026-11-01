@@ -1,504 +1,504 @@
 {
-  "gatesPass": true,
-  "checks": [
+ "gatesPass": true,
+ "checks": [
+  {
+   "id": "bodies-clear",
+   "label": "No two placed solids share volume",
+   "kind": "gate",
+   "status": "pass",
+   "value": "0 clash",
+   "target": "0 clash",
+   "detail": [
+    "carbonator-tube \u2229 evap-coil: the wrap rides it \u2014 see RIDES_ON",
+    "evap-coil \u2229 reed-bridge: the wrap rides it \u2014 see RIDES_ON",
+    "evap-coil \u2229 reed-carb-1: the wrap rides it \u2014 see RIDES_ON",
+    "evap-coil \u2229 reed-carb-2: the wrap rides it \u2014 see RIDES_ON"
+   ],
+   "active": true
+  },
+  {
+   "id": "routes-fit",
+   "label": "No line meets a solid",
+   "kind": "gate",
+   "status": "pass",
+   "value": "8/8 clear",
+   "target": "every line clear",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "lines-apart",
+   "label": "No two runs want the same corridor",
+   "kind": "gate",
+   "status": "pass",
+   "value": "0 crossing",
+   "target": "0 crossing",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "bom-covered",
+   "label": "Every billed cold-core part has a body here",
+   "kind": "goal",
+   "status": "fail",
+   "value": "31/38",
+   "target": "a body per billed part",
+   "detail": [
+    "PTFE thread tape \u2014 billed, no solid here (\"Millrose 70894 Nickel Guard\")",
+    "pour-in-place foam \u2014 billed, no solid here (\"closed-cell pour-in-place PU foam\")",
+    "foil tape \u2014 billed, no solid here (\"3M 425 aluminum foil tape\")",
+    "reed columns \u2014 billed, no solid here (\"Pre-soldered reed-and-wire column\")",
+    "M3 heat-set inserts \u2014 billed, no solid here (\"ruthex RX-M3 \u00d7 5.7 full-length heat-set inserts\")",
+    "M5 closure inserts \u2014 billed, no solid here (\"ruthex M5 Threaded Inserts\")",
+    "reservoir cap screws \u2014 billed, no solid here (\"BNUOK M3 \u00d7 12 mm socket head cap, 304 stainless\")"
+   ],
+   "active": true
+  },
+  {
+   "id": "arcs-hold",
+   "label": "Every corner turns at the stock arc",
+   "kind": "gate",
+   "status": "pass",
+   "value": "19/19 corners at stock",
+   "target": "14.00 mm",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "floats-couple",
+   "label": "Aero floats clear their walls within the float-edge reed distance limit",
+   "kind": "gate",
+   "status": "pass",
+   "value": "3/3 floats",
+   "target": ">=1 mm body clearance, <=18 mm float-edge to reed-centre; geometry only",
+   "detail": [
+    "float-a: body/wet-wall gap 1.187..2.812 mm; float-edge to reed-centre at most 11.062 mm; reed-centre to RC62 edge at most 19.538 mm; installed switching height unmeasured",
+    "float-b: body/wet-wall gap 1.187..2.812 mm; float-edge to reed-centre at most 11.062 mm; reed-centre to RC62 edge at most 19.538 mm; installed switching height unmeasured",
+    "float-carb: body/wet-wall gap 1.187..2.812 mm; float-edge to reed-centre at most 5.713 mm; reed-centre to RC62 edge at most 14.188 mm; installed switching height unmeasured"
+   ],
+   "active": true
+  },
+  {
+   "id": "inlet-jet-qualified",
+   "label": "The inlet jet's actual joint and fit are qualified",
+   "kind": "goal",
+   "status": "warn",
+   "value": "nominal layout only",
+   "target": "measured fit and qualified weld",
+   "detail": [
+    "The cap is drawn at nominal 9.5 mm diameter, 2 mm thickness and a 1/16-inch passage.",
+    "The elbow bore and installed tip projection are unmeasured layout assumptions; the model does not establish the weld land, penetration or pressure integrity.",
+    "Qualify the coupon, passage and made-up port using assembly/water-inlet-jet.md."
+   ],
+   "active": true
+  },
+  {
+   "id": "placed",
+   "label": "Every body the core carries is placed",
+   "kind": "goal",
+   "status": "pass",
+   "value": "74/74",
+   "target": "a solid per body",
+   "detail": [],
+   "active": false
+  },
+  {
+   "id": "located",
+   "label": "Every port a placed body declares is positioned",
+   "kind": "goal",
+   "status": "pass",
+   "value": "4/4",
+   "target": "every mouth located",
+   "detail": [],
+   "active": false
+  },
+  {
+   "id": "routed",
+   "label": "Every line the core owes is drawn",
+   "kind": "goal",
+   "status": "pass",
+   "value": "8/8",
+   "target": "a line per connection",
+   "detail": [],
+   "active": false
+  },
+  {
+   "id": "mounted",
+   "label": "A feature of another placed part locates every body",
+   "kind": "goal",
+   "status": "fail",
+   "value": "72/74",
+   "target": "a located joint per body",
+   "detail": [
+    "probe-carbonator-ds18b20: foil tape",
+    "probe-coil-ds18s20: foil tape"
+   ],
+   "active": true
+  }
+ ],
+ "bodies": [
+  "cap-clamp-bottom-1",
+  "cap-clamp-bottom-10",
+  "cap-clamp-bottom-2",
+  "cap-clamp-bottom-3",
+  "cap-clamp-bottom-4",
+  "cap-clamp-bottom-5",
+  "cap-clamp-bottom-6",
+  "cap-clamp-bottom-7",
+  "cap-clamp-bottom-8",
+  "cap-clamp-bottom-9",
+  "cap-clamp-top-1",
+  "cap-clamp-top-10",
+  "cap-clamp-top-2",
+  "cap-clamp-top-3",
+  "cap-clamp-top-4",
+  "cap-clamp-top-5",
+  "cap-clamp-top-6",
+  "cap-clamp-top-7",
+  "cap-clamp-top-8",
+  "cap-clamp-top-9",
+  "carbonator-earth-lockwasher",
+  "carbonator-earth-screw",
+  "carbonator-elbow-carb-water-out",
+  "carbonator-elbow-co2-in",
+  "carbonator-elbow-prv",
+  "carbonator-elbow-water-in",
+  "carbonator-tube",
+  "collet-water-in",
+  "endcap-bottom",
+  "endcap-top",
+  "evap-coil",
+  "evap-tail-inlet",
+  "evap-tail-outlet",
+  "float-a",
+  "float-b",
+  "float-carb",
+  "float-rod-a",
+  "float-rod-b",
+  "float-rod-carb",
+  "float-stop-carb-top",
+  "foam-cap-bottom",
+  "foam-cap-lid-top",
+  "foam-shell",
+  "probe-carbonator-ds18b20",
+  "probe-coil-ds18s20",
+  "prv-shroud",
+  "prv-sv125",
+  "reed-a-1",
+  "reed-a-2",
+  "reed-a-3",
+  "reed-a-4",
+  "reed-b-1",
+  "reed-b-2",
+  "reed-b-3",
+  "reed-b-4",
+  "reed-bridge",
+  "reed-carb-1",
+  "reed-carb-2",
+  "reservoir-a",
+  "reservoir-a-cap",
+  "reservoir-a-gasket",
+  "reservoir-b",
+  "reservoir-b-cap",
+  "reservoir-b-fill-guide",
+  "reservoir-b-gasket",
+  "reservoir-grip-a-air",
+  "reservoir-grip-a-draw",
+  "reservoir-grip-a-fill",
+  "reservoir-grip-b-air",
+  "reservoir-grip-b-draw",
+  "reservoir-grip-b-fill",
+  "tube-reservoir-air-a",
+  "tube-reservoir-air-b",
+  "water-inlet-jet-cap-nominal"
+ ],
+ "bends": [
+  {
+   "id": "carb-water-out",
+   "kind": "fluid",
+   "frm": "carbonator.carb-water-out",
+   "to": "carb-water-out.end",
+   "stock": "1/4\" LLDPE",
+   "od": 6.35,
+   "length": 364.43,
+   "bend": 14.0,
+   "radius": 14.0,
+   "minBend": 14.0,
+   "ratio": 1.0,
+   "grade": "B",
+   "reach": 240.39,
+   "reachGrade": "D",
+   "binding": null,
+   "corners": [
     {
-      "id": "bodies-clear",
-      "label": "No two placed solids share volume",
-      "kind": "gate",
-      "status": "pass",
-      "value": "0 clash",
-      "target": "0 clash",
-      "detail": [
-        "carbonator-tube \u2229 evap-coil: the wrap rides it \u2014 see RIDES_ON",
-        "evap-coil \u2229 reed-bridge: the wrap rides it \u2014 see RIDES_ON",
-        "evap-coil \u2229 reed-carb-1: the wrap rides it \u2014 see RIDES_ON",
-        "evap-coil \u2229 reed-carb-2: the wrap rides it \u2014 see RIDES_ON"
-      ],
-      "active": true
+     "at": 1,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B"
     },
     {
-      "id": "routes-fit",
-      "label": "No line meets a solid",
-      "kind": "gate",
-      "status": "pass",
-      "value": "8/8 clear",
-      "target": "every line clear",
-      "detail": [],
-      "active": true
+     "at": 2,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B"
     },
     {
-      "id": "lines-apart",
-      "label": "No two runs want the same corridor",
-      "kind": "gate",
-      "status": "pass",
-      "value": "0 crossing",
-      "target": "0 crossing",
-      "detail": [],
-      "active": true
+     "at": 3,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B"
     },
     {
-      "id": "bom-covered",
-      "label": "Every billed cold-core part has a body here",
-      "kind": "goal",
-      "status": "fail",
-      "value": "31/38",
-      "target": "a body per billed part",
-      "detail": [
-        "PTFE thread tape \u2014 billed, no solid here (\"Millrose 70894 Nickel Guard\")",
-        "pour-in-place foam \u2014 billed, no solid here (\"closed-cell pour-in-place PU foam\")",
-        "foil tape \u2014 billed, no solid here (\"3M 425 aluminum foil tape\")",
-        "reed columns \u2014 billed, no solid here (\"Pre-soldered reed-and-wire column\")",
-        "M3 heat-set inserts \u2014 billed, no solid here (\"ruthex RX-M3 \u00d7 5.7 full-length heat-set inserts\")",
-        "M5 closure inserts \u2014 billed, no solid here (\"ruthex M5 Threaded Inserts\")",
-        "reservoir cap screws \u2014 billed, no solid here (\"BNUOK M3 \u00d7 12 mm socket head cap, 304 stainless\")"
-      ],
-      "active": true
+     "at": 4,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B"
     },
     {
-      "id": "arcs-hold",
-      "label": "Every corner turns at the stock arc",
-      "kind": "gate",
-      "status": "pass",
-      "value": "19/19 corners at stock",
-      "target": "14.00 mm",
-      "detail": [],
-      "active": true
+     "at": 5,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B"
     },
     {
-      "id": "floats-couple",
-      "label": "Aero floats clear their walls within the float-edge reed distance limit",
-      "kind": "gate",
-      "status": "pass",
-      "value": "3/3 floats",
-      "target": ">=1 mm body clearance, <=18 mm float-edge to reed-centre; geometry only",
-      "detail": [
-        "float-a: body/wet-wall gap 1.187..2.812 mm; float-edge to reed-centre at most 11.062 mm; reed-centre to RC62 edge at most 19.538 mm; installed switching height unmeasured",
-        "float-b: body/wet-wall gap 1.187..2.812 mm; float-edge to reed-centre at most 11.062 mm; reed-centre to RC62 edge at most 19.538 mm; installed switching height unmeasured",
-        "float-carb: body/wet-wall gap 1.187..2.812 mm; float-edge to reed-centre at most 5.713 mm; reed-centre to RC62 edge at most 14.188 mm; installed switching height unmeasured"
-      ],
-      "active": true
+     "at": 6,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B"
     },
     {
-      "id": "inlet-jet-qualified",
-      "label": "The inlet jet's actual joint and fit are qualified",
-      "kind": "goal",
-      "status": "warn",
-      "value": "nominal layout only",
-      "target": "measured fit and qualified weld",
-      "detail": [
-        "The cap is drawn at nominal 9.5 mm diameter, 2 mm thickness and a 1/16-inch passage.",
-        "The elbow bore and installed tip projection are unmeasured layout assumptions; the model does not establish the weld land, penetration or pressure integrity.",
-        "Qualify the coupon, passage and made-up port using assembly/water-inlet-jet.md."
-      ],
-      "active": true
-    },
-    {
-      "id": "placed",
-      "label": "Every body the core carries is placed",
-      "kind": "goal",
-      "status": "pass",
-      "value": "74/74",
-      "target": "a solid per body",
-      "detail": [],
-      "active": false
-    },
-    {
-      "id": "located",
-      "label": "Every port a placed body declares is positioned",
-      "kind": "goal",
-      "status": "pass",
-      "value": "4/4",
-      "target": "every mouth located",
-      "detail": [],
-      "active": false
-    },
-    {
-      "id": "routed",
-      "label": "Every line the core owes is drawn",
-      "kind": "goal",
-      "status": "pass",
-      "value": "8/8",
-      "target": "a line per connection",
-      "detail": [],
-      "active": false
-    },
-    {
-      "id": "mounted",
-      "label": "A feature of another placed part locates every body",
-      "kind": "goal",
-      "status": "fail",
-      "value": "72/74",
-      "target": "a located joint per body",
-      "detail": [
-        "probe-carbonator-ds18b20: foil tape",
-        "probe-coil-ds18s20: foil tape"
-      ],
-      "active": true
+     "at": 7,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B"
     }
-  ],
-  "bodies": [
-    "cap-clamp-bottom-1",
-    "cap-clamp-bottom-10",
-    "cap-clamp-bottom-2",
-    "cap-clamp-bottom-3",
-    "cap-clamp-bottom-4",
-    "cap-clamp-bottom-5",
-    "cap-clamp-bottom-6",
-    "cap-clamp-bottom-7",
-    "cap-clamp-bottom-8",
-    "cap-clamp-bottom-9",
-    "cap-clamp-top-1",
-    "cap-clamp-top-10",
-    "cap-clamp-top-2",
-    "cap-clamp-top-3",
-    "cap-clamp-top-4",
-    "cap-clamp-top-5",
-    "cap-clamp-top-6",
-    "cap-clamp-top-7",
-    "cap-clamp-top-8",
-    "cap-clamp-top-9",
-    "carbonator-earth-lockwasher",
-    "carbonator-earth-screw",
-    "carbonator-elbow-carb-water-out",
-    "carbonator-elbow-co2-in",
-    "carbonator-elbow-prv",
-    "carbonator-elbow-water-in",
-    "carbonator-tube",
-    "collet-water-in",
-    "endcap-bottom",
-    "endcap-top",
-    "evap-coil",
-    "evap-tail-inlet",
-    "evap-tail-outlet",
-    "float-a",
-    "float-b",
-    "float-carb",
-    "float-rod-a",
-    "float-rod-b",
-    "float-rod-carb",
-    "float-stop-carb-top",
-    "foam-cap-bottom",
-    "foam-cap-lid-top",
-    "foam-shell",
-    "probe-carbonator-ds18b20",
-    "probe-coil-ds18s20",
-    "prv-shroud",
-    "prv-sv125",
-    "reed-a-1",
-    "reed-a-2",
-    "reed-a-3",
-    "reed-a-4",
-    "reed-b-1",
-    "reed-b-2",
-    "reed-b-3",
-    "reed-b-4",
-    "reed-bridge",
-    "reed-carb-1",
-    "reed-carb-2",
-    "reservoir-a",
-    "reservoir-a-cap",
-    "reservoir-a-gasket",
-    "reservoir-b",
-    "reservoir-b-cap",
-    "reservoir-b-fill-guide",
-    "reservoir-b-gasket",
-    "reservoir-grip-a-air",
-    "reservoir-grip-a-draw",
-    "reservoir-grip-a-fill",
-    "reservoir-grip-b-air",
-    "reservoir-grip-b-draw",
-    "reservoir-grip-b-fill",
-    "tube-reservoir-air-a",
-    "tube-reservoir-air-b",
-    "water-inlet-jet-cap-nominal"
-  ],
-  "bends": [
+   ],
+   "need": {
+    "detour": 1.516
+   }
+  },
+  {
+   "id": "co2-in",
+   "kind": "fluid",
+   "frm": "co2-in.start",
+   "to": "carbonator.co2-in",
+   "stock": "1/4\" LLDPE",
+   "od": 6.35,
+   "length": 274.05,
+   "bend": 14.0,
+   "radius": 14.0,
+   "minBend": 14.0,
+   "ratio": 1.0,
+   "grade": "B",
+   "reach": 214.59,
+   "reachGrade": "C",
+   "binding": null,
+   "corners": [
     {
-      "id": "carb-water-out",
-      "kind": "fluid",
-      "frm": "carbonator.carb-water-out",
-      "to": "carb-water-out.end",
-      "stock": "1/4\" LLDPE",
-      "od": 6.35,
-      "length": 364.43,
-      "bend": 14.0,
-      "radius": 14.0,
-      "minBend": 14.0,
-      "ratio": 1.0,
-      "grade": "B",
-      "reach": 240.39,
-      "reachGrade": "D",
-      "binding": null,
-      "corners": [
-        {
-          "at": 1,
-          "radius": 14.0,
-          "ratio": 1.0,
-          "grade": "B"
-        },
-        {
-          "at": 2,
-          "radius": 14.0,
-          "ratio": 1.0,
-          "grade": "B"
-        },
-        {
-          "at": 3,
-          "radius": 14.0,
-          "ratio": 1.0,
-          "grade": "B"
-        },
-        {
-          "at": 4,
-          "radius": 14.0,
-          "ratio": 1.0,
-          "grade": "B"
-        },
-        {
-          "at": 5,
-          "radius": 14.0,
-          "ratio": 1.0,
-          "grade": "B"
-        },
-        {
-          "at": 6,
-          "radius": 14.0,
-          "ratio": 1.0,
-          "grade": "B"
-        },
-        {
-          "at": 7,
-          "radius": 14.0,
-          "ratio": 1.0,
-          "grade": "B"
-        }
-      ],
-      "need": {
-        "detour": 1.516
-      }
+     "at": 1,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B"
     },
     {
-      "id": "co2-in",
-      "kind": "fluid",
-      "frm": "co2-in.start",
-      "to": "carbonator.co2-in",
-      "stock": "1/4\" LLDPE",
-      "od": 6.35,
-      "length": 274.05,
-      "bend": 14.0,
-      "radius": 14.0,
-      "minBend": 14.0,
-      "ratio": 1.0,
-      "grade": "B",
-      "reach": 214.59,
-      "reachGrade": "C",
-      "binding": null,
-      "corners": [
-        {
-          "at": 1,
-          "radius": 14.0,
-          "ratio": 1.0,
-          "grade": "B"
-        },
-        {
-          "at": 2,
-          "radius": 14.0,
-          "ratio": 1.0,
-          "grade": "B"
-        },
-        {
-          "at": 3,
-          "radius": 14.0,
-          "ratio": 1.0,
-          "grade": "B"
-        }
-      ],
-      "need": {
-        "detour": 1.277
-      }
+     "at": 2,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B"
     },
     {
-      "id": "prv-vent",
-      "kind": "fluid",
-      "frm": "prv-vent.start",
-      "to": "prv-vent.end",
-      "stock": "1/4\" LLDPE",
-      "od": 6.35,
-      "length": 24.99,
-      "bend": 14.0,
-      "radius": 14.0,
-      "minBend": 14.0,
-      "ratio": 1.0,
-      "grade": "B",
-      "reach": 21.93,
-      "reachGrade": "C",
-      "binding": null,
-      "corners": [
-        {
-          "at": 1,
-          "radius": 14.0,
-          "ratio": 1.0,
-          "grade": "B"
-        }
-      ],
-      "need": {
-        "detour": 1.139
-      }
-    },
-    {
-      "id": "reservoir-a",
-      "kind": "fluid",
-      "frm": "reservoir-a.start",
-      "to": "reservoir-a.end",
-      "stock": "1/4\" LLDPE",
-      "od": 6.35,
-      "length": 224.97,
-      "bend": 14.0,
-      "radius": 14.0,
-      "minBend": 14.0,
-      "ratio": 1.0,
-      "grade": null,
-      "reach": 224.97,
-      "reachGrade": "B",
-      "binding": null,
-      "corners": [],
-      "need": {
-        "detour": 1.0
-      }
-    },
-    {
-      "id": "reservoir-a-fill",
-      "kind": "fluid",
-      "frm": "reservoir-a-fill.start",
-      "to": "reservoir-a-fill.end",
-      "stock": "1/4\" LLDPE",
-      "od": 6.35,
-      "length": 25.25,
-      "bend": 14.0,
-      "radius": 14.0,
-      "minBend": 14.0,
-      "ratio": 1.0,
-      "grade": null,
-      "reach": 25.25,
-      "reachGrade": "B",
-      "binding": null,
-      "corners": [],
-      "need": {
-        "detour": 1.0
-      }
-    },
-    {
-      "id": "reservoir-b",
-      "kind": "fluid",
-      "frm": "reservoir-b.start",
-      "to": "reservoir-b.end",
-      "stock": "1/4\" LLDPE",
-      "od": 6.35,
-      "length": 224.97,
-      "bend": 14.0,
-      "radius": 14.0,
-      "minBend": 14.0,
-      "ratio": 1.0,
-      "grade": null,
-      "reach": 224.97,
-      "reachGrade": "B",
-      "binding": null,
-      "corners": [],
-      "need": {
-        "detour": 1.0
-      }
-    },
-    {
-      "id": "reservoir-b-fill",
-      "kind": "fluid",
-      "frm": "reservoir-b-fill.start",
-      "to": "reservoir-b-fill.end",
-      "stock": "1/4\" LLDPE",
-      "od": 6.35,
-      "length": 64.09,
-      "bend": 14.0,
-      "radius": 14.0,
-      "minBend": 14.0,
-      "ratio": 1.0,
-      "grade": "B",
-      "reach": 54.28,
-      "reachGrade": "C",
-      "binding": null,
-      "corners": [
-        {
-          "at": 1,
-          "radius": 14.0,
-          "ratio": 1.0,
-          "grade": "B"
-        }
-      ],
-      "need": {
-        "detour": 1.181
-      }
-    },
-    {
-      "id": "water-in",
-      "kind": "fluid",
-      "frm": "carbonator.water-in",
-      "to": "water-in.end",
-      "stock": "1/4\" LLDPE",
-      "od": 6.35,
-      "length": 267.34,
-      "bend": 14.0,
-      "radius": 14.0,
-      "minBend": 14.0,
-      "ratio": 1.0,
-      "grade": "B",
-      "reach": 145.32,
-      "reachGrade": "D",
-      "binding": null,
-      "corners": [
-        {
-          "at": 1,
-          "radius": 14.0,
-          "ratio": 1.0,
-          "grade": "B"
-        },
-        {
-          "at": 2,
-          "radius": 14.0,
-          "ratio": 1.0,
-          "grade": "B"
-        },
-        {
-          "at": 3,
-          "radius": 14.0,
-          "ratio": 1.0,
-          "grade": "B"
-        },
-        {
-          "at": 4,
-          "radius": 14.0,
-          "ratio": 1.0,
-          "grade": "B"
-        },
-        {
-          "at": 5,
-          "radius": 14.0,
-          "ratio": 1.0,
-          "grade": "B"
-        },
-        {
-          "at": 6,
-          "radius": 14.0,
-          "ratio": 1.0,
-          "grade": "B"
-        },
-        {
-          "at": 7,
-          "radius": 14.0,
-          "ratio": 1.0,
-          "grade": "B"
-        }
-      ],
-      "need": {
-        "detour": 1.84
-      }
+     "at": 3,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B"
     }
-  ]
+   ],
+   "need": {
+    "detour": 1.277
+   }
+  },
+  {
+   "id": "prv-vent",
+   "kind": "fluid",
+   "frm": "prv-vent.start",
+   "to": "prv-vent.end",
+   "stock": "1/4\" LLDPE",
+   "od": 6.35,
+   "length": 24.99,
+   "bend": 14.0,
+   "radius": 14.0,
+   "minBend": 14.0,
+   "ratio": 1.0,
+   "grade": "B",
+   "reach": 21.93,
+   "reachGrade": "C",
+   "binding": null,
+   "corners": [
+    {
+     "at": 1,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B"
+    }
+   ],
+   "need": {
+    "detour": 1.139
+   }
+  },
+  {
+   "id": "reservoir-a",
+   "kind": "fluid",
+   "frm": "reservoir-a.start",
+   "to": "reservoir-a.end",
+   "stock": "1/4\" LLDPE",
+   "od": 6.35,
+   "length": 224.97,
+   "bend": 14.0,
+   "radius": 14.0,
+   "minBend": 14.0,
+   "ratio": 1.0,
+   "grade": null,
+   "reach": 224.97,
+   "reachGrade": "B",
+   "binding": null,
+   "corners": [],
+   "need": {
+    "detour": 1.0
+   }
+  },
+  {
+   "id": "reservoir-a-fill",
+   "kind": "fluid",
+   "frm": "reservoir-a-fill.start",
+   "to": "reservoir-a-fill.end",
+   "stock": "1/4\" LLDPE",
+   "od": 6.35,
+   "length": 25.25,
+   "bend": 14.0,
+   "radius": 14.0,
+   "minBend": 14.0,
+   "ratio": 1.0,
+   "grade": null,
+   "reach": 25.25,
+   "reachGrade": "B",
+   "binding": null,
+   "corners": [],
+   "need": {
+    "detour": 1.0
+   }
+  },
+  {
+   "id": "reservoir-b",
+   "kind": "fluid",
+   "frm": "reservoir-b.start",
+   "to": "reservoir-b.end",
+   "stock": "1/4\" LLDPE",
+   "od": 6.35,
+   "length": 224.97,
+   "bend": 14.0,
+   "radius": 14.0,
+   "minBend": 14.0,
+   "ratio": 1.0,
+   "grade": null,
+   "reach": 224.97,
+   "reachGrade": "B",
+   "binding": null,
+   "corners": [],
+   "need": {
+    "detour": 1.0
+   }
+  },
+  {
+   "id": "reservoir-b-fill",
+   "kind": "fluid",
+   "frm": "reservoir-b-fill.start",
+   "to": "reservoir-b-fill.end",
+   "stock": "1/4\" LLDPE",
+   "od": 6.35,
+   "length": 64.09,
+   "bend": 14.0,
+   "radius": 14.0,
+   "minBend": 14.0,
+   "ratio": 1.0,
+   "grade": "B",
+   "reach": 54.28,
+   "reachGrade": "C",
+   "binding": null,
+   "corners": [
+    {
+     "at": 1,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B"
+    }
+   ],
+   "need": {
+    "detour": 1.181
+   }
+  },
+  {
+   "id": "water-in",
+   "kind": "fluid",
+   "frm": "carbonator.water-in",
+   "to": "water-in.end",
+   "stock": "1/4\" LLDPE",
+   "od": 6.35,
+   "length": 267.34,
+   "bend": 14.0,
+   "radius": 14.0,
+   "minBend": 14.0,
+   "ratio": 1.0,
+   "grade": "B",
+   "reach": 145.32,
+   "reachGrade": "D",
+   "binding": null,
+   "corners": [
+    {
+     "at": 1,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B"
+    },
+    {
+     "at": 2,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B"
+    },
+    {
+     "at": 3,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B"
+    },
+    {
+     "at": 4,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B"
+    },
+    {
+     "at": 5,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B"
+    },
+    {
+     "at": 6,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B"
+    },
+    {
+     "at": 7,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B"
+    }
+   ],
+   "need": {
+    "detour": 1.84
+   }
+  }
+ ]
 }
