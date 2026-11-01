@@ -14,7 +14,7 @@
 use crate::math::V3;
 use crate::write::{Body, face_json};
 use anyhow::{Context, Result};
-use serde_json::Value;
+use serde_json::{Value, json};
 use std::fmt::Write as _;
 use std::path::Path;
 
@@ -359,6 +359,14 @@ pub fn model_bytes_with_document(bodies: &[Body], document: Option<&Value>) -> V
 }
 
 fn model_with_document(bodies: &[Body], document: Option<&Value>) -> Vec<u8> {
+    model_archive(bodies, document, None)
+}
+
+pub(crate) fn model_with_print(bodies: &[Body], document: &Value, print: &crate::write::PrintOutput) -> Vec<u8> {
+    model_archive(bodies, Some(document), Some(print))
+}
+
+fn model_archive(bodies: &[Body], document: Option<&Value>, print: Option<&crate::write::PrintOutput>) -> Vec<u8> {
     let mut entries = vec![];
     let mut records = vec![];
     for (i, b) in bodies.iter().enumerate() {
@@ -385,6 +393,13 @@ fn model_with_document(bodies: &[Body], document: Option<&Value>) -> Vec<u8> {
     entries.push(("records.npy".into(), text(Value::from(records))));
     if let Some(document) = document {
         entries.push(("document.npy".into(), text(document.clone())));
+    }
+    if let Some(print) = print {
+        for (i, faces) in print.faces.iter().enumerate() {
+            let bytes: Vec<_> = faces.iter().flat_map(|f| f.to_le_bytes()).collect();
+            entries.push((format!("print-F{i}.npy"), npy("<u4", &[faces.len()], &bytes)));
+        }
+        entries.push(("print-records.npy".into(), text(json!(print.records))));
     }
     stored_zip(&entries)
 }
