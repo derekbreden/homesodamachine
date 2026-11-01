@@ -1,4 +1,6 @@
-"""ASSE vent-cavity bungs, local gland geometry and factory insertion tool.
+"""Retained ASSE vent-cavity helper geometry and factory insertion tool.
+
+The sealed-cavity artifacts are fixed records; this module has no export entry point.
 
 Local axes are X lateral, Y outward relative to the shell centre, and Z
 downstream tangent. Tube coordinate tables use N relative to the soda tube;
@@ -414,6 +416,3 @@ def main() -> None:
     (OUTPUT / "manifest.json").write_text(json.dumps(report, indent=2) + "\n")
     print(json.dumps({"parts": [r["name"] for r in records], "checks": checks}, indent=2))
 
-
-if __name__ == "__main__":
-    main()

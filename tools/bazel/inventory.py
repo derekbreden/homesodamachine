@@ -325,11 +325,12 @@ _FLUTE_ROOTS = {
         "hardware/printed-parts/faucet/faucet-display-cover/",
         "hardware/printed-parts/faucet/above-counter-plate/",
         "hardware/printed-parts/faucet/above-counter-gasket/",
-        "hardware/printed-parts/faucet/asse-vent-seals/"),
+    ),
 }
 # Generator-owned cap surfaces remain outside every wrapper's shared inputs.
 _FLUTE_TREES = tuple(sorted({r for roots in _FLUTE_ROOTS.values() for r in roots}
-                           | {"hardware/printed-parts/cold-core/foam-cap/"}))
+                           | {"hardware/printed-parts/cold-core/foam-cap/",
+                              "hardware/printed-parts/faucet/asse-vent-seals/"}))
 
 
 def _one_tree(roots: tuple) -> tuple:
