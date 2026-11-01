@@ -5,6 +5,47 @@ use anyhow::{Result, bail, ensure};
 use serde::{Deserialize, Serialize};
 use std::path::PathBuf;
 
+#[derive(Clone, Copy, Debug, Deserialize, Serialize, PartialEq, Eq)]
+#[serde(rename_all = "lowercase")]
+pub enum Side {
+    Front,
+    Back,
+    Double,
+}
+
+/// A presentation material for solid bodies or individual numbered meshes. The last matching row
+/// wins; fields left out retain the payload's colour and stock finish.
+#[derive(Clone, Debug, Deserialize, Serialize)]
+#[serde(default, deny_unknown_fields)]
+pub struct Surface {
+    pub names: Vec<String>,
+    pub color: Option<String>,
+    pub opacity: f32,
+    pub roughness: Option<f64>,
+    pub metalness: Option<f64>,
+    pub unlit: bool,
+    pub tone_mapped: bool,
+    pub side: Side,
+    pub depth_write: Option<bool>,
+    pub order: i32,
+    /// Linear RGB in the payload's optional `col` vertex array.
+    pub vertex_colors: bool,
+    /// A PNG in sRGB, addressed by the payload's optional `uv` vertex array.
+    pub texture: Option<PathBuf>,
+    pub clearcoat: f32,
+    pub clearcoat_roughness: f32,
+}
+
+impl Default for Surface {
+    fn default() -> Self {
+        Self {
+            names: Vec::new(), color: None, opacity: 1.0, roughness: None, metalness: None,
+            unlit: false, tone_mapped: true, side: Side::Double, depth_write: None, order: 0,
+            vertex_colors: false, texture: None, clearcoat: 0.0, clearcoat_roughness: 0.0,
+        }
+    }
+}
+
 /// How the subject is framed when the job gives no camera distance of its own.
 #[derive(Clone, Copy, Debug, Default, Deserialize, Serialize, PartialEq)]
 #[serde(rename_all = "lowercase")]
@@ -100,7 +141,7 @@ pub struct Job {
     /// The distance fade toward the viewer's blue.
     pub fog: bool,
 
-    /// Accepted from render-step-posed manifests; opaque surfaces are the default.
+    /// Explicit opaque surfaces, which are also the default.
     pub solid: bool,
     /// Bodies drawn opaque. Unnamed bodies take `context`. Empty: every body.
     pub only: Vec<String>,
@@ -123,6 +164,7 @@ pub struct Job {
     pub tint: bool,
     /// Feature edges on the solid bodies too.
     pub edges: bool,
+    pub materials: Vec<Surface>,
 
     /// Keep only geometry inside each band; cut faces are left open.
     pub clip: Vec<Clip>,
@@ -177,6 +219,7 @@ impl Default for Job {
             context: None,
             tint: false,
             edges: false,
+            materials: Vec::new(),
             clip: Vec::new(),
             section: None,
             annotate: false,
@@ -261,6 +304,20 @@ impl Job {
         }
         if let Some(d) = &self.depth {
             ensure!(d.radius.is_finite() && d.radius > 0.0, "bad depth radius {}", d.radius);
+        }
+        for material in &self.materials {
+            ensure!(!material.names.is_empty(), "a material names at least one body or mesh");
+            if let Some(color) = &material.color {
+                parse_color(color)?;
+            }
+            for (name, value) in [("opacity", Some(material.opacity as f64)),
+                                  ("roughness", material.roughness), ("metalness", material.metalness),
+                                  ("clearcoat", Some(material.clearcoat as f64)),
+                                  ("clearcoat_roughness", Some(material.clearcoat_roughness as f64))] {
+                if let Some(v) = value {
+                    ensure!(v.is_finite() && (0.0..=1.0).contains(&v), "bad material {name}: {v}");
+                }
+            }
         }
         Ok(())
     }

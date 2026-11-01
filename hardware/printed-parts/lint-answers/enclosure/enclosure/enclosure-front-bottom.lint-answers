@@ -254,6 +254,26 @@ click: x=-106.105 y=128.056 z=94.224
 click: x=-106.105 y=126.222 z=94.224
 click: x=99.533 y=54.049 z=78.750
 click: x=99.533 y=52.215 z=78.750
+click: x=105.925 y=101.553 z=136.423
+click: x=105.925 y=103.387 z=136.423
+click: x=105.925 y=71.950 z=136.423
+click: x=105.925 y=73.784 z=136.423
+click: x=99.428 y=111.421 z=90.120
+click: x=99.428 y=113.255 z=90.120
+click: x=99.579 y=37.414 z=89.873
+click: x=99.579 y=39.247 z=89.873
+click: x=99.579 y=67.016 z=89.893
+click: x=99.579 y=68.850 z=89.893
+click: x=99.614 y=52.215 z=89.895
+click: x=99.614 y=54.049 z=89.895
+click: x=99.616 y=81.818 z=89.914
+click: x=99.616 y=83.652 z=89.914
+click: x=99.808 y=126.222 z=89.739
+click: x=99.808 y=128.056 z=89.739
+click: x=99.868 y=141.024 z=89.748
+click: x=99.868 y=142.857 z=89.748
+click: x=99.952 y=42.347 z=118.527
+click: x=99.952 y=44.181 z=118.527
 
 [sliver] Functional retaining underside of the approved J11 gas-sensor cable hook. The 0.75 mm projection closes the 2.20 mm seat to a 1.45 mm entry mouth for nominal 1.70 mm insulation, matching the accepted 4P cable clip's entry section. Its flat underside catches the conductors after insertion. The projection and mouth supply the required retention geometry; the hook's structural section is 3 mm.
 alternatives: A 3 mm projection closes this seat completely; keeping the mouth with that projection requires a 4.45 mm deep seat, adding 2.25 mm of cable movement behind the catch. Reducing the projection opens the mouth toward the cable diameter. Sloping the underside supplies an exit ramp in place of the flat catch.

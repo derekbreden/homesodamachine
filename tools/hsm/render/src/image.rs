@@ -20,6 +20,42 @@ const TWIN_HAIRLINE: [u8; 3] = [0x3a, 0x3a, 0x5a];
 const TWIN_GAP: u32 = 3;
 
 impl Image {
+    /// The image and its complete mip chain, filtering sRGB colour in linear light.
+    pub fn mipmaps(&self) -> Vec<Image> {
+        let linear = |b: u8| crate::plan::srgb_to_linear(b as f64 / 255.0);
+        let encode = |v: f64| {
+            let s = if v <= 0.0031308 { v * 12.92 } else { 1.055 * v.powf(1.0 / 2.4) - 0.055 };
+            (s * 255.0).round().clamp(0.0, 255.0) as u8
+        };
+        let mut levels = vec![self.clone()];
+        while levels.last().is_some_and(|im| im.width > 1 || im.height > 1) {
+            let src = levels.last().unwrap();
+            let (width, height) = ((src.width / 2).max(1), (src.height / 2).max(1));
+            let mut rgba = Vec::with_capacity((width * height * 4) as usize);
+            for y in 0..height {
+                for x in 0..width {
+                    let mut sum = [0.0; 4];
+                    for dy in 0..2 {
+                        for dx in 0..2 {
+                            let at = (((2*y+dy).min(src.height-1)*src.width + (2*x+dx).min(src.width-1))*4) as usize;
+                            let p = &src.rgba[at..at+4];
+                            let alpha = p[3] as f64 / 255.0;
+                            for c in 0..3 { sum[c] += linear(p[c]) * alpha; }
+                            sum[3] += alpha;
+                        }
+                    }
+                    let a = sum[3];
+                    rgba.extend_from_slice(&[encode(if a > 0.0 { sum[0]/a } else { 0.0 }),
+                                             encode(if a > 0.0 { sum[1]/a } else { 0.0 }),
+                                             encode(if a > 0.0 { sum[2]/a } else { 0.0 }),
+                                             (a * 255.0 / 4.0).round() as u8]);
+                }
+            }
+            levels.push(Image { width, height, rgba, opaque: src.opaque });
+        }
+        levels
+    }
+
     /// The frame as the GPU blended it. Over a clear background the colour comes back
     /// premultiplied by its coverage, and is divided back out.
     pub fn from_frame(mut rgba: Vec<u8>, width: u32, height: u32, transparent: bool) -> Image {
@@ -333,6 +369,16 @@ pub fn read_png(path: &std::path::Path) -> Result<Image> {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn image_mips_filter_in_linear_light() {
+        let source = Image { width: 2, height: 2, opaque: true,
+            rgba: vec![0,0,0,255, 255,255,255,255, 0,0,0,255, 255,255,255,255] };
+        let levels = source.mipmaps();
+        assert_eq!(levels.len(), 2);
+        assert_eq!((levels[1].width, levels[1].height), (1, 1));
+        assert_eq!(levels[1].rgba, [188, 188, 188, 255]);
+    }
 
     fn solid(w: u32, h: u32, c: [u8; 4]) -> Image {
         Image {

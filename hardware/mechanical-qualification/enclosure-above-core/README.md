@@ -16,8 +16,10 @@ returns. The flank pockets provide the named outer-coil clearance.
 
 ## Artifact-bound native records
 
-The [enclosure fit review](enclosure-fit-review.json) binds the changed lid
-anchors, flavor restraint, V-B and V-K to the exported native appliance. All
+The [enclosure fit review](enclosure-fit-review.json) binds the complete equipment
+lid, continuous pump clip, cold-core casing, pump routes and PSU pilots to the
+exported native appliance. The unchanged V-B, V-K, Y-A and flavor interfaces retain
+their separately bound native readings. All
 queried unconnected stock intersections are zero. V-K's outlet elbow has
 1.590 mm of lid clearance, its body has 17.567 mm below the continuous
 ceiling, and the tee has 3.622 mm. The fitted core lid remains 0.250 mm
@@ -27,12 +29,13 @@ The [closing-motion review](closing-motion-review.json) covers complete rigid
 translation intervals for the populated front column, empty rear base and
 rear approach over the core. Keep the pump suction elbow and its short
 quarter-inch inlet link loose during that approach. Connect their round
-joints through the uncovered funnel opening after closure. The front room
-cleanup removes stock only; the added flavor-root stock has its own complete
-rear-approach clearance reading.
+joints through the uncovered funnel opening after closure. Pump admission and
+released-cap removal have complete vertical travel readings with back-top
+separated and the pump's joints and leads disconnected.
 
 The [surface review](surface-review.json) reads all seven anomaly classes on
-the four quadrant STLs, pump retainer and core lid and cap cup. Each named working
+the four quadrant STLs, pump retainer, cold-core shell and bottom cap, equipment
+lid, continuous pump clip and separate B-fill guide. Each named working
 profile retains its own reason and alternatives. The shared motor, PCB and
 display-chimney room has no intervening skins. The flavor clip's rising root
 roof stays below its free jaws. Defined springs, fitted catches and approved
@@ -42,7 +45,10 @@ The [print-preparation review](print-preparation-review.json) binds each
 retained native slice to the exact physical STL. It identifies every support
 body's removal lane, including bodies without interface labels. The aft
 reservoir saddle's 3.2 mm wide tie passage is support-free and bridges
-across its short width. Tree(auto)/Default retains its decisions elsewhere.
+across its short width. The shell, continuous pump clip and B-fill guide emit
+no supports. The bottom cap uses ten compact normal supports in its short,
+outward-open M5 head pockets to preserve the required bed border. The other
+pieces retain their named support recipes and removal lanes.
 
 The [drain and flavor check](../../manifold-layout/drain-clearance-check.json)
 checks the adapter, white OVER return and both flavor paths against the installed
@@ -74,9 +80,11 @@ Reservoir A's first bends start outside the full receiving lengths. Reservoir
 B's draw line steps east above its cap mouth to clear the V-B return.
 
 The pump's complete rubber feet and raised legs slide out of the fixed
-rails. The motor sits in the lid-integrated half pipe and its removable upper
-cap. Open rail and cover rooms admit it vertically; low rail-end stops bound
-axial movement. The PSU mounting face is Z347; all four 5 mm pilots
+rails. The motor sits in a 61 mm lid-integrated half pipe under one continuous
+54.5 mm upper clip. The clip has 3 mm spring wings and two continuous hooks;
+its outside axial end lands are 3 mm solid stock. Open rail and cover rooms
+admit the pump vertically; low rail-end stops bound axial movement. The clip
+clears the PSU by 0.311 mm. The PSU mounting face is Z347; all four 5 mm pilots
 end at Z352, below the continuous 3 mm show skin. The 6.7±1 mm ears leave
 2.3–4.3 mm screw engagement and at least 0.7 mm pilot tip air.
 
