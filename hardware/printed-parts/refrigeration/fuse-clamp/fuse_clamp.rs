@@ -8,7 +8,7 @@
 //!         <fuse-clamp.numbers.json> <out dir>
 //!     ... --bin fuse-clamp -- <fuse-clamp.numbers.json> --check
 use anyhow::{Result, ensure};
-use hsm_kernel::part::{Numbers, args, write_part};
+use hsm_kernel::part::{Numbers, args, write_part_with_sources};
 use hsm_kernel::{Body, Plane, Profile, Solid, V2, V3, v2, v3};
 
 /// The part's whole silhouette in the Y-Z plane, from the head's outboard top corner: the head,
@@ -73,6 +73,6 @@ fn main() -> Result<()> {
     pinch(&n, &clamp)?;
     let name = n.text("name")?;
     let body = Body { name, color: Some(n.color("color")?), solid: &clamp };
-    println!("{}", write_part(&out, name, &[body])?);
+    println!("{}", write_part_with_sources(&out, name, &[body])?);
     Ok(())
 }
