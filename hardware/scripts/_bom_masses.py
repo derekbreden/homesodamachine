@@ -24,9 +24,8 @@ there, a row in neither list, or a material with no density is an ERROR, not a
 skipped row — a printed part cannot enter the table without the solid that gives
 it a mass and the profile that says how much of it is laid.
 
-The full shell uses the production native slice's feed mass. Other masses
-describe the STEPs they read. Regenerate changed parts before deriving their
-current rows; the geometric estimate does not establish slice mass.
+Masses describe the STEPs they read. Regenerate changed parts before deriving
+their current rows; the geometric estimate does not establish native slice mass.
 
 Run:  tools/cad-venv/bin/python hardware/scripts/_bom_masses.py            # write
       tools/cad-venv/bin/python hardware/scripts/_bom_masses.py --check    # report only, exit 1 on drift
@@ -95,7 +94,7 @@ PROFILES = {
     # enclosure/print-log.md — 0.4 nozzle, `wall_loops` 2 classic, outer 0.42 +
     # inner 0.45, 15 % grid. Every exterior piece ships on it.
     "ext":   (0.87, 0.45, 0.15),
-    # The shell's production native slice supplies its feed mass directly below.
+    # Shell: left 0.4 mm, three Classic loops and 15% gyroid.
     "shell": (1.32, 0.45, 0.15),
     # Caps/lids: left 0.4 mm, three Classic loops and 15% gyroid.
     "bulk":  (1.32, 0.45, 0.15),
@@ -131,10 +130,9 @@ GAP = 0.5
 # their sum, which is what the Qty cell already says the row is.
 PARTS = {
     "Cold-core inner shell (foam-shell)": ["cold-core/foam-shell/foam-shell.step"],
-    "Cold-core foam cap — top": ["cold-core/foam-cap/foam-cap-top.step"],
     "Cold-core foam cap lid — top": ["cold-core/foam-cap/foam-cap-lid-top.step"],
     "Cold-core foam cap — bottom": ["cold-core/foam-cap/foam-cap-bottom.step"],
-    "Cold-core foam cap lid — bottom": ["cold-core/foam-cap/foam-cap-lid-bottom.step"],
+    "Reservoir B fill bend holder": ["cold-core/foam-cap/reservoir-b-fill-guide.step"],
     "PRV shroud": ["cold-core/prv-shroud/prv-shroud.step"],
     "Flavor reservoir body — left": ["cold-core/reservoir/reservoir-left.step"],
     "Flavor reservoir body — right": ["cold-core/reservoir/reservoir-right.step"],
@@ -232,6 +230,7 @@ GROUP_OF = [
     ("Enclosure — pump retainer",   "ext"),
     ("Display cover plate",         "ext"),
     ("Soda inlet bend holder",       "small"),
+    ("Reservoir B fill bend holder",  "small"),
     ("Rear equipment snap caps",     "small"),
     ("G Ganen pump snap cap",          "tool"),
     ("Flavor reservoir",            "tight"),
@@ -373,9 +372,6 @@ def mass_kg(label, material):
             f"_bom_masses: §7 row {label!r} names no geometry. Add it to PARTS "
             f"(or drop the row) — a printed part with no solid has no mass.")
     group = group_of(label)
-    if group == "shell":
-        record = PARTS_DIR / "cold-core/foam-shell/prints/2026-10-26-mark2-round-ports-a2/preparation.json"
-        return json.loads(record.read_text())["native_slice"]["estimated_filament_grams"] / 1000
     return sum(laid_cm3(*measure(f), group) for f in PARTS[label]) * density / 1000.0
 
 

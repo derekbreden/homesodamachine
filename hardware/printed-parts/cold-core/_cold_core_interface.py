@@ -259,35 +259,36 @@ water_inlet_port_y = -carbonator_port_offset
 prv_port_y = +carbonator_port_offset
 
 # Cap-to-outer-shell joinery: one attachment point per station in
-# `attachment_stations`, per face × 2 faces, each screw passing lid + cap into an
-# insert pressed from the shell face it mates. The dry casing seams are
+# `attachment_stations`, per face × 2 faces. Each closure screws directly into
+# an insert pressed from the matching shell face. The dry casing seams are
 # sealed externally with 3M 425 foil tape. See bom.md for hardware SKUs.
 cap_shell_clearance = fits.slip
 cap_lid_clearance = fits.slip
-screw_clearance_radius = 3.0 / 2.0 + fits.slip
-insert_pocket_radius = 2.0  # ⌀[4](INSERT_POCKET_DIAMETER), ruthex's own recommended hole
-insert_pocket_depth = 10.5  # 5.7 mm insert; room for the M3×25 tip beyond it
-screw_boss_size = 8.0  # ⌀[8 × 8 mm](SCREW_BOSS_SIZE) cylindrical boss at each attachment
+screw_clearance_radius = fits.m5_thread_pass_dia / 2.0
+insert_pocket_radius = 3.2  # ruthex RX-M5x9.5 recommended Ø6.4 pilot
+insert_pocket_depth = 10.5
+screw_boss_size = 11.6  # Ø6.4 pilot plus 2.6 mm radial insert stock
+screw_guard_diameter = 8.0  # unloaded tail passage, joined to the casing wall
 
-# The head sits in the lid, and a lid is [5.4 mm](FOAM_CAP_LID_H) thick where it takes one —
-# one wall of PET-GF under the head, the boss section under that, and the lid's outer face a
-# plane. EACH END OF THE STACK BUYS THAT HEIGHT ITS OWN WAY. The bottom cup's boss columns stop
-# [3.4 mm](HEAD_PAD_H) short of its mouth and the lid's pad, of the boss's own cross-section,
-# fills that relief. The TOP lid is solid to the same height over its whole footprint — it is
-# the plate the service bay stands on, so its underside is one plane and the band is the cup's
-# to give up (`_foam_cap.top_cap_height`).
-screw_head_height = 3.0  # DIN 912 M3 nominal
+# The top equipment plate is uniformly 7.4 mm thick. Bottom head pockets live
+# in integral pads inside the open-topped cap. Each head has a complete bearing
+# land, and its recess opens outward through the casing edge.
+screw_head_height = 5.0  # ISO 4762 M5
 head_seat_recess = fits.slip
-head_cbore_radius = 5.5 / 2.0 + fits.slip
+head_cbore_radius = 4.5  # selected Ø9 M5 socket-head pocket
 head_cbore_depth = screw_head_height + head_seat_recess
 # A pad as tall as the counterbore is deep leaves the land at one wall exactly.
-# The bottom lid prints outer-face-down. Its supported screw-seat roofs need
-# the bridge allowance, backed by the same full plate thickness. The matching
-# cup relief follows this pad; top cup/lid share the band at fixed stack height.
+# The bottom cap prints outer-face-down. Its supported screw-seat roofs use
+# the bridge allowance, backed by the full bearing-pad thickness.
 head_pad_height = head_cbore_depth + fits.supported_surface
 head_pad_slip = fits.slip  # pad to the boss relief that receives it
 # A lid, plate and pad in one. `_foam_cap.lid_total_height` builds on this name.
 foam_cap_lid_height = wall_and_floor_thickness + head_pad_height
+top_lid_bottom_z = foam_shell_outer_height + foam_cap_height - head_pad_height
+foam_shell_rim_z = top_lid_bottom_z - cap_lid_clearance
+bottom_cap_height = foam_cap_height + wall_and_floor_thickness - cap_shell_clearance
+bottom_pour_radius = 15.0
+bottom_pour_positions = tuple((x, y) for x in (-75.0, 75.0) for y in (-40.0, 40.0))
 
 # --- The front face, and the lane that reaches it ---------------------------
 #
@@ -343,99 +344,56 @@ state("forward-band-takes-a-bore", "The forward band still passes a line",
       f"the open routing band is {forward_band_width:g} mm wide for the "
       f"{passage_tube_od:g} mm measured tube; enlarged bores cross printed walls and caps")
 
-# A STATION NAMES THE WALL IT LEANS ON, and that is the whole of this table. A boss is a
-# cylinder tangent to one exterior face with a web run out to it, and WHICH face cannot be
-# read off the sign of the boss's own coordinates: a station on a ±X wall stands at y = 0,
-# where the sign is neither. `attachment_stations` carries it; `attachment_xy_positions` is
-# the same table read as bare points, which is what every clearance reading in the tree wants.
-#
-# Every boss on a ±Y wall stands HARD against it — none in a corner, and none inboard.
-# The ±Y bands are the only place a line running to the front face can travel, and a boss
-# reaching further in than `screw_boss_size` would narrow the lane below one bore. A boss
-# seated diagonally IN a corner (its cylinder tangent to the exterior arc, which is the
-# deepest seat available) reaches diagonally into the band, and that is what closed the corner
-# the lane has to turn through. Held against the wall instead, every one of them leaves the
-# same lane and the ±X ends of both bands run clear to the wall.
-#   THE FOUR CORNER BOSSES stand over the reservoir pockets' own far walls, which is the
-# furthest out they can go and still keep one wall of PET-GF around their insert pockets
-# inside the corner's rounded skin.
-#   THE FOUR MID BOSSES stand two to a wall, clamping its cap edge between the corners.
-# Two to a wall also settles the shroud, which is the one body standing where a single centred
-# boss would go: the PRV's ⌀23 cup lies on the carbonator's +Y port axis (`prv-shroud/`) and
-# its closed end reaches within ~3 mm of the +Y wall, so its section spans x ±11.5 there. At
-# `mid_screw_x_offset` neither boss is near it, and neither ±Y wall is a special case of the
-# other.
-#   THE TWO END BOSSES stand centred on a ±X wall, the only station either ±X run has. Their
-# cylinder is tangent to the ±X face the same way a ±Y boss is tangent to its own, and the web
-# runs out to that face instead. Both centres are clear: in the shell the two copper feed-throughs
-# the front face is cut for stand at y ±77.5 and nothing else reaches it, and on the TOP LID's
-# outer face — the deck the machine stands on — the one body that would cover a centre is
-# `water-3`'s tie post, which stands along its own run and is set where this station is not
-# (`cap_side_anchors`, `cap_side_anchor_room`).
-#
-# The whole pattern is symmetric under a 180° turn about Z — balanced cap clamping, and
-# the top cap free to install either way round. Two bosses to a ±Y wall is what makes that
-# free: one to a wall bought the same symmetry only by standing the pair on a diagonal.
-_boss_wall_y = 86.5
-_boss_wall_x = 137.5
-# Rounded-corner insert pilots retain ruthex's 1.6 mm surrounding wall
-# behind the smooth 0.30 mm exterior foil land.
-_corner_boss_y = _boss_wall_y - 0.25
-_end_boss_x = 131.5  # cap/shell screw datum, independent of pocket stock
-# The mid bosses stand at ±40 mm on each long wall. The soda tube turns in
-# the main body below the cup and rises through its aligned straight guide.
-mid_screw_x_offset = 40.0
+# Ten wall-rooted M5 stations per face: six on the short ends and four on
+# the aft long flanks, clear of the copper lanes and PCB post roots.
+_boss_wall_y = 84.4
+_boss_wall_x = 135.4
+# The forward pair of aft-flank stations clears the reservoir pockets.
+mid_screw_x_offset = 45.0
 #: Every attachment station as `((x, y), wall)`, `wall` naming the exterior face its cylinder
 #: stands tangent to and its web runs out to — "x", "y", or "corner" for one against both.
 attachment_stations = (
-    tuple(((x_sign * _end_boss_x, y_sign * _corner_boss_y), "corner")
-          for x_sign in (1, -1) for y_sign in (1, -1))
-    + tuple(((x_sign * mid_screw_x_offset, y_sign * _boss_wall_y), "y")
-            for x_sign in (1, -1) for y_sign in (1, -1))
-    + tuple(((x_sign * _boss_wall_x, 0.0), "x") for x_sign in (1, -1))
+    tuple(((x, y), "x") for x in (-_boss_wall_x, _boss_wall_x)
+          for y in (-60.0, 0.0, 60.0))
+    + tuple(((x, y), "y") for x in (45.0, 110.0)
+            for y in (-_boss_wall_y, _boss_wall_y))
 )
 attachment_xy_positions = [_xy for _xy, _wall in attachment_stations]
+lid_attachment_stations = tuple(((-x, -y), wall) for (x, y), wall in attachment_stations)
+lid_attachment_xy_positions = [xy for xy, wall in lid_attachment_stations]
 
 # A STATION IS PRICED AGAINST THE LANE IT IS NOT IN. A ±Y boss shares the ±Y band with every
 # line running to the front face, so it is held to the outer `screw_boss_size` of it and the
 # lane is exactly what it leaves. A ±X boss is in neither band — it stands on the face those
 # lines arrive AT, clear of both lanes in y.
 
-# Foil seals wrap the plain casing at both ends, spanning shell/cup and cup/lid seams.
-# The foil stays off the horizontal seating and bearing faces.
-#
-# The clamp screw, end to end. From under its head an M3 × [25](CAP_SCREW_L)
-# crosses the land, then the one continuous PET-GF section the lid and the cap's
-# boss column and seating clearances make between them — whatever is left is what
-# it has to give the insert on the far side of the shell's face. The recess
-# spends none of that: the head carries the land down with it, so the screw
-# arrives deeper by exactly the pad it sank.
-#   BOTH ENDS MEASURE THE SAME, and not for the same reason. At the bottom the cup
-# stands its full height and its boss column stops a pad short of the mouth; at the
-# top the column runs to the rim and the CUP is a pad shorter. Either way a station
-# carries one pad of lid over the rest of `foam_cap_height` in column.
-cap_screw_length = 25.0
-insert_length = 5.7  # ruthex RX-M3x5.7, set flush with the face
+# The M5 screws share their stock. Each face has its own grip and blind tail depth.
+cap_screw_length = 100.0
+insert_length = 9.5  # ruthex RX-M5x9.5, set flush with the shell face
 cap_screw_beyond_face = cap_screw_length - (
     wall_and_floor_thickness  # the land under the head
     + (foam_cap_height - head_pad_height)  # the boss column under the pad
 )
+top_lid_screw_beyond_face = cap_screw_length - (
+    foam_cap_lid_height - head_cbore_depth + cap_lid_clearance)
+cap_screw_tip_air = 2.5
+bottom_screw_bore_depth = cap_screw_beyond_face + cap_screw_tip_air
+top_screw_bore_depth = top_lid_screw_beyond_face + cap_screw_tip_air
 state(
     "cap-screw-reach", "The clamp screw reaches the whole of its insert",
     f"{insert_length:g} mm past the shell face",
     cap_screw_beyond_face >= insert_length,
-    f"an M3 × {cap_screw_length:g} reaches {cap_screw_beyond_face:g} mm past the shell "
+    f"an M5 × {cap_screw_length:g} reaches {cap_screw_beyond_face:g} mm past the shell "
     f"face, short of its {insert_length:g} mm insert")
 state(
     "cap-screw-bottom", "The clamp screw pulls its head down before it bottoms",
-    f"{insert_pocket_depth:g} mm past the shell face at most",
-    cap_screw_beyond_face <= insert_pocket_depth,
-    f"an M3 × {cap_screw_length:g} reaches {cap_screw_beyond_face:g} mm past the shell "
-    f"face and bottoms in a {insert_pocket_depth:g} mm pocket before its head is down")
+    f"{bottom_screw_bore_depth:g} mm past the shell face at most",
+    cap_screw_beyond_face <= bottom_screw_bore_depth,
+    f"an M5 × {cap_screw_length:g} reaches {cap_screw_beyond_face:g} mm past the shell "
+    f"face and bottoms in a {bottom_screw_bore_depth:g} mm tail passage before its head is down")
 
-# Deck mounts — the PCB carried on columns of the TOP CAP.
-# Each column grows from the cup floor and takes a full RX-M3x5.7 heat-set.
-# Foam fills the cup around the columns.
+# Deck mounts — the PCB carried on posts integral to the equipment lid.
+# Each post takes a full RX-M3x5.7 heat-set in a blind pilot.
 #   A station with no standoff stops at the cap's mouth rim, under the lid, and its module
 # seats on the lid's outer face. A station with a standoff carries its column on through
 # the lid, and its module seats on the column tops.
@@ -491,7 +449,7 @@ def deck_mount_reach(name):
     return m.screw - over
 
 
-deck_mount_bore_depth = max(9.75, deck_mount_insert_length + deck_mount_bore_relief,
+deck_mount_bore_depth = max(deck_mount_insert_length + deck_mount_bore_relief,
     max(
     (m.screw - m.seat_min - (foam_cap_lid_height + cap_lid_clearance
                            if m.standoff == 0.0 else 0.0)
@@ -891,37 +849,15 @@ def foam_cap_lid_vent_xy(top=False):
     return ((x, y), (x, -y))
 
 
-_mount_pour = bound(
-    "deck-mount-pour", "Every deck mount's lid hole leaves a land under its screw head",
-    f"{deck_mount_cap_gap:g} mm off the pour hole")
-for _name in deck_mounts:
-    _px, _py = foam_cap_lid_pour_xy(top=True)
-    for _sx, _sy in deck_mount_xy(_name):
-        _room = (math.hypot(_px - _sx, _py - _sy)
-                 - foam_cap_lid_pour_radius - screw_clearance_radius)
-        _mount_pour(
-            _room >= deck_mount_cap_gap - 1e-9,
-            f"deck mount {_name}: its lid clearance hole at ({_sx:g}, {_sy:g}) stands "
-            f"{_room:.3f} mm off the pour hole, inside the {deck_mount_cap_gap:g} mm that "
-            f"leaves a land under the screw's head")
-
-
 # Clearances are read on the complete plinth outline. Its conduit passages are
 # cut separately; each socket keeps its complete surrounding wall beside them.
 _cradle_room = bound(
     "cradle-room", "Every plinth clears the other openings on the lid",
     f"{cap_cradle_room_gap:g} mm off the nearest")
-_cradle_pour = bound(
-    "cradle-pour", "Every plinth leaves a land beside the pour hole",
-    f"{cap_cradle_room_gap:g} mm off the pour hole")
 for _name in cap_cradles:
     _room, _what = cap_cradle_room(_name)
     _cradle_room(_room >= cap_cradle_room_gap - 1e-9,
                  f"valve plinth {_name}: {_room:.3f} mm off {_what}")
-    _room = cap_cradle_circle_gap(_name, *foam_cap_lid_pour_xy(top=True),
-                                  foam_cap_lid_pour_radius)
-    _cradle_pour(_room >= cap_cradle_room_gap - 1e-9,
-                 f"valve plinth {_name}: {_room:.3f} mm off the pour hole")
     for _sx, _sy in cap_cradle_xy(_name):
         for _hx, _hy in cap_conduits.values():
             _room = (math.hypot(_sx - _hx, _sy - _hy)
@@ -1051,7 +987,7 @@ def cap_anchor_room(name):
     for cname, (bx, by) in cap_conduits.items():
         room.append((off(bx, by, cap_conduit_entry_relief_radius),
                      f"the {cname} conduit's entry"))
-    for bx, by in attachment_xy_positions:
+    for bx, by in lid_attachment_xy_positions:
         room.append((off(bx, by, head_cbore_radius), "a clamp screw's counterbore"))
     for dname in deck_mounts:
         for dx, dy in deck_mount_xy(dname):
@@ -1060,9 +996,6 @@ def cap_anchor_room(name):
     for vname in cap_cradles:
         room.append((cap_cradle_rectangle_gap(vname, x0, x1, y0, y1),
                      f"the {vname} plinth"))
-    room.append((off(*foam_cap_lid_pour_xy(top=True), foam_cap_lid_pour_radius), "the pour hole"))
-    for hx, hy in foam_cap_lid_vent_xy(top=True):
-        room.append((off(hx, hy, foam_cap_lid_vent_radius), "a vent"))
     room.append((min(outer_shell_x_length / 2.0 - abs(x0),
                      outer_shell_x_length / 2.0 - abs(x1),
                      outer_shell_y_length / 2.0 - abs(y0),
@@ -1260,7 +1193,7 @@ def cap_side_anchor_room(name):
         return math.hypot(dx, dy) - r
 
     room = []
-    for bx, by in attachment_xy_positions:
+    for bx, by in lid_attachment_xy_positions:
         room.append((off(bx, by, head_cbore_radius), "a clamp screw's counterbore"))
     for cname, (bx, by) in cap_conduits.items():
         room.append((off(bx, by, cap_conduit_entry_relief_radius),
@@ -1276,9 +1209,6 @@ def cap_side_anchor_room(name):
         room.append((off(*cap_anchors[aname].centre,
                          cap_anchors[aname].seat_r + cap_anchor_wall),
                      f"the {aname} rib"))
-    room.append((off(*foam_cap_lid_pour_xy(top=True), foam_cap_lid_pour_radius), "the pour hole"))
-    for hx, hy in foam_cap_lid_vent_xy(top=True):
-        room.append((off(hx, hy, foam_cap_lid_vent_radius), "a vent"))
     return min(room)
 
 

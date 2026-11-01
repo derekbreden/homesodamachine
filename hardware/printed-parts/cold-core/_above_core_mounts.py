@@ -125,7 +125,7 @@ def _standoff(name):
 
 @lru_cache(maxsize=1)
 def deck_mounts():
-    """PCB columns pass through the lid and take full RX-M3x5.7 inserts."""
+    """PCB posts are integral to the lid and take full RX-M3x5.7 inserts."""
     pcb = importlib.import_module('pcba_tray')
     return {'pcba': DeckMount(
         mounting_points('pcba', pcb.board.holes), _standoff('pcba'),
@@ -827,7 +827,7 @@ def reservoir_b_fill_passage():
 
 @lru_cache(maxsize=2)
 def reservoir_b_fill_features(cup_height):
-    """Full-height B-fill guide, supported roof allowance and three lid clamps."""
+    """Independent R14 holder and continuous B-fill tube envelope."""
     return importlib.import_module('_reservoir_b_fill').features(cup_height)
 
 
