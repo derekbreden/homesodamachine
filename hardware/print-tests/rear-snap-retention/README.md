@@ -30,7 +30,8 @@ body with stops on both fixed rails, 3.419 mm and 3.329 mm bearing strips,
 and a straight 49.62 mm channel recessed 2.5 mm below the lid face. Its filled
 box half-pipe cap has a 6.2 mm crown, one east clearance shoulder and independent
 1.3 mm spring leaves. The flat catches retain 283.4 mm² of bearing and the
-receiver interface matches the sample already printing. The replacement cap
+receiver interface [matches the sample already printing](box-cap-receiver-fit.json),
+with zero seated overlap and the full 283.4 mm² bearing. The replacement cap
 is [pump-box-cap.stl](parts/pump-box-cap.stl); the arch cap on the running Mark2
 plate is a comparison specimen. The isolated production base has 41 native
 faces and 114 edges, with a 4.9 mm remaining lid floor. The native
