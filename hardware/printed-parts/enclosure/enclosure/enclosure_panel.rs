@@ -452,24 +452,24 @@ fn raked(profile: &Profile, depth: f64) -> Result<Solid> {
     Solid::union_all(&stock)?.intersect(&root)
 }
 fn disposal(v: &Value) -> Result<Solid> {
-    let font = Font::find(v["family"].as_str().context("warning font")?, Kind::Bold)?;
-    let h = font.profiles_with_kerning("H", 1.0, HAlign::Center, VAlign::Center, false)?;
-    let (lo, hi) = profile_bounds(&h);
-    let size = f(v, "cap_height")? / (hi.y - lo.y);
-    let rows = v["lines"]
-        .as_array()
-        .context("warning lines")?
-        .iter()
-        .map(|line| {
-            font.profiles_with_kerning(
-                line.as_str().context("warning line")?,
-                size,
-                HAlign::Center,
-                VAlign::Center,
-                false,
-            )
-        })
-        .collect::<Result<Vec<_>>>()?;
+    let rows = warning_profiles(v)?;
+    // Fine models record builder locations; keep the following locations fixed.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     let row_height = rows
         .iter()
         .map(|row| {
@@ -724,4 +724,82 @@ fn main() -> Result<()> {
     }
     println!("{said}");
     Ok(())
+}
+
+
+/// Approved warning artwork laid out with the same unit/advance arithmetic as its font.
+fn warning_profiles(v: &Value) -> Result<Vec<Vec<Profile>>> {
+    let art = &v["artwork"];
+    let units = f(art, "units_per_em")?;
+    let scale = (f(v, "cap_height")? / f(art, "cap_height_at_one")?) / units;
+    let baseline = f(art, "baseline_units")?;
+    let glyphs = &art["glyphs"];
+    let mut rows = vec![];
+    for line in v["lines"].as_array().context("warning lines")? {
+        let text = line.as_str().context("warning line")?;
+        let advance = text
+            .chars()
+            .map(|c| f(&glyphs[c.to_string()], "advance"))
+            .collect::<Result<Vec<_>>>()?
+            .into_iter()
+            .sum::<f64>();
+        let mut pen = 0.0;
+        let mut profiles = vec![];
+        for ch in text.chars() {
+            let glyph = &glyphs[ch.to_string()];
+            let at = v2((-advance / 2.0 + pen) * scale, baseline * scale);
+            let point = |p: &Value| -> Result<V2> {
+                Ok(at
+                    + v2(
+                        p[0].as_f64().context("glyph x")?,
+                        p[1].as_f64().context("glyph y")?,
+                    ) * scale)
+            };
+            let outline = |value: &Value| -> Result<Loop> {
+                let segs = value
+                    .as_array()
+                    .context("glyph loop")?
+                    .iter()
+                    .map(|s| -> Result<Seg> {
+                        Ok(match s[0].as_str().context("glyph curve")? {
+                            "L" => Seg::Line {
+                                a: point(&s[1])?,
+                                b: point(&s[2])?,
+                            },
+                            "Q" => Seg::Quad {
+                                a: point(&s[1])?,
+                                c: point(&s[2])?,
+                                b: point(&s[3])?,
+                            },
+                            "C" => Seg::Cubic {
+                                a: point(&s[1])?,
+                                c1: point(&s[2])?,
+                                c2: point(&s[3])?,
+                                b: point(&s[4])?,
+                            },
+                            other => bail!("unsupported warning curve {other}"),
+                        })
+                    })
+                    .collect::<Result<Vec<_>>>()?;
+                Ok(Loop { segs })
+            };
+            for p in glyph["profiles"]
+                .as_array()
+                .context("approved warning glyph")?
+            {
+                profiles.push(Profile {
+                    outer: outline(&p["outer"])?,
+                    holes: p["holes"]
+                        .as_array()
+                        .context("glyph holes")?
+                        .iter()
+                        .map(outline)
+                        .collect::<Result<_>>()?,
+                });
+            }
+            pen += f(glyph, "advance")?;
+        }
+        rows.push(profiles);
+    }
+    Ok(rows)
 }

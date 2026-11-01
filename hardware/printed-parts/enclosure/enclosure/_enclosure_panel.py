@@ -156,6 +156,7 @@ def _record(shell, graph, structure):
                          slope=_enclosure_structure.OUTWARD_PER_HEIGHT,
                          bounds=(0.0, depth, y0-end, y1+end, bed, crown))
 
+    from _disposal_artwork import numbers as warning_artwork
     replacements = {
         '_ybox': graph.box,
         '_xcyl': lambda r, y, z, x0, x1: graph.cylinder(0, r, y, z, x0, x1),
@@ -170,6 +171,7 @@ def _record(shell, graph, structure):
         '_handhold_finish_air': handhold_finish,
         'disposal_letters': lambda outer: graph.add('disposal-letters',
             outer=outer, lines=shell.disposal_lines, family=shell.disposal_font,
+            artwork=warning_artwork(shell.disposal_font, shell.disposal_kind),
             cap_height=shell.disposal_cap_height, depth=shell.disposal_raise+shell.disposal_embed,
             embed=shell.disposal_embed, line_gap=shell.disposal_line_gap,
             bottom=shell.disposal_bottom),

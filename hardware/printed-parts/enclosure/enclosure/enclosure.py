@@ -3043,10 +3043,14 @@ def disposal_letters(outer):
 
 def disposal_field(outer):
     """The flat wall under the warning, including a quiet margin on all four sides."""
-    bounds = disposal_letters(outer).BoundingBox()
-    field = (bounds.xmin - disposal_margin, bounds.xmax + disposal_margin,
-             outer[3] - wall, outer[3] + disposal_raise,
-             bounds.zmin - disposal_margin, bounds.zmax + disposal_margin)
+    from _disposal_artwork import flat_bounds
+    x0, x1, z0, z1 = flat_bounds(disposal_lines, disposal_cap_height,
+                                disposal_raise+disposal_embed, disposal_line_gap,
+                                disposal_font, disposal_kind)
+    centre, bottom = (outer[0]+outer[1])/2, outer[4]+disposal_bottom
+    field = (centre+x0-disposal_margin, centre+x1+disposal_margin,
+             outer[3]-wall, outer[3]+disposal_raise,
+             bottom+z0-disposal_margin, bottom+z1+disposal_margin)
     return field
 
 
