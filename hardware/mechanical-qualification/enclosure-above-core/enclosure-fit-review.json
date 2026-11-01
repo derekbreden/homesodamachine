@@ -1,26 +1,22 @@
 {
   "schema": "enclosure-fit-review/2",
   "scope": "Manual native reading of the current complete equipment lid, M5 shell/bottom cap and B-fill guide, corrected bare pump, continuous motor clip, PSU face/pilots and conforming pump routes. Unchanged V-K/Y-A/flavor interfaces retain their separately bound native readings. Finite named receiving masks do not waive unrelated material. This establishes nominal geometry, not printed retention force, vibration, physical support release or flexible handling.",
-  "assembly_step_sha256": "649b4e02bddfbac99a0e741c793cf0e74b016c55a302c0bb1dd951c7fc69e3e1",
-  "assembly_mesh_sha256": "a5efb94dd683fba1341351e8424d958ecd204b480f34762459609b6ff9f93729",
+  "assembly_step_sha256": "eddd15bc11620321a5d7f1d0fb66d7a28f9f3731a8f282ca2477af451af28daa",
+  "assembly_mesh_sha256": "d7b582e366f5b56f14b8e41de9317821d2cb436e30e3f0d2082d2ee61bdca400",
   "source_sha256": {
-    "hardware/manifold-layout/above-core.json": "14fb752d47435e1f5ecc74d3f09ff7d564e80d5e42932f6d1f66902f9ed30aac",
+    "hardware/manifold-layout/above-core.json": "c9bbd58dea6cf603caca97829050be5afdbcf329e9d65d52d4b812e24f6fc4db",
     "hardware/manifold-layout/above_core_parts.py": "dd8c5bc852e5d2471740b3ec66396e06bd01e70ce3428dbe1bb475ef8c2fc320",
     "hardware/manifold-layout/rear_plumbing.py": "e17d80e9772b954907588ef46fe4f739f0e52f45d855ae8cf68bc4bdf002c37c",
-    "hardware/printed-parts/cold-core/_above_core_mounts.py": "a9dbee50183100a3d01f1df348a17a77ced321c98f37574f3c0764654423a7ae",
-    "hardware/printed-parts/cold-core/foam-cap/foam_cap.py": "cfcdf3ce840aef9330683724f142c84d6bcad2edb506b0a17ecdb0f3748d0ca6",
+    "hardware/printed-parts/cold-core/_above_core_mounts.py": "c123ad7b8ee61ec849ff29a93d685f66fa4e716985feae0850634c242559db9c",
+    "hardware/printed-parts/cold-core/foam-cap/foam_cap.py": "4728acb208d3c3a77e0922ac90d6cfa222bbe0fe04f1bee8eabb5b3edd21a01a",
     "hardware/printed-parts/enclosure/enclosure/_above_core_shell.py": "5ee738c67d81442919f39c27a3b799ff02677d4c4f3cc95502467694224baa3c",
-    "hardware/reference/g-ganen-pump/reference-parameters.json": "d6a18b31502486c7af15c6d06d4b784672e475adfacbb159624f458b6ed85139",
+    "hardware/reference/g-ganen-pump/reference-parameters.json": "69ac39b3b5ec8a4de1c5b6abee49ef0335d3b96df61e358c5b2db1f23d808ffe",
     "hardware/reference/g-ganen-pump/g_ganen_pump.py": "95bab0c864e6970fa3bc19ec0fd27a0111b5a05ffa5a1e390e86d713d042fbbc",
-    "hardware/printed-parts/cold-core/_cold_core_interface.py": "fa6571183b1a1e6274a232d90acf5d4052a21df7c9571ded8cab32ada03b9af3",
+    "hardware/printed-parts/cold-core/_cold_core_interface.py": "13dad083f79c799a491fb4217a275d05f5b47ed70fc38f71f4c9332cd35ccf3b",
     "hardware/printed-parts/cold-core/_outer_shell.py": "8d7dc9ac69dd78d31705046aa60654cc73347798e40235c01473cf5e6f165beb",
     "hardware/printed-parts/cold-core/_reed_b_outlet.py": "5bf2fb7268a598178b40cfb63cad17309dfa781215668ef1c00297e796341885",
     "hardware/printed-parts/cold-core/_internal_routes.py": "47cb814478e9e48bf86d80e5f7ab0a59c5568acf5e1d703295f0e901994495fe",
-    "hardware/printed-parts/cold-core/_port_cuts.py": "9710799e781b1be205c769d0d79edd7a27d4e0cf4c8a7c86ae098f5683048718",
-    "hardware/cold-core-layout/_internals.py": "6d76c925b80b212a62dbdd51cd1debb776cf9735551324674685a36a1a177aa9",
-    "hardware/reference/jg-pp010822e/jg_pp010822e.py": "72a71557dc61a11a45e61c431f2fa15cf3605b0b55af51c695a65dd4dc616b55",
-    "hardware/printed-parts/cold-core/_reed_channels.py": "8d01f093e8949c658abb6614e77c6b6c49713894283afd56a40e44592ad932aa",
-    "hardware/printed-parts/cold-core/_foam_shell.py": "d6d29899a0696e52d900028a4f0fe1c1b8af8e97b860c75cc07862ae946bffa8"
+    "hardware/printed-parts/cold-core/_port_cuts.py": "9710799e781b1be205c769d0d79edd7a27d4e0cf4c8a7c86ae098f5683048718"
   },
   "retained_native_basis": {
     "record_sha256": "6d1f5c17de1fbd00917f0d930bd0af45ba462c914d81455019a4b2bb946755c7",
@@ -1321,9 +1317,9 @@
   },
   "current_native_reading": {
     "scope": "Manual native extension for the corrected bare pump, motor half-pipe, upper snap, fitted rail rooms and end stops, PSU face/pilots, conforming pump routes and the M5 shell/bottom/independent fill guide. Complete newly added lid stock is queried, including restored strap-lane voids and closure/PCB hosts. Unchanged geometry retains its specifically bound baseline. A named engagement is accepted only inside its finite native receiving mask. This does not qualify physical spring force, vibration, printed finish or flexible handling.",
-    "assembly_step_sha256": "649b4e02bddfbac99a0e741c793cf0e74b016c55a302c0bb1dd951c7fc69e3e1",
-    "assembly_mesh_sha256": "a5efb94dd683fba1341351e8424d958ecd204b480f34762459609b6ff9f93729",
-    "baseline_fit_record_sha256": "6d1f5c17de1fbd00917f0d930bd0af45ba462c914d81455019a4b2bb946755c7",
+    "assembly_step_sha256": "eddd15bc11620321a5d7f1d0fb66d7a28f9f3731a8f282ca2477af451af28daa",
+    "assembly_mesh_sha256": "d7b582e366f5b56f14b8e41de9317821d2cb436e30e3f0d2082d2ee61bdca400",
+    "baseline_fit_record_sha256": "622efc6dfc36f1aa8d59ce9129c76de2ffe20ad7e82875bb5fa5aaca47e68b4f",
     "baseline_artifacts": {
       "hardware/manifold-layout/enclosure-assembly.step": {
         "backup": ".cache/enclosure-review-work/before-pump-snap-current/enclosure-assembly.step",
@@ -1351,30 +1347,26 @@
       }
     },
     "reference_receipts": {
-      "hardware/reference/g-ganen-pump/underside-observation/validation.json": "af5a61359e75fc56598a5af7f03defa8b61b2ccddf9641dbc4dcc12b734bdeff",
+      "hardware/reference/g-ganen-pump/underside-observation/validation.json": "6eaa6890ff9648ce5f770e9ba2a40b3cc497a453d34f91f45344490e6f2ae9e2",
       "hardware/reference/g-ganen-pump/underside-observation/mount-contact-check.json": "1d1cfa274539e18b2645872ef5b38f12b12464987163445b915bb8388d2fad71"
     },
     "source_sha256": {
-      "hardware/manifold-layout/above-core.json": "14fb752d47435e1f5ecc74d3f09ff7d564e80d5e42932f6d1f66902f9ed30aac",
+      "hardware/manifold-layout/above-core.json": "c9bbd58dea6cf603caca97829050be5afdbcf329e9d65d52d4b812e24f6fc4db",
       "hardware/manifold-layout/above_core_parts.py": "dd8c5bc852e5d2471740b3ec66396e06bd01e70ce3428dbe1bb475ef8c2fc320",
       "hardware/manifold-layout/rear_plumbing.py": "e17d80e9772b954907588ef46fe4f739f0e52f45d855ae8cf68bc4bdf002c37c",
-      "hardware/printed-parts/cold-core/_above_core_mounts.py": "a9dbee50183100a3d01f1df348a17a77ced321c98f37574f3c0764654423a7ae",
-      "hardware/printed-parts/cold-core/foam-cap/foam_cap.py": "cfcdf3ce840aef9330683724f142c84d6bcad2edb506b0a17ecdb0f3748d0ca6",
+      "hardware/printed-parts/cold-core/_above_core_mounts.py": "c123ad7b8ee61ec849ff29a93d685f66fa4e716985feae0850634c242559db9c",
+      "hardware/printed-parts/cold-core/foam-cap/foam_cap.py": "4728acb208d3c3a77e0922ac90d6cfa222bbe0fe04f1bee8eabb5b3edd21a01a",
       "hardware/printed-parts/enclosure/enclosure/_above_core_shell.py": "5ee738c67d81442919f39c27a3b799ff02677d4c4f3cc95502467694224baa3c",
-      "hardware/reference/g-ganen-pump/reference-parameters.json": "d6a18b31502486c7af15c6d06d4b784672e475adfacbb159624f458b6ed85139",
+      "hardware/reference/g-ganen-pump/reference-parameters.json": "69ac39b3b5ec8a4de1c5b6abee49ef0335d3b96df61e358c5b2db1f23d808ffe",
       "hardware/reference/g-ganen-pump/g_ganen_pump.py": "95bab0c864e6970fa3bc19ec0fd27a0111b5a05ffa5a1e390e86d713d042fbbc",
-      "hardware/printed-parts/cold-core/_cold_core_interface.py": "fa6571183b1a1e6274a232d90acf5d4052a21df7c9571ded8cab32ada03b9af3",
+      "hardware/printed-parts/cold-core/_cold_core_interface.py": "13dad083f79c799a491fb4217a275d05f5b47ed70fc38f71f4c9332cd35ccf3b",
       "hardware/printed-parts/cold-core/_outer_shell.py": "8d7dc9ac69dd78d31705046aa60654cc73347798e40235c01473cf5e6f165beb",
       "hardware/printed-parts/cold-core/_reed_b_outlet.py": "5bf2fb7268a598178b40cfb63cad17309dfa781215668ef1c00297e796341885",
       "hardware/printed-parts/cold-core/_internal_routes.py": "47cb814478e9e48bf86d80e5f7ab0a59c5568acf5e1d703295f0e901994495fe",
-      "hardware/printed-parts/cold-core/_port_cuts.py": "9710799e781b1be205c769d0d79edd7a27d4e0cf4c8a7c86ae098f5683048718",
-      "hardware/cold-core-layout/_internals.py": "6d76c925b80b212a62dbdd51cd1debb776cf9735551324674685a36a1a177aa9",
-      "hardware/reference/jg-pp010822e/jg_pp010822e.py": "72a71557dc61a11a45e61c431f2fa15cf3605b0b55af51c695a65dd4dc616b55",
-      "hardware/printed-parts/cold-core/_reed_channels.py": "8d01f093e8949c658abb6614e77c6b6c49713894283afd56a40e44592ad932aa",
-      "hardware/printed-parts/cold-core/_foam_shell.py": "d6d29899a0696e52d900028a4f0fe1c1b8af8e97b860c75cc07862ae946bffa8"
+      "hardware/printed-parts/cold-core/_port_cuts.py": "9710799e781b1be205c769d0d79edd7a27d4e0cf4c8a7c86ae098f5683048718"
     },
     "added_stock": {
-      "lid_mm3": 161492.88360202426,
+      "lid_mm3": 156124.7602525192,
       "back_top_mm3": 0.0
     },
     "pairs": [
@@ -1846,7 +1838,7 @@
       {
         "body": "carbonator-fold",
         "neighbor": "discharge-chain",
-        "overlap_mm3": -5.006411486349822e-09
+        "overlap_mm3": -5.012506236939045e-09
       },
       {
         "body": "carbonator-fold",
@@ -1995,11 +1987,6 @@
       },
       {
         "body": "discharge-stem-clamp",
-        "neighbor": "valve-v-a",
-        "overlap_mm3": 0.0
-      },
-      {
-        "body": "discharge-stem-clamp",
         "neighbor": "tube-above-core-va-fore-feed",
         "overlap_mm3": 0.0
       },
@@ -2056,11 +2043,6 @@
       {
         "body": "discharge-stem-key",
         "neighbor": "enclosure-back-top",
-        "overlap_mm3": 0.0
-      },
-      {
-        "body": "discharge-tube",
-        "neighbor": "valve-v-a",
         "overlap_mm3": 0.0
       },
       {
@@ -3316,7 +3298,7 @@
       {
         "body": "suction-barb-clamp",
         "neighbor": "suction-tube",
-        "overlap_mm3": 4.71306633269275e-08
+        "overlap_mm3": 4.231613194918826e-08
       },
       {
         "body": "suction-barb-clamp",
@@ -3393,14 +3375,14 @@
       {
         "body": "discharge-barb-clamp",
         "neighbor": "discharge-tube",
-        "overlap_mm3": 5.273684459394801e-05,
+        "overlap_mm3": 5.256204947601262e-05,
         "overlap_bounds_mm": [
-          -48.57780905790817,
-          327.28448462330186,
-          270.66182878010324,
-          -48.380817221991,
+          -48.577809057909626,
+          327.28448462329646,
+          269.16182878008743,
+          -48.38081722052044,
           342.8133715952747,
-          286.1901467787769
+          284.6901467787769
         ],
         "interface": "matching PVC contact confined to the finite 9 mm clamp band",
         "outside_engagement_mm3": 0.0
@@ -3412,12 +3394,27 @@
         "overlap_bounds_mm": [
           -64.7158937216744,
           328.7268423566435,
-          269.6916650650118,
+          268.1916650650118,
           -60.921509037494815,
           341.4452088929593,
-          282.01043214112866
+          280.51043214112866
         ],
         "interface": "own trimmed 10 mm reducer stem and rounded shoulder transition inside the PVC",
+        "outside_engagement_mm3": 0.0
+      },
+      {
+        "body": "line-water-in",
+        "neighbor": "collet-water-in",
+        "overlap_mm3": 585.8805227064659,
+        "overlap_bounds_mm": [
+          -10.26118849984174,
+          293.37642363622695,
+          216.225,
+          7.117953015869,
+          311.13205227780935,
+          222.57500000000002
+        ],
+        "interface": "finite PP010822E receiving cartridge and wrench body; external reference envelope has no tube bore",
         "outside_engagement_mm3": 0.0
       },
       {
@@ -3554,25 +3551,6 @@
         ],
         "interface": "own trimmed 10 mm reducer stem and rounded shoulder transition inside the PVC",
         "outside_engagement_mm3": 0.0
-      },
-      {
-        "body": "line-water-in",
-        "neighbor": "collet-water-in",
-        "overlap_mm3": 585.8805227064659,
-        "interface": "Own envelope-only PP010822E receiving cartridge and wrench body; finite tube cylinder only.",
-        "receiving_mouth_world_mm": [
-          -7.967472225404359,
-          295.57175747243275,
-          219.39999999999998
-        ],
-        "outward_axis_world": [
-          -0.691443727936847,
-          -0.7224303226587291,
-          0.0
-        ],
-        "receiving_length_mm": 18.5,
-        "receiving_radius_mm": 3.1849999999999996,
-        "outside_engagement_mm3": 0
       }
     ],
     "connector_sweeps": [
@@ -3656,25 +3634,12 @@
         "bounds_mm": [
           13.01792650721,
           323.5109769163185,
-          291.6594111756286,
+          290.1594111756286,
           18.15154143705059,
           349.5339524708615,
-          317.6703789981449
+          316.1703789981449
         ],
         "volume_mm3": 2672.7944845882457
-      },
-      "discharge-stem-key": {
-        "valid": true,
-        "solids": 1,
-        "bounds_mm": [
-          -64.42666953858235,
-          295.89519805228,
-          265.49496078552403,
-          -53.117355829567664,
-          321.90738539469567,
-          291.921538700616
-        ],
-        "volume_mm3": 2672.794484588471
       },
       "discharge-chain": {
         "valid": true,
@@ -3682,194 +3647,12 @@
         "bounds_mm": [
           -89.90253004210359,
           340.71046858419726,
-          258.32783266452503,
+          256.82783266452503,
           -73.44467435218641,
           390.9523795684894,
-          276.44996845674495
+          274.94996845674495
         ],
         "volume_mm3": 4426.842515063307
-      },
-      "foam-cap-lid-top": {
-        "valid": true,
-        "solids": 1,
-        "bounds_mm": [
-          -90.20000000000006,
-          182.59999989999594,
-          245.99999999999804,
-          90.20000000000006,
-          464.99999990000003,
-          299.65
-        ],
-        "volume_mm3": 465129.8987479303
-      },
-      "discharge-stem-clamp": {
-        "valid": true,
-        "solids": 1,
-        "bounds_mm": [
-          -64.67552489681105,
-          319.51954674911207,
-          260.00018376279064,
-          -49.383245152594306,
-          343.2287740192175,
-          286.10189281752577
-        ],
-        "volume_mm3": 1387.787353033234
-      },
-      "psu-insert-4": {
-        "valid": true,
-        "solids": 1,
-        "bounds_mm": [
-          -32.448139953609996,
-          445.5,
-          347.0,
-          -27.848139953609998,
-          450.1,
-          351.0
-        ],
-        "volume_mm3": 46.84114646502478
-      },
-      "foam-shell": {
-        "valid": true,
-        "solids": 1,
-        "bounds_mm": [
-          -90.2000001,
-          182.5999998,
-          19.9999999,
-          90.2000001,
-          464.9999999,
-          245.8500001
-        ],
-        "volume_mm3": 1271915.7496889767
-      },
-      "psu": {
-        "valid": true,
-        "solids": 1,
-        "bounds_mm": [
-          -39.64813995361,
-          344.3,
-          313.5,
-          12.351860046387003,
-          453.3,
-          347.0
-        ],
-        "volume_mm3": 155682.5537829474
-      },
-      "line-co2-in": {
-        "valid": true,
-        "solids": 1,
-        "bounds_mm": [
-          33.25797253279054,
-          335.35299548707883,
-          37.625,
-          78.17500009999796,
-          374.9749999999909,
-          253.4
-        ],
-        "volume_mm3": 8569.271047278691
-      },
-      "psu-screw-3": {
-        "valid": true,
-        "solids": 1,
-        "bounds_mm": [
-          -32.89813995361,
-          347.05,
-          337.3,
-          -27.39813995361,
-          352.55,
-          350.3
-        ],
-        "volume_mm3": 133.84172987361782
-      },
-      "pump-snap-cap": {
-        "valid": true,
-        "solids": 1,
-        "bounds_mm": [
-          -50.69745018535,
-          388.31776090724753,
-          279.37934693149,
-          19.960911232637212,
-          442.81776090725066,
-          313.18885256918
-        ],
-        "volume_mm3": 18323.90307763672
-      },
-      "psu-screw-4": {
-        "valid": true,
-        "solids": 1,
-        "bounds_mm": [
-          -32.89813995361,
-          445.05,
-          337.3,
-          -27.39813995361,
-          450.55,
-          350.3
-        ],
-        "volume_mm3": 133.84172987361782
-      },
-      "foam-cap-bottom": {
-        "valid": true,
-        "solids": 1,
-        "bounds_mm": [
-          -90.20000000000003,
-          182.59999989999997,
-          -3.552713678801e-15,
-          90.20000000000003,
-          464.9999999,
-          19.85
-        ],
-        "volume_mm3": 144507.16443496116
-      },
-      "tube-water-5": {
-        "valid": true,
-        "solids": 1,
-        "bounds_mm": [
-          -85.67500009999276,
-          373.2202612753857,
-          253.4,
-          -77.93503936067889,
-          423.175,
-          271.63038174829103
-        ],
-        "volume_mm3": 946.3868922362515
-      },
-      "suction-tube": {
-        "valid": true,
-        "solids": 1,
-        "bounds_mm": [
-          9.365955511240458,
-          327.053197817473,
-          266.04799953759357,
-          46.6001469728526,
-          343.00406552552,
-          286.31283409593453
-        ],
-        "volume_mm3": 3834.098773961156
-      },
-      "psu-insert-1": {
-        "valid": true,
-        "solids": 1,
-        "bounds_mm": [
-          0.551860046387,
-          347.5,
-          347.0,
-          5.151860046387,
-          352.1,
-          351.0
-        ],
-        "volume_mm3": 46.84114646502477
-      },
-      "psu-insert-3": {
-        "valid": true,
-        "solids": 1,
-        "bounds_mm": [
-          -32.448139953609996,
-          347.5,
-          347.0,
-          -27.848139953609998,
-          352.1,
-          351.0
-        ],
-        "volume_mm3": 46.84114646502478
       },
       "reservoir-b-fill-guide": {
         "valid": true,
@@ -3884,70 +3667,18 @@
         ],
         "volume_mm3": 1765.117693570387
       },
-      "psu-screw-2": {
+      "psu-screw-3": {
         "valid": true,
         "solids": 1,
         "bounds_mm": [
-          0.10186004638699986,
-          445.05,
+          -32.89813995361,
+          347.05,
           337.3,
-          5.601860046386999,
-          450.55,
+          -27.39813995361,
+          352.55,
           350.3
         ],
-        "volume_mm3": 133.84172987361438
-      },
-      "psu-insert-2": {
-        "valid": true,
-        "solids": 1,
-        "bounds_mm": [
-          0.551860046387,
-          445.5,
-          347.0,
-          5.151860046387,
-          450.1,
-          351.0
-        ],
-        "volume_mm3": 46.84114646502477
-      },
-      "line-water-in": {
-        "valid": true,
-        "solids": 1,
-        "bounds_mm": [
-          -85.67500010000458,
-          279.82499989999997,
-          201.3249999,
-          7.117953015869,
-          423.1749999,
-          253.4
-        ],
-        "volume_mm3": 8481.551962176798
-      },
-      "g-ganen-pump": {
-        "valid": true,
-        "solids": 21,
-        "bounds_mm": [
-          -52.4297677674174,
-          290.4177875896756,
-          253.54999989999735,
-          21.913780264953306,
-          450.68230263113,
-          312.2318794171465
-        ],
-        "volume_mm3": 582778.8480437413
-      },
-      "suction-barb-clamp": {
-        "valid": true,
-        "solids": 1,
-        "bounds_mm": [
-          10.637416113394883,
-          318.4685626754798,
-          270.0888413989211,
-          20.721994866400667,
-          343.3308702248904,
-          294.04057989264254
-        ],
-        "volume_mm3": 1390.113688452617
+        "volume_mm3": 133.84172987361782
       },
       "carbonator-elbow-co2-in": {
         "valid": true,
@@ -3962,6 +3693,240 @@
         ],
         "volume_mm3": 5499.423606403806
       },
+      "discharge-stem-key": {
+        "valid": true,
+        "solids": 1,
+        "bounds_mm": [
+          -64.42666953858235,
+          295.89519805228,
+          263.99496078552403,
+          -53.117355829567664,
+          321.90738539469567,
+          290.421538700616
+        ],
+        "volume_mm3": 2672.794484588471
+      },
+      "psu-insert-1": {
+        "valid": true,
+        "solids": 1,
+        "bounds_mm": [
+          0.551860046387,
+          347.5,
+          347.0,
+          5.151860046387,
+          352.1,
+          351.0
+        ],
+        "volume_mm3": 46.84114646502477
+      },
+      "psu": {
+        "valid": true,
+        "solids": 1,
+        "bounds_mm": [
+          -39.64813995361,
+          344.3,
+          313.5,
+          12.351860046387003,
+          453.3,
+          347.0
+        ],
+        "volume_mm3": 155682.5537829474
+      },
+      "tube-water-5": {
+        "valid": true,
+        "solids": 1,
+        "bounds_mm": [
+          -85.675,
+          373.2202612753857,
+          253.4,
+          -77.93260052958891,
+          423.1750000999913,
+          270.821389515735
+        ],
+        "volume_mm3": 941.6725361657642
+      },
+      "psu-screw-4": {
+        "valid": true,
+        "solids": 1,
+        "bounds_mm": [
+          -32.89813995361,
+          445.05,
+          337.3,
+          -27.39813995361,
+          450.55,
+          350.3
+        ],
+        "volume_mm3": 133.84172987361782
+      },
+      "pump-snap-cap": {
+        "valid": true,
+        "solids": 1,
+        "bounds_mm": [
+          -50.69745018535,
+          388.31776090724753,
+          277.87934693149,
+          19.960911232629,
+          442.81776090725066,
+          312.38885256918
+        ],
+        "volume_mm3": 21072.24924333919
+      },
+      "discharge-tube": {
+        "valid": true,
+        "solids": 1,
+        "bounds_mm": [
+          -65.01057907501111,
+          327.1022684534571,
+          267.04409619736305,
+          -40.05798829255297,
+          342.95327428134294,
+          284.7639268255641
+        ],
+        "volume_mm3": 2508.118647074398
+      },
+      "g-ganen-pump": {
+        "valid": true,
+        "solids": 21,
+        "bounds_mm": [
+          -52.4297677674174,
+          290.4177875896756,
+          254.40854525654,
+          21.913780264953306,
+          450.68230263113,
+          310.7318794171465
+        ],
+        "volume_mm3": 581946.5980477516
+      },
+      "foam-shell": {
+        "valid": true,
+        "solids": 1,
+        "bounds_mm": [
+          -90.2000001,
+          182.5999998,
+          19.9999999,
+          90.2000001,
+          464.9999999,
+          245.8500001
+        ],
+        "volume_mm3": 1271915.7496889767
+      },
+      "suction-barb-clamp": {
+        "valid": true,
+        "solids": 1,
+        "bounds_mm": [
+          10.637416113394883,
+          318.4685626754798,
+          268.5888413989211,
+          20.721994866400667,
+          343.3308702248904,
+          292.54057989264254
+        ],
+        "volume_mm3": 1390.113688452617
+      },
+      "discharge-barb-key": {
+        "valid": true,
+        "solids": 1,
+        "bounds_mm": [
+          -48.63204821799222,
+          323.5114202778171,
+          290.15974973437,
+          -43.34639893522,
+          349.52400501008003,
+          316.21058488031633
+        ],
+        "volume_mm3": 2672.794484588711
+      },
+      "foam-cap-bottom": {
+        "valid": true,
+        "solids": 1,
+        "bounds_mm": [
+          -90.20000000000003,
+          182.59999989999997,
+          -3.552713678801e-15,
+          90.20000000000003,
+          464.9999999,
+          19.85
+        ],
+        "volume_mm3": 144507.16443496116
+      },
+      "line-co2-in": {
+        "valid": true,
+        "solids": 1,
+        "bounds_mm": [
+          33.25797253279054,
+          335.35299548707883,
+          37.625,
+          78.17500009999796,
+          374.9749999999909,
+          253.4
+        ],
+        "volume_mm3": 8569.271047278691
+      },
+      "discharge-reducer": {
+        "valid": true,
+        "solids": 2,
+        "bounds_mm": [
+          -77.64905338210698,
+          326.8145229909696,
+          264.0750511592485,
+          -52.26393156534298,
+          343.4004730429504,
+          281.4510013228813
+        ],
+        "volume_mm3": 2261.873423258785
+      },
+      "psu-insert-4": {
+        "valid": true,
+        "solids": 1,
+        "bounds_mm": [
+          -32.448139953609996,
+          445.5,
+          347.0,
+          -27.848139953609998,
+          450.1,
+          351.0
+        ],
+        "volume_mm3": 46.84114646502478
+      },
+      "psu-insert-3": {
+        "valid": true,
+        "solids": 1,
+        "bounds_mm": [
+          -32.448139953609996,
+          347.5,
+          347.0,
+          -27.848139953609998,
+          352.1,
+          351.0
+        ],
+        "volume_mm3": 46.84114646502478
+      },
+      "discharge-stem-clamp": {
+        "valid": true,
+        "solids": 1,
+        "bounds_mm": [
+          -64.67552489681105,
+          319.51954674911207,
+          258.50018376279064,
+          -49.383245152594306,
+          343.2287740192175,
+          284.60189281752577
+        ],
+        "volume_mm3": 1387.787353033234
+      },
+      "psu-insert-2": {
+        "valid": true,
+        "solids": 1,
+        "bounds_mm": [
+          0.551860046387,
+          445.5,
+          347.0,
+          5.151860046387,
+          450.1,
+          351.0
+        ],
+        "volume_mm3": 46.84114646502477
+      },
       "psu-screw-1": {
         "valid": true,
         "solids": 1,
@@ -3975,77 +3940,90 @@
         ],
         "volume_mm3": 133.84172987361438
       },
-      "discharge-barb-clamp": {
-        "valid": true,
-        "solids": 1,
-        "bounds_mm": [
-          -51.31526112513008,
-          318.4746550620075,
-          269.9918398370393,
-          -41.15109405631,
-          343.41905119641063,
-          294.0617195399085
-        ],
-        "volume_mm3": 1390.9249603628166
-      },
-      "discharge-barb-key": {
-        "valid": true,
-        "solids": 1,
-        "bounds_mm": [
-          -48.63204821799222,
-          323.5114202778171,
-          291.65974973437,
-          -43.34639893522,
-          349.52400501008003,
-          317.71058488031633
-        ],
-        "volume_mm3": 2672.794484588711
-      },
       "carbonator-fold": {
         "valid": true,
         "solids": 2,
         "bounds_mm": [
           -90.24062211552581,
           330.0419934127495,
-          261.51629227465685,
+          260.01629227465685,
           -60.358351188021985,
           356.60395765697746,
-          279.4362925621642
+          277.9362925621642
         ],
         "volume_mm3": 3122.242483103521
       },
-      "discharge-reducer": {
-        "valid": true,
-        "solids": 2,
-        "bounds_mm": [
-          -77.64905338210698,
-          326.8145229909696,
-          265.5750511592485,
-          -52.26393156534298,
-          343.4004730429504,
-          282.9510013228813
-        ],
-        "volume_mm3": 2261.873423258785
-      },
-      "discharge-tube": {
+      "psu-screw-2": {
         "valid": true,
         "solids": 1,
         "bounds_mm": [
-          -65.01057907501111,
-          327.1022684534571,
-          268.54409619736305,
-          -40.05798829255297,
-          342.95327428134294,
-          286.2639268255641
+          0.10186004638699986,
+          445.05,
+          337.3,
+          5.601860046386999,
+          450.55,
+          350.3
         ],
-        "volume_mm3": 2508.118647074398
+        "volume_mm3": 133.84172987361438
+      },
+      "suction-tube": {
+        "valid": true,
+        "solids": 1,
+        "bounds_mm": [
+          9.365955511240458,
+          327.053197817473,
+          266.04799953759357,
+          46.6001469728526,
+          343.00406552552,
+          284.82564860051156
+        ],
+        "volume_mm3": 3821.6017620846756
+      },
+      "foam-cap-lid-top": {
+        "valid": true,
+        "solids": 1,
+        "bounds_mm": [
+          -90.20000000000006,
+          182.59999989999594,
+          245.99999999999804,
+          90.20000000000006,
+          464.99999990000003,
+          299.65
+        ],
+        "volume_mm3": 459761.7753989389
+      },
+      "line-water-in": {
+        "valid": true,
+        "solids": 1,
+        "bounds_mm": [
+          -85.67500010000458,
+          279.82499989999997,
+          201.3249999,
+          7.117953015869,
+          423.1749999,
+          253.4
+        ],
+        "volume_mm3": 8481.551962176798
+      },
+      "discharge-barb-clamp": {
+        "valid": true,
+        "solids": 1,
+        "bounds_mm": [
+          -51.31526112513008,
+          318.4746550620075,
+          268.4918398370393,
+          -41.15109405631,
+          343.41905119641063,
+          292.5617195399085
+        ],
+        "volume_mm3": 1390.9249603628166
       }
     },
     "mount_datums": {
       "centre_world_mm": [
         -15.368269476362315,
         415.56776090725265,
-        285.779346931499
+        284.279346931499
       ],
       "can": {
         "axis_point_mm": [
@@ -4086,7 +4064,7 @@
         "translation_mm": [
           -15.368269476362286,
           368.31776090725265,
-          251.69796251494617
+          250.19796251494617
         ],
         "reference": "hardware/reference/g-ganen-pump/g-ganen-pump.step"
       },
@@ -4096,8 +4074,8 @@
         77.75
       ],
       "cover_room_native_y_mm": [
-        -6.030112030444719,
-        6.153723850766118
+        -6.018479351409066,
+        6.074153537631092
       ],
       "rail_rooms": [
         {
@@ -4159,7 +4137,7 @@
         ],
         "insertion": "Bare pump lowers vertically onto the plain lid; fixed rails and molded wire cover pass through open rooms. One continuous 54.5 mm upper clip snaps down after seating. Its continuous pockets retain 3 mm solid axial stock at both outer ends; flank wings remain 3 mm. Two low stops bound axial movement at the fixed negative-Y rail ends.",
         "print_pose": "Snap cap stands on one axial end; arch, spring wings and hooks print as vertical walls.",
-        "cap_arch_wall_mm": 2.4,
+        "cap_arch_wall_mm": 3.1,
         "contact_scope": "Motor-side saddle native X16.75\u201377.75 and one continuous upper clip X20\u201374.5. End stops contact only fixed motor rail ends; the rough head underside remains clear throughout axial free play. The central wire-cover and lead corridor stays open.",
         "axial_end_stock_mm": 3.0
       },
@@ -4193,7 +4171,7 @@
           "centre_world_mm": [
             -15.368269476362315,
             415.56776090725265,
-            285.779346931499
+            284.279346931499
           ],
           "can": {
             "axis_point_mm": [
@@ -4234,7 +4212,7 @@
             "translation_mm": [
               -15.368269476362286,
               368.31776090725265,
-              251.69796251494617
+              250.19796251494617
             ],
             "reference": "hardware/reference/g-ganen-pump/g-ganen-pump.step"
           },
@@ -4244,8 +4222,8 @@
             77.75
           ],
           "cover_room_native_y_mm": [
-            -6.030112030444719,
-            6.153723850766118
+            -6.018479351409066,
+            6.074153537631092
           ],
           "rail_rooms": [
             {
@@ -4307,7 +4285,7 @@
             ],
             "insertion": "Bare pump lowers vertically onto the plain lid; fixed rails and molded wire cover pass through open rooms. One continuous 54.5 mm upper clip snaps down after seating. Its continuous pockets retain 3 mm solid axial stock at both outer ends; flank wings remain 3 mm. Two low stops bound axial movement at the fixed negative-Y rail ends.",
             "print_pose": "Snap cap stands on one axial end; arch, spring wings and hooks print as vertical walls.",
-            "cap_arch_wall_mm": 2.4,
+            "cap_arch_wall_mm": 3.1,
             "contact_scope": "Motor-side saddle native X16.75\u201377.75 and one continuous upper clip X20\u201374.5. End stops contact only fixed motor rail ends; the rough head underside remains clear throughout axial free play. The central wire-cover and lead corridor stays open.",
             "axial_end_stock_mm": 3.0
           },
@@ -4347,7 +4325,7 @@
       {
         "body": "pump-snap-cap",
         "neighbor": "psu",
-        "gap_mm": 0.31114743081997176,
+        "gap_mm": 1.1111474308199831,
         "overlap_mm3": 0.0
       },
       {
@@ -4359,7 +4337,7 @@
       {
         "body": "g-ganen-pump",
         "neighbor": "foam-cap-lid-top",
-        "gap_mm": 0.15000000000000568,
+        "gap_mm": 0.14652078817116074,
         "overlap_mm3": 0.0
       },
       {
@@ -4401,156 +4379,19 @@
     ],
     "unresolved": [],
     "pass": true,
-    "elapsed_seconds": 283.52044999999634,
-    "finite_collet_followup": {
-      "original_unclassified_contact": {
-        "body": "line-water-in",
-        "neighbor": "collet-water-in",
-        "overlap_mm3": 585.8805227064659,
-        "overlap_bounds_mm": [
-          -10.26118849984174,
-          293.37642363622695,
-          216.225,
-          7.117953015869,
-          311.13205227780935,
-          222.57500000000002
-        ]
-      },
-      "basis": "hardware/cold-core-layout/_internals.py::collet_on and hardware/reference/jg-pp010822e/jg_pp010822e.py; the purchased reference is an external envelope without a tube bore.",
-      "current_native_contact": {
-        "body": "line-water-in",
-        "neighbor": "collet-water-in",
-        "overlap_mm3": 585.8805227064659,
-        "interface": "Own envelope-only PP010822E receiving cartridge and wrench body; finite tube cylinder only.",
-        "receiving_mouth_world_mm": [
-          -7.967472225404359,
-          295.57175747243275,
-          219.39999999999998
-        ],
-        "outward_axis_world": [
-          -0.691443727936847,
-          -0.7224303226587291,
-          0.0
-        ],
-        "receiving_length_mm": 18.5,
-        "receiving_radius_mm": 3.1849999999999996,
-        "outside_engagement_mm3": 0
-      },
-      "elapsed_seconds": 15.676301208004588
-    },
-    "relay_wall_axis_followup": {
-      "scope": "Actual native wall-mounted relay screws/inserts against their own relay and bored wall, confined to each finite own axis. The envelope flank witness is not treated as an uncut wall.",
-      "contacts": [
-        {
-          "body": "relay-1-screw-1",
-          "neighbor": "relay-1",
-          "overlap_mm3": 0,
-          "outside_own_axis_mm3": 0.0
-        },
-        {
-          "body": "relay-1-screw-1",
-          "neighbor": "enclosure-back-top",
-          "overlap_mm3": 0,
-          "outside_own_axis_mm3": 0.0
-        },
-        {
-          "body": "relay-1-insert-1",
-          "neighbor": "relay-1",
-          "overlap_mm3": 0,
-          "outside_own_axis_mm3": 0.0
-        },
-        {
-          "body": "relay-1-insert-1",
-          "neighbor": "enclosure-back-top",
-          "overlap_mm3": 16.210618092523717,
-          "outside_own_axis_mm3": 0
-        },
-        {
-          "body": "relay-1-screw-4",
-          "neighbor": "relay-1",
-          "overlap_mm3": 1.142634218231411,
-          "outside_own_axis_mm3": 0
-        },
-        {
-          "body": "relay-1-screw-4",
-          "neighbor": "enclosure-back-top",
-          "overlap_mm3": 0,
-          "outside_own_axis_mm3": 0.0
-        },
-        {
-          "body": "relay-1-insert-4",
-          "neighbor": "relay-1",
-          "overlap_mm3": 0,
-          "outside_own_axis_mm3": 0.0
-        },
-        {
-          "body": "relay-1-insert-4",
-          "neighbor": "enclosure-back-top",
-          "overlap_mm3": 16.210618092523717,
-          "outside_own_axis_mm3": 0
-        },
-        {
-          "body": "relay-2-screw-1",
-          "neighbor": "relay-2",
-          "overlap_mm3": 0,
-          "outside_own_axis_mm3": 0.0
-        },
-        {
-          "body": "relay-2-screw-1",
-          "neighbor": "enclosure-back-top",
-          "overlap_mm3": 0,
-          "outside_own_axis_mm3": 0.0
-        },
-        {
-          "body": "relay-2-insert-1",
-          "neighbor": "relay-2",
-          "overlap_mm3": 0,
-          "outside_own_axis_mm3": 0.0
-        },
-        {
-          "body": "relay-2-insert-1",
-          "neighbor": "enclosure-back-top",
-          "overlap_mm3": 16.21061809252373,
-          "outside_own_axis_mm3": 0
-        },
-        {
-          "body": "relay-2-screw-4",
-          "neighbor": "relay-2",
-          "overlap_mm3": 1.142634218231432,
-          "outside_own_axis_mm3": 0
-        },
-        {
-          "body": "relay-2-screw-4",
-          "neighbor": "enclosure-back-top",
-          "overlap_mm3": 0,
-          "outside_own_axis_mm3": 0.0
-        },
-        {
-          "body": "relay-2-insert-4",
-          "neighbor": "relay-2",
-          "overlap_mm3": 0,
-          "outside_own_axis_mm3": 0.0
-        },
-        {
-          "body": "relay-2-insert-4",
-          "neighbor": "enclosure-back-top",
-          "overlap_mm3": 16.21061809252373,
-          "outside_own_axis_mm3": 0
-        }
-      ]
-    }
+    "elapsed_seconds": 309.3614704579959
   },
   "pump_fixing": {
     "style": "One integral 61 mm motor half pipe, one continuous 54.5 mm upper clip, open fixed-rail and molded-cover admission rooms, two rail-end stops.",
     "native_piece_review": {
       "path": "hardware/reference/g-ganen-pump/installation/clip-native-review.json",
-      "sha256": "742a7473192f130bf02ae526861621b119f76f38ca2470f51a35dea4e26cbc27"
+      "sha256": "8843076719e7dc723792864e69d8bd4e4a65f91e4755d2a3c6bc6e7e777ed6fd"
     },
     "mount_datums": {
       "centre_world_mm": [
         -15.368269476362315,
         415.56776090725265,
-        285.779346931499
+        284.279346931499
       ],
       "can": {
         "axis_point_mm": [
@@ -4591,7 +4432,7 @@
         "translation_mm": [
           -15.368269476362286,
           368.31776090725265,
-          251.69796251494617
+          250.19796251494617
         ],
         "reference": "hardware/reference/g-ganen-pump/g-ganen-pump.step"
       },
@@ -4601,8 +4442,8 @@
         77.75
       ],
       "cover_room_native_y_mm": [
-        -6.030112030444719,
-        6.153723850766118
+        -6.018479351409066,
+        6.074153537631092
       ],
       "rail_rooms": [
         {
@@ -4664,7 +4505,7 @@
         ],
         "insertion": "Bare pump lowers vertically onto the plain lid; fixed rails and molded wire cover pass through open rooms. One continuous 54.5 mm upper clip snaps down after seating. Its continuous pockets retain 3 mm solid axial stock at both outer ends; flank wings remain 3 mm. Two low stops bound axial movement at the fixed negative-Y rail ends.",
         "print_pose": "Snap cap stands on one axial end; arch, spring wings and hooks print as vertical walls.",
-        "cap_arch_wall_mm": 2.4,
+        "cap_arch_wall_mm": 3.1,
         "contact_scope": "Motor-side saddle native X16.75\u201377.75 and one continuous upper clip X20\u201374.5. End stops contact only fixed motor rail ends; the rough head underside remains clear throughout axial free play. The central wire-cover and lead corridor stays open.",
         "axial_end_stock_mm": 3.0
       },
@@ -4698,7 +4539,7 @@
           "centre_world_mm": [
             -15.368269476362315,
             415.56776090725265,
-            285.779346931499
+            284.279346931499
           ],
           "can": {
             "axis_point_mm": [
@@ -4739,7 +4580,7 @@
             "translation_mm": [
               -15.368269476362286,
               368.31776090725265,
-              251.69796251494617
+              250.19796251494617
             ],
             "reference": "hardware/reference/g-ganen-pump/g-ganen-pump.step"
           },
@@ -4749,8 +4590,8 @@
             77.75
           ],
           "cover_room_native_y_mm": [
-            -6.030112030444719,
-            6.153723850766118
+            -6.018479351409066,
+            6.074153537631092
           ],
           "rail_rooms": [
             {
@@ -4812,7 +4653,7 @@
             ],
             "insertion": "Bare pump lowers vertically onto the plain lid; fixed rails and molded wire cover pass through open rooms. One continuous 54.5 mm upper clip snaps down after seating. Its continuous pockets retain 3 mm solid axial stock at both outer ends; flank wings remain 3 mm. Two low stops bound axial movement at the fixed negative-Y rail ends.",
             "print_pose": "Snap cap stands on one axial end; arch, spring wings and hooks print as vertical walls.",
-            "cap_arch_wall_mm": 2.4,
+            "cap_arch_wall_mm": 3.1,
             "contact_scope": "Motor-side saddle native X16.75\u201377.75 and one continuous upper clip X20\u201374.5. End stops contact only fixed motor rail ends; the rough head underside remains clear throughout axial free play. The central wire-cover and lead corridor stays open.",
             "axial_end_stock_mm": 3.0
           },

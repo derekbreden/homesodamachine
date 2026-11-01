@@ -1,8 +1,8 @@
 {
   "schema": "enclosure-closing-motion-review/2",
   "scope": "Fresh complete rigid front-column, rear-base and rear-over-core closing intervals on the current physical quadrant STLs. Pump and cap admission are additionally checked with back-top separated, pump joints/leads disconnected and cap released; only their own intended seated interfaces are omitted. Cross-parent flexible spans and the loose pump inlet elbow and its short inlet link are connected through the uncovered funnel aperture after closure. This establishes nominal rigid travel, not flexure force or flexible handling.",
-  "current_assembly_step_sha256": "649b4e02bddfbac99a0e741c793cf0e74b016c55a302c0bb1dd951c7fc69e3e1",
-  "current_payload_sha256": "a5efb94dd683fba1341351e8424d958ecd204b480f34762459609b6ff9f93729",
+  "current_assembly_step_sha256": "eddd15bc11620321a5d7f1d0fb66d7a28f9f3731a8f282ca2477af451af28daa",
+  "current_payload_sha256": "d7b582e366f5b56f14b8e41de9317821d2cb436e30e3f0d2082d2ee61bdca400",
   "current_stl_sha256": {
     "front-top": "169a9a2dad02b09dde59d4e19f2e49e632c55e5ca1531de880140f27cb5b4d9b",
     "front-bottom": "4831c305bf5f080898b2f9011f9eef4a103cd9b85ce38f096210a2e58f5cbadc",
@@ -15,9 +15,9 @@
     "Separate back-top and disconnect pump joints/leads before pump service; release and remove the continuous cap before lifting the pump."
   ],
   "current_complete_motion_reading": {
-    "payload_sha256": "a5efb94dd683fba1341351e8424d958ecd204b480f34762459609b6ff9f93729",
+    "payload_sha256": "d7b582e366f5b56f14b8e41de9317821d2cb436e30e3f0d2082d2ee61bdca400",
     "mesh_source": "hardware/manifold-layout/enclosure-assembly.step.mesh",
-    "method": "Complete translation intervals certified from triangle-surface distances using the 1-Lipschitz translation bound. Broad-phase separation uses complete swept AABBs. Any surface contact or unresolved interval remains a witness for native follow-up. Cross-parent tubes and the loose pump inlet elbow and its short inlet link are connected after closure through the funnel opening, per the accepted rotating-joint assembly sequence. This does not infer flexible handling or printed force.",
+    "method": "Complete translation intervals certified from triangle-surface distances using the 1-Lipschitz translation bound. Broad-phase separation uses complete swept AABBs. Any surface contact or unresolved interval remains a witness for native follow-up. Cross-parent tubes and the loose pump inlet elbow are connected after closure through the funnel opening, per the accepted rotating-joint assembly sequence. This does not infer flexible handling or printed force.",
     "printed_mesh_sha256": {
       "front-top": "169a9a2dad02b09dde59d4e19f2e49e632c55e5ca1531de880140f27cb5b4d9b",
       "front-bottom": "4831c305bf5f080898b2f9011f9eef4a103cd9b85ce38f096210a2e58f5cbadc",
@@ -833,32 +833,32 @@
             "stationary": "foam-cap-lid-top",
             "status": "clear_distance_intervals",
             "queries": 7,
-            "minimum_queried_surface_distance_mm": 10.952357045618381,
-            "certified_surface_separation_lower_bound_mm": 1.5773570456183812
+            "minimum_queried_surface_distance_mm": 11.628255754237461,
+            "certified_surface_separation_lower_bound_mm": 2.253255754237461
           },
           {
             "moving": "asse-snap-cap",
             "stationary": "g-ganen-pump",
             "status": "clear_distance_intervals",
             "queries": 5,
-            "minimum_queried_surface_distance_mm": 21.39938718264736,
-            "certified_surface_separation_lower_bound_mm": 2.6493871826473594
+            "minimum_queried_surface_distance_mm": 22.14938502197525,
+            "certified_surface_separation_lower_bound_mm": 3.399385021975249
           },
           {
             "moving": "asse-snap-cap",
             "stationary": "pump-snap-cap",
             "status": "clear_distance_intervals",
             "queries": 7,
-            "minimum_queried_surface_distance_mm": 17.723459563175552,
-            "certified_surface_separation_lower_bound_mm": 1.5439422124506983
+            "minimum_queried_surface_distance_mm": 18.240437214117136,
+            "certified_surface_separation_lower_bound_mm": 1.9969665589193717
           },
           {
             "moving": "asse1022-assembly",
             "stationary": "g-ganen-pump",
             "status": "clear_distance_intervals",
             "queries": 5,
-            "minimum_queried_surface_distance_mm": 27.154390937797316,
-            "certified_surface_separation_lower_bound_mm": 8.404390937797316
+            "minimum_queried_surface_distance_mm": 27.58581221297762,
+            "certified_surface_separation_lower_bound_mm": 8.835812212977618
           },
           {
             "moving": "bulkhead-carb",
@@ -1026,7 +1026,7 @@
             "status": "clear_distance_intervals",
             "queries": 75,
             "minimum_queried_surface_distance_mm": 1.2596435546875,
-            "certified_surface_separation_lower_bound_mm": 0.0877685546875
+            "certified_surface_separation_lower_bound_mm": 0.015612175120897742
           },
           {
             "moving": "enclosure-back-top",
@@ -1056,9 +1056,9 @@
             "moving": "enclosure-back-top",
             "stationary": "discharge-barb-key",
             "status": "clear_distance_intervals",
-            "queries": 10,
-            "minimum_queried_surface_distance_mm": 17.37504793581701,
-            "certified_surface_separation_lower_bound_mm": 5.368120510707691
+            "queries": 6,
+            "minimum_queried_surface_distance_mm": 19.00167642907821,
+            "certified_surface_separation_lower_bound_mm": 0.2516764290782092
           },
           {
             "moving": "enclosure-back-top",
@@ -1066,7 +1066,7 @@
             "status": "clear_distance_intervals",
             "queries": 91,
             "minimum_queried_surface_distance_mm": 1.5974960327148438,
-            "certified_surface_separation_lower_bound_mm": 0.05353202088379927
+            "certified_surface_separation_lower_bound_mm": 0.006780453377459139
           },
           {
             "moving": "enclosure-back-top",
@@ -1177,8 +1177,8 @@
             "stationary": "g-ganen-pump",
             "status": "clear_distance_intervals",
             "queries": 11,
-            "minimum_queried_surface_distance_mm": 22.76812744140625,
-            "certified_surface_separation_lower_bound_mm": 2.139779631536271
+            "minimum_queried_surface_distance_mm": 22.645530486801594,
+            "certified_surface_separation_lower_bound_mm": 3.0933537538209777
           },
           {
             "moving": "enclosure-back-top",
@@ -1281,8 +1281,8 @@
             "stationary": "pump-snap-cap",
             "status": "clear_distance_intervals",
             "queries": 11,
-            "minimum_queried_surface_distance_mm": 21.8111572265625,
-            "certified_surface_separation_lower_bound_mm": 1.2544971875233344
+            "minimum_queried_surface_distance_mm": 22.684539794921875,
+            "certified_surface_separation_lower_bound_mm": 1.9966737195326942
           },
           {
             "moving": "enclosure-back-top",
@@ -1417,8 +1417,8 @@
             "stationary": "suction-barb-key",
             "status": "clear_distance_intervals",
             "queries": 6,
-            "minimum_queried_surface_distance_mm": 22.88350302610994,
-            "certified_surface_separation_lower_bound_mm": 4.133503026109938
+            "minimum_queried_surface_distance_mm": 24.047044144423932,
+            "certified_surface_separation_lower_bound_mm": 5.297044144423932
           },
           {
             "moving": "enclosure-back-top",
@@ -1480,9 +1480,9 @@
             "moving": "enclosure-back-top",
             "stationary": "tube-water-5",
             "status": "clear_distance_intervals",
-            "queries": 44,
-            "minimum_queried_surface_distance_mm": 6.142033646010473,
-            "certified_surface_separation_lower_bound_mm": 1.4545336460104732
+            "queries": 42,
+            "minimum_queried_surface_distance_mm": 6.169159449664075,
+            "certified_surface_separation_lower_bound_mm": 0.45917821767124956
           },
           {
             "moving": "enclosure-back-top",
@@ -1608,9 +1608,9 @@
             "moving": "tube-drain-vent",
             "stationary": "foam-cap-lid-top",
             "status": "clear_distance_intervals",
-            "queries": 6,
-            "minimum_queried_surface_distance_mm": 18.15021879848846,
-            "certified_surface_separation_lower_bound_mm": 8.77521879848846
+            "queries": 4,
+            "minimum_queried_surface_distance_mm": 19.296550107938604,
+            "certified_surface_separation_lower_bound_mm": 0.5465501079386037
           },
           {
             "moving": "tube-soda-meter-bulkhead",
@@ -1622,35 +1622,19 @@
           },
           {
             "moving": "valve-v-a",
-            "stationary": "discharge-stem-clamp",
-            "status": "clear_distance_intervals",
-            "queries": 10,
-            "minimum_queried_surface_distance_mm": 3.6727819080393798,
-            "certified_surface_separation_lower_bound_mm": 1.3290319080393798
-          },
-          {
-            "moving": "valve-v-a",
             "stationary": "discharge-stem-key",
             "status": "clear_distance_intervals",
             "queries": 1,
-            "minimum_queried_surface_distance_mm": 150.15089861427126,
-            "certified_surface_separation_lower_bound_mm": 0.15089861427125584
-          },
-          {
-            "moving": "valve-v-a",
-            "stationary": "discharge-tube",
-            "status": "clear_distance_intervals",
-            "queries": 8,
-            "minimum_queried_surface_distance_mm": 4.688938932819948,
-            "certified_surface_separation_lower_bound_mm": 0.0014389328199477802
+            "minimum_queried_surface_distance_mm": 150.6034471945989,
+            "certified_surface_separation_lower_bound_mm": 0.6034471945989139
           },
           {
             "moving": "valve-v-a",
             "stationary": "foam-cap-lid-top",
             "status": "clear_distance_intervals",
             "queries": 13,
-            "minimum_queried_surface_distance_mm": 14.717702005340849,
-            "certified_surface_separation_lower_bound_mm": 1.1433093029598282
+            "minimum_queried_surface_distance_mm": 15.06595923950066,
+            "certified_surface_separation_lower_bound_mm": 1.37001221415726
           },
           {
             "moving": "vk-solenoid",
@@ -1758,10 +1742,170 @@
           {
             "moving": "g-ganen-pump",
             "stationary": "foam-cap-lid-top",
-            "status": "clear_distance_intervals",
-            "queries": 125,
-            "minimum_queried_surface_distance_mm": 0.05216894632330448,
-            "certified_surface_separation_lower_bound_mm": 0.00670534765050998
+            "status": "clear_native_and_physical_mesh_intervals",
+            "offset_mm": [
+              0.0,
+              0.0,
+              0.078125
+            ],
+            "queries": 135,
+            "surface_distance_mm": 0.0,
+            "nearest_points": [
+              [
+                -21.177327397220736,
+                433.01060539007494,
+                259.3912019622274
+              ],
+              [
+                -21.44242286682129,
+                433.010200884862,
+                259.257668611975
+              ]
+            ],
+            "raw_screening_witness": {
+              "moving": "g-ganen-pump",
+              "stationary": "foam-cap-lid-top",
+              "status": "surface_contact",
+              "offset_mm": [
+                0.0,
+                0.0,
+                0.078125
+              ],
+              "queries": 135,
+              "surface_distance_mm": 0.0,
+              "nearest_points": [
+                [
+                  -21.177327397220736,
+                  433.01060539007494,
+                  259.3912019622274
+                ],
+                [
+                  -21.44242286682129,
+                  433.010200884862,
+                  259.257668611975
+                ]
+              ]
+            },
+            "native_near_seat_interval_certificate": [
+              {
+                "offset_interval_mm": [
+                  0.0,
+                  0.078125
+                ],
+                "native_gap_lower_bound_mm": 0.12210846369412126,
+                "physical_lid_allowance_mm": 0.0051,
+                "physical_lid_gap_lower_bound_mm": 0.11700846369412127
+              },
+              {
+                "offset_interval_mm": [
+                  0.078125,
+                  0.15625
+                ],
+                "native_gap_lower_bound_mm": 0.15065897425922758,
+                "physical_lid_allowance_mm": 0.0051,
+                "physical_lid_gap_lower_bound_mm": 0.1455589742592276
+              },
+              {
+                "offset_interval_mm": [
+                  0.15625,
+                  0.25
+                ],
+                "native_gap_lower_bound_mm": 0.1724572407444172,
+                "physical_lid_allowance_mm": 0.0051,
+                "physical_lid_gap_lower_bound_mm": 0.1673572407444172
+              },
+              {
+                "offset_interval_mm": [
+                  0.25,
+                  0.5
+                ],
+                "native_gap_lower_bound_mm": 0.11903594904868245,
+                "physical_lid_allowance_mm": 0.0051,
+                "physical_lid_gap_lower_bound_mm": 0.11393594904868246
+              }
+            ],
+            "upper_physical_mesh_interval_certificate": {
+              "scope": "Complete 0.5\u201380 mm vertical pump admission against the physical lid STL, transformed by the production cap pose. The viewer simplification is not substituted for this fitted interface.",
+              "payload_sha256": "d7b582e366f5b56f14b8e41de9317821d2cb436e30e3f0d2082d2ee61bdca400",
+              "physical_lid_stl_sha256": "068b9351b0c8be91489213a9b5da5260515a7c12cf8cdbf40888ef4b6efd2a90",
+              "lid_pose": {
+                "rotation": [
+                  [
+                    0,
+                    1,
+                    0
+                  ],
+                  [
+                    -1,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    1
+                  ]
+                ],
+                "translation_mm": [
+                  0.0,
+                  323.8,
+                  246.0
+                ]
+              },
+              "interval_mm": [
+                0.5,
+                80.0
+              ],
+              "result": {
+                "status": "clear_distance_intervals",
+                "queries": 117,
+                "minimum_queried_surface_distance_mm": 0.11075816422823902,
+                "certified_surface_separation_lower_bound_mm": 0.025280062090267674
+              },
+              "elapsed_seconds": 0.629656667006202
+            },
+            "native_input_binding": {
+              "reference_parameters_sha256": "69ac39b3b5ec8a4de1c5b6abee49ef0335d3b96df61e358c5b2db1f23d808ffe",
+              "above_core_json_sha256": "c9bbd58dea6cf603caca97829050be5afdbcf329e9d65d52d4b812e24f6fc4db",
+              "lid_step_sha256": "10e2b53eeffc36d05080d79298c5f6fed217e0f3f1ad5d9319a37d3a0150acf1"
+            },
+            "native_offset_readings": [
+              {
+                "offset_z_mm": 0.0,
+                "gap_mm": 0.14652078805502425,
+                "overlap_mm3": 0
+              },
+              {
+                "offset_z_mm": 0.078125,
+                "gap_mm": 0.17582113933321825,
+                "overlap_mm3": 0
+              },
+              {
+                "offset_z_mm": 0.15625,
+                "gap_mm": 0.2036218091852369,
+                "overlap_mm3": 0
+              },
+              {
+                "offset_z_mm": 0.25,
+                "gap_mm": 0.2350426723035975,
+                "overlap_mm3": 0
+              },
+              {
+                "offset_z_mm": 0.5,
+                "gap_mm": 0.2530292257937674,
+                "overlap_mm3": 0
+              },
+              {
+                "offset_z_mm": 1.0,
+                "gap_mm": 0.2530292257937674,
+                "overlap_mm3": 0
+              },
+              {
+                "offset_z_mm": 2.0,
+                "gap_mm": 0.2530292257937674,
+                "overlap_mm3": 0
+              }
+            ]
           }
         ]
       },
@@ -1862,71 +2006,22 @@
             "moving": "pump-snap-cap",
             "stationary": "g-ganen-pump",
             "status": "clear_distance_intervals",
-            "queries": 21,
-            "minimum_queried_surface_distance_mm": 0.4729173215228876,
-            "certified_surface_separation_lower_bound_mm": 0.004167321522887624
+            "queries": 23,
+            "minimum_queried_surface_distance_mm": 0.2772027809188283,
+            "certified_surface_separation_lower_bound_mm": 0.038895375798419285
           }
         ]
       }
     },
     "scope": "Fresh complete rigid front-column, rear-base and rear-over-core closing intervals on the current physical quadrant STLs. Pump and cap admission are additionally checked with back-top separated, pump joints/leads disconnected and cap released; only their own intended seated interfaces are omitted. Cross-parent flexible spans and the loose pump inlet elbow and its short inlet link are connected through the uncovered funnel aperture after closure. This establishes nominal rigid travel, not flexure force or flexible handling.",
-    "assembly_step_sha256": "649b4e02bddfbac99a0e741c793cf0e74b016c55a302c0bb1dd951c7fc69e3e1",
+    "assembly_step_sha256": "eddd15bc11620321a5d7f1d0fb66d7a28f9f3731a8f282ca2477af451af28daa",
     "cap_lift_omission": "The lid is omitted only from cap lift because its two catches are the released spring interface. The complete actual lid remains in the bare-pump admission check. The cap remains clear of every retained purchased core body.",
     "unresolved": [],
     "pass": true,
-    "elapsed_seconds": 231.49771099998907,
-    "assembly_prerequisite_scope_correction": {
-      "basis": "hardware/manifold-layout/above-core.md",
-      "basis_sha256": "f9acc6289fdd379fb5cdeb001bac6fd16f9576e5acb11369dbfd1b0b70d3c798",
-      "instruction": "Keep the pump suction elbow and its short quarter-inch inlet link loose while positioning back-top. Make these round joints through the uncovered funnel opening after closure.",
-      "loose_parts": [
-        "lower-pump-elbow",
-        "tube-above-core-pump-inlet-link"
-      ],
-      "original_complete_reading_sha256": "8522e1aa616cb1b54550a1f0e8d17ccd13febc9efcf20a1b34451f235d3e1c8f",
-      "original_scope_pairs_retained": [
-        {
-          "moving": "enclosure-back-top",
-          "stationary": "tube-above-core-pump-inlet-link",
-          "status": "clear_distance_intervals",
-          "queries": 18,
-          "minimum_queried_surface_distance_mm": 7.270107165512872,
-          "certified_surface_separation_lower_bound_mm": 2.582607165512872
-        },
-        {
-          "moving": "lower-valve-elbow",
-          "stationary": "tube-above-core-pump-inlet-link",
-          "status": "surface_contact",
-          "offset_mm": [
-            0.0,
-            18.75,
-            0.0
-          ],
-          "queries": 4,
-          "surface_distance_mm": 0.0,
-          "nearest_points": [
-            [
-              71.30540905296982,
-              335.92439441840077,
-              267.34145507867674
-            ],
-            [
-              71.2335330850964,
-              335.92511720476693,
-              267.1115730132953
-            ]
-          ]
-        },
-        {
-          "moving": "vk-solenoid",
-          "stationary": "tube-above-core-pump-inlet-link",
-          "status": "clear_distance_intervals",
-          "queries": 21,
-          "minimum_queried_surface_distance_mm": 1.1628398961943953,
-          "certified_surface_separation_lower_bound_mm": 0.02390338637355338
-        }
-      ],
-      "reading_reuse": "The three original pair readings against the separately loose link remain recorded here. All remaining pair certificates use the exact same geometry, translation intervals and printed STL hashes; removing this link introduces no new pair or altered path."
+    "elapsed_seconds": 246.10492866700224,
+    "screening_resolution": {
+      "scope": "The near-seated viewer/pump tessellation witness is retained. Complete 0\u20130.5 mm travel is certified by native endpoint distances and the 1-Lipschitz bound, with 0.005 mm physical-print deflection plus 0.0001 mm float/transform allowance subtracted. Complete 0.5\u201380 mm travel uses the actual physical lid STL and the recorded pump triangles. No geometry or interface omission resolves this witness.",
+      "original_reading_sha256": "47889ba3e95e144c6f14a62ec39e054f519383fc6d5779e8883576684b7a50da"
     }
   },
   "unresolved_after_prerequisites": [],
