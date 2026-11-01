@@ -22,16 +22,23 @@ struct VsOut {
   @location(1) normal: vec3<f32>,
   @location(2) @interpolate(flat) slot: u32,
   @location(3) depth: f32,
+  @location(4) color: vec3<f32>,
+  @location(5) uv: vec2<f32>,
 }
 
 @vertex
-fn vs_surface(v: VsIn, @builtin(instance_index) slot: u32) -> VsOut {
+fn vs_surface(v: VsIn, @builtin(instance_index) slot: u32, @builtin(vertex_index) index: u32) -> VsOut {
   var o: VsOut;
   o.clip = view.view_proj * vec4<f32>(v.position, 1.0);
   o.world = v.position;
   o.normal = v.normal;
   o.slot = slot;
   o.depth = -(view.view * vec4<f32>(v.position, 1.0)).z;
+  o.color = vec3<f32>(1.0);
+  o.uv = vec2<f32>(0.0);
+  let flags = materials[slot].flags.x;
+  if ((flags & VERTEX_COLOR) != 0u) { o.color = vertex_aux[index].color.rgb; }
+  if ((flags & TEXTURE) != 0u) { o.uv = vertex_aux[index].uv.xy; }
   return o;
 }
 
@@ -142,6 +149,23 @@ fn standard(m: Material, base: vec3<f32>, n: vec3<f32>, v: vec3<f32>, geometry_r
   return direct_diffuse + indirect_diffuse + direct_specular + indirect_specular;
 }
 
+fn clearcoated(m: Material, base: vec3<f32>, n: vec3<f32>, v: vec3<f32>, geometry_roughness: f32) -> vec3<f32> {
+  let roughness = min(max(m.coat.y, 0.0525) + geometry_roughness, 1.0);
+  let f0 = vec3<f32>(0.04);
+  var direct = vec3<f32>(0.0);
+  let dirs = array<vec3<f32>, 2>(KEY_DIR, FILL_DIR);
+  let powers = array<f32, 2>(KEY, FILL);
+  for (var i = 0; i < 2; i++) {
+    let l = dirs[i];
+    direct += clamp(dot(n, l), 0.0, 1.0) * powers[i] * brdf_ggx(l, v, n, f0, roughness);
+  }
+  let r = normalize(mix(reflect(-v, n), n, roughness * roughness));
+  let fab = dfg_approx(n, v, roughness);
+  let indirect = env_lookup(r, roughness) * (f0 * fab.x + vec3<f32>(fab.y));
+  let fresnel = f_schlick(f0, 1.0, clamp(dot(n, v), 0.0, 1.0));
+  return base * (vec3<f32>(1.0) - m.coat.x * fresnel) + (direct + indirect) * m.coat.x;
+}
+
 @fragment
 fn fs_surface(in: VsOut, @builtin(front_facing) front: bool) -> @location(0) vec4<f32> {
   // Derivatives first, while every lane of the quad is still running.
@@ -155,6 +179,9 @@ fn fs_surface(in: VsOut, @builtin(front_facing) front: bool) -> @location(0) vec
   let n_view = (view.view * vec4<f32>(n, 0.0)).xyz;
   let dxy = max(abs(dpdx(n_view)), abs(dpdy(n_view)));
   let geometry_roughness = max(max(dxy.x, dxy.y), dxy.z);
+  let uv = vec2<f32>(in.uv.x, 1.0-in.uv.y);
+  let du = dpdx(uv);
+  let dv = dpdy(uv);
 
   let m = materials[in.slot];
   let flags = m.flags.x;
@@ -168,20 +195,31 @@ fn fs_surface(in: VsOut, @builtin(front_facing) front: bool) -> @location(0) vec
     discard;
   }
 
+  var base = m.color.rgb;
+  var opacity = m.color.a;
+  if ((flags & VERTEX_COLOR) != 0u) { base *= in.color; }
+  if ((flags & TEXTURE) != 0u) {
+    let sampled = textureSampleGrad(surface_image, surface_sampler, uv, du, dv);
+    base *= sampled.rgb;
+    opacity *= sampled.a;
+  }
   var color: vec3<f32>;
   if ((flags & UNLIT) != 0u) {
-    color = m.color.rgb;
+    color = base;
   } else {
-    let base = m.color.rgb * select(m.params.w, 1.0, front);
+    base *= select(m.params.w, 1.0, front);
     var v = view.back.xyz;
     if (view.eye.w > 0.5) {
       v = normalize(view.eye.xyz - in.world);
     }
     color = standard(m, base, n, v, geometry_roughness);
+    if (m.coat.x > 0.0) { color = clearcoated(m, color, n, v, geometry_roughness); }
   }
-  var out = srgb(tone_map(color));
+  var mapped = color;
+  if ((flags & NO_TONE_MAP) == 0u) { mapped = tone_map(color); }
+  var out = srgb(mapped);
   if ((flags & NO_FOG) == 0u) {
     out = fogged(out, in.depth);
   }
-  return vec4<f32>(out, m.color.a);
+  return vec4<f32>(out, opacity);
 }

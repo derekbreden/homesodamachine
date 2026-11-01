@@ -2,16 +2,15 @@
 """Render concentrate bottles, the closed funnel and a framed Fill screen from the current appliance."""
 from pathlib import Path
 import argparse
-import base64
 import hashlib
 import json
 import math
-import os
 import shutil
-import subprocess
 import sys
 
 import cadquery as cq
+import cairosvg
+import numpy as np
 from PIL import Image
 from fontTools.ttLib import TTFont
 from fontTools.pens.svgPathPen import SVGPathPen
@@ -22,10 +21,9 @@ DIR = HARDWARE / 'install-guide'
 OUT = DIR / 'out/fill-redesign'
 SOURCE = HARDWARE / 'manifold-layout/enclosure-assembly.step'
 FACTS = SOURCE.with_suffix('.facts.json')
-RENDERER = ROOT / 'tools/render/render-step-posed.js'
 sys.path.insert(0, str(HARDWARE / 'scripts'))
 sys.path.insert(0, str(HARDWARE / 'printed-parts/enclosure/enclosure'))
-from _cadq_export import _per_solid_color
+import _hsm_render
 import _mesh_payload
 from flute_payload import read_payload
 import _swept_top
@@ -115,21 +113,53 @@ def bottle():
 
 
 def scene():
-    original = cq.Assembly.load(str(SOURCE))
     props, mouth = bottle()
-    a = cq.Assembly(name='fill-with-concentrate')
-    for child in original.children:
-        if visible(child.name):
-            a.add(child)
-    for child in props.children:
-        a.add(child)
-    path = OUT / 'fill.step'
-    _per_solid_color(a).export(str(path))
     current = read_payload(SOURCE.with_suffix('.step.mesh'))
-    assert current
+    if not current:
+        raise ValueError(f'No appliance payload at {SOURCE}')
     meshes = [m for m in current if visible(m['name'])]
+    enclosure = next(m for m in meshes if m['name'] == 'enclosure-back-top')
+    cover = next(m for m in meshes if m['name'] == 'display-cover')
+    cover['color'] = enclosure['color']
     meshes.extend(_mesh_payload.from_assembly(props))
-    _mesh_payload.write(meshes, path.with_suffix('.step.mesh'), src=_mesh_payload.source_digest(path))
+
+    def surface(name, positions, normals, uv, indices):
+        return dict(name=name, color=[1., 1., 1.], pos=np.asarray(positions).ravel().tolist(),
+                    nrm=np.asarray(normals).ravel().tolist(), uv=np.asarray(uv).ravel().tolist(),
+                    idx=indices, fac=[0, len(indices)//3-1])
+
+    def transformed(points, angle, origin):
+        c, s = math.cos(angle), math.sin(angle)
+        matrix = np.asarray(((1, 0, 0), (0, c, -s), (0, s, c)))
+        return np.asarray(points) @ matrix.T + origin
+
+    w, h = SCREEN['width']/2, SCREEN['height']/2
+    angle = math.radians(SCREEN['angle_deg'])
+    positions = transformed([(-w, -h, 0), (w, -h, 0), (-w, h, 0), (w, h, 0)],
+                            angle, SCREEN['origin'])
+    normal = transformed([(0, 0, 1)], angle, (0, 0, 0))[0]
+    meshes.append(surface('guide-fill-screen', positions, [normal]*4,
+                          [(0, 0), (1, 0), (0, 1), (1, 1)], [0, 1, 2, 1, 3, 2]))
+
+    tilt = math.radians(90-TIP)
+    angle = math.atan2(CAMERA[1]*math.cos(tilt)+CAMERA[2]*math.sin(tilt), CAMERA[0])
+    count = 160
+    positions, normals, uv, indices = [], [], [], []
+    for j in range(2):
+        z, radius = 72+j*106, 32.25+j*.43
+        for i in range(count+1):
+            u = i/count
+            theta = angle+2*math.pi*(u-.5)
+            positions.append((radius*math.cos(theta), radius*math.sin(theta), z))
+            normals.append((math.cos(theta), math.sin(theta), 0))
+            uv.append((1-u, 1-j))
+    for i in range(count):
+        indices.extend((i, i+1, count+1+i, i+1, count+2+i, count+1+i))
+    positions = transformed(positions, tilt, mouth)
+    normals = transformed(normals, tilt, (0, 0, 0))
+    meshes.append(surface('bottle-label', positions, normals, uv, indices))
+    path = OUT / 'fill.step.mesh'
+    _mesh_payload.write(meshes, path)
     return path, mouth
 
 
@@ -169,26 +199,28 @@ def label(kind):
                   text('440 mL', 522, 31, '#153383')]
     svg = '<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="560">'+''.join(pieces)+'</svg>'
     (OUT/f'label-{kind}.svg').write_text(svg)
-    return 'data:image/svg+xml;base64,'+base64.b64encode(svg.encode()).decode()
+    target = OUT / f'label-{kind}.png'
+    cairosvg.svg2png(bytestring=svg.encode(), write_to=str(target))
+    return str(target)
 
 
-def renderer():
-    source = RENDERER.read_text()
-
-    def replace(old, new):
-        nonlocal source
-        assert source.count(old) == 1, old
-        source = source.replace(old, new)
-
-    replace('from "./browser.js"', f'from {(RENDERER.parent/"browser.js").as_uri()!r}')
-    replace('from "../../web/server.js"', f'from {(ROOT/"web/server.js").as_uri()!r}')
-    replace('import sharp from "sharp";', f'import {{ createRequire }} from "module"; const sharp = createRequire({str(RENDERER)!r})("sharp");')
-    replace('const REPO_ROOT = path.resolve(__dirname, "..", "..");', f'const REPO_ROOT = {str(ROOT)!r};')
-    replace('const opts = defaults();\n  if (entry.cam', 'const opts = defaults();\n  opts.labelUrl = entry.labelUrl;\n  opts.fillScreen = entry.fillScreen;\n  opts.view = entry.view;\n  opts.mouth = entry.mouth;\n  opts.tip = entry.tip;\n  opts.screen = entry.screen;\n  if (entry.cam')
-    replace('if (page && pageSize === want) {', 'if (false) {')
-    replace('renderer.render(scene, cam);', (Path(__file__).with_name('fill_materials.js')).read_text()+'\nrenderer.render(scene, cam);')
-    path = OUT/'render-fill.mjs'; path.write_text(source)
-    return path
+def materials(label):
+    return [
+        dict(names=['guide-fill-screen'], texture=str(DIR/'assets/fill-screen.png'),
+             unlit=True, tone_mapped=False, side='front'),
+        dict(names=['bottle-pet'], color='#dce9ee', opacity=.065, depth_write=False,
+             roughness=.18, metalness=.02, clearcoat=.5, clearcoat_roughness=.18,
+             side='front', order=5),
+        dict(names=['bottle-concentrate'], color='#361b0d', roughness=.62, metalness=0,
+             side='front'),
+        dict(names=['bottle-ring-*'], color='#9daeb4', opacity=.63, roughness=.18,
+             metalness=.08, depth_write=False, side='front', order=6),
+        dict(names=['bottle-grip-*', 'bottle-collar'], color='#17191a', roughness=.42,
+             metalness=0, side='front'),
+        dict(names=['display/2'], color='#11151a', unlit=True, side='front'),
+        dict(names=['bottle-label'], texture=label, roughness=.62, metalness=.015,
+             side='front'),
+    ]
 
 
 def main():
@@ -201,29 +233,31 @@ def main():
                         help='copy registered reference artwork or print artwork to the install guide')
     args = parser.parse_args()
     OUT.mkdir(parents=True, exist_ok=True)
-    step, mouth = scene()
-    screen = 'data:image/png;base64,'+base64.b64encode((DIR/'assets/fill-screen.png').read_bytes()).decode()
+    payload, mouth = scene()
     jobs = []
     for kind in (['neutral', 'pepsi'] if args.compare else [args.label]):
-        jobs.append(dict(step=str(step.relative_to(HARDWARE)), out=str(OUT/f'fill-{kind}.png'),
-                         labelUrl=label(kind), fillScreen=screen, view='fill', mouth=mouth, tip=TIP,
-                         screen=SCREEN, cam=CAMERA, target=TARGET, span=SPAN, size='1600x1500',
+        jobs.append(dict(payload=str(payload), out=str(OUT/f'fill-{kind}.png'),
+                         materials=materials(label(kind)), hide=['funnel-cover'],
+                         cam=CAMERA, target=TARGET, span=SPAN, size='1600x1500',
                          up=(0, 0, 1), bg='#ffffff', transparent=True, solid=True,
                          ortho=True, trim=False, ground=False, fog=False))
-        jobs.append(dict(jobs[-1], out=str(OUT/f'bottle-{kind}.png'), view='bottle',
+        jobs.append(dict(jobs[-1], out=str(OUT/f'bottle-{kind}.png'),
+                         only=['bottle-*'], context='hide',
                          target=[m + 102 * a for m, a in zip(mouth, AXIS)], span=114,
                          size='1350x900', trim=True))
-    jobs.append(dict(jobs[0], out=str(OUT/'fill-screen-framed.png'), view='frame',
+    jobs.append(dict(jobs[0], out=str(OUT/'fill-screen-framed.png'),
+                     only=['display', 'display-cover', 'display-gasket', 'guide-fill-screen'],
+                     context='hide',
                      cam=DISPLAY_PROFILE['normal'], target=SCREEN['origin'], span=46,
                      size='1800x1020', trim=True))
-    jobs.append(dict(jobs[0], out=str(OUT/'fill-closed.png'), view='closed'))
+    jobs.append(dict(jobs[0], out=str(OUT/'fill-closed.png'), hide=['bottle-*']))
     if args.scale <= 0:
         parser.error('--scale must be positive')
     for job in jobs:
         job['size'] = 'x'.join(str(round(int(value) * args.scale))
                                for value in job['size'].split('x'))
     manifest = OUT/'jobs.json'; manifest.write_text(json.dumps(jobs, indent=2)+'\n')
-    subprocess.run(['node', str(renderer()), '--jobs', str(manifest)], cwd=ROOT, check=True)
+    _hsm_render.render(jobs)
     if args.publish:
         publish(args, mouth)
     for job in jobs:
@@ -250,7 +284,11 @@ def publish(args, mouth):
                      for p in (SOURCE, SOURCE.with_suffix('.step.mesh'), FACTS,
                                Path(_swept_top.__file__).resolve(),
                                Path(_enclosure_interface.__file__).resolve(),
-                               Path(__file__), Path(__file__).with_name('fill_materials.js'))},
+                               Path(__file__), Path(_hsm_render.__file__).resolve(),
+                               Path(_mesh_payload.__file__).resolve(),
+                               ROOT/'web/public/finishes.json',
+                               *sorted((ROOT/'tools/hsm/render').rglob('*.rs')),
+                               *sorted((ROOT/'tools/hsm/render').rglob('*.wgsl')))},
             funnel_bounds=FUNNEL_BOUNDS, bottle_mouth=mouth, bottle_tip=TIP, screen=SCREEN,
             pose=dict(cam=CAMERA, target=TARGET, span=SPAN, size=(1600, 1500)),
             arrow=swing,

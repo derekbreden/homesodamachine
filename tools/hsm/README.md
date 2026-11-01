@@ -193,8 +193,14 @@ with no daemon. The CI image has no GPU, and Mesa's lavapipe answers Vulkan ther
 it. The guide art scripts, and the Bazel rules for the plumbing art, the opening scene, cad art
 and install art, draw with `hsm-render` by way of
 [`hardware/scripts/_hsm_render.py`](../../hardware/scripts/_hsm_render.py), which builds it from
-the checkout. The installation scenes that bring their own three.js materials draw with
-[`tools/render/render-step-posed.js`](../render/render-step-posed.js).
+the checkout. The Fill, ice and insertion-action tools use the same renderer.
+
+A JSON job can give solid bodies presentation `materials`. Each row's `names` are body globs or
+numbered mesh names; the last matching row wins. Rows can set `color`, `roughness`, `metalness`,
+`opacity`, `side` (`front`, `back`, `double`), `unlit`, `tone_mapped`, `depth_write`, `order`,
+`clearcoat` and `clearcoat_roughness`. `vertex_colors` uses an optional `col` payload array of
+linear RGB triples. `texture` names an sRGB PNG, mapped by an optional `uv` array of pairs; its
+mipmaps filter in linear light. Ordinary CAD payloads allocate no vertex attributes.
 
 ## Kernel
 

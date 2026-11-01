@@ -121,8 +121,8 @@ def _hook(event, args):
     # and moves it over the target, so the name the tree carries is never opened for writing.
     elif event in ("os.rename", "os.replace") and len(args) > 1:
         _keep(wrote, args[1])
-    # A TOOL THIS RUN HANDS A PATH TO opens it out of Python's sight. `render-step-posed.js`
-    # is named on node's command line and `_blender_scene.py` on blender's; both are read.
+    # A tool opens its script outside Python's sight. `_blender_scene.py` is named on
+    # Blender's command line, so that script is read.
     elif event == "subprocess.Popen" and len(args) > 1:
         for a in (args[1] or ()):
             try:

@@ -239,11 +239,6 @@ def render(gens: tuple, arts: list, srcs: list, optional: list, docs: list, rewr
     # points a headless browser at it, so an action that draws one needs a socket; the rest
     # of the tree is built with the network off.
     if any(g in NOT_HERMETIC for g in gens):
-        # A SCENE IS A PHOTOGRAPH OF A LIVE PAGE. `render-step-posed` stands the viewer on
-        # loopback and points a headless browser at it, and that page loads occt-import-js
-        # off a CDN — so drawing one reaches the network for a library this tree does not
-        # carry. Vendoring it is what would make this action hermetic; until then it runs
-        # outside the sandbox and is the one target here whose inputs are not all declared.
         lines.append('    tags = ["local", "requires-network"],')
     elif cargo:
         lines.append('    tags = ["no-sandbox"],')
