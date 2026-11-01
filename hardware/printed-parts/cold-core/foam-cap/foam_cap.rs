@@ -392,6 +392,49 @@ fn pump_cradle(n: &Numbers) -> Result<Solid> {
         }
         body = body.cut(&Solid::loft(&profiles)?.transformed(&frame(&d["frame"])?))?;
     }
+    let selected = &d["selected"];
+    let inner = selected["rail_stop_contact_native_y_mm"][1]
+        .as_f64()
+        .context("stop inner contact")?;
+    let top = d["frame"]["translation_mm"][2].as_f64().context("pump z")?
+        + f(selected, "rail_stop_native_z_mm")?;
+    let stops = a(&selected["rail_stop_native_x_mm"])?;
+    let fore = &stops[0];
+    let rear = &stops[1];
+    let fore0 = fore[0].as_f64().context("fore stop outside")?;
+    let fore1 = fore[1].as_f64().context("fore stop inside")?;
+    let rear0 = rear[0].as_f64().context("rear stop inside")?;
+    let rear1 = rear[1].as_f64().context("rear stop outside")?;
+    let rail = a(&d["rail_rooms"])?
+        .iter()
+        .find(|rail| rail["side"].as_f64().is_some_and(|side| side < 0.))
+        .context("negative-Y fixed rail")?;
+    let rail_outer = f(rail, "outer_y_mm")?;
+    let backing = box3(
+        c.x - inner,
+        c.x + wide,
+        fy + fore0,
+        fy + rear1,
+        face - 0.1,
+        c.z,
+    );
+    let head_room = box3(
+        c.x - inner - 0.1,
+        c.x + wide + 0.1,
+        fy + fore0 - 0.1,
+        fy + first,
+        top,
+        c.z + 0.2,
+    );
+    let corridor = box3(
+        c.x - inner - 0.1,
+        c.x - rail_outer,
+        fy + fore1,
+        fy + rear0,
+        face - 0.2,
+        c.z + 0.1,
+    );
+    body = body.union(&backing.cut(&head_room)?.cut(&corridor)?)?;
     for cap in a(&d["caps"])? {
         let s = &cap["snap_station"];
         for side in [-1., 1.] {
@@ -412,25 +455,6 @@ fn pump_cradle(n: &Numbers) -> Result<Solid> {
                 body = body.cut(&pump_cap_world(&pocket, cap)?)?;
             }
         }
-    }
-    let selected = &d["selected"];
-    let ya = selected["rail_stop_native_y_mm"][0]
-        .as_f64()
-        .context("stop ya")?;
-    let yb = selected["rail_stop_native_y_mm"][1]
-        .as_f64()
-        .context("stop yb")?;
-    let top = d["frame"]["translation_mm"][2].as_f64().context("pump z")?
-        + f(selected, "rail_stop_native_z_mm")?;
-    for stop in a(&selected["rail_stop_native_x_mm"])? {
-        body = body.union(&box3(
-            c.x - yb,
-            c.x - ya,
-            fy + stop[0].as_f64().context("stop a")?,
-            fy + stop[1].as_f64().context("stop b")?,
-            face - 0.1,
-            top,
-        ))?;
     }
     Ok(body.transformed(&world_to_cap(n)?))
 }
