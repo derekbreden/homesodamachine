@@ -3,7 +3,7 @@
     "CAVITY_L": "44 mm",
     "PRV_BBOX_X": "-11.550 to 11.550 mm",
     "PRV_BBOX_Y": "-11.550 to 11.550 mm",
-    "PRV_BBOX_Z": "-0.000 to 46.000 mm",
+    "PRV_BBOX_Z": "0.000 to 46.000 mm",
     "PRV_CAP_T": "2 mm",
     "PRV_INNER_D": "19.1 mm",
     "PRV_OUTER_D": "23.1 mm",
