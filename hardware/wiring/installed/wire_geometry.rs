@@ -86,6 +86,8 @@ fn wire(segments: &[Value], diameter: f64) -> Result<Solid> {
     plane.sweep(&Profile::circle(V2::ZERO, diameter / 2.0), &path)
 }
 
+mod wire_components;
+
 fn main() -> Result<()> {
     let (numbers, output) = part::args()?;
     let routes = numbers
@@ -112,6 +114,26 @@ fn main() -> Result<()> {
         names.push(name);
         colors.push(rgb);
         fine.push(solid);
+    }
+    let mut component_diameters = Vec::new();
+    if let Ok(components) = numbers.get("components") {
+        for component in components
+            .as_array()
+            .context("ordered installed components")?
+        {
+            let name = component["name"]
+                .as_str()
+                .context("installed component name")?;
+            let rgb = point(&component["linear_rgb"])?.to_array();
+            let parts =
+                wire_components::build(component).with_context(|| format!("building {name}"))?;
+            for solid in parts {
+                names.push(name);
+                colors.push(rgb);
+                fine.push(solid);
+                component_diameters.push(component["diameter_mm"].as_f64());
+            }
+        }
     }
     if output == std::path::Path::new("--check") {
         let rows: Vec<Value> = fine
@@ -145,9 +167,17 @@ fn main() -> Result<()> {
         .fold(f64::INFINITY, f64::min)
         / 2.0;
     let presentation_tolerance = deflection.min(radius * (1.0 - (angular / 2.0).cos()));
+    let tolerances: Vec<f64> = std::iter::repeat_n(presentation_tolerance, routes.len())
+        .chain(component_diameters.iter().map(|diameter| {
+            diameter.map_or(presentation_tolerance, |d| {
+                presentation_tolerance.min(d / 2.0 * (1.0 - (angular / 2.0).cos()))
+            })
+        }))
+        .collect();
     let presentation: Vec<Solid> = fine
         .iter()
-        .map(|solid| solid.simplified_to(presentation_tolerance))
+        .zip(&tolerances)
+        .map(|(solid, tolerance)| solid.simplified_to(*tolerance))
         .collect::<Result<_>>()?;
     let bodies: Vec<part::AssemblyBody> = fine
         .iter()
@@ -164,6 +194,9 @@ fn main() -> Result<()> {
     let document = json!({"schema":"hsm-installed-wires-1","frame":"Enclosure assembly XYZ; Z up",
                           "presentation_tolerance_mm":presentation_tolerance,
                           "presentation_angular_deflection_rad":angular,
+                          "presentation_tolerance_by_name_mm":names.iter().zip(&tolerances)
+                              .map(|(name,tolerance)|((*name).to_owned(),json!(tolerance)))
+                              .collect::<serde_json::Map<_,_>>(),
                           "alpha_by_name":names.iter().map(|name|((*name).to_owned(),json!(1.0))).collect::<serde_json::Map<_,_>>()});
     let said = part::write_assembly(&output, numbers.text("name")?, &bodies, Some(&document))?;
     println!("{said}");
