@@ -75,7 +75,8 @@ Use the per-unit [BOM](/hardware/ledger/bom.md),
 assignments, preparation, stripping and termination. Preserve the schedule's
 run IDs and loom labels. Use the specified connector graph.
 
-The PCB's native mounting-hole pattern follows the cold-core lid/cup columns.
+The PCB's native mounting-hole pattern follows the four posts integral to the
+cold-core equipment lid.
 It uses M3 × 8 screws through its 1.6 mm board into
 RX-M3×5.7 inserts. Slide the complete rubber foot-and-leg assemblies off the
 water pump's fixed rails. Lower the bare pump into the lid's fitted half pipe
@@ -100,16 +101,19 @@ records the current rigid-slide and final-connection limits.
 
 1. Prepare the cold-core internal wiring and the lid-mounted equipment while
    their entries and screws are exposed. Each reservoir reed column has one
-   five-conductor loom. A rises straight through the cup and lid before
-   turning toward J6. Lay B's loom through the 8 × 6 mm shell-rim notch
-   before seating the cap, then dress it outside the B-fill block to J7 and
-   the existing common WAGO. The shared Ø7.5 mm `sensor-cable` passage enters the cup at
-   world X−48/Y347 and bends at R5.5 to its lid exit at X−78/Y320. It carries seven cores: temperature V/DATA/GND, carbonator
-   CLO/CHI/common, and the green 16 AWG PE lead. Feed the temperature bus at
+   five-conductor loom. A rises through the equipment lid's aligned bore
+   before turning toward J6. Feed B's five free wire ends through its
+   8 × 6 mm fore side window at world Z227.4–233.4, below the raised
+   Z245.85 rim. Dress them outside the shell to J7 and the existing common
+   WAGO; fit their lid-side terminations after threading. The shared
+   `sensor-cable` loom rises at world X−48/Y347 and follows an R5.5 transition
+   to its Ø7.5 mm lid opening at X−78/Y320. It carries seven cores: temperature
+   V/DATA/GND, carbonator CLO/CHI/common, and the green 16 AWG PE lead. Feed the temperature bus at
    the coil probe first; its free leads turn aft below the PRV vent at Z184
-   and rise toward the lower guide at Y347. Keep the east reeds fixed and lay their transfer across
-   the open head at Z225/Y352 before the body pour. Thread the cup and lid
-   over all seven free ends; the earth lead's ferrule goes on outside the
+   and rise toward the shared riser at Y347. Keep the east reeds fixed and lay
+   their transfer across the open head at Z225/Y352 before the body pour.
+   Foam locates the sensor/earth loom below the lid. Thread the lid over all
+   seven free ends; the earth lead's ferrule goes on outside the
    lid after dressing. Dress the signals along the west PCB approach and
    leave PE free for the rear PE WAGO. Complete the
    cold-core assembly in
