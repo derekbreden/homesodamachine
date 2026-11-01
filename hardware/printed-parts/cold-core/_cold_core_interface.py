@@ -593,7 +593,7 @@ cap_conduit_entry_relief_radius = (
     + wall_and_floor_thickness * math.tan(math.radians(cap_conduit_entry_skew)))
 # The relief stands inside the boss its own column carries, so `cap_conduit_wall_neck` and
 # `cap_conduit_pair_neck` fence the cone where they fence the column. A wall of boss over a cone
-# one wall deep puts that ceiling at [45°](ENTRY_SKEW_CEILING).
+# one wall deep puts that ceiling at [49.96°](ENTRY_SKEW_CEILING).
 cap_conduit_entry_skew_ceiling = math.degrees(
     math.atan2(cap_conduit_wall, wall_and_floor_thickness))
 # The mouth passes the tube's SECTION and not just its centreline: a ⌀[6.35](LLDPE_TUBE_OD) line
