@@ -220,13 +220,14 @@ def reed(*, centre, axis=(0, 0, 1)):
 # pour. The package is the whole body: 4.3 × 4.3 mm with one face rounded, 5.2 tall.
 TO92_W = 4.3
 TO92_H = 5.2
+TO92_CORNER_R = 1.2
 
 
 def to92(*, centre, axis=(0, 0, 1)):
     axis = cq.Vector(*axis).normalized()
     c = cq.Vector(*centre)
     body = (cq.Workplane("XY").rect(TO92_W, TO92_W).extrude(TO92_H)
-            .edges("|Z").fillet(1.2).val())
+            .edges("|Z").fillet(TO92_CORNER_R).val())
     return _orient(body, axis).translate(c - axis.multiply(TO92_H / 2))
 
 
