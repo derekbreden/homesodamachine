@@ -7896,8 +7896,9 @@
       "tie_window_support_crossings": []
     },
     "foam-shell": {
-      "preparation_directory": ".cache/prints/enclosure-continuous-clip-final-2eb222ae/2026-11-01-foam-shell-mark2-e7c624c9",
-      "preparation_record_sha256": "fbcc715de9e4633967205e1e2de4bbaaf56057f331e3591a7e959bb0000868f1",
+      "artifact_root": "/Users/derekbredensteiner/Developer/homesodamachine",
+      "preparation_directory": ".cache/combined-finish/handoffs/foam-shell/prepared-print",
+      "preparation_record_sha256": "c95ce7df31243eecdcb359cfbd0d89af559ae3203abba42c51a3ea2dc5d143b5",
       "profile_sha256": "45c16e8c8517e0a205107d7b9f7412d013f51a8de7ecf86125cc940079d37ed0",
       "printer": "Mark2",
       "nozzle": {
@@ -8091,11 +8092,14 @@
       "objects": [
         {
           "name": "foam-shell",
+          "identify_id": 1901,
+          "object_id": 2,
           "stl": "hardware/printed-parts/cold-core/foam-shell/foam-shell.stl",
-          "stl_sha256": "a8fc1a29ded8daaaae3498e0af15b5923d6149c187f68ba0790cba81773d92cf",
-          "step_sha256": "6f9445c5100eda24e79e6986d1acba16b1335dba3484bffb0b64af2f28449c13",
+          "stl_sha256": "132c06ecc887624ae36c98c168f97efaa533deb278a4b93a3d2f725455d93164",
+          "step_sha256": "a716b44ef657e0355fbceae6c2dcba6a4de45feefad6417245149f26abef5ad7",
+          "facets": 35688,
           "closed": {
-            "edges": 172281,
+            "edges": 53532,
             "boundary_edges": 0,
             "nonmanifold_edges": 0,
             "inconsistent_edges": 0,
@@ -8121,6 +8125,11 @@
             ]
           ],
           "yaw_degrees": 0,
+          "source_center_mm": [
+            0.0,
+            0.0,
+            112.925003052
+          ],
           "build_rotation": [
             [
               1.0,
@@ -8155,11 +8164,27 @@
               225.850006104
             ]
           ],
+          "model_bed_margin_mm": 21.300003051999965,
+          "seam_enforcer": {
+            "axis": "y",
+            "center_mm": 88.95,
+            "half_width_mm": 0.25,
+            "face_axis": "x",
+            "face_coordinate_mm": 4.75,
+            "face_sign": -1,
+            "reason": "Seat the plain seam in the seam channel's +X inside corner: a strip of the channel's side wall along that corner, the full height of the shell, where it faces across the channel rather than out of it.",
+            "source_facets": 34084,
+            "project_facets": 35688,
+            "painted_facets": 5,
+            "maximum_source_plane_error_mm": 6.923051298901584e-10,
+            "maximum_source_facet_area_error_mm2": 1.3650290675570886e-07
+          },
+          "object_settings": {},
           "features": [],
           "ranges": [],
+          "verify_spans": [],
           "ribbons": [],
           "tie_windows": [],
-          "fins": [],
           "modifiers": [
             {
               "name": "M5 host 1, both inserts, tail and wall root",
@@ -8442,10 +8467,15 @@
               "sparse_infill_density": "100%"
             }
           ],
-          "current_native_step_sha256": "6f9445c5100eda24e79e6986d1acba16b1335dba3484bffb0b64af2f28449c13"
+          "fins": [],
+          "regions": {
+            "record": "hardware/printed-parts/cold-core/foam-cap/fore-snap-print-regions.json",
+            "record_sha256": "671fbe02c23845ce0412ae3517480535d5a994a2842146c5cf4cda7f454ea22b",
+            "part_process_overrides": null
+          }
         }
       ],
-      "archive_sha256": "e13da265e760924a80f821b88f072e04c2ffb650092f2c1790afaeba9781e8ca",
+      "archive_sha256": "59280b8fa4a96b63a3488906ce8b6b3611e1f890957148750884f5ce8e5f4457",
       "checks": {
         "archive": true,
         "z_trim": true,
@@ -8456,20 +8486,19 @@
         "ribbons_support_free_and_printed": true,
         "solid_hosts_sampled": true
       },
-      "minimum_bed_margin_mm": 21.106814,
+      "minimum_bed_margin_mm": 21.106236999999965,
       "bed_border_mm": 20.0,
       "support_audits": [
         {
-          "record_sha256": "468db505afeef297e72bca861dc0baecda161f18243cacfa144a0b58cde9b0f0",
           "schema": 1,
           "piece": "foam-shell",
           "inputs": {
             "gcode": "support-labels-1901.gcode",
-            "gcode_sha256": "c69abc8f9aa4d0b40d804fadb193085aa01e85c5b1d75cb308e984db0d568931",
-            "model": "/Users/derekbredensteiner/Developer/hsm-approved-asse/hardware/printed-parts/cold-core/foam-shell/foam-shell.stl",
-            "model_sha256": "a8fc1a29ded8daaaae3498e0af15b5923d6149c187f68ba0790cba81773d92cf",
-            "profile": ".cache/prints/enclosure-continuous-clip-final-2eb222ae/2026-11-01-foam-shell-mark2-e7c624c9/2026-11-01-foam-shell-mark2-e7c624c9.3mf",
-            "profile_sha256": "cda1518cc96b20028a55e9fe7a07a7478c561a88f2d17d9aa55677359724d5bd"
+            "gcode_sha256": "963d5bd989413e05e1134745d9ed354abe39d265a64748d3e915c5580cbe38a6",
+            "model": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/worktrees/cold-core-rust-print/hardware/printed-parts/cold-core/foam-shell/foam-shell.stl",
+            "model_sha256": "132c06ecc887624ae36c98c168f97efaa533deb278a4b93a3d2f725455d93164",
+            "profile": ".cache/prints/cold-core-rust-binding/2026-11-01-foam-shell-mark2-e5e3444d/2026-11-01-foam-shell-mark2-e5e3444d.3mf",
+            "profile_sha256": "e745cced4192de8c1f43f6b04ff36a7445b50aa9402a8841424bfb98bde27603"
           },
           "slicer": "BambuStudio 02.08.02.61",
           "first_layer_z_mm": 0.2,
@@ -8522,9 +8551,10 @@
           "interface_feature_policy": "All support bodies are retained; unlabelled interfaces have unknown contact count and build-up."
         }
       ],
-      "fine_and_transition_bands": [],
-      "show_face_contacts": [],
-      "tie_window_support_crossings": []
+      "retained_kernel_print_review": {
+        "path": "hardware/printed-parts/cold-core/foam-shell/kernel-print-review.json",
+        "sha256": "f213adf9fb5b6ac941bfb6a15aab31576c89bcb2a6080a4240a0241ded704bb7"
+      }
     },
     "foam-cap-bottom": {
       "preparation_directory": ".cache/prints/enclosure-continuous-clip-final-2eb222ae/2026-11-01-foam-cap-bottom-mark2-d9cd5c04",
