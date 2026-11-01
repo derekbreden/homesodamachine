@@ -115,8 +115,10 @@ carbonator-wall probe. The coil-side route turns aft below the PRV vent at
 world Z184, then rises at Y347 to the shared riser. Its tangential splice rows
 are proposed harness joints; they do not specify the TO-92 package pin order.
 
-Reservoir B's fore side window is 8 mm wide and 6 mm high, at appliance
-Z227.4–233.4 below the Z245.85 shell rim. Feed its individual free wire ends
+Reservoir B's fore side window has a nominal 8 × 6 mm clear cable opening at
+appliance Z227.4–233.4. Its self-supporting roof peaks at Z241.65, below the
+Z245.85 shell rim. Mask the complete opening for the pour. Feed its individual
+free wire ends
 through the window before fitting their lid-side terminations. For column
 service, free those conductors from their lid-side terminations and feed the
 ends back through the window before lifting the column from its dry channel.

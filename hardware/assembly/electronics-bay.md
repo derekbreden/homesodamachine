@@ -103,8 +103,9 @@ records the current rigid-slide and final-connection limits.
    their entries and screws are exposed. Each reservoir reed column has one
    five-conductor loom. A rises through the equipment lid's aligned bore
    before turning toward J6. Feed B's five free wire ends through its
-   8 × 6 mm fore side window at world Z227.4–233.4, below the raised
-   Z245.85 rim. Dress them outside the shell to J7 and the existing common
+   nominal 8 × 6 mm cable opening at world Z227.4–233.4 in the fore side
+   window. Its peaked roof reaches Z241.65, below the raised Z245.85 rim.
+   Dress them outside the shell to J7 and the existing common
    WAGO; fit their lid-side terminations after threading. The shared
    `sensor-cable` loom rises at world X−48/Y347 and follows an R5.5 transition
    to its Ø7.5 mm lid opening at X−78/Y320. It carries seven cores: temperature

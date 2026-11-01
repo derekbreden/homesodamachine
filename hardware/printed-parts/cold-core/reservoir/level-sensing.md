@@ -44,10 +44,12 @@ straight **[7.5 mm](CONDUIT_BORE_D)** passage through the equipment lid,
 directly above its reed channel at appliance X−32.5/Y458.3. Its upper mouth
 is on the Z253.4 lid face; the ribbon's bends and jogging are dressed above
 that face. Reservoir B's five conductors
-leave through an 8 mm wide, 6 mm high fore side window into the dry channel.
-In appliance coordinates the window spans X−36.5…−28.5 at Y182.6 and
-Z227.4…233.4, below the raised Z245.85 shell rim. Feed the free upper ends
-through this window before making their lid-side terminations. The channel
+leave through a fore side window with a nominal 8 × 6 mm clear cable opening.
+In appliance coordinates that opening spans X−36.5…−28.5 at Y182.6 and
+Z227.4…233.4. Its self-supporting roof peaks at Z241.65, below the raised
+Z245.85 shell rim. Mask the complete opening, including its roof, for the pour.
+Feed the free upper ends through the window before making their lid-side
+terminations. The channel
 continues upward to its open mouth beneath the equipment lid. Its backing
 separates it from the foam cavity; an exterior foil cable collar closes the
 window around the conductors. Their external route rises beside the PCB:
