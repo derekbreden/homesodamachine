@@ -661,7 +661,8 @@ def _lower_signal_profile(z, x, y, width, depth, rounded, angle=0.0):
     return wire.rotate((x, y, z), (x, y, z + 1.0), angle)
 
 
-def _lower_signal_solid(width, depth, rounded, bottom_z, turn_clearance=0.0):
+def _lower_signal_wires(width, depth, rounded, bottom_z, turn_clearance=0.0):
+    """The sections the lower cable or its lane is ruled through, bottom first."""
     stations = _lower_signal_stations()
     wires = [_lower_signal_profile(z, signal_lower_exit_x, signal_lower_exit_y,
                                    width, depth, rounded, signal_lower_exit_angle)
@@ -677,15 +678,24 @@ def _lower_signal_solid(width, depth, rounded, bottom_z, turn_clearance=0.0):
     wires.extend(_lower_signal_profile(z, x, y, width + 2.0 * turn_clearance,
                                        depth + 2.0 * turn_clearance, rounded, angle)
                  for z, x, y, angle in turn_stations)
-    solid = cq.Solid.makeLoft(wires, ruled=True)
+    return wires
+
+
+def _lower_signal_solid(width, depth, rounded, bottom_z, turn_clearance=0.0):
+    solid = cq.Solid.makeLoft(
+        _lower_signal_wires(width, depth, rounded, bottom_z, turn_clearance), ruled=True)
     if not solid.isValid() or len(solid.Solids()) != 1:
         raise ValueError("the complete lower ribbon or clearance lane must be one valid solid")
     return cq.Workplane(obj=solid)
 
 
+# The measured flat ribbon through the complete mount stack: its section, and its foot.
+lower_signal_ribbon = (signal_ribbon_max_width, signal_ribbon_max_depth, False, -50.0)
+
+
 def build_lower_signal_ribbon() -> cq.Workplane:
     """Measured flat ribbon envelope through the complete mount stack."""
-    return _lower_signal_solid(signal_ribbon_max_width, signal_ribbon_max_depth, False, -50.0)
+    return _lower_signal_solid(*lower_signal_ribbon)
 
 
 # The flat cable lane's foot, in the mounting stack below the counter; the bundle opening's
@@ -921,28 +931,26 @@ def _ribbon_transition(frame_fn,start,end,clearance):
     # Ruled sections only cover the short quintic offsets. A 0.3 mm pitch
     # keeps their chord error below the print surface tolerance.
     count=max(2,math.ceil((end-start)/0.3))
-    sections=[_ribbon_section(*frame_fn(start+(end-start)*i/count),clearance)
-              for i in range(count+1)]
-    return cq.Solid.makeLoft(sections,ruled=True)
+    return "loft",[_ribbon_section(*frame_fn(start+(end-start)*i/count),clearance)
+                   for i in range(count+1)]
 
 
 def _ribbon_straight(z0,z1,clearance):
     point,_,width=_ribbon_lower_frame(z0)
-    section=_ribbon_section(point,(0,0,1),width,clearance)
-    return cq.Solid.extrudeLinear(section,[],cq.Vector(0,0,z1-z0))
+    return "extrude",_ribbon_section(point,(0,0,1),width,clearance),(0,0,z1-z0)
 
 
 def _ribbon_constant_arc(s0,s1,n,width,clearance):
     a=_paths.JOINT_ANGLE+s0/_paths.WATER_RADIUS
     b=_paths.JOINT_ANGLE+s1/_paths.WATER_RADIUS
     start,mid,end=[_paths.arc_point(t,n=n) for t in (a,(a+b)/2,b)]
-    edge=cq.Edge.makeThreePointArc(cq.Vector(*start),cq.Vector(*mid),cq.Vector(*end))
-    wire=cq.Wire.assembleEdges([edge])
-    section=_ribbon_section(start,(0,-math.sin(a),math.cos(a)),width,clearance)
-    return cq.Solid.sweep(section,[],wire,makeSolid=True,isFrenet=False)
+    return "sweep",_ribbon_section(start,(0,-math.sin(a),math.cos(a)),width,clearance),(start,mid,end)
 
 
-def _ribbon_span_solids(clearance=False,bottom_z=38.8):
+def _ribbon_spans(clearance=False,bottom_z=38.8):
+    """The cable's spans up the neck, bottom first, as what each is cut from: `("extrude",
+    section, rise)` for a straight run, `("loft", sections)` for an offset transition, ruled,
+    and `("sweep", section, arc points)` for a constant arc."""
     end_angle=_path_total_rot-math.asin(
         (display_ribbon_join_s-gn_tip_straight_len)/(gn_bend1_r+signal_lane_center_n))
     end_s=(end_angle-_paths.JOINT_ANGLE)*_paths.WATER_RADIUS
@@ -958,6 +966,19 @@ def _ribbon_span_solids(clearance=False,bottom_z=38.8):
         _ribbon_constant_arc(_paths.CONVERGE_START_S+_paths.RIBBON_CONVERGE_LENGTH,
                              end_s,_paths.FACE_RIBBON_N,signal_ribbon_max_width,clearance)])
     return parts
+
+
+def _ribbon_span_solid(span):
+    if span[0]=="extrude":
+        return cq.Solid.extrudeLinear(span[1],[],cq.Vector(*span[2]))
+    if span[0]=="loft":
+        return cq.Solid.makeLoft(span[1],ruled=True)
+    edge=cq.Edge.makeThreePointArc(*(cq.Vector(*p) for p in span[2]))
+    return cq.Solid.sweep(span[1],[],cq.Wire.assembleEdges([edge]),makeSolid=True,isFrenet=False)
+
+
+def _ribbon_span_solids(clearance=False,bottom_z=38.8):
+    return [_ribbon_span_solid(span) for span in _ribbon_spans(clearance,bottom_z)]
 
 
 @functools.lru_cache(maxsize=None)
@@ -1597,8 +1618,9 @@ def build_display_usb_keepout() -> cq.Workplane:
     ).translate(((low[0] + high[0]) / 2.0, 0.0, 0.0))
 
 
-def _display_ribbon_sweep(width: float, depth: float, top_n: float) -> cq.Workplane:
-    """The flat ribbon leaves the neck into the open volume below the PCB.
+def _display_ribbon_sections(width: float, depth: float, top_n: float):
+    """The flat ribbon leaves the neck into the open volume below the PCB, ruled through these
+    sections, bottom first.
 
     Sections follow explicit frames: width stays perpendicular to the lateral
     turn, without the sudden ribbon twist of a Frenet frame at an inflection.
@@ -1677,14 +1699,22 @@ def _display_ribbon_sweep(width: float, depth: float, top_n: float) -> cq.Workpl
             cross = cq.Vector(1, 0, 0)
         section = cq.Workplane(cq.Plane(origin=centre, xDir=cross, normal=tangent))
         wires.append(section.rect(width, depth).val())
-    return cq.Workplane(obj=cq.Solid.makeLoft(wires,ruled=True))
+    return wires
+
+
+def _display_ribbon_sweep(width: float, depth: float, top_n: float) -> cq.Workplane:
+    return cq.Workplane(obj=cq.Solid.makeLoft(_display_ribbon_sections(width, depth, top_n),
+                                              ruled=True))
+
+
+# The cable's top: the factory wire fan-out beside the PCB, short of its measured underside.
+display_ribbon_top_n = display_feet_n + _faucet_interface.display_pcb_bottom_z - display_ribbon_pcb_gap
 
 
 def build_display_ribbon_transition() -> cq.Workplane:
     """Maximum SIG-6 envelope up to the factory wire fan-out beside the PCB."""
     return _display_ribbon_sweep(signal_ribbon_max_width, signal_ribbon_max_depth,
-                                 display_feet_n + _faucet_interface.display_pcb_bottom_z
-                                 - display_ribbon_pcb_gap)
+                                 display_ribbon_top_n)
 
 
 def build_lever_overhead_clearance() -> cq.Workplane:

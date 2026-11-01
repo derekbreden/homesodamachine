@@ -140,16 +140,18 @@ def export_piece(name, shape, color=C_FAUCET_BLACK):
 
 
 def main():
-    from industrial_display_cover import build_display_cover
+    from industrial_display_cover import SEATED_STEP, build_display_cover, build_seated_display_cover
 
+    seated = build_seated_display_cover()
     for name, builder, material in (
         ("industrial-shell-base", build_shell_base, C_FAUCET_BLACK),
-        ("industrial-display-cover", build_display_cover, C_FAUCET_BLACK),
+        ("industrial-display-cover", lambda: build_display_cover(seated=seated), C_FAUCET_BLACK),
         ("industrial-above-counter-plate", build_above_counter_plate, C_FAUCET_BLACK),
         ("industrial-above-counter-gasket", build_above_counter_gasket, M_TPU_BLACK),
     ):
         print(f"Building {name}", flush=True)
         export_piece(name, builder(), material)
+    export_assembly(one_body(seated, SEATED_STEP.stem, C_FAUCET_BLACK), str(SEATED_STEP))
 
 
 if __name__ == "__main__":

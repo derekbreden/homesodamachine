@@ -184,9 +184,11 @@ meshcad does, so a part writes the same records from every worktree.
 
 Profiles are drawn exactly with lines, arcs, circles, Béziers, corner fillets, offsets and the
 hull round circles and points (`Loop`, `Pen`, `Profile`; `hull_loop` is CadQuery's
-`Sketch.hull`) on a workplane (`Plane`) named as CadQuery names them. The builders
-extrude (straight, both ways, drafted), revolve, sweep along lines and arcs or along a helix
-(carried rigidly by the screw motion, or in a rotation-minimizing frame), loft sections ruled
+`Sketch.hull`) on a workplane (`Plane`) named as CadQuery names them, or read from a laser's
+DXF (`dxf::read`, CadQuery's `importDXF`). The builders extrude (straight, both ways, drafted),
+revolve, sweep along lines, arcs and cubics through points (`Path::spline_through`, CadQuery's
+`makeSpline`; `Path::spline_to` between two end tangents) or along a helix (carried rigidly by
+the screw motion, or in a rotation-minimizing frame), loft sections ruled
 or through OCCT's own smooth surface (`Solid::thru_sections`, CadQuery's `loft`; a solid that
 meets a smooth loft's end is built on the loft's own end ring, `SmoothLoft::end_region`),
 set text from a font's outlines, and make boxes, cylinders, cones, spheres, tori, wedges and
@@ -239,8 +241,10 @@ within the rule (`tests/occt_reference.py` and, for the helix sweeps, lofts and 
 with plain CadQuery), lofts and rounds to every point sampled on OCCT's faces within the rule
 (the rounds include one beside a fin 0.3 mm away, fills in the corners of 1 mm and 0.8 mm walls,
 and rounds and chamfers along the edges an earlier round made), hulls to the edges of CadQuery's
-(`tests/sketch_hull_reference.py`), and booleans to Manifold run plainly on the same operands,
-sixty holes in one cut among them. They hold the fuse clamp, cut from its numbers, to the
+(`tests/sketch_hull_reference.py`), splines to the point and direction of OCCT's through the
+same points and a tube swept along one to OCCT's sweep (`tests/spline_reference.py`), a DXF
+outline to what `importDXF` reads from it (`tests/dxf_reference.py`), and booleans to Manifold
+run plainly on the same operands, sixty holes in one cut among them. They hold the fuse clamp, cut from its numbers, to the
 volume of its module's `build()` and to that B-rep's STL (`tests/fixtures/fuse-clamp.stl`), two
 processes to the same bytes, a STEP and a model file to the triangles, names and colours they
 were written from, and the crate to a wasm32 build. The text tests read the system's Arial and
@@ -250,8 +254,9 @@ Helvetica.
 
 A part the kernel cuts keeps its numbers in Python and its geometry in Rust, side by side in its
 folder. The fuse clamp (`hardware/printed-parts/refrigeration/fuse-clamp`) is one; the coil
-mandrel (`hardware/printed-parts/cold-core/coil-mandrel`, crate `tools/hsm/cold-core`) and the
-faucet shell (`hardware/printed-parts/faucet/faucet-shell`, crate `tools/hsm/faucet`) are others.
+mandrel (`hardware/printed-parts/cold-core/coil-mandrel`, crate `tools/hsm/cold-core`), the
+faucet shell (`hardware/printed-parts/faucet/faucet-shell`, crate `tools/hsm/faucet`) and the two
+faucet assemblies (`hardware/faucet-layout`, the same crate) are others.
 
 `fuse_clamp.py` is its generator. It derives every number the part takes from the parts it
 closes on, states its bounds and fills its README, as any generator does, and writes the numbers
@@ -267,8 +272,9 @@ printed piece whose payload `hardware/scripts/flute_payload.py` cuts from its ST
 writes several sets prints each one's answer on a line of its own, and its standard output
 carries nothing else. The faucet shell writes the assembled pair with `write_shown` and each of
 its two prints with `write_printed`. The faucet's programs are `[[bin]]`s of `tools/hsm/faucet`,
-whose library holds what they share: the gooseneck, the display's frame at its tip, and the
-shapes their numbers come in.
+whose library holds what they share: the gooseneck, the display's frame at its tip, the
+shapes their numbers come in, and `assembly`, the faucet and its umbilical as the bench bags
+them, which both assemblies cut from the numbers `faucet_assembly.py` writes.
 
 The generator runs the program through
 [`hardware/scripts/_rust_part.py`](../../hardware/scripts/_rust_part.py).
@@ -298,7 +304,10 @@ carries the toolchain and CMake.
 A generator on meshcad seats the part off its STEP, whose solids an import takes from the model
 file. `import_step` refuses that STEP on OCCT, so an OCCT generator that seats the part calls a
 CadQuery `build()` in its module instead: the fuse clamp keeps one for `enclosure_assembly`, and
-the faucet shell keeps its builders for `faucet_assembly` and the industrial faucet.
+the faucet shell keeps its builders for the industrial faucet and for
+`faucet_assembly.build_assembly`, the CadQuery assembly the guide art stands. A program on the
+kernel reads the STEP with `import::step`, as the faucet assemblies read the shell's two pieces
+off `faucet-shell.step`.
 
 ```sh
 tools/cad-venv/bin/python hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.py

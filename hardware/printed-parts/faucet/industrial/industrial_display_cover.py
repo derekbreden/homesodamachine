@@ -98,6 +98,10 @@ def build_display_cover_lips(dimensions: CoverDimensions = DIMENSIONS) -> cq.Wor
     return shell.relieve_display_lip_inner_edges(band.cut(core))
 
 
+# The cover as it sits on the tip, which the Industrial assembly stands in place.
+SEATED_STEP = _here.parent / "industrial-display-cover-seated.step"
+
+
 def build_seated_display_cover(dimensions: CoverDimensions = DIMENSIONS) -> cq.Workplane:
     """Nominal seated reference with planar sides and a filled rear wall."""
     _, _, normal = shell._tip_frame()
@@ -121,11 +125,13 @@ def relaxed_wing_transform(side: int, dimensions: CoverDimensions = DIMENSIONS) 
                       [0.0, 0.0, 0.0, 1.0]])
 
 
-def build_display_cover(dimensions: CoverDimensions = DIMENSIONS) -> cq.Workplane:
-    """Relaxed printable shape; the bezel retains its exact seated dimensions."""
+def build_display_cover(dimensions: CoverDimensions = DIMENSIONS,
+                        seated: cq.Workplane | None = None) -> cq.Workplane:
+    """Relaxed printable shape; the bezel retains its exact seated dimensions. It is cut from the
+    seated cover (`build_seated_display_cover`, unless it is handed in)."""
     origin, _, normal = shell._tip_frame()
     frame = cq.Location(cq.Plane(origin=origin, xDir=(1.0, 0.0, 0.0), normal=normal))
-    seated = build_seated_display_cover(dimensions).val().moved(frame.inverse)
+    seated = (build_seated_display_cover(dimensions) if seated is None else seated).val().moved(frame.inverse)
     margin = dimensions.width + dimensions.length
     bezel = seated.intersect(cq.Solid.makeBox(
         2.0 * margin, 2.0 * margin, margin,

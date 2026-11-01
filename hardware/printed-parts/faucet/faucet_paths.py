@@ -156,26 +156,25 @@ def port_half_width(s):
     return PORT_WIDTH/2 if d >= r else PORT_WIDTH/2-r+math.sqrt(max(0, r*r-(d-r)**2))
 
 
-def path_wire(kind, bottom_z=-6.2, sign=1, *, end_s=None):
-    """Circular/spline CAD path with analytic straight and constant arc runs."""
-    import cadquery as cq
-    edges = []
+def path_legs(kind, bottom_z=-6.2, sign=1, *, end_s=None):
+    """The centreline as legs, tip last: `("line", a, b)`, `("arc", a, mid, b)` for a constant
+    arc and `("spline", points)` for an offset transition, sampled every 0.4 mm or finer."""
+    legs = []
 
     def line(a, b):
         if math.dist(a, b) > 1e-7:
-            edges.append(cq.Edge.makeLine(cq.Vector(*a), cq.Vector(*b)))
+            legs.append(("line", a, b))
 
     def spline(fn, a, b):
         count = max(16, math.ceil((b-a)/0.4))
-        edges.append(cq.Edge.makeSpline([cq.Vector(*fn(a+(b-a)*i/count)) for i in range(count+1)], tol=1e-7))
+        legs.append(("spline", [fn(a+(b-a)*i/count) for i in range(count+1)]))
 
     def lower(z):
         return lower_point(z, kind, sign)
 
     def constant_arc(a, b, x, n):
         if b-a > 1e-9:
-            edges.append(cq.Edge.makeThreePointArc(cq.Vector(*arc_point(a,x,n)),
-                cq.Vector(*arc_point((a+b)/2,x,n)), cq.Vector(*arc_point(b,x,n))))
+            legs.append(("arc", arc_point(a,x,n), arc_point((a+b)/2,x,n), arc_point(b,x,n)))
 
     start = lower(LOWER_START_Z)
     line((start[0], start[1], bottom_z), start)
@@ -200,4 +199,24 @@ def path_wire(kind, bottom_z=-6.2, sign=1, *, end_s=None):
         constant_arc(JOINT_ANGLE+(CONVERGE_START_S+CONVERGE_LENGTH)/WATER_RADIUS, TOTAL_ANGLE, nx, nn)
         start = arc_point(TOTAL_ANGLE,nx,nn)
         line(start, (start[0],start[1]-TIP_LENGTH*math.sin(TOTAL_ANGLE),start[2]+TIP_LENGTH*math.cos(TOTAL_ANGLE)))
-    return cq.Wire.assembleEdges(edges)
+    return legs
+
+
+def leg_edge(leg):
+    """One of `path_legs`' legs as a CadQuery edge, or `("hermite", a, b, ta, tb)`: the spline
+    from `a` to `b` leaving along `ta` and arriving along `tb`."""
+    import cadquery as cq
+    if leg[0] == "line":
+        return cq.Edge.makeLine(cq.Vector(*leg[1]), cq.Vector(*leg[2]))
+    if leg[0] == "arc":
+        return cq.Edge.makeThreePointArc(*(cq.Vector(*p) for p in leg[1:]))
+    if leg[0] == "hermite":
+        return cq.Edge.makeSpline([cq.Vector(*p) for p in leg[1:3]],
+                                  tangents=[cq.Vector(*t) for t in leg[3:]])
+    return cq.Edge.makeSpline([cq.Vector(*p) for p in leg[1]], tol=1e-7)
+
+
+def path_wire(kind, bottom_z=-6.2, sign=1, *, end_s=None):
+    """Circular/spline CAD path with analytic straight and constant arc runs."""
+    import cadquery as cq
+    return cq.Wire.assembleEdges([leg_edge(leg) for leg in path_legs(kind, bottom_z, sign, end_s=end_s)])
