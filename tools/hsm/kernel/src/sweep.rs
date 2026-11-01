@@ -171,6 +171,15 @@ impl Path {
         Ok(self.curve(curve))
     }
 
+    /// A Bézier whose first control point is the path's end (`Spline::bezier`).
+    pub fn bezier(self, points: &[V3]) -> Result<Path> {
+        ensure!(points.first().is_some_and(|&p| (p - self.at).norm() < 1e-7),
+                "a Bézier that does not start where the path ends");
+        let mut points = points.to_vec();
+        points[0] = self.at;
+        Ok(self.curve(Spline::bezier(&points)?))
+    }
+
     fn curve(mut self, curve: Spline) -> Path {
         let (a, b) = (self.at, curve.end());
         self.legs.push(Leg::Curve { a, b, k: self.curves.len() });

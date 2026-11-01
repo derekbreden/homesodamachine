@@ -15,12 +15,13 @@ use crate::math::{V3, asin, atan2};
 use crate::rule::{ANGULAR, LINEAR};
 use anyhow::{Result, ensure};
 
-/// A curve in Hermite form: its points, the parameter each stands at, and its slope at each.
+/// A Hermite spline, or a Bézier retaining its original control points.
 #[derive(Clone, Debug, PartialEq)]
 pub struct Spline {
     t: Vec<f64>,
     p: Vec<V3>,
     m: Vec<V3>,
+    bezier: Option<Vec<V3>>,
 }
 
 /// The parameter step of the walk that measures a curve's turn.
@@ -95,7 +96,7 @@ impl Spline {
             }
             _ => clamped(&t, points, &h, &d),
         };
-        Ok(Spline { t, p: points.to_vec(), m })
+        Ok(Spline { t, p: points.to_vec(), m, bezier: None })
     }
 
     /// The cubic from `a` to `b` leaving along `ta` and arriving along `tb`.
@@ -105,7 +106,19 @@ impl Spline {
         ensure!(ta.norm() > 1e-12 && tb.norm() > 1e-12, "a spline along a tangent of no length");
         let sum = |v: V3| v.x.abs() + v.y.abs() + v.z.abs();
         let chord = sum(b - a) / gap;
-        Ok(Spline { t: vec![0.0, gap], p: vec![a, b], m: vec![ta * (chord / sum(ta)), tb * (chord / sum(tb))] })
+        Ok(Spline { t: vec![0.0, gap], p: vec![a, b], m: vec![ta * (chord / sum(ta)), tb * (chord / sum(tb))], bezier: None })
+    }
+
+    /// The Bézier with these control points, as `Edge.makeBezier` defines it.
+    /// Its original degree and control points are retained; no fitting is involved.
+    pub fn bezier(points: &[V3]) -> Result<Spline> {
+        ensure!(points.len() >= 2, "a Bézier needs at least two control points");
+        ensure!(points.iter().all(|p| p.x.is_finite() && p.y.is_finite() && p.z.is_finite()),
+                "a Bézier holds a non-finite control point");
+        let length: f64 = points.windows(2).map(|p| (p[1] - p[0]).norm()).sum();
+        ensure!(length.is_finite() && length > 1e-9, "a Bézier control polygon has no finite length");
+        Ok(Spline { t: vec![0.0, length], p: vec![points[0], points[points.len() - 1]],
+                    m: vec![], bezier: Some(points.to_vec()) })
     }
 
     pub fn start(&self) -> V3 {
@@ -129,6 +142,9 @@ impl Spline {
 
     /// The point at parameter `t`.
     pub fn point(&self, t: f64) -> V3 {
+        if let Some(points) = &self.bezier {
+            return de_casteljau(points, t / self.t[1]);
+        }
         let (i, s) = self.span(t);
         let h = self.t[i + 1] - self.t[i];
         let (s2, s3) = (s * s, s * s * s);
@@ -140,6 +156,11 @@ impl Spline {
 
     /// The curve's slope at parameter `t`.
     pub fn derivative(&self, t: f64) -> V3 {
+        if let Some(points) = &self.bezier {
+            let scale = (points.len() - 1) as f64 / self.t[1];
+            let differences: Vec<V3> = points.windows(2).map(|p| (p[1] - p[0]) * scale).collect();
+            return de_casteljau(&differences, t / self.t[1]);
+        }
         let (i, s) = self.span(t);
         let h = self.t[i + 1] - self.t[i];
         let s2 = s * s;
@@ -184,10 +205,38 @@ impl Spline {
     }
 }
 
+fn de_casteljau(points: &[V3], t: f64) -> V3 {
+    let mut work = points.to_vec();
+    for remaining in (1..work.len()).rev() {
+        for i in 0..remaining {
+            work[i] = work[i] * (1.0 - t) + work[i + 1] * t;
+        }
+    }
+    work[0]
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
     use crate::math::{sin, v3};
+
+    #[test]
+    fn quintic_bezier_retains_controls_and_endpoint_slopes() {
+        let controls = [v3(-45.0, 181.0, 288.5), v3(-45.0, 191.0, 288.5),
+                        v3(-45.0, 201.0, 288.5), v3(-33.0, 211.0, 296.0),
+                        v3(-33.0, 221.0, 296.0), v3(-33.0, 231.0, 296.0)];
+        let curve = Spline::bezier(&controls).unwrap();
+        let (_, length) = curve.range();
+        for i in 0..=20 {
+            let t = i as f64 / 20.0;
+            let weights = [1.0, 5.0, 10.0, 10.0, 5.0, 1.0];
+            let expected = controls.iter().enumerate().fold(V3::ZERO, |p, (j, q)|
+                p + *q * (weights[j] * t.powi(j as i32) * (1.0 - t).powi(5 - j as i32)));
+            assert!((curve.point(t * length) - expected).norm() < 1e-10);
+        }
+        assert!((curve.derivative(0.0) * length - (controls[1] - controls[0]) * 5.0).norm() < 1e-10);
+        assert!((curve.derivative(length) * length - (controls[5] - controls[4]) * 5.0).norm() < 1e-10);
+    }
 
     #[test]
     fn the_curve_meets_every_point_at_its_parameter() {
