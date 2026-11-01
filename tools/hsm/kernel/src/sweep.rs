@@ -21,7 +21,7 @@ use crate::mass::signed_volume;
 use crate::math::{TAU, V2, V3, acos, atan2, cos, sin, v2, v3};
 use crate::plane::Plane;
 use crate::profile::{Curve, Profile, RLoop, Region};
-use crate::rule::{ANGULAR, LINEAR, canonical_axis, plane_frame, ring_count};
+use crate::rule::{ANGULAR, LINEAR, canonical_axis, plane_frame, ring_count_at};
 use crate::solid::Solid;
 use crate::spline::Spline;
 use crate::triangulate::triangulate;
@@ -199,15 +199,19 @@ struct Track {
 }
 
 /// An arc cut by the rule at its radius plus `reach`.
-fn track(path: &Path, reach: f64) -> Track {
+fn track(path: &Path, reach: f64, linear: f64) -> Track {
     let (mut p, mut t, mut leg): (Vec<V3>, Vec<V3>, Vec<usize>) = (vec![], vec![], vec![]);
     for (e, l) in path.legs.iter().enumerate() {
         let (mut lp, mut lt): (Vec<V3>, Vec<V3>) = match *l {
-            Leg::Curve { k, .. } => path.curves[k].track(reach),
+            Leg::Curve { k, .. } => if linear == LINEAR {
+                path.curves[k].track(reach)
+            } else {
+                path.curves[k].track_at(reach, linear)
+            },
             _ => {
                 let n = match *l {
                     Leg::Arc { a, c, turn, .. } => {
-                        ((ring_count((a - c).norm() + reach) as f64 * turn / TAU - 1e-9).ceil() as usize).max(1)
+                        ((ring_count_at((a - c).norm() + reach, linear) as f64 * turn / TAU - 1e-9).ceil() as usize).max(1)
                     }
                     _ => 1,
                 };
@@ -360,12 +364,16 @@ fn merged(part: Part) -> Part {
 
 /// `region` carried along `path`; capped at both ends unless the path closes on itself.
 pub(crate) fn sweep(region: &Region, path: &Path, src: Src, op: &'static str) -> Result<Part> {
+    sweep_at(region, path, src, op, LINEAR)
+}
+
+fn sweep_at(region: &Region, path: &Path, src: Src, op: &'static str, linear: f64) -> Result<Part> {
     ensure!(!path.legs.is_empty(), "a {op} along no path");
     let loops = cleaned(region)?;
     let normal = newell(&loops[0].pts);
     let start = path.legs[0].start();
     let reach = loops[0].pts.iter().map(|&q| (q - start).norm()).fold(0.0, f64::max);
-    let Track { mut p, mut t, band } = track(path, reach);
+    let Track { mut p, mut t, band } = track(path, reach, linear);
     let lean = t[0].dot(normal);
     ensure!(lean.abs() > 1e-9, "a {op} whose profile's plane holds the path's first direction");
     let (loops, _) = orient(&loops, if lean > 0.0 { normal } else { -normal });
@@ -800,6 +808,13 @@ impl Solid {
     #[track_caller]
     pub fn sweep(region: &Region, path: &Path) -> Result<Solid> {
         Ok(sweep(region, path, Location::caller(), "sweep")?.solid())
+    }
+
+    /// A sweep with an explicit path chord budget in mm. The region retains its supplied samples.
+    #[track_caller]
+    pub fn sweep_with_tolerance(region: &Region, path: &Path, linear: f64) -> Result<Solid> {
+        ensure!(linear.is_finite() && linear > 0., "a positive finite path chord budget");
+        Ok(sweep_at(region, path, Location::caller(), "sweep", linear)?.solid())
     }
 
     /// Ruled bands between consecutive sections, capped at both ends. Each section is one loop
