@@ -52,8 +52,9 @@ def motor_underside(sections, observation, motor):
 
     The rail profile is observed between the sliders in both exposed views.
     Its axial continuation preserves the transverse grooves. The molded wire
-    cover has an observed end face; beyond it the motor can and rear cap supply
-    the rigid surface, independently of the flexible wires crossing them.
+    cover has a level lower face at its rear height and an observed end face;
+    beyond it the motor can and rear cap supply the rigid surface, independently
+    of the flexible wires crossing them.
     """
     original = json.loads(json.dumps(sections))
     stations = np.array([row['x_mm'] for row in original])
@@ -123,7 +124,7 @@ def motor_underside(sections, observation, motor):
                     rail_vertices.reverse()
                 points[ids, 1:3] = rail_vertices
             if x <= cover_end-half_step:
-                floor_x, floor_y, floor_c = observation['wire_cover_floor_plane']['coefficients']
+                floor_x, floor_y, floor_c = observation['wire_cover_floor_datum']['coefficients']
                 floor_z = floor_x*x+floor_c
                 bottom_normal = np.array([-floor_y, 1.])
                 bottom_normal /= np.linalg.norm(bottom_normal)

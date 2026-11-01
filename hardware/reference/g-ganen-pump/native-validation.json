@@ -1,5 +1,5 @@
 {
-  "status": "native_valid_with_photograph_classified_motor_underside",
+  "status": "native_valid_with_level_cable_cover",
   "production_mount_and_route_qualified": false,
   "native_solids": [
     {
@@ -11,7 +11,7 @@
         [
           -77.6974534707391,
           -30.995935142553062,
-          1.8520373850538452
+          4.210582741597396
         ],
         [
           82.36454172387788,
@@ -969,21 +969,21 @@
   "all_native_solids_valid": true,
   "unit_scale_transforms": true,
   "flow_mapping_check": "Reference +Y discharge maps to enclosure -X under intended +90 degree Z rotation.",
-  "reference_parameters_sha256": "d6a18b31502486c7af15c6d06d4b784672e475adfacbb159624f458b6ed85139",
+  "reference_parameters_sha256": "69ac39b3b5ec8a4de1c5b6abee49ef0335d3b96df61e358c5b2db1f23d808ffe",
   "verified_parameter_input_digests": {
     "registered-measurements.json": "616062682f316b5a0567bc067b6341b8674f0b361ed5f2bc9983868e700786bc",
     "casing-sections.json": "48214ef1eedb0471164e6c19cc12e0056a61d1eb29cbc37c2b8c3a14fcf35efa",
     "scan-evidence.json": "a7afc93368e635dc038ca999542cbba2144737f34721bc3f30e109a0eedff0ea",
     "scan-measurements.json": "80636440024dce04dda4bc3b649cda74e835ae8b3e8f4c479feccce644a41045",
     "interface-measurements.json": "22139a54480b47ef92b386fb442d1e880cb0ada780ab762f368dc688559f14b2",
-    "underside-observation/rigid-underside.json": "d0e286d086e75b8fed7dd519ff7cde79d328efb95450d6dbb0fc13c398f9acaa",
-    "build_reference.py": "5227219d710ab0de8551a6628c5603719abd550ee4ba6400b5478c36c447d42b",
+    "underside-observation/rigid-underside.json": "9b5db8081066116ea294a833b205d498c2b3be0ecfb2a73daa2604af039f2b14",
+    "build_reference.py": "676cde9ddc645ab05abf57fb3223e47b9ee7c62607df0f3966b09cdab1c01d08",
     "g_ganen_pump.py": "95bab0c864e6970fa3bc19ec0fd27a0111b5a05ffa5a1e390e86d713d042fbbc",
     "scan_tools.py": "9a059f951cd7500be6d868d14eabab0b2628a75c34e2ba64820f9c233e1c04c8",
     "common-foot/g_ganen_foot.py": "ca6ff8cd43074132835169682cd05876b6cdcf120540da4cfc056a572685bb43"
   },
   "tool_sha256": {
-    "build_reference.py": "5227219d710ab0de8551a6628c5603719abd550ee4ba6400b5478c36c447d42b",
+    "build_reference.py": "676cde9ddc645ab05abf57fb3223e47b9ee7c62607df0f3966b09cdab1c01d08",
     "g_ganen_pump.py": "95bab0c864e6970fa3bc19ec0fd27a0111b5a05ffa5a1e390e86d713d042fbbc",
     "scan_tools.py": "9a059f951cd7500be6d868d14eabab0b2628a75c34e2ba64820f9c233e1c04c8",
     "common-foot/g_ganen_foot.py": "ca6ff8cd43074132835169682cd05876b6cdcf120540da4cfc056a572685bb43"
@@ -1003,10 +1003,11 @@
   },
   "input_sha256": {
     "underside-observation/prior-native-validation.json": "50601d5507a5a6729d02f7fe350b2317d110b0d397bb09d5dcce9ca4601705d7",
-    "underside-observation/rigid-underside.json": "d0e286d086e75b8fed7dd519ff7cde79d328efb95450d6dbb0fc13c398f9acaa",
-    "underside-observation/validation.json": "af5a61359e75fc56598a5af7f03defa8b61b2ccddf9641dbc4dcc12b734bdeff",
+    "underside-observation/rigid-underside.json": "9b5db8081066116ea294a833b205d498c2b3be0ecfb2a73daa2604af039f2b14",
+    "underside-observation/validation.json": "6eaa6890ff9648ce5f770e9ba2a40b3cc497a453d34f91f45344490e6f2ae9e2",
     "under-head-clearance.json": "f8d572d1176e6056de716842b058861d121fdf636c6e608f2e7492f1ce3d05e5",
-    "underside-observation/surface-check.json": "0928fa74652dc799bce0ab278d52af8f7d3549ce09799edb0722ce8c58402943"
+    "underside-observation/surface-check.json": "6380b7a0bac9c454c7a6bbbb35ae1e94189618f7a38630736df9518b84d18eaf",
+    "underside-observation/parameter-check.json": "e77ecabdab751e8b3cd0d71a8071d865e31f7909394d1cd9f21be620558b458b"
   },
   "prior_residual_scope": "Only unchanged regions retain predecessor residuals. Current underside checks are separately scoped.",
   "rigid_switch_passage": {
@@ -1016,6 +1017,12 @@
     "same_parameters_outside_operation": true,
     "production_integration_envelope_changed": false
   },
-  "native_sha256": "66c9d98df9c887d2df2fd77097ed627b0524a17afe0a236a7188d86cc533f998",
-  "rigid_underside_surface_readings": "underside-observation/surface-check.json"
+  "native_sha256": "ffea366a5eba8773098bc15700056268a4f1b0f577571f4e791555b457e754a4",
+  "rigid_underside_surface_readings": "underside-observation/surface-check.json",
+  "level_cable_cover": {
+    "evidence": "underside-observation/parameter-check.json",
+    "floor_z_mm": 4.210582841597397,
+    "bare_min_z_mm": 4.210582741597396,
+    "scope": "Physical feature identity and levelness supplied by Derek; height uses the measured rear center. No absolute scanner accuracy or loaded snap-fit claim."
+  }
 }
