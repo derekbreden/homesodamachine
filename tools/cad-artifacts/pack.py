@@ -235,6 +235,7 @@ BUNDLED_PAYLOAD_DIRS = (
     "hardware/printed-parts/enclosure/grip-cover",
     "hardware/printed-parts/enclosure/display-cover",
     "hardware/printed-parts/enclosure/rear-identification",
+    "hardware/printed-parts/enclosure/rear-equipment-caps",
     "hardware/printed-parts/faucet/industrial",
     "hardware/printed-parts/cold-core/magnetic-float",
     "hardware/printed-parts/zone-c/funnel-mold",
@@ -265,6 +266,13 @@ BUNDLED_PAYLOAD_DIRS = (
 # The fit-trial assembly has a viewer payload. Its two separately printable
 # pieces are served from their STEP and STL without requiring duplicate payloads.
 BUNDLED_PAYLOAD_FILES = (
+    "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-water.step.mesh",
+    "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-carb.step.mesh",
+    "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-co2.step.mesh",
+    "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-flavor-a.step.mesh",
+    "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-flavor-b.step.mesh",
+    "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-drain.step.mesh",
+    "hardware/printed-parts/enclosure/display-gasket/display-gasket.step.mesh",
     "hardware/reference/seaflo-discharge-chain/seaflo-discharge-chain.step.mesh",
     "hardware/printed-parts/electronics/pcba-tray/pcba-assembly.step.mesh",
     "hardware/printed-parts/electronics/pcba-tray/pcba-board.step.mesh",
