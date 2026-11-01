@@ -325,6 +325,7 @@ def trace(gen: str, files: set, argv=()) -> dict:
 ELSEWHERE = ("tools/", "hardware/pcb/pcba/",
              "hardware/install-guide/_cad_art.py",  # installation_art.py calls its complete art pass
              "hardware/assembly/scenes/render_scenes.py",
+             "hardware/printed-parts/enclosure/drawings/line-art/",  # retained historical SVG studies
              "hardware/scripts/check_faucet_geometry.py",
              "hardware/printed-parts/enclosure/pump-dock/review_core_stops.py",
              "hardware/printed-parts/enclosure/pump-dock/print-preparation/",
