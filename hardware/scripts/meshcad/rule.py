@@ -27,6 +27,7 @@ so the next boolean still meets its faces on the rule's points.
 it, with the surface it lies on, so "which cut made this face" is a lookup.
 """
 
+import functools
 import math
 import sys
 from pathlib import Path
@@ -144,10 +145,16 @@ def caller():
     while f is not None:
         fn = f.f_code.co_filename
         if not fn.startswith(skip) and not fn.startswith("<"):
-            try:
-                fn = Path(fn).resolve().relative_to(_ROOT).as_posix()
-            except ValueError:
-                pass
-            return f"{fn}:{f.f_lineno}"
+            return f"{_from_root(fn)}:{f.f_lineno}"
         f = f.f_back
     return None
+
+
+@functools.cache
+def _from_root(fn):
+    """A source file's path from the checkout's root, or as Python names it when the file lies
+    outside the checkout; resolved once per file."""
+    try:
+        return Path(fn).resolve().relative_to(_ROOT).as_posix()
+    except ValueError:
+        return fn
