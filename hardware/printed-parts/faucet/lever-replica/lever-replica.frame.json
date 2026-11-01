@@ -1,0 +1,19 @@
+{
+  "bounds_mm": [
+    [
+      -6.2000001000000005,
+      -0.17811098768700034,
+      -10.234933633767284
+    ],
+    [
+      6.2000001000000005,
+      52.856956334908,
+      4.4300001
+    ]
+  ],
+  "query": "import_step().val().BoundingBox()",
+  "source": {
+    "path": "hardware/printed-parts/faucet/lever-replica/lever-replica.step",
+    "sha256": "2c4e402b109e1523e21be92b0e6ca143a61a5c75a22a6c012923ca0a532cf4e4"
+  }
+}
