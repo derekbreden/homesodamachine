@@ -354,6 +354,13 @@ carry that set in `contributors`, with `src:null` and an empty primary `op`; who
 records stay null. Transforms preserve the set. Repeated imports share one immutable
 allocation per distinct complete set for the process lifetime.
 
+`write::PrintOutput` captures prepared print bodies as STL bytes with the exact record
+index of each emitted facet. Its `model_bytes` stores `print-F<i>.npy` and
+`print-records.npy` in the existing fine archive, with an STL path and digest in
+`document.printed`. Fine arrays/records and caller document fields stay intact. A reader
+uses the map only for those bound STL bytes; an absent or stale binding supplies no
+attribution. The shared part writer uses its existing fine-model export.
+
 A generator that cuts a part begins its own run before it imports anything else:
 
 ```python
