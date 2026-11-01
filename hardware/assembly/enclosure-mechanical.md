@@ -314,7 +314,7 @@ J14's USB console and the rail test points lie beneath the frame
 after commissioning (§8).
 
 For teardown, lift the silicone, remove the four funnel-frame screws and lift the
-frame. The plug, stub, elbow and cradle travel with the frame; disconnect the V-B
+frame. The plug, elbow and cradle travel with the frame; disconnect the V-B
 feed before withdrawing it. Disconnect and support the tubing and leads that cross
 the separating quadrants, unplugging J13 by its housing, then reverse the M5 joints
 and slides.
@@ -352,22 +352,23 @@ closing surfaces ([cable assemblies](/hardware/assembly/cable-assemblies.md)).
 
 The silicone funnel seats in a separate drop-in PET-GF frame across the Y seam.
 The elbow cradle’s two wings snap through the frame’s 3 mm lower web; the frame
-carries the PP0308E elbow and vertical stub. The plug bears on the released hook
+carries the uncut ATEU44W stem elbow. The plug bears on the released hook
 tops. Complete and inspect the drain connection before fitting the silicone funnel.
 
-After commissioning, make the drain joint as the frame goes in: push `fluid-4`
-fully into V-B's inlet turn, push the cradle's elbow onto its free end, then lower
-the frame vertically onto its four ledges so its web snaps over the cradle's wings
+After commissioning, snap the cradle into the frame, seat the uncut stem elbow
+and fit its aft outlet turn. Make the 36.469 mm descending `fluid-4` link to
+V-B's inlet turn through the open roof, with both 16.891 mm socket engagements
+fully seated. Lower the frame vertically onto its four ledges
 ([internal-plumbing.md](internal-plumbing.md) §5). Install four M3 × 12 screws from
 above into the RX-M3×5.7 inserts. Seat the heads in their counterbores without using
 the screws to pull a binding frame home. The [manual drop-in review](/hardware/printed-parts/zone-c/funnel/drop-in-review/native-review.json)
-models the bare frame with the cradle, elbow, stub and tubing removed, plus the
-static web/socket and screw stack. The plug, stub, elbow and cradle travel with
+models the bare frame with the cradle, elbow and tubing removed, plus the
+static web/socket and screw stack. The plug, elbow and cradle travel with
 the frame; disconnect the V-B feed before withdrawing it. Connected-tube motion,
 snap-release access and force, physical fit and the drain seal remain separate
 qualifications.
 
-The silicone funnel seats on its stub and frame separately; its apron rests on the
+The silicone funnel seats on its elbow stem and frame separately; its apron rests on the
 roof and covers the frame screw wells. Lift it for cleaning and frame screw access.
 
 ## Output condition

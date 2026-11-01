@@ -167,10 +167,10 @@ total_reeds_per_build = reeds_per_carbonator + reservoir_reeds_total
 # PP1208E per build: soda umbilical (1) + water inlet (1) = 2.
 pp1208e_per_build = panel_umbilical_bulkheads + panel_water_inlet_bulkheads
 
-# Funnel drain and the selected warm/core union turns use PP0308E stock.
-pp0308e_per_build = (1 + len(_above_core_bom.union_elbow_names())
+# The selected warm/core union turns use PP0308E stock.
+pp0308e_per_build = (len(_above_core_bom.union_elbow_names())
                      + len(_above_core_bom.core_union_elbow_names()))
-stem_elbows_per_build = (2*len(ml.LOWER_CONNECTIONS)
+stem_elbows_per_build = (1 + 2*len(ml.LOWER_CONNECTIONS)
                         + len(_above_core_bom.stem_elbow_names())
                         + len(_above_core_bom.core_stem_elbow_names()))
 stem_elbow_delivered_unit_cost = (

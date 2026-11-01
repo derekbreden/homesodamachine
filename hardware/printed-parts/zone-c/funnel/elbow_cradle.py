@@ -1,15 +1,13 @@
-"""PET-GF cradle holding the funnel's PP0308E drain elbow under the funnel frame.
+"""PET-GF cradle holding the funnel's uncut ATEU44W stem elbow under its frame.
 
 Coordinates are local to the frame's drain hole: the origin is on the hole's axis in the frame's
-flat underside, +Z up and +Y aft. At the insertion datum the scanned elbow's +Z leg stands up the
-hole with its fixed nose face on that underside. The installed cradle and elbow hang `CATCH_GAP`
-below that datum, with the elbow's +Y leg aft toward V-B.
+flat underside, +Z up and +Y aft. The installed cradle hangs `CATCH_GAP` below
+that datum. The elbow's stem points up to the silicone bowl opening and its socket aft.
 
 The pocket adds `fits.slip` radially to the scanned profile. Its forward horizontal
 following seat is retained; the aft mouth continues the largest section to a broad exit.
 The opening above the axis uses a convex mouth. The body prints bottom-down. Its top
-stands 1 mm under the top of the vertical leg's root band, where the circular pocket wraps
-249.7 degrees (69.4%) around the leg. The collar, rung and nose stand free above it.
+supports the lower half of the socket and bend. The stem and socket collet stand free above it.
 
 Each X side of the block carries on up as a wing, the body's full length, through a straight slot
 in the frame's bottom web. A flat hook at the wing's top reaches outward over the web to within
@@ -24,7 +22,6 @@ a slot and a wall.
 """
 
 import functools
-import json
 import math
 import sys
 from pathlib import Path
@@ -35,12 +32,10 @@ _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
 _tools = next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"
 for _p in (_hw / "scripts", _hw / "printed-parts" / "cadlib",
-           _hw / "reference" / "jg-pp0308e-elbow",
            _hw / "reference" / "neofit-stem-elbow", _hw / "manifold-layout", _tools):
     if str(_p) not in sys.path:
         sys.path.insert(0, str(_p))
 import fits                                                   # noqa: E402
-import elbow as _elbow                                        # noqa: E402
 import neofit_stem_elbow as _stem                              # noqa: E402
 import above_core as _layout                                  # noqa: E402
 
@@ -50,9 +45,10 @@ WALL = 3.0             # block wall and floor beyond the elbow's widest section
 LOWER_SIDE_RELIEF = 0.65   # air to the neighbouring Y elbows, below the wing roots
 ROOT_STOCK = 3.0       # retain the full-width body under each wing
 STEM_BODY_AIR = 1.0    # aft lower face off the attached NeoFit collar
-HOLE_D = 11.25         # the 10.64 mm collet passes 0.3 mm a side; the 12.12 mm nose bears round it
-ELBOW_Z = -_elbow.FIXED_FACE   # the elbow's axis intersection, under the frame's underside
-BODY_TOP_STATION = 10.0   # vertical-leg station of the block's top, 1 mm under the root band's top
+HOLE_D = 11.25         # frame's stem passage
+WING_ROOT_Z = -8.84    # snap flexure root, 12.89 mm below its hook bearing
+SLOT_FORE_Y = -11.24   # frame's fixed wing-slot fore station
+SLOT_AFT_Y = 20.56239  # frame's fixed wing-slot aft station
 SOCKET_HALF = 18.3     # the counterbore's half-width, `funnel_frame.socket_width / 2`
 TIP_GAP = fits.slip    # hook tip off the counterbore's X wall
 
@@ -68,32 +64,37 @@ END_SLIP = 0.25        # slot beyond each wing end
 PLUG_CORNER = 0.0      # square cast plug corners
 SOCKET_CORNER = 0.25   # PET-GF receiver corners; keep static room at the flat hook tips
 
-# The scanned elbow's bend: a round core with short stubs up both legs, and a thin web at its
-# outer corner, as `elbow.build` draws them.
-CORE_R = 4.05
-CORE_STUB = 3.5
-CORNER_WEB = (5.16, 7.57, 7.57)
-CORNER_WEB_OFFSET = -0.285
+CORE_R = _stem.PARAMETERS['bend_radius_mm']
 
 
 def _profiles(leg):
-    data = json.loads((Path(_elbow.HERE) / "scan-measurements.json").read_text())
-    p = data["profiles"][leg]
-    return p["fixed_body"], p["collet"]
+    p = _stem.PARAMETERS['profiles']
+    if leg == 'y':
+        return p['fixed_body_y'], p['release_collet_y']
+    return sorted((-x, r) for x, r in p['stem_x']), []
+
+
+def elbow_z():
+    """Bend axis in the cradle's insertion frame, from the full stem and silicone bore."""
+    import funnel
+    return WEB + CATCH_GAP + funnel.plug_lift + funnel.stem_engagement - _stem.STEM_TIP_REACH
 
 
 def block():
     """`(half_width, y0, y1, z0, z1)` of the block the pocket is cut from. Its X sides are the
     wings' outer faces, set back from the counterbore's wall by the hook and its clearances."""
-    rz = max(r for _t, r in _profiles("z")[0]) + SLIP + WALL
     ry = max(r for _t, r in _profiles("y")[0]) + SLIP + WALL
     half = SOCKET_HALF - TIP_GAP - OVERLAP - SIDE
-    return (half, -rz, _elbow.COLLET_FACE, ELBOW_Z - ry, ELBOW_Z + BODY_TOP_STATION)
+    stem_y = _layout.snapshot_pose('drain-outlet-stem')['translation_mm'][1]
+    drain_y = _layout.specification()['fore_routes']['drain_union_corner_mm'][1]
+    aft = min(SLOT_AFT_Y, stem_y - drain_y - _stem.COLLAR_OD / 2 - STEM_BODY_AIR)
+    return (half, SLOT_FORE_Y, aft, elbow_z() - ry, WING_ROOT_Z)
 
 
 def elbow_parts():
     """The scanned elbow's named parts, standing in the hole."""
-    return {n: p.val().translate(cq.Vector(0, 0, ELBOW_Z)) for n, p in _elbow.build()}
+    return {n: p.val().rotate((0, 0, 0), (0, 1, 0), 90)
+            .translate(cq.Vector(0, 0, elbow_z())) for n, p in _stem.build()}
 
 
 def _revolve(points, leg):
@@ -158,7 +159,7 @@ def shadow(top):
     c = SLIP
     zb, zc = _profiles("z")
     yb, yc = _profiles("y")
-    h = top - ELBOW_Z
+    h = top - elbow_z()
     # vertical leg: the running maximum radius from the bottom up, carried to the top
     run, m = [], 0.0
     for t, r in zb + zc[1:]:
@@ -172,20 +173,19 @@ def shadow(top):
     # carry that radius through the collet mouth to a broad three-millimetre floor.
     mouth_radius = max(yb[-1][1], *(r for _s, r in yc))
     horizontal = yb + [(yc[-1][0] + c, mouth_radius)]
-    peak = max(range(len(horizontal)), key=lambda i: horizontal[i][1])
-    lower = horizontal[:peak] + [(s, horizontal[peak][1]) for s, _r in horizontal[peak:]]
-    out = out.fuse(_revolve([(s, r + c) for s, r in lower], "y"))
+    lower, reach = [], 0.0
+    for station, radius in horizontal:
+        reach = max(reach, radius)
+        lower.append((station - c, reach + c))
+    # The running maximum and fore shift give the steep collar transitions
+    # the same axial slip as their radial slip; the aft end remains open.
+    out = out.fuse(_revolve(lower, "y"))
     out = out.fuse(_upward_plan(horizontal, CORE_R + c, h + 1.0))
-    # the bend core and its outer-corner web, each with the column above it
-    rc = CORE_R + c
+    # The round core and the straight stem root have one upward loading mouth.
+    rc = max(CORE_R, run[0][1] - c, horizontal[0][1]) + c
     core = cq.Solid.makeSphere(rc, angleDegrees1=-90, angleDegrees2=90)
     core = core.fuse(cq.Solid.makeCylinder(rc, h + 1.0, cq.Vector(), cq.Vector(0, 0, 1)))
-    core = core.fuse(cq.Solid.makeCylinder(rc, CORE_STUB, cq.Vector(), cq.Vector(0, 1, 0)))
-    core = core.fuse(cq.Solid.makeBox(2 * rc, CORE_STUB, h + 1.0, cq.Vector(-rc, 0, 0)))
-    wx, wy, wz = (d / 2 + c for d in CORNER_WEB)
-    web = cq.Solid.makeBox(2 * wx, 2 * wy, h + 1.0 + wz,
-                           cq.Vector(-wx, CORNER_WEB_OFFSET - wy, CORNER_WEB_OFFSET - wz))
-    return out.fuse(core).fuse(web).clean().translate(cq.Vector(0, 0, ELBOW_Z))
+    return out.fuse(core).clean().translate(cq.Vector(0, 0, elbow_z()))
 
 
 def _bent(points, length, tip):
@@ -251,9 +251,8 @@ def stations():
 
 
 def socket_half_length():
-    """Half the counterbore's Y length: to the slots' ends at the wing end farther from the hole."""
-    s = stations()
-    return max(s["y1"] + END_SLIP, -(s["y0"] - END_SLIP))
+    """The frame's fixed counterbore boundary, beyond its existing wing slots."""
+    return max(SLOT_AFT_Y + END_SLIP, -(SLOT_FORE_Y - END_SLIP))
 
 
 def plug_half_length(half_width):
@@ -296,8 +295,8 @@ def web_cuts():
     cuts = [cq.Solid.makeCylinder(HOLE_D / 2, WEB + 2.0, cq.Vector(0, 0, -1.0))]
     for side in (-1, 1):
         x0, x1 = sorted((side * s["slot_in"], side * s["slot_out"]))
-        cuts.append(cq.Solid.makeBox(x1 - x0, s["y1"] - s["y0"] + 2 * END_SLIP, WEB + 2.0,
-                                     cq.Vector(x0, s["y0"] - END_SLIP, -1.0)))
+        cuts.append(cq.Solid.makeBox(x1 - x0, SLOT_AFT_Y - SLOT_FORE_Y + 2 * END_SLIP, WEB + 2.0,
+                                     cq.Vector(x0, SLOT_FORE_Y - END_SLIP, -1.0)))
     return cuts
 
 
@@ -317,17 +316,6 @@ def build():
                                    for x, z in outline], close=True)
         tool = cq.Solid.extrudeLinear(wire, [], cq.Vector(0, y1 - y0 + 2, 0))
         body = body.cut(tool)
-    stem_y = _layout.snapshot_pose('drain-outlet-stem')['translation_mm'][1]
-    drain_y = _layout.specification()['fore_routes']['drain_union_corner_mm'][1]
-    rear_face = stem_y-drain_y-_stem.COLLAR_OD/2.-STEM_BODY_AIR
-    # The lower aft plane clears the collar, with a continuous 45-degree
-    # underside into the full three-millimetre wing-root band.
-    if rear_face < y1:
-        plane = cq.Plane(origin=(-half-1.,0.,0.),xDir=(0.,1.,0.),normal=(1.,0.,0.))
-        roof = z1-ROOT_STOCK
-        outline = [(rear_face,z0-1.),(y1+1.,z0-1.),(y1+1.,roof),
-                   (y1,roof),(rear_face,roof-(y1-rear_face))]
-        body = body.cut(cq.Workplane(plane).polyline(outline).close().extrude(2*half+2.).val())
     cradle = body
     for side in (-1, 1):
         for a, b, lo in ((s["w_in"], s["w_out"], z1 - 0.01),
