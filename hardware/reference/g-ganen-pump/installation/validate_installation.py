@@ -60,8 +60,8 @@ def run(*,include_routes=True,output=HERE/'native-installation-check.json'):
     check('installed rubber sliders',len(pump.feet_shapes()),0)
     check('pump foot screw axes',len(pump.mount_holes()),0)
     check('pump cup columns',int('g-ganen-pump' in mounts.deck_mounts()),0)
-    check('bare casing cable-cover allowance',
-          abs(bb.zmin-layout.specification()['cap_face_z_mm']-fits.slip),1.e-5)
+    check('bare casing cable-cover minimum lid air',
+          bb.zmin-layout.specification()['cap_face_z_mm'],fits.slip-1.e-5,'>=')
     check('pump overlap with installed lid',common,1.e-5)
     check('cradle native invalid',int(not bearing.isValid()),0)
     for i,cap in enumerate(caps):

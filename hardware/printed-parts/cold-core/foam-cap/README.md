@@ -41,7 +41,7 @@ upper clip. Its complete rubber feet and legs are removed. The motor seat
 runs from native X16.75–77.75. The saddle has broad fitted rail bearings and 3 mm
 axial rail stops. Its rail rooms open
 vertically onto broad fitted floors; the cover room ends at the plain lid face.
-One continuous 54.5 mm clip spans native X20–74.5, with a 2.4 mm working arch
+One continuous 54.5 mm clip spans native X20–74.5, with a 3.1 mm nominal arch
 and 3 mm wings. Its continuous side pockets span X19.75–74.75; the seat leaves
 3 mm of solid axial stock at each end. The clip closes after seating the bare
 motor and prints on one axial end with a constant outside profile.

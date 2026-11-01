@@ -81,10 +81,10 @@ B's draw line steps east above its cap mouth to clear the V-B return.
 
 The pump's complete rubber feet and raised legs slide out of the fixed
 rails. The motor sits in a 61 mm lid-integrated half pipe under one continuous
-54.5 mm upper clip. The clip has 3 mm spring wings and two continuous hooks;
+54.5 mm upper clip. The clip has a 3.1 mm nominal arch, 3 mm spring wings and two continuous hooks;
 its outside axial end lands are 3 mm solid stock. Open rail and cover rooms
 admit the pump vertically; low rail-end stops bound axial movement. The clip
-clears the PSU by 0.311 mm. The PSU mounting face is Z347; all four 5 mm pilots
+clears the PSU by 1.111 mm. The PSU mounting face is Z347; all four 5 mm pilots
 end at Z352, below the continuous 3 mm show skin. The 6.7±1 mm ears leave
 2.3–4.3 mm screw engagement and at least 0.7 mm pilot tip air.
 
