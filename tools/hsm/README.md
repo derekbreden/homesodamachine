@@ -360,6 +360,17 @@ index of each emitted facet. Its `model_bytes` stores `print-F<i>.npy` and
 uses the map only for those bound STL bytes; an absent or stale binding supplies no
 attribution. The shared writer includes this binding when it emits an STL.
 
+The linter can read those recorded facet IDs on demand:
+
+```sh
+python3 tools/run.py -- tools/cad-venv/bin/python hardware/scripts/geometry_lint.py \
+    path/to/part.stl --sources path/to/part.step.npz
+```
+
+It adds contributor records to the findings without changing their geometry or ranking.
+The explicit model must bind the exact STL bytes; missing, stale or unrecorded data stays
+unknown. This source lookup runs only when requested.
+
 A generator that cuts a part begins its own run before it imports anything else:
 
 ```python
