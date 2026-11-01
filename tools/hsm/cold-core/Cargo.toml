@@ -11,6 +11,10 @@ publish = false
 name = "coil-mandrel"
 path = "../../../hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.rs"
 
+[[bin]]
+name = "magnetic-float"
+path = "../../../hardware/printed-parts/cold-core/magnetic-float/magnetic_float.rs"
+
 [dependencies]
 anyhow.workspace = true
 hsm-kernel = { path = "../kernel" }

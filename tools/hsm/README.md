@@ -265,7 +265,8 @@ Helvetica.
 
 A part the kernel cuts keeps its numbers in Python and its geometry in Rust, side by side in its
 folder. The fuse clamp (`hardware/printed-parts/refrigeration/fuse-clamp`) is one; the coil
-mandrel (`hardware/printed-parts/cold-core/coil-mandrel`, crate `tools/hsm/cold-core`), the
+mandrel and the magnetic float (`hardware/printed-parts/cold-core/coil-mandrel` and
+`magnetic-float`, crate `tools/hsm/cold-core`), the
 faucet shell (`hardware/printed-parts/faucet/faucet-shell`, crate `tools/hsm/faucet`), its
 display cover (`hardware/printed-parts/faucet/faucet-display-cover`), the industrial faucet
 (`hardware/printed-parts/faucet/industrial`) and the two faucet assemblies
@@ -289,7 +290,9 @@ The STEP and the STL take each solid simplified once, at the kernel's rule. `par
 writes a set without the STL, for bodies the page draws and nothing prints, and
 `part::write_printed` one without the payload, for a printed piece whose payload
 `hardware/scripts/flute_payload.py` cuts from its STL. A program that writes several sets prints
-each one's answer on a line of its own, and its standard output carries nothing else. The faucet
+each one's answer on a line of its own, and its standard output carries nothing else. The magnetic
+float's program writes seven: a set with an STL for each printed piece, and a set without one for
+the magnet and for the assembly, section and exploded views. The faucet
 shell writes the assembled pair with `write_shown` and each of its two prints with `write_printed`;
 the display cover writes its print with `write_printed` and itself as it sits on the tip with
 `write_shown`, and the industrial faucet writes its four prints with `write_printed` and its display
@@ -325,7 +328,8 @@ The generator runs the program through
 program with cargo from the checkout's workspace (`HSM_WORKSPACE` in a Bazel action), runs it, and
 returns the files and bodies it printed. `_rust_part.check(crate, name, numbers)` runs
 `<program> <numbers.json> --check`, which measures the part and writes nothing, and returns its
-JSON: the fuse clamp's selftest asks it for the case's touch. `_rust_part.run(crate, name, *args)`
+JSON: the fuse clamp's selftest asks it for the case's touch, and the magnetic float's `verify.py`
+for the volumes by which the pieces miss the design. `_rust_part.run(crate, name, *args)`
 runs a program with arguments of its own and returns what it printed, and
 `_rust_part.program(crate, name)` builds one and returns its path. Each run prints the program's
 seconds and the most memory it held. Cargo builds into the checkout's own target directory,

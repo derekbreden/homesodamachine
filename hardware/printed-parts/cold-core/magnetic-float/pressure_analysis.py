@@ -57,7 +57,7 @@ def calculate():
                             'assembly_relief_cc': relief,
                             'assembled_mass_g': mass, 'reserve_lift_g': displaced - mass})
     return {
-        'geometry': m.measurements(m.build())['dimensions_mm'],
+        'geometry': m.measurements()['dimensions_mm'],
         'load_basis': 'Ambient-pressure sealed interior; full exterior gauge pressure, no load credit for foam.',
         'stress_model': 'Lame thick-cylinder hoop stresses away from ends; axial stress averaged over both PETG tubes.',
         'loads': loads,
