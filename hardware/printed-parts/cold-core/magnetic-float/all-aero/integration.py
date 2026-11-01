@@ -10,8 +10,6 @@ import math
 import sys
 from pathlib import Path
 
-import cadquery as cq
-
 HERE = Path(__file__).resolve().parent
 ROOT = next(p for p in HERE.parents if (p / 'tools/docgen').is_dir())
 HW = ROOT / 'hardware'
@@ -26,12 +24,22 @@ import endcap_circular_dxf as cap
 import _pressure_vessel_sync as pv
 from _reed_channels import reed_y_center
 from _cold_core_interface import reed_column_axis_x
-from _cadq_export import import_step
+from meshcad.imports import step_solids
+from meshcad.solids import MeshCompound
 from docgen import substitute_md
 
 
 def load(path):
-    return import_step(str(path)).val()
+    """The emitted solid, retaining the f64 model of a kernel-cut STEP.
+
+    Native STEPs are meshed at the kernel's rule by the same reader. Every
+    operand therefore reaches overlap and minimum-distance queries as a solid
+    in the same precision; the browser's f32 payload is never an input here.
+    """
+    solids = step_solids(path)
+    if not solids:
+        raise ValueError(f"{path}: emitted CAD holds no solid")
+    return solids[0] if len(solids) == 1 else MeshCompound(solids)
 
 
 def digest(path):
@@ -55,7 +63,7 @@ def main():
 
     # Five travel stations and nine radial offsets span the upright bounding
     # envelope. Fixed cross-section walls, the floor and both stops are
-    # checked in the emitted body/cap B-reps, not only in duplicated dimensions.
+    # checked in the emitted body/cap solids, not only in duplicated dimensions.
     for side, label in ((1, 'right'), (-1, 'left')):
         vessel_path = HERE.parents[1]/'reservoir'/f'reservoir-{label}.step'
         cap_path = HERE.parents[1]/'reservoir'/f'reservoir-cap-{label}.step'
@@ -130,6 +138,8 @@ def main():
         'RES_REED_PITCH': f'{res.reservoir_reed_pitch:g} mm',
         'MAGNET_SUBMERGENCE': f'{-f.magnet_above_waterline():.3f} mm',
     }
+    inputs += [p.with_name(p.name + '.npz') for p in tuple(inputs)
+               if p.suffix == '.step' and p.with_name(p.name + '.npz').is_file()]
     record = {'status': 'geometric_datums_and_upright_sweep_pass',
               'float_cad_revision': 'v2-upper-clearance', 'float_dimensions_mm': [f.diameter, f.height, f.bore_diameter],
               'rod_axis_from_inside_wall_mm': f.rod_axis_from_inner_wall,

@@ -22,7 +22,10 @@ def _arrays(solid):
     mesh, with its fillets applied. A solid whose fillets are pending selects on the solid
     before them (`MeshSolid.m`), so its selectors' topology is not its own. One the solid does
     not already hold is taken for the write and let go, without the edges and vertices a
-    selector wants, and its faces stay on the solid for the next file written of it."""
+    selector wants, and its faces stay on the solid for the next file written of it. An immutable
+    fine-model input hands back the arrays and records it carries."""
+    if (model_arrays := getattr(solid, "model_arrays", None)) is not None:
+        return model_arrays()
     from .topo import Topology
     held = solid._topo if solid._rounds is None else None
     if held is not None:
@@ -36,6 +39,37 @@ def _arrays(solid):
     mesh = solid.m.to_mesh64()
     return (np.asarray(mesh.vert_properties, float)[:, :3],
             np.asarray(mesh.tri_verts, np.int64).reshape(-1, 3), *faces)
+
+
+def _partition_arrays(solid):
+    """Fine arrays whose face slots retain the native Manifold partitions.
+
+    Surface records may be equal across distinct native faces. Their slot
+    identities still constrain drawing simplification, independently of what
+    the selector topology considers one analytic surface.
+    """
+    if (model_arrays := getattr(solid, "model_arrays", None)) is not None:
+        return model_arrays()
+    from .build import REGISTRY
+    from .topo import placed
+
+    mesh = solid.m.to_mesh64()
+    vertices = np.asarray(mesh.vert_properties, float)[:, :3]
+    triangles = np.asarray(mesh.tri_verts, np.int64).reshape(-1, 3)
+    native_faces = np.asarray(mesh.face_id, np.int64)
+    runs = np.asarray(mesh.run_index, np.int64) // 3
+    originals = np.asarray(mesh.run_original_id, np.int64)
+    transforms = np.asarray(mesh.run_transform, float).reshape(-1, 4, 3)
+    run_of = np.repeat(np.arange(len(originals)), np.diff(runs))
+    groups, face_of = np.unique(run_of * (1 << 32) + native_faces,
+                               return_inverse=True)
+    records = []
+    for group in groups:
+        run, face = int(group >> 32), int(group & 0xFFFFFFFF)
+        table = REGISTRY.get(int(originals[run]))
+        records.append(placed(table[face], transforms[run])
+                       if table is not None and face < len(table) else None)
+    return vertices, triangles, face_of.reshape(-1), records
 
 
 def _triangles(solid, tolerance=TOLERANCE):
@@ -212,29 +246,32 @@ def _jsonable(rec):
             for k, v in rec.items()}
 
 
-def write_model(solids, path, names=None, colors=None):
+def write_model(solids, path, names=None, colors=None, *, preserve_partitions=False):
     """The mesh model a mesh-kernel run leaves beside each STEP it would have written:
     float64 vertices, triangles, a face per triangle and the face records, per solid, with
-    each solid's name and linear colour."""
+    each solid's name and linear colour. `preserve_partitions` keeps a separate record
+    slot for every native face, including faces whose records are equal."""
     with open(path, "wb") as f:
-        write_npz(f, model_items(solids, names, colors))
+        write_npz(f, model_items(solids, names, colors,
+                                preserve_partitions=preserve_partitions))
 
 
-def model_bytes(solids, names=None, colors=None):
+def model_bytes(solids, names=None, colors=None, *, preserve_partitions=False):
     """`write_model`'s bytes."""
     buf = io.BytesIO()
-    write_npz(buf, model_items(solids, names, colors))
+    write_npz(buf, model_items(solids, names, colors,
+                              preserve_partitions=preserve_partitions))
     return buf.getvalue()
 
 
-def model_items(solids, names=None, colors=None):
+def model_items(solids, names=None, colors=None, *, preserve_partitions=False):
     """`write_model`'s arrays, by name, each made as the file takes it, so a model of many
     solids holds one solid's mesh at a time."""
     records = []
     names = names or [""] * len(solids)
     colors = colors or [None] * len(solids)
     for i, s in enumerate(solids):
-        V, T, face, recs = _arrays(s)
+        V, T, face, recs = _partition_arrays(s) if preserve_partitions else _arrays(s)
         records.append(json.dumps([_jsonable(r) for r in recs], separators=(",", ":")))
         yield f"V{i}", V
         yield f"T{i}", T.astype(np.uint32)

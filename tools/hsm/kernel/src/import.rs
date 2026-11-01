@@ -12,7 +12,7 @@
 //! payload its writer cut beside it (`<name>.step.mesh`, whose `src` is the STEP's SHA-256). A
 //! relative path is read from the working directory, which `_rust_part.cut` sets to the root.
 //! `model(path)` reads an explicitly named model; no sibling model is substituted for a STEP.
-use crate::face::{Face, Surface, file_src};
+use crate::face::{Face, Surface, file_src, unknown_src};
 use crate::mass;
 use crate::math::{V3, v3};
 use crate::rule::snap3;
@@ -22,7 +22,7 @@ use anyhow::{Context, Result, bail, ensure};
 use serde_json::Value;
 use sha2::{Digest, Sha256};
 use std::collections::HashMap;
-use std::io::{Cursor, Read, Seek};
+use std::io::{BufReader, Cursor, Read, Seek};
 use std::path::{Component, Path, PathBuf};
 use npyz::{Deserialize, NpyFile, Order};
 use zip::ZipArchive;
@@ -120,24 +120,58 @@ pub fn step(path: impl AsRef<Path>) -> Result<Vec<Imported>> {
 
 /// The fine f64 geometry, body identities and face records of a model file.
 pub fn model(path: impl AsRef<Path>) -> Result<Vec<Imported>> {
+    let mut bodies = vec![];
+    visit_model(path, |_, body| { bodies.push(body); Ok(()) })?;
+    Ok(bodies)
+}
+
+/// Visit each fine body once, in stored order, without retaining the complete model or file.
+/// The callback owns the raw f64 body and may release it before the next is decoded. Its index
+/// is zero-based; an error stops the visit. The return value is the number of bodies visited.
+pub fn visit_model(
+    path: impl AsRef<Path>,
+    visit: impl FnMut(usize, Imported) -> Result<()>,
+) -> Result<usize> {
     let path = path.as_ref();
-    let bytes = std::fs::read(path).with_context(|| format!("reading {}", path.display()))?;
-    crate::reads::read(path, &bytes);
-    model_bodies(&bytes).with_context(|| format!("reading model {}", path.display()))
+    let mut file = std::fs::File::open(path).with_context(|| format!("reading {}", path.display()))?;
+    if std::env::var_os("HSM_READS").is_some() {
+        let mut hash = Sha256::new();
+        let mut block = [0_u8; 64 * 1024];
+        loop {
+            let count = file.read(&mut block).with_context(|| format!("reading {}", path.display()))?;
+            if count == 0 { break; }
+            hash.update(&block[..count]);
+        }
+        crate::reads::digest(path, &format!("{:x}", hash.finalize()));
+        file.rewind().with_context(|| format!("reading {}", path.display()))?;
+    }
+    let mut archive = ZipArchive::new(BufReader::new(file))
+        .with_context(|| format!("reading model {}", path.display()))?;
+    visit_model_archive(&mut archive, visit).with_context(|| format!("reading model {}", path.display()))
 }
 
 /// `model` from bytes: the stored or deflated NPZ arrays written by the kernel or meshcad.
 pub fn model_bodies(bytes: &[u8]) -> Result<Vec<Imported>> {
     let mut archive = ZipArchive::new(Cursor::new(bytes))?;
-    let names: Vec<String> = serde_json::from_value(model_json(&mut archive, "names")?)?;
-    let colors: Vec<Option<[f64; 3]>> = serde_json::from_value(model_json(&mut archive, "colors")?)?;
-    let records: Vec<Vec<serde_json::Value>> = serde_json::from_value(model_json(&mut archive, "records")?)?;
+    let mut bodies = vec![];
+    visit_model_archive(&mut archive, |_, body| { bodies.push(body); Ok(()) })?;
+    Ok(bodies)
+}
+
+fn visit_model_archive<R: Read + Seek>(
+    archive: &mut ZipArchive<R>,
+    mut visit: impl FnMut(usize, Imported) -> Result<()>,
+) -> Result<usize> {
+    let names: Vec<String> = serde_json::from_value(model_json(archive, "names")?)?;
+    let colors: Vec<Option<[f64; 3]>> = serde_json::from_value(model_json(archive, "colors")?)?;
+    let records: Vec<Vec<serde_json::Value>> = serde_json::from_value(model_json(archive, "records")?)?;
     ensure!(names.len() == colors.len() && names.len() == records.len(),
         "model names, colors and records have different body counts");
-    names.into_iter().zip(colors).zip(records).enumerate().map(|(i, ((name, color), records))| {
-        let (vertices, vertex_shape) = model_array::<f64, _>(&mut archive, &format!("V{i}"))?;
-        let (triangles, triangle_shape) = model_array::<u32, _>(&mut archive, &format!("T{i}"))?;
-        let (face_of, face_shape) = model_array::<u32, _>(&mut archive, &format!("F{i}"))?;
+    let count = names.len();
+    for (i, ((name, color), records)) in names.into_iter().zip(colors).zip(records).enumerate() {
+        let (vertices, vertex_shape) = model_array::<f64, _>(archive, &format!("V{i}"))?;
+        let (triangles, triangle_shape) = model_array::<u32, _>(archive, &format!("T{i}"))?;
+        let (face_of, face_shape) = model_array::<u32, _>(archive, &format!("F{i}"))?;
         ensure!(vertex_shape.len() == 2 && vertex_shape[1] == 3,
             "body {i} vertices are not an N by 3 array");
         ensure!(triangle_shape.len() == 2 && triangle_shape[1] == 3,
@@ -155,8 +189,9 @@ pub fn model_bodies(bytes: &[u8]) -> Result<Vec<Imported>> {
         // The model is already a solid. Preserve every f64 coordinate without resnapping it.
         let solid = Solid::raw(vertices, triangles, face_of, faces);
         solid.check().with_context(|| format!("body {i} {name:?}"))?;
-        Ok(Imported { name, color, solid })
-    }).collect()
+        visit(i, Imported { name, color, solid })?;
+    }
+    Ok(count)
 }
 
 fn model_array<T: Deserialize, R: Read + Seek>(archive: &mut ZipArchive<R>, name: &str) -> Result<(Vec<T>, Vec<u64>)> {
@@ -189,10 +224,12 @@ pub fn bodies(bytes: &[u8], name: &str) -> Result<Vec<Imported>> {
     ensure!(head["v"] == 3, "{name} is payload version {}, not 3", head["v"]);
     let size = u32::from_le_bytes(bytes[..4].try_into()?) as usize;
     let blob = &bytes[4 + size..];
-    let src = file_src(name);
-    let free = Face::new(Surface::Free { kind: "MESH" }, "import", src);
     let mut out: Vec<Imported> = vec![];
     for e in head["meshes"].as_array().context("a payload header lists its meshes")? {
+        let groups = e.get("face_sources");
+        let free = || Face::new(Surface::Free { kind: "MESH" },
+            if groups.is_some() { "" } else { "import" },
+            if groups.is_some() { unknown_src() } else { file_src(name) });
         let entry = e["name"].as_str().context("a payload mesh has a name")?;
         let pos = words(blob, &e["pos"])?;
         let idx = words(blob, &e["idx"])?;
@@ -215,9 +252,16 @@ pub fn bodies(bytes: &[u8], name: &str) -> Result<Vec<Imported>> {
                 ensure!(records.len() == ranges, "{name}: {entry} has a different record count from its face ranges");
                 records.iter().map(Face::from_json).collect::<Result<Vec<_>>>()?
             }
-            None => vec![free; ranges],
+            None => vec![free(); ranges],
         };
-        faces.push(free);
+        if let Some(groups) = groups {
+            let groups = groups.as_array().context("payload contributor sets are an array")?;
+            ensure!(groups.len() == ranges, "{name}: {entry} has a different contributor count from its face ranges");
+            for (face, group) in faces.iter_mut().zip(groups) {
+                *face = face.with_contributors(group)?;
+            }
+        }
+        if face_of.contains(&(ranges as u32)) { faces.push(free()); }
         let solid = Solid::from_mesh(&verts, &tris, &face_of, &faces).with_context(|| format!("{name}: {entry}"))?;
         let body = without_index(entry);
         let color = e["color"].as_array().map(|c| [0, 1, 2].map(|k| c.get(k).and_then(Value::as_f64).unwrap_or(0.0)));
@@ -370,5 +414,103 @@ mod tests {
         assert_eq!(without_index("body"), "body");
         assert_eq!(without_index("a/b"), "a/b");
         assert_eq!(without_index("a/"), "a/");
+    }
+
+    #[test]
+    fn null_model_records_keep_their_slots_and_existing_record_bytes() -> Result<()> {
+        use crate::face::{Surface, unknown_src};
+        use crate::step::model_bytes;
+        use crate::write::face_json;
+
+        let null = Face::from_json(&Value::Null)?;
+        let unknown_source = Face::new(
+            Surface::Plane { p: v3(0., 0., 0.), n: v3(-1., 0., 0.) },
+            "fixture", unknown_src());
+        let known = Face::new(
+            Surface::Plane { p: v3(0., 0., 0.), n: v3(0., -1., 0.) },
+            "fixture", file_src("fixture.step"));
+        let existing = [face_json(&unknown_source), face_json(&known)];
+        for record in &existing {
+            let before = serde_json::to_vec(record)?;
+            let after = serde_json::to_vec(&face_json(&Face::from_json(record)?))?;
+            assert_eq!(before, after);
+        }
+        let solid = Solid::raw(
+            vec![v3(0., 0., 0.), v3(1., 0., 0.), v3(0., 1., 0.), v3(0., 0., 1.)],
+            vec![[0, 2, 1], [1, 2, 3], [0, 3, 2], [0, 1, 3]],
+            vec![0, 1, 2, 3], vec![null, null, unknown_source, known]);
+        fn body(solid: &Solid) -> Body<'_> {
+            Body { name: "fixture", color: Some([0.1, 0.2, 0.3]), solid }
+        }
+        let original = model_bytes(&[body(&solid)]);
+        let read = model_bodies(&original)?;
+        assert_eq!(read[0].solid.face_of(), &[0, 1, 2, 3]);
+        assert_eq!(read[0].solid.faces().len(), 4);
+        assert_eq!(model_bytes(&[body(&read[0].solid)]), original);
+        let moved = read[0].solid.translate(v3(1., 2., 3.));
+        assert_eq!(moved.face_of(), &[0, 1, 2, 3]);
+        assert_eq!(face_json(&moved.faces()[0]), Value::Null);
+        assert_eq!(face_json(&moved.faces()[1]), Value::Null);
+        assert!(face_json(&moved.faces()[2]).is_object());
+        assert_eq!(face_json(&moved.faces()[2])["src"], Value::Null);
+        let glb = crate::write::glb_bytes(&[body(&solid)]);
+        let length = u32::from_le_bytes(glb[12..16].try_into()?) as usize;
+        let document: Value = serde_json::from_slice(&glb[20..20 + length])?;
+        let records = document["meshes"][0]["primitives"][0]["extras"]["faces"].as_array().unwrap();
+        assert_eq!(records.iter().filter(|v| v.get("record") == Some(&Value::Null)).count(), 2);
+        assert!(records.iter().filter(|v| v.get("record") == Some(&Value::Null))
+            .all(|v| v.get("src").is_none() && v.get("op").is_none()));
+        assert!(records.iter().any(|v| v.get("src") == Some(&Value::Null) && v.get("record").is_none()));
+        Ok(())
+    }
+
+    #[test]
+    fn a_file_model_visits_raw_bodies_in_order_and_stops_on_callback_errors() -> Result<()> {
+        use crate::step::model_bytes;
+        let block = Plane::XY.cuboid(3., 4., 5.).translate(v3(0.123456789123, 0.234567891234, 0.345678912345));
+        let mut faces = block.faces().to_vec();
+        faces[0] = Face::from_json(&Value::Null)?;
+        faces[1] = Face::from_json(&Value::Null)?;
+        faces[2].src = crate::face::unknown_src();
+        let first = Solid::raw(block.verts().to_vec(), block.tris().to_vec(), block.face_of().to_vec(), faces);
+        let second = block.translate(v3(10., 20., 30.));
+        let bytes = model_bytes(&[
+            Body { name: "first Ω", color: Some([0.1, 0.2, 0.3]), solid: &first },
+            Body { name: "second", color: None, solid: &second },
+        ]);
+        let path = std::env::temp_dir().join(format!("hsm-model-visit-{}.npz", std::process::id()));
+        std::fs::write(&path, &bytes)?;
+        let mut seen = vec![];
+        let count = visit_model(&path, |index, body| {
+            assert_eq!(index, seen.len());
+            seen.push(body);
+            Ok(())
+        })?;
+        assert_eq!(count, 2);
+        assert_eq!(seen[0].name, "first Ω");
+        assert_eq!(seen[1].name, "second");
+        assert_eq!(seen[0].solid.verts(), first.verts());
+        assert_eq!(seen[0].solid.face_of(), first.face_of());
+        assert_eq!(seen[0].solid.faces().len(), first.faces().len());
+        let written: Vec<Body> = seen.iter().map(|body| Body {
+            name: &body.name, color: body.color, solid: &body.solid,
+        }).collect();
+        assert_eq!(model_bytes(&written), bytes);
+        let mut calls = 0;
+        let error = visit_model(&path, |_, _| { calls += 1; bail!("callback stop") }).unwrap_err();
+        assert!(format!("{error:#}").contains("callback stop"));
+        assert_eq!(calls, 1);
+
+        let invalid = Solid::raw(first.verts().to_vec(), first.tris()[1..].to_vec(),
+                                 first.face_of()[1..].to_vec(), first.faces().to_vec());
+        std::fs::write(&path, model_bytes(&[Body { name: "open", color: None, solid: &invalid }]))?;
+        let mut accepted = 0;
+        assert!(visit_model(&path, |_, _| { accepted += 1; Ok(()) }).is_err());
+        assert_eq!(accepted, 0);
+        std::fs::write(&path, b"not an NPZ archive")?;
+        let error = visit_model(&path, |_, _| Ok(())).unwrap_err();
+        assert!(format!("{error:#}").contains(&path.display().to_string()));
+        std::fs::remove_file(path)?;
+        Ok(())
     }
 }

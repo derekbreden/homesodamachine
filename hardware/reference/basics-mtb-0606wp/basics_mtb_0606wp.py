@@ -18,21 +18,17 @@ Frame: +X = the run, the two barb tips at ±RUN_LENGTH/2 and the tee body on the
 origin; +Z = the branch, its NPT free end at BRANCH_HEIGHT. The hex carries a
 corner on the run axis, so its flats face ±Y.
 
-Run:
-    tools/cad-venv/bin/python hardware/reference/basics-mtb-0606wp/basics_mtb_0606wp.py
+Geometry is in the frozen STEP and display payload beside this module.
+`frozen-asset.json` records their bytes and source snapshot.
 """
 
 import math
-import sys
 from pathlib import Path
 
-import cadquery as cq
-
 _here = Path(__file__).resolve()
-_hw = next(p for p in _here.parents if p.name == "hardware")
-sys.path.insert(0, str(_hw / "scripts"))
-from _cadq_export import export_assembly
-from _materials import M_JG_WHITE_PP, one_body
+STEP_PATH = _here.parent / "basics-mtb-0606wp.step"
+PAYLOAD_PATH = _here.parent / "basics-mtb-0606wp.step.mesh"
+ASSET_MANIFEST_PATH = _here.parent / "frozen-asset.json"
 
 RUN_LENGTH = 56.13          # barb tip to barb tip, 2.21" (TT3666 dim G, PP row)
 BARB_ROOT_D = 9.40          # run body Ø, and the root between ridges, .370" (dim A)
@@ -86,93 +82,10 @@ def branch_thread():
     return (0.0, 0.0, BRANCH_HEIGHT), (0.0, 0.0, 1.0)
 
 
-def _barb_leg(tip_x, along):
-    """One run leg from its tip inward: the lead cone the hose starts on, then
-    BARB_RIDGES cones each rising from the root Ø to the crest Ø, so every ridge
-    presents its sharp shoulder to the body and the hose ratchets on."""
-    axis = cq.Vector(along, 0, 0)
-    leg = cq.Solid.makeCone(
-        BARB_TIP_D / 2.0, BARB_ROOT_D / 2.0, LEAD_LENGTH,
-        cq.Vector(tip_x, 0, 0), axis)
-    x = tip_x + along * LEAD_LENGTH
-    for _ in range(BARB_RIDGES):
-        leg = leg.fuse(cq.Solid.makeCone(
-            BARB_ROOT_D / 2.0, BARB_CREST_D / 2.0, RIDGE_PITCH,
-            cq.Vector(x, 0, 0), axis))
-        x += along * RIDGE_PITCH
-    return leg
-
-
-def _run():
-    """The barbed run along X: a root-Ø barrel between the two lead cones, with
-    both legs' ridges standing on it."""
-    barrel = cq.Solid.makeCylinder(
-        BARB_ROOT_D / 2.0, RUN_LENGTH - 2.0 * LEAD_LENGTH,
-        cq.Vector(-RUN_LENGTH / 2.0 + LEAD_LENGTH, 0, 0), cq.Vector(1, 0, 0))
-    return barrel.fuse(
-        _barb_leg(-RUN_LENGTH / 2.0, 1.0),
-        _barb_leg(RUN_LENGTH / 2.0, -1.0))
-
-
-def _branch():
-    """The branch up +Z: neck → hex → NPT cone. The neck starts on the run
-    centerline, buried in the run, so the two meet in the moulding's saddle."""
-    up = cq.Vector(0, 0, 1)
-    neck = cq.Solid.makeCylinder(
-        BRANCH_NECK_D / 2.0, HEX_BASE_Z, cq.Vector(0, 0, 0), up)
-    hex_sec = (
-        cq.Workplane("XY")
-        .workplane(offset=HEX_BASE_Z)
-        .polygon(6, HEX_ACROSS_CORNERS)
-        .extrude(HEX_LENGTH)
-        .val()
-    )
-    thread = cq.Solid.makeCone(
-        thread_base_pitch_d / 2.0, thread_end_pitch_d / 2.0, THREAD_LENGTH,
-        cq.Vector(0, 0, THREAD_BASE_Z), up)
-    return neck.fuse(hex_sec, thread)
-
-
-def _bores():
-    """The moulded waterway: the run bored end to end, and the branch bored to
-    meet it — wide at the thread for the core pin, narrow at the junction."""
-    run_bore = cq.Solid.makeCylinder(
-        RUN_BORE_D / 2.0, RUN_LENGTH,
-        cq.Vector(-RUN_LENGTH / 2.0, 0, 0), cq.Vector(1, 0, 0))
-    counterbore_base_z = BRANCH_HEIGHT - BRANCH_BORE_DEPTH
-    branch_bore = cq.Solid.makeCylinder(
-        RUN_BORE_D / 2.0, counterbore_base_z, cq.Vector(0, 0, 0), cq.Vector(0, 0, 1))
-    counterbore = cq.Solid.makeCylinder(
-        BRANCH_BORE_D / 2.0, BRANCH_BORE_DEPTH,
-        cq.Vector(0, 0, counterbore_base_z), cq.Vector(0, 0, 1))
-    return run_bore.fuse(branch_bore, counterbore)
-
-
-def build():
-    return _run().fuse(_branch()).cut(_bores())
-
-
 def main():
-    part = build()
-    bb = part.BoundingBox()
-    print("Basics MTB-0606WP 3/8\" barb × 3/8\" barb × 3/8\" NPT M white PP tee")
-    print(f"  Bounding box: X [{bb.xmin:.2f}, {bb.xmax:.2f}]  "
-          f"Y [{bb.ymin:.2f}, {bb.ymax:.2f}]  Z [{bb.zmin:.2f}, {bb.zmax:.2f}]")
-    print(f"  Run {RUN_LENGTH:g} tip to tip; {BARB_RIDGES} ridges Ø{BARB_CREST_D} per leg "
-          f"at {RIDGE_PITCH:g} pitch; {CLAMP_LAND:.2f} of Ø{BARB_ROOT_D} land per side")
-    print(f"  Branch {BRANCH_HEIGHT:g} to the NPT end; hex {HEX_ACROSS_FLATS:g} across flats "
-          f"× {HEX_LENGTH:g} (top face Z = {THREAD_BASE_Z:.2f})")
-    print(f"  Thread pitch Ø{thread_base_pitch_d:.2f}→Ø{thread_end_pitch_d:.2f} "
-          f"× {THREAD_LENGTH:g}; a female runs {BRANCH_ENGAGEMENT:g} down it, its mouth "
-          f"landing at Z = {BRANCH_HEIGHT - BRANCH_ENGAGEMENT:.2f}, {THREAD_PROUD:.2f} proud")
-    for name, (pos, axis) in (("barb_a", barb_a()), ("barb_b", barb_b()),
-                              ("branch_thread", branch_thread())):
-        print(f"  {name}: ({pos[0]:.2f}, {pos[1]:.2f}, {pos[2]:.2f}) "
-              f"out ({axis[0]:.0f}, {axis[1]:.0f}, {axis[2]:.0f})")
-    print(f"  Solid valid: {part.isValid()}")
-    out = _here.parent / "basics-mtb-0606wp.step"
-    export_assembly(one_body(part, out.stem, M_JG_WHITE_PP), str(out))
-    print(f"-> {out.name}")
+    print("basics-mtb-0606wp")
+    print(f"  STEP: {STEP_PATH}")
+    print(f"  Display payload: {PAYLOAD_PATH}")
 
 
 if __name__ == "__main__":

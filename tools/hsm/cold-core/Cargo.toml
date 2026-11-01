@@ -23,6 +23,22 @@ path = "../../../hardware/printed-parts/cold-core/foam-shell/foam_shell.rs"
 name = "foam-cap"
 path = "../../../hardware/printed-parts/cold-core/foam-cap/foam_cap.rs"
 
+[[bin]]
+name = "reservoir"
+path = "../../../hardware/printed-parts/cold-core/reservoir/reservoir.rs"
+
+[[bin]]
+name = "reed-bridge"
+path = "../../../hardware/printed-parts/cold-core/reed-bridge/reed_bridge.rs"
+
+[[bin]]
+name = "prv-shroud"
+path = "../../../hardware/printed-parts/cold-core/prv-shroud/prv_shroud.rs"
+
+[[bin]]
+name = "all-aero-float"
+path = "../../../hardware/printed-parts/cold-core/magnetic-float/all-aero/all_aero_float.rs"
+
 [dependencies]
 anyhow.workspace = true
 hsm-kernel = { path = "../kernel" }

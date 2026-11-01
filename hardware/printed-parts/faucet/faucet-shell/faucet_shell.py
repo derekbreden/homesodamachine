@@ -15,6 +15,8 @@ STL, from them (`hardware/scripts/_rust_part.py`). The builders below draw the
 same shell in CadQuery, which is the body `faucet_assembly` and the industrial
 faucet seat."""
 
+from __future__ import annotations
+
 import io
 import ast
 import functools
@@ -24,9 +26,6 @@ import os
 import sys
 import time
 from pathlib import Path
-
-import cadquery as cq
-import trimesh
 
 _here = Path(__file__).resolve()
 sys.path.insert(
@@ -39,6 +38,13 @@ sys.path.insert(
 )
 sys.path.insert(0, str(_here.parent.parent))  # for _faucet_interface
 sys.path.insert(0, str(next(p for p in _here.parents if p.name == "printed-parts") / "cadlib"))
+if __name__ == "__main__":
+    import _rust_part
+    _rust_part.start()
+
+import cadquery as cq
+import trimesh
+
 import fits
 # Manifold validation and the ledger of named geometric bounds.
 import flute_skin as _flute_skin
@@ -2054,6 +2060,23 @@ def write_bed_file(solid, path):
     return mesh
 
 
+def lower_bundle_numbers():
+    """What `lower_bundle_opening` (`tools/hsm/faucet/src/shell.rs`) cuts the cable lane and the
+    opening into the neck from, which the shell, the above-counter plate and its gasket are cut
+    through."""
+    return {
+        "signal_lane_z": [signal_lane_bottom_z, _lower_signal_stations()[-1][0]],
+        "signal_lower_exit": [signal_lower_exit_x, signal_lower_exit_y],
+        "signal_lower_exit_angle": signal_lower_exit_angle,
+        "signal_lane_width": signal_lane_width, "signal_lane_depth": signal_lane_depth,
+        "lower_opening_sections": [{"z": z, "circles": [[float(v) for v in row]
+                                                        for row in _lower_opening_circles(z)]}
+                                   for z in _lower_opening_heights()],
+        "bundle_land_bottom_z": zone3_z_bottom - bundle_land_below,
+        "bundle_land_above": bundle_land_above,
+    }
+
+
 def numbers():
     """What `faucet_shell.rs` cuts the shell from: the dimensions its builders
     take, and the sections, frames and outline this module derives for them,
@@ -2144,14 +2167,7 @@ def numbers():
         "display_clip_bottom_n": display_clip_bottom_n, "display_clip_top_n": display_clip_top_n,
         "snap_end_slip": _display_snap.END_SLIP, "snap_bearing_slip": _display_snap.BEARING_SLIP,
         # The cable lane, and the tube and cable passages up the neck to the tip.
-        "signal_lane_z": [signal_lane_bottom_z, _lower_signal_stations()[-1][0]],
-        "signal_lower_exit": [signal_lower_exit_x, signal_lower_exit_y],
-        "signal_lower_exit_angle": signal_lower_exit_angle,
-        "signal_lane_width": signal_lane_width, "signal_lane_depth": signal_lane_depth,
-        "lower_opening_sections": [{"z": z, "circles": circles(_lower_opening_circles(z))}
-                                   for z in _lower_opening_heights()],
-        "bundle_land_bottom_z": zone3_z_bottom - bundle_land_below,
-        "bundle_land_above": bundle_land_above,
+        **lower_bundle_numbers(),
         "passage_sections": [passage_section(station)
                              for station in _bundle_stations(_paths.CONVERGE_START_S, end)],
         "converge_start_s": _paths.CONVERGE_START_S, "converge_length": _paths.CONVERGE_LENGTH,
