@@ -74,7 +74,7 @@ def numbers():
                  *(corner+c for *_,corner in wrenches))
     split = axis[1]+c
     st = snaps.station(axis[0],snaps.half_width(widest,split,axis[1])+snaps.WALL,
-                       *cap_y,split=split)
+                       *cap_y,split=split,wing_root=axis[1])
     cuts = [turned(runs(cap_profiles['asse']['cap_runs'],frame,s),axis)]
     for (y0,y1),apothem,clock,corner in wrenches:
         radius = (apothem+s)/math.cos(math.pi/6)
@@ -108,7 +108,8 @@ def numbers():
     neck_z = next(z for z,r in profile if z>fitting[0] and r<6.5)
     cap_y = (datums['mouth_y']-collet[0]+c+.01,datums['mouth_y']-fitting[0]-2.6)
     widest = max(r for y0,y1,r in seat if y1>=cap_y[0]-.25 and y0<=cap_y[1]+.25)
-    st = snaps.station(axis[0],snaps.half_width(widest,snaps.SPLIT,axis[1])+snaps.WALL,*cap_y)
+    st = snaps.station(axis[0],snaps.half_width(widest,snaps.SPLIT,axis[1])+snaps.WALL,
+                       *cap_y,wing_root=axis[1])
     body_r = max(r for z,r in profile if datums['mouth_y']-cap_y[1]-1.<=z<=neck_z)+s
     neck_r = max(r for z,r in profile if z>neck_z)+c
     lip = datums['mouth_y']-neck_z-s
@@ -131,8 +132,9 @@ def numbers():
     mx = wx(7.3)-c
     seat_y,cap_y = (386.,446.),(397.,435.)
     collar = max(meter.port_collar_radii)
-    st = snaps.station(0.,soda[1]+collar+c-mz+snaps.WALL,*cap_y,split=0.)
     core,west = wx(meter.boss_y_range[0])-s,wx(meter.underside_y)
+    st = snaps.station(0.,soda[1]+collar+c-mz+snaps.WALL,
+                       *cap_y,split=0.,wing_root=core-mx)
     cuts = [{'op':'stadium-x','centre':(my,mz),'radius':15.45+s,'fore':0.,'aft':snaps.VAR,
              'span':(wx(-8.1),core+1.)},
             {'op':'stadium-x','centre':(my,mz),'radius':15.1+s,'fore':0.,'aft':snaps.VAR,

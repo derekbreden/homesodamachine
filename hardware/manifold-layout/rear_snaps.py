@@ -28,11 +28,13 @@ THREAD = 1.5        # how far a taped joint may leave the ASSE body from its dra
 WALL = 3.0
 SPLIT = 335.0       # the Pisco's seat, and lines.py's regulator seat, stand down to here
 INTO = 0.5          # how far each seat runs into the walls it joins
-WING = 3.0          # each side wall, the spring from the cap's axis plane up to its hook
-REACH = 0.6         # how far a hook reaches over its ledge
+WING = 1.3          # specific spring section of the accepted funnel v4 trial
+REACH = 2.6         # flat horizontal bearing beyond the receiver edge
+SIDE = 0.5         # relaxed spring face off the receiver edge
+FREE_LENGTH = 12.49 # minimum straight spring length, root to hook underside
 LEDGE = 3.0         # the ledge's height off the split
-HOOK = 3.0          # the hook's height, catch face to tip
-CATCH = fits.clearance(supported=True)   # the ledge's top prints face-down with back-top inverted
+HOOK = 2.0          # flat hook thickness of the accepted funnel v4 trial
+CATCH = fits.clearance(supported=True) + 0.25
 VAR = 0.5           # how far the stub's seat in the soda union may leave the meter aft of its station
 
 CHAIN = ('jg-pp010822e', 'gagira-coupling', 'multiplex-asse1022', 'jg-pi4512f6s', 'jg-pp061208w')
@@ -153,16 +155,17 @@ def half_width(radius, z, axis_z):
 
 # --- one snap station -----------------------------------------------------------------------------
 
-def station(axis_x, neck, y0, y1, split=SPLIT):
+def station(axis_x, neck, y0, y1, split=SPLIT, *, wing_root=None):
     """A cap station's flank numbers, from the seat's neck half-width and the cap's Y span."""
     ledge = neck + REACH + fits.running
-    inner = ledge + fits.running
-    bearing = split + LEDGE
-    catch = bearing + CATCH
+    inner = ledge + SIDE
+    root = split if wing_root is None else wing_root
+    catch = max(root + FREE_LENGTH, split + LEDGE + CATCH)
+    bearing = catch - CATCH
     tip = catch + HOOK
     return dict(axis_x=axis_x, y0=y0, y1=y1, split=split, neck=neck, ledge=ledge, inner=inner,
                 outer=inner + WING, hook=ledge - REACH, bearing=bearing, catch=catch, tip=tip,
-                ceiling=tip + 2 * fits.running)
+                ceiling=tip + 2 * fits.running, root=root)
 
 
 def pockets(s):
@@ -186,7 +189,9 @@ def cap_section(s, base, bottom, axis_z=None, hexed=False):
     def run(points):
         return [{'line':(p,q)} for p,q in zip(points,points[1:])]
 
-    west = [(c - W, base if axis_z is None else axis_z), (c - W, tip), (c - wi, tip), (c - h, tip - (wi - h)),
+    root = s.get('root', base if axis_z is None else axis_z)
+    base = min(base, root)
+    west = [(c - W, root), (c - W, tip), (c - h, tip),
             (c - h, catch), (c - wi, catch), (c - wi, base)]
     east = [(2 * c - x, z) for x, z in reversed(west)]
     edges = run(west) + run([west[-1], east[0]]) + run(east)
@@ -197,7 +202,10 @@ def cap_section(s, base, bottom, axis_z=None, hexed=False):
         edges += run([east[-1], (c + W / 2., low), (c - W / 2., low), west[0]])
     else:
         r = axis_z - bottom
-        tx, tz = r * r / W, -r * math.sqrt(max(1. - (r / W) ** 2, 0.))
+        z = root-axis_z
+        distance2 = W*W+z*z
+        tangent = r*math.sqrt(max(distance2-r*r, 0.))/distance2
+        tx, tz = r*r*W/distance2 + tangent*z, r*r*z/distance2 - tangent*W
         edges += run([east[-1], (c + tx, axis_z + tz)])
         edges.append({'arc':((c + tx, axis_z + tz),(c,bottom),
                              (c - tx, axis_z + tz),(c,axis_z))})
@@ -279,7 +287,8 @@ def build(parts, asse_axis, asse_at, asse_turn, pisco_axis, mouth_y, ceiling, re
     split = asse_axis[1] + c
     m = (ys >= cap_y[0] - .25) & (ys <= cap_y[1] + .25)
     widest = max(cav[m].max(), *(corner + c for *_, corner in wrenches))
-    st_a = station(asse_axis[0], half_width(widest, split, asse_axis[1]) + WALL, *cap_y, split=split)
+    st_a = station(asse_axis[0], half_width(widest, split, asse_axis[1]) + WALL,
+                   *cap_y, split=split, wing_root=asse_axis[1])
     # The cap's room: the body's lower round swept by the thread either way, head on; both wrenches'
     # lower faces; a slot through its bottom flat for the vent.
     _, r_low = envelope(body[body[:, 2] <= asse_axis[1] + .01], asse_axis, LO, HI)
@@ -320,7 +329,8 @@ def build(parts, asse_axis, asse_at, asse_turn, pisco_axis, mouth_y, ceiling, re
     step_face = mouth_y - neck_z
     pcap = (mouth_y - collet[0] + c + .01, mouth_y - fitting[0] - 2.6)
     m = (ys2 >= pcap[0] - .25) & (ys2 <= pcap[1] + .25)
-    st_p = station(pisco_axis[0], half_width(cav2[m].max(), SPLIT, pisco_axis[1]) + WALL, *pcap)
+    st_p = station(pisco_axis[0], half_width(cav2[m].max(), SPLIT, pisco_axis[1]) + WALL,
+                   *pcap, wing_root=pisco_axis[1])
     W = st_p['outer']
     front = pcap[0] - c - WALL
     seat = box(pisco_axis[0] - W, pisco_axis[0] + W, front, rear + INTO, SPLIT, ceiling + INTO)
@@ -375,7 +385,9 @@ def build(parts, asse_axis, asse_at, asse_turn, pisco_axis, mouth_y, ceiling, re
                        wy(half) + aft + c, MZ - 60., float(root[2]) + meter.wire_boss_len + c)).clean()
     SEAT_Y = (386.0, 446.0)                       # clear of the soda inlet's foam and the carb bulkhead
     CAP_Y = (397.0, 435.0)                        # between the port collars
-    st_m = station(0., soda_axis[1] + r_collar + c - MZ + WALL, *CAP_Y, split=0.)
+    core = wx(meter.boss_y_range[0]) - s
+    st_m = station(0., soda_axis[1] + r_collar + c - MZ + WALL,
+                   *CAP_Y, split=0., wing_root=core-MX)
     W = st_m['outer']
 
     def to_world(shape):
