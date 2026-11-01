@@ -19,7 +19,7 @@ use crate::mass::signed_volume;
 use crate::math::{TAU, V3, cos, sin};
 use crate::plane::Plane;
 use crate::profile::{Profile, Region};
-use crate::rule::{canonical_axis, ring_count};
+use crate::rule::{LINEAR, canonical_axis, ring_count_at};
 use crate::solid::Solid;
 use crate::triangulate::triangulate;
 use anyhow::{Result, ensure};
@@ -75,7 +75,7 @@ fn tangent(p: V3, c: V3, d: V3, pitch: f64, sense: f64) -> V3 {
 /// `region` carried `turns` turns about the axis through `c` along `d` — counterclockwise about
 /// `d` when positive — rising `pitch` along `d` per turn, capped at both ends.
 #[allow(clippy::too_many_arguments)]
-fn helical(region: &Region, carry: Carry, c: V3, d: V3, pitch: f64, turns: f64, src: Src, op: &'static str) -> Result<Part> {
+fn helical(region: &Region, carry: Carry, c: V3, d: V3, pitch: f64, turns: f64, src: Src, op: &'static str, linear: f64) -> Result<Part> {
     ensure!(turns.abs() > 1e-12, "a {op} of no turn");
     ensure!(d.norm() > 1e-12, "a {op} about no axis");
     let d = d.unit();
@@ -91,7 +91,7 @@ fn helical(region: &Region, carry: Carry, c: V3, d: V3, pitch: f64, turns: f64, 
         Carry::Screw => pts().map(|q| (q - c).reject(d).norm()).fold(0.0, f64::max),
         Carry::Minimal(s) => (s - c).reject(d).norm() + pts().map(|q| (q - s).norm()).fold(0.0, f64::max),
     };
-    let n = ((ring_count(reach) as f64 * turns.abs() - 1e-9).ceil() as usize).max(1);
+    let n = ((ring_count_at(reach, linear) as f64 * turns.abs() - 1e-9).ceil() as usize).max(1);
     let angle = |i: usize| turns * TAU * i as f64 / n as f64;
     let rise = |i: usize| pitch * turns.abs() * i as f64 / n as f64;
 
@@ -227,7 +227,7 @@ impl Solid {
     /// `d` per turn. Capped at both ends.
     #[track_caller]
     pub fn screw(region: &Region, c: V3, d: V3, pitch: f64, turns: f64) -> Result<Solid> {
-        Ok(helical(region, Carry::Screw, c, d, pitch, turns, Location::caller(), "screw")?.solid())
+        Ok(helical(region, Carry::Screw, c, d, pitch, turns, Location::caller(), "screw", LINEAR)?.solid())
     }
 
     /// `region` carried along the helix through `start` about the axis through `c` along `d` —
@@ -236,7 +236,15 @@ impl Solid {
     #[track_caller]
     pub fn helix_sweep(region: &Region, start: V3, c: V3, d: V3, pitch: f64, turns: f64) -> Result<Solid> {
         let carry = Carry::Minimal(start);
-        Ok(helical(region, carry, c, d, pitch, turns, Location::caller(), "helix sweep")?.solid())
+        Ok(helical(region, carry, c, d, pitch, turns, Location::caller(), "helix sweep", LINEAR)?.solid())
+    }
+
+    /// A helical sweep with an explicit path chord budget in mm. Profile samples stay unchanged.
+    #[track_caller]
+    #[allow(clippy::too_many_arguments)]
+    pub fn helix_sweep_with_tolerance(region: &Region, start: V3, c: V3, d: V3, pitch: f64, turns: f64, linear: f64) -> Result<Solid> {
+        ensure!(linear.is_finite() && linear > 0., "a positive finite path chord budget");
+        Ok(helical(region, Carry::Minimal(start), c, d, pitch, turns, Location::caller(), "helix sweep", linear)?.solid())
     }
 }
 
@@ -244,7 +252,7 @@ impl Plane {
     /// `profile`, drawn in this plane's coordinates, carried by a screw motion (`Solid::screw`).
     #[track_caller]
     pub fn screw(&self, profile: &Profile, c: V3, d: V3, pitch: f64, turns: f64) -> Result<Solid> {
-        Ok(helical(&profile.place(self), Carry::Screw, c, d, pitch, turns, Location::caller(), "screw")?.solid())
+        Ok(helical(&profile.place(self), Carry::Screw, c, d, pitch, turns, Location::caller(), "screw", LINEAR)?.solid())
     }
 
     /// `profile`, drawn in this plane's coordinates, carried along the helix through the plane's
@@ -252,6 +260,6 @@ impl Plane {
     #[track_caller]
     pub fn helix_sweep(&self, profile: &Profile, c: V3, d: V3, pitch: f64, turns: f64) -> Result<Solid> {
         let carry = Carry::Minimal(self.origin);
-        Ok(helical(&profile.place(self), carry, c, d, pitch, turns, Location::caller(), "helix sweep")?.solid())
+        Ok(helical(&profile.place(self), carry, c, d, pitch, turns, Location::caller(), "helix sweep", LINEAR)?.solid())
     }
 }
