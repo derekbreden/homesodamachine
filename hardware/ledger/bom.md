@@ -147,14 +147,14 @@ The soda inlet bend holder is PET-GF with the accepted 2 mm wall, 3 mm legs and 
 | Faucet lever | 1 | PET-GF | 0.004 | $0.09 <!--@printed--><!--parts HSM-000268--> |
 | Umbilical organizer — below faucet mount | 1 | PET-GF | 0.005 | $0.12 <!--@printed--><!--parts HSM-000098--> |
 | Rear equipment snap caps | 4 | PET-GF | 0.032 | $0.81 <!--@printed--> |
-| G Ganen pump snap caps | 2 | PET-GF | 0.023 | $0.58 <!--@printed--> |
+| G Ganen pump snap cap | 1 | PET-GF | 0.026 | $0.66 <!--@printed--> |
 | Soda inlet bend holder | 1 | PET-GF | 0.003 | $0.06 <!--@printed--><!--parts HSM-000358--> |
 | Funnel frame | 1 | PET-GF | 0.259 | $6.49 <!--@printed--><!--parts HSM-000072--> |
 | Funnel cover | 1 | PETG | 0.134 | $1.50 <!--@printed--><!--parts HSM-000071--> |
 | Funnel drain-elbow cradle | 1 | PET-GF | 0.008 | $0.20 <!--@printed--><!--parts HSM-000073--> |
-| **Printed parts total** | | | **~7.02** | **[$161.44](BOM_SEC7)** |
+| **Printed parts total** | | | **~7.02** | **[$161.52](BOM_SEC7)** |
 
-By material: PETG ≈ 1.03 kg / $11.52 — of which the four translucent reservoir parts are ≈ 0.87 kg / $9.76 — and PET-GF ≈ 5.99 kg / $149.92.
+By material: PETG ≈ 1.03 kg / $11.52 — of which the four translucent reservoir parts are ≈ 0.87 kg / $9.76 — and PET-GF ≈ 6.00 kg / $150.00.
 
 These geometry-based estimates use the shared wall and sparse-infill recipes.
 They exclude the additional material in the enclosure's
@@ -336,7 +336,7 @@ The papers packed with each machine ([`assembly/finish-pack-ship.md`](/hardware/
 | 4. CO2 subsystem | [$133.11](BOM_SEC4) |
 | 5. Refrigeration | [$143.06](BOM_SEC5) |
 | 6. Cold core insulation | [$20.76](BOM_SEC6) |
-| 7. Printed parts (PETG + PET-GF) | [$161.44](BOM_SEC7) |
+| 7. Printed parts (PETG + PET-GF) | [$161.52](BOM_SEC7) |
 | 8. Flavor subsystem | [$259.45](BOM_SEC8) |
 | 9. Dispensing | [$78.57](BOM_SEC9) |
 | 10. UI | [$0.00](BOM_SEC10) |
@@ -345,7 +345,7 @@ The papers packed with each machine ([`assembly/finish-pack-ship.md`](/hardware/
 | 13. Mechanical attach hardware | [$25.22](BOM_SEC13) |
 | 14. Cold kit | [$4.29](BOM_SEC14) |
 | 15. Customer documentation | [$25.14](BOM_SEC15) |
-| **Total** | **[$1,439.26](BOM_GRAND)** |
+| **Total** | **[$1,439.34](BOM_GRAND)** |
 
 ## External / user-supplied (not shipped)
 

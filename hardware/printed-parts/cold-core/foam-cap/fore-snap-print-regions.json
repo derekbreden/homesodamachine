@@ -10,18 +10,18 @@
   "source_sha256": {
     "hardware/printed-parts/cold-core/foam-cap/prepare_fore_snap_regions.py": "3e551ca46d108f22fffb0e0bc8eae9a6eee72af76cec4a51403a411d434372b0",
     "hardware/printed-parts/cold-core/_reservoir_a_c2.py": "073f314bf227dee8d5326b077fb4d2a050a70cc9164e2688dcb307393aea466e",
-    "hardware/manifold-layout/above_core.py": "671fc8060496dc09232486ab3e22a9c88820b1ff97387b60542a91a9ccf1ff94",
-    "hardware/manifold-layout/above-core.json": "83bc367a32c6afa6157d9174c6ba58480370e74e9236dc2ad6cb78c3c426f314",
+    "hardware/manifold-layout/above_core.py": "4ae1006309cfc55676c11ac286d0506a77d8fecd1b107818b2d6a665b787654e",
+    "hardware/manifold-layout/above-core.json": "14fb752d47435e1f5ecc74d3f09ff7d564e80d5e42932f6d1f66902f9ed30aac",
     "hardware/printed-parts/cold-core/_reservoir_a_anchors.py": "f727c42ed0433ab36a9e4ec19cee24ddfea0272caa1e4b082c41bde5565eb639",
-    "hardware/printed-parts/cold-core/foam-cap/foam_cap.py": "800c5b71f7d7d5491c2f153c7af0cd6fcb030bf41dbd9246e344ca43f32737a5",
+    "hardware/printed-parts/cold-core/foam-cap/foam_cap.py": "cfcdf3ce840aef9330683724f142c84d6bcad2edb506b0a17ecdb0f3748d0ca6",
     "hardware/printed-parts/cold-core/_cold_core_interface.py": "fa6571183b1a1e6274a232d90acf5d4052a21df7c9571ded8cab32ada03b9af3",
-    "hardware/printed-parts/cold-core/_above_core_mounts.py": "7391d696d6f1a606faba929017fcd8450bab7655422c55b1889dfe76903d4ecd",
+    "hardware/printed-parts/cold-core/_above_core_mounts.py": "a9dbee50183100a3d01f1df348a17a77ced321c98f37574f3c0764654423a7ae",
     "hardware/printed-parts/cold-core/_foam_cap.py": "8f264f6c5861e6f65fc06f53c84ca36647bc0dca2e9769125844616ebe6c0c58"
   },
   "native_artifact_sha256": {
     "foam-cap-lid-top": {
-      ".step": "2ff262543a5722a52b279ad16ae1e3de625e4a0590b2877d5a9adcaca44af978",
-      ".stl": "8d951a42fb1fc4218392fecb7f9ce8a79bb438908009717d8124028cba4b144e"
+      ".step": "ad76a2c28f490dcb08e9ab64cf5847fa4a316c68ea73a996789c19b391bd7bdb",
+      ".stl": "f24c17a1834784b3917672483c3b8e0a14350479e96793998dbe024a38da5275"
     },
     "foam-cap-bottom": {
       ".step": "5405075b66f7853c84ddfcc1d911845e4aab4303f6a06e3b08d18b6a08bd3e36",

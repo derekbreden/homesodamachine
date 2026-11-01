@@ -4148,8 +4148,6 @@ genrule(
         "out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl",
         "out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step",
         "out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl",
-        "out/foam-cap/hardware/printed-parts/cold-core/foam-cap/pump-snap-cap-rear.step",
-        "out/foam-cap/hardware/printed-parts/cold-core/foam-cap/pump-snap-cap-rear.stl",
         "out/foam-cap/hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.step",
         "out/foam-cap/hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.stl",
         "out/foam-cap/hardware/printed-parts/cold-core/foam-cap/reservoir-b-fill-guide.step",
@@ -4161,12 +4159,10 @@ O0=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-
 O1=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl)
 O2=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step)
 O3=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl)
-O4=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/pump-snap-cap-rear.step)
-O5=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/pump-snap-cap-rear.stl)
-O6=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.step)
-O7=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.stl)
-O8=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/reservoir-b-fill-guide.step)
-O9=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/reservoir-b-fill-guide.stl)
+O4=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.step)
+O5=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.stl)
+O6=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/reservoir-b-fill-guide.step)
+O7=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/reservoir-b-fill-guide.stl)
 for f in $(SRCS); do
   case $$f in
     */node_modules/*) continue;;
@@ -4187,12 +4183,10 @@ cp hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step $$O0
 cp hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl $$O1
 cp hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step $$O2
 cp hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl $$O3
-cp hardware/printed-parts/cold-core/foam-cap/pump-snap-cap-rear.step $$O4
-cp hardware/printed-parts/cold-core/foam-cap/pump-snap-cap-rear.stl $$O5
-cp hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.step $$O6
-cp hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.stl $$O7
-cp hardware/printed-parts/cold-core/foam-cap/reservoir-b-fill-guide.step $$O8
-cp hardware/printed-parts/cold-core/foam-cap/reservoir-b-fill-guide.stl $$O9
+cp hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.step $$O4
+cp hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.stl $$O5
+cp hardware/printed-parts/cold-core/foam-cap/reservoir-b-fill-guide.step $$O6
+cp hardware/printed-parts/cold-core/foam-cap/reservoir-b-fill-guide.stl $$O7
 """,
 )
 

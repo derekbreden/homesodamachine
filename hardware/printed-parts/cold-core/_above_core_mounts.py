@@ -149,7 +149,7 @@ def _pump_section_points(pump, first, last):
 
 @lru_cache(maxsize=1)
 def pump_cradle_datums():
-    """Two separated motor caps, solid end lands and open rail/lead rooms."""
+    """Continuous motor clip, solid end lands and open rail/lead rooms."""
     import above_core_parts
     import fits
     import rear_snaps
@@ -206,8 +206,7 @@ def pump_cradle_datums():
     centre = (middle, origin[1], origin[2]+axis[2]*(middle-origin[0])/axis[0])
     frame = above_core.pose('g-ganen-pump')
     cx, cy, cz = above_core.point(frame, centre)
-    bands = (selected['snap_band_native_x_mm'],
-             selected['rear_snap_band_native_x_mm'])
+    bands = (selected['snap_band_native_x_mm'],)
     radii = []
     for lo, hi in bands:
         upper = _pump_section_points(pump, lo, hi)
@@ -231,8 +230,7 @@ def pump_cradle_datums():
             stock_half_width_mm=station['outer']))
     return dict(caps[0], caps=caps,
         end_stock_mm=(bands[0][0]-fits.running-first,
-                      last-bands[-1][1]-fits.running),
-        inter_pocket_stock_mm=bands[1][0]-bands[0][1]-2*fits.running)
+                      last-bands[-1][1]-fits.running))
 
 
 def _pump_cap_to_world(shape, datum):

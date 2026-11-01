@@ -32,15 +32,14 @@ The guide prints flat on its D back, with its teardrop channel roof self-support
 Seal the dry lid/window boundary with 3M 425 after potting, leaving all tube lumens open.
 
 The bare G Ganen pump seats in the lid's integral half pipe and uses a separate
-upper snap caps. Its complete rubber feet and legs are removed. The motor seat
+upper clip. Its complete rubber feet and legs are removed. The motor seat
 runs from native X16.75–77.75. The saddle has broad fitted rail bearings and 3 mm
 axial rail stops. Its rail rooms open
 vertically onto broad fitted floors; the cover room ends at the plain lid face.
-The 32 mm primary cap spans native X20–52 and the separate 16 mm rear cap
-spans X58.5–74.5, with 30.5 mm between their centers. Both retain a 2.4 mm
-working arch and 3 mm wings. The seat leaves 3 mm of solid axial stock outside
-the expanded pocket ends and a 6 mm web between pockets. Both caps close
-after seating the bare motor and print on one axial end.
+One continuous 54.5 mm clip spans native X20–74.5, with a 2.4 mm working arch
+and 3 mm wings. Its continuous side pockets span X19.75–74.75; the seat leaves
+3 mm of solid axial stock at each end. The clip closes after seating the bare
+motor and prints on one axial end with a constant profile.
 The [pump installation](../../../reference/g-ganen-pump/installation/README.md)
 owns the bearing datums, axial stops and removable sliders.
 
