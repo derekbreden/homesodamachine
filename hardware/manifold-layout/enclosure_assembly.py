@@ -80,6 +80,14 @@ import os
 import sys
 from pathlib import Path
 
+# Run as a script, the machine stands on the mesh kernel (`hardware/scripts/meshcad`).
+if __name__ == "__main__":
+    sys.path.insert(0, str(next(p for p in Path(__file__).resolve().parents
+                                if (p / "hardware" / "scripts" / "meshcad").is_dir())
+                           / "hardware" / "scripts"))
+    import meshcad  # noqa: E402
+    meshcad.activate()
+
 import cadquery as cq
 from OCP.BRepExtrema import BRepExtrema_DistShapeShape as _BRepDist
 
@@ -99,7 +107,6 @@ for _p in (_hw / "scripts", _here.parent,
            _hw / "reference" / "waveshare-43b-display",
            _hw / "reference" / "meanwell-irm90",
            _hw / "reference" / "teyleten-relay",
-           _hw / "reference" / "ground-ring-stack",
            _hw / "printed-parts" / "electronics",
            _hw / "printed-parts" / "electronics" / "pcba-tray",
            _hw / "reference" / "asse1022-assembly",
@@ -207,7 +214,6 @@ import _gas_chain                                     # noqa: E402
 import digiten_flow_sensor as _digiten                 # noqa: E402
 import meanwell_irm90 as _psu                          # noqa: E402
 import teyleten_relay as _relay                        # noqa: E402
-import ground_ring_stack as _gnd                       # noqa: E402
 import pcba_tray as _pcba                              # noqa: E402
 # The card's own declaration of what the machine owes. Imported for one table —
 # `REFRIGERANT_SEGMENTS`, the loop's whole population — so the gate that measures the loop and
@@ -218,7 +224,6 @@ import _scorecard as _card                             # noqa: E402
 PSU_STEP = _hw / "reference" / "meanwell-irm90" / "meanwell-irm90.step"
 PCBA_STEP = _hw / "printed-parts" / "electronics" / "pcba-tray" / "pcba-board.step"
 RELAY_STEP = _hw / "reference" / "teyleten-relay" / "teyleten-relay.step"
-GND_STACK_STEP = _hw / "reference" / "ground-ring-stack" / "ground-ring-stack.step"
 
 
 # Spelled out rather than built from the size, because `web/dev-server/deps.js` finds a
@@ -283,7 +288,7 @@ FUNNEL_ROT = 0.0
 # The material colours are `hardware/scripts/_materials.py`, which the generators that cut these
 # bodies' own STEPs read too.
 from _materials import (C_AC_HUB, C_C14, C_COMP, C_COND, C_DIGITEN,  # noqa: E402
-                        C_DISPLAY_GLASS, C_GND, C_MQ6, C_PCBA, C_PLATE,
+                        C_DISPLAY_GLASS, C_MQ6, C_PCBA, C_PLATE,
                         C_PSU, C_RELAY,
                         M_ALUMINIUM, M_BRASS, M_DONOR_BLACK, M_JG_BLACK_PP, M_JG_GREY_ACETAL,
                         M_NEOFIT_ACETAL, M_PETG_BLACK, M_PETGF_BLACK, M_SILICONE_BLACK,
@@ -308,8 +313,6 @@ C_DGASKET = M_TPU_BLACK
 # The Teyleten board itself, which is green; the SRD can standing on it is the blue, and the
 # module is drawn as one envelope.
 # WAGO 221 lever nuts, and the levers are the orange (`reference/wago-221`).
-# The bolted fan of ring terminals that IS the ground bus. The smseace #4 rings are sold in one
-# colour and it is red; the green in this corner is the bond wire, which is not drawn.
 C_ASSE = M_BRASS
 C_PAN = M_PETG_BLACK
 # The Shutao module's conductivity plate — bare copper-clad, which its listing states as the brown
@@ -3060,7 +3063,7 @@ STANDALONE = ("compressor", "condenser+fan", "foam-assembly", "g-ganen-pump",
               "funnel", "discharge-chain", "display", "display-cover",
               "display-gasket",
               "psu", "pcba",
-              "relay-1", "relay-2", "ground-stack", "asse1022-assembly",
+              "relay-1", "relay-2", "asse1022-assembly",
               "bulkhead-drain", *_drain.ADAPTER_NAMES,
               "mq6-sensor", "thermal-fuse", "fuse-clamp",
               ) + WAGO_POLES + tuple(CLUSTER_WAGOS) + (
@@ -3282,8 +3285,8 @@ def build_pcba(foam, ahead_of, wall_seat):
                      x1=wall_seat, y1=box(ahead_of).ymin - RELAY_BOARD_BODY_GAP, z0=cap_face(foam))
 
 
-# The rest of the power block, on the two crowns: relay #1 on the MAIN BOARD'S crown with the ground
-# stud one clearance aft of it, and the five Wago wells on the BRICK'S. Each takes the same
+# The rest of the power block, on the two crowns: relay #1 on the MAIN BOARD'S crown, and the five
+# Wago wells on the BRICK'S. Each takes the same
 # wall seat as its east face, so the whole group stands on one plane against the wall, in the
 # depth `enclosure.east_band_free_y` leaves aft of the Y seam's own bosses — the lever nuts
 # excepted, which seat on the wall itself because a well is not a boss.
@@ -3423,10 +3426,7 @@ def build_stack(psu, pcba, wagos, wall_seat):
     """What stands on the two crowns, as `[(name, solid, colour, carry)]`.
 
     Relay #1 takes the MAIN BOARD'S crown — the main board is the tallest body on the cap and the shortest
-    in depth, so the room over it is the one room a 70 mm relay lies down in. The ground stud
-    stands AFT of that relay on the same nominal stack floor, on its own wall bosses rather than
-    on the board.
-    A ring stack is the one body here that will go wherever there is a corner. Relay #2 is not on
+    in depth, so the room over it is the one room a 70 mm relay lies down in. Relay #2 is not on
     either crown; it stands on the cap between the main board and the brick (`build_relay2`)."""
     out = []
     stack_floor = box(pcba).zmax + STACK_CLEAR
@@ -3434,11 +3434,6 @@ def build_stack(psu, pcba, wagos, wall_seat):
                                  seat="relay-1", x1=wall_seat, y1=box(pcba).ymax,
                                  z0=stack_floor + RELAY1_CORBEL_LIFT)
     out.append(("relay-1", relay1, C_RELAY, r1_carry))
-    stud, stud_carry = seat_body(import_step(str(GND_STACK_STEP)).val(), RELAY_TURN,
-                                 seat="ground-stack", x1=wall_seat,
-                                 y0=box(relay1).ymax + STACK_CLEAR,
-                                 z0=stack_floor)
-    out.append(("ground-stack", stud, C_GND, stud_carry))
     return out
 
 
@@ -3480,7 +3475,7 @@ def wago_wells(row, cluster, over):
 #
 # Every body on that flank is turned so its own MOUNTING PLANE faces the wall and stands on
 # the wall seat: the brick's potted base, the main board's underside, the relay's PCB underside,
-# the hub plate's underside, the ground stud's landing face. Each of those planes is the
+# the hub plate's underside. Each of those planes is the
 # body's own Z = 0 and each carries the body's hole pattern, so what holds it is one printed
 # boss per hole — `enclosure._east_bosses` reaching in off the wall to that plane, bored for a
 # ruthex M3 short, with the screw driven the other way, in through the body from the room.
@@ -3652,11 +3647,7 @@ def wall_mounts(*mounted, blockers=()):
                 web_tip, bands, names = profile(ky, kz, tip, span)
                 keep(k, owner, ky, kz, tip, web_tip, bands, names)
 
-    # FOUR LOCAL FILLS, EACH READ IN THE COMPLETE INSTALLED PACK. The ground stack's single
-    # boss stands less than two millimetres below the ceiling pocket round the stud. A wedge
-    # there leaves a thin ledge beside the relay pocket; one full-width rectangular column from
-    # the boss's D chord through the pocket into the slab is both simpler and stronger.
-    #
+    # THREE LOCAL FILLS, EACH READ IN THE COMPLETE INSTALLED PACK.
     # The upper aft main-board boss and relay #2's upper two-hole bar are separated by only the
     # working gap between their outlines. One rectangle around both pads makes that mounting
     # field a single block. The visually similar lower field stays separate: the same rectangle
@@ -3673,23 +3664,6 @@ def wall_mounts(*mounted, blockers=()):
         for name, _body, volume in collisions:
             fill_bad.append((label, name, volume))
         fills.append((label, tuple(bounds), tuple(replaced_corbels)))
-
-    ground = [(i, row) for i, row in enumerate(raw) if row[0] == "ground-stack"]
-    if len(ground) != 1:
-        raise ValueError(f"ground stack contributes {len(ground)} east-boss stations, expected 1")
-    gi, (_owner, gy, gz, gtip) = ground[0]
-    if out[gi] is None:
-        raise ValueError("the ground-stack station has no built east boss")
-    chord = gz - up * r
-    if chord >= lane[5] - _enc.stated_bound_tol:
-        raise ValueError(
-            f"the ground-stack boss chord z={chord:.3f} does not stand below the ceiling "
-            f"lane z={lane[5]:.3f}")
-    add_fill(
-        "ground-stack ceiling column",
-        (gtip, root_x, gy - r, gy + r, chord, lane[5] - r),
-        ((gy, gz),),
-    )
 
     pcba = [(i, row) for i, row in enumerate(raw) if row[0] == "pcba"]
     relay2 = [(i, row) for i, row in enumerate(raw) if row[0] == "relay-2"]
@@ -3749,8 +3723,7 @@ def wall_mounts(*mounted, blockers=()):
         "The reviewed electronics-bay fills are rectangular and clear of the installed pack",
         not fill_bad,
         f"{len(fills) - len({label for label, _name, _volume in fill_bad})}/{len(fills)} clear",
-        "one ground-stack ceiling column, one upper pcba/relay-2 pad union, and two relay-1 "
-        "paired-bar ceiling columns",
+        "one upper pcba/relay-2 pad union and two relay-1 paired-bar ceiling columns",
         ([f"`{label}` crosses `{name}` by {volume:.4f} mm³"
           for label, name, volume in fill_bad]
          + [f"`{label}` x {bounds[0]:.3f}..{bounds[1]:.3f}, "
@@ -4569,7 +4542,7 @@ OUTBOARD = tuple(name(Y_WALL_FITTINGS[station][2])
 # well.
 CEILING_RELIEF_BODIES = (
     "c14-inlet", "keystone-jack", "asse1022-assembly", "co2-inlet",
-    "bulkhead-water", "bulkhead-carb", "digiten-flow", "relay-1", "ground-stack",
+    "bulkhead-water", "bulkhead-carb", "digiten-flow", "relay-1",
     "wr1110", "gasher-co2", "tube-water-2", "flow-regulator",
     *_gas_chain.ADAPTER_NAMES,
     "wago-h", "wago-n", "wago-g", "wago-v12", "wago-gnd",
@@ -4581,13 +4554,9 @@ CEILING_RELIEF_Z_CLEAR = 1.0
 # floor, preserving their stepped plan without five ledges at the section boundaries.
 # The flow meter's body, collet arms and lead root take one pocket roof;
 # their common service envelope is applied after this leveling.
-# Relay #1 and the ground ring occupy one overlapping service pocket at the ceiling. The ring
-# stands 0.688 mm taller, so both rectangles take its roof; separate roofs leave a sub-millimetre
-# horizontal ledge at their overlap instead of one clean opening round the two adjacent bodies.
 CEILING_RELIEF_LEVEL_GROUPS = (
     ("asse1022-assembly",),
     ("digiten-flow",),
-    ("relay-1", "ground-stack"),
     # Made-up gas fittings take one pocket roof per assembly. This preserves each member's
     # own plan while avoiding sub-wall steps over its adjacent adapter hexes.
     ("wr1110", _gas_chain.REG_IN_ADAPTER, _gas_chain.REG_OUT_ADAPTER),
@@ -4601,21 +4570,19 @@ CEILING_RELIEF_LANE_BODIES = ("asse1022-assembly",)
 # its own; the floor takes one complete printable wall rather than leaving a sub-wall step, and
 # its level group's adapters take that same roof.
 CEILING_RELIEF_MIN_DEPTH_BODIES = ("gasher-co2",)
-# Their nearest source rectangles still leave a 1.181 mm plan web. One explicit local connector
-# opens that web without growing either pocket to a neighbour's far edge. This is a reviewed
-# relationship between these two bodies, not a general merge-nearby-pockets rule. The ASSE
-# chain's aft section and the water union's nut are the second such pair: their slipped pockets
-# leave a web thinner than a wall between them, which the same connector opens. The flow meter's
-# housing and the regulator's body are the third: where their pockets run side by side they
-# stand 1.52 mm apart in X, a fin of slab the same connector opens.
-CEILING_RELIEF_CONNECTOR_PAIRS = (("relay-1", "ground-stack"),
-                                  ("asse1022-assembly", "bulkhead-water"),
+# The ASSE chain's aft section and the water union's nut leave a web thinner than a wall between
+# their slipped pockets. One explicit local connector opens that web without growing either
+# pocket to a neighbour's far edge. This is a reviewed relationship between these two bodies, not
+# a general merge-nearby-pockets rule. The flow meter's housing and the regulator's body are the
+# second such pair: where their pockets run side by side they stand 1.52 mm apart in X, a fin of
+# slab the same connector opens.
+CEILING_RELIEF_CONNECTOR_PAIRS = (("asse1022-assembly", "bulkhead-water"),
                                   ("digiten-flow", "wr1110"))
 CEILING_RELIEF_CONNECTOR_ENTRY = 0.5
-# The ground stack and flow meter each take one rectangular service pocket
-# across their overlapping sections. The flow meter's lead root and body
-# share one outer wall plane rather than a short return between their plans.
-CEILING_RELIEF_ENVELOPE_BODIES = ("ground-stack", "digiten-flow")
+# The flow meter takes one rectangular service pocket across its overlapping
+# sections. Its lead root and body share one outer wall plane rather than a
+# short return between their plans.
+CEILING_RELIEF_ENVELOPE_BODIES = ("digiten-flow",)
 CEILING_WATER_2_PLAN_SLIP = (
     CEILING_RELIEF_PLAN_SLIP
     + _lines.TUBE_BEND + _split.TUBE_D / 2.0 - _lines.WATER_2_LEAD
@@ -5629,7 +5596,7 @@ def report(a: cq.Assembly, clashes=None) -> None:
     if "psu" in named:
         line("psu", box(named["psu"]))
     for n in ("pcba", "relay-1", "relay-2") + WAGO_POLES + (
-              "ground-stack", "asse1022-assembly", "bulkhead-drain",
+              "asse1022-assembly", "bulkhead-drain",
               "water-split", "flow-regulator", "vk-solenoid", "bulkhead-water",
               "c14-inlet", "discharge-chain", "co2-inlet", "gasher-co2", "wr1110",
               "bulkhead-flavor-b", "bulkhead-flavor-a", "bulkhead-carb", "digiten-flow"):
@@ -5823,33 +5790,26 @@ def selftest():
     _full_depth_reliefs(group)
     yield "one purchased body keeps one roof plane and no local pocket under a wall deep"
 
-    # The relay and ground-stack pockets overlap in X and stand 1.181 mm apart in Y. One
-    # reviewed connector crosses only that gap, without changing either source rectangle or
-    # reaching the ground stack's second, already-overlapping piece.
-    relay = ("relay-1", 77.25, 100.25, 250.5, 324.5, roof)
-    ground_near = ("ground-stack", 85.25, 93.45, 325.68134675205295,
-                   335.8523304907584, roof)
-    ground_far = ("ground-stack", 84.45, 92.65, 332.14766970924165,
-                  342.3186534479471, roof)
-    ground = ("ground-stack", 84.45, 93.45, 325.68134675205295,
-              342.3186534479471, roof)
-    enveloped = _enveloped_reliefs((relay, ground_near, ground_far))
-    if enveloped != (relay, ground):
+    # The flow meter's overlapping sections make one envelope, and the regulator's pocket stands
+    # 1.52 mm off it in X. One reviewed connector crosses only that gap, without changing either
+    # source rectangle.
+    meter = ("digiten-flow", -52.81, -22.81, 358.21, 422.21, roof)
+    enveloped = _enveloped_reliefs(tuple(row[:5] + (roof,) for row in flow))
+    if enveloped != (meter,):
         raise AssertionError(
-            f"the two staggered ground-stack sections do not make their one exact envelope: "
+            f"the flow meter's overlapping sections do not make their one exact envelope: "
             f"{enveloped!r}")
-    source = enveloped
+    source = enveloped + (("wr1110", -21.29, -5.0, 380.0, 440.0, roof),)
     connected = _connected_reliefs(source)
     expected_connector = (
-        "relay-1/ground-stack connector", 84.45, 93.45, 324.0,
-        326.18134675205295, roof)
+        "digiten-flow/wr1110 connector", -23.31, -20.79, 380.0, 422.21, roof)
     if connected[:len(source)] != source or connected[len(source):] != (expected_connector,):
         raise AssertionError(
-            f"the relay/ground ceiling connector changed a source pocket or its local bounds: "
+            f"the flow/regulator ceiling connector changed a source pocket or its local bounds: "
             f"{connected!r}")
     if _connected_reliefs(connected) != connected:
         raise AssertionError("a ceiling connector became the source of a transitive enlargement")
-    yield "the relay/ground ceiling connector crosses only their 1.181 mm local plan gap"
+    yield "the flow/regulator ceiling connector crosses only their 1.52 mm local plan gap"
 
     diagonal = (
         ("one", 0.0, 10.0, 0.0, 10.0, 348.0),
@@ -5927,12 +5887,11 @@ def write_scene(a, path=None) -> Path:
     ON THE MESH KERNEL THE MACHINE LEAVES AS ITS SCENE, every body it stood and what a reader
     needs besides, where OCCT's leaves as a STEP and the payload cut from it. Studies and agents
     read the scene instead of standing the machine again. The checks' readings go into the
-    scene: the card, the facts and the drain check beside the STEP are one OCCT run's, held to
-    that STEP."""
+    scene, and the drain check's file beside the STEP is this same reading."""
     import _machine
     import _scorecard as _card
     import check_asse_drain
-    drain = check_asse_drain.write({**_solids(a), **_core_solids(a)}, output=None,
+    drain = check_asse_drain.write({**_solids(a), **_core_solids(a)},
                                    route_specs=a.native_route_specs)
     report(a, _card.pack_clashes(a))
     card = _card.to_dict(_card.report(a))
@@ -5961,9 +5920,11 @@ def main():
     a = build_enclosure_assembly(require_box_spec=action)
     out = _here.parent / "enclosure-assembly.step"
     meshcad = sys.modules.get("meshcad")
-    if meshcad is not None and meshcad.mesh_mode():
+    on_meshes = meshcad is not None and meshcad.mesh_mode()
+    if on_meshes:
+        meshcad.forget()                    # what the build fused for its own checks
         print(f"-> {write_scene(a).name}")
-        return
+        meshcad.forget()                    # and what the scene's checks fused
     from hardware.wiring.installed.build import export_enclosure
     export_enclosure(a, out)
     print(f"-> {out.name}")
@@ -5995,8 +5956,10 @@ def main():
     grafted = graft_printed_surfaces(a, mesh)
     if grafted:
         print(f"-> {out.name}.mesh  ({grafted} fluted piece(s))")
-    import check_asse_drain
-    check_asse_drain.write({**_solids(a), **_core_solids(a)}, route_specs=a.native_route_specs)
+    if not on_meshes:                       # the scene's run wrote this reading
+        import check_asse_drain
+        check_asse_drain.write({**_solids(a), **_core_solids(a)},
+                               route_specs=a.native_route_specs)
     report(a, _card.pack_clashes(a))
     _card.report(a)
     print(f"-> {_card.write(a, out).name}")

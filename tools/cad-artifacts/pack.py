@@ -33,7 +33,8 @@ the property `_cadq_export` gives each STEP it canonicalizes, kept at the bundle
 
 The walk reaches every `.step` under `hardware/` on disk, every `.stl` under `BUNDLED_MESH_DIRS`
 — the one place where the solid is not the whole of the part — every `<file>.step.mesh` under
-`BUNDLED_PAYLOAD_DIRS`, which is that same surface at the deflection a browser draws it at, and
+`BUNDLED_PAYLOAD_DIRS` or a reference's `frozen-asset.json`, which is that same surface at the
+deflection a browser draws it at, and
 every `.glb` under `BUNDLED_GLB_DIRS`, which the parts viewer opens directly rather than through
 a STEP. What sits
 out is `NOT_BUNDLED_DIRS` and `HARVESTED` below. `--check` holds what the walk found against the outputs
@@ -52,6 +53,8 @@ _HERE = Path(__file__).resolve()
 _ROOT = next(p for p in _HERE.parents if (p / "tools" / "docgen").is_dir())
 sys.path.insert(0, str(_HERE.parents[1]))
 from _artifact_inputs import Graph, blob_id, committed, on_disk, staged  # noqa: E402
+sys.path.insert(0, str(_ROOT / "tools" / "bazel"))
+from inventory import frozen_assets  # noqa: E402
 
 POINTERS = _ROOT / "hardware" / "cad-artifacts.json"
 TAG = "cad-artifacts"
@@ -321,7 +324,7 @@ def solids(root: Path) -> list:
     payloads = tuple(f"{d}/" for d in BUNDLED_PAYLOAD_DIRS)
     art = tuple(f"{d}/" for d in BUNDLED_ART_DIRS)
     boards = tuple(f"{d}/" for d in BUNDLED_BOARD_DIRS)
-    singles = set(BUNDLED_PAYLOAD_FILES) | set(BUNDLED_ART_FILES)
+    singles = set(BUNDLED_PAYLOAD_FILES) | set(BUNDLED_ART_FILES) | set(frozen_assets(root))
     listings = Listings(root)
     out, todo = [], ["hardware"]
     while todo:
@@ -595,11 +598,16 @@ def tree_digests(root: Path, graph: Graph, lines: dict, index: dict = None) -> d
 
 
 def made_for(held: dict, lines: dict, head: str, tree: dict, cut: dict = None,
-             derived=(), moved=(), refuted=()) -> dict:
+             derived=(), moved=(), refuted=(), frozen=()) -> dict:
     """The pointer file's `made`: a line for each declared member `lines` names, and the line
     each undeclared one already has."""
     out = made_lines(held, tree, head, tree, cut, derived, moved, refuted)
     out.update({rel: line for rel, line in held.items() if rel in lines and rel not in out})
+    # A freeze records a source snapshot, not a fresh derivation. Keep existing lines; newly
+    # published static bytes have no proof of what cut them.
+    for rel in set(frozen) & set(lines):
+        if rel in moved or rel not in out:
+            out[rel] = _line(commit=head, unproven=True)
     return dict(sorted(out.items()))
 
 
@@ -777,16 +785,17 @@ def _write_pointers(data: dict) -> None:
 
 
 def _declared(root: Path) -> set:
-    """Every publishable output the build graph says a clean action produces."""
+    """Every publishable graph output and frozen static reference member."""
+    declared = set(frozen_assets(root))
     try:
         graph = json.loads((root / "tools" / "bazel" / "graph.json").read_text())
     except (OSError, ValueError):
-        return set()
+        return declared
     # The same reach the walk has, so the two answer about one set: a picture the graph declares
     # outside an art dir is no more bundled than one on disk there is.
     art = tuple(f"{d}/" for d in BUNDLED_ART_DIRS)
     skip = tuple(f"{d}/" for d in NOT_BUNDLED_DIRS)
-    declared = {
+    declared |= {
         str(f)
         for node in graph.values()
         for f in (node.get("writes") or [])
@@ -845,9 +854,8 @@ def sidecar_debt_targets(root: Path) -> list:
 def _graph_gaps(root: Path, rels: list) -> tuple:
     """Bundled-but-undeclared and declared-but-absent publish outputs.
 
-    Equality is the gate. A sibling STEP is not a declaration for an STL or `.step.mesh`:
-    Bazel carries bytes, and every byte the release ships must be an output of the action that
-    makes it."""
+    A sibling STEP is not a declaration for an STL or `.step.mesh`: every published member is
+    named by its producing action or its frozen reference manifest."""
     declared = _declared(root)
     unwatched = tuple(f"{d}/" for d in UNWATCHED_PRODUCERS)
     present = {rel for rel in rels if not rel.startswith(unwatched)}
@@ -904,7 +912,7 @@ def _retirement_evidence(root: Path, retired: list) -> list:
 
 
 def retired_outputs(root: Path) -> list:
-    """Pointed-at solids or scorecards no current producer declares."""
+    """Pointed-at solids or scorecards no current producer or static manifest declares."""
     pointers = read_pointers(root)
     return sorted(
         (set(pointers.get("solids", {})) - _declared(root))
@@ -1402,7 +1410,8 @@ def made_here(root: Path, held: dict, graph: Graph, index: dict, head: str, line
                if rel not in grafted and cut_after_inputs(root, rel, graph)}
     ident = on_disk(root, index, lines, walked, graph)
     cut = {rel: graph.digest(rel, ident) for rel in derived}
-    return made_for(held.get("made") or {}, lines, head, tree, cut, derived, set(moved) - derived)
+    return made_for(held.get("made") or {}, lines, head, tree, cut, derived, set(moved) - derived,
+                    frozen=frozen_assets(root))
 
 
 def _unproven(made: dict) -> str:
@@ -1692,7 +1701,7 @@ def main(argv) -> int:
         ident = on_disk(_ROOT, index, lines, lines, graph)
         bytes_moved = {rel for rel, digest in lines.items() if was.get(rel) != digest}
         made = made_for(made, lines, head, tree, {rel: graph.digest(rel, ident) for rel in derived},
-                        derived, bytes_moved - derived, unheld)
+                        derived, bytes_moved - derived, unheld, frozen=frozen_assets(_ROOT))
         if _unproven(made):
             print(f"{head[:12]}:{_unproven(made)}")
             for path in dirty[:8]:
@@ -1927,6 +1936,58 @@ def selftest() -> int:
         hold("no machine is named in a member",
              (info.mtime, info.uid, info.gid, info.uname, info.gname), (0, 0, 0, "", ""))
 
+    with tempfile.TemporaryDirectory() as d:
+        root = Path(d)
+        model = root / "hardware" / "reference" / "vendor" / "fitting"
+        model.mkdir(parents=True)
+        prefix = model.relative_to(root).as_posix()
+        contents = {"fitting.step": b"frozen STEP", "fitting.step.mesh": b"viewer payload"}
+        members = {}
+        for name, data in contents.items():
+            (model / name).write_bytes(data)
+            members[f"{prefix}/{name}"] = hashlib.sha256(data).hexdigest()
+        (model / "fitting.step.npz").write_bytes(b"finer kernel import")
+        (model / "other.step.mesh").write_bytes(b"unlisted viewer payload")
+        (model / "frozen-asset.json").write_text(json.dumps({
+            "source": {"commit": "snapshot", "path": "fitting.py", "sha256": "source"},
+            "members": {Path(rel).name: digest for rel, digest in members.items()},
+        }))
+        hold("a nested frozen manifest names static inputs without a generator",
+             frozen_assets(root), members)
+        hold("only the frozen viewer payload travels; kernel import meshes stay separate",
+             solids(root), sorted(members))
+        hold("frozen members need no active producer and are not graph gaps",
+             _graph_gaps(root, solids(root)), ([], []))
+        hold("publication hashes agree with the frozen identities",
+             hashes(root, sorted(members)), members)
+        payload = f"{prefix}/fitting.step.mesh"
+        step = f"{prefix}/fitting.step"
+        changed_payload = b"different payload"
+        (root / payload).write_bytes(changed_payload)
+        hold("publication hashes held bytes without a veto from the frozen snapshot",
+             hashes(root, [payload])[payload], hashlib.sha256(changed_payload).hexdigest())
+        (root / payload).write_bytes(contents[Path(payload).name])
+        previous = {"commit": "earlier", "unproven": True}
+        hold("a frozen STEP keeps its line and a new payload claims no fresh derivation",
+             made_for({step: previous}, members, "publish", {}, moved={payload}, frozen=members),
+             {step: previous, payload: {"commit": "publish", "unproven": True}})
+        (root / payload).unlink()
+        hold("a checkout knows its static inputs before fetching them",
+             frozen_assets(root), members)
+        held_frozen = {"store": {"url": "https://site/objects/", "objects": "s-"},
+                       "solids": members}
+        was = download_object
+        globals()["download_object"] = lambda url: contents[Path(payload).name]
+        try:
+            restored = adopt(root, held_frozen, [payload])
+        finally:
+            globals()["download_object"] = was
+        hold("the existing pointer/store route restores a missing frozen payload",
+             (restored, _sha256(root / payload)), ([payload], members[payload]))
+        (root / "hardware" / "cad-artifacts.json").write_text(json.dumps(held_frozen))
+        hold("retiring the generator does not retire its frozen assets",
+             retired_outputs(root), [])
+
     # AN ASSET IS NAMED BY ITS BYTES, so what `upload_objects` sends is one send per hash. Two
     # members carrying the same bytes sent as two uploads race one asset name, and the loser
     # reports a failure that costs the pointer file its `objects` for a member that is demonstrably up.
@@ -2096,8 +2157,8 @@ def selftest() -> int:
     hold("…and its members in path order",
          list(_pointer_file({"solids": {"b": "1", "a": "2"}})["solids"]), ["a", "b"])
 
-    print(f"pack selftest {holds}/57")
-    return 0 if holds == 57 else 1
+    print(f"pack selftest {holds}/66")
+    return 0 if holds == 66 else 1
 
 
 if __name__ == "__main__":

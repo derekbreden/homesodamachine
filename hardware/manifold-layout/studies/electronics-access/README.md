@@ -52,15 +52,9 @@ The native half-section view shows one complete screw/insert/boss stack.
 Mesh packing retains every vertex and triangle at the viewer's 0.02 mm
 coordinate resolution.
 
-Build the native parts through the shared CAD queue. The manual arrangement
-query and two viewer commands read the selected scene without writing it:
-
-```sh
-PYTHONPATH=. tmp/takeover/cadq "Electronics access panel fasteners" -- tools/cad-venv/bin/python hardware/manifold-layout/studies/electronics-access/build.py
-tools/cad-venv/bin/python hardware/manifold-layout/studies/electronics-access/review.py
-tools/cad-venv/bin/python hardware/manifold-layout/studies/electronics-access/viewer.py hardware/manifold-layout/studies/electronics-access/out/electronics-access.html
-tools/cad-venv/bin/python hardware/manifold-layout/studies/electronics-access/viewer.py --detail hardware/manifold-layout/studies/electronics-access/out/fastener-section.html
-```
+The [source archive](https://github.com/derekbreden/homesodamachine/tree/e993e2f1dc02e22f670f06dc5aecf0df14dcfe3d/hardware/manifold-layout/studies/electronics-access)
+at Git commit `e993e2f1dc02e22f670f06dc5aecf0df14dcfe3d` contains the generator,
+arrangement query and viewer tools.
 
 Native STEP and frozen NPZ meshes are in [parts/](parts/). The four section
 meshes are actual native solid intersections through a screw axis. Boss

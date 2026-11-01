@@ -14,3 +14,4 @@ path = "../../../hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.rs"
 [dependencies]
 anyhow.workspace = true
 hsm-kernel = { path = "../kernel" }
+serde_json.workspace = true

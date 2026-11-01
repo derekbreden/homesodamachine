@@ -369,18 +369,19 @@ directs work to interference and compression. Movement without wetting directs
 work to retention and tube support. Endurance and water-contact qualification
 belong to the selected material, clamp and actual operating envelope.
 
-## Reproduce the study
+## Reproduce the elbow study
 
-Run the standalone scripts from the repository root:
+Run the current elbow tools from the repository root:
 
 ```sh
 HSM_NO_BUILD_LOCK=1 tools/cad-venv/bin/python future/pump-elbow-exploration/snapshot.py
 HSM_NO_BUILD_LOCK=1 tools/cad-venv/bin/python future/pump-elbow-exploration/layout.py
-HSM_NO_BUILD_LOCK=1 tools/cad-venv/bin/python future/pump-elbow-exploration/funnel_layout.py
 HSM_NO_BUILD_LOCK=1 tools/cad-venv/bin/python future/pump-elbow-exploration/prepare_print.py
-HSM_NO_BUILD_LOCK=1 tools/cad-venv/bin/python future/pump-elbow-exploration/finalize.py
 ```
 
-The snapshot and intermediate B-reps are local working data under
-`.cache/pump-elbow-exploration/`. The funnel proposal is separate from the
-production assembly and its physical acceptance records. Its scripts run on request.
+## Source archive
+
+The [installed-layout and 715 mL funnel source archive](https://github.com/derekbreden/homesodamachine/tree/e993e2f1dc02e22f670f06dc5aecf0df14dcfe3d/future/pump-elbow-exploration)
+at Git commit `e993e2f1dc02e22f670f06dc5aecf0df14dcfe3d` contains
+`funnel_layout.py` and `finalize.py`. The funnel proposal is separate from the
+production assembly and its physical acceptance records.

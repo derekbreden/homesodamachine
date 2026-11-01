@@ -144,11 +144,33 @@
       },
       "AC6-PE": {
         "end_lands_mm": [
-          6.0,
+          1.6,
           6.0
         ],
         "bend_radius_mm": 2.0,
         "entry_stations": [
+          {
+            "terminal": "wago-g.3",
+            "offset": [
+              0.0,
+              -1.6,
+              10.8
+            ]
+          },
+          {
+            "point_mm": [
+              -62.0,
+              446.6,
+              311.5
+            ]
+          },
+          {
+            "point_mm": [
+              -40.8,
+              446.6,
+              301.76838287293407
+            ]
+          },
           {
             "point_mm": [
               -40.8,
@@ -254,8 +276,8 @@
         "bend_radius_mm": 1.0
       }
     },
-    "description": "Three-core SJOOW through the fore floor lane. Switched H and neutral fan out to their separate 221-413 joins beneath the funnel; PE remains continuous to the rear-wall earth stack.",
-    "fanout_note": "The jacket ends 12 mm into the fore end of the shared centreline. Its switched-hot and neutral cores finish at the final-connection WAGOs; PE runs continuously to the rear-wall earth stack."
+    "description": "Three-core SJOOW through the fore floor lane. Switched H and neutral fan out to their separate 221-413 joins beneath the funnel; PE remains continuous to port 3 of the rear PE WAGO.",
+    "fanout_note": "The jacket ends 12 mm into the fore end of the shared centreline. Its switched-hot and neutral cores finish at the final-connection WAGOs; PE runs continuously to the rear PE WAGO, rising over the keystone before it drops into its port."
   },
   "reed-column-a": {
     "jacket": false,
@@ -1443,7 +1465,7 @@
   "carbonator-earth": {
     "jacket": false,
     "kind": "Carbonator protective earth",
-    "description": "The 16 AWG earth conductor occupies the center of the shared cap passage and reaches the rear-wall ring stack below C14.",
+    "description": "The 16 AWG earth conductor occupies the center of the shared cap passage and drops into port 2 of the rear PE WAGO below C14.",
     "packed_diameter_mm": 6.6,
     "bend_radius_mm": 5.5,
     "fanout_tangent_mm": [
@@ -1460,13 +1482,6 @@
     "fanouts": {
       "PE-carbonator": {
         "entry_stations": [
-          {
-            "point_mm": [
-              -85.15,
-              445.0,
-              313.935
-            ]
-          },
           {
             "point_mm": [
               -85.15,
@@ -1499,7 +1514,7 @@
           }
         ],
         "end_lands_mm": [
-          8.0,
+          3.2,
           4.0
         ],
         "bend_radius_mm": 3.0,

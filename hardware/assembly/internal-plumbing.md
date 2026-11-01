@@ -212,7 +212,7 @@ Lay out the ten Beduan valves and the [6](MANIFOLD_TEES) PP0208E tees. Cut stati
    into its rear valve's bottom collet until its stem bottoms. Turn each pair's sockets to
    face each other. `fluid-9` runs from Y-C to V-C and `fluid-19` from Y-F to V-D; `fluid-17`
    from Y-D to V-G and `fluid-27` from Y-G to V-J lean inboard to their valves. Each is one
-   continuous tube of black LLDPE, cut to [50.40 mm](DOCK_RETURN_INNER) for the inner two and
+   continuous tube of black LLDPE, cut to [50.4 mm](DOCK_RETURN_INNER) for the inner two and
    [50.96 mm](DOCK_RETURN_OUTER) for the outer two. Form two tangent arcs between the parallel
    sockets, R18.084 on the inner pair and R19.36 on the outer pair, with the rear mouths
    3.749 mm lower. Keep the [16.89 mm](DOCK_ELBOW_SOCKET) inside each socket straight and
@@ -258,8 +258,8 @@ unbroken through its plain core guide. Only the connection points and
 paired-anchor centres/axes are fixed; the bends and displayed lengths between
 them illustrate routing and may change to clear installed hardware and
 wires. The current drawn warm spans are
-[450.797 mm](RESERVOIR_A_FILL_WARM) for `fluid-14` fill and
-[392.027 mm](RESERVOIR_A_DRAW_WARM) for `fluid-16` draw. Each includes the
+[447.675 mm](RESERVOIR_A_FILL_WARM) for `fluid-14` fill and
+[407.907 mm](RESERVOIR_A_DRAW_WARM) for `fluid-16` draw. Each includes the
 16.891 mm receiving length in its front-valve ATEU44W stem elbow. For the physical blank,
 continue through the guide to the reservoir fill bore or dip-tube tip and
 replace the socket allowance with its actual fully seated insertion mark.

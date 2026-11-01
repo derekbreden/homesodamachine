@@ -117,7 +117,7 @@ flowchart LR
   end
 
   VK["vk-solenoid<br/>V-K &middot; carbonator fill"]
-  ElbowS["pump-elbow-suction"]
+  JointS["suction-reducer"]
   Faucet["Faucet — flavor tubes A &middot; B"]
 
   %% =========================
@@ -175,9 +175,9 @@ flowchart LR
   %% crown, east of the G Ganen pump, and water-3 is the one run in the assembly that crosses the whole
   %% machine — the split is in the west lane, V-K is on the east, and its inlet faces forward.
   Split -->|"water-3"| VK
-  %% V-K's outlet hands the pump its water on water-7, into the printed suction elbow on the
-  %% pump's own barb. There is no `water-4`.
-  VK -->|"water-7"| ElbowS
+  %% V-K's outlet hands the pump its water on water-7, into the reducer stem of the PVC joint
+  %% on the pump's suction barb. There is no `water-4`.
+  VK -->|"water-7"| JointS
 
   %% =========================
   %% Beyond the box
@@ -210,6 +210,6 @@ flowchart LR
   %% The fixed upper-deck bodies.
   classDef upper stroke-dasharray:4;
   class VA,VB,VC,VD,VG,VJ,YA,YB upper;
-  %% Not the flavor manifold's — the carbonator's valve and pump elbow, and the pack's edge.
+  %% Not the flavor manifold's — the carbonator's valve and pump joint, and the pack's edge.
   classDef offcircuit fill:#3a3a3a,stroke:#666,color:#cccccc,stroke-width:1px;
-  class VK,ElbowS,Faucet offcircuit;
+  class VK,JointS,Faucet offcircuit;

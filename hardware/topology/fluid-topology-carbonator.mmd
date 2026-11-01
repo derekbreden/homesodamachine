@@ -35,9 +35,9 @@ flowchart LR
     Split["water-split<br/>(trimmed neoFit stem tee)"]
     VK["vk-solenoid<br/>(V-K, 12 V NC)"]
     FlowReg["flow-regulator<br/>(YZMSZ 0.3 MPa, clean-water feed)"]
-    ElbowS["pump-inlet-tpu<br/>(straight TPU cuff)"]
+    JointS["suction-reducer<br/>(PVC pump joint, PP061208W stem)"]
     PW["g-ganen-pump<br/>(G Ganen, 110 PSI advertised)"]
-    ElbowD["pump-outlet-tpu<br/>(straight TPU cuff)"]
+    JointD["discharge-reducer<br/>(PVC pump joint, PP061208W stem)"]
     DischChain["water check<br/>(neoFit ACHV44-E, 1/4-inch)"]
   end
 
@@ -112,11 +112,12 @@ flowchart LR
   Split -->|"fluid-1"| FlowReg
   FlowReg -->|"fluid-2"| VA
   Split -->|"water-3"| VK
-  %% Straight TPU cuffs join the two pump barbs; the edges at the pump carry no line.
-  VK -->|"water-7"| ElbowS
-  ElbowS --> PW
-  PW --> ElbowD
-  ElbowD -->|"water-6"| DischChain
+  %% A reinforced PVC joint and a trimmed PP061208W reducer stem sit on each pump barb; the
+  %% edges at the pump carry no line.
+  VK -->|"water-7"| JointS
+  JointS --> PW
+  PW --> JointD
+  JointD -->|"water-6"| DischChain
   DischChain -->|"water-5"| CapWater
   CapWater --> P2
   CO2 --> CO2In

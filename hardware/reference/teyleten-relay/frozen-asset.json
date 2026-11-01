@@ -1,0 +1,11 @@
+{
+  "source": {
+    "commit": "e993e2f1dc02e22f670f06dc5aecf0df14dcfe3d",
+    "path": "hardware/reference/teyleten-relay/teyleten_relay.py",
+    "sha256": "fe0965a8f3f4a9eab65efac03716dfdd6ef9e93ab658e8c73f3df83af6e7fbe6"
+  },
+  "members": {
+    "teyleten-relay.step": "a941bb075f7c1b34e0d5033a3cd084bcaf4c8ad5bdc86fdfb0f2e0cf409515cd",
+    "teyleten-relay.step.mesh": "0377ce0d5de5853a4bf9f3ad27912a37fc498557495029336b13a1bad7eac017"
+  }
+}

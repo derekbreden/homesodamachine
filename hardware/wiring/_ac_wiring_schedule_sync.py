@@ -115,8 +115,7 @@ len_dc1_mm = 350  # PSU secondary to the core DC WAGOs, including fitting reserv
 len_dc2_mm = 350  # Core V12 WAGO to relay 2, including fitting reserve.
 len_mid_mm = 150        # AC-1 (C14 → distribution block, over the foam-cap top), DC-4
 len_pump_mm = 350  # Pump negative to core GND, including fitting reserve.
-len_earth_bus_mm = 400  # Rear PE WAGO to rear-wall ring stack, including fitting reserve.
-len_earth_carbonator_mm = 500  # Rear-wall stack to carbonator bond, including fitting reserve.
+len_earth_carbonator_mm = 500  # Rear PE WAGO to carbonator bond, including fitting reserve.
 
 # ─── Loom bench cut lengths ───────────────────────────────────────────
 # Manifold cuts use the authored native-clear wire paths in the junction review,
@@ -210,7 +209,6 @@ def main():
         "LEN_DC2": f"~{len_dc2_mm:.4g} mm",
         "LEN_MID": f"~{len_mid_mm:.4g} mm",
         "LEN_PUMP": f"~{len_pump_mm:.4g} mm",
-        "LEN_EARTH_BUS": f"~{len_earth_bus_mm:.4g} mm",
         "LEN_EARTH_CARBONATOR": f"~{len_earth_carbonator_mm:.4g} mm",
         "LEN_RELAYS": f"~{len_relays_mm:.4g} mm",
         "LEN_VK": f"~{len_vk_mm:.4g} mm",

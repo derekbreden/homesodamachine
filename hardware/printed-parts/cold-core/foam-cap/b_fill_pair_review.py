@@ -342,10 +342,9 @@ def main():
     active_wires = {'wire-'+row['id'] for row in json.loads(wiring_manifest.read_text())['routes']}
     paths = {name: path for name, path in paths.items()
              if not name.startswith('wire-') or name in active_wires}
-    # Current route and ground fixtures replace only their named old leaves.
+    # Current route fixtures replace only their named old leaves.
     paths['tube-fluid-14'] = ROOT/'tmp/reservoir-a-free-final/fluid-14.brep'
     paths['tube-fluid-16'] = ROOT/'tmp/reservoir-a-free-final/fluid-16.brep'
-    paths['ground-stack'] = ROOT/'tmp/reservoir-a-ground-native/ground-stack.brep'
     obsolete = {'foam-cap-lid-top', 'foam-cap-top', 'reservoir-b-fill-lower',
                 'reservoir-b-fill-upper', 'tube-fluid-24', 'pump-contact-female',
                 'pump-contact-male', 'nominal-strip-va-east-turn',

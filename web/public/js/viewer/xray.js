@@ -43,6 +43,7 @@ export const makeEdgeMaterial = params => rendering.makeEdgeMaterial(params);
 export const syncEdgeResolution = renderer => rendering.syncEdgeResolution(renderer);
 export const forgetEdgeMaterials = () => rendering.forgetEdgeMaterials();
 export function applyXray(group, on = enabled) { rendering.apply(group, on); }
+export function disposeXray(group) { rendering.dispose(group); }
 export function setMeshMaterial(group, mesh, material) {
   rendering.setMeshMaterial(group, mesh, material, enabled);
 }

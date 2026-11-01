@@ -48,8 +48,6 @@ def main():
         'DOCK_VALVE_ELBOW_SHOWING': f'{elbows[1]["showing"]:.3g} mm',
         'DOCK_PUMP_TUBE_CUT': f'{manifold.PUMP_TUBE_CUT:.3g} mm',
         'DOCK_BODY_GAP': f'{enc.bay_back_y(box["collet_plate"]) - enc.pump_cartridge_aft_y(box["pump_trays"], box["collet_plate"]):.4g} mm',
-        'CAP_SCREWS': f'{len(enc.cap_screw_ys(box["inner"], box["collet_plate"]))}',
-        'CAP_SCREW_LEN': f'{enc.cap_screw_len:.4g}',
         'RESERVOIR_A_FILL_WARM': f'{reservoir_a_lengths["fluid-14"]:.3f} mm',
         'RESERVOIR_A_DRAW_WARM': f'{reservoir_a_lengths["fluid-16"]:.3f} mm',
         'RESERVOIR_B_FILL_WARM': f'{next(run.length for run in facts.runs if run.id == "fluid-24"):.3f} mm',

@@ -59,8 +59,9 @@ def va_feed_snap():
     """Full-root C2 seat for the V-A feed, in appliance coordinates."""
     sys.path.insert(0, str(HW / 'printed-parts' / 'cadlib'))
     from route_snap import tube_clip
-    return tube_clip((11., 254.5, 261.6), (0., 1., 0.), (0., 0., 1.),
-                     261.6-above_core.specification()['cap_face_z_mm'],
+    height = above_core.specification()['cap_face_z_mm']+6.35/2.
+    return tube_clip((3., 254.5, height), (0., 1., 0.), (0., 0., 1.),
+                     height-above_core.specification()['cap_face_z_mm'],
                      tube_od=6.35, bore_diameter=6.35, span=8., wing=2.4,
                      print_up=(0., 0., 1.))
 

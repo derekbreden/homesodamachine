@@ -1,0 +1,224 @@
+{
+  "piece": "foam-cap-lid-bottom",
+  "printer": "Mark2",
+  "connection_key": "Mark2",
+  "nozzle": {
+    "side": "left",
+    "diameter_mm": 0.4,
+    "flow": "Standard",
+    "hardened": true,
+    "reason": "Smooth 2.38 mm cold-core casing: 0.42 mm outer and 0.45 mm inner lines at 0.24 mm layers, three loops from each boundary.",
+    "sliced_diameter_mm": 0.4,
+    "sliced_volume_type": "Standard"
+  },
+  "material": "Polymaker Fiberon PET-GF15, black",
+  "bed_type": "Textured PEI Plate",
+  "requested_z_trim_mm": 0.04,
+  "emitted_textured_trim_mm": 0.02,
+  "project": ".cache/prints/cold-core-bottom-pair-2026-10-31/2026-10-31-foam-cap-lid-bottom-mark2-cb7b7c83/2026-10-31-foam-cap-lid-bottom-mark2-cb7b7c83.3mf",
+  "project_sha256": "6888f194d9c387da1cd82c3a31a70210cb7d6f54e2d5bc6e7d69315c4cd55b88",
+  "profile": "hardware/printed-parts/petgf.3mf",
+  "profile_sha256": "45c16e8c8517e0a205107d7b9f7412d013f51a8de7ecf86125cc940079d37ed0",
+  "settings_sha256": "df3a59bb21ee1fb3965bc63f225125f54c2aa1a1ec59423d4eacc32721eeb954",
+  "settings_changes": {
+    "extruder_ams_count": {
+      "from": [
+        "1#0|4#1",
+        "1#0|4#0"
+      ],
+      "to": [
+        "1#0|4#0",
+        "1#0|4#0"
+      ],
+      "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface."
+    },
+    "support_filament": {
+      "from": "0",
+      "to": "1",
+      "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface."
+    },
+    "support_interface_filament": {
+      "from": "0",
+      "to": "1",
+      "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface."
+    },
+    "flush_into_support": {
+      "from": "1",
+      "to": "0",
+      "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface."
+    },
+    "filament_colour": {
+      "from": [
+        "#000000"
+      ],
+      "to": [
+        "#161616"
+      ],
+      "reason": "Mark2's loaded black PET-GF colour reading."
+    },
+    "wall_loops": {
+      "from": "2",
+      "to": "3",
+      "reason": "Derek selected 2.38 mm standing walls, packed with six perimeter beads."
+    },
+    "wall_generator": {
+      "from": "classic",
+      "to": "classic",
+      "reason": "Three fixed-width perimeters from each wall boundary."
+    },
+    "sparse_infill_pattern": {
+      "from": "gyroid",
+      "to": "gyroid",
+      "reason": "Retain 15% gyroid in thicker regions."
+    },
+    "enable_support": {
+      "from": "1",
+      "to": "0",
+      "reason": "The upright shell and floor-down cap pieces retain their support-free recipe."
+    }
+  },
+  "profile_changes": {
+    "machine_start_gcode": {
+      "from_sha256": "3cc9e41520dbf5622d6f9a96bce734db9d11b0b48b49f2abec047a6e01dc6a92",
+      "to_sha256": "b09bc598f2ed7c29dceb227188593905dfc663f0391b98ff708ef00e7ce01bee",
+      "requested_z_trim_mm": 0.04
+    },
+    "printer_settings_id": {
+      "from": "Bambu Lab H2C 0.4 nozzle 04 first layer by agent",
+      "to": "Bambu Lab H2C 0.4 Standard +0.04 Z trim"
+    },
+    "print_compatible_printers": {
+      "from": [
+        "Bambu Lab H2C 0.4 nozzle"
+      ],
+      "to": [
+        "Bambu Lab H2C 0.4 nozzle",
+        "Bambu Lab H2C 0.4 Standard +0.04 Z trim"
+      ]
+    }
+  },
+  "usable_plate_mm": [
+    [
+      0.0,
+      0.0
+    ],
+    [
+      325.0,
+      320.0
+    ]
+  ],
+  "plate_border_mm": 20.0,
+  "brim_allowance_mm": 0.0,
+  "plate_offset_mm": null,
+  "objects": [
+    {
+      "name": "foam-cap-lid-bottom",
+      "identify_id": 1901,
+      "object_id": 2,
+      "stl": "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.stl",
+      "stl_sha256": "fc308b454d8940727fd71e8a665b09bbfcb78d88d8ca0724ba7f1b3a304876f6",
+      "step_sha256": "90c2ecb56ebc87635e05b11c68dd0a8bdb275323b427a9b951a27b9c76e8ed85",
+      "facets": 23504,
+      "closed": {
+        "edges": 35256,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "inconsistent_edges": 0,
+        "bodies": 1,
+        "closed_oriented_single_body": true
+      },
+      "pose": null,
+      "pose_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "yaw_degrees": 0,
+      "source_center_mm": [
+        0.0,
+        0.0,
+        2.700000047683716
+      ],
+      "build_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "translation_mm": [
+        162.5,
+        160.0,
+        2.700000047683716
+      ],
+      "plate_bounds_mm": [
+        [
+          21.300003051757812,
+          69.80000305175781,
+          0.0
+        ],
+        [
+          303.6999969482422,
+          250.1999969482422,
+          5.400000095367432
+        ]
+      ],
+      "model_bed_margin_mm": 21.300003051757812,
+      "seam_enforcer": null,
+      "object_settings": {},
+      "features": [],
+      "ranges": [],
+      "verify_spans": [],
+      "ribbons": [],
+      "tie_windows": [],
+      "modifiers": [],
+      "fins": []
+    }
+  ],
+  "pause": null,
+  "show_faces": ".cache/prints/cold-core-bottom-pair-2026-10-31/2026-10-31-foam-cap-lid-bottom-mark2-cb7b7c83/show-faces.npz",
+  "spec": "hardware/printed-parts/enclosure/trial-preparation/pieces.json",
+  "spec_sha256": "0337f353f18c28591ab2b7fcf7b3f26a17a6da0d67806f049acb11f8ea9e8aee",
+  "tool_sha256": {
+    "hardware/printed-parts/enclosure/trial-preparation/_derive.py": "31256357a16f37d9f1516ce1ee1636c97559dfe54a1a2050ae661d622e6b3189",
+    "hardware/printed-parts/enclosure/trial-preparation/_mesh.py": "7ab22db36e370608f52df3709c4af1994c8e804ee06e101dcbf79210db99eead",
+    "hardware/printed-parts/enclosure/trial-preparation/_native.py": "1c99ce10842a141a942a19d7def2329512d14b676c00618496187e0d93cd29da",
+    "hardware/printed-parts/enclosure/trial-preparation/_seam.py": "9ffa509df701826563e18388fd3bcc57c604f4b2b8e5e4288821ddcd00bcb176",
+    "hardware/printed-parts/enclosure/trial-preparation/labels.py": "c326a74b104b894d81dcfd8eb00c93ebf602291816decaf241a01cf4818b672d",
+    "hardware/printed-parts/enclosure/trial-preparation/prepare.py": "525be245521bd721c1ee6795f37e80d9f1e9ace9c4f8fa08b857f88e83388d9a",
+    "hardware/printed-parts/enclosure/trial-preparation/review.py": "9bd303fe370842fd34eb559dc5f53f887f75c42e478c598737397dd49dd539f7",
+    "hardware/printed-parts/enclosure/trial-preparation/step_meshes.py": "b50f7b50f52f1e8516be3b1fc9ecdb10e87fb188f8b9bebc0fac56737320fc44"
+  },
+  "prepared_utc": "2026-11-01T00:04:23+00:00",
+  "sliced": true,
+  "submitted": true,
+  "archive": ".cache/prints/cold-core-bottom-pair-2026-10-31/2026-10-31-foam-cap-lid-bottom-mark2-cb7b7c83/2026-10-31-foam-cap-lid-bottom-mark2-cb7b7c83.gcode.3mf",
+  "archive_sha256": "c1b546c589366ea990b029d70880917775ca83fc3fbf53f4425fe2253acefc47",
+  "gcode_sha256": "c045600bf4efdfdac8658cc1f60e153174bc4a062813c233dca0a729129f6ee9",
+  "estimated_seconds": 11169.5166015625,
+  "slicer_warnings": [],
+  "printer_task_id": "1395322638",
+  "launch_record": "hardware/printed-parts/cold-core/foam-cap/prints/2026-10-31-bottom-pair/mark2/launch.json"
+}

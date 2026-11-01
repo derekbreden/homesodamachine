@@ -1,15 +1,15 @@
 [ceiling] Functional upper end walls of the four rotated WAGO wells. Each flat 9.4 × 8.7 mm underside closes the rectangular pocket at one end of its 19.1 mm vertical body allowance, with 3 mm stock above it. The rear half of the connector slides into this rectangular seat along its own Y axis; its levers and the west face remain accessible. Tree(auto)/Default retains its automatic supports, which are removed through the open well mouth. The current native slice records their placement; physical release remains unmeasured.
 alternatives: Filling the pocket below this end wall occupies the WAGO body. Sloping the underside enters that rectangular body allowance; retaining it with a thicker rising section raises the upper row toward the funnel frame. Opening the end removes axial capture of the connector. The current end wall preserves its purchased rectangular mating envelope.
 file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
-click: x=90.525 y=24.800 z=47.650
-click: x=77.975 y=24.800 z=47.650
-click: x=90.525 y=24.800 z=25.550
-click: x=77.975 y=24.800 z=25.550
+click: x=74.981 y=17.500 z=48.650
+click: x=74.981 y=17.500 z=26.550
+click: x=87.531 y=17.500 z=48.650
+click: x=87.531 y=17.500 z=26.550
 
-[ceiling] Functional aft tie tunnel: under the aft Reservoir A paired seat the strap runs through a 3.2 mm transverse slot. This 7.5 × 3.2 mm roof is the seat's ridge between the two tubes, 1.6 mm over the slot floor, and it bridges the slot's 3.2 mm width.
+[ceiling] Functional aft tie tunnel: under the aft Reservoir A paired seat the strap runs through a 3.2 mm transverse slot. This 15.6 × 3.2 mm roof is the seat's ridge between the two tubes, 1.6 mm over the slot floor, and it bridges the slot's 3.2 mm width.
 alternatives: An open-topped slot cuts the ridge that carries both tubes' grooves. A sloped roof takes stock from that ridge or deepens the slot into the lid's floor stock.
 file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
-click: x=19.800 y=90.250 z=5.175
+click: x=-66.200 y=53.364 z=5.175
 
 [thin] Unavoidable without moving the stack's clamp stations: each clamp screw's Ø3.3 clearance hole stands on the shared attachment station, 4 mm in from the bare outside face at the shell's Ø8 boss centre. The plain casing face reserves 0.30 mm for foil inside the enclosure envelope, leaving 2.04–2.05 mm of wall below the head pocket floor.
 alternatives: Moving the stations inboard moves the shell's bosses and every cap's and lid's holes, Derek's printed shell among them. Moving the outside face outward spends the reserved foil allowance. Carrying the head pocket's outward slot down through the plate removes the wall and leaves the screw's floor open to the side.
@@ -146,20 +146,16 @@ click: x=-100.200 y=-73.175 z=18.000
 alternatives: A sloped underside lets the cable cam out through the mouth. Increasing the projection to 3 mm requires a 4.45 mm deep seat to preserve the mouth, adding 2.25 mm of movement behind the catch. Filling the entry prevents insertion from above.
 file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
 click: x=-102.867 y=-73.300 z=18.000
-click: x=128.533 y=74.700 z=21.700
-click: x=128.533 y=79.900 z=16.150
 
 [thin] Specific 4 mm flavor-line flexures: these four free jaws use the C2 profile scaled from the 6.35 mm section to the 4 mm bore, giving a 1.52 mm working jaw. Their mouths permit direct press-in insertion; the filled roots retain 3 mm stock. The smaller section is a defined spring, with no transferred claim about measured force or fatigue.
 alternatives: A 3 mm jaw changes the spring section and mouth compliance. Filling above the tube equator closes the loading mouth; a rigid saddle with a separate closure adds a part and an assembly step.
 file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
-click: x=-92.200 y=73.931 z=9.061
-click: x=-92.200 y=75.450 z=9.043
-click: x=-92.200 y=81.069 z=9.061
-click: x=-92.200 y=79.550 z=9.043
 click: x=-89.200 y=31.431 z=16.061
 click: x=-89.200 y=32.950 z=16.043
 click: x=-91.200 y=38.569 z=16.061
 click: x=-91.200 y=37.050 z=16.043
+click: x=61.369 y=27.500 z=48.065
+click: x=54.231 y=27.500 z=48.061
 
 [thin] Retained leaning-line entry at native X−134.5/Y−32.5: the Ø7.5 mm conduit opens through the outer 2 mm of the lid as a 38-degree countersink. The ranked 2.28–2.49 mm section is between this conical tube-bearing mouth and the fixed casing edge. It is the entry profile for the leaning line.
 alternatives: A 3 mm rim requires moving the conduit inward or narrowing the countersink. The first moves its cup column and installed route; the second reduces the specified 38-degree tube-exit allowance.

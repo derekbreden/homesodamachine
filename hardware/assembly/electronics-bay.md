@@ -35,7 +35,7 @@ fit and donor terminal locations retain their stated qualification limits.
 |---|---|---|---|
 | H | 221-413 | Back-top rear wall | C14 L; PSU L; relay 1 COM |
 | N | 221-413 | Back-top rear wall | C14 N; PSU N; compressor neutral pigtail |
-| G | 221-413 | Back-top rear wall | C14 PE; ground ring stack |
+| G | 221-413 | Back-top rear wall | C14 PE; carbonator bond; compressor PE |
 | V12 | 221-413 | Cold-core lid | PSU V12; relay 2 COM; PCB J10 V12 |
 | GND | 221-413 | Cold-core lid | PSU GND; pump negative; PCB J10 GND |
 | Sensor common | 221-413 | Cold-core lid | PCB J4 GND; temperature common; flow-meter common |
@@ -45,13 +45,12 @@ fit and donor terminal locations retain their stated qualification limits.
 | Compressor H join | 221-413 | Free, under the funnel opening | Relay 1 NO pigtail; compressor switched-H core |
 | Compressor N join | 221-413 | Free, under the funnel opening | N junction pigtail; compressor neutral core |
 | Pump positive join | 221-413 | Free, under the funnel opening | Relay 2 NO pigtail; pump positive |
-| Protective-earth ring stack | M3 ring-terminal stack | Back-top rear wall | C14 earth feed; compressor earth; carbonator bond lead |
 
 The rear H/G connectors share a column at X−85, with H at Z264 and G at
 Z296.5. N sits beside H at X−54/Z266. All three centres are Y457.5. Their
 wire entries face fore, their levers open upward and their individual wells
 have 45° roofs back to the rear wall. They stand below the PSU and clear
-C14, the ground stack, data jack and pump.
+C14, the data jack and pump.
 The four core-side
 221-413 connectors sit in two vertical pairs on the PCB-facing back of V-B's
 wall. The fore pair holds sensor common above V12; the aft pair holds
@@ -82,11 +81,7 @@ RX-M3×5.7 inserts. The pump retains its specified rubber-pad/washer stack.
 The PSU ceiling and relay wall-host stacks are defined by
 [`_above_core_shell.py`](/hardware/printed-parts/enclosure/enclosure/_above_core_shell.py)
 and allocated in the [BOM](/hardware/ledger/bom.md); use the stack assigned to
-each device. The ring stack and its Ø7 × 0.8 flat washer clamp under M3 × 8 into an
-RX-M3S×4 short insert in the rear wall below C14. The landing is world
-(−48.15, 461.7, 313.935) mm, with the screw entering aft along +Y. Its 3.2 mm clamp
-stack gives 4.8 mm screw projection into a 5.3 mm blind pilot, with 0.5 mm tip air
-and at least 3.1 mm backing beneath the exterior flutes.
+each device.
 
 Tools: ESD mat, suitable wire and contact crimpers, soldering tools for the
 specified soldered joints, helping hands, insulated driver and multimeter.
@@ -111,8 +106,9 @@ records the current rigid-slide and final-connection limits.
    the coil probe first; its free leads turn aft below the PRV vent at Z184
    and rise toward the lower guide at Y347. Keep the east reeds fixed and lay their transfer across
    the open head at Z225/Y352 before the body pour. Thread the cup and lid
-   over all seven free ends before crimping the outside earth ring. Dress
-   the signals along the west PCB approach and leave PE free for the rear-wall star. Complete the
+   over all seven free ends; the earth lead's ferrule goes on outside the
+   lid after dressing. Dress the signals along the west PCB approach and
+   leave PE free for the rear PE WAGO. Complete the
    cold-core assembly in
    [cold-core.md](cold-core.md).
 2. On open back-top, seat V-A/V-K with their fitted plumbing. Land their legs
@@ -121,8 +117,7 @@ records the current rigid-slide and final-connection limits.
    Female-housing fit and connection force remain unqualified.
    Seat the rear junctions in their named wells and label their electrical purpose.
    Check that each seated body's levers can open and close before populating
-   it. Fasten the ceiling PSU and prepare the three-ring ground stack on open back-top
-   before dressing the rear WAGOs. Mount the relays and
+   it. Fasten the ceiling PSU on open back-top before dressing the rear WAGOs. Mount the relays and
    meter, and prepare the meter’s inlet and concealed outlet plumbing. Solder
    J4's flow pair and the sensor-GND branch to the meter's three factory leads,
    heat-shrink each joint, and dress them below V-K's coil, east ahead of the
@@ -131,7 +126,7 @@ records the current rigid-slide and final-connection limits.
    H/N/G, H/N to the PSU primary, and H to relay 1 COM. Then land the back-top
    ends of the runs that finish under the funnel opening: the PSU secondary
    (DC-1), relay 2 COM (DC-2), the relay 1 NO and N-junction pigtails (AC-4,
-   AC-5), the relay 2 NO pigtail (DC-3), the PE bus from G, and J5 at the two
+   AC-5), the relay 2 NO pigtail (DC-3), and J5 at the two
    relay modules: IO19 to relay 1 IN, IO2 to relay 2 IN, V5 and GND to both
    modules. The shared relay-end rail termination remains subject to the
    installed model's stated termination limit. Punch J3 down on the rear
@@ -150,12 +145,11 @@ records the current rigid-slide and final-connection limits.
    its housing. Seat J6, J7 and J4 at the PCB, J4 with cavities 4 and 5 empty.
    Populate the sensor and reservoir-B common junctions without adding
    junctions to the continuous reservoir-A reed common.
-   On open back-top, stack the three ground rings on the rear-wall boss below
-   C14: carbonator, inlet PE and compressor PE, followed by the flat washer
-   and M3 × 8 screw. The inlet barrel points east, the carbonator barrel west
-   and the compressor barrel down and east. Keep their final crimp entries
-   straight. Connect the carbonator's free bond lead before the rear assembly
-   closes over the core.
+   On open back-top, land the carbonator's free bond lead in G's port 2 and
+   the compressor's PE core in its port 3, each ferruled. The carbonator lead
+   drops straight into its port; the compressor core rises over the keystone
+   and drops into its port. Connect the carbonator's bond before the rear
+   assembly closes over the core.
 5. Close the box per [enclosure-mechanical.md](enclosure-mechanical.md); the
    front-bottom and front-top looms have landed at their devices by then
    ([wiring.md](wiring.md)). Through the funnel opening, with the frame out:

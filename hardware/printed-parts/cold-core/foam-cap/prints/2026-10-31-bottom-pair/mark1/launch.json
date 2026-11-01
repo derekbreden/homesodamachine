@@ -1,0 +1,59 @@
+{
+  "printer": "Mark1",
+  "connection_key": "H2C",
+  "accepted_observed_at": "2026-11-01T00:06:53.190111+00:00",
+  "accepted_observed_at_central": "2026-10-31T19:06:53.190111-05:00",
+  "method": "tools/bambu_send.py through Bambu Connect",
+  "archive": {
+    "name": "2026-10-31-foam-cap-bottom-mark1-20a7d979.gcode.3mf",
+    "sha256": "60fe6bc99ebeb2a2bc1461d328829b45f9e0946c8b3983b32aef455e411743e2",
+    "gcode_sha256": "ce4dd97a0d2053c11b76a8ee81444020ae4e7ae96235e3715d54df701c8fdc3e",
+    "slots": {
+      "1": {
+        "type": "PET-CF",
+        "colour": "000000"
+      }
+    },
+    "objects": [
+      "foam-cap-bottom"
+    ]
+  },
+  "source_archive": ".cache/prints/cold-core-bottom-pair-2026-10-31/2026-10-31-foam-cap-bottom-mark1-20a7d979/2026-10-31-foam-cap-bottom-mark1-20a7d979.gcode.3mf",
+  "printer_task_id": "1395316228",
+  "acceptance": {
+    "gcode_state": "PREPARE",
+    "print_error": 0,
+    "project_file_result": "SUCCESS",
+    "project_file_err_code": 0
+  },
+  "options": {
+    "Timelapse": "On",
+    "Auto bed leveling": "On",
+    "Flow dynamic calibration": "Auto",
+    "Nozzle Offset Calibration": "Auto"
+  },
+  "filament_mapping": "Left External PET-CF; black Polymaker Fiberon PET-GF15, 000000",
+  "readback": {
+    "observed_at": "2026-11-01T00:10:52.681021+00:00",
+    "job_id": "1395316228",
+    "task_id": "1395316228",
+    "gcode_state": "RUNNING",
+    "subtask_name": "2026-10-31-foam-cap-bottom-mark1-20a7d979.gcode.3mf",
+    "layer_num": 0,
+    "total_layer_num": 74,
+    "mc_percent": 0,
+    "mc_remaining_time": 233,
+    "print_error": 0,
+    "hms": [],
+    "nozzle_temper": 34.0,
+    "nozzle_target_temper": 0.0,
+    "bed_temper": 25.0,
+    "bed_target_temper": 25.0
+  },
+  "shared_circuit": {
+    "other_printer": "Mark2",
+    "other_state_at_preflight": "FINISH",
+    "minimum_seconds": 180,
+    "next_start_not_before": "2026-11-01T00:09:53.190111+00:00"
+  }
+}

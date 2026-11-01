@@ -7,9 +7,14 @@
 The arguments are `git worktree add`'s. Each tracked file of the new worktree is an APFS clone
 of the main checkout's copy, sharing its disk blocks until one side writes, and git writes only
 the files that differ from the commit the worktree stands on. The memo caches the build reads
-(realized, meshes, boxes) are cloned as well. Their keys name the code, the inputs and the
-kernel, never the checkout, so the worktree's first build reads back what the main checkout
-already drew.
+(realized, meshes, boxes, and hsm's imported STEPs) are cloned as well. Their keys name the code,
+the inputs and the kernel, never the checkout, so the worktree's first build reads back what the
+main checkout already drew.
+
+The Rust kernel's target directory, tools/hsm/target, is cloned less what cargo compiled from
+the workspace's own crates: what cargo holds for them describes the main checkout's sources, so
+the worktree's first Rust build compiles those crates again from its own. What cargo compiled
+from the registry, Manifold's C++ among it, is read back as it stands.
 
 A worktree made this way costs almost no disk until something in it changes. A clone keeps its
 blocks when the main checkout's copy changes, so a worktree left standing grows toward a full
@@ -25,12 +30,13 @@ Requires macOS and the Python standard library. A file that will not clone is le
 
 import ctypes
 import os
+import shutil
 import stat
 import subprocess
 import sys
 import time
 
-CACHES = (b"realized", b"meshes", b"boxes")
+CACHES = (b"realized", b"meshes", b"boxes", b"hsm")
 CLONE_NOFOLLOW = 0x0001
 VALUED = {"-b", "-B", "--reason"}  # the `git worktree add` options that take the next argument
 
@@ -41,6 +47,34 @@ libc.clonefile.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_uint32]
 def clone(src: bytes, dst: bytes) -> bool:
     """APFS-clone a file, or a directory and everything under it; False where it will not."""
     return libc.clonefile(src, dst, CLONE_NOFOLLOW) == 0
+
+
+def cargo():
+    """`cargo` on the PATH, else where rustup puts it (`hardware/scripts/_rust_part.py`)."""
+    for found in (shutil.which("cargo"), "/opt/homebrew/opt/rustup/bin/cargo",
+                  os.path.expanduser("~/.cargo/bin/cargo")):
+        if found and os.path.isfile(found):
+            return found
+    return None
+
+
+def clone_target(source: bytes, wt: bytes) -> bool:
+    """The main checkout's tools/hsm/target, cloned, with the workspace's own crates cleaned out
+    of it; nothing where cargo cannot clean it."""
+    hsm = os.path.join(wt, b"tools", b"hsm")
+    src, dst = os.path.join(source, b"tools", b"hsm", b"target"), os.path.join(hsm, b"target")
+    found = cargo()
+    if found is None or not os.path.isdir(src) or os.path.lexists(dst) or not clone(src, dst):
+        return False
+    env = {**os.environ, "CARGO_TARGET_DIR": os.fsdecode(dst),
+           "PATH": os.pathsep.join([os.path.dirname(found), os.environ.get("PATH", "")])}
+    cleaned = subprocess.run([found, "clean", "--release", "--workspace", "--quiet",
+                              "--manifest-path", os.fsdecode(os.path.join(hsm, b"Cargo.toml"))],
+                             env=env, capture_output=True)
+    if cleaned.returncode:
+        shutil.rmtree(dst, ignore_errors=True)
+        return False
+    return True
 
 
 def git(*args, cwd=None) -> bytes:
@@ -106,6 +140,8 @@ def main(argv) -> int:
             os.makedirs(os.path.dirname(dst), exist_ok=True)
             if clone(src, dst):
                 caches.append(name.decode())
+    if clone_target(source, wt):
+        caches.append("tools/hsm/target")
 
     print(f"{os.fsdecode(wt)}: {cloned} files cloned from {os.fsdecode(source)}, "
           f"{written} written by git; caches cloned: {', '.join(caches) or 'none'} "

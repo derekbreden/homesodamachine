@@ -302,20 +302,24 @@ def continuations(station):
     add('above-core-gas-core-drop',[r._line((a[0],a[1]+check().INSERTION,a[2]),a),r._bezier(c1),r._bezier(c2)],
         ('gas-check','outlet'),('foam-assembly','co2-in'),25.,spool='red')
 
-    # V-A's feed turns around the inlet header in the open space above the
-    # pump. The fore drop reuses the accepted low Y-A handoff and its lid snap.
+    # V-A's feed crosses above the pump, drops west of the return elbow and
+    # follows the plain lid through its open snap before rising under the drain.
     a,ua,_ = station('va-south-elbow','socket');b,ub,_ = station('ya-stem-elbow','socket')
     z = a[2]
     points = [r._sub(a,r._mul(ua,16.891)),a,
-        (a[0],340.,z),(11.,340.,z),(11.,326.,z)]
+        (a[0],340.,z),(-11.,340.,z),(-11.,326.,z)]
     prefix = r._rounded(points,14.)
-    angle = math.pi/3.
-    first,end = r._arc((11.,326.,z),(0.,-1.,0.),(1.,0.,0.),angle,14.)
+    angle = math.acos(1.-12./28.)
+    first,end = r._arc((-11.,326.,z),(0.,-1.,0.),(1.,0.,0.),angle,14.)
     second,end = r._arc(end,(0.,-math.cos(angle),-math.sin(angle)),(-1.,0.,0.),angle,14.)
-    drop = r._rounded([end,(11.,285.,z-14.),(11.,285.,261.6),
-                       (11.,261.19496077274215,261.6)],14.)
-    retained = layout.specification()['fore_routes']['native_segments']['va-fore-feed'][2:]
-    add('above-core-va-fore-feed',[*prefix,first,second,*drop,*retained],
+    low = layout.specification()['cap_face_z_mm']+6.35/2.
+    drop = r._rounded([end,(-11.,285.,end[2]),(-11.,285.,low+14.)],14.)
+    diagonal=(math.sqrt(.5),-math.sqrt(.5),0.)
+    foot,end = r._arc((-11.,285.,low+14.),(0.,0.,-1.),
+                     (-math.sqrt(.5),-math.sqrt(.5),0.),math.pi/2.,14.)
+    turn,end = r._arc(end,diagonal,(0.,0.,-1.),math.pi/4.,14.)
+    retained = layout.specification()['fore_routes']['native_segments']['va-fore-feed']
+    add('above-core-va-fore-feed',[*prefix,first,second,*drop,foot,turn,*retained],
         ('va-south-elbow','socket'),('ya-stem-elbow','socket'),14.)
 
     # The integral aft-facing socket keeps the LLDPE straight between the

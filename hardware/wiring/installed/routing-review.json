@@ -1,9 +1,9 @@
 {
   "schema": 1,
   "scope": "One manual full-scene mesh interference review of every wire and cable jacket against larger bodies; wire-to-wire and wire-to-tube contacts are excluded. Tessellated penetration is a routing witness, not a native-solid or physical assembly qualification.",
-  "manifest_sha256": "e3fce06cc0036a71e03ea734b2395e370f649d4ed3ac91b3f5cc29448a7c26ad",
-  "assembly_step_sha256": "99b0690d7c6768cbcf68c6ae5a82982132bc097f380d073fe9d471989a23def0",
-  "assembly_mesh_sha256": "c0daf38138c43349656125ee4803c1230c85205c511f22c0f9d43d9e1e14e0dc",
+  "manifest_sha256": "1d56e27d0a4512bd38dee9e934c4c27a557ea56826c0ea394476dfefe1c9e64b",
+  "assembly_step_sha256": "c43899c17ab94f1144202b9bd43d80a8a12cef7f2e09b742f7c53531c17b3cab",
+  "assembly_mesh_sha256": "b198dc9180b8db8f6218bf77c8198483b3832d71b8fd586ba3c65518880531cf",
   "wire_count": 101,
   "physical_mesh_count": 411,
   "coverage_missing": [],
@@ -48,19 +48,26 @@
   "wires_with_physical_interference": 3,
   "endpoint_contact_scope": "Only the named endpoint part within 8.5 mm of its attachment. All other contact with that part remains in the reading.",
   "native": {
-    "scope": "Current native standalone/source/installed body binding. Contact resolutions are in the separately bound exact material review.",
-    "wiring_step_sha256": "dbe768db970c86f7308daa4cea899d55f0d03eb73955139f90453041ed4e0e0f",
-    "assembly_step_sha256": "99b0690d7c6768cbcf68c6ae5a82982132bc097f380d073fe9d471989a23def0",
-    "source_body_count": 120,
-    "actual_body_count": 120,
-    "installed_body_count": 120,
-    "all_valid": true,
+    "scope": "All current standalone and installed native wiring bodies, and all source conductor curves, read by the bound manual reader.",
+    "binding_record": {
+      "path": "hardware/wiring/installed/above-core-review/installed-wiring-binding.json",
+      "sha256": "f4ca60e92caf4aa32e3bd51bae7f24303537f8a4822c3558e9666b819918cba4"
+    },
+    "wiring_step_sha256": "e94f8aa422c155d17cc82ed1a447e9cebd5c701c96272df4830f632ab2a06fa3",
+    "all_valid_single_solids": true,
+    "wire_count": 101,
+    "native_body_count": 120,
     "all_source_curves_match": true,
-    "all_native_shapes_bound": true
+    "all_native_shapes_bound": true,
+    "maximum_installed_bounds_error_mm": 0.0
   },
   "native_resolution": {
-    "path": "hardware/wiring/installed/above-core-review/routing-enclosure-review.json",
-    "sha256": "e6a456f758c3ace96bedd05a7316b43fc1903d2631671668fed4562bc8065d69",
-    "all_witnesses_resolved": true
+    "scope": "All remaining mesh witnesses resolved by exact material readings of the current native bodies.",
+    "record": {
+      "path": "hardware/wiring/installed/above-core-review/routing-enclosure-review.json",
+      "sha256": "e0d8fc49678c24149f36d63b3f0f84708b2a5f2c05b101d52a2ae607c9b60184"
+    },
+    "all_witnesses_resolved": true,
+    "unresolved_pairs": []
   }
 }

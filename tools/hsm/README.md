@@ -137,10 +137,10 @@ The deployed site answers `/api/hsm` with a 404, and its viewer does neither.
 ## Render
 
 `hsm render` draws a payload as `/3d` draws it: the viewer's colours, `web/public/finishes.json`,
-its studio light, x-ray, contact shadow and fog. The daemon draws with wgpu, on Metal here, and
-starts no browser, server or STEP reader. Its device, pipelines and last scenes stay warm, so a
-picture of the whole machine takes a fresh daemon about three seconds and a warm one about a
-tenth of that.
+its studio light, x-ray, contact shadow and fog. The daemon draws with wgpu, on Metal on a Mac
+and on Vulkan elsewhere, and starts no browser, server or STEP reader. Its device, pipelines and
+last scenes stay warm, so a picture of the whole machine takes a fresh daemon about three seconds
+and a warm one about a tenth of that.
 
 ```sh
 hsm render manifold-layout/enclosure-assembly.step /tmp/machine.png
@@ -168,10 +168,18 @@ camera with its view-projection, the bodies in each role, and the milliseconds e
 The scenes kept warm hold up to 1 GiB between them, CPU and GPU; the least recently drawn goes
 first.
 
-[`tools/look.sh`](../look.sh), [`tools/changes/change.mjs`](../changes/change.mjs) and the guide
-art scripts, by way of [`hardware/scripts/_hsm_render.py`](../../hardware/scripts/_hsm_render.py),
-draw with it. The Bazel art rules, and the installation scenes that bring their own three.js
-materials, draw with [`tools/render/render-step-posed.js`](../render/render-step-posed.js).
+`hsm-render --jobs FILE|-` (`tools/hsm/render`'s program) draws the same jobs in its own process,
+with no daemon. The CI image has no GPU, and Mesa's lavapipe answers Vulkan there on the CPU.
+- On lavapipe a picture is the same bytes on every runner, whatever its CPU or thread count.
+- Five pictures of the machine take 7–13 s on four vCPUs there, against about a second on Metal.
+- Metal draws the same picture in different bytes: mean |Δ| under 0.3 of 255 a channel.
+
+[`tools/look.sh`](../look.sh) and [`tools/changes/change.mjs`](../changes/change.mjs) draw with
+it. The guide art scripts, and the Bazel rules for the plumbing art and the opening scene, draw
+with `hsm-render` by way of [`hardware/scripts/_hsm_render.py`](../../hardware/scripts/_hsm_render.py),
+which builds it from the checkout. The other Bazel art rules, and the installation scenes that
+bring their own three.js materials, draw with
+[`tools/render/render-step-posed.js`](../render/render-step-posed.js).
 
 ## Kernel
 
@@ -184,19 +192,25 @@ meshcad does, so a part writes the same records from every worktree.
 
 Profiles are drawn exactly with lines, arcs, circles, Béziers, corner fillets, offsets and the
 hull round circles and points (`Loop`, `Pen`, `Profile`; `hull_loop` is CadQuery's
-`Sketch.hull`) on a workplane (`Plane`) named as CadQuery names them. The builders
-extrude (straight, both ways, drafted), revolve, sweep along lines and arcs or along a helix
-(carried rigidly by the screw motion, or in a rotation-minimizing frame), loft sections ruled
-or through OCCT's own smooth surface (`Solid::thru_sections`, CadQuery's `loft`),
+`Sketch.hull`) on a workplane (`Plane`) named as CadQuery names them, or read from a laser's
+DXF (`dxf::read`, CadQuery's `importDXF`). The builders extrude (straight, both ways, drafted),
+revolve, sweep along lines, arcs and cubics through points (`Path::spline_through`, CadQuery's
+`makeSpline`; `Path::spline_to` between two end tangents) or along a helix (carried rigidly by
+the screw motion, or in a rotation-minimizing frame), loft sections ruled
+or through OCCT's own smooth surface (`Solid::thru_sections`, CadQuery's `loft`; a solid that
+meets a smooth loft's end is built on the loft's own end ring, `SmoothLoft::end_region`),
 set text from a font's outlines, and make boxes, cylinders, cones, spheres, tori, wedges and
 hulls. All of them cut curves into points by one rule (0.005 mm chord, 0.05 rad, ring counts a
 multiple of 8 from a canonical seam), so a surface gets the same vertices from any builder and
-coincident faces meet point for point.
+coincident faces meet point for point. `Solid::mapped` carries a solid by an affine map that need
+not keep its shape, a shear or a stretch, as CadQuery's `transformGeometry` does: its planes stay
+planes and every other face becomes a free surface.
 
 Union, cut, intersect and plane split run on Manifold. Each operand face goes in as a run of its
 own, so the result keeps every face record. Coordinates of different operands within 10⁻⁸ mm
 are one coordinate, and a component thinner than the rule is dropped. Volume, area, centroid,
-inertia and bounds come from the mesh. The writers make binary STL, 3MF, GLB (face records in
+inertia and bounds come from the mesh. The writers make binary STL (leaving out a triangle that
+has no area once its corners are f32), 3MF, GLB (face records in
 its extras), the `.step.mesh` payload `hsm` reads, and the STEP meshcad writes: AP242
 triangulated surface sets under each body's name and colour, with the model file a mesh-kernel
 import reads beside it (`<name>.step.npz`). The same solid writes the same bytes on every run.
@@ -215,12 +229,33 @@ source is the file asked for: `MESH import at hardware/reference/tee-connector/t
 `Solid::from_mesh` makes a solid of any closed mesh. Corners at one point of the grid are one
 vertex, and a mesh left open or folded is an error.
 
+A solid's edges are CadQuery's (`Solid::edges(sel)`, `edge`): a run of mesh edges between two
+faces, broken where a third face meets it, is one `Edge`, a LINE, CIRCLE or OTHER with CadQuery's
+`Center()`. The selectors are CadQuery's strings with its precedence: `|D`, `#D`, `+D`, `-D`,
+`>D`, `<D`, `>D[n]`, `>>D[n]`, `<<D[n]`, `%TYPE`, the named views, and `and`, `or`, `exc` and
+`not` with parentheses. `Solid::face_edges(sel)` is `faces(sel).edges()`, `Edges::select`
+narrows a selection as a chained `.edges(sel)` does, and `Edges::nearest(p)` is
+`NearestToPointSelector`. `Solid::fillet(&edges, r)` and `Solid::chamfer(&edges, d)` round and
+chamfer them (`round`), and every edge that runs on tangent from one of them, as OCCT does.
+Each edge gets one tool: its section between the two faces and the round or chamfer, carried
+straight along a line and turned about a circle's axis, cut from a convex edge and added to a
+concave one. The tool's sides stand 0.001 mm off the faces (`round::STANDOFF`), so it reaches no
+other wall of the solid. Where two rounds meet at a corner, both tools run past it and trim it
+between them. The kernel rounds an edge between two planes, or between planes, cylinders and
+cones about one axis, and refuses three rounds meeting at a corner, a round that ends on a
+slanted face where it may not run on, and a round wider than a face it lies on.
+
 The kernel's tests hold every builder and boolean to OCCT's volume and bounds for the same model
-within the rule (`tests/occt_reference.py` and, for the helix sweeps and lofts,
-`tests/screw_reference.py` and `tests/thru_reference.py` write those with plain CadQuery), lofts
-to every point sampled on OCCT's faces within the rule, hulls to the edges of CadQuery's
-(`tests/sketch_hull_reference.py`), and booleans to Manifold run plainly on the same operands,
-sixty holes in one cut among them. They hold the fuse clamp, cut from its numbers, to the
+within the rule (`tests/occt_reference.py` and, for the helix sweeps, lofts and rounds,
+`tests/screw_reference.py`, `tests/thru_reference.py` and `tests/round_reference.py` write those
+with plain CadQuery), lofts and rounds to every point sampled on OCCT's faces within the rule
+(the rounds include one beside a fin 0.3 mm away, fills in the corners of 1 mm and 0.8 mm walls,
+and rounds and chamfers along the edges an earlier round made), hulls to the edges of CadQuery's
+(`tests/sketch_hull_reference.py`), splines to the point and direction of OCCT's through the
+same points and a tube swept along one to OCCT's sweep (`tests/spline_reference.py`), a DXF
+outline to what `importDXF` reads from it (`tests/dxf_reference.py`), a sheared solid to every
+point sampled on the faces of CadQuery's (`tests/mapped_reference.py`), and booleans to Manifold
+run plainly on the same operands, sixty holes in one cut among them. They hold the fuse clamp, cut from its numbers, to the
 volume of its module's `build()` and to that B-rep's STL (`tests/fixtures/fuse-clamp.stl`), two
 processes to the same bytes, a STEP and a model file to the triangles, names and colours they
 were written from, and the crate to a wasm32 build. The text tests read the system's Arial and
@@ -229,34 +264,79 @@ Helvetica.
 ## Parts the kernel cuts
 
 A part the kernel cuts keeps its numbers in Python and its geometry in Rust, side by side in its
-folder. The fuse clamp (`hardware/printed-parts/refrigeration/fuse-clamp`) is one. The coil
+folder. The fuse clamp (`hardware/printed-parts/refrigeration/fuse-clamp`) is one; the coil
 mandrel and the magnetic float (`hardware/printed-parts/cold-core/coil-mandrel` and
-`magnetic-float`, crate `tools/hsm/cold-core`) are two more.
+`magnetic-float`, crate `tools/hsm/cold-core`), the
+faucet shell (`hardware/printed-parts/faucet/faucet-shell`, crate `tools/hsm/faucet`), its
+display cover (`hardware/printed-parts/faucet/faucet-display-cover`), the industrial faucet
+(`hardware/printed-parts/faucet/industrial`) and the two faucet assemblies
+(`hardware/faucet-layout`), all of the same crate, are others.
 
-`fuse_clamp.py` is its generator. It derives every number the part takes from the parts it
-closes on, states its bounds and fills its README, as any generator does, and writes the numbers
-the geometry takes (`numbers()`) to `fuse-clamp.numbers.json`, which is committed beside it.
+A part moves onto the kernel only when its generator, timed from its process's start to its
+exit, is faster on a warm run than the OCCT generator it replaces. The commit that moves it
+carries the old and new times, warm and after a kernel change, when its cargo call compiles the
+kernel and its crate before the program runs, and the most memory each run held.
+
+`fuse_clamp.py` is its generator. It derives every number the part takes from the parts it closes
+on, states its bounds and fills its README, as any generator does, and writes the numbers the
+geometry takes (`numbers()`) to `fuse-clamp.numbers.json`, which is committed beside it.
 `fuse_clamp.rs` is the program that cuts the part from them: a `[[bin]]` of its subsystem's crate,
-`tools/hsm/refrigeration`, named `fuse-clamp`. It reads the file with `part::args` and
-`Numbers` (`f`, `pair`, `list`, `color`, `text`), builds the solid, and hands its bodies to
-`part::write_part`. That writes `fuse-clamp.step`, the model file beside it, the payload, whose
-`src` is the STEP's SHA-256, and `fuse-clamp.stl`; leaves a file that holds the same bytes as it
-is; and prints what the files hold. `part::write_shown` writes a set without the STL, for bodies
-the page draws and nothing prints. A program that writes several sets prints each one's answer
-on a line of its own, and its standard output carries nothing else. The magnetic float's program
-writes seven: a set with an STL for each printed piece, and a set without one for the magnet and
-for the assembly, section and exploded views.
+`tools/hsm/refrigeration`, named `fuse-clamp`. It reads the file with `part::args` and `Numbers`
+(`f`, `pair`, `list`, `color`, `text`), builds the solid, refuses one that the fuse's case, grown by
+the contact tolerance, does not touch, and hands its bodies to `part::write_part`. That writes
+`fuse-clamp.step`, the model file beside it, the payload, whose `src` is the STEP's SHA-256, and
+`fuse-clamp.stl`; leaves a file that holds the same bytes as it is; and prints what the files hold.
+The STEP and the STL take each solid simplified once, at the kernel's rule. `part::write_shown`
+writes a set without the STL, for bodies the page draws and nothing prints, and
+`part::write_printed` one without the payload, for a printed piece whose payload
+`hardware/scripts/flute_payload.py` cuts from its STL. A program that writes several sets prints
+each one's answer on a line of its own, and its standard output carries nothing else. The magnetic
+float's program writes seven: a set with an STL for each printed piece, and a set without one for
+the magnet and for the assembly, section and exploded views. The faucet
+shell writes the assembled pair with `write_shown` and each of its two prints with `write_printed`;
+the display cover writes its print with `write_printed` and itself as it sits on the tip with
+`write_shown`, and the industrial faucet writes its four prints with `write_printed` and its display
+cover as it sits on the tip with `write_shown`. The faucet's programs are `[[bin]]`s of
+`tools/hsm/faucet`, whose library holds what they share: the gooseneck, the display's frame at its
+tip, the shapes their numbers come in, `shell`, the shell's stock and the cutters the industrial
+faucet also cuts its own round stock with, `display`, the lips and the relaxed print both display
+covers are cut with, and `assembly`, the faucet and its umbilical as the bench bags them, which both
+assemblies cut from the numbers `faucet_assembly.py` writes.
+
+A generator that cuts a part begins its own run before it imports anything else:
+
+```python
+if __name__ == "__main__":
+    import _rust_part
+    _rust_part.start()
+```
+
+`start` takes the CAD lock, starts the run's clock at the process's own start, and defers
+CadQuery: the modules a part's numbers come from import it to build other parts, and the run uses
+none of it. The `cadquery` it puts in `sys.modules` loads the first time a name is read off it,
+except `Color` and `Plane`, which shared modules call as they import and which make stand-ins. A
+stand-in colour answers `toTuple`, `==`, `hash` and `_materials.linear` with OCCT's bits, as
+`linear` of a `#RRGGBB` string does (`hardware/scripts/_occt_color.py`). If CadQuery loads, each
+stand-in becomes the value it stands for, in place, and whenever OCP loads, its loops end in
+Python as `_cadq_export` ends them. So a part's run ends with neither `cadquery` nor `OCP.OCP`
+loaded, and puts its seconds, interpreter and imports included, into `build-time.md`'s window.
+`hardware/scripts/test_rust_part.py` holds the template to all of it.
 
 The generator runs the program through
 [`hardware/scripts/_rust_part.py`](../../hardware/scripts/_rust_part.py).
-`_rust_part.cut("refrigeration", "fuse-clamp", numbers(), part_dir)` writes the numbers, builds
-the program with cargo from the checkout's workspace (`HSM_WORKSPACE` in a Bazel action), runs
-it, and returns the files and bodies it printed. `_rust_part.program(crate, name)` builds a
-program and returns its path, for a run with arguments of its own: the float's `verify.py`
-runs its program with `--check` for the volumes by which the pieces miss the design. Cargo
-builds into the checkout's own target directory, `tools/hsm/target`, whatever
-`CARGO_TARGET_DIR` says. The `cargo` it runs is the one on `PATH`, else Homebrew's rustup's,
-else the one in `~/.cargo/bin`.
+`_rust_part.cut("refrigeration", "fuse-clamp", numbers(), part_dir)` writes the numbers, builds the
+program with cargo from the checkout's workspace (`HSM_WORKSPACE` in a Bazel action), runs it, and
+returns the files and bodies it printed. `_rust_part.check(crate, name, numbers)` runs
+`<program> <numbers.json> --check`, which measures the part and writes nothing, and returns its
+JSON: the fuse clamp's selftest asks it for the case's touch, and the magnetic float's `verify.py`
+for the volumes by which the pieces miss the design. `_rust_part.run(crate, name, *args)`
+runs a program with arguments of its own and returns what it printed, and
+`_rust_part.program(crate, name)` builds one and returns its path. Each run prints the program's
+seconds and the most memory it held. Cargo builds into the checkout's own target directory,
+`tools/hsm/target`, whatever `CARGO_TARGET_DIR` says. A worktree made by `tools/worktree.py` starts
+with a clone of the main checkout's target directory less the workspace's own crates, so its first
+build compiles those and not Manifold. `_rust_part` runs the `cargo` on `PATH`, else Homebrew's
+rustup's, else the one in `~/.cargo/bin`.
 
 A program runs from the checkout's root, and its numbers name a STEP it reads by its path from
 there. `_rust_part.step(path)` returns that path once a payload cut from the STEP is on disk. For
@@ -276,7 +356,12 @@ carries the toolchain and CMake.
 
 A generator on meshcad seats the part off its STEP, whose solids an import takes from the model
 file. `import_step` refuses that STEP on OCCT, so an OCCT generator that seats the part calls a
-CadQuery `build()` in its module instead: the fuse clamp keeps one for `enclosure_assembly`.
+CadQuery `build()` in its module instead: the fuse clamp keeps one for `enclosure_assembly`, and
+the faucet shell keeps its builders for `faucet_assembly.build_assembly`, the CadQuery assembly
+the guide art stands, and for the industrial faucet's geometry and cover checks, and its display
+cover keeps its own for that assembly, the display snap trial and `check_faucet_geometry.py`. A program on the
+kernel reads the STEP with `import::step`, as the faucet assemblies read the shell's two pieces
+off `faucet-shell.step`.
 
 ```sh
 tools/cad-venv/bin/python hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.py
@@ -292,6 +377,7 @@ hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.rs:43`.
 ```sh
 cargo test --release --manifest-path tools/hsm/Cargo.toml
 python3 -m unittest discover -s tools -p test_publish_manifest.py
+tools/cad-venv/bin/python hardware/scripts/test_rust_part.py
 ```
 
 These run only when requested. They do not join any build, edit or commit path.

@@ -13,12 +13,13 @@
 //! a mesh-kernel import reads beside it (`<name>.step.npz`), and the payload the page draws
 //! (`<name>.step.mesh`), which names the STEP it was written with by that file's SHA-256.
 //! `write_shown` writes the same set without the STL, for bodies the page draws and nothing
-//! prints. A file already holding the same bytes is left as it is; any other lands whole, by a
+//! prints, and `write_printed` without the payload, for a printed piece whose payload
+//! `hardware/scripts/flute_payload.py` cuts from its STL. A file already holding the same bytes is left as it is; any other lands whole, by a
 //! rename. Each call answers with what its files hold, and the program prints each answer on a
 //! line of its own, which is all its standard output carries.
 use crate::solid::Solid;
-use crate::step::{model_bytes, step_bytes};
-use crate::write::{Body, payload_bytes, stl_bytes};
+use crate::step::{model_bytes, step_bytes, step_of};
+use crate::write::{Body, payload_bytes, stl_of};
 use anyhow::{Context, Result, anyhow, ensure};
 use serde_json::{Value, json};
 use sha2::{Digest, Sha256};
@@ -83,25 +84,36 @@ pub fn args() -> Result<(Numbers, PathBuf)> {
 /// Write the part's files into `dir`, the STEP and the root of its assembly named `name`, and say
 /// what they hold: the files, and per body its name, volume, area, bounds and triangles.
 pub fn write_part(dir: &Path, name: &str, bodies: &[Body]) -> Result<Value> {
-    write_set(dir, name, bodies, true)
+    write_set(dir, name, bodies, true, true)
 }
 
 /// `write_part` without the STL.
 pub fn write_shown(dir: &Path, name: &str, bodies: &[Body]) -> Result<Value> {
-    write_set(dir, name, bodies, false)
+    write_set(dir, name, bodies, false, true)
 }
 
-fn write_set(dir: &Path, name: &str, bodies: &[Body], printed: bool) -> Result<Value> {
-    let step = step_bytes(bodies, name)?;
+/// `write_part` without the payload.
+pub fn write_printed(dir: &Path, name: &str, bodies: &[Body]) -> Result<Value> {
+    write_set(dir, name, bodies, true, false)
+}
+
+fn write_set(dir: &Path, name: &str, bodies: &[Body], printed: bool, shown: bool) -> Result<Value> {
+    // The STL takes the solids the STEP takes, so a printed set simplifies each once for both; a
+    // set without one simplifies each as its STEP is written.
+    let (step, stl) = if printed {
+        let simple: Vec<Solid> = bodies.iter().map(|b| b.solid.simplified()).collect::<Result<_>>()?;
+        let filed: Vec<Body> = bodies.iter().zip(&simple).map(|(b, s)| Body { solid: s, ..*b }).collect();
+        (step_of(&filed, name)?, Some(stl_of(&simple.iter().collect::<Vec<_>>())))
+    } else {
+        (step_bytes(bodies, name)?, None)
+    };
     let digest: String = Sha256::digest(&step).iter().map(|b| format!("{b:02x}")).collect();
-    let mut files = vec![
-        (format!("{name}.step"), step),
-        (format!("{name}.step.npz"), model_bytes(bodies)),
-        (format!("{name}.step.mesh"), payload_bytes(bodies, Some(&digest), None)),
-    ];
-    if printed {
-        let solids: Vec<&Solid> = bodies.iter().map(|b| b.solid).collect();
-        files.push((format!("{name}.stl"), stl_bytes(&solids)?));
+    let mut files = vec![(format!("{name}.step"), step), (format!("{name}.step.npz"), model_bytes(bodies))];
+    if shown {
+        files.push((format!("{name}.step.mesh"), payload_bytes(bodies, Some(&digest), None)));
+    }
+    if let Some(stl) = stl {
+        files.push((format!("{name}.stl"), stl));
     }
     for (file, bytes) in &files {
         keep(&dir.join(file), bytes)?;
@@ -163,6 +175,18 @@ mod tests {
         let mut left: Vec<String> = std::fs::read_dir(&dir)?.map(|e| e.unwrap().file_name().into_string().unwrap()).collect();
         left.sort();
         assert_eq!(left, ["block.step", "block.step.mesh", "block.step.npz", "block.stl"]);
+        std::fs::remove_dir_all(&dir)?;
+        Ok(())
+    }
+
+    #[test]
+    fn a_printed_set_has_no_payload() -> Result<()> {
+        let dir = std::env::temp_dir().join(format!("hsm-printed-{}", std::process::id()));
+        std::fs::create_dir_all(&dir)?;
+        let block = Plane::XY.cuboid(20.0, 10.0, 5.0);
+        let said = write_printed(&dir, "block", &[Body { name: "block", color: None, solid: &block }])?;
+        assert_eq!(said["files"], json!(["block.step", "block.step.npz", "block.stl"]));
+        assert!(!dir.join("block.step.mesh").exists());
         std::fs::remove_dir_all(&dir)?;
         Ok(())
     }

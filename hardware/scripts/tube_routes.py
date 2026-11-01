@@ -30,6 +30,12 @@ for _p in (HERE, ROOT / "hardware/manifold-layout", ROOT / "hardware/cold-core-l
            ROOT / "hardware/printed-parts/cold-core", ROOT / "tools"):
     if str(_p) not in sys.path:
         sys.path.insert(0, str(_p))
+
+# Run as a script, the routes are read on the mesh kernel (`hardware/scripts/meshcad`).
+if __name__ == "__main__":
+    import meshcad  # noqa: E402
+    meshcad.activate()
+
 OUT = ROOT / "web/public/tube-routes.json"
 STEP = ROOT / "hardware/manifold-layout/enclosure-assembly.step"
 GRAPH = ROOT / "tools/bazel/graph.json"

@@ -8,6 +8,7 @@ records carry.
 """
 
 from collections import defaultdict
+from functools import cached_property
 
 import numpy as np
 from scipy.sparse import coo_matrix
@@ -108,7 +109,8 @@ class Topology:
                 recs.append(rec)
             src_label[i] = labels[sk]
         tri_label = src_label[inv.reshape(-1)]
-        unknown = np.array([recs[l] is None for l in tri_label]) if len(tri_label) else np.zeros(0, bool)
+        unknown = (np.array([r is None for r in recs], bool)[tri_label] if len(tri_label)
+                   else np.zeros(0, bool))
         if unknown.any():
             n = self.tri_n[unknown]
             nc = np.where((n[:, :1] < -1e-6) | ((np.abs(n[:, :1]) <= 1e-6) & (n[:, 1:2] < -1e-6))
@@ -128,7 +130,7 @@ class Topology:
         # Adjacency across every mesh edge.
         e = T[:, [0, 1, 1, 2, 2, 0]].reshape(-1, 2)
         ks = np.sort(e, 1)
-        order = np.lexsort((ks[:, 1], ks[:, 0]))
+        order = np.argsort(ks[:, 0] * len(V) + ks[:, 1], kind="stable")    # lexsort's order
         kso = ks[order]
         same = (kso[1:] == kso[:-1]).all(1)
         h0, h1 = order[:-1][same], order[1:][same]
@@ -179,29 +181,42 @@ class Topology:
         self.tri_face = comp
         self.face_surface = np.zeros(comp.max() + 1 if n else 0, np.int64)
         self.face_surface[comp] = tri_label
-        self.face_tris = [None] * len(self.face_surface)
+        # Each face's triangles, the edges between faces and the corners they end on are read
+        # the first time a selector asks for them: a writer wants the faces alone.
+        cut = comp[ta] != comp[tb]
+        self._between = (ev[cut], comp[ta][cut], comp[tb][cut], len(V))
+
+    def face_record(self, f):
+        return self.surface[self.face_surface[f]]
+
+    @cached_property
+    def face_tris(self):
+        comp = self.tri_face
         order_f = np.argsort(comp, kind="stable")
         bounds = np.searchsorted(comp[order_f], np.arange(len(self.face_surface) + 1))
-        for f in range(len(self.face_surface)):
-            self.face_tris[f] = order_f[bounds[f]:bounds[f + 1]]
+        return [order_f[bounds[f]:bounds[f + 1]] for f in range(len(self.face_surface))]
 
-        # Edges: chains of mesh edges between two faces.
-        cut = comp[ta] != comp[tb]
-        bu, bv = kso[1:][same][cut][:, 0], kso[1:][same][cut][:, 1]
-        fa, fb = np.minimum(comp[ta][cut], comp[tb][cut]), np.maximum(comp[ta][cut], comp[tb][cut])
-        self.edges = _chains(bu, bv, fa, fb, len(V))
-        self.face_edges = defaultdict(list)
+    @cached_property
+    def edges(self):
+        """Chains of mesh edges between two faces."""
+        ev, ca, cb, nv = self._between
+        return _chains(ev[:, 0], ev[:, 1], np.minimum(ca, cb), np.maximum(ca, cb), nv)
+
+    @cached_property
+    def face_edges(self):
+        out = defaultdict(list)
         for i, ch in enumerate(self.edges):
-            self.face_edges[ch["faces"][0]].append(i)
-            self.face_edges[ch["faces"][1]].append(i)
+            out[ch["faces"][0]].append(i)
+            out[ch["faces"][1]].append(i)
+        return out
+
+    @cached_property
+    def corners(self):
         corner = set()
         for ch in self.edges:
             if not ch["closed"]:
                 corner.update((ch["verts"][0], ch["verts"][-1]))
-        self.corners = sorted(corner)
-
-    def face_record(self, f):
-        return self.surface[self.face_surface[f]]
+        return sorted(corner)
 
 
 def _chains(bu, bv, fa, fb, nv):

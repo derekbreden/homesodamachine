@@ -59,7 +59,6 @@ original=junctions.placements
 for version in ['final-staggered']:
  hits=[];partsrows={}
  for name,(body,_color,_carry) in junctions.components().items():
-  if name=='ground-stack':continue
   stock,pocket=junctions._well(name);well=stock.cut(pocket)
   partsrows[name]={'body_bounds_mm':bb(body),'well_bounds_mm':bb(well),'well_valid':well.isValid()}
   for ownlabel,own in [(name,body),(name+'-well',well)]:
@@ -71,7 +70,6 @@ for version in ['final-staggered']:
      row={'part':ownlabel,'obstacle':other,'volume_mm3':v,'bounds_mm':bb(hit)};hits.append(row);print(version,json.dumps(row),flush=True)
  entryhits=[]
  for name,pose in junctions.placements().items():
-  if name=='ground-stack':continue
   width,depth,height,poles,rows=junctions.SIZES[pose['size']]
   for i in range(poles):
    count=poles//rows;row=i//count;slot=i%count

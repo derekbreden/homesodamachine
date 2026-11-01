@@ -22,11 +22,20 @@ def _arrays(solid):
     mesh, with its fillets applied. A solid whose fillets are pending selects on the solid
     before them (`MeshSolid.m`), so its selectors' topology is not its own. One the solid does
     not already hold is taken for the write and let go, without the edges and vertices a
-    selector wants."""
+    selector wants, and its faces stay on the solid for the next file written of it."""
     from .topo import Topology
     held = solid._topo if solid._rounds is None else None
-    t = held.t if held is not None else Topology(solid.m)
-    return t.V, t.T, t.tri_face, [t.face_record(f) for f in range(len(t.face_surface))]
+    if held is not None:
+        t = held.t
+        return t.V, t.T, t.tri_face, [t.face_record(f) for f in range(len(t.face_surface))]
+    faces = solid.__dict__.get("_faces")
+    if faces is None:
+        t = Topology(solid.m)
+        solid._faces = faces = (t.tri_face, [t.face_record(f) for f in range(len(t.face_surface))])
+        return (t.V, t.T, *faces)
+    mesh = solid.m.to_mesh64()
+    return (np.asarray(mesh.vert_properties, float)[:, :3],
+            np.asarray(mesh.tri_verts, np.int64).reshape(-1, 3), *faces)
 
 
 def _triangles(solid, tolerance=TOLERANCE):

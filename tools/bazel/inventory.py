@@ -131,6 +131,22 @@ def pinned_copies(files) -> set:
 #: bundle carries, which is the reading a checkout that has cut nothing of its own still has.
 POINTERS = _ROOT / "hardware" / "cad-artifacts.json"
 
+
+def frozen_assets(root: Path = _ROOT) -> dict:
+    """Frozen reference members by repo-relative path and recorded sha256.
+
+    These are static inputs fetched through the artifact pointer, including when this checkout
+    has not fetched them yet. A `.step.mesh` here is the viewer payload; the kernel's finer
+    import mesh is separate.
+    """
+    members = {}
+    for manifest in sorted((root / "hardware" / "reference").rglob("frozen-asset.json")):
+        record = json.loads(manifest.read_text())
+        members.update({(manifest.parent / name).relative_to(root).as_posix(): digest
+                        for name, digest in record["members"].items()})
+    return members
+
+
 #: Outputs whose writer deliberately avoids touching them when the bytes beside its STEP are
 #: already current. A syscall trace therefore sees the read that proves they are current, not a
 #: write, even though a clean action must produce them. The enclosure payload is shared by its
@@ -380,6 +396,7 @@ def tracked() -> list:
     # pointer file. Its producer write and consumer read still need to survive the trace filter so that
     # this inventory can create the edge on that very first pass.
     files += [path for paths in IMPLICIT_SOLIDS.values() for path in paths]
+    files += frozen_assets()
     # The mesh kernel's model files: a reader of a mesh-kernel STEP takes the solids from the
     # one beside it (`meshcad.imports.step_solids`), so they pass between actions as the STEP
     # does. They are ignored and never bundled.

@@ -16,13 +16,12 @@ HW = HERE.parent
 sys.path.insert(0, str(HW / 'scripts'))
 import above_core as layout
 from _cadq_export import import_step
-from _materials import C_AC_HUB, C_GND, M_BRASS
+from _materials import C_AC_HUB
 
 REFERENCES = {
     '413': HW / 'reference/wago-221/wago-221-413.step',
     '415': HW / 'reference/wago-221/wago-221-415.step',
     '420': HW / 'reference/wago-221/wago-221-420.step',
-    'ground-stack': HW / 'reference/ground-ring-stack/ground-ring-stack.step',
 }
 SIZES = {'413': (18.8, 18.6, 8.4, 3, 1),
          '415': (30.0, 18.6, 8.4, 5, 1),
@@ -48,7 +47,7 @@ def placements():
     # Mains branches sit below the ceiling PSU, west of the data jack.
     for name, x, z, purpose in (('wago-h', -85., 264., 'C14 live / PSU primary / relay 1 COM'),
                             ('wago-n', -54., 266., 'C14 neutral / PSU primary / compressor'),
-                            ('wago-g', -85., 296.5, 'C14 PE / ring-terminal ground bus')):
+                            ('wago-g', -85., 296.5, 'C14 PE / carbonator bond / compressor earth')):
         put(name, '413', 'back-top', PORTS_FORE,
             (x, 457.5, z), purpose)
     # Two rows on the board-facing back of V-B's wall. Levers open west;
@@ -69,9 +68,6 @@ def placements():
         'J1 valve common and eight A-H coil branches')
     put('wago-manb', '415', 'front-top', EAST_FLANK, (95.05, 177.65, 243.),
         'J2 valve common, I/J/K coils and condenser fan')
-    ground=layout.specification()['rear_plumbing']['ground-stack']
-    put('ground-stack', 'ground-stack', 'back-top', ground['rotation'], ground['translation_mm'],
-        'C14 earth feed and exposed-metal bond branches')
     return rows
 
 
@@ -80,7 +76,7 @@ def frame(name):
 
 
 def owner(name):
-    return placements()['ground-stack' if name=='ground-stack-insert' else name]['parent']
+    return placements()[name]['parent']
 
 
 def carry(name):
@@ -99,12 +95,7 @@ def components():
     for name, pose in placements().items():
         native = import_step(REFERENCES[pose['size']]).val()
         placed = carry(name)
-        result[name] = (native.moved(placed.where),
-                        C_GND if name == 'ground-stack' else C_AC_HUB, placed)
-    placed=carry('ground-stack')
-    insert=cq.Solid.makeCylinder(2.3,4.,cq.Vector(0,0,-4.)).cut(
-        cq.Solid.makeCylinder(1.25,4.2,cq.Vector(0,0,-4.1)))
-    result['ground-stack-insert']=(insert.moved(placed.where),M_BRASS,placed)
+        result[name] = (native.moved(placed.where), C_AC_HUB, placed)
     return result
 
 
@@ -144,37 +135,15 @@ def _union(shapes):
     return result.clean()
 
 
-def ground_fastener_datums():
-    """Actual three-ring clamp stack, independently of the bolt display envelope."""
-    pose=placements()['ground-stack']
-    landing=pose['translation_mm']
-    return {'screw':'M3x8 SHCS', 'screw_length_mm':8.,
-            'ring_count':3, 'tongue_thickness_mm':.8, 'washer_thickness_mm':.8,
-            'clamped_thickness_mm':3.2, 'screw_projection_mm':4.8,
-            'insert':'RX-M3Sx4', 'insert_length_mm':4.,
-            'parent':'back-top','landing_world_mm':landing,
-            'axis_outward':layout.vector(pose['rotation'],(0.,0.,1.)),
-            'pilot_diameter_mm':4., 'pilot_depth_mm':5.3, 'tip_air_mm':.5,
-            'blind_backing_mm':471.3-landing[1]-5.3,
-            'minimum_fluted_backing_mm':471.3-landing[1]-5.3-1.2,
-            'boss_diameter_mm':10., 'radial_stock_mm':3.}
-
-
 def _features(parent):
     additions, cuts, stations = [], [], []
     for name, pose in placements().items():
         if pose['parent'] != parent:
             continue
         stations.append({'name': name, **pose})
-        if name == 'ground-stack':
-            face=cq.Vector(*pose['translation_mm'])
-            inward=cq.Vector(*layout.vector(pose['rotation'],(0.,0.,-1.)))
-            additions.append(cq.Solid.makeCylinder(5.,8.,face,inward))
-            cuts.append(cq.Solid.makeCylinder(2.,5.31,face-inward*.01,inward))
-        else:
-            stock, pocket = _well(name)
-            additions.append(stock)
-            cuts.append(pocket)
+        stock, pocket = _well(name)
+        additions.append(stock)
+        cuts.append(pocket)
     return {'add': _union(additions), 'cut': _union(cuts), 'stations': stations,
             'frame': 'enclosure world XYZ; invert cap_lid_pose for core-lid construction'}
 

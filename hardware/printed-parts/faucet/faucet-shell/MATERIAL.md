@@ -36,11 +36,11 @@ access and removal must be inspected in the production slice and first
 physical print, especially inside the donor cavity, around the neck joint
 and at the display lips and grooves. Preserve their seating and retaining faces.
 
-Printable meshes use an absolute surface-distance tolerance in millimetres
-and an angular tolerance, both set in `piece_mesh`. Meshing uses fresh CAD
-copies without cached triangles. The print project embeds those STL surfaces
-without reducing them. The geometry audit measures the serialized base STL
-against points on its analytic outer loft.
+Printable meshes are the kernel's own triangles (`faucet_shell.rs`): every
+curve is cut by the chord and angle in `tools/hsm/kernel/src/rule.rs`, and
+the STL keeps each triangle as cut. The print project embeds those STL
+surfaces without reducing them. The geometry audit measures the serialized
+base STL against points on its analytic outer loft.
 
 The drinking flow remains inside the existing LLDPE tubes and donor metal
 body. The white drain ends square inside the smooth shared passage, with

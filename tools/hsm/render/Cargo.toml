@@ -16,4 +16,10 @@ serde.workspace = true
 serde_json.workspace = true
 sha2.workspace = true
 tiny-skia = "0.12.0"
+
+# Metal on a Mac; Vulkan elsewhere, which a machine with no GPU answers with Mesa's lavapipe.
+[target.'cfg(target_os = "macos")'.dependencies]
 wgpu = { version = "30", default-features = false, features = ["metal", "wgsl", "std", "parking_lot"] }
+
+[target.'cfg(not(target_os = "macos"))'.dependencies]
+wgpu = { version = "30", default-features = false, features = ["vulkan", "wgsl", "std", "parking_lot"] }

@@ -247,5 +247,433 @@
       }
     ],
     "reason": "The label-rail roots and the closed upper panel relief add material only outside every recorded vent-clearance window and complete connector-service sweep. Native intersections against every other installed body are zero. The tube and connector shapes, installed curves, and service transforms are unchanged."
+  },
+  "current_artifact_binding": {
+    "scope": "Post-layout nominal service regression. Current housing bounds match the previously reviewed continuous axis-aligned sweeps. Changed printed stocks have separate exact native sweep intersections; every changed non-stock AABB candidate is checked against the complete stage box. The V-B return stays disconnected for J11 as the recorded prerequisite.",
+    "assembly_step_sha256": "c43899c17ab94f1144202b9bd43d80a8a12cef7f2e09b742f7c53531c17b3cab",
+    "assembly_mesh_sha256": "b198dc9180b8db8f6218bf77c8198483b3832d71b8fd586ba3c65518880531cf",
+    "paths": {
+      "terminal-J1": {
+        "housing_maximum_bounds_delta_mm": 4.405364961712621e-12,
+        "changed_non_stock_readings": [
+          {
+            "body": "tube-above-core-va-fore-feed",
+            "stage": 0,
+            "bounds_mm": [
+              [
+                -57.29399490356445,
+                169.9819793701172,
+                258.4481506347656
+              ],
+              [
+                28.287151336669922,
+                374.8001403808594,
+                335.1217956542969
+              ]
+            ],
+            "surface_distance_mm": 58.40499370574953,
+            "tube_vertex_inside_stage_box": false
+          },
+          {
+            "body": "tube-above-core-va-fore-feed",
+            "stage": 1,
+            "bounds_mm": [
+              [
+                -57.29399490356445,
+                169.9819793701172,
+                258.4481506347656
+              ],
+              [
+                28.287151336669922,
+                374.8001403808594,
+                335.1217956542969
+              ]
+            ],
+            "surface_distance_mm": 59.377679373070364,
+            "tube_vertex_inside_stage_box": false
+          },
+          {
+            "body": "tube-fluid-28",
+            "stage": 0,
+            "bounds_mm": [
+              [
+                -75.81999969482422,
+                164.25457763671875,
+                236.3721923828125
+              ],
+              [
+                39.25,
+                459.8388977050781,
+                305.48541259765625
+              ]
+            ],
+            "surface_distance_mm": 15.345846111637961,
+            "tube_vertex_inside_stage_box": false
+          },
+          {
+            "body": "tube-fluid-28",
+            "stage": 1,
+            "bounds_mm": [
+              [
+                -75.81999969482422,
+                164.25457763671875,
+                236.3721923828125
+              ],
+              [
+                39.25,
+                459.8388977050781,
+                305.48541259765625
+              ]
+            ],
+            "surface_distance_mm": 12.634794775614754,
+            "tube_vertex_inside_stage_box": false
+          }
+        ],
+        "all_changed_candidates_clear": true
+      },
+      "terminal-J2": {
+        "housing_maximum_bounds_delta_mm": 4.405364961712621e-12,
+        "changed_non_stock_readings": [
+          {
+            "body": "tube-above-core-va-fore-feed",
+            "stage": 0,
+            "bounds_mm": [
+              [
+                -57.29399490356445,
+                169.9819793701172,
+                258.4481506347656
+              ],
+              [
+                28.287151336669922,
+                374.8001403808594,
+                335.1217956542969
+              ]
+            ],
+            "surface_distance_mm": 39.90499370574953,
+            "tube_vertex_inside_stage_box": false
+          },
+          {
+            "body": "tube-above-core-va-fore-feed",
+            "stage": 1,
+            "bounds_mm": [
+              [
+                -57.29399490356445,
+                169.9819793701172,
+                258.4481506347656
+              ],
+              [
+                28.287151336669922,
+                374.8001403808594,
+                335.1217956542969
+              ]
+            ],
+            "surface_distance_mm": 41.274210167062314,
+            "tube_vertex_inside_stage_box": false
+          },
+          {
+            "body": "tube-fluid-18",
+            "stage": 0,
+            "bounds_mm": [
+              [
+                -46.99480438232422,
+                154.00840759277344,
+                236.3721923828125
+              ],
+              [
+                79.4916000366211,
+                459.8388977050781,
+                297.9991455078125
+              ]
+            ],
+            "surface_distance_mm": 13.679778053847139,
+            "tube_vertex_inside_stage_box": false
+          },
+          {
+            "body": "tube-fluid-18",
+            "stage": 1,
+            "bounds_mm": [
+              [
+                -46.99480438232422,
+                154.00840759277344,
+                236.3721923828125
+              ],
+              [
+                79.4916000366211,
+                459.8388977050781,
+                297.9991455078125
+              ]
+            ],
+            "surface_distance_mm": 10.131944217001696,
+            "tube_vertex_inside_stage_box": false
+          },
+          {
+            "body": "tube-fluid-28",
+            "stage": 0,
+            "bounds_mm": [
+              [
+                -75.81999969482422,
+                164.25457763671875,
+                236.3721923828125
+              ],
+              [
+                39.25,
+                459.8388977050781,
+                305.48541259765625
+              ]
+            ],
+            "surface_distance_mm": 5.655568472023775,
+            "tube_vertex_inside_stage_box": false
+          },
+          {
+            "body": "tube-fluid-28",
+            "stage": 1,
+            "bounds_mm": [
+              [
+                -75.81999969482422,
+                164.25457763671875,
+                236.3721923828125
+              ],
+              [
+                39.25,
+                459.8388977050781,
+                305.48541259765625
+              ]
+            ],
+            "surface_distance_mm": 5.614587402343773,
+            "tube_vertex_inside_stage_box": false
+          }
+        ],
+        "all_changed_candidates_clear": true
+      },
+      "terminal-J11": {
+        "housing_maximum_bounds_delta_mm": 7.467804152838653e-12,
+        "changed_non_stock_readings": [
+          {
+            "body": "tube-above-core-va-fore-feed",
+            "stage": 0,
+            "bounds_mm": [
+              [
+                -57.29399490356445,
+                169.9819793701172,
+                258.4481506347656
+              ],
+              [
+                28.287151336669922,
+                374.8001403808594,
+                335.1217956542969
+              ]
+            ],
+            "surface_distance_mm": 29.123367100587377,
+            "tube_vertex_inside_stage_box": false
+          },
+          {
+            "body": "tube-above-core-va-fore-feed",
+            "stage": 1,
+            "bounds_mm": [
+              [
+                -57.29399490356445,
+                169.9819793701172,
+                258.4481506347656
+              ],
+              [
+                28.287151336669922,
+                374.8001403808594,
+                335.1217956542969
+              ]
+            ],
+            "surface_distance_mm": 20.18867062402406,
+            "tube_vertex_inside_stage_box": false
+          },
+          {
+            "body": "tube-above-core-va-fore-feed",
+            "stage": 2,
+            "bounds_mm": [
+              [
+                -57.29399490356445,
+                169.9819793701172,
+                258.4481506347656
+              ],
+              [
+                28.287151336669922,
+                374.8001403808594,
+                335.1217956542969
+              ]
+            ],
+            "surface_distance_mm": 20.18867062402406,
+            "tube_vertex_inside_stage_box": false
+          },
+          {
+            "body": "tube-fluid-18",
+            "stage": 0,
+            "bounds_mm": [
+              [
+                -46.99480438232422,
+                154.00840759277344,
+                236.3721923828125
+              ],
+              [
+                79.4916000366211,
+                459.8388977050781,
+                297.9991455078125
+              ]
+            ],
+            "surface_distance_mm": 18.633822258336853,
+            "tube_vertex_inside_stage_box": false
+          },
+          {
+            "body": "tube-fluid-18",
+            "stage": 1,
+            "bounds_mm": [
+              [
+                -46.99480438232422,
+                154.00840759277344,
+                236.3721923828125
+              ],
+              [
+                79.4916000366211,
+                459.8388977050781,
+                297.9991455078125
+              ]
+            ],
+            "surface_distance_mm": 18.633822258336853,
+            "tube_vertex_inside_stage_box": false
+          },
+          {
+            "body": "tube-fluid-18",
+            "stage": 2,
+            "bounds_mm": [
+              [
+                -46.99480438232422,
+                154.00840759277344,
+                236.3721923828125
+              ],
+              [
+                79.4916000366211,
+                459.8388977050781,
+                297.9991455078125
+              ]
+            ],
+            "surface_distance_mm": 18.506679910853126,
+            "tube_vertex_inside_stage_box": false
+          },
+          {
+            "body": "tube-fluid-28",
+            "stage": 0,
+            "bounds_mm": [
+              [
+                -75.81999969482422,
+                164.25457763671875,
+                236.3721923828125
+              ],
+              [
+                39.25,
+                459.8388977050781,
+                305.48541259765625
+              ]
+            ],
+            "surface_distance_mm": 30.324660128906892,
+            "tube_vertex_inside_stage_box": false
+          },
+          {
+            "body": "tube-fluid-28",
+            "stage": 1,
+            "bounds_mm": [
+              [
+                -75.81999969482422,
+                164.25457763671875,
+                236.3721923828125
+              ],
+              [
+                39.25,
+                459.8388977050781,
+                305.48541259765625
+              ]
+            ],
+            "surface_distance_mm": 30.324660128906892,
+            "tube_vertex_inside_stage_box": false
+          },
+          {
+            "body": "tube-fluid-28",
+            "stage": 2,
+            "bounds_mm": [
+              [
+                -75.81999969482422,
+                164.25457763671875,
+                236.3721923828125
+              ],
+              [
+                39.25,
+                459.8388977050781,
+                305.48541259765625
+              ]
+            ],
+            "surface_distance_mm": 32.6216136076484,
+            "tube_vertex_inside_stage_box": false
+          }
+        ],
+        "all_changed_candidates_clear": true
+      }
+    },
+    "printed_stock_native_sweeps": {
+      "record": "hardware/mechanical-qualification/enclosure-above-core/enclosure-fit-review.json",
+      "sha256": "5103032fd5c7ebc7f763609c2dbb1fbfc4d1cf9ef0f65ae0f39e41b7a7bb39e8",
+      "readings": [
+        {
+          "connector": "terminal-J1",
+          "neighbor": "enclosure-front-top",
+          "overlap_mm3": 0,
+          "gap_mm": 49.269155272502964
+        },
+        {
+          "connector": "terminal-J1",
+          "neighbor": "enclosure-back-top",
+          "overlap_mm3": 0,
+          "gap_mm": 17.92000610351559
+        },
+        {
+          "connector": "terminal-J1",
+          "neighbor": "foam-cap-lid-top",
+          "overlap_mm3": 0,
+          "gap_mm": 7.4999997999999835
+        },
+        {
+          "connector": "terminal-J2",
+          "neighbor": "enclosure-front-top",
+          "overlap_mm3": 0,
+          "gap_mm": 64.77653226588762
+        },
+        {
+          "connector": "terminal-J2",
+          "neighbor": "enclosure-back-top",
+          "overlap_mm3": 0,
+          "gap_mm": 43.92000610351559
+        },
+        {
+          "connector": "terminal-J2",
+          "neighbor": "foam-cap-lid-top",
+          "overlap_mm3": 0,
+          "gap_mm": 7.4999997999999835
+        },
+        {
+          "connector": "terminal-J11",
+          "neighbor": "enclosure-front-top",
+          "overlap_mm3": 0,
+          "gap_mm": 40.47174769551855
+        },
+        {
+          "connector": "terminal-J11",
+          "neighbor": "enclosure-back-top",
+          "overlap_mm3": 0,
+          "gap_mm": 62.699909587042534
+        },
+        {
+          "connector": "terminal-J11",
+          "neighbor": "foam-cap-lid-top",
+          "overlap_mm3": 0,
+          "gap_mm": 7.4999997999999835
+        }
+      ]
+    },
+    "all_current_regressions_clear": true
   }
 }

@@ -25,7 +25,6 @@ import sys
 from pathlib import Path
 
 import cadquery as cq
-from OCP.Quantity import Quantity_TypeOfColor
 
 from _material_base import (M_ALUMINIUM, M_COPPER, M_PETGF_BLACK, M_STAINLESS,
                             M_TPU_BLACK, M_ZINC_PLATED_STEEL, one_body, step_safe)
@@ -311,13 +310,23 @@ FINISHES = [
 
 
 def linear(color) -> tuple:
-    """The exact three doubles a `.step.mesh` carries for this colour.
+    """The exact three doubles a `.step.mesh` carries for this colour: a constant here, any
+    `cq.Color`, or the `#RRGGBB` one is made from.
 
     A COLOUR IS WRITTEN TWICE IN TWO SPACES. The STEP takes it in sRGB — `COLOUR_RGB` holds
     0.2 for a 0.2 constant — and `_mesh_payload._mesh` takes it in LINEAR, off this same call,
     where 0.2 is 0.0331. The viewer meets the linear one, so the linear one is what a finish
-    has to be found by. Reading it here through OCCT rather than converting by hand is what
-    makes the two bit-identical instead of merely close."""
+    has to be found by, and the two must be bit-identical, not merely close. A colour made while
+    CadQuery is deferred (`_rust_part.start`) holds the arguments it was made with, and a hex one
+    is its own; OCCT's arithmetic on them (`_occt_color`) gives the same bits it would. Any
+    other colour is read back off OCCT."""
+    made = ((color,), {}) if isinstance(color, str) else getattr(color, "__dict__", {}).get("_made")
+    if made:
+        import _occt_color
+        if (rgba := _occt_color.rgba(*made)) is not None:
+            return rgba[:3]
+    from OCP.Quantity import Quantity_TypeOfColor
+    color = cq.Color(color) if isinstance(color, str) else color
     return tuple(color.wrapped.GetRGB().Values(Quantity_TypeOfColor.Quantity_TOC_RGB))
 
 

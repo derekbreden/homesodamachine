@@ -5,6 +5,7 @@ tool or cut part may import these stable stock appearances without inheriting an
 appliance assembly, an enclosure dimension, or the complete finish catalogue.
 Keep project geometry and measured, product-specific palettes out of this file.
 """
+from __future__ import annotations
 
 import cadquery as cq
 

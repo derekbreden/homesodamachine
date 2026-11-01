@@ -30,7 +30,7 @@ import {
 import { resetDxfCamera } from "./dxf.js";
 import { getLoader } from "./loaders.js";
 import { makeRulerToggle } from "./rulers.js";
-import { makeXrayToggle } from "./xray.js";
+import { makeXrayToggle, disposeXray } from "./xray.js";
 import { clearEdgePicker } from "./edge-picker.js";
 import { clearComponentPicker } from "./component-picker.js";
 import { clearComponentEdit } from "./component-edit.js";
@@ -297,6 +297,7 @@ export function openCadDetail(type, file, pushHistory = true, path = null) {
       // Drop the loaded mesh — fresh load on next open.
       if (state.currentGroup) {
         scene.remove(state.currentGroup);
+        disposeXray(state.currentGroup);
         state.currentGroup.traverse((c) => { if (c.geometry) c.geometry.dispose(); });
         state.currentGroup = null;
       }

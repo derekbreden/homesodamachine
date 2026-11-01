@@ -92,11 +92,48 @@ def _load_faucet_module():
     return module
 
 
+def machine_bodies(keep=lambda name: True) -> list[dict]:
+    """The appliance's bodies whose top-level name `keep` takes, as its payload draws them.
+
+    The appliance is cut on the mesh kernel, so it has no solids a scene here can hold. Its
+    payload is the form every scene can carry: these meshes, fluted skin and all, ride beside
+    the solids a scene builds (`borrow`, `_export_colored`)."""
+    import flute_payload
+
+    return [entry for entry in flute_payload.read_payload(MACHINE_MESH) or []
+            if keep(entry["name"].split("/")[0])]
+
+
+def borrow(assembly: cq.Assembly, bodies: list[dict]) -> cq.Assembly:
+    """Stand the appliance's `bodies` in `assembly`'s scene."""
+    assembly.machine = [*getattr(assembly, "machine", ()), *bodies]
+    return assembly
+
+
 def _export_colored(assembly: cq.Assembly, target: Path, *, mesh: bool = False) -> Path:
-    colored = _per_solid_color(assembly)
-    colored.export(str(target))
-    if mesh:
-        _write_mesh_payload(target, colored)
+    """`assembly` as a STEP at `target`, with its payload beside it when `mesh` asks.
+
+    A scene that borrowed the appliance's bodies is written whole from its meshes: the solids
+    built here tessellated, the appliance's own triangles beside them, the STEP as their
+    triangulated surface sets and the payload as what the page draws."""
+    machine = getattr(assembly, "machine", ())
+    colored = _per_solid_color(assembly) if assembly.children else None
+    if not machine:
+        colored.export(str(target))
+        if mesh:
+            _write_mesh_payload(target, colored)
+        return target
+    import _mesh_payload
+    import numpy as np
+    from meshcad import write as mesh_write
+
+    meshes = [*(_mesh_payload.from_assembly(colored) if colored is not None else ()), *machine]
+    mesh_write.write_step(
+        [(m["name"], (np.asarray(m["pos"], float).reshape(-1, 3),
+                      np.asarray(m["idx"], np.int64).reshape(-1, 3)), m["color"])
+         for m in meshes],
+        target, root_name=assembly.name)
+    _mesh_payload.write(meshes, str(target) + ".mesh", src=_mesh_payload.source_digest(target))
     return target
 
 
@@ -236,8 +273,6 @@ def _build_steps(work: Path) -> dict[str, Path]:
         "tpu_o_ring",
         "flavor_tube_pos_x",
         "flavor_tube_neg_x",
-        "flavor_tube_bridge_pos_x",
-        "flavor_tube_bridge_neg_x",
         "flavor_umbilical_tube_pos_x",
         "flavor_umbilical_tube_neg_x",
         "soda_umbilical_tube",
@@ -250,10 +285,10 @@ def _build_steps(work: Path) -> dict[str, Path]:
         "faucet_display",
         "faucet_display_screen",
     )
-    # A Black faucet's flavor tube runs on from the faucet through a bridge into its umbilical run,
+    # Each flavor line is one black tube, built as its faucet run and its umbilical run,
     # and each length is drawn where it reaches into the frame.
     flavor_lengths = {f"{body}_{side}": side
-                      for body in ("flavor_tube", "flavor_tube_bridge", "flavor_umbilical_tube")
+                      for body in ("flavor_tube", "flavor_umbilical_tube")
                       for side in ("pos_x", "neg_x")}
     mount_tails = {*flavor_lengths, "soda_umbilical_tube", "drain_tube"}
     mount_clip = (-88.0, 380.0)
@@ -542,8 +577,8 @@ def _build_steps(work: Path) -> dict[str, Path]:
 def _build_connection_steps(work: Path) -> dict[str, Path]:
     """Build the rear face and two connection states as literal CAD scenes.
 
-    The appliance exterior and every connection station come from the current enclosure STEP and
-    its generated facts.  All six tube collars are production solids, including their recessed
+    The appliance exterior and every connection station come from the current enclosure payload
+    and its generated facts.  All six tube collars are production solids, including their recessed
     lettering.  Only the field-cut tube lengths, the flat SIG-6 ribbon, and its
     modular plug are constructed here because those flexible customer-routed bodies have no single
     installed pose in the product assembly.
@@ -560,8 +595,6 @@ def _build_connection_steps(work: Path) -> dict[str, Path]:
     }
     for collar_step in collar_steps.values():
         note_read(TUBE_COLLAR_DIR / f"tube-collar-{collar_step}.step")
-
-    machine = cq.Assembly.load(str(MACHINE_STEP))
 
     # The exact closed rear half, rather than the appliance's hidden internals.  These are the
     # source assembly nodes a customer can see from the rear: the printed shell, ceiling/funnel,
@@ -586,11 +619,12 @@ def _build_connection_steps(work: Path) -> dict[str, Path]:
         "enclosure-back-top",
     }
     exact_prefixes = ("bulkhead-ring-",)
-    rear_children = [
-        child
-        for child in machine.children
-        if child.name in exact_names or child.name.startswith(exact_prefixes)
-    ]
+    rear_bodies = machine_bodies(
+        lambda name: name in exact_names or name.startswith(exact_prefixes)
+    )
+    missing = exact_names - {entry["name"].split("/")[0] for entry in rear_bodies}
+    if missing:
+        raise RuntimeError(f"{MACHINE_MESH.name} has no {sorted(missing)} for the rear scene")
 
     tube_blue = cq.Color(0.035, 0.31, 0.82, 1.0)
     tube_red = cq.Color(0.67, 0.042, 0.042, 1.0)
@@ -824,9 +858,7 @@ def _build_connection_steps(work: Path) -> dict[str, Path]:
     umbilical.add(ribbon_mark, name="wall-end-sig6-ribbon-mark", color=ribbon_edge)
 
     def state(name: str, shift_y: float):
-        scene = cq.Assembly(name=name)
-        for child in rear_children:
-            scene.add(child)
+        scene = borrow(cq.Assembly(name=name), rear_bodies)
         scene.add(
             umbilical,
             name=f"{name}-umbilical",
@@ -834,27 +866,10 @@ def _build_connection_steps(work: Path) -> dict[str, Path]:
         )
         return _export_colored(scene, work / f"{name}.step", mesh=True)
 
-    rear = cq.Assembly(name="the-back-face")
-    for child in rear_children:
-        rear.add(child)
+    rear = borrow(cq.Assembly(name="the-back-face"), rear_bodies)
     rear_step = _export_colored(rear, work / "the-back-face.step", mesh=True)
     open_step = state("connect-rear-open", CONNECT_OPEN_GAP)
     connected_step = state("connect-rear-connected", 0.0)
-
-    # The production appliance's payload already carries the fluted printed skin that its B-rep
-    # intentionally omits.  Graft those exact rear-body meshes into each scene payload by body
-    # name; the modeled tubes, collars, ribbon and plug remain the new solids tessellated above.
-    import flute_payload
-
-    source_meshes = flute_payload.read_payload(MACHINE_MESH) or []
-    exact_meshes = {entry["name"]: entry for entry in source_meshes}
-    for step in (rear_step, open_step, connected_step):
-        mesh = Path(str(step) + ".mesh")
-        landed = flute_payload.graft(mesh, exact_meshes)
-        if landed < 3:
-            raise RuntimeError(
-                f"{step.name}: only {landed} exact appliance meshes landed in rear scene"
-            )
 
     return {
         "the-back-face": rear_step,

@@ -37,7 +37,7 @@
         }
       ],
       "bom": {
-        "scope": "Machine contents: fitted tubing, inlet fittings, fasteners, the eleven bench harnesses, the inlet earth bond and the compressor lead. The installation water tube and cylinder tether ship in the install kit. Wire, tubing stock and supplies are costed on the parts and assemblies that use them; cut lengths follow the build records.",
+        "scope": "Machine contents: fitted tubing, inlet fittings, fasteners, the eleven bench harnesses and the compressor lead. The installation water tube and cylinder tether ship in the install kit. Wire, tubing stock and supplies are costed on the parts and assemblies that use them; cut lengths follow the build records.",
         "source": "ledger/bom.md",
         "items": [
           {
@@ -228,14 +228,6 @@
               "wago-sensors"
             ],
             "note": "Seven modeled blocks; three more join the compressor's switched hot and neutral and the pump positive under the funnel opening."
-          },
-          {
-            "material": "HSM-000051",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "ground-stack"
-            ]
           },
           {
             "material": "HSM-000052",
@@ -936,11 +928,6 @@
             "unit": "ea"
           },
           {
-            "material": "HSM-000379",
-            "quantity": 1,
-            "unit": "ea"
-          },
-          {
             "material": "HSM-000380",
             "quantity": 1,
             "unit": "ea"
@@ -1001,9 +988,9 @@
           },
           {
             "material": "HSM-000136",
-            "quantity": 11,
+            "quantity": 10,
             "unit": "ea",
-            "note": "Two C14 bosses, four PSU hosts, four relay diagonals and the core-lid ground boss."
+            "note": "Two C14 bosses, four PSU hosts and four relay diagonals."
           },
           {
             "material": "HSM-000132",
@@ -3190,38 +3177,6 @@
         }
       ],
       "manufacturer_number": "221-413"
-    },
-    {
-      "id": "HSM-000051",
-      "description": "Chassis-ground ring-terminal stack",
-      "kind": "assembly",
-      "models": [
-        {
-          "file": "reference/ground-ring-stack/ground-ring-stack.step"
-        }
-      ],
-      "documents": [
-        {
-          "title": "Part details",
-          "path": "reference/ground-ring-stack/README.md"
-        }
-      ],
-      "bom": {
-        "scope": "The inlet, carbonator and compressor earth bonds' ring lugs under one flat washer and M3 \u00d7 8 screw, into the short insert in the core-lid ground boss. The lugs are crimped on the carbonator and inlet earth bonds and the compressor lead, which carry their terminal and wire costs.",
-        "source": "reference/ground-ring-stack/README.md",
-        "items": [
-          {
-            "material": "HSM-000138",
-            "quantity": 1,
-            "unit": "ea"
-          },
-          {
-            "material": "HSM-000361",
-            "quantity": 1,
-            "unit": "ea"
-          }
-        ]
-      }
     },
     {
       "id": "HSM-000052",
@@ -7238,10 +7193,6 @@
         {
           "title": "Fastener specification",
           "path": "ledger/bom.md"
-        },
-        {
-          "title": "Ground stack",
-          "path": "reference/ground-ring-stack/README.md"
         }
       ]
     },
@@ -7609,27 +7560,6 @@
         {
           "title": "Carbonator earth clamp",
           "path": "assembly/pressure-vessel.md"
-        }
-      ]
-    },
-    {
-      "id": "HSM-000379",
-      "description": "Inlet earth bond \u00b7 16 AWG green",
-      "kind": "manufactured",
-      "aliases": [
-        "PE-bus",
-        "inlet PE bus",
-        "inlet earth feed",
-        "PE-bus pigtail"
-      ],
-      "documents": [
-        {
-          "title": "Chassis-ground bonds",
-          "path": "assembly/wiring.md"
-        },
-        {
-          "title": "Electronics bay",
-          "path": "assembly/electronics-bay.md"
         }
       ]
     },
