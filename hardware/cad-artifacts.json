@@ -1370,6 +1370,7 @@
     "hardware/reference/ecoreg-regulator/geometry/ecoreg-regulator.step": "8ff7a155e8f7cdfbcbbf7ef1127ba6618fd0ac3941f3e6489b5a51720f0d5255",
     "hardware/reference/ecoreg-regulator/geometry/ecoreg-with-adapters.step": "7c2474c34d91a63c9cbed5a38670447767464109ccd8ecb1e848600600512b7a",
     "hardware/reference/ffl38barb38/ffl38barb38.step": "4153c62185bb0dc3f19c6a3142441e0859578e1538bee2ac0a3b84d5ad2bccc2",
+    "hardware/reference/ffl38barb38/ffl38barb38.step.mesh": "11364abda960f7d36f5638f401285349932e4181b83e9016d9c34f8561577a21",
     "hardware/reference/flare38-14ptc/flare38-14ptc.step": "ca5d990edd15f5cd363a1105cef956cd959f1e43646a509d44d070df3232172c",
     "hardware/reference/frizzlife-prv01/geometry/frizzlife-body.step": "c5fab0509b698cfdea4dfe4b366e64f0c7cd7fa3f005ff208c2b38cf796c47c7",
     "hardware/reference/frizzlife-prv01/geometry/frizzlife-inlet-clip.step": "5e7a15428e035e234e3b059c7f40a3a422b633f9e6cc82724dab33433e73cad4",
@@ -1391,6 +1392,7 @@
     "hardware/reference/jg-pp0408w/jg-pp0408w.step": "987eccd988d461a87babb024bc4cd7e538777467449bfceea7ead8ed5d4dfded",
     "hardware/reference/jg-pp061208w/jg-pp061208w.step": "5b9d3c1bba5bc098056a0a8395ddb260188dabfcf9152460b5f39855cb8c13af",
     "hardware/reference/jg-pp451223w/jg-pp451223w.step": "01288f13c01e9153c01cc891ccb825da5bc08485613067919d2fc3de87505cdf",
+    "hardware/reference/jg-pp451223w/jg-pp451223w.step.mesh": "7cd05fa77ccd50565e0116420196360a690c53bfab2561f00476f6dc3cd17eb3",
     "hardware/reference/jhyossthi-pogo-dock/pogo-dock-female.step": "b10eae30cc623b0ed889a16dd8d3790462d3e602bcc2ff33129acd75ba8e486b",
     "hardware/reference/jhyossthi-pogo-dock/pogo-dock-male.step": "766f08b3bdeb6aba77e3e26446530465d9c3225e896a2d57fed004bc326349e0",
     "hardware/reference/kamoer-kphm400/kamoer-kphm400.step": "d01775a9f13be7d33eef99a81c9bffa3db76de16a212e4ffc0f9498e621f9f1a",
@@ -2791,6 +2793,7 @@
     "hardware/reference/ecoreg-regulator/geometry/ecoreg-regulator.step": 1792815697,
     "hardware/reference/ecoreg-regulator/geometry/ecoreg-with-adapters.step": 1792815697,
     "hardware/reference/ffl38barb38/ffl38barb38.step": 1787578592,
+    "hardware/reference/ffl38barb38/ffl38barb38.step.mesh": 1793502211,
     "hardware/reference/flare38-14ptc/flare38-14ptc.step": 1787578592,
     "hardware/reference/frizzlife-prv01/geometry/frizzlife-body.step": 1792828088,
     "hardware/reference/frizzlife-prv01/geometry/frizzlife-inlet-clip.step": 1792828088,
@@ -2812,6 +2815,7 @@
     "hardware/reference/jg-pp0408w/jg-pp0408w.step": 1787356215,
     "hardware/reference/jg-pp061208w/jg-pp061208w.step": 1793413160,
     "hardware/reference/jg-pp451223w/jg-pp451223w.step": 1787578592,
+    "hardware/reference/jg-pp451223w/jg-pp451223w.step.mesh": 1793502211,
     "hardware/reference/jhyossthi-pogo-dock/pogo-dock-female.step": 1788350303,
     "hardware/reference/jhyossthi-pogo-dock/pogo-dock-male.step": 1788350303,
     "hardware/reference/kamoer-kphm400/kamoer-kphm400.step": 1788585300,
@@ -4729,6 +4733,14 @@
     },
     "hardware/wiring/enclosure-wiring.step.mesh": {
       "commit": "85af386e27171451966cf067809dad9bdc4220f7",
+      "unproven": true
+    },
+    "hardware/reference/ffl38barb38/ffl38barb38.step.mesh": {
+      "commit": "e5e4fc45667538ee488634644b31c6f29c47d752",
+      "unproven": true
+    },
+    "hardware/reference/jg-pp451223w/jg-pp451223w.step.mesh": {
+      "commit": "e5e4fc45667538ee488634644b31c6f29c47d752",
       "unproven": true
     }
   }
