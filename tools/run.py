@@ -125,6 +125,7 @@ def main():
     slots._broker = broker
     env = slots.child_env()
     env['CARGO_BUILD_JOBS'] = '2'
+    env['CMAKE_BUILD_PARALLEL_LEVEL'] = '2'
     descriptors = slots.pass_fds()
     if program in ('bazel', 'bazelisk'):
         # A persistent JVM must not retain this caller's lease. Actions use the broker.
