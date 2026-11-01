@@ -5,7 +5,7 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { execFile } from "node:child_process";
 import { createHash } from "node:crypto";
-import { copyFile, mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
+import { copyFile, mkdir, mkdtemp, readFile, rm, stat, writeFile } from "node:fs/promises";
 import { createServer } from "node:http";
 import { tmpdir } from "node:os";
 import path from "node:path";
@@ -18,7 +18,7 @@ const member = Buffer.from("ISO-10303-21;\ncurrent published member\n");
 const memberPath = "hardware/part.step";
 
 async function fixture(t, { held = true, old = false, networkWorks = false,
-  objectBytes = gzipSync(member), bundleMembers = null, extraWanted = {} } = {}) {
+  objectBytes = gzipSync(member), bundleMembers = null, extraWanted = {}, beforeBundle = null } = {}) {
   const root = await mkdtemp(path.join(tmpdir(), "cad-direct-r2-"));
   t.after(() => rm(root, { recursive: true, force: true }));
   for (const dir of ["hardware", "bucket", "web/scripts", "web/lib", "web/contracts"]) {
@@ -55,9 +55,10 @@ async function fixture(t, { held = true, old = false, networkWorks = false,
     bundleBytes = await readFile(file);
   }
   const requests = [];
-  const server = createServer((req, res) => {
+  const server = createServer(async (req, res) => {
     requests.push(req.url);
     if (req.url === "/release/bundle.tar.gz" && bundleBytes) {
+      if (beforeBundle) await beforeBundle(root);
       res.writeHead(200, { "content-type": "application/gzip" });
       res.end(bundleBytes);
     } else if (networkWorks) {
@@ -156,4 +157,39 @@ test("a verified fallback archive member replaces the old model", async (t) => {
   await f.fetch(["--adopt"]);
   assert.deepEqual(await readFile(path.join(f.root, memberPath)), member);
   await f.fetch(["--adopt", "--check"]);
+});
+
+test("bundle fallback requests only failed objects and preserves a verified download", async (t) => {
+  const recoveredPath = "hardware/recovered.step";
+  const recovered = Buffer.from("the missing object is present in the archive\n");
+  let downloaded;
+  const f = await fixture(t, {
+    extraWanted: { [recoveredPath]: hash(recovered) },
+    // The archive intentionally lacks the object already downloaded by name.
+    bundleMembers: { [recoveredPath]: recovered },
+    beforeBundle: async (root) => { downloaded = await stat(path.join(root, memberPath)); },
+  });
+  const { stdout } = await f.fetch();
+  assert.match(stdout, /1 solid\(s\) to fetch — bundle\.tar\.gz/);
+  assert.deepEqual(await readFile(path.join(f.root, recoveredPath)), recovered);
+  assert.deepEqual(await readFile(path.join(f.root, memberPath)), member);
+  const after = await stat(path.join(f.root, memberPath));
+  assert.equal(after.ino, downloaded.ino, "the successful object was not replaced by fallback");
+  assert.equal(after.mtimeMs, downloaded.mtimeMs, "fallback did not rewrite the successful object");
+  await f.fetch(["--check"]);
+});
+
+test("an unavailable fallback member keeps verified objects and partial startup remains explicit", async (t) => {
+  const absentPath = "hardware/unavailable.step";
+  const f = await fixture(t, {
+    extraWanted: { [absentPath]: hash(Buffer.from("not available anywhere")) },
+    bundleMembers: { [memberPath]: Buffer.from("an older archived version") },
+  });
+  const { stdout, stderr } = await f.fetch();
+  assert.match(stdout, /1 solid\(s\) to fetch — bundle\.tar\.gz/);
+  assert.match(stderr, /serving whatever the tree holds/);
+  assert.match(stderr, /unavailable\.step/);
+  assert.deepEqual(await readFile(path.join(f.root, memberPath)), member);
+  await assert.rejects(readFile(path.join(f.root, absentPath)), { code: "ENOENT" });
+  await assert.rejects(f.fetch(["--check"]), { code: 1 });
 });
