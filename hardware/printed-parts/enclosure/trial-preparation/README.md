@@ -130,7 +130,8 @@ measured extent leaves its range, stops the preparation and reports what was fou
   modifiers stop at the ribbons.
 - **`tie_windows`** — each rectangular print-down roof one zip-tie channel wide, inside the
   exterior skin, is the top of a tie channel; its room down to the floor or the declared
-  cavity depth is a window. `blockers` puts a support blocker in each window.
+  cavity depth is a window. `blockers` puts a support blocker in each window;
+  `blocker_roof_overlap_mm` extends it into the requesting roof.
 - **`edge_fins`** — interrupted removable walls from the bed to a flat ceiling's exterior
   edge, with narrow blockers over their contact strips
   ([printed-parts/AGENTS.md](../../AGENTS.md#supports)). Both bottoms carry them along the

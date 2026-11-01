@@ -749,6 +749,7 @@
             {
               "name": "Reservoir A aft saddle zip-tie passage",
               "kind": "tie_windows",
+              "blocker_roof_overlap_mm": 0.85,
               "channel_widths_mm": [
                 3.2
               ],
