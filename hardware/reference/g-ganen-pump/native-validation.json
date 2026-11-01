@@ -1,17 +1,17 @@
 {
-  "status": "native_valid_with_scan_supported_rigid_switch_passage",
+  "status": "native_valid_with_photograph_classified_motor_underside",
   "production_mount_and_route_qualified": false,
   "native_solids": [
     {
       "name": "rigid_casing_envelope",
       "valid": true,
       "solids": 1,
-      "faces": 3979,
+      "faces": 4099,
       "bounds_mm": [
         [
           -77.6974534707391,
           -30.995935142553062,
-          1.9609650148906408
+          1.8520373850538452
         ],
         [
           82.36454172387788,
@@ -89,24 +89,6 @@
           -0.0002730493978617685,
           32.19009347911741,
           41.99955762237916
-        ]
-      ]
-    },
-    {
-      "name": "lower_cradle_occupied_external_envelope",
-      "valid": true,
-      "solids": 1,
-      "faces": 88,
-      "bounds_mm": [
-        [
-          0.9999999999999961,
-          -27.40307724960562,
-          1.9609651148906408
-        ],
-        [
-          76.0,
-          27.451106397720395,
-          23.97174185496697
         ]
       ]
     },
@@ -601,176 +583,6 @@
     },
     {
       "pass": "pass-01-feet-up",
-      "region": "fixed_lower_cradle_between_feet",
-      "points": 2236,
-      "signed_distance_mm": {
-        "mean": 2.449158769604465,
-        "median": 0.7309377280908891,
-        "rms": 3.5338491104843426,
-        "p05": -0.0057231173628733275,
-        "p95": 6.198065294683965,
-        "abs_p95": 6.198065294683965,
-        "min": -0.6730240258707431,
-        "max": 6.821832215708057,
-        "n": 2236
-      },
-      "outside_distance_mm": {
-        "mean": 0.006855974102397401,
-        "median": 0.0,
-        "rms": 0.04483861135260108,
-        "p05": 0.0,
-        "p95": 0.0057231173628733275,
-        "abs_p95": 0.0057231173628733275,
-        "min": 0.0,
-        "max": 0.6730240258707431,
-        "n": 2236
-      },
-      "observations_outside_0_5_mm": 3,
-      "observations_outside_1_0_mm": 0,
-      "scope": "Positive is inside the occupied envelope; negative is outside. Filled openings can have large positive values and do not represent measured material.",
-      "holdout": "Native indices 1 mod 12; at least 0.36 mm from every fitted X section (fit half-width 0.24 mm). Additional explicit feature hulls use disjoint native indices. Motor cylinder is independently checked beyond its local source arc.",
-      "largest_outside_observations": [
-        {
-          "point_mm": [
-            31.756622120460573,
-            -27.696860913489076,
-            16.431316263877363
-          ],
-          "outside_distance_mm": 0.6730240258707431
-        },
-        {
-          "point_mm": [
-            54.337508124449045,
-            -27.761420862203806,
-            16.516853357985923
-          ],
-          "outside_distance_mm": 0.5633726329805946
-        },
-        {
-          "point_mm": [
-            36.52264838632086,
-            -27.51363541458423,
-            16.286158813547274
-          ],
-          "outside_distance_mm": 0.5263856239672844
-        }
-      ]
-    },
-    {
-      "pass": "pass-01-feet-up",
-      "region": "motor_rear_cap",
-      "points": 1411,
-      "signed_distance_mm": {
-        "mean": -0.001868080943748214,
-        "median": 0.01706456152020023,
-        "rms": 0.24742923515328633,
-        "p05": -0.3593658253919956,
-        "p95": 0.3919674672255816,
-        "abs_p95": 0.5250007635777292,
-        "min": -0.9703613741420227,
-        "max": 1.2844753564323175,
-        "n": 1411
-      },
-      "outside_distance_mm": {
-        "mean": 0.08053949619681777,
-        "median": 0.0,
-        "rms": 0.15909380653986976,
-        "p05": 0.0,
-        "p95": 0.3593658253919956,
-        "abs_p95": 0.3593658253919956,
-        "min": 0.0,
-        "max": 0.9703613741420227,
-        "n": 1411
-      },
-      "observations_outside_0_5_mm": 25,
-      "observations_outside_1_0_mm": 0,
-      "scope": "Positive is inside the occupied envelope; negative is outside. Filled openings can have large positive values and do not represent measured material.",
-      "holdout": "Native indices 1 mod 12; at least 0.36 mm from every fitted X section (fit half-width 0.24 mm). Additional explicit feature hulls use disjoint native indices. Motor cylinder is independently checked beyond its local source arc.",
-      "largest_outside_observations": [
-        {
-          "point_mm": [
-            77.20374887230018,
-            -25.416193651910532,
-            20.072639327278438
-          ],
-          "outside_distance_mm": 0.9703613741420227
-        },
-        {
-          "point_mm": [
-            76.99339564209345,
-            -25.249198696591236,
-            20.7725923205509
-          ],
-          "outside_distance_mm": 0.8389815896910795
-        },
-        {
-          "point_mm": [
-            77.07878859384279,
-            -24.97929844053283,
-            20.969306363610798
-          ],
-          "outside_distance_mm": 0.8268738787693597
-        },
-        {
-          "point_mm": [
-            77.13915773327518,
-            -24.759706859075322,
-            20.95884340943465
-          ],
-          "outside_distance_mm": 0.7720656126787376
-        },
-        {
-          "point_mm": [
-            76.8796655425679,
-            -25.29391317344573,
-            20.788222835667597
-          ],
-          "outside_distance_mm": 0.7665378999438678
-        },
-        {
-          "point_mm": [
-            77.14794436989106,
-            -24.545772453887793,
-            21.31691686413282
-          ],
-          "outside_distance_mm": 0.7563021012269135
-        },
-        {
-          "point_mm": [
-            76.72700829605446,
-            -25.610390970690332,
-            20.377685650096936
-          ],
-          "outside_distance_mm": 0.6966875029566639
-        },
-        {
-          "point_mm": [
-            77.22871973021857,
-            -24.505991440058352,
-            20.812812766027008
-          ],
-          "outside_distance_mm": 0.696432055775082
-        },
-        {
-          "point_mm": [
-            79.60115400885863,
-            16.91101186810269,
-            49.84983045320675
-          ],
-          "outside_distance_mm": 0.6741903278256584
-        },
-        {
-          "point_mm": [
-            76.97964949607925,
-            -24.531281274909446,
-            21.89484792915337
-          ],
-          "outside_distance_mm": 0.662007622800668
-        }
-      ]
-    },
-    {
-      "pass": "pass-01-feet-up",
       "region": "port_yminus_barb",
       "points": 1471,
       "signed_distance_mm": {
@@ -922,184 +734,6 @@
     },
     {
       "pass": "pass-02-on-back",
-      "region": "fixed_lower_cradle_between_feet",
-      "points": 2344,
-      "signed_distance_mm": {
-        "mean": 2.2738194761423656,
-        "median": 0.7401244151650979,
-        "rms": 3.326187752654883,
-        "p05": 0.01126447163772201,
-        "p95": 6.194820992630995,
-        "abs_p95": 6.194820992630995,
-        "min": -0.5978370457816391,
-        "max": 6.938233930801044,
-        "n": 2344
-      },
-      "outside_distance_mm": {
-        "mean": 0.004848134764131308,
-        "median": 0.0,
-        "rms": 0.038782170264415015,
-        "p05": 0.0,
-        "p95": 0.0,
-        "abs_p95": 0.0,
-        "min": 0.0,
-        "max": 0.5978370457816391,
-        "n": 2344
-      },
-      "observations_outside_0_5_mm": 4,
-      "observations_outside_1_0_mm": 0,
-      "scope": "Positive is inside the occupied envelope; negative is outside. Filled openings can have large positive values and do not represent measured material.",
-      "holdout": "Native indices 1 mod 12; at least 0.36 mm from every fitted X section (fit half-width 0.24 mm). Additional explicit feature hulls use disjoint native indices. Motor cylinder is independently checked beyond its local source arc.",
-      "largest_outside_observations": [
-        {
-          "point_mm": [
-            27.98991018596101,
-            -27.617189377822655,
-            16.517897259958715
-          ],
-          "outside_distance_mm": 0.5978370457816391
-        },
-        {
-          "point_mm": [
-            50.86697759352634,
-            -27.695474622815297,
-            16.418844206203232
-          ],
-          "outside_distance_mm": 0.5393169324978968
-        },
-        {
-          "point_mm": [
-            51.75543843292033,
-            -27.69488714225068,
-            16.442571947604108
-          ],
-          "outside_distance_mm": 0.529518001302867
-        },
-        {
-          "point_mm": [
-            27.231374198268014,
-            -27.578102523734586,
-            16.63912649228942
-          ],
-          "outside_distance_mm": 0.5176234399000514
-        }
-      ]
-    },
-    {
-      "pass": "pass-02-on-back",
-      "region": "motor_rear_cap",
-      "points": 1631,
-      "signed_distance_mm": {
-        "mean": 0.020143969001828056,
-        "median": -0.006773673076245316,
-        "rms": 0.23202681176899742,
-        "p05": -0.2284082893686041,
-        "p95": 0.4712583864334073,
-        "abs_p95": 0.5266904732524414,
-        "min": -0.9727433847299544,
-        "max": 1.386555784448654,
-        "n": 1631
-      },
-      "outside_distance_mm": {
-        "mean": 0.05853087974230501,
-        "median": 0.006773673076245316,
-        "rms": 0.12063564985316856,
-        "p05": 0.0,
-        "p95": 0.2284082893686041,
-        "abs_p95": 0.2284082893686041,
-        "min": 0.0,
-        "max": 0.9727433847299544,
-        "n": 1631
-      },
-      "observations_outside_0_5_mm": 18,
-      "observations_outside_1_0_mm": 0,
-      "scope": "Positive is inside the occupied envelope; negative is outside. Filled openings can have large positive values and do not represent measured material.",
-      "holdout": "Native indices 1 mod 12; at least 0.36 mm from every fitted X section (fit half-width 0.24 mm). Additional explicit feature hulls use disjoint native indices. Motor cylinder is independently checked beyond its local source arc.",
-      "largest_outside_observations": [
-        {
-          "point_mm": [
-            77.0875682371673,
-            -25.672195683293737,
-            20.06750322506204
-          ],
-          "outside_distance_mm": 0.9727433847299544
-        },
-        {
-          "point_mm": [
-            77.08410418238932,
-            -25.56013701406677,
-            20.189207086137372
-          ],
-          "outside_distance_mm": 0.9370915291507002
-        },
-        {
-          "point_mm": [
-            77.05217231658217,
-            -25.074999164020625,
-            20.953560605724135
-          ],
-          "outside_distance_mm": 0.846069799898917
-        },
-        {
-          "point_mm": [
-            76.82184596939145,
-            -25.827633348525396,
-            20.13143077469215
-          ],
-          "outside_distance_mm": 0.8268194806678989
-        },
-        {
-          "point_mm": [
-            77.05387423624234,
-            -24.51417608502571,
-            21.740017657274393
-          ],
-          "outside_distance_mm": 0.7508991817735021
-        },
-        {
-          "point_mm": [
-            76.88633093279785,
-            -24.772539473168095,
-            21.60387692453122
-          ],
-          "outside_distance_mm": 0.7031068352760045
-        },
-        {
-          "point_mm": [
-            77.058250011635,
-            -24.42394111795207,
-            21.869291970550563
-          ],
-          "outside_distance_mm": 0.6814711464050085
-        },
-        {
-          "point_mm": [
-            76.91335136975243,
-            25.37042913140202,
-            20.17686306951566
-          ],
-          "outside_distance_mm": 0.6417714764283992
-        },
-        {
-          "point_mm": [
-            76.71859215990439,
-            25.78482164790104,
-            20.108470794298768
-          ],
-          "outside_distance_mm": 0.6328357078998234
-        },
-        {
-          "point_mm": [
-            76.78830645224069,
-            25.240827375595345,
-            20.71554977008509
-          ],
-          "outside_distance_mm": 0.597841284661306
-        }
-      ]
-    },
-    {
-      "pass": "pass-02-on-back",
       "region": "port_yminus_barb",
       "points": 1016,
       "signed_distance_mm": {
@@ -1235,224 +869,6 @@
     },
     {
       "pass": "pass-03-feet-down",
-      "region": "fixed_lower_cradle_between_feet",
-      "points": 2079,
-      "signed_distance_mm": {
-        "mean": 0.41499433646036393,
-        "median": 0.4652802826220047,
-        "rms": 0.5241542819757695,
-        "p05": -0.1908611792810621,
-        "p95": 0.837055703715334,
-        "abs_p95": 0.837055703715334,
-        "min": -0.5629535138943932,
-        "max": 0.9139829024698798,
-        "n": 2079
-      },
-      "outside_distance_mm": {
-        "mean": 0.022098931411900995,
-        "median": 0.0,
-        "rms": 0.08498315620642204,
-        "p05": 0.0,
-        "p95": 0.190861179281062,
-        "abs_p95": 0.190861179281062,
-        "min": 0.0,
-        "max": 0.5629535138943932,
-        "n": 2079
-      },
-      "observations_outside_0_5_mm": 9,
-      "observations_outside_1_0_mm": 0,
-      "scope": "Positive is inside the occupied envelope; negative is outside. Filled openings can have large positive values and do not represent measured material.",
-      "holdout": "Native indices 1 mod 12; at least 0.36 mm from every fitted X section (fit half-width 0.24 mm). Additional explicit feature hulls use disjoint native indices. Motor cylinder is independently checked beyond its local source arc.",
-      "largest_outside_observations": [
-        {
-          "point_mm": [
-            27.267972609849693,
-            -27.60438712752749,
-            16.5877770125433
-          ],
-          "outside_distance_mm": 0.5629535138943932
-        },
-        {
-          "point_mm": [
-            28.33268725678218,
-            -27.624408914332154,
-            16.618434631932345
-          ],
-          "outside_distance_mm": 0.5584541191209376
-        },
-        {
-          "point_mm": [
-            29.293695634387433,
-            -27.624696754782402,
-            16.60640023624174
-          ],
-          "outside_distance_mm": 0.5552243671386126
-        },
-        {
-          "point_mm": [
-            28.674210341160176,
-            -27.63798272704744,
-            16.658394379943203
-          ],
-          "outside_distance_mm": 0.5506434094922663
-        },
-        {
-          "point_mm": [
-            29.076687309897153,
-            -27.560828044747094,
-            16.522077903236294
-          ],
-          "outside_distance_mm": 0.5353236682483127
-        },
-        {
-          "point_mm": [
-            25.467423187943893,
-            -27.545753582916635,
-            16.567821699372857
-          ],
-          "outside_distance_mm": 0.534562119277825
-        },
-        {
-          "point_mm": [
-            25.903712710999258,
-            -27.579266531013918,
-            16.646370318254455
-          ],
-          "outside_distance_mm": 0.5274959469857989
-        },
-        {
-          "point_mm": [
-            30.723691135884508,
-            -27.595814966667245,
-            16.58962798187933
-          ],
-          "outside_distance_mm": 0.5234200554510532
-        },
-        {
-          "point_mm": [
-            32.12783245108125,
-            -27.62407099574354,
-            16.66047875610326
-          ],
-          "outside_distance_mm": 0.5061989748011961
-        }
-      ]
-    },
-    {
-      "pass": "pass-03-feet-down",
-      "region": "motor_rear_cap",
-      "points": 2061,
-      "signed_distance_mm": {
-        "mean": -0.09818363968804097,
-        "median": -0.06751323200138731,
-        "rms": 0.23427037038951434,
-        "p05": -0.4314674774800195,
-        "p95": 0.2232019078350498,
-        "abs_p95": 0.4698317325461865,
-        "min": -0.8174395948937881,
-        "max": 1.4395732669390924,
-        "n": 2061
-      },
-      "outside_distance_mm": {
-        "mean": 0.13006772568115732,
-        "median": 0.06751323200138731,
-        "rms": 0.19162428480306842,
-        "p05": 0.0,
-        "p95": 0.4314674774800195,
-        "abs_p95": 0.4314674774800195,
-        "min": 0.0,
-        "max": 0.8174395948937881,
-        "n": 2061
-      },
-      "observations_outside_0_5_mm": 53,
-      "observations_outside_1_0_mm": 0,
-      "scope": "Positive is inside the occupied envelope; negative is outside. Filled openings can have large positive values and do not represent measured material.",
-      "holdout": "Native indices 1 mod 12; at least 0.36 mm from every fitted X section (fit half-width 0.24 mm). Additional explicit feature hulls use disjoint native indices. Motor cylinder is independently checked beyond its local source arc.",
-      "largest_outside_observations": [
-        {
-          "point_mm": [
-            76.99488784087328,
-            -25.125708532373157,
-            20.93623676232842
-          ],
-          "outside_distance_mm": 0.8174395948937881
-        },
-        {
-          "point_mm": [
-            76.82691125986037,
-            -25.618328993808117,
-            20.475848353598934
-          ],
-          "outside_distance_mm": 0.8070961221371871
-        },
-        {
-          "point_mm": [
-            81.33753070457018,
-            20.443361034053986,
-            45.629263097013165
-          ],
-          "outside_distance_mm": 0.7284960423428123
-        },
-        {
-          "point_mm": [
-            77.03954496225498,
-            -24.79136704391023,
-            21.067839124702758
-          ],
-          "outside_distance_mm": 0.7258448912451876
-        },
-        {
-          "point_mm": [
-            76.7119708400306,
-            -25.434664685452372,
-            20.786491307794634
-          ],
-          "outside_distance_mm": 0.6897628441828554
-        },
-        {
-          "point_mm": [
-            76.83301490074453,
-            -24.79024030692349,
-            21.668977773588296
-          ],
-          "outside_distance_mm": 0.6802007199807094
-        },
-        {
-          "point_mm": [
-            76.61530109862599,
-            -25.663752762008894,
-            20.45675866382527
-          ],
-          "outside_distance_mm": 0.6439030350306467
-        },
-        {
-          "point_mm": [
-            79.18130953597858,
-            16.703783523886603,
-            50.31893866718022
-          ],
-          "outside_distance_mm": 0.6378521865170538
-        },
-        {
-          "point_mm": [
-            81.33609563414973,
-            20.665507463453917,
-            45.4538322524665
-          ],
-          "outside_distance_mm": 0.6316120413918723
-        },
-        {
-          "point_mm": [
-            81.32351094582572,
-            20.104172722171228,
-            45.88374238126276
-          ],
-          "outside_distance_mm": 0.6187361262205983
-        }
-      ]
-    },
-    {
-      "pass": "pass-03-feet-down",
       "region": "head_crown_complementary_view",
       "points": 2394,
       "signed_distance_mm": {
@@ -1553,24 +969,25 @@
   "all_native_solids_valid": true,
   "unit_scale_transforms": true,
   "flow_mapping_check": "Reference +Y discharge maps to enclosure -X under intended +90 degree Z rotation.",
-  "reference_parameters_sha256": "ee16286e66e74d346a8da5a996fc15fac3240586d5782df5a8b4767e6c725b42",
+  "reference_parameters_sha256": "d6a18b31502486c7af15c6d06d4b784672e475adfacbb159624f458b6ed85139",
   "verified_parameter_input_digests": {
     "registered-measurements.json": "616062682f316b5a0567bc067b6341b8674f0b361ed5f2bc9983868e700786bc",
     "casing-sections.json": "48214ef1eedb0471164e6c19cc12e0056a61d1eb29cbc37c2b8c3a14fcf35efa",
     "scan-evidence.json": "a7afc93368e635dc038ca999542cbba2144737f34721bc3f30e109a0eedff0ea",
     "scan-measurements.json": "80636440024dce04dda4bc3b649cda74e835ae8b3e8f4c479feccce644a41045",
     "interface-measurements.json": "22139a54480b47ef92b386fb442d1e880cb0ada780ab762f368dc688559f14b2",
-    "build_reference.py": "ef3a0d53b0970dde2a016ab549155aefc65f94b3826e0fad0434bcc1408360a8",
-    "g_ganen_pump.py": "290af327626df332777ee91a659455ae0b4e5c54ae58b4e9fd6400fcf5e7a048",
+    "underside-observation/rigid-underside.json": "d0e286d086e75b8fed7dd519ff7cde79d328efb95450d6dbb0fc13c398f9acaa",
+    "build_reference.py": "5227219d710ab0de8551a6628c5603719abd550ee4ba6400b5478c36c447d42b",
+    "g_ganen_pump.py": "95bab0c864e6970fa3bc19ec0fd27a0111b5a05ffa5a1e390e86d713d042fbbc",
     "scan_tools.py": "9a059f951cd7500be6d868d14eabab0b2628a75c34e2ba64820f9c233e1c04c8",
     "common-foot/g_ganen_foot.py": "ca6ff8cd43074132835169682cd05876b6cdcf120540da4cfc056a572685bb43"
   },
   "tool_sha256": {
-    "g_ganen_pump.py": "290af327626df332777ee91a659455ae0b4e5c54ae58b4e9fd6400fcf5e7a048",
-    "under-head-clearance/update_reference.py": "dd05b5134df08d47c800f317bc546335cbfe8941439ff75743fbef05c690e6d3",
-    "under-head-clearance/measure.py": "b93a6521c29ddf881950334ed531a1bc2af2154736686f5183803fae18468485"
+    "build_reference.py": "5227219d710ab0de8551a6628c5603719abd550ee4ba6400b5478c36c447d42b",
+    "g_ganen_pump.py": "95bab0c864e6970fa3bc19ec0fd27a0111b5a05ffa5a1e390e86d713d042fbbc",
+    "scan_tools.py": "9a059f951cd7500be6d868d14eabab0b2628a75c34e2ba64820f9c233e1c04c8",
+    "common-foot/g_ganen_foot.py": "ca6ff8cd43074132835169682cd05876b6cdcf120540da4cfc056a572685bb43"
   },
-  "lower_cradle_corroboration": "Each selected observation has a second scan surface within 0.45 mm and normal dot product above 0.85. Noncorroborated loose leads are excluded before model comparison.",
   "limits": [
     "Residuals are comparison to a sprayed optical scan, not absolute scanner tolerance.",
     "Loose wires, scanning putty and rubber-foot poses are excluded from rigid casing comparison.",
@@ -1579,17 +996,19 @@
     "Common foot visible geometry does not qualify hidden rail retention, rubber stiffness or a replacement foot."
   ],
   "rigid_readings_provenance": {
-    "predecessor_validation": "under-head-clearance/prior-native-validation.json",
-    "sha256": "49ea2543ec01646c8b979c087b37c48ad11d1cfb811d27261325d2119d0ce04f",
-    "basis": "Retained residuals sample unchanged regions outside the bounded rigid switch correction. The broad head_switch_outer_walls readings are excluded from the current report.",
-    "current_switch_evidence": "under-head-clearance.json",
-    "evidence_sha256": "f8d572d1176e6056de716842b058861d121fdf636c6e608f2e7492f1ce3d05e5"
+    "source": "underside-observation/prior-native-validation.json",
+    "sha256": "50601d5507a5a6729d02f7fe350b2317d110b0d397bb09d5dcce9ca4601705d7",
+    "basis": "Retained readings concern unchanged motor barrel, head/crown and barb surfaces. Lower cradle and rear-cap residuals are excluded from current claims.",
+    "current_underside_checks": "underside-observation/validation.json"
   },
   "input_sha256": {
+    "underside-observation/prior-native-validation.json": "50601d5507a5a6729d02f7fe350b2317d110b0d397bb09d5dcce9ca4601705d7",
+    "underside-observation/rigid-underside.json": "d0e286d086e75b8fed7dd519ff7cde79d328efb95450d6dbb0fc13c398f9acaa",
+    "underside-observation/validation.json": "af5a61359e75fc56598a5af7f03defa8b61b2ccddf9641dbc4dcc12b734bdeff",
     "under-head-clearance.json": "f8d572d1176e6056de716842b058861d121fdf636c6e608f2e7492f1ce3d05e5",
-    "under-head-clearance/prior-native-validation.json": "49ea2543ec01646c8b979c087b37c48ad11d1cfb811d27261325d2119d0ce04f"
+    "underside-observation/surface-check.json": "0928fa74652dc799bce0ab278d52af8f7d3549ce09799edb0722ce8c58402943"
   },
-  "prior_residual_scope": "Unchanged motor, lower cradle, crown and barb comparisons are retained from the prior report. The affected broad head/switch residuals are not claimed for this geometry.",
+  "prior_residual_scope": "Only unchanged regions retain predecessor residuals. Current underside checks are separately scoped.",
   "rigid_switch_passage": {
     "evidence": "under-head-clearance.json",
     "native_operation": "Remove independently observed external air from rigid casing and switch convex envelope only",
@@ -1597,5 +1016,6 @@
     "same_parameters_outside_operation": true,
     "production_integration_envelope_changed": false
   },
-  "native_sha256": "7a379399417b9d4d4cd286758746f437e609bbb7ad59007a34eda0f7ccf7d1a9"
+  "native_sha256": "66c9d98df9c887d2df2fd77097ed627b0524a17afe0a236a7188d86cc533f998",
+  "rigid_underside_surface_readings": "underside-observation/surface-check.json"
 }

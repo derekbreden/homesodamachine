@@ -1,0 +1,64 @@
+{
+  "status": "pass",
+  "valid_native_solids": 25,
+  "rigid_native_solids": 21,
+  "native_faces": 26565,
+  "probes": [
+    {
+      "name": "rear-lead-bulge",
+      "point_mm": [
+        76.0,
+        7.0,
+        3.0
+      ],
+      "inside_rigid_body": false,
+      "expected_inside": false
+    },
+    {
+      "name": "cover-after-end",
+      "point_mm": [
+        70.0,
+        0.0,
+        5.0
+      ],
+      "inside_rigid_body": false,
+      "expected_inside": false
+    },
+    {
+      "name": "open-groove",
+      "point_mm": [
+        40.0,
+        12.0,
+        6.0
+      ],
+      "inside_rigid_body": false,
+      "expected_inside": false
+    },
+    {
+      "name": "rigid-cover",
+      "point_mm": [
+        40.0,
+        0.0,
+        5.0
+      ],
+      "inside_rigid_body": true,
+      "expected_inside": true
+    },
+    {
+      "name": "fixed-rail",
+      "point_mm": [
+        40.0,
+        23.0,
+        18.0
+      ],
+      "inside_rigid_body": true,
+      "expected_inside": true
+    }
+  ],
+  "reference_parameters_sha256": "d6a18b31502486c7af15c6d06d4b784672e475adfacbb159624f458b6ed85139",
+  "native_sha256": "66c9d98df9c887d2df2fd77097ed627b0524a17afe0a236a7188d86cc533f998",
+  "payload_sha256": "c832c78d13bf47ba0ffdffe66e2025edd77245b1921d970843ad1c49cc6b25b7",
+  "payload_matches_step": true,
+  "elapsed_seconds": 17.005635166999127,
+  "scope": "Pump reference only. Rigid cover/rail presence, open groove and excluded rear flexible-lead geometry. Installed mount and snap belong to the layout review."
+}

@@ -1,0 +1,36 @@
+{
+  "input_sha256": {
+    "casing-sections.json": "48214ef1eedb0471164e6c19cc12e0056a61d1eb29cbc37c2b8c3a14fcf35efa",
+    "reference-parameters.json": "ee16286e66e74d346a8da5a996fc15fac3240586d5782df5a8b4767e6c725b42"
+  },
+  "rear_lead_exit_band": {
+    "x_mm": 76,
+    "angle_radians": -1.335176877775662,
+    "status": "observed",
+    "passes": {
+      "pass-01-feet-up": {
+        "points": 62,
+        "radius_median_mm": 35.00890296827413,
+        "radius_p05_mm": 22.30925355286062,
+        "radius_p95_mm": 35.98858820339808,
+        "median_yz_mm": [
+          7.596786857949795,
+          -2.1657281271718887
+        ]
+      },
+      "pass-02-on-back": {
+        "points": 42,
+        "radius_median_mm": 25.09781090098167,
+        "radius_p05_mm": 22.29518348332992,
+        "radius_p95_mm": 25.844987370467113,
+        "median_yz_mm": [
+          5.70448838060031,
+          7.549086592871809
+        ]
+      }
+    },
+    "equal_pass_median_radius_mm": 30.0533569346279,
+    "pass_median_span_mm": 9.911092067292458
+  },
+  "interpretation": "The photographed flexible leads cross this rear region. The retained scan passes disagree by 9.911 mm in median radius in this band. Their arithmetic median enters the rigid casing radial profile. The molded central wire cover is a distinct rigid feature visible in the bare-pump photos."
+}

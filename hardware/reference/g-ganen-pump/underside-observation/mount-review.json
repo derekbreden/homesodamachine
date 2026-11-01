@@ -1,0 +1,25 @@
+{
+  "date": "2026-11-01",
+  "source_chat": "01a19503-4047-7cf0-ad82-9e42d010912e",
+  "screenshots": [
+    {
+      "file": "review-green.png",
+      "sha256": "cb88bf66a045a4891364ab229b50a2b553f7e1aa7e4200a243ff8a16d2ece8eb"
+    },
+    {
+      "file": "review-red.png",
+      "sha256": "5b897a37b6f50ee2190a1515f0d2b6b4ffb7be92f4a6683c04e7e9be1488f798"
+    },
+    {
+      "file": "review-blue.png",
+      "sha256": "0d5613267f0df39bb2ae1066f3d79b6708fe57906b2e28e01d6b4f97dcc5f0db"
+    }
+  ],
+  "regions": {
+    "green": "Aft motor/cylinder underside, including the fixed rails and molded wire cover. Selected mounting region.",
+    "red": "Fore middle/head underside, between motor and switch nose. Excluded from pump bearing and retention contact.",
+    "blue": "Fore switch/nose underside. Visually accepted; no mounting contact selected here."
+  },
+  "request": "So, either red needs to be fixed, or we need to make sure all the mounting surfaces are on the other two good areas.",
+  "selected_contact_basis": "Motor/cylinder region only, with axial restraint against its fixed rail end faces. The middle/head underside is not a mounting datum."
+}

@@ -1,0 +1,52 @@
+{
+  "date": "2026-10-31",
+  "source_chat": "01a19503-4047-7cf0-ad82-9e42d010912e",
+  "photos": [
+    {
+      "file": "photo-01.jpg",
+      "sha256": "d566d75898c011f305d1b171c2a4c4c651233692c99abc0c7769e4a07cf1ed63",
+      "rubber_sliders_present": true
+    },
+    {
+      "file": "photo-02.jpg",
+      "sha256": "d87889eaf8746add48d0c20c8708273a89b5ddc73a591f448c7d5f7030867708",
+      "rubber_sliders_present": true
+    },
+    {
+      "file": "photo-03.jpg",
+      "sha256": "01af4dba90a26ac5c5de8693b0fc2dd39493b08149a303eb94efa81cacf63769",
+      "rubber_sliders_present": true
+    },
+    {
+      "file": "photo-04.jpg",
+      "sha256": "897c60004689f412947b10b3711c3bbb4c6b4023da9aa6c0d61cd9722cdabfbc",
+      "rubber_sliders_present": true
+    },
+    {
+      "file": "photo-05.jpg",
+      "sha256": "161e063c07e23ed372ffbdfe465112a432678cbe6ad781ff4f4103f7d2b99bfa",
+      "rubber_sliders_present": true
+    },
+    {
+      "file": "photo-06.jpg",
+      "sha256": "ec90bf14f501745f213c8ae98b212239f15547e606b33d05dc5b5bc1f2357d7c",
+      "rubber_sliders_present": false
+    },
+    {
+      "file": "photo-07.jpg",
+      "sha256": "9469bf2eb2102bed21374fd6ed1453848b165c9c5824a1e7f654a5b0e80e9c93",
+      "rubber_sliders_present": false
+    },
+    {
+      "file": "photo-08.jpg",
+      "sha256": "3ef4e18ce76b90540a76ca7384c31ee4f5a8a1bb05721ab71f6c042425e677d5",
+      "rubber_sliders_present": false
+    },
+    {
+      "file": "photo-09.jpg",
+      "sha256": "92363e51af634292c979c9217e61801e78cf33f8c431f0a5cb32a1b64000b650",
+      "rubber_sliders_present": false
+    }
+  ],
+  "classification": "Photos identify rigid casing, fixed rails, removable rubber sliders and flexible electrical leads. Dimensions use the retained unit-scale native scan frame."
+}
