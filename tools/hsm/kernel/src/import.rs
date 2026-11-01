@@ -371,4 +371,52 @@ mod tests {
         assert_eq!(without_index("a/b"), "a/b");
         assert_eq!(without_index("a/"), "a/");
     }
+
+    #[test]
+    fn null_model_records_keep_their_slots_and_existing_record_bytes() -> Result<()> {
+        use crate::face::{Surface, unknown_src};
+        use crate::step::model_bytes;
+        use crate::write::face_json;
+
+        let null = Face::from_json(&Value::Null)?;
+        let unknown_source = Face::new(
+            Surface::Plane { p: v3(0., 0., 0.), n: v3(-1., 0., 0.) },
+            "fixture", unknown_src());
+        let known = Face::new(
+            Surface::Plane { p: v3(0., 0., 0.), n: v3(0., -1., 0.) },
+            "fixture", file_src("fixture.step"));
+        let existing = [face_json(&unknown_source), face_json(&known)];
+        for record in &existing {
+            let before = serde_json::to_vec(record)?;
+            let after = serde_json::to_vec(&face_json(&Face::from_json(record)?))?;
+            assert_eq!(before, after);
+        }
+        let solid = Solid::raw(
+            vec![v3(0., 0., 0.), v3(1., 0., 0.), v3(0., 1., 0.), v3(0., 0., 1.)],
+            vec![[0, 2, 1], [1, 2, 3], [0, 3, 2], [0, 1, 3]],
+            vec![0, 1, 2, 3], vec![null, null, unknown_source, known]);
+        fn body(solid: &Solid) -> Body<'_> {
+            Body { name: "fixture", color: Some([0.1, 0.2, 0.3]), solid }
+        }
+        let original = model_bytes(&[body(&solid)]);
+        let read = model_bodies(&original)?;
+        assert_eq!(read[0].solid.face_of(), &[0, 1, 2, 3]);
+        assert_eq!(read[0].solid.faces().len(), 4);
+        assert_eq!(model_bytes(&[body(&read[0].solid)]), original);
+        let moved = read[0].solid.translate(v3(1., 2., 3.));
+        assert_eq!(moved.face_of(), &[0, 1, 2, 3]);
+        assert_eq!(face_json(&moved.faces()[0]), Value::Null);
+        assert_eq!(face_json(&moved.faces()[1]), Value::Null);
+        assert!(face_json(&moved.faces()[2]).is_object());
+        assert_eq!(face_json(&moved.faces()[2])["src"], Value::Null);
+        let glb = crate::write::glb_bytes(&[body(&solid)]);
+        let length = u32::from_le_bytes(glb[12..16].try_into()?) as usize;
+        let document: Value = serde_json::from_slice(&glb[20..20 + length])?;
+        let records = document["meshes"][0]["primitives"][0]["extras"]["faces"].as_array().unwrap();
+        assert_eq!(records.iter().filter(|v| v.get("record") == Some(&Value::Null)).count(), 2);
+        assert!(records.iter().filter(|v| v.get("record") == Some(&Value::Null))
+            .all(|v| v.get("src").is_none() && v.get("op").is_none()));
+        assert!(records.iter().any(|v| v.get("src") == Some(&Value::Null) && v.get("record").is_none()));
+        Ok(())
+    }
 }
