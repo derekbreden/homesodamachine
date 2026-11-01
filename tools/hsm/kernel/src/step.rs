@@ -350,6 +350,15 @@ fn stored_zip(entries: &[(String, Vec<u8>)]) -> Vec<u8> {
 /// `write.write_model`): per body its float64 vertices `V<i>`, triangles `T<i>`, the face
 /// record of each triangle `F<i>`, and the records, names and linear colours as JSON.
 pub fn model_bytes(bodies: &[Body]) -> Vec<u8> {
+    model_with_document(bodies, None)
+}
+
+/// A fine model with an optional JSON document beside its unchanged arrays and identities.
+pub fn model_bytes_with_document(bodies: &[Body], document: Option<&Value>) -> Vec<u8> {
+    model_with_document(bodies, document)
+}
+
+fn model_with_document(bodies: &[Body], document: Option<&Value>) -> Vec<u8> {
     let mut entries = vec![];
     let mut records = vec![];
     for (i, b) in bodies.iter().enumerate() {
@@ -374,6 +383,9 @@ pub fn model_bytes(bodies: &[Body]) -> Vec<u8> {
     entries.push(("names.npy".into(), text(Value::from(names))));
     entries.push(("colors.npy".into(), text(Value::from(colors))));
     entries.push(("records.npy".into(), text(Value::from(records))));
+    if let Some(document) = document {
+        entries.push(("document.npy".into(), text(document.clone())));
+    }
     stored_zip(&entries)
 }
 

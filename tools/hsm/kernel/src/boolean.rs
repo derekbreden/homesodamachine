@@ -138,6 +138,10 @@ impl Solid {
         Ok(self.clone())
     }
 
+    pub fn simplified_to(&self, _: f64) -> Result<Solid> {
+        anyhow::bail!("presentation simplification needs the kernel's manifold feature")
+    }
+
     pub fn shared_volume(&self, _: &Solid) -> Result<f64> {
         anyhow::bail!("a shared volume needs the kernel's manifold feature")
     }
@@ -527,12 +531,20 @@ mod backend {
         /// The solid as a file takes it: simplified to the rule's TOLERANCE, so no edge shorter
         /// and no sliver thinner than that reaches a slicer.
         pub fn simplified(&self) -> Result<Solid> {
+            self.simplified_to(TOLERANCE)
+        }
+
+        /// A separate presentation solid using Manifold's simplification tolerance in mm.
+        /// The fine source solid and its coordinates are retained.
+        pub fn simplified_to(&self, tolerance: f64) -> Result<Solid> {
+            ensure!(tolerance.is_finite() && tolerance >= TOLERANCE,
+                "simplification tolerance must be finite and at least {TOLERANCE}");
             if self.is_empty() {
                 return Ok(self.clone());
             }
             let b = built(self)?;
             let ids: Vec<(u32, usize, u32)> = b.ids.iter().map(|&(id, f)| (id, 0, f)).collect();
-            assemble(b.m.simplify(TOLERANCE), &ids, &[self], ("simplify", false), self.faces[0].src)
+            assemble(b.m.simplify(tolerance), &ids, &[self], ("simplify", false), self.faces[0].src)
         }
     }
 }
