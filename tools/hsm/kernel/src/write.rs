@@ -86,6 +86,8 @@ impl PrintOutput {
 
     pub fn stl_bytes(&self) -> &[u8] { &self.bytes }
 
+    pub fn into_stl_bytes(self) -> Vec<u8> { self.bytes }
+
     /// The fine model with this print's bound mapping in the same archive. Fine arrays and
     /// records stay untouched; the printed table has its own actual records and facet order.
     pub fn model_bytes(&self, fine: &[Body], path: &str, document: Option<&Value>) -> Result<Vec<u8>> {
@@ -114,11 +116,6 @@ pub fn stl_bytes(solids: &[&Solid]) -> Result<Vec<u8>> {
         tris.extend(f32_tris(&s.simplified()?));
     }
     Ok(stl_from(&tris))
-}
-
-/// `stl_bytes` of solids simplified already.
-pub(crate) fn stl_of(solids: &[&Solid]) -> Vec<u8> {
-    stl_from(&solids.iter().flat_map(|s| f32_tris(s)).collect::<Vec<_>>())
 }
 
 /// The binary STL of `tris`.
