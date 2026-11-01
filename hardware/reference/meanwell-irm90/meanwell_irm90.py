@@ -11,18 +11,17 @@ Coordinate frame
 - X = width (52 mm), Y = length (109 mm), Z = height up from the base.
 - Origin at the footprint center; Z = 0 the mounting (base) plane.
 - AC 2-pole screw block at +Y end, DC 4-pole screw block at -Y end.
+
+Geometry is in the frozen STEP and display payload beside this module.
+`frozen-asset.json` records their bytes and source snapshot.
 """
 
-import sys
 from pathlib import Path
 
-import cadquery as cq
-
-_here = Path(__file__).resolve()
-_hw = next(p for p in _here.parents if p.name == "hardware")
-sys.path.insert(0, str(_hw / "scripts"))
-from _cadq_export import export_assembly
-from _materials import C_PSU, one_body
+_HERE = Path(__file__).resolve().parent
+STEP_PATH = _HERE / "meanwell-irm90.step"
+PAYLOAD_PATH = _HERE / "meanwell-irm90.step.mesh"
+ASSET_MANIFEST_PATH = _HERE / "frozen-asset.json"
 
 # --- Measured / datasheet geometry ----------------------------------------
 width = 52.0           # X
@@ -72,39 +71,10 @@ def wire_entry(side):
              ledge_h + block_h / 2.0), (0.0, side, 0.0))
 
 
-def build():
-    mid = length - 2 * ledge_len
-    body = cq.Workplane("XY").box(width, mid, height, centered=(True, True, False))
-    # Stepped terminal ledges + a representative screw-terminal block on each, each block
-    # standing at its own station.
-    for sy in (1.0, -1.0):
-        ledge = (
-            cq.Workplane("XY")
-            .box(width, ledge_len, ledge_h, centered=(True, True, False))
-            .translate((0.0, sy * (length - ledge_len) / 2.0, 0.0))
-        )
-        (bx, by, btop), _axis = _block(sy)
-        block = (
-            cq.Workplane("XY")
-            .box(block_w[sy], block_len, block_h, centered=(True, True, False))
-            .translate((bx, by, btop - block_h))
-        )
-        body = body.union(ledge).union(block)
-    # Four mounting holes.
-    for sx in (-1.0, 1.0):
-        for sy in (-1.0, 1.0):
-            body = body.cut(
-                cq.Workplane("XY")
-                .center(sx * hole_dx, sy * hole_dy)
-                .circle(hole_dia / 2.0)
-                .extrude(height)
-            )
-    return body
-
-
 def main():
-    export_assembly(one_body(build(), "meanwell-irm90", C_PSU), str(_here.parent / "meanwell-irm90.step"))
-    print("-> meanwell-irm90.step")
+    print("Mean Well IRM-90-12ST power module")
+    print(f"  STEP: {STEP_PATH}")
+    print(f"  Display payload: {PAYLOAD_PATH}")
 
 
 if __name__ == "__main__":

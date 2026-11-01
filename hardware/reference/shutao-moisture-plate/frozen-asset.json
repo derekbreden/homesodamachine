@@ -1,0 +1,11 @@
+{
+  "source": {
+    "commit": "e993e2f1dc02e22f670f06dc5aecf0df14dcfe3d",
+    "path": "hardware/reference/shutao-moisture-plate/shutao_moisture_plate.py",
+    "sha256": "d7f5254e8e82f082a1844ff0ad30c8579280b54e4391904430ac31a16e8777b5"
+  },
+  "members": {
+    "shutao-moisture-plate.step": "820fa4fdc35bc9d5565d4e913802682cb68eb91a97141f5c694641afca894e49",
+    "shutao-moisture-plate.step.mesh": "c822fe541d3c19920db2fd5ccc225e1fe9cc95c29873e543375c059bab6e17d2"
+  }
+}

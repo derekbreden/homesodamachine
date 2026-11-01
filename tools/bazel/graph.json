@@ -7218,23 +7218,6 @@
       "hardware/reference/kamoer-kphm400/kamoer-kphm400.step"
     ]
   },
-  "hardware/reference/meanwell-irm90/meanwell_irm90.py": {
-    "reads": [
-      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
-      "hardware/reference/meanwell-irm90/meanwell-irm90.step",
-      "hardware/reference/meanwell-irm90/meanwell_irm90.py",
-      "hardware/scripts/_cadq_export.py",
-      "hardware/scripts/_material_base.py",
-      "hardware/scripts/_materials.py",
-      "hardware/scripts/_mesh_payload.py",
-      "hardware/scripts/_run_lock.py",
-      "tools/docgen/__init__.py"
-    ],
-    "rewritten": [],
-    "writes": [
-      "hardware/reference/meanwell-irm90/meanwell-irm90.step"
-    ]
-  },
   "hardware/reference/molex-micro-fit-4/molex_micro_fit_4.py": {
     "reads": [
       "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
@@ -7250,23 +7233,6 @@
     "rewritten": [],
     "writes": [
       "hardware/reference/molex-micro-fit-4/molex-micro-fit-4-panel.step"
-    ]
-  },
-  "hardware/reference/mq6-gas-sensor/mq6_gas_sensor.py": {
-    "reads": [
-      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
-      "hardware/reference/mq6-gas-sensor/mq6-gas-sensor.step",
-      "hardware/reference/mq6-gas-sensor/mq6_gas_sensor.py",
-      "hardware/scripts/_cadq_export.py",
-      "hardware/scripts/_material_base.py",
-      "hardware/scripts/_materials.py",
-      "hardware/scripts/_mesh_payload.py",
-      "hardware/scripts/_run_lock.py",
-      "tools/docgen/__init__.py"
-    ],
-    "rewritten": [],
-    "writes": [
-      "hardware/reference/mq6-gas-sensor/mq6-gas-sensor.step"
     ]
   },
   "hardware/reference/multiplex-asse1022/multiplex_asse1022.py": {
@@ -7463,23 +7429,6 @@
       "hardware/reference/shok-blok-regulator/shok-blok-regulator.step.mesh"
     ]
   },
-  "hardware/reference/shutao-moisture-plate/shutao_moisture_plate.py": {
-    "reads": [
-      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
-      "hardware/reference/shutao-moisture-plate/shutao-moisture-plate.step",
-      "hardware/reference/shutao-moisture-plate/shutao_moisture_plate.py",
-      "hardware/scripts/_cadq_export.py",
-      "hardware/scripts/_material_base.py",
-      "hardware/scripts/_materials.py",
-      "hardware/scripts/_mesh_payload.py",
-      "hardware/scripts/_run_lock.py",
-      "tools/docgen/__init__.py"
-    ],
-    "rewritten": [],
-    "writes": [
-      "hardware/reference/shutao-moisture-plate/shutao-moisture-plate.step"
-    ]
-  },
   "hardware/reference/soda-rise-insulation/soda_rise_insulation.py": {
     "reads": [
       "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
@@ -7534,23 +7483,6 @@
       "hardware/reference/tee-connector/tee-connector.step"
     ]
   },
-  "hardware/reference/teyleten-relay/teyleten_relay.py": {
-    "reads": [
-      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
-      "hardware/reference/teyleten-relay/teyleten-relay.step",
-      "hardware/reference/teyleten-relay/teyleten_relay.py",
-      "hardware/scripts/_cadq_export.py",
-      "hardware/scripts/_material_base.py",
-      "hardware/scripts/_materials.py",
-      "hardware/scripts/_mesh_payload.py",
-      "hardware/scripts/_run_lock.py",
-      "tools/docgen/__init__.py"
-    ],
-    "rewritten": [],
-    "writes": [
-      "hardware/reference/teyleten-relay/teyleten-relay.step"
-    ]
-  },
   "hardware/reference/touch-flo-faucet/westbrass-reference/westbrass_reference.py": {
     "reads": [
       "hardware/printed-parts/cadlib/world_workplane.py",
@@ -7570,27 +7502,6 @@
     "writes": [
       "hardware/reference/touch-flo-faucet/westbrass-reference/westbrass-reference.step",
       "hardware/reference/touch-flo-faucet/westbrass-reference/westbrass_reference.py"
-    ]
-  },
-  "hardware/reference/wago-221/wago_221.py": {
-    "reads": [
-      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
-      "hardware/reference/wago-221/wago-221-413.step",
-      "hardware/reference/wago-221/wago-221-415.step",
-      "hardware/reference/wago-221/wago-221-420.step",
-      "hardware/reference/wago-221/wago_221.py",
-      "hardware/scripts/_cadq_export.py",
-      "hardware/scripts/_material_base.py",
-      "hardware/scripts/_materials.py",
-      "hardware/scripts/_mesh_payload.py",
-      "hardware/scripts/_run_lock.py",
-      "tools/docgen/__init__.py"
-    ],
-    "rewritten": [],
-    "writes": [
-      "hardware/reference/wago-221/wago-221-413.step",
-      "hardware/reference/wago-221/wago-221-415.step",
-      "hardware/reference/wago-221/wago-221-420.step"
     ]
   },
   "hardware/reference/waveshare-43b-display/waveshare_43b_display.py": {
