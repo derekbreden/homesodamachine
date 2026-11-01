@@ -7,8 +7,8 @@
 //!     cargo run --release --manifest-path tools/hsm/faucet/Cargo.toml --bin industrial-faucet -- \
 //!         <industrial-faucet.numbers.json> <out dir>
 use anyhow::{Result, anyhow, bail, ensure};
-use hsm_faucet::shell::{PAST, level, lower_bundle_opening, pieces, shell_from};
-use hsm_faucet::{Gooseneck, display, pair, rows};
+use hsm_faucet::shell::{PAST, level, pieces, shell_from};
+use hsm_faucet::{Gooseneck, counter, display, pair, rows};
 use hsm_kernel::part::{Numbers, args, write_printed, write_shown};
 use hsm_kernel::*;
 
@@ -20,11 +20,13 @@ fn main() -> Result<()> {
     let seated = seated_cover(&n, &neck, false)?;
     let open = seated_cover(&n, &neck, true)?;
     let cover = display::relaxed(&neck, &seated, &open, n.f("cover_bezel_n")?, n.f("cover_wing_slope")?)?;
+    // The round foot the plate and gasket share.
+    let disc = |z0: f64, z1: f64| Solid::cylinder(v3(0.0, 0.0, z0), V3::Z, n.f("foot_radius")?, z1 - z0);
     let printed = [
         ("base", shell_base(&n, &neck)?, black),
         ("cover", cover, black),
-        ("plate", plate(&n)?, black),
-        ("gasket", gasket(&n)?, Some(n.color("gasket_color")?)),
+        ("plate", counter::plate(&n, disc)?, black),
+        ("gasket", counter::gasket(&n, disc)?, Some(n.color("gasket_color")?)),
     ];
     for (piece, solid, color) in &printed {
         ensure!(solid.components().len() == 1, "the Industrial {piece} is not one solid");
@@ -53,45 +55,6 @@ fn shell_base(n: &Numbers, neck: &Gooseneck) -> Result<Solid> {
     );
     let full = shell_from(n, neck, stock, &ring.place(&level(seam)), &[lever])?;
     Ok(pieces(n, neck, &full)?.0)
-}
-
-/// The shank hole, the flavor pill and the cable lane, through from `z0` to `z1`.
-fn through(n: &Numbers, z0: f64, z1: f64) -> Result<Vec<Solid>> {
-    let (bottom, h) = (z0 - PAST, z1 - z0 + 2.0 * PAST);
-    let (cx, cy) = n.pair("shank_hole_center")?;
-    let shank = Solid::cylinder(v3(cx, cy, bottom), V3::Z, n.f("shank_hole_radius")?, h)?;
-    let (px, py) = n.pair("pill_slot_center")?;
-    let pill = Loop::slot(v2(px, py), n.f("pill_length_x")?, n.f("pill_width_y")?, 0.0);
-    let pill = level(bottom).extrude(&Profile::new(pill), h)?;
-    Ok(vec![shank, pill, lower_bundle_opening(n)?])
-}
-
-/// The round plate the base stands on: a pedestal under each mounting pod, chamfered round its
-/// top, bored for the pod's screw and counterbored from below, and the holes through.
-fn plate(n: &Numbers) -> Result<Solid> {
-    let (z0, z1) = n.pair("plate_z")?;
-    let disc = Solid::cylinder(v3(0.0, 0.0, z0), V3::Z, n.f("foot_radius")?, z1 - z0)?;
-    let (h, chamfer) = (n.f("base_pedestal_height")?, n.f("base_pedestal_chamfer")?);
-    let mut stock = vec![disc];
-    let mut cutters = through(n, z0, z1)?;
-    for c in rows(n.get("base_pod_centers")?)? {
-        let (x, y) = pair(c)?;
-        // Standing from inside the disc, so its foot meets no face of it.
-        let mid = 0.5 * (z0 + z1);
-        let pedestal = Solid::cylinder(v3(x, y, mid), V3::Z, n.f("base_pedestal_dia")? / 2.0, h - mid)?;
-        stock.push(pedestal.chamfer(&pedestal.edges(">Z")?, chamfer)?);
-        let shank = n.f("base_pod_shank_dia")? / 2.0;
-        cutters.push(Solid::cylinder(v3(x, y, z0 - PAST), V3::Z, shank, h - z0 + 2.0 * PAST)?);
-        let counterbore = n.f("base_pod_counterbore_dia")? / 2.0;
-        cutters.push(Solid::cylinder(v3(x, y, z0 - PAST), V3::Z, counterbore, n.f("base_screw_counterbore_depth")? + PAST)?);
-    }
-    Solid::union_all(&stock)?.cut_all(&cutters)
-}
-
-/// The gasket under the plate, with the same holes through.
-fn gasket(n: &Numbers) -> Result<Solid> {
-    let (z0, z1) = n.pair("gasket_z")?;
-    Solid::cylinder(v3(0.0, 0.0, z0), V3::Z, n.f("foot_radius")?, z1 - z0)?.cut_all(&through(n, z0, z1)?)
 }
 
 /// The cover as it sits on the tip: its plate hollowed for the display, opened for the glass and
