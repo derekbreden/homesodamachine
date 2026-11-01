@@ -271,37 +271,68 @@ display cover (`hardware/printed-parts/faucet/faucet-display-cover`), the indust
 (`hardware/printed-parts/faucet/industrial`) and the two faucet assemblies
 (`hardware/faucet-layout`), all of the same crate, are others.
 
-`fuse_clamp.py` is its generator. It derives every number the part takes from the parts it
-closes on, states its bounds and fills its README, as any generator does, and writes the numbers
-the geometry takes (`numbers()`) to `fuse-clamp.numbers.json`, which is committed beside it.
+A part moves onto the kernel only when its generator, timed from its process's start to its
+exit, is faster than the OCCT generator it replaces: warm, and again after a kernel change, when
+its cargo call compiles the kernel and its crate before the program runs. The commit that moves
+it carries both times, old and new, and the most memory each run held.
+
+`fuse_clamp.py` is its generator. It derives every number the part takes from the parts it closes
+on, states its bounds and fills its README, as any generator does, and writes the numbers the
+geometry takes (`numbers()`) to `fuse-clamp.numbers.json`, which is committed beside it.
 `fuse_clamp.rs` is the program that cuts the part from them: a `[[bin]]` of its subsystem's crate,
-`tools/hsm/refrigeration`, named `fuse-clamp`. It reads the file with `part::args` and
-`Numbers` (`f`, `pair`, `list`, `color`, `text`), builds the solid, and hands its bodies to
-`part::write_part`. That writes `fuse-clamp.step`, the model file beside it, the payload, whose
-`src` is the STEP's SHA-256, and `fuse-clamp.stl`; leaves a file that holds the same bytes as it
-is; and prints what the files hold. `part::write_shown` writes a set without the STL, for bodies
-the page draws and nothing prints, and `part::write_printed` one without the payload, for a
-printed piece whose payload `hardware/scripts/flute_payload.py` cuts from its STL. A program that
-writes several sets prints each one's answer on a line of its own, and its standard output
-carries nothing else. The faucet shell writes the assembled pair with `write_shown` and each of
-its two prints with `write_printed`; the display cover writes its print with `write_printed`
-and itself as it sits on the tip with `write_shown`, and the industrial faucet writes its four
-prints with `write_printed` and its display cover as it sits on the tip with `write_shown`. The faucet's
-programs are `[[bin]]`s of `tools/hsm/faucet`, whose library holds what they share: the
-gooseneck, the display's frame at its tip, the shapes their numbers come in, `shell`, the
-shell's stock and the cutters the industrial faucet also cuts its own round stock with,
-`display`, the lips and the relaxed print both display covers are cut with, and `assembly`, the
-faucet and its umbilical as the bench bags them, which both assemblies cut from the numbers
-`faucet_assembly.py` writes.
+`tools/hsm/refrigeration`, named `fuse-clamp`. It reads the file with `part::args` and `Numbers`
+(`f`, `pair`, `list`, `color`, `text`), builds the solid, refuses one that the fuse's case, grown by
+the contact tolerance, does not touch, and hands its bodies to `part::write_part`. That writes
+`fuse-clamp.step`, the model file beside it, the payload, whose `src` is the STEP's SHA-256, and
+`fuse-clamp.stl`; leaves a file that holds the same bytes as it is; and prints what the files hold.
+The STEP and the STL take each solid simplified once, at the kernel's rule. `part::write_shown`
+writes a set without the STL, for bodies the page draws and nothing prints, and
+`part::write_printed` one without the payload, for a printed piece whose payload
+`hardware/scripts/flute_payload.py` cuts from its STL. A program that writes several sets prints
+each one's answer on a line of its own, and its standard output carries nothing else. The faucet
+shell writes the assembled pair with `write_shown` and each of its two prints with `write_printed`;
+the display cover writes its print with `write_printed` and itself as it sits on the tip with
+`write_shown`, and the industrial faucet writes its four prints with `write_printed` and its display
+cover as it sits on the tip with `write_shown`. The faucet's programs are `[[bin]]`s of
+`tools/hsm/faucet`, whose library holds what they share: the gooseneck, the display's frame at its
+tip, the shapes their numbers come in, `shell`, the shell's stock and the cutters the industrial
+faucet also cuts its own round stock with, `display`, the lips and the relaxed print both display
+covers are cut with, and `assembly`, the faucet and its umbilical as the bench bags them, which both
+assemblies cut from the numbers `faucet_assembly.py` writes.
+
+A generator that cuts a part begins its own run before it imports anything else:
+
+```python
+if __name__ == "__main__":
+    import _rust_part
+    _rust_part.start()
+```
+
+`start` takes the CAD lock, starts the run's clock at the process's own start, and defers
+CadQuery: the modules a part's numbers come from import it to build other parts, and the run uses
+none of it. The `cadquery` it puts in `sys.modules` loads the first time a name is read off it,
+except `Color` and `Plane`, which shared modules call as they import and which make stand-ins. A
+stand-in colour answers `toTuple`, `==`, `hash` and `_materials.linear` with OCCT's bits, as
+`linear` of a `#RRGGBB` string does (`hardware/scripts/_occt_color.py`). If CadQuery loads, each
+stand-in becomes the value it stands for, in place, and whenever OCP loads, its loops end in
+Python as `_cadq_export` ends them. So a part's run ends with neither `cadquery` nor `OCP.OCP`
+loaded, and puts its seconds, interpreter and imports included, into `build-time.md`'s window.
+`hardware/scripts/test_rust_part.py` holds the template to all of it.
 
 The generator runs the program through
 [`hardware/scripts/_rust_part.py`](../../hardware/scripts/_rust_part.py).
-`_rust_part.cut("refrigeration", "fuse-clamp", numbers(), part_dir)` writes the numbers, builds
-the program with cargo from the checkout's workspace (`HSM_WORKSPACE` in a Bazel action), runs
-it, and returns the files and bodies it printed. `_rust_part.program(crate, name)` builds a
-program and returns its path, for a run with arguments of its own. Cargo builds into the
-checkout's own target directory, `tools/hsm/target`, whatever `CARGO_TARGET_DIR` says. The
-`cargo` it runs is the one on `PATH`, else Homebrew's rustup's, else the one in `~/.cargo/bin`.
+`_rust_part.cut("refrigeration", "fuse-clamp", numbers(), part_dir)` writes the numbers, builds the
+program with cargo from the checkout's workspace (`HSM_WORKSPACE` in a Bazel action), runs it, and
+returns the files and bodies it printed. `_rust_part.check(crate, name, numbers)` runs
+`<program> <numbers.json> --check`, which measures the part and writes nothing, and returns its
+JSON: the fuse clamp's selftest asks it for the case's touch. `_rust_part.run(crate, name, *args)`
+runs a program with arguments of its own and returns what it printed, and
+`_rust_part.program(crate, name)` builds one and returns its path. Each run prints the program's
+seconds and the most memory it held. Cargo builds into the checkout's own target directory,
+`tools/hsm/target`, whatever `CARGO_TARGET_DIR` says. A worktree made by `tools/worktree.py` starts
+with a clone of the main checkout's target directory less the workspace's own crates, so its first
+build compiles those and not Manifold. `_rust_part` runs the `cargo` on `PATH`, else Homebrew's
+rustup's, else the one in `~/.cargo/bin`.
 
 A program runs from the checkout's root, and its numbers name a STEP it reads by its path from
 there. `_rust_part.step(path)` returns that path once a payload cut from the STEP is on disk. For
@@ -342,6 +373,7 @@ hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.rs:43`.
 ```sh
 cargo test --release --manifest-path tools/hsm/Cargo.toml
 python3 -m unittest discover -s tools -p test_publish_manifest.py
+tools/cad-venv/bin/python hardware/scripts/test_rust_part.py
 ```
 
 These run only when requested. They do not join any build, edit or commit path.

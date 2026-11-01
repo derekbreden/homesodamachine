@@ -1073,6 +1073,12 @@ impl SmoothLoft {
         self.weights(v).iter().zip(&self.sections).fold(V3::ZERO, |p, (w, s)| p + s.at(u) * *w)
     }
 
+    /// Each section's point at `u`: what every point of the surface at `u` blends, whatever its
+    /// `v`.
+    fn ring(&self, u: f64) -> Vec<V3> {
+        self.sections.iter().map(|s| s.at(u)).collect()
+    }
+
     /// The parameters the solid is cut at: `u` in equal steps along each edge, `v` in equal steps
     /// from 0 to 1, as many as keep every triangle within LINEAR of the surface and every turn
     /// within ANGULAR.
@@ -1082,16 +1088,12 @@ impl SmoothLoft {
         for w in self.params.windows(2) {
             probe_v.extend((1..8).map(|k| w[0] + (w[1] - w[0]) * k as f64 / 8.0));
         }
+        let probe_w: Vec<Vec<f64>> = probe_v.iter().map(|&v| self.weights(v)).collect();
         let mut counts = vec![1usize; m];
         for (e, count) in counts.iter_mut().enumerate() {
-            for &v in &probe_v {
-                let w = self.weights(v);
-                let samples: Vec<V3> = (0..=256)
-                    .map(|k| {
-                        let u = e as f64 + k as f64 / 256.0;
-                        w.iter().zip(&self.sections).fold(V3::ZERO, |p, (wj, s)| p + s.at(u) * *wj)
-                    })
-                    .collect();
+            let rings: Vec<Vec<V3>> = (0..=256).map(|k| self.ring(e as f64 + k as f64 / 256.0)).collect();
+            for w in &probe_w {
+                let samples: Vec<V3> = rings.iter().map(|r| mix(w, r)).collect();
                 *count = (*count).max(steps_for(&samples, LINEAR / 2.0));
             }
         }
@@ -1101,9 +1103,8 @@ impl SmoothLoft {
         for e in 0..m {
             for q in 0..4 {
                 let u = e as f64 + q as f64 / 4.0;
-                let ring: Vec<V3> = self.sections.iter().map(|s| s.at(u)).collect();
-                let samples: Vec<V3> =
-                    weights.iter().map(|w| w.iter().zip(&ring).fold(V3::ZERO, |p, (wj, r)| p + *r * *wj)).collect();
+                let ring = self.ring(u);
+                let samples: Vec<V3> = weights.iter().map(|w| mix(w, &ring)).collect();
                 nv = nv.max(steps_for(&samples, LINEAR / 2.0));
             }
         }
@@ -1137,20 +1138,19 @@ impl SmoothLoft {
         let m = self.sections[0].edges.len();
         let mut per_edge = vec![0.0f64; m];
         let mut across = 0.0f64;
-        let rows: Vec<Vec<V3>> = vs.iter().map(|&v| us.iter().map(|&u| self.at(u, v)).collect()).collect();
+        let at_us: Vec<Vec<V3>> = us.iter().map(|&u| self.ring(u)).collect();
+        let at_mids: Vec<Vec<V3>> = (0..nu).map(|i| self.ring(mid_u(us, i, m))).collect();
+        let row_w: Vec<Vec<f64>> = vs.iter().map(|&v| self.weights(v)).collect();
+        let rows: Vec<Vec<V3>> = row_w.iter().map(|w| at_us.iter().map(|ring| mix(w, ring)).collect()).collect();
         for r in 0..vs.len() - 1 {
-            let vm = 0.5 * (vs[r] + vs[r + 1]);
-            let w = self.weights(vm);
-            let at_vm = |u: f64| w.iter().zip(&self.sections).fold(V3::ZERO, |p, (wj, s)| p + s.at(u) * *wj);
+            let w = self.weights(0.5 * (vs[r] + vs[r + 1]));
             for i in 0..nu {
                 let j = (i + 1) % nu;
-                let u1 = if j == 0 { m as f64 } else { us[j] };
-                let um = 0.5 * (us[i] + u1);
                 let (a, b, c, d) = (rows[r][i], rows[r][j], rows[r + 1][j], rows[r + 1][i]);
-                let mid = at_vm(um);
+                let mid = mix(&w, &at_mids[i]);
                 let diag = (mid - (a + c) * 0.5).norm().min((mid - (b + d) * 0.5).norm());
-                let along = (self.at(um, vs[r]) - (a + b) * 0.5).norm();
-                across = across.max((at_vm(us[i]) - (a + d) * 0.5).norm());
+                let along = (mix(&row_w[r], &at_mids[i]) - (a + b) * 0.5).norm();
+                across = across.max((mix(&w, &at_us[i]) - (a + d) * 0.5).norm());
                 let e = us[i].floor() as usize;
                 per_edge[e] = per_edge[e].max(diag).max(along);
             }
@@ -1204,27 +1204,27 @@ impl SmoothLoft {
     fn solid_grid(&self, us: &[f64], vs: &[f64], src: Src) -> Result<Solid> {
         let m = self.sections[0].edges.len();
         let (nu, nv) = (us.len(), vs.len() - 1);
+        let at_us: Vec<Vec<V3>> = us.iter().map(|&u| self.ring(u)).collect();
+        let at_mids: Vec<Vec<V3>> = (0..nu).map(|i| self.ring(mid_u(us, i, m))).collect();
         let mut verts = Vec::with_capacity(nu * vs.len());
         for (r, &v) in vs.iter().enumerate() {
             if r == 0 || r == nv {
-                let s = &self.sections[if r == 0 { 0 } else { self.sections.len() - 1 }];
-                verts.extend(us.iter().map(|&u| s.at(u)));
+                let k = if r == 0 { 0 } else { self.sections.len() - 1 };
+                verts.extend(at_us.iter().map(|ring| ring[k]));
             } else {
                 let w = self.weights(v);
-                verts.extend(us.iter().map(|&u| w.iter().zip(&self.sections).fold(V3::ZERO, |p, (wj, s)| p + s.at(u) * *wj)));
+                verts.extend(at_us.iter().map(|ring| mix(&w, ring)));
             }
         }
         let mut faces: Vec<Face> = (0..m).map(|_| Face::new(Surface::Free { kind: "BSPLINE" }, "loft", src)).collect();
         let mut tris: Vec<[u32; 3]> = vec![];
         let mut fids: Vec<u32> = vec![];
-        let mm = m as f64;
         for r in 0..nv {
-            let vm = 0.5 * (vs[r] + vs[r + 1]);
+            let w = self.weights(0.5 * (vs[r] + vs[r + 1]));
             for i in 0..nu {
                 let j = (i + 1) % nu;
                 let (a, b, c, d) = (r * nu + i, r * nu + j, (r + 1) * nu + j, (r + 1) * nu + i);
-                let u1 = if j == 0 { mm } else { us[j] };
-                let mid = self.at(0.5 * (us[i] + u1), vm);
+                let mid = mix(&w, &at_mids[i]);
                 let (pa, pb, pc, pd) = (verts[a], verts[b], verts[c], verts[d]);
                 let f = us[i].floor() as u32;
                 if (mid - (pa + pc) * 0.5).norm() <= (mid - (pb + pd) * 0.5).norm() {
@@ -1264,6 +1264,22 @@ impl SmoothLoft {
         }
         Ok(Part { verts, tris, fids, faces }.solid())
     }
+}
+
+/// The points of `ring` blended by the weights `w`, in order.
+fn mix(w: &[f64], ring: &[V3]) -> V3 {
+    let mut p = V3::ZERO;
+    for (wj, r) in w.iter().zip(ring) {
+        p += *r * *wj;
+    }
+    p
+}
+
+/// The middle in `u` of the quad from `us[i]` to the next cut, the last running round to `m`.
+fn mid_u(us: &[f64], i: usize, m: usize) -> f64 {
+    let j = (i + 1) % us.len();
+    let u1 = if j == 0 { m as f64 } else { us[j] };
+    0.5 * (us[i] + u1)
 }
 
 /// Equal steps along each edge, `counts[e]` of them along edge `e`.

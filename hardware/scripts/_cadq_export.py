@@ -663,8 +663,10 @@ def note_write(path):
 #
 # A run that cut nothing files nothing: an import that raised, a build superseded off the
 # machine, a script that only measured. `_WRITE_TARGETS` is what `_atomic_write` was handed.
+# A part the Rust kernel cuts files its own, from the process's start (`_rust_part.start`).
 def _file_elapsed():
-    if _ENTRY is None or not _WRITE_TARGETS:
+    rust = sys.modules.get("_rust_part")
+    if _ENTRY is None or not _WRITE_TARGETS or getattr(rust, "_STARTED", None) is not None:
         return
     try:
         import _build_time

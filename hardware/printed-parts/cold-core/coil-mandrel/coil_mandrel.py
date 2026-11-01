@@ -31,8 +31,11 @@ sys.path.insert(
 )
 sys.path.insert(0, str(next(p for p in _here.parents if p.name == "printed-parts") / "cadlib"))
 sys.path.insert(0, str(_here.parents[1]))
-from _materials import M_PETG_BLACK, linear  # CadQuery's import, ahead of the clock
-import _cadq_export  # noqa: F401  the CAD lock, and build-time.md's clock
+if __name__ == "__main__":
+    import _rust_part
+    _rust_part.start()
+
+from _materials import M_PETG_BLACK, linear
 from docgen import substitute_py_comments
 from _cold_core_interface import evap_tail_low_z, evap_tail_high_z
 
@@ -216,8 +219,6 @@ def numbers():
 
 def main():
     # A run cuts the mandrel; an import of this module is a reader of its numbers.
-    import _rust_part
-
     print(f"Carbonator OD:               {carbonator_od:.1f} mm (R = {carbonator_radius:.2f})")
     print(f"As-wound undersize:    {net_undersize:.1f} mm radial stretch")
     print(f"Mandrel surface OD:    {mandrel_od:.2f} mm (R = {mandrel_radius:.3f})")
