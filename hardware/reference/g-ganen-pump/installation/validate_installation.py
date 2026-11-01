@@ -13,7 +13,8 @@ import time
 HERE=Path(__file__).resolve().parent
 ROOT=HERE.parents[3]
 sys.path[:0]=[str(ROOT/'hardware/scripts'),str(ROOT/'hardware/manifold-layout'),
-             str(ROOT/'hardware/printed-parts/cold-core')]
+             str(ROOT/'hardware/printed-parts/cold-core'),
+             str(ROOT/'hardware/printed-parts/cadlib')]
 import cadquery as cq
 from _cadq_export import import_step
 import above_core as layout
@@ -58,7 +59,7 @@ def run(*,include_routes=True,output=HERE/'native-installation-check.json'):
     check('installed rubber sliders',len(pump.feet_shapes()),0)
     check('pump foot screw axes',len(pump.mount_holes()),0)
     check('pump cup columns',int('g-ganen-pump' in mounts.deck_mounts()),0)
-    check('bare casing front bearing allowance',
+    check('bare casing cable-cover allowance',
           abs(bb.zmin-layout.specification()['cap_face_z_mm']-fits.slip),1.e-5)
     check('pump overlap with installed lid',common,1.e-5)
     check('cradle native invalid',int(not bearing.isValid()),0)
@@ -75,7 +76,7 @@ def run(*,include_routes=True,output=HERE/'native-installation-check.json'):
             tube=parts.route_shape(spec)
             check(name+' native invalid',int(not tube.isValid()),0)
             routes.append(dict(id=name,segments=spec['segments'],owners=spec['owners']))
-    out=dict(schema='g-ganen-installation/4',inputs=bindings,
+    out=dict(schema='g-ganen-installation/5',inputs=bindings,
         scope='Bare casing and fixed rails, integral motor half pipe, open rigid-body admission rooms, rail-end stops and removable upper snap. Native nominal geometry does not qualify spring force, vibration, printed fit or hose retention.',
         local_to_world=layout.pose('g-ganen-pump'),installed_bounds_mm=bounds(shape),
         cradle_bounds_mm=bounds(bearing),snap_cap_bounds_mm=[bounds(cap) for cap in caps],

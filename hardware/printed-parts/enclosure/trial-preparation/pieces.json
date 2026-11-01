@@ -668,7 +668,7 @@
         },
         "enable_support": {
           "value": "1",
-          "reason": "Tree(auto)/Default supports the WAGO well end walls and B-fill channel roof where the slicer needs it. The return and water-check pedestals have peaked tie passages. Retain native automatic support choices."
+          "reason": "Tree(auto)/Default supports the WAGO well end walls, pump spring pockets and other receiving ceilings where needed. The B-fill guide uses a plain clearance window. Retain native automatic support choices outside the one scoped aft tie-passage blocker."
         },
         "raft_first_layer_expansion": {
           "value": "0.5",
@@ -1073,13 +1073,9 @@
         {
           "name": "pump-snap-cap",
           "stl": "hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.stl"
-        },
-        {
-          "name": "pump-snap-cap-rear",
-          "stl": "hardware/printed-parts/cold-core/foam-cap/pump-snap-cap-rear.stl"
         }
       ],
-      "pose_reason": "Both caps stand on one axial end as exported. The32mm primary arch and16mm rear arch,3mm spring wings and hooks grow as vertical walls; retain PET-GF Tree(auto)/Default.",
+      "pose_reason": "The continuous 54.5 mm clip stands on one axial end as exported. Its arch, 3 mm spring wings and hooks grow as vertical walls with no intermediate cutouts; retain PET-GF Tree(auto)/Default.",
       "plate_border_mm": 80.0,
       "settings": {
         "wall_loops": {

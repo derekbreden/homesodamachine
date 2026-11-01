@@ -112,7 +112,7 @@
     "WASHER_MAX_OD": "29"
   },
   "/hardware/scripts/_bom_totals.py": {
-    "BOM_GRAND": "$1,439.26",
+    "BOM_GRAND": "$1,439.34",
     "BOM_SEC1": "$175.03",
     "BOM_SEC11": "$33.85",
     "BOM_SEC12": "$29.78",
@@ -124,7 +124,7 @@
     "BOM_SEC4": "$133.11",
     "BOM_SEC5": "$143.06",
     "BOM_SEC6": "$20.76",
-    "BOM_SEC7": "$161.44",
+    "BOM_SEC7": "$161.52",
     "BOM_SEC8": "$259.45",
     "BOM_SEC9": "$78.57"
   }

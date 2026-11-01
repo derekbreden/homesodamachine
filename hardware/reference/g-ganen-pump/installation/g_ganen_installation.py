@@ -52,7 +52,7 @@ sliding_rails = envelope.sliding_rails
 
 
 def mount_seat_z():
-    """Bare fixed casing's front bearing plane, in the purchased frame."""
+    """Molded cable cover's low point, in the purchased frame."""
     hull = next(row for row in parameters()['casing_shell_envelopes']
                 if row['id'] == 'lower_cradle_occupied')['external_envelope']
     return min(point[2] for point in hull['vertices_mm'])
