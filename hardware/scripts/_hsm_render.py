@@ -23,12 +23,15 @@ ROOT = Path(__file__).resolve().parents[2]
 FINISHES = ROOT / "web" / "public" / "finishes.json"
 
 
-def render(jobs: list[dict], root: Path = ROOT) -> None:
+def render(jobs: list[dict], root: Path = ROOT, *, reports: bool = False) -> list[dict] | None:
     """Draw every job against the checkout at `root`. A picture that fails fails the run, after
     the others are drawn."""
     import _run_slots
     program = _rust_part.program("render", "hsm-render")
     _rust_part._READ_TARGETS.add(_rust_part._relative(FINISHES))
-    subprocess.run([str(program), "--root", str(root), "--jobs", "-"],
-                   input=json.dumps(jobs), text=True, check=True,
-                   **_run_slots.subprocess_kwargs())
+    result = subprocess.run([str(program), "--root", str(root), "--jobs", "-",
+                             *(["--json"] if reports else [])],
+                            input=json.dumps(jobs), text=True, check=True,
+                            stdout=subprocess.PIPE if reports else None,
+                            **_run_slots.subprocess_kwargs())
+    return json.loads(result.stdout) if reports else None
