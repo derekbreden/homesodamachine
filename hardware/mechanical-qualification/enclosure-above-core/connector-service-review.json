@@ -675,5 +675,345 @@
       ]
     },
     "all_current_regressions_clear": true
+  },
+  "current_native_binding": {
+    "assembly_step_sha256": "bef3f41165e12b584f9272a82bfa8fac5fdd3f5bdd2f5d541f65908abe830a98",
+    "assembly_mesh_sha256": "ce0d2cab6085d9f3e0fdbc4f9127741ff18c1ee409bd05a7d872b2f0582f362f",
+    "scope": "Recorded complete nominal housing stages and their unchanged native datums retain the baseline. Changed stock and all revised tube/fitting bodies were read against the complete stage witnesses.",
+    "changed_stock_and_routes": [
+      {
+        "connector": "terminal-J1",
+        "neighbor": "foam-cap-lid-top",
+        "overlap_mm3": 0,
+        "gap_mm": 7.4999997999999835
+      },
+      {
+        "connector": "terminal-J1",
+        "neighbor": "enclosure-front-top",
+        "overlap_mm3": 0,
+        "gap_mm": 49.269155272502964
+      },
+      {
+        "connector": "terminal-J1",
+        "neighbor": "enclosure-back-top",
+        "overlap_mm3": 0,
+        "gap_mm": 17.92000610351559
+      },
+      {
+        "connector": "terminal-J1",
+        "neighbor": "tube-above-core-va-fore-feed",
+        "overlap_mm3": 0,
+        "gap_mm": 39.49121754006575
+      },
+      {
+        "connector": "terminal-J1",
+        "neighbor": "tube-fluid-14",
+        "overlap_mm3": 0,
+        "gap_mm": 115.33513833475072
+      },
+      {
+        "connector": "terminal-J1",
+        "neighbor": "tube-fluid-16",
+        "overlap_mm3": 0,
+        "gap_mm": 99.71892702320466
+      },
+      {
+        "connector": "terminal-J1",
+        "neighbor": "tube-fluid-26",
+        "overlap_mm3": 0,
+        "gap_mm": 53.05780445394385
+      },
+      {
+        "connector": "terminal-J1",
+        "neighbor": "tube-water-5",
+        "overlap_mm3": 0,
+        "gap_mm": 99.2653772914109
+      },
+      {
+        "connector": "terminal-J1",
+        "neighbor": "line-water-in",
+        "overlap_mm3": 0,
+        "gap_mm": 39.278506764249364
+      },
+      {
+        "connector": "terminal-J1",
+        "neighbor": "ya-stem-elbow",
+        "overlap_mm3": 0,
+        "gap_mm": 113.98311655773828
+      },
+      {
+        "connector": "terminal-J2",
+        "neighbor": "foam-cap-lid-top",
+        "overlap_mm3": 0,
+        "gap_mm": 7.4999997999999835
+      },
+      {
+        "connector": "terminal-J2",
+        "neighbor": "enclosure-front-top",
+        "overlap_mm3": 0,
+        "gap_mm": 64.77653226588762
+      },
+      {
+        "connector": "terminal-J2",
+        "neighbor": "enclosure-back-top",
+        "overlap_mm3": 0,
+        "gap_mm": 43.92000610351559
+      },
+      {
+        "connector": "terminal-J2",
+        "neighbor": "tube-above-core-va-fore-feed",
+        "overlap_mm3": 0,
+        "gap_mm": 23.642475292912092
+      },
+      {
+        "connector": "terminal-J2",
+        "neighbor": "tube-fluid-14",
+        "overlap_mm3": 0,
+        "gap_mm": 101.69395585127673
+      },
+      {
+        "connector": "terminal-J2",
+        "neighbor": "tube-fluid-16",
+        "overlap_mm3": 0,
+        "gap_mm": 81.56024414031272
+      },
+      {
+        "connector": "terminal-J2",
+        "neighbor": "tube-fluid-26",
+        "overlap_mm3": 0,
+        "gap_mm": 40.70511067003465
+      },
+      {
+        "connector": "terminal-J2",
+        "neighbor": "tube-water-5",
+        "overlap_mm3": 0,
+        "gap_mm": 103.4038323825754
+      },
+      {
+        "connector": "terminal-J2",
+        "neighbor": "line-water-in",
+        "overlap_mm3": 0,
+        "gap_mm": 39.278506764249364
+      },
+      {
+        "connector": "terminal-J2",
+        "neighbor": "ya-stem-elbow",
+        "overlap_mm3": 0,
+        "gap_mm": 103.63920690600925
+      },
+      {
+        "connector": "terminal-J11",
+        "neighbor": "foam-cap-lid-top",
+        "overlap_mm3": 0,
+        "gap_mm": 7.4999997999999835
+      },
+      {
+        "connector": "terminal-J11",
+        "neighbor": "enclosure-front-top",
+        "overlap_mm3": 0,
+        "gap_mm": 40.47174769551855
+      },
+      {
+        "connector": "terminal-J11",
+        "neighbor": "enclosure-back-top",
+        "overlap_mm3": 0,
+        "gap_mm": 62.699909587042534
+      },
+      {
+        "connector": "terminal-J11",
+        "neighbor": "tube-above-core-va-fore-feed",
+        "overlap_mm3": 0,
+        "gap_mm": 7.40492677746264
+      },
+      {
+        "connector": "terminal-J11",
+        "neighbor": "tube-fluid-14",
+        "overlap_mm3": 0,
+        "gap_mm": 43.91421014481695
+      },
+      {
+        "connector": "terminal-J11",
+        "neighbor": "tube-fluid-16",
+        "overlap_mm3": 0,
+        "gap_mm": 35.01486879416144
+      },
+      {
+        "connector": "terminal-J11",
+        "neighbor": "tube-fluid-26",
+        "overlap_mm3": 0,
+        "gap_mm": 0.6054573898109954
+      },
+      {
+        "connector": "terminal-J11",
+        "neighbor": "tube-water-5",
+        "overlap_mm3": 0,
+        "gap_mm": 179.24785866858426
+      },
+      {
+        "connector": "terminal-J11",
+        "neighbor": "line-water-in",
+        "overlap_mm3": 0,
+        "gap_mm": 88.68108171937538
+      },
+      {
+        "connector": "terminal-J11",
+        "neighbor": "ya-stem-elbow",
+        "overlap_mm3": 0,
+        "gap_mm": 35.90617527644657
+      }
+    ],
+    "final_fitting_and_b_draw_delta": [
+      {
+        "connector": "terminal-J1",
+        "neighbor": "carbonator-fold",
+        "overlap_mm3": 0.0
+      },
+      {
+        "connector": "terminal-J1",
+        "neighbor": "discharge-chain",
+        "overlap_mm3": 0.0
+      },
+      {
+        "connector": "terminal-J1",
+        "neighbor": "lower-pump-elbow",
+        "overlap_mm3": 0.0
+      },
+      {
+        "connector": "terminal-J1",
+        "neighbor": "suction-reducer",
+        "overlap_mm3": 0.0
+      },
+      {
+        "connector": "terminal-J1",
+        "neighbor": "suction-stem-clamp",
+        "overlap_mm3": 0.0
+      },
+      {
+        "connector": "terminal-J1",
+        "neighbor": "suction-stem-key",
+        "overlap_mm3": 0.0
+      },
+      {
+        "connector": "terminal-J1",
+        "neighbor": "suction-tube",
+        "overlap_mm3": 0.0
+      },
+      {
+        "connector": "terminal-J1",
+        "neighbor": "tube-above-core-pump-inlet-link",
+        "overlap_mm3": 0.0
+      },
+      {
+        "connector": "terminal-J1",
+        "neighbor": "tube-fluid-26",
+        "overlap_mm3": 0.0
+      },
+      {
+        "connector": "terminal-J1",
+        "neighbor": "tube-water-5",
+        "overlap_mm3": 0.0
+      },
+      {
+        "connector": "terminal-J2",
+        "neighbor": "carbonator-fold",
+        "overlap_mm3": 0.0
+      },
+      {
+        "connector": "terminal-J2",
+        "neighbor": "discharge-chain",
+        "overlap_mm3": 0.0
+      },
+      {
+        "connector": "terminal-J2",
+        "neighbor": "lower-pump-elbow",
+        "overlap_mm3": 0.0
+      },
+      {
+        "connector": "terminal-J2",
+        "neighbor": "suction-reducer",
+        "overlap_mm3": 0.0
+      },
+      {
+        "connector": "terminal-J2",
+        "neighbor": "suction-stem-clamp",
+        "overlap_mm3": 0.0
+      },
+      {
+        "connector": "terminal-J2",
+        "neighbor": "suction-stem-key",
+        "overlap_mm3": 0.0
+      },
+      {
+        "connector": "terminal-J2",
+        "neighbor": "suction-tube",
+        "overlap_mm3": 0.0
+      },
+      {
+        "connector": "terminal-J2",
+        "neighbor": "tube-above-core-pump-inlet-link",
+        "overlap_mm3": 0.0
+      },
+      {
+        "connector": "terminal-J2",
+        "neighbor": "tube-fluid-26",
+        "overlap_mm3": 0.0
+      },
+      {
+        "connector": "terminal-J2",
+        "neighbor": "tube-water-5",
+        "overlap_mm3": 0.0
+      },
+      {
+        "connector": "terminal-J11",
+        "neighbor": "carbonator-fold",
+        "overlap_mm3": 0.0
+      },
+      {
+        "connector": "terminal-J11",
+        "neighbor": "discharge-chain",
+        "overlap_mm3": 0.0
+      },
+      {
+        "connector": "terminal-J11",
+        "neighbor": "lower-pump-elbow",
+        "overlap_mm3": 0.0
+      },
+      {
+        "connector": "terminal-J11",
+        "neighbor": "suction-reducer",
+        "overlap_mm3": 0.0
+      },
+      {
+        "connector": "terminal-J11",
+        "neighbor": "suction-stem-clamp",
+        "overlap_mm3": 0.0
+      },
+      {
+        "connector": "terminal-J11",
+        "neighbor": "suction-stem-key",
+        "overlap_mm3": 0.0
+      },
+      {
+        "connector": "terminal-J11",
+        "neighbor": "suction-tube",
+        "overlap_mm3": 0.0
+      },
+      {
+        "connector": "terminal-J11",
+        "neighbor": "tube-above-core-pump-inlet-link",
+        "overlap_mm3": 0.0
+      },
+      {
+        "connector": "terminal-J11",
+        "neighbor": "tube-fluid-26",
+        "overlap_mm3": 0.0
+      },
+      {
+        "connector": "terminal-J11",
+        "neighbor": "tube-water-5",
+        "overlap_mm3": 0.0
+      }
+    ],
+    "all_current_changed_pairs_clear": true
   }
 }
