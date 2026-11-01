@@ -2,10 +2,9 @@
 carbonator + copper evaporator coil + flavor reservoir pockets. See
 README.md."""
 
+import argparse
 import sys
 from pathlib import Path
-
-import cadquery as cq
 
 _here = Path(__file__).resolve().parent
 sys.path.insert(0, str(next(p for p in _here.parents if p.name == "printed-parts") / "cadlib"))
@@ -13,10 +12,12 @@ sys.path.insert(0, str(next(p for p in _here.parents if p.name == "hardware") / 
 sys.path.insert(0, str(_here.parent))
 sys.path.insert(0, str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"))
 
-from _cadq_export import export_assembly
-from _materials import C_FOAM_SHELL, one_body
+if __name__ == "__main__":
+    import _rust_part
+    _rust_part.start()
+
+from _materials import C_FOAM_SHELL
 from _foam_shell import build_full_shell
-from _show_skin import write_bed_file
 from _cold_core_interface import (
     above_carbonator_elbows_height,
     attachment_xy_positions,
@@ -82,6 +83,129 @@ from _copper_ports import evap_cross_z, hole_radius as copper_hole_radius, stati
 
 
 
+def numbers():
+    """The shell's native mating profile, standing stock and open passages."""
+    import fits
+    import _cold_core_interface as core
+    import _reservoir_pocket_walls as pockets
+    import _support_ring as support
+    import _reed_channels as reeds
+    import _reed_b_outlet as outlet
+    import _internal_routes as routes
+    import _reservoir_b_fill as b_fill
+    import _above_core_mounts as mounts
+    from _foam_cap import top_cap_height
+    from _materials import linear
+
+    def box(x, y, z):
+        return [list(x), list(y), list(z)]
+
+    envelopes, cavities, openings, upper_backs, roofs = [], [], [], [], []
+    for side in (1, -1):
+        x = side * core.reed_channel_inner_x
+        envelopes.append(box((x, x + side * (core.reed_x_depth + core.wall_thickness)),
+                             reeds.reed_envelope_y_range, reeds.reed_envelope_z_range))
+        cavities.append(box((x, x + side * core.reed_x_depth),
+                            reeds.reed_cavity_y_range, reeds.reed_cavity_z_range))
+        openings.append(box((side * core.bag_pocket_far_inner_x,
+                             side * core.bag_pocket_outermost_x),
+                            reeds.reed_cavity_y_range,
+                            (core.wall_and_floor_thickness, core.foam_shell_outer_height)))
+        upper_backs.append(box((side * core.bag_pocket_far_inner_x,
+                               side * core.reed_channel_inner_x),
+                              reeds.reed_envelope_y_range,
+                              (core.foam_shell_outer_height, core.foam_shell_rim_z)))
+        x0, x1 = sorted((side * core.bag_pocket_far_inner_x,
+                         side * core.bag_pocket_outermost_x))
+        y0, y1 = reeds.reed_cavity_y_range
+        z = core.foam_shell_outer_height
+        roofs.append({
+            "section": [(y0, z), (y1, z),
+                        (reeds.reed_y_center, z + 2.0 * core.reed_y_half_w)],
+            "start_x": x0, "depth": x1 - x0,
+        })
+
+    def world_to_shell(point):
+        x, y, z = mounts.above_core.world_to_cap(point)
+        return (-x, -y, z + core.foam_shell_outer_height + top_cap_height)
+
+    origin = world_to_shell((0.0, 0.0, 0.0))
+    axes = [tuple(b - a for a, b in zip(origin, world_to_shell(axis)))
+            for axis in ((1.0, 0.0, 0.0), (0.0, 1.0, 0.0), (0.0, 0.0, 1.0))]
+    b_passage = b_fill.passage()
+    b_end = b_passage['bend_end_world_mm']
+    return {
+        "height": core.foam_shell_rim_z,
+        "pocket_height": core.foam_shell_outer_height,
+        "floor": core.wall_and_floor_thickness,
+        "wall": core.wall_thickness, "outer_wall": core.outer_shell_wall,
+        "width": core.outer_shell_x_length, "depth": core.outer_shell_y_length,
+        "corner_radius": core.corner_round_radius,
+        "pocket": {
+            "middle_x": pockets.middle_cavity_x, "inner_y": pockets.y_inner,
+            "far_x": core.bag_pocket_far_inner_x,
+            "corner_radius": core.bag_pocket_corner_inner_radius,
+            "transition_y": pockets.pocket_centerward_arc_transition_y,
+            "transition_x": pockets.transition_center_x - pockets.transition_cavity_r,
+            "transition_mid_y": pockets.transition_center_y,
+            "arc_radius": pockets.arc_cavity_r,
+        },
+        "support": {
+            "outer_radius": core.carbonator_coil_envelope_radius,
+            "inner_radius": core.carbonator_coil_envelope_radius - core.support_ring_radial_width,
+            "bottom": core.wall_and_floor_thickness,
+            "top": core.wall_and_floor_thickness + core.carbonator_support_ring_height,
+            "slots": support.slot_count, "slot_angle": support.slot_angular_width,
+            "slot_clock": support.slot_clock, "slot_margin": support.slot_radial_margin,
+        },
+        "host_radius": core.screw_guard_diameter / 2.0,
+        "attachment_stations": [{"xy": xy, "wall": wall}
+                                for xy, wall in core.attachment_stations],
+        "insert_radius": core.insert_pocket_radius,
+        "insert_depth": core.insert_pocket_depth,
+        "tail_radius": core.screw_clearance_radius,
+        "bottom_tail_depth": core.bottom_screw_bore_depth,
+        "top_tail_depth": core.top_screw_bore_depth,
+        "bottom_tapers": [
+            {"bottom": core.insert_pocket_depth + fits.supported_surface,
+             "lower_radius": core.insert_pocket_radius,
+             "upper_radius": core.screw_clearance_radius,
+             "height": 2.0 * (core.insert_pocket_radius - core.screw_clearance_radius)},
+            {"bottom": core.bottom_screw_bore_depth + fits.supported_surface,
+             "lower_radius": core.screw_clearance_radius, "upper_radius": 0.0,
+             "height": 2.0 * core.screw_clearance_radius},
+        ],
+        "supported_surface": fits.supported_surface,
+        "seam_depth": core.seam_channel_depth, "seam_width": core.seam_channel_width,
+        "reed_envelopes": envelopes, "reed_cavities": cavities,
+        "reed_openings": openings, "reed_upper_backs": upper_backs,
+        "reed_roofs": roofs,
+        "reed_b_outlet": outlet.datums(),
+        "vent_route": routes.routes["prv-vent"], "vent_bend": routes.route_bend_radius,
+        "vent_radius": core.port_hole_radius,
+        "copper_radius": copper_hole_radius,
+        "copper_origins": [point for point, _axis in stations().values()],
+        "copper_names": list(stations()),
+        "b_fill": {
+            "bend_radius": b_fill.BEND_RADIUS,
+            "channel_centre": b_fill.CHANNEL_CENTRE,
+            "channel_radius": b_fill.CHANNEL_RADIUS,
+            "mouth": b_fill.MOUTH,
+            "mouth_start_y": -0.3,
+            "mouth_end_y": b_fill.MOUTH + 0.05,
+            "mouth_start_radius": b_fill.CHANNEL_RADIUS + b_fill.MOUTH + 0.3,
+            "mouth_end_radius": b_fill.CHANNEL_RADIUS - 0.05,
+            "inlet_leg": b_end[1] - b_fill.BEND_RADIUS - b_passage['entry_world_mm'][1],
+            "bend_end_world": b_end,
+            "roof_allowance": b_passage['supported_roof_allowance_mm'],
+            "world_to_shell_origin": origin,
+            "world_to_shell_axes": axes,
+        },
+        "color": list(linear(C_FOAM_SHELL)),
+    }
+
+
+
 def _report_front_ports(shell):
     """Every penetration is on the front face, so each station is measured, not assumed.
 
@@ -89,6 +213,7 @@ def _report_front_ports(shell):
     face through the wall, meets no material. A station that reads closed is a port that is
     not there; that does not show up in a bounding box, and the whole edition's width rests
     on this face working."""
+    import cadquery as cq
     solid = shell.val() if hasattr(shell, "val") else shell
 
     # EVERY STATION ON EITHER LANE, probed on its own lane's y — the two lanes each
@@ -109,13 +234,19 @@ def _report_front_ports(shell):
                       for n, (p, _a) in sorted(ports.items(), key=lambda kv: kv[1][0][2])))
 
 
-def main():
+def native_main(output=_here):
+    from _cadq_export import export_assembly
+    from _materials import one_body
+    from _show_skin import write_bed_file
+
+    output = Path(output)
+    output.mkdir(parents=True, exist_ok=True)
     foam_shell = build_full_shell()
     export_assembly(one_body(foam_shell, "foam-shell", C_FOAM_SHELL),
-                    str(_here / "foam-shell.step"))
+                    str(output / "foam-shell.step"))
     print("-> foam-shell.step")
     # STEP and print mesh carry the same smooth casing surface.
-    write_bed_file(foam_shell, _here / "foam-shell.stl")
+    write_bed_file(foam_shell, output / "foam-shell.stl")
 
     _report_front_ports(foam_shell)
 
@@ -123,9 +254,14 @@ def main():
     bbox = solid.BoundingBox()
     volume = solid.Volume()
     centroid = solid.Center()
+    if (output / "README.md").is_file():
+        update_readme(output, volume, bbox, centroid)
+
+
+def update_readme(output, volume, bbox, centroid):
 
     substitute_md(
-        _here / "README.md",
+        output / "README.md",
         variables={
             "OUTER_H": f"{foam_shell_rim_z:.4g} mm",
             "SHELL_OUTER_X": f"{outer_shell_x_length:.4g} mm",
@@ -199,5 +335,20 @@ def main():
     print("-> README.md")
 
 
+def main(output=_here):
+    import _rust_part
+
+    output = Path(output)
+    output.mkdir(parents=True, exist_ok=True)
+    readings = _rust_part.cut("cold-core", "foam-shell", numbers(), output)["bodies"][0]
+    ports = readings["front_ports"]
+    print(f"  front face:       {len(ports)} stations on x {front_wall_x:.4g}, all open — "
+          + ", ".join(f"{p['name']} y {p['origin'][1]:.4g} z {p['origin'][2]:.4g}" for p in ports))
+
+
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--native", action="store_true", help="Run the retained native builder")
+    parser.add_argument("--output", type=Path, default=_here)
+    args = parser.parse_args()
+    (native_main if args.native else main)(args.output)
