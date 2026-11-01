@@ -1,0 +1,19 @@
+{
+  "source_archive": "/Users/derekbredensteiner/Developer/hsm-pump-underside/hardware/print-tests/rear-snap-retention/prints/2026-11-01-pump-box-cap-mark2-ea19cdbc/2026-11-01-pump-box-cap-mark2-ea19cdbc.gcode.3mf",
+  "source_archive_sha256": "2394a9a7c62b9aca756474d28315066051a207f02f67c050e986f081695d316e",
+  "print_only_archive": "/Users/derekbredensteiner/Developer/hsm-pump-underside/hardware/print-tests/rear-snap-retention/prints/2026-11-01-pump-box-cap-mark2-ea19cdbc/2026-11-01-pump-box-cap-mark2-ea19cdbc-print-only.gcode.3mf",
+  "print_only_archive_sha256": "41cf1c52f2990bf4e209d19390764cf8d3b0ace488b6a5fd4220f043c6fcd23f",
+  "gcode_sha256": {
+    "Metadata/plate_1.gcode": "c11698a5fafe3c767f8491653065935cb379959717078e3aa6f7e8f9f8b7b2c6"
+  },
+  "gcode_byte_identical": true,
+  "changed_container_entries": [
+    "3D/3dmodel.model",
+    "Metadata/model_settings.config"
+  ],
+  "omitted_editable_geometry_entries": [
+    "3D/Objects/object_1.model",
+    "3D/_rels/3dmodel.model.rels",
+    "Metadata/cut_information.xml"
+  ]
+}

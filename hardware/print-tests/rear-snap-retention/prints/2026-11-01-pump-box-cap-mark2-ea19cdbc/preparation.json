@@ -1,0 +1,222 @@
+{
+  "piece": "pump-box-cap",
+  "printer": "Mark2",
+  "connection_key": "Mark2",
+  "nozzle": {
+    "side": "left",
+    "diameter_mm": 0.4,
+    "flow": "Standard",
+    "hardened": true,
+    "reason": "Every abrasive stock runs on the left hotend (hardware/ledger/tools.md, Which hotends fit an H2C). Mark2's 2026-10-24 jobs ran black PET-GF on its fixed left hardened 0.4 mm Standard-flow hotend (faucet/industrial/prints/2026-10-24-buttons-sculpted-bands020-mark2/README.md, task 1372253517).",
+    "sliced_diameter_mm": 0.4,
+    "sliced_volume_type": "Standard"
+  },
+  "material": "Polymaker Fiberon PET-GF15, black",
+  "bed_type": "Textured PEI Plate",
+  "requested_z_trim_mm": 0.04,
+  "emitted_textured_trim_mm": 0.02,
+  "project": "hardware/print-tests/rear-snap-retention/prints/2026-11-01-pump-box-cap-mark2-ea19cdbc/2026-11-01-pump-box-cap-mark2-ea19cdbc.3mf",
+  "project_sha256": "90713c8598dc4fd5340ee6c27edc0ddc96d4c8608e043dc47442b501c282a45c",
+  "profile": "hardware/printed-parts/petgf.3mf",
+  "profile_sha256": "45c16e8c8517e0a205107d7b9f7412d013f51a8de7ecf86125cc940079d37ed0",
+  "settings_sha256": "8812d2d1af151f821740c7b87eafe8683f0cc5fc1f750c32e324c2fa901a8949",
+  "settings_changes": {
+    "extruder_ams_count": {
+      "from": [
+        "1#0|4#1",
+        "1#0|4#0"
+      ],
+      "to": [
+        "1#0|4#0",
+        "1#0|4#0"
+      ],
+      "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface."
+    },
+    "support_filament": {
+      "from": "0",
+      "to": "1",
+      "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface."
+    },
+    "support_interface_filament": {
+      "from": "0",
+      "to": "1",
+      "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface."
+    },
+    "flush_into_support": {
+      "from": "1",
+      "to": "0",
+      "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface."
+    },
+    "filament_colour": {
+      "from": [
+        "#000000"
+      ],
+      "to": [
+        "#161616"
+      ],
+      "reason": "Mark2's loaded black PET-GF colour reading."
+    },
+    "wall_loops": {
+      "from": "2",
+      "to": "3",
+      "reason": "Three Classic perimeters fill the specific 1.3 mm spring leaves; the filled box body retains solid stock."
+    },
+    "wall_generator": {
+      "from": "classic",
+      "to": "classic",
+      "reason": "Retain the cold-core fixed-width perimeter recipe."
+    },
+    "sparse_infill_density": {
+      "from": "15%",
+      "to": "100%",
+      "reason": "The complete box half-pipe, hooks and leaf roots retain solid stock."
+    },
+    "sparse_infill_pattern": {
+      "from": "gyroid",
+      "to": "zig-zag",
+      "reason": "Solid deposition through the complete small retaining cap."
+    }
+  },
+  "profile_changes": {
+    "machine_start_gcode": {
+      "from_sha256": "3cc9e41520dbf5622d6f9a96bce734db9d11b0b48b49f2abec047a6e01dc6a92",
+      "to_sha256": "b09bc598f2ed7c29dceb227188593905dfc663f0391b98ff708ef00e7ce01bee",
+      "requested_z_trim_mm": 0.04
+    },
+    "printer_settings_id": {
+      "from": "Bambu Lab H2C 0.4 nozzle 04 first layer by agent",
+      "to": "Bambu Lab H2C 0.4 Standard +0.04 Z trim"
+    },
+    "print_compatible_printers": {
+      "from": [
+        "Bambu Lab H2C 0.4 nozzle"
+      ],
+      "to": [
+        "Bambu Lab H2C 0.4 nozzle",
+        "Bambu Lab H2C 0.4 Standard +0.04 Z trim"
+      ]
+    }
+  },
+  "usable_plate_mm": [
+    [
+      0.0,
+      0.0
+    ],
+    [
+      325.0,
+      320.0
+    ]
+  ],
+  "plate_border_mm": 80.0,
+  "brim_allowance_mm": 0.0,
+  "plate_offset_mm": null,
+  "objects": [
+    {
+      "name": "pump-box-cap",
+      "identify_id": 1901,
+      "object_id": 2,
+      "stl": "hardware/print-tests/rear-snap-retention/parts/pump-box-cap.stl",
+      "stl_sha256": "5d3111370e7129f64c9d0ad77fb11ee768d2687067fca1c1859dba3fd4059ff5",
+      "step_sha256": null,
+      "facets": 612,
+      "closed": {
+        "edges": 918,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "inconsistent_edges": 0,
+        "bodies": 1,
+        "closed_oriented_single_body": true
+      },
+      "pose": null,
+      "pose_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "yaw_degrees": 0,
+      "source_center_mm": [
+        0.0,
+        0.0,
+        27.250000000003467
+      ],
+      "build_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "translation_mm": [
+        162.5,
+        160.0,
+        27.249999999996533
+      ],
+      "plate_bounds_mm": [
+        [
+          126.62081909179688,
+          137.15024757385254,
+          0.0
+        ],
+        [
+          198.37918090820312,
+          182.84975242614746,
+          54.499999999993065
+        ]
+      ],
+      "model_bed_margin_mm": 126.62081909179688,
+      "seam_enforcer": null,
+      "object_settings": {},
+      "features": [],
+      "ranges": [],
+      "verify_spans": [],
+      "ribbons": [],
+      "tie_windows": [],
+      "modifiers": [],
+      "fins": []
+    }
+  ],
+  "pause": null,
+  "show_faces": "hardware/print-tests/rear-snap-retention/prints/2026-11-01-pump-box-cap-mark2-ea19cdbc/show-faces.npz",
+  "spec": "hardware/print-tests/rear-snap-retention/pump-box-spec.json",
+  "spec_sha256": "77b47381e501fcbb414d9788269e6b49ca7a8ba05634438682bee5fca4e7007b",
+  "tool_sha256": {
+    "hardware/printed-parts/enclosure/trial-preparation/_derive.py": "2ffa3fc3e716cfc6d1663f69767228eb0f6d9f8da147ffc2c90de2097cdac6e4",
+    "hardware/printed-parts/enclosure/trial-preparation/_mesh.py": "7ab22db36e370608f52df3709c4af1994c8e804ee06e101dcbf79210db99eead",
+    "hardware/printed-parts/enclosure/trial-preparation/_native.py": "1c99ce10842a141a942a19d7def2329512d14b676c00618496187e0d93cd29da",
+    "hardware/printed-parts/enclosure/trial-preparation/_seam.py": "9ffa509df701826563e18388fd3bcc57c604f4b2b8e5e4288821ddcd00bcb176",
+    "hardware/printed-parts/enclosure/trial-preparation/labels.py": "b7eab37bf384b7d47e3ee7c0eed2afbf2451200ca5b0ee42c2eb47ec43fce783",
+    "hardware/printed-parts/enclosure/trial-preparation/prepare.py": "bc5495142592e777cb1b94eb2cfe06e64ba15ee6bae94f3e95e62a556741b513",
+    "hardware/printed-parts/enclosure/trial-preparation/review.py": "9bd303fe370842fd34eb559dc5f53f887f75c42e478c598737397dd49dd539f7",
+    "hardware/printed-parts/enclosure/trial-preparation/step_meshes.py": "b50f7b50f52f1e8516be3b1fc9ecdb10e87fb188f8b9bebc0fac56737320fc44"
+  },
+  "prepared_utc": "2026-11-01T23:16:35+00:00",
+  "sliced": true,
+  "submitted": false,
+  "archive": "hardware/print-tests/rear-snap-retention/prints/2026-11-01-pump-box-cap-mark2-ea19cdbc/2026-11-01-pump-box-cap-mark2-ea19cdbc.gcode.3mf",
+  "archive_sha256": "2394a9a7c62b9aca756474d28315066051a207f02f67c050e986f081695d316e",
+  "gcode_sha256": "c11698a5fafe3c767f8491653065935cb379959717078e3aa6f7e8f9f8b7b2c6",
+  "estimated_seconds": 5498.8837890625,
+  "slicer_warnings": []
+}
