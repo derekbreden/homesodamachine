@@ -124,11 +124,11 @@ click: x=-139.469 y=-32.773 z=6.970
 [sliver] Functional receiving catch roofs for the continuous pump clip. Each 55 mm long flat projects 0.85 mm, the 0.6 mm catch engagement plus 0.25 mm running allowance. The ledges retain their 3 mm structural height and solid 3 mm axial end lands. The 0.85 mm face width is the catch reach, rather than a freestanding wall thickness. Both pockets open directly to the flanks. The actual lid slice requests no supports in the pump saddle; the short catch roofs print without filling these pockets.
 alternatives: Removing or sloping these flats removes the positive retaining bearing or creates a release ramp. A 1.6 mm projection adds 0.75 mm of required spring deflection and deeper mating pockets. Filling beneath the roofs prevents the upper clip from seating or releasing.
 file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
-click: x=-91.768 y=16.286 z=36.779
-click: x=-91.768 y=-47.022 z=36.779
+click: x=-91.768 y=16.286 z=35.279
+click: x=-91.768 y=-47.022 z=35.279
 
 [ceiling] Functional receiving catch roofs for the continuous pump clip. Each 55 mm long flat projects 0.85 mm, the 0.6 mm catch engagement plus 0.25 mm running allowance. The ledges retain their 3 mm structural height and solid 3 mm axial end lands. The 0.85 mm face width is the catch reach, rather than a freestanding wall thickness. Both pockets open directly to the flanks. The actual lid slice requests no supports in the pump saddle; the short catch roofs print without filling these pockets.
 alternatives: Removing or sloping these flats removes the positive retaining bearing or creates a release ramp. A 1.6 mm projection adds 0.75 mm of required spring deflection and deeper mating pockets. Filling beneath the roofs prevents the upper clip from seating or releasing.
 file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
-click: x=-91.768 y=16.286 z=36.779
-click: x=-91.768 y=-47.022 z=36.779
+click: x=-91.768 y=16.286 z=35.279
+click: x=-91.768 y=-47.022 z=35.279

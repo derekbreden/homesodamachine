@@ -1,0 +1,19 @@
+{
+  "source_archive": "/Users/derekbredensteiner/Developer/hsm-pump-underside/hardware/print-tests/pump-mount-fit/prints/2026-11-01-pump-fit-base-mark1-fac38622/2026-11-01-pump-fit-base-mark1-fac38622.gcode.3mf",
+  "source_archive_sha256": "0277b6d021bff8a24e65aecfc62dcce6a73905e5d9c22483bb623312f0c6dea2",
+  "print_only_archive": "/Users/derekbredensteiner/Developer/hsm-pump-underside/hardware/print-tests/pump-mount-fit/prints/2026-11-01-pump-fit-base-mark1-fac38622/2026-11-01-pump-fit-base-mark1-fac38622-print-only.gcode.3mf",
+  "print_only_archive_sha256": "921f9aa0ca0e39782116f194aac30dbfea8cb2df4e6f1fb3cc126c3b1c3b2ff4",
+  "gcode_sha256": {
+    "Metadata/plate_1.gcode": "37c762d3f0c438e8cc3a412775a0bbb3bc25a5c152d4f2c0240c8fd7ce5de50b"
+  },
+  "gcode_byte_identical": true,
+  "changed_container_entries": [
+    "3D/3dmodel.model",
+    "Metadata/model_settings.config"
+  ],
+  "omitted_editable_geometry_entries": [
+    "3D/Objects/object_1.model",
+    "3D/_rels/3dmodel.model.rels",
+    "Metadata/cut_information.xml"
+  ]
+}

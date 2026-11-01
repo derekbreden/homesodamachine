@@ -274,7 +274,8 @@ def pump_cradle():
 
     The wire-cover room opens down to the plain lid face. Each rail drops
     onto two broad fitted planes, without engaging its reentrant groove.
-    The two low stops act on one rail's ends and leave both lead exits open.
+    Broad outside stock joins both rail-end stops to the saddle. Its straight
+    open corridor clears the fixed rail and leaves both lead exits open.
     """
     import cadquery as cq
     import rear_snaps
@@ -307,16 +308,23 @@ def pump_cradle():
         room = cq.Solid.makeLoft(profiles, ruled=True).moved(
             above_core.frame_location(d['frame']))
         body = body.cut(room)
-    # The flank pockets open outside for hook flexure and support cleanup.
+    selected = d['selected']
+    _contact_outer, inner = selected['rail_stop_contact_native_y_mm']
+    top = d['frame']['translation_mm'][2]+selected['rail_stop_native_z_mm']
+    fore, rear = selected['rail_stop_native_x_mm']
+    backing = cq.Solid.makeBox(wide+inner, rear[1]-fore[0], cz-face+.1,
+        cq.Vector(cx-inner, fy+fore[0], face-.1))
+    head_room = cq.Solid.makeBox(wide+inner+.2, first-fore[0]+.1, cz-top+.2,
+        cq.Vector(cx-inner-.1, fy+fore[0]-.1, top))
+    rail_outer = next(rail['outer_y_mm'] for rail in d['rail_rooms']
+                      if rail['side'] < 0)
+    corridor = cq.Solid.makeBox(inner-rail_outer+.1, rear[0]-fore[1], cz-face+.3,
+        cq.Vector(cx-inner-.1, fy+fore[1], face-.2))
+    body = body.fuse(backing.cut(head_room).cut(corridor))
+    # The shared spring pockets pass through all backing stock as well.
     for cap in d['caps']:
         for pocket in rear_snaps.pockets(cap['snap_station']):
             body = body.cut(_pump_cap_to_world(pocket, cap))
-    selected = d['selected']
-    ya, yb = selected['rail_stop_native_y_mm']
-    top = d['frame']['translation_mm'][2]+selected['rail_stop_native_z_mm']
-    for a, b in selected['rail_stop_native_x_mm']:
-        body = body.fuse(cq.Solid.makeBox(yb-ya, b-a, top-face+.1,
-            cq.Vector(cx-yb, fy+a, face-.1)))
     return body.clean()
 
 
