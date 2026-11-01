@@ -38,20 +38,21 @@ and lead room; it is not a claim about the MDSR-7's glass dimensions.
 The foam shell's channel is a three-sided box projecting outward from the
 reservoir's far wall, centered on the same +Y rod/reed plane. It is open at the
 top and has a bottom shelf. The column drops into this dry channel after the
-foam pour has cured; it is mechanically captured by the shelf, sides and cap.
+foam pour has cured; it is mechanically captured by the shelf, sides and equipment lid.
 It is not embedded in foam. Reservoir A's ribbon rises vertically through a
-straight **[7.5 mm](CONDUIT_BORE_D)** passage through the cup and lid,
+straight **[7.5 mm](CONDUIT_BORE_D)** passage through the equipment lid,
 directly above its reed channel at appliance X−32.5/Y458.3. Its upper mouth
 is on the Z253.4 lid face; the ribbon's bends and jogging are dressed above
 that face. Reservoir B's five conductors
-leave directly through an 8 mm wide, 6 mm deep notch in the shell's upper
-fore rim: the top of its own reed channel, opened through the wall. In
-appliance coordinates the notch spans X−36.5…−28.5, opens at Y182.6 and lies
-between Z227.4 and the Z233.4 rim. Lay them into this open notch before
-seating the cap; the cap's floor closes over them. The short dry guide
-remains separated from the foam cavity, and an exterior foil cable collar
-closes the opening around the conductors. Their external route rises beside the PCB: four signals reach J7 and
-the continuous common reaches the existing reed-common WAGO.
+leave through an 8 mm wide, 6 mm high fore side window into the dry channel.
+In appliance coordinates the window spans X−36.5…−28.5 at Y182.6 and
+Z227.4…233.4, below the raised Z245.85 shell rim. Feed the free upper ends
+through this window before making their lid-side terminations. The channel
+continues upward to its open mouth beneath the equipment lid. Its backing
+separates it from the foam cavity; an exterior foil cable collar closes the
+window around the conductors. Their external route rises beside the PCB:
+four signals reach J7 and the continuous common reaches the existing
+reed-common WAGO.
 
 The fluid draw is a dip tube down through the reservoir's own cap
 ([floor and dip tube](floor-and-dip-tube.md)).
@@ -89,12 +90,17 @@ Each build uses three printed ASA Aero floats and three RC62 rings, including
 the carbonator, and ten MDSR-7-10-15 reeds. Rods, silicone ribbon and those
 purchased parts are in [BOM §12](/hardware/ledger/bom.md).
 
-Removing the cap releases the rod's upper register. Lift the rod and float out
-of the lower boss, or leave the rod standing and lift the float off it. The
-reed column can be withdrawn through its open channel after the cap is lifted.
-Release B's ribbon from its open rim notch as the column is lifted; the
-column does not pass through the cable exit. Reservoir leak acceptance applies to the
-reservoir prints that were tested; it does not establish foam-float immersion,
+On the bench, removing the reservoir's own cap releases the rod's upper
+register. Lift the rod and float out of the lower boss, or leave the rod
+standing and lift the float off it.
+
+To withdraw a reed column, remove the equipment lid and release its five upper
+wire ends from their lid-side terminations. For B, feed the free ends back
+through the fore side window, then lift the column through the raised channel
+mouth. The column does not pass through the cable window. For A, feed the
+free ends back through the lid bore as needed before lifting its column.
+
+Reservoir leak acceptance applies to the reservoir prints that were tested; it does not establish foam-float immersion,
 pressure life or flavor compatibility.
 
 ## Sources

@@ -142,8 +142,10 @@ before printing the bridge/setting gauge or fixing the reed heights.
    vessel head at enclosure Z225/Y352 before the body foam pour. Join the
    shared west-side seven-core loom at X−48/Y347; its other cores are the
    three temperature-bus leads and green 16 AWG carbonator earth lead. The
-   short Ø7.5 mm guide rises straight through the cup and lid to Z253.4.
-   Dress the three reed ends to J7 and the existing reed-common WAGO.
+   loom follows an R5.5 transition to the Ø7.5 mm equipment-lid opening at
+   X−78/Y320/Z253.4. Lay it before the pour; foam locates it below the lid.
+   Thread the free ends through the lid before fitting outside terminations,
+   then dress the three reed ends to J7 and the existing reed-common WAGO.
 
 ## Sources
 [value](NAME) texts are updated by:
