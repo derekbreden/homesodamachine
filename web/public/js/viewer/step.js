@@ -59,8 +59,14 @@ export function decodeMeshPayload(bytes) {
   const blob = bytes.buffer.slice(bytes.byteOffset + 4 + headLen, bytes.byteOffset + bytes.byteLength);
   const meshes = head.meshes.map((m) => {
     const fac = new Uint32Array(blob, m.fac[0], m.fac[1]);
+    const sources = Array.isArray(m.face_sources) && m.face_sources.length === fac.length / 2
+      ? m.face_sources : null;
     const brep_faces = [];
-    for (let i = 0; i + 1 < fac.length; i += 2) brep_faces.push({ first: fac[i], last: fac[i + 1] });
+    for (let i = 0; i + 1 < fac.length; i += 2) {
+      const face = { first: fac[i], last: fac[i + 1] };
+      if (Array.isArray(sources?.[i / 2])) face.sources = sources[i / 2];
+      brep_faces.push(face);
+    }
     return {
       name: m.name,
       color: m.color || undefined,
