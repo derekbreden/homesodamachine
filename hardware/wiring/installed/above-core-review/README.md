@@ -8,16 +8,20 @@ The [installed-wiring binding](installed-wiring-binding.json) compares the
 materialized standalone wiring STEP and manifest with the current electrical
 graph and native source bodies. It records conductor and housing counts from
 that graph, source-curve agreement, geometric signatures and STEP reader
-validity separately. The current record binds all 120 bodies and 101 conductor curves; every
-source and readback body is valid. The [enclosure routing review](routing-enclosure-review.json) resolves the three remaining
-mesh witnesses with exact native readings: two contain no material overlap, and the
-third is wholly inside its named electrical attachment. There are no unresolved
-larger-body contacts.
+validity separately. The current graph contains 119 wiring bodies and 100
+conductor curves. The [full routing screen](../routing-review.json) and
+[native contact follow-up](../contact-review.json) identify their exact exported
+artifacts and distinguish native-zero witnesses from local endpoint contact.
+The [mounted junction reading](junction-review.json) covers the nine rooted
+WAGOs; the [final-junction reading](../final-junction-review.json) covers the
+three free joins beneath the funnel opening.
 
 Run the manual reader after the appliance and its wiring are materialized:
 
 ```sh
-tools/cad-venv/bin/python hardware/wiring/installed/above-core-review/installed_wiring_binding.py --update-routing-review
+python3 tools/run.py --cad -- tools/cad-venv/bin/python hardware/wiring/installed/review.py
+python3 tools/run.py --cad -- tools/cad-venv/bin/python hardware/wiring/installed/review.py --native
+python3 tools/run.py --cad -- tools/cad-venv/bin/python hardware/wiring/installed/above-core-review/installed_wiring_binding.py
 ```
 
 Use the workstation CAD queue. The optional `--source-cache PATH` reuses
@@ -26,11 +30,9 @@ termination metadata, jacket geometry and generator hashes. All actual wiring
 bodies are still read back. The default composes only the source wiring; it
 does not regenerate mechanical parts.
 
-`--update-routing-review` preserves the mesh snapshot and its artifact hashes
-in [routing-review.json](../routing-review.json), then attaches the current
-readback and scoped dispositions of the listed witnesses. Native-zero mesh
-witnesses, corrected contacts and unresolved readings remain distinguishable.
-It does not rerun the full mesh scene, equipment contacts or wire packing.
+The wire/source reader does not repeat the mesh contact screen. A contact
+follow-up must query the exact wire and obstacle bodies named by the current
+screen; a reader binding alone does not renew an older contact receipt.
 
 The local contact receipts retain their exact geometry and query scopes:
 
