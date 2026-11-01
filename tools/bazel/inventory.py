@@ -183,10 +183,6 @@ IMPLICIT_SOLIDS = {
         "hardware/printed-parts/diaphragm-pump-sleeve/diaphragm-pump-sleeve.stl",
         "hardware/printed-parts/diaphragm-pump-sleeve/diaphragm-pump-sleeve.step.mesh",
     ),
-    "hardware/printed-parts/faucet/umbilical-organizer/umbilical_organizer.py": (
-        "hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.stl",
-        "hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.step.mesh",
-    ),
     "hardware/printed-parts/zone-c/funnel-cover/funnel_cover.py": (
         "hardware/printed-parts/zone-c/funnel-cover/funnel-cover.stl",
         "hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.stl",

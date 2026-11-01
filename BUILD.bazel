@@ -9645,8 +9645,7 @@ genrule(
         "pysrc/hardware/printed-parts/faucet/faucet_paths.py",
         "hardware/printed-parts/faucet/umbilical-organizer/README.md",
         "pysrc/hardware/printed-parts/faucet/umbilical-organizer/umbilical_organizer.py",
-        "pysrc/hardware/scripts/_cadq_export.py",
-        "pysrc/hardware/scripts/_document_export.py",
+        "hardware/printed-parts/faucet/umbilical-organizer/umbilical_organizer.rs",
         "pysrc/hardware/scripts/_material_base.py",
         "pysrc/hardware/scripts/_materials.py",
         "pysrc/hardware/scripts/_mesh_payload.py",
@@ -9655,9 +9654,72 @@ genrule(
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/hardware/scripts/_run_slots.py",
+        "pysrc/hardware/scripts/_rust_part.py",
         "pysrc/hardware/scripts/flute_payload.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/Cargo.lock",
+        "tools/hsm/Cargo.toml",
+        "tools/hsm/faucet/Cargo.toml",
+        "tools/hsm/faucet/src/assembly.rs",
+        "tools/hsm/faucet/src/counter.rs",
+        "tools/hsm/faucet/src/display.rs",
+        "tools/hsm/faucet/src/lib.rs",
+        "tools/hsm/faucet/src/metrics.rs",
+        "tools/hsm/faucet/src/shell.rs",
+        "tools/hsm/kernel/Cargo.toml",
+        "tools/hsm/kernel/src/boolean.rs",
+        "tools/hsm/kernel/src/build.rs",
+        "tools/hsm/kernel/src/dxf.rs",
+        "tools/hsm/kernel/src/edge.rs",
+        "tools/hsm/kernel/src/face.rs",
+        "tools/hsm/kernel/src/import.rs",
+        "tools/hsm/kernel/src/lib.rs",
+        "tools/hsm/kernel/src/mapped.rs",
+        "tools/hsm/kernel/src/mass.rs",
+        "tools/hsm/kernel/src/math.rs",
+        "tools/hsm/kernel/src/part.rs",
+        "tools/hsm/kernel/src/plane.rs",
+        "tools/hsm/kernel/src/profile.rs",
+        "tools/hsm/kernel/src/reads.rs",
+        "tools/hsm/kernel/src/round.rs",
+        "tools/hsm/kernel/src/round/rolled.rs",
+        "tools/hsm/kernel/src/rule.rs",
+        "tools/hsm/kernel/src/screw.rs",
+        "tools/hsm/kernel/src/sketch_hull.rs",
+        "tools/hsm/kernel/src/solid.rs",
+        "tools/hsm/kernel/src/spline.rs",
+        "tools/hsm/kernel/src/step.rs",
+        "tools/hsm/kernel/src/sweep.rs",
+        "tools/hsm/kernel/src/text.rs",
+        "tools/hsm/kernel/src/thru.rs",
+        "tools/hsm/kernel/src/topo.rs",
+        "tools/hsm/kernel/src/triangulate.rs",
+        "tools/hsm/kernel/src/write.rs",
         "tools/hsm/run-slots.defaults.json",
+        "tools/hsm/run-slots/Cargo.toml",
+        "tools/hsm/run-slots/src/ipc.rs",
+        "tools/hsm/run-slots/src/lib.rs",
+        "tools/hsm/vendor/manifold-csg-sys/.cargo_vcs_info.json",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.lock",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.toml",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.toml.orig",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-APACHE",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-MIT",
+        "tools/hsm/vendor/manifold-csg-sys/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/build.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/build.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/fetch.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/patch.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/wasm.rs",
+        "tools/hsm/vendor/manifold-csg-sys/cache-version",
+        "tools/hsm/vendor/manifold-csg-sys/src/lib.rs",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/CMakeLists.txt",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/diagnose.sh",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__assertion_handler",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__config_site",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/memory",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/mutex",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/libcxx-extras.cpp",
         "tools/run-slots.mjs",
         "pysrc/tools/run.py",
     ] + glob(
@@ -9667,19 +9729,25 @@ genrule(
         allow_empty = True,
     ),
     outs = [
+        "out/umbilical-organizer/hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.numbers.json",
         "out/umbilical-organizer/hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.step",
         "out/umbilical-organizer/hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.step.mesh",
+        "out/umbilical-organizer/hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.step.npz",
         "out/umbilical-organizer/hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.stl",
         "out/umbilical-organizer/hardware/printed-parts/faucet/umbilical-organizer/README.figures.json",
         "out/umbilical-organizer/hardware/printed-parts/faucet/umbilical-organizer/README.md",
     ],
+    tags = ["no-sandbox"],
     cmd = """
 set -e
-O0=$$PWD/$(location out/umbilical-organizer/hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.step)
-O1=$$PWD/$(location out/umbilical-organizer/hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.step.mesh)
-O2=$$PWD/$(location out/umbilical-organizer/hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.stl)
-O3=$$PWD/$(location out/umbilical-organizer/hardware/printed-parts/faucet/umbilical-organizer/README.figures.json)
-O4=$$PWD/$(location out/umbilical-organizer/hardware/printed-parts/faucet/umbilical-organizer/README.md)
+O0=$$PWD/$(location out/umbilical-organizer/hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.numbers.json)
+O1=$$PWD/$(location out/umbilical-organizer/hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.step)
+O2=$$PWD/$(location out/umbilical-organizer/hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.step.mesh)
+O3=$$PWD/$(location out/umbilical-organizer/hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.step.npz)
+O4=$$PWD/$(location out/umbilical-organizer/hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.stl)
+O5=$$PWD/$(location out/umbilical-organizer/hardware/printed-parts/faucet/umbilical-organizer/README.figures.json)
+O6=$$PWD/$(location out/umbilical-organizer/hardware/printed-parts/faucet/umbilical-organizer/README.md)
+rm -rf work-umbilical-organizer
 for f in $(SRCS); do
   case $$f in
     */node_modules/*) continue;;
@@ -9687,20 +9755,23 @@ for f in $(SRCS); do
     */pysrc/*) t=$${f##*/pysrc/};;
     *) t=$$f;;
   esac
-  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
+  mkdir -p work-umbilical-organizer/$$(dirname $$t); cp -L $$f work-umbilical-organizer/$$t
 done
 for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
+  if [ -d $$d ]; then mkdir -p work-umbilical-organizer/$$(dirname $$d); ln -sfn $$PWD/$$d work-umbilical-organizer/$$d; fi
 done
-cd work
+cd work-umbilical-organizer
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
 HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/faucet/umbilical-organizer/umbilical_organizer.py > /dev/null
-cp hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.step $$O0
-cp hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.step.mesh $$O1
-cp hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.stl $$O2
-cp hardware/printed-parts/faucet/umbilical-organizer/README.figures.json $$O3
-cp hardware/printed-parts/faucet/umbilical-organizer/README.md $$O4
+cp hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.numbers.json $$O0
+cp hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.step $$O1
+cp hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.step.mesh $$O2
+cp hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.step.npz $$O3
+cp hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.stl $$O4
+cp hardware/printed-parts/faucet/umbilical-organizer/README.figures.json $$O5
+cp hardware/printed-parts/faucet/umbilical-organizer/README.md $$O6
+cd .. && rm -rf work-umbilical-organizer
 """,
 )
 
@@ -12721,6 +12792,7 @@ genrule(
         ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-water.step",
         "pysrc/hardware/printed-parts/faucet/tube-collar/tube_collar.py",
         ":out/umbilical-organizer/hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.step",
+        ":out/umbilical-organizer/hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.step.npz",
         "pysrc/hardware/printed-parts/faucet/umbilical-organizer/umbilical_organizer.py",
         ":out/fuse-clamp/hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.step",
         ":out/fuse-clamp/hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.step.npz",
