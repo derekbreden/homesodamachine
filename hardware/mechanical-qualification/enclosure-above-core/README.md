@@ -73,6 +73,18 @@ artifact hashes. Wire obstacles are larger bodies; other wires and tubes are
 excluded. The [enclosure routing review](../../wiring/installed/above-core-review/routing-enclosure-review.json)
 records native readings of its named mesh witnesses.
 
+The final harness has 100 conductors and 119 native wiring bodies. All source
+curves and installed bodies agree with their standalone export. The nine
+mounted WAGOs and three free joins clear the installed bodies; actual curved
+wire entries resolve the conservative straight-approach probes. The neutral
+WAGO and its integral holder stand at X−61, clear of the pump saddle. The
+populated quadrant motion readings include all mounted WAGOs.
+
+The whole-scene scorecard's global pack-floor and flank-envelope rows include
+fitting engagement, insert/screw engagement and fitted clip gaps. The native
+records identify their finite receiving regions and query unconnected
+material separately.
+
 Each record names its artifact hashes. The V-A feed has full straight
 receiving lengths, tangent circular bends of at least R14 and a filled-root
 C2 snap at X16.608/Y207.300/Z268.970. Y-A's socket points east on XYZ axes.
@@ -83,7 +95,9 @@ The pump's complete rubber feet and raised legs slide out of the fixed
 rails. The motor sits in a 61 mm lid-integrated half pipe under one continuous
 54.5 mm upper clip. The clip has a 3.1 mm nominal arch, 3 mm spring wings and two continuous hooks;
 its outside axial end lands are 3 mm solid stock. Open rail and cover rooms
-admit the pump vertically; low rail-end stops bound axial movement. The clip
+admit the pump vertically. One broad outside wall joins both rail-end stops;
+the straight rail corridor stays open. The fore stock clears the head lug and
+the rear stock meets the saddle top. The clip
 clears the PSU by 1.111 mm. The PSU mounting face is Z347; all four 5 mm pilots
 end at Z352, below the continuous 3 mm show skin. The 6.7±1 mm ears leave
 2.3–4.3 mm screw engagement and at least 0.7 mm pilot tip air.

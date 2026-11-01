@@ -38,8 +38,9 @@ Seal the dry lid/window boundary with 3M 425 after potting, leaving all tube lum
 
 The bare G Ganen pump seats in the lid's integral half pipe and uses a separate
 upper clip. Its complete rubber feet and legs are removed. The motor seat
-runs from native X16.75–77.75. The saddle has broad fitted rail bearings and 3 mm
-axial rail stops. Its rail rooms open
+runs from native X16.75–77.75. Broad stock flush with the saddle's outside wall
+joins both fixed-rail end stops. The straight rail corridor stays open; the
+fore stock clears the head lug and the rear stock meets the saddle top. Its rail rooms open
 vertically onto broad fitted floors; the cover room ends at the plain lid face.
 One continuous 54.5 mm clip spans native X20–74.5, with a 3.1 mm nominal arch
 and 3 mm wings. Its continuous side pockets span X19.75–74.75; the seat leaves

@@ -1,0 +1,249 @@
+{
+  "views": [
+    {
+      "name": "neutral-holder",
+      "caption": "The neutral WAGO and its rooted holder clear the motor saddle; its leads enter from the open rear aisle.",
+      "before": "neutral-holder-before.webp",
+      "after": "neutral-holder-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 615.4,
+          "y": 452.7,
+          "r": 46.3,
+          "label": "Neutral WAGO",
+          "at": [
+            -61,
+            457.5,
+            275
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          -63,
+          324.67283953060905,
+          321.8645061642868
+        ],
+        "target": [
+          -63,
+          450,
+          278
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 0.18011347158154814,
+        "far": 501.4905544825169,
+        "aspect": 1.3333333333333333
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [
+        "enclosure-back-top",
+        "cold-core/foam-cap-lid-top",
+        "cold-core/pump-snap-cap",
+        "wago-n",
+        "wire-AC1-N",
+        "wire-AC2-N",
+        "wire-AC5-pigtail"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "26a7a178bea3e059a9d9741cd438a7f1bf90060a81b337b87c109f7aeee560d3",
+          "commit": "72bb6d9d6781e6a408afa1771092c493987b863c",
+          "taken": "2026-11-01T18:23:54.106Z",
+          "published": false
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "99c6fbd1328a9dc22b0ddf7ca6c0480ae7e08277b4d060c464f690d845bd02fb",
+          "commit": "e793105a6059258a553b429e6d020ba73c965ccc",
+          "published": true
+        }
+      },
+      "changed": [
+        "wire-J3-V5",
+        "wire-J3-GND",
+        "wire-J3-IO33",
+        "wire-DC3-positive",
+        "wire-J3-IO35",
+        "wire-AC2-N",
+        "wire-DC3-negative",
+        "wire-J2-OUT3",
+        "wire-AC5-pigtail",
+        "wire-AC1-N",
+        "wire-J9-V12",
+        "wire-J9-GND",
+        "wire-J9-A",
+        "wire-J9-B",
+        "wire-AC4-H",
+        "wire-J1-OUT7",
+        "wire-J1-OUT4",
+        "wire-J1-OUT3",
+        "wire-J1-COM",
+        "wire-J1-OUT6",
+        "wire-J1-OUT8",
+        "wire-J1-OUT5",
+        "wago-n",
+        "wire-AC5-N",
+        "wire-J2-FAN",
+        "wire-J2-COM",
+        "wire-J2-OUT1",
+        "wire-J2-OUT2",
+        "cold-core/foam-cap-lid-top",
+        "enclosure-back-top",
+        "wire-DC1-GND"
+      ],
+      "withinMeshing": [
+        "tube-above-core-vb-yb-link",
+        "tube-above-core-gas-core-drop",
+        "funnel-frame",
+        "tube-fluid-18",
+        "wire-J6-RA1",
+        "tube-above-core-tee-regulator",
+        "cold-core/evap-coil",
+        "wire-J7-CHI",
+        "wire-J6-GND",
+        "wire-J6-RA3",
+        "wire-J6-RA4",
+        "wire-J6-RA2",
+        "funnel",
+        "wire-J7-CLO"
+      ]
+    },
+    {
+      "name": "fore-harness",
+      "caption": "Selected fore harness and fittings, with the removable frame hidden to expose the dressed crossings and accessible final joins.",
+      "before": "fore-harness-before.webp",
+      "after": "fore-harness-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 621.7,
+          "y": 421.1,
+          "r": 48.7,
+          "label": "Dressed crossing",
+          "at": [
+            -25,
+            260,
+            297.6
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          -119.24465391392864,
+          132.3647801229591,
+          420.63521987704087
+        ],
+        "target": [
+          -25,
+          267,
+          286
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 0.4702498504838721,
+        "far": 655.4196555512203,
+        "aspect": 1.3333333333333333
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [
+        "cold-core/pcba",
+        "cold-core/vb-inlet-turn*",
+        "drain-outlet-stem*",
+        "funnel-drain-union*",
+        "wire-J1-*",
+        "wire-J2-*",
+        "wire-J9-*",
+        "wiring-junction-*"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "26a7a178bea3e059a9d9741cd438a7f1bf90060a81b337b87c109f7aeee560d3",
+          "commit": "72bb6d9d6781e6a408afa1771092c493987b863c",
+          "taken": "2026-11-01T18:23:54.106Z",
+          "published": false
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "99c6fbd1328a9dc22b0ddf7ca6c0480ae7e08277b4d060c464f690d845bd02fb",
+          "commit": "e793105a6059258a553b429e6d020ba73c965ccc",
+          "published": true
+        }
+      },
+      "changed": [
+        "wire-J3-V5",
+        "wire-J3-GND",
+        "wire-J3-IO33",
+        "wire-DC3-positive",
+        "wire-J3-IO35",
+        "wire-AC2-N",
+        "wire-DC3-negative",
+        "wire-J2-OUT3",
+        "wire-AC5-pigtail",
+        "wire-AC1-N",
+        "wire-J9-V12",
+        "wire-J9-GND",
+        "wire-J9-A",
+        "wire-J9-B",
+        "wire-AC4-H",
+        "wire-J1-OUT7",
+        "wire-J1-OUT4",
+        "wire-J1-OUT3",
+        "wire-J1-COM",
+        "wire-J1-OUT6",
+        "wire-J1-OUT8",
+        "wire-J1-OUT5",
+        "wago-n",
+        "wire-AC5-N",
+        "wire-J2-FAN",
+        "wire-J2-COM",
+        "wire-J2-OUT1",
+        "wire-J2-OUT2",
+        "cold-core/foam-cap-lid-top",
+        "enclosure-back-top",
+        "wire-DC1-GND"
+      ],
+      "withinMeshing": [
+        "tube-above-core-vb-yb-link",
+        "tube-above-core-gas-core-drop",
+        "funnel-frame",
+        "tube-fluid-18",
+        "wire-J6-RA1",
+        "tube-above-core-tee-regulator",
+        "cold-core/evap-coil",
+        "wire-J7-CHI",
+        "wire-J6-GND",
+        "wire-J6-RA3",
+        "wire-J6-RA4",
+        "wire-J6-RA2",
+        "funnel",
+        "wire-J7-CLO"
+      ]
+    }
+  ]
+}

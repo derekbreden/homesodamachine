@@ -1,25 +1,13 @@
 {
-  "schema": 2,
-  "scope": "Current complete native appliance and its installed wiring after the enclosure stock cleanup. The binding reader compares each actual source, standalone and installed native body and all 101 source conductor curves.",
-  "installed_step_sha256": "c43899c17ab94f1144202b9bd43d80a8a12cef7f2e09b742f7c53531c17b3cab",
-  "installed_mesh_sha256": "b198dc9180b8db8f6218bf77c8198483b3832d71b8fd586ba3c65518880531cf",
-  "wiring_step_sha256": "e94f8aa422c155d17cc82ed1a447e9cebd5c701c96272df4830f632ab2a06fa3",
-  "manifest_sha256": "1d56e27d0a4512bd38dee9e934c4c27a557ea56826c0ea394476dfefe1c9e64b",
-  "connection_count": 101,
-  "native_wiring_bodies": 120,
-  "all_source_curves_match": true,
-  "all_native_shapes_bound": true,
-  "all_readback_bodies_valid": true,
-  "source_binding_record": {
-    "path": "hardware/wiring/installed/above-core-review/installed-wiring-binding.json",
-    "sha256": "f4ca60e92caf4aa32e3bd51bae7f24303537f8a4822c3558e9666b819918cba4"
-  },
-  "routing_review": {
-    "path": "hardware/wiring/installed/routing-review.json",
-    "sha256": "e153524ace50ff948820175482bf966f6fe717c03c468c5f2a7b54a7ec11efbf"
-  },
-  "enclosure_fit_review": {
-    "path": "hardware/mechanical-qualification/enclosure-above-core/enclosure-fit-review.json",
-    "sha256": "5103032fd5c7ebc7f763609c2dbb1fbfc4d1cf9ef0f65ae0f39e41b7a7bb39e8"
-  }
+  "schema": 1,
+  "scope": "Wiring-only integration; existing physical parts retained",
+  "physical_step_sha256": "2d38ba6858e33f235e1fc955c474b170414f85081a68a6204a756d99ff3a1e76",
+  "installed_step_sha256": "43de7a97158cfb3d2b9de706d7370fcb1c8b6c32dcb2d9cc09404d443c725655",
+  "physical_records_retained": 2557169,
+  "physical_meshes_retained": 454,
+  "wiring_meshes": 119,
+  "all_retained_viewer_arrays_identical": true,
+  "wiring_step_sha256": "2a8c293144335980423a212a1c462efefc2b7e5f218a2223664dce6d87ed8c27",
+  "connection_count": 100,
+  "installed_mesh_sha256": "99c6fbd1328a9dc22b0ddf7ca6c0480ae7e08277b4d060c464f690d845bd02fb"
 }
