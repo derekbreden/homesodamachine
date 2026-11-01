@@ -60,9 +60,9 @@
   "reed_centers": "provisional geometry; installed directional liquid calibration pending",
   "scope": "Nominal upright CAD and horizontal bore play only; no foam expansion, tilted motion, installed switching, pressure, lifetime or wetted acceptance.",
   "files_sha256": {
-    "hardware/printed-parts/cold-core/magnetic-float/all-aero/float-aero.step": "e34edff28fb97a36c318c177605522a5fa02c81a7fbbc0e9dab8b843672b7d9a",
-    "hardware/printed-parts/cold-core/magnetic-float/all-aero/float-aero.stl": "a7ca570ba0339c69866fc63a57f12220c8c90f68b19825e759b29dff41547d17",
-    "hardware/printed-parts/cold-core/magnetic-float/all-aero/design.json": "f1b347b4758b285ea42665607e65eabdca377702041bb165d9ff830889b4945e",
+    "hardware/printed-parts/cold-core/magnetic-float/all-aero/float-aero.step": "1a6227a4c258807fe39b4f7e0e435ea2bbf5a27a8f58a23450f996116efacbde",
+    "hardware/printed-parts/cold-core/magnetic-float/all-aero/float-aero.stl": "2228d0933e0a2a7bdd9dd8d6fce4d003a48ac61db1c69f402e5fa5047ae1cef5",
+    "hardware/printed-parts/cold-core/magnetic-float/all-aero/design.json": "59afc8a47bb9fa01e70224c5769f296beef4726f149cd1657afaabe728ae6e29",
     "hardware/printed-parts/cold-core/_float_interface.py": "643ad69642462d385b79b9250f786efda5049ee335af9a2a61dbee66987f8a10",
     "hardware/printed-parts/cold-core/magnetic-float/all-aero/physical-observations.json": "98e0d6ff6279750202439dae0441767bab120295626a8fc0d4d3bd89f6e10e11",
     "hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step": "79ab7b80bb7ad5ca9d8cf0512bdc2e037caf732d494f18b863323448ace91f67",
@@ -74,6 +74,7 @@
     "hardware/printed-parts/cold-core/reservoir/reservoir-right.step.npz": "1c6277b8f70fc36629eddc0585e65837418f0b5e3589304c98f4e0c972171102",
     "hardware/printed-parts/cold-core/reservoir/reservoir-cap-right.step.npz": "19834ccd8875a2283d9dd296c52a13c3b112f953e637e7cb65bdd372e6116d38",
     "hardware/printed-parts/cold-core/reservoir/reservoir-left.step.npz": "f850d04bd1f8254fdbe5543e4bab74859dd9377877e7c3842a9bd08a0d30bf85",
-    "hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.step.npz": "710e5f6523870102fe6f85d6070b223ba6f7a1388b29651e8f204d6674bbe8ad"
+    "hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.step.npz": "710e5f6523870102fe6f85d6070b223ba6f7a1388b29651e8f204d6674bbe8ad",
+    "hardware/printed-parts/cold-core/magnetic-float/all-aero/float-aero.step.npz": "98c13b4d8e7953b0bbc2dcd8dd3c50ad6f665600577fdb79139cbdbaa1451ab0"
   }
 }
