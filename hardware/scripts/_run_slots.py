@@ -325,12 +325,17 @@ def acquire(key=None, timing=False):
         try:
             fcntl.flock(gate, fcntl.LOCK_EX)
             busy = set()
+            newest_busy_start = 0
             for slot in range(capacity()):
                 fd = _open(_path('run', slot))
                 try:
                     fcntl.flock(fd, fcntl.LOCK_EX | fcntl.LOCK_NB)
                 except BlockingIOError:
-                    busy.add(_read_fd(fd).get('token', f'unknown:{slot}'))
+                    record = _read_fd(fd)
+                    busy.add(record.get('token', f'unknown:{slot}'))
+                    started = record.get('started_unix_ms')
+                    if isinstance(started, int):
+                        newest_busy_start = max(newest_busy_start, started)
                     os.close(fd)
                 else:
                     free.append({'fd': fd, 'slot': slot, 'token': token})
@@ -346,19 +351,16 @@ def acquire(key=None, timing=False):
                 reason = f'capacity {limit} ({len(busy)} active logical runs)'
             else:
                 state_path = directory() / 'admission.json'
-                try:
-                    last = json.loads(state_path.read_text()).get('last_start_unix_ms', 0)
-                except (OSError, ValueError):
-                    last = 0
                 now = int(time.time() * 1000)
-                remaining = policy['stagger_seconds'] - (now - last) / 1000
+                remaining = policy['stagger_seconds'] - (now - newest_busy_start) / 1000
                 if busy and remaining > 0:
                     reason = 'staggering concurrent logical starts'
                 elif free:
                     held, free = (free, []) if timing else (free[:1], free[1:])
                     for entry in held:
                         _write_fd(entry['fd'], {'v': 1, 'kind': 'run', 'token': token,
-                                                'pid': os.getpid(), 'key': key, 'slot': entry['slot']})
+                                                'pid': os.getpid(), 'key': key, 'slot': entry['slot'],
+                                                'started_unix_ms': now})
                     state_path.write_text(json.dumps({'v': 1, 'last_start_unix_ms': now}) + '\n')
                     _run = Lease(held, 'run')
                     _export(_run)
