@@ -225,11 +225,9 @@ def solid_identity(step: Path):
     """The name and the linear colour the viewer reads off `step`.
 
     `export_assembly` writes the piece under its own `PRODUCT` and gives it the file's one
-    `COLOUR_RGB`, in sRGB. `cq.Color` is what converts that to the linear a STEP round trip
-    delivers — the same expression `_mesh_payload._mesh` shades every other part through, so a
-    payload written here and one written there agree on the colour by construction."""
-    import cadquery as cq
-    from OCP.Quantity import Quantity_TypeOfColor
+    `COLOUR_RGB`, in sRGB. `_occt_color` repeats Quantity_Color's conversion and
+    float32 rounding, so the linear channels agree with a native STEP round trip."""
+    from _occt_color import rgba
 
     text = step.read_text(errors="ignore")
     names = [n for n in re.findall(r"PRODUCT\('([^']*)'", text) if not n.startswith("Open CASCADE")]
@@ -239,7 +237,10 @@ def solid_identity(step: Path):
     if len(rgbs) != 1:
         raise ValueError(f"{step.name}: {len(rgbs)} colours, expected the piece's own")
     srgb = [float(c) for c in next(iter(rgbs))]
-    linear = list(cq.Color(*srgb).wrapped.GetRGB().Values(Quantity_TypeOfColor.Quantity_TOC_RGB))
+    converted = rgba(tuple(srgb), {})
+    if converted is None:
+        raise ValueError(f"{step.name}: RGB channels outside 0 to 1")
+    linear = list(converted[:3])
     return names[0], linear
 
 
