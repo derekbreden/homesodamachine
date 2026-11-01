@@ -19,7 +19,7 @@ HW = HERE.parent
 sys.path.insert(0, str(HERE))
 sys.path.insert(0, str(HW / "scripts"))
 sys.path.insert(0, str(HW / "cut-parts/carbonation/endcaps-circular"))
-from _cadq_export import export_pdf
+from _document_export import export_pdf
 from endcap_circular_drawing import (
     line, text, arrow, leader, circular_leader, center, horizontal_dimension,
     path_from_points, hatch, cutting_plane_ends, VISIBLE, CENTER_DASH,

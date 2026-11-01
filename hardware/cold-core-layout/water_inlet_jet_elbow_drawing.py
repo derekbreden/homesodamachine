@@ -23,7 +23,7 @@ HW = HERE.parent
 for folder in (HERE, HW / "scripts", HW / "printed-parts/cold-core",
                HW / "cut-parts/carbonation/endcaps-circular"):
     sys.path.insert(0, str(folder))
-from _cadq_export import export_pdf
+from _document_export import export_pdf
 from endcap_circular_drawing import (
     line, text, arrow, leader, circular_leader, center, horizontal_dimension,
     path_from_points, hatch, cutting_plane_ends, VISIBLE, THIN, CENTER_DASH,
