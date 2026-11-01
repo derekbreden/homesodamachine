@@ -8,6 +8,7 @@
       "hardware/assembly/acceptance-and-burn-in.figures.json",
       "hardware/assembly/acceptance-and-burn-in.md",
       "hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py",
+      "hardware/cut-parts/carbonation/float-rod/float_rod_dimensions.py",
       "hardware/manifold-layout/above_core.py",
       "hardware/manifold-layout/manifold_layout.py",
       "hardware/printed-parts/cadlib/fits.py",
@@ -255,6 +256,7 @@
       "hardware/assembly/enclosure-mechanical.md",
       "hardware/cold-core-layout/_bom.py",
       "hardware/cold-core-layout/_carbonator.py",
+      "hardware/cold-core-layout/_carbonator_bond.py",
       "hardware/cold-core-layout/_coil.py",
       "hardware/cold-core-layout/_cold_core_style.py",
       "hardware/cold-core-layout/_cold_scorecard.py",
@@ -581,6 +583,7 @@
       "hardware/assembly/handwork.md",
       "hardware/cold-core-layout/_coil.py",
       "hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py",
+      "hardware/cut-parts/carbonation/float-rod/float_rod_dimensions.py",
       "hardware/manifold-layout/above_core.py",
       "hardware/printed-parts/cadlib/fits.py",
       "hardware/printed-parts/cadlib/reeding.py",
@@ -639,6 +642,7 @@
       "hardware/assembly/internal-plumbing.md",
       "hardware/cold-core-layout/_bom.py",
       "hardware/cold-core-layout/_carbonator.py",
+      "hardware/cold-core-layout/_carbonator_bond.py",
       "hardware/cold-core-layout/_coil.py",
       "hardware/cold-core-layout/_cold_core_style.py",
       "hardware/cold-core-layout/_cold_scorecard.py",
@@ -826,6 +830,7 @@
       "hardware/assembly/pressure-vessel.figures.json",
       "hardware/assembly/pressure-vessel.md",
       "hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py",
+      "hardware/cut-parts/carbonation/float-rod/float_rod_dimensions.py",
       "hardware/manifold-layout/above_core.py",
       "hardware/printed-parts/cadlib/fits.py",
       "hardware/printed-parts/cadlib/reeding.py",
@@ -923,6 +928,7 @@
       "hardware/assembly/weld-rotation-rig.figures.json",
       "hardware/assembly/weld-rotation-rig.md",
       "hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py",
+      "hardware/cut-parts/carbonation/float-rod/float_rod_dimensions.py",
       "hardware/manifold-layout/above_core.py",
       "hardware/printed-parts/cadlib/fits.py",
       "hardware/printed-parts/cadlib/reeding.py",
@@ -1128,6 +1134,7 @@
   "hardware/cut-parts/carbonation/carbonator-tube/carbonator_tube_step.py": {
     "reads": [
       "hardware/cold-core-layout/_carbonator.py",
+      "hardware/cold-core-layout/_carbonator_bond.py",
       "hardware/cold-core-layout/_fittings.py",
       "hardware/cut-parts/carbonation/carbonator-tube/carbonator-tube.step",
       "hardware/cut-parts/carbonation/carbonator-tube/carbonator_tube_step.py",
@@ -3034,6 +3041,7 @@
       "hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole-drawing.pdf",
       "hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step",
       "hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py",
+      "hardware/cut-parts/carbonation/float-rod/float_rod_dimensions.py",
       "hardware/manifold-layout/above-core.json",
       "hardware/manifold-layout/above_core.py",
       "hardware/manifold-layout/above_core_routes.py",
@@ -3437,6 +3445,7 @@
     "reads": [
       "hardware/cold-core-layout/_bom.py",
       "hardware/cold-core-layout/_carbonator.py",
+      "hardware/cold-core-layout/_carbonator_bond.py",
       "hardware/cold-core-layout/_coil.py",
       "hardware/cold-core-layout/_cold_core_style.py",
       "hardware/cold-core-layout/_cold_scorecard.py",
@@ -3921,6 +3930,7 @@
     "reads": [
       "hardware/cold-core-layout/_bom.py",
       "hardware/cold-core-layout/_carbonator.py",
+      "hardware/cold-core-layout/_carbonator_bond.py",
       "hardware/cold-core-layout/_coil.py",
       "hardware/cold-core-layout/_cold_core_style.py",
       "hardware/cold-core-layout/_cold_scorecard.py",
@@ -4164,6 +4174,7 @@
     "reads": [
       "hardware/cold-core-layout/_bom.py",
       "hardware/cold-core-layout/_carbonator.py",
+      "hardware/cold-core-layout/_carbonator_bond.py",
       "hardware/cold-core-layout/_coil.py",
       "hardware/cold-core-layout/_cold_core_style.py",
       "hardware/cold-core-layout/_cold_scorecard.py",
@@ -4394,6 +4405,7 @@
     "reads": [
       "hardware/cold-core-layout/_bom.py",
       "hardware/cold-core-layout/_carbonator.py",
+      "hardware/cold-core-layout/_carbonator_bond.py",
       "hardware/cold-core-layout/_coil.py",
       "hardware/cold-core-layout/_cold_core_style.py",
       "hardware/cold-core-layout/_cold_scorecard.py",
@@ -4923,6 +4935,7 @@
     "reads": [
       "hardware/cold-core-layout/_bom.py",
       "hardware/cold-core-layout/_carbonator.py",
+      "hardware/cold-core-layout/_carbonator_bond.py",
       "hardware/cold-core-layout/_coil.py",
       "hardware/cold-core-layout/_cold_core_style.py",
       "hardware/cold-core-layout/_cold_scorecard.py",
@@ -5257,6 +5270,7 @@
     "reads": [
       "hardware/cold-core-layout/_bom.py",
       "hardware/cold-core-layout/_carbonator.py",
+      "hardware/cold-core-layout/_carbonator_bond.py",
       "hardware/cold-core-layout/_coil.py",
       "hardware/cold-core-layout/_cold_core_style.py",
       "hardware/cold-core-layout/_cold_scorecard.py",
@@ -6117,6 +6131,7 @@
   },
   "hardware/printed-parts/fixtures/weld-rotator/weld_rotator.py": {
     "reads": [
+      "hardware/printed-parts/cadlib/fits.py",
       "hardware/printed-parts/fixtures/weld-rotator/README.figures.json",
       "hardware/printed-parts/fixtures/weld-rotator/README.md",
       "hardware/printed-parts/fixtures/weld-rotator/_rotator_interface.py",
@@ -6399,6 +6414,7 @@
   },
   "hardware/printed-parts/zone-c/funnel-cover/funnel_cover.py": {
     "reads": [
+      "hardware/manifold-layout/above_core.py",
       "hardware/printed-parts/cadlib/fits.py",
       "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
       "hardware/printed-parts/zone-c/funnel-cover/README.figures.json",
@@ -6411,6 +6427,7 @@
       "hardware/printed-parts/zone-c/funnel/elbow_cradle.py",
       "hardware/printed-parts/zone-c/funnel/funnel.py",
       "hardware/reference/jg-pp0308e-elbow/elbow.py",
+      "hardware/reference/neofit-stem-elbow/neofit_stem_elbow.py",
       "hardware/scripts/_cadq_export.py",
       "hardware/scripts/_material_base.py",
       "hardware/scripts/_materials.py",
@@ -6435,6 +6452,7 @@
   },
   "hardware/printed-parts/zone-c/funnel-mold/funnel_mold.py": {
     "reads": [
+      "hardware/manifold-layout/above_core.py",
       "hardware/printed-parts/cadlib/fits.py",
       "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
       "hardware/printed-parts/zone-c/funnel-mold/assembly.step",
@@ -6461,6 +6479,7 @@
       "hardware/printed-parts/zone-c/funnel/funnel.step",
       "hardware/reference/jg-pp0308e-elbow/elbow.py",
       "hardware/reference/jg-pp0308e-elbow/scan-measurements.json",
+      "hardware/reference/neofit-stem-elbow/neofit_stem_elbow.py",
       "hardware/scripts/_cadq_export.py",
       "hardware/scripts/_material_base.py",
       "hardware/scripts/_materials.py",
@@ -6494,7 +6513,8 @@
   },
   "hardware/printed-parts/zone-c/funnel/cradle-trial/cradle_trial.py": {
     "reads": [
-      "hardware/printed-parts/cadlib/cable_clip.py",
+      "hardware/manifold-layout/above-core.json",
+      "hardware/manifold-layout/above_core.py",
       "hardware/printed-parts/cadlib/fits.py",
       "hardware/printed-parts/cadlib/flute_skin.py",
       "hardware/printed-parts/cadlib/overhang_round.py",
@@ -6502,6 +6522,8 @@
       "hardware/printed-parts/cadlib/reeding.py",
       "hardware/printed-parts/cadlib/snap.py",
       "hardware/printed-parts/cadlib/world_workplane.py",
+      "hardware/printed-parts/enclosure/enclosure/_above_core_shell.py",
+      "hardware/printed-parts/enclosure/enclosure/_anchor_cap_interface.py",
       "hardware/printed-parts/enclosure/enclosure/_data_wing_interface.py",
       "hardware/printed-parts/enclosure/enclosure/_display_wing_interface.py",
       "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
@@ -6526,17 +6548,21 @@
       "hardware/printed-parts/zone-c/funnel/funnel_frame.py",
       "hardware/reference/beduan-solenoid/beduan_solenoid.py",
       "hardware/reference/iec-c14-inlet/iec_c14_inlet.py",
+      "hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py",
+      "hardware/reference/jg-pp0208e-tee/branch-operating-measurements.json",
       "hardware/reference/jg-pp0308e-elbow/elbow.py",
       "hardware/reference/jg-pp0308e-elbow/scan-measurements.json",
       "hardware/reference/kamoer-kphm400/kamoer_kphm400.py",
       "hardware/reference/mq6-gas-sensor/mq6_gas_sensor.py",
+      "hardware/reference/neofit-stem-elbow/neofit_stem_elbow.py",
       "hardware/reference/riteav-keystone/riteav_keystone.py",
+      "hardware/reference/tee-connector/tee_connector.py",
       "hardware/reference/wago-221/wago_221.py",
-      "hardware/reference/yyfkgcp-pogo-4p/yyfkgcp_pogo_4p.py",
       "hardware/scripts/_boxes.py",
       "hardware/scripts/_cadq_export.py",
       "hardware/scripts/_material_base.py",
       "hardware/scripts/_materials.py",
+      "hardware/scripts/_mesh_payload.py",
       "hardware/scripts/_realized.py",
       "hardware/scripts/_run_lock.py",
       "tools/docgen/__init__.py"
@@ -6555,6 +6581,8 @@
   },
   "hardware/printed-parts/zone-c/funnel/elbow_cradle.py": {
     "reads": [
+      "hardware/manifold-layout/above-core.json",
+      "hardware/manifold-layout/above_core.py",
       "hardware/printed-parts/cadlib/fits.py",
       "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
       "hardware/printed-parts/zone-c/funnel/README.figures.json",
@@ -6564,6 +6592,7 @@
       "hardware/printed-parts/zone-c/funnel/elbow_cradle.py",
       "hardware/reference/jg-pp0308e-elbow/elbow.py",
       "hardware/reference/jg-pp0308e-elbow/scan-measurements.json",
+      "hardware/reference/neofit-stem-elbow/neofit_stem_elbow.py",
       "hardware/scripts/_cadq_export.py",
       "hardware/scripts/_material_base.py",
       "hardware/scripts/_materials.py",
@@ -6586,6 +6615,7 @@
   },
   "hardware/printed-parts/zone-c/funnel/funnel.py": {
     "reads": [
+      "hardware/manifold-layout/above_core.py",
       "hardware/printed-parts/cadlib/fits.py",
       "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
       "hardware/printed-parts/zone-c/funnel/README.figures.json",
@@ -6596,6 +6626,7 @@
       "hardware/printed-parts/zone-c/funnel/funnel.step.mesh",
       "hardware/reference/jg-pp0308e-elbow/elbow.py",
       "hardware/reference/jg-pp0308e-elbow/scan-measurements.json",
+      "hardware/reference/neofit-stem-elbow/neofit_stem_elbow.py",
       "hardware/scripts/_cadq_export.py",
       "hardware/scripts/_material_base.py",
       "hardware/scripts/_materials.py",
@@ -7612,6 +7643,7 @@
     "reads": [
       "hardware/cold-core-layout/_bom.py",
       "hardware/cold-core-layout/_carbonator.py",
+      "hardware/cold-core-layout/_carbonator_bond.py",
       "hardware/cold-core-layout/_coil.py",
       "hardware/cold-core-layout/_cold_core_style.py",
       "hardware/cold-core-layout/_cold_scorecard.py",
@@ -7662,6 +7694,7 @@
       "hardware/printed-parts/cold-core/_port_cuts.py",
       "hardware/printed-parts/cold-core/_reed_channels.py",
       "hardware/printed-parts/cold-core/_reservoir_a_anchors.py",
+      "hardware/printed-parts/cold-core/_reservoir_a_c2.py",
       "hardware/printed-parts/cold-core/_reservoir_b_fill.py",
       "hardware/printed-parts/cold-core/_reservoir_ports.py",
       "hardware/printed-parts/cold-core/_support_ring.py",
@@ -8595,6 +8628,7 @@
     "reads": [
       "hardware/cold-core-layout/_bom.py",
       "hardware/cold-core-layout/_carbonator.py",
+      "hardware/cold-core-layout/_carbonator_bond.py",
       "hardware/cold-core-layout/_coil.py",
       "hardware/cold-core-layout/_cold_core_style.py",
       "hardware/cold-core-layout/_cold_scorecard.py",

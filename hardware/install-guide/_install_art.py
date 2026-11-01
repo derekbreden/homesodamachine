@@ -468,13 +468,11 @@ def s_plate_sideways():
         )
     )
     _add(a, slab, "countertop", STONE)
-    # A Black faucet's flavor tube runs on from the faucet through a bridge into its umbilical run,
+    # Each flavor line is one black tube, built as its faucet run and its umbilical run,
     # and each length is drawn where it reaches into the frame.
     for name, colour in (("westbrass", STEEL),
                          ("flavor_tube_pos_x", BLACK_PART),
                          ("flavor_tube_neg_x", BLACK_PART_LIT),
-                         ("flavor_tube_bridge_pos_x", BLACK_PART),
-                         ("flavor_tube_bridge_neg_x", BLACK_PART_LIT),
                          ("flavor_umbilical_tube_pos_x", BLACK_PART),
                          ("flavor_umbilical_tube_neg_x", BLACK_PART_LIT),
                          ("soda_umbilical_tube", BLUE_TUBE)):
