@@ -355,98 +355,109 @@
   },
   "minimum_emitted_bead_edge_margin_mm": 70.0,
   "plate_count": 2,
-  "mesh_tolerance_mm": 0.025,
-  "mesh_angular_tolerance_rad": 0.08,
   "parts": [
     {
       "name": "reservoir-left",
       "plate": 1,
       "source": "hardware/printed-parts/cold-core/reservoir/reservoir-left.step",
-      "step_sha256": "addefcf9f35e0298efb310b205bbc2b257a9de162b30700584d7454c9c36cdda",
-      "triangles": 9202,
+      "step_sha256": "a96c8c418648659dd8a8e50df1c7b1467b00037728753d47ffb7c7fd1da96b17",
+      "triangles": 9558,
       "watertight": true,
       "body_count": 1,
       "print_orientation": "mouth up",
       "plate_bounds_mm": [
         [
-          182.5190944671631,
+          182.51903915405273,
           89.75,
           0.0
         ],
         [
-          259.4809055328369,
+          259.48096084594727,
           230.25,
           199.89999389648438
         ]
-      ]
+      ],
+      "stl": "hardware/printed-parts/cold-core/reservoir/reservoir-left.stl",
+      "stl_sha256": "063190ac82ae5195ffea972c36d07a1f9cecd54a39ef32c057241e65f4d9fe38",
+      "model_sha256": "f850d04bd1f8254fdbe5543e4bab74859dd9377877e7c3842a9bd08a0d30bf85"
     },
     {
       "name": "reservoir-cap-left",
       "plate": 1,
       "source": "hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.step",
-      "step_sha256": "66c7403d0853aaaa01fe22ad2f72748fea133ab4b8c9ebab3687aadfba25d917",
-      "triangles": 16832,
+      "step_sha256": "550d31c630bc52e8bd64f5fb0d07a30eb65ca4cd4aeda126bfcb74a568901d25",
+      "triangles": 14084,
       "watertight": true,
       "body_count": 1,
       "print_orientation": "exterior face down",
       "plate_bounds_mm": [
         [
-          95.51909446716309,
+          95.51903915405273,
           89.75,
           0.0
         ],
         [
-          172.4809055328369,
+          172.48096084594727,
           230.25,
           11.0
         ]
-      ]
+      ],
+      "stl": "hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.stl",
+      "stl_sha256": "f4d38c45e24efecccd0cd85f28e2a702a8d8d27197bb85d6dbe32ff49f202e13",
+      "model_sha256": "710e5f6523870102fe6f85d6070b223ba6f7a1388b29651e8f204d6674bbe8ad"
     },
     {
       "name": "reservoir-right",
       "plate": 2,
       "source": "hardware/printed-parts/cold-core/reservoir/reservoir-right.step",
-      "step_sha256": "53bdb23481d31bbf030c496e27dffbc47273c5acf282db0f248e00c13ade753e",
-      "triangles": 9208,
+      "step_sha256": "34b7e827e55d2829a7e1d2e1826f0a152397fd21f60005f583a33798a607effd",
+      "triangles": 9558,
       "watertight": true,
       "body_count": 1,
       "print_orientation": "mouth up",
       "plate_bounds_mm": [
         [
-          182.5190944671631,
+          182.51903915405273,
           89.75,
           0.0
         ],
         [
-          259.4809055328369,
+          259.48096084594727,
           230.25,
           199.89999389648438
         ]
-      ]
+      ],
+      "stl": "hardware/printed-parts/cold-core/reservoir/reservoir-right.stl",
+      "stl_sha256": "90aec78b155cd8d7f2892ec0c68c50358fc1ae6f1f33bc0f319a58bd230af8e7",
+      "model_sha256": "1c6277b8f70fc36629eddc0585e65837418f0b5e3589304c98f4e0c972171102"
     },
     {
       "name": "reservoir-cap-right",
       "plate": 2,
       "source": "hardware/printed-parts/cold-core/reservoir/reservoir-cap-right.step",
-      "step_sha256": "132cf18d1f5e2757f303f5eab102dd59589a25530bb3f46ab395990567b3463a",
-      "triangles": 16832,
+      "step_sha256": "fef5fecf0d639d0a1b11dec77dcde5cc7dcf382bd8098a0a5f0ef8492aa1c80c",
+      "triangles": 14096,
       "watertight": true,
       "body_count": 1,
       "print_orientation": "exterior face down",
       "plate_bounds_mm": [
         [
-          95.51909446716309,
+          95.51903915405273,
           89.75,
           0.0
         ],
         [
-          172.4809055328369,
+          172.48096084594727,
           230.25,
           11.0
         ]
-      ]
+      ],
+      "stl": "hardware/printed-parts/cold-core/reservoir/reservoir-cap-right.stl",
+      "stl_sha256": "f88fb33c8e3af9b131bd02fd26636a14f5eb399d7e606c5950c8051f5e53d75b",
+      "model_sha256": "19834ccd8875a2283d9dd296c52a13c3b112f953e637e7cb65bdd372e6116d38"
     }
   ],
   "scope": "Current CAD and declared no-ironing recipe. Historical water holds belong to their identified articles; physical outcomes belong to the print records.",
-  "project_sha256": "c62d7e4cd41e99b0798f14f29756984c95fe7056b9f5ad1378cde1e34ec66434"
+  "project_sha256": "82fd2e65ff3a6e427f1522dbbe5c295303a5d70f153ddcd08e0be480342c7541",
+  "mesh_basis": "Current kernel producer STLs copied without remeshing; paired STEP/model/STL identities checked against accepted port packet."
 }
