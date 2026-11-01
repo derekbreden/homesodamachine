@@ -5,11 +5,11 @@
   "reader_sha256": "c076c0ac4b46d7cc0d3b8d0619c55a106468716762276420ea924d6f7ae85ff2",
   "actual_step_sha256": "2a8c293144335980423a212a1c462efefc2b7e5f218a2223664dce6d87ed8c27",
   "actual_manifest_sha256": "2014cb424bd823115f40412491965b2b0189f6c829eca5957d6ad19abfde1f62",
-  "physical_EA_sha256": "43de7a97158cfb3d2b9de706d7370fcb1c8b6c32dcb2d9cc09404d443c725655",
+  "physical_EA_sha256": "c264aefc6a1a1304af27e06af353ba9819de9be0daf85c3647c2a01058f7ebd7",
   "source_sha256": {
     "hardware/wiring/installed/build.py": "1363f1b65848104e2e83708b4f8b9bacb769171ec8c231e67cd370b22d522514",
     "hardware/wiring/installed/route-overrides.json": "84f00304f4e7d5d58e8ee3738f7c2842a8c777cd7ec20163578daa01479686fd",
-    "hardware/manifold-layout/above-core.json": "b886818274572dd35d0b7f5f2da255e855ff1e4420d7a74c2e1c81ea91b45a5a"
+    "hardware/manifold-layout/above-core.json": "11f17543b8e0ff7f5d77309e7840137f7d11ff19018d4fb22422b87d0f852c93"
   },
   "source_body_count": 119,
   "actual_body_count": 119,
@@ -8846,5 +8846,14 @@
   "all_source_curves_match": true,
   "maximum_installed_bounds_delta_mm": 0.0,
   "all_native_shapes_bound": true,
-  "exchange_scope": "Native source solids and geometric agreement are distinct from STEP reader orientation validity. Any listed readback-invalid bodies retain their explicit exchange limitation; no per-wire geometry is altered to silence it."
+  "exchange_scope": "Native source solids and geometric agreement are distinct from STEP reader orientation validity. Any listed readback-invalid bodies retain their explicit exchange limitation; no per-wire geometry is altered to silence it.",
+  "current_mechanical_delta_binding": {
+    "record": "hardware/mechanical-qualification/enclosure-above-core/assembly-gate-review.json",
+    "record_sha256": "249689e9556cec4b5e5cc717fc26ca3fba8d795b2b673420deaf43759c379ed9",
+    "baseline_assembly_step_sha256": "43de7a97158cfb3d2b9de706d7370fcb1c8b6c32dcb2d9cc09404d443c725655",
+    "assembly_step_sha256": "c264aefc6a1a1304af27e06af353ba9819de9be0daf85c3647c2a01058f7ebd7",
+    "assembly_mesh_sha256": "ac4c208beb6a0104bc76c3a766093f1435c75ad662f22af6725bfc25c3815db5",
+    "scope": "Only the drain cradle and soda holder/tube/occupied foam change. All other native bodies pass through unchanged; all unchanged viewer arrays are byte-identical. Current changed-body neighborhoods are queried natively. Retained tests keep their original artifact hashes; this binding is not a claim they were rerun."
+  },
+  "source_configuration_delta_scope": "Only soda_inlet.holder_to_meter_mm and parts.soda-bend-holder.translation_mm[1] differ. No electrical source, endpoint, component placement, wire curve or WAGO placement changes. All119installed native wiring bodies and their viewer arrays are unchanged."
 }
