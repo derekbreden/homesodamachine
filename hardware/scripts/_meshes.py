@@ -48,17 +48,6 @@ import manifold3d
 
 import _realized
 
-from OCP.BRep import BRep_Tool
-from OCP.BRepBuilderAPI import BRepBuilderAPI_Copy
-from OCP.BRepMesh import BRepMesh_IncrementalMesh
-from OCP.BRepTools import BRepTools
-from OCP.gp import gp_TrsfForm
-from OCP.TopAbs import TopAbs_FACE, TopAbs_REVERSED
-from OCP.TopExp import TopExp_Explorer
-from OCP.TopTools import TopTools_FormatVersion
-from OCP.TopLoc import TopLoc_Location
-from OCP.TopoDS import TopoDS
-
 from manifold3d import Error, Manifold, Mesh
 
 # The chord a mesh may sit off the surface it stands for, and the turn it may take in one step.
@@ -208,6 +197,8 @@ def _unplaced(solid):
     A body is placed by hanging a location on the shape, so the shape under it is the one the
     part module drew and is the same shape wherever the body goes. Meshing THAT is what lets a
     move cost a matrix multiply rather than a tessellation."""
+    from OCP.TopLoc import TopLoc_Location
+
     shape = solid.wrapped
     loc = shape.Location()
     return shape.Located(TopLoc_Location()), loc.Transformation()
@@ -218,6 +209,9 @@ def _named(shape, deflection: float) -> str:
     triangulation — a body already meshed once carries one, and a name that moved when it
     appeared would name the same geometry two ways — beside every number that decides how
     finely it is cut."""
+    from OCP.BRepTools import BRepTools
+    from OCP.TopTools import TopTools_FormatVersion
+
     stream = io.BytesIO()
     BRepTools.Write_s(shape, stream, False, False, TopTools_FormatVersion.TopTools_FormatVersion_VERSION_1)
     h = hashlib.blake2b(stream.getbuffer(), digest_size=16)
@@ -277,6 +271,8 @@ def _drawn(shape, deflection: float):
 
 def _standing(verts, trsf):
     """`verts`, moved out of the body's own frame onto where the body stands."""
+    from OCP.gp import gp_TrsfForm
+
     if trsf.Form() == gp_TrsfForm.gp_Identity:
         return verts
     m = np.array([[trsf.Value(r, c) for c in range(1, 5)] for r in range(1, 4)])
@@ -301,6 +297,14 @@ def _tessellate(shape, deflection: float):
     outward.
 
     THE SHAPE MESHED IS A COPY — see trap 1."""
+    from OCP.BRep import BRep_Tool
+    from OCP.BRepBuilderAPI import BRepBuilderAPI_Copy
+    from OCP.BRepMesh import BRepMesh_IncrementalMesh
+    from OCP.TopAbs import TopAbs_FACE, TopAbs_REVERSED
+    from OCP.TopExp import TopExp_Explorer
+    from OCP.TopLoc import TopLoc_Location
+    from OCP.TopoDS import TopoDS
+
     copy = BRepBuilderAPI_Copy(shape).Shape()
     BRepMesh_IncrementalMesh(copy, deflection, False, ANGULAR, True)
     pos, idx = [], []

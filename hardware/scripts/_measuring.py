@@ -17,13 +17,6 @@ Used by the two harvested fittings ([`tee_connector.py`](/hardware/reference/tee
 to the solid they were read off.
 """
 
-import cadquery as cq
-from OCP.BRepAdaptor import BRepAdaptor_Surface
-from OCP.GeomAbs import GeomAbs_Cylinder
-from OCP.TopAbs import TopAbs_FACE
-from OCP.TopExp import TopExp_Explorer
-from OCP.TopoDS import TopoDS
-
 _AXES = "xyz"
 
 
@@ -33,6 +26,13 @@ def bores(shape, tol: float = 1e-6) -> dict:
     The centre pair is the cylinder's position on the two axes it is NOT running along, in the
     order those axes appear in `xyz`. Radii and centres are rounded to 4 decimals, which is
     finer than any reach a fitting is declared to."""
+    import cadquery as cq
+    from OCP.BRepAdaptor import BRepAdaptor_Surface
+    from OCP.GeomAbs import GeomAbs_Cylinder
+    from OCP.TopAbs import TopAbs_FACE
+    from OCP.TopExp import TopExp_Explorer
+    from OCP.TopoDS import TopoDS
+
     solid = shape.val() if isinstance(shape, cq.Workplane) else shape
     out: dict = {}
     walk = TopExp_Explorer(solid.wrapped, TopAbs_FACE)

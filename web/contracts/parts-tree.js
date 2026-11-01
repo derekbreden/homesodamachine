@@ -45,13 +45,9 @@
 // Produced from web/lib/walk.js's file lists by way of /api/{steps,dxf,glbs};
 // consumed by web/public/js/viewer/parts.js; pinned by web/tests/parts-tree.test.js.
 //
-// EVERY PICTURE A BROWSER DRAWS HERE COMES THROUGH THE PAGE THIS BUILDS. The
-// render family in tools/render/ — render-step-posed.js (which the installation
-// and plumbing art drive), render-dxf.js, screenshot-site.js — each stands
-// the server and opens `/3d`, and `main.js`
-// runs `applyInitialRoute` only after `buildGrid`. So a throw in `seatParts` or
-// in `parts.js` never reaches a browser a person is looking at: it reaches a CAD
-// build, as a mount that never happens and a two-minute timeout on a scene.
+// Browser tools such as tools/render/render-dxf.js and screenshot-site.js open `/3d`.
+// `main.js` applies the initial route after building the grid, so these tools depend on
+// `seatParts` and `parts.js` completing before their model can mount.
 
 // WHERE A BUILD PUTS ITS WORKINGS. A generator lays its scene, study or plot
 // down in an `out/` beside itself on the way to the artifact it publishes: a

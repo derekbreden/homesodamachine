@@ -109,6 +109,9 @@ def write_manifest(manifest,scene_step):
     manifest['physical_scene_sha256']=hashlib.sha256(raw.encode()).hexdigest()
     paths=[Path(__file__),Path(__file__).with_name('connections.py'),
            Path(__file__).with_name('model.py'),Path(__file__).with_name('terminals.py'),
+           Path(__file__).with_name('_model_input.py'),
+           ROOT/'hardware/scripts/_assembly_model.py',
+           ROOT/'hardware/manifold-layout/enclosure_assembly.rs',
            Path(__file__).with_name('routes.py'),Path(__file__).with_name('retainers.py'),
            Path(__file__).with_name('manifold_bank_routes.py'),
            Path(__file__).with_name('route-overrides.json'),
@@ -141,13 +144,23 @@ def write_manifest(manifest,scene_step):
                              manifest['terminals'][row['end']]['status'],row['service']])
 
 
+def read_enclosure(target):
+    """Read installed-body measurements from the materialized fine model."""
+    model = Path(str(target) + '.npz')
+    if model.is_file():
+        from hardware.wiring.installed._model_input import read
+        return read(model)
+    from _cadq_export import import_assembly
+    return import_assembly(str(target))
+
+
 def main():
     import enclosure_assembly as ea
-    from _cadq_export import import_assembly,export_assembly
+    from _cadq_export import export_assembly
     from hardware.wiring.installed.step_merge import install
     target=ROOT/'hardware/manifold-layout/enclosure-assembly.step'
-    print('Read populated native enclosure',flush=True)
-    scene=import_assembly(str(target))
+    print('Read populated enclosure',flush=True)
+    scene=read_enclosure(target)
     print('Resolve electrical attachments and route every conductor',flush=True)
     wires,manifest=compose(scene,ea)
     write_manifest(manifest,target)
