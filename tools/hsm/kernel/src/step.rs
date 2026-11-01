@@ -1,6 +1,6 @@
 //! STEP from solids, and the mesh model a mesh-kernel import reads beside it.
 //!
-//! A STEP here holds triangles, not a B-rep: AP242 triangulated surface sets, one product per
+//! The default STEP holds triangles: AP242 triangulated surface sets, one product per
 //! body under its name and colour, the bodies of a file of several under one assembly. It is the
 //! file meshcad's `write.write_step` writes, so a reader takes one whichever kernel cut it:
 //! `flute_payload`'s identity check, OCCT's reader, CAD programs. Its description carries
@@ -11,6 +11,12 @@
 //!
 //! Both are functions of the triangles, names and colours alone: the same bodies write the same
 //! bytes on every run.
+//!
+//! `RoundStock` writes a separate analytic manufacturing B-rep for cylindrical
+//! stock with axial bores, preserving its planes and cylinders for CNC quotes.
+mod analytic;
+pub use analytic::{AxialBore, RoundStock};
+
 use crate::math::V3;
 use crate::write::{Body, face_json};
 use anyhow::{Context, Result};
