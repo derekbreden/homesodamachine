@@ -494,6 +494,7 @@ def _selected_mounts() -> tuple:
         ('regulator-snap-cap', 'enclosure-back-top', 'snap'),
         ('pisco-snap-cap', 'enclosure-back-top', 'snap'),
         ('meter-snap-cap', 'enclosure-back-top', 'snap'),
+        ('pump-snap-cap', 'foam-assembly', 'snap'),
         ('flow-regulator', 'enclosure-back-top', 'snap-seat'),
         ('gas-regulator', 'enclosure-back-top', 'snap-seat'),
         ('co2-inlet', 'gas-regulator', 'purchased-body'),
