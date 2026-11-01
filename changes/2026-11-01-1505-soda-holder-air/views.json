@@ -1,0 +1,83 @@
+{
+  "views": [
+    {
+      "name": "valve-holder",
+      "caption": "The accepted R14 holder moves1.25mm aft along its free tube length. V-K stays upright and fixed; a tangent transition joins the fixed core guide.",
+      "before": "valve-holder-before.webp",
+      "after": "valve-holder-after.webp",
+      "width": 1000,
+      "height": 800,
+      "marks": [
+        {
+          "x": 510.3,
+          "y": 426.9,
+          "r": 16.2,
+          "label": "V-K / holder air",
+          "at": [
+            82.9,
+            354.75,
+            282.48
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          165.08691959735322,
+          324.9695781409264,
+          301.51738391947066
+        ],
+        "target": [
+          80,
+          354.75,
+          284.5
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 0.19753095436751467,
+        "far": 269.91192466936207,
+        "aspect": 1.25
+      },
+      "highlight": [
+        "soda-bend-holder"
+      ],
+      "ghost": [],
+      "only": [
+        "vk-solenoid",
+        "soda-bend-holder",
+        "tube-soda-core-rise",
+        "digiten-flow"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "99c6fbd1328a9dc22b0ddf7ca6c0480ae7e08277b4d060c464f690d845bd02fb",
+          "commit": "fb045d858552067b0c4f235f2040c0e9968833f5",
+          "taken": "2026-11-01T20:33:28.508Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "ac4c208beb6a0104bc76c3a766093f1435c75ad662f22af6725bfc25c3815db5",
+          "commit": "256a84a4810a5a000c92d243434fc9bf378f71f6",
+          "published": false
+        }
+      },
+      "changed": [
+        "elbow-cradle",
+        "soda-continuous-insulation",
+        "soda-bend-holder",
+        "tube-soda-core-rise"
+      ],
+      "withinMeshing": []
+    }
+  ]
+}

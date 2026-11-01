@@ -171,13 +171,8 @@ def _on(face):
     return face.positionAt(0.5, 0.5)
 
 
-def stem_overlap(elbow, host):
-    """`(inside, outside)`: the volume a placed stem elbow shares with the fitting its stem is
-    bottomed in, and how much of that lies outside the stem itself.
-
-    The tee is drawn with a tube-clear bore and the valve without its port's full bore, so the two
-    share at most the stem. Anything they share outside it, the elbow's hub or shoulder in its
-    host, is an interference."""
+def stem_mate_region(elbow):
+    """Finite male profile, including its lead chamfer and molded root blend."""
     r = stem_elbow.STEM_OD / 2.0
 
     def outer(face):
@@ -197,7 +192,30 @@ def stem_overlap(elbow, host):
     o = cq.Vector(axis.Location().X(), axis.Location().Y(), axis.Location().Z())
     d = cq.Vector(axis.Direction().X(), axis.Direction().Y(), axis.Direction().Z())
     t = [(p - o).dot(d) for face in faces for p in (v.Center() for v in face.Vertices())]
-    stem = cq.Solid.makeCylinder(r + 0.01, max(t) - min(t) + 0.02, o + d * (min(t) - 0.01), d)
+    profile = stem_elbow.PARAMETERS['profiles']['stem_x']
+    straight = [x for x, radius in profile if abs(radius-r) < 1e-6]
+    tip_allowance = min(straight)-profile[0][0]
+    root_end = max(x for x, radius in profile if x < 0 and radius > r)
+    root_allowance = root_end-max(straight)
+    root_radius = max(radius for x,radius in profile if x <= root_end)
+    lo,hi = min(t),max(t)
+    stem = cq.Solid.makeCylinder(r+.01,hi-lo+2*tip_allowance+.02,
+                                o+d*(lo-tip_allowance-.01),d)
+    centre = (elbow.Center()-o).dot(d)
+    outward = 1. if abs(centre-hi) < abs(centre-lo) else -1.
+    end = hi if outward > 0 else lo
+    root = cq.Solid.makeCylinder(root_radius+.01,root_allowance+.02,
+                                o+d*(end-outward*.01),d*outward)
+    return stem.fuse(root)
+
+
+def stem_overlap(elbow, host):
+    """Common material and material outside the finite native male profile.
+
+    The tube-clear reference bores omit gripping details. The male profile
+    includes the lead chamfer and root blend, as well as its straight cylinder.
+    """
+    stem = stem_mate_region(elbow)
     common = elbow.intersect(host)
     inside = common.Volume()
     return inside, (common.cut(stem).Volume() if inside > 0 else 0.0)

@@ -1,0 +1,96 @@
+{
+  "views": [
+    {
+      "name": "drain-joint",
+      "caption": "The current cradle hook tops meet the silicone plug at Z306.05 and clear the removable frame; the parent uses the cradle in its authored joint frame.",
+      "before": "drain-joint-before.webp",
+      "after": "drain-joint-after.webp",
+      "width": 1000,
+      "height": 800,
+      "marks": [
+        {
+          "x": 477.2,
+          "y": 365.5,
+          "r": 17.1,
+          "label": "Cradle hooks",
+          "at": [
+            -15,
+            181,
+            306.05
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          154.50966799187808,
+          185,
+          300
+        ],
+        "target": [
+          0,
+          185,
+          300
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 0.3113059177429586,
+        "far": 453.4393706731733,
+        "aspect": 1.25,
+        "section": {
+          "at": [
+            0,
+            185,
+            300
+          ],
+          "normal": [
+            1,
+            0,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [
+        "elbow-cradle"
+      ],
+      "ghost": [],
+      "only": [
+        "elbow-cradle",
+        "funnel-frame",
+        "funnel-drain-union",
+        "funnel"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "99c6fbd1328a9dc22b0ddf7ca6c0480ae7e08277b4d060c464f690d845bd02fb",
+          "commit": "fb045d858552067b0c4f235f2040c0e9968833f5",
+          "taken": "2026-11-01T20:33:28.508Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "ac4c208beb6a0104bc76c3a766093f1435c75ad662f22af6725bfc25c3815db5",
+          "commit": "256a84a4810a5a000c92d243434fc9bf378f71f6",
+          "published": false
+        }
+      },
+      "changed": [
+        "elbow-cradle",
+        "soda-continuous-insulation",
+        "soda-bend-holder",
+        "tube-soda-core-rise"
+      ],
+      "withinMeshing": []
+    }
+  ]
+}
