@@ -115,6 +115,8 @@ seams intact (mirrors `faucet_shell.py`). All five come through the same
 code from a `Box`.
 """
 
+from __future__ import annotations
+
 import functools
 import math
 import sys
@@ -130,15 +132,6 @@ if __name__ == "__main__":
     meshcad.activate()
 
 import cadquery as cq
-from OCP.BRep import BRep_Tool
-from OCP.BRepAdaptor import BRepAdaptor_Curve, BRepAdaptor_Surface
-from OCP.BRepBuilderAPI import BRepBuilderAPI_MakeEdge, BRepBuilderAPI_MakeWire
-from OCP.BRepPrimAPI import BRepPrimAPI_MakePrism
-from OCP.BRepTools import BRepTools_WireExplorer
-from OCP.GeomAbs import GeomAbs_Line
-from OCP.TopAbs import TopAbs_REVERSED
-from OCP.TopoDS import TopoDS
-from OCP.gp import gp_Pnt, gp_Vec
 
 _here = Path(__file__).resolve()
 _repo = next(p for p in _here.parents if (p / "hardware" / "scripts" / "_cadq_export.py").is_file())
@@ -163,7 +156,6 @@ from _cadq_export import export_assembly
 from _materials import WALL_COLORS as PIECE_COLORS, one_body
 import _fixed_pump_mount
 from docgen import substitute_md, substitute_py_comments
-import _boxes
 import _realized
 import fits
 import port_chip
@@ -2191,6 +2183,8 @@ def _z_joints(placed, inner, stated, plate, y_joint):
     the pack leaves the lip's ring (`_lip_denied`) — and the open bands the column's
     bodies leave, which is what `_report_seams` reads. None of the bounds stops the cut:
     whatever the readings say, both seam heights come back and the box is cut on them."""
+    import _boxes
+
     iz0, iz1 = inner[4], inner[5]
     y_mid = (inner[2] + inner[3]) / 2.0
     bed_lo, bed_hi = _bed_band(inner)
@@ -2238,6 +2232,8 @@ def _dims(pack):
     one gets a wall drawn through it, a red row saying by how much, and a clash in
     `pack-closes` at the body that overran. This is the only function that reads the placed
     parts, so it is where the ledger starts: `BOUNDS` is cleared here and refilled."""
+    import _boxes
+
     BOUNDS.clear()
     _z_seam_passes.clear()
     placed = pack.placed
@@ -2909,6 +2905,14 @@ def _rect_cut_x(hy, hz, wy, wz, radius, x0, x1):
 def _split_along_caps(edge):
     """A glyph edge in pieces at each point inside it where it runs along the caps' +Y, so each
     piece faces down the caps, or up them, over its whole length."""
+    from OCP.BRep import BRep_Tool
+    from OCP.BRepAdaptor import BRepAdaptor_Curve
+    from OCP.BRepBuilderAPI import BRepBuilderAPI_MakeEdge
+    from OCP.GeomAbs import GeomAbs_Line
+    from OCP.TopAbs import TopAbs_REVERSED
+    from OCP.TopoDS import TopoDS
+    from OCP.gp import gp_Pnt, gp_Vec
+
     curve = BRepAdaptor_Curve(edge)
     t0, t1 = curve.FirstParameter(), curve.LastParameter()
     if curve.GetType() == GeomAbs_Line:
@@ -2943,6 +2947,11 @@ def _raked_letter(face, depth):
     the face, `depth` up its caps' +Y, carried straight back to the root, with a 45° wedge under
     every edge that faces down its caps. Each wedge is that edge's side of the straight letter
     carried back and down its caps at once, ended on the root plane."""
+    from OCP.BRepBuilderAPI import BRepBuilderAPI_MakeWire
+    from OCP.BRepPrimAPI import BRepPrimAPI_MakePrism
+    from OCP.BRepTools import BRepTools_WireExplorer
+    from OCP.gp import gp_Vec
+
     wires = []
     for wire in [face.outerWire()] + face.innerWires():
         made = BRepBuilderAPI_MakeWire()
