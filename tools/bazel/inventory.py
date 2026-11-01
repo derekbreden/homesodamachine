@@ -333,7 +333,7 @@ _FLUTE_ROOTS = {
     "hardware/scripts/flute_payload_enclosure.py": (
         "hardware/printed-parts/enclosure/enclosure/",),
     "hardware/scripts/flute_payload_cold_core.py": (
-        "hardware/printed-parts/cold-core/foam-shell/"),
+        "hardware/printed-parts/cold-core/foam-shell/",),
     "hardware/scripts/flute_payload_faucet.py": (
         "hardware/printed-parts/faucet/faucet-shell/",
         "hardware/printed-parts/faucet/faucet-display-cover/",
