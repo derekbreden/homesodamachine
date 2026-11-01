@@ -1,7 +1,9 @@
 """Materialize installed wiring and update the populated native/viewer assembly.
 
     tools/cad-venv/bin/python hardware/wiring/installed/build.py
+    tools/cad-venv/bin/python hardware/wiring/installed/build.py --kernel
 
+The kernel command requires the populated enclosure's explicit fine model.
 The manual review is a separate command, not a build/commit gate.
 """
 from __future__ import annotations
@@ -17,7 +19,7 @@ import sys
 ROOT=Path(__file__).resolve().parents[3]
 sys.path[:0]=[str(ROOT),str(ROOT/'hardware/scripts'),str(ROOT/'hardware/manifold-layout')]
 # Run as a script, the wiring is routed on the mesh kernel (`hardware/scripts/meshcad`).
-if __name__=='__main__':
+if __name__=='__main__' and '--kernel' not in sys.argv:
     import meshcad
     meshcad.activate()
 from hardware.wiring.installed.connections import connections, interfaces, UNUSED, BOUNDARIES
@@ -119,10 +121,12 @@ def export_enclosure(assembly, target):
         install(Path(target),OUT.with_suffix('.step'))
 
 
-def digest(path): return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+def digest(path):
+    with Path(path).open('rb') as stream:
+        return hashlib.file_digest(stream,'sha256').hexdigest()
 
 
-def write_manifest(manifest,scene_step):
+def write_manifest(manifest,scene_step,*,output=OUT,additional_sources=()):
     # The physical scene digest excludes this wiring subassembly, avoiding a
     # circular hash when the same wiring is materialized a second time.
     from hardware.wiring.installed.step_merge import base_document
@@ -152,9 +156,10 @@ def write_manifest(manifest,scene_step):
            ROOT/'hardware/cold-core-layout/_carbonator.py',
            ROOT/'hardware/cold-core-layout/_carbonator_bond.py',
            ROOT/'hardware/assembly/harnesses/j2.json',ROOT/'hardware/assembly/harnesses/j13.json']
-    manifest['source_sha256']={str(p.relative_to(ROOT)):digest(p) for p in paths}
-    OUT.with_suffix('.json').write_text(json.dumps(manifest,indent=2)+'\n')
-    with OUT.with_suffix('.csv').open('w',newline='') as stream:
+    paths.extend(Path(p) for p in additional_sources)
+    manifest['source_sha256']={str(p.relative_to(ROOT)):digest(p) for p in dict.fromkeys(paths)}
+    output.with_suffix('.json').write_text(json.dumps(manifest,indent=2)+'\n')
+    with output.with_suffix('.csv').open('w',newline='') as stream:
         writer=csv.writer(stream,lineterminator='\n')
         writer.writerow(['wire_id','harness','net','from_terminal','to_terminal','awg',
                          'modeled_length_mm','route_status','start_status','end_status','service'])
@@ -175,21 +180,85 @@ def read_enclosure(target):
     return import_assembly(str(target))
 
 
+def _kernel_main(target,output,verify_retained=False):
+    """Resolve attachment inputs in a native child, then build after that child exits."""
+    import subprocess
+    import tempfile
+    import _rust_part
+    import _run_slots
+    _rust_part.start()
+    output.mkdir(parents=True,exist_ok=True)
+    with tempfile.TemporaryDirectory(prefix='hsm-wiring-inputs-') as temporary:
+        handoff=Path(temporary)/'inputs.json'
+        command=[sys.executable,str(ROOT/'tools/run.py'),'--cad','--',sys.executable,
+                 str(Path(__file__).resolve()),'--numbers-output',str(handoff),
+                 '--target',str(target)]
+        subprocess.run(command,check=True,**_run_slots.subprocess_kwargs())
+        data=json.loads(handoff.read_text())
+    # The native process and its shape storage have exited before this kernel run.
+    _rust_part.cut('machine','installed-wires',data['numbers'],output,
+                   numbers_name='enclosure-wiring')
+    from hardware.wiring.installed.step_merge import install
+    sources=[Path(__file__).with_name('wire_geometry.py'),
+             *[ROOT/p for p in sorted(_rust_part._READ_TARGETS) if (ROOT/p).is_file()]]
+    receipt=install(target,output/'enclosure-wiring.step',verify_retained=verify_retained,
+                    wire_model=output/'enclosure-wiring.step.npz')
+    data['manifest']['wiring_fine_model_sha256']=receipt['wiring_fine_model']['sha256']
+    data['manifest']['wiring_numbers_sha256']=digest(output/'enclosure-wiring.numbers.json')
+    write_manifest(data['manifest'],target,output=output/'enclosure-wiring',
+                   additional_sources=sources)
+    receipt['connection_count']=data['manifest']['connection_count']
+    review=output/'installed/integration-review.json'
+    review.parent.mkdir(parents=True,exist_ok=True)
+    review.write_text(json.dumps(receipt,indent=2)+'\n')
+    print(json.dumps({'conductors':data['manifest']['connection_count'],
+                      'harnesses':len(data['manifest']['harnesses']),
+                      'terminal_status':data['manifest']['terminal_status_counts'],
+                      'frame_max_residual_mm':max(r['maximum_extent_residual_mm']
+                          for r in data['manifest']['reference_frames'].values())}),flush=True)
+
+
 def main():
+    import argparse
+    parser=argparse.ArgumentParser(description=__doc__)
+    mode=parser.add_mutually_exclusive_group()
+    mode.add_argument('--kernel',action='store_true',help='Build from the explicit fine enclosure model')
+    mode.add_argument('--numbers-output',type=Path,help=argparse.SUPPRESS)
+    parser.add_argument('--target',type=Path,default=ROOT/'hardware/manifold-layout/enclosure-assembly.step')
+    parser.add_argument('--output',type=Path,default=OUT.parent)
+    parser.add_argument('--verify-retained',action='store_true')
+    args=parser.parse_args()
+    if args.kernel:
+        return _kernel_main(args.target,args.output,args.verify_retained)
+    if args.numbers_output is not None:
+        import enclosure_assembly as ea
+        from hardware.wiring.installed._model_input import read
+        model=Path(str(args.target)+'.npz')
+        numbers,manifest=numeric_inputs(read(model),ea)
+        numbers['file_stem']='enclosure-wiring'
+        fine_digest=digest(model)
+        numbers['physical_fine_model_sha256']=fine_digest
+        manifest['physical_fine_model_sha256']=fine_digest
+        args.numbers_output.write_text(json.dumps({'numbers':numbers,'manifest':manifest})+'\n')
+        return
     import enclosure_assembly as ea
     from _cadq_export import export_assembly
     from hardware.wiring.installed.step_merge import install
-    target=ROOT/'hardware/manifold-layout/enclosure-assembly.step'
+    target=args.target
     print('Read populated enclosure',flush=True)
     scene=read_enclosure(target)
     print('Resolve electrical attachments and route every conductor',flush=True)
     wires,manifest=compose(scene,ea)
-    write_manifest(manifest,target)
-    export_assembly(wires,str(OUT.with_suffix('.step')),precision_mode=1)
+    output=args.output/'enclosure-wiring'
+    args.output.mkdir(parents=True,exist_ok=True)
+    write_manifest(manifest,target,output=output)
+    export_assembly(wires,str(output.with_suffix('.step')),precision_mode=1)
     print('Install wiring while retaining all physical assembly records and meshes',flush=True)
-    receipt=install(target,OUT.with_suffix('.step'),verify_retained='--verify-retained' in sys.argv)
+    receipt=install(target,output.with_suffix('.step'),verify_retained=args.verify_retained)
     receipt['connection_count']=manifest['connection_count']
-    (ROOT/'hardware/wiring/installed/integration-review.json').write_text(json.dumps(receipt,indent=2)+'\n')
+    review=args.output/'installed/integration-review.json'
+    review.parent.mkdir(parents=True,exist_ok=True)
+    review.write_text(json.dumps(receipt,indent=2)+'\n')
     print(json.dumps({'conductors':manifest['connection_count'],
                       'harnesses':len(manifest['harnesses']),
                       'terminal_status':manifest['terminal_status_counts'],
