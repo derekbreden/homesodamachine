@@ -51,6 +51,16 @@ pub enum Query {
         #[serde(default)]
         list: bool,
     },
+    /// A run of a part's program, answered from the kept runs where one still holds (`build`).
+    Run {
+        workspace: PathBuf,
+        root: PathBuf,
+        #[serde(rename = "crate")]
+        krate: String,
+        name: String,
+        #[serde(default)]
+        args: Vec<String>,
+    },
 }
 
 fn ray_max() -> f64 {
@@ -125,7 +135,7 @@ fn named(index: usize, mesh: &Mesh) -> Value {
     json!({"id": format!("#{index}"), "name": mesh.name})
 }
 
-pub fn execute(store: &mut Store, request: Request, build_id: &str) -> Result<Value> {
+pub fn execute(store: &mut Store, builds: &crate::build::Builder, request: Request, build_id: &str) -> Result<Value> {
     match request.query {
         Query::Ping => {
             return Ok(
@@ -135,7 +145,7 @@ pub fn execute(store: &mut Store, request: Request, build_id: &str) -> Result<Va
         Query::Status => {
             return Ok(
                 json!({"build_id": build_id, "pid": std::process::id(), "cache": store.status(),
-                "render": crate::render::status()}),
+                "render": crate::render::status(), "builds": builds.status()}),
             );
         }
         Query::Shutdown => return Ok(json!({"stopping": true})),
@@ -144,6 +154,7 @@ pub fn execute(store: &mut Store, request: Request, build_id: &str) -> Result<Va
             ref job,
             list,
         } => return crate::render::execute(root, job, list),
+        Query::Run { .. } => return Err(anyhow!("a run is answered off the query loop")),
         _ => (),
     }
     let started = Instant::now();
