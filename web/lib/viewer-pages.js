@@ -1,5 +1,5 @@
 // Server-renders the four viewer pages: /3d (parts — prints + cuts), /charts
-// (mermaid diagrams), /drawings (line art), and /pcb (board views). All pages
+// (mermaid diagrams), /guides (guide PDFs), and /pcb (board views). All pages
 // share the same body fragment (lib/templates/viewer-body.html), which decides
 // what to render based on location.pathname. The server picks the page title and
 // active nav item based on which route was hit; everything else is in the
@@ -11,6 +11,7 @@
 //   /dev/diagrams → /charts
 //   /dev/mermaid  → /charts
 //   /dev/settings → /settings
+//   /drawings     → /guides (the printed guides carry homesodamachine.com/drawings)
 //
 // Settings lives at /settings (lib/settings.js), reachable via the gear in the
 // nav.
@@ -30,14 +31,14 @@ function readFragment(name) {
 const TITLES = {
   parts: "Parts · Home Soda Machine",
   charts: "Charts · Home Soda Machine",
-  drawings: "Drawings · Home Soda Machine",
+  guides: "Guides · Home Soda Machine",
   pcb: "Boards · Home Soda Machine",
 };
 
 const INTRO = {
   parts: { eyebrow: "Parts", title: "Explore the machine.", description: "The soda machine, the faucet, and the tools that bring them together. Open a model to explore its parts and documents." },
   charts: { eyebrow: "Charts", title: "How it all connects.", description: "Plumbing, wiring, and control diagrams for the machine." },
-  drawings: { title: "Drawings & guides", description: "Finished parts, assembly instructions and shop references." },
+  guides: { title: "Guides", description: "Assembly instructions and shop references." },
   pcb: { eyebrow: "Boards", title: "The circuit boards.", description: "Explore the electronics that control the machine and the faucet." },
 };
 
@@ -56,7 +57,7 @@ export function mountViewerPages(app) {
       res.send(
         renderHead({ title: TITLES[active], pageClass: `site-interior site-viewer-${active}` }) +
         renderNav({ active }) +
-        (active === "drawings" ? `<header class="document-library-header site-light"><div class="document-library-inner"><div><h1>${INTRO.drawings.title}</h1><p>${INTRO.drawings.description}</p></div><div id="document-search-slot"></div></div></header>` : renderPageHeader(INTRO[active])) +
+        (active === "guides" ? `<header class="document-library-header site-light"><div class="document-library-inner"><div><h1>${INTRO.guides.title}</h1><p>${INTRO.guides.description}</p></div><div id="document-search-slot"></div></div></header>` : renderPageHeader(INTRO[active])) +
         readFragment("viewer-body.html") +
         renderFooter({ siteFooter: true }),
       );
@@ -66,20 +67,21 @@ export function mountViewerPages(app) {
   // Express's default `strict: false` routing makes /3d and /3d/ equivalent.
   app.get("/3d", renderPage("parts"));
   app.get("/charts", renderPage("charts"));
-  app.get("/drawings", renderPage("drawings"));
+  app.get("/guides", renderPage("guides"));
   app.get("/pcb", renderPage("pcb"));
 
   // Legacy redirects. /dev?file=foo and /dev/?file=foo were the deep-link
   // shape baked into FCM notifications before the rename; preserve the
   // query string so a user tapping a stale notification still lands on
-  // their file.
-  const devToParts = (req, res) => {
+  // their file, and a /drawings?q= search keeps its words.
+  const movedTo = (target) => (req, res) => {
     const qsIdx = req.originalUrl.indexOf("?");
     const qs = qsIdx >= 0 ? req.originalUrl.slice(qsIdx) : "";
-    res.redirect(301, "/3d" + qs);
+    res.redirect(301, target + qs);
   };
-  app.get("/dev", devToParts);
-  app.get("/dev/", devToParts);
+  app.get("/dev", movedTo("/3d"));
+  app.get("/dev/", movedTo("/3d"));
+  app.get("/drawings", movedTo("/guides"));
   app.get("/dev/diagrams", (_req, res) => res.redirect(301, "/charts"));
   app.get("/dev/mermaid", (_req, res) => res.redirect(301, "/charts"));
   app.get("/dev/settings", (_req, res) => res.redirect(301, "/settings"));

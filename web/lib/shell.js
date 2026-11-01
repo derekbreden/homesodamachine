@@ -9,7 +9,7 @@
 //     anywhere else that wants the same delightful slide).
 //
 // All primary links are icon-only (Home included), and every page carries the
-// same set: Home, Latest, Parts, Charts, Drawings, Boards, Cost, then the bell
+// same set: Home, Latest, Parts, Charts, Guides, Boards, Cost, then the bell
 // and the gear. Latest is where Changes and Updates both begin.
 //
 // Render flow:
@@ -20,7 +20,7 @@ import fs from "fs";
 import path from "path";
 import { createHash } from "crypto";
 import { fileURLToPath } from "url";
-import { PARTS_SVG, CHARTS_SVG, DRAWINGS_SVG, PCB_SVG, DOLLAR_SVG, LATEST_SVG, GEAR_SVG, BELL_SVG } from "./icons.js";
+import { PARTS_SVG, CHARTS_SVG, GUIDES_SVG, PCB_SVG, DOLLAR_SVG, LATEST_SVG, GEAR_SVG, BELL_SVG } from "./icons.js";
 
 // The check verdict the site is showing — `public/checks.json`, written by
 // `tools/checks.py --json` and committed by `tools/checks_now.py` when it is run.
@@ -497,7 +497,7 @@ export function renderNav({ active = null } = {}) {
     { href: "/latest", name: "latest", label: "Latest", svg: LATEST_SVG, also: ["updates", "changes"] },
     { href: "/3d", name: "parts", label: "Parts", svg: PARTS_SVG },
     { href: "/charts", name: "charts", label: "Charts", svg: CHARTS_SVG },
-    { href: "/drawings", name: "drawings", label: "Drawings", svg: DRAWINGS_SVG },
+    { href: "/guides", name: "guides", label: "Guides", svg: GUIDES_SVG },
     { href: "/pcb", name: "pcb", label: "Boards", svg: PCB_SVG },
     { href: "/cost", name: "cost", label: "Cost", svg: DOLLAR_SVG },
   ];

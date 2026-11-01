@@ -2,7 +2,7 @@
 
 A 9 × 7 inch landscape booklet with **32 numbered interior pages** and seven illustrated
 installation steps. The 34-page reading PDF includes the front and back covers. Published
-on [Drawings](https://homesodamachine.com/drawings) and at
+on [Guides](https://homesodamachine.com/guides) and at
 [install-guide.pdf](https://homesodamachine.com/docs/install-guide/install-guide.pdf).
 
 | Numbered interior pages | Content |

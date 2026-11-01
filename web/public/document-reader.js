@@ -187,7 +187,7 @@ try {
   if (!embedded && from.origin === location.origin && !/^\/(read|docs)\//.test(from.pathname)) {
     document.getElementById("pdf-back").href = from.href;
   }
-} catch { /* Direct links return to the document shelf. */ }
+} catch { /* Direct links return to the guides. */ }
 
 try {
   const base = reader.dataset.pdfjsBase;
