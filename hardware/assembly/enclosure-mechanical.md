@@ -22,7 +22,7 @@ silicone-bearing measurements. It does not establish physical assembly force or 
 Four printed PET-GF15 quadrants — `enclosure-front-bottom`, `enclosure-front-top`, `enclosure-back-bottom`, `enclosure-back-top` — measuring [215 × 466.3 × 361 mm](BOX_SIZE) over the outside ([`enclosure.py`](/hardware/printed-parts/enclosure/enclosure/enclosure.py)), plus the broad snap-fit lower pump retainer (`enclosure-pump-retainer`): five printed enclosure pieces in all. Every standing face is a wall of a quadrant: the rear face is the back pieces' own +Y wall, and the complete front face, 30° display plane and tangent curves belong to `enclosure-front-top`. Its upper fitted pump inverses occupy one broad body continuous into the display housing and roof. The funnel opening is cut in the top wall, both top pieces taking their share of it.
 
 - **The Y seam is stated at [200](Y_SEAM).** The front pieces' +Y walls telescope into the back pieces — a proud tongue on the side walls and ceiling, and a full-thickness, square-ended tongue inside the floor slab, so the floor stays flat where the cold core rides across it. Four identical fully threaded M5 × 100 screws hold the alternating corner knuckles. At each ±X corner, a [M5 × 100](LOWER_ROD) enters upward through back-bottom, front-bottom and back-bottom into the insert under the Z seam. An [M5 × 100](UPPER_ROD) enters downward through front-top's roof head block, back-top's middle block and front-top's lower insert block, ending in a blind pocket. Each end pair belongs to one piece and captures the other piece's middle knuckle on the screw.
-- **The Z seam is one stated plane, both columns, at [150](Z_SEAM_FRONT)** — the seam line runs level round the box and the four pieces meet at a four-way corner on each side wall. Both columns run solid there (the compressor bay and flavour deck forward, the cold core and service bay aft), so the seam runs through each on the lane its lip's ring keeps of the pack. The bottom pieces carry the lips and hooked rails; the top pieces carry the mating feet and channels. The Z seams take no screws; at the corners the seam's screws hold the tops down.
+- **The Z seam is one stated plane, both columns, at [160](Z_SEAM_FRONT)** — the seam line runs level round the box and the four pieces meet at a four-way corner on each side wall. Both columns run solid there (the compressor bay and flavour deck forward, the cold core and service bay aft), so the seam runs through each on the lane its lip's ring keeps of the pack. The bottom pieces carry the lips and hooked rails; the top pieces carry the mating feet and channels. The Z seams take no screws; at the corners the seam's screws hold the tops down.
 - **The wall is a fact about a face, not about the box.** [3 mm](WALL_T) is the section a piece starts from and every exterior wall carries at least [6 mm](LIP_UNDERWALL), each grown INWARD — the stated silhouette and `interior_x` both stand still, and only the piece carrying a section knows about it. A bottom piece gets its [6 mm](LIP_UNDERWALL) for nothing down all three of its lipped sides, the lip's own skin carried to the slab. On the top pieces it is stated per face: [9 mm](FRONT_TOP_FLANK) on `enclosure-front-top`'s ±X flanks, [9 mm](BACK_TOP_FLANK) on `enclosure-back-top`'s, 9 mm on its +Y wall and 9 mm on its ceiling, a slab the piece prints on, pocketed over every body that stands in it back to the unchanged z = [352](CEILING_LANE) pack lane. The front face is [9 mm](FRONT_WALL); the complete flavour pack stands behind front-top's continuous exterior face. **The floor is the one section that grows OUTWARD** — [6 mm](FLOOR_T) of slab under both bottom pieces, and the stated height is struck to its underside, so the slab stands in the silhouette rather than in the cavity and everything the pack sets on the floor stays where it was. What noses into a section is never moved for it: the wall gives that station back as a stated, 45°-chamfered relief — a Wago well, the PRV chase's rib, the CO2 nut's clamp stack — and `back_wall_t_at`, `box-front` and `back-top-flank-clear` are what read those back against the pack.
 - Three quadrants bed on their Z− face — the bottoms on their floor slabs, front-top on its seam rim, mouth down — and back-top beds on its ceiling's outer face, its mouth up. The lower pump retainer takes its own print orientation; the bed-fit checks belong to each part's source.
 
@@ -76,7 +76,7 @@ identifies those branches; it does not establish physical cleanup effort.
 **This step is the one place in the build that presses both M3 bodies, and they are indistinguishable in the hand but for length.** RX-M3x5.7 and RX-M3Sx4.0 carry the same ⌀4.6 knurl into the same ⌀4 hole; a short one pressed where the long one belongs is a weaker joint that looks finished, and a long one pressed where it does not fit will not seat flush. Work from two labelled troughs, not one dish:
 
 - **Full-length RX-M3×5.7.** The condenser fingers and the four funnel-frame ledges take full-length inserts. The core's PCB and pump mount columns use the [cold-core mount schedule](/hardware/printed-parts/cold-core/_above_core_mounts.py), with the lid removed for insert installation.
-- **Short RX-M3S×4.0.** The C14's two rear-wall bosses, four PSU hosts, two diagonal hosts per relay and the rear-wall ground boss take short inserts. Install them before the purchased bodies. Use M3 × 10 with Ø7 × 0.5 mm washers at C14, M3 × 10 through the PSU ears, M3 × 8 through each relay's two active diagonal holes and M3 × 8 through the ground stack. All four corners of each relay board bear on pads; the other two pads have no insert or screw. The [wall-host schedule](/hardware/printed-parts/enclosure/enclosure/_above_core_shell.py) defines the bearing tips and insert-face datums.
+- **Short RX-M3S×4.0.** The C14's two rear-wall bosses, four PSU hosts and two diagonal hosts per relay take short inserts. Install them before the purchased bodies. Use M3 × 10 with Ø7 × 0.5 mm washers at C14, M3 × 10 through the PSU ears and M3 × 8 through each relay's two active diagonal holes. All four corners of each relay board bear on pads; the other two pads have no insert or screw. The [wall-host schedule](/hardware/printed-parts/enclosure/enclosure/_above_core_shell.py) defines the bearing tips and insert-face datums.
 - **M5 — eight.** The four posts standing off the floor slab under the compressor's feet, and the Y seam's four corner-stack stations: back-bottom's two knuckles under the Z seam and front-top's two knuckles under the funnel frame, each pressed in from above. Use the M5 tip from the T18 heat-set insert tip kit.
 
 The [native heat-set audit](/hardware/printed-parts/enclosure/enclosure/heat-set-review/README.md)
@@ -95,7 +95,7 @@ on the bench. Mount the PSU, relays and meter on back-top; prepare its
 continuous external inlet, holder, foam and concealed rear join there. Land the
 back-top wiring ends per [electronics-bay.md](electronics-bay.md) steps 2–3: the
 V-A and V-K legs with their XH contacts loose; J4's flow pair on the meter's
-leads; DC-1, DC-2 and the three join pigtails; the PE bus, J5, and J3 at the
+leads; DC-1, DC-2 and the three join pigtails; J5, and J3 at the
 keystone. Dress each free end to the funnel opening's footprint. Keep
 the funnel frame separate. V-B, the pump and PCB travel with the cold core.
 
@@ -206,14 +206,13 @@ west wall. Use four M3 × 10 screws through the PSU ears into short inserts.
 Fit the meter to its rear-facing snap seat and prepare its continuous inlet
 and short, straight rear outlet there.
 Seat the mains WAGOs in the rear-wall
-wells. The three-ring ground stack mounts below C14 on back-top; core-side junctions go in their lid mounts;
+wells; core-side junctions go in their lid mounts;
 front manifold commons go in front-top. Leave the cross-quadrant conductor ends
 accessible for final connection. Keep PSU terminal screwdriver approaches clear.
-The ground stack at (−48.15, 461.7, 313.935) mm is assembled on open back-top,
-with the carbonator, C14 PE and compressor rings followed by the flat washer
-and M3 × 8 screw. Its driver enters from the open interior along +Y. Complete
-the carbonator bond before closing back-top over the core. The compressor's
-H and N cores join under the funnel opening after closing.
+The carbonator bond and the compressor's PE core land in ports 2 and 3 of the
+rear PE WAGO on open back-top. Complete the carbonator bond before closing
+back-top over the core. The compressor's H and N cores join under the funnel
+opening after closing.
 
 ### 6. Close the box
 

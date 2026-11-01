@@ -17,14 +17,15 @@ not the same flag: PROTECT is worn by the holder and stops others stopping IT; S
 carried by the caller and stops the holder. A build wearing PROTECT still stops others unless
 they wear it too.
 
-A build that finds a live holder of the SAME script, begun after the last edit to any
-.py under hardware/, follows it instead: it prints what the holder prints and exits on
-the holder's status, so a hand run and the watcher (or two agents) share one build
-rather than killing each other to compute it twice. A holder that began before the
-caller's own edit cannot answer for it and is superseded as before. Each build tees its
-console to `build.<pid>.log` and writes its status to `build.<pid>.result` for whoever
-follows; a holder that dies without one leaves the follower to build for itself.
-HSM_NO_BUILD_ATTACH=1 opts out.
+A build that finds a live holder of the SAME script in the SAME checkout, begun after the
+last edit to any .py under hardware/, follows it instead: it prints what the holder prints
+and exits on the holder's status, so a hand run and the watcher (or two agents) share one
+build rather than killing each other to compute it twice. A holder that began before the
+caller's own edit cannot answer for it and is superseded as before. A holder in another
+worktree writes that worktree's files, so it is waited for like any other build and never
+followed. Each build tees its console to `build.<pid>.log` and writes its status to
+`build.<pid>.result` for whoever follows; a holder that dies without one leaves the
+follower to build for itself. HSM_NO_BUILD_ATTACH=1 opts out.
 
 The scope is global — one CAD generator at a time across the whole repo — because
 every generator contends for the same cores. A pileup is what makes a build take
@@ -359,7 +360,7 @@ def acquire(script: str, source: str = None) -> None:
     protect = _asked("HSM_BUILD_LOCK_PROTECT")
     supersede = _asked("HSM_BUILD_SUPERSEDE")
     LOCK_DIR.mkdir(parents=True, exist_ok=True)
-    _me = {"pid": os.getpid(), "source": source, "script": script,
+    _me = {"pid": os.getpid(), "source": source, "script": script, "root": str(_HW.parent),
            "started": time.time(), "protected": protect}
 
     prev = _read(LOCK)
@@ -371,12 +372,14 @@ def acquire(script: str, source: str = None) -> None:
         _me = None
         return
 
-    # A live build of the same script, begun after the last edit to anything it reads,
-    # is already computing this caller's answer: follow it and exit on its status. A
-    # staler holder, another script, or a follow that fails falls through to the
-    # supersede below. HSM_NO_BUILD_ATTACH=1 opts out.
+    # A live build of the same script in this checkout, begun after the last edit to
+    # anything it reads, is already computing this caller's answer: follow it and exit on
+    # its status. A staler holder, another script, another checkout's run (its outputs land
+    # in its own tree), or a follow that fails falls through to the supersede below.
+    # HSM_NO_BUILD_ATTACH=1 opts out.
     if (prev and prev.get("pid") != _me["pid"] and _alive(prev["pid"])
-            and prev.get("script") == script and not os.environ.get("HSM_NO_BUILD_ATTACH")):
+            and prev.get("script") == script and prev.get("root") == _me["root"]
+            and not os.environ.get("HSM_NO_BUILD_ATTACH")):
         try:
             if _fresh_for(prev):
                 code = _attach(prev)

@@ -121,6 +121,14 @@ import sys
 from collections import namedtuple
 from pathlib import Path
 
+# Run as a script, the enclosure is cut on the mesh kernel (`hardware/scripts/meshcad`).
+if __name__ == "__main__":
+    sys.path.insert(0, str(next(p for p in Path(__file__).resolve().parents
+                                if (p / "hardware" / "scripts" / "meshcad").is_dir())
+                           / "hardware" / "scripts"))
+    import meshcad  # noqa: E402
+    meshcad.activate()
+
 import cadquery as cq
 from OCP.BRep import BRep_Tool
 from OCP.BRepAdaptor import BRepAdaptor_Curve, BRepAdaptor_Surface
@@ -5612,12 +5620,11 @@ def _east_bosses(solid, roots, outer, stations, fills, y0, y1, z0, z1, up=1.0):
     carries. Its other half stays round around the insert, so the body's mounting pad remains
     compact; no arbitrary round pipe is left between the support and the mounting face.
 
-    THE FOUR AUTHORED FILLS ARE BOXES, NOT A NEW PAIRING RULE. `fills` carries their exact bounds
-    and any station whose ordinary wedge that box replaces. The ground stud keeps its D stem and
-    bore under a full-width ceiling column; the upper main-board/relay field gets one low pad
-    round its three clear stations; and relay 1's two vertical pairs each get one ceiling column.
-    Their separate wedges are omitted so every underside is one flat supported face. All four
-    fuse before the bores are cut. Where one fill prints on another and overhangs its side by
+    THE THREE AUTHORED FILLS ARE BOXES, NOT A NEW PAIRING RULE. `fills` carries their exact bounds
+    and any station whose ordinary wedge that box replaces. The upper main-board/relay field gets
+    one low pad round its three clear stations, and relay 1's two vertical pairs each get one
+    ceiling column. Their separate wedges are omitted so every underside is one flat supported
+    face. All three fuse before the bores are cut. Where one fill prints on another and overhangs its side by
     less than a `wall` — MH3's pad union under relay 1's aft column — a strip that narrow is
     no support's to reach, so a 45° corbel in the free corner carries it.
 

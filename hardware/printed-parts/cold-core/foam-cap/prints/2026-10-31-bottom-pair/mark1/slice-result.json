@@ -1,0 +1,70 @@
+{
+  "error_string": "Success.",
+  "export_time": 2404,
+  "layer_height": 0.23999999463558197,
+  "plate_index": 0,
+  "prepare_time": 119,
+  "return_code": 0,
+  "sliced_plates": [
+    {
+      "feature_type_times": {
+        "Bottom surface": 1179.929931640625,
+        "Bridge": 4400.77099609375,
+        "Custom": 304.92071533203125,
+        "Flush": 15.0,
+        "Gap infill": 102.7383041381836,
+        "Inner wall": 1724.8292236328125,
+        "Internal solid infill": 3641.06591796875,
+        "Outer wall": 900.2360229492188,
+        "Sparse infill": 308.6472473144531,
+        "Top surface": 751.9118041992188,
+        "Travel": 675.56005859375,
+        "Undefined": 666.4801025390625
+      },
+      "filament_change_times": 0,
+      "filaments": [
+        {
+          "filament_id": "GFT01",
+          "id": 1,
+          "main_used_g": 166.08837890625,
+          "total_used_g": 166.08837890625
+        }
+      ],
+      "generate_support_material_time": 1045,
+      "id": 1,
+      "infill_time": 4100,
+      "layer_filament_change": 0,
+      "main_predication": 13670.5048828125,
+      "make_perimeters_time": 4198,
+      "obj_cached_cnt": 0,
+      "objects": [
+        {
+          "bbox": {
+            "depth": 180.39999389648438,
+            "height": 17.700000762939453,
+            "width": 282.3999938964844,
+            "x": 21.300003051757812,
+            "y": 69.80000305175781,
+            "z": -1.9346973090250685e-07
+          },
+          "id": 5,
+          "name": "foam-cap-bottom",
+          "triangle_count": 15716
+        }
+      ],
+      "sliced_time": 12981,
+      "sliced_time_with_cache": 3272,
+      "total_predication": 13996.345703125,
+      "triangle_count": 15716,
+      "warning_message": ""
+    }
+  ],
+  "sparse_infill_density": 15.0,
+  "upward_compatible_machine": [
+    "Bambu Lab H2S 0.4 nozzle",
+    "Bambu Lab H2D 0.4 nozzle",
+    "Bambu Lab H2D Pro 0.4 nozzle",
+    "Bambu Lab A2L 0.4 nozzle"
+  ],
+  "wall_loops": 3
+}

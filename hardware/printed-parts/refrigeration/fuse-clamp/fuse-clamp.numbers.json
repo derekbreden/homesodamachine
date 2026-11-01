@@ -1,5 +1,7 @@
 {
  "box_floor": -22.5,
+ "case_d": 4.2,
+ "case_l": 11.0,
  "channel_h": 4.5,
  "channel_z": 4.2,
  "color": [
@@ -7,6 +9,7 @@
   0.019382361322641373,
   0.022173885256052017
  ],
+ "contact_tol": 0.01,
  "head_y": 8.95,
  "head_z": 6.7,
  "leaf_lead_in": 1.5,
@@ -15,5 +18,6 @@
  "name": "fuse-clamp",
  "neck_z": 3.5,
  "part_x": 18.0,
- "plate_top": -37.5
+ "plate_top": -37.5,
+ "tf_c": 77
 }

@@ -27,11 +27,12 @@ and [slice readings](enclosure/pump-mount-review/print-review.json) establish th
 listed geometry and emitted paths, not physical fit, support cleanup, load capacity or
 wet seals and retention under pressure.
 
-The [manual mesh-interface review](pump-dock/lint-interface-review.json) records
-the exact air/boundary classifier diagnoses, specific cosmetic flute contours and
-unresolved sensor, floor, rear-interface, warning and lid-fixture sections. Its full
-six-class readings and native/source correspondence establish their geometry scope;
-physical print quality, cleanup and load capacity remain unqualified.
+The [current surface review](../../mechanical-qualification/enclosure-above-core/surface-review.json)
+reads all seven anomaly classes on the actual four quadrant STLs, pump retainer
+and equipment lid. Exact anchors identify the specified working profiles and
+approved flute and vent sections. The shared motor/display room and joined
+flavor root retain no intervening cut skins. Physical print quality, cleanup
+and load capacity retain their own article scopes.
 
 Every reviewed print archive, the printer and settings it is sliced for, the geometry it binds
 by hash and its support-removal review are in the

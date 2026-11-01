@@ -6,7 +6,14 @@ the faucet display (DISPLAY CRADLE section).
 Frame: world +Z is height (up), world ±X is lateral (symmetric across
 the X=0 plane), world -Y is forward (dispense direction — the gooseneck
 arcs toward -Y, where the user's glass sits). The Westbrass's threaded shank
-runs along world Z at world (X, Y) = (0, 0)."""
+runs along world Z at world (X, Y) = (0, 0).
+
+THE KERNEL CUTS THE FILES. This module holds the numbers and writes the ones the
+geometry takes (`numbers()`) to `faucet-shell.numbers.json`; `faucet_shell.rs`,
+beside it, cuts `faucet-shell.step` and its payload, and each piece's STEP and
+STL, from them (`hardware/scripts/_rust_part.py`). The builders below draw the
+same shell in CadQuery, which is the body `faucet_assembly` and the industrial
+faucet seat."""
 
 import io
 import ast
@@ -36,8 +43,8 @@ import fits
 # Manifold validation and the ledger of named geometric bounds.
 import flute_skin as _flute_skin
 import _stated_bounds as _bounds
-from _cadq_export import export_assembly
-from _materials import C_FAUCET_BLACK, one_body
+import _cadq_export  # noqa: E402,F401  the CAD lock, and build-time.md's clock
+from _materials import C_FAUCET_BLACK, linear
 import _faucet_interface
 import faucet_paths as _paths
 import _display_snap
@@ -610,24 +617,30 @@ def build_foot_outline(z_bottom: float, z_height: float) -> cq.Workplane:
             .extrude(z_height))
 
 
+# The lower shell's oval sections, (z, width, depth, centre y), lofted up onto the round neck at
+# lower_neck_z; the neck's land stands on to neck_land_overrun past the zone-5 seam.
+lower_outer_sections = (
+    (0.0, foot_width, foot_depth, foot_center_y),
+    (8.5, foot_width, foot_depth, foot_center_y),
+    (20.0, 48.0, 53.5, 4.25),
+    (34.0, 44.0, 52.5, 5.25),
+    (43.0, 38.0, 50.0, 5.0),
+    (59.0, 30.0, 31.0, 11.5),
+)
+lower_neck_z = 65.0
+neck_land_overrun = 0.2
+
+
 def build_lower_outer() -> cq.Workplane:
     """Continuous oval lower shell, terminating on the round gooseneck section."""
-    sections = (
-        (0.0, foot_width, foot_depth, foot_center_y),
-        (8.5, foot_width, foot_depth, foot_center_y),
-        (20.0, 48.0, 53.5, 4.25),
-        (34.0, 44.0, 52.5, 5.25),
-        (43.0, 38.0, 50.0, 5.0),
-        (59.0, 30.0, 31.0, 11.5),
-    )
     wires = [cq.Workplane("XY").workplane(offset=z).center(0.0, cy)
              .ellipse(width / 2.0, depth / 2.0).val()
-             for z, width, depth, cy in sections]
+             for z, width, depth, cy in lower_outer_sections]
     neck = _tube_shell_outer_sketch()._faces.Faces()[0].outerWire()
-    wires.append(neck.translate((0.0, soda_faucet_tube_y, 65.0)))
+    wires.append(neck.translate((0.0, soda_faucet_tube_y, lower_neck_z)))
     loft = cq.Solid.makeLoft(wires, ruled=False)
     neck_land = cq.Solid.extrudeLinear(
-        wires[-1], [], cq.Vector(0.0, 0.0, zone5_z_top + 0.2 - 65.0))
+        wires[-1], [], cq.Vector(0.0, 0.0, zone5_z_top + neck_land_overrun - lower_neck_z))
     return cq.Workplane(obj=loft.fuse(neck_land)).clean()
 
 
@@ -648,7 +661,8 @@ def _lower_signal_profile(z, x, y, width, depth, rounded, angle=0.0):
     return wire.rotate((x, y, z), (x, y, z + 1.0), angle)
 
 
-def _lower_signal_solid(width, depth, rounded, bottom_z, turn_clearance=0.0):
+def _lower_signal_wires(width, depth, rounded, bottom_z, turn_clearance=0.0):
+    """The sections the lower cable or its lane is ruled through, bottom first."""
     stations = _lower_signal_stations()
     wires = [_lower_signal_profile(z, signal_lower_exit_x, signal_lower_exit_y,
                                    width, depth, rounded, signal_lower_exit_angle)
@@ -664,15 +678,55 @@ def _lower_signal_solid(width, depth, rounded, bottom_z, turn_clearance=0.0):
     wires.extend(_lower_signal_profile(z, x, y, width + 2.0 * turn_clearance,
                                        depth + 2.0 * turn_clearance, rounded, angle)
                  for z, x, y, angle in turn_stations)
-    solid = cq.Solid.makeLoft(wires, ruled=True)
+    return wires
+
+
+def _lower_signal_solid(width, depth, rounded, bottom_z, turn_clearance=0.0):
+    solid = cq.Solid.makeLoft(
+        _lower_signal_wires(width, depth, rounded, bottom_z, turn_clearance), ruled=True)
     if not solid.isValid() or len(solid.Solids()) != 1:
         raise ValueError("the complete lower ribbon or clearance lane must be one valid solid")
     return cq.Workplane(obj=solid)
 
 
+# The measured flat ribbon through the complete mount stack: its section, and its foot.
+lower_signal_ribbon = (signal_ribbon_max_width, signal_ribbon_max_depth, False, -50.0)
+
+
 def build_lower_signal_ribbon() -> cq.Workplane:
     """Measured flat ribbon envelope through the complete mount stack."""
-    return _lower_signal_solid(signal_ribbon_max_width, signal_ribbon_max_depth, False, -50.0)
+    return _lower_signal_solid(*lower_signal_ribbon)
+
+
+# The flat cable lane's foot, in the mounting stack below the counter; the bundle opening's
+# straight lands start bundle_land_below under zone 3's floor and stand bundle_land_above over
+# the loft's top.
+signal_lane_bottom_z = -6.2
+bundle_land_below = 0.5
+bundle_land_above = 0.2
+
+
+def _lower_opening_heights():
+    """The heights the lower bundle opening is lofted through, at most 0.4 mm apart."""
+    z0, z1 = _paths.LOWER_START_Z, _paths.LOWER_END_Z
+    count = math.ceil((z1-z0)/0.4)
+    return [z0+(z1-z0)*i/count for i in range(count+1)]
+
+
+def _lower_opening_circles(z):
+    """The soda bore, the flavor pair, the drain and the cable's two rounded ends at height `z`
+    of the lower bundle opening, as (x, y, r): the opening is their hull."""
+    left = _paths.lower_point(z,"flavor",-1)
+    right = _paths.lower_point(z,"flavor",1)
+    ribbon = _paths.lower_point(z,"ribbon")
+    drain = _paths.lower_point(z, "drain")
+    cable_half = (signal_lane_width-signal_lane_depth)/2.0
+    circles = [(0.0, soda_faucet_tube_y, soda_faucet_hole_diameter/2.0)]
+    circles += [(point[0], point[1], flavor_tube_hole_dia/2.0) for point in (left, right)]
+    circles.append((drain[0], drain[1], _faucet_interface.drain_tube_hole_dia/2.0))
+    circles += [(x, ribbon[1], signal_lane_depth/2.0)
+                for x in (ribbon[0]-cable_half, ribbon[0]+cable_half)]
+    return circles
 
 
 def build_lower_signal_lane() -> cq.Workplane:
@@ -682,40 +736,33 @@ def build_lower_signal_lane() -> cq.Workplane:
     channel to the neck. The opening has no thin stock between adjoining
     tube and cable passages.
     """
-    lane = _lower_signal_solid(signal_lane_width, signal_lane_depth, True, -6.2)
-    z0, z1 = _paths.LOWER_START_Z, _paths.LOWER_END_Z
-    count = math.ceil((z1-z0)/0.4)
+    lane = _lower_signal_solid(signal_lane_width, signal_lane_depth, True, signal_lane_bottom_z)
+    heights = _lower_opening_heights()
     wires = []
-    cable_half = (signal_lane_width-signal_lane_depth)/2.0
-    for i in range(count+1):
-        z = z0+(z1-z0)*i/count
-        left = _paths.lower_point(z,"flavor",-1)
-        right = _paths.lower_point(z,"flavor",1)
-        ribbon = _paths.lower_point(z,"ribbon")
-        sketch = cq.Sketch().arc(
-            (0.0, soda_faucet_tube_y), soda_faucet_hole_diameter/2.0, 0.0, 360.0)
-        for point in (left, right):
-            sketch = sketch.arc(point[:2], flavor_tube_hole_dia/2.0, 0.0, 360.0)
-        drain = _paths.lower_point(z, "drain")
-        sketch = sketch.arc(drain[:2], _faucet_interface.drain_tube_hole_dia/2.0,
-                            0.0, 360.0)
-        for x in (ribbon[0]-cable_half, ribbon[0]+cable_half):
-            sketch = sketch.arc((x, ribbon[1]), signal_lane_depth/2.0, 0.0, 360.0)
+    for z in heights:
+        sketch = cq.Sketch()
+        for x, y, r in _lower_opening_circles(z):
+            sketch = sketch.arc((x, y), r, 0.0, 360.0)
         wires.append(sketch.hull().clean()._faces.Faces()[0].outerWire()
                      .translate((0.0, 0.0, z)))
     transition = cq.Solid.makeLoft(wires, ruled=False)
     # Exact straight lands meet the donor and neck profiles. Extending a
     # spline loft through these constant runs can introduce tiny ripples at
     # coincident bore faces, so their circular/planar boundaries stay analytic.
-    bottom = zone3_z_bottom-0.5
+    z0 = heights[0]
+    bottom = zone3_z_bottom-bundle_land_below
     lower = cq.Solid.extrudeLinear(
         wires[0].translate((0.0, 0.0, bottom-z0)), [], cq.Vector(0, 0, z0-bottom))
-    upper = cq.Solid.extrudeLinear(wires[-1], [], cq.Vector(0, 0, 0.2))
+    upper = cq.Solid.extrudeLinear(wires[-1], [], cq.Vector(0, 0, bundle_land_above))
     opening = lower.fuse(transition, upper, tol=1e-6).clean()
     joined = lane.val().fuse(opening,tol=1e-6)
     if not joined.isValid() or len(joined.Solids()) != 1:
         raise ValueError("the common lower bundle opening must be one valid native solid")
     return cq.Workplane(obj=joined)
+
+
+# How far the donor's cutters reach past its bore across Y, so their ends meet no face of it.
+bore_overrun = 2.0
 
 
 def _rect_cove_cyl(
@@ -728,7 +775,7 @@ def _rect_cove_cyl(
     (mirrors the Westbrass's build_transition_cove)."""
     z_height = z_top - z_bottom
     rect_x_half = rect_x_width / 2.0
-    ext_y = rect_y_width / 2.0 + 2.0
+    ext_y = rect_y_width / 2.0 + bore_overrun
 
     rect = (
         _horizontal_plane(z_bottom)
@@ -787,7 +834,7 @@ def build_zone2_inner_cut() -> cq.Workplane:
 
 def build_zone3_inner_cut() -> cq.Workplane:
     """Donor arch clearance joined to the tube opening behind the lever."""
-    bore_y_oversize = westbrass_bore_diameter / 2.0 + 2.0
+    bore_y_oversize = westbrass_bore_diameter / 2.0 + bore_overrun
 
     def bore(x_bottom: float, x_height: float) -> cq.Workplane:
         return (
@@ -884,28 +931,26 @@ def _ribbon_transition(frame_fn,start,end,clearance):
     # Ruled sections only cover the short quintic offsets. A 0.3 mm pitch
     # keeps their chord error below the print surface tolerance.
     count=max(2,math.ceil((end-start)/0.3))
-    sections=[_ribbon_section(*frame_fn(start+(end-start)*i/count),clearance)
-              for i in range(count+1)]
-    return cq.Solid.makeLoft(sections,ruled=True)
+    return "loft",[_ribbon_section(*frame_fn(start+(end-start)*i/count),clearance)
+                   for i in range(count+1)]
 
 
 def _ribbon_straight(z0,z1,clearance):
     point,_,width=_ribbon_lower_frame(z0)
-    section=_ribbon_section(point,(0,0,1),width,clearance)
-    return cq.Solid.extrudeLinear(section,[],cq.Vector(0,0,z1-z0))
+    return "extrude",_ribbon_section(point,(0,0,1),width,clearance),(0,0,z1-z0)
 
 
 def _ribbon_constant_arc(s0,s1,n,width,clearance):
     a=_paths.JOINT_ANGLE+s0/_paths.WATER_RADIUS
     b=_paths.JOINT_ANGLE+s1/_paths.WATER_RADIUS
     start,mid,end=[_paths.arc_point(t,n=n) for t in (a,(a+b)/2,b)]
-    edge=cq.Edge.makeThreePointArc(cq.Vector(*start),cq.Vector(*mid),cq.Vector(*end))
-    wire=cq.Wire.assembleEdges([edge])
-    section=_ribbon_section(start,(0,-math.sin(a),math.cos(a)),width,clearance)
-    return cq.Solid.sweep(section,[],wire,makeSolid=True,isFrenet=False)
+    return "sweep",_ribbon_section(start,(0,-math.sin(a),math.cos(a)),width,clearance),(start,mid,end)
 
 
-def _ribbon_span_solids(clearance=False,bottom_z=38.8):
+def _ribbon_spans(clearance=False,bottom_z=38.8):
+    """The cable's spans up the neck, bottom first, as what each is cut from: `("extrude",
+    section, rise)` for a straight run, `("loft", sections)` for an offset transition, ruled,
+    and `("sweep", section, arc points)` for a constant arc."""
     end_angle=_path_total_rot-math.asin(
         (display_ribbon_join_s-gn_tip_straight_len)/(gn_bend1_r+signal_lane_center_n))
     end_s=(end_angle-_paths.JOINT_ANGLE)*_paths.WATER_RADIUS
@@ -921,6 +966,19 @@ def _ribbon_span_solids(clearance=False,bottom_z=38.8):
         _ribbon_constant_arc(_paths.CONVERGE_START_S+_paths.RIBBON_CONVERGE_LENGTH,
                              end_s,_paths.FACE_RIBBON_N,signal_ribbon_max_width,clearance)])
     return parts
+
+
+def _ribbon_span_solid(span):
+    if span[0]=="extrude":
+        return cq.Solid.extrudeLinear(span[1],[],cq.Vector(*span[2]))
+    if span[0]=="loft":
+        return cq.Solid.makeLoft(span[1],ruled=True)
+    edge=cq.Edge.makeThreePointArc(*(cq.Vector(*p) for p in span[2]))
+    return cq.Solid.sweep(span[1],[],cq.Wire.assembleEdges([edge]),makeSolid=True,isFrenet=False)
+
+
+def _ribbon_span_solids(clearance=False,bottom_z=38.8):
+    return [_ribbon_span_solid(span) for span in _ribbon_spans(clearance,bottom_z)]
 
 
 @functools.lru_cache(maxsize=None)
@@ -1016,6 +1074,18 @@ def _tube_shell_outer_sketch() -> cq.Sketch:
     return cq.Sketch().push([(0.0, tube_shell_center_y)]).circle(tube_shell_outer_r)
 
 
+def _tube_shell_inner_circles(*, include_signal=True, station=0.0):
+    """The soda opening, the flavor pair and, with `include_signal`, the cable's two rounded
+    ends at `station`, as (x, y, r) in the neck's section: the opening is their hull."""
+    x, n, _, ribbon_n, _ = _paths.positions(station)
+    circles = [(0.0, 0.0, soda_faucet_hole_diameter/2)]
+    circles += [(xx, n, flavor_tube_hole_dia/2) for xx in (-x, x)]
+    if include_signal:
+        half_span = (signal_lane_width-signal_lane_depth)/2
+        circles += [(xx, ribbon_n, signal_lane_depth/2) for xx in (-half_span, half_span)]
+    return circles
+
+
 def _tube_shell_inner_sketch(*, include_signal=True, station=0.0):
     """One smooth bundle opening, with the flavors in a shared capsule.
 
@@ -1023,14 +1093,9 @@ def _tube_shell_inner_sketch(*, include_signal=True, station=0.0):
     clearances. The complete rounded profiles, rather than their centres,
     define this opening; no bore-intersection cusp is retained as stock.
     """
-    x, n, _, ribbon_n, _ = _paths.positions(station)
-    sketch = cq.Sketch().arc((0.0,0.0),soda_faucet_hole_diameter/2,0.0,360.0)
-    for xx in (-x,x):
-        sketch = sketch.arc((xx,n),flavor_tube_hole_dia/2,0.0,360.0)
-    if include_signal:
-        half_span = (signal_lane_width-signal_lane_depth)/2
-        for xx in (-half_span,half_span):
-            sketch = sketch.arc((xx,ribbon_n),signal_lane_depth/2,0.0,360.0)
+    sketch = cq.Sketch()
+    for x, y, r in _tube_shell_inner_circles(include_signal=include_signal, station=station):
+        sketch = sketch.arc((x, y), r, 0.0, 360.0)
     return sketch.hull().clean()
 
 
@@ -1071,17 +1136,25 @@ def _ribbon_end_station():
     return (end_angle-_paths.JOINT_ANGLE)*_paths.WATER_RADIUS
 
 
+def _bundle_stations(s0, s1):
+    """The stations the bundle opening is lofted through, at most 2 mm apart."""
+    count = max(2, math.ceil((s1 - s0) / 2.0))
+    return [s0 + (s1 - s0) * i / count for i in range(count + 1)]
+
+
 def _bundle_opening_loft(s0, s1, *, include_signal):
     """Smooth opening around the complete tube and optional ribbon profiles."""
-    count = max(2, math.ceil((s1 - s0) / 2.0))
     wires = []
-    for i in range(count + 1):
-        station = s0 + (s1 - s0) * i / count
+    for station in _bundle_stations(s0, s1):
         origin, xdir, tangent = _paths.station_plane(station)
         plane = cq.Plane(origin=origin, xDir=xdir, normal=tangent)
         section = _tube_shell_inner_sketch(include_signal=include_signal,station=station)
         wires.append(section._faces.Faces()[0].outerWire().transformShape(plane.rG))
     return cq.Workplane(obj=cq.Solid.makeLoft(wires, ruled=False))
+
+
+# How far below the cable's exit the beverage outlets start, inside the shared passage.
+beverage_lead = 0.5
 
 
 @functools.lru_cache(maxsize=None)
@@ -1090,7 +1163,7 @@ def build_beverage_interstice_cut():
     end = _paths.CONVERGE_START_S + _paths.CONVERGE_LENGTH
     profile = _tube_shell_inner_sketch(include_signal=False,station=end)
     return _sweep_along_gooseneck(profile).intersect(
-        _station_halfspace(_ribbon_end_station()-0.5, 0.0, 1))
+        _station_halfspace(_ribbon_end_station()-beverage_lead, 0.0, 1))
 
 
 def build_upstream_interstice_cut():
@@ -1186,27 +1259,40 @@ def _drip_guide_halfspace(station,offset,sign):
     return _station_halfspace(station,offset,sign)
 
 
+# How far behind the drain's square-cut mouth its relief starts.
+drain_relief_lead = 0.25
+
+
 def build_drain_terminal_relief():
     """Local open space beyond the square-cut drain mouth."""
     end = _paths.tube_arc_point(_paths.DRAIN_CUT_S, "drain")
     _, xdir, tangent = _paths.station_plane(_paths.DRAIN_CUT_S)
     plane = cq.Plane(origin=end, xDir=xdir, normal=tangent)
-    return (cq.Workplane(plane).workplane(offset=-0.25)
+    return (cq.Workplane(plane).workplane(offset=-drain_relief_lead)
             .circle(_faucet_interface.drain_tube_hole_dia / 2.0)
-            .extrude(_paths.DRIP_END_CLEARANCE_MM + 0.25))
+            .extrude(_paths.DRIP_END_CLEARANCE_MM + drain_relief_lead))
+
+
+# How far inside the curved soda-clearance wall the vent outlet starts, so it opens across the
+# complete 4 mm hole. A shallow flat start leaves thin crescents beside that curvature.
+vent_outlet_reach = 0.6
+
+
+def _vent_outlet_frame():
+    """The vent outlet's station on the bend's underside, the direction it opens in, and how far
+    along that it starts."""
+    station=_paths.DRIP_HOLE_S
+    angle=split_junction_rot+station/gn_bend1_r
+    origin=_paths.station_point(station,n=tube_shell_center_y)
+    inner_offset = tube_shell_center_y + soda_faucet_hole_diameter / 2.0 - vent_outlet_reach
+    return origin, (0,-math.cos(angle),-math.sin(angle)), inner_offset
 
 
 @functools.lru_cache(maxsize=None)
 def build_vent_outlet():
     """Round underside hole opening into the common tube-passage clearance."""
-    station=_paths.DRIP_HOLE_S
-    angle=split_junction_rot+station/gn_bend1_r
-    origin=_paths.station_point(station,n=tube_shell_center_y)
-    plane=cq.Plane(origin=origin,xDir=(1,0,0),
-                   normal=(0,-math.cos(angle),-math.sin(angle)))
-    # Reach inside the curved soda-clearance wall across the complete 4 mm
-    # hole. A shallow flat start leaves thin crescents beside that curvature.
-    inner_offset = tube_shell_center_y + soda_faucet_hole_diameter / 2.0 - 0.6
+    origin, normal, inner_offset = _vent_outlet_frame()
+    plane=cq.Plane(origin=origin,xDir=(1,0,0),normal=normal)
     return (cq.Workplane(plane).workplane(offset=inner_offset)
             .circle(_paths.DRIP_HOLE_DIAMETER/2)
             .extrude(tube_shell_outer_r + wall_thickness_min))
@@ -1425,21 +1511,27 @@ def build_display_outer_envelope() -> cq.Workplane:
         30.0, display_head_s_min, display_head_s_max + 1.0, -30.0, 40.0))
 
 
+# The display's clearance under the bezel: its (width, length, corner radius, n) rows about the
+# housing's centre, and the prism (half x, s0, s1, n0, n1) that stands its rear wall upright.
+display_cover_inner_rows = (
+    (display_cover_skirt_width - 2.0 * display_cosmetic_wall,
+     50.0, 8.7, display_cover_bottom_n - 1.0),
+    (display_cover_skirt_width - 2.0 * display_cosmetic_wall,
+     50.0, 8.7, display_cover_shoulder_n),
+    (display_housing_width + 2.0 * display_cradle_clearance,
+     display_housing_length + 2.0 * display_cradle_clearance,
+     display_corner_r + display_cradle_clearance,
+     display_face_n + display_cover_over_face),
+)
+display_cover_inner_clamp = (50.0, -20.0, display_s_top, -30.0, 40.0)
+
+
 def build_display_cover_inner_envelope() -> cq.Workplane:
     """Display clearance below the bezel with a vertical rear wall."""
-    rows = (
-        (display_cover_skirt_width - 2.0 * display_cosmetic_wall,
-         50.0, 8.7, display_cover_bottom_n - 1.0),
-        (display_cover_skirt_width - 2.0 * display_cosmetic_wall,
-         50.0, 8.7, display_cover_shoulder_n),
-        (display_housing_width + 2.0 * display_cradle_clearance,
-         display_housing_length + 2.0 * display_cradle_clearance,
-         display_corner_r + display_cradle_clearance,
-         display_face_n + display_cover_over_face),
-    )
     loft = _display_world(cq.Workplane(obj=cq.Solid.makeLoft(
-        [_display_outline_wire(*row, center_s=_display_housing_center_s) for row in rows], ruled=False)))
-    return loft.intersect(_cradle_prism(50.0, -20.0, display_s_top, -30.0, 40.0))
+        [_display_outline_wire(*row, center_s=_display_housing_center_s)
+         for row in display_cover_inner_rows], ruled=False)))
+    return loft.intersect(_cradle_prism(*display_cover_inner_clamp))
 
 
 def build_display_neck_clearance() -> cq.Workplane:
@@ -1491,9 +1583,16 @@ def relieve_display_lip_inner_edges(lips: cq.Workplane) -> cq.Workplane:
         _display_snap.LIP_INNER_EDGE_RELIEF, None, inner_edges))
 
 
+# How far past the neck each groove's band reaches across X; how far the device opening stands
+# over the cover's top; how far the open channel rises into the device opening.
+display_groove_reach = 1.0
+display_pocket_overrun = 1.0
+display_channel_overlap = 0.1
+
+
 def build_display_retention_grooves() -> cq.Workplane:
     """Side grooves with preload roots, flat floors and retaining shoulders."""
-    band = _cradle_prism(display_neck_outer_r + 1.0,
+    band = _cradle_prism(display_neck_outer_r + display_groove_reach,
                          display_clip_s_bottom - _display_snap.END_SLIP,
                          display_clip_s_top + _display_snap.END_SLIP,
                          display_clip_bottom_n,
@@ -1507,11 +1606,11 @@ def _display_cavity() -> cq.Workplane:
     # Only the four existing bearing pads extend to the raised display seat.
     device_opening = _cradle_prism(
         display_neck_outer_r + wall_thickness_min, dispense_face_thickness, display_s_top,
-        display_seat_reference_n, display_cover_top_n + 1.0,
+        display_seat_reference_n, display_cover_top_n + display_pocket_overrun,
     ).cut(build_display_feet_pads())
     open_channel = _cradle_prism(
         display_channel_half_width, dispense_face_thickness, display_s_top,
-        0.0, display_seat_reference_n + 0.1)
+        0.0, display_seat_reference_n + display_channel_overlap)
     return device_opening.union(open_channel)
 
 
@@ -1525,8 +1624,9 @@ def build_display_usb_keepout() -> cq.Workplane:
     ).translate(((low[0] + high[0]) / 2.0, 0.0, 0.0))
 
 
-def _display_ribbon_sweep(width: float, depth: float, top_n: float) -> cq.Workplane:
-    """The flat ribbon leaves the neck into the open volume below the PCB.
+def _display_ribbon_sections(width: float, depth: float, top_n: float):
+    """The flat ribbon leaves the neck into the open volume below the PCB, ruled through these
+    sections, bottom first.
 
     Sections follow explicit frames: width stays perpendicular to the lateral
     turn, without the sudden ribbon twist of a Frenet frame at an inflection.
@@ -1605,14 +1705,22 @@ def _display_ribbon_sweep(width: float, depth: float, top_n: float) -> cq.Workpl
             cross = cq.Vector(1, 0, 0)
         section = cq.Workplane(cq.Plane(origin=centre, xDir=cross, normal=tangent))
         wires.append(section.rect(width, depth).val())
-    return cq.Workplane(obj=cq.Solid.makeLoft(wires,ruled=True))
+    return wires
+
+
+def _display_ribbon_sweep(width: float, depth: float, top_n: float) -> cq.Workplane:
+    return cq.Workplane(obj=cq.Solid.makeLoft(_display_ribbon_sections(width, depth, top_n),
+                                              ruled=True))
+
+
+# The cable's top: the factory wire fan-out beside the PCB, short of its measured underside.
+display_ribbon_top_n = display_feet_n + _faucet_interface.display_pcb_bottom_z - display_ribbon_pcb_gap
 
 
 def build_display_ribbon_transition() -> cq.Workplane:
     """Maximum SIG-6 envelope up to the factory wire fan-out beside the PCB."""
     return _display_ribbon_sweep(signal_ribbon_max_width, signal_ribbon_max_depth,
-                                 display_feet_n + _faucet_interface.display_pcb_bottom_z
-                                 - display_ribbon_pcb_gap)
+                                 display_ribbon_top_n)
 
 
 def build_lever_overhead_clearance() -> cq.Workplane:
@@ -1655,8 +1763,9 @@ def build_lever_front_clearance() -> cq.Workplane:
     return cq.Workplane(obj=opening.cut(cap).fuse(lower_entry))
 
 
-def build_lever_clearance() -> cq.Workplane:
-    """Lever travel, overhead relief and straight front insertion corridor."""
+def _lever_outline():
+    """The lever's travel in the (Y, Z) plane: every pose of its swing and the edges swept
+    between them, grown by its fit clearance and opened through to the donor's plateau."""
     from shapely.geometry import Polygon, box
     from shapely.ops import unary_union
 
@@ -1664,7 +1773,6 @@ def build_lever_clearance() -> cq.Workplane:
     pivot_y = 1.5
     pivot_z = zone2_z_top + 7.0
     travel_deg = 18
-    x_half = lever_clearance_x_half
     profile = (
         (-42.0, zone2_z_top + 10.0),
         (-42.0, lever_rest_top_z),
@@ -1697,7 +1805,13 @@ def build_lever_clearance() -> cq.Workplane:
     plateau_join = box(-westbrass_bore_rect_long_y / 2.0, zone2_z_top - 0.01,
                        fill_y_min, lever_rest_top_z)
     outline = outline.union(plateau_join)
-    return (_vertical_plane(-x_half).polyline(list(outline.exterior.coords)[:-1]).close()
+    return list(outline.exterior.coords)[:-1]
+
+
+def build_lever_clearance() -> cq.Workplane:
+    """Lever travel, overhead relief and straight front insertion corridor."""
+    x_half = lever_clearance_x_half
+    return (_vertical_plane(-x_half).polyline(_lever_outline()).close()
             .extrude(2.0 * x_half)
             .union(build_lever_overhead_clearance())
             .union(build_lever_front_clearance()))
@@ -1856,10 +1970,14 @@ def build_shell_tip(full_shell=None):
     return cq.Workplane(obj=joined)
 
 
-def print_height(shape: cq.Workplane, build_rot: float) -> float:
-    """Height of `shape` on the bed when built along the gooseneck tangent
-    at path rotation `build_rot` — the piece's print orientation."""
-    return shape.rotate((0, 0, 0), (1, 0, 0), -math.degrees(build_rot)).val().BoundingBox().zlen
+def print_height(stl: Path, build_rot: float) -> float:
+    """Height on the bed of the piece `stl` holds, built along the gooseneck
+    tangent at path rotation `build_rot` — the piece's print orientation."""
+    import numpy as np
+    record = np.dtype([("normal", "<f4", 3), ("corners", "<f4", (3, 3)), ("attribute", "<u2")])
+    corners = np.fromfile(stl, dtype=record, offset=84)["corners"].reshape(-1, 3).astype(float)
+    z = corners[:, 2] * math.cos(build_rot) - corners[:, 1] * math.sin(build_rot)
+    return float(z.max() - z.min())
 
 
 # Absolute millimetre deflection and angular deflection of the printable surface.
@@ -1936,34 +2054,119 @@ def write_bed_file(solid, path):
     return mesh
 
 
-def main():
-    out_dir = Path(__file__).resolve().parent
-    full = build_shell()
-    base = build_shell_base(full)
-    tip = build_shell_tip(full)
-    for name, shape in (("shell", full), ("base", base), ("tip", tip)):
-        if not shape.val().isValid() or len(shape.val().Solids()) != 1:
-            raise ValueError(f"{name}: expected one valid printable solid")
-    # faucet-shell.step is the TRUE assembly — the two printed pieces as
-    # separate solids in their assembled positions, joint voids, seam
-    # and all — not the unsplit design solid the pieces derive from.
-    # Separate solids, not a union: a boolean union fuses the joint's
-    # nominal-contact faces and dissolves the seam.
-    assembled = cq.Assembly(name="faucet-shell")
-    assembled.add(base, name="shell_base", color=C_FAUCET_BLACK)
-    assembled.add(tip, name="shell_tip", color=C_FAUCET_BLACK)
+def numbers():
+    """What `faucet_shell.rs` cuts the shell from: the dimensions its builders
+    take, and the sections, frames and outline this module derives for them,
+    in the assembled frame."""
+    def floats(values):
+        return [float(v) for v in values]
 
-    full_out = out_dir / "faucet-shell.step"
-    base_out = out_dir / "faucet-shell-base.step"
-    tip_out = out_dir / "faucet-shell-tip.step"
-    export_assembly(assembled, str(full_out))
-    for shape, out in ((base, base_out), (tip, tip_out)):
-        export_assembly(one_body(shape, out.stem, C_FAUCET_BLACK), str(out))
-    print(f"-> {full_out.name}")
-    print(f"-> {base_out.name}")
-    print(f"-> {tip_out.name}")
-    write_bed_file(base, out_dir / "faucet-shell-base.stl")
-    write_bed_file(tip, out_dir / "faucet-shell-tip.stl")
+    def circles(rows):
+        return [floats(row) for row in rows]
+
+    end = _paths.CONVERGE_START_S + _paths.CONVERGE_LENGTH
+    _, drain_x, drain_t = _paths.station_plane(_paths.DRAIN_CUT_S)
+    vent_origin, vent_normal, vent_offset = _vent_outlet_frame()
+
+    def passage_section(station):
+        origin, xdir, normal = _paths.station_plane(station)
+        return {"origin": floats(origin), "xdir": floats(xdir), "normal": floats(normal),
+                "circles": circles(_tube_shell_inner_circles(station=station))}
+
+    return {
+        "name": "faucet-shell", "color": floats(linear(C_FAUCET_BLACK)),
+        # The gooseneck, the stock round it, and the split across its bend.
+        "zone5_z_top": zone5_z_top, "zone5_z_bottom": zone5_z_bottom,
+        "soda_faucet_tube_y": soda_faucet_tube_y, "gn_bend1_z_start": gn_bend1_z_start,
+        "gn_bend1_r": gn_bend1_r, "path_total_rot": _path_total_rot,
+        "gn_tip_straight_len": gn_tip_straight_len,
+        "joint_angle": _paths.JOINT_ANGLE, "water_radius": _paths.WATER_RADIUS,
+        "tube_shell_outer_r": tube_shell_outer_r, "tube_shell_center_y": tube_shell_center_y,
+        "shell_outer_r": shell_outer_r, "wall_thickness_min": wall_thickness_min,
+        "lower_outer_sections": circles(lower_outer_sections),
+        "lower_neck_z": lower_neck_z, "neck_land_overrun": neck_land_overrun,
+        "split_junction_rot": split_junction_rot,
+        "path_socket_start_rot": _path_socket_start_rot,
+        "split_socket_shrink": split_socket_shrink,
+        "path_plug_start_rot": _path_plug_start_rot, "split_plug_shrink": split_plug_shrink,
+        # The donor's bores, the flavor pill and the mounting pods.
+        "zone1_z_bottom": zone1_z_bottom, "zone1_height": zone1_height,
+        "zone2_bore_z_bottom": zone2_bore_z_bottom, "zone2_z_bottom": zone2_z_bottom,
+        "zone2_z_top": zone2_z_top, "zone2_height": zone2_height,
+        "zone3_z_bottom": zone3_z_bottom,
+        "westbrass_bore_x": westbrass_bore_x, "westbrass_bore_y": westbrass_bore_y,
+        "westbrass_bore_diameter": westbrass_bore_diameter,
+        "westbrass_bore_rect_short_x": westbrass_bore_rect_short_x,
+        "westbrass_bore_rect_long_y": westbrass_bore_rect_long_y,
+        "cove_r": cove_r, "bore_overrun": bore_overrun,
+        "shell_arch_bore_inner_x": shell_arch_bore_inner_x,
+        "shell_arch_bore_outer_x": shell_arch_bore_outer_x,
+        "shell_arch_bore_z_foot_top": shell_arch_bore_z_foot_top,
+        "shell_arch_bore_z_peak": shell_arch_bore_z_peak, "fill_y_min": fill_y_min,
+        "flavor_pill_center": floats(flavor_pill_center), "pill_length_x": pill_length_x,
+        "pill_width_y": pill_width_y, "flavor_pill_y_minus_edge": flavor_pill_y_minus_edge,
+        "base_pod_centers": circles(base_pod_centers),
+        "base_pod_z_bottom": base_pod_z_bottom, "base_pod_hole_dia": base_pod_hole_dia,
+        "base_pod_hole_depth": base_pod_hole_depth,
+        "base_insert_bottom_z": base_insert_bottom_z,
+        "base_pod_insert_dia": base_pod_insert_dia,
+        "base_pod_insert_depth": base_pod_insert_depth,
+        # The lever's travel, its overhead relief and its front corridor.
+        "lever_outline": circles(_lever_outline()),
+        "lever_clearance_x_half": lever_clearance_x_half,
+        "lever_clearance_y_back": lever_clearance_y_back,
+        "lever_insertion_front_y": lever_insertion_front_y,
+        "lever_rest_top_z": lever_rest_top_z,
+        "back_arch_r": back_arch_r, "back_arch_center_z": back_arch_center_z,
+        "zone45_front_y": zone45_front_y,
+        # The drain's mouth and the vent under the bend.
+        "drain_relief": {"origin": floats(_paths.tube_arc_point(_paths.DRAIN_CUT_S, "drain")),
+                         "xdir": floats(drain_x), "normal": floats(drain_t)},
+        "drain_relief_lead": drain_relief_lead,
+        "drain_tube_hole_dia": _faucet_interface.drain_tube_hole_dia,
+        "drip_end_clearance": _paths.DRIP_END_CLEARANCE_MM,
+        "vent_outlet": {"origin": floats(vent_origin), "normal": floats(vent_normal)},
+        "vent_outlet_offset": vent_offset, "drip_hole_diameter": _paths.DRIP_HOLE_DIAMETER,
+        # The display's pocket, feet, open channel and snap grooves, in the tip frame.
+        "dispense_face_thickness": dispense_face_thickness, "display_s_top": display_s_top,
+        "display_neck_outer_r": display_neck_outer_r,
+        "display_seat_reference_n": display_seat_reference_n,
+        "display_pocket_top_n": display_cover_top_n + display_pocket_overrun,
+        "display_channel_half_width": display_channel_half_width,
+        "display_channel_top_n": display_seat_reference_n + display_channel_overlap,
+        "display_foot_centers": circles(display_foot_centers),
+        "display_foot_pad_width": display_foot_pad_width,
+        "display_foot_pad_depth": display_foot_pad_depth, "display_feet_n": display_feet_n,
+        "display_groove_half_x": display_neck_outer_r + display_groove_reach,
+        "display_groove_core_r": display_neck_outer_r - (
+            display_neck_outer_r - display_clip_groove_radius),
+        "display_clip_s_bottom": display_clip_s_bottom, "display_clip_s_top": display_clip_s_top,
+        "display_clip_bottom_n": display_clip_bottom_n, "display_clip_top_n": display_clip_top_n,
+        "snap_end_slip": _display_snap.END_SLIP, "snap_bearing_slip": _display_snap.BEARING_SLIP,
+        # The cable lane, and the tube and cable passages up the neck to the tip.
+        "signal_lane_z": [signal_lane_bottom_z, _lower_signal_stations()[-1][0]],
+        "signal_lower_exit": [signal_lower_exit_x, signal_lower_exit_y],
+        "signal_lower_exit_angle": signal_lower_exit_angle,
+        "signal_lane_width": signal_lane_width, "signal_lane_depth": signal_lane_depth,
+        "lower_opening_sections": [{"z": z, "circles": circles(_lower_opening_circles(z))}
+                                   for z in _lower_opening_heights()],
+        "bundle_land_bottom_z": zone3_z_bottom - bundle_land_below,
+        "bundle_land_above": bundle_land_above,
+        "passage_sections": [passage_section(station)
+                             for station in _bundle_stations(_paths.CONVERGE_START_S, end)],
+        "converge_start_s": _paths.CONVERGE_START_S, "converge_length": _paths.CONVERGE_LENGTH,
+        "ribbon_end_s": _ribbon_end_station(), "beverage_lead": beverage_lead,
+        "beverage_circles": circles(_tube_shell_inner_circles(include_signal=False, station=end)),
+    }
+
+
+def main():
+    # A run cuts the shell; an import of this module is a reader of its builders and numbers.
+    import _rust_part
+
+    out_dir = Path(__file__).resolve().parent
+    said = _rust_part.cut("faucet", "faucet-shell", numbers(), out_dir)
+    print("-> " + ", ".join(said["files"]))
 
     variables = {
         "DISPENSE_FACE_T": f"{dispense_face_thickness:g} mm",
@@ -2048,8 +2251,10 @@ def main():
         "DISPLAY_INSTALL_LIFT": f"{display_cartridge_lift_n:g} mm",
         "PRINT_TILT": f"{math.degrees(print_base_tilt_rad):.0f}°",
         "MAX_PRINT_OVERHANG": f"{math.degrees(max_print_overhang_rad):.0f}°",
-        "BASE_PRINT_HEIGHT": f"{print_height(base, print_base_build_rot):.1f} mm",
-        "TIP_PRINT_HEIGHT": f"{print_height(tip, print_tip_build_rot):.1f} mm",
+        "BASE_PRINT_HEIGHT": (
+            f"{print_height(out_dir / 'faucet-shell-base.stl', print_base_build_rot):.1f} mm"),
+        "TIP_PRINT_HEIGHT": (
+            f"{print_height(out_dir / 'faucet-shell-tip.stl', print_tip_build_rot):.1f} mm"),
         "BACK_ARCH_DY": f"{_back_arch_dy:.4g} mm",
         "Z5_Y_MIN": f"{_z5_y_min:.4g} mm",
         "ZONE45_Z_TOP": f"{zone45_z_top:.4g} mm",

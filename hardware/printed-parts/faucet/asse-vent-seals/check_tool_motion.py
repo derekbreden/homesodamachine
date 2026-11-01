@@ -114,8 +114,8 @@ def bound_signature():
 
 
 def lower_ribbon_signature():
-    names=("_lower_signal_stations","_lower_signal_profile","_lower_signal_solid",
-           "build_lower_signal_ribbon")
+    names=("_lower_signal_stations","_lower_signal_profile","_lower_signal_wires",
+           "_lower_signal_solid","build_lower_signal_ribbon")
     tree=ast.parse(Path(f.__file__).read_text())
     functions={node.name:ast.dump(node,include_attributes=False) for node in tree.body
                if isinstance(node,ast.FunctionDef) and node.name in names}

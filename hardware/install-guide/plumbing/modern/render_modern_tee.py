@@ -25,9 +25,7 @@ Regenerate from the repository root with::
 
 from __future__ import annotations
 
-import json
 import os
-import subprocess
 import sys
 import tempfile
 from dataclasses import dataclass
@@ -41,13 +39,12 @@ HERE = Path(__file__).resolve().parent
 HARDWARE = next(parent for parent in HERE.parents if parent.name == "hardware")
 ROOT = HARDWARE.parent
 ART = HERE / "art"
-RENDERER = ROOT / "tools" / "render" / "render-step-posed.js"
-VIEWER_SCENE = ROOT / "web" / "public" / "js" / "viewer" / "scene.js"
 
 os.environ.setdefault("HSM_NO_BUILD_LOCK", "1")
 sys.path.insert(0, str(HARDWARE / "scripts"))
 sys.path.insert(0, str(HARDWARE / "reference" / "jg-pp0408w"))
-from _cadq_export import _per_solid_color, _write_mesh_payload, note_read, note_write  # noqa: E402
+from _cadq_export import _per_solid_color, _write_mesh_payload, note_write  # noqa: E402
+import _hsm_render  # noqa: E402
 import jg_pp0408w as union_ref  # noqa: E402
 
 
@@ -621,8 +618,6 @@ def _job(step: Path, output: Path, view: View) -> dict:
 
 
 def main() -> None:
-    note_read(RENDERER)
-    note_read(VIEWER_SCENE)
     ART.mkdir(parents=True, exist_ok=True)
 
     outputs: list[Path] = []
@@ -637,13 +632,7 @@ def main() -> None:
             jobs.append(_job(step, output, view))
             outputs.append(output)
 
-        subprocess.run(
-            ["node", str(RENDERER), "--jobs", "-"],
-            cwd=ROOT,
-            input=json.dumps(jobs),
-            text=True,
-            check=True,
-        )
+        _hsm_render.render(jobs)
         for output in outputs:
             _canonicalize_png(output)
             note_write(output)

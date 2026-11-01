@@ -10,17 +10,17 @@ This doc is the **physical wiring view** — gauges, run lengths, terminations, 
 
 ## Physical zones
 
-The insulated cold core occupies the rear floor. Its dry upper lid supports the flat PCB, four junction WAGOs and the earth stack. Back-top carries the PSU and two raised relays on the dry west sidewall and the meter on its east-wall carriers. Its rear ceiling is continuous, so every end beneath it is landed while back-top is open on the bench, with its free end dressed to the funnel opening. The final connections are made through that opening with the funnel frame out. Three runs whose two ends both lie under the ceiling, AC-4, AC-5 and DC-3, meet in lever-nut joins there.
+The insulated cold core occupies the rear floor. Its dry upper lid supports the flat PCB and four junction WAGOs. Back-top carries the PSU and two raised relays on the dry west sidewall and the meter on its east-wall carriers. Its rear ceiling is continuous, so every end beneath it is landed while back-top is open on the bench, with its free end dressed to the funnel opening. The final connections are made through that opening with the funnel frame out. Three runs whose two ends both lie under the ceiling, AC-4, AC-5 and DC-3, meet in lever-nut joins there.
 
 | Zone | Location | Contents |
 |---|---|---|
-| Core lid | Above the insulated core | Main PCB, +12 V/DC GND/sensor/reed WAGOs and ring-terminal earth stack |
+| Core lid | Above the insulated core | Main PCB and +12 V/DC GND/sensor/reed WAGOs |
 | Fixed enclosure walls | Rear wall, west wall and front manifold | C14 and three mains WAGOs at the rear; Mean Well IRM-90-12ST and two Teyleten relays on the west wall; two manifold commons on front-top's east wall |
 | Compressor zone | Front of the enclosure floor | Upright hermetic compressor on four floor posts, retained donor terminal/PTC cover, thermal fuse, condenser fan and low MQ-6 sensor |
 
 The main board is a single JLCPCB-assembled PCB carrying the ESP32-WROOM-32E, both MCP23017 expanders, the DS3231 RTC, both TBD62083 sink drivers, both DRV8870 pump H-bridges, and its own logic rails — [5 V](V_LOGIC) from the on-board K7805 buck (U10), [3.3 V](V_IO) from the on-board AMS1117 LDO (U9). It takes [12 V](V_DC) at the J10 screw inlet and presents every field interface as a labeled edge connector (next section); J14 is the USB-C programming port (bench cable only, no loom). The board carries those logic functions internally; a low-voltage loom lands either on a main-board connector or on a relay module's terminals.
 
-Both Teyleten relays are on back-top’s west wall above the PSU. The compressor lead carries [3](COMP_WIRES) cores in one jacket: switched H, N and PE. Switched H and N meet back-top's relay #1 and neutral pigtails in two lever-nut joins under the funnel opening; PE lands on the lid earth stack. Relay #2 switches the lid-mounted diaphragm pump through a third join. See [`/hardware/README.md`](/hardware/README.md) “Safety” for the qualification scope.
+Both Teyleten relays are on back-top’s west wall above the PSU. The compressor lead carries [3](COMP_WIRES) cores in one jacket: switched H, N and PE. Switched H and N meet back-top's relay #1 and neutral pigtails in two lever-nut joins under the funnel opening; PE lands in port 3 of the rear PE WAGO. Relay #2 switches the lid-mounted diaphragm pump through a third join. See [`/hardware/README.md`](/hardware/README.md) “Safety” for the qualification scope.
 
 ## Board connector map
 
@@ -67,7 +67,7 @@ JST-to-display loom therefore stays stranded at its display screw terminals.
 The [Mean Well IRM-90-12ST](https://www.meanwell.com/Upload/PDF/IRM-90/IRM-90-spec.pdf)
 is an encapsulated Class II module with two AC terminals, L and N, and no
 protective-earth terminal. Bond the exposed
-metalwork through the ground bus. Preform and terminate both PSU pigtail
+metalwork through the rear PE WAGO. Preform and terminate both PSU pigtail
 pairs with power disconnected before fastening the module to its wall
 bosses; leave the wire bends free of the nameplate backing and relay.
 
@@ -84,7 +84,7 @@ Per-run gauges, terminations, and approximate lengths. Lengths assume the enclos
 | AC-3 | AC distribution block (H) | Teyleten relay #1 contact input | H | [16](AWG_AC_BRANCH) | [~150 mm](LEN_SHORT) | Solid copper directly in relay screw cage and WAGO clamp | Unswitched hot leg into the relay's "common" terminal. |
 | AC-4 | Teyleten relay #1 contact output ("normally open") | Verified hot side of current donor compressor's factory-external electrical interface, through SF76E thermal fuse | H_switched | [16](AWG_AC_BRANCH) pigtail + [18](AWG_COMP_LEAD) core | [~300 mm](LEN_JOIN) pigtail; [~700 mm](LEN_COMPRESSOR) core stock | Solid copper in the relay screw cage; WAGO 221-413 join under the funnel opening, the core ferruled into it; current-donor external-interface connector TBD | Switched hot, in two pieces. A black solid pigtail from relay #1's NO terminal is landed on the open back-top and dressed forward to the funnel opening. One of the three conductors of the [18 AWG](AWG_COMP_LEAD_U) SJOOW lead, in a shared jacket through the fore floor lane, meets it in the join after the box closes. The terminal block and PTC stay under the retained donor cover; this run terminates only at the factory-external interface. Lengths include trim at the join. |
 | AC-5 | AC distribution block (N) | Verified neutral side of current donor compressor's factory-external electrical interface | N | [16](AWG_AC_BRANCH) pigtail + [18](AWG_COMP_LEAD) core | [~300 mm](LEN_JOIN) pigtail; [~700 mm](LEN_COMPRESSOR) core stock | Solid copper in the rear N WAGO; WAGO 221-413 join under the funnel opening, the core ferruled into it; current-donor external-interface connector TBD | Neutral, in two pieces like AC-4: a white solid pigtail from the rear N WAGO, landed on the open back-top, and the SJOOW's second conductor, joined after the box closes. It terminates only at the factory-external interface without disturbing the retained donor cover. |
-| AC-6 | Earth bus on chassis ground point | Compressor body, at its terminal-box earth screw | G | [18](AWG_COMP_LEAD) | [~700 mm](LEN_COMPRESSOR) | Ring terminal both ends | The SJOOW's third conductor, in the same jacket as AC-4 / AC-5. Bonds the compressor body to chassis ground — the machine's only bond to the refrigeration metalwork. The ring goes under the compressor's own terminal-box earth screw, never under a rubber-isolated floor mount. |
+| AC-6 | Rear PE WAGO, port 3 | Compressor body, at its terminal-box earth screw | G | [18](AWG_COMP_LEAD) | [~700 mm](LEN_COMPRESSOR) | Ferrule into the rear PE WAGO; ring terminal at the compressor's earth screw | The SJOOW's third conductor, in the same jacket as AC-4 / AC-5. Bonds the compressor body to chassis ground — the machine's only bond to the refrigeration metalwork. The ring goes under the compressor's own terminal-box earth screw, never under a rubber-isolated floor mount. |
 
 The condenser fan does **not** appear in the AC table: the harvested fan is a [12 V](V_DC) DC brushless axial motor (the donor ice maker's own PCB regulated mains to [12 V](V_DC) to drive it; on harvest we keep the fan and discard the PCB). It rides on the [12 V](V_DC) bus instead — see run DC-8 below.
 
@@ -135,7 +135,7 @@ Three looms fan out from single connectors: SENSORS J4 carries SIG-1 / SIG-4 wit
 
 Board end: every low-voltage loom lands in a JST XH [2.5 mm](JST_PITCH) crimp housing mating its labeled wafer — one housing per connector, pin labels on the silk, so a loom cannot seat shifted. J4 and J7 share the 7P housing, so those two land by loom label ([`/hardware/assembly/cable-assemblies.md`](/hardware/assembly/cable-assemblies.md)). The one exception is the [12 V](V_DC) inlet J10: ferrules under its 5.0 mm screw clamps.
 
-Device end: female disconnects at valves, pumps, and fan; the current donor compressor uses its preserved factory-external electrical interface, whose connector and polarity mapping remain to be recorded; ring terminals land at ground studs; sensor and reed leads land per device. Shared-rail fan-outs happen at the device cluster, never at the main board — one `COM` / `GND` conductor rides the trunk. Reservoir A uses a continuous common with insulated reed taps; the four branched nodes use appropriately sized Wago lever nuts. The branch WAGOs occupy rooted wells at their device clusters:
+Device end: female disconnects at valves, pumps, and fan; the current donor compressor uses its preserved factory-external electrical interface, whose connector and polarity mapping remain to be recorded; ring terminals land at metalwork earth screws; sensor and reed leads land per device. Shared-rail fan-outs happen at the device cluster, never at the main board — one `COM` / `GND` conductor rides the trunk. Reservoir A uses a continuous common with insulated reed taps; the four branched nodes use appropriately sized Wago lever nuts. The branch WAGOs occupy rooted wells at their device clusters:
 
 | node | nut | ways | parent | what the branches reach |
 |---|---|---|---|---|
@@ -144,7 +144,7 @@ Device end: female disconnects at valves, pumps, and fan; the current donor comp
 | J7 REEDS B `GND` | 221-413 | 3 of 3 | Core lid, aft of the PCB | reservoir B's 4 reeds + the carbonator's 2 |
 | J4 SENSORS `GND` | 221-413 | 3 of 3 | Core lid, forward of the PCB | 1-wire bus, DIGITEN meter |
 
-Three rear-wall 221-413 blocks carry **L, N and PE**, with ports facing forward. Four west-facing core-lid 221-413 blocks carry **sensor common, +12 V, DC GND and reed common**. The inlet earth pigtail reaches the lid earth stack through the rear PE block. Three more 221-413s, one port of each empty, join the compressor's switched H and N and the pump positive under the funnel opening; they go in last, with no printed well.
+Three rear-wall 221-413 blocks carry **L, N and PE**, with ports facing forward. Four west-facing core-lid 221-413 blocks carry **sensor common, +12 V, DC GND and reed common**. The rear PE block is the earth junction: C14 earth, the carbonator bond and the compressor's PE core. Three more 221-413s, one port of each empty, join the compressor's switched H and N and the pump positive under the funnel opening; they go in last, with no printed well.
 
 The manifold nuts face inboard. Leave their wire-entry faces and lever sweeps
 open; the lower nut opens toward the front. Only shared positive conductors
@@ -179,8 +179,8 @@ The compressor cable uses [~700 mm](LEN_COMPRESSOR) preparation stock. Its hot
 core and separate fuse continuation share that stock; trim the exposed ends
 after dressing the jacket and fanouts. The fuse's two leads reach separate
 insulated splice regions beside the donor cover. The jacket follows the fore
-floor lane, and the upper fanouts reach the two joins and rear-wall earth
-stack. The fan leads end at the condenser-crown approach.
+floor lane, and the upper fanouts reach the two joins and the rear PE
+WAGO. The fan leads end at the condenser-crown approach.
 
 Modelled lengths follow insulated conductor centrelines. Bench cuts include
 termination and dressing reserve and are trimmed at their landings. Actual
@@ -192,19 +192,19 @@ Fabrication — bulk cut-to-length all-black wire, crimp tooling, sleeving, and 
 
 ## Grounding strategy
 
-Single-point chassis ground at the rear-wall ring-terminal stack, bonded back through the C14 inlet's earth pin to the building's protective earth.
+Single-point chassis ground at the rear PE WAGO below C14, bonded back through the C14 inlet's earth pin to the building's protective earth.
 
-- **C14 ground pin** → ground bus below C14 on back-top (run AC-1 carries the green conductor from the inlet to the distribution block's G pole).
-- **Ground bus** distributes to the compressor body (via AC-6) and the SS carbonator inside the cold core, via short bonding wires. The faucet carries no earth: its only conductors are SIG-6's SELV ribbon, and its tubes are plastic. Chassis grounding is via these discrete bonding wires; there is no metal chassis backbone.
-- Separate ground bonds are [16 AWG](AWG_MAINS_U) green-insulated stranded wire with ring terminals at the bus and metalwork. AC-6 is the green 18 AWG conductor inside the SJOOW compressor cord, as specified in its run row.
+- **C14 ground pin** → port 1 of the rear PE WAGO below C14 on back-top (run AC-1 carries the green conductor from the inlet to the distribution block's G pole).
+- **The PE WAGO** distributes to the SS carbonator inside the cold core (port 2, its bonding wire) and the compressor body (port 3, AC-6). The faucet carries no earth: its only conductors are SIG-6's SELV ribbon, and its tubes are plastic. Chassis grounding is via these discrete bonding wires; there is no metal chassis backbone.
+- The carbonator bond is [16 AWG](AWG_MAINS_U) green-insulated stranded wire, ferruled into the WAGO and ringed at the vessel rim. AC-6 is the green 18 AWG conductor inside the SJOOW compressor cord, as specified in its run row.
 - The chassis bond gives the appliance Class I status: if a fault energizes any exposed metal part, fault current returns to the building ground through the C14 cord and trips the upstream breaker before the user touches anything.
 
-The stack stands at enclosure (−48.15, 462.3, 313.935) mm on back-top below
-C14. Its inlet barrel points east, the carbonator barrel west and the
-compressor barrel down and east. Keep each crimp entry straight. Fasten all
-three rings and the flat washer under M3 × 8 while back-top is open, then
-connect the carbonator's free bond before closing. Dress the compressor
-branch into its retained jacket corridor.
+The PE WAGO is the G block of the rear H/G column, centred at enclosure
+(−85, 457.5, 296.5) mm with its ports facing fore. Land the carbonator bond in
+port 2 and the compressor's PE core in port 3 while back-top is open, and
+connect the carbonator's free bond before closing. The compressor core rises
+over the keystone and drops into its port; dress it into its retained jacket
+corridor.
 
 ## What's not yet decided
 

@@ -154,8 +154,7 @@ def main():
                    frozenset(('digiten-flow','soda-bend-holder',
                               'soda-continuous-insulation','tube-soda-core-rise',
                               'reservoir-b-fill-lower','reservoir-b-fill-upper',
-                              'wago-v12','wago-gnd','wago-sensors','wago-reeds-b',
-                              'ground-stack')))
+                              'wago-v12','wago-gnd','wago-sensors','wago-reeds-b')))
     if not args.compose_only:
         print('Check routed leads against native equipment, cap, tubes and roof interfaces',flush=True)
         # Foam fill and intact core-shell solids represent material around

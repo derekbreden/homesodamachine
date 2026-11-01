@@ -388,7 +388,11 @@ def prepare(name: str, printer: str | None = None, parts: list[dict] | None = No
                     placed = to_plate(corners)
                     record["tie_windows"].append({**window, "box_plate_mm": [placed.min(axis=0).tolist(), placed.max(axis=0).tolist()]})
                     if f["blockers"]:
-                        local = mesh.print_to_local(corners)
+                        # Intersect the requesting roof, as for the loading-slot blockers.
+                        # A blocker ending exactly under it leaves automatic supports inside.
+                        blocker_corners = corners.copy()
+                        blocker_corners[blocker_corners[:, 2] == high_b[2], 2] += f["blocker_roof_overlap_mm"]
+                        local = mesh.print_to_local(blocker_corners)
                         vertices, faces = _mesh.box_mesh(local.min(axis=0), local.max(axis=0))
                         plate.add_part(obj, "Tie channel support exclusion", vertices, faces, subtype="support_blocker")
             if f["kind"] == "edge_fins":

@@ -16,18 +16,15 @@ Coordinate frame
   swung fully back off the face it hinges on.
 - The rear half of the depth is blank on every face — the levers and ports live in
   the front half, which is what a well grips.
+
+Geometry is in the frozen STEPs and display payloads beside this module.
+`frozen-asset.json` records their bytes and source snapshot.
 """
 
-import sys
 from pathlib import Path
 
-import cadquery as cq
-
-_here = Path(__file__).resolve()
-_hw = next(p for p in _here.parents if p.name == "hardware")
-sys.path.insert(0, str(_hw / "scripts"))
-from _cadq_export import export_assembly
-from _materials import C_AC_HUB, one_body
+_HERE = Path(__file__).resolve().parent
+ASSET_MANIFEST_PATH = _HERE / "frozen-asset.json"
 
 # --- Datasheet geometry ----------------------------------------------------
 # width (X) × height (Z) × depth (Y), poles, rows of levers
@@ -50,30 +47,15 @@ height = SIZES["413"]["height"]
 poles = SIZES["413"]["poles"]
 
 
-def build(size="413"):
-    s = SIZES[size]
-    w, h, d = s["width"], s["height"], s["depth"]
-    body = cq.Workplane("XY").box(w, d, h, centered=(True, True, False))
-    per_row = s["poles"] // s["rows"]
-    pitch = w / per_row
-    faces = (h - groove_h,) if s["rows"] == 1 else (h - groove_h, 0.0)
-    for z in faces:
-        for i in range(per_row):
-            cx = -w / 2.0 + pitch * (i + 0.5)
-            groove = (
-                cq.Workplane("XY")
-                .box(groove_w, groove_d, groove_h, centered=(True, True, False))
-                .translate((cx, d / 2.0 - groove_d / 2.0, z))
-            )
-            body = body.cut(groove)
-    return body
+STEP_PATHS = {size: _HERE / f"wago-221-{size}.step" for size in SIZES}
+PAYLOAD_PATHS = {size: step.with_name(step.name + ".mesh") for size, step in STEP_PATHS.items()}
 
 
 def main():
     for size in SIZES:
-        out = _here.parent / f"wago-221-{size}.step"
-        export_assembly(one_body(build(size), out.stem, C_AC_HUB), str(out))
-        print(f"-> {out.name}")
+        print(f"WAGO 221-{size}")
+        print(f"  STEP: {STEP_PATHS[size]}")
+        print(f"  Display payload: {PAYLOAD_PATHS[size]}")
 
 
 if __name__ == "__main__":

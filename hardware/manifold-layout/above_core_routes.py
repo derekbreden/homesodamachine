@@ -285,6 +285,13 @@ def route_specifications(station):
     b_draw = station('foam-assembly', 'reservoir-b')[0]
     b_draw_target = station('valve-v-h', 'inlet')[0]
     b_draw_z = 295.7
+    b_draw_lift = _add(b_draw, (0., 0., 3.6))
+    b_draw_offset_angle = math.acos(1.-10./28.)
+    b_draw_offset_first, b_draw_offset_mid = _arc(
+        b_draw_lift, (0., 0., 1.), (0., 1., 0.), b_draw_offset_angle, 14.)
+    b_draw_offset_second, b_draw_offset_end = _arc(
+        b_draw_offset_mid, (math.sin(b_draw_offset_angle), 0., math.cos(b_draw_offset_angle)),
+        (0., -1., 0.), b_draw_offset_angle, 14.)
     b_draw_down_start = (b_draw_target[0]+14., b_draw_target[1], b_draw_target[2]+14.)
     b_draw_rise_angle = math.acos(1-(b_draw_down_start[2]-b_draw_z)/(2*14.))
     b_draw_rise_start = (b_draw_down_start[0]+28.*math.sin(b_draw_rise_angle), b_draw_target[1], b_draw_z)
@@ -293,11 +300,14 @@ def route_specifications(station):
     b_draw_rise_second, _ = _arc(b_draw_rise_mid, (-math.cos(b_draw_rise_angle), 0., math.sin(b_draw_rise_angle)),
                                               (0., -1., 0.), b_draw_rise_angle, 14.)
     b_draw_down, _ = _arc(b_draw_down_start, (-1., 0., 0.), (0., -1., 0.), math.pi/2, 14.)
+    b_draw_aft_x = -22.35  # Fixed lane west of J11's lifted housing path.
+    b_draw_fore_x = b_draw_target[0]+33.65
     route('fluid-26', ('foam-assembly', 'reservoir-b'), ('valve-v-h', 'inlet'),
-          [(b_draw[0], b_draw[1], b_draw_z), (b_draw_target[0], 214., b_draw_z),
-           (b_draw_target[0], 138., b_draw_z), (11.3, 138., b_draw_z),
-           (11.3, b_draw_target[1], b_draw_z), b_draw_rise_start],
+          [(b_draw_offset_end[0], b_draw[1], b_draw_z), (b_draw_aft_x, 214., b_draw_z),
+           (b_draw_aft_x, 138., b_draw_z), (b_draw_fore_x, 138., b_draw_z),
+           (b_draw_fore_x, b_draw_target[1], b_draw_z), b_draw_rise_start],
           source_depth=0.,
+          prefix=[_line(b_draw, b_draw_lift), b_draw_offset_first, b_draw_offset_second],
           suffix=[b_draw_rise_first, b_draw_rise_second, b_draw_down],
           note='B draw completes its westward offset aft of the drain cradle, then enters V-H from the fore corridor')
     b_fill = layout.specification()['reservoir_b_fill_external']

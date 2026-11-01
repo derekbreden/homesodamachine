@@ -241,6 +241,16 @@ jobs:
           key: bazel-${{ needs.image.outputs.identity }}-${{ github.run_id }}-${{ github.run_attempt }}
           restore-keys: bazel-${{ needs.image.outputs.identity }}-
 
+      # The image identity pins Rust and the C++ build environment. Cargo checks the
+      # restored fingerprints against this checkout's sources and dependency lockfile.
+      - name: Restore the Rust programs and dependencies
+        continue-on-error: true
+        uses: actions/cache/restore@v4
+        with:
+          path: tools/hsm/target
+          key: hsm-target-${{ needs.image.outputs.identity }}-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: hsm-target-${{ needs.image.outputs.identity }}-
+
       # `.bazelrc.paths` mounts the workspace's own .cache and bazel refuses a mount pair
       # whose source is absent. The cache action makes this on a hit; this makes it on a
       # miss. The other two pairs — /opt/homebrew and /usr/local — are directories the image
@@ -417,6 +427,14 @@ jobs:
         with:
           path: ~/.cache/bazel-disk
           key: bazel-${{ needs.image.outputs.identity }}-${{ github.run_id }}-${{ github.run_attempt }}
+
+      - name: Save the Rust programs and dependencies
+        if: always()
+        continue-on-error: true
+        uses: actions/cache/save@v4
+        with:
+          path: tools/hsm/target
+          key: hsm-target-${{ needs.image.outputs.identity }}-${{ github.run_id }}-${{ github.run_attempt }}
 
       # Read bazel-bin before sync_tree changes tracked inputs. Exit 0 is byte agreement and
       # exit 1 is a measured geometry difference; incomplete coverage (2+) stops the derive.

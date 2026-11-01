@@ -5,7 +5,7 @@
 //     Decides what's open now, what should be open per the URL, closes
 //     the wrong thing and opens the right one.
 //
-//   - applyInitialRoute(occtPromise): on first load, deep-link via
+//   - applyInitialRoute(): on first load, deep-link via
 //     ?file=<path> (notification), where the extension names the surface,
 //     or location.hash (bookmark), where the prefix does. STEP waits on the
 //     occt-import-js loader; nothing else does.
@@ -121,16 +121,16 @@ window.addEventListener("popstate", () => {
 // name is a STEP, which is what a hand-written link and every render tool pass.
 const FILE_KINDS = { ".mmd": "mmd", ".dxf": "dxf", ".glb": "glb", ".tsx": "pcb" };
 
-export function applyInitialRoute(occtPromise) {
-  // A STEP waits on the occt loader; every other kind can open at once. The
-  // timeout lets the grid finish laying out under the modal about to cover it.
+export function applyInitialRoute() {
+  // The loader fetches its parser when needed. The timeout lets the grid finish
+  // laying out under the modal about to cover it.
   const open = (type, file, push, path = null, pane = {}) => {
     const go = () => setTimeout(
       () => {
         if (type === "step") { openDetail(file, push, path); state.materialPanel?.applyRoute(pane); }
         else OPENERS[type](file, push);
       }, 100);
-    if (type === "step") occtPromise.then(go); else go();
+    go();
   };
 
   const linked = new URLSearchParams(location.search).get("file");
@@ -142,7 +142,7 @@ export function applyInitialRoute(occtPromise) {
   const raw = location.hash.slice(1);
   const want = wantFromHash(raw);
   if (want.find) findWhenMounted(want.file, want.find);
-  if (want.material) { occtPromise.then(() => openMaterial(want.material, false, want)); }
+  if (want.material) { openMaterial(want.material, false, want); }
   else if (want.type) open(want.type, want.file, false, want.path, want);
   else open("step", decodeHash(raw), false);
 }
