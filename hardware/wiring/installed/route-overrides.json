@@ -432,7 +432,21 @@
         "offset": [
           0.0,
           0.0,
-          20.8
+          20.100000000000023
+        ]
+      },
+      {
+        "point_mm": [
+          -65.47986189648437,
+          232.0,
+          288.5
+        ]
+      },
+      {
+        "point_mm": [
+          -65.47986189648437,
+          225.0,
+          297.6
         ]
       },
       {
@@ -440,7 +454,7 @@
         "offset": [
           1.47986,
           -59.20292,
-          19.6
+          29.200000000000045
         ]
       },
       {
@@ -448,7 +462,7 @@
         "offset": [
           0.0,
           -66.20292,
-          20.8
+          29.200000000000045
         ]
       },
       {
@@ -456,7 +470,7 @@
         "offset": [
           38.2,
           78.91,
-          113.875
+          119.47500000000002
         ]
       },
       {
@@ -464,7 +478,7 @@
         "offset": [
           44.3,
           79.91,
-          111.075
+          119.47500000000002
         ]
       },
       {
@@ -515,7 +529,7 @@
     "bend_radius_mm": 2.0,
     "preserve_stations": true,
     "route_status": "selected_layout",
-    "note": "Dressed through the named retained guides and clear of larger installed bodies. Wires and tubing do not obstruct conductors."
+    "note": "The common board crossing passes above the drain stem and V-B inlet fitting, below the funnel frame, then descends into its fixed manifold cable seat."
   },
   "J1-OUT4": {
     "stations": [
@@ -524,7 +538,21 @@
         "offset": [
           0.0,
           0.0,
-          20.8
+          20.100000000000023
+        ]
+      },
+      {
+        "point_mm": [
+          -62.97999389648436,
+          232.0,
+          288.5
+        ]
+      },
+      {
+        "point_mm": [
+          -62.97999389648436,
+          225.0,
+          297.6
         ]
       },
       {
@@ -532,7 +560,7 @@
         "offset": [
           -1.02001,
           -59.20292,
-          19.6
+          29.200000000000045
         ]
       },
       {
@@ -540,7 +568,7 @@
         "offset": [
           0.0,
           -66.20292,
-          20.8
+          29.200000000000045
         ]
       },
       {
@@ -548,7 +576,7 @@
         "offset": [
           130.97999,
           -67.20292,
-          23.6
+          29.200000000000045
         ]
       },
       {
@@ -556,7 +584,7 @@
         "offset": [
           137.07999,
           -66.20292,
-          20.8
+          29.200000000000045
         ]
       },
       {
@@ -631,7 +659,7 @@
     "bend_radius_mm": 2.0,
     "preserve_stations": true,
     "route_status": "selected_layout",
-    "note": "Dressed through the named retained guides and clear of larger installed bodies. Wires and tubing do not obstruct conductors."
+    "note": "The common board crossing passes above the drain stem and V-B inlet fitting, below the funnel frame, then descends into its fixed manifold cable seat."
   },
   "J1-OUT5": {
     "stations": [
@@ -640,7 +668,21 @@
         "offset": [
           0.0,
           0.0,
-          20.80000000000001
+          20.100000000000023
+        ]
+      },
+      {
+        "point_mm": [
+          -60.47987189648436,
+          232.0,
+          288.5
+        ]
+      },
+      {
+        "point_mm": [
+          -60.47987189648436,
+          225.0,
+          297.6
         ]
       },
       {
@@ -648,7 +690,7 @@
         "offset": [
           0.0,
           -62.652920020050374,
-          20.80000000000001
+          29.200000000000045
         ]
       },
       {
@@ -656,7 +698,7 @@
         "offset": [
           44.299999999999976,
           59.360000000000014,
-          63.87499999999994
+          72.27500000000003
         ]
       },
       {
@@ -715,7 +757,7 @@
     "bend_radius_mm": 2.0,
     "preserve_stations": true,
     "route_status": "selected_layout",
-    "note": "Selected installed route through its native terminals and retained cable supports."
+    "note": "The common board crossing passes above the drain stem and V-B inlet fitting, below the funnel frame, then descends into its fixed manifold cable seat."
   },
   "J1-OUT6": {
     "stations": [
@@ -724,7 +766,21 @@
         "offset": [
           0.0,
           0.0,
-          20.80000000000001
+          20.100000000000023
+        ]
+      },
+      {
+        "point_mm": [
+          -57.98000389648436,
+          232.0,
+          288.5
+        ]
+      },
+      {
+        "point_mm": [
+          -57.98000389648436,
+          225.0,
+          297.6
         ]
       },
       {
@@ -732,7 +788,7 @@
         "offset": [
           0.0,
           -60.80292002005038,
-          20.80000000000001
+          29.200000000000045
         ]
       },
       {
@@ -740,7 +796,7 @@
         "offset": [
           -15.450000000000017,
           61.21000000000001,
-          9.674999999999955
+          18.075000000000045
         ]
       },
       {
@@ -791,7 +847,7 @@
     "bend_radius_mm": 2.0,
     "preserve_stations": true,
     "route_status": "selected_layout",
-    "note": "Selected installed route through its native terminals and retained cable supports."
+    "note": "The common board crossing passes above the drain stem and V-B inlet fitting, below the funnel frame, then descends into its fixed manifold cable seat."
   },
   "J1-OUT7": {
     "stations": [
@@ -800,7 +856,21 @@
         "offset": [
           0.0,
           0.0,
-          20.8
+          20.100000000000023
+        ]
+      },
+      {
+        "point_mm": [
+          -55.479881896484365,
+          232.0,
+          288.5
+        ]
+      },
+      {
+        "point_mm": [
+          -55.479881896484365,
+          225.0,
+          297.6
         ]
       },
       {
@@ -808,7 +878,7 @@
         "offset": [
           -0.52012,
           -59.20292,
-          19.6
+          29.200000000000045
         ]
       },
       {
@@ -816,7 +886,7 @@
         "offset": [
           0.0,
           -66.20292,
-          20.8
+          29.200000000000045
         ]
       },
       {
@@ -824,7 +894,7 @@
         "offset": [
           -13.27,
           78.91,
-          68.275
+          73.87500000000003
         ]
       },
       {
@@ -832,7 +902,7 @@
         "offset": [
           -7.17,
           79.91,
-          65.475
+          73.87500000000003
         ]
       },
       {
@@ -841,14 +911,6 @@
           -7.17,
           79.91,
           35.625
-        ]
-      },
-      {
-        "terminal": "V-G.negative",
-        "offset": [
-          -9.27,
-          78.91,
-          36.275
         ]
       },
       {
@@ -899,7 +961,7 @@
     "bend_radius_mm": 2.0,
     "preserve_stations": true,
     "route_status": "selected_layout",
-    "note": "Dressed through the named retained guides and clear of larger installed bodies. Wires and tubing do not obstruct conductors."
+    "note": "The common board crossing passes above the drain stem and V-B inlet fitting, below the funnel frame, then descends into its fixed manifold cable seat."
   },
   "J1-OUT8": {
     "stations": [
@@ -908,7 +970,21 @@
         "offset": [
           0.0,
           0.0,
-          20.80000000000001
+          20.100000000000023
+        ]
+      },
+      {
+        "point_mm": [
+          -52.980013896484365,
+          232.0,
+          288.5
+        ]
+      },
+      {
+        "point_mm": [
+          -52.980013896484365,
+          225.0,
+          297.6
         ]
       },
       {
@@ -916,7 +992,7 @@
         "offset": [
           0.0,
           -57.10292002005039,
-          20.80000000000001
+          29.200000000000045
         ]
       },
       {
@@ -924,7 +1000,7 @@
         "offset": [
           103.89999999999998,
           64.91,
-          63.87499999999994
+          72.27500000000003
         ]
       },
       {
@@ -983,7 +1059,7 @@
     "bend_radius_mm": 2.0,
     "preserve_stations": true,
     "route_status": "selected_layout",
-    "note": "Selected installed route through its native terminals and retained cable supports."
+    "note": "The common board crossing passes above the drain stem and V-B inlet fitting, below the funnel frame, then descends into its fixed manifold cable seat."
   },
   "J2-OUT1": {
     "stations": [
@@ -992,7 +1068,7 @@
         "offset": [
           0.0,
           0.0,
-          22.75
+          29.200000000000045
         ]
       },
       {
@@ -1000,7 +1076,7 @@
         "offset": [
           42.5700821035156,
           53.81,
-          11.624999999999943
+          18.075000000000045
         ]
       },
       {
@@ -1008,7 +1084,7 @@
         "offset": [
           126.27991789648436,
           -68.20292002005039,
-          22.75
+          29.200000000000045
         ]
       },
       {
@@ -1075,7 +1151,7 @@
     "bend_radius_mm": 2.0,
     "preserve_stations": true,
     "route_status": "selected_layout",
-    "note": "Native terminal route below the flavor return fore crossing; physical dressing and wire packing remain open."
+    "note": "The common board crossing passes above the drain stem and V-B inlet fitting, below the funnel frame, then descends into its fixed manifold cable seat."
   },
   "J2-OUT2": {
     "stations": [
@@ -1084,7 +1160,7 @@
         "offset": [
           0.0,
           0.0,
-          22.75
+          29.200000000000045
         ]
       },
       {
@@ -1092,7 +1168,7 @@
         "offset": [
           0.0,
           -63.20292,
-          22.75
+          29.200000000000045
         ]
       },
       {
@@ -1100,7 +1176,7 @@
         "offset": [
           123.78005,
           -63.20292,
-          22.75
+          29.200000000000045
         ]
       },
       {
@@ -1175,7 +1251,7 @@
     "bend_radius_mm": 2.0,
     "preserve_stations": true,
     "route_status": "selected_layout",
-    "note": "Dressed through the named retained guides and clear of larger installed bodies. Wires and tubing do not obstruct conductors."
+    "note": "The common board crossing passes above the drain stem and V-B inlet fitting, below the funnel frame, then descends into its fixed manifold cable seat."
   },
   "DC1-GND": {
     "stations": [
@@ -1208,7 +1284,7 @@
         "offset": [
           -79.10186,
           -14.8,
-          -82.2
+          -80.7
         ]
       },
       {
@@ -1216,7 +1292,7 @@
         "offset": [
           -79.10186,
           -40.8,
-          -82.2
+          -80.7
         ]
       },
       {
@@ -1417,19 +1493,38 @@
   "DC3-negative": {
     "stations": [
       {
-        "terminal": "diaphragm.negative",
-        "offset": [
-          28.0,
-          -8.0,
-          -12.0
+        "point_mm": [
+          17.5,
+          295.0,
+          265.0
         ]
       },
       {
-        "terminal": "diaphragm.negative",
-        "offset": [
-          20.0,
-          4.0,
-          -4.0
+        "point_mm": [
+          25.0,
+          300.0,
+          280.0
+        ]
+      },
+      {
+        "point_mm": [
+          25.0,
+          380.0,
+          290.0
+        ]
+      },
+      {
+        "point_mm": [
+          25.0,
+          455.0,
+          280.0
+        ]
+      },
+      {
+        "point_mm": [
+          6.74200624877,
+          455.0,
+          278.57021233684
         ]
       }
     ],
@@ -1440,48 +1535,50 @@
       8.0
     ],
     "route_status": "selected_layout",
-    "note": "Dressed through retained supports and clear of the larger installed bodies; wires and tubes are excluded from wire obstacles."
+    "note": "Dressed around the completed pump mount and equipment using the fixed electrical endpoints and actual cable-retainer seats."
   },
   "DC3-positive": {
     "stations": [
       {
-        "terminal": "join-pump-positive.2",
-        "offset": [
-          -0.36827,
-          4.9823,
-          -6.53304
+        "point_mm": [
+          -60.0,
+          237.7,
+          282.2
         ]
       },
       {
-        "terminal": "diaphragm.positive",
-        "offset": [
-          -28.0,
-          -88.0,
-          -16.0
+        "point_mm": [
+          -53.7,
+          290.0,
+          296.0
         ]
       },
       {
-        "terminal": "diaphragm.positive",
-        "offset": [
-          -28.0,
-          -80.0,
-          -12.0
+        "point_mm": [
+          -53.7,
+          375.0,
+          296.0
         ]
       },
       {
-        "terminal": "diaphragm.positive",
-        "offset": [
-          -28.0,
-          -8.0,
-          -12.0
+        "point_mm": [
+          -53.7,
+          435.0,
+          277.4
         ]
       },
       {
-        "terminal": "diaphragm.positive",
-        "offset": [
-          -20.0,
-          4.0,
-          -4.0
+        "point_mm": [
+          -53.7,
+          455.0,
+          277.4
+        ]
+      },
+      {
+        "point_mm": [
+          -40.0,
+          455.0,
+          278.6
         ]
       }
     ],
@@ -1492,10 +1589,32 @@
       8.0
     ],
     "route_status": "selected_layout",
-    "note": "Dressed through retained supports and clear of the larger installed bodies; wires and tubes are excluded from wire obstacles."
+    "note": "Dressed around the completed pump mount and equipment using the fixed electrical endpoints and actual cable-retainer seats."
   },
   "AC2-N": {
-    "stations": [],
+    "stations": [
+      {
+        "point_mm": [
+          -61.0,
+          438.3,
+          309.0
+        ]
+      },
+      {
+        "point_mm": [
+          -41.65,
+          459.3,
+          309.0
+        ]
+      },
+      {
+        "point_mm": [
+          -41.65,
+          459.3,
+          336.8
+        ]
+      }
+    ],
     "preserve_stations": true,
     "bend_radius_mm": 3.0,
     "end_lands_mm": [
@@ -1503,7 +1622,7 @@
       8.0
     ],
     "route_status": "selected_layout",
-    "note": "Dressed through retained supports and clear of the larger installed bodies; wires and tubes are excluded from wire obstacles."
+    "note": "Dressed around the completed pump mount and equipment using the fixed electrical endpoints and actual cable-retainer seats."
   },
   "J1-COM": {
     "stations": [
@@ -1512,7 +1631,21 @@
         "offset": [
           0.0,
           0.0,
-          20.80000000000001
+          20.100000000000023
+        ]
+      },
+      {
+        "point_mm": [
+          -72.97997389648437,
+          232.0,
+          288.5
+        ]
+      },
+      {
+        "point_mm": [
+          -72.97997389648437,
+          225.0,
+          297.6
         ]
       },
       {
@@ -1520,7 +1653,7 @@
         "offset": [
           0.0,
           -68.20292002005039,
-          20.80000000000001
+          29.200000000000045
         ]
       },
       {
@@ -1528,7 +1661,7 @@
         "offset": [
           -11.950000000000003,
           21.899999999999977,
-          24.120000000000005
+          32.52000000000004
         ]
       },
       {
@@ -1563,7 +1696,7 @@
     "bend_radius_mm": 2.0,
     "preserve_stations": true,
     "route_status": "selected_layout",
-    "note": "Local dressing around the V-B return bearing and tubing; fixed connector, passage and retainer datums."
+    "note": "The common board crossing passes above the drain stem and V-B inlet fitting, below the funnel frame, then descends into its fixed manifold cable seat."
   },
   "J1-OUT1": {
     "stations": [
@@ -2137,7 +2270,7 @@
         "offset": [
           0.0,
           0.0,
-          22.75
+          29.200000000000045
         ]
       },
       {
@@ -2145,7 +2278,7 @@
         "offset": [
           0.0,
           -62.652920020050374,
-          22.75
+          29.200000000000045
         ]
       },
       {
@@ -2153,7 +2286,7 @@
         "offset": [
           -6.450000000000003,
           35.099999999999994,
-          60.14999999999998
+          66.60000000000002
         ]
       },
       {
@@ -2188,7 +2321,7 @@
     "bend_radius_mm": 2.0,
     "preserve_stations": true,
     "route_status": "selected_layout",
-    "note": "Local manifold-WAGO fan-out clears the final holder, retained fluid hardware and other conductors; fixed downstream guide points are retained. Physical dressing remains unqualified."
+    "note": "The common board crossing passes above the drain stem and V-B inlet fitting, below the funnel frame, then descends into its fixed manifold cable seat."
   },
   "J2-FAN": {
     "stations": [
@@ -2256,48 +2389,50 @@
     "bend_radius_mm": 2.0,
     "preserve_stations": true,
     "route_status": "selected_layout",
-    "note": "The fan return remains above the ground stack before its fore descent; physical dressing and wire packing remain unqualified."
+    "note": "The common board crossing passes above the drain stem and V-B inlet fitting, below the funnel frame, then descends into its fixed manifold cable seat."
   },
   "J2-OUT3": {
     "stations": [
       {
-        "terminal": "J2.OUT3",
-        "offset": [
-          41.97993,
-          16.79708,
-          3.6
+        "point_mm": [
+          0.0,
+          288.0,
+          272.0
         ]
       },
       {
-        "terminal": "V-K.negative",
-        "offset": [
-          -25.208,
-          -25.015,
-          0.41723
+        "point_mm": [
+          55.0,
+          294.0,
+          272.0
         ]
       },
       {
-        "terminal": "V-K.negative",
-        "offset": [
-          -21.208,
-          -21.015,
-          4.41723
+        "point_mm": [
+          60.0,
+          324.0,
+          272.0
         ]
       },
       {
-        "terminal": "V-K.negative",
-        "offset": [
-          -13.208,
-          -13.015,
-          4.41723
+        "point_mm": [
+          64.0,
+          328.0,
+          276.0
         ]
       },
       {
-        "terminal": "V-K.negative",
-        "offset": [
-          -1.208,
-          -5.015,
-          -3.58277
+        "point_mm": [
+          72.0,
+          336.0,
+          276.0
+        ]
+      },
+      {
+        "point_mm": [
+          84.0,
+          344.0,
+          268.0
         ]
       }
     ],
@@ -2308,7 +2443,7 @@
     "bend_radius_mm": 2.0,
     "preserve_stations": true,
     "route_status": "selected_layout",
-    "note": "Dressed through the named retained guides and clear of larger installed bodies. Wires and tubing do not obstruct conductors."
+    "note": "The free V-K return passes above the suction butterfly key while retaining both native terminal lands."
   },
   "J2-positive-K": {
     "stations": [
@@ -2381,27 +2516,38 @@
   "J3-GND": {
     "stations": [
       {
-        "terminal": "J3.GND",
-        "offset": [
-          -9.06988,
-          87.09708,
-          4.77
+        "point_mm": [
+          -25.0,
+          288.0,
+          296.0
         ]
       },
       {
-        "terminal": "J3.GND",
-        "offset": [
-          -17.06988,
-          95.09708,
-          4.77
+        "point_mm": [
+          -55.0,
+          310.0,
+          296.0
         ]
       },
       {
-        "terminal": "keystone.3",
-        "offset": [
-          24.0,
-          -106.0,
-          -24.0
+        "point_mm": [
+          -55.0,
+          375.0,
+          296.0
+        ]
+      },
+      {
+        "point_mm": [
+          -57.0,
+          382.0,
+          296.0
+        ]
+      },
+      {
+        "point_mm": [
+          -65.27,
+          421.3,
+          293.17
         ]
       }
     ],
@@ -2412,32 +2558,43 @@
       6.0
     ],
     "route_status": "selected_layout",
-    "note": "Dressed through retained supports and clear of the larger installed bodies; wires and tubes are excluded from wire obstacles."
+    "note": "Faucet leads pass west of the discharge clamp and pump cradle before reaching the rear jack."
   },
   "J3-IO33": {
     "stations": [
       {
-        "terminal": "J3.IO33",
-        "offset": [
-          -11.99013,
-          79.59708,
-          4.77
+        "point_mm": [
+          -25.0,
+          288.0,
+          296.0
         ]
       },
       {
-        "terminal": "J3.IO33",
-        "offset": [
-          -19.99013,
-          91.59708,
-          4.77
+        "point_mm": [
+          -55.0,
+          310.0,
+          296.0
         ]
       },
       {
-        "terminal": "keystone.5",
-        "offset": [
-          20.0,
-          -106.0,
-          -24.0
+        "point_mm": [
+          -55.0,
+          375.0,
+          296.0
+        ]
+      },
+      {
+        "point_mm": [
+          -57.0,
+          382.0,
+          296.0
+        ]
+      },
+      {
+        "point_mm": [
+          -60.19,
+          421.3,
+          293.17
         ]
       }
     ],
@@ -2448,32 +2605,43 @@
       6.0
     ],
     "route_status": "selected_layout",
-    "note": "Dressed through retained supports and clear of the larger installed bodies; wires and tubes are excluded from wire obstacles."
+    "note": "Faucet leads pass west of the discharge clamp and pump cradle before reaching the rear jack."
   },
   "J3-IO35": {
     "stations": [
       {
-        "terminal": "J3.IO35",
-        "offset": [
-          -10.52988,
-          82.09708,
-          4.77
+        "point_mm": [
+          -25.0,
+          288.0,
+          296.0
         ]
       },
       {
-        "terminal": "J3.IO35",
-        "offset": [
-          -18.52988,
-          90.09708,
-          4.77
+        "point_mm": [
+          -55.0,
+          310.0,
+          296.0
         ]
       },
       {
-        "terminal": "keystone.4",
-        "offset": [
-          20.0,
-          -94.0,
-          -24.0
+        "point_mm": [
+          -55.0,
+          375.0,
+          296.0
+        ]
+      },
+      {
+        "point_mm": [
+          -57.0,
+          382.0,
+          296.0
+        ]
+      },
+      {
+        "point_mm": [
+          -62.73,
+          421.3,
+          293.17
         ]
       }
     ],
@@ -2484,32 +2652,43 @@
       6.0
     ],
     "route_status": "selected_layout",
-    "note": "Dressed through retained supports and clear of the larger installed bodies; wires and tubes are excluded from wire obstacles."
+    "note": "Faucet leads pass west of the discharge clamp and pump cradle before reaching the rear jack."
   },
   "J3-V5": {
     "stations": [
       {
-        "terminal": "J3.V5",
-        "offset": [
-          -11.60988,
-          84.59708,
-          4.77
+        "point_mm": [
+          -25.0,
+          288.0,
+          296.0
         ]
       },
       {
-        "terminal": "J3.V5",
-        "offset": [
-          -19.60988,
-          96.59708,
-          4.77
+        "point_mm": [
+          -55.0,
+          310.0,
+          296.0
         ]
       },
       {
-        "terminal": "keystone.2",
-        "offset": [
-          28.0,
-          -110.0,
-          -24.0
+        "point_mm": [
+          -55.0,
+          375.0,
+          296.0
+        ]
+      },
+      {
+        "point_mm": [
+          -57.0,
+          382.0,
+          296.0
+        ]
+      },
+      {
+        "point_mm": [
+          -67.81,
+          421.3,
+          293.17
         ]
       }
     ],
@@ -2520,7 +2699,7 @@
       6.0
     ],
     "route_status": "selected_layout",
-    "note": "Dressed through retained supports and clear of the larger installed bodies; wires and tubes are excluded from wire obstacles."
+    "note": "Faucet leads pass west of the discharge clamp and pump cradle before reaching the rear jack."
   },
   "J4-GND": {
     "stations": [
@@ -2887,7 +3066,7 @@
         "offset": [
           2.20012,
           -24.202920000000006,
-          17.600000000000023
+          29.200000000000045
         ]
       },
       {
@@ -2895,7 +3074,7 @@
         "offset": [
           2.20012,
           -36.202920000000006,
-          21.600000000000023
+          29.200000000000045
         ]
       },
       {
@@ -2903,7 +3082,7 @@
         "offset": [
           36.20012,
           -36.202920000000006,
-          21.600000000000023
+          29.200000000000045
         ]
       },
       {
@@ -2911,7 +3090,7 @@
         "offset": [
           36.20012,
           -76.20292,
-          21.600000000000023
+          29.200000000000045
         ]
       },
       {
@@ -2962,7 +3141,7 @@
     "bend_radius_mm": 2.0,
     "preserve_stations": true,
     "route_status": "selected_layout",
-    "note": "Display ribbon descends ahead of the selected fluid16 span and crosses below tube-fluid-18 with a perpendicular ribbon section, then uses the common rear electrical mouth above DC-5 and rises into the display pocket. PET braid ends aft of the shared mouth; internal ribbon is bare. Actual rear display terminal locations and physical dressing remain unqualified."
+    "note": "The display ribbon crosses above the drain stem and V-B inlet fitting below the funnel frame, then descends into the fixed common rear electrical mouth and display chimney."
   },
   "J9-B": {
     "stations": [
@@ -2971,7 +3150,7 @@
         "offset": [
           0.2001199999999983,
           -23.702920000000006,
-          17.600000000000023
+          29.200000000000045
         ]
       },
       {
@@ -2979,7 +3158,7 @@
         "offset": [
           0.2001199999999983,
           -35.702920000000006,
-          21.600000000000023
+          29.200000000000045
         ]
       },
       {
@@ -2987,7 +3166,7 @@
         "offset": [
           34.20012,
           -35.702920000000006,
-          21.600000000000023
+          29.200000000000045
         ]
       },
       {
@@ -2995,7 +3174,7 @@
         "offset": [
           34.20012,
           -73.70292,
-          21.600000000000023
+          29.200000000000045
         ]
       },
       {
@@ -3046,7 +3225,7 @@
     "bend_radius_mm": 2.0,
     "preserve_stations": true,
     "route_status": "selected_layout",
-    "note": "Display ribbon descends ahead of the selected fluid16 span and crosses below tube-fluid-18 with a perpendicular ribbon section, then uses the common rear electrical mouth above DC-5 and rises into the display pocket. PET braid ends aft of the shared mouth; internal ribbon is bare. Actual rear display terminal locations and physical dressing remain unqualified."
+    "note": "The display ribbon crosses above the drain stem and V-B inlet fitting below the funnel frame, then descends into the fixed common rear electrical mouth and display chimney."
   },
   "J9-GND": {
     "stations": [
@@ -3055,7 +3234,7 @@
         "offset": [
           4.20012,
           -24.702920000000006,
-          17.600000000000023
+          29.200000000000045
         ]
       },
       {
@@ -3063,7 +3242,7 @@
         "offset": [
           4.20012,
           -36.702920000000006,
-          21.600000000000023
+          29.200000000000045
         ]
       },
       {
@@ -3071,7 +3250,7 @@
         "offset": [
           38.20012,
           -36.702920000000006,
-          21.600000000000023
+          29.200000000000045
         ]
       },
       {
@@ -3079,7 +3258,7 @@
         "offset": [
           38.20012,
           -78.70292,
-          21.600000000000023
+          29.200000000000045
         ]
       },
       {
@@ -3130,7 +3309,7 @@
     "bend_radius_mm": 2.0,
     "preserve_stations": true,
     "route_status": "selected_layout",
-    "note": "Display ribbon descends ahead of the selected fluid16 span and crosses below tube-fluid-18 with a perpendicular ribbon section, then uses the common rear electrical mouth above DC-5 and rises into the display pocket. PET braid ends aft of the shared mouth; internal ribbon is bare. Actual rear display terminal locations and physical dressing remain unqualified."
+    "note": "The display ribbon crosses above the drain stem and V-B inlet fitting below the funnel frame, then descends into the fixed common rear electrical mouth and display chimney."
   },
   "J9-V12": {
     "stations": [
@@ -3139,7 +3318,7 @@
         "offset": [
           6.199870000000001,
           -25.202920000000006,
-          17.600000000000023
+          29.200000000000045
         ]
       },
       {
@@ -3147,7 +3326,7 @@
         "offset": [
           6.199870000000001,
           -37.202920000000006,
-          21.600000000000023
+          29.200000000000045
         ]
       },
       {
@@ -3155,7 +3334,7 @@
         "offset": [
           40.19987,
           -37.202920000000006,
-          21.600000000000023
+          29.200000000000045
         ]
       },
       {
@@ -3163,7 +3342,7 @@
         "offset": [
           40.19987,
           -81.20292,
-          21.600000000000023
+          29.200000000000045
         ]
       },
       {
@@ -3214,7 +3393,7 @@
     "bend_radius_mm": 2.0,
     "preserve_stations": true,
     "route_status": "selected_layout",
-    "note": "Display ribbon descends ahead of the selected fluid16 span and crosses below tube-fluid-18 with a perpendicular ribbon section, then uses the common rear electrical mouth above DC-5 and rises into the display pocket. PET braid ends aft of the shared mouth; internal ribbon is bare. Actual rear display terminal locations and physical dressing remain unqualified."
+    "note": "The display ribbon crosses above the drain stem and V-B inlet fitting below the funnel frame, then descends into the fixed common rear electrical mouth and display chimney."
   },
   "AC1-L": {
     "stations": [],
@@ -3230,11 +3409,17 @@
   "AC1-N": {
     "stations": [
       {
-        "terminal": "c14.N",
-        "offset": [
-          10.916670000000003,
-          -19.600000000000023,
-          -5.449999999999989
+        "point_mm": [
+          -65.0,
+          438.3,
+          312.0
+        ]
+      },
+      {
+        "point_mm": [
+          -65.0,
+          438.3,
+          284.0
         ]
       }
     ],
@@ -3245,7 +3430,7 @@
     "bend_radius_mm": 3.0,
     "preserve_stations": true,
     "route_status": "selected_layout",
-    "note": "Selected installed route through its native terminals and retained cable supports."
+    "note": "Dressed around the completed pump mount and equipment using the fixed electrical endpoints and actual cable-retainer seats."
   },
   "AC2-L": {
     "stations": [
@@ -3513,19 +3698,24 @@
   "AC5-pigtail": {
     "stations": [
       {
-        "terminal": "join-compressor-n.1",
-        "offset": [
-          16.0,
-          86.0,
-          -28.0
+        "point_mm": [
+          -75.0,
+          380.0,
+          283.6
         ]
       },
       {
-        "terminal": "join-compressor-n.1",
-        "offset": [
-          16.0,
-          -12.0,
-          -8.0
+        "point_mm": [
+          -75.0,
+          320.0,
+          283.6
+        ]
+      },
+      {
+        "point_mm": [
+          -75.0,
+          225.7,
+          283.6
         ]
       }
     ],
@@ -3536,7 +3726,7 @@
       8.0
     ],
     "route_status": "selected_layout",
-    "note": "Dressed through retained supports and clear of the larger installed bodies; wires and tubes are excluded from wire obstacles."
+    "note": "Dressed around the completed pump mount and equipment using the fixed electrical endpoints and actual cable-retainer seats."
   },
   "DC3-pigtail": {
     "stations": [

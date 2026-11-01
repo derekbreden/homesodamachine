@@ -89,12 +89,12 @@
         },
         {
           "name": "foam-assembly",
-          "gap_mm": 18.936344,
+          "gap_mm": 18.8874666,
           "overlap_mm3": 0
         },
         {
           "name": "cold-core/foam-cap-lid-top",
-          "gap_mm": 18.936344,
+          "gap_mm": 18.8874666,
           "overlap_mm3": 0
         }
       ],
@@ -213,11 +213,6 @@
         {
           "name": "meter-snap-cap",
           "gap_mm": 0.5,
-          "overlap_mm3": 0
-        },
-        {
-          "name": "wago-n",
-          "gap_mm": 120.1163789,
           "overlap_mm3": 0
         },
         {
@@ -615,7 +610,7 @@
         },
         {
           "name": "wago-n",
-          "gap_mm": 78.4533817,
+          "gap_mm": 85.3998082,
           "overlap_mm3": 0
         },
         {
@@ -941,7 +936,7 @@
     "hardware/manifold-layout/enclosure_assembly.py": "faf674f92c6e4779e813c650e04f58798dc80bc9e4a2660a83b504f491c30021",
     "hardware/manifold-layout/_lines.py": "c8688372a9c8afbd98709ddf760d608a8e78e0b83ca79533cf392292f30a310f",
     "hardware/manifold-layout/rear_plumbing.py": "e17d80e9772b954907588ef46fe4f739f0e52f45d855ae8cf68bc4bdf002c37c",
-    "hardware/manifold-layout/above-core.json": "c9bbd58dea6cf603caca97829050be5afdbcf329e9d65d52d4b812e24f6fc4db",
+    "hardware/manifold-layout/above-core.json": "b886818274572dd35d0b7f5f2da255e855ff1e4420d7a74c2e1c81ea91b45a5a",
     "hardware/reference/neofit-drain-bulkhead/neofit_drain_bulkhead.py": "97743ecaa9529ab351da4563dbda20a783b69afc04a8834a26cb572810e30243",
     "hardware/reference/asse1022-assembly/asse1022_assembly.py": "4481085380d131f5d85696f5c366058382b07577c6881a274495e5d67ec2b3eb",
     "hardware/printed-parts/asse-drain-adapter/asse_drain_adapter.py": "be1b0af71d436b0cea6f69ffb0ba26fbc67c436308d43cd8793c203cfac09205"

@@ -1,0 +1,214 @@
+{
+  "scope": "All three final free WAGO bodies, as installed in the complete final native appliance, against all non-wire bodies, including plumbing, printed hosts and the other WAGOs. Finite nominal bodies only.",
+  "assembly_step_sha256": "43de7a97158cfb3d2b9de706d7370fcb1c8b6c32dcb2d9cc09404d443c725655",
+  "manifest_sha256": "2014cb424bd823115f40412491965b2b0189f6c829eca5957d6ad19abfde1f62",
+  "reader_sha256": "4cad3c709ae1996b7409fcdfb841677666e4cfb33888afc390b513bf07eb0170",
+  "bodies": {
+    "wiring-junction-compressor-h": {
+      "valid": true,
+      "bounds_mm": [
+        -74.4,
+        237.7,
+        290.5,
+        -55.6,
+        256.3,
+        298.9
+      ],
+      "placement": {
+        "kind": "WAGO 221-413 final connection",
+        "size": "413",
+        "parent": "final-connections",
+        "translation_mm": [
+          -65.0,
+          247.0,
+          290.5
+        ],
+        "rotation": [
+          [
+            -1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            -1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "terminal_ids": [
+          "join-compressor-h.1",
+          "join-compressor-h.2"
+        ],
+        "unused_ports": [
+          3
+        ],
+        "mount": "Free connector retained by its dressed leads",
+        "assembly": "Connect through the open funnel after closing the quadrants; fit the frame afterward."
+      }
+    },
+    "wiring-junction-compressor-n": {
+      "valid": true,
+      "bounds_mm": [
+        -94.4,
+        237.7,
+        290.5,
+        -75.6,
+        256.3,
+        298.9
+      ],
+      "placement": {
+        "kind": "WAGO 221-413 final connection",
+        "size": "413",
+        "parent": "final-connections",
+        "translation_mm": [
+          -85.0,
+          247.0,
+          290.5
+        ],
+        "rotation": [
+          [
+            -1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            -1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "terminal_ids": [
+          "join-compressor-n.1",
+          "join-compressor-n.2"
+        ],
+        "unused_ports": [
+          3
+        ],
+        "mount": "Free connector retained by its dressed leads",
+        "assembly": "Connect through the open funnel after closing the quadrants; fit the frame afterward."
+      }
+    },
+    "wiring-junction-pump-positive": {
+      "valid": true,
+      "bounds_mm": [
+        -54.4,
+        245.7,
+        278.0,
+        -35.6,
+        264.3,
+        286.4
+      ],
+      "placement": {
+        "kind": "WAGO 221-413 final connection",
+        "size": "413",
+        "parent": "final-connections",
+        "translation_mm": [
+          -45.0,
+          255.0,
+          278.0
+        ],
+        "rotation": [
+          [
+            -1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            -1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "terminal_ids": [
+          "join-pump-positive.2",
+          "join-pump-positive.3"
+        ],
+        "unused_ports": [
+          1
+        ],
+        "mount": "Free connector retained by its dressed leads",
+        "assembly": "Connect through the open funnel after closing the quadrants; fit the frame afterward."
+      }
+    }
+  },
+  "pairs": [
+    {
+      "part": "wiring-junction-compressor-h",
+      "obstacle": "tube-above-core-va-fore-feed",
+      "overlap_mm3": 0.0
+    },
+    {
+      "part": "wiring-junction-compressor-h",
+      "obstacle": "tube-fluid-28",
+      "overlap_mm3": 0.0
+    },
+    {
+      "part": "wiring-junction-compressor-h",
+      "obstacle": "cold-core/foam-cap-lid-top",
+      "overlap_mm3": 0.0
+    },
+    {
+      "part": "wiring-junction-compressor-h",
+      "obstacle": "enclosure-back-top",
+      "overlap_mm3": 0.0
+    },
+    {
+      "part": "wiring-junction-compressor-n",
+      "obstacle": "tube-fluid-28",
+      "overlap_mm3": 0.0
+    },
+    {
+      "part": "wiring-junction-compressor-n",
+      "obstacle": "cold-core/foam-cap-lid-top",
+      "overlap_mm3": 0.0
+    },
+    {
+      "part": "wiring-junction-compressor-n",
+      "obstacle": "enclosure-back-top",
+      "overlap_mm3": 0.0
+    },
+    {
+      "part": "wiring-junction-pump-positive",
+      "obstacle": "tube-above-core-va-fore-feed",
+      "overlap_mm3": 0.0
+    },
+    {
+      "part": "wiring-junction-pump-positive",
+      "obstacle": "tube-fluid-18",
+      "overlap_mm3": 0.0
+    },
+    {
+      "part": "wiring-junction-pump-positive",
+      "obstacle": "tube-fluid-28",
+      "overlap_mm3": 0.0
+    },
+    {
+      "part": "wiring-junction-pump-positive",
+      "obstacle": "cold-core/foam-cap-lid-top",
+      "overlap_mm3": 0.0
+    },
+    {
+      "part": "wiring-junction-pump-positive",
+      "obstacle": "enclosure-back-top",
+      "overlap_mm3": 0.0
+    }
+  ],
+  "unresolved": [],
+  "all_free_wagos_clear": true,
+  "elapsed_seconds": 11.262029125005938
+}

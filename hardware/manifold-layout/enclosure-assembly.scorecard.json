@@ -567,12 +567,11 @@
    "label": "Every print-down slope on a ceiling-down piece has its stated carry",
    "kind": "goal",
    "status": "fail",
-   "value": "19 print-down slope(s): 11 under a body, 4 within 1 mm of one, 0 in a kept room, 4 could be columns",
+   "value": "18 print-down slope(s): 11 under a body, 4 within 1 mm of one, 0 in a kept room, 3 could be columns",
    "target": "no unaccounted slope a column could replace, and every named room standing",
    "detail": [
     "enclosure-back-top: a 45\u00b0 face at x 94.31..98.50 y 261.00..269.00 z 264.07..268.26: a column of 2404 mm\u00b3 rising 74.7 mm fits\nfile: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step\nfaceA: plane \u00b7 n x=-0.707 y=0.000 z=0.707 \u00b7 thru x=96.405 y=265.000 z=266.170\nclick: x=96.405 y=265.000 z=266.170",
     "enclosure-back-top: a 45\u00b0 face at x 93.30..98.50 y 270.00..278.00 z 324.10..329.30: a column of 771 mm\u00b3 rising 16.7 mm fits\nfile: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step\nfaceA: plane \u00b7 n x=-0.707 y=0.000 z=0.707 \u00b7 thru x=95.900 y=274.000 z=326.700\nclick: x=95.900 y=274.000 z=326.700",
-    "enclosure-back-top: a 45\u00b0 face at x -97.55..-72.45 y 457.50..462.30 z 275.55..280.35: a column of 1643 mm\u00b3 rising 13.0 mm fits\nfile: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step\nfaceA: plane \u00b7 n x=0.000 y=-0.707 z=0.707 \u00b7 thru x=-84.793 y=459.774 z=277.824\nclick: x=-84.793 y=459.774 z=277.824",
     "enclosure-back-top: a 45\u00b0 face at x -98.50..-93.30 y 259.00..275.00 z 284.88..290.07: a column of 4388 mm\u00b3 rising 55.9 mm fits\nfile: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step\nfaceA: plane \u00b7 n x=0.707 y=0.000 z=0.707 \u00b7 thru x=-95.900 y=267.000 z=287.475\nclick: x=-95.900 y=267.000 z=287.475"
    ],
    "active": false
@@ -726,36 +725,6 @@
    "status": "pass",
    "value": "collar x -82.50..82.50, y 100.00..258.39",
    "target": "frame x -89.50..89.50, y 92.75..465.30",
-   "detail": [],
-   "active": true
-  },
-  {
-   "id": "connected-pieces",
-   "label": "Each printed enclosure piece is one valid connected solid",
-   "kind": "gate",
-   "status": "pass",
-   "value": "5 connected pieces",
-   "target": "one valid solid per printed piece",
-   "detail": [],
-   "active": true
-  },
-  {
-   "id": "ceiling-show-cap",
-   "label": "The ceiling slab keeps a complete exterior wall over its whole field",
-   "kind": "gate",
-   "status": "pass",
-   "value": "3 mm cap; missing 0.0000 mm\u00b3",
-   "target": "a complete wall outside the funnel opening",
-   "detail": [],
-   "active": true
-  },
-  {
-   "id": "pieces-in-silhouette",
-   "label": "Quadrant walls stay inside the exterior except for disposal letters and the nameplate field",
-   "kind": "gate",
-   "status": "pass",
-   "value": "walls inside `outer`; named rear lettering and receiver excepted",
-   "target": "only the disposal letters and named nameplate field extend past the exterior",
    "detail": [],
    "active": true
   },
