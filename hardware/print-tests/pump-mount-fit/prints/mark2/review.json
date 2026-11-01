@@ -1,0 +1,70 @@
+{
+  "archive": ".cache/prints/enclosure-continuous-clip-final-2eb222ae/2026-11-01-pump-snap-cap-mark2-35cdf671/2026-11-01-pump-snap-cap-mark2-35cdf671.gcode.3mf",
+  "archive_sha256": "a2a6254bbac2c2165f822b042d129ac9c9e463215acdede9a8c139a4ba96c0f9",
+  "gcode_md5_matches": true,
+  "emitted_z_trim_mm": [
+    0.0,
+    0.02
+  ],
+  "expected_emitted_textured_trim_mm": 0.02,
+  "layers": 227,
+  "project_check": true,
+  "bead_envelope_plate_mm": [
+    [
+      127.002318,
+      142.578318
+    ],
+    [
+      197.997682,
+      177.42368199999999
+    ]
+  ],
+  "bed_margins_mm": {
+    "left": 127.002318,
+    "front": 142.578318,
+    "right": 127.002318,
+    "back": 142.57631800000001
+  },
+  "minimum_bed_margin_mm": 127.002318,
+  "bed_border_mm": 80.0,
+  "fine_and_transition_bands": [],
+  "support_roads": 0,
+  "show_face_minimum_bead_clearance_mm": null,
+  "show_face_contacts": [],
+  "tie_window_support_crossings": [],
+  "ribbon_support_crossings": [],
+  "ribbons": [],
+  "fine_band_unbacked_roads": [],
+  "first_second_layer_stack": {
+    "1901": {
+      "second_layer_model_bead_area_mm2": 380.9513274583332,
+      "fraction_over_first_layer": 0.9075888316886594,
+      "second_layer_centerline_outside_first_mm": 4.041320829867251
+    }
+  },
+  "solid_host_deposition": [],
+  "support_topology": {
+    "1901": {
+      "support_bodies": 0,
+      "interface_islands": 0,
+      "bed_rooted_bodies": 0,
+      "model_rooted_bodies": 0,
+      "shortest_build_up_mm": null,
+      "bodies_without_interface_labels": 0,
+      "explicit_interface_islands": 0,
+      "shortest_labelled_build_up_mm": null
+    }
+  },
+  "scope": "Commanded paths and bead envelopes from this archive. Support removal, surface finish, fit and strength are physical observations.",
+  "checks": {
+    "archive": true,
+    "z_trim": true,
+    "bed_border": true,
+    "fine_and_transition_bands": true,
+    "show_faces_support_free": true,
+    "tie_windows_support_free": true,
+    "ribbons_support_free_and_printed": true,
+    "solid_hosts_sampled": true
+  },
+  "pass": true
+}

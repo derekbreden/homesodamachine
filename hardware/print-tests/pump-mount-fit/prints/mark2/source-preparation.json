@@ -1,0 +1,222 @@
+{
+  "piece": "pump-snap-cap",
+  "printer": "Mark2",
+  "connection_key": "Mark2",
+  "nozzle": {
+    "side": "left",
+    "diameter_mm": 0.4,
+    "flow": "Standard",
+    "hardened": true,
+    "reason": "Every abrasive stock runs on the left hotend (hardware/ledger/tools.md, Which hotends fit an H2C). Mark2's 2026-10-24 jobs ran black PET-GF on its fixed left hardened 0.4 mm Standard-flow hotend (faucet/industrial/prints/2026-10-24-buttons-sculpted-bands020-mark2/README.md, task 1372253517).",
+    "sliced_diameter_mm": 0.4,
+    "sliced_volume_type": "Standard"
+  },
+  "material": "Polymaker Fiberon PET-GF15, black",
+  "bed_type": "Textured PEI Plate",
+  "requested_z_trim_mm": 0.04,
+  "emitted_textured_trim_mm": 0.02,
+  "project": ".cache/prints/enclosure-continuous-clip-final-2eb222ae/2026-11-01-pump-snap-cap-mark2-35cdf671/2026-11-01-pump-snap-cap-mark2-35cdf671.3mf",
+  "project_sha256": "2c30355f5778ca0e61012f734cc955ab267850f9551ae880b1a083dcede9347e",
+  "profile": "hardware/printed-parts/petgf.3mf",
+  "profile_sha256": "45c16e8c8517e0a205107d7b9f7412d013f51a8de7ecf86125cc940079d37ed0",
+  "settings_sha256": "8812d2d1af151f821740c7b87eafe8683f0cc5fc1f750c32e324c2fa901a8949",
+  "settings_changes": {
+    "extruder_ams_count": {
+      "from": [
+        "1#0|4#1",
+        "1#0|4#0"
+      ],
+      "to": [
+        "1#0|4#0",
+        "1#0|4#0"
+      ],
+      "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface."
+    },
+    "support_filament": {
+      "from": "0",
+      "to": "1",
+      "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface."
+    },
+    "support_interface_filament": {
+      "from": "0",
+      "to": "1",
+      "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface."
+    },
+    "flush_into_support": {
+      "from": "1",
+      "to": "0",
+      "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface."
+    },
+    "filament_colour": {
+      "from": [
+        "#000000"
+      ],
+      "to": [
+        "#161616"
+      ],
+      "reason": "Mark2's loaded black PET-GF colour reading."
+    },
+    "wall_loops": {
+      "from": "2",
+      "to": "3",
+      "reason": "Three Classic perimeters from each face of the working 2.4 mm spring arch and 3 mm wings."
+    },
+    "wall_generator": {
+      "from": "classic",
+      "to": "classic",
+      "reason": "Retain the cold-core fixed-width perimeter recipe."
+    },
+    "sparse_infill_density": {
+      "from": "15%",
+      "to": "100%",
+      "reason": "The complete spring arch, hooks and wing roots retain solid stock."
+    },
+    "sparse_infill_pattern": {
+      "from": "gyroid",
+      "to": "zig-zag",
+      "reason": "Solid deposition through the complete small retaining cap."
+    }
+  },
+  "profile_changes": {
+    "machine_start_gcode": {
+      "from_sha256": "3cc9e41520dbf5622d6f9a96bce734db9d11b0b48b49f2abec047a6e01dc6a92",
+      "to_sha256": "b09bc598f2ed7c29dceb227188593905dfc663f0391b98ff708ef00e7ce01bee",
+      "requested_z_trim_mm": 0.04
+    },
+    "printer_settings_id": {
+      "from": "Bambu Lab H2C 0.4 nozzle 04 first layer by agent",
+      "to": "Bambu Lab H2C 0.4 Standard +0.04 Z trim"
+    },
+    "print_compatible_printers": {
+      "from": [
+        "Bambu Lab H2C 0.4 nozzle"
+      ],
+      "to": [
+        "Bambu Lab H2C 0.4 nozzle",
+        "Bambu Lab H2C 0.4 Standard +0.04 Z trim"
+      ]
+    }
+  },
+  "usable_plate_mm": [
+    [
+      0.0,
+      0.0
+    ],
+    [
+      325.0,
+      320.0
+    ]
+  ],
+  "plate_border_mm": 80.0,
+  "brim_allowance_mm": 0.0,
+  "plate_offset_mm": null,
+  "objects": [
+    {
+      "name": "pump-snap-cap",
+      "identify_id": 1901,
+      "object_id": 2,
+      "stl": "hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.stl",
+      "stl_sha256": "24a2481d9606ee004ff3a19617b426b6285e74eeef07ae41375e4e54e6cd402c",
+      "step_sha256": "980e312bf0fc394c884724d39db1aa64f17d8e5440de37e1c4d4d93ab9494dcd",
+      "facets": 916,
+      "closed": {
+        "edges": 1374,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "inconsistent_edges": 0,
+        "bodies": 1,
+        "closed_oriented_single_body": true
+      },
+      "pose": null,
+      "pose_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "yaw_degrees": 0,
+      "source_center_mm": [
+        0.0,
+        0.0,
+        27.25000000000344
+      ],
+      "build_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "translation_mm": [
+        162.5,
+        160.0,
+        27.24999999999656
+      ],
+      "plate_bounds_mm": [
+        [
+          127.17081832885742,
+          142.74524688720703,
+          0.0
+        ],
+        [
+          197.82918167114258,
+          177.25475311279297,
+          54.49999999999312
+        ]
+      ],
+      "model_bed_margin_mm": 127.17081832885742,
+      "seam_enforcer": null,
+      "object_settings": {},
+      "features": [],
+      "ranges": [],
+      "verify_spans": [],
+      "ribbons": [],
+      "tie_windows": [],
+      "modifiers": [],
+      "fins": []
+    }
+  ],
+  "pause": null,
+  "show_faces": ".cache/prints/enclosure-continuous-clip-final-2eb222ae/2026-11-01-pump-snap-cap-mark2-35cdf671/show-faces.npz",
+  "spec": "hardware/printed-parts/enclosure/trial-preparation/pieces.json",
+  "spec_sha256": "2eb222aeacc4f06c9225ef70ef51bfa069c83b96507016f567ab2888a5cb517d",
+  "tool_sha256": {
+    "hardware/printed-parts/enclosure/trial-preparation/_derive.py": "1a3469b8f1a2a0cbfb29ffe07e7c709bb985373f2ebfa417eb9bff70e69be8be",
+    "hardware/printed-parts/enclosure/trial-preparation/_mesh.py": "7ab22db36e370608f52df3709c4af1994c8e804ee06e101dcbf79210db99eead",
+    "hardware/printed-parts/enclosure/trial-preparation/_native.py": "1c99ce10842a141a942a19d7def2329512d14b676c00618496187e0d93cd29da",
+    "hardware/printed-parts/enclosure/trial-preparation/_seam.py": "9ffa509df701826563e18388fd3bcc57c604f4b2b8e5e4288821ddcd00bcb176",
+    "hardware/printed-parts/enclosure/trial-preparation/labels.py": "b7eab37bf384b7d47e3ee7c0eed2afbf2451200ca5b0ee42c2eb47ec43fce783",
+    "hardware/printed-parts/enclosure/trial-preparation/prepare.py": "bc5495142592e777cb1b94eb2cfe06e64ba15ee6bae94f3e95e62a556741b513",
+    "hardware/printed-parts/enclosure/trial-preparation/review.py": "9bd303fe370842fd34eb559dc5f53f887f75c42e478c598737397dd49dd539f7",
+    "hardware/printed-parts/enclosure/trial-preparation/step_meshes.py": "b50f7b50f52f1e8516be3b1fc9ecdb10e87fb188f8b9bebc0fac56737320fc44"
+  },
+  "prepared_utc": "2026-11-01T17:36:05+00:00",
+  "sliced": true,
+  "submitted": false,
+  "archive": ".cache/prints/enclosure-continuous-clip-final-2eb222ae/2026-11-01-pump-snap-cap-mark2-35cdf671/2026-11-01-pump-snap-cap-mark2-35cdf671.gcode.3mf",
+  "archive_sha256": "a2a6254bbac2c2165f822b042d129ac9c9e463215acdede9a8c139a4ba96c0f9",
+  "gcode_sha256": "946b40e0fd696ca67cd2439c13426a4112d3c0b5a8de576fca490c8ff9b5f0f9",
+  "estimated_seconds": 2994.32421875,
+  "slicer_warnings": []
+}
