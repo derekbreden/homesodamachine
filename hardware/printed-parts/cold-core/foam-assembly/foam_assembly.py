@@ -86,6 +86,9 @@ ROUTE_COLORS = {name: _routing.color(key) for name, key in ROUTE_SPOOLS.items()}
 def _load(path):
     if Path(path) == SHELL_STEP:
         return import_shell(path)
+    if Path(path).parent == RESERVOIR_DIR:
+        import reservoir
+        return reservoir.import_part(path)
     return import_step(str(path)).val()
 
 
