@@ -1,0 +1,11 @@
+{
+  "source": {
+    "commit": "e993e2f1dc02e22f670f06dc5aecf0df14dcfe3d",
+    "path": "hardware/reference/meanwell-irm90/meanwell_irm90.py",
+    "sha256": "ca42ff08bbab38f67a2842ae03149a697d9e2b3a5b4adf6fc05adc951fc2e54a"
+  },
+  "members": {
+    "meanwell-irm90.step": "27cc1e5c3f5bf010f6df8a15a4b9b96dfef7b3836eee4905347e8a0035d033d7",
+    "meanwell-irm90.step.mesh": "5daca63d8261f4dd722024eee72dee2359c0d9f65dd54ae7ef37012f891ce4a4"
+  }
+}
