@@ -1,0 +1,11 @@
+{
+  "source": {
+    "commit": "15b2cff1ab2b027d1bbc908f9568e8cc25b40593",
+    "path": "hardware/reference/jg-pp451223w/jg_pp451223w.py",
+    "sha256": "e7895c35c2cc2c054b305be60e361a1bc8b9bb44cf50f18c9273ab5855d2a164"
+  },
+  "members": {
+    "jg-pp451223w.step": "01288f13c01e9153c01cc891ccb825da5bc08485613067919d2fc3de87505cdf",
+    "jg-pp451223w.step.mesh": "7cd05fa77ccd50565e0116420196360a690c53bfab2561f00476f6dc3cd17eb3"
+  }
+}
