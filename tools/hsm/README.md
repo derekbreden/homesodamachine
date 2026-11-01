@@ -393,7 +393,15 @@ hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.rs:43`.
 ## Part runs
 
 The daemon runs the programs that cut parts, for every checkout, and keeps what each run wrote
-([`engine/src/build.rs`](engine/src/build.rs)). `_rust_part.run` asks it over the socket:
+([`engine/src/build.rs`](engine/src/build.rs)). `_rust_part.run` asks it over the socket.
+
+New part builds and renders use the host-wide
+[`run-slots`](run-slots/README.md) scheduler before taking compiler or memory
+locks. A kept answer and an ordinary geometry query need no new heavy slot.
+Use `python3 tools/run.py -- <command>` for standalone Cargo, Bazel, slicing
+and rendering commands; `--cad` adds the native CAD lock and `--timing` reserves
+the machine for a measurement. Verified child leases carry admission through
+Python, the engine and Bazel actions.
 
 `_rust_part` asks `hsm endpoint` once per generator process for the installed build's socket.
 An executable without that command uses the legacy endpoint. `HSM_SOCKET` selects an explicit
@@ -440,8 +448,8 @@ checkout's target directory, one cargo there at a time, with `CARGO_BUILD_JOBS=2
 its run are not kept when one of its sources was written while cargo ran. A kept program runs for
 any checkout whose sources hash the same, and reads that checkout's import cache, which
 `HSM_IMPORT_DIR` names; one whose kernel has no `reads.rs` runs only for the checkout that built
-it. The program runs from `root` with `HOME`, `PATH=/usr/bin:/bin`, `HSM_READS` and
-`HSM_IMPORT_DIR`, and nothing else.
+it. The program runs from `root` with `HOME`, `PATH=/usr/bin:/bin`, `HSM_READS`,
+`HSM_IMPORT_DIR` and the verified run-lease descriptors and environment.
 
 Runs and builds start in turn within `--build-mb` (default 1024 MiB), each counted at the peak it
 last reached, a program not yet measured at 512 MiB and a cargo at 700 MiB. While macOS reports
@@ -449,8 +457,8 @@ critical memory pressure, one starts only when nothing else runs. At an idle exi
 recently used first until the files of the rest fit `--keep-mb` (default 4096 MiB), and the blobs
 and programs no remaining run names go with them.
 
-Where no `hsm` is installed, or `HSM_NO_ENGINE` is set, `_rust_part` takes the CAD lock, builds the
-program with cargo and runs it itself, and the files hold the same bytes. A daemon too old to know `run` is replaced
+Where no `hsm` is installed, or `HSM_NO_ENGINE` is set, `_rust_part` takes shared admission, builds the
+program with cargo and runs it itself, and the files hold the same bytes. Native imports also take the CAD lock. A daemon too old to know `run` is replaced
 once by starting the installed `hsm`; when that one doesn't know it either, `_rust_part` runs the
 program itself.
 

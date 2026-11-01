@@ -28,10 +28,14 @@ import zipfile
 import xml.etree.ElementTree as ET
 from pathlib import Path
 
-import numpy as np
-
 HERE = Path(__file__).resolve().parent
 ROOT = next(p for p in HERE.parents if (p / "tools").is_dir())
+sys.path.insert(0, str(ROOT / 'hardware/scripts'))
+import _run_slots
+if __name__ == '__main__' and len(sys.argv) > 1 and sys.argv[1] not in ('list', '--help', '-h'):
+    _run_slots.ensure_cli(str(Path(__file__).resolve().relative_to(ROOT)))
+import numpy as np
+
 sys.path.insert(0, str(HERE))
 import _derive  # noqa: E402
 import _mesh  # noqa: E402
@@ -517,8 +521,9 @@ def _studio(project: Path, native: Path, archive_name: str) -> tuple[list, dict]
     command = [str(STUDIO), "--slice", "0", "--arrange", "0", "--orient", "0", "--outputdir", str(native),
                "--export-3mf", archive_name, str(project)]
     with (native / "slice.log").open("w") as log:
-        result = subprocess.run(command, cwd=native, stdout=log, stderr=subprocess.STDOUT,
-                                env=dict(os.environ, OMP_NUM_THREADS="1", OPENBLAS_NUM_THREADS="1"))
+        result = subprocess.run(_run_slots.command(command, key='BambuStudio:slice'), cwd=native,
+                                stdout=log, stderr=subprocess.STDOUT,
+                                **_run_slots.subprocess_kwargs(dict(os.environ, OMP_NUM_THREADS="1", OPENBLAS_NUM_THREADS="1")))
     if result.returncode:
         raise RuntimeError(f"Bambu Studio exited {result.returncode}; see {relative(native / 'slice.log')}")
     sliced = json.loads((native / "result.json").read_text())
@@ -621,7 +626,7 @@ def run_external(name: str, piece: dict) -> None:
     command = [str(ROOT / "tools/cad-venv/bin/python"), *[str(ROOT / c) if c.endswith(".py") else c
                                                           for c in piece["external"]["command"]]]
     print(" ".join(command), flush=True)
-    subprocess.run(command, cwd=ROOT, check=True)
+    subprocess.run(_run_slots.command(command), cwd=ROOT, check=True, **_run_slots.subprocess_kwargs())
 
 
 def listing() -> None:

@@ -197,23 +197,21 @@ const zipRel = path.join("out", `${board}.gerbers.zip`)
 const tsci = path.join(dir, "node_modules", ".bin", "tsci")
 
 // Temp files/dirs to remove on clean exit, tracked as they're created so cleanup
-// needs no scope. Best-effort only — the dev watcher supersede-kills a render on the
-// next save (by design, and often) and a kill skips this handler, so the authoritative
-// cleanup is the start-of-render sweep below: it runs regardless of how the prior run died.
+// needs no scope. A forced interruption skips this handler, so the start-of-render
+// sweep below clears scratch after this board's mutex has been acquired.
 const temps = new Set<string>()
 const track = (p: string) => (temps.add(p), p)
 process.on("exit", () => { for (const p of temps) try { rmSync(p, { recursive: true, force: true }) } catch {} })
 
-// Become the only running render for this board; if a newer run supersedes us it
-// SIGTERMs us and our handler (in run-lock) kills the child below + exits.
+// Wait for this board's render mutex; an explicit user signal cancels this run.
 let child: ChildProcess | null = null
-const lock = singleflight(board, process.env.RENDER_SOURCE || "manual")
+const lock = await singleflight(board, process.env.RENDER_SOURCE || "manual")
 lock.setChildKiller(() => { try { child?.kill("SIGKILL") } catch {} })
 
 // Sweep this board's build scratch left by a dead prior run. Every dir-scratch this
 // script writes is _build-<board>.*-prefixed (the placement + back-silk boards, the
 // circuit-json exports, the picks input) in dir/ and out/. We now hold the single-flight
-// lock, so any leftover is a superseded run's orphan, not a live peer's — clear it before
+// lock, so any leftover belongs to a finished or interrupted run — clear it before
 // we write. The real artifacts (out/<board>.*) and any other-named scratch are untouched.
 for (const base of [dir, outDir]) {
   let names: string[] = []
@@ -222,7 +220,7 @@ for (const base of [dir, outDir]) {
 }
 
 // Async exec that mimics execFileSync's throw-on-nonzero (e.status/stdout/stderr)
-// while keeping the event loop free, so a supersede signal lands immediately and
+// while keeping the event loop free, so a user cancellation signal lands immediately and
 // `child` can be killed mid-run.
 function sh(cmd: string, args: string[], opts: { cwd?: string; inherit?: boolean } = {}): Promise<string> {
   return new Promise((resolve, reject) => {

@@ -69,6 +69,7 @@ fn tube(route: &Value) -> Result<Solid> {
 }
 
 fn main() -> Result<()> {
+    hsm_run_slots::process_enter(&hsm_run_slots::native_key())?;
     let started = Instant::now();
     let args: Vec<String> = std::env::args().collect();
     ensure!(args.len() == 3, "usage: route-preview <routes.json> <tubes.step.mesh>");

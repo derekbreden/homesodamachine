@@ -8,6 +8,7 @@ rust-version.workspace = true
 [dependencies]
 hsm-geometry = { path = "../geometry" }
 hsm-render = { path = "../render" }
+hsm-run-slots = { path = "../run-slots" }
 anyhow.workspace = true
 serde.workspace = true
 serde_json.workspace = true

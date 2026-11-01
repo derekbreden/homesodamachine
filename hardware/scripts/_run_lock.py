@@ -1,52 +1,11 @@
-"""Global single-flight lock for CAD builds: one build at a time, and a build someone is
-waiting on keeps the machine until it is done.
+"""Native CAD admission, with inherited heavy-run and CAD flock leases.
 
-On start a build that finds a live holder WAITS for it, up to `WAIT_S`, and past that runs
-alongside it. The one holder it stops instead is a watcher's own rebuild, which fires again
-on the next save. `HSM_BUILD_SUPERSEDE=1` stops any holder: the build SIGTERMs it and takes
-the lock, and the superseded build names who took it and exits 143. The lock is a pid file in
-the OS temp dir; a stale file whose pid is dead is ignored.
-
-SUPERSEDE HAS AN OFF POSITION AND IT IS THE OBVIOUS ONE. `0`, `false`, `no` and the empty
-string all mean queue, because two sessions have now each set it to `0` MEANING not to disturb
-the other and killed the other's build with it — a truthiness test on the raw value reads every
-one of those as yes. Anything else supersedes, and unset queues.
-
-`HSM_BUILD_LOCK_PROTECT` and `HSM_BUILD_SUPERSEDE` are the two ends of one question and are
-not the same flag: PROTECT is worn by the holder and stops others stopping IT; SUPERSEDE is
-carried by the caller and stops the holder. A build wearing PROTECT still stops others unless
-they wear it too.
-
-A build that finds a live holder of the SAME script in the SAME checkout, begun after the
-last edit to any .py under hardware/, follows it instead: it prints what the holder prints
-and exits on the holder's status, so a hand run and the watcher (or two agents) share one
-build rather than killing each other to compute it twice. A holder that began before the
-caller's own edit cannot answer for it and is superseded as before. A holder in another
-worktree writes that worktree's files, so it is waited for like any other build and never
-followed. Each build tees its console to `build.<pid>.log` and writes its status to
-`build.<pid>.result` for whoever follows; a holder that dies without one leaves the
-follower to build for itself. HSM_NO_BUILD_ATTACH=1 opts out.
-
-The scope is global — one CAD generator at a time across the whole repo — because
-every generator contends for the same cores. A pileup is what makes a build take
-minutes: the dev-server only supersedes the runs it spawned itself, so a watcher
-rebuild, a hand run and a second agent's run all grind on together, each unaware of
-the others. This lock is the one thing they all share.
-
-HSM_BUILD_SOURCE labels a build in the messages ("dev-server", "pre-commit", else
-"manual"). HSM_NO_BUILD_LOCK=1 opts out entirely, for tooling that imports a
-generator's helpers without meaning to build — `lanes.py`, `probe.py` and the card
-renderers set it on themselves before the import that would take the lock.
-
-An opted-out build records itself in `unlocked.<pid>.json` and, whenever another build
-is live, prints what the opt-out costs it: it supersedes none of them, none of them can
-follow it, and all of them are on the same cores. It is silent when nothing else is
-running, which is when opting out costs nothing.
-
-HSM_BUILD_LOCK_PROTECT=1 marks a build that must not be superseded — the commit
-gates, which run for minutes and would turn a stray watcher rebuild into a failed
-commit. A build that finds a protected holder yields immediately rather than waiting
-its WAIT_S out first.
+Every native run enters the host's shared heavy-run slots, then the single CAD
+lease. HSM_NO_BUILD_LOCK never grants admission: only a validated inherited CAD
+descriptor skips taking a second lease. The legacy build.json remains visible to
+watchers and older worktrees, and its live holders are waited out without a timeout
+that starts another CAD process alongside them. Parent launchers pass both leases
+to their children, so a child never queues behind its own parent.
 """
 
 import atexit
@@ -124,13 +83,13 @@ class _Tee:
         return getattr(self._stream, name)
 
 
-def _newest_input_mtime() -> float:
+def _newest_input_mtime(root=None) -> float:
     """The newest mtime among the .py under hardware/ — the sources an edit lands in.
     A stat walk, no parsing. STEPs are left out on purpose: a generator writes them, so
     counting them would make every build look stale to the next one, and the .py edit
     that regenerates a STEP moves this number first anyway."""
     newest = 0.0
-    for root, dirs, files in os.walk(_HW):
+    for root, dirs, files in os.walk(Path(root) / 'hardware' if root else _HW):
         dirs[:] = [d for d in dirs if d not in _SKIP_DIRS and not d.startswith(".")]
         for f in files:
             if not f.endswith(".py"):
@@ -149,7 +108,7 @@ def _fresh_for(holder) -> bool:
     started = holder.get("started")
     if not started:
         return False
-    return _newest_input_mtime() <= started
+    return _newest_input_mtime(holder.get('root')) <= started
 
 
 def _attach(holder) -> int:
@@ -175,7 +134,7 @@ def _attach(holder) -> int:
         code = _read(result)
         if code is not None:
             return code.get("code")
-        if not _alive(pid):
+        if not _holder_active(holder):
             time.sleep(POLL_S)                  # let a last write and the result land
             code = _read(result)
             return code.get("code") if code else None
@@ -183,6 +142,8 @@ def _attach(holder) -> int:
 
 
 def _alive(pid: int) -> bool:
+    if not isinstance(pid, int) or pid <= 0:
+        return False
     try:
         os.kill(pid, 0)
         return True
@@ -348,113 +309,93 @@ def _release():
                 pass
 
 
-def acquire(script: str, source: str = None) -> None:
-    """Become the only running CAD build, superseding whoever holds the lock."""
+def release():
+    """Release this process's native admission, retaining any parent's descriptors."""
+    global _me
+    from _run_slots import release_cad
+    release_cad()
+    _release()
+    _me = None
+
+
+def _holder_active(holder):
+    if holder.get('run_slots'):
+        import _run_slots
+        import fcntl
+        fd = os.open(_run_slots._path('cad'), os.O_RDWR | os.O_CREAT, 0o600)
+        try:
+            try:
+                fcntl.flock(fd, fcntl.LOCK_EX | fcntl.LOCK_NB)
+            except BlockingIOError:
+                return True
+            return False
+        finally:
+            os.close(fd)
+    return _alive(holder.get('pid', -1))
+
+
+def wait_legacy():
+    """Drain an older PID-only CAD holder before reserving the shared root capacity."""
+    import _run_slots
+    if _run_slots.current_cad() is not None:
+        return
+    announced = None
+    while True:
+        holder = _read(LOCK)
+        if not holder or holder.get('run_slots') or holder.get('pid') == os.getpid() or not _alive(holder.get('pid', -1)):
+            return
+        if announced != holder.get('pid'):
+            print(f"[build] waiting for legacy native CAD pid {holder['pid']} before admission",
+                  file=sys.stderr, flush=True)
+            announced = holder.get('pid')
+        time.sleep(POLL_S)
+
+
+def acquire(script: str, source: str = None, root=None) -> None:
+    """Enter shared heavy admission and become the sole native CAD owner."""
     global _me
     if _me is not None:
         return
-    if os.environ.get("HSM_NO_BUILD_LOCK"):
-        _running_unlocked(script, source or os.environ.get("HSM_BUILD_SOURCE") or "manual")
-        return
+    import _run_slots as slots
+    if slots.current() is None:
+        wait_legacy()
+    slots.acquire(script)
+    if slots.current_cad() is not None:
+        return                              # the parent's verified lease; keep its build.json
     source = source or os.environ.get("HSM_BUILD_SOURCE") or "manual"
-    protect = _asked("HSM_BUILD_LOCK_PROTECT")
-    supersede = _asked("HSM_BUILD_SUPERSEDE")
     LOCK_DIR.mkdir(parents=True, exist_ok=True)
-    _me = {"pid": os.getpid(), "source": source, "script": script, "root": str(_HW.parent),
-           "started": time.time(), "protected": protect}
-
-    prev = _read(LOCK)
-    if prev and prev.get("pid") != _me["pid"] and _alive(prev["pid"]) and prev.get("protected"):
-        # A commit gate holds the lock. Killing it would fail the commit, so run
-        # alongside it instead — and take no lock, so we supersede nobody either.
-        print(f"[build] yielding to the protected build (pid {prev['pid']}, {_who(prev)}) "
-              f"— running alongside it", file=sys.stderr, flush=True)
-        _me = None
-        return
-
-    # A live build of the same script in this checkout, begun after the last edit to
-    # anything it reads, is already computing this caller's answer: follow it and exit on
-    # its status. A staler holder, another script, another checkout's run (its outputs land
-    # in its own tree), or a follow that fails falls through to the supersede below.
-    # HSM_NO_BUILD_ATTACH=1 opts out.
-    if (prev and prev.get("pid") != _me["pid"] and _alive(prev["pid"])
-            and prev.get("script") == script and prev.get("root") == _me["root"]
-            and not os.environ.get("HSM_NO_BUILD_ATTACH")):
-        try:
-            if _fresh_for(prev):
-                code = _attach(prev)
+    identity = {"pid": os.getpid(), "source": source, "script": script,
+                "root": str(Path(root).resolve() if root else _HW.parent), "started": time.time(),
+                "run_slots": 1,
+                "protected": _asked("HSM_BUILD_LOCK_PROTECT")}
+    announced = None
+    while True:
+        previous = _read(LOCK)
+        if previous and previous.get("pid") != os.getpid() and _holder_active(previous):
+            if (previous.get("script") == script and previous.get("root") == identity["root"]
+                    and not os.environ.get("HSM_NO_BUILD_ATTACH") and _fresh_for(previous)):
+                code = _attach(previous)
                 if code is not None:
-                    _me = None
                     sys.exit(code)
-                print("[build] the build we were following stopped without a result "
-                      "— building here instead", file=sys.stderr, flush=True)
-        except SystemExit:
-            raise
-        except Exception as e:                  # never let the shortcut break a build
-            print(f"[build] could not follow the running build ({e}) — building here instead",
-                  file=sys.stderr, flush=True)
-
-    # Nothing stops a build someone is waiting on. Whoever the caller is, a deliberate holder
-    # is waited out — it is often what started this wave, since a generator writes its docgen
-    # substitutions back into its own sources as it finishes and that trips the watcher. Past
-    # WAIT_S the holder is yielded to below. A watcher's own rebuild is the one holder that is
-    # superseded rather than waited for: it fires again on the next save.
-    if (prev and prev.get("pid") != _me["pid"] and _alive(prev["pid"])
-            and _deliberate(prev) and not supersede):
-        print(f"[build] a {prev.get('source', '?')} build is already running (pid {prev['pid']}, "
-              f"{Path(prev.get('script', '?')).name}, {_age(prev)}) — waiting up to "
-              f"{WAIT_S:.0f}s for it rather than stopping it. "
-              f"HSM_BUILD_SUPERSEDE=1 stops it instead (0/no/false queue).",
-              file=sys.stderr, flush=True)
-        # Wait on the LOCK, not the process: a finished build whose parent has not reaped it is a
-        # zombie, and `os.kill(pid, 0)` still succeeds on one. The holder drops the lock and
-        # records its status as it goes, so either of those means it is done with the machine.
-        until = time.monotonic() + WAIT_S
-        while time.monotonic() < until:
-            cur = _read(LOCK)
-            if (not cur or cur.get("pid") != prev["pid"] or not _alive(cur["pid"])
-                    or _result_of(prev["pid"]).exists()):
-                break
-            time.sleep(POLL_S)
-        prev = _read(LOCK)                        # whoever holds it now, if anyone
-
-    if prev and prev.get("pid") != _me["pid"] and _alive(prev["pid"]):
-        if _deliberate(prev) and not supersede:
-            # Waited its whole WAIT_S and it is still going. It keeps the lock and the machine;
-            # this build runs beside it on the same cores, as it does behind a protected holder.
-            print(f"[build] the {prev.get('source', '?')} build (pid {prev['pid']}, "
-                  f"{Path(prev.get('script', '?')).name}) is still running after "
-                  f"{WAIT_S:.0f}s — running alongside it rather than stopping it. "
-                  f"HSM_BUILD_SUPERSEDE=1 stops it instead (0/no/false queue).", file=sys.stderr, flush=True)
-            _me = None
-            return
-        print(f"[build] superseding the active build (pid {prev['pid']}, {_who(prev)}) "
-              f"— sending SIGTERM", file=sys.stderr, flush=True)
-        try:
-            BY.write_text(json.dumps({**_me, "victim": prev["pid"]}))
-        except OSError:
-            pass
-        try:
-            os.kill(prev["pid"], signal.SIGTERM)
-        except OSError:
-            pass
-        until = time.monotonic() + GRACE_S
-        while _alive(prev["pid"]) and time.monotonic() < until:
-            time.sleep(POLL_S)
-        if _alive(prev["pid"]):
-            print(f"[build] pid {prev['pid']} did not stop within {GRACE_S:g}s — SIGKILL",
-                  file=sys.stderr, flush=True)
-            try:
-                os.kill(prev["pid"], signal.SIGKILL)
-            except OSError:
-                pass
-    else:
-        try:
-            BY.unlink()
-        except OSError:
-            pass
-
-    LOCK.write_text(json.dumps(_me))
+                continue
+            if not previous.get('run_slots'):
+                if announced != previous.get("pid"):
+                    print(f"[build] waiting for native CAD pid {previous['pid']} "
+                          f"({_who(previous)}, {_age(previous)})", file=sys.stderr, flush=True)
+                    announced = previous.get("pid")
+                time.sleep(POLL_S)
+                continue
+        slots.acquire_cad()
+        # A legacy caller cannot see flock; recheck its visible ownership before publishing ours.
+        previous = _read(LOCK)
+        if previous and not previous.get('run_slots') and previous.get("pid") != os.getpid() and _alive(previous.get("pid", -1)):
+            slots.release_cad()
+            continue
+        break
+    _me = identity
+    temporary = LOCK.with_name(f".build.{os.getpid()}.json")
+    temporary.write_text(json.dumps(_me))
+    os.replace(temporary, LOCK)
     _sweep()
     # Tee the console into this build's log, so a later caller for the same script reads
     # what it printed. A sink that will not open leaves the streams untouched.
@@ -491,4 +432,4 @@ def acquire(script: str, source: str = None) -> None:
         _real_exit(code)
 
     sys.exit = _exit
-    atexit.register(_release)
+    atexit.register(release)

@@ -27,6 +27,9 @@ import fs from "fs";
 import { execFileSync } from "child_process";
 import puppeteer from "puppeteer";
 
+import { ensureRunLease } from "../run-slots.mjs";
+export { ensureRunLease } from "../run-slots.mjs";
+
 // Puppeteer's browser cache, read off the binary it would launch — so a moved
 // PUPPETEER_CACHE_DIR names itself, and so do the builds beside the current one
 // (an older version, chrome-headless-shell) that a leak can just as easily be.
@@ -293,6 +296,7 @@ const SHM_ARGS = (() => {
 })();
 
 export async function launchBrowser({ args = [], ...rest } = {}) {
+  ensureRunLease();
   const browser = await puppeteer.launch({
     headless: true,
     args: ["--no-sandbox", ...SHM_ARGS, ...DETERMINISTIC, ...args],

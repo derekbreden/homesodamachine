@@ -23,11 +23,14 @@ import sys
 import tempfile
 from pathlib import Path
 
-import numpy as np
-from PIL import Image
-
 _HERE = Path(__file__).resolve().parent
 _REPO = _HERE.parents[2]
+sys.path.insert(0, str(_REPO / 'hardware/scripts'))
+import _run_slots
+if __name__ == '__main__':
+    _run_slots.ensure_cli('tools/render/freestyle-sieve/sieve.py')
+import numpy as np
+from PIL import Image
 _LINEART = _REPO / "hardware" / "printed-parts" / "enclosure" / "drawings" / "line-art"
 sys.path.insert(0, str(_LINEART))
 
@@ -54,8 +57,8 @@ def render(appliance_stl: Path, view: str, settings: dict, out_svg: Path, tmp: P
     aj = tmp / "args.json"
     aj.write_text(json.dumps(args))
     r = subprocess.run(
-        [_blender(), "--background", "--python", str(_SCENE), "--", str(aj)],
-        capture_output=True, text=True,
+        _run_slots.command([_blender(), "--background", "--python", str(_SCENE), "--", str(aj)]),
+        capture_output=True, text=True, **_run_slots.subprocess_kwargs(),
     )
     if not out_svg.exists():
         raise RuntimeError(f"render failed: {r.stdout[-800:]}\n{r.stderr[-400:]}")
@@ -64,7 +67,8 @@ def render(appliance_stl: Path, view: str, settings: dict, out_svg: Path, tmp: P
 
 def svg_to_mask(svg: Path) -> np.ndarray:
     png = svg.with_suffix(".png")
-    subprocess.run(["rsvg-convert", "-b", "white", str(svg), "-o", str(png)], check=True)
+    subprocess.run(_run_slots.command(["rsvg-convert", "-b", "white", str(svg), "-o", str(png)]),
+                   check=True, **_run_slots.subprocess_kwargs())
     a = np.array(Image.open(png).convert("L"))
     return a < 128  # True where a line is drawn
 

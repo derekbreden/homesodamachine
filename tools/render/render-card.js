@@ -1,4 +1,6 @@
 #!/usr/bin/env node
+import { ensureRunLease } from "./browser.js";
+ensureRunLease();
 // render-card.js — render a local HTML file to a PNG at an exact pixel size.
 // For print artifacts (4x6 assembly instruction cards) where the pixel grid
 // IS the deliverable: no device emulation, no trimming, no resampling.

@@ -1,4 +1,6 @@
 #!/usr/bin/env node
+import { ensureRunLease } from "./browser.js";
+ensureRunLease();
 // render-dxf.js — render a DXF cut part as an isometric PNG against the
 // site palette by booting the prod server in-process, driving Puppeteer
 // through the existing /3d viewer (which extrudes the flat outline by
