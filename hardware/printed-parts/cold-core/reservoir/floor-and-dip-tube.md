@@ -12,25 +12,29 @@ The fill and draw mouths are in the cap's 4 mm flat plate. Each has a TPU
 flares and a 6.2 mm gripping bore with 7 mm entry lead-ins.
 
 - **Fill**, at A [(102.5, -61)](FILL_POSITION_A) and B [(-90.5, 43.5)](FILL_POSITION_B).
-  A's continuous tube ends 1 mm below the plate in the headspace. B receives
-  the captured NeoFit stem elbow, with its existing trimmed tip position.
+  Both continuous 1/4-inch tubes end 1 mm below the plate in the headspace.
+  B's tube turns through its independent R14 holder before entering the TPU grip.
 - **Draw**, at A [(84.2, -45)](DRAW_POSITION_A) and B [(-94.3, 6)](DRAW_POSITION_B).
-  One continuous 1/4-inch tube passes through the casing guide and TPU grip
+  One continuous 1/4-inch tube passes through the equipment lid and TPU grip
   to the flat floor. Its end is cut at 45° so it cannot seal flat against it.
 
 Everything that enters the reservoir crosses the cavity before it leaves, which is what the
-purge and rinse modes rely on. The wetted parts are the printed body and cap, the rod, the float, the TPU grips, the B-fill stem
-and the tube. No fitting crosses the floor or sidewall.
+purge and rinse modes rely on. The wetted parts are the printed body and cap,
+the rod, the float, the TPU grips and the tubing. No fitting crosses the floor
+or sidewall.
 
 ## Fitting the dip tube
 
-The tube goes in from above once the reservoir is closed and in its pocket. Straighten the length
-by hand, cut its end at 45°, and push it down the conduit and the draw bore until the tip touches
-the floor. The other end goes on to the draw valve with the rest of its run
-([internal plumbing](/hardware/assembly/internal-plumbing.md)).
+Install the fill, draw and air tubes before the body foam pour, with the
+reservoir closed and seated in its pocket. Straighten the draw tube by hand,
+cut its end at 45°, and feed it through the TPU grip until the tip touches
+the floor. Position its free upper end on the equipment-lid opening's axis;
+after cure, thread the lid over it. The other end goes on to the draw valve
+with the rest of its run ([internal plumbing](/hardware/assembly/internal-plumbing.md)).
 
 The local TPU grip is designed to hold dip-tube depth while permitting hand adjustment.
-The casing passage guides it from above; the remote fitting retains the other
+The equipment-lid opening guides it from above; cured foam surrounds only
+the dry span outside the reservoir, and the remote fitting retains the other
 end. The two 45° flares capture the spool and obstruct the direct splash gap.
 Print four [reservoir-tube-grip.step](reservoir-tube-grip.step) parts per machine.
 A 6.35 mm nominal tube has 0.15 mm diametral interference with the candidate

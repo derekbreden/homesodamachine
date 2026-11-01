@@ -11,7 +11,7 @@ carbonator.
 The complete enclosure print includes the four shell quadrants (front-top, front-bottom,
 back-top, back-bottom), lower pump retainer, machine display cover, drop-in
 funnel frame and six rear identification labels. The
-[cold-core cap](../cold-core/foam-cap/README.md) carries its equipment columns,
+[cold-core equipment lid](../cold-core/foam-cap/README.md) carries its PCB posts,
 V-B wall and fitting bearings as integral stock. Front-top's tee wall holds the four purchased PP0208E pump tees in its
 [bores](pump-dock/README.md#tees-and-tee-wall), each branch collet extended in the collet plate's
 hole ahead of the bore face. The front flanks are continuous across the fixed dock room.
@@ -178,16 +178,19 @@ load-capacity or drop result.
 The [production arrangement](../../manifold-layout/above-core.md) places the flat
 PCB, pump and V-B on the cold core. Back-top carries the ceiling PSU, west-wall
 relays, meter, V-A/V-K and fitted plumbing beneath a continuous rear ceiling.
-Its printable set includes the upper quadrants, cap/cup and lid interfaces,
-compact rear chips and the 35 mm deeper funnel family. The frame installs
+Its printable set includes the upper quadrants, three-piece cold-core casing,
+compact rear chips and the 35 mm deeper funnel family. The cold core has a
+uniform 7.4 mm equipment lid with four integral PCB posts and an open-topped
+bottom cap, each closure fastened directly to the shell with ten M5 × 100 screws.
+Its continuous B-fill tube uses an independent R14 holder inside the foam. The frame installs
 vertically after the final connections, with the drain cradle snapped into its
 3 mm web. The plug, stub, elbow and cradle travel with the frame; disconnect
 the V-B feed before lifting it.
 
 The [cap review](../cold-core/foam-cap/above-core-native-review.json),
 [rear identification review](rear-identification/native-review.json) and
-[frame review](../zone-c/funnel/drop-in-review/native-review.json) state their
-native-geometry scopes. The C14 flange is accessible outside the wall, with
+[frame review](../zone-c/funnel/drop-in-review/native-review.json) apply to the
+components and artifact hashes they identify. The C14 flange is accessible outside the wall, with
 washer-backed M3 × 10 screws in blind hosts. The low nameplate field retains
 the accepted flat-wing receiver.
 The [populated closure review](../../mechanical-qualification/enclosure-above-core/README.md)
@@ -223,7 +226,7 @@ unmeasured does not by itself supply a task or test for the founder.
 | Remaining enclosure geometry | Resolve the front-top seam-to-roof and display-wing corners, plus the sensor/scarf, rear-interface, handhold/floor, warning, lid-perimeter and valve-fixture findings in the [manual interface review](pump-dock/lint-interface-review.json) and the [front-top findings](../lint-answers/enclosure/enclosure/enclosure-front-top.lint-answers). Keep each classifier diagnosis and supported functional section tied to its exact feature; unresolved inherited geometry remains open. |
 | Production deposition and finish | Complete fresh native preparations for the final meshes, dense fastener hosts and roots, support removal, visible transitions and the back-top sliding grooves. The rejected full-shell articles and accepted local surfaces above retain their recorded scopes. Prepared settings do not establish deposited material or usable cleanup. |
 | Complete assembly | Close the current [assembly feedback](enclosure/assembly-fit-review/README.md) against the populated machine: cord and driver access, valve and tube installation, pump feet and washers, routing, lid/deck stations, funnel frame and all four closing quadrants. A nominal CAD gap is not complete assembly acceptance. Production LLDPE routes retain nominal ¼-inch and ⅜-inch outside diameters. |
-| Cold-core moisture boundary | The warm-side closure is the foil bands on the dry casing seams ([seam review](../cold-core/foam-cap/seam-moisture-review.json)) plus, at final assembly, a 3M 425 foil collar pressed from each conduit's tube or cable onto the lid face round its annulus, the same at both copper exits, a foil patch over each cap-screw head pocket and over any cap foam left showing ([cold core](../../assembly/cold-core.md#7-final-assembly)). It needs no printed sealing land; its effect on condensation inside the core is unmeasured. |
+| Cold-core moisture boundary | The warm-side closure uses 3M 425 bands on the two dry casing seams, collars around the tube/cable exits and both copper exits, closure of the dry B-fill guide-window boundary, and patches over the screw-head pockets, four bottom pour ports and two bottom air vents ([cold core](../../assembly/cold-core.md#7-close-and-populate-the-top-lid)). The [seam review](../cold-core/foam-cap/seam-moisture-review.json) retains its identified geometry scope. The casing needs no printed sealing land; its effect on condensation inside the core is unmeasured. |
 | Condensate and refill water | Condensate is addressed by insulating the meter, union and tails and by the umbilical's drip loop. The funnel's integral silicone apron covers the exposed frame/roof joints to the exterior sides; its broad, flat underside rests on the roof. The [overflow review](../zone-c/funnel/overflow-review/README.md) records the native geometry and assembly checks. Physical overpour and roof-runoff exclusion remain unqualified. Floor water needs feet under the slab, a purchase. |
 | Loads and retention | Assess the complete grip-to-floor and seam load paths, fastener/insert backing, the fixed mount’s skirt capture, both snap-wing roots, hooks and receiver floors, and the four tees’ collet joints for actual operating and handling conditions. The dock's geometric motion allowance still needs the manufacturing, temperature and loaded-deformation contributions. Complete-assembly pressure/leak/prime performance, the collets' hold on the four pump tubes against pressure, individual tee insertion effort, cleanability/drainage and creep/lifetime remain open. The [mechanical register](../../mechanical-qualification/README.md) identifies the current basis and limits. Coupon fit and saved infill settings retain their specific scopes. |
 | Finished appliance function | Close the relevant material, cleaning, fluid, electrical, control and commissioning work in [acceptance and burn-in](../../assembly/acceptance-and-burn-in.md). Any resolution that changes a printed part, access, load path or manufacturing process belongs in this print's design review. The current Lillium-fed soda observation retains its complete stated scope. |
