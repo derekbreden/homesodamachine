@@ -820,6 +820,7 @@ Printed copies of the [install guide](/hardware/install-guide/README.md). Lulu o
 | **M3 × 0.5 tap suitable for 316L stainless, with a compatible hand driver** | Upper-rim earth-clamp thread through the vessel's 1.651 mm rim. Required tooling, not recorded as acquired. Supplier and price unselected. |
 | **Ø2.5 mm drill suitable for 316L stainless** | Tap drill for the upper-rim M3 × 0.5 earth-clamp hole. Required tooling, not recorded as acquired. Supplier and price unselected. |
 | **BenchPro Kennedy mobile workbench, 96 × 48 in, 1¾ in maple butcher-block top, gray (KW4896 LP 30-36 CL5-UB-Gray)** | Garage table for kit photos, moving large assemblies and general work. 30–36 in adjustable height, 1,200 lb capacity, four 5 in locking casters. $2,299 plus freight at [Global Industrial](https://www.globalindustrial.com/p/kennedy-mobile-workbench-96-x-48-maple-butcher-block-top-gray), ships in 15 business days. |
+| **hykolity 4 ft LED shop light, 5000K, 4-pack (×5, 20 lights)** | Garage ceiling: three rows of six, 2¼, 9.4 and 16½ ft from the back wall, two lights spare. 4,400 lm and 42 W each, six linked to one plug; 756 W for all eighteen. The three ceiling light boxes take receptacles in place of their lampholders: the middle row plugs into the middle box, and the back and front rows each take a new ceiling receptacle fed from a box. $40.84 a 4-pack, $204.20 for five, Amazon Prime, [B06XGBKDKZ](https://www.amazon.com/dp/B06XGBKDKZ). |
 
 ---
 
