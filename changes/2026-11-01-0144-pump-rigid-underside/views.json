@@ -1,0 +1,77 @@
+{
+  "views": [
+    {
+      "name": "underside",
+      "caption": "Rigid casing grooves and finite wire cover, with flexible rear leads excluded.",
+      "before": "underside-before.webp",
+      "after": "underside-after.webp",
+      "width": 1000,
+      "height": 700,
+      "marks": [
+        {
+          "x": 559,
+          "y": 429.8,
+          "r": 63.6,
+          "label": "Open rail groove",
+          "at": [
+            40,
+            12,
+            6
+          ]
+        }
+      ],
+      "model": "reference/g-ganen-pump/g-ganen-pump.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          215.1670361054984,
+          -143.69170930529165,
+          -134.53417165316267
+        ],
+        "target": [
+          40,
+          0,
+          16
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 55,
+        "near": 192.24704087536404,
+        "far": 486.9283136525722,
+        "aspect": 1.4285714285714286
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [
+        "rigid_casing_envelope",
+        "lower_cradle_occupied_external_envelope"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "reference/g-ganen-pump/g-ganen-pump.step.mesh",
+          "from": "snapshot",
+          "sha256": "f68811db4823947e4568694e473a4dbbd5898a38dd1b6383602511165be109dd",
+          "commit": "b378cd5b8adcbac3da430283ac083189dfe1ae11",
+          "taken": "2026-11-01T04:46:37.716Z",
+          "published": false
+        },
+        "after": {
+          "payload": "reference/g-ganen-pump/g-ganen-pump.step.mesh",
+          "from": "tree",
+          "sha256": "c832c78d13bf47ba0ffdffe66e2025edd77245b1921d970843ad1c49cc6b25b7",
+          "commit": "845a37e5b34180f55208483583bb830628c5e1b5",
+          "published": false
+        }
+      },
+      "changed": [
+        "lower_cradle_occupied_external_envelope",
+        "rigid_casing_envelope"
+      ],
+      "withinMeshing": []
+    }
+  ]
+}
