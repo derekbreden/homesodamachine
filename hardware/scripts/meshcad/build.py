@@ -244,15 +244,17 @@ def gap(a, b):
     the pump's triangles near the tube in a tree, and the tube's near the pump."""
     import fcl
     from scipy.spatial import cKDTree
-    (Va, Ta), (Vb, Tb) = _soup(a), _soup(b)
+    (Va, Ta, la, ha), (Vb, Tb, lb, hb) = _boxed_soup(a), _boxed_soup(b)
     if not len(Ta) or not len(Tb):
         raise ValueError("meshcad: a distance to a solid that holds nothing")
     # A nanometre over, so a gap that runs between two vertices is not cropped off by the
     # rounding of the boxes' sums.
     reach = float(cKDTree(_strided(Vb)).query(_strided(Va))[0].min()) + 1e-6
+    ka, kb = np.arange(len(Ta)), np.arange(len(Tb))
     for _ in range(2):
-        Ta = _near(Va, Ta, Vb, Tb, reach)
-        Tb = _near(Vb, Tb, Va, Ta, reach)
+        ka = _near(la, ha, ka, lb, hb, kb, reach)
+        kb = _near(lb, hb, kb, la, ha, ka, reach)
+    Ta, Tb = Ta[ka], Tb[kb]
     d = max(float(fcl.distance(_tree(Va, Ta), _tree(Vb, Tb), fcl.DistanceRequest(),
                                fcl.DistanceResult())), 0.0)
     if d > 0.0 and (_holds(a, b, d) or _holds(b, a, d)):
@@ -271,24 +273,48 @@ def _soup(ms):
     return np.concatenate(V), np.concatenate(T)
 
 
+#: The bodies `gap` read last, by the identity of their Manifolds: a body measured against its
+#: neighbours one after another is read off its Manifold and boxed once.
+_SOUPS = {}
+_SOUPS_HELD = 4
+
+
+def _boxed_soup(ms):
+    """`_soup(ms)` with each triangle's box, (V, T, lo, hi)."""
+    key = tuple(id(m) for m in ms)
+    hit = _SOUPS.pop(key, None)
+    if hit is None or any(x is not y for x, y in zip(hit[0], ms)):
+        V, T = _soup(ms)
+        P = V[T]
+        hit = (list(ms), V, T, P.min(1), P.max(1))
+    _SOUPS[key] = hit                               # the newest last
+    while len(_SOUPS) > _SOUPS_HELD:
+        del _SOUPS[next(iter(_SOUPS))]
+    return hit[1:]
+
+
 def _strided(V, n=4096):
     """About `n` of the points `V`, evenly through them."""
     return V[::max(1, len(V) // n)]
 
 
-def _near(V, T, W, U, reach):
-    """The triangles of (V, T) whose boxes come within `reach` of the box around the triangles
-    (W, U)."""
-    P, Q = V[T], W[U].reshape(-1, 3)
-    lo, hi = Q.min(0) - reach, Q.max(0) + reach
-    return T[np.all((P.min(1) <= hi) & (P.max(1) >= lo), axis=1)]
+def _near(lo, hi, keep, lo2, hi2, keep2, reach):
+    """Of the triangles `keep`, boxed (lo, hi), those whose boxes come within `reach` of the box
+    around the other body's triangles `keep2`, boxed (lo2, hi2)."""
+    a, b = lo2[keep2].min(0) - reach, hi2[keep2].max(0) + reach
+    return keep[np.all((lo[keep] <= b) & (hi[keep] >= a), axis=1)]
 
 
 def _tree(V, T):
+    """FCL's tree of the triangles `T` of `V`, holding only the vertices they use: FCL copies its
+    vertices in one at a time, and a tree of a body's few triangles near the other is built off
+    the same coordinates, in the same order, whatever else the body holds."""
     import fcl
+    used, T = np.unique(T, return_inverse=True)
+    T = T.reshape(-1, 3)
     model = fcl.BVHModel()
-    model.beginModel(len(V), len(T))
-    model.addSubModel(V, T)
+    model.beginModel(len(used), len(T))
+    model.addSubModel(V[used], T)
     model.endModel()
     return fcl.CollisionObject(model)
 
