@@ -9,11 +9,9 @@ A piece is any `.step` under `PIECES_DIRS` with an `.stl` of the same stem.
 
 THE VIEWER PREFERS A PAYLOAD TO THE STEP BESIDE IT. `loadStepFile` fetches `<file>.step.mesh`
 first and only parses the solid when there is none (`web/public/js/viewer/step.js`), and every
-picture this repository draws goes through that one mount: `/3d` in a browser,
-`tools/render/render-step-posed.js` driving the same page headless for the assembly cards,
-So the flutes reach all of them by standing in the payload,
-and nothing above it is touched — same card, same part, same camera, same x-ray, same pickable
-edges.
+picture reads this surface: `/3d` decodes it in the browser and `hsm-render` draws it for
+assembly and installation art. The payload carries the flutes, colours and face ranges for both
+readers, including the source of each pickable surface.
 
 THE FLUTED PARTS ARE DECIMATED TO THE VIEWER'S OWN TOLERANCE. `_mesh_payload.LINEAR_DEFLECTION_RATIO` is
 the deflection occt-import-js meshes a STEP at, which is what every other part in the catalog is

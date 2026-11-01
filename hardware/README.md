@@ -233,19 +233,11 @@ and exit non-zero naming the extension, because `addon_utils.enable` does not ra
 module is absent: it prints one line and returns None, and the miss surfaces a hundred lines
 later as an `AttributeError` with Blender itself exiting 0.
 
-TWO THINGS THE BUILD DOES NOT GUARANTEE, both named where they stand:
-
-- **A `.step.mesh` is not a declared output.** `_cadq_export` tessellates best-effort — a
-  payload must never break an export — and a Bazel output is one the action must produce or
-  fail. The two are opposite promises. So no action writes one: `sync_tree` carries what a
-  target declares, the payload is in nothing's `outs`, and `.bazelrc` sets
-  `HSM_SKIP_MESH_PAYLOAD` for every action rather than tessellating a file the sandbox
-  discards. The runs that keep the tree's payloads are a hand run and the dev-server watcher.
-- **`//:render-scenes` carries `local` and is not sandboxed.** `render-step-posed.js` stands
-  the viewer on loopback and photographs it with a headless browser, and that page loads
-  `occt-import-js` off a CDN — so drawing a scene reaches the public network for a library this
-  tree does not carry. Vendoring it is what would make the action hermetic. It is the one
-  action here whose inputs are not all declared.
+Rust part generators declare the payloads they produce as build outputs. Native CadQuery
+exports make their optional payloads best-effort; Bazel sets `HSM_SKIP_MESH_PAYLOAD` for those
+exports. A scene that draws a payload within its action writes one explicitly with `mesh=True`.
+The guide-art rules draw these scenes with `hsm-render`, built from the renderer sources declared
+by each rule. These Cargo consumers run without a sandbox, in their own work directories.
 
 Inside one run:
 

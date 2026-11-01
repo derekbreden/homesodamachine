@@ -29,6 +29,14 @@ def render(jobs: list[dict], root: Path = ROOT, *, reports: bool = False) -> lis
     import _run_slots
     program = _rust_part.program("render", "hsm-render")
     _rust_part._READ_TARGETS.add(_rust_part._relative(FINISHES))
+    for job in jobs:
+        for material in job.get("materials", ()):
+            if source := material.get("texture"):
+                path = Path(source)
+                try:
+                    _rust_part._READ_TARGETS.add(_rust_part._relative(path if path.is_absolute() else root / path))
+                except ValueError:
+                    pass  # A texture outside this checkout is outside its build graph.
     result = subprocess.run([str(program), "--root", str(root), "--jobs", "-",
                              *(["--json"] if reports else [])],
                             input=json.dumps(jobs), text=True, check=True,

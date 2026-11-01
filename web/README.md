@@ -245,7 +245,7 @@ Assembly cards, search results and expandable BOM rows show direct and total BOM
 
 Every selected component offers **Open component** or its canonical part model. Source lookup uses the material catalog before name aliases. Components without a standalone STEP use a `?component=` view of the owning model's named body or branch, preserving the STEP breadcrumb and browser Back/Forward behavior. The loader reads the owning file and filters its geometry; the view creates no second CAD file or material identity. Picks continue to name the owning geometry file. Cataloged assemblies include numbered records for their fitted tube runs, context geometry and tooling workpieces.
 
-The Puppeteer escape hatch `window.__hsm` is set from `main.js` after all modules have loaded; its shape is part of the contract with [`tools/render/render-step-posed.js`](/tools/render/render-step-posed.js) (which lives at the repo root and imports `web/server.js`) and must not change without updating it.
+The Puppeteer escape hatch `window.__hsm` is set from `main.js` after all modules have loaded; its shape is part of the contract with [`tools/render/render-dxf.js`](/tools/render/render-dxf.js) (which lives at the repo root and imports `web/server.js`) and must not change without updating it.
 
 ## Unit pages
 

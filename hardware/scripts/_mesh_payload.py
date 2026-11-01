@@ -309,6 +309,13 @@ def write(meshes, path, src=None, cut=None):
                               ("idx", "I", m["idx"]), ("fac", "I", m["fac"])):
             e[key] = [len(blob), len(arr)]
             blob += struct.pack(f"<{len(arr)}{fmt}", *arr)
+        for key, components in (("col", 3), ("uv", 2)):
+            if key in m:
+                arr = m[key]
+                if len(arr) != len(m['pos']) // 3 * components:
+                    raise ValueError(f"{m['name']}: invalid {key} vertex count")
+                e[key] = [len(blob), len(arr)]
+                blob += struct.pack(f"<{len(arr)}f", *arr)
         entries.append(e)
     header = {"v": VERSION, "meshes": entries}
     if src is not None:

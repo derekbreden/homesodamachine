@@ -4,6 +4,7 @@
 
 use crate::env::{self, Environment};
 use crate::scene::{Scene, Segment};
+use crate::image::Image;
 use crate::shadow::ShadowMap;
 use anyhow::{Context, Result, anyhow};
 use bytemuck::{Pod, Zeroable};
@@ -29,6 +30,9 @@ pub mod flag {
     pub const FRONT_ONLY: u32 = 2;
     pub const BACK_ONLY: u32 = 4;
     pub const NO_FOG: u32 = 8;
+    pub const VERTEX_COLOR: u32 = 16;
+    pub const NO_TONE_MAP: u32 = 32;
+    pub const TEXTURE: u32 = 64;
 }
 
 /// shaders/common.wgsl `View`.
@@ -57,6 +61,8 @@ pub struct Material {
     pub color: [f32; 4],
     /// roughness, metalness, line width in pixels, back-face darkening
     pub params: [f32; 4],
+    /// clearcoat and its roughness.
+    pub coat: [f32; 4],
     pub flags: [u32; 4],
 }
 
@@ -69,6 +75,8 @@ pub enum Layer {
     Blend,
     /// Blended over everything, through everything.
     Overlay,
+    /// Transparent, depth-tested, and writing depth.
+    BlendDepth,
 }
 
 #[derive(Clone, Debug)]
@@ -88,13 +96,16 @@ pub struct Gpu {
     pub queue: wgpu::Queue,
     pub adapter: String,
     layout: wgpu::BindGroupLayout,
+    image_layout: wgpu::BindGroupLayout,
     sampler: wgpu::Sampler,
+    image_sampler: wgpu::Sampler,
     env: Environment,
-    surface: [wgpu::RenderPipeline; 3],
+    surface: [wgpu::RenderPipeline; 4],
     cap: wgpu::RenderPipeline,
-    line: [wgpu::RenderPipeline; 3],
+    line: [wgpu::RenderPipeline; 4],
     shadow: wgpu::RenderPipeline,
     blank: wgpu::TextureView,
+    white: wgpu::TextureView,
     /// The last frame size's targets, kept for the next picture of that size.
     targets: Mutex<Option<Targets>>,
 }
@@ -159,6 +170,7 @@ pub struct SceneBuffers {
     normals: wgpu::Buffer,
     indices: wgpu::Buffer,
     segments: wgpu::Buffer,
+    attributes: wgpu::Buffer,
     pub bytes: u64,
 }
 
@@ -169,6 +181,7 @@ pub struct Frame<'a> {
     /// The clear colour, as stored: sRGB-encoded, and alpha.
     pub clear: [f64; 4],
     pub materials: &'a [Material],
+    pub textures: &'a [Image],
     /// Two banks of one material slot per mesh: each mesh's own edges, then the selection's.
     pub edge_slot: &'a [u32],
     /// In draw order.
@@ -266,11 +279,19 @@ impl Gpu {
                 storage(5),
                 storage(6),
                 texture(7, wgpu::TextureViewDimension::D2),
+                storage(8),
             ],
+        });
+        let image_layout = device.create_bind_group_layout(&wgpu::BindGroupLayoutDescriptor {
+            label: Some("surface image"),
+            entries: &[texture(0, wgpu::TextureViewDimension::D2), wgpu::BindGroupLayoutEntry {
+                binding: 1, visibility: vis,
+                ty: wgpu::BindingType::Sampler(wgpu::SamplerBindingType::Filtering), count: None,
+            }],
         });
         let pipeline_layout = device.create_pipeline_layout(&wgpu::PipelineLayoutDescriptor {
             label: Some("frame"),
-            bind_group_layouts: &[Some(&layout)],
+            bind_group_layouts: &[Some(&layout), Some(&image_layout)],
             immediate_size: 0,
         });
         let float3 = |location| {
@@ -304,6 +325,7 @@ impl Gpu {
                 Layer::Opaque => (true, wgpu::CompareFunction::LessEqual),
                 Layer::Blend => (false, wgpu::CompareFunction::LessEqual),
                 Layer::Overlay => (false, wgpu::CompareFunction::Always),
+                Layer::BlendDepth => (true, wgpu::CompareFunction::LessEqual),
             };
             device.create_render_pipeline(&wgpu::RenderPipelineDescriptor {
                 label: Some(label),
@@ -355,10 +377,10 @@ impl Gpu {
                 cache: None,
             })
         };
-        let surface = [Layer::Opaque, Layer::Blend, Layer::Overlay].map(|layer| {
+        let surface = [Layer::Opaque, Layer::Blend, Layer::Overlay, Layer::BlendDepth].map(|layer| {
             make("surface", "vs_surface", "fs_surface", &surface_buffers, layer, layer != Layer::Overlay, false)
         });
-        let line = [Layer::Opaque, Layer::Blend, Layer::Overlay]
+        let line = [Layer::Opaque, Layer::Blend, Layer::Overlay, Layer::BlendDepth]
             .map(|layer| make("line", "vs_line", "fs_line", &[], layer, false, layer != Layer::Overlay));
         let cap = make("cap", "vs_surface", "fs_surface", &surface_buffers, Layer::Opaque, false, false);
         let shadow = make("shadow", "vs_shadow", "fs_shadow", &[], Layer::Blend, false, false);
@@ -369,6 +391,18 @@ impl Gpu {
             mipmap_filter: wgpu::MipmapFilterMode::Linear,
             ..Default::default()
         });
+        let image_sampler = device.create_sampler(&wgpu::SamplerDescriptor {
+            label: Some("surface image"), mag_filter: wgpu::FilterMode::Linear,
+            min_filter: wgpu::FilterMode::Linear, mipmap_filter: wgpu::MipmapFilterMode::Linear,
+            anisotropy_clamp: 16, ..Default::default()
+        });
+        let white = device.create_texture_with_data(&queue, &wgpu::TextureDescriptor {
+            label: Some("no image"),
+            size: wgpu::Extent3d { width: 1, height: 1, depth_or_array_layers: 1 },
+            mip_level_count: 1, sample_count: 1, dimension: wgpu::TextureDimension::D2,
+            format: wgpu::TextureFormat::Rgba8UnormSrgb,
+            usage: wgpu::TextureUsages::TEXTURE_BINDING, view_formats: &[],
+        }, wgpu::util::TextureDataOrder::LayerMajor, &[255; 4]).create_view(&Default::default());
         let blank = device
             .create_texture_with_data(
                 &queue,
@@ -395,13 +429,16 @@ impl Gpu {
             queue,
             adapter: name,
             layout,
+            image_layout,
             sampler,
+            image_sampler,
             env,
             surface,
             cap,
             line,
             shadow,
             blank,
+            white,
             targets: Mutex::new(None),
         })
     }
@@ -424,12 +461,14 @@ impl Gpu {
             bytemuck::cast_slice::<Segment, u8>(&scene.segments),
             wgpu::BufferUsages::STORAGE,
         );
-        let bytes = positions.size() + normals.size() + indices.size() + segments.size();
+        let attributes = buffer("vertex attributes", bytemuck::cast_slice(&scene.attributes), wgpu::BufferUsages::STORAGE);
+        let bytes = positions.size() + normals.size() + indices.size() + segments.size() + attributes.size();
         SceneBuffers {
             positions,
             normals,
             indices,
             segments,
+            attributes,
             bytes,
         }
     }
@@ -526,8 +565,29 @@ impl Gpu {
                     binding: 7,
                     resource: wgpu::BindingResource::TextureView(shadow.as_ref().unwrap_or(&self.blank)),
                 },
+                wgpu::BindGroupEntry { binding: 8, resource: buffers.attributes.as_entire_binding() },
             ],
         });
+        let images: Vec<wgpu::TextureView> = frame.textures.iter().map(|image| {
+            let levels = image.mipmaps();
+            let data: Vec<u8> = levels.iter().flat_map(|im| im.rgba.iter().copied()).collect();
+            device.create_texture_with_data(&self.queue, &wgpu::TextureDescriptor {
+                label: Some("surface image"),
+                size: wgpu::Extent3d { width: image.width, height: image.height, depth_or_array_layers: 1 },
+                mip_level_count: levels.len() as u32, sample_count: 1, dimension: wgpu::TextureDimension::D2,
+                format: wgpu::TextureFormat::Rgba8UnormSrgb,
+                usage: wgpu::TextureUsages::TEXTURE_BINDING, view_formats: &[],
+            }, wgpu::util::TextureDataOrder::LayerMajor, &data).create_view(&Default::default())
+        }).collect();
+        let image_groups: Vec<wgpu::BindGroup> = std::iter::once(&self.white).chain(images.iter()).map(|view| {
+            device.create_bind_group(&wgpu::BindGroupDescriptor {
+                label: Some("surface image"), layout: &self.image_layout,
+                entries: &[
+                    wgpu::BindGroupEntry { binding: 0, resource: wgpu::BindingResource::TextureView(view) },
+                    wgpu::BindGroupEntry { binding: 1, resource: wgpu::BindingResource::Sampler(&self.image_sampler) },
+                ],
+            })
+        }).collect();
 
         let mut encoder = device.create_command_encoder(&wgpu::CommandEncoderDescriptor { label: Some("frame") });
         {
@@ -556,6 +616,7 @@ impl Gpu {
                 multiview_mask: None,
             });
             pass.set_bind_group(0, &group, &[]);
+            pass.set_bind_group(1, &image_groups[0], &[]);
             pass.set_vertex_buffer(0, buffers.positions.slice(..));
             pass.set_vertex_buffer(1, buffers.normals.slice(..));
             pass.set_index_buffer(buffers.indices.slice(..), wgpu::IndexFormat::Uint32);
@@ -587,6 +648,7 @@ impl Gpu {
                 }
                 match draw {
                     Draw::Surface { mesh, slot } | Draw::Cap { mesh, slot } => {
+                        pass.set_bind_group(1, &image_groups[frame.materials[*slot as usize].flags[1] as usize], &[]);
                         let m = &scene.meshes[*mesh];
                         if !m.indices.is_empty() {
                             pass.draw_indexed(m.indices.clone(), m.vertices.start as i32, *slot..*slot + 1);
