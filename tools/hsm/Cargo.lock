@@ -799,6 +799,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "hsm-machine"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "hsm-kernel",
+ "serde_json",
+]
+
+[[package]]
 name = "hsm-refrigeration"
 version = "0.1.0"
 dependencies = [
