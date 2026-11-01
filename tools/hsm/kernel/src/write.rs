@@ -192,14 +192,32 @@ struct Arrays {
     nrm: Vec<f32>,
     idx: Vec<u32>,
     fac: Vec<u32>,
+    face_sources: Vec<Value>,
 }
 
-fn arrays(s: &Solid) -> Arrays {
+fn arrays(s: &Solid, sources: bool) -> Arrays {
     let faces = topo::faces(s);
-    let mut a = Arrays { pos: vec![], nrm: vec![], idx: vec![], fac: vec![] };
+    let mut a = Arrays { pos: vec![], nrm: vec![], idx: vec![], fac: vec![], face_sources: vec![] };
     let mut base = 0u32;
     let mut first = 0u32;
     for (f, tris) in faces.tris.iter().enumerate() {
+        if sources {
+            let records: std::collections::BTreeSet<_> = tris.iter().map(|&t| s.face_of[t as usize]).collect();
+            let mut origins = vec![];
+            for r in records {
+                let face = &s.faces[r as usize];
+                let src = |s: crate::face::Src| if s.recorded() { Some(src_line(s)) } else { None };
+                let mut origin = face_json(face);
+                if let Some(record) = origin.as_object_mut() {
+                    record.retain(|key, _| matches!(key.as_str(), "src" | "op" | "via"));
+                    if let Some(via) = face.via {
+                        record.insert("via".into(), json!({"src": src(via.src), "op": via.op}));
+                    }
+                }
+                if !origins.contains(&origin) { origins.push(origin); }
+            }
+            a.face_sources.push(Value::Array(origins));
+        }
         let record = &s.faces[faces.record[f] as usize];
         let mut local: Vec<u32> = vec![];
         let mut slot = std::collections::HashMap::new();
@@ -251,10 +269,20 @@ fn color_json(c: Option<[f64; 3]>) -> String {
 /// padded with spaces to a multiple of four, then the arrays. `src` names what the payload was
 /// cut from; `cut` is the reduction it records.
 pub fn payload_bytes(bodies: &[Body], src: Option<&str>, cut: Option<&Value>) -> Vec<u8> {
+    payload(bodies, src, cut, false)
+}
+
+/// `payload_bytes` with each displayed face's contributing operation/source records. A face
+/// can join triangles from several operations; its contributor list preserves all of them.
+pub fn payload_bytes_with_sources(bodies: &[Body], src: Option<&str>, cut: Option<&Value>) -> Vec<u8> {
+    payload(bodies, src, cut, true)
+}
+
+fn payload(bodies: &[Body], src: Option<&str>, cut: Option<&Value>, sources: bool) -> Vec<u8> {
     let mut blob: Vec<u8> = vec![];
     let mut entries = vec![];
     for b in bodies {
-        let a = arrays(b.solid);
+        let a = arrays(b.solid, sources);
         let mut put = |bytes: Vec<u8>, n: usize| -> String {
             let at = blob.len();
             blob.extend(bytes);
@@ -264,8 +292,9 @@ pub fn payload_bytes(bodies: &[Body], src: Option<&str>, cut: Option<&Value>) ->
         let nrm = put(a.nrm.iter().flat_map(|x| x.to_le_bytes()).collect(), a.nrm.len());
         let idx = put(a.idx.iter().flat_map(|x| x.to_le_bytes()).collect(), a.idx.len());
         let fac = put(a.fac.iter().flat_map(|x| x.to_le_bytes()).collect(), a.fac.len());
+        let origins = if sources { format!(r#", "face_sources":{}"#, Value::Array(a.face_sources)) } else { String::new() };
         entries.push(format!(
-            r#"{{"name":{},"color":{},"pos":{pos},"nrm":{nrm},"idx":{idx},"fac":{fac}}}"#,
+            r#"{{"name":{},"color":{},"pos":{pos},"nrm":{nrm},"idx":{idx},"fac":{fac}{origins}}}"#,
             Value::from(b.name),
             color_json(b.color)
         ));
