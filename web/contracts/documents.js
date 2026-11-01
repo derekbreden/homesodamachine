@@ -1,14 +1,16 @@
 // The document convention, shared by the server's walker and its file route.
 //
-// A document is a PDF a person is handed whole — a deck, a drawing set, or a
-// customer instruction sheet. The site shows its cover and opens it.
+// A document is a PDF a person is handed whole — a guide, an engineering
+// drawing, or a customer instruction sheet. The site opens it in its reader.
 //
-// Three files stand together, named off the PDF:
+// Files stand together, named off the PDF:
 //
 //   <name>.pdf         the document
-//   <name>.cover.png   its first page, small enough to be a picture on a page
 //   <name>.pdf.json    what it is called and how big it is — {title, subtitle,
-//                      pages, cover, cover_size}
+//                      pages}, and for a guide {cover, cover_size}
+//   <name>.cover.png   a guide's first page, small enough to be a picture on
+//                      the Guides page. An engineering drawing has none; its
+//                      material's panel shows the sheet.
 //
 // The sidecar is what makes a PDF a document. A `.pdf` under `hardware/` with
 // none — a datasheet a board vendored, a generator's own output — is not in the
@@ -16,39 +18,30 @@
 // excluded even when a scene build restores their PDF and sidecar.
 export const DOC_SIDECAR_SUFFIX = ".pdf.json";
 
-// Committed guides are carried by the checkout. CAD publications may still name
-// an earlier edition; adopting or retiring those objects must leave the guides in place.
+// Committed documents are carried by the checkout. CAD publications may still name
+// an earlier edition; adopting or retiring those objects must leave the documents in place.
 const COMMITTED_DOCUMENT_FILES = new Set([
   "hardware/install-guide/install-guide.pdf",
   "hardware/install-guide/install-guide.cover.png",
   "hardware/install-guide/install-guide.pdf.json",
   "hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole-drawing.pdf",
   "hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole-drawing.pdf.json",
-  "hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole-drawing.cover.png",
   "hardware/cold-core-layout/carbonator-vessel-weldment-drawing.pdf",
   "hardware/cold-core-layout/carbonator-vessel-weldment-drawing.pdf.json",
-  "hardware/cold-core-layout/carbonator-vessel-weldment-drawing.cover.png",
   "hardware/cut-parts/carbonation/float-rod/carbonator-float-rod-drawing.pdf",
   "hardware/cut-parts/carbonation/float-rod/carbonator-float-rod-drawing.pdf.json",
-  "hardware/cut-parts/carbonation/float-rod/carbonator-float-rod-drawing.cover.png",
   "hardware/cut-parts/carbonation/reservoir-float-rod/reservoir-float-rod-drawing.pdf",
   "hardware/cut-parts/carbonation/reservoir-float-rod/reservoir-float-rod-drawing.pdf.json",
-  "hardware/cut-parts/carbonation/reservoir-float-rod/reservoir-float-rod-drawing.cover.png",
   "hardware/cold-core-layout/evaporator-coil-drawing.pdf",
   "hardware/cold-core-layout/evaporator-coil-drawing.pdf.json",
-  "hardware/cold-core-layout/evaporator-coil-drawing.cover.png",
   "hardware/cut-parts/faucet/under-counter-plate/under-counter-plate-drawing.pdf",
   "hardware/cut-parts/faucet/under-counter-plate/under-counter-plate-drawing.pdf.json",
-  "hardware/cut-parts/faucet/under-counter-plate/under-counter-plate-drawing.cover.png",
   "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate-drawing.pdf",
   "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate-drawing.pdf.json",
-  "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate-drawing.cover.png",
   "hardware/cold-core-layout/water-inlet-jet-cap-drawing.pdf",
   "hardware/cold-core-layout/water-inlet-jet-cap-drawing.pdf.json",
-  "hardware/cold-core-layout/water-inlet-jet-cap-drawing.cover.png",
   "hardware/cold-core-layout/water-inlet-jet-elbow-drawing.pdf",
   "hardware/cold-core-layout/water-inlet-jet-elbow-drawing.pdf.json",
-  "hardware/cold-core-layout/water-inlet-jet-elbow-drawing.cover.png",
   "hardware/water-inlet-jet-guide/water-inlet-jet-guide.pdf",
   "hardware/water-inlet-jet-guide/water-inlet-jet-guide.pdf.json",
   "hardware/water-inlet-jet-guide/water-inlet-jet-guide.cover.png",

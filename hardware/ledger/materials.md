@@ -69,9 +69,10 @@ Engineering drawings belong in the part's own `documents` with
 `kind: "engineering-drawing"`, a readable `title`, and the PDF's hardware-relative
 `path`. The material explorer features these above the relationship tabs and
 offers a 3D/Drawing switch. Drawings inherited from containing assemblies remain
-reference documents. A published PDF also needs its `.pdf.json` sidecar; PDFs
-carried by the checkout are registered in `web/contracts/documents.js` so an
-artifact restore preserves the committed edition.
+reference documents. A published PDF also needs its `.pdf.json` sidecar of
+`title`, `subtitle` and `pages`, with no cover image; PDFs carried by the
+checkout are registered in `web/contracts/documents.js` so an artifact restore
+preserves the committed edition.
 
 ## Contents and quantities
 
