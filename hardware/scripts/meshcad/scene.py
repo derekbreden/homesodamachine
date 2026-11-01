@@ -25,9 +25,11 @@ import numpy as np
 from .write import model_items, text_array, write_npz
 
 
-def write(bodies, path, document=None):
+def write(bodies, path, document=None, *, preserve_partitions=False):
     """`bodies` is [(name, shape, linear rgb or None)], every shape standing where it stands.
-    A body of several solids keeps one entry per solid under the same name."""
+    A body of several solids keeps one entry per solid under the same name.
+    `preserve_partitions` keeps distinct native faces in separate record slots,
+    including faces whose surface records are equal."""
     from .write import _solids
     solids, names, colors = [], [], []
     for name, shape, rgb in bodies:
@@ -35,7 +37,7 @@ def write(bodies, path, document=None):
             solids.append(s)
             names.append(name)
             colors.append(rgb)
-    items = model_items(solids, names, colors)
+    items = model_items(solids, names, colors, preserve_partitions=preserve_partitions)
     if document is not None:
         text = json.dumps(document, separators=(",", ":"), sort_keys=True)
         items = itertools.chain(items, [("document", text_array(text))])
