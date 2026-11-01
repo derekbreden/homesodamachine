@@ -78,6 +78,13 @@ pub struct Request {
     pub query: Query,
 }
 
+impl Query {
+    pub fn needs_scene(&self) -> bool {
+        matches!(self, Self::Where { .. } | Self::Gap { .. } | Self::Overlap { .. }
+            | Self::Move { .. } | Self::Section { .. } | Self::Ray { .. })
+    }
+}
+
 pub fn matches(payload: &Payload, selector: &str) -> Vec<usize> {
     if selector.is_empty() {
         return (0..payload.meshes.len()).collect();
@@ -139,21 +146,17 @@ pub fn execute(store: &mut Store, builds: &crate::build::Builder, request: Reque
     match request.query {
         Query::Ping => {
             return Ok(
-                json!({"build_id": build_id, "pid": std::process::id(), "protocol": 1, "cache": store.status()}),
+                json!({"build_id": build_id, "pid": std::process::id(), "protocol": 1, "run_slots": 1, "cache": store.status()}),
             );
         }
         Query::Status => {
             return Ok(
-                json!({"build_id": build_id, "pid": std::process::id(), "cache": store.status(),
+                json!({"build_id": build_id, "pid": std::process::id(), "run_slots": 1, "cache": store.status(),
                 "render": crate::render::status(), "builds": builds.status()}),
             );
         }
         Query::Shutdown => return Ok(json!({"stopping": true})),
-        Query::Render {
-            ref root,
-            ref job,
-            list,
-        } => return crate::render::execute(root, job, list),
+        Query::Render { .. } => return Err(anyhow!("a render is answered off the query loop")),
         Query::Run { .. } => return Err(anyhow!("a run is answered off the query loop")),
         _ => (),
     }

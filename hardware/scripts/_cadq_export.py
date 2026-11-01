@@ -41,10 +41,9 @@ from collections import Counter, defaultdict
 from pathlib import Path
 
 # --- Build single-flight -----------------------------------------------------
-# Every generator imports this module, so taking the global CAD build lock here
-# covers all of them without editing 79 scripts. A newer build supersedes the one
-# already running, and both say so — see _run_lock.py. Taken at import, before any
-# geometry work, so the machine is freed as early as possible.
+# Native generators enter shared heavy admission and the single CAD lease here.
+# Rust numbers may import these helpers with CadQuery deferred; the first native
+# use then enters through the template's loader before OCCT is loaded.
 _HERE = Path(__file__).resolve()
 _ROOT = _HERE.parents[2]
 
@@ -65,10 +64,12 @@ if sys.argv and sys.argv[0].endswith(".py"):
     except ValueError:
         _ENTRY = _entry.name
 
-# A BUILD THAT SCHEDULES ITS OWN ACTIONS HOLDS NO MUTEX. The lock is single-flight for a
-# machine where anyone may start a generator by hand; under Bazel the graph decides what runs
-# beside what, and a lock taken at import would serialize every action on one another.
-if _ENTRY is not None and not os.environ.get("HSM_NO_BUILD_LOCK"):
+_rust = sys.modules.get('_rust_part')
+_cq = sys.modules.get('cadquery')
+_deferred_rust = (_rust is not None and getattr(_rust, '_STARTED', None) is not None
+                  and 'OCP.OCP' not in sys.modules
+                  and (_cq is None or type(_cq) is getattr(_rust, '_Deferred', None)))
+if _ENTRY is not None and not _deferred_rust:
     _acquire_build_lock(_ENTRY)
 
 # The lock's own test for whether a pid is still running, reused by the temp sweep

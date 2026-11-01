@@ -47,6 +47,7 @@ fn run() -> Result<bool> {
     let jobs: Vec<Job> =
         serde_json::from_str(&text).with_context(|| format!("--jobs {source}: want a JSON array of jobs"))?;
 
+    hsm_run_slots::process_enter("native:hsm-render")?;
     let mut renderer = Renderer::new();
     let (mut reports, mut failed) = (Vec::new(), Vec::new());
     for job in &jobs {

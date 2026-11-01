@@ -272,10 +272,13 @@ def trace(gen: str, files: set, argv=()) -> dict:
     # here would be a reading of a shorter run than the one an action performs, and the graph
     # would name less than the sandbox has to hold.
     env = dict(os.environ, HSM_BUILD_SOURCE="trace", HSM_NO_BUILD_ATTACH="1")
+    sys.path.insert(0, str(_ROOT / 'hardware/scripts'))
+    import _run_slots
     try:
         subprocess.run([sys.executable, "-c",
                         RUNNER % (str(_ROOT), gen, str(out), tuple(argv))],
-                       cwd=str(_ROOT), env=env, capture_output=True, text=True,
+                       cwd=str(_ROOT), capture_output=True, text=True,
+                       **_run_slots.subprocess_kwargs(env),
                        timeout=DEADLINE)
     except subprocess.TimeoutExpired:
         # Killed at the deadline, and `finally` never ran: the reading is that it did not

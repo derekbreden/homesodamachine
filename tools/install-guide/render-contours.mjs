@@ -1,3 +1,5 @@
+import { ensureRunLease } from "../render/browser.js";
+ensureRunLease();
 import fs from 'node:fs';
 import { pathToFileURL } from 'node:url';
 import { launchBrowser, closeBrowser } from '../render/browser.js';

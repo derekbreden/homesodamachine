@@ -8,6 +8,7 @@ mod store;
 use anyhow::{Context, Result, bail, ensure};
 use clap::{Parser, Subcommand};
 use fs2::FileExt;
+use hsm_run_slots::{Lease, ipc};
 use serde_json::{Value, json};
 use service::{Query, Request};
 use sha2::{Digest, Sha256};
@@ -138,6 +139,7 @@ fn build_id() -> String {
     h.update(include_str!("published.rs"));
     h.update(include_str!("render.rs"));
     h.update(hsm_render::source_digest());
+    h.update(hsm_run_slots::source_digest());
     h.update(store::geometry_version());
     format!("{:x}", h.finalize())
 }
@@ -228,12 +230,16 @@ fn send(socket: &Path, request: &Request) -> Result<Value> {
     let mut stream = UnixStream::connect(socket)?;
     // A part run waits its turn and may compile first; a query is answered or it is stuck.
     let wait = match request.query {
-        Query::Run { .. } => None,
+        Query::Run { .. } | Query::Render { .. } => None,
         _ => Some(Duration::from_secs(300)),
     };
     stream.set_read_timeout(wait)?;
-    serde_json::to_writer(&mut stream, request)?;
-    stream.write_all(b"\n")?;
+    let mut message = serde_json::to_value(request)?;
+    let lease = if matches!(request.query, Query::Run { .. } | Query::Render { .. }) {
+        hsm_run_slots::inherited()?
+    } else { None };
+    if let Some(lease) = &lease { message["_lease"] = serde_json::to_value(lease.wire())?; }
+    ipc::send(&stream, &message, &lease.as_ref().map_or_else(Vec::new, Lease::descriptors))?;
     read_message(&mut stream, 64 * 1024 * 1024)
 }
 
@@ -264,7 +270,7 @@ impl Client {
     }
 
     pub fn call(&self, request: &Request) -> Result<Value> {
-        published::ensure(&request.scene)?;
+        if request.query.needs_scene() { published::ensure(&request.scene)?; }
         self.ensure_daemon()?;
         send(&self.socket, request).or_else(|e| {
             // A daemon that went idle between the ping and this request has closed its socket.
@@ -363,7 +369,11 @@ impl Client {
                 Ok(())
             });
         }
-        command.spawn().context("start hsm daemon")?;
+        // Validate inherited descriptors and mark the originals CLOEXEC before detaching. The
+        // service must not pin an initiating caller's lease for the service's whole lifetime.
+        let _caller = hsm_run_slots::inherited()?;
+        hsm_run_slots::detach(&mut command);
+        ipc::spawn(&mut command).context("start hsm daemon")?;
         let start = Instant::now();
         while start.elapsed() < Duration::from_secs(10) {
             if let Ok(p) = ping() {
@@ -481,7 +491,7 @@ fn pending(listener: &UnixListener, timeout: Duration) -> Result<bool> {
 /// Answer one caller; true when it asked the service to stop. A part run is answered on a thread
 /// of its own, so the queries behind it are not held up while it waits its turn and runs.
 fn answer(
-    mut stream: UnixStream,
+    stream: UnixStream,
     store: &mut store::Store,
     builds: &Arc<build::Builder>,
     build: &str,
@@ -492,33 +502,39 @@ fn answer(
     stream.set_read_timeout(Some(Duration::from_secs(5)))?;
     let started = Instant::now();
     let mut stopping = false;
-    let request = read_message(&mut stream, 4 * 1024 * 1024)
-        .and_then(|v| Ok(serde_json::from_value::<Request>(v)?));
-    if let Ok(Request {
-        query:
-            Query::Run {
-                workspace,
-                root,
-                krate,
-                name,
-                args,
-            },
-        ..
-    }) = request
-    {
-        let entered = builds.enter();
-        thread::spawn(move || {
-            let ask = build::Ask {
-                workspace,
-                root,
-                krate,
-                name,
-                args,
-            };
-            reply(stream, entered.answer(ask), started);
-        });
-        return Ok(false);
-    }
+    let received = ipc::receive(&stream, 4 * 1024 * 1024, Duration::from_secs(5));
+    let mut incoming = None;
+    let request = received.and_then(|(mut value, fds)| {
+        let wire = value.as_object_mut().and_then(|o| o.remove("_lease"));
+        if let Some(wire) = wire { incoming = Some(Lease::from_wire(serde_json::from_value(wire)?, fds)?); }
+        else { ensure!(fds.is_empty(), "ancillary descriptors have no lease metadata"); }
+        Ok(serde_json::from_value::<Request>(value)?)
+    });
+    let request = match request {
+        Ok(Request { query: Query::Run { workspace, root, krate, name, args }, .. }) => {
+            let entered = builds.enter();
+            thread::spawn(move || {
+                reply(stream, entered.answer(build::Ask { workspace, root, krate, name, args }, incoming), started);
+            });
+            return Ok(false);
+        }
+        Ok(Request { query: Query::Render { root, job, list }, .. }) => {
+            let entered = builds.enter();
+            thread::spawn(move || {
+                let response = (|| {
+                    // This worker waits before entering the renderer mutex. The accept loop
+                    // remains free for an RPC from a parent that already holds a lease.
+                    let _lease = hsm_run_slots::acquire("hsm:render", incoming, false)?;
+                    render::execute(&root, &job, list)
+                })();
+                reply(stream, response, started);
+                drop(entered);
+            });
+            return Ok(false);
+        }
+        other => other,
+    };
+    drop(incoming);
     let response = request.and_then(|request| {
         stopping = matches!(request.query, Query::Shutdown);
         let identifies_service = matches!(request.query, Query::Ping | Query::Status);
@@ -551,6 +567,9 @@ fn triple(v: Vec<f64>) -> Result<[f64; 3]> {
 
 fn run() -> Result<bool> {
     let args = Args::parse();
+    if matches!(args.command, Action::Daemon | Action::Mcp) {
+        hsm_run_slots::clear_inherited_for_service()?;
+    }
     let cwd = std::env::current_dir()?;
     let root = args
         .root
@@ -599,7 +618,7 @@ fn run() -> Result<bool> {
         Action::Endpoint => {
             println!("{}", serde_json::to_string_pretty(&json!({
                 "build_id": build_id(), "socket": client.socket, "executable": client.executable,
-                "configuration": client.configuration()
+                "configuration": client.configuration(), "run_slots": 1
             }))?);
             return Ok(true);
         }
@@ -656,8 +675,8 @@ fn run() -> Result<bool> {
         },
         Action::Request { json: input } => {
             let mut request: Request = serde_json::from_str(&input)?;
-            if matches!(request.query, Query::Run { .. }) {
-                // A part run names its own workspace and root, and reads no scene.
+            if !request.query.needs_scene() {
+                // Control, render and part requests name their own inputs.
             } else if request.scene.as_os_str().is_empty() {
                 request.scene = scene_path(&client.root, &client.scene);
             } else if request.scene.is_relative() {

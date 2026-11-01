@@ -1,4 +1,6 @@
 #!/usr/bin/env node
+import { ensureRunLease } from "./browser.js";
+ensureRunLease();
 // render-step-posed.js — render STEP files to PNG with a caller-posed camera,
 // for imagery that needs a specific viewpoint (assembly instruction cards).
 // It stands the server and opens the /3d viewer, and takes the camera,

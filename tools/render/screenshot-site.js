@@ -1,4 +1,6 @@
 #!/usr/bin/env node
+import { ensureRunLease } from "./browser.js";
+ensureRunLease();
 // Capture a mobile-aspect-ratio screenshot of a URL and save as a compressed PNG.
 //
 // Usage:

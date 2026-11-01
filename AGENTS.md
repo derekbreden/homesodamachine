@@ -104,6 +104,27 @@ arguments of `git worktree add`. It clones the main checkout's files and memo
 caches, so a worktree costs almost no disk until something in it changes, and
 its first build reads back the parts the main checkout already drew.
 
+## Heavy Runs
+
+Use `python3 tools/run.py -- <command>` for Cargo, Bazel, slicing and rendering.
+Add `--cad` for a native CadQuery/OCP command and `--timing` for a timing run
+that needs the machine to itself. Kernel part generators use the installed
+`hsm` engine. Ordinary runs need no coordinator grant.
+
+The shared host scheduler admits at most four logical runs, spaces concurrent
+starts by 30 seconds, and waits before a new run while macOS memory pressure is
+critical or used swap exceeds 10 GiB. Running jobs continue. Set the live count
+with `python3 tools/run.py --count 1` or `--count 4`.
+
+Children share their parent's verified lease. Native work also takes the CAD
+lock; `HSM_NO_BUILD_LOCK=1` alone bypasses neither admission nor that lock. Keep
+Cargo at two jobs and run Cargo and Bazel through the wrapper so their compiler
+lock is shared. Bazel runs one heavy action per inherited lease. Update an old
+worktree's run helpers before using its nested build scripts.
+
+The protocol and entry points are in
+[`tools/hsm/run-slots/README.md`](tools/hsm/run-slots/README.md).
+
 ## Publishing
 
 Complete requested repository changes by committing and pushing to `main` without asking for separate confirmation.

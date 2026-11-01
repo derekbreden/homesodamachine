@@ -1,4 +1,6 @@
 #!/usr/bin/env node
+import { ensureRunLease } from "../render/browser.js";
+ensureRunLease();
 // shot.mjs — look at a built page the way a reader will, before anyone else does.
 //
 //   node tools/viz/shot.mjs PAGE.html OUT.png            desktop light beside phone dark, one PNG
