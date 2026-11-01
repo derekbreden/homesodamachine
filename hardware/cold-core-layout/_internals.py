@@ -258,7 +258,7 @@ def bodies(reservoirs: dict = None) -> dict:
     return out
 
 
-def report(reservoirs: dict = None) -> None:
+def report(reservoirs: dict = None, *, rod_seats=None, seats=None) -> None:
     print("  internals")
     print(f"    inlet jet       nominal ⌀{JET_CAP_D:g} × {JET_CAP_T:g} cap, "
           f"⌀{JET_PASSAGE_D:g} passage; fit, weld and installed projection unqualified")
@@ -268,17 +268,20 @@ def report(reservoirs: dict = None) -> None:
           f"at x ±{REED_COLUMN_X:.1f}, y {reed_y_center:.1f}, "
           f"{RESERVOIR_REED_PITCH:.0f} mm pitch in a "
           f"{FLOAT_TRAVEL_Z[0]:.0f}..{FLOAT_TRAVEL_Z[1]:.0f} travel")
-    seats = ""
-    if reservoirs:
-        seats = ", seated at z " + ", ".join(
+    seat_text = ""
+    if rod_seats is not None:
+        seat_text = ", seated at z " + ", ".join(f"{rod_seats[n]:.1f}" for n in ('a', 'b'))
+    elif reservoirs:
+        seat_text = ", seated at z " + ", ".join(
             f"{rod_seat_z(reservoirs[f'reservoir-{n}'], s * RES_ROD_X):.1f}"
             for n, s in (("a", 1), ("b", -1)) if f"reservoir-{n}" in reservoirs)
     print(f"    res rods        ⌀{_V.ROD_D:.3f} × {RES_ROD_LEN:.1f} at x ±{RES_ROD_X:.0f}, "
-          f"y {RES_ROD_Y:.1f}{seats}")
+          f"y {RES_ROD_Y:.1f}{seat_text}")
     print(f"    float slop      ⌀{F.FLOAT_BORE:.2f} bore on a ⌀{_V.ROD_D:.3f} rod — "
           f"{FLOAT_SLOP:.3f} mm radial freedom; printed-float bench edge limit "
           f"{_float.float_edge_reported_usable_limit:g} mm")
-    for name, (park, wall, centre, standoff) in sorted(float_seats(reservoirs).items()):
+    for name, (park, wall, centre, standoff) in sorted(
+            (float_seats(reservoirs) if seats is None else seats).items()):
         print(f"    {name:15} rod axis {park:.3f}, wet wall {wall:.3f}, float axis "
               f"{centre:.3f} — maximum body/wall gap {standoff:.3f} mm")
 
