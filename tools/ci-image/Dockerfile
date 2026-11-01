@@ -186,6 +186,16 @@ RUN apt-get update && apt-get install -y --no-install-recommends cmake \
       --components=rustc,cargo,rust-std-x86_64-unknown-linux-gnu \
     && rm -rf "/tmp/rust-${RUST_VERSION}-x86_64-unknown-linux-gnu"
 
+# VULKAN WITH NO GPU, FOR THE PICTURES `hsm-render` DRAWS. The renderer is wgpu, which draws
+# through Vulkan on Linux, and a hosted runner has no GPU to answer it. Mesa's lavapipe is a
+# Vulkan device on the CPU: `mesa-vulkan-drivers` carries it and `libvulkan1` is the loader that
+# finds it. `fonts-dejavu-core` is the face a look's annotations are set in off a Mac. A picture
+# is the same bytes on every runner this image runs on, whatever its CPU or thread count; a
+# rebuild of this layer can bring a newer Mesa, which can move them. Its own layer, after the
+# 840 MB, so a change here rebuilds nothing above it.
+RUN apt-get update && apt-get install -y --no-install-recommends mesa-vulkan-drivers libvulkan1 fonts-dejavu-core \
+    && rm -rf /var/lib/apt/lists/*
+
 # What the job needs to know to wire the three baked trees into a fresh checkout.
 ENV HSM_CAD_VENV=/opt/hsm/cad-venv \
     HSM_RENDER_MODULES=/opt/hsm/render/node_modules \

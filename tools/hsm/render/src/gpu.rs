@@ -1,5 +1,6 @@
-//! The GPU half: one Metal device for the process, the viewer's pipelines on it, a scene's arrays
-//! uploaded once, and a frame drawn into a 4× multisampled target and read back as RGBA bytes.
+//! The GPU half: one device for the process (Metal on a Mac, Vulkan elsewhere), the viewer's
+//! pipelines on it, a scene's arrays uploaded once, and a frame drawn into a 4× multisampled
+//! target and read back as RGBA bytes.
 
 use crate::env::{self, Environment};
 use crate::scene::{Scene, Segment};
@@ -194,13 +195,13 @@ fn blend_over() -> wgpu::BlendState {
 impl Gpu {
     pub fn new() -> Result<Gpu> {
         let mut desc = wgpu::InstanceDescriptor::new_without_display_handle();
-        desc.backends = wgpu::Backends::METAL;
+        desc.backends = if cfg!(target_os = "macos") { wgpu::Backends::METAL } else { wgpu::Backends::VULKAN };
         let instance = wgpu::Instance::new(desc);
         let adapter = pollster::block_on(instance.request_adapter(&wgpu::RequestAdapterOptions {
             power_preference: wgpu::PowerPreference::HighPerformance,
             ..Default::default()
         }))
-        .context("no Metal adapter")?;
+        .context("no GPU adapter")?;
         let name = adapter.get_info().name;
         let (device, queue) = pollster::block_on(adapter.request_device(&wgpu::DeviceDescriptor {
             label: Some("hsm render"),
@@ -208,7 +209,7 @@ impl Gpu {
             memory_hints: wgpu::MemoryHints::MemoryUsage,
             ..Default::default()
         }))
-        .context("no Metal device")?;
+        .context("no GPU device")?;
         // A validation error is reported by the frame's own error scope; an uncaught one is a bug
         // in this crate, and is logged rather than taking the daemon down with it.
         device.on_uncaptured_error(std::sync::Arc::new(|e| eprintln!("hsm render: wgpu: {e}")));

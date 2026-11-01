@@ -2,8 +2,9 @@
 #
 # `derive` runs INSIDE this image, so everything it would otherwise install on every run is
 # already on the disk when the job starts: the 840 MB CadQuery toolchain at its pin, the
-# renderers and the Chromium the card deck drives, express for the scene server, blender and
-# rsvg-convert for the two targets that shell out to them, and bazel at `.bazelversion`.
+# renderers and the Chromium the card deck drives, Mesa's lavapipe for the pictures `hsm-render`
+# draws, express for the scene server, blender and rsvg-convert for the two targets that shell
+# out to them, and bazel at `.bazelversion`.
 #
 # It rebuilds when one of its declared inputs moves, independently of the design loop. Manual
 # dispatch remains available for registry recovery. A derive run also compares `HSM_REQ_SHA`
