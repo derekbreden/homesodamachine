@@ -479,27 +479,50 @@ fn cutter(mesh: &Mesh, rail: &Rail, f: &Field) -> Result<Option<Mesh>> {
         }
     }
     let mut triangles = Vec::new();
-    let mut quad = |a, b, c, d| {
-        triangles.push([a, b, c]);
-        triangles.push([a, c, d]);
+    let mut quad_half = |a, b, c, d, second| {
+        triangles.push(if second { [a, c, d] } else { [a, b, c] });
     };
-    for i in 0..if rail.closed { nc } else { nc - 1 } {
-        let next = (i + 1) % nc;
-        for j in 0..nh - 1 {
-            let (a, b) = (i * nh + j, next * nh + j);
-            quad(a, a + 1, b + 1, b);
-            quad(base + a, base + b, base + b + 1, base + a + 1);
+    let rungs = if rail.closed { nc } else { nc - 1 };
+    // Preserve the field's own array order: first triangle of every outer quad, then
+    // its second triangles, followed by the inner skin and the two height caps.
+    // The payload's deterministic reducer reads this order after the final repair.
+    for surface in 0..4 {
+        for second in [false, true] {
+            for i in 0..rungs {
+                let next = (i + 1) % nc;
+                if surface < 2 {
+                    for j in 0..nh - 1 {
+                        let (a, b) = (i * nh + j, next * nh + j);
+                        if surface == 0 {
+                            quad_half(a, a + 1, b + 1, b, second);
+                        } else {
+                            quad_half(base + a, base + b, base + b + 1, base + a + 1, second);
+                        }
+                    }
+                } else {
+                    let (a, b) = (i * nh, next * nh);
+                    if surface == 2 {
+                        quad_half(a, b, base + b, base + a, second);
+                    } else {
+                        let (a, b) = (a + nh - 1, b + nh - 1);
+                        quad_half(a, base + a, base + b, b, second);
+                    }
+                }
+            }
         }
-        let (a, b) = (i * nh, next * nh);
-        quad(a, b, base + b, base + a);
-        let (a, b) = (a + nh - 1, b + nh - 1);
-        quad(a, base + a, base + b, b);
     }
     if !rail.closed {
-        for j in 0..nh - 1 {
-            quad(j, base + j, base + j + 1, j + 1);
-            let a = (nc - 1) * nh + j;
-            quad(a, a + 1, base + a + 1, base + a);
+        for far in [false, true] {
+            for second in [false, true] {
+                for j in 0..nh - 1 {
+                    if far {
+                        let a = (nc - 1) * nh + j;
+                        quad_half(a, a + 1, base + a + 1, base + a, second);
+                    } else {
+                        quad_half(j, base + j, base + j + 1, j + 1, second);
+                    }
+                }
+            }
         }
     }
     let volume: f64 = triangles
@@ -513,7 +536,7 @@ fn cutter(mesh: &Mesh, rail: &Rail, f: &Field) -> Result<Option<Mesh>> {
         .sum();
     if volume < 0.0 {
         for t in &mut triangles {
-            t.swap(1, 2);
+            t.swap(0, 2);
         }
     }
     Ok(Some(Mesh { points, triangles }))
