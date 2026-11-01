@@ -1,6 +1,6 @@
 """The cold core, whole — every body inside the foam and every line among them.
 
-`printed-parts/cold-core/foam-assembly` is the core as the MACHINE sees it: five printed
+`printed-parts/cold-core/foam-assembly` is the core as the MACHINE sees it: three casing
 pieces, the outside faces the enclosure loads and stands its own bodies off. This is the core
 as the BENCH sees it, one frame further in — the carbonator that fills it, the coil wound on that,
 both reservoirs in their pockets, the fittings made up on every port, and the lines drawn
@@ -56,7 +56,7 @@ from _card import Check, grade_of, verdict                # noqa: E402
 from _cold_scorecard import Scorecard                     # noqa: E402
 
 STEP_OUT = _here.parent / "cold-core-assembly.step"
-# The OTHER model of this same core: five printed pieces and the faces the enclosure loads
+# The OTHER model of this same core: three casing pieces and the faces the enclosure loads
 # (`foam_assembly`). It is not superseded — `enclosure_assembly` places THAT, not this — but a
 # reader who opens it is looking at the cold core, and the cold core has one verdict. So the
 # card below is written beside both STEPs.
@@ -70,10 +70,9 @@ RESERVOIRS = {"reservoir-a": "reservoir-right", "reservoir-b": "reservoir-left"}
 # says which face locates it BEFORE the pour, which is what an assembler works to.
 HELD_BY = {
     "foam-shell": "the enclosure floor",
-    "foam-cap-top": "shell rim",
-    "foam-cap-lid-top": "cap mouth",
+    "foam-cap-lid-top": "M5 shell-face inserts",
+    "reservoir-b-fill-guide": "B-fill tube and cured foam",
     "foam-cap-bottom": "shell floor",
-    "foam-cap-lid-bottom": "cap mouth",
     "carbonator-tube": "support ring",
     "endcap-bottom": "tube bore",
     "endcap-top": "tube bore",
@@ -100,6 +99,7 @@ for _n in _V.PORTS:
 
 # What holds the bodies that come in families, by the name each family shares.
 HELD_BY_PREFIX = (
+    ("cap-clamp-", "M5 shell-face insert"),
     ("collet-", "elbow socket"),
     ("reservoir-grip-", "matching double countersink in reservoir lid"),
     ("tube-reservoir-air-", "reservoir TPU air grip"),
@@ -188,6 +188,21 @@ def _world_in_core(shape):
 def build_bodies() -> dict:
     """Every solid in the core, by the name it goes into the assembly under."""
     placed = {}
+
+    from _cold_core_interface import attachment_xy_positions, head_cbore_depth, head_pad_height
+    for side, seat, direction in (('top',_foam.cap_face_z-head_cbore_depth,-1.),
+                                  ('bottom',_foam.stack_floor_z+head_pad_height,1.)):
+        for i,(x,y) in enumerate(attachment_xy_positions,1):
+            base=cq.Vector(x,y,seat)
+            shaft=cq.Solid.makeCylinder(2.5,100.,base,cq.Vector(0,0,direction))
+            head=cq.Solid.makeCylinder(4.25,5.,base,cq.Vector(0,0,-direction))
+            h0,h1=(seat,seat+5.) if direction<0 else (seat-5.,seat)
+            s0,s1=(h1-2.5,h1+.1) if direction<0 else (h0-.1,h0+2.5)
+            socket=(cq.Workplane('XY').workplane(offset=s0).center(x,y)
+                    .polygon(6,4./math.cos(math.pi/6.)).extrude(s1-s0).val())
+            placed[f'cap-clamp-{side}-{i}']=shaft.fuse(head).cut(socket).clean()
+    import _reservoir_b_fill
+    placed['reservoir-b-fill-guide'] = _world_in_core(_reservoir_b_fill.guide_world())
 
     _assy, foam = _foam.build()
     for name, (solid, _c) in foam.items():
