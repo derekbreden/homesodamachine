@@ -51,12 +51,11 @@ INNER_ROOT = "foam-assembly"
 #: nothing anywhere takes a machine name apart again.
 INNER_ROOT_HELD = "cold-core/"
 
-# THE FOAM ITSELF, as the core names its five pieces. `foam-assembly.step` is a compound of
+# THE CASING, as the core names its three pieces. `foam-assembly.step` is a compound of
 # exactly these, so a scene drawing them draws the closed unit — with each piece under its own
 # name. A unit that carries the core without being a picture of its insides takes these: on a
 # bench the core arrives foamed and shut.
-INNER_FOAM = ("foam-shell", "foam-cap-top", "foam-cap-lid-top",
-              "foam-cap-bottom", "foam-cap-lid-bottom")
+INNER_FOAM = ("foam-shell", "foam-cap-lid-top", "foam-cap-bottom")
 
 _COLD_CARD = _HW / "cold-core-layout" / "cold-core-assembly.scorecard.json"
 
@@ -274,24 +273,24 @@ SCENES = (
     # what lays the plate across the frame instead of down it — the long axis runs to the
     # pump, and the pump goes to the top right corner, which is the whole diagonal.
     Scene(
-        "cap-lid-fill", "Foam shell top cap lid, filled",
-        roots=("foam-assembly",), inner=("foam-cap-top", "foam-cap-lid-top"),
+        "cap-lid-fill", "Cold-core equipment lid",
+        roots=("foam-assembly",), inner=("foam-cap-lid-top",),
         flip=None, also=(), later=(),
         cam=(0.35, -0.2, 1.0), up=(-1.7, 1.0, 0), zoom=2.9, look="crown",
-        note="The top cap and its lid alone, poured and cleaned, the lid's outer face bare. "
-             "The shell is not under it yet and nothing stands on it — this is what the next "
-             "scene starts from.",
+        note="The uniform equipment lid, with its integral pump saddle, valve wall and PCB "
+             "posts. Its flat underside is the print face. Install its PCB inserts before "
+             "fitting the board.",
     ),
     Scene(
-        "cap-lid", "Foam shell top cap lid assembly",
+        "cap-lid", "Cold-core equipment lid assembly",
         roots=("foam-assembly",),
-        inner=("foam-cap-top", "foam-cap-lid-top", "line-reservoir-b-fill"),
+        inner=("foam-cap-lid-top",),
         flip=None, also=(),
         later=(),
         cam=(0.35, -0.2, 1.0), up=(-1.7, 1.0, 0), zoom=2.9, look="crown",
-        note="The same cap and lid with everything that face carries: the pump bolted through, "
-             "V-B seated in its upright wall, the flat PCB and the tied discharge check. "
-             "It meets the rest of the core after all of it is on.",
+        note="The equipment lid carries the bare pump in its saddle and upper snap, V-B, "
+             "the PCB and the discharge check. Tighten the ten M5 closure screws before "
+             "fitting the PCB. The B-fill guide and its continuous tube stay with the potted core.",
     ),
     Scene(
         "cold-core", "Cold core, plumbed",
@@ -307,16 +306,16 @@ SCENES = (
     Scene(
         "cold-core-open", "Cold core, ready to foam",
         roots=("foam-assembly",), inner=INNER_ALL, flip=None, also=(), later=(),
-        # THE PLUMBED CORE LESS ITS OWN CAP ASSEMBLY. What SA-04 stands on that plate — the pump,
-        # V-B, the pump/check and their carried plumbing — and the plate and lid with it.
+        # The potted core with its equipment lid and carried hardware removed.
+        # The internal B-fill holder and continuous tube remain with the core.
         without="cap-lid",
         # Over the open mouth, which is what there is to see: the cavities the shot has to find,
         # both reservoirs standing in their pockets, and every line standing out of the top.
         cam=(0.7, -0.9, 1.5), up=(0, 0, 1), zoom=3.2, look="centre",
-        note="The shell closed underneath, the carbonator and both reservoirs standing in it, and "
-             "every line standing out of the open top. This is what the body pour goes into. "
-             "Each line runs from the fitting it is made up on to the cap face, so what stands "
-             "proud of this rim is the cap's own thickness and the cap comes down over it.",
+        note="The bottom cap is attached and foamed before loading the vessels. The taller "
+             "shell holds the carbonator, both reservoirs and the installed tubing with its top "
+             "open for the body pour. Foil bridges keep both reservoir-pocket gaps dry. The lid "
+             "is fitted after the foam cures and is trimmed below its seat.",
     ),
     Scene(
         "funnel-drain", "Funnel frame and silicone",
@@ -590,7 +589,7 @@ def named(scene, runs, assembly=None):
     derived -= {INNER_ROOT_HELD+n for n in promoted if n in derived}
     derived |= set(scene.also)
     # Resolve each complete tube before taking another unit out. The populated
-    # cap carries the continuous B-fill tube and its loose source end together.
+    # core carries each continuous tube and its loose source end together.
     derived |= {half for line, half in crossings(runs).items() if line in derived}
     derived -= set(scene.later)
     derived -= {INNER_ROOT_HELD+n for n in promoted if n in derived}
