@@ -43,20 +43,16 @@ on 59 x 79, each centre 10 off both edges it stands near, which puts the pad at
 Frame: +X = motor axis (head at -X), foot underside at Z = 0, centered on Y.
 The barbs leave the head's ±Y side faces; the -X end face carries the switch.
 
-Run:
-    tools/cad-venv/bin/python hardware/reference/seaflo-22-pump/seaflo_22_pump.py
+Geometry is in the frozen STEP and display payload beside this module.
+`frozen-asset.json` records their bytes and source snapshot.
 """
 
-import sys
 from pathlib import Path
 
-import cadquery as cq
-
 _here = Path(__file__).resolve()
-_hw = next(p for p in _here.parents if p.name == "hardware")
-sys.path.insert(0, str(_hw / "scripts"))
-from _cadq_export import export_assembly
-from _materials import C_SEAFLO, one_body
+STEP_PATH = _here.parent / "seaflo-22-pump.step"
+PAYLOAD_PATH = _here.parent / "seaflo-22-pump.step.mesh"
+ASSET_MANIFEST_PATH = _here.parent / "frozen-asset.json"
 
 # Labeled on the SEAFLO 22-Series drawing.
 OVERALL_L = 187.0        # 7.35in, motor rear to switch face
@@ -137,75 +133,10 @@ def mount_seat_z():
     return 0.0
 
 
-def _box(x0, x1, w, z0, z1):
-    """A body given its X span, its full Y width about the axis, and its Z span."""
-    return (
-        cq.Workplane("XY")
-        .box(x1 - x0, w, z1 - z0, centered=(False, True, False))
-        .translate((x0, 0, z0))
-    )
-
-
-def build():
-    """Motor can bolted to the head, the head carrying the two 3/8" barbs on its
-    ±Y side faces and the pressure switch on its -X end, all on the mounting
-    bracket; foot underside at Z = 0, motor axis along +X. The can's crown, the
-    head's top and the switch's top all land on `CROWN_Z`."""
-    # Mounting bracket: the four splayed feet as one pad, and the cradle that
-    # carries them up to the motor can.
-    feet = (
-        cq.Workplane("XY")
-        .box(FOOT_X[1] - FOOT_X[0], FOOT_SPAN, FOOT_T, centered=(False, True, False))
-        .edges("|Z").fillet(6.0)
-        .translate((FOOT_X[0], 0, 0))
-    )
-    cradle = _box(FOOT_X[0], FOOT_X[1], MOTOR_D + 2.0, FOOT_T, CRADLE_Z1)
-    # Motor can, running into the head flange so the two are one body.
-    motor = cq.Solid.makeCylinder(
-        MOTOR_D / 2.0, X_MOTOR_REAR - (X_HEAD_JOINT - 9.0),
-        cq.Vector(X_HEAD_JOINT - 9.0, 0, MOTOR_Z),
-        cq.Vector(1, 0, 0),
-    )
-    flange = _box(X_FLANGE_END, X_HEAD_JOINT, FLANGE_W, HEAD_Z0, HEAD_Z1)
-    head = _box(X_HEAD_END, X_FLANGE_END, HEAD_W, HEAD_Z0, HEAD_Z1)
-    boss = _box(PORT_X - BOSS_W / 2.0, PORT_X + BOSS_W / 2.0,
-                BOSS_W, BOSS_Z0, HEAD_Z0)
-    switch = _box(X_SWITCH_FACE, X_HEAD_END, SWITCH_W, SWITCH_Z0, SWITCH_Z1)
-
-    part = feet.union(cradle).union(motor).union(flange).union(head)
-    part = part.union(boss).union(switch)
-    # The four mounting bores, sunk through the pad they are cut in. Nothing else stands over
-    # them: the cradle is `MOTOR_D + 2` wide and they lie outboard of it.
-    for hx, hy in mount_holes():
-        part = part.cut(cq.Solid.makeCylinder(
-            HOLE_D / 2.0, FOOT_T, cq.Vector(hx, hy, 0.0), cq.Vector(0, 0, 1)))
-    # Two 3/8" hose-barb ports on the head's ±Y side faces, each pointing straight out.
-    for sy in (-1, 1):
-        barb = cq.Solid.makeCylinder(
-            PORT_D / 2.0, PORT_L,
-            cq.Vector(PORT_X, sy * PORT_FACE_Y, PORT_Z),
-            cq.Vector(0, sy, 0),
-        )
-        part = part.union(barb)
-    return part
-
-
 def main():
-    part = build()
-    bb = part.val().BoundingBox() if hasattr(part, "val") else part.BoundingBox()
-    print("SEAFLO 22-Series diaphragm pump (SFDP1-013-100-22)")
-    print(f"  Bounding box: X [{bb.xmin:.2f}, {bb.xmax:.2f}]  "
-          f"Y [{bb.ymin:.2f}, {bb.ymax:.2f}]  Z [{bb.zmin:.2f}, {bb.zmax:.2f}]")
-    print(f"  overall {OVERALL_L}L x {FOOT_SPAN}W(feet) x {CROWN_Z}H "
-          f"(labeled {OVERALL_H}), "
-          f"{PORT_SPAN} across the barb tips")
-    print(f"  motor Ø{MOTOR_D}, head {HEAD_W} wide ({FLANGE_W} at the flange), "
-          f"barbs Ø{PORT_D} x {PORT_L}")
-    for label, (pos, axis) in (("suction  ", suction()), ("discharge", discharge())):
-        print(f"  {label}: ({pos[0]:7.2f}, {pos[1]:6.2f}, {pos[2]:7.2f})  out {axis}")
-    out = _here.parent / "seaflo-22-pump.step"
-    export_assembly(one_body(part, "seaflo-22-pump", C_SEAFLO), str(out))
-    print(f"-> {out.name}")
+    print("seaflo-22-pump")
+    print(f"  STEP: {STEP_PATH}")
+    print(f"  Display payload: {PAYLOAD_PATH}")
 
 
 if __name__ == "__main__":
