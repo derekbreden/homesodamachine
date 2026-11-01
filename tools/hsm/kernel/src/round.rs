@@ -22,6 +22,8 @@
 //! about one axis. It refuses three rounds meeting at a corner, which OCCT closes with a patch of
 //! its own. It also refuses a round that ends on a slanted face where it may not run on, and a
 //! round wider than a face it lies on.
+//! `rolling_fillet` separately solves tangent balls against analytic face patches and carries
+//! their contacts onto adjoining faces along noncircular intersections.
 use crate::boolean::{Op, boolean};
 use crate::build::{prism, revolve};
 use crate::edge::{Edges, Graph, graph, rotate, turn_about};
@@ -34,6 +36,8 @@ use crate::solid::{Solid, point_triangle};
 use anyhow::{Result, anyhow, bail, ensure};
 use std::collections::HashMap;
 use std::panic::Location;
+
+mod rolled;
 
 /// mm a tool's sides stand off the faces it runs along.
 pub const STANDOFF: f64 = 1e-3;
@@ -66,6 +70,15 @@ impl std::fmt::Display for Blend {
 }
 
 impl Solid {
+    /// A rolling-ball round along analytic surfaces whose intersection is not covered by
+    /// the prism/revolution tools. Contacts can continue onto adjoining analytic faces.
+    /// Existing planar and coaxial rounds retain `fillet`'s construction.
+    #[track_caller]
+    pub fn rolling_fillet(&self, edges: &Edges, r: f64) -> Result<Solid> {
+        ensure!(r > 0.0, "a round of radius {r}");
+        rolled::blend(self, edges, r, Location::caller())
+    }
+
     /// `edges` rounded to radius `r`, and every edge running on tangent from them; CadQuery's
     /// `fillet`.
     #[track_caller]
