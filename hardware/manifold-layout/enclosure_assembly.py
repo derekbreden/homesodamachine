@@ -3250,7 +3250,9 @@ def build_pcba(foam, ahead_of, wall_seat):
     inboard, and the wall bosses reach that plane. AFT is `RELAY_BOARD_BODY_GAP` ahead of
     `ahead_of`'s own front face — relay #2, not the brick, since the relay stands between them;
     FOOT is on the cap. The pcba-tray is not placed — this is the main board's envelope."""
-    return seat_body(import_step(str(PCBA_STEP)).val(), PCBA_TURN, seat="pcba",
+    board = (import_step(str(PCBA_STEP)).val() if getattr(cq, "MESH", False)
+             else _pcba.board.build().val())
+    return seat_body(board, PCBA_TURN, seat="pcba",
                      x1=wall_seat, y1=box(ahead_of).ymin - RELAY_BOARD_BODY_GAP, z0=cap_face(foam))
 
 
