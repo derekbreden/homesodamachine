@@ -1,0 +1,29 @@
+{
+  "native_valid": true,
+  "solids": 1,
+  "watertight": true,
+  "faces": 38,
+  "edges": 102,
+  "volume_mm3": 112981.65499850082,
+  "central_channel_width_mm": 49.62,
+  "channel_floor_world_z_mm": 253.4,
+  "rail_bearing_widths_mm": [
+    3.419180708991778,
+    3.328523746345585
+  ],
+  "retention_bearing_mm2": 283.3999999999034,
+  "seated_cap_intersection_mm3": 0.0,
+  "installed_hardware_intersections_mm3": {
+    "g-ganen-pump": 0.0,
+    "pump-snap-cap": 0.0
+  },
+  "printed_cap_sha256": "7280b84b686e19d8a3936c343804cbe8cace0f0ae8bec1ef1b664f277d325f0a",
+  "production_cap_identical_to_printed_sample": true,
+  "scope": "One broad carved production block; stops on both fixed rails. The flat catch interfaces and printed cap are retained. Physical spring force and running vibration remain to be tested.",
+  "input_sha256": {
+    "hardware/printed-parts/cold-core/_above_core_mounts.py": "af2c1e11adfbaa58f342574655c54f28062673241604cc714c09b0e7705a14da",
+    "hardware/printed-parts/cold-core/foam-cap/foam_cap.rs": "a1c0b4b631616f502aeaac96e7d5be1f423f412b185859bf71d5c751ec974f94",
+    "hardware/manifold-layout/above-core.json": "722afdd31ca9272c4144dbac46c8632517e80631afe5e47e209260be239cc66a",
+    "hardware/reference/g-ganen-pump/reference-parameters.json": "3b91bd7ff1216bc5dc8b9806d53f4f2f7bd038323b201c6d6cc6e029e42fc591"
+  }
+}
