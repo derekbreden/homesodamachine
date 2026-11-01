@@ -31,6 +31,29 @@ def _line(a, b):
     return {'kind': 'line', 'points_mm': [list(a), list(b)]}
 
 
+def _vertical_transition(a, b):
+    third = (b[2] - a[2]) / 3.
+    return {'kind': 'bezier', 'control_points_mm': [list(a), _add(a, [0., 0., third]),
+                                                   _add(b, [0., 0., -third]), list(b)]}
+
+
+def _tail(control, t):
+    rows = [control]
+    while len(rows[-1]) > 1:
+        rows.append([[(1.-t)*a[i]+t*b[i] for i in range(3)]
+                     for a,b in zip(rows[-1],rows[-1][1:])])
+    return [row[-1] for row in reversed(rows)]
+
+
+def _bezier_point(control, t):
+    return _tail(control, t)[0]
+
+
+def _bezier_length(control):
+    points = [_bezier_point(control, i/128.) for i in range(129)]
+    return sum(math.dist(a,b) for a,b in zip(points,points[1:]))
+
+
 def plan():
     """One accepted inlet plan, including exact circular-arc datums."""
     selected = layout.specification()['soda_inlet']
@@ -54,15 +77,21 @@ def plan():
     translation = _add(centre, _mul(zaxis, -zc))
     insertion = selected['meter_insertion_estimate_mm']
     inserted = _add(mouth, _mul(forward, insertion))
-    foam_start = _add(guide, _mul(up, selected['foam']['start_above_guide_mm']))
+    transition = _vertical_transition(guide, start)
+    controls = transition['control_points_mm']
+    foam_t = selected['foam']['start_above_guide_mm'] / (start[2] - guide[2])
+    foam_controls = _tail(controls, foam_t)
+    foam_start = foam_controls[0]
     foam_end = _add(mouth, _mul(forward, -selected['foam']['end_before_meter_mm']))
     arc = {'kind': 'arc', 'points_mm': [start, middle, end],
            'radius_mm': radius, 'center_mm': centre,
            'axis': [-forward[1], forward[0], 0.],
            'angle_rad': math.pi/2.}
-    tube_segments = [_line(guide, start), arc, _line(end, inserted)]
-    foam_segments = [_line(foam_start, start), arc, _line(end, foam_end)]
-    foam_length = math.dist(foam_start, start)+radius*math.pi/2.+math.dist(end, foam_end)
+    tube_segments = [transition, arc, _line(end, inserted)]
+    foam_segments = [{'kind': 'bezier', 'control_points_mm': foam_controls}, arc, _line(end, foam_end)]
+    foam_length = _bezier_length(foam_controls)+radius*math.pi/2.+math.dist(end, foam_end)
+    offset = math.hypot(start[0]-guide[0], start[1]-guide[1])
+    transition_radius = (start[2]-guide[2])**2/(6.*offset) if offset else None
     return {
         'selection': selected['selection'], 'holder': dict(selected['holder']),
         'physical_acceptance': HOLDER_ACCEPTANCE, 'foam_fit_evidence': FOAM_EVIDENCE,
@@ -78,6 +107,7 @@ def plan():
         'nominal_foam_id_mm': selected['foam']['stock_id_mm'],
         'nominal_foam_od_mm': selected['foam']['stock_od_mm'],
         'nominal_foam_cut_length_mm': foam_length,
+        'guide_transition_minimum_radius_lower_bound_mm': transition_radius,
         'foam_cut_mm': selected['foam']['square_cut_mm'],
         'accepted_soft_neighbors': list(SOFT_NEIGHBORS),
         'foam_model_scope': selected['foam']['occupied_model_scope'],
@@ -89,7 +119,7 @@ def tube_spec():
     """External CAD span of the continuous tube, with no joint at the guide."""
     p = plan()
     arc = [p['bend_center_mm'][i] for i in range(3)]
-    points = [p['core_guide_mm'], p['arc_start_mm']]
+    points = [_bezier_point(p['tube_segments'][0]['control_points_mm'], i/32.) for i in range(33)]
     radius = p['holder']['centreline_bend_r_mm']
     for index in range(1, 33):
         angle = index*math.pi/64.
@@ -169,15 +199,20 @@ def sweep(segments, outer_radius, inner_radius=None):
     import cadquery as cq
     edges = []
     for segment in segments:
-        points = [cq.Vector(*p) for p in segment['points_mm']]
-        edges.append(cq.Edge.makeThreePointArc(*points) if segment['kind']=='arc'
-                     else cq.Edge.makeLine(*points))
+        if segment['kind'] == 'bezier':
+            edges.append(cq.Edge.makeBezier([cq.Vector(*p) for p in segment['control_points_mm']]))
+        else:
+            points = [cq.Vector(*p) for p in segment['points_mm']]
+            edges.append(cq.Edge.makeThreePointArc(*points) if segment['kind']=='arc'
+                         else cq.Edge.makeLine(*points))
     path = cq.Wire.assembleEdges(edges)
-    first = segments[0]['points_mm'][0]
-    section = cq.Workplane(cq.Plane(origin=first, xDir=(1., 0., 0.), normal=(0., 0., 1.))).circle(outer_radius)
+    section = cq.Workplane(cq.Plane(origin=edges[0].startPoint(), xDir=(1., 0., 0.),
+                                   normal=edges[0].tangentAt(0.))).circle(outer_radius)
     if inner_radius is not None:
         section = section.circle(inner_radius)
-    return section.sweep(cq.Workplane().newObject([path]), isFrenet=True).val()
+    # The corrected frame stays continuous through the S transition's
+    # inflection; a Frenet frame flips there and pinches the circular sweep.
+    return section.sweep(cq.Workplane().newObject([path]), isFrenet=False).val()
 
 
 @cache
@@ -224,7 +259,7 @@ def foam_occupied(neighbors):
     # One solid at a time: the neighbours are compounds of overlapping solids, and one
     # cut against all of them leaves the holder uncut and the sleeve in fragments.
     foam = foam_stock()
-    for tool in (holder(), *lead_exits, *(neighbors[name] for name in SOFT_NEIGHBORS)):
+    for tool in (holder(), tube(), *lead_exits, *(neighbors[name] for name in SOFT_NEIGHBORS)):
         for solid in tool.Solids():
             foam = foam.cut(solid)
     # It also leaves specks along the tangent contacts; none is a cubic millimetre.

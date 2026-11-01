@@ -1,6 +1,7 @@
 """Integral above-core shell mounts beneath the continuous ceiling."""
 
 import functools
+import math
 import sys
 from pathlib import Path
 
@@ -94,6 +95,44 @@ def wall_mount_datums():
                 'standoff_mm':sum((p-r)*u for p,r,u in zip(point,root,axis))})
         result[name] = {**plan,'stations':tuple(stations)}
     return result
+
+
+def wall_fastener_bounds():
+    """Named screw/insert envelopes on the drilled PSU and relay stations.
+
+    These are the finite mounting lanes through the flank, not clearance
+    exemptions for a complete device or for hardware elsewhere in the wall.
+    """
+    result = {}
+    for component, plan in wall_mount_datums().items():
+        for number, station in enumerate(plan['stations'], 1):
+            if not station['threaded']:
+                continue
+            axis = station['axis_world']
+            point, face = station['position_world_mm'], station['insert_face_world_mm']
+            head = tuple(p + u * (6.7 if component == 'psu' else 1.5)
+                         for p, u in zip(point, axis))
+            for kind, origin, lo, hi, radius in (
+                    ('screw', head, -plan['screw_length_mm'], 3., 2.75),
+                    ('insert', face, -plan['insert_length_mm'], 0., 2.3)):
+                ends = [tuple(p + u * t for p, u in zip(origin, axis)) for t in (lo, hi)]
+                radial = [radius * math.sqrt(max(0., 1. - u * u)) for u in axis]
+                bounds = (tuple(min(p[i] for p in ends) - radial[i] for i in range(3)),
+                          tuple(max(p[i] for p in ends) + radial[i] for i in range(3)))
+                result[f'{component}-{kind}-{number}'] = {
+                    'component': component, 'parent': plan['parent'], 'kind': kind,
+                    'station': station, 'plan': plan, 'bounds_mm': bounds}
+    return result
+
+
+def in_wall_fastener_lane(name, bounds, tolerance=1e-5):
+    """Whether this named hardware stays inside its own drilled mounting lane."""
+    row = wall_fastener_bounds().get(name)
+    if row is None:
+        return False
+    lo, hi = row['bounds_mm']
+    return all(bounds[i] >= lo[i] - tolerance and
+               bounds[i + 3] <= hi[i] + tolerance for i in range(3))
 
 
 def _wall_hosts(names):

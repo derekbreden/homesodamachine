@@ -1,8 +1,8 @@
 {
   "schema": "enclosure-fit-review/2",
-  "scope": "Manual native reading of the current complete equipment lid, M5 shell/bottom cap and B-fill guide, corrected bare pump, continuous motor clip, PSU face/pilots and conforming pump routes. Unchanged V-K/Y-A/flavor interfaces retain their separately bound native readings. Finite named receiving masks do not waive unrelated material. This establishes nominal geometry, not printed retention force, vibration, physical support release or flexible handling.",
-  "assembly_step_sha256": "43de7a97158cfb3d2b9de706d7370fcb1c8b6c32dcb2d9cc09404d443c725655",
-  "assembly_mesh_sha256": "99c6fbd1328a9dc22b0ddf7ca6c0480ae7e08277b4d060c464f690d845bd02fb",
+  "scope": "Artifact-bound nominal enclosure integration readings. Retained pump, cap, shell, PSU, V-K and flavor readings keep their own original scopes and hashes. The current gate review substitutes the correct drain cradle and moves the soda bend holder1.25mm with a tangent tube transition; all changed neighborhoods are clear. Two modeled relay-head/terminal-block contacts remain unresolved. Physical printed force, fitting retention and flexible handling are outside these nominal readings.",
+  "assembly_step_sha256": "c264aefc6a1a1304af27e06af353ba9819de9be0daf85c3647c2a01058f7ebd7",
+  "assembly_mesh_sha256": "ac4c208beb6a0104bc76c3a766093f1435c75ad662f22af6725bfc25c3815db5",
   "source_sha256": {
     "hardware/manifold-layout/above-core.json": "b886818274572dd35d0b7f5f2da255e855ff1e4420d7a74c2e1c81ea91b45a5a",
     "hardware/printed-parts/cold-core/foam-cap/foam_cap.py": "4728acb208d3c3a77e0922ac90d6cfa222bbe0fe04f1bee8eabb5b3edd21a01a",
@@ -6432,7 +6432,7 @@
       "missing_show_skin_mm3": 0.0
     }
   ],
-  "all_queried_unconnected_material_contacts_clear": true,
+  "all_queried_unconnected_material_contacts_clear": false,
   "neutral_holder_reading": {
     "scope": "Manual native reading of the neutral WAGO moved west7mm and the exact rebuilt back-top holder. Every other physical body comes from the settled published mechanical appliance; wire bodies are excluded. This is a local stock/component review, not the final parent export binding.",
     "baseline_assembly_sha256": "eddd15bc11620321a5d7f1d0fb66d7a28f9f3731a8f282ca2477af451af28daa",
@@ -6580,5 +6580,57 @@
     "unresolved": [],
     "all_current_pairs_clear": true,
     "elapsed_seconds": 73.79599433401017
-  }
+  },
+  "current_gate_review": {
+    "record": "hardware/mechanical-qualification/enclosure-above-core/assembly-gate-review.json",
+    "record_sha256": "249689e9556cec4b5e5cc717fc26ca3fba8d795b2b673420deaf43759c379ed9",
+    "baseline_assembly_step_sha256": "43de7a97158cfb3d2b9de706d7370fcb1c8b6c32dcb2d9cc09404d443c725655",
+    "assembly_step_sha256": "c264aefc6a1a1304af27e06af353ba9819de9be0daf85c3647c2a01058f7ebd7",
+    "assembly_mesh_sha256": "ac4c208beb6a0104bc76c3a766093f1435c75ad662f22af6725bfc25c3815db5",
+    "scope": "Only the drain cradle and soda holder/tube/occupied foam change. All other native bodies pass through unchanged; all unchanged viewer arrays are byte-identical. Current changed-body neighborhoods are queried natively. Retained tests keep their original artifact hashes; this binding is not a claim they were rerun."
+  },
+  "remaining_material_findings": [
+    {
+      "parts": [
+        "relay-1",
+        "relay-1-screw-4"
+      ],
+      "gates": [
+        "clearance-floor",
+        "pack-closes"
+      ],
+      "native_overlap_mm3": 1.1426342182314113,
+      "native_gap_mm": 0.0,
+      "common_bounds_mm": [
+        -92.99,
+        439.10013907925,
+        300.26096177003103,
+        -89.99,
+        439.35013907925,
+        302.40660569377
+      ],
+      "common_brep_sha256": "4501725a8bbdda709d01f7aa56138133c7185631c29463306905525abc166fa6"
+    },
+    {
+      "parts": [
+        "relay-2",
+        "relay-2-screw-4"
+      ],
+      "gates": [
+        "clearance-floor",
+        "pack-closes"
+      ],
+      "native_overlap_mm3": 1.142634218231432,
+      "native_gap_mm": 0.0,
+      "common_bounds_mm": [
+        -92.99,
+        439.10013907925,
+        319.860961770031,
+        -89.99,
+        439.35013907925,
+        322.00660569377
+      ],
+      "common_brep_sha256": "3adfd01dfc6e38f756d1cabc560b73dd684c994ba85d3aad333c3241291b940a"
+    }
+  ]
 }

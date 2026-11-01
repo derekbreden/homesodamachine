@@ -1,0 +1,250 @@
+{
+  "scope": "Raised mount above Z253.4 measured against surrounding mechanical parts. The common comparison lid section is excluded; production lid penetrations are retained. Wires and Wagos do not constrain this design.",
+  "neighbors": [
+    {
+      "name": "keystone-jack",
+      "ok": true,
+      "data": {
+        "a": {
+          "id": "#0",
+          "name": "proposal"
+        },
+        "b": {
+          "id": "#1",
+          "name": "keystone-jack"
+        },
+        "volume_mm3": 0
+      },
+      "payload_sha256": "be6cc16aac323389d6d5f7d2b350269bb4a533a715a2d3b89bad64b864838949",
+      "bindings": {
+        "mount_above_lid_stl_sha256": "f4d4ab0db039ea9e2b4f301edfe46778b82a68fe03d6e4b4032ba1e1c320af38",
+        "parent_payload_sha256": "99c6fbd1328a9dc22b0ddf7ca6c0480ae7e08277b4d060c464f690d845bd02fb",
+        "parent_src": "43de7a97158cfb3d2b9de706d7370fcb1c8b6c32dcb2d9cc09404d443c725655",
+        "proposal_stl_sha256": "ec72b9b9659f85142c541fc365bbbff0f66a9f6e2d6e161e83ba9336a42e9bb0"
+      }
+    },
+    {
+      "name": "cold-core/tube-reservoir-air-a",
+      "ok": true,
+      "data": {
+        "a": {
+          "id": "#0",
+          "name": "proposal"
+        },
+        "b": {
+          "id": "#6",
+          "name": "cold-core/tube-reservoir-air-a"
+        },
+        "volume_mm3": 0
+      },
+      "payload_sha256": "be6cc16aac323389d6d5f7d2b350269bb4a533a715a2d3b89bad64b864838949",
+      "bindings": {
+        "mount_above_lid_stl_sha256": "f4d4ab0db039ea9e2b4f301edfe46778b82a68fe03d6e4b4032ba1e1c320af38",
+        "parent_payload_sha256": "99c6fbd1328a9dc22b0ddf7ca6c0480ae7e08277b4d060c464f690d845bd02fb",
+        "parent_src": "43de7a97158cfb3d2b9de706d7370fcb1c8b6c32dcb2d9cc09404d443c725655",
+        "proposal_stl_sha256": "ec72b9b9659f85142c541fc365bbbff0f66a9f6e2d6e161e83ba9336a42e9bb0"
+      }
+    },
+    {
+      "name": "enclosure-back-top",
+      "ok": true,
+      "data": {
+        "a": {
+          "id": "#0",
+          "name": "proposal"
+        },
+        "b": {
+          "id": "#9",
+          "name": "enclosure-back-top"
+        },
+        "volume_mm3": 0
+      },
+      "payload_sha256": "be6cc16aac323389d6d5f7d2b350269bb4a533a715a2d3b89bad64b864838949",
+      "bindings": {
+        "mount_above_lid_stl_sha256": "f4d4ab0db039ea9e2b4f301edfe46778b82a68fe03d6e4b4032ba1e1c320af38",
+        "parent_payload_sha256": "99c6fbd1328a9dc22b0ddf7ca6c0480ae7e08277b4d060c464f690d845bd02fb",
+        "parent_src": "43de7a97158cfb3d2b9de706d7370fcb1c8b6c32dcb2d9cc09404d443c725655",
+        "proposal_stl_sha256": "ec72b9b9659f85142c541fc365bbbff0f66a9f6e2d6e161e83ba9336a42e9bb0"
+      }
+    },
+    {
+      "name": "tube-fluid-16",
+      "ok": true,
+      "data": {
+        "a": {
+          "id": "#0",
+          "name": "proposal"
+        },
+        "b": {
+          "id": "#5",
+          "name": "tube-fluid-16"
+        },
+        "volume_mm3": 0
+      },
+      "payload_sha256": "be6cc16aac323389d6d5f7d2b350269bb4a533a715a2d3b89bad64b864838949",
+      "bindings": {
+        "mount_above_lid_stl_sha256": "f4d4ab0db039ea9e2b4f301edfe46778b82a68fe03d6e4b4032ba1e1c320af38",
+        "parent_payload_sha256": "99c6fbd1328a9dc22b0ddf7ca6c0480ae7e08277b4d060c464f690d845bd02fb",
+        "parent_src": "43de7a97158cfb3d2b9de706d7370fcb1c8b6c32dcb2d9cc09404d443c725655",
+        "proposal_stl_sha256": "ec72b9b9659f85142c541fc365bbbff0f66a9f6e2d6e161e83ba9336a42e9bb0"
+      }
+    },
+    {
+      "name": "tube-fluid-18",
+      "ok": true,
+      "data": {
+        "a": {
+          "id": "#0",
+          "name": "proposal"
+        },
+        "b": {
+          "id": "#3",
+          "name": "tube-fluid-18"
+        },
+        "volume_mm3": 0
+      },
+      "payload_sha256": "be6cc16aac323389d6d5f7d2b350269bb4a533a715a2d3b89bad64b864838949",
+      "bindings": {
+        "mount_above_lid_stl_sha256": "f4d4ab0db039ea9e2b4f301edfe46778b82a68fe03d6e4b4032ba1e1c320af38",
+        "parent_payload_sha256": "99c6fbd1328a9dc22b0ddf7ca6c0480ae7e08277b4d060c464f690d845bd02fb",
+        "parent_src": "43de7a97158cfb3d2b9de706d7370fcb1c8b6c32dcb2d9cc09404d443c725655",
+        "proposal_stl_sha256": "ec72b9b9659f85142c541fc365bbbff0f66a9f6e2d6e161e83ba9336a42e9bb0"
+      }
+    },
+    {
+      "name": "tube-fluid-28",
+      "ok": true,
+      "data": {
+        "a": {
+          "id": "#0",
+          "name": "proposal"
+        },
+        "b": {
+          "id": "#4",
+          "name": "tube-fluid-28"
+        },
+        "volume_mm3": 0
+      },
+      "payload_sha256": "be6cc16aac323389d6d5f7d2b350269bb4a533a715a2d3b89bad64b864838949",
+      "bindings": {
+        "mount_above_lid_stl_sha256": "f4d4ab0db039ea9e2b4f301edfe46778b82a68fe03d6e4b4032ba1e1c320af38",
+        "parent_payload_sha256": "99c6fbd1328a9dc22b0ddf7ca6c0480ae7e08277b4d060c464f690d845bd02fb",
+        "parent_src": "43de7a97158cfb3d2b9de706d7370fcb1c8b6c32dcb2d9cc09404d443c725655",
+        "proposal_stl_sha256": "ec72b9b9659f85142c541fc365bbbff0f66a9f6e2d6e161e83ba9336a42e9bb0"
+      }
+    },
+    {
+      "name": "tube-above-core-va-fore-feed",
+      "ok": true,
+      "data": {
+        "a": {
+          "id": "#0",
+          "name": "proposal"
+        },
+        "b": {
+          "id": "#2",
+          "name": "tube-above-core-va-fore-feed"
+        },
+        "volume_mm3": 0
+      },
+      "payload_sha256": "be6cc16aac323389d6d5f7d2b350269bb4a533a715a2d3b89bad64b864838949",
+      "bindings": {
+        "mount_above_lid_stl_sha256": "f4d4ab0db039ea9e2b4f301edfe46778b82a68fe03d6e4b4032ba1e1c320af38",
+        "parent_payload_sha256": "99c6fbd1328a9dc22b0ddf7ca6c0480ae7e08277b4d060c464f690d845bd02fb",
+        "parent_src": "43de7a97158cfb3d2b9de706d7370fcb1c8b6c32dcb2d9cc09404d443c725655",
+        "proposal_stl_sha256": "ec72b9b9659f85142c541fc365bbbff0f66a9f6e2d6e161e83ba9336a42e9bb0"
+      }
+    },
+    {
+      "name": "cold-core/line-carb-water-out",
+      "ok": true,
+      "data": {
+        "a": {
+          "id": "#0",
+          "name": "proposal"
+        },
+        "b": {
+          "id": "#7",
+          "name": "cold-core/line-carb-water-out"
+        },
+        "volume_mm3": 0
+      },
+      "payload_sha256": "be6cc16aac323389d6d5f7d2b350269bb4a533a715a2d3b89bad64b864838949",
+      "bindings": {
+        "mount_above_lid_stl_sha256": "f4d4ab0db039ea9e2b4f301edfe46778b82a68fe03d6e4b4032ba1e1c320af38",
+        "parent_payload_sha256": "99c6fbd1328a9dc22b0ddf7ca6c0480ae7e08277b4d060c464f690d845bd02fb",
+        "parent_src": "43de7a97158cfb3d2b9de706d7370fcb1c8b6c32dcb2d9cc09404d443c725655",
+        "proposal_stl_sha256": "ec72b9b9659f85142c541fc365bbbff0f66a9f6e2d6e161e83ba9336a42e9bb0"
+      }
+    },
+    {
+      "name": "cold-core/line-water-in",
+      "ok": true,
+      "data": {
+        "a": {
+          "id": "#0",
+          "name": "proposal"
+        },
+        "b": {
+          "id": "#8",
+          "name": "cold-core/line-water-in"
+        },
+        "volume_mm3": 0
+      },
+      "payload_sha256": "be6cc16aac323389d6d5f7d2b350269bb4a533a715a2d3b89bad64b864838949",
+      "bindings": {
+        "mount_above_lid_stl_sha256": "f4d4ab0db039ea9e2b4f301edfe46778b82a68fe03d6e4b4032ba1e1c320af38",
+        "parent_payload_sha256": "99c6fbd1328a9dc22b0ddf7ca6c0480ae7e08277b4d060c464f690d845bd02fb",
+        "parent_src": "43de7a97158cfb3d2b9de706d7370fcb1c8b6c32dcb2d9cc09404d443c725655",
+        "proposal_stl_sha256": "ec72b9b9659f85142c541fc365bbbff0f66a9f6e2d6e161e83ba9336a42e9bb0"
+      }
+    }
+  ],
+  "air_gap": {
+    "elapsed_ms": 0.49,
+    "ok": true,
+    "result": {
+      "cut": {
+        "bindings": {
+          "mount_above_lid_stl_sha256": "f4d4ab0db039ea9e2b4f301edfe46778b82a68fe03d6e4b4032ba1e1c320af38",
+          "parent_payload_sha256": "99c6fbd1328a9dc22b0ddf7ca6c0480ae7e08277b4d060c464f690d845bd02fb",
+          "parent_src": "43de7a97158cfb3d2b9de706d7370fcb1c8b6c32dcb2d9cc09404d443c725655",
+          "proposal_stl_sha256": "ec72b9b9659f85142c541fc365bbbff0f66a9f6e2d6e161e83ba9336a42e9bb0"
+        },
+        "scope": "Mount above the existing lid plane, clipped from its unreduced print STL; published-parent neighbor surfaces. The comparison plate is excluded; existing lid penetrations are retained. No wires or Wagos."
+      },
+      "data": {
+        "a": {
+          "id": "#0",
+          "name": "proposal"
+        },
+        "b": {
+          "id": "#6",
+          "name": "cold-core/tube-reservoir-air-a"
+        },
+        "gap": {
+          "clearance_mm": 1.0536708831787074,
+          "intersection_volume_mm3": 0,
+          "point_a": [
+            22.960910797119144,
+            444.0410766601563,
+            259.3999938964844
+          ],
+          "point_b": [
+            24.01458168029785,
+            444.04107666015625,
+            259.3999938964844
+          ],
+          "surface_distance_mm": 1.0536708831787074,
+          "volume_error": null
+        }
+      },
+      "frame": "payload world coordinates",
+      "load_ms": 0.07166600000000001,
+      "payload_sha256": "be6cc16aac323389d6d5f7d2b350269bb4a533a715a2d3b89bad64b864838949",
+      "scene": "/Users/derekbredensteiner/Developer/hsm-pump-underside/.cache/pump-block-review/neighbors.step.mesh",
+      "step_sha256": "f005c7841bb1749cbaab0a08532863cc0eadfb9ac742f51920c17eb2e2b9911a",
+      "units": "mm"
+    }
+  }
+}
