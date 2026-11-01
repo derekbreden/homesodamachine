@@ -301,7 +301,8 @@ folder. The fuse clamp (`hardware/printed-parts/refrigeration/fuse-clamp`) is on
 mandrel and the magnetic float (`hardware/printed-parts/cold-core/coil-mandrel` and
 `magnetic-float`, crate `tools/hsm/cold-core`), the
 faucet shell (`hardware/printed-parts/faucet/faucet-shell`, crate `tools/hsm/faucet`), its
-display cover (`hardware/printed-parts/faucet/faucet-display-cover`), the industrial faucet
+display cover (`hardware/printed-parts/faucet/faucet-display-cover`), the above-counter plate
+and gasket (`hardware/printed-parts/faucet/above-counter-plate` and `above-counter-gasket`), the industrial faucet
 (`hardware/printed-parts/faucet/industrial`) and the two faucet assemblies
 (`hardware/faucet-layout`), all of the same crate, are others.
 

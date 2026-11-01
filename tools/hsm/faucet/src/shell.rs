@@ -12,7 +12,7 @@ use hsm_kernel::*;
 pub const PAST: f64 = 1.0;
 
 /// The ellipse CadQuery's `ellipse(rx, ry)` draws about `c`, OCCT's x on its major axis.
-fn ellipse(c: V3, rx: f64, ry: f64) -> LoftSection {
+pub(crate) fn ellipse(c: V3, rx: f64, ry: f64) -> LoftSection {
     if ry > rx {
         LoftSection::ellipse(c, v3(0.0, ry, 0.0), v3(-rx, 0.0, 0.0))
     } else {
