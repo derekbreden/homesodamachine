@@ -152,7 +152,8 @@ co2_inlet_xyz = (0.0, co2_inlet_y, front_face_port_z)
 # WHERE THE LEAN STARTS, which is not where the fall lands. The line falls the lane on the cap
 # conduit's own column and runs along the lane's floor to this one before it turns in, so this
 # is the column the ring reads and the conduit above is free of it.
-co2_inlet_lane_xyz = (co2_lane_x, port_lane_mid_y, front_face_port_z)
+# The CO2 descent stands inboard of the copper lane, clear of the full M5 hosts.
+co2_inlet_lane_xyz = (co2_lane_x, port_lane_mid_y + 2.5, front_face_port_z)
 co2_bore_to_ring = abs(port_lane_mid_y) - support_ring_outer_radius
 
 # AND IT CROSSES THE RING IN A SLOT, like the water outlet does. The ring is four bearing

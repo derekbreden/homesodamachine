@@ -132,12 +132,8 @@ def build_outer_shell():
     h = foam_shell_rim_z
     shell = _rounded_footprint(h).cut(cavity_plan(wall_and_floor_thickness, h))
 
-    guards = build_attachment_bosses(h, diameter=screw_guard_diameter)
-    shoulder_h = insert_pocket_depth + 3.0
-    shoulders = build_attachment_bosses(shoulder_h)
-    shoulders = shoulders.union(build_attachment_bosses(shoulder_h).translate(
-        (0.0, 0.0, h - shoulder_h)))
-    return fold_seam_channel(shell.union(guards).union(shoulders)).unwrap()
+    hosts = build_attachment_bosses(h, diameter=screw_guard_diameter)
+    return fold_seam_channel(shell.union(hosts)).unwrap()
 
 
 def cut_insert_pockets(foam_shell):
@@ -150,15 +146,24 @@ def cut_insert_pockets(foam_shell):
             .circle(insert_pocket_radius)
             .extrude(depth)
         )
-    # The shell prints floor-down: only the bottom blind ends bridge over an
-    # opening. Their extra depth budgets the retained bridge skin without moving
-    # the insert mouths or the upper, upward-opening pockets.
+    # Bottom-facing blind ends narrow at 0.5 mm per millimetre of build rise.
+    # Full cylindrical pilot and screw-tip clearances end before each taper.
     bottom_pockets = insert_pockets_at(0, insert_pocket_depth + fits.supported_surface).unwrap()
     top_pockets = insert_pockets_at(foam_shell_rim_z - insert_pocket_depth).unwrap()
     def tails(z0, depth):
         return (WorldWorkplane(xy_plane_z_up).workplane(offset=z0)
                 .pushPoints(attachment_xy_positions).circle(screw_clearance_radius)
                 .extrude(depth)).unwrap()
+    def taper(z0, lower_radius, upper_radius):
+        height = 2.0 * (lower_radius - upper_radius)
+        return cq.Compound.makeCompound([
+            cq.Solid.makeCone(lower_radius, upper_radius, height,
+                              cq.Vector(x, y, z0))
+            for x, y in attachment_xy_positions])
+    pilot_end = insert_pocket_depth + fits.supported_surface
+    tail_end = bottom_screw_bore_depth + fits.supported_surface
     return (foam_shell.cut(bottom_pockets).cut(top_pockets)
-            .cut(tails(0.0, bottom_screw_bore_depth + fits.supported_surface))
+            .cut(tails(0.0, tail_end))
+            .cut(taper(pilot_end, insert_pocket_radius, screw_clearance_radius))
+            .cut(taper(tail_end, screw_clearance_radius, 0.0))
             .cut(tails(foam_shell_rim_z - top_screw_bore_depth, top_screw_bore_depth)))
