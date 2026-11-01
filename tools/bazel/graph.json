@@ -1987,6 +1987,7 @@
       "hardware/install-guide/plumbing/modern/art/modern-water-on.png",
       "hardware/install-guide/plumbing/modern/render_modern_tee.py",
       "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+      "hardware/reference/jg-pp0408w/jg-pp0408w.step",
       "hardware/reference/jg-pp0408w/jg_pp0408w.py",
       "hardware/scripts/_cadq_export.py",
       "hardware/scripts/_hsm_render.py",
@@ -7113,24 +7114,6 @@
       "hardware/reference/jg-pp0208e-tee/jg-pp0208e-tee.step"
     ]
   },
-  "hardware/reference/jg-pp0408w/jg_pp0408w.py": {
-    "reads": [
-      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
-      "hardware/reference/jg-pp0408w/jg-pp0408w.step",
-      "hardware/reference/jg-pp0408w/jg_pp0408w.py",
-      "hardware/scripts/_cadq_export.py",
-      "hardware/scripts/_material_base.py",
-      "hardware/scripts/_materials.py",
-      "hardware/scripts/_mesh_payload.py",
-      "hardware/scripts/_payload_rules.py",
-      "hardware/scripts/_run_lock.py",
-      "tools/docgen/__init__.py"
-    ],
-    "rewritten": [],
-    "writes": [
-      "hardware/reference/jg-pp0408w/jg-pp0408w.step"
-    ]
-  },
   "hardware/reference/jg-pp061208w/jg_pp061208w.py": {
     "reads": [
       "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
@@ -7169,24 +7152,6 @@
     "rewritten": [],
     "writes": [
       "hardware/reference/kamoer-kphm400/kamoer-kphm400.step"
-    ]
-  },
-  "hardware/reference/molex-micro-fit-4/molex_micro_fit_4.py": {
-    "reads": [
-      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
-      "hardware/reference/molex-micro-fit-4/molex-micro-fit-4-panel.step",
-      "hardware/reference/molex-micro-fit-4/molex_micro_fit_4.py",
-      "hardware/scripts/_cadq_export.py",
-      "hardware/scripts/_material_base.py",
-      "hardware/scripts/_materials.py",
-      "hardware/scripts/_mesh_payload.py",
-      "hardware/scripts/_payload_rules.py",
-      "hardware/scripts/_run_lock.py",
-      "tools/docgen/__init__.py"
-    ],
-    "rewritten": [],
-    "writes": [
-      "hardware/reference/molex-micro-fit-4/molex-micro-fit-4-panel.step"
     ]
   },
   "hardware/reference/multiplex-asse1022/multiplex_asse1022.py": {
@@ -7424,26 +7389,6 @@
     "rewritten": [],
     "writes": [
       "hardware/reference/wr1110-regulator/wr1110-regulator.step"
-    ]
-  },
-  "hardware/reference/yyfkgcp-pogo-4p/yyfkgcp_pogo_4p.py": {
-    "reads": [
-      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
-      "hardware/reference/yyfkgcp-pogo-4p/pogo-4p-female.step",
-      "hardware/reference/yyfkgcp-pogo-4p/pogo-4p-male.step",
-      "hardware/reference/yyfkgcp-pogo-4p/yyfkgcp_pogo_4p.py",
-      "hardware/scripts/_cadq_export.py",
-      "hardware/scripts/_material_base.py",
-      "hardware/scripts/_materials.py",
-      "hardware/scripts/_mesh_payload.py",
-      "hardware/scripts/_payload_rules.py",
-      "hardware/scripts/_run_lock.py",
-      "tools/docgen/__init__.py"
-    ],
-    "rewritten": [],
-    "writes": [
-      "hardware/reference/yyfkgcp-pogo-4p/pogo-4p-female.step",
-      "hardware/reference/yyfkgcp-pogo-4p/pogo-4p-male.step"
     ]
   },
   "hardware/scripts/_bom_masses.py": {
