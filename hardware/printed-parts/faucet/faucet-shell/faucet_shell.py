@@ -1511,21 +1511,27 @@ def build_display_outer_envelope() -> cq.Workplane:
         30.0, display_head_s_min, display_head_s_max + 1.0, -30.0, 40.0))
 
 
+# The display's clearance under the bezel: its (width, length, corner radius, n) rows about the
+# housing's centre, and the prism (half x, s0, s1, n0, n1) that stands its rear wall upright.
+display_cover_inner_rows = (
+    (display_cover_skirt_width - 2.0 * display_cosmetic_wall,
+     50.0, 8.7, display_cover_bottom_n - 1.0),
+    (display_cover_skirt_width - 2.0 * display_cosmetic_wall,
+     50.0, 8.7, display_cover_shoulder_n),
+    (display_housing_width + 2.0 * display_cradle_clearance,
+     display_housing_length + 2.0 * display_cradle_clearance,
+     display_corner_r + display_cradle_clearance,
+     display_face_n + display_cover_over_face),
+)
+display_cover_inner_clamp = (50.0, -20.0, display_s_top, -30.0, 40.0)
+
+
 def build_display_cover_inner_envelope() -> cq.Workplane:
     """Display clearance below the bezel with a vertical rear wall."""
-    rows = (
-        (display_cover_skirt_width - 2.0 * display_cosmetic_wall,
-         50.0, 8.7, display_cover_bottom_n - 1.0),
-        (display_cover_skirt_width - 2.0 * display_cosmetic_wall,
-         50.0, 8.7, display_cover_shoulder_n),
-        (display_housing_width + 2.0 * display_cradle_clearance,
-         display_housing_length + 2.0 * display_cradle_clearance,
-         display_corner_r + display_cradle_clearance,
-         display_face_n + display_cover_over_face),
-    )
     loft = _display_world(cq.Workplane(obj=cq.Solid.makeLoft(
-        [_display_outline_wire(*row, center_s=_display_housing_center_s) for row in rows], ruled=False)))
-    return loft.intersect(_cradle_prism(50.0, -20.0, display_s_top, -30.0, 40.0))
+        [_display_outline_wire(*row, center_s=_display_housing_center_s)
+         for row in display_cover_inner_rows], ruled=False)))
+    return loft.intersect(_cradle_prism(*display_cover_inner_clamp))
 
 
 def build_display_neck_clearance() -> cq.Workplane:

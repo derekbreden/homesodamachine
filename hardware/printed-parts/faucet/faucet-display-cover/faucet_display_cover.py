@@ -4,6 +4,11 @@ The display and cover slide onto the tip together, then seat normal to the glass
 The cosmetic skin follows the glass closely. Its preformed walls remain spread
 against the seated groove roots.
 The PET-GF snap's force and durability require the representative print trial.
+
+The kernel cuts the cover (`faucet_display_cover.rs`, beside this module) from the numbers
+`numbers()` writes for it (`hardware/scripts/_rust_part.py`). The builders here draw it in
+CadQuery for the faucet assembly's CadQuery assembly, the display snap trial and the geometry
+check, which read them.
 """
 from pathlib import Path
 import sys
@@ -19,14 +24,11 @@ for path in (
     next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools",
 ):
     sys.path.insert(0, str(path))
-from _cadq_export import export_assembly
-from _materials import C_FAUCET_BLACK, one_body
 from _faucet_interface import (
     display_corner_r, display_cover_lap, display_cover_over_face,
     display_housing_length, display_housing_width,
 )
 from docgen import substitute_md
-import flute_payload
 import _display_snap
 import faucet_shell as shell
 
@@ -44,38 +46,47 @@ front_rim_slope = 1.8
 rear_skirt_extension = 1.2
 rear_trim_s0 = 42.1
 rear_trim_ds_dn = 0.6
+# The prisms (half x, s0, s1, n0, n1) the skin and the display's clearance are cut to, and the
+# band the lips are cut from.
+outer_clamp = (30.0, shell.display_head_s_min,
+               shell.display_head_s_max + rear_skirt_extension + 1.0, -30.0, 40.0)
+cavity_clamp = (50.0, shell.dispense_face_thickness, shell.display_head_s_max + 1.0, -30.0, 40.0)
+lip_band = (shell.display_cover_skirt_width / 2.0 + 1.0,
+            shell.display_clip_s_bottom, shell.display_clip_s_top,
+            shell.display_clip_bottom_n, shell.display_clip_top_n)
+
+
+def outer_rows() -> tuple:
+    """The skin's (width, length, corner radius, n, centre s) rows: the skirt, carried back over
+    the display's feet, at the bottom and at the shoulder, and the face."""
+    skirt = (shell.display_cover_skirt_width,
+             shell.display_cover_skirt_length + rear_skirt_extension, shell.display_cover_skirt_r)
+    skirt_s = shell._display_cover_center_s + rear_skirt_extension / 2.0
+    return ((*skirt, shell.display_cover_bottom_n, skirt_s),
+            (*skirt, shell.display_cover_shoulder_n, skirt_s),
+            (shell.display_cover_face_width, shell.display_cover_face_length,
+             shell.display_cover_face_r, shell.display_cover_top_n, shell._display_cover_center_s))
 
 
 def build_plate_outer() -> cq.Workplane:
     """Rounded skin with its lower rear skirt enclosing the display feet."""
-    rows = (
-        (shell.display_cover_skirt_width,
-         shell.display_cover_skirt_length + rear_skirt_extension,
-         shell.display_cover_skirt_r, shell.display_cover_bottom_n),
-        (shell.display_cover_skirt_width,
-         shell.display_cover_skirt_length + rear_skirt_extension,
-         shell.display_cover_skirt_r, shell.display_cover_shoulder_n),
-        (shell.display_cover_face_width, shell.display_cover_face_length,
-         shell.display_cover_face_r, shell.display_cover_top_n),
-    )
-    wires = [shell._display_outline_wire(
-        *row, center_s=shell._display_cover_center_s
-        + (rear_skirt_extension / 2.0 if index < 2 else 0.0))
-        for index, row in enumerate(rows)]
+    wires = [shell._display_outline_wire(width, length, r, n, center_s=s)
+             for width, length, r, n, s in outer_rows()]
     loft = shell._display_world(cq.Workplane(obj=cq.Solid.makeLoft(wires, ruled=False)))
-    return loft.intersect(shell._cradle_prism(
-        30.0, shell.display_head_s_min,
-        shell.display_head_s_max + rear_skirt_extension + 1.0, -30.0, 40.0))
+    return loft.intersect(shell._cradle_prism(*outer_clamp))
+
+
+def window_n() -> tuple:
+    """The glass window's cutter, from just under the bezel to past the cover's top."""
+    return bezel_n_bottom - 0.1, plate_n_top + 1.0
 
 
 def build_plate_inner_cut() -> cq.Workplane:
     window = shell._cradle_prism(
-        window_half_x, window_s_south, window_s_north,
-        bezel_n_bottom - 0.1, plate_n_top + 1.0, corner_r=window_corner_r,
+        window_half_x, window_s_south, window_s_north, *window_n(), corner_r=window_corner_r,
     )
     cavity = shell.build_display_cover_inner_envelope().intersect(
-        shell._cradle_prism(50.0, shell.dispense_face_thickness,
-                            shell.display_head_s_max + 1.0, -30.0, 40.0))
+        shell._cradle_prism(*cavity_clamp))
     return cavity.union(window)
 
 
@@ -99,10 +110,7 @@ def build_corner_rim_relief() -> cq.Workplane:
 def build_display_cover_lips(outer: cq.Workplane | None = None) -> cq.Workplane:
     """Broad retaining lips backed by the cover's complete outer skin."""
     outer = build_plate_outer() if outer is None else outer
-    band = shell._cradle_prism(
-        shell.display_cover_skirt_width / 2.0 + 1.0,
-        shell.display_clip_s_bottom, shell.display_clip_s_top,
-        shell.display_clip_bottom_n, shell.display_clip_top_n)
+    band = shell._cradle_prism(*lip_band)
     inner = shell.build_display_neck_reference(
         shell.display_neck_outer_r - shell.display_clip_lip_radius)
     return shell.relieve_display_lip_inner_edges(outer.intersect(band).cut(inner))
@@ -127,8 +135,13 @@ def preload_inward_at(n: float) -> float:
                / (bezel_n_bottom-shell.display_clip_top_n))
 
 
+def wing_slope() -> float:
+    """How far each wing's relaxed print leans inward per millimetre below the bezel."""
+    return _display_snap.X_PRELOAD / (bezel_n_bottom - shell.display_clip_top_n)
+
+
 def relaxed_wing_transform(side: int) -> cq.Matrix:
-    slope = side * _display_snap.X_PRELOAD / (bezel_n_bottom-shell.display_clip_top_n)
+    slope = side * wing_slope()
     return cq.Matrix([[1.0, 0.0, slope, -slope*bezel_n_bottom],
                       [0.0, 1.0, 0.0, 0.0],
                       [0.0, 0.0, 1.0, 0.0],
@@ -200,14 +213,45 @@ def selftest() -> int:
     return int(bool(failures))
 
 
+def numbers() -> dict:
+    """What `faucet_display_cover.rs` cuts the cover from, in the tip frame: x across the neck, s
+    back up it from the tube exit, n out through the glass. A row is (width, length, corner
+    radius, n, centre s), a prism (half x, s0, s1, n0, n1)."""
+    return {
+        **shell.numbers(),
+        "name": "faucet-display-cover",
+        "names": {"cover": "faucet-display-cover", "seated": SEATED_STEP.stem},
+        "cover_outer_rows": [list(row) for row in outer_rows()],
+        "cover_outer_clamp": list(outer_clamp),
+        "cover_cavity_rows": [[*row, shell._display_housing_center_s]
+                              for row in shell.display_cover_inner_rows],
+        "cover_cavity_clamps": [list(shell.display_cover_inner_clamp), list(cavity_clamp)],
+        "cover_window_half_x": window_half_x,
+        "cover_window_s": [window_s_south, window_s_north],
+        "cover_window_n": list(window_n()),
+        "cover_window_corner_r": window_corner_r,
+        "cover_neck_clearance_r": shell.display_neck_outer_r + shell.display_cover_slip,
+        # The lower front edge rises to n = front_rim_n - front_rim_slope * s, and the rear edge
+        # runs back to s = rear_trim_s0 + rear_trim_ds_dn * n.
+        "cover_front_rim": [front_rim_n, front_rim_slope],
+        "cover_rear_trim": [rear_trim_s0, rear_trim_ds_dn],
+        "cover_lip_band": list(lip_band),
+        # The radius the lips' neck reference draws: the neck's, less the shrink it is handed.
+        "cover_lip_r": shell.display_neck_outer_r - (
+            shell.display_neck_outer_r - shell.display_clip_lip_radius),
+        "cover_lip_relief": _display_snap.LIP_INNER_EDGE_RELIEF,
+        "cover_bezel_n": bezel_n_bottom,
+        "cover_wing_slope": wing_slope(),
+    }
+
+
 def main():
-    seated = build_seated_display_cover()
-    cover = build_display_cover(seated)
+    # A run cuts the cover; an import of this module is a reader of its builders and numbers.
+    import _rust_part
+
+    said = _rust_part.cut("faucet", "faucet-display-cover", numbers(), _here.parent)
+    print("-> " + ", ".join(said["files"]))
     out = _here.parent / "faucet-display-cover.step"
-    export_assembly(one_body(cover, out.stem, C_FAUCET_BLACK), str(out))
-    export_assembly(one_body(seated, SEATED_STEP.stem, C_FAUCET_BLACK), str(SEATED_STEP))
-    shell.write_bed_file(cover, out.with_suffix(".stl"))
-    flute_payload.cut(out, out.with_suffix(".stl"), preserve_print_triangles=True)
     substitute_md(_here.parent / "README.md", variables={
         "PLATE_X": f"{shell.display_cover_face_width:g} mm",
         "PLATE_S": f"{shell.display_cover_face_length:g} mm",
@@ -232,7 +276,8 @@ def main():
         "REAR_TRIM_S0": f"{rear_trim_s0:g} mm",
         "REAR_TRIM_DS_DN": f"{rear_trim_ds_dn:g}",
     })
-    print(f"-> {out.name}; {cover.val().Volume():.0f} mm³")
+    cover = next(body for body in said["bodies"] if body["name"] == out.stem)
+    print(f"-> {out.name}; {cover['volume']:.0f} mm³")
 
 
 if __name__ == "__main__":
