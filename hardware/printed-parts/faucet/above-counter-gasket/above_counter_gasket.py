@@ -9,12 +9,15 @@ Material: Bambu TPU 85A (black), using the saved gaskets.3mf profile.
 Footprint and hole pattern match the oval above-counter plate, including
 the signal-ribbon branch beside the flavor passage. The rigid plate
 locates the parts; the gasket seals around them.
+
+The kernel cuts the gasket (`above_counter_gasket.rs`, beside this module)
+from the numbers `numbers()` writes for it (`hardware/scripts/_rust_part.py`).
+`build_above_counter_gasket` draws it in CadQuery for the faucet assembly's
+CadQuery assembly, which reads it.
 """
 
 import sys
 from pathlib import Path
-
-import cadquery as cq
 
 _here = Path(__file__).resolve()
 sys.path.insert(
@@ -28,8 +31,12 @@ sys.path.insert(
 sys.path.insert(0, str(_here.parent.parent))  # for _faucet_interface
 sys.path.insert(0, str(_here.parent.parent / "faucet-shell"))  # for the shared footprint
 sys.path.insert(0, str(next(p for p in _here.parents if p.name == "printed-parts") / "cadlib"))
-from _cadq_export import export_assembly
-from _materials import M_TPU_BLACK, one_body
+if __name__ == "__main__":
+    import _rust_part
+    _rust_part.start()
+
+import cadquery as cq  # noqa: E402
+from _materials import M_TPU_BLACK, linear
 from _faucet_interface import (
     above_counter_gasket_thickness,
     above_counter_plate_thickness,
@@ -42,9 +49,11 @@ from _faucet_interface import (
 )
 from faucet_shell import (
     build_foot_outline,
+    foot_width,
+    foot_depth,
     foot_center_y,
     build_lower_signal_lane,
-    write_bed_file,
+    lower_bundle_numbers,
 )
 from docgen import substitute_py_comments
 from world_workplane import WorldWorkplane, xy_plane_z_up
@@ -103,13 +112,28 @@ def build_above_counter_gasket():
     return gasket.cut(shank_hole).cut(pill_slot).cut(build_lower_signal_lane())
 
 
+def numbers() -> dict:
+    """What `above_counter_gasket.rs` cuts the gasket from: the oval foot and the holes
+    through it."""
+    return {
+        "name": "above-counter-gasket", "color": [float(v) for v in linear(M_TPU_BLACK)],
+        "foot_width": foot_width, "foot_depth": foot_depth, "foot_center_y": foot_center_y,
+        "gasket_z": list(gasket_z_range),
+        "shank_hole_center": list(shank_hole_center),
+        "shank_hole_radius": shank_hole_diameter / 2.0,
+        "pill_slot_center": list(flavor_tube_center), "pill_length_x": bundle_slot_length_x,
+        "pill_width_y": pill_width_y,
+        **lower_bundle_numbers(),
+    }
+
+
 def main():
-    gasket = build_above_counter_gasket()
-    out = Path(__file__).resolve().parent / "above-counter-gasket.step"
-    export_assembly(one_body(gasket, out.stem, M_TPU_BLACK), str(out))
-    print(f"-> {out.name}")
-    stl = out.with_suffix(".stl")
-    write_bed_file(gasket, stl)
+    # A run cuts the gasket; an import of this module is a reader of its builder and numbers.
+    import _rust_part
+
+    said = _rust_part.cut("faucet", "above-counter-gasket", numbers(),
+                          Path(__file__).resolve().parent)
+    print("-> " + ", ".join(said["files"]))
 
     variables = {
         "GASKET_T": f"{gasket_thickness:.4g} mm",
