@@ -168,6 +168,12 @@ def ports(name):
     return None
 
 
+def snap_datums():
+    """The integral rear seats' axes and supporting wall planes."""
+    return {'asse_axis':(37.25,328.), 'asse_turn':90., 'pisco_axis':(77.5,328.),
+            'mouth_y':480.8, 'ceiling':346., 'rear':465.3, 'side':98.5}
+
+
 @cache
 def seats():
     """Integral back-top stock and four removable snap caps."""
@@ -185,8 +191,9 @@ def seats():
         group = [s for s in native.Solids() if lo <= s.Center().z <= hi]
         rows['pisco-'+n.replace('_','-')] = (parts._compound(group).moved(layout.frame_location(plan()['gas_frame'])), selected['gas-regulator'][1])
     meter = parts._module('rear_digiten','reference/digiten-flow-sensor/digiten_flow_sensor.py')
-    result,numbers = snaps.build(rows,(37.25,328.),layout.frame_location(plan()['chain_frame']),90.,
-                           (77.5,328.),480.8,346.,465.3,98.5,meter,layout.location('digiten-flow'))
+    d = snap_datums()
+    result,numbers = snaps.build(rows,d['asse_axis'],layout.frame_location(plan()['chain_frame']),d['asse_turn'],
+                           d['pisco_axis'],d['mouth_y'],d['ceiling'],d['rear'],d['side'],meter,layout.location('digiten-flow'))
     mount = plan()['regulator_mount']
     st, axis = mount['station'], mount['axis']
     a,b = mount['seat_y']; width = st['outer']
