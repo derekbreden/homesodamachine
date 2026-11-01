@@ -1,5 +1,7 @@
 """PET-GF15 above-counter plate with three recessed M3 seats and locating pedestals."""
 
+from __future__ import annotations
+
 import sys
 from pathlib import Path
 

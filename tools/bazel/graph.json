@@ -5133,6 +5133,7 @@
       "hardware/scripts/_cadq_export.py",
       "hardware/scripts/_material_base.py",
       "hardware/scripts/_materials.py",
+      "hardware/scripts/_occt_color.py",
       "hardware/scripts/_realized.py",
       "hardware/scripts/_run_lock.py",
       "hardware/scripts/_rust_part.py",
@@ -5173,7 +5174,11 @@
       "tools/hsm/kernel/src/thru.rs",
       "tools/hsm/kernel/src/topo.rs",
       "tools/hsm/kernel/src/triangulate.rs",
-      "tools/hsm/kernel/src/write.rs"
+      "tools/hsm/kernel/src/write.rs",
+      "tools/hsm/run-slots.defaults.json",
+      "tools/hsm/run-slots/Cargo.toml",
+      "tools/hsm/run-slots/src/ipc.rs",
+      "tools/hsm/run-slots/src/lib.rs"
     ],
     "rewritten": [
       "hardware/printed-parts/faucet/faucet-display-cover/README.figures.json",
@@ -5213,6 +5218,7 @@
       "hardware/scripts/_cadq_export.py",
       "hardware/scripts/_material_base.py",
       "hardware/scripts/_materials.py",
+      "hardware/scripts/_occt_color.py",
       "hardware/scripts/_realized.py",
       "hardware/scripts/_run_lock.py",
       "hardware/scripts/_rust_part.py",
@@ -5253,7 +5259,11 @@
       "tools/hsm/kernel/src/thru.rs",
       "tools/hsm/kernel/src/topo.rs",
       "tools/hsm/kernel/src/triangulate.rs",
-      "tools/hsm/kernel/src/write.rs"
+      "tools/hsm/kernel/src/write.rs",
+      "tools/hsm/run-slots.defaults.json",
+      "tools/hsm/run-slots/Cargo.toml",
+      "tools/hsm/run-slots/src/ipc.rs",
+      "tools/hsm/run-slots/src/lib.rs"
     ],
     "rewritten": [
       "hardware/printed-parts/faucet/_faucet_interface.py",
@@ -5353,7 +5363,11 @@
       "tools/hsm/kernel/src/thru.rs",
       "tools/hsm/kernel/src/topo.rs",
       "tools/hsm/kernel/src/triangulate.rs",
-      "tools/hsm/kernel/src/write.rs"
+      "tools/hsm/kernel/src/write.rs",
+      "tools/hsm/run-slots.defaults.json",
+      "tools/hsm/run-slots/Cargo.toml",
+      "tools/hsm/run-slots/src/ipc.rs",
+      "tools/hsm/run-slots/src/lib.rs"
     ],
     "rewritten": [],
     "writes": [
