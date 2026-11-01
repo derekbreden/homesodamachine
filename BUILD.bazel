@@ -7920,7 +7920,6 @@ genrule(
         "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh",
         "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.npz",
         "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
-        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-panel.numbers.json",
         "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step.mesh",
         "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step.mesh",
         "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step",
@@ -7959,25 +7958,24 @@ O12=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/en
 O13=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh)
 O14=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.npz)
 O15=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl)
-O16=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-panel.numbers.json)
-O17=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step.mesh)
-O18=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step.mesh)
-O19=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step)
-O20=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step.mesh)
-O21=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step.npz)
-O22=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.stl)
-O23=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step)
-O24=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step.mesh)
-O25=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step.npz)
-O26=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.stl)
-O27=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure.step)
-O28=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh)
-O29=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure.step.npz)
-O30=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/README.figures.json)
-O31=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/README.md)
-O32=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure.py)
-O33=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/pump-dock/README.figures.json)
-O34=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/pump-dock/README.md)
+O16=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step.mesh)
+O17=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step.mesh)
+O18=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step)
+O19=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step.mesh)
+O20=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step.npz)
+O21=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.stl)
+O22=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step)
+O23=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step.mesh)
+O24=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step.npz)
+O25=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.stl)
+O26=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure.step)
+O27=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh)
+O28=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure.step.npz)
+O29=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/README.figures.json)
+O30=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/README.md)
+O31=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure.py)
+O32=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/pump-dock/README.figures.json)
+O33=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/pump-dock/README.md)
 rm -rf work-enclosure
 for f in $(SRCS); do
   case $$f in
@@ -8013,25 +8011,24 @@ cp hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step $$O12
 cp hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh $$O13
 cp hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.npz $$O14
 cp hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl $$O15
-cp hardware/printed-parts/enclosure/enclosure/enclosure-panel.numbers.json $$O16
-cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step.mesh $$O17
-cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step.mesh $$O18
-cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step $$O19
-cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step.mesh $$O20
-cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step.npz $$O21
-cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.stl $$O22
-cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step $$O23
-cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step.mesh $$O24
-cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step.npz $$O25
-cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.stl $$O26
-cp hardware/printed-parts/enclosure/enclosure/enclosure.step $$O27
-cp hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh $$O28
-cp hardware/printed-parts/enclosure/enclosure/enclosure.step.npz $$O29
-cp hardware/printed-parts/enclosure/enclosure/README.figures.json $$O30
-cp hardware/printed-parts/enclosure/enclosure/README.md $$O31
-cp hardware/printed-parts/enclosure/enclosure/enclosure.py $$O32
-cp hardware/printed-parts/enclosure/pump-dock/README.figures.json $$O33
-cp hardware/printed-parts/enclosure/pump-dock/README.md $$O34
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step.mesh $$O16
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step.mesh $$O17
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step $$O18
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step.mesh $$O19
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step.npz $$O20
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.stl $$O21
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step $$O22
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step.mesh $$O23
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step.npz $$O24
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.stl $$O25
+cp hardware/printed-parts/enclosure/enclosure/enclosure.step $$O26
+cp hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh $$O27
+cp hardware/printed-parts/enclosure/enclosure/enclosure.step.npz $$O28
+cp hardware/printed-parts/enclosure/enclosure/README.figures.json $$O29
+cp hardware/printed-parts/enclosure/enclosure/README.md $$O30
+cp hardware/printed-parts/enclosure/enclosure/enclosure.py $$O31
+cp hardware/printed-parts/enclosure/pump-dock/README.figures.json $$O32
+cp hardware/printed-parts/enclosure/pump-dock/README.md $$O33
 cd .. && rm -rf work-enclosure
 """,
 )
