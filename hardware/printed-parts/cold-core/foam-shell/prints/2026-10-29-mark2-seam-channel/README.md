@@ -47,3 +47,35 @@ The [launch receipt](launch.json) binds the sent archive, sha256 `16d4b9f8ec695b
 external spool mapping and four print options: timelapse on, bed leveling on, flow dynamic and
 nozzle offset calibration Auto. Mark2 reported SUCCESS and PREPARE with print error 0, then
 RUNNING at layer 0/889 with HMS empty. Mark1 stood idle through the send.
+
+## Physical result — accepted for shipping (2026-11-01)
+
+Derek reports a very small, localized surface defect near the upper rim. The
+photos show ripples on the wall; visibility depends on the lighting, from
+invisible to quite noticeable. He observes that the defect lines up closely with
+a hole in the shell.
+
+**Derek accepts this defect for shipping:** "But this is a defect that we are okay
+shipping with." The photographed condition is listed in
+[Accepted defects and tolerances](../../../../../defects-and-tolerances.md#cold-core-shell--small-upper-wall-ripples).
+
+Derek suspects the high layers and the other geometry printed on those layers
+are involved, similar to the larger defects addressed by the seam changes. This
+is his suspected cause, not a confirmed diagnosis.
+
+The [physical-result record](physical-result/physical-result.json) binds the
+report to task **1386110458**, preserves his full wording and identifies all six
+original photographs by SHA256.
+
+![Localized upper-wall ripples visible under directional lighting near the shell's rim.](physical-result/photos/02-upper-wall-ripples.jpg)
+
+![Wider wall view showing the small extent of the ripples near the upper rim.](physical-result/photos/03-wall-overview.jpg)
+
+![Completed cold-core shell viewed from its open side, showing the interior and outer wall.](physical-result/photos/04-shell-interior.jpg)
+
+Original photographs: [1 — ripple close-up](physical-result/photos/01-upper-wall-closeup.jpg),
+[2 — upper-wall ripples](physical-result/photos/02-upper-wall-ripples.jpg),
+[3 — wall overview](physical-result/photos/03-wall-overview.jpg),
+[4 — shell interior](physical-result/photos/04-shell-interior.jpg),
+[5 — pocket and rim detail](physical-result/photos/05-pocket-and-rim.jpg),
+[6 — end-face detail](physical-result/photos/06-end-face.jpg).
