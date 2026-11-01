@@ -1228,7 +1228,7 @@ def clashes(assy: cq.Assembly, floor: float = 1.0, bodies: dict = None):
     solids = (list(bodies.items()) if bodies is not None else
               [(name, shape) for name, shape, _colour in placed_leaves(assy)])
     boxes = [(n, s, _boxes.loose(s)) for n, s in solids]
-    hits, unanswered = [], []
+    pairs = []
     for i in range(len(boxes)):
         ni, si, bi = boxes[i]
         for j in range(i + 1, len(boxes)):
@@ -1237,15 +1237,51 @@ def clashes(assy: cq.Assembly, floor: float = 1.0, bodies: dict = None):
                     or bi.ymin > bj.ymax - 1e-6 or bj.ymin > bi.ymax - 1e-6
                     or bi.zmin > bj.zmax - 1e-6 or bj.zmin > bi.zmax - 1e-6):
                 continue
+            pairs.append((ni, si, nj, sj))
+
+    meshcad = sys.modules.get("meshcad")
+    uses, held = {}, set()
+    if meshcad is not None and meshcad.mesh_mode():
+        from collections import deque
+        from meshcad.solids import MeshCompound
+
+        for k, (_ni, si, _nj, sj) in enumerate(pairs):
+            for shape in {s for s in (si, sj) if isinstance(s, MeshCompound)}:
+                uses.setdefault(shape, deque()).append(k)
+        for shape in uses:
+            meshcad.forget(shape)
+
+    hits, unanswered = [], []
+    try:
+        for ni, si, nj, sj in pairs:
+            current = {shape for shape in (si, sj) if shape in uses} if uses else set()
+            for shape in current:
+                uses[shape].popleft()
+            # Both operands stay until this reading finishes. Of the other held compounds,
+            # let go of the one read farthest ahead, keeping at most four composed bodies.
+            while len(held | current) > 4:
+                old = max(held - current, key=lambda s: uses[s][0])
+                meshcad.forget(old)
+                held.remove(old)
+            held.update(current)
             try:
                 inter, v = _overlap.common(si, sj)
             except Exception as exc:
                 unanswered.append((ni, nj, str(exc).splitlines()[0]))
                 continue
+            finally:
+                for shape in current:
+                    if not uses[shape]:
+                        meshcad.forget(shape)
+                        held.remove(shape)
             # `floor` is above zero, so the shared solid is never the empty one a void box
             # would be taken from.
             if v > floor:
                 hits.append(Clash(ni, nj, v, extents(inter)))
+            del inter
+    finally:
+        for shape in held:
+            meshcad.forget(shape)
     return hits, unanswered
 
 
