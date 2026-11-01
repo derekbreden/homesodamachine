@@ -23,6 +23,8 @@ pub struct Entry {
     pub nrm: [usize; 2],
     pub idx: [usize; 2],
     pub fac: [usize; 2],
+    /// Optional contributor groups, aligned with the face ranges. Invalid metadata is unknown.
+    pub face_sources: Option<serde_json::Value>,
 }
 
 pub struct Mesh {
@@ -31,7 +33,17 @@ pub struct Mesh {
     pub shape: TriMesh,
     /// Inclusive triangle ranges, in the same order as the viewer's face IDs.
     pub faces: Vec<[u32; 2]>,
+    pub face_sources: Option<Vec<Vec<serde_json::Value>>>,
     pub(crate) solid: OnceLock<Result<Mutex<Manifold>, String>>,
+}
+
+fn aligned_sources(value: Option<serde_json::Value>, faces: usize) -> Option<Vec<Vec<serde_json::Value>>> {
+    let serde_json::Value::Array(groups) = value? else { return None };
+    if groups.len() != faces { return None; }
+    groups.into_iter().map(|group| {
+        let serde_json::Value::Array(records) = group else { return None };
+        records.iter().all(|record| record.is_null() || record.is_object()).then_some(records)
+    }).collect()
 }
 
 pub struct Payload {
@@ -122,11 +134,13 @@ pub fn decode(bytes: &[u8]) -> Result<Payload> {
         }
         let shape =
             TriMesh::new(vertices, indices).map_err(|err| anyhow::anyhow!("mesh {i}: {err}"))?;
+        let face_sources = aligned_sources(e.face_sources, faces.len());
         meshes.push(Mesh {
             name: e.name,
             color: e.color,
             shape,
             faces,
+            face_sources,
             solid: OnceLock::new(),
         });
     }
