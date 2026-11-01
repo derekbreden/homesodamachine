@@ -248,6 +248,13 @@ containment. `Solid::shared_volume(&other)` reports intersection volume in mm³,
 containment. Both use the fine f64 mesh through Manifold, without the fabrication simplifier
 or boolean sliver filter.
 
+For cylindrical manufacturing stock, `step::RoundStock` exports an analytic AP214 solid
+with separate axial through or blind bores. Its planes, circles and cylinders form a closed
+B-rep for machining quotes. `RoundStock::solid()` builds the fine model from the same
+dimensions using the ordinary kernel builders. `part::write_shown_with_step` keeps that
+fine model and its source records, and binds the viewer payload to the analytic STEP's
+SHA-256. The carbonator tube and circular end-cap use this path.
+
 `import::model(path)` reads an explicitly named `.step.npz`: f64 vertices, triangles, face
 records, body names and linear colours. Stored and deflated NPZ files use maintained `npyz`
 and `zip` readers. Coordinates and face indices keep their original order and precision.

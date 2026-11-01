@@ -23,6 +23,7 @@ sys.path.insert(0, str(next(p for p in _here.parents if p.name == "hardware") / 
 sys.path.insert(0, str(_here.parent / "enclosure" / "enclosure"))
 sys.path.insert(0, str(_here.parent / "valve-seat"))
 sys.path.insert(0, str(_here.parents[1] / "reference" / "g-ganen-pump" / "installation"))
+sys.path.insert(0, str(_here.parents[1] / "cold-core-layout"))
 
 import fits
 import valve_seat as _valve_seat
@@ -49,7 +50,7 @@ outer_shell_wall = wall_thickness
 # The cold cylinder + its evaporator coil. [7 mm](COIL_RADIAL_CLEARANCE) of
 # radial clearance out from the cylinder OD holds the 1/4" ACR copper coil +
 # thermal tape; the carbonator support ring cradles the carbonator rim at this envelope.
-carbonator_outer_radius = 63.5
+from _carbonator_stock import carbonator_outer_radius
 coil_radial_clearance = 7.0
 carbonator_coil_envelope_radius = carbonator_outer_radius + coil_radial_clearance
 
@@ -63,7 +64,7 @@ foam_thickness_around_cylinder = (
 # Foam-shell outer height. Carbonator height + [30 mm](ABOVE_TANK_ELBOWS_HEIGHT) above for top-side elbow
 # fittings + [30 mm](BELOW_TANK_ELBOWS_HEIGHT) below for bottom-side elbow fittings + 1 mm
 # wall-thickness compensation.
-carbonator_height = 152.4
+from _carbonator_stock import carbonator_height
 below_carbonator_elbows_height = 30.0
 above_carbonator_elbows_height = 30.0
 foam_shell_outer_height = (
