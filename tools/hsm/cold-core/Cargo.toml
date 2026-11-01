@@ -19,6 +19,10 @@ path = "../../../hardware/printed-parts/cold-core/magnetic-float/magnetic_float.
 name = "foam-shell"
 path = "../../../hardware/printed-parts/cold-core/foam-shell/foam_shell.rs"
 
+[[bin]]
+name = "foam-cap"
+path = "../../../hardware/printed-parts/cold-core/foam-cap/foam_cap.rs"
+
 [dependencies]
 anyhow.workspace = true
 hsm-kernel = { path = "../kernel" }
