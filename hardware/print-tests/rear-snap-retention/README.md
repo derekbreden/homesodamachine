@@ -22,7 +22,15 @@ or vibration resistance.
 The pump cable-cover underside projects 1 mm farther down at its front than
 its rear datum. Its origin is Z250.447963 mm; the first modeled cover station
 clears the plain lid by 0.274013 mm. The hardware-fit base has a 7.4 mm lid
-root and the production saddle and fixed-rail stops.
+root and the shared saddle and flat-catch interfaces.
+
+The [production pump block](production-pump-block.json) is one broad carved
+body with stops on both fixed rails, 3.419 mm and 3.329 mm bearing strips,
+and a straight 49.62 mm channel opening to the lid face. Its cap is byte-for-byte
+identical to the printed sample; the flat catches retain 283.4 mm² of bearing.
+The isolated production base has 38 native faces and 102 edges. The native
+check finds no interference with the bare pump or cap. Full-parent integration
+owns the remaining enclosure and routing clearances.
 
 ## Plates
 

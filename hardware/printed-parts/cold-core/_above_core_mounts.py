@@ -270,13 +270,7 @@ def pump_snap_printable(index=0):
 
 
 def pump_cradle():
-    """Lid-rooted motor half pipe with open cover/rail rooms and axial stops.
-
-    The wire-cover room opens down to the plain lid face. Each rail drops
-    onto two broad fitted planes, without engaging its reentrant groove.
-    Broad outside stock joins both rail-end stops to the saddle. Its straight
-    open corridor clears the fixed rail and leaves both lead exits open.
-    """
+    """One broad lid-rooted block with a straight channel and stops on both rails."""
     import cadquery as cq
     import rear_snaps
     d = pump_cradle_datums()
@@ -284,46 +278,41 @@ def pump_cradle():
     first, last = d['band_native_x_mm']
     fy = d['frame']['translation_mm'][1]
     face = above_core.specification()['cap_face_z_mm']
-    wide = d['stock_half_width_mm']
-    body = cq.Solid.makeBox(2.*wide, last-first, cz-face+.1,
-                           cq.Vector(cx-wide, fy+first, face-.1))
-    body = body.cut(_pump_motor_room(d, seat=True))
-    lo, hi = d['cover_room_native_y_mm']
-    body = body.cut(cq.Solid.makeBox(hi-lo, last-first+.2, cz-face+1.,
-        cq.Vector(cx-hi, fy+first-.1, face-.2)))
+    selected = d['selected']
+    fore, rear = selected['rail_stop_native_x_mm']
+    wide = d['stock_half_width_mm']+3.
+    half = 24.81
+    body = cq.Solid.makeBox(2.*wide, rear[1]-fore[0], cz-face+.1,
+                           cq.Vector(cx-wide, fy+fore[0], face-.1))
+    body = body.cut(cq.Solid.makeBox(2.*half, rear[1]-fore[0]+.2, cz-face+1.,
+        cq.Vector(cx-half, fy+fore[0]-.1, face)))
     import fits
     for rail in d['rail_rooms']:
-        planes = [(a, b, c-fits.running*math.sqrt(1.+a*a+b*b))
-                  for a, b, c in rail['floor_planes']]
+        a, b, c = rail['floor_planes'][0]
+        c -= fits.running*math.sqrt(1.+a*a+b*b)
         profiles = []
-        for x in (first-.1, last+.1):
-            a, b = planes
-            y = ((b[0]-a[0])*x+b[2]-a[2])/(a[1]-b[1])
+        for x in (fore[1], rear[0]):
             outer = rail['outer_y_mm']
-            yz = [(outer, a[0]*x+a[1]*outer+a[2]),
-                  (y, a[0]*x+a[1]*y+a[2]),
-                  (0., b[0]*x+b[2]), (0., 100.), (outer, 100.)]
+            near = rail['side']*half
+            yz = [(outer, a*x+b*outer+c), (near, a*x+b*near+c),
+                  (near, 100.), (outer, 100.)]
             profiles.append(cq.Wire.makePolygon(
                 [cq.Vector(x, y, z) for y, z in yz], close=True))
         room = cq.Solid.makeLoft(profiles, ruled=True).moved(
             above_core.frame_location(d['frame']))
         body = body.cut(room)
-    selected = d['selected']
-    _contact_outer, inner = selected['rail_stop_contact_native_y_mm']
-    top = d['frame']['translation_mm'][2]+selected['rail_stop_native_z_mm']
-    fore, rear = selected['rail_stop_native_x_mm']
-    backing = cq.Solid.makeBox(wide+inner, rear[1]-fore[0], cz-face+.1,
-        cq.Vector(cx-inner, fy+fore[0], face-.1))
-    head_room = cq.Solid.makeBox(wide+inner+.2, first-fore[0]+.1, cz-top+.2,
-        cq.Vector(cx-inner-.1, fy+fore[0]-.1, top))
-    rail_outer = next(rail['outer_y_mm'] for rail in d['rail_rooms']
-                      if rail['side'] < 0)
-    corridor = cq.Solid.makeBox(inner-rail_outer+.1, rear[0]-fore[1], cz-face+.3,
-        cq.Vector(cx-inner-.1, fy+fore[1], face-.2))
-    body = body.fuse(backing.cut(head_room).cut(corridor))
-    # The shared spring pockets pass through all backing stock as well.
+    tz = d['frame']['translation_mm'][2]
+    head = selected['rail_stop_native_z_mm']
+    slope = (cz-tz-head)/first
+    profiles = []
+    for x in (fore[0]-.1, first):
+        z, y = tz+head+slope*x, fy+x
+        profiles.append(cq.Wire.makePolygon([cq.Vector(cx-wide-.1,y,z),
+            cq.Vector(cx+wide+.1,y,z),cq.Vector(cx+wide+.1,y,cz+1.),
+            cq.Vector(cx-wide-.1,y,cz+1.)],close=True))
+    body = body.cut(cq.Solid.makeLoft(profiles,ruled=True))
     for cap in d['caps']:
-        for pocket in rear_snaps.pockets(cap['snap_station']):
+        for pocket in rear_snaps.pockets(dict(cap['snap_station'],outer=wide)):
             body = body.cut(_pump_cap_to_world(pocket, cap))
     return body.clean()
 
