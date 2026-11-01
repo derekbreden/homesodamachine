@@ -1,0 +1,44 @@
+{
+  "scope": "Native bare pump against the revised trial base, seated and at selected vertical lifts. The added backing has a constant plan area open upward. All snap receiving pockets are preserved. Physical snap force and vibration are unmeasured.",
+  "base_step_sha256": "982809a459b2357fd369d6aa4b9348f6385f29681c9fb12aa902d0e6d19900da",
+  "base_stl_sha256": "df8f6a8f287b502a1f955c364d576deb0fc7185c2af6eed421639a426c3e5eec",
+  "checks": [
+    {
+      "vertical_lift_mm": 0.0,
+      "overlap_mm3": 0,
+      "pass": true
+    },
+    {
+      "vertical_lift_mm": 0.125,
+      "overlap_mm3": 0,
+      "pass": true
+    },
+    {
+      "vertical_lift_mm": 0.5,
+      "overlap_mm3": 0,
+      "pass": true
+    },
+    {
+      "vertical_lift_mm": 2.0,
+      "overlap_mm3": 0,
+      "pass": true
+    },
+    {
+      "vertical_lift_mm": 10.0,
+      "overlap_mm3": 0,
+      "pass": true
+    },
+    {
+      "vertical_lift_mm": 45.0,
+      "overlap_mm3": 0,
+      "pass": true
+    }
+  ],
+  "all_pass": true,
+  "input_sha256": {
+    "hardware/printed-parts/cold-core/_above_core_mounts.py": "3653b4442801e4b87b4f17a0c9b3191d09681a723c23c7e2503e0893d99beb66",
+    "hardware/manifold-layout/above-core.json": "b886818274572dd35d0b7f5f2da255e855ff1e4420d7a74c2e1c81ea91b45a5a",
+    "hardware/reference/g-ganen-pump/reference-parameters.json": "69ac39b3b5ec8a4de1c5b6abee49ef0335d3b96df61e358c5b2db1f23d808ffe",
+    "hardware/manifold-layout/above_core_parts.py": "dd8c5bc852e5d2471740b3ec66396e06bd01e70ce3428dbe1bb475ef8c2fc320"
+  }
+}
