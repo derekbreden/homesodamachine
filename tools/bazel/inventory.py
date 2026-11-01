@@ -165,14 +165,6 @@ IMPLICIT_SOLIDS = {
         f"hardware/printed-parts/soda-bend-holder/soda-bend-holder.{suffix}"
         for suffix in ("step", "stl", "step.mesh")
     ),
-    "hardware/reference/soda-rise-insulation/soda_rise_insulation.py": (
-        "hardware/reference/soda-rise-insulation/soda-rise-insulation.step",
-        "hardware/reference/soda-rise-insulation/soda-rise-insulation.step.mesh",
-    ),
-    "hardware/reference/neofit-achv44-check/neofit_achv44_check.py": (
-        "hardware/reference/neofit-achv44-check/neofit-achv44-check.step",
-        "hardware/reference/neofit-achv44-check/neofit-achv44-check.step.mesh",
-    ),
     "hardware/printed-parts/enclosure/rear-identification/rear_identification.py": tuple(
         f"hardware/printed-parts/enclosure/rear-identification/rear-label-{station}.{suffix}"
         for station in ("water", "co2", "drain", "carb", "flavor-a", "flavor-b")
