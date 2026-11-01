@@ -34,6 +34,7 @@ pub mod dxf;
 pub mod edge;
 pub mod face;
 pub mod import;
+pub mod mapped;
 pub mod mass;
 pub mod math;
 pub mod part;
