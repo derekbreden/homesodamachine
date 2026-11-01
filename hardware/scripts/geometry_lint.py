@@ -87,7 +87,7 @@ from trimesh.triangles import closest_point
 os.environ.setdefault("HSM_NO_BUILD_LOCK", "1")
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from pick_read import points as pick_points  # noqa: E402
-from pick_text import click, file_line, plane_face, straight, _vec  # noqa: E402
+from pick_text import click, file_line, plane_face, straight, source_line, _vec  # noqa: E402
 
 #: Facet normals rounded this many decimals share a plane direction.
 _NORMAL_DECIMALS = 3
@@ -425,7 +425,16 @@ def _overlap(a, b):
     return float(w.min()), float(w.max()), centre_uv
 
 
-def find_steps(planes):
+def _finding(found, row, sources, *facets):
+    if sources is not None:
+        try:
+            row["sources"] = sources.for_facets(facets)
+        except Exception:
+            row["sources"] = [None]
+    found.append(row)
+
+
+def find_steps(planes, sources=None):
     """Parallel same-facing plane pairs a sub-millimetre apart, footprints met.
 
     Evaluated island by island: coplanar faces merge into one group whether
@@ -472,19 +481,19 @@ def find_steps(planes):
                 w = hi - lo
                 minor, major = float(w.min()), float(w.max())
                 p = small.u * at[0] + small.v * at[1] + small.n * small.o
-                found.append({
+                _finding(found, {
                     "class": "step", "score": major / dlt,
                     "line": (f"Δ{dlt:.3f} mm between parallel planes"
                              f" · footprint met {major:.1f} × {minor:.1f} mm"),
                     "pick": [plane_face(_vec(*ia.n), _vec(*ia.thru()), "faceA"),
                              plane_face(_vec(*ib.n), _vec(*ib.thru()), "faceB"),
                              click(_vec(*p))],
-                })
+                }, sources, ia.f, ib.f)
                 break
     return found
 
 
-def find_bumps(planes):
+def find_bumps(planes, sources=None):
     """Patches that rise off a flat face by under a millimeter and come back down to it.
 
     `step` reads two parallel planes; a round boss poking 0.25 mm past the flat it is fused
@@ -581,12 +590,12 @@ def find_bumps(planes):
                 continue
             seen.add(key)
             at = pts[int(np.argmax(height))]
-            found.append({
+            _finding(found, {
                 "class": "bump", "score": length / top,
                 "line": (f"{top:.3f} mm bump off a flat face"
                          f" · {length:.1f} × {width:.1f} mm"),
                 "pick": [plane_face(_vec(*n), _vec(*flat.thru()), "faceA"), click(_vec(*at))],
-            })
+            }, sources, flat.f, facets)
     return found
 
 
@@ -725,7 +734,7 @@ def _neighbour_arrays(planes):
             np.array([p.lo for p in every]), np.array([p.hi for p in every]))
 
 
-def find_slivers(planes, q_min, s=1.0):
+def find_slivers(planes, q_min, s=1.0, sources=None):
     """Axis-aligned faces that are strips — long and thinner than a ligament.
 
     Evaluated island by island, so a strip that happens to share a plane with a
@@ -755,17 +764,17 @@ def find_slivers(planes, q_min, s=1.0):
                 axis = p.u if w[0] >= w[1] else p.v
                 c = p.thru()
                 a, b = c - axis * major / 2.0, c + axis * major / 2.0
-                found.append({
+                _finding(found, {
                     "class": "sliver", "score": major,
                     "line": f"{minor:.3f} mm strip, {major:.1f} mm long",
                     "pick": [plane_face(_vec(*p.n), _vec(*c)),
                              straight(_vec(*a), _vec(*b)),
                              click(_vec(*c))],
-                })
+                }, sources, p.f)
     return found
 
 
-def find_ceilings(planes, mesh, q_min, s=1.0):
+def find_ceilings(planes, mesh, q_min, s=1.0, sources=None):
     """Horizontal print-down faces above air, with the drop measured below them in the print.
 
     `s` is the piece's build sign along the box's Z: a face looks print-down when `s * n[2]`
@@ -808,13 +817,13 @@ def find_ceilings(planes, mesh, q_min, s=1.0):
                 if real else f"open to the bed ({q0 - q_min:.1f} mm up)")
         w = p.uv_hi - p.uv_lo
         c = p.thru()
-        found.append({
+        _finding(found, {
             "class": "ceiling",
             "score": p.area ** 0.5 * (max(real) if real else q0 - q_min),
             "line": (f"{p.area:.0f} mm² flat print-down face at z={z0:.3f}"
                      f" · {w.max():.1f} × {w.min():.1f} mm · {drop}"),
             "pick": [plane_face(_vec(*p.n), _vec(*c)), click(_vec(*c))],
-        })
+        }, sources, p.f)
     return found
 
 
@@ -832,7 +841,7 @@ def _z_in_triangle(t, xy):
     return float(w1 * t[0, 2] + w2 * t[1, 2] + w3 * t[2, 2])
 
 
-def find_slopes(planes, boundary, level, s=1.0):
+def find_slopes(planes, boundary, level, s=1.0, sources=None):
     """45° undersides that run along a wall with no level foot on any wall.
 
     A corbel that stands on a level foot — a horizontal boundary shared with
@@ -872,7 +881,7 @@ def find_slopes(planes, boundary, level, s=1.0):
         if abs(float(h @ wh)) > 0.35:
             continue  # rises across that wall, not along it
         c = s.thru()
-        found.append({
+        _finding(found, {
             "class": "slope", "score": s.area,
             "line": (f"45° underside runs along a wall with no level foot"
                      f" · slope dir {h[0]:+.2f},{h[1]:+.2f}"
@@ -881,7 +890,7 @@ def find_slopes(planes, boundary, level, s=1.0):
             "pick": [plane_face(_vec(*s.n), _vec(*c), "faceA"),
                      plane_face(_vec(*w.n), _vec(*w.thru()), "faceB"),
                      click(_vec(*c))],
-        })
+        }, sources, s.f, w.f)
     return found
 
 
@@ -930,7 +939,7 @@ def surface_samples(mesh, spacing=_THIN_SPACING):
     return pts, rows[at], share[at]
 
 
-def material_thickness(mesh, pts, facet, reach=_THIN_REACH):
+def material_thickness(mesh, pts, facet, reach=_THIN_REACH, *, hits=None):
     """Per sample, how far across the material its surface is from an opposite-facing facet,
     and the point on that facet it measures to — inf and nan past `reach`.
 
@@ -978,7 +987,7 @@ def material_thickness(mesh, pts, facet, reach=_THIN_REACH):
         if not len(mine) or not len(cand):
             continue
         tree = cKDTree(pts[cand], balanced_tree=False, compact_nodes=False)
-        _thickness_from(tree, cand, mine, mesh, index, pts, facet, n, reach, thick, meet)
+        _thickness_from(tree, cand, mine, mesh, index, pts, facet, n, reach, thick, meet, hits)
     far = thick > reach
     thick[far], meet[far] = np.inf, np.nan
     return thick, meet
@@ -993,7 +1002,7 @@ def _directions(count):
                             np.cos(polar)])
 
 
-def _thickness_from(tree, cand, mine, mesh, index, pts, facet, n, reach, thick, meet):
+def _thickness_from(tree, cand, mine, mesh, index, pts, facet, n, reach, thick, meet, hits):
     """`material_thickness` for the samples `mine`, against the candidates `tree` holds: from
     the sample itself, then from half the reach inside for those whose nearest were all air."""
     todo = mine
@@ -1037,6 +1046,8 @@ def _thickness_from(tree, cand, mine, mesh, index, pts, facet, n, reach, thick, 
                 won = first[_crosses_material(index, p[first], q[first], ni[first], nj[first])]
                 thick[sel[row[won]]] = length[won]
                 meet[sel[row[won]]] = q[won]
+                if hits is not None:
+                    hits[sel[row[won]]] = facet[other[across][won]]
             # nothing across yet, and the k nearest ran out inside the bound
             full = np.isfinite(dist[:, -1])
             again.append(sel[~np.isfinite(thick[sel]) & full])
@@ -1266,24 +1277,25 @@ def thin_places(pts, thick, link=_THIN_LINK, gather=_THIN_GATHER):
     return places
 
 
-def find_thin(mesh):
+def find_thin(mesh, sources=None):
     """Material between opposite-facing surfaces, thinnest place first."""
     pts, facet, share = surface_samples(mesh)
-    thick, meet = material_thickness(mesh, pts, facet)
+    hits = np.full(len(pts), -1, dtype=np.int64) if sources is not None and sources.bound else None
+    thick, meet = material_thickness(mesh, pts, facet, hits=hits)
     found = []
     for at, members, upto, pieces in thin_places(pts, thick):
         span = pts[members].max(axis=0) - pts[members].min(axis=0)
         pick = [click(_vec(*pts[at]))]
         if thick[at] >= 0.0005:                       # the far side, unless it prints as this one
             pick.append(click(_vec(*meet[at])))
-        found.append({
+        _finding(found, {
             "class": "thin", "score": -float(thick[at]),
             "line": (f"{thick[at]:.3f} mm of material at its thinnest"
                      f" · {share[members].sum():.1f} mm² of surface under {upto:g} mm"
                      f" · spans {span[0]:.1f} × {span[1]:.1f} × {span[2]:.1f} mm"
                      + (f" · in {pieces} pieces" if pieces > 1 else "")),
             "pick": pick,
-        })
+        }, sources, facet[members], hits[members] if hits is not None else [])
     return found
 
 
@@ -1329,7 +1341,7 @@ def _whole_face(p, every, neighbours):
         face = joined
 
 
-def find_ledges(planes, mesh, pose):
+def find_ledges(planes, mesh, pose, sources=None):
     """Flat faces within 30° of facing the bed, bounded by edges sharper than 25° and smaller
     than a ceiling, smallest first.
 
@@ -1375,13 +1387,13 @@ def find_ledges(planes, mesh, pose):
             continue  # it runs on into a curve: a ledge is bounded by edges sharper than 25°
         c = centers[p.f]
         at = c[np.argmin(np.linalg.norm(c - p.center(), axis=1))]
-        found.append({
+        _finding(found, {
             "class": "ledge", "score": -p.area,
             "line": (f"{p.area:.2f} mm² flat face"
                      f" {np.degrees(np.arccos(min(1.0, -facing))):.0f}° off facing"
                      f" the bed · {w.max():.1f} × {w.min():.1f} mm · {up:.1f} mm up"),
             "pick": [plane_face(_vec(*p.n), _vec(*at)), click(_vec(*at))],
-        })
+        }, sources, p.f)
     return found
 
 
@@ -1459,21 +1471,81 @@ def _print_answer(why, lead):
     print(f"    alternatives: {alternatives or 'none recorded'}")
 
 
-def lint(stl, classes=_CLASSES):
+class _PrintedSources:
+    """On-demand lookup by emitted STL facet ID; no geometric source matching."""
+    def __init__(self, model, stl, facets):
+        import json
+        import _mesh_payload
+
+        self.bound, self.parts = False, []
+        self.status = "unknown (no STL binding)"
+        self._project, self._json = _mesh_payload.record_sources, json
+        try:
+            with np.load(model, allow_pickle=False) as archive:
+                if "document" not in archive:
+                    return
+                document = json.loads(archive["document"].tobytes())
+                trace = document.get("printed") if isinstance(document, dict) else None
+                if not isinstance(trace, dict) or trace.get("v") != 1:
+                    return
+                if trace.get("sha256") != _mesh_payload.source_digest(stl):
+                    self.status = "unknown (stale STL binding)"
+                    return
+                self.status = "unknown (incomplete STL binding)"
+                records = json.loads(archive[trace["records"].removesuffix(".npy")].tobytes())
+                parts, first = [], 0
+                for i, body in enumerate(trace["bodies"]):
+                    if body["body"] != i or body["first"] != first or not isinstance(records[i], list):
+                        return
+                    faces = archive[body["faces"].removesuffix(".npy")]
+                    if faces.ndim != 1 or faces.dtype.kind not in "ui" or len(faces) != body["count"]:
+                        return
+                    if faces.size and (faces.min() < 0 or faces.max() >= len(records[i])):
+                        return
+                    parts.append((first, faces, records[i]))
+                    first += len(faces)
+                if first != facets:
+                    return
+            self.parts, self.bound = parts, True
+            self.status = f"bound STL · sha256 {trace['sha256'][:8]}"
+        except Exception:
+            # Missing or malformed optional attribution never changes the geometric findings.
+            self.status = "unknown (unreadable STL binding)"
+
+    def for_facets(self, groups):
+        if not self.bound:
+            return [None]
+        ids = np.unique(np.concatenate([np.asarray(group, dtype=np.int64).ravel() for group in groups]))
+        sources, seen = [], set()
+        for first, faces, records in self.parts:
+            selected = ids[(ids >= first) & (ids < first + len(faces))] - first
+            for record in np.unique(faces[selected]):
+                for source in self._project(records[int(record)]):
+                    key = self._json.dumps(source, sort_keys=True, separators=(",", ":"))
+                    if key not in seen:
+                        seen.add(key)
+                        sources.append(source)
+        return sources or [None]
+
+
+def lint(stl, classes=_CLASSES, *, source_model=None):
     """Every finding for the piece at `stl`, most severe first within each class."""
     mesh = trimesh.load(stl, process=False)
+    sources = _PrintedSources(source_model, stl, len(mesh.faces)) if source_model is not None else None
+    if sources is not None:
+        mesh.metadata["source_binding"] = sources.status
     s = print_up_of(stl)
     q_min = float((s * mesh.vertices[:, 2]).min())     # the bed, in print height
     planes = boundary = level = None
     if any(name != "thin" for name in classes):        # `thin` reads facets, not planes
         planes, boundary, level = plane_map(mesh)
-    finders = {"step": lambda: find_steps(planes),
-               "bump": lambda: find_bumps(planes),
-               "sliver": lambda: find_slivers(planes, q_min, s),
-               "ceiling": lambda: find_ceilings(planes, mesh, q_min, s),
-               "slope": lambda: find_slopes(planes, boundary, level, s),
-               "thin": lambda: find_thin(mesh),
-               "ledge": lambda: find_ledges(planes, mesh, print_pose_of(stl))}
+    finders = {"step": lambda: find_steps(planes, sources),
+               "bump": lambda: find_bumps(planes, sources),
+               "sliver": lambda: find_slivers(planes, q_min, s, sources),
+               "ceiling": lambda: find_ceilings(planes, mesh, q_min, s, sources),
+               "slope": lambda: find_slopes(planes, boundary, level, s, sources),
+               "thin": lambda: find_thin(mesh, sources),
+               "ledge": lambda: find_ledges(planes, mesh, print_pose_of(stl), sources)}
     found = {}
     for name in classes:
         try:
@@ -1484,10 +1556,10 @@ def lint(stl, classes=_CLASSES):
     return mesh, found
 
 
-def report(stl, top, show_all, classes):
+def report(stl, top, show_all, classes, *, source_model=None):
     step = stl.with_suffix("") if stl.suffix == ".stl" else stl
     step = step if step.suffix == ".step" else step.with_suffix(".step")
-    mesh, found = lint(stl, classes)
+    mesh, found = lint(stl, classes, source_model=source_model)
     answers = answers_path(stl)
     entries = (parse_answers(answers.read_text())
                if answers is not None and answers.exists() else [])
@@ -1502,6 +1574,8 @@ def report(stl, top, show_all, classes):
     print(f"{stl.name} · {len(mesh.faces)} printed facets · {total} findings"
           + (f" · {len(answered)} answered" if answered else "")
           + ("" if show_all or total <= top else f" · top {top} (--all for every one)"))
+    if source_model is not None:
+        print(f"source map: {mesh.metadata['source_binding']}")
     if answers is not None:
         print(f"answers: {answers.relative_to(_REPO)} · read "
               f"{(ANSWERS / 'AGENTS.md').relative_to(_REPO)} before writing one")
@@ -1516,6 +1590,8 @@ def report(stl, top, show_all, classes):
             print(f"    {file_line(step)}")
             for line in r["pick"]:
                 print(f"    {line}")
+            if "sources" in r:
+                print(f"    {source_line(r['sources'])}")
             if "answer" in r:
                 _print_answer(r["answer"], "    answered: ")
     if show_all:
@@ -1524,6 +1600,8 @@ def report(stl, top, show_all, classes):
             print(f"    {r['line']}")
             for line in r["pick"]:
                 print(f"    {line}")
+            if "sources" in r:
+                print(f"    {source_line(r['sources'])}")
     return total
 
 
@@ -1726,6 +1804,8 @@ def main(argv=None):
     ap.add_argument("--classes", default=",".join(_CLASSES),
                     help="comma list of: " + ",".join(_CLASSES))
     ap.add_argument("--selftest", action="store_true")
+    ap.add_argument("--sources", type=Path, metavar="MODEL.npz",
+                    help="show contributor records from this internal model's matching STL binding")
     args = ap.parse_args(argv)
 
     if args.selftest:
@@ -1743,7 +1823,7 @@ def main(argv=None):
             raise SystemExit(f"no STL for {piece}")
         if i:
             print()
-        report(stl, args.top, args.all, classes)
+        report(stl, args.top, args.all, classes, source_model=args.sources)
     return 0
 
 

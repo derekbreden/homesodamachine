@@ -19,8 +19,8 @@ services:
     # The fetch then puts the generated solids on this disk. The clone carries
     # hardware/cad-artifacts.json rather than the `.step` files themselves, and the
     # viewer serves those off the tree at request time (web/lib/viewer-routes.js), so the
-    # build is where they arrive. A hash that disagrees with the pointer file ends the build and
-    # leaves the previous deploy serving.
+    # build is where they arrive. Only hash-verified members replace served files; unavailable
+    # members leave the tree's existing files in place. `--check` reports an incomplete fetch.
     buildCommand: cd web && npm ci --omit=dev && node scripts/fetch-cad-artifacts.mjs && node scripts/fetch-firmware.mjs
     startCommand: cd web && npm start
     healthCheckPath: /

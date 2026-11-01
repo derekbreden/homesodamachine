@@ -183,10 +183,6 @@ IMPLICIT_SOLIDS = {
         "hardware/printed-parts/diaphragm-pump-sleeve/diaphragm-pump-sleeve.stl",
         "hardware/printed-parts/diaphragm-pump-sleeve/diaphragm-pump-sleeve.step.mesh",
     ),
-    "hardware/printed-parts/faucet/umbilical-organizer/umbilical_organizer.py": (
-        "hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.stl",
-        "hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.step.mesh",
-    ),
     "hardware/printed-parts/zone-c/funnel-cover/funnel_cover.py": (
         "hardware/printed-parts/zone-c/funnel-cover/funnel-cover.stl",
         "hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.stl",
@@ -325,11 +321,12 @@ _FLUTE_ROOTS = {
         "hardware/printed-parts/faucet/faucet-display-cover/",
         "hardware/printed-parts/faucet/above-counter-plate/",
         "hardware/printed-parts/faucet/above-counter-gasket/",
-        "hardware/printed-parts/faucet/asse-vent-seals/"),
+    ),
 }
 # Generator-owned cap surfaces remain outside every wrapper's shared inputs.
 _FLUTE_TREES = tuple(sorted({r for roots in _FLUTE_ROOTS.values() for r in roots}
-                           | {"hardware/printed-parts/cold-core/foam-cap/"}))
+                           | {"hardware/printed-parts/cold-core/foam-cap/",
+                              "hardware/printed-parts/faucet/asse-vent-seals/"}))
 
 
 def _one_tree(roots: tuple) -> tuple:
