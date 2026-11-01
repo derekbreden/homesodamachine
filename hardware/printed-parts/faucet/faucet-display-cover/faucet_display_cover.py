@@ -108,6 +108,10 @@ def build_display_cover_lips(outer: cq.Workplane | None = None) -> cq.Workplane:
     return shell.relieve_display_lip_inner_edges(outer.intersect(band).cut(inner))
 
 
+# The cover as it sits on the tip, which the faucet assembly stands in place.
+SEATED_STEP = _here.parent / "faucet-display-cover-seated.step"
+
+
 def build_seated_display_cover() -> cq.Workplane:
     """Nominal seated fit surface; not a predicted elastic deformation."""
     outer = build_plate_outer()
@@ -131,8 +135,9 @@ def relaxed_wing_transform(side: int) -> cq.Matrix:
                       [0.0, 0.0, 0.0, 1.0]])
 
 
-def build_display_cover() -> cq.Workplane:
-    """Relaxed printable cover with both wings preformed inward in X.
+def build_display_cover(seated: cq.Workplane | None = None) -> cq.Workplane:
+    """Relaxed printable cover with both wings preformed inward in X, from the seated cover
+    (`build_seated_display_cover`, unless it is handed in).
 
     The planar bezel keeps its dimensions. The two lower halves shear
     inward below its inner face and join through the broad end bridges.
@@ -141,7 +146,7 @@ def build_display_cover() -> cq.Workplane:
     """
     origin, _, normal = shell._tip_frame()
     frame = cq.Location(cq.Plane(origin=origin, xDir=(1.0, 0.0, 0.0), normal=normal))
-    seated = build_seated_display_cover().val().moved(frame.inverse)
+    seated = (build_seated_display_cover() if seated is None else seated).val().moved(frame.inverse)
     bezel = seated.intersect(cq.Solid.makeBox(100.0, 150.0, 50.0,
                                              cq.Vector(-50.0, -50.0, bezel_n_bottom)))
     pieces = [bezel]
@@ -196,9 +201,11 @@ def selftest() -> int:
 
 
 def main():
-    cover = build_display_cover()
+    seated = build_seated_display_cover()
+    cover = build_display_cover(seated)
     out = _here.parent / "faucet-display-cover.step"
     export_assembly(one_body(cover, out.stem, C_FAUCET_BLACK), str(out))
+    export_assembly(one_body(seated, SEATED_STEP.stem, C_FAUCET_BLACK), str(SEATED_STEP))
     shell.write_bed_file(cover, out.with_suffix(".stl"))
     flute_payload.cut(out, out.with_suffix(".stl"), preserve_print_triangles=True)
     substitute_md(_here.parent / "README.md", variables={

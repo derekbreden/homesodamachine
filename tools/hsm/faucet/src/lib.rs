@@ -3,7 +3,9 @@
 //! Each part's program sits beside the Python module that holds its numbers, and reads them with
 //! `hsm_kernel::part`. What the parts share is here: the gooseneck the shell, its display cover
 //! and the industrial faucet follow, the display's frame at the tip, and the shapes their numbers
-//! come in.
+//! come in. `assembly` builds the faucet and its umbilical as the bench bags them.
+pub mod assembly;
+
 use anyhow::{Result, anyhow, ensure};
 use hsm_kernel::part::Numbers;
 use hsm_kernel::{Loop, Plane, Profile, Solid, V2, V3, Wrapped, hull_loop, v2, v3};
