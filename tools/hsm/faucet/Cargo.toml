@@ -11,6 +11,14 @@ publish = false
 name = "faucet-shell"
 path = "../../../hardware/printed-parts/faucet/faucet-shell/faucet_shell.rs"
 
+[[bin]]
+name = "faucet-assembly"
+path = "../../../hardware/faucet-layout/faucet_assembly.rs"
+
+[[bin]]
+name = "faucet-industrial-assembly"
+path = "../../../hardware/faucet-layout/faucet_industrial_assembly.rs"
+
 [dependencies]
 anyhow.workspace = true
 hsm-kernel = { path = "../kernel" }

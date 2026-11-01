@@ -1781,10 +1781,12 @@ genrule(
         "tools/hsm/Cargo.lock",
         "tools/hsm/Cargo.toml",
         "tools/hsm/faucet/Cargo.toml",
+        "tools/hsm/faucet/src/assembly.rs",
         "tools/hsm/faucet/src/lib.rs",
         "tools/hsm/kernel/Cargo.toml",
         "tools/hsm/kernel/src/boolean.rs",
         "tools/hsm/kernel/src/build.rs",
+        "tools/hsm/kernel/src/dxf.rs",
         "tools/hsm/kernel/src/edge.rs",
         "tools/hsm/kernel/src/face.rs",
         "tools/hsm/kernel/src/import.rs",
@@ -1799,6 +1801,7 @@ genrule(
         "tools/hsm/kernel/src/screw.rs",
         "tools/hsm/kernel/src/sketch_hull.rs",
         "tools/hsm/kernel/src/solid.rs",
+        "tools/hsm/kernel/src/spline.rs",
         "tools/hsm/kernel/src/step.rs",
         "tools/hsm/kernel/src/sweep.rs",
         "tools/hsm/kernel/src/text.rs",
@@ -1899,6 +1902,7 @@ genrule(
     srcs = [
         ":out/under-counter-plate/hardware/cut-parts/faucet/under-counter-plate/under-counter-plate.dxf",
         "hardware/faucet-layout/faucet_assembly.py",
+        "hardware/faucet-layout/faucet_assembly.rs",
         "pysrc/hardware/printed-parts/cadlib/fits.py",
         "pysrc/hardware/printed-parts/cadlib/flute_skin.py",
         "pysrc/hardware/printed-parts/cadlib/port_chip.py",
@@ -1919,10 +1923,14 @@ genrule(
         "pysrc/hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py",
         ":out/vent-seals/hardware/printed-parts/faucet/asse-vent-seals/asse-vent-downstream-bung.step",
         "hardware/printed-parts/faucet/asse-vent-seals/asse-vent-downstream-bung.step.mesh",
+        ":out/vent-seals/hardware/printed-parts/faucet/asse-vent-seals/asse-vent-downstream-bung.stl",
         ":out/vent-seals/hardware/printed-parts/faucet/asse-vent-seals/asse-vent-perimeter-tool.step",
         "hardware/printed-parts/faucet/asse-vent-seals/asse-vent-perimeter-tool.step.mesh",
+        ":out/vent-seals/hardware/printed-parts/faucet/asse-vent-seals/asse-vent-perimeter-tool.stl",
         ":out/vent-seals/hardware/printed-parts/faucet/asse-vent-seals/asse-vent-upstream-bung.step",
         "hardware/printed-parts/faucet/asse-vent-seals/asse-vent-upstream-bung.step.mesh",
+        ":out/vent-seals/hardware/printed-parts/faucet/asse-vent-seals/asse-vent-upstream-bung.stl",
+        ":out/faucet-display-cover/hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover-seated.step",
         ":out/faucet-display-cover/hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step",
         ":out/flute-payload-faucet/hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step.mesh",
         ":out/faucet-display-cover/hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl",
@@ -1933,10 +1941,14 @@ genrule(
         ":out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step",
         ":out/flute-payload-faucet/hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step.mesh",
         ":out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl",
+        ":out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell.step",
+        ":out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell.step.mesh",
         "pysrc/hardware/printed-parts/faucet/faucet-shell/faucet_shell.py",
         "pysrc/hardware/printed-parts/faucet/faucet_paths.py",
         ":out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-replica.step",
         ":out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-replica.step.mesh",
+        ":out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-replica.stl",
+        ":out/tpu-o-ring/hardware/printed-parts/faucet/tpu-o-ring/tpu-o-ring.step",
         "pysrc/hardware/printed-parts/faucet/tpu-o-ring/tpu_o_ring.py",
         ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-carb.step",
         ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-drain.step",
@@ -1947,12 +1959,12 @@ genrule(
         ":out/umbilical-organizer/hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.step.mesh",
         ":out/umbilical-organizer/hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.stl",
         "pysrc/hardware/printed-parts/faucet/umbilical-organizer/umbilical_organizer.py",
-        "pysrc/hardware/printed-parts/faucet/vent_seals.py",
         "pysrc/hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py",
-        ":out/jg-pp0408w/hardware/reference/jg-pp0408w/jg-pp0408w.step",
-        "pysrc/hardware/reference/jg-pp0408w/jg_pp0408w.py",
         "pysrc/hardware/reference/neofit-bulkhead/neofit_bulkhead.py",
         "pysrc/hardware/reference/neofit-drain-bulkhead/neofit_drain_bulkhead.py",
+        "hardware/reference/touch-flo-faucet/display-reference/button-left.step",
+        "hardware/reference/touch-flo-faucet/display-reference/button-right.step",
+        "hardware/reference/touch-flo-faucet/display-reference/buttons.json",
         "hardware/reference/touch-flo-faucet/display-reference/component-envelopes.json",
         ":out/westbrass-reference/hardware/reference/touch-flo-faucet/westbrass-reference/westbrass-reference.step",
         "pysrc/hardware/scripts/_cadq_export.py",
@@ -1960,20 +1972,58 @@ genrule(
         "pysrc/hardware/scripts/_materials.py",
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_rust_part.py",
         "pysrc/hardware/scripts/_stated_bounds.py",
         "pysrc/hardware/scripts/flute_payload.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/Cargo.lock",
+        "tools/hsm/Cargo.toml",
+        "tools/hsm/faucet/Cargo.toml",
+        "tools/hsm/faucet/src/assembly.rs",
+        "tools/hsm/faucet/src/lib.rs",
+        "tools/hsm/kernel/Cargo.toml",
+        "tools/hsm/kernel/src/boolean.rs",
+        "tools/hsm/kernel/src/build.rs",
+        "tools/hsm/kernel/src/dxf.rs",
+        "tools/hsm/kernel/src/edge.rs",
+        "tools/hsm/kernel/src/face.rs",
+        "tools/hsm/kernel/src/import.rs",
+        "tools/hsm/kernel/src/lib.rs",
+        "tools/hsm/kernel/src/mass.rs",
+        "tools/hsm/kernel/src/math.rs",
+        "tools/hsm/kernel/src/part.rs",
+        "tools/hsm/kernel/src/plane.rs",
+        "tools/hsm/kernel/src/profile.rs",
+        "tools/hsm/kernel/src/round.rs",
+        "tools/hsm/kernel/src/rule.rs",
+        "tools/hsm/kernel/src/screw.rs",
+        "tools/hsm/kernel/src/sketch_hull.rs",
+        "tools/hsm/kernel/src/solid.rs",
+        "tools/hsm/kernel/src/spline.rs",
+        "tools/hsm/kernel/src/step.rs",
+        "tools/hsm/kernel/src/sweep.rs",
+        "tools/hsm/kernel/src/text.rs",
+        "tools/hsm/kernel/src/thru.rs",
+        "tools/hsm/kernel/src/topo.rs",
+        "tools/hsm/kernel/src/triangulate.rs",
+        "tools/hsm/kernel/src/write.rs",
     ],
     outs = [
+        "out/faucet-assembly/hardware/faucet-layout/faucet-assembly.numbers.json",
         "out/faucet-assembly/hardware/faucet-layout/faucet-assembly.step",
         "out/faucet-assembly/hardware/faucet-layout/faucet-assembly.step.mesh",
+        "out/faucet-assembly/hardware/faucet-layout/faucet-assembly.step.npz",
         "out/faucet-assembly/hardware/faucet-layout/faucet_assembly.py",
     ],
+    tags = ["no-sandbox"],
     cmd = """
 set -e
-O0=$$PWD/$(location out/faucet-assembly/hardware/faucet-layout/faucet-assembly.step)
-O1=$$PWD/$(location out/faucet-assembly/hardware/faucet-layout/faucet-assembly.step.mesh)
-O2=$$PWD/$(location out/faucet-assembly/hardware/faucet-layout/faucet_assembly.py)
+O0=$$PWD/$(location out/faucet-assembly/hardware/faucet-layout/faucet-assembly.numbers.json)
+O1=$$PWD/$(location out/faucet-assembly/hardware/faucet-layout/faucet-assembly.step)
+O2=$$PWD/$(location out/faucet-assembly/hardware/faucet-layout/faucet-assembly.step.mesh)
+O3=$$PWD/$(location out/faucet-assembly/hardware/faucet-layout/faucet-assembly.step.npz)
+O4=$$PWD/$(location out/faucet-assembly/hardware/faucet-layout/faucet_assembly.py)
+rm -rf work-faucet-assembly
 for f in $(SRCS); do
   case $$f in
     */node_modules/*) continue;;
@@ -1981,39 +2031,55 @@ for f in $(SRCS); do
     */pysrc/*) t=$${f##*/pysrc/};;
     *) t=$$f;;
   esac
-  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
+  mkdir -p work-faucet-assembly/$$(dirname $$t); cp -L $$f work-faucet-assembly/$$t
 done
 for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
+  if [ -d $$d ]; then mkdir -p work-faucet-assembly/$$(dirname $$d); ln -sfn $$PWD/$$d work-faucet-assembly/$$d; fi
 done
-cd work
+cd work-faucet-assembly
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
 HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/faucet-layout/faucet_assembly.py > /dev/null
-cp hardware/faucet-layout/faucet-assembly.step $$O0
-cp hardware/faucet-layout/faucet-assembly.step.mesh $$O1
-cp hardware/faucet-layout/faucet_assembly.py $$O2
+cp hardware/faucet-layout/faucet-assembly.numbers.json $$O0
+cp hardware/faucet-layout/faucet-assembly.step $$O1
+cp hardware/faucet-layout/faucet-assembly.step.mesh $$O2
+cp hardware/faucet-layout/faucet-assembly.step.npz $$O3
+cp hardware/faucet-layout/faucet_assembly.py $$O4
+cd .. && rm -rf work-faucet-assembly
 """,
 )
 
 genrule(
     name = "faucet-industrial-assembly",
     srcs = [
-        ":out/faucet-assembly/hardware/faucet-layout/faucet-assembly.step",
+        ":out/under-counter-plate/hardware/cut-parts/faucet/under-counter-plate/under-counter-plate.dxf",
+        "pysrc/hardware/faucet-layout/faucet_assembly.py",
         "pysrc/hardware/faucet-layout/faucet_industrial_assembly.py",
+        "hardware/faucet-layout/faucet_industrial_assembly.rs",
         "pysrc/hardware/printed-parts/cadlib/fits.py",
         "pysrc/hardware/printed-parts/cadlib/flute_skin.py",
+        "pysrc/hardware/printed-parts/cadlib/port_chip.py",
         "pysrc/hardware/printed-parts/cadlib/reeding.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
+        "pysrc/hardware/printed-parts/enclosure/bulkhead-ring/bulkhead_ring.py",
+        "pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
         "pysrc/hardware/printed-parts/faucet/_display_snap.py",
         "pysrc/hardware/printed-parts/faucet/_faucet_interface.py",
+        ":out/above-counter-gasket/hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step",
+        "pysrc/hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py",
+        ":out/above-counter-plate/hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step",
+        "pysrc/hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py",
+        ":out/faucet-display-cover/hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover-seated.step",
+        "pysrc/hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py",
         ":out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step",
         ":out/flute-payload-faucet/hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step.mesh",
         ":out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl",
         ":out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step",
         ":out/flute-payload-faucet/hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step.mesh",
         ":out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl",
+        ":out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell.step",
+        ":out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell.step.mesh",
         "pysrc/hardware/printed-parts/faucet/faucet-shell/faucet_shell.py",
         "pysrc/hardware/printed-parts/faucet/faucet_paths.py",
         ":out/industrial-faucet/hardware/printed-parts/faucet/industrial/industrial-above-counter-gasket.step",
@@ -2022,6 +2088,7 @@ genrule(
         ":out/industrial-faucet/hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.step",
         ":out/industrial-faucet/hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.step.mesh",
         ":out/industrial-faucet/hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.stl",
+        ":out/industrial-faucet/hardware/printed-parts/faucet/industrial/industrial-display-cover-seated.step",
         ":out/industrial-faucet/hardware/printed-parts/faucet/industrial/industrial-display-cover.step",
         ":out/industrial-faucet/hardware/printed-parts/faucet/industrial/industrial-display-cover.step.mesh",
         ":out/industrial-faucet/hardware/printed-parts/faucet/industrial/industrial-display-cover.stl",
@@ -2029,27 +2096,83 @@ genrule(
         ":out/industrial-faucet/hardware/printed-parts/faucet/industrial/industrial-shell-base.step.mesh",
         ":out/industrial-faucet/hardware/printed-parts/faucet/industrial/industrial-shell-base.stl",
         "pysrc/hardware/printed-parts/faucet/industrial/industrial_display_cover.py",
+        ":out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-replica.step",
         ":out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-replica.step.mesh",
+        ":out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-replica.stl",
+        ":out/tpu-o-ring/hardware/printed-parts/faucet/tpu-o-ring/tpu-o-ring.step",
+        "pysrc/hardware/printed-parts/faucet/tpu-o-ring/tpu_o_ring.py",
+        ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-carb.step",
+        ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-drain.step",
+        ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-a.step",
+        ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-b.step",
+        "pysrc/hardware/printed-parts/faucet/tube-collar/tube_collar.py",
         ":out/umbilical-organizer/hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.step",
         ":out/umbilical-organizer/hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.step.mesh",
         ":out/umbilical-organizer/hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.stl",
+        "pysrc/hardware/printed-parts/faucet/umbilical-organizer/umbilical_organizer.py",
+        "pysrc/hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py",
+        "pysrc/hardware/reference/neofit-bulkhead/neofit_bulkhead.py",
+        "pysrc/hardware/reference/neofit-drain-bulkhead/neofit_drain_bulkhead.py",
+        "hardware/reference/touch-flo-faucet/display-reference/button-left.step",
+        "hardware/reference/touch-flo-faucet/display-reference/button-right.step",
+        "hardware/reference/touch-flo-faucet/display-reference/buttons.json",
+        "hardware/reference/touch-flo-faucet/display-reference/component-envelopes.json",
+        ":out/westbrass-reference/hardware/reference/touch-flo-faucet/westbrass-reference/westbrass-reference.step",
         "pysrc/hardware/scripts/_cadq_export.py",
         "pysrc/hardware/scripts/_material_base.py",
         "pysrc/hardware/scripts/_materials.py",
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_rust_part.py",
         "pysrc/hardware/scripts/_stated_bounds.py",
         "pysrc/hardware/scripts/flute_payload.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/Cargo.lock",
+        "tools/hsm/Cargo.toml",
+        "tools/hsm/faucet/Cargo.toml",
+        "tools/hsm/faucet/src/assembly.rs",
+        "tools/hsm/faucet/src/lib.rs",
+        "tools/hsm/kernel/Cargo.toml",
+        "tools/hsm/kernel/src/boolean.rs",
+        "tools/hsm/kernel/src/build.rs",
+        "tools/hsm/kernel/src/dxf.rs",
+        "tools/hsm/kernel/src/edge.rs",
+        "tools/hsm/kernel/src/face.rs",
+        "tools/hsm/kernel/src/import.rs",
+        "tools/hsm/kernel/src/lib.rs",
+        "tools/hsm/kernel/src/mass.rs",
+        "tools/hsm/kernel/src/math.rs",
+        "tools/hsm/kernel/src/part.rs",
+        "tools/hsm/kernel/src/plane.rs",
+        "tools/hsm/kernel/src/profile.rs",
+        "tools/hsm/kernel/src/round.rs",
+        "tools/hsm/kernel/src/rule.rs",
+        "tools/hsm/kernel/src/screw.rs",
+        "tools/hsm/kernel/src/sketch_hull.rs",
+        "tools/hsm/kernel/src/solid.rs",
+        "tools/hsm/kernel/src/spline.rs",
+        "tools/hsm/kernel/src/step.rs",
+        "tools/hsm/kernel/src/sweep.rs",
+        "tools/hsm/kernel/src/text.rs",
+        "tools/hsm/kernel/src/thru.rs",
+        "tools/hsm/kernel/src/topo.rs",
+        "tools/hsm/kernel/src/triangulate.rs",
+        "tools/hsm/kernel/src/write.rs",
     ],
     outs = [
+        "out/faucet-industrial-assembly/hardware/faucet-layout/faucet-industrial-assembly.numbers.json",
         "out/faucet-industrial-assembly/hardware/faucet-layout/faucet-industrial-assembly.step",
         "out/faucet-industrial-assembly/hardware/faucet-layout/faucet-industrial-assembly.step.mesh",
+        "out/faucet-industrial-assembly/hardware/faucet-layout/faucet-industrial-assembly.step.npz",
     ],
+    tags = ["no-sandbox"],
     cmd = """
 set -e
-O0=$$PWD/$(location out/faucet-industrial-assembly/hardware/faucet-layout/faucet-industrial-assembly.step)
-O1=$$PWD/$(location out/faucet-industrial-assembly/hardware/faucet-layout/faucet-industrial-assembly.step.mesh)
+O0=$$PWD/$(location out/faucet-industrial-assembly/hardware/faucet-layout/faucet-industrial-assembly.numbers.json)
+O1=$$PWD/$(location out/faucet-industrial-assembly/hardware/faucet-layout/faucet-industrial-assembly.step)
+O2=$$PWD/$(location out/faucet-industrial-assembly/hardware/faucet-layout/faucet-industrial-assembly.step.mesh)
+O3=$$PWD/$(location out/faucet-industrial-assembly/hardware/faucet-layout/faucet-industrial-assembly.step.npz)
+rm -rf work-faucet-industrial-assembly
 for f in $(SRCS); do
   case $$f in
     */node_modules/*) continue;;
@@ -2057,17 +2180,20 @@ for f in $(SRCS); do
     */pysrc/*) t=$${f##*/pysrc/};;
     *) t=$$f;;
   esac
-  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
+  mkdir -p work-faucet-industrial-assembly/$$(dirname $$t); cp -L $$f work-faucet-industrial-assembly/$$t
 done
 for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
+  if [ -d $$d ]; then mkdir -p work-faucet-industrial-assembly/$$(dirname $$d); ln -sfn $$PWD/$$d work-faucet-industrial-assembly/$$d; fi
 done
-cd work
+cd work-faucet-industrial-assembly
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
 HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/faucet-layout/faucet_industrial_assembly.py > /dev/null
-cp hardware/faucet-layout/faucet-industrial-assembly.step $$O0
-cp hardware/faucet-layout/faucet-industrial-assembly.step.mesh $$O1
+cp hardware/faucet-layout/faucet-industrial-assembly.numbers.json $$O0
+cp hardware/faucet-layout/faucet-industrial-assembly.step $$O1
+cp hardware/faucet-layout/faucet-industrial-assembly.step.mesh $$O2
+cp hardware/faucet-layout/faucet-industrial-assembly.step.npz $$O3
+cd .. && rm -rf work-faucet-industrial-assembly
 """,
 )
 
@@ -3510,6 +3636,7 @@ genrule(
         "tools/hsm/kernel/Cargo.toml",
         "tools/hsm/kernel/src/boolean.rs",
         "tools/hsm/kernel/src/build.rs",
+        "tools/hsm/kernel/src/dxf.rs",
         "tools/hsm/kernel/src/edge.rs",
         "tools/hsm/kernel/src/face.rs",
         "tools/hsm/kernel/src/import.rs",
@@ -3524,6 +3651,7 @@ genrule(
         "tools/hsm/kernel/src/screw.rs",
         "tools/hsm/kernel/src/sketch_hull.rs",
         "tools/hsm/kernel/src/solid.rs",
+        "tools/hsm/kernel/src/spline.rs",
         "tools/hsm/kernel/src/step.rs",
         "tools/hsm/kernel/src/sweep.rs",
         "tools/hsm/kernel/src/text.rs",
@@ -6867,7 +6995,6 @@ genrule(
         "pysrc/hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py",
         "pysrc/hardware/printed-parts/faucet/faucet-shell/faucet_shell.py",
         "pysrc/hardware/printed-parts/faucet/faucet_paths.py",
-        "pysrc/hardware/printed-parts/faucet/vent_seals.py",
         "pysrc/hardware/scripts/_cadq_export.py",
         "pysrc/hardware/scripts/_material_base.py",
         "pysrc/hardware/scripts/_materials.py",
@@ -6884,6 +7011,7 @@ genrule(
         allow_empty = True,
     ),
     outs = [
+        "out/faucet-display-cover/hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover-seated.step",
         "out/faucet-display-cover/hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step",
         "out/faucet-display-cover/hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl",
         "out/faucet-display-cover/hardware/printed-parts/faucet/faucet-display-cover/README.figures.json",
@@ -6891,10 +7019,11 @@ genrule(
     ],
     cmd = """
 set -e
-O0=$$PWD/$(location out/faucet-display-cover/hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step)
-O1=$$PWD/$(location out/faucet-display-cover/hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl)
-O2=$$PWD/$(location out/faucet-display-cover/hardware/printed-parts/faucet/faucet-display-cover/README.figures.json)
-O3=$$PWD/$(location out/faucet-display-cover/hardware/printed-parts/faucet/faucet-display-cover/README.md)
+O0=$$PWD/$(location out/faucet-display-cover/hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover-seated.step)
+O1=$$PWD/$(location out/faucet-display-cover/hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step)
+O2=$$PWD/$(location out/faucet-display-cover/hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl)
+O3=$$PWD/$(location out/faucet-display-cover/hardware/printed-parts/faucet/faucet-display-cover/README.figures.json)
+O4=$$PWD/$(location out/faucet-display-cover/hardware/printed-parts/faucet/faucet-display-cover/README.md)
 for f in $(SRCS); do
   case $$f in
     */node_modules/*) continue;;
@@ -6911,10 +7040,11 @@ cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
 HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py > /dev/null
-cp hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step $$O0
-cp hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl $$O1
-cp hardware/printed-parts/faucet/faucet-display-cover/README.figures.json $$O2
-cp hardware/printed-parts/faucet/faucet-display-cover/README.md $$O3
+cp hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover-seated.step $$O0
+cp hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step $$O1
+cp hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl $$O2
+cp hardware/printed-parts/faucet/faucet-display-cover/README.figures.json $$O3
+cp hardware/printed-parts/faucet/faucet-display-cover/README.md $$O4
 """,
 )
 
@@ -6930,7 +7060,6 @@ genrule(
         "pysrc/hardware/printed-parts/faucet/_faucet_interface.py",
         "pysrc/hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py",
         "pysrc/hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py",
-        ":out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step",
         "pysrc/hardware/printed-parts/faucet/faucet-shell/faucet_shell.py",
         "pysrc/hardware/printed-parts/faucet/faucet_paths.py",
         "pysrc/hardware/printed-parts/faucet/industrial/industrial_display_cover.py",
@@ -6952,6 +7081,7 @@ genrule(
         "out/industrial-faucet/hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.step",
         "out/industrial-faucet/hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.step.mesh",
         "out/industrial-faucet/hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.stl",
+        "out/industrial-faucet/hardware/printed-parts/faucet/industrial/industrial-display-cover-seated.step",
         "out/industrial-faucet/hardware/printed-parts/faucet/industrial/industrial-display-cover.step",
         "out/industrial-faucet/hardware/printed-parts/faucet/industrial/industrial-display-cover.step.mesh",
         "out/industrial-faucet/hardware/printed-parts/faucet/industrial/industrial-display-cover.stl",
@@ -6967,12 +7097,13 @@ O2=$$PWD/$(location out/industrial-faucet/hardware/printed-parts/faucet/industri
 O3=$$PWD/$(location out/industrial-faucet/hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.step)
 O4=$$PWD/$(location out/industrial-faucet/hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.step.mesh)
 O5=$$PWD/$(location out/industrial-faucet/hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.stl)
-O6=$$PWD/$(location out/industrial-faucet/hardware/printed-parts/faucet/industrial/industrial-display-cover.step)
-O7=$$PWD/$(location out/industrial-faucet/hardware/printed-parts/faucet/industrial/industrial-display-cover.step.mesh)
-O8=$$PWD/$(location out/industrial-faucet/hardware/printed-parts/faucet/industrial/industrial-display-cover.stl)
-O9=$$PWD/$(location out/industrial-faucet/hardware/printed-parts/faucet/industrial/industrial-shell-base.step)
-O10=$$PWD/$(location out/industrial-faucet/hardware/printed-parts/faucet/industrial/industrial-shell-base.step.mesh)
-O11=$$PWD/$(location out/industrial-faucet/hardware/printed-parts/faucet/industrial/industrial-shell-base.stl)
+O6=$$PWD/$(location out/industrial-faucet/hardware/printed-parts/faucet/industrial/industrial-display-cover-seated.step)
+O7=$$PWD/$(location out/industrial-faucet/hardware/printed-parts/faucet/industrial/industrial-display-cover.step)
+O8=$$PWD/$(location out/industrial-faucet/hardware/printed-parts/faucet/industrial/industrial-display-cover.step.mesh)
+O9=$$PWD/$(location out/industrial-faucet/hardware/printed-parts/faucet/industrial/industrial-display-cover.stl)
+O10=$$PWD/$(location out/industrial-faucet/hardware/printed-parts/faucet/industrial/industrial-shell-base.step)
+O11=$$PWD/$(location out/industrial-faucet/hardware/printed-parts/faucet/industrial/industrial-shell-base.step.mesh)
+O12=$$PWD/$(location out/industrial-faucet/hardware/printed-parts/faucet/industrial/industrial-shell-base.stl)
 for f in $(SRCS); do
   case $$f in
     */node_modules/*) continue;;
@@ -6995,12 +7126,13 @@ cp hardware/printed-parts/faucet/industrial/industrial-above-counter-gasket.stl 
 cp hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.step $$O3
 cp hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.step.mesh $$O4
 cp hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.stl $$O5
-cp hardware/printed-parts/faucet/industrial/industrial-display-cover.step $$O6
-cp hardware/printed-parts/faucet/industrial/industrial-display-cover.step.mesh $$O7
-cp hardware/printed-parts/faucet/industrial/industrial-display-cover.stl $$O8
-cp hardware/printed-parts/faucet/industrial/industrial-shell-base.step $$O9
-cp hardware/printed-parts/faucet/industrial/industrial-shell-base.step.mesh $$O10
-cp hardware/printed-parts/faucet/industrial/industrial-shell-base.stl $$O11
+cp hardware/printed-parts/faucet/industrial/industrial-display-cover-seated.step $$O6
+cp hardware/printed-parts/faucet/industrial/industrial-display-cover.step $$O7
+cp hardware/printed-parts/faucet/industrial/industrial-display-cover.step.mesh $$O8
+cp hardware/printed-parts/faucet/industrial/industrial-display-cover.stl $$O9
+cp hardware/printed-parts/faucet/industrial/industrial-shell-base.step $$O10
+cp hardware/printed-parts/faucet/industrial/industrial-shell-base.step.mesh $$O11
+cp hardware/printed-parts/faucet/industrial/industrial-shell-base.stl $$O12
 """,
 )
 
@@ -7907,6 +8039,7 @@ genrule(
         "tools/hsm/kernel/Cargo.toml",
         "tools/hsm/kernel/src/boolean.rs",
         "tools/hsm/kernel/src/build.rs",
+        "tools/hsm/kernel/src/dxf.rs",
         "tools/hsm/kernel/src/edge.rs",
         "tools/hsm/kernel/src/face.rs",
         "tools/hsm/kernel/src/import.rs",
@@ -7921,6 +8054,7 @@ genrule(
         "tools/hsm/kernel/src/screw.rs",
         "tools/hsm/kernel/src/sketch_hull.rs",
         "tools/hsm/kernel/src/solid.rs",
+        "tools/hsm/kernel/src/spline.rs",
         "tools/hsm/kernel/src/step.rs",
         "tools/hsm/kernel/src/sweep.rs",
         "tools/hsm/kernel/src/text.rs",
