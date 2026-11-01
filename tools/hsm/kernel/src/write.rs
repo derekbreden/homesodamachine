@@ -8,8 +8,9 @@ use crate::face::{Face, Surface, src_line};
 use crate::math::V3;
 use crate::solid::Solid;
 use crate::topo;
-use anyhow::{Context, Result};
+use anyhow::{Context, Result, ensure};
 use serde_json::{Value, json};
+use sha2::{Digest, Sha256};
 use std::path::Path;
 
 /// One named, coloured solid of a file.
@@ -37,14 +38,73 @@ fn widened(p: [f32; 3]) -> V3 {
     V3::from([p[0] as f64, p[1] as f64, p[2] as f64])
 }
 
+fn f32_triangle(s: &Solid, t: &[u32; 3]) -> Option<[[f32; 3]; 3]> {
+    let tri = t.map(|i| f32s(s.verts[i as usize]));
+    (tri_normal(widened(tri[0]), widened(tri[1]), widened(tri[2])) != V3::ZERO).then_some(tri)
+}
+
 /// A solid's triangles as an STL holds them, in f32. Two corners a few nanometres apart can land
 /// on one f32 point, and the triangle between them has no area in the file: it is left out,
 /// because a reader that welds the file's corners folds it into a fin on an edge of its own.
 fn f32_tris(s: &Solid) -> impl Iterator<Item = [[f32; 3]; 3]> + '_ {
     s.tris
         .iter()
-        .map(|t| t.map(|i| f32s(s.verts[i as usize])))
-        .filter(|t| tri_normal(widened(t[0]), widened(t[1]), widened(t[2])) != V3::ZERO)
+        .filter_map(|t| f32_triangle(s, t))
+}
+
+/// An emitted STL and its exact facet-to-record map. Bodies are already in their print form;
+/// their source records and order are captured by the same f32 filter that emits each facet.
+pub struct PrintOutput {
+    bytes: Vec<u8>,
+    pub(crate) faces: Vec<Vec<u32>>,
+    pub(crate) records: Vec<Vec<Value>>,
+    names: Vec<String>,
+    colors: Vec<Option<[f64; 3]>>,
+}
+
+impl PrintOutput {
+    pub fn new(bodies: &[Body]) -> PrintOutput {
+        let mut tris = vec![];
+        let mut faces = vec![];
+        for body in bodies {
+            let mut emitted = vec![];
+            for (i, t) in body.solid.tris.iter().enumerate() {
+                if let Some(tri) = f32_triangle(body.solid, t) {
+                    tris.push(tri);
+                    emitted.push(body.solid.face_of[i]);
+                }
+            }
+            faces.push(emitted);
+        }
+        PrintOutput {
+            bytes: stl_from(&tris), faces,
+            records: bodies.iter().map(|b| b.solid.faces.iter().map(face_json).collect()).collect(),
+            names: bodies.iter().map(|b| b.name.to_owned()).collect(),
+            colors: bodies.iter().map(|b| b.color).collect(),
+        }
+    }
+
+    pub fn stl_bytes(&self) -> &[u8] { &self.bytes }
+
+    /// The fine model with this print's bound mapping in the same archive. Fine arrays and
+    /// records stay untouched; the printed table has its own actual records and facet order.
+    pub fn model_bytes(&self, fine: &[Body], path: &str, document: Option<&Value>) -> Result<Vec<u8>> {
+        ensure!(fine.len() == self.names.len() && fine.iter().zip(&self.names).zip(&self.colors)
+            .all(|((body, name), color)| body.name == name.as_str() && body.color == *color),
+            "fine and printed body identities differ");
+        let mut document = document.cloned().unwrap_or_else(|| json!({}));
+        let object = document.as_object_mut().context("print-bound model document is an object")?;
+        let mut first = 0;
+        let bodies: Vec<_> = self.faces.iter().enumerate().map(|(i, faces)| {
+            let body = json!({"body":i,"first":first,"count":faces.len(),"faces":format!("print-F{i}.npy")});
+            first += faces.len();
+            body
+        }).collect();
+        object.insert("printed".into(), json!({"v":1,"path":path,
+            "sha256":format!("{:x}",Sha256::digest(&self.bytes)),
+            "records":"print-records.npy","bodies":bodies}));
+        Ok(crate::step::model_with_print(fine, &document, self))
+    }
 }
 
 /// The bytes of a binary STL of `solids`, each simplified as a file takes it, one at a time.
