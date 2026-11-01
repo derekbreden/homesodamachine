@@ -2103,7 +2103,6 @@
       "hardware/cold-core-layout/_fittings.py",
       "hardware/cold-core-layout/_internals.py",
       "hardware/cold-core-layout/_water_inlet_jet.py",
-      "hardware/cold-core-layout/cold-core-assembly.scene.npz",
       "hardware/cold-core-layout/cold-core-assembly.scorecard.json",
       "hardware/cold-core-layout/cold-core-assembly.step.mesh",
       "hardware/cold-core-layout/cold_core_assembly.py",
