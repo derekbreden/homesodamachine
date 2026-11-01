@@ -43,13 +43,14 @@ def write(bodies, path, document=None):
         write_npz(f, items)
 
 
-def load(path):
+def load(path, *, snap=True):
     """{name: (shape, linear rgb or None)}, in the order they were written. A name written
-    for several solids comes back as one compound of them."""
+    for several solids comes back as one compound of them. `snap=False` retains the exact f64
+    coordinates of an already placed model."""
     from .imports import load_model
     from .solids import MeshCompound
     from .write import model_identity
-    solids = load_model(path)
+    solids = load_model(path, snap=snap)
     out = {}
     for s, (name, rgb) in zip(solids, model_identity(path)):
         out.setdefault(name, ([], rgb))[0].append(s)
