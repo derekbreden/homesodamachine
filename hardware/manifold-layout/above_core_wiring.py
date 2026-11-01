@@ -46,7 +46,7 @@ def placements():
 
     # Mains branches sit below the ceiling PSU, west of the data jack.
     for name, x, z, purpose in (('wago-h', -85., 264., 'C14 live / PSU primary / relay 1 COM'),
-                            ('wago-n', -54., 266., 'C14 neutral / PSU primary / compressor'),
+                            ('wago-n', -61., 266., 'C14 neutral / PSU primary / compressor'),
                             ('wago-g', -85., 296.5, 'C14 PE / carbonator bond / compressor earth')):
         put(name, '413', 'back-top', PORTS_FORE,
             (x, 457.5, z), purpose)
