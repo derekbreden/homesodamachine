@@ -542,19 +542,15 @@ fn cutter(mesh: &Mesh, rail: &Rail, f: &Field) -> Result<Option<Mesh>> {
     Ok(Some(Mesh { points, triangles }))
 }
 
-fn main() -> Result<()> {
-    let args: Vec<String> = std::env::args().collect();
-    ensure!(
-        args.len() == 3,
-        "usage: enclosure-skin <numbers.json> <output dir>"
-    );
-    let n = Numbers::read(&args[1])?;
-    let mesh = Mesh::read(Path::new(n.text("mesh")?))?;
+fn flute_mesh(mesh: &Mesh, n: &Numbers, extra_plain: &[[f64; 6]]) -> Result<Manifold> {
     let field: Field = serde_json::from_value(n.get("field")?.clone())?;
-    let rails: Vec<Rail> = serde_json::from_value(n.get("rails")?.clone())?;
+    let mut rails: Vec<Rail> = serde_json::from_value(n.get("rails")?.clone())?;
+    for rail in &mut rails {
+        rail.plain.extend_from_slice(extra_plain);
+    }
     let mut operands = vec![mesh.manifold()?];
     for rail in &rails {
-        if let Some(tool) = cutter(&mesh, rail, &field)? {
+        if let Some(tool) = cutter(mesh, rail, &field)? {
             operands.push(tool.manifold()?);
         }
     }
@@ -573,6 +569,31 @@ fn main() -> Result<()> {
         // quantizing to the positions its STL can store.
         Manifold::from_mesh_f32(&vertices, props, &triangles)?
     };
+    Ok(out)
+}
+
+/// The same print field applied directly to a structural kernel body in this part process.
+pub(crate) fn flute_solid(
+    solid: &hsm_kernel::Solid,
+    n: &Numbers,
+    extra_plain: &[[f64; 6]],
+) -> Result<Manifold> {
+    let mesh = Mesh {
+        points: solid.verts().iter().map(|p| p.to_array()).collect(),
+        triangles: solid.tris().iter().map(|t| t.map(|i| i as usize)).collect(),
+    };
+    flute_mesh(&mesh, n, extra_plain)
+}
+
+fn main() -> Result<()> {
+    let args: Vec<String> = std::env::args().collect();
+    ensure!(
+        args.len() == 3,
+        "usage: enclosure-skin <numbers.json> <output dir>"
+    );
+    let n = Numbers::read(&args[1])?;
+    let mesh = Mesh::read(Path::new(n.text("mesh")?))?;
+    let out = flute_mesh(&mesh, &n, &[])?;
     let (vertices, props, triangles) = out.to_mesh_f32();
     let output = Path::new(&args[2]).join("enclosure-skin.bin");
     let mut bytes = Vec::with_capacity(16 + vertices.len() * 8 + triangles.len() * 8);

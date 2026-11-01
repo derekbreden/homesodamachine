@@ -35,7 +35,7 @@ def _read_mesh(path):
     return trimesh.Trimesh(vertices=points, faces=faces, process=False)
 
 
-def numbers(mesh_path, rails, pitch, depth, rise):
+def field_numbers(rails, pitch, depth, rise):
     """The existing field's sampling, shape and exact rail frames; no native geometry."""
     frames = []
     for rail in rails:
@@ -45,7 +45,6 @@ def numbers(mesh_path, rails, pitch, depth, rise):
         frames.append({"s": s.tolist(), "point": point.tolist(), "normal": normal.tolist(),
                        "closed": rail.closed, "band": rail.band, "plain": rail.plain})
     return {
-        "mesh": str(mesh_path),
         "field": {
             "across": flute_skin.grid_across, "along": flute_skin.grid_along,
             "margin": flute_skin.cut_margin, "overrun": flute_skin.cut_overrun,
@@ -54,6 +53,10 @@ def numbers(mesh_path, rails, pitch, depth, rise):
         },
         "rails": frames,
     }
+
+
+def numbers(mesh_path, rails, pitch, depth, rise):
+    return dict(field_numbers(rails, pitch, depth, rise), mesh=str(mesh_path))
 
 
 def flute(mesh, rails, pitch, depth, rise):
