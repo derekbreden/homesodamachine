@@ -1446,7 +1446,7 @@
   },
   "sidecars": {
     "hardware/cold-core-layout/cold-core-assembly.scorecard.json": "7b53e6f6ac49fbfa18720ef2abda1fbda54898c734de7e6eca1f8044861d32f9",
-    "hardware/manifold-layout/enclosure-assembly.scorecard.json": "b07de06ea5da5f0a39683457e1a958fc86a89da5ca9b61e7b6fea8d476b41c25",
+    "hardware/manifold-layout/enclosure-assembly.scorecard.json": "1d900714e454c25696b159e77ef1f694ad0fdf366625604b821b659174849c9e",
     "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.scorecard.json": "7b53e6f6ac49fbfa18720ef2abda1fbda54898c734de7e6eca1f8044861d32f9"
   },
   "moved": {
@@ -2880,19 +2880,23 @@
   "made": {
     "hardware/assembly/scenes/glb/back-half.glb": {
       "inputs": "4fea33d981e5d3133e973dd2c40416e4acb47fbc11f4016cb32a660870d2a514",
-      "commit": "5286ecb3fdfd7ccdff05ac1a69299678e0bb5cf2"
+      "commit": "5286ecb3fdfd7ccdff05ac1a69299678e0bb5cf2",
+      "unproven": true
     },
     "hardware/assembly/scenes/glb/back-top.glb": {
       "inputs": "4fea33d981e5d3133e973dd2c40416e4acb47fbc11f4016cb32a660870d2a514",
-      "commit": "5286ecb3fdfd7ccdff05ac1a69299678e0bb5cf2"
+      "commit": "5286ecb3fdfd7ccdff05ac1a69299678e0bb5cf2",
+      "unproven": true
     },
     "hardware/assembly/scenes/glb/cap-lid-fill.glb": {
       "inputs": "4fea33d981e5d3133e973dd2c40416e4acb47fbc11f4016cb32a660870d2a514",
-      "commit": "5286ecb3fdfd7ccdff05ac1a69299678e0bb5cf2"
+      "commit": "5286ecb3fdfd7ccdff05ac1a69299678e0bb5cf2",
+      "unproven": true
     },
     "hardware/assembly/scenes/glb/cap-lid.glb": {
       "inputs": "4fea33d981e5d3133e973dd2c40416e4acb47fbc11f4016cb32a660870d2a514",
-      "commit": "5286ecb3fdfd7ccdff05ac1a69299678e0bb5cf2"
+      "commit": "5286ecb3fdfd7ccdff05ac1a69299678e0bb5cf2",
+      "unproven": true
     },
     "hardware/assembly/scenes/glb/cold-core-open.glb": {
       "commit": "b378cd5b8adcbac3da430283ac083189dfe1ae11",
@@ -2900,7 +2904,8 @@
     },
     "hardware/assembly/scenes/glb/cold-core.glb": {
       "inputs": "4fea33d981e5d3133e973dd2c40416e4acb47fbc11f4016cb32a660870d2a514",
-      "commit": "5286ecb3fdfd7ccdff05ac1a69299678e0bb5cf2"
+      "commit": "5286ecb3fdfd7ccdff05ac1a69299678e0bb5cf2",
+      "unproven": true
     },
     "hardware/assembly/scenes/glb/en04-compressor-bay.glb": {
       "commit": "d2c7e36f5c616919c8be5d1ccb8205b0fbac8540",
@@ -2908,7 +2913,8 @@
     },
     "hardware/assembly/scenes/glb/en07-electronics-bay.glb": {
       "inputs": "4fea33d981e5d3133e973dd2c40416e4acb47fbc11f4016cb32a660870d2a514",
-      "commit": "5286ecb3fdfd7ccdff05ac1a69299678e0bb5cf2"
+      "commit": "5286ecb3fdfd7ccdff05ac1a69299678e0bb5cf2",
+      "unproven": true
     },
     "hardware/assembly/scenes/glb/front-top.glb": {
       "commit": "b378cd5b8adcbac3da430283ac083189dfe1ae11",
@@ -2916,7 +2922,8 @@
     },
     "hardware/assembly/scenes/glb/funnel-drain.glb": {
       "inputs": "4fea33d981e5d3133e973dd2c40416e4acb47fbc11f4016cb32a660870d2a514",
-      "commit": "5286ecb3fdfd7ccdff05ac1a69299678e0bb5cf2"
+      "commit": "5286ecb3fdfd7ccdff05ac1a69299678e0bb5cf2",
+      "unproven": true
     },
     "hardware/assembly/scenes/glb/pump-mount.glb": {
       "commit": "b378cd5b8adcbac3da430283ac083189dfe1ae11",
@@ -3186,8 +3193,8 @@
       "unproven": true
     },
     "hardware/manifold-layout/enclosure-assembly.scorecard.json": {
-      "inputs": "4fea33d981e5d3133e973dd2c40416e4acb47fbc11f4016cb32a660870d2a514",
-      "commit": "5286ecb3fdfd7ccdff05ac1a69299678e0bb5cf2"
+      "commit": "3955999e53be87b10d2028609609ba797938b3d8",
+      "unproven": true
     },
     "hardware/manifold-layout/enclosure-assembly.step": {
       "commit": "5286ecb3fdfd7ccdff05ac1a69299678e0bb5cf2",
@@ -3243,11 +3250,13 @@
     },
     "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step": {
       "inputs": "72c6e0ecea8155091ed19f03c7d91a583629a5ddc4df732d677a2f8b64536ffe",
-      "commit": "5286ecb3fdfd7ccdff05ac1a69299678e0bb5cf2"
+      "commit": "5286ecb3fdfd7ccdff05ac1a69299678e0bb5cf2",
+      "unproven": true
     },
     "hardware/printed-parts/cold-core/foam-assembly/internal-routes.step": {
       "inputs": "72c6e0ecea8155091ed19f03c7d91a583629a5ddc4df732d677a2f8b64536ffe",
-      "commit": "5286ecb3fdfd7ccdff05ac1a69299678e0bb5cf2"
+      "commit": "5286ecb3fdfd7ccdff05ac1a69299678e0bb5cf2",
+      "unproven": true
     },
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step": {
       "commit": "d2c7e36f5c616919c8be5d1ccb8205b0fbac8540",
@@ -3667,15 +3676,18 @@
     },
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": {
       "inputs": "d14e96ed5d445b5af0ec7507919bb80a2646dbf71caef0bef2c3e4823461d912",
-      "commit": "5286ecb3fdfd7ccdff05ac1a69299678e0bb5cf2"
+      "commit": "5286ecb3fdfd7ccdff05ac1a69299678e0bb5cf2",
+      "unproven": true
     },
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh": {
       "inputs": "f4d5cd052f451f881b714c93fc5c110fb89b19903f8326b92ab13ab49b0521f2",
-      "commit": "5286ecb3fdfd7ccdff05ac1a69299678e0bb5cf2"
+      "commit": "5286ecb3fdfd7ccdff05ac1a69299678e0bb5cf2",
+      "unproven": true
     },
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": {
       "inputs": "d14e96ed5d445b5af0ec7507919bb80a2646dbf71caef0bef2c3e4823461d912",
-      "commit": "5286ecb3fdfd7ccdff05ac1a69299678e0bb5cf2"
+      "commit": "5286ecb3fdfd7ccdff05ac1a69299678e0bb5cf2",
+      "unproven": true
     },
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step": {
       "inputs": "2cb230dafe800b3082d6dbba3a7e29c2b45070344307c8d63e7ba3d78c0a9c5e",
@@ -4821,11 +4833,13 @@
     },
     "hardware/wiring/enclosure-wiring.step": {
       "inputs": "4fea33d981e5d3133e973dd2c40416e4acb47fbc11f4016cb32a660870d2a514",
-      "commit": "5286ecb3fdfd7ccdff05ac1a69299678e0bb5cf2"
+      "commit": "5286ecb3fdfd7ccdff05ac1a69299678e0bb5cf2",
+      "unproven": true
     },
     "hardware/wiring/enclosure-wiring.step.mesh": {
       "inputs": "4fea33d981e5d3133e973dd2c40416e4acb47fbc11f4016cb32a660870d2a514",
-      "commit": "5286ecb3fdfd7ccdff05ac1a69299678e0bb5cf2"
+      "commit": "5286ecb3fdfd7ccdff05ac1a69299678e0bb5cf2",
+      "unproven": true
     }
   }
 }
