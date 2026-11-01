@@ -15,6 +15,7 @@ genrule(
         "pysrc/hardware/assembly/_pressure_vessel_sync.py",
         "hardware/assembly/acceptance-and-burn-in.md",
         "pysrc/hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py",
+        "pysrc/hardware/cut-parts/carbonation/float-rod/float_rod_dimensions.py",
         "pysrc/hardware/manifold-layout/above_core.py",
         "pysrc/hardware/manifold-layout/manifold_layout.py",
         "pysrc/hardware/printed-parts/cadlib/fits.py",
@@ -389,6 +390,7 @@ genrule(
         "hardware/assembly/enclosure-mechanical.md",
         "pysrc/hardware/cold-core-layout/_bom.py",
         "pysrc/hardware/cold-core-layout/_carbonator.py",
+        "pysrc/hardware/cold-core-layout/_carbonator_bond.py",
         "pysrc/hardware/cold-core-layout/_coil.py",
         "pysrc/hardware/cold-core-layout/_cold_core_style.py",
         "pysrc/hardware/cold-core-layout/_cold_scorecard.py",
@@ -815,6 +817,7 @@ genrule(
         "hardware/assembly/handwork.md",
         "pysrc/hardware/cold-core-layout/_coil.py",
         "pysrc/hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py",
+        "pysrc/hardware/cut-parts/carbonation/float-rod/float_rod_dimensions.py",
         "pysrc/hardware/manifold-layout/above_core.py",
         "pysrc/hardware/printed-parts/cadlib/fits.py",
         "pysrc/hardware/printed-parts/cadlib/reeding.py",
@@ -898,6 +901,7 @@ genrule(
         "hardware/assembly/internal-plumbing.md",
         "pysrc/hardware/cold-core-layout/_bom.py",
         "pysrc/hardware/cold-core-layout/_carbonator.py",
+        "pysrc/hardware/cold-core-layout/_carbonator_bond.py",
         "pysrc/hardware/cold-core-layout/_coil.py",
         "pysrc/hardware/cold-core-layout/_cold_core_style.py",
         "pysrc/hardware/cold-core-layout/_cold_scorecard.py",
@@ -1110,6 +1114,7 @@ genrule(
         "pysrc/hardware/assembly/_pressure_vessel_sync.py",
         "hardware/assembly/pressure-vessel.md",
         "pysrc/hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py",
+        "pysrc/hardware/cut-parts/carbonation/float-rod/float_rod_dimensions.py",
         "pysrc/hardware/manifold-layout/above_core.py",
         "pysrc/hardware/printed-parts/cadlib/fits.py",
         "pysrc/hardware/printed-parts/cadlib/reeding.py",
@@ -1282,6 +1287,7 @@ genrule(
         "pysrc/hardware/assembly/_weld_rotation_rig_sync.py",
         "hardware/assembly/weld-rotation-rig.md",
         "pysrc/hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py",
+        "pysrc/hardware/cut-parts/carbonation/float-rod/float_rod_dimensions.py",
         "pysrc/hardware/manifold-layout/above_core.py",
         "pysrc/hardware/printed-parts/cadlib/fits.py",
         "pysrc/hardware/printed-parts/cadlib/reeding.py",
@@ -1564,6 +1570,7 @@ genrule(
     name = "carbonator-tube-step",
     srcs = [
         "pysrc/hardware/cold-core-layout/_carbonator.py",
+        "pysrc/hardware/cold-core-layout/_carbonator_bond.py",
         "pysrc/hardware/cold-core-layout/_fittings.py",
         "pysrc/hardware/cut-parts/carbonation/carbonator-tube/carbonator_tube_step.py",
         "pysrc/hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py",
@@ -4233,6 +4240,7 @@ genrule(
         ":out/endcap-circular-drawing/hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole-drawing.pdf",
         ":out/endcap-circular-step/hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step",
         "pysrc/hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py",
+        "pysrc/hardware/cut-parts/carbonation/float-rod/float_rod_dimensions.py",
         "hardware/manifold-layout/above-core.json",
         "pysrc/hardware/manifold-layout/above_core.py",
         "pysrc/hardware/manifold-layout/above_core_routes.py",
@@ -4688,6 +4696,7 @@ genrule(
     srcs = [
         "pysrc/hardware/cold-core-layout/_bom.py",
         "pysrc/hardware/cold-core-layout/_carbonator.py",
+        "pysrc/hardware/cold-core-layout/_carbonator_bond.py",
         "pysrc/hardware/cold-core-layout/_coil.py",
         "pysrc/hardware/cold-core-layout/_cold_core_style.py",
         "pysrc/hardware/cold-core-layout/_cold_scorecard.py",
@@ -5444,6 +5453,7 @@ genrule(
     srcs = [
         "pysrc/hardware/cold-core-layout/_bom.py",
         "pysrc/hardware/cold-core-layout/_carbonator.py",
+        "pysrc/hardware/cold-core-layout/_carbonator_bond.py",
         "pysrc/hardware/cold-core-layout/_coil.py",
         "pysrc/hardware/cold-core-layout/_cold_core_style.py",
         "pysrc/hardware/cold-core-layout/_cold_scorecard.py",
@@ -6158,6 +6168,7 @@ genrule(
     srcs = [
         "pysrc/hardware/cold-core-layout/_bom.py",
         "pysrc/hardware/cold-core-layout/_carbonator.py",
+        "pysrc/hardware/cold-core-layout/_carbonator_bond.py",
         "pysrc/hardware/cold-core-layout/_coil.py",
         "pysrc/hardware/cold-core-layout/_cold_core_style.py",
         "pysrc/hardware/cold-core-layout/_cold_scorecard.py",
@@ -6602,6 +6613,7 @@ genrule(
     srcs = [
         "pysrc/hardware/cold-core-layout/_bom.py",
         "pysrc/hardware/cold-core-layout/_carbonator.py",
+        "pysrc/hardware/cold-core-layout/_carbonator_bond.py",
         "pysrc/hardware/cold-core-layout/_coil.py",
         "pysrc/hardware/cold-core-layout/_cold_core_style.py",
         "pysrc/hardware/cold-core-layout/_cold_scorecard.py",
@@ -7922,6 +7934,7 @@ cp hardware/printed-parts/fixtures/water-inlet-jet/README.md $$O5
 genrule(
     name = "weld-rotator",
     srcs = [
+        "pysrc/hardware/printed-parts/cadlib/fits.py",
         "hardware/printed-parts/fixtures/weld-rotator/README.md",
         "pysrc/hardware/printed-parts/fixtures/weld-rotator/_rotator_interface.py",
         "hardware/printed-parts/fixtures/weld-rotator/weld_rotator.py",
@@ -8400,6 +8413,7 @@ cp hardware/printed-parts/valve-seat/README.md $$O1
 genrule(
     name = "funnel-cover",
     srcs = [
+        "pysrc/hardware/manifold-layout/above_core.py",
         "pysrc/hardware/printed-parts/cadlib/fits.py",
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
         "hardware/printed-parts/zone-c/funnel-cover/README.md",
@@ -8407,6 +8421,7 @@ genrule(
         "pysrc/hardware/printed-parts/zone-c/funnel/elbow_cradle.py",
         "pysrc/hardware/printed-parts/zone-c/funnel/funnel.py",
         "pysrc/hardware/reference/jg-pp0308e-elbow/elbow.py",
+        "pysrc/hardware/reference/neofit-stem-elbow/neofit_stem_elbow.py",
         "pysrc/hardware/scripts/_cadq_export.py",
         "pysrc/hardware/scripts/_material_base.py",
         "pysrc/hardware/scripts/_materials.py",
@@ -8471,6 +8486,7 @@ cp hardware/printed-parts/zone-c/funnel-cover/README.md $$O7
 genrule(
     name = "funnel-mold",
     srcs = [
+        "pysrc/hardware/manifold-layout/above_core.py",
         "pysrc/hardware/printed-parts/cadlib/fits.py",
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
         "pysrc/hardware/printed-parts/zone-c/funnel-mold/funnel_mold.py",
@@ -8479,6 +8495,7 @@ genrule(
         ":out/elbow-cradle/hardware/printed-parts/zone-c/funnel/funnel.step",
         "pysrc/hardware/reference/jg-pp0308e-elbow/elbow.py",
         "hardware/reference/jg-pp0308e-elbow/scan-measurements.json",
+        "pysrc/hardware/reference/neofit-stem-elbow/neofit_stem_elbow.py",
         "pysrc/hardware/scripts/_cadq_export.py",
         "pysrc/hardware/scripts/_material_base.py",
         "pysrc/hardware/scripts/_materials.py",
@@ -8570,7 +8587,8 @@ cp hardware/printed-parts/zone-c/funnel-mold/section.step.mesh $$O18
 genrule(
     name = "cradle-trial",
     srcs = [
-        "pysrc/hardware/printed-parts/cadlib/cable_clip.py",
+        "hardware/manifold-layout/above-core.json",
+        "pysrc/hardware/manifold-layout/above_core.py",
         "pysrc/hardware/printed-parts/cadlib/fits.py",
         "pysrc/hardware/printed-parts/cadlib/flute_skin.py",
         "pysrc/hardware/printed-parts/cadlib/overhang_round.py",
@@ -8578,6 +8596,8 @@ genrule(
         "pysrc/hardware/printed-parts/cadlib/reeding.py",
         "pysrc/hardware/printed-parts/cadlib/snap.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
+        "pysrc/hardware/printed-parts/enclosure/enclosure/_above_core_shell.py",
+        "pysrc/hardware/printed-parts/enclosure/enclosure/_anchor_cap_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_data_wing_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_display_wing_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
@@ -8601,17 +8621,21 @@ genrule(
         "pysrc/hardware/printed-parts/zone-c/funnel/funnel_frame.py",
         "pysrc/hardware/reference/beduan-solenoid/beduan_solenoid.py",
         "pysrc/hardware/reference/iec-c14-inlet/iec_c14_inlet.py",
+        "pysrc/hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py",
+        "hardware/reference/jg-pp0208e-tee/branch-operating-measurements.json",
         "pysrc/hardware/reference/jg-pp0308e-elbow/elbow.py",
         "hardware/reference/jg-pp0308e-elbow/scan-measurements.json",
         "pysrc/hardware/reference/kamoer-kphm400/kamoer_kphm400.py",
         "pysrc/hardware/reference/mq6-gas-sensor/mq6_gas_sensor.py",
+        "pysrc/hardware/reference/neofit-stem-elbow/neofit_stem_elbow.py",
         "pysrc/hardware/reference/riteav-keystone/riteav_keystone.py",
+        "pysrc/hardware/reference/tee-connector/tee_connector.py",
         "pysrc/hardware/reference/wago-221/wago_221.py",
-        "pysrc/hardware/reference/yyfkgcp-pogo-4p/yyfkgcp_pogo_4p.py",
         "pysrc/hardware/scripts/_boxes.py",
         "pysrc/hardware/scripts/_cadq_export.py",
         "pysrc/hardware/scripts/_material_base.py",
         "pysrc/hardware/scripts/_materials.py",
+        "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/tools/docgen/__init__.py",
@@ -10636,6 +10660,7 @@ genrule(
     srcs = [
         "pysrc/hardware/cold-core-layout/_bom.py",
         "pysrc/hardware/cold-core-layout/_carbonator.py",
+        "pysrc/hardware/cold-core-layout/_carbonator_bond.py",
         "pysrc/hardware/cold-core-layout/_coil.py",
         "pysrc/hardware/cold-core-layout/_cold_core_style.py",
         "pysrc/hardware/cold-core-layout/_cold_scorecard.py",
@@ -10684,6 +10709,7 @@ genrule(
         "pysrc/hardware/printed-parts/cold-core/_port_cuts.py",
         "pysrc/hardware/printed-parts/cold-core/_reed_channels.py",
         "pysrc/hardware/printed-parts/cold-core/_reservoir_a_anchors.py",
+        "pysrc/hardware/printed-parts/cold-core/_reservoir_a_c2.py",
         "pysrc/hardware/printed-parts/cold-core/_reservoir_b_fill.py",
         "pysrc/hardware/printed-parts/cold-core/_reservoir_ports.py",
         "pysrc/hardware/printed-parts/cold-core/_support_ring.py",
@@ -11647,6 +11673,7 @@ genrule(
     srcs = [
         "pysrc/hardware/cold-core-layout/_bom.py",
         "pysrc/hardware/cold-core-layout/_carbonator.py",
+        "pysrc/hardware/cold-core-layout/_carbonator_bond.py",
         "pysrc/hardware/cold-core-layout/_coil.py",
         "pysrc/hardware/cold-core-layout/_cold_core_style.py",
         "pysrc/hardware/cold-core-layout/_cold_scorecard.py",
@@ -12528,6 +12555,14 @@ genrule(
     name = "pysrc-37eb093fe4ab",
     srcs = ["hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py"],
     outs = ["pysrc/hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
+    name = "pysrc-51f98c1d711a",
+    srcs = ["hardware/cut-parts/carbonation/float-rod/float_rod_dimensions.py"],
+    outs = ["pysrc/hardware/cut-parts/carbonation/float-rod/float_rod_dimensions.py"],
     tools = ["tools/bazel/pysrc.py"],
     cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
 )

@@ -273,8 +273,6 @@ def _build_steps(work: Path) -> dict[str, Path]:
         "tpu_o_ring",
         "flavor_tube_pos_x",
         "flavor_tube_neg_x",
-        "flavor_tube_bridge_pos_x",
-        "flavor_tube_bridge_neg_x",
         "flavor_umbilical_tube_pos_x",
         "flavor_umbilical_tube_neg_x",
         "soda_umbilical_tube",
@@ -287,10 +285,10 @@ def _build_steps(work: Path) -> dict[str, Path]:
         "faucet_display",
         "faucet_display_screen",
     )
-    # A Black faucet's flavor tube runs on from the faucet through a bridge into its umbilical run,
+    # Each flavor line is one black tube, built as its faucet run and its umbilical run,
     # and each length is drawn where it reaches into the frame.
     flavor_lengths = {f"{body}_{side}": side
-                      for body in ("flavor_tube", "flavor_tube_bridge", "flavor_umbilical_tube")
+                      for body in ("flavor_tube", "flavor_umbilical_tube")
                       for side in ("pos_x", "neg_x")}
     mount_tails = {*flavor_lengths, "soda_umbilical_tube", "drain_tube"}
     mount_clip = (-88.0, 380.0)
