@@ -24,6 +24,16 @@ python3 tools/run.py --cad -- tools/cad-venv/bin/python hardware/wiring/installe
 python3 tools/run.py --cad -- tools/cad-venv/bin/python hardware/wiring/installed/above-core-review/installed_wiring_binding.py
 ```
 
+Kernel wiring has a separate fine-model inspection:
+
+```sh
+python3 tools/run.py -- tools/cad-venv/bin/python hardware/wiring/installed/review.py --fine
+```
+
+It checks the authoritative fine topology, source/model hashes and exact installed
+presentation arrays. STEP/source binding and contact scripts read native
+materializations; their receipts retain their own recorded artifact scope.
+
 Use the workstation CAD queue. The optional `--source-cache PATH` reuses
 explicitly bound native source solids after matching current curves,
 termination metadata, jacket geometry and generator hashes. All actual wiring
