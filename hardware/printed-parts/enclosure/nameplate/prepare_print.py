@@ -74,8 +74,12 @@ def prepare(unit=1):
                       "filament_map_mode":"Manual","filament_maps":"1 2",
                       "filament_volume_maps":"0 0"}.items():meta(plater,key,value)
     meshes = []
-    body,ink = plate.split(cq.importers.importStep(str(plate.step_path(unit))).val())
-    receiver = cq.importers.importStep(str(HERE/"nameplate-receiver.step")).val()
+    if getattr(cq, 'MESH', False):
+        body,ink = plate.split(cq.importers.importStep(str(plate.step_path(unit))).val())
+        receiver = cq.importers.importStep(str(HERE/"nameplate-receiver.step")).val()
+    else:
+        body,ink = plate.build_plate(unit), plate.build_ink(unit)
+        receiver = plate.build_receiver()
     posed = [plate.print_pose(body),plate.print_pose(ink),
              receiver.rotate((0,0,0),(1,0,0),180)]
     posed[2] = posed[2].translate((0,0,-posed[2].BoundingBox().zmin))

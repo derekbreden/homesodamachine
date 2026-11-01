@@ -17,21 +17,24 @@ import xml.etree.ElementTree as ET
 from functools import lru_cache
 from pathlib import Path
 
-import cadquery as cq
-import qrcode
-from cadquery.occ_impl.shapes import sortWiresByBuildOrder
-from fontTools.pens.basePen import BasePen
-from fontTools.svgLib.path import parse_path
-from qrcode.util import MODE_ALPHA_NUM, QRData
-from shapely.geometry import box as polygon_box
-from shapely.ops import unary_union
-
 _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
 for _p in (_hw / "scripts", _hw / "printed-parts" / "cadlib",
            _hw / "printed-parts" / "enclosure" / "enclosure"):
     sys.path.insert(0, str(_p))
 sys.path.insert(0, str(_hw.parent / "tools"))
+if __name__ == "__main__":
+    import _rust_part
+    _rust_part.start()
+
+import cadquery as cq
+import qrcode
+from fontTools.pens.basePen import BasePen
+from fontTools.svgLib.path import parse_path
+from qrcode.util import MODE_ALPHA_NUM, QRData
+from shapely.geometry import box as polygon_box
+from shapely.ops import unary_union
+
 from _cadq_export import export_assembly, export_step, _write_mesh_payload, _per_solid_color
 from _materials import M_PETGF_BLACK, one_body, step_safe
 from docgen import substitute_md
@@ -114,6 +117,7 @@ class _OutlinePen(BasePen):
 
 @lru_cache(maxsize=1)
 def build_name():
+    from cadquery.occ_impl.shapes import sortWiresByBuildOrder
     root = ET.parse(_here.with_name("wordmark.svg")).getroot()
     parts = []
     for group in root:
@@ -136,7 +140,7 @@ def qr_matrix(unit):
     return qr.get_matrix()
 
 
-def build_qr(unit):
+def _qr_polygons(unit):
     # Join diagonal-only white contacts by 0.02 mm, below the print resolution,
     # so the two-colour interface has closed manifold faces rather than two
     # cavity wires intersecting at a single point. The 1.1 mm pitch is exact.
@@ -161,13 +165,16 @@ def build_qr(unit):
                 x,y = (col+1)*QR_MODULE, (row+1)*QR_MODULE
                 regions.append(polygon_box(x-.01,y-.01,x+.01,y+.01))
     joined = unary_union(regions)
-    polygons = [joined] if joined.geom_type == "Polygon" else joined.geoms
+    return [joined] if joined.geom_type == "Polygon" else joined.geoms
+
+
+def build_qr(unit):
     def wire(ring):
         return cq.Wire.makePolygon([cq.Vector(WIDTH/2-QR_LEFT-x,THICK-INK_DEPTH,
                                              HEIGHT/2-QR_TOP-y)
                                     for x,y in ring.coords], close=True)
     parts = [cq.Solid.extrudeLinear(wire(p.exterior), [wire(r) for r in p.interiors],
-                                    cq.Vector(0,INK_DEPTH,0)) for p in polygons]
+                                    cq.Vector(0,INK_DEPTH,0)) for p in _qr_polygons(unit)]
     return cq.Compound.makeCompound(parts)
 
 
@@ -227,43 +234,16 @@ def step_path(unit):
 
 
 def selftest():
-    body,ink=build_plate(1),build_ink(1)
-    receiver=build_receiver()
-    assert body.isValid() and len(body.Solids())==1
-    assert receiver.isValid() and len(receiver.Solids())==1
-    assert all(s.isValid() for s in ink.Solids())
-    assert body.intersect(ink).Volume()<1e-6
-    quiet=interface.box(WIDTH/2-QR_LEFT-QR_ACTIVE-QR_QUIET,
-                        WIDTH/2-QR_LEFT+QR_QUIET,THICK-INK_DEPTH,THICK+ARTWORK_RISE,
-                        -QR_ACTIVE/2-QR_QUIET,QR_ACTIVE/2+QR_QUIET)
-    assert build_name().intersect(quiet).Volume()<1e-6
-    assert QR_LEFT+QR_ACTIVE+QR_QUIET<=WIDTH and QR_TOP>=QR_QUIET
-    print(json.dumps({'valid_body':True,'valid_receiver':True,
-                      'wing_thickness_gap_mm':wing_interface.THICKNESS_AIR,
-                      'artwork_rise_mm':ARTWORK_RISE,'payload':_plan.unit_url(1)},indent=2))
+    import _rust_part
+    print(json.dumps(_rust_part.check("enclosure-components", "nameplate", numbers(1)), indent=2))
     return 0
 
 
 def main(unit):
     _plan.serial_of(unit)
-    part = build_part(unit)
-    assert build_plate(unit).isValid() and all(s.isValid() for s in build_ink(unit).Solids())
-    export_assembly(part, str(step_path(unit)))
-    # A single-material STL records the physical exterior. The STEP/3MF retain
-    # the two colour volumes; the viewer payload keeps those colours too.
-    export_step(build_plate(unit).fuse(*build_ink(unit).Solids()).clean(),
-                str(step_path(unit).with_suffix(".stl")))
-    if not os.environ.get("HSM_SKIP_MESH_PAYLOAD"):
-        _write_mesh_payload(step_path(unit), _per_solid_color(part))
-    if unit == 1:
-        receiver = build_receiver()
-        receiver_path = _here.with_name("nameplate-receiver.step")
-        # The coupon prints in the enclosure's own PET-GF, so it is drawn in it.
-        coupon = one_body(receiver, "nameplate-receiver", M_PETGF_BLACK)
-        export_assembly(coupon, str(receiver_path))
-        export_step(receiver, str(receiver_path.with_suffix(".stl")))
-        if not os.environ.get("HSM_SKIP_MESH_PAYLOAD"):
-            _write_mesh_payload(receiver_path, _per_solid_color(coupon))
+    import _rust_part
+    _rust_part.cut("enclosure-components", "nameplate", numbers(unit), _here.parent,
+                   numbers_name=None if unit == 1 else f"nameplate-{unit:03d}")
     variables = {"PLATE_W":f"{WIDTH:g} mm", "PLATE_H":f"{HEIGHT:g} mm",
                  "NAMEPLATE_T":f"{THICK:g} mm", "INK_DEPTH":f"{INK_DEPTH:g} mm",
                  "TAB_PITCH":f"{2*interface.TAB_X:g} mm",
@@ -333,6 +313,146 @@ def build_logo(height: float = LOGO_H):
 
 def logo_width(height: float = LOGO_H) -> float:
     return build_logo(height).BoundingBox().xlen
+
+
+class _NumbersPen(BasePen):
+    """The SVG's own line and Bézier control points, in the plate's X/Z frame."""
+
+    def __init__(self, point=lambda p: list(p)):
+        super().__init__(None)
+        self.point = point
+        self.loops = []
+
+    def _moveTo(self, p):
+        self.start = self.last = p
+        self.segments = []
+
+    def _lineTo(self, p):
+        if p != self.last:
+            self.segments.append({'line': [self.point(q) for q in (self.last, p)]})
+        self.last = p
+
+    def _curveToOne(self, p1, p2, p3):
+        self.segments.append({'cubic': [self.point(q) for q in (self.last, p1, p2, p3)]})
+        self.last = p3
+
+    def _qCurveToOne(self, p1, p2):
+        self.segments.append({'quad': [self.point(q) for q in (self.last, p1, p2)]})
+        self.last = p2
+
+    def arcTo(self, rx, ry, rotation, large, sweep, p):
+        dx, dy = p[0] - self.last[0], p[1] - self.last[1]
+        if not (math.isclose(rx, ry) and math.isclose(rotation, 0.)
+                and math.isclose(math.hypot(dx, dy), 2. * rx)):
+            raise ValueError("The faucet master must use unrotated circular semicircles")
+        direction = 1. if sweep else -1.
+        middle = ((self.last[0] + p[0] + direction * dy) / 2.,
+                  (self.last[1] + p[1] - direction * dx) / 2.)
+        self.segments.append({'arc': [self.point(q) for q in (self.last, middle, p)]})
+        self.last = p
+
+    def _closePath(self):
+        self._lineTo(self.start)
+        self.loops.append(self.segments)
+
+    def _endPath(self):
+        raise ValueError("Nameplate artwork must have closed contours")
+
+
+def _wordmark_numbers():
+    root = ET.parse(_here.with_name("wordmark.svg")).getroot()
+    groups = []
+    for group in root:
+        if group.get("aria-label") not in ("HOME", "SODA", "MACHINE"):
+            continue
+        tx, ty = map(float, re.fullmatch(r"translate\(([-\d.]+) ([-\d.]+)\)",
+                                       group.get("transform")).groups())
+        pen = _NumbersPen(lambda p: [WIDTH/2-p[0]-tx, HEIGHT/2-p[1]-ty])
+        for child in group:
+            parse_path(child.get("d"), pen)
+        groups.append(pen.loops)
+    return groups
+
+
+def _logo_numbers():
+    root = ET.parse(_BRAND_MARK).getroot()
+    faucet = root.find(".//*[@id='faucet']")
+    drop = root.find(".//*[@id='drop']")
+    if faucet is None or drop is None:
+        raise ValueError("The brand master must contain the faucet path and drop circle")
+    pen = _NumbersPen()
+    parse_path(faucet.get('d'), pen)
+    cx, cy, radius = (float(drop.get(k)) for k in ('cx', 'cy', 'r'))
+    # The retained master has horizontal semicircles. Their middle points carry
+    # their extrema, so these are the same exact bounds as build_logo's wires.
+    points = [p for loop in pen.loops for seg in loop for pts in seg.values() for p in pts]
+    points += [[cx-radius, cy-radius], [cx+radius, cy+radius]]
+    left, right = min(p[0] for p in points), max(p[0] for p in points)
+    bottom, top = min(p[1] for p in points), max(p[1] for p in points)
+    scale = LOGO_H / (top-bottom)
+    def point(p):
+        return [WIDTH/2-LOGO_LEFT-(p[0]-left)*scale,
+                ((bottom+top)/2-p[1])*scale]
+    pen = _NumbersPen(point)
+    parse_path(faucet.get('d'), pen)
+    return {'faucet': pen.loops[0], 'drop_center': point((cx, cy)),
+            'drop_radius': radius*scale, 'width': (right-left)*scale}
+
+
+def numbers(unit=1):
+    """The accepted artwork, flat wings and receiver coupon in millimetres."""
+    from _materials import linear
+    _plan.serial_of(unit)
+    wing = wing_interface
+    pw, ph = WIDTH+2*wing.FACE_SLIP, HEIGHT+2*wing.FACE_SLIP
+    margin = max(2., wing.FLOOR_STOCK)
+    rear = -wing.FLOOR_STOCK-wing.BACK_AIR
+    zedge = ph/2+margin
+    z0 = -wing.WING_SPAN/2-wing.END_AIR-wing.SUPPORTED_END_AIR
+    z1 = wing.WING_SPAN/2+wing.END_AIR
+    roof = wing.WING_THICK+wing.THICKNESS_AIR
+    qr = []
+    for polygon in _qr_polygons(unit):
+        qr.append([[[WIDTH/2-QR_LEFT-x, HEIGHT/2-QR_TOP-y] for x, y in ring.coords]
+                   for ring in (polygon.exterior, *polygon.interiors)])
+    return {
+        'name': f'nameplate-{unit:03d}', 'unit': unit, 'payload': _plan.unit_url(unit),
+        'width': WIDTH, 'height': HEIGHT, 'thick': THICK, 'corner': CORNER_R,
+        'wing_projection': wing.PROJECTION, 'wing_span': wing.WING_SPAN,
+        'wing_thick': wing.WING_THICK, 'wing_corner': wing.END_RADIUS,
+        'ink_depth': INK_DEPTH, 'artwork_rise': ARTWORK_RISE,
+        'black': list(linear(_filament(BLACK))), 'white': list(linear(_filament(WHITE))),
+        'receiver_color': list(linear(M_PETGF_BLACK)),
+        'wordmark': _wordmark_numbers(), 'logo': _logo_numbers(), 'qr': qr,
+        'qr_quiet': [WIDTH/2-QR_LEFT-QR_ACTIVE-QR_QUIET,
+                     WIDTH/2-QR_LEFT+QR_QUIET, THICK-INK_DEPTH, THICK+ARTWORK_RISE,
+                     -QR_ACTIVE/2-QR_QUIET, QR_ACTIVE/2+QR_QUIET],
+        'qr_fits': QR_LEFT+QR_ACTIVE+QR_QUIET <= WIDTH and QR_TOP >= QR_QUIET,
+        'receiver': {
+            'shell': [-WIDTH/2-wing.PROJECTION-3., WIDTH/2+wing.PROJECTION+3.,
+                      THICK-3., THICK, -HEIGHT/2-4., HEIGHT/2+4.],
+            'pad_width': pw+2*(wing.PROJECTION+2.),
+            'pad_height': ph+2.+margin, 'pad_corner': CORNER_R+2.,
+            'pad_y': [rear, THICK], 'pad_z': (margin-2.)/2.,
+            'ramp_yz': [[rear, zedge], [rear, zedge-wing.FLOOR_STOCK],
+                        [-wing.BACK_AIR, zedge]], 'ramp_x': [-pw, pw],
+            'mouth_width': WIDTH+2*wing.FACE_X_AIR, 'mouth_height': ph,
+            'mouth_corner': CORNER_R+wing.FACE_SLIP,
+            'mouth_y': [-wing.BACK_AIR, THICK+1.],
+            'mouth_shift_z': -wing.SUPPORTED_END_AIR,
+            'slots': [[min(side*(WIDTH/2-.1), side*(WIDTH/2+wing.PROJECTION+wing.TIP_AIR)),
+                       max(side*(WIDTH/2-.1), side*(WIDTH/2+wing.PROJECTION+wing.TIP_AIR)),
+                       -wing.BACK_AIR, roof, z0, z1] for side in (-1, 1)],
+            'bevels_xy': [[[side*(WIDTH/2+wing.FACE_SLIP), roof],
+                          [side*(WIDTH/2+wing.FACE_SLIP+wing.ENTRY_BEVEL_WIDTH), roof],
+                          [side*(WIDTH/2+wing.FACE_SLIP), roof+wing.ENTRY_BEVEL_DEPTH]]
+                         for side in (-1, 1)],
+            'slot_z': [z0, z1],
+            'diamond_xz': [[-9., 0.], [0., -10.], [9., 0.], [0., 10.]],
+            'diamond_y': [rear-.5, .5],
+            'thickness_air': wing.THICKNESS_AIR,
+        },
+    }
 
 
 

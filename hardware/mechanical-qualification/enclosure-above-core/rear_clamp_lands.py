@@ -1,6 +1,6 @@
 """Manual native reading of the six selected rear fitting clamping lands.
 
-Read the actual back-top STEP and six exported identification chips, with
+Read the actual back-top STEP and six identification chips, with
 the selected native fitting/nut builders and port frames. No producer,
 hook or recurring check invokes this reader. Run through the CAD queue.
 This measures nominal geometry, not thread form, tightening, load or sealing.
@@ -73,7 +73,7 @@ def main():
             'nut':plan['nut_seat_y_mm']},
         'selected_total_clamp_mm':plan['retained_panel_mm'],
         'volume_tolerance_mm3':TOL_MM3,'face_probe_mm':FACE_PROBE_MM,'ports':{},
-        'limits':['The native wall and exported chips are the representations read; '
+        'limits':['The native wall and identification chips are the representations read; '
                   'this is not a printed-STL, torque, thread-engagement or lifetime qualification.',
                   'Fitting exterior subdivisions, PP1208E barrel/nut dimensions and operating '
                   'collet planes retain their documented nominal-reference estimates. '
@@ -102,7 +102,13 @@ def main():
         nut=parts._nut(row)
         which='co2' if name=='co2-inlet' else name.removeprefix('bulkhead-')
         chip_path=HW/f'printed-parts/enclosure/rear-identification/rear-label-{which}.step'
-        chip_native=cq.importers.importStep(str(chip_path)).val()
+        if getattr(cq,'MESH',False):
+            chip_native=cq.importers.importStep(str(chip_path)).val()
+        else:
+            labels=parts._module('rear_clamp_labels',
+                'printed-parts/enclosure/rear-identification/rear_identification.py')
+            chip_native=cq.Compound.makeCompound([labels.chip(which),labels.word(which)])
+            result['source_sha256'][str(Path(labels.__file__).relative_to(ROOT))]=sha(Path(labels.__file__))
         # The largest positive-Y planar face is the chip's full face; the
         # lettering has smaller proud faces and lies outside the flange land.
         chip_face=max((f for f in chip_native.Faces() if f.geomType()=='PLANE'
