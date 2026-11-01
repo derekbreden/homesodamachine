@@ -34,18 +34,6 @@ from pathlib import Path
 
 from _payload_rules import LINEAR_DEFLECTION_RATIO, VERSION
 
-from OCP.BRep import BRep_Builder, BRep_Tool
-from OCP.BRepBndLib import BRepBndLib
-from OCP.BRepBuilderAPI import BRepBuilderAPI_Copy
-from OCP.BRepMesh import BRepMesh_IncrementalMesh
-from OCP.Bnd import Bnd_Box
-from OCP.Precision import Precision
-from OCP.Quantity import Quantity_TypeOfColor
-from OCP.TopAbs import TopAbs_FACE, TopAbs_REVERSED
-from OCP.TopExp import TopExp_Explorer
-from OCP.TopLoc import TopLoc_Location
-from OCP.TopoDS import TopoDS, TopoDS_Compound
-
 # What the viewer gets by calling ReadStepFile(buffer, null): a linear
 # deflection stated as a ratio of the model's size, and an angular deflection
 # in radians. Transcribed from TriangulateShape in occt-import-js's
@@ -73,6 +61,10 @@ def deflection(shape) -> float:
 
     Taken once for the whole model, so a part's triangles depend on the model
     it sits in exactly as they do there."""
+    from OCP.BRepBndLib import BRepBndLib
+    from OCP.Bnd import Bnd_Box
+    from OCP.Precision import Precision
+
     box = Bnd_Box()
     BRepBndLib.Add_s(shape, box, False)
     if box.IsVoid():
@@ -98,6 +90,11 @@ def _mesh_all(solids, linear: float):
     that model reads the mesh's box, wider than the analytic one by the linear
     deflection. A part exported and then checked against its own nominal extents
     would fail on a tolerance it never left."""
+    from OCP.BRep import BRep_Builder
+    from OCP.BRepBuilderAPI import BRepBuilderAPI_Copy
+    from OCP.BRepMesh import BRepMesh_IncrementalMesh
+    from OCP.TopoDS import TopoDS_Compound
+
     copies = [BRepBuilderAPI_Copy(solid.wrapped).Shape() for solid in solids]
     compound = TopoDS_Compound()
     builder = BRep_Builder()
@@ -118,6 +115,12 @@ def _solid_arrays(shape):
     were walked — the grouping occt-import-js reports, and what the edge picker
     (web/public/js/viewer/edge-picker.js) reconstructs the BREP edges from.
     """
+    from OCP.BRep import BRep_Tool
+    from OCP.TopAbs import TopAbs_FACE, TopAbs_REVERSED
+    from OCP.TopExp import TopExp_Explorer
+    from OCP.TopLoc import TopLoc_Location
+    from OCP.TopoDS import TopoDS
+
     pos, nrm, idx, fac = [], [], [], []
     exp = TopExp_Explorer(shape, TopAbs_FACE)
     while exp.More():
@@ -149,6 +152,8 @@ def _solid_arrays(shape):
 
 
 def _mesh(shape, name, color):
+    from OCP.Quantity import Quantity_TypeOfColor
+
     pos, nrm, idx, fac = _solid_arrays(shape)
     if not idx:
         return None
@@ -201,6 +206,8 @@ def from_assembly(assembly):
               for name, color, solids in _placed(assembly) for solid in solids]
     import sys
     if "meshcad" in sys.modules and sys.modules["meshcad"].mesh_mode():
+        from OCP.Quantity import Quantity_TypeOfColor
+
         # Mesh-kernel solids are drawn as its STEP writer draws them, at the same deflection.
         mw = sys.modules["meshcad"].writer()
         boxes = [s.BoundingBox() for _, _, s in placed]

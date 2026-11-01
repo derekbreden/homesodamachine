@@ -18,9 +18,9 @@ build that ships last run's geometry. Three things decide it, and the key takes 
     module in the namespace, and the file behind `seat_body` decides a seat all the same.
     The whole text of each file found goes in, so an edit anywhere in any of them misses.
 
-  - THE DESCRIPTION, by `repr`. A description that does not repr completely is a key that
-    cannot see part of its own input: `enclosure.Box` is a namedtuple of numbers and station
-    tuples and repr's whole, which is what makes it usable here.
+  - THE DESCRIPTION, by value. Numbers and containers retain their types and order, colors
+    carry RGBA, and placed solids carry their model or unmeshed BREP content. Named records
+    carry their field names, so a Box includes both its stations and the bodies it stands around.
 
   - THE KERNEL. The code says `cut` and `fuse`; OCCT is what performs them, so the same source
     and the same description hand back a different solid under a different kernel. This key
@@ -268,6 +268,39 @@ def digest(paths) -> str:
     return h.hexdigest()
 
 
+def _description(value):
+    """The values a description carries, including its placed solids and their colors."""
+    if value is None or type(value) in (bool, int, float, str, bytes):
+        return value
+    if isinstance(value, dict):
+        return ("dict", tuple((_description(k), _description(v)) for k, v in value.items()))
+    if isinstance(value, (tuple, list)):
+        return (type(value).__name__, getattr(value, "_fields", ()),
+                tuple(_description(v) for v in value))
+    if type(value).__name__ in ("Color", "Vector") and hasattr(value, "toTuple"):
+        return (type(value).__name__, tuple(value.toTuple()))
+    meshcad = sys.modules.get("meshcad")
+    if meshcad is not None and not hasattr(value, "vals") and meshcad.is_mesh(value):
+        return ("mesh", hashlib.blake2b(meshcad.model_bytes(value), digest_size=16).hexdigest())
+    cq = sys.modules.get("cadquery")
+    shape_type = vars(cq).get("Shape") if cq is not None else None
+    if shape_type is not None and isinstance(value, shape_type):
+        from OCP.BRepTools import BRepTools
+        from OCP.TopTools import TopTools_FormatVersion
+        data = io.BytesIO()
+        BRepTools.Write_s(value.wrapped, data, False, False,
+                         TopTools_FormatVersion.TopTools_FormatVersion_VERSION_1)
+        return ("brep", hashlib.blake2b(data.getbuffer(), digest_size=16).hexdigest())
+    np = sys.modules.get("numpy")
+    if np is not None:
+        if isinstance(value, np.ndarray):
+            content = _description(value.tolist()) if value.dtype.hasobject else value.tobytes()
+            return ("array", value.dtype.descr, value.shape, content)
+        if isinstance(value, np.generic):
+            return ("scalar", value.dtype.descr, _description(value.item()))
+    raise TypeError(f"{type(value).__name__} has no realized input form")
+
+
 def key(module_name: str, *inputs) -> str:
     """A name for the shape `module_name` draws from `inputs`.
 
@@ -277,11 +310,11 @@ def key(module_name: str, *inputs) -> str:
     `import_step` call while the run it happens in reaches 28 of them. So a key taken from
     the walk alone stands for a shape after a solid it was cut against has moved."""
     h = hashlib.blake2b(digest_size=16)
+    h.update(b"hsm realized description 2\n")
     h.update(os.environ.get("HSM_INPUT_DIGEST", "").encode())
     h.update(toolchain().encode())
     h.update(digest(sources(module_name)).encode())
-    for i in inputs:
-        h.update(repr(i).encode())
+    h.update(repr(tuple(_description(i) for i in inputs)).encode())
     return h.hexdigest()
 
 
