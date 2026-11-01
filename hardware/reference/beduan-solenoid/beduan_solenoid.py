@@ -11,13 +11,9 @@ import json
 import math
 import sys
 
-import cadquery as cq
-
 _here = Path(__file__).resolve()
 _hardware = next(p for p in _here.parents if p.name == 'hardware')
 sys.path.insert(0, str(_hardware / 'scripts'))
-from _cadq_export import export_assembly
-from _materials import C_VALVE, M_MOULDED_BLACK, M_ZINC_PLATED_STEEL, M_TINNED_STEEL
 sys.path.insert(0,str(_hardware.parent/'tools'))
 from docgen import substitute_md
 
@@ -90,11 +86,13 @@ def mounting_centers():
 
 
 def _cylinder(radius, z0, z1, xy=(0, 0)):
+    import cadquery as cq
     return (cq.Workplane('XY').workplane(offset=z0)
             .center(*xy).circle(radius).extrude(z1-z0))
 
 
 def _rounded_plate(width, depth, z0, z1, radius):
+    import cadquery as cq
     return (cq.Workplane('XY').workplane(offset=z0)
             .box(width, depth, z1-z0, centered=(True,True,False))
             .edges('|Z').fillet(radius))
@@ -109,6 +107,7 @@ def _cap_plate(z0, z1):
 
 
 def build_body():
+    import cadquery as cq
     lower = _cylinder(bearing_radius, *bearing_z_range).edges('<Z').fillet(lower_edge_fillet)
     body = _cylinder(body_radius, *body_main_z_range)
     for xy in mounting_centers():
@@ -129,6 +128,7 @@ def build_body():
 
 
 def _port_half(side):
+    import cadquery as cq
     profile = [(9.5,0),(9.5,port_neck_radius),(16.0,port_neck_radius),
                (17.6,7.35),(18.4,port_radius),(25.8,port_radius),
                (26.5,7.25),(26.5,0)]
@@ -172,11 +172,13 @@ def _port_half(side):
 
 
 def build_port():
+    import cadquery as cq
     parts = [_port_half(side) for side in (-1,1)]
     return cq.Workplane(obj=cq.Compound.makeCompound([p.val() for pair in parts for p in pair]))
 
 
 def build_winding():
+    import cadquery as cq
     winding = _cylinder(coil_radius, *coil_body_z_range, (coil_center_x,coil_center_y))
     winding = winding.edges().fillet(.6)
     rim = _cylinder(12.65,50.2,54.8,(coil_center_x,coil_center_y)).edges().fillet(.5)
@@ -203,6 +205,7 @@ def build_winding():
 
 
 def build_bracket():
+    import cadquery as cq
     z0,z1 = coil_z_range[0],bracket_top_z
     outer = (cq.Workplane('XY').box(bracket_width,bracket_depth,z1-z0)
              .translate((coil_center_x,0,(z0+z1)/2)).edges('|Y and >Z').fillet(bracket_outer_bend))
@@ -226,6 +229,7 @@ def build_screw_heads():
 
 
 def build_spades():
+    import cadquery as cq
     tabs=[]
     for side in (-1,1):
         x=side*spade_x_spacing/2
@@ -251,6 +255,8 @@ def outlet():
 
 @lru_cache(maxsize=1)
 def _parts():
+    import cadquery as cq
+    from _materials import C_VALVE, M_MOULDED_BLACK, M_ZINC_PLATED_STEEL, M_TINNED_STEEL
     body=build_body()
     collets=[]
     for side in (-1,1):
@@ -266,10 +272,12 @@ def _parts():
 
 def build_beduan_solenoid():
     """Exterior compound in the mounting frame, including all material components."""
+    import cadquery as cq
     return cq.Workplane(obj=cq.Compound.makeCompound([s for p,_ in _parts().values() for s in p.val().Solids()]))
 
 
 def build_assembly():
+    import cadquery as cq
     assy=cq.Assembly(name='beduan-solenoid')
     for name,(part,color) in _parts().items():
         assy.add(part,name=name,color=color)
@@ -277,6 +285,7 @@ def build_assembly():
 
 
 def main():
+    from _cadq_export import export_assembly
     model=build_beduan_solenoid()
     solids=model.val().Solids()
     assert solids and all(s.isValid() and s.Volume()>0 for s in solids)
@@ -304,3 +313,16 @@ def main():
 
 if __name__=='__main__':
     main()
+
+
+def __getattr__(name):
+    if name == "cq":
+        import cadquery
+        return cadquery
+    if name == "export_assembly":
+        from _cadq_export import export_assembly
+        return export_assembly
+    if name in {"C_VALVE", "M_MOULDED_BLACK", "M_ZINC_PLATED_STEEL", "M_TINNED_STEEL"}:
+        import _materials
+        return getattr(_materials, name)
+    raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
