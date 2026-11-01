@@ -13,12 +13,16 @@ import math
 import sys
 from pathlib import Path
 
-import cadquery as cq
-
 _here = Path(__file__).resolve().parent
 sys.path.insert(0, str(next(p for p in _here.parents if p.name == "printed-parts") / "cadlib"))
 sys.path.insert(0, str(next(p for p in _here.parents if p.name == "hardware") / "scripts"))
 sys.path.insert(0, str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"))
+
+if __name__ == "__main__":
+    import _rust_part
+    _rust_part.start()
+
+import cadquery as cq
 
 from world_workplane import WorldWorkplane, xy_plane_z_up, xz_plane_y_up
 from snap import Frame, apply_ramp_out_first, apply_ramp_in_first
