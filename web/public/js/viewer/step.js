@@ -4,7 +4,7 @@
 import * as THREE from "three";
 import { state } from "./state.js";
 import { scene, camera, resetCamera, fitCameraDepth, fitFog, BG_COLOR } from "./scene.js";
-import { applyXray, disposeXray, syncEdgeResolution, setMeshMaterial } from "./xray.js";
+import * as xray from "./xray.js";
 import { getOcct, getThumbnailRuntime, stepRuntime } from "./step-runtime.js";
 import { setActiveEdges } from "./edge-picker.js";
 import { clearPickFind } from "./pick-find.js";
@@ -18,6 +18,8 @@ import { FAUCET_FINISHES, faucetStyleFor, hasFaucetFinish, isFaucetFinishBody, s
 import { HSM_EVENTS } from "/contracts/client-events.js";
 import { stepLocation } from "/contracts/step-locations.js";
 import { matchesBody } from "/contracts/materials.js";
+
+const { applyXray, syncEdgeResolution, setMeshMaterial } = xray;
 
 // --- STEP parsing ---
 async function parseStep(buffer) {
@@ -437,7 +439,7 @@ export async function loadStepFile(file, { preserveCamera = false } = {}) {
 
     if (state.currentGroup) {
       scene.remove(state.currentGroup);
-      disposeXray(state.currentGroup);
+      xray.disposeXray?.(state.currentGroup);
       state.currentGroup.traverse((c) => { if (c.geometry) c.geometry.dispose(); });
     }
 
@@ -521,7 +523,7 @@ function snapThumbnail(group, px = THUMB_SIZE, presentation = "viewer") {
   const dataURL = thumbRenderer.domElement.toDataURL();
 
   thumbScene.remove(group);
-  disposeXray(group);
+  xray.disposeXray?.(group);
   group.traverse((c) => { if (c.geometry) c.geometry.dispose(); });
   return dataURL;
 }
