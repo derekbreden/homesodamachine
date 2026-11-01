@@ -12,8 +12,9 @@ from pathlib import Path
 import elbow_cradle
 import funnel
 
-ROOT = next(p for p in Path(__file__).resolve().parents
-            if (p / 'hardware/scripts/_cadq_export.py').is_file())
+ROOT = next(p for p in Path(__file__).resolve().parents if any(
+    (p / 'hardware/scripts' / helper).is_file()
+    for helper in ('_rust_part.py', '_cadq_export.py')))
 sys.path[:0] = [str(ROOT / 'hardware/printed-parts/enclosure/enclosure'),
                 str(ROOT / 'hardware/scripts')]
 
