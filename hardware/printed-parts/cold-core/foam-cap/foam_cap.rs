@@ -445,11 +445,9 @@ fn pump_snap(n: &Numbers) -> Result<Solid> {
     for p in west.iter().rev() {
         pen = pen.line_to(v2(2. * c - p.x, p.y));
     }
-    let tx = r * r / w;
-    let tz = -r * sqrt((1. - (r / w) * (r / w)).max(0.));
     pen = pen
-        .line_to(v2(c + tx, tz))
-        .arc_through(v2(c, -r), v2(c - tx, tz))?;
+        .line_to(v2(c + w, -r))
+        .line_to(v2(c - f(&d["selected"], "cap_east_roof_half_width_mm")?, -r));
     let profile = Profile::new(pen.close()?);
     let blank = Plane::XZ
         .at(v3(0., f(s, "y1")?, 0.))
@@ -934,7 +932,16 @@ fn top_lid(n: &Numbers) -> Result<Solid> {
             f(hole, "radius")?,
         )?);
     }
-    body.cut(&Solid::union_all(&air)?)
+    let pump = n.get("pump")?;
+    let cx = p3(&pump["centre_world_mm"] )?.x;
+    let fy = pump["frame"]["translation_mm"][1].as_f64().context("pump y")?;
+    let selected = &pump["selected"];
+    let fore = f(selected, "cover_channel_fore_native_x_mm")?;
+    let aft = selected["rail_stop_native_x_mm"][1][1].as_f64().context("rear rail stop")?;
+    let face = n.f("cap_face_world_z")?;
+    let pocket = box3(cx - 24.81, cx + 24.81, fy + fore - 0.1, fy + aft + 0.1,
+        face - f(selected, "cover_channel_recess_mm")?, face + 0.1).transformed(&t);
+    body.cut(&Solid::union_all(&air)?)?.cut(&pocket)
 }
 
 fn main() -> Result<()> {
