@@ -117,6 +117,9 @@ impl Spline {
                 "a Bézier holds a non-finite control point");
         let length: f64 = points.windows(2).map(|p| (p[1] - p[0]).norm()).sum();
         ensure!(length.is_finite() && length > 1e-9, "a Bézier control polygon has no finite length");
+        ensure!((points[1] - points[0]).norm() > 1e-12
+                && (points[points.len() - 1] - points[points.len() - 2]).norm() > 1e-12,
+                "a Bézier along an endpoint tangent of no length");
         Ok(Spline { t: vec![0.0, length], p: vec![points[0], points[points.len() - 1]],
                     m: vec![], bezier: Some(points.to_vec()) })
     }
@@ -236,6 +239,24 @@ mod tests {
         }
         assert!((curve.derivative(0.0) * length - (controls[1] - controls[0]) * 5.0).norm() < 1e-10);
         assert!((curve.derivative(length) * length - (controls[5] - controls[4]) * 5.0).norm() < 1e-10);
+    }
+
+    #[test]
+    fn bezier_rejects_zero_endpoint_tangents() {
+        for controls in [vec![V3::ZERO, V3::ZERO, V3::X],
+                         vec![V3::ZERO, V3::X, V3::X],
+                         vec![V3::ZERO, V3::ZERO, V3::X, V3::X]] {
+            let error = Spline::bezier(&controls).unwrap_err();
+            assert!(error.to_string().contains("endpoint tangent"));
+        }
+    }
+
+    #[test]
+    fn bezier_rejects_an_endpoint_tangent_collapsed_by_path_alignment() {
+        let controls = [v3(0.0, 0.0, 1e-8), V3::ZERO, V3::X];
+        assert!(Spline::bezier(&controls).is_ok());
+        let error = crate::Path::new(V3::ZERO).bezier(&controls).unwrap_err();
+        assert!(error.to_string().contains("endpoint tangent"));
     }
 
     #[test]

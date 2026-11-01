@@ -1,5 +1,5 @@
 //! Hollow tubes from the production route JSON, without Python or CadQuery.
-//! cargo run --release -p hsm-kernel --example route-preview -- routes.json tubes.step.mesh
+//! cargo run --release -p hsm-kernel --bin route-preview -- routes.json tubes.step.mesh
 use anyhow::{Context, Result, bail, ensure};
 use hsm_kernel::*;
 use serde_json::{Value, json};
