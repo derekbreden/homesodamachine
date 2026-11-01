@@ -951,5 +951,71 @@
     "ellipse_radius_excess_mm": 0.00011475873953930986,
     "arch_minimum_lower_bound_mm": 3.017334242157713,
     "formula": "nominal wall - max(abs((x-midpoint)*axis_z/axis_x)) - bore_radius*(1/abs(axis_x)-1)"
+  },
+  "post_publication_surface_review": {
+    "reader": "hardware/scripts/geometry_lint.py",
+    "reader_sha256": "bb7b1fa42e8d2985671eb2ebce6610074e65b6e2a22e5f014e498885ebfb030d",
+    "physical_stl_sha256": "24a2481d9606ee004ff3a19617b426b6285e74eeef07ae41375e4e54e6cd402c",
+    "findings": [
+      {
+        "class": "sliver",
+        "reading": "0.850 mm strip, 54.5 mm long",
+        "clicks": [
+          "x=-31.904 y=14.255 z=27.250"
+        ],
+        "answer_indices": [
+          0
+        ],
+        "disposition": "specific_functional_or_approved_profile"
+      },
+      {
+        "class": "sliver",
+        "reading": "0.850 mm strip, 54.5 mm long",
+        "clicks": [
+          "x=31.904 y=14.255 z=27.250"
+        ],
+        "answer_indices": [
+          0
+        ],
+        "disposition": "specific_functional_or_approved_profile"
+      },
+      {
+        "class": "sliver",
+        "reading": "1.202 mm strip, 54.5 mm long",
+        "clicks": [
+          "x=31.904 y=16.830 z=27.250"
+        ],
+        "answer_indices": [
+          0
+        ],
+        "disposition": "specific_functional_or_approved_profile"
+      },
+      {
+        "class": "sliver",
+        "reading": "1.202 mm strip, 54.5 mm long",
+        "clicks": [
+          "x=-31.904 y=16.830 z=27.250"
+        ],
+        "answer_indices": [
+          0
+        ],
+        "disposition": "specific_functional_or_approved_profile"
+      }
+    ],
+    "answers_path": "hardware/printed-parts/lint-answers/cold-core/foam-cap/pump-snap-cap.lint-answers",
+    "answers_sha256": "24e21c7204fc85fbe17539e4892619cc41708f78adb32184792162fda6c87834",
+    "unreviewed": [],
+    "arch_section_bound": {
+      "scope": "Conservative complete axial arch-section bound: the outer arch is a fixed-axis circular extrusion, and the fitted bore is a tilted circular cylinder. Its cross-section lies inside a circle enlarged by axial centre drift and the tilted-cylinder ellipse term. Working hook face widths are separate.",
+      "nominal_arch_mm": 3.1,
+      "axial_interval_native_mm": [
+        20.0,
+        74.5
+      ],
+      "maximum_bore_axis_drift_mm": 0.08255099910274807,
+      "ellipse_radius_excess_mm": 0.00011475873953930986,
+      "arch_minimum_lower_bound_mm": 3.017334242157713,
+      "formula": "nominal wall - max(abs((x-midpoint)*axis_z/axis_x)) - bore_radius*(1/abs(axis_x)-1)"
+    }
   }
 }
