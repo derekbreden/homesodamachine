@@ -12,18 +12,17 @@ exploded views from them on the kernel (`hardware/scripts/_rust_part.py`).
 import argparse
 import json
 import math
-import subprocess
 import sys
-import tempfile
 from pathlib import Path
 
-import cadquery as cq
-
 ROOT = next(p for p in Path(__file__).resolve().parents
-            if (p / 'hardware/scripts/_cadq_export.py').is_file())
+            if (p / 'hardware/scripts/_rust_part.py').is_file())
 sys.path.insert(0, str(ROOT / 'hardware/scripts'))
 sys.path.insert(0, str(ROOT / 'tools'))
-import _cadq_export  # noqa: E402,F401  the CAD lock, and build-time.md's clock
+if __name__ == '__main__':
+    import _rust_part
+    _rust_part.start()
+
 from _materials import linear  # noqa: E402
 from docgen import substitute_md  # noqa: E402
 
@@ -136,7 +135,7 @@ def numbers():
             'magnet_inner_radius': magnet_id / 2, 'magnet_tolerance': magnet_tolerance,
             'pocket_outer_radius': magnet_pocket_od / 2, 'pocket_inner_radius': magnet_pocket_id / 2,
             'insertion_lead': insertion_lead, 'insert_lift': insert_lift, 'magnet_lift': magnet_lift,
-            **{f'color_{material}': list(linear(cq.Color(color))) for material, color in colors.items()}}
+            **{f'color_{material}': list(linear(color)) for material, color in colors.items()}}
 
 
 def check(asked):
@@ -144,13 +143,7 @@ def check(asked):
     solid, and every volume by which they miss the design. `asked` holds the lifts the separate
     pieces are slid in by and the depth of roof the insert must carry."""
     import _rust_part
-    program = _rust_part.program('cold-core', 'magnetic-float')
-    with tempfile.TemporaryDirectory() as directory:
-        path = Path(directory) / 'magnetic-float.check.json'
-        path.write_text(json.dumps({**numbers(), 'check': asked}))
-        run = subprocess.run([str(program), str(path), '--check'],
-                             check=True, stdout=subprocess.PIPE, text=True)
-    return json.loads(run.stdout)
+    return _rust_part.check('cold-core', 'magnetic-float', {**numbers(), 'check': asked})
 
 
 def write(output):
