@@ -347,6 +347,12 @@ these records into its copied face text. The fine model retains each triangle's 
 record. Older payloads remain readable. `write::payload_bytes` emits the header without
 contributor metadata; both encoders emit identical geometry arrays.
 
+Payload imports retain each displayed range's complete contributor set. The analytic
+surface stays intact, and no member becomes its primary owner. Fine model records can
+carry that set in `contributors`, with `src:null` and an empty primary `op`; wholly null
+records stay null. Transforms preserve the set. Repeated imports share one immutable
+allocation per distinct complete set for the process lifetime.
+
 A generator that cuts a part begins its own run before it imports anything else:
 
 ```python

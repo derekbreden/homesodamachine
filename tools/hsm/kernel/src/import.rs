@@ -12,7 +12,7 @@
 //! payload its writer cut beside it (`<name>.step.mesh`, whose `src` is the STEP's SHA-256). A
 //! relative path is read from the working directory, which `_rust_part.cut` sets to the root.
 //! `model(path)` reads an explicitly named model; no sibling model is substituted for a STEP.
-use crate::face::{Face, Surface, file_src};
+use crate::face::{Face, Surface, file_src, unknown_src};
 use crate::mass;
 use crate::math::{V3, v3};
 use crate::rule::snap3;
@@ -189,10 +189,12 @@ pub fn bodies(bytes: &[u8], name: &str) -> Result<Vec<Imported>> {
     ensure!(head["v"] == 3, "{name} is payload version {}, not 3", head["v"]);
     let size = u32::from_le_bytes(bytes[..4].try_into()?) as usize;
     let blob = &bytes[4 + size..];
-    let src = file_src(name);
-    let free = Face::new(Surface::Free { kind: "MESH" }, "import", src);
     let mut out: Vec<Imported> = vec![];
     for e in head["meshes"].as_array().context("a payload header lists its meshes")? {
+        let groups = e.get("face_sources");
+        let free = || Face::new(Surface::Free { kind: "MESH" },
+            if groups.is_some() { "" } else { "import" },
+            if groups.is_some() { unknown_src() } else { file_src(name) });
         let entry = e["name"].as_str().context("a payload mesh has a name")?;
         let pos = words(blob, &e["pos"])?;
         let idx = words(blob, &e["idx"])?;
@@ -215,9 +217,16 @@ pub fn bodies(bytes: &[u8], name: &str) -> Result<Vec<Imported>> {
                 ensure!(records.len() == ranges, "{name}: {entry} has a different record count from its face ranges");
                 records.iter().map(Face::from_json).collect::<Result<Vec<_>>>()?
             }
-            None => vec![free; ranges],
+            None => vec![free(); ranges],
         };
-        faces.push(free);
+        if let Some(groups) = groups {
+            let groups = groups.as_array().context("payload contributor sets are an array")?;
+            ensure!(groups.len() == ranges, "{name}: {entry} has a different contributor count from its face ranges");
+            for (face, group) in faces.iter_mut().zip(groups) {
+                *face = face.with_contributors(group)?;
+            }
+        }
+        if face_of.contains(&(ranges as u32)) { faces.push(free()); }
         let solid = Solid::from_mesh(&verts, &tris, &face_of, &faces).with_context(|| format!("{name}: {entry}"))?;
         let body = without_index(entry);
         let color = e["color"].as_array().map(|c| [0, 1, 2].map(|k| c.get(k).and_then(Value::as_f64).unwrap_or(0.0)));
