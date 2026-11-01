@@ -11,9 +11,13 @@ alternatives: A 3 mm floor raises the selected 253.4 mm cold-core stack by 1 mm 
 file: hardware/printed-parts/cold-core/foam-shell/foam-shell.step
 click: x=-135.716 y=6.278 z=0.000
 click: x=-135.716 y=6.278 z=2.000
+click: x=-138.803 y=-78.957 z=2.000
+click: x=-138.803 y=-78.957 z=0.000
 
 [thin] The seam fold's full 2.38 mm wall section above the PRV exit. It retains the same specified material section while the 1.5 mm channel turns inward; the sampled pair crosses that whole wall. This is the named fold of the selected casing profile.
 alternatives: Increasing it to 2.5 mm changes the selected wall section and takes 0.12 mm from the adjacent PRV-shroud room. Growing the outside instead changes the fixed casing footprint and the channel's mating position.
 file: hardware/printed-parts/cold-core/foam-shell/foam-shell.step
 click: x=-3.366 y=88.700 z=193.088
 click: x=-3.366 y=86.320 z=193.088
+click: x=-4.735 y=86.320 z=182.829
+click: x=-4.735 y=88.700 z=182.829
