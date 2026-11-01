@@ -180,7 +180,9 @@ def shadow(top):
     # The running maximum and fore shift give the steep collar transitions
     # the same axial slip as their radial slip; the aft end remains open.
     out = out.fuse(_revolve(lower, "y"))
-    out = out.fuse(_upward_plan(horizontal, CORE_R + c, h + 1.0))
+    mouth_lift = max(0.0, WING_ROOT_Z - elbow_z())
+    out = out.fuse(_upward_plan(horizontal, CORE_R + c, h + 1.0)
+                   .translate(cq.Vector(0, 0, mouth_lift)))
     # The round core and the straight stem root have one upward loading mouth.
     rc = max(CORE_R, run[0][1] - c, horizontal[0][1]) + c
     core = cq.Solid.makeSphere(rc, angleDegrees1=-90, angleDegrees2=90)
