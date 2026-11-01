@@ -744,7 +744,26 @@
         {
           "stl": "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl",
           "regions": "foam-cap-lid-top",
-          "regions_file": "hardware/printed-parts/cold-core/foam-cap/fore-snap-print-regions.json"
+          "regions_file": "hardware/printed-parts/cold-core/foam-cap/fore-snap-print-regions.json",
+          "features": [
+            {
+              "name": "Reservoir A aft saddle zip-tie passage",
+              "kind": "tie_windows",
+              "channel_widths_mm": [
+                3.2
+              ],
+              "long_side_max_mm": 40.0,
+              "cavity_depth_mm": 1.575,
+              "blockers": true,
+              "expect": {
+                "count": [
+                  1,
+                  1
+                ]
+              },
+              "reason": "The 3.2 mm wide, 1.575 mm high aft-saddle tie passage must bridge across its short width. The unblocked native slice placed a 0.72 mm support body inside this long passage (tree-1 in the bound 2026-10-31 lid slice), where cleanup would obstruct the tie. This blocker covers only that passage; Tree(auto)/Default retains its decisions elsewhere."
+            }
+          ]
         }
       ],
       "pose_reason": "As exported: the lid's 48,900 mm2 flat face is its Z0 face, the walls and wells standing up from it.",

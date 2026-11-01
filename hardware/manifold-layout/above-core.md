@@ -52,12 +52,8 @@ floor at Z252. C14 is at X−68.5/Z330 and RJ11 at X−64/Z291.5.
 The common chassis joint is Z160. The lowest tee-return elbow is Z160.913,
 above the entering front wall. The four straight upper links have 5.251 mm
 exposed tube. The lower returns use two tangent arcs between parallel socket
-axes, R18.131 on the inner pair and R18.911 on the outer pair. Their rear
+axes, R18.084 on the inner pair and R19.360 on the outer pair. Their rear
 mouths stand 3.749 mm lower. The funnel return descends from V-B to Y-B.
-The two pumps and their fore valve pairs stand 1.6 mm inboard of the nominal
-limb stations. The inner coils have 8 mm between them; each outer yoke has
-1.25 mm to its plain flank wall. The rear valve row and Y-A/Y-B stay on their
-aligned stations.
 
 ## Continuous tubes
 
@@ -72,8 +68,11 @@ X59.101/Y354.664. The gas tube remains continuous to the carbonator's gas
 fitting and support-ring lane. The water check feeds an R14 turn into the
 straight guide at X−80.417/Y402.999. Neither guide adds a socket or tube cut.
 
-V-A's feed passes beneath the header, drops in front of the pump and uses the
-low Y-A handoff and upward-opening lid snap at X11/Y254.5/Z261.6. V-B has a straight, fully inserted drain link with 1.585 mm exposed tube.
+V-A's feed crosses above the pump, drops west of its return elbow and follows
+the plain lid through the upward-opening snap at X3/Y254.5/Z256.575. Two
+tangent arcs rise to the Y-A stem elbow, clocked 15 degrees toward the west;
+the receiving tube stays straight through its full 16.891 mm insertion.
+V-B has a straight, fully inserted drain link with 1.585 mm exposed tube.
 Its return to Y-B retains at least R24.66; the cross-link has 0.542 mm
 exposed tube between full insertions. Complete
 these connections through the uncovered funnel opening before fitting the frame.
@@ -90,8 +89,11 @@ at Y390, inside the casing footprint. One tie holds both existing curved
 paths in their unequal-height seats. The front valve fittings and reservoir
 mouths retain their datums. Its free aft bends pass outside the soda foam.
 [reservoir-a-routes.json](reservoir-a-routes.json) owns their exact R14 segments.
-The two routes remain continuous through their core guides. Reservoir B retains
-its fore-entry fill passage, three recessed clamps and original TPU fill grip.
+The two routes remain continuous through their core guides. Reservoir B's draw
+line steps 10 mm east above its core mouth on two R14 bends before joining the
+west fore corridor. It clears the V-B return and keeps J11's service lane open.
+Reservoir B retains its fore-entry fill passage, three recessed clamps and
+original TPU fill grip.
 
 The downward ASSE vent takes one
 [TPU cup with an aft-facing socket](../printed-parts/asse-drain-adapter/README.md).
