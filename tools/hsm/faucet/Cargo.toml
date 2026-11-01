@@ -36,6 +36,10 @@ name = "above-counter-gasket"
 path = "../../../hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.rs"
 
 [[bin]]
+name = "tpu-o-ring"
+path = "../../../hardware/printed-parts/faucet/tpu-o-ring/tpu_o_ring.rs"
+
+[[bin]]
 name = "faucet-metrics"
 path = "../../../hardware/faucet-layout/faucet_metrics.rs"
 
