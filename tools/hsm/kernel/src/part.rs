@@ -19,7 +19,7 @@
 //! line of its own, which is all its standard output carries.
 use crate::solid::Solid;
 use crate::step::{model_bytes, step_bytes, step_of};
-use crate::write::{Body, payload_bytes, payload_bytes_with_sources, stl_of};
+use crate::write::{Body, payload_bytes_with_sources, stl_of};
 use anyhow::{Context, Result, anyhow, ensure};
 use serde_json::{Value, json};
 use sha2::{Digest, Sha256};
@@ -87,25 +87,20 @@ pub fn args() -> Result<(Numbers, PathBuf)> {
 /// Write the part's files into `dir`, the STEP and the root of its assembly named `name`, and say
 /// what they hold: the files, and per body its name, volume, area, bounds and triangles.
 pub fn write_part(dir: &Path, name: &str, bodies: &[Body]) -> Result<Value> {
-    write_set(dir, name, bodies, true, true, false)
-}
-
-/// `write_part` with contributor provenance in the viewer payload's header.
-pub fn write_part_with_sources(dir: &Path, name: &str, bodies: &[Body]) -> Result<Value> {
-    write_set(dir, name, bodies, true, true, true)
+    write_set(dir, name, bodies, true, true)
 }
 
 /// `write_part` without the STL.
 pub fn write_shown(dir: &Path, name: &str, bodies: &[Body]) -> Result<Value> {
-    write_set(dir, name, bodies, false, true, false)
+    write_set(dir, name, bodies, false, true)
 }
 
 /// `write_part` without the payload.
 pub fn write_printed(dir: &Path, name: &str, bodies: &[Body]) -> Result<Value> {
-    write_set(dir, name, bodies, true, false, false)
+    write_set(dir, name, bodies, true, false)
 }
 
-fn write_set(dir: &Path, name: &str, bodies: &[Body], printed: bool, shown: bool, sources: bool) -> Result<Value> {
+fn write_set(dir: &Path, name: &str, bodies: &[Body], printed: bool, shown: bool) -> Result<Value> {
     // The STL takes the solids the STEP takes, so a printed set simplifies each once for both; a
     // set without one simplifies each as its STEP is written.
     let (step, stl) = if printed {
@@ -118,8 +113,7 @@ fn write_set(dir: &Path, name: &str, bodies: &[Body], printed: bool, shown: bool
     let digest: String = Sha256::digest(&step).iter().map(|b| format!("{b:02x}")).collect();
     let mut files = vec![(format!("{name}.step"), step), (format!("{name}.step.npz"), model_bytes(bodies))];
     if shown {
-        let payload = if sources { payload_bytes_with_sources } else { payload_bytes };
-        files.push((format!("{name}.step.mesh"), payload(bodies, Some(&digest), None)));
+        files.push((format!("{name}.step.mesh"), payload_bytes_with_sources(bodies, Some(&digest), None)));
     }
     if let Some(stl) = stl {
         files.push((format!("{name}.stl"), stl));
