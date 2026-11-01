@@ -43,6 +43,10 @@ ships fitted and is removed for every refill.
 
 Take the machine fresh from [`acceptance-and-burn-in.md`](/hardware/assembly/acceptance-and-burn-in.md). Wipe every exposed surface with the microfiber + isopropyl: the +Y wall and its inlets, the funnel's brim and the top wall around it, condenser intake/exhaust grilles, both side faces, front-top's continuous front face, and the bottom. Foam-tip swab the funnel cavity to clear any settled dust. Lift the silicone funnel straight up off the raw drain stub, leaving the tube and elbow in the machine, and wipe it down separately. After the unit is dry, press its plug into the frame's socket until the brim seats. The unit has been on the bench rig for the acceptance soak — fingerprints, dust drift from shop air, and the residue of fingers from prior assembly steps all land here.
 
+Accepted cosmetic conditions are listed in
+[Accepted defects and tolerances](/hardware/defects-and-tolerances.md), scoped to
+the named part and reference evidence.
+
 Inspect every exposed surface against the following pass criteria:
 
 - Every visible printed surface clean of layer-line debris and stringing — particular attention to the funnel opening's collar seat, the continuous front face and the pump-retainer underside, and the +Y wall's cutouts, where small printed features land near user sightlines.
@@ -57,7 +61,7 @@ Inspect every exposed surface against the following pass criteria:
   and unobstructed over the bowl, as specified in [drain assembly](asse-drain.md).
 - Condenser intake + exhaust grilles clear of any print-process debris that could shed into the airflow path on first run.
 
-Failures at this step: cosmetic blemishes are repaired in place where possible (light scuff buff with the lint-free wipe, reseat a loose grommet, swap a marked seam screw, seat its washer and head fully in their recess). A unit with a defect that can't be repaired in place goes back to the relevant subsystem's procedure for re-fabrication or a part swap; do not ship a Founder Edition unit with a known cosmetic defect that the customer will see at unboxing.
+Failures at this step: cosmetic blemishes are repaired in place where possible (light scuff buff with the lint-free wipe, reseat a loose grommet, swap a marked seam screw, seat its washer and head fully in their recess). A unit with an unaccepted defect that can't be repaired in place goes back to the relevant subsystem's procedure for re-fabrication or a part swap; do not ship a Founder Edition unit with an unaccepted cosmetic defect that the customer will see at unboxing.
 
 ### 2. Confirm system fluid-drain dry
 
@@ -177,7 +181,7 @@ Damage-claim and warranty-registration workflow at carrier handoff is undecided.
 
 A finished, ship-ready unit is:
 
-- Cosmetically wiped and visually inspected on every exposed surface, no known cosmetic defects
+- Cosmetically wiped and visually inspected on every exposed surface, with cosmetic conditions within the [accepted defects and tolerances](/hardware/defects-and-tolerances.md)
 - Confirmed fluid-drained dry: no water in the carbonator or any line, no flavor in either reservoir, system at atmospheric pressure
 - Nameplate snapped into the +Y wall, retained and scanned to confirm this unit
 - Water + CO2 inlets, both on the +Y wall, capped for transit

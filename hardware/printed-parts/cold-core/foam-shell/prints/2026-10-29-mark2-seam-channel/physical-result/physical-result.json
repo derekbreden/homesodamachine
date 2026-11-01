@@ -1,0 +1,73 @@
+{
+  "schema": 1,
+  "reported_date": "2026-11-01",
+  "reported_by": "Derek",
+  "part": "cold-core foam shell",
+  "status": "accepted_for_shipping",
+  "accepted_for": "Cold-core production shell with the very small, localized upper-wall ripples shown in the supplied photographs.",
+  "printer": "Mark2",
+  "printer_task_id": "1386110458",
+  "launch_record": "../launch.json",
+  "submitted_archive_sha256": "16d4b9f8ec695b096b1eb935a67071af35a70f7131ffbb8086f6a7f61cb37a2e",
+  "original_quote": "I, I have a print defect to report on the most recent print of the cold core shell. It's a very small defect, as you can see there. In some lights it's not visible at all, but in others, as you can see, it is quite visible there. I think we have a pretty good idea of what caused it. It's very similar to the larger defects that we had before that we fixed with our changes to the seam. So it has a lot to do with the very high layers and the specific other geometry that's involved on those layers. I mean, you can see it lines up pretty precisely with where we cut our hole there. But anyways, not too important. Point is there is a defect, and we got photos of it, and it should be documented. But this is a defect that we are okay shipping with. And if we don't already have a list of such defects and clearances and tolerances and things that, yeah, defects and tolerances is what I wanted to say, not clearances. Defects and tolerances. If we don't already have a list of those, then let's make sure that we've got one and that this is on it, and, you know, also separately record where we normally do about the print result there with some photos. Thanks.",
+  "visual_assessment": {
+    "defect": "Very small, localized surface ripples near the upper rim, shown in photos 1–3.",
+    "visibility": "Derek reports that the defect is invisible in some lighting and quite visible in others.",
+    "alignment": "Derek observes that the affected area lines up closely with a hole in the shell."
+  },
+  "reported_cause": {
+    "assessment": "Derek suspects the very high layers and other geometry printed on those layers are involved, similar to the larger defects addressed by the seam changes.",
+    "status": "Suspected cause reported by Derek; not a confirmed diagnosis."
+  },
+  "acceptance": {
+    "disposition": "Accepted for shipping with the photographed defect.",
+    "quote": "But this is a defect that we are okay shipping with.",
+    "reference": "Photos 1–3 define the accepted appearance and severity; photos 4–6 provide shell context.",
+    "dimensional_tolerance": "No numerical surface tolerance specified.",
+    "register": "../../../../../../defects-and-tolerances.md#cold-core-shell--small-upper-wall-ripples"
+  },
+  "photos": [
+    {
+      "file": "photos/01-upper-wall-closeup.jpg",
+      "supplied_as": "Photo 1.jpg",
+      "source_filename": "1-Photo-1.jpg",
+      "sha256": "61b4582cb5c1cb2bb4026088f02285b7c78167ccaaa9294f85414e751b796592",
+      "bytes": 313294
+    },
+    {
+      "file": "photos/02-upper-wall-ripples.jpg",
+      "supplied_as": "Photo 2.jpg",
+      "source_filename": "2-Photo-2.jpg",
+      "sha256": "8df0853defdf720457a3dbaf593d868c48cebcdcbf9662db021d797755dffadd",
+      "bytes": 318024
+    },
+    {
+      "file": "photos/03-wall-overview.jpg",
+      "supplied_as": "Photo 3.jpg",
+      "source_filename": "3-Photo-3.jpg",
+      "sha256": "9801ddffdae4456ade72ee1db6866e96ba4e259d19f953e3f8bc81097972bfe1",
+      "bytes": 331703
+    },
+    {
+      "file": "photos/04-shell-interior.jpg",
+      "supplied_as": "Photo 4.jpg",
+      "source_filename": "4-Photo-4.jpg",
+      "sha256": "8169a7fb44ea838bfb5982dbf1bc5652577194970341ac6d0517410793d22810",
+      "bytes": 1311036
+    },
+    {
+      "file": "photos/05-pocket-and-rim.jpg",
+      "supplied_as": "Photo 5.jpg",
+      "source_filename": "5-Photo-5.jpg",
+      "sha256": "d128c2c9577a0e62b6fcee8ad4883c066e431f60945051889b4869e39bdc409c",
+      "bytes": 1157265
+    },
+    {
+      "file": "photos/06-end-face.jpg",
+      "supplied_as": "Photo 6.jpg",
+      "source_filename": "6-Photo-6.jpg",
+      "sha256": "d7169da290bb9b5a16c9faabe2cdd8706bae0445cb64c6b3a36a1e5866d925c4",
+      "bytes": 389947
+    }
+  ]
+}
