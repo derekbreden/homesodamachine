@@ -1,6 +1,6 @@
 {
   "project": "reservoir.3mf",
-  "project_sha256": "4d7a276ab3e3dd7ec1b93206dd56559ce5bd8d5daf5e394c9a3715571a71b387",
+  "project_sha256": "82fd2e65ff3a6e427f1522dbbe5c295303a5d70f153ddcd08e0be480342c7541",
   "recipe": "print-settings.json",
   "slicer_version": "02.08.02.61",
   "return_code": 0,
@@ -12,8 +12,8 @@
         "reservoir-left",
         "reservoir-cap-left"
       ],
-      "estimated_seconds": 20522.941,
-      "estimated_mass_g": 444.283,
+      "estimated_seconds": 20366.703,
+      "estimated_mass_g": 442.696,
       "ironing_estimated_seconds": 0,
       "ironing_enable_commands": 0,
       "ironing_feature_paths": 0,
@@ -22,7 +22,6 @@
       "normal_layer_height_mm": 0.24,
       "model_features": [
         "Bottom surface",
-        "Bridge",
         "Floating vertical shell",
         "Inner wall",
         "Internal solid infill",
@@ -36,7 +35,7 @@
       "infill_wall_overlap": "30%",
       "wall_transition_angle_degrees": 10.0,
       "warning_message": "",
-      "gcode_sha256": "b5677135452366a0ceea169da14e2056e1c1acd03d2a320ac927984f79664de4",
+      "gcode_sha256": "0deb605a74103052120b14021b27246611096bb556f3807f44da4c9cb8ed0d07",
       "embedded_gcode_md5_verified": true,
       "emitted_nozzle_assignment": {
         "filament_map": "2",
@@ -64,20 +63,20 @@
             89.750003
           ],
           [
-            259.476997,
+            259.473997,
             230.249997
           ]
         ],
         "edge_margins_left_front_right_back_mm": [
           70.519003,
           89.750003,
-          70.52300300000002,
+          70.526003,
           89.75000299999999
         ],
         "minimum_full_bead_edge_margin_mm": 70.519003,
-        "minimum_body_cap_full_bead_box_gap_mm": 10.042005999999986,
-        "deposited_move_count": 852222,
-        "support_move_count": 5314,
+        "minimum_body_cap_full_bead_box_gap_mm": 10.045005999999972,
+        "deposited_move_count": 919583,
+        "support_move_count": 3607,
         "scope": "Native deposited model, support and brim beads, including arc extrema and half-width. Vendor startup purge/calibration paths are excluded. Placement does not establish adhesion."
       },
       "wall_cooling_above_cap_pwm_values": [
@@ -88,14 +87,14 @@
         229.5
       ],
       "support_summary": {
-        "bed_rooted_bodies": 7,
-        "bodies_without_interface_labels": 6,
-        "explicit_interface_islands": 1,
+        "support_bodies": 6,
         "interface_islands": null,
+        "bed_rooted_bodies": 6,
         "model_rooted_bodies": 0,
         "shortest_build_up_mm": null,
-        "shortest_labelled_build_up_mm": 1.68,
-        "support_bodies": 7
+        "bodies_without_interface_labels": 6,
+        "explicit_interface_islands": 0,
+        "shortest_labelled_build_up_mm": null
       },
       "support_scope": "All detected support bodies start at the bed. Bodies without explicit interface labels have no inferred contact build-up."
     },
@@ -105,8 +104,8 @@
         "reservoir-right",
         "reservoir-cap-right"
       ],
-      "estimated_seconds": 20547.916,
-      "estimated_mass_g": 444.211,
+      "estimated_seconds": 20398.703,
+      "estimated_mass_g": 442.355,
       "ironing_estimated_seconds": 0,
       "ironing_enable_commands": 0,
       "ironing_feature_paths": 0,
@@ -115,7 +114,6 @@
       "normal_layer_height_mm": 0.24,
       "model_features": [
         "Bottom surface",
-        "Bridge",
         "Floating vertical shell",
         "Inner wall",
         "Internal solid infill",
@@ -129,7 +127,7 @@
       "infill_wall_overlap": "30%",
       "wall_transition_angle_degrees": 10.0,
       "warning_message": "",
-      "gcode_sha256": "cfe70c23eab1dc7f96d47be78a8219bcaeeccda44c8f3ef90d54f9a81855d116",
+      "gcode_sha256": "42b7bf809d59993a0a10ffa9012f9ff800d774f99a26336ef48731ef6ce27c7d",
       "embedded_gcode_md5_verified": true,
       "emitted_nozzle_assignment": {
         "filament_map": "2",
@@ -153,7 +151,7 @@
         ],
         "model_support_brim_xy_bounds_mm": [
           [
-            95.525003,
+            95.52100300000001,
             89.750003
           ],
           [
@@ -162,15 +160,15 @@
           ]
         ],
         "edge_margins_left_front_right_back_mm": [
-          70.525003,
+          70.52100300000001,
           89.750003,
           70.519003,
           89.75000299999999
         ],
         "minimum_full_bead_edge_margin_mm": 70.519003,
-        "minimum_body_cap_full_bead_box_gap_mm": 10.042005999999986,
-        "deposited_move_count": 841914,
-        "support_move_count": 5281,
+        "minimum_body_cap_full_bead_box_gap_mm": 10.040005999999977,
+        "deposited_move_count": 909833,
+        "support_move_count": 3621,
         "scope": "Native deposited model, support and brim beads, including arc extrema and half-width. Vendor startup purge/calibration paths are excluded. Placement does not establish adhesion."
       },
       "wall_cooling_above_cap_pwm_values": [
@@ -181,14 +179,14 @@
         229.5
       ],
       "support_summary": {
-        "bed_rooted_bodies": 7,
-        "bodies_without_interface_labels": 6,
-        "explicit_interface_islands": 1,
+        "support_bodies": 6,
         "interface_islands": null,
+        "bed_rooted_bodies": 6,
         "model_rooted_bodies": 0,
         "shortest_build_up_mm": null,
-        "shortest_labelled_build_up_mm": 1.68,
-        "support_bodies": 7
+        "bodies_without_interface_labels": 6,
+        "explicit_interface_islands": 0,
+        "shortest_labelled_build_up_mm": null
       },
       "support_scope": "All detected support bodies start at the bed. Bodies without explicit interface labels have no inferred contact build-up."
     }
