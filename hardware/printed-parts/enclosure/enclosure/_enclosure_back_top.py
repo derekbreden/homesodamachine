@@ -247,6 +247,94 @@ def _wing_receiver(graph, wing, solid, station, y_outer, *, supported=None, up=-
     return solid
 
 
+def _rear_well_roofs(wiring):
+    """Combined bounds of connected, principal rear stock boxes; no retained geometry."""
+    from itertools import product
+    import above_core as layout
+    boxes = []
+    for name, pose in wiring.placements().items():
+        if pose['parent'] != 'back-top':
+            continue
+        rotation = pose['rotation']
+        if (any(v not in (-1., 0., 1.) for row in rotation for v in row)
+                or any(sum(v != 0. for v in row) != 1 for row in rotation)
+                or any(sum(rotation[i][j] != 0. for i in range(3)) != 1 for j in range(3))):
+            raise ValueError('the rear well stocks no longer have principal frames')
+        width, depth, height, *_ = wiring.SIZES[pose['size']]
+        rear = min(-depth/2-wiring.FIT-wiring.WALL, pose['translation_mm'][1]-466.95)
+        local = (-width/2-wiring.FIT-wiring.WALL, width/2+wiring.FIT+wiring.WALL,
+                 rear, 0., -wiring.FIT-wiring.WALL, height+wiring.FIT+wiring.WALL)
+        points = [layout.point(pose, p) for p in product(*(local[2*k:2*k+2] for k in range(3)))]
+        bounds = tuple(v for k in range(3) for v in
+                       (min(p[k] for p in points), max(p[k] for p in points)))
+        boxes.append((name, bounds))
+    adjacent = {name: set() for name, _ in boxes}
+    for i, (name, a) in enumerate(boxes):
+        for other, b in boxes[i+1:]:
+            overlap = [min(a[2*k+1], b[2*k+1])-max(a[2*k], b[2*k]) for k in range(3)]
+            if all(v >= 0. for v in overlap) and any(v == 0. for v in overlap):
+                raise ValueError('touching rear well stocks require the native constructor')
+            if all(v > 0. for v in overlap):
+                adjacent[name].add(other)
+                adjacent[other].add(name)
+    roofs, done = {}, set()
+    for name, _ in boxes:
+        if name in done:
+            continue
+        group, pending = set(), [name]
+        while pending:
+            current = pending.pop()
+            if current in group:
+                continue
+            group.add(current)
+            pending.extend(adjacent[current]-group)
+        done.update(group)
+        if len(group) == 1:
+            continue
+        selected = [b for key, b in boxes if key in group]
+        roofs[name] = tuple(v for k in range(3) for v in
+                            (min(b[2*k] for b in selected), max(b[2*k+1] for b in selected)))
+        roofs.update((key, None) for key in group if key != name)
+    return roofs
+
+
+def _wiring_features(shell, graph, parent):
+    import above_core_wiring as wiring
+    import above_core as layout
+    from types import SimpleNamespace
+    additions,cuts,stations = [],[],[]
+    wall = layout.specification()['enclosure']['rear_y_mm']-9.+.5
+    roofs = _rear_well_roofs(wiring) if parent == 'back-top' else {}
+    for name,pose in wiring.placements().items():
+        if pose['parent']!=parent:
+            continue
+        width,depth,height,*_ = wiring.SIZES[pose['size']]
+        front = -.75 if name=='wago-mana' else 0.
+        rear = -depth/2-wiring.FIT-wiring.WALL
+        if parent=='back-top':
+            rear = min(rear,pose['translation_mm'][1]-466.95)
+        stock = _placed(graph,graph.box(-width/2-wiring.FIT-wiring.WALL,
+            width/2+wiring.FIT+wiring.WALL,rear,front,-wiring.FIT-wiring.WALL,
+            height+wiring.FIT+wiring.WALL),pose)
+        pocket = _placed(graph,graph.box(-width/2-wiring.FIT,width/2+wiring.FIT,
+            -depth/2-wiring.FIT,1.,-wiring.FIT,height+wiring.FIT),pose)
+        if parent=='back-top':
+            b = stock.BoundingBox()
+            if name in roofs:
+                bounds = roofs[name]
+                b = (SimpleNamespace(**dict(zip(('xmin','xmax','ymin','ymax','zmin','zmax'),bounds)))
+                     if bounds is not None else None)
+            run = max(0.,wall-b.ymin) if b is not None else 0.
+            if run:
+                stock = stock.fuse(graph.prism(0,b.xmin,b.xmax,
+                    ((b.ymin,b.zmax-3),(b.ymin,b.zmax),
+                     (wall,b.zmax+run),(wall,b.zmax-3))))
+        additions.append(stock)
+        cuts.append(pocket)
+        stations.append(dict(name=name,**pose))
+    return {'add':_union(additions),'cut':_union(cuts),'stations':stations}
+
+
 def _above_leaves(shell, graph):
     import above_core_wiring as wiring
     import above_core as layout
@@ -255,32 +343,7 @@ def _above_leaves(shell, graph):
     wing = identification.nameplate.wing_interface
 
     def wires(parent):
-        additions,cuts,stations = [],[],[]
-        wall = layout.specification()['enclosure']['rear_y_mm']-9.+.5
-        for name,pose in wiring.placements().items():
-            if pose['parent']!=parent:
-                continue
-            width,depth,height,*_ = wiring.SIZES[pose['size']]
-            front = -.75 if name=='wago-mana' else 0.
-            rear = -depth/2-wiring.FIT-wiring.WALL
-            if parent=='back-top':
-                rear = min(rear,pose['translation_mm'][1]-466.95)
-            stock = _placed(graph,graph.box(-width/2-wiring.FIT-wiring.WALL,
-                width/2+wiring.FIT+wiring.WALL,rear,front,-wiring.FIT-wiring.WALL,
-                height+wiring.FIT+wiring.WALL),pose)
-            pocket = _placed(graph,graph.box(-width/2-wiring.FIT,width/2+wiring.FIT,
-                -depth/2-wiring.FIT,1.,-wiring.FIT,height+wiring.FIT),pose)
-            if parent=='back-top':
-                b = stock.BoundingBox()
-                run = max(0.,wall-b.ymin)
-                if run:
-                    stock = stock.fuse(graph.prism(0,b.xmin,b.xmax,
-                        ((b.ymin,b.zmax-3),(b.ymin,b.zmax),
-                         (wall,b.zmax+run),(wall,b.zmax-3))))
-            additions.append(stock)
-            cuts.append(pocket)
-            stations.append(dict(name=name,**pose))
-        return {'add':_union(additions),'cut':_union(cuts),'stations':stations}
+        return _wiring_features(shell, graph, parent)
 
     def hosts():
         bosses,holes = [],[]
@@ -703,6 +766,11 @@ def can_cut(shell,box):
         except ValueError:
             return False
     import rear_plumbing
+    import above_core_wiring
+    try:
+        _rear_well_roofs(above_core_wiring)
+    except ValueError:
+        return False
     for key,k in (('chain_frame',0),('gas_frame',2)):
         if tuple(row[k] for row in rear_plumbing.plan()[key]['rotation'])!=(0.,-1.,0.):
             return False
