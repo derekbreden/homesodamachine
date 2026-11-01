@@ -39,7 +39,8 @@ import numpy as np
 HERE = Path(__file__).resolve().parent
 ROOT = next(p for p in HERE.parents if (p / "tools").is_dir())
 sys.path[:0] = [str(HERE), str(ROOT / "hardware/scripts"), str(ROOT / "hardware/printed-parts/cadlib"),
-                str(ROOT / "hardware/printed-parts/enclosure/nameplate")]
+                str(ROOT / "hardware/printed-parts/enclosure/nameplate"),
+                str(ROOT / "hardware/printed-parts/enclosure/rear-identification")]
 from _run_lock import acquire  # noqa: E402
 
 acquire(str(Path(__file__)))
@@ -86,7 +87,17 @@ def bodies(step: Path, bed: str):
     """The part's body and its lettering, posed face up and centred on the plate origin."""
     import cadquery as cq
     from _cadq_export import import_assembly
-    solids = [s for shape, _ in import_assembly(step).values() for s in shape.Solids()]
+    unit = re.fullmatch(r'nameplate-(\d+)\.step', step.name)
+    chip = re.fullmatch(r'rear-label-([a-z-]+)\.step', step.name)
+    if step.parent.name == 'nameplate' and unit and not getattr(cq, 'MESH', False):
+        import nameplate
+        number = int(unit[1])
+        solids = [nameplate.build_plate(number), *nameplate.build_ink(number).Solids()]
+    elif step.parent.name == 'rear-identification' and chip and not getattr(cq, 'MESH', False):
+        import rear_identification
+        solids = [rear_identification.chip(chip[1]), *rear_identification.word(chip[1]).Solids()]
+    else:
+        solids = [s for shape, _ in import_assembly(step).values() for s in shape.Solids()]
     solids.sort(key=lambda s: -s.Volume())
     body, letters = solids[0], solids[1:]
     if not letters:
