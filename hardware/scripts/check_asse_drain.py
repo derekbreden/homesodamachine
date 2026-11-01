@@ -111,9 +111,12 @@ def write(placed, output=OUTPUT, *, names=NAMES, route_specs=None):
             # The scanned pump is a union of overlapping occupied envelopes.
             # Distribute the Boolean over those native solids.
             components = obstacle.Solids() if other == "g-ganen-pump" else [obstacle]
-            overlap = sum(fragment.Volume() for part in components
-                          for fragment in part.intersect(body).Solids())
             gap = min(body.distance(part) for part in components)
+            if meshed(body) and gap > 1e-6:
+                overlap = 0.0               # the mesh kernel's Boolean of two bodies apart
+            else:
+                overlap = sum(fragment.Volume() for part in components
+                              for fragment in part.intersect(body).Solids())
             row["neighbors"].append({"name": other, "gap_mm": round(gap, 7),
                                      "overlap_mm3": round(overlap, 7)})
             print(name, other, f"gap {gap:.4f}; overlap {overlap:.6f}", flush=True)
