@@ -1,0 +1,11 @@
+{
+  "source": {
+    "commit": "7320c7c39a9d4e1485cb7dbcc3b95aa85d0802fb",
+    "path": "hardware/reference/neofit-flavor-reducer/neofit_flavor_reducer.py",
+    "sha256": "cd6926788afa13cae904823801b499096031b4db820a48564dd36d8ed20b0bd1"
+  },
+  "members": {
+    "neofit-flavor-reducer.step": "28ad424a683a778950e17844c38cc98ad69bba0135cc0472d703d993221c17e2",
+    "neofit-flavor-reducer.step.mesh": "e6f5144ed1b80765513497a1af723b19ac4241d58d5b3b6ebb9972e11472344d"
+  }
+}

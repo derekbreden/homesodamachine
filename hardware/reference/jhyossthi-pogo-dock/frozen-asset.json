@@ -1,0 +1,13 @@
+{
+  "source": {
+    "commit": "7320c7c39a9d4e1485cb7dbcc3b95aa85d0802fb",
+    "path": "hardware/reference/jhyossthi-pogo-dock/jhyossthi_pogo_dock.py",
+    "sha256": "9018ec7cb13fb531297255d1af213aa4c46cf504aba503e749c4ca89d3271f96"
+  },
+  "members": {
+    "pogo-dock-female.step": "b10eae30cc623b0ed889a16dd8d3790462d3e602bcc2ff33129acd75ba8e486b",
+    "pogo-dock-female.step.mesh": "53c25c1db47960fcfb05e218fb92f05ee8d62cda6a5d8e3b726442cb1ec352da",
+    "pogo-dock-male.step": "766f08b3bdeb6aba77e3e26446530465d9c3225e896a2d57fed004bc326349e0",
+    "pogo-dock-male.step.mesh": "a72c10795668b4ea7968352c019b44d46a726e52e1e18f666227cc6bab74770b"
+  }
+}
