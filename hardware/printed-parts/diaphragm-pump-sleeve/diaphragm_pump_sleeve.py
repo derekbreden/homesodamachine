@@ -10,23 +10,39 @@ Local frame: the barb tip at the origin, +X out along the barb, +Y the way the
 tube leaves, Z = X x Y.
 """
 from pathlib import Path
+import json
 import math
 import sys
-
-import cadquery as cq
 
 HERE = Path(__file__).resolve().parent
 HARDWARE = HERE.parents[1]
 sys.path.insert(0, str(HARDWARE / "scripts"))
 sys.path.insert(0, str(HARDWARE / "reference/g-ganen-pump"))
-from _cadq_export import export_assembly
-from _material_base import one_body
-import g_ganen_pump as pump
 
 PORTS = {"suction": "port_yminus", "discharge": "port_yplus"}
 
 # Siraya Tech Flex TPU 85A Clear, the stock the pump dock's wet TPU parts print in.
-COLOR = cq.Color(.92, .92, .90, .60)
+_COLOR_SRGB = (.92, .92, .90, .60)
+
+
+def __getattr__(name):
+    """Native helpers remain available without loading OCCT for dimension readers."""
+    if name in ("cq", "COLOR"):
+        import cadquery as cq
+        value = cq if name == "cq" else cq.Color(*_COLOR_SRGB)
+    elif name == "pump":
+        import g_ganen_pump
+        value = g_ganen_pump
+    elif name == "export_assembly":
+        from _cadq_export import export_assembly
+        value = export_assembly
+    elif name == "one_body":
+        from _material_base import one_body
+        value = one_body
+    else:
+        raise AttributeError(name)
+    globals()[name] = value
+    return value
 
 BARB_BORE = 9.00
 BARB_DEPTH = 11.0  # The barb tip bottoms on the passage shelf; the mouth stops short of the casting.
@@ -50,7 +66,8 @@ ENTRY_HEIGHT = ENTRY * math.tan(math.radians(60.0))
 
 def barb_rows(port):
     """`(distance into the barb from its tip, diameter)` for one scanned port."""
-    profile = pump.port_profile(PORTS[port])["profile"]
+    parameters = HARDWARE / "reference/g-ganen-pump/reference-parameters.json"
+    profile = json.loads(parameters.read_text())["ports"][PORTS[port]]["profile"]
     return sorted((-row["distance_from_tip_mm"], 2 * row["radius_mm"]) for row in profile)
 
 
@@ -85,10 +102,12 @@ FOOT = TUBE_AXIS / math.sqrt(2) + PASSAGE / 2 + MIN_WALL
 
 
 def _x(r, x0, x1):
+    import cadquery as cq
     return cq.Solid.makeCylinder(r, x1 - x0, cq.Vector(x0, 0, 0), cq.Vector(1, 0, 0))
 
 
 def _y(r, y0, y1):
+    import cadquery as cq
     return cq.Solid.makeCylinder(r, y1 - y0, cq.Vector(TUBE_AXIS, y0, 0), cq.Vector(0, 1, 0))
 
 
@@ -104,6 +123,7 @@ def build_local(*, installed=False, exterior=False):
     lengthens the neck by a millimetre. It is placement geometry, not an elastomer deformation
     or sealing model.
     """
+    import cadquery as cq
     rb = (BARB_OD_INSTALLED if installed else BARB_OD) / 2
     rt = (TUBE_OD_INSTALLED if installed else TUBE_OD) / 2
     bore_b = (crest() if installed else BARB_BORE) / 2
@@ -147,6 +167,7 @@ def build(exterior=False):
     The foot plane is exact. A spline's bounding box carries a tolerance that would leave the
     foot above Z = 0, so the pose is set off the analytic extremes instead: the two mouth rims
     in X, and the symmetric local Z in Y."""
+    import cadquery as cq
     s = 1 / math.sqrt(2)
     posed = build_local(exterior=exterior).moved(cq.Location(cq.Plane(
         origin=(0, 0, 0), xDir=(s, 0, -s), normal=(0, -1, 0))))
@@ -156,6 +177,7 @@ def build(exterior=False):
 
 
 def _frame(tip, axis, toward):
+    import cadquery as cq
     x = cq.Vector(*axis).normalized()
     t = cq.Vector(*toward)
     y = (t - x * t.dot(x)).normalized()
@@ -164,6 +186,7 @@ def _frame(tip, axis, toward):
 
 def location(tip, axis, toward):
     """Seated on a barb whose tip and outward axis are given, tube leaving `toward`."""
+    import cadquery as cq
     origin, x, y = _frame(tip, axis, toward)
     return cq.Location(cq.Plane(origin=origin, xDir=x, normal=x.cross(y)))
 
@@ -179,14 +202,20 @@ def tube_port():
 
 def tube_mouth(tip, axis, toward):
     """Where the tube enters a seated elbow: `(position, outward axis)`."""
-    origin, x, y = _frame(tip, axis, toward)
-    p = origin + x * TUBE_AXIS + y * TUBE_MOUTH
-    return (p.x, p.y, p.z), (y.x, y.y, y.z)
+    length = math.sqrt(sum(v * v for v in axis))
+    x = tuple(v / length for v in axis)
+    dot = sum(a * b for a, b in zip(toward, x))
+    across = tuple(a - b * dot for a, b in zip(toward, x))
+    length = math.sqrt(sum(v * v for v in across))
+    y = tuple(v / length for v in across)
+    p = tuple(o + a * TUBE_AXIS + b * TUBE_MOUTH for o, a, b in zip(tip, x, y))
+    return p, y
 
 
 def bands(tip, axis, toward):
     """The two clamp bands, closed, flush with their mouths. The housing, screw and key stand
     outside this ring and are not drawn."""
+    import cadquery as cq
     origin, x, y = _frame(tip, axis, toward)
     out = {}
     for name, start, normal, diameter in (
@@ -199,6 +228,10 @@ def bands(tip, axis, toward):
 
 
 def main():
+    import cadquery as cq
+    from _cadq_export import export_assembly
+    from _material_base import one_body
+    COLOR = cq.Color(*_COLOR_SRGB)
     shape = build()
     stl = HERE / "diaphragm-pump-sleeve.stl"
     step = HERE / "diaphragm-pump-sleeve.step"
