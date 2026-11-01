@@ -80,6 +80,14 @@ import os
 import sys
 from pathlib import Path
 
+# Run as a script, the machine stands on the mesh kernel (`hardware/scripts/meshcad`).
+if __name__ == "__main__":
+    sys.path.insert(0, str(next(p for p in Path(__file__).resolve().parents
+                                if (p / "hardware" / "scripts" / "meshcad").is_dir())
+                           / "hardware" / "scripts"))
+    import meshcad  # noqa: E402
+    meshcad.activate()
+
 import cadquery as cq
 from OCP.BRepExtrema import BRepExtrema_DistShapeShape as _BRepDist
 
@@ -5915,7 +5923,6 @@ def main():
     meshcad = sys.modules.get("meshcad")
     if meshcad is not None and meshcad.mesh_mode():
         print(f"-> {write_scene(a).name}")
-        return
     from hardware.wiring.installed.build import export_enclosure
     export_enclosure(a, out)
     print(f"-> {out.name}")

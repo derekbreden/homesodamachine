@@ -39,7 +39,6 @@ import iec_c14_inlet as _c14  # noqa: E402
 import _cad_art  # noqa: E402
 
 RENDERER = _cad_art.RENDERER
-MACHINE_STEP = _cad_art.MACHINE_STEP
 MACHINE_MESH = _cad_art.MACHINE_MESH
 MACHINE_FACTS = _cad_art.MACHINE_FACTS
 COLLET_PRESS = HARDWARE / "printed-parts" / "collet-press" / "collet-press.step"
@@ -190,10 +189,8 @@ def _add(assembly, shape, name, color):
 
 
 def _machine(assembly):
-    """The whole appliance with the colours its own STEP carries."""
-    for child in cq.Assembly.load(str(MACHINE_STEP)).children:
-        assembly.add(child)
-    return assembly
+    """The whole appliance with the colours its own payload carries."""
+    return _cad_art.borrow(assembly, _cad_art.machine_bodies())
 
 
 def _hex(x, y, z, across_flats, length, axis="Z"):
@@ -215,8 +212,8 @@ def _floor(x0, y0, sx, sy):
 
 # --- the back face ----------------------------------------------------------
 #
-# The children of `enclosure-assembly.step` a customer standing behind the machine can see. Each
-# carries its own colour out of the STEP: the shell dark, the six bulkhead chips and their raised
+# The bodies of `enclosure-assembly.step.mesh` a customer standing behind the machine can see.
+# Each carries its own colour out of the payload: the shell dark, the six bulkhead chips and their raised
 # words in their spool colours, the nameplate's ink white, and the funnel under its seated cover.
 REAR_CHILDREN = frozenset({
     "bulkhead-drain",
@@ -258,11 +255,9 @@ CORDSET = cq.Color(0.035, 0.038, 0.043, 1.0)
 
 
 def _rear_face(assembly):
-    """Add the machine's rear-visible children, colours and all."""
-    for child in cq.Assembly.load(str(MACHINE_STEP)).children:
-        if child.name in REAR_CHILDREN or child.name.startswith(REAR_RING_PREFIX):
-            assembly.add(child)
-    return assembly
+    """Add the machine's rear-visible bodies, colours and all."""
+    return _cad_art.borrow(assembly, _cad_art.machine_bodies(
+        lambda name: name in REAR_CHILDREN or name.startswith(REAR_RING_PREFIX)))
 
 
 def _prism(w, h, r, length):
@@ -410,11 +405,6 @@ def s_the_socket():
     a.add(_c13_cordset(0.5), name="c13-cordset", color=CORDSET)
     return a
 
-
-#: Scenes standing on the machine's printed bodies. `enclosure-assembly.step` is a smooth prism
-#: and the flutes live in the payload beside it, so these carry that skin across.
-FLUTED = frozenset({"the-back-face", "the-socket", "nameplate"})
-
 def s_two_tees():
     """The kit's two tees at one scale. Everything else in the box is unmistakable;
     these two are a black fitting and a white one, and page 9 decides between them."""
@@ -509,10 +499,8 @@ def s_bottle_in_funnel():
 
     The funnel's lift-off cover comes off for every fill, so the machine stands here without it.
     """
-    a = cq.Assembly(name="bottle-scene")
-    for child in cq.Assembly.load(str(MACHINE_STEP)).children:
-        if child.name != "funnel-cover":
-            a.add(child)
+    a = _cad_art.borrow(cq.Assembly(name="bottle-scene"),
+                        _cad_art.machine_bodies(lambda name: name != "funnel-cover"))
     # Built mouth down at the origin, then tipped about the mouth toward the cabinet door.
     shoulder = BOTTLE_NECK_H
     body = shoulder + 26.0
@@ -667,26 +655,10 @@ SCENES = {
 }
 
 
-def _graft_flutes(step: Path) -> None:
-    """Put the machine's printed skin on the bodies this scene borrowed from it.
-
-    The flutes live in `enclosure-assembly.step.mesh` and not in the solid beside it. Every body
-    built in this file keeps the surface its own solid tessellates to.
-    """
-    import flute_payload
-
-    source = flute_payload.read_payload(MACHINE_MESH) or []
-    landed = flute_payload.graft(Path(str(step) + ".mesh"),
-                                 {entry["name"]: entry for entry in source})
-    if landed < 3:
-        raise RuntimeError(f"{step.name}: {landed} appliance meshes landed, not the rear bodies")
-
-
 def render(names: list[str]) -> None:
     ART.mkdir(parents=True, exist_ok=True)
     OUT.mkdir(parents=True, exist_ok=True)
     note_read(RENDERER)
-    note_read(MACHINE_STEP)
     note_read(MACHINE_MESH)
     note_read(MACHINE_FACTS)
     note_read(COLLET_PRESS)
@@ -697,10 +669,7 @@ def render(names: list[str]) -> None:
         for name in names:
             build, pose = SCENES[name]
             step = work / f"{name}.step"
-            fluted = name in FLUTED
-            _cad_art._export_colored(build(), step, mesh=fluted)
-            if fluted:
-                _graft_flutes(step)
+            _cad_art._export_colored(build(), step)
             jobs.append({
                 "step": str(step.relative_to(HARDWARE)),
                 "out": str(ART / f"{name}.png"),

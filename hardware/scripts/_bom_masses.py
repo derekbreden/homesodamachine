@@ -43,6 +43,11 @@ REPO = next(p for p in Path(__file__).resolve().parents if (p / "hardware").is_d
 sys.path.insert(0, str(REPO / "tools"))
 from docgen import cells                                        # noqa: E402
 
+# Run as a script, the masses are read on the mesh kernel (`hardware/scripts/meshcad`).
+if __name__ == "__main__":
+    import meshcad  # noqa: E402
+    meshcad.activate()
+
 BOM = REPO / "hardware" / "ledger" / "bom.md"
 PARTS_DIR = REPO / "hardware" / "printed-parts"
 
