@@ -37,8 +37,9 @@ Translucent; the surrounding shell is PET-GF. The coil's 7 mm radial envelope, v
 reservoir wet interfaces belong to their respective native generators.
 
 The two dry reservoir reed channels continue to the raised rim. Their sensing
-windows keep their full opening to the internal body datum, then narrow
-over a 4 mm roof rise. Backing above those windows keeps pour
+windows keep their full opening to the internal body datum, then peak
+across their 8 mm width over an 8 mm rise, with 4.45 mm of header stock.
+Backing above those windows keeps pour
 foam out of the channels. Reservoir A's leads leave through the lid bore;
 Reservoir B's leads use the fore side window below the rim. Its peaked roof
 rises 8 mm above the straight cable opening and retains 4.2 mm of header stock.

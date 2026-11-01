@@ -151,16 +151,18 @@ def cut_reed_channel_openings(foam_shell):
         reed_opening = make_box((wall_x_inner, wall_x_outer), reed_cavity_y_range,
                                (wall_and_floor_thickness,foam_shell_outer_height))
         foam_shell = foam_shell.cut(reed_opening)
-        # Preserve the full sensing opening before narrowing its short roof
-        # at 0.5 mm per millimetre of build rise into the channel's inner edge.
-        inner = s * reed_channel_inner_x
-        rise = 2.0 * abs(inner - wall_x_inner)
+        # Peak across the window width, keeping the complete wall depth at
+        # both faces and the full sensing opening below the roof shoulder.
+        # Each side narrows 0.5 mm per millimetre of build rise.
+        rise = 2.0 * reed_y_half_w
         z = foam_shell_outer_height
-        plane = cq.Plane(origin=(0., reed_cavity_y_range[1], 0.),
-                         xDir=(1., 0., 0.), normal=(0., -1., 0.))
+        x0, x1 = sorted((wall_x_inner, wall_x_outer))
+        y0, y1 = reed_cavity_y_range
+        plane = cq.Plane(origin=(x0, 0., 0.),
+                         xDir=(0., 1., 0.), normal=(1., 0., 0.))
         roof = (cq.Workplane(plane)
-                .polyline([(wall_x_inner, z), (inner, z), (inner, z + rise)])
-                .close().extrude(2.0 * reed_y_half_w).val())
+                .polyline([(y0, z), (y1, z), (reed_y_center, z + rise)])
+                .close().extrude(x1-x0).val())
         foam_shell = foam_shell.cut(roof)
     return foam_shell
 
