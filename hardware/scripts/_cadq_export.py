@@ -29,13 +29,11 @@ Usage from any generator script:
 """
 
 import atexit
-import filecmp
 import hashlib
 import os
 import re
 import subprocess
 import sys
-import tempfile
 import time
 from collections import Counter, defaultdict
 from pathlib import Path
@@ -72,9 +70,12 @@ _deferred_rust = (_rust is not None and getattr(_rust, '_STARTED', None) is not 
 if _ENTRY is not None and not _deferred_rust:
     _acquire_build_lock(_ENTRY)
 
-# The lock's own test for whether a pid is still running, reused by the temp sweep
-# to tell an abandoned file from one a live build is still writing.
-from _run_lock import _alive as _pid_alive
+from _document_export import (
+    _WRITE_TARGETS, _canonicalize_dxf_classes_section, _canonicalize_dxf, _canonicalize_pdf,
+    _current_umask, _make_sibling_tempfile, _unlink_if_exists, _sweep_orphan_temps,
+    _matches_existing_target, atomic_write as _document_atomic_write,
+    export_dxf as _document_dxf, export_pdf,
+)
 
 # --- Loops over OCP collections ------------------------------------------------
 # A PYTHON LOOP OVER AN OCP COLLECTION ENDS IN A C++ EXCEPTION. OCP's iterators say they are
@@ -139,75 +140,6 @@ _STEP_ENDSEC_MARKER = "\nENDSEC;\n"
 # Cap reverse-hash refinement; 20 rounds is more than enough for any real
 # STEP graph (depth of upstream chain is small).
 _STEP_REV_HASH_ITERATIONS = 20
-
-# DXF non-determinism comes from four ezdxf-internal sources:
-#
-#   1. Wall-clock save times in four header variables, stored as Julian
-#      dates: $TDCREATE, $TDUCREATE, $TDUPDATE, $TDUUPDATE.
-#   2. Random UUIDs in two header variables: $FINGERPRINTGUID,
-#      $VERSIONGUID, freshly generated on every save.
-#   3. CLASSES-section entries emitted in dict-iteration order (varies
-#      with PYTHONHASHSEED across runs, and across ezdxf versions).
-#   4. ezdxf's own signature strings ("<version> @ <ISO-timestamp>")
-#      embedded as the value of group code 1 in two DICTIONARYVAR
-#      records near end-of-file.
-#
-# DXF format reminder: pairs of (group-code, value) lines. Group codes
-# are right-aligned in a 3-char field — "  9", " 40", "  2", "  0", "  1".
-_DXF_HEADER_TIMESTAMP_RE = re.compile(
-    rb"(  9\n\$TD(?:U?CREATE|U?UPDATE)\n 40\n)[\d.]+\n"
-)
-_DXF_CANONICAL_TIMESTAMP = rb"\g<1>2440587.5\n"  # Julian date for 1970-01-01.
-
-_DXF_HEADER_GUID_RE = re.compile(
-    rb"(  9\n\$(?:FINGERPRINT|VERSION)GUID\n  2\n)\{[0-9A-Fa-f-]+\}\n"
-)
-_DXF_CANONICAL_GUID = rb"\g<1>{00000000-0000-0000-0000-000000000000}\n"
-
-_DXF_EZDXF_SIGNATURE_RE = re.compile(
-    rb"(\d+\.\d+\.\d+) @ "
-    rb"\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:[+-]\d{2}:\d{2})?"
-)
-_DXF_CANONICAL_SIGNATURE = rb"\g<1> @ 1970-01-01T00:00:00.000000+00:00"
-
-_DXF_CLASSES_SECTION_OPEN_RE = re.compile(rb"  0\nSECTION\n  2\nCLASSES\n")
-_DXF_CLASSES_SECTION_CLOSE_RE = re.compile(rb"  0\nENDSEC\n")
-_DXF_CLASS_BLOCK_RE = re.compile(rb"  0\nCLASS\n")
-_DXF_CLASS_NAME_RE = re.compile(rb"  1\n([^\n]+)\n")
-
-# PDF non-determinism. Two producers in this repo, two shapes:
-#
-#   ReportLab (Canvas.save) writes /CreationDate, /ModDate, and the
-#   trailer /ID array as plain (uncompressed) bytes near end-of-file.
-#   The regex patterns below catch all three.
-#
-#   A PRODUCER THAT COMPRESSES ITS TRAILER IS OUT OF REACH HERE. Cairo
-#   (rsvg-convert, weasyprint) and Skia (a browser's `page.pdf`) write the
-#   same fields inside object streams the file-level regex cannot see.
-#   Cairo honors SOURCE_DATE_EPOCH, so a producer using it can set that
-#   and leave this a harmless no-op; a browser honors nothing, and what
-#   settles it there is the merge — pypdf drops each appended document's
-#   `/Info` (tools/weld-rotator-guide/build.py).
-#
-# Entries:
-#   /CreationDate and /ModDate — PDF dates: D:YYYYMMDDHHMMSSOHH'MM'.
-#   /ID array in the trailer — two hex strings; ReportLab regenerates
-#       both on every save (the first is meant to be permanent).
-_PDF_DATE_RE = re.compile(
-    rb"\(D:\d{14}(?:Z|[-+]\d{2}'\d{2}')\)"
-)
-_PDF_CANONICAL_DATE = rb"(D:19700101000000+00'00')"
-
-_PDF_ID_RE = re.compile(
-    rb"(/ID\s*\[)<[0-9a-fA-F]+><[0-9a-fA-F]+>(\])"
-)
-_PDF_CANONICAL_ID = (
-    rb"\g<1>"
-    rb"<00000000000000000000000000000000>"
-    rb"<00000000000000000000000000000000>"
-    rb"\g<2>"
-)
-
 
 # The only records OpenCASCADE emits in an order that moves between runs are the styling ones:
 # the chain a colour hangs on, and the presentation representation that roots it. Every point,
@@ -492,145 +424,11 @@ def _canonicalize_step(step_path):
             f.write(new_data)
 
 
-def _canonicalize_dxf_classes_section(data):
-    """Stable-sort the CLASS entries inside the CLASSES section. Each
-    entry runs from `  0\\nCLASS\\n` up to (but not including) the next
-    `  0\\nCLASS\\n` or `  0\\nENDSEC\\n`. Sort key is the DXF class
-    name in group code 1 — the first `  1\\n<name>\\n` pair inside the
-    block. Returns the original bytes unchanged if the CLASSES section
-    is absent or malformed."""
-    open_m = _DXF_CLASSES_SECTION_OPEN_RE.search(data)
-    if open_m is None:
-        return data
-    close_m = _DXF_CLASSES_SECTION_CLOSE_RE.search(data, open_m.end())
-    if close_m is None:
-        return data
-    body_start = open_m.end()
-    body_end = close_m.start()
-    body = data[body_start:body_end]
-
-    starts = [m.start() for m in _DXF_CLASS_BLOCK_RE.finditer(body)]
-    if len(starts) < 2:
-        return data
-
-    entries = []
-    for i, s in enumerate(starts):
-        e = starts[i + 1] if i + 1 < len(starts) else len(body)
-        entries.append(body[s:e])
-
-    def _key(entry):
-        m = _DXF_CLASS_NAME_RE.search(entry)
-        return m.group(1) if m else b""
-
-    sorted_entries = sorted(entries, key=_key)
-    if sorted_entries == entries:
-        return data
-    return data[:body_start] + b"".join(sorted_entries) + data[body_end:]
-
-
-def _canonicalize_dxf(dxf_path):
-    """Normalize ezdxf output for byte-stable hashing across runs:
-    pin the four header save-time stamps, the two header GUIDs, and the
-    two ezdxf signature timestamps; stable-sort the CLASSES section by
-    class name. No-op on already-canonical files."""
-    with open(dxf_path, "rb") as f:
-        data = f.read()
-    new_data = _DXF_HEADER_TIMESTAMP_RE.sub(_DXF_CANONICAL_TIMESTAMP, data)
-    new_data = _DXF_HEADER_GUID_RE.sub(_DXF_CANONICAL_GUID, new_data)
-    new_data = _DXF_EZDXF_SIGNATURE_RE.sub(_DXF_CANONICAL_SIGNATURE, new_data)
-    new_data = _canonicalize_dxf_classes_section(new_data)
-    if new_data != data:
-        with open(dxf_path, "wb") as f:
-            f.write(new_data)
-
-
-def _canonicalize_pdf(pdf_path):
-    """Normalize ReportLab PDF output for byte-stable hashing across
-    runs: pin /CreationDate and /ModDate to the epoch, zero out both
-    halves of the trailer /ID array. No-op on already-canonical files."""
-    with open(pdf_path, "rb") as f:
-        data = f.read()
-    new_data = _PDF_DATE_RE.sub(_PDF_CANONICAL_DATE, data)
-    new_data = _PDF_ID_RE.sub(_PDF_CANONICAL_ID, new_data)
-    if new_data != data:
-        with open(pdf_path, "wb") as f:
-            f.write(new_data)
-
-
-def _current_umask():
-    """Read the process umask without changing it (os.umask only offers
-    a swap; the only way to read is set-then-restore)."""
-    umask = os.umask(0)
-    os.umask(umask)
-    return umask
-
-
-def _make_sibling_tempfile(target):
-    """Create an empty temp file next to `target`, sharing its suffix so
-    write_fn's format dispatch (cq.exporters.export keys on the
-    extension) picks the same format as the eventual target. Same
-    directory keeps the final rename on one filesystem so os.replace is
-    atomic. The name carries the writing pid — `.<target>.<pid>.<rand><suffix>`
-    — which is what `_sweep_orphan_temps` reads."""
-    fd, tmp_path = tempfile.mkstemp(
-        prefix=f".{target.name}.{os.getpid()}.",
-        suffix=target.suffix,
-        dir=str(target.parent),
-    )
-    os.close(fd)
-    # mkstemp creates files at 0600; restore umask-default so the renamed
-    # target ends up at 0644 rather than a private 0600.
-    os.chmod(tmp_path, 0o666 & ~_current_umask())
-    return tmp_path
-
-
-def _unlink_if_exists(path):
-    try:
-        os.unlink(path)
-    except FileNotFoundError:
-        pass
-
-
-def _sweep_orphan_temps(target):
-    """Drop the temps in `target`'s directory whose writing build is gone.
-
-    A build that raises unlinks its own temp, but SIGKILL has no exception path
-    to run — and the dev-server watcher supersedes with SIGKILL deliberately,
-    because CadQuery sits inside OCCT calls that ignore SIGTERM for seconds at a
-    time (web/dev-server/server.js). So a killed generator leaves its temp
-    behind, and the assemblies it leaves are the largest files in the tree.
-
-    The pid in the name is what makes the sweep safe to run unconditionally:
-    builds are single-flight but not exclusively so — one that yields to a
-    protected commit gate takes no lock and runs alongside it (_run_lock), and
-    HSM_NO_BUILD_LOCK opts out entirely — so a temp being written right now can
-    be sitting in this directory, and it is the live pid that spares it. Best
-    effort in the other direction: a pid the OS has since handed to an unrelated
-    process reads as live, and its temp waits for a later sweep."""
-    for p in target.parent.glob(f".*{target.suffix}"):
-        owner = p.stem.rsplit(".", 2)          # `.<target>`, `<pid>`, `<rand>`
-        if len(owner) != 3 or not owner[1].isdigit() or _pid_alive(int(owner[1])):
-            continue
-        try:
-            p.unlink()
-        except OSError:
-            pass
-
-
-def _matches_existing_target(tmp_path, target):
-    """True if `target` is already byte-identical to `tmp_path` — i.e.
-    the rename would be a no-op."""
-    return target.exists() and filecmp.cmp(tmp_path, str(target), shallow=False)
-
-
 #: Every solid THIS RUN loaded off the disk. A solid one generator cuts and the next loads is an
 #: edge no import statement carries, so no walk over import statements can find it — which is how
 #: a cap cut at 09:56 stood in an assembly built at 15:00 with every digest agreeing.
 _STEP_READS = set()
-#: Every path `_atomic_write` was handed, whether or not the bytes moved. A run that lands on
-#: the solid already in the tree performs no rename, and cutting it is still what it came for.
-_WRITE_TARGETS = set()
-
+# _WRITE_TARGETS is shared with document exports, including byte-identical writes.
 
 #: Every path a run named as one it reads, whether or not this run reached it. A tool a run
 #: WOULD start is a file it reads: a scene already current starts no browser, and the renderer
@@ -831,34 +629,9 @@ def import_assembly(path):
 
 
 def _atomic_write(target_path, write_fn):
-    """Write atomically; return True if the target's bytes changed, False if
-    the new output matched the existing file (no rename performed)."""
-    target = Path(target_path).resolve()
-    try:
-        _WRITE_TARGETS.add(target.relative_to(_ROOT).as_posix())
-    except ValueError:
-        pass                             # a solid outside this repo is nothing this tree cuts
-    target.parent.mkdir(parents=True, exist_ok=True)
-    _sweep_orphan_temps(target)
-    tmp_path = _make_sibling_tempfile(target)
-    try:
-        write_fn(tmp_path)
-        if target.suffix == ".step":
-            _canonicalize_step(tmp_path)
-        elif target.suffix == ".dxf":
-            _canonicalize_dxf(tmp_path)
-        elif target.suffix == ".pdf":
-            _canonicalize_pdf(tmp_path)
-        # Skip the rename when content matches — keeps target.mtime stable
-        # and leaves git status clean across no-op regenerations.
-        if _matches_existing_target(tmp_path, target):
-            os.unlink(tmp_path)
-            return False
-        os.replace(tmp_path, target)
-        return True
-    except BaseException:
-        _unlink_if_exists(tmp_path)
-        raise
+    """Atomic geometry export, sharing document output bookkeeping and temp handling."""
+    canonicalize = _canonicalize_step if Path(target_path).resolve().suffix == ".step" else None
+    return _document_atomic_write(target_path, write_fn, canonicalize=canonicalize)
 
 
 # --- The mesh payload --------------------------------------------------------
@@ -1103,16 +876,7 @@ def export_dxf(source, target_path):
     section, handed to cq.exporters.export — which keys the format off the suffix
     the temp file shares with the target."""
     if hasattr(source, "saveas"):
-        _atomic_write(target_path, lambda p: source.saveas(p))
+        _document_dxf(source, target_path)
         return
     import cadquery as cq
     _atomic_write(target_path, lambda p: cq.exporters.export(source, p))
-
-
-def export_pdf(build, target_path):
-    """Atomic-write PDF with canonical output. `build(out_path)` is the
-    caller's drawing function — it constructs a ReportLab Canvas at
-    `out_path`, draws on it, and calls `.save()` itself. The wrapper
-    supplies a temp path, canonicalizes the result, and renames into
-    place only when the bytes change."""
-    _atomic_write(target_path, build)
