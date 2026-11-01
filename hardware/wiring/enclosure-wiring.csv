@@ -2,25 +2,24 @@ wire_id,harness,net,from_terminal,to_terminal,awg,modeled_length_mm,route_status
 AC1-L,AC inlet,L,c14.L,wago-h.1,16,77.795,selected_layout,nominal,nominal,fixed
 AC1-N,AC inlet,N,c14.N,wago-n.1,16,89.785,selected_layout,nominal,nominal,fixed
 AC1-PE,AC inlet,PE,c14.PE,wago-g.1,16,110.299,selected_layout,nominal,nominal,fixed
-AC2-L,PSU primary,L,wago-h.2,psu.L,16,119.29,selected_layout,nominal,nominal,fixed
-AC2-N,PSU primary,N,wago-n.2,psu.N,16,91.435,selected_layout,nominal,nominal,fixed
+AC2-L,PSU primary,L,wago-h.2,psu.L,16,118.334,selected_layout,nominal,nominal,fixed
+AC2-N,PSU primary,N,wago-n.2,psu.N,16,90.135,selected_layout,nominal,nominal,fixed
 AC3-L,Compressor,L,wago-h.3,relay-1.COM,16,40.047,selected_layout,nominal,nominal,fixed
 AC4-pigtail,Compressor,H_switched,relay-1.NO,join-compressor-h.1,16,222.604,selected_layout,nominal,nominal,final join
 AC4-H,Compressor,H_switched,join-compressor-h.2,fuse.in,18,433.611,selected_layout,nominal,nominal,final join
 AC4-fuse,Compressor,H_switched,fuse.out,compressor.H,18,36.777,selected_layout,nominal,unlocated,fixed
 AC5-pigtail,Compressor,N,wago-n.3,join-compressor-n.1,16,248.451,selected_layout,nominal,nominal,final join
-AC5-N,Compressor,N,join-compressor-n.2,compressor.N,18,467.933,selected_layout,nominal,unlocated,final join
-AC6-PE,Compressor,PE,ground.compressor,compressor.PE,18,604.185,selected_layout,modeled,unlocated,fixed
-PE-bus,Earth bonds,PE,wago-g.2,ground.inlet,16,70.121,selected_layout,nominal,modeled,fixed
-PE-carbonator,Earth bonds,PE,ground.carbonator,carbonator.PE,16,317.553,selected_layout,modeled,modeled,fixed
-DC1-V12,12V power,V12,psu.V12,wago-v12.1,16,308.792,selected_layout,nominal,nominal,fixed
+AC5-N,Compressor,N,join-compressor-n.2,compressor.N,18,467.934,selected_layout,nominal,unlocated,final join
+AC6-PE,Compressor,PE,wago-g.3,compressor.PE,18,650.616,selected_layout,nominal,unlocated,fixed
+PE-carbonator,Earth bonds,PE,wago-g.2,carbonator.PE,16,275.505,selected_layout,nominal,modeled,fixed
+DC1-V12,12V power,V12,psu.V12,wago-v12.1,16,309.262,selected_layout,nominal,nominal,fixed
 DC4-V12,12V power,V12,wago-v12.3,J10.V12,16,97.997,selected_layout,nominal,nominal,fixed
-DC1-GND,12V power,GND,psu.GND,wago-gnd.1,16,277.741,selected_layout,nominal,nominal,fixed
+DC1-GND,12V power,GND,psu.GND,wago-gnd.1,16,277.761,selected_layout,nominal,nominal,fixed
 DC4-GND,12V power,GND,wago-gnd.3,J10.GND,16,52.382,selected_layout,nominal,nominal,fixed
 DC2-V12,Diaphragm pump,V12,wago-v12.2,relay-2.COM,16,257.137,selected_layout,nominal,nominal,fixed
 DC3-pigtail,Diaphragm pump,pump-switched,relay-2.NO,join-pump-positive.3,16,216.999,selected_layout,nominal,nominal,final join
-DC3-positive,Diaphragm pump,pump-switched,join-pump-positive.2,diaphragm.positive,16,253.985,selected_layout,nominal,unlocated,final join
-DC3-negative,Diaphragm pump,GND,wago-gnd.2,diaphragm.negative,16,223.108,selected_layout,nominal,unlocated,fixed
+DC3-positive,Diaphragm pump,pump-switched,join-pump-positive.2,diaphragm.positive,16,254.042,selected_layout,nominal,unlocated,final join
+DC3-negative,Diaphragm pump,GND,wago-gnd.2,diaphragm.negative,16,223.076,selected_layout,nominal,unlocated,fixed
 J1-COM,J1,V12,J1.COM,wago-mana.1,22,290.114,selected_layout,nominal,nominal,fixed
 J1-OUT1,J1,J1.OUT1,J1.OUT1,V-A.negative,22,116.298,selected_layout,nominal,modeled,fixed
 J1-positive-A,J1,V12,wago-mana.2,V-A.positive,22,269.258,selected_layout,nominal,modeled,fixed

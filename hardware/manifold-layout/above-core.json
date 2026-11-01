@@ -1616,53 +1616,28 @@
       "geometry": "forward-tee-y-b"
     },
     "funnel-drain-union": {
-      "geometry": "jg-turn-elbow",
+      "geometry": "stem-elbow-uncut",
       "rotation": [
-        [
-          1.0,
-          0.0,
-          0.0
-        ],
-        [
-          0.0,
-          1.0,
-          0.0
-        ],
         [
           0.0,
           0.0,
           1.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0
         ]
       ],
       "translation_mm": [
         0.0,
         179.19575,
-        280.41
-      ]
-    },
-    "funnel-drain-stub": {
-      "geometry": "forward-funnel-drain-stub",
-      "rotation": [
-        [
-          1.0,
-          0.0,
-          0.0
-        ],
-        [
-          0.0,
-          1.0,
-          0.0
-        ],
-        [
-          0.0,
-          0.0,
-          1.0
-        ]
-      ],
-      "translation_mm": [
-        0.0,
-        17.5,
-        0.0
+        290.2894671104907
       ]
     },
     "funnel-drain-cradle": {
@@ -1686,8 +1661,8 @@
       ],
       "translation_mm": [
         0.0,
-        17.5,
-        0.0
+        179.19575,
+        299.25
       ]
     },
     "drain-outlet-stem": {
@@ -1695,8 +1670,8 @@
       "rotation": [
         [
           0.0,
-          1.0,
-          0.0
+          0.9754389189616858,
+          -0.22027009641541848
         ],
         [
           1.0,
@@ -1705,23 +1680,23 @@
         ],
         [
           0.0,
-          0.0,
-          -1.0
+          -0.22027009641541848,
+          -0.9754389189616858
         ]
       ],
       "translation_mm": [
         0.0,
         206.80334,
-        280.41
+        290.2894671104907
       ]
     },
     "vb-inlet-turn": {
       "geometry": "stem-elbow-trimmed",
       "rotation": [
         [
-          -0.0,
-          -1.0,
-          0.0
+          0.0,
+          -0.9754389189616858,
+          -0.22027009641541848
         ],
         [
           -1.0,
@@ -1729,9 +1704,9 @@
           0.0
         ],
         [
-          -0.0,
           0.0,
-          -1.0
+          0.22027009641541848,
+          -0.9754389189616858
         ]
       ],
       "translation_mm": [
@@ -2125,14 +2100,14 @@
     "tubes": {
       "drain-vb-east-link": [
         [
-          4.191366093950744,
+          4.088421611655978,
           206.80334,
-          280.41
+          289.36623449686385
         ],
         [
-          39.55863390604925,
+          39.661578388344026,
           206.80334,
-          280.41
+          281.3332326136269
         ]
       ],
       "vb-yb-cross": [
@@ -2545,13 +2520,13 @@
         "corner": [
           0.0,
           206.80334,
-          280.41
+          290.2894671104907
         ],
         "rotation": [
           [
             0.0,
-            1.0,
-            0.0
+            0.9754389189616858,
+            -0.22027009641541848
           ],
           [
             1.0,
@@ -2560,8 +2535,8 @@
           ],
           [
             0.0,
-            0.0,
-            -1.0
+            -0.22027009641541848,
+            -0.9754389189616858
           ]
         ]
       },
@@ -2574,9 +2549,9 @@
         ],
         "rotation": [
           [
-            -0.0,
-            -1.0,
-            0.0
+            0.0,
+            -0.9754389189616858,
+            -0.22027009641541848
           ],
           [
             -1.0,
@@ -2584,9 +2559,9 @@
             0.0
           ],
           [
-            -0.0,
             0.0,
-            -1.0
+            0.22027009641541848,
+            -0.9754389189616858
           ]
         ]
       },
@@ -2846,7 +2821,7 @@
     "drain_union_corner_mm": [
       0.0,
       179.19575,
-      280.41
+      290.2894671104907
     ],
     "ya_mouth_mm": [
       43.43236609395074,
@@ -2862,8 +2837,8 @@
     "vb_exposed_tube_length_mm": 81.41226566226199,
     "b_plumbing": {
       "inlet_minimum_radius_mm": null,
-      "inlet_exposed_length_mm": 1.5852678120985075,
-      "inlet_arm_lift_degrees": 0.0,
+      "inlet_exposed_length_mm": 2.6868716896330085,
+      "inlet_arm_lift_degrees": 12.724897546004149,
       "cross_rise_degrees": 0.0,
       "cross_exposed_length_mm": 0.5417678678412337,
       "return_control_mm": [
@@ -3307,8 +3282,8 @@
       "Beduan_socket": 12.7,
       "YA_YB_tee": 10.0
     },
-    "drain_stem_exposure_mm": 1.0,
-    "drain_stem_length_mm": 16.7,
+    "drain_stem_exposure_mm": 0.411676377086053,
+    "drain_stem_length_mm": 17.30267637708605,
     "insertion_scope": "Family-based layout estimates. Drain outlet stem retains3.3058 mm exposure for the cradle; the soda rear return retains2.4048 mm. Physical fully seated marks govern fitting cuts.",
     "vb_drain_minimum_radius_mm": null,
     "native_segments": {
@@ -3317,14 +3292,14 @@
           "kind": "line",
           "points_mm": [
             [
-              4.191366093950744,
+              4.088421611655978,
               206.80334,
-              280.41
+              289.36623449686385
             ],
             [
-              39.55863390604925,
+              39.661578388344026,
               206.80334,
-              280.41
+              281.3332326136269
             ]
           ]
         }

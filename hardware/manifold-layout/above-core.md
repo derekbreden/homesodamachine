@@ -78,7 +78,11 @@ The upward-opening snap at X16.608/Y207.300/Z268.970 has one filled root on
 the lid. Y-A's stem elbow points east, keeping the connector on XYZ axes
 and clear of the drain cradle. Both receiving lengths stay straight through
 the full 16.891 mm socket depth. All bends retain at least R14.
-V-B has a straight, fully inserted drain link with 1.585 mm exposed tube.
+The funnel’s uncut ATEU44W stem reaches the bowl opening at Z317.315; its bend
+is Z290.289 and its collar clears the frame by 1.713 mm. V-B’s inlet turn and
+the attached drain outlet elbow share a 12.725° descending axis. Their straight
+36.469 mm tube includes both 16.891 mm socket engagements and has 2.687 mm
+exposed tube.
 Its return to Y-B retains at least R24.66; the cross-link has 0.542 mm
 exposed tube between full insertions. Complete
 these connections through the uncovered funnel opening before fitting the frame.

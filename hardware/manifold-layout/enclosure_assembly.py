@@ -101,8 +101,7 @@ for _p in (_hw / "scripts", _here.parent,
            _hw / "printed-parts" / "zone-c" / "funnel",
            _hw / "printed-parts" / "zone-c" / "funnel-cover",
            _hw / "reference" / "jg-pp0408w",
-           _hw / "reference" / "jg-pp0308e-elbow",
-           _hw / "reference" / "funnel-drain-stub",
+           _hw / "reference" / "neofit-stem-elbow",
            _hw / "printed-parts" / "diaphragm-pump-sleeve",
            _hw / "reference" / "waveshare-43b-display",
            _hw / "reference" / "meanwell-irm90",
@@ -165,9 +164,8 @@ import _anchor_cap_interface as _anchor_cap           # noqa: E402
 import reeding as _reeding                            # noqa: E402
 import funnel_frame as _funnel_frame
 import funnel as _funnel                       # noqa: E402
-import elbow as _elbow                                # noqa: E402
+import neofit_stem_elbow as _drain_elbow                # noqa: E402
 import elbow_cradle as _cradle                        # noqa: E402
-import funnel_drain_stub as _stub                     # noqa: E402
 import valve_seat as _vseat                           # noqa: E402
 import manifold_layout as ml                          # noqa: E402
 import diaphragm_pump_sleeve as _pump_elbow           # noqa: E402
@@ -291,7 +289,7 @@ from _materials import (C_AC_HUB, C_C14, C_COMP, C_COND, C_DIGITEN,  # noqa: E40
                         C_DISPLAY_GLASS, C_MQ6, C_PCBA, C_PLATE,
                         C_PSU, C_RELAY,
                         M_ALUMINIUM, M_BRASS, M_DONOR_BLACK, M_JG_BLACK_PP, M_JG_GREY_ACETAL,
-                        M_NEOFIT_ACETAL, M_PETG_BLACK, M_PETGF_BLACK, M_SILICONE_BLACK,
+                        M_NEOFIT_ACETAL, M_NEOFIT_WHITE_ACETAL, M_PETG_BLACK, M_PETGF_BLACK, M_SILICONE_BLACK,
                         M_STAINLESS, M_TINNED_STEEL, M_TPU_BLACK)
 # The refrigeration donor's own two. A hermetic compressor is a painted-steel can; the condenser is
 # a plate-fin block, aluminium fins on a copper tube (`reference/ice-maker/README.md`), and it
@@ -300,8 +298,6 @@ from _materials import (C_AC_HUB, C_C14, C_COMP, C_COND, C_DIGITEN,  # noqa: E40
 C_FOAM = M_PETG_BLACK
 # Cast platinum silicone, pigmented to hide concentrate staining.
 C_FUNNEL = M_SILICONE_BLACK
-# The funnel's drain stub, off the roll `fluid-4` carries on from the elbow.
-C_STUB = _routing.tube_color("fluid-4")
 # The water check chain and the elbows' clamp bands are drawn as the metal that is most of them.
 C_SUCT = M_STAINLESS
 # The border over that glass, in the enclosure's own black stock.
@@ -5198,34 +5194,25 @@ def build_funnel(box):
 
 
 def build_drain_joint(box):
-    """The frame-carried drain joint, on the centered funnel outlet datum.
+    """The frame-carried cradle and uncut stem elbow, with its tip at the bowl opening.
 
-    Three bodies on one column, each in the frame its own module states:
-
-      * the elbow cradle, snapped into the removable frame's 3 mm bottom web
-        (`elbow_cradle`, origin on the outlet axis at that web);
-      * the PP0308E elbow standing in it, its nose below the web by the cradle's catch
-        clearance, +Z leg up the hole and +Y leg aft;
-      * the drain stub in the elbow's upper collet, up through the hole into the plug's land
-        (`funnel_drain_stub`, origin on the elbow's release face).
-
-    All three travel with the frame; disconnect the V-B feed before removing it.
-    Returns `(name, solid, colour, carry)` per body — the elbow's carry is what `fluid-4`
-    anchors on."""
-    _stub.joint_holds()
+    Both travel with the frame; disconnect the V-B feed before removing it.
+    The elbow's carry keeps its native -X stem and +Y socket datums.
+    """
     cx, cy = funnel_centre(box)
     floor = _funnel_frame.datums(_enc.funnel_seat_z(box.outer))[0]
     hole = (cx + _funnel.neck_dx, cy + _funnel.neck_dy, floor - _cradle.CATCH_GAP)
     up = (0.0, 0.0, 1.0)
-    cradle, _ = seat_body(_cradle.build(), seat="elbow-cradle", station=(((0, 0, 0), up), hole))
-    union, union_carry = seat_body(_elbow.build_elbow_connector().val(),
-                                   seat="funnel-drain-union",
-                                   station=(((0.0, 0.0, _elbow.FIXED_FACE), up), hole))
-    stub, _ = seat_body(_stub.build_stub().val(), seat="funnel-drain-stub",
-                        station=(((0, 0, 0), up), union_carry(_elbow.port("z"))[0]))
+    cradle_native = import_step(str(_hw / "printed-parts/zone-c/funnel/elbow-cradle.step")).val()
+    cradle_native = cradle_native.translate(cq.Vector(0, 0, _cradle.block()[3]))
+    cradle, _ = seat_body(cradle_native, seat="elbow-cradle", station=(((0, 0, 0), up), hole))
+    native = _above_parts.native_reference('stem-elbow')
+    tip = (cx + _funnel.neck_dx, cy + _funnel.neck_dy,
+           _enc.funnel_seat_z(box.outer) + _funnel.spout_land_z)
+    union, union_carry = seat_body(native, (((0, 1, 0), 90),), seat="funnel-drain-union",
+                                   station=(_drain_elbow.stem_tip(), tip))
     return (("elbow-cradle", cradle, M_PETGF_BLACK, None),
-            ("funnel-drain-union", union, M_JG_BLACK_PP, union_carry),
-            ("funnel-drain-stub", stub, C_STUB, None))
+            ("funnel-drain-union", union, M_NEOFIT_WHITE_ACETAL, union_carry))
 
 
 # Carry the display's screen normal onto the enclosure facet.
@@ -5443,23 +5430,20 @@ def build_enclosure_assembly(*, require_box_spec=False) -> cq.Assembly:
     if drain is not None:
         note_room("funnel-drain-union", "the drop off the elbow `fluid-4` reaches V-B on",
                   0.0, drain.pts[0][2] - drain.pts[-1][2])
-    # The joint's own stack, read back off the placed bodies: the elbow's nose on the frame's
-    # underside, the stub's top at the plug's land, and the line drawn to V-B.
+    # The full stem reaches the bowl opening and its socket body clears the frame web.
     union_carry = a.carries["funnel-drain-union"]
-    nose = union_carry(((0.0, 0.0, _elbow.FIXED_FACE), (0.0, 0.0, 1.0)))[0][2]
-    stub_top = a.pack_solids["funnel-drain-stub"].BoundingBox().zmax
+    stem_top = union_carry(_drain_elbow.stem_tip())[0][2]
     land_top = (_enc.funnel_seat_z(box.outer) + _funnel.spout_land_z)
-    joined = (abs(nose - (floor - _cradle.CATCH_GAP)) < 1e-6
-              and abs(stub_top - land_top) < 1e-3
-              and drain is not None)
+    bend_z = union_carry(((0, 0, 0), (0, 0, 1)))[0][2]
+    body_air = floor - bend_z - _drain_elbow.COLLAR_OD / 2
+    joined = abs(stem_top - land_top) < 1e-3 and body_air > 0 and drain is not None
     record_bound(Bound(
-        "funnel-drain-attachment", "The removable funnel has a retained drain tube", joined,
-        f"PP0308E nose {_cradle.CATCH_GAP:g} mm below the web at Z{nose:.3f}; "
-        f"stub top Z{stub_top:.3f} at the plug's "
-        f"{_funnel.sealing_land:g} mm land; fluid-4 "
+        "funnel-drain-attachment", "The removable funnel seals on the retained elbow stem", joined,
+        f"Uncut ATEU44W tip Z{stem_top:.3f}; {_funnel.sealing_land:.3f} mm engagement; "
+        f"socket body {body_air:.3f} mm below the frame; fluid-4 "
         + (f"{drain.length:.1f} mm to V-B" if drain is not None else "not drawn"),
-        "a fixed tube through the frame connected to V-B",
-        ["The cradle's snap and the plug's push-on seal on the stub are not physically "
+        "a fixed elbow stem through the frame connected to V-B",
+        ["The cradle's snap and the plug's push-on seal on the stem are not physically "
          "qualified; `zone-c/funnel/cradle-trial` tests the snap."], "goal"))
     a.bounds = list(BOUNDS)
     display = build_display(box)
