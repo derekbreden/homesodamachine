@@ -687,6 +687,28 @@ def numbers(shell, box):
                 funnel_containment=containment)
 
 
+def can_cut(shell,box):
+    """Whether the explicit private feature set covers this Box; other Boxes use native builders."""
+    for name in ('port_field','nameplate','keystone','c14','asse_cradle',
+                 'flow_meter_anchors','tube_anchors'):
+        if getattr(box.pack,name):
+            return False
+    if any(row[0]=='c14-inlet' for row in box.pack.ceiling_reliefs):
+        return False
+    if shell.housing_back_y(box.outer)>=box.y_joint:
+        return False
+    if box.pack.funnel:
+        try:
+            _funnel_containment(shell,box)
+        except ValueError:
+            return False
+    import rear_plumbing
+    for key,k in (('chain_frame',0),('gas_frame',2)):
+        if tuple(row[k] for row in rear_plumbing.plan()[key]['rotation'])!=(0.,-1.,0.):
+            return False
+    return True
+
+
 def print_numbers(shell,box):
     """The unchanged field phase and plain lands; Rust measures the constructed raised pad."""
     import _enclosure_skin
