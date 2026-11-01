@@ -30,6 +30,7 @@ export function createXrayRenderer({
     const material = new LineMaterial({ linewidth: edgeWidth, alphaToCoverage: true, ...params });
     material.resolution.copy(bufferSize);
     edgeMaterials.add(material);
+    material.addEventListener("dispose", () => edgeMaterials.delete(material));
     return material;
   }
   function syncEdgeResolution(renderer) {
@@ -211,7 +212,10 @@ export function createXrayRenderer({
     roots.delete(root);
     if (focus?.root === root) focus = null;
   }
-  function forgetEdgeMaterials() { edgeColors.clear(); }
+  function forgetEdgeMaterials() {
+    for (const material of edgeColors.values()) material.dispose();
+    edgeColors.clear();
+  }
   function setEnabled(on) { active = !!on; }
   function isEnabled() { return active; }
 
