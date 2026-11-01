@@ -27,6 +27,7 @@ from __future__ import annotations
 
 import math
 import sys
+from collections import namedtuple
 from pathlib import Path
 
 import cadquery as cq
@@ -51,6 +52,7 @@ from _cold_core_interface import (                       # noqa: E402
 )
 from _routing import stock_min, stock_of                 # noqa: E402
 import _stated_bounds as _bounds                         # noqa: E402
+import _core_points as _points                           # noqa: E402
 
 TUBE_R = _mandrel.tube_radius                       # 3.175 — 1/4" ACR copper
 # The copper's centreline once it is off the mandrel and onto the carbonator: its inner surface
@@ -65,9 +67,13 @@ AZ_IN, AZ_OUT = -90.0, 90.0
 
 
 def _at(azimuth_deg: float, z: float, radius: float = None) -> cq.Vector:
+    return cq.Vector(*_at_xyz(azimuth_deg, z, radius))
+
+
+def _at_xyz(azimuth_deg, z, radius=None):
     r = WIND_R if radius is None else radius
     a = math.radians(azimuth_deg)
-    return cq.Vector(r * math.cos(a), r * math.sin(a), z)
+    return (r * math.cos(a), r * math.sin(a), z)
 
 
 WIND_HEIGHT = evap_tail_high_z - evap_tail_low_z
@@ -138,9 +144,8 @@ def _ride_radius(azimuth_deg: float, z: float) -> float:
     return WIND_R + axial * max(0.0, surface - carbonator_outer_radius)
 
 
-def wrap_points() -> list:
-    """The wrap's centreline, sampled — clocked so it starts on the inlet tail's own azimuth
-    and lifted where the bridge carries it."""
+def wrap_points_xyz() -> list:
+    """The laid wrap's sampled centreline as scalar coordinates."""
     n = max(2, int(round(TOTAL_WRAPS * WRAP_SAMPLES_PER_TURN)))
     # A curve THROUGH sampled points runs inside the circle those points sit on, by the
     # sagitta of one step. Sampling on a circle that much larger puts the drawn surface back
@@ -151,8 +156,13 @@ def wrap_points() -> list:
         turn = TOTAL_WRAPS * i / n
         az = AZ_IN + 360.0 * turn
         z = evap_tail_low_z + PITCH * turn
-        pts.append(_at(az, z, _ride_radius(az, z) * swell))
+        pts.append(_at_xyz(az, z, _ride_radius(az, z) * swell))
     return pts
+
+
+def wrap_points() -> list:
+    """The sampled laid wrap, clocked from the inlet and lifted over its reed bridge."""
+    return [cq.Vector(*p) for p in wrap_points_xyz()]
 
 
 def helix_wire() -> cq.Wire:
@@ -203,6 +213,39 @@ def gap_z_near(azimuth_deg: float, target_z: float) -> float:
 TAIL_BEND_R = 15.0
 
 
+_Point = namedtuple('_Point', 'x y z')
+
+
+class _TailLayout:
+    """The manufacturing stations and circular bends without native edge objects."""
+
+    def __init__(self, point, tangent):
+        self.point = _Point(*point)
+        self.tangent = _points.unit(tangent)
+        self.segments = []
+
+    def bend(self, normal, degrees, label):
+        normal = _points.unit(normal)
+        angle = math.radians(degrees)
+        start, tangent = self.point, self.tangent
+        radius = TAIL_BEND_R
+        end = _points.add(_points.add(start, _points.scale(tangent, radius * math.sin(angle))),
+                          _points.scale(normal, radius * (1 - math.cos(angle))))
+        self.segments.append(dict(id=label, kind='bend', start=tuple(start), end=end,
+                                  radius=radius, angle=degrees, tangent=tangent, normal=normal))
+        self.point = _Point(*end)
+        self.tangent = _points.add(_points.scale(tangent, math.cos(angle)),
+                                   _points.scale(normal, math.sin(angle)))
+
+    def straight(self, length, label):
+        if length <= 1e-8:
+            return
+        end = _points.add(self.point, _points.scale(self.tangent, length))
+        self.segments.append(dict(id=label, kind='straight', start=tuple(self.point),
+                                  end=end, length=length))
+        self.point = _Point(*end)
+
+
 class TailForm:
     """Analytic circular bends and tangent straights, in manufacturing order."""
 
@@ -241,7 +284,7 @@ class TailForm:
         return cq.Wire.assembleEdges(self.edges)
 
 
-def tail_form(which: str, *, working_tail=False) -> TailForm:
+def _tail_form(which, *, working_tail=False, layout):
     """Production form from helix endpoint to the shell exit, optionally to cut end.
 
     B0 absorbs the helix's small pitch angle. B1/B2 are a plan S-offset;
@@ -251,9 +294,9 @@ def tail_form(which: str, *, working_tail=False) -> TailForm:
     sign = -1 if which == "inlet" else 1
     az = AZ_IN if which == "inlet" else AZ_OUT
     z = evap_tail_low_z if which == "inlet" else evap_tail_high_z
-    start = _at(az, z)
+    start = _at_xyz(az, z)
     beta = math.atan(PITCH / (2 * math.pi * WIND_R))
-    form = TailForm(start.toTuple(), (-math.cos(beta), 0, sign * math.sin(beta)))
+    form = layout(start, (-math.cos(beta), 0, sign * math.sin(beta)))
     form.bend((-math.sin(beta), 0, -sign * math.cos(beta)), math.degrees(beta), "B0")
     (_wall_x, lane_y, cross_z), _axis = _copper.station("evap-" + which)
     offset = abs(lane_y) - WIND_R
@@ -274,6 +317,21 @@ def tail_form(which: str, *, working_tail=False) -> TailForm:
     if working_tail:
         form.straight(_mandrel.stub_protrusion[which], "WORKING TAIL")
     return form
+
+
+def tail_form(which: str, *, working_tail=False) -> TailForm:
+    """Native circular wire form in manufacturing order."""
+    return _tail_form(which, working_tail=working_tail, layout=TailForm)
+
+
+def tail_layout(which: str, *, working_tail=False):
+    """Source-frame stations used by the kernel and by the native tail form."""
+    return _tail_form(which, working_tail=working_tail, layout=_TailLayout).segments
+
+
+def tail_layout_length(which):
+    return sum(item['radius'] * math.radians(item['angle']) if item['kind'] == 'bend'
+               else item['length'] for item in tail_layout(which))
 
 
 def tail_points(which: str) -> list:
@@ -314,7 +372,7 @@ _tails_billed = _bounds.bound(
     "Each coil tail's in-shell run is the one its stub allowance bills",
     f"within {STUB_TAIL_TOL:.1f} mm of `coil_mandrel.tail_in_shell`")
 for _end, _billed in _mandrel.tail_in_shell.items():
-    _drawn = tail_length(_end)
+    _drawn = tail_layout_length(_end)
     _tails_billed(
         abs(_drawn - _billed) <= STUB_TAIL_TOL,
         f"{_end} tail draws {_drawn:.1f} mm against the {_billed:.1f} mm "
@@ -335,8 +393,8 @@ def roll_spare_ft() -> float:
     return _mandrel.roll_length_ft - _mandrel.carbonators_per_roll * cut_length() / 304.8
 
 
-def report() -> None:
-    wrap = wrap_length()
+def report(*, laid_length=None, tail_lengths=None) -> None:
+    wrap = wrap_length() if laid_length is None else laid_length
     print("  evaporator coil")
     print(f"    stock           {COPPER_STOCK.name}, min bend {COPPER_BEND:.2f} — "
           f"{COPPER_STOCK.source}")
@@ -350,16 +408,17 @@ def report() -> None:
     # calculations. The tool's turn count does not control the finished coil.
     print(f"    wrap laid       {wrap:.0f} mm ({wrap / 304.8:.2f} ft) — mandrel "
           f"{_mandrel.mandrel_wrap_length:.0f}, sprung {_mandrel.fitted_wrap_length:.0f}, "
-          f"reed bridge {bridge_lift_length():+.0f}")
+          f"reed bridge {wrap - TOTAL_WRAPS * math.hypot(2 * math.pi * WIND_R, PITCH):+.0f}")
     for end in ("inlet", "outlet"):
         print(f"    {end + ' stub':15} {_mandrel.stub_allowance[end]:.1f} mm allowed = "
-              f"{tail_length(end):.1f} mm drawn in-shell "
+              f"{(tail_length(end) if tail_lengths is None else tail_lengths[end]):.1f} mm drawn in-shell "
               f"({_mandrel.tail_in_shell[end]:.1f} billed) + "
               f"{_mandrel.stub_protrusion[end]:.0f} protruding")
-    cut = cut_length()
+    cut = cut_length() if laid_length is None else wrap + _mandrel.stub_total
+    spare = (_mandrel.roll_length_ft - _mandrel.carbonators_per_roll * cut / 304.8)
     print(f"    cut per carb    {cut:.1f} mm ({cut / 304.8:.3f} ft); "
           f"{_mandrel.carbonators_per_roll} per {_mandrel.roll_length_ft:.0f} ft roll leaves "
-          f"{roll_spare_ft():+.3f} ft ({roll_spare_ft() * 304.8:+.0f} mm)")
+          f"{spare:+.3f} ft ({spare * 304.8:+.0f} mm)")
 
 
 if __name__ == "__main__":

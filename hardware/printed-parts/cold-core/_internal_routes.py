@@ -528,7 +528,7 @@ def carbonator_envelope():
     return tank.fuse(coil).clean()
 
 
-def report_routes(fitted, obstacles):
+def report_routes(fitted, obstacles, *, measurements=None):
     """Print each line's reading.
 
     Three claims. (1) NO LINE MEETS A SOLID: not the shell it runs inside, not a reservoir
@@ -539,22 +539,31 @@ def report_routes(fitted, obstacles):
     corner comes to — and the pack's own SHORT LIST is the last line printed, so a corner the
     core forces under the stock arc is on the page, with the number, rather than found at the
     bench."""
-    import _overlap
+    if measurements is None:
+        import _overlap
+    else:
+        readings = {row['name']: row for row in measurements['routes']}
     print("  internal routes: %d lines in %s, stock arc %.4g mm — %s"
           % (len(fitted), route_stock.name, route_bend_radius, route_stock.source))
     short = []
     for name in sorted(fitted):
         bend, tube = fitted[name]
-        _v, radius = corner_radii(routes[name], bend)
+        if measurements is None:
+            _v, radius = corner_radii(routes[name], bend)
+            length = route_wire(routes[name], bend).Length()
+        else:
+            radius = readings[name]['radii']
+            length = readings[name]['length']
         corners = [r for r in radius[1:-1] if r > 0.0]
         tightest = min(corners) if corners else float("inf")
         hits = []
         for other, solid in obstacles.items():
-            volume = _overlap.volume(tube, solid)
+            volume = (_overlap.volume(tube, solid) if measurements is None else
+                      next(row['volume'] for row in readings[name]['blocked'] if row['name'] == other))
             if volume > touch_volume:
                 hits.append("%s by %.2f mm³" % (other, volume))
         print("    %-17s %6.1f mm, %d corners, arc %5.2f mm, tightest %s — %s"
-              % (name, route_wire(routes[name], bend).Length(), len(corners), bend,
+              % (name, length, len(corners), bend,
                  ("%5.2f mm" % tightest) if corners else " none  ",
                  "clear" if not hits else "** " + "; ".join(hits)))
         if corners and tightest < route_bend_radius - 1e-9:
@@ -563,7 +572,9 @@ def report_routes(fitted, obstacles):
     crossed = False
     for i, a in enumerate(names):
         for b in names[i + 1:]:
-            volume = _overlap.volume(fitted[a][1], fitted[b][1])
+            volume = (_overlap.volume(fitted[a][1], fitted[b][1]) if measurements is None else
+                      next(row['volume'] for row in measurements['crossings']
+                           if row['a'] == a and row['b'] == b))
             if volume > touch_volume:
                 crossed = True
     print("    no line meets another" if not crossed else "    ** LINES CROSS **")
