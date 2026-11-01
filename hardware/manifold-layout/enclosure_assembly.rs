@@ -161,6 +161,36 @@ fn query(parts: &[Imported], queries: &Value) -> Result<Vec<Value>> {
         .collect()
 }
 
+fn summary(part: &Imported) -> Value {
+    let bounds = part.solid.bounds();
+    json!({"name":part.name,"color":part.color,"vertices":part.solid.verts().len(),
+           "triangles":part.solid.tris().len(),"faces":part.solid.faces().len(),
+           "volume":part.solid.volume(),"min":bounds.min.to_array(),"max":bounds.max.to_array()})
+}
+
+fn model_summaries(instances: &Value) -> Result<Option<Vec<Value>>> {
+    let Some(instances) = instances.as_array() else {
+        return Ok(None);
+    };
+    // The wiring reader asks for model measurements, with no placement or cross-body query.
+    // Retain only the small summaries while each imported body passes its existing checks.
+    if !instances.iter().all(|instance| {
+        instance
+            .as_object()
+            .is_some_and(|fields| fields.len() == 1 && fields.contains_key("model"))
+    }) {
+        return Ok(None);
+    }
+    let mut summaries = Vec::new();
+    for instance in instances {
+        hsm_kernel::import::visit_model(text(instance, "model")?, |_index, part| {
+            summaries.push(summary(&part));
+            Ok(())
+        })?;
+    }
+    Ok(Some(summaries))
+}
+
 fn write_model(path: &Path, bodies: &[Body<'_>]) -> Result<()> {
     let bytes = step::model_bytes(bodies);
     let name = path
@@ -175,8 +205,15 @@ fn write_model(path: &Path, bodies: &[Body<'_>]) -> Result<()> {
 
 fn main() -> Result<()> {
     let (numbers, output) = part::args()?;
+    let queries = numbers.get("queries")?;
+    if output == Path::new("--check") && queries.as_array().is_some_and(|rows| rows.is_empty()) {
+        if let Some(summaries) = model_summaries(numbers.get("instances")?)? {
+            println!("{}", json!({"files":[],"bodies":summaries,"queries":[]}));
+            return Ok(());
+        }
+    }
     let parts = assemble(numbers.get("instances")?)?;
-    let readings = query(&parts, numbers.get("queries")?)?;
+    let readings = query(&parts, queries)?;
     let bodies: Vec<Body<'_>> = parts
         .iter()
         .map(|part| Body {
@@ -197,12 +234,7 @@ fn main() -> Result<()> {
         write_model(&output.join(&file), &bodies)?;
         files.push(file);
     }
-    let summaries: Vec<Value> = parts.iter().map(|part| {
-        let bounds = part.solid.bounds();
-        json!({"name":part.name,"color":part.color,"vertices":part.solid.verts().len(),
-               "triangles":part.solid.tris().len(),"faces":part.solid.faces().len(),
-               "volume":part.solid.volume(),"min":bounds.min.to_array(),"max":bounds.max.to_array()})
-    }).collect();
+    let summaries: Vec<Value> = parts.iter().map(summary).collect();
     println!(
         "{}",
         json!({"files":files,"bodies":summaries,"queries":readings})
