@@ -29,6 +29,7 @@ import json
 import subprocess
 import sys
 from pathlib import Path
+from inventory import RUNTIME_READS
 
 _HERE = Path(__file__).resolve().parent
 _ROOT = _HERE.parents[1]
@@ -192,7 +193,7 @@ def owed(graph: dict, tracked: set, sources: dict, texts: dict | None = None) ->
             continue
         wants = wanted(imports_of(text), src)
         for gen, entry in sorted(graph.items()):
-            reads = set(entry.get("reads", ()))
+            reads = set(entry.get("reads", ())) | set(RUNTIME_READS)
             if src in reads and reaches(gen, src, by_name, texts):
                 # THE STEP IS THE ONE FILE IT RUNS RATHER THAN IMPORTS, and running it is what
                 # runs the entry, so what the entry imports is owed here and by nobody else.

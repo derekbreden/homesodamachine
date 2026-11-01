@@ -331,6 +331,7 @@ fn print_text(report: &Value) {
 
 pub fn run(client: &Client, a: RenderArgs) -> Result<bool> {
     if !a.twin.is_empty() {
+        let _lease = hsm_run_slots::acquire("hsm:render-twin", hsm_run_slots::inherited()?, false)?;
         let [out, left, right] = [0, 1, 2].map(|i| rooted(&client.root, &a.twin[i]));
         let report = hsm_render::twin(&out, &left, &right)?;
         if a.json {

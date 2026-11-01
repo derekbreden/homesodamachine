@@ -365,10 +365,8 @@ jobs:
         # invocation never sees — it analysed an empty one and answered "not up to date",
         # which is the carry refusing on a build that had in fact just run. The two have to
         # be the same bazel or the guard reads the wrong tree.
-        # NOT `--jobs`. Capping parallelism was measured and did not move this: `the document renderer`
-        # took 270 s and 1926 s at four concurrent actions and 1905 s at two, and at two the
-        # failure SPREAD to a second card and to the manual's cover. What decides it is the size
-        # of the capture, not how many run at once, which is what `--shm-size` above addresses.
+        # tools/run.py supplies host admission and one Bazel action at a time within
+        # that logical lease. The shared-memory setting above supports browser captures.
         # KEEP GOING, AND CARRY WHAT KEPT GOING. `--keep_going` builds every target whose
         # inputs are ready and leaves the rest, so a run with one red target has every other
         # target's fresh output sitting in bazel-bin. Ending the job on the exit status threw
@@ -390,7 +388,7 @@ jobs:
         id: cut
         run: |
           set +e
-          bazel build --keep_going --disk_cache="$HOME/.cache/bazel-disk" \
+          python3 tools/run.py -- bazel build --keep_going --disk_cache="$HOME/.cache/bazel-disk" \
             --build_event_json_file="$RUNNER_TEMP/bep.json" //:everything
           built=$?
           set -e

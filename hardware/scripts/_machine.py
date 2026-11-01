@@ -286,13 +286,8 @@ def machine():
     print("_machine: the scene is not this tree's; building the machine on the mesh kernel",
           file=sys.stderr)
     import subprocess
-    lock = sys.modules.get("_run_lock")
-    env = dict(os.environ)
-    if lock is not None and lock._me is not None:
-        env["HSM_NO_BUILD_LOCK"] = "1"
-    else:
-        env.pop("HSM_NO_BUILD_LOCK", None)      # a reader's opt-out is not the build's
+    import _run_slots
     subprocess.run([sys.executable, str(_HERE.parent / "meshcad" / "run.py"),
                     str(_ML / "enclosure_assembly.py")],
-                   cwd=_ROOT, env=env, stdout=2, check=True)
+                   cwd=_ROOT, stdout=2, check=True, **_run_slots.subprocess_kwargs())
     return load()

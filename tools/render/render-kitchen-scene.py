@@ -22,13 +22,17 @@ import re
 import struct
 import sys
 
+ROOT = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(ROOT / 'hardware/scripts'))
+import _run_slots
+_run_slots.acquire('tools/render/render-kitchen-scene.py')
+
 import bpy
 from bpy_extras.object_utils import world_to_camera_view
 from mathutils import Vector
 import numpy as np
 
 
-ROOT = Path(__file__).resolve().parents[2]
 parser = argparse.ArgumentParser()
 parser.add_argument("--preview", action="store_true")
 parser.add_argument("--scene-only", action="store_true", help="Build the shared CAD scene without rendering stills")

@@ -16,6 +16,7 @@
 //! Runs and builds are admitted in turn within a memory budget, each at the peak its program last
 //! reached, and none starts while the system reports critical memory pressure.
 use anyhow::{Context, Result, anyhow, bail, ensure};
+use hsm_run_slots::{Lease, ipc};
 use serde::{Deserialize, Serialize};
 use serde_json::{Value, json};
 use sha2::{Digest, Sha256};
@@ -240,7 +241,7 @@ impl Builder {
         Entered(self.clone())
     }
 
-    fn run(&self, mut ask: Ask) -> Result<Value> {
+    fn run(&self, mut ask: Ask, mut lease: Option<Lease>) -> Result<Value> {
         let started = Instant::now();
         ask.workspace = ask
             .workspace
@@ -272,10 +273,15 @@ impl Builder {
             Some((code, _)) => self.lookup(&primary(&code.native, &args), &ask)?,
             None => None,
         };
+        // A stored answer does no heavy work. Every miss enters the host gate before taking
+        // Cargo, memory or flight ownership; an admitted parent's RPC can therefore proceed.
+        if hit.is_none() {
+            lease = Some(hsm_run_slots::acquire(&format!("{}:{}", ask.krate, ask.name), lease, false)?);
+        }
         let (code, sources, program, compiled, keepable) = match (&hit, known) {
             (Some(_), Some((code, sources))) => (code, sources, None, false, true),
             (_, known) => {
-                let built = self.program(&ask, &toolchain, known)?;
+                let built = self.program(&ask, &toolchain, known, lease.as_ref().unwrap())?;
                 (built.code, built.sources, Some(built.path), built.compiled, built.keepable)
             }
         };
@@ -317,7 +323,7 @@ impl Builder {
             Some(kept) => (kept, false),
             None => {
                 let program = program.context("no program to run")?;
-                let (kept, storable) = self.execute(&program, &ask, &args, &code, &sources)?;
+                let (kept, storable) = self.execute(&program, &ask, &args, &code, &sources, lease.as_ref().unwrap())?;
                 let storable = storable && keepable;
                 if storable {
                     self.keep(&key, &kept)?;
@@ -408,14 +414,14 @@ impl Builder {
         }
         let rustc = cargo()?.with_file_name("rustc");
         let ask = |arg: &[&str]| -> Result<String> {
-            let out = Command::new(&rustc)
-                .args(arg)
+            let mut command = Command::new(&rustc);
+            command.args(arg)
                 .current_dir(workspace.join("tools/hsm"))
                 .env_clear()
                 .envs(cargo_env(&home))
                 .stdin(Stdio::null())
-                .stderr(Stdio::inherit())
-                .output()?;
+                .stderr(Stdio::inherit());
+            let out = ipc::output(&mut command)?;
             ensure!(out.status.success(), "rustc {arg:?} failed");
             Ok(String::from_utf8(out.stdout)?.trim().to_owned())
         };
@@ -435,13 +441,14 @@ impl Builder {
     }
 
     /// The program to run for `ask`: the one kept for its code, else what cargo builds.
-    fn program(&self, ask: &Ask, toolchain: &str, known: Option<(Code, Vec<String>)>) -> Result<Built> {
+    fn program(&self, ask: &Ask, toolchain: &str, known: Option<(Code, Vec<String>)>, lease: &Lease) -> Result<Built> {
         if let Some((code, sources)) = known {
             if let Some(path) = self.kept_program(ask, &code, &sources) {
                 return Ok(Built { path, code, sources, compiled: false, keepable: true });
             }
         }
         // cargo, one at a time in this target directory.
+        let compiler = lease.compiler()?;
         let release = ask.workspace.join("tools/hsm/target/release");
         let lock = self
             .cargo
@@ -470,6 +477,7 @@ impl Builder {
             .envs(cargo_env(&home()))
             .env("CARGO_TARGET_DIR", ask.workspace.join("tools/hsm/target"))
             .env("CARGO_BUILD_JOBS", "2");
+        compiler.apply(&mut cmd)?;
         let peak = format!("cargo {}", ask.krate);
         let done = {
             let _ticket = self.admit(self.peak(&peak, CARGO_PEAK));
@@ -592,6 +600,7 @@ impl Builder {
         args: &[Arg],
         code: &Code,
         sources: &[String],
+        lease: &Lease,
     ) -> Result<(Kept, bool)> {
         let scratch = self.dir.join("tmp").join(format!("{}-{}", std::process::id(), self.serial()));
         let out = scratch.join("out");
@@ -612,6 +621,7 @@ impl Builder {
                 .env("PATH", "/usr/bin:/bin")
                 .env("HSM_READS", &reads)
                 .env("HSM_IMPORT_DIR", ask.workspace.join(".cache/hsm/import"));
+            lease.apply(&mut cmd)?;
             let peak = format!("{} {}", ask.krate, ask.name);
             let done = {
                 let _ticket = self.admit(self.peak(&peak, PROGRAM_PEAK));
@@ -816,8 +826,8 @@ pub struct Entered(Arc<Builder>);
 
 impl Entered {
     /// Answer the ask: its files placed, and what the program said.
-    pub fn answer(self, ask: Ask) -> Result<Value> {
-        self.0.run(ask)
+    pub fn answer(self, ask: Ask, lease: Option<Lease>) -> Result<Value> {
+        self.0.run(ask, lease)
     }
 }
 
@@ -987,12 +997,11 @@ fn cargo_env(home: &Path) -> Vec<(String, String)> {
 /// Run `cmd` to its end, its output and error read as it goes.
 fn finish(mut cmd: Command) -> Result<Finished> {
     let started = Instant::now();
-    let mut child = cmd
+    cmd
         .stdin(Stdio::null())
         .stdout(Stdio::piped())
-        .stderr(Stdio::piped())
-        .spawn()
-        .context("starting a part program")?;
+        .stderr(Stdio::piped());
+    let mut child = ipc::spawn(&mut cmd).context("starting a part program")?;
     let mut err = child.stderr.take().context("no stderr")?;
     let errors = thread::spawn(move || {
         let mut v = vec![];

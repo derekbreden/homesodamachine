@@ -19,12 +19,16 @@ import json
 import os
 import shutil
 import subprocess
+import sys
 import tempfile
 from pathlib import Path
 
 import cadquery as cq
 
 _HERE = Path(__file__).resolve().parent
+_ROOT = next(p for p in _HERE.parents if (p / 'hardware/scripts').is_dir())
+sys.path.insert(0, str(_ROOT / 'hardware/scripts'))
+import _run_slots
 _BLENDER_SCENE = _HERE / "_blender_scene.py"
 
 # STL tessellation tolerance — small enough that the ~10 mm hex outline,
@@ -190,7 +194,8 @@ def render_iso(
             "--",
             str(args_path),
         ]
-        result = subprocess.run(cmd, capture_output=True, text=True)
+        result = subprocess.run(_run_slots.command(cmd), capture_output=True, text=True,
+                                **_run_slots.subprocess_kwargs())
         if result.returncode != 0 or not out_svg.exists():
             raise RuntimeError(
                 f"blender render failed (rc={result.returncode}):\n"

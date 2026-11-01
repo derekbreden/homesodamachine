@@ -183,7 +183,8 @@ def _recut_payloads_beside() -> None:
     if not steps:
         return
     sys.path.insert(0, str(_ROOT / "hardware" / "scripts"))
-    os.environ.setdefault("HSM_NO_BUILD_LOCK", "1")
+    from _run_lock import acquire
+    acquire('tools/bazel/sync_tree.py')
     try:
         import _mesh_payload
         import flute_payload

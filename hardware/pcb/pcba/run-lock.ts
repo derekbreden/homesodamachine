@@ -1,82 +1,39 @@
-/**
- * Per-board single-flight lock for the board render: the newest run wins.
- *
- * On start a run SIGTERMs any older live run holding the same board's lock and
- * takes it over; a run that receives the signal kills its in-flight child and
- * exits (143), naming the run that superseded it. The lock is a pid file in the
- * OS temp dir keyed by board name; a stale file whose pid is dead is ignored.
- *
- * RENDER_SOURCE labels a run in the messages — "dev-server", "build-all", else
- * "manual".
- */
-import { readFileSync, writeFileSync, rmSync, mkdirSync } from "node:fs"
-import { tmpdir } from "node:os"
+/** One board render at a time. A new render waits; signals cancel only this run. */
+import { spawn } from "node:child_process"
+import { existsSync } from "node:fs"
 import path from "node:path"
+import { fileURLToPath } from "node:url"
+import { ensureRunLease } from "../../../tools/run-slots.mjs"
 
-type Holder = { pid: number; source: string; started: number }
-
-const alive = (pid: number) => {
-  try { process.kill(pid, 0); return true } catch { return false }
-}
-const read = (f: string): Holder | null => {
-  try { return JSON.parse(readFileSync(f, "utf8")) } catch { return null }
-}
-// Portable synchronous sleep — wait on an Int32Array that never changes, so it
-// always times out after `ms`. Lets us pause for a superseded run to die without
-// a busy-spin or a bun-only API.
-const sleepSync = (ms: number) => {
-  try { Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, ms) } catch {}
-}
-
-export function singleflight(key: string, source: string) {
-  const lockDir = path.join(tmpdir(), "hsm-render-lock")
-  mkdirSync(lockDir, { recursive: true })
-  const lockFile = path.join(lockDir, `${key}.json`)
-  const byFile = path.join(lockDir, `${key}.by.json`) // who superseded the victim
-  const me: Holder = { pid: process.pid, source, started: Date.now() }
-
-  // Supersede an older live holder of this board's lock.
-  const prev = read(lockFile)
-  if (prev && prev.pid !== me.pid && alive(prev.pid)) {
-    console.error(`[render:${key}] superseding the active run (pid ${prev.pid}, ${prev.source}) — sending SIGTERM`)
-    writeFileSync(byFile, JSON.stringify(me))
-    try { process.kill(prev.pid, "SIGTERM") } catch {}
-    const until = Date.now() + 2000
-    while (alive(prev.pid) && Date.now() < until) sleepSync(25)
-  } else {
-    try { rmSync(byFile, { force: true }) } catch {}
-  }
-  writeFileSync(lockFile, JSON.stringify(me))
-
+export async function singleflight(key: string, source: string) {
+  ensureRunLease()
+  const here = path.dirname(fileURLToPath(import.meta.url))
+  const root = path.resolve(here, "../../..")
+  const localPython = path.join(process.env.HSM_WORKSPACE || root, "tools/cad-venv/bin/python")
+  const python = existsSync(localPython) ? localPython : "python3"
+  const holder = spawn(python, [path.join(here, "run-lock.py"), key], {
+    stdio: ["pipe", "pipe", "inherit"],
+  })
+  await new Promise<void>((resolve, reject) => {
+    holder.once("error", reject)
+    holder.once("exit", (code) => reject(new Error(`board mutex exited ${code}`)))
+    holder.stdout.once("data", () => resolve())
+  })
   let killChild = () => {}
   let released = false
   const release = () => {
     if (released) return
     released = true
-    const cur = read(lockFile)
-    if (cur && cur.pid === me.pid) {
-      try { rmSync(lockFile, { force: true }) } catch {}
-      try { rmSync(byFile, { force: true }) } catch {}
-    }
+    holder.stdin.end()
   }
-
-  // We were SIGTERM'd (or Ctrl-C'd) — almost always by a newer run taking over.
-  // Kill our in-flight build and exit now; the `exit` event still runs the
-  // render's temp-file cleanup. exit(143) = terminated-by-SIGTERM convention.
-  const onSignal = () => {
-    const by = read(byFile)
-    console.error(`[render:${key}] this run (${source}) was superseded by ${by ? by.source : "a newer run"} — stopping`)
+  const onSignal = (signal: NodeJS.Signals) => {
+    console.error(`[render:${key}] ${source} received ${signal} — stopping this run`)
     try { killChild() } catch {}
-    process.exit(143)
+    release()
+    process.exit(signal === "SIGINT" ? 130 : 143)
   }
-  process.on("SIGTERM", onSignal)
-  process.on("SIGINT", onSignal)
+  process.on("SIGTERM", () => onSignal("SIGTERM"))
+  process.on("SIGINT", () => onSignal("SIGINT"))
   process.on("exit", release)
-
-  return {
-    /** Register how to kill the current child process when superseded. */
-    setChildKiller(f: () => void) { killChild = f },
-    /** Release the lock on normal completion. */
-    release,
-  }
+  return { setChildKiller(f: () => void) { killChild = f }, release }
 }

@@ -16,14 +16,17 @@ import difflib
 import hashlib
 import os
 import re
+import shlex
 import sys
 from pathlib import Path
 
 _HERE = Path(__file__).resolve()
 _ROOT = _HERE.parents[2]
 sys.path.insert(0, str(_HERE.parent))
+sys.path.insert(0, str(_ROOT / 'hardware/scripts'))
 
-from inventory import inventory, tracked   # noqa: E402
+from inventory import inventory, tracked, RUNTIME_READS   # noqa: E402
+import _run_slots                         # noqa: E402
 
 #: WHERE THIS CHECKOUT IS, NAMED ONCE, BY THE CHECKOUT. An action runs in the execroot and the
 #: interpreter is not in the workspace, so the only way to it is an absolute path — and an
@@ -329,7 +332,8 @@ def render(gens: tuple, arts: list, srcs: list, optional: list, docs: list, rewr
         # one must make it; `env -u` overrides the global action environment for that action.
         payload_env = "env -u HSM_SKIP_MESH_PAYLOAD " if any(
             a.endswith(".step.mesh") for a in arts) else ""
-        lines.append(f"HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D {payload_env}{VENV} {g} > /dev/null")
+        lines.append(f"HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D {payload_env}"
+                     f"{VENV} tools/run.py -- {VENV} {g} > /dev/null")
     for i, made in enumerate((*arts, *docs)):
         lines.append(f"cp {made} $$O{i}")
     if cargo:
@@ -397,6 +401,8 @@ def render_build(only: str = None) -> tuple:
         # so whether the graph holds them is a reading of how far the traced run got rather
         # than of what the action needs.
         srcs |= _js_closure(srcs)
+        # Admission is runtime behavior every heavy action explicitly shares.
+        srcs |= RUNTIME_READS
         srcs = sorted(s for s in srcs if s in held)
         optional = sorted(d for d in made["docs"] if d.endswith((".png", ".json")))
         rewritten = {d for d in made["docs"] if d.endswith(".py")}
@@ -480,7 +486,9 @@ def render_rc_paths() -> str:
     return ("# Written by tools/bazel/gen_build.py — this checkout's own paths, and no other\n"
             "# checkout's. `.gitignore` holds it out of the tree.\n"
             f"build --action_env=HSM_WORKSPACE={_ROOT}\n"
-            f"build --sandbox_add_mount_pair={_ROOT}/.cache\n")
+            f"build --sandbox_add_mount_pair={_ROOT}/.cache\n"
+            f"build --action_env=HSM_RUN_BROKER={shlex.quote(_run_slots.broker_config(_ROOT))}\n"
+            f"build --sandbox_add_mount_pair={_run_slots.directory()}\n")
 
 
 def main() -> int:

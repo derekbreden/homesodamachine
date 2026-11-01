@@ -33,6 +33,8 @@ pub struct Numbers {
 
 impl Numbers {
     pub fn read(path: impl AsRef<Path>) -> Result<Numbers> {
+        #[cfg(unix)]
+        hsm_run_slots::process_enter(&hsm_run_slots::native_key())?;
         crate::reads::begin();
         let path = path.as_ref();
         let text = std::fs::read_to_string(path).with_context(|| format!("reading {}", path.display()))?;

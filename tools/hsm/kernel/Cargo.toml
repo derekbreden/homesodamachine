@@ -21,6 +21,9 @@ spade = "2"
 ttf-parser = "0.25"
 manifold-csg = { version = "0.4.1", default-features = false, optional = true }
 
+[target.'cfg(unix)'.dependencies]
+hsm-run-slots = { path = "../run-slots" }
+
 [dev-dependencies]
 hsm-geometry = { path = "../geometry" }
 manifold-csg = { version = "0.4.1", default-features = false }

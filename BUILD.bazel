@@ -58,9 +58,13 @@ genrule(
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_routing.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/hardware/scripts/_stated_bounds.py",
         "pysrc/hardware/wiring/_ac_wiring_schedule_sync.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ] + glob(
         [
             "hardware/assembly/acceptance-and-burn-in.figures.json",
@@ -90,7 +94,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/assembly/_acceptance_and_burn_in_sync.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/assembly/_acceptance_and_burn_in_sync.py > /dev/null
 cp hardware/assembly/acceptance-and-burn-in.figures.json $$O0
 cp hardware/assembly/acceptance-and-burn-in.md $$O1
 """,
@@ -163,9 +167,13 @@ genrule(
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_routing.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/hardware/scripts/_seating.py",
         "pysrc/hardware/scripts/_stated_bounds.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ] + glob(
         [
             "hardware/assembly/asse-drain.figures.json",
@@ -195,7 +203,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/assembly/_asse_drain_sync.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/assembly/_asse_drain_sync.py > /dev/null
 cp hardware/assembly/asse-drain.figures.json $$O0
 cp hardware/assembly/asse-drain.md $$O1
 """,
@@ -208,8 +216,13 @@ genrule(
         "hardware/assembly/cable-assemblies.md",
         "hardware/pcb/pcba/pcba.tsx",
         "pysrc/hardware/scripts/_realized.py",
+        "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/hardware/wiring/_ac_wiring_schedule_sync.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ] + glob(
         [
             "hardware/assembly/cable-assemblies.figures.json",
@@ -239,7 +252,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/assembly/_cable_assemblies_sync.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/assembly/_cable_assemblies_sync.py > /dev/null
 cp hardware/assembly/cable-assemblies.figures.json $$O0
 cp hardware/assembly/cable-assemblies.md $$O1
 """,
@@ -298,8 +311,12 @@ genrule(
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_routing.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/hardware/scripts/_stated_bounds.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ] + glob(
         [
             "hardware/assembly/cold-core.figures.json",
@@ -333,7 +350,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/assembly/_cold_core_sync.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/assembly/_cold_core_sync.py > /dev/null
 cp hardware/assembly/cold-core.figures.json $$O0
 cp hardware/assembly/cold-core.md $$O1
 cp hardware/printed-parts/cold-core/_internal_routes.py $$O2
@@ -347,7 +364,12 @@ genrule(
         "pysrc/hardware/assembly/_electronics_bay_sync.py",
         "hardware/assembly/electronics-bay.md",
         "pysrc/hardware/scripts/_realized.py",
+        "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ] + glob(
         [
             "hardware/assembly/electronics-bay.figures.json",
@@ -377,7 +399,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/assembly/_electronics_bay_sync.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/assembly/_electronics_bay_sync.py > /dev/null
 cp hardware/assembly/electronics-bay.figures.json $$O0
 cp hardware/assembly/electronics-bay.md $$O1
 """,
@@ -556,11 +578,15 @@ genrule(
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_routing.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/hardware/scripts/_seating.py",
         "pysrc/hardware/scripts/_stated_bounds.py",
         "pysrc/hardware/scripts/flute_payload.py",
         "pysrc/hardware/scripts/pick_text.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ] + glob(
         [
             "hardware/assembly/enclosure-mechanical.figures.json",
@@ -590,7 +616,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/assembly/_enclosure_mechanical_sync.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/assembly/_enclosure_mechanical_sync.py > /dev/null
 cp hardware/assembly/enclosure-mechanical.figures.json $$O0
 cp hardware/assembly/enclosure-mechanical.md $$O1
 """,
@@ -640,10 +666,14 @@ genrule(
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/hardware/scripts/_stated_bounds.py",
         "pysrc/hardware/scripts/flute_payload.py",
         "pysrc/marketing/_install_envelope_sync.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ] + glob(
         [
             "hardware/assembly/faucet-and-umbilical.figures.json",
@@ -673,7 +703,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/assembly/_faucet_and_umbilical_sync.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/assembly/_faucet_and_umbilical_sync.py > /dev/null
 cp hardware/assembly/faucet-and-umbilical.figures.json $$O0
 cp hardware/assembly/faucet-and-umbilical.md $$O1
 """,
@@ -685,7 +715,12 @@ genrule(
         "pysrc/hardware/assembly/_finish_pack_ship_sync.py",
         "hardware/assembly/finish-pack-ship.md",
         "pysrc/hardware/scripts/_realized.py",
+        "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ] + glob(
         [
             "hardware/assembly/finish-pack-ship.figures.json",
@@ -715,7 +750,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/assembly/_finish_pack_ship_sync.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/assembly/_finish_pack_ship_sync.py > /dev/null
 cp hardware/assembly/finish-pack-ship.figures.json $$O0
 cp hardware/assembly/finish-pack-ship.md $$O1
 """,
@@ -770,9 +805,13 @@ genrule(
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_routing.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/hardware/scripts/_stated_bounds.py",
         "pysrc/hardware/wiring/_ac_wiring_schedule_sync.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ] + glob(
         [
             "hardware/assembly/firmware-and-commissioning.figures.json",
@@ -802,7 +841,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/assembly/_firmware_and_commissioning_sync.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/assembly/_firmware_and_commissioning_sync.py > /dev/null
 cp hardware/assembly/firmware-and-commissioning.figures.json $$O0
 cp hardware/assembly/firmware-and-commissioning.md $$O1
 """,
@@ -856,8 +895,12 @@ genrule(
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_routing.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/hardware/scripts/_stated_bounds.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ] + glob(
         [
             "hardware/assembly/handwork.figures.json",
@@ -887,7 +930,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/assembly/_handwork_sync.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/assembly/_handwork_sync.py > /dev/null
 cp hardware/assembly/handwork.figures.json $$O0
 cp hardware/assembly/handwork.md $$O1
 """,
@@ -1066,11 +1109,15 @@ genrule(
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_routing.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/hardware/scripts/_seating.py",
         "pysrc/hardware/scripts/_stated_bounds.py",
         "pysrc/hardware/scripts/flute_payload.py",
         "pysrc/hardware/scripts/pick_text.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ] + glob(
         [
             "hardware/assembly/internal-plumbing.figures.json",
@@ -1100,7 +1147,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/assembly/_internal_plumbing_sync.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/assembly/_internal_plumbing_sync.py > /dev/null
 cp hardware/assembly/internal-plumbing.figures.json $$O0
 cp hardware/assembly/internal-plumbing.md $$O1
 """,
@@ -1136,8 +1183,12 @@ genrule(
         "pysrc/hardware/scripts/_materials.py",
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/hardware/scripts/_stated_bounds.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ] + glob(
         [
             "hardware/assembly/pressure-vessel.figures.json",
@@ -1167,7 +1218,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/assembly/_pressure_vessel_sync.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/assembly/_pressure_vessel_sync.py > /dev/null
 cp hardware/assembly/pressure-vessel.figures.json $$O0
 cp hardware/assembly/pressure-vessel.md $$O1
 """,
@@ -1198,8 +1249,12 @@ genrule(
         "pysrc/hardware/scripts/_materials.py",
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/hardware/scripts/_stated_bounds.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ] + glob(
         [
             "hardware/assembly/refrigerant-loop.figures.json",
@@ -1229,7 +1284,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/assembly/_refrigerant_loop_sync.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/assembly/_refrigerant_loop_sync.py > /dev/null
 cp hardware/assembly/refrigerant-loop.figures.json $$O0
 cp hardware/assembly/refrigerant-loop.md $$O1
 """,
@@ -1242,7 +1297,12 @@ genrule(
         "hardware/assembly/water-inlet-jet.md",
         "pysrc/hardware/cold-core-layout/_water_inlet_jet.py",
         "pysrc/hardware/scripts/_realized.py",
+        "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ] + glob(
         [
             "hardware/assembly/water-inlet-jet.figures.json",
@@ -1272,7 +1332,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/assembly/_water_inlet_jet_sync.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/assembly/_water_inlet_jet_sync.py > /dev/null
 cp hardware/assembly/water-inlet-jet.figures.json $$O0
 cp hardware/assembly/water-inlet-jet.md $$O1
 """,
@@ -1310,8 +1370,12 @@ genrule(
         "pysrc/hardware/scripts/_materials.py",
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/hardware/scripts/_stated_bounds.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ] + glob(
         [
             "hardware/assembly/weld-rotation-rig.figures.json",
@@ -1341,7 +1405,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/assembly/_weld_rotation_rig_sync.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/assembly/_weld_rotation_rig_sync.py > /dev/null
 cp hardware/assembly/weld-rotation-rig.figures.json $$O0
 cp hardware/assembly/weld-rotation-rig.md $$O1
 """,
@@ -1359,8 +1423,12 @@ genrule(
         "pysrc/hardware/scripts/_cadq_export.py",
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/hardware/wiring/_ac_wiring_schedule_sync.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ] + glob(
         [
             "hardware/assembly/wiring.figures.json",
@@ -1390,7 +1458,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/assembly/_wiring_sync.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/assembly/_wiring_sync.py > /dev/null
 cp hardware/assembly/wiring.figures.json $$O0
 cp hardware/assembly/wiring.md $$O1
 """,
@@ -1524,9 +1592,13 @@ genrule(
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_routing.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/hardware/scripts/_stated_bounds.py",
         "pysrc/hardware/scripts/flute_payload.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ],
     outs = [
         "out/cold-core-assembly/hardware/cold-core-layout/cold-core-assembly.scorecard.json",
@@ -1555,7 +1627,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/cold-core-layout/cold_core_assembly.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/cold-core-layout/cold_core_assembly.py > /dev/null
 cp hardware/cold-core-layout/cold-core-assembly.scorecard.json $$O0
 cp hardware/cold-core-layout/cold-core-assembly.step $$O1
 cp hardware/cold-core-layout/cold-core-assembly.step.mesh $$O2
@@ -1608,8 +1680,12 @@ genrule(
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_routing.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/hardware/scripts/_stated_bounds.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ],
     outs = [
         "out/carbonator-tube-step/hardware/cut-parts/carbonation/carbonator-tube/carbonator-tube.step",
@@ -1632,7 +1708,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/cut-parts/carbonation/carbonator-tube/carbonator_tube_step.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/cut-parts/carbonation/carbonator-tube/carbonator_tube_step.py > /dev/null
 cp hardware/cut-parts/carbonation/carbonator-tube/carbonator-tube.step $$O0
 """,
 )
@@ -1645,7 +1721,11 @@ genrule(
         "pysrc/hardware/printed-parts/cold-core/_float_interface.py",
         "pysrc/hardware/scripts/_cadq_export.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ],
     outs = [
         "out/endcap-circular-drawing/hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole-drawing.pdf",
@@ -1670,7 +1750,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_drawing.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_drawing.py > /dev/null
 cp hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole-drawing.pdf $$O0
 cp hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_drawing.py $$O1
 """,
@@ -1683,7 +1763,11 @@ genrule(
         "pysrc/hardware/printed-parts/cold-core/_float_interface.py",
         "pysrc/hardware/scripts/_cadq_export.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ],
     outs = [
         "out/endcap-circular-dxf/hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.dxf",
@@ -1708,7 +1792,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py > /dev/null
 cp hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.dxf $$O0
 cp hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py $$O1
 """,
@@ -1726,7 +1810,11 @@ genrule(
         "pysrc/hardware/scripts/_materials.py",
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ],
     outs = [
         "out/endcap-circular-step/hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step",
@@ -1751,7 +1839,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_step.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_step.py > /dev/null
 cp hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step $$O0
 cp hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_step.py $$O1
 """,
@@ -1779,6 +1867,7 @@ genrule(
         "pysrc/hardware/scripts/_materials.py",
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/hardware/scripts/_rust_part.py",
         "pysrc/hardware/scripts/_stated_bounds.py",
         "pysrc/tools/docgen/__init__.py",
@@ -1817,6 +1906,12 @@ genrule(
         "tools/hsm/kernel/src/topo.rs",
         "tools/hsm/kernel/src/triangulate.rs",
         "tools/hsm/kernel/src/write.rs",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/hsm/run-slots/Cargo.toml",
+        "tools/hsm/run-slots/src/ipc.rs",
+        "tools/hsm/run-slots/src/lib.rs",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ] + glob(
         [
             "hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.figures.json",
@@ -1881,8 +1976,8 @@ done
 cd work-under-counter-plate
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/cut-parts/faucet/under-counter-plate/under_counter_plate.py > /dev/null
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/faucet/faucet-shell/faucet_shell.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/cut-parts/faucet/under-counter-plate/under_counter_plate.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/faucet/faucet-shell/faucet_shell.py > /dev/null
 cp hardware/cut-parts/faucet/under-counter-plate/under-counter-plate.dxf $$O0
 cp hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step $$O1
 cp hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step.npz $$O2
@@ -1982,6 +2077,7 @@ genrule(
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_payload_rules.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/hardware/scripts/_rust_part.py",
         "pysrc/hardware/scripts/_stated_bounds.py",
         "pysrc/hardware/scripts/flute_payload.py",
@@ -2021,6 +2117,12 @@ genrule(
         "tools/hsm/kernel/src/topo.rs",
         "tools/hsm/kernel/src/triangulate.rs",
         "tools/hsm/kernel/src/write.rs",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/hsm/run-slots/Cargo.toml",
+        "tools/hsm/run-slots/src/ipc.rs",
+        "tools/hsm/run-slots/src/lib.rs",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ],
     outs = [
         "out/faucet-assembly/hardware/faucet-layout/faucet-assembly.numbers.json",
@@ -2053,7 +2155,7 @@ done
 cd work-faucet-assembly
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/faucet-layout/faucet_assembly.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/faucet-layout/faucet_assembly.py > /dev/null
 cp hardware/faucet-layout/faucet-assembly.numbers.json $$O0
 cp hardware/faucet-layout/faucet-assembly.step $$O1
 cp hardware/faucet-layout/faucet-assembly.step.mesh $$O2
@@ -2140,6 +2242,7 @@ genrule(
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_payload_rules.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/hardware/scripts/_rust_part.py",
         "pysrc/hardware/scripts/_stated_bounds.py",
         "pysrc/hardware/scripts/flute_payload.py",
@@ -2179,6 +2282,12 @@ genrule(
         "tools/hsm/kernel/src/topo.rs",
         "tools/hsm/kernel/src/triangulate.rs",
         "tools/hsm/kernel/src/write.rs",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/hsm/run-slots/Cargo.toml",
+        "tools/hsm/run-slots/src/ipc.rs",
+        "tools/hsm/run-slots/src/lib.rs",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ],
     outs = [
         "out/faucet-industrial-assembly/hardware/faucet-layout/faucet-industrial-assembly.numbers.json",
@@ -2209,7 +2318,7 @@ done
 cd work-faucet-industrial-assembly
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/faucet-layout/faucet_industrial_assembly.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/faucet-layout/faucet_industrial_assembly.py > /dev/null
 cp hardware/faucet-layout/faucet-industrial-assembly.numbers.json $$O0
 cp hardware/faucet-layout/faucet-industrial-assembly.step $$O1
 cp hardware/faucet-layout/faucet-industrial-assembly.step.mesh $$O2
@@ -2303,14 +2412,18 @@ genrule(
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/hardware/scripts/_stated_bounds.py",
         "pysrc/hardware/scripts/flute_payload.py",
         "pysrc/hardware/scripts/meshcad/__init__.py",
         "pysrc/hardware/scripts/meshcad/rule.py",
         "pysrc/hardware/scripts/meshcad/write.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
         "tools/render/browser.js",
         "tools/render/render-step-posed.js",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
         "web/server.js",
         ":render-step-posed-runtime",
     ],
@@ -2386,8 +2499,8 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/install-guide/_cad_art.py > /dev/null
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/install-guide/installation_art.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/install-guide/_cad_art.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/install-guide/installation_art.py > /dev/null
 cp hardware/install-guide/art/colors.css $$O0
 cp hardware/install-guide/art/connect-rear-connected.png $$O1
 cp hardware/install-guide/art/connect-rear-open.png $$O2
@@ -2469,6 +2582,7 @@ genrule(
         "pysrc/hardware/scripts/_materials.py",
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/hardware/scripts/_rust_part.py",
         "pysrc/hardware/scripts/_stated_bounds.py",
         "pysrc/hardware/scripts/flute_payload.py",
@@ -2498,6 +2612,12 @@ genrule(
         "tools/hsm/render/src/shaders/shadow.wgsl",
         "tools/hsm/render/src/shaders/surface.wgsl",
         "tools/hsm/render/src/shadow.rs",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/hsm/run-slots/Cargo.toml",
+        "tools/hsm/run-slots/src/ipc.rs",
+        "tools/hsm/run-slots/src/lib.rs",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
         "web/public/finishes.json",
     ],
     outs = [
@@ -2555,7 +2675,7 @@ done
 cd work-install-art
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/install-guide/_install_art.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/install-guide/_install_art.py > /dev/null
 cp hardware/install-guide/art/bottle-in-funnel.png $$O0
 cp hardware/install-guide/art/cabinet-plan.png $$O1
 cp hardware/install-guide/art/collet-press.png $$O2
@@ -2589,6 +2709,7 @@ genrule(
         "pysrc/hardware/scripts/_materials.py",
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/hardware/scripts/_rust_part.py",
         "pysrc/tools/docgen/__init__.py",
         "tools/hsm/Cargo.lock",
@@ -2613,6 +2734,12 @@ genrule(
         "tools/hsm/render/src/shaders/shadow.wgsl",
         "tools/hsm/render/src/shaders/surface.wgsl",
         "tools/hsm/render/src/shadow.rs",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/hsm/run-slots/Cargo.toml",
+        "tools/hsm/run-slots/src/ipc.rs",
+        "tools/hsm/run-slots/src/lib.rs",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
         "web/public/finishes.json",
     ],
     outs = [
@@ -2654,7 +2781,7 @@ done
 cd work-render-modern-tee
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/install-guide/plumbing/modern/render_modern_tee.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/install-guide/plumbing/modern/render_modern_tee.py > /dev/null
 cp hardware/install-guide/plumbing/modern/art/modern-release-pressed.png $$O0
 cp hardware/install-guide/plumbing/modern/art/modern-release-ready.png $$O1
 cp hardware/install-guide/plumbing/modern/art/modern-release-withdrawn.png $$O2
@@ -2676,6 +2803,7 @@ genrule(
         "pysrc/hardware/scripts/_hsm_render.py",
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/hardware/scripts/_rust_part.py",
         "tools/hsm/Cargo.lock",
         "tools/hsm/Cargo.toml",
@@ -2699,6 +2827,12 @@ genrule(
         "tools/hsm/render/src/shaders/shadow.wgsl",
         "tools/hsm/render/src/shaders/surface.wgsl",
         "tools/hsm/render/src/shadow.rs",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/hsm/run-slots/Cargo.toml",
+        "tools/hsm/run-slots/src/ipc.rs",
+        "tools/hsm/run-slots/src/lib.rs",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
         "web/public/finishes.json",
     ],
     outs = [
@@ -2738,7 +2872,7 @@ done
 cd work-plumbing-scenes
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/install-guide/plumbing/plumbing_scenes.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/install-guide/plumbing/plumbing_scenes.py > /dev/null
 cp hardware/install-guide/plumbing/art/plumbing-pre-tee.png $$O0
 cp hardware/install-guide/plumbing/art/plumbing-tee-installed.png $$O1
 cp hardware/install-guide/plumbing/art/plumbing-valve-off.png $$O2
@@ -3030,6 +3164,7 @@ genrule(
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_routing.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/hardware/scripts/_seating.py",
         "pysrc/hardware/scripts/_stated_bounds.py",
         "pysrc/hardware/scripts/check_asse_drain.py",
@@ -3064,6 +3199,9 @@ genrule(
         "pysrc/hardware/wiring/installed/terminations.py",
         "tools/bazel/graph.json",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ],
     outs = [
         "out/enclosure-assembly/hardware/assembly/scenes/glb/back-half.glb",
@@ -3132,8 +3270,8 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py > /dev/null
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/wiring/installed/build.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/wiring/installed/build.py > /dev/null
 cp hardware/assembly/scenes/glb/back-half.glb $$O0
 cp hardware/assembly/scenes/glb/back-top.glb $$O1
 cp hardware/assembly/scenes/glb/cap-lid-fill.glb $$O2
@@ -3358,6 +3496,7 @@ genrule(
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_routing.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/hardware/scripts/_seating.py",
         "pysrc/hardware/scripts/_stated_bounds.py",
         "pysrc/hardware/scripts/flute_payload.py",
@@ -3374,6 +3513,9 @@ genrule(
         "pysrc/hardware/scripts/meshcad/write.py",
         "pysrc/hardware/scripts/pick_text.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ],
     outs = [
         "out/enclosure-box/hardware/manifold-layout/enclosure-box.json",
@@ -3396,7 +3538,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/manifold-layout/enclosure_box.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/manifold-layout/enclosure_box.py > /dev/null
 cp hardware/manifold-layout/enclosure-box.json $$O0
 """,
 )
@@ -3432,8 +3574,12 @@ genrule(
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_routing.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/hardware/scripts/_stated_bounds.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ] + glob(
         [
             "hardware/manifold-layout/README.figures.json",
@@ -3467,7 +3613,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/manifold-layout/manifold_layout.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/manifold-layout/manifold_layout.py > /dev/null
 cp hardware/manifold-layout/manifold-layout.step $$O0
 cp hardware/manifold-layout/manifold-layout.step.mesh $$O1
 cp hardware/manifold-layout/README.figures.json $$O2
@@ -3489,8 +3635,12 @@ genrule(
         "pysrc/hardware/scripts/_payload_rules.py",
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/hardware/scripts/flute_payload.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ] + glob(
         [
             "hardware/printed-parts/asse-drain-adapter/README.figures.json",
@@ -3526,7 +3676,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/asse-drain-adapter/asse_drain_adapter.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/asse-drain-adapter/asse_drain_adapter.py > /dev/null
 cp hardware/printed-parts/asse-drain-adapter/asse-drain-adapter.step $$O0
 cp hardware/printed-parts/asse-drain-adapter/asse-drain-adapter.step.mesh $$O1
 cp hardware/printed-parts/asse-drain-adapter/asse-drain-adapter.stl $$O2
@@ -3546,8 +3696,12 @@ genrule(
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_payload_rules.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/hardware/scripts/flute_payload.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ],
     outs = [
         "out/asse-straight-cuffs/hardware/printed-parts/asse-straight-cuffs/asse-inlet-cuff.step",
@@ -3580,7 +3734,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/asse-straight-cuffs/asse_straight_cuffs.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/asse-straight-cuffs/asse_straight_cuffs.py > /dev/null
 cp hardware/printed-parts/asse-straight-cuffs/asse-inlet-cuff.step $$O0
 cp hardware/printed-parts/asse-straight-cuffs/asse-inlet-cuff.step.mesh $$O1
 cp hardware/printed-parts/asse-straight-cuffs/asse-inlet-cuff.stl $$O2
@@ -3614,8 +3768,12 @@ genrule(
         "pysrc/hardware/scripts/_material_base.py",
         "pysrc/hardware/scripts/_materials.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/hardware/scripts/_stated_bounds.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ],
     outs = [
         "out/cold-core-interface/hardware/printed-parts/cold-core/_cold_core_interface.py",
@@ -3638,7 +3796,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/cold-core/_cold_core_interface.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/cold-core/_cold_core_interface.py > /dev/null
 cp hardware/printed-parts/cold-core/_cold_core_interface.py $$O0
 """,
 )
@@ -3672,6 +3830,7 @@ genrule(
         "pysrc/hardware/scripts/_materials.py",
         "pysrc/hardware/scripts/_occt_color.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/hardware/scripts/_rust_part.py",
         "pysrc/hardware/scripts/_stated_bounds.py",
         "pysrc/tools/docgen/__init__.py",
@@ -3706,6 +3865,12 @@ genrule(
         "tools/hsm/kernel/src/topo.rs",
         "tools/hsm/kernel/src/triangulate.rs",
         "tools/hsm/kernel/src/write.rs",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/hsm/run-slots/Cargo.toml",
+        "tools/hsm/run-slots/src/ipc.rs",
+        "tools/hsm/run-slots/src/lib.rs",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ],
     outs = [
         "out/coil-mandrel/hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.numbers.json",
@@ -3740,7 +3905,7 @@ done
 cd work-coil-mandrel
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.py > /dev/null
 cp hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.numbers.json $$O0
 cp hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step $$O1
 cp hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step.mesh $$O2
@@ -3855,9 +4020,13 @@ genrule(
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_routing.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/hardware/scripts/_stated_bounds.py",
         "pysrc/hardware/scripts/flute_payload.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ],
     outs = [
         "out/foam-assembly/hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step",
@@ -3882,7 +4051,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/cold-core/foam-assembly/foam_assembly.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/cold-core/foam-assembly/foam_assembly.py > /dev/null
 cp hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step $$O0
 cp hardware/printed-parts/cold-core/foam-assembly/internal-routes.step $$O1
 """,
@@ -3947,10 +4116,14 @@ genrule(
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_routing.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/hardware/scripts/_stated_bounds.py",
         "pysrc/hardware/wiring/installed/__init__.py",
         "pysrc/hardware/wiring/installed/retainers.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ],
     outs = [
         "out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step",
@@ -3991,7 +4164,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/cold-core/foam-cap/foam_cap.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/cold-core/foam-cap/foam_cap.py > /dev/null
 cp hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step $$O0
 cp hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl $$O1
 cp hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step $$O2
@@ -4069,9 +4242,13 @@ genrule(
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_routing.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/hardware/scripts/_stated_bounds.py",
         "pysrc/hardware/scripts/flute_payload.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ] + glob(
         [
             "hardware/printed-parts/cold-core/foam-shell/README.figures.json",
@@ -4163,9 +4340,9 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/cold-core/foam-shell/foam_shell.py > /dev/null
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/cold-core/reed-bridge/reed_bridge.py > /dev/null
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/cold-core/reservoir/reservoir.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/cold-core/foam-shell/foam_shell.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/cold-core/reed-bridge/reed_bridge.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/cold-core/reservoir/reservoir.py > /dev/null
 cp hardware/printed-parts/cold-core/foam-shell/foam-shell.step $$O0
 cp hardware/printed-parts/cold-core/foam-shell/foam-shell.stl $$O1
 cp hardware/printed-parts/cold-core/reed-bridge/reed-bridge-setting-gauge.step $$O2
@@ -4212,8 +4389,12 @@ genrule(
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_payload_rules.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/hardware/scripts/flute_payload.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ],
     outs = [
         "out/all-aero-float/hardware/printed-parts/cold-core/magnetic-float/all-aero/assembly.step",
@@ -4254,7 +4435,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/cold-core/magnetic-float/all-aero/all_aero_float.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/cold-core/magnetic-float/all-aero/all_aero_float.py > /dev/null
 cp hardware/printed-parts/cold-core/magnetic-float/all-aero/assembly.step $$O0
 cp hardware/printed-parts/cold-core/magnetic-float/all-aero/assembly.step.mesh $$O1
 cp hardware/printed-parts/cold-core/magnetic-float/all-aero/design.json $$O2
@@ -4319,8 +4500,12 @@ genrule(
         "pysrc/hardware/scripts/_materials.py",
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/hardware/scripts/_stated_bounds.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ] + glob(
         [
             "hardware/printed-parts/cold-core/magnetic-float/all-aero/installation.figures.json",
@@ -4352,7 +4537,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/cold-core/magnetic-float/all-aero/integration.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/cold-core/magnetic-float/all-aero/integration.py > /dev/null
 cp hardware/printed-parts/cold-core/magnetic-float/all-aero/integration-check.json $$O0
 cp hardware/printed-parts/cold-core/magnetic-float/all-aero/installation.figures.json $$O1
 cp hardware/printed-parts/cold-core/magnetic-float/all-aero/installation.md $$O2
@@ -4371,6 +4556,7 @@ genrule(
         "pysrc/hardware/scripts/_occt_color.py",
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/hardware/scripts/_rust_part.py",
         "pysrc/tools/docgen/__init__.py",
         "tools/hsm/Cargo.lock",
@@ -4404,6 +4590,12 @@ genrule(
         "tools/hsm/kernel/src/topo.rs",
         "tools/hsm/kernel/src/triangulate.rs",
         "tools/hsm/kernel/src/write.rs",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/hsm/run-slots/Cargo.toml",
+        "tools/hsm/run-slots/src/ipc.rs",
+        "tools/hsm/run-slots/src/lib.rs",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ] + glob(
         [
             "hardware/printed-parts/cold-core/magnetic-float/README.figures.json",
@@ -4487,7 +4679,7 @@ done
 cd work-magnetic-float
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/cold-core/magnetic-float/magnetic_float.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/cold-core/magnetic-float/magnetic_float.py > /dev/null
 cp hardware/printed-parts/cold-core/magnetic-float/body-aero.step $$O0
 cp hardware/printed-parts/cold-core/magnetic-float/body-aero.step.mesh $$O1
 cp hardware/printed-parts/cold-core/magnetic-float/body-aero.step.npz $$O2
@@ -4545,8 +4737,12 @@ genrule(
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/hardware/scripts/_stated_bounds.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ] + glob(
         [
             "hardware/printed-parts/cold-core/prv-shroud/README.figures.json",
@@ -4580,7 +4776,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/cold-core/prv-shroud/prv_shroud.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/cold-core/prv-shroud/prv_shroud.py > /dev/null
 cp hardware/printed-parts/cold-core/prv-shroud/prv-shroud.step $$O0
 cp hardware/printed-parts/cold-core/prv-shroud/README.figures.json $$O1
 cp hardware/printed-parts/cold-core/prv-shroud/README.md $$O2
@@ -4601,7 +4797,11 @@ genrule(
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ] + glob(
         [
             "hardware/printed-parts/collet-press/README.figures.json",
@@ -4637,7 +4837,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/collet-press/collet_press.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/collet-press/collet_press.py > /dev/null
 cp hardware/printed-parts/collet-press/collet-press.step $$O0
 cp hardware/printed-parts/collet-press/collet-press.step.mesh $$O1
 cp hardware/printed-parts/collet-press/collet-press.stl $$O2
@@ -4659,8 +4859,12 @@ genrule(
         "pysrc/hardware/scripts/_payload_rules.py",
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/hardware/scripts/flute_payload.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ] + glob(
         [
             "hardware/printed-parts/diaphragm-pump-sleeve/README.figures.json",
@@ -4696,7 +4900,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/diaphragm-pump-sleeve/diaphragm_pump_sleeve.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/diaphragm-pump-sleeve/diaphragm_pump_sleeve.py > /dev/null
 cp hardware/printed-parts/diaphragm-pump-sleeve/diaphragm-pump-sleeve.step $$O0
 cp hardware/printed-parts/diaphragm-pump-sleeve/diaphragm-pump-sleeve.step.mesh $$O1
 cp hardware/printed-parts/diaphragm-pump-sleeve/diaphragm-pump-sleeve.stl $$O2
@@ -4718,7 +4922,11 @@ genrule(
         "pysrc/hardware/scripts/_materials.py",
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ],
     outs = [
         "out/pcba-assembly/hardware/printed-parts/electronics/pcba-tray/pcba-assembly.step",
@@ -4743,7 +4951,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/electronics/pcba-tray/pcba_assembly.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/electronics/pcba-tray/pcba_assembly.py > /dev/null
 cp hardware/printed-parts/electronics/pcba-tray/pcba-assembly.step $$O0
 cp hardware/printed-parts/electronics/pcba-tray/pcba-board.step $$O1
 """,
@@ -4757,7 +4965,12 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
         "pysrc/hardware/scripts/_material_base.py",
         "pysrc/hardware/scripts/_materials.py",
+        "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ],
     outs = [
         "out/pcba-tray/hardware/printed-parts/electronics/pcba-tray/pcba_tray.py",
@@ -4780,7 +4993,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/electronics/pcba-tray/pcba_tray.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/electronics/pcba-tray/pcba_tray.py > /dev/null
 cp hardware/printed-parts/electronics/pcba-tray/pcba_tray.py $$O0
 """,
 )
@@ -4958,11 +5171,15 @@ genrule(
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_routing.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/hardware/scripts/_seating.py",
         "pysrc/hardware/scripts/_stated_bounds.py",
         "pysrc/hardware/scripts/flute_payload.py",
         "pysrc/hardware/scripts/pick_text.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ] + glob(
         [
             "hardware/printed-parts/enclosure/README.figures.json",
@@ -4992,7 +5209,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/enclosure/_enclosure_dimensions.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/enclosure/_enclosure_dimensions.py > /dev/null
 cp hardware/printed-parts/enclosure/README.figures.json $$O0
 cp hardware/printed-parts/enclosure/README.md $$O1
 """,
@@ -5012,7 +5229,11 @@ genrule(
         "pysrc/hardware/scripts/_materials.py",
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ] + glob(
         [
             "hardware/printed-parts/enclosure/asse-drip-pan/README.figures.json",
@@ -5046,7 +5267,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/enclosure/asse-drip-pan/asse_drip_pan.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/enclosure/asse-drip-pan/asse_drip_pan.py > /dev/null
 cp hardware/printed-parts/enclosure/asse-drip-pan/asse-drip-pan.step $$O0
 cp hardware/printed-parts/enclosure/asse-drip-pan/asse-drip-pan.stl $$O1
 cp hardware/printed-parts/enclosure/asse-drip-pan/README.figures.json $$O2
@@ -5074,7 +5295,11 @@ genrule(
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ] + glob(
         [
             "hardware/printed-parts/enclosure/bulkhead-ring/README.figures.json",
@@ -5116,7 +5341,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/enclosure/bulkhead-ring/bulkhead_ring.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/enclosure/bulkhead-ring/bulkhead_ring.py > /dev/null
 cp hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-carb.step $$O0
 cp hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-co2.step $$O1
 cp hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-drain.step $$O2
@@ -5150,7 +5375,11 @@ genrule(
         "pysrc/hardware/scripts/_measuring.py",
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ],
     outs = [
         "out/data-ring/hardware/printed-parts/enclosure/data-ring/data-ring.step",
@@ -5173,7 +5402,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/enclosure/data-ring/data_ring.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/enclosure/data-ring/data_ring.py > /dev/null
 cp hardware/printed-parts/enclosure/data-ring/data-ring.step $$O0
 """,
 )
@@ -5197,9 +5426,13 @@ genrule(
         "pysrc/hardware/scripts/_payload_rules.py",
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/hardware/scripts/_stated_bounds.py",
         "pysrc/hardware/scripts/flute_payload.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ] + glob(
         [
             "hardware/printed-parts/enclosure/display-cover/README.figures.json",
@@ -5235,7 +5468,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/enclosure/display-cover/display_cover.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/enclosure/display-cover/display_cover.py > /dev/null
 cp hardware/printed-parts/enclosure/display-cover/display-cover.step $$O0
 cp hardware/printed-parts/enclosure/display-cover/display-cover.step.mesh $$O1
 cp hardware/printed-parts/enclosure/display-cover/display-cover.stl $$O2
@@ -5262,9 +5495,13 @@ genrule(
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_payload_rules.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/hardware/scripts/_stated_bounds.py",
         "pysrc/hardware/scripts/flute_payload.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ],
     outs = [
         "out/cover-reach-trial/hardware/printed-parts/enclosure/display-cover/reach-trial/display-cover-reach-05.step",
@@ -5297,7 +5534,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/enclosure/display-cover/reach-trial/cover_reach_trial.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/enclosure/display-cover/reach-trial/cover_reach_trial.py > /dev/null
 cp hardware/printed-parts/enclosure/display-cover/reach-trial/display-cover-reach-05.step $$O0
 cp hardware/printed-parts/enclosure/display-cover/reach-trial/display-cover-reach-05.step.mesh $$O1
 cp hardware/printed-parts/enclosure/display-cover/reach-trial/display-cover-reach-05.stl $$O2
@@ -5323,8 +5560,12 @@ genrule(
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_payload_rules.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/hardware/scripts/flute_payload.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ],
     outs = [
         "out/display-receiver-trial/hardware/printed-parts/enclosure/display-cover/receiver-trial/display-receiver-trial-v1.step",
@@ -5351,7 +5592,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/enclosure/display-cover/receiver-trial/display_receiver_trial.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/enclosure/display-cover/receiver-trial/display_receiver_trial.py > /dev/null
 cp hardware/printed-parts/enclosure/display-cover/receiver-trial/display-receiver-trial-v1.step $$O0
 cp hardware/printed-parts/enclosure/display-cover/receiver-trial/display-receiver-trial-v1.step.mesh $$O1
 cp hardware/printed-parts/enclosure/display-cover/receiver-trial/display-receiver-trial-v1.stl $$O2
@@ -5377,9 +5618,13 @@ genrule(
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_payload_rules.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/hardware/scripts/_stated_bounds.py",
         "pysrc/hardware/scripts/flute_payload.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ],
     outs = [
         "out/retention-reach-trial/hardware/printed-parts/enclosure/display-cover/retention-reach-trial/display-cover-retention-reach-060.step",
@@ -5412,7 +5657,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/enclosure/display-cover/retention-reach-trial/retention_reach_trial.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/enclosure/display-cover/retention-reach-trial/retention_reach_trial.py > /dev/null
 cp hardware/printed-parts/enclosure/display-cover/retention-reach-trial/display-cover-retention-reach-060.step $$O0
 cp hardware/printed-parts/enclosure/display-cover/retention-reach-trial/display-cover-retention-reach-060.step.mesh $$O1
 cp hardware/printed-parts/enclosure/display-cover/retention-reach-trial/display-cover-retention-reach-060.stl $$O2
@@ -5442,9 +5687,13 @@ genrule(
         "pysrc/hardware/scripts/_payload_rules.py",
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/hardware/scripts/_stated_bounds.py",
         "pysrc/hardware/scripts/flute_payload.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ],
     outs = [
         "out/retention-trial/hardware/printed-parts/enclosure/display-cover/retention-trial/display-cover-retention-v2.step",
@@ -5479,7 +5728,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/enclosure/display-cover/retention-trial/retention_trial.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/enclosure/display-cover/retention-trial/retention_trial.py > /dev/null
 cp hardware/printed-parts/enclosure/display-cover/retention-trial/display-cover-retention-v2.step $$O0
 cp hardware/printed-parts/enclosure/display-cover/retention-trial/display-cover-retention-v2.step.mesh $$O1
 cp hardware/printed-parts/enclosure/display-cover/retention-trial/display-cover-retention-v2.stl $$O2
@@ -5504,7 +5753,11 @@ genrule(
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ] + glob(
         [
             "hardware/printed-parts/enclosure/display-gasket/README.figures.json",
@@ -5538,7 +5791,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/enclosure/display-gasket/display_gasket.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/enclosure/display-gasket/display_gasket.py > /dev/null
 cp hardware/printed-parts/enclosure/display-gasket/display-gasket.step $$O0
 cp hardware/printed-parts/enclosure/display-gasket/README.figures.json $$O1
 cp hardware/printed-parts/enclosure/display-gasket/README.md $$O2
@@ -5785,11 +6038,15 @@ genrule(
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_routing.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/hardware/scripts/_seating.py",
         "pysrc/hardware/scripts/_stated_bounds.py",
         "pysrc/hardware/scripts/flute_payload.py",
         "pysrc/hardware/scripts/pick_text.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ],
     outs = [
         "out/appliance-model/hardware/printed-parts/enclosure/drawings/line-art/enclosure-iso-back.svg",
@@ -5816,9 +6073,9 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/enclosure/drawings/line-art/_appliance_model.py > /dev/null
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/enclosure/drawings/line-art/enclosure-iso-back.py > /dev/null
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/enclosure/drawings/line-art/enclosure-iso-front.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/enclosure/drawings/line-art/_appliance_model.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/enclosure/drawings/line-art/enclosure-iso-back.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/enclosure/drawings/line-art/enclosure-iso-front.py > /dev/null
 cp hardware/printed-parts/enclosure/drawings/line-art/enclosure-iso-back.svg $$O0
 cp hardware/printed-parts/enclosure/drawings/line-art/enclosure-iso-front.svg $$O1
 cp hardware/printed-parts/enclosure/drawings/line-art/_appliance_model.py $$O2
@@ -5990,6 +6247,7 @@ genrule(
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_routing.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/hardware/scripts/_stated_bounds.py",
         "pysrc/hardware/scripts/check_asse_drain.py",
         "pysrc/hardware/scripts/flute_payload.py",
@@ -6020,6 +6278,9 @@ genrule(
         "pysrc/hardware/wiring/installed/terminals.py",
         "pysrc/hardware/wiring/installed/terminations.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ] + glob(
         [
             "hardware/printed-parts/enclosure/enclosure/README.figures.json",
@@ -6114,9 +6375,9 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/enclosure/enclosure/enclosure.py > /dev/null
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/scripts/flute_payload_enclosure.py > /dev/null
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/scripts/materialize_pump_cartridge.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/enclosure/enclosure/enclosure.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/scripts/flute_payload_enclosure.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/scripts/materialize_pump_cartridge.py > /dev/null
 cp hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step $$O0
 cp hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh $$O1
 cp hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.npz $$O2
@@ -6173,7 +6434,11 @@ genrule(
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ] + glob(
         [
             "future/unit-links.figures.json",
@@ -6220,8 +6485,8 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/enclosure/nameplate/_nameplate_dimensions.py > /dev/null
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/enclosure/nameplate/nameplate.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/enclosure/nameplate/_nameplate_dimensions.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/enclosure/nameplate/nameplate.py > /dev/null
 cp hardware/printed-parts/enclosure/nameplate/nameplate-001.step $$O0
 cp hardware/printed-parts/enclosure/nameplate/nameplate-001.step.mesh $$O1
 cp hardware/printed-parts/enclosure/nameplate/nameplate-001.stl $$O2
@@ -6241,7 +6506,12 @@ genrule(
         "pysrc/hardware/printed-parts/cadlib/snap.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
         "hardware/printed-parts/enclosure/pump-tray/pump_case.py",
+        "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ],
     outs = [
         "out/pump-case/hardware/printed-parts/enclosure/pump-tray/pump_case.py",
@@ -6264,7 +6534,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/enclosure/pump-tray/pump_case.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/enclosure/pump-tray/pump_case.py > /dev/null
 cp hardware/printed-parts/enclosure/pump-tray/pump_case.py $$O0
 """,
 )
@@ -6452,11 +6722,15 @@ genrule(
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_routing.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/hardware/scripts/_seating.py",
         "pysrc/hardware/scripts/_stated_bounds.py",
         "pysrc/hardware/scripts/flute_payload.py",
         "pysrc/hardware/scripts/pick_text.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ] + glob(
         [
             "hardware/printed-parts/enclosure/pump-tray/README.figures.json",
@@ -6486,7 +6760,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/enclosure/pump-tray/pump_tray.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/enclosure/pump-tray/pump_tray.py > /dev/null
 cp hardware/printed-parts/enclosure/pump-tray/README.figures.json $$O0
 cp hardware/printed-parts/enclosure/pump-tray/README.md $$O1
 """,
@@ -6546,8 +6820,12 @@ genrule(
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_payload_rules.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/hardware/scripts/flute_payload.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ],
     outs = [
         "out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step",
@@ -6592,7 +6870,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/enclosure/rear-equipment-caps/rear_equipment_caps.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/enclosure/rear-equipment-caps/rear_equipment_caps.py > /dev/null
 cp hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step $$O0
 cp hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step.mesh $$O1
 cp hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.stl $$O2
@@ -6635,7 +6913,11 @@ genrule(
         "pysrc/hardware/scripts/_materials.py",
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ],
     outs = [
         "out/rear-identification/hardware/printed-parts/enclosure/rear-identification/rear-label-carb.step",
@@ -6692,7 +6974,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/enclosure/rear-identification/rear_identification.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/enclosure/rear-identification/rear_identification.py > /dev/null
 cp hardware/printed-parts/enclosure/rear-identification/rear-label-carb.step $$O0
 cp hardware/printed-parts/enclosure/rear-identification/rear-label-carb.step.mesh $$O1
 cp hardware/printed-parts/enclosure/rear-identification/rear-label-carb.stl $$O2
@@ -6897,11 +7179,15 @@ genrule(
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_routing.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/hardware/scripts/_seating.py",
         "pysrc/hardware/scripts/_stated_bounds.py",
         "pysrc/hardware/scripts/flute_payload.py",
         "pysrc/hardware/scripts/pick_text.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ] + glob(
         [
             "hardware/printed-parts/enclosure/valve-tray/README.figures.json",
@@ -6931,7 +7217,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/enclosure/valve-tray/valve_tray.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/enclosure/valve-tray/valve_tray.py > /dev/null
 cp hardware/printed-parts/enclosure/valve-tray/README.figures.json $$O0
 cp hardware/printed-parts/enclosure/valve-tray/README.md $$O1
 """,
@@ -6946,7 +7232,12 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
         "pysrc/hardware/scripts/_material_base.py",
         "pysrc/hardware/scripts/_realized.py",
+        "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ] + glob(
         [
             "hardware/printed-parts/enclosure/y-wall-of-back-top/README.figures.json",
@@ -6976,7 +7267,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py > /dev/null
 cp hardware/printed-parts/enclosure/y-wall-of-back-top/README.figures.json $$O0
 cp hardware/printed-parts/enclosure/y-wall-of-back-top/README.md $$O1
 """,
@@ -7000,8 +7291,12 @@ genrule(
         "pysrc/hardware/scripts/_material_base.py",
         "pysrc/hardware/scripts/_materials.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/hardware/scripts/_stated_bounds.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ],
     outs = [
         "out/above-counter-gasket/hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step",
@@ -7028,7 +7323,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py > /dev/null
 cp hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step $$O0
 cp hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.stl $$O1
 cp hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py $$O2
@@ -7055,8 +7350,12 @@ genrule(
         "pysrc/hardware/scripts/_materials.py",
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/hardware/scripts/_stated_bounds.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ] + glob(
         [
             "hardware/printed-parts/faucet/above-counter-plate/README.figures.json",
@@ -7090,7 +7389,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py > /dev/null
 cp hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step $$O0
 cp hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.stl $$O1
 cp hardware/printed-parts/faucet/above-counter-plate/README.figures.json $$O2
@@ -7118,6 +7417,7 @@ genrule(
         "pysrc/hardware/scripts/_materials.py",
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/hardware/scripts/_rust_part.py",
         "pysrc/hardware/scripts/_stated_bounds.py",
         "pysrc/tools/docgen/__init__.py",
@@ -7156,6 +7456,12 @@ genrule(
         "tools/hsm/kernel/src/topo.rs",
         "tools/hsm/kernel/src/triangulate.rs",
         "tools/hsm/kernel/src/write.rs",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/hsm/run-slots/Cargo.toml",
+        "tools/hsm/run-slots/src/ipc.rs",
+        "tools/hsm/run-slots/src/lib.rs",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ] + glob(
         [
             "hardware/printed-parts/faucet/faucet-display-cover/README.figures.json",
@@ -7201,7 +7507,7 @@ done
 cd work-faucet-display-cover
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py > /dev/null
 cp hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover-seated.step $$O0
 cp hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover-seated.step.mesh $$O1
 cp hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover-seated.step.npz $$O2
@@ -7238,6 +7544,7 @@ genrule(
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_payload_rules.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/hardware/scripts/_rust_part.py",
         "pysrc/hardware/scripts/_stated_bounds.py",
         "pysrc/hardware/scripts/flute_payload.py",
@@ -7277,6 +7584,12 @@ genrule(
         "tools/hsm/kernel/src/topo.rs",
         "tools/hsm/kernel/src/triangulate.rs",
         "tools/hsm/kernel/src/write.rs",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/hsm/run-slots/Cargo.toml",
+        "tools/hsm/run-slots/src/ipc.rs",
+        "tools/hsm/run-slots/src/lib.rs",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ],
     outs = [
         "out/industrial-faucet/hardware/printed-parts/faucet/industrial/industrial-above-counter-gasket.step",
@@ -7339,7 +7652,7 @@ done
 cd work-industrial-faucet
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/faucet/industrial/industrial_faucet.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/faucet/industrial/industrial_faucet.py > /dev/null
 cp hardware/printed-parts/faucet/industrial/industrial-above-counter-gasket.step $$O0
 cp hardware/printed-parts/faucet/industrial/industrial-above-counter-gasket.step.mesh $$O1
 cp hardware/printed-parts/faucet/industrial/industrial-above-counter-gasket.step.npz $$O2
@@ -7374,7 +7687,11 @@ genrule(
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_payload_rules.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/hardware/scripts/flute_payload.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ],
     outs = [
         "out/lever-replica/hardware/printed-parts/faucet/lever-replica/geometry-check.json",
@@ -7405,7 +7722,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/faucet/lever-replica/lever_replica.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/faucet/lever-replica/lever_replica.py > /dev/null
 cp hardware/printed-parts/faucet/lever-replica/geometry-check.json $$O0
 cp hardware/printed-parts/faucet/lever-replica/lever-replica-side-down.stl $$O1
 cp hardware/printed-parts/faucet/lever-replica/lever-replica.step $$O2
@@ -7427,7 +7744,11 @@ genrule(
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ] + glob(
         [
             "hardware/printed-parts/faucet/tpu-o-ring/README.figures.json",
@@ -7461,7 +7782,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/faucet/tpu-o-ring/tpu_o_ring.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/faucet/tpu-o-ring/tpu_o_ring.py > /dev/null
 cp hardware/printed-parts/faucet/tpu-o-ring/tpu-o-ring.step $$O0
 cp hardware/printed-parts/faucet/tpu-o-ring/README.figures.json $$O1
 cp hardware/printed-parts/faucet/tpu-o-ring/README.md $$O2
@@ -7490,7 +7811,11 @@ genrule(
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ] + glob(
         [
             "hardware/printed-parts/faucet/tube-collar/README.figures.json",
@@ -7532,7 +7857,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/faucet/tube-collar/tube_collar.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/faucet/tube-collar/tube_collar.py > /dev/null
 cp hardware/printed-parts/faucet/tube-collar/tube-collar-carb.step $$O0
 cp hardware/printed-parts/faucet/tube-collar/tube-collar-co2.step $$O1
 cp hardware/printed-parts/faucet/tube-collar/tube-collar-drain.step $$O2
@@ -7560,8 +7885,12 @@ genrule(
         "pysrc/hardware/scripts/_payload_rules.py",
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/hardware/scripts/flute_payload.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ] + glob(
         [
             "hardware/printed-parts/faucet/umbilical-organizer/README.figures.json",
@@ -7597,7 +7926,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/faucet/umbilical-organizer/umbilical_organizer.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/faucet/umbilical-organizer/umbilical_organizer.py > /dev/null
 cp hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.step $$O0
 cp hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.step.mesh $$O1
 cp hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.stl $$O2
@@ -7616,7 +7945,11 @@ genrule(
         "pysrc/hardware/scripts/_material_base.py",
         "pysrc/hardware/scripts/_materials.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ],
     outs = [
         "out/vent-seals/hardware/printed-parts/faucet/asse-vent-seals/asse-vent-downstream-bung.step",
@@ -7649,7 +7982,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/faucet/vent_seals.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/faucet/vent_seals.py > /dev/null
 cp hardware/printed-parts/faucet/asse-vent-seals/asse-vent-downstream-bung.step $$O0
 cp hardware/printed-parts/faucet/asse-vent-seals/asse-vent-downstream-bung.stl $$O1
 cp hardware/printed-parts/faucet/asse-vent-seals/asse-vent-perimeter-tool.step $$O2
@@ -7671,7 +8004,11 @@ genrule(
         "pysrc/hardware/scripts/_material_base.py",
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ] + glob(
         [
             "hardware/printed-parts/fixtures/fake-countertop/README.figures.json",
@@ -7705,7 +8042,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/fixtures/fake-countertop/fake_countertop.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/fixtures/fake-countertop/fake_countertop.py > /dev/null
 cp hardware/printed-parts/fixtures/fake-countertop/fake-countertop.step $$O0
 cp hardware/printed-parts/fixtures/fake-countertop/fake-countertop.stl $$O1
 cp hardware/printed-parts/fixtures/fake-countertop/README.figures.json $$O2
@@ -7719,6 +8056,11 @@ genrule(
         "pysrc/hardware/printed-parts/fixtures/faucet-cover-retention/cover_retention_trial.py",
         "hardware/printed-parts/fixtures/faucet-cover-retention/retained-artifacts.json",
         "hardware/printed-parts/fixtures/faucet-cover-retention/retained-artifacts.zip",
+        "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ],
     outs = [
         "out/cover-retention-trial/hardware/printed-parts/fixtures/faucet-cover-retention/cover-retention-a.step",
@@ -7777,7 +8119,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/fixtures/faucet-cover-retention/cover_retention_trial.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/fixtures/faucet-cover-retention/cover_retention_trial.py > /dev/null
 cp hardware/printed-parts/fixtures/faucet-cover-retention/cover-retention-a.step $$O0
 cp hardware/printed-parts/fixtures/faucet-cover-retention/cover-retention-a.step.mesh $$O1
 cp hardware/printed-parts/fixtures/faucet-cover-retention/cover-retention-a.stl $$O2
@@ -7837,9 +8179,13 @@ genrule(
         "pysrc/hardware/scripts/_measuring.py",
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/hardware/scripts/_stated_bounds.py",
         "pysrc/hardware/scripts/flute_payload.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ],
     outs = [
         "out/faucet-display-snap-trial/hardware/printed-parts/fixtures/faucet-display-snap/display-trial-cover.step",
@@ -7874,7 +8220,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/fixtures/faucet-display-snap/faucet_display_snap_trial.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/fixtures/faucet-display-snap/faucet_display_snap_trial.py > /dev/null
 cp hardware/printed-parts/fixtures/faucet-display-snap/display-trial-cover.step $$O0
 cp hardware/printed-parts/fixtures/faucet-display-snap/display-trial-cover.stl $$O1
 cp hardware/printed-parts/fixtures/faucet-display-snap/display-trial-housing.step $$O2
@@ -7903,7 +8249,11 @@ genrule(
         "pysrc/hardware/scripts/_measuring.py",
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ],
     outs = [
         "out/tee-valve-bow-trial/hardware/printed-parts/fixtures/tee-valve-bow-trial/tee-valve-bow-trial-assembly.step",
@@ -7930,7 +8280,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/fixtures/tee-valve-bow-trial/tee_valve_bow_trial.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/fixtures/tee-valve-bow-trial/tee_valve_bow_trial.py > /dev/null
 cp hardware/printed-parts/fixtures/tee-valve-bow-trial/tee-valve-bow-trial-assembly.step $$O0
 cp hardware/printed-parts/fixtures/tee-valve-bow-trial/tee-valve-bow-trial-frame.step $$O1
 cp hardware/printed-parts/fixtures/tee-valve-bow-trial/tee-valve-bow-trial-gauge.step $$O2
@@ -7947,7 +8297,11 @@ genrule(
         "pysrc/hardware/scripts/_material_base.py",
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ] + glob(
         [
             "hardware/printed-parts/fixtures/tube-miter-box/README.figures.json",
@@ -7981,7 +8335,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/fixtures/tube-miter-box/tube_miter_box.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/fixtures/tube-miter-box/tube_miter_box.py > /dev/null
 cp hardware/printed-parts/fixtures/tube-miter-box/tube-miter-box.step $$O0
 cp hardware/printed-parts/fixtures/tube-miter-box/tube-miter-box.stl $$O1
 cp hardware/printed-parts/fixtures/tube-miter-box/README.figures.json $$O2
@@ -8053,9 +8407,13 @@ genrule(
         "pysrc/hardware/scripts/_payload_rules.py",
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/hardware/scripts/_stated_bounds.py",
         "pysrc/hardware/scripts/flute_payload.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ],
     outs = [
         "out/valve-socket-fit/hardware/printed-parts/fixtures/valve-socket-fit/geometry-check.json",
@@ -8084,7 +8442,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/fixtures/valve-socket-fit/valve_socket_fit.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/fixtures/valve-socket-fit/valve_socket_fit.py > /dev/null
 cp hardware/printed-parts/fixtures/valve-socket-fit/geometry-check.json $$O0
 cp hardware/printed-parts/fixtures/valve-socket-fit/valve-socket-fit.step $$O1
 cp hardware/printed-parts/fixtures/valve-socket-fit/valve-socket-fit.step.mesh $$O2
@@ -8102,7 +8460,11 @@ genrule(
         "pysrc/hardware/scripts/_material_base.py",
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ] + glob(
         [
             "hardware/printed-parts/fixtures/water-inlet-jet/README.figures.json",
@@ -8140,7 +8502,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/fixtures/water-inlet-jet/water_inlet_jet_fixture.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/fixtures/water-inlet-jet/water_inlet_jet_fixture.py > /dev/null
 cp hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-fixed.step $$O0
 cp hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-fixed.stl $$O1
 cp hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-loose.step $$O2
@@ -8162,7 +8524,11 @@ genrule(
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ] + glob(
         [
             "hardware/printed-parts/fixtures/weld-rotator/README.figures.json",
@@ -8224,7 +8590,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/fixtures/weld-rotator/weld_rotator.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/fixtures/weld-rotator/weld_rotator.py > /dev/null
 cp hardware/printed-parts/fixtures/weld-rotator/weld-rotator-assembly.step $$O0
 cp hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ball-cage.step $$O1
 cp hardware/printed-parts/fixtures/weld-rotator/weld-rotator-base-foot.step $$O2
@@ -8262,6 +8628,7 @@ genrule(
         "pysrc/hardware/scripts/_occt_color.py",
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/hardware/scripts/_rust_part.py",
         "pysrc/hardware/scripts/_stated_bounds.py",
         "pysrc/tools/docgen/__init__.py",
@@ -8296,6 +8663,12 @@ genrule(
         "tools/hsm/kernel/src/triangulate.rs",
         "tools/hsm/kernel/src/write.rs",
         "tools/hsm/refrigeration/Cargo.toml",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/hsm/run-slots/Cargo.toml",
+        "tools/hsm/run-slots/src/ipc.rs",
+        "tools/hsm/run-slots/src/lib.rs",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ] + glob(
         [
             "hardware/printed-parts/refrigeration/fuse-clamp/README.figures.json",
@@ -8339,7 +8712,7 @@ done
 cd work-fuse-clamp
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.py > /dev/null
 cp hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.numbers.json $$O0
 cp hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.step $$O1
 cp hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.step.mesh $$O2
@@ -8368,7 +8741,11 @@ genrule(
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ] + glob(
         [
             "hardware/printed-parts/shop-storage/README.figures.json",
@@ -8484,7 +8861,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/shop-storage/holders.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/shop-storage/holders.py > /dev/null
 cp hardware/printed-parts/shop-storage/holders/adapter-tub.step $$O0
 cp hardware/printed-parts/shop-storage/holders/brush-quiver.step $$O1
 cp hardware/printed-parts/shop-storage/holders/bulkhead-tub.step $$O2
@@ -8547,8 +8924,12 @@ genrule(
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_payload_rules.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/hardware/scripts/flute_payload.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ],
     outs = [
         "out/soda-bend-holder/hardware/printed-parts/soda-bend-holder/soda-bend-holder.step",
@@ -8575,7 +8956,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/soda-bend-holder/soda_bend_holder.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/soda-bend-holder/soda_bend_holder.py > /dev/null
 cp hardware/printed-parts/soda-bend-holder/soda-bend-holder.step $$O0
 cp hardware/printed-parts/soda-bend-holder/soda-bend-holder.step.mesh $$O1
 cp hardware/printed-parts/soda-bend-holder/soda-bend-holder.stl $$O2
@@ -8595,7 +8976,11 @@ genrule(
         "pysrc/hardware/scripts/_materials.py",
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ] + glob(
         [
             "hardware/printed-parts/valve-seat/README.figures.json",
@@ -8625,7 +9010,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/valve-seat/valve_seat.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/valve-seat/valve_seat.py > /dev/null
 cp hardware/printed-parts/valve-seat/README.figures.json $$O0
 cp hardware/printed-parts/valve-seat/README.md $$O1
 """,
@@ -8650,6 +9035,7 @@ genrule(
         "pysrc/hardware/scripts/_occt_color.py",
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/hardware/scripts/_rust_part.py",
         "pysrc/tools/docgen/__init__.py",
         "tools/hsm/Cargo.lock",
@@ -8683,6 +9069,12 @@ genrule(
         "tools/hsm/kernel/src/topo.rs",
         "tools/hsm/kernel/src/triangulate.rs",
         "tools/hsm/kernel/src/write.rs",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/hsm/run-slots/Cargo.toml",
+        "tools/hsm/run-slots/src/ipc.rs",
+        "tools/hsm/run-slots/src/lib.rs",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ] + glob(
         [
             "hardware/printed-parts/zone-c/funnel-cover/README.figures.json",
@@ -8732,7 +9124,7 @@ done
 cd work-funnel-cover
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/zone-c/funnel-cover/funnel_cover.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/zone-c/funnel-cover/funnel_cover.py > /dev/null
 cp hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.step $$O0
 cp hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.step.mesh $$O1
 cp hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.step.npz $$O2
@@ -8767,8 +9159,12 @@ genrule(
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_payload_rules.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/hardware/scripts/flute_payload.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ],
     outs = [
         "out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/assembly.step",
@@ -8827,7 +9223,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/zone-c/funnel-mold/funnel_mold.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/zone-c/funnel-mold/funnel_mold.py > /dev/null
 cp hardware/printed-parts/zone-c/funnel-mold/assembly.step $$O0
 cp hardware/printed-parts/zone-c/funnel-mold/assembly.step.mesh $$O1
 cp hardware/printed-parts/zone-c/funnel-mold/backs.step $$O2
@@ -8904,7 +9300,11 @@ genrule(
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ] + glob(
         [
             "hardware/printed-parts/zone-c/funnel/cradle-trial/README.figures.json",
@@ -8948,7 +9348,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/zone-c/funnel/cradle-trial/cradle_trial.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/zone-c/funnel/cradle-trial/cradle_trial.py > /dev/null
 cp hardware/printed-parts/zone-c/funnel/cradle-trial/geometry-check.json $$O0
 cp hardware/printed-parts/zone-c/funnel/cradle-trial/test-cradle.step $$O1
 cp hardware/printed-parts/zone-c/funnel/cradle-trial/test-cradle.step.mesh $$O2
@@ -9016,8 +9416,12 @@ genrule(
         "pysrc/hardware/scripts/_payload_rules.py",
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/hardware/scripts/flute_payload.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ] + glob(
         [
             "hardware/printed-parts/zone-c/funnel/README.figures.json",
@@ -9063,9 +9467,9 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/zone-c/funnel/elbow_cradle.py > /dev/null
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/zone-c/funnel/funnel.py > /dev/null
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/zone-c/funnel/funnel_frame.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/zone-c/funnel/elbow_cradle.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/zone-c/funnel/funnel.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/zone-c/funnel/funnel_frame.py > /dev/null
 cp hardware/printed-parts/zone-c/funnel/elbow-cradle.step $$O0
 cp hardware/printed-parts/zone-c/funnel/elbow-cradle.step.mesh $$O1
 cp hardware/printed-parts/zone-c/funnel/elbow-cradle.stl $$O2
@@ -9095,8 +9499,12 @@ genrule(
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/hardware/scripts/_seating.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ] + glob(
         [
             "hardware/reference/asse1022-assembly/README.figures.json",
@@ -9128,7 +9536,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/asse1022-assembly/asse1022_assembly.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/asse1022-assembly/asse1022_assembly.py > /dev/null
 cp hardware/reference/asse1022-assembly/asse1022-assembly.step $$O0
 cp hardware/reference/asse1022-assembly/README.figures.json $$O1
 cp hardware/reference/asse1022-assembly/README.md $$O2
@@ -9147,7 +9555,11 @@ genrule(
         "pysrc/hardware/scripts/_materials.py",
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ],
     outs = [
         "out/asse1022-threaded-chain/hardware/reference/asse1022-threaded-chain/asse1022-threaded-chain.step",
@@ -9170,7 +9582,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/asse1022-threaded-chain/asse1022_threaded_chain.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/asse1022-threaded-chain/asse1022_threaded_chain.py > /dev/null
 cp hardware/reference/asse1022-threaded-chain/asse1022-threaded-chain.step $$O0
 """,
 )
@@ -9185,7 +9597,11 @@ genrule(
         "pysrc/hardware/scripts/_materials.py",
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ],
     outs = [
         "out/basics-mtb-0606wp/hardware/reference/basics-mtb-0606wp/basics-mtb-0606wp.step",
@@ -9208,7 +9624,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/basics-mtb-0606wp/basics_mtb_0606wp.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/basics-mtb-0606wp/basics_mtb_0606wp.py > /dev/null
 cp hardware/reference/basics-mtb-0606wp/basics-mtb-0606wp.step $$O0
 """,
 )
@@ -9225,7 +9641,11 @@ genrule(
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ] + glob(
         [
             "hardware/reference/beduan-solenoid/README.figures.json",
@@ -9259,7 +9679,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/beduan-solenoid/beduan_solenoid.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/beduan-solenoid/beduan_solenoid.py > /dev/null
 cp hardware/reference/beduan-solenoid/beduan-solenoid.step $$O0
 cp hardware/reference/beduan-solenoid/model-check.json $$O1
 cp hardware/reference/beduan-solenoid/README.figures.json $$O2
@@ -9279,7 +9699,11 @@ genrule(
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ] + glob(
         [
             "hardware/reference/compressor/README.figures.json",
@@ -9313,7 +9737,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/compressor/compressor.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/compressor/compressor.py > /dev/null
 cp hardware/reference/compressor/compressor.step $$O0
 cp hardware/reference/compressor/README.figures.json $$O1
 cp hardware/reference/compressor/README.md $$O2
@@ -9333,7 +9757,11 @@ genrule(
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ] + glob(
         [
             "hardware/reference/digiten-flow-sensor/README.figures.json",
@@ -9367,7 +9795,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/digiten-flow-sensor/digiten_flow_sensor.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/digiten-flow-sensor/digiten_flow_sensor.py > /dev/null
 cp hardware/reference/digiten-flow-sensor/digiten-flow-sensor.step $$O0
 cp hardware/reference/digiten-flow-sensor/model-check.json $$O1
 cp hardware/reference/digiten-flow-sensor/README.figures.json $$O2
@@ -9385,7 +9813,11 @@ genrule(
         "pysrc/hardware/scripts/_materials.py",
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ],
     outs = [
         "out/flare38-14ptc/hardware/reference/flare38-14ptc/flare38-14ptc.step",
@@ -9408,7 +9840,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/flare38-14ptc/flare38_14ptc.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/flare38-14ptc/flare38_14ptc.py > /dev/null
 cp hardware/reference/flare38-14ptc/flare38-14ptc.step $$O0
 """,
 )
@@ -9423,7 +9855,11 @@ genrule(
         "pysrc/hardware/scripts/_materials.py",
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ],
     outs = [
         "out/gagira-reducing-coupling/hardware/reference/gagira-reducing-coupling/gagira-reducing-coupling.step",
@@ -9446,7 +9882,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/gagira-reducing-coupling/gagira_reducing_coupling.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/gagira-reducing-coupling/gagira_reducing_coupling.py > /dev/null
 cp hardware/reference/gagira-reducing-coupling/gagira-reducing-coupling.step $$O0
 """,
 )
@@ -9461,7 +9897,11 @@ genrule(
         "pysrc/hardware/scripts/_materials.py",
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ],
     outs = [
         "out/gasher-check-valve/hardware/reference/gasher-check-valve/gasher-check-valve.step",
@@ -9484,7 +9924,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/gasher-check-valve/gasher_check_valve.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/gasher-check-valve/gasher_check_valve.py > /dev/null
 cp hardware/reference/gasher-check-valve/gasher-check-valve.step $$O0
 """,
 )
@@ -9499,7 +9939,11 @@ genrule(
         "pysrc/hardware/scripts/_materials.py",
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ],
     outs = [
         "out/hlghlg-check-valve/hardware/reference/hlghlg-check-valve/hlghlg-check-valve.step",
@@ -9522,7 +9966,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/hlghlg-check-valve/hlghlg_check_valve.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/hlghlg-check-valve/hlghlg_check_valve.py > /dev/null
 cp hardware/reference/hlghlg-check-valve/hlghlg-check-valve.step $$O0
 """,
 )
@@ -9539,7 +9983,11 @@ genrule(
         "pysrc/hardware/scripts/_materials.py",
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ] + glob(
         [
             "hardware/reference/iec-c14-inlet/README.figures.json",
@@ -9571,7 +10019,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/iec-c14-inlet/iec_c14_inlet.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/iec-c14-inlet/iec_c14_inlet.py > /dev/null
 cp hardware/reference/iec-c14-inlet/iec-c14-inlet.step $$O0
 cp hardware/reference/iec-c14-inlet/README.figures.json $$O1
 cp hardware/reference/iec-c14-inlet/README.md $$O2
@@ -9590,7 +10038,11 @@ genrule(
         "pysrc/hardware/scripts/_measuring.py",
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ],
     outs = [
         "out/jg-bulkhead-union/hardware/reference/jg-bulkhead-union/jg-bulkhead-union.step",
@@ -9613,7 +10065,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py > /dev/null
 cp hardware/reference/jg-bulkhead-union/jg-bulkhead-union.step $$O0
 """,
 )
@@ -9628,7 +10080,11 @@ genrule(
         "pysrc/hardware/scripts/_materials.py",
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ],
     outs = [
         "out/jg-pp010822e/hardware/reference/jg-pp010822e/jg-pp010822e.step",
@@ -9651,7 +10107,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/jg-pp010822e/jg_pp010822e.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/jg-pp010822e/jg_pp010822e.py > /dev/null
 cp hardware/reference/jg-pp010822e/jg-pp010822e.step $$O0
 """,
 )
@@ -9666,7 +10122,11 @@ genrule(
         "pysrc/hardware/scripts/_materials.py",
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ],
     outs = [
         "out/jg-pp0208e-tee/hardware/reference/jg-pp0208e-tee/jg-pp0208e-tee.step",
@@ -9689,7 +10149,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/jg-pp0208e-tee/jg_pp0208e_tee.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/jg-pp0208e-tee/jg_pp0208e_tee.py > /dev/null
 cp hardware/reference/jg-pp0208e-tee/jg-pp0208e-tee.step $$O0
 """,
 )
@@ -9704,7 +10164,11 @@ genrule(
         "pysrc/hardware/scripts/_materials.py",
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ],
     outs = [
         "out/jg-pp0408w/hardware/reference/jg-pp0408w/jg-pp0408w.step",
@@ -9727,7 +10191,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/jg-pp0408w/jg_pp0408w.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/jg-pp0408w/jg_pp0408w.py > /dev/null
 cp hardware/reference/jg-pp0408w/jg-pp0408w.step $$O0
 """,
 )
@@ -9742,7 +10206,11 @@ genrule(
         "pysrc/hardware/scripts/_materials.py",
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ],
     outs = [
         "out/jg-pp061208w/hardware/reference/jg-pp061208w/jg-pp061208w.step",
@@ -9765,7 +10233,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/jg-pp061208w/jg_pp061208w.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/jg-pp061208w/jg_pp061208w.py > /dev/null
 cp hardware/reference/jg-pp061208w/jg-pp061208w.step $$O0
 """,
 )
@@ -9780,7 +10248,11 @@ genrule(
         "pysrc/hardware/scripts/_materials.py",
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ],
     outs = [
         "out/jhyossthi-pogo-dock/hardware/reference/jhyossthi-pogo-dock/pogo-dock-female.step",
@@ -9805,7 +10277,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/jhyossthi-pogo-dock/jhyossthi_pogo_dock.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/jhyossthi-pogo-dock/jhyossthi_pogo_dock.py > /dev/null
 cp hardware/reference/jhyossthi-pogo-dock/pogo-dock-female.step $$O0
 cp hardware/reference/jhyossthi-pogo-dock/pogo-dock-male.step $$O1
 """,
@@ -9824,8 +10296,12 @@ genrule(
         "pysrc/hardware/scripts/_materials.py",
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/hardware/scripts/_stated_bounds.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ],
     outs = [
         "out/kamoer-kphm400/hardware/reference/kamoer-kphm400/kamoer-kphm400.step",
@@ -9848,7 +10324,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/kamoer-kphm400/kamoer_kphm400.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/kamoer-kphm400/kamoer_kphm400.py > /dev/null
 cp hardware/reference/kamoer-kphm400/kamoer-kphm400.step $$O0
 """,
 )
@@ -9863,7 +10339,11 @@ genrule(
         "pysrc/hardware/scripts/_materials.py",
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ],
     outs = [
         "out/molex-micro-fit-4/hardware/reference/molex-micro-fit-4/molex-micro-fit-4-panel.step",
@@ -9886,7 +10366,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/molex-micro-fit-4/molex_micro_fit_4.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/molex-micro-fit-4/molex_micro_fit_4.py > /dev/null
 cp hardware/reference/molex-micro-fit-4/molex-micro-fit-4-panel.step $$O0
 """,
 )
@@ -9901,7 +10381,11 @@ genrule(
         "pysrc/hardware/scripts/_materials.py",
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ],
     outs = [
         "out/multiplex-asse1022/hardware/reference/multiplex-asse1022/multiplex-asse1022.step",
@@ -9924,7 +10408,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/multiplex-asse1022/multiplex_asse1022.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/multiplex-asse1022/multiplex_asse1022.py > /dev/null
 cp hardware/reference/multiplex-asse1022/multiplex-asse1022.step $$O0
 """,
 )
@@ -9939,7 +10423,11 @@ genrule(
         "pysrc/hardware/scripts/_materials.py",
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ],
     outs = [
         "out/neofit-achv44-check/hardware/reference/neofit-achv44-check/neofit-achv44-check.step",
@@ -9964,7 +10452,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/neofit-achv44-check/neofit_achv44_check.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/neofit-achv44-check/neofit_achv44_check.py > /dev/null
 cp hardware/reference/neofit-achv44-check/neofit-achv44-check.step $$O0
 cp hardware/reference/neofit-achv44-check/neofit-achv44-check.step.mesh $$O1
 """,
@@ -9981,7 +10469,11 @@ genrule(
         "pysrc/hardware/scripts/_materials.py",
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ],
     outs = [
         "out/neofit-bulkhead/hardware/reference/neofit-bulkhead/neofit-bulkhead.step",
@@ -10004,7 +10496,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/neofit-bulkhead/neofit_bulkhead.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/neofit-bulkhead/neofit_bulkhead.py > /dev/null
 cp hardware/reference/neofit-bulkhead/neofit-bulkhead.step $$O0
 """,
 )
@@ -10019,7 +10511,11 @@ genrule(
         "pysrc/hardware/scripts/_materials.py",
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ],
     outs = [
         "out/neofit-drain-bulkhead/hardware/reference/neofit-drain-bulkhead/neofit-drain-bulkhead.step",
@@ -10042,7 +10538,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/neofit-drain-bulkhead/neofit_drain_bulkhead.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/neofit-drain-bulkhead/neofit_drain_bulkhead.py > /dev/null
 cp hardware/reference/neofit-drain-bulkhead/neofit-drain-bulkhead.step $$O0
 """,
 )
@@ -10057,7 +10553,11 @@ genrule(
         "pysrc/hardware/scripts/_materials.py",
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ],
     outs = [
         "out/neofit-flavor-reducer/hardware/reference/neofit-flavor-reducer/neofit-flavor-reducer.step",
@@ -10080,7 +10580,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/neofit-flavor-reducer/neofit_flavor_reducer.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/neofit-flavor-reducer/neofit_flavor_reducer.py > /dev/null
 cp hardware/reference/neofit-flavor-reducer/neofit-flavor-reducer.step $$O0
 """,
 )
@@ -10095,7 +10595,11 @@ genrule(
         "pysrc/hardware/scripts/_materials.py",
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ],
     outs = [
         "out/neofit-flow-control/hardware/reference/neofit-flow-control/neofit-flow-control.step",
@@ -10118,7 +10622,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/neofit-flow-control/neofit_flow_control.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/neofit-flow-control/neofit_flow_control.py > /dev/null
 cp hardware/reference/neofit-flow-control/neofit-flow-control.step $$O0
 """,
 )
@@ -10133,7 +10637,11 @@ genrule(
         "pysrc/hardware/scripts/_materials.py",
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ],
     outs = [
         "out/riteav-keystone/hardware/reference/riteav-keystone/riteav-keystone.step",
@@ -10156,7 +10664,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/riteav-keystone/riteav_keystone.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/riteav-keystone/riteav_keystone.py > /dev/null
 cp hardware/reference/riteav-keystone/riteav-keystone.step $$O0
 """,
 )
@@ -10171,7 +10679,11 @@ genrule(
         "pysrc/hardware/scripts/_materials.py",
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ],
     outs = [
         "out/seaflo-22-pump/hardware/reference/seaflo-22-pump/seaflo-22-pump.step",
@@ -10194,7 +10706,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/seaflo-22-pump/seaflo_22_pump.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/seaflo-22-pump/seaflo_22_pump.py > /dev/null
 cp hardware/reference/seaflo-22-pump/seaflo-22-pump.step $$O0
 """,
 )
@@ -10211,7 +10723,11 @@ genrule(
         "pysrc/hardware/scripts/_materials.py",
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ],
     outs = [
         "out/seaflo-discharge-chain/hardware/reference/seaflo-discharge-chain/seaflo-discharge-chain.step",
@@ -10234,7 +10750,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/seaflo-discharge-chain/seaflo_discharge_chain.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/seaflo-discharge-chain/seaflo_discharge_chain.py > /dev/null
 cp hardware/reference/seaflo-discharge-chain/seaflo-discharge-chain.step $$O0
 """,
 )
@@ -10249,7 +10765,11 @@ genrule(
         "pysrc/hardware/scripts/_materials.py",
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ],
     outs = [
         "out/sf76e-thermal-fuse/hardware/reference/sf76e-thermal-fuse/sf76e-thermal-fuse.step",
@@ -10272,7 +10792,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/sf76e-thermal-fuse/sf76e_thermal_fuse.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/sf76e-thermal-fuse/sf76e_thermal_fuse.py > /dev/null
 cp hardware/reference/sf76e-thermal-fuse/sf76e-thermal-fuse.step $$O0
 """,
 )
@@ -10287,7 +10807,11 @@ genrule(
         "pysrc/hardware/scripts/_materials.py",
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ],
     outs = [
         "out/shok-blok-regulator/hardware/reference/shok-blok-regulator/shok-blok-regulator.step",
@@ -10312,7 +10836,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/shok-blok-regulator/shok_blok_regulator.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/shok-blok-regulator/shok_blok_regulator.py > /dev/null
 cp hardware/reference/shok-blok-regulator/shok-blok-regulator.step $$O0
 cp hardware/reference/shok-blok-regulator/shok-blok-regulator.step.mesh $$O1
 """,
@@ -10328,7 +10852,11 @@ genrule(
         "pysrc/hardware/scripts/_materials.py",
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ],
     outs = [
         "out/soda-rise-insulation/hardware/reference/soda-rise-insulation/soda-rise-insulation.step",
@@ -10353,7 +10881,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/soda-rise-insulation/soda_rise_insulation.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/soda-rise-insulation/soda_rise_insulation.py > /dev/null
 cp hardware/reference/soda-rise-insulation/soda-rise-insulation.step $$O0
 cp hardware/reference/soda-rise-insulation/soda-rise-insulation.step.mesh $$O1
 """,
@@ -10369,7 +10897,11 @@ genrule(
         "pysrc/hardware/scripts/_materials.py",
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ],
     outs = [
         "out/taprite-3741-regulator/hardware/reference/taprite-3741-regulator/taprite-3741-regulator.step",
@@ -10392,7 +10924,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/taprite-3741-regulator/taprite_3741_regulator.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/taprite-3741-regulator/taprite_3741_regulator.py > /dev/null
 cp hardware/reference/taprite-3741-regulator/taprite-3741-regulator.step $$O0
 """,
 )
@@ -10409,7 +10941,11 @@ genrule(
         "pysrc/hardware/scripts/_measuring.py",
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ],
     outs = [
         "out/tee-connector/hardware/reference/tee-connector/tee-connector.step",
@@ -10432,7 +10968,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/tee-connector/tee_connector.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/tee-connector/tee_connector.py > /dev/null
 cp hardware/reference/tee-connector/tee-connector.step $$O0
 """,
 )
@@ -10448,7 +10984,11 @@ genrule(
         "pysrc/hardware/scripts/_materials.py",
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ],
     outs = [
         "out/westbrass-reference/hardware/reference/touch-flo-faucet/westbrass-reference/westbrass-reference.step",
@@ -10473,7 +11013,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/touch-flo-faucet/westbrass-reference/westbrass_reference.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/touch-flo-faucet/westbrass-reference/westbrass_reference.py > /dev/null
 cp hardware/reference/touch-flo-faucet/westbrass-reference/westbrass-reference.step $$O0
 cp hardware/reference/touch-flo-faucet/westbrass-reference/westbrass_reference.py $$O1
 """,
@@ -10491,7 +11031,11 @@ genrule(
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ] + glob(
         [
             "hardware/reference/waveshare-43b-display/README.figures.json",
@@ -10525,7 +11069,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/waveshare-43b-display/waveshare_43b_display.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/waveshare-43b-display/waveshare_43b_display.py > /dev/null
 cp hardware/reference/waveshare-43b-display/waveshare-43b-display.step $$O0
 cp hardware/reference/waveshare-43b-display/README.figures.json $$O1
 cp hardware/reference/waveshare-43b-display/README.md $$O2
@@ -10543,7 +11087,11 @@ genrule(
         "pysrc/hardware/scripts/_materials.py",
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ],
     outs = [
         "out/worm-clamp/hardware/reference/worm-clamp/worm-clamp.step",
@@ -10566,7 +11114,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/worm-clamp/worm_clamp.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/worm-clamp/worm_clamp.py > /dev/null
 cp hardware/reference/worm-clamp/worm-clamp.step $$O0
 """,
 )
@@ -10581,7 +11129,11 @@ genrule(
         "pysrc/hardware/scripts/_materials.py",
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ],
     outs = [
         "out/wr1110-regulator/hardware/reference/wr1110-regulator/wr1110-regulator.step",
@@ -10604,7 +11156,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/wr1110-regulator/wr1110_regulator.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/wr1110-regulator/wr1110_regulator.py > /dev/null
 cp hardware/reference/wr1110-regulator/wr1110-regulator.step $$O0
 """,
 )
@@ -10619,7 +11171,11 @@ genrule(
         "pysrc/hardware/scripts/_materials.py",
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ],
     outs = [
         "out/yyfkgcp-pogo-4p/hardware/reference/yyfkgcp-pogo-4p/pogo-4p-female.step",
@@ -10644,7 +11200,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/yyfkgcp-pogo-4p/yyfkgcp_pogo_4p.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/yyfkgcp-pogo-4p/yyfkgcp_pogo_4p.py > /dev/null
 cp hardware/reference/yyfkgcp-pogo-4p/pogo-4p-female.step $$O0
 cp hardware/reference/yyfkgcp-pogo-4p/pogo-4p-male.step $$O1
 """,
@@ -10904,6 +11460,7 @@ genrule(
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_routing.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/hardware/scripts/_seating.py",
         "pysrc/hardware/scripts/_stated_bounds.py",
         "pysrc/hardware/scripts/flute_payload.py",
@@ -10918,6 +11475,9 @@ genrule(
         "pysrc/hardware/scripts/pick_text.py",
         "pysrc/hardware/wiring/_ac_wiring_schedule_sync.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ] + glob(
         [
             "hardware/ledger/bom.figures.json",
@@ -10952,10 +11512,10 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/scripts/_bom_masses.py > /dev/null
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/scripts/_bom_sync.py > /dev/null
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/scripts/_bom_totals.py > /dev/null
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/scripts/_labor_totals.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/scripts/_bom_masses.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/scripts/_bom_sync.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/scripts/_bom_totals.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/scripts/_labor_totals.py > /dev/null
 cp hardware/ledger/bom.figures.json $$O0
 cp hardware/ledger/bom.md $$O1
 cp hardware/ledger/labor.figures.json $$O2
@@ -10969,7 +11529,12 @@ genrule(
         "hardware/ledger/build-time.md",
         "pysrc/hardware/scripts/_build_time.py",
         "pysrc/hardware/scripts/_realized.py",
+        "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ] + glob(
         [
             "hardware/ledger/build-time.figures.json",
@@ -10999,7 +11564,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/scripts/_build_time.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/scripts/_build_time.py > /dev/null
 cp hardware/ledger/build-time.figures.json $$O0
 cp hardware/ledger/build-time.md $$O1
 """,
@@ -11015,7 +11580,12 @@ genrule(
         "pysrc/hardware/scripts/_ledger_analysis.py",
         "pysrc/hardware/scripts/_ledger_totals.py",
         "pysrc/hardware/scripts/_realized.py",
+        "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ] + glob(
         [
             "hardware/ledger/purchases.export.json",
@@ -11050,7 +11620,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/scripts/_ledger_totals.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/scripts/_ledger_totals.py > /dev/null
 cp hardware/ledger/purchases.export.csv $$O0
 cp hardware/ledger/purchases.export.json $$O1
 cp hardware/ledger/purchases.figures.json $$O2
@@ -11074,7 +11644,12 @@ genrule(
         "pysrc/hardware/scripts/_bom_masses.py",
         "pysrc/hardware/scripts/_machine_time.py",
         "pysrc/hardware/scripts/_realized.py",
+        "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ] + glob(
         [
             "hardware/ledger/machine-time.figures.json",
@@ -11104,7 +11679,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/scripts/_machine_time.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/scripts/_machine_time.py > /dev/null
 cp hardware/ledger/machine-time.figures.json $$O0
 cp hardware/ledger/machine-time.md $$O1
 """,
@@ -11116,8 +11691,13 @@ genrule(
         "hardware/ledger/purchases.md",
         "hardware/ledger/tools.md",
         "pysrc/hardware/scripts/_realized.py",
+        "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/hardware/scripts/_tools_totals.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ] + glob(
         [
             "hardware/ledger/tools.figures.json",
@@ -11147,7 +11727,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/scripts/_tools_totals.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/scripts/_tools_totals.py > /dev/null
 cp hardware/ledger/tools.figures.json $$O0
 cp hardware/ledger/tools.md $$O1
 """,
@@ -11178,8 +11758,12 @@ genrule(
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_payload_rules.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/hardware/scripts/flute_payload.py",
         "pysrc/hardware/scripts/flute_payload_cold_core.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ],
     outs = [
         "out/flute-payload-cold-core/hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step.mesh",
@@ -11208,7 +11792,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/scripts/flute_payload_cold_core.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/scripts/flute_payload_cold_core.py > /dev/null
 cp hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step.mesh $$O0
 cp hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh $$O1
 cp hardware/printed-parts/cold-core/foam-cap/reservoir-b-fill-guide.step.mesh $$O2
@@ -11245,8 +11829,12 @@ genrule(
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_payload_rules.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/hardware/scripts/flute_payload.py",
         "pysrc/hardware/scripts/flute_payload_faucet.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ],
     outs = [
         "out/flute-payload-faucet/hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step.mesh",
@@ -11277,7 +11865,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/scripts/flute_payload_faucet.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/scripts/flute_payload_faucet.py > /dev/null
 cp hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step.mesh $$O0
 cp hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step.mesh $$O1
 cp hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step.mesh $$O2
@@ -11601,6 +12189,7 @@ genrule(
         "hardware/scripts/_realized.py",
         "hardware/scripts/_routing.py",
         "hardware/scripts/_run_lock.py",
+        "hardware/scripts/_run_slots.py",
         "hardware/scripts/_seating.py",
         "hardware/scripts/_stated_bounds.py",
         "hardware/scripts/_tube_export.py",
@@ -11641,6 +12230,9 @@ genrule(
         "hardware/wiring/installed/terminations.py",
         "tools/bazel/graph.json",
         "tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "tools/run.py",
     ],
     outs = [
         "out/tube-routes/web/public/tube-routes.json",
@@ -11663,7 +12255,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/scripts/tube_routes.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/scripts/tube_routes.py > /dev/null
 cp web/public/tube-routes.json $$O0
 """,
 )
@@ -11839,6 +12431,7 @@ genrule(
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_routing.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/hardware/scripts/_seating.py",
         "pysrc/hardware/scripts/_stated_bounds.py",
         "pysrc/hardware/scripts/flute_payload.py",
@@ -11849,6 +12442,9 @@ genrule(
         "hardware/topology/fluid-topology-manifold.mmd",
         "hardware/topology/fluid-topology.md",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ] + glob(
         [
             "hardware/topology/fluid-topology.figures.json",
@@ -11884,7 +12480,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/topology/_fluid_topology_sync.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/topology/_fluid_topology_sync.py > /dev/null
 cp hardware/topology/fluid-topology-carbonator.mmd $$O0
 cp hardware/topology/fluid-topology-limbs.mmd $$O1
 cp hardware/topology/fluid-topology-manifold.mmd $$O2
@@ -11897,9 +12493,14 @@ genrule(
     name = "ac-wiring-schedule-sync",
     srcs = [
         "pysrc/hardware/scripts/_realized.py",
+        "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/hardware/wiring/_ac_wiring_schedule_sync.py",
         "hardware/wiring/ac-wiring-schedule.md",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ] + glob(
         [
             "hardware/wiring/ac-wiring-schedule.figures.json",
@@ -11929,7 +12530,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/wiring/_ac_wiring_schedule_sync.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/wiring/_ac_wiring_schedule_sync.py > /dev/null
 cp hardware/wiring/ac-wiring-schedule.figures.json $$O0
 cp hardware/wiring/ac-wiring-schedule.md $$O1
 """,
@@ -11942,9 +12543,14 @@ genrule(
         ":out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.scorecard.json",
         "pysrc/hardware/scripts/_facts.py",
         "pysrc/hardware/scripts/_realized.py",
+        "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/marketing/_install_envelope_sync.py",
         "marketing/install-envelope.md",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ],
     outs = [
         "out/install-envelope-sync/marketing/install-envelope.md",
@@ -11967,7 +12573,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python marketing/_install_envelope_sync.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python marketing/_install_envelope_sync.py > /dev/null
 cp marketing/install-envelope.md $$O0
 """,
 )
@@ -11978,9 +12584,14 @@ genrule(
         ":out/bom-masses/hardware/ledger/bom.figures.json",
         ":out/bom-masses/hardware/ledger/labor.figures.json",
         ":out/machine-time/hardware/ledger/machine-time.figures.json",
+        "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/marketing/_target_market_sync.py",
         "marketing/target-market.md",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ],
     outs = [
         "out/target-market-sync/marketing/target-market.md",
@@ -12003,7 +12614,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python marketing/_target_market_sync.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python marketing/_target_market_sync.py > /dev/null
 cp marketing/target-market.md $$O0
 """,
 )
@@ -12058,12 +12669,17 @@ genrule(
         "hardware/install-guide/press/ORDER.md",
         "pysrc/hardware/printed-parts/faucet/faucet-shell/faucet_shell.py",
         "pysrc/hardware/printed-parts/faucet/faucet_paths.py",
+        "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
+        "tools/hsm/run-slots.defaults.json",
         "pysrc/tools/install-guide/build.py",
         "pysrc/tools/install-guide/contours.py",
         "pysrc/tools/install-guide/landscape.py",
         "pysrc/tools/install-guide/press.py",
         "tools/install-guide/render-contours.mjs",
         "tools/render/browser.js",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
         ":node-packages",
     ],
     outs = [
@@ -12108,7 +12724,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/install-guide/build.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/install-guide/build.py > /dev/null
 cp hardware/install-guide/install-guide.cover.png $$O0
 cp hardware/install-guide/install-guide.pdf $$O1
 cp hardware/install-guide/install-guide.pdf.json $$O2
@@ -12172,10 +12788,14 @@ genrule(
         "pysrc/hardware/scripts/_measuring.py",
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/hardware/scripts/_stated_bounds.py",
         "pysrc/hardware/scripts/flute_payload.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
         "pysrc/tools/install-guide/kit_art.py",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
     ],
     outs = [
         "out/kit-art/hardware/install-guide/assets/kit/cold-kit.svg",
@@ -12214,7 +12834,7 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/install-guide/kit_art.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/install-guide/kit_art.py > /dev/null
 cp hardware/install-guide/assets/kit/cold-kit.svg $$O0
 cp hardware/install-guide/assets/kit/collet-press.svg $$O1
 cp hardware/install-guide/assets/kit/faucet-and-plate.svg $$O2
@@ -12272,6 +12892,7 @@ genrule(
         "pysrc/hardware/scripts/_materials.py",
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/hardware/scripts/_rust_part.py",
         "pysrc/hardware/scripts/_stated_bounds.py",
         "pysrc/hardware/scripts/flute_payload.py",
@@ -12298,7 +12919,13 @@ genrule(
         "tools/hsm/render/src/shaders/shadow.wgsl",
         "tools/hsm/render/src/shaders/surface.wgsl",
         "tools/hsm/render/src/shadow.rs",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/hsm/run-slots/Cargo.toml",
+        "tools/hsm/run-slots/src/ipc.rs",
+        "tools/hsm/run-slots/src/lib.rs",
         "pysrc/tools/install-guide/opening_scene.py",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
         "web/public/finishes.json",
     ] + glob(
         [
@@ -12333,7 +12960,7 @@ done
 cd work-opening-scene
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/install-guide/opening_scene.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/install-guide/opening_scene.py > /dev/null
 cp hardware/install-guide/assets/opening-faucet-outline.svg $$O0
 cp hardware/install-guide/assets/opening.png $$O1
 cp hardware/install-guide/assets/print-resolution.json $$O2
@@ -14462,6 +15089,14 @@ genrule(
 )
 
 genrule(
+    name = "pysrc-f1b19c64420c",
+    srcs = ["hardware/scripts/_run_slots.py"],
+    outs = ["pysrc/hardware/scripts/_run_slots.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
     name = "pysrc-3784c8a2dcfd",
     srcs = ["hardware/scripts/_rust_part.py"],
     outs = ["pysrc/hardware/scripts/_rust_part.py"],
@@ -14817,6 +15452,14 @@ genrule(
     name = "pysrc-00c7e989877f",
     srcs = ["tools/install-guide/press.py"],
     outs = ["pysrc/tools/install-guide/press.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
+    name = "pysrc-9658c9f31062",
+    srcs = ["tools/run.py"],
+    outs = ["pysrc/tools/run.py"],
     tools = ["tools/bazel/pysrc.py"],
     cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
 )

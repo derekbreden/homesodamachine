@@ -56,7 +56,7 @@ HSM="${HSM_BIN:-$(command -v hsm || echo "$HOME/.local/bin/hsm")}"
 
 usage() { awk 'NR>1 && /^#/ { sub(/^# ?/, ""); print; next } NR>1 { exit }' "${BASH_SOURCE[0]}"; }
 die() { echo "look: $*" >&2; exit 2; }
-render() { "$HSM" --root "$REPO" render "$@"; }
+render() { "$PY" "$REPO/tools/run.py" -- "$HSM" --root "$REPO" render "$@"; }
 
 only=""
 near=""

@@ -122,9 +122,9 @@ def start() -> None:
 
 def _lock() -> None:
     """The CAD lock, for a run `start` began, now that OCCT is loading in it."""
-    if _LOCK_FOR is not None and not os.environ.get("HSM_NO_BUILD_LOCK"):
+    if _STARTED is not None:
         from _run_lock import acquire
-        acquire(_LOCK_FOR)
+        acquire(_LOCK_FOR or 'python')
 
 
 def _entry():
@@ -472,6 +472,16 @@ def _tessellate(path: Path, out: Path, digest: str) -> None:
         pass
 
 
+def _slots():
+    import _run_slots
+    return _run_slots
+
+
+def _has_lease_environment():
+    return any(os.environ.get(key) for key in ('HSM_RUN_LEASE', 'HSM_CAD_LEASE',
+                                               'HSM_COMPILER_LEASE', 'HSM_RUN_BROKER'))
+
+
 def program(crate: str, name: str) -> Path:
     """Build `tools/hsm/<crate>`'s program `name`, keep what it was compiled from, and return
     where it is."""
@@ -481,8 +491,10 @@ def program(crate: str, name: str) -> Path:
     cargo, target = _cargo(), workspace / "tools" / "hsm" / "target"
     env = {**os.environ, "HOME": str(_home()), "CARGO_TARGET_DIR": str(target),
            "PATH": os.pathsep.join([str(Path(cargo).parent), os.environ.get("PATH", "")])}
-    subprocess.run([cargo, "build", "--release", "--locked", "--quiet",
-                    "--manifest-path", str(manifest), "--bin", name], check=True, env=env)
+    _slots().acquire(_entry() or f'cargo:{crate}/{name}')
+    subprocess.run(_slots().command([cargo, "build", "--release", "--locked", "--quiet",
+                    "--manifest-path", str(manifest), "--bin", name]), check=True,
+                   **_slots().subprocess_kwargs(env))
     sources = _compiled(target / "release" / f"{name}.d", workspace)
     _READ_TARGETS.update(sources | _manifests(sources, crate, workspace))
     return target / "release" / name
@@ -511,13 +523,23 @@ def _hsm():
     return None
 
 
-def _ask(request: dict):
+def _ask(request: dict, attach_lease=True):
     """The daemon's answer to one request, or None where nothing listens."""
     import socket
+    import array
     try:
         with socket.socket(socket.AF_UNIX, socket.SOCK_STREAM) as s:
             s.connect(_socket())
-            s.sendall(json.dumps(request).encode() + b"\n")
+            metadata, descriptors = _slots().wire() if attach_lease and _has_lease_environment() else (None, ())
+            if descriptors:
+                request = {**request, '_lease': metadata}
+            payload = json.dumps(request).encode() + b"\n"
+            if descriptors:
+                sent = s.sendmsg([payload], [(socket.SOL_SOCKET, socket.SCM_RIGHTS,
+                                             array.array('i', descriptors))])
+                s.sendall(payload[sent:])
+            else:
+                s.sendall(payload)
             reply = bytearray()
             while not reply.endswith(b"\n"):
                 chunk = s.recv(1 << 20)
@@ -537,6 +559,10 @@ def _engine(crate: str, name: str, args) -> dict | None:
     request = {"op": "run", "workspace": str(_workspace()), "root": str(ROOT.resolve()),
                "crate": crate, "name": name, "args": [str(a) for a in args]}
     for attempt in (0, 1):
+        if _has_lease_environment() and _slots().pass_fds():
+            capability = _ask({'op': 'ping'}, attach_lease=False)
+            if capability and capability.get('result', {}).get('run_slots') != 1:
+                return None                 # an older daemon must not book a nested lease
         answer = _ask(request)
         if answer is not None and answer.get("ok"):
             return answer["result"]
@@ -548,6 +574,9 @@ def _engine(crate: str, name: str, args) -> dict | None:
             return None
         # Start the installed build on the endpoint it named. A live incompatible service stays.
         env = {**os.environ, "HOME": str(_home())}
+        for key in ('HSM_RUN_LEASE', 'HSM_CAD_LEASE', 'HSM_COMPILER_LEASE',
+                    'HSM_RUN_BROKER', 'HSM_RUN_PROFILE'):
+            env.pop(key, None)               # a detached daemon never retains this run's lease
         cmd = [hsm, "--socket", _socket(), "status"]
         if subprocess.run(cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, env=env).returncode:
             return None
@@ -566,11 +595,11 @@ def run(crate: str, name: str, *args) -> str:
                 f"{said['program_seconds']:.2f} s, {said['peak_bytes'] / 2 ** 20:.0f} MB at its peak")
         print(f"   {name}: {took}")
         return said["stdout"]
-    # Run here, cargo and the program take the cores an OCCT build would, so they wait their turn.
-    _lock()
+    _slots().acquire(_entry() or f'part:{crate}/{name}')
     cmd = [str(program(crate, name)), *map(str, args)]
     began = time.perf_counter()
-    proc = subprocess.Popen(cmd, stdout=subprocess.PIPE, text=True, cwd=ROOT)
+    proc = subprocess.Popen(cmd, stdout=subprocess.PIPE, text=True, cwd=ROOT,
+                            **_slots().subprocess_kwargs())
     out = proc.stdout.read()
     proc.stdout.close()
     _pid, status, usage = os.wait4(proc.pid, 0)

@@ -26,7 +26,9 @@ FINISHES = ROOT / "web" / "public" / "finishes.json"
 def render(jobs: list[dict], root: Path = ROOT) -> None:
     """Draw every job against the checkout at `root`. A picture that fails fails the run, after
     the others are drawn."""
+    import _run_slots
     program = _rust_part.program("render", "hsm-render")
     _rust_part._READ_TARGETS.add(_rust_part._relative(FINISHES))
     subprocess.run([str(program), "--root", str(root), "--jobs", "-"],
-                   input=json.dumps(jobs), text=True, check=True)
+                   input=json.dumps(jobs), text=True, check=True,
+                   **_run_slots.subprocess_kwargs())

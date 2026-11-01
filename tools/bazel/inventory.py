@@ -13,6 +13,14 @@ import subprocess
 import sys
 from pathlib import Path
 
+# Runtime admission is present in every heavy action, independent of its geometry trace.
+RUNTIME_READS = frozenset({'hardware/scripts/_run_slots.py', 'hardware/scripts/_run_lock.py',
+                           'tools/run.py', 'tools/run-slots.mjs', 'tools/hsm/run-slots.defaults.json'})
+RUST_RUNTIME_READS = frozenset({'tools/hsm/run-slots/Cargo.toml',
+                                'tools/hsm/run-slots/src/lib.rs',
+                                'tools/hsm/run-slots/src/ipc.rs',
+                                'tools/hsm/run-slots.defaults.json'})
+
 _HERE = Path(__file__).resolve()
 _ROOT = _HERE.parents[2]
 GRAPH = _HERE.parent / "graph.json"
@@ -513,8 +521,10 @@ def inventory(files=None) -> dict:
 
     out = {}
     for gens in _together(writes):
-        entry = {"solids": [], "docs": [], "reads": sorted(
-            {f for g in gens for f in graph[g]["reads"] if f in files})}
+        reads = {f for g in gens for f in graph[g]["reads"] if f in files} | set(RUNTIME_READS)
+        if any(f.startswith('tools/hsm/') and f.endswith('/Cargo.toml') for f in reads):
+            reads |= RUST_RUNTIME_READS
+        entry = {"solids": [], "docs": [], "reads": sorted(reads)}
         back = {f for g in gens for f in graph[g].get("rewritten", ()) if f in files}
         for f in sorted(set().union(*(writes[g] for g in gens))):
             (entry["docs"] if f in back else entry["solids"]).append(f)
