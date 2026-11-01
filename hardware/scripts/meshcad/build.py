@@ -241,7 +241,9 @@ def gap(a, b):
     they lie on the surfaces, and the nearest of a few thousand of each body's bound it closely.
     The gap's two ends then lie on triangles within that reach of the other body's triangles
     that are left, so each body is cut down to those twice over: a tube beside the pump puts
-    the pump's triangles near the tube in a tree, and the tube's near the pump."""
+    the pump's triangles near the tube in a tree, and the tube's near the pump. The vertices
+    left bound it closer again, and runs of the other body's triangles stand nearer them than
+    its whole box does, so a tube along a wall puts in the tree the wall it runs beside."""
     import fcl
     from scipy.spatial import cKDTree
     (Va, Ta, la, ha), (Vb, Tb, lb, hb) = _boxed_soup(a), _boxed_soup(b)
@@ -254,6 +256,11 @@ def gap(a, b):
     for _ in range(2):
         ka = _near(la, ha, ka, lb, hb, kb, reach)
         kb = _near(lb, hb, kb, la, ha, ka, reach)
+    reach = min(reach, float(cKDTree(Vb[np.unique(Tb[kb])]).query(
+        Va[np.unique(Ta[ka])])[0].min()) + 1e-6)
+    for _ in range(2):
+        ka = _near_runs(la, ha, ka, lb, hb, kb, reach)
+        kb = _near_runs(lb, hb, kb, la, ha, ka, reach)
     Ta, Tb = Ta[ka], Tb[kb]
     d = max(float(fcl.distance(_tree(Va, Ta), _tree(Vb, Tb), fcl.DistanceRequest(),
                                fcl.DistanceResult())), 0.0)
@@ -303,6 +310,19 @@ def _near(lo, hi, keep, lo2, hi2, keep2, reach):
     around the other body's triangles `keep2`, boxed (lo2, hi2)."""
     a, b = lo2[keep2].min(0) - reach, hi2[keep2].max(0) + reach
     return keep[np.all((lo[keep] <= b) & (hi[keep] >= a), axis=1)]
+
+
+def _near_runs(lo, hi, keep, lo2, hi2, keep2, reach, runs=32):
+    """`_near` against runs of the other body's triangles `keep2`, taken in order along the
+    longest side of their box, each run boxed alone."""
+    c = lo2[keep2] + hi2[keep2]
+    order = keep2[np.argsort(c[:, int(np.argmax(np.ptp(c, 0)))], kind="stable")]
+    L, H = lo[keep], hi[keep]
+    hit = np.zeros(len(keep), bool)
+    for run in np.array_split(order, min(runs, len(order))):
+        a, b = lo2[run].min(0) - reach, hi2[run].max(0) + reach
+        hit |= np.all((L <= b) & (H >= a), axis=1)
+    return keep[hit]
 
 
 def _tree(V, T):
