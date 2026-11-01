@@ -19,6 +19,20 @@ Mark2's +0.04 mm trim emits G29.1 Z0.02. Native estimate **31 h 17 min**, **1,45
 with print error 0 and HMS empty. The [print record](prints/2026-10-29-mark2-seam-channel/README.md)
 binds the project, archive, seam reading and launch.
 
+### Result — accepted for shipping (2026-11-01)
+
+Derek reports a very small, localized surface defect near the shell's upper rim,
+lining up with a hole. It is invisible in some lighting and quite visible in
+others. He accepts the photographed defect for shipping: "But this is a defect
+that we are okay shipping with."
+
+The [print result](prints/2026-10-29-mark2-seam-channel/README.md#physical-result--accepted-for-shipping-2026-11-01)
+shows the finish. The
+[physical-result record](prints/2026-10-29-mark2-seam-channel/physical-result/physical-result.json)
+preserves his full report and all six original photographs with SHA256 hashes,
+bound to task **1386110458**. The accepted condition is listed in
+[Accepted defects and tolerances](../../../defects-and-tolerances.md#cold-core-shell--small-upper-wall-ripples).
+
 ## Production print — round copper exits / A2 seam
 
 The full shell job on Mark2 uses two 7.5 mm copper holes, continuous
