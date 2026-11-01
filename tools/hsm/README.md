@@ -74,7 +74,8 @@ Geometry lives only in the daemon's memory, addressed by the payload digest. Unc
 reuse resident geometry by device, inode, size, mtime and ctime. Replaced payloads reload on
 the next request. Two worktrees holding identical bytes share one resident entry.
 
-The daemon executes queries serially. `--cache-mb` sets a conservative resident cache budget
+The daemon executes geometry queries serially; a part run is answered on a thread of its own
+("Part runs"). `--cache-mb` sets a conservative resident cache budget
 (default 768 MiB); least recently used scenes are evicted to make room. The estimate includes
 lazy solid copies, but is not a hard process memory limit. Geometry query scratch can consume
 additional memory. `daemon.log` in the store directory (`--store` or `HSM_STORE`; otherwise
@@ -311,10 +312,12 @@ if __name__ == "__main__":
     _rust_part.start()
 ```
 
-`start` takes the CAD lock, starts the run's clock at the process's own start, and defers
-CadQuery: the modules a part's numbers come from import it to build other parts, and the run uses
-none of it. The `cadquery` it puts in `sys.modules` loads the first time a name is read off it,
-except `Color` and `Plane`, which shared modules call as they import and which make stand-ins. A
+`start` starts the run's clock at the process's own start and defers CadQuery: the modules a
+part's numbers come from import it to build other parts, and the run uses none of it. The CAD lock
+is taken when CadQuery or OCP loads, or before the program runs in the generator's own process
+("Part runs"), so a run the part engine answers that loads neither waits behind no OCCT build.
+The `cadquery` it puts in `sys.modules` loads the first time a name is read off it, except
+`Color` and `Plane`, which shared modules call as they import and which make stand-ins. A
 stand-in colour answers `toTuple`, `==`, `hash` and `_materials.linear` with OCCT's bits, as
 `linear` of a `#RRGGBB` string does (`hardware/scripts/_occt_color.py`). If CadQuery loads, each
 stand-in becomes the value it stands for, in place, and whenever OCP loads, its loops end in
@@ -324,16 +327,17 @@ loaded, and puts its seconds, interpreter and imports included, into `build-time
 
 The generator runs the program through
 [`hardware/scripts/_rust_part.py`](../../hardware/scripts/_rust_part.py).
-`_rust_part.cut("refrigeration", "fuse-clamp", numbers(), part_dir)` writes the numbers, builds the
-program with cargo from the checkout's workspace (`HSM_WORKSPACE` in a Bazel action), runs it, and
-returns the files and bodies it printed. `_rust_part.check(crate, name, numbers)` runs
+`_rust_part.cut("refrigeration", "fuse-clamp", numbers(), part_dir)` writes the numbers, has the
+part engine run the program from the checkout's workspace (`HSM_WORKSPACE` in a Bazel action;
+"Part runs" below), and returns the files and bodies it printed.
+`_rust_part.check(crate, name, numbers)` runs
 `<program> <numbers.json> --check`, which measures the part and writes nothing, and returns its
 JSON: the fuse clamp's selftest asks it for the case's touch, and the magnetic float's `verify.py`
 for the volumes by which the pieces miss the design. `_rust_part.run(crate, name, *args)`
 runs a program with arguments of its own and returns what it printed, and
 `_rust_part.program(crate, name)` builds one and returns its path. Each run prints the program's
-seconds and the most memory it held. Cargo builds into the checkout's own target directory,
-`tools/hsm/target`, whatever `CARGO_TARGET_DIR` says. A worktree made by `tools/worktree.py` starts
+seconds and the most memory it held, or that the part engine kept it. Cargo builds into the
+checkout's own target directory, `tools/hsm/target`, whatever `CARGO_TARGET_DIR` says. A worktree made by `tools/worktree.py` starts
 with a clone of the main checkout's target directory less the workspace's own crates, so its first
 build compiles those and not Manifold. `_rust_part` runs the `cargo` on `PATH`, else Homebrew's
 rustup's, else the one in `~/.cargo/bin`.
@@ -371,6 +375,65 @@ hsm --scene hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.step.mesh
 Its face records read `PLANE extrude at hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.rs:41`
 and `PLANE box at hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.rs:42, cut at
 hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.rs:43`.
+
+## Part runs
+
+The daemon runs the programs that cut parts, for every checkout, and keeps what each run wrote
+([`engine/src/build.rs`](engine/src/build.rs)). `_rust_part.run` asks it over the socket:
+
+```json
+{"op":"run","workspace":"/checkout","root":"/checkout","crate":"refrigeration","name":"fuse-clamp","args":["/checkout/hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.numbers.json","/checkout/hardware/printed-parts/refrigeration/fuse-clamp"]}
+```
+
+`workspace` is the checkout whose `tools/hsm` holds the program, and `root` is where it runs from,
+the action's directory in a Bazel action. The result carries what the program printed (`stdout`,
+`stderr`), the sources it was compiled from (`sources`, which `_rust_part` hands the trace), the
+files it read and wrote, whether a kept run answered (`hit`), whether cargo ran (`compiled`), the
+program's seconds and peak, and the ask's own seconds. Each ask is answered on a thread of its
+own, so a run holds up no geometry query.
+
+A run's key is its program's code and its arguments. The code is the toolchain, as `rustc -vV`
+names it from the workspace, and the SHA-256 of every workspace source rustc compiled into the
+program, off its dep-info, with the manifests and the lockfile. An argument naming a file counts by
+its bytes, the one naming a directory is where the files go, and any other counts as text. The
+kernel lists each file a program reads in the file `HSM_READS` names (`kernel/src/reads.rs`): a
+payload, a STEP and the payload it is read through, a DXF, a font. A kept run answers only while
+each of those holds the bytes it read. A program whose kernel has no `reads.rs` lists nothing, and
+none of its runs is kept.
+
+The store is `parts/` in the store directory:
+
+- `blobs/<sha256>`: each file a run wrote, once by its content;
+- `runs/<key>.json`: up to four runs of a key, which differ in what they read;
+- `programs/<code>/<name>`: each built program, by its code, with the checkout that built it in
+  `built-in`, and `programs/<crate>.<name>.json`, the sources it was last compiled from, so a
+  checkout whose target directory has no dep-info for it still knows its code;
+- `peaks.json`: the most memory each program, and each crate's cargo, last held.
+
+A kept run's files are cloned into the output directory, each under a name that ends as the file
+does and renamed onto it, and a file already holding the bytes is left as it is, as
+`part::write_part` leaves it. A program writes into a scratch directory, and its files are kept
+before they are placed. Two asks for one key run it once. Digests are kept by device, inode, size,
+mtime and ctime, so a hit reads no file again until it changes.
+
+cargo runs only for code no kept program has: in the asking checkout's `tools/hsm`, into that
+checkout's target directory, one cargo there at a time, with `CARGO_BUILD_JOBS=2`. A program and
+its run are not kept when one of its sources was written while cargo ran. A kept program runs for
+any checkout whose sources hash the same, and reads that checkout's import cache, which
+`HSM_IMPORT_DIR` names; one whose kernel has no `reads.rs` runs only for the checkout that built
+it. The program runs from `root` with `HOME`, `PATH=/usr/bin:/bin`, `HSM_READS` and
+`HSM_IMPORT_DIR`, and nothing else.
+
+Runs and builds start in turn within `--build-mb` (default 1024 MiB), each counted at the peak it
+last reached, a program not yet measured at 512 MiB and a cargo at 700 MiB. While macOS reports
+critical memory pressure, one starts only when nothing else runs. At an idle exit, runs go least
+recently used first until the files of the rest fit `--keep-mb` (default 4096 MiB), and the blobs
+and programs no remaining run names go with them.
+
+Where no `hsm` is installed, or `HSM_NO_ENGINE` is set, `_rust_part` takes the CAD lock, builds the
+program with cargo and runs it itself, and the files hold the same bytes. A daemon too old to know `run` is replaced
+once by starting the installed `hsm`; when that one doesn't know it either, `_rust_part` runs the
+program itself.
 
 ## Explicit validation
 

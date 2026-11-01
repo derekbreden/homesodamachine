@@ -22,10 +22,19 @@ A PART'S OWN RUN BEGINS HERE, before its module imports anything else:
         import _rust_part
         _rust_part.start()
 
-`start` takes the CAD lock (`_run_lock`, as `_cadq_export` takes it for every other generator),
-starts the run's clock at the process's own start, and defers CadQuery. A run that cut files
-puts its seconds, interpreter and imports included, into `build-time.md`'s window
-(`_build_time`) on the way out.
+`start` starts the run's clock at the process's own start and defers CadQuery. The CAD lock
+(`_run_lock`, as `_cadq_export` takes it for every other generator) is taken when CadQuery or OCP
+loads, or before cargo and the program run in this process, so a run the part engine answers
+that loads neither waits behind no OCCT build. A run that cut files puts its
+seconds, interpreter and imports included, into `build-time.md`'s window (`_build_time`) on the
+way out.
+
+THE PART ENGINE RUNS THE PROGRAM WHERE `hsm` IS INSTALLED (`tools/hsm/README.md`, "Part runs").
+`run` asks the daemon over its socket. The daemon keeps each run by the program's code and what
+the run read, so a run it has seen answers with the files it kept, and cargo runs only for code
+nothing has built. It admits programs within a memory budget in place of the CAD lock. Where no
+`hsm` is installed, or `HSM_NO_ENGINE` is set, cargo and the program run here, and write the same
+bytes.
 
 CADQUERY IS DEFERRED, NOT REMOVED. A part's numbers come from modules that import CadQuery to
 build other parts with, and the run itself uses none of it. So `start` puts a `cadquery` in
@@ -88,12 +97,14 @@ _STARTED: float | None = None
 _IMPORTED = time.time()
 #: Whether a program has cut files this run, which is what files a reading.
 _CUT = False
+#: The run `start` began, which takes the CAD lock if CadQuery or OCP loads in it.
+_LOCK_FOR: str | None = None
 
 
 def start() -> None:
-    """Begin a part's own run: the CAD lock, the clock from the process's start, and CadQuery
-    deferred until something uses it."""
-    global _STARTED
+    """Begin a part's own run: the clock from the process's start, CadQuery deferred until
+    something uses it, and the CAD lock when it does."""
+    global _STARTED, _LOCK_FOR
     if _STARTED is not None:
         return
     _STARTED = time.perf_counter() - (time.time() - _process_start())
@@ -104,10 +115,15 @@ def start() -> None:
     if "OCP.OCP" not in sys.modules:
         sys.meta_path.insert(0, _OCPFinder())
     entry = _entry()
-    if entry is not None and not os.environ.get("HSM_NO_BUILD_LOCK"):
-        from _run_lock import acquire
-        acquire(entry)
+    _LOCK_FOR = entry
     atexit.register(_file_elapsed, entry)
+
+
+def _lock() -> None:
+    """The CAD lock, for a run `start` began, now that OCCT is loading in it."""
+    if _LOCK_FOR is not None and not os.environ.get("HSM_NO_BUILD_LOCK"):
+        from _run_lock import acquire
+        acquire(_LOCK_FOR)
 
 
 def _entry():
@@ -179,6 +195,7 @@ def _load() -> None:
     stands for."""
     cq = sys.modules.get("cadquery")
     if type(cq) is _Deferred:
+        _lock()
         cq.__class__ = types.ModuleType
         spec = cq.__spec__
         spec._initializing = True
@@ -303,6 +320,7 @@ class _EndingLoops:
         return self.loader.create_module(spec)
 
     def exec_module(self, module):
+        _lock()
         self.loader.exec_module(module)
         export = sys.modules.get("_cadq_export")
         if export is None:
@@ -469,9 +487,76 @@ def program(crate: str, name: str) -> Path:
     return target / "release" / name
 
 
+def _socket() -> str:
+    """Where the part engine listens: `hsm`'s own socket, unless `HSM_SOCKET` names another."""
+    return os.environ.get("HSM_SOCKET") or f"/tmp/hsm-{os.getuid()}/engine.sock"
+
+
+def _hsm():
+    """`hsm` on the PATH, else where `cargo install --root ~/.local` puts it; None where neither."""
+    for found in (shutil.which("hsm"), str(_home() / ".local" / "bin" / "hsm")):
+        if found and Path(found).is_file():
+            return found
+    return None
+
+
+def _ask(request: dict):
+    """The daemon's answer to one request, or None where nothing listens."""
+    import socket
+    try:
+        with socket.socket(socket.AF_UNIX, socket.SOCK_STREAM) as s:
+            s.connect(_socket())
+            s.sendall(json.dumps(request).encode() + b"\n")
+            reply = bytearray()
+            while not reply.endswith(b"\n"):
+                chunk = s.recv(1 << 20)
+                if not chunk:
+                    break
+                reply += chunk
+    except (FileNotFoundError, ConnectionRefusedError):
+        return None
+    return json.loads(reply) if reply.strip() else None
+
+
+def _engine(crate: str, name: str, args) -> dict | None:
+    """What the part engine says of the run, or None where it does not run it: no `hsm`
+    installed, an `hsm` from before part runs, or `HSM_NO_ENGINE` set."""
+    if (os.environ.get("HSM_NO_ENGINE") or "").strip().lower() not in ("", "0", "no", "false", "off"):
+        return None
+    request = {"op": "run", "workspace": str(_workspace()), "root": str(ROOT.resolve()),
+               "crate": crate, "name": name, "args": [str(a) for a in args]}
+    for attempt in (0, 1):
+        answer = _ask(request)
+        if answer is not None and answer.get("ok"):
+            return answer["result"]
+        # A daemon from before part runs reads `run` as an op it doesn't know.
+        if answer is not None and "unknown variant `run`" not in answer.get("error", ""):
+            raise SystemExit(f"_rust_part: {name}: {answer.get('error')}")
+        hsm = _hsm()
+        if attempt or hsm is None:
+            return None
+        # `hsm status` starts the daemon, or replaces one an older binary started.
+        env = {**os.environ, "HOME": str(_home())}
+        cmd = [hsm, *(["--socket", os.environ["HSM_SOCKET"]] if os.environ.get("HSM_SOCKET") else []), "status"]
+        if subprocess.run(cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, env=env).returncode:
+            return None
+    return None
+
+
 def run(crate: str, name: str, *args) -> str:
     """Build `tools/hsm/<crate>`'s program `name`, run it from the root with `args`, and return
-    what it printed. Says what the run took: its seconds and the most memory it held."""
+    what it printed. Says what the run took: its seconds and the most memory it held, or that the
+    part engine kept it."""
+    said = _engine(crate, name, args)
+    if said is not None:
+        _READ_TARGETS.update(said["sources"])
+        sys.stderr.write(said["stderr"])
+        took = ("kept" if said["hit"] else
+                f"{said['program_seconds']:.2f} s, {said['peak_bytes'] / 2 ** 20:.0f} MB at its peak")
+        print(f"   {name}: {took}")
+        return said["stdout"]
+    # Run here, cargo and the program take the cores an OCCT build would, so they wait their turn.
+    _lock()
     cmd = [str(program(crate, name)), *map(str, args)]
     began = time.perf_counter()
     proc = subprocess.Popen(cmd, stdout=subprocess.PIPE, text=True, cwd=ROOT)

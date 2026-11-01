@@ -145,5 +145,6 @@ pub fn outline(text: &str) -> Result<Profile> {
 pub fn read(path: impl AsRef<std::path::Path>) -> Result<Profile> {
     let path = path.as_ref();
     let text = std::fs::read_to_string(path).with_context(|| format!("reading {}", path.display()))?;
+    crate::reads::read(path, text.as_bytes());
     outline(&text).with_context(|| format!("the outline of {}", path.display()))
 }
