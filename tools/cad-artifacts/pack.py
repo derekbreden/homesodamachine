@@ -266,6 +266,8 @@ BUNDLED_PAYLOAD_DIRS = (
 # The fit-trial assembly has a viewer payload. Its two separately printable
 # pieces are served from their STEP and STL without requiring duplicate payloads.
 BUNDLED_PAYLOAD_FILES = (
+    "hardware/cut-parts/carbonation/carbonator-tube/carbonator-tube.step.mesh",
+    "hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step.mesh",
     "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-water.step.mesh",
     "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-carb.step.mesh",
     "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-co2.step.mesh",
