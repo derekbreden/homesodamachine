@@ -10,6 +10,8 @@ pub struct Hit {
     pub mesh: usize,
     pub point: DVec3,
     pub distance: f64,
+    pub triangle: u32,
+    pub face: Option<usize>,
 }
 
 /// The distances at which the ray enters and leaves the box, if it meets it ahead of `from`.
@@ -79,7 +81,7 @@ pub fn cast(
             Some((enter, _)) if enter <= limit => {}
             _ => continue,
         }
-        for t in scene.triangles(mi) {
+        for (ti, t) in scene.triangles(mi).enumerate() {
             let corners = t.map(|p| DVec3::new(p[0] as f64, p[1] as f64, p[2] as f64));
             if let Some(d) = triangle(from, dir, corners, front_only)
                 && d <= limit
@@ -88,6 +90,8 @@ pub fn cast(
                     mesh: mi,
                     point: from + dir * d,
                     distance: d,
+                    triangle: ti as u32,
+                    face: mesh.face(ti as u32),
                 });
             }
         }
