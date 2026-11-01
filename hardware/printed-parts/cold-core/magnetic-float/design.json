@@ -29,8 +29,8 @@
     "source": "https://www.kjmagnetics.com/rc62-neodymium-ring-magnet"
   },
   "volume_cc": {
-    "body-petg": 24.869018348457168,
-    "body-aero": 27.87571731632207,
+    "body-petg": 24.86901834845716,
+    "body-aero": 27.875717316322067,
     "insert-aero": 6.499326881746564,
     "magnet": 0.6787109163380148
   },
@@ -40,43 +40,43 @@
   "buoyancy": [
     {
       "aero_density_g_cc": 0.46,
-      "assembled_mass_g": 51.98879326668303,
-      "reserve_lift_g": 8.058020324786625,
-      "upright_freeboard_mm": 8.05978988326264
+      "assembled_mass_g": 51.98879326668302,
+      "reserve_lift_g": 8.05802032478664,
+      "upright_freeboard_mm": 8.059789883262654
     },
     {
       "aero_density_g_cc": 0.53,
-      "assembled_mass_g": 54.39504636054784,
-      "reserve_lift_g": 5.65176723092182,
-      "upright_freeboard_mm": 5.653008371078438
+      "assembled_mass_g": 54.39504636054782,
+      "reserve_lift_g": 5.651767230921834,
+      "upright_freeboard_mm": 5.653008371078452
     },
     {
       "aero_density_g_cc": 0.55,
-      "assembled_mass_g": 55.082547244509215,
-      "reserve_lift_g": 4.964266346960443,
-      "upright_freeboard_mm": 4.965356510454376
+      "assembled_mass_g": 55.0825472445092,
+      "reserve_lift_g": 4.964266346960457,
+      "upright_freeboard_mm": 4.965356510454391
     },
     {
       "aero_density_g_cc": 0.6,
-      "assembled_mass_g": 56.80129945441264,
-      "reserve_lift_g": 3.2455141370570146,
-      "upright_freeboard_mm": 3.2462268588942367
+      "assembled_mass_g": 56.80129945441263,
+      "reserve_lift_g": 3.245514137057029,
+      "upright_freeboard_mm": 3.246226858894251
     },
     {
       "aero_density_g_cc": 0.65,
-      "assembled_mass_g": 58.52005166431607,
-      "reserve_lift_g": 1.5267619271535864,
-      "upright_freeboard_mm": 1.5270972073340967
+      "assembled_mass_g": 58.52005166431606,
+      "reserve_lift_g": 1.5267619271536006,
+      "upright_freeboard_mm": 1.527097207334111
     },
     {
       "aero_density_g_cc": 0.7,
-      "assembled_mass_g": 60.2388038742195,
-      "reserve_lift_g": -0.19199028274984187,
-      "upright_freeboard_mm": -0.19203244422604307
+      "assembled_mass_g": 60.238803874219485,
+      "reserve_lift_g": -0.19199028274982766,
+      "upright_freeboard_mm": -0.1920324442260289
     }
   ],
-  "neutral_aero_density_g_cc": 0.6944148353193788,
-  "nominal_unfilled_volume_cc": 0.12404012860584146,
+  "neutral_aero_density_g_cc": 0.6944148353193792,
+  "nominal_unfilled_volume_cc": 0.12404012860584857,
   "aero_material": "Bambu ASA Aero White 46100",
   "core_print_fit_allowance_radial_mm": 0.05,
   "insert_print_fit_allowance_radial_mm": 0.05,

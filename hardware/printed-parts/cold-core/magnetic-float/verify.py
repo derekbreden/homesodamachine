@@ -34,53 +34,32 @@ def sha(path):
 
 
 def geometry():
-    parts = m.build()
+    found = m.check({'lifts': [0, 0.2, 1, 5, 10, 20, 40, 60], 'roof_support_depth': 0.02})
+    for name, piece in found['pieces'].items():
+        assert piece['valid'] and piece['solids'] == 1, name
+    volumes = m.volumes()
     meshes = {}
-    for name, shape in parts.items():
-        assert shape.isValid() and len(shape.Solids()) == 1, name
-        if name != 'magnet':
-            mesh = trimesh.load(HERE / f'{name}.stl', force='mesh', process=True)
-            assert mesh.is_watertight and mesh.is_winding_consistent, name
-            assert abs(mesh.bounds[0, 2]) < 1e-6, ('print bottom', name)
-            error = abs(mesh.volume - shape.Volume()) / shape.Volume()
-            assert error < 0.002, name
-            meshes[name] = {'volume_relative_error': error, 'bottom_z_mm': float(mesh.bounds[0, 2])}
-    envelope = m.annulus(m.outer_radius, m.bore_radius, 0, m.height)
-    interior = m.annulus(m.core_outer_radius, m.core_inner_radius, m.floor, m.roof_bottom)
-    fill = parts['body-aero'].fuse(parts['insert-aero'], parts['magnet'])
-    allowed_voids = m.magnet_pocket().cut(parts['magnet'])
-    for bottom, top in ((m.floor, m.insert_bottom), (m.insert_bottom, m.insert_top)):
-        blank = m.annulus(m.core_outer_radius, m.core_inner_radius, bottom, top)
-        allowed_voids = allowed_voids.fuse(blank.cut(m.lead_in(blank)))
-    voids = interior.cut(fill)
-    assert voids.cut(allowed_voids).Volume() < 1e-6
-    assert allowed_voids.cut(voids).Volume() < 1e-6
-    assert fill.cut(interior).Volume() < 1e-6
-    assert envelope.cut(interior).cut(parts['body-petg']).Volume() < 1e-6
-    for i, first in enumerate(parts.values()):
-        for second in list(parts.values())[i + 1:]:
-            assert first.intersect(second).Volume() < 1e-6
-    roof_cut = m.box(m.diameter + 2, m.diameter + 2, m.roof_bottom, m.height + 1)
-    open_skin = parts['body-petg'].cut(roof_cut)
-    for name in ('body-aero', 'insert-aero', 'magnet'):
-        for lift in (0, 0.2, 1, 5, 10, 20, 40, 60):
-            assert parts[name].translate((0, 0, lift)).intersect(open_skin).Volume() < 1e-6, name
-    maximum_magnet = m.annulus((m.magnet_od + m.magnet_tolerance) / 2,
-                              (m.magnet_id - m.magnet_tolerance) / 2,
-                              m.magnet_seat, m.magnet_seat + m.magnet_height + m.magnet_tolerance)
-    assert maximum_magnet.intersect(open_skin).Volume() < 1e-6
-    assert maximum_magnet.intersect(parts['body-aero']).Volume() < 1e-6
-    assert maximum_magnet.intersect(parts['insert-aero']).Volume() < 1e-6
-    roof_support = m.annulus(m.core_outer_radius, m.core_inner_radius,
-                            m.roof_bottom - 0.02, m.roof_bottom)
-    assert roof_support.cut(parts['insert-aero']).Volume() < 1e-6
-    measurements = m.measurements(parts)
+    for name in ('body-petg', 'body-aero', 'insert-aero'):
+        mesh = trimesh.load(HERE / f'{name}.stl', force='mesh', process=True)
+        assert mesh.is_watertight and mesh.is_winding_consistent, name
+        assert abs(mesh.bounds[0, 2]) < 1e-6, ('print bottom', name)
+        error = abs(mesh.volume - volumes[name]) / volumes[name]
+        assert error < 0.002, name
+        meshes[name] = {'volume_relative_error': error, 'bottom_z_mm': float(mesh.bounds[0, 2])}
+    for miss in ('voids_outside_allowed_mm3', 'allowed_outside_voids_mm3', 'fill_outside_interior_mm3',
+                 'envelope_left_by_petg_mm3', 'largest_pair_overlap_mm3', 'roof_unsupported_mm3'):
+        assert found[miss] < 1e-6, miss
+    for name, volume in found['slid_into_open_skin_mm3'].items():
+        assert volume < 1e-6, ('slid into the open skin', name)
+    for name, volume in found['largest_magnet_overlap_mm3'].items():
+        assert volume < 1e-6, ('largest RC62 overlaps', name)
+    measurements = m.measurements()
     assert measurements['magnet_pocket_minimum_compensated_radial_clearance_mm'] >= 0.05 - 1e-6
     assert measurements['magnet_pocket_minimum_depth_clearance_mm'] >= 0.125 - 1e-6
     return {'valid_solids': 4, 'meshes': meshes,
             'petg_thickness_mm': {'outer_wall': m.outer_wall, 'bore_wall': m.bore_wall,
                                   'floor': m.floor, 'roof': m.roof},
-            'nominal_unfilled_volume_cc': voids.Volume() / 1000,
+            'nominal_unfilled_volume_cc': measurements['nominal_unfilled_volume_cc'],
             'unfilled_volume_scope': 'Lower insertion chamfers and RC62 pocket clearance only.',
             'nominal_material_overlap_cc': 0.0,
             'separate_core_insertion_clear': True, 'magnet_tolerance_clear_of_petg': True,
