@@ -36,13 +36,17 @@ pub fn snap3(p: V3) -> V3 {
 
 /// Segments in a full circle of radius `r`.
 pub fn ring_count(r: f64) -> usize {
+    ring_count_at(r, LINEAR)
+}
+
+pub(crate) fn ring_count_at(r: f64, linear: f64) -> usize {
     if r <= 1e-9 {
         return 1;
     }
-    let step = if r <= LINEAR {
+    let step = if r <= linear {
         ANGULAR
     } else {
-        ANGULAR.min(2.0 * acos(1.0 - LINEAR / r))
+        ANGULAR.min(2.0 * acos(1.0 - linear / r))
     };
     8 * (2.0 * PI / step / 8.0 - 1e-9).ceil() as usize
 }

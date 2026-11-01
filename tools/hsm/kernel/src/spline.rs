@@ -29,8 +29,8 @@ pub struct Spline {
 const FINE: f64 = 0.02;
 
 /// The most a bend of radius `r` may turn between two points of the rule.
-fn step(r: f64) -> f64 {
-    if r <= LINEAR { ANGULAR } else { ANGULAR.min(4.0 * asin((LINEAR / (2.0 * r)).sqrt())) }
+fn step(r: f64, linear: f64) -> f64 {
+    if r <= linear { ANGULAR } else { ANGULAR.min(4.0 * asin((linear / (2.0 * r)).sqrt())) }
 }
 
 /// The slope at `t[at]` of the cubic through the four points `p` at parameters `t`.
@@ -204,6 +204,10 @@ impl Spline {
     /// them turns further than an arc of its radius plus `reach` is cut into: the turn the rule
     /// allows, measured on a fine walk, shared out evenly.
     pub(crate) fn track(&self, reach: f64) -> (Vec<V3>, Vec<V3>) {
+        self.track_at(reach, LINEAR)
+    }
+
+    pub(crate) fn track_at(&self, reach: f64, linear: f64) -> (Vec<V3>, Vec<V3>) {
         let mut walk = vec![self.t[0]];
         for w in self.t.windows(2) {
             let n = ((w[1] - w[0]) / FINE).ceil().max(16.0) as usize;
@@ -214,7 +218,7 @@ impl Spline {
         let mut used = vec![0.0];
         for j in 0..walk.len() - 1 {
             let turn = atan2(dir[j].cross(dir[j + 1]).norm(), dir[j].dot(dir[j + 1]));
-            let share = if turn > 0.0 { turn / step((at[j + 1] - at[j]).norm() / turn + reach) } else { 0.0 };
+            let share = if turn > 0.0 { turn / step((at[j + 1] - at[j]).norm() / turn + reach, linear) } else { 0.0 };
             used.push(used[j] + share);
         }
         let total = used[used.len() - 1];
