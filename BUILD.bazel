@@ -1579,10 +1579,15 @@ genrule(
         ":out/reed-bridge/hardware/printed-parts/cold-core/reed-bridge/reed-bridge.step",
         "pysrc/hardware/printed-parts/cold-core/reed-bridge/reed_bridge.py",
         ":out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.step",
+        ":out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.step.npz",
         ":out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-cap-right.step",
+        ":out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-cap-right.step.npz",
         ":out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-gasket.step",
+        ":out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-gasket.step.npz",
         ":out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-left.step",
+        ":out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-left.step.npz",
         ":out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-right.step",
+        ":out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-right.step.npz",
         "pysrc/hardware/printed-parts/cold-core/reservoir/reservoir.py",
         "pysrc/hardware/printed-parts/electronics/module_tray.py",
         ":out/pcba-assembly/hardware/printed-parts/electronics/pcba-tray/pcba-board.step",
@@ -1691,6 +1696,128 @@ cp hardware/cold-core-layout/cold-core-assembly.scorecard.json $$O0
 cp hardware/cold-core-layout/cold-core-assembly.step $$O1
 cp hardware/cold-core-layout/cold-core-assembly.step.mesh $$O2
 cp hardware/printed-parts/cold-core/foam-assembly/foam-assembly.scorecard.json $$O3
+""",
+)
+
+genrule(
+    name = "cold-core-model",
+    srcs = [
+        "pysrc/future/tube-bend-holder-exploration/tube_bend_holder.py",
+        "pysrc/hardware/cold-core-layout/_bom.py",
+        "pysrc/hardware/cold-core-layout/_carbonator.py",
+        "pysrc/hardware/cold-core-layout/_carbonator_bond.py",
+        "pysrc/hardware/cold-core-layout/_coil.py",
+        "pysrc/hardware/cold-core-layout/_cold_core_style.py",
+        "pysrc/hardware/cold-core-layout/_cold_scorecard.py",
+        "pysrc/hardware/cold-core-layout/_fittings.py",
+        "pysrc/hardware/cold-core-layout/_internals.py",
+        "pysrc/hardware/cold-core-layout/_water_inlet_jet.py",
+        "pysrc/hardware/cold-core-layout/cold_core_assembly.py",
+        "pysrc/hardware/cold-core-layout/cold_core_model.py",
+        "pysrc/hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py",
+        "hardware/manifold-layout/above-core.json",
+        "pysrc/hardware/manifold-layout/above_core.py",
+        "pysrc/hardware/manifold-layout/above_core_bom.py",
+        "pysrc/hardware/manifold-layout/above_core_parts.py",
+        "pysrc/hardware/manifold-layout/above_core_routes.py",
+        "pysrc/hardware/printed-parts/cadlib/fits.py",
+        "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
+        "pysrc/hardware/printed-parts/cold-core/_above_core_mounts.py",
+        "pysrc/hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "pysrc/hardware/printed-parts/cold-core/_copper_ports.py",
+        "pysrc/hardware/printed-parts/cold-core/_float_interface.py",
+        "pysrc/hardware/printed-parts/cold-core/_foam_cap.py",
+        "pysrc/hardware/printed-parts/cold-core/_foam_shell.py",
+        "pysrc/hardware/printed-parts/cold-core/_internal_routes.py",
+        "pysrc/hardware/printed-parts/cold-core/_outer_shell.py",
+        "pysrc/hardware/printed-parts/cold-core/_port_cuts.py",
+        "pysrc/hardware/printed-parts/cold-core/_reed_b_outlet.py",
+        "pysrc/hardware/printed-parts/cold-core/_reed_channels.py",
+        "pysrc/hardware/printed-parts/cold-core/_reservoir_b_fill.py",
+        "pysrc/hardware/printed-parts/cold-core/_reservoir_pocket_walls.py",
+        "pysrc/hardware/printed-parts/cold-core/_reservoir_ports.py",
+        "pysrc/hardware/printed-parts/cold-core/_support_ring.py",
+        "pysrc/hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.py",
+        "pysrc/hardware/printed-parts/cold-core/foam-assembly/foam_assembly.py",
+        ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step",
+        ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step.npz",
+        ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step",
+        ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.npz",
+        ":out/foam-shell/hardware/printed-parts/cold-core/foam-shell/foam-shell.step",
+        ":out/foam-shell/hardware/printed-parts/cold-core/foam-shell/foam-shell.step.npz",
+        ":out/prv-shroud/hardware/printed-parts/cold-core/prv-shroud/prv-shroud.step",
+        "pysrc/hardware/printed-parts/cold-core/prv-shroud/prv_shroud.py",
+        ":out/reed-bridge/hardware/printed-parts/cold-core/reed-bridge/reed-bridge.step",
+        "pysrc/hardware/printed-parts/cold-core/reed-bridge/reed_bridge.py",
+        ":out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.step",
+        ":out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.step.npz",
+        ":out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-cap-right.step",
+        ":out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-cap-right.step.npz",
+        ":out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-gasket.step",
+        ":out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-gasket.step.npz",
+        ":out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-left.step",
+        ":out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-left.step.npz",
+        ":out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-right.step",
+        ":out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-right.step.npz",
+        "pysrc/hardware/printed-parts/cold-core/reservoir/reservoir.py",
+        "pysrc/hardware/printed-parts/electronics/module_tray.py",
+        "pysrc/hardware/printed-parts/electronics/pcba-tray/pcba_tray.py",
+        "pysrc/hardware/printed-parts/enclosure/enclosure/_anchor_cap_interface.py",
+        "pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
+        "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+        "pysrc/hardware/printed-parts/valve-seat/valve_seat.py",
+        "pysrc/hardware/reference/beduan-solenoid/beduan_solenoid.py",
+        ":out/jg-pp010822e/hardware/reference/jg-pp010822e/jg-pp010822e.step",
+        "pysrc/hardware/reference/jg-pp010822e/jg_pp010822e.py",
+        "pysrc/hardware/scripts/_cadq_export.py",
+        "pysrc/hardware/scripts/_card.py",
+        "pysrc/hardware/scripts/_material_base.py",
+        "pysrc/hardware/scripts/_materials.py",
+        "pysrc/hardware/scripts/_meshes.py",
+        "pysrc/hardware/scripts/_overlap.py",
+        "pysrc/hardware/scripts/_realized.py",
+        "pysrc/hardware/scripts/_routing.py",
+        "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
+        "pysrc/hardware/scripts/_stated_bounds.py",
+        "pysrc/hardware/scripts/meshcad/__init__.py",
+        "pysrc/hardware/scripts/meshcad/build.py",
+        "pysrc/hardware/scripts/meshcad/fillet.py",
+        "pysrc/hardware/scripts/meshcad/imports.py",
+        "pysrc/hardware/scripts/meshcad/rule.py",
+        "pysrc/hardware/scripts/meshcad/scene.py",
+        "pysrc/hardware/scripts/meshcad/solids.py",
+        "pysrc/hardware/scripts/meshcad/sweep.py",
+        "pysrc/hardware/scripts/meshcad/topo.py",
+        "pysrc/hardware/scripts/meshcad/write.py",
+        "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
+    ],
+    outs = [
+        "out/cold-core-model/hardware/cold-core-layout/cold-core-assembly.scene.npz",
+    ],
+    cmd = """
+set -e
+O0=$$PWD/$(location out/cold-core-model/hardware/cold-core-layout/cold-core-assembly.scene.npz)
+for f in $(SRCS); do
+  case $$f in
+    */node_modules/*) continue;;
+    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
+    */pysrc/*) t=$${f##*/pysrc/};;
+    *) t=$$f;;
+  esac
+  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
+done
+for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
+  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
+done
+cd work
+ln -sfn $$HSM_WORKSPACE/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/cold-core-layout/cold_core_model.py > /dev/null
+cp hardware/cold-core-layout/cold-core-assembly.scene.npz $$O0
 """,
 )
 
@@ -2967,6 +3094,7 @@ genrule(
         "pysrc/hardware/cold-core-layout/_fittings.py",
         "pysrc/hardware/cold-core-layout/_internals.py",
         "pysrc/hardware/cold-core-layout/_water_inlet_jet.py",
+        ":out/cold-core-model/hardware/cold-core-layout/cold-core-assembly.scene.npz",
         ":out/cold-core-assembly/hardware/cold-core-layout/cold-core-assembly.scorecard.json",
         ":out/cold-core-assembly/hardware/cold-core-layout/cold-core-assembly.step.mesh",
         "pysrc/hardware/cold-core-layout/cold_core_assembly.py",
@@ -3039,10 +3167,15 @@ genrule(
         ":out/reed-bridge/hardware/printed-parts/cold-core/reed-bridge/reed-bridge.step",
         "pysrc/hardware/printed-parts/cold-core/reed-bridge/reed_bridge.py",
         ":out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.step",
+        ":out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.step.npz",
         ":out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-cap-right.step",
+        ":out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-cap-right.step.npz",
         ":out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-gasket.step",
+        ":out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-gasket.step.npz",
         ":out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-left.step",
+        ":out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-left.step.npz",
         ":out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-right.step",
+        ":out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-right.step.npz",
         "pysrc/hardware/printed-parts/cold-core/reservoir/reservoir.py",
         "pysrc/hardware/printed-parts/diaphragm-pump-sleeve/diaphragm_pump_sleeve.py",
         "pysrc/hardware/printed-parts/electronics/module_tray.py",
@@ -3487,10 +3620,15 @@ genrule(
         ":out/reed-bridge/hardware/printed-parts/cold-core/reed-bridge/reed-bridge.step",
         "pysrc/hardware/printed-parts/cold-core/reed-bridge/reed_bridge.py",
         ":out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.step",
+        ":out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.step.npz",
         ":out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-cap-right.step",
+        ":out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-cap-right.step.npz",
         ":out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-gasket.step",
+        ":out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-gasket.step.npz",
         ":out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-left.step",
+        ":out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-left.step.npz",
         ":out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-right.step",
+        ":out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-right.step.npz",
         "pysrc/hardware/printed-parts/cold-core/reservoir/reservoir.py",
         "pysrc/hardware/printed-parts/diaphragm-pump-sleeve/diaphragm_pump_sleeve.py",
         "pysrc/hardware/printed-parts/electronics/module_tray.py",
@@ -4105,9 +4243,13 @@ genrule(
         ":out/foam-shell/hardware/printed-parts/cold-core/foam-shell/foam-shell.stl",
         "pysrc/hardware/printed-parts/cold-core/prv-shroud/prv_shroud.py",
         ":out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.step",
+        ":out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.step.npz",
         ":out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-cap-right.step",
+        ":out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-cap-right.step.npz",
         ":out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-left.step",
+        ":out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-left.step.npz",
         ":out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-right.step",
+        ":out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-right.step.npz",
         "pysrc/hardware/printed-parts/cold-core/reservoir/reservoir.py",
         "pysrc/hardware/printed-parts/electronics/module_tray.py",
         ":out/pcba-assembly/hardware/printed-parts/electronics/pcba-tray/pcba-board.step",
@@ -4599,9 +4741,13 @@ genrule(
         "hardware/printed-parts/cold-core/magnetic-float/all-aero/physical-observations.json",
         "pysrc/hardware/printed-parts/cold-core/reed-bridge/reed_bridge.py",
         ":out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.step",
+        ":out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.step.npz",
         ":out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-cap-right.step",
+        ":out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-cap-right.step.npz",
         ":out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-left.step",
+        ":out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-left.step.npz",
         ":out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-right.step",
+        ":out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-right.step.npz",
         "pysrc/hardware/printed-parts/cold-core/reservoir/reservoir.py",
         "pysrc/hardware/printed-parts/electronics/module_tray.py",
         "pysrc/hardware/printed-parts/electronics/pcba-tray/pcba_tray.py",
@@ -4625,6 +4771,13 @@ genrule(
         "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/hardware/scripts/_rust_part.py",
         "pysrc/hardware/scripts/_stated_bounds.py",
+        "pysrc/hardware/scripts/meshcad/__init__.py",
+        "pysrc/hardware/scripts/meshcad/build.py",
+        "pysrc/hardware/scripts/meshcad/imports.py",
+        "pysrc/hardware/scripts/meshcad/rule.py",
+        "pysrc/hardware/scripts/meshcad/solids.py",
+        "pysrc/hardware/scripts/meshcad/topo.py",
+        "pysrc/hardware/scripts/meshcad/write.py",
         "pysrc/tools/docgen/__init__.py",
         "tools/hsm/run-slots.defaults.json",
         "tools/run-slots.mjs",
@@ -4915,12 +5068,8 @@ genrule(
         "pysrc/hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py",
         "hardware/manifold-layout/above-core.json",
         "pysrc/hardware/manifold-layout/above_core.py",
-        "pysrc/hardware/manifold-layout/above_core_routes.py",
         "pysrc/hardware/manifold-layout/rear_snaps.py",
-        "hardware/manifold-layout/reservoir-a-routes.json",
         "pysrc/hardware/printed-parts/cadlib/fits.py",
-        "pysrc/hardware/printed-parts/cadlib/flute_skin.py",
-        "pysrc/hardware/printed-parts/cadlib/print_mesh.py",
         "pysrc/hardware/printed-parts/cadlib/reeding.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
         "pysrc/hardware/printed-parts/cold-core/_above_core_mounts.py",
@@ -4928,14 +5077,13 @@ genrule(
         "pysrc/hardware/printed-parts/cold-core/_float_interface.py",
         "pysrc/hardware/printed-parts/cold-core/_reed_channels.py",
         "pysrc/hardware/printed-parts/cold-core/_reservoir_ports.py",
-        "pysrc/hardware/printed-parts/cold-core/_show_skin.py",
         "pysrc/hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.py",
-        "hardware/printed-parts/cold-core/foam-shell/README.md",
         "hardware/printed-parts/cold-core/reed-bridge/README.md",
         "hardware/printed-parts/cold-core/reed-bridge/reed_bridge.py",
         "hardware/printed-parts/cold-core/reservoir/floor-and-dip-tube.md",
         "hardware/printed-parts/cold-core/reservoir/level-sensing.md",
         "hardware/printed-parts/cold-core/reservoir/reservoir.py",
+        "hardware/printed-parts/cold-core/reservoir/reservoir.rs",
         "hardware/printed-parts/cold-core/reservoir/vent.md",
         "pysrc/hardware/printed-parts/electronics/module_tray.py",
         "pysrc/hardware/printed-parts/electronics/pcba-tray/pcba_tray.py",
@@ -4950,7 +5098,6 @@ genrule(
         "pysrc/hardware/reference/g-ganen-pump/integration-envelope/g_ganen_integration.py",
         "pysrc/hardware/reference/g-ganen-pump/integration-envelope/native_queries.py",
         "hardware/reference/g-ganen-pump/reference-parameters.json",
-        "pysrc/hardware/reference/neofit-achv44-check/neofit_achv44_check.py",
         "pysrc/hardware/scripts/_cadq_export.py",
         "pysrc/hardware/scripts/_material_base.py",
         "pysrc/hardware/scripts/_materials.py",
@@ -4964,12 +5111,46 @@ genrule(
         "pysrc/hardware/scripts/_stated_bounds.py",
         "pysrc/hardware/scripts/flute_payload.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/Cargo.lock",
+        "tools/hsm/Cargo.toml",
+        "tools/hsm/cold-core/Cargo.toml",
+        "tools/hsm/kernel/Cargo.toml",
+        "tools/hsm/kernel/src/boolean.rs",
+        "tools/hsm/kernel/src/build.rs",
+        "tools/hsm/kernel/src/dxf.rs",
+        "tools/hsm/kernel/src/edge.rs",
+        "tools/hsm/kernel/src/face.rs",
+        "tools/hsm/kernel/src/import.rs",
+        "tools/hsm/kernel/src/lib.rs",
+        "tools/hsm/kernel/src/mapped.rs",
+        "tools/hsm/kernel/src/mass.rs",
+        "tools/hsm/kernel/src/math.rs",
+        "tools/hsm/kernel/src/part.rs",
+        "tools/hsm/kernel/src/plane.rs",
+        "tools/hsm/kernel/src/profile.rs",
+        "tools/hsm/kernel/src/reads.rs",
+        "tools/hsm/kernel/src/round.rs",
+        "tools/hsm/kernel/src/round/rolled.rs",
+        "tools/hsm/kernel/src/rule.rs",
+        "tools/hsm/kernel/src/screw.rs",
+        "tools/hsm/kernel/src/sketch_hull.rs",
+        "tools/hsm/kernel/src/solid.rs",
+        "tools/hsm/kernel/src/spline.rs",
+        "tools/hsm/kernel/src/step.rs",
+        "tools/hsm/kernel/src/sweep.rs",
+        "tools/hsm/kernel/src/text.rs",
+        "tools/hsm/kernel/src/thru.rs",
+        "tools/hsm/kernel/src/topo.rs",
+        "tools/hsm/kernel/src/triangulate.rs",
+        "tools/hsm/kernel/src/write.rs",
         "tools/hsm/run-slots.defaults.json",
+        "tools/hsm/run-slots/Cargo.toml",
+        "tools/hsm/run-slots/src/ipc.rs",
+        "tools/hsm/run-slots/src/lib.rs",
         "tools/run-slots.mjs",
         "pysrc/tools/run.py",
     ] + glob(
         [
-            "hardware/printed-parts/cold-core/foam-shell/README.figures.json",
             "hardware/printed-parts/cold-core/reed-bridge/README.figures.json",
             "hardware/printed-parts/cold-core/reservoir/floor-and-dip-tube.figures.json",
             "hardware/printed-parts/cold-core/reservoir/level-sensing.figures.json",
@@ -4982,21 +5163,33 @@ genrule(
         "out/reed-bridge/hardware/printed-parts/cold-core/reed-bridge/reed-bridge.step",
         "out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-air-grip.step",
         "out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-air-grip.step.mesh",
+        "out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-air-grip.step.npz",
         "out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-air-grip.stl",
         "out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.step",
         "out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.step.mesh",
+        "out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.step.npz",
         "out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.stl",
         "out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-cap-right.step",
         "out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-cap-right.step.mesh",
+        "out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-cap-right.step.npz",
         "out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-cap-right.stl",
         "out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-gasket.step",
+        "out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-gasket.step.mesh",
+        "out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-gasket.step.npz",
+        "out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-gasket.stl",
         "out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-left.step",
+        "out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-left.step.mesh",
+        "out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-left.step.npz",
+        "out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-left.stl",
         "out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-right.step",
+        "out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-right.step.mesh",
+        "out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-right.step.npz",
+        "out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-right.stl",
         "out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-tube-grip.step",
         "out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-tube-grip.step.mesh",
+        "out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-tube-grip.step.npz",
         "out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-tube-grip.stl",
-        "out/reed-bridge/hardware/printed-parts/cold-core/foam-shell/README.figures.json",
-        "out/reed-bridge/hardware/printed-parts/cold-core/foam-shell/README.md",
+        "out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir.numbers.json",
         "out/reed-bridge/hardware/printed-parts/cold-core/reed-bridge/README.figures.json",
         "out/reed-bridge/hardware/printed-parts/cold-core/reed-bridge/README.md",
         "out/reed-bridge/hardware/printed-parts/cold-core/reed-bridge/reed_bridge.py",
@@ -5008,37 +5201,51 @@ genrule(
         "out/reed-bridge/hardware/printed-parts/cold-core/reservoir/vent.figures.json",
         "out/reed-bridge/hardware/printed-parts/cold-core/reservoir/vent.md",
     ],
+    tags = ["no-sandbox"],
     cmd = """
 set -e
 O0=$$PWD/$(location out/reed-bridge/hardware/printed-parts/cold-core/reed-bridge/reed-bridge-setting-gauge.step)
 O1=$$PWD/$(location out/reed-bridge/hardware/printed-parts/cold-core/reed-bridge/reed-bridge.step)
 O2=$$PWD/$(location out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-air-grip.step)
 O3=$$PWD/$(location out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-air-grip.step.mesh)
-O4=$$PWD/$(location out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-air-grip.stl)
-O5=$$PWD/$(location out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.step)
-O6=$$PWD/$(location out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.step.mesh)
-O7=$$PWD/$(location out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.stl)
-O8=$$PWD/$(location out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-cap-right.step)
-O9=$$PWD/$(location out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-cap-right.step.mesh)
-O10=$$PWD/$(location out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-cap-right.stl)
-O11=$$PWD/$(location out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-gasket.step)
-O12=$$PWD/$(location out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-left.step)
-O13=$$PWD/$(location out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-right.step)
-O14=$$PWD/$(location out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-tube-grip.step)
-O15=$$PWD/$(location out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-tube-grip.step.mesh)
-O16=$$PWD/$(location out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-tube-grip.stl)
-O17=$$PWD/$(location out/reed-bridge/hardware/printed-parts/cold-core/foam-shell/README.figures.json)
-O18=$$PWD/$(location out/reed-bridge/hardware/printed-parts/cold-core/foam-shell/README.md)
-O19=$$PWD/$(location out/reed-bridge/hardware/printed-parts/cold-core/reed-bridge/README.figures.json)
-O20=$$PWD/$(location out/reed-bridge/hardware/printed-parts/cold-core/reed-bridge/README.md)
-O21=$$PWD/$(location out/reed-bridge/hardware/printed-parts/cold-core/reed-bridge/reed_bridge.py)
-O22=$$PWD/$(location out/reed-bridge/hardware/printed-parts/cold-core/reservoir/floor-and-dip-tube.figures.json)
-O23=$$PWD/$(location out/reed-bridge/hardware/printed-parts/cold-core/reservoir/floor-and-dip-tube.md)
-O24=$$PWD/$(location out/reed-bridge/hardware/printed-parts/cold-core/reservoir/level-sensing.figures.json)
-O25=$$PWD/$(location out/reed-bridge/hardware/printed-parts/cold-core/reservoir/level-sensing.md)
-O26=$$PWD/$(location out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir.py)
-O27=$$PWD/$(location out/reed-bridge/hardware/printed-parts/cold-core/reservoir/vent.figures.json)
-O28=$$PWD/$(location out/reed-bridge/hardware/printed-parts/cold-core/reservoir/vent.md)
+O4=$$PWD/$(location out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-air-grip.step.npz)
+O5=$$PWD/$(location out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-air-grip.stl)
+O6=$$PWD/$(location out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.step)
+O7=$$PWD/$(location out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.step.mesh)
+O8=$$PWD/$(location out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.step.npz)
+O9=$$PWD/$(location out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.stl)
+O10=$$PWD/$(location out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-cap-right.step)
+O11=$$PWD/$(location out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-cap-right.step.mesh)
+O12=$$PWD/$(location out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-cap-right.step.npz)
+O13=$$PWD/$(location out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-cap-right.stl)
+O14=$$PWD/$(location out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-gasket.step)
+O15=$$PWD/$(location out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-gasket.step.mesh)
+O16=$$PWD/$(location out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-gasket.step.npz)
+O17=$$PWD/$(location out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-gasket.stl)
+O18=$$PWD/$(location out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-left.step)
+O19=$$PWD/$(location out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-left.step.mesh)
+O20=$$PWD/$(location out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-left.step.npz)
+O21=$$PWD/$(location out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-left.stl)
+O22=$$PWD/$(location out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-right.step)
+O23=$$PWD/$(location out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-right.step.mesh)
+O24=$$PWD/$(location out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-right.step.npz)
+O25=$$PWD/$(location out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-right.stl)
+O26=$$PWD/$(location out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-tube-grip.step)
+O27=$$PWD/$(location out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-tube-grip.step.mesh)
+O28=$$PWD/$(location out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-tube-grip.step.npz)
+O29=$$PWD/$(location out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-tube-grip.stl)
+O30=$$PWD/$(location out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir.numbers.json)
+O31=$$PWD/$(location out/reed-bridge/hardware/printed-parts/cold-core/reed-bridge/README.figures.json)
+O32=$$PWD/$(location out/reed-bridge/hardware/printed-parts/cold-core/reed-bridge/README.md)
+O33=$$PWD/$(location out/reed-bridge/hardware/printed-parts/cold-core/reed-bridge/reed_bridge.py)
+O34=$$PWD/$(location out/reed-bridge/hardware/printed-parts/cold-core/reservoir/floor-and-dip-tube.figures.json)
+O35=$$PWD/$(location out/reed-bridge/hardware/printed-parts/cold-core/reservoir/floor-and-dip-tube.md)
+O36=$$PWD/$(location out/reed-bridge/hardware/printed-parts/cold-core/reservoir/level-sensing.figures.json)
+O37=$$PWD/$(location out/reed-bridge/hardware/printed-parts/cold-core/reservoir/level-sensing.md)
+O38=$$PWD/$(location out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir.py)
+O39=$$PWD/$(location out/reed-bridge/hardware/printed-parts/cold-core/reservoir/vent.figures.json)
+O40=$$PWD/$(location out/reed-bridge/hardware/printed-parts/cold-core/reservoir/vent.md)
+rm -rf work-reed-bridge
 for f in $(SRCS); do
   case $$f in
     */node_modules/*) continue;;
@@ -5046,12 +5253,12 @@ for f in $(SRCS); do
     */pysrc/*) t=$${f##*/pysrc/};;
     *) t=$$f;;
   esac
-  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
+  mkdir -p work-reed-bridge/$$(dirname $$t); cp -L $$f work-reed-bridge/$$t
 done
 for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
+  if [ -d $$d ]; then mkdir -p work-reed-bridge/$$(dirname $$d); ln -sfn $$PWD/$$d work-reed-bridge/$$d; fi
 done
-cd work
+cd work-reed-bridge
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
 HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/cold-core/reed-bridge/reed_bridge.py > /dev/null
@@ -5060,31 +5267,44 @@ cp hardware/printed-parts/cold-core/reed-bridge/reed-bridge-setting-gauge.step $
 cp hardware/printed-parts/cold-core/reed-bridge/reed-bridge.step $$O1
 cp hardware/printed-parts/cold-core/reservoir/reservoir-air-grip.step $$O2
 cp hardware/printed-parts/cold-core/reservoir/reservoir-air-grip.step.mesh $$O3
-cp hardware/printed-parts/cold-core/reservoir/reservoir-air-grip.stl $$O4
-cp hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.step $$O5
-cp hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.step.mesh $$O6
-cp hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.stl $$O7
-cp hardware/printed-parts/cold-core/reservoir/reservoir-cap-right.step $$O8
-cp hardware/printed-parts/cold-core/reservoir/reservoir-cap-right.step.mesh $$O9
-cp hardware/printed-parts/cold-core/reservoir/reservoir-cap-right.stl $$O10
-cp hardware/printed-parts/cold-core/reservoir/reservoir-gasket.step $$O11
-cp hardware/printed-parts/cold-core/reservoir/reservoir-left.step $$O12
-cp hardware/printed-parts/cold-core/reservoir/reservoir-right.step $$O13
-cp hardware/printed-parts/cold-core/reservoir/reservoir-tube-grip.step $$O14
-cp hardware/printed-parts/cold-core/reservoir/reservoir-tube-grip.step.mesh $$O15
-cp hardware/printed-parts/cold-core/reservoir/reservoir-tube-grip.stl $$O16
-cp hardware/printed-parts/cold-core/foam-shell/README.figures.json $$O17
-cp hardware/printed-parts/cold-core/foam-shell/README.md $$O18
-cp hardware/printed-parts/cold-core/reed-bridge/README.figures.json $$O19
-cp hardware/printed-parts/cold-core/reed-bridge/README.md $$O20
-cp hardware/printed-parts/cold-core/reed-bridge/reed_bridge.py $$O21
-cp hardware/printed-parts/cold-core/reservoir/floor-and-dip-tube.figures.json $$O22
-cp hardware/printed-parts/cold-core/reservoir/floor-and-dip-tube.md $$O23
-cp hardware/printed-parts/cold-core/reservoir/level-sensing.figures.json $$O24
-cp hardware/printed-parts/cold-core/reservoir/level-sensing.md $$O25
-cp hardware/printed-parts/cold-core/reservoir/reservoir.py $$O26
-cp hardware/printed-parts/cold-core/reservoir/vent.figures.json $$O27
-cp hardware/printed-parts/cold-core/reservoir/vent.md $$O28
+cp hardware/printed-parts/cold-core/reservoir/reservoir-air-grip.step.npz $$O4
+cp hardware/printed-parts/cold-core/reservoir/reservoir-air-grip.stl $$O5
+cp hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.step $$O6
+cp hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.step.mesh $$O7
+cp hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.step.npz $$O8
+cp hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.stl $$O9
+cp hardware/printed-parts/cold-core/reservoir/reservoir-cap-right.step $$O10
+cp hardware/printed-parts/cold-core/reservoir/reservoir-cap-right.step.mesh $$O11
+cp hardware/printed-parts/cold-core/reservoir/reservoir-cap-right.step.npz $$O12
+cp hardware/printed-parts/cold-core/reservoir/reservoir-cap-right.stl $$O13
+cp hardware/printed-parts/cold-core/reservoir/reservoir-gasket.step $$O14
+cp hardware/printed-parts/cold-core/reservoir/reservoir-gasket.step.mesh $$O15
+cp hardware/printed-parts/cold-core/reservoir/reservoir-gasket.step.npz $$O16
+cp hardware/printed-parts/cold-core/reservoir/reservoir-gasket.stl $$O17
+cp hardware/printed-parts/cold-core/reservoir/reservoir-left.step $$O18
+cp hardware/printed-parts/cold-core/reservoir/reservoir-left.step.mesh $$O19
+cp hardware/printed-parts/cold-core/reservoir/reservoir-left.step.npz $$O20
+cp hardware/printed-parts/cold-core/reservoir/reservoir-left.stl $$O21
+cp hardware/printed-parts/cold-core/reservoir/reservoir-right.step $$O22
+cp hardware/printed-parts/cold-core/reservoir/reservoir-right.step.mesh $$O23
+cp hardware/printed-parts/cold-core/reservoir/reservoir-right.step.npz $$O24
+cp hardware/printed-parts/cold-core/reservoir/reservoir-right.stl $$O25
+cp hardware/printed-parts/cold-core/reservoir/reservoir-tube-grip.step $$O26
+cp hardware/printed-parts/cold-core/reservoir/reservoir-tube-grip.step.mesh $$O27
+cp hardware/printed-parts/cold-core/reservoir/reservoir-tube-grip.step.npz $$O28
+cp hardware/printed-parts/cold-core/reservoir/reservoir-tube-grip.stl $$O29
+cp hardware/printed-parts/cold-core/reservoir/reservoir.numbers.json $$O30
+cp hardware/printed-parts/cold-core/reed-bridge/README.figures.json $$O31
+cp hardware/printed-parts/cold-core/reed-bridge/README.md $$O32
+cp hardware/printed-parts/cold-core/reed-bridge/reed_bridge.py $$O33
+cp hardware/printed-parts/cold-core/reservoir/floor-and-dip-tube.figures.json $$O34
+cp hardware/printed-parts/cold-core/reservoir/floor-and-dip-tube.md $$O35
+cp hardware/printed-parts/cold-core/reservoir/level-sensing.figures.json $$O36
+cp hardware/printed-parts/cold-core/reservoir/level-sensing.md $$O37
+cp hardware/printed-parts/cold-core/reservoir/reservoir.py $$O38
+cp hardware/printed-parts/cold-core/reservoir/vent.figures.json $$O39
+cp hardware/printed-parts/cold-core/reservoir/vent.md $$O40
+cd .. && rm -rf work-reed-bridge
 """,
 )
 
@@ -11557,9 +11777,13 @@ genrule(
         ":out/reed-bridge/hardware/printed-parts/cold-core/reed-bridge/reed-bridge.step",
         "pysrc/hardware/printed-parts/cold-core/reed-bridge/reed_bridge.py",
         ":out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.step",
+        ":out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.step.npz",
         ":out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-cap-right.step",
+        ":out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-cap-right.step.npz",
         ":out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-left.step",
+        ":out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-left.step.npz",
         ":out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-right.step",
+        ":out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-right.step.npz",
         "pysrc/hardware/printed-parts/cold-core/reservoir/reservoir.py",
         ":out/collet-press/hardware/printed-parts/collet-press/collet-press.step",
         "pysrc/hardware/printed-parts/diaphragm-pump-sleeve/diaphragm_pump_sleeve.py",
@@ -12243,10 +12467,15 @@ genrule(
         ":out/reed-bridge/hardware/printed-parts/cold-core/reed-bridge/reed-bridge.step",
         "hardware/printed-parts/cold-core/reed-bridge/reed_bridge.py",
         ":out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.step",
+        ":out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.step.npz",
         ":out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-cap-right.step",
+        ":out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-cap-right.step.npz",
         ":out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-gasket.step",
+        ":out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-gasket.step.npz",
         ":out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-left.step",
+        ":out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-left.step.npz",
         ":out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-right.step",
+        ":out/reed-bridge/hardware/printed-parts/cold-core/reservoir/reservoir-right.step.npz",
         "hardware/printed-parts/cold-core/reservoir/reservoir.py",
         "hardware/printed-parts/diaphragm-pump-sleeve/diaphragm_pump_sleeve.py",
         "hardware/printed-parts/electronics/module_tray.py",
@@ -13491,6 +13720,14 @@ genrule(
     name = "pysrc-5f299cecfe59",
     srcs = ["hardware/cold-core-layout/cold_core_assembly.py"],
     outs = ["pysrc/hardware/cold-core-layout/cold_core_assembly.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
+    name = "pysrc-40f540ff1e69",
+    srcs = ["hardware/cold-core-layout/cold_core_model.py"],
+    outs = ["pysrc/hardware/cold-core-layout/cold_core_model.py"],
     tools = ["tools/bazel/pysrc.py"],
     cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
 )
@@ -15814,6 +16051,7 @@ filegroup(
         ":weld-rotation-rig-sync",
         ":wiring-sync",
         ":cold-core-assembly",
+        ":cold-core-model",
         ":carbonator-tube-step",
         ":endcap-circular-drawing",
         ":endcap-circular-dxf",
