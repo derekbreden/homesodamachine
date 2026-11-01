@@ -207,14 +207,19 @@ fn arrays(s: &Solid, sources: bool) -> Arrays {
             for r in records {
                 let face = &s.faces[r as usize];
                 let src = |s: crate::face::Src| if s.recorded() { Some(src_line(s)) } else { None };
-                let mut origin = face_json(face);
-                if let Some(record) = origin.as_object_mut() {
-                    record.retain(|key, _| matches!(key.as_str(), "src" | "op" | "via"));
-                    if let Some(via) = face.via {
-                        record.insert("via".into(), json!({"src": src(via.src), "op": via.op}));
+                let inherited = face.src.contributors();
+                let projected = if let Some(records) = inherited { records.to_vec() } else { vec![face_json(face)] };
+                for mut origin in projected {
+                    if let Some(record) = origin.as_object_mut() {
+                        if inherited.is_none() {
+                            record.retain(|key, _| matches!(key.as_str(), "src" | "op" | "via"));
+                        }
+                        if let Some(via) = face.via {
+                            record.insert("via".into(), json!({"src": src(via.src), "op": via.op}));
+                        }
                     }
+                    if !origins.contains(&origin) { origins.push(origin); }
                 }
-                if !origins.contains(&origin) { origins.push(origin); }
             }
             a.face_sources.push(Value::Array(origins));
         }
@@ -336,6 +341,9 @@ pub fn face_json(f: &Face) -> Value {
     o.insert("kind".into(), f.surface.kind().into());
     o.insert("op".into(), f.op.into());
     o.insert("src".into(), if f.src.recorded() { src_line(f.src).into() } else { Value::Null });
+    if let Some(records) = f.src.contributors() {
+        o.insert("contributors".into(), Value::Array(records.to_vec()));
+    }
     if let Some(via) = f.via {
         o.insert("via".into(), format!("{} at {}", via.op, src_line(via.src)).into());
     }
