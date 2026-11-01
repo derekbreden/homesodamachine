@@ -99,8 +99,9 @@ Each blind tail passage has 2.5 mm nominal tip air. All twenty clamp screws are 
 same stock as the enclosure's four seam screws.
 
 At all ten lid axes, a straight Ø4.8 × 80 mm driver envelope clears the printed
-lid and its integral pump clip above the lid face. The [M5 driver reading](m5-lid-driver-review.json)
-binds these paths to the published lid STL.
+lid's integral features above the lid face. The [kernel print and driver review](kernel-print-review.json)
+records the Rust meshes, saved recipes, emitted paths and driver envelopes.
+The [native M5 driver reading](m5-lid-driver-review.json) retains the native reference.
 
 The [local solid regions](fore-snap-print-regions.json) fill the M5 head bearings,
 PCB insert posts and their plate/floor roots at 100%. The same record carries
