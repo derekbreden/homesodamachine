@@ -26,8 +26,6 @@ import math
 import sys
 from pathlib import Path
 
-import cadquery as cq
-
 _HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(_HERE))
 sys.path.insert(0, str(_HERE.parents[1] / "cadlib"))
@@ -99,20 +97,24 @@ class Frame:
 
     def plane(self, s):
         """The section plane `s` along the tube; its x is `t` and its y comes out as `n`."""
+        import cadquery as cq
         return cq.Plane(origin=cq.Vector(*self.point(0.0, 0.0, s)), xDir=cq.Vector(*self.t),
                         normal=cq.Vector(*self.u))
 
     def prism(self, pts, s0, s1):
+        import cadquery as cq
         return cq.Workplane(self.plane(s0)).polyline(pts).close().extrude(s1 - s0).val()
 
     def section(self, start, segments, s0, s1):
         """Lines ("L", p) and three-point arcs ("A", via, end) in (a, b), extruded s0..s1."""
+        import cadquery as cq
         wp = cq.Workplane(self.plane(s0)).moveTo(*start)
         for seg in segments:
             wp = wp.lineTo(*seg[1]) if seg[0] == "L" else wp.threePointArc(seg[1], seg[2])
         return wp.close().extrude(s1 - s0).val()
 
     def bore(self, r, s0, s1):
+        import cadquery as cq
         return cq.Solid.makeCylinder(r, s1 - s0, cq.Vector(*self.point(0.0, 0.0, s0)),
                                      cq.Vector(*self.u))
 
@@ -220,3 +222,10 @@ def wing_flex_len():
     """The wing's length from the gap's round end to the middle of the lip's tip."""
     rm = (WING_IN + WING_OUT) / 2.0
     return rm * math.radians(CAVITY_DEG) + LIP_B + LIP_TIP / 2.0
+
+
+def __getattr__(name):
+    if name == "cq":
+        import cadquery
+        return cadquery
+    raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
