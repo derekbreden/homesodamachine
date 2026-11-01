@@ -4,7 +4,6 @@ from pathlib import Path
 import hashlib
 import json
 import os
-import subprocess
 import sys
 
 import numpy as np
@@ -15,7 +14,7 @@ ROOT = Path(__file__).resolve().parents[2]
 HARDWARE = ROOT / "hardware"
 OUT = HARDWARE / "install-guide/out/opening"
 ASSETS = HARDWARE / "install-guide/assets"
-sys.path[:0] = [str(HARDWARE / "install-guide"), str(HARDWARE / "scripts")]
+sys.path[:0] = [str(HARDWARE / "install-guide"), str(HARDWARE / "scripts"), str(ROOT / "tools")]
 
 
 def outlines(mask):
@@ -61,7 +60,9 @@ def outlines(mask):
 
 def main():
     import cadquery as cq
+    import docgen
     import _cad_art
+    import _hsm_render
     import _install_art
 
     OUT.mkdir(parents=True, exist_ok=True)
@@ -81,9 +82,7 @@ def main():
     jobs = [{**pose, "step": str(path.relative_to(HARDWARE)),
              "out": str(OUT / f"{name}.png"), "zoom": 10.0}
             for name, path in paths.items()]
-    manifest = OUT / "jobs.json"
-    manifest.write_text(json.dumps(jobs, indent=2) + "\n")
-    subprocess.run(["node", str(_cad_art.RENDERER), "--jobs", str(manifest)], cwd=ROOT, check=True)
+    _hsm_render.render(jobs)
     image = Image.open(OUT / "scene.png").convert("RGBA")
     crop = image.getchannel("A").point(lambda a: 255 if a >= 12 else 0).getbbox()
     assert crop is not None
@@ -123,6 +122,7 @@ def main():
         "silhouette": "opening-faucet-outline.svg",
     }
     resolution_path.write_text(json.dumps(resolution, indent=2) + "\n")
+    docgen.note_rewritten(resolution_path)
     print("Current opening artwork and component outline registered", flush=True)
 
 
