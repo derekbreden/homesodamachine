@@ -3688,6 +3688,7 @@ genrule(
         "pysrc/hardware/scripts/_cadq_export.py",
         "pysrc/hardware/scripts/_material_base.py",
         "pysrc/hardware/scripts/_materials.py",
+        "pysrc/hardware/scripts/_occt_color.py",
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/hardware/scripts/_rust_part.py",
         "pysrc/hardware/scripts/_stated_bounds.py",
@@ -8204,8 +8205,7 @@ genrule(
         "pysrc/hardware/scripts/_cadq_export.py",
         "pysrc/hardware/scripts/_material_base.py",
         "pysrc/hardware/scripts/_materials.py",
-        "pysrc/hardware/scripts/_meshes.py",
-        "pysrc/hardware/scripts/_overlap.py",
+        "pysrc/hardware/scripts/_occt_color.py",
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/hardware/scripts/_rust_part.py",
@@ -14583,6 +14583,14 @@ genrule(
     name = "pysrc-9f2665c60179",
     srcs = ["hardware/scripts/_meshes.py"],
     outs = ["pysrc/hardware/scripts/_meshes.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
+    name = "pysrc-0d8529b6aa2c",
+    srcs = ["hardware/scripts/_occt_color.py"],
+    outs = ["pysrc/hardware/scripts/_occt_color.py"],
     tools = ["tools/bazel/pysrc.py"],
     cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
 )

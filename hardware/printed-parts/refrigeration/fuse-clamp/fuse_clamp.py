@@ -64,8 +64,9 @@ one station and they cannot land apart:
 
 THE KERNEL CUTS THE FILES. This module holds the numbers and writes the ones the geometry takes
 (`numbers()`) to `fuse-clamp.numbers.json`; `fuse_clamp.rs`, beside it, cuts `fuse-clamp.step`,
-its payload and `fuse-clamp.stl` from them (`hardware/scripts/_rust_part.py`). `build()` draws
-the same part in CadQuery, which is the body `enclosure_assembly` seats.
+its payload and `fuse-clamp.stl` from them (`hardware/scripts/_rust_part.py`), once the part has
+held its pinch: a case grown [0.01](CLAMP_CONTACT_TOL) mm proud of its own diameter meets the
+crown. `build()` draws the same part in CadQuery, which is the body `enclosure_assembly` seats.
 
 Run:
     tools/cad-venv/bin/python hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.py
@@ -73,8 +74,6 @@ Run:
 
 import sys
 from pathlib import Path
-
-import cadquery as cq
 
 _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
@@ -85,9 +84,12 @@ for _p in (_hw / "scripts",
     sys.path.insert(0, str(_p))
 sys.path.insert(0, str(next(p for p in _here.parents
                             if (p / "tools" / "docgen").is_dir()) / "tools"))
-import _cadq_export  # noqa: E402,F401  the CAD lock, and build-time.md's clock
+if __name__ == "__main__":
+    import _rust_part
+    _rust_part.start()
+
+import cadquery as cq  # noqa: E402
 from _materials import M_PETG_BLACK, linear  # noqa: E402
-import _overlap  # noqa: E402
 import _stated_bounds as _bounds  # noqa: E402
 import compressor as _comp  # noqa: E402
 import sf76e_thermal_fuse as _fuse  # noqa: E402
@@ -206,13 +208,14 @@ def _profile():
 
 def numbers():
     """What `fuse_clamp.rs` cuts the part from: the profile's corners and the channel, in the
-    cutoff's own frame, and the body's name and colour."""
+    cutoff's own frame, the case it holds its pinch on, and the body's name and colour."""
     return {
         "name": "fuse-clamp", "color": list(linear(M_PETG_BLACK)),
         "part_x": PART_X, "channel_h": CHANNEL_H, "channel_z": CHANNEL_Z,
         "head_y": HEAD_Y, "head_z": HEAD_Z, "neck_z": NECK_Z,
         "box_floor": BOX_FLOOR, "plate_top": PLATE_TOP,
         "leaf_y": LEAF_Y, "leaf_reach": LEAF_REACH, "leaf_lead_in": LEAF_LEAD_IN,
+        "case_d": CASE_D, "case_l": CASE_L, "contact_tol": CONTACT_TOL, "tf_c": TF_C,
     }
 
 
@@ -228,37 +231,16 @@ def build():
     return part.cut(channel).val()
 
 
-# --- Holds ----------------------------------------------------------------
-# The part is one claim about a cutoff. The hold reads it back off the solid rather than off the
-# constants that produced it.
-
-def pinch_hold():
-    """The crown lands ON the case.
-
-    Grown by `CONTACT_TOL` the case must meet the crown — a clamp standing off is a case lying
-    loose on a face."""
-    clamp = build()
-    grown = cq.Solid.makeCylinder(
-        CASE_D / 2.0 + CONTACT_TOL, CASE_L,
-        cq.Vector(-CASE_L / 2.0, 0.0, CASE_D / 2.0), cq.Vector(1, 0, 0))
-    _shape, touch = _overlap.common(clamp, grown)
-    if touch <= 0.0:
-        raise ValueError(
-            f"a case grown {CONTACT_TOL:g} mm proud of its own Ø{CASE_D:g} still misses the "
-            f"clamp — the crown stands off the generatrix it is meant to bear on, so nothing "
-            f"presses the case onto the cover and a {TF_C:g} °C cutoff is reading cabinet air.")
-
-
 def selftest():
-    pinch_hold()
+    # The part is one claim about a cutoff, and the program reads it back off the solid it cuts.
+    import _rust_part
+
+    _rust_part.check("refrigeration", "fuse-clamp", numbers())
     return _bounds.report()
 
 
 def main():
     # A run cuts the part; an import of this module is a reader of `build()` and the numbers.
-    import _rust_part
-
-    pinch_hold()
     said = _rust_part.cut("refrigeration", "fuse-clamp", numbers(), _here.parent)
     part = said["bodies"][0]
     (xmin, ymin, zmin), (xmax, ymax, zmax) = part["min"], part["max"]
@@ -290,6 +272,7 @@ def main():
         "CLAMP_SPLICE_FREE": f"{SPLICE_FREE:g}",
         "CLAMP_SPLICE_REACH": f"{SPLICE_REACH:g}",
         "CLAMP_CASE_D": f"{CASE_D:g}",
+        "CLAMP_CONTACT_TOL": f"{CONTACT_TOL:g}",
         "CLAMP_CHANNEL_H": f"{CHANNEL_H:g}",
         "CLAMP_HEAD_Y": f"{2 * HEAD_Y:g}",
         "CLAMP_HEAD_Z": f"{HEAD_Z:g}",
