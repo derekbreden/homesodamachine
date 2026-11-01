@@ -75,6 +75,85 @@ fn prism(v: &Value, rounded: bool) -> Result<Solid> {
     }
     extruded(v, outline)
 }
+
+fn bezier_prism(v: &Value) -> Result<Solid> {
+    let segments = v["segments"].as_array().context("line/cubic profile")?;
+    let mut edges = Vec::new();
+    for segment in segments {
+        if let Some(line) = segment.get("line") {
+            edges.push(Seg::Line { a: point(&line[0])?, b: point(&line[1])? });
+        } else {
+            let cubic = &segment["cubic"];
+            edges.push(Seg::Cubic {
+                a: point(&cubic[0])?, c1: point(&cubic[1])?,
+                c2: point(&cubic[2])?, b: point(&cubic[3])?,
+            });
+        }
+    }
+    extruded(v, Loop::new(edges)?)
+}
+
+/// The native pump skirt's explicit, planar ruled correspondence. Repeated
+/// points are collapsed transition vertices, not epsilon edges.
+fn ruled_stack(v: &Value) -> Result<Solid> {
+    let sections = v["sections"].as_array().context("ruled sections")?
+        .iter().map(|row| -> Result<Vec<V3>> {
+            row.as_array().context("ruled section")?.iter().map(vector).collect()
+        }).collect::<Result<Vec<_>>>()?;
+    ensure!(sections.len() >= 2, "a ruled stack needs two sections");
+    let n = sections[0].len();
+    ensure!(n >= 3 && sections.iter().all(|row| row.len() == n), "ruled correspondence count");
+    let rise = sections.last().unwrap()[0].z-sections[0][0].z;
+    ensure!(rise != 0.0, "a ruled stack needs distinct end planes");
+    let area: f64 = (0..n).map(|i| {
+        let (a,b) = (sections[0][i], sections[0][(i+1)%n]);
+        a.x*b.y-b.x*a.y
+    }).sum();
+    let flip_side = (rise > 0.0) != (area < 0.0);
+    let verts: Vec<_> = sections.iter().flatten().copied().collect();
+    let mut tris = Vec::new();
+    let mut faces = Vec::new();
+    let mut face_of = Vec::new();
+    let source = &v["source"];
+    let src = hsm_kernel::face::record_src(&format!("{}:{}",
+        source["path"].as_str().context("ruled source path")?,
+        source["line"].as_u64().context("ruled source line")?));
+    for (i, sense) in [(0, -rise.signum()), (sections.len()-1, rise.signum())] {
+        let row = &sections[i];
+        let flat = row.iter().map(|p|v2(p.x,p.y)).collect();
+        let cap = hsm_kernel::triangulate::triangulate(&[flat])?;
+        let face = faces.len() as u32;
+        faces.push(Face::new(Surface::Plane { p: row[0], n: V3::Z*sense }, "ruled skirt cap", src));
+        for mut t in cap {
+            t.iter_mut().for_each(|k|*k += (i*n) as u32);
+            if sense < 0.0 { t.swap(1,2); }
+            tris.push(t); face_of.push(face);
+        }
+    }
+    for i in 0..sections.len()-1 {
+        for k in 0..n {
+            let next = (k+1)%n;
+            let ids = [(i*n+k) as u32,((i+1)*n+k) as u32,
+                       ((i+1)*n+next) as u32,(i*n+next) as u32];
+            let mut triangles = Vec::new();
+            for mut t in [[ids[0],ids[1],ids[2]], [ids[0],ids[2],ids[3]]] {
+                if flip_side { t.swap(1,2); }
+                let (a,b,c) = (verts[t[0] as usize],verts[t[1] as usize],verts[t[2] as usize]);
+                if (b-a).cross(c-a).norm() > 1e-12 { triangles.push(t); }
+            }
+            if triangles.is_empty() { continue; }
+            let t = triangles[0];
+            let (a,b,c) = (verts[t[0] as usize],verts[t[1] as usize],verts[t[2] as usize]);
+            let normal = (b-a).cross(c-a).unit();
+            ensure!(ids.iter().all(|&j|(verts[j as usize]-a).dot(normal).abs() < 1e-7),
+                    "the native ruled skirt face is no longer planar");
+            let face = faces.len() as u32;
+            faces.push(Face::new(Surface::Plane { p:a, n:normal }, "ruled skirt", src));
+            for t in triangles { tris.push(t); face_of.push(face); }
+        }
+    }
+    Solid::from_mesh(&verts,&tris,&face_of,&faces)
+}
 pub(crate) fn build(n: &Numbers) -> Result<Solid> {
     let recipe = n.get("panel")?;
     let nodes = recipe["nodes"].as_array().context("panel nodes")?;
@@ -148,6 +227,8 @@ pub(crate) fn build(n: &Numbers) -> Result<Solid> {
                 }
                 "prism" => prism(v, false)?,
                 "corner-prism" => prism(v, true)?,
+                "bezier-prism" => bezier_prism(v)?,
+                "ruled-stack" => ruled_stack(v)?,
                 "union" | "cut" | "intersect" => {
                     let mut s = input(0).clone();
                     for k in 1..inputs.len() {
