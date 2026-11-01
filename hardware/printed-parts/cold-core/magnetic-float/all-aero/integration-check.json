@@ -67,9 +67,13 @@
     "hardware/printed-parts/cold-core/magnetic-float/all-aero/physical-observations.json": "98e0d6ff6279750202439dae0441767bab120295626a8fc0d4d3bd89f6e10e11",
     "hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step": "79ab7b80bb7ad5ca9d8cf0512bdc2e037caf732d494f18b863323448ace91f67",
     "hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole-drawing.pdf": "5d08728194f22d931878138b19af2e56d8db718ed2d97c3cbde51203a5855ad9",
-    "hardware/printed-parts/cold-core/reservoir/reservoir-right.step": "1970b11ef18acd98e5296b975e1f39e7b97215b01b89495c0dd6378e74c1462f",
-    "hardware/printed-parts/cold-core/reservoir/reservoir-cap-right.step": "6ed6116bb0d5f6666cc3c0083b82bcaaee2b3a47520360fa75c27a561f085080",
-    "hardware/printed-parts/cold-core/reservoir/reservoir-left.step": "5532971dfe9d4c10c10417082580ed8d0248ccb59456fb11c33effcf712f47e2",
-    "hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.step": "3a2889f84734be9ca676d6815303888e884125b0d99776ccb86fd6f57479b9a4"
+    "hardware/printed-parts/cold-core/reservoir/reservoir-right.step": "34b7e827e55d2829a7e1d2e1826f0a152397fd21f60005f583a33798a607effd",
+    "hardware/printed-parts/cold-core/reservoir/reservoir-cap-right.step": "fef5fecf0d639d0a1b11dec77dcde5cc7dcf382bd8098a0a5f0ef8492aa1c80c",
+    "hardware/printed-parts/cold-core/reservoir/reservoir-left.step": "a96c8c418648659dd8a8e50df1c7b1467b00037728753d47ffb7c7fd1da96b17",
+    "hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.step": "550d31c630bc52e8bd64f5fb0d07a30eb65ca4cd4aeda126bfcb74a568901d25",
+    "hardware/printed-parts/cold-core/reservoir/reservoir-right.step.npz": "1c6277b8f70fc36629eddc0585e65837418f0b5e3589304c98f4e0c972171102",
+    "hardware/printed-parts/cold-core/reservoir/reservoir-cap-right.step.npz": "19834ccd8875a2283d9dd296c52a13c3b112f953e637e7cb65bdd372e6116d38",
+    "hardware/printed-parts/cold-core/reservoir/reservoir-left.step.npz": "f850d04bd1f8254fdbe5543e4bab74859dd9377877e7c3842a9bd08a0d30bf85",
+    "hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.step.npz": "710e5f6523870102fe6f85d6070b223ba6f7a1388b29651e8f204d6674bbe8ad"
   }
 }
