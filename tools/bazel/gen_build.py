@@ -56,18 +56,11 @@ PYSRC = "pysrc"
 #: audit hook, so the matching runtime group supplies exactly that unseen portion. Unknown
 #: entrypoints retain the broad group and fail closed rather than losing an input edge.
 _NODE = ("tools/render/", "web/")
-_NODE_RUNTIME_CONSUMERS = {
-    "hardware/install-guide/installation_art.py": ":render-step-posed-runtime",
-}
+_NODE_RUNTIME_CONSUMERS = {}
 _NODE_RUNTIME_SUPPORT = {
     ":render-card-runtime": {
         "tools/render/browser.js",
         "tools/render/render-card.js",
-    },
-    ":render-step-posed-runtime": {
-        "tools/render/browser.js",
-        "tools/render/render-step-posed.js",
-        "web/server.js",
     },
 }
 
@@ -122,18 +115,6 @@ def _needs_cargo(srcs: list) -> bool:
     return any(s.endswith("Cargo.toml") for s in srcs)
 
 
-#: The three files the `render-step-posed-runtime` glob below excludes, for each consumer to
-#: name directly. They are the whole of what that glob leaves behind.
-_RUNTIME_NAMED_DIRECTLY = ("web/package-lock.json", "web/package.json", "web/server.js")
-
-
-def _runtime_carries(path: str) -> bool:
-    """Whether a runtime filegroup below already globs `path` into every action that takes it."""
-    if path in _RUNTIME_NAMED_DIRECTLY:
-        return False
-    return path.startswith("tools/render/node_modules/") or path.startswith("web/")
-
-
 #: A relative import in a JS module — `from "./browser.js"`, `import("./x.js")`, `require`.
 _JS_LOCAL = re.compile(r"""(?:from|import|require)\s*\(?\s*["'](\.[^"']*)["']""")
 
@@ -141,19 +122,9 @@ _JS_LOCAL = re.compile(r"""(?:from|import|require)\s*\(?\s*["'](\.[^"']*)["']"""
 def _js_closure(srcs: set) -> set:
     """Every local module the `.js` in `srcs` import, to a fixpoint.
 
-    NODE RESOLVES THESE ITSELF, below the interpreter the tracer watches: a run that reaches
-    the `node` call opens them and a run that stops short of it does not, so whether the graph
-    holds them is a reading of how far that run got. `render-step-posed.js` imports
-    `./browser.js`, and an action holding the importer and not the module dies on
-    ERR_MODULE_NOT_FOUND.
-
-    The specifiers are relative and resolved against the importer's own directory, which is
-    what makes this answerable from the text.
-
-    WHAT THE RUNTIME GROUPS CARRY BY GLOB IS NOT ADDED, because naming a file twice stages it
-    twice. `_runtime_carries` is that glob, and it is the same three `web/` files the group
-    excludes for its consumers to name — so `web/server.js` comes from here and `web/lib/*.js`
-    does not."""
+    Node resolves these below the interpreter the tracer watches. The relative specifiers are
+    resolved against each importer's directory, so every imported local file is declared even
+    when a trace did not reach the node call."""
     seen, stack = set(), [s for s in srcs if s.endswith((".js", ".mjs", ".cjs"))]
     while stack:
         current = stack.pop()
@@ -166,7 +137,7 @@ def _js_closure(srcs: set) -> set:
             if found not in seen and (_ROOT / found).is_file():
                 seen.add(found)
                 stack.append(found)
-    return {f for f in seen - set(srcs) if not _runtime_carries(f)}
+    return seen - set(srcs)
 
 
 def _node_runtimes(gens: tuple, srcs: list) -> tuple[str, ...]:
@@ -183,13 +154,6 @@ def _node_runtimes(gens: tuple, srcs: list) -> tuple[str, ...]:
 
 def _check_node_runtime_map() -> None:
     cases = (
-        (("hardware/install-guide/installation_art.py",),
-         ["tools/render/browser.js", "tools/render/render-step-posed.js"],
-         (":render-step-posed-runtime",)),
-        (("hardware/install-guide/installation_art.py",),
-         ["tools/render/browser.js", "tools/render/render-step-posed.js",
-          "tools/render/future-entrypoint.cjs"],
-         (":node-packages", ":render-step-posed-runtime")),
         (("hardware/unknown.py",), ["tools/render/future-entrypoint.js"],
          (":node-packages",)),
     )
@@ -208,6 +172,8 @@ def target_name(gen: str, taken=None) -> str:
     Build entrypoints take their parent directory as a prefix. Other stems shared
     by two generators do the same, so each target has its own stable name.
     """
+    if gen == "hardware/install-guide/installation_art.py":
+        return "cad-art"
     stem = Path(gen).stem.strip("_").replace("_", "-")
     if stem == "build":
         return f"{Path(gen).parent.name}-{stem}"
@@ -444,23 +410,6 @@ def render_build(only: str = None) -> tuple:
     blocks.append(
         'filegroup(\n    name = "render-card-runtime",\n    srcs = glob(\n'
         '        ["tools/render/node_modules/**"],\n'
-        '        allow_empty = True,\n    ),\n)')
-
-    # `render-step-posed` does stand the viewer and photograph it. Its server can reach the
-    # whole web tree, so retain that safe boundary while excluding the three tracked files each
-    # consumer names directly. This separates card-renderer edits without lying about shared
-    # browser or viewer inputs.
-    blocks.append(
-        'filegroup(\n    name = "render-step-posed-runtime",\n    srcs = glob(\n'
-        '        [\n'
-        '            "tools/render/node_modules/**",\n'
-        '            "web/**",\n'
-        '        ],\n'
-        '        exclude = [\n'
-        '            "web/package-lock.json",\n'
-        '            "web/package.json",\n'
-        '            "web/server.js",\n'
-        '        ],\n'
         '        allow_empty = True,\n    ),\n)')
 
     # A renderer not yet classified above keeps the old whole-runtime boundary. A new tool can
