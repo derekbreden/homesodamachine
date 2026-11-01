@@ -1242,8 +1242,8 @@
       "tie_window_support_crossings": []
     },
     "back-top": {
-      "preparation_directory": ".cache/prints/enclosure-continuous-clip-final-2eb222ae/2026-11-01-back-top-mark2-2796de1c",
-      "preparation_record_sha256": "334bddf041dc17fca74c81ab8cb68cfbda9db136e04af85bf326558bfaa4ea36",
+      "preparation_directory": ".cache/prints/enclosure-final-wago/2026-11-01-back-top-mark2-0bf38544",
+      "preparation_record_sha256": "1fd3410bef9a7ed5af2384351ce17ddba9bb7cfad13058c863d8d80a47d00583",
       "profile_sha256": "45c16e8c8517e0a205107d7b9f7412d013f51a8de7ecf86125cc940079d37ed0",
       "printer": "Mark2",
       "nozzle": {
@@ -1312,10 +1312,10 @@
         {
           "name": "enclosure-back-top",
           "stl": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
-          "stl_sha256": "e6470d251cc02343a931652bec192038b660c97393f88a97ee6172da9757b413",
-          "step_sha256": "20eb3ddced1a9c8ce8d88079d2c2fce7d5e7b550bd13ce54b2d05597ce26f91a",
+          "stl_sha256": "863574898e98f143a9383f2951d2ce00fd00d68502c34a90d66ac40beb6d2d59",
+          "step_sha256": "753edc0c074f8f25d0176bd4cee99576bf1bb7602d499d90bfdd736505f1f9c1",
           "closed": {
-            "edges": 1327263,
+            "edges": 1327227,
             "boundary_edges": 0,
             "nonmanifold_edges": 0,
             "inconsistent_edges": 0,
@@ -2801,10 +2801,10 @@
               "sparse_infill_density": "100%"
             }
           ],
-          "current_native_step_sha256": "20eb3ddced1a9c8ce8d88079d2c2fce7d5e7b550bd13ce54b2d05597ce26f91a"
+          "current_native_step_sha256": "753edc0c074f8f25d0176bd4cee99576bf1bb7602d499d90bfdd736505f1f9c1"
         }
       ],
-      "archive_sha256": "790789defe226913d0f5ef99a6bae364a30380fcdc9d071edbbca32d94feb96f",
+      "archive_sha256": "6dfb3c91a7420c27ee231fd498fc7c7850538a844877731af523fea593844f4e",
       "checks": {
         "archive": true,
         "z_trim": true,
@@ -2819,16 +2819,16 @@
       "bed_border_mm": 20.0,
       "support_audits": [
         {
-          "record_sha256": "3694a520396623df5aac8cfd2e8e0419197870b76c20cf345c4b4fbf6be0dc07",
+          "record_sha256": "78375f6f2db1dc77e5b3817e6d1ac01152685b4896a4ad8c06ab1511958cb03e",
           "schema": 1,
           "piece": "enclosure-back-top",
           "inputs": {
             "gcode": "support-labels-1901.gcode",
-            "gcode_sha256": "fc2b3c283bc17496d2c848ed89745601c5b10e3b141efe07909775c05951f52e",
+            "gcode_sha256": "c1c72e1e2b8f52cabc5eda347c158891499ddccd17f18dab52321248f4aacc0f",
             "model": "/Users/derekbredensteiner/Developer/hsm-approved-asse/hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
-            "model_sha256": "e6470d251cc02343a931652bec192038b660c97393f88a97ee6172da9757b413",
-            "profile": ".cache/prints/enclosure-continuous-clip-final-2eb222ae/2026-11-01-back-top-mark2-2796de1c/2026-11-01-back-top-mark2-2796de1c.3mf",
-            "profile_sha256": "ab55964c6a9184ff46c2a21971f7aa997f519c14930c1b3e201831a531ecb759"
+            "model_sha256": "863574898e98f143a9383f2951d2ce00fd00d68502c34a90d66ac40beb6d2d59",
+            "profile": ".cache/prints/enclosure-final-wago/2026-11-01-back-top-mark2-0bf38544/2026-11-01-back-top-mark2-0bf38544.3mf",
+            "profile_sha256": "3dccfb09bc2ceb247ea54006ffbad5e2f05a3f36e5aaa47e931e22e87f218b03"
           },
           "slicer": "BambuStudio 02.08.02.61",
           "first_layer_z_mm": 0.2,
@@ -5904,8 +5904,8 @@
       "tie_window_support_crossings": []
     },
     "foam-cap-lid-top": {
-      "preparation_directory": ".cache/prints/enclosure-continuous-clip-final-2eb222ae/2026-11-01-foam-cap-lid-top-mark1-7473d3c1",
-      "preparation_record_sha256": "79b106718d7cff9c71705096872a4213bc7a5f847189946f8a5bac2cb127ca25",
+      "preparation_directory": ".cache/prints/enclosure-final-broad-stop/2026-11-01-foam-cap-lid-top-mark1-4a93de5e",
+      "preparation_record_sha256": "9f4dfd87f05a9724c6d94fa0e50c32c50cae019b72a8afb8d369b74c76ef5e3e",
       "profile_sha256": "45c16e8c8517e0a205107d7b9f7412d013f51a8de7ecf86125cc940079d37ed0",
       "printer": "Mark1",
       "nozzle": {
@@ -5984,10 +5984,10 @@
         {
           "name": "foam-cap-lid-top",
           "stl": "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl",
-          "stl_sha256": "068b9351b0c8be91489213a9b5da5260515a7c12cf8cdbf40888ef4b6efd2a90",
-          "step_sha256": "10e2b53eeffc36d05080d79298c5f6fed217e0f3f1ad5d9319a37d3a0150acf1",
+          "stl_sha256": "4f0fc7e699f9f41a91ebeebf527f3ddf2334f60d64e83531d5c8b7a958d7d3c0",
+          "step_sha256": "fd455d4fd3b6466abed3aa882356fb4310e355b43a249786dc7e06fde7723a81",
           "closed": {
-            "edges": 122373,
+            "edges": 122358,
             "boundary_edges": 0,
             "nonmanifold_edges": 0,
             "inconsistent_edges": 0,
@@ -6527,10 +6527,10 @@
               "sparse_infill_density": "100%"
             }
           ],
-          "current_native_step_sha256": "10e2b53eeffc36d05080d79298c5f6fed217e0f3f1ad5d9319a37d3a0150acf1"
+          "current_native_step_sha256": "fd455d4fd3b6466abed3aa882356fb4310e355b43a249786dc7e06fde7723a81"
         }
       ],
-      "archive_sha256": "44558f4d5ee6a2d03ffd93fff2805b6485ff5257debcba9a29917cceba4bfdcc",
+      "archive_sha256": "82df3b1d910fc994bd9319a27378bbe3f325849befb7a7282ee70c271435dbb6",
       "checks": {
         "archive": true,
         "z_trim": true,
@@ -6545,16 +6545,16 @@
       "bed_border_mm": 20.0,
       "support_audits": [
         {
-          "record_sha256": "a8e5e7eb69416502fd5ba0d7decfdf38b0ea70c85b6e708f5e3e256d0de05ba9",
+          "record_sha256": "d0e966e9d9360668548d7a2fc8ae4c38c54279e4c17788586c41e1d08e14bcda",
           "schema": 1,
           "piece": "foam-cap-lid-top",
           "inputs": {
             "gcode": "support-labels-1901.gcode",
-            "gcode_sha256": "e75c7bff694687dd0a03fbd97d4ce2b6d21254ea087b81ed554bf6802ebe2198",
+            "gcode_sha256": "561a6c63966abc563541ffcc14d0dd6a1d0ed19dfbc17e63cce0999165a0259c",
             "model": "/Users/derekbredensteiner/Developer/hsm-approved-asse/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl",
-            "model_sha256": "068b9351b0c8be91489213a9b5da5260515a7c12cf8cdbf40888ef4b6efd2a90",
-            "profile": ".cache/prints/enclosure-continuous-clip-final-2eb222ae/2026-11-01-foam-cap-lid-top-mark1-7473d3c1/2026-11-01-foam-cap-lid-top-mark1-7473d3c1.3mf",
-            "profile_sha256": "c21789ed83133eaceacb8842a947b01d5a4744a752f7f971ffe8f681ced00da3"
+            "model_sha256": "4f0fc7e699f9f41a91ebeebf527f3ddf2334f60d64e83531d5c8b7a958d7d3c0",
+            "profile": ".cache/prints/enclosure-final-broad-stop/2026-11-01-foam-cap-lid-top-mark1-4a93de5e/2026-11-01-foam-cap-lid-top-mark1-4a93de5e.3mf",
+            "profile_sha256": "a80383c63397daee062d121fac9c55aa28ce3e7ece4645778ad19097f0e63d70"
           },
           "slicer": "BambuStudio 02.08.02.61",
           "first_layer_z_mm": 0.2,

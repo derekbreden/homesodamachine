@@ -302,11 +302,6 @@ alternatives: Moving the ground landing aft onto the core land reduces its flute
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=-50.442 y=461.700 z=315.694
 
-[step] Independent core-hold and neutral-Wago locating planes: the retained core foot ends at X−43.60; the fitted Wago half-well ends at X−44.45. The 0.85 mm separation belongs to the two mating interfaces.
-alternatives: Extending the core foot to the well enters the connector pocket; moving the pocket plane changes its purchased-body clearance and capture. The core-hold lanes remain the lid bearing lanes.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-44.450 y=459.900 z=270.200
-
 [sliver] Functional snap-seat catch bearings: the 0.85 mm horizontal face is the cap’s 0.60 mm engagement plus 0.25 mm running allowance. The spring walls and seat stock retain their 3 mm section. The square bearing captures the ASSE, Pisco, regulator or meter cap after insertion. Tree(auto)/Default approaches through the empty snap mouth before hardware installation; physical cleanup and spring life are not established by geometry.
 alternatives: Sloping the bearing provides a withdrawal ramp; filling beneath it occupies the spring-hook path. A 3 mm reach needs another 2.15 mm of spring travel and wider matching pockets. Thickening the vertical wall does not enlarge this horizontal bearing.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
@@ -341,7 +336,7 @@ click: x=29.137 y=401.452 z=342.489
 [sliver] Rear Wago half-well boundary at the enclosure’s retained rounded corner: the 1.017 mm dimension is the Y extent of the exposed outer side face where the rectangular half-well meets that corner. Its actual side-wall section is 3 mm in X, from X−97.55 to the pocket plane X−94.55. The well must retain the purchased rectangular blank half while leaving its lever and wire-entry half open.
 alternatives: Changing this boundary to a 3 mm Y strip requires moving the complete fitted well away from the retained rear corner or changing that corner. Thickening the X wall does not change the classified face extent; filling the open half occupies the lever and wire-entry access.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-97.550 y=458.009 z=268.709
+click: x=-97.550 y=458.009 z=269.709
 click: x=-97.550 y=458.009 z=301.209
 
 [ceiling] Functional bottom stops of the two continuous label channels: each 32.3 by 2.0 mm flat locates the sliding tile stack at Z252, with the channel open to the rear before the tiles are inserted. Tree(auto)/Default supports can leave through that mouth before installation; removal quality remains a print-preparation question.
@@ -365,7 +360,7 @@ alternatives: Filling or sloping the pocket end occupies the purchased connector
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=-85.000 y=462.225 z=263.850
 click: x=-85.000 y=462.225 z=296.350
-click: x=-54.000 y=462.225 z=265.850
+click: x=-61.000 y=462.225 z=265.850
 
 [thin] Fitted meter aft end wall: its 2.44 mm section lies between the complete swept housing pocket ending at Y443.56 and the seat end at Y446. The neighboring CARB receiving union’s occupied envelope begins at Y446.510. This end plane retains the meter’s axial clearance while keeping that neighboring envelope clear.
 alternatives: Growing the wall to 3 mm moves its end to Y446.56, 0.05 mm into the neighboring occupied envelope. Moving the meter fore instead changes its direct SODA stub, both snap interfaces and the R14 inlet/foam holder. Narrowing its fitted pocket spends the housing and axial-position allowance.
