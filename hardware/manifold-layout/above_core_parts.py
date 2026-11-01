@@ -56,6 +56,9 @@ REFERENCES = {
 
 @cache
 def native_reference(name):
+    if name == 'pcba' and not getattr(cq, 'MESH', False):
+        board = _module('above_core_pcba', 'printed-parts/electronics/pcba-tray/pcba_tray.py')
+        return board.board.build().val()
     return import_step(REFERENCES[name]).val()
 
 
