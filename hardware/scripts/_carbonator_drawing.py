@@ -23,7 +23,7 @@ from endcap_circular_drawing import (
     path_from_points, horizontal_dimension, cutting_plane_ends,
     VISIBLE, THIN, CENTER_DASH,
 )
-from _cadq_export import export_pdf
+from _document_export import export_pdf
 
 IN = 72.0
 MM = 25.4
