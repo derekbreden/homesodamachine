@@ -323,6 +323,7 @@ function classifyFace(gid) {
   if (faceClass.has(gid)) return faceClass.get(gid);
   const entry = faceTable && faceTable[gid];
   const out = entry ? classifyFaceImpl(entry.rec, entry.rec.faces[entry.fi]) : null;
+  if (out && entry.rec.faces[entry.fi].sources) out.sources = entry.rec.faces[entry.fi].sources;
   faceClass.set(gid, out);
   return out;
 }
@@ -839,10 +840,24 @@ function edgeText(sel) {
   return `${fpt(e.a)} → ${fpt(e.b)} · ${tail}${seg}`;
 }
 function clickText(sel) { return fpt(sel.point); }
+function sourceText(records) {
+  if (!Array.isArray(records)) return "";
+  const where = (src) => src === null ? "unknown source" : typeof src === "string" ? src : "";
+  return records.map(record => {
+    if (record === null) return "unknown provenance";
+    const source = where(record?.src);
+    if (!source) return "";
+    let text = `${source}${record.op ? ` · ${record.op}` : ""}`;
+    const via = record.via;
+    if (via && typeof via === "object" && where(via.src)) text += ` · via ${via.op ? `${via.op} at ` : ""}${where(via.src)}`;
+    return text;
+  }).filter(Boolean).join("; ");
+}
 function selFaceTexts(sel) {
-  if (sel.type === "face") return { a: formatFace(sel.face), b: null };
+  if (sel.type === "face") return { a: formatFace(sel.face), sourcesA: sourceText(sel.face.sources), b: null };
   const ids = sel.edge.faceIds || [];
-  return { a: formatFace(classifyFace(ids[0])), b: formatFace(classifyFace(ids[1])) };
+  const a = classifyFace(ids[0]), b = classifyFace(ids[1]);
+  return { a: formatFace(a), b: formatFace(b), sourcesA: sourceText(a?.sources), sourcesB: sourceText(b?.sources) };
 }
 
 // The open file as the viewer fetched it (content-root-relative), plus the repo-relative
@@ -875,12 +890,16 @@ function allText(sel) {
     lines.push(`solid: ${solid}`);
   }
   if (sel.type === "face") {
-    lines.push(`face: ${selFaceTexts(sel).a}`);
+    const face = selFaceTexts(sel);
+    lines.push(`face: ${face.a}`);
+    if (face.sourcesA) lines.push(`sources: ${face.sourcesA}`);
   } else {
     const faces = selFaceTexts(sel);
     lines.push(`edge: ${edgeText(sel)}`);
     if (showFaces && faces.a) lines.push(`faceA: ${faces.a}`);
     if (showFaces && faces.b) lines.push(`faceB: ${faces.b}`);
+    if (showFaces && faces.sourcesA) lines.push(`faceA sources: ${faces.sourcesA}`);
+    if (showFaces && faces.sourcesB) lines.push(`faceB sources: ${faces.sourcesB}`);
   }
   lines.push(`click: ${clickText(sel)}`);
   return lines.join("\n");
