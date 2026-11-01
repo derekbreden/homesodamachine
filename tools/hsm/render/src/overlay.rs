@@ -9,7 +9,17 @@ use anyhow::{Result, anyhow};
 use std::sync::OnceLock;
 use tiny_skia::{FillRule, IntSize, Paint, Path, PathBuilder, Pixmap, Rect, Stroke, StrokeDash, Transform};
 
-const MENLO: &str = "/System/Library/Fonts/Menlo.ttc";
+/// The regular and bold faces, each a file and its index in it. Menlo.ttc holds Regular, Bold,
+/// Italic and Bold Italic, in that order. Off a Mac it is DejaVu Sans Mono, which Menlo is drawn
+/// from: the same em, ascent, descent and advance, so every plate is the size it is on a Mac.
+/// The CI image installs it with `fonts-dejavu-core`.
+#[cfg(target_os = "macos")]
+const FACES: [(&str, u32); 2] = [("/System/Library/Fonts/Menlo.ttc", 0), ("/System/Library/Fonts/Menlo.ttc", 1)];
+#[cfg(not(target_os = "macos"))]
+const FACES: [(&str, u32); 2] = [
+    ("/usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf", 0),
+    ("/usr/share/fonts/truetype/dejavu/DejaVuSansMono-Bold.ttf", 0),
+];
 const FONT_PX: f32 = 12.0;
 /// The advance of one 12 px monospace character, which every plate is sized by.
 const CH: f64 = 7.22;
@@ -23,16 +33,17 @@ fn fonts() -> Result<&'static Fonts> {
     static FONTS: OnceLock<Result<Fonts, String>> = OnceLock::new();
     FONTS
         .get_or_init(|| {
-            let data = std::fs::read(MENLO).map_err(|e| format!("{MENLO}: {e}"))?;
-            // Menlo.ttc holds Regular, Bold, Italic and Bold Italic, in that order.
-            let face = |i| FontVec::try_from_vec_and_index(data.clone(), i).map_err(|e| format!("{MENLO} face {i}: {e}"));
+            let face = |(path, i): (&str, u32)| {
+                let data = std::fs::read(path).map_err(|e| format!("{path}: {e}"))?;
+                FontVec::try_from_vec_and_index(data, i).map_err(|e| format!("{path} face {i}: {e}"))
+            };
             Ok(Fonts {
-                regular: face(0)?,
-                bold: face(1)?,
+                regular: face(FACES[0])?,
+                bold: face(FACES[1])?,
             })
         })
         .as_ref()
-        .map_err(|e| anyhow!("the annotations are set in Menlo: {e}"))
+        .map_err(|e| anyhow!("the annotations' font: {e}"))
 }
 
 #[derive(Clone, Copy)]
