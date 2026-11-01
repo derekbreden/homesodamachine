@@ -23,10 +23,10 @@ CACHE = _ROOT / ".cache" / "meshcad" / "import"
 IMPORT_VERSION = 2
 
 
-def load_model(path):
-    """[MeshSolid] from a model file written by `write.write_model`, or its bytes."""
+def load_model(path, *, snap=True):
+    """[MeshSolid] from a model file or bytes, optionally retaining raw f64 coordinates."""
     import io
-    from .solids import MeshSolid
+    from .solids import MeshModelSolid, MeshSolid
     if isinstance(path, (bytes, bytearray, memoryview)):
         path = io.BytesIO(path)
     with np.load(path, allow_pickle=False) as z:
@@ -36,7 +36,7 @@ def load_model(path):
             V, T, F = z[f"V{i}"], z[f"T{i}"].astype(np.int64), z[f"F{i}"].astype(np.int64)
             recs = [_unjson(r) for r in records[i]]
             part = build.Part(V, T, F, recs)
-            solids.append(MeshSolid(build.solid(part)))
+            solids.append(MeshSolid(build.solid(part)) if snap else MeshModelSolid(part))
     return solids
 
 

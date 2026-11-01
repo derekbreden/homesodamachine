@@ -22,7 +22,10 @@ def _arrays(solid):
     mesh, with its fillets applied. A solid whose fillets are pending selects on the solid
     before them (`MeshSolid.m`), so its selectors' topology is not its own. One the solid does
     not already hold is taken for the write and let go, without the edges and vertices a
-    selector wants, and its faces stay on the solid for the next file written of it."""
+    selector wants, and its faces stay on the solid for the next file written of it. An immutable
+    fine-model input hands back the arrays and records it carries."""
+    if (model_arrays := getattr(solid, "model_arrays", None)) is not None:
+        return model_arrays()
     from .topo import Topology
     held = solid._topo if solid._rounds is None else None
     if held is not None:
