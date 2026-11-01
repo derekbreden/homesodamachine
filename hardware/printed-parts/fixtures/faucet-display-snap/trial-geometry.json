@@ -18,23 +18,23 @@
     "missing_head_material_mm3": 0.0
   },
   "sources": {
-    "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": "7b5ef61d89f4df539325d9e0fe9173e003865aedf0e7c7dc8df1aadec225382f",
-    "hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py": "467ee7b216d4ebc14b37fa46eba8410961ef323696ef1c427e9d68c021616a94",
+    "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": "07c1cbb48f2ccef849aa4cfe77885358fec78d0f022db6e39a8aeff85480e825",
+    "hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py": "245543b9f405ebb56c9c62c867609c0062f147dfd2ae0c6e37e78db0a5535495",
     "hardware/printed-parts/faucet/_display_snap.py": "60838fcc586c22594d1a8e5eb4ee3de24d1633668ccf4b137007b6d895629223",
-    "hardware/faucet-layout/faucet_assembly.py": "79925ca3d9e59127784d40563bc61404c4ed5ada22a7fe2ec20a5ed0cacd1e4d",
+    "hardware/faucet-layout/faucet_assembly.py": "b69c46678f376aa1f689a6df6f6a52ef2fb58ea531719e5d4931342e2947c092",
     "hardware/printed-parts/faucet/refresh_print_project.py": "35f87341d8d5eb06831700951b6d0c5d5cdde467e01346e8cdf6523e1bf80243",
     "hardware/printed-parts/fixtures/faucet-display-snap/faucet_display_snap_trial.py": "4652b1b24a2546c1e8938eb364103abe499fc2c878ca25149880fa726f7e77dc",
-    "hardware/printed-parts/faucet/_faucet_interface.py": "4c70a7fa69be411583953525c31008de150a3fc6f6f35ac7304ee161c23310ca",
+    "hardware/printed-parts/faucet/_faucet_interface.py": "56e27573027c7fb1cd74012a3be18f8573199ad35b60556f16f17367423f714b",
     "hardware/reference/touch-flo-faucet/display-reference/component-envelopes.json": "bc39121b5724d5551fa3144647f3e3c13280a0f0d38a84e1bac0ef91da30b3ac"
   },
   "parts": [
     {
       "stl": "display-trial-housing.stl",
-      "sha256": "b208548e95aca219d8e947ac99cb6cb413a495b75f8904f1701d867870d90609",
+      "sha256": "4a1a2e4bd29b1b881d02952669c01abf5607f33ce2149fb6662420ddae40623e",
       "source_rotation_x_degrees": -105.0,
       "source_stl_already_in_print_pose": true,
-      "volume_mm3": 23700.70354111658,
-      "triangles": 89590,
+      "volume_mm3": 24874.624340750353,
+      "triangles": 94580,
       "watertight": true,
       "body_count": 1,
       "bounds_mm": [
