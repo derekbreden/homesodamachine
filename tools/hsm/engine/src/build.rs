@@ -476,7 +476,8 @@ impl Builder {
             .env_clear()
             .envs(cargo_env(&home()))
             .env("CARGO_TARGET_DIR", ask.workspace.join("tools/hsm/target"))
-            .env("CARGO_BUILD_JOBS", "2");
+            .env("CARGO_BUILD_JOBS", "2")
+            .env("CMAKE_BUILD_PARALLEL_LEVEL", "2");
         compiler.apply(&mut cmd)?;
         let peak = format!("cargo {}", ask.krate);
         let done = {
