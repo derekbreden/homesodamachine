@@ -99,10 +99,10 @@
       "layer_height_mm": 0.2,
       "first_layer_height_mm": 0.2,
       "pause_before_z_mm": null,
-      "geometry_sha256": "3da591869317b109bcbbbe0b6b38500f7ded669255ef98cc67b44cceef946a4d",
+      "geometry_sha256": "dc5bada52ee3f7de695d4abe3418f2cb8c789d3a4874e9ae30a54ef344cce9e1",
       "meshes_sha256": {
-        "body-aero": "63d12cbb501b629997a2462822df42a1f4f6bf20ee2806f2f6f310c1f7e72771",
-        "insert-aero": "c69cdc552c1dec84dd0bd84972ed601667df8327b0388236eec63ea7d672b8c6"
+        "body-aero": "404d68abd9ea96fd53b77ec03ff403544a0c59bb59cafe8dc7f6a23c9c1e368c",
+        "insert-aero": "7d346e39e3b26ef5b294ec715c2e4f9b9f7535a13e1abc6ce01ee09405bffaf0"
       },
       "objects": [
         {
@@ -118,7 +118,7 @@
           "fit_allowance_radial_mm": 0.05
         }
       ],
-      "project_sha256": "e96c4dd0efc977af36f902c1f8b1af1749f015dd9fb4ec91f26a1f341f003f9c",
+      "project_sha256": "29949d4463b7197873ee4b1c5035cf5f2f75fb92c3fccea5ff9cd5f96c9d7e1a",
       "effective_material_settings": {
         "nozzle_temperature": [
           "270"
@@ -179,16 +179,16 @@
         {
           "plate": 1,
           "part": "body-aero",
-          "estimated_seconds": 5842,
-          "total_material_g": 14.67,
-          "object_extrusion_mass_g": 14.620758980724657
+          "estimated_seconds": 5860,
+          "total_material_g": 14.68,
+          "object_extrusion_mass_g": 14.628414989327748
         },
         {
           "plate": 2,
           "part": "insert-aero",
-          "estimated_seconds": 2191,
+          "estimated_seconds": 2195,
           "total_material_g": 3.46,
-          "object_extrusion_mass_g": 3.405178172454057
+          "object_extrusion_mass_g": 3.4067690953994703
         }
       ]
     },
@@ -353,7 +353,7 @@
         ]
       },
       "filament_preset": "Bambu PETG Translucent @BBL H2C",
-      "petg_recipe_sha256": "91abd1755f1755fbcd6afbee4416e99d1f27b9675aedbb51417075a4b8a84c0c",
+      "petg_recipe_sha256": "65a3db890723aeb119093c99d376bdf74507a4b55b13c989521100aca2085d32",
       "filament_id": "GFG01",
       "active_nozzle_mm": 0.6,
       "material_identity": "Bambu PETG Translucent Clear 32101",
@@ -363,9 +363,9 @@
       "layer_height_mm": 0.18,
       "first_layer_height_mm": 0.3,
       "pause_before_z_mm": 57.18,
-      "geometry_sha256": "3da591869317b109bcbbbe0b6b38500f7ded669255ef98cc67b44cceef946a4d",
+      "geometry_sha256": "dc5bada52ee3f7de695d4abe3418f2cb8c789d3a4874e9ae30a54ef344cce9e1",
       "meshes_sha256": {
-        "body-petg": "a5e3616e921769666c8c1314f57736e3b8d08b74bd4e2f93fc9a2a51c1f86095"
+        "body-petg": "b31378bc31b0a8936e65f94d25bfece54062c28eca3c23c5bec42851cd43a867"
       },
       "objects": [
         {
@@ -375,7 +375,7 @@
           "fit_allowance_radial_mm": null
         }
       ],
-      "project_sha256": "577346277dbda7ed878bec0564f1afa22b192db59cd54e7cfd208efd14d34729",
+      "project_sha256": "60e21fd89bb201ffa4baaf4f3bdd86a0eb685021d4173016af42bf3011fb16e2",
       "effective_material_settings": {
         "nozzle_temperature": [
           "260"
@@ -436,9 +436,9 @@
         {
           "plate": 1,
           "part": "body-petg",
-          "estimated_seconds": 7324,
-          "total_material_g": 31.68,
-          "object_extrusion_mass_g": 31.501461991849492
+          "estimated_seconds": 7362,
+          "total_material_g": 31.65,
+          "object_extrusion_mass_g": 31.46319071007548
         }
       ]
     }
