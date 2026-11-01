@@ -242,9 +242,9 @@
     "hardware/printed-parts/cold-core/foam-cap/reservoir-b-fill-guide.step": "8a74a8056b6b6466d79b2885e8869e5ab78a1188d01333e6477cd8c58d573157",
     "hardware/printed-parts/cold-core/foam-cap/reservoir-b-fill-guide.step.mesh": "222dc2dfe04909040eef3d80c4e97018632291841a43bc6b480f51b973b1548e",
     "hardware/printed-parts/cold-core/foam-cap/reservoir-b-fill-guide.stl": "0fd7a6158d18c346622dfe5858c752b7cd26437bf29968ac4bcc92697937c4b6",
-    "hardware/printed-parts/cold-core/foam-shell/foam-shell.step": "6f9445c5100eda24e79e6986d1acba16b1335dba3484bffb0b64af2f28449c13",
-    "hardware/printed-parts/cold-core/foam-shell/foam-shell.step.mesh": "07ebf3dec12ace0cdc4ded418eed6b02ffa73c5e0cd347296ac29d52c20c81a4",
-    "hardware/printed-parts/cold-core/foam-shell/foam-shell.stl": "a8fc1a29ded8daaaae3498e0af15b5923d6149c187f68ba0790cba81773d92cf",
+    "hardware/printed-parts/cold-core/foam-shell/foam-shell.step": "a716b44ef657e0355fbceae6c2dcba6a4de45feefad6417245149f26abef5ad7",
+    "hardware/printed-parts/cold-core/foam-shell/foam-shell.step.mesh": "a380128b3febfa7107dfcdd4c2e339c2e32c472f2472770c7eb7d71209c58247",
+    "hardware/printed-parts/cold-core/foam-shell/foam-shell.stl": "132c06ecc887624ae36c98c168f97efaa533deb278a4b93a3d2f725455d93164",
     "hardware/printed-parts/cold-core/magnetic-float/all-aero/assembly.step": "8a8166649e23bb9be37a099cc59603e0d43ba692e78871302f44688168c78a3d",
     "hardware/printed-parts/cold-core/magnetic-float/all-aero/assembly.step.mesh": "0eac0aa551df76b39ef5ba62e33e18c66a85c700b4670ce511d8bb5c08b9702d",
     "hardware/printed-parts/cold-core/magnetic-float/all-aero/float-aero.step": "1e4ed9c8ebea605ef20e10455824795c1b795d3e9458aea1ced41d55cb52d1e1",
@@ -1678,9 +1678,9 @@
     "hardware/printed-parts/cold-core/foam-cap/reservoir-b-fill-guide.step": 1793529595,
     "hardware/printed-parts/cold-core/foam-cap/reservoir-b-fill-guide.step.mesh": 1793529595,
     "hardware/printed-parts/cold-core/foam-cap/reservoir-b-fill-guide.stl": 1793529595,
-    "hardware/printed-parts/cold-core/foam-shell/foam-shell.step": 1793531159,
-    "hardware/printed-parts/cold-core/foam-shell/foam-shell.step.mesh": 1793531159,
-    "hardware/printed-parts/cold-core/foam-shell/foam-shell.stl": 1793531159,
+    "hardware/printed-parts/cold-core/foam-shell/foam-shell.step": 1793543574,
+    "hardware/printed-parts/cold-core/foam-shell/foam-shell.step.mesh": 1793543574,
+    "hardware/printed-parts/cold-core/foam-shell/foam-shell.stl": 1793543574,
     "hardware/printed-parts/cold-core/magnetic-float/all-aero/assembly.step": 1791068517,
     "hardware/printed-parts/cold-core/magnetic-float/all-aero/assembly.step.mesh": 1792060413,
     "hardware/printed-parts/cold-core/magnetic-float/all-aero/float-aero.step": 1791068517,
@@ -3320,16 +3320,16 @@
       "commit": "3a5da02990f68eb2c696eff99159841546bf4d3f"
     },
     "hardware/printed-parts/cold-core/foam-shell/foam-shell.step": {
-      "inputs": "36dfcdaba4abf8f847ec603dfef6e86a72141e61eb1df103295eb4e637a34081",
-      "commit": "1d2e6cf1700966e1ecee2aacf4a6d800f305b302"
+      "inputs": "45273eddb847171a9704753cd201b2774dda073805c0bfd1b1d5f0b9199712a3",
+      "commit": "24b3364c5ef7f41d0597622a1895c73784052d3f"
     },
     "hardware/printed-parts/cold-core/foam-shell/foam-shell.step.mesh": {
-      "inputs": "33ed00e5621c85a6e8da84f6e13d240b7f9b4cf4f99b4c0a9dc800299612a709",
-      "commit": "1d2e6cf1700966e1ecee2aacf4a6d800f305b302"
+      "inputs": "42555ab06981c556cd7b836afa9ab0af7eddde82fa0aaab6ea21b29f6d469f84",
+      "commit": "24b3364c5ef7f41d0597622a1895c73784052d3f"
     },
     "hardware/printed-parts/cold-core/foam-shell/foam-shell.stl": {
-      "inputs": "36dfcdaba4abf8f847ec603dfef6e86a72141e61eb1df103295eb4e637a34081",
-      "commit": "1d2e6cf1700966e1ecee2aacf4a6d800f305b302"
+      "inputs": "45273eddb847171a9704753cd201b2774dda073805c0bfd1b1d5f0b9199712a3",
+      "commit": "24b3364c5ef7f41d0597622a1895c73784052d3f"
     },
     "hardware/printed-parts/cold-core/magnetic-float/all-aero/assembly.step": {
       "commit": "d2c7e36f5c616919c8be5d1ccb8205b0fbac8540",
