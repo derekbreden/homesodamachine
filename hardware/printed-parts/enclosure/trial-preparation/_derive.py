@@ -113,18 +113,17 @@ def transition_band(geo: Geometry, feature: dict) -> dict:
     if not chamfer.any():
         raise FeatureMissing(f"{feature['name']}: no 0.5:1 chamfer faces in {feature['select']}")
     _check(feature, "chamfer area", area, "chamfer_area_mm2")
-    # The foot is the flat face the straight runs start from: the most chamfer area starts there.
-    feet = np.round(geo.zlo[chamfer], 2)
-    values, inverse = np.unique(feet, return_inverse=True)
-    foot = float(values[np.argmax(np.bincount(inverse, weights=geo.a[chamfer]))])
     significant = chamfer & (geo.a >= 0.05)
+    # The chamfer starts at its lowest geometric edge. Interior triangle splits do
+    # not give the surface another foot, however much area starts at those splits.
+    foot = float(geo.zlo[significant].min())
     top = float(geo.zhi[significant].max())
     radius = feature["radius_mm"]
     measured = (top - foot) / RISE_PER_RADIUS
     if abs(measured / radius - 1.0) > feature.get("radius_tolerance", 0.1):
         raise FeatureMissing(f"{feature['name']}: the chamfer rises {top - foot:.3f} mm above its foot at "
                              f"print Z{foot:.3f}, an R{measured:.2f} transition against the declared R{radius:g}")
-    low = float(geo.zlo[significant].min())
+    low = foot
     high = top + ARC_PER_RADIUS * radius
     paint = zone & (geo.n[:, 2] < -0.02) & (geo.n[:, 2] > -0.999) & (geo.zhi >= low - 0.01) & (geo.zlo <= high + 0.01)
     return {"name": feature["name"], "kind": "transition_band", "span_print_z_mm": [low, high],
