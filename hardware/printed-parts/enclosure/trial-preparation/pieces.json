@@ -1080,7 +1080,7 @@
       "settings": {
         "wall_loops": {
           "value": "3",
-          "reason": "Three Classic perimeters from each face of the working 2.4 mm spring arch and 3 mm wings."
+          "reason": "Three Classic perimeters from each face of the working 3.1 mm spring arch and 3 mm wings."
         },
         "wall_generator": {
           "value": "classic",
