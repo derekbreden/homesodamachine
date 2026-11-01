@@ -424,13 +424,13 @@
    "to": "water-in.end",
    "stock": "1/4\" LLDPE",
    "od": 6.35,
-   "length": 250.35,
+   "length": 267.47,
    "bend": 14.0,
    "radius": 14.0,
    "minBend": 14.0,
    "ratio": 1.0,
    "grade": "B",
-   "reach": 131.41,
+   "reach": 145.32,
    "reachGrade": "D",
    "binding": null,
    "corners": [
@@ -478,7 +478,7 @@
     }
    ],
    "need": {
-    "detour": 1.905
+    "detour": 1.841
    }
   }
  ]

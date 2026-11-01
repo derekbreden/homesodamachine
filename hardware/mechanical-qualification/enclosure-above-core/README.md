@@ -8,7 +8,13 @@ regulator, V-A/V-K, ceiling PSU and west-wall relays. The pump, PCB and V-B
 remain on the cold core. Integral seats and removable snap caps share those
 native placements; the rear nut-seat relief ends at the continuous ceiling.
 
-## Current native records
+V-K stands 2.5 mm higher with its body upright. The tee and its short tube
+links make the local adjustment; ASSE and the regulator retain their aligned
+frames. The roof and core lid have no relief for this movement. The fore
+pumps, tees and valves retain their aligned stations and compact lower
+returns. The flank pockets provide the named outer-coil clearance.
+
+## Artifact-bound native records
 
 The [enclosure fit review](enclosure-fit-review.json) binds the changed lid
 anchors, flavor restraint, V-B and V-K to the exported native appliance. All
@@ -26,11 +32,17 @@ cleanup removes stock only; the added flavor-root stock has its own complete
 rear-approach clearance reading.
 
 The [surface review](surface-review.json) reads all seven anomaly classes on
-the four quadrant STLs, pump retainer and core lid. Each named working
+the four quadrant STLs, pump retainer and core lid and cap cup. Each named working
 profile retains its own reason and alternatives. The shared motor, PCB and
 display-chimney room has no intervening skins. The flavor clip's rising root
 roof stays below its free jaws. Defined springs, fitted catches and approved
 flute and vent sections retain their specific scopes.
+
+The [print-preparation review](print-preparation-review.json) binds each
+retained native slice to the exact physical STL. It identifies every support
+body's removal lane, including bodies without interface labels. The aft
+reservoir saddle's 3.2 mm wide tie passage is support-free and bridges
+across its short width. Tree(auto)/Default retains its decisions elsewhere.
 
 The [drain and flavor check](../../manifold-layout/drain-clearance-check.json)
 checks the adapter, white OVER return and both flavor paths against the installed
@@ -50,26 +62,29 @@ candidates against the complete stage boxes. [connector_service.py](connector_se
 reproduces the recorded continuous stage bounds without generating a review.
 
 The [installed wiring binding](../../wiring/installed/above-core-review/installed-wiring-binding.json)
-reads all 120 native wiring bodies and compares all 101 conductor curves
-with their current source. The [routing review](../../wiring/installed/routing-review.json)
-checks larger bodies, excluding wires and tubes as wire obstacles. Its three
-mesh witnesses are resolved in the [enclosure routing review](../../wiring/installed/above-core-review/routing-enclosure-review.json): either zero material
-intersection or contact wholly inside the named electrical attachment.
-There are no unresolved larger-body contacts. Every preparation cut covers
-its installed route.
+and [routing review](../../wiring/installed/routing-review.json) carry their own
+artifact hashes. Wire obstacles are larger bodies; other wires and tubes are
+excluded. The [enclosure routing review](../../wiring/installed/above-core-review/routing-enclosure-review.json)
+records native readings of its named mesh witnesses.
 
-Each current record names its artifact hashes. The final root-stock update
-also records the added material and proves that it is outside the recorded
-vent windows and connector sweeps, with no native intersection against any
-other installed body. Earlier diagnostic records in this directory apply
-only to the geometry and source hashes they identify.
+Each record names its artifact hashes. The V-A feed has full straight
+receiving lengths, tangent circular bends of at least R14 and a filled-root
+C2 snap at X16.608/Y207.300/Z268.970. Y-A's socket points east on XYZ axes.
+Reservoir A's first bends start outside the full receiving lengths. Reservoir
+B's draw line steps east above its cap mouth to clear the V-B return.
+
+The pump's complete rubber feet and raised legs slide out of the fixed
+rails. Its bare lower casing bears on the lid and the 20 × 12 mm rear land.
+Two joined wide-tie loops pass through underside-open lanes, each retaining
+3.8 mm of lid roof. The PSU mounting face is Z346.7; all four 5.3 mm pilots
+end at Z352, below the continuous 3 mm show skin.
 
 ## Assembly interfaces
 
 Populate back-top ceiling-down on the bench. Fit the electronics and
 threaded equipment before closing their snap caps. Prepare the meter with
 its continuous R14 inlet, accepted holder, one square-cut 61 mm foam sleeve
-and concealed outlet tube. Tighten the pump screws before threading this
+and concealed outlet tube. Thread and tighten both pump loops before threading this
 inlet or loading the lid's tube snaps.
 
 The rear label tiles are 1.8 mm thick in 2.0 mm continuous channels. Their

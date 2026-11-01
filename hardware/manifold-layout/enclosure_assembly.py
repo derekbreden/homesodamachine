@@ -1478,18 +1478,8 @@ MOUNT_TOL = 0.001
 
 
 def pump_mount_rows(foam_carry, water_pump_carry) -> list:
-    """Each of the pump's four mounting bores against the cap column bored for it, as
-    `(has, wants)` in the cap's own frame.
-
-    `wants` is the bore taken through the pump's placement and back into the cap's frame;
-    `has` is the station `_cold_core_interface.deck_mounts` prints. Both are re-derived off the
-    placed pump at every build, the same way the valve cradles are, because the pump is stood on
-    the core's crown by this module and the column is printed by a part that never sees it."""
-    printed = sorted(_cci.deck_mount_xy("g-ganen-pump"))
-    wanted = sorted(cap_xy(foam_carry, water_pump_carry(
-        ((hx, hy, _lines._pump.mount_seat_z()), (0.0, 0.0, 1.0)))[0][:2])
-        for hx, hy in _lines._pump.mount_holes())
-    return list(zip(printed, wanted))
+    """The bare pump uses the integral casing bearing and two joined strap loops."""
+    return []
 
 
 def cap_anchor(name: str):
@@ -1544,43 +1534,12 @@ def water_pump_port_lane_limit() -> float:
 
 
 def build_water_pump(foam, gate: float, foam_carry):
-    """The measured pump on its bearing datum, standing on the four columns the cap prints for it.
-
-    THE CAP'S COLUMNS PLACE IT. The four M3 screws through its feet are the pump's whole
-    fastening, and the cap strikes their columns for one pump origin
-    (`g_ganen_installation.CAP_PUMP_ORIGIN`, whose aft term is the 9.7 mm off the core's rear
-    that clears the rear shell and nameplate), so the pump's origin goes on that station carried
-    out through the core's own placement. The lanes west of it — the retained mounting datum and
-    the flavour unions' own storey — are read at that station, and a pump that would crowd
-    either raises rather than leaving its columns.
-
-    Each selected rubber foot slides only along its casing rail. Free rubber can
-    extend below the measured average bearing plane; its box does not set the
-    pump height.
-    """
-    pump = _lines._pump
-    shape = pump.build()
-    origin = foam_carry(((*_foam.spin_xy(pump.CAP_PUMP_ORIGIN), 0.0), (0.0, 0.0, 1.0)))[0]
-    bearing_z = cap_face(foam)
-    turns = (((0, 0, 1), WATER_PUMP_YAW),)
-    placed, carry = seat_body(shape, turns, seat="g-ganen-pump",
-                              station=(pump.bearing_datum(), (origin[0], origin[1], bearing_z)))
-    rigid = pump.rigid_shape().moved(carry.where)
-    rb = box(rigid)
-    west = pump_west_face(rigid, bearing_z + pump.observed_pad_upper_z(), rb.zmax,
-                          pump_rear_lane_front_y(carry), rb.ymax)
-    storey = flavor_storey(gate, carry)
-    lane = pump_west_face(rigid, storey - _jg.BODY_D / 2.0, storey + _jg.BODY_D / 2.0,
-                          bulkhead_mouth_y(), _enc.rear_plane_y)
-    for face, limit, what in ((west, water_pump_west_limit(), "the retained mounting datum"),
-                              (lane, water_pump_port_lane_limit(),
-                               "the flavour unions' port lane")):
-        if face is not None and face < limit - 1e-6:
-            raise ValueError(
-                f"build_water_pump: on its cap columns the pump's casting reaches x {face:.3f}, "
-                f"{limit - face:.3f} mm west of {what} at x {limit:.3f}. The columns and the "
-                f"lane are one placement: move the columns (`CAP_PUMP_ORIGIN`) or the lane.")
-    return placed, carry
+    """Bare pump at the canonical lid-casing bearing and strap-loop datum."""
+    solid, _colour, carry = _above_parts.components()['g-ganen-pump']
+    point = carry(((0., 0., 0.), (0., 0., 1.)))[0]
+    record_seat('g-ganen-pump', station=point, got=point,
+                members=('g-ganen-pump',))
+    return solid, carry
 
 
 # --- the pump's two elbows, on its own barbs --------------------------------

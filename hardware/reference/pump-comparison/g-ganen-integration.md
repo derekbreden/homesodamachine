@@ -1,59 +1,30 @@
 # G Ganen enclosure integration map
 
-The selected received pump is **G Ganen B07F35PTFR**. Its three native scans,
-measured rigid housing and independent ports are in
-[the reference](../g-ganen-pump/README.md). Derek confirms that its four removable
-sliding rubber feet are identical and their pads are approximately 7 mm thick.
-The shared foot geometry and raw observed poses remain separate.
+The selected received pump is **G Ganen B07F35PTFR**. Its measured housing,
+independent barbs and purchased removable sliders belong to
+[the reference](../g-ganen-pump/README.md). The complete rubber foot-and-leg
+assemblies slide out of the fixed rails and are absent from production.
 
-Installed flow is **enclosure −X**: suction faces east and discharge faces west.
-A +90° Z rotation maps reference +Y discharge to world −X. Electrical demand and
-hydraulic performance have separate physical qualification; the geometric model
-does not supply those ratings.
-
-## Reference and installation
-
-`hardware/reference/g-ganen-pump/installation/g_ganen_installation.py` is the
-production API. It supplies the conservative native components, selected foot
-poses, screw axes, bearing datum and separately measured ports. The production
-scene key is `g-ganen-pump`.
-
-The common foot's selected slot stations are X=9.5 and 67.5 mm, Y=±38.5 mm.
-Each clip is fully engaged at the corresponding end of the visible rail; these
-are chosen full-engagement positions, not claimed hard stops. The M3 × 20 screw
-axes sit 1.5 mm outward inside the slots, with Ø9 × 0.8 mm washers on the nominal
-7 mm pads. The [installation record](../g-ganen-pump/installation/README.md)
-contains the cap-frame mounting axes and current native checks.
-
-## Consumers
+[The installation API](../g-ganen-pump/installation/g_ganen_installation.py)
+supplies the bare fixed pump and independent ports. The scene key is
+`g-ganen-pump`; [above-core.json](../../manifold-layout/above-core.json) owns its
++90° yaw and world pose. Suction faces east and discharge west.
 
 | Consumer | Current contract |
-| --- | --- |
-| `enclosure_assembly.build_water_pump` | Places the explicit bearing datum on the cap lid; uses the rigid motor rear and installed rear clearance for fore/aft position, then checks pan and rear-fitting lanes. |
-| `enclosure_assembly.pump_mount_rows` | Transforms every selected screw axis into the cap frame and compares it with the printed column. |
-| `_cold_core_interface.deck_mounts['g-ganen-pump']` | Four explicit cap stations, nominal pad/washer stack, M3 × 20 screw and blind-bore reserve; `_foam_cap` produces columns and lid passages. |
-| `build_pump_elbows`, `build_discharge_chain`, `build_vk` | Seat a printed elbow on each measured barb tip and axis, the check chain on its cap anchor and V-K on its cap cradle. The chain and V-K are independent of the movable feet. |
-| `pan_front_y`, `build_pan`, `pump_west_face` | Use the actual placed discharge/casting envelope and the pan's own clearance span; preserve pan landing and withdrawal. |
-| `_lines._water_6`, `_lines._water_7` | Connect the elbows' tube sockets to the check chain and to V-K on 1/4" LLDPE, with axial leads and R14 bends. |
-| `_lines` other routes and `_scorecard` | Use the current `g-ganen-pump` body/ports, native neighbor clearance, port leads, bend limits and exact cap contact classification. |
-| `_tube_export` | Uses each elbow's 15 mm tube socket as its end grip; actual elbow insertion and retention remain assembly observations. |
-| `_bom_sync`, assembly instructions and cards | Carry the selected pump identity and four current mount screws consistently. |
+|---|---|
+| `above_core_parts.pump_native` | Fixed casing, motor, rails, switch and barbs, with no rubber sliders |
+| `_above_core_mounts.pump_cradle` | Integral rear casing bearing; front casing bears directly on the plain lid |
+| `_above_core_mounts.pump_tie_cuts` | Underside-open lanes for two loops, each using two joined 8-inch wide ties |
+| `enclosure_assembly.pump_mount_rows` | Empty: no pump screws or internal cup columns |
+| `rear_plumbing` | Clamped PVC/reducer joints, discharge check and continuous water-in bend |
+| `_scorecard.pump_cap_contact` | Complete bare rigid pump against installed core material |
+| `_bom_sync` and assembly instructions | Four owned wide ties and the bare-casing mounting sequence |
 
-The casing envelope intentionally fills its reentrant rail/cradle cavities.
-Native internal overlap at those classified regions does not describe the
-hidden rubber grip or material compression. External neighbor clearance uses
-the complete placed pump, including all four common feet.
+The [installation procedure](../g-ganen-pump/installation/README.md) gives the
+native datum, bearing height, strap routing and replacement sequence. The
+[mechanical records](../../mechanical-qualification/enclosure-above-core/README.md)
+describe their nominal geometry and exact print inputs. Strap retention,
+vibration, printed force and hydraulic performance require the physical article.
 
-## Generation and print status
-
-The dependency order is cap, foam assembly, cold-core assembly, Box, shell
-pieces and complete enclosure assembly. The resulting native geometry, current
-assembly gates and exact slice/support evidence determine the print inputs.
-[Print readiness](../../printed-parts/enclosure/print-readiness.md) records the
-current build and queue. The full enclosure is the intended assembly trial;
-physical spring feel, rubber tightening and plumbing commissioning follow on
-that complete printed assembly.
-
-The Kamoer pump cradle and cap have a separate materializer and their own accepted
-local fit evidence. Pump-foot changes do not establish a need to alter those
-local bearing surfaces.
+The two front flavor pumps have their own cradle and retainer. Their accepted
+local bearing surfaces retain their specifically bound qualification.

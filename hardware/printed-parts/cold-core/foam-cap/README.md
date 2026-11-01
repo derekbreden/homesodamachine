@@ -128,21 +128,23 @@ head engagement and retention remain unqualified.
 
 The [production arrangement](../../../manifold-layout/above-core.md) owns the
 installed component frames. [_above_core_mounts.py](../_above_core_mounts.py)
-carries the native PCB and four identical pump-foot mounting patterns into
-the cap. The PSU mounts in back-top's shallow ceiling recess with four M3 × 10
-screws into short inserts. The four rear equipment caps close their integral
-shell seats without ties.
+carries the native PCB mounting pattern into the cap. The PSU uses four
+M3 × 10 screws and short inserts beneath a continuous 3 mm roof skin. Four
+rear equipment caps close their integral shell seats without ties.
 
-| Equipment | Stations | Screw | Insert | Bearing stack and reach |
-| --- | ---: | --- | --- | --- |
-| G Ganen diaphragm pump | 4 | M3 × 20 | RX-M3x5.7 | Nominal 7 mm rubber pad + 0.8 mm washer, 5.4 mm lid and 0.15 mm dry joint; 6.65 mm nominal reach into the column |
-| Main PCB | 4 | M3 × 8 | RX-M3x5.7 | 1.6 mm PCB on 3.6 mm standoffs; 6.4 mm reach |
+| Equipment | Stations | Fixing | Bearing |
+| --- | ---: | --- | --- |
+| Bare G Ganen diaphragm pump | 2 | Two joined 8-inch, 50 lb nylon ties per loop | Front casing datum and integral rear bearing; complete rubber feet and legs removed |
+| Main PCB | 4 | M3 × 8 / RX-M3x5.7 | 1.6 mm PCB on 3.6 mm standoffs; 6.4 mm reach |
 
-These eight cup-rooted columns are Ø10 mm with Ø4 mm blind pilots 9.75 mm
-deep, retaining the ordinary 3 mm radial insert wall. Flush pilot bottoms retain
-4.55 mm of stock to the cup's outer floor. The PCB posts pass through clearance
-holes in the lid. The pump retains its purchased rubber sliders and Ø9 × 0.8 mm
-washers; installed rubber compression and isolation remain unqualified.
+The four cup-rooted PCB columns are Ø10 mm with Ø4 × 9.75 mm blind pilots.
+The columns retain 3 mm radial insert stock and pass through lid clearance
+holes. The two 5.6 × 1.6 mm tie lanes open along the lid underside and end in
+through-slots outside the fixed rails. The plate retains 3.8 mm of roof over
+each lane. Thread two joined wide-tie loops before closing the cap; mask the
+lanes during the foam pour. Keep both buckles beside the motor below its
+equator and clear of the PSU. The [pump installation](../../../reference/g-ganen-pump/installation/README.md)
+records its bearing datums and removable sliders.
 
 The core's earth lead threads through the shared cable guide before its
 outside ferrule is crimped, and lands in port 2 of back-top's rear PE WAGO
@@ -222,7 +224,8 @@ The upper passages follow the installed equipment:
   the front-facing R14 guide into its reservoir's original fill seat. Three
   recessed lid screws surround the bend's lift region.
 - The pressure-water inlet passes straight through world
-  (−80.4167, 402.9988, 253.4) mm and turns at R14 to the pump's suction joint.
+  (−82.5, 420, 253.4) mm and follows two tangent bends, minimum R14.923,
+  to the pump discharge check.
   The Ø7.5 mm column has 3 mm radial stock. The guide adds no fitting,
   insertion or cut to the continuous tube.
 - The gas guide passes through (59.101, 354.664, 253.4) mm. Its lower R14
@@ -245,7 +248,7 @@ The upper passages follow the installed equipment:
   and lid passage directly above its reed channel, at world X−32.5/Y458.3.
   Its upper mouth is on the Z253.4 lid face. Thread the complete 5P ribbon
   straight through this passage; its bends and jogging are dressed above
-  the lid. Its return crosses aft of the pump feet at Y450 and passes the
+  the lid. Its return crosses aft of the motor at Y450 and passes the
   lid hook at X−78/Y424 before reaching the PCB. The nominal packed reed
   bundle is 5.0 mm across.
 - Reservoir B's reed loom leaves through the shell's top-open 8 × 6 mm rim
@@ -273,7 +276,7 @@ The existing 2 mm floor and 3 mm new column stock retain their own scope.
 
 The [native geometry review](above-core-native-review.json) records the scoped
 passage, insert-stock, fitting-pocket, pump/check-bridge and valve-wall interface
-queries. The eight pilots retain their complete 9.75 mm depth with the
+queries. The four PCB pilots retain their complete 9.75 mm depth with the
 supplier's 1.6 mm minimum surrounding wall and at least 1 mm blind backing.
 
 The lid lifts after the equipment connections and its fasteners are released;

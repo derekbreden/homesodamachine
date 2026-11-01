@@ -10,9 +10,9 @@ wiring use those same frames. Front is −Y, rear is +Y and up is +Z.
 
 The enclosure body is 215 × 466.3 × 361 mm. The cold-core lid face is Z253.4.
 Back-top has a 9 mm roof and rear wall. The PSU's shallow running well retains
-6.25 mm of roof over its body. Its four M3 × 10 screws enter short RX-M3S × 4
+8.05 mm of roof over its body. Its four M3 × 10 screws enter short RX-M3S × 4
 inserts; the modeled ear range gives 2.3–4.3 mm of screw projection and 1 mm
-of tip air. The four blind pilots retain 1.2 mm of roof behind them.
+of tip air. The four blind pilots end below the full 3 mm roof show skin.
 
 | Equipment | Arrangement | Support |
 |---|---|---|
@@ -23,7 +23,7 @@ of tip air. The four blind pilots retain 1.2 mm of roof behind them.
 | YZMSZ water regulator | East–west, above the pump | Integral ceiling seat and lower snap cap |
 | V-A | Hangs from the ceiling, its four posts upward; outlet turns east and then fore | Full-width integral socket plinth |
 | V-K | Beside the east wall, inlet up and outlet down | Integral full socket wall |
-| G Ganen pump | Motor fore–aft, suction east, discharge west; four matching rubber feet | Cold-core cup/lid columns |
+| G Ganen pump | Motor fore–aft, suction east, discharge west; complete rubber feet and legs removed | Lid casing bearing and two joined wide-tie loops |
 | Pump joints | Reinforced 3/8-inch PVC, trimmed PP061208W reducers and two butterfly clamps per barb | Clamped barb and reducer engagements |
 | Pump discharge check | ACVUS-44 stem directly in the discharge elbow | Discharge joint; continuous inlet enters the core guide |
 | Mean Well IRM-90 | Base upward in its shallow ceiling well, AC end aft | Four integral ceiling hosts |
@@ -42,6 +42,10 @@ short V-K and regulator links retain full receiving depths on gentle R555
 and R531 bends. ASSE, regulator and V-A retain their aligned frames. The
 [native local fit](../mechanical-qualification/enclosure-above-core/vk-local-fit-review.json)
 records the body clearances and tube extrema.
+
+The water elbows retain 0.4 mm exposed male shoulder lands outside their full
+receiving depths. The suction PVC uses two tangent arcs, minimum R39.968,
+while the bare pump and V-K keep their aligned body frames.
 
 The port columns are X37.25 and X77.5; rows are Z328, Z296 and Z264. TAP's bore
 follows the scanned inlet adapter's axis. The top row is TAP/CO2, the middle
@@ -65,13 +69,15 @@ external inlet and holder. The meter and soda union share a concealed tube.
 
 The gas check's socket feeds one bend, then an S to the guide at
 X59.101/Y354.664. The gas tube remains continuous to the carbonator's gas
-fitting and support-ring lane. The water check feeds an R14 turn into the
-straight guide at X−80.417/Y402.999. Neither guide adds a socket or tube cut.
+fitting and support-ring lane. The water check feeds two tangent bends, minimum R14.923, into the
+straight guide at X−82.5/Y420. Neither guide adds a socket or tube cut.
 
-V-A's feed crosses above the pump, drops west of its return elbow and follows
-the plain lid through the upward-opening snap at X3/Y254.5/Z256.575. Two
-tangent arcs rise to the Y-A stem elbow, clocked 15 degrees toward the west;
-the receiving tube stays straight through its full 16.891 mm insertion.
+V-A's feed crosses above the pump and descends east of the regulator. Its
+continuous tangent bends pass above the PCB before entering the fore lane.
+The upward-opening snap at X16.608/Y207.300/Z268.970 has one filled root on
+the lid. Y-A's stem elbow points east, keeping the connector on XYZ axes
+and clear of the drain cradle. Both receiving lengths stay straight through
+the full 16.891 mm socket depth. All bends retain at least R14.
 V-B has a straight, fully inserted drain link with 1.585 mm exposed tube.
 Its return to Y-B retains at least R24.66; the cross-link has 0.542 mm
 exposed tube between full insertions. Complete
@@ -90,7 +96,7 @@ paths in their unequal-height seats. The front valve fittings and reservoir
 mouths retain their datums. Its free aft bends pass outside the soda foam.
 [reservoir-a-routes.json](reservoir-a-routes.json) owns their exact R14 segments.
 The two routes remain continuous through their core guides. Reservoir B's draw
-line steps 10 mm east above its core mouth on two R14 bends before joining the
+line steps 13 mm east above its core mouth on two R14 bends before joining the
 west fore corridor. It clears the V-B return and keeps J11's service lane open.
 Reservoir B retains its fore-entry fill passage, three recessed clamps and
 original TPU fill grip.
@@ -108,7 +114,7 @@ regulator and V-A/V-K header. Prepare the meter with its continuous inlet,
 holder, foam and concealed outlet tube, slide it onto the soda union and fit
 its west cap. Fit the vent cup and direct OVER return with both ties accessible.
 
-Build the pump and its clamped joints on the open core. Tighten its four screws
+Build the bare pump and its clamped joints on the open core. Tighten its two motor loops
 before loading tubes into the lid snaps. Complete the below-lid tube routes
 before closing the core. Keep the pump's suction elbow and its short
 quarter-inch inlet link loose while positioning back-top. Carry free
