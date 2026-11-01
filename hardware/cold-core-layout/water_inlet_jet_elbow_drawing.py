@@ -14,7 +14,6 @@ import math
 import sys
 from pathlib import Path
 
-import cadquery as cq
 from reportlab.pdfgen import canvas
 from reportlab.pdfbase.pdfmetrics import stringWidth
 
@@ -23,6 +22,8 @@ HW = HERE.parent
 for folder in (HERE, HW / "scripts", HW / "printed-parts/cold-core",
                HW / "cut-parts/carbonation/endcaps-circular"):
     sys.path.insert(0, str(folder))
+import _rust_part
+_rust_part.start()
 from _document_export import export_pdf
 from endcap_circular_drawing import (
     line, text, arrow, leader, circular_leader, center, horizontal_dimension,
@@ -54,20 +55,6 @@ REVIEW_REGIONS = [
     ("release-and-footer", 35, 27, 629, 178),
     ("title-block", 630, 27, 1197, 146),
 ]
-
-
-def reference_parts():
-    """Build a canonical reference: male tip Z=0, outlet +X.
-
-    Hex clocking in the installed layout is not a purchased-part requirement.
-    This view uses the reference builder's canonical orientation.
-    """
-    body, _ = fitting.street_elbow(
-        corner=(0, 0, CORNER_Z), up=(0, 0, 1), out=(1, 0, 0),
-        up_leg=carbonator.ELBOW_AXIS_OFFSET, male_len=fitting.ELBOW_MALE_LEN)
-    blank = cq.Solid.makeCylinder(JET_CAP_D / 2, JET_CAP_T)
-    passage = cq.Solid.makeCylinder(JET_PASSAGE_D / 2, JET_CAP_T)
-    return body, blank.cut(passage)
 
 
 def section_material(c, points, *, reverse=False):
@@ -109,7 +96,7 @@ def balloon(c, value, at, target):
     text(c, at[0], at[1] - 3, str(value), 9, bold=True, align="center")
 
 
-def assembly_view(c, body):
+def assembly_view(c):
     text(c, CX, 735, "WATER-INLET JET ELBOW", 12, bold=True, align="center")
     text(c, CX, 718, "SIDE VIEW - SCALE 2:1 - HIDDEN DETAIL OMITTED", 9, align="center")
     r = fitting.ELBOW_HEX_AF / math.sqrt(3)
@@ -133,7 +120,8 @@ def assembly_view(c, body):
     c.setLineWidth(VISIBLE)
     c.rect(CX-cap_r, SEAT, 2*cap_r, JET_CAP_T*SCALE, stroke=1, fill=0)
     left = r
-    bottom = body.BoundingBox().zmin
+    # The +X outlet hex has its lowest corner one circumradius below its axis.
+    bottom = CORNER_Z - r
     line(c, CX, SEAT + bottom * SCALE - 12, CX,
          SEAT + JET_CAP_T * SCALE + 14, dash=CENTER_DASH)
     axis_y = SEAT + CORNER_Z * SCALE
@@ -296,7 +284,6 @@ def title_block(c):
 
 
 def build_pdf(path):
-    body, jet = reference_parts()
     c = canvas.Canvas(str(path), pagesize=SHEET, invariant=1, pageCompression=1)
     c.setTitle("Carbonator water-inlet jet elbow - assembly engineering drawing")
     c.setAuthor("Home Soda Machine / Codex")
@@ -305,7 +292,7 @@ def build_pdf(path):
     c.setFillColorRGB(0, 0, 0)
     c.setLineWidth(0.8)
     c.rect(27, 27, SHEET[0] - 54, SHEET[1] - 54, stroke=1, fill=0)
-    assembly_view(c, body)
+    assembly_view(c)
     exit_view(c)
     joint_detail(c)
     parts_list(c)
