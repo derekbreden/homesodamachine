@@ -5203,9 +5203,8 @@ def build_drain_joint(box):
     floor = _funnel_frame.datums(_enc.funnel_seat_z(box.outer))[0]
     hole = (cx + _funnel.neck_dx, cy + _funnel.neck_dy, floor - _cradle.CATCH_GAP)
     up = (0.0, 0.0, 1.0)
-    cradle_native = import_step(str(_hw / "printed-parts/zone-c/funnel/elbow-cradle.step")).val()
-    cradle_native = cradle_native.translate(cq.Vector(0, 0, _cradle.block()[3]))
-    cradle, _ = seat_body(cradle_native, seat="elbow-cradle", station=(((0, 0, 0), up), hole))
+    cradle, _ = seat_body(_cradle.build(), seat="elbow-cradle",
+                         station=(((0, 0, 0), up), hole))
     native = _above_parts.native_reference('stem-elbow')
     tip = (cx + _funnel.neck_dx, cy + _funnel.neck_dy,
            _enc.funnel_seat_z(box.outer) + _funnel.spout_land_z)

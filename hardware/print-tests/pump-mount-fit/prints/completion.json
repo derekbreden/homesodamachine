@@ -1,0 +1,25 @@
+{
+  "scope": "Printer-reported completion of the requested base and clip trial jobs. Printed surface quality and actual pump fit, spring retention and running vibration are not established by these reports.",
+  "jobs": [
+    {
+      "printer": "Mark2",
+      "observed_at": "2026-11-01T20:53:54.779076+00:00",
+      "gcode_state": "FINISH",
+      "subtask_name": "2026-11-01-pump-fit-clip-mark2.gcode.3mf",
+      "layer_num": 227,
+      "total_layer_num": 227,
+      "print_error": 0,
+      "hms": []
+    },
+    {
+      "printer": "H2C",
+      "observed_at": "2026-11-01T20:53:54.755810+00:00",
+      "gcode_state": "FINISH",
+      "subtask_name": "2026-11-01-pump-fit-base-mark1-fac38622-print-only.gcode.3mf",
+      "layer_num": 160,
+      "total_layer_num": 160,
+      "print_error": 0,
+      "hms": []
+    }
+  ]
+}
