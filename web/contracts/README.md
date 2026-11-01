@@ -19,7 +19,7 @@ same file the server does — Node by path, the browser by URL, one source eithe
   beside a part. Read by `web/lib/viewer-routes.js` (`/api/dxf`) and `web/public/js/viewer/dxf.js`;
   pinned by `web/tests/sidecar.test.js`.
 - **documents.js** — a PDF the site hands over whole: the `<name>.pdf.json` sidecar that makes one
-  a document and the `<name>.cover.png` beside it. Written by whatever builds the document
+  a document and, for a guide, the `<name>.cover.png` beside it. Written by whatever builds the document
   (`tools/weld-rotator-guide/build.py` and the manual Letter guide builders); read by `web/lib/{walk,viewer-routes}.js` and
   `web/public/js/viewer/grid.js`.
 

@@ -20,8 +20,7 @@ The guides page at `/guides` groups search with its page title and shelves every
 document except the engineering drawings. A material's `engineering-drawing`
 document tag marks a drawing, and that material's panel shows it. Search lives
 in the URL so reader Back returns to the same results. Covers show the whole
-sheet within consistent preview frames; a published drawing's cover is rendered
-from its final PDF and named in the PDF sidecar.
+sheet within consistent preview frames.
 
 Standalone document readers have one toolbar for Back, title, page navigation,
 fit mode, zoom, and a document action menu. They open fitted to the page; Fit
