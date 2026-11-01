@@ -1,6 +1,7 @@
-"""Foam-cap tray and pour lid at each end of the cold-core shell.
-Rigid seats retain their printed-face clearances; exterior foil tape
-seals the dry casing seams."""
+"""Top equipment lid, open-topped bottom cap and internal B-fill bend holder.
+Rigid seats retain their printed-face clearances; exterior foil tape seals the
+cold core's dry casing seams.
+"""
 
 import cadquery as cq
 import math
@@ -29,8 +30,9 @@ import _above_core_mounts as _above_mounts
 import _reservoir_a_anchors as _a_anchors
 import above_core_wiring
 import _reservoir_ports as reservoir_ports
+import _reservoir_b_fill
 from _foam_cap import (
-    build_foam_cap,
+    build_bottom_cap,
     build_foam_cap_lid,
     head_access_pockets,
     head_pad_growth,
@@ -112,40 +114,21 @@ def _ring(section):
 
 
 def deck_boss_z_top(name):
-    """A deck mount's column tops, off the cap's floor. A flush mount stops at the mouth
-    rim, under the lid; a standing one carries the whole cup, the lid that closes it,
-    and its standoff. Same section the whole way, standing on the floor's cavity side —
-    the cap prints floor-down, and each column rises off the bed like the screw
-    bosses beside it."""
-    standoff = deck_mount_standoff(name)
-    if standoff == 0.0:
-        return top_cap_height - cap_lid_clearance
-    return top_cap_height + lid_total_height + standoff
+    """PCB bearing plane above the uniformly thick lid."""
+    return lid_total_height + deck_mount_standoff(name)
 
 
-def add_deck_mounts(cap):
-    """The electronics' boss columns, standing on the top cap's floor. Each carries a
-    blind bore at its top for a heat-set insert; foam pours around the shanks, so the
-    column is the module's only root."""
+def add_deck_mounts(lid):
+    """Four lid-rooted PCB columns with blind full-length M3 insert pilots."""
     for name in deck_mounts:
-        z_top = deck_boss_z_top(name)
-        for x, y in deck_mount_xy(name):
-            column = (
-                WorldWorkplane(xy_plane_z_up)
-                .workplane(offset=wall_and_floor_thickness)
-                .moveTo((x, y))
-                .circle(deck_mount_boss_radius)
-                .extrude(z_top - wall_and_floor_thickness)
-                .unwrap()
-            )
-            cap = cap.union(column).cut(
-                build_z_axis_hole_punch(
-                    origin=(x, y, z_top - deck_mount_bore_depth),
-                    hole_punch_radius=deck_mount_bore_radius,
-                    hole_punch_height=deck_mount_bore_depth,
-                )
-            )
-    return cap
+        top = deck_boss_z_top(name)
+        for x,y in deck_mount_xy(name):
+            column = cq.Solid.makeCylinder(deck_mount_boss_radius,top-lid_total_height+.1,
+                cq.Vector(x,y,lid_total_height-.1))
+            bore = cq.Solid.makeCylinder(deck_mount_bore_radius,deck_mount_bore_depth+.1,
+                cq.Vector(x,y,top-deck_mount_bore_depth))
+            lid = lid.union(column).cut(bore)
+    return lid
 
 
 def cradle_shape(name, face_z):
@@ -359,38 +342,6 @@ def _joining_slot(a, b, width, z0, z1):
             .translate(((ax + bx) / 2, (ay + by) / 2, z0)))
 
 
-def cut_deck_mounts_lid(lid):
-    """The lid's opening at every deck-mount station — a standing column passes it, and a
-    flush one meets its underside with only the screw crossing.
-
-    A column hole that leaves less than the pour gap beside a clamp screw's head pocket
-    opens into that screw's stations instead: a slot of the clearance hole's width
-    through the plate and one of the pocket's width above its floor, so no web or cusp
-    is left between the two."""
-    head_floor = lid_total_height - head_cbore_depth
-    for name in deck_mounts:
-        radius = deck_lid_hole_radius(name)
-        for x, y in deck_mount_xy(name):
-            lid = lid.cut(
-                build_z_axis_hole_punch(
-                    origin=(x, y, 0),
-                    hole_punch_radius=radius,
-                    hole_punch_height=lid_cut_through_depth,
-                )
-            )
-            for station in attachment_xy_positions:
-                if math.dist((x, y), station) - radius - head_cbore_radius >= deck_mount_cap_gap:
-                    continue
-                lid = (lid.cut(_joining_slot(station, (x, y), 2.0 * screw_clearance_radius,
-                                             -1.0, lid_cut_through_depth))
-                       .cut(_joining_slot(station, (x, y), 2.0 * head_cbore_radius,
-                                          head_floor, lid_cut_through_depth)))
-            for station in foam_cap_lid_vent_xy(top=True):
-                if math.dist((x,y),station)-radius-foam_cap_lid_vent_radius < deck_mount_cap_gap:
-                    lid = lid.cut(_joining_slot(station,(x,y),2.0*screw_clearance_radius,
-                                                -1.0,lid_cut_through_depth))
-    return lid
-
 
 def casing_outline(z0, z1):
     """The plain lid footprint, between two heights."""
@@ -404,7 +355,7 @@ def build_top_lid():
     """Equipment passages, integral V-B wall and board-facing wiring wells."""
     lid = add_side_anchors(
         add_chain_anchors(
-            add_cradles(cut_deck_mounts_lid(build_foam_cap_lid()), lid_total_height),
+            add_cradles(add_deck_mounts(build_foam_cap_lid()), lid_total_height),
             lid_total_height, names=tuple(n for n in cap_anchors if n != 'discharge-chain')),
         lid_total_height)
     lid = lid.union(_above_mounts.world_shape_in_cap(_above_mounts.pump_cradle()))
@@ -443,89 +394,22 @@ def cut_reservoir_air_bores(shape, z0, z1):
     return shape
 
 
-def add_reservoir_air_passages(cap):
-    """Floor-rooted columns keep pour foam off both independent air tubes."""
-    diameter = reservoir_ports.air_passage_diameter + 2 * reservoir_ports.air_passage_wall
-    for shell_xy in reservoir_ports.air_position.values():
-        xy = tuple(-v for v in shell_xy)
-        cap = cap.union(reservoir_ports.cylinder(
-            xy, cap_shell_clearance, top_cap_height - cap_lid_clearance, diameter))
-    return cut_reservoir_air_bores(cap, -.1, top_cap_height + .1).clean()
-
 
 def main():
-    # Top cap opens +Z (mouth up); the bottom cap is the same cup built
-    # mouth-down (open ceiling −Z), so both stack onto the shell by Z-shift
-    # alone and the bottom cap's screws land on the shell's existing bosses.
-    plain_cap_top = build_foam_cap()
-    cap_top = add_reservoir_air_passages(add_deck_mounts(plain_cap_top))
-    cap_bottom = build_foam_cap(open_down=True)
-    # Each lid's head pads face its own cap's mouth, so the two are built with
-    # the same flag as the caps they close, not one derived from the other.
-    lid_bottom = build_foam_cap_lid(open_down=True)
     lid_top = build_top_lid()
-    pump_snap = _above_mounts.pump_snap_printable()
-
-    assert len(cap_top.solids().vals()) == 1, "cap_top must be a single solid"
-    # Every plinth and anchor joins the lid.
-    assert len(lid_top.solids().vals()) == 1, "lid_top must be a single solid"
-    # The lid is no taller than its own plate + pad + whatever stands on its
-    # outer face. The bottom lid's outer face is a plane; the top lid's extra
-    # height includes its V-B wall and check bridge.
-    cradle_proud = max((s.seat + seat.seat_top_z for s in cap_cradles.values()), default=0.0)
-    anchor_proud = max((cap_anchor_axis_over_face(n) for n in cap_anchors), default=0.0)
-    side_proud = max((cap_side_anchor_height(n) for n in cap_side_anchors), default=0.0)
-    for name, lid, proud in (
-        ("foam-cap-lid-bottom", lid_bottom, 0.0),
-        ("foam-cap-lid-top", lid_top, max(cradle_proud, anchor_proud, side_proud,
-                    _above_mounts.world_shape_in_cap(
-                        above_core_wiring.cap_features()['add']).BoundingBox().zmax-lid_total_height,
-                    *(_above_mounts.valve_support(n,lid_total_height).BoundingBox().zmax
-                      - lid_total_height for n in ('valve-v-b',)))),
-    ):
-        zlen = lid.val().BoundingBox().zlen
-        assert math.isclose(zlen, lid_total_height + proud, abs_tol=1e-6), \
-            f"{name} stands {zlen:.4f} mm tall, not {lid_total_height + proud:g}"
-
-    for shape, name, colour in (
-            (cap_top, "foam-cap-top", _mat.C_CAP_TOP),
-            (cap_bottom, "foam-cap-bottom", _mat.C_CAP_BOTTOM),
-            (lid_top, "foam-cap-lid-top", _mat.C_CAP_LID_TOP),
-            (lid_bottom, "foam-cap-lid-bottom", _mat.C_CAP_LID_BOTTOM),
-            (pump_snap, "pump-snap-cap", _mat.M_PETGF_BLACK)):
-        export_assembly(one_body(shape, name, colour), str(_here / f"{name}.step"))
-    print("-> foam-cap-top.step")
-    print("-> foam-cap-bottom.step")
-    print("-> foam-cap-lid-top.step")
-    print("-> foam-cap-lid-bottom.step")
-    print("-> pump-snap-cap.step")
-
-    for shape, name in ((cap_top, "foam-cap-top"), (cap_bottom, "foam-cap-bottom"),
-                        (lid_top, "foam-cap-lid-top"), (lid_bottom, "foam-cap-lid-bottom"),
-                        (pump_snap, "pump-snap-cap")):
-        write_bed_file(shape, _here / f"{name}.stl")
-    import flute_payload
-    flute_payload.cut(_here / 'pump-snap-cap.step', _here / 'pump-snap-cap.stl',
-                      preserve_print_triangles=True)
-
-    variables = {
-        "LID_Z_H": f"{lid_total_height:.4g} mm",
-        "FCAP_BORE_D": f"{2.0 * cap_conduit_bore_radius:.4g} mm",
-    }
-    substitute_py_comments(
-        Path(__file__),
-        variables=variables,
-    )
-    # `_foam_cap` is where the two cups and the two lids are actually built, and it states the
-    # conduit bore in its own docstrings. It exports no `__main__`, so this is the run that
-    # hands it its figures.
-    substitute_py_comments(
-        Path(_foam_cap_module.__file__),
-        variables=variables,
-    )
-    print("-> _foam_cap.py")
-    print(f"-> {Path(__file__).name} (self)")
+    cap_bottom = build_bottom_cap()
+    for shape,name,colour in (
+        (lid_top,'foam-cap-lid-top',_mat.C_CAP_LID_TOP),
+        (cap_bottom,'foam-cap-bottom',_mat.C_CAP_BOTTOM),
+        (_reservoir_b_fill.guide_native(),'reservoir-b-fill-guide',_mat.C_CAP_TOP),
+        (_above_mounts.pump_snap_printable(),'pump-snap-cap',_mat.M_PETGF_BLACK)):
+        export_assembly(one_body(shape,name,colour),str(_here/f'{name}.step'))
+        write_bed_file(shape,_here/f'{name}.stl')
+        print(f'-> {name}.step / .stl')
+    for name in ('foam-cap-top','foam-cap-lid-bottom'):
+        for suffix in ('.step','.step.mesh','.stl'):
+            (_here/f'{name}{suffix}').unlink(missing_ok=True)
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()

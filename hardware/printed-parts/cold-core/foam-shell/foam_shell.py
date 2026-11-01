@@ -42,6 +42,7 @@ from _cold_core_interface import (
     foam_cap_lid_pour_radius,
     foam_cap_lid_vent_radius,
     foam_shell_outer_height,
+    foam_shell_rim_z,
     insert_pocket_depth,
     front_wall_x,
     mid_screw_x_offset,
@@ -126,7 +127,7 @@ def main():
     substitute_md(
         _here / "README.md",
         variables={
-            "OUTER_H": f"{foam_shell_outer_height:.4g} mm",
+            "OUTER_H": f"{foam_shell_rim_z:.4g} mm",
             "SHELL_OUTER_X": f"{outer_shell_x_length:.4g} mm",
             "FSHELL_OUTER_Y": f"{outer_shell_y_length:.4g}",
             "OUTER_GAP": f"{outer_shell_foam_gap:.4g} mm",

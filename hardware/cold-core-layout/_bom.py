@@ -58,10 +58,9 @@ PARTS = (
 
     # §7 — the printed parts
     ("foam shell", "Cold-core inner shell (foam-shell)", ("foam-shell",)),
-    ("foam cap top", "Cold-core foam cap — top", ("foam-cap-top",)),
     ("foam cap lid top", "Cold-core foam cap lid — top", ("foam-cap-lid-top",)),
     ("foam cap bottom", "Cold-core foam cap — bottom", ("foam-cap-bottom",)),
-    ("foam cap lid bottom", "Cold-core foam cap lid — bottom", ("foam-cap-lid-bottom",)),
+    ("B-fill bend holder", "Reservoir B fill bend holder", ("reservoir-b-fill-guide",)),
     ("PRV shroud", "PRV shroud", ("prv-shroud",)),
     ("reservoir body L", "Flavor reservoir body — left", ("reservoir-b",)),
     ("reservoir body R", "Flavor reservoir body — right", ("reservoir-a",)),
@@ -84,8 +83,9 @@ PARTS = (
       "reed-b-1", "reed-b-2", "reed-b-3", "reed-b-4")),
 
     # §13 — attach hardware and the cap vents
-    ("heat-set inserts", "ruthex RX-M3 × 5.7 full-length heat-set inserts", ()),
-    ("cap clamp screws", "BNUOK M3 × 25 mm DIN 912", ()),
+    ("M3 heat-set inserts", "ruthex RX-M3 × 5.7 full-length heat-set inserts", ()),
+    ("M5 closure inserts", "ruthex M5 Threaded Inserts", ()),
+    ("cap clamp screws", "SVLING M5 × 0.8 × 100 mm", tuple(f"cap-clamp-{side}-{i}" for side in ("top","bottom") for i in range(1,11))),
     ("reservoir cap screws", "BNUOK M3 × 12 mm socket head cap, 304 stainless", ()),
     ("reservoir tube grips", "4× reservoir tube grip",
      ("reservoir-grip-a-fill", "reservoir-grip-a-draw", "reservoir-grip-b-fill", "reservoir-grip-b-draw")),

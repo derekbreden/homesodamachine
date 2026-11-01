@@ -1,4 +1,4 @@
-"""Continuous B-fill tube guide and the local cup/lid clamp, in appliance XYZ.
+"""B-fill tube passage and independent R14 bend holder, in appliance XYZ.
 
 The R14 bend and 6.8 mm bore use the accepted holder's tube envelope.
 The cap passage is circular, with 0.5 mm insertion lead-ins and a supported
@@ -34,16 +34,6 @@ def passage():
     face = layout.specification()['cap_face_z_mm']
     lift_y = y - BEND_RADIUS * (1.0 - math.sin(math.pi / 4.0))
     fore_y = front + 23.0
-    clamp_stations = []
-    for name, axis in (('aft', (x, y + 9.0)),
-                       ('fore-west', (x - 10.5, fore_y)),
-                       ('fore-east', (x + 10.5, fore_y))):
-        clamp_stations.append({
-            'name': name, 'axis_world_xy_mm': axis,
-            'screw_length_mm': 10.0, 'insert': 'RX-M3x5.7',
-            'insert_length_mm': 5.7,
-            'insert_face_world_z_mm': pose['translation_mm'][2] - core.cap_lid_clearance,
-            'head_seat_world_z_mm': face - 3.15})
     return {
         'entry_world_mm': entry,
         'outward_axis_world': (0.0, -1.0, 0.0),
@@ -69,16 +59,7 @@ def passage():
         'entry_leadin_roof_stock_mm': face - (entry[2] + CHANNEL_RADIUS + MOUTH + fits.supported_surface),
         'stock_min_world_mm': (x - 16.5, front, floor),
         'stock_max_world_mm': (x + 16.5, y + 15.0, face),
-        'clamp_stations': clamp_stations,
-        # Mid-arc reference for the requested three-point clamp, not a force prediction.
-        'lift_reference_world_mm': (x, lift_y, floor + BEND_RADIUS * math.cos(math.pi / 4.0)),
-        'clamp_insert': 'RX-M3x5.7',
-        'clamp_screw_length_mm': 10.0,
-        'clamp_pilot_diameter_mm': 4.0,
-        'clamp_pilot_depth_mm': 9.0,
-        'clamp_through_diameter_mm': 3.3,
-        'clamp_head_recess_diameter_mm': 5.8,
-        'clamp_head_recess_depth_mm': 3.15,
+
     }
 
 
@@ -125,82 +106,35 @@ def holder_sections(inlet_leg, outlet_leg=0.0):
     return body.val(), channel.val().fuse(start, end).clean()
 
 
-def _cup_mouth_relief(channel, cup_height):
-    """A shallow lead-in removes the channel's tapered cup-parting edges."""
-    import cadquery as cq
-    core = importlib.import_module('_cold_core_interface')
-    layout = importlib.import_module('above_core')
-    mounts = importlib.import_module('_above_core_mounts')
-    local = mounts.world_shape_in_cap(channel).translate((0.0, 0.0, cup_height))
-    top = cup_height - core.cap_lid_clearance
-    def section(z):
-        wires = cq.Workplane('XY').newObject([local]).section(z).wires().vals()
-        return max(wires, key=lambda wire: cq.Face.makeFromWires(wire).Area())
-    lower = section(top - MOUTH)
-    upper = (cq.Workplane('XY').newObject([section(top)]).toPending()
-             .offset2D(MOUTH, 'arc').wires().val().translate((0.0, 0.0, 0.05)))
-    def matched(wire):
-        # Matched sections avoid the degenerate spline edges at the parting
-        # intersections. These facets describe only the small mouth bevel;
-        # the R14 tube bearing and supported roof remain analytic surfaces.
-        points = [wire.positionAt(i / 384.0) for i in range(384)]
-        area = sum(a.x * b.y - b.x * a.y
-                   for a, b in zip(points, points[1:] + points[:1]))
-        if area < 0.0:
-            points.reverse()
-        start = max(range(len(points)), key=lambda i: (round(points[i].x, 3), -points[i].y))
-        points = points[start:] + points[:start]
-        return cq.Wire.makePolygon(points + [points[0]])
-    relief = cq.Solid.makeLoft([matched(lower), matched(upper)], ruled=True)
-    return relief.translate((0.0, 0.0, -cup_height)).moved(
-        layout.frame_location(layout.cap_lid_pose()))
+@lru_cache(maxsize=1)
+def channel_air():
+    """Continuous round tube envelope, including its mouth relief and print allowance."""
+    data=passage()
+    x,y,tangent_z=data['bend_end_world_mm']
+    turn_y=y-BEND_RADIUS
+    _body,channel=holder_sections(turn_y-data['entry_world_mm'][1],0.)
+    channel=channel.rotate((0,0,0),(0,1,0),-90.).translate((x+CHANNEL_CENTRE,turn_y,tangent_z))
+    return channel.fuse(channel.translate((0.,0.,data['supported_roof_allowance_mm']))).clean()
 
 
-@lru_cache(maxsize=2)
+@lru_cache(maxsize=1)
+def guide_native():
+    """The accepted 2 mm R14 holder, printed flat on its D back."""
+    import importlib.util
+    from pathlib import Path
+    root=next(p for p in Path(__file__).resolve().parents if (p/'future').is_dir())
+    spec=importlib.util.spec_from_file_location('_b_fill_r14',root/'future/tube-bend-holder-exploration/tube_bend_holder.py')
+    module=importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module.holder(WALL,0.).val()
+
+
+def guide_world():
+    """Installed bend holder, clear of the reservoir cap at its vertical outlet."""
+    x,y,z=passage()['bend_end_world_mm']
+    return guide_native().rotate((0,0,0),(0,1,0),-90.).translate(
+        (x+CHANNEL_CENTRE,y-BEND_RADIUS,z))
+
+
 def features(cup_height):
-    """Full-height cup stock, compensated channel roof and three blind clamps."""
-    import cadquery as cq
-    data = passage()
-    x, y, tangent_z = data['bend_end_world_mm']
-    front = data['entry_world_mm'][1]
-    turn_y = y - BEND_RADIUS
-    body, channel = holder_sections(turn_y - front, data['outlet_leg_mm'])
-    def place(shape):
-        return shape.rotate((0, 0, 0), (0, 1, 0), -90.0).translate(
-            (x + CHANNEL_CENTRE, turn_y, tangent_z))
-    body, channel = place(body), place(channel)
-    up = data['supported_roof_allowance_mm']
-    # The supported underside occupies this space after printing. Retreat
-    # only the crown toward print-up; the nominal lower envelope stays fixed.
-    channel = channel.fuse(channel.translate((0.0, 0.0, up))).clean()
-    body = body.fuse(body.translate((0.0, 0.0, up))).clean()
-    mouth_relief = _cup_mouth_relief(channel, cup_height)
-    def box(lo, hi):
-        return cq.Solid.makeBox(*(b - a for a, b in zip(lo, hi)), cq.Vector(*lo))
-    low, high = data['stock_min_world_mm'], data['stock_max_world_mm']
-    stock = box(low, high)
-    cup_top = data['cup_top_world_z_mm']
-    lid_bottom = data['lid_bottom_world_z_mm']
-    face = data['lid_face_world_z_mm']
-    roof_top = data['roof_top_world_z_mm']
-    pilots, shafts, heads = [], [], []
-    for station in data['clamp_stations']:
-        sx, sy = station['axis_world_xy_mm']
-        def cylinder(radius, z0, z1):
-            return cq.Solid.makeCylinder(radius, z1 - z0, cq.Vector(sx, sy, z0))
-        pilots.append(cylinder(data['clamp_pilot_diameter_mm'] / 2.0,
-                                cup_top - data['clamp_pilot_depth_mm'], cup_top + 0.1))
-        shafts.append(cylinder(data['clamp_through_diameter_mm'] / 2.0, cup_top, face + 0.1))
-        heads.append(cylinder(data['clamp_head_recess_diameter_mm'] / 2.0,
-                               face - data['clamp_head_recess_depth_mm'], face + 0.1))
-    bb = stock.BoundingBox()
-    cup = stock.intersect(box((bb.xmin - 1.0, front - 1.0, low[2] - 0.1),
-                              (bb.xmax + 1.0, bb.ymax + 1.0, lid_bottom)))
-    lid = stock.intersect(box((bb.xmin - 1.0, front - 1.0, lid_bottom),
-                              (bb.xmax + 1.0, bb.ymax + 1.0, roof_top + 0.1)))
-    return {'cup_add': cup, 'lid_add': lid,
-            'cut': channel.fuse(mouth_relief, *pilots, *shafts, *heads).clean(),
-            'channel_air': channel, 'clamp_pilots': pilots,
-            'cup_mouth_air': mouth_relief,
-            'clamp_head_air': heads, 'holder_outer': body,
-            'roof_top_z_mm': roof_top}
+    return {'cut':channel_air(),'channel_air':channel_air(),'holder_outer':guide_world()}

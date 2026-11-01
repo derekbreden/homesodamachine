@@ -33,4 +33,10 @@ def build_full_shell():
         cut_reed_channel_openings,
     ):
         foam_shell = cut(foam_shell)
-    return _reed_b_outlet.apply(foam_shell)
+    import _reservoir_b_fill
+    from _above_core_mounts import world_shape_in_cap
+    from _foam_cap import top_cap_height
+    entry_air = (world_shape_in_cap(_reservoir_b_fill.channel_air())
+                 .rotate((0.,0.,0.),(0.,0.,1.),180.)
+                 .translate((0.,0.,foam_shell_outer_height+top_cap_height)))
+    return _reed_b_outlet.apply(foam_shell.cut(entry_air))

@@ -266,16 +266,10 @@ IMPLICIT_SOLIDS = {
         f"hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.{suffix}"
         for suffix in ("step", "stl", "step.mesh")
     ),
-    # THE TWO NATIVE LIDS OF THE CAP STACK. Their directory also holds two STL-backed cups;
-    # bundling is by directory, so both lids' payloads ship beside them. `_cadq_export`
-    # writes each one beside the STEP it exports, which is a write no trace catches: a payload
-    # already standing at the right bytes is not rewritten, and the run that would record it is
-    # the run that finds nothing to do.
-    "hardware/printed-parts/cold-core/foam-cap/foam_cap.py": (
-        "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step.mesh",
-        "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh",
-    ) + tuple(f"hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.{suffix}"
-              for suffix in ("step", "stl", "step.mesh")),
+    "hardware/printed-parts/cold-core/foam-cap/foam_cap.py": tuple(
+        f"hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.{suffix}"
+        for suffix in ("step", "stl")
+    ),
     "hardware/printed-parts/enclosure/rear-equipment-caps/rear_equipment_caps.py": tuple(
         f"hardware/printed-parts/enclosure/rear-equipment-caps/{name}.stl"
         for name in ("asse-snap-cap", "pisco-snap-cap", "meter-snap-cap", "regulator-snap-cap")

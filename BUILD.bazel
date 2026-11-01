@@ -1401,6 +1401,7 @@ cp hardware/assembly/wiring.md $$O1
 genrule(
     name = "cold-core-assembly",
     srcs = [
+        "pysrc/future/tube-bend-holder-exploration/tube_bend_holder.py",
         "pysrc/hardware/cold-core-layout/_bom.py",
         "pysrc/hardware/cold-core-layout/_carbonator.py",
         "pysrc/hardware/cold-core-layout/_carbonator_bond.py",
@@ -1444,15 +1445,12 @@ genrule(
         ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step",
         ":out/flute-payload-cold-core/hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step.mesh",
         ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl",
-        ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step",
-        ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step.mesh",
-        ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.stl",
         ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step",
-        ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh",
+        ":out/flute-payload-cold-core/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh",
         ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl",
-        ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step",
-        ":out/flute-payload-cold-core/hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step.mesh",
-        ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-top.stl",
+        ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/reservoir-b-fill-guide.step",
+        ":out/flute-payload-cold-core/hardware/printed-parts/cold-core/foam-cap/reservoir-b-fill-guide.step.mesh",
+        ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/reservoir-b-fill-guide.stl",
         ":out/foam-shell/hardware/printed-parts/cold-core/foam-shell/foam-shell.step",
         ":out/flute-payload-cold-core/hardware/printed-parts/cold-core/foam-shell/foam-shell.step.mesh",
         ":out/foam-shell/hardware/printed-parts/cold-core/foam-shell/foam-shell.stl",
@@ -2825,15 +2823,9 @@ genrule(
         ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step",
         ":out/flute-payload-cold-core/hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step.mesh",
         ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl",
-        ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step",
-        ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step.mesh",
-        ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.stl",
         ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step",
-        ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh",
+        ":out/flute-payload-cold-core/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh",
         ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl",
-        ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step",
-        ":out/flute-payload-cold-core/hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step.mesh",
-        ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-top.stl",
         ":out/foam-shell/hardware/printed-parts/cold-core/foam-shell/foam-shell.step",
         ":out/flute-payload-cold-core/hardware/printed-parts/cold-core/foam-shell/foam-shell.step.mesh",
         ":out/foam-shell/hardware/printed-parts/cold-core/foam-shell/foam-shell.stl",
@@ -3173,6 +3165,7 @@ cp hardware/wiring/installed/integration-review.json $$O23
 genrule(
     name = "enclosure-box",
     srcs = [
+        "pysrc/future/tube-bend-holder-exploration/tube_bend_holder.py",
         "pysrc/hardware/cold-core-layout/_bom.py",
         "pysrc/hardware/cold-core-layout/_carbonator.py",
         "pysrc/hardware/cold-core-layout/_carbonator_bond.py",
@@ -3229,9 +3222,7 @@ genrule(
         ":out/foam-assembly/hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step",
         "pysrc/hardware/printed-parts/cold-core/foam-assembly/foam_assembly.py",
         ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step",
-        ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step",
         ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step",
-        ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step",
         ":out/foam-shell/hardware/printed-parts/cold-core/foam-shell/foam-shell.step",
         ":out/prv-shroud/hardware/printed-parts/cold-core/prv-shroud/prv-shroud.step",
         "pysrc/hardware/printed-parts/cold-core/prv-shroud/prv_shroud.py",
@@ -3792,15 +3783,12 @@ genrule(
         ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step",
         ":out/flute-payload-cold-core/hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step.mesh",
         ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl",
-        ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step",
-        ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step.mesh",
-        ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.stl",
         ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step",
-        ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh",
+        ":out/flute-payload-cold-core/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh",
         ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl",
-        ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step",
-        ":out/flute-payload-cold-core/hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step.mesh",
-        ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-top.stl",
+        ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/reservoir-b-fill-guide.step",
+        ":out/flute-payload-cold-core/hardware/printed-parts/cold-core/foam-cap/reservoir-b-fill-guide.step.mesh",
+        ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/reservoir-b-fill-guide.stl",
         ":out/foam-shell/hardware/printed-parts/cold-core/foam-shell/foam-shell.step",
         ":out/flute-payload-cold-core/hardware/printed-parts/cold-core/foam-shell/foam-shell.step.mesh",
         ":out/foam-shell/hardware/printed-parts/cold-core/foam-shell/foam-shell.stl",
@@ -3905,6 +3893,7 @@ cp hardware/printed-parts/cold-core/foam-assembly/internal-routes.step $$O1
 genrule(
     name = "foam-cap",
     srcs = [
+        "pysrc/future/tube-bend-holder-exploration/tube_bend_holder.py",
         "hardware/manifold-layout/above-core.json",
         "pysrc/hardware/manifold-layout/above_core.py",
         "pysrc/hardware/manifold-layout/above_core_bom.py",
@@ -3922,7 +3911,7 @@ genrule(
         "pysrc/hardware/printed-parts/cold-core/_above_core_mounts.py",
         "pysrc/hardware/printed-parts/cold-core/_cold_core_interface.py",
         "pysrc/hardware/printed-parts/cold-core/_float_interface.py",
-        "hardware/printed-parts/cold-core/_foam_cap.py",
+        "pysrc/hardware/printed-parts/cold-core/_foam_cap.py",
         "pysrc/hardware/printed-parts/cold-core/_internal_routes.py",
         "pysrc/hardware/printed-parts/cold-core/_outer_shell.py",
         "pysrc/hardware/printed-parts/cold-core/_port_cuts.py",
@@ -3933,7 +3922,7 @@ genrule(
         "pysrc/hardware/printed-parts/cold-core/_reservoir_ports.py",
         "pysrc/hardware/printed-parts/cold-core/_show_skin.py",
         "pysrc/hardware/printed-parts/cold-core/_support_ring.py",
-        "hardware/printed-parts/cold-core/foam-cap/foam_cap.py",
+        "pysrc/hardware/printed-parts/cold-core/foam-cap/foam_cap.py",
         "pysrc/hardware/printed-parts/cold-core/prv-shroud/prv_shroud.py",
         "pysrc/hardware/printed-parts/cold-core/reservoir/reservoir.py",
         "pysrc/hardware/printed-parts/electronics/module_tray.py",
@@ -3968,37 +3957,23 @@ genrule(
     outs = [
         "out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step",
         "out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl",
-        "out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step",
-        "out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step.mesh",
-        "out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.stl",
         "out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step",
-        "out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh",
         "out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl",
-        "out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step",
-        "out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-top.stl",
         "out/foam-cap/hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.step",
-        "out/foam-cap/hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.step.mesh",
         "out/foam-cap/hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.stl",
-        "out/foam-cap/hardware/printed-parts/cold-core/_foam_cap.py",
-        "out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam_cap.py",
+        "out/foam-cap/hardware/printed-parts/cold-core/foam-cap/reservoir-b-fill-guide.step",
+        "out/foam-cap/hardware/printed-parts/cold-core/foam-cap/reservoir-b-fill-guide.stl",
     ],
     cmd = """
 set -e
 O0=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step)
 O1=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl)
-O2=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step)
-O3=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step.mesh)
-O4=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.stl)
-O5=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step)
-O6=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh)
-O7=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl)
-O8=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step)
-O9=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-top.stl)
-O10=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.step)
-O11=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.step.mesh)
-O12=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.stl)
-O13=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/_foam_cap.py)
-O14=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam_cap.py)
+O2=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step)
+O3=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl)
+O4=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.step)
+O5=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.stl)
+O6=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/reservoir-b-fill-guide.step)
+O7=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/reservoir-b-fill-guide.stl)
 for f in $(SRCS); do
   case $$f in
     */node_modules/*) continue;;
@@ -4014,22 +3989,15 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/cold-core/foam-cap/foam_cap.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/cold-core/foam-cap/foam_cap.py > /dev/null
 cp hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step $$O0
 cp hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl $$O1
-cp hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step $$O2
-cp hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step.mesh $$O3
-cp hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.stl $$O4
-cp hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step $$O5
-cp hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh $$O6
-cp hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl $$O7
-cp hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step $$O8
-cp hardware/printed-parts/cold-core/foam-cap/foam-cap-top.stl $$O9
-cp hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.step $$O10
-cp hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.step.mesh $$O11
-cp hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.stl $$O12
-cp hardware/printed-parts/cold-core/_foam_cap.py $$O13
-cp hardware/printed-parts/cold-core/foam-cap/foam_cap.py $$O14
+cp hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step $$O2
+cp hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl $$O3
+cp hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.step $$O4
+cp hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.stl $$O5
+cp hardware/printed-parts/cold-core/foam-cap/reservoir-b-fill-guide.step $$O6
+cp hardware/printed-parts/cold-core/foam-cap/reservoir-b-fill-guide.stl $$O7
 """,
 )
 
@@ -5633,10 +5601,7 @@ genrule(
         "hardware/printed-parts/cold-core/foam-cap/cap-feature-intersections.json",
         ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step",
         ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl",
-        ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step",
         ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step",
-        ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step",
-        ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-top.stl",
         ":out/foam-shell/hardware/printed-parts/cold-core/foam-shell/foam-shell.step",
         ":out/foam-shell/hardware/printed-parts/cold-core/foam-shell/foam-shell.stl",
         ":out/prv-shroud/hardware/printed-parts/cold-core/prv-shroud/prv-shroud.step",
@@ -5923,6 +5888,10 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/enclosure/_route_snaps.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_swept_top.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_tube_snap_sites.py",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl",
         "hardware/printed-parts/enclosure/enclosure/enclosure.py",
         "pysrc/hardware/printed-parts/enclosure/nameplate/_nameplate_dimensions.py",
         "pysrc/hardware/printed-parts/enclosure/nameplate/nameplate.py",
@@ -6072,6 +6041,8 @@ genrule(
         "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh",
         "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.npz",
         "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
+        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step.mesh",
+        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step.mesh",
         "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step",
         "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step.mesh",
         "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step.npz",
@@ -6107,22 +6078,24 @@ O12=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/en
 O13=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh)
 O14=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.npz)
 O15=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl)
-O16=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step)
-O17=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step.mesh)
-O18=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step.npz)
-O19=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.stl)
-O20=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step)
-O21=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step.mesh)
-O22=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step.npz)
-O23=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.stl)
-O24=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure.step)
-O25=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh)
-O26=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure.step.npz)
-O27=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/README.figures.json)
-O28=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/README.md)
-O29=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure.py)
-O30=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/pump-dock/README.figures.json)
-O31=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/pump-dock/README.md)
+O16=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step.mesh)
+O17=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step.mesh)
+O18=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step)
+O19=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step.mesh)
+O20=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step.npz)
+O21=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.stl)
+O22=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step)
+O23=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step.mesh)
+O24=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step.npz)
+O25=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.stl)
+O26=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure.step)
+O27=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh)
+O28=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure.step.npz)
+O29=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/README.figures.json)
+O30=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/README.md)
+O31=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure.py)
+O32=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/pump-dock/README.figures.json)
+O33=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/pump-dock/README.md)
 for f in $(SRCS); do
   case $$f in
     */node_modules/*) continue;;
@@ -6157,22 +6130,24 @@ cp hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step $$O12
 cp hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh $$O13
 cp hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.npz $$O14
 cp hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl $$O15
-cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step $$O16
-cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step.mesh $$O17
-cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step.npz $$O18
-cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.stl $$O19
-cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step $$O20
-cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step.mesh $$O21
-cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step.npz $$O22
-cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.stl $$O23
-cp hardware/printed-parts/enclosure/enclosure/enclosure.step $$O24
-cp hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh $$O25
-cp hardware/printed-parts/enclosure/enclosure/enclosure.step.npz $$O26
-cp hardware/printed-parts/enclosure/enclosure/README.figures.json $$O27
-cp hardware/printed-parts/enclosure/enclosure/README.md $$O28
-cp hardware/printed-parts/enclosure/enclosure/enclosure.py $$O29
-cp hardware/printed-parts/enclosure/pump-dock/README.figures.json $$O30
-cp hardware/printed-parts/enclosure/pump-dock/README.md $$O31
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step.mesh $$O16
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step.mesh $$O17
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step $$O18
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step.mesh $$O19
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step.npz $$O20
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.stl $$O21
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step $$O22
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step.mesh $$O23
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step.npz $$O24
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.stl $$O25
+cp hardware/printed-parts/enclosure/enclosure/enclosure.step $$O26
+cp hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh $$O27
+cp hardware/printed-parts/enclosure/enclosure/enclosure.step.npz $$O28
+cp hardware/printed-parts/enclosure/enclosure/README.figures.json $$O29
+cp hardware/printed-parts/enclosure/enclosure/README.md $$O30
+cp hardware/printed-parts/enclosure/enclosure/enclosure.py $$O31
+cp hardware/printed-parts/enclosure/pump-dock/README.figures.json $$O32
+cp hardware/printed-parts/enclosure/pump-dock/README.md $$O33
 """,
 )
 
@@ -10693,9 +10668,9 @@ genrule(
         "pysrc/hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.py",
         "pysrc/hardware/printed-parts/cold-core/foam-assembly/foam_assembly.py",
         ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step",
-        ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step",
         ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step",
-        ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step",
+        ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/reservoir-b-fill-guide.step",
+        ":out/foam-shell/hardware/printed-parts/cold-core/foam-shell/foam-shell.step",
         "hardware/printed-parts/cold-core/foam-shell/prints/2026-10-26-mark2-round-ports-a2/preparation.json",
         "hardware/printed-parts/cold-core/magnetic-float/all-aero/mark2-print/v1/float-preflight.json",
         ":out/prv-shroud/hardware/printed-parts/cold-core/prv-shroud/prv-shroud.step",
@@ -11139,12 +11114,10 @@ genrule(
     srcs = [
         ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step",
         ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl",
-        ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step",
-        ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step.mesh",
         ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step",
-        ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh",
-        ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step",
-        ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-top.stl",
+        ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl",
+        ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/reservoir-b-fill-guide.step",
+        ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/reservoir-b-fill-guide.stl",
         ":out/foam-shell/hardware/printed-parts/cold-core/foam-shell/foam-shell.step",
         ":out/foam-shell/hardware/printed-parts/cold-core/foam-shell/foam-shell.stl",
         ":out/vent-seals/hardware/printed-parts/faucet/asse-vent-seals/asse-vent-downstream-bung.step",
@@ -11166,14 +11139,16 @@ genrule(
     ],
     outs = [
         "out/flute-payload-cold-core/hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step.mesh",
-        "out/flute-payload-cold-core/hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step.mesh",
+        "out/flute-payload-cold-core/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh",
+        "out/flute-payload-cold-core/hardware/printed-parts/cold-core/foam-cap/reservoir-b-fill-guide.step.mesh",
         "out/flute-payload-cold-core/hardware/printed-parts/cold-core/foam-shell/foam-shell.step.mesh",
     ],
     cmd = """
 set -e
 O0=$$PWD/$(location out/flute-payload-cold-core/hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step.mesh)
-O1=$$PWD/$(location out/flute-payload-cold-core/hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step.mesh)
-O2=$$PWD/$(location out/flute-payload-cold-core/hardware/printed-parts/cold-core/foam-shell/foam-shell.step.mesh)
+O1=$$PWD/$(location out/flute-payload-cold-core/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh)
+O2=$$PWD/$(location out/flute-payload-cold-core/hardware/printed-parts/cold-core/foam-cap/reservoir-b-fill-guide.step.mesh)
+O3=$$PWD/$(location out/flute-payload-cold-core/hardware/printed-parts/cold-core/foam-shell/foam-shell.step.mesh)
 for f in $(SRCS); do
   case $$f in
     */node_modules/*) continue;;
@@ -11191,8 +11166,9 @@ ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
 HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/scripts/flute_payload_cold_core.py > /dev/null
 cp hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step.mesh $$O0
-cp hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step.mesh $$O1
-cp hardware/printed-parts/cold-core/foam-shell/foam-shell.step.mesh $$O2
+cp hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh $$O1
+cp hardware/printed-parts/cold-core/foam-cap/reservoir-b-fill-guide.step.mesh $$O2
+cp hardware/printed-parts/cold-core/foam-shell/foam-shell.step.mesh $$O3
 """,
 )
 
@@ -11344,15 +11320,9 @@ genrule(
         ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step",
         ":out/flute-payload-cold-core/hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step.mesh",
         ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl",
-        ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step",
-        ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step.mesh",
-        ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.stl",
         ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step",
-        ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh",
+        ":out/flute-payload-cold-core/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh",
         ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl",
-        ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step",
-        ":out/flute-payload-cold-core/hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step.mesh",
-        ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-top.stl",
         ":out/foam-shell/hardware/printed-parts/cold-core/foam-shell/foam-shell.step",
         ":out/flute-payload-cold-core/hardware/printed-parts/cold-core/foam-shell/foam-shell.step.mesh",
         ":out/foam-shell/hardware/printed-parts/cold-core/foam-shell/foam-shell.stl",
@@ -12329,6 +12299,14 @@ cd .. && rm -rf work-opening-scene
 )
 
 genrule(
+    name = "pysrc-eb65a548f988",
+    srcs = ["future/tube-bend-holder-exploration/tube_bend_holder.py"],
+    outs = ["pysrc/future/tube-bend-holder-exploration/tube_bend_holder.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
     name = "pysrc-8a6bb584d70c",
     srcs = ["hardware/assembly/_acceptance_and_burn_in_sync.py"],
     outs = ["pysrc/hardware/assembly/_acceptance_and_burn_in_sync.py"],
@@ -13036,6 +13014,14 @@ genrule(
     name = "pysrc-7ef089e42a46",
     srcs = ["hardware/printed-parts/cold-core/foam-assembly/foam_assembly.py"],
     outs = ["pysrc/hardware/printed-parts/cold-core/foam-assembly/foam_assembly.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
+    name = "pysrc-45bb826d73e3",
+    srcs = ["hardware/printed-parts/cold-core/foam-cap/foam_cap.py"],
+    outs = ["pysrc/hardware/printed-parts/cold-core/foam-cap/foam_cap.py"],
     tools = ["tools/bazel/pysrc.py"],
     cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
 )

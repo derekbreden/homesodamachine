@@ -7,6 +7,7 @@ from _cold_core_interface import (
     reed_channel_inner_x,
     bag_pocket_far_inner_x,
     foam_shell_outer_height,
+    foam_shell_rim_z,
     bag_pocket_outermost_x,
     cap_conduits,
     cap_conduit_floor_xy,
@@ -38,8 +39,8 @@ reed_y_center = level_rod_y
 # Cavity rests on the fixed foam-shell floor; envelope bottom is z=0.
 # Open through the cap to full outer height: the pre-soldered reed
 # column drops in before the cap is installed.
-reed_cavity_z_range = (wall_and_floor_thickness, foam_shell_outer_height)
-reed_envelope_z_range = (0, foam_shell_outer_height)
+reed_cavity_z_range = (wall_and_floor_thickness, foam_shell_rim_z)
+reed_envelope_z_range = (0, foam_shell_rim_z)
 
 reed_cavity_y_range = (reed_y_center - reed_y_half_w, reed_y_center + reed_y_half_w)
 reed_envelope_y_range = (reed_cavity_y_range[0] - w, reed_cavity_y_range[1] + w)
@@ -134,7 +135,9 @@ def build_reed_channels(side):
 
     reed_envelope = make_box(reed_envelope_x_range, reed_envelope_y_range, reed_envelope_z_range)
     reed_cavity = make_box(reed_cavity_x_range, reed_cavity_y_range, reed_cavity_z_range)
-    return reed_envelope.cut(reed_cavity)
+    upper_back = make_box((s*bag_pocket_far_inner_x,s*reed_channel_inner_x),
+                          reed_envelope_y_range,(foam_shell_outer_height,foam_shell_rim_z))
+    return reed_envelope.cut(reed_cavity).union(upper_back)
 
 
 def cut_reed_channel_openings(foam_shell):
@@ -144,7 +147,8 @@ def cut_reed_channel_openings(foam_shell):
     for s in (+1, -1):
         wall_x_outer = s * bag_pocket_outermost_x
         wall_x_inner = s * bag_pocket_far_inner_x
-        reed_opening = make_box((wall_x_inner, wall_x_outer), reed_cavity_y_range, reed_cavity_z_range)
+        reed_opening = make_box((wall_x_inner, wall_x_outer), reed_cavity_y_range,
+                               (wall_and_floor_thickness,foam_shell_outer_height))
         foam_shell = foam_shell.cut(reed_opening)
     return foam_shell
 
