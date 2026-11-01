@@ -32,6 +32,8 @@ import os
 import struct
 from pathlib import Path
 
+from _payload_rules import LINEAR_DEFLECTION_RATIO, VERSION
+
 from OCP.BRep import BRep_Builder, BRep_Tool
 from OCP.BRepBndLib import BRepBndLib
 from OCP.BRepBuilderAPI import BRepBuilderAPI_Copy
@@ -49,7 +51,6 @@ from OCP.TopoDS import TopoDS, TopoDS_Compound
 # in radians. Transcribed from TriangulateShape in occt-import-js's
 # src/importer-utils.cpp — a ratio of the mean of the three bounding-box
 # extents, not of its diagonal, and the box taken without triangulation.
-LINEAR_DEFLECTION_RATIO = 0.001
 ANGULAR_DEFLECTION = 0.5
 
 # Stated in the header. VERSION is what `write` stamps; DECODABLE is every
@@ -64,7 +65,6 @@ ANGULAR_DEFLECTION = 0.5
 # carries whatever the tree had, and a page that turned those away would fall
 # back to the STEP — which for `pack.BUNDLED_PAYLOAD_DIRS` is the flute-less
 # solid, and the appliance would render as a smooth box.
-VERSION = 3
 DECODABLE = (2, 3)
 
 
