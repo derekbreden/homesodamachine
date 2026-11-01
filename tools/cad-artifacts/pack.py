@@ -266,6 +266,7 @@ BUNDLED_PAYLOAD_DIRS = (
 # The fit-trial assembly has a viewer payload. Its two separately printable
 # pieces are served from their STEP and STL without requiring duplicate payloads.
 BUNDLED_PAYLOAD_FILES = (
+    "hardware/reference/neofit-stem-elbow/neofit-stem-elbow.fine.step.mesh",
     "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-water.step.mesh",
     "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-carb.step.mesh",
     "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-co2.step.mesh",
