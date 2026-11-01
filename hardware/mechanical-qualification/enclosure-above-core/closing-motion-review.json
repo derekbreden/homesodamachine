@@ -1,8 +1,8 @@
 {
   "schema": "enclosure-closing-motion-review/2",
-  "scope": "Fresh complete rigid front-column, rear-base and rear-over-core closing intervals on the current physical quadrant STLs. Pump and cap admission are additionally checked with back-top separated, pump joints/leads disconnected and cap released; only their own intended seated interfaces are omitted. Cross-parent flexible spans and the loose pump inlet elbow and its short inlet link are connected through the uncovered funnel aperture after closure. This establishes nominal rigid travel, not flexure force or flexible handling.",
-  "current_assembly_step_sha256": "43de7a97158cfb3d2b9de706d7370fcb1c8b6c32dcb2d9cc09404d443c725655",
-  "current_payload_sha256": "99c6fbd1328a9dc22b0ddf7ca6c0480ae7e08277b4d060c464f690d845bd02fb",
+  "scope": "Complete retained rigid front-column, rear-base and rear-over-core translation intervals with mounted WAGOs on the same physical quadrants. The four current substituted bodies are removed or dressed after rigid closure and occur in none of the retained motion sets. All motion-set geometry and viewer arrays are unchanged. Pump service prerequisites and physical flexure limits remain as recorded.",
+  "current_assembly_step_sha256": "c264aefc6a1a1304af27e06af353ba9819de9be0daf85c3647c2a01058f7ebd7",
+  "current_payload_sha256": "ac4c208beb6a0104bc76c3a766093f1435c75ad662f22af6725bfc25c3815db5",
   "current_stl_sha256": {
     "front-top": "169a9a2dad02b09dde59d4e19f2e49e632c55e5ca1531de880140f27cb5b4d9b",
     "front-bottom": "4831c305bf5f080898b2f9011f9eef4a103cd9b85ce38f096210a2e58f5cbadc",
@@ -2271,5 +2271,14 @@
   },
   "unresolved_after_prerequisites": [],
   "all_recorded_rigid_closing_intervals_clear_after_prerequisites": true,
-  "limits": "Nominal rigid translation geometry and triangle-distance bounds. Released hook flexure, physical force, hose dressing and printed support cleanup need their actual article evidence."
+  "limits": "Nominal rigid translation geometry and triangle-distance bounds. Released hook flexure, physical force, hose dressing and printed support cleanup need their actual article evidence.",
+  "current_geometry_binding": {
+    "record": "hardware/mechanical-qualification/enclosure-above-core/assembly-gate-review.json",
+    "record_sha256": "249689e9556cec4b5e5cc717fc26ca3fba8d795b2b673420deaf43759c379ed9",
+    "baseline_assembly_step_sha256": "43de7a97158cfb3d2b9de706d7370fcb1c8b6c32dcb2d9cc09404d443c725655",
+    "assembly_step_sha256": "c264aefc6a1a1304af27e06af353ba9819de9be0daf85c3647c2a01058f7ebd7",
+    "assembly_mesh_sha256": "ac4c208beb6a0104bc76c3a766093f1435c75ad662f22af6725bfc25c3815db5",
+    "scope": "The complete retained closing intervals remove the drain cradle with its funnel/frame and dress the soda holder, tube and occupied foam after rigid quadrant closure. None of the four substituted bodies belongs to a retained moving or stationary set. All members of those sets have unchanged native geometry and byte-identical viewer arrays.",
+    "baseline_record_sha256": "c3eeebd45c9f3321c7e73cd8fdb246ae981833a71cc37dbbe1c8174ce45f35ce"
+  }
 }

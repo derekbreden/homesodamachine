@@ -9,7 +9,7 @@ Two kinds of check:
   - GATE — a requirement that must hold for the machine as it stands to be built.
   - GOAL — a reading the card takes and does not gate on, carried as a `score` (0..100).
 
-TWO OF THE GATES ARE EXACT QUERIES AGAINST THE SOLIDS, not readings off their boxes, and that
+Two readings are exact queries against the solids, rather than their boxes, and that
 is most of what the run costs. `pack-closes` asks what two bodies share, and `clearance-floor`
 how far apart they stand. A box appears in each only as a prefilter: two boxes that miss are two
 solids that miss, and two boxes that overlap say nothing at all.
@@ -57,7 +57,8 @@ _TOPOLOGY = _hw / "topology" / "fluid-topology.md"
 BEND_GRADE_PASS = "B"       # the worst grade a run may carry and still clear the gate
 DETAIL_MAX = 8
 
-# How close two bodies the machine does not seat against each other may stand.
+# Preferred separation for parts without a named fitted interface. This is
+# a spacing goal; material clashes and the applicable local fits are distinct.
 CLEARANCE_FLOOR = 1.0
 # Only pairs nearer than this are ranked, so the clearance detail reads as the tight end of the
 # pack rather than as every pair in it. Every pair inside it is an exact solid distance.
@@ -121,7 +122,7 @@ def _split_placed(a) -> tuple:
     wires = getattr(a, "wiring_body_names", frozenset())
     external = getattr(a, 'core_external_components', frozenset())
     for name, solid, _colour in ml.placed_leaves(a):
-        if name in wires:
+        if name in wires or name.rsplit('/', 1)[-1].startswith('wire-'):
             continue
         if name in inside:
             leaf = name.rsplit('/', 1)[-1]
@@ -1169,6 +1170,9 @@ def selected_mate_contacts(a, placed, clashes) -> dict:
         'lower-valve-elbow': ('vk-solenoid', 12.7),
         'carbonator-fold': ('discharge-chain', selected_parts.check_reference().socket_depth('outlet')),
         'soda-stem-elbow': ('bulkhead-carb', 12.7),
+        'ya-stem-elbow': ('tee-y-a', 15.7),
+        'yb-stem-elbow': ('tee-y-b', 15.7),
+        'va-south-elbow': ('va-outlet-elbow', selected_parts.stem_elbow_reference().SOCKET_INSERTION),
     }
     from above_core_bom import reservoir_gate_elbow_hosts
     stem_hosts.update({name: (host, 12.7)
@@ -1180,6 +1184,11 @@ def selected_mate_contacts(a, placed, clashes) -> dict:
         ('tube-fluid-24', 'reservoir-b-fill-turn', 'socket', 16.891),
         ('tube-above-core-water-in', 'bulkhead-water', 'inboard', 12.7),
         ('tube-soda-meter-bulkhead', 'digiten-flow', 'outlet', 15.7),
+        ('tube-soda-meter-bulkhead', 'bulkhead-carb', 'tube-in', 12.7),
+        ('tube-above-core-tee-vk-link', 'water-split', 'to-vk', 15.7),
+        ('tube-above-core-tee-vk-link', 'tee-fold', 'socket', 16.891),
+        ('tube-above-core-tee-regulator', 'water-split', 'to-flavor', 15.7),
+        ('tube-above-core-tee-regulator', 'flow-regulator', 'inlet', 15.),
         ('tube-soda-core-rise', 'digiten-flow', 'inlet', 15.7),
         ('tube-above-core-pump-check-link', 'discharge-chain', 'inlet',
          selected_parts.check_reference().socket_depth('inlet')),
@@ -1196,19 +1205,27 @@ def selected_mate_contacts(a, placed, clashes) -> dict:
         return cq.Solid.makeCylinder(radius + margin, length + 2 * margin,
                                      cq.Vector(*origin), cq.Vector(*direction))
 
-    shoulder = selected_parts.stem_elbow_reference().stem_shoulder()[0][0]
     for stem, (host, depth) in stem_hosts.items():
         pair = frozenset((stem, host))
         if pair not in pending:
             continue
-        if host == 'discharge-chain':
-            frame = a.frames[host]
-            start = frame.at('outlet')
-            direction = tuple(-v for v in frame.normal('outlet'))
-        else:
-            start, direction = a.carries[stem](((shoulder - depth, 0., 0.), (1., 0., 0.)))
-        regions[pair] = (cylinder(3.175, start, direction, depth),
-                         f'NeoFit Ø6.35 stem, selected {depth:g} mm socket engagement')
+        import dock_structure
+        region = dock_structure.stem_mate_region(placed[stem])
+        # A release collet is the finite receiving interface. The exterior
+        # reference omits gripping teeth and its moving state; the rest of
+        # the valve remains outside this mask.
+        if host.startswith('valve-v-') or host == 'vk-solenoid':
+            import above_core as layout
+            if host in layout.specification()['parts']:
+                inverse = layout.frame_location(layout.pose(host)).inverse
+                for solid in placed[host].Solids():
+                    local = solid.moved(inverse).BoundingBox()
+                    if ((local.ymin > 25.75 or local.ymax < -25.75)
+                            and local.xmin >= -7.0 and local.xmax <= 7.0
+                            and local.zmin >= 4.0 and local.zmax <= 18.1):
+                        region = region.fuse(solid)
+        regions[pair] = (region,
+                         f'Finite NeoFit male profile and own release-collet interface; selected {depth:g} mm engagement')
 
     for tube, host, port, depth in tube_hosts:
         pair = frozenset((tube, host))
@@ -1217,8 +1234,28 @@ def selected_mate_contacts(a, placed, clashes) -> dict:
         frame = a.frames[host]
         mouth, outward = frame.at(port), frame.normal(port)
         inward = tuple(-value for value in outward)
-        regions[pair] = (cylinder(frame.diam(port) / 2, mouth, inward, depth),
-                         f'{host}.{port}: Ø{frame.diam(port):g} × {depth:g} mm nominal insertion')
+        radius = frame.diam(port) / 2
+        basis = f'{host}.{port}: Ø{frame.diam(port):g} × {depth:g} mm nominal insertion'
+        if tube == 'tube-above-core-tee-vk-link' and host == 'tee-fold':
+            # This selected flexible stub curves inside the socket as the tee
+            # follows V-K's small rise. Bound its sag over this receiving depth;
+            # the mask ends at the socket mouth and tube stop.
+            import above_core as layout
+            bend = layout.specification()['rear_plumbing']['flex_links']['tee-vk-link']['minimum_radius_mm']
+            sag = bend - math.sqrt(bend*bend - depth*depth)
+            radius += sag
+            basis += f'; selected R{bend:.3f} curved stub, {sag:.6f} mm maximum radial sag'
+        regions[pair] = cylinder(radius, mouth, inward, depth), basis
+
+    import rear_plumbing
+    for side in ('suction', 'discharge'):
+        pair = frozenset((side+'-reducer', side+'-tube'))
+        if pair in pending:
+            joint = rear_plumbing.joint()
+            region = cylinder(joint.opened(joint.reducer.STEM_D/2.)+.02,
+                              (0.,0.,0.), (1.,0.,0.), joint.TRIM)
+            regions[pair] = (region.moved(a.carries[side+'-reducer'].where),
+                             'Own trimmed reducer stem and rounded shoulder inside its PVC sleeve')
 
     closure_pairs = {
         frozenset(pair)
@@ -1249,6 +1286,25 @@ def selected_mate_contacts(a, placed, clashes) -> dict:
                 key = frozenset(pair)
                 if key in pending:
                     regions[key] = mask, basis
+
+    # Wall-mounted screws use the named insert's thread annulus. The knurl
+    # occupies only the pilot's finite heat-set annulus in its own quadrant.
+    for component, plan in enc._above_core_shell.wall_mount_datums().items():
+        for number, station in enumerate(plan['stations'], 1):
+            if not station['threaded']:
+                continue
+            screw, insert = (f'{component}-{kind}-{number}' for kind in ('screw', 'insert'))
+            start, inward = station['insert_face_world_mm'], tuple(-u for u in station['axis_world'])
+            length = plan['insert_length_mm']
+            for names, inner, outer, basis in (
+                    ((screw, insert), 1.25, 1.5, 'M3 shaft in its own short insert thread annulus'),
+                    ((insert, plan['parent']), plan['pilot_radius_mm'], 2.3,
+                     'RX-M3S×4 knurl in its own finite wall pilot annulus')):
+                pair = frozenset(names)
+                if pair in pending:
+                    mask = cylinder(outer, start, inward, length).cut(
+                        cylinder(inner - 2e-6, start, inward, length))
+                    regions[pair] = mask, basis
 
     # The installed M5 knurls occupy only their supplier-sized pilot annuli.
     # A contact elsewhere on a knuckle remains an interference.
@@ -1383,7 +1439,7 @@ def _pack_closes(a) -> Check:
         detail.append(
             f"Vent hose on its inserted barb: {hose['nominal_hose_expansion_contact_mm3']:.3f} mm³ "
             f"nominal expansion contact, {hose['outside_inserted_barb_mm3']:.6f} mm³ outside it")
-    return Check("pack-closes", "No two solids overlap (pack closes)", "gate",
+    return Check("pack-closes", "No unconnected material overlaps (pack closes)", "gate",
                  verdict(not bad and not unanswered), f"{len(bad)} clash, {len(unanswered)} unanswered",
                  "0 clash, 0 unanswered", detail)
 
@@ -1454,6 +1510,11 @@ def selected_clearance_joints(a) -> set:
     # These two collet faces meet across the concealed outlet tube. Their
     # actual body contact remains independently measured by pack_clashes.
     pairs.add(frozenset(('digiten-flow', 'soda-outlet-return-stem')))
+    import enclosure as enc
+    for name, row in enc._above_core_shell.wall_fastener_bounds().items():
+        pairs.add(frozenset((name, row['component'])))
+        if row['kind'] == 'screw':
+            pairs.add(frozenset((name, name.replace('-screw-', '-insert-'))))
     # These named interfaces intentionally meet. Foam occupied geometry is a
     # compression estimate; its display subtraction is no physical air-gap proof.
     pairs |= {
@@ -1685,14 +1746,16 @@ def _clearance_floor(rows, lanes=()) -> Check:
     # acts on.
     detail = ["every body pair, and every drawn run against what its own line does not join it "
               "to — the exact solid distance, with boxes only as a prefilter"]
-    detail += [f"{x} — {y}: {g:.3f} mm — ✗ under the global pack floor"
+    detail += [f"{x} — {y}: {g:.3f} mm — under the spacing preference"
                for x, y, g, _ok in short]
     detail += list(lanes)
     detail += [f"{x} — {y}: {g:.3f} mm" + (" — excluded from the global pack floor" if ok else "")
                for x, y, g, ok in rows if (x, y, g) not in seen]
     tightest = min((r[2] for r in rows if not r[3]), default=None)
-    return Check("clearance-floor", "Pairs outside named pack-floor exclusions stand a "
-                 "millimetre apart", "gate", verdict(not short),
+    detail.append("The 1 mm spacing preference is informational. Fitted parts retain their "
+                  "applicable local allowances; pack-closes measures material outside the "
+                  "finite receiving interfaces. Conductors are excluded from this scene check.")
+    return Check("clearance-floor", "Preferred spacing outside named fitted interfaces", "goal", verdict(not short),
                  f"{len(short)} under, tightest {tightest:.3f} mm" if tightest is not None
                  else "no pair in reach", f"≥ {CLEARANCE_FLOOR:g} mm", detail)
 

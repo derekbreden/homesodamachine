@@ -1,0 +1,70 @@
+{
+  "scope": "Whole mount comparison on the same lid section. Proposal is carved from one broad blank. The upper spring clip and receiving ledges stay at their production datums. The proposed floor has 0.25 mm nominal air to the corrected rigid cable-cover datum.",
+  "geometry": {
+    "current-common-plate": {
+      "valid": true,
+      "solids": 1,
+      "faces": 44,
+      "edges": 120,
+      "volume_mm3": 110662.89826991504,
+      "watertight": true,
+      "triangles": 398,
+      "step_sha256": "c2e661b8ca577593eb4f0a3054a2856ce8ec88f77e94983a124825be22edf0f3",
+      "stl_sha256": "103958b4217fca8afec4f7c6482eaf99af05629d0e09986e1a06e13e3c7ac3d2"
+    },
+    "solid-block": {
+      "valid": true,
+      "solids": 1,
+      "faces": 37,
+      "edges": 102,
+      "volume_mm3": 118110.21947815524,
+      "watertight": true,
+      "triangles": 140,
+      "step_sha256": "c6dcc15dd914b8259de4d2b24f0ea61658fdef42a38dd525439378f71607fafa",
+      "stl_sha256": "ec72b9b9659f85142c541fc365bbbff0f66a9f6e2d6e161e83ba9336a42e9bb0"
+    },
+    "starting-block": {
+      "valid": true,
+      "solids": 1,
+      "faces": 11,
+      "edges": 24,
+      "volume_mm3": 269977.61311253754,
+      "watertight": true,
+      "triangles": 28,
+      "step_sha256": "b7d268f07ffed2ffdc98d48cd0277539e5719e3b578d2c10f78fb4bfd35c22ae",
+      "stl_sha256": "2bd290c674cbb1fc05d9508b32b6b8867a3033aedc8ef8a0d1a6d21c14905ced"
+    },
+    "seated-cap": {
+      "valid": true,
+      "solids": 1,
+      "faces": 20,
+      "edges": 56,
+      "volume_mm3": 21072.249243432638,
+      "watertight": true,
+      "triangles": 916,
+      "step_sha256": "107db997ed1a7514c1f0d6f3c743ce7035ffe83e538c4d41e9fff458c478dc09",
+      "stl_sha256": "b9287220230befe4a3178ea2c3055c267b3fda76b685c12dbb6a19649e2cca61"
+    }
+  },
+  "rail_bearing_widths_mm": [
+    3.419180708991778,
+    3.328523746345585
+  ],
+  "outer_half_width_mm": 38.32918070899178,
+  "central_channel_width_mm": 49.62,
+  "floor_world_z_mm": 254.15854535654356,
+  "input_sha256": {
+    "hardware/manifold-layout/above-core.json": "b886818274572dd35d0b7f5f2da255e855ff1e4420d7a74c2e1c81ea91b45a5a",
+    "hardware/printed-parts/cold-core/_above_core_mounts.py": "3653b4442801e4b87b4f17a0c9b3191d09681a723c23c7e2503e0893d99beb66",
+    "hardware/reference/g-ganen-pump/reference-parameters.json": "69ac39b3b5ec8a4de1c5b6abee49ef0335d3b96df61e358c5b2db1f23d808ffe"
+  },
+  "cap_overlap_mm3": 0.0,
+  "pump_overlap_mm3": 0,
+  "build_source_sha256": "661e4f0bfd276ad9643e48dda5d77150e5501d24cdaa61f281f1b698be61a200",
+  "geometry_creator_sha256": "cafce53b197981d0153ef2a6b538858187435fcc63c94488240f5a56ad1e11da",
+  "review_state": "Review candidate; production mount remains the selected printed design.",
+  "base_edges_saved": 18,
+  "additional_solid_mm3": 7447.321208240202,
+  "source_commit": "27f1cd5be",
+  "scope_of_native_fit": "Seated nominal geometry. Axial-play, elastic snap motion, release access and physical vibration qualification are not established by this reading."
+}

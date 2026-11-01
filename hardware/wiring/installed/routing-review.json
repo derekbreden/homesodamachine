@@ -2,8 +2,8 @@
   "schema": 1,
   "scope": "One manual full-scene mesh interference review of every wire and cable jacket against larger bodies; wire-to-wire and wire-to-tube contacts are excluded. Tessellated penetration is a routing witness, not a native-solid or physical assembly qualification.",
   "manifest_sha256": "2014cb424bd823115f40412491965b2b0189f6c829eca5957d6ad19abfde1f62",
-  "assembly_step_sha256": "43de7a97158cfb3d2b9de706d7370fcb1c8b6c32dcb2d9cc09404d443c725655",
-  "assembly_mesh_sha256": "99c6fbd1328a9dc22b0ddf7ca6c0480ae7e08277b4d060c464f690d845bd02fb",
+  "assembly_step_sha256": "c264aefc6a1a1304af27e06af353ba9819de9be0daf85c3647c2a01058f7ebd7",
+  "assembly_mesh_sha256": "ac4c208beb6a0104bc76c3a766093f1435c75ad662f22af6725bfc25c3815db5",
   "wire_count": 100,
   "physical_mesh_count": 417,
   "coverage_missing": [],
@@ -1064,5 +1064,14 @@
         "developed_path_mm": 275.505
       }
     ]
-  }
+  },
+  "current_mechanical_delta_binding": {
+    "record": "hardware/mechanical-qualification/enclosure-above-core/assembly-gate-review.json",
+    "record_sha256": "249689e9556cec4b5e5cc717fc26ca3fba8d795b2b673420deaf43759c379ed9",
+    "baseline_assembly_step_sha256": "43de7a97158cfb3d2b9de706d7370fcb1c8b6c32dcb2d9cc09404d443c725655",
+    "assembly_step_sha256": "c264aefc6a1a1304af27e06af353ba9819de9be0daf85c3647c2a01058f7ebd7",
+    "assembly_mesh_sha256": "ac4c208beb6a0104bc76c3a766093f1435c75ad662f22af6725bfc25c3815db5",
+    "scope": "Only the drain cradle and soda holder/tube/occupied foam change. All other native bodies pass through unchanged; all unchanged viewer arrays are byte-identical. Current changed-body neighborhoods are queried natively. Retained tests keep their original artifact hashes; this binding is not a claim they were rerun."
+  },
+  "retained_mesh_screen_assembly_step_sha256": "43de7a97158cfb3d2b9de706d7370fcb1c8b6c32dcb2d9cc09404d443c725655"
 }
