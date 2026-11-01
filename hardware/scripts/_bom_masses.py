@@ -283,7 +283,8 @@ def _drawn(path):
 
     A MESH-KERNEL STEP IS TRIANGLES, and `import_step` refuses one on OCCT, whose reading of it
     takes the area right and the volume wrong. The model file beside it (`<name>.step.npz`)
-    holds the closed solids the STEP was drawn from, and those are what is measured."""
+    holds the closed solids the STEP was drawn from, and those are what is measured, on every
+    run and past the cache, so the model file is among the reads of every run the trace sees."""
     with open(path, "rb") as f:
         if b"meshcad tessellated" not in f.read(200):
             return None
@@ -309,19 +310,20 @@ def measure(rel):
         path = PARTS_DIR / rel
         if not path.exists():
             sys.exit(f"_bom_masses: {rel} has no STEP at {path}")
+        drawn = _drawn(path)
+        if drawn is not None:
+            _SOLIDS[rel] = (drawn[0] / 1000.0, drawn[1] / 100.0)
+            return _SOLIDS[rel]
         key = hashlib.sha256(path.read_bytes()).hexdigest()
         held = _held()
         got = held.get(key)
         if isinstance(got, list) and len(got) == 2:
             _SOLIDS[rel] = tuple(got)
         else:
-            got = _drawn(path)
-            if got is None:
-                from _cadq_export import import_step
+            from _cadq_export import import_step
 
-                solid = import_step(str(path)).val()
-                got = (solid.Volume(), solid.Area())
-            _SOLIDS[rel] = (got[0] / 1000.0, got[1] / 100.0)
+            solid = import_step(str(path)).val()
+            _SOLIDS[rel] = (solid.Volume() / 1000.0, solid.Area() / 100.0)
             held[key] = list(_SOLIDS[rel])
             _hold(held)
     return _SOLIDS[rel]
