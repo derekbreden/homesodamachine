@@ -264,6 +264,12 @@ def source_digest(step_path):
     return h.hexdigest()
 
 
+def aligned_face_sources(sources, ranges):
+    """Contributor groups for these exact face ranges, or no usable attribution."""
+    return sources if (isinstance(sources, list) and len(sources) == ranges
+                       and all(isinstance(group, list) for group in sources)) else None
+
+
 def write(meshes, path, src=None, cut=None):
     """u32 header length, that many bytes of JSON, then one blob every array
     indexes into by [byteOffset, length]. Typed-array offsets must be aligned
@@ -301,7 +307,10 @@ def write(meshes, path, src=None, cut=None):
     not state its reduction, which is every payload cut before the field existed. That is why
     it does not move VERSION — a reader that finds no `cut` still has a payload it can draw,
     and DECODABLE stays where it is rather than turning those away and serving the flute-less
-    solid in their place."""
+    solid in their place.
+
+    `face_sources` carries optional contributor groups aligned with the mesh's face ranges.
+    An unaligned value states no usable attribution and is omitted."""
     entries, blob = [], bytearray()
     for m in meshes:
         e = {"name": m["name"], "color": m["color"]}
@@ -316,6 +325,9 @@ def write(meshes, path, src=None, cut=None):
                     raise ValueError(f"{m['name']}: invalid {key} vertex count")
                 e[key] = [len(blob), len(arr)]
                 blob += struct.pack(f"<{len(arr)}f", *arr)
+        sources = aligned_face_sources(m.get("face_sources"), len(m["fac"]) // 2)
+        if sources is not None:
+            e["face_sources"] = sources
         entries.append(e)
     header = {"v": VERSION, "meshes": entries}
     if src is not None:
