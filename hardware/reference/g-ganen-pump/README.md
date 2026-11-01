@@ -18,8 +18,11 @@ The [bare-underside photographs](underside-observation/README.md) identify the
 fixed rails, finite molded wire cover and flexible leads. Clear sections between
 the sliders supply the rail profile through scan occlusions. The wire cover ends
 at approximately reference X = 64.7 mm; the motor and rear cap supply the rigid
-surface beyond it. The [construction observations](underside-observation/rigid-underside.json)
-retain the measured cover plane, axial ends and cap interpolation scope.
+surface beyond it. Its lower face is level at native Z4.210583 mm, using Derek's
+physical observation and the measured rear-center height. The
+[construction observations](underside-observation/rigid-underside.json) retain
+the scan fit separately from that construction datum, the axial ends and cap
+interpolation scope.
 
 ## Evidence and frame
 
