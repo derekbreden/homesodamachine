@@ -1,0 +1,11 @@
+{
+  "source": {
+    "commit": "7320c7c39a9d4e1485cb7dbcc3b95aa85d0802fb",
+    "path": "hardware/reference/digiten-flow-sensor/digiten_flow_sensor.py",
+    "sha256": "3d25061f40a0a65bd758b513ee798af3112a030f686cc4ad201e8a9c94cbf513"
+  },
+  "members": {
+    "digiten-flow-sensor.step": "181e81dc1e2e9757c671df7163998127dea32e24cbbeffcd885e84c2801a9975",
+    "digiten-flow-sensor.step.mesh": "84d68c77955b19d2e1f776a33b8fcd2370658086ad00acf5eb7ed953c0e72aec"
+  }
+}
