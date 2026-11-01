@@ -49,8 +49,12 @@ def compose(scene, ea):
     terminations=add_terminations(assembly,at,graph,routes)
     from hardware.wiring.installed.bundles import add_jackets
     bundles=add_jackets(assembly,at)
+    return assembly,_manifest(at,graph,routes,terminations,bundles)
+
+
+def _manifest(at,graph,routes,terminations,bundles):
     used={id for c in graph for id in (c.start,c.end)}
-    manifest={
+    return {
         'schema':1,'units':'mm','frame':'Enclosure assembly XYZ; Z up',
         'scope':'Installed enclosure wiring, including embedded core leads. External cord, faucet and umbilical end at the enclosure interfaces.',
         'connection_count':len(graph),'harnesses':dict(sorted(Counter(c.harness for c in graph).items())),
@@ -74,7 +78,18 @@ def compose(scene, ea):
             'The electrical graph does not qualify grounding, mains isolation, current capacity or energization.',
         ],
     }
-    return assembly,manifest
+
+
+def numeric_inputs(scene,ea):
+    """Resolve the same installed geometry and facts before any conductor/body build."""
+    at,graph,routes=routed_inputs(scene,ea)
+    from hardware.wiring.installed.terminations import inputs as termination_inputs
+    from hardware.wiring.installed.bundles import inputs as jacket_inputs
+    from hardware.wiring.installed.wire_geometry import numbers
+    terminations,termination_facts=termination_inputs(at,graph,routes)
+    jackets,bundle_facts=jacket_inputs(at)
+    return (numbers([r.record()for r in routes],STOCK,components=[*terminations,*jackets]),
+            _manifest(at,graph,routes,termination_facts,bundle_facts))
 
 
 def attach(assembly, ea):

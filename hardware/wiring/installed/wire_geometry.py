@@ -10,16 +10,25 @@ if __name__=='__main__':
     _rust_part.start()
 
 
-def numbers(routes, stock):
+def numbers(routes, stock, *, components=()):
     """Ordered recorded segments, insulation diameters, and the source's linear materials."""
     from _occt_color import rgba
     from _payload_rules import LINEAR_DEFLECTION_RATIO
     from _mesh_payload import ANGULAR_DEFLECTION
-    return {'name':'installed-wiring','presentation_deflection_ratio':LINEAR_DEFLECTION_RATIO,
+    result={'name':'installed-wiring','presentation_deflection_ratio':LINEAR_DEFLECTION_RATIO,
             'presentation_angular_deflection_rad':ANGULAR_DEFLECTION,
             'routes':[{'name':'wire-'+r['id'],'diameter_mm':stock[r['stock']]['od_mm'],
                        'linear_rgb':rgba(tuple(stock[r['stock']]['color']),{})[:3],
                        'segments':r['segments']} for r in routes]}
+    if components:
+        import _rust_part
+        from _materials import linear
+        result['components']=[]
+        for name,recipe,color in components:
+            row={**recipe,'name':name,'linear_rgb':linear(color)}
+            if row['kind']=='import':row['step']=_rust_part.step(row['step'])
+            result['components'].append(row)
+    return result
 
 
 def main():

@@ -18,36 +18,34 @@ def final_join_placements():
 RING_BORE = 3.2  # M3 clearance through the ring's eye
 
 
-def carbonator_ring(ea):
-    """Closed M3 lug on the existing upper tube rim, barrel pointing up."""
-    import cadquery as cq
+def _cylinder(radius,height,base=(0.,0.,0.),axis=(0.,0.,1.)):
+    return {'radius_mm':radius,'height_mm':height,'base_mm':base,'axis':axis}
+
+
+def _ring_input(ea):
     from .terminals import carbonator_bond_datums
     d = carbonator_bond_datums(ea)
     t, eye = d['ring_tongue_thickness_mm'], d['ring_eye_diameter_mm']
     barrel, reach = d['ring_barrel_diameter_mm'], d['ring_barrel_length_mm']
-    ring = (cq.Solid.makeCylinder(eye/2, t)
-            .cut(cq.Solid.makeCylinder(RING_BORE/2, t+2, cq.Vector(0, 0, -1)))
-            .fuse(cq.Solid.makeCylinder(barrel/2, reach, cq.Vector(eye/2-1, 0, barrel/2),
-                                        cq.Vector(1, 0, 0)))
-            .clean())
-    plane = cq.Plane(origin=d['contact_point_mm'], xDir=d['wire_outward'],
-                     normal=d['contact_outward'])
-    return ring.moved(cq.Location(plane))
+    return {'kind':'ring','eye':_cylinder(eye/2,t),
+            'bore':_cylinder(RING_BORE/2,t+2,(0.,0.,-1.)),
+            'barrel':_cylinder(barrel/2,reach,(eye/2-1,0.,barrel/2),(1.,0.,0.)),
+            'origin_mm':d['contact_point_mm'],'x_dir':d['wire_outward'],
+            'normal':d['contact_outward']},d
 
 
-def add_terminations(assembly,attachments,connections,routes):
+def inputs(attachments,connections,routes):
+    """Ordered source geometry inputs and the installed termination facts."""
     import cadquery as cq
-    records={}
+    from .model import sub,mul,rounded_segments
+    records={};bodies=[]
     terminals=attachments.terminals
-    from _cadq_export import import_step
-    import above_core as layout
     import above_core_wiring as junctions
-    native = import_step(junctions.REFERENCES['413']).val()
     for id, point in final_join_placements().items():
         name = 'wiring-junction-'+id
         pose = {'rotation':junctions.PORTS_FORE, 'translation_mm':point}
-        assembly.add(native.moved(layout.frame_location(pose)), name=name,
-                     color=junctions.C_AC_HUB)
+        bodies.append((name,{'kind':'import','step':junctions.REFERENCES['413'],
+                             'pose':pose},junctions.C_AC_HUB))
         used = sorted({t for c in connections for t in (c.start,c.end)
                        if t.startswith('join-'+id+'.')})
         records[name] = {
@@ -60,10 +58,8 @@ def add_terminations(assembly,attachments,connections,routes):
             'assembly':'Connect through the open funnel after closing the quadrants; fit the frame afterward.',
         }
     name = 'terminal-carbonator-pe'
-    assembly.add(carbonator_ring(attachments.ea), name=name,
-                 color=cq.Color(.32, .55, .30))
-    from .terminals import carbonator_bond_datums
-    bond = carbonator_bond_datums(attachments.ea)
+    ring,bond = _ring_input(attachments.ea)
+    bodies.append((name,ring,cq.Color(.32,.55,.30)))
     records[name] = {
         'kind': 'M3 closed-ring earth terminal',
         'terminal_ids': ['carbonator.PE'],
@@ -80,18 +76,15 @@ def add_terminations(assembly,attachments,connections,routes):
                     key=lambda t:int(t.pin))
         first,last=pins[0],pins[-1]
         centre=tuple((a+b)/2 for a,b in zip(first.point,last.point))
-        row=cq.Vector(*last.point)-cq.Vector(*first.point)
-        axis=cq.Vector(*first.outward)
-        floor=cq.Vector(*centre)-axis*7.5
-        plane=cq.Plane(origin=floor,xDir=row,normal=axis)
+        row=sub(last.point,first.point)
+        axis=first.outward
+        floor=sub(centre,mul(axis,7.5))
         width=(len(pins)-1)*2.5+4.8
-        housing=cq.Workplane(plane).box(width,5.7,7.5,centered=(True,True,False)).val()
-        # Wire throats are separate from the detailed internal contact cavities.
-        for pin in pins:
-            p=cq.Vector(*pin.point)-axis*7.6
-            housing=housing.cut(cq.Solid.makeCylinder(.98,7.7,p,axis))
         name='terminal-'+header
-        assembly.add(housing,name=name,color=cq.Color(.86,.85,.79))
+        bodies.append((name,{'kind':'housing','origin_mm':floor,'x_dir':row,'normal':axis,
+                             'dimensions_mm':[width,5.7,7.5],
+                             'bores':[_cylinder(.98,7.7,sub(pin.point,mul(axis,7.6)),axis)
+                                      for pin in pins]},cq.Color(.86,.85,.79)))
         records[name]={'kind':'JST-XH housing envelope','housing':f'XHP-{len(pins)}',
                        'dimensions_mm':[width,5.7,7.5],'assembled_height_above_board_mm':9.8,
                        'source':'https://www.jst-mfg.com/product/pdf/eng/eXH.pdf',
@@ -100,20 +93,64 @@ def add_terminations(assembly,attachments,connections,routes):
                        'mating_terminals':{
                            p.id:{'part':p.part,'point':p.point,'outward':p.outward,
                                  'pin':p.pin} for p in pins}}
-    from .model import Route,Connection,rounded_segments,shape
     for label,lead in attachments.fuse_leads.items():
         segments=rounded_segments(lead['points_mm'],lead['bend_radius_mm'],keep_collinear=True)
-        route=Route(Connection('fuse-'+label,'Compressor','','',''),lead['points_mm'],segments)
         name='terminal-fuse-'+label+'-lead'
-        assembly.add(shape(route,lead['lead_diameter_mm']),name=name,color=cq.Color(.62,.63,.65))
+        bodies.append((name,{'kind':'sweep','connection_id':'fuse-'+label,
+                             'points_mm':lead['points_mm'],'segments':segments,
+                             'diameter_mm':lead['lead_diameter_mm']},cq.Color(.62,.63,.65)))
         records[name]={**lead,'kind':'Dressed thermal-fuse lead','segments':segments,
                        'retained_lead_length_mm':lead['native_straight_mm']+sum(s['length_mm'] for s in segments)-1.5,
                        'reference_stub_overlap_mm':1.5,'terminal_ids':['fuse.'+label]}
-        t=terminals['fuse.'+label];p=cq.Vector(*t.point);axis=cq.Vector(*t.outward)
-        sleeve=cq.Solid.makeCylinder(1.6,6.,p,axis).cut(cq.Solid.makeCylinder(1.3,6.02,p-axis*.01,axis))
+        t=terminals['fuse.'+label];p=t.point;axis=t.outward
         name='terminal-fuse-'+label+'-splice'
-        assembly.add(sleeve,name=name,color=cq.Color(.04,.04,.045))
+        bodies.append((name,{'kind':'sleeve','outer':_cylinder(1.6,6.,p,axis),
+                             'inner':_cylinder(1.3,6.02,sub(p,mul(axis,.01)),axis)},
+                       cq.Color(.04,.04,.045)))
         records[name]={'kind':'Insulated fuse-splice envelope','outer_diameter_mm':3.2,
                        'length_mm':6.,'status':'proposed joint and recovered sleeve profile',
                        'terminal_ids':['fuse.'+label]}
+    return bodies,records
+
+
+def _native(recipe,steps):
+    import cadquery as cq
+    def cylinder(r):
+        return cq.Solid.makeCylinder(r['radius_mm'],r['height_mm'],
+                                     cq.Vector(*r['base_mm']),cq.Vector(*r['axis']))
+    def plane(r):
+        return cq.Plane(origin=r['origin_mm'],xDir=r['x_dir'],normal=r['normal'])
+    kind=recipe['kind']
+    if kind=='import':
+        from _cadq_export import import_step
+        import above_core as layout
+        path=recipe['step']
+        if path not in steps:steps[path]=import_step(path).val()
+        return steps[path].moved(layout.frame_location(recipe['pose']))
+    if kind=='ring':
+        ring=cylinder(recipe['eye']).cut(cylinder(recipe['bore'])).fuse(cylinder(recipe['barrel'])).clean()
+        return ring.moved(cq.Location(plane(recipe)))
+    if kind=='housing':
+        housing=cq.Workplane(plane(recipe)).box(*recipe['dimensions_mm'],centered=(True,True,False)).val()
+        for bore in recipe['bores']:housing=housing.cut(cylinder(bore))
+        return housing
+    if kind=='sweep':
+        from .model import Route,Connection,shape
+        return shape(Route(Connection(recipe['connection_id'],'Compressor','','',''),
+                           recipe['points_mm'],recipe['segments']),
+                     recipe['diameter_mm'])
+    if kind=='sleeve':return cylinder(recipe['outer']).cut(cylinder(recipe['inner']))
+    raise ValueError(('Unknown termination geometry',kind))
+
+
+def carbonator_ring(ea):
+    """Closed M3 lug on the existing upper tube rim, barrel pointing up."""
+    return _native(_ring_input(ea)[0],{})
+
+
+def add_terminations(assembly,attachments,connections,routes):
+    bodies,records=inputs(attachments,connections,routes)
+    steps={}
+    for name,recipe,color in bodies:
+        assembly.add(_native(recipe,steps),name=name,color=color)
     return records
