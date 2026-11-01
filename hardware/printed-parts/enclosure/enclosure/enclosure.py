@@ -2228,6 +2228,44 @@ def _z_joints(placed, inner, stated, plate, y_joint):
     return stated, stated
 
 
+def back_top_flank_bound(placed, pack, y_joint, splits):
+    """The existing flank envelope, including finite drilled hardware lanes."""
+    bbs = [_boxes.boxed(shape) for shape, _colour in placed.values()]
+    bt0, bt1 = back_top_flank_face()
+    bt_y0 = y_joint + lip_len + z_lip_y_margin
+    bt_z0 = splits[1] + z_rise
+    lanes = [(sy - hy, sy + hy, sz - hz, sz + hz)
+             for _sd, sy, sz, size, *_rest in pack.side_wells
+             for hy, hz in (wago_half(size),)]
+    flank_rows = []
+    for name, b in zip(placed.keys(), bbs):
+        if b.ymax <= bt_y0 or b.zmax <= bt_z0:
+            continue
+        # The PSU and relay hardware occupies its own drilled insert/shaft
+        # lanes through this envelope. A displaced or oversized fastener
+        # does not match the finite lane and remains in the flank reading.
+        if _above_core_shell.in_wall_fastener_lane(
+                name, (b.xmin, b.ymin, b.zmin, b.xmax, b.ymax, b.zmax)):
+            continue
+        cy, cz = (b.ymin + b.ymax) / 2.0, (b.zmin + b.zmax) / 2.0
+        if any(ly0 <= cy <= ly1 and lz0 <= cz <= lz1 for ly0, ly1, lz0, lz1 in lanes):
+            continue
+        pocket = next((r for r in pack.flank_reliefs if r[0] == name), None)
+        west_face = pocket[1] if pocket is not None else bt0
+        flank_rows.append((max(west_face - b.xmin, b.xmax - bt1), name))
+    flank_rows.sort(reverse=True)
+    flank_over, flank_who = flank_rows[0] if flank_rows else (-bt1, "nothing")
+    flank_ok = flank_over <= stated_bound_tol
+    return Bound(
+        "back-top-flank-clear", "The pack stands clear of back-top's own flank face", flank_ok,
+        f"least air {-flank_over:.2f} mm, at {flank_who}",
+        f"outside x ±{bt1:.2f}, a {back_top_flank_t:g} mm flank",
+        ([] if flank_ok else [
+            f"{flank_who} stands {flank_over:.2f} mm inside back-top's flank at ±{bt1:.2f}. "
+            f"Seat it in a well or lower "
+            f"`back_top_flank_t`"]))
+
+
 def _dims(pack):
     """The box `pack` stands inside — its two shells, the plane it splits on, and the
     stations its walls carry. `pack` is a Pack (see `machine_of`).
@@ -2345,33 +2383,7 @@ def _dims(pack):
     # because the width it reads is the box's own. What this section may stand in is what the
     # wall gives a LANE to and nothing else: a Wago in its own well, bored back to
     # `interior_x`. A body is matched to a geometric well by its CENTRE.
-    bt0, bt1 = back_top_flank_face()
-    bt_y0 = y_joint + lip_len + z_lip_y_margin
-    bt_z0 = splits[1] + z_rise
-    lanes = [(sy - hy, sy + hy, sz - hz, sz + hz)
-             for _sd, sy, sz, size, *_rest in pack.side_wells
-             for hy, hz in (wago_half(size),)]
-    flank_rows = []
-    for name, b in zip(placed.keys(), bbs):
-        if b.ymax <= bt_y0 or b.zmax <= bt_z0:
-            continue
-        cy, cz = (b.ymin + b.ymax) / 2.0, (b.zmin + b.zmax) / 2.0
-        if any(ly0 <= cy <= ly1 and lz0 <= cz <= lz1 for ly0, ly1, lz0, lz1 in lanes):
-            continue
-        pocket = next((r for r in pack.flank_reliefs if r[0] == name), None)
-        west_face = pocket[1] if pocket is not None else bt0
-        flank_rows.append((max(west_face - b.xmin, b.xmax - bt1), name))
-    flank_rows.sort(reverse=True)
-    flank_over, flank_who = flank_rows[0] if flank_rows else (-bt1, "nothing")
-    flank_ok = flank_over <= stated_bound_tol
-    record_bound(Bound(
-        "back-top-flank-clear", "The pack stands clear of back-top's own flank face", flank_ok,
-        f"least air {-flank_over:.2f} mm, at {flank_who}",
-        f"outside x ±{bt1:.2f}, a {back_top_flank_t:g} mm flank",
-        ([] if flank_ok else [
-            f"{flank_who} stands {flank_over:.2f} mm inside back-top's flank at ±{bt1:.2f}. "
-            f"Seat it in a well or lower "
-            f"`back_top_flank_t`"])))
+    record_bound(back_top_flank_bound(placed, pack, y_joint, splits))
     # The FRONT wall is the stated `front_plane_y` with its stated reliefs, and the pack is
     # read against the RELIEVED surface, body by body: a body whose footprint stands wholly
     # inside a relief answers to that relief's floor, and every other body to the plane
