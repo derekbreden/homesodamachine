@@ -15,6 +15,7 @@ side to print, so those faces are the bed contact and the top surface and the
 channel is a bridged gap; a slope on any of them does not survive.
 """
 
+import hashlib
 import json
 import sys
 from pathlib import Path
@@ -204,11 +205,33 @@ def print_pose(body):
     return turned.translate((0, 0, PRINTED_OUTSIDE_WIDTH / 2))
 
 
+FRAME_DATA = HERE / "lever-replica.frame.json"
+
+
+def write_frame_data(step):
+    """The authored STEP's exact native bounds for its assembly seating datum."""
+    from _cadq_export import _atomic_write, import_step
+
+    step = Path(step)
+    bounds = import_step(step).val().BoundingBox()
+    record = {
+        "source": {"path": step.relative_to(HARDWARE.parent).as_posix(),
+                   "sha256": hashlib.sha256(step.read_bytes()).hexdigest()},
+        "query": "import_step().val().BoundingBox()",
+        "bounds_mm": [[bounds.xmin, bounds.ymin, bounds.zmin],
+                      [bounds.xmax, bounds.ymax, bounds.zmax]],
+    }
+    text = json.dumps(record, indent=2, sort_keys=True) + "\n"
+    _atomic_write(FRAME_DATA, lambda path: Path(path).write_text(text))
+    return record
+
+
 def main():
     printable = build()
     step = HERE / "lever-replica.step"
     stl = HERE / "lever-replica.stl"
     export_assembly(cq.Assembly(printable, name="lever", color=cq.Color(0.91, 0.91, 0.87)), str(step))
+    write_frame_data(step)
     print_stl = HERE / "lever-replica-side-down.stl"
     cq.exporters.export(print_pose(printable), str(print_stl),
                         tolerance=STL_TOLERANCE, angularTolerance=STL_ANGLE_TOLERANCE)

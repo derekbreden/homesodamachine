@@ -9,7 +9,7 @@ from endcap_circular_drawing import (
     line, text, arrow, leader, circular_leader, center, path_from_points,
     horizontal_dimension, hatch, VISIBLE, THIN, CENTER_DASH,
 )
-from _cadq_export import export_pdf
+from _document_export import export_pdf
 from reportlab.pdfbase.pdfmetrics import stringWidth
 
 MM = 72 / 25.4
