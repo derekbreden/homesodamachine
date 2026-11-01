@@ -83,10 +83,13 @@ route and modeled length. Its [worksheet](../wiring/enclosure-wiring.csv) is a
 routing record, not a finished cut list. Each reservoir column uses one continuous
 common with four insulated reed taps; the carbonator pair shares a separate
 common. Their Wagos join the column/pair commons to the board return.
-The carbonator's 3P leaves through its own straight cup/lid passage at
-world (74, 323.8, 253.4) mm, turns west beneath the pump, and rises on the
-west PCB approach. Retain its common through that passage to the lid WAGO;
-trim only the unused ribbon end above its branch. The 500 mm preparation
+The carbonator's CLO, CHI and continuous common join the temperature-bus
+leads and green 16 AWG earth lead in the shared seven-core west-side loom
+at world X−48/Y347. Lay the loom's R5.5 transition before the body pour;
+foam locates it below the Ø7.5 mm lid opening at X−78/Y320/Z253.4. Thread
+its free wire ends through the lid before fitting the outside terminations.
+Dress the three reed ends on the west PCB approach to J7 and the existing
+reed-common WAGO. Trim only the unused ribbon end above its branch. The 500 mm preparation
 blank covers the modeled carbonator paths; final dressing and service reserve
 are set on the assembled core.
 
