@@ -1,6 +1,7 @@
-"""Flush identification chips for the selected six-port rear grid.
+"""Identification chips for the selected six-port rear grid.
 
-The rear flange and nut seating planes stay fixed. Each 1.8 mm tile slides in a continuous rear channel and keeps its bore
+The rear flange and nut seating planes stay fixed. Each 1.8 mm tile slides in a
+continuous 2 mm rear channel, 0.2 mm inside the outer wall face, with its bore
 on the corresponding fitting.
 """
 

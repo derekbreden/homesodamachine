@@ -49,7 +49,7 @@ def main():
         hardware_root.parent / "marketing" / "_install_envelope_sync.py",
     )
 
-    collet, _chip = envelope.behind_the_rear_face()
+    collet, _chip, _recess = envelope.behind_the_rear_face()
 
     # The column above the counter the shank clamps through: the two printed discs, whose own
     # thicknesses are what §1's slab-to-shell-foot term is.
