@@ -47,24 +47,35 @@ fn f32_tris(s: &Solid) -> impl Iterator<Item = [[f32; 3]; 3]> + '_ {
         .filter(|t| tri_normal(widened(t[0]), widened(t[1]), widened(t[2])) != V3::ZERO)
 }
 
+/// The bytes of a binary STL of `solids`, each simplified as a file takes it, one at a time.
 pub fn stl_bytes(solids: &[&Solid]) -> Result<Vec<u8>> {
     let mut tris: Vec<[[f32; 3]; 3]> = vec![];
     for s in solids {
         tris.extend(f32_tris(&s.simplified()?));
     }
+    Ok(stl_from(&tris))
+}
+
+/// `stl_bytes` of solids simplified already.
+pub(crate) fn stl_of(solids: &[&Solid]) -> Vec<u8> {
+    stl_from(&solids.iter().flat_map(|s| f32_tris(s)).collect::<Vec<_>>())
+}
+
+/// The binary STL of `tris`.
+fn stl_from(tris: &[[[f32; 3]; 3]]) -> Vec<u8> {
     let mut out = Vec::with_capacity(84 + 50 * tris.len());
     let mut header = STL_HEADER.to_vec();
     header.resize(80, b' ');
     out.extend_from_slice(&header);
     out.extend_from_slice(&(tris.len() as u32).to_le_bytes());
-    for t in &tris {
+    for t in tris {
         let n = tri_normal(widened(t[0]), widened(t[1]), widened(t[2]));
         for x in f32s(n).into_iter().chain(t.iter().flatten().copied()) {
             out.extend_from_slice(&x.to_le_bytes());
         }
         out.extend_from_slice(&[0, 0]);
     }
-    Ok(out)
+    out
 }
 
 /// A 3MF package with one object per solid.

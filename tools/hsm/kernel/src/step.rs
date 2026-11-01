@@ -104,9 +104,19 @@ fn product(e: &mut Entities, context: &str, name: &str, shape: &str) -> Product 
     Product { definition: pd, product: p }
 }
 
-/// The bytes of the STEP of `bodies`. A file of one body is that body's product; one of several
-/// stands each body's product under an assembly named `root`.
+/// The bytes of the STEP of `bodies`, each solid simplified as a file takes it, one at a time as
+/// it is written. A file of one body is that body's product; one of several stands each body's
+/// product under an assembly named `root`.
 pub fn step_bytes(bodies: &[Body], root: &str) -> Result<Vec<u8>> {
+    step_with(bodies, root, true)
+}
+
+/// `step_bytes` of bodies whose solids are simplified already.
+pub(crate) fn step_of(bodies: &[Body], root: &str) -> Result<Vec<u8>> {
+    step_with(bodies, root, false)
+}
+
+fn step_with(bodies: &[Body], root: &str, simplify: bool) -> Result<Vec<u8>> {
     let mut e = Entities { text: String::new(), next: 1 };
     let app = e.next + 1;
     e.add(format!(
@@ -146,7 +156,13 @@ pub fn step_bytes(bodies: &[Body], root: &str) -> Result<Vec<u8>> {
 
     // Each body's surface set, under its own manifold surface representation.
     let tessellated = |e: &mut Entities, body: &Body, origin: &str, context: &str| -> Result<(String, String)> {
-        let s = body.solid.simplified()?;
+        let simple;
+        let s = if simplify {
+            simple = body.solid.simplified()?;
+            &simple
+        } else {
+            body.solid
+        };
         let rep = e.next;
         let set = format!("#{}", rep + 1);
         e.add(format!("MANIFOLD_SURFACE_SHAPE_REPRESENTATION('',({origin},{set}),{context})"));

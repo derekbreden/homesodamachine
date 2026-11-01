@@ -18,8 +18,8 @@
 //! rename. Each call answers with what its files hold, and the program prints each answer on a
 //! line of its own, which is all its standard output carries.
 use crate::solid::Solid;
-use crate::step::{model_bytes, step_bytes};
-use crate::write::{Body, payload_bytes, stl_bytes};
+use crate::step::{model_bytes, step_bytes, step_of};
+use crate::write::{Body, payload_bytes, stl_of};
 use anyhow::{Context, Result, anyhow, ensure};
 use serde_json::{Value, json};
 use sha2::{Digest, Sha256};
@@ -98,15 +98,22 @@ pub fn write_printed(dir: &Path, name: &str, bodies: &[Body]) -> Result<Value> {
 }
 
 fn write_set(dir: &Path, name: &str, bodies: &[Body], printed: bool, shown: bool) -> Result<Value> {
-    let step = step_bytes(bodies, name)?;
+    // The STL takes the solids the STEP takes, so a printed set simplifies each once for both; a
+    // set without one simplifies each as its STEP is written.
+    let (step, stl) = if printed {
+        let simple: Vec<Solid> = bodies.iter().map(|b| b.solid.simplified()).collect::<Result<_>>()?;
+        let filed: Vec<Body> = bodies.iter().zip(&simple).map(|(b, s)| Body { solid: s, ..*b }).collect();
+        (step_of(&filed, name)?, Some(stl_of(&simple.iter().collect::<Vec<_>>())))
+    } else {
+        (step_bytes(bodies, name)?, None)
+    };
     let digest: String = Sha256::digest(&step).iter().map(|b| format!("{b:02x}")).collect();
     let mut files = vec![(format!("{name}.step"), step), (format!("{name}.step.npz"), model_bytes(bodies))];
     if shown {
         files.push((format!("{name}.step.mesh"), payload_bytes(bodies, Some(&digest), None)));
     }
-    if printed {
-        let solids: Vec<&Solid> = bodies.iter().map(|b| b.solid).collect();
-        files.push((format!("{name}.stl"), stl_bytes(&solids)?));
+    if let Some(stl) = stl {
+        files.push((format!("{name}.stl"), stl));
     }
     for (file, bytes) in &files {
         keep(&dir.join(file), bytes)?;
