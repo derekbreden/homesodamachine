@@ -1,0 +1,211 @@
+//! Fine-model assembly from Python's ordered references and installed frames.
+//!
+//! This program emits the measurement model only. Production STEP and viewer
+//! drawing reduction remain separate, so importing a fine model cannot silently
+//! change the approved display mesh or any printed surface.
+use anyhow::{Context, Result, bail, ensure};
+use hsm_kernel::{Affine, Imported, part, step, write::Body};
+use serde_json::{Value, json};
+use std::collections::BTreeSet;
+use std::path::Path;
+
+fn text<'a>(value: &'a Value, key: &str) -> Result<&'a str> {
+    value
+        .get(key)
+        .and_then(Value::as_str)
+        .with_context(|| format!("missing text `{key}`"))
+}
+
+fn transform(value: Option<&Value>) -> Result<Option<Affine>> {
+    let Some(value) = value else { return Ok(None) };
+    let rows = value
+        .as_array()
+        .context("an installed frame is three rows of four numbers")?;
+    ensure!(
+        rows.len() == 3,
+        "an installed frame has {} rows",
+        rows.len()
+    );
+    let mut m = [[0.0; 4]; 3];
+    for (r, row) in rows.iter().enumerate() {
+        let values = row
+            .as_array()
+            .context("an installed frame row is an array")?;
+        ensure!(
+            values.len() == 4,
+            "an installed frame row has {} values",
+            values.len()
+        );
+        for (c, value) in values.iter().enumerate() {
+            m[r][c] = value
+                .as_f64()
+                .filter(|v| v.is_finite())
+                .context("a frame holds a non-finite number")?;
+        }
+    }
+    let placed = Affine { m };
+    Ok((placed != Affine::IDENTITY).then_some(placed))
+}
+
+fn assemble(instances: &Value) -> Result<Vec<Imported>> {
+    let mut placed = Vec::new();
+    for instance in instances
+        .as_array()
+        .context("instances is an ordered array")?
+    {
+        let model = text(instance, "model")?;
+        let imported = hsm_kernel::import::model(model)?;
+        let selected: Option<BTreeSet<usize>> = instance
+            .get("indices")
+            .map(|value| -> Result<_> {
+                value
+                    .as_array()
+                    .context("indices is an array")?
+                    .iter()
+                    .map(|v| {
+                        let index = v
+                            .as_u64()
+                            .and_then(|n| usize::try_from(n).ok())
+                            .context("an entry index is a nonnegative integer")?;
+                        ensure!(
+                            index < imported.len(),
+                            "entry {index} is outside {model}'s {} solids",
+                            imported.len()
+                        );
+                        Ok(index)
+                    })
+                    .collect()
+            })
+            .transpose()?;
+        let frame = transform(instance.get("transform"))?;
+        let name = instance
+            .get("name")
+            .map(|v| v.as_str().context("a component name is text"))
+            .transpose()?;
+        let prefix = instance
+            .get("prefix")
+            .map(|v| v.as_str().context("a name prefix is text"))
+            .transpose()?
+            .unwrap_or("");
+        let color = instance
+            .get("color")
+            .map(|value| -> Result<Option<[f64; 3]>> {
+                if value.is_null() {
+                    return Ok(None);
+                }
+                let values = value
+                    .as_array()
+                    .context("a color is three linear channels or null")?;
+                ensure!(values.len() == 3, "a color has {} channels", values.len());
+                let mut rgb = [0.0; 3];
+                for (i, channel) in values.iter().enumerate() {
+                    rgb[i] = channel
+                        .as_f64()
+                        .filter(|v| v.is_finite())
+                        .context("a color holds a non-finite channel")?;
+                }
+                Ok(Some(rgb))
+            })
+            .transpose()?;
+        for (index, mut part) in imported.into_iter().enumerate() {
+            if selected
+                .as_ref()
+                .is_some_and(|indices| !indices.contains(&index))
+            {
+                continue;
+            }
+            part.name = match name {
+                Some(name) => name.to_owned(),
+                None => format!("{prefix}{}", part.name),
+            };
+            if let Some(color) = color {
+                part.color = color;
+            }
+            if let Some(frame) = &frame {
+                part.solid = part.solid.transformed(frame);
+            }
+            placed.push(part);
+        }
+    }
+    Ok(placed)
+}
+
+fn query(parts: &[Imported], queries: &Value) -> Result<Vec<Value>> {
+    queries
+        .as_array()
+        .context("queries is an ordered array")?
+        .iter()
+        .map(|value| {
+            let at = |key: &str| -> Result<usize> {
+                let index = value
+                    .get(key)
+                    .and_then(Value::as_u64)
+                    .and_then(|n| usize::try_from(n).ok())
+                    .with_context(|| format!("query `{key}` is a nonnegative solid index"))?;
+                ensure!(
+                    index < parts.len(),
+                    "query solid {index} is outside {} solids",
+                    parts.len()
+                );
+                Ok(index)
+            };
+            let (a, b) = (at("a")?, at("b")?);
+            let kind = text(value, "kind")?;
+            let result = match kind {
+                "gap" => parts[a].solid.gap(&parts[b].solid)?,
+                "shared_volume" => parts[a].solid.shared_volume(&parts[b].solid)?,
+                _ => bail!("unknown model query {kind:?}"),
+            };
+            Ok(json!({"a":a,"b":b,"kind":kind,"value":result}))
+        })
+        .collect()
+}
+
+fn write_model(path: &Path, bodies: &[Body<'_>]) -> Result<()> {
+    let bytes = step::model_bytes(bodies);
+    let name = path
+        .file_name()
+        .and_then(|v| v.to_str())
+        .context("model output has no file name")?;
+    let temporary = path.with_file_name(format!(".{name}.{}", std::process::id()));
+    std::fs::write(&temporary, bytes)
+        .with_context(|| format!("writing {}", temporary.display()))?;
+    std::fs::rename(&temporary, path).with_context(|| format!("writing {}", path.display()))
+}
+
+fn main() -> Result<()> {
+    let (numbers, output) = part::args()?;
+    let parts = assemble(numbers.get("instances")?)?;
+    let readings = query(&parts, numbers.get("queries")?)?;
+    let bodies: Vec<Body<'_>> = parts
+        .iter()
+        .map(|part| Body {
+            name: &part.name,
+            color: part.color,
+            solid: &part.solid,
+        })
+        .collect();
+    let mut files = Vec::new();
+    if output != Path::new("--check") {
+        std::fs::create_dir_all(&output)?;
+        let name = numbers.text("name")?;
+        ensure!(
+            Path::new(name).file_name().and_then(|v| v.to_str()) == Some(name),
+            "model name must be one file name"
+        );
+        let file = format!("{name}.step.npz");
+        write_model(&output.join(&file), &bodies)?;
+        files.push(file);
+    }
+    let summaries: Vec<Value> = parts.iter().map(|part| {
+        let bounds = part.solid.bounds();
+        json!({"name":part.name,"color":part.color,"vertices":part.solid.verts().len(),
+               "triangles":part.solid.tris().len(),"faces":part.solid.faces().len(),
+               "volume":part.solid.volume(),"min":bounds.min.to_array(),"max":bounds.max.to_array()})
+    }).collect();
+    println!(
+        "{}",
+        json!({"files":files,"bodies":summaries,"queries":readings})
+    );
+    Ok(())
+}
