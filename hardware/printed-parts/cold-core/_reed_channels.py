@@ -144,12 +144,24 @@ def cut_reed_channel_openings(foam_shell):
     """Cut the bag-pocket far ±X wall in the reed channel footprint: the
     channel opens to the bag-pocket interior on its back face, shortening
     the magnet-to-reed magnetic path across the wall."""
+    import cadquery as cq
     for s in (+1, -1):
         wall_x_outer = s * bag_pocket_outermost_x
         wall_x_inner = s * bag_pocket_far_inner_x
         reed_opening = make_box((wall_x_inner, wall_x_outer), reed_cavity_y_range,
                                (wall_and_floor_thickness,foam_shell_outer_height))
         foam_shell = foam_shell.cut(reed_opening)
+        # Preserve the full sensing opening before narrowing its short roof
+        # at 0.5 mm per millimetre of build rise into the channel's inner edge.
+        inner = s * reed_channel_inner_x
+        rise = 2.0 * abs(inner - wall_x_inner)
+        z = foam_shell_outer_height
+        plane = cq.Plane(origin=(0., reed_cavity_y_range[1], 0.),
+                         xDir=(1., 0., 0.), normal=(0., -1., 0.))
+        roof = (cq.Workplane(plane)
+                .polyline([(wall_x_inner, z), (inner, z), (inner, z + rise)])
+                .close().extrude(2.0 * reed_y_half_w).val())
+        foam_shell = foam_shell.cut(roof)
     return foam_shell
 
 
