@@ -14,6 +14,7 @@ genrule(
         "pysrc/hardware/assembly/_firmware_and_commissioning_sync.py",
         "pysrc/hardware/assembly/_pressure_vessel_sync.py",
         "hardware/assembly/acceptance-and-burn-in.md",
+        "pysrc/hardware/cold-core-layout/_carbonator_stock.py",
         "pysrc/hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py",
         "pysrc/hardware/cut-parts/carbonation/float-rod/float_rod_dimensions.py",
         "hardware/manifold-layout/above-core.json",
@@ -110,6 +111,7 @@ genrule(
     srcs = [
         "pysrc/hardware/assembly/_asse_drain_sync.py",
         "hardware/assembly/asse-drain.md",
+        "pysrc/hardware/cold-core-layout/_carbonator_stock.py",
         "pysrc/hardware/manifold-layout/_drain.py",
         "pysrc/hardware/manifold-layout/_gas_chain.py",
         "pysrc/hardware/manifold-layout/_lines.py",
@@ -268,6 +270,7 @@ genrule(
     srcs = [
         "pysrc/hardware/assembly/_cold_core_sync.py",
         "hardware/assembly/cold-core.md",
+        "pysrc/hardware/cold-core-layout/_carbonator_stock.py",
         "pysrc/hardware/cold-core-layout/_coil.py",
         "pysrc/hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py",
         "hardware/manifold-layout/above-core.json",
@@ -419,6 +422,7 @@ genrule(
         "pysrc/hardware/cold-core-layout/_bom.py",
         "pysrc/hardware/cold-core-layout/_carbonator.py",
         "pysrc/hardware/cold-core-layout/_carbonator_bond.py",
+        "pysrc/hardware/cold-core-layout/_carbonator_stock.py",
         "pysrc/hardware/cold-core-layout/_coil.py",
         "pysrc/hardware/cold-core-layout/_cold_core_style.py",
         "pysrc/hardware/cold-core-layout/_cold_scorecard.py",
@@ -784,6 +788,7 @@ genrule(
         "firmware/lib/machine_policy/cold_policy.h",
         "pysrc/hardware/assembly/_firmware_and_commissioning_sync.py",
         "hardware/assembly/firmware-and-commissioning.md",
+        "pysrc/hardware/cold-core-layout/_carbonator_stock.py",
         "hardware/manifold-layout/above-core.json",
         "pysrc/hardware/manifold-layout/above_core.py",
         "pysrc/hardware/manifold-layout/manifold_layout.py",
@@ -880,6 +885,7 @@ genrule(
         "pysrc/hardware/assembly/_handwork_sync.py",
         "pysrc/hardware/assembly/_pressure_vessel_sync.py",
         "hardware/assembly/handwork.md",
+        "pysrc/hardware/cold-core-layout/_carbonator_stock.py",
         "pysrc/hardware/cold-core-layout/_coil.py",
         "pysrc/hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py",
         "pysrc/hardware/cut-parts/carbonation/float-rod/float_rod_dimensions.py",
@@ -975,6 +981,7 @@ genrule(
         "pysrc/hardware/cold-core-layout/_bom.py",
         "pysrc/hardware/cold-core-layout/_carbonator.py",
         "pysrc/hardware/cold-core-layout/_carbonator_bond.py",
+        "pysrc/hardware/cold-core-layout/_carbonator_stock.py",
         "pysrc/hardware/cold-core-layout/_coil.py",
         "pysrc/hardware/cold-core-layout/_cold_core_style.py",
         "pysrc/hardware/cold-core-layout/_cold_scorecard.py",
@@ -1203,6 +1210,7 @@ genrule(
     srcs = [
         "pysrc/hardware/assembly/_pressure_vessel_sync.py",
         "hardware/assembly/pressure-vessel.md",
+        "pysrc/hardware/cold-core-layout/_carbonator_stock.py",
         "pysrc/hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py",
         "pysrc/hardware/cut-parts/carbonation/float-rod/float_rod_dimensions.py",
         "hardware/manifold-layout/above-core.json",
@@ -1278,6 +1286,7 @@ genrule(
     srcs = [
         "pysrc/hardware/assembly/_refrigerant_loop_sync.py",
         "hardware/assembly/refrigerant-loop.md",
+        "pysrc/hardware/cold-core-layout/_carbonator_stock.py",
         "hardware/manifold-layout/above-core.json",
         "pysrc/hardware/manifold-layout/above_core.py",
         "pysrc/hardware/manifold-layout/rear_snaps.py",
@@ -1400,6 +1409,7 @@ genrule(
         "pysrc/hardware/assembly/_pressure_vessel_sync.py",
         "pysrc/hardware/assembly/_weld_rotation_rig_sync.py",
         "hardware/assembly/weld-rotation-rig.md",
+        "pysrc/hardware/cold-core-layout/_carbonator_stock.py",
         "pysrc/hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py",
         "pysrc/hardware/cut-parts/carbonation/float-rod/float_rod_dimensions.py",
         "hardware/manifold-layout/above-core.json",
@@ -1531,6 +1541,7 @@ genrule(
         "pysrc/hardware/cold-core-layout/_bom.py",
         "pysrc/hardware/cold-core-layout/_carbonator.py",
         "pysrc/hardware/cold-core-layout/_carbonator_bond.py",
+        "pysrc/hardware/cold-core-layout/_carbonator_stock.py",
         "pysrc/hardware/cold-core-layout/_coil.py",
         "pysrc/hardware/cold-core-layout/_cold_core_style.py",
         "pysrc/hardware/cold-core-layout/_cold_scorecard.py",
@@ -1732,6 +1743,7 @@ genrule(
         "pysrc/hardware/cold-core-layout/_bom.py",
         "pysrc/hardware/cold-core-layout/_carbonator.py",
         "pysrc/hardware/cold-core-layout/_carbonator_bond.py",
+        "pysrc/hardware/cold-core-layout/_carbonator_stock.py",
         "pysrc/hardware/cold-core-layout/_coil.py",
         "pysrc/hardware/cold-core-layout/_cold_core_style.py",
         "pysrc/hardware/cold-core-layout/_cold_scorecard.py",
@@ -1852,67 +1864,93 @@ cp hardware/cold-core-layout/cold-core-assembly.scene.npz $$O0
 genrule(
     name = "carbonator-tube-step",
     srcs = [
-        "pysrc/hardware/cold-core-layout/_carbonator.py",
-        "pysrc/hardware/cold-core-layout/_carbonator_bond.py",
-        "pysrc/hardware/cold-core-layout/_fittings.py",
+        "pysrc/hardware/cold-core-layout/_carbonator_stock.py",
         "pysrc/hardware/cut-parts/carbonation/carbonator-tube/carbonator_tube_step.py",
-        "pysrc/hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py",
-        "hardware/manifold-layout/above-core.json",
-        "pysrc/hardware/manifold-layout/above_core.py",
-        "pysrc/hardware/manifold-layout/rear_snaps.py",
-        "pysrc/hardware/printed-parts/cadlib/fits.py",
-        "pysrc/hardware/printed-parts/cadlib/reeding.py",
-        "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
-        "pysrc/hardware/printed-parts/cold-core/_above_core_mounts.py",
-        "pysrc/hardware/printed-parts/cold-core/_cold_core_interface.py",
-        "pysrc/hardware/printed-parts/cold-core/_copper_ports.py",
-        "pysrc/hardware/printed-parts/cold-core/_float_interface.py",
-        "pysrc/hardware/printed-parts/cold-core/_foam_cap.py",
-        "pysrc/hardware/printed-parts/cold-core/_internal_routes.py",
-        "pysrc/hardware/printed-parts/cold-core/_outer_shell.py",
-        "pysrc/hardware/printed-parts/cold-core/_port_cuts.py",
-        "pysrc/hardware/printed-parts/cold-core/_reed_channels.py",
-        "pysrc/hardware/printed-parts/cold-core/_reservoir_b_fill.py",
-        "pysrc/hardware/printed-parts/cold-core/_reservoir_ports.py",
-        "pysrc/hardware/printed-parts/cold-core/_support_ring.py",
-        "pysrc/hardware/printed-parts/cold-core/prv-shroud/prv_shroud.py",
-        "pysrc/hardware/printed-parts/cold-core/reservoir/reservoir.py",
-        "pysrc/hardware/printed-parts/electronics/module_tray.py",
-        "pysrc/hardware/printed-parts/electronics/pcba-tray/pcba_tray.py",
-        "pysrc/hardware/printed-parts/enclosure/enclosure/_anchor_cap_interface.py",
-        "pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
+        "hardware/cut-parts/carbonation/carbonator-tube/carbonator_tube_step.rs",
+        "hardware/cut-parts/carbonation/round_stock.rs",
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
-        "pysrc/hardware/printed-parts/valve-seat/valve_seat.py",
-        "pysrc/hardware/reference/beduan-solenoid/beduan_solenoid.py",
-        "pysrc/hardware/reference/g-ganen-pump/common-foot/g_ganen_foot.py",
-        "pysrc/hardware/reference/g-ganen-pump/g_ganen_pump.py",
-        "pysrc/hardware/reference/g-ganen-pump/installation/g_ganen_installation.py",
-        "pysrc/hardware/reference/g-ganen-pump/integration-envelope/g_ganen_integration.py",
-        "pysrc/hardware/reference/g-ganen-pump/integration-envelope/native_queries.py",
-        "hardware/reference/g-ganen-pump/reference-parameters.json",
-        "pysrc/hardware/scripts/_cadq_export.py",
         "pysrc/hardware/scripts/_material_base.py",
         "pysrc/hardware/scripts/_materials.py",
-        "pysrc/hardware/scripts/_mesh_payload.py",
-        "pysrc/hardware/scripts/_meshes.py",
-        "pysrc/hardware/scripts/_overlap.py",
-        "pysrc/hardware/scripts/_payload_rules.py",
-        "pysrc/hardware/scripts/_realized.py",
-        "pysrc/hardware/scripts/_routing.py",
+        "pysrc/hardware/scripts/_occt_color.py",
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/hardware/scripts/_run_slots.py",
-        "pysrc/hardware/scripts/_stated_bounds.py",
+        "pysrc/hardware/scripts/_rust_part.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/Cargo.lock",
+        "tools/hsm/Cargo.toml",
+        "tools/hsm/cold-core/Cargo.toml",
+        "tools/hsm/kernel/Cargo.toml",
+        "tools/hsm/kernel/src/boolean.rs",
+        "tools/hsm/kernel/src/build.rs",
+        "tools/hsm/kernel/src/dxf.rs",
+        "tools/hsm/kernel/src/edge.rs",
+        "tools/hsm/kernel/src/face.rs",
+        "tools/hsm/kernel/src/import.rs",
+        "tools/hsm/kernel/src/lib.rs",
+        "tools/hsm/kernel/src/mapped.rs",
+        "tools/hsm/kernel/src/mass.rs",
+        "tools/hsm/kernel/src/math.rs",
+        "tools/hsm/kernel/src/part.rs",
+        "tools/hsm/kernel/src/plane.rs",
+        "tools/hsm/kernel/src/profile.rs",
+        "tools/hsm/kernel/src/reads.rs",
+        "tools/hsm/kernel/src/round.rs",
+        "tools/hsm/kernel/src/round/rolled.rs",
+        "tools/hsm/kernel/src/rule.rs",
+        "tools/hsm/kernel/src/screw.rs",
+        "tools/hsm/kernel/src/sketch_hull.rs",
+        "tools/hsm/kernel/src/solid.rs",
+        "tools/hsm/kernel/src/spline.rs",
+        "tools/hsm/kernel/src/step.rs",
+        "tools/hsm/kernel/src/step/analytic.rs",
+        "tools/hsm/kernel/src/sweep.rs",
+        "tools/hsm/kernel/src/text.rs",
+        "tools/hsm/kernel/src/thru.rs",
+        "tools/hsm/kernel/src/topo.rs",
+        "tools/hsm/kernel/src/triangulate.rs",
+        "tools/hsm/kernel/src/write.rs",
         "tools/hsm/run-slots.defaults.json",
+        "tools/hsm/run-slots/Cargo.toml",
+        "tools/hsm/run-slots/src/ipc.rs",
+        "tools/hsm/run-slots/src/lib.rs",
+        "tools/hsm/vendor/manifold-csg-sys/.cargo_vcs_info.json",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.lock",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.toml",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.toml.orig",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-APACHE",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-MIT",
+        "tools/hsm/vendor/manifold-csg-sys/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/build.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/build.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/fetch.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/patch.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/wasm.rs",
+        "tools/hsm/vendor/manifold-csg-sys/cache-version",
+        "tools/hsm/vendor/manifold-csg-sys/src/lib.rs",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/CMakeLists.txt",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/diagnose.sh",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__assertion_handler",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__config_site",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/memory",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/mutex",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/libcxx-extras.cpp",
         "tools/run-slots.mjs",
         "pysrc/tools/run.py",
     ],
     outs = [
+        "out/carbonator-tube-step/hardware/cut-parts/carbonation/carbonator-tube/carbonator-tube.numbers.json",
         "out/carbonator-tube-step/hardware/cut-parts/carbonation/carbonator-tube/carbonator-tube.step",
+        "out/carbonator-tube-step/hardware/cut-parts/carbonation/carbonator-tube/carbonator-tube.step.mesh",
+        "out/carbonator-tube-step/hardware/cut-parts/carbonation/carbonator-tube/carbonator-tube.step.npz",
     ],
+    tags = ["no-sandbox"],
     cmd = """
 set -e
-O0=$$PWD/$(location out/carbonator-tube-step/hardware/cut-parts/carbonation/carbonator-tube/carbonator-tube.step)
+O0=$$PWD/$(location out/carbonator-tube-step/hardware/cut-parts/carbonation/carbonator-tube/carbonator-tube.numbers.json)
+O1=$$PWD/$(location out/carbonator-tube-step/hardware/cut-parts/carbonation/carbonator-tube/carbonator-tube.step)
+O2=$$PWD/$(location out/carbonator-tube-step/hardware/cut-parts/carbonation/carbonator-tube/carbonator-tube.step.mesh)
+O3=$$PWD/$(location out/carbonator-tube-step/hardware/cut-parts/carbonation/carbonator-tube/carbonator-tube.step.npz)
+rm -rf work-carbonator-tube-step
 for f in $(SRCS); do
   case $$f in
     */node_modules/*) continue;;
@@ -1920,16 +1958,20 @@ for f in $(SRCS); do
     */pysrc/*) t=$${f##*/pysrc/};;
     *) t=$$f;;
   esac
-  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
+  mkdir -p work-carbonator-tube-step/$$(dirname $$t); cp -L $$f work-carbonator-tube-step/$$t
 done
 for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
+  if [ -d $$d ]; then mkdir -p work-carbonator-tube-step/$$(dirname $$d); ln -sfn $$PWD/$$d work-carbonator-tube-step/$$d; fi
 done
-cd work
+cd work-carbonator-tube-step
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/cut-parts/carbonation/carbonator-tube/carbonator_tube_step.py > /dev/null
-cp hardware/cut-parts/carbonation/carbonator-tube/carbonator-tube.step $$O0
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/cut-parts/carbonation/carbonator-tube/carbonator_tube_step.py > /dev/null
+cp hardware/cut-parts/carbonation/carbonator-tube/carbonator-tube.numbers.json $$O0
+cp hardware/cut-parts/carbonation/carbonator-tube/carbonator-tube.step $$O1
+cp hardware/cut-parts/carbonation/carbonator-tube/carbonator-tube.step.mesh $$O2
+cp hardware/cut-parts/carbonation/carbonator-tube/carbonator-tube.step.npz $$O3
+cd .. && rm -rf work-carbonator-tube-step
 """,
 )
 
@@ -2023,28 +2065,95 @@ genrule(
     srcs = [
         "pysrc/hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py",
         "hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_step.py",
+        "hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_step.rs",
+        "hardware/cut-parts/carbonation/round_stock.rs",
         "pysrc/hardware/printed-parts/cold-core/_float_interface.py",
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
-        "pysrc/hardware/scripts/_cadq_export.py",
+        "pysrc/hardware/scripts/_document_export.py",
         "pysrc/hardware/scripts/_material_base.py",
         "pysrc/hardware/scripts/_materials.py",
-        "pysrc/hardware/scripts/_mesh_payload.py",
-        "pysrc/hardware/scripts/_payload_rules.py",
+        "pysrc/hardware/scripts/_occt_color.py",
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/hardware/scripts/_run_slots.py",
+        "pysrc/hardware/scripts/_rust_part.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/Cargo.lock",
+        "tools/hsm/Cargo.toml",
+        "tools/hsm/cold-core/Cargo.toml",
+        "tools/hsm/kernel/Cargo.toml",
+        "tools/hsm/kernel/src/boolean.rs",
+        "tools/hsm/kernel/src/build.rs",
+        "tools/hsm/kernel/src/dxf.rs",
+        "tools/hsm/kernel/src/edge.rs",
+        "tools/hsm/kernel/src/face.rs",
+        "tools/hsm/kernel/src/import.rs",
+        "tools/hsm/kernel/src/lib.rs",
+        "tools/hsm/kernel/src/mapped.rs",
+        "tools/hsm/kernel/src/mass.rs",
+        "tools/hsm/kernel/src/math.rs",
+        "tools/hsm/kernel/src/part.rs",
+        "tools/hsm/kernel/src/plane.rs",
+        "tools/hsm/kernel/src/profile.rs",
+        "tools/hsm/kernel/src/reads.rs",
+        "tools/hsm/kernel/src/round.rs",
+        "tools/hsm/kernel/src/round/rolled.rs",
+        "tools/hsm/kernel/src/rule.rs",
+        "tools/hsm/kernel/src/screw.rs",
+        "tools/hsm/kernel/src/sketch_hull.rs",
+        "tools/hsm/kernel/src/solid.rs",
+        "tools/hsm/kernel/src/spline.rs",
+        "tools/hsm/kernel/src/step.rs",
+        "tools/hsm/kernel/src/step/analytic.rs",
+        "tools/hsm/kernel/src/sweep.rs",
+        "tools/hsm/kernel/src/text.rs",
+        "tools/hsm/kernel/src/thru.rs",
+        "tools/hsm/kernel/src/topo.rs",
+        "tools/hsm/kernel/src/triangulate.rs",
+        "tools/hsm/kernel/src/write.rs",
         "tools/hsm/run-slots.defaults.json",
+        "tools/hsm/run-slots/Cargo.toml",
+        "tools/hsm/run-slots/src/ipc.rs",
+        "tools/hsm/run-slots/src/lib.rs",
+        "tools/hsm/vendor/manifold-csg-sys/.cargo_vcs_info.json",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.lock",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.toml",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.toml.orig",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-APACHE",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-MIT",
+        "tools/hsm/vendor/manifold-csg-sys/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/build.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/build.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/fetch.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/patch.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/wasm.rs",
+        "tools/hsm/vendor/manifold-csg-sys/cache-version",
+        "tools/hsm/vendor/manifold-csg-sys/src/lib.rs",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/CMakeLists.txt",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/diagnose.sh",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__assertion_handler",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__config_site",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/memory",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/mutex",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/libcxx-extras.cpp",
         "tools/run-slots.mjs",
         "pysrc/tools/run.py",
     ],
     outs = [
         "out/endcap-circular-step/hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step",
+        "out/endcap-circular-step/hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step.mesh",
+        "out/endcap-circular-step/hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step.npz",
+        "out/endcap-circular-step/hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-step.numbers.json",
         "out/endcap-circular-step/hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_step.py",
     ],
+    tags = ["no-sandbox"],
     cmd = """
 set -e
 O0=$$PWD/$(location out/endcap-circular-step/hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step)
-O1=$$PWD/$(location out/endcap-circular-step/hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_step.py)
+O1=$$PWD/$(location out/endcap-circular-step/hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step.mesh)
+O2=$$PWD/$(location out/endcap-circular-step/hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step.npz)
+O3=$$PWD/$(location out/endcap-circular-step/hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-step.numbers.json)
+O4=$$PWD/$(location out/endcap-circular-step/hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_step.py)
+rm -rf work-endcap-circular-step
 for f in $(SRCS); do
   case $$f in
     */node_modules/*) continue;;
@@ -2052,17 +2161,21 @@ for f in $(SRCS); do
     */pysrc/*) t=$${f##*/pysrc/};;
     *) t=$$f;;
   esac
-  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
+  mkdir -p work-endcap-circular-step/$$(dirname $$t); cp -L $$f work-endcap-circular-step/$$t
 done
 for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
+  if [ -d $$d ]; then mkdir -p work-endcap-circular-step/$$(dirname $$d); ln -sfn $$PWD/$$d work-endcap-circular-step/$$d; fi
 done
-cd work
+cd work-endcap-circular-step
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_step.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_step.py > /dev/null
 cp hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step $$O0
-cp hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_step.py $$O1
+cp hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step.mesh $$O1
+cp hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step.npz $$O2
+cp hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-step.numbers.json $$O3
+cp hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_step.py $$O4
+cd .. && rm -rf work-endcap-circular-step
 """,
 )
 
@@ -2124,6 +2237,7 @@ genrule(
         "tools/hsm/kernel/src/solid.rs",
         "tools/hsm/kernel/src/spline.rs",
         "tools/hsm/kernel/src/step.rs",
+        "tools/hsm/kernel/src/step/analytic.rs",
         "tools/hsm/kernel/src/sweep.rs",
         "tools/hsm/kernel/src/text.rs",
         "tools/hsm/kernel/src/thru.rs",
@@ -2359,6 +2473,7 @@ genrule(
         "tools/hsm/kernel/src/solid.rs",
         "tools/hsm/kernel/src/spline.rs",
         "tools/hsm/kernel/src/step.rs",
+        "tools/hsm/kernel/src/step/analytic.rs",
         "tools/hsm/kernel/src/sweep.rs",
         "tools/hsm/kernel/src/text.rs",
         "tools/hsm/kernel/src/thru.rs",
@@ -2550,6 +2665,7 @@ genrule(
         "tools/hsm/kernel/src/solid.rs",
         "tools/hsm/kernel/src/spline.rs",
         "tools/hsm/kernel/src/step.rs",
+        "tools/hsm/kernel/src/step/analytic.rs",
         "tools/hsm/kernel/src/sweep.rs",
         "tools/hsm/kernel/src/text.rs",
         "tools/hsm/kernel/src/thru.rs",
@@ -3270,6 +3386,7 @@ genrule(
         "pysrc/hardware/cold-core-layout/_bom.py",
         "pysrc/hardware/cold-core-layout/_carbonator.py",
         "pysrc/hardware/cold-core-layout/_carbonator_bond.py",
+        "pysrc/hardware/cold-core-layout/_carbonator_stock.py",
         "pysrc/hardware/cold-core-layout/_coil.py",
         "pysrc/hardware/cold-core-layout/_cold_core_style.py",
         "pysrc/hardware/cold-core-layout/_cold_scorecard.py",
@@ -3625,6 +3742,7 @@ genrule(
         "tools/hsm/kernel/src/solid.rs",
         "tools/hsm/kernel/src/spline.rs",
         "tools/hsm/kernel/src/step.rs",
+        "tools/hsm/kernel/src/step/analytic.rs",
         "tools/hsm/kernel/src/sweep.rs",
         "tools/hsm/kernel/src/text.rs",
         "tools/hsm/kernel/src/thru.rs",
@@ -3766,6 +3884,7 @@ genrule(
         "pysrc/hardware/cold-core-layout/_bom.py",
         "pysrc/hardware/cold-core-layout/_carbonator.py",
         "pysrc/hardware/cold-core-layout/_carbonator_bond.py",
+        "pysrc/hardware/cold-core-layout/_carbonator_stock.py",
         "pysrc/hardware/cold-core-layout/_coil.py",
         "pysrc/hardware/cold-core-layout/_cold_core_style.py",
         "pysrc/hardware/cold-core-layout/_cold_scorecard.py",
@@ -4235,6 +4354,7 @@ cp hardware/printed-parts/asse-straight-cuffs/asse-outlet-cuff.stl $$O5
 genrule(
     name = "cold-core-interface",
     srcs = [
+        "pysrc/hardware/cold-core-layout/_carbonator_stock.py",
         "hardware/manifold-layout/above-core.json",
         "pysrc/hardware/manifold-layout/above_core.py",
         "pysrc/hardware/manifold-layout/rear_snaps.py",
@@ -4296,6 +4416,7 @@ cp hardware/printed-parts/cold-core/_cold_core_interface.py $$O0
 genrule(
     name = "coil-mandrel",
     srcs = [
+        "pysrc/hardware/cold-core-layout/_carbonator_stock.py",
         "hardware/manifold-layout/above-core.json",
         "pysrc/hardware/manifold-layout/above_core.py",
         "pysrc/hardware/manifold-layout/rear_snaps.py",
@@ -4353,6 +4474,7 @@ genrule(
         "tools/hsm/kernel/src/solid.rs",
         "tools/hsm/kernel/src/spline.rs",
         "tools/hsm/kernel/src/step.rs",
+        "tools/hsm/kernel/src/step/analytic.rs",
         "tools/hsm/kernel/src/sweep.rs",
         "tools/hsm/kernel/src/text.rs",
         "tools/hsm/kernel/src/thru.rs",
@@ -4435,6 +4557,7 @@ genrule(
     name = "foam-assembly",
     srcs = [
         "pysrc/future/tube-bend-holder-exploration/tube_bend_holder.py",
+        "pysrc/hardware/cold-core-layout/_carbonator_stock.py",
         "hardware/manifold-layout/above-core.json",
         "pysrc/hardware/manifold-layout/above_core.py",
         "pysrc/hardware/manifold-layout/above_core_bom.py",
@@ -4605,6 +4728,7 @@ cp hardware/printed-parts/cold-core/foam-assembly/internal-routes.step $$O1
 genrule(
     name = "foam-cap",
     srcs = [
+        "pysrc/hardware/cold-core-layout/_carbonator_stock.py",
         "hardware/manifold-layout/above-core.json",
         "pysrc/hardware/manifold-layout/above_core.py",
         "pysrc/hardware/manifold-layout/above_core_bom.py",
@@ -4679,6 +4803,7 @@ genrule(
         "tools/hsm/kernel/src/solid.rs",
         "tools/hsm/kernel/src/spline.rs",
         "tools/hsm/kernel/src/step.rs",
+        "tools/hsm/kernel/src/step/analytic.rs",
         "tools/hsm/kernel/src/sweep.rs",
         "tools/hsm/kernel/src/text.rs",
         "tools/hsm/kernel/src/thru.rs",
@@ -4793,6 +4918,7 @@ cd .. && rm -rf work-foam-cap
 genrule(
     name = "foam-shell",
     srcs = [
+        "pysrc/hardware/cold-core-layout/_carbonator_stock.py",
         "hardware/manifold-layout/above-core.json",
         "pysrc/hardware/manifold-layout/above_core.py",
         "pysrc/hardware/manifold-layout/rear_snaps.py",
@@ -4860,6 +4986,7 @@ genrule(
         "tools/hsm/kernel/src/solid.rs",
         "tools/hsm/kernel/src/spline.rs",
         "tools/hsm/kernel/src/step.rs",
+        "tools/hsm/kernel/src/step/analytic.rs",
         "tools/hsm/kernel/src/sweep.rs",
         "tools/hsm/kernel/src/text.rs",
         "tools/hsm/kernel/src/thru.rs",
@@ -4975,6 +5102,7 @@ genrule(
         "tools/hsm/kernel/src/solid.rs",
         "tools/hsm/kernel/src/spline.rs",
         "tools/hsm/kernel/src/step.rs",
+        "tools/hsm/kernel/src/step/analytic.rs",
         "tools/hsm/kernel/src/sweep.rs",
         "tools/hsm/kernel/src/text.rs",
         "tools/hsm/kernel/src/thru.rs",
@@ -5084,6 +5212,7 @@ genrule(
     name = "integration",
     srcs = [
         "pysrc/hardware/assembly/_pressure_vessel_sync.py",
+        "pysrc/hardware/cold-core-layout/_carbonator_stock.py",
         ":out/endcap-circular-drawing/hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole-drawing.pdf",
         ":out/endcap-circular-step/hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step",
         "pysrc/hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py",
@@ -5219,6 +5348,7 @@ genrule(
         "tools/hsm/kernel/src/solid.rs",
         "tools/hsm/kernel/src/spline.rs",
         "tools/hsm/kernel/src/step.rs",
+        "tools/hsm/kernel/src/step/analytic.rs",
         "tools/hsm/kernel/src/sweep.rs",
         "tools/hsm/kernel/src/text.rs",
         "tools/hsm/kernel/src/thru.rs",
@@ -5410,6 +5540,7 @@ genrule(
         "tools/hsm/kernel/src/solid.rs",
         "tools/hsm/kernel/src/spline.rs",
         "tools/hsm/kernel/src/step.rs",
+        "tools/hsm/kernel/src/step/analytic.rs",
         "tools/hsm/kernel/src/sweep.rs",
         "tools/hsm/kernel/src/text.rs",
         "tools/hsm/kernel/src/thru.rs",
@@ -5502,6 +5633,7 @@ cd .. && rm -rf work-prv-shroud
 genrule(
     name = "reed-bridge",
     srcs = [
+        "pysrc/hardware/cold-core-layout/_carbonator_stock.py",
         "pysrc/hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py",
         "hardware/manifold-layout/above-core.json",
         "pysrc/hardware/manifold-layout/above_core.py",
@@ -5567,6 +5699,7 @@ genrule(
         "tools/hsm/kernel/src/solid.rs",
         "tools/hsm/kernel/src/spline.rs",
         "tools/hsm/kernel/src/step.rs",
+        "tools/hsm/kernel/src/step/analytic.rs",
         "tools/hsm/kernel/src/sweep.rs",
         "tools/hsm/kernel/src/text.rs",
         "tools/hsm/kernel/src/thru.rs",
@@ -5950,6 +6083,7 @@ genrule(
         "tools/hsm/kernel/src/solid.rs",
         "tools/hsm/kernel/src/spline.rs",
         "tools/hsm/kernel/src/step.rs",
+        "tools/hsm/kernel/src/step/analytic.rs",
         "tools/hsm/kernel/src/sweep.rs",
         "tools/hsm/kernel/src/text.rs",
         "tools/hsm/kernel/src/thru.rs",
@@ -6078,6 +6212,7 @@ genrule(
         "pysrc/hardware/cold-core-layout/_bom.py",
         "pysrc/hardware/cold-core-layout/_carbonator.py",
         "pysrc/hardware/cold-core-layout/_carbonator_bond.py",
+        "pysrc/hardware/cold-core-layout/_carbonator_stock.py",
         "pysrc/hardware/cold-core-layout/_coil.py",
         "pysrc/hardware/cold-core-layout/_cold_core_style.py",
         "pysrc/hardware/cold-core-layout/_cold_scorecard.py",
@@ -6414,6 +6549,7 @@ genrule(
         "tools/hsm/kernel/src/solid.rs",
         "tools/hsm/kernel/src/spline.rs",
         "tools/hsm/kernel/src/step.rs",
+        "tools/hsm/kernel/src/step/analytic.rs",
         "tools/hsm/kernel/src/sweep.rs",
         "tools/hsm/kernel/src/text.rs",
         "tools/hsm/kernel/src/thru.rs",
@@ -6665,6 +6801,7 @@ genrule(
         "tools/hsm/kernel/src/solid.rs",
         "tools/hsm/kernel/src/spline.rs",
         "tools/hsm/kernel/src/step.rs",
+        "tools/hsm/kernel/src/step/analytic.rs",
         "tools/hsm/kernel/src/sweep.rs",
         "tools/hsm/kernel/src/text.rs",
         "tools/hsm/kernel/src/thru.rs",
@@ -7063,6 +7200,7 @@ genrule(
         "tools/hsm/kernel/src/solid.rs",
         "tools/hsm/kernel/src/spline.rs",
         "tools/hsm/kernel/src/step.rs",
+        "tools/hsm/kernel/src/step/analytic.rs",
         "tools/hsm/kernel/src/sweep.rs",
         "tools/hsm/kernel/src/text.rs",
         "tools/hsm/kernel/src/thru.rs",
@@ -7155,6 +7293,7 @@ cd .. && rm -rf work-display-gasket
 genrule(
     name = "enclosure",
     srcs = [
+        "pysrc/hardware/cold-core-layout/_carbonator_stock.py",
         "pysrc/hardware/manifold-layout/_drain.py",
         "pysrc/hardware/manifold-layout/_gas_chain.py",
         "pysrc/hardware/manifold-layout/_lines.py",
@@ -7389,6 +7528,7 @@ genrule(
         "tools/hsm/kernel/src/solid.rs",
         "tools/hsm/kernel/src/spline.rs",
         "tools/hsm/kernel/src/step.rs",
+        "tools/hsm/kernel/src/step/analytic.rs",
         "tools/hsm/kernel/src/sweep.rs",
         "tools/hsm/kernel/src/text.rs",
         "tools/hsm/kernel/src/thru.rs",
@@ -7612,6 +7752,7 @@ genrule(
         "tools/hsm/kernel/src/solid.rs",
         "tools/hsm/kernel/src/spline.rs",
         "tools/hsm/kernel/src/step.rs",
+        "tools/hsm/kernel/src/step/analytic.rs",
         "tools/hsm/kernel/src/sweep.rs",
         "tools/hsm/kernel/src/text.rs",
         "tools/hsm/kernel/src/thru.rs",
@@ -7763,6 +7904,7 @@ genrule(
         "pysrc/hardware/cold-core-layout/_bom.py",
         "pysrc/hardware/cold-core-layout/_carbonator.py",
         "pysrc/hardware/cold-core-layout/_carbonator_bond.py",
+        "pysrc/hardware/cold-core-layout/_carbonator_stock.py",
         "pysrc/hardware/cold-core-layout/_coil.py",
         "pysrc/hardware/cold-core-layout/_cold_core_style.py",
         "pysrc/hardware/cold-core-layout/_cold_scorecard.py",
@@ -8055,6 +8197,7 @@ genrule(
         "tools/hsm/kernel/src/solid.rs",
         "tools/hsm/kernel/src/spline.rs",
         "tools/hsm/kernel/src/step.rs",
+        "tools/hsm/kernel/src/step/analytic.rs",
         "tools/hsm/kernel/src/sweep.rs",
         "tools/hsm/kernel/src/text.rs",
         "tools/hsm/kernel/src/thru.rs",
@@ -8231,6 +8374,7 @@ genrule(
         "tools/hsm/kernel/src/solid.rs",
         "tools/hsm/kernel/src/spline.rs",
         "tools/hsm/kernel/src/step.rs",
+        "tools/hsm/kernel/src/step/analytic.rs",
         "tools/hsm/kernel/src/sweep.rs",
         "tools/hsm/kernel/src/text.rs",
         "tools/hsm/kernel/src/thru.rs",
@@ -8372,6 +8516,7 @@ genrule(
         "pysrc/hardware/cold-core-layout/_bom.py",
         "pysrc/hardware/cold-core-layout/_carbonator.py",
         "pysrc/hardware/cold-core-layout/_carbonator_bond.py",
+        "pysrc/hardware/cold-core-layout/_carbonator_stock.py",
         "pysrc/hardware/cold-core-layout/_coil.py",
         "pysrc/hardware/cold-core-layout/_cold_core_style.py",
         "pysrc/hardware/cold-core-layout/_cold_scorecard.py",
@@ -8711,6 +8856,7 @@ genrule(
         "tools/hsm/kernel/src/solid.rs",
         "tools/hsm/kernel/src/spline.rs",
         "tools/hsm/kernel/src/step.rs",
+        "tools/hsm/kernel/src/step/analytic.rs",
         "tools/hsm/kernel/src/sweep.rs",
         "tools/hsm/kernel/src/text.rs",
         "tools/hsm/kernel/src/thru.rs",
@@ -8842,6 +8988,7 @@ genrule(
         "tools/hsm/kernel/src/solid.rs",
         "tools/hsm/kernel/src/spline.rs",
         "tools/hsm/kernel/src/step.rs",
+        "tools/hsm/kernel/src/step/analytic.rs",
         "tools/hsm/kernel/src/sweep.rs",
         "tools/hsm/kernel/src/text.rs",
         "tools/hsm/kernel/src/thru.rs",
@@ -8981,6 +9128,7 @@ genrule(
         "tools/hsm/kernel/src/solid.rs",
         "tools/hsm/kernel/src/spline.rs",
         "tools/hsm/kernel/src/step.rs",
+        "tools/hsm/kernel/src/step/analytic.rs",
         "tools/hsm/kernel/src/sweep.rs",
         "tools/hsm/kernel/src/text.rs",
         "tools/hsm/kernel/src/thru.rs",
@@ -9133,6 +9281,7 @@ genrule(
         "tools/hsm/kernel/src/solid.rs",
         "tools/hsm/kernel/src/spline.rs",
         "tools/hsm/kernel/src/step.rs",
+        "tools/hsm/kernel/src/step/analytic.rs",
         "tools/hsm/kernel/src/sweep.rs",
         "tools/hsm/kernel/src/text.rs",
         "tools/hsm/kernel/src/thru.rs",
@@ -9932,6 +10081,7 @@ cp hardware/printed-parts/fixtures/tube-miter-box/README.md $$O3
 genrule(
     name = "valve-socket-fit",
     srcs = [
+        "pysrc/hardware/cold-core-layout/_carbonator_stock.py",
         "hardware/manifold-layout/above-core.json",
         "pysrc/hardware/manifold-layout/above_core.py",
         "pysrc/hardware/printed-parts/cadlib/cable_clip.py",
@@ -10246,6 +10396,7 @@ genrule(
         "tools/hsm/kernel/src/solid.rs",
         "tools/hsm/kernel/src/spline.rs",
         "tools/hsm/kernel/src/step.rs",
+        "tools/hsm/kernel/src/step/analytic.rs",
         "tools/hsm/kernel/src/sweep.rs",
         "tools/hsm/kernel/src/text.rs",
         "tools/hsm/kernel/src/thru.rs",
@@ -10677,6 +10828,7 @@ genrule(
         "tools/hsm/kernel/src/solid.rs",
         "tools/hsm/kernel/src/spline.rs",
         "tools/hsm/kernel/src/step.rs",
+        "tools/hsm/kernel/src/step/analytic.rs",
         "tools/hsm/kernel/src/sweep.rs",
         "tools/hsm/kernel/src/text.rs",
         "tools/hsm/kernel/src/thru.rs",
@@ -12301,6 +12453,7 @@ genrule(
         "pysrc/hardware/cold-core-layout/_bom.py",
         "pysrc/hardware/cold-core-layout/_carbonator.py",
         "pysrc/hardware/cold-core-layout/_carbonator_bond.py",
+        "pysrc/hardware/cold-core-layout/_carbonator_stock.py",
         "pysrc/hardware/cold-core-layout/_coil.py",
         "pysrc/hardware/cold-core-layout/_cold_core_style.py",
         "pysrc/hardware/cold-core-layout/_cold_scorecard.py",
@@ -12995,6 +13148,7 @@ genrule(
         "hardware/cold-core-layout/_bom.py",
         "hardware/cold-core-layout/_carbonator.py",
         "hardware/cold-core-layout/_carbonator_bond.py",
+        "hardware/cold-core-layout/_carbonator_stock.py",
         "hardware/cold-core-layout/_coil.py",
         "hardware/cold-core-layout/_cold_core_style.py",
         "hardware/cold-core-layout/_cold_scorecard.py",
@@ -13408,6 +13562,7 @@ genrule(
         "pysrc/hardware/cold-core-layout/_bom.py",
         "pysrc/hardware/cold-core-layout/_carbonator.py",
         "pysrc/hardware/cold-core-layout/_carbonator_bond.py",
+        "pysrc/hardware/cold-core-layout/_carbonator_stock.py",
         "pysrc/hardware/cold-core-layout/_coil.py",
         "pysrc/hardware/cold-core-layout/_cold_core_style.py",
         "pysrc/hardware/cold-core-layout/_cold_scorecard.py",
@@ -14323,6 +14478,14 @@ genrule(
     name = "pysrc-8baed5b8d4e9",
     srcs = ["hardware/cold-core-layout/_carbonator_bond.py"],
     outs = ["pysrc/hardware/cold-core-layout/_carbonator_bond.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
+    name = "pysrc-c9a5b512050a",
+    srcs = ["hardware/cold-core-layout/_carbonator_stock.py"],
+    outs = ["pysrc/hardware/cold-core-layout/_carbonator_stock.py"],
     tools = ["tools/bazel/pysrc.py"],
     cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
 )
@@ -16083,6 +16246,14 @@ genrule(
     name = "pysrc-a2dbe138d639",
     srcs = ["hardware/scripts/_clearing.py"],
     outs = ["pysrc/hardware/scripts/_clearing.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
+    name = "pysrc-9da223cc4aab",
+    srcs = ["hardware/scripts/_document_export.py"],
+    outs = ["pysrc/hardware/scripts/_document_export.py"],
     tools = ["tools/bazel/pysrc.py"],
     cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
 )
