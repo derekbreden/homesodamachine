@@ -42,6 +42,10 @@ path = "../../../hardware/printed-parts/enclosure/data-ring/data_ring.rs"
 name = "pump-tray"
 path = "../../../hardware/printed-parts/enclosure/pump-tray/pump_tray.rs"
 
+[[bin]]
+name = "valve-tray"
+path = "../../../hardware/printed-parts/enclosure/valve-tray/valve_tray.rs"
+
 [dependencies]
 anyhow.workspace = true
 hsm-kernel = { path = "../kernel" }
