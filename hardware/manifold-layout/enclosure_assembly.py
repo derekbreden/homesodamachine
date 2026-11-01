@@ -85,6 +85,12 @@ if __name__ == "__main__":
     sys.path.insert(0, str(next(p for p in Path(__file__).resolve().parents
                                 if (p / "hardware" / "scripts" / "meshcad").is_dir())
                            / "hardware" / "scripts"))
+    if (sys.argv[1:] != ["selftest"]
+            and sys.argv[1:2] != ["--export-handoff"]
+            and os.environ.get("HSM_BUILD_SOURCE") != "trace"):
+        from _machine_export import run
+        run(Path(__file__))
+        raise SystemExit
     import meshcad  # noqa: E402
     meshcad.activate()
 
@@ -5831,19 +5837,8 @@ def graft_printed_surfaces(a, mesh):
     The smooth shell's opposite faces have nearly identical sampled surfaces;
     placement recovery cannot distinguish its copper-hole face reliably.
     """
-    import numpy as np
-    import flute_payload
-    surfaces = flute_payload.surfaces()
-    shell = surfaces.pop("foam-shell", None)
-    landed = flute_payload.graft(mesh, surfaces)
-    if shell is not None:
-        carry = a.core_carry
-        origin = np.array(carry(((0., 0., 0.), (0., 0., 1.)))[0])
-        axes = [np.array(carry((p, (0., 0., 1.)))[0]) - origin
-                for p in ((1., 0., 0.), (0., 1., 0.), (0., 0., 1.))]
-        installed = flute_payload.carried(shell, (np.column_stack(axes), origin))
-        landed += flute_payload.graft(mesh, {"foam-shell": installed}, same_frame=True)
-    return landed
+    from _machine_export import graft_printed, printed_frame
+    return graft_printed(mesh, printed_frame(a))
 
 
 def write_scene(a, path=None) -> Path:
@@ -5891,6 +5886,21 @@ def main():
         meshcad.forget()                    # what the build fused for its own checks
         print(f"-> {write_scene(a).name}")
         meshcad.forget()                    # and what the scene's checks fused
+        from _machine_export import BUILD_ARG, finish, prepare
+        worker = sys.argv[1:2] == [BUILD_ARG]
+        if worker or os.environ.get("HSM_BUILD_SOURCE") == "trace":
+            if worker:
+                prepare(a, out, Path(sys.argv[2]), action=action,
+                        module=sys.modules[__name__])
+            else:
+                # A trace observes both stages in one process. It sees the same files and
+                # functions while retaining the audit hook that records their reads.
+                import tempfile
+                with tempfile.TemporaryDirectory(prefix="hsm-machine-trace-") as directory:
+                    plan = prepare(a, out, Path(directory) / "export.json", action=action,
+                                   module=sys.modules[__name__])
+                    finish(plan)
+            return
     from hardware.wiring.installed.build import export_enclosure
     export_enclosure(a, out)
     print(f"-> {out.name}")
