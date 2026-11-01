@@ -3,8 +3,11 @@
 //! Each part's program sits beside the Python module that holds its numbers, and reads them with
 //! `hsm_kernel::part`. What the parts share is here: the gooseneck the shell, its display cover
 //! and the industrial faucet follow, the display's frame at the tip, and the shapes their numbers
-//! come in. `assembly` builds the faucet and its umbilical as the bench bags them.
+//! come in. `shell` holds the shell's stock and cutters, `display` what the display covers share,
+//! and `assembly` builds the faucet and its umbilical as the bench bags them.
 pub mod assembly;
+pub mod display;
+pub mod shell;
 
 use anyhow::{Result, anyhow, ensure};
 use hsm_kernel::part::Numbers;
@@ -33,6 +36,14 @@ pub fn points2(v: &Value) -> Result<Vec<V2>> {
             _ => Err(anyhow!("{p} is not a point in a plane")),
         })
         .collect()
+}
+
+/// A pair `[a, b]` in a list of them.
+pub fn pair(v: &Value) -> Result<(f64, f64)> {
+    match floats(v).as_deref() {
+        Some([a, b]) => Ok((*a, *b)),
+        _ => Err(anyhow!("{v} is not a pair")),
+    }
 }
 
 /// A JSON list.

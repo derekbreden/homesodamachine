@@ -65,24 +65,32 @@ def build_plate_outer(dimensions: CoverDimensions = DIMENSIONS) -> cq.Workplane:
                                dimensions.n_bottom, dimensions.n_top)
 
 
-def build_plate_inner_cut(dimensions: CoverDimensions = DIMENSIONS) -> cq.Workplane:
+def cavity_sections(dimensions: CoverDimensions = DIMENSIONS) -> tuple:
+    """The display cavity's (half width, n) rows, from under the cover up to the bezel."""
     upper_half_x = dimensions.width / 2.0 - dimensions.upper_side_wall
     lower_half_x = min(
         upper_half_x + preload_inward_at(shell.display_feet_n, dimensions),
         dimensions.width / 2.0 - dimensions.lower_side_wall,
     )
+    return ((lower_half_x, dimensions.n_bottom - 1.0),
+            (lower_half_x, shell.display_feet_n),
+            (upper_half_x, dimensions.bezel_n_bottom))
+
+
+def window_n(dimensions: CoverDimensions = DIMENSIONS) -> tuple:
+    """The glass window's cutter, from just under the bezel to past the cover's top."""
+    return dimensions.bezel_n_bottom - 0.1, dimensions.n_top + 1.0
+
+
+def build_plate_inner_cut(dimensions: CoverDimensions = DIMENSIONS) -> cq.Workplane:
     s0, s1 = dimensions.front_wall, dimensions.length - dimensions.rear_wall
-    sections = ((lower_half_x, dimensions.n_bottom - 1.0),
-                (lower_half_x, shell.display_feet_n),
-                (upper_half_x, dimensions.bezel_n_bottom))
     wires = [(cq.Workplane("XY").workplane(offset=n)
               .moveTo(-half_x, s0).lineTo(half_x, s0).lineTo(half_x, s1)
               .lineTo(-half_x, s1).lineTo(-half_x, s0).wire().val())
-             for half_x, n in sections]
+             for half_x, n in cavity_sections(dimensions)]
     cavity = shell._display_world(cq.Workplane(obj=cq.Solid.makeLoft(wires, ruled=True)))
     window = shell._cradle_prism(
-        window_half_x, window_s_south, window_s_north,
-        dimensions.bezel_n_bottom - 0.1, dimensions.n_top + 1.0,
+        window_half_x, window_s_south, window_s_north, *window_n(dimensions),
         corner_r=window_corner_r,
     )
     return cavity.union(window)
@@ -117,8 +125,13 @@ def preload_inward_at(n: float, dimensions: CoverDimensions = DIMENSIONS) -> flo
                / (dimensions.bezel_n_bottom - shell.display_clip_top_n))
 
 
+def wing_slope(dimensions: CoverDimensions = DIMENSIONS) -> float:
+    """How far each wing's relaxed print leans inward per millimetre below the bezel."""
+    return _display_snap.X_PRELOAD / (dimensions.bezel_n_bottom - shell.display_clip_top_n)
+
+
 def relaxed_wing_transform(side: int, dimensions: CoverDimensions = DIMENSIONS) -> cq.Matrix:
-    slope = side * _display_snap.X_PRELOAD / (dimensions.bezel_n_bottom - shell.display_clip_top_n)
+    slope = side * wing_slope(dimensions)
     return cq.Matrix([[1.0, 0.0, slope, -slope * dimensions.bezel_n_bottom],
                       [0.0, 1.0, 0.0, 0.0],
                       [0.0, 0.0, 1.0, 0.0],
@@ -160,3 +173,26 @@ def show_face(cover: cq.Workplane, dimensions: CoverDimensions = DIMENSIONS) -> 
 
 def bed_face(cover: cq.Workplane, dimensions: CoverDimensions = DIMENSIONS) -> tuple[int, float]:
     return show_face(cover, dimensions)
+
+
+def numbers(dimensions: CoverDimensions = DIMENSIONS) -> dict:
+    """What `industrial_faucet.rs` cuts the cover from, in the tip frame: x across the neck, s back
+    up it from the tube exit, n out through the glass."""
+    return {
+        "cover_half_x": dimensions.width / 2.0, "cover_length": dimensions.length,
+        "cover_n": [dimensions.n_bottom, dimensions.n_top],
+        "cover_cavity_s": [dimensions.front_wall, dimensions.length - dimensions.rear_wall],
+        "cover_cavity_sections": [list(row) for row in cavity_sections(dimensions)],
+        "cover_window_half_x": window_half_x,
+        "cover_window_s": [window_s_south, window_s_north],
+        "cover_window_n": list(window_n(dimensions)),
+        "cover_window_corner_r": window_corner_r,
+        "cover_neck_clearance_r": shell.display_neck_outer_r + shell.display_cover_slip,
+        "cover_arch_lift": dimensions.wing_extension_mm,
+        # The radius the lips' neck reference draws: the neck's, less the shrink it is handed.
+        "cover_lip_r": shell.display_neck_outer_r - (
+            shell.display_neck_outer_r - shell.display_clip_lip_radius),
+        "cover_lip_relief": _display_snap.LIP_INNER_EDGE_RELIEF,
+        "cover_bezel_n": dimensions.bezel_n_bottom,
+        "cover_wing_slope": wing_slope(dimensions),
+    }
