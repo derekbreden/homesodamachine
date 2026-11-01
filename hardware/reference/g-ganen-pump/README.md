@@ -9,10 +9,17 @@ The native reference represents the occupied external envelope. Its rigid
 housing, two barbs, visible crown features and four removable rubber sliders are
 separate named bodies. Vent openings, shallow casing recesses, driver recesses
 are filled for clearance. The common foot retains its visible slot, lower
-reliefs and exposed clip mouth. The lower-cradle envelope
-also fills its reentrant underside channels. These volumes are **not
+reliefs and exposed clip mouth. The lower casing follows its transverse grooves;
+its coarse convex clearance bound is metadata only. These volumes are **not
 material, mass or strength inputs**. The foot model does not establish the hidden slot throat, clip retention or
 loaded rubber compliance.
+
+The [bare-underside photographs](underside-observation/README.md) identify the
+fixed rails, finite molded wire cover and flexible leads. Clear sections between
+the sliders supply the rail profile through scan occlusions. The wire cover ends
+at approximately reference X = 64.7 mm; the motor and rear cap supply the rigid
+surface beyond it. The [construction observations](underside-observation/rigid-underside.json)
+retain the measured cover plane, axial ends and cap interpolation scope.
 
 ## Evidence and frame
 
@@ -98,9 +105,9 @@ washer coverage, screw length and rubber compression are integration checks.
 `mount_seat_z()`. There is no invented common `HOLE_D`, fixed rectangle or single
 port diameter/length.
 
-The detailed STEP contains **26 valid solids and 26,533 faces**. Its source,
-reports, STEP and matching viewer payload are bound by
-[artifact-manifest.json](artifact-manifest.json).
+The detailed STEP and matching viewer payload have native solid validity and
+bounds recorded in [native-validation.json](native-validation.json). The family
+[artifact manifest](artifact-manifest.json) is held for the installed mount review.
 
 [native-validation.json](native-validation.json) checks native solid validity,
 port-root continuity, flow mapping, unit-scale inputs and disjoint native scan
@@ -112,7 +119,7 @@ belongs to the [retained source report](under-head-clearance/prior-native-valida
 The current switch passage is assessed by its [rigid underside measurements](under-head-clearance.json).
 
 In the feet-down view, outside-distance p95 is 0.071 mm on the selected motor
-surface, 0.191 mm on the lower cradle and 0.432 mm on the rear cap. The two barb
+surface. The two barb
 surface absolute p95 residuals are 0.072 and 0.092 mm in that view. Earlier views
 have larger disagreements, retained in the report; these numbers are not a
 uniform fit tolerance or proof of a completed physical mount.

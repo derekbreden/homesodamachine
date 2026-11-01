@@ -1,0 +1,42 @@
+{
+  "status": "source_contact_scope_checked",
+  "native_mount_geometry_tested": false,
+  "source_frame": "Native X points toward motor rear and maps to installed enclosure +Y.",
+  "bearing_native_x_mm": [
+    25.0,
+    60.0
+  ],
+  "snap_native_x_mm": [
+    35.0,
+    51.0
+  ],
+  "bearing_world_y_mm": [
+    393.31776090725265,
+    428.31776090725265
+  ],
+  "snap_world_y_mm": [
+    403.31776090725265,
+    419.31776090725265
+  ],
+  "selected_regions": "Green motor/cylinder and its fixed rail ends only. Blue tip unused; red middle/head underside excluded.",
+  "fore_stop": {
+    "native_y_mm": [
+      -29.0,
+      -26.0
+    ],
+    "stock_width_mm": 3.0,
+    "native_z_max_mm": 19.0,
+    "nominal_casing_lateral_clearance_mm": 1.8665331451819505,
+    "near_seam_casing_lateral_clearance_mm": 0.8281455711866315,
+    "minimum_at_native_x_mm": 0.0,
+    "head_outer_hull_lateral_clearance_mm": 1.500018942674263,
+    "side_lug_vertical_clearance_mm": 6.001010699380004
+  },
+  "head_above_plain_lid_lower_bound_mm": 1.3856661521470528,
+  "motion_scope": "Native head X[-7,0] bounds the red portion that can pass the forward stop through the designed axial free play. Vertical admission only raises the body and preserves these bounds.",
+  "method": "Exact minima of piecewise ruled-section lower envelopes below Z19: axial span endpoints, vertex/height crossings and stationary roots of each rational edge/height intersection. Other head components use their retained conservative bounds.",
+  "input_sha256": {
+    "reference-parameters.json": "d6a18b31502486c7af15c6d06d4b784672e475adfacbb159624f458b6ed85139",
+    "layout_above-core.json": "f8e64d5dab4cf3deef0e668b49f2777601151cb5151049b3498df56c5ea1c377"
+  }
+}
