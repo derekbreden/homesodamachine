@@ -17,6 +17,7 @@ sys.path[:0]=[str(ROOT/'hardware/scripts'),str(ROOT/'hardware/manifold-layout'),
              str(ROOT/'hardware/printed-parts/cadlib')]
 import cadquery as cq
 from _cadq_export import import_step
+from _foam_cap import import_cap_part
 import above_core as layout
 import above_core_parts as parts
 import _above_core_mounts as mounts
@@ -42,7 +43,7 @@ def run(*,include_routes=True,output=HERE/'native-installation-check.json'):
             pump.REFERENCE/'reference-parameters.json',lid_path]
     bindings={str(p.relative_to(ROOT)):sha(p) for p in inputs}
     shape=parts.pump_native().moved(layout.location('g-ganen-pump'))
-    lid=import_step(str(lid_path)).val().moved(layout.frame_location(layout.cap_lid_pose()))
+    lid=import_cap_part(lid_path).moved(layout.frame_location(layout.cap_lid_pose()))
     bearing=mounts.pump_cradle()
     caps=[mounts.pump_snap_cap(i) for i in range(len(mounts.pump_cradle_datums()['caps']))]
     bb=shape.BoundingBox()

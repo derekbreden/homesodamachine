@@ -4,6 +4,11 @@ The PET-GF casing has three pieces: the taller shell, a top equipment lid and an
 open-topped bottom cap. The complete casing is 253.4 mm high in the appliance frame.
 The shell's internal vessel and reservoir datums are independent of its upper rim.
 
+`foam_cap.py` derives the current equipment and casing datums for `foam_cap.rs`,
+which writes the four pieces' STEP, full-precision model and print mesh. The
+generator cuts their viewer payloads from the print meshes. Its `--native` option
+retains the construction surfaces used by native assembly and installation readers.
+
 ## Top lid
 
 The uniform 7.4 mm plate spans 282.4 × 180.4 mm. Its flat underside is its print face.
