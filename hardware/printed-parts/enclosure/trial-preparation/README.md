@@ -98,8 +98,6 @@ for fixed-width brim types.
 | `labels` | Mark2, both 0.4 | PET-GF, two colours | [`labels.py`](labels.py) | — |
 | `funnel-cover` | Mark1, left 0.4 | PETG Basic black | [`zone-c/funnel-cover/prepare_print.py`](../../zone-c/funnel-cover/prepare_print.py) | — |
 | `funnel-mold` | Mark1, right 0.4 | PETG Translucent | [`tools/funnel-mold-print/prepare_print.py`](../../../../tools/funnel-mold-print/prepare_print.py) | — |
-| `reservoirs` | Mark1, right 0.8 | PETG Translucent | Retained two-plate native archive | — |
-| `level-floats` | Mark2, right 0.4 | ASA Aero white | Retained three-float archive with its RC62 pause | — |
 | `pump-elbows` | Mark2, right 0.6 | Siraya TPU 85A | Retained processed archive with its deposited links | — |
 | `asse-vent-sleeve` | Mark1, right 0.6 | Siraya TPU 85A | Upright, the large socket on the bed | The accepted Siraya single's project: zero user Z trim, glued Engineering Plate |
 | `asse-cuffs` | Mark1, right 0.6 | Siraya TPU 85A | Half a turn about X, onto each tube end | As the vent sleeve; 2 mm part gap |
