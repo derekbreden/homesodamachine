@@ -41,6 +41,8 @@ def load_model(path, *, snap=True):
 
 
 def _unjson(r):
+    if r is None:
+        return None
     return {k: (np.asarray(v, float) if isinstance(v, list) else v) for k, v in r.items()}
 
 
