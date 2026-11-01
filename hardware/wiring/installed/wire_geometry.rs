@@ -198,7 +198,14 @@ fn main() -> Result<()> {
                               .map(|(name,tolerance)|((*name).to_owned(),json!(tolerance)))
                               .collect::<serde_json::Map<_,_>>(),
                           "alpha_by_name":names.iter().map(|name|((*name).to_owned(),json!(1.0))).collect::<serde_json::Map<_,_>>()});
-    let said = part::write_assembly(&output, numbers.text("name")?, &bodies, Some(&document))?;
+    let root_name = numbers.text("name")?;
+    let file_stem = match numbers.get("file_stem") {
+        Ok(value) => value.as_str().context("assembly file stem")?,
+        Err(_) => root_name,
+    };
+    let said = part::write_assembly_with_root(
+        &output, file_stem, root_name, &bodies, Some(&document),
+    )?;
     println!("{said}");
     Ok(())
 }

@@ -1,12 +1,15 @@
-"""Append one native wiring subassembly, preserving every physical STEP record.
+"""Append the installed wiring subassembly, preserving every physical STEP record.
 
 The marked block is replaced on subsequent runs. Component placement uses the
 host's existing identity datum; the imported wires are already in machine XYZ.
 """
 from __future__ import annotations
 import hashlib
+import json
+import os
 from pathlib import Path
 import re
+import struct
 
 RECORD=re.compile(r'^#(\d+)\s*=(.*?);[ \t]*\n',re.M|re.S)
 REF=re.compile(r'#(\d+)')
@@ -42,9 +45,54 @@ def root(rec,name=None):
     return pd,representation,axis
 
 
-def install(host,wire_step,verify_retained=False):
-    import flute_payload
+def _wiring(name):
+    return name.startswith(('wire-','wiring-','terminal-'))
+
+
+def _payload_merge(host,wires,src):
+    """Append the existing array byte ranges without expanding meshes into Python lists."""
+    def header(stream):
+        size=struct.unpack('<I',stream.read(4))[0]
+        return json.loads(stream.read(size)),4+size
+    temporary=host.with_name(f'.{host.name}.{os.getpid()}.tmp')
+    with host.open('rb') as a,wires.open('rb') as b:
+        before,ab=header(a);incoming,bb=header(b)
+        meshes=[];copies=[];offset=0
+        retained=[m for m in before['meshes'] if not _wiring(m['name'])]
+        for stream,blob,rows in ((a,ab,retained),(b,bb,incoming['meshes'])):
+            for original in rows:
+                row=dict(original)
+                for key in ('pos','nrm','idx','fac','col','uv'):
+                    if key not in row:continue
+                    start,count=row[key];size=count*4
+                    row[key]=[offset,count];offset+=size
+                    copies.append((stream,blob+start,size))
+                meshes.append(row)
+        result={**before,'meshes':meshes,'src':src}
+        encoded=json.dumps(result,separators=(',',':')).encode()
+        encoded+=b' '*(-len(encoded)%4)
+        with temporary.open('wb') as out:
+            out.write(struct.pack('<I',len(encoded)));out.write(encoded)
+            for stream,start,size in copies:
+                stream.seek(start)
+                while size:
+                    block=stream.read(min(size,1024*1024))
+                    if not block:raise EOFError('Truncated mesh payload array')
+                    out.write(block);size-=len(block)
+    temporary.replace(host)
+    return len(retained),len(incoming['meshes'])
+
+
+def _digest(path):
+    with Path(path).open('rb') as stream:
+        return hashlib.file_digest(stream,'sha256').hexdigest()
+
+
+def install(host,wire_step,verify_retained=False,*,wire_model=None):
+    """Install the STEP/payload; a supplied fine wiring model stays standalone."""
     import _mesh_payload
+    if wire_model is None or verify_retained:
+        import flute_payload
     host,wire_step=Path(host),Path(wire_step)
     base=base_document(host.read_text());original=records(base)
     incoming=records(wire_step.read_text())
@@ -64,8 +112,8 @@ def install(host,wire_step,verify_retained=False):
     result=base[:end]+BEGIN+added+END+base[end:]
     host.write_text(result)
     mesh=Path(str(host)+'.mesh')
-    old=flute_payload.read_payload(mesh)
-    retained=[m for m in old if not m['name'].startswith(('wire-','wiring-','terminal-'))]
+    old=flute_payload.read_payload(mesh) if wire_model is None or verify_retained else None
+    retained=[m for m in old if not _wiring(m['name'])] if old is not None else None
     def fingerprint(m):
         import numpy as np
         h=hashlib.sha256()
@@ -73,14 +121,21 @@ def install(host,wire_step,verify_retained=False):
             h.update(np.asarray(m[k],dtype='<f4' if k in ('pos','nrm') else '<u4').tobytes())
         return h.hexdigest()
     before={m['name']:fingerprint(m) for m in retained} if verify_retained else None
-    wires=flute_payload.read_payload(Path(str(wire_step)+'.mesh'))
-    _mesh_payload.write(retained+wires,str(mesh),src=_mesh_payload.source_digest(host))
+    if wire_model is None:
+        wires=flute_payload.read_payload(Path(str(wire_step)+'.mesh'))
+        _mesh_payload.write(retained+wires,str(mesh),src=_mesh_payload.source_digest(host))
+        counts=len(retained),len(wires)
+        model=None
+    else:
+        counts=_payload_merge(mesh,Path(str(wire_step)+'.mesh'),_mesh_payload.source_digest(host))
+        model={'path':str(wire_model),'sha256':_digest(wire_model)}
     after=({m['name']:fingerprint(m) for m in flute_payload.read_payload(mesh) if m['name'] in before}
            if verify_retained else None)
     return {'schema':1,'scope':'Wiring-only integration; existing physical parts retained',
             'physical_step_sha256':hashlib.sha256(base.encode()).hexdigest(),
             'installed_step_sha256':hashlib.sha256(result.encode()).hexdigest(),
-            'physical_records_retained':len(original),'physical_meshes_retained':len(retained),
-            'wiring_meshes':len(wires),
+            'physical_records_retained':len(original),'physical_meshes_retained':counts[0],
+            'wiring_meshes':counts[1],
             'all_retained_viewer_arrays_identical':before==after if verify_retained else None,
-            'wiring_step_sha256':hashlib.sha256(wire_step.read_bytes()).hexdigest()}
+            'wiring_step_sha256':hashlib.sha256(wire_step.read_bytes()).hexdigest(),
+            **({'wiring_fine_model':model} if model is not None else {})}
