@@ -132,16 +132,8 @@ def deck_mounts():
         pcb._thickness, 8.0, pcb._thickness)}
 
 
-@lru_cache(maxsize=1)
-def pump_cradle_datums():
-    """Motor bearing and the complete rigid-rail admission rooms."""
-    import above_core_parts
-    import fits
-    import rear_snaps
-    pump = above_core_parts._module('bearing_pump',
-        'reference/g-ganen-pump/g_ganen_pump.py').parameters()
-    selected = above_core.specification()['pump_mount']
-    first, last = selected['motor_band_native_x_mm']
+def _pump_section_points(pump, first, last):
+    """Observed barrel profiles, including interpolated station ends."""
     sections = pump['casing_sections']
     rows = [row for row in sections if first <= row['x_mm'] <= last]
     points = [point for row in rows for point in row['vertices_mm']]
@@ -152,6 +144,20 @@ def pump_cradle_datums():
         share = (end-a['x_mm'])/(b['x_mm']-a['x_mm'])
         points.extend([[v+(w-v)*share for v, w in zip(p, q)]
                        for p, q in zip(a['vertices_mm'], b['vertices_mm'])])
+    return points
+
+
+@lru_cache(maxsize=1)
+def pump_cradle_datums():
+    """Two separated motor caps, solid end lands and open rail/lead rooms."""
+    import above_core_parts
+    import fits
+    import rear_snaps
+    pump = above_core_parts._module('bearing_pump',
+        'reference/g-ganen-pump/g_ganen_pump.py').parameters()
+    selected = above_core.specification()['pump_mount']
+    first, last = selected['motor_band_native_x_mm']
+    points = _pump_section_points(pump, first, last)
     can = pump['motor_can_envelope']
     cover_sides = []
     for side in pump['rigid_underside']['wire_cover_side_profiles']:
@@ -159,8 +165,11 @@ def pump_cradle_datums():
         cover_sides.append([a*x+b*z+c for x in (first, last)
             for z in (min(p[2] for p in points),
                       can['axis_point_mm'][2]+can['radius_mm'])])
-    cover_room = (min(v for side in cover_sides for v in side)-fits.running,
-                  max(v for side in cover_sides for v in side)+fits.running)
+    # The rounded cover/barrel joins need admission air beyond the fitted side
+    # planes. This open lead corridor is nonbearing; its per-face allowance is
+    # 0.5 mm, while the fitted rail floors keep the shared 0.25 mm running fit.
+    cover_room = (min(v for side in cover_sides for v in side)-2*fits.running,
+                  max(v for side in cover_sides for v in side)+2*fits.running)
     rails = []
     for rail in pump['rigid_underside']['rail_face_planes']:
         a, b, c = [rail['planes'][name]['z_ax_plus_by_plus_c']
@@ -177,7 +186,6 @@ def pump_cradle_datums():
     barrel_radius = max(can['radius_mm'], *(math.hypot(p[1]-origin[1],
         p[2]-(origin[2]+axis[2]*(p[0]-origin[0])/axis[0]))
         for p in points if p[2] >= origin[2]+axis[2]*(p[0]-origin[0])/axis[0]))
-    bore_radius = barrel_radius+fits.slip
     def in_open_room(p):
         if cover_room[0] <= p[1] <= cover_room[1]:
             return True
@@ -198,20 +206,33 @@ def pump_cradle_datums():
     centre = (middle, origin[1], origin[2]+axis[2]*(middle-origin[0])/axis[0])
     frame = above_core.pose('g-ganen-pump')
     cx, cy, cz = above_core.point(frame, centre)
-    neck = max(bore_radius,
-               *(abs(r['outer_y_mm']) for r in rails))+rear_snaps.WALL
-    cap_first, cap_last = selected['snap_band_native_x_mm']
-    station = rear_snaps.station(cx, neck,
-        frame['translation_mm'][1]+cap_first,
-        frame['translation_mm'][1]+cap_last, split=0.)
-    return dict(centre_world_mm=(cx, cy, cz), can=can, frame=frame,
-                bore_radius_mm=bore_radius,
+    bands = (selected['snap_band_native_x_mm'],
+             selected['rear_snap_band_native_x_mm'])
+    radii = []
+    for lo, hi in bands:
+        upper = _pump_section_points(pump, lo, hi)
+        radii.append(max(can['radius_mm'], *(math.hypot(p[1]-origin[1],
+            p[2]-(origin[2]+axis[2]*(p[0]-origin[0])/axis[0]))
+            for p in upper if p[2] >= origin[2]+axis[2]*(p[0]-origin[0])/axis[0]))
+            + fits.slip)
+    neck = max(*radii, *(abs(r['outer_y_mm']) for r in rails))+rear_snaps.WALL
+    common = dict(centre_world_mm=(cx, cy, cz), can=can, frame=frame,
                 seat_bore_radius_mm=seat_radius,
                 band_native_x_mm=(first, last), cover_room_native_y_mm=cover_room,
-                rail_rooms=rails,
-                snap_station=station,
-                stock_half_width_mm=station['outer'],
-                selected=selected)
+                rail_rooms=rails, selected=selected)
+    caps = []
+    for (lo, hi), radius in zip(bands, radii):
+        station = rear_snaps.station(cx, neck,
+            frame['translation_mm'][1]+lo,
+            frame['translation_mm'][1]+hi, split=0.)
+        caps.append(dict(common, bore_radius_mm=radius, snap_station=station,
+            cap_band_native_x_mm=(lo, hi),
+            pocket_band_native_x_mm=(lo-fits.running, hi+fits.running),
+            stock_half_width_mm=station['outer']))
+    return dict(caps[0], caps=caps,
+        end_stock_mm=(bands[0][0]-fits.running-first,
+                      last-bands[-1][1]-fits.running),
+        inter_pocket_stock_mm=bands[1][0]-bands[0][1]-2*fits.running)
 
 
 def _pump_cap_to_world(shape, datum):
@@ -233,19 +254,19 @@ def _pump_motor_room(datum, *, seat=False):
         cq.Vector(*above_core.vector(frame['rotation'], axis)))
 
 
-def pump_snap_cap():
+def pump_snap_cap(index=0):
     """One 2.4 mm spring arch and two integral 3 mm wings, in world axes."""
     import rear_snaps
     import fits
-    d = pump_cradle_datums()
+    d = pump_cradle_datums()['caps'][index]
     blank = rear_snaps.cap(d['snap_station'], -fits.slip,
         -(d['bore_radius_mm']+d['selected']['cap_arch_wall_mm']), axis_z=0.)
     return _pump_cap_to_world(blank, d).cut(_pump_motor_room(d)).clean()
 
 
-def pump_snap_printable():
+def pump_snap_printable(index=0):
     """Axial end on the bed: the complete arch and both hooks grow vertically."""
-    shape = pump_snap_cap().rotate((0., 0., 0.), (1., 0., 0.), 90.)
+    shape = pump_snap_cap(index).rotate((0., 0., 0.), (1., 0., 0.), 90.)
     b = shape.BoundingBox()
     return shape.translate((-(b.xmin+b.xmax)/2., -(b.ymin+b.ymax)/2., -b.zmin))
 
@@ -289,8 +310,9 @@ def pump_cradle():
             above_core.frame_location(d['frame']))
         body = body.cut(room)
     # The flank pockets open outside for hook flexure and support cleanup.
-    for pocket in rear_snaps.pockets(d['snap_station']):
-        body = body.cut(_pump_cap_to_world(pocket, d))
+    for cap in d['caps']:
+        for pocket in rear_snaps.pockets(cap['snap_station']):
+            body = body.cut(_pump_cap_to_world(pocket, cap))
     selected = d['selected']
     ya, yb = selected['rail_stop_native_y_mm']
     top = d['frame']['translation_mm'][2]+selected['rail_stop_native_z_mm']

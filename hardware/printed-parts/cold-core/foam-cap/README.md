@@ -32,11 +32,15 @@ The guide prints flat on its D back, with its teardrop channel roof self-support
 Seal the dry lid/window boundary with 3M 425 after potting, leaving all tube lumens open.
 
 The bare G Ganen pump seats in the lid's integral half pipe and uses a separate
-upper snap cap. Its complete rubber feet and legs are removed. The motor band
-runs from native X25–60. The saddle has ordinary 3 mm cradle stock, 5 mm slider
-cheeks, a 3 mm wire-cover floor and 3 mm axial rail stops. Its rail rooms open
+upper snap caps. Its complete rubber feet and legs are removed. The motor seat
+runs from native X16.75–77.75. The saddle has broad fitted rail bearings and 3 mm
+axial rail stops. Its rail rooms open
 vertically onto broad fitted floors; the cover room ends at the plain lid face.
-The upper cap closes after seating the bare motor and prints on one axial end.
+The 32 mm primary cap spans native X20–52 and the separate 16 mm rear cap
+spans X58.5–74.5, with 30.5 mm between their centers. Both retain a 2.4 mm
+working arch and 3 mm wings. The seat leaves 3 mm of solid axial stock outside
+the expanded pocket ends and a 6 mm web between pockets. Both caps close
+after seating the bare motor and print on one axial end.
 The [pump installation](../../../reference/g-ganen-pump/installation/README.md)
 owns the bearing datums, axial stops and removable sliders.
 
@@ -44,7 +48,7 @@ V-B uses the shared V69 upright socket. Four DC/sensor WAGO wells occupy the boa
 back of its wall. Their levers open west. The wall and wells retain ordinary 3 mm stock.
 The PCB and plumbing poses belong to the [above-core arrangement](../../../manifold-layout/above-core.md).
 
-The V-A feed seats in the lid's C2 clip at world (11, 254.5, 261.6) mm.
+The V-A feed seats in the lid's C2 clip at world (16.608, 207.300, 268.970) mm.
 The Reservoir A fore fill/draw clips remain at X50.5/64.0, Y209.75, Z258.5 mm,
 with Ø6.35 seats, 2.40 mm spring walls and 8 mm spans. The aft paired seat at Y390 mm
 uses one four-inch narrow tie. The front-going J1/J2 cable bank has ordinary 3 mm

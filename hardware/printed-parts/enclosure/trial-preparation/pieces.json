@@ -615,97 +615,17 @@
           "reason": "Retain 15% gyroid in thicker regions."
         },
         "enable_support": {
-          "value": "0",
-          "reason": "The upright shell and floor-down cap pieces retain their support-free recipe."
+          "value": "1",
+          "reason": "Tree(auto)/Default supports the underside M5 head-seat roofs where needed. Remove through the outward-open head pockets before inserting hardware and applying foil."
         }
       },
       "plate_border_mm": 20.0,
       "parts": [
         {
-          "stl": "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl",
-          "pose": {
-            "turns": [
-              [
-                "x",
-                180
-              ]
-            ]
-          }
+          "stl": "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl"
         }
       ],
-      "pose_reason": "Half a turn about X puts the bottom cap's 50,700 mm2 flat face on the bed; as exported it stands on 2,200 mm2."
-    },
-    "foam-cap-lid-bottom": {
-      "printer": "Mark2",
-      "nozzle": {
-        "side": "left",
-        "diameter_mm": 0.4,
-        "flow": "Standard",
-        "hardened": true,
-        "reason": "Smooth 2.38 mm cold-core casing: 0.42 mm outer and 0.45 mm inner lines at 0.24 mm layers, three loops from each boundary."
-      },
-      "material": "Polymaker Fiberon PET-GF15, black",
-      "settings": {
-        "wall_loops": {
-          "value": "3",
-          "reason": "Derek selected 2.38 mm standing walls, packed with six perimeter beads."
-        },
-        "wall_generator": {
-          "value": "classic",
-          "reason": "Three fixed-width perimeters from each wall boundary."
-        },
-        "sparse_infill_pattern": {
-          "value": "gyroid",
-          "reason": "Retain 15% gyroid in thicker regions."
-        },
-        "enable_support": {
-          "value": "0",
-          "reason": "The upright shell and floor-down cap pieces retain their support-free recipe."
-        }
-      },
-      "plate_border_mm": 20.0,
-      "parts": [
-        {
-          "stl": "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.stl"
-        }
-      ],
-      "pose_reason": "As exported: the lid's 50,100 mm2 flat face is its Z0 face."
-    },
-    "foam-cap-top": {
-      "printer": "Mark2",
-      "nozzle": {
-        "side": "left",
-        "diameter_mm": 0.4,
-        "flow": "Standard",
-        "hardened": true,
-        "reason": "Smooth 2.38 mm cold-core casing: 0.42 mm outer and 0.45 mm inner lines at 0.24 mm layers, three loops from each boundary."
-      },
-      "material": "Polymaker Fiberon PET-GF15, black",
-      "settings": {
-        "wall_loops": {
-          "value": "3",
-          "reason": "Derek selected 2.38 mm standing walls, packed with six perimeter beads."
-        },
-        "wall_generator": {
-          "value": "classic",
-          "reason": "Three fixed-width perimeters from each wall boundary."
-        },
-        "sparse_infill_pattern": {
-          "value": "gyroid",
-          "reason": "Retain 15% gyroid in thicker regions."
-        },
-        "enable_support": {
-          "value": "0",
-          "reason": "The upright shell and floor-down cap pieces retain their support-free recipe."
-        }
-      },
-      "plate_border_mm": 20.0,
-      "parts": [
-        {
-          "stl": "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.stl"
-        }
-      ],
-      "pose_reason": "As exported: the cap's 50,300 mm2 flat face is its Z0.15 seat face."
+      "pose_reason": "As exported: the open-topped cap stands on its flat outside floor. Its M5 head pockets open out through the perimeter before hardware and foil are fitted."
     },
     "foam-cap-lid-top": {
       "printer": "Mark1",
@@ -1137,9 +1057,13 @@
         {
           "name": "pump-snap-cap",
           "stl": "hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.stl"
+        },
+        {
+          "name": "pump-snap-cap-rear",
+          "stl": "hardware/printed-parts/cold-core/foam-cap/pump-snap-cap-rear.stl"
         }
       ],
-      "pose_reason": "As exported: one axial end on the bed. The complete motor arch, spring wings and hooks grow as vertical walls; the bore follows the measured motor axis. Retain PET-GF Tree(auto)/Default.",
+      "pose_reason": "Both caps stand on one axial end as exported. The32mm primary arch and16mm rear arch,3mm spring wings and hooks grow as vertical walls; retain PET-GF Tree(auto)/Default.",
       "plate_border_mm": 80.0,
       "settings": {
         "wall_loops": {
@@ -1157,6 +1081,39 @@
         "sparse_infill_pattern": {
           "value": "zig-zag",
           "reason": "Solid deposition through the complete small retaining cap."
+        }
+      }
+    },
+    "reservoir-b-fill-guide": {
+      "printer": "Mark2",
+      "nozzle": {
+        "side": "left",
+        "diameter_mm": 0.4,
+        "flow": "Standard",
+        "hardened": true,
+        "reason": "Every abrasive stock runs on the left hotend (hardware/ledger/tools.md, Which hotends fit an H2C). Mark2's 2026-10-24 jobs ran black PET-GF on its fixed left hardened 0.4 mm Standard-flow hotend (faucet/industrial/prints/2026-10-24-buttons-sculpted-bands020-mark2/README.md, task 1372253517)."
+      },
+      "material": "Polymaker Fiberon PET-GF15, black",
+      "parts": [
+        {
+          "name": "reservoir-b-fill-guide",
+          "stl": "hardware/printed-parts/cold-core/foam-cap/reservoir-b-fill-guide.stl"
+        }
+      ],
+      "plate_border_mm": 80.0,
+      "pose_reason": "As exported: the accepted R14 holder lies flat on its D back. Its 2 mm wall and teardrop channel retain their selected shape; retain Tree(auto)/Default.",
+      "settings": {
+        "wall_loops": {
+          "value": "3",
+          "reason": "Three Classic loops at each boundary of the selected 2 mm holder wall."
+        },
+        "wall_generator": {
+          "value": "classic",
+          "reason": "Retain the cold-core fixed-width perimeter recipe."
+        },
+        "sparse_infill_pattern": {
+          "value": "gyroid",
+          "reason": "Retain the shared 15% bulk recipe in thicker regions."
         }
       }
     }

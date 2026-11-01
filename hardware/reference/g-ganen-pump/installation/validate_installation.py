@@ -43,7 +43,7 @@ def run(*,include_routes=True,output=HERE/'native-installation-check.json'):
     shape=parts.pump_native().moved(layout.location('g-ganen-pump'))
     lid=import_step(str(lid_path)).val().moved(layout.frame_location(layout.cap_lid_pose()))
     bearing=mounts.pump_cradle()
-    cap=mounts.pump_snap_cap()
+    caps=[mounts.pump_snap_cap(i) for i in range(len(mounts.pump_cradle_datums()['caps']))]
     bb=shape.BoundingBox()
     # Restrict the material reading to the pump bay before the expensive common.
     bay=cq.Solid.makeBox(bb.xlen+.02,bb.ylen+.02,bb.zlen+.02,
@@ -62,10 +62,11 @@ def run(*,include_routes=True,output=HERE/'native-installation-check.json'):
           abs(bb.zmin-layout.specification()['cap_face_z_mm']-fits.slip),1.e-5)
     check('pump overlap with installed lid',common,1.e-5)
     check('cradle native invalid',int(not bearing.isValid()),0)
-    check('snap cap native invalid',int(not cap.isValid()),0)
-    check('snap cap unexpected solid count',int(len(cap.Solids()) != 1),0)
-    check('snap cap overlap with pump',sum(s.Volume() for s in cap.intersect(shape).Solids()),1.e-5)
-    check('snap cap overlap with lid',sum(s.Volume() for s in cap.intersect(lid).Solids()),1.e-5)
+    for i,cap in enumerate(caps):
+        check(f'snap cap {i+1} native invalid',int(not cap.isValid()),0)
+        check(f'snap cap {i+1} unexpected solid count',int(len(cap.Solids()) != 1),0)
+        check(f'snap cap {i+1} overlap with pump',sum(s.Volume() for s in cap.intersect(shape).Solids()),1.e-5)
+        check(f'snap cap {i+1} overlap with lid',sum(s.Volume() for s in cap.intersect(lid).Solids()),1.e-5)
     routes=[]
     if include_routes:
         import rear_plumbing
@@ -74,10 +75,10 @@ def run(*,include_routes=True,output=HERE/'native-installation-check.json'):
             tube=parts.route_shape(spec)
             check(name+' native invalid',int(not tube.isValid()),0)
             routes.append(dict(id=name,segments=spec['segments'],owners=spec['owners']))
-    out=dict(schema='g-ganen-installation/3',inputs=bindings,
+    out=dict(schema='g-ganen-installation/4',inputs=bindings,
         scope='Bare casing and fixed rails, integral motor half pipe, open rigid-body admission rooms, rail-end stops and removable upper snap. Native nominal geometry does not qualify spring force, vibration, printed fit or hose retention.',
         local_to_world=layout.pose('g-ganen-pump'),installed_bounds_mm=bounds(shape),
-        cradle_bounds_mm=bounds(bearing),snap_cap_bounds_mm=bounds(cap),
+        cradle_bounds_mm=bounds(bearing),snap_cap_bounds_mm=[bounds(cap) for cap in caps],
         mount=mounts.pump_cradle_datums(),selected_feet=[],mount_rows=[],
         routes_checked=include_routes,routes=routes,checks=checks,
         all_pass=all(r['pass'] for r in checks),elapsed_seconds=time.monotonic()-started)

@@ -8,15 +8,15 @@
   "source_sha256": {
     "hardware/printed-parts/cold-core/foam-cap/prepare_fore_snap_regions.py": "6d54003e0a091a669eadf26446dc2ae0035559c7152c9068aaee46401414cbe6",
     "hardware/printed-parts/cold-core/_reservoir_a_c2.py": "073f314bf227dee8d5326b077fb4d2a050a70cc9164e2688dcb307393aea466e",
-    "hardware/manifold-layout/above_core.py": "d3bd71f3c10335d6907e93ff874885e62558c794ce77a043fb22d6f8ed3eb45f",
-    "hardware/manifold-layout/above-core.json": "02d5974951681e7fbd70eb224f2e500dadb712f8b98109c8626f0f33cafc2a91",
+    "hardware/manifold-layout/above_core.py": "671fc8060496dc09232486ab3e22a9c88820b1ff97387b60542a91a9ccf1ff94",
+    "hardware/manifold-layout/above-core.json": "e6dac3b9d166c82450d0e2facd5bef81985a50a13fd697bc7d6c3b2f43786c6c",
     "hardware/printed-parts/cold-core/_reservoir_a_anchors.py": "f727c42ed0433ab36a9e4ec19cee24ddfea0272caa1e4b082c41bde5565eb639",
-    "hardware/printed-parts/cold-core/foam-cap/foam_cap.py": "2d5f920bd2c108360847ace3b0511b52459a15d0efb62c53f5af599e98e734d8"
+    "hardware/printed-parts/cold-core/foam-cap/foam_cap.py": "800c5b71f7d7d5491c2f153c7af0cd6fcb030bf41dbd9246e344ca43f32737a5"
   },
   "native_artifact_sha256": {
     "foam-cap-lid-top": {
-      ".step": "7ba263fe30cec256313ac372ccc1de767b19085dbdfd61b6e611b90da19ebaef",
-      ".stl": "05f67b7f230b7de1600084b37bd79362e7c28e255359a5c47b23b5d707463a97"
+      ".step": "2ff262543a5722a52b279ad16ae1e3de625e4a0590b2877d5a9adcaca44af978",
+      ".stl": "8d951a42fb1fc4218392fecb7f9ce8a79bb438908009717d8124028cba4b144e"
     }
   },
   "part_process_overrides": {},
@@ -29,16 +29,16 @@
           118.05000000000001,
           44.925,
           69.575,
-          2.4000000000000057,
-          10.5
+          4.400000000000006,
+          12.5
         ],
         "applied_source_bounds_mm": [
           110.05000000000001,
           118.05000000000001,
           44.925,
           69.575,
-          2.4000000000000057,
-          10.5
+          4.400000000000006,
+          12.5
         ],
         "world_bounds_mm": [
           44.925,
