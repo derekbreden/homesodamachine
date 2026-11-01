@@ -1,0 +1,151 @@
+{
+  "step": {
+    "path": "hardware/reference/y-divider/y-divider.step",
+    "sha256": "e7f41002e88f3e0d8d22905f2599ed12c4ea8963b4201d0deb3ee7bbacf91f20"
+  },
+  "capture": {
+    "reference_source_sha256": "eee4b08107633bcab7a17c3add8de464fb63fbf2fee2d6ba2d48df19c188b607",
+    "measuring_source_sha256": "3aac6ded4e779d6f0ad270fc8a76e71b19d94942626ec8d524bd619e67dac4d1",
+    "method": "Native STEP import; unchanged _measuring.bores and collet_offsets",
+    "axis_alignment_tolerance": 1e-06,
+    "radius_match_tolerance_mm": 0.0001,
+    "returned_radius_and_centre_decimals": 4,
+    "reference_source_path": "hardware/reference/y-divider/y_divider.py",
+    "measuring_source_path": "hardware/scripts/_measuring.py",
+    "collet_bore_radius_mm": 3.175
+  },
+  "bounds_mm": {
+    "xmin": -8.100000099999999,
+    "xmax": 8.100000099999999,
+    "ymin": -15.450000099999999,
+    "ymax": 15.450000099999999,
+    "zmin": -19.2500001,
+    "zmax": 19.25
+  },
+  "bores": [
+    {
+      "axis": "z",
+      "radius_mm": 3.175,
+      "centres_mm": [
+        [
+          0.0,
+          -7.35
+        ],
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          7.35
+        ]
+      ]
+    },
+    {
+      "axis": "z",
+      "radius_mm": 3.81,
+      "centres_mm": [
+        [
+          0.0,
+          -7.35
+        ],
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          7.35
+        ]
+      ]
+    },
+    {
+      "axis": "z",
+      "radius_mm": 5.715,
+      "centres_mm": [
+        [
+          0.0,
+          -7.35
+        ],
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          7.35
+        ]
+      ]
+    },
+    {
+      "axis": "z",
+      "radius_mm": 6.6475,
+      "centres_mm": [
+        [
+          0.0,
+          -7.35
+        ],
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          7.35
+        ]
+      ]
+    },
+    {
+      "axis": "z",
+      "radius_mm": 7.1475,
+      "centres_mm": [
+        [
+          0.0,
+          -7.35
+        ],
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          7.35
+        ]
+      ]
+    },
+    {
+      "axis": "z",
+      "radius_mm": 8.1,
+      "centres_mm": [
+        [
+          0.0,
+          -7.35
+        ],
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          7.35
+        ]
+      ]
+    }
+  ],
+  "collet_offsets": {
+    "z": [
+      [
+        0.0,
+        -7.35
+      ],
+      [
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        7.35
+      ]
+    ]
+  }
+}
