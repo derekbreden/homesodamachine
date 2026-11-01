@@ -2938,6 +2938,7 @@ genrule(
         "pysrc/hardware/manifold-layout/above_core_wiring.py",
         ":out/enclosure-box/hardware/manifold-layout/enclosure-box.json",
         "pysrc/hardware/manifold-layout/enclosure_assembly.py",
+        "hardware/manifold-layout/enclosure_assembly.rs",
         "pysrc/hardware/manifold-layout/manifold_layout.py",
         "pysrc/hardware/manifold-layout/rear_plumbing.py",
         "pysrc/hardware/manifold-layout/rear_snaps.py",
@@ -3171,6 +3172,7 @@ genrule(
         "pysrc/hardware/reference/y-divider/y_divider.py",
         "pysrc/hardware/reference/yyfkgcp-pogo-4p/yyfkgcp_pogo_4p.py",
         "hardware/reference/yzmsz-water-regulator/geometry/yzmsz-water-regulator.step",
+        "pysrc/hardware/scripts/_assembly_model.py",
         "pysrc/hardware/scripts/_box_spec.py",
         "pysrc/hardware/scripts/_boxes.py",
         "pysrc/hardware/scripts/_cadq_export.py",
@@ -3210,6 +3212,7 @@ genrule(
         "pysrc/hardware/scripts/pick_text.py",
         "hardware/topology/fluid-topology.md",
         "pysrc/hardware/wiring/installed/__init__.py",
+        "pysrc/hardware/wiring/installed/_model_input.py",
         "pysrc/hardware/wiring/installed/build.py",
         "hardware/wiring/installed/bundle-routes.json",
         "pysrc/hardware/wiring/installed/bundles.py",
@@ -3225,7 +3228,41 @@ genrule(
         "pysrc/hardware/wiring/installed/terminations.py",
         "tools/bazel/graph.json",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/Cargo.lock",
+        "tools/hsm/Cargo.toml",
+        "tools/hsm/kernel/Cargo.toml",
+        "tools/hsm/kernel/src/boolean.rs",
+        "tools/hsm/kernel/src/build.rs",
+        "tools/hsm/kernel/src/dxf.rs",
+        "tools/hsm/kernel/src/edge.rs",
+        "tools/hsm/kernel/src/face.rs",
+        "tools/hsm/kernel/src/import.rs",
+        "tools/hsm/kernel/src/lib.rs",
+        "tools/hsm/kernel/src/mapped.rs",
+        "tools/hsm/kernel/src/mass.rs",
+        "tools/hsm/kernel/src/math.rs",
+        "tools/hsm/kernel/src/part.rs",
+        "tools/hsm/kernel/src/plane.rs",
+        "tools/hsm/kernel/src/profile.rs",
+        "tools/hsm/kernel/src/reads.rs",
+        "tools/hsm/kernel/src/round.rs",
+        "tools/hsm/kernel/src/rule.rs",
+        "tools/hsm/kernel/src/screw.rs",
+        "tools/hsm/kernel/src/sketch_hull.rs",
+        "tools/hsm/kernel/src/solid.rs",
+        "tools/hsm/kernel/src/spline.rs",
+        "tools/hsm/kernel/src/step.rs",
+        "tools/hsm/kernel/src/sweep.rs",
+        "tools/hsm/kernel/src/text.rs",
+        "tools/hsm/kernel/src/thru.rs",
+        "tools/hsm/kernel/src/topo.rs",
+        "tools/hsm/kernel/src/triangulate.rs",
+        "tools/hsm/kernel/src/write.rs",
+        "tools/hsm/machine/Cargo.toml",
         "tools/hsm/run-slots.defaults.json",
+        "tools/hsm/run-slots/Cargo.toml",
+        "tools/hsm/run-slots/src/ipc.rs",
+        "tools/hsm/run-slots/src/lib.rs",
         "tools/run-slots.mjs",
         "pysrc/tools/run.py",
     ],
@@ -3255,6 +3292,7 @@ genrule(
         "out/enclosure-assembly/hardware/wiring/enclosure-wiring.step.npz",
         "out/enclosure-assembly/hardware/wiring/installed/integration-review.json",
     ],
+    tags = ["no-sandbox"],
     cmd = """
 set -e
 O0=$$PWD/$(location out/enclosure-assembly/hardware/assembly/scenes/glb/back-half.glb)
@@ -3281,6 +3319,7 @@ O20=$$PWD/$(location out/enclosure-assembly/hardware/wiring/enclosure-wiring.ste
 O21=$$PWD/$(location out/enclosure-assembly/hardware/wiring/enclosure-wiring.step.mesh)
 O22=$$PWD/$(location out/enclosure-assembly/hardware/wiring/enclosure-wiring.step.npz)
 O23=$$PWD/$(location out/enclosure-assembly/hardware/wiring/installed/integration-review.json)
+rm -rf work-enclosure-assembly
 for f in $(SRCS); do
   case $$f in
     */node_modules/*) continue;;
@@ -3288,12 +3327,12 @@ for f in $(SRCS); do
     */pysrc/*) t=$${f##*/pysrc/};;
     *) t=$$f;;
   esac
-  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
+  mkdir -p work-enclosure-assembly/$$(dirname $$t); cp -L $$f work-enclosure-assembly/$$t
 done
 for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
+  if [ -d $$d ]; then mkdir -p work-enclosure-assembly/$$(dirname $$d); ln -sfn $$PWD/$$d work-enclosure-assembly/$$d; fi
 done
-cd work
+cd work-enclosure-assembly
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
 HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py > /dev/null
@@ -3322,6 +3361,7 @@ cp hardware/wiring/enclosure-wiring.step $$O20
 cp hardware/wiring/enclosure-wiring.step.mesh $$O21
 cp hardware/wiring/enclosure-wiring.step.npz $$O22
 cp hardware/wiring/installed/integration-review.json $$O23
+cd .. && rm -rf work-enclosure-assembly
 """,
 )
 
@@ -6246,6 +6286,7 @@ genrule(
         "pysrc/hardware/manifold-layout/above_core_wiring.py",
         ":out/enclosure-box/hardware/manifold-layout/enclosure-box.json",
         "pysrc/hardware/manifold-layout/enclosure_assembly.py",
+        "hardware/manifold-layout/enclosure_assembly.rs",
         "pysrc/hardware/manifold-layout/manifold_layout.py",
         "pysrc/hardware/manifold-layout/rear_plumbing.py",
         "pysrc/hardware/manifold-layout/rear_snaps.py",
@@ -6380,6 +6421,7 @@ genrule(
         "pysrc/hardware/reference/wago-221/wago_221.py",
         "pysrc/hardware/reference/yyfkgcp-pogo-4p/yyfkgcp_pogo_4p.py",
         "hardware/reference/yzmsz-water-regulator/geometry/yzmsz-water-regulator.step",
+        "pysrc/hardware/scripts/_assembly_model.py",
         "pysrc/hardware/scripts/_box_spec.py",
         "pysrc/hardware/scripts/_boxes.py",
         "pysrc/hardware/scripts/_build_time.py",
@@ -6416,6 +6458,7 @@ genrule(
         "pysrc/hardware/scripts/meshcad/write.py",
         "pysrc/hardware/scripts/pick_text.py",
         "pysrc/hardware/wiring/installed/__init__.py",
+        "pysrc/hardware/wiring/installed/_model_input.py",
         "pysrc/hardware/wiring/installed/build.py",
         "pysrc/hardware/wiring/installed/bundles.py",
         "pysrc/hardware/wiring/installed/connections.py",
@@ -12123,6 +12166,7 @@ genrule(
         ":out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.step.npz",
         ":out/enclosure-box/hardware/manifold-layout/enclosure-box.json",
         "hardware/manifold-layout/enclosure_assembly.py",
+        "hardware/manifold-layout/enclosure_assembly.rs",
         "hardware/manifold-layout/manifold_layout.py",
         "hardware/manifold-layout/rear_plumbing.py",
         "hardware/manifold-layout/rear_snaps.py",
@@ -12386,6 +12430,7 @@ genrule(
         "hardware/reference/y-divider/y_divider.py",
         "hardware/reference/yyfkgcp-pogo-4p/yyfkgcp_pogo_4p.py",
         "hardware/reference/yzmsz-water-regulator/geometry/yzmsz-water-regulator.step",
+        "hardware/scripts/_assembly_model.py",
         "hardware/scripts/_box_spec.py",
         "hardware/scripts/_boxes.py",
         "hardware/scripts/_build_time.py",
@@ -12432,6 +12477,7 @@ genrule(
         ":out/enclosure-assembly/hardware/wiring/enclosure-wiring.step.mesh",
         ":out/enclosure-assembly/hardware/wiring/enclosure-wiring.step.npz",
         "hardware/wiring/installed/__init__.py",
+        "hardware/wiring/installed/_model_input.py",
         "hardware/wiring/installed/build.py",
         "hardware/wiring/installed/bundle-routes.json",
         "hardware/wiring/installed/bundles.py",
@@ -15083,6 +15129,14 @@ genrule(
 )
 
 genrule(
+    name = "pysrc-2250cb8df737",
+    srcs = ["hardware/scripts/_assembly_model.py"],
+    outs = ["pysrc/hardware/scripts/_assembly_model.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
     name = "pysrc-68bdd04a1a72",
     srcs = ["hardware/scripts/_bom_masses.py"],
     outs = ["pysrc/hardware/scripts/_bom_masses.py"],
@@ -15526,6 +15580,14 @@ genrule(
     name = "pysrc-bfc0f9365107",
     srcs = ["hardware/wiring/installed/__init__.py"],
     outs = ["pysrc/hardware/wiring/installed/__init__.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
+    name = "pysrc-21a08d2d6af8",
+    srcs = ["hardware/wiring/installed/_model_input.py"],
+    outs = ["pysrc/hardware/wiring/installed/_model_input.py"],
     tools = ["tools/bazel/pysrc.py"],
     cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
 )

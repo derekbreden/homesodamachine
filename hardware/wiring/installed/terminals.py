@@ -13,14 +13,25 @@ from pathlib import Path
 import sys
 
 from .model import Terminal, add, mul, sub, unit
+from ._model_input import Body as ModelBody, Solid as ModelSolid
 
 ROOT = Path(__file__).resolve().parents[3]
 HW = ROOT / "hardware"
 
 
 def bounds(shape):
+    if isinstance(shape, (ModelBody, ModelSolid)):
+        return shape.lower, shape.upper
     b = shape.BoundingBox()
     return ((b.xmin, b.ymin, b.zmin), (b.xmax, b.ymax, b.zmax))
+
+
+def solids(shape):
+    return shape.solids if isinstance(shape, ModelBody) else shape.Solids()
+
+
+def volume(shape):
+    return shape.volume_mm3 if isinstance(shape, ModelSolid) else shape.Volume()
 
 
 def centre(shape):
@@ -203,14 +214,14 @@ class Attachments:
                     'coil-v-'+letter.lower())
             body = self.part(name)
             tabs = []
-            for s in body.Solids():
+            for s in solids(body):
                 lo, hi = bounds(s); dims=sorted(b-a for a,b in zip(lo,hi))
                 if abs(dims[0]-.8)<.02 and abs(dims[1]-6.3)<.05 and abs(dims[2]-8.6)<.05:
                     tabs.append(s)
             # V-K is a merged reference valve; recover its two thin tab faces
             # through the same reference frame when they aren't separate solids.
             if len(tabs)==2:
-                bulk=max(body.Solids(), key=lambda s:s.Volume()); root=centre(bulk)
+                bulk=max(solids(body), key=volume); root=centre(bulk)
                 ends=[]
                 for tab in tabs:
                     lo,hi=bounds(tab); axis=max(range(3),key=lambda i:hi[i]-lo[i])
@@ -367,7 +378,7 @@ class Attachments:
     def boundaries(self):
         # The retained power-cover primitive is a distinct native solid. Keep the
         # estimated donor landings beside that cover, not on the can's far flank.
-        power_box=next(s for s in self.part('compressor').Solids()
+        power_box=next(s for s in solids(self.part('compressor'))
                        if all(abs(a-b)<.1 for a,b in zip(
                            sorted(y-x for x,y in zip(*bounds(s))),[27.5,45.,45.])))
         lo,hi=bounds(power_box);c=centre(power_box)
