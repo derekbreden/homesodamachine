@@ -9,7 +9,6 @@ import math
 import json
 from pathlib import Path
 
-import cadquery as cq
 import numpy as np
 
 import above_core as layout
@@ -53,6 +52,7 @@ def _world(shape, color):
 
 @cache
 def components():
+    import cadquery as cq
     import above_core_parts as parts
     from _materials import M_BRASS, M_JG_BLACK_PP, M_NEOFIT_WHITE_ACETAL
     data, tc, pj = plan(), chain(), joint()
@@ -161,6 +161,7 @@ def ports(name):
         mouth = joint().reducer.LENGTH-joint().CUT_X
         return {'tube':((mouth,0.,0.),(1.,0.,0.),6.35)}
     if name == 'jg-pp061208w':
+        import cadquery as cq
         red = chain().parameters()['pp061208w']
         x = red['visible_axial_range_mm'][1]
         p = chain().placed(cq.Vertex.makeVertex(x,0.,0.),red).Center().toTuple()
@@ -178,6 +179,7 @@ def snap_datums():
 @cache
 def seats():
     """Integral back-top stock and four removable snap caps."""
+    import cadquery as cq
     import above_core_parts as parts
     import rear_snaps as snaps
     import fits
@@ -229,6 +231,7 @@ def seats():
 
 
 def caps():
+    import cadquery as cq
     from _materials import M_PETGF_BLACK
     if getattr(cq,'MESH',False):
         from _cadq_export import import_assembly

@@ -13,8 +13,6 @@ import math
 from pathlib import Path
 import sys
 
-import cadquery as cq
-
 HERE = Path(__file__).resolve().parent
 HW = HERE.parent
 ROOT = HW.parent
@@ -23,11 +21,6 @@ sys.path.insert(0, str(HW / 'scripts'))
 import above_core as layout
 from above_core_bom import (stem_elbow_names, core_stem_elbow_names, reservoir_gate_elbow_hosts,
                             union_elbow_names, core_union_elbow_names)
-from _cadq_export import import_step
-from _materials import (C_C14, C_DIGITEN, C_PCBA, C_PSU, C_RELAY, C_VALVE,
-                        M_BRASS, M_DONOR_BLACK, M_JG_BLACK_PP,
-                        M_JG_WHITE_PP, M_NEOFIT_ACETAL, M_NEOFIT_WHITE_ACETAL, M_STAINLESS,
-                        M_TPU_BLACK, M_NITRILE_BLACK, M_PETGF_BLACK)
 
 IDENTITY = ((1., 0., 0.), (0., 1., 0.), (0., 0., 1.))
 ORIGIN = (0., 0., 0.)
@@ -56,6 +49,8 @@ REFERENCES = {
 
 @cache
 def native_reference(name):
+    import cadquery as cq
+    from _cadq_export import import_step
     if name == 'pcba' and not getattr(cq, 'MESH', False):
         board = _module('above_core_pcba', 'printed-parts/electronics/pcba-tray/pcba_tray.py')
         return board.board.build().val()
@@ -70,6 +65,7 @@ def valve_native(name):
     outlet collet solids occupy the observed end-mouth bands; every other
     reference solid keeps its exact native shape and frame.
     """
+    import cadquery as cq
     native = native_reference('valve')
     angles = layout.pose(name).get('collet_clock_degrees', {})
     if not angles:
@@ -145,6 +141,7 @@ def _placed(shape, frame):
 
 
 def _compound(shapes):
+    import cadquery as cq
     return cq.Compound.makeCompound(list(shapes))
 
 
@@ -165,6 +162,7 @@ def _asse_cuff(outlet=False):
 @cache
 def stem_elbow(depth=12.7):
     """Stock NeoFit elbow, cut to the receiving socket's specified depth."""
+    import cadquery as cq
     shoulder = stem_elbow_reference().stem_shoulder()[0][0]
     tip = shoulder - float(depth)
     # Only the straight male stem is cut. The body, collet and shoulder are
@@ -175,6 +173,7 @@ def stem_elbow(depth=12.7):
 
 @cache
 def branch_tee():
+    import cadquery as cq
     tee = _module('above_core_branch_tee', 'reference/branch-stem-tees/branch_stem_tees.py')
     shoulder = tee.specification('neofit')['model_mm']['stem_shoulder_y']
     end = shoulder + 15.
@@ -212,6 +211,7 @@ def _grid_module(row):
 
 
 def _nut(row):
+    import cadquery as cq
     plane = cq.Plane(origin=(row['x'], row['flange_y'] - 6., row['z']),
                      xDir=(1, 0, 0), normal=(0, -1, 0))
     shape = (cq.Workplane(plane).polygon(6, row['nut_af_mm'] / math.cos(math.pi / 6))
@@ -236,6 +236,7 @@ def pp1208e_bulkhead():
 
     https://www.johnguest.com/sites/jg/files/2023-04/JG%20Drinks%20Polypropylene%20Bulkhead%20Connector%20Data%20Sheet.pdf
     """
+    import cadquery as cq
     source = _module('above_core_water_bulkhead',
                      'reference/jg-bulkhead-union/jg_bulkhead_union.py')
     passage = cq.Solid.makeCylinder(source.THREAD_D/2., -source.far_ring_face_y,
@@ -256,6 +257,7 @@ def abu44m_bulkhead():
 
     https://assets.freshwatersystems.com/image/upload/qnbgcy8djx3nj2weqz9v.pdf
     """
+    import cadquery as cq
     source = _module('above_core_four_bulkhead',
                      'reference/neofit-drain-bulkhead/neofit_drain_bulkhead.py')
     # The outside flange keeps the complete source envelope. The inboard
@@ -277,6 +279,10 @@ def core_components():
 @cache
 def components():
     """Return every placed native body, material and its reference port frame."""
+    from _materials import (C_C14, C_DIGITEN, C_PCBA, C_PSU, C_RELAY, C_VALVE,
+                            M_BRASS, M_DONOR_BLACK, M_JG_BLACK_PP,
+                            M_JG_WHITE_PP, M_NEOFIT_ACETAL, M_NEOFIT_WHITE_ACETAL, M_STAINLESS,
+                            M_TPU_BLACK, M_NITRILE_BLACK, M_PETGF_BLACK)
     import rear_plumbing
     result = {}
 
@@ -503,6 +509,7 @@ def route_specs():
 
 def route_wire(specification):
     """Exact line/Bezier wire, omitting coincident illustrative mouth points."""
+    import cadquery as cq
     edges = []
     for segment in specification['segments']:
         if segment['kind'] == 'line':
@@ -519,6 +526,7 @@ def route_wire(specification):
 
 
 def route_shape(specification):
+    import cadquery as cq
     wire = route_wire(specification)
     first = wire.Edges()[0]
     start, normal = first.startPoint(), first.tangentAt(0.)
