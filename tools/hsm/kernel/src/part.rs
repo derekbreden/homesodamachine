@@ -151,10 +151,132 @@ fn keep(path: &Path, bytes: &[u8]) -> Result<()> {
     std::fs::rename(&tmp, path).with_context(|| format!("renaming onto {}", path.display()))
 }
 
+/// One assembly identity with separate authoritative and presentation geometry.
+pub struct AssemblyBody<'a> {
+    pub name: &'a str,
+    pub color: Option<[f64; 3]>,
+    pub fine: &'a Solid,
+    pub presentation: &'a Solid,
+}
+
+/// Write the supplied presentation triangles to STEP/payload and the fine model beside them.
+/// Child identity and order are shared. Separate components of one child draw under `/1`,
+/// `/2`, ... while the fine model retains their original shared name. Simplification is the caller's choice;
+/// presentation geometry never enters the model. The optional fine document names and hashes
+/// its presentation payload; that payload continues to name the STEP made from its triangles.
+pub fn write_assembly(
+    dir: &Path,
+    name: &str,
+    bodies: &[AssemblyBody],
+    document: Option<&Value>,
+) -> Result<Value> {
+    let fine: Vec<Body> = bodies
+        .iter()
+        .map(|b| Body { name: b.name, color: b.color, solid: b.fine })
+        .collect();
+    let mut totals = std::collections::HashMap::new();
+    for body in bodies { *totals.entry(body.name).or_insert(0_usize) += 1; }
+    let mut ordinals = std::collections::HashMap::new();
+    let shown_names: Vec<String> = bodies.iter().map(|body| {
+        if totals[body.name] == 1 { body.name.to_owned() }
+        else {
+            let ordinal = ordinals.entry(body.name).or_insert(0_usize);
+            *ordinal += 1;
+            format!("{}/{}", body.name, ordinal)
+        }
+    }).collect();
+    let shown: Vec<Body> = bodies
+        .iter()
+        .zip(&shown_names)
+        .map(|(b, name)| Body { name, color: b.color, solid: b.presentation })
+        .collect();
+    let step = step_of(&shown, name)?;
+    let digest: String = Sha256::digest(&step).iter().map(|b| format!("{b:02x}")).collect();
+    let payload = crate::write::payload_bytes_with_sources(&shown, Some(&digest), None);
+    let payload_name = format!("{name}.step.mesh");
+    let document = document.map(|document| {
+        let mut document = document.clone();
+        document["presentation"] = json!({
+            "path": payload_name.as_str(),
+            "sha256": format!("{:x}", Sha256::digest(&payload)),
+        });
+        document
+    });
+    let files = vec![
+        (format!("{name}.step"), step),
+        (format!("{name}.step.npz"), crate::step::model_bytes_with_document(&fine, document.as_ref())),
+        (payload_name, payload),
+    ];
+    for (file, bytes) in &files {
+        keep(&dir.join(file), bytes)?;
+    }
+    let held: Vec<Value> = bodies
+        .iter()
+        .map(|b| {
+            let bounds = b.fine.bounds();
+            json!({
+                "name": b.name,
+                "volume": b.fine.volume(),
+                "area": b.fine.area(),
+                "min": bounds.min.to_array(),
+                "max": bounds.max.to_array(),
+                "triangles": b.fine.tris().len(),
+                "presentation_triangles": b.presentation.tris().len(),
+            })
+        })
+        .collect();
+    Ok(json!({"files": files.iter().map(|(file, _)| file.as_str()).collect::<Vec<_>>(), "bodies": held}))
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
     use crate::plane::Plane;
+
+    #[test]
+    fn an_assembly_keeps_fine_geometry_and_binds_its_separate_presentation() -> Result<()> {
+        use std::io::Read;
+        let dir = std::env::temp_dir().join(format!("hsm-assembly-{}", std::process::id()));
+        std::fs::create_dir_all(&dir)?;
+        let fine = Plane::XY.cuboid(4., 5., 6.);
+        let shown = Plane::XY.cuboid(2., 3., 4.);
+        let fine2 = fine.translate(crate::math::v3(10., 0., 0.));
+        let shown2 = shown.translate(crate::math::v3(10., 0., 0.));
+        let bodies = [AssemblyBody { name: "body", color: Some([0.1, 0.2, 0.3]),
+                                     fine: &fine, presentation: &shown },
+                      AssemblyBody { name: "body", color: Some([0.1, 0.2, 0.3]),
+                                     fine: &fine2, presentation: &shown2 }];
+        let document = json!({"frame":"source", "schema":"fixture", "alpha_by_name":{"body":0.35}});
+        write_assembly(&dir, "assembly", &bodies, Some(&document))?;
+        let model = crate::import::model(dir.join("assembly.step.npz"))?;
+        assert_eq!(model[0].name, "body");
+        assert_eq!(model[1].name, "body");
+        assert_eq!(model[0].color, Some([0.1, 0.2, 0.3]));
+        assert_eq!(model[0].solid.verts(), fine.verts());
+        assert_eq!(model[0].solid.tris(), fine.tris());
+        assert_eq!(model[0].solid.face_of(), fine.face_of());
+        assert!((model[0].solid.volume() - 120.).abs() < 1e-9);
+        let view = crate::import::step(dir.join("assembly.step"))?;
+        assert_eq!(view[0].name, "body");
+        assert!((view[0].solid.volume() - 48.).abs() < 1e-9);
+        let mut archive = zip::ZipArchive::new(std::io::Cursor::new(std::fs::read(dir.join("assembly.step.npz"))?))?;
+        let mut bytes = vec![];
+        archive.by_name("document.npy")?.read_to_end(&mut bytes)?;
+        let bytes = npyz::NpyFile::new(&bytes[..])?.into_vec::<u8>()?;
+        let read: Value = serde_json::from_slice(&bytes)?;
+        assert_eq!(read["frame"], document["frame"]);
+        assert_eq!(read["schema"], document["schema"]);
+        assert_eq!(read["alpha_by_name"], document["alpha_by_name"]);
+        assert_eq!(read["presentation"]["path"], "assembly.step.mesh");
+        let payload = std::fs::read(dir.join("assembly.step.mesh"))?;
+        assert_eq!(read["presentation"]["sha256"], format!("{:x}", Sha256::digest(&payload)));
+        let size = u32::from_le_bytes(payload[..4].try_into()?) as usize;
+        let header: Value = serde_json::from_slice(&payload[4..4 + size])?;
+        assert_eq!(header["meshes"][0]["name"], "body/1");
+        assert_eq!(header["meshes"][1]["name"], "body/2");
+        std::fs::remove_dir_all(dir)?;
+        Ok(())
+    }
 
     #[test]
     fn a_part_lands_once() -> Result<()> {
