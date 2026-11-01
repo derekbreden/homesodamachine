@@ -180,6 +180,11 @@ def _load(path: Path):
     if Path(path).parent == _cold / "reservoir":
         import reservoir
         return reservoir.import_part(path)
+    if Path(path).parent == _cold / "reed-bridge":
+        import reed_bridge
+        return reed_bridge.import_part(path)
+    if Path(path).parent == _cold / "prv-shroud":
+        return _shroud.import_part(path)
     return import_step(str(path)).val()
 
 
