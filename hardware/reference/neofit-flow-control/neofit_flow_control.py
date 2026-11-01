@@ -20,20 +20,16 @@ Frame: +X = flow (inlet at −X, outlet at +X), the needle stem standing along +
 so a hand reaches it from above. Body centre at the origin, both collet faces on
 the Z = 0 plane — placed by a pure translation in the enclosure.
 
-Run:
-    tools/cad-venv/bin/python hardware/reference/neofit-flow-control/neofit_flow_control.py
+Geometry is in the frozen STEP and display payload beside this module.
+`frozen-asset.json` records their bytes and source snapshot.
 """
 
-import sys
 from pathlib import Path
 
-import cadquery as cq
-
 _here = Path(__file__).resolve()
-_hw = next(p for p in _here.parents if p.name == "hardware")
-sys.path.insert(0, str(_hw / "scripts"))
-from _cadq_export import export_assembly
-from _materials import M_NEOFIT_ACETAL, one_body
+STEP_PATH = _here.parent / "neofit-flow-control.step"
+PAYLOAD_PATH = _here.parent / "neofit-flow-control.step.mesh"
+ASSET_MANIFEST_PATH = _here.parent / "frozen-asset.json"
 
 COLLET_D = 13.7      # 1/4" PTC collet OD — the pack's shared 1/4" PTC dimension
 REACH = 23.0         # collet face from the body centre; run length is twice this
@@ -78,43 +74,10 @@ def run_barrel():
             COLLET_D / 2.0, far - near)
 
 
-def build():
-    """Run collets along ±X meeting at a central hub, the needle stem standing
-    off it along +Z: bulkhead nut, threaded barrel, knurled adjuster head."""
-    run = cq.Solid.makeCylinder(
-        COLLET_D / 2.0, 2 * REACH, cq.Vector(-REACH, 0, 0), cq.Vector(1, 0, 0))
-    hub = cq.Workplane("XY").box(HUB, HUB, HUB).val()
-    part = run.fuse(hub)
-    z = HUB / 2.0
-    nut = (
-        cq.Workplane("XY")
-        .workplane(offset=z)
-        .polygon(6, NUT_ACROSS_CORNERS)
-        .extrude(NUT_LENGTH)
-        .val()
-    )
-    z += NUT_LENGTH
-    barrel = cq.Solid.makeCylinder(
-        BARREL_D / 2.0, BARREL_LENGTH, cq.Vector(0, 0, z), cq.Vector(0, 0, 1))
-    z += BARREL_LENGTH
-    knurl = cq.Solid.makeCylinder(
-        KNURL_D / 2.0, KNURL_LENGTH, cq.Vector(0, 0, z), cq.Vector(0, 0, 1))
-    return part.fuse(nut).fuse(barrel).fuse(knurl)
-
-
 def main():
-    part = build()
-    bb = part.BoundingBox()
-    print("neoFit ABCVU44 flow-control bulkhead, 1/4\" tube — the flavor tap's regulator")
-    print(f"  Bounding box: X [{bb.xmin:.2f}, {bb.xmax:.2f}]  "
-          f"Y [{bb.ymin:.2f}, {bb.ymax:.2f}]  Z [{bb.zmin:.2f}, {bb.zmax:.2f}]")
-    print(f"  run {2 * REACH:g} mm collet face to collet face; stem reach {STEM_REACH:g} mm")
-    for label, (pos, axis) in (("inlet   ", inlet()), ("outlet  ", outlet()),
-                               ("adjuster", adjuster())):
-        print(f"  {label}: ({pos[0]:7.2f}, {pos[1]:6.2f}, {pos[2]:7.2f})  out {axis}")
-    out = _here.parent / "neofit-flow-control.step"
-    export_assembly(one_body(part, "neofit-flow-control", M_NEOFIT_ACETAL), str(out))
-    print(f"-> {out.name}")
+    print("neofit-flow-control")
+    print(f"  STEP: {STEP_PATH}")
+    print(f"  Display payload: {PAYLOAD_PATH}")
 
 
 if __name__ == "__main__":
