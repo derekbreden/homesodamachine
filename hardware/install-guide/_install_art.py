@@ -12,7 +12,6 @@ from __future__ import annotations
 
 import json
 import os
-import subprocess
 import sys
 import tempfile
 from pathlib import Path
@@ -37,8 +36,8 @@ from _cadq_export import import_step, note_read, note_write  # noqa: E402
 from world_workplane import xz_plane_y_up  # noqa: E402
 import iec_c14_inlet as _c14  # noqa: E402
 import _cad_art  # noqa: E402
+import _hsm_render  # noqa: E402
 
-RENDERER = _cad_art.RENDERER
 MACHINE_MESH = _cad_art.MACHINE_MESH
 MACHINE_FACTS = _cad_art.MACHINE_FACTS
 COLLET_PRESS = HARDWARE / "printed-parts" / "collet-press" / "collet-press.step"
@@ -656,7 +655,6 @@ SCENES = {
 def render(names: list[str]) -> None:
     ART.mkdir(parents=True, exist_ok=True)
     OUT.mkdir(parents=True, exist_ok=True)
-    note_read(RENDERER)
     note_read(MACHINE_MESH)
     note_read(MACHINE_FACTS)
     note_read(COLLET_PRESS)
@@ -667,7 +665,7 @@ def render(names: list[str]) -> None:
         for name in names:
             build, pose = SCENES[name]
             step = work / f"{name}.step"
-            _cad_art._export_colored(build(), step)
+            _cad_art._export_colored(build(), step, mesh=True)
             jobs.append({
                 "step": str(step.relative_to(HARDWARE)),
                 "out": str(ART / f"{name}.png"),
@@ -681,8 +679,7 @@ def render(names: list[str]) -> None:
                 **pose,
             })
             print(f"  staged {name}")
-        subprocess.run(["node", str(RENDERER), "--jobs", "-"], cwd=ROOT,
-                       input=json.dumps(jobs), text=True, check=True)
+        _hsm_render.render(jobs)
         for job in jobs:
             out = Path(job["out"])
             _cad_art._clear_connected_background(out)
