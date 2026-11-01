@@ -23,7 +23,7 @@ of tip air. The four blind pilots end below the full 3 mm roof show skin.
 | YZMSZ water regulator | East–west, above the pump | Integral ceiling seat and lower snap cap |
 | V-A | Hangs from the ceiling, its four posts upward; outlet turns east and then fore | Full-width integral socket plinth |
 | V-K | Beside the east wall, inlet up and outlet down | Integral full socket wall |
-| G Ganen pump | Motor fore–aft, suction east, discharge west; complete rubber feet and legs removed | Lid half pipe, removable upper snap and rail-end stops |
+| G Ganen pump | Motor fore–aft, suction east, discharge west; complete rubber feet and legs removed | Lid half pipe, 32 mm primary and 16 mm rear snaps, rail-end stops |
 | Pump joints | Reinforced 3/8-inch PVC, trimmed PP061208W reducers and two butterfly clamps per barb | Clamped barb and reducer engagements |
 | Pump discharge check | ACVUS-44 stem directly in the discharge elbow | Discharge joint; continuous inlet enters the core guide |
 | Mean Well IRM-90 | Base upward in its shallow ceiling well, AC end aft | Four integral ceiling hosts |
@@ -114,8 +114,8 @@ regulator and V-A/V-K header. Prepare the meter with its continuous inlet,
 holder, foam and concealed outlet tube, slide it onto the soda union and fit
 its west cap. Fit the vent cup and direct OVER return with both ties accessible.
 
-Lower the bare pump into its half-pipe cradle on the open core and close its upper
-snap cap. Fit its clamped joints before loading tubes into the lid snaps. Complete the below-lid tube routes
+Lower the bare pump into its half-pipe cradle on the open core and close both upper
+snap caps. Fit its clamped joints before loading tubes into the lid snaps. Complete the below-lid tube routes
 before closing the core. Keep the pump's suction elbow and its short
 quarter-inch inlet link loose while positioning back-top. Carry free
 cross-quadrant ends and make their central handoffs through the funnel opening. Install the

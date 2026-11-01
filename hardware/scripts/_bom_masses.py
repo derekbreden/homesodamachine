@@ -210,7 +210,8 @@ PARTS = {
         f"enclosure/rear-equipment-caps/{name}-snap-cap.step"
         for name in ("asse", "regulator", "pisco", "meter")
     ],
-    "G Ganen pump snap cap": ["cold-core/foam-cap/pump-snap-cap.step"],
+    "G Ganen pump snap caps": ["cold-core/foam-cap/pump-snap-cap.step",
+                               "cold-core/foam-cap/pump-snap-cap-rear.step"],
     # The funnel's drop-in frame and the cradle that hangs the drain elbow under its web. The
     # silicone funnel itself is cast, and §8 bills it as silicone.
     "Funnel frame": ["zone-c/funnel/funnel-frame.step"],

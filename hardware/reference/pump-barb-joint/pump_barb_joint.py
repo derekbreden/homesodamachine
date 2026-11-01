@@ -1,7 +1,7 @@
 """The joint on each of the G Ganen pump's barbs ([`ledger/bom.md`](/hardware/ledger/bom.md)):
 
 - a short piece of neoPure PVCR-0610 reinforced clear PVC, 3/8" ID × 0.594" OD, pushed over the
-  barb to its root;
+  barb to its casing-clear end plane;
 - a John Guest PP061208W reducer, its 3/8" stem trimmed short, pushed into the tube's other end up
   to the stem's shoulder, its tip on the barb's tip;
 - two YDS butterfly clamps, 10–16 mm with a 9 mm band, each centred on the length of fitting the
@@ -15,8 +15,8 @@ A joint can bend down: the reducer and the clamp on its stem turn about the lowe
 barb's tip, where the stem's tip bears on it, and the barb and its clamp stay as they are. The tube
 runs straight on each and creases on the plane halfway between them.
 
-Frame: +X = the port's outward axis, the barb's tip at X = 0, so the tube runs from the barb's root
-at negative X out over the trimmed stem. Each clamp's housing stands on +Z, and its key lies flat in
+Frame: +X = the port's outward axis, the barb's tip at X = 0, so the tube runs from its casing-clear
+end at negative X out over the trimmed stem. Each clamp's housing stands on +Z, and its key lies flat in
 the band's plane and runs along +Y or −Y. Down is −Z.
 
 Run:
@@ -46,6 +46,10 @@ PORTS = {"suction": "port_yminus", "discharge": "port_yplus"}
 # --- the tube: neoPure PVCR-0610 --------------------------------------------
 TUBE_ID = 9.525             # 3/8"
 TUBE_OD = 15.088            # 0.594"
+# The separately fitted molded head extends 0.668/0.710 mm beyond the first
+# scanned barb station inside the tube's occupied radius. This end setback
+# retains at least 0.15 mm to that shoulder and the complete 9 mm clamp band.
+TUBE_ROOT_SETBACK = 0.9
 
 # --- the reducer: the PP061208W, its stem cut short --------------------------
 # The stem left ahead of the shoulder. SEEDED from Derek's photograph of the trimmed reducer,
@@ -75,8 +79,8 @@ def barb(port):
 
 
 def root(port):
-    """The barb's root, where the tube's end stands: its x, negative."""
-    return barb(port)[0][0]
+    """The square-cut tube end, clear of the molded head/root: x, negative."""
+    return barb(port)[0][0] + TUBE_ROOT_SETBACK
 
 
 def tube_length(port):
@@ -92,6 +96,10 @@ def bore(port):
     """`(x, radius)` of the tube's bore installed: on the barb where the barb is wider than the
     tube's own bore, and on the trimmed stem past the barb's tip."""
     rows, r0 = barb(port), TUBE_ID / 2.0
+    start = root(port)
+    xs, radii = zip(*rows)
+    rows = [(start, float(np.interp(start, xs, radii))),
+            *((x, r) for x, r in rows if x > start)]
     out = []
     for (x0, a), (x1, b) in zip(rows, rows[1:]):
         out.append((x0, max(a, r0)))
