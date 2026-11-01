@@ -211,7 +211,14 @@ Checks run explicitly when their question is being reviewed:
 ```sh
 tools/cad-venv/bin/python hardware/wiring/installed/review.py
 tools/cad-venv/bin/python hardware/wiring/installed/review.py --native
+tools/cad-venv/bin/python hardware/wiring/installed/review.py --fine
 ```
+
+For kernel materializations, `--fine` reads the authoritative wire model through
+Rust and checks its topology, source hashes and installed presentation arrays.
+`--native` selects the same fine inspection when the manifest names a kernel
+fine model. Its report occupies the separate `fine` field; native B-rep and
+contact receipts retain their own recorded artifact scopes.
 
 `build.py --verify-retained` additionally records the retained viewer arrays for a
 specific integration review. No route search or wiring check joins the build,
