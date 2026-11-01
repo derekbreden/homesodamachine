@@ -110,7 +110,8 @@ fn main() -> Result<()> {
                 .filter(|v| v.is_finite())
                 .context("non-finite wire RGB")?;
         }
-        let solid = wire(segments, diameter).with_context(|| format!("building {name}"))?;
+        let mut solid = wire(segments, diameter).with_context(|| format!("building {name}"))?;
+        solid.forget_backend();
         names.push(name);
         colors.push(rgb);
         fine.push(solid);
@@ -127,7 +128,8 @@ fn main() -> Result<()> {
             let rgb = point(&component["linear_rgb"])?.to_array();
             let parts =
                 wire_components::build(component).with_context(|| format!("building {name}"))?;
-            for solid in parts {
+            for mut solid in parts {
+                solid.forget_backend();
                 names.push(name);
                 colors.push(rgb);
                 fine.push(solid);
@@ -175,9 +177,14 @@ fn main() -> Result<()> {
         }))
         .collect();
     let presentation: Vec<Solid> = fine
-        .iter()
+        .iter_mut()
         .zip(&tolerances)
-        .map(|(solid, tolerance)| solid.simplified_to(*tolerance))
+        .map(|(solid, tolerance)| {
+            let mut shown = solid.simplified_to(*tolerance)?;
+            solid.forget_backend();
+            shown.forget_backend();
+            Ok(shown)
+        })
         .collect::<Result<_>>()?;
     let bodies: Vec<part::AssemblyBody> = fine
         .iter()
