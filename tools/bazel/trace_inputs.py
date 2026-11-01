@@ -13,9 +13,9 @@ OCCT READS A STEP BELOW PYTHON, where no audit hook reaches. `_cadq_export.impor
 one loader and keeps the list; this takes it at the end of the run, so a generator that cuts no
 solid of its own still names the ones it stood the machine off.
 
-A WRITE THAT LANDS ON THE BYTES ALREADY THERE PERFORMS NO WRITE. `_cadq_export._atomic_write`
-skips the rename and `docgen` skips the `write_text`, and both keep the target they were
-handed in `_WRITE_TARGETS`, which this takes the same way.
+A WRITE THAT LANDS ON THE BYTES ALREADY THERE PERFORMS NO WRITE. Atomic geometry and document
+exports skip the rename, and `docgen` skips the `write_text`. Their `_WRITE_TARGETS` registries
+keep the target even when its bytes stay in place.
 
 A generator that raises is traced to where it stopped. What it read is what it read; what it
 had not yet written is absent from its outputs, and the copy at the end of its action finds
@@ -104,8 +104,9 @@ def _on_stack(names, module):
     return False
 
 def _by_write_machinery():
-    """Whether `_cadq_export`'s write bookkeeping is what reached the disk here."""
-    return _on_stack(WRITE_MACHINERY, "_cadq_export.py")
+    """Whether atomic export bookkeeping is what reached the disk here."""
+    return any(_on_stack(WRITE_MACHINERY, module)
+               for module in ("_cadq_export.py", "_document_export.py"))
 
 def _hook(event, args):
     # `open` is most of it, and its mode says which side of the edge it is. `import` is the
@@ -197,7 +198,9 @@ finally:
     back = set()
     for mod in ("docgen",):
         back |= set(getattr(sys.modules.get(mod), "_WRITE_TARGETS", ()))
-    wrote |= back | set(getattr(sys.modules.get("_cadq_export"), "_WRITE_TARGETS", ()))
+    wrote |= back
+    for mod in ("_cadq_export", "_document_export"):
+        wrote |= set(getattr(sys.modules.get(mod), "_WRITE_TARGETS", ()))
     with open(OUT, "w") as fh:
         json.dump({"reads": sorted(read), "writes": sorted(wrote),
                    "rewritten": sorted(back), "scanned": sorted(scanned),
