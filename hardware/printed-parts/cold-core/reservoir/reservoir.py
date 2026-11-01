@@ -7,17 +7,22 @@ Same coordinate convention as ../foam-shell/: +Z vertical, +X is
 the bag-pocket axis (two cavities sit on opposite sides), +Y is
 perpendicular to it."""
 
+import argparse
 import math
 import sys
 from pathlib import Path
-
-import cadquery as cq
 
 _here = Path(__file__).resolve().parent
 sys.path.insert(0, str(next(p for p in _here.parents if p.name == "printed-parts") / "cadlib"))
 sys.path.insert(0, str(next(p for p in _here.parents if p.name == "hardware") / "scripts"))
 sys.path.insert(0, str(_here.parent))
 sys.path.insert(0, str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"))
+
+if __name__ == '__main__':
+    import _rust_part
+    _rust_part.start()
+
+import cadquery as cq
 
 from world_workplane import WorldWorkplane, xy_plane_z_up
 import fits
@@ -767,7 +772,46 @@ def build_reservoir_air_grip():
     return tube_ports.build_grommet(tube_ports.air_grip)
 
 
-def main():
+def numbers():
+    """Native profiles, corner radii, boss seats and flush-spool specifications."""
+    from _materials import linear
+    return {
+        "outer_far_x": outer_far_x_abs, "outer_y": outer_y_max,
+        "outer_radius": outer_centerward_radius,
+        "outer_round": outer_corner_fillet_radius, "inner_round": inner_corner_fillet_radius,
+        "wall": reservoir_wall_thickness, "outer_z": outer_z_range, "inner_z": inner_z_range,
+        "insert_stations": [
+            {"xy": xy, "cut": body_boss_cut_info_for_side_plus_1.get(xy)}
+            for xy in insert_positions_for_side_plus_1],
+        "body_boss_radius": body_boss_radius, "boss_height": boss_height,
+        "boss_extra_below": _cyl_extra_below_bottom,
+        "insert_radius": insert_pocket_radius, "insert_depth": insert_pocket_depth,
+        "rod_xy": (rod_position_x, rod_position_y), "rod_floor": rod_floor_z,
+        "rod_anchor_height": rod_anchor_boss_height, "rod_anchor_floor": rod_anchor_boss_floor,
+        "rod_register_height": rod_register_boss_height,
+        "rod_boss_radius": rod_boss_od / 2, "rod_bore_radius": rod_bore / 2,
+        "cap_wall_height": cap_wall_height, "cap_wall_width": cap_wall_width,
+        "cap_base_thickness": cap_base_thickness, "cap_height": cap_total_height,
+        "cap_boss_radius": cap_boss_radius,
+        "clearance_radius": cap_clearance_hole_diameter / 2,
+        "counterbore_radius": cap_counterbore_diameter / 2,
+        "counterbore_depth": cap_counterbore_depth,
+        "gasket_thickness": gasket_thickness, "gasket_strip_width": gasket_strip_width,
+        "gasket_pad_radius": gasket_pad_radius,
+        "plate_thickness": tube_ports.plate_thickness,
+        "liquid_grip": tube_ports.liquid_grip, "air_grip": tube_ports.air_grip,
+        "ports": [{"side": side, "vent": vent_position[side],
+                   "fill": fill_position[side] if side in reservoir_fill_sides else None,
+                   "draw": draw_position[side]}
+                  for side in (1, -1)],
+        "reed_window": (min(reservoir_reed_centres_z), max(reservoir_reed_centres_z)),
+        **{f"color_{name}": list(linear(color)) for name, color in (
+            ("body", _mat.C_RESERVOIR), ("cap", _mat.C_RES_CAP),
+            ("gasket", _mat.C_SILICONE), ("grip", _mat.M_TPU_BLACK))},
+    }
+
+
+def native_main(output=_here):
     from _show_skin import write_bed_file
     from flute_payload import cut as write_print_payload
     # Left/right naming is geometric: side=+1 → +X reservoir →
@@ -776,7 +820,8 @@ def main():
     #
     # A and B use their own fill, draw and air stations. The y-symmetric rim
     # gasket flips between sides; the two concentric spool designs fit either lid.
-    here = Path(__file__).resolve().parent
+    here = Path(output)
+    here.mkdir(parents=True, exist_ok=True)
 
     for side, label in ((+1, "right"), (-1, "left")):
         body = build_reservoir_body(side=side)
@@ -816,20 +861,15 @@ def main():
     window_l = held((min(reservoir_reed_centres_z), max(reservoir_reed_centres_z)))
     print(f"   capacity {capacity_l:.3f} L floor to rim; {window_l:.3f} L between the end reeds")
 
+    document(capacity_l, window_l)
+
+
+def document(capacity_l, window_l):
+    here = _here
     # Short names scoped to this part. Units live inside the value so
     # the script controls them — change a unit in source and every
-    # sibling doc + dynamic-comment marker follows. The foam-shell
-    # README also references RESERVOIR_W/D/H here; the foam-shell script
-    # owns its own variables on that same README, and unknown names in
-    # either script's variables dict are left untouched.
-    res_w = 2 * outer_y_max
-    res_d = outer_far_x_abs - outer_centerward_radius
-    res_h = outer_z_range[1] - outer_z_range[0]
+    # sibling doc and dynamic-comment marker follows.
     variables = {
-        # Foam-shell README — reservoir-section envelope.
-        "RESERVOIR_W": f"{res_w:.4g} mm",
-        "RESERVOIR_D": f"{res_d:.4g} mm",
-        "RESERVOIR_H": f"{res_h:.4g} mm",
         # The cap's fill bore — the reservoir's second mouth, above the liquid.
         "FILL_BORE_D": f"{fill_bore_diameter:.4g} mm",
         # And the cap conduit standing over a reed channel's mouth, which `level-sensing.md`
@@ -897,11 +937,6 @@ def main():
         "GASKET_PAD_D": f"ø{2 * gasket_pad_radius:.4g}",
     }
     substitute_md(
-        here / ".." / "foam-shell" / "README.md",
-        variables=variables,
-    )
-    print("-> foam-shell/README.md (reservoir section)")
-    substitute_md(
         here / "vent.md",
         variables=variables,
     )
@@ -923,5 +958,45 @@ def main():
     print(f"-> {Path(__file__).name} (self)")
 
 
-if __name__ == "__main__":
-    main()
+def import_part(path):
+    """An emitted reservoir piece for the caller's native or f64 mesh API."""
+    from _cadq_export import import_step
+    path = Path(path)
+    if not getattr(cq, 'MESH', False):
+        with path.open('rb') as stream:
+            triangles = b'meshcad tessellated' in stream.read(200)
+        if triangles:
+            if path.stem in ('reservoir-right', 'reservoir-left'):
+                return build_reservoir_body(side=1 if path.stem.endswith('right') else -1).val()
+            if path.stem in ('reservoir-cap-right', 'reservoir-cap-left'):
+                return build_reservoir_cap(side=1 if path.stem.endswith('right') else -1).val()
+            if path.stem == 'reservoir-gasket':
+                return build_reservoir_gasket(side=1).val()
+            if path.stem == 'reservoir-tube-grip':
+                return build_reservoir_tube_grip()
+            if path.stem == 'reservoir-air-grip':
+                return build_reservoir_air_grip()
+    return import_step(str(path)).val()
+
+
+def main(output=_here):
+    import _rust_part
+    from flute_payload import cut as write_print_payload
+    output = Path(output)
+    output.mkdir(parents=True, exist_ok=True)
+    readings = _rust_part.cut('cold-core', 'reservoir', numbers(), output)['bodies'][0]
+    capacity_l, window_l = readings['capacity_l'], readings['reed_window_l']
+    for name in ('reservoir-cap-right', 'reservoir-cap-left',
+                 'reservoir-tube-grip', 'reservoir-air-grip'):
+        write_print_payload(output/(name+'.step'), output/(name+'.stl'),
+                            preserve_print_triangles=True)
+    print(f'   capacity {capacity_l:.3f} L floor to rim; {window_l:.3f} L between the end reeds')
+    document(capacity_l, window_l)
+
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--native', action='store_true', help='Run the retained native builders')
+    parser.add_argument('--output', type=Path, default=_here)
+    args = parser.parse_args()
+    (native_main if args.native else main)(args.output)
