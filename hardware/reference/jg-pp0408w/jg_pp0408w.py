@@ -18,20 +18,16 @@ Coordinate convention:
   Origin = the union's own mid-plane. The fitting is symmetric about it, so
       both ports stand at ±`OVERALL / 2` and neither end is the special one.
 
-Run:
-    tools/cad-venv/bin/python hardware/reference/jg-pp0408w/jg_pp0408w.py
+Geometry is in the frozen STEP and display payload beside this module.
+`frozen-asset.json` records their bytes and source snapshot.
 """
 
-import sys
 from pathlib import Path
 
-import cadquery as cq
-
 _here = Path(__file__).resolve()
-_hw = next(p for p in _here.parents if p.name == "hardware")
-sys.path.insert(0, str(_hw / "scripts"))
-from _cadq_export import export_assembly
-from _materials import M_JG_WHITE_PP, one_body
+STEP_PATH = _here.parent / "jg-pp0408w.step"
+PAYLOAD_PATH = _here.parent / "jg-pp0408w.step.mesh"
+ASSET_MANIFEST_PATH = _here.parent / "frozen-asset.json"
 
 STEP = _here.parent / "jg-pp0408w.step"
 
@@ -82,46 +78,10 @@ def reach() -> float:
     return port_face_z
 
 
-# --- the solid --------------------------------------------------------------
-
-def _cyl(d, z0, z1):
-    return cq.Solid.makeCylinder(d / 2.0, abs(z1 - z0),
-                                 cq.Vector(0, 0, min(z0, z1)), cq.Vector(0, 0, 1))
-
-
-def _end(s: float):
-    """One end of the barbell: the collet-ring body, then the release sleeve standing proud
-    of its face, bored to `COLLET_BORE` so the sleeve reads as the ring it is."""
-    body = _cyl(RING_D, s * barrel_face_z, s * ring_face_z)
-    sleeve = (_cyl(COLLET_D, s * ring_face_z, s * port_face_z)
-              .cut(_cyl(COLLET_BORE, s * ring_face_z, s * port_face_z)))
-    return body.fuse(sleeve)
-
-
-def build_jg_pp0408w():
-    """The union as a single solid wrapped in a `cq.Workplane`: barrel, both ring bodies and
-    both sleeves, bored the tube's socket at each end and the tube's own bore between them."""
-    solid = _cyl(BARREL_D, -barrel_face_z, barrel_face_z).fuse(_end(1.0), _end(-1.0))
-    sockets = (_cyl(PORT_D, port_face_z, port_face_z - INSERTION)
-               .fuse(_cyl(PORT_D, -port_face_z, -port_face_z + INSERTION)))
-    return cq.Workplane(obj=solid.cut(sockets).cut(_cyl(BORE_D, -port_face_z, port_face_z)))
-
-
 def main():
-    part = build_jg_pp0408w()
-    bb = part.val().BoundingBox()
-    print("John Guest PP0408W — 1/4\" push-to-connect inline union (simplified)")
-    print(f"  Canonical-frame bounding box: "
-          f"X [{bb.xmin:.2f}, {bb.xmax:.2f}]  "
-          f"Y [{bb.ymin:.2f}, {bb.ymax:.2f}]  "
-          f"Z [{bb.zmin:.2f}, {bb.zmax:.2f}]")
-    print(f"  Ring Ø{RING_D} / barrel Ø{BARREL_D} / sleeve Ø{COLLET_D} / port Ø{PORT_D}")
-    print(f"  Overall {OVERALL} extended, {OVERALL_PRESSED} pressed; "
-          f"{INSERTION:g} mm of tube in each end")
-    print(f"  Solid valid: {part.val().isValid()}")
-
-    export_assembly(one_body(part, "jg-pp0408w", M_JG_WHITE_PP), str(STEP))
-    print(f"-> {STEP.name}")
+    print("John Guest PP0408W")
+    print(f"  STEP: {STEP_PATH}")
+    print(f"  Display payload: {PAYLOAD_PATH}")
 
 
 if __name__ == "__main__":
