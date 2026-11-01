@@ -87,23 +87,32 @@ pub fn args() -> Result<(Numbers, PathBuf)> {
 /// Write the part's files into `dir`, the STEP and the root of its assembly named `name`, and say
 /// what they hold: the files, and per body its name, volume, area, bounds and triangles.
 pub fn write_part(dir: &Path, name: &str, bodies: &[Body]) -> Result<Value> {
-    write_set(dir, name, bodies, true, true)
+    write_set(dir, name, bodies, true, true, None)
 }
 
 /// `write_part` without the STL.
 pub fn write_shown(dir: &Path, name: &str, bodies: &[Body]) -> Result<Value> {
-    write_set(dir, name, bodies, false, true)
+    write_set(dir, name, bodies, false, true, None)
+}
+
+/// `write_shown` with a manufacturing STEP supplied by the part's analytic exporter.
+/// The model and payload retain the bodies' fine geometry; the payload names the
+/// supplied STEP by its SHA-256. Names, frame and colours belong to the same part.
+pub fn write_shown_with_step(dir: &Path, name: &str, bodies: &[Body], step: Vec<u8>) -> Result<Value> {
+    write_set(dir, name, bodies, false, true, Some(step))
 }
 
 /// `write_part` without the payload.
 pub fn write_printed(dir: &Path, name: &str, bodies: &[Body]) -> Result<Value> {
-    write_set(dir, name, bodies, true, false)
+    write_set(dir, name, bodies, true, false, None)
 }
 
-fn write_set(dir: &Path, name: &str, bodies: &[Body], printed: bool, shown: bool) -> Result<Value> {
+fn write_set(dir: &Path, name: &str, bodies: &[Body], printed: bool, shown: bool, step_override: Option<Vec<u8>>) -> Result<Value> {
     // The STL takes the solids the STEP takes, so a printed set simplifies each once for both; a
     // set without one simplifies each as its STEP is written.
-    let (step, stl, model) = if printed {
+    let (step, stl, model) = if let Some(step) = step_override {
+        (step, None, model_bytes(bodies))
+    } else if printed {
         let simple: Vec<Solid> = bodies.iter().map(|b| b.solid.simplified()).collect::<Result<_>>()?;
         let filed: Vec<Body> = bodies.iter().zip(&simple).map(|(b, s)| Body { solid: s, ..*b }).collect();
         let step = step_of(&filed, name)?;
