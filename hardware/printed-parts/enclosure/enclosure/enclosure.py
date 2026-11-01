@@ -115,6 +115,8 @@ seams intact (mirrors `faucet_shell.py`). All five come through the same
 code from a `Box`.
 """
 
+from __future__ import annotations
+
 import functools
 import math
 import sys
@@ -130,15 +132,6 @@ if __name__ == "__main__":
     meshcad.activate()
 
 import cadquery as cq
-from OCP.BRep import BRep_Tool
-from OCP.BRepAdaptor import BRepAdaptor_Curve, BRepAdaptor_Surface
-from OCP.BRepBuilderAPI import BRepBuilderAPI_MakeEdge, BRepBuilderAPI_MakeWire
-from OCP.BRepPrimAPI import BRepPrimAPI_MakePrism
-from OCP.BRepTools import BRepTools_WireExplorer
-from OCP.GeomAbs import GeomAbs_Line
-from OCP.TopAbs import TopAbs_REVERSED
-from OCP.TopoDS import TopoDS
-from OCP.gp import gp_Pnt, gp_Vec
 
 _here = Path(__file__).resolve()
 _repo = next(p for p in _here.parents if (p / "hardware" / "scripts" / "_cadq_export.py").is_file())
@@ -163,7 +156,6 @@ from _cadq_export import export_assembly
 from _materials import WALL_COLORS as PIECE_COLORS, one_body
 import _fixed_pump_mount
 from docgen import substitute_md, substitute_py_comments
-import _boxes
 import _realized
 import fits
 import port_chip
@@ -2191,6 +2183,8 @@ def _z_joints(placed, inner, stated, plate, y_joint):
     the pack leaves the lip's ring (`_lip_denied`) — and the open bands the column's
     bodies leave, which is what `_report_seams` reads. None of the bounds stops the cut:
     whatever the readings say, both seam heights come back and the box is cut on them."""
+    import _boxes
+
     iz0, iz1 = inner[4], inner[5]
     y_mid = (inner[2] + inner[3]) / 2.0
     bed_lo, bed_hi = _bed_band(inner)
@@ -2238,6 +2232,8 @@ def _dims(pack):
     one gets a wall drawn through it, a red row saying by how much, and a clash in
     `pack-closes` at the body that overran. This is the only function that reads the placed
     parts, so it is where the ledger starts: `BOUNDS` is cleared here and refilled."""
+    import _boxes
+
     BOUNDS.clear()
     _z_seam_passes.clear()
     placed = pack.placed
@@ -2909,6 +2905,14 @@ def _rect_cut_x(hy, hz, wy, wz, radius, x0, x1):
 def _split_along_caps(edge):
     """A glyph edge in pieces at each point inside it where it runs along the caps' +Y, so each
     piece faces down the caps, or up them, over its whole length."""
+    from OCP.BRep import BRep_Tool
+    from OCP.BRepAdaptor import BRepAdaptor_Curve
+    from OCP.BRepBuilderAPI import BRepBuilderAPI_MakeEdge
+    from OCP.GeomAbs import GeomAbs_Line
+    from OCP.TopAbs import TopAbs_REVERSED
+    from OCP.TopoDS import TopoDS
+    from OCP.gp import gp_Pnt, gp_Vec
+
     curve = BRepAdaptor_Curve(edge)
     t0, t1 = curve.FirstParameter(), curve.LastParameter()
     if curve.GetType() == GeomAbs_Line:
@@ -2943,6 +2947,11 @@ def _raked_letter(face, depth):
     the face, `depth` up its caps' +Y, carried straight back to the root, with a 45° wedge under
     every edge that faces down its caps. Each wedge is that edge's side of the straight letter
     carried back and down its caps at once, ended on the root plane."""
+    from OCP.BRepBuilderAPI import BRepBuilderAPI_MakeWire
+    from OCP.BRepPrimAPI import BRepPrimAPI_MakePrism
+    from OCP.BRepTools import BRepTools_WireExplorer
+    from OCP.gp import gp_Vec
+
     wires = []
     for wire in [face.outerWire()] + face.innerWires():
         made = BRepBuilderAPI_MakeWire()
@@ -3034,10 +3043,14 @@ def disposal_letters(outer):
 
 def disposal_field(outer):
     """The flat wall under the warning, including a quiet margin on all four sides."""
-    bounds = disposal_letters(outer).BoundingBox()
-    field = (bounds.xmin - disposal_margin, bounds.xmax + disposal_margin,
-             outer[3] - wall, outer[3] + disposal_raise,
-             bounds.zmin - disposal_margin, bounds.zmax + disposal_margin)
+    from _disposal_artwork import flat_bounds
+    x0, x1, z0, z1 = flat_bounds(disposal_lines, disposal_cap_height,
+                                disposal_raise+disposal_embed, disposal_line_gap,
+                                disposal_font, disposal_kind)
+    centre, bottom = (outer[0]+outer[1])/2, outer[4]+disposal_bottom
+    field = (centre+x0-disposal_margin, centre+x1+disposal_margin,
+             outer[3]-wall, outer[3]+disposal_raise,
+             bottom+z0-disposal_margin, bottom+z1+disposal_margin)
     return field
 
 
@@ -3305,9 +3318,7 @@ def _funnel_cut(inner, outer, centre, wells=(), up=1.0):
     # (`rear_narrowing`), its aft corners rounded the way the frame's own are.
     half = inner[1] - y_stack_high_depth
     back = _funnel_frame_part.roof_datums(inner, centre, seat)['back'] + slide_slip
-    plumb = (cq.Workplane(obj=_ybox(-half, half, cy, back,
-                                    seat - funnel_seat_thickness - 1.0, seat + slide_slip))
-             .edges("|Z and >Y").fillet(_funnel_frame_part.corner_radius + slide_slip).val())
+    plumb = _funnel_plumb(half, cy, back, seat)
     # The frame's plain underside notches pass these complete insert hosts.
     # Keep their stock while the central passage remains open for J10 tools.
     for column in ('front', 'back'):
@@ -3328,6 +3339,12 @@ def _funnel_cut(inner, outer, centre, wells=(), up=1.0):
             opening = _ybox(*sorted((face, face - side * reach)), sy - gap, sy + gap, lid, floor)
             cut = cut.fuse(opening.intersect(clearance.translate((0.0, 0.0, lid - floor))))
     return cut
+
+
+def _funnel_plumb(half, front, back, seat):
+    return (cq.Workplane(obj=_ybox(-half, half, front, back,
+                                    seat - funnel_seat_thickness - 1.0, seat + slide_slip))
+             .edges("|Z and >Y").fillet(_funnel_frame_part.corner_radius + slide_slip).val())
 
 
 def _seat_ledge_corbels(solid, inner, outer, centre, y_joint):
@@ -4944,7 +4961,7 @@ def _back_top_ceiling(solid, inner, y_joint, box):
     channel = _ceiling_tie_channel_relief(box, lane)
     if channel is not None:
         stock = stock.cut(channel)
-    return solid.fuse(cq.Workplane(obj=stock).clean().val())
+    return solid.fuse(stock.clean())
 
 
 def cap_split_z(pump_trays):
@@ -8813,7 +8830,7 @@ def _silhouette_bound(pieces, box):
             "interior lane or the wall it roots on"])))
 
 
-def build_pieces(box):
+def build_pieces(box, *, produced=None):
     """The four enclosure quadrants and the underside pump retainer, assembled in place.
 
     DRAWING A PIECE TAKES NO READING. Every bound the box states is in the ledger before this
@@ -8824,6 +8841,7 @@ def build_pieces(box):
     stated size, nor the code that cuts it, and a station moves only when the body carrying it
     does."""
     _last_box[0] = box
+    produced = produced or {}
     cache = {}
 
     def _product(n):
@@ -8834,7 +8852,7 @@ def build_pieces(box):
     names = [n for n in PIECE_COLORS
              if n != "pump-retainer"
              or (box.pump_bay and box.pack.collet_plate)]
-    pieces = {name: _realized.realized(
+    pieces = {name: produced[name] if name in produced else _realized.realized(
                   _realized.key(__name__, box, name,
                                 _above_core_shell.layout.specification()),
                   lambda n=name: _product(n))
@@ -8913,17 +8931,22 @@ def export_pump_dock(box):
         flute_payload.cut(step, stl)
 
 
-def _export_pieces(pieces, assy):
+def _export_pieces(pieces, assy, *, produced=()):
     refused, payloads = [], []
     box = _last_box[0]
+    produced = set(produced)
     outer = box.outer
     # Every assembly piece is meshed once. The plate's envelope also contributes a
     # shadow mask over the bearing band behind the integral bore face.
     bodies = {name: _piece_mesh(_print_solid(name, piece.val(), outer))
-              for name, piece in pieces.items()}
+              for name, piece in pieces.items() if name not in produced}
     steel = ([_piece_mesh(_collet_plate_body(box.pack.collet_plate))]
              if box.pack.collet_plate else [])
     for name, piece in pieces.items():
+        if name in produced:
+            print(f"-> enclosure-{name}.step")
+            print(f"-> enclosure-{name}.stl")
+            continue
         export_assembly(one_body(piece, f"enclosure-{name}", PIECE_COLORS[name]),
                         str(_here.parent / f"enclosure-{name}.step"))
         print(f"-> enclosure-{name}.step")
@@ -9052,14 +9075,46 @@ def _report_bounds():
     print()
 
 
+def _produced_back_bottom(box):
+    """The complete Rust print and its fine structural model for the mesh assembly.
+
+    Native callers retain build_piece/build_pieces. The normal mesh generator owns
+    the four files once; its export pass takes the remaining pieces only.
+    """
+    meshcad = sys.modules.get('meshcad')
+    if meshcad is None or not meshcad.mesh_mode():
+        return {}
+    import _enclosure_panel
+    from meshcad.imports import load_model
+    _enclosure_panel.cut(sys.modules[__name__], box, _here.parent)
+    structural = load_model(_here.parent/'enclosure-back-bottom.step.npz')[0]
+    return {'back-bottom': cq.Workplane(obj=structural)}
+
+
+def _produced_back_top(box):
+    """The complete back-top print with its structural body for the mesh assembly."""
+    meshcad = sys.modules.get('meshcad')
+    if meshcad is None or not meshcad.mesh_mode():
+        return {}
+    import _enclosure_back_top
+    if not _enclosure_back_top.can_cut(sys.modules[__name__], box):
+        return {}
+    from meshcad.imports import load_model
+    _enclosure_back_top.cut(sys.modules[__name__], box, _here.parent)
+    structural = load_model(_here.parent/'enclosure-back-top.step.npz')[0]
+    return {'back-top': cq.Workplane(obj=structural)}
+
+
 def main():
     core, box = machine_of()
-    pieces, assy = build_pieces(box)
+    produced = _produced_back_bottom(box)
+    produced.update(_produced_back_top(box))
+    pieces, assy = build_pieces(box, produced=produced)
     print("enclosure:")
     _report_slide(pieces, box)     # the slides swept and the catches lifted, into BOUNDS
     _report_bounds()          # the machine's, with its pieces cut and its slides swept
 
-    _export_pieces(pieces, assy)
+    _export_pieces(pieces, assy, produced=produced)
 
     _report_columns(box)
     _report_facet(pieces["front-top"], box)
