@@ -1,0 +1,74 @@
+{
+  "scope": "Physical fit trial: current production cradle, continuous hook pockets and broad joined rail-stop stock, on an isolated 7.4 mm lid plate.",
+  "base": {
+    "step": "hardware/print-tests/pump-mount-fit/parts/pump-mount-base.step",
+    "stl": "hardware/print-tests/pump-mount-fit/parts/pump-mount-base.stl",
+    "step_sha256": "982809a459b2357fd369d6aa4b9348f6385f29681c9fb12aa902d0e6d19900da",
+    "stl_sha256": "df8f6a8f287b502a1f955c364d576deb0fc7185c2af6eed421639a426c3e5eec",
+    "native_valid": true,
+    "solid_count": 1,
+    "mesh_watertight": true,
+    "bounds_mm": [
+      [
+        -38.32918167114258,
+        -47.70000076293945,
+        0.0
+      ],
+      [
+        38.32918167114258,
+        47.70000076293945,
+        38.27934646606445
+      ]
+    ],
+    "plate_thickness_mm": 7.4,
+    "world_to_print_translation_mm": [
+      15.368269476362315,
+      -406.61776090725266,
+      -246.0
+    ]
+  },
+  "clip": {
+    "stl": "hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.stl",
+    "stl_sha256": "24a2481d9606ee004ff3a19617b426b6285e74eeef07ae41375e4e54e6cd402c",
+    "source": "Exact published printable clip, axial end down.",
+    "axial_length_mm": 54.5,
+    "nominal_arch_mm": 3.1
+  },
+  "saddle_band_native_x_mm": [
+    16.75,
+    77.75
+  ],
+  "solid_end_stock_mm": [
+    3.0,
+    3.0
+  ],
+  "stops_native_x_mm": [
+    [
+      -6.4,
+      -0.4
+    ],
+    [
+      77.0,
+      83.0
+    ]
+  ],
+  "fore_stop_height_above_lid_mm": 15.797962514946192,
+  "rear_stop_height_above_lid_mm": 30.879346931498986,
+  "stop_stock_width_mm": 9.329180708991778,
+  "continuous_backing_width_mm": 7.100000000000001,
+  "topology_comparison": {
+    "before_faces": 47,
+    "after_faces": 44,
+    "before_edges": 126,
+    "after_edges": 120,
+    "removed_stock_mm3": 0.0,
+    "added_stock_mm3": 3812.3790923953957
+  },
+  "seated_cap_overlap_mm3": 0.0,
+  "input_sha256": {
+    "hardware/printed-parts/cold-core/_above_core_mounts.py": "3653b4442801e4b87b4f17a0c9b3191d09681a723c23c7e2503e0893d99beb66",
+    "hardware/manifold-layout/above-core.json": "b886818274572dd35d0b7f5f2da255e855ff1e4420d7a74c2e1c81ea91b45a5a",
+    "hardware/reference/g-ganen-pump/reference-parameters.json": "69ac39b3b5ec8a4de1c5b6abee49ef0335d3b96df61e358c5b2db1f23d808ffe"
+  },
+  "physical_fit": "Awaiting the pump trial."
+}

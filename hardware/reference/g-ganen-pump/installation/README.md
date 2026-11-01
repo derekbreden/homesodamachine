@@ -18,8 +18,11 @@ continuous 54.5 mm upper clip spans X20–74.5. It uses a 3.1 mm nominal arch, 3
 barrel high spot with the shared 0.15 mm per-face static allowance. The lower
 seat gives the admitted barrel 0.25 mm running clearance. Open rooms admit the complete fixed rails and molded wire cover
 vertically. The cover room ends at the plain lid face; two fitted lower
-planes support each rail without entering its groove. Two low stops beside the
-negative-Y rail bound axial movement while leaving the lead exits open.
+planes support each rail without entering its groove. Broad stock flush with the
+saddle’s outside wall joins the negative-Y fixed-rail end stops. The straight
+rail channel remains open. The 9.329 mm stop stock has 7.1 mm of continuous
+backing outside that channel. The fore stock ends below the head lug; rear
+stock meets the saddle top. Both lead exits remain open.
 Primary saddle and snap contact stays within the measured motor band. The
 stop faces meet only the fixed rail ends; the rough head underside stays
 clear throughout axial free play.

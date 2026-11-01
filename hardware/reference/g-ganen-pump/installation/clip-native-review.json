@@ -1,14 +1,14 @@
 {
   "schema": "continuous-pump-clip-native-review/1",
-  "scope": "Local native motor/saddle/single-clip fit, finite outer end-land probes and the exact printable clip slice. Installed pump and PSU frames retain their modeled values. Complete-appliance closing and physical rail identification are separate from this local reading. Nominal geometry does not qualify spring force, printed fit or vibration life.",
+  "scope": "Current corrected level cover reference and settled 1.5 mm pump drop. One 54.5 mm upper clip, 61 mm seat and complete 3 mm outer end lands; 3.1 mm nominal arch and 3 mm spring wings. Local native placement and exact print geometry are bound here; complete installed closing and service readings are separately bound to the current parent.",
   "native_piece_review": {
-    "scope": "One continuous54.5mm upper clip with continuous hooks and side pockets, complete newly cut lid and finite3mm solid end-land probes. Wires and Wagos do not constrain the mechanical layout and are intentionally excluded. Nominal native geometry only; spring force and physical support release are not established.",
+    "scope": "One continuous 54.5 mm upper clip with continuous hooks and side pockets, complete newly cut lid and finite 3 mm solid end-land probes. Wires and Wagos do not constrain the mechanical layout and are excluded. Nominal native geometry only; spring force and physical support release are not established.",
     "installation_all_pass": true,
     "mount_datums": {
       "centre_world_mm": [
         -15.368269476362315,
         415.56776090725265,
-        285.779346931499
+        284.279346931499
       ],
       "can": {
         "axis_point_mm": [
@@ -49,7 +49,7 @@
         "translation_mm": [
           -15.368269476362286,
           368.31776090725265,
-          251.69796251494617
+          250.19796251494617
         ],
         "reference": "hardware/reference/g-ganen-pump/g-ganen-pump.step"
       },
@@ -59,8 +59,8 @@
         77.75
       ],
       "cover_room_native_y_mm": [
-        -6.030112030444719,
-        6.153723850766118
+        -6.018479351409066,
+        6.074153537631092
       ],
       "rail_rooms": [
         {
@@ -122,7 +122,7 @@
         ],
         "insertion": "Bare pump lowers vertically onto the plain lid; fixed rails and molded wire cover pass through open rooms. One continuous 54.5 mm upper clip snaps down after seating. Its continuous pockets retain 3 mm solid axial stock at both outer ends; flank wings remain 3 mm. Two low stops bound axial movement at the fixed negative-Y rail ends.",
         "print_pose": "Snap cap stands on one axial end; arch, spring wings and hooks print as vertical walls.",
-        "cap_arch_wall_mm": 2.4,
+        "cap_arch_wall_mm": 3.1,
         "contact_scope": "Motor-side saddle native X16.75\u201377.75 and one continuous upper clip X20\u201374.5. End stops contact only fixed motor rail ends; the rough head underside remains clear throughout axial free play. The central wire-cover and lead corridor stays open.",
         "axial_end_stock_mm": 3.0
       },
@@ -156,7 +156,7 @@
           "centre_world_mm": [
             -15.368269476362315,
             415.56776090725265,
-            285.779346931499
+            284.279346931499
           ],
           "can": {
             "axis_point_mm": [
@@ -197,7 +197,7 @@
             "translation_mm": [
               -15.368269476362286,
               368.31776090725265,
-              251.69796251494617
+              250.19796251494617
             ],
             "reference": "hardware/reference/g-ganen-pump/g-ganen-pump.step"
           },
@@ -207,8 +207,8 @@
             77.75
           ],
           "cover_room_native_y_mm": [
-            -6.030112030444719,
-            6.153723850766118
+            -6.018479351409066,
+            6.074153537631092
           ],
           "rail_rooms": [
             {
@@ -270,7 +270,7 @@
             ],
             "insertion": "Bare pump lowers vertically onto the plain lid; fixed rails and molded wire cover pass through open rooms. One continuous 54.5 mm upper clip snaps down after seating. Its continuous pockets retain 3 mm solid axial stock at both outer ends; flank wings remain 3 mm. Two low stops bound axial movement at the fixed negative-Y rail ends.",
             "print_pose": "Snap cap stands on one axial end; arch, spring wings and hooks print as vertical walls.",
-            "cap_arch_wall_mm": 2.4,
+            "cap_arch_wall_mm": 3.1,
             "contact_scope": "Motor-side saddle native X16.75\u201377.75 and one continuous upper clip X20\u201374.5. End stops contact only fixed motor rail ends; the rough head underside remains clear throughout axial free play. The central wire-cover and lead corridor stays open.",
             "axial_end_stock_mm": 3.0
           },
@@ -311,7 +311,7 @@
         "cap": "pump-snap-cap",
         "neighbor": "psu",
         "overlap_mm3": 0,
-        "gap_mm": 0.3111474308111042
+        "gap_mm": 1.1111474308110587
       },
       {
         "cap": "pump-snap-cap",
@@ -323,7 +323,7 @@
         "cap": "pump-snap-cap",
         "neighbor": "enclosure-back-top",
         "overlap_mm3": 0,
-        "gap_mm": 14.795764764701532
+        "gap_mm": 14.48476115628864
       }
     ],
     "end_lands": [
@@ -377,36 +377,492 @@
       }
     ],
     "files": {
-      "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step": "ad76a2c28f490dcb08e9ab64cf5847fa4a316c68ea73a996789c19b391bd7bdb",
-      "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl": "f24c17a1834784b3917672483c3b8e0a14350479e96793998dbe024a38da5275",
-      "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh": "3cfe2e3fb9e8f766e0a000ded04f977430f7da6432e9b88b5c00157a88219d3b",
-      "hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.step": "e3712f238243bd862e3e429b32d520b253c59624b567d5112f2ba20f895ff800",
-      "hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.stl": "711ff10ac4a9cd04b003cde0b84ca143b3da28e02656e5d30324a7966fceee55",
-      "hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.step.mesh": "95a5dfe4b6afddad33dc1950d521ac3afa640a8d5f523ae7a86966ba55efa9d5"
+      "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step": "10e2b53eeffc36d05080d79298c5f6fed217e0f3f1ad5d9319a37d3a0150acf1",
+      "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl": "068b9351b0c8be91489213a9b5da5260515a7c12cf8cdbf40888ef4b6efd2a90",
+      "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh": "b10f654a8ad3d5facbc8687e2e482d4cff0c8e4da14a254b98596b3dc97e6943",
+      "hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.step": "980e312bf0fc394c884724d39db1aa64f17d8e5440de37e1c4d4d93ab9494dcd",
+      "hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.stl": "24a2481d9606ee004ff3a19617b426b6285e74eeef07ae41375e4e54e6cd402c",
+      "hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.step.mesh": "906731cf56eb92e70813a5e90f1e3f489efe6b792c6a7e53b5ca60afeda87220"
     },
     "unresolved": [],
     "pass": true,
-    "elapsed_seconds": 63.34280349999608,
-    "peak_resident_set_bytes": 2731835392
+    "elapsed_seconds": 63.122650749995955,
+    "peak_resident_set_bytes": 3145891840
   },
-  "native_installation_review": "hardware/reference/g-ganen-pump/installation/native-installation-check.json",
-  "native_installation_review_sha256": "3e5d29b3d5fa75d9dbf58e712852dc63522438ec5a4bfca90bf7a6ab1f62cf66",
+  "native_installation_review": {
+    "schema": "g-ganen-installation/5",
+    "inputs": {
+      "hardware/reference/g-ganen-pump/installation/validate_installation.py": "4b64cf6878fb6fe0ed8ffe830102d71749494b1b39c38d575247fa346715f1b3",
+      "hardware/reference/g-ganen-pump/installation/g_ganen_installation.py": "79fca45c7856dd91bd2164af7d17a2a82ed58fb17ae554cad10ce53284a0ca1f",
+      "hardware/manifold-layout/above_core.py": "4ae1006309cfc55676c11ac286d0506a77d8fecd1b107818b2d6a665b787654e",
+      "hardware/manifold-layout/above_core_parts.py": "dd8c5bc852e5d2471740b3ec66396e06bd01e70ce3428dbe1bb475ef8c2fc320",
+      "hardware/printed-parts/cold-core/_above_core_mounts.py": "c123ad7b8ee61ec849ff29a93d685f66fa4e716985feae0850634c242559db9c",
+      "hardware/manifold-layout/above-core.json": "c9bbd58dea6cf603caca97829050be5afdbcf329e9d65d52d4b812e24f6fc4db",
+      "hardware/reference/g-ganen-pump/reference-parameters.json": "69ac39b3b5ec8a4de1c5b6abee49ef0335d3b96df61e358c5b2db1f23d808ffe",
+      "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step": "10e2b53eeffc36d05080d79298c5f6fed217e0f3f1ad5d9319a37d3a0150acf1"
+    },
+    "scope": "Bare casing and fixed rails, integral motor half pipe, open rigid-body admission rooms, rail-end stops and removable upper snap. Native nominal geometry does not qualify spring force, vibration, printed fit or hose retention.",
+    "local_to_world": {
+      "rotation": [
+        [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "translation_mm": [
+        -15.368269476362286,
+        368.31776090725265,
+        250.19796251494617
+      ],
+      "reference": "hardware/reference/g-ganen-pump/g-ganen-pump.step"
+    },
+    "installed_bounds_mm": [
+      [
+        -52.42976776742536,
+        290.4177875896841,
+        254.40854525654356
+      ],
+      [
+        21.91378026495318,
+        450.68230263113054,
+        310.7318794171474
+      ]
+    ],
+    "cradle_bounds_mm": [
+      [
+        -50.697450285354094,
+        361.91776090725267,
+        253.29999990000002
+      ],
+      [
+        19.960911332629465,
+        451.31776100725267,
+        284.279347031499
+      ]
+    ],
+    "snap_cap_bounds_mm": [
+      [
+        [
+          -50.69745018535409,
+          388.3177609072457,
+          277.87934693149896
+        ],
+        [
+          19.960911232629467,
+          442.81776090725265,
+          312.3888525691889
+        ]
+      ]
+    ],
+    "mount": {
+      "centre_world_mm": [
+        -15.368269476362315,
+        415.56776090725265,
+        284.279346931499
+      ],
+      "can": {
+        "axis_point_mm": [
+          35.83293288880165,
+          2.842170943040401e-14,
+          34.115971216437316
+        ],
+        "axis_direction": [
+          0.9999954114161782,
+          0.0,
+          -0.0030293805618557476
+        ],
+        "radius_mm": 24.555122193273856,
+        "x_stations_mm": [
+          0.0,
+          76.0
+        ],
+        "scope": "Measured exposed motor-can cylinder through the straight barrel. Real ventilation openings and internals are filled for external clearance; the separately observed rear-cap profile supplies X beyond 76 mm."
+      },
+      "frame": {
+        "rotation": [
+          [
+            0.0,
+            -1.0,
+            0.0
+          ],
+          [
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "translation_mm": [
+          -15.368269476362286,
+          368.31776090725265,
+          250.19796251494617
+        ],
+        "reference": "hardware/reference/g-ganen-pump/g-ganen-pump.step"
+      },
+      "seat_bore_radius_mm": 25.696989753350408,
+      "band_native_x_mm": [
+        16.75,
+        77.75
+      ],
+      "cover_room_native_y_mm": [
+        -6.018479351409066,
+        6.074153537631092
+      ],
+      "rail_rooms": [
+        {
+          "side": -1,
+          "outer_y_mm": -28.229180708991777,
+          "floor_planes": [
+            [
+              0.00462262666837714,
+              -0.6868973361435596,
+              -2.8058282507853836
+            ],
+            [
+              0.010816497512330492,
+              1.500475510645035,
+              36.43953931046017
+            ]
+          ]
+        },
+        {
+          "side": 1,
+          "outer_y_mm": 28.138523746345584,
+          "floor_planes": [
+            [
+              -0.006071943508243358,
+              0.6943666204814333,
+              -1.946628548660415
+            ],
+            [
+              0.011942240072377016,
+              -1.535873430984403,
+              36.883481882155266
+            ]
+          ]
+        }
+      ],
+      "selected": {
+        "motor_band_native_x_mm": [
+          16.75,
+          77.75
+        ],
+        "snap_band_native_x_mm": [
+          20.0,
+          74.5
+        ],
+        "rail_stop_native_y_mm": [
+          -29.0,
+          -26.0
+        ],
+        "rail_stop_native_z_mm": 19.0,
+        "rail_stop_native_x_mm": [
+          [
+            -6.4,
+            -0.4
+          ],
+          [
+            77.0,
+            83.0
+          ]
+        ],
+        "insertion": "Bare pump lowers vertically onto the plain lid; fixed rails and molded wire cover pass through open rooms. One continuous 54.5 mm upper clip snaps down after seating. Its continuous pockets retain 3 mm solid axial stock at both outer ends; flank wings remain 3 mm. Two low stops bound axial movement at the fixed negative-Y rail ends.",
+        "print_pose": "Snap cap stands on one axial end; arch, spring wings and hooks print as vertical walls.",
+        "cap_arch_wall_mm": 3.1,
+        "contact_scope": "Motor-side saddle native X16.75\u201377.75 and one continuous upper clip X20\u201374.5. End stops contact only fixed motor rail ends; the rough head underside remains clear throughout axial free play. The central wire-cover and lead corridor stays open.",
+        "axial_end_stock_mm": 3.0
+      },
+      "bore_radius_mm": 25.009505637689916,
+      "snap_station": {
+        "axis_x": -15.368269476362315,
+        "y0": 388.31776090725265,
+        "y1": 442.81776090725265,
+        "split": 0.0,
+        "neck": 31.229180708991777,
+        "ledge": 32.07918070899178,
+        "inner": 32.32918070899178,
+        "outer": 35.32918070899178,
+        "hook": 31.479180708991777,
+        "bearing": 3.0,
+        "catch": 3.4,
+        "tip": 6.4,
+        "ceiling": 6.9
+      },
+      "cap_band_native_x_mm": [
+        20.0,
+        74.5
+      ],
+      "pocket_band_native_x_mm": [
+        19.75,
+        74.75
+      ],
+      "stock_half_width_mm": 35.32918070899178,
+      "caps": [
+        {
+          "centre_world_mm": [
+            -15.368269476362315,
+            415.56776090725265,
+            284.279346931499
+          ],
+          "can": {
+            "axis_point_mm": [
+              35.83293288880165,
+              2.842170943040401e-14,
+              34.115971216437316
+            ],
+            "axis_direction": [
+              0.9999954114161782,
+              0.0,
+              -0.0030293805618557476
+            ],
+            "radius_mm": 24.555122193273856,
+            "x_stations_mm": [
+              0.0,
+              76.0
+            ],
+            "scope": "Measured exposed motor-can cylinder through the straight barrel. Real ventilation openings and internals are filled for external clearance; the separately observed rear-cap profile supplies X beyond 76 mm."
+          },
+          "frame": {
+            "rotation": [
+              [
+                0.0,
+                -1.0,
+                0.0
+              ],
+              [
+                1.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                1.0
+              ]
+            ],
+            "translation_mm": [
+              -15.368269476362286,
+              368.31776090725265,
+              250.19796251494617
+            ],
+            "reference": "hardware/reference/g-ganen-pump/g-ganen-pump.step"
+          },
+          "seat_bore_radius_mm": 25.696989753350408,
+          "band_native_x_mm": [
+            16.75,
+            77.75
+          ],
+          "cover_room_native_y_mm": [
+            -6.018479351409066,
+            6.074153537631092
+          ],
+          "rail_rooms": [
+            {
+              "side": -1,
+              "outer_y_mm": -28.229180708991777,
+              "floor_planes": [
+                [
+                  0.00462262666837714,
+                  -0.6868973361435596,
+                  -2.8058282507853836
+                ],
+                [
+                  0.010816497512330492,
+                  1.500475510645035,
+                  36.43953931046017
+                ]
+              ]
+            },
+            {
+              "side": 1,
+              "outer_y_mm": 28.138523746345584,
+              "floor_planes": [
+                [
+                  -0.006071943508243358,
+                  0.6943666204814333,
+                  -1.946628548660415
+                ],
+                [
+                  0.011942240072377016,
+                  -1.535873430984403,
+                  36.883481882155266
+                ]
+              ]
+            }
+          ],
+          "selected": {
+            "motor_band_native_x_mm": [
+              16.75,
+              77.75
+            ],
+            "snap_band_native_x_mm": [
+              20.0,
+              74.5
+            ],
+            "rail_stop_native_y_mm": [
+              -29.0,
+              -26.0
+            ],
+            "rail_stop_native_z_mm": 19.0,
+            "rail_stop_native_x_mm": [
+              [
+                -6.4,
+                -0.4
+              ],
+              [
+                77.0,
+                83.0
+              ]
+            ],
+            "insertion": "Bare pump lowers vertically onto the plain lid; fixed rails and molded wire cover pass through open rooms. One continuous 54.5 mm upper clip snaps down after seating. Its continuous pockets retain 3 mm solid axial stock at both outer ends; flank wings remain 3 mm. Two low stops bound axial movement at the fixed negative-Y rail ends.",
+            "print_pose": "Snap cap stands on one axial end; arch, spring wings and hooks print as vertical walls.",
+            "cap_arch_wall_mm": 3.1,
+            "contact_scope": "Motor-side saddle native X16.75\u201377.75 and one continuous upper clip X20\u201374.5. End stops contact only fixed motor rail ends; the rough head underside remains clear throughout axial free play. The central wire-cover and lead corridor stays open.",
+            "axial_end_stock_mm": 3.0
+          },
+          "bore_radius_mm": 25.009505637689916,
+          "snap_station": {
+            "axis_x": -15.368269476362315,
+            "y0": 388.31776090725265,
+            "y1": 442.81776090725265,
+            "split": 0.0,
+            "neck": 31.229180708991777,
+            "ledge": 32.07918070899178,
+            "inner": 32.32918070899178,
+            "outer": 35.32918070899178,
+            "hook": 31.479180708991777,
+            "bearing": 3.0,
+            "catch": 3.4,
+            "tip": 6.4,
+            "ceiling": 6.9
+          },
+          "cap_band_native_x_mm": [
+            20.0,
+            74.5
+          ],
+          "pocket_band_native_x_mm": [
+            19.75,
+            74.75
+          ],
+          "stock_half_width_mm": 35.32918070899178
+        }
+      ],
+      "end_stock_mm": [
+        3.0,
+        3.0
+      ]
+    },
+    "selected_feet": [],
+    "mount_rows": [],
+    "routes_checked": false,
+    "routes": [],
+    "checks": [
+      {
+        "check": "installed rubber sliders",
+        "value": 0,
+        "limit": 0,
+        "relation": "<=",
+        "pass": true
+      },
+      {
+        "check": "pump foot screw axes",
+        "value": 0,
+        "limit": 0,
+        "relation": "<=",
+        "pass": true
+      },
+      {
+        "check": "pump cup columns",
+        "value": 0,
+        "limit": 0,
+        "relation": "<=",
+        "pass": true
+      },
+      {
+        "check": "bare casing cable-cover minimum lid air",
+        "value": 1.008545256543556,
+        "limit": 0.14998999999999998,
+        "relation": ">=",
+        "pass": true
+      },
+      {
+        "check": "pump overlap with installed lid",
+        "value": 0,
+        "limit": 1e-05,
+        "relation": "<=",
+        "pass": true
+      },
+      {
+        "check": "cradle native invalid",
+        "value": 0,
+        "limit": 0,
+        "relation": "<=",
+        "pass": true
+      },
+      {
+        "check": "snap cap 1 native invalid",
+        "value": 0,
+        "limit": 0,
+        "relation": "<=",
+        "pass": true
+      },
+      {
+        "check": "snap cap 1 unexpected solid count",
+        "value": 0,
+        "limit": 0,
+        "relation": "<=",
+        "pass": true
+      },
+      {
+        "check": "snap cap 1 overlap with pump",
+        "value": 0,
+        "limit": 1e-05,
+        "relation": "<=",
+        "pass": true
+      },
+      {
+        "check": "snap cap 1 overlap with lid",
+        "value": 0,
+        "limit": 1e-05,
+        "relation": "<=",
+        "pass": true
+      }
+    ],
+    "all_pass": true,
+    "elapsed_seconds": 40.10976995900273
+  },
+  "native_installation_review_sha256": "4eda5fb63dfe9c434286777e36ba9f8842d13472b9ca91555645edc3cb588387",
   "source_sha256": {
-    "hardware/reference/g-ganen-pump/installation/validate_installation.py": "693698391821ad7f43597a102717ccb7b8c11c4d946bd26142a227f9545f412b",
+    "hardware/reference/g-ganen-pump/installation/validate_installation.py": "4b64cf6878fb6fe0ed8ffe830102d71749494b1b39c38d575247fa346715f1b3",
     "hardware/reference/g-ganen-pump/installation/g_ganen_installation.py": "79fca45c7856dd91bd2164af7d17a2a82ed58fb17ae554cad10ce53284a0ca1f",
     "hardware/manifold-layout/above_core.py": "4ae1006309cfc55676c11ac286d0506a77d8fecd1b107818b2d6a665b787654e",
     "hardware/manifold-layout/above_core_parts.py": "dd8c5bc852e5d2471740b3ec66396e06bd01e70ce3428dbe1bb475ef8c2fc320",
-    "hardware/printed-parts/cold-core/_above_core_mounts.py": "a9dbee50183100a3d01f1df348a17a77ced321c98f37574f3c0764654423a7ae",
-    "hardware/manifold-layout/above-core.json": "14fb752d47435e1f5ecc74d3f09ff7d564e80d5e42932f6d1f66902f9ed30aac",
-    "hardware/reference/g-ganen-pump/reference-parameters.json": "d6a18b31502486c7af15c6d06d4b784672e475adfacbb159624f458b6ed85139",
-    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step": "ad76a2c28f490dcb08e9ab64cf5847fa4a316c68ea73a996789c19b391bd7bdb"
+    "hardware/printed-parts/cold-core/_above_core_mounts.py": "c123ad7b8ee61ec849ff29a93d685f66fa4e716985feae0850634c242559db9c",
+    "hardware/manifold-layout/above-core.json": "c9bbd58dea6cf603caca97829050be5afdbcf329e9d65d52d4b812e24f6fc4db",
+    "hardware/reference/g-ganen-pump/reference-parameters.json": "69ac39b3b5ec8a4de1c5b6abee49ef0335d3b96df61e358c5b2db1f23d808ffe",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step": "10e2b53eeffc36d05080d79298c5f6fed217e0f3f1ad5d9319a37d3a0150acf1"
   },
   "print": {
     "physical_stl": "hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.stl",
-    "physical_stl_sha256": "711ff10ac4a9cd04b003cde0b84ca143b3da28e02656e5d30324a7966fceee55",
-    "preparation_directory": ".cache/prints/enclosure-continuous-clip-final-2eb222ae/2026-11-01-pump-snap-cap-mark2-7024dd7f",
-    "preparation_sha256": "1a48a0e255ea801410100ffbfc22170a9018f73229321b46f8f6305c40d3cf4e",
-    "archive_sha256": "8b184bff4832bb51cedacde9e7fe88bb864df0d95e2f66e5c7760536acf28369",
+    "physical_stl_sha256": "24a2481d9606ee004ff3a19617b426b6285e74eeef07ae41375e4e54e6cd402c",
+    "preparation_directory": ".cache/prints/enclosure-continuous-clip-final-2eb222ae/2026-11-01-pump-snap-cap-mark2-35cdf671",
+    "preparation_sha256": "cdf09a1afe6cf2a64ca9cead7d7b9be9f869ad47982f51f0b3fe19c695b06065",
+    "archive_sha256": "a2a6254bbac2c2165f822b042d129ac9c9e463215acdede9a8c139a4ba96c0f9",
     "checks": {
       "archive": true,
       "z_trim": true,
@@ -481,101 +937,85 @@
   "bom_geometry_estimate": {
     "quantity": 1,
     "material": "PET-GF",
-    "estimated_kg": 0.026203181400099536,
-    "estimated_cost": 0.6556035986304903
+    "estimated_kg": 0.03013331641705016,
+    "estimated_cost": 0.753935576754595
+  },
+  "arch_section_bound": {
+    "scope": "Conservative complete axial arch-section bound: the outer arch is a fixed-axis circular extrusion, and the fitted bore is a tilted circular cylinder. Its cross-section lies inside a circle enlarged by axial centre drift and the tilted-cylinder ellipse term. Working hook face widths are separate.",
+    "nominal_arch_mm": 3.1,
+    "axial_interval_native_mm": [
+      20.0,
+      74.5
+    ],
+    "maximum_bore_axis_drift_mm": 0.08255099910274807,
+    "ellipse_radius_excess_mm": 0.00011475873953930986,
+    "arch_minimum_lower_bound_mm": 3.017334242157713,
+    "formula": "nominal wall - max(abs((x-midpoint)*axis_z/axis_x)) - bore_radius*(1/abs(axis_x)-1)"
   },
   "post_publication_surface_review": {
-    "publication_commit": "6edd15606f8b00de8f4d4d7a016277e612e7387b",
-    "physical_stl_sha256": "711ff10ac4a9cd04b003cde0b84ca143b3da28e02656e5d30324a7966fceee55",
     "reader": "hardware/scripts/geometry_lint.py",
     "reader_sha256": "bb7b1fa42e8d2985671eb2ebce6610074e65b6e2a22e5f014e498885ebfb030d",
-    "log_sha256": "56fdd8078fe408fd20ec5053a2284c7ade7559fdc8405a59f63903b72625af02",
-    "classes_read": [
-      "step",
-      "bump",
-      "sliver",
-      "ceiling",
-      "slope",
-      "thin",
-      "ledge"
-    ],
-    "answers_path": "hardware/printed-parts/lint-answers/cold-core/foam-cap/pump-snap-cap.lint-answers",
-    "answers_sha256": "64ad11d4d9876d4f1de1fc7827dd8e4d7c1c5d0c9ed8af20397c401300e4dfcb",
-    "answer_entries": [
-      {
-        "class": "sliver",
-        "reason": "Functional snap-hook catch faces and 45\u00b0 entry bevels on the two 3 mm high hooks. Each catch face projects 0.85 mm: the required 0.6 mm engagement plus 0.25 mm running clearance. Its diagonal entry face is 1.202 mm wide. Those are the dimensions of the working catch profile, rather than 0.85 mm or 1.202 mm wall sections; the spring wings are 3 mm thick. The full 54.5 mm extrusion prints axially with no supports or interrupted wings.",
-        "alternatives": "A 1.6 mm catch projection requires another 0.75 mm of spring deflection and deeper receiving pockets, changing the snap's assembly force and engagement. Removing the flats removes the catch bearing. Rounding the entry face still requires the flat retention bearing beneath it.",
-        "clicks": [
-          "x=-31.904 y=13.905 z=27.250",
-          "x=31.904 y=13.905 z=27.250",
-          "x=31.904 y=16.480 z=27.250",
-          "x=-31.904 y=16.480 z=27.250"
-        ]
-      },
-      {
-        "class": "thin",
-        "reason": "The continuous working spring arch is nominally 2.4 mm between the 3 mm wings. Its exported minimum is 2.322 mm: the fitted motor bore follows the measured barrel axis while the outside profile stays straight. This is the named flexure, with three Classic loops and 100% solid infill in the actual support-free slice. The native fit clears the motor and mating lid; physical snap force and vibration life are not established by that reading.",
-        "alternatives": "A 3 mm outer arch adds 0.6 mm above the present crown, exceeding the measured 0.311 mm PSU gap at this placement. Growing into the motor bore consumes its 0.15 mm static fit allowance. A thicker arch also changes the spring's stiffness; the selected working section retains the fitted motor envelope and available PSU room.",
-        "clicks": [
-          "x=-0.351 y=-16.900 z=2.147",
-          "x=-0.332 y=-14.578 z=2.140"
-        ]
-      }
-    ],
+    "physical_stl_sha256": "24a2481d9606ee004ff3a19617b426b6285e74eeef07ae41375e4e54e6cd402c",
     "findings": [
       {
         "class": "sliver",
         "reading": "0.850 mm strip, 54.5 mm long",
         "clicks": [
-          "x=-31.904 y=13.905 z=27.250"
+          "x=-31.904 y=14.255 z=27.250"
         ],
         "answer_indices": [
           0
-        ]
+        ],
+        "disposition": "specific_functional_or_approved_profile"
       },
       {
         "class": "sliver",
         "reading": "0.850 mm strip, 54.5 mm long",
         "clicks": [
-          "x=31.904 y=13.905 z=27.250"
+          "x=31.904 y=14.255 z=27.250"
         ],
         "answer_indices": [
           0
-        ]
+        ],
+        "disposition": "specific_functional_or_approved_profile"
       },
       {
         "class": "sliver",
         "reading": "1.202 mm strip, 54.5 mm long",
         "clicks": [
-          "x=31.904 y=16.480 z=27.250"
+          "x=31.904 y=16.830 z=27.250"
         ],
         "answer_indices": [
           0
-        ]
+        ],
+        "disposition": "specific_functional_or_approved_profile"
       },
       {
         "class": "sliver",
         "reading": "1.202 mm strip, 54.5 mm long",
         "clicks": [
-          "x=-31.904 y=16.480 z=27.250"
+          "x=-31.904 y=16.830 z=27.250"
         ],
         "answer_indices": [
           0
-        ]
-      },
-      {
-        "class": "thin",
-        "reading": "2.322 mm of material at its thinnest \u00b7 5246.4 mm\u00b2 of surface under 2.5 mm \u00b7 spans 45.7 \u00d7 13.7 \u00d7 52.0 mm \u00b7 in 13 pieces",
-        "clicks": [
-          "x=-0.351 y=-16.900 z=2.147",
-          "x=-0.332 y=-14.578 z=2.140"
         ],
-        "answer_indices": [
-          1
-        ]
+        "disposition": "specific_functional_or_approved_profile"
       }
     ],
-    "unreviewed": []
+    "answers_path": "hardware/printed-parts/lint-answers/cold-core/foam-cap/pump-snap-cap.lint-answers",
+    "answers_sha256": "24e21c7204fc85fbe17539e4892619cc41708f78adb32184792162fda6c87834",
+    "unreviewed": [],
+    "arch_section_bound": {
+      "scope": "Conservative complete axial arch-section bound: the outer arch is a fixed-axis circular extrusion, and the fitted bore is a tilted circular cylinder. Its cross-section lies inside a circle enlarged by axial centre drift and the tilted-cylinder ellipse term. Working hook face widths are separate.",
+      "nominal_arch_mm": 3.1,
+      "axial_interval_native_mm": [
+        20.0,
+        74.5
+      ],
+      "maximum_bore_axis_drift_mm": 0.08255099910274807,
+      "ellipse_radius_excess_mm": 0.00011475873953930986,
+      "arch_minimum_lower_bound_mm": 3.017334242157713,
+      "formula": "nominal wall - max(abs((x-midpoint)*axis_z/axis_x)) - bore_radius*(1/abs(axis_x)-1)"
+    }
   }
 }

@@ -1,0 +1,27 @@
+{
+  "printer": "Mark2",
+  "observed_at": "2026-11-01T18:49:29.715858+00:00",
+  "job_id": "1397697235",
+  "subtask_name": "2026-11-01-pump-fit-clip-mark2.gcode.3mf",
+  "gcode_state": "RUNNING",
+  "print_error": 0,
+  "hms": [],
+  "layer_num": 0,
+  "total_layer_num": 227,
+  "mc_remaining_time": 49,
+  "accepted_no_later_than_utc": "2026-11-01T18:47:52.352159+00:00",
+  "earliest_other_printer_start_utc": "2026-11-01T18:50:52.352159+00:00",
+  "method": "Bambu Connect native UI",
+  "options": {
+    "timelapse": "On",
+    "auto_bed_leveling": "On",
+    "flow_dynamic_calibration": "Auto",
+    "nozzle_offset_calibration": "Auto"
+  },
+  "left_external_spool": {
+    "type": "PET-CF",
+    "physical_material": "PET-GF",
+    "colour": "161616FF"
+  },
+  "gcode_sha256": "946b40e0fd696ca67cd2439c13426a4112d3c0b5a8de576fca490c8ff9b5f0f9"
+}

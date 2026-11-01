@@ -8,10 +8,11 @@ reference supplies the measured motor axis, rails and wire-cover clearance.
   allowance belonging to the chosen print orientation.
 - Motor reference axis point: (35.832933, 0, 34.115971) mm, directed
   (0.9999954114, 0, −0.0030293806) toward the rear.
-- The unobstructed measured barrel band is reference X25–60 mm. The complete
-  lower outline includes the two fixed rails and central molded cover.
-- The cover ends at approximately X64.7 mm. Its underside and finite end are
-  retained in `rigid-underside.json`; loose leads beyond the end are flexible.
+- The two exposed views supply the fixed rail profiles in reference X28–52 mm.
+  The complete lower outline includes both fixed rails and the central cover.
+- The cover ends at approximately X64.7 mm. Its lower face is level at native
+  Z4.210583 mm, the measured rear-center height identified by Derek. Its finite
+  end is retained in `rigid-underside.json`; leads beyond it are flexible.
 - The seat cavity opens along +Z for placement and removal. Its relief includes
   the fixed rail protrusions and the wire cover throughout that motion.
 - The snap bears on the unobstructed upper motor can. The shared seat/cap
@@ -21,27 +22,27 @@ The installed pose, cap stock, snap extent and neighbouring-part checks belong
 to the layout. The purchased reference retains its port tips, independent barb
 axes, motor axis and datum frame. `parameter-check.json` records that equality.
 `validation.json` binds the native STEP and viewer payload; `surface-check.json`
-records the lower-casing comparison against disjoint native scan samples.
+records the fixed side-rail comparison against disjoint native scan samples.
 
 ## Selected contact regions
 
-The saddle occupies native X25–60 mm and the upper snap X35–51 mm, entirely
-within the approved motor/cylinder area. Axial stops contact the fixed motor
-rail ends. The forward switch/nose is unused as a support. The middle/head
-underside between switch and motor is excluded from all mounting contact.
+The saddle occupies native X16.75–77.75 mm and the continuous upper clip
+X20–74.5 mm, within the approved motor/cylinder area. The catch pockets include
+0.25 mm of axial clearance per end, with 3 mm of solid saddle beyond them.
+Axial stops contact the fixed motor rail ends. The forward switch/nose is unused
+as a support. The middle/head underside between switch and motor is excluded
+from mounting contact.
 
-The forward stop spans native Y−29 to −26 mm, retaining 3 mm of stock.
-Its source-profile clearance from the red head is at least 0.828 mm through
-the near-seam axial travel; the head outer hull has 1.500 mm lateral clearance
-and its side lug stands 6.001 mm above the stop. The middle/head also remains
-at least 1.386 mm above the plain lid in the selected pose. These are source
-layout bounds; the native mount export remains a separate check.
+The forward stop spans native Y−29 to −26 mm, retaining 3 mm of stock. The
+installed pump pose, bearing, placement/removal, stops and neighbor clearances
+are bound to their exported parts in the
+[installation check](../installation/native-installation-check.json).
 
-The annotated review is in [mount-review.json](mount-review.json), and the
-bound source calculation is [mount-contact-check.json](mount-contact-check.json).
+The annotated contact-region review is in [mount-review.json](mount-review.json).
 
 The matching reference STEP and mesh are exported and all 25 native bodies
 (21 rigid, four removable reference sliders) are valid. The disjoint scan
-comparison p95 is 0.235/0.169 mm for the two exposed views. The local cover
-shoulder has a maximum mesh-to-scan deviation of 0.533 mm; the cover slot is
-an open, nonbearing clearance room, separate from the motor and rail bearings.
+side-rail comparison p95 is 0.112/0.141 mm for the two exposed views. The level
+cover floor uses the physical datum rather than a claim of scan agreement.
+Its slot is an open, nonbearing clearance room, separate from the motor and
+rail bearings.
