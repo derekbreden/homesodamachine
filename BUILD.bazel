@@ -2933,6 +2933,7 @@ genrule(
         "pysrc/hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.py",
         "pysrc/hardware/printed-parts/valve-seat/valve_seat.py",
         ":out/funnel-cover/hardware/printed-parts/zone-c/funnel-cover/funnel-cover.step",
+        ":out/funnel-cover/hardware/printed-parts/zone-c/funnel-cover/funnel-cover.step.npz",
         "pysrc/hardware/printed-parts/zone-c/funnel/elbow_cradle.py",
         "pysrc/hardware/printed-parts/zone-c/funnel/funnel.py",
         ":out/elbow-cradle/hardware/printed-parts/zone-c/funnel/funnel.step",
@@ -5689,6 +5690,7 @@ genrule(
         "pysrc/hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.py",
         "pysrc/hardware/printed-parts/valve-seat/valve_seat.py",
         ":out/funnel-cover/hardware/printed-parts/zone-c/funnel-cover/funnel-cover.step",
+        ":out/funnel-cover/hardware/printed-parts/zone-c/funnel-cover/funnel-cover.step.npz",
         "pysrc/hardware/printed-parts/zone-c/funnel-cover/funnel_cover.py",
         "pysrc/hardware/printed-parts/zone-c/funnel/elbow_cradle.py",
         "pysrc/hardware/printed-parts/zone-c/funnel/funnel.py",
@@ -8644,6 +8646,7 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
         "hardware/printed-parts/zone-c/funnel-cover/README.md",
         "pysrc/hardware/printed-parts/zone-c/funnel-cover/funnel_cover.py",
+        "hardware/printed-parts/zone-c/funnel-cover/funnel_cover.rs",
         "pysrc/hardware/printed-parts/zone-c/funnel/elbow_cradle.py",
         "pysrc/hardware/printed-parts/zone-c/funnel/funnel.py",
         "pysrc/hardware/reference/jg-pp0308e-elbow/elbow.py",
@@ -8651,12 +8654,42 @@ genrule(
         "pysrc/hardware/scripts/_cadq_export.py",
         "pysrc/hardware/scripts/_material_base.py",
         "pysrc/hardware/scripts/_materials.py",
-        "pysrc/hardware/scripts/_mesh_payload.py",
-        "pysrc/hardware/scripts/_payload_rules.py",
+        "pysrc/hardware/scripts/_occt_color.py",
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_run_lock.py",
-        "pysrc/hardware/scripts/flute_payload.py",
+        "pysrc/hardware/scripts/_rust_part.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/Cargo.lock",
+        "tools/hsm/Cargo.toml",
+        "tools/hsm/funnel/Cargo.toml",
+        "tools/hsm/kernel/Cargo.toml",
+        "tools/hsm/kernel/src/boolean.rs",
+        "tools/hsm/kernel/src/build.rs",
+        "tools/hsm/kernel/src/dxf.rs",
+        "tools/hsm/kernel/src/edge.rs",
+        "tools/hsm/kernel/src/face.rs",
+        "tools/hsm/kernel/src/import.rs",
+        "tools/hsm/kernel/src/lib.rs",
+        "tools/hsm/kernel/src/mapped.rs",
+        "tools/hsm/kernel/src/mass.rs",
+        "tools/hsm/kernel/src/math.rs",
+        "tools/hsm/kernel/src/part.rs",
+        "tools/hsm/kernel/src/plane.rs",
+        "tools/hsm/kernel/src/profile.rs",
+        "tools/hsm/kernel/src/reads.rs",
+        "tools/hsm/kernel/src/round.rs",
+        "tools/hsm/kernel/src/rule.rs",
+        "tools/hsm/kernel/src/screw.rs",
+        "tools/hsm/kernel/src/sketch_hull.rs",
+        "tools/hsm/kernel/src/solid.rs",
+        "tools/hsm/kernel/src/spline.rs",
+        "tools/hsm/kernel/src/step.rs",
+        "tools/hsm/kernel/src/sweep.rs",
+        "tools/hsm/kernel/src/text.rs",
+        "tools/hsm/kernel/src/thru.rs",
+        "tools/hsm/kernel/src/topo.rs",
+        "tools/hsm/kernel/src/triangulate.rs",
+        "tools/hsm/kernel/src/write.rs",
     ] + glob(
         [
             "hardware/printed-parts/zone-c/funnel-cover/README.figures.json",
@@ -8666,23 +8699,31 @@ genrule(
     outs = [
         "out/funnel-cover/hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.step",
         "out/funnel-cover/hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.step.mesh",
+        "out/funnel-cover/hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.step.npz",
         "out/funnel-cover/hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.stl",
+        "out/funnel-cover/hardware/printed-parts/zone-c/funnel-cover/funnel-cover.numbers.json",
         "out/funnel-cover/hardware/printed-parts/zone-c/funnel-cover/funnel-cover.step",
         "out/funnel-cover/hardware/printed-parts/zone-c/funnel-cover/funnel-cover.step.mesh",
+        "out/funnel-cover/hardware/printed-parts/zone-c/funnel-cover/funnel-cover.step.npz",
         "out/funnel-cover/hardware/printed-parts/zone-c/funnel-cover/funnel-cover.stl",
         "out/funnel-cover/hardware/printed-parts/zone-c/funnel-cover/README.figures.json",
         "out/funnel-cover/hardware/printed-parts/zone-c/funnel-cover/README.md",
     ],
+    tags = ["no-sandbox"],
     cmd = """
 set -e
 O0=$$PWD/$(location out/funnel-cover/hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.step)
 O1=$$PWD/$(location out/funnel-cover/hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.step.mesh)
-O2=$$PWD/$(location out/funnel-cover/hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.stl)
-O3=$$PWD/$(location out/funnel-cover/hardware/printed-parts/zone-c/funnel-cover/funnel-cover.step)
-O4=$$PWD/$(location out/funnel-cover/hardware/printed-parts/zone-c/funnel-cover/funnel-cover.step.mesh)
-O5=$$PWD/$(location out/funnel-cover/hardware/printed-parts/zone-c/funnel-cover/funnel-cover.stl)
-O6=$$PWD/$(location out/funnel-cover/hardware/printed-parts/zone-c/funnel-cover/README.figures.json)
-O7=$$PWD/$(location out/funnel-cover/hardware/printed-parts/zone-c/funnel-cover/README.md)
+O2=$$PWD/$(location out/funnel-cover/hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.step.npz)
+O3=$$PWD/$(location out/funnel-cover/hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.stl)
+O4=$$PWD/$(location out/funnel-cover/hardware/printed-parts/zone-c/funnel-cover/funnel-cover.numbers.json)
+O5=$$PWD/$(location out/funnel-cover/hardware/printed-parts/zone-c/funnel-cover/funnel-cover.step)
+O6=$$PWD/$(location out/funnel-cover/hardware/printed-parts/zone-c/funnel-cover/funnel-cover.step.mesh)
+O7=$$PWD/$(location out/funnel-cover/hardware/printed-parts/zone-c/funnel-cover/funnel-cover.step.npz)
+O8=$$PWD/$(location out/funnel-cover/hardware/printed-parts/zone-c/funnel-cover/funnel-cover.stl)
+O9=$$PWD/$(location out/funnel-cover/hardware/printed-parts/zone-c/funnel-cover/README.figures.json)
+O10=$$PWD/$(location out/funnel-cover/hardware/printed-parts/zone-c/funnel-cover/README.md)
+rm -rf work-funnel-cover
 for f in $(SRCS); do
   case $$f in
     */node_modules/*) continue;;
@@ -8690,23 +8731,27 @@ for f in $(SRCS); do
     */pysrc/*) t=$${f##*/pysrc/};;
     *) t=$$f;;
   esac
-  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
+  mkdir -p work-funnel-cover/$$(dirname $$t); cp -L $$f work-funnel-cover/$$t
 done
 for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
+  if [ -d $$d ]; then mkdir -p work-funnel-cover/$$(dirname $$d); ln -sfn $$PWD/$$d work-funnel-cover/$$d; fi
 done
-cd work
+cd work-funnel-cover
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
 HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/zone-c/funnel-cover/funnel_cover.py > /dev/null
 cp hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.step $$O0
 cp hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.step.mesh $$O1
-cp hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.stl $$O2
-cp hardware/printed-parts/zone-c/funnel-cover/funnel-cover.step $$O3
-cp hardware/printed-parts/zone-c/funnel-cover/funnel-cover.step.mesh $$O4
-cp hardware/printed-parts/zone-c/funnel-cover/funnel-cover.stl $$O5
-cp hardware/printed-parts/zone-c/funnel-cover/README.figures.json $$O6
-cp hardware/printed-parts/zone-c/funnel-cover/README.md $$O7
+cp hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.step.npz $$O2
+cp hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.stl $$O3
+cp hardware/printed-parts/zone-c/funnel-cover/funnel-cover.numbers.json $$O4
+cp hardware/printed-parts/zone-c/funnel-cover/funnel-cover.step $$O5
+cp hardware/printed-parts/zone-c/funnel-cover/funnel-cover.step.mesh $$O6
+cp hardware/printed-parts/zone-c/funnel-cover/funnel-cover.step.npz $$O7
+cp hardware/printed-parts/zone-c/funnel-cover/funnel-cover.stl $$O8
+cp hardware/printed-parts/zone-c/funnel-cover/README.figures.json $$O9
+cp hardware/printed-parts/zone-c/funnel-cover/README.md $$O10
+cd .. && rm -rf work-funnel-cover
 """,
 )
 
@@ -10776,6 +10821,7 @@ genrule(
         ":out/soda-bend-holder/hardware/printed-parts/soda-bend-holder/soda-bend-holder.step",
         "pysrc/hardware/printed-parts/valve-seat/valve_seat.py",
         ":out/funnel-cover/hardware/printed-parts/zone-c/funnel-cover/funnel-cover.step",
+        ":out/funnel-cover/hardware/printed-parts/zone-c/funnel-cover/funnel-cover.step.npz",
         "hardware/printed-parts/zone-c/funnel-cover/native-slice-review.json",
         ":out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/design.json",
         ":out/elbow-cradle/hardware/printed-parts/zone-c/funnel/elbow-cradle.step",
@@ -11452,6 +11498,7 @@ genrule(
         "hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.py",
         "hardware/printed-parts/valve-seat/valve_seat.py",
         ":out/funnel-cover/hardware/printed-parts/zone-c/funnel-cover/funnel-cover.step",
+        ":out/funnel-cover/hardware/printed-parts/zone-c/funnel-cover/funnel-cover.step.npz",
         "hardware/printed-parts/zone-c/funnel-cover/funnel_cover.py",
         "hardware/printed-parts/zone-c/funnel/elbow_cradle.py",
         "hardware/printed-parts/zone-c/funnel/funnel.py",

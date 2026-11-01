@@ -5362,6 +5362,15 @@ def y_seam_hardware(box):
             yield name+'-insert', insert, M_BRASS
 
 
+def build_funnel_cover():
+    """The cover in its seating frame, for mesh and native assembly readers."""
+    meshcad = sys.modules.get("meshcad")
+    if meshcad is not None and meshcad.mesh_mode():
+        return import_step(str(FUNNEL_COVER_STEP)).val()
+    import funnel_cover
+    return funnel_cover.build()
+
+
 def build_enclosure_assembly(*, require_box_spec=False) -> cq.Assembly:
     """The pack, what is seated in the walls, and the four printable pieces of the box."""
     a, _p, live_box = machine()
@@ -5387,7 +5396,7 @@ def build_enclosure_assembly(*, require_box_spec=False) -> cq.Assembly:
     # runs anchor on, with the funnel's now among them.
     a.pack_solids["funnel"], a.carries["funnel"] = funnel, funnel_carry
     cx, cy = funnel_centre(box)
-    lid, lid_carry = seat_body(import_step(str(FUNNEL_COVER_STEP)).val(),
+    lid, lid_carry = seat_body(build_funnel_cover(),
                                seat="funnel-cover",
                                station=(((0, 0, 0), (0, 0, 1)),
                                         (cx, cy, box.outer[5] + _funnel.apron_rise)))
