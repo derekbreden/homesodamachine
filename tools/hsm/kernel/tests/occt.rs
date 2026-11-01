@@ -173,3 +173,46 @@ fn text() -> anyhow::Result<()> {
     check("text_helvetica_bold", Plane::XY.text(&helvetica_bold, "Ab8", 5.0, 0.48, c, VAlign::Center)?);
     Ok(())
 }
+
+#[test]
+fn text_pair_kerning() -> anyhow::Result<()> {
+    let font = Font::find("Helvetica", Kind::Bold)?;
+    let bounds = |profiles: &[Profile]| {
+        let mut min = v2(f64::INFINITY, f64::INFINITY);
+        let mut max = v2(f64::NEG_INFINITY, f64::NEG_INFINITY);
+        for profile in profiles {
+            for lp in profile.place(&Plane::XY).loops {
+                for p in lp.pts {
+                    min.x = min.x.min(p.x);
+                    min.y = min.y.min(p.y);
+                    max.x = max.x.max(p.x);
+                    max.y = max.y.max(p.y);
+                }
+            }
+        }
+        [min.x, min.y, max.x, max.y]
+    };
+    for (text, kerned_width, unkerned_width) in [
+        ("TAP", 9.36767578125, 9.736328125),
+        ("FLAVOR", 19.5947265625, 19.96337890625),
+    ] {
+        for halign in [HAlign::Left, HAlign::Center, HAlign::Right] {
+            for valign in [VAlign::Top, VAlign::Center, VAlign::Bottom] {
+                let default = font.profiles(text, 5.0, halign, valign)?;
+                assert_eq!(default, font.profiles_with_kerning(text, 5.0, halign, valign, true)?);
+                let unkerned = font.profiles_with_kerning(text, 5.0, halign, valign, false)?;
+                let (a, b) = (bounds(&default), bounds(&unkerned));
+                assert!((a[2] - a[0] - kerned_width).abs() < 0.005, "{text}: {a:?}");
+                assert!((b[2] - b[0] - unkerned_width).abs() < 0.005, "{text}: {b:?}");
+                assert_eq!([a[1], a[3]], [b[1], b[3]]);
+            }
+        }
+    }
+    for text in ["CO2", "OVER", "SODA"] {
+        assert_eq!(
+            font.profiles(text, 5.0, HAlign::Center, VAlign::Center)?,
+            font.profiles_with_kerning(text, 5.0, HAlign::Center, VAlign::Center, false)?,
+        );
+    }
+    Ok(())
+}
