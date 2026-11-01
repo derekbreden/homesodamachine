@@ -1,13 +1,7 @@
 [sliver] Functional snap-hook catch faces and 45° entry bevels on the two 3 mm high hooks. Each catch face projects 0.85 mm: the required 0.6 mm engagement plus 0.25 mm running clearance. Its diagonal entry face is 1.202 mm wide. Those are the dimensions of the working catch profile, rather than 0.85 mm or 1.202 mm wall sections; the spring wings are 3 mm thick. The full 54.5 mm extrusion prints axially with no supports or interrupted wings.
 alternatives: A 1.6 mm catch projection requires another 0.75 mm of spring deflection and deeper receiving pockets, changing the snap's assembly force and engagement. Removing the flats removes the catch bearing. Rounding the entry face still requires the flat retention bearing beneath it.
 file: hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.step
-click: x=-31.904 y=13.905 z=27.250
-click: x=31.904 y=13.905 z=27.250
-click: x=31.904 y=16.480 z=27.250
-click: x=-31.904 y=16.480 z=27.250
-
-[thin] The continuous working spring arch is nominally 2.4 mm between the 3 mm wings. Its exported minimum is 2.322 mm: the fitted motor bore follows the measured barrel axis while the outside profile stays straight. This is the named flexure, with three Classic loops and 100% solid infill in the actual support-free slice. The native fit clears the motor and mating lid; physical snap force and vibration life are not established by that reading.
-alternatives: A 3 mm outer arch adds 0.6 mm above the present crown, exceeding the measured 0.311 mm PSU gap at this placement. Growing into the motor bore consumes its 0.15 mm static fit allowance. A thicker arch also changes the spring's stiffness; the selected working section retains the fitted motor envelope and available PSU room.
-file: hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.step
-click: x=-0.351 y=-16.900 z=2.147
-click: x=-0.332 y=-14.578 z=2.140
+click: x=-31.904 y=14.255 z=27.250
+click: x=31.904 y=14.255 z=27.250
+click: x=31.904 y=16.830 z=27.250
+click: x=-31.904 y=16.830 z=27.250

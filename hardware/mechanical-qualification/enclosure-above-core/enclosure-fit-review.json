@@ -4385,7 +4385,7 @@
     "style": "One integral 61 mm motor half pipe, one continuous 54.5 mm upper clip, open fixed-rail and molded-cover admission rooms, two rail-end stops.",
     "native_piece_review": {
       "path": "hardware/reference/g-ganen-pump/installation/clip-native-review.json",
-      "sha256": "8843076719e7dc723792864e69d8bd4e4a65f91e4755d2a3c6bc6e7e777ed6fd"
+      "sha256": "909cabefb962f85f762cb72012640027c151b2ec1eaad0aa1ca7e1e9a592a2aa"
     },
     "mount_datums": {
       "centre_world_mm": [
