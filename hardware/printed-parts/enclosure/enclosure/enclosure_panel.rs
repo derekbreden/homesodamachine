@@ -1,11 +1,16 @@
 //! The enclosure's structural back-bottom panel from its private Python recipe.
+#[path = "enclosure_skin.rs"]
+#[allow(dead_code)]
+mod skin;
 #[path = "enclosure_structure.rs"]
 #[allow(dead_code)]
 mod structure;
 use anyhow::{Context, Result, bail, ensure};
 use hsm_kernel::part::{Numbers, args, write_shown};
 use hsm_kernel::*;
+use manifold_csg::Manifold;
 use serde_json::Value;
+use std::io::Write;
 
 fn f(v: &Value, key: &str) -> Result<f64> {
     v[key]
@@ -67,6 +72,166 @@ fn handhold_cutter(v: &Value) -> Result<Solid> {
     Plane::YZ
         .at(v3(lo.x, 0.0, 0.0))
         .extrude(&Profile::new(outline), hi.x - lo.x)
+}
+
+// The handhold's native mesh loft uses GCPnts_TangentialDeflection on its ellipses.
+// Preserve its adaptive stations (including the adjusted penultimate point) before
+// ruling adjacent sections. OCCT 7.8.1 algorithm reference:
+// https://github.com/Open-Cascade-SAS/OCCT/blob/V7_8_1/src/GCPnts/GCPnts_TangentialDeflection.cxx
+fn ellipse_stations(edge: LoftEdge) -> Result<Vec<f64>> {
+    let LoftEdge::Conic { c, x, y, t0, t1 } = edge else {
+        return Ok(vec![0.0, 1.0]);
+    };
+    let first = t0.min(t1);
+    let last = t0.max(t1);
+    let at = |u: f64| c + x * math::cos(u) + y * math::sin(u);
+    let step = |u: f64| {
+        let tangent = x * (-math::sin(u)) + y * math::cos(u);
+        let second = x * (-math::cos(u)) - y * math::sin(u);
+        (8.0 * LINEAR / (second.cross(tangent).norm() / tangent.norm())).sqrt()
+    };
+    let mut du = step(first).min((last - first) / 3.0);
+    let mut saved = du;
+    let mut u1 = first;
+    let mut u2 = first;
+    let mut previous = at(first);
+    let mut marked = vec![first];
+    let mut check_saved = false;
+    let mut more = true;
+    let mut guard = 0;
+    while more {
+        guard += 1;
+        ensure!(guard < 100000, "handhold ellipse station convergence");
+        u2 += du;
+        if u2 >= last {
+            u2 = last;
+            du = u2 - u1;
+            saved = du;
+        }
+        let mut current = at(u2);
+        let mut large = false;
+        let mut small = false;
+        let (fcoef, acoef) = loop {
+            let mid = (u1 + u2) * 0.5;
+            let p = at(mid);
+            let chord = current - previous;
+            let half = p - previous;
+            let fcoef = if chord.norm() > 1e-7 {
+                chord.cross(half).norm() / (chord.norm() * LINEAR)
+            } else {
+                0.0
+            };
+            let last_half = current - p;
+            let acoef = if last_half.norm() > 1e-7 && half.norm() > 1e-7 {
+                last_half.cross(half).norm() / (last_half.norm() * half.norm() * (ANGULAR / 2.0))
+            } else {
+                0.0
+            };
+            let coef = fcoef.max(acoef);
+            if check_saved && coef < 0.55 {
+                check_saved = false;
+                du = saved;
+                u2 = (u1 + du).min(last);
+                current = at(u2);
+                continue;
+            }
+            if coef <= 1.0 {
+                if (last - u2).abs() < 1e-9 {
+                    marked.push(last);
+                    more = false;
+                    break (fcoef, acoef);
+                }
+                if coef >= 0.55 || large {
+                    marked.push(u2);
+                    previous = current;
+                    check_saved = true;
+                    break (fcoef, acoef);
+                }
+                if small {
+                    previous = current;
+                    break (fcoef, acoef);
+                }
+                small = true;
+                du += ((u2 - u1) * (1.0 - coef)).min(du / 3.0);
+                u2 = (u1 + du).min(last);
+                current = at(u2);
+            } else if coef >= 1.5 {
+                if (previous - at(*marked.last().unwrap())).norm() > 1e-7 {
+                    marked.push(u1);
+                }
+                u2 = mid;
+                du = u2 - u1;
+                current = p;
+            } else {
+                du *= 0.9;
+                u2 = u1 + du;
+                current = at(u2);
+                large = true;
+            }
+        };
+        du = u2 - u1;
+        if more {
+            if u1 > first {
+                du = if fcoef > acoef {
+                    step(u2)
+                } else {
+                    (du + (du - saved) * (du / saved)).clamp(0.75 * saved, 1.5 * saved)
+                };
+            }
+            if du < 1e-9 {
+                du = last - u2;
+                if du < 1e-9 {
+                    marked.push(last);
+                    more = false;
+                } else if du / 3.0 > 1e-9 {
+                    du /= 3.0;
+                }
+            }
+            u1 = u2;
+            saved = du;
+        }
+    }
+    if marked.len() >= 3 {
+        let n = marked.len();
+        marked[n - 2] = (last + marked[n - 3]) * 0.5;
+    }
+    if t0 > t1 {
+        marked.reverse();
+    }
+    Ok(marked.into_iter().map(|u| (u - t0) / (t1 - t0)).collect())
+}
+
+fn handhold_loft(sections: &[LoftSection]) -> Result<Solid> {
+    let sections = compatible(sections)?;
+    let mut regions = vec![];
+    for section in &sections {
+        let mut points = vec![];
+        let mut segment = vec![];
+        let mut curves = vec![];
+        for (k, &edge) in section.edges.iter().enumerate() {
+            let stations = match edge {
+                LoftEdge::Line { .. } => vec![0.0, 1.0],
+                _ => ellipse_stations(edge)?,
+            };
+            for &t in &stations[..stations.len() - 1] {
+                points.push(edge.at(t));
+                segment.push(k as u32);
+            }
+            curves.push(match edge {
+                LoftEdge::Line { .. } => Curve::Line,
+                _ => Curve::Free("ELLIPSE"),
+            });
+        }
+        regions.push(Region {
+            loops: vec![profile::RLoop {
+                pts: points,
+                seg: segment,
+            }],
+            curves,
+        });
+    }
+    // meshcad.sweep.loft rules each pair even when its caller says ruled=False.
+    Solid::loft(&regions)
 }
 
 fn handhold_air(v: &Value) -> Result<Solid> {
@@ -132,8 +297,8 @@ fn handhold_air(v: &Value) -> Result<Solid> {
         .filter(|&&d| d >= foot)
         .map(|&d| section(d, false))
         .collect();
-    let roof_air = Solid::thru_sections(&with_roof, false)?;
-    let side_air = Solid::thru_sections(&returns, false)?;
+    let roof_air = handhold_loft(&with_roof)?;
+    let side_air = handhold_loft(&returns)?;
     let basic = handhold_cutter(&serde_json::json!({
         "box":[-1.0,f(v,"cutter_depth")?,y[0],y[1],bed-1.0,roof],"radius":corner}))?;
     // _handhold_finish_air is the blank's share of the ordinary opening and both rim lofts.
@@ -349,7 +514,12 @@ fn disposal(v: &Value) -> Result<Solid> {
         )))
 }
 
-pub fn panel(n: &Numbers) -> Result<Solid> {
+struct Panel {
+    solid: Solid,
+    relief: Option<Solid>,
+}
+
+fn panel(n: &Numbers) -> Result<Panel> {
     let recipe = n.get("panel")?;
     let nodes = recipe["nodes"].as_array().context("panel recipe nodes")?;
     let result = recipe["result"].as_u64().context("panel result")? as usize;
@@ -361,6 +531,7 @@ pub fn panel(n: &Numbers) -> Result<Solid> {
         }
     }
     let mut live: Vec<Option<Solid>> = vec![None; nodes.len()];
+    let mut relief = None;
     for (i, v) in nodes.iter().enumerate() {
         let inputs = v["inputs"]
             .as_array()
@@ -437,6 +608,9 @@ pub fn panel(n: &Numbers) -> Result<Solid> {
             })
         })()
         .with_context(|| format!("enclosure panel node {i} ({op})"))?;
+        if op == "disposal-letters" {
+            relief = Some(shape.clone());
+        }
         live[i] = Some(shape);
         for k in inputs {
             users[k] -= 1;
@@ -445,23 +619,109 @@ pub fn panel(n: &Numbers) -> Result<Solid> {
             }
         }
     }
-    live[result].take().context("finished structural panel")
+    Ok(Panel {
+        solid: live[result].take().context("finished structural panel")?,
+        relief,
+    })
+}
+
+fn manifold(s: &Solid) -> Result<Manifold> {
+    let vertices: Vec<f32> = s
+        .verts()
+        .iter()
+        .flat_map(|p| p.to_array().map(|v| v as f32))
+        .collect();
+    let triangles: Vec<u32> = s.tris().iter().flatten().copied().collect();
+    Ok(Manifold::from_mesh_f32(&vertices, 3, &triangles)?)
+}
+
+fn printed(panel: &Panel, n: &Numbers) -> Result<Manifold> {
+    let relief = panel
+        .relief
+        .as_ref()
+        .context("back-bottom warning relief")?;
+    let o = n.list("outer")?;
+    let p = n.get("print")?;
+    let b = relief.bounds();
+    let margin = f(p, "warning_margin")?;
+    let field = [
+        b.min.x - margin,
+        b.max.x + margin,
+        o[3] - f(p, "wall")?,
+        o[3] + f(p, "warning_raise")?,
+        b.min.z - margin,
+        b.max.z + margin,
+    ];
+    let smooth = panel.solid.cut(&Solid::cuboid(
+        v3(field[0], o[3], field[4]),
+        v3(field[1], o[3] + f(p, "warning_raise")? + 1.0, field[5]),
+    ))?;
+    let fluted = skin::flute_solid(&smooth.simplified()?, n, &[field])?;
+    let joined = fluted.union(&manifold(relief)?);
+    let (v, props, t) = joined.to_mesh_f32();
+    // finish_print_mesh reads the same float32 positions once more before its final union.
+    Ok(Manifold::from_mesh_f32(&v, props, &t)?)
+}
+
+fn print_stl(path: &std::path::Path, shape: &Manifold) -> Result<()> {
+    let (v, props, t) = shape.to_mesh_f32();
+    let temporary = path.with_file_name(format!(
+        ".{}.{}.stl",
+        path.file_stem().unwrap().to_string_lossy(),
+        std::process::id()
+    ));
+    let mut out = std::io::BufWriter::new(std::fs::File::create(&temporary)?);
+    let mut header = [b' '; 80];
+    let title = b"hsm enclosure print surface";
+    header[..title.len()].copy_from_slice(title);
+    out.write_all(&header)?;
+    out.write_all(&(t.len() as u32 / 3).to_le_bytes())?;
+    for triangle in t.chunks_exact(3) {
+        let points: Vec<_> = triangle
+            .iter()
+            .map(|&i| {
+                let k = i as usize * props;
+                v3(v[k] as f64, v[k + 1] as f64, v[k + 2] as f64)
+            })
+            .collect();
+        let normal = (points[1] - points[0]).cross(points[2] - points[0]).unit();
+        for value in normal
+            .to_array()
+            .into_iter()
+            .map(|x| x as f32)
+            .chain(points.iter().flat_map(|p| p.to_array().map(|x| x as f32)))
+        {
+            out.write_all(&value.to_le_bytes())?;
+        }
+        out.write_all(&[0, 0])?;
+    }
+    out.flush()?;
+    drop(out);
+    std::fs::rename(temporary, path)?;
+    Ok(())
 }
 
 fn main() -> Result<()> {
     let (n, out) = args()?;
-    let shape = panel(&n)?;
-    println!(
-        "{}",
-        write_shown(
-            &out,
-            "enclosure-back-bottom",
-            &[Body {
-                name: "enclosure-back-bottom",
-                color: Some(n.color("color")?),
-                solid: &shape
-            }]
-        )?
-    );
+    let built = panel(&n)?;
+    let mut said = write_shown(
+        &out,
+        "enclosure-back-bottom",
+        &[Body {
+            name: "enclosure-back-bottom",
+            color: Some(n.color("color")?),
+            solid: &built.solid,
+        }],
+    )?;
+    if n.get("print").is_ok() {
+        let shape = printed(&built, &n)?;
+        print_stl(&out.join("enclosure-back-bottom.stl"), &shape)?;
+        said["files"]
+            .as_array_mut()
+            .context("part files")?
+            .push(serde_json::json!("enclosure-back-bottom.stl"));
+        said["print"] = serde_json::json!({"volume":shape.volume(),"triangles":shape.num_tri()});
+    }
+    println!("{said}");
     Ok(())
 }

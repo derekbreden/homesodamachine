@@ -8822,7 +8822,7 @@ def _silhouette_bound(pieces, box):
             "interior lane or the wall it roots on"])))
 
 
-def build_pieces(box):
+def build_pieces(box, *, produced=None):
     """The four enclosure quadrants and the underside pump retainer, assembled in place.
 
     DRAWING A PIECE TAKES NO READING. Every bound the box states is in the ledger before this
@@ -8833,6 +8833,7 @@ def build_pieces(box):
     stated size, nor the code that cuts it, and a station moves only when the body carrying it
     does."""
     _last_box[0] = box
+    produced = produced or {}
     cache = {}
 
     def _product(n):
@@ -8843,7 +8844,7 @@ def build_pieces(box):
     names = [n for n in PIECE_COLORS
              if n != "pump-retainer"
              or (box.pump_bay and box.pack.collet_plate)]
-    pieces = {name: _realized.realized(
+    pieces = {name: produced[name] if name in produced else _realized.realized(
                   _realized.key(__name__, box, name,
                                 _above_core_shell.layout.specification()),
                   lambda n=name: _product(n))
@@ -8922,17 +8923,22 @@ def export_pump_dock(box):
         flute_payload.cut(step, stl)
 
 
-def _export_pieces(pieces, assy):
+def _export_pieces(pieces, assy, *, produced=()):
     refused, payloads = [], []
     box = _last_box[0]
+    produced = set(produced)
     outer = box.outer
     # Every assembly piece is meshed once. The plate's envelope also contributes a
     # shadow mask over the bearing band behind the integral bore face.
     bodies = {name: _piece_mesh(_print_solid(name, piece.val(), outer))
-              for name, piece in pieces.items()}
+              for name, piece in pieces.items() if name not in produced}
     steel = ([_piece_mesh(_collet_plate_body(box.pack.collet_plate))]
              if box.pack.collet_plate else [])
     for name, piece in pieces.items():
+        if name in produced:
+            print(f"-> enclosure-{name}.step")
+            print(f"-> enclosure-{name}.stl")
+            continue
         export_assembly(one_body(piece, f"enclosure-{name}", PIECE_COLORS[name]),
                         str(_here.parent / f"enclosure-{name}.step"))
         print(f"-> enclosure-{name}.step")
@@ -9061,14 +9067,31 @@ def _report_bounds():
     print()
 
 
+def _produced_back_bottom(box):
+    """The complete Rust print and its fine structural model for the mesh assembly.
+
+    Native callers retain build_piece/build_pieces. The normal mesh generator owns
+    the four files once; its export pass takes the remaining pieces only.
+    """
+    meshcad = sys.modules.get('meshcad')
+    if meshcad is None or not meshcad.mesh_mode():
+        return {}
+    import _enclosure_panel
+    from meshcad.imports import load_model
+    _enclosure_panel.cut(sys.modules[__name__], box, _here.parent)
+    structural = load_model(_here.parent/'enclosure-back-bottom.step.npz')[0]
+    return {'back-bottom': cq.Workplane(obj=structural)}
+
+
 def main():
     core, box = machine_of()
-    pieces, assy = build_pieces(box)
+    produced = _produced_back_bottom(box)
+    pieces, assy = build_pieces(box, produced=produced)
     print("enclosure:")
     _report_slide(pieces, box)     # the slides swept and the catches lifted, into BOUNDS
     _report_bounds()          # the machine's, with its pieces cut and its slides swept
 
-    _export_pieces(pieces, assy)
+    _export_pieces(pieces, assy, produced=produced)
 
     _report_columns(box)
     _report_facet(pieces["front-top"], box)
