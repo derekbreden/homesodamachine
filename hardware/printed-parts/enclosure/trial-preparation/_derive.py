@@ -260,7 +260,9 @@ def tie_windows(geo: Geometry, feature: dict) -> dict:
                         "roof": _record(geo, members)})
     _check(feature, "window count", len(windows), "count")
     return {"name": feature["name"], "kind": "tie_windows", "windows": windows,
-            "blockers": bool(feature.get("blockers", False)), "reason": feature["reason"]}
+            "blockers": bool(feature.get("blockers", False)),
+            "blocker_roof_overlap_mm": float(feature.get("blocker_roof_overlap_mm", 0.0)),
+            "reason": feature["reason"]}
 
 
 def edge_fins(geo: Geometry, feature: dict, ceiling: dict) -> dict:
