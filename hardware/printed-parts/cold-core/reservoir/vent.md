@@ -2,7 +2,7 @@
 
 Each reservoir has an independent, bidirectional **4 mm OD / 2.5 mm ID**
 neoFlo LLDPE air tube. Air enters as liquid is drawn out and leaves as the
-reservoir fills. The open upper end stands **6 mm above the outer foam cap**
+reservoir fills. The open upper end stands **6 mm above the equipment lid**
 in the appliance's equipment space. Filtering is deferred.
 
 ## Lid and tube grip
@@ -20,23 +20,24 @@ reservoir headspace.
 ## Through the insulation
 
 Air axes in the native cold-core frame are A **(120, -26)** and
-B **(-109, -32.5)** mm. The top foam-cap cup has an integral 5.2 mm passage
-with 2 mm printed wall at each station. Each passage continues through the
-pour lid. The 0.6 mm radial clearance lets the tube slide through; the TPU
-grip in the reservoir lid sets its insertion depth. Foam fills around the
-printed passage rather than contacting the tube.
+B **(-109, -32.5)** mm. Each straight tube crosses a 5.2 mm equipment-lid
+opening with 0.6 mm nominal radial clearance. The TPU grip in the reservoir
+lid sets its insertion depth. Foam surrounds only the tube's dry span above
+the reservoir cap.
 
 The nominal straight cut length is **31.25 mm per tube**. Fit the three flush
-spools to each reservoir lid before closing it. Feed each air tube through
-the casing passage and its TPU grip, leaving 6 mm visible above the casing
-face. This places its lower end 1 mm below the reservoir plate. Keep the bore
-open in both directions. Existing white 4 mm stock supplies both pieces.
+spools to each reservoir lid before closing it. With the closed reservoir
+seated in its pocket, install the air tube through its TPU grip before the
+body pour. Position its free upper end on the lid-hole axis and keep its
+lumen open. After cure, thread the equipment lid over the tube, leaving
+6 mm visible above its face. The lower end stands 1 mm below the reservoir
+plate. Existing white 4 mm stock supplies both pieces.
 
 Reservoir B's tube is straight at world X32.5/Y214.8 mm. Its reservoir-lid
-seat, cup passage and outer-lid opening share that axis. The outlet ends at
-Z259.4, forward of V-B's continuous mounting wall. The tube has 3.78 mm
-nominal air to the wall and 3.66 mm to the lower V12 junction. The cup and
-lid separate along the straight tube during assembly.
+seat and equipment-lid opening share that axis. The outlet ends at Z259.4,
+forward of V-B's continuous mounting wall. The tube has 3.78 mm nominal air
+to the wall and 3.66 mm to the lower V12 junction. The equipment lid seats
+over the straight tube after the pour has cured.
 
 ## Qualification
 
