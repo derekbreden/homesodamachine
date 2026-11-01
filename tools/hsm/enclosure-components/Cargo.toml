@@ -14,6 +14,10 @@ path = "../../../hardware/printed-parts/enclosure/nameplate/nameplate.rs"
 name = "rear-identification"
 path = "../../../hardware/printed-parts/enclosure/rear-identification/rear_identification.rs"
 
+[[bin]]
+name = "pcba-assembly"
+path = "../../../hardware/printed-parts/electronics/pcba-tray/pcba_assembly.rs"
+
 [dependencies]
 anyhow.workspace = true
 hsm-kernel = { path = "../kernel" }
