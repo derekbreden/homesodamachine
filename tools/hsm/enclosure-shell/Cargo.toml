@@ -1,0 +1,18 @@
+[package]
+name = "hsm-enclosure-shell"
+version = "0.1.0"
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+publish = false
+
+[[bin]]
+name = "enclosure-skin"
+path = "../../../hardware/printed-parts/enclosure/enclosure/enclosure_skin.rs"
+
+[dependencies]
+anyhow.workspace = true
+hsm-kernel = { path = "../kernel" }
+manifold-csg = { version = "0.4.1", default-features = false }
+serde = { workspace = true, features = ["derive"] }
+serde_json.workspace = true
