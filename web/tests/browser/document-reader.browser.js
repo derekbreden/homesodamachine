@@ -206,39 +206,41 @@ test("standalone readers combine controls in one toolbar and offer page and widt
   } finally { await page.close(); }
 });
 
-test("document shelf searches and filters drawings, and reader Back keeps the selected results", async () => {
+test("guides shelf leaves out engineering drawings, searches, and reader Back keeps the search", async () => {
   const page = await browser.newPage();
-  const search = 'input[aria-label="Find a document"]';
+  const search = 'input[aria-label="Find a guide"]';
   try {
     await page.setViewport({ width: 1280, height: 900 });
-    await page.goto(baseUrl + "/drawings", { waitUntil: "domcontentloaded" });
-    await page.waitForSelector('.card-doc[data-kind="drawing"] img');
-    await page.waitForFunction(() => document.querySelector('.card-doc[data-kind="drawing"] img').naturalWidth > 0);
+    await page.goto(baseUrl + "/guides", { waitUntil: "domcontentloaded" });
+    await page.waitForSelector(".card-doc img");
+    await page.waitForFunction(() => document.querySelector(".card-doc img").naturalWidth > 0);
     assert.equal(await page.$eval(".card-doc", card => card.getBoundingClientRect().top < 380), true,
-      "the library should put documents near the top of the page");
-    await page.screenshot({ path: path.join(screenshotDir, "desktop-document-shelf.png") });
-    await page.click(".document-filters > button:nth-child(2)");
-    await page.type(search, "HSM-000009");
+      "the shelf should put guides near the top of the page");
+    assert.deepEqual(await page.evaluate(async () => {
+      const { materials } = await fetch("/api/materials").then(response => response.json());
+      const drawings = materials.flatMap(m => m.documents || []).filter(doc => doc.kind === "engineering-drawing")
+        .map(doc => "/read/" + doc.path.split("/").map(encodeURIComponent).join("/"));
+      return [...document.querySelectorAll(".card-doc")].map(card => new URL(card.href).pathname).filter(href => drawings.includes(href));
+    }), [], "engineering drawings open from their material, not the guides shelf");
+    await page.screenshot({ path: path.join(screenshotDir, "desktop-guides-shelf.png") });
+    await page.type(search, "bench sheets");
     assert.equal(await page.$$eval(".card-doc:not([hidden])", cards => cards.length), 1);
     const results = page.url();
     await Promise.all([page.waitForNavigation(), page.click(".card-doc:not([hidden])")]);
     await rendered(page, 1);
-    assert.equal(await page.$eval("#pdf-pagination", group => group.hidden), true);
     assert.equal(await page.$eval("#pdf-back", link => link.href), results);
     await Promise.all([page.waitForNavigation(), page.click("#pdf-back")]);
     await page.waitForSelector(search);
-    assert.equal(await page.$eval(search, input => input.value), "HSM-000009");
+    assert.equal(await page.$eval(search, input => input.value), "bench sheets");
     assert.equal(await page.$$eval(".card-doc:not([hidden])", cards => cards.length), 1);
-    await page.type(search, "nothing-matches");
+    await page.type(search, " nothing-matches");
     await page.click(".document-empty button");
     assert.equal(await page.$eval(search, input => input.value), "");
     assert.equal(new URL(page.url()).search, "");
     await page.setViewport({ width: 320, height: 740, isMobile: true, hasTouch: true });
-    await page.goto(baseUrl + "/drawings", { waitUntil: "domcontentloaded" });
-    await page.waitForSelector(".document-kind-select");
-    await page.select(".document-kind-select", "drawing");
-    assert.equal(await page.$$eval(".card-doc:not([hidden])", cards => cards.every(card => card.dataset.kind === "drawing")), true);
+    await page.goto(baseUrl + "/guides", { waitUntil: "domcontentloaded" });
+    await page.waitForSelector(".card-doc");
     assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true);
-    await page.screenshot({ path: path.join(screenshotDir, "phone-document-shelf.png") });
+    await page.screenshot({ path: path.join(screenshotDir, "phone-guides-shelf.png") });
   } finally { await page.close(); }
 });

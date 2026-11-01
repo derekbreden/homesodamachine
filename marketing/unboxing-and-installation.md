@@ -23,7 +23,7 @@ The filtered run ships assembled; lay the filter flat and leave the long tubes i
 The booklet also covers the countertop opening, cabinet space, care and connection checks.
 The water-connection supplies include a towel and the applicable wrenches.
 
-The guide is published on [Drawings](https://homesodamachine.com/drawings), with its download at
+The guide is published on [Guides](https://homesodamachine.com/guides), with its download at
 [install-guide.pdf](https://homesodamachine.com/docs/install-guide/install-guide.pdf).
 Its source and print instructions are in
 [`hardware/install-guide/`](/hardware/install-guide/README.md).

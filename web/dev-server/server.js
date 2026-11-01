@@ -558,7 +558,7 @@ const WATCH_OPTS = {
 const debounce = new Map();
 
 // Hand-authored documents are served from the checkout. A PDF, its sidecar,
-// or its cover moving refreshes the document shelf without invoking CAD.
+// or its cover moving refreshes the document listing without invoking CAD.
 function maybeBroadcastDocument(absPath) {
   const rel = relForBroadcast(absPath).split(path.sep).join("/");
   let pdf;

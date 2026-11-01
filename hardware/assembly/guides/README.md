@@ -16,7 +16,7 @@ sequence of actions, and a visible check before the next operation.
 | [Weld rotator](../../weld-rotator-guide/README.md) | Building, checking and operating the rotation fixture |
 | [Gun positioner](../../gun-positioner-guide/README.md) | PGFUN swivel/pivot fixture, controller wiring, one-camera dry learning and loaded commissioning |
 
-The [document shelf](https://homesodamachine.com/drawings) carries each complete
+The [guides page](https://homesodamachine.com/guides) carries each complete
 PDF. Fabrication procedures under `hardware/assembly/` and physical qualification
 records beside the parts own the operating requirements and accepted results.
 A guide identifies an unresolved recipe or service qualification where that

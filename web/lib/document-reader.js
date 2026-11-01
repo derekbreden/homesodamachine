@@ -33,11 +33,11 @@ export function renderDocumentReader({ file, title, embedded = false, hostContro
 <link rel="stylesheet" href="/css/workspace.css">
 <link rel="stylesheet" href="/css/document-reader.css">
 <script type="module" src="/document-reader.js"></script>`,
-  }) + (embedded ? "" : renderNav({ active: "drawings" })) + `
+  }) + (embedded ? "" : renderNav({ active: "guides" })) + `
 <main class="pdf-reader site-light" data-pdf-url="${escape(url)}?raw=1" data-pdfjs-base="${pdfjsBase}" data-embedded="${embedded}" data-host-controls="${hostControls}">
   <header class="pdf-heading">
     <div class="pdf-identity">
-      ${embedded ? `<a class="pdf-back" href="${escape(readUrl)}" target="_blank" rel="noopener">Open full drawing</a>` : '<a id="pdf-back" class="pdf-back" href="/drawings" aria-label="Back"><span aria-hidden="true">←</span><span class="pdf-back-word">Back</span></a>'}
+      ${embedded ? `<a class="pdf-back" href="${escape(readUrl)}" target="_blank" rel="noopener">Open full drawing</a>` : '<a id="pdf-back" class="pdf-back" href="/guides" aria-label="Back"><span aria-hidden="true">←</span><span class="pdf-back-word">Back</span></a>'}
       <h1 title="${escape(title)}">${escape(title)}</h1>
     </div>
     <div class="pdf-toolbar" aria-label="Document controls">

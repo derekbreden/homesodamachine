@@ -7,7 +7,7 @@ Three 8.5 × 11 inch sheets for the carbonator bench:
 3. Set up the controls, hold the rotation pedal, then pull the laser trigger.
 
 The [PDF](../../../output/pdf/assembly-drill-and-weld-letter.pdf), also on the
-[document shelf](https://homesodamachine.com/drawings), has vector
+[guides page](https://homesodamachine.com/guides), has vector
 drawings and embedded IBM Plex type. Instructional content is centered at 98%
 scale. A separate background layer extends 1/4 inch beyond the paper edges;
 its top cobalt and right coral bands extend 1/3 inch inward. The bands fill

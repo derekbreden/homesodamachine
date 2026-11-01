@@ -1,6 +1,6 @@
 // Card grid for the four viewer pages. Path drives which section renders.
 // Model and chart cards lazy-load their thumbnails and open their detail modal.
-// Document cards link to PDFs and show committed covers on /drawings.
+// Guide cards link to PDFs and show committed covers on /guides.
 //
 // /3d presents description search, the two product units and their tooling.
 // The other three pages group by a path segment.
@@ -134,9 +134,11 @@ function renderGroupedCards({ files, ext, type, thumbnailHtml, onClick }) {
   }
 }
 
-// Documents — the PDFs this site hands over whole (/api/documents,
-// web/contracts/documents.js). One card each: the cover, the title, the page
-// and byte count, and an href that opens the in-app document reader.
+// Guides — the PDFs this site hands over whole (/api/documents,
+// web/contracts/documents.js), less the engineering drawings: a drawing is a
+// document some material tags `engineering-drawing`, and that material's panel
+// shows it. One card each: the cover, the title, the page and byte count, and
+// an href that opens the in-app document reader.
 //
 // The cover is a committed PNG beside the PDF, served by the same `/thumbs/`
 // route every other picture under hardware/ comes through — no thumbnail to
@@ -145,54 +147,33 @@ function readableBytes(n) {
   return n >= 1024 * 1024 ? `${(n / (1024 * 1024)).toFixed(1)} MB` : `${Math.round(n / 1024)} KB`;
 }
 
-function buildDocumentsSection() {
-  const documents = state.documents || [];
+function buildGuidesSection() {
+  const drawings = new Set();
+  for (const material of state.materialCatalog?.materials || []) for (const doc of material.documents || []) {
+    if (doc.kind === "engineering-drawing") drawings.add(doc.path);
+  }
+  const guides = (state.documents || []).filter(doc => !drawings.has(doc.path));
   const node = (tag, className, text) => {
     const el = document.createElement(tag);
     if (className) el.className = className;
     if (text != null) el.textContent = text;
     return el;
   };
-  if (!documents.length) {
-    state.gridEl.append(node("p", "empty-state", "No documents yet."));
+  if (!guides.length) {
+    state.gridEl.append(node("p", "empty-state", "No guides yet."));
     return;
   }
-  const owners = new Map();
-  for (const material of state.materialCatalog?.materials || []) for (const doc of material.documents || []) {
-    if (doc.kind !== "engineering-drawing") continue;
-    if (!owners.has(doc.path)) owners.set(doc.path, []);
-    owners.get(doc.path).push(material);
-  }
-  const params = new URLSearchParams(location.search);
-  let active = ["drawing", "guide"].includes(params.get("type")) ? params.get("type") : "all";
-  const tools = node("div", "document-tools");
   const search = node("div", "material-search");
-  const label = node("label", "", "Find a document");
+  const label = node("label", "", "Find a guide");
   const input = node("input"); input.type = "search"; input.autocomplete = "off";
-  input.placeholder = "Title, part number or subject…"; input.value = params.get("q") || "";
-  input.setAttribute("aria-label", "Find a document");
+  input.placeholder = "Title or subject…"; input.value = new URLSearchParams(location.search).get("q") || "";
+  input.setAttribute("aria-label", "Find a guide");
   label.append(input); search.append(label);
-  const filters = node("div", "document-filters"); filters.setAttribute("role", "group");
-  filters.setAttribute("aria-label", "Document type");
-  const buttons = new Map();
-  for (const [kind, name] of [["all", "All"], ["drawing", "Engineering drawings"], ["guide", "Build guides"]]) {
-    const button = node("button", "", name); button.type = "button";
-    button.addEventListener("click", () => { active = kind; render(); });
-    buttons.set(kind, { button, name }); filters.append(button);
-  }
-  const pickerLabel = node("label", "document-kind-picker", "Show");
-  const picker = node("select", "document-kind-select"); picker.setAttribute("aria-label", "Document type");
-  for (const [kind, { name }] of buttons) { const option = node("option", "", name); option.value = kind; picker.append(option); }
-  picker.addEventListener("change", () => { active = picker.value; render(); });
-  pickerLabel.append(picker); filters.append(pickerLabel);
   const status = node("p", "document-search-status"); status.setAttribute("role", "status");
-  const searchSlot = document.getElementById("document-search-slot");
-  if (searchSlot) searchSlot.replaceChildren(search); else tools.append(search);
-  tools.append(filters, status);
+  document.getElementById("document-search-slot").replaceChildren(search, status);
   const shelf = node("div", "doc-shelf");
-  const cards = documents.map(doc => {
-    const material = owners.get(doc.path) || [], kind = material.length ? "drawing" : "guide";
-    const card = node("a", "card card-doc"); card.dataset.kind = kind;
+  const cards = guides.map(doc => {
+    const card = node("a", "card card-doc");
     card.href = "/read/" + doc.path.split("/").map(encodeURIComponent).join("/");
     let cover;
     if (doc.cover) {
@@ -203,38 +184,27 @@ function buildDocumentsSection() {
     }
     const caption = node("div", "label card-caption");
     const nameRow = node("span", "name-row"); nameRow.append(node("span", "name", doc.title));
-    caption.append(node("span", "doc-kind", kind === "drawing" ? "Engineering drawing · " + material.map(m => m.id).join(", ") : "Build guide"),
-      nameRow, node("span", "dir", doc.subtitle || ""),
+    caption.append(nameRow, node("span", "dir", doc.subtitle || ""),
       node("span", "doc-scale", (doc.pages ? doc.pages + (doc.pages === 1 ? " page · " : " pages · ") : "") + readableBytes(doc.bytes)));
     card.append(cover, caption);
-    const text = [doc.title, doc.subtitle, ...material.flatMap(m => [m.id, m.description, ...(m.aliases || [])])].join(" ").toLowerCase();
-    return { card, kind, text };
-  }).sort((a, b) => Number(b.kind === "drawing") - Number(a.kind === "drawing"));
+    return { card, text: [doc.title, doc.subtitle].join(" ").toLowerCase() };
+  });
   shelf.append(...cards.map(item => item.card));
-  const empty = node("div", "document-empty"); empty.append(node("p", "", "No documents match these filters."));
-  const clear = node("button", "", "Clear filters"); clear.type = "button";
-  clear.addEventListener("click", () => { input.value = ""; active = "all"; render(); input.focus(); });
-  empty.append(clear); state.gridEl.append(tools, shelf, empty);
+  const empty = node("div", "document-empty"); empty.append(node("p", "", "No guides match this search."));
+  const clear = node("button", "", "Clear search"); clear.type = "button";
+  clear.addEventListener("click", () => { input.value = ""; render(); input.focus(); });
+  empty.append(clear); state.gridEl.append(shelf, empty);
   function render() {
     const words = input.value.trim().toLowerCase().split(/\s+/).filter(Boolean);
-    const matches = cards.filter(item => words.every(word => item.text.includes(word)));
-    for (const [kind, { button, name }] of buttons) {
-      const count = matches.filter(item => kind === "all" || item.kind === kind).length;
-      button.textContent = name + " (" + count + ")";
-      picker.querySelector('option[value="' + kind + '"]').textContent = ({ all: "All documents", drawing: "Drawings", guide: "Build guides" })[kind] + " (" + count + ")";
-      button.setAttribute("aria-pressed", String(active === kind));
-    }
-    picker.value = active;
     let shown = 0;
     for (const item of cards) {
-      item.card.hidden = !matches.includes(item) || (active !== "all" && item.kind !== active);
+      item.card.hidden = !words.every(word => item.text.includes(word));
       if (!item.card.hidden) shown++;
     }
     empty.hidden = shown > 0;
-    status.textContent = shown + (shown === 1 ? " document" : " documents");
+    status.textContent = shown + (shown === 1 ? " guide" : " guides");
     const url = new URL(location.href);
     if (input.value.trim()) url.searchParams.set("q", input.value.trim()); else url.searchParams.delete("q");
-    if (active !== "all") url.searchParams.set("type", active); else url.searchParams.delete("type");
     if (url.href !== location.href) history.replaceState(history.state, "", url);
   }
   input.addEventListener("input", render);
@@ -247,7 +217,7 @@ function buildDocumentsSection() {
 export function currentSection() {
   const tail = location.pathname.replace(/\/$/, "");
   if (tail === "/charts") return "charts";
-  if (tail === "/drawings") return "drawings";
+  if (tail === "/guides") return "guides";
   if (tail === "/pcb") return "pcb";
   return "parts";
 }
@@ -290,8 +260,8 @@ export function buildGrid() {
     }
   }
 
-  if (section === "drawings") {
-    buildDocumentsSection();
+  if (section === "guides") {
+    buildGuidesSection();
   }
 
   if (section === "pcb") {

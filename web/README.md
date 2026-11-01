@@ -16,14 +16,12 @@ The home page sets the visual language: Montserrat, cobalt introductions, pale c
 action menus for model workspaces, document readers, and their style-guide
 examples. Each surface owns its toolbar layout.
 
-The document library at `/drawings` groups search with its page title and offers
-All, Engineering drawings, and Build guides filters. A material's
-`engineering-drawing` document tag supplies the drawing classification and part
-number search. Drawings appear first in the mixed shelf. Search and type filters
-live in the URL so reader Back returns to the same results. Phones use a type
-selector instead of a row of filter buttons. Covers show the whole sheet within
-consistent preview frames; a published drawing's cover is rendered from its
-final PDF and named in the PDF sidecar.
+The guides page at `/guides` groups search with its page title and shelves every
+document except the engineering drawings. A material's `engineering-drawing`
+document tag marks a drawing, and that material's panel shows it. Search lives
+in the URL so reader Back returns to the same results. Covers show the whole
+sheet within consistent preview frames; a published drawing's cover is rendered
+from its final PDF and named in the PDF sidecar.
 
 Standalone document readers have one toolbar for Back, title, page navigation,
 fit mode, zoom, and a document action menu. They open fitted to the page; Fit
@@ -137,7 +135,7 @@ The single shared shell is [`lib/shell.js`](/web/lib/shell.js). Every page uses 
 | [`lib/landing.js`](/web/lib/landing.js) | `/` | Appliance overview with CAD-based kitchen and detail illustrations. [`lib/landing-support.js`](/web/lib/landing-support.js) supplies the optional film, supplier acknowledgements and secondary availability signup. |
 | [`lib/unit.js`](/web/lib/unit.js) | `/0001`, `/0001/get-started`, `/0001/guides` | Machine overview, included equipment, preparation checklist, and owner documents. Only serials registered in this module resolve. |
 | [`lib/cost.js`](/web/lib/cost.js) | `/cost` | Parts, planned batch labor, sale price, investment recovery and remaining-purchase forecasts for the first 5/10/20 machines. Reads the parts, labor, machine-time, purchase and batch-forecast ledgers. [`lib/batch-forecast.js`](/web/lib/batch-forecast.js) deducts dated stock and already-ordered quantities before comparing whole purchase lots. [`lib/batch-forecast-view.js`](/web/lib/batch-forecast-view.js) renders ranked purchase bars and collapsible stock, supply and cash-budget details; [`lib/cost-categories.js`](/web/lib/cost-categories.js) shares the BOM category names between both cost views. [`lib/part-cost-view.js`](/web/lib/part-cost-view.js) renders **Cost by part**: the finished unit's part-number tree with each assembly's own labor and supplies, ranked at every level, linking each part to the explorer. |
-| [`lib/viewer-pages.js`](/web/lib/viewer-pages.js) | `/3d`, `/charts`, `/drawings`, `/pcb` | The viewer pages — parts, charts, the documents shelf, boards. All render [`lib/templates/viewer-body.html`](/web/lib/templates/viewer-body.html). |
+| [`lib/viewer-pages.js`](/web/lib/viewer-pages.js) | `/3d`, `/charts`, `/guides`, `/pcb` | The viewer pages — parts, charts, guides, boards. All render [`lib/templates/viewer-body.html`](/web/lib/templates/viewer-body.html). |
 | [`lib/weld-position.js`](/web/lib/weld-position.js) | `/weld-position` | Tube, recessed endcap and gun orientation; grip, hole and vertical rotations about the laser dot. |
 | [`lib/viewer-routes.js`](/web/lib/viewer-routes.js) | `/api/{steps,dxf,mermaid,documents}`, `/steps/*`, `/dxfs/*`, `/read/*`, `/docs/*`, `/api/mermaid-content/*` | API for the viewer's file lists and content, plus document publication gates. |
 | [`lib/hsm.js`](/web/lib/hsm.js) | `/api/hsm` | Off Render only. Whether an `hsm` is installed here, and one hsm query against the payload a model was drawn from ([`tools/hsm/README.md`](/tools/hsm/README.md#the-local-viewer)). |

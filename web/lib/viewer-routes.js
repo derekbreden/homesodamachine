@@ -116,7 +116,7 @@ export function mountViewerRoutes(app, { hardwareDir, store, pointersPath }) {
   // Old external links have a permanent retirement response, even if an
   // earlier artifact bundle still has a deck on disk.
   app.get("/cards/*splat", (_req, res) => {
-    res.status(410).send("Assembly cards are archived. Letter shop guides are on /drawings.");
+    res.status(410).send("Assembly cards are archived. Letter shop guides are on /guides.");
   });
 
   app.get("/api/dxf", (req, res) => {
@@ -230,7 +230,7 @@ export function mountViewerRoutes(app, { hardwareDir, store, pointersPath }) {
   });
 
   // Committed pictures, served beside the file they are of: a PDF's cover
-  // (`/drawings`) and a scene's `.glb` still. `/3d` fetches neither — its cards
+  // (`/guides`) and a scene's `.glb` still. `/3d` fetches neither — its cards
   // draw the model. The 404 path is normal. no-cache so a live regen or deploy is
   // picked up via ETag revalidation rather than a stale hit.
   app.get("/thumbs/*splat", (req, res) => {

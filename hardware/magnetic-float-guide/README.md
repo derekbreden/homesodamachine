@@ -1,7 +1,7 @@
 # ASA Aero magnetic float build guide
 
 [Open the illustrated build guide](magnetic-float-guide.pdf), published on
-[the drawings shelf](https://homesodamachine.com/drawings).
+[the guides page](https://homesodamachine.com/guides).
 
 Thirteen Letter pages cover the one-piece ASA Aero float, external dry-feed
 setup, native slice review, RC62 insertion at the pause, roof closure, inspection,
@@ -31,7 +31,7 @@ its reviewed pause layers apply to that identified project.
 This booklet is rebuilt by hand. Its HTML leaves, artwork, PDF, cover and document
 sidecar live together here. `out/` holds ignored page renders. The committed PDF,
 cover and sidecar deploy through `render.yaml`; the sidecar lists the guide on
-the drawings shelf.
+the guides page.
 
 ```sh
 tools/cad-venv/bin/python tools/magnetic-float-guide/author.py

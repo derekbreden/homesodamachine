@@ -7,7 +7,7 @@ or [open the complete local PDF](faucet-assembly-guide.pdf).
 ESP32-S3-Touch-LCD-1.47 display, and finishing the permanently attached
 umbilical. The working pictures, short actions and check at each operation
 follow the [weld-rotator guide](../weld-rotator-guide/README.md).
-The complete PDF appears on the [document shelf](https://homesodamachine.com/drawings).
+The complete PDF appears on the [guides page](https://homesodamachine.com/guides).
 
 ## Lever, sleeve and donor order
 

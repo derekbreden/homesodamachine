@@ -9,7 +9,7 @@ import { iconSvg } from "../contracts/icons.js";
 export const HOME_SVG      = iconSvg("home");
 export const PARTS_SVG     = iconSvg("cube");
 export const CHARTS_SVG    = iconSvg("chart");
-export const DRAWINGS_SVG  = iconSvg("pencil");
+export const GUIDES_SVG    = iconSvg("book");
 export const PCB_SVG       = iconSvg("cpu");
 export const DOLLAR_SVG    = iconSvg("dollar");
 export const LATEST_SVG    = iconSvg("history");
