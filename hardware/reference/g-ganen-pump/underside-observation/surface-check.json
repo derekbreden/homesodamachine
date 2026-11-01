@@ -3,26 +3,26 @@
     {
       "pass": "pass-01-feet-up",
       "source_sha256": "9b400d7a738aa8b69f5d8023f6a2ad4bb2fae7f542e7db0f85ef66cdcd64c05b",
-      "points": 1574,
+      "points": 728,
       "unsigned_distance_mm": {
-        "median": 0.038015115251880525,
-        "p95": 0.23490459510610823,
-        "max": 0.5330690653396111
+        "median": 0.028678569686494255,
+        "p95": 0.11205932667389153,
+        "max": 0.23400673244487305
       },
       "worst_point_mm": [
-        31.180909899209485,
-        -6.41746492916468,
-        9.811892350818994
+        28.53749542260236,
+        -27.036164436534392,
+        15.763281989343426
       ],
-      "scope": "Observed outer lower casing between removable slider poses, X28\u201352. Native indices1mod120 are disjoint from0mod3 casing-profile samples and0mod120 planar-face fits. This is scan agreement, not absolute scanner tolerance or hidden clip qualification."
+      "scope": "Observed fixed side rails between removable slider poses, X28\u201352 and absY14\u201328. Center cover and its physical level datum are excluded. Native indices1mod120 are disjoint from0mod3 casing-profile samples and0mod120 planar-face fits. This is scan agreement, not absolute scanner tolerance or hidden clip qualification."
     },
     {
       "pass": "pass-02-on-back",
       "source_sha256": "887120599830402931c93b1f38954bbcfbe107e83a0dd5a23b53245af11ba949",
-      "points": 1785,
+      "points": 922,
       "unsigned_distance_mm": {
-        "median": 0.031109988768806822,
-        "p95": 0.1686364418657162,
+        "median": 0.03235711279664826,
+        "p95": 0.14058310823133494,
         "max": 0.5133868286407165
       },
       "worst_point_mm": [
@@ -30,12 +30,12 @@
         27.31693066114805,
         17.199293033148734
       ],
-      "scope": "Observed outer lower casing between removable slider poses, X28\u201352. Native indices1mod120 are disjoint from0mod3 casing-profile samples and0mod120 planar-face fits. This is scan agreement, not absolute scanner tolerance or hidden clip qualification."
+      "scope": "Observed fixed side rails between removable slider poses, X28\u201352 and absY14\u201328. Center cover and its physical level datum are excluded. Native indices1mod120 are disjoint from0mod3 casing-profile samples and0mod120 planar-face fits. This is scan agreement, not absolute scanner tolerance or hidden clip qualification."
     }
   ],
-  "elapsed_seconds": 0.20716216599976178,
+  "elapsed_seconds": 0.17270329099847004,
   "sample_stride": 120,
   "source_index_mod_stride": 1,
-  "payload_sha256": "c832c78d13bf47ba0ffdffe66e2025edd77245b1921d970843ad1c49cc6b25b7",
-  "reference_parameters_sha256": "d6a18b31502486c7af15c6d06d4b784672e475adfacbb159624f458b6ed85139"
+  "payload_sha256": "6c7e82cec104661f3eec463f5351bf620caf9b88fe6ec0f409bf96fcdcf4c05e",
+  "reference_parameters_sha256": "69ac39b3b5ec8a4de1c5b6abee49ef0335d3b96df61e358c5b2db1f23d808ffe"
 }

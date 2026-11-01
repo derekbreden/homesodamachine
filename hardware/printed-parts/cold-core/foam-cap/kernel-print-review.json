@@ -1,0 +1,2255 @@
+{
+  "schema": "cold-core-kernel-cap-print-review/1",
+  "scope": "Four Rust cap STLs sliced with the accepted native recipes. Records emitted paths, solid-region coverage, bed envelopes and the unchanged lid-driver envelopes.",
+  "geometry_source_commit": "580ce0619ccdec1e45a710c81a34317c58cb0c08",
+  "artifact_root": "/Users/derekbredensteiner/Developer/homesodamachine",
+  "print_binding_inputs": {
+    "path": ".cache/port-foam-cap/proof/print-binding-inputs.json",
+    "sha256": "8eaf25a16155d1f5ebc8fd739f130e8a77d7699c5fe7a7c1529024f59742077e"
+  },
+  "parts": {
+    "foam-cap-bottom": {
+      "physical_stl": "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl",
+      "physical_stl_sha256": "acdcff8c0842d7158aa15ed797dc22ef6173eb27f662f7e19d505000f4c84e0a",
+      "step_sha256": "91ddfea3e9ca8cf046cb385a8d7e653b0b2deb3a343d6b1c9170ead4ed7c5929",
+      "captured_meshes": {
+        ".stl": {
+          "path": ".cache/combined-finish/handoffs/foam-cap/candidate-meshes/foam-cap-bottom.stl",
+          "sha256": "acdcff8c0842d7158aa15ed797dc22ef6173eb27f662f7e19d505000f4c84e0a"
+        },
+        ".step": {
+          "path": ".cache/combined-finish/handoffs/foam-cap/candidate-meshes/foam-cap-bottom.step",
+          "sha256": "91ddfea3e9ca8cf046cb385a8d7e653b0b2deb3a343d6b1c9170ead4ed7c5929"
+        }
+      },
+      "preparation_directory": ".cache/combined-finish/handoffs/foam-cap/prepared-print/2026-11-01-foam-cap-bottom-mark2-7965d13e",
+      "preparation_sha256": "5452412cbec778f5f43711eeca1faff70223fe4d9ce58bf8ab13aba8b5f0123e",
+      "audited_preparation_input": {
+        "path": ".cache/combined-finish/handoffs/foam-cap/prepared-print/2026-11-01-foam-cap-bottom-mark2-7965d13e/preparation.json",
+        "sha256": "5452412cbec778f5f43711eeca1faff70223fe4d9ce58bf8ab13aba8b5f0123e"
+      },
+      "project": ".cache/combined-finish/handoffs/foam-cap/prepared-print/2026-11-01-foam-cap-bottom-mark2-7965d13e/2026-11-01-foam-cap-bottom-mark2-7965d13e.3mf",
+      "project_sha256": "775c1a33346d7eafc4dadf108f27e88dfa832381bb1ade1001bc4dd44e6b6ed8",
+      "archive": ".cache/combined-finish/handoffs/foam-cap/prepared-print/2026-11-01-foam-cap-bottom-mark2-7965d13e/2026-11-01-foam-cap-bottom-mark2-7965d13e.gcode.3mf",
+      "archive_sha256": "57f01ce5b997c7e659fabfd539de83a14b768d1b488dbdcec74d075101aa893b",
+      "gcode_sha256": "699c8076c34dc207b222b8f4b18d811a28e2e8eeea8b1526716528df9e575082",
+      "printer": "Mark2",
+      "nozzle": {
+        "side": "left",
+        "diameter_mm": 0.4,
+        "flow": "Standard",
+        "hardened": true,
+        "reason": "Smooth 2.38 mm cold-core casing: 0.42 mm outer and 0.45 mm inner lines at 0.24 mm layers, three loops from each boundary.",
+        "sliced_diameter_mm": 0.4,
+        "sliced_volume_type": "Standard"
+      },
+      "material": "Polymaker Fiberon PET-GF15, black",
+      "bed_type": "Textured PEI Plate",
+      "profile": "hardware/printed-parts/petgf.3mf",
+      "profile_sha256": "45c16e8c8517e0a205107d7b9f7412d013f51a8de7ecf86125cc940079d37ed0",
+      "settings_sha256": "11443c21873ef28d9ebd6493bc3614b414ea384500dac33d887104f90712e0b9",
+      "recipe_values": {
+        "initial_layer_print_height": "0.2",
+        "layer_height": "0.24",
+        "wall_loops": "3",
+        "wall_generator": "classic",
+        "sparse_infill_density": "15%",
+        "sparse_infill_pattern": "gyroid",
+        "enable_support": "1",
+        "support_type": "normal(auto)",
+        "support_style": "snug",
+        "raft_first_layer_expansion": "0",
+        "support_object_xy_distance": "0.4",
+        "support_top_z_distance": "0.45",
+        "support_bottom_z_distance": "0.3",
+        "fan_min_speed": [
+          "0"
+        ],
+        "fan_max_speed": [
+          "0"
+        ],
+        "overhang_fan_speed": [
+          "70"
+        ],
+        "overhang_fan_threshold": [
+          "50%"
+        ],
+        "additional_cooling_fan_speed": [
+          "0"
+        ]
+      },
+      "requested_z_trim_mm": 0.04,
+      "emitted_textured_trim_mm": 0.02,
+      "build_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "yaw_degrees": 0,
+      "source_center_mm": [
+        0.0,
+        0.0,
+        9.925000190734863
+      ],
+      "translation_mm": [
+        162.5,
+        160.0,
+        9.925000190734863
+      ],
+      "plate_bounds_mm": [
+        [
+          21.300003051757812,
+          69.80000305175781,
+          0.0
+        ],
+        [
+          303.6999969482422,
+          250.1999969482422,
+          19.850000381469727
+        ]
+      ],
+      "model_bed_margin_mm": 21.300003051757812,
+      "modifier_count": 10,
+      "tie_windows": [],
+      "native_reference": {
+        "captured_directory": ".cache/combined-finish/handoffs/foam-cap/native-print/foam-cap-bottom",
+        "physical_stl_sha256": "7e737e724d7031189e98a7b32bc4147a064c3055845f63949d76b30091c80387",
+        "current_step_sha256": "5405075b66f7853c84ddfcc1d911845e4aab4303f6a06e3b08d18b6a08bd3e36",
+        "sliced_step_sha256": "5405075b66f7853c84ddfcc1d911845e4aab4303f6a06e3b08d18b6a08bd3e36",
+        "preparation_sha256": "b1101a76faab62e409899a0b4430b07ce4d1902d845190faecb6b71e6058991a",
+        "project_sha256": "527121b5d602daddd41fa779498e0489f99132be4cdfbd98756d904c7e1dd5e6",
+        "archive_sha256": "94b600708f46acd9f53a97b5c90b467d5270a001489696d7537d333961320b67",
+        "gcode_sha256": "38c05e02c788d34686dbed60ac4f20c6c9dba9e2336fa495873312ea88c1b5c0"
+      },
+      "comparison": {
+        "embedded_settings_exact": true,
+        "modifier_records_exact": true,
+        "extra_part_geometry_and_metadata_exact": true,
+        "tie_window_records_exact": true,
+        "pose_maximum_numeric_deltas_mm": {
+          "source_center_mm": 0.0,
+          "translation_mm": 0.0,
+          "plate_bounds_mm": 0.0
+        },
+        "support_bodies": {
+          "native": 10,
+          "kernel": 10
+        },
+        "interface_islands": {
+          "native": 10,
+          "kernel": 10
+        },
+        "minimum_bed_margin_mm": {
+          "native": 21.019000000000002,
+          "kernel": 21.019000000000002
+        },
+        "minimum_sampled_solid_region_coverage": {
+          "native": 0.9931601177668041,
+          "kernel": 0.9931576958139117
+        },
+        "first_second_layer_stack": {
+          "native": {
+            "1901": {
+              "second_layer_model_bead_area_mm2": 47091.55864594673,
+              "fraction_over_first_layer": 0.9948214299374956,
+              "second_layer_centerline_outside_first_mm": 56.94296425870669
+            }
+          },
+          "kernel": {
+            "1901": {
+              "second_layer_model_bead_area_mm2": 47092.94436956433,
+              "fraction_over_first_layer": 0.9948123764171495,
+              "second_layer_centerline_outside_first_mm": 56.93852491752331
+            }
+          }
+        },
+        "estimated_print_seconds": {
+          "native": 15365.083984375,
+          "kernel": 15338.9501953125
+        }
+      },
+      "project_check": {
+        "project_sha256_matches": true,
+        "objects": [
+          {
+            "name": "foam-cap-bottom",
+            "vertices": 8754,
+            "source_sha256_matches": true,
+            "embedded_vertex_error_mm": 4.997558562536142e-07,
+            "source_comparison": "source vertices in order",
+            "seam_painted_facets": 0,
+            "placed_bounds_mm": [
+              [
+                21.300003000000004,
+                69.800003,
+                1.909999998161993e-07
+              ],
+              [
+                303.699997,
+                250.199997,
+                19.850000191
+              ]
+            ],
+            "bed_contact_z_mm": 1.909999998161993e-07,
+            "blocked_facets": 0,
+            "partially_painted_facets": 0,
+            "parts": {
+              "normal_part": 1,
+              "modifier_part": 10
+            },
+            "layer_ranges": [],
+            "ribbon_and_fin_parts": 0,
+            "modifiers_expected": 10
+          }
+        ],
+        "z_trim_block": [
+          "+0.0",
+          "0.04 - 0.01",
+          "0.04 - 0.02",
+          "0.04 + 0.01",
+          "0.04"
+        ],
+        "cooling": {
+          "fan_min_speed": [
+            "0"
+          ],
+          "fan_max_speed": [
+            "0"
+          ],
+          "overhang_fan_speed": [
+            "70"
+          ],
+          "overhang_fan_threshold": [
+            "50%"
+          ],
+          "additional_cooling_fan_speed": [
+            "0"
+          ]
+        },
+        "support": {
+          "support_type": "normal(auto)",
+          "support_style": "snug",
+          "support_object_xy_distance": "0.4",
+          "max_bridge_length": "0",
+          "tree_support_branch_diameter": "2",
+          "tree_support_branch_diameter_angle": "5",
+          "brim_type": "auto_brim"
+        },
+        "problems": [],
+        "pass": true
+      },
+      "layers": 101,
+      "checks": {
+        "archive": true,
+        "z_trim": true,
+        "bed_border": true,
+        "fine_and_transition_bands": true,
+        "show_faces_support_free": true,
+        "tie_windows_support_free": true,
+        "ribbons_support_free_and_printed": true,
+        "solid_hosts_sampled": true
+      },
+      "pass": true,
+      "minimum_bed_margin_mm": 21.019000000000002,
+      "bed_border_mm": 20.0,
+      "bead_envelope_plate_mm": [
+        [
+          21.019000000000002,
+          69.7186305
+        ],
+        [
+          303.981,
+          250.481
+        ]
+      ],
+      "support_roads": 12647,
+      "support_summary": {
+        "support_bodies": 10,
+        "interface_islands": 10,
+        "bed_rooted_bodies": 10,
+        "model_rooted_bodies": 0,
+        "shortest_build_up_mm": 4.562,
+        "bodies_without_interface_labels": 0,
+        "explicit_interface_islands": 10,
+        "shortest_labelled_build_up_mm": 4.562
+      },
+      "support_audit": {
+        "path": ".cache/combined-finish/handoffs/foam-cap/prepared-print/2026-11-01-foam-cap-bottom-mark2-7965d13e/support-audit-1901.json",
+        "sha256": "b66dba824e2ed7fd004139d3a68b9c85344567fa8d16be41121ac86d25e25299"
+      },
+      "solid_host_deposition": [
+        {
+          "object": 1901,
+          "name": "M5 head pad 1 and floor/wall root",
+          "plate_bounds_mm": [
+            [
+              21.301003051757817,
+              90.12,
+              0.0009999999999994458
+            ],
+            [
+              36.97999999999999,
+              109.88,
+              19.849000381469725
+            ]
+          ],
+          "samples": [
+            {
+              "print_z_mm": 0.44,
+              "coverage": 0.9985190580188252,
+              "stock_mm2": 225.83014769784748
+            },
+            {
+              "print_z_mm": 10.04,
+              "coverage": 0.994093582194007,
+              "stock_mm2": 118.27267376476661
+            },
+            {
+              "print_z_mm": 19.64,
+              "coverage": 0.9965288056308778,
+              "stock_mm2": 118.272673131846
+            }
+          ],
+          "minimum_coverage": 0.994093582194007
+        },
+        {
+          "object": 1901,
+          "name": "M5 head pad 2 and floor/wall root",
+          "plate_bounds_mm": [
+            [
+              21.301003051757817,
+              150.12,
+              0.0009999999999994458
+            ],
+            [
+              36.97999999999999,
+              169.88,
+              19.849000381469725
+            ]
+          ],
+          "samples": [
+            {
+              "print_z_mm": 0.44,
+              "coverage": 0.9985053335377443,
+              "stock_mm2": 225.83014959214654
+            },
+            {
+              "print_z_mm": 10.04,
+              "coverage": 0.9946673641359073,
+              "stock_mm2": 118.27266007345663
+            },
+            {
+              "print_z_mm": 19.64,
+              "coverage": 0.9965778122437734,
+              "stock_mm2": 118.27265977679312
+            }
+          ],
+          "minimum_coverage": 0.9946673641359073
+        },
+        {
+          "object": 1901,
+          "name": "M5 head pad 3 and floor/wall root",
+          "plate_bounds_mm": [
+            [
+              21.301003051757817,
+              210.12,
+              0.0009999999999994458
+            ],
+            [
+              36.97999999999999,
+              229.88,
+              19.849000381469725
+            ]
+          ],
+          "samples": [
+            {
+              "print_z_mm": 0.44,
+              "coverage": 0.9986028432263949,
+              "stock_mm2": 225.83014833126845
+            },
+            {
+              "print_z_mm": 10.04,
+              "coverage": 0.9940934519399445,
+              "stock_mm2": 118.27267346888509
+            },
+            {
+              "print_z_mm": 19.64,
+              "coverage": 0.9965768790932086,
+              "stock_mm2": 118.27267336532961
+            }
+          ],
+          "minimum_coverage": 0.9940934519399445
+        },
+        {
+          "object": 1901,
+          "name": "M5 head pad 4 and floor/wall root",
+          "plate_bounds_mm": [
+            [
+              288.02,
+              90.12,
+              0.0009999999999994458
+            ],
+            [
+              303.6989969482422,
+              109.88,
+              19.849000381469725
+            ]
+          ],
+          "samples": [
+            {
+              "print_z_mm": 0.44,
+              "coverage": 0.9986189628846058,
+              "stock_mm2": 225.83014804286591
+            },
+            {
+              "print_z_mm": 10.04,
+              "coverage": 0.9947049592793081,
+              "stock_mm2": 118.27267361914775
+            },
+            {
+              "print_z_mm": 19.64,
+              "coverage": 0.9965010685221869,
+              "stock_mm2": 118.27267336662081
+            }
+          ],
+          "minimum_coverage": 0.9947049592793081
+        },
+        {
+          "object": 1901,
+          "name": "M5 head pad 5 and floor/wall root",
+          "plate_bounds_mm": [
+            [
+              288.02,
+              150.12,
+              0.0009999999999994458
+            ],
+            [
+              303.6989969482422,
+              169.88,
+              19.849000381469725
+            ]
+          ],
+          "samples": [
+            {
+              "print_z_mm": 0.44,
+              "coverage": 0.9985716587773085,
+              "stock_mm2": 225.83014959214745
+            },
+            {
+              "print_z_mm": 10.04,
+              "coverage": 0.9946794006578836,
+              "stock_mm2": 118.27266008321182
+            },
+            {
+              "print_z_mm": 19.64,
+              "coverage": 0.9965502027121295,
+              "stock_mm2": 118.27265977772389
+            }
+          ],
+          "minimum_coverage": 0.9946794006578836
+        },
+        {
+          "object": 1901,
+          "name": "M5 head pad 6 and floor/wall root",
+          "plate_bounds_mm": [
+            [
+              288.02,
+              210.12,
+              0.0009999999999994458
+            ],
+            [
+              303.6989969482422,
+              229.88,
+              19.849000381469725
+            ]
+          ],
+          "samples": [
+            {
+              "print_z_mm": 0.44,
+              "coverage": 0.9985820895653535,
+              "stock_mm2": 225.83014854832794
+            },
+            {
+              "print_z_mm": 10.04,
+              "coverage": 0.9946807084970186,
+              "stock_mm2": 118.27267391502934
+            },
+            {
+              "print_z_mm": 19.64,
+              "coverage": 0.9965046050685977,
+              "stock_mm2": 118.27267313313737
+            }
+          ],
+          "minimum_coverage": 0.9946807084970186
+        },
+        {
+          "object": 1901,
+          "name": "M5 head pad 7 and floor/wall root",
+          "plate_bounds_mm": [
+            [
+              197.62,
+              69.80100305175782,
+              0.0009999999999994458
+            ],
+            [
+              217.38,
+              85.47999999999999,
+              19.849000381469725
+            ]
+          ],
+          "samples": [
+            {
+              "print_z_mm": 0.44,
+              "coverage": 0.9986382419612378,
+              "stock_mm2": 225.83015219165753
+            },
+            {
+              "print_z_mm": 10.04,
+              "coverage": 0.9933800395861152,
+              "stock_mm2": 118.27271507964416
+            },
+            {
+              "print_z_mm": 19.64,
+              "coverage": 0.9965271137397594,
+              "stock_mm2": 118.27271446320867
+            }
+          ],
+          "minimum_coverage": 0.9933800395861152
+        },
+        {
+          "object": 1901,
+          "name": "M5 head pad 8 and floor/wall root",
+          "plate_bounds_mm": [
+            [
+              197.62,
+              234.52,
+              0.0009999999999994458
+            ],
+            [
+              217.38,
+              250.19899694824218,
+              19.849000381469725
+            ]
+          ],
+          "samples": [
+            {
+              "print_z_mm": 0.44,
+              "coverage": 0.9987742799293101,
+              "stock_mm2": 225.83015219165753
+            },
+            {
+              "print_z_mm": 10.04,
+              "coverage": 0.9946487287877148,
+              "stock_mm2": 118.27271515861966
+            },
+            {
+              "print_z_mm": 19.64,
+              "coverage": 0.9965304584025598,
+              "stock_mm2": 118.27271455622267
+            }
+          ],
+          "minimum_coverage": 0.9946487287877148
+        },
+        {
+          "object": 1901,
+          "name": "M5 head pad 9 and floor/wall root",
+          "plate_bounds_mm": [
+            [
+              262.62,
+              69.80100305175782,
+              0.0009999999999994458
+            ],
+            [
+              282.38,
+              85.47999999999999,
+              19.849000381469725
+            ]
+          ],
+          "samples": [
+            {
+              "print_z_mm": 0.44,
+              "coverage": 0.9986074352561303,
+              "stock_mm2": 225.8301469901255
+            },
+            {
+              "print_z_mm": 10.04,
+              "coverage": 0.9931576958139117,
+              "stock_mm2": 118.27273484091357
+            },
+            {
+              "print_z_mm": 19.64,
+              "coverage": 0.9965559960281357,
+              "stock_mm2": 118.2727339772741
+            }
+          ],
+          "minimum_coverage": 0.9931576958139117
+        },
+        {
+          "object": 1901,
+          "name": "M5 head pad 10 and floor/wall root",
+          "plate_bounds_mm": [
+            [
+              262.62,
+              234.52,
+              0.0009999999999994458
+            ],
+            [
+              282.38,
+              250.19899694824218,
+              19.849000381469725
+            ]
+          ],
+          "samples": [
+            {
+              "print_z_mm": 0.44,
+              "coverage": 0.9988050752416389,
+              "stock_mm2": 225.8301469901255
+            },
+            {
+              "print_z_mm": 10.04,
+              "coverage": 0.9946419646213985,
+              "stock_mm2": 118.27273478826561
+            },
+            {
+              "print_z_mm": 19.64,
+              "coverage": 0.9965388225591677,
+              "stock_mm2": 118.2727336488771
+            }
+          ],
+          "minimum_coverage": 0.9946419646213985
+        }
+      ],
+      "slicer_warnings": [],
+      "submitted": false,
+      "review_artifact_sha256": {
+        "review.json": "6c05c82bd79e9e6bca2e6abd1e45b84fb192d01d72c4c5a7733297a241db5180",
+        "project-check.json": "709597d94a05e705baaf63f9a8df64b71bd5f8ea1da8d22e597b13de1e73e6e1",
+        "support-audit-1901.json": "b66dba824e2ed7fd004139d3a68b9c85344567fa8d16be41121ac86d25e25299",
+        "slice-command.json": "8bda3ffa66d2430f04a8d3a87789432fd1b93dedb988f32cae76e1ae76c9d8e6",
+        "slice-result.json": "03efd38455a4ff18df65d0831a30faa9985ff0102672bd4d79016a0ae4b2b247"
+      }
+    },
+    "foam-cap-lid-top": {
+      "physical_stl": "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl",
+      "physical_stl_sha256": "6eed3264fdcdbdf92385851ee30f38a0c07033c6f1ed3a3ad2bf2ea6338ca404",
+      "step_sha256": "fb3898e98859cc66abd4fd3fb5d86f3e90334d39189cbfb2f3136a45d392b52f",
+      "captured_meshes": {
+        ".stl": {
+          "path": ".cache/combined-finish/handoffs/foam-cap/candidate-meshes/foam-cap-lid-top.stl",
+          "sha256": "6eed3264fdcdbdf92385851ee30f38a0c07033c6f1ed3a3ad2bf2ea6338ca404"
+        },
+        ".step": {
+          "path": ".cache/combined-finish/handoffs/foam-cap/candidate-meshes/foam-cap-lid-top.step",
+          "sha256": "fb3898e98859cc66abd4fd3fb5d86f3e90334d39189cbfb2f3136a45d392b52f"
+        }
+      },
+      "preparation_directory": ".cache/combined-finish/handoffs/foam-cap/prepared-print/2026-11-01-foam-cap-lid-top-mark1-6a7690fe",
+      "preparation_sha256": "694927e4e9a23f6f11eba325b3d82ebb38ea642483838a62f84a2a38e189c12f",
+      "audited_preparation_input": {
+        "path": ".cache/combined-finish/handoffs/foam-cap/prepared-print/2026-11-01-foam-cap-lid-top-mark1-6a7690fe/preparation.json",
+        "sha256": "694927e4e9a23f6f11eba325b3d82ebb38ea642483838a62f84a2a38e189c12f"
+      },
+      "project": ".cache/combined-finish/handoffs/foam-cap/prepared-print/2026-11-01-foam-cap-lid-top-mark1-6a7690fe/2026-11-01-foam-cap-lid-top-mark1-6a7690fe.3mf",
+      "project_sha256": "203db2aa431aa788317aaddcaf7abf01cd73f0be1be3a2b21b95f005e53bf069",
+      "archive": ".cache/combined-finish/handoffs/foam-cap/prepared-print/2026-11-01-foam-cap-lid-top-mark1-6a7690fe/2026-11-01-foam-cap-lid-top-mark1-6a7690fe.gcode.3mf",
+      "archive_sha256": "a8d5432059cd7fe38a77faf4d512cfadd406fc1c43d44bb3d5a582f5b937d846",
+      "gcode_sha256": "f6fe771cf979da6d839d9889ddc9e5eb959fbcabf64a01b3e39a395d216c7e92",
+      "printer": "Mark1",
+      "nozzle": {
+        "side": "left",
+        "diameter_mm": 0.4,
+        "flow": "Standard",
+        "hardened": true,
+        "reason": "Top lid: hardened left 0.4 mm Standard nozzle with the shared PET-GF process.",
+        "sliced_diameter_mm": 0.4,
+        "sliced_volume_type": "Standard"
+      },
+      "material": "Polymaker Fiberon PET-GF15, black",
+      "bed_type": "Textured PEI Plate",
+      "profile": "hardware/printed-parts/petgf.3mf",
+      "profile_sha256": "45c16e8c8517e0a205107d7b9f7412d013f51a8de7ecf86125cc940079d37ed0",
+      "settings_sha256": "a2d5614c14853de0fd16aedc11b3e7f4c4cf0e58ab06802aa78c160f0a83c077",
+      "recipe_values": {
+        "initial_layer_print_height": "0.2",
+        "layer_height": "0.24",
+        "wall_loops": "3",
+        "wall_generator": "classic",
+        "sparse_infill_density": "15%",
+        "sparse_infill_pattern": "gyroid",
+        "enable_support": "1",
+        "support_type": "tree(auto)",
+        "support_style": "default",
+        "raft_first_layer_expansion": "0.5",
+        "support_object_xy_distance": "0.4",
+        "support_top_z_distance": "0.45",
+        "support_bottom_z_distance": "0.3",
+        "fan_min_speed": [
+          "0"
+        ],
+        "fan_max_speed": [
+          "0"
+        ],
+        "overhang_fan_speed": [
+          "70"
+        ],
+        "overhang_fan_threshold": [
+          "50%"
+        ],
+        "additional_cooling_fan_speed": [
+          "0"
+        ]
+      },
+      "requested_z_trim_mm": 0.18,
+      "emitted_textured_trim_mm": 0.16,
+      "build_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "yaw_degrees": 0,
+      "source_center_mm": [
+        0.0,
+        0.0,
+        26.825000762939453
+      ],
+      "translation_mm": [
+        161.5,
+        160.0,
+        26.825000762939453
+      ],
+      "plate_bounds_mm": [
+        [
+          20.300003051757812,
+          69.80000305175781,
+          0.0
+        ],
+        [
+          302.6999969482422,
+          250.1999969482422,
+          53.650001525878906
+        ]
+      ],
+      "model_bed_margin_mm": 20.300003051757812,
+      "modifier_count": 15,
+      "tie_windows": [
+        {
+          "roof_print_z_mm": 7.175000190734863,
+          "floor_print_z_mm": 5.600000190734863,
+          "box_print_mm": [
+            [
+              -67.80000305175781,
+              45.58359146118164,
+              5.600000190734863
+            ],
+            [
+              -64.5999984741211,
+              61.143592834472656,
+              7.175000190734863
+            ]
+          ],
+          "roof": {
+            "faces": 2,
+            "area_mm2": 49.792,
+            "bounds_print_mm": [
+              [
+                -67.8,
+                45.584,
+                7.175
+              ],
+              [
+                -64.6,
+                61.144,
+                7.175
+              ]
+            ]
+          },
+          "box_plate_mm": [
+            [
+              93.69999694824219,
+              205.58359146118164,
+              5.600000190734863
+            ],
+            [
+              96.9000015258789,
+              221.14359283447266,
+              7.175000190734863
+            ]
+          ]
+        }
+      ],
+      "native_reference": {
+        "captured_directory": ".cache/combined-finish/handoffs/foam-cap/native-print/foam-cap-lid-top",
+        "physical_stl_sha256": "f24c17a1834784b3917672483c3b8e0a14350479e96793998dbe024a38da5275",
+        "current_step_sha256": "ad76a2c28f490dcb08e9ab64cf5847fa4a316c68ea73a996789c19b391bd7bdb",
+        "sliced_step_sha256": "ad76a2c28f490dcb08e9ab64cf5847fa4a316c68ea73a996789c19b391bd7bdb",
+        "preparation_sha256": "796fd87ef038bda8c24d35639199260ef4cd887af5358f3ee81c0fbced2f1dc2",
+        "project_sha256": "29ae9bcf338e03d23818358501821e67e928467536fad76c55bf525a2b8f4bc9",
+        "archive_sha256": "6584665e257034c8ebae8b97d062e3bb96ea2beca68c5d03bd30a8eeffba34b9",
+        "gcode_sha256": "e29cf9296182abfe0a96f79eee7741a5a550be1b3461b6eb59b9eb74dce96c2e"
+      },
+      "comparison": {
+        "embedded_settings_exact": true,
+        "modifier_records_exact": true,
+        "extra_part_geometry_and_metadata_exact": true,
+        "tie_window_records_exact": true,
+        "pose_maximum_numeric_deltas_mm": {
+          "source_center_mm": 0.0,
+          "translation_mm": 0.0,
+          "plate_bounds_mm": 0.0
+        },
+        "support_bodies": {
+          "native": 5,
+          "kernel": 5
+        },
+        "interface_islands": {
+          "native": 7,
+          "kernel": 7
+        },
+        "minimum_bed_margin_mm": {
+          "native": 20.172437000000002,
+          "kernel": 20.1979985
+        },
+        "minimum_sampled_solid_region_coverage": {
+          "native": 0.9847768467296437,
+          "kernel": 0.984824836518806
+        },
+        "first_second_layer_stack": {
+          "native": {
+            "1901": {
+              "second_layer_model_bead_area_mm2": 49727.54188642229,
+              "fraction_over_first_layer": 0.9954169637211233,
+              "second_layer_centerline_outside_first_mm": 59.26146584230755
+            }
+          },
+          "kernel": {
+            "1901": {
+              "second_layer_model_bead_area_mm2": 49728.84607398135,
+              "fraction_over_first_layer": 0.9954102130313061,
+              "second_layer_centerline_outside_first_mm": 58.391019793530994
+            }
+          }
+        },
+        "estimated_print_seconds": {
+          "native": 25764.50390625,
+          "kernel": 25778.4765625
+        }
+      },
+      "project_check": {
+        "project_sha256_matches": true,
+        "objects": [
+          {
+            "name": "foam-cap-lid-top",
+            "vertices": 18847,
+            "source_sha256_matches": true,
+            "embedded_vertex_error_mm": 4.999999987376214e-07,
+            "source_comparison": "source vertices in order",
+            "seam_painted_facets": 0,
+            "placed_bounds_mm": [
+              [
+                20.300003000000004,
+                69.800003,
+                -2.3700000184589953e-07
+              ],
+              [
+                302.699997,
+                250.199997,
+                53.650001763
+              ]
+            ],
+            "bed_contact_z_mm": -2.3700000184589953e-07,
+            "blocked_facets": 0,
+            "partially_painted_facets": 0,
+            "parts": {
+              "normal_part": 1,
+              "support_blocker": 1,
+              "modifier_part": 15
+            },
+            "layer_ranges": [],
+            "ribbon_and_fin_parts": 0,
+            "modifiers_expected": 15
+          }
+        ],
+        "z_trim_block": [
+          "+0.0",
+          "0.18 - 0.01",
+          "0.18 - 0.02",
+          "0.18 + 0.01",
+          "0.18"
+        ],
+        "cooling": {
+          "fan_min_speed": [
+            "0"
+          ],
+          "fan_max_speed": [
+            "0"
+          ],
+          "overhang_fan_speed": [
+            "70"
+          ],
+          "overhang_fan_threshold": [
+            "50%"
+          ],
+          "additional_cooling_fan_speed": [
+            "0"
+          ]
+        },
+        "support": {
+          "support_type": "tree(auto)",
+          "support_style": "default",
+          "support_object_xy_distance": "0.4",
+          "max_bridge_length": "0",
+          "tree_support_branch_diameter": "2",
+          "tree_support_branch_diameter_angle": "5",
+          "brim_type": "auto_brim"
+        },
+        "problems": [],
+        "pass": true
+      },
+      "layers": 224,
+      "checks": {
+        "archive": true,
+        "z_trim": true,
+        "bed_border": true,
+        "fine_and_transition_bands": true,
+        "show_faces_support_free": true,
+        "tie_windows_support_free": true,
+        "ribbons_support_free_and_printed": true,
+        "solid_hosts_sampled": true
+      },
+      "pass": true,
+      "minimum_bed_margin_mm": 20.1979985,
+      "bed_border_mm": 20.0,
+      "bead_envelope_plate_mm": [
+        [
+          20.1979985,
+          69.69799850000001
+        ],
+        [
+          302.8020015,
+          250.30200150000002
+        ]
+      ],
+      "support_roads": 40924,
+      "support_summary": {
+        "support_bodies": 5,
+        "interface_islands": 7,
+        "bed_rooted_bodies": 1,
+        "model_rooted_bodies": 4,
+        "shortest_build_up_mm": 4.08,
+        "bodies_without_interface_labels": 0,
+        "explicit_interface_islands": 7,
+        "shortest_labelled_build_up_mm": 4.08
+      },
+      "support_audit": {
+        "path": ".cache/combined-finish/handoffs/foam-cap/prepared-print/2026-11-01-foam-cap-lid-top-mark1-6a7690fe/support-audit-1901.json",
+        "sha256": "e66572df01e4464dc82a4564b2b5cdd2e6a1850c55cf3452af5ce1311515e0af"
+      },
+      "solid_host_deposition": [
+        {
+          "object": 1901,
+          "name": "Reservoir A fore direct C2 pair and lid root",
+          "plate_bounds_mm": [
+            [
+              271.55,
+              204.925,
+              4.400000000000006
+            ],
+            [
+              279.55,
+              229.575,
+              12.5
+            ]
+          ],
+          "samples": [
+            {
+              "print_z_mm": 4.76,
+              "coverage": 0.9902277071304821,
+              "stock_mm2": 197.19999999999982
+            },
+            {
+              "print_z_mm": 8.6,
+              "coverage": 0.9964116391612138,
+              "stock_mm2": 197.19990205000906
+            },
+            {
+              "print_z_mm": 12.2,
+              "coverage": 0.9983743771842437,
+              "stock_mm2": 96.5185718055224
+            }
+          ],
+          "minimum_coverage": 0.9902277071304821
+        },
+        {
+          "object": 1901,
+          "name": "M5 head bearing 1 and plate root",
+          "plate_bounds_mm": [
+            [
+              289.4,
+              212.5,
+              0.0010000000000012221
+            ],
+            [
+              302.6989969482422,
+              227.5,
+              7.399999999999999
+            ]
+          ],
+          "samples": [
+            {
+              "print_z_mm": 0.44,
+              "coverage": 0.998112048495932,
+              "stock_mm2": 178.2563115611185
+            },
+            {
+              "print_z_mm": 3.8,
+              "coverage": 0.9873857930494144,
+              "stock_mm2": 115.4981229903351
+            },
+            {
+              "print_z_mm": 7.16,
+              "coverage": 0.9975067761250745,
+              "stock_mm2": 115.49812375064909
+            }
+          ],
+          "minimum_coverage": 0.9873857930494144
+        },
+        {
+          "object": 1901,
+          "name": "M5 head bearing 2 and plate root",
+          "plate_bounds_mm": [
+            [
+              289.4,
+              152.5,
+              0.0010000000000012221
+            ],
+            [
+              302.6989969482422,
+              167.5,
+              7.399999999999999
+            ]
+          ],
+          "samples": [
+            {
+              "print_z_mm": 0.44,
+              "coverage": 0.9981689584356681,
+              "stock_mm2": 178.2563060397205
+            },
+            {
+              "print_z_mm": 3.8,
+              "coverage": 0.9902207077507331,
+              "stock_mm2": 115.49812394166361
+            },
+            {
+              "print_z_mm": 7.16,
+              "coverage": 0.9975161305511331,
+              "stock_mm2": 115.49812460554404
+            }
+          ],
+          "minimum_coverage": 0.9902207077507331
+        },
+        {
+          "object": 1901,
+          "name": "M5 head bearing 3 and plate root",
+          "plate_bounds_mm": [
+            [
+              289.4,
+              92.5,
+              0.0010000000000012221
+            ],
+            [
+              302.6989969482422,
+              107.5,
+              7.399999999999999
+            ]
+          ],
+          "samples": [
+            {
+              "print_z_mm": 0.44,
+              "coverage": 0.9984905788223072,
+              "stock_mm2": 178.2563115611185
+            },
+            {
+              "print_z_mm": 3.8,
+              "coverage": 0.9873180634298218,
+              "stock_mm2": 115.49812299692405
+            },
+            {
+              "print_z_mm": 7.16,
+              "coverage": 0.9977379360374855,
+              "stock_mm2": 115.4981235398071
+            }
+          ],
+          "minimum_coverage": 0.9873180634298218
+        },
+        {
+          "object": 1901,
+          "name": "M5 head bearing 4 and plate root",
+          "plate_bounds_mm": [
+            [
+              20.301003051757817,
+              212.5,
+              0.0010000000000012221
+            ],
+            [
+              33.599999999999994,
+              227.5,
+              7.399999999999999
+            ]
+          ],
+          "samples": [
+            {
+              "print_z_mm": 0.44,
+              "coverage": 0.9981723732368035,
+              "stock_mm2": 178.25631157017966
+            },
+            {
+              "print_z_mm": 3.8,
+              "coverage": 0.984824836518806,
+              "stock_mm2": 115.49812299692351
+            },
+            {
+              "print_z_mm": 7.16,
+              "coverage": 0.9975791312870845,
+              "stock_mm2": 115.49812353980653
+            }
+          ],
+          "minimum_coverage": 0.984824836518806
+        },
+        {
+          "object": 1901,
+          "name": "M5 head bearing 5 and plate root",
+          "plate_bounds_mm": [
+            [
+              20.301003051757817,
+              152.5,
+              0.0010000000000012221
+            ],
+            [
+              33.599999999999994,
+              167.5,
+              7.399999999999999
+            ]
+          ],
+          "samples": [
+            {
+              "print_z_mm": 0.44,
+              "coverage": 0.9981663090073186,
+              "stock_mm2": 178.25630595142815
+            },
+            {
+              "print_z_mm": 3.8,
+              "coverage": 0.9848313233710054,
+              "stock_mm2": 115.49812394166301
+            },
+            {
+              "print_z_mm": 7.16,
+              "coverage": 0.997885549286183,
+              "stock_mm2": 115.49812460554355
+            }
+          ],
+          "minimum_coverage": 0.9848313233710054
+        },
+        {
+          "object": 1901,
+          "name": "M5 head bearing 6 and plate root",
+          "plate_bounds_mm": [
+            [
+              20.301003051757817,
+              92.5,
+              0.0010000000000012221
+            ],
+            [
+              33.599999999999994,
+              107.5,
+              7.399999999999999
+            ]
+          ],
+          "samples": [
+            {
+              "print_z_mm": 0.44,
+              "coverage": 0.9983770001613751,
+              "stock_mm2": 178.25631157017966
+            },
+            {
+              "print_z_mm": 3.8,
+              "coverage": 0.9848697676414238,
+              "stock_mm2": 115.49812299033451
+            },
+            {
+              "print_z_mm": 7.16,
+              "coverage": 0.9977062759661459,
+              "stock_mm2": 115.49812375064849
+            }
+          ],
+          "minimum_coverage": 0.9848697676414238
+        },
+        {
+          "object": 1901,
+          "name": "M5 head bearing 7 and plate root",
+          "plate_bounds_mm": [
+            [
+              109.0,
+              236.9,
+              0.0010000000000012221
+            ],
+            [
+              124.0,
+              250.19899694824218,
+              7.399999999999999
+            ]
+          ],
+          "samples": [
+            {
+              "print_z_mm": 0.44,
+              "coverage": 0.9980879163436975,
+              "stock_mm2": 172.49686822471782
+            },
+            {
+              "print_z_mm": 3.8,
+              "coverage": 0.9855172745152428,
+              "stock_mm2": 109.73866935536682
+            },
+            {
+              "print_z_mm": 7.16,
+              "coverage": 0.9966248895412462,
+              "stock_mm2": 109.73866993385853
+            }
+          ],
+          "minimum_coverage": 0.9855172745152428
+        },
+        {
+          "object": 1901,
+          "name": "M5 head bearing 8 and plate root",
+          "plate_bounds_mm": [
+            [
+              109.0,
+              69.80100305175782,
+              0.0010000000000012221
+            ],
+            [
+              124.0,
+              83.1,
+              7.399999999999999
+            ]
+          ],
+          "samples": [
+            {
+              "print_z_mm": 0.44,
+              "coverage": 0.9974006067780932,
+              "stock_mm2": 178.25632542818417
+            },
+            {
+              "print_z_mm": 3.8,
+              "coverage": 0.9850669481949633,
+              "stock_mm2": 115.498126801853
+            },
+            {
+              "print_z_mm": 7.16,
+              "coverage": 0.996743446671556,
+              "stock_mm2": 115.49812719311299
+            }
+          ],
+          "minimum_coverage": 0.9850669481949633
+        },
+        {
+          "object": 1901,
+          "name": "M5 head bearing 9 and plate root",
+          "plate_bounds_mm": [
+            [
+              44.0,
+              236.9,
+              0.0010000000000012221
+            ],
+            [
+              59.0,
+              250.19899694824218,
+              7.399999999999999
+            ]
+          ],
+          "samples": [
+            {
+              "print_z_mm": 0.44,
+              "coverage": 0.9975480354017902,
+              "stock_mm2": 178.25632042400863
+            },
+            {
+              "print_z_mm": 3.8,
+              "coverage": 0.9857938856628569,
+              "stock_mm2": 115.49812164367853
+            },
+            {
+              "print_z_mm": 7.16,
+              "coverage": 0.9981478653677633,
+              "stock_mm2": 115.49812237319354
+            }
+          ],
+          "minimum_coverage": 0.9857938856628569
+        },
+        {
+          "object": 1901,
+          "name": "M5 head bearing 10 and plate root",
+          "plate_bounds_mm": [
+            [
+              44.0,
+              69.80100305175782,
+              0.0010000000000012221
+            ],
+            [
+              59.0,
+              83.1,
+              7.399999999999999
+            ]
+          ],
+          "samples": [
+            {
+              "print_z_mm": 0.44,
+              "coverage": 0.9980459301834504,
+              "stock_mm2": 178.25632041742514
+            },
+            {
+              "print_z_mm": 3.8,
+              "coverage": 0.9852649975483044,
+              "stock_mm2": 115.4981216436785
+            },
+            {
+              "print_z_mm": 7.16,
+              "coverage": 0.9965797282026163,
+              "stock_mm2": 115.4981223731935
+            }
+          ],
+          "minimum_coverage": 0.9852649975483044
+        },
+        {
+          "object": 1901,
+          "name": "pcba insert post 1 and plate root",
+          "plate_bounds_mm": [
+            [
+              203.59707997994963,
+              72.50000610351563,
+              0.0010000000000012221
+            ],
+            [
+              219.59707997994963,
+              88.50000610351563,
+              11.0
+            ]
+          ],
+          "samples": [
+            {
+              "print_z_mm": 0.44,
+              "coverage": 1.0,
+              "stock_mm2": 256.0
+            },
+            {
+              "print_z_mm": 5.72,
+              "coverage": 0.9910249019502304,
+              "stock_mm2": 243.4386737980465
+            },
+            {
+              "print_z_mm": 10.76,
+              "coverage": 0.9985678873021403,
+              "stock_mm2": 65.94695376676195
+            }
+          ],
+          "minimum_coverage": 0.9910249019502304
+        },
+        {
+          "object": 1901,
+          "name": "pcba insert post 2 and plate root",
+          "plate_bounds_mm": [
+            [
+              203.59707997994963,
+              138.80000610351564,
+              0.0010000000000012221
+            ],
+            [
+              219.59707997994963,
+              154.80000610351564,
+              11.0
+            ]
+          ],
+          "samples": [
+            {
+              "print_z_mm": 0.44,
+              "coverage": 1.0,
+              "stock_mm2": 256.0
+            },
+            {
+              "print_z_mm": 5.72,
+              "coverage": 0.9910794053944602,
+              "stock_mm2": 243.4386755162225
+            },
+            {
+              "print_z_mm": 10.76,
+              "coverage": 0.998297458704531,
+              "stock_mm2": 83.58814817757936
+            }
+          ],
+          "minimum_coverage": 0.9910794053944602
+        },
+        {
+          "object": 1901,
+          "name": "pcba insert post 3 and plate root",
+          "plate_bounds_mm": [
+            [
+              281.5970799799496,
+              72.50000610351563,
+              0.0010000000000012221
+            ],
+            [
+              297.5970799799496,
+              88.50000610351563,
+              11.0
+            ]
+          ],
+          "samples": [
+            {
+              "print_z_mm": 0.44,
+              "coverage": 0.999999529728237,
+              "stock_mm2": 256.0
+            },
+            {
+              "print_z_mm": 5.72,
+              "coverage": 0.991074763392145,
+              "stock_mm2": 243.4386770205285
+            },
+            {
+              "print_z_mm": 10.76,
+              "coverage": 0.998545768837643,
+              "stock_mm2": 65.94694168047903
+            }
+          ],
+          "minimum_coverage": 0.991074763392145
+        },
+        {
+          "object": 1901,
+          "name": "pcba insert post 4 and plate root",
+          "plate_bounds_mm": [
+            [
+              281.5970799799496,
+              138.80000610351564,
+              0.0010000000000012221
+            ],
+            [
+              297.5970799799496,
+              154.80000610351564,
+              11.0
+            ]
+          ],
+          "samples": [
+            {
+              "print_z_mm": 0.44,
+              "coverage": 1.0,
+              "stock_mm2": 256.0
+            },
+            {
+              "print_z_mm": 5.72,
+              "coverage": 0.9922287588021007,
+              "stock_mm2": 243.438678738675
+            },
+            {
+              "print_z_mm": 10.76,
+              "coverage": 0.9985398317497836,
+              "stock_mm2": 65.94694129501899
+            }
+          ],
+          "minimum_coverage": 0.9922287588021007
+        }
+      ],
+      "slicer_warnings": [],
+      "submitted": false,
+      "review_artifact_sha256": {
+        "review.json": "c74dcac17be0d3eb45d4f9cc631b74061b0b68ce7fc419df197da0ed1ea35921",
+        "project-check.json": "7fed56253dafbd68f605714e361253c76353926501064445d40f4a115e0d9b44",
+        "support-audit-1901.json": "e66572df01e4464dc82a4564b2b5cdd2e6a1850c55cf3452af5ce1311515e0af",
+        "slice-command.json": "6f2a1b27bcb8f07d867da45dfa4d1c58b1fe42ea6505b0610802d861b7c0498a",
+        "slice-result.json": "6b472105682fbca826a3c2c1b488b3885a6b4939fded49a9086c2e8483b9edd4"
+      }
+    },
+    "reservoir-b-fill-guide": {
+      "physical_stl": "hardware/printed-parts/cold-core/foam-cap/reservoir-b-fill-guide.stl",
+      "physical_stl_sha256": "3f1fb479bf4599050149102ac96e540a2d1ca1892a99460c8f63ab4cb62c4987",
+      "step_sha256": "d1503dc41b490a05b6d636e46868485c2929dfebcd6dc70aba1131ee36df07c0",
+      "captured_meshes": {
+        ".stl": {
+          "path": ".cache/combined-finish/handoffs/foam-cap/candidate-meshes/reservoir-b-fill-guide.stl",
+          "sha256": "3f1fb479bf4599050149102ac96e540a2d1ca1892a99460c8f63ab4cb62c4987"
+        },
+        ".step": {
+          "path": ".cache/combined-finish/handoffs/foam-cap/candidate-meshes/reservoir-b-fill-guide.step",
+          "sha256": "d1503dc41b490a05b6d636e46868485c2929dfebcd6dc70aba1131ee36df07c0"
+        }
+      },
+      "preparation_directory": ".cache/combined-finish/handoffs/foam-cap/prepared-print/2026-11-01-reservoir-b-fill-guide-mark2-fc1e9a78",
+      "preparation_sha256": "7a85994311c74c40b61fb0768c0cd6c8e6ca069caa2b8598f31e47dda64b53b7",
+      "audited_preparation_input": {
+        "path": ".cache/combined-finish/handoffs/foam-cap/prepared-print/2026-11-01-reservoir-b-fill-guide-mark2-fc1e9a78/preparation.json",
+        "sha256": "7a85994311c74c40b61fb0768c0cd6c8e6ca069caa2b8598f31e47dda64b53b7"
+      },
+      "project": ".cache/combined-finish/handoffs/foam-cap/prepared-print/2026-11-01-reservoir-b-fill-guide-mark2-fc1e9a78/2026-11-01-reservoir-b-fill-guide-mark2-fc1e9a78.3mf",
+      "project_sha256": "82aa3fa3fab2831da2c3ca9af749a97a4299b5d253bd3c2c31be24321855eeb5",
+      "archive": ".cache/combined-finish/handoffs/foam-cap/prepared-print/2026-11-01-reservoir-b-fill-guide-mark2-fc1e9a78/2026-11-01-reservoir-b-fill-guide-mark2-fc1e9a78.gcode.3mf",
+      "archive_sha256": "138cb26a1cfd52a92220de6c822909f52105c5381934ecc93bfe0cae76f1e187",
+      "gcode_sha256": "7eaf3cb966c3b092df149b8cdea0d6a4d5b77153c6c90bf92a7095ba099f27a2",
+      "printer": "Mark2",
+      "nozzle": {
+        "side": "left",
+        "diameter_mm": 0.4,
+        "flow": "Standard",
+        "hardened": true,
+        "reason": "Every abrasive stock runs on the left hotend (hardware/ledger/tools.md, Which hotends fit an H2C). Mark2's 2026-10-24 jobs ran black PET-GF on its fixed left hardened 0.4 mm Standard-flow hotend (faucet/industrial/prints/2026-10-24-buttons-sculpted-bands020-mark2/README.md, task 1372253517).",
+        "sliced_diameter_mm": 0.4,
+        "sliced_volume_type": "Standard"
+      },
+      "material": "Polymaker Fiberon PET-GF15, black",
+      "bed_type": "Textured PEI Plate",
+      "profile": "hardware/printed-parts/petgf.3mf",
+      "profile_sha256": "45c16e8c8517e0a205107d7b9f7412d013f51a8de7ecf86125cc940079d37ed0",
+      "settings_sha256": "9ec932e56f44be2a559a6247710e66aef9d476ff4c4dcc5c01d0fd10f1701e03",
+      "recipe_values": {
+        "initial_layer_print_height": "0.2",
+        "layer_height": "0.24",
+        "wall_loops": "3",
+        "wall_generator": "classic",
+        "sparse_infill_density": "15%",
+        "sparse_infill_pattern": "gyroid",
+        "enable_support": "1",
+        "support_type": "tree(auto)",
+        "support_style": "default",
+        "raft_first_layer_expansion": "-1",
+        "support_object_xy_distance": "0.4",
+        "support_top_z_distance": "0.45",
+        "support_bottom_z_distance": "0.3",
+        "fan_min_speed": [
+          "0"
+        ],
+        "fan_max_speed": [
+          "0"
+        ],
+        "overhang_fan_speed": [
+          "70"
+        ],
+        "overhang_fan_threshold": [
+          "50%"
+        ],
+        "additional_cooling_fan_speed": [
+          "0"
+        ]
+      },
+      "requested_z_trim_mm": 0.04,
+      "emitted_textured_trim_mm": 0.02,
+      "build_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "yaw_degrees": 0,
+      "source_center_mm": [
+        9.699999809265137,
+        9.699999809265137,
+        6.10416316986084
+      ],
+      "translation_mm": [
+        162.5,
+        160.0,
+        6.10416316986084
+      ],
+      "plate_bounds_mm": [
+        [
+          152.80000019073486,
+          150.30000019073486,
+          0.0
+        ],
+        [
+          172.19999980926514,
+          169.69999980926514,
+          12.20832633972168
+        ]
+      ],
+      "model_bed_margin_mm": 150.30000019073486,
+      "modifier_count": 0,
+      "tie_windows": [],
+      "native_reference": {
+        "captured_directory": ".cache/combined-finish/handoffs/foam-cap/native-print/reservoir-b-fill-guide",
+        "physical_stl_sha256": "0fd7a6158d18c346622dfe5858c752b7cd26437bf29968ac4bcc92697937c4b6",
+        "current_step_sha256": "8a74a8056b6b6466d79b2885e8869e5ab78a1188d01333e6477cd8c58d573157",
+        "sliced_step_sha256": "8a74a8056b6b6466d79b2885e8869e5ab78a1188d01333e6477cd8c58d573157",
+        "preparation_sha256": "bf343b3b638734ed3027aa4ba893818491439e89345cecbe8eb01fa6d3eb505d",
+        "project_sha256": "a25e7fbdd71f2f20a2289db117fcada5951aeab03f2456f49f8f0a52e54afd3e",
+        "archive_sha256": "88472757f6de1c146ffce1cc187bbc86cf2ac5110b00d896ae1dabdac7bdf269",
+        "gcode_sha256": "0cf893b0771f3fdc2fecdaf74aebc0fd2b45809cb26f53d59c89a20f206e3643"
+      },
+      "comparison": {
+        "embedded_settings_exact": true,
+        "modifier_records_exact": true,
+        "extra_part_geometry_and_metadata_exact": true,
+        "tie_window_records_exact": true,
+        "pose_maximum_numeric_deltas_mm": {
+          "source_center_mm": 0.0,
+          "translation_mm": 0.0,
+          "plate_bounds_mm": 0.0
+        },
+        "support_bodies": {
+          "native": 0,
+          "kernel": 0
+        },
+        "interface_islands": {
+          "native": 0,
+          "kernel": 0
+        },
+        "minimum_bed_margin_mm": {
+          "native": 150.1736125,
+          "kernel": 150.17355899999998
+        },
+        "minimum_sampled_solid_region_coverage": {
+          "native": null,
+          "kernel": null
+        },
+        "first_second_layer_stack": {
+          "native": {
+            "1901": {
+              "second_layer_model_bead_area_mm2": 236.3517174116178,
+              "fraction_over_first_layer": 0.9563972815531252,
+              "second_layer_centerline_outside_first_mm": 1.426024896641509
+            }
+          },
+          "kernel": {
+            "1901": {
+              "second_layer_model_bead_area_mm2": 236.37676011333255,
+              "fraction_over_first_layer": 0.9563098277703103,
+              "second_layer_centerline_outside_first_mm": 1.462936958632254
+            }
+          }
+        },
+        "estimated_print_seconds": {
+          "native": 565.7420043945312,
+          "kernel": 569.198974609375
+        }
+      },
+      "project_check": {
+        "project_sha256_matches": true,
+        "objects": [
+          {
+            "name": "reservoir-b-fill-guide",
+            "vertices": 11837,
+            "source_sha256_matches": true,
+            "embedded_vertex_error_mm": 4.999389773274743e-07,
+            "source_comparison": "source vertices in order",
+            "seam_painted_facets": 0,
+            "placed_bounds_mm": [
+              [
+                152.8,
+                150.3,
+                1.6999999985500835e-07
+              ],
+              [
+                172.2,
+                169.7,
+                12.20832617
+              ]
+            ],
+            "bed_contact_z_mm": 1.6999999985500835e-07,
+            "blocked_facets": 0,
+            "partially_painted_facets": 0,
+            "parts": {
+              "normal_part": 1
+            },
+            "layer_ranges": [],
+            "ribbon_and_fin_parts": 0,
+            "modifiers_expected": 0
+          }
+        ],
+        "z_trim_block": [
+          "+0.0",
+          "0.04 - 0.01",
+          "0.04 - 0.02",
+          "0.04 + 0.01",
+          "0.04"
+        ],
+        "cooling": {
+          "fan_min_speed": [
+            "0"
+          ],
+          "fan_max_speed": [
+            "0"
+          ],
+          "overhang_fan_speed": [
+            "70"
+          ],
+          "overhang_fan_threshold": [
+            "50%"
+          ],
+          "additional_cooling_fan_speed": [
+            "0"
+          ]
+        },
+        "support": {
+          "support_type": "tree(auto)",
+          "support_style": "default",
+          "support_object_xy_distance": "0.4",
+          "max_bridge_length": "0",
+          "tree_support_branch_diameter": "2",
+          "tree_support_branch_diameter_angle": "5",
+          "brim_type": "auto_brim"
+        },
+        "problems": [],
+        "pass": true
+      },
+      "layers": 51,
+      "checks": {
+        "archive": true,
+        "z_trim": true,
+        "bed_border": true,
+        "fine_and_transition_bands": true,
+        "show_faces_support_free": true,
+        "tie_windows_support_free": true,
+        "ribbons_support_free_and_printed": true,
+        "solid_hosts_sampled": true
+      },
+      "pass": true,
+      "minimum_bed_margin_mm": 150.17355899999998,
+      "bed_border_mm": 80.0,
+      "bead_envelope_plate_mm": [
+        [
+          152.67355899999998,
+          150.17355899999998
+        ],
+        [
+          172.32144100000002,
+          169.82144100000002
+        ]
+      ],
+      "support_roads": 0,
+      "support_summary": {
+        "support_bodies": 0,
+        "interface_islands": 0,
+        "bed_rooted_bodies": 0,
+        "model_rooted_bodies": 0,
+        "shortest_build_up_mm": null,
+        "bodies_without_interface_labels": 0,
+        "explicit_interface_islands": 0,
+        "shortest_labelled_build_up_mm": null
+      },
+      "support_audit": {
+        "path": ".cache/combined-finish/handoffs/foam-cap/prepared-print/2026-11-01-reservoir-b-fill-guide-mark2-fc1e9a78/support-audit-1901.json",
+        "sha256": "f28238103f62b898811c2f3beea531118ca1a968f424da99ee54c0182c1f35fd"
+      },
+      "solid_host_deposition": [],
+      "slicer_warnings": [],
+      "submitted": false,
+      "review_artifact_sha256": {
+        "review.json": "cfc40a8954a766e5a43088e0ed7f0355a9284f92ffe7b74cad44e23521d48493",
+        "project-check.json": "6b526c89dee6787260ae372b2c5dc6788d6ef3dd23ec8a9609a546052fa9c73f",
+        "support-audit-1901.json": "f28238103f62b898811c2f3beea531118ca1a968f424da99ee54c0182c1f35fd",
+        "slice-command.json": "6479b82bb2d6e438ba6960b6e74cc8384b4fc7c38acdc12fcae1b70cc8cd1af4",
+        "slice-result.json": "0163752147ead621f52a0a1606f39008ee4f7befa74c19d024b572f7a13c5e77"
+      }
+    },
+    "pump-snap-cap": {
+      "physical_stl": "hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.stl",
+      "physical_stl_sha256": "64f7e408e6a09e5cf650a452c4da5eb2006b12712581e6816fc5f766e7ae89d9",
+      "step_sha256": "64b881c3dbc9b4d3d81f153445373364daf6f735cdacf6eb51738e742383eb84",
+      "captured_meshes": {
+        ".stl": {
+          "path": ".cache/combined-finish/handoffs/foam-cap/candidate-meshes/pump-snap-cap.stl",
+          "sha256": "64f7e408e6a09e5cf650a452c4da5eb2006b12712581e6816fc5f766e7ae89d9"
+        },
+        ".step": {
+          "path": ".cache/combined-finish/handoffs/foam-cap/candidate-meshes/pump-snap-cap.step",
+          "sha256": "64b881c3dbc9b4d3d81f153445373364daf6f735cdacf6eb51738e742383eb84"
+        }
+      },
+      "preparation_directory": ".cache/combined-finish/handoffs/foam-cap/prepared-print/2026-11-01-pump-snap-cap-mark2-2ce34395",
+      "preparation_sha256": "479cd8b3149f1f4d0a67d77abfd9d6c2b402ea762d822e25e59e2704b0b6ebac",
+      "audited_preparation_input": {
+        "path": ".cache/combined-finish/handoffs/foam-cap/prepared-print/2026-11-01-pump-snap-cap-mark2-2ce34395/preparation.json",
+        "sha256": "479cd8b3149f1f4d0a67d77abfd9d6c2b402ea762d822e25e59e2704b0b6ebac"
+      },
+      "project": ".cache/combined-finish/handoffs/foam-cap/prepared-print/2026-11-01-pump-snap-cap-mark2-2ce34395/2026-11-01-pump-snap-cap-mark2-2ce34395.3mf",
+      "project_sha256": "cd374af619fa0118007eb20f365ad370cb7dbd88875691777b235859394fcfae",
+      "archive": ".cache/combined-finish/handoffs/foam-cap/prepared-print/2026-11-01-pump-snap-cap-mark2-2ce34395/2026-11-01-pump-snap-cap-mark2-2ce34395.gcode.3mf",
+      "archive_sha256": "0c181e1aa7f2aa1ecb5a8034b585a2aa9ff858dc5af6662e19ef37b8a4d7c32e",
+      "gcode_sha256": "2c9208642e528d94eac5669165df744c35d07d021adca7226d819b8da1e5f511",
+      "printer": "Mark2",
+      "nozzle": {
+        "side": "left",
+        "diameter_mm": 0.4,
+        "flow": "Standard",
+        "hardened": true,
+        "reason": "Every abrasive stock runs on the left hotend (hardware/ledger/tools.md, Which hotends fit an H2C). Mark2's 2026-10-24 jobs ran black PET-GF on its fixed left hardened 0.4 mm Standard-flow hotend (faucet/industrial/prints/2026-10-24-buttons-sculpted-bands020-mark2/README.md, task 1372253517).",
+        "sliced_diameter_mm": 0.4,
+        "sliced_volume_type": "Standard"
+      },
+      "material": "Polymaker Fiberon PET-GF15, black",
+      "bed_type": "Textured PEI Plate",
+      "profile": "hardware/printed-parts/petgf.3mf",
+      "profile_sha256": "45c16e8c8517e0a205107d7b9f7412d013f51a8de7ecf86125cc940079d37ed0",
+      "settings_sha256": "8812d2d1af151f821740c7b87eafe8683f0cc5fc1f750c32e324c2fa901a8949",
+      "recipe_values": {
+        "initial_layer_print_height": "0.2",
+        "layer_height": "0.24",
+        "wall_loops": "3",
+        "wall_generator": "classic",
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag",
+        "enable_support": "1",
+        "support_type": "tree(auto)",
+        "support_style": "default",
+        "raft_first_layer_expansion": "-1",
+        "support_object_xy_distance": "0.4",
+        "support_top_z_distance": "0.45",
+        "support_bottom_z_distance": "0.3",
+        "fan_min_speed": [
+          "0"
+        ],
+        "fan_max_speed": [
+          "0"
+        ],
+        "overhang_fan_speed": [
+          "70"
+        ],
+        "overhang_fan_threshold": [
+          "50%"
+        ],
+        "additional_cooling_fan_speed": [
+          "0"
+        ]
+      },
+      "requested_z_trim_mm": 0.04,
+      "emitted_textured_trim_mm": 0.02,
+      "build_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "yaw_degrees": 0,
+      "source_center_mm": [
+        0.0,
+        0.0,
+        27.25
+      ],
+      "translation_mm": [
+        162.5,
+        160.0,
+        27.25
+      ],
+      "plate_bounds_mm": [
+        [
+          127.17081832885742,
+          143.09524726867676,
+          0.0
+        ],
+        [
+          197.82918167114258,
+          176.90475273132324,
+          54.5
+        ]
+      ],
+      "model_bed_margin_mm": 127.17081832885742,
+      "modifier_count": 0,
+      "tie_windows": [],
+      "native_reference": {
+        "captured_directory": ".cache/combined-finish/handoffs/foam-cap/native-print/pump-snap-cap",
+        "physical_stl_sha256": "711ff10ac4a9cd04b003cde0b84ca143b3da28e02656e5d30324a7966fceee55",
+        "current_step_sha256": "55743e58f003430b1b1d0b4964012e4c0c96190fc275c78b50021dded6b9e702",
+        "sliced_step_sha256": "e3712f238243bd862e3e429b32d520b253c59624b567d5112f2ba20f895ff800",
+        "preparation_sha256": "1a48a0e255ea801410100ffbfc22170a9018f73229321b46f8f6305c40d3cf4e",
+        "project_sha256": "8753a51ec9f89cbc2b428054c99552f165222ddc9e336cb2dabdf02d78075766",
+        "archive_sha256": "8b184bff4832bb51cedacde9e7fe88bb864df0d95e2f66e5c7760536acf28369",
+        "gcode_sha256": "170ee1b417ba5175c8d7b66f6909360199852fcfd601dcdc8f23b4908e0323d9"
+      },
+      "comparison": {
+        "embedded_settings_exact": true,
+        "modifier_records_exact": true,
+        "extra_part_geometry_and_metadata_exact": true,
+        "tie_window_records_exact": true,
+        "pose_maximum_numeric_deltas_mm": {
+          "source_center_mm": 3.467448550509289e-12,
+          "translation_mm": 3.467448550509289e-12,
+          "plate_bounds_mm": 6.934897101018578e-12
+        },
+        "support_bodies": {
+          "native": 0,
+          "kernel": 0
+        },
+        "interface_islands": {
+          "native": 0,
+          "kernel": 0
+        },
+        "minimum_bed_margin_mm": {
+          "native": 127.002318,
+          "kernel": 127.002318
+        },
+        "minimum_sampled_solid_region_coverage": {
+          "native": null,
+          "kernel": null
+        },
+        "first_second_layer_stack": {
+          "native": {
+            "1901": {
+              "second_layer_model_bead_area_mm2": 331.20804923526225,
+              "fraction_over_first_layer": 0.8954488228459498,
+              "second_layer_centerline_outside_first_mm": 3.400638737835626
+            }
+          },
+          "kernel": {
+            "1901": {
+              "second_layer_model_bead_area_mm2": 331.2333936595806,
+              "fraction_over_first_layer": 0.8954387380366245,
+              "second_layer_centerline_outside_first_mm": 3.3466685679754846
+            }
+          }
+        },
+        "estimated_print_seconds": {
+          "native": 2397.1689453125,
+          "kernel": 2393.533447265625
+        }
+      },
+      "project_check": {
+        "project_sha256_matches": true,
+        "objects": [
+          {
+            "name": "pump-snap-cap",
+            "vertices": 288,
+            "source_sha256_matches": true,
+            "embedded_vertex_error_mm": 4.962158186572196e-07,
+            "source_comparison": "source vertices in order",
+            "seam_painted_facets": 0,
+            "placed_bounds_mm": [
+              [
+                127.170818,
+                143.095247,
+                0.0
+              ],
+              [
+                197.829182,
+                176.904753,
+                54.5
+              ]
+            ],
+            "bed_contact_z_mm": 0.0,
+            "blocked_facets": 0,
+            "partially_painted_facets": 0,
+            "parts": {
+              "normal_part": 1
+            },
+            "layer_ranges": [],
+            "ribbon_and_fin_parts": 0,
+            "modifiers_expected": 0
+          }
+        ],
+        "z_trim_block": [
+          "+0.0",
+          "0.04 - 0.01",
+          "0.04 - 0.02",
+          "0.04 + 0.01",
+          "0.04"
+        ],
+        "cooling": {
+          "fan_min_speed": [
+            "0"
+          ],
+          "fan_max_speed": [
+            "0"
+          ],
+          "overhang_fan_speed": [
+            "70"
+          ],
+          "overhang_fan_threshold": [
+            "50%"
+          ],
+          "additional_cooling_fan_speed": [
+            "0"
+          ]
+        },
+        "support": {
+          "support_type": "tree(auto)",
+          "support_style": "default",
+          "support_object_xy_distance": "0.4",
+          "max_bridge_length": "0",
+          "tree_support_branch_diameter": "2",
+          "tree_support_branch_diameter_angle": "5",
+          "brim_type": "auto_brim"
+        },
+        "problems": [],
+        "pass": true
+      },
+      "layers": 227,
+      "checks": {
+        "archive": true,
+        "z_trim": true,
+        "bed_border": true,
+        "fine_and_transition_bands": true,
+        "show_faces_support_free": true,
+        "tie_windows_support_free": true,
+        "ribbons_support_free_and_printed": true,
+        "solid_hosts_sampled": true
+      },
+      "pass": true,
+      "minimum_bed_margin_mm": 127.002318,
+      "bed_border_mm": 80.0,
+      "bead_envelope_plate_mm": [
+        [
+          127.002318,
+          142.926318
+        ],
+        [
+          197.997682,
+          177.073682
+        ]
+      ],
+      "support_roads": 0,
+      "support_summary": {
+        "support_bodies": 0,
+        "interface_islands": 0,
+        "bed_rooted_bodies": 0,
+        "model_rooted_bodies": 0,
+        "shortest_build_up_mm": null,
+        "bodies_without_interface_labels": 0,
+        "explicit_interface_islands": 0,
+        "shortest_labelled_build_up_mm": null
+      },
+      "support_audit": {
+        "path": ".cache/combined-finish/handoffs/foam-cap/prepared-print/2026-11-01-pump-snap-cap-mark2-2ce34395/support-audit-1901.json",
+        "sha256": "5a29794309aeee55cd8c966f4939ba8e2ded35369a6c47e9eed667d251e6cc1a"
+      },
+      "solid_host_deposition": [],
+      "slicer_warnings": [],
+      "submitted": false,
+      "review_artifact_sha256": {
+        "review.json": "16a240662da42b07cc7a6698fb88ec25acad575811d7d09636c9b4296df0b7dd",
+        "project-check.json": "1ecf960e9f5fc10107cff2e3ed3f7045c9bb26d713f968603984f8641cd4bfa2",
+        "support-audit-1901.json": "5a29794309aeee55cd8c966f4939ba8e2ded35369a6c47e9eed667d251e6cc1a",
+        "slice-command.json": "bd27e8744f3829888b545fa144fcb29c03825fd265def8ac962a54e37c787994",
+        "slice-result.json": "6d94692ed6fe83e0ba950520638321cfe876b93bc8a56e9c92f30c2b9af6874b"
+      }
+    }
+  },
+  "reports": {
+    "native-print-inventory.json": {
+      "path": ".cache/combined-finish/handoffs/foam-cap/native-print-inventory.json",
+      "sha256": "549132e8b514716106570a4dcb3f33c25505a0d3d3d665b342c1dcaf29927f06"
+    },
+    "native-print-capture.json": {
+      "path": ".cache/combined-finish/handoffs/foam-cap/native-print-capture.json",
+      "sha256": "c9174a4882b6491a35050beef2d3adbd4a4b076aa511113155c085d997ff134d"
+    },
+    "candidate-print-recipe-audit.json": {
+      "path": ".cache/combined-finish/handoffs/foam-cap/candidate-print-recipe-audit.json",
+      "sha256": "36307229db596255c01e8acf9f64d1ceb7d6dfd5b47c33713f0a01039e8df5cb"
+    }
+  },
+  "m5_driver_reading": {
+    "record": ".cache/combined-finish/handoffs/foam-cap/m5-candidate-driver-review.json",
+    "sha256": "ffab8f0a520819879ab583db2f667b35f182b4a66a7e8a3446d93d93cc2889f7",
+    "reading": {
+      "schema": "cold-core-m5-lid-driver-candidate-review/1",
+      "scope": "Straight 2.4 mm radius, 80 mm long driver envelopes above the 7.4 mm lid face at all ten M5 closure axes, measured against the current printed lid and integral pump clip. Separate equipment and a purchased tool are outside this measurement.",
+      "candidate_stl": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/port-foam-cap/worktree/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl",
+      "candidate_stl_sha256": "6eed3264fdcdbdf92385851ee30f38a0c07033c6f1ed3a3ad2bf2ea6338ca404",
+      "reference_review": "hardware/printed-parts/cold-core/foam-cap/m5-lid-driver-review.json",
+      "reference_review_sha256": "dbedb6d9006f26cd261bc3aa4b8697598cd79254878791da098cf9db75cdae01",
+      "reference_physical_stl_sha256": "f24c17a1834784b3917672483c3b8e0a14350479e96793998dbe024a38da5275",
+      "input_packet": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/port-foam-cap/proof/print-binding-inputs.json",
+      "input_packet_sha256": "8eaf25a16155d1f5ebc8fd739f130e8a77d7699c5fe7a7c1529024f59742077e",
+      "watertight": true,
+      "connected_components": 1,
+      "manifold_status": "Error.NoError",
+      "lid_native_top_face_z_mm": 7.4,
+      "driver_native_start_z_mm": 7.4001,
+      "driver_radius_mm": 2.4,
+      "driver_height_mm": 80.0,
+      "cylinder_segments": 64,
+      "method": "Solid intersections against the source STL in the native lid frame.",
+      "rows": [
+        {
+          "station": 1,
+          "lid_native_xy_mm": [
+            135.4,
+            60
+          ],
+          "appliance_xy_mm": [
+            60,
+            188.4
+          ],
+          "overlap_mm3": 0.0
+        },
+        {
+          "station": 2,
+          "lid_native_xy_mm": [
+            135.4,
+            0
+          ],
+          "appliance_xy_mm": [
+            0,
+            188.4
+          ],
+          "overlap_mm3": 0.0
+        },
+        {
+          "station": 3,
+          "lid_native_xy_mm": [
+            135.4,
+            -60
+          ],
+          "appliance_xy_mm": [
+            -60,
+            188.4
+          ],
+          "overlap_mm3": 0.0
+        },
+        {
+          "station": 4,
+          "lid_native_xy_mm": [
+            -135.4,
+            60
+          ],
+          "appliance_xy_mm": [
+            60,
+            459.2
+          ],
+          "overlap_mm3": 0.0
+        },
+        {
+          "station": 5,
+          "lid_native_xy_mm": [
+            -135.4,
+            0
+          ],
+          "appliance_xy_mm": [
+            0,
+            459.2
+          ],
+          "overlap_mm3": 0.0
+        },
+        {
+          "station": 6,
+          "lid_native_xy_mm": [
+            -135.4,
+            -60
+          ],
+          "appliance_xy_mm": [
+            -60,
+            459.2
+          ],
+          "overlap_mm3": 0.0
+        },
+        {
+          "station": 7,
+          "lid_native_xy_mm": [
+            -45,
+            84.4
+          ],
+          "appliance_xy_mm": [
+            84.4,
+            368.8
+          ],
+          "overlap_mm3": 0.0
+        },
+        {
+          "station": 8,
+          "lid_native_xy_mm": [
+            -45,
+            -84.4
+          ],
+          "appliance_xy_mm": [
+            -84.4,
+            368.8
+          ],
+          "overlap_mm3": 0.0
+        },
+        {
+          "station": 9,
+          "lid_native_xy_mm": [
+            -110,
+            84.4
+          ],
+          "appliance_xy_mm": [
+            84.4,
+            433.8
+          ],
+          "overlap_mm3": 0.0
+        },
+        {
+          "station": 10,
+          "lid_native_xy_mm": [
+            -110,
+            -84.4
+          ],
+          "appliance_xy_mm": [
+            -84.4,
+            433.8
+          ],
+          "overlap_mm3": 0.0
+        }
+      ],
+      "collisions": [],
+      "pass": true
+    }
+  },
+  "preparation_context": {
+    "source_root": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/worktrees/cold-core-cap-print-binding",
+    "spec": "hardware/printed-parts/enclosure/trial-preparation/pieces.json",
+    "spec_sha256": "2eb222aeacc4f06c9225ef70ef51bfa069c83b96507016f567ab2888a5cb517d",
+    "tool_sha256": {
+      "hardware/printed-parts/enclosure/trial-preparation/_derive.py": "1a3469b8f1a2a0cbfb29ffe07e7c709bb985373f2ebfa417eb9bff70e69be8be",
+      "hardware/printed-parts/enclosure/trial-preparation/_mesh.py": "7ab22db36e370608f52df3709c4af1994c8e804ee06e101dcbf79210db99eead",
+      "hardware/printed-parts/enclosure/trial-preparation/_native.py": "1c99ce10842a141a942a19d7def2329512d14b676c00618496187e0d93cd29da",
+      "hardware/printed-parts/enclosure/trial-preparation/_seam.py": "9ffa509df701826563e18388fd3bcc57c604f4b2b8e5e4288821ddcd00bcb176",
+      "hardware/printed-parts/enclosure/trial-preparation/labels.py": "b7eab37bf384b7d47e3ee7c0eed2afbf2451200ca5b0ee42c2eb47ec43fce783",
+      "hardware/printed-parts/enclosure/trial-preparation/prepare.py": "bc5495142592e777cb1b94eb2cfe06e64ba15ee6bae94f3e95e62a556741b513",
+      "hardware/printed-parts/enclosure/trial-preparation/review.py": "9bd303fe370842fd34eb559dc5f53f887f75c42e478c598737397dd49dd539f7",
+      "hardware/printed-parts/enclosure/trial-preparation/step_meshes.py": "b50f7b50f52f1e8516be3b1fc9ecdb10e87fb188f8b9bebc0fac56737320fc44"
+    }
+  },
+  "all_four_slices_pass": true,
+  "native_physical_print_and_driver_records_retained": true
+}

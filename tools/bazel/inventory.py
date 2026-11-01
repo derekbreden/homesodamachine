@@ -333,8 +333,7 @@ _FLUTE_ROOTS = {
     "hardware/scripts/flute_payload_enclosure.py": (
         "hardware/printed-parts/enclosure/enclosure/",),
     "hardware/scripts/flute_payload_cold_core.py": (
-        "hardware/printed-parts/cold-core/foam-cap/",
-        "hardware/printed-parts/cold-core/foam-shell/"),
+        "hardware/printed-parts/cold-core/foam-shell/",),
     "hardware/scripts/flute_payload_faucet.py": (
         "hardware/printed-parts/faucet/faucet-shell/",
         "hardware/printed-parts/faucet/faucet-display-cover/",
@@ -342,7 +341,9 @@ _FLUTE_ROOTS = {
         "hardware/printed-parts/faucet/above-counter-gasket/",
         "hardware/printed-parts/faucet/asse-vent-seals/"),
 }
-_FLUTE_TREES = tuple(sorted(r for roots in _FLUTE_ROOTS.values() for r in roots))
+# Generator-owned cap surfaces remain outside every wrapper's shared inputs.
+_FLUTE_TREES = tuple(sorted({r for roots in _FLUTE_ROOTS.values() for r in roots}
+                           | {"hardware/printed-parts/cold-core/foam-cap/"}))
 
 
 def _one_tree(roots: tuple) -> tuple:
