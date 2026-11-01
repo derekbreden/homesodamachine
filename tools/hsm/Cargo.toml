@@ -1,5 +1,5 @@
 [workspace]
-members = ["geometry", "engine", "kernel", "render", "refrigeration", "cold-core", "faucet", "funnel", "run-slots", "machine", "enclosure-components", "enclosure-shell"]
+members = ["geometry", "engine", "kernel", "render", "refrigeration", "cold-core", "faucet", "funnel", "run-slots", "machine", "enclosure-components", "enclosure-shell", "tooling"]
 resolver = "2"
 exclude = ["vendor/manifold-csg-sys"]
 
