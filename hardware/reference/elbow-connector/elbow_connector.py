@@ -2,8 +2,9 @@
 
 `elbow-connector.step` is a harvested solid standing in for the John Guest PP0308E
 (`README.md`): there is no builder here, and every number below was measured off that file.
-`stations_hold` reads them back off it, so a measurement and the metal it was taken from cannot
-part. The machine places the scanned PP0308E (`reference/jg-pp0308e-elbow`), not this stand-in.
+`native-measurements.json` binds the native readings to that STEP by SHA-256.
+`stations_hold` compares the interface figures with those recorded readings. The machine
+places the scanned PP0308E (`reference/jg-pp0308e-elbow`), not this stand-in.
 
 Coordinate frame
 ----------------
@@ -20,18 +21,14 @@ funnel's drain turns this way: its PP0308E stands in a cradle under the funnel f
 stub in its +Z collet and `fluid-4` leaving aft off its +Y one.
 """
 
+import json
 import sys
 from pathlib import Path
 
-import cadquery as cq
-
 _here = Path(__file__).resolve()
-_hw = next(p for p in _here.parents if p.name == "hardware")
-sys.path.insert(0, str(_hw / "scripts"))
-from _measuring import collet_offsets
-from _cadq_export import import_step
 
 STEP = _here.parent / "elbow-connector.step"
+MEASUREMENTS = _here.parent / "native-measurements.json"
 
 # --- Measured off the STEP ------------------------------------------------
 LEG = 19.558           # bend corner to a collet face, the same on both legs
@@ -70,62 +67,48 @@ def reach() -> float:
     return LEG
 
 
-def _bottoms_at(solid, leg: str) -> float:
-    """How far a 1/4" tube runs into one leg before it meets metal — the socket's own depth,
-    bisected off the solid rather than stated twice."""
-    axis = LEGS[leg]
-    lo, hi = 0.0, LEG
-    for _ in range(48):
-        mid = (lo + hi) / 2.0
-        base = tuple(a * (LEG - mid) for a in axis)
-        rod = cq.Solid.makeCylinder(TUBE_D / 2.0, mid + 1.0, cq.Vector(*base),
-                                    cq.Vector(*axis))
-        if rod.intersect(solid).Volume() > 1e-9:
-            hi = mid
-        else:
-            lo = mid
-    return lo
+def _collet_offsets(readings, axis, bore_r, tol=1e-4):
+    for bore in readings["bores"]:
+        if bore["axis"] == axis and abs(bore["radius_mm"] - bore_r) <= tol:
+            return sorted(tuple(centre) for centre in bore["centres_mm"])
+    raise ValueError(
+        f"no bore of r={bore_r:g} running along {axis} — the solid carries "
+        f"{sorted({(b['axis'], b['radius_mm']) for b in readings['bores']})}")
 
 
 def stations_hold():
-    """Hold the figures above to `elbow-connector.step`.
+    """Compare the interface figures with the recorded native STEP readings.
 
     Four of them are extents of the solid's own box, and each leg is also a 1/4" bore standing
     on the body's own centreline — which is what says the two axes cross at this origin and not
     merely near it. `INSERTION` is the fifth and is not an extent at all: it is where a tube
     pushed into a leg meets the stop, bisected off the metal. The funnel's drain stub is cut to
     John Guest's data-sheet stop instead (`reference/funnel-drain-stub`)."""
-    solid = import_step(str(STEP)).val()
-    bb = solid.BoundingBox()
+    readings = json.loads(MEASUREMENTS.read_text())
+    bounds = readings["bounds_mm"]
     for leg in LEGS:
-        got = _bottoms_at(solid, leg)
+        got = readings["socket_depths_mm"][leg]
         if abs(got - INSERTION) > MEASURE_TOL:
             raise ValueError(
                 f"elbow-connector INSERTION is {INSERTION:g} and the +{leg.upper()} leg's socket "
                 f"bottoms a 1/4\" tube at {got:.4f} — {abs(got - INSERTION):.4f} mm apart, over "
                 f"the {MEASURE_TOL:g} mm this file rounds to. Every stub cut to this figure is "
                 f"cut to a socket that is not there.")
-    for name, claimed, actual in (("LEG on +Y", LEG, bb.ymax), ("LEG on +Z", LEG, bb.zmax),
-                                  ("HALF_W", HALF_W, bb.xmax), ("BACK off +Y", -BACK, bb.ymin),
-                                  ("BACK off +Z", -BACK, bb.zmin)):
+    for name, claimed, actual in (
+            ("LEG on +Y", LEG, bounds["ymax"]), ("LEG on +Z", LEG, bounds["zmax"]),
+            ("HALF_W", HALF_W, bounds["xmax"]), ("BACK off +Y", -BACK, bounds["ymin"]),
+            ("BACK off +Z", -BACK, bounds["zmin"])):
         if abs(actual - claimed) > MEASURE_TOL:
             raise ValueError(
                 f"elbow-connector {name} is {claimed:g} and the STEP's own is {actual:.4f} — "
                 f"{abs(actual - claimed):.4f} mm apart, over the {MEASURE_TOL:g} mm this file "
                 f"rounds to. Every leg placed off {name} closes on tube that is not there.")
     for axis, what in (("y", "+Y leg"), ("z", "+Z leg")):
-        seen = collet_offsets(solid, axis, TUBE_D / 2.0)
+        seen = _collet_offsets(readings, axis, TUBE_D / 2.0)
         if seen != [(0.0, 0.0)]:
             raise ValueError(
                 f"the elbow's {what} bore runs at {seen} and not on the body's own centreline — "
                 f"the stations here both stand on the corner, so a port is off its own axis.")
-
-
-def build_elbow_connector():
-    """The harvested solid, wrapped in a `cq.Workplane` the way every builder here hands one
-    back. Nothing is drawn: the file IS the part, and `stations_hold` is what says the figures
-    above describe it."""
-    return cq.Workplane(obj=import_step(str(STEP)).val())
 
 
 # --- controls -------------------------------------------------------------
