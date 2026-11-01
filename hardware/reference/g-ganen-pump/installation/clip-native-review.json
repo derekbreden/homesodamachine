@@ -483,5 +483,99 @@
     "material": "PET-GF",
     "estimated_kg": 0.026203181400099536,
     "estimated_cost": 0.6556035986304903
+  },
+  "post_publication_surface_review": {
+    "publication_commit": "6edd15606f8b00de8f4d4d7a016277e612e7387b",
+    "physical_stl_sha256": "711ff10ac4a9cd04b003cde0b84ca143b3da28e02656e5d30324a7966fceee55",
+    "reader": "hardware/scripts/geometry_lint.py",
+    "reader_sha256": "bb7b1fa42e8d2985671eb2ebce6610074e65b6e2a22e5f014e498885ebfb030d",
+    "log_sha256": "56fdd8078fe408fd20ec5053a2284c7ade7559fdc8405a59f63903b72625af02",
+    "classes_read": [
+      "step",
+      "bump",
+      "sliver",
+      "ceiling",
+      "slope",
+      "thin",
+      "ledge"
+    ],
+    "answers_path": "hardware/printed-parts/lint-answers/cold-core/foam-cap/pump-snap-cap.lint-answers",
+    "answers_sha256": "64ad11d4d9876d4f1de1fc7827dd8e4d7c1c5d0c9ed8af20397c401300e4dfcb",
+    "answer_entries": [
+      {
+        "class": "sliver",
+        "reason": "Functional snap-hook catch faces and 45\u00b0 entry bevels on the two 3 mm high hooks. Each catch face projects 0.85 mm: the required 0.6 mm engagement plus 0.25 mm running clearance. Its diagonal entry face is 1.202 mm wide. Those are the dimensions of the working catch profile, rather than 0.85 mm or 1.202 mm wall sections; the spring wings are 3 mm thick. The full 54.5 mm extrusion prints axially with no supports or interrupted wings.",
+        "alternatives": "A 1.6 mm catch projection requires another 0.75 mm of spring deflection and deeper receiving pockets, changing the snap's assembly force and engagement. Removing the flats removes the catch bearing. Rounding the entry face still requires the flat retention bearing beneath it.",
+        "clicks": [
+          "x=-31.904 y=13.905 z=27.250",
+          "x=31.904 y=13.905 z=27.250",
+          "x=31.904 y=16.480 z=27.250",
+          "x=-31.904 y=16.480 z=27.250"
+        ]
+      },
+      {
+        "class": "thin",
+        "reason": "The continuous working spring arch is nominally 2.4 mm between the 3 mm wings. Its exported minimum is 2.322 mm: the fitted motor bore follows the measured barrel axis while the outside profile stays straight. This is the named flexure, with three Classic loops and 100% solid infill in the actual support-free slice. The native fit clears the motor and mating lid; physical snap force and vibration life are not established by that reading.",
+        "alternatives": "A 3 mm outer arch adds 0.6 mm above the present crown, exceeding the measured 0.311 mm PSU gap at this placement. Growing into the motor bore consumes its 0.15 mm static fit allowance. A thicker arch also changes the spring's stiffness; the selected working section retains the fitted motor envelope and available PSU room.",
+        "clicks": [
+          "x=-0.351 y=-16.900 z=2.147",
+          "x=-0.332 y=-14.578 z=2.140"
+        ]
+      }
+    ],
+    "findings": [
+      {
+        "class": "sliver",
+        "reading": "0.850 mm strip, 54.5 mm long",
+        "clicks": [
+          "x=-31.904 y=13.905 z=27.250"
+        ],
+        "answer_indices": [
+          0
+        ]
+      },
+      {
+        "class": "sliver",
+        "reading": "0.850 mm strip, 54.5 mm long",
+        "clicks": [
+          "x=31.904 y=13.905 z=27.250"
+        ],
+        "answer_indices": [
+          0
+        ]
+      },
+      {
+        "class": "sliver",
+        "reading": "1.202 mm strip, 54.5 mm long",
+        "clicks": [
+          "x=31.904 y=16.480 z=27.250"
+        ],
+        "answer_indices": [
+          0
+        ]
+      },
+      {
+        "class": "sliver",
+        "reading": "1.202 mm strip, 54.5 mm long",
+        "clicks": [
+          "x=-31.904 y=16.480 z=27.250"
+        ],
+        "answer_indices": [
+          0
+        ]
+      },
+      {
+        "class": "thin",
+        "reading": "2.322 mm of material at its thinnest \u00b7 5246.4 mm\u00b2 of surface under 2.5 mm \u00b7 spans 45.7 \u00d7 13.7 \u00d7 52.0 mm \u00b7 in 13 pieces",
+        "clicks": [
+          "x=-0.351 y=-16.900 z=2.147",
+          "x=-0.332 y=-14.578 z=2.140"
+        ],
+        "answer_indices": [
+          1
+        ]
+      }
+    ],
+    "unreviewed": []
   }
 }
