@@ -29,6 +29,8 @@ struct Material {
   color: vec4<f32>,
   // roughness, metalness, line width in pixels, back-face darkening
   params: vec4<f32>,
+  // clearcoat, clearcoat roughness
+  coat: vec4<f32>,
   // x: flag bits below
   flags: vec4<u32>,
 }
@@ -37,6 +39,14 @@ const UNLIT: u32 = 1u;
 const FRONT_ONLY: u32 = 2u;
 const BACK_ONLY: u32 = 4u;
 const NO_FOG: u32 = 8u;
+const VERTEX_COLOR: u32 = 16u;
+const NO_TONE_MAP: u32 = 32u;
+const TEXTURE: u32 = 64u;
+
+struct VertexAux {
+  color: vec4<f32>,
+  uv: vec4<f32>,
+}
 
 struct Segment {
   a: vec3<f32>,
@@ -53,6 +63,9 @@ struct Segment {
 @group(0) @binding(5) var<storage, read> segments: array<Segment>;
 @group(0) @binding(6) var<storage, read> edge_slot: array<u32>;
 @group(0) @binding(7) var shadow_map: texture_2d<f32>;
+@group(0) @binding(8) var<storage, read> vertex_aux: array<VertexAux>;
+@group(1) @binding(0) var surface_image: texture_2d<f32>;
+@group(1) @binding(1) var surface_sampler: sampler;
 
 const PI: f32 = 3.141592653589793;
 

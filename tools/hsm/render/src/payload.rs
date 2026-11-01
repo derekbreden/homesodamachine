@@ -21,6 +21,8 @@ struct Entry {
     nrm: [usize; 2],
     idx: [usize; 2],
     fac: [usize; 2],
+    col: Option<[usize; 2]>,
+    uv: Option<[usize; 2]>,
 }
 
 pub struct RawMesh {
@@ -29,6 +31,8 @@ pub struct RawMesh {
     pub color: Option<[f64; 3]>,
     pub positions: Vec<[f32; 3]>,
     pub normals: Vec<[f32; 3]>,
+    pub colors: Option<Vec<[f32; 3]>>,
+    pub uv: Option<Vec<[f32; 2]>>,
     pub indices: Vec<u32>,
     /// Inclusive triangle ranges, one per B-rep face.
     pub faces: Vec<[u32; 2]>,
@@ -91,6 +95,15 @@ pub fn decode(bytes: &[u8]) -> Result<Vec<RawMesh>> {
                 e.name
             );
             let normals = triples(words(blob, e.nrm)?);
+            let colors = e.col.map(|range| -> Result<_> {
+                ensure!(range[1] == e.pos[1], "invalid vertex colours in mesh {i} ({})", e.name);
+                Ok(triples(words(blob, range)?))
+            }).transpose()?;
+            let uv = e.uv.map(|range| -> Result<_> {
+                ensure!(range[1] == positions.len() * 2, "invalid UVs in mesh {i} ({})", e.name);
+                let flat: Vec<f32> = f32s(words(blob, range)?).collect();
+                Ok(flat.chunks_exact(2).map(|p| [p[0], p[1]]).collect())
+            }).transpose()?;
             let indices: Vec<u32> = u32s(words(blob, e.idx)?).collect();
             ensure!(
                 indices.iter().all(|&n| (n as usize) < positions.len()),
@@ -104,6 +117,8 @@ pub fn decode(bytes: &[u8]) -> Result<Vec<RawMesh>> {
                 color: e.color,
                 positions,
                 normals,
+                colors,
+                uv,
                 indices,
                 faces,
             })
