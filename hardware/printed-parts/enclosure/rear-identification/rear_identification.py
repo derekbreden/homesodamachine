@@ -9,8 +9,6 @@ import functools
 import sys
 from pathlib import Path
 
-import cadquery as cq
-
 HERE = Path(__file__).resolve().parent
 HW = next(p for p in HERE.parents if p.name == 'hardware')
 sys.path[:0] = [str(HW / 'scripts'), str(HW / 'manifold-layout'),
@@ -20,6 +18,12 @@ sys.path[:0] = [str(HW / 'scripts'), str(HW / 'manifold-layout'),
                str(HERE.parent / 'nameplate'),
                str(HERE.parent / 'y-wall-of-back-top')]
 
+if __name__ == '__main__':
+    import _rust_part
+    _rust_part.start()
+
+import cadquery as cq
+
 import above_core
 import bulkhead_ring as original
 import port_chip
@@ -28,11 +32,11 @@ import _y_wall_dimensions as colours
 import nameplate
 from _cadq_export import export_assembly, import_step
 from _materials import step_safe
-from print_mesh import write_print_stl
 
 WIDTH = port_chip.WIDTH
 THICK = 1.8
 WORD_SIZE = 4.6
+WORD_EM = 5.0
 WORD_DEPTH = original.WORD_DEPTH
 WORD_RAISE = original.WORD_RAISE
 # Keep the short upper-row words above the water and soda fitting flanges
@@ -92,7 +96,7 @@ def _top(which):
 
 @functools.cache
 def word(which):
-    flat = cq.Workplane('XY').text(original.STATIONS[which].word,5.,
+    flat = cq.Workplane('XY').text(original.STATIONS[which].word,WORD_EM,
         WORD_DEPTH+WORD_RAISE,font=original.WORD_FONT,kind=original.WORD_KIND,
         halign='center',valign='center')
     letters = flat.rotate((0,0,0),(1,0,0),90.).rotate((0,0,0),(0,0,1),180.).val()
@@ -121,15 +125,22 @@ def parts():
     rows = []
     for station in stations():
         which = station['which']
+        if getattr(cq, 'MESH', False):
+            body, letters = original.split(import_step(str(HERE / f'rear-label-{which}.step')).val())
+        else:
+            body, letters = chip(which), word(which)
         shift = (station['center_x_mm'], station['floor_y_mm'],
                  station['center_z_mm'])
         fluid = original.FLUIDS[which]
-        rows.extend(((f'bulkhead-ring-{which}', chip(which).translate(shift),
+        rows.extend(((f'bulkhead-ring-{which}', body.translate(shift),
                       _colour(colours.chip_color(fluid))),
-                     (f'bulkhead-ring-{which}-word', word(which).translate(shift),
+                     (f'bulkhead-ring-{which}-word', letters.translate(shift),
                       _colour(colours.word_color(fluid)))))
     plan = nameplate_plan()
-    body, ink = nameplate.split(import_step(str(nameplate.step_path(1))).val())
+    if getattr(cq, 'MESH', False):
+        body, ink = nameplate.split(import_step(str(nameplate.step_path(1))).val())
+    else:
+        body, ink = nameplate.build_plate(1), nameplate.build_ink(1)
     shift = (plan['center_x_mm'], plan['face_y_mm']-nameplate.THICK,
              plan['center_z_mm'])
     rows.extend((('nameplate', body.translate(shift),
@@ -209,20 +220,42 @@ def plain_lands():
         nameplate_station(), nameplate_plan()['face_y_mm']) + (field_land(),) + rail_bounds()
 
 
-def main():
+def numbers():
+    """The sliding tiles' native fitting-frame dimensions and filament colours."""
+    from _materials import linear
+    spec = above_core.specification()
+    rows = []
     for which in STATIONS.values():
+        row = _station(which)
         fluid = original.FLUIDS[which]
-        name = f'rear-label-{which}'
-        assembly = cq.Assembly(name=name)
-        assembly.add(chip(which), name=f'bulkhead-ring-{which}',
-                     color=_colour(colours.chip_color(fluid)))
-        assembly.add(word(which), name=f'bulkhead-ring-{which}-word',
-                     color=_colour(colours.word_color(fluid)))
-        step, stl = HERE / f'{name}.step', HERE / f'{name}.stl'
-        export_assembly(assembly, str(step))
-        native = chip(which).fuse(word(which)).clean()
-        write_print_stl(native, stl, tol=.02, angle=.08)
+        label = original.STATIONS[which].word
+        rows.append({
+            'name': f'rear-label-{which}', 'body_name': f'bulkhead-ring-{which}',
+            'word_name': f'bulkhead-ring-{which}-word', 'word': label,
+            'top': _top(which),
+            'bore_x': row['bore_x_mm']-row['center_x_mm'],
+            'bore_z': row['bore_z_mm']-row['center_z_mm'],
+            'bore_diameter': (spec['rear_plumbing']['tap_tile_bore_mm']
+                              if which == 'water' else row['bore_diameter_mm']),
+            'chip_color': list(linear(_colour(colours.chip_color(fluid)))),
+            'word_color': list(linear(_colour(colours.word_color(fluid)))),
+            'word_width': original.WORD_WIDTHS[label]*WORD_EM/original.WORD_SIZE,
+        })
+    return {'width': WIDTH, 'thick': THICK, 'bottom': 12., 'bore_overrun': .1,
+            'word_size': WORD_EM, 'word_font': original.WORD_FONT,
+            'word_kind': original.WORD_KIND,
+            'word_depth': WORD_DEPTH, 'word_raise': WORD_RAISE,
+            'word_band_bottom': 12., 'stations': rows}
+
+
+def main():
+    import _rust_part
+    _rust_part.cut('enclosure-components', 'rear-identification', numbers(), HERE)
 
 
 if __name__ == '__main__':
-    main()
+    if len(sys.argv) > 1 and sys.argv[1] == 'selftest':
+        import json
+        print(json.dumps(_rust_part.check('enclosure-components', 'rear-identification', numbers()), indent=2))
+    else:
+        main()
