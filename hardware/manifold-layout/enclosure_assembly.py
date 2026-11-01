@@ -754,12 +754,15 @@ def core_bodies(carry, model=None):
         if model is not None and meshcad is not None and meshcad.mesh_mode():
             import _assembly_model
             from meshcad import scene
+            alpha_by_name = (scene.document(model) or {}).get("alpha_by_name", {})
             inputs = [_assembly_model.instance(model, prefix=CORE + SOLID_INDEX_SEP,
                        transform=_assembly_model.location(carry.where))]
             with _assembly_model.placed(inputs) as placed:
                 bodies = scene.load(placed, snap=False)
             _CORE_BODIES[key] = [
-                (name, shape, cq.Color(*rgb, 1.0, False) if rgb is not None else None)
+                (name, shape, cq.Color(*rgb, alpha_by_name.get(
+                    name.removeprefix(CORE + SOLID_INDEX_SEP), 1.0), False)
+                    if rgb is not None else None)
                 for name, (shape, rgb) in bodies.items()
             ]
         else:
@@ -4293,7 +4296,7 @@ def build_pack(*, core_model=None) -> cq.Assembly:
     for name in sorted(core_equipment):
         solid, colour, _carry = selected[name]
         core.add(solid, name=f'{CORE}/{name}', color=colour)
-    a.core_body_names = frozenset(n for n, _s, _c in core_bodies(foam_carry)) | frozenset(
+    a.core_body_names = frozenset(n for n, _s, _c in core_bodies(foam_carry, core_model)) | frozenset(
         f'{CORE}/{name}' for name in core_equipment)
     # WHAT THE BOX SHUTS ON IT WITH. The core carries no hole, so its two front corners go into
     # blocks on the front-bottom's slab and its aft crown under brackets off the back-top's rear
