@@ -1,8 +1,9 @@
 """Y-divider — the three-port trident the manifold joins a valve pair with.
 
 `y-divider.step` is a harvested solid: there is no builder here, and every number below was
-measured off that file. `stations_hold` reads them back off it at import of the pack that
-places it, so a measurement and the metal it was taken from cannot part.
+measured off that file. `native-measurements.json` binds the native readings to that STEP by
+SHA-256.
+`stations_hold` compares the interface figures with those recorded readings.
 
 Coordinate frame
 ----------------
@@ -14,18 +15,14 @@ The topology names its three legs (`../../topology/fluid-topology.md`); which ou
 which valve is the seating's business, and the enclosure's.
 """
 
+import json
 import sys
 from pathlib import Path
 
-import cadquery as cq
-
 _here = Path(__file__).resolve()
-_hw = next(p for p in _here.parents if p.name == "hardware")
-sys.path.insert(0, str(_hw / "scripts"))
-from _measuring import collet_offsets
-from _cadq_export import import_step
 
 STEP = _here.parent / "y-divider.step"
+MEASUREMENTS = _here.parent / "native-measurements.json"
 
 # --- Measured off the STEP ------------------------------------------------
 HALF = 19.25          # stem and outlet collet faces from the body centre
@@ -50,20 +47,30 @@ def stations() -> dict:
     return {"stem": stem(), "-y": outlet(-1.0), "+y": outlet(+1.0)}
 
 
+def _collet_offsets(readings, axis, bore_r, tol=1e-4):
+    for bore in readings["bores"]:
+        if bore["axis"] == axis and abs(bore["radius_mm"] - bore_r) <= tol:
+            return sorted(tuple(centre) for centre in bore["centres_mm"])
+    raise ValueError(
+        f"no bore of r={bore_r:g} running along {axis} — the solid carries "
+        f"{sorted({(b['axis'], b['radius_mm']) for b in readings['bores']})}")
+
+
 def stations_hold():
-    """Hold the figures above to `y-divider.step`.
+    """Compare the interface figures with the recorded native STEP readings.
 
     The reaches and the radius are extents of the solid's own box. The outlet offset is not —
     it is a bore centre inside the envelope, and it is read off the tube bores themselves."""
-    solid = import_step(str(STEP)).val()
-    bb = solid.BoundingBox()
-    for name, claimed, actual in (("HALF", HALF, bb.zmax), ("HALF_W", HALF_W, bb.xmax)):
+    readings = json.loads(MEASUREMENTS.read_text())
+    bounds = readings["bounds_mm"]
+    for name, claimed, actual in (
+            ("HALF", HALF, bounds["zmax"]), ("HALF_W", HALF_W, bounds["xmax"])):
         if abs(actual - claimed) > MEASURE_TOL:
             raise ValueError(
                 f"y-divider {name} is {claimed:g} and the STEP's own is {actual:.4f} — "
                 f"{abs(actual - claimed):.4f} mm apart, over the {MEASURE_TOL:g} mm this file "
                 f"rounds to. Every leg placed off {name} closes on tube that is not there.")
-    ys = [y for _x, y in collet_offsets(solid, "z", TUBE_D / 2.0)]
+    ys = [y for _x, y in _collet_offsets(readings, "z", TUBE_D / 2.0)]
     want = sorted({-OUTLET_Y, 0.0, +OUTLET_Y})
     if len(ys) != 3 or max(abs(a - b) for a, b in zip(ys, want)) > MEASURE_TOL:
         raise ValueError(
