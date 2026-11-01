@@ -5887,12 +5887,11 @@ def write_scene(a, path=None) -> Path:
     ON THE MESH KERNEL THE MACHINE LEAVES AS ITS SCENE, every body it stood and what a reader
     needs besides, where OCCT's leaves as a STEP and the payload cut from it. Studies and agents
     read the scene instead of standing the machine again. The checks' readings go into the
-    scene: the card, the facts and the drain check beside the STEP are one OCCT run's, held to
-    that STEP."""
+    scene, and the drain check's file beside the STEP is this same reading."""
     import _machine
     import _scorecard as _card
     import check_asse_drain
-    drain = check_asse_drain.write({**_solids(a), **_core_solids(a)}, output=None,
+    drain = check_asse_drain.write({**_solids(a), **_core_solids(a)},
                                    route_specs=a.native_route_specs)
     report(a, _card.pack_clashes(a))
     card = _card.to_dict(_card.report(a))
@@ -5921,8 +5920,11 @@ def main():
     a = build_enclosure_assembly(require_box_spec=action)
     out = _here.parent / "enclosure-assembly.step"
     meshcad = sys.modules.get("meshcad")
-    if meshcad is not None and meshcad.mesh_mode():
+    on_meshes = meshcad is not None and meshcad.mesh_mode()
+    if on_meshes:
+        meshcad.forget()                    # what the build fused for its own checks
         print(f"-> {write_scene(a).name}")
+        meshcad.forget()                    # and what the scene's checks fused
     from hardware.wiring.installed.build import export_enclosure
     export_enclosure(a, out)
     print(f"-> {out.name}")
@@ -5954,8 +5956,10 @@ def main():
     grafted = graft_printed_surfaces(a, mesh)
     if grafted:
         print(f"-> {out.name}.mesh  ({grafted} fluted piece(s))")
-    import check_asse_drain
-    check_asse_drain.write({**_solids(a), **_core_solids(a)}, route_specs=a.native_route_specs)
+    if not on_meshes:                       # the scene's run wrote this reading
+        import check_asse_drain
+        check_asse_drain.write({**_solids(a), **_core_solids(a)},
+                               route_specs=a.native_route_specs)
     report(a, _card.pack_clashes(a))
     _card.report(a)
     print(f"-> {_card.write(a, out).name}")

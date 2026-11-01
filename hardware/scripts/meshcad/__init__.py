@@ -74,11 +74,32 @@ def arrays(shape):
 
 
 def manifold(shape):
-    """One Manifold holding a mesh shape's solids, side by side, without a boolean."""
+    """One Manifold holding a mesh shape's solids: Manifold's `compose`, which fuses the solids
+    whose boxes overlap the first time it is read. A compound keeps the one it hands back until
+    `forget`, so a check that reads a body against each of its neighbours fuses it once."""
     import manifold3d as m3d
-    from .solids import _meshes
-    ms = _meshes(shape)
-    return ms[0] if len(ms) == 1 else m3d.Manifold.compose(ms)
+    from .solids import HOLDING, MeshCompound, _meshes
+    held = shape.__dict__.get("_composed") if isinstance(shape, MeshCompound) else None
+    if held is None:
+        ms = _meshes(shape)
+        held = ms[0] if len(ms) == 1 else m3d.Manifold.compose(ms)
+        if isinstance(shape, MeshCompound):
+            shape._composed = held
+            HOLDING.add(shape)
+    return held
+
+
+def forget():
+    """Let go of the unions compounds keep (`manifold`, `intersect`'s tool) and the triangles
+    `distance` keeps of the bodies it read last: a run done with a pass of checks hands their
+    memory back before the next pass, or the writes, take theirs."""
+    from . import build
+    from .solids import HOLDING
+    for shape in list(HOLDING):
+        shape.__dict__.pop("_composed", None)
+        shape.__dict__.pop("_fused_m", None)
+    HOLDING.clear()
+    build._SOUPS.clear()
 
 
 def model_bytes(shape):
