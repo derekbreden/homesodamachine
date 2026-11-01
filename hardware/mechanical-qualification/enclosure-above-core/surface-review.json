@@ -2551,21 +2551,7 @@
           ],
           "disposition": "specific_functional_or_approved_profile"
         }
-      ],
-      "published_artifacts": {
-        ".step": {
-          "path": "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step",
-          "sha256": "3661682eadb7628ef8fded6a75261900bab9fe078704e8a4a60581a0f65fd51a"
-        },
-        ".stl": {
-          "path": "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl",
-          "sha256": "4831c305bf5f080898b2f9011f9eef4a103cd9b85ce38f096210a2e58f5cbadc"
-        },
-        ".step.mesh": {
-          "path": "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh",
-          "sha256": "1201dc81f528a249ed83129c8dda13d3b19144fc71b791731f39224614ca26ce"
-        }
-      }
+      ]
     },
     "enclosure-back-bottom": {
       "artifacts": {
@@ -4771,38 +4757,24 @@
           ],
           "disposition": "specific_functional_or_approved_profile"
         }
-      ],
-      "published_artifacts": {
-        ".step": {
-          "path": "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step",
-          "sha256": "7fd70ca423a381ee5af0542964f54227a7678bf2709dda33c28d079118f80a65"
-        },
-        ".stl": {
-          "path": "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl",
-          "sha256": "c9fa5fb8726465cd7cae16075fc3ece8f8ada0c045defb4822a197b637b6c5c2"
-        },
-        ".step.mesh": {
-          "path": "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh",
-          "sha256": "911ce5a4381e58419198d8ba3a2abbe798b40bfb2ec9ff4ed129705455d49353"
-        }
-      }
+      ]
     },
     "enclosure-back-top": {
       "artifacts": {
         ".step": {
           "path": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step",
-          "sha256": "20eb3ddced1a9c8ce8d88079d2c2fce7d5e7b550bd13ce54b2d05597ce26f91a"
+          "sha256": "753edc0c074f8f25d0176bd4cee99576bf1bb7602d499d90bfdd736505f1f9c1"
         },
         ".stl": {
           "path": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
-          "sha256": "e6470d251cc02343a931652bec192038b660c97393f88a97ee6172da9757b413"
+          "sha256": "863574898e98f143a9383f2951d2ce00fd00d68502c34a90d66ac40beb6d2d59"
         },
         ".step.mesh": {
           "path": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh",
-          "sha256": "3433029050f2072b1b4aa62611e976a0ea8b5644b3c6ea3b6dcc1954227b1b90"
+          "sha256": "e6a924741c6a6fe50f4481df794316fab02fae6523ce803a51423f06e2527291"
         }
       },
-      "log_sha256": "ed6fab9456e13fbc1483eeb8e4d043ba81d71dd535c28acd9900c5d73eea8b17",
+      "log_sha256": "7f024d57519d7e908ff030c5251911e9af7ed03dedaa4c08ba3a098c87d027ee",
       "classes_read": [
         "step",
         "bump",
@@ -4813,7 +4785,7 @@
         "ledge"
       ],
       "answers_path": "hardware/printed-parts/lint-answers/enclosure/enclosure/enclosure-back-top.lint-answers",
-      "answers_sha256": "ae935fb8709968231ce46ca34f49ee4268dd2975855b2645e7d713817bd67ae0",
+      "answers_sha256": "c54c09b23347e14c799e51c569377ed629efaa925016f92ca36d099cd476351f",
       "answer_entries": [
         {
           "class": "sliver",
@@ -5243,14 +5215,6 @@
           ]
         },
         {
-          "class": "step",
-          "reason": "Independent core-hold and neutral-Wago locating planes: the retained core foot ends at X\u221243.60; the fitted Wago half-well ends at X\u221244.45. The 0.85 mm separation belongs to the two mating interfaces.",
-          "alternatives": "Extending the core foot to the well enters the connector pocket; moving the pocket plane changes its purchased-body clearance and capture. The core-hold lanes remain the lid bearing lanes.",
-          "clicks": [
-            "x=-44.450 y=459.900 z=270.200"
-          ]
-        },
-        {
           "class": "sliver",
           "reason": "Functional snap-seat catch bearings: the 0.85 mm horizontal face is the cap\u2019s 0.60 mm engagement plus 0.25 mm running allowance. The spring walls and seat stock retain their 3 mm section. The square bearing captures the ASSE, Pisco, regulator or meter cap after insertion. Tree(auto)/Default approaches through the empty snap mouth before hardware installation; physical cleanup and spring life are not established by geometry.",
           "alternatives": "Sloping the bearing provides a withdrawal ramp; filling beneath it occupies the spring-hook path. A 3 mm reach needs another 2.15 mm of spring travel and wider matching pockets. Thickening the vertical wall does not enlarge this horizontal bearing.",
@@ -5298,7 +5262,7 @@
           "reason": "Rear Wago half-well boundary at the enclosure\u2019s retained rounded corner: the 1.017 mm dimension is the Y extent of the exposed outer side face where the rectangular half-well meets that corner. Its actual side-wall section is 3 mm in X, from X\u221297.55 to the pocket plane X\u221294.55. The well must retain the purchased rectangular blank half while leaving its lever and wire-entry half open.",
           "alternatives": "Changing this boundary to a 3 mm Y strip requires moving the complete fitted well away from the retained rear corner or changing that corner. Thickening the X wall does not change the classified face extent; filling the open half occupies the lever and wire-entry access.",
           "clicks": [
-            "x=-97.550 y=458.009 z=268.709",
+            "x=-97.550 y=458.009 z=269.709",
             "x=-97.550 y=458.009 z=301.209"
           ]
         },
@@ -5331,7 +5295,7 @@
           "clicks": [
             "x=-85.000 y=462.225 z=263.850",
             "x=-85.000 y=462.225 z=296.350",
-            "x=-54.000 y=462.225 z=265.850"
+            "x=-61.000 y=462.225 z=265.850"
           ]
         },
         {
@@ -5366,16 +5330,38 @@
         }
       ],
       "counts_by_class": {
-        "thin": 17,
-        "ledge": 13,
-        "step": 3,
         "sliver": 21,
         "ceiling": 31,
+        "thin": 17,
+        "ledge": 13,
+        "step": 2,
         "slope": 4
       },
       "unreviewed": [],
       "prior_cosmetic_priority_findings": [],
       "findings": [
+        {
+          "class": "sliver",
+          "reading": "1.017 mm strip, 17.7 mm long",
+          "clicks": [
+            "x=-97.550 y=458.009 z=269.709"
+          ],
+          "answer_indices": [
+            45
+          ],
+          "disposition": "specific_functional_or_approved_profile"
+        },
+        {
+          "class": "ceiling",
+          "reading": "180 mm\u00b2 flat print-down face at z=265.850 \u00b7 19.1 \u00d7 9.5 mm \u00b7 drop 8.7\u20138.7 mm to material below",
+          "clicks": [
+            "x=-61.000 y=462.225 z=265.850"
+          ],
+          "answer_indices": [
+            48
+          ],
+          "disposition": "specific_functional_or_approved_profile"
+        },
         {
           "class": "thin",
           "reading": "1.024 mm of material at its thinnest \u00b7 173.8 mm\u00b2 of surface under 2.5 mm \u00b7 spans 3.8 \u00d7 2.2 \u00d7 30.2 mm \u00b7 in 2 pieces",
@@ -5486,10 +5472,10 @@
         },
         {
           "class": "thin",
-          "reading": "1.800 mm of material at its thinnest \u00b7 3201.6 mm\u00b2 of surface under 2.5 mm \u00b7 spans 2.5 \u00d7 18.0 \u00d7 103.1 mm \u00b7 in 103 pieces",
+          "reading": "1.800 mm of material at its thinnest \u00b7 3203.1 mm\u00b2 of surface under 2.5 mm \u00b7 spans 2.5 \u00d7 18.0 \u00d7 103.1 mm \u00b7 in 101 pieces",
           "clicks": [
-            "x=104.500 y=213.448 z=203.576",
-            "x=106.300 y=213.450 z=203.576"
+            "x=-104.500 y=213.448 z=203.576",
+            "x=-106.300 y=213.450 z=203.576"
           ],
           "answer_indices": [
             19
@@ -5498,10 +5484,10 @@
         },
         {
           "class": "thin",
-          "reading": "1.800 mm of material at its thinnest \u00b7 3203.1 mm\u00b2 of surface under 2.5 mm \u00b7 spans 2.5 \u00d7 18.0 \u00d7 103.1 mm \u00b7 in 101 pieces",
+          "reading": "1.800 mm of material at its thinnest \u00b7 3201.6 mm\u00b2 of surface under 2.5 mm \u00b7 spans 2.5 \u00d7 18.0 \u00d7 103.1 mm \u00b7 in 103 pieces",
           "clicks": [
-            "x=-104.500 y=213.448 z=203.576",
-            "x=-106.300 y=213.450 z=203.576"
+            "x=104.500 y=213.448 z=203.576",
+            "x=106.300 y=213.450 z=203.576"
           ],
           "answer_indices": [
             19
@@ -5564,7 +5550,7 @@
             "x=86.216 y=443.560 z=297.297"
           ],
           "answer_indices": [
-            50
+            49
           ],
           "disposition": "specific_functional_or_approved_profile"
         },
@@ -5664,7 +5650,7 @@
             "x=65.631 y=425.480 z=338.000"
           ],
           "answer_indices": [
-            44
+            43
           ],
           "disposition": "specific_functional_or_approved_profile"
         },
@@ -5675,7 +5661,7 @@
             "x=89.652 y=425.480 z=338.000"
           ],
           "answer_indices": [
-            44
+            43
           ],
           "disposition": "specific_functional_or_approved_profile"
         },
@@ -5686,7 +5672,7 @@
             "x=-32.541 y=291.670 z=338.000"
           ],
           "answer_indices": [
-            44
+            43
           ],
           "disposition": "specific_functional_or_approved_profile"
         },
@@ -5697,7 +5683,7 @@
             "x=-32.541 y=323.643 z=338.000"
           ],
           "answer_indices": [
-            44
+            43
           ],
           "disposition": "specific_functional_or_approved_profile"
         },
@@ -5708,7 +5694,7 @@
             "x=86.304 y=464.611 z=250.000"
           ],
           "answer_indices": [
-            51
+            50
           ],
           "disposition": "specific_functional_or_approved_profile"
         },
@@ -5736,17 +5722,6 @@
         },
         {
           "class": "step",
-          "reading": "\u03940.850 mm between parallel planes \u00b7 footprint met 8.7 \u00d7 4.8 mm",
-          "clicks": [
-            "x=-44.450 y=459.900 z=270.200"
-          ],
-          "answer_indices": [
-            41
-          ],
-          "disposition": "specific_functional_or_approved_profile"
-        },
-        {
-          "class": "step",
           "reading": "\u03941.000 mm between parallel planes \u00b7 footprint met 10.0 \u00d7 10.0 mm",
           "clicks": [
             "x=-29.941 y=346.807 z=347.000"
@@ -5763,7 +5738,7 @@
             "x=13.351 y=398.800 z=346.625"
           ],
           "answer_indices": [
-            52
+            51
           ],
           "disposition": "specific_functional_or_approved_profile"
         },
@@ -5774,7 +5749,7 @@
             "x=-39.898 y=398.800 z=346.625"
           ],
           "answer_indices": [
-            52
+            51
           ],
           "disposition": "specific_functional_or_approved_profile"
         },
@@ -5785,7 +5760,7 @@
             "x=-13.274 y=453.550 z=346.625"
           ],
           "answer_indices": [
-            52
+            51
           ],
           "disposition": "specific_functional_or_approved_profile"
         },
@@ -5796,7 +5771,7 @@
             "x=-13.274 y=344.050 z=346.625"
           ],
           "answer_indices": [
-            52
+            51
           ],
           "disposition": "specific_functional_or_approved_profile"
         },
@@ -5807,7 +5782,7 @@
             "x=17.027 y=417.284 z=331.250"
           ],
           "answer_indices": [
-            42
+            41
           ],
           "disposition": "specific_functional_or_approved_profile"
         },
@@ -5818,7 +5793,7 @@
             "x=57.473 y=417.284 z=331.250"
           ],
           "answer_indices": [
-            42
+            41
           ],
           "disposition": "specific_functional_or_approved_profile"
         },
@@ -5829,7 +5804,7 @@
             "x=87.550 y=416.000 z=308.825"
           ],
           "answer_indices": [
-            42
+            41
           ],
           "disposition": "specific_functional_or_approved_profile"
         },
@@ -5840,7 +5815,7 @@
             "x=-29.174 y=291.529 z=338.000"
           ],
           "answer_indices": [
-            42
+            41
           ],
           "disposition": "specific_functional_or_approved_profile"
         },
@@ -5851,7 +5826,7 @@
             "x=-29.174 y=323.785 z=338.000"
           ],
           "answer_indices": [
-            42
+            41
           ],
           "disposition": "specific_functional_or_approved_profile"
         },
@@ -5862,7 +5837,7 @@
             "x=29.137 y=401.452 z=342.489"
           ],
           "answer_indices": [
-            45
+            44
           ],
           "disposition": "specific_functional_or_approved_profile"
         },
@@ -5873,7 +5848,7 @@
             "x=65.490 y=428.173 z=338.000"
           ],
           "answer_indices": [
-            42
+            41
           ],
           "disposition": "specific_functional_or_approved_profile"
         },
@@ -5884,7 +5859,7 @@
             "x=89.510 y=428.173 z=338.000"
           ],
           "answer_indices": [
-            42
+            41
           ],
           "disposition": "specific_functional_or_approved_profile"
         },
@@ -5914,21 +5889,10 @@
           "class": "sliver",
           "reading": "1.017 mm strip, 15.7 mm long",
           "clicks": [
-            "x=-97.550 y=458.009 z=268.709"
-          ],
-          "answer_indices": [
-            46
-          ],
-          "disposition": "specific_functional_or_approved_profile"
-        },
-        {
-          "class": "sliver",
-          "reading": "1.017 mm strip, 15.7 mm long",
-          "clicks": [
             "x=-97.550 y=458.009 z=301.209"
           ],
           "answer_indices": [
-            46
+            45
           ],
           "disposition": "specific_functional_or_approved_profile"
         },
@@ -5939,7 +5903,7 @@
             "x=87.550 y=427.505 z=265.375"
           ],
           "answer_indices": [
-            42
+            41
           ],
           "disposition": "specific_functional_or_approved_profile"
         },
@@ -5994,7 +5958,7 @@
             "x=77.500 y=470.299 z=252.000"
           ],
           "answer_indices": [
-            47
+            46
           ],
           "disposition": "specific_functional_or_approved_profile"
         },
@@ -6005,7 +5969,7 @@
             "x=37.250 y=470.299 z=252.000"
           ],
           "answer_indices": [
-            47
+            46
           ],
           "disposition": "specific_functional_or_approved_profile"
         },
@@ -6016,7 +5980,7 @@
             "x=91.525 y=416.000 z=312.500"
           ],
           "answer_indices": [
-            48
+            47
           ],
           "disposition": "specific_functional_or_approved_profile"
         },
@@ -6060,7 +6024,7 @@
             "x=89.500 y=416.000 z=308.400"
           ],
           "answer_indices": [
-            48
+            47
           ],
           "disposition": "specific_functional_or_approved_profile"
         },
@@ -6071,7 +6035,7 @@
             "x=86.050 y=416.000 z=309.250"
           ],
           "answer_indices": [
-            48
+            47
           ],
           "disposition": "specific_functional_or_approved_profile"
         },
@@ -6082,7 +6046,7 @@
             "x=90.600 y=423.426 z=269.400"
           ],
           "answer_indices": [
-            48
+            47
           ],
           "disposition": "specific_functional_or_approved_profile"
         },
@@ -6093,7 +6057,7 @@
             "x=90.600 y=392.594 z=269.400"
           ],
           "answer_indices": [
-            48
+            47
           ],
           "disposition": "specific_functional_or_approved_profile"
         },
@@ -6104,7 +6068,7 @@
             "x=95.350 y=408.010 z=269.350"
           ],
           "answer_indices": [
-            48
+            47
           ],
           "disposition": "specific_functional_or_approved_profile"
         },
@@ -6258,7 +6222,7 @@
             "x=-85.000 y=462.225 z=263.850"
           ],
           "answer_indices": [
-            49
+            48
           ],
           "disposition": "specific_functional_or_approved_profile"
         },
@@ -6269,18 +6233,7 @@
             "x=-85.000 y=462.225 z=296.350"
           ],
           "answer_indices": [
-            49
-          ],
-          "disposition": "specific_functional_or_approved_profile"
-        },
-        {
-          "class": "ceiling",
-          "reading": "180 mm\u00b2 flat print-down face at z=265.850 \u00b7 19.1 \u00d7 9.5 mm \u00b7 drop 8.7\u20138.7 mm to material below",
-          "clicks": [
-            "x=-54.000 y=462.225 z=265.850"
-          ],
-          "answer_indices": [
-            49
+            48
           ],
           "disposition": "specific_functional_or_approved_profile"
         },
@@ -6313,7 +6266,7 @@
             "x=17.027 y=417.284 z=331.250"
           ],
           "answer_indices": [
-            43
+            42
           ],
           "disposition": "specific_functional_or_approved_profile"
         },
@@ -6324,7 +6277,7 @@
             "x=57.473 y=417.284 z=331.250"
           ],
           "answer_indices": [
-            43
+            42
           ],
           "disposition": "specific_functional_or_approved_profile"
         },
@@ -6372,21 +6325,7 @@
           ],
           "disposition": "specific_functional_or_approved_profile"
         }
-      ],
-      "published_artifacts": {
-        ".step": {
-          "path": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step",
-          "sha256": "20eb3ddced1a9c8ce8d88079d2c2fce7d5e7b550bd13ce54b2d05597ce26f91a"
-        },
-        ".stl": {
-          "path": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
-          "sha256": "e6470d251cc02343a931652bec192038b660c97393f88a97ee6172da9757b413"
-        },
-        ".step.mesh": {
-          "path": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh",
-          "sha256": "3433029050f2072b1b4aa62611e976a0ea8b5644b3c6ea3b6dcc1954227b1b90"
-        }
-      }
+      ]
     },
     "enclosure-pump-retainer": {
       "artifacts": {
@@ -6520,21 +6459,7 @@
           ],
           "disposition": "specific_functional_or_approved_profile"
         }
-      ],
-      "published_artifacts": {
-        ".step": {
-          "path": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step",
-          "sha256": "44feb1792f4aaeb46cbe0f136d5274ac98776ecee5a93cc4412acb47f6957de2"
-        },
-        ".stl": {
-          "path": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.stl",
-          "sha256": "766e60bdf5631735be7aa633720ba52799d5adf77d31180fb7f4e8a9415acbbb"
-        },
-        ".step.mesh": {
-          "path": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step.mesh",
-          "sha256": "089cdc6474d336eeb7d66eb45d9a61fc36051a0ed8563fe75bab725f900503cf"
-        }
-      }
+      ]
     },
     "foam-shell": {
       "artifacts": {
@@ -6706,18 +6631,18 @@
       "artifacts": {
         ".step": {
           "path": "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step",
-          "sha256": "10e2b53eeffc36d05080d79298c5f6fed217e0f3f1ad5d9319a37d3a0150acf1"
+          "sha256": "fd455d4fd3b6466abed3aa882356fb4310e355b43a249786dc7e06fde7723a81"
         },
         ".stl": {
           "path": "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl",
-          "sha256": "068b9351b0c8be91489213a9b5da5260515a7c12cf8cdbf40888ef4b6efd2a90"
+          "sha256": "4f0fc7e699f9f41a91ebeebf527f3ddf2334f60d64e83531d5c8b7a958d7d3c0"
         },
         ".step.mesh": {
           "path": "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh",
-          "sha256": "b10f654a8ad3d5facbc8687e2e482d4cff0c8e4da14a254b98596b3dc97e6943"
+          "sha256": "976fdb499bee144dcaa2436599e0cfafb041779c1e9e9cd8512f715dc840516c"
         }
       },
-      "log_sha256": "1920d830648273b4f148abf3f94132d08cc511d099d591ac3703515313a4d2f4",
+      "log_sha256": "2f4d9c97ec90843d3f0f8a7d8b017db22f9f938a87532113d97f74a0c3d8310e",
       "classes_read": [
         "step",
         "bump",
@@ -6906,58 +6831,14 @@
         }
       ],
       "counts_by_class": {
-        "sliver": 5,
-        "ceiling": 7,
         "thin": 34,
-        "ledge": 3
+        "ledge": 3,
+        "sliver": 5,
+        "ceiling": 7
       },
       "unreviewed": [],
       "prior_cosmetic_priority_findings": [],
       "findings": [
-        {
-          "class": "sliver",
-          "reading": "0.850 mm strip, 55.0 mm long",
-          "clicks": [
-            "x=-91.768 y=16.286 z=35.279"
-          ],
-          "answer_indices": [
-            11
-          ],
-          "disposition": "specific_functional_or_approved_profile"
-        },
-        {
-          "class": "sliver",
-          "reading": "0.850 mm strip, 55.0 mm long",
-          "clicks": [
-            "x=-91.768 y=-47.022 z=35.279"
-          ],
-          "answer_indices": [
-            11
-          ],
-          "disposition": "specific_functional_or_approved_profile"
-        },
-        {
-          "class": "ceiling",
-          "reading": "47 mm\u00b2 flat print-down face at z=35.279 \u00b7 55.0 \u00d7 0.8 mm \u00b7 drop 3.9\u20133.9 mm to material below",
-          "clicks": [
-            "x=-91.768 y=16.286 z=35.279"
-          ],
-          "answer_indices": [
-            12
-          ],
-          "disposition": "specific_functional_or_approved_profile"
-        },
-        {
-          "class": "ceiling",
-          "reading": "47 mm\u00b2 flat print-down face at z=35.279 \u00b7 55.0 \u00d7 0.8 mm \u00b7 drop 3.9\u20133.9 mm to material below",
-          "clicks": [
-            "x=-91.768 y=-47.022 z=35.279"
-          ],
-          "answer_indices": [
-            12
-          ],
-          "disposition": "specific_functional_or_approved_profile"
-        },
         {
           "class": "thin",
           "reading": "1.520 mm of material at its thinnest \u00b7 30.7 mm\u00b2 of surface under 2.5 mm \u00b7 spans 2.0 \u00d7 6.0 \u00d7 4.3 mm \u00b7 in 7 pieces",
@@ -7401,6 +7282,28 @@
         },
         {
           "class": "sliver",
+          "reading": "0.850 mm strip, 55.0 mm long",
+          "clicks": [
+            "x=-91.768 y=16.286 z=35.279"
+          ],
+          "answer_indices": [
+            11
+          ],
+          "disposition": "specific_functional_or_approved_profile"
+        },
+        {
+          "class": "sliver",
+          "reading": "0.850 mm strip, 55.0 mm long",
+          "clicks": [
+            "x=-91.768 y=-47.022 z=35.279"
+          ],
+          "answer_indices": [
+            11
+          ],
+          "disposition": "specific_functional_or_approved_profile"
+        },
+        {
+          "class": "sliver",
           "reading": "0.750 mm strip, 16.0 mm long",
           "clicks": [
             "x=131.200 y=74.825 z=23.700"
@@ -7478,6 +7381,28 @@
         },
         {
           "class": "ceiling",
+          "reading": "47 mm\u00b2 flat print-down face at z=35.279 \u00b7 55.0 \u00d7 0.8 mm \u00b7 drop 3.9\u20133.9 mm to material below",
+          "clicks": [
+            "x=-91.768 y=16.286 z=35.279"
+          ],
+          "answer_indices": [
+            12
+          ],
+          "disposition": "specific_functional_or_approved_profile"
+        },
+        {
+          "class": "ceiling",
+          "reading": "47 mm\u00b2 flat print-down face at z=35.279 \u00b7 55.0 \u00d7 0.8 mm \u00b7 drop 3.9\u20133.9 mm to material below",
+          "clicks": [
+            "x=-91.768 y=-47.022 z=35.279"
+          ],
+          "answer_indices": [
+            12
+          ],
+          "disposition": "specific_functional_or_approved_profile"
+        },
+        {
+          "class": "ceiling",
           "reading": "50 mm\u00b2 flat print-down face at z=7.175 \u00b7 15.6 \u00d7 3.2 mm \u00b7 drop 1.6\u20131.6 mm to material below",
           "clicks": [
             "x=-66.200 y=53.364 z=7.175"
@@ -7487,21 +7412,7 @@
           ],
           "disposition": "specific_functional_or_approved_profile"
         }
-      ],
-      "published_artifacts": {
-        ".step": {
-          "path": "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step",
-          "sha256": "10e2b53eeffc36d05080d79298c5f6fed217e0f3f1ad5d9319a37d3a0150acf1"
-        },
-        ".stl": {
-          "path": "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl",
-          "sha256": "068b9351b0c8be91489213a9b5da5260515a7c12cf8cdbf40888ef4b6efd2a90"
-        },
-        ".step.mesh": {
-          "path": "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh",
-          "sha256": "b10f654a8ad3d5facbc8687e2e482d4cff0c8e4da14a254b98596b3dc97e6943"
-        }
-      }
+      ]
     },
     "foam-cap-bottom": {
       "artifacts": {
@@ -7687,21 +7598,7 @@
           ],
           "disposition": "specific_functional_or_approved_profile"
         }
-      ],
-      "published_artifacts": {
-        ".step": {
-          "path": "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step",
-          "sha256": "5405075b66f7853c84ddfcc1d911845e4aab4303f6a06e3b08d18b6a08bd3e36"
-        },
-        ".stl": {
-          "path": "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl",
-          "sha256": "7e737e724d7031189e98a7b32bc4147a064c3055845f63949d76b30091c80387"
-        },
-        ".step.mesh": {
-          "path": "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step.mesh",
-          "sha256": "8e95d61a3bb2f92dbeb6823481edaaaeaf71a3dd239e757c86d87993cf27ec37"
-        }
-      }
+      ]
     },
     "reservoir-b-fill-guide": {
       "artifacts": {
@@ -7787,21 +7684,7 @@
           ],
           "disposition": "specific_functional_or_approved_profile"
         }
-      ],
-      "published_artifacts": {
-        ".step": {
-          "path": "hardware/printed-parts/cold-core/foam-cap/reservoir-b-fill-guide.step",
-          "sha256": "8a74a8056b6b6466d79b2885e8869e5ab78a1188d01333e6477cd8c58d573157"
-        },
-        ".stl": {
-          "path": "hardware/printed-parts/cold-core/foam-cap/reservoir-b-fill-guide.stl",
-          "sha256": "0fd7a6158d18c346622dfe5858c752b7cd26437bf29968ac4bcc92697937c4b6"
-        },
-        ".step.mesh": {
-          "path": "hardware/printed-parts/cold-core/foam-cap/reservoir-b-fill-guide.step.mesh",
-          "sha256": "222dc2dfe04909040eef3d80c4e97018632291841a43bc6b480f51b973b1548e"
-        }
-      }
+      ]
     },
     "pump-snap-cap": {
       "artifacts": {
@@ -7893,21 +7776,7 @@
           ],
           "disposition": "specific_functional_or_approved_profile"
         }
-      ],
-      "published_artifacts": {
-        ".step": {
-          "path": "hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.step",
-          "sha256": "980e312bf0fc394c884724d39db1aa64f17d8e5440de37e1c4d4d93ab9494dcd"
-        },
-        ".stl": {
-          "path": "hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.stl",
-          "sha256": "24a2481d9606ee004ff3a19617b426b6285e74eeef07ae41375e4e54e6cd402c"
-        },
-        ".step.mesh": {
-          "path": "hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.step.mesh",
-          "sha256": "906731cf56eb92e70813a5e90f1e3f489efe6b792c6a7e53b5ca60afeda87220"
-        }
-      }
+      ]
     },
     "enclosure-front-top": {
       "artifacts": {
@@ -7935,12 +7804,12 @@
         "ledge"
       ],
       "answers_path": "hardware/printed-parts/lint-answers/enclosure/enclosure/enclosure-front-top.lint-answers",
-      "answers_sha256": "1f8a4bb3901f0c19d3a09098d60c8e091de3e5103cf59ca990f0c31432d6f651",
+      "answers_sha256": "44dc46d83d53a93edf2012da81dabc78cc8057844893634915f830fe421b9f19",
       "answer_entries": [
         {
           "class": "sliver",
-          "reason": "Set aside by Derek, not accepted: these six faces bound the 1.35 mm pockets the outer fore valves' coil yokes need in the flank. Flattening the flank needs those valves 1.35 mm inboard, which puts their upper tubes, or with the tees moved their pump tubes, 1.35 mm off straight and pushing on the tee and pump. Derek: \"I don't love it. But it's not the highest priority problem.\"",
-          "alternatives": "Move the outer fore valves 1.35 mm inboard and accept the bent upper tube, or move valve and tee together and accept the bent pump tube. Thinning the whole flank to the pocket floor drags the seam-rail and funnel-frame grooves outboard.",
+          "reason": "Set aside by Derek: \"I don't love it. But it's not the highest priority problem.\" These six faces bound the outer fore coils' 1.35 mm clearance pockets at the selected aligned pump, tee and valve stations.",
+          "alternatives": "Moving each complete fore group 1.6 mm inboard removes these pocket boundaries and changes its pump seats, straight upper receiving links and lower returns. The small lower-elbow contacts involve flexible metal tabs, which Derek explicitly permits to bend; they are not rigid coil interferences. Moving only an outer valve or tee changes a straight receiving link. Moving the whole flank to the pocket floor changes the seam rail and funnel-frame grooves. The selected arrangement retains the named coil clearances and Derek's stated cosmetic priority.",
           "clicks": [
             "x=-99.175 y=153.902 z=253.100",
             "x=99.175 y=153.632 z=253.100",
@@ -8396,20 +8265,7 @@
           "disposition": "specific_functional_or_approved_profile"
         }
       ],
-      "published_artifacts": {
-        ".step": {
-          "path": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step",
-          "sha256": "4c00b44dca0f1b9ee697ed43416757e2a019e59de1d91b12859a28de113328cd"
-        },
-        ".stl": {
-          "path": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
-          "sha256": "169a9a2dad02b09dde59d4e19f2e49e632c55e5ca1531de880140f27cb5b4d9b"
-        },
-        ".step.mesh": {
-          "path": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh",
-          "sha256": "8adc8d826a4e35860cb085d76a65dcc0f56cd59bbc1eef269591c9e03992427a"
-        }
-      }
+      "current_answer_binding": "The physical STL and its complete geometry reading are retained exactly; named answers are read from the current answer file."
     }
   },
   "native_rear_cable_arch_foot_reading": {
@@ -8498,34 +8354,5 @@
       }
     ]
   },
-  "retained_front_top_baseline_sha256": "4c90f66781508cd08b6944961a4fd9a8c1add7c862ed7b18b74671bebc6dffaa",
-  "publication_binding": {
-    "mechanical_commit": "ebb268b1724f99b0f2f9fb91dddb82272a6e18ab",
-    "live_mesh_readback": {
-      "commit": "ebb268b1724f99b0f2f9fb91dddb82272a6e18ab",
-      "verified": [
-        {
-          "path": "hardware/manifold-layout/enclosure-assembly.step.mesh",
-          "sha256": "d7b582e366f5b56f14b8e41de9317821d2cb436e30e3f0d2082d2ee61bdca400",
-          "live_matches": true
-        },
-        {
-          "path": "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh",
-          "sha256": "b10f654a8ad3d5facbc8687e2e482d4cff0c8e4da14a254b98596b3dc97e6943",
-          "live_matches": true
-        },
-        {
-          "path": "hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.step.mesh",
-          "sha256": "906731cf56eb92e70813a5e90f1e3f489efe6b792c6a7e53b5ca60afeda87220",
-          "live_matches": true
-        },
-        {
-          "path": "hardware/reference/g-ganen-pump/g-ganen-pump.step.mesh",
-          "sha256": "6c7e82cec104661f3eec463f5351bf620caf9b88fe6ec0f409bf96fcdcf4c05e",
-          "live_matches": true
-        }
-      ]
-    },
-    "scope": "Changed lid and clip were read after publication. The exact published shell uses its separately recorded seven-class reading; other physical STL readings retain byte-identical bindings."
-  }
+  "retained_front_top_baseline_sha256": "4c90f66781508cd08b6944961a4fd9a8c1add7c862ed7b18b74671bebc6dffaa"
 }
