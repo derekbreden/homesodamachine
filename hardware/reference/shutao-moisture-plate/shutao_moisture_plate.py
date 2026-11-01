@@ -10,20 +10,16 @@ leads land.
 Frame: plate in the XY plane, underside at Z = 0; the two solder holes near the
 -X edge. Origin centered on the plate.
 
-Run:
-    tools/cad-venv/bin/python hardware/reference/shutao-moisture-plate/shutao_moisture_plate.py
+Geometry is in the frozen STEP and display payload beside this module.
+`frozen-asset.json` records their bytes and source snapshot.
 """
 
-import sys
 from pathlib import Path
 
-import cadquery as cq
-
-_here = Path(__file__).resolve()
-_hw = next(p for p in _here.parents if p.name == "hardware")
-sys.path.insert(0, str(_hw / "scripts"))
-from _cadq_export import export_assembly
-from _materials import C_PLATE, one_body
+_HERE = Path(__file__).resolve().parent
+STEP_PATH = _HERE / "shutao-moisture-plate.step"
+PAYLOAD_PATH = _HERE / "shutao-moisture-plate.step.mesh"
+ASSET_MANIFEST_PATH = _HERE / "frozen-asset.json"
 
 PLATE_X, PLATE_Y, PLATE_T = 54.0, 40.0, 1.6
 HOLE_D = 1.2                 # lead solder holes
@@ -31,32 +27,11 @@ HOLE_INSET = 3.0            # from the -X edge
 HOLE_PITCH = 2.54
 
 
-def build():
-    """Flat FR-4 plate with two lead-solder holes near the -X edge."""
-    plate = cq.Workplane("XY").box(PLATE_X, PLATE_Y, PLATE_T, centered=(True, True, False))
-    hx = -PLATE_X / 2.0 + HOLE_INSET
-    y0 = -HOLE_PITCH / 2.0
-    for i in range(2):
-        hole = (
-            cq.Workplane("XY")
-            .circle(HOLE_D / 2.0)
-            .extrude(PLATE_T)
-            .translate((hx, y0 + i * HOLE_PITCH, 0))
-        )
-        plate = plate.cut(hole)
-    return plate
-
-
 def main():
-    part = build()
-    bb = part.val().BoundingBox()
     print("Shutao interdigitated moisture probe plate")
-    print(f"  Bounding box: X [{bb.xmin:.2f}, {bb.xmax:.2f}]  "
-          f"Y [{bb.ymin:.2f}, {bb.ymax:.2f}]  Z [{bb.zmin:.2f}, {bb.zmax:.2f}]")
     print(f"  Plate {PLATE_X}×{PLATE_Y}×{PLATE_T}; 2 lead holes Ø{HOLE_D} at the -X edge")
-    out = _here.parent / "shutao-moisture-plate.step"
-    export_assembly(one_body(part, "shutao-moisture-plate", C_PLATE), str(out))
-    print(f"-> {out.name}")
+    print(f"  STEP: {STEP_PATH}")
+    print(f"  Display payload: {PAYLOAD_PATH}")
 
 
 if __name__ == "__main__":

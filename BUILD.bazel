@@ -516,7 +516,7 @@ genrule(
         "hardware/reference/jg-pp0308e-elbow/jg-pp0308e-elbow.step",
         "pysrc/hardware/reference/jg-pp061208w/jg_pp061208w.py",
         "pysrc/hardware/reference/kamoer-kphm400/kamoer_kphm400.py",
-        ":out/meanwell-irm90/hardware/reference/meanwell-irm90/meanwell-irm90.step",
+        "hardware/reference/meanwell-irm90/meanwell-irm90.step",
         "pysrc/hardware/reference/meanwell-irm90/meanwell_irm90.py",
         "pysrc/hardware/reference/mq6-gas-sensor/mq6_gas_sensor.py",
         ":out/multiplex-asse1022/hardware/reference/multiplex-asse1022/multiplex-asse1022.step",
@@ -535,7 +535,7 @@ genrule(
         "pysrc/hardware/reference/sf76e-thermal-fuse/sf76e_thermal_fuse.py",
         "pysrc/hardware/reference/shok-blok-regulator/shok_blok_regulator.py",
         "pysrc/hardware/reference/tee-connector/tee_connector.py",
-        ":out/teyleten-relay/hardware/reference/teyleten-relay/teyleten-relay.step",
+        "hardware/reference/teyleten-relay/teyleten-relay.step",
         "pysrc/hardware/reference/teyleten-relay/teyleten_relay.py",
         "pysrc/hardware/reference/wago-221/wago_221.py",
         "pysrc/hardware/reference/water-split/water_split.py",
@@ -1027,7 +1027,7 @@ genrule(
         "hardware/reference/jg-pp0308e-elbow/jg-pp0308e-elbow.step",
         "pysrc/hardware/reference/jg-pp061208w/jg_pp061208w.py",
         "pysrc/hardware/reference/kamoer-kphm400/kamoer_kphm400.py",
-        ":out/meanwell-irm90/hardware/reference/meanwell-irm90/meanwell-irm90.step",
+        "hardware/reference/meanwell-irm90/meanwell-irm90.step",
         "pysrc/hardware/reference/meanwell-irm90/meanwell_irm90.py",
         "pysrc/hardware/reference/mq6-gas-sensor/mq6_gas_sensor.py",
         ":out/multiplex-asse1022/hardware/reference/multiplex-asse1022/multiplex-asse1022.step",
@@ -1046,7 +1046,7 @@ genrule(
         "pysrc/hardware/reference/sf76e-thermal-fuse/sf76e_thermal_fuse.py",
         "pysrc/hardware/reference/shok-blok-regulator/shok_blok_regulator.py",
         "pysrc/hardware/reference/tee-connector/tee_connector.py",
-        ":out/teyleten-relay/hardware/reference/teyleten-relay/teyleten-relay.step",
+        "hardware/reference/teyleten-relay/teyleten-relay.step",
         "pysrc/hardware/reference/teyleten-relay/teyleten_relay.py",
         "pysrc/hardware/reference/wago-221/wago_221.py",
         "pysrc/hardware/reference/water-split/water_split.py",
@@ -1504,7 +1504,7 @@ genrule(
         "pysrc/hardware/reference/jg-pp0208e-tee/jg_pp0208e_tee.py",
         "hardware/reference/jg-pp0308e-elbow/jg-pp0308e-elbow.step",
         "pysrc/hardware/reference/jg-pp061208w/jg_pp061208w.py",
-        ":out/meanwell-irm90/hardware/reference/meanwell-irm90/meanwell-irm90.step",
+        "hardware/reference/meanwell-irm90/meanwell-irm90.step",
         ":out/multiplex-asse1022/hardware/reference/multiplex-asse1022/multiplex-asse1022.step",
         "pysrc/hardware/reference/multiplex-asse1022/multiplex_asse1022.py",
         "pysrc/hardware/reference/neofit-achv44-check/neofit_achv44_check.py",
@@ -1515,7 +1515,7 @@ genrule(
         "pysrc/hardware/reference/pump-barb-joint/pump_barb_joint.py",
         ":out/riteav-keystone/hardware/reference/riteav-keystone/riteav-keystone.step",
         "pysrc/hardware/reference/tee-connector/tee_connector.py",
-        ":out/teyleten-relay/hardware/reference/teyleten-relay/teyleten-relay.step",
+        "hardware/reference/teyleten-relay/teyleten-relay.step",
         "hardware/reference/yzmsz-water-regulator/geometry/yzmsz-water-regulator.step",
         "pysrc/hardware/scripts/_cadq_export.py",
         "pysrc/hardware/scripts/_card.py",
@@ -2995,9 +2995,9 @@ genrule(
         "pysrc/hardware/reference/jg-pp061208w/jg_pp061208w.py",
         ":out/kamoer-kphm400/hardware/reference/kamoer-kphm400/kamoer-kphm400.step",
         "pysrc/hardware/reference/kamoer-kphm400/kamoer_kphm400.py",
-        ":out/meanwell-irm90/hardware/reference/meanwell-irm90/meanwell-irm90.step",
+        "hardware/reference/meanwell-irm90/meanwell-irm90.step",
         "pysrc/hardware/reference/meanwell-irm90/meanwell_irm90.py",
-        ":out/mq6-gas-sensor/hardware/reference/mq6-gas-sensor/mq6-gas-sensor.step",
+        "hardware/reference/mq6-gas-sensor/mq6-gas-sensor.step",
         "pysrc/hardware/reference/mq6-gas-sensor/mq6_gas_sensor.py",
         ":out/multiplex-asse1022/hardware/reference/multiplex-asse1022/multiplex-asse1022.step",
         "pysrc/hardware/reference/multiplex-asse1022/multiplex_asse1022.py",
@@ -3018,11 +3018,11 @@ genrule(
         "pysrc/hardware/reference/shok-blok-regulator/shok_blok_regulator.py",
         ":out/tee-connector/hardware/reference/tee-connector/tee-connector.step",
         "pysrc/hardware/reference/tee-connector/tee_connector.py",
-        ":out/teyleten-relay/hardware/reference/teyleten-relay/teyleten-relay.step",
+        "hardware/reference/teyleten-relay/teyleten-relay.step",
         "pysrc/hardware/reference/teyleten-relay/teyleten_relay.py",
-        ":out/wago-221/hardware/reference/wago-221/wago-221-413.step",
-        ":out/wago-221/hardware/reference/wago-221/wago-221-415.step",
-        ":out/wago-221/hardware/reference/wago-221/wago-221-420.step",
+        "hardware/reference/wago-221/wago-221-413.step",
+        "hardware/reference/wago-221/wago-221-415.step",
+        "hardware/reference/wago-221/wago-221-420.step",
         "pysrc/hardware/reference/wago-221/wago_221.py",
         "pysrc/hardware/reference/water-split/water_split.py",
         ":out/waveshare-43b-display/hardware/reference/waveshare-43b-display/waveshare-43b-display.step",
@@ -3331,9 +3331,9 @@ genrule(
         "pysrc/hardware/reference/jg-pp061208w/jg_pp061208w.py",
         ":out/kamoer-kphm400/hardware/reference/kamoer-kphm400/kamoer-kphm400.step",
         "pysrc/hardware/reference/kamoer-kphm400/kamoer_kphm400.py",
-        ":out/meanwell-irm90/hardware/reference/meanwell-irm90/meanwell-irm90.step",
+        "hardware/reference/meanwell-irm90/meanwell-irm90.step",
         "pysrc/hardware/reference/meanwell-irm90/meanwell_irm90.py",
-        ":out/mq6-gas-sensor/hardware/reference/mq6-gas-sensor/mq6-gas-sensor.step",
+        "hardware/reference/mq6-gas-sensor/mq6-gas-sensor.step",
         "pysrc/hardware/reference/mq6-gas-sensor/mq6_gas_sensor.py",
         ":out/multiplex-asse1022/hardware/reference/multiplex-asse1022/multiplex-asse1022.step",
         "pysrc/hardware/reference/multiplex-asse1022/multiplex_asse1022.py",
@@ -3353,11 +3353,11 @@ genrule(
         "pysrc/hardware/reference/shok-blok-regulator/shok_blok_regulator.py",
         ":out/tee-connector/hardware/reference/tee-connector/tee-connector.step",
         "pysrc/hardware/reference/tee-connector/tee_connector.py",
-        ":out/teyleten-relay/hardware/reference/teyleten-relay/teyleten-relay.step",
+        "hardware/reference/teyleten-relay/teyleten-relay.step",
         "pysrc/hardware/reference/teyleten-relay/teyleten_relay.py",
-        ":out/wago-221/hardware/reference/wago-221/wago-221-413.step",
-        ":out/wago-221/hardware/reference/wago-221/wago-221-415.step",
-        ":out/wago-221/hardware/reference/wago-221/wago-221-420.step",
+        "hardware/reference/wago-221/wago-221-413.step",
+        "hardware/reference/wago-221/wago-221-415.step",
+        "hardware/reference/wago-221/wago-221-420.step",
         "pysrc/hardware/reference/wago-221/wago_221.py",
         "pysrc/hardware/reference/water-split/water_split.py",
         "pysrc/hardware/reference/waveshare-43b-display/waveshare_43b_display.py",
@@ -3852,7 +3852,7 @@ genrule(
         "pysrc/hardware/reference/jg-pp0208e-tee/jg_pp0208e_tee.py",
         "hardware/reference/jg-pp0308e-elbow/jg-pp0308e-elbow.step",
         "pysrc/hardware/reference/jg-pp061208w/jg_pp061208w.py",
-        ":out/meanwell-irm90/hardware/reference/meanwell-irm90/meanwell-irm90.step",
+        "hardware/reference/meanwell-irm90/meanwell-irm90.step",
         ":out/multiplex-asse1022/hardware/reference/multiplex-asse1022/multiplex-asse1022.step",
         "pysrc/hardware/reference/multiplex-asse1022/multiplex_asse1022.py",
         "pysrc/hardware/reference/neofit-achv44-check/neofit_achv44_check.py",
@@ -3863,7 +3863,7 @@ genrule(
         "pysrc/hardware/reference/pump-barb-joint/pump_barb_joint.py",
         ":out/riteav-keystone/hardware/reference/riteav-keystone/riteav-keystone.step",
         "pysrc/hardware/reference/tee-connector/tee_connector.py",
-        ":out/teyleten-relay/hardware/reference/teyleten-relay/teyleten-relay.step",
+        "hardware/reference/teyleten-relay/teyleten-relay.step",
         "hardware/reference/yzmsz-water-regulator/geometry/yzmsz-water-regulator.step",
         "pysrc/hardware/scripts/_cadq_export.py",
         "pysrc/hardware/scripts/_material_base.py",
@@ -4881,7 +4881,7 @@ genrule(
         "hardware/reference/jg-pp0308e-elbow/jg-pp0308e-elbow.step",
         "pysrc/hardware/reference/jg-pp061208w/jg_pp061208w.py",
         "pysrc/hardware/reference/kamoer-kphm400/kamoer_kphm400.py",
-        ":out/meanwell-irm90/hardware/reference/meanwell-irm90/meanwell-irm90.step",
+        "hardware/reference/meanwell-irm90/meanwell-irm90.step",
         "pysrc/hardware/reference/meanwell-irm90/meanwell_irm90.py",
         "pysrc/hardware/reference/mq6-gas-sensor/mq6_gas_sensor.py",
         ":out/multiplex-asse1022/hardware/reference/multiplex-asse1022/multiplex-asse1022.step",
@@ -4900,7 +4900,7 @@ genrule(
         "pysrc/hardware/reference/sf76e-thermal-fuse/sf76e_thermal_fuse.py",
         "pysrc/hardware/reference/shok-blok-regulator/shok_blok_regulator.py",
         "pysrc/hardware/reference/tee-connector/tee_connector.py",
-        ":out/teyleten-relay/hardware/reference/teyleten-relay/teyleten-relay.step",
+        "hardware/reference/teyleten-relay/teyleten-relay.step",
         "pysrc/hardware/reference/teyleten-relay/teyleten_relay.py",
         "pysrc/hardware/reference/wago-221/wago_221.py",
         "pysrc/hardware/reference/water-split/water_split.py",
@@ -5693,10 +5693,10 @@ genrule(
         "pysrc/hardware/reference/jg-pp061208w/jg_pp061208w.py",
         ":out/kamoer-kphm400/hardware/reference/kamoer-kphm400/kamoer-kphm400.step",
         "pysrc/hardware/reference/kamoer-kphm400/kamoer_kphm400.py",
-        ":out/meanwell-irm90/hardware/reference/meanwell-irm90/meanwell-irm90.step",
+        "hardware/reference/meanwell-irm90/meanwell-irm90.step",
         "pysrc/hardware/reference/meanwell-irm90/meanwell_irm90.py",
         "pysrc/hardware/reference/molex-micro-fit-4/molex_micro_fit_4.py",
-        ":out/mq6-gas-sensor/hardware/reference/mq6-gas-sensor/mq6-gas-sensor.step",
+        "hardware/reference/mq6-gas-sensor/mq6-gas-sensor.step",
         "pysrc/hardware/reference/mq6-gas-sensor/mq6_gas_sensor.py",
         ":out/multiplex-asse1022/hardware/reference/multiplex-asse1022/multiplex-asse1022.step",
         "pysrc/hardware/reference/multiplex-asse1022/multiplex_asse1022.py",
@@ -5719,11 +5719,11 @@ genrule(
         "pysrc/hardware/reference/shutao-moisture-plate/shutao_moisture_plate.py",
         ":out/tee-connector/hardware/reference/tee-connector/tee-connector.step",
         "pysrc/hardware/reference/tee-connector/tee_connector.py",
-        ":out/teyleten-relay/hardware/reference/teyleten-relay/teyleten-relay.step",
+        "hardware/reference/teyleten-relay/teyleten-relay.step",
         "pysrc/hardware/reference/teyleten-relay/teyleten_relay.py",
-        ":out/wago-221/hardware/reference/wago-221/wago-221-413.step",
-        ":out/wago-221/hardware/reference/wago-221/wago-221-415.step",
-        ":out/wago-221/hardware/reference/wago-221/wago-221-420.step",
+        "hardware/reference/wago-221/wago-221-413.step",
+        "hardware/reference/wago-221/wago-221-415.step",
+        "hardware/reference/wago-221/wago-221-420.step",
         "pysrc/hardware/reference/wago-221/wago_221.py",
         "pysrc/hardware/reference/water-split/water_split.py",
         "pysrc/hardware/reference/waveshare-43b-display/waveshare_43b_display.py",
@@ -5911,7 +5911,7 @@ genrule(
         "hardware/reference/jg-pp0308e-elbow/scan-measurements.json",
         "pysrc/hardware/reference/jg-pp061208w/jg_pp061208w.py",
         "pysrc/hardware/reference/kamoer-kphm400/kamoer_kphm400.py",
-        ":out/meanwell-irm90/hardware/reference/meanwell-irm90/meanwell-irm90.step",
+        "hardware/reference/meanwell-irm90/meanwell-irm90.step",
         "pysrc/hardware/reference/meanwell-irm90/meanwell_irm90.py",
         "pysrc/hardware/reference/mq6-gas-sensor/mq6_gas_sensor.py",
         ":out/multiplex-asse1022/hardware/reference/multiplex-asse1022/multiplex-asse1022.step",
@@ -5927,7 +5927,7 @@ genrule(
         "pysrc/hardware/reference/riteav-keystone/riteav_keystone.py",
         ":out/tee-connector/hardware/reference/tee-connector/tee-connector.step",
         "pysrc/hardware/reference/tee-connector/tee_connector.py",
-        ":out/teyleten-relay/hardware/reference/teyleten-relay/teyleten-relay.step",
+        "hardware/reference/teyleten-relay/teyleten-relay.step",
         "pysrc/hardware/reference/teyleten-relay/teyleten_relay.py",
         "pysrc/hardware/reference/wago-221/wago_221.py",
         "pysrc/hardware/reference/yyfkgcp-pogo-4p/yyfkgcp_pogo_4p.py",
@@ -6358,7 +6358,7 @@ genrule(
         "hardware/reference/jg-pp0308e-elbow/scan-measurements.json",
         "pysrc/hardware/reference/jg-pp061208w/jg_pp061208w.py",
         "pysrc/hardware/reference/kamoer-kphm400/kamoer_kphm400.py",
-        ":out/meanwell-irm90/hardware/reference/meanwell-irm90/meanwell-irm90.step",
+        "hardware/reference/meanwell-irm90/meanwell-irm90.step",
         "pysrc/hardware/reference/meanwell-irm90/meanwell_irm90.py",
         "pysrc/hardware/reference/molex-micro-fit-4/molex_micro_fit_4.py",
         "pysrc/hardware/reference/mq6-gas-sensor/mq6_gas_sensor.py",
@@ -6381,7 +6381,7 @@ genrule(
         "pysrc/hardware/reference/shutao-moisture-plate/shutao_moisture_plate.py",
         ":out/tee-connector/hardware/reference/tee-connector/tee-connector.step",
         "pysrc/hardware/reference/tee-connector/tee_connector.py",
-        ":out/teyleten-relay/hardware/reference/teyleten-relay/teyleten-relay.step",
+        "hardware/reference/teyleten-relay/teyleten-relay.step",
         "pysrc/hardware/reference/teyleten-relay/teyleten_relay.py",
         "pysrc/hardware/reference/wago-221/wago_221.py",
         "pysrc/hardware/reference/water-split/water_split.py",
@@ -6480,7 +6480,7 @@ genrule(
         "pysrc/hardware/reference/jg-pp0208e-tee/jg_pp0208e_tee.py",
         "hardware/reference/jg-pp0308e-elbow/jg-pp0308e-elbow.step",
         "pysrc/hardware/reference/jg-pp061208w/jg_pp061208w.py",
-        ":out/meanwell-irm90/hardware/reference/meanwell-irm90/meanwell-irm90.step",
+        "hardware/reference/meanwell-irm90/meanwell-irm90.step",
         ":out/multiplex-asse1022/hardware/reference/multiplex-asse1022/multiplex-asse1022.step",
         "pysrc/hardware/reference/multiplex-asse1022/multiplex_asse1022.py",
         "pysrc/hardware/reference/neofit-acvus44-check/neofit_acvus44_check.py",
@@ -6490,7 +6490,7 @@ genrule(
         "pysrc/hardware/reference/pump-barb-joint/pump_barb_joint.py",
         ":out/riteav-keystone/hardware/reference/riteav-keystone/riteav-keystone.step",
         "pysrc/hardware/reference/tee-connector/tee_connector.py",
-        ":out/teyleten-relay/hardware/reference/teyleten-relay/teyleten-relay.step",
+        "hardware/reference/teyleten-relay/teyleten-relay.step",
         "hardware/reference/yzmsz-water-regulator/geometry/yzmsz-water-regulator.step",
         "pysrc/hardware/scripts/_cadq_export.py",
         "pysrc/hardware/scripts/_material_base.py",
@@ -6803,7 +6803,7 @@ genrule(
         "hardware/reference/jg-pp0308e-elbow/scan-measurements.json",
         "pysrc/hardware/reference/jg-pp061208w/jg_pp061208w.py",
         "pysrc/hardware/reference/kamoer-kphm400/kamoer_kphm400.py",
-        ":out/meanwell-irm90/hardware/reference/meanwell-irm90/meanwell-irm90.step",
+        "hardware/reference/meanwell-irm90/meanwell-irm90.step",
         "pysrc/hardware/reference/meanwell-irm90/meanwell_irm90.py",
         "pysrc/hardware/reference/molex-micro-fit-4/molex_micro_fit_4.py",
         "pysrc/hardware/reference/mq6-gas-sensor/mq6_gas_sensor.py",
@@ -6826,7 +6826,7 @@ genrule(
         "pysrc/hardware/reference/shutao-moisture-plate/shutao_moisture_plate.py",
         ":out/tee-connector/hardware/reference/tee-connector/tee-connector.step",
         "pysrc/hardware/reference/tee-connector/tee_connector.py",
-        ":out/teyleten-relay/hardware/reference/teyleten-relay/teyleten-relay.step",
+        "hardware/reference/teyleten-relay/teyleten-relay.step",
         "pysrc/hardware/reference/teyleten-relay/teyleten_relay.py",
         "pysrc/hardware/reference/wago-221/wago_221.py",
         "pysrc/hardware/reference/water-split/water_split.py",
@@ -9752,44 +9752,6 @@ cp hardware/reference/kamoer-kphm400/kamoer-kphm400.step $$O0
 )
 
 genrule(
-    name = "meanwell-irm90",
-    srcs = [
-        "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
-        "pysrc/hardware/reference/meanwell-irm90/meanwell_irm90.py",
-        "pysrc/hardware/scripts/_cadq_export.py",
-        "pysrc/hardware/scripts/_material_base.py",
-        "pysrc/hardware/scripts/_materials.py",
-        "pysrc/hardware/scripts/_mesh_payload.py",
-        "pysrc/hardware/scripts/_run_lock.py",
-        "pysrc/tools/docgen/__init__.py",
-    ],
-    outs = [
-        "out/meanwell-irm90/hardware/reference/meanwell-irm90/meanwell-irm90.step",
-    ],
-    cmd = """
-set -e
-O0=$$PWD/$(location out/meanwell-irm90/hardware/reference/meanwell-irm90/meanwell-irm90.step)
-for f in $(SRCS); do
-  case $$f in
-    */node_modules/*) continue;;
-    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
-    */pysrc/*) t=$${f##*/pysrc/};;
-    *) t=$$f;;
-  esac
-  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
-done
-for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
-done
-cd work
-ln -sfn $$HSM_WORKSPACE/.cache .cache
-D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/meanwell-irm90/meanwell_irm90.py > /dev/null
-cp hardware/reference/meanwell-irm90/meanwell-irm90.step $$O0
-""",
-)
-
-genrule(
     name = "molex-micro-fit-4",
     srcs = [
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
@@ -9824,44 +9786,6 @@ ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
 HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/molex-micro-fit-4/molex_micro_fit_4.py > /dev/null
 cp hardware/reference/molex-micro-fit-4/molex-micro-fit-4-panel.step $$O0
-""",
-)
-
-genrule(
-    name = "mq6-gas-sensor",
-    srcs = [
-        "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
-        "pysrc/hardware/reference/mq6-gas-sensor/mq6_gas_sensor.py",
-        "pysrc/hardware/scripts/_cadq_export.py",
-        "pysrc/hardware/scripts/_material_base.py",
-        "pysrc/hardware/scripts/_materials.py",
-        "pysrc/hardware/scripts/_mesh_payload.py",
-        "pysrc/hardware/scripts/_run_lock.py",
-        "pysrc/tools/docgen/__init__.py",
-    ],
-    outs = [
-        "out/mq6-gas-sensor/hardware/reference/mq6-gas-sensor/mq6-gas-sensor.step",
-    ],
-    cmd = """
-set -e
-O0=$$PWD/$(location out/mq6-gas-sensor/hardware/reference/mq6-gas-sensor/mq6-gas-sensor.step)
-for f in $(SRCS); do
-  case $$f in
-    */node_modules/*) continue;;
-    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
-    */pysrc/*) t=$${f##*/pysrc/};;
-    *) t=$$f;;
-  esac
-  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
-done
-for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
-done
-cd work
-ln -sfn $$HSM_WORKSPACE/.cache .cache
-D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/mq6-gas-sensor/mq6_gas_sensor.py > /dev/null
-cp hardware/reference/mq6-gas-sensor/mq6-gas-sensor.step $$O0
 """,
 )
 
@@ -10293,44 +10217,6 @@ cp hardware/reference/shok-blok-regulator/shok-blok-regulator.step.mesh $$O1
 )
 
 genrule(
-    name = "shutao-moisture-plate",
-    srcs = [
-        "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
-        "pysrc/hardware/reference/shutao-moisture-plate/shutao_moisture_plate.py",
-        "pysrc/hardware/scripts/_cadq_export.py",
-        "pysrc/hardware/scripts/_material_base.py",
-        "pysrc/hardware/scripts/_materials.py",
-        "pysrc/hardware/scripts/_mesh_payload.py",
-        "pysrc/hardware/scripts/_run_lock.py",
-        "pysrc/tools/docgen/__init__.py",
-    ],
-    outs = [
-        "out/shutao-moisture-plate/hardware/reference/shutao-moisture-plate/shutao-moisture-plate.step",
-    ],
-    cmd = """
-set -e
-O0=$$PWD/$(location out/shutao-moisture-plate/hardware/reference/shutao-moisture-plate/shutao-moisture-plate.step)
-for f in $(SRCS); do
-  case $$f in
-    */node_modules/*) continue;;
-    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
-    */pysrc/*) t=$${f##*/pysrc/};;
-    *) t=$$f;;
-  esac
-  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
-done
-for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
-done
-cd work
-ln -sfn $$HSM_WORKSPACE/.cache .cache
-D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/shutao-moisture-plate/shutao_moisture_plate.py > /dev/null
-cp hardware/reference/shutao-moisture-plate/shutao-moisture-plate.step $$O0
-""",
-)
-
-genrule(
     name = "soda-rise-insulation",
     srcs = [
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
@@ -10450,44 +10336,6 @@ cp hardware/reference/tee-connector/tee-connector.step $$O0
 )
 
 genrule(
-    name = "teyleten-relay",
-    srcs = [
-        "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
-        "pysrc/hardware/reference/teyleten-relay/teyleten_relay.py",
-        "pysrc/hardware/scripts/_cadq_export.py",
-        "pysrc/hardware/scripts/_material_base.py",
-        "pysrc/hardware/scripts/_materials.py",
-        "pysrc/hardware/scripts/_mesh_payload.py",
-        "pysrc/hardware/scripts/_run_lock.py",
-        "pysrc/tools/docgen/__init__.py",
-    ],
-    outs = [
-        "out/teyleten-relay/hardware/reference/teyleten-relay/teyleten-relay.step",
-    ],
-    cmd = """
-set -e
-O0=$$PWD/$(location out/teyleten-relay/hardware/reference/teyleten-relay/teyleten-relay.step)
-for f in $(SRCS); do
-  case $$f in
-    */node_modules/*) continue;;
-    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
-    */pysrc/*) t=$${f##*/pysrc/};;
-    *) t=$$f;;
-  esac
-  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
-done
-for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
-done
-cd work
-ln -sfn $$HSM_WORKSPACE/.cache .cache
-D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/teyleten-relay/teyleten_relay.py > /dev/null
-cp hardware/reference/teyleten-relay/teyleten-relay.step $$O0
-""",
-)
-
-genrule(
     name = "westbrass-reference",
     srcs = [
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
@@ -10526,50 +10374,6 @@ D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.
 HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/touch-flo-faucet/westbrass-reference/westbrass_reference.py > /dev/null
 cp hardware/reference/touch-flo-faucet/westbrass-reference/westbrass-reference.step $$O0
 cp hardware/reference/touch-flo-faucet/westbrass-reference/westbrass_reference.py $$O1
-""",
-)
-
-genrule(
-    name = "wago-221",
-    srcs = [
-        "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
-        "pysrc/hardware/reference/wago-221/wago_221.py",
-        "pysrc/hardware/scripts/_cadq_export.py",
-        "pysrc/hardware/scripts/_material_base.py",
-        "pysrc/hardware/scripts/_materials.py",
-        "pysrc/hardware/scripts/_mesh_payload.py",
-        "pysrc/hardware/scripts/_run_lock.py",
-        "pysrc/tools/docgen/__init__.py",
-    ],
-    outs = [
-        "out/wago-221/hardware/reference/wago-221/wago-221-413.step",
-        "out/wago-221/hardware/reference/wago-221/wago-221-415.step",
-        "out/wago-221/hardware/reference/wago-221/wago-221-420.step",
-    ],
-    cmd = """
-set -e
-O0=$$PWD/$(location out/wago-221/hardware/reference/wago-221/wago-221-413.step)
-O1=$$PWD/$(location out/wago-221/hardware/reference/wago-221/wago-221-415.step)
-O2=$$PWD/$(location out/wago-221/hardware/reference/wago-221/wago-221-420.step)
-for f in $(SRCS); do
-  case $$f in
-    */node_modules/*) continue;;
-    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
-    */pysrc/*) t=$${f##*/pysrc/};;
-    *) t=$$f;;
-  esac
-  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
-done
-for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
-done
-cd work
-ln -sfn $$HSM_WORKSPACE/.cache .cache
-D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/wago-221/wago_221.py > /dev/null
-cp hardware/reference/wago-221/wago-221-413.step $$O0
-cp hardware/reference/wago-221/wago-221-415.step $$O1
-cp hardware/reference/wago-221/wago-221-420.step $$O2
 """,
 )
 
@@ -10948,7 +10752,7 @@ genrule(
         "hardware/reference/jg-pp0308e-elbow/scan-measurements.json",
         "pysrc/hardware/reference/jg-pp061208w/jg_pp061208w.py",
         "pysrc/hardware/reference/kamoer-kphm400/kamoer_kphm400.py",
-        ":out/meanwell-irm90/hardware/reference/meanwell-irm90/meanwell-irm90.step",
+        "hardware/reference/meanwell-irm90/meanwell-irm90.step",
         "pysrc/hardware/reference/meanwell-irm90/meanwell_irm90.py",
         "pysrc/hardware/reference/mq6-gas-sensor/mq6_gas_sensor.py",
         ":out/multiplex-asse1022/hardware/reference/multiplex-asse1022/multiplex-asse1022.step",
@@ -10967,7 +10771,7 @@ genrule(
         "pysrc/hardware/reference/sf76e-thermal-fuse/sf76e_thermal_fuse.py",
         "pysrc/hardware/reference/shok-blok-regulator/shok_blok_regulator.py",
         "pysrc/hardware/reference/tee-connector/tee_connector.py",
-        ":out/teyleten-relay/hardware/reference/teyleten-relay/teyleten-relay.step",
+        "hardware/reference/teyleten-relay/teyleten-relay.step",
         "pysrc/hardware/reference/teyleten-relay/teyleten_relay.py",
         "hardware/reference/touch-flo-faucet/display-reference/buttons.json",
         "hardware/reference/touch-flo-faucet/display-reference/component-envelopes.json",
@@ -11638,10 +11442,10 @@ genrule(
         "hardware/reference/jhyossthi-pogo-dock/jhyossthi_pogo_dock.py",
         ":out/kamoer-kphm400/hardware/reference/kamoer-kphm400/kamoer-kphm400.step",
         "hardware/reference/kamoer-kphm400/kamoer_kphm400.py",
-        ":out/meanwell-irm90/hardware/reference/meanwell-irm90/meanwell-irm90.step",
+        "hardware/reference/meanwell-irm90/meanwell-irm90.step",
         "hardware/reference/meanwell-irm90/meanwell_irm90.py",
         "hardware/reference/molex-micro-fit-4/molex_micro_fit_4.py",
-        ":out/mq6-gas-sensor/hardware/reference/mq6-gas-sensor/mq6-gas-sensor.step",
+        "hardware/reference/mq6-gas-sensor/mq6-gas-sensor.step",
         "hardware/reference/mq6-gas-sensor/mq6_gas_sensor.py",
         ":out/multiplex-asse1022/hardware/reference/multiplex-asse1022/multiplex-asse1022.step",
         "hardware/reference/multiplex-asse1022/multiplex_asse1022.py",
@@ -11665,11 +11469,11 @@ genrule(
         "hardware/reference/shutao-moisture-plate/shutao_moisture_plate.py",
         ":out/tee-connector/hardware/reference/tee-connector/tee-connector.step",
         "hardware/reference/tee-connector/tee_connector.py",
-        ":out/teyleten-relay/hardware/reference/teyleten-relay/teyleten-relay.step",
+        "hardware/reference/teyleten-relay/teyleten-relay.step",
         "hardware/reference/teyleten-relay/teyleten_relay.py",
-        ":out/wago-221/hardware/reference/wago-221/wago-221-413.step",
-        ":out/wago-221/hardware/reference/wago-221/wago-221-415.step",
-        ":out/wago-221/hardware/reference/wago-221/wago-221-420.step",
+        "hardware/reference/wago-221/wago-221-413.step",
+        "hardware/reference/wago-221/wago-221-415.step",
+        "hardware/reference/wago-221/wago-221-420.step",
         "hardware/reference/wago-221/wago_221.py",
         "hardware/reference/water-split/water_split.py",
         ":out/waveshare-43b-display/hardware/reference/waveshare-43b-display/waveshare-43b-display.step",
@@ -11895,7 +11699,7 @@ genrule(
         "hardware/reference/jg-pp0308e-elbow/jg-pp0308e-elbow.step",
         "pysrc/hardware/reference/jg-pp061208w/jg_pp061208w.py",
         "pysrc/hardware/reference/kamoer-kphm400/kamoer_kphm400.py",
-        ":out/meanwell-irm90/hardware/reference/meanwell-irm90/meanwell-irm90.step",
+        "hardware/reference/meanwell-irm90/meanwell-irm90.step",
         "pysrc/hardware/reference/meanwell-irm90/meanwell_irm90.py",
         "pysrc/hardware/reference/mq6-gas-sensor/mq6_gas_sensor.py",
         ":out/multiplex-asse1022/hardware/reference/multiplex-asse1022/multiplex-asse1022.step",
@@ -11914,7 +11718,7 @@ genrule(
         "pysrc/hardware/reference/sf76e-thermal-fuse/sf76e_thermal_fuse.py",
         "pysrc/hardware/reference/shok-blok-regulator/shok_blok_regulator.py",
         "pysrc/hardware/reference/tee-connector/tee_connector.py",
-        ":out/teyleten-relay/hardware/reference/teyleten-relay/teyleten-relay.step",
+        "hardware/reference/teyleten-relay/teyleten-relay.step",
         "pysrc/hardware/reference/teyleten-relay/teyleten_relay.py",
         "pysrc/hardware/reference/wago-221/wago_221.py",
         "pysrc/hardware/reference/water-split/water_split.py",
@@ -15048,9 +14852,7 @@ filegroup(
         ":jg-pp061208w",
         ":jhyossthi-pogo-dock",
         ":kamoer-kphm400",
-        ":meanwell-irm90",
         ":molex-micro-fit-4",
-        ":mq6-gas-sensor",
         ":multiplex-asse1022",
         ":neofit-achv44-check",
         ":neofit-bulkhead",
@@ -15062,13 +14864,10 @@ filegroup(
         ":seaflo-discharge-chain",
         ":sf76e-thermal-fuse",
         ":shok-blok-regulator",
-        ":shutao-moisture-plate",
         ":soda-rise-insulation",
         ":taprite-3741-regulator",
         ":tee-connector",
-        ":teyleten-relay",
         ":westbrass-reference",
-        ":wago-221",
         ":waveshare-43b-display",
         ":worm-clamp",
         ":wr1110-regulator",

@@ -1,0 +1,11 @@
+{
+  "source": {
+    "commit": "e993e2f1dc02e22f670f06dc5aecf0df14dcfe3d",
+    "path": "hardware/reference/mq6-gas-sensor/mq6_gas_sensor.py",
+    "sha256": "ce1602bf172ebe8eabea1e30059a5efb7b20c4d73af6839811c80d7dfac1f2a7"
+  },
+  "members": {
+    "mq6-gas-sensor.step": "b3707fb5112ceee44ed47d0b1c1adeed17979ec6e06f187009d2eaee0c740ee1",
+    "mq6-gas-sensor.step.mesh": "290c2de59cd21200bc7c0e83a6b7f56ae21c7447a4eed2b24d3396fc512a30e5"
+  }
+}
