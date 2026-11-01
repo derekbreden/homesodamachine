@@ -184,6 +184,17 @@ Rebuild the wiring against the current populated native enclosure:
 tools/cad-venv/bin/python hardware/wiring/installed/build.py
 ```
 
+The explicit kernel materializer reads `enclosure-assembly.step.npz`, resolves
+the attachments in a native child process, then builds after that child exits:
+
+```sh
+python3 tools/run.py -- tools/cad-venv/bin/python hardware/wiring/installed/build.py --kernel
+```
+
+It writes the fine wiring to `enclosure-wiring.step.npz` and appends its STEP and
+viewer bodies to the populated enclosure. The physical fine model stays unchanged.
+The manifest binds the physical fine input, route numbers and fine wiring by SHA-256.
+
 The normal `enclosure_assembly.py` composition includes the same wiring model.
 The wiring-only materializer replaces its own marked STEP subassembly and viewer
 meshes; existing physical component records and meshes are retained. Native and
