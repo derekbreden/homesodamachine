@@ -1935,6 +1935,7 @@ genrule(
         "tools/hsm/kernel/src/profile.rs",
         "tools/hsm/kernel/src/reads.rs",
         "tools/hsm/kernel/src/round.rs",
+        "tools/hsm/kernel/src/round/rolled.rs",
         "tools/hsm/kernel/src/rule.rs",
         "tools/hsm/kernel/src/screw.rs",
         "tools/hsm/kernel/src/sketch_hull.rs",
@@ -2146,6 +2147,7 @@ genrule(
         "tools/hsm/kernel/src/profile.rs",
         "tools/hsm/kernel/src/reads.rs",
         "tools/hsm/kernel/src/round.rs",
+        "tools/hsm/kernel/src/round/rolled.rs",
         "tools/hsm/kernel/src/rule.rs",
         "tools/hsm/kernel/src/screw.rs",
         "tools/hsm/kernel/src/sketch_hull.rs",
@@ -2311,6 +2313,7 @@ genrule(
         "tools/hsm/kernel/src/profile.rs",
         "tools/hsm/kernel/src/reads.rs",
         "tools/hsm/kernel/src/round.rs",
+        "tools/hsm/kernel/src/round/rolled.rs",
         "tools/hsm/kernel/src/rule.rs",
         "tools/hsm/kernel/src/screw.rs",
         "tools/hsm/kernel/src/sketch_hull.rs",
@@ -3259,6 +3262,7 @@ genrule(
         "tools/hsm/kernel/src/profile.rs",
         "tools/hsm/kernel/src/reads.rs",
         "tools/hsm/kernel/src/round.rs",
+        "tools/hsm/kernel/src/round/rolled.rs",
         "tools/hsm/kernel/src/rule.rs",
         "tools/hsm/kernel/src/screw.rs",
         "tools/hsm/kernel/src/sketch_hull.rs",
@@ -3943,6 +3947,7 @@ genrule(
         "tools/hsm/kernel/src/profile.rs",
         "tools/hsm/kernel/src/reads.rs",
         "tools/hsm/kernel/src/round.rs",
+        "tools/hsm/kernel/src/round/rolled.rs",
         "tools/hsm/kernel/src/rule.rs",
         "tools/hsm/kernel/src/screw.rs",
         "tools/hsm/kernel/src/sketch_hull.rs",
@@ -4332,6 +4337,7 @@ genrule(
         "tools/hsm/kernel/src/profile.rs",
         "tools/hsm/kernel/src/reads.rs",
         "tools/hsm/kernel/src/round.rs",
+        "tools/hsm/kernel/src/round/rolled.rs",
         "tools/hsm/kernel/src/rule.rs",
         "tools/hsm/kernel/src/screw.rs",
         "tools/hsm/kernel/src/sketch_hull.rs",
@@ -4591,6 +4597,7 @@ genrule(
         "tools/hsm/kernel/src/profile.rs",
         "tools/hsm/kernel/src/reads.rs",
         "tools/hsm/kernel/src/round.rs",
+        "tools/hsm/kernel/src/round/rolled.rs",
         "tools/hsm/kernel/src/rule.rs",
         "tools/hsm/kernel/src/screw.rs",
         "tools/hsm/kernel/src/sketch_hull.rs",
@@ -6629,18 +6636,55 @@ genrule(
         "hardware/printed-parts/enclosure/nameplate/README.md",
         "pysrc/hardware/printed-parts/enclosure/nameplate/_nameplate_dimensions.py",
         "pysrc/hardware/printed-parts/enclosure/nameplate/nameplate.py",
+        "hardware/printed-parts/enclosure/nameplate/nameplate.rs",
         "hardware/printed-parts/enclosure/nameplate/wordmark.svg",
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
         "pysrc/hardware/scripts/_cadq_export.py",
         "pysrc/hardware/scripts/_material_base.py",
         "pysrc/hardware/scripts/_materials.py",
-        "pysrc/hardware/scripts/_mesh_payload.py",
-        "pysrc/hardware/scripts/_payload_rules.py",
+        "pysrc/hardware/scripts/_occt_color.py",
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/hardware/scripts/_run_slots.py",
+        "pysrc/hardware/scripts/_rust_part.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/Cargo.lock",
+        "tools/hsm/Cargo.toml",
+        "tools/hsm/enclosure-components/Cargo.toml",
+        "tools/hsm/enclosure-components/src/lib.rs",
+        "tools/hsm/kernel/Cargo.toml",
+        "tools/hsm/kernel/src/boolean.rs",
+        "tools/hsm/kernel/src/build.rs",
+        "tools/hsm/kernel/src/dxf.rs",
+        "tools/hsm/kernel/src/edge.rs",
+        "tools/hsm/kernel/src/face.rs",
+        "tools/hsm/kernel/src/import.rs",
+        "tools/hsm/kernel/src/lib.rs",
+        "tools/hsm/kernel/src/mapped.rs",
+        "tools/hsm/kernel/src/mass.rs",
+        "tools/hsm/kernel/src/math.rs",
+        "tools/hsm/kernel/src/part.rs",
+        "tools/hsm/kernel/src/plane.rs",
+        "tools/hsm/kernel/src/profile.rs",
+        "tools/hsm/kernel/src/reads.rs",
+        "tools/hsm/kernel/src/round.rs",
+        "tools/hsm/kernel/src/round/rolled.rs",
+        "tools/hsm/kernel/src/rule.rs",
+        "tools/hsm/kernel/src/screw.rs",
+        "tools/hsm/kernel/src/sketch_hull.rs",
+        "tools/hsm/kernel/src/solid.rs",
+        "tools/hsm/kernel/src/spline.rs",
+        "tools/hsm/kernel/src/step.rs",
+        "tools/hsm/kernel/src/sweep.rs",
+        "tools/hsm/kernel/src/text.rs",
+        "tools/hsm/kernel/src/thru.rs",
+        "tools/hsm/kernel/src/topo.rs",
+        "tools/hsm/kernel/src/triangulate.rs",
+        "tools/hsm/kernel/src/write.rs",
         "tools/hsm/run-slots.defaults.json",
+        "tools/hsm/run-slots/Cargo.toml",
+        "tools/hsm/run-slots/src/ipc.rs",
+        "tools/hsm/run-slots/src/lib.rs",
         "tools/run-slots.mjs",
         "pysrc/tools/run.py",
     ] + glob(
@@ -6653,27 +6697,35 @@ genrule(
     outs = [
         "out/nameplate-dimensions/hardware/printed-parts/enclosure/nameplate/nameplate-001.step",
         "out/nameplate-dimensions/hardware/printed-parts/enclosure/nameplate/nameplate-001.step.mesh",
+        "out/nameplate-dimensions/hardware/printed-parts/enclosure/nameplate/nameplate-001.step.npz",
         "out/nameplate-dimensions/hardware/printed-parts/enclosure/nameplate/nameplate-001.stl",
         "out/nameplate-dimensions/hardware/printed-parts/enclosure/nameplate/nameplate-receiver.step",
         "out/nameplate-dimensions/hardware/printed-parts/enclosure/nameplate/nameplate-receiver.step.mesh",
+        "out/nameplate-dimensions/hardware/printed-parts/enclosure/nameplate/nameplate-receiver.step.npz",
         "out/nameplate-dimensions/hardware/printed-parts/enclosure/nameplate/nameplate-receiver.stl",
+        "out/nameplate-dimensions/hardware/printed-parts/enclosure/nameplate/nameplate.numbers.json",
         "out/nameplate-dimensions/future/unit-links.figures.json",
         "out/nameplate-dimensions/future/unit-links.md",
         "out/nameplate-dimensions/hardware/printed-parts/enclosure/nameplate/README.figures.json",
         "out/nameplate-dimensions/hardware/printed-parts/enclosure/nameplate/README.md",
     ],
+    tags = ["no-sandbox"],
     cmd = """
 set -e
 O0=$$PWD/$(location out/nameplate-dimensions/hardware/printed-parts/enclosure/nameplate/nameplate-001.step)
 O1=$$PWD/$(location out/nameplate-dimensions/hardware/printed-parts/enclosure/nameplate/nameplate-001.step.mesh)
-O2=$$PWD/$(location out/nameplate-dimensions/hardware/printed-parts/enclosure/nameplate/nameplate-001.stl)
-O3=$$PWD/$(location out/nameplate-dimensions/hardware/printed-parts/enclosure/nameplate/nameplate-receiver.step)
-O4=$$PWD/$(location out/nameplate-dimensions/hardware/printed-parts/enclosure/nameplate/nameplate-receiver.step.mesh)
-O5=$$PWD/$(location out/nameplate-dimensions/hardware/printed-parts/enclosure/nameplate/nameplate-receiver.stl)
-O6=$$PWD/$(location out/nameplate-dimensions/future/unit-links.figures.json)
-O7=$$PWD/$(location out/nameplate-dimensions/future/unit-links.md)
-O8=$$PWD/$(location out/nameplate-dimensions/hardware/printed-parts/enclosure/nameplate/README.figures.json)
-O9=$$PWD/$(location out/nameplate-dimensions/hardware/printed-parts/enclosure/nameplate/README.md)
+O2=$$PWD/$(location out/nameplate-dimensions/hardware/printed-parts/enclosure/nameplate/nameplate-001.step.npz)
+O3=$$PWD/$(location out/nameplate-dimensions/hardware/printed-parts/enclosure/nameplate/nameplate-001.stl)
+O4=$$PWD/$(location out/nameplate-dimensions/hardware/printed-parts/enclosure/nameplate/nameplate-receiver.step)
+O5=$$PWD/$(location out/nameplate-dimensions/hardware/printed-parts/enclosure/nameplate/nameplate-receiver.step.mesh)
+O6=$$PWD/$(location out/nameplate-dimensions/hardware/printed-parts/enclosure/nameplate/nameplate-receiver.step.npz)
+O7=$$PWD/$(location out/nameplate-dimensions/hardware/printed-parts/enclosure/nameplate/nameplate-receiver.stl)
+O8=$$PWD/$(location out/nameplate-dimensions/hardware/printed-parts/enclosure/nameplate/nameplate.numbers.json)
+O9=$$PWD/$(location out/nameplate-dimensions/future/unit-links.figures.json)
+O10=$$PWD/$(location out/nameplate-dimensions/future/unit-links.md)
+O11=$$PWD/$(location out/nameplate-dimensions/hardware/printed-parts/enclosure/nameplate/README.figures.json)
+O12=$$PWD/$(location out/nameplate-dimensions/hardware/printed-parts/enclosure/nameplate/README.md)
+rm -rf work-nameplate-dimensions
 for f in $(SRCS); do
   case $$f in
     */node_modules/*) continue;;
@@ -6681,26 +6733,30 @@ for f in $(SRCS); do
     */pysrc/*) t=$${f##*/pysrc/};;
     *) t=$$f;;
   esac
-  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
+  mkdir -p work-nameplate-dimensions/$$(dirname $$t); cp -L $$f work-nameplate-dimensions/$$t
 done
 for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
+  if [ -d $$d ]; then mkdir -p work-nameplate-dimensions/$$(dirname $$d); ln -sfn $$PWD/$$d work-nameplate-dimensions/$$d; fi
 done
-cd work
+cd work-nameplate-dimensions
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
 HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/enclosure/nameplate/_nameplate_dimensions.py > /dev/null
 HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/enclosure/nameplate/nameplate.py > /dev/null
 cp hardware/printed-parts/enclosure/nameplate/nameplate-001.step $$O0
 cp hardware/printed-parts/enclosure/nameplate/nameplate-001.step.mesh $$O1
-cp hardware/printed-parts/enclosure/nameplate/nameplate-001.stl $$O2
-cp hardware/printed-parts/enclosure/nameplate/nameplate-receiver.step $$O3
-cp hardware/printed-parts/enclosure/nameplate/nameplate-receiver.step.mesh $$O4
-cp hardware/printed-parts/enclosure/nameplate/nameplate-receiver.stl $$O5
-cp future/unit-links.figures.json $$O6
-cp future/unit-links.md $$O7
-cp hardware/printed-parts/enclosure/nameplate/README.figures.json $$O8
-cp hardware/printed-parts/enclosure/nameplate/README.md $$O9
+cp hardware/printed-parts/enclosure/nameplate/nameplate-001.step.npz $$O2
+cp hardware/printed-parts/enclosure/nameplate/nameplate-001.stl $$O3
+cp hardware/printed-parts/enclosure/nameplate/nameplate-receiver.step $$O4
+cp hardware/printed-parts/enclosure/nameplate/nameplate-receiver.step.mesh $$O5
+cp hardware/printed-parts/enclosure/nameplate/nameplate-receiver.step.npz $$O6
+cp hardware/printed-parts/enclosure/nameplate/nameplate-receiver.stl $$O7
+cp hardware/printed-parts/enclosure/nameplate/nameplate.numbers.json $$O8
+cp future/unit-links.figures.json $$O9
+cp future/unit-links.md $$O10
+cp hardware/printed-parts/enclosure/nameplate/README.figures.json $$O11
+cp hardware/printed-parts/enclosure/nameplate/README.md $$O12
+cd .. && rm -rf work-nameplate-dimensions
 """,
 )
 
@@ -7102,10 +7158,7 @@ genrule(
         "hardware/manifold-layout/above-core.json",
         "pysrc/hardware/manifold-layout/above_core.py",
         "pysrc/hardware/printed-parts/cadlib/fits.py",
-        "pysrc/hardware/printed-parts/cadlib/flute_skin.py",
         "pysrc/hardware/printed-parts/cadlib/port_chip.py",
-        "pysrc/hardware/printed-parts/cadlib/print_mesh.py",
-        "pysrc/hardware/printed-parts/cadlib/reeding.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
         "pysrc/hardware/printed-parts/enclosure/bulkhead-ring/bulkhead_ring.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
@@ -7114,6 +7167,7 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/nameplate/_nameplate_dimensions.py",
         "pysrc/hardware/printed-parts/enclosure/nameplate/nameplate.py",
         "pysrc/hardware/printed-parts/enclosure/rear-identification/rear_identification.py",
+        "hardware/printed-parts/enclosure/rear-identification/rear_identification.rs",
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
         "pysrc/hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py",
         "pysrc/hardware/reference/neofit-bulkhead/neofit_bulkhead.py",
@@ -7121,55 +7175,107 @@ genrule(
         "pysrc/hardware/scripts/_cadq_export.py",
         "pysrc/hardware/scripts/_material_base.py",
         "pysrc/hardware/scripts/_materials.py",
-        "pysrc/hardware/scripts/_mesh_payload.py",
-        "pysrc/hardware/scripts/_payload_rules.py",
+        "pysrc/hardware/scripts/_occt_color.py",
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/hardware/scripts/_run_slots.py",
+        "pysrc/hardware/scripts/_rust_part.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/Cargo.lock",
+        "tools/hsm/Cargo.toml",
+        "tools/hsm/enclosure-components/Cargo.toml",
+        "tools/hsm/enclosure-components/src/lib.rs",
+        "tools/hsm/kernel/Cargo.toml",
+        "tools/hsm/kernel/src/boolean.rs",
+        "tools/hsm/kernel/src/build.rs",
+        "tools/hsm/kernel/src/dxf.rs",
+        "tools/hsm/kernel/src/edge.rs",
+        "tools/hsm/kernel/src/face.rs",
+        "tools/hsm/kernel/src/import.rs",
+        "tools/hsm/kernel/src/lib.rs",
+        "tools/hsm/kernel/src/mapped.rs",
+        "tools/hsm/kernel/src/mass.rs",
+        "tools/hsm/kernel/src/math.rs",
+        "tools/hsm/kernel/src/part.rs",
+        "tools/hsm/kernel/src/plane.rs",
+        "tools/hsm/kernel/src/profile.rs",
+        "tools/hsm/kernel/src/reads.rs",
+        "tools/hsm/kernel/src/round.rs",
+        "tools/hsm/kernel/src/round/rolled.rs",
+        "tools/hsm/kernel/src/rule.rs",
+        "tools/hsm/kernel/src/screw.rs",
+        "tools/hsm/kernel/src/sketch_hull.rs",
+        "tools/hsm/kernel/src/solid.rs",
+        "tools/hsm/kernel/src/spline.rs",
+        "tools/hsm/kernel/src/step.rs",
+        "tools/hsm/kernel/src/sweep.rs",
+        "tools/hsm/kernel/src/text.rs",
+        "tools/hsm/kernel/src/thru.rs",
+        "tools/hsm/kernel/src/topo.rs",
+        "tools/hsm/kernel/src/triangulate.rs",
+        "tools/hsm/kernel/src/write.rs",
         "tools/hsm/run-slots.defaults.json",
+        "tools/hsm/run-slots/Cargo.toml",
+        "tools/hsm/run-slots/src/ipc.rs",
+        "tools/hsm/run-slots/src/lib.rs",
         "tools/run-slots.mjs",
         "pysrc/tools/run.py",
     ],
     outs = [
+        "out/rear-identification/hardware/printed-parts/enclosure/rear-identification/rear-identification.numbers.json",
         "out/rear-identification/hardware/printed-parts/enclosure/rear-identification/rear-label-carb.step",
         "out/rear-identification/hardware/printed-parts/enclosure/rear-identification/rear-label-carb.step.mesh",
+        "out/rear-identification/hardware/printed-parts/enclosure/rear-identification/rear-label-carb.step.npz",
         "out/rear-identification/hardware/printed-parts/enclosure/rear-identification/rear-label-carb.stl",
         "out/rear-identification/hardware/printed-parts/enclosure/rear-identification/rear-label-co2.step",
         "out/rear-identification/hardware/printed-parts/enclosure/rear-identification/rear-label-co2.step.mesh",
+        "out/rear-identification/hardware/printed-parts/enclosure/rear-identification/rear-label-co2.step.npz",
         "out/rear-identification/hardware/printed-parts/enclosure/rear-identification/rear-label-co2.stl",
         "out/rear-identification/hardware/printed-parts/enclosure/rear-identification/rear-label-drain.step",
         "out/rear-identification/hardware/printed-parts/enclosure/rear-identification/rear-label-drain.step.mesh",
+        "out/rear-identification/hardware/printed-parts/enclosure/rear-identification/rear-label-drain.step.npz",
         "out/rear-identification/hardware/printed-parts/enclosure/rear-identification/rear-label-drain.stl",
         "out/rear-identification/hardware/printed-parts/enclosure/rear-identification/rear-label-flavor-a.step",
         "out/rear-identification/hardware/printed-parts/enclosure/rear-identification/rear-label-flavor-a.step.mesh",
+        "out/rear-identification/hardware/printed-parts/enclosure/rear-identification/rear-label-flavor-a.step.npz",
         "out/rear-identification/hardware/printed-parts/enclosure/rear-identification/rear-label-flavor-a.stl",
         "out/rear-identification/hardware/printed-parts/enclosure/rear-identification/rear-label-flavor-b.step",
         "out/rear-identification/hardware/printed-parts/enclosure/rear-identification/rear-label-flavor-b.step.mesh",
+        "out/rear-identification/hardware/printed-parts/enclosure/rear-identification/rear-label-flavor-b.step.npz",
         "out/rear-identification/hardware/printed-parts/enclosure/rear-identification/rear-label-flavor-b.stl",
         "out/rear-identification/hardware/printed-parts/enclosure/rear-identification/rear-label-water.step",
         "out/rear-identification/hardware/printed-parts/enclosure/rear-identification/rear-label-water.step.mesh",
+        "out/rear-identification/hardware/printed-parts/enclosure/rear-identification/rear-label-water.step.npz",
         "out/rear-identification/hardware/printed-parts/enclosure/rear-identification/rear-label-water.stl",
     ],
+    tags = ["no-sandbox"],
     cmd = """
 set -e
-O0=$$PWD/$(location out/rear-identification/hardware/printed-parts/enclosure/rear-identification/rear-label-carb.step)
-O1=$$PWD/$(location out/rear-identification/hardware/printed-parts/enclosure/rear-identification/rear-label-carb.step.mesh)
-O2=$$PWD/$(location out/rear-identification/hardware/printed-parts/enclosure/rear-identification/rear-label-carb.stl)
-O3=$$PWD/$(location out/rear-identification/hardware/printed-parts/enclosure/rear-identification/rear-label-co2.step)
-O4=$$PWD/$(location out/rear-identification/hardware/printed-parts/enclosure/rear-identification/rear-label-co2.step.mesh)
-O5=$$PWD/$(location out/rear-identification/hardware/printed-parts/enclosure/rear-identification/rear-label-co2.stl)
-O6=$$PWD/$(location out/rear-identification/hardware/printed-parts/enclosure/rear-identification/rear-label-drain.step)
-O7=$$PWD/$(location out/rear-identification/hardware/printed-parts/enclosure/rear-identification/rear-label-drain.step.mesh)
-O8=$$PWD/$(location out/rear-identification/hardware/printed-parts/enclosure/rear-identification/rear-label-drain.stl)
-O9=$$PWD/$(location out/rear-identification/hardware/printed-parts/enclosure/rear-identification/rear-label-flavor-a.step)
-O10=$$PWD/$(location out/rear-identification/hardware/printed-parts/enclosure/rear-identification/rear-label-flavor-a.step.mesh)
-O11=$$PWD/$(location out/rear-identification/hardware/printed-parts/enclosure/rear-identification/rear-label-flavor-a.stl)
-O12=$$PWD/$(location out/rear-identification/hardware/printed-parts/enclosure/rear-identification/rear-label-flavor-b.step)
-O13=$$PWD/$(location out/rear-identification/hardware/printed-parts/enclosure/rear-identification/rear-label-flavor-b.step.mesh)
-O14=$$PWD/$(location out/rear-identification/hardware/printed-parts/enclosure/rear-identification/rear-label-flavor-b.stl)
-O15=$$PWD/$(location out/rear-identification/hardware/printed-parts/enclosure/rear-identification/rear-label-water.step)
-O16=$$PWD/$(location out/rear-identification/hardware/printed-parts/enclosure/rear-identification/rear-label-water.step.mesh)
-O17=$$PWD/$(location out/rear-identification/hardware/printed-parts/enclosure/rear-identification/rear-label-water.stl)
+O0=$$PWD/$(location out/rear-identification/hardware/printed-parts/enclosure/rear-identification/rear-identification.numbers.json)
+O1=$$PWD/$(location out/rear-identification/hardware/printed-parts/enclosure/rear-identification/rear-label-carb.step)
+O2=$$PWD/$(location out/rear-identification/hardware/printed-parts/enclosure/rear-identification/rear-label-carb.step.mesh)
+O3=$$PWD/$(location out/rear-identification/hardware/printed-parts/enclosure/rear-identification/rear-label-carb.step.npz)
+O4=$$PWD/$(location out/rear-identification/hardware/printed-parts/enclosure/rear-identification/rear-label-carb.stl)
+O5=$$PWD/$(location out/rear-identification/hardware/printed-parts/enclosure/rear-identification/rear-label-co2.step)
+O6=$$PWD/$(location out/rear-identification/hardware/printed-parts/enclosure/rear-identification/rear-label-co2.step.mesh)
+O7=$$PWD/$(location out/rear-identification/hardware/printed-parts/enclosure/rear-identification/rear-label-co2.step.npz)
+O8=$$PWD/$(location out/rear-identification/hardware/printed-parts/enclosure/rear-identification/rear-label-co2.stl)
+O9=$$PWD/$(location out/rear-identification/hardware/printed-parts/enclosure/rear-identification/rear-label-drain.step)
+O10=$$PWD/$(location out/rear-identification/hardware/printed-parts/enclosure/rear-identification/rear-label-drain.step.mesh)
+O11=$$PWD/$(location out/rear-identification/hardware/printed-parts/enclosure/rear-identification/rear-label-drain.step.npz)
+O12=$$PWD/$(location out/rear-identification/hardware/printed-parts/enclosure/rear-identification/rear-label-drain.stl)
+O13=$$PWD/$(location out/rear-identification/hardware/printed-parts/enclosure/rear-identification/rear-label-flavor-a.step)
+O14=$$PWD/$(location out/rear-identification/hardware/printed-parts/enclosure/rear-identification/rear-label-flavor-a.step.mesh)
+O15=$$PWD/$(location out/rear-identification/hardware/printed-parts/enclosure/rear-identification/rear-label-flavor-a.step.npz)
+O16=$$PWD/$(location out/rear-identification/hardware/printed-parts/enclosure/rear-identification/rear-label-flavor-a.stl)
+O17=$$PWD/$(location out/rear-identification/hardware/printed-parts/enclosure/rear-identification/rear-label-flavor-b.step)
+O18=$$PWD/$(location out/rear-identification/hardware/printed-parts/enclosure/rear-identification/rear-label-flavor-b.step.mesh)
+O19=$$PWD/$(location out/rear-identification/hardware/printed-parts/enclosure/rear-identification/rear-label-flavor-b.step.npz)
+O20=$$PWD/$(location out/rear-identification/hardware/printed-parts/enclosure/rear-identification/rear-label-flavor-b.stl)
+O21=$$PWD/$(location out/rear-identification/hardware/printed-parts/enclosure/rear-identification/rear-label-water.step)
+O22=$$PWD/$(location out/rear-identification/hardware/printed-parts/enclosure/rear-identification/rear-label-water.step.mesh)
+O23=$$PWD/$(location out/rear-identification/hardware/printed-parts/enclosure/rear-identification/rear-label-water.step.npz)
+O24=$$PWD/$(location out/rear-identification/hardware/printed-parts/enclosure/rear-identification/rear-label-water.stl)
+rm -rf work-rear-identification
 for f in $(SRCS); do
   case $$f in
     */node_modules/*) continue;;
@@ -7177,33 +7283,41 @@ for f in $(SRCS); do
     */pysrc/*) t=$${f##*/pysrc/};;
     *) t=$$f;;
   esac
-  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
+  mkdir -p work-rear-identification/$$(dirname $$t); cp -L $$f work-rear-identification/$$t
 done
 for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
+  if [ -d $$d ]; then mkdir -p work-rear-identification/$$(dirname $$d); ln -sfn $$PWD/$$d work-rear-identification/$$d; fi
 done
-cd work
+cd work-rear-identification
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
 HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/enclosure/rear-identification/rear_identification.py > /dev/null
-cp hardware/printed-parts/enclosure/rear-identification/rear-label-carb.step $$O0
-cp hardware/printed-parts/enclosure/rear-identification/rear-label-carb.step.mesh $$O1
-cp hardware/printed-parts/enclosure/rear-identification/rear-label-carb.stl $$O2
-cp hardware/printed-parts/enclosure/rear-identification/rear-label-co2.step $$O3
-cp hardware/printed-parts/enclosure/rear-identification/rear-label-co2.step.mesh $$O4
-cp hardware/printed-parts/enclosure/rear-identification/rear-label-co2.stl $$O5
-cp hardware/printed-parts/enclosure/rear-identification/rear-label-drain.step $$O6
-cp hardware/printed-parts/enclosure/rear-identification/rear-label-drain.step.mesh $$O7
-cp hardware/printed-parts/enclosure/rear-identification/rear-label-drain.stl $$O8
-cp hardware/printed-parts/enclosure/rear-identification/rear-label-flavor-a.step $$O9
-cp hardware/printed-parts/enclosure/rear-identification/rear-label-flavor-a.step.mesh $$O10
-cp hardware/printed-parts/enclosure/rear-identification/rear-label-flavor-a.stl $$O11
-cp hardware/printed-parts/enclosure/rear-identification/rear-label-flavor-b.step $$O12
-cp hardware/printed-parts/enclosure/rear-identification/rear-label-flavor-b.step.mesh $$O13
-cp hardware/printed-parts/enclosure/rear-identification/rear-label-flavor-b.stl $$O14
-cp hardware/printed-parts/enclosure/rear-identification/rear-label-water.step $$O15
-cp hardware/printed-parts/enclosure/rear-identification/rear-label-water.step.mesh $$O16
-cp hardware/printed-parts/enclosure/rear-identification/rear-label-water.stl $$O17
+cp hardware/printed-parts/enclosure/rear-identification/rear-identification.numbers.json $$O0
+cp hardware/printed-parts/enclosure/rear-identification/rear-label-carb.step $$O1
+cp hardware/printed-parts/enclosure/rear-identification/rear-label-carb.step.mesh $$O2
+cp hardware/printed-parts/enclosure/rear-identification/rear-label-carb.step.npz $$O3
+cp hardware/printed-parts/enclosure/rear-identification/rear-label-carb.stl $$O4
+cp hardware/printed-parts/enclosure/rear-identification/rear-label-co2.step $$O5
+cp hardware/printed-parts/enclosure/rear-identification/rear-label-co2.step.mesh $$O6
+cp hardware/printed-parts/enclosure/rear-identification/rear-label-co2.step.npz $$O7
+cp hardware/printed-parts/enclosure/rear-identification/rear-label-co2.stl $$O8
+cp hardware/printed-parts/enclosure/rear-identification/rear-label-drain.step $$O9
+cp hardware/printed-parts/enclosure/rear-identification/rear-label-drain.step.mesh $$O10
+cp hardware/printed-parts/enclosure/rear-identification/rear-label-drain.step.npz $$O11
+cp hardware/printed-parts/enclosure/rear-identification/rear-label-drain.stl $$O12
+cp hardware/printed-parts/enclosure/rear-identification/rear-label-flavor-a.step $$O13
+cp hardware/printed-parts/enclosure/rear-identification/rear-label-flavor-a.step.mesh $$O14
+cp hardware/printed-parts/enclosure/rear-identification/rear-label-flavor-a.step.npz $$O15
+cp hardware/printed-parts/enclosure/rear-identification/rear-label-flavor-a.stl $$O16
+cp hardware/printed-parts/enclosure/rear-identification/rear-label-flavor-b.step $$O17
+cp hardware/printed-parts/enclosure/rear-identification/rear-label-flavor-b.step.mesh $$O18
+cp hardware/printed-parts/enclosure/rear-identification/rear-label-flavor-b.step.npz $$O19
+cp hardware/printed-parts/enclosure/rear-identification/rear-label-flavor-b.stl $$O20
+cp hardware/printed-parts/enclosure/rear-identification/rear-label-water.step $$O21
+cp hardware/printed-parts/enclosure/rear-identification/rear-label-water.step.mesh $$O22
+cp hardware/printed-parts/enclosure/rear-identification/rear-label-water.step.npz $$O23
+cp hardware/printed-parts/enclosure/rear-identification/rear-label-water.stl $$O24
+cd .. && rm -rf work-rear-identification
 """,
 )
 
@@ -7660,6 +7774,7 @@ genrule(
         "tools/hsm/kernel/src/profile.rs",
         "tools/hsm/kernel/src/reads.rs",
         "tools/hsm/kernel/src/round.rs",
+        "tools/hsm/kernel/src/round/rolled.rs",
         "tools/hsm/kernel/src/rule.rs",
         "tools/hsm/kernel/src/screw.rs",
         "tools/hsm/kernel/src/sketch_hull.rs",
@@ -7788,6 +7903,7 @@ genrule(
         "tools/hsm/kernel/src/profile.rs",
         "tools/hsm/kernel/src/reads.rs",
         "tools/hsm/kernel/src/round.rs",
+        "tools/hsm/kernel/src/round/rolled.rs",
         "tools/hsm/kernel/src/rule.rs",
         "tools/hsm/kernel/src/screw.rs",
         "tools/hsm/kernel/src/sketch_hull.rs",
@@ -8875,6 +8991,7 @@ genrule(
         "tools/hsm/kernel/src/profile.rs",
         "tools/hsm/kernel/src/reads.rs",
         "tools/hsm/kernel/src/round.rs",
+        "tools/hsm/kernel/src/round/rolled.rs",
         "tools/hsm/kernel/src/rule.rs",
         "tools/hsm/kernel/src/screw.rs",
         "tools/hsm/kernel/src/sketch_hull.rs",
@@ -9283,6 +9400,7 @@ genrule(
         "tools/hsm/kernel/src/profile.rs",
         "tools/hsm/kernel/src/reads.rs",
         "tools/hsm/kernel/src/round.rs",
+        "tools/hsm/kernel/src/round/rolled.rs",
         "tools/hsm/kernel/src/rule.rs",
         "tools/hsm/kernel/src/screw.rs",
         "tools/hsm/kernel/src/sketch_hull.rs",
