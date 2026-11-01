@@ -358,7 +358,7 @@ index of each emitted facet. Its `model_bytes` stores `print-F<i>.npy` and
 `print-records.npy` in the existing fine archive, with an STL path and digest in
 `document.printed`. Fine arrays/records and caller document fields stay intact. A reader
 uses the map only for those bound STL bytes; an absent or stale binding supplies no
-attribution. The shared part writer uses its existing fine-model export.
+attribution. The shared writer includes this binding when it emits an STL.
 
 A generator that cuts a part begins its own run before it imports anything else:
 
