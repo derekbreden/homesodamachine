@@ -5,6 +5,12 @@ pressure-relief valve on Port 4 of the carbonator
 during the cold-core body foam pour. The shroud preserves the air
 cavity the open-port pop-off PRV needs to function.
 
+[`prv_shroud.py`](prv_shroud.py) supplies the dimensions to
+[`prv_shroud.rs`](prv_shroud.rs), which writes the STEP, f64 model, STL and
+viewer payload. The retained native builder is available through `--native`
+and `import_part`. The documented volume integrates the two supported vent
+bores through the analytic cup wall.
+
 The SV-125 (per [`assembly/pressure-vessel.md`](/hardware/assembly/pressure-vessel.md)
 step 9) is installed via a TAISHER 316L 90° street elbow on Port 4
 with the SV-125's body extending laterally inside the ~30 mm above-carbonator
@@ -118,7 +124,7 @@ geometry shift and should land with a measured rationale.
 | metric | value |
 |---|---|
 | bbox X | [-11.550 to 11.550 mm](PRV_BBOX_X) |
-| bbox Z | [-0.000 to 46.000 mm](PRV_BBOX_Z) |
+| bbox Z | [0.000 to 46.000 mm](PRV_BBOX_Z) |
 | bbox Y | [-11.550 to 11.550 mm](PRV_BBOX_Y) |
 | volume | [6594.415 mm³](PRV_VOLUME) |
 
