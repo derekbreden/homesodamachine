@@ -2,8 +2,8 @@
 
 Production placement belongs to above-core.json. The nominal stock-foot
 observations below describe the removable purchased sliders only; the installed
-bare casing bears on the lid and rear land. Two loops each use two joined
-8-inch, 50 lb wide ties.
+bare casing rests on the plain lid and its motor sits in the integral half
+pipe. A removable upper half pipe snaps into the lid seat.
 """
 from functools import lru_cache
 from pathlib import Path

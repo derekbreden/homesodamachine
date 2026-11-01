@@ -1478,7 +1478,7 @@ MOUNT_TOL = 0.001
 
 
 def pump_mount_rows(foam_carry, water_pump_carry) -> list:
-    """The bare pump uses the integral casing bearing and two joined strap loops."""
+    """The bare pump uses its lid-integrated half pipe and removable snap cap."""
     return []
 
 
