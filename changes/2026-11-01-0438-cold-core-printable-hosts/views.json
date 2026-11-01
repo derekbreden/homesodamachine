@@ -1,0 +1,331 @@
+{
+  "views": [
+    {
+      "name": "full-host",
+      "caption": "The full M5 host leaves 3.2 mm of material around its 5.2 mm screw passage, continuously joined to the casing wall.",
+      "before": "full-host-before.webp",
+      "after": "full-host-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 600,
+          "y": 450,
+          "r": 135,
+          "label": "Continuous host",
+          "at": [
+            45,
+            84.4,
+            55
+          ]
+        }
+      ],
+      "model": "printed-parts/cold-core/foam-shell/foam-shell.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          45,
+          84.4,
+          661.1598915442808
+        ],
+        "target": [
+          45,
+          84.4,
+          55
+        ],
+        "up": [
+          0,
+          1,
+          0
+        ],
+        "half": 10,
+        "near": 303.94919407602623,
+        "far": 960.6224099156636,
+        "aspect": 1.3333333333333333,
+        "section": {
+          "at": [
+            45,
+            84.4,
+            55
+          ],
+          "normal": [
+            0,
+            0,
+            1
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [
+        "foam-shell"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "printed-parts/cold-core/foam-shell/foam-shell.step.mesh",
+          "from": "snapshot",
+          "sha256": "2476e6f93b6db5034f72eabbe2f9cb2ed7101be67a7ad54cfda7fc216e86cee9",
+          "commit": "9ca7554e909549c47803614e55d37f6126554f38",
+          "taken": "2026-11-01T09:28:33.311Z",
+          "published": false
+        },
+        "after": {
+          "payload": "printed-parts/cold-core/foam-shell/foam-shell.step.mesh",
+          "from": "tree",
+          "sha256": "07ebf3dec12ace0cdc4ded418eed6b02ffa73c5e0cd347296ac29d52c20c81a4",
+          "commit": "60f1f400661f31f60c3d66ffbba4356ee9d2e226",
+          "published": true
+        }
+      },
+      "changed": [
+        "foam-shell"
+      ],
+      "withinMeshing": []
+    },
+    {
+      "name": "screw-tail",
+      "caption": "Continuous 3.2 mm screw-tail stock and a self-supporting blind end retain the full cylindrical screw clearance.",
+      "before": "screw-tail-before.webp",
+      "after": "screw-tail-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 600,
+          "y": 433.1,
+          "r": 45,
+          "label": "Blind end",
+          "at": [
+            135.4,
+            0,
+            91.1
+          ]
+        }
+      ],
+      "model": "printed-parts/cold-core/foam-shell/foam-shell.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          135.4,
+          -606.1598915442808,
+          90.5
+        ],
+        "target": [
+          135.4,
+          0,
+          90.5
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 16,
+        "near": 368.936278660332,
+        "far": 1025.6094944999695,
+        "aspect": 1.3333333333333333,
+        "section": {
+          "at": [
+            135.4,
+            0,
+            90
+          ],
+          "normal": [
+            0,
+            -1,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [
+        "foam-shell"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "printed-parts/cold-core/foam-shell/foam-shell.step.mesh",
+          "from": "snapshot",
+          "sha256": "2476e6f93b6db5034f72eabbe2f9cb2ed7101be67a7ad54cfda7fc216e86cee9",
+          "commit": "9ca7554e909549c47803614e55d37f6126554f38",
+          "taken": "2026-11-01T09:28:33.311Z",
+          "published": false
+        },
+        "after": {
+          "payload": "printed-parts/cold-core/foam-shell/foam-shell.step.mesh",
+          "from": "tree",
+          "sha256": "07ebf3dec12ace0cdc4ded418eed6b02ffa73c5e0cd347296ac29d52c20c81a4",
+          "commit": "60f1f400661f31f60c3d66ffbba4356ee9d2e226",
+          "published": true
+        }
+      },
+      "changed": [
+        "foam-shell"
+      ],
+      "withinMeshing": []
+    },
+    {
+      "name": "cable-window",
+      "caption": "The cable opening retains its straight access and has a peaked printable roof beneath a 4.2 mm header.",
+      "before": "cable-window-before.webp",
+      "after": "cable-window-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 546,
+          "y": 321.7,
+          "r": 56.3,
+          "label": "Peaked roof",
+          "at": [
+            -141.2,
+            32.5,
+            221.65
+          ]
+        }
+      ],
+      "model": "printed-parts/cold-core/foam-shell/foam-shell.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          -641.7883906138577,
+          -269.5330343683146,
+          368.5165171841573
+        ],
+        "target": [
+          -138.4,
+          32.5,
+          217.5
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 12,
+        "near": 488.9638344311374,
+        "far": 1145.6370502707748,
+        "aspect": 1.3333333333333333
+      },
+      "highlight": [
+        "foam-shell"
+      ],
+      "ghost": [],
+      "only": [
+        "foam-shell"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "printed-parts/cold-core/foam-shell/foam-shell.step.mesh",
+          "from": "snapshot",
+          "sha256": "2476e6f93b6db5034f72eabbe2f9cb2ed7101be67a7ad54cfda7fc216e86cee9",
+          "commit": "9ca7554e909549c47803614e55d37f6126554f38",
+          "taken": "2026-11-01T09:28:33.311Z",
+          "published": false
+        },
+        "after": {
+          "payload": "printed-parts/cold-core/foam-shell/foam-shell.step.mesh",
+          "from": "tree",
+          "sha256": "07ebf3dec12ace0cdc4ded418eed6b02ffa73c5e0cd347296ac29d52c20c81a4",
+          "commit": "60f1f400661f31f60c3d66ffbba4356ee9d2e226",
+          "published": true
+        }
+      },
+      "changed": [
+        "foam-shell"
+      ],
+      "withinMeshing": []
+    },
+    {
+      "name": "sensing-window",
+      "caption": "The full sensing opening ends in an 8 mm rise across its width, retaining the constant wall section and a 4.45 mm header.",
+      "before": "sensing-window-before.webp",
+      "after": "sensing-window-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 586.1,
+          "y": 275.7,
+          "r": 56.2,
+          "label": "Window roof",
+          "at": [
+            129.5,
+            32.5,
+            221.4
+          ]
+        }
+      ],
+      "model": "printed-parts/cold-core/foam-shell/foam-shell.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          -422.8457434228126,
+          -188.83829736912503,
+          327.1691486845625
+        ],
+        "target": [
+          130.5,
+          32.5,
+          216.5
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 12,
+        "near": 257.6872165509098,
+        "far": 914.3604323905472,
+        "aspect": 1.3333333333333333,
+        "section": {
+          "at": [
+            129.5,
+            32.5,
+            217
+          ],
+          "normal": [
+            -1,
+            0,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [
+        "foam-shell"
+      ],
+      "ghost": [],
+      "only": [
+        "foam-shell"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "printed-parts/cold-core/foam-shell/foam-shell.step.mesh",
+          "from": "snapshot",
+          "sha256": "2476e6f93b6db5034f72eabbe2f9cb2ed7101be67a7ad54cfda7fc216e86cee9",
+          "commit": "9ca7554e909549c47803614e55d37f6126554f38",
+          "taken": "2026-11-01T09:28:33.311Z",
+          "published": false
+        },
+        "after": {
+          "payload": "printed-parts/cold-core/foam-shell/foam-shell.step.mesh",
+          "from": "tree",
+          "sha256": "07ebf3dec12ace0cdc4ded418eed6b02ffa73c5e0cd347296ac29d52c20c81a4",
+          "commit": "1d2e6cf1700966e1ecee2aacf4a6d800f305b302",
+          "published": true
+        }
+      },
+      "changed": [
+        "foam-shell"
+      ],
+      "withinMeshing": []
+    }
+  ]
+}
