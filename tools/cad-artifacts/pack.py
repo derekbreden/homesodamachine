@@ -270,6 +270,7 @@ BUNDLED_PAYLOAD_FILES = (
     "hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step.mesh",
     "hardware/printed-parts/faucet/tpu-o-ring/tpu-o-ring.step.mesh",
     "hardware/printed-parts/enclosure/data-ring/data-ring.step.mesh",
+    "hardware/reference/neofit-stem-elbow/neofit-stem-elbow.fine.step.mesh",
     "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-water.step.mesh",
     "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-carb.step.mesh",
     "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-co2.step.mesh",
