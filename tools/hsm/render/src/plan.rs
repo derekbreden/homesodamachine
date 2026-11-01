@@ -3,7 +3,7 @@
 
 use crate::camera::Camera;
 use crate::gpu::{Draw, Layer, MAX_CLIPS, Material, ViewUniform, flag};
-use crate::job::{Framing, Job, any_glob};
+use crate::job::{Framing, Job, Side, any_glob, parse_color};
 use crate::scene::{Aabb, Scene};
 use crate::shadow::{self, ShadowMap};
 use anyhow::{Result, ensure};
@@ -11,6 +11,7 @@ use glam::DVec3;
 use serde::Deserialize;
 use std::collections::HashMap;
 use std::sync::Arc;
+use std::path::PathBuf;
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum Role {
@@ -275,12 +276,12 @@ pub fn finish_for(finishes: &[Finish], color: Option<[f64; 3]>) -> (f64, f64) {
 #[derive(Default)]
 struct Materials {
     list: Vec<Material>,
-    index: HashMap<[u32; 12], u32>,
+    index: HashMap<[u32; 16], u32>,
 }
 
 impl Materials {
     fn slot(&mut self, m: Material) -> u32 {
-        let key: [u32; 12] = bytemuck::cast(m);
+        let key: [u32; 16] = bytemuck::cast(m);
         *self.index.entry(key).or_insert_with(|| {
             self.list.push(m);
             self.list.len() as u32 - 1
@@ -292,6 +293,7 @@ fn surface(color: [f64; 3], opacity: f32, (roughness, metalness): (f64, f64), da
     Material {
         color: [color[0] as f32, color[1] as f32, color[2] as f32, opacity],
         params: [roughness as f32, metalness as f32, 0.0, darken],
+        coat: [0.0; 4],
         flags: [flags, 0, 0, 0],
     }
 }
@@ -300,12 +302,14 @@ fn line(color: [f64; 3], opacity: f32, width: f32, flags: u32) -> Material {
     Material {
         color: [color[0] as f32, color[1] as f32, color[2] as f32, opacity],
         params: [0.0, 0.0, width, 1.0],
+        coat: [0.0; 4],
         flags: [flags, 0, 0, 0],
     }
 }
 
 pub struct Built {
     pub materials: Vec<Material>,
+    pub textures: Vec<PathBuf>,
     pub edge_slot: Vec<u32>,
     pub draws: Vec<(Layer, Draw)>,
     pub view: ViewUniform,
@@ -359,8 +363,9 @@ pub fn build(
     let total = scene.segment_count();
     let mut materials = Materials::default();
     let mut edge_slot = vec![0u32; 2 * n];
-    let mut opaque: Vec<(u8, u32, f64, usize, Draw)> = Vec::new();
-    let mut blend: Vec<(f64, u8, usize, Draw)> = Vec::new();
+    let mut opaque: Vec<(i32, u8, u32, f64, usize, Draw)> = Vec::new();
+    let mut blend: Vec<(i32, f64, u8, usize, Draw, Layer)> = Vec::new();
+    let mut textures: Vec<PathBuf> = Vec::new();
     let mut overlay: Vec<(u8, f64, usize, Draw)> = Vec::new();
     let default_color = hex_linear(DEFAULT_COLOR);
     let amber = hex_linear(AMBER);
@@ -384,6 +389,69 @@ pub fn build(
             }
         };
         let cut = if section { flag::FRONT_ONLY } else { 0 };
+        let custom = job.materials.iter().rev().find(|m|
+            any_glob(&m.names, &mesh.name) || any_glob(&m.names, &scene.bodies[body].name));
+        if role == Role::Solid && let Some(spec) = custom {
+            ensure!(!spec.vertex_colors || mesh.has_colors, "{} has no vertex colours", mesh.name);
+            ensure!(spec.texture.is_none() || mesh.has_uv, "{} has no texture UVs", mesh.name);
+            let color = match &spec.color {
+                Some(c) => parse_color(c)?.map(srgb_to_linear),
+                None => base,
+            };
+            let mut flags = cut;
+            if spec.unlit { flags |= flag::UNLIT; }
+            if !spec.tone_mapped { flags |= flag::NO_TONE_MAP; }
+            if spec.vertex_colors { flags |= flag::VERTEX_COLOR; }
+            let mut material = surface(color, spec.opacity,
+                (spec.roughness.unwrap_or(finish.0), spec.metalness.unwrap_or(finish.1)), 1.0, flags);
+            material.coat = [spec.clearcoat, spec.clearcoat_roughness, 0.0, 0.0];
+            if let Some(path) = &spec.texture {
+                let texture = match textures.iter().position(|p| p == path) {
+                    Some(i) => i,
+                    None => { textures.push(path.clone()); textures.len()-1 }
+                };
+                material.flags[0] |= flag::TEXTURE;
+                material.flags[1] = texture as u32 + 1;
+            }
+            let depth = spec.depth_write.unwrap_or(spec.opacity >= 1.0);
+            let transparent = spec.opacity < 1.0 || !depth;
+            let sides: &[Side] = match (spec.side, transparent) {
+                (Side::Double, true) => &[Side::Back, Side::Front],
+                (Side::Double, false) => &[Side::Double],
+                (Side::Front, _) => &[Side::Front],
+                (Side::Back, _) => &[Side::Back],
+            };
+            for (pass, side) in sides.iter().enumerate() {
+                let mut m = material;
+                m.flags[0] |= match side { Side::Front => flag::FRONT_ONLY,
+                                          Side::Back => flag::BACK_ONLY, Side::Double => 0 };
+                let slot = materials.slot(m);
+                let draw = Draw::Surface { mesh: mi, slot };
+                if transparent {
+                    let layer = if depth { Layer::BlendDepth } else { Layer::Blend };
+                    blend.push((spec.order, z, pass as u8, mi, draw, layer));
+                } else {
+                    opaque.push((spec.order, 0, slot, z, mi, draw));
+                }
+            }
+            if section {
+                let cap = lerp(color, hex_linear(SECTION_TINT), SECTION_MIX);
+                let slot = materials.slot(surface(cap, 1.0, DEFAULT_FINISH, 1.0, flag::UNLIT | flag::BACK_ONLY));
+                opaque.push((spec.order, 1, slot, z, mi, Draw::Cap { mesh: mi, slot }));
+            }
+            if job.edges || job.frame == Framing::Look {
+                let draw = edges(&mut materials, &mut edge_slot, color);
+                opaque.push((spec.order, 2, edge_slot[mi], z, mi, draw));
+            }
+            if lit[body] {
+                edge_slot[n + mi] = materials.slot(line(amber, SELECT_EDGE_OPACITY, SELECT_EDGE_WIDTH, 0));
+                let s = mesh.segments.clone();
+                overlay.push((0, z, mi, Draw::Lines { instances: total + s.start..total + s.end }));
+                let slot = materials.slot(surface(amber, SELECT_SHELL_OPACITY, DEFAULT_FINISH, 1.0, flag::UNLIT));
+                overlay.push((1, z, mi, Draw::Surface { mesh: mi, slot }));
+            }
+            continue;
+        }
         match role {
             Role::Solid | Role::Highlight => {
                 let (material, cap) = if role == Role::Highlight {
@@ -394,10 +462,10 @@ pub fn build(
                     (surface(base, 1.0, finish, BACK_DARKEN, cut), lerp(base, hex_linear(SECTION_TINT), SECTION_MIX))
                 };
                 let slot = materials.slot(material);
-                opaque.push((0, slot, z, mi, Draw::Surface { mesh: mi, slot }));
+                opaque.push((0, 0, slot, z, mi, Draw::Surface { mesh: mi, slot }));
                 if section {
                     let slot = materials.slot(surface(cap, 1.0, DEFAULT_FINISH, 1.0, flag::UNLIT | flag::BACK_ONLY));
-                    opaque.push((1, slot, z, mi, Draw::Cap { mesh: mi, slot }));
+                    opaque.push((0, 1, slot, z, mi, Draw::Cap { mesh: mi, slot }));
                 }
                 // A look draws its solid set with the feature edges the viewer's x-ray gives it.
                 let edged = job.edges
@@ -409,22 +477,22 @@ pub fn build(
                         _ => base,
                     };
                     let draw = edges(&mut materials, &mut edge_slot, color);
-                    opaque.push((2, edge_slot[mi], z, mi, draw));
+                    opaque.push((0, 2, edge_slot[mi], z, mi, draw));
                 }
             }
             Role::Xray => {
                 let slot = materials.slot(surface(base, XRAY_OPACITY, finish, BACK_DARKEN, 0));
-                blend.push((z, 0, mi, Draw::Surface { mesh: mi, slot }));
+                blend.push((0, z, 0, mi, Draw::Surface { mesh: mi, slot }, Layer::Blend));
                 let draw = edges(&mut materials, &mut edge_slot, base);
-                opaque.push((2, edge_slot[mi], z, mi, draw));
+                opaque.push((0, 2, edge_slot[mi], z, mi, draw));
             }
             Role::Shell => {
                 let slot = materials.slot(surface(base, SHELL_OPACITY, finish, BACK_DARKEN, 0));
-                blend.push((z, 0, mi, Draw::Surface { mesh: mi, slot }));
+                blend.push((0, z, 0, mi, Draw::Surface { mesh: mi, slot }, Layer::Blend));
             }
             Role::Ghost => {
                 edge_slot[mi] = materials.slot(line(hex_linear(GHOST_EDGE), GHOST_OPACITY, EDGE_WIDTH, flag::NO_FOG));
-                blend.push((z, 1, mi, Draw::Lines { instances: mesh.segments.clone() }));
+                blend.push((0, z, 1, mi, Draw::Lines { instances: mesh.segments.clone() }, Layer::Blend));
             }
             Role::Hidden | Role::Dropped => unreachable!(),
         }
@@ -437,24 +505,25 @@ pub fn build(
         }
     }
 
-    opaque.sort_by(|a, b| (a.0, a.1).cmp(&(b.0, b.1)).then(a.2.total_cmp(&b.2)).then(a.3.cmp(&b.3)));
-    blend.sort_by(|a, b| b.0.total_cmp(&a.0).then(a.1.cmp(&b.1)).then(a.2.cmp(&b.2)));
+    opaque.sort_by(|a, b| (a.0, a.1, a.2).cmp(&(b.0, b.1, b.2)).then(a.3.total_cmp(&b.3)).then(a.4.cmp(&b.4)));
+    blend.sort_by(|a, b| a.0.cmp(&b.0).then(b.1.total_cmp(&a.1)).then(a.2.cmp(&b.2)).then(a.3.cmp(&b.3)));
     overlay.sort_by(|a, b| a.0.cmp(&b.0).then(b.1.total_cmp(&a.1)).then(a.2.cmp(&b.2)));
 
     let size = plan.whole.size();
     let shadow = (job.ground && !plan.whole.is_empty() && size[0] > 0.0 && size[1] > 0.0)
         .then(|| shadow::falloff(size[1] / size[0]));
     let mut draws: Vec<(Layer, Draw)> = Vec::new();
-    draws.extend(opaque.into_iter().map(|d| (Layer::Opaque, d.4)));
+    draws.extend(opaque.into_iter().map(|d| (Layer::Opaque, d.5)));
     if shadow.is_some() {
         draws.push((Layer::Blend, Draw::Shadow));
     }
-    draws.extend(blend.into_iter().map(|d| (Layer::Blend, d.3)));
+    draws.extend(blend.into_iter().map(|d| (d.5, d.4)));
     draws.extend(overlay.into_iter().map(|d| (Layer::Overlay, d.3)));
 
     let view = view_uniform(camera, job, scene, plan, &clips);
     Ok(Built {
         materials: materials.list,
+        textures,
         edge_slot,
         draws,
         view,

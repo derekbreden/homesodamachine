@@ -1,0 +1,139 @@
+{
+  "schema": "cold-core-m5-lid-driver-review/1",
+  "scope": "Straight 2.4 mm radius, 80 mm long driver envelopes above the 7.4 mm lid face at all ten M5 closure axes, measured against the current printed lid and integral pump clip. Separate equipment and a purchased tool are outside this measurement.",
+  "physical_stl": "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl",
+  "physical_stl_sha256": "f24c17a1834784b3917672483c3b8e0a14350479e96793998dbe024a38da5275",
+  "pointer_checked_at_commit": "4e3f4d0e1ee55708a2e15992880a16c307b405f2",
+  "watertight": true,
+  "connected_components": 1,
+  "lid_native_top_face_z_mm": 7.4,
+  "driver_native_start_z_mm": 7.4001,
+  "driver_radius_mm": 2.4,
+  "driver_height_mm": 80.0,
+  "cylinder_segments": 64,
+  "method": "Solid intersections against the source STL in the native lid frame.",
+  "rows": [
+    {
+      "station": 1,
+      "lid_native_xy_mm": [
+        135.4,
+        60
+      ],
+      "overlap_mm3": 0.0,
+      "appliance_xy_mm": [
+        60,
+        188.4
+      ]
+    },
+    {
+      "station": 2,
+      "lid_native_xy_mm": [
+        135.4,
+        0
+      ],
+      "overlap_mm3": 0.0,
+      "appliance_xy_mm": [
+        0,
+        188.4
+      ]
+    },
+    {
+      "station": 3,
+      "lid_native_xy_mm": [
+        135.4,
+        -60
+      ],
+      "overlap_mm3": 0.0,
+      "appliance_xy_mm": [
+        -60,
+        188.4
+      ]
+    },
+    {
+      "station": 4,
+      "lid_native_xy_mm": [
+        -135.4,
+        60
+      ],
+      "overlap_mm3": 0.0,
+      "appliance_xy_mm": [
+        60,
+        459.2
+      ]
+    },
+    {
+      "station": 5,
+      "lid_native_xy_mm": [
+        -135.4,
+        0
+      ],
+      "overlap_mm3": 0.0,
+      "appliance_xy_mm": [
+        0,
+        459.2
+      ]
+    },
+    {
+      "station": 6,
+      "lid_native_xy_mm": [
+        -135.4,
+        -60
+      ],
+      "overlap_mm3": 0.0,
+      "appliance_xy_mm": [
+        -60,
+        459.2
+      ]
+    },
+    {
+      "station": 7,
+      "lid_native_xy_mm": [
+        -45,
+        84.4
+      ],
+      "overlap_mm3": 0.0,
+      "appliance_xy_mm": [
+        84.4,
+        368.8
+      ]
+    },
+    {
+      "station": 8,
+      "lid_native_xy_mm": [
+        -45,
+        -84.4
+      ],
+      "overlap_mm3": 0.0,
+      "appliance_xy_mm": [
+        -84.4,
+        368.8
+      ]
+    },
+    {
+      "station": 9,
+      "lid_native_xy_mm": [
+        -110,
+        84.4
+      ],
+      "overlap_mm3": 0.0,
+      "appliance_xy_mm": [
+        84.4,
+        433.8
+      ]
+    },
+    {
+      "station": 10,
+      "lid_native_xy_mm": [
+        -110,
+        -84.4
+      ],
+      "overlap_mm3": 0.0,
+      "appliance_xy_mm": [
+        -84.4,
+        433.8
+      ]
+    }
+  ],
+  "collisions": [],
+  "pass": true
+}

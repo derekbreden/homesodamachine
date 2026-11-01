@@ -79,6 +79,8 @@ pub struct Mesh {
     pub body: usize,
     /// Linear RGB, or none when the STEP carried no colour.
     pub color: Option<[f64; 3]>,
+    pub has_colors: bool,
+    pub has_uv: bool,
     pub vertices: Range<u32>,
     pub indices: Range<u32>,
     pub segments: Range<u32>,
@@ -92,6 +94,14 @@ pub struct Body {
     pub bbox: Aabb,
 }
 
+/// Optional render-only vertex data. Ordinary CAD payloads allocate none.
+#[repr(C)]
+#[derive(Clone, Copy, Pod, Zeroable)]
+pub struct VertexAux {
+    pub color: [f32; 4],
+    pub uv: [f32; 4],
+}
+
 pub struct Scene {
     pub path: PathBuf,
     pub stamp: (u64, SystemTime),
@@ -99,6 +109,7 @@ pub struct Scene {
     pub bodies: Vec<Body>,
     pub positions: Vec<[f32; 3]>,
     pub normals: Vec<[f32; 3]>,
+    pub attributes: Vec<VertexAux>,
     pub indices: Vec<u32>,
     pub segments: Vec<Segment>,
     pub bbox: Aabb,
@@ -127,6 +138,7 @@ impl Scene {
         let raw = payload::decode(&bytes).with_context(|| format!("decode {}", path.display()))?;
         drop(bytes);
         let edges = edges_of_all(&raw);
+        let attributes = raw.iter().any(|m| m.colors.is_some() || m.uv.is_some());
 
         let mut scene = Scene {
             path: path.to_owned(),
@@ -135,6 +147,7 @@ impl Scene {
             bodies: Vec::new(),
             positions: Vec::new(),
             normals: Vec::new(),
+            attributes: Vec::new(),
             indices: Vec::new(),
             segments: Vec::new(),
             bbox: Aabb::EMPTY,
@@ -150,6 +163,13 @@ impl Scene {
             }
             scene.positions.extend_from_slice(&m.positions);
             scene.normals.extend_from_slice(&m.normals);
+            if attributes {
+                scene.attributes.extend((0..m.positions.len()).map(|i| {
+                    let [r, g, b] = m.colors.as_ref().map_or([1.0; 3], |c| c[i]);
+                    let [u, v] = m.uv.as_ref().map_or([0.0; 2], |uv| uv[i]);
+                    VertexAux { color: [r, g, b, 1.0], uv: [u, v, 0.0, 0.0] }
+                }));
+            }
             scene.indices.extend_from_slice(&m.indices);
             scene.segments.extend(segs.into_iter().map(|[a, b]| Segment {
                 a,
@@ -174,6 +194,8 @@ impl Scene {
                 name: m.name,
                 body: b,
                 color: m.color,
+                has_colors: m.colors.is_some(),
+                has_uv: m.uv.is_some(),
                 vertices: v0..scene.positions.len() as u32,
                 indices: i0..scene.indices.len() as u32,
                 segments: s0..scene.segments.len() as u32,

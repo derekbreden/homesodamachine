@@ -35,7 +35,7 @@ const MAX_PIXELS: u64 = 4096 * 4096;
 /// What the scenes kept warm may hold, CPU and GPU together, before the least recently drawn
 /// one is let go. The scene being drawn is always kept.
 const SCENE_BUDGET: u64 = 1 << 30;
-/// render-step-posed.js `--trim`: a band this far off the background is the picture.
+/// A trim keeps the band this far off the background.
 const TRIM_THRESHOLD: u8 = 10;
 const TRIM_FIT: u32 = 1600;
 
@@ -174,7 +174,8 @@ impl Renderer {
         }
         let t = Instant::now();
         let scene = Scene::load(path)?;
-        let bytes = (scene.positions.len() * 24 + scene.indices.len() * 4 + scene.segments.len() * 32) as u64;
+        let bytes = (scene.positions.len() * 24 + scene.indices.len() * 4
+            + scene.segments.len() * 32 + scene.attributes.len() * 32) as u64;
         self.scenes.push(Loaded {
             scene,
             buffers: None,
@@ -279,6 +280,7 @@ impl Renderer {
             // What only the GPU reads is let go on this side once it is there.
             loaded.scene.normals = Vec::new();
             loaded.scene.segments = Vec::new();
+            loaded.scene.attributes = Vec::new();
             loaded.bytes = (loaded.scene.positions.len() * 12 + loaded.scene.indices.len() * 4) as u64 + buffers.bytes;
             loaded.buffers = Some(buffers);
             upload_ms = Some(ms(t_upload));
@@ -315,6 +317,9 @@ impl Renderer {
         let plan_ms = ms(t_plan);
         let t_build = Instant::now();
         let built = plan::build(scene, job, &plan, &camera, &finishes, &lit)?;
+        let textures: Vec<Image> = built.textures.iter().map(|path|
+            image::read_png(&if path.is_absolute() { path.clone() } else { root.join(path) })
+        ).collect::<Result<_>>()?;
         let build_ms = ms(t_build);
 
         let t_draw = Instant::now();
@@ -333,6 +338,7 @@ impl Renderer {
                 view: built.view,
                 clear,
                 materials: &built.materials,
+                textures: &textures,
                 edge_slot: &built.edge_slot,
                 draws: &built.draws,
                 shadow: built.shadow.as_deref(),

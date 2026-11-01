@@ -1,0 +1,701 @@
+{
+  "schema": "hsm-kernel-shell-print-review/1",
+  "scope": "Commanded paths and bead envelopes for the exact Rust shell STL, using the accepted Mark2 PET-GF recipe and finite solid M5 host/wall-root regions. Physical force, fit, cleanup and lifetime are not measured by this slice.",
+  "geometry_source_commit": "96ebe13f5",
+  "physical_stl": "hardware/printed-parts/cold-core/foam-shell/foam-shell.stl",
+  "physical_stl_sha256": "132c06ecc887624ae36c98c168f97efaa533deb278a4b93a3d2f725455d93164",
+  "step_sha256": "a716b44ef657e0355fbceae6c2dcba6a4de45feefad6417245149f26abef5ad7",
+  "artifact_root": "/Users/derekbredensteiner/Developer/homesodamachine",
+  "preparation_directory": ".cache/combined-finish/handoffs/foam-shell/prepared-print",
+  "preparation_sha256": "c95ce7df31243eecdcb359cfbd0d89af559ae3203abba42c51a3ea2dc5d143b5",
+  "project": ".cache/combined-finish/handoffs/foam-shell/prepared-print/2026-11-01-foam-shell-mark2-e5e3444d.3mf",
+  "project_sha256": "e745cced4192de8c1f43f6b04ff36a7445b50aa9402a8841424bfb98bde27603",
+  "archive": ".cache/combined-finish/handoffs/foam-shell/prepared-print/2026-11-01-foam-shell-mark2-e5e3444d.gcode.3mf",
+  "archive_sha256": "59280b8fa4a96b63a3488906ce8b6b3611e1f890957148750884f5ce8e5f4457",
+  "gcode_sha256": "d2331419a8a4ea6f48d5c1af8dd914423fda78ad2017b3314c31a3de740df52c",
+  "profile": "hardware/printed-parts/petgf.3mf",
+  "profile_sha256": "45c16e8c8517e0a205107d7b9f7412d013f51a8de7ecf86125cc940079d37ed0",
+  "settings_sha256": "18c9826b30a4dc0b3f007c6550f326830438e21444701e0e00de113c1e9f3844",
+  "printer": "Mark2",
+  "nozzle": {
+    "side": "left",
+    "diameter_mm": 0.4,
+    "flow": "Standard",
+    "hardened": true,
+    "reason": "Smooth 2.38 mm cold-core casing: 0.42 mm outer and 0.45 mm inner lines at 0.24 mm layers, three loops from each boundary.",
+    "sliced_diameter_mm": 0.4,
+    "sliced_volume_type": "Standard"
+  },
+  "material": "Polymaker Fiberon PET-GF15, black",
+  "bed_type": "Textured PEI Plate",
+  "retained_recipe": {
+    "wall_loops": 3,
+    "wall_generator": "classic",
+    "sparse_infill_density": "15%",
+    "sparse_infill_pattern": "gyroid",
+    "first_layer_height_mm": 0.2,
+    "layer_height_mm": 0.24,
+    "support_type": "tree(auto)",
+    "support_style": "default",
+    "requested_z_trim_mm": 0.04,
+    "emitted_textured_trim_mm": 0.02,
+    "pose": "floor-down; identity rotation; yaw 0; source-to-plate translation [162.5,160,0]",
+    "solid_modifier_count": 10,
+    "solid_modifier_density": "100%",
+    "solid_modifier_pattern": "zig-zag",
+    "seam_strip_native_mm": {
+      "x": 4.75,
+      "y": [
+        88.7,
+        89.2
+      ],
+      "facing_x": -1,
+      "z": [
+        0,
+        225.85
+      ]
+    }
+  },
+  "native_comparison": {
+    "artifact_root": "/Users/derekbredensteiner/Developer/hsm-approved-asse",
+    "preparation_directory": ".cache/prints/enclosure-continuous-clip-final-2eb222ae/2026-11-01-foam-shell-mark2-e7c624c9",
+    "physical_stl_sha256": "a8fc1a29ded8daaaae3498e0af15b5923d6149c187f68ba0790cba81773d92cf",
+    "step_sha256": "6f9445c5100eda24e79e6986d1acba16b1335dba3484bffb0b64af2f28449c13",
+    "preparation_sha256": "fbcc715de9e4633967205e1e2de4bbaaf56057f331e3591a7e959bb0000868f1",
+    "project_sha256": "cda1518cc96b20028a55e9fe7a07a7478c561a88f2d17d9aa55677359724d5bd",
+    "archive_sha256": "e13da265e760924a80f821b88f072e04c2ffb650092f2c1790afaeba9781e8ca",
+    "all_embedded_profile_settings_identical": true,
+    "all_ten_modifier_meshes_and_settings_identical": true,
+    "pose_and_plate_bounds_identical": true,
+    "seam_strip_identical": true,
+    "support_bodies": {
+      "native": 0,
+      "kernel": 0
+    },
+    "minimum_bed_margin_mm": {
+      "native": 21.106814,
+      "kernel": 21.106236999999965
+    },
+    "minimum_sampled_solid_host_coverage": {
+      "native": 0.993357135558268,
+      "kernel": 0.9948824935209984
+    },
+    "second_layer_fraction_over_first": {
+      "native": 0.9963242445642858,
+      "kernel": 0.9963467049145968
+    },
+    "estimated_print_seconds": {
+      "native": 149041.4375,
+      "kernel": 148092.734375
+    }
+  },
+  "project_check": {
+    "project_sha256_matches": true,
+    "objects": [
+      {
+        "name": "foam-shell",
+        "vertices": 17834,
+        "source_sha256_matches": true,
+        "embedded_vertex_error_mm": 2.972177362696918e-05,
+        "source_comparison": "vertices and facet centroids against the source STL surface",
+        "seam_painted_facets": 5,
+        "placed_bounds_mm": [
+          [
+            21.300003000000004,
+            69.800003,
+            5.199999009164458e-08
+          ],
+          [
+            303.699997,
+            250.199997,
+            225.850006052
+          ]
+        ],
+        "bed_contact_z_mm": 5.199999009164458e-08,
+        "blocked_facets": 0,
+        "partially_painted_facets": 0,
+        "parts": {
+          "normal_part": 1,
+          "modifier_part": 10
+        },
+        "layer_ranges": [],
+        "ribbon_and_fin_parts": 0,
+        "modifiers_expected": 10
+      }
+    ],
+    "z_trim_block": [
+      "+0.0",
+      "0.04 - 0.01",
+      "0.04 - 0.02",
+      "0.04 + 0.01",
+      "0.04"
+    ],
+    "cooling": {
+      "fan_min_speed": [
+        "0"
+      ],
+      "fan_max_speed": [
+        "0"
+      ],
+      "overhang_fan_speed": [
+        "70"
+      ],
+      "overhang_fan_threshold": [
+        "50%"
+      ],
+      "additional_cooling_fan_speed": [
+        "0"
+      ]
+    },
+    "support": {
+      "support_type": "tree(auto)",
+      "support_style": "default",
+      "support_object_xy_distance": "0.4",
+      "max_bridge_length": "0",
+      "tree_support_branch_diameter": "2",
+      "tree_support_branch_diameter_angle": "5",
+      "brim_type": "auto_brim"
+    },
+    "problems": [],
+    "pass": true
+  },
+  "layers": 941,
+  "checks": {
+    "archive": true,
+    "z_trim": true,
+    "bed_border": true,
+    "fine_and_transition_bands": true,
+    "show_faces_support_free": true,
+    "tie_windows_support_free": true,
+    "ribbons_support_free_and_printed": true,
+    "solid_hosts_sampled": true
+  },
+  "pass": true,
+  "minimum_bed_margin_mm": 21.106236999999965,
+  "bed_border_mm": 20.0,
+  "bead_envelope_plate_mm": [
+    [
+      21.106237,
+      69.60623700000001
+    ],
+    [
+      303.89376300000004,
+      250.393763
+    ]
+  ],
+  "support_roads": 0,
+  "support_audit": {
+    "schema": 1,
+    "piece": "foam-shell",
+    "inputs": {
+      "gcode": "support-labels-1901.gcode",
+      "gcode_sha256": "963d5bd989413e05e1134745d9ed354abe39d265a64748d3e915c5580cbe38a6",
+      "model": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/worktrees/cold-core-rust-print/hardware/printed-parts/cold-core/foam-shell/foam-shell.stl",
+      "model_sha256": "132c06ecc887624ae36c98c168f97efaa533deb278a4b93a3d2f725455d93164",
+      "profile": ".cache/prints/cold-core-rust-binding/2026-11-01-foam-shell-mark2-e5e3444d/2026-11-01-foam-shell-mark2-e5e3444d.3mf",
+      "profile_sha256": "e745cced4192de8c1f43f6b04ff36a7445b50aa9402a8841424bfb98bde27603"
+    },
+    "slicer": "BambuStudio 02.08.02.61",
+    "first_layer_z_mm": 0.2,
+    "coordinate_frame": {
+      "plate_to_cad_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        -162.5,
+        -160.0,
+        0.0
+      ],
+      "plate_to_cad_translation_mm": [
+        -162.5,
+        -160.0,
+        0.0
+      ]
+    },
+    "slicer_settings": {
+      "layer_height": "0.24",
+      "support_bottom_z_distance": "0.3",
+      "support_interface_bottom_layers": "2",
+      "support_interface_spacing": "0.5",
+      "support_interface_top_layers": "2",
+      "support_object_xy_distance": "0.4",
+      "support_on_build_plate_only": "0",
+      "support_style": "default",
+      "support_threshold_angle": "35",
+      "support_top_z_distance": "0.45",
+      "support_type": "tree(auto)"
+    },
+    "summary": {
+      "support_bodies": 0,
+      "interface_islands": 0,
+      "bed_rooted_bodies": 0,
+      "model_rooted_bodies": 0,
+      "shortest_build_up_mm": null,
+      "bodies_without_interface_labels": 0,
+      "explicit_interface_islands": 0,
+      "shortest_labelled_build_up_mm": null
+    },
+    "trees": [],
+    "interfaces": [],
+    "interface_feature_policy": "All support bodies are retained; unlabelled interfaces have unknown contact count and build-up."
+  },
+  "solid_host_deposition": [
+    {
+      "object": 1901,
+      "name": "M5 host 1, both inserts, tail and wall root",
+      "plate_bounds_mm": [
+        [
+          21.301003052,
+          91.2,
+          0.0010000000000047748
+        ],
+        [
+          35.89999999999999,
+          108.8,
+          225.84900610399998
+        ]
+      ],
+      "samples": [
+        {
+          "print_z_mm": 0.44,
+          "coverage": 0.9974075663620413,
+          "stock_mm2": 224.7853537991093
+        },
+        {
+          "print_z_mm": 113.0,
+          "coverage": 0.9948824935209984,
+          "stock_mm2": 162.44574838350587
+        },
+        {
+          "print_z_mm": 225.56,
+          "coverage": 0.9968463960349996,
+          "stock_mm2": 102.20570450235645
+        }
+      ],
+      "minimum_coverage": 0.9948824935209984
+    },
+    {
+      "object": 1901,
+      "name": "M5 host 2, both inserts, tail and wall root",
+      "plate_bounds_mm": [
+        [
+          21.301003052,
+          151.2,
+          0.0010000000000047748
+        ],
+        [
+          35.89999999999999,
+          168.8,
+          225.84900610399998
+        ]
+      ],
+      "samples": [
+        {
+          "print_z_mm": 0.44,
+          "coverage": 0.9983510631168526,
+          "stock_mm2": 224.78534519297568
+        },
+        {
+          "print_z_mm": 113.0,
+          "coverage": 0.995693340755031,
+          "stock_mm2": 161.5861664090387
+        },
+        {
+          "print_z_mm": 225.56,
+          "coverage": 0.9968412009382854,
+          "stock_mm2": 102.2056886584271
+        }
+      ],
+      "minimum_coverage": 0.995693340755031
+    },
+    {
+      "object": 1901,
+      "name": "M5 host 3, both inserts, tail and wall root",
+      "plate_bounds_mm": [
+        [
+          21.301003052,
+          211.2,
+          0.0010000000000047748
+        ],
+        [
+          35.89999999999999,
+          228.8,
+          225.84900610399998
+        ]
+      ],
+      "samples": [
+        {
+          "print_z_mm": 0.44,
+          "coverage": 0.9974271835104026,
+          "stock_mm2": 224.7853537991097
+        },
+        {
+          "print_z_mm": 113.0,
+          "coverage": 0.9951912916182352,
+          "stock_mm2": 162.44574842540953
+        },
+        {
+          "print_z_mm": 225.56,
+          "coverage": 0.9967887499383989,
+          "stock_mm2": 102.2057044443036
+        }
+      ],
+      "minimum_coverage": 0.9951912916182352
+    },
+    {
+      "object": 1901,
+      "name": "M5 host 4, both inserts, tail and wall root",
+      "plate_bounds_mm": [
+        [
+          289.1,
+          91.2,
+          0.0010000000000047748
+        ],
+        [
+          303.698996948,
+          108.8,
+          225.84900610399998
+        ]
+      ],
+      "samples": [
+        {
+          "print_z_mm": 0.44,
+          "coverage": 0.998908392530426,
+          "stock_mm2": 224.78535379910906
+        },
+        {
+          "print_z_mm": 113.0,
+          "coverage": 0.9952365664120465,
+          "stock_mm2": 162.44574842540945
+        },
+        {
+          "print_z_mm": 225.56,
+          "coverage": 0.9968999954352791,
+          "stock_mm2": 102.20570444430368
+        }
+      ],
+      "minimum_coverage": 0.9952365664120465
+    },
+    {
+      "object": 1901,
+      "name": "M5 host 5, both inserts, tail and wall root",
+      "plate_bounds_mm": [
+        [
+          289.1,
+          151.2,
+          0.0010000000000047748
+        ],
+        [
+          303.698996948,
+          168.8,
+          225.84900610399998
+        ]
+      ],
+      "samples": [
+        {
+          "print_z_mm": 0.44,
+          "coverage": 0.9988831280916153,
+          "stock_mm2": 224.78534519297546
+        },
+        {
+          "print_z_mm": 113.0,
+          "coverage": 0.9957654256826338,
+          "stock_mm2": 161.58616640903875
+        },
+        {
+          "print_z_mm": 225.56,
+          "coverage": 0.9968938516130765,
+          "stock_mm2": 102.20568865842729
+        }
+      ],
+      "minimum_coverage": 0.9957654256826338
+    },
+    {
+      "object": 1901,
+      "name": "M5 host 6, both inserts, tail and wall root",
+      "plate_bounds_mm": [
+        [
+          289.1,
+          211.2,
+          0.0010000000000047748
+        ],
+        [
+          303.698996948,
+          228.8,
+          225.84900610399998
+        ]
+      ],
+      "samples": [
+        {
+          "print_z_mm": 0.44,
+          "coverage": 0.9988572132092502,
+          "stock_mm2": 224.7853537991095
+        },
+        {
+          "print_z_mm": 113.0,
+          "coverage": 0.9948966992577915,
+          "stock_mm2": 162.44574838350613
+        },
+        {
+          "print_z_mm": 225.56,
+          "coverage": 0.9968917978550886,
+          "stock_mm2": 102.20570450235677
+        }
+      ],
+      "minimum_coverage": 0.9948966992577915
+    },
+    {
+      "object": 1901,
+      "name": "M5 host 7, both inserts, tail and wall root",
+      "plate_bounds_mm": [
+        [
+          198.7,
+          69.801003052,
+          0.0010000000000047748
+        ],
+        [
+          216.3,
+          84.39999999999999,
+          225.84900610399998
+        ]
+      ],
+      "samples": [
+        {
+          "print_z_mm": 0.44,
+          "coverage": 0.9974209714980117,
+          "stock_mm2": 224.7853674953177
+        },
+        {
+          "print_z_mm": 113.0,
+          "coverage": 0.9966266622851921,
+          "stock_mm2": 134.3627102013417
+        },
+        {
+          "print_z_mm": 225.56,
+          "coverage": 0.9968694010931063,
+          "stock_mm2": 102.20572959938073
+        }
+      ],
+      "minimum_coverage": 0.9966266622851921
+    },
+    {
+      "object": 1901,
+      "name": "M5 host 8, both inserts, tail and wall root",
+      "plate_bounds_mm": [
+        [
+          198.7,
+          235.60000000000002,
+          0.0010000000000047748
+        ],
+        [
+          216.3,
+          250.198996948,
+          225.84900610399998
+        ]
+      ],
+      "samples": [
+        {
+          "print_z_mm": 0.44,
+          "coverage": 0.9982024499575487,
+          "stock_mm2": 224.78536749531747
+        },
+        {
+          "print_z_mm": 113.0,
+          "coverage": 0.9971223427003393,
+          "stock_mm2": 134.36271020134174
+        },
+        {
+          "print_z_mm": 225.56,
+          "coverage": 0.9968619574922997,
+          "stock_mm2": 102.2057295807657
+        }
+      ],
+      "minimum_coverage": 0.9968619574922997
+    },
+    {
+      "object": 1901,
+      "name": "M5 host 9, both inserts, tail and wall root",
+      "plate_bounds_mm": [
+        [
+          263.7,
+          69.801003052,
+          0.0010000000000047748
+        ],
+        [
+          281.3,
+          84.39999999999999,
+          225.84900610399998
+        ]
+      ],
+      "samples": [
+        {
+          "print_z_mm": 0.44,
+          "coverage": 0.9986348978410576,
+          "stock_mm2": 224.7853598976007
+        },
+        {
+          "print_z_mm": 113.0,
+          "coverage": 0.9964615779106547,
+          "stock_mm2": 134.36273458040213
+        },
+        {
+          "print_z_mm": 225.56,
+          "coverage": 0.996864231244479,
+          "stock_mm2": 102.2057472464452
+        }
+      ],
+      "minimum_coverage": 0.9964615779106547
+    },
+    {
+      "object": 1901,
+      "name": "M5 host 10, both inserts, tail and wall root",
+      "plate_bounds_mm": [
+        [
+          263.7,
+          235.60000000000002,
+          0.0010000000000047748
+        ],
+        [
+          281.3,
+          250.198996948,
+          225.84900610399998
+        ]
+      ],
+      "samples": [
+        {
+          "print_z_mm": 0.44,
+          "coverage": 0.9984547168519374,
+          "stock_mm2": 224.7853598976005
+        },
+        {
+          "print_z_mm": 113.0,
+          "coverage": 0.9969745082837898,
+          "stock_mm2": 134.3627345804022
+        },
+        {
+          "print_z_mm": 225.56,
+          "coverage": 0.9968674271339065,
+          "stock_mm2": 102.2057472407962
+        }
+      ],
+      "minimum_coverage": 0.9968674271339065
+    }
+  ],
+  "first_second_layer_stack": {
+    "1901": {
+      "second_layer_model_bead_area_mm2": 50482.50743232414,
+      "fraction_over_first_layer": 0.9963467049145968,
+      "second_layer_centerline_outside_first_mm": 45.429474656924334
+    }
+  },
+  "slicer_warnings": [],
+  "submitted": false,
+  "review_artifact_sha256": {
+    "review.json": "60c3083da3c572e60c749b5e3c775def6fe007a38ae0e2e5a96495390435625d",
+    "project-check.json": "e781bd812b67fdfa3ef11fc8b0dff0b514ab22fcd7f5adc0f13daff200df7a59",
+    "support-audit-1901.json": "bbf9a176610359b420657c5b84ad0eb107338311e94d55bae39e5328d2354277",
+    "slice-command.json": "7341b375fa32b0d9f15f7999e44a21c94926d79e29433fea1aa4925d546e3b84",
+    "slice-result.json": "7833a08cff8c19f445531646e66d8546c12f55c11a066ac7d2a37777e017cb72"
+  },
+  "preparation_context": {
+    "artifact_root": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/worktrees/cold-core-rust-print",
+    "preparation_directory": ".cache/prints/cold-core-rust-binding/2026-11-01-foam-shell-mark2-e5e3444d",
+    "project": ".cache/prints/cold-core-rust-binding/2026-11-01-foam-shell-mark2-e5e3444d/2026-11-01-foam-shell-mark2-e5e3444d.3mf",
+    "archive": ".cache/prints/cold-core-rust-binding/2026-11-01-foam-shell-mark2-e5e3444d/2026-11-01-foam-shell-mark2-e5e3444d.gcode.3mf"
+  },
+  "capture_record": {
+    "path": ".cache/combined-finish/handoffs/foam-shell/print-capture.json",
+    "sha256": "61d121f23640e96178f1276dbe54ea0d598d06d24965a113cf877e2e08c221db"
+  },
+  "post_publication_surface_review": {
+    "scope": "All seven geometry-lint classes on the exact published Rust shell STL. Current answer anchors bind the picks in the retained reading.",
+    "publication_commit": "13ae299537210d03e8248504704eae3eae005895",
+    "physical_stl_sha256": "132c06ecc887624ae36c98c168f97efaa533deb278a4b93a3d2f725455d93164",
+    "reader": "hardware/scripts/geometry_lint.py",
+    "reader_sha256": "bb7b1fa42e8d2985671eb2ebce6610074e65b6e2a22e5f014e498885ebfb030d",
+    "classes_read": [
+      "step",
+      "bump",
+      "sliver",
+      "ceiling",
+      "slope",
+      "thin",
+      "ledge"
+    ],
+    "log": ".cache/combined-finish/handoffs/foam-shell/post-publication-lint.log",
+    "log_sha256": "77c32863cc95910d0a788012068d7c97b16eec7a4aedd02ab54572efa88cdde7",
+    "answers_path": "hardware/printed-parts/lint-answers/cold-core/foam-shell/foam-shell.lint-answers",
+    "answers_sha256": "2a3179e69118784f7b05771898a6b09f3b5f7c25e0271921843a6cabc574f0c6",
+    "counts_by_class": {
+      "thin": 2,
+      "sliver": 4
+    },
+    "findings": [
+      {
+        "class": "thin",
+        "line": "2.000 mm of material at its thinnest \u00b7 774927.1 mm\u00b2 of surface under 2.5 mm \u00b7 spans 282.4 \u00d7 180.4 \u00d7 224.8 mm \u00b7 in 37 pieces",
+        "pick": [
+          "click: x=-138.803 y=-78.957 z=2.000",
+          "click: x=-138.803 y=-78.957 z=0.000"
+        ],
+        "answer": "Derek's specified 2 mm casing floor and 2.38 mm standing walls. This pair crosses the ordinary floor; the ranking collects the selected casing surfaces below its 2.5 mm threshold. The ten M5 hosts separately retain 2.6 mm radial insert stock and 3.2 mm screw-tail stock, with finite solid deposition through their wall roots. alternatives: A 3 mm floor raises the selected 253.4 mm cold-core stack by 1 mm or takes 1 mm from its foam depth. Increasing all walls changes the specified casing section and internal routing room. The retained ordinary section follows Derek's casing dimensions; it is not a remnant of a neighboring cut."
+      },
+      {
+        "class": "thin",
+        "line": "2.380 mm of material at its thinnest \u00b7 864.0 mm\u00b2 of surface under 2.5 mm \u00b7 spans 9.5 \u00d7 2.4 \u00d7 49.4 mm \u00b7 in 2 pieces",
+        "pick": [
+          "click: x=-4.735 y=86.320 z=182.829",
+          "click: x=-4.735 y=88.700 z=182.829"
+        ],
+        "answer": "The seam fold's full 2.38 mm wall section above the PRV exit. It retains the same specified material section while the 1.5 mm channel turns inward; the sampled pair crosses that whole wall. This is the named fold of the selected casing profile. alternatives: Increasing it to 2.5 mm changes the selected wall section and takes 0.12 mm from the adjacent PRV-shroud room. Growing the outside instead changes the fixed casing footprint and the channel's mating position."
+      },
+      {
+        "class": "sliver",
+        "line": "1.500 mm strip, 225.9 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=-1.000 y=0.000 z=0.000 \u00b7 thru x=4.750 y=89.450 z=112.925",
+          "edge: x=4.750 y=89.450 z=225.850 \u2192 x=4.750 y=89.450 z=0.000 \u00b7 len 225.850 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=4.750 y=89.450 z=112.925"
+        ],
+        "answer": "The linter's strip metric is the specified 1.5 mm depth of the seam channel and its matching inward fold. These four faces turn a constant 2.38 mm casing section through the channel; the 1.5 mm face dimension is the recess depth, rather than a 1.5 mm material ligament. Both channel inside corners are the selected seams' placement surfaces. alternatives: A 1.6 mm channel leaves this face-width ranking but changes Derek's selected 1.5 mm channel. Sloping the sides removes the axis-aligned face while replacing the inside corners used by the seam placement."
+      },
+      {
+        "class": "sliver",
+        "line": "1.500 mm strip, 225.9 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=-4.750 y=89.450 z=112.925",
+          "edge: x=-4.750 y=89.450 z=225.850 \u2192 x=-4.750 y=89.450 z=0.000 \u00b7 len 225.850 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=-4.750 y=89.450 z=112.925"
+        ],
+        "answer": "The linter's strip metric is the specified 1.5 mm depth of the seam channel and its matching inward fold. These four faces turn a constant 2.38 mm casing section through the channel; the 1.5 mm face dimension is the recess depth, rather than a 1.5 mm material ligament. Both channel inside corners are the selected seams' placement surfaces. alternatives: A 1.6 mm channel leaves this face-width ranking but changes Derek's selected 1.5 mm channel. Sloping the sides removes the axis-aligned face while replacing the inside corners used by the seam placement."
+      },
+      {
+        "class": "sliver",
+        "line": "1.500 mm strip, 223.9 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=-1.000 y=0.000 z=0.000 \u00b7 thru x=-7.130 y=87.070 z=113.925",
+          "edge: x=-7.130 y=87.070 z=225.850 \u2192 x=-7.130 y=87.070 z=2.000 \u00b7 len 223.850 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=-7.130 y=87.070 z=113.925"
+        ],
+        "answer": "The linter's strip metric is the specified 1.5 mm depth of the seam channel and its matching inward fold. These four faces turn a constant 2.38 mm casing section through the channel; the 1.5 mm face dimension is the recess depth, rather than a 1.5 mm material ligament. Both channel inside corners are the selected seams' placement surfaces. alternatives: A 1.6 mm channel leaves this face-width ranking but changes Derek's selected 1.5 mm channel. Sloping the sides removes the axis-aligned face while replacing the inside corners used by the seam placement."
+      },
+      {
+        "class": "sliver",
+        "line": "1.500 mm strip, 223.9 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=7.130 y=87.070 z=113.925",
+          "edge: x=7.130 y=87.070 z=225.850 \u2192 x=7.130 y=87.070 z=2.000 \u00b7 len 223.850 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=7.130 y=87.070 z=113.925"
+        ],
+        "answer": "The linter's strip metric is the specified 1.5 mm depth of the seam channel and its matching inward fold. These four faces turn a constant 2.38 mm casing section through the channel; the 1.5 mm face dimension is the recess depth, rather than a 1.5 mm material ligament. Both channel inside corners are the selected seams' placement surfaces. alternatives: A 1.6 mm channel leaves this face-width ranking but changes Derek's selected 1.5 mm channel. Sloping the sides removes the axis-aligned face while replacing the inside corners used by the seam placement."
+      }
+    ],
+    "unreviewed": []
+  }
+}

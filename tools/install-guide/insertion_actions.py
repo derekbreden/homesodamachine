@@ -8,7 +8,7 @@ import json
 import math
 from pathlib import Path
 import struct
-import subprocess
+import sys
 
 import numpy as np
 from PIL import Image
@@ -19,7 +19,8 @@ HARDWARE = ROOT / 'hardware'
 SNAPSHOTS = HARDWARE / 'install-guide/out'
 OUT = SNAPSHOTS / 'insertion-actions'
 ART = HARDWARE / 'install-guide/art/insertion-actions'
-RENDERER = ROOT / 'tools/render/render-step-posed.js'
+sys.path.insert(0, str(HARDWARE / 'scripts'))
+import _hsm_render
 POWER_RETREAT = 25.0
 BOTTLE_LIFT = 50.0
 POSES = {
@@ -126,50 +127,44 @@ def metadata(name):
     )
 
 
-def private_renderer():
-    source = RENDERER.read_text()
+def moved_payload(name, entry):
+    """Translate the moving meshes in a render-only copy of the frozen payload."""
+    data = bytearray((ROOT / entry['source_mesh']).read_bytes())
+    length = struct.unpack_from('<I', data)[0]
+    header = json.loads(data[4:4 + length])
+    action = entry['action']
+    moved = []
+    for mesh in header['meshes']:
+        if mesh['name'].startswith(action['prefix']):
+            offset, count = mesh['pos']
+            points = np.frombuffer(data, dtype='<f4', count=count,
+                                   offset=4 + length + offset).reshape(-1, 3)
+            points += action['translation']
+            moved.append(mesh['name'])
+    if len(moved) != action['expected']:
+        raise ValueError(f"Expected {action['expected']} moving meshes, found {len(moved)}")
+    header.pop('src', None)
+    header['cut'] = dict(source_payload_sha256=entry['source_mesh_sha256'], action=action)
+    text = json.dumps(header, separators=(',', ':')).encode()
+    text += b' ' * (-(len(text) + 4) % 4)
+    target = OUT / f'{name}.step.mesh'
+    target.write_bytes(struct.pack('<I', len(text)) + text + data[4 + length:])
+    entry['render_mesh'] = str(target.relative_to(ROOT))
+    entry['render_mesh_sha256'] = hashlib.sha256(target.read_bytes()).hexdigest()
+    entry['moved_meshes'] = moved
+    return target
 
-    def replace(old, new):
-        nonlocal source
-        assert source.count(old) == 1, old
-        source = source.replace(old, new)
 
-    replace('from "./browser.js"', f'from {(RENDERER.parent / "browser.js").as_uri()!r}')
-    replace('from "../../web/server.js"', f'from {(ROOT / "web/server.js").as_uri()!r}')
-    replace('import sharp from "sharp";',
-            f'import {{ createRequire }} from "module"; const sharp = createRequire({str(RENDERER)!r})("sharp");')
-    replace('const REPO_ROOT = path.resolve(__dirname, "..", "..");',
-            f'const REPO_ROOT = {str(ROOT)!r};')
-    replace('const opts = defaults();\n  if (entry.cam',
-            'const opts = defaults();\n  opts.action = entry.action;\n'
-            '  opts.anchors = entry.anchors;\n  opts.metadata = entry.metadata;\n  if (entry.cam')
-    replace('    const box = new THREE.Box3().setFromObject(currentGroup);', '''
-    const moved = [];
-    for (const part of currentGroup.children) {
-      if (part.isMesh && part.name.startsWith(o.action.prefix)) {
-        part.position.add(new THREE.Vector3(...o.action.translation));
-        moved.push(part.name);
-      }
-    }
-    if (moved.length !== o.action.expected)
-      throw new Error(`Expected ${o.action.expected} moving meshes, found ${moved.length}`);
-    currentGroup.updateMatrixWorld(true);
-    const box = new THREE.Box3().setFromObject(currentGroup);''')
-    replace('    if (!o.__debug) return { png, state: null };', '''
-    const registration = { moved, points: {} };
-    for (const [name, point] of Object.entries(o.anchors)) {
-      const p = new THREE.Vector3(...point).project(cam);
-      registration.points[name] = [(p.x + 1) * window.innerWidth / 2,
-                                   (1 - p.y) * window.innerHeight / 2];
-    }
-    if (!o.__debug) return { png, state: null, registration };''')
-    replace('    return { png, state: {', '    return { png, registration, state: {')
-    replace('  fs.writeFileSync(outAbs, buf);',
-            '  fs.writeFileSync(outAbs, buf);\n'
-            '  fs.writeFileSync(opts.metadata, JSON.stringify(shot.registration, null, 2) + "\\n");')
-    path = OUT / 'render-scenes.mjs'
-    path.write_text(source)
-    return path
+def registration(entry, report):
+    """Read the anchor pixels from the matrix the GPU picture was drawn with."""
+    matrix = np.asarray(report['camera']['view_proj']).reshape(4, 4, order='F')
+    width, height = entry['size']
+    points = {}
+    for name, anchor_entry in entry['points'].items():
+        p = matrix @ [*anchor_entry['world'], 1]
+        x, y = p[:2] / p[3]
+        points[name] = [(x + 1) * width / 2, (1 - y) * height / 2]
+    return dict(moved=entry['moved_meshes'], points=points)
 
 
 def main():
@@ -182,28 +177,27 @@ def main():
     entries = {name: metadata(name) for name in (args.scenes or POSES)}
     jobs = []
     for name, entry in entries.items():
+        payload = moved_payload(name, entry)
         jobs.append(dict(
             step=str(Path(entry['source_step']).relative_to('hardware')),
+            payload=str(payload),
             out=str(ART / f'{name}.png'), cam=entry['cam'], target=entry['target'],
             span=entry['span'], size='x'.join(str(n) for n in entry['size']),
             up=(0, 0, 1), bg='#f2eee8', transparent=True, solid=True,
-            ortho=True, trim=False, ground=False, fog=False, action=entry['action'],
-            anchors={key: value['world'] for key, value in entry['points'].items()},
-            metadata=str(OUT / f'{name}.render.json')))
+            ortho=True, trim=False, ground=False, fog=False))
     manifest = OUT / 'scenes.json'
     manifest.write_text(json.dumps(jobs, indent=2) + '\n')
-    renderer = private_renderer()
     if not args.stage_only:
-        subprocess.run(['node', str(renderer), '--jobs', str(manifest)], cwd=ROOT, check=True)
-        for name, entry in entries.items():
+        reports = _hsm_render.render(jobs, reports=True)
+        for (name, entry), report in zip(entries.items(), reports, strict=True):
             with Image.open(ART / f'{name}.png') as rendered:
                 assert rendered.mode == 'RGBA'
                 assert rendered.size == tuple(entry['size'])
                 entry['alpha_bounds'] = rendered.getchannel('A').getbbox()
-            registration = json.loads((OUT / f'{name}.render.json').read_text())
-            entry['moved_meshes'] = registration['moved']
+            measured_registration = registration(entry, report)
+            (OUT / f'{name}.render.json').write_text(json.dumps(measured_registration, indent=2)+'\n')
             for point, anchor_entry in entry['points'].items():
-                measured = registration['points'][point]
+                measured = measured_registration['points'][point]
                 assert max(abs(a - b) for a, b in zip(measured, anchor_entry['pixel'])) < 1e-5
     (OUT / 'anchors.json').write_text(json.dumps(dict(scenes=entries), indent=2) + '\n')
     print(OUT / 'anchors.json')

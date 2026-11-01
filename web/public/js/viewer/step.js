@@ -213,19 +213,7 @@ function materialFor(color, surface = null) {
   return mat;
 }
 
-// Drop the shared materials, so the next mount builds its own.
-//
-// WHICH SOLID IS DRAWN OVER WHICH IS SET BY THE ORDER THESE WERE MADE IN.
-// three.js sorts an opaque draw by `material.id` before it looks at depth, and
-// ids are handed out in creation order — so on a page that has already mounted
-// another model, this model's solids are drawn in an order it did not choose,
-// and two faces sharing a plane swap which one survives. It is invisible while a
-// person clicks from part to part and it is not invisible in a PNG: the faucet
-// assembly, drawn after the packed machine on one page, differed from its own
-// fresh render on 2.5% of its pixels by as much as 92 counts.
-//
-// tools/render/render-step-posed.js draws many pictures on one page and calls
-// this between them, so each one is the picture a fresh page would draw.
+// Dispose cached materials so a finish-table update applies to the next mount.
 export function forgetMaterials() {
   for (const material of _matCache.values()) material.dispose();
   _matCache.clear();

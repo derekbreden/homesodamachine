@@ -211,41 +211,22 @@ A view of any STEP, from any angle, is `hsm render` or `tools/look.sh` — drawn
 asks for one, so there is none of it in the tree to go stale.
 
 WHAT THE ACTIONS RUN WITH IS THE MACHINE'S, not the tree's. `tools/cad-venv` holds the
-interpreter and its packages, `node_modules` the renderer's, and `rsvg-convert` and `blender`
-come off the brew prefix — `.gitignore` holds the first two and the last two are not in the
-repo at all. `.bazelrc` names both roots as mounts and puts them on every action's PATH. A
-checkout on another machine builds when those are installed there and not before.
+interpreter and its packages, `node_modules` the renderer's, and `rsvg-convert` comes off the
+brew prefix. These runtime tools and packages are outside the repository. `.bazelrc` names
+both roots as mounts and puts them on every action's PATH. A checkout on another machine
+builds when those are installed there and not before.
 
-AND `blender` INSTALLED IS NOT THE WHOLE OF WHAT THE LINE ART NEEDS. The Freestyle SVG
-exporter is a downloadable extension, not part of Blender, and everything `_blender_scene.py`
-and `sieve_scene.py` ask it for is a property it ADDS to the scene when it registers —
-`linestyle.use_export_strokes`, and the `scene.svg_export` group. A Blender without it is a
-Blender the line art cannot run on:
+The manual [kitchen illustrations](../tools/render/render-kitchen-scene.py),
+[studio film](../marketing/video/one-less-errand/studio/README.md) and
+[welding-head reference views](reference/xlaserlab-sup29f-xh/README.md) use Blender.
+Their rendering runs on demand. Enclosure Freestyle SVG sources and their visibility sieve
+are retained under `.retired` markers as historical studies.
 
-```
-blender --background --online-mode --command extension install -s -e freestyle_svg_exporter
-```
-
-`BLENDER_USER_RESOURCES` decides where that lands and where a run looks for it, so `.bazelrc`
-passes the variable through to every action rather than stating a path — unset on a machine
-whose extensions are already under the default user path. Both scene scripts check the enable
-and exit non-zero naming the extension, because `addon_utils.enable` does not raise when the
-module is absent: it prints one line and returns None, and the miss surfaces a hundred lines
-later as an `AttributeError` with Blender itself exiting 0.
-
-TWO THINGS THE BUILD DOES NOT GUARANTEE, both named where they stand:
-
-- **A `.step.mesh` is not a declared output.** `_cadq_export` tessellates best-effort — a
-  payload must never break an export — and a Bazel output is one the action must produce or
-  fail. The two are opposite promises. So no action writes one: `sync_tree` carries what a
-  target declares, the payload is in nothing's `outs`, and `.bazelrc` sets
-  `HSM_SKIP_MESH_PAYLOAD` for every action rather than tessellating a file the sandbox
-  discards. The runs that keep the tree's payloads are a hand run and the dev-server watcher.
-- **`//:render-scenes` carries `local` and is not sandboxed.** `render-step-posed.js` stands
-  the viewer on loopback and photographs it with a headless browser, and that page loads
-  `occt-import-js` off a CDN — so drawing a scene reaches the public network for a library this
-  tree does not carry. Vendoring it is what would make the action hermetic. It is the one
-  action here whose inputs are not all declared.
+Rust part generators declare the payloads they produce as build outputs. Native CadQuery
+exports make their optional payloads best-effort; Bazel sets `HSM_SKIP_MESH_PAYLOAD` for those
+exports. A scene that draws a payload within its action writes one explicitly with `mesh=True`.
+The guide-art rules draw these scenes with `hsm-render`, built from the renderer sources declared
+by each rule. These Cargo consumers run without a sandbox, in their own work directories.
 
 Inside one run:
 

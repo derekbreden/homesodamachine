@@ -95,7 +95,7 @@ pub struct RenderArgs {
     #[arg(long)]
     no_fog: bool,
 
-    /// Opaque surfaces, which are the default; accepted from render-step-posed.
+    /// Explicit opaque surfaces, which are also the default.
     #[arg(long)]
     solid: bool,
     /// Bodies drawn solid; the rest take --context. Comma-separated `*` globs.

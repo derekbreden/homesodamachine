@@ -48,12 +48,8 @@ try-import %workspace%/.bazelrc.paths
 try-import %workspace%/.bazelrc.ci
 # Heavy actions obtain real shared leases. A flag alone never opts out of admission.
 
-# A `.step.mesh` IS WHAT THE PAGE READS INSTEAD OF PARSING THE STEP, and it is in no `outs`,
-# so the one an action tessellates goes when the sandbox goes. Sixty-eight generators export a
-# solid and a hundred and three solids come out of a full build, each paying a tessellation
-# nothing will ever read. The tree's payloads are kept by the runs that keep them — a hand run
-# and the dev-server watcher — and neither sets this. A run that reads a payload IN the action
-# writes its own: `render_scenes` calls `_write_mesh_payload` directly, for the viewer it stands.
+# Native CadQuery exports skip optional best-effort payloads within actions. Rust generators
+# declare their payload outputs, and art scenes write the temporary payloads they draw explicitly.
 build --action_env=HSM_SKIP_MESH_PAYLOAD=1
 
 # Heavy builds use tools/run.py. Its Bazel wrapper reserves one logical run,

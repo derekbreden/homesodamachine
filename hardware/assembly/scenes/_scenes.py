@@ -24,7 +24,7 @@ for _p in (_HW / "scripts", _HW / "manifold-layout", _HW / "cold-core-layout",
 # `roots` are the parts the unit is built on; everything they hold comes with them. `cam` is the
 # direction from the target to the camera, so a scene looking INTO a piece through its own open
 # faces points from the side those faces face. `zoom` is the distance in bounding-box radii and
-# `up` the camera's own up — both handed to `tools/render/render-step-posed.js` unchanged.
+# `up` the camera's own up, carried in the scene catalog.
 Scene = namedtuple("Scene", "id title roots inner flip also later cam up zoom look note without",
                    defaults=(None,))
 

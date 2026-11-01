@@ -1,0 +1,16 @@
+[package]
+name = "hsm-machine"
+version = "0.1.0"
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+publish = false
+
+[[bin]]
+name = "machine-assembly-model"
+path = "../../../hardware/manifold-layout/enclosure_assembly.rs"
+
+[dependencies]
+anyhow.workspace = true
+hsm-kernel = { path = "../kernel" }
+serde_json.workspace = true

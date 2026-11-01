@@ -98,6 +98,10 @@ The upper screws project 97.6 mm beyond their insert mouths, the lower screws 85
 Each blind tail passage has 2.5 mm nominal tip air. All twenty clamp screws are the
 same stock as the enclosure's four seam screws.
 
+At all ten lid axes, a straight Ø4.8 × 80 mm driver envelope clears the printed
+lid and its integral pump clip above the lid face. The [M5 driver reading](m5-lid-driver-review.json)
+binds these paths to the published lid STL.
+
 The [local solid regions](fore-snap-print-regions.json) fill the M5 head bearings,
 PCB insert posts and their plate/floor roots at 100%. The same record carries
 the fore C2 root and shell M5 hosts. Regenerate it from the current exported
