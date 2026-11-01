@@ -46,6 +46,8 @@ Run:
     tools/cad-venv/bin/python hardware/reference/iec-c14-inlet/iec_c14_inlet.py selftest
 """
 
+from __future__ import annotations
+
 import math
 import sys
 from pathlib import Path
