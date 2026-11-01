@@ -54,6 +54,8 @@ import struct
 import sys
 from pathlib import Path
 
+from _payload_rules import CREASE_DEG
+
 import numpy as np
 import trimesh
 from scipy.sparse import coo_matrix
@@ -93,9 +95,6 @@ FAUCET_DIRS = (
     _ROOT / "hardware/printed-parts/faucet/umbilical-organizer",
 )
 PIECES_DIRS = ENCLOSURE_DIRS + COLD_CORE_DIRS + FAUCET_DIRS
-
-#: The crease `xray.js` draws a feature edge at, in degrees.
-CREASE_DEG = 30.0
 
 #: Reductions tried, hardest first. `fast_simplification` refuses collapses it cannot make and
 #: returns what it reached, so the ladder is short: the run takes the first rung that holds.
