@@ -1,0 +1,11 @@
+{
+  "source": {
+    "commit": "7320c7c39a9d4e1485cb7dbcc3b95aa85d0802fb",
+    "path": "hardware/reference/seaflo-22-pump/seaflo_22_pump.py",
+    "sha256": "1cf799e2bf6848a156e683becc173670b52c52c1bbd57da90c78751ad88c77f2"
+  },
+  "members": {
+    "seaflo-22-pump.step": "4f973a4b973e8f1d37fd7324f6546fe677788d2bb13f043f5833673a6573e4af",
+    "seaflo-22-pump.step.mesh": "71594137cc7ae40fd5c52c310f2c78f03a1f24a63dfe732a28d9e6b6c3bcc135"
+  }
+}

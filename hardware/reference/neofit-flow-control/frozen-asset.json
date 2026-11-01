@@ -1,0 +1,11 @@
+{
+  "source": {
+    "commit": "7320c7c39a9d4e1485cb7dbcc3b95aa85d0802fb",
+    "path": "hardware/reference/neofit-flow-control/neofit_flow_control.py",
+    "sha256": "3b4d571d757042b8bafc7834246b52746acc0283533357d493a6c8c94c8e4fa9"
+  },
+  "members": {
+    "neofit-flow-control.step": "11b2c1d4645f1afd20704e90b981ca18749a6ab7ce7aa323f2c1f5d4f6bd6aba",
+    "neofit-flow-control.step.mesh": "5f948bf30c8f43937018e4fd2e3a98b9fce8a048f86046d55834e929b04a07cb"
+  }
+}
