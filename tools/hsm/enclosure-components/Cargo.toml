@@ -34,6 +34,10 @@ path = "../../../hardware/printed-parts/enclosure/display-cover/display_cover.rs
 name = "display-gasket"
 path = "../../../hardware/printed-parts/enclosure/display-gasket/display_gasket.rs"
 
+[[bin]]
+name = "data-ring"
+path = "../../../hardware/printed-parts/enclosure/data-ring/data_ring.rs"
+
 [dependencies]
 anyhow.workspace = true
 hsm-kernel = { path = "../kernel" }
