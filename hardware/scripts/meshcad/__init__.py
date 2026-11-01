@@ -89,12 +89,20 @@ def manifold(shape):
     return held
 
 
-def forget():
+def forget(shape=None):
     """Let go of the unions compounds keep (`manifold`, `intersect`'s tool) and the triangles
     `distance` keeps of the bodies it read last: a run done with a pass of checks hands their
-    memory back before the next pass, or the writes, take theirs."""
-    from . import build
+    memory back before the next pass, or the writes, take theirs.
+
+    With `shape`, release only its unions, retaining other shapes and the distance cache.
+    Without it, release every held union and the distance cache."""
     from .solids import HOLDING
+    if shape is not None:
+        shape.__dict__.pop("_composed", None)
+        shape.__dict__.pop("_fused_m", None)
+        HOLDING.discard(shape)
+        return
+    from . import build
     for shape in list(HOLDING):
         shape.__dict__.pop("_composed", None)
         shape.__dict__.pop("_fused_m", None)
