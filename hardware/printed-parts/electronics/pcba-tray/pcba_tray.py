@@ -28,8 +28,6 @@ import sys
 from pathlib import Path
 from types import SimpleNamespace
 
-import cadquery as cq
-
 _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
 sys.path.insert(0, str(_hw / "printed-parts" / "electronics"))
@@ -123,6 +121,7 @@ def _build_board():
     mounting hole the boxes give way to the board's own joints (`_hole_joints`):
     component AABBs are conservative rectangles drawn from top-side bodies, and
     within `_hole_reach` of a hole the underside carries nothing else."""
+    import cadquery as cq
     slab = cq.Workplane("XY").box(
         _outline_x[1] - _outline_x[0], _outline_y[1] - _outline_y[0], _thickness,
         centered=(True, True, False))
