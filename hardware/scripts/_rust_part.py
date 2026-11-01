@@ -11,8 +11,33 @@ writes `<name>.numbers.json` into `part_dir`, builds the program with cargo from
 `<name>.step`, the model file beside it (`<name>.step.npz`), the payload (`<name>.step.mesh`)
 and `<name>.stl`, and answers with what they hold (`hsm_kernel::part::write_part`). A program
 that writes several file sets answers once for each, a line apiece, and this returns their files
-and bodies together. `program(crate, name)` builds a program and returns its path, for a run
-with arguments of its own.
+and bodies together. `check(crate, name, numbers)` runs `<program> <numbers.json> --check`, which
+measures the part and writes nothing, and returns its JSON; `run(crate, name, *args)` runs a
+program with arguments of its own and returns what it printed. Each run says what the program
+took: its seconds and the most memory it held.
+
+A PART'S OWN RUN BEGINS HERE, before its module imports anything else:
+
+    if __name__ == "__main__":
+        import _rust_part
+        _rust_part.start()
+
+`start` takes the CAD lock (`_run_lock`, as `_cadq_export` takes it for every other generator),
+starts the run's clock at the process's own start, and defers CadQuery. A run that cut files
+puts its seconds, interpreter and imports included, into `build-time.md`'s window
+(`_build_time`) on the way out.
+
+CADQUERY IS DEFERRED, NOT REMOVED. A part's numbers come from modules that import CadQuery to
+build other parts with, and the run itself uses none of it. So `start` puts a `cadquery` in
+`sys.modules` that loads the first time a name is read off it. Two names don't load it, because
+shared modules make them as they import: `cq.Color` (`_materials`) and `cq.Plane`
+(`world_workplane`) make stand-ins that hold their arguments. A colour's is all OCCT keeps of
+it, so a stand-in colour answers `toTuple`, `==` and `hash`, and `_materials.linear` its linear
+RGB, bit for bit as OCCT would (`_occt_color`). If CadQuery does load, each stand-in becomes the
+value it stands for, the same object, so a module holding one holds the real one.
+Whenever OCP loads, through CadQuery or not, the loops over its collections end in Python
+(`_cadq_export._end_ocp_loops_in_python`). A process that already holds a `cadquery`, the mesh
+kernel's (`meshcad.activate`) among them, keeps it.
 
 A program runs from the checkout's root, and reads a STEP its numbers name by that path:
 
@@ -38,18 +63,252 @@ checkout's kernel into the other's program. The directory is the checkout's own 
 """
 from __future__ import annotations
 
+import atexit
 import hashlib
+import importlib.machinery
+import importlib.util
 import json
 import os
 import pwd
 import shutil
 import subprocess
+import sys
+import time
+import types
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 
 _READ_TARGETS: set = set()
 _WRITE_TARGETS: set = set()
+
+#: Where this run's seconds start, on `time.perf_counter`'s clock: the process's own start, once
+#: `start` has run.
+_STARTED: float | None = None
+_IMPORTED = time.time()
+#: Whether a program has cut files this run, which is what files a reading.
+_CUT = False
+
+
+def start() -> None:
+    """Begin a part's own run: the CAD lock, the clock from the process's start, and CadQuery
+    deferred until something uses it."""
+    global _STARTED
+    if _STARTED is not None:
+        return
+    _STARTED = time.perf_counter() - (time.time() - _process_start())
+    if "cadquery" not in sys.modules and (spec := importlib.util.find_spec("cadquery")) is not None:
+        cq = importlib.util.module_from_spec(spec)
+        cq.__class__ = _Deferred
+        sys.modules["cadquery"] = cq
+    if "OCP.OCP" not in sys.modules:
+        sys.meta_path.insert(0, _OCPFinder())
+    entry = _entry()
+    if entry is not None and not os.environ.get("HSM_NO_BUILD_LOCK"):
+        from _run_lock import acquire
+        acquire(entry)
+    atexit.register(_file_elapsed, entry)
+
+
+def _entry():
+    """What this run is, named as `_cadq_export` names it: the entry script, from the root."""
+    if sys.argv and sys.argv[0].endswith(".py"):
+        entry = Path(sys.argv[0]).resolve()
+        try:
+            return entry.relative_to(ROOT).as_posix()
+        except ValueError:
+            return entry.name
+    return None
+
+
+def _process_start() -> float:
+    """When this process began, on `time.time`'s clock, as the kernel keeps it; the time this
+    module was imported where it keeps none."""
+    try:
+        if sys.platform == "darwin":
+            import ctypes
+            info = ctypes.create_string_buffer(136)              # struct proc_bsdinfo
+            if ctypes.CDLL(None).proc_pidinfo(os.getpid(), 3, ctypes.c_uint64(0), info, 136) == 136:
+                sec, usec = (int.from_bytes(info.raw[k:k + 8], "little") for k in (120, 128))
+                return sec + usec / 1e6                          # pbi_start_tvsec, _tvusec
+        elif sys.platform.startswith("linux"):
+            with open("/proc/self/stat") as f:
+                ticks = int(f.read().rpartition(")")[2].split()[19])   # starttime, since boot
+            return time.time() - time.clock_gettime(time.CLOCK_BOOTTIME) + ticks / os.sysconf("SC_CLK_TCK")
+    except (OSError, ValueError, AttributeError):
+        pass
+    return _IMPORTED
+
+
+def _file_elapsed(entry) -> None:
+    """This run's seconds, into `build-time.md`'s window under the entry script's name. A run no
+    program cut files for files nothing."""
+    if entry is None or not _CUT:
+        return
+    try:
+        import _build_time
+        _build_time.record(entry, time.perf_counter() - _STARTED)
+    except Exception:
+        pass                             # a reading that does not land costs the ledger one run
+
+
+# --- CadQuery, deferred --------------------------------------------------------
+
+#: What may be read off the deferred `cadquery` without loading it: what the import system and a
+#: module's repr ask of any module.
+_MODULE_NAMES = frozenset(("__name__", "__spec__", "__loader__", "__package__", "__file__",
+                           "__cached__", "__class__"))
+
+
+class _Deferred(types.ModuleType):
+    """`cadquery` before anything has used it. `import cadquery` reads only its `__spec__`, and
+    `Color` and `Plane` are the stand-ins' classes; any other name loads CadQuery into this same
+    module."""
+
+    def __getattribute__(self, name):
+        if name in _MODULE_NAMES:
+            return object.__getattribute__(self, name)
+        if name in _STANDINS:
+            return _STANDINS[name]
+        _load()
+        return getattr(self, name)
+
+
+def _load() -> None:
+    """CadQuery, loaded into the module that stood for it, and each stand-in made the value it
+    stands for."""
+    cq = sys.modules.get("cadquery")
+    if type(cq) is _Deferred:
+        cq.__class__ = types.ModuleType
+        spec = cq.__spec__
+        spec._initializing = True
+        try:
+            spec.loader.exec_module(cq)
+        except BaseException:
+            del sys.modules["cadquery"]
+            raise
+        finally:
+            spec._initializing = False
+    while _MADE:
+        _MADE.pop()._become()
+
+
+class _StandinClass(type):
+    """`cq.Color` or `cq.Plane` while CadQuery is deferred: it makes stand-ins. Once CadQuery has
+    loaded, the class a module kept makes the real ones and holds them."""
+
+    def __call__(cls, *args, **kwargs):
+        if type(sys.modules.get("cadquery")) is _Deferred:
+            return super().__call__(*args, **kwargs)
+        return cls._real()(*args, **kwargs)
+
+    def __instancecheck__(cls, obj):
+        if type(sys.modules.get("cadquery")) is _Deferred:
+            return type.__instancecheck__(cls, obj)
+        return isinstance(obj, cls._real())
+
+    def __getattr__(cls, name):
+        return getattr(cls._real(), name)
+
+    def _real(cls):
+        _load()
+        return getattr(sys.modules["cadquery"], cls.__name__)
+
+
+class _Standin(metaclass=_StandinClass):
+    """A CadQuery value made while CadQuery is deferred: the arguments it was made with. Once
+    CadQuery has loaded it is the value they make, in place."""
+
+    def __init__(self, *args, **kwargs):
+        self._made = (args, kwargs)
+        _MADE.append(self)
+
+    def _become(self):
+        args, kwargs = vars(self).pop("_made")
+        real = getattr(sys.modules["cadquery"], type(self).__name__)(*args, **kwargs)
+        vars(self).update(vars(real))
+        self.__class__ = type(real)
+
+    def _now(self):
+        _load()
+        return self
+
+    # Anything but its arguments is the real one's to answer.
+    def __getattr__(self, name):
+        if "_made" not in vars(self):
+            raise AttributeError(name)
+        return getattr(self._now(), name)
+
+    def __eq__(self, other):
+        return self._now() == other
+
+    def __ne__(self, other):
+        return self._now() != other
+
+    def __hash__(self):
+        return hash(self._now())
+
+    def __repr__(self):
+        args, kwargs = vars(self)["_made"]
+        return f"<deferred cq.{type(self).__name__} {args} {kwargs}>"
+
+
+class _ColorStandin(_Standin):
+    """`cq.Color` while CadQuery is deferred. What OCCT keeps of a colour is arithmetic on the
+    arguments it was made with (`_occt_color`), so it answers `toTuple`, `==` and `hash` as the
+    real one does, without loading CadQuery for them."""
+
+    def toTuple(self):
+        import _occt_color
+        rgba = _occt_color.rgba(*vars(self)["_made"])
+        if rgba is None:
+            return self._now().toTuple()
+        return (*_occt_color.srgb(rgba[:3]), rgba[3])
+
+    def __eq__(self, other):
+        return self.toTuple() == other.toTuple()
+
+    def __ne__(self, other):
+        return not self == other
+
+    def __hash__(self):
+        return hash(self.toTuple())
+
+
+_STANDINS = {name: _StandinClass(name, (base,), {"__module__": "cadquery", "__qualname__": name})
+             for name, base in (("Color", _ColorStandin), ("Plane", _Standin))}
+_MADE: list = []
+
+
+class _OCPFinder:
+    """Finds OCP's extension as the path finder does, so that once it has loaded, whatever loaded
+    it, the loops over its collections end in Python."""
+
+    def find_spec(self, name, path=None, target=None):
+        if name != "OCP.OCP":
+            return None
+        spec = importlib.machinery.PathFinder.find_spec(name, path, target)
+        if spec is not None:
+            spec.loader = _EndingLoops(spec.loader)
+        return spec
+
+
+class _EndingLoops:
+    """OCP's own loader, and `_cadq_export`'s patch on its loops once it has run."""
+
+    def __init__(self, loader):
+        self.loader = loader
+
+    def create_module(self, spec):
+        return self.loader.create_module(spec)
+
+    def exec_module(self, module):
+        self.loader.exec_module(module)
+        export = sys.modules.get("_cadq_export")
+        if export is None:
+            import _cadq_export          # noqa: F401  its import ends them, now that OCP has loaded
+        else:
+            export._end_ocp_loops_in_python()
 
 
 def _home() -> Path:
@@ -210,9 +469,37 @@ def program(crate: str, name: str) -> Path:
     return target / "release" / name
 
 
+def run(crate: str, name: str, *args) -> str:
+    """Build `tools/hsm/<crate>`'s program `name`, run it from the root with `args`, and return
+    what it printed. Says what the run took: its seconds and the most memory it held."""
+    cmd = [str(program(crate, name)), *map(str, args)]
+    began = time.perf_counter()
+    proc = subprocess.Popen(cmd, stdout=subprocess.PIPE, text=True, cwd=ROOT)
+    out = proc.stdout.read()
+    proc.stdout.close()
+    _pid, status, usage = os.wait4(proc.pid, 0)
+    proc.returncode = os.waitstatus_to_exitcode(status)
+    if proc.returncode:
+        raise subprocess.CalledProcessError(proc.returncode, cmd, out)
+    peak = usage.ru_maxrss * (1 if sys.platform == "darwin" else 1024)    # bytes, or KiB
+    print(f"   {name}: {time.perf_counter() - began:.2f} s, {peak / 2 ** 20:.0f} MB at its peak")
+    return out
+
+
+def check(crate: str, name: str, numbers: dict):
+    """What `tools/hsm/<crate>`'s program `name` measures of the part `numbers` make, writing
+    nothing: `<program> <numbers.json> --check`, with the numbers in a file of their own."""
+    import tempfile
+    with tempfile.TemporaryDirectory() as tmp:
+        path = Path(tmp) / f"{name}.numbers.json"
+        path.write_text(json.dumps(numbers, indent=1, sort_keys=True) + "\n")
+        return json.loads(run(crate, name, path, "--check"))
+
+
 def cut(crate: str, name: str, numbers: dict, part_dir) -> dict:
     """Write `numbers`, build `tools/hsm/<crate>`'s program `name` and run it into `part_dir`,
     and return what it says it wrote."""
+    global _CUT
     part_dir = Path(part_dir)
     numbers_path = part_dir / f"{name}.numbers.json"
     text = json.dumps(numbers, indent=1, sort_keys=True) + "\n"
@@ -220,13 +507,18 @@ def cut(crate: str, name: str, numbers: dict, part_dir) -> dict:
         numbers_path.write_text(text)
     _WRITE_TARGETS.add(_relative(numbers_path))
 
-    run = subprocess.run([str(program(crate, name)), str(numbers_path.resolve()), str(part_dir.resolve())],
-                         check=True, stdout=subprocess.PIPE, text=True, cwd=ROOT)
     said = {"files": [], "bodies": []}
-    for line in run.stdout.splitlines():
+    for line in run(crate, name, numbers_path.resolve(), part_dir.resolve()).splitlines():
         if line.strip():
             each = json.loads(line)
             said["files"] += each["files"]
             said["bodies"] += each["bodies"]
-    _WRITE_TARGETS.update(_relative(part_dir / f) for f in said["files"])
+    wrote = {_relative(numbers_path)} | {_relative(part_dir / f) for f in said["files"]}
+    _WRITE_TARGETS.update(wrote)
+    _CUT = True
+    # A run `start` did not begin is timed by `_cadq_export`'s clock, which files a reading for a
+    # run that wrote what it is told of.
+    if _STARTED is None and (export := sys.modules.get("_cadq_export")) is not None:
+        for path in sorted(wrote):
+            export.note_write(ROOT / path)
     return said

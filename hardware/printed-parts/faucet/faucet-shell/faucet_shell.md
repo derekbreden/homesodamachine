@@ -20,13 +20,16 @@ fix this doc.
   gooseneck path's `_path_p2 … _path_p5`. The coupling is then visible at every
   site that reads it.
 - Named profiles and sketches. A 2D outline that is extruded or swept is a
-  named shape — `_tube_shell_outer_sketch`, the `build_lever_clearance`
+  named shape — `_tube_shell_outer_sketch`, the `_lever_outline`
   polyline, the `_tube_shell_inner_sketch` section — not an anonymous vertex list buried
   in a chain.
 - Envelope and cavity are one materialized pair. `build_lower_outer` and
   `build_zone6_outer` carry the body; named inner cuts carry the donor,
   lever, tubes and display. `build_shell` fuses the outers and applies those cuts. The
   return composition tells the whole story.
+- The kernel takes the same names. `numbers()` hands `faucet_shell.rs` every
+  dimension its geometry reads, each under its name here. A dimension the Rust
+  needs is a name in this file first.
 
 ## Frame discipline
 

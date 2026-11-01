@@ -9,7 +9,7 @@ its west half; the diaphragm pump stands aft. V-B seats in
 an integral upright socket wall east of the PCB. The pump discharge enters
 a stem check through the clamped PVC joint; that check is carried by its
 connected fittings. The four DC/sensor wells sit on the board-facing back of V-B’s wall,
-with levers opening west. The earth boss is accessible from above. Back-top carries V-A, V-K, their fitted
+with levers opening west. Back-top carries V-A, V-K, their fitted
 plumbing, the complete inlet header, PSU, both relays and flow meter.
 
 Two independent reservoir air tubes have floor-rooted 5.2 mm passages through
@@ -144,13 +144,9 @@ deep, retaining the ordinary 3 mm radial insert wall. Flush pilot bottoms retain
 holes in the lid. The pump retains its purchased rubber sliders and Ø9 × 0.8 mm
 washers; installed rubber compression and isolation remain unqualified.
 
-The earth stack belongs to back-top's rear wall below C14, at world
-(−48.15, 461.7, 313.935) mm. Its Ø10 mm boss has a Ø4 × 5.3 mm blind pilot for
-one RX-M3Sx4 insert. M3 × 8 clamps three 0.8 mm ring tongues and one 0.8 mm
-washer, giving 4.8 mm projection, 0.5 mm tip air and at least 3.1 mm fluted backing. The core's earth lead
-threads through the shared cable guide before its outside ring is crimped;
-it connects to this prepared rear-wall stack before closing. Fastener datums
-belong to [above_core_wiring.py](../../../manifold-layout/above_core_wiring.py).
+The core's earth lead threads through the shared cable guide before its
+outside ferrule is crimped, and lands in port 2 of back-top's rear PE WAGO
+below C14 before closing.
 
 The four core WAGO junctions form two rows on the board-facing back of V-B’s
 wall. V12 and sensor ports face fore; GND and reed ports face aft. Their

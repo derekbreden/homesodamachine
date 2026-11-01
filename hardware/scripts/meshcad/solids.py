@@ -11,6 +11,7 @@ reaches for OCCT on one fails at that line and says so.
 """
 
 import math
+import weakref
 
 import manifold3d as m3d
 import numpy as np
@@ -46,6 +47,12 @@ def _bbox(lo, hi):
     bb = Bnd_Box()
     bb.Update(*lo, *hi)
     return BoundBox(bb)
+
+
+_IDENTITY = np.eye(3, 4)
+
+#: The compounds keeping a union of their solids (`MeshCompound._fused`, `meshcad.manifold`).
+HOLDING = weakref.WeakSet()
 
 
 def _matrix_of(loc):
@@ -255,7 +262,8 @@ class MeshShape:
         tools = [m for o in others for m in _meshes(o)]
         if not tools:
             return self
-        tool = _union(tools)
+        tool = (others[0]._fused() if len(others) == 1 and isinstance(others[0], MeshCompound)
+                else _union(tools))
         return _each(self, lambda m: build.boolean([m, tool], m3d.OpType.Intersect))
 
     def __add__(self, other):
@@ -461,6 +469,15 @@ class MeshSolid(MeshShape, occ.Solid):
     def _mapped(self, fn):
         return MeshSolid(fn(self.m))
 
+    def transformShape(self, tMatrix):
+        # NOT MOVED IS THE SAME SOLID, as OCCT's identity move leaves the same TShape: its parts,
+        # faces and unions stay read, where a copy reads each of them again. A solid with a run of
+        # rounds still pending is copied, which makes the run, as any move does.
+        mat = _matrix_of(tMatrix)
+        if self._rounds is None and np.array_equal(mat, _IDENTITY):
+            return self
+        return self._mapped(lambda m: m.transform(mat))
+
     def _mass(self):
         mesh = self.m.to_mesh64()
         V = np.asarray(mesh.vert_properties)[:, :3]
@@ -493,6 +510,14 @@ class MeshCompound(MeshShape, occ.Compound):
     def _solids(self):
         return [s for p in self.parts for s in p._solids()]
 
+    def _fused(self):
+        """Its solids as one, by the boolean `intersect` takes a tool's solids together in, kept
+        until `meshcad.forget`: a compound intersected against each body near it fuses once."""
+        if self.__dict__.get("_fused_m") is None:
+            self._fused_m = _union([s.m for s in self._solids()])
+            HOLDING.add(self)
+        return self._fused_m
+
     def Solids(self):
         return [s for p in self.parts for s in p.Solids()]
 
@@ -510,6 +535,10 @@ class MeshCompound(MeshShape, occ.Compound):
 
     def _mapped(self, fn):
         return MeshCompound([p._mapped(fn) for p in self.parts])
+
+    def transformShape(self, tMatrix):
+        parts = [p.transformShape(tMatrix) for p in self.parts]
+        return self if all(q is p for q, p in zip(parts, self.parts)) else MeshCompound(parts)
 
     def fuse(self, *others, glue=False, tol=None):
         ms = [s.m for s in self._solids()] + [m for o in others for m in _meshes(o)]

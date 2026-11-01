@@ -13,18 +13,17 @@ Coordinate frame
 - Origin at the board-footprint center; Z = 0 the PCB bottom = the standoff
   (mounting) plane. Pins protrude to Z = -2; the relay can tops out near Z = 17.
 - Screw block on the +X end, logic header on the -X end.
+
+Geometry is in the frozen STEP and display payload beside this module.
+`frozen-asset.json` records their bytes and source snapshot.
 """
 
-import sys
 from pathlib import Path
 
-import cadquery as cq
-
-_here = Path(__file__).resolve()
-_hw = next(p for p in _here.parents if p.name == "hardware")
-sys.path.insert(0, str(_hw / "scripts"))
-from _cadq_export import export_assembly
-from _materials import C_RELAY, one_body
+_HERE = Path(__file__).resolve().parent
+STEP_PATH = _HERE / "teyleten-relay.step"
+PAYLOAD_PATH = _HERE / "teyleten-relay.step.mesh"
+ASSET_MANIFEST_PATH = _HERE / "frozen-asset.json"
 
 # --- Calipered geometry ---------------------------------------------------
 length = 70.0          # X
@@ -59,51 +58,10 @@ def logic():
     return ((-(length / 2.0 - header_inset), 0.0, land_z), (0.0, 0.0, 1.0))
 
 
-def build():
-    pcb = cq.Workplane("XY").box(length, width, pcb_t, centered=(True, True, False))
-
-    # SRD relay can, dominant component, near center.
-    relay = (
-        cq.Workplane("XY")
-        .box(19.0, 15.6, envelope_z - pin_drop - pcb_t, centered=(True, True, False))
-        .translate((-2.0, 0.0, pcb_t))
-    )
-    # 3-pole COM/NO/NC screw block on the +X end (inboard of the corner holes), at its own
-    # station.
-    screw_blk = (
-        cq.Workplane("XY")
-        .box(11.0, 15.0, screw_blk_h, centered=(True, True, False))
-        .translate((contacts()[0][0], 0.0, pcb_t))
-    )
-    # VCC/GND/IN 3-pin header on the -X end (inboard of the corner holes).
-    header = (
-        cq.Workplane("XY")
-        .box(8.0, 3.0, header_h, centered=(True, True, False))
-        .translate((logic()[0][0], 0.0, pcb_t))
-    )
-    # Representative pin protrusion below the board (clearance the tray must give).
-    pins = (
-        cq.Workplane("XY")
-        .box(length - 12.0, width - 4.0, pin_drop, centered=(True, True, False))
-        .translate((0.0, 0.0, -pin_drop))
-    )
-
-    part = pcb.union(relay).union(screw_blk).union(header).union(pins)
-    for sx in (-1.0, 1.0):
-        for sy in (-1.0, 1.0):
-            part = part.cut(
-                cq.Workplane("XY")
-                .workplane(offset=-pin_drop)
-                .center(sx * hole_dx, sy * hole_dy)
-                .circle(hole_dia / 2.0)
-                .extrude(pin_drop + pcb_t)
-            )
-    return part
-
-
 def main():
-    export_assembly(one_body(build(), "teyleten-relay", C_RELAY), str(_here.parent / "teyleten-relay.step"))
-    print("-> teyleten-relay.step")
+    print("Teyleten 3.3 V opto-isolated relay module")
+    print(f"  STEP: {STEP_PATH}")
+    print(f"  Display payload: {PAYLOAD_PATH}")
 
 
 if __name__ == "__main__":

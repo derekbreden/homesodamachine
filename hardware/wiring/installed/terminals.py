@@ -296,14 +296,6 @@ class Attachments:
                                    'available_lead_mm':ea._fuse.LEAD_LONG if label=='in' else ea._fuse.LEAD_SHORT}
             self.put('fuse.'+label,'thermal-fuse',points[-1],(1,0,0),'insulated-splice',
                      'Proposed splice beyond dressed SF76E lead; native first 3 mm remain straight','nominal')
-        carry=self.frame('ground-stack',ea.GND_STACK_STEP,ea.RELAY_TURN)
-        gnd=ea._gnd;mouth=gnd.eye_od/2-1+gnd.barrel_len
-        for i,(label,bearing) in enumerate(gnd.RINGS):
-            angle=math.radians(bearing)
-            p,a=carry((mouth*math.cos(angle),mouth*math.sin(angle),i*gnd.tongue_t+gnd.barrel_d/2),
-                      (math.cos(angle),math.sin(angle),0))
-            self.put('ground.'+label,'ground-stack',p,a,'ring-barrel',
-                     'Native crimp-barrel free end; compressor uses the downward-facing lug',pin=i+1)
 
     def pump_motors(self):
         for bank in ('a','b'):

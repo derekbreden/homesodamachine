@@ -1,9 +1,11 @@
 //! Sweeps and lofts.
 //!
-//! A sweep carries a profile along a path of lines and arcs in a rotation-minimizing frame (the
-//! double-reflection method), one copy of the profile per path point. An arc is cut into points
-//! by the rule at its radius plus the profile's reach from the path's start, so the outermost
-//! fiber of a bend holds the rule.
+//! A sweep carries a profile along a path of lines, arcs and curves through points in a
+//! rotation-minimizing frame (the double-reflection method), one copy of the profile per path
+//! point. An arc is cut into points by the rule at its radius plus the profile's reach from the
+//! path's start, so the outermost fiber of a bend holds the rule, and a curve where its turn at
+//! that radius uses the rule up (`spline`). The walls a curve carries a profile edge over are one
+//! free surface.
 //!
 //! A loft rules consecutive sections edge by edge: the point a share t along one section's edge
 //! meets the point the same share along the next section's — its length on a line, its angle on
@@ -21,6 +23,7 @@ use crate::plane::Plane;
 use crate::profile::{Curve, Profile, RLoop, Region};
 use crate::rule::{ANGULAR, LINEAR, canonical_axis, plane_frame, ring_count};
 use crate::solid::Solid;
+use crate::spline::Spline;
 use crate::triangulate::triangulate;
 use anyhow::{Result, ensure};
 use std::collections::HashMap;
@@ -33,6 +36,8 @@ pub enum Leg {
     /// From `a` to `b` about the axis through `c` along unit `d`, `turn` radians counterclockwise
     /// about `d`.
     Arc { a: V3, b: V3, c: V3, d: V3, turn: f64 },
+    /// From `a` to `b` along the path's curve `k`.
+    Curve { a: V3, b: V3, k: usize },
 }
 
 /// `v` turned `angle` radians counterclockwise about the unit axis `d`.
@@ -44,13 +49,13 @@ fn rotate(v: V3, d: V3, angle: f64) -> V3 {
 impl Leg {
     pub fn start(&self) -> V3 {
         match *self {
-            Leg::Line { a, .. } | Leg::Arc { a, .. } => a,
+            Leg::Line { a, .. } | Leg::Arc { a, .. } | Leg::Curve { a, .. } => a,
         }
     }
 
     pub fn end(&self) -> V3 {
         match *self {
-            Leg::Line { b, .. } | Leg::Arc { b, .. } => b,
+            Leg::Line { b, .. } | Leg::Arc { b, .. } | Leg::Curve { b, .. } => b,
         }
     }
 
@@ -73,6 +78,7 @@ impl Leg {
                     c + rotate(a - c, d, turn * s)
                 }
             }
+            Leg::Curve { .. } => unreachable!("a curve leg is cut by its curve"),
         }
     }
 
@@ -81,6 +87,7 @@ impl Leg {
         match *self {
             Leg::Line { a, b } => (b - a).unit(),
             Leg::Arc { a, c, d, turn, .. } => d.cross(rotate(a - c, d, turn * s)).unit(),
+            Leg::Curve { .. } => unreachable!("a curve leg is cut by its curve"),
         }
     }
 }
@@ -89,6 +96,7 @@ impl Leg {
 #[derive(Clone, Debug, PartialEq)]
 pub struct Path {
     pub legs: Vec<Leg>,
+    pub curves: Vec<Spline>,
     at: V3,
 }
 
@@ -104,7 +112,7 @@ fn arc(a: V3, b: V3, c: V3, d: V3) -> Leg {
 
 impl Path {
     pub fn new(start: V3) -> Path {
-        Path { legs: vec![], at: start }
+        Path { legs: vec![], curves: vec![], at: start }
     }
 
     /// Where the path ends so far.
@@ -143,6 +151,42 @@ impl Path {
         self.at = end;
         Ok(self)
     }
+
+    /// The curve from the path's end through `points`, whose first is that end
+    /// (`Spline::through`).
+    pub fn spline_through(self, points: &[V3]) -> Result<Path> {
+        ensure!(
+            points.first().is_some_and(|&p| (p - self.at).norm() < 1e-7),
+            "a spline that does not start where the path ends"
+        );
+        let mut pts = points.to_vec();
+        pts[0] = self.at;
+        Ok(self.curve(Spline::through(&pts)?))
+    }
+
+    /// The cubic from the path's end to `end`, leaving along `t0` and arriving along `t1`
+    /// (`Spline::hermite`).
+    pub fn spline_to(self, end: V3, t0: V3, t1: V3) -> Result<Path> {
+        let curve = Spline::hermite(self.at, end, t0, t1)?;
+        Ok(self.curve(curve))
+    }
+
+    /// A Bézier whose first control point is the path's end (`Spline::bezier`).
+    pub fn bezier(self, points: &[V3]) -> Result<Path> {
+        ensure!(points.first().is_some_and(|&p| (p - self.at).norm() < 1e-7),
+                "a Bézier that does not start where the path ends");
+        let mut points = points.to_vec();
+        points[0] = self.at;
+        Ok(self.curve(Spline::bezier(&points)?))
+    }
+
+    fn curve(mut self, curve: Spline) -> Path {
+        let (a, b) = (self.at, curve.end());
+        self.legs.push(Leg::Curve { a, b, k: self.curves.len() });
+        self.curves.push(curve);
+        self.at = b;
+        self
+    }
 }
 
 /// Points along a path with the direction of travel at each, and the leg each band between
@@ -158,14 +202,18 @@ struct Track {
 fn track(path: &Path, reach: f64) -> Track {
     let (mut p, mut t, mut leg): (Vec<V3>, Vec<V3>, Vec<usize>) = (vec![], vec![], vec![]);
     for (e, l) in path.legs.iter().enumerate() {
-        let n = match *l {
-            Leg::Line { .. } => 1,
-            Leg::Arc { a, c, turn, .. } => {
-                ((ring_count((a - c).norm() + reach) as f64 * turn / TAU - 1e-9).ceil() as usize).max(1)
+        let (mut lp, mut lt): (Vec<V3>, Vec<V3>) = match *l {
+            Leg::Curve { k, .. } => path.curves[k].track(reach),
+            _ => {
+                let n = match *l {
+                    Leg::Arc { a, c, turn, .. } => {
+                        ((ring_count((a - c).norm() + reach) as f64 * turn / TAU - 1e-9).ceil() as usize).max(1)
+                    }
+                    _ => 1,
+                };
+                (0..=n).map(|i| (l.point(i as f64 / n as f64), l.tangent(i as f64 / n as f64))).unzip()
             }
         };
-        let mut lp: Vec<V3> = (0..=n).map(|i| l.point(i as f64 / n as f64)).collect();
-        let mut lt: Vec<V3> = (0..=n).map(|i| l.tangent(i as f64 / n as f64)).collect();
         if let (Some(&last), Some(joint)) = (p.last(), t.last_mut()) {
             if (last - lp[0]).norm() < 1e-7 {
                 *joint = (*joint + lt[0]).unit();
@@ -351,10 +399,14 @@ pub(crate) fn sweep(region: &Region, path: &Path, src: Src, op: &'static str) ->
         let mut record: HashMap<(usize, u32), u32> = HashMap::new();
         for i in 0..nb {
             let (a0, b0) = (base + i as u32 * m, base + ((i + 1) % ns) as u32 * m);
+            let wall = match path.legs[band[i]] {
+                Leg::Curve { .. } => ns + band[i],
+                _ => i,
+            };
             for k in 0..m {
                 let k1 = (k + 1) % m;
                 let curve = lp.seg[k as usize];
-                let f = *record.entry((i, curve)).or_insert_with(|| {
+                let f = *record.entry((wall, curve)).or_insert_with(|| {
                     part.faces.push(Face::new(Surface::Free { kind: "BSPLINE" }, op, src));
                     whose.push((i, curve));
                     part.faces.len() as u32 - 1
@@ -391,6 +443,7 @@ pub(crate) fn sweep(region: &Region, path: &Path, src: Src, op: &'static str) ->
                         major: (q - c).reject(d).norm(),
                         minor: cr,
                     }),
+                    Leg::Curve { .. } => None,
                 }
             }
             _ => None,

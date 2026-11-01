@@ -26,8 +26,9 @@ def sha(path):
 
 NAMES=("_ribbon_section","_ribbon_lower_frame","_ribbon_arc_frame",
        "_ribbon_transition","_ribbon_straight","_ribbon_constant_arc",
-       "_ribbon_peeled_wires","_ribbon_span_solids","_ribbon_envelope",
-       "_display_ribbon_sweep","_lower_signal_solid","_lower_signal_profile",
+       "_ribbon_peeled_wires","_ribbon_spans","_ribbon_span_solid","_ribbon_span_solids",
+       "_ribbon_envelope","_display_ribbon_sections","_display_ribbon_sweep",
+       "_lower_signal_wires","_lower_signal_solid","_lower_signal_profile",
        "_lower_signal_stations","build_lower_signal_lane",
        "build_lower_signal_ribbon","build_display_ribbon_transition","_tip_frame")
 ASSEMBLY_NAMES=("build_display_ribbon","build_lower_display_ribbon",

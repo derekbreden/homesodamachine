@@ -157,7 +157,6 @@ def main():
              for y in (-.35, -.25, 0., .25, .35)]
     sources = [Path(__file__), Path(snap.__file__), Path(anchors.__file__), HERE/'foam_cap.py',
                ROOT/'hardware/manifold-layout/above-core.json',
-               ROOT/'hardware/reference/ground-ring-stack/ground_ring_stack.py',
                ROOT/'hardware/wiring/installed/route-overrides.json']
     artifacts = [HERE/'foam-cap-lid-top.step', HERE/'foam-cap-lid-top.stl',
                  HERE/(snap.CAP_NAME+'.step'), HERE/(snap.CAP_NAME+'.stl'), manifest,

@@ -83,14 +83,15 @@ spacing. Each end fanout has independently editable stations.
 The thermal fuse's dressed 1 mm leads continue beyond the reference's fixed
 3 mm straight stubs to proposed insulated splice regions beside the retained
 power box. The front lead uses the reference's 35 mm side and the aft lead its
-20 mm side. The compressor earth uses the existing downward-facing ring lug.
+20 mm side. The compressor earth runs in its jacket's PE core to port 3 of the
+rear PE WAGO.
 Final donor contacts remain unlocated beside the native power-cover envelope.
 
 Exact compressor, fan, pump-motor, diaphragm-pump and display terminal details
 remain unlocated. The carbonator's earth ring clamps directly to the existing
 upper vessel rim. Its wire mouth and upward barrel share the rim attachment's
 datums. The lead joins the shared west-side sensor riser above the vessel
-plate and terminates at the lid earth star at world (−53, 339, 259.4) mm.
+plate and terminates in port 2 of the rear PE WAGO below C14.
 Power-wire insulation
 ODs and recovered heat-shrink dimensions are editable layout allowances. Those
 allowances do not establish a reason to change the surrounding hardware.
@@ -125,7 +126,7 @@ their positions; their three leads transfer over the open vessel head at
 world Z225/Y352 to the west riser. Lay these free lead transitions while the
 body is open, before the foam pour. Thread the free ends through the cup and
 lid before fitting the outside terminations. Above the lid the signal looms
-follow the west PCB approach; PE runs aft to the rear-wall earth star. The
+follow the west PCB approach; PE runs aft and drops into the rear PE WAGO. The
 temperature and reed commons keep their separate existing WAGO connections.
 
 ## Routing and assembly

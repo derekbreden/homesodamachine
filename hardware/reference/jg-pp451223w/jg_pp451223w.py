@@ -13,20 +13,16 @@ the tube stop the pushed-in stem bottoms on.
 Frame: +X = flow axis, the NPTF mouth at X = 0 facing −X, so a male thread enters
 from −X and the part occupies positive X. Centered on Y and Z.
 
-Run:
-    tools/cad-venv/bin/python hardware/reference/jg-pp451223w/jg_pp451223w.py
+Geometry is in the frozen STEP and display payload beside this module.
+`frozen-asset.json` records their bytes and source snapshot.
 """
 
-import sys
 from pathlib import Path
 
-import cadquery as cq
-
-_here = Path(__file__).resolve()
-_hw = next(p for p in _here.parents if p.name == "hardware")
-sys.path.insert(0, str(_hw / "scripts"))
-from _cadq_export import export_assembly
-from _materials import M_JG_WHITE_PP, one_body
+_HERE = Path(__file__).resolve().parent
+STEP_PATH = _HERE / "jg-pp451223w.step"
+PAYLOAD_PATH = _HERE / "jg-pp451223w.step.mesh"
+ASSET_MANIFEST_PATH = _HERE / "frozen-asset.json"
 
 HEX_ACROSS_CORNERS = 25.67  # 7/8" hex (22.23 across flats), the size a 3/8" body takes
 HEX_LENGTH = 12.0           # wrench flats, at the threaded end and the widest part
@@ -78,60 +74,8 @@ def tube_port():
     return (LENGTH, 0.0, 0.0), (1.0, 0.0, 0.0)
 
 
-def build_body():
-    """Hex (X = 0, at the thread) → waist → collet barrel, along +X."""
-    hex_sec = cq.Workplane("YZ").polygon(6, HEX_ACROSS_CORNERS).extrude(HEX_LENGTH).val()
-    waist = cq.Solid.makeCylinder(
-        WAIST_D / 2.0, WAIST_LENGTH,
-        cq.Vector(hex_to_waist_x, 0, 0), cq.Vector(1, 0, 0))
-    barrel = cq.Solid.makeCylinder(
-        BODY_D / 2.0, BODY_LENGTH,
-        cq.Vector(waist_to_body_x, 0, 0), cq.Vector(1, 0, 0))
-    return hex_sec.fuse(waist).fuse(barrel)
-
-
-def build_collet():
-    """The stepped collet standing proud of the body face: barrel, release
-    collar, then the nose chamfered back in toward the tube."""
-    neck = cq.Solid.makeCylinder(
-        COLLET_NECK_D / 2.0, COLLET_NECK_LENGTH,
-        cq.Vector(body_face_x, 0, 0), cq.Vector(1, 0, 0))
-    rim_x = body_face_x + COLLET_NECK_LENGTH
-    rim = cq.Solid.makeCylinder(
-        COLLET_RIM_D / 2.0, COLLET_RIM_LENGTH,
-        cq.Vector(rim_x, 0, 0), cq.Vector(1, 0, 0))
-    tip = cq.Solid.makeCone(
-        COLLET_RIM_D / 2.0, COLLET_TIP_D / 2.0, COLLET_TIP_LENGTH,
-        cq.Vector(rim_x + COLLET_RIM_LENGTH, 0, 0), cq.Vector(1, 0, 0))
-    return neck.fuse(rim).fuse(tip)
-
-
-def build_bore_cut():
-    """The wetted path, mouth to collet: the NPTF socket as a 1:16 taper at
-    pitch diameter, the through bore, then the tube bore. The step where the
-    through bore opens out to the tube bore is the tube stop."""
-    socket = cq.Solid.makeCone(
-        THREAD_PITCH_D / 2.0, socket_bottom_pitch_d / 2.0, SOCKET_DEPTH,
-        cq.Vector(0, 0, 0), cq.Vector(1, 0, 0))
-    through = cq.Solid.makeCylinder(
-        THROUGH_BORE_D / 2.0, tube_stop_x - SOCKET_DEPTH,
-        cq.Vector(SOCKET_DEPTH, 0, 0), cq.Vector(1, 0, 0))
-    tube = cq.Solid.makeCylinder(
-        TUBE_BORE_D / 2.0, LENGTH - tube_stop_x,
-        cq.Vector(tube_stop_x, 0, 0), cq.Vector(1, 0, 0))
-    return socket.fuse(through).fuse(tube)
-
-
-def build():
-    return build_body().fuse(build_collet()).cut(build_bore_cut())
-
-
 def main():
-    part = build()
-    bb = part.BoundingBox()
     print("John Guest PP451223W 3/8\" NPTF F × 3/8\" PTC female adapter")
-    print(f"  Bounding box: X [{bb.xmin:.2f}, {bb.xmax:.2f}]  "
-          f"Y [{bb.ymin:.2f}, {bb.ymax:.2f}]  Z [{bb.zmin:.2f}, {bb.zmax:.2f}]")
     print(f"  Hex {HEX_ACROSS_CORNERS} across corners × {HEX_LENGTH:g}; "
           f"barrel Ø{BODY_D} × {BODY_LENGTH:g}; collet proud {COLLET_PROUD:g}; "
           f"total {LENGTH:g} mm")
@@ -141,10 +85,8 @@ def main():
     for name, (pos, axis) in (("thread_port", thread_port()), ("tube_port", tube_port())):
         print(f"  {name}: at ({pos[0]:.2f}, {pos[1]:.2f}, {pos[2]:.2f}) "
               f"facing ({axis[0]:g}, {axis[1]:g}, {axis[2]:g})")
-    print(f"  Solid valid: {part.isValid()}")
-    out = _here.parent / "jg-pp451223w.step"
-    export_assembly(one_body(part, "jg-pp451223w", M_JG_WHITE_PP), str(out))
-    print(f"-> {out.name}")
+    print(f"  STEP: {STEP_PATH}")
+    print(f"  Display payload: {PAYLOAD_PATH}")
 
 
 if __name__ == "__main__":

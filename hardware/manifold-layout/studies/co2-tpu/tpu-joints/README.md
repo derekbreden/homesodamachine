@@ -51,10 +51,8 @@ geometry query. This work supplies no sliced or pressure-qualified print.
 and closed bands. `reference/` holds frozen metal meshes. The canonical frames
 are the regulator's inlet face Y0, flow +Y, and the check's center Y0, flow +Y.
 
-Rebuild manually through the repository CAD queue:
-
-```sh
-PYTHONPATH=. tmp/takeover/cadq "CO2 threadless TPU joints" -- tools/cad-venv/bin/python hardware/manifold-layout/studies/co2-tpu/tpu-joints/build.py
-```
+The [build and geometry-query source archive](https://github.com/derekbreden/homesodamachine/tree/e993e2f1dc02e22f670f06dc5aecf0df14dcfe3d/hardware/manifold-layout/studies/co2-tpu/tpu-joints)
+at Git commit `e993e2f1dc02e22f670f06dc5aecf0df14dcfe3d` contains `build.py`
+and `audit.py`.
 
 No production placement, print profile or recurring check depends on this directory.

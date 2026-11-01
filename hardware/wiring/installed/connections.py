@@ -42,9 +42,9 @@ def owner(part):
 def interfaces(terminals,graph):
     used={t for c in graph for t in (c.start,c.end)}
     buses=[]
-    for part in sorted({terminals[t].part for t in used if t.startswith(('wago-','ground.','join-'))}):
+    for part in sorted({terminals[t].part for t in used if t.startswith(('wago-','join-'))}):
         ports=sorted(t for t in used if terminals[t].part==part)
-        buses.append({'id':part,'terminals':ports,'kind':'ring stack' if part=='ground-stack' else 'WAGO busbar'})
+        buses.append({'id':part,'terminals':ports,'kind':'WAGO busbar'})
     return {'common_junctions':buses,
             'assembly_owners':{t:owner(terminals[t].part) for t in sorted(used)},
             'crossing_wires':[{'wire':c.id,'from':owner(terminals[c.start].part),
@@ -66,9 +66,8 @@ def connections():
     wire("AC4-fuse", "Compressor", "H_switched", "fuse.out", "compressor.H", "cord18", "AC-4")
     wire("AC5-pigtail", "Compressor", "N", "wago-n.3", "join-compressor-n.1", "neutral16", "AC-5", "final join")
     wire("AC5-N", "Compressor", "N", "join-compressor-n.2", "compressor.N", "neutral18", "AC-5", "final join")
-    wire("AC6-PE", "Compressor", "PE", "ground.compressor", "compressor.PE", "earth18", "AC-6")
-    wire("PE-bus", "Earth bonds", "PE", "wago-g.2", "ground.inlet", "earth16", "AC-1")
-    wire("PE-carbonator", "Earth bonds", "PE", "ground.carbonator", "carbonator.PE", "earth16", "earth bonds",
+    wire("AC6-PE", "Compressor", "PE", "wago-g.3", "compressor.PE", "earth18", "AC-6")
+    wire("PE-carbonator", "Earth bonds", "PE", "wago-g.2", "carbonator.PE", "earth16", "earth bonds",
          note="Closed ring clamped directly to the drilled stainless vessel rim; fitted before the body foam pour.")
     for net, pole in (("V12", "v12"), ("GND", "gnd")):
         wire("DC1-"+net, "12V power", net, "psu."+net, f"wago-{pole}.1", "power16", "DC-1")

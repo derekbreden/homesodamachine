@@ -189,7 +189,7 @@
     "hardware/manifold-layout/enclosure-box.json": "afc529dcc91cc4d54adde90d36650d32dddad79be92f3ddc270a2eab457650a1",
     "hardware/printed-parts/enclosure/enclosure/_above_core_shell.py": "545242e29b31c42f6dcc80eb3c7f5150e2f7c653f5d0b9b031a18a7c600c223f",
     "hardware/manifold-layout/above_core.py": "d3bd71f3c10335d6907e93ff874885e62558c794ce77a043fb22d6f8ed3eb45f",
-    "hardware/manifold-layout/above-core.json": "dc6cc98ff451fe5665f60b1a0a09fd35fad16fa823ec7fd055b515e3d12217f6",
+    "hardware/manifold-layout/above-core.json": "3c8f01fd6fbe7c5932bcef49fed99aeadc86da669f64471523010661e2304846",
     "hardware/manifold-layout/above_core_wiring.py": "8dce32acf5ec0804f668ddeb2451dd3fae9e189cce39282a5843aabae2824ef5",
     "hardware/reference/meanwell-irm90/meanwell_irm90.py": "ca42ff08bbab38f67a2842ae03149a697d9e2b3a5b4adf6fc05adc951fc2e54a",
     "hardware/reference/teyleten-relay/teyleten_relay.py": "fe0965a8f3f4a9eab65efac03716dfdd6ef9e93ab658e8c73f3df83af6e7fbe6",

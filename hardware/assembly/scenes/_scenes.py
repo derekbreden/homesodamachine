@@ -73,7 +73,6 @@ BACK_TOP_INLET_HEADER = (
 # These production names map the mounting-parent groups in the accepted
 # funnel-gate assembly-ownership record, with the purchased check references.
 BACK_TOP_CARRIED_COMPONENTS = (
-    "ground-stack", "ground-stack-insert",
     "valve-v-a", "vk-solenoid", "psu", "relay-1", "relay-2", "c14-inlet", "keystone-jack",
     "asse1022-assembly", "bulkhead-water", "gagira-coupling", "jg-pi4512f6s", "jg-pp061208w",
     "asse-drain-adapter", "water-split", "flow-regulator", "reg-va-elbow", "va-outlet-elbow",
@@ -361,12 +360,12 @@ SCENES = (
     ),
     Scene(
         "en07-electronics-bay", "The electronics bay",
-        roots=("psu", "pcba", "relay-1", "relay-2", "ground-stack"),
+        roots=("psu", "pcba", "relay-1", "relay-2"),
         inner=(), flip=None, also=(), later=(),
         # Square on to the +X flank the column stands down, from inside the box.
         cam=(-1.0, -0.25, 0.35), up=(0, 0, 1), zoom=2.8, look="centre",
-        note="The PSU mounts in back-top's shallow ceiling well; both relays use its west wall. The PCB and ground "
-             "stack remain on the cold-core lid. Rear connection work uses the open subassembly; "
+        note="The PSU mounts in back-top's shallow ceiling well; both relays use its west wall. The PCB "
+             "remains on the cold-core lid. Rear connection work uses the open subassembly; "
              "the electronics ceiling is continuous.",
     ),
 )
