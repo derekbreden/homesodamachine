@@ -6179,7 +6179,11 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/enclosure/_back_top_meter.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_data_wing_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_display_wing_interface.py",
+        "pysrc/hardware/printed-parts/enclosure/enclosure/_disposal_artwork.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
+        "pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_panel.py",
+        "pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_skin.py",
+        "pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_structure.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_fixed_pump_mount.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_grip_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_nameplate_interface.py",
@@ -6187,11 +6191,15 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/enclosure/_route_snaps.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_swept_top.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_tube_snap_sites.py",
+        "hardware/printed-parts/enclosure/enclosure/disposal-warning-artwork.json",
         "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step",
         "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl",
         "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step",
         "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl",
         "hardware/printed-parts/enclosure/enclosure/enclosure.py",
+        "hardware/printed-parts/enclosure/enclosure/enclosure_panel.rs",
+        "hardware/printed-parts/enclosure/enclosure/enclosure_skin.rs",
+        "hardware/printed-parts/enclosure/enclosure/enclosure_structure.rs",
         "pysrc/hardware/printed-parts/enclosure/nameplate/_nameplate_dimensions.py",
         "pysrc/hardware/printed-parts/enclosure/nameplate/nameplate.py",
         "hardware/printed-parts/enclosure/pump-dock/README.md",
@@ -6283,6 +6291,7 @@ genrule(
         "pysrc/hardware/scripts/_routing.py",
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/hardware/scripts/_run_slots.py",
+        "pysrc/hardware/scripts/_rust_part.py",
         "pysrc/hardware/scripts/_stated_bounds.py",
         "pysrc/hardware/scripts/check_asse_drain.py",
         "pysrc/hardware/scripts/flute_payload.py",
@@ -6314,7 +6323,42 @@ genrule(
         "pysrc/hardware/wiring/installed/terminals.py",
         "pysrc/hardware/wiring/installed/terminations.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/Cargo.lock",
+        "tools/hsm/Cargo.toml",
+        "tools/hsm/enclosure-shell/Cargo.toml",
+        "tools/hsm/kernel/Cargo.toml",
+        "tools/hsm/kernel/src/boolean.rs",
+        "tools/hsm/kernel/src/build.rs",
+        "tools/hsm/kernel/src/dxf.rs",
+        "tools/hsm/kernel/src/edge.rs",
+        "tools/hsm/kernel/src/face.rs",
+        "tools/hsm/kernel/src/import.rs",
+        "tools/hsm/kernel/src/lib.rs",
+        "tools/hsm/kernel/src/mapped.rs",
+        "tools/hsm/kernel/src/mass.rs",
+        "tools/hsm/kernel/src/math.rs",
+        "tools/hsm/kernel/src/part.rs",
+        "tools/hsm/kernel/src/plane.rs",
+        "tools/hsm/kernel/src/profile.rs",
+        "tools/hsm/kernel/src/reads.rs",
+        "tools/hsm/kernel/src/round.rs",
+        "tools/hsm/kernel/src/round/rolled.rs",
+        "tools/hsm/kernel/src/rule.rs",
+        "tools/hsm/kernel/src/screw.rs",
+        "tools/hsm/kernel/src/sketch_hull.rs",
+        "tools/hsm/kernel/src/solid.rs",
+        "tools/hsm/kernel/src/spline.rs",
+        "tools/hsm/kernel/src/step.rs",
+        "tools/hsm/kernel/src/sweep.rs",
+        "tools/hsm/kernel/src/text.rs",
+        "tools/hsm/kernel/src/thru.rs",
+        "tools/hsm/kernel/src/topo.rs",
+        "tools/hsm/kernel/src/triangulate.rs",
+        "tools/hsm/kernel/src/write.rs",
         "tools/hsm/run-slots.defaults.json",
+        "tools/hsm/run-slots/Cargo.toml",
+        "tools/hsm/run-slots/src/ipc.rs",
+        "tools/hsm/run-slots/src/lib.rs",
         "tools/run-slots.mjs",
         "pysrc/tools/run.py",
     ] + glob(
@@ -6341,6 +6385,7 @@ genrule(
         "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh",
         "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.npz",
         "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
+        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-panel.numbers.json",
         "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step.mesh",
         "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step.mesh",
         "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step",
@@ -6360,6 +6405,7 @@ genrule(
         "out/enclosure/hardware/printed-parts/enclosure/pump-dock/README.figures.json",
         "out/enclosure/hardware/printed-parts/enclosure/pump-dock/README.md",
     ],
+    tags = ["no-sandbox"],
     cmd = """
 set -e
 O0=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step)
@@ -6378,24 +6424,26 @@ O12=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/en
 O13=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh)
 O14=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.npz)
 O15=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl)
-O16=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step.mesh)
-O17=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step.mesh)
-O18=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step)
-O19=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step.mesh)
-O20=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step.npz)
-O21=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.stl)
-O22=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step)
-O23=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step.mesh)
-O24=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step.npz)
-O25=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.stl)
-O26=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure.step)
-O27=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh)
-O28=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure.step.npz)
-O29=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/README.figures.json)
-O30=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/README.md)
-O31=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure.py)
-O32=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/pump-dock/README.figures.json)
-O33=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/pump-dock/README.md)
+O16=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-panel.numbers.json)
+O17=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step.mesh)
+O18=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step.mesh)
+O19=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step)
+O20=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step.mesh)
+O21=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step.npz)
+O22=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.stl)
+O23=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step)
+O24=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step.mesh)
+O25=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step.npz)
+O26=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.stl)
+O27=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure.step)
+O28=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh)
+O29=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure.step.npz)
+O30=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/README.figures.json)
+O31=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/README.md)
+O32=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure.py)
+O33=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/pump-dock/README.figures.json)
+O34=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/pump-dock/README.md)
+rm -rf work-enclosure
 for f in $(SRCS); do
   case $$f in
     */node_modules/*) continue;;
@@ -6403,12 +6451,12 @@ for f in $(SRCS); do
     */pysrc/*) t=$${f##*/pysrc/};;
     *) t=$$f;;
   esac
-  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
+  mkdir -p work-enclosure/$$(dirname $$t); cp -L $$f work-enclosure/$$t
 done
 for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
+  if [ -d $$d ]; then mkdir -p work-enclosure/$$(dirname $$d); ln -sfn $$PWD/$$d work-enclosure/$$d; fi
 done
-cd work
+cd work-enclosure
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
 HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/enclosure/enclosure/enclosure.py > /dev/null
@@ -6430,24 +6478,26 @@ cp hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step $$O12
 cp hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh $$O13
 cp hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.npz $$O14
 cp hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl $$O15
-cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step.mesh $$O16
-cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step.mesh $$O17
-cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step $$O18
-cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step.mesh $$O19
-cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step.npz $$O20
-cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.stl $$O21
-cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step $$O22
-cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step.mesh $$O23
-cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step.npz $$O24
-cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.stl $$O25
-cp hardware/printed-parts/enclosure/enclosure/enclosure.step $$O26
-cp hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh $$O27
-cp hardware/printed-parts/enclosure/enclosure/enclosure.step.npz $$O28
-cp hardware/printed-parts/enclosure/enclosure/README.figures.json $$O29
-cp hardware/printed-parts/enclosure/enclosure/README.md $$O30
-cp hardware/printed-parts/enclosure/enclosure/enclosure.py $$O31
-cp hardware/printed-parts/enclosure/pump-dock/README.figures.json $$O32
-cp hardware/printed-parts/enclosure/pump-dock/README.md $$O33
+cp hardware/printed-parts/enclosure/enclosure/enclosure-panel.numbers.json $$O16
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step.mesh $$O17
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step.mesh $$O18
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step $$O19
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step.mesh $$O20
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step.npz $$O21
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.stl $$O22
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step $$O23
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step.mesh $$O24
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step.npz $$O25
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.stl $$O26
+cp hardware/printed-parts/enclosure/enclosure/enclosure.step $$O27
+cp hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh $$O28
+cp hardware/printed-parts/enclosure/enclosure/enclosure.step.npz $$O29
+cp hardware/printed-parts/enclosure/enclosure/README.figures.json $$O30
+cp hardware/printed-parts/enclosure/enclosure/README.md $$O31
+cp hardware/printed-parts/enclosure/enclosure/enclosure.py $$O32
+cp hardware/printed-parts/enclosure/pump-dock/README.figures.json $$O33
+cp hardware/printed-parts/enclosure/pump-dock/README.md $$O34
+cd .. && rm -rf work-enclosure
 """,
 )
 
@@ -14166,9 +14216,41 @@ genrule(
 )
 
 genrule(
+    name = "pysrc-7972d1ad9ae1",
+    srcs = ["hardware/printed-parts/enclosure/enclosure/_disposal_artwork.py"],
+    outs = ["pysrc/hardware/printed-parts/enclosure/enclosure/_disposal_artwork.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
     name = "pysrc-0714e03fdaae",
     srcs = ["hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py"],
     outs = ["pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
+    name = "pysrc-8d513c139f87",
+    srcs = ["hardware/printed-parts/enclosure/enclosure/_enclosure_panel.py"],
+    outs = ["pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_panel.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
+    name = "pysrc-70ed229172d3",
+    srcs = ["hardware/printed-parts/enclosure/enclosure/_enclosure_skin.py"],
+    outs = ["pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_skin.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
+    name = "pysrc-7762db5cd0d5",
+    srcs = ["hardware/printed-parts/enclosure/enclosure/_enclosure_structure.py"],
+    outs = ["pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_structure.py"],
     tools = ["tools/bazel/pysrc.py"],
     cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
 )
