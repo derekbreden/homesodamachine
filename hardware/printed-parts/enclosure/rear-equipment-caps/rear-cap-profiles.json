@@ -1,0 +1,72 @@
+{
+  "schema": 1,
+  "units": "mm",
+  "radial_air": "The live fits.slip is added to each sampled reference radius.",
+  "asse": {
+    "axis": "native +X, about (Y=0, Z=multiplex_asse1022.BODY_CENTER_Z)",
+    "cap_runs": [
+      [
+        5.053254593357337,
+        7.153254593357815,
+        8.643148258962835
+      ],
+      [
+        7.153254593357815,
+        11.153254593358724,
+        8.844160260980331
+      ],
+      [
+        11.153254593358724,
+        16.15325459335986,
+        13.007459912909185
+      ],
+      [
+        16.15325459335986,
+        19.35325459336059,
+        14.324999999999813
+      ],
+      [
+        30.253254593363067,
+        48.753254593367274,
+        14.364999999999933
+      ]
+    ],
+    "gagira_fore_x": 5.988961667088688,
+    "vent_frame": "bare Multiplex ASSE reference",
+    "vent_bounds": [
+      [
+        18.68478680591602,
+        -6.152642511257,
+        -5.684341886080802e-14
+      ],
+      [
+        30.615213194083992,
+        6.292642511257,
+        12.624897495759626
+      ]
+    ]
+  },
+  "sampler": {
+    "surface_tessellate_arguments": [
+      0.02,
+      0.1
+    ],
+    "relative_deflection": true,
+    "area_step_mm": 0.2,
+    "seed": 1,
+    "axial_step_mm": 0.1,
+    "step_radius_tolerance_mm": 0.2,
+    "minimum_run_mm": 1.5,
+    "thread_mm": 1.5
+  },
+  "reference_sources": {
+    "hardware/printed-parts/enclosure/rear-equipment-caps/rear_equipment_caps.py": "9a4a4582cb295b5c658dd2414abdd8bfaa7a474d231db817318dff6a71e8a50d",
+    "hardware/manifold-layout/rear_plumbing.py": "e17d80e9772b954907588ef46fe4f739f0e52f45d855ae8cf68bc4bdf002c37c",
+    "hardware/manifold-layout/rear_snaps.py": "4459813ab1c264efd6c048977c5cfd738fc4c1b47e31ca19693b9638540d0be6",
+    "hardware/manifold-layout/above-core.json": "c9bbd58dea6cf603caca97829050be5afdbcf329e9d65d52d4b812e24f6fc4db",
+    "hardware/reference/asse1022-threaded-chain/reference-parameters.json": "49d49cc3c225470c45f1ec44bfa869e435d721d0b04847abd893d846d0262da9",
+    "hardware/reference/multiplex-asse1022/multiplex_asse1022.py": "b5721046ffd06d10d2d0b325177c8a0f4a0fc4c522b1bb7ef7c490147b6f84b0",
+    "hardware/reference/compact-inline-candidates/dimensions.json": "d7df0bb6120d808979aaa5594bacd28925cbd194b775fc94199550aabe2dc161",
+    "hardware/reference/digiten-flow-sensor/digiten_flow_sensor.py": "3d25061f40a0a65bd758b513ee798af3112a030f686cc4ad201e8a9c94cbf513"
+  }
+}
