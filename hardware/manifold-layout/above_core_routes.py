@@ -286,7 +286,7 @@ def route_specifications(station):
     b_draw_target = station('valve-v-h', 'inlet')[0]
     b_draw_z = 295.7
     b_draw_lift = _add(b_draw, (0., 0., 3.6))
-    b_draw_offset_angle = math.acos(1.-10./28.)
+    b_draw_offset_angle = math.acos(1.-13./28.)
     b_draw_offset_first, b_draw_offset_mid = _arc(
         b_draw_lift, (0., 0., 1.), (0., 1., 0.), b_draw_offset_angle, 14.)
     b_draw_offset_second, b_draw_offset_end = _arc(

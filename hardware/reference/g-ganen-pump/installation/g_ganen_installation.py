@@ -1,8 +1,9 @@
-"""Installed G Ganen with four identical purchased sliding rubber feet.
+"""Bare installed G Ganen; the complete rubber feet/legs slide off its rails.
 
-The shared foot has a nominal 7 mm pad. Its rail clips reach the fore/aft rail
-ends with their full axial span engaged. Scan poses and raw slot observations
-remain separate from the installed mounting stations.
+Production placement belongs to above-core.json. The nominal stock-foot
+observations below describe the removable purchased sliders only; the installed
+bare casing bears on the lid and rear land. Two loops each use two joined
+8-inch, 50 lb wide ties.
 """
 from functools import lru_cache
 from pathlib import Path
@@ -48,7 +49,13 @@ suction = envelope.suction
 discharge = envelope.discharge
 port_profile = envelope.port_profile
 sliding_rails = envelope.sliding_rails
-mount_seat_z = envelope.mount_seat_z
+
+
+def mount_seat_z():
+    """Bare fixed casing's front bearing plane, in the purchased frame."""
+    hull = next(row for row in parameters()['casing_shell_envelopes']
+                if row['id'] == 'lower_cradle_occupied')['external_envelope']
+    return min(point[2] for point in hull['vertices_mm'])
 
 
 @lru_cache(maxsize=1)
@@ -79,12 +86,12 @@ def mount_stations():
 
 
 def mount_holes():
-    """Selected candidate screw axes; these do not declare a fixed purchased pattern."""
-    return tuple(row['station_mm'][:2] for row in mount_stations())
+    """No foot screws belong to the bare installed pump."""
+    return ()
 
 
 def bearing_datum():
-    return (0., 0., 0.), (0., 0., 1.)
+    return (0., 0., mount_seat_z()), (0., 0., 1.)
 
 
 def placed_bearing_z(carry):
@@ -93,7 +100,7 @@ def placed_bearing_z(carry):
 
 def bearing_z_from_frame(frame):
     """Bearing Z from a placed port frame in this yaw-only installation."""
-    return frame.at('suction')[2]-suction()[0][2]
+    return frame.at('suction')[2]-suction()[0][2]+mount_seat_z()
 
 
 def observed_pad_upper_z():
@@ -107,13 +114,9 @@ def observed_pad_lower_z():
 
 
 def build_parts():
-    parts = envelope.build_parts()
-    for row in mount_stations():
-        name = row['id']
-        x, y, _ = row['slot_center_mm']
-        parts[name+'_observed_rubber_slider_envelope'] = stock_foot.placed_foot(
-            x, -1 if 'yminus' in name else 1, abs(y))
-    return parts
+    """Installed rigid casing, motor, ports and fixed rails, without sliders."""
+    return {name: shape for name, shape in envelope.build_parts().items()
+            if 'rubber_slider' not in name}
 
 
 def rigid_shape():
@@ -129,40 +132,8 @@ def feet_shapes(carry=None):
 
 
 def cap_bearing_contact_parts(carry, cap_plane_z):
-    """Placed rigid pump plus four exact free-rubber masks below its cap plane.
-
-    These masks classify only the observed unloaded foot envelope where it bears
-    on the flat lid. They are not material/compression models. A collision checker
-    must still test the rigid pump against the cap and retain every overlap not
-    inside these masks; the complete pump remains in all other neighbor checks.
-    """
-    point, axis = carry(bearing_datum())
-    if abs(point[2] - cap_plane_z) > 1e-6:
-        raise ValueError('G Ganen bearing datum is not on the independent cap plane')
-    if max(abs(a - b) for a, b in zip(axis, (0., 0., 1.))) > 1e-7:
-        raise ValueError('G Ganen bearing masks require the installed upright Z axis')
-    parts = build_parts()
-    expected = {name + '_observed_rubber_slider_envelope' for name in SELECTED_SLIDER_X}
-    foot_names = {name for name in parts if 'rubber_slider' in name}
-    if foot_names != expected or len(expected) != 4:
-        raise ValueError('G Ganen bearing masks require exactly the four named stock feet')
-    rigid = cq.Compound.makeCompound([
-        shape.moved(carry.where) for name, shape in parts.items() if name not in foot_names])
-    masks = {}
-    for name in sorted(expected):
-        foot = parts[name].moved(carry.where)
-        b = foot.BoundingBox()
-        if b.zmin >= cap_plane_z:
-            masks[name] = cq.Compound.makeCompound([])
-            continue
-        # No extension above the independently located lid plane. The small
-        # sideways/bottom extension belongs to the cutter, not the returned mask.
-        eps = 1e-5
-        slab = cq.Solid.makeBox(b.xlen + 2*eps, b.ylen + 2*eps,
-                                cap_plane_z - b.zmin + eps,
-                                cq.Vector(b.xmin-eps, b.ymin-eps, b.zmin-eps))
-        masks[name] = foot.intersect(slab)
-    return rigid, masks
+    """Bare pump and no rubber contact masks."""
+    return rigid_shape().moved(carry.where), {}
 
 
 def build():

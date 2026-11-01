@@ -407,6 +407,9 @@ def build_top_lid():
             add_cradles(cut_deck_mounts_lid(build_foam_cap_lid()), lid_total_height),
             lid_total_height, names=tuple(n for n in cap_anchors if n != 'discharge-chain')),
         lid_total_height)
+    lid = lid.union(_above_mounts.world_shape_in_cap(_above_mounts.pump_cradle()))
+    for passage in _above_mounts.pump_tie_cuts():
+        lid = lid.cut(_above_mounts.world_shape_in_cap(passage))
     for name in ('valve-v-b',):
         lid = lid.union(_above_mounts.valve_support(name,lid_total_height))
     for support in _above_mounts.union_supports().values():

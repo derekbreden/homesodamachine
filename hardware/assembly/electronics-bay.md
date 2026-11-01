@@ -75,9 +75,11 @@ Use the per-unit [BOM](/hardware/ledger/bom.md),
 assignments, preparation, stripping and termination. Preserve the schedule's
 run IDs and loom labels. Use the specified connector graph.
 
-The PCB and pump use their own native mounting-hole patterns on the cold-core
-lid/cup columns. The PCB uses M3 × 8 screws through its 1.6 mm board into
-RX-M3×5.7 inserts. The pump retains its specified rubber-pad/washer stack.
+The PCB's native mounting-hole pattern follows the cold-core lid/cup columns.
+It uses M3 × 8 screws through its 1.6 mm board into
+RX-M3×5.7 inserts. Slide the complete rubber foot-and-leg assemblies off the
+water pump's fixed rails. Its bare casing bears on the lid and rear land;
+two joined wide-tie loops retain it, per the pump installation procedure.
 The PSU ceiling and relay wall-host stacks are defined by
 [`_above_core_shell.py`](/hardware/printed-parts/enclosure/enclosure/_above_core_shell.py)
 and allocated in the [BOM](/hardware/ledger/bom.md); use the stack assigned to
