@@ -7,6 +7,7 @@ import cadquery as cq
 HERE = Path(__file__).resolve().parent
 HW = next(p for p in HERE.parents if p.name=='hardware')
 sys.path[:0] = [str(HW/'manifold-layout'),str(HW/'scripts'),str(HW/'printed-parts/cadlib')]
+sys.path.insert(0, str(HW/'printed-parts/cold-core'))
 import rear_plumbing
 from _cadq_export import export_assembly
 from _materials import M_PETGF_BLACK, one_body
