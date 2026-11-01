@@ -22,20 +22,16 @@ Frame: the MATING FACE is the XY plane at Z = 0, facing +Z, and the body hangs -
 axis is X, contacts and ears on it. Origin at the face's centre — the station either half is
 seated on, as `jhyossthi_pogo_dock` seats its pill.
 
-Run:
-    tools/cad-venv/bin/python hardware/reference/yyfkgcp-pogo-4p/yyfkgcp_pogo_4p.py
+Geometry is in the frozen STEPs and display payloads beside this module.
+`frozen-asset.json` records their bytes and source snapshot.
 """
 
-import sys
 from pathlib import Path
 
-import cadquery as cq
-
 _here = Path(__file__).resolve()
-_hw = next(p for p in _here.parents if p.name == "hardware")
-sys.path.insert(0, str(_hw / "scripts"))
-from _cadq_export import export_assembly  # noqa: E402
-from _materials import C_DOCK, one_body  # noqa: E402
+STEP_PATHS = {half: _here.parent / f"pogo-4p-{half}.step" for half in ("female", "male")}
+PAYLOAD_PATHS = {half: step.with_name(step.name + ".mesh") for half, step in STEP_PATHS.items()}
+ASSET_MANIFEST_PATH = _here.parent / "frozen-asset.json"
 
 # The nose and the body behind the ear plate: one stadium, the body's whole depth.
 BODY_L, BODY_W, BODY_T = 17.54, 4.00, 4.00
@@ -74,59 +70,11 @@ def reach_back():
     return BODY_T + TAIL_L
 
 
-def stadium(length, width, z0, z1):
-    """A stadium `length` x `width` overall in the XY plane, standing from `z0` to `z1`."""
-    return (cq.Workplane("XY", origin=(0.0, 0.0, z0))
-            .slot2D(length, width).extrude(z1 - z0))
-
-
-def _half():
-    body = stadium(BODY_L, BODY_W, -BODY_T, 0.0)
-    plate = stadium(EAR_L, BODY_W, -ear_back(), -EAR_FACE)
-    for x in ear_xs():
-        plate = plate.cut(cq.Workplane("XY", origin=(x, 0.0, -ear_back() - 0.1))
-                          .circle(EAR_HOLE_D / 2.0).extrude(EAR_T + 0.2))
-    body = body.union(plate)
-    for x in contact_xs():
-        body = body.union(cq.Workplane("XY", origin=(x, 0.0, -reach_back()))
-                          .circle(TAIL_D / 2.0).extrude(TAIL_L))
-    return body
-
-
-def build_female():
-    """The pad half: the body, its four pads flush in the nose face."""
-    return _half()
-
-
-def build_male(pin_reach=PIN_PROUD):
-    """The pin half: the body with its four plungers standing `pin_reach` above the nose face,
-    each a Ø`PIN_D` post under a hemispherical tip. A caller mating the pair across a gap it
-    knows asks for that reach instead of the rest position.
-
-    The tip's apex is the reach. Pressed nearer the face than the tip's own radius, the dome's
-    centre sinks under the face and the body takes the rest of it."""
-    body = _half()
-    r = PIN_D / 2.0
-    centre = pin_reach - r
-    for x in contact_xs():
-        if centre > 1e-6:
-            body = body.union(cq.Workplane("XY", origin=(x, 0.0, 0.0)).circle(r).extrude(centre))
-        body = body.union(cq.Workplane("XY").sphere(r).translate((x, 0.0, centre)))
-    return body
-
-
 def main():
-    print("YYFKGCP 4-pin magnetic pogo connector")
-    for name, part in (("pogo-4p-female", build_female()), ("pogo-4p-male", build_male())):
-        bb = part.val().BoundingBox()
-        print(f"  {name}: X [{bb.xmin:.2f}, {bb.xmax:.2f}]  Y [{bb.ymin:.2f}, {bb.ymax:.2f}]  "
-              f"Z [{bb.zmin:.2f}, {bb.zmax:.2f}]")
-        out = _here.parent / f"{name}.step"
-        export_assembly(one_body(part, name, C_DOCK), str(out))
-        print(f"-> {out.name}")
-    print(f"  body {BODY_L:g} x {BODY_W:g} x {BODY_T:g}; ears {EAR_L:g} overall, holes "
-          f"Ø{EAR_HOLE_D:g} on {EAR_PITCH:g}, plate {EAR_FACE:g}..{ear_back():g} under the face; "
-          f"contacts on {PIN_PITCH:g}, pins {PIN_PROUD:g} proud with {STROKE:g} travel")
+    for name, step in STEP_PATHS.items():
+        print(name)
+        print(f"  STEP: {step}")
+        print(f"  Display payload: {PAYLOAD_PATHS[name]}")
 
 
 if __name__ == "__main__":
