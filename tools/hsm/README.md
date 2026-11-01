@@ -4,11 +4,13 @@
 and draws pictures of them. One local Rust daemon serves the CLI, an MCP server and a Unix socket. Queries load a scene on
 demand. A saved edit starts no build, query, watcher or check.
 
-Build and install with Rust 1.89 or later, CMake and a C++17 compiler. `--root ~/.local` puts
-`hsm` in `~/.local/bin`, which this Mac's shells have on `PATH`:
+Build and install with Rust 1.89 or later, CMake and a C++17 compiler. The installer keeps each
+build at an immutable path under `~/.local/lib/hsm/<build_id>/hsm` and puts a launcher at
+`~/.local/bin/hsm`, which this Mac's shells have on `PATH`:
 
 ```sh
-cargo install --path tools/hsm/engine --locked --root ~/.local
+CARGO_BUILD_JOBS=2 cargo build --release --locked --manifest-path tools/hsm/engine/Cargo.toml
+python3 tools/hsm/install.py tools/hsm/target/release/hsm
 hsm where tee-y-a
 hsm gap compressor/1 condenser+fan
 hsm overlap '#6' '#7'
@@ -66,9 +68,21 @@ analytic surfaces or source lines.
 
 The first CLI or MCP query starts the daemon. It survives its caller, is shared by all
 worktrees for that user, and exits after 15 minutes without a query; `--idle-minutes` sets
-that, and 0 keeps it running. A changed executable replaces the previous daemon on the next
-query. The default socket is `/tmp/hsm-<uid>/engine.sock`, in a private directory. `--socket`
-or `HSM_SOCKET` selects another service. `hsm daemon` runs it in the foreground.
+that, and 0 keeps it running. The default socket `/tmp/hsm-<uid>/engine-<digest>.sock` names
+the actual build and daemon configuration: cache, build and kept-run budgets, and the resolved
+store directory. Root and scene remain per request. A long-lived MCP keeps its build's resolved executable path, so after an
+update its idle restart still starts that build. `build_id` always names the source of the
+process answering. `hsm endpoint` reports the installed build, socket and executable without
+starting a daemon. Ping and status report the answering daemon's configuration. `--socket` or
+`HSM_SOCKET` selects another service; a live daemon of another build or configuration is left
+running and the caller gets an error. `--idle-minutes` configures a daemon this call starts.
+`hsm daemon` runs it in the foreground.
+
+The installer's launcher also retains the executable that earlier MCP clients restart on
+`/tmp/hsm-<uid>/engine.sock`. Only a `daemon` invocation for that endpoint takes the retained
+executable; ordinary commands use the installed build. `install.py --legacy-socket PATH`
+retains additional endpoints for clients started with a custom socket. Its `--root` selects an
+installation other than `~/.local`. Every daemon loads geometry only when asked for a scene.
 
 Geometry lives only in the daemon's memory, addressed by the payload digest. Unchanged files
 reuse resident geometry by device, inode, size, mtime and ctime. Replaced payloads reload on
@@ -380,6 +394,11 @@ hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.rs:43`.
 
 The daemon runs the programs that cut parts, for every checkout, and keeps what each run wrote
 ([`engine/src/build.rs`](engine/src/build.rs)). `_rust_part.run` asks it over the socket:
+
+`_rust_part` asks `hsm endpoint` once per generator process for the installed build's socket.
+An executable without that command uses the legacy endpoint. `HSM_SOCKET` selects an explicit
+endpoint. Without `hsm`, or with `HSM_NO_ENGINE=1`, the generator runs cargo and the program in
+its own process.
 
 ```json
 {"op":"run","workspace":"/checkout","root":"/checkout","crate":"refrigeration","name":"fuse-clamp","args":["/checkout/hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.numbers.json","/checkout/hardware/printed-parts/refrigeration/fuse-clamp"]}

@@ -1,8 +1,7 @@
 //! End-to-end controls use an analytic cube fixture and a private daemon/store.
-use fs2::FileExt;
 use serde_json::{Value, json};
 use std::{
-    fs::{self, OpenOptions},
+    fs,
     io::{BufRead, BufReader, Write},
     os::unix::net::UnixListener,
     path::PathBuf,
@@ -12,37 +11,26 @@ use std::{
 };
 
 #[test]
-fn replacement_waits_for_scene_destruction_after_socket_removal() {
+fn an_incompatible_daemon_is_left_running() {
     let f = Fixture::new();
-    let lock = OpenOptions::new()
-        .create(true)
-        .truncate(false)
-        .read(true)
-        .write(true)
-        .open(f.socket.with_extension("daemon.lock"))
-        .unwrap();
-    lock.lock_exclusive().unwrap();
     let listener = UnixListener::bind(&f.socket).unwrap();
-    let socket = f.socket.clone();
-    let retiring = std::thread::spawn(move || {
-        for stream in listener.incoming() {
-            let mut stream = stream.unwrap();
-            let mut line = String::new();
-            BufReader::new(&mut stream).read_line(&mut line).unwrap();
-            let request: Value = serde_json::from_str(&line).unwrap();
-            let response = json!({"ok":true,"result":{"build_id":"old-build"}});
-            writeln!(stream, "{response}").unwrap();
-            if request["op"] == "shutdown" {
-                break;
-            }
-        }
-        fs::remove_file(socket).unwrap();
-        // Model a large scene still dropping after its endpoint has closed.
-        std::thread::sleep(Duration::from_millis(150));
-        drop(lock);
+    let responding = std::thread::spawn(move || {
+        let (mut stream, _) = listener.accept().unwrap();
+        let mut line = String::new();
+        BufReader::new(&mut stream).read_line(&mut line).unwrap();
+        let request: Value = serde_json::from_str(&line).unwrap();
+        assert_eq!(request["op"], "ping");
+        writeln!(stream, "{}", json!({"ok":true,"result":{"build_id":"legacy-test-fixture","protocol":1}})).unwrap();
+        listener
     });
-    f.query(&["status"]);
-    retiring.join().unwrap();
+    let refused = f.command().arg("status").output().unwrap();
+    assert!(!refused.status.success());
+    assert!(String::from_utf8_lossy(&refused.stderr).contains("stop that daemon explicitly"));
+    let listener = responding.join().unwrap();
+    listener.set_nonblocking(true).unwrap();
+    assert_eq!(listener.accept().unwrap_err().kind(), std::io::ErrorKind::WouldBlock);
+    drop(listener);
+    fs::remove_file(&f.socket).unwrap();
 }
 
 struct Fixture {
@@ -153,6 +141,40 @@ impl Drop for Fixture {
         let _ = self.command().arg("stop").output();
         let _ = fs::remove_dir_all(&self.root);
     }
+}
+
+#[test]
+fn the_default_endpoint_names_the_build_without_starting_a_daemon() {
+    let f = Fixture::new();
+    let private = f.command().arg("endpoint").output().unwrap();
+    assert!(private.status.success());
+    assert!(!f.socket.exists());
+    let out = Command::new(env!("CARGO_BIN_EXE_hsm"))
+        .env_remove("HSM_SOCKET")
+        .arg("--root").arg(&f.root).arg("endpoint").output().unwrap();
+    assert!(out.status.success(), "{}", String::from_utf8_lossy(&out.stderr));
+    let endpoint: Value = serde_json::from_slice(&out.stdout).unwrap();
+    let build = endpoint["build_id"].as_str().unwrap();
+    assert_eq!(build.len(), 64);
+    let socket = endpoint["socket"].as_str().unwrap();
+    assert!(socket.contains("/engine-") && socket.ends_with(".sock"));
+    assert!(socket.len() < 104);
+    assert_eq!(PathBuf::from(endpoint["executable"].as_str().unwrap()),
+               PathBuf::from(env!("CARGO_BIN_EXE_hsm")).canonicalize().unwrap());
+}
+
+#[test]
+fn an_explicit_socket_refuses_different_budgets_without_stopping_its_daemon() {
+    let f = Fixture::new();
+    let before = f.query(&["status"]);
+    for flag in ["--cache-mb", "--build-mb", "--keep-mb"] {
+        let refused = f.command().args([flag, "1", "status"]).output().unwrap();
+        assert!(!refused.status.success(), "{flag}");
+        assert!(String::from_utf8_lossy(&refused.stderr).contains("serves configuration"), "{flag}");
+    }
+    let after = f.query(&["status"]);
+    assert_eq!(before["result"]["pid"], after["result"]["pid"]);
+    assert_eq!(before["result"]["cache"], after["result"]["cache"]);
 }
 
 #[test]
