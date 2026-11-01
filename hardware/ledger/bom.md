@@ -60,7 +60,7 @@ The appliance ships with the water filter included, mounted **external to the en
 | [neoFlo LLDPE4M-WHITE, white 4 mm OD LLDPE tube](https://www.freshwatersystems.com/products/white-4mm-od-lldpe-polyethylene-tubing) | Internal ASSE return, continuous umbilical/faucet drain and two 31.25 mm reservoir air tubes. Allow 8.25 ft/build including the 1,871 mm factory faucet cut and internal return/trim. FWS 25 ft @ $4.50 = $0.18/ft. The [neoFlo manufacturer sheet](https://assets.freshwatersystems.com/image/upload/s--N9disqrx--/gjtidjfc0tlprqbhb4ka.pdf) specifies 2.5 mm ID and R25 minimum bend radius. Shipping and tax unallocated. | ~8.25 ft (of 25 ft) | $0.18 | $1.49 <!--@plumbing--><!--parts HSM-000108:1871 HSM-000310:199.8 HSM-000365:62.5--> |
 | [Reinforced PVC pump joints](/hardware/reference/pump-barb-joint/README.md) | 3/8-inch ID × 5/8-inch OD reinforced PVC, full barb engagements and trimmed PP061208W reducer stems. Suction uses a shallow bend; discharge uses the 15° joint. Owned PVC stock. | 2 joints | — | — <!--@plumbing--> |
 | [YDS butterfly hose clamp, 10–16 mm, 9 mm band (10-pk)](https://www.amazon.com/dp/B07C33VLQ6) | **Two on each PVC pump joint**, one flush with each mouth — 4/build. Both installed joint diameters fall inside the range. 430 stainless band and housing, plated carbon-steel screw, POM key; the seller lists them for low-pressure service, so they carry the fit and pressure trial and the shipped clamp follows its result. Amazon 112-0019658-3684217 Apr 4: $16.30 ÷ 10 = $1.63/ea | 4 (of 10 pk) | $1.63 | $6.52 <!--@plumbing--><!--parts HSM-000325--> |
-| [G Ganen 12 V diaphragm pump](https://www.amazon.com/dp/B07F35PTFR) | Derek's selected received pump. The [measured reference](/hardware/reference/g-ganen-pump/README.md) supplies its rigid housing, independent barb profiles and fixed casing rails. The complete rubber feet and their raised legs slide off for installation on the lid bearing lands; two joined wide-tie loops retain the bare motor. Installed discharge points toward enclosure −X. Advertised 110 psi / 4.5 L/min are separate listing limits; actual electrical and hydraulic performance are established at commissioning. Amazon 112-0884852-3444230 Sep 15: $19.29 delivered ([purchases.md §4](/hardware/ledger/purchases.md)). | 1 | $19.29 | $19.29 <!--@pumps--><!--parts HSM-000178--> |
+| [G Ganen 12 V diaphragm pump](https://www.amazon.com/dp/B07F35PTFR) | Derek's selected received pump. The [measured reference](/hardware/reference/g-ganen-pump/README.md) supplies its rigid housing, independent barb profiles and fixed casing rails. The complete rubber feet and their raised legs slide off for installation in the lid-integrated half pipe; a removable upper cap snaps over the bare motor. Installed discharge points toward enclosure −X. Advertised 110 psi / 4.5 L/min are separate listing limits; actual electrical and hydraulic performance are established at commissioning. Amazon 112-0884852-3444230 Sep 15: $19.29 delivered ([purchases.md §4](/hardware/ledger/purchases.md)). | 1 | $19.29 | $19.29 <!--@pumps--><!--parts HSM-000178--> |
 | [neoFit ACVUS44 stem check](/hardware/reference/neofit-acvus44-check/README.md) | Water-side check; male stem inserts directly into the upstream fitting. The selected geometry uses this reference. Delivered unit cost is not allocated. | 1 | — | — <!--@plumbing--> |
 | [John Guest PP010822E 1/4-inch tube × 1/4-inch NPT male connector, black polypropylene](https://www.freshwatersystems.com/products/john-guest-male-connector-nptf-black-polypropylene-1-4-x-1-4-nptf) | Rear TAP connector in the GAGIRA coupling and carbonator water-inlet adapter in the TAISHER elbow. FWS WEBFWS100675224: $17.41 delivered / 10. | 2 (of 10 pk) | $1.74 | $3.48 <!--@plumbing--> |
 | [YZMSZ fixed 0.3 MPa water regulator](/hardware/reference/yzmsz-water-regulator/README.md) | Transverse flavor-water feed between the water split and V-A, native 1/4-inch push-connect ports. An integral ceiling seat and snap cap retain the body. The reference states dimensional and performance evidence limits. Amazon 112-6255534-2742635 Oct 23: $11.99 + $0.87 tax = $12.86 delivered, ON-ORDER ([purchases.md §3](/hardware/ledger/purchases.md)). | 1 | $12.86 | $12.86 <!--@plumbing--><!--parts HSM-000332--> |
@@ -123,8 +123,8 @@ The soda inlet bend holder is PET-GF with the accepted 2 mm wall, 3 mm legs and 
 | Part | Qty | Material | Mass (kg) | $ |
 |---|---:|---|---:|---:|
 | Cold-core inner shell (foam-shell) | 1 | PET-GF | 1.450 | $36.28 <!--@printed--><!--parts HSM-000018--> |
-| Cold-core foam cap — top | 1 | PET-GF | 0.244 | $6.12 <!--@printed--><!--parts HSM-000019--> |
-| Cold-core foam cap lid — top | 1 | PET-GF | 0.262 | $6.56 <!--@printed--><!--parts HSM-000020--> |
+| Cold-core foam cap — top | 1 | PET-GF | 0.240 | $6.02 <!--@printed--><!--parts HSM-000019--> |
+| Cold-core foam cap lid — top | 1 | PET-GF | 0.285 | $7.12 <!--@printed--><!--parts HSM-000020--> |
 | Cold-core foam cap — bottom | 1 | PET-GF | 0.184 | $4.60 <!--@printed--><!--parts HSM-000021--> |
 | Cold-core foam cap lid — bottom | 1 | PET-GF | 0.141 | $3.52 <!--@printed--><!--parts HSM-000022--> |
 | PRV shroud | 1 | PETG | 0.008 | $0.09 <!--@printed--><!--parts HSM-000024--> |
@@ -132,13 +132,13 @@ The soda inlet bend holder is PET-GF with the accepted 2 mm wall, 3 mm legs and 
 | Flavor reservoir body — right | 1 | PETG (translucent) | 0.378 | $4.24 <!--@printed--><!--parts HSM-000026--> |
 | Flavor reservoir cap — left | 1 | PETG (translucent) | 0.058 | $0.65 <!--@printed--><!--parts HSM-000027--> |
 | Flavor reservoir cap — right | 1 | PETG (translucent) | 0.058 | $0.65 <!--@printed--><!--parts HSM-000028--> |
-| Enclosure — front bottom + front top (two quadrants) | 1 set | PET-GF | 1.589 | $39.75 <!--@printed--><!--parts HSM-000078:630 HSM-000079:956--> |
+| Enclosure — front bottom + front top (two quadrants) | 1 set | PET-GF | 1.542 | $38.58 <!--@printed--><!--parts HSM-000078:630 HSM-000079:956--> |
 | Enclosure — pump retainer | 1 | PET-GF | 0.133 | $3.32 <!--@printed--><!--parts HSM-000082--> |
 | Carbonator reed bridge | 1 | PETG | 0.008 | $0.09 <!--@printed--><!--parts HSM-000029--> |
-| Enclosure — back bottom + back top (two quadrants) | 1 set | PET-GF | 1.468 | $36.72 <!--@printed--><!--parts HSM-000080:688.8 HSM-000081:766.1--> |
+| Enclosure — back bottom + back top (two quadrants) | 1 set | PET-GF | 1.469 | $36.76 <!--@printed--><!--parts HSM-000080:688.8 HSM-000081:766.1--> |
 | Display cover plate | 1 | PET-GF | 0.012 | $0.31 <!--@printed--><!--parts HSM-000076--> |
 | Bulkhead ring — one per +Y-wall crossing | 6 | PET-GF (blue, white ×2, red, black ×2) | 0.013 | $0.32 <!--@printed--><!--parts HSM-000062:1.27 HSM-000063:1.29 HSM-000064:1.38 HSM-000065:1.38 HSM-000066:1.25 HSM-000067:1.36--> |
-| Tube collar — one per +Y-wall crossing | 6 | PET-GF (blue, white ×2, red, black ×2) | 0.023 | $0.59 <!--@printed--><!--parts HSM-000272:2.48 HSM-000099:2.72 HSM-000100:2.87 HSM-000101:2.87 HSM-000273:2.53 HSM-000102:2.67--> |
+| Tube collar — one per +Y-wall crossing | 6 | PET-GF (blue, white ×2, red, black ×2) | 0.023 | $0.58 <!--@printed--><!--parts HSM-000272:2.48 HSM-000099:2.72 HSM-000100:2.87 HSM-000101:2.87 HSM-000273:2.53 HSM-000102:2.67--> |
 | Collet press — install-kit customer tool | 1 | PET-GF | 0.017 | $0.44 <!--@printed--><!--parts HSM-000372--> |
 | Nameplate — one per unit, serialized | 1 | PET-GF (black + white) | 0.017 | $0.42 <!--@printed--><!--parts HSM-000069--> |
 | Fuse clamp | 1 | PETG | 0.005 | $0.06 <!--@printed--><!--parts HSM-000041--> |
@@ -148,13 +148,14 @@ The soda inlet bend holder is PET-GF with the accepted 2 mm wall, 3 mm legs and 
 | Faucet lever | 1 | PET-GF | 0.004 | $0.09 <!--@printed--><!--parts HSM-000268--> |
 | Umbilical organizer — below faucet mount | 1 | PET-GF | 0.005 | $0.12 <!--@printed--><!--parts HSM-000098--> |
 | Rear equipment snap caps | 4 | PET-GF | 0.032 | $0.81 <!--@printed--> |
+| G Ganen pump snap cap | 1 | PET-GF | 0.008 | $0.19 <!--@printed--> |
 | Soda inlet bend holder | 1 | PET-GF | 0.003 | $0.06 <!--@printed--><!--parts HSM-000358--> |
 | Funnel frame | 1 | PET-GF | 0.259 | $6.49 <!--@printed--><!--parts HSM-000072--> |
 | Funnel cover | 1 | PETG | 0.134 | $1.50 <!--@printed--><!--parts HSM-000071--> |
 | Funnel drain-elbow cradle | 1 | PET-GF | 0.011 | $0.28 <!--@printed--><!--parts HSM-000073--> |
-| **Printed parts total** | | | **~7.01** | **[$161.31](BOM_SEC7)** |
+| **Printed parts total** | | | **~6.99** | **[$160.82](BOM_SEC7)** |
 
-By material: PETG ≈ 1.03 kg / $11.50 — of which the four translucent reservoir parts are ≈ 0.87 kg / $9.76 — and PET-GF ≈ 5.99 kg / $149.78.
+By material: PETG ≈ 1.03 kg / $11.50 — of which the four translucent reservoir parts are ≈ 0.87 kg / $9.76 — and PET-GF ≈ 5.97 kg / $149.29.
 
 These geometry-based estimates use the shared wall and sparse-infill recipes.
 They exclude the additional material in the enclosure's
@@ -162,7 +163,7 @@ They exclude the additional material in the enclosure's
 the ledger totals are not a measured assembled mass or a complete material allowance
 for those modifiers.
 
-Each cap lid ships bolted to its cap. The [10](FOAM_FACE_SCREWS) M3 × 25 screws per face clamp the lid and cap into the shell-face inserts. The top lid carries the flat PCB, pump, V-B upright socket wall and two flavor-line clips. Its [4](DECK_INSERTS) full-insert columns follow the native PCB and four-foot pump patterns. B-fill's triangular passage clamp pattern adds [3](B_FILL_CLAMP_SCREWS) recessed M3 × 10 screws and [3](B_FILL_CLAMP_INSERTS) full-length inserts; close them before the PCB is installed. Back-top carries the PSU, relays and four integral equipment snap seats with separate caps. Fluid and electrical passages follow the [above-core arrangement](/hardware/manifold-layout/above-core.md).
+Each cap lid ships bolted to its cap. The [10](FOAM_FACE_SCREWS) M3 × 25 screws per face clamp the lid and cap into the shell-face inserts. The top lid carries the flat PCB, pump, V-B upright socket wall and two flavor-line clips. Its [4](DECK_INSERTS) full-insert columns follow the native PCB pattern. The bare pump uses its lid-integrated half pipe and separate upper snap cap. B-fill's triangular passage clamp pattern adds [3](B_FILL_CLAMP_SCREWS) recessed M3 × 10 screws and [3](B_FILL_CLAMP_INSERTS) full-length inserts; close them before the PCB is installed. Back-top carries the PSU, relays and four integral equipment snap seats with separate caps. Fluid and electrical passages follow the [above-core arrangement](/hardware/manifold-layout/above-core.md).
 
 The PCB bolts directly to the cold-core lid columns. The separate PCBA tray is bench geometry and is not shipped.
 
@@ -217,7 +218,6 @@ The buzzer is on the main board — an MLT-5020 magnetic transducer (U8) low-sid
 | [Ginsco 580-pc heat-shrink assortment, 2:1, 11 sizes](https://www.amazon.com/dp/B01MFA3OFA) | The finish on every cut end in the harness set, per [`cable-assemblies.md`](/hardware/assembly/cable-assemblies.md) steps 2 + 4: both ends of each of the 13 braided sleeves so they cannot fray (~26), the reed-column lacing between reeds (2 columns, [`cold-core.md`](/hardware/assembly/cold-core.md) §4), the four bare TO-92 probe leads, and the run-ID flags on the staged AC/DC pigtails. ~45 collars/build out of the kit's 580 pieces, so a kit covers about twelve builds: $7.99 ÷ 580 × 45 = $0.62. Sizes 1.06 mm to 9.92 mm, which spans every conductor and sleeve the harness set carries. The kit on the shelf was bought Apr 22 at a different listing ([purchases.md](/hardware/ledger/purchases.md) §14); this is the live one. Prime. | ~45 collars (of 580) | $0.0138 | $0.62 <!--@wiring--><!--parts HSM-000343:2 HSM-000344:2 HSM-000345:2 HSM-000346:2 HSM-000347:2 HSM-000350:2 HSM-000352:2 HSM-000348:6 HSM-000349:6 HSM-000003:4 HSM-000001:15--> |
 | [Zip Ties 4", 18 lb (200-pack)](https://www.amazon.com/dp/B0BC1VH4XB) | About 15 for cable management, two at the ASSE vent adapter’s recessed lands, and [1](RESERVOIR_A_TIES) shared tie for the aft paired Reservoir A lid seat. The fore pair uses its printed snap cap. The aft nominal closed loop is 47.182 mm before head engagement and tail, leaving 54.418 mm from 101.6 mm stock. Keep collets, the motor and its fixed rails clear. Black UV-nylon, flush-cut, per [cable assemblies](/hardware/assembly/cable-assemblies.md). Installed retention remains unqualified. TANTTI pack paid $4.28/200. | [18](FOUR_INCH_TIES) (of 200 pk) | $0.02 | [$0.39](FOUR_INCH_TIES_COST) <!--@cable-mgmt--><!--parts HSM-000001--> |
 | [Zip Ties 6-inch, 18 lb (100-pack)](https://www.amazon.com/dp/B0DR8KSVQD) | One on the core-lid V-B return bearing. The rear header, regulator, gas group and meter use snap caps. Thread the empty holder before seating the body. Purchases §9: $6.42/100. | [1](SIX_INCH_TIES) (of 100 pk) | $0.06 | [$0.06](SIX_INCH_TIES_COST) <!--@cable-mgmt--><!--parts HSM-000001--> |
-| [Zip Ties 8-inch, 50 lb (100-pack)](https://www.amazon.com/dp/B08BKSHJ93) | Four around the bare G Ganen motor, two joined ties per loop, through the lid strap lanes. Owned TANTTI black UV nylon, 0.19-inch strap width. Thread before seating the motor, keep buckles below its equator and flush-cut tails. Purchases §9: $5.35/100. | [4](PUMP_CRADLE_TIES) (of 100 pk) | $0.05 | [$0.21](PUMP_CRADLE_TIES_COST) <!--@cable-mgmt--> |
 | [CQRobot JST XH 2.54 mm 4-pin connector kit (50 sets)](https://www.amazon.com/dp/B0B2RB524Y) | 4-pin XH — female housings + crimp terminals for the five 4P board looms (FAUCET J3, RELAYS J5, DISPLAY J9, GAS J11, PUMPS J13); the male wafers are on the main board, so the kits' loose housings/terminals are what's consumed. J8 is the I2C expansion header and nothing plugs into it. ~5/unit; $8.45/50 × 5 | 5 (of 50 pk) | $0.17 | $0.85 <!--@wiring--><!--parts HSM-000345 HSM-000347 HSM-000350 HSM-000352 HSM-000353--> |
 | [RiteAV RJ11 6P4C black punchdown keystone jack, 110 IDC (10 pk)](https://www.riteav.com/products/riteav-rj11-phone-black-punchdown-type-keystone-jack-10-pack) | **The SIG-6 station on the +Y wall of back-top** — the jack the umbilical's signal plug lands in, and the one connection on that wall that is not a tube or the cord. Snap-in keystone, so the wall cuts a rectangle rather than a bore and the module's own latch is what holds it — no nut, no insert, no fastener. Black through: face, body and the dust cover it ships with, which is what a wall of black PETG asks for and what the four round stations beside it cannot be bought as. 6P4C takes SIG-6's four conductors exactly, and an RJ45 plug will not enter it. Terminated 110 IDC on the inboard face, where the J3 loom lands ([`cable-assemblies.md`](/hardware/assembly/cable-assemblies.md)). RiteAV #58999 Aug 27: $13.92 + $12.08 ship = $26.00 ÷ 10 = $2.60/ea; 1/build | 1 (of 10 pk) | $2.60 | $2.60 <!--@wiring--><!--parts HSM-000270--> |
 | [EZYUMM RJ11 6P4C modular plug, 3-prong contacts, solid or stranded (20 pk)](https://www.amazon.com/dp/B0DK4V733Q) | The umbilical end of SIG-6 — crimped onto the BNTECHGO ribbon at [`faucet-and-umbilical.md`](/hardware/assembly/faucet-and-umbilical.md) and pushed into the keystone above at install. **3-prong, not 2**: the two-tine contact is the solid-conductor geometry and this ribbon is 16 strands of 0.08 mm, which a two-tine blade shears instead of nesting. The received ribbon measures [4.6 × 1.18 mm](/hardware/reference/bntechgo-signal-ribbon/physical-observations.json). Seat its four conductors in positions 2–5 and shim the jacket under the strain-relief bar as specified by the assembly procedure; that section measurement does not establish the crimped connector fit. Amazon 112-2674521-7496252 Aug 27: $5.02/20 = $0.251/ea; 1/build | 1 (of 20 pk) | $0.25 | $0.25 <!--@wiring--><!--parts HSM-000367--> |
@@ -338,16 +338,16 @@ The papers packed with each machine ([`assembly/finish-pack-ship.md`](/hardware/
 | 4. CO2 subsystem | [$133.11](BOM_SEC4) |
 | 5. Refrigeration | [$143.06](BOM_SEC5) |
 | 6. Cold core insulation | [$18.64](BOM_SEC6) |
-| 7. Printed parts (PETG + PET-GF) | [$161.31](BOM_SEC7) |
+| 7. Printed parts (PETG + PET-GF) | [$160.82](BOM_SEC7) |
 | 8. Flavor subsystem | [$260.32](BOM_SEC8) |
 | 9. Dispensing | [$78.57](BOM_SEC9) |
 | 10. UI | [$0.00](BOM_SEC10) |
 | 11. Wiring | [$33.85](BOM_SEC11) |
 | 12. Level sensing | [$29.78](BOM_SEC12) |
-| 13. Mechanical attach hardware | [$19.91](BOM_SEC13) |
+| 13. Mechanical attach hardware | [$18.76](BOM_SEC13) |
 | 14. Cold kit | [$4.29](BOM_SEC14) |
 | 15. Customer documentation | [$25.14](BOM_SEC15) |
-| **Total** | **[$1,432.57](BOM_GRAND)** |
+| **Total** | **[$1,430.93](BOM_GRAND)** |
 
 ## External / user-supplied (not shipped)
 

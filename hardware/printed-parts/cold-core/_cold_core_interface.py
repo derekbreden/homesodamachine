@@ -455,7 +455,7 @@ deck_mount_bore_relief = 1.0     # ruthex minimum blind relief; also reserve tra
 deck_mount_cap_gap = 1.5
 
 # PCB holes follow the production above-core pose. The columns pass through
-# the lid to its underside. The bare pump uses the lid's integral casing bearing;
+# the lid to its underside. The bare pump uses the lid's integral half pipe;
 # V-B uses its upright socket wall. V-A, V-K, PSU and relays belong to back-top.
 DeckMount = namedtuple("DeckMount", "points standoff seat screw seat_min")
 deck_mounts = {name: DeckMount(*row) for name, row in _above_mounts.deck_mounts().items()}

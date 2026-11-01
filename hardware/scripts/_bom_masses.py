@@ -110,8 +110,9 @@ PROFILES = {
     # Small parts carry the two-wall, 15% recipe. The organizer's accepted
     # fit-trial slice uses this recipe; the other rows are profile estimates.
     "small": (0.87, 0.45, 0.15),
-    # Solid PET-GF: the collet press and generic tube caps specify at least six loops.
-    # All use 100% infill, so their complete geometry supplies the mass.
+    # Solid PET-GF: the collet press, generic tube caps and pump snap cap.
+    # All use 100% infill, so their complete geometry supplies the mass;
+    # the pump cap keeps three Classic loops from each boundary.
     "tool":  (2.70, 0.45, 1.00),
     # The bulkhead rings and their tube collars, two PET-GF spools to a plate: the
     # nameplate's saved profile, `nameplate/nameplate-001-petgf.3mf` — 0.4 nozzles,
@@ -211,6 +212,7 @@ PARTS = {
         f"enclosure/rear-equipment-caps/{name}-snap-cap.step"
         for name in ("asse", "regulator", "pisco", "meter")
     ],
+    "G Ganen pump snap cap": ["cold-core/foam-cap/pump-snap-cap.step"],
     # The funnel's drop-in frame and the cradle that hangs the drain elbow under its web. The
     # silicone funnel itself is cast, and §8 bills it as silicone.
     "Funnel frame": ["zone-c/funnel/funnel-frame.step"],
@@ -231,6 +233,7 @@ GROUP_OF = [
     ("Display cover plate",         "ext"),
     ("Soda inlet bend holder",       "small"),
     ("Rear equipment snap caps",     "small"),
+    ("G Ganen pump snap cap",          "tool"),
     ("Flavor reservoir",            "tight"),
     ("Faucet shell",                "petgf"),
     ("Faucet display cover plate",  "petgf"),

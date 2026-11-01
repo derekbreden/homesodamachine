@@ -7,34 +7,41 @@ switch and measured barbs. The [purchased-foot reference](../common-foot/README.
 describes the supplied sliders.
 
 The pump installs at +90° about Z, with discharge toward enclosure −X. Its native
-origin is **(−15.368269, 368.317761, 251.439035) mm**. The front of the
-fixed lower casing bears directly on the plain lid at Z253.4. Production poses
+origin is **(−15.368269, 368.317761, 251.697963) mm**. The front of the
+fixed lower casing retains a 0.15 mm printed-face allowance above the plain
+lid at Z253.4. Production poses
 and connected fitting frames belong to [above-core.json](../../../manifold-layout/above-core.json).
 
-A **20 × 12 mm rear bearing land**, nominally **0.685486 mm** above the lid,
-supports the lower casing while keeping the motor aligned. Two loops retain the
-motor at native X9.5 and X67.5; **each loop uses two joined purchased 8-inch,
-50 lb, 0.19-inch-wide nylon ties**, four ties total. The **5.6 × 1.6 mm** lanes
-open along the lid's underside and end in through-slots outside the fixed rails.
-The plate retains **3.8 mm** of roof above each lane. A conservative 1.6 mm
-strap envelope clears the PSU by at least 0.75 mm across both complete bands. There are no pump-foot
-screws, washers or internal cup columns.
+The lid-integrated half pipe supports the motor over native X25–60. Its separate
+upper cap spans X35–51 and uses a 2.4 mm working spring arch, 3 mm wings and
+0.6 mm hook engagement. The upper motor bore clears the largest retained upper
+barrel high spot with the shared 0.15 mm per-face static allowance. The lower
+seat gives the admitted barrel 0.25 mm running clearance. Open rooms admit the complete fixed rails and molded wire cover
+vertically. The cover room ends at the plain lid face; two fitted lower
+planes support each rail without entering its groove. Two low stops beside the
+negative-Y rail bound axial movement while leaving the lead exits open.
+Primary saddle and snap contact stays within the measured motor band. The
+stop faces meet only the fixed rail ends; the rough head underside stays
+clear throughout axial free play.
 
-Thread both joined loops through the empty lid before seating the pump. Keep both joined-loop
-buckles beside the motor below its equator, clear of the PSU; flush-cut their
-tails. Mask the grooves against the foam pour. During pump service, use each old
-strap as a draw leader for its replacement before withdrawing it. Complete the cap-clamp screws before fitting the PCB. Fit the two clamped
-PVC joints and discharge check while the core is open. Keep the suction elbow
-and its short inlet link loose for the populated rear-shell approach, then seat
-those round joints through the uncovered funnel opening.
+Slide all four complete foot-and-leg assemblies off their fixed rails. Lower
+the bare pump vertically into the open cradle, then press the upper cap down
+until both hooks seat. Both spring pockets remain accessible with back-top separated from the core. Complete the cap-clamp screws before fitting the PCB. Fit
+the two clamped PVC joints and discharge check while the core is open. Keep the
+suction elbow and its short inlet link loose for the populated rear-shell
+approach, then seat those round joints through the uncovered funnel opening.
+For pump removal, separate back-top from the core, disconnect the pump joints
+and leads, release both cap hooks and
+lift the pump vertically. The snap cap prints on one axial end, keeping the
+arch, wings and hooks vertical, with three Classic loops and a solid core.
 
 The discharge group follows the pump datum. The suction PVC bend has a
-13.125051 mm free span on two tangent arcs of at least R39.968 and unchanged
+13.167051 mm free span on two tangent arcs of at least R33.030 and unchanged
 receiving lengths. Both water male fittings retain 0.4 mm of exposed shaft
 outside their complete receiving depths. Its
 connector rolls about its existing V-K stem axis; the opposed sockets retain
 a straight 0.25 mm exposed stub. The
-check outlet's two opposed bends retain at least **R14.923** and reach the straight water-in guide at
+check outlet's two opposed bends retain at least **R15.055** and reach the straight water-in guide at
 **(−82.5, 420, 253.4) mm**. The regulator, ASSE and large valves
 retain their orthogonal placement.
 
@@ -42,4 +49,4 @@ retain their orthogonal placement.
 reference. `mount_holes()` and `feet_shapes()` are empty. The stock slider
 observations remain independently available in the purchased reference.
 Occupied casing solids describe exterior clearance, not mass or wall thickness.
-Actual strap retention, vibration and assembled fit remain physical qualification.
+Actual snap retention, vibration and assembled fit remain physical qualification.

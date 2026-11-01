@@ -290,10 +290,10 @@ alternatives: A gable raised into the mouth reduces its full collar-admission en
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=47.250 y=366.607 z=297.076
 
-[step] Fitted PSU bearing and running-well planes: the four screw ears bear at Z348.50 while the surrounding case well ends at Z348.75, retaining 0.25 mm running clearance over the purchased case. These are separate mating planes with a specified difference.
+[step] Fitted PSU bearing and running-well planes: the four screw ears bear at Z347.00 while the surrounding case well ends at Z347.25, retaining 0.25 mm running clearance over the purchased case. These are separate mating planes with a specified difference.
 alternatives: Lowering the well roof onto the ears occupies the case clearance. Raising the bearings changes the PSU mounting plane and the blind-pilot stack.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-29.941 y=346.807 z=348.500
+click: x=-29.941 y=346.807 z=347.000
 
 [step] Fitted ground-ring landing beside the retained core hold: the ground face is Y461.70, 0.60 mm fore of the core/rear-wall land at Y462.30. The M3x8 stack has 4.8 mm screw projection, 0.5 mm tip air and 3.1 mm backing to the fluted exterior at this landing.
 alternatives: Moving the ground landing aft onto the core land reduces its fluted backing to 2.5 mm. Extending the adjacent land fore changes the retained core hold and dry-connector boundary.
@@ -365,20 +365,6 @@ click: x=-85.000 y=462.225 z=263.850
 click: x=-85.000 y=462.225 z=296.350
 click: x=-54.000 y=462.225 z=265.850
 
-[thin] Fitted PSU blind-pilot floors: the selected M3x10 screws accommodate the vendor drawing’s 6.7±1 mm mounting-ear thickness. Their maximum projection is 4.3 mm; the 5.3 mm pilot keeps 1 mm tip air. The bearing at Z348.5 and exterior roof at Z355 leave a 1.2 mm blind end at each pilot. This is a bounded fastener clearance exception, not ordinary ceiling stock.
-alternatives: A 3 mm blind end requires lowering the PSU by 1.8 mm, putting its Z313.2 underside into the pump envelope ending at Z313.935. M3x8 leaves only 0.3 mm projection at the thick-ear limit. Raising the exterior roof changes the enclosure height and funnel plane.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-31.989 y=349.024 z=353.800
-click: x=-31.989 y=349.024 z=355.000
-click: x=-31.107 y=446.444 z=355.000
-click: x=-31.107 y=446.444 z=353.800
-click: x=2.508 y=446.345 z=355.000
-click: x=2.508 y=446.345 z=353.800
-click: x=1.011 y=349.024 z=353.800
-click: x=1.011 y=349.024 z=355.000
-click: x=-30.492 y=446.106 z=355.000
-click: x=-30.492 y=446.106 z=353.800
-
 [thin] Fitted meter aft end wall: its 2.44 mm section lies between the complete swept housing pocket ending at Y443.56 and the seat end at Y446. The neighboring CARB receiving union’s occupied envelope begins at Y446.510. This end plane retains the meter’s axial clearance while keeping that neighboring envelope clear.
 alternatives: Growing the wall to 3 mm moves its end to Y446.56, 0.05 mm into the neighboring occupied envelope. Moving the meter fore instead changes its direct SODA stub, both snap interfaces and the R14 inlet/foam holder. Narrowing its fitted pocket spends the housing and axial-position allowance.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
@@ -391,3 +377,11 @@ click: x=85.861 y=446.000 z=291.716
 alternatives: Extending the relief downward changes the wall adjacent to the accepted nameplate receiver. Filling or sloping its floor changes the common nut-installation field; separate local pockets add face breaks around the six fittings.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=86.304 y=464.611 z=250.000
+
+[sliver] Fitted PSU case running-well boundary: the case well ends at Z347.25, 1.25 mm above the ordinary inner roof and 0.25 mm above the screw-ear bearing plane. The rectangular boundary clears the complete purchased case while retaining the four mounting-ear planes and 3 mm above every blind insert pilot.
+alternatives: Removing the well lowers the PSU 1.25 mm and enters the pump snap arch by about 0.95 mm. Raising the surrounding inner roof changes the enclosure ceiling and its equipment seats. The well retains the selected mechanical clearance without moving those assemblies.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=13.351 y=398.800 z=346.625
+click: x=-39.898 y=398.800 z=346.625
+click: x=-13.274 y=453.550 z=346.625
+click: x=-13.274 y=344.050 z=346.625

@@ -20,6 +20,7 @@ import above_core as layout
 import above_core_parts as parts
 import _above_core_mounts as mounts
 import g_ganen_installation as pump
+import fits
 
 
 def sha(path):
@@ -42,6 +43,7 @@ def run(*,include_routes=True,output=HERE/'native-installation-check.json'):
     shape=parts.pump_native().moved(layout.location('g-ganen-pump'))
     lid=import_step(str(lid_path)).val().moved(layout.frame_location(layout.cap_lid_pose()))
     bearing=mounts.pump_cradle()
+    cap=mounts.pump_snap_cap()
     bb=shape.BoundingBox()
     # Restrict the material reading to the pump bay before the expensive common.
     bay=cq.Solid.makeBox(bb.xlen+.02,bb.ylen+.02,bb.zlen+.02,
@@ -56,11 +58,14 @@ def run(*,include_routes=True,output=HERE/'native-installation-check.json'):
     check('installed rubber sliders',len(pump.feet_shapes()),0)
     check('pump foot screw axes',len(pump.mount_holes()),0)
     check('pump cup columns',int('g-ganen-pump' in mounts.deck_mounts()),0)
-    check('bare casing front bearing plane',abs(bb.zmin-layout.specification()['cap_face_z_mm']),1.e-5)
+    check('bare casing front bearing allowance',
+          abs(bb.zmin-layout.specification()['cap_face_z_mm']-fits.slip),1.e-5)
     check('pump overlap with installed lid',common,1.e-5)
-    check('rear bearing native invalid',int(not bearing.isValid()),0)
-    for i,cutter in enumerate(mounts.pump_tie_cuts()):
-        check(f'open tie lane {i} retained material',sum(s.Volume() for s in cutter.intersect(lid).Solids()),1.e-5)
+    check('cradle native invalid',int(not bearing.isValid()),0)
+    check('snap cap native invalid',int(not cap.isValid()),0)
+    check('snap cap unexpected solid count',int(len(cap.Solids()) != 1),0)
+    check('snap cap overlap with pump',sum(s.Volume() for s in cap.intersect(shape).Solids()),1.e-5)
+    check('snap cap overlap with lid',sum(s.Volume() for s in cap.intersect(lid).Solids()),1.e-5)
     routes=[]
     if include_routes:
         import rear_plumbing
@@ -69,12 +74,11 @@ def run(*,include_routes=True,output=HERE/'native-installation-check.json'):
             tube=parts.route_shape(spec)
             check(name+' native invalid',int(not tube.isValid()),0)
             routes.append(dict(id=name,segments=spec['segments'],owners=spec['owners']))
-    out=dict(schema='g-ganen-installation/2',inputs=bindings,
-        scope='Bare casing and fixed rails, integral rear bearing and underside-open strap lanes. Native nominal geometry does not qualify strap load, vibration, printed fit or hose retention.',
+    out=dict(schema='g-ganen-installation/3',inputs=bindings,
+        scope='Bare casing and fixed rails, integral motor half pipe, open rigid-body admission rooms, rail-end stops and removable upper snap. Native nominal geometry does not qualify spring force, vibration, printed fit or hose retention.',
         local_to_world=layout.pose('g-ganen-pump'),installed_bounds_mm=bounds(shape),
-        rear_bearing_bounds_mm=bounds(bearing),strap_count=4,closed_loops=2,
-        strap_stock='Two joined 8-inch, 50 lb, 0.19-inch-wide ties per loop',
-        lid_roof_over_tie_lane_mm=3.8,selected_feet=[],mount_rows=[],
+        cradle_bounds_mm=bounds(bearing),snap_cap_bounds_mm=bounds(cap),
+        mount=mounts.pump_cradle_datums(),selected_feet=[],mount_rows=[],
         routes_checked=include_routes,routes=routes,checks=checks,
         all_pass=all(r['pass'] for r in checks),elapsed_seconds=time.monotonic()-started)
     if bindings!={str(p.relative_to(ROOT)):sha(p) for p in inputs}:

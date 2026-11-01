@@ -76,12 +76,12 @@ leg, with a peaked tie passage and one six-inch narrow tie on the fixed body ban
 Keep both release collets free. V-A's low turn travels with back-top through
 its connected tubing; its final connection is at front-top's Y-A. The straight
 white feed, logical `fluid-3` / native `above-core-va-fore-feed`, seats in one
-integral C2 clip on the lid at world (11, 254.5, 261.6) mm. The clip uses the
+integral C2 clip on the lid at world (16.608, 207.300, 268.970) mm. The clip uses the
 selected 6.35 mm bore, 2.40 mm spring wall and full 8 mm span, opening toward
 +Z for downward tube insertion and upward release.
 
-Its filled root spans the 8.2 mm from the Z253.4 lid face to the tube axis.
-The minimum solid stock below the bore is 5.025 mm; the 2.40 mm section is the
+Its filled root spans the 15.570 mm from the Z253.4 lid face to the tube axis.
+The minimum solid stock below the bore is 12.395 mm; the 2.40 mm section is the
 functional spring exception. The clip builds from the lid's flat underside
 with the surrounding stock. Seat the feed before finally dressing
 `PE-carbonator` and `J4-V5`, leaving the loading mouth clear. Release the feed
@@ -134,17 +134,17 @@ rear equipment caps close their integral shell seats without ties.
 
 | Equipment | Stations | Fixing | Bearing |
 | --- | ---: | --- | --- |
-| Bare G Ganen diaphragm pump | 2 | Two joined 8-inch, 50 lb nylon ties per loop | Front casing datum and integral rear bearing; complete rubber feet and legs removed |
+| Bare G Ganen diaphragm pump | 1 | Integral half pipe and removable upper snap cap | Motor band X25–60; open rail/cover admission; complete rubber feet and legs removed |
 | Main PCB | 4 | M3 × 8 / RX-M3x5.7 | 1.6 mm PCB on 3.6 mm standoffs; 6.4 mm reach |
 
 The four cup-rooted PCB columns are Ø10 mm with Ø4 × 9.75 mm blind pilots.
 The columns retain 3 mm radial insert stock and pass through lid clearance
-holes. The two 5.6 × 1.6 mm tie lanes open along the lid underside and end in
-through-slots outside the fixed rails. The plate retains 3.8 mm of roof over
-each lane. Thread two joined wide-tie loops before closing the cap; mask the
-lanes during the foam pour. Keep both buckles beside the motor below its
-equator and clear of the PSU. The [pump installation](../../../reference/g-ganen-pump/installation/README.md)
-records its bearing datums and removable sliders.
+holes. The pump cradle and its spring pockets stand directly on the lid.
+Its rail rooms open vertically onto broad fitted floors; the cover room
+ends at the plain lid face.
+The upper cap closes after seating the bare motor and prints on one axial end.
+The [pump installation](../../../reference/g-ganen-pump/installation/README.md)
+records its bearing datums, axial stops and removable sliders.
 
 The core's earth lead threads through the shared cable guide before its
 outside ferrule is crimped, and lands in port 2 of back-top's rear PE WAGO

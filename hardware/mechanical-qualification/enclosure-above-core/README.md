@@ -74,18 +74,19 @@ Reservoir A's first bends start outside the full receiving lengths. Reservoir
 B's draw line steps east above its cap mouth to clear the V-B return.
 
 The pump's complete rubber feet and raised legs slide out of the fixed
-rails. Its bare lower casing bears on the lid and the 20 × 12 mm rear land.
-Two joined wide-tie loops pass through underside-open lanes, each retaining
-3.8 mm of lid roof. The PSU mounting face is Z346.7; all four 5.3 mm pilots
-end at Z352, below the continuous 3 mm show skin.
+rails. The motor sits in the lid-integrated half pipe and its removable upper
+cap. Open rail and cover rooms admit it vertically; low rail-end stops bound
+axial movement. The PSU mounting face is Z347; all four 5 mm pilots
+end at Z352, below the continuous 3 mm show skin. The 6.7±1 mm ears leave
+2.3–4.3 mm screw engagement and at least 0.7 mm pilot tip air.
 
 ## Assembly interfaces
 
 Populate back-top ceiling-down on the bench. Fit the electronics and
 threaded equipment before closing their snap caps. Prepare the meter with
 its continuous R14 inlet, accepted holder, one square-cut 61 mm foam sleeve
-and concealed outlet tube. Thread and tighten both pump loops before threading this
-inlet or loading the lid's tube snaps.
+and concealed outlet tube. Seat the bare pump and close its snap cap before
+threading this inlet or loading the lid's tube snaps.
 
 The rear label tiles are 1.8 mm thick in 2.0 mm continuous channels. Their
 full roots join the rear wall outside the sliding paths. The flange/nut

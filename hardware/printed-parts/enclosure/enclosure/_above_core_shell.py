@@ -39,11 +39,11 @@ def ycylinder(radius, x, z, y0, y1):
 def psu_fastener_plan():
     """Four short inserts support the drawing's 6.7 ± 1 mm mounting ears."""
     reach = (10.-7.7, 10.-5.7)
-    pilot = reach[1]+1.
+    pilot = 5.
     return {'count':4, 'screw':'M3x10 SHCS', 'screw_length_mm':10.,
             'insert':'RX-M3Sx4', 'insert_length_mm':4.,
             'ear_thickness_range_mm':(5.7,7.7), 'receiving_range_mm':reach,
-            'pilot_depth_mm':pilot, 'minimum_tip_air_mm':1.,
+            'pilot_depth_mm':pilot, 'minimum_tip_air_mm':pilot-reach[1],
             'minimum_blind_backing_mm':355.-layout.pose('psu')['translation_mm'][2]-pilot,
             'minimum_fluted_backing_mm':355.-layout.pose('psu')['translation_mm'][2]-pilot,
             'maximum_flute_depth_mm':flute_depth,

@@ -132,58 +132,172 @@ def deck_mounts():
         pcb._thickness, 8.0, pcb._thickness)}
 
 
-def pump_cradle():
-    """Broad rear casing bearing, integral with the plain lid.
-
-    The front of the bare fixed lower casing rests directly on the lid.
-    This rear land follows the lowest occupied casing plane over the 20 x
-    12 mm bearing footprint. It is a load-bearing height datum, not a rail clip.
-    """
-    import cadquery as cq
+@lru_cache(maxsize=1)
+def pump_cradle_datums():
+    """Motor bearing and the complete rigid-rail admission rooms."""
     import above_core_parts
+    import fits
+    import rear_snaps
     pump = above_core_parts._module('bearing_pump',
-        'reference/g-ganen-pump/g_ganen_pump.py')
-    hull = next(r for r in pump.parameters()['casing_shell_envelopes']
-                if r['id']=='lower_cradle_occupied')['external_envelope']
-    heights=[]
-    for triangle in hull['triangles']:
-        polygon=[hull['vertices_mm'][i] for i in triangle]
-        for axis,bound,sign in ((0,64.,1),(0,76.,-1),(1,-10.,1),(1,10.,-1)):
-            clipped=[]
-            for a,b in zip(polygon,polygon[1:]+polygon[:1]):
-                da,db=(a[axis]-bound)*sign,(b[axis]-bound)*sign
-                if da>=0.:clipped.append(a)
-                if (da>=0.) != (db>=0.):
-                    t=da/(da-db)
-                    clipped.append([a[i]+t*(b[i]-a[i]) for i in range(3)])
-            polygon=clipped
-        heights.extend(p[2] for p in polygon)
-    frame=above_core.pose('g-ganen-pump')
-    cx,fy,z=frame['translation_mm']
-    face=above_core.specification()['cap_face_z_mm']
-    return cq.Solid.makeBox(20.,12.,z+min(heights)-face+.1,
-        cq.Vector(cx-10.,fy+64.,face-.1))
+        'reference/g-ganen-pump/g_ganen_pump.py').parameters()
+    selected = above_core.specification()['pump_mount']
+    first, last = selected['motor_band_native_x_mm']
+    sections = pump['casing_sections']
+    rows = [row for row in sections if first <= row['x_mm'] <= last]
+    points = [point for row in rows for point in row['vertices_mm']]
+    # Include the two end profiles even when they fall between scan stations.
+    for end in (first, last):
+        a, b = next((a, b) for a, b in zip(sections, sections[1:])
+                    if a['x_mm'] <= end <= b['x_mm'])
+        share = (end-a['x_mm'])/(b['x_mm']-a['x_mm'])
+        points.extend([[v+(w-v)*share for v, w in zip(p, q)]
+                       for p, q in zip(a['vertices_mm'], b['vertices_mm'])])
+    can = pump['motor_can_envelope']
+    cover_sides = []
+    for side in pump['rigid_underside']['wire_cover_side_profiles']:
+        a, b, c = side['side_plane']['coefficients']
+        cover_sides.append([a*x+b*z+c for x in (first, last)
+            for z in (min(p[2] for p in points),
+                      can['axis_point_mm'][2]+can['radius_mm'])])
+    cover_room = (min(v for side in cover_sides for v in side)-fits.running,
+                  max(v for side in cover_sides for v in side)+fits.running)
+    rails = []
+    for rail in pump['rigid_underside']['rail_face_planes']:
+        a, b, c = [rail['planes'][name]['z_ax_plus_by_plus_c']
+                   for name in ('outer_upper', 'outer_lower', 'inner_return')]
+        corners = [((b[0]-a[0])*x+b[2]-a[2])/(a[1]-b[1])
+                   for x in (first, last)]
+        outer = (max(corners)+fits.running if rail['side'] > 0
+                 else min(corners)-fits.running)
+        rails.append(dict(side=rail['side'], outer_y_mm=outer,
+                          floor_planes=(b, c)))
+    origin, axis = can['axis_point_mm'], can['axis_direction']
+    # The retained casing envelope also includes observed barrel high spots.
+    # One circular room clears that complete rigid surface with the static fit.
+    barrel_radius = max(can['radius_mm'], *(math.hypot(p[1]-origin[1],
+        p[2]-(origin[2]+axis[2]*(p[0]-origin[0])/axis[0]))
+        for p in points if p[2] >= origin[2]+axis[2]*(p[0]-origin[0])/axis[0]))
+    bore_radius = barrel_radius+fits.slip
+    def in_open_room(p):
+        if cover_room[0] <= p[1] <= cover_room[1]:
+            return True
+        for rail in rails:
+            if not 0. <= p[1]*rail['side'] <= rail['outer_y_mm']*rail['side']:
+                continue
+            if all(p[2] >= a*p[0]+b*p[1]+c
+                   - fits.running*math.sqrt(1.+a*a+b*b)-1.e-8
+                   for a, b, c in rail['floor_planes']):
+                return True
+        return False
+    # The lower seat admits the complete scanned barrel with running clearance;
+    # the removable upper cap keeps the head-on static fit.
+    seat_radius = max(barrel_radius, *(math.hypot(p[1]-origin[1],
+        p[2]-(origin[2]+axis[2]*(p[0]-origin[0])/axis[0]))
+        for p in points if not in_open_room(p)))+fits.running
+    middle = (first+last)/2.
+    centre = (middle, origin[1], origin[2]+axis[2]*(middle-origin[0])/axis[0])
+    frame = above_core.pose('g-ganen-pump')
+    cx, cy, cz = above_core.point(frame, centre)
+    neck = max(bore_radius,
+               *(abs(r['outer_y_mm']) for r in rails))+rear_snaps.WALL
+    cap_first, cap_last = selected['snap_band_native_x_mm']
+    station = rear_snaps.station(cx, neck,
+        frame['translation_mm'][1]+cap_first,
+        frame['translation_mm'][1]+cap_last, split=0.)
+    return dict(centre_world_mm=(cx, cy, cz), can=can, frame=frame,
+                bore_radius_mm=bore_radius,
+                seat_bore_radius_mm=seat_radius,
+                band_native_x_mm=(first, last), cover_room_native_y_mm=cover_room,
+                rail_rooms=rails,
+                snap_station=station,
+                stock_half_width_mm=station['outer'],
+                selected=selected)
 
 
-def pump_tie_cuts():
-    """Two underside-open lanes, each retaining 3.8 mm of lid roof.
+def _pump_cap_to_world(shape, datum):
+    """The shared downward half pipe becomes the pump's removable upper cap."""
+    cx, _cy, cz = datum['centre_world_mm']
+    return shape.rotate((cx, 0., 0.), (cx, 1., 0.), 180.).translate((0., 0., cz))
 
-    Two joined 8-inch wide ties make each motor loop. Side exits stand
-    outside the complete fixed lower casing and rails. Both lanes are
-    accessible from the lid underside before cap assembly.
+
+def _pump_motor_room(datum, *, seat=False):
+    import cadquery as cq
+    can, frame = datum['can'], datum['frame']
+    axis, origin = can['axis_direction'], can['axis_point_mm']
+    first, last = datum['band_native_x_mm']
+    point = (first-1., origin[1],
+             origin[2]+axis[2]*(first-1.-origin[0])/axis[0])
+    radius = datum['seat_bore_radius_mm'] if seat else datum['bore_radius_mm']
+    return cq.Solid.makeCylinder(radius,
+        (last-first+2.)/axis[0], cq.Vector(*above_core.point(frame, point)),
+        cq.Vector(*above_core.vector(frame['rotation'], axis)))
+
+
+def pump_snap_cap():
+    """One 2.4 mm spring arch and two integral 3 mm wings, in world axes."""
+    import rear_snaps
+    import fits
+    d = pump_cradle_datums()
+    blank = rear_snaps.cap(d['snap_station'], -fits.slip,
+        -(d['bore_radius_mm']+d['selected']['cap_arch_wall_mm']), axis_z=0.)
+    return _pump_cap_to_world(blank, d).cut(_pump_motor_room(d)).clean()
+
+
+def pump_snap_printable():
+    """Axial end on the bed: the complete arch and both hooks grow vertically."""
+    shape = pump_snap_cap().rotate((0., 0., 0.), (1., 0., 0.), 90.)
+    b = shape.BoundingBox()
+    return shape.translate((-(b.xmin+b.xmax)/2., -(b.ymin+b.ymax)/2., -b.zmin))
+
+
+def pump_cradle():
+    """Lid-rooted motor half pipe with open cover/rail rooms and axial stops.
+
+    The wire-cover room opens down to the plain lid face. Each rail drops
+    onto two broad fitted planes, without engaging its reentrant groove.
+    The two low stops act on one rail's ends and leave both lead exits open.
     """
     import cadquery as cq
-    cx,fy,_=above_core.pose('g-ganen-pump')['translation_mm']
-    bottom=above_core.specification()['cap_face_z_mm']-5.4
-    result=[]
-    for station in (9.5,67.5):
-        y=fy+station
-        result.append(cq.Solid.makeBox(71.2,5.6,1.7,
-            cq.Vector(cx-35.6,y-2.8,bottom-.1)))
-        for x in (cx-35.6,cx+30.):
-            result.append(cq.Solid.makeBox(5.6,5.6,5.6,
-                cq.Vector(x,y-2.8,bottom-.1)))
-    return result
+    import rear_snaps
+    d = pump_cradle_datums()
+    cx, _cy, cz = d['centre_world_mm']
+    first, last = d['band_native_x_mm']
+    fy = d['frame']['translation_mm'][1]
+    face = above_core.specification()['cap_face_z_mm']
+    wide = d['stock_half_width_mm']
+    body = cq.Solid.makeBox(2.*wide, last-first, cz-face+.1,
+                           cq.Vector(cx-wide, fy+first, face-.1))
+    body = body.cut(_pump_motor_room(d, seat=True))
+    lo, hi = d['cover_room_native_y_mm']
+    body = body.cut(cq.Solid.makeBox(hi-lo, last-first+.2, cz-face+1.,
+        cq.Vector(cx-hi, fy+first-.1, face-.2)))
+    import fits
+    for rail in d['rail_rooms']:
+        planes = [(a, b, c-fits.running*math.sqrt(1.+a*a+b*b))
+                  for a, b, c in rail['floor_planes']]
+        profiles = []
+        for x in (first-.1, last+.1):
+            a, b = planes
+            y = ((b[0]-a[0])*x+b[2]-a[2])/(a[1]-b[1])
+            outer = rail['outer_y_mm']
+            yz = [(outer, a[0]*x+a[1]*outer+a[2]),
+                  (y, a[0]*x+a[1]*y+a[2]),
+                  (0., b[0]*x+b[2]), (0., 100.), (outer, 100.)]
+            profiles.append(cq.Wire.makePolygon(
+                [cq.Vector(x, y, z) for y, z in yz], close=True))
+        room = cq.Solid.makeLoft(profiles, ruled=True).moved(
+            above_core.frame_location(d['frame']))
+        body = body.cut(room)
+    # The flank pockets open outside for hook flexure and support cleanup.
+    for pocket in rear_snaps.pockets(d['snap_station']):
+        body = body.cut(_pump_cap_to_world(pocket, d))
+    selected = d['selected']
+    ya, yb = selected['rail_stop_native_y_mm']
+    top = d['frame']['translation_mm'][2]+selected['rail_stop_native_z_mm']
+    for a, b in selected['rail_stop_native_x_mm']:
+        body = body.fuse(cq.Solid.makeBox(yb-ya, b-a, top-face+.1,
+            cq.Vector(cx-yb, fy+a, face-.1)))
+    return body.clean()
 
 
 def valve_support_datums(name, face_z=None):

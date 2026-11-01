@@ -3969,6 +3969,9 @@ genrule(
         "out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl",
         "out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step",
         "out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-top.stl",
+        "out/foam-cap/hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.step",
+        "out/foam-cap/hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.step.mesh",
+        "out/foam-cap/hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.stl",
         "out/foam-cap/hardware/printed-parts/cold-core/_foam_cap.py",
         "out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam_cap.py",
     ],
@@ -3984,8 +3987,11 @@ O6=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-
 O7=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl)
 O8=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step)
 O9=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-top.stl)
-O10=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/_foam_cap.py)
-O11=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam_cap.py)
+O10=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.step)
+O11=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.step.mesh)
+O12=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.stl)
+O13=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/_foam_cap.py)
+O14=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam_cap.py)
 for f in $(SRCS); do
   case $$f in
     */node_modules/*) continue;;
@@ -4012,8 +4018,11 @@ cp hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh $$O6
 cp hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl $$O7
 cp hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step $$O8
 cp hardware/printed-parts/cold-core/foam-cap/foam-cap-top.stl $$O9
-cp hardware/printed-parts/cold-core/_foam_cap.py $$O10
-cp hardware/printed-parts/cold-core/foam-cap/foam_cap.py $$O11
+cp hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.step $$O10
+cp hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.step.mesh $$O11
+cp hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.stl $$O12
+cp hardware/printed-parts/cold-core/_foam_cap.py $$O13
+cp hardware/printed-parts/cold-core/foam-cap/foam_cap.py $$O14
 """,
 )
 
