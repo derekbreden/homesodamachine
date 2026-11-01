@@ -175,11 +175,11 @@ with no daemon. The CI image has no GPU, and Mesa's lavapipe answers Vulkan ther
 - Metal draws the same picture in different bytes: mean |Δ| under 0.3 of 255 a channel.
 
 [`tools/look.sh`](../look.sh) and [`tools/changes/change.mjs`](../changes/change.mjs) draw with
-it. The guide art scripts, and the Bazel rules for the plumbing art and the opening scene, draw
-with `hsm-render` by way of [`hardware/scripts/_hsm_render.py`](../../hardware/scripts/_hsm_render.py),
-which builds it from the checkout. The other Bazel art rules, and the installation scenes that
-bring their own three.js materials, draw with
-[`tools/render/render-step-posed.js`](../render/render-step-posed.js).
+it. The guide art scripts, and the Bazel rules for the plumbing art, the opening scene and the
+install art, draw with `hsm-render` by way of
+[`hardware/scripts/_hsm_render.py`](../../hardware/scripts/_hsm_render.py), which builds it from
+the checkout. The `cad-art` rule, and the installation scenes that bring their own three.js
+materials, draw with [`tools/render/render-step-posed.js`](../render/render-step-posed.js).
 
 ## Kernel
 
