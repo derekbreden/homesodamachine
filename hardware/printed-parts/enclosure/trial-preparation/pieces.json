@@ -771,38 +771,6 @@
         "reason": "The silicone mold's own preparer: its README recipe from the installed Bambu presets, the current cavity and core meshes, one plate each, centred on the right hotend's bed."
       }
     },
-    "reservoirs": {
-      "printer": "Mark1",
-      "nozzle": {
-        "side": "right",
-        "diameter_mm": 0.8,
-        "flow": "Standard",
-        "hardened": false,
-        "reason": "Clear PETG from Mark1's AMS on the right 0.8 mm Standard hotend, zero added user Z trim (tools/bambu-printers.md, Mark1 clear PETG spool order; Z trim)."
-      },
-      "material": "Bambu PETG Translucent, clear",
-      "archive": {
-        "path": ".cache/reservoir-flow105-overlap30-temp260/reservoir-review.3mf",
-        "sha256": "f31999ee96314422aed95c21ae021d9e309cdb60085db6aa0e476dd8f443e381",
-        "reason": "The two-plate native slice of the current reservoir STEPs, 255/260 C, flow 1.05, five Arachne walls. Plate 1, the left pair, is task 1371867808, finished and holding water; plate 2, the right pair, is task 1372664582, sent 2026-10-25 00:34 (cold-core/reservoir/prints/2026-10-25-mark1-right-flow105-overlap30-temp260-right08-z000/README.md). Package one plate with its print-only step (packaging.json there)."
-      }
-    },
-    "level-floats": {
-      "printer": "Mark2",
-      "nozzle": {
-        "side": "right",
-        "diameter_mm": 0.4,
-        "flow": "Standard",
-        "hardened": true,
-        "reason": "White ASA Aero through right external slot 255 and the standard hardened 0.4 mm right nozzle on a glued Engineering Plate (cold-core/magnetic-float/all-aero/mark2-print/three-close-v1/README.md)."
-      },
-      "material": "Bambu ASA Aero, white",
-      "archive": {
-        "path": "hardware/printed-parts/cold-core/magnetic-float/all-aero/mark2-print/three-close-v1/2026-10-08-three-floats-close-asa-aero-right04-engineering-mark2.gcode.3mf",
-        "sha256": "a11c7a5270091798c93dd8dd08a2e67209ec3304cf2a26a63d7268c13f8e99f6",
-        "reason": "Three floats of the current float-aero.stl (a7ca570ba033, bound by its preparation.json) with the RC62 insertion pause before layer 81; printed 2026-10-08."
-      }
-    },
     "pump-elbows": {
       "printer": "Mark2",
       "nozzle": {
