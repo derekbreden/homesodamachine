@@ -1,0 +1,330 @@
+{
+  "views": [
+    {
+      "name": "top-section",
+      "caption": "The taller shell meets the single lid; the separate upper cup and its floor are removed.",
+      "before": "top-section-before.webp",
+      "after": "top-section-after.webp",
+      "width": 1200,
+      "height": 600,
+      "marks": [
+        {
+          "x": 600,
+          "y": 317.7,
+          "r": 19.2,
+          "label": "Upper foam space",
+          "at": [
+            0,
+            323.8,
+            234.5
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          -637.6199043916481,
+          247.28561147300223,
+          369.5239808783296
+        ],
+        "target": [
+          0,
+          323.8,
+          242
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 125,
+        "near": 402.75877372197647,
+        "far": 1112.0534018697876,
+        "aspect": 2,
+        "section": {
+          "at": [
+            0,
+            323.8,
+            235
+          ],
+          "normal": [
+            -1,
+            0,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [
+        "cold-core/foam-shell",
+        "cold-core/foam-cap-top",
+        "cold-core/foam-cap-lid-top"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "38779fd09cb857232620703f7f33732053fc07ac57a24ab00139a0644cff25be",
+          "commit": "5e547e8f9b0600ef89fc7ef6f42d5e6c9382f1b7",
+          "taken": "2026-11-01T06:10:28.126Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "file",
+          "sha256": "a5efb94dd683fba1341351e8424d958ecd204b480f34762459609b6ff9f93729",
+          "commit": null
+        }
+      },
+      "changed": [
+        "cold-core/g-ganen-pump",
+        "cold-core/foam-cap-top",
+        "cold-core/foam-cap-lid-bottom",
+        "funnel-drain-union",
+        "cold-core/reservoir-b-fill-guide",
+        "cold-core/pump-snap-cap",
+        "cold-core/cap-clamp-bottom-1",
+        "cold-core/cap-clamp-bottom-10",
+        "cold-core/cap-clamp-bottom-2",
+        "cold-core/cap-clamp-bottom-3",
+        "cold-core/cap-clamp-bottom-4",
+        "cold-core/cap-clamp-bottom-5",
+        "cold-core/cap-clamp-bottom-6",
+        "cold-core/cap-clamp-bottom-7",
+        "cold-core/cap-clamp-bottom-8",
+        "cold-core/cap-clamp-bottom-9",
+        "cold-core/cap-clamp-top-1",
+        "cold-core/cap-clamp-top-10",
+        "cold-core/cap-clamp-top-2",
+        "cold-core/cap-clamp-top-3",
+        "cold-core/cap-clamp-top-4",
+        "cold-core/cap-clamp-top-5",
+        "cold-core/cap-clamp-top-6",
+        "cold-core/cap-clamp-top-7",
+        "cold-core/cap-clamp-top-8",
+        "cold-core/cap-clamp-top-9",
+        "funnel-drain-stub",
+        "cold-core/foam-cap-lid-top",
+        "cold-core/foam-cap-bottom",
+        "cold-core/foam-shell",
+        "elbow-cradle",
+        "drain-outlet-stem",
+        "tube-above-core-drain-vb-east-link",
+        "cold-core/line-water-in",
+        "cold-core/vb-inlet-turn",
+        "cold-core/line-co2-in",
+        "wire-PE-carbonator",
+        "wire-J7-carb-earth-2",
+        "wire-temp-GND",
+        "wire-J4-IO26",
+        "wire-J7-CHI",
+        "wire-J4-3V3",
+        "wire-J7-CLO",
+        "cold-core/suction-tube",
+        "cold-core/discharge-tube"
+      ],
+      "withinMeshing": [
+        "cold-core/suction-barb-clamp",
+        "cold-core/discharge-barb-clamp",
+        "cold-core/discharge-barb-key",
+        "cold-core/suction-barb-key",
+        "tube-above-core-vb-yb-link",
+        "cold-core/carbonator-elbow-co2-in",
+        "tube-above-core-gas-core-drop",
+        "funnel-frame",
+        "tube-fluid-18",
+        "wire-AC2-L",
+        "wire-DC1-GND",
+        "enclosure-back-top",
+        "wire-DC1-V12",
+        "wire-AC2-N",
+        "psu",
+        "psu-screw-1",
+        "psu-screw-2",
+        "psu-screw-3",
+        "psu-screw-4",
+        "psu-insert-1",
+        "psu-insert-2",
+        "psu-insert-3",
+        "psu-insert-4",
+        "cold-core/evap-coil",
+        "cold-core/carbonator-fold",
+        "cold-core/discharge-chain",
+        "cold-core/discharge-reducer",
+        "cold-core/tube-water-5",
+        "cold-core/discharge-stem-clamp",
+        "cold-core/discharge-stem-key",
+        "tube-above-core-tee-regulator",
+        "wire-J6-RA4",
+        "wire-DC3-positive",
+        "wire-DC3-negative",
+        "wire-J6-RA3",
+        "wire-J6-GND",
+        "wire-J6-RA2",
+        "wire-J6-RA1",
+        "wire-J7-RB1",
+        "funnel"
+      ]
+    },
+    {
+      "name": "bottom-cap",
+      "caption": "An open-topped bottom cap retains 17.85 mm of central foam depth, with four underside pour ports and two air vents.",
+      "before": "bottom-cap-before.webp",
+      "after": "bottom-cap-after.webp",
+      "width": 1200,
+      "height": 800,
+      "marks": [
+        {
+          "x": 555,
+          "y": 529.1,
+          "r": 27.3,
+          "label": "Four pour ports",
+          "at": [
+            40,
+            248.8,
+            2
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          205.5674495950073,
+          118.23255040499272,
+          421.1348991900146
+        ],
+        "target": [
+          0,
+          323.8,
+          10
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 220,
+        "near": 293.7901999766882,
+        "far": 839.2868391458455,
+        "aspect": 1.5
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [
+        "cold-core/foam-cap-bottom",
+        "cold-core/foam-cap-lid-bottom"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "38779fd09cb857232620703f7f33732053fc07ac57a24ab00139a0644cff25be",
+          "commit": "5e547e8f9b0600ef89fc7ef6f42d5e6c9382f1b7",
+          "taken": "2026-11-01T06:10:28.126Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "file",
+          "sha256": "a5efb94dd683fba1341351e8424d958ecd204b480f34762459609b6ff9f93729",
+          "commit": null
+        }
+      },
+      "changed": [
+        "cold-core/g-ganen-pump",
+        "cold-core/foam-cap-top",
+        "cold-core/foam-cap-lid-bottom",
+        "funnel-drain-union",
+        "cold-core/reservoir-b-fill-guide",
+        "cold-core/pump-snap-cap",
+        "cold-core/cap-clamp-bottom-1",
+        "cold-core/cap-clamp-bottom-10",
+        "cold-core/cap-clamp-bottom-2",
+        "cold-core/cap-clamp-bottom-3",
+        "cold-core/cap-clamp-bottom-4",
+        "cold-core/cap-clamp-bottom-5",
+        "cold-core/cap-clamp-bottom-6",
+        "cold-core/cap-clamp-bottom-7",
+        "cold-core/cap-clamp-bottom-8",
+        "cold-core/cap-clamp-bottom-9",
+        "cold-core/cap-clamp-top-1",
+        "cold-core/cap-clamp-top-10",
+        "cold-core/cap-clamp-top-2",
+        "cold-core/cap-clamp-top-3",
+        "cold-core/cap-clamp-top-4",
+        "cold-core/cap-clamp-top-5",
+        "cold-core/cap-clamp-top-6",
+        "cold-core/cap-clamp-top-7",
+        "cold-core/cap-clamp-top-8",
+        "cold-core/cap-clamp-top-9",
+        "funnel-drain-stub",
+        "cold-core/foam-cap-lid-top",
+        "cold-core/foam-cap-bottom",
+        "cold-core/foam-shell",
+        "elbow-cradle",
+        "drain-outlet-stem",
+        "tube-above-core-drain-vb-east-link",
+        "cold-core/line-water-in",
+        "cold-core/vb-inlet-turn",
+        "cold-core/line-co2-in",
+        "wire-PE-carbonator",
+        "wire-J7-carb-earth-2",
+        "wire-temp-GND",
+        "wire-J4-IO26",
+        "wire-J7-CHI",
+        "wire-J4-3V3",
+        "wire-J7-CLO",
+        "cold-core/suction-tube",
+        "cold-core/discharge-tube"
+      ],
+      "withinMeshing": [
+        "cold-core/suction-barb-clamp",
+        "cold-core/discharge-barb-clamp",
+        "cold-core/discharge-barb-key",
+        "cold-core/suction-barb-key",
+        "tube-above-core-vb-yb-link",
+        "cold-core/carbonator-elbow-co2-in",
+        "tube-above-core-gas-core-drop",
+        "funnel-frame",
+        "tube-fluid-18",
+        "wire-AC2-L",
+        "wire-DC1-GND",
+        "enclosure-back-top",
+        "wire-DC1-V12",
+        "wire-AC2-N",
+        "psu",
+        "psu-screw-1",
+        "psu-screw-2",
+        "psu-screw-3",
+        "psu-screw-4",
+        "psu-insert-1",
+        "psu-insert-2",
+        "psu-insert-3",
+        "psu-insert-4",
+        "cold-core/evap-coil",
+        "cold-core/carbonator-fold",
+        "cold-core/discharge-chain",
+        "cold-core/discharge-reducer",
+        "cold-core/tube-water-5",
+        "cold-core/discharge-stem-clamp",
+        "cold-core/discharge-stem-key",
+        "tube-above-core-tee-regulator",
+        "wire-J6-RA4",
+        "wire-DC3-positive",
+        "wire-DC3-negative",
+        "wire-J6-RA3",
+        "wire-J6-GND",
+        "wire-J6-RA2",
+        "wire-J6-RA1",
+        "wire-J7-RB1",
+        "funnel"
+      ]
+    }
+  ]
+}
