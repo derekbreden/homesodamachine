@@ -11,6 +11,7 @@ ROOT = Path(__file__).resolve().parents[5]
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0,str(ROOT/'hardware/printed-parts/cold-core'))
 import _cold_core_interface as dimensions
+from _foam_shell import import_shell
 FILES = (
  'hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step',
  'hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step',
@@ -23,7 +24,8 @@ def main():
     result={}
     for rel in FILES:
         path=ROOT/rel
-        shape=cq.importers.importStep(str(path)).val()
+        shape=(import_shell(path) if path.name=='foam-shell.step'
+               else cq.importers.importStep(str(path)).val())
         axes=set()
         for face in shape.Faces():
             if face.geomType()!='CYLINDER':continue

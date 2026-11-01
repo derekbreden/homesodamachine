@@ -1,6 +1,6 @@
 {
-  "thickness_mm": 3.2,
+  "thickness_mm": 2.38,
   "material": "PET-GF",
   "process": "3D-print",
-  "notes": "Outer wall thickness (2 mm structural + 1.2 mm flute backing); inner shell for cold core"
+  "notes": "Smooth cold-core casing with 2.38 mm standing walls, a 2 mm structural floor and continuous M5 closure hosts"
 }
