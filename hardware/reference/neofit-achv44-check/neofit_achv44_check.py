@@ -6,13 +6,18 @@ scale and socket engagement are inferred from neoFit ATEU44/ATRU444 published
 These are same-family layout estimates, not published ACHV44 dimensions.
 See model-dimensions.json for the evidence scope.
 Native Y runs with the inferred flow; the origin bisects the two mouth planes.
+
+Geometry is in the frozen STEP and display payload beside this module.
+`frozen-asset.json` records their bytes and source snapshot.
 """
 from pathlib import Path
 import json
-import sys
 
 HERE = Path(__file__).resolve().parent
 NAME = 'neofit-achv44-check'
+STEP_PATH = HERE / (NAME + '.step')
+PAYLOAD_PATH = HERE / (NAME + '.step.mesh')
+ASSET_MANIFEST_PATH = HERE / 'frozen-asset.json'
 TUBE_OD = 6.35
 LENGTH = 55.43160662774284
 FAMILY_SOCKET_COLLAR_OD = .610 * 25.4
@@ -109,65 +114,11 @@ def specification():
     return json.loads((HERE / 'model-dimensions.json').read_text())
 
 
-def _cylinder(radius, s0, s1):
-    import cadquery as cq
-    return cq.Solid.makeCylinder(radius, s1 - s0,
-                                cq.Vector(0., s0 - LENGTH / 2., 0.),
-                                cq.Vector(0., 1., 0.))
+def main():
+    print(NAME)
+    print(f"  STEP: {STEP_PATH}")
+    print(f"  Display payload: {PAYLOAD_PATH}")
 
 
-def build_parts():
-    """Separate fixed acetal case and two estimated movable release collets."""
-    import cadquery as cq
-    # Revolve a station/radius polyline about Y in the native XY plane.
-    profile = [(0., FIXED_PROFILE[0][0] - LENGTH / 2.),
-               *((r, s - LENGTH / 2.) for s, r in FIXED_PROFILE),
-               (0., FIXED_PROFILE[-1][0] - LENGTH / 2.)]
-    body = (cq.Workplane('XY').polyline(profile).close()
-            .revolve(360., (0., 0.), (0., 1.)).val())
-    body = body.cut(_cylinder(FLOW_BORE / 2., -.01, LENGTH + .01))
-    for lo, hi in ((-.01, SOCKET_INSERTION),
-                   (LENGTH - SOCKET_INSERTION, LENGTH + .01)):
-        body = body.cut(_cylinder(TUBE_OD / 2., lo, hi))
-    # Clearance around each illustrative moving collet keeps the fixed case
-    # separate from its stem. Grab rings, seals and valve internals are absent.
-    body = body.cut(_cylinder(COLLET_STEM_RADIUS + .05, -.01, COLLET_REACH + .05))
-    body = body.cut(_cylinder(COLLET_STEM_RADIUS + .05, LENGTH - COLLET_REACH - .05, LENGTH + .01))
-
-    def collet(s0, sign):
-        mouth = s0 - LENGTH / 2.
-        plane = cq.Plane(origin=(0., mouth, 0.), xDir=(1., 0., 0.),
-                         normal=(0., sign, 0.))
-        lip = (cq.Workplane(plane).ellipse(COLLET_MAJOR_RADIUS, COLLET_MINOR_RADIUS)
-               .extrude(COLLET_LIP_LENGTH).val())
-        if sign > 0:
-            stem = _cylinder(COLLET_STEM_RADIUS, s0, s0 + COLLET_REACH)
-            hole = _cylinder(TUBE_OD / 2., s0 - .01, s0 + COLLET_REACH + .01)
-        else:
-            stem = _cylinder(COLLET_STEM_RADIUS, s0 - COLLET_REACH, s0)
-            hole = _cylinder(TUBE_OD / 2., s0 - COLLET_REACH - .01, s0 + .01)
-        return lip.fuse(stem).cut(hole)
-
-    return {'fixed-body': body, 'inlet-release-collet': collet(0., 1.),
-            'outlet-release-collet': collet(LENGTH, -1.)}
-
-
-def build():
-    """Native exterior compound; no valve, seal or gripping mechanism model."""
-    import cadquery as cq
-    return cq.Compound.makeCompound(list(build_parts().values()))
-
-
-def export():
-    import cadquery as cq
-    sys.path.insert(0, str(HERE.parents[1] / 'scripts'))
-    from _cadq_export import export_assembly
-    from _materials import M_NEOFIT_ACETAL
-    assembly = cq.Assembly(name=NAME)
-    for name, shape in build_parts().items():
-        assembly.add(shape, name=name, color=M_NEOFIT_ACETAL)
-    export_assembly(assembly, str(HERE / (NAME + '.step')))
-
-
-if __name__ == '__main__':
-    export()
+if __name__ == "__main__":
+    main()
