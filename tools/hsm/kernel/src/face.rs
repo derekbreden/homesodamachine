@@ -2,7 +2,9 @@
 //! generator line that asked for it.
 use crate::math::{Affine, V3, atan};
 use crate::rule::canonical_axis;
-use std::collections::BTreeMap;
+use anyhow::{Context, Result, ensure};
+use serde_json::Value;
+use std::collections::{BTreeMap, BTreeSet};
 use std::fmt;
 use std::panic::Location;
 use std::path::{Component, Path, PathBuf};
@@ -18,6 +20,10 @@ pub trait Source: fmt::Debug + Sync {
     fn file(&self) -> &str;
     fn line(&self) -> Option<u32>;
     fn column(&self) -> Option<u32>;
+    /// A source string already recorded by a model, without rustc's workspace prefix.
+    fn repo_relative(&self) -> bool { false }
+    /// False when the producer explicitly recorded no source (`null`).
+    fn recorded(&self) -> bool { true }
 }
 
 impl Source for Location<'static> {
@@ -35,40 +41,84 @@ impl Source for Location<'static> {
 impl PartialEq for dyn Source {
     fn eq(&self, other: &Self) -> bool {
         self.file() == other.file() && self.line() == other.line() && self.column() == other.column()
+            && self.recorded() == other.recorded()
     }
 }
 
 #[derive(Debug)]
-struct ReadFile(String);
+struct ReadFile {
+    name: String,
+    line: Option<u32>,
+}
+
+#[derive(Debug)]
+struct UnknownSource;
+
+impl Source for UnknownSource {
+    fn file(&self) -> &str { "" }
+    fn line(&self) -> Option<u32> { None }
+    fn column(&self) -> Option<u32> { None }
+    fn recorded(&self) -> bool { false }
+}
+
+/// A face whose model explicitly records no source.
+pub fn unknown_src() -> Src {
+    static UNKNOWN: UnknownSource = UnknownSource;
+    &UNKNOWN
+}
 
 impl Source for ReadFile {
     fn file(&self) -> &str {
-        &self.0
+        &self.name
     }
     fn line(&self) -> Option<u32> {
-        None
+        self.line
     }
     fn column(&self) -> Option<u32> {
         None
     }
+    fn repo_relative(&self) -> bool { true }
 }
 
 /// The source of a face read from the file `name`, one per name for the run.
 pub fn file_src(name: &str) -> Src {
-    static NAMES: Mutex<BTreeMap<String, &'static ReadFile>> = Mutex::new(BTreeMap::new());
+    read_src(name, None)
+}
+
+fn read_src(name: &str, line: Option<u32>) -> Src {
+    static NAMES: Mutex<BTreeMap<(String, Option<u32>), &'static ReadFile>> = Mutex::new(BTreeMap::new());
     let mut names = NAMES.lock().unwrap_or_else(|e| e.into_inner());
-    if let Some(&src) = names.get(name) {
+    let key = (name.to_owned(), line);
+    if let Some(&src) = names.get(&key) {
         return src;
     }
-    let src: &'static ReadFile = Box::leak(Box::new(ReadFile(name.to_string())));
-    names.insert(name.to_string(), src);
+    let src: &'static ReadFile = Box::leak(Box::new(ReadFile { name: name.to_owned(), line }));
+    names.insert(key, src);
     src
+}
+
+/// A source already written as a repo-relative `path:line`, or a file name alone.
+pub fn record_src(text: &str) -> Src {
+    match text.rsplit_once(':').and_then(|(name, line)| line.parse().ok().map(|line| (name, line))) {
+        Some((name, line)) => read_src(name, Some(line)),
+        None => file_src(text),
+    }
+}
+
+fn intern(text: &str) -> &'static str {
+    static TEXT: Mutex<BTreeSet<&'static str>> = Mutex::new(BTreeSet::new());
+    let mut held = TEXT.lock().unwrap_or_else(|e| e.into_inner());
+    if let Some(&text) = held.get(text) { return text; }
+    let text: &'static str = Box::leak(text.to_owned().into_boxed_str());
+    held.insert(text);
+    text
 }
 
 /// `path:line` of a generator line, the path from the checkout's root, as meshcad writes its own;
 /// a read file's name alone.
 pub fn src_line(src: Src) -> String {
     match src.line() {
+        Some(line) if src.repo_relative() => format!("{}:{line}", src.file()),
         Some(line) => format!("{}:{line}", repo_path(src.file())),
         None => src.file().to_string(),
     }
@@ -293,6 +343,45 @@ impl Face {
 
     pub fn transformed(&self, t: &Affine) -> Face {
         Face { surface: self.surface.transformed(t), ..*self }
+    }
+
+    /// The analytic surface and source record written by `write::face_json` or meshcad.
+    pub fn from_json(record: &Value) -> Result<Face> {
+        let number = |key: &str| -> Result<f64> {
+            let value = record[key].as_f64().with_context(|| format!("face has no numeric {key}"))?;
+            ensure!(value.is_finite(), "face {key} is not finite");
+            Ok(value)
+        };
+        let vector = |key: &str| -> Result<V3> {
+            let value = record[key].as_array().with_context(|| format!("face has no vector {key}"))?;
+            ensure!(value.len() == 3, "face {key} is not a three-vector");
+            let mut out = [0.0; 3];
+            for (i, v) in value.iter().enumerate() {
+                out[i] = v.as_f64().with_context(|| format!("face {key} is not numeric"))?;
+                ensure!(out[i].is_finite(), "face {key} is not finite");
+            }
+            Ok(V3::from(out))
+        };
+        let kind = record["kind"].as_str().context("face has no surface kind")?;
+        let surface = match kind {
+            "PLANE" => Surface::Plane { p: vector("p")?, n: vector("n")? },
+            "CYLINDER" => Surface::Cylinder { p: vector("p")?, d: vector("d")?, r: number("r")? },
+            "CONE" => Surface::Cone { p: vector("p")?, d: vector("d")?, r: number("r")?, slope: number("slope")? },
+            "SPHERE" => Surface::Sphere { c: vector("c")?, r: number("r")? },
+            "TORUS" => Surface::Torus { c: vector("c")?, d: vector("d")?, major: number("R")?, minor: number("r")? },
+            kind => Surface::Free { kind: intern(kind) },
+        };
+        let source = record.get("src").context("face has no source field")?;
+        let source = if source.is_null() { unknown_src() }
+            else { record_src(source.as_str().context("face source is not text or null")?) };
+        let mut face = Face::new(surface,
+            intern(record["op"].as_str().context("face has no builder")?), source);
+        if let Some(via) = record.get("via").filter(|v| !v.is_null()) {
+            let (op, src) = via.as_str().and_then(|v| v.split_once(" at "))
+                .context("face via is not 'operation at source'")?;
+            face.via = Some(Via { op: intern(op), src: record_src(src) });
+        }
+        Ok(face)
     }
 }
 

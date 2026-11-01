@@ -137,6 +137,14 @@ impl Solid {
     pub fn simplified(&self) -> Result<Solid> {
         Ok(self.clone())
     }
+
+    pub fn shared_volume(&self, _: &Solid) -> Result<f64> {
+        anyhow::bail!("a shared volume needs the kernel's manifold feature")
+    }
+
+    pub fn gap(&self, _: &Solid) -> Result<f64> {
+        anyhow::bail!("a solid clearance needs the kernel's manifold feature")
+    }
 }
 
 #[cfg(feature = "manifold")]
@@ -152,7 +160,7 @@ mod backend {
     use crate::plane::Plane;
     use crate::rule::{LINEAR, TOLERANCE};
     use crate::solid::{Solid, canonical};
-    use anyhow::{Result, anyhow};
+    use anyhow::{Result, anyhow, ensure};
     use manifold_csg::{Manifold, MeshGL64, MeshGL64Options, OpType, reserve_ids};
 
     /// A solid as Manifold holds it, and the face each run's original id stands for.
@@ -490,6 +498,32 @@ mod backend {
     }
 
     impl Solid {
+        /// Shared volume in mm³, including containment, on the fine model mesh. No component
+        /// is discarded by the fabrication simplifier or the boolean sliver rule.
+        pub fn shared_volume(&self, other: &Solid) -> Result<f64> {
+            if self.is_empty() || other.is_empty() { return Ok(0.0); }
+            let (a, b) = (self.bounds(), other.bounds());
+            if (0..3).any(|k| a.max[k] <= b.min[k] || b.max[k] <= a.min[k]) { return Ok(0.0); }
+            let overlap = built(self)?.m.intersection(&built(other)?.m);
+            overlap.status().map_err(|e| anyhow!("shared-volume intersection: {e}"))?;
+            let volume = overlap.volume();
+            ensure!(volume.is_finite() && volume >= -1e-6, "invalid shared volume {volume}");
+            Ok(volume.max(0.0))
+        }
+
+        /// Solid clearance in mm: zero on penetration or containment, otherwise the nearest
+        /// surface distance. Manifold searches the fine f64 model without file simplification.
+        pub fn gap(&self, other: &Solid) -> Result<f64> {
+            ensure!(!self.is_empty() && !other.is_empty(), "a gap needs two nonempty solids");
+            let (a, b) = (self.bounds(), other.bounds());
+            let limit = (a.max.max(b.max) - a.min.min(b.min)).norm() + LINEAR;
+            let gap = built(self)?.m.min_gap(&built(other)?.m, limit);
+            ensure!(gap.is_finite() && gap >= 0.0, "invalid solid clearance {gap}");
+            // Surface intersections/contact need no boolean. A positive surface distance may
+            // still mean one closed component is contained, whose solid clearance is zero.
+            Ok(if gap == 0.0 || self.shared_volume(other)? > 0.0 { 0.0 } else { gap })
+        }
+
         /// The solid as a file takes it: simplified to the rule's TOLERANCE, so no edge shorter
         /// and no sliver thinner than that reaches a slicer.
         pub fn simplified(&self) -> Result<Solid> {

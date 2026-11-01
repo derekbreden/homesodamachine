@@ -1,9 +1,9 @@
-//! Parts from other files: the bodies of a `.step.mesh` payload, and of a STEP through a payload
-//! cut from it.
+//! Parts from other files: fine `.step.npz` models, `.step.mesh` payloads, and STEPs through
+//! payloads cut from them.
 //!
-//! A payload holds triangles and the face ranges the page picks by, and no surfaces. Every face
-//! read from one is a free `MESH` record made by "import", and its source is the file asked for
-//! (`face::file_src`): the payload, or the STEP read through it. The solids of one body, which a
+//! A model preserves its f64 vertices, names, colours and analytic face records. A payload
+//! carries the face ranges the page picks by and optional records for those ranges. A range
+//! without records gets a free `MESH import` record naming the file asked for. The solids of one body, which a
 //! payload holds as `name/1`, `name/2`, …, come back as one body under its name.
 //!
 //! A STEP of B-rep faces is read through `.cache/hsm/import/<SHA-256>.step.mesh` at the
@@ -11,6 +11,7 @@
 //! kernel's rule, which `_rust_part.step` cuts once under the CAD lock. A STEP of triangles, which a mesh kernel writes, is read through the
 //! payload its writer cut beside it (`<name>.step.mesh`, whose `src` is the STEP's SHA-256). A
 //! relative path is read from the working directory, which `_rust_part.cut` sets to the root.
+//! `model(path)` reads an explicitly named model; no sibling model is substituted for a STEP.
 use crate::face::{Face, Surface, file_src};
 use crate::mass;
 use crate::math::{V3, v3};
@@ -21,7 +22,10 @@ use anyhow::{Context, Result, bail, ensure};
 use serde_json::Value;
 use sha2::{Digest, Sha256};
 use std::collections::HashMap;
+use std::io::{Cursor, Read, Seek};
 use std::path::{Component, Path, PathBuf};
+use npyz::{Deserialize, NpyFile, Order};
+use zip::ZipArchive;
 
 /// A body read from a file.
 #[derive(Clone, Debug)]
@@ -114,6 +118,59 @@ pub fn step(path: impl AsRef<Path>) -> Result<Vec<Imported>> {
     bodies(&bytes, &name)
 }
 
+/// The fine f64 geometry, body identities and face records of a model file.
+pub fn model(path: impl AsRef<Path>) -> Result<Vec<Imported>> {
+    let path = path.as_ref();
+    let bytes = std::fs::read(path).with_context(|| format!("reading {}", path.display()))?;
+    crate::reads::read(path, &bytes);
+    model_bodies(&bytes).with_context(|| format!("reading model {}", path.display()))
+}
+
+/// `model` from bytes: the stored or deflated NPZ arrays written by the kernel or meshcad.
+pub fn model_bodies(bytes: &[u8]) -> Result<Vec<Imported>> {
+    let mut archive = ZipArchive::new(Cursor::new(bytes))?;
+    let names: Vec<String> = serde_json::from_value(model_json(&mut archive, "names")?)?;
+    let colors: Vec<Option<[f64; 3]>> = serde_json::from_value(model_json(&mut archive, "colors")?)?;
+    let records: Vec<Vec<serde_json::Value>> = serde_json::from_value(model_json(&mut archive, "records")?)?;
+    ensure!(names.len() == colors.len() && names.len() == records.len(),
+        "model names, colors and records have different body counts");
+    names.into_iter().zip(colors).zip(records).enumerate().map(|(i, ((name, color), records))| {
+        let (vertices, vertex_shape) = model_array::<f64, _>(&mut archive, &format!("V{i}"))?;
+        let (triangles, triangle_shape) = model_array::<u32, _>(&mut archive, &format!("T{i}"))?;
+        let (face_of, face_shape) = model_array::<u32, _>(&mut archive, &format!("F{i}"))?;
+        ensure!(vertex_shape.len() == 2 && vertex_shape[1] == 3,
+            "body {i} vertices are not an N by 3 array");
+        ensure!(triangle_shape.len() == 2 && triangle_shape[1] == 3,
+            "body {i} triangles are not an N by 3 array");
+        ensure!(face_shape == [triangle_shape[0]], "body {i} has a different face count from its triangles");
+        ensure!(vertices.iter().all(|v| v.is_finite()), "body {i} has a non-finite coordinate");
+        ensure!(color.is_none_or(|c| c.iter().all(|v| v.is_finite())), "body {i} has a non-finite color");
+        let vertices: Vec<V3> = vertices.chunks_exact(3).map(|v| V3::from([v[0], v[1], v[2]])).collect();
+        let triangles: Vec<[u32; 3]> = triangles.chunks_exact(3).map(|v| [v[0], v[1], v[2]]).collect();
+        let faces: Vec<Face> = records.iter().map(Face::from_json).collect::<Result<_>>()?;
+        ensure!(triangles.iter().flatten().all(|&v| (v as usize) < vertices.len()),
+            "body {i} has a vertex index outside its array");
+        ensure!(face_of.iter().all(|&f| (f as usize) < faces.len()),
+            "body {i} has a face index outside its records");
+        // The model is already a solid. Preserve every f64 coordinate without resnapping it.
+        let solid = Solid::raw(vertices, triangles, face_of, faces);
+        solid.check().with_context(|| format!("body {i} {name:?}"))?;
+        Ok(Imported { name, color, solid })
+    }).collect()
+}
+
+fn model_array<T: Deserialize, R: Read + Seek>(archive: &mut ZipArchive<R>, name: &str) -> Result<(Vec<T>, Vec<u64>)> {
+    let data = NpyFile::new(archive.by_name(&format!("{name}.npy"))?)?;
+    ensure!(data.order() == Order::C, "model {name} is not in C order");
+    let shape = data.shape().to_vec();
+    Ok((data.into_vec()?, shape))
+}
+
+fn model_json<R: Read + Seek>(archive: &mut ZipArchive<R>, name: &str) -> Result<serde_json::Value> {
+    let (bytes, shape) = model_array::<u8, _>(archive, name)?;
+    ensure!(shape == [bytes.len() as u64], "model {name} JSON is not a byte array");
+    Ok(serde_json::from_slice(&bytes).with_context(|| format!("model {name} JSON"))?)
+}
 
 /// The body `name` of `bodies`.
 pub fn body<'a>(bodies: &'a [Imported], name: &str) -> Result<&'a Solid> {
@@ -152,7 +209,15 @@ pub fn bodies(bytes: &[u8], name: &str) -> Result<Vec<Imported>> {
             ensure!(r[0] <= r[1] && (r[1] as usize) < tris.len(), "{name}: {entry} has a face range past its triangles");
             face_of[r[0] as usize..=r[1] as usize].fill(f as u32);
         }
-        let faces = vec![free; ranges + 1];
+        let mut faces = match e.get("faces") {
+            Some(records) => {
+                let records = records.as_array().context("payload face records are an array")?;
+                ensure!(records.len() == ranges, "{name}: {entry} has a different record count from its face ranges");
+                records.iter().map(Face::from_json).collect::<Result<Vec<_>>>()?
+            }
+            None => vec![free; ranges],
+        };
+        faces.push(free);
         let solid = Solid::from_mesh(&verts, &tris, &face_of, &faces).with_context(|| format!("{name}: {entry}"))?;
         let body = without_index(entry);
         let color = e["color"].as_array().map(|c| [0, 1, 2].map(|k| c.get(k).and_then(Value::as_f64).unwrap_or(0.0)));

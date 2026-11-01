@@ -15,11 +15,13 @@ manifold = ["dep:manifold-csg"]
 anyhow.workspace = true
 libm = "0.2"
 miniz_oxide = "0.8"
+npyz = "0.9.1"
 serde_json.workspace = true
 sha2.workspace = true
 spade = "2"
 ttf-parser = "0.25"
 manifold-csg = { version = "0.4.1", default-features = false, optional = true }
+zip = { version = "9.1.2", default-features = false, features = ["deflate-flate2-zlib-rs"] }
 
 [target.'cfg(unix)'.dependencies]
 hsm-run-slots = { path = "../run-slots" }

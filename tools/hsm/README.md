@@ -232,15 +232,27 @@ import reads beside it (`<name>.step.npz`). The same solid writes the same bytes
 Without the `manifold` feature the kernel is pure Rust and builds for wasm32; its booleans
 then return an error.
 
-Bodies come back in from payloads (`import`). `import::payload(path)` reads every body of a
+`Solid::gap(&other)` reports solid clearance in mm, zero for contact, penetration or
+containment. `Solid::shared_volume(&other)` reports intersection volume in mm³, including
+containment. Both use the fine f64 mesh through Manifold, without the fabrication simplifier
+or boolean sliver filter.
+
+`import::model(path)` reads an explicitly named `.step.npz`: f64 vertices, triangles, face
+records, body names and linear colours. Stored and deflated NPZ files use maintained `npyz`
+and `zip` readers. Coordinates and face indices keep their original order and precision.
+Recorded surface parameters, source lines and boolean provenance survive import; an explicit
+unknown source stays `null`. A model input is named directly by the consumer.
+
+`import::payload(path)` reads every body of a
 `.step.mesh`. `import::step(path)` reads a STEP's bodies through a payload cut from it. A STEP of
 B-rep faces is read through `.cache/hsm/import/<SHA-256>.step.mesh` at the checkout's root,
 OCCT's mesh of it at the kernel's rule, which `_rust_part.step` cuts. A STEP of triangles is
 read through the payload its writer cut beside it, whose `src` is the STEP's SHA-256. Each body
 is an `Imported` (`name`, `color`, `solid`). The solids a payload numbers
 `name/1`, `name/2`, … come back as one body under its name, and `import::body(&bodies, name)`
-picks one out. A payload holds no surfaces, so every face read is a free `MESH` record whose
-source is the file asked for: `MESH import at hardware/reference/tee-connector/tee-connector.step`.
+picks one out. A payload's optional face records are retained. A range with no records gets a
+free `MESH` record whose source is the file asked for:
+`MESH import at hardware/reference/tee-connector/tee-connector.step`.
 `Solid::from_mesh` makes a solid of any closed mesh. Corners at one point of the grid are one
 vertex, and a mesh left open or folded is an error.
 
