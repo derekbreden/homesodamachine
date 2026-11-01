@@ -10,10 +10,10 @@ The kernel cuts the cover (`faucet_display_cover.rs`, beside this module) from t
 CadQuery for the faucet assembly's CadQuery assembly, the display snap trial and the geometry
 check, which read them.
 """
+
+from __future__ import annotations
 from pathlib import Path
 import sys
-
-import cadquery as cq
 
 _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
@@ -24,6 +24,11 @@ for path in (
     next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools",
 ):
     sys.path.insert(0, str(path))
+if __name__ == "__main__":
+    import _rust_part
+    _rust_part.start()
+
+import cadquery as cq
 from _faucet_interface import (
     display_corner_r, display_cover_lap, display_cover_over_face,
     display_housing_length, display_housing_width,
