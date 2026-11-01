@@ -29,11 +29,6 @@ import json
 import os
 import sys
 
-from OCP.Bnd import Bnd_Box
-from OCP.BRepTools import BRepTools
-from OCP.TopTools import TopTools_FormatVersion
-from cadquery.occ_impl.geom import BoundBox
-
 import _realized
 
 _CACHE: dict = {}
@@ -59,6 +54,9 @@ def _named(shape) -> str:
     """A name for the box `shape` reads. The shape's own BREP text, WHICH CARRIES ITS LOCATION —
     the optimal box of a turned body is not the turned optimal box, so a name that held still
     under a move would hand back the wrong six numbers."""
+    from OCP.BRepTools import BRepTools
+    from OCP.TopTools import TopTools_FormatVersion
+
     stream = io.BytesIO()
     BRepTools.Write_s(shape, stream, False, False,
                       TopTools_FormatVersion.TopTools_FormatVersion_VERSION_1)
@@ -101,6 +99,9 @@ def _kept(solid):
         except Exception:
             v = None                             # an entry that cannot be read is a miss
         if v is not None and len(v) == 6:
+            from OCP.Bnd import Bnd_Box
+            from cadquery.occ_impl.geom import BoundBox
+
             try:
                 os.utime(path, None)             # a hit is what `_prune` reads as the entry's age
             except OSError:
