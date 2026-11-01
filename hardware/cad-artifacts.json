@@ -96,8 +96,8 @@
     "hardware/install-guide/plumbing/modern/art/modern-tee-tug-check.png": "8a00340093b0dc25942826efdbb12236525daad39a98dc4f6d62c81b97c643fc",
     "hardware/install-guide/plumbing/modern/art/modern-water-off.png": "eb5623a33b96b53f5a3d451395f0cc6e4a7b8c6242bd600e0ab661f33765f27c",
     "hardware/install-guide/plumbing/modern/art/modern-water-on.png": "9d15c3c5ef60820f86c6cec68b200dfb5f43fda1dea5b86ec0600b8c53074fb7",
-    "hardware/manifold-layout/enclosure-assembly.step": "43de7a97158cfb3d2b9de706d7370fcb1c8b6c32dcb2d9cc09404d443c725655",
-    "hardware/manifold-layout/enclosure-assembly.step.mesh": "99c6fbd1328a9dc22b0ddf7ca6c0480ae7e08277b4d060c464f690d845bd02fb",
+    "hardware/manifold-layout/enclosure-assembly.step": "c264aefc6a1a1304af27e06af353ba9819de9be0daf85c3647c2a01058f7ebd7",
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": "ac4c208beb6a0104bc76c3a766093f1435c75ad662f22af6725bfc25c3815db5",
     "hardware/manifold-layout/manifold-layout.step": "5eef4a1580f9571e71cac2dda03eb02df691074e276b79e694b3ee3a2eedd1ad",
     "hardware/manifold-layout/manifold-layout.step.mesh": "e710b90db3148a6a790a5842f065c20e108c45112f6e1715ec8b7f8fbf1abab6",
     "hardware/manifold-layout/studies/ceiling-fit/parts/back-wall.step": "8569f20e91df06d2e3e7e8e3175c1c5fdef3d803d3aee809fd2182a4d9517fcd",
@@ -1460,7 +1460,7 @@
   },
   "sidecars": {
     "hardware/cold-core-layout/cold-core-assembly.scorecard.json": "85ffcaf4e6654db3abadd0dc418b0bf30b29466985885ce5056dafdf572121ea",
-    "hardware/manifold-layout/enclosure-assembly.scorecard.json": "918ec0733dc28690e9c04a1287d9a52e570cd4aee2d49adc2c0c11fe3efaaeb0",
+    "hardware/manifold-layout/enclosure-assembly.scorecard.json": "13d2d54193afcff3ffd58888c6b8b166814cb07ae44fa688de04f59665e31538",
     "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.scorecard.json": "85ffcaf4e6654db3abadd0dc418b0bf30b29466985885ce5056dafdf572121ea"
   },
   "moved": {
@@ -1543,8 +1543,8 @@
     "hardware/install-guide/plumbing/modern/art/modern-tee-tug-check.png": 1791566298,
     "hardware/install-guide/plumbing/modern/art/modern-water-off.png": 1791566298,
     "hardware/install-guide/plumbing/modern/art/modern-water-on.png": 1791566298,
-    "hardware/manifold-layout/enclosure-assembly.step": 1793563295,
-    "hardware/manifold-layout/enclosure-assembly.step.mesh": 1793563295,
+    "hardware/manifold-layout/enclosure-assembly.step": 1793567828,
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": 1793567828,
     "hardware/manifold-layout/manifold-layout.step": 1792740989,
     "hardware/manifold-layout/manifold-layout.step.mesh": 1792740989,
     "hardware/manifold-layout/studies/ceiling-fit/parts/back-wall.step": 1792743994,
@@ -3214,18 +3214,17 @@
       "unproven": true
     },
     "hardware/manifold-layout/enclosure-assembly.scorecard.json": {
-      "inputs": "652d4525e1345cae3cfa024c44cb466a4f3d1ec7531e8dc75d1d3a8ae5417ef9",
-      "commit": "eecf0d62eca0d6cf018f9bfc1b00a28a984c9cfc",
+      "inputs": "2e0a18e8c522afff285653ec3f112b513cb39262382c16f072c83533ad8d7b89",
+      "commit": "2ce64149a6cb20d9f34f21336cfe809d86df1e9c",
       "unproven": true
     },
     "hardware/manifold-layout/enclosure-assembly.step": {
-      "inputs": "44d739202b1f1cac22ea27c1e30ef302cce3d3b67e93b92f8a538d9b6caa4a94",
-      "commit": "eecf0d62eca0d6cf018f9bfc1b00a28a984c9cfc",
+      "commit": "2ce64149a6cb20d9f34f21336cfe809d86df1e9c",
       "unproven": true
     },
     "hardware/manifold-layout/enclosure-assembly.step.mesh": {
-      "inputs": "44d739202b1f1cac22ea27c1e30ef302cce3d3b67e93b92f8a538d9b6caa4a94",
-      "commit": "eecf0d62eca0d6cf018f9bfc1b00a28a984c9cfc",
+      "inputs": "1312b57b7ff9ad4fdb3689260054d547dcc6933844a217c6ee29d26a8d39fc8f",
+      "commit": "2ce64149a6cb20d9f34f21336cfe809d86df1e9c",
       "unproven": true
     },
     "hardware/manifold-layout/manifold-layout.step": {
