@@ -4,21 +4,20 @@ Frame: open guide bore on Z, flat print bottom at Z=0. The enclosed annular
 pocket is filled with the magnet during a native layer pause.
 """
 
+import argparse
 import json
 import math
 import sys
 from pathlib import Path
 
-import cadquery as cq
-import trimesh
-
 ROOT = next(p for p in Path(__file__).resolve().parents
-            if (p / "hardware/scripts/_cadq_export.py").is_file())
+            if (p / "hardware/scripts/_rust_part.py").is_file())
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(ROOT / "hardware/scripts"))
-from _cadq_export import export_assembly
-from _materials import one_body, M_ASA_AERO_WHITE
-from flute_payload import cut as write_print_payload
+if __name__ == '__main__':
+    import _rust_part
+    _rust_part.start()
+
 sys.path.insert(0, str(HERE.parents[1]))
 from _float_interface import (
     diameter, bore_diameter, guide_diameter, magnet_od, magnet_id,
@@ -32,6 +31,7 @@ from _float_interface import (
 
 
 def annulus(outer_radius, inner_radius, bottom, top):
+    import cadquery as cq
     return (cq.Workplane("XY").workplane(offset=bottom)
             .circle(outer_radius).circle(inner_radius).extrude(top - bottom).val())
 
@@ -47,10 +47,12 @@ def build():
     return body, magnet
 
 
-def measurements(body):
+def measurements(body=None):
     displacement_cc = annular_area * height / 1000
-    foam_cc = body.Volume() / 1000
-    assert abs(foam_cc - (displacement_cc - pocket_volume / 1000)) < 1e-7
+    foam_cc = displacement_cc - pocket_volume / 1000
+    if body is not None:
+        foam_cc = body.Volume() / 1000
+        assert abs(foam_cc - (displacement_cc - pocket_volume / 1000)) < 1e-7
     table = []
     for density in (0.46, 0.53, 0.55, 0.60, 0.65, 0.70):
         mass = foam_cc * density + magnet_mass
@@ -110,19 +112,26 @@ def measurements(body):
     }
 
 
-def write():
+def native_write(output=HERE):
+    import cadquery as cq
+    import trimesh
+    from _cadq_export import export_assembly
+    from _materials import one_body, M_ASA_AERO_WHITE
+    from flute_payload import cut as write_print_payload
+    output = Path(output)
+    output.mkdir(parents=True, exist_ok=True)
     body, magnet = build()
     foam_color, magnet_color = M_ASA_AERO_WHITE, cq.Color("#737D88")
     export_assembly(one_body(cq.Workplane(obj=body), "float-aero", foam_color),
-                    str(HERE / "float-aero.step"))
-    stl = HERE / "float-aero.stl"
+                    str(output / "float-aero.step"))
+    stl = output / "float-aero.stl"
     cq.exporters.export(body, str(stl), tolerance=0.01, angularTolerance=0.06)
     mesh = trimesh.load(stl, force="mesh", process=True)
     mesh.update_faces(mesh.nondegenerate_faces())
     mesh.remove_unreferenced_vertices()
     assert mesh.is_watertight and mesh.is_winding_consistent
     mesh.export(stl)
-    write_print_payload(HERE / "float-aero.step", stl)
+    write_print_payload(output / "float-aero.step", stl)
     half = (cq.Workplane("XY").box(diameter + 2, diameter, height + 2,
             centered=(True, True, False)).translate((0, -diameter / 2, -1)).val())
     open_body = body.intersect(cq.Workplane("XY").box(diameter + 2, diameter + 2, pocket_roof,
@@ -131,16 +140,46 @@ def write():
         view = cq.Assembly(name=f"all-aero-float-{name}")
         view.add(body if cut is None else body.intersect(cut), name="float-aero", color=foam_color)
         view.add(magnet if cut is None else magnet.intersect(cut), name="RC62", color=magnet_color)
-        export_assembly(view, str(HERE / f"{name}.step"))
+        export_assembly(view, str(output / f"{name}.step"))
     insertion = cq.Assembly(name="all-aero-float-magnet-insertion")
     insertion.add(open_body, name="printed-open-pocket", color=foam_color)
     insertion.add(magnet.translate((0, 0, 9)), name="insert-RC62", color=magnet_color)
-    export_assembly(insertion, str(HERE / "insertion.step"))
+    export_assembly(insertion, str(output / "insertion.step"))
     info = measurements(body)
-    (HERE / "design.json").write_text(json.dumps(info, indent=2) + "\n")
+    (output / "design.json").write_text(json.dumps(info, indent=2) + "\n")
     print(json.dumps({"height_mm": height, "minimum_height_mm": minimum_height,
                       "midplane_mm": magnet_midplane, "buoyancy": info["buoyancy"]}, indent=2))
 
 
-if __name__ == "__main__":
-    write()
+def numbers():
+    """What all_aero_float.rs cuts in the guide-bore frame."""
+    from _materials import linear
+    return {"diameter": diameter, "height": height, "bore_diameter": bore_diameter,
+            "pocket_od": pocket_od, "pocket_id": pocket_id,
+            "magnet_seat": magnet_seat, "pocket_roof": pocket_roof,
+            "magnet_od": magnet_od, "magnet_id": magnet_id,
+            "magnet_thickness": magnet_thickness,
+            "insertion_lift": 9.0,
+            "color_aero": list(linear("#EEE4C4")),
+            "color_magnet": list(linear("#737D88"))}
+
+
+def write(output=HERE):
+    import _rust_part
+    from flute_payload import cut as write_print_payload
+    output = Path(output)
+    output.mkdir(parents=True, exist_ok=True)
+    _rust_part.cut('cold-core', 'all-aero-float', numbers(), output)
+    write_print_payload(output / 'float-aero.step', output / 'float-aero.stl')
+    info = measurements()
+    (output / 'design.json').write_text(json.dumps(info, indent=2) + '\n')
+    print(json.dumps({"height_mm": height, "minimum_height_mm": minimum_height,
+                      "midplane_mm": magnet_midplane, "buoyancy": info["buoyancy"]}, indent=2))
+
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--native', action='store_true', help='Run the retained native builders')
+    parser.add_argument('--output', type=Path, default=HERE)
+    args = parser.parse_args()
+    (native_write if args.native else write)(args.output)
