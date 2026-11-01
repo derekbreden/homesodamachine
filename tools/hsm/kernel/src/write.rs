@@ -320,6 +320,9 @@ fn payload(bodies: &[Body], src: Option<&str>, cut: Option<&Value>, sources: boo
 /// What a face record says in a file: its surface and its parameters, the builder and line that
 /// made it, and the boolean that brought it in.
 pub fn face_json(f: &Face) -> Value {
+    if f.record_null {
+        return Value::Null;
+    }
     let v = |p: V3| json!([r9(p.x), r9(p.y), r9(p.z)]);
     let mut out = match f.surface {
         Surface::Plane { p, n } => json!({"p": v(p), "n": v(n)}),
@@ -346,6 +349,7 @@ fn r9(x: f64) -> f64 {
 
 /// A binary glTF with one node per body. Each primitive's triangles run face by face, and
 /// `extras.faces` lists per face its first triangle, its count and its record (`face_json`).
+/// A whole-null record uses `{"record": null}` beside its range.
 pub fn glb_bytes(bodies: &[Body]) -> Vec<u8> {
     let mut blob: Vec<u8> = vec![];
     let mut views = vec![];
@@ -360,6 +364,9 @@ pub fn glb_bytes(bodies: &[Body]) -> Vec<u8> {
         let mut listed = vec![];
         for (f, tris) in faces.tris.iter().enumerate() {
             let mut rec = face_json(&s.faces[faces.record[f] as usize]);
+            if rec.is_null() {
+                rec = json!({"record": null});
+            }
             let o = rec.as_object_mut().unwrap();
             o.insert("first".into(), (order.len() as u64).into());
             o.insert("count".into(), (tris.len() as u64).into());
