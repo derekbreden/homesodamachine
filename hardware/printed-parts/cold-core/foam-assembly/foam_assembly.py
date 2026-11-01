@@ -39,7 +39,7 @@ from _cold_core_interface import (
     foam_shell_outer_height,
     head_pad_height,
 )
-from _foam_cap import cap_face_z, lid_total_height, stack_floor_z, top_cap_height
+from _foam_cap import cap_face_z, import_cap_part, lid_total_height, stack_floor_z, top_cap_height
 from _port_cuts import co2_inlet_xyz
 import _internal_routes as routes
 import _routing
@@ -86,6 +86,8 @@ ROUTE_COLORS = {name: _routing.color(key) for name, key in ROUTE_SPOOLS.items()}
 def _load(path):
     if Path(path) == SHELL_STEP:
         return import_shell(path)
+    if Path(path).parent == CAP_DIR:
+        return import_cap_part(path)
     return import_step(str(path)).val()
 
 
