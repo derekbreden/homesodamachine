@@ -135,6 +135,7 @@ reservoir_a_ties_per_build = sum(row.get('closure', 'tie') == 'tie'
 reservoir_a_snap_caps_per_build = sum(row.get('closure') == 'snap'
                                      for row in _reservoir_a_anchors.datums().values())
 four_inch_ties_per_build = 15 + 2 + reservoir_a_ties_per_build
+pump_cradle_ties_per_build = 4
 # One six-inch tie at each selected fluid saddle and explicit cap retaining path.
 # This allocates owned stock; installed loop fit/retention remain unqualified.
 _cap_retaining_paths = {**_selected_cap.meter_tie_routes(),
@@ -209,7 +210,7 @@ assert not _cover, (
 b_fill_clamp_fasteners_per_build = len(
     _selected_cap.reservoir_b_fill_passage()['clamp_stations'])
 foam_cap_deck_inserts_per_build = sum(len(deck_mount_xy(n)) for n in deck_mounts)
-pump_mount_screws_per_build = len(deck_mount_xy("g-ganen-pump"))
+pump_mount_screws_per_build = 0
 foam_cap_clamp_inserts_per_build = inserts_per_foam_cap_face * foam_cap_faces
 foam_cap_inserts_per_build = (foam_cap_clamp_inserts_per_build
                               + foam_cap_deck_inserts_per_build
@@ -432,6 +433,8 @@ def main(*, only_bom=False):
         "SOLENOIDS": f"{solenoid_count:.4g}",
         "TEES": f"{tee_count:.4g}",
         "TEES_COST": pack_line_cost(tee_count, "42.68", 20),
+        "PUMP_CRADLE_TIES": f"{pump_cradle_ties_per_build}",
+        "PUMP_CRADLE_TIES_COST": pack_line_cost(pump_cradle_ties_per_build, "5.35", 100),
         "FOUR_INCH_TIES": f"{four_inch_ties_per_build:.4g}",
         "FOUR_INCH_TIES_COST": pack_line_cost(four_inch_ties_per_build, "4.28", 200),
         "RESERVOIR_A_TIES": f"{reservoir_a_ties_per_build}",

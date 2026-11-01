@@ -147,13 +147,10 @@ def _compound(shapes):
 
 @cache
 def pump_native():
-    """Corrected rigid reference plus four identical installed rubber feet."""
+    """Bare installed pump, including its fixed casing rails."""
     pump = _module('above_core_pump', 'reference/g-ganen-pump/g_ganen_pump.py')
-    foot = _module('above_core_foot', 'reference/g-ganen-pump/common-foot/g_ganen_foot.py')
     parts = [part for name, part in pump.build_parts().items()
              if 'rubber_slider' not in name]
-    parts.extend(foot.placed_foot(x, side, 38.5)
-                 for x in (9.5, 67.5) for side in (-1, 1))
     return _compound(parts)
 
 
@@ -300,10 +297,12 @@ def components():
     add('keystone-jack', native_reference('keystone-jack'), C_C14, _frame(translation=face))
 
     depths = {'tee-fold': 12.7, 'lower-valve-elbow': 12.7,
-              'lower-pump-elbow': stem_elbow_reference().SOCKET_INSERTION,
+              'lower-pump-elbow': (stem_elbow_reference().SOCKET_INSERTION
+                                   + layout.specification()['rear_plumbing']['water_male_shoulder_land_mm']),
               'reg-va-elbow': 12.7, 'va-outlet-elbow': 12.7,
               'va-south-elbow': stem_elbow_reference().SOCKET_INSERTION,
-              'carbonator-fold': rear_plumbing.joint().reducer.TUBE_INSERTION_DEPTH,
+              'carbonator-fold': (rear_plumbing.joint().reducer.TUBE_INSERTION_DEPTH
+                                  + layout.specification()['rear_plumbing']['water_male_shoulder_land_mm']),
               'ya-stem-elbow': tee_reference().INSERTION,
               'drain-outlet-stem': layout.specification()['fore_routes']['drain_stem_length_mm'],
               'vb-inlet-turn': 12.7, 'vb-outlet-stem': 12.7,
@@ -460,7 +459,6 @@ def route_specs():
         result[name]['minimum_radius_mm'] = minimum_radius
 
     ownership = {
-        'va-fore-feed': ('va-east-turn', 'ya-stem-elbow'),
         'ya-concealed-link': ('ya-stem-elbow', 'ya-fold-inner'),
         'drain-vb-east-link': ('drain-outlet-stem', 'vb-inlet-turn'),
         'drain-vb-inlet-link': ('vb-inlet-turn', 'valve-v-b'),
@@ -473,11 +471,6 @@ def route_specs():
         segments = fore.get('native_segments', {}).get(name)
         if segments is not None:
             pass
-        elif name == 'va-fore-feed':
-            controls = fore.get('va_fore_controls_mm', [fore.get('va_fore_control_mm')])
-            segments = [_line(points[0], controls[0][0]),
-                        *[_bezier(control) for control in controls],
-                        _line(controls[-1][-1], points[-1])]
         elif name == 'drain-vb-east-link':
             control = fore.get('vb_drain_control_mm', fore.get('b_plumbing', {}).get('inlet_control_mm'))
             if fore.get('b_plumbing', {}).get('inlet_minimum_radius_mm') is None:
@@ -492,8 +485,7 @@ def route_specs():
             segments = [_line(points[0], control[0]),
                         *(_crowned_beziers(control, crown) if crown else [_bezier(control)]),
                         _line(control[-1], points[-1])]
-        radius_key = {'va-fore-feed': 'va_fore_minimum_radius_mm',
-                      'drain-vb-east-link': 'vb_drain_minimum_radius_mm',
+        radius_key = {'drain-vb-east-link': 'vb_drain_minimum_radius_mm',
                       'vb-yb-link': 'vb_return_minimum_radius_mm'}.get(name)
         radius = fore.get(radius_key) if radius_key else None
         if name == 'drain-vb-east-link' and radius is None:

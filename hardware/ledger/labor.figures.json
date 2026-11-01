@@ -6,7 +6,7 @@
     "FLOOR_SCREWS": "4",
     "FOAM_SCREWS": "20",
     "NAMEPLATE_SCREWS": "0",
-    "PUMP_MOUNT_SCREWS": "4",
+    "PUMP_MOUNT_SCREWS": "0",
     "RES_SCREWS": "12",
     "ROOF_CLOSURE_SCREWS": "4",
     "SEAM_INSERTS": "4",
@@ -14,10 +14,10 @@
     "SHELF_INSERTS": "4",
     "SHELF_SCREWS": "28",
     "SOLENOIDS": "10",
-    "TOTAL_INSERTS": "86",
-    "TOTAL_M3_INSERTS": "78",
+    "TOTAL_INSERTS": "82",
+    "TOTAL_M3_INSERTS": "74",
     "TOTAL_M5_INSERTS": "8",
-    "TOTAL_SCREWS": "86",
+    "TOTAL_SCREWS": "82",
     "TOUCHFLO_SCREWS": "3"
   },
   "/hardware/scripts/_labor_totals.py": {

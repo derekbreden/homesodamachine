@@ -28,7 +28,6 @@ import cadquery as cq
 
 import fits
 import valve_seat as _valve_seat
-import g_ganen_installation as _water_pump
 import _above_core_mounts as _above_mounts
 from world_workplane import xy_plane_z_up, xz_plane_y_up, xz_plane_y_down, WorldWorkplane
 from _stated_bounds import bound, state
@@ -434,7 +433,7 @@ state(
     f"an M3 × {cap_screw_length:g} reaches {cap_screw_beyond_face:g} mm past the shell "
     f"face and bottoms in a {insert_pocket_depth:g} mm pocket before its head is down")
 
-# Deck mounts — the pump and PCB carried on columns of the TOP CAP.
+# Deck mounts — the PCB carried on columns of the TOP CAP.
 # Each column grows from the cup floor and takes a full RX-M3x5.7 heat-set.
 # Foam fills the cup around the columns.
 #   A station with no standoff stops at the cap's mouth rim, under the lid, and its module
@@ -455,21 +454,9 @@ deck_mount_bore_relief = 1.0     # ruthex minimum blind relief; also reserve tra
 # the deck mounts' lid holes and the valve plinths (`foam_cap_lid_pour_xy`).
 deck_mount_cap_gap = 1.5
 
-# Each row carries native-reference holes through the production above-core
-# placement into this cap's frame. It gives the column standoff, head-bearing
-# thickness and screw length. The PCB's columns pass through the lid to its
-# underside; the pump bears on the lid above flush columns. The PSU mounts
-# on back-top's dry sidewall.
-#   THE PATTERN IS THE CAP'S ROTATION KEY. The top cap installs spun a half turn about Z
-# (`foam_assembly._spin`) and its clamp bosses are symmetric under that turn, so the thing
-# that tells a builder which way the cup goes on is what is NOT symmetric — this station and the
-# seven conduit columns beside it. `assembly/cold-core.md` CC-06 and CC-15 both read the cap
-# that way.
-# The pump's four identical rubber sliders stand at their fully engaged
-# fore/aft rail ends. Screw axes sit 1.5 mm outward within the elongated slots,
-# with a Ø9 × 0.8 washer on each 7 mm pad. Actual rubber compression remains
-# an installed observation. V-B has an integral upright socket wall on the
-# lid; V-A, V-K, the PSU and both relay modules are carried by back-top.
+# PCB holes follow the production above-core pose. The columns pass through
+# the lid to its underside. The bare pump uses the lid's integral casing bearing;
+# V-B uses its upright socket wall. V-A, V-K, PSU and relays belong to back-top.
 DeckMount = namedtuple("DeckMount", "points standoff seat screw seat_min")
 deck_mounts = {name: DeckMount(*row) for name, row in _above_mounts.deck_mounts().items()}
 
@@ -486,7 +473,7 @@ def deck_mount_standoff(name):
 
 def deck_mount_proud():
     """The tallest standoff in the pack — the foam assembly's own top over its lid's face.
-    PCB columns pass through the lid; the pump columns stop below it."""
+    PCB columns pass through the lid."""
     return max((deck_mount_standoff(name) for name in deck_mounts), default=0.0)
 
 
@@ -504,9 +491,8 @@ def deck_mount_reach(name):
     return m.screw - over
 
 
-# The pump's minimum blind depth leaves screw-tip travel below its nominal stack.
 deck_mount_bore_depth = max(9.75, deck_mount_insert_length + deck_mount_bore_relief,
-    _water_pump.SCREW_BORE_MIN_DEPTH, max(
+    max(
     (m.screw - m.seat_min - (foam_cap_lid_height + cap_lid_clearance
                            if m.standoff == 0.0 else 0.0)
      for m in deck_mounts.values()), default=0.0) + deck_mount_bore_relief)

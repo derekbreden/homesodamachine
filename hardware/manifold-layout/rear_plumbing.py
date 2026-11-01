@@ -80,17 +80,14 @@ def components():
     # Suction: one swept PVC bend joins the unchanged barb seating length to
     # the reducer stem. The reducer and its clamp share the end tangent.
     j = data['joint']
-    free, angle, lean = (j[k] for k in ('free', 'th', 'psi'))
-    n = np.array([0., -math.sin(lean), -math.cos(lean)])
-    def arc(t):
-        a, r = angle*t, free/angle
-        return r*math.sin(a)*np.array([1.,0.,0.])+r*(1.-math.cos(a))*n
-    end, middle = arc(1.), arc(.5)
-    bend = cq.Location(cq.Vector(*end)) * cq.Location(
-        cq.Vector(), cq.Vector(*np.cross([1.,0.,0.], n)), math.degrees(angle))
+    # Two tangent arcs accommodate the exposed shoulder land while the
+    # measured barb and the receiving connector retain their own axes.
+    suction = j['suction_bend']
+    bend = layout.frame_location(suction['end_frame'])
     rows = pj.bore('suction')
     path = cq.Wire.assembleEdges([cq.Edge.makeThreePointArc(
-        cq.Vector(), cq.Vector(*middle), cq.Vector(*end))])
+        *(cq.Vector(*p) for p in segment['points_mm']))
+        for segment in suction['segments']])
     span = cq.Workplane('YZ').circle(pj.TUBE_OD/2.).circle(pj.TUBE_ID/2.).sweep(path).val()
     tube = pj.turned(rows[:-2]).fuse(span, pj.turned([(0.,rows[-1][1]),(pj.TRIM,rows[-1][1])]).moved(bend)).clean()
     result['suction-tube'] = _placed(tube, data['suction-joint'], pj.M_PVC_CLEAR)
@@ -284,12 +281,13 @@ def continuations(station):
             'minimum_radius_mm':radius,'radius_mm':radius,'status':'selected_native_layout'}
 
     data = plan()['water5_bend']
-    a,m,b = data['points_mm']
-    guide = station('foam-assembly','water-in')[0]
+    arcs = data['segments']
+    a = arcs[0]['points_mm'][0]
+    b = arcs[-1]['points_mm'][-1]
     inserted = r._sub(a,r._mul(data['flow'],check().INSERTION))
-    segments = [r._line(inserted,a),_arc_three([a,m,b])]
-    if math.dist(b,guide)>1e-7: segments.append(r._line(b,guide))
-    add('water-5',segments,('discharge-chain','outlet'),('foam-assembly','water-in'),14.)
+    segments = [r._line(inserted,a),*arcs]
+    add('water-5',segments,('discharge-chain','outlet'),('foam-assembly','water-in'),
+        data['radius_mm'])
     a,ua,_ = station('digiten-flow','outlet');b,ub,_ = station('bulkhead-carb','tube-in')
     add('soda-meter-bulkhead',[r._line(r._sub(a,r._mul(ua,15.7)),r._sub(b,r._mul(ub,12.7)))],
         ('digiten-flow','outlet'),('bulkhead-carb','tube-in'),None,spool='blue')
@@ -302,24 +300,8 @@ def continuations(station):
     add('above-core-gas-core-drop',[r._line((a[0],a[1]+check().INSERTION,a[2]),a),r._bezier(c1),r._bezier(c2)],
         ('gas-check','outlet'),('foam-assembly','co2-in'),25.,spool='red')
 
-    # V-A's feed crosses above the pump, drops west of the return elbow and
-    # follows the plain lid through its open snap before rising under the drain.
-    a,ua,_ = station('va-south-elbow','socket');b,ub,_ = station('ya-stem-elbow','socket')
-    z = a[2]
-    points = [r._sub(a,r._mul(ua,16.891)),a,
-        (a[0],340.,z),(-11.,340.,z),(-11.,326.,z)]
-    prefix = r._rounded(points,14.)
-    angle = math.acos(1.-12./28.)
-    first,end = r._arc((-11.,326.,z),(0.,-1.,0.),(1.,0.,0.),angle,14.)
-    second,end = r._arc(end,(0.,-math.cos(angle),-math.sin(angle)),(-1.,0.,0.),angle,14.)
-    low = layout.specification()['cap_face_z_mm']+6.35/2.
-    drop = r._rounded([end,(-11.,285.,end[2]),(-11.,285.,low+14.)],14.)
-    diagonal=(math.sqrt(.5),-math.sqrt(.5),0.)
-    foot,end = r._arc((-11.,285.,low+14.),(0.,0.,-1.),
-                     (-math.sqrt(.5),-math.sqrt(.5),0.),math.pi/2.,14.)
-    turn,end = r._arc(end,diagonal,(0.,0.,-1.),math.pi/4.,14.)
-    retained = layout.specification()['fore_routes']['native_segments']['va-fore-feed']
-    add('above-core-va-fore-feed',[*prefix,first,second,*drop,foot,turn,*retained],
+    # Full receiving straights and tangent bends through the occupied layout.
+    add('above-core-va-fore-feed',layout.specification()['fore_routes']['native_segments']['va-fore-feed'],
         ('va-south-elbow','socket'),('ya-stem-elbow','socket'),14.)
 
     # The integral aft-facing socket keeps the LLDPE straight between the

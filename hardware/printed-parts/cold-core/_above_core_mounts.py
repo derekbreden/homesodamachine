@@ -59,11 +59,11 @@ def va_feed_snap():
     """Full-root C2 seat for the V-A feed, in appliance coordinates."""
     sys.path.insert(0, str(HW / 'printed-parts' / 'cadlib'))
     from route_snap import tube_clip
-    height = above_core.specification()['cap_face_z_mm']+6.35/2.
-    return tube_clip((3., 254.5, height), (0., 1., 0.), (0., 0., 1.),
-                     height-above_core.specification()['cap_face_z_mm'],
-                     tube_od=6.35, bore_diameter=6.35, span=8., wing=2.4,
-                     print_up=(0., 0., 1.))
+    datum=above_core.specification()['fore_routes']['va_feed_snap']
+    return tube_clip(datum['centre_world_mm'],datum['along_world'],(0.,0.,1.),
+                     datum['centre_world_mm'][2]-above_core.specification()['cap_face_z_mm'],
+                     tube_od=6.35,bore_diameter=6.35,span=8.,wing=2.4,
+                     print_up=(0.,0.,1.))
 
 
 def flavor_snaps():
@@ -125,26 +125,65 @@ def _standoff(name):
 
 @lru_cache(maxsize=1)
 def deck_mounts():
-    """Cup-rooted columns compatible with the cap's deck-mount construction.
-
-    The PCB's columns pass through the lid to its underside; the pump bears
-    on the lid above flush columns. Both use RX-M3x5.7 inserts. The PCB's
-    M3x8 screws cross its 1.6 mm board. The pump retains its measured
-    pad/washer stack. The dry-sidewall PSU has separate enclosure hosts.
-    """
+    """PCB columns pass through the lid and take full RX-M3x5.7 inserts."""
     pcb = importlib.import_module('pcba_tray')
-    pump = importlib.import_module('g_ganen_installation')
-    return {
-        'g-ganen-pump': DeckMount(
-            mounting_points('g-ganen-pump', pump.mount_holes()),
-            _standoff('g-ganen-pump'),
-            pump.observed_pad_upper_z() + pump.WASHER_T,
-            pump.SCREW_LENGTH,
-            pump.observed_pad_lower_z() + pump.WASHER_T),
-        'pcba': DeckMount(
-            mounting_points('pcba', pcb.board.holes), _standoff('pcba'),
-            pcb._thickness, 8.0, pcb._thickness),
-    }
+    return {'pcba': DeckMount(
+        mounting_points('pcba', pcb.board.holes), _standoff('pcba'),
+        pcb._thickness, 8.0, pcb._thickness)}
+
+
+def pump_cradle():
+    """Broad rear casing bearing, integral with the plain lid.
+
+    The front of the bare fixed lower casing rests directly on the lid.
+    This rear land follows the lowest occupied casing plane over the 20 x
+    12 mm bearing footprint. It is a load-bearing height datum, not a rail clip.
+    """
+    import cadquery as cq
+    import above_core_parts
+    pump = above_core_parts._module('bearing_pump',
+        'reference/g-ganen-pump/g_ganen_pump.py')
+    hull = next(r for r in pump.parameters()['casing_shell_envelopes']
+                if r['id']=='lower_cradle_occupied')['external_envelope']
+    heights=[]
+    for triangle in hull['triangles']:
+        polygon=[hull['vertices_mm'][i] for i in triangle]
+        for axis,bound,sign in ((0,64.,1),(0,76.,-1),(1,-10.,1),(1,10.,-1)):
+            clipped=[]
+            for a,b in zip(polygon,polygon[1:]+polygon[:1]):
+                da,db=(a[axis]-bound)*sign,(b[axis]-bound)*sign
+                if da>=0.:clipped.append(a)
+                if (da>=0.) != (db>=0.):
+                    t=da/(da-db)
+                    clipped.append([a[i]+t*(b[i]-a[i]) for i in range(3)])
+            polygon=clipped
+        heights.extend(p[2] for p in polygon)
+    frame=above_core.pose('g-ganen-pump')
+    cx,fy,z=frame['translation_mm']
+    face=above_core.specification()['cap_face_z_mm']
+    return cq.Solid.makeBox(20.,12.,z+min(heights)-face+.1,
+        cq.Vector(cx-10.,fy+64.,face-.1))
+
+
+def pump_tie_cuts():
+    """Two underside-open lanes, each retaining 3.8 mm of lid roof.
+
+    Two joined 8-inch wide ties make each motor loop. Side exits stand
+    outside the complete fixed lower casing and rails. Both lanes are
+    accessible from the lid underside before cap assembly.
+    """
+    import cadquery as cq
+    cx,fy,_=above_core.pose('g-ganen-pump')['translation_mm']
+    bottom=above_core.specification()['cap_face_z_mm']-5.4
+    result=[]
+    for station in (9.5,67.5):
+        y=fy+station
+        result.append(cq.Solid.makeBox(71.2,5.6,1.7,
+            cq.Vector(cx-35.6,y-2.8,bottom-.1)))
+        for x in (cx-35.6,cx+30.):
+            result.append(cq.Solid.makeBox(5.6,5.6,5.6,
+                cq.Vector(x,y-2.8,bottom-.1)))
+    return result
 
 
 def valve_support_datums(name, face_z=None):
@@ -238,10 +277,6 @@ def check_support_datums():
                    for p,a in zip(inlet,outward))
     centre = above_core.point(above_core.pose('discharge-chain'),native)
     radius = band_radius+fits.slip
-    pump_mounts = [above_core.point(above_core.pose('g-ganen-pump'),row['station_mm'])
-                   for row in pump.mount_stations()]
-    driver = min(pump_mounts,key=lambda p:math.dist(p[:2],centre[:2]))
-    tool_radius = 2.5/math.sqrt(3.)+fits.slip
     fore = centre[1]-core.cap_anchor_len/2.
     aft = centre[1]+core.cap_anchor_len/2.
     slot_top = centre[2]-radius-3.
@@ -260,8 +295,6 @@ def check_support_datums():
             'tie_roof_rise_mm': 1.4,
             'tie_route_z_mm': slot_top-2.,
             'open_direction': 'west-and-up',
-            'pump_driver_axis_world_mm': driver,
-            'pump_driver_radius_mm': tool_radius,
             'wall_mm': 3.}
 
 

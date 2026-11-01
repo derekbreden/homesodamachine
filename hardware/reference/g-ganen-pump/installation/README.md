@@ -1,92 +1,45 @@
 # Installed G Ganen pump
 
-The pump uses four identical purchased rubber feet with nominal **7 mm pads**.
-Each foot is an instance of the [shared scan-derived shape](../common-foot/g_ganen_foot.py),
-including its rounded pad, elongated screw opening, underside reliefs and raised
-rail clip. The feet slide independently along the casing rails and are removable.
+The installed pump has its four complete rubber foot-and-leg assemblies removed.
+Each assembly slides out of a fixed casing rail; the raised rail clip belongs to
+that removable rubber part. The bare pump retains its casing, motor, fixed rails,
+switch and measured barbs. The [purchased-foot reference](../common-foot/README.md)
+describes the supplied sliders.
 
-The full 18 mm clip spans the observed rail from reference X = **0.5–18.5 mm**
-at the front and **58.5–76.5 mm** at the rear. Slot centers are **X = 9.5 and
-67.5 mm**, **Y = ±38.5 mm**, giving a **58 mm fore/aft span**. These are the
-outermost positions with the complete visible clip engaged. The scans also show
-partial overhang; they do not establish its retention or a physical end stop.
+The pump installs at +90° about Z, with discharge toward enclosure −X. Its native
+origin is **(−15.368269, 368.317761, 251.439035) mm**. The front of the
+fixed lower casing bears directly on the plain lid at Z253.4. Production poses
+and connected fitting frames belong to [above-core.json](../../../manifold-layout/above-core.json).
 
-## Mount and assembly
+A **20 × 12 mm rear bearing land**, nominally **0.685486 mm** above the lid,
+supports the lower casing while keeping the motor aligned. Two loops retain the
+motor at native X9.5 and X67.5; **each loop uses two joined purchased 8-inch,
+50 lb, 0.19-inch-wide nylon ties**, four ties total. The **5.6 × 1.6 mm** lanes
+open along the lid's underside and end in through-slots outside the fixed rails.
+The plate retains **3.8 mm** of roof above each lane. A conservative 1.6 mm
+strap envelope clears the PSU by at least 0.75 mm across both complete bands. There are no pump-foot
+screws, washers or internal cup columns.
 
-Each foot uses one **M3 × 20 screw** and a **Ø9 × 0.8 mm washer**. The screw axis
-is **1.5 mm outward from the slot center**, within the elongated opening. At that
-position the nominal screw has **0.4 mm minimum slot clearance**, the washer
-clears the raised shoulder by **0.5 mm**, and **38.29 mm²** of its annulus bears
-on the flat pad, including solid material on both sides of the slot.
+Thread both joined loops through the empty lid before seating the pump. Keep both joined-loop
+buckles beside the motor below its equator, clear of the PSU; flush-cut their
+tails. Mask the grooves against the foam pour. During pump service, use each old
+strap as a draw leader for its replacement before withdrawing it. Complete the cap-clamp screws before fitting the PCB. Fit the two clamped
+PVC joints and discharge check while the core is open. Keep the suction elbow
+and its short inlet link loose for the populated rear-shell approach, then seat
+those round joints through the uncovered funnel opening.
 
-The matching cap columns and lid holes have these coordinates in the cap frame:
+The discharge group follows the pump datum. The suction PVC bend has a
+13.125051 mm free span on two tangent arcs of at least R39.968 and unchanged
+receiving lengths. Both water male fittings retain 0.4 mm of exposed shaft
+outside their complete receiving depths. Its
+connector rolls about its existing V-K stem axis; the opposed sockets retain
+a straight 0.25 mm exposed stub. The
+check outlet's two opposed bends retain at least **R14.923** and reach the straight water-in guide at
+**(−82.5, 420, 253.4) mm**. The regulator, ASSE and large valves
+retain their orthogonal placement.
 
-| Fore/aft pair | Cap X (mm) | Cap Y (mm) |
-| --- | ---: | ---: |
-| Front | −58.935458 | −37.928865, 42.071135 |
-| Rear | −116.935458 | −37.928865, 42.071135 |
-
-The nominal pad, washer and 5.4 mm lid leave **6.8 mm screw reach** into the
-column, covering its **5.7 mm insert**. The **8.5 mm blind depth** leaves **1.7 mm
-of screw-tip reserve** and **6.1 mm of floor stock**. That reserve is geometry;
-actual rubber compression is read during assembly.
-
-Place the pump on the lid, slide each foot to align its slot with the printed
-hole, and fasten all four washers and screws. Fasten the pump **before the rear
-keystone, flavor fittings and fluid-18 tube** occupy the driver approach. Check
-actual screw passage, flat washer seating and clamp engagement while the pump
-is accessible. The casing carries load through its rails and rubber feet into
-the lid and the four internal cap columns.
-
-The columns rise vertically from the cup floor. Their blind bores open at the
-top, and the lid holes pass straight through; both have open support-removal
-paths before assembly.
-
-## Installed datums
-
-`enclosure_assembly.build_water_pump()` rotates the reference **+90° about Z**,
-puts the nominal bearing plane on the cap face, and leaves **9.7 mm** between
-the rigid motor rear and the core rear. The reference-origin translation is
-**(2.071135, 373.235458, 253.400000) mm**. Reference +Y discharge points toward
-**enclosure −X**, as Derek identifies.
-
-Rigid casing sections locate the pump laterally. Each complete foot is checked
-against the actual stepped rear fitting, tubes and shell. The rear +Y foot has
-**1.2745 mm** clearance to the flavor-A union. The pump's cap-bearing datum,
-rigid-body placement and sliding-foot positions are separate inputs.
-
-The single push-connect discharge check rests in its cap-lid cradle. The pan retains its
-core-relative withdrawal station. The printed elbows on both barbs, their tubes
-and the adjacent reservoir-A fill route follow the measured port axes and current
-pump placement.
-
-## Native interfaces and checks
-
-`g_ganen_installation.py` exposes the selected screw axes through
-`mount_stations()` and `mount_holes()`. Each row also records its distinct
-`slot_center_mm`, common pad thickness and rail engagement interval.
-`CAP_MOUNT_XY` supplies the matching printed columns; `pump_mount_rows()` checks
-them independently through the actual assembly transforms.
-
-`rigid_shape()`, `feet_shapes(carry)` and `discharge_shape(carry)` keep the casing,
-feet and port geometry independently queryable. `bearing_datum()` and
-`placed_bearing_z(carry)` establish the lid contact plane. Occupied casing
-volumes fill hidden cavities and are not material, mass or strength models.
-
-Run the bounded mount check from the repository root:
-
-```sh
-HSM_NO_BUILD_LOCK=1 tools/cad-venv/bin/python hardware/reference/g-ganen-pump/installation/validate_installation.py --skip-routes --output hardware/reference/g-ganen-pump/installation/corrected-mount-check.json
-```
-
-It builds the current cap and lid in memory and checks screw-axis alignment,
-rail-end placement, rigid clearance, insert reach, blind floor stock and screw
-passage. The complete native assembly additionally checks the elbows' tube
-routes, reservoir fill route and surrounding components. Physical washer fit,
-loaded rubber behavior, elbow fit and clamp retention remain full-assembly
-observations.
-
-The printed consumers are `foam-cap-top` and `foam-cap-lid-top`; their producer
-feeds `foam-assembly`, `cold-core-assembly`, the enclosure Box and the complete
-assembly. Their reviewed print archives are listed in the
-[slice reviews](../../../printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/README.md).
+`g_ganen_installation.build_parts()` and `rigid_shape()` expose the bare installed
+reference. `mount_holes()` and `feet_shapes()` are empty. The stock slider
+observations remain independently available in the purchased reference.
+Occupied casing solids describe exterior clearance, not mass or wall thickness.
+Actual strap retention, vibration and assembled fit remain physical qualification.

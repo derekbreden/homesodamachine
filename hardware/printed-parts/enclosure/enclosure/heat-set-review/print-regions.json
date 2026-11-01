@@ -182,15 +182,14 @@
   },
   "part_process_overrides": {},
   "source_sha256": {
-    "hardware/printed-parts/enclosure/enclosure/heat-set-review/print_regions.py": "067b75e33a0d7fd646e22a7eedab8051d3db2bff152d41aaf8fe118b001bba09",
-    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "a4be78d79411a851182c76233ec7acca535f759ee219012c6fb3ce870ede2c3b",
+    "hardware/printed-parts/enclosure/enclosure/heat-set-review/print_regions.py": "d1627fe4b93228fa99830351257f2a9b923f3d447a696e140c6ca36d8dfb4729",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "3f172c5209aacc77f2c2779f8f765fba2be142e39a4f01b9e3c050a77af48a3f",
     "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py": "264bb52da73675dcd41f7fff8bc5fce6eabd06336fc3cf8b7a9b8560c21e5040",
     "hardware/printed-parts/enclosure/enclosure/_fixed_pump_mount.py": "2ab38f68b8640c1e29d4066467cb26652959850a1cdfe1969268fda78e4f43cc",
-    "hardware/manifold-layout/enclosure-box.json": "afc529dcc91cc4d54adde90d36650d32dddad79be92f3ddc270a2eab457650a1",
+    "hardware/manifold-layout/enclosure-box.json": "cf18cde23259753fdbfd90f4187a85a5bd12c7650647ee435d2fc95e8bd0d771",
     "hardware/printed-parts/enclosure/enclosure/_above_core_shell.py": "545242e29b31c42f6dcc80eb3c7f5150e2f7c653f5d0b9b031a18a7c600c223f",
     "hardware/manifold-layout/above_core.py": "d3bd71f3c10335d6907e93ff874885e62558c794ce77a043fb22d6f8ed3eb45f",
-    "hardware/manifold-layout/above-core.json": "3c8f01fd6fbe7c5932bcef49fed99aeadc86da669f64471523010661e2304846",
-    "hardware/manifold-layout/above_core_wiring.py": "8dce32acf5ec0804f668ddeb2451dd3fae9e189cce39282a5843aabae2824ef5",
+    "hardware/manifold-layout/above-core.json": "02d5974951681e7fbd70eb224f2e500dadb712f8b98109c8626f0f33cafc2a91",
     "hardware/reference/meanwell-irm90/meanwell_irm90.py": "ca42ff08bbab38f67a2842ae03149a697d9e2b3a5b4adf6fc05adc951fc2e54a",
     "hardware/reference/teyleten-relay/teyleten_relay.py": "fe0965a8f3f4a9eab65efac03716dfdd6ef9e93ab658e8c73f3df83af6e7fbe6",
     "hardware/printed-parts/zone-c/funnel/funnel_frame.py": "24f5b689c16e4e2e3367eb5d40843a402f0ed2f12a3dfd36f38c463d0e8bb9e3",
@@ -213,8 +212,8 @@
       ".stl": "810904703d775a0b514f516dfa2b40ee57bb22974c796cf5ee35f56b8095097e"
     },
     "back-top": {
-      ".step": "cc0dc2b0e09e023fcf1659034837bd7fd2dd02b3441e862cf7136f6e08098d3a",
-      ".stl": "9b4e6b9df6d3ea862748d34d996bcc7db87d3993e6bc57c9b63813d31a49d1de"
+      ".step": "8c5d99d4cac9e5ea03a518e6fdd90314794ced86eab53c6fecb2006d876ade57",
+      ".stl": "fda96ae9c1b89faadaa7dde1b43068beececaba89d226835fcd9faa11c5321c9"
     },
     "pump-retainer": {
       ".step": "d00bfeab03143f968f44bde31764e7073b8e1fed3b345b82847d5b9d47770e69",
@@ -1106,7 +1105,7 @@
           7.851860046386719,
           344.8,
           354.8,
-          348.5,
+          346.7,
           354.9999999
         ],
         "sparse_infill_density": "100%",
@@ -1116,7 +1115,7 @@
           7.851860046386719,
           344.8,
           354.8,
-          348.5,
+          346.7,
           354.9999999
         ],
         "print_bounds_mm": [
@@ -1125,7 +1124,7 @@
           -354.8,
           -344.8,
           1.0000002248489182e-07,
-          6.5
+          8.300000000000011
         ]
       },
       {
@@ -1135,7 +1134,7 @@
           7.851860046386719,
           442.8,
           452.8,
-          348.5,
+          346.7,
           354.9999999
         ],
         "sparse_infill_density": "100%",
@@ -1145,7 +1144,7 @@
           7.851860046386719,
           442.8,
           452.8,
-          348.5,
+          346.7,
           354.9999999
         ],
         "print_bounds_mm": [
@@ -1154,7 +1153,7 @@
           -452.8,
           -442.8,
           1.0000002248489182e-07,
-          6.5
+          8.300000000000011
         ]
       },
       {
@@ -1164,7 +1163,7 @@
           -25.14813995361328,
           344.8,
           354.8,
-          348.5,
+          346.7,
           354.9999999
         ],
         "sparse_infill_density": "100%",
@@ -1174,7 +1173,7 @@
           -25.14813995361328,
           344.8,
           354.8,
-          348.5,
+          346.7,
           354.9999999
         ],
         "print_bounds_mm": [
@@ -1183,7 +1182,7 @@
           -354.8,
           -344.8,
           1.0000002248489182e-07,
-          6.5
+          8.300000000000011
         ]
       },
       {
@@ -1193,7 +1192,7 @@
           -25.14813995361328,
           442.8,
           452.8,
-          348.5,
+          346.7,
           354.9999999
         ],
         "sparse_infill_density": "100%",
@@ -1203,7 +1202,7 @@
           -25.14813995361328,
           442.8,
           452.8,
-          348.5,
+          346.7,
           354.9999999
         ],
         "print_bounds_mm": [
@@ -1212,7 +1211,7 @@
           -452.8,
           -442.8,
           1.0000002248489182e-07,
-          6.5
+          8.300000000000011
         ]
       },
       {
@@ -1735,35 +1734,6 @@
           -436.850139,
           33.99339430622234,
           66.59339430622236
-        ]
-      },
-      {
-        "name": "Ground ring insert host, blind floor and rear wall root",
-        "machine_bounds_mm": [
-          -53.15,
-          -43.15,
-          461.7,
-          471.3,
-          308.9349999,
-          318.9349999
-        ],
-        "sparse_infill_density": "100%",
-        "sparse_infill_pattern": "zig-zag",
-        "applied_source_bounds_mm": [
-          -53.15,
-          -43.15,
-          461.7,
-          471.3,
-          308.9349999,
-          318.9349999
-        ],
-        "print_bounds_mm": [
-          -53.15,
-          -43.15,
-          -471.3,
-          -461.7,
-          36.06500010000002,
-          46.06500010000002
         ]
       },
       {

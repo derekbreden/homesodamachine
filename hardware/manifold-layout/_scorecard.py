@@ -1086,28 +1086,11 @@ _clash_cache: dict = {}
 
 
 def pump_cap_contact(a, bodies) -> dict:
-    """Read only the four unloaded rubber feet's contact with their cap plane.
-
-    The whole pump remains an obstacle to every other part. Here its rigid body
-    must clear the core, and any common material outside the four individually
-    clipped foot envelopes is still an interference.
-    """
-    import enclosure_assembly as ea
-    import g_ganen_installation as pump
-    import _meshes
-
-    foam = bodies["foam-assembly"]
-    rigid, masks = pump.cap_bearing_contact_parts(
-        a.carries["g-ganen-pump"], ea.cap_face(foam))
-    rigid_volume = _overlap.volume(rigid, foam)
-    remaining, total = _overlap.common(bodies["g-ganen-pump"], foam)
-    for mask in masks.values():
-        if mask.Solids():
-            remaining = remaining - _meshes.meshed(mask)
-    excess = remaining.volume()
-    return {"rigid_overlap_mm3": rigid_volume, "free_foot_contact_mm3": total,
-            "outside_contact_masks_mm3": excess, "feet": sorted(masks),
-            "pass": max(rigid_volume, excess) <= _clearing.HIT_VOL}
+    """The bare pump must clear the lid's casing bearings and the core."""
+    remaining, total = _overlap.common(bodies['g-ganen-pump'], bodies['foam-assembly'])
+    return {'rigid_overlap_mm3':total, 'free_foot_contact_mm3':0.,
+            'outside_contact_masks_mm3':total, 'feet':[],
+            'pass':total <= _clearing.HIT_VOL}
 
 
 def drain_seal_contact(a, bodies) -> dict:
@@ -1339,7 +1322,7 @@ def pack_clashes(a) -> tuple:
                        if frozenset((hit.a, hit.b)) != bearing_pair]
         except Exception as exc:
             unanswered.append(("g-ganen-pump", "foam-assembly",
-                               "rubber foot contact: " + str(exc).splitlines()[0]))
+                               "bare pump / lid bearing: " + str(exc).splitlines()[0]))
     reducer_pairs = {frozenset((f"valve-v-{v}", f"flavor-reducer-v-{v}")) for v in "gj"}
     if any(frozenset((hit.a, hit.b)) in reducer_pairs for hit in bad):
         try:

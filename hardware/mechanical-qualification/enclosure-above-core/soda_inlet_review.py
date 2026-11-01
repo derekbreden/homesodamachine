@@ -82,7 +82,7 @@ def flat_names(imported):
 
 
 def access_witnesses(placed):
-    """The existing 30 nominal witnesses, from production and public records."""
+    """Current nominal witnesses, from production and public records."""
     import above_core_wiring as wiring
     from connector_service import recorded_witnesses
     installation = parts._module('inlet_review_pump_installation',
@@ -93,8 +93,6 @@ def access_witnesses(placed):
         'reference/meanwell-irm90/meanwell_irm90.py')
     result = {}
     for name, holes, z in (
-        ('g-ganen-pump', installation.mount_holes(),
-         installation.observed_pad_upper_z()+installation.WASHER_T+3.),
         ('pcba', pcb.board.holes, pcb._thickness+3.),
         ('psu', psu.holes, psu.ledge_h+3.)):
         for index, (x, y) in enumerate(holes):
@@ -323,7 +321,6 @@ def main():
         'internal_passage_vs_electrical': passage_wire_rows,
         'assembly_prerequisites': {
             'retained_tool_contacts': tool_hits,
-            'pump_mount_2': 'Tighten all four pump screws before threading the continuous tube, holder and foam into place. Remove/disconnect that inlet before using the intersected pump screw driver path during service. The nominal driver contact is retained explicitly; there is no geometric mask or access claim with the inlet installed.',
             'foam': 'Thread the holder and slide the one square-cut foam piece over it before connecting the meter.'},
         'passage': cap_readings,
         'continuous_tube_accounting': {
