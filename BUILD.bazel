@@ -502,12 +502,18 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_case.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
         ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step",
+        ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step.npz",
         ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.stl",
         ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.step",
+        ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.step.npz",
         ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.stl",
         ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step",
+        ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step.npz",
         ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.stl",
+        ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps-installed.step",
+        ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps-installed.step.npz",
         ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.step",
+        ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.step.npz",
         ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.stl",
         "pysrc/hardware/printed-parts/enclosure/valve-tray/valve_tray.py",
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
@@ -1052,12 +1058,18 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_case.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
         ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step",
+        ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step.npz",
         ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.stl",
         ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.step",
+        ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.step.npz",
         ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.stl",
         ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step",
+        ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step.npz",
         ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.stl",
+        ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps-installed.step",
+        ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps-installed.step.npz",
         ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.step",
+        ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.step.npz",
         ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.stl",
         "pysrc/hardware/printed-parts/enclosure/valve-tray/valve_tray.py",
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
@@ -1603,12 +1615,18 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/enclosure/_anchor_cap_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
         ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step",
+        ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step.npz",
         ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.stl",
         ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.step",
+        ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.step.npz",
         ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.stl",
         ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step",
+        ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step.npz",
         ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.stl",
+        ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps-installed.step",
+        ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps-installed.step.npz",
         ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.step",
+        ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.step.npz",
         ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.stl",
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
         "pysrc/hardware/printed-parts/valve-seat/valve_seat.py",
@@ -2079,6 +2097,7 @@ genrule(
         "tools/hsm/Cargo.toml",
         "tools/hsm/faucet/Cargo.toml",
         "tools/hsm/faucet/src/assembly.rs",
+        "tools/hsm/faucet/src/counter.rs",
         "tools/hsm/faucet/src/display.rs",
         "tools/hsm/faucet/src/lib.rs",
         "tools/hsm/faucet/src/shell.rs",
@@ -2313,6 +2332,7 @@ genrule(
         "tools/hsm/Cargo.toml",
         "tools/hsm/faucet/Cargo.toml",
         "tools/hsm/faucet/src/assembly.rs",
+        "tools/hsm/faucet/src/counter.rs",
         "tools/hsm/faucet/src/display.rs",
         "tools/hsm/faucet/src/lib.rs",
         "tools/hsm/faucet/src/shell.rs",
@@ -2432,8 +2452,10 @@ genrule(
         "pysrc/hardware/printed-parts/faucet/_display_snap.py",
         "pysrc/hardware/printed-parts/faucet/_faucet_interface.py",
         ":out/above-counter-gasket/hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step",
+        ":out/flute-payload-faucet/hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step.mesh",
         "pysrc/hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py",
         ":out/above-counter-plate/hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step",
+        ":out/flute-payload-faucet/hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step.mesh",
         "pysrc/hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py",
         ":out/faucet-display-cover/hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover-seated.step",
         ":out/faucet-display-cover/hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover-seated.step.mesh",
@@ -2501,6 +2523,7 @@ genrule(
         "tools/hsm/Cargo.toml",
         "tools/hsm/faucet/Cargo.toml",
         "tools/hsm/faucet/src/assembly.rs",
+        "tools/hsm/faucet/src/counter.rs",
         "tools/hsm/faucet/src/display.rs",
         "tools/hsm/faucet/src/lib.rs",
         "tools/hsm/faucet/src/shell.rs",
@@ -3389,12 +3412,18 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_case.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
         ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step",
+        ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step.npz",
         ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.stl",
         ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.step",
+        ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.step.npz",
         ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.stl",
         ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step",
+        ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step.npz",
         ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.stl",
+        ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps-installed.step",
+        ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps-installed.step.npz",
         ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.step",
+        ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.step.npz",
         ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.stl",
         "pysrc/hardware/printed-parts/enclosure/rear-identification/rear_identification.py",
         "pysrc/hardware/printed-parts/enclosure/valve-tray/valve_tray.py",
@@ -3844,12 +3873,18 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_case.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
         ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step",
+        ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step.npz",
         ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.stl",
         ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.step",
+        ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.step.npz",
         ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.stl",
         ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step",
+        ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step.npz",
         ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.stl",
+        ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps-installed.step",
+        ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps-installed.step.npz",
         ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.step",
+        ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.step.npz",
         ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.stl",
         "pysrc/hardware/printed-parts/enclosure/valve-tray/valve_tray.py",
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
@@ -4467,12 +4502,18 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/enclosure/_anchor_cap_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
         ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step",
+        ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step.npz",
         ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.stl",
         ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.step",
+        ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.step.npz",
         ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.stl",
         ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step",
+        ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step.npz",
         ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.stl",
+        ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps-installed.step",
+        ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps-installed.step.npz",
         ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.step",
+        ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.step.npz",
         ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.stl",
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
         "pysrc/hardware/printed-parts/valve-seat/valve_seat.py",
@@ -6122,12 +6163,18 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_case.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
         ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step",
+        ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step.npz",
         ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.stl",
         ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.step",
+        ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.step.npz",
         ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.stl",
         ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step",
+        ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step.npz",
         ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.stl",
+        ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps-installed.step",
+        ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps-installed.step.npz",
         ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.step",
+        ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.step.npz",
         ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.stl",
         "pysrc/hardware/printed-parts/enclosure/valve-tray/valve_tray.py",
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
@@ -6324,7 +6371,9 @@ genrule(
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
         "hardware/printed-parts/enclosure/bulkhead-ring/README.md",
         "pysrc/hardware/printed-parts/enclosure/bulkhead-ring/bulkhead_ring.py",
+        "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead_ring.rs",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
+        "hardware/printed-parts/enclosure/rear-identification/label-words.json",
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
         "pysrc/hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py",
         "pysrc/hardware/reference/neofit-bulkhead/neofit_bulkhead.py",
@@ -6332,14 +6381,70 @@ genrule(
         "pysrc/hardware/scripts/_cadq_export.py",
         "pysrc/hardware/scripts/_material_base.py",
         "pysrc/hardware/scripts/_materials.py",
-        "pysrc/hardware/scripts/_measuring.py",
-        "pysrc/hardware/scripts/_mesh_payload.py",
-        "pysrc/hardware/scripts/_payload_rules.py",
+        "pysrc/hardware/scripts/_occt_color.py",
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/hardware/scripts/_run_slots.py",
+        "pysrc/hardware/scripts/_rust_part.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/Cargo.lock",
+        "tools/hsm/Cargo.toml",
+        "tools/hsm/enclosure-components/Cargo.toml",
+        "tools/hsm/enclosure-components/src/lib.rs",
+        "tools/hsm/kernel/Cargo.toml",
+        "tools/hsm/kernel/src/boolean.rs",
+        "tools/hsm/kernel/src/build.rs",
+        "tools/hsm/kernel/src/dxf.rs",
+        "tools/hsm/kernel/src/edge.rs",
+        "tools/hsm/kernel/src/face.rs",
+        "tools/hsm/kernel/src/import.rs",
+        "tools/hsm/kernel/src/lib.rs",
+        "tools/hsm/kernel/src/mapped.rs",
+        "tools/hsm/kernel/src/mass.rs",
+        "tools/hsm/kernel/src/math.rs",
+        "tools/hsm/kernel/src/part.rs",
+        "tools/hsm/kernel/src/plane.rs",
+        "tools/hsm/kernel/src/profile.rs",
+        "tools/hsm/kernel/src/reads.rs",
+        "tools/hsm/kernel/src/round.rs",
+        "tools/hsm/kernel/src/round/rolled.rs",
+        "tools/hsm/kernel/src/rule.rs",
+        "tools/hsm/kernel/src/screw.rs",
+        "tools/hsm/kernel/src/sketch_hull.rs",
+        "tools/hsm/kernel/src/solid.rs",
+        "tools/hsm/kernel/src/spline.rs",
+        "tools/hsm/kernel/src/step.rs",
+        "tools/hsm/kernel/src/sweep.rs",
+        "tools/hsm/kernel/src/text.rs",
+        "tools/hsm/kernel/src/thru.rs",
+        "tools/hsm/kernel/src/topo.rs",
+        "tools/hsm/kernel/src/triangulate.rs",
+        "tools/hsm/kernel/src/write.rs",
         "tools/hsm/run-slots.defaults.json",
+        "tools/hsm/run-slots/Cargo.toml",
+        "tools/hsm/run-slots/src/ipc.rs",
+        "tools/hsm/run-slots/src/lib.rs",
+        "tools/hsm/vendor/manifold-csg-sys/.cargo_vcs_info.json",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.lock",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.toml",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.toml.orig",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-APACHE",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-MIT",
+        "tools/hsm/vendor/manifold-csg-sys/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/build.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/build.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/fetch.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/patch.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/wasm.rs",
+        "tools/hsm/vendor/manifold-csg-sys/cache-version",
+        "tools/hsm/vendor/manifold-csg-sys/src/lib.rs",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/CMakeLists.txt",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/diagnose.sh",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__assertion_handler",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__config_site",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/memory",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/mutex",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/libcxx-extras.cpp",
         "tools/run-slots.mjs",
         "pysrc/tools/run.py",
     ] + glob(
@@ -6350,24 +6455,64 @@ genrule(
     ),
     outs = [
         "out/bulkhead-ring/hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-carb.step",
+        "out/bulkhead-ring/hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-carb.step.mesh",
+        "out/bulkhead-ring/hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-carb.step.npz",
+        "out/bulkhead-ring/hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-carb.stl",
         "out/bulkhead-ring/hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-co2.step",
+        "out/bulkhead-ring/hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-co2.step.mesh",
+        "out/bulkhead-ring/hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-co2.step.npz",
+        "out/bulkhead-ring/hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-co2.stl",
         "out/bulkhead-ring/hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-drain.step",
+        "out/bulkhead-ring/hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-drain.step.mesh",
+        "out/bulkhead-ring/hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-drain.step.npz",
+        "out/bulkhead-ring/hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-drain.stl",
         "out/bulkhead-ring/hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-flavor-a.step",
+        "out/bulkhead-ring/hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-flavor-a.step.mesh",
+        "out/bulkhead-ring/hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-flavor-a.step.npz",
+        "out/bulkhead-ring/hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-flavor-a.stl",
         "out/bulkhead-ring/hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-flavor-b.step",
+        "out/bulkhead-ring/hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-flavor-b.step.mesh",
+        "out/bulkhead-ring/hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-flavor-b.step.npz",
+        "out/bulkhead-ring/hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-flavor-b.stl",
         "out/bulkhead-ring/hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-water.step",
+        "out/bulkhead-ring/hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-water.step.mesh",
+        "out/bulkhead-ring/hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-water.step.npz",
+        "out/bulkhead-ring/hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-water.stl",
+        "out/bulkhead-ring/hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring.numbers.json",
         "out/bulkhead-ring/hardware/printed-parts/enclosure/bulkhead-ring/README.figures.json",
         "out/bulkhead-ring/hardware/printed-parts/enclosure/bulkhead-ring/README.md",
     ],
+    tags = ["no-sandbox"],
     cmd = """
 set -e
 O0=$$PWD/$(location out/bulkhead-ring/hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-carb.step)
-O1=$$PWD/$(location out/bulkhead-ring/hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-co2.step)
-O2=$$PWD/$(location out/bulkhead-ring/hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-drain.step)
-O3=$$PWD/$(location out/bulkhead-ring/hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-flavor-a.step)
-O4=$$PWD/$(location out/bulkhead-ring/hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-flavor-b.step)
-O5=$$PWD/$(location out/bulkhead-ring/hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-water.step)
-O6=$$PWD/$(location out/bulkhead-ring/hardware/printed-parts/enclosure/bulkhead-ring/README.figures.json)
-O7=$$PWD/$(location out/bulkhead-ring/hardware/printed-parts/enclosure/bulkhead-ring/README.md)
+O1=$$PWD/$(location out/bulkhead-ring/hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-carb.step.mesh)
+O2=$$PWD/$(location out/bulkhead-ring/hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-carb.step.npz)
+O3=$$PWD/$(location out/bulkhead-ring/hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-carb.stl)
+O4=$$PWD/$(location out/bulkhead-ring/hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-co2.step)
+O5=$$PWD/$(location out/bulkhead-ring/hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-co2.step.mesh)
+O6=$$PWD/$(location out/bulkhead-ring/hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-co2.step.npz)
+O7=$$PWD/$(location out/bulkhead-ring/hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-co2.stl)
+O8=$$PWD/$(location out/bulkhead-ring/hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-drain.step)
+O9=$$PWD/$(location out/bulkhead-ring/hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-drain.step.mesh)
+O10=$$PWD/$(location out/bulkhead-ring/hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-drain.step.npz)
+O11=$$PWD/$(location out/bulkhead-ring/hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-drain.stl)
+O12=$$PWD/$(location out/bulkhead-ring/hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-flavor-a.step)
+O13=$$PWD/$(location out/bulkhead-ring/hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-flavor-a.step.mesh)
+O14=$$PWD/$(location out/bulkhead-ring/hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-flavor-a.step.npz)
+O15=$$PWD/$(location out/bulkhead-ring/hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-flavor-a.stl)
+O16=$$PWD/$(location out/bulkhead-ring/hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-flavor-b.step)
+O17=$$PWD/$(location out/bulkhead-ring/hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-flavor-b.step.mesh)
+O18=$$PWD/$(location out/bulkhead-ring/hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-flavor-b.step.npz)
+O19=$$PWD/$(location out/bulkhead-ring/hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-flavor-b.stl)
+O20=$$PWD/$(location out/bulkhead-ring/hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-water.step)
+O21=$$PWD/$(location out/bulkhead-ring/hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-water.step.mesh)
+O22=$$PWD/$(location out/bulkhead-ring/hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-water.step.npz)
+O23=$$PWD/$(location out/bulkhead-ring/hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-water.stl)
+O24=$$PWD/$(location out/bulkhead-ring/hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring.numbers.json)
+O25=$$PWD/$(location out/bulkhead-ring/hardware/printed-parts/enclosure/bulkhead-ring/README.figures.json)
+O26=$$PWD/$(location out/bulkhead-ring/hardware/printed-parts/enclosure/bulkhead-ring/README.md)
+rm -rf work-bulkhead-ring
 for f in $(SRCS); do
   case $$f in
     */node_modules/*) continue;;
@@ -6375,23 +6520,43 @@ for f in $(SRCS); do
     */pysrc/*) t=$${f##*/pysrc/};;
     *) t=$$f;;
   esac
-  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
+  mkdir -p work-bulkhead-ring/$$(dirname $$t); cp -L $$f work-bulkhead-ring/$$t
 done
 for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
+  if [ -d $$d ]; then mkdir -p work-bulkhead-ring/$$(dirname $$d); ln -sfn $$PWD/$$d work-bulkhead-ring/$$d; fi
 done
-cd work
+cd work-bulkhead-ring
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/enclosure/bulkhead-ring/bulkhead_ring.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/enclosure/bulkhead-ring/bulkhead_ring.py > /dev/null
 cp hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-carb.step $$O0
-cp hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-co2.step $$O1
-cp hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-drain.step $$O2
-cp hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-flavor-a.step $$O3
-cp hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-flavor-b.step $$O4
-cp hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-water.step $$O5
-cp hardware/printed-parts/enclosure/bulkhead-ring/README.figures.json $$O6
-cp hardware/printed-parts/enclosure/bulkhead-ring/README.md $$O7
+cp hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-carb.step.mesh $$O1
+cp hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-carb.step.npz $$O2
+cp hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-carb.stl $$O3
+cp hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-co2.step $$O4
+cp hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-co2.step.mesh $$O5
+cp hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-co2.step.npz $$O6
+cp hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-co2.stl $$O7
+cp hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-drain.step $$O8
+cp hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-drain.step.mesh $$O9
+cp hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-drain.step.npz $$O10
+cp hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-drain.stl $$O11
+cp hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-flavor-a.step $$O12
+cp hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-flavor-a.step.mesh $$O13
+cp hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-flavor-a.step.npz $$O14
+cp hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-flavor-a.stl $$O15
+cp hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-flavor-b.step $$O16
+cp hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-flavor-b.step.mesh $$O17
+cp hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-flavor-b.step.npz $$O18
+cp hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-flavor-b.stl $$O19
+cp hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-water.step $$O20
+cp hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-water.step.mesh $$O21
+cp hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-water.step.npz $$O22
+cp hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-water.stl $$O23
+cp hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring.numbers.json $$O24
+cp hardware/printed-parts/enclosure/bulkhead-ring/README.figures.json $$O25
+cp hardware/printed-parts/enclosure/bulkhead-ring/README.md $$O26
+cd .. && rm -rf work-bulkhead-ring
 """,
 )
 
@@ -6455,7 +6620,9 @@ genrule(
     srcs = [
         "pysrc/hardware/printed-parts/cadlib/fits.py",
         "hardware/printed-parts/enclosure/display-cover/README.md",
+        "hardware/printed-parts/enclosure/display-cover/_display_stock.rs",
         "pysrc/hardware/printed-parts/enclosure/display-cover/display_cover.py",
+        "hardware/printed-parts/enclosure/display-cover/display_cover.rs",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_display_retention.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_display_wing_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
@@ -6465,16 +6632,70 @@ genrule(
         "pysrc/hardware/scripts/_cadq_export.py",
         "pysrc/hardware/scripts/_material_base.py",
         "pysrc/hardware/scripts/_materials.py",
-        "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_occt_color.py",
-        "pysrc/hardware/scripts/_payload_rules.py",
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/hardware/scripts/_run_slots.py",
-        "pysrc/hardware/scripts/_stated_bounds.py",
-        "pysrc/hardware/scripts/flute_payload.py",
+        "pysrc/hardware/scripts/_rust_part.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/Cargo.lock",
+        "tools/hsm/Cargo.toml",
+        "tools/hsm/enclosure-components/Cargo.toml",
+        "tools/hsm/enclosure-components/src/lib.rs",
+        "tools/hsm/kernel/Cargo.toml",
+        "tools/hsm/kernel/src/boolean.rs",
+        "tools/hsm/kernel/src/build.rs",
+        "tools/hsm/kernel/src/dxf.rs",
+        "tools/hsm/kernel/src/edge.rs",
+        "tools/hsm/kernel/src/face.rs",
+        "tools/hsm/kernel/src/import.rs",
+        "tools/hsm/kernel/src/lib.rs",
+        "tools/hsm/kernel/src/mapped.rs",
+        "tools/hsm/kernel/src/mass.rs",
+        "tools/hsm/kernel/src/math.rs",
+        "tools/hsm/kernel/src/part.rs",
+        "tools/hsm/kernel/src/plane.rs",
+        "tools/hsm/kernel/src/profile.rs",
+        "tools/hsm/kernel/src/reads.rs",
+        "tools/hsm/kernel/src/round.rs",
+        "tools/hsm/kernel/src/round/rolled.rs",
+        "tools/hsm/kernel/src/rule.rs",
+        "tools/hsm/kernel/src/screw.rs",
+        "tools/hsm/kernel/src/sketch_hull.rs",
+        "tools/hsm/kernel/src/solid.rs",
+        "tools/hsm/kernel/src/spline.rs",
+        "tools/hsm/kernel/src/step.rs",
+        "tools/hsm/kernel/src/sweep.rs",
+        "tools/hsm/kernel/src/text.rs",
+        "tools/hsm/kernel/src/thru.rs",
+        "tools/hsm/kernel/src/topo.rs",
+        "tools/hsm/kernel/src/triangulate.rs",
+        "tools/hsm/kernel/src/write.rs",
         "tools/hsm/run-slots.defaults.json",
+        "tools/hsm/run-slots/Cargo.toml",
+        "tools/hsm/run-slots/src/ipc.rs",
+        "tools/hsm/run-slots/src/lib.rs",
+        "tools/hsm/vendor/manifold-csg-sys/.cargo_vcs_info.json",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.lock",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.toml",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.toml.orig",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-APACHE",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-MIT",
+        "tools/hsm/vendor/manifold-csg-sys/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/build.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/build.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/fetch.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/patch.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/wasm.rs",
+        "tools/hsm/vendor/manifold-csg-sys/cache-version",
+        "tools/hsm/vendor/manifold-csg-sys/src/lib.rs",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/CMakeLists.txt",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/diagnose.sh",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__assertion_handler",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__config_site",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/memory",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/mutex",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/libcxx-extras.cpp",
         "tools/run-slots.mjs",
         "pysrc/tools/run.py",
     ] + glob(
@@ -6484,19 +6705,25 @@ genrule(
         allow_empty = True,
     ),
     outs = [
+        "out/display-cover/hardware/printed-parts/enclosure/display-cover/display-cover.numbers.json",
         "out/display-cover/hardware/printed-parts/enclosure/display-cover/display-cover.step",
         "out/display-cover/hardware/printed-parts/enclosure/display-cover/display-cover.step.mesh",
+        "out/display-cover/hardware/printed-parts/enclosure/display-cover/display-cover.step.npz",
         "out/display-cover/hardware/printed-parts/enclosure/display-cover/display-cover.stl",
         "out/display-cover/hardware/printed-parts/enclosure/display-cover/README.figures.json",
         "out/display-cover/hardware/printed-parts/enclosure/display-cover/README.md",
     ],
+    tags = ["no-sandbox"],
     cmd = """
 set -e
-O0=$$PWD/$(location out/display-cover/hardware/printed-parts/enclosure/display-cover/display-cover.step)
-O1=$$PWD/$(location out/display-cover/hardware/printed-parts/enclosure/display-cover/display-cover.step.mesh)
-O2=$$PWD/$(location out/display-cover/hardware/printed-parts/enclosure/display-cover/display-cover.stl)
-O3=$$PWD/$(location out/display-cover/hardware/printed-parts/enclosure/display-cover/README.figures.json)
-O4=$$PWD/$(location out/display-cover/hardware/printed-parts/enclosure/display-cover/README.md)
+O0=$$PWD/$(location out/display-cover/hardware/printed-parts/enclosure/display-cover/display-cover.numbers.json)
+O1=$$PWD/$(location out/display-cover/hardware/printed-parts/enclosure/display-cover/display-cover.step)
+O2=$$PWD/$(location out/display-cover/hardware/printed-parts/enclosure/display-cover/display-cover.step.mesh)
+O3=$$PWD/$(location out/display-cover/hardware/printed-parts/enclosure/display-cover/display-cover.step.npz)
+O4=$$PWD/$(location out/display-cover/hardware/printed-parts/enclosure/display-cover/display-cover.stl)
+O5=$$PWD/$(location out/display-cover/hardware/printed-parts/enclosure/display-cover/README.figures.json)
+O6=$$PWD/$(location out/display-cover/hardware/printed-parts/enclosure/display-cover/README.md)
+rm -rf work-display-cover
 for f in $(SRCS); do
   case $$f in
     */node_modules/*) continue;;
@@ -6504,20 +6731,23 @@ for f in $(SRCS); do
     */pysrc/*) t=$${f##*/pysrc/};;
     *) t=$$f;;
   esac
-  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
+  mkdir -p work-display-cover/$$(dirname $$t); cp -L $$f work-display-cover/$$t
 done
 for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
+  if [ -d $$d ]; then mkdir -p work-display-cover/$$(dirname $$d); ln -sfn $$PWD/$$d work-display-cover/$$d; fi
 done
-cd work
+cd work-display-cover
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
 HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/enclosure/display-cover/display_cover.py > /dev/null
-cp hardware/printed-parts/enclosure/display-cover/display-cover.step $$O0
-cp hardware/printed-parts/enclosure/display-cover/display-cover.step.mesh $$O1
-cp hardware/printed-parts/enclosure/display-cover/display-cover.stl $$O2
-cp hardware/printed-parts/enclosure/display-cover/README.figures.json $$O3
-cp hardware/printed-parts/enclosure/display-cover/README.md $$O4
+cp hardware/printed-parts/enclosure/display-cover/display-cover.numbers.json $$O0
+cp hardware/printed-parts/enclosure/display-cover/display-cover.step $$O1
+cp hardware/printed-parts/enclosure/display-cover/display-cover.step.mesh $$O2
+cp hardware/printed-parts/enclosure/display-cover/display-cover.step.npz $$O3
+cp hardware/printed-parts/enclosure/display-cover/display-cover.stl $$O4
+cp hardware/printed-parts/enclosure/display-cover/README.figures.json $$O5
+cp hardware/printed-parts/enclosure/display-cover/README.md $$O6
+cd .. && rm -rf work-display-cover
 """,
 )
 
@@ -6791,20 +7021,79 @@ genrule(
     name = "display-gasket",
     srcs = [
         "pysrc/hardware/printed-parts/cadlib/fits.py",
+        "hardware/printed-parts/enclosure/display-cover/_display_stock.rs",
         "hardware/printed-parts/enclosure/display-gasket/README.md",
         "hardware/printed-parts/enclosure/display-gasket/display_gasket.py",
+        "hardware/printed-parts/enclosure/display-gasket/display_gasket.rs",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
         "pysrc/hardware/scripts/_cadq_export.py",
         "pysrc/hardware/scripts/_material_base.py",
         "pysrc/hardware/scripts/_materials.py",
-        "pysrc/hardware/scripts/_mesh_payload.py",
-        "pysrc/hardware/scripts/_payload_rules.py",
+        "pysrc/hardware/scripts/_occt_color.py",
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/hardware/scripts/_run_slots.py",
+        "pysrc/hardware/scripts/_rust_part.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/Cargo.lock",
+        "tools/hsm/Cargo.toml",
+        "tools/hsm/enclosure-components/Cargo.toml",
+        "tools/hsm/enclosure-components/src/lib.rs",
+        "tools/hsm/kernel/Cargo.toml",
+        "tools/hsm/kernel/src/boolean.rs",
+        "tools/hsm/kernel/src/build.rs",
+        "tools/hsm/kernel/src/dxf.rs",
+        "tools/hsm/kernel/src/edge.rs",
+        "tools/hsm/kernel/src/face.rs",
+        "tools/hsm/kernel/src/import.rs",
+        "tools/hsm/kernel/src/lib.rs",
+        "tools/hsm/kernel/src/mapped.rs",
+        "tools/hsm/kernel/src/mass.rs",
+        "tools/hsm/kernel/src/math.rs",
+        "tools/hsm/kernel/src/part.rs",
+        "tools/hsm/kernel/src/plane.rs",
+        "tools/hsm/kernel/src/profile.rs",
+        "tools/hsm/kernel/src/reads.rs",
+        "tools/hsm/kernel/src/round.rs",
+        "tools/hsm/kernel/src/round/rolled.rs",
+        "tools/hsm/kernel/src/rule.rs",
+        "tools/hsm/kernel/src/screw.rs",
+        "tools/hsm/kernel/src/sketch_hull.rs",
+        "tools/hsm/kernel/src/solid.rs",
+        "tools/hsm/kernel/src/spline.rs",
+        "tools/hsm/kernel/src/step.rs",
+        "tools/hsm/kernel/src/sweep.rs",
+        "tools/hsm/kernel/src/text.rs",
+        "tools/hsm/kernel/src/thru.rs",
+        "tools/hsm/kernel/src/topo.rs",
+        "tools/hsm/kernel/src/triangulate.rs",
+        "tools/hsm/kernel/src/write.rs",
         "tools/hsm/run-slots.defaults.json",
+        "tools/hsm/run-slots/Cargo.toml",
+        "tools/hsm/run-slots/src/ipc.rs",
+        "tools/hsm/run-slots/src/lib.rs",
+        "tools/hsm/vendor/manifold-csg-sys/.cargo_vcs_info.json",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.lock",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.toml",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.toml.orig",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-APACHE",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-MIT",
+        "tools/hsm/vendor/manifold-csg-sys/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/build.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/build.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/fetch.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/patch.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/wasm.rs",
+        "tools/hsm/vendor/manifold-csg-sys/cache-version",
+        "tools/hsm/vendor/manifold-csg-sys/src/lib.rs",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/CMakeLists.txt",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/diagnose.sh",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__assertion_handler",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__config_site",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/memory",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/mutex",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/libcxx-extras.cpp",
         "tools/run-slots.mjs",
         "pysrc/tools/run.py",
     ] + glob(
@@ -6814,17 +7103,27 @@ genrule(
         allow_empty = True,
     ),
     outs = [
+        "out/display-gasket/hardware/printed-parts/enclosure/display-gasket/display-gasket.numbers.json",
         "out/display-gasket/hardware/printed-parts/enclosure/display-gasket/display-gasket.step",
+        "out/display-gasket/hardware/printed-parts/enclosure/display-gasket/display-gasket.step.mesh",
+        "out/display-gasket/hardware/printed-parts/enclosure/display-gasket/display-gasket.step.npz",
+        "out/display-gasket/hardware/printed-parts/enclosure/display-gasket/display-gasket.stl",
         "out/display-gasket/hardware/printed-parts/enclosure/display-gasket/README.figures.json",
         "out/display-gasket/hardware/printed-parts/enclosure/display-gasket/README.md",
         "out/display-gasket/hardware/printed-parts/enclosure/display-gasket/display_gasket.py",
     ],
+    tags = ["no-sandbox"],
     cmd = """
 set -e
-O0=$$PWD/$(location out/display-gasket/hardware/printed-parts/enclosure/display-gasket/display-gasket.step)
-O1=$$PWD/$(location out/display-gasket/hardware/printed-parts/enclosure/display-gasket/README.figures.json)
-O2=$$PWD/$(location out/display-gasket/hardware/printed-parts/enclosure/display-gasket/README.md)
-O3=$$PWD/$(location out/display-gasket/hardware/printed-parts/enclosure/display-gasket/display_gasket.py)
+O0=$$PWD/$(location out/display-gasket/hardware/printed-parts/enclosure/display-gasket/display-gasket.numbers.json)
+O1=$$PWD/$(location out/display-gasket/hardware/printed-parts/enclosure/display-gasket/display-gasket.step)
+O2=$$PWD/$(location out/display-gasket/hardware/printed-parts/enclosure/display-gasket/display-gasket.step.mesh)
+O3=$$PWD/$(location out/display-gasket/hardware/printed-parts/enclosure/display-gasket/display-gasket.step.npz)
+O4=$$PWD/$(location out/display-gasket/hardware/printed-parts/enclosure/display-gasket/display-gasket.stl)
+O5=$$PWD/$(location out/display-gasket/hardware/printed-parts/enclosure/display-gasket/README.figures.json)
+O6=$$PWD/$(location out/display-gasket/hardware/printed-parts/enclosure/display-gasket/README.md)
+O7=$$PWD/$(location out/display-gasket/hardware/printed-parts/enclosure/display-gasket/display_gasket.py)
+rm -rf work-display-gasket
 for f in $(SRCS); do
   case $$f in
     */node_modules/*) continue;;
@@ -6832,19 +7131,24 @@ for f in $(SRCS); do
     */pysrc/*) t=$${f##*/pysrc/};;
     *) t=$$f;;
   esac
-  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
+  mkdir -p work-display-gasket/$$(dirname $$t); cp -L $$f work-display-gasket/$$t
 done
 for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
+  if [ -d $$d ]; then mkdir -p work-display-gasket/$$(dirname $$d); ln -sfn $$PWD/$$d work-display-gasket/$$d; fi
 done
-cd work
+cd work-display-gasket
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/enclosure/display-gasket/display_gasket.py > /dev/null
-cp hardware/printed-parts/enclosure/display-gasket/display-gasket.step $$O0
-cp hardware/printed-parts/enclosure/display-gasket/README.figures.json $$O1
-cp hardware/printed-parts/enclosure/display-gasket/README.md $$O2
-cp hardware/printed-parts/enclosure/display-gasket/display_gasket.py $$O3
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/enclosure/display-gasket/display_gasket.py > /dev/null
+cp hardware/printed-parts/enclosure/display-gasket/display-gasket.numbers.json $$O0
+cp hardware/printed-parts/enclosure/display-gasket/display-gasket.step $$O1
+cp hardware/printed-parts/enclosure/display-gasket/display-gasket.step.mesh $$O2
+cp hardware/printed-parts/enclosure/display-gasket/display-gasket.step.npz $$O3
+cp hardware/printed-parts/enclosure/display-gasket/display-gasket.stl $$O4
+cp hardware/printed-parts/enclosure/display-gasket/README.figures.json $$O5
+cp hardware/printed-parts/enclosure/display-gasket/README.md $$O6
+cp hardware/printed-parts/enclosure/display-gasket/display_gasket.py $$O7
+cd .. && rm -rf work-display-gasket
 """,
 )
 
@@ -6938,12 +7242,18 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_case.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
         ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step",
+        ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step.npz",
         ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.stl",
         ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.step",
+        ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.step.npz",
         ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.stl",
         ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step",
+        ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step.npz",
         ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.stl",
+        ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps-installed.step",
+        ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps-installed.step.npz",
         ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.step",
+        ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.step.npz",
         ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.stl",
         "pysrc/hardware/printed-parts/enclosure/rear-identification/rear_identification.py",
         "pysrc/hardware/printed-parts/enclosure/valve-tray/valve_tray.py",
@@ -7540,12 +7850,18 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_case.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
         ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step",
+        ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step.npz",
         ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.stl",
         ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.step",
+        ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.step.npz",
         ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.stl",
         ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step",
+        ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step.npz",
         ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.stl",
+        ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps-installed.step",
+        ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps-installed.step.npz",
         ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.step",
+        ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.step.npz",
         ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.stl",
         "pysrc/hardware/printed-parts/enclosure/tee-carrier/tee_carrier.py",
         "pysrc/hardware/printed-parts/enclosure/valve-tray/valve_tray.py",
@@ -7692,91 +8008,133 @@ genrule(
         "pysrc/hardware/manifold-layout/above_core_routes.py",
         "pysrc/hardware/manifold-layout/rear_plumbing.py",
         "pysrc/hardware/manifold-layout/rear_snaps.py",
-        "hardware/manifold-layout/reservoir-a-routes.json",
-        "pysrc/hardware/manifold-layout/soda_inlet.py",
-        "hardware/pcb/pcba/out/pcba.glb",
         "pysrc/hardware/printed-parts/asse-drain-adapter/asse_drain_adapter.py",
         "pysrc/hardware/printed-parts/cadlib/fits.py",
-        "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
-        "pysrc/hardware/printed-parts/cold-core/_above_core_mounts.py",
-        "pysrc/hardware/printed-parts/electronics/module_tray.py",
-        ":out/pcba-assembly/hardware/printed-parts/electronics/pcba-tray/pcba-board.step",
-        ":out/pcba-assembly/hardware/printed-parts/electronics/pcba-tray/pcba-board.step.npz",
-        "pysrc/hardware/printed-parts/electronics/pcba-tray/pcba_tray.py",
+        "hardware/printed-parts/enclosure/enclosure/rear-seat-profiles.json",
+        "hardware/printed-parts/enclosure/rear-equipment-caps/rear-cap-profiles.json",
         "pysrc/hardware/printed-parts/enclosure/rear-equipment-caps/rear_equipment_caps.py",
+        "hardware/printed-parts/enclosure/rear-equipment-caps/rear_equipment_caps.rs",
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
         "pysrc/hardware/reference/asse1022-threaded-chain/asse1022_threaded_chain.py",
-        "hardware/reference/asse1022-threaded-chain/reference-parameters.json",
-        ":out/beduan-solenoid/hardware/reference/beduan-solenoid/beduan-solenoid.step",
-        "pysrc/hardware/reference/beduan-solenoid/beduan_solenoid.py",
         "hardware/reference/compact-inline-candidates/dimensions.json",
-        "hardware/reference/compact-inline-candidates/geometry/candidate-regulator.step",
-        "hardware/reference/digiten-flow-sensor/digiten-flow-sensor.step",
         "pysrc/hardware/reference/digiten-flow-sensor/digiten_flow_sensor.py",
-        "pysrc/hardware/reference/g-ganen-pump/common-foot/g_ganen_foot.py",
-        "pysrc/hardware/reference/g-ganen-pump/g_ganen_pump.py",
-        "hardware/reference/g-ganen-pump/reference-parameters.json",
-        "hardware/reference/g-ganen-pump/under-head-clearance.json",
-        ":out/iec-c14-inlet/hardware/reference/iec-c14-inlet/iec-c14-inlet.step",
-        "pysrc/hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py",
-        "hardware/reference/jg-pp0208e-tee/branch-operating-measurements.json",
-        "pysrc/hardware/reference/jg-pp0208e-tee/jg_pp0208e_tee.py",
-        "hardware/reference/jg-pp0308e-elbow/jg-pp0308e-elbow.step",
-        "pysrc/hardware/reference/jg-pp061208w/jg_pp061208w.py",
-        "hardware/reference/meanwell-irm90/meanwell-irm90.step",
-        ":out/multiplex-asse1022/hardware/reference/multiplex-asse1022/multiplex-asse1022.step",
         "pysrc/hardware/reference/multiplex-asse1022/multiplex_asse1022.py",
-        "pysrc/hardware/reference/neofit-acvus44-check/neofit_acvus44_check.py",
         "pysrc/hardware/reference/neofit-drain-bulkhead/neofit_drain_bulkhead.py",
-        "hardware/reference/neofit-stem-elbow/neofit-stem-elbow.step",
-        "pysrc/hardware/reference/neofit-stem-elbow/neofit_stem_elbow.py",
-        "pysrc/hardware/reference/pump-barb-joint/pump_barb_joint.py",
-        ":out/riteav-keystone/hardware/reference/riteav-keystone/riteav-keystone.step",
-        "pysrc/hardware/reference/tee-connector/tee_connector.py",
-        "hardware/reference/teyleten-relay/teyleten-relay.step",
-        "hardware/reference/yzmsz-water-regulator/geometry/yzmsz-water-regulator.step",
         "pysrc/hardware/scripts/_cadq_export.py",
         "pysrc/hardware/scripts/_material_base.py",
         "pysrc/hardware/scripts/_materials.py",
-        "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_occt_color.py",
-        "pysrc/hardware/scripts/_payload_rules.py",
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/hardware/scripts/_run_slots.py",
-        "pysrc/hardware/scripts/flute_payload.py",
+        "pysrc/hardware/scripts/_rust_part.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/Cargo.lock",
+        "tools/hsm/Cargo.toml",
+        "tools/hsm/enclosure-components/Cargo.toml",
+        "tools/hsm/enclosure-components/src/lib.rs",
+        "tools/hsm/kernel/Cargo.toml",
+        "tools/hsm/kernel/src/boolean.rs",
+        "tools/hsm/kernel/src/build.rs",
+        "tools/hsm/kernel/src/dxf.rs",
+        "tools/hsm/kernel/src/edge.rs",
+        "tools/hsm/kernel/src/face.rs",
+        "tools/hsm/kernel/src/import.rs",
+        "tools/hsm/kernel/src/lib.rs",
+        "tools/hsm/kernel/src/mapped.rs",
+        "tools/hsm/kernel/src/mass.rs",
+        "tools/hsm/kernel/src/math.rs",
+        "tools/hsm/kernel/src/part.rs",
+        "tools/hsm/kernel/src/plane.rs",
+        "tools/hsm/kernel/src/profile.rs",
+        "tools/hsm/kernel/src/reads.rs",
+        "tools/hsm/kernel/src/round.rs",
+        "tools/hsm/kernel/src/round/rolled.rs",
+        "tools/hsm/kernel/src/rule.rs",
+        "tools/hsm/kernel/src/screw.rs",
+        "tools/hsm/kernel/src/sketch_hull.rs",
+        "tools/hsm/kernel/src/solid.rs",
+        "tools/hsm/kernel/src/spline.rs",
+        "tools/hsm/kernel/src/step.rs",
+        "tools/hsm/kernel/src/sweep.rs",
+        "tools/hsm/kernel/src/text.rs",
+        "tools/hsm/kernel/src/thru.rs",
+        "tools/hsm/kernel/src/topo.rs",
+        "tools/hsm/kernel/src/triangulate.rs",
+        "tools/hsm/kernel/src/write.rs",
         "tools/hsm/run-slots.defaults.json",
+        "tools/hsm/run-slots/Cargo.toml",
+        "tools/hsm/run-slots/src/ipc.rs",
+        "tools/hsm/run-slots/src/lib.rs",
+        "tools/hsm/vendor/manifold-csg-sys/.cargo_vcs_info.json",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.lock",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.toml",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.toml.orig",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-APACHE",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-MIT",
+        "tools/hsm/vendor/manifold-csg-sys/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/build.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/build.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/fetch.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/patch.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/wasm.rs",
+        "tools/hsm/vendor/manifold-csg-sys/cache-version",
+        "tools/hsm/vendor/manifold-csg-sys/src/lib.rs",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/CMakeLists.txt",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/diagnose.sh",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__assertion_handler",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__config_site",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/memory",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/mutex",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/libcxx-extras.cpp",
         "tools/run-slots.mjs",
         "pysrc/tools/run.py",
     ],
     outs = [
         "out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step",
         "out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step.mesh",
+        "out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step.npz",
         "out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.stl",
         "out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.step",
         "out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.step.mesh",
+        "out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.step.npz",
         "out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.stl",
         "out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step",
         "out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step.mesh",
+        "out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step.npz",
         "out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.stl",
+        "out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps-installed.step",
+        "out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps-installed.step.mesh",
+        "out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps-installed.step.npz",
+        "out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps.numbers.json",
         "out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.step",
         "out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.step.mesh",
+        "out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.step.npz",
         "out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.stl",
     ],
+    tags = ["no-sandbox"],
     cmd = """
 set -e
 O0=$$PWD/$(location out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step)
 O1=$$PWD/$(location out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step.mesh)
-O2=$$PWD/$(location out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.stl)
-O3=$$PWD/$(location out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.step)
-O4=$$PWD/$(location out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.step.mesh)
-O5=$$PWD/$(location out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.stl)
-O6=$$PWD/$(location out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step)
-O7=$$PWD/$(location out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step.mesh)
-O8=$$PWD/$(location out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.stl)
-O9=$$PWD/$(location out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.step)
-O10=$$PWD/$(location out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.step.mesh)
-O11=$$PWD/$(location out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.stl)
+O2=$$PWD/$(location out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step.npz)
+O3=$$PWD/$(location out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.stl)
+O4=$$PWD/$(location out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.step)
+O5=$$PWD/$(location out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.step.mesh)
+O6=$$PWD/$(location out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.step.npz)
+O7=$$PWD/$(location out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.stl)
+O8=$$PWD/$(location out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step)
+O9=$$PWD/$(location out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step.mesh)
+O10=$$PWD/$(location out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step.npz)
+O11=$$PWD/$(location out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.stl)
+O12=$$PWD/$(location out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps-installed.step)
+O13=$$PWD/$(location out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps-installed.step.mesh)
+O14=$$PWD/$(location out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps-installed.step.npz)
+O15=$$PWD/$(location out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps.numbers.json)
+O16=$$PWD/$(location out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.step)
+O17=$$PWD/$(location out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.step.mesh)
+O18=$$PWD/$(location out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.step.npz)
+O19=$$PWD/$(location out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.stl)
+rm -rf work-rear-equipment-caps
 for f in $(SRCS); do
   case $$f in
     */node_modules/*) continue;;
@@ -7784,27 +8142,36 @@ for f in $(SRCS); do
     */pysrc/*) t=$${f##*/pysrc/};;
     *) t=$$f;;
   esac
-  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
+  mkdir -p work-rear-equipment-caps/$$(dirname $$t); cp -L $$f work-rear-equipment-caps/$$t
 done
 for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
+  if [ -d $$d ]; then mkdir -p work-rear-equipment-caps/$$(dirname $$d); ln -sfn $$PWD/$$d work-rear-equipment-caps/$$d; fi
 done
-cd work
+cd work-rear-equipment-caps
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
 HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/enclosure/rear-equipment-caps/rear_equipment_caps.py > /dev/null
 cp hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step $$O0
 cp hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step.mesh $$O1
-cp hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.stl $$O2
-cp hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.step $$O3
-cp hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.step.mesh $$O4
-cp hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.stl $$O5
-cp hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step $$O6
-cp hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step.mesh $$O7
-cp hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.stl $$O8
-cp hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.step $$O9
-cp hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.step.mesh $$O10
-cp hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.stl $$O11
+cp hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step.npz $$O2
+cp hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.stl $$O3
+cp hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.step $$O4
+cp hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.step.mesh $$O5
+cp hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.step.npz $$O6
+cp hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.stl $$O7
+cp hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step $$O8
+cp hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step.mesh $$O9
+cp hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step.npz $$O10
+cp hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.stl $$O11
+cp hardware/printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps-installed.step $$O12
+cp hardware/printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps-installed.step.mesh $$O13
+cp hardware/printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps-installed.step.npz $$O14
+cp hardware/printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps.numbers.json $$O15
+cp hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.step $$O16
+cp hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.step.mesh $$O17
+cp hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.step.npz $$O18
+cp hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.stl $$O19
+cd .. && rm -rf work-rear-equipment-caps
 """,
 )
 
@@ -8091,12 +8458,18 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_case.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
         ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step",
+        ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step.npz",
         ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.stl",
         ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.step",
+        ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.step.npz",
         ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.stl",
         ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step",
+        ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step.npz",
         ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.stl",
+        ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps-installed.step",
+        ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps-installed.step.npz",
         ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.step",
+        ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.step.npz",
         ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.stl",
         "pysrc/hardware/printed-parts/enclosure/tee-carrier/tee_carrier.py",
         "hardware/printed-parts/enclosure/valve-tray/README.md",
@@ -8295,30 +8668,99 @@ genrule(
         "pysrc/hardware/printed-parts/faucet/_display_snap.py",
         "pysrc/hardware/printed-parts/faucet/_faucet_interface.py",
         "hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py",
+        "hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.rs",
         "pysrc/hardware/printed-parts/faucet/faucet-shell/faucet_shell.py",
         "pysrc/hardware/printed-parts/faucet/faucet_paths.py",
-        "pysrc/hardware/printed-parts/faucet/vent_seals.py",
         "pysrc/hardware/scripts/_cadq_export.py",
         "pysrc/hardware/scripts/_material_base.py",
         "pysrc/hardware/scripts/_materials.py",
+        "pysrc/hardware/scripts/_occt_color.py",
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/hardware/scripts/_run_slots.py",
+        "pysrc/hardware/scripts/_rust_part.py",
         "pysrc/hardware/scripts/_stated_bounds.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/Cargo.lock",
+        "tools/hsm/Cargo.toml",
+        "tools/hsm/faucet/Cargo.toml",
+        "tools/hsm/faucet/src/assembly.rs",
+        "tools/hsm/faucet/src/counter.rs",
+        "tools/hsm/faucet/src/display.rs",
+        "tools/hsm/faucet/src/lib.rs",
+        "tools/hsm/faucet/src/shell.rs",
+        "tools/hsm/kernel/Cargo.toml",
+        "tools/hsm/kernel/src/boolean.rs",
+        "tools/hsm/kernel/src/build.rs",
+        "tools/hsm/kernel/src/dxf.rs",
+        "tools/hsm/kernel/src/edge.rs",
+        "tools/hsm/kernel/src/face.rs",
+        "tools/hsm/kernel/src/import.rs",
+        "tools/hsm/kernel/src/lib.rs",
+        "tools/hsm/kernel/src/mapped.rs",
+        "tools/hsm/kernel/src/mass.rs",
+        "tools/hsm/kernel/src/math.rs",
+        "tools/hsm/kernel/src/part.rs",
+        "tools/hsm/kernel/src/plane.rs",
+        "tools/hsm/kernel/src/profile.rs",
+        "tools/hsm/kernel/src/reads.rs",
+        "tools/hsm/kernel/src/round.rs",
+        "tools/hsm/kernel/src/round/rolled.rs",
+        "tools/hsm/kernel/src/rule.rs",
+        "tools/hsm/kernel/src/screw.rs",
+        "tools/hsm/kernel/src/sketch_hull.rs",
+        "tools/hsm/kernel/src/solid.rs",
+        "tools/hsm/kernel/src/spline.rs",
+        "tools/hsm/kernel/src/step.rs",
+        "tools/hsm/kernel/src/sweep.rs",
+        "tools/hsm/kernel/src/text.rs",
+        "tools/hsm/kernel/src/thru.rs",
+        "tools/hsm/kernel/src/topo.rs",
+        "tools/hsm/kernel/src/triangulate.rs",
+        "tools/hsm/kernel/src/write.rs",
         "tools/hsm/run-slots.defaults.json",
+        "tools/hsm/run-slots/Cargo.toml",
+        "tools/hsm/run-slots/src/ipc.rs",
+        "tools/hsm/run-slots/src/lib.rs",
+        "tools/hsm/vendor/manifold-csg-sys/.cargo_vcs_info.json",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.lock",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.toml",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.toml.orig",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-APACHE",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-MIT",
+        "tools/hsm/vendor/manifold-csg-sys/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/build.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/build.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/fetch.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/patch.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/wasm.rs",
+        "tools/hsm/vendor/manifold-csg-sys/cache-version",
+        "tools/hsm/vendor/manifold-csg-sys/src/lib.rs",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/CMakeLists.txt",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/diagnose.sh",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__assertion_handler",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__config_site",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/memory",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/mutex",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/libcxx-extras.cpp",
         "tools/run-slots.mjs",
         "pysrc/tools/run.py",
     ],
     outs = [
+        "out/above-counter-gasket/hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.numbers.json",
         "out/above-counter-gasket/hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step",
+        "out/above-counter-gasket/hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step.npz",
         "out/above-counter-gasket/hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.stl",
         "out/above-counter-gasket/hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py",
     ],
+    tags = ["no-sandbox"],
     cmd = """
 set -e
-O0=$$PWD/$(location out/above-counter-gasket/hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step)
-O1=$$PWD/$(location out/above-counter-gasket/hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.stl)
-O2=$$PWD/$(location out/above-counter-gasket/hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py)
+O0=$$PWD/$(location out/above-counter-gasket/hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.numbers.json)
+O1=$$PWD/$(location out/above-counter-gasket/hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step)
+O2=$$PWD/$(location out/above-counter-gasket/hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step.npz)
+O3=$$PWD/$(location out/above-counter-gasket/hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.stl)
+O4=$$PWD/$(location out/above-counter-gasket/hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py)
+rm -rf work-above-counter-gasket
 for f in $(SRCS); do
   case $$f in
     */node_modules/*) continue;;
@@ -8326,18 +8768,21 @@ for f in $(SRCS); do
     */pysrc/*) t=$${f##*/pysrc/};;
     *) t=$$f;;
   esac
-  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
+  mkdir -p work-above-counter-gasket/$$(dirname $$t); cp -L $$f work-above-counter-gasket/$$t
 done
 for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
+  if [ -d $$d ]; then mkdir -p work-above-counter-gasket/$$(dirname $$d); ln -sfn $$PWD/$$d work-above-counter-gasket/$$d; fi
 done
-cd work
+cd work-above-counter-gasket
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
 HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py > /dev/null
-cp hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step $$O0
-cp hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.stl $$O1
-cp hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py $$O2
+cp hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.numbers.json $$O0
+cp hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step $$O1
+cp hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step.npz $$O2
+cp hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.stl $$O3
+cp hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py $$O4
+cd .. && rm -rf work-above-counter-gasket
 """,
 )
 
@@ -8353,18 +8798,81 @@ genrule(
         "pysrc/hardware/printed-parts/faucet/_faucet_interface.py",
         "hardware/printed-parts/faucet/above-counter-plate/README.md",
         "pysrc/hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py",
+        "hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.rs",
         "pysrc/hardware/printed-parts/faucet/faucet-shell/faucet_shell.py",
         "pysrc/hardware/printed-parts/faucet/faucet_paths.py",
-        "pysrc/hardware/printed-parts/faucet/vent_seals.py",
         "pysrc/hardware/scripts/_cadq_export.py",
         "pysrc/hardware/scripts/_material_base.py",
         "pysrc/hardware/scripts/_materials.py",
+        "pysrc/hardware/scripts/_occt_color.py",
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/hardware/scripts/_run_slots.py",
+        "pysrc/hardware/scripts/_rust_part.py",
         "pysrc/hardware/scripts/_stated_bounds.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/Cargo.lock",
+        "tools/hsm/Cargo.toml",
+        "tools/hsm/faucet/Cargo.toml",
+        "tools/hsm/faucet/src/assembly.rs",
+        "tools/hsm/faucet/src/counter.rs",
+        "tools/hsm/faucet/src/display.rs",
+        "tools/hsm/faucet/src/lib.rs",
+        "tools/hsm/faucet/src/shell.rs",
+        "tools/hsm/kernel/Cargo.toml",
+        "tools/hsm/kernel/src/boolean.rs",
+        "tools/hsm/kernel/src/build.rs",
+        "tools/hsm/kernel/src/dxf.rs",
+        "tools/hsm/kernel/src/edge.rs",
+        "tools/hsm/kernel/src/face.rs",
+        "tools/hsm/kernel/src/import.rs",
+        "tools/hsm/kernel/src/lib.rs",
+        "tools/hsm/kernel/src/mapped.rs",
+        "tools/hsm/kernel/src/mass.rs",
+        "tools/hsm/kernel/src/math.rs",
+        "tools/hsm/kernel/src/part.rs",
+        "tools/hsm/kernel/src/plane.rs",
+        "tools/hsm/kernel/src/profile.rs",
+        "tools/hsm/kernel/src/reads.rs",
+        "tools/hsm/kernel/src/round.rs",
+        "tools/hsm/kernel/src/round/rolled.rs",
+        "tools/hsm/kernel/src/rule.rs",
+        "tools/hsm/kernel/src/screw.rs",
+        "tools/hsm/kernel/src/sketch_hull.rs",
+        "tools/hsm/kernel/src/solid.rs",
+        "tools/hsm/kernel/src/spline.rs",
+        "tools/hsm/kernel/src/step.rs",
+        "tools/hsm/kernel/src/sweep.rs",
+        "tools/hsm/kernel/src/text.rs",
+        "tools/hsm/kernel/src/thru.rs",
+        "tools/hsm/kernel/src/topo.rs",
+        "tools/hsm/kernel/src/triangulate.rs",
+        "tools/hsm/kernel/src/write.rs",
         "tools/hsm/run-slots.defaults.json",
+        "tools/hsm/run-slots/Cargo.toml",
+        "tools/hsm/run-slots/src/ipc.rs",
+        "tools/hsm/run-slots/src/lib.rs",
+        "tools/hsm/vendor/manifold-csg-sys/.cargo_vcs_info.json",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.lock",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.toml",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.toml.orig",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-APACHE",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-MIT",
+        "tools/hsm/vendor/manifold-csg-sys/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/build.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/build.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/fetch.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/patch.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/wasm.rs",
+        "tools/hsm/vendor/manifold-csg-sys/cache-version",
+        "tools/hsm/vendor/manifold-csg-sys/src/lib.rs",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/CMakeLists.txt",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/diagnose.sh",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__assertion_handler",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__config_site",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/memory",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/mutex",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/libcxx-extras.cpp",
         "tools/run-slots.mjs",
         "pysrc/tools/run.py",
     ] + glob(
@@ -8374,17 +8882,23 @@ genrule(
         allow_empty = True,
     ),
     outs = [
+        "out/above-counter-plate/hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.numbers.json",
         "out/above-counter-plate/hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step",
+        "out/above-counter-plate/hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step.npz",
         "out/above-counter-plate/hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.stl",
         "out/above-counter-plate/hardware/printed-parts/faucet/above-counter-plate/README.figures.json",
         "out/above-counter-plate/hardware/printed-parts/faucet/above-counter-plate/README.md",
     ],
+    tags = ["no-sandbox"],
     cmd = """
 set -e
-O0=$$PWD/$(location out/above-counter-plate/hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step)
-O1=$$PWD/$(location out/above-counter-plate/hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.stl)
-O2=$$PWD/$(location out/above-counter-plate/hardware/printed-parts/faucet/above-counter-plate/README.figures.json)
-O3=$$PWD/$(location out/above-counter-plate/hardware/printed-parts/faucet/above-counter-plate/README.md)
+O0=$$PWD/$(location out/above-counter-plate/hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.numbers.json)
+O1=$$PWD/$(location out/above-counter-plate/hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step)
+O2=$$PWD/$(location out/above-counter-plate/hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step.npz)
+O3=$$PWD/$(location out/above-counter-plate/hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.stl)
+O4=$$PWD/$(location out/above-counter-plate/hardware/printed-parts/faucet/above-counter-plate/README.figures.json)
+O5=$$PWD/$(location out/above-counter-plate/hardware/printed-parts/faucet/above-counter-plate/README.md)
+rm -rf work-above-counter-plate
 for f in $(SRCS); do
   case $$f in
     */node_modules/*) continue;;
@@ -8392,19 +8906,22 @@ for f in $(SRCS); do
     */pysrc/*) t=$${f##*/pysrc/};;
     *) t=$$f;;
   esac
-  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
+  mkdir -p work-above-counter-plate/$$(dirname $$t); cp -L $$f work-above-counter-plate/$$t
 done
 for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
+  if [ -d $$d ]; then mkdir -p work-above-counter-plate/$$(dirname $$d); ln -sfn $$PWD/$$d work-above-counter-plate/$$d; fi
 done
-cd work
+cd work-above-counter-plate
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
 HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py > /dev/null
-cp hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step $$O0
-cp hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.stl $$O1
-cp hardware/printed-parts/faucet/above-counter-plate/README.figures.json $$O2
-cp hardware/printed-parts/faucet/above-counter-plate/README.md $$O3
+cp hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.numbers.json $$O0
+cp hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step $$O1
+cp hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step.npz $$O2
+cp hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.stl $$O3
+cp hardware/printed-parts/faucet/above-counter-plate/README.figures.json $$O4
+cp hardware/printed-parts/faucet/above-counter-plate/README.md $$O5
+cd .. && rm -rf work-above-counter-plate
 """,
 )
 
@@ -8437,6 +8954,7 @@ genrule(
         "tools/hsm/Cargo.toml",
         "tools/hsm/faucet/Cargo.toml",
         "tools/hsm/faucet/src/assembly.rs",
+        "tools/hsm/faucet/src/counter.rs",
         "tools/hsm/faucet/src/display.rs",
         "tools/hsm/faucet/src/lib.rs",
         "tools/hsm/faucet/src/shell.rs",
@@ -8588,6 +9106,7 @@ genrule(
         "tools/hsm/Cargo.toml",
         "tools/hsm/faucet/Cargo.toml",
         "tools/hsm/faucet/src/assembly.rs",
+        "tools/hsm/faucet/src/counter.rs",
         "tools/hsm/faucet/src/display.rs",
         "tools/hsm/faucet/src/lib.rs",
         "tools/hsm/faucet/src/shell.rs",
@@ -11876,6 +12395,7 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/bulkhead-ring/bulkhead_ring.py",
         "pysrc/hardware/printed-parts/enclosure/data-ring/data_ring.py",
         ":out/display-cover/hardware/printed-parts/enclosure/display-cover/display-cover.step",
+        ":out/display-cover/hardware/printed-parts/enclosure/display-cover/display-cover.step.npz",
         "pysrc/hardware/printed-parts/enclosure/display-cover/display_cover.py",
         "pysrc/hardware/printed-parts/enclosure/display-gasket/display_gasket.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_above_core_shell.py",
@@ -11909,12 +12429,18 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_case.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
         ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step",
+        ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step.npz",
         ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.stl",
         ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.step",
+        ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.step.npz",
         ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.stl",
         ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step",
+        ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step.npz",
         ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.stl",
+        ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps-installed.step",
+        ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps-installed.step.npz",
         ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.step",
+        ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.step.npz",
         ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.stl",
         ":out/rear-identification/hardware/printed-parts/enclosure/rear-identification/rear-label-carb.step",
         ":out/rear-identification/hardware/printed-parts/enclosure/rear-identification/rear-label-co2.step",
@@ -11928,6 +12454,7 @@ genrule(
         "pysrc/hardware/printed-parts/faucet/_faucet_interface.py",
         "pysrc/hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py",
         ":out/above-counter-plate/hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step",
+        ":out/above-counter-plate/hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step.npz",
         "pysrc/hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py",
         ":out/faucet-display-cover/hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step",
         ":out/faucet-display-cover/hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step.npz",
@@ -12225,9 +12752,13 @@ genrule(
         "hardware/printed-parts/cold-core/foam-shell/prints/2026-10-26-mark2-round-ports-a2/preparation.json",
         "hardware/printed-parts/cold-core/magnetic-float/all-aero/mark2-print/v1/float-preflight.json",
         ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step",
+        ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step.npz",
         ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.step",
+        ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.step.npz",
         ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step",
+        ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step.npz",
         ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.step",
+        ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.step.npz",
         "hardware/printed-parts/faucet/faucet-petgf.support-audit.json",
         "hardware/printed-parts/zone-c/funnel-cover/native-slice-review.json",
         "pysrc/hardware/scripts/_bom_masses.py",
@@ -12570,11 +13101,17 @@ genrule(
         "hardware/printed-parts/electronics/pcba-tray/pcba_tray.py",
         "hardware/printed-parts/enclosure/asse-drip-pan/asse_drip_pan.py",
         ":out/bulkhead-ring/hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-carb.step",
+        ":out/bulkhead-ring/hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-carb.step.npz",
         ":out/bulkhead-ring/hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-co2.step",
+        ":out/bulkhead-ring/hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-co2.step.npz",
         ":out/bulkhead-ring/hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-drain.step",
+        ":out/bulkhead-ring/hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-drain.step.npz",
         ":out/bulkhead-ring/hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-flavor-a.step",
+        ":out/bulkhead-ring/hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-flavor-a.step.npz",
         ":out/bulkhead-ring/hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-flavor-b.step",
+        ":out/bulkhead-ring/hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-flavor-b.step.npz",
         ":out/bulkhead-ring/hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-water.step",
+        ":out/bulkhead-ring/hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-water.step.npz",
         "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead_ring.py",
         ":out/data-ring/hardware/printed-parts/enclosure/data-ring/data-ring.step",
         "hardware/printed-parts/enclosure/data-ring/data_ring.py",
@@ -12625,12 +13162,18 @@ genrule(
         "hardware/printed-parts/enclosure/pump-tray/pump_case.py",
         "hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
         ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step",
+        ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step.npz",
         ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.stl",
         ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.step",
+        ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.step.npz",
         ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.stl",
         ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step",
+        ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step.npz",
         ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.stl",
+        ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps-installed.step",
+        ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps-installed.step.npz",
         ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.step",
+        ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.step.npz",
         ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.stl",
         "hardware/printed-parts/enclosure/rear-identification/rear_identification.py",
         "hardware/printed-parts/enclosure/valve-tray/valve_tray.py",
@@ -12948,12 +13491,18 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_case.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
         ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step",
+        ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step.npz",
         ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.stl",
         ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.step",
+        ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.step.npz",
         ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.stl",
         ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step",
+        ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step.npz",
         ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.stl",
+        ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps-installed.step",
+        ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps-installed.step.npz",
         ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.step",
+        ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.step.npz",
         ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.stl",
         "pysrc/hardware/printed-parts/enclosure/valve-tray/valve_tray.py",
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",

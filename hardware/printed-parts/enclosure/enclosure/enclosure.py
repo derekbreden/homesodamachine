@@ -119,6 +119,7 @@ from __future__ import annotations
 
 import functools
 import math
+import os
 import sys
 from collections import namedtuple
 from pathlib import Path
@@ -9072,10 +9073,10 @@ def _report_bounds():
 
 
 def _produced_back_bottom(box):
-    """The complete Rust print and its fine structural model for the mesh assembly.
+    """The opt-in Rust print and its fine structural model for the mesh assembly.
 
-    Native callers retain build_piece/build_pieces. The normal mesh generator owns
-    the four files once; its export pass takes the remaining pieces only.
+    Native callers retain build_piece/build_pieces. With HSM_RUST_BACK_BOTTOM=1,
+    the mesh generator cuts its four files here and exports the remaining pieces.
     """
     meshcad = sys.modules.get('meshcad')
     if meshcad is None or not meshcad.mesh_mode():
@@ -9089,7 +9090,7 @@ def _produced_back_bottom(box):
 
 def main():
     core, box = machine_of()
-    produced = _produced_back_bottom(box)
+    produced = _produced_back_bottom(box) if os.environ.get('HSM_RUST_BACK_BOTTOM') == '1' else {}
     pieces, assy = build_pieces(box, produced=produced)
     print("enclosure:")
     _report_slide(pieces, box)     # the slides swept and the catches lifted, into BOUNDS

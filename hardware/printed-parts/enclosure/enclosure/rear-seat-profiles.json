@@ -1,0 +1,97 @@
+{
+  "schema": 1,
+  "units": "mm",
+  "radial_air": "The live fits.running is added to each sampled reference radius.",
+  "asse": {
+    "axis": "native +X, about (Y=0, Z=multiplex_asse1022.BODY_CENTER_Z)",
+    "seat_runs": [
+      [
+        -36.646745406652144,
+        -34.846745406651735,
+        5.767957385867841
+      ],
+      [
+        -34.846745406651735,
+        -32.44674540665119,
+        7.72771789494205
+      ],
+      [
+        -32.44674540665119,
+        -29.94674540665062,
+        8.736821150717578
+      ],
+      [
+        -29.94674540665062,
+        -12.946745406646755,
+        9.735026722025555
+      ],
+      [
+        -12.946745406646755,
+        12.253254593358974,
+        12.774393412271165
+      ],
+      [
+        12.253254593358974,
+        16.15325459335986,
+        13.004760355185518
+      ],
+      [
+        16.15325459335986,
+        74.25325459337307,
+        14.364770445281687
+      ]
+    ],
+    "gagira_fore_x": 5.985269786061906
+  },
+  "pisco": {
+    "axis": "native +Z, about (X=0, Y=0)",
+    "seat_runs": [
+      [
+        -0.10000000002520437,
+        4.699999999975887,
+        6.179422841099721
+      ],
+      [
+        4.699999999975887,
+        15.499999999978343,
+        6.808489162209648
+      ],
+      [
+        15.499999999978343,
+        24.59999999998041,
+        10.094100000343808
+      ],
+      [
+        24.59999999998041,
+        58.699999999988165,
+        10.827400000617823
+      ],
+      [
+        58.699999999988165,
+        64.69999999998953,
+        10.521317823516311
+      ]
+    ]
+  },
+  "sampler": {
+    "surface_tolerance_mm": 0.02,
+    "surface_angle_rad": 0.1,
+    "area_step_mm": 0.2,
+    "seed": 1,
+    "axial_step_mm": 0.1,
+    "step_radius_tolerance_mm": 0.2,
+    "minimum_run_mm": 1.5,
+    "slide_mm": 16.0,
+    "thread_mm": 1.5,
+    "check_axial_allowance_mm": 0.5
+  },
+  "reference_sources": {
+    "hardware/manifold-layout/rear_snaps.py": "4459813ab1c264efd6c048977c5cfd738fc4c1b47e31ca19693b9638540d0be6",
+    "hardware/manifold-layout/above-core.json": "14fb752d47435e1f5ecc74d3f09ff7d564e80d5e42932f6d1f66902f9ed30aac",
+    "hardware/reference/asse1022-threaded-chain/reference-parameters.json": "49d49cc3c225470c45f1ec44bfa869e435d721d0b04847abd893d846d0262da9",
+    "hardware/reference/multiplex-asse1022/multiplex_asse1022.py": "b5721046ffd06d10d2d0b325177c8a0f4a0fc4c522b1bb7ef7c490147b6f84b0",
+    "hardware/reference/compact-inline-candidates/dimensions.json": "d7df0bb6120d808979aaa5594bacd28925cbd194b775fc94199550aabe2dc161",
+    "hardware/reference/neofit-acvus44-check/neofit_acvus44_check.py": "ebaa8118aa5d65c27bad6e60066e6a037ea9e761e0cada40de550bcd41722368",
+    "hardware/reference/digiten-flow-sensor/digiten_flow_sensor.py": "3d25061f40a0a65bd758b513ee798af3112a030f686cc4ad201e8a9c94cbf513"
+  }
+}
