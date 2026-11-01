@@ -32,6 +32,9 @@ from _cold_core_interface import (  # noqa: E402
     foam_shell_outer_height,
     foam_cap_height,
     foam_cap_lid_height,
+    foam_shell_rim_z,
+    bottom_cap_height,
+    bottom_pour_radius,
     forward_band_width,
     head_pad_height,
     insert_length,
@@ -64,7 +67,7 @@ CAP_CLAMP_INSERTS = len(attachment_xy_positions) * 2
 CAP_FACE_SCREWS = len(attachment_xy_positions)
 CAP_DECK_INSERTS = sum(len(deck_mount_xy(n)) for n in deck_mounts)
 RESERVOIR_INSERTS = len(insert_positions_for_side_plus_1) * 2
-B_FILL_CLAMPS = len(_cap_mounts.reservoir_b_fill_passage()['clamp_stations'])
+B_FILL_CLAMPS = 0
 
 _coil_mandrel_gen = load_module(
     "cold_core_coil_mandrel_gen",
@@ -111,11 +114,11 @@ def main():
         "TAIL_INLET_Y": f"{_coil_mandrel_gen.tail_inlet_y:.4g}",
         "TAIL_OUTLET_Y": f"{_coil_mandrel_gen.tail_outlet_y:.4g}",
         # ─── Cap pour (step 3) ────────────────────────────────────────
-        "CAP_H": f"{foam_cap_interior_height - cap_shell_clearance - cap_lid_clearance:.4g} mm",
-        # The top cup pours shallower by exactly the band its lid's solid plate stands in.
-        "CAP_H_TOP": f"{foam_cap_interior_height - head_pad_height - cap_shell_clearance - cap_lid_clearance:.4g} mm",
+        "CAP_H": f"{bottom_cap_height - wall_and_floor_thickness:.4g} mm",
+        # Upper foam space between the internal-body datum and raised shell rim.
+        "CAP_H_TOP": f"{foam_shell_rim_z - foam_shell_outer_height:.4g} mm",
         "FOAM_CAP_LID_H": f"{foam_cap_lid_height:.4g} mm",
-        "POUR_D": f"{foam_cap_lid_pour_radius * 2:.4g} mm",
+        "POUR_D": f"{bottom_pour_radius * 2:.4g} mm",
         "LID_VENT_D": f"{foam_cap_lid_vent_radius * 2:.4g} mm",
         # ─── Inserts (step 2) ─────────────────────────────────────────
         # insert_pocket_depth is the FULL printed-pocket depth: the insert's own
@@ -156,7 +159,7 @@ def main():
         # ─── Output envelope (line 113) ───────────────────────────────
         "SHELL_OUTER_X": f"{outer_shell_x_length:.4g} mm",
         "CCORE_OUTER_Y": f"{outer_shell_y_length:.4g}",
-        "OUTER_H": f"{foam_shell_outer_height:.4g} mm",
+        "OUTER_H": f"{foam_shell_rim_z:.2f} mm",
         # Finished stack: the shell plus a cap + gasket on each face. The lid
         # nests in the cap mouth, so it adds no height.
         "CCORE_CAPPED_H": f"{cap_face_z - stack_floor_z:.4g} mm",

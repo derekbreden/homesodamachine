@@ -6,7 +6,7 @@ Foam-pour geometry, shell architecture, copper feed-throughs, and dry casing sea
 
 ## Scope
 
-In: one hydro-tested + passivated carbonator (output of [`pressure-vessel.md`](/hardware/assembly/pressure-vessel.md)), with the water-inlet jet fit and full root fusion qualified and recorded per [`water-inlet-jet.md`](/hardware/assembly/water-inlet-jet.md); GOORY 1/4" OD × 0.031" wall ACR copper tubing for the evaporator coil; 3M 425 aluminum foil tape; the printed coil-winding mandrel; the printed shell stack (foam-shell, foam-cap × 2, foam-cap-lid × 2 — all PET-GF; reservoir × 2 — PETG); reservoir TPU gaskets × 2; pour-in-place 2 lb closed-cell polyurethane foam (two-part 1:1); M3 × 25 SHCS × 20 and ruthex M3 inserts × 20 for the cap clamps, plus eight deck-mount inserts for the pump and PCB and three M3 × 10 screws with full-length inserts for the B-fill channel clamps.
+In: one hydro-tested + passivated carbonator (output of [`pressure-vessel.md`](/hardware/assembly/pressure-vessel.md)), with the water-inlet jet fit and full root fusion qualified and recorded per [`water-inlet-jet.md`](/hardware/assembly/water-inlet-jet.md); GOORY 1/4" OD × 0.031" wall ACR copper tubing for the evaporator coil; 3M 425 aluminum foil tape; the printed coil-winding mandrel; the printed shell stack (foam-shell, top lid, open-topped bottom cap and B-fill bend holder — all PET-GF; reservoir × 2 — PETG); reservoir TPU gaskets × 2; pour-in-place 2 lb closed-cell polyurethane foam (two-part 1:1); M5 × 100 SHCS × 20 and RX-M5×9.5 inserts × 20 for the casing closures, plus four RX-M3×5.7 PCB inserts.
 
 Out: a fully foam-poured cold core, capped with exterior foil-sealed dry joints, with the wound evaporator coil bonded around the carbonator and its inlet/outlet stubs protruding through the foam-shell's copper exits — [200 mm](PROT_INLET) of inlet stub, [175 mm](PROT_OUTLET) of outlet stub, measured from the shell face.
 
@@ -27,14 +27,14 @@ Per-unit BOM lives in [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §5 (
 | Reed-bridge setting gauge (printed PETG) | Same | Print, reusable across builds like the coil mandrel — hangs on the tube's bottom rim, marks the bridge height |
 | Coil-winding mandrel (printed PETG) | [`/hardware/printed-parts/cold-core/coil-mandrel/`](/hardware/printed-parts/cold-core/coil-mandrel/) | Print, reusable across builds |
 | Foam-shell (printed PET-GF) | [`/hardware/printed-parts/cold-core/foam-shell/`](/hardware/printed-parts/cold-core/foam-shell/) | Print, Bambu H2C, 0.4 mm hardened Standard-flow nozzle on the left hotend — slice the `.stl`, not the `.step` |
-| Foam cap × 2 + foam cap lid × 2 (printed PET-GF) | Same | Print, same plate figures as the shell; slice the smooth caps’ `.stl` |
+| Top lid, bottom cap and B-fill bend holder (printed PET-GF) | Same | Print from their `.stl` files; the bottom cap has an open top and a flat bed face |
 | Reservoir TPU gasket × 2 (printed) | [`/hardware/printed-parts/cold-core/reservoir/`](/hardware/printed-parts/cold-core/reservoir/) | Print; one wet lid seal per reservoir |
 | Flavor reservoir × 2 (printed) | [`/hardware/printed-parts/cold-core/reservoir/`](/hardware/printed-parts/cold-core/reservoir/) | Print, Bambu PETG Translucent Clear (32101) — the wall reads fill state; the wetted surface is qualified by [`wetted-surface-test.md`](/hardware/printed-parts/cold-core/reservoir/wetted-surface-test.md), not by the spool |
-| M3 × 25 mm SHCS, 12.9 alloy, black oxide × 20 (foam-cap clamp screws) | BNUOK B0DJQGF665 | ACQUIRED |
+| M5 × 100 mm SHCS, 12.9 alloy, black oxide × 20 | SVLING B0GHNNYVDH | Same stock as the enclosure seam screws; see purchases.md |
 | M3 × 12 mm SHCS, 304 stainless (18-8) × 12 (reservoir-cap screws) | BNUOK B0DJQGMQZM | ACQUIRED |
-| ruthex M3 **full-length** heat-set inserts × [39](CC_INSERTS) — every one this procedure presses ([27](CAP_INSERTS) foam-caps: [20](CAP_CLAMP_INSERTS) face clamps, [4](CAP_DECK_INSERTS) equipment columns and [3](B_FILL_CLAMPS) B-fill channel clamps, + [12](RES_INSERTS) reservoir). **RX-M3x5.7, not the short RX-M3Sx4.0** — both bags are brass M3 in a ⌀4 hole and only the body length tells them apart, so check the trough label before the iron goes on. Every pocket in this procedure was already bored deep enough for the long body. The faucet plate, PSU and wall relays use their separately specified short inserts; the cap equipment uses the full-length family. `bom.md` §13 carries the appliance total. | ruthex B08BCRZZS3 (100-pc bag) | ACQUIRED |
+| M3 × 8 mm SHCS × 4 (PCB screws) | BNUOK B0DJQGPRPV | ACQUIRED |
+| RX-M5×9.5 inserts × 20; RX-M3×5.7 inserts × 16 | Casing closures: 20 M5. PCB: four full-length M3. Reservoir caps: twelve full-length M3 | Check the insert family before pressing; each has its own pilot |
 | Pour-in-place 2 lb 2-part closed-cell PU foam, 1 qt kit | Fiberglass Supply Depot B08R7TX8QJ | ACQUIRED |
-| M3 × 10 mm SHCS × [3](B_FILL_CLAMPS), with the full-length inserts counted above | BNUOK B0DJQGGDP2 | ACQUIRED; close the B-fill channel clamps before threading the tube or installing the PCB |
 | Foam-pour consumables (mixing cups × 4, stir sticks × 4, nitrile gloves × 1 pair per build) | B08JHH1DBF / B09H6ZP447 / B0G8SSMVKW | ACQUIRED |
 
 ## Procedure
@@ -43,7 +43,7 @@ Per-unit BOM lives in [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §5 (
 
 Everything that has to touch bare 316L goes on **before** the foil, at the bench, with the carbonator in the open:
 
-- The **carbonator earth lead**, green 16 AWG, with its steel-side closed ring clamped to the existing upper vessel rim per [the metal attachment procedure](/hardware/assembly/pressure-vessel.md#upper-rim-earth-bond). Point the crimp barrel upward and dress the lead toward the shared west-side seven-core sensor passage. Keep the lid-side end unterminated for threading through the cup and lid. Check steel-to-free-wire continuity before the connection is covered; the lid-side ring is crimped after threading at step 5.
+- The **carbonator earth lead**, green 16 AWG, with its steel-side closed ring clamped to the existing upper vessel rim per [the metal attachment procedure](/hardware/assembly/pressure-vessel.md#upper-rim-earth-bond). Point the crimp barrel upward and dress the lead toward the shared west-side seven-core sensor passage. Keep the lid-side end unterminated for threading through the lid. Check steel-to-free-wire continuity before the connection is covered; the lid-side ferrule is crimped after final threading and dressing at step 7.
 - The **DS18B20 carbonator-wall probe** (bare TO-92, family 0x28, leads heat-shrunk) taped flat against the carbonator OD, in the bare band below the wind so no wrap has to climb over it. This is the compressor-cycling setpoint sensor, so it reads the carbonator wall, not the coil.
 - The **two carbonator MDSR-7-10-15 reeds**, vertical on bare steel in the printed [reed bridge](/hardware/printed-parts/cold-core/reed-bridge/README.md), on the rod-register azimuth. The provisional bridge bottom is [38.18 mm](BRIDGE_Z_BOTTOM) above the bottom tube rim, with pocket centers [58.332 mm](REED_LOW_Z) (`CLO`) and [86.484 mm](REED_HIGH_Z) (`CHI`). Water targets remain [67.1 mm](LOW_LEVEL) and [95.25 mm](HIGH_LEVEL). [Calibrate finished-float immersion and directional crossings](/hardware/printed-parts/cold-core/magnetic-float/all-aero/installation.md#reed-calibration) before fixing the final bridge, foil and coil. The 14 mm mounting envelope crosses the [5.976 mm](INTER_WRAP_CLEAR) space between copper wraps, so the bridge carries the crossing.
 
@@ -74,67 +74,46 @@ working lengths and inspection before foam. Sheet 2 gives the tangent stations
 and bend data. Coil-forming instructions: [`handwork.md`](/hardware/assembly/handwork.md)
 "Bend copper around the pressure vessel".
 
-### 2. Press ruthex inserts into the outer shell
+### 2. Press the casing and PCB inserts
 
-[10](CAP_FACE_SCREWS) ruthex M3 heat-set inserts pressed into the top face of the outer_shell, [10](CAP_FACE_SCREWS) into the bottom face — the **full-length** RX-M3x5.7. Each insert seats in a Ø[4 mm](INSERT_POCKET_D) pocket, [5.7 mm](INSERT_LEN) of body with [4.8 mm](INSERT_RELIEF) of relief below it. Soldering iron tip on the insert; press straight down until flush.
+Press ten RX-M5×9.5 inserts into each face of the taller shell. Each Ø6.4 × 10.5 mm
+pilot has 2.6 mm radial host stock. The blind Ø5.2 passages beyond the pilots keep
+foam off the long screw tails. Press the brass squarely until its mouth is flush.
 
-These twenty shell inserts supply the cap-clamp threads — the cap and the lid both carry clearance holes — so they also clamp each lid for its pour at step 3, and must be in before it. The eight deck-mount inserts belong to the top cap's pump and PCB columns.
+Press four RX-M3×5.7 inserts into the top lid's Ø4 × 7.4 mm PCB pilots. Their
+posts stand 3.6 mm above the equipment face and retain 3.6 mm backing below the
+blind bores. The PCB takes M3 × 8 screws. Its posts belong to the lid.
 
-Geometry detail at [`/hardware/printed-parts/cold-core/foam-shell/README.md`](/hardware/printed-parts/cold-core/foam-shell/README.md) "Cap-to-outer-shell joinery".
+### 3. Attach and fill the bottom cap
 
-### 3. Cap foam pour (top and bottom)
+The bottom cap is one open-topped printed part with a 2 mm floor and a
+[17.85 mm](CAP_H) central foam depth. There is no ceiling in it: the shell's
+fixed floor forms the cavity's upper boundary. Its four Ø[30 mm](POUR_D)
+pour holes form a 2 × 2 pattern. Two Ø[6 mm](LID_VENT_D) holes vent air.
 
-Each cap is a foam-filled cup, poured mouth-up with the foam-cap-lid sealing its open face from above — [15.7 mm](CAP_H) of pour at the bottom end and [12.3 mm](CAP_H_TOP) at the top, where the lid's own plate stands in the last head pad of the cup's wall. **Bolt the cap and its lid down onto the shell's top face** — [10](CAP_FACE_SCREWS) M3 × 25 SHCS through lid and cap into the step-2 inserts, cap floor on the shell. Mask the exterior cap/lid joint and open-sided head pockets with removable tape before pouring; the 0.15 mm rigid-fit gap is not a liquid-foam seal. Keep the pour and vent openings clear. The ten face screws engage the shell inserts and hold the lid down while the foam expands. Liquid foam enters through the lid's Ø[20 mm](POUR_D) pour hole; air escapes through two Ø[6 mm](LID_VENT_D) vents. Foam expands to fill and cures. Trim flush after cure, then back all ten screws out.
+Bolt the cap directly to the empty shell with ten M5 × 100 screws. Every head
+seats below the flat underside. Mask the dry perimeter and outward-open head
+pockets with removable tape. Invert the empty shell onto its open upper rim;
+keep the equipment lid and vessels off during this operation.
 
-The **bottom lid** carries a pad at each of the [10](CAP_FACE_SCREWS) screw stations, standing off the face that meets the cap. Seat it pads-into-the-cup: each sinks into the relief its boss column leaves at the mouth, and the head goes down inside the pad's counterbore. It prints counterbore-side down, so the face the core stands on comes off the plate.
+Distribute the measured foam charge among the four local pour points. Work
+within the foam manufacturer's mixing and working-time instructions, placing
+each portion near the quarter it must fill. Use the measured charge and its
+distribution as the fill basis; foam appearing at a small vent is not a fill
+indicator. Let it cure, trim the ports flush and apply the exterior foil patches
+and perimeter band. Return the casing upright after cure. The bottom cap stays bolted on during the body assembly.
 
-The **top lid** has no pads. Its nominal plate is [5.4 mm](FOAM_CAP_LID_H) thick and its cup is one pad shorter for it, so what meets the cap's mouth rim is the plate's own flat underside — and that underside is the face it prints on, with the V-B upright socket wall, V-A feed clip, check bridge, V-B return restraint, two paired Reservoir A tube seats, wiring wells and deck-mount bores building up from it. The B-fill channel crosses the plate beneath its retaining roof.
+The top side is filled through the shell's open mouth at step 6. The uniform
+[7.4 mm](FOAM_CAP_LID_H) equipment lid prints on its flat underside. Its pump,
+V-B wall, junction wells, PCB posts and retainers build above that face. Keep the
+lid off until the body pour is cured and its foam is trimmed to the lid seat.
 
-Both caps pour in that same top-face fixture, one after the other. The top cap is bolted there in its installed orientation (floor down, mouth + lid up); the bottom cap is the same operation and flips mouth-down at step 7.
-
-Only `foam-cap-top` carries the four cup-rooted PCB columns, defined by the native board holes in [`_above_core_mounts.py`](/hardware/printed-parts/cold-core/_above_core_mounts.py). Press one full-length ruthex RX-M3x5.7 into each Ø4 × 9.75 mm blind pilot before the pour. The PCB posts pass through the lid to a 3.6 mm standoff. The bare water pump bears in the lid bearing land and uses two joined wide-tie loops.
-
-Seat three full-length RX-M3x5.7 inserts in the cup's B-fill clamp pilots. Fit the lid and close the three recessed M3 × 10 screws before threading the tube or installing the PCB. Feed reservoir B's continuous black 1/4-inch LLDPE fill tube through the fore-facing entry, around the guide and out the cup floor, with its V-I end free. The lower tube enters the TPU fill grip at world X−43.5/Y233.3 and finishes nominally at Z228.15, 1 mm below the reservoir plate in the headspace; its short tip may remain slightly angled. Mask every tube/cable passage and the dry B-fill passage joint for the cap pour; clear the masks after cure. Keep the source end loose until the populated core and front-top are staged for their final connection. Terminate both J10 power leads on the loose PCB before fastening it to its posts, then land their free ends at the core WAGOs.
-
-V-B presses into the lid's upright wall east of the PCB using the shared [V69 socket fit](/hardware/printed-parts/valve-seat/README.md). Its wall travels with the populated core. V-A and V-K, their fitted elbows and the inlet header are prepared on back-top at [internal plumbing](/hardware/assembly/internal-plumbing.md); they do not mount on this lid. Four DC/sensor connector wells belong to the core lid. The selected native layout and its qualification limits are recorded in the [cap reference](/hardware/printed-parts/cold-core/foam-cap/README.md). Keep both cap orientations labeled; the top cap and lid install rotated 180° at step 7.
-
-Slide all four complete rubber foot-and-leg assemblies out of the G Ganen's casing rails. Join two owned eight-inch, 50 lb ties for each of the two motor loops, four ties total. Thread them through the lid's open underside grooves and side slots before closing the cap, then seat the bare casing on its front and rear bearing lands. Tighten the loops with both buckles beside the motor below its equator. Keep the fixed rails, barbs, switch, ventilation and PSU clear; flush-cut the tails. The lid retains 3.8 mm of roof over each strap groove. Mask these grooves against the foam pour. The [installation reference](/hardware/reference/g-ganen-pump/installation/README.md) carries the installed pose and fixing. Close and seal the cap-clamp screws before installing the PCB over them.
-
-The V-B return has its own integral lid restraint and one six-inch narrow tie.
-Thread its holder before seating the fitting. Fasten the pump before making
-up the reinforced PVC joints and discharge stem check, following
-[internal plumbing](internal-plumbing.md) §2. The meter, rear snap seat and
-cap, continuous inlet, R14 holder and single 61 mm square-ended foam piece
-belong to back-top. Prepare them on the open shell. The meter's short rear
-tube joins SODA directly. The inlet continues through the core's plain guide
-without a tube joint or cut. Seat the two 4 mm flavor lines in their separate
-upward-opening lid clips after the larger plumbing is in place.
-
-At the final upper connections, seat the straight white V-A feed in the lid's
-upward-opening C2 clip before finally dressing `PE-carbonator` and `J4-V5`.
-Press the continuous tube downward into the clip with the funnel frame absent;
-keep the two leads clear of the loading approach. The run is logical `fluid-3`,
-drawn as `above-core-va-fore-feed`; its fittings and tube path retain their
-existing datums. Release it from the lid before moving back-top for service.
-[Internal plumbing](internal-plumbing.md#5-final-connections-through-the-funnel-opening)
-gives the connection sequence.
-
-The main PCB uses the full-length inserts prepared here. The PSU mounts in back-top's shallow ceiling recess; both relays mount on its dry west wall. Their short inserts are installed during enclosure assembly.
-
-The Reservoir A fill/draw pair uses two integral fore C2 clips on one broad lid
-base at Y209.75, Z258.5 mm, with draw at X50.5 and fill at X64.0 mm. Press each
-continuous tube downward through its open +Z mouth. For removal, release the
-exposed jaws and lift the tube upward. At the aft station, Y390 mm, thread one four-inch narrow tie
-through the empty transverse slot before laying in the pair; one common tie retains
-both tubes there. Its slot has 3 mm of seat floor above it. Their plain cap guides add
-no joint or physical tube cut; follow the combined warm/internal preparation in
-[internal plumbing](internal-plumbing.md). Tighten the pump screws before threading
-the continuous draw tube, which crosses one driver approach; remove the tube for that
-screw’s service. The selected quarter-inch C2 bore and spring section have
-[accepted coupon fit](../../future/snap-fit-tests/2026-10-26-mark2-combined/physical-result.json).
-The complete widened station's print, installed access, numerical insertion and
-retention forces, and lifetime remain unqualified; the aft tie witness does not
-qualify threading, head engagement or retention.
+Prepare the top-lid equipment with the lid off. The bare pump uses the integral
+half-pipe saddle and its separate upper snap cap. Follow the current
+[pump installation](../reference/g-ganen-pump/installation/README.md) for removing
+the rubber feet and legs, seating the motor and closing its snap. V-B and the four
+junction wells travel with the lid; thread B-fill through its separate bend holder
+at step 6.
 
 ### 4. Reservoir subassembly (both, at the bench)
 
@@ -160,61 +139,80 @@ spools in Bambu TPU 90A per machine.
 
 With the outer shell open-top-up on the bench, install every internal component:
 
-- **Carbonator + coil.** Leave both long tails free for feeding, with straight, deburred ends. Lower the carbonator partway into the center cavity with its coil clocked to the two lanes. Feed each bare tail through its Ø7.5 mm shell hole from inside, then lower the carbonator in stages while drawing the tails outward and forming broad curves. Keep the copper approximately normal to the wall through each hole; hold the tube itself while forming it, so the printed wall does not act as the bending tool. Seat the carbonator on the printed-in `carbonator_support_ring` and form the final lane bends. Retain at least the modeled R12.7 centerline bend radius and reject a kinked, creased or visibly flattened section. Leave the specified 200 mm inlet and 175 mm outlet working lengths outside the shell for refrigeration integration. Its two bottom-plate push-fit elbows are already made up and aimed (below); they hang inboard of the ring and descend in open space as the carbonator seats, so no shell material is in their way
-- **Sensor leads** — the two temperature probes and two carbonator reeds are bonded to their specified metal surfaces before the carbonator descends into the shell. Keep the reeds at their fixed east-side positions. Feed the three-wire temperature bus at the coil probe first, continuing to the carbonator-wall probe. Turn the coil-side feed aft below the PRV vent at world Z184, then rise at Y347. Transfer CLO, CHI and their common over the open vessel head at world Z225/Y352 to the west side. Bring these six signal conductors and the green 16 AWG carbonator earth lead together at world X−48/Y347. Their shared Ø7.5 mm `sensor-cable` guide bends at R5.5 inside the upper cup to the lid mouth at world X−78/Y320/Z253.4. Lay the internal transitions while the body is open, before the pour. Seat the leads so foam closes around them, and keep the free ends ready for threading through the cap and lid. The temperature bus joins J4 and its sensor-common WAGO; the reed leads join J7 and its existing reed-common WAGO. The reservoir reed channels carry only their own five-conductor columns.
+- **Carbonator + coil.** Leave both long tails free for feeding, with straight, deburred ends. Lower the carbonator partway into the center cavity with its coil clocked to the two lanes. Feed each bare tail through its Ø7.5 mm shell hole from inside, then lower the carbonator in stages while drawing the tails outward and forming broad curves. Keep the copper approximately normal to the wall through each hole; hold the tube itself while forming it, so the printed wall does not act as the bending tool. Seat the carbonator on the printed-in `carbonator_support_ring` and form the final lane bends. Retain the modeled R15 centerline tail bends and reject a kinked, creased or visibly flattened section. Leave the specified 200 mm inlet and 175 mm outlet working lengths outside the shell for refrigeration integration. Its two bottom-plate push-fit elbows are already made up and aimed (below); they hang inboard of the ring and descend in open space as the carbonator seats, so no shell material is in their way
+- **Sensor leads** — the two temperature probes and two carbonator reeds are bonded to their specified metal surfaces before the carbonator descends into the shell. Keep the reeds at their fixed east-side positions. Feed the three-wire temperature bus at the coil probe first, continuing to the carbonator-wall probe. Turn the coil-side feed aft below the PRV vent at world Z184, then rise at Y347. Transfer CLO, CHI and their common over the open vessel head at world Z225/Y352 to the west side. Bring these six signal conductors and the green 16 AWG carbonator earth lead together at world X−48/Y347. Their shared Ø7.5 mm `sensor-cable` guide bends at R5.5 inside the upper shell to the lid mouth at world X−78/Y320/Z253.4. Lay the internal transitions while the body is open, before the pour. Seat the leads so foam closes around them, and keep the free ends ready for threading through the lid. The temperature bus joins J4 and its sensor-common WAGO; the reed leads join J7 and its existing reed-common WAGO. The reservoir reed channels carry only their own five-conductor columns.
 - **Reservoirs** seated into the two ±X bag pockets
-- **Earth termination.** Thread the free earth-wire end through both the upper cup and lid; its ferrule for the rear PE WAGO goes on outside the lid after dressing, so it never passes through the cable bore. With both prints still loose on the loom and the steel accessible, repeat and record steel-to-free-end continuity before the body pour.
-- **Penetrations.** Fluid lines cross this core's boundary through the top cap, including B-fill's fore-facing entry. The shell's −X face is mated against the refrigeration base — the condenser flush on it, the compressor's plate just short of that plane — so a bore struck there would open into that base rather than into the machine. What crosses that face is the **two copper evaporator lines, each through its own round hole**. Reservoir A's reed ribbon and the shared seven-core sensor/earth loom use two passages through the upper cup and lid. Reservoir B's ribbon leaves through the shell-rim notch.
+- **Earth termination.** Thread the free earth-wire end through the lid; its ferrule for the rear PE WAGO goes on outside the lid after dressing, so it never passes through the cable bore. With the lid still loose on the loom and the steel accessible, repeat and record steel-to-free-end continuity before the body pour.
+- **Penetrations.** Fluid lines cross the upper casing boundary: straight risers pass through the equipment lid and B-fill enters laterally at the fore-facing opening. The shell's −X face is mated against the refrigeration base — the condenser flush on it, the compressor's plate just short of that plane — so a bore struck there would open into that base rather than into the machine. What crosses that face is the **two copper evaporator lines, each through its own round hole**. Reservoir A's reed ribbon and the shared seven-core sensor/earth loom use two lid passages. Reservoir B's ribbon leaves through the fore side window.
 
   **The carbonator and both reservoirs fill high and draw low.** Their water or flavor fill enters above the liquid and their draw leaves at the lowest point. That is what the air-purge and clean-flush service modes in [`fluid-topology.md`](/hardware/topology/fluid-topology.md) run on.
 
-  - Water inlet → the top cap's plain `water-in` guide. The carbonator's top-plate Port 2 carries the TAISHER 316L SS elbow and JG PP010822E 1/4-inch PTC × 1/4-inch NPT male adapter in their fixed clocking. One continuous white 1/4-inch LLDPE tube leaves that adapter, turns upward at nominal R14 clear of the PRV and passes straight through world (−80.4167, 402.9988, 253.4) mm. Above the guide, an R14 approach enters the pump suction reducer; the guide adds no fitting, insertion or physical cut. Lay this route before the pour. The [water-inlet jet](/hardware/assembly/water-inlet-jet.md) is welded onto the metal elbow's downward male tip, after the 90° turn, and discharges into headspace above the water line. Confirm its qualified assembly record and outlet clearance before the pour. Use the combined internal/warm path and actual receiving-end marks per [Internal plumbing](internal-plumbing.md#parts-and-cut-lengths); the CAD span split at the lid does not create separate tube blanks.
-  - CO2 inlet → the top cap's `co2-in` conduit. **The lane end is fed from above:** the line falls the shell's whole height down the port lane, runs along the lane's floor, and leans in across the shell's floor through **one of the carbonator support ring's own slots** — the 307° one — to the bottom plate's lane-side port at y=[-19.05](COTWO_INLET_Y), passing outboard of reservoir A's pocket corner. The carbonator's bottom-plate neoFit AME4-N2-E push-fit male elbow is made up at the bench, aimed along this line, and hangs inboard of the ring; the tube bottoms in its socket, so **nothing is made up in the cavity**. Lay it down the lane before the top cap goes on — it is not pushed in from outside — and tug-test it before the pour, because it is the one joint the foam puts out of reach. Inside the carbonator Port 1 is a plain opening below the liquid. Gas flows only while its supply pressure exceeds local carbonator pressure, then rises toward the headspace; there is no internal barb, silicone hose or stone.
-  - Carbonated-water outlet → the top cap's `carb-water-out` conduit, and the carbonator's own drain. **It has no bore in this shell at all.** The bottom-plate Port 3 push-fit elbow takes the blue tube in its own socket and turns the line laterally under the carbonator, and it leaves the carbonator support ring through **one of the ring's own slots** — the 217° one, which already exists to let the pour reach the under-carbonator floor and which lies where a line heading for this conduit's column wants to go. The CO2's lean crosses at the 307° slot, one each. So neither crossing costs a bore and all four bearing segments stay whole. From there the 1/4" OD LLDPE climbs beside the coil, in the middle of the annulus between the coil and reservoir B's pocket wall and inboard of the port lane because the CO2 owns the lane's own strip at the bottom of the shell, turns above the tank at world Z219.4 while the main body is open, and rises straight through the cup and lid at world (77.5, 359.51, 253.4) mm. The same uncut tube continues above the guide through its accepted R14 printed bend holder directly into the meter inlet. The guide adds no insertion, joint or physical cut. Lay it before the pour: it is potted the whole way up
-  - Reservoir draws → nothing to route here. Each reservoir's draw line is its own dip tube: one length of black 1/4" OD LLDPE from its draw valve, down the top cap's `reservoir-a` or `reservoir-b` conduit and the draw bore in that reservoir's cap to its floor, the end cut at 45° ([floor and dip tube](/hardware/printed-parts/cold-core/reservoir/floor-and-dip-tube.md)). Feed each tube down its open cap passage from above once the top cap is on; Both draw passages and reservoir bores share one straight axis. The dip tubes remain unpotted
-  - Reservoir fills → A-fill has an aligned straight cap passage and reservoir seat at shell (102.5, −61) mm. B-fill's continuous tube is threaded through the top cap's fore-entry passage at step 3. Guide its lower end through reservoir B's flush TPU fill grip as the cap seats at step 7; its tip finishes at world Z228.15, 1 mm below the plate in the **headspace**. Both liquid entries use the flush TPU grips.
-  - Reservoir air → two straight white 4 mm OD / 2.5 mm ID tubes, nominally 31.25 mm each. Feed each through its dedicated foam-cap passage and the reservoir's air grip, leaving 6 mm above the outer cap. Its lower tip stands 1 mm below the reservoir plate, open to the headspace. Keep both ends open; [air-tube installation](/hardware/printed-parts/cold-core/reservoir/vent.md).
-  - Reed cables → **neither crosses a pocket wall.** Each leaves by the top of the channel its own column stands in, up through the conduit the cap carries over that mouth ([`reservoir/level-sensing.md`](/hardware/printed-parts/cold-core/reservoir/level-sensing.md)). The channel is open floor to top face, so the cable's whole run inside the core is the slot it was laced into. No pocket wall is opened at all
+  - Water inlet → the equipment lid's plain `water-in` guide. The carbonator's top-plate Port 2 carries the TAISHER 316L SS elbow and JG PP010822E 1/4-inch PTC × 1/4-inch NPT male adapter in their fixed clocking. One continuous white 1/4-inch LLDPE tube leaves that adapter, turns upward at nominal R14 clear of the PRV and passes straight through world (−82.5, 420, 253.4) mm. Above the guide, an R14 approach reaches the pump discharge/check assembly; the guide adds no fitting, insertion or physical cut. Lay this route before the pour. The [water-inlet jet](/hardware/assembly/water-inlet-jet.md) is welded onto the metal elbow's downward male tip, after the 90° turn, and discharges into headspace above the water line. Confirm its qualified assembly record and outlet clearance before the pour. Use the combined internal/warm path and actual receiving-end marks per [Internal plumbing](internal-plumbing.md#parts-and-cut-lengths); the CAD span split at the lid does not create separate tube blanks.
+  - CO2 inlet → the equipment lid's `co2-in` conduit. **The lane end is fed from above:** the line falls the shell's whole height down the port lane, runs along the lane's floor, and leans in across the shell's floor through **one of the carbonator support ring's own slots** — the 307° one — to the bottom plate's lane-side port at y=[-19.05](COTWO_INLET_Y), passing outboard of reservoir A's pocket corner. The carbonator's bottom-plate neoFit AME4-N2-E push-fit male elbow is made up at the bench, aimed along this line, and hangs inboard of the ring; the tube bottoms in its socket, so **nothing is made up in the cavity**. Lay it down the lane before the lid goes on — it is not pushed in from outside — and tug-test it before the pour, because it is the one joint the foam puts out of reach. Inside the carbonator Port 1 is a plain opening below the liquid. Gas flows only while its supply pressure exceeds local carbonator pressure, then rises toward the headspace; there is no internal barb, silicone hose or stone.
+  - Carbonated-water outlet → the equipment lid's `carb-water-out` conduit, and the carbonator's own drain. **It has no bore in this shell at all.** The bottom-plate Port 3 push-fit elbow takes the blue tube in its own socket and turns the line laterally under the carbonator, and it leaves the carbonator support ring through **one of the ring's own slots** — the 217° one, which already exists to let the pour reach the under-carbonator floor and which lies on the route to this lid passage. The CO2's lean crosses at the 307° slot, one each. So neither crossing costs a bore and all four bearing segments stay whole. From there the 1/4" OD LLDPE climbs beside the coil, in the middle of the annulus between the coil and reservoir B's pocket wall and inboard of the port lane because the CO2 owns the lane's own strip at the bottom of the shell, turns above the tank at world Z219.4 while the main body is open, and rises straight through the upper shell and lid at world (77.5, 359.51, 253.4) mm. The same uncut tube continues above the guide through its accepted R14 printed bend holder directly into the meter inlet. The guide adds no insertion, joint or physical cut. Lay it before the pour: it is potted the whole way up
+  - Reservoir draws → install both continuous black 1/4" OD LLDPE dip tubes through their reservoir-cap grips before the body pour. Each runs from its draw valve, through the equipment lid's `reservoir-a` or `reservoir-b` opening and its reservoir grip, to the reservoir floor, with its lower end cut at 45° ([floor and dip tube](/hardware/printed-parts/cold-core/reservoir/floor-and-dip-tube.md)). Temporarily locate the exposed upper ends on their lid-hole axes while pouring. Foam surrounds only the short dry spans above the closed reservoir caps; the dip sections inside the reservoirs remain free.
+  - Reservoir fills → install the fill tubes before the body pour. A-fill has an aligned lid opening and reservoir seat at shell (102.5, −61) mm. At step 6, thread B-fill through its separate R14 holder, place its horizontal run on the fore-facing entry axis and seat its lower end in reservoir B's flush TPU fill grip. Its tip finishes at world Z228.15, 1 mm below the plate in the **headspace**. Both liquid entries use the flush TPU grips.
+  - Reservoir air → two straight white 4 mm OD / 2.5 mm ID tubes, nominally 31.25 mm each. Install each in its reservoir's air grip before the body pour and locate its upper end on its lid-hole axis, leaving 6 mm above the equipment lid. Its lower tip stands 1 mm below the reservoir plate, open to the headspace. Keep both ends open; [air-tube installation](/hardware/printed-parts/cold-core/reservoir/vent.md).
+  - Reed cables → each column drops into its dry channel from the raised shell rim before the equipment lid is fitted. Reservoir A's leads rise through the aligned lid opening; Reservoir B's leads leave through the fore side window below the rim. Keep both channels masked and clear through the pour ([`reservoir/level-sensing.md`](/hardware/printed-parts/cold-core/reservoir/level-sensing.md)).
   - Refrigerant inlet and outlet → two Ø7.5 mm holes in the −X outer wall at native Y ±77.5 mm, Z 28.425 mm. The inlet takes the port lane and the outlet the west lane. Feed the tails during the carbonator descent described above, before installing the reservoirs and the other potted routes.
 - **PRV vent LLDPE** pushes into the barrel bore of the [`prv-shroud`](/hardware/printed-parts/cold-core/prv-shroud/) subassembly on Port 4. The short tube falls from the downward barrel bore, turns once and crosses the shell's **+Y flank** at the station defined by [`_internal_routes.py`](/hardware/printed-parts/cold-core/_internal_routes.py). Cut its free mouth flush with the flank so it opens into the enclosure's west-wall relief chase. The chase carries discharge outside the cabinet. Keep the tube and chase clear; geometry establishes the route, while installed relief backpressure and capacity remain unqualified.
 - **Copper exit seals.** After the final bends are formed, close each annulus with a burnished 3M 425 foil-tape collar bonded to the clean shell and copper. Use two overlapping pieces, with at most two foil layers on the casing face so the collar stays inside its 0.30 mm foil allowance. Press the collar continuously around the copper; the closed collar contains the body pour and seals this dry insulation boundary. Keep the copper mouths and insert pockets open. Inspect the collars after refrigeration integration and replace any heat-damaged tape before the enclosure closes.
 
 All fitting-size transitions (3/8" → 1/4", larger fittings) happen on the warm side of the shell; every fluid penetration is 1/4" OD tubing.
 
-### 6. Body foam pour
+### 6. Open-body foam pour
 
-The passive tube passages are Ø[7.5 mm](TUBE_HOLE_D), leaving 0.5 mm radial
-air around the measured 6.5 mm tube. Before pouring, mask the gaps around
-the installed tubes at the outer exits with removable tape on the dry side. Keep tube mouths, collets and reed channels
-open. The faucet and organizer keep their separately specified gripping fits.
+Complete and prove the body-side tubing, vessel sensors and protective-earth bond
+before potting. Keep both dry reservoir reed channels masked and clear; their
+mouths remain accessible at the raised shell rim. Reservoir B's upper leads leave
+through the fore side window. The three-dimensional tube routes and vessel
+positions are the [cold-core assembly](../cold-core-layout/README.md).
 
-The three potted tubes and shared seven-core sensor/earth loom rise out of the
-foam into the top cap's passages at step 7. Hold each one at its conduit's station in the shell
-(`cap_conduit_shell_xy` in [`_cold_core_interface.py`](/hardware/printed-parts/cold-core/_cold_core_interface.py))
-through the free-rise pour with strips of removable tape across the open top; a line
-that drifts off its station does not enter its 7.5 mm passage.
+Bridge each closed reservoir cap's perimeter to its surrounding pocket rim with
+burnished 3M 425 foil tape. Close the 0.25 mm cap-to-pocket running gap before
+pouring so foam stays out of the vessel-pocket clearance and reed sensing windows.
+Keep the tube lumens and dry reed-channel entry mouths open.
 
-Mix the two-part PU foam 1:1. Pour the liquid directly into the body's open +Z top, all at once. Foam falls into the body and reaches every open cavity in parallel: outer foam gap, corner pockets at ±Z, and the carbonator cavity inside the cylinder. Geometry: [`/hardware/printed-parts/cold-core/foam-shell/README.md`](/hardware/printed-parts/cold-core/foam-shell/README.md) "Assembly and foam pour".
+Thread B-fill through its separate R14 bend holder and seat its end in the reservoir
+TPU grip. The guide has a 2 mm wall and no straight outlet leg. Its lower exit
+clears the reservoir cap; its horizontal inlet follows the fore-facing tube run.
+Keep the source end free for the V-I connection. The holder stays with the tube
+and cured foam. It carries no clamp screws.
 
-The **bag pockets take no foam** — each is occupied by its reservoir at [0.25 mm](RESERVOIR_GAP) clearance on every side and at the top, so the pour has no way in. The two reed channels stay open through the pour and receive their columns after cure.
+Mask the gaps around the external tube and copper exits. Temporarily support the
+straight risers at their lid-hole axes. Mask the ten upper insert mouths and keep every tube lumen, reed channel and
+screw-tail passage clear. The top is open: distribute the measured PU charge
+across the cavity instead of feeding it through the lid. Follow the manufacturer's
+working-time and cure instructions. Foam closes around the outside of the installed
+tubes and the lower B-fill holder.
 
-After cure, remove the temporary passage masks and trim external foam flush. Keep the tubes and relief discharge path open.
+After cure, trim foam below the Z246 mm appliance lid underside. Keep the printed
+Z245.85 mm rim and the ten insert mouths clean. Clear the temporary masks and prove
+all tubes and sensing leads before closing the top.
 
-The pour encapsulates both temperature probes and their leads against the cold metal. Ensure the pour fully wets around each probe and up its lead entry without a connected air void. Such a void lets cabinet moisture reach a cold surface directly. Closed-cell foam resists moisture but is not automatically a vapor barrier or probe-waterproofing qualification: water vapor can also permeate the material. Seal the dry casing joints as specified below; the [seam moisture review](/hardware/printed-parts/cold-core/foam-shell/README.md#why-the-operating-cores-seams-are-sealed) explains their role and the scope of the local foil bands.
+### 7. Close and populate the top lid
 
-### 7. Final assembly
+Drop the two proved reservoir reed columns into their dry channels. Route A's leads
+through its lid opening and B's leads through the fore side window. Feed the exposed
+tubes and sensor/earth loom through their lid openings. Lower the lid
+in its specified 180° installed orientation, clearing the B-fill holder with its
+plain window. The flat equipment face stays at appliance Z253.4 mm. Ten M5 × 100
+screws seat in Ø9 recesses and engage the raised shell-face inserts. Tighten these
+before the PCB covers any driver path. Apply 3M 425 to the dry exterior perimeter
+and guide-window boundary without covering functional tube or vent lumens.
 
-With all three pours cured:
+Terminate J10 on the loose PCB before fastening it to its four lid posts with
+M3 × 8 screws. Fit the pump and V-B plumbing, then dress the connector branches
+and tube retainers per [internal plumbing](internal-plumbing.md). Seat the V-A
+feed in its C2 clip before dressing the earth and J4 branches across that area.
+The reservoir A fill/draw pair retains its two fore C2 clips and aft tied seat.
+After final threading and dressing, crimp the carbonator earth lead's ferrule and
+land it in the rear PE WAGO before the enclosure is closed.
 
-- Drop the pre-soldered reed columns into the still-open reed channels, one per ±X side, from above, each column's 5P ribbon standing free above its channel. **This is done before the cap goes on**, and nothing about it is potted
-- Lay reservoir B's five conductors into the shell's 8 mm-wide, 6 mm-deep rim notch, the top of its reed channel opened through the fore face. They turn out of the dry reed channel below the cap floor, its four signals and continuous common together. Keep them clear of the cap's bearing faces.
-- Thread the top cap (foam-filled, trimmed from step 3) over the remaining lines before seating it. Hold it above the body **rotated 180° about Z**, in its labeled installed orientation, and feed each line up its own cap passage from the preserved lower entry to its upper guide: the water-inlet, carbonated-water and CO2 tubes, the seven-core sensor/earth loom, and reservoir A's reed ribbon, which rises straight to [reed-cable-a (134.5, 32.5)](REED_CONDUIT_XY) in the shell's frame. The water and soda tubes, A-fill and both draws pass through straight cap guides. Lower the cap, drawing each line through; guide the cap-carried B-fill tube into reservoir B's TPU fill grip while its V-I end stays free. Seat it on its dry printed-face allowance, carrying its equipment columns and the V-B socket wall into their installed positions. Dress A's ribbon above the lid before turning toward its electrical terminals. The B ribbon runs forward out of the rim, rises outside the B-fill block and turns aft above the board. Dress its four signals to J7 and its common to the existing reservoir-B common WAGO, retaining service slack. The screw pattern is 180°-symmetric; use the labeled cap orientation. [10](CAP_FACE_SCREWS) M3 × 25 SHCS through the cap's screw positions and into the top-face inserts
-- Bottom cap (mouth-down) onto the body's underside with its dry printed-face allowance, [10](CAP_FACE_SCREWS) M3 × 25 SHCS into the bottom-face inserts
-- Seal the dry exterior cap/shell and cap/lid seams with 3M 425 foil tape per [Dry casing seams](/hardware/printed-parts/cold-core/foam-shell/README.md#dry-casing-seams). Use one band per assembled end on its plain smooth perimeter, within the 0.30 mm per-face envelope allowance, with at most two foil layers at the 25 mm end overlap. The band spans the head pockets' small side openings. At the top end, the aft Reservoir A seat's outboard block (world X90.2–97.7, Y299–309) stands past the lid's east face from the lid's underside, the lid/cup seam plane: wrap the band around the block's underside and sides over those 10 mm. Burnish around the corners and keep the axial driver openings, flat bearing faces, mounting seats and fluid passages clear. The cup provides 0.15 mm static room at each rigid seat; the foil is outside the mechanical stack.
+Check both ten-screw closures, the four foil-covered bottom pour ports and two
+vent patches, free tube lumens, and intact reed-channel access. Prove the sensors
+and PCB connections before [refrigerant-loop integration](refrigerant-loop.md).
 
-- Close the warm side: once every line and cable is in place, press a 3M 425 foil collar from each tube or cable onto its casing face round the annulus, including B-fill's fore-facing entry, both copper exits and B's conductors at the rim notch. Seal them into the top perimeter band. Lay a foil patch over each cap-screw head pocket and the three recessed B-fill clamp screws and over any cap foam left showing. Burnish each collar onto the tube or cable as well as the casing.
-
-The bands restrict cabinet-air entry at the perimeter joints and the collars and patches at every other way in, for refrigerated operation. Together they are the cold core's warm-side moisture boundary; their effect on condensation inside the core is unmeasured. The [complete enclosure readiness assessment](/hardware/printed-parts/enclosure/print-readiness.md#remaining-work-for-the-complete-working-appliance) carries the closure.
 
 ## Warm-side check valves
 
@@ -228,17 +226,17 @@ The water and CO2 lines each carry a warm-side check outside the shell.
 A finished cold core:
 
 - The body foam pour cured, flush-trimmed at visible surfaces and tube exits
-- Each cap's pour and vent openings trimmed flush, with no foam bloom past the shell or lid surface
+- The bottom cap's pour and vent openings trimmed flush, with no foam bloom past the bottom cap's outside face
 - Carbonator with qualified top water-inlet jet and plain bottom CO2 opening; identical plate pattern and four port stations retained
 - Carbonator + bonded coil installed, seated in the cylinder cavity, surrounded by foam; coil stubs protruding through the foam-shell's copper exits — [200 mm](PROT_INLET) at the inlet, [175 mm](PROT_OUTLET) at the outlet
-- Both temperature probes potted in the foam against their metal surfaces — DS18B20 (carbonator-wall, 0x28) on the carbonator OD, DS18S20 (coil, 0x10) at the suction end of the coil — leads routed through the shared top-cap sensor conduit and sealed, joining SIG-1 at the cold-core exit
+- Both temperature probes potted in the foam against their metal surfaces — DS18B20 (carbonator-wall, 0x28) on the carbonator OD, DS18S20 (coil, 0x10) at the suction end of the coil — leads routed through the shared equipment-lid sensor conduit and sealed, joining SIG-1 at the cold-core exit
 - Both carbonator reeds in the reed-bridge on the carbonator wall at the register azimuth (`CLO` water target [67.1 mm](LOW_LEVEL), `CHI` water target [95.25 mm](HIGH_LEVEL); reed centres require the float offset and directional switching calibration), under the foil, their leads transferred over the open head before foaming and carried through the shared west passage and lid exit to J7
 - Both reservoirs seated in their bag pockets
 - The carbonator's three cap conduits carrying their lines, and the four reservoir conduits open for theirs; water and flavor fill above the liquid, and each draw leaves from its lowest point
 - The carbonated-water outlet crossing the carbonator support ring at the ring's own 217° slot and the CO2 at the 307° slot, with all four bearing segments whole
-- Reservoir reed columns dropped into their dry channels; A's ribbon rises through its aligned cap passage, while B's ribbon leaves through the shell-rim notch and stays outside the B-fill block
-- Both foam caps secured at their dry seats, [10](CAP_FACE_SCREWS) M3 × 25 SHCS each into the top- and bottom-face heat-set inserts, every head down in its lid counterbore — run a straightedge across each lid, nothing touches it before the plate does
-- External envelope ~[282.4 mm](SHELL_OUTER_X) × [180.4](CCORE_OUTER_Y) × [253.4 mm](CCORE_CAPPED_H) with both caps on — the shell alone is [213.4 mm](OUTER_H) tall, and the complete envelope includes both cups and lids
+- Reservoir reed columns dropped into their dry channels; A's ribbon rises through its aligned cap passage, while B's ribbon leaves through the fore side window and stays clear of the B-fill holder
+- Top lid and bottom cap secured at their dry seats, [10](CAP_FACE_SCREWS) M5 × 100 SHCS each into the top- and bottom-face heat-set inserts, every head recessed below its closure face
+- External envelope ~[282.4 mm](SHELL_OUTER_X) × [180.4](CCORE_OUTER_Y) × [253.4 mm](CCORE_CAPPED_H) with the top lid and bottom cap installed; the shell rim stands [225.85 mm](OUTER_H) above its own floor
 
 ## Open items
 

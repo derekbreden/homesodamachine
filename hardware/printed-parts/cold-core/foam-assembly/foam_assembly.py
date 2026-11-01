@@ -1,50 +1,11 @@
-"""Foam stack assembly — the foam shell with its two cap stacks seated as
-they are in the finished build, so the cap orientation and the screw-hole
-alignment can be checked before printing.
+"""Three-piece cold-core casing in its native assembly frame.
 
-THIS IS THE CORE AS THE MACHINE SEES IT — five printed pieces and the outside
-faces `enclosure_assembly` loads. `cold-core-layout/cold_core_assembly.py` is
-the same core one frame further in, with the carbonator, the coil, both reservoirs
-and every line potted among them; it writes ITS card beside this STEP as well
-as its own, so `/3d` reads one verdict for the core wherever it is opened.
-
-Coordinate frame is the foam shell's (Z+ up, floor on z=0):
-
-  * foam-shell spans z = 0 .. 213.4 — floor closed at the bottom, open at
-    the top where the body foam is poured.
-  * top cap (mouth-up) seats on the shell's top: its floor lands on the
-    shell's top edge with a 0.15 mm dry clearance, open mouth + lid pointing up (most +Z).
-  * bottom cap (mouth-DOWN) seats under the shell: its floor lands up
-    toward the shell's bottom face with 0.15 mm clearance, open mouth + lid pointing down — the
-    lid is the most-negative-Z layer in the whole stack.
-
-The top cap and its lid install rotated 180° about Z. They carry the
-deck-mount columns — every station in `_cold_core_interface.deck_mounts`, at
-the boss centres `deck_mount_xy` strikes for it — authored in the cap's own
-frame, and the spin is what carries each station to the deck position it
-holds, so the column pattern, which is not symmetric, is the tell for which
-way the cap goes on. Every other part is authored in its final orientation
-and only shifts along Z.
-
-Both caps and the shell share the one screw pattern (`_cold_core_interface.attachment_stations`
-— four corners, two mid bosses on each long wall, and one on each short wall), which is 180°
-symmetric about Z — that is what leaves the top cap free to rotate. The
-bottom cap is the same cup seated mouth-down, so its screws land on the
-shell's existing bottom-face inserts with no rotation and no boss moves.
-_report() proves all of it: the CO2 line's bore runs clear end to end, each
-cap conduit runs clear through the top cap and its lid while the bottom
-stack stands solid on the same line, a thin vertical probe at each screw
-position passes clear through every cap and lid, and no two solids overlap
-(the dry cap joints have 0.15 mm static clearance).
-
-THE LINES INSIDE ARE DRAWN HERE TOO. `_internal_routes` carries every fluid
-run from the fitting it lands on to the conduit it leaves by; this script is
-where each one is measured against the solids it runs among — the shell, the
-carbonator and its coil, and both reservoirs with their caps — and where it lands as
-`internal-routes.step` beside the stack. They are a separate file and not part
-of `foam-assembly.step`, because the assembly STEP is the CORE AS THE MACHINE
-SEES IT: what the enclosure loads and stands its bodies off. A tube potted
-inside the foam is not a face anything outside can reach."""
+The fixed shell floor is Z0. The bottom cap stands on Z−20 and the uniform top
+lid presents its equipment face at Z233.4. The taller shell rim seats the lid
+with its dry-face allowance. Vessel, reservoir, coil and port datums are fixed
+independently of the casing rim. The separate B-fill bend holder belongs to the
+populated cold-core assembly, not this casing-only assembly.
+"""
 
 import sys
 from pathlib import Path
@@ -97,14 +58,12 @@ RESERVOIR_DIR = _cold_core / "reservoir"
 RESERVOIRS = {"reservoir A": "reservoir-right", "reservoir B": "reservoir-left"}
 RESERVOIR_CAP_Z = routes.reservoir_cap_z
 
-# The five foam bodies' colours are `_materials`, which `foam_cap` and `foam_shell` bake into
+# The three casing bodies' colours are `_materials`, which `foam_cap` and `foam_shell` bake into
 # each piece's own STEP and `cold_core_assembly` places them with.
 SHELL_COLOR = _mat.C_FOAM_SHELL
 COLORS = {
-    "foam-cap-top": _mat.C_CAP_TOP,
     "foam-cap-lid-top": _mat.C_CAP_LID_TOP,
     "foam-cap-bottom": _mat.C_CAP_BOTTOM,
-    "foam-cap-lid-bottom": _mat.C_CAP_LID_BOTTOM,
 }
 
 # The spool each potted route is cut off, in `_routing.SPOOLS`' own keys — the same six rolls
@@ -224,48 +183,19 @@ def _place_z(shape, *, zmin=None, zmax=None):
 
 
 def build():
+    """Three printed pieces in the core's fixed assembly frame."""
     shell = _load(SHELL_STEP)
-    shell_bb = shell.BoundingBox()
-
-    # Top cap: floor (its zmin face) lands on the shell's top; lid on its
-    # mouth. Both spin about Z, which is what stations the deck mounts.
-    # The lid seats on the cap's MOUTH RIM, one cap height off its floor —
-    # not on the cap's highest point, which is a deck-mount column standing on
-    # through the lid to carry its module above it. A flush station's columns
-    # stop at the rim itself, and the lid is what its module lands on.
-    # The TOP lid is solid to its full height and its cup is a head pad shorter
-    # for it (`_foam_cap.top_cap_height`), so the plate's own underside is what
-    # meets the rim — it is placed by that face, off the cup's floor.
-    cap_top = _place_z(_spin(_load(CAP_DIR / "foam-cap-top.step")),
-                       zmin=shell_bb.zmax + cap_shell_clearance)
-    lid_top = _place_z(
-        _spin(_load(CAP_DIR / "foam-cap-lid-top.step")),
-        zmin=shell_bb.zmax + top_cap_height,
-    )
-
-    # Bottom cap (mouth-down): floor (its zmax face) lands up against the
-    # shell's bottom; lid covers the downward mouth as the most-negative-Z layer.
-    # Its plate seats on the mouth rim and its head pads sink one head_pad_height
-    # past it, into the relief the cup's boss columns leave there — so it is placed
-    # by the pads' far end, one pad short of the rim.
-    cap_bottom = _place_z(_load(CAP_DIR / "foam-cap-bottom.step"),
-                          zmax=shell_bb.zmin - cap_shell_clearance)
-    lid_bottom = _place_z(
-        _load(CAP_DIR / "foam-cap-lid-bottom.step"),
-        zmax=shell_bb.zmin - foam_cap_height + head_pad_height,
-    )
-
+    lid_top = _spin(_load(CAP_DIR/'foam-cap-lid-top.step')).translate(
+        (0.,0.,cap_face_z-lid_total_height))
+    cap_bottom = _load(CAP_DIR/'foam-cap-bottom.step').translate((0.,0.,stack_floor_z))
     placed = {
-        "foam-shell": (shell, SHELL_COLOR),
-        "foam-cap-top": (cap_top, COLORS["foam-cap-top"]),
-        "foam-cap-lid-top": (lid_top, COLORS["foam-cap-lid-top"]),
-        "foam-cap-bottom": (cap_bottom, COLORS["foam-cap-bottom"]),
-        "foam-cap-lid-bottom": (lid_bottom, COLORS["foam-cap-lid-bottom"]),
+        'foam-shell':(shell,SHELL_COLOR),
+        'foam-cap-lid-top':(lid_top,COLORS['foam-cap-lid-top']),
+        'foam-cap-bottom':(cap_bottom,COLORS['foam-cap-bottom']),
     }
-    assy = cq.Assembly(name="foam-assembly")
-    for name, (shape, color) in placed.items():
-        assy.add(shape, name=name, color=color)
-    return assy, placed
+    assy = cq.Assembly(name='foam-assembly')
+    for name,(shape,color) in placed.items():assy.add(shape,name=name,color=color)
+    return assy,placed
 
 
 def _report(placed):
@@ -277,16 +207,14 @@ def _report(placed):
             % (name, b.xmin, b.xmax, b.ymin, b.ymax, b.zmin, b.zmax)
         )
 
-    # Top cap, bottom cap, and shell all share the one screw pattern. The bottom cap is just
-    # the mouth-down cup, so its screws sit at the same XY and land on the shell's existing
-    # bosses; the top cap installs spun a half turn, and the pattern is closed under that turn,
-    # which is what lets the same list be read in either frame.
+    # Both closures land on the shell-native screw stations. The equipment
+    # lid's authored pattern is the inverse of its installed half-turn pose.
     P = [(round(x, 6), round(y, 6)) for x, y in attachment_xy_positions]
 
     # The two planes the machine reads off this stack, held against the stack that came out.
     # The cap face is a LID FACE and not the box's top, so it is read as the top lid's own
     # plate rather than as whatever stands on it.
-    floor = placed["foam-cap-lid-bottom"][0].BoundingBox().zmin
+    floor = placed["foam-cap-bottom"][0].BoundingBox().zmin
     face = placed["foam-cap-lid-top"][0].BoundingBox().zmin + lid_total_height
     assert abs(floor - stack_floor_z) < 1e-6 and abs(face - cap_face_z) < 1e-6, (
         f"the stack stands on {floor:.4f} and presents its cap face at {face:.4f}, against the "
@@ -318,9 +246,9 @@ def _report(placed):
         radius = routes.line_radius if cname == 'reservoir-b-fill' else probe_r
         probe = cap_passage_probe(cname, radius)
         blocked = {name: placed[name][0].intersect(probe).Volume()
-                   for name in ("foam-cap-top", "foam-cap-lid-top")}
+                   for name in ("foam-shell", "foam-cap-lid-top")}
         lower_x, lower_y = spin_xy(cap_conduit_floor_xy[cname])
-        for name in ("foam-cap-bottom", "foam-cap-lid-bottom"):
+        for name in ("foam-cap-bottom",):
             solid = placed[name][0]
             b = solid.BoundingBox()
             lower = cq.Solid.makeCylinder(probe_r,b.zlen+4.,
@@ -339,7 +267,7 @@ def _report(placed):
     # parts of each stack — a real through-hole for every screw.
     probe_r = screw_clearance_radius - 0.3
     clear = True
-    for name in ("foam-cap-top", "foam-cap-lid-top", "foam-cap-bottom", "foam-cap-lid-bottom"):
+    for name in ("foam-cap-lid-top", "foam-cap-bottom"):
         solid = placed[name][0]
         b = solid.BoundingBox()
         for x, y in P:

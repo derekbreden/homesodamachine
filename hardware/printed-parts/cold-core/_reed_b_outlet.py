@@ -1,4 +1,4 @@
-"""Reservoir B cable's open, cap-covered outlet at the shell rim."""
+"""Reservoir B cable's fore side outlet below the shell rim."""
 import importlib
 
 depth = 6.0
@@ -19,14 +19,12 @@ def datums():
         'width_mm': 2.0 * half, 'depth_mm': depth,
         'top_z_mm': top, 'bottom_z_mm': bottom,
         'notch_min_mm': (front - 1.0, y - half, bottom),
-        'notch_max_mm': (axis, y + half, top + 0.6),
+        'notch_max_mm': (axis, y + half, top + 0.25),
     }
 
 
 def apply(shell):
-    """The dry channel's top `depth`, opened through the fore face at the channel's own width:
-    the notch's sides are the channel's sides and its walls are the channel's walls. Open
-    upward; the unchanged cap floor closes its roof."""
+    """Open the fore wall into the dry channel; the raised channel mouth stays open above."""
     import cadquery as cq
     d = datums()
     lo, hi = d['notch_min_mm'], d['notch_max_mm']
