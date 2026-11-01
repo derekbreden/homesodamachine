@@ -23,6 +23,10 @@ path = "../../../hardware/faucet-layout/faucet_industrial_assembly.rs"
 name = "industrial-faucet"
 path = "../../../hardware/printed-parts/faucet/industrial/industrial_faucet.rs"
 
+[[bin]]
+name = "faucet-display-cover"
+path = "../../../hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.rs"
+
 [dependencies]
 anyhow.workspace = true
 hsm-kernel = { path = "../kernel" }
