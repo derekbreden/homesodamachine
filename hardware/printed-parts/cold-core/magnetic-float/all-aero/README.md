@@ -3,6 +3,12 @@
 One connected ASA Aero body encloses an RC62 ring magnet at its axial midplane.
 The guide and reed interface serves the carbonator and both flavor reservoirs.
 
+[`all_aero_float.py`](all_aero_float.py) supplies the dimensions and nominal lift
+calculations to [`all_aero_float.rs`](all_aero_float.rs). The Rust program writes
+the article and three views as STEP, f64 models and viewer payloads, plus the
+article's STL. Native construction and guide-art APIs remain available; `--native`
+runs the native writer.
+
 [Assembly](/3d?file=printed-parts/cold-core/magnetic-float/all-aero/assembly.step) ·
 [Section](/3d?file=printed-parts/cold-core/magnetic-float/all-aero/section.step) ·
 [Insertion view](/3d?file=printed-parts/cold-core/magnetic-float/all-aero/insertion.step) ·
