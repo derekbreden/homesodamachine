@@ -760,6 +760,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "hsm-enclosure-shell"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "hsm-kernel",
+ "manifold-csg",
+ "serde",
+ "serde_json",
+]
+
+[[package]]
 name = "hsm-faucet"
 version = "0.1.0"
 dependencies = [
