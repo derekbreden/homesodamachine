@@ -1596,7 +1596,7 @@ def numbers():
                  "circle": umbilical_organizer.OD / 2 + wall}]
 
     shell = faucet_shell
-    shell_step = _faucet_printed_dir / "faucet-shell" / "faucet-shell.step"
+    shell_dir = _faucet_printed_dir / "faucet-shell"
     turn, seat = _display_seat()
     screen_z = display_total_depth - display_screen_depth
     ribbon_spans = []
@@ -1629,8 +1629,8 @@ def numbers():
             _faucet_printed_dir / "above-counter-plate" / "above-counter-plate.step"),
         "above_counter_gasket": _rust_part.step(
             _faucet_printed_dir / "above-counter-gasket" / "above-counter-gasket.step"),
-        "shell_base": {"step": _rust_part.step(shell_step), "body": "shell_base"},
-        "shell_tip": {"step": _rust_part.step(shell_step), "body": "shell_tip"},
+        "shell_base": _rust_part.step(shell_dir / "faucet-shell-base.step"),
+        "shell_tip": _rust_part.step(shell_dir / "faucet-shell-tip.step"),
         "display_cover": _rust_part.step(faucet_display_cover.SEATED_STEP),
         "base_screws": {"centres": [floats(c) for c in shell.base_pod_centers],
                         "seat_z": shell.base_screw_seat_z, "length": shell.base_screw_length,
