@@ -117,8 +117,9 @@ remain open. Complete-appliance readiness is recorded in
 
 Print the shell floor-down on the configured Mark2 left 0.4 mm hardened Standard-flow nozzle.
 Use the saved PET-GF recipe, three Classic walls and 15% gyroid. The current
-casing's [native print review](printability-review.json) binds its physical
-STL, full-bead bed margin, local solid deposition and support bodies.
+casing's [kernel print review](kernel-print-review.json) binds the exact Rust
+STL, full-bead bed margin, local solid deposition and support bodies. The
+[native print review](printability-review.json) supplies its comparison slice.
 The [local solid regions](../foam-cap/fore-snap-print-regions.json) fill all ten
 M5 hosts and their wall roots at 100%; the surrounding casing keeps its bulk recipe.
 The top lid prints on its uniform flat underside; the bottom cap prints on its
