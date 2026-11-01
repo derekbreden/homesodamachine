@@ -2369,210 +2369,6 @@ cd .. && rm -rf work-faucet-industrial-assembly
 )
 
 genrule(
-    name = "cad-art",
-    srcs = [
-        "firmware/src_faucet/images/flavor0_faucet.h",
-        "firmware/src_faucet/images/flavor1_faucet.h",
-        ":out/under-counter-plate/hardware/cut-parts/faucet/under-counter-plate/under-counter-plate.dxf",
-        ":out/faucet-assembly/hardware/faucet-layout/faucet-assembly.step",
-        ":out/faucet-assembly/hardware/faucet-layout/faucet-assembly.step.mesh",
-        "pysrc/hardware/faucet-layout/faucet_assembly.py",
-        "pysrc/hardware/install-guide/_cad_art.py",
-        "pysrc/hardware/install-guide/installation_art.py",
-        ":out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.facts.json",
-        ":out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.step",
-        ":out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.step.mesh",
-        "pysrc/hardware/printed-parts/cadlib/fits.py",
-        "pysrc/hardware/printed-parts/cadlib/flute_skin.py",
-        "pysrc/hardware/printed-parts/cadlib/port_chip.py",
-        "pysrc/hardware/printed-parts/cadlib/reeding.py",
-        "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
-        "pysrc/hardware/printed-parts/enclosure/bulkhead-ring/bulkhead_ring.py",
-        "pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
-        "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
-        "pysrc/hardware/printed-parts/faucet/_display_snap.py",
-        "pysrc/hardware/printed-parts/faucet/_faucet_interface.py",
-        ":out/above-counter-gasket/hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step",
-        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step.json",
-        ":out/flute-payload-faucet/hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step.mesh",
-        ":out/above-counter-gasket/hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.stl",
-        "pysrc/hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py",
-        ":out/above-counter-plate/hardware/printed-parts/faucet/above-counter-plate/README.figures.json",
-        "hardware/printed-parts/faucet/above-counter-plate/README.md",
-        ":out/above-counter-plate/hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step",
-        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step.json",
-        ":out/flute-payload-faucet/hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step.mesh",
-        ":out/above-counter-plate/hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.stl",
-        "pysrc/hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py",
-        ":out/faucet-display-cover/hardware/printed-parts/faucet/faucet-display-cover/README.figures.json",
-        "hardware/printed-parts/faucet/faucet-display-cover/README.md",
-        ":out/faucet-display-cover/hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step",
-        ":out/flute-payload-faucet/hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step.mesh",
-        ":out/faucet-display-cover/hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl",
-        "pysrc/hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py",
-        "hardware/printed-parts/faucet/faucet-display-cover/physical-acceptance.json",
-        "hardware/printed-parts/faucet/faucet-shell/.gitignore",
-        ":out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.figures.json",
-        "hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.md",
-        ":out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/MATERIAL.figures.json",
-        "hardware/printed-parts/faucet/faucet-shell/MATERIAL.md",
-        ":out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step",
-        ":out/flute-payload-faucet/hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step.mesh",
-        ":out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl",
-        ":out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step",
-        ":out/flute-payload-faucet/hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step.mesh",
-        ":out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl",
-        ":out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell.step",
-        "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step.json",
-        ":out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell.step.mesh",
-        "hardware/printed-parts/faucet/faucet-shell/faucet_shell.md",
-        "pysrc/hardware/printed-parts/faucet/faucet-shell/faucet_shell.py",
-        "hardware/printed-parts/faucet/faucet-shell/geometry-check.json",
-        "hardware/printed-parts/faucet/faucet-shell/print-log.md",
-        "pysrc/hardware/printed-parts/faucet/faucet_paths.py",
-        "pysrc/hardware/printed-parts/faucet/tpu-o-ring/tpu_o_ring.py",
-        ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-carb.step",
-        ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-co2.step",
-        ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-drain.step",
-        ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-a.step",
-        ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-b.step",
-        ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-water.step",
-        "pysrc/hardware/printed-parts/faucet/tube-collar/tube_collar.py",
-        "pysrc/hardware/printed-parts/faucet/vent_seals.py",
-        "pysrc/hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py",
-        ":out/jg-pp0408w/hardware/reference/jg-pp0408w/jg-pp0408w.step",
-        "pysrc/hardware/reference/jg-pp0408w/jg_pp0408w.py",
-        "pysrc/hardware/reference/neofit-bulkhead/neofit_bulkhead.py",
-        "pysrc/hardware/reference/neofit-drain-bulkhead/neofit_drain_bulkhead.py",
-        "hardware/reference/touch-flo-faucet/display-reference/component-envelopes.json",
-        ":out/westbrass-reference/hardware/reference/touch-flo-faucet/westbrass-reference/westbrass-reference.step",
-        "pysrc/hardware/scripts/_cadq_export.py",
-        "pysrc/hardware/scripts/_material_base.py",
-        "pysrc/hardware/scripts/_materials.py",
-        "pysrc/hardware/scripts/_measuring.py",
-        "pysrc/hardware/scripts/_mesh_payload.py",
-        "pysrc/hardware/scripts/_payload_rules.py",
-        "pysrc/hardware/scripts/_realized.py",
-        "pysrc/hardware/scripts/_run_lock.py",
-        "pysrc/hardware/scripts/_run_slots.py",
-        "pysrc/hardware/scripts/_stated_bounds.py",
-        "pysrc/hardware/scripts/flute_payload.py",
-        "pysrc/hardware/scripts/meshcad/__init__.py",
-        "pysrc/hardware/scripts/meshcad/rule.py",
-        "pysrc/hardware/scripts/meshcad/write.py",
-        "pysrc/tools/docgen/__init__.py",
-        "tools/hsm/run-slots.defaults.json",
-        "tools/render/browser.js",
-        "tools/render/render-step-posed.js",
-        "tools/run-slots.mjs",
-        "pysrc/tools/run.py",
-        "web/server.js",
-        ":render-step-posed-runtime",
-    ],
-    outs = [
-        "out/cad-art/hardware/install-guide/art/colors.css",
-        "out/cad-art/hardware/install-guide/art/connect-rear-connected.png",
-        "out/cad-art/hardware/install-guide/art/connect-rear-open.png",
-        "out/cad-art/hardware/install-guide/art/faucet-front.png",
-        "out/cad-art/hardware/install-guide/art/faucet-side-pressed.png",
-        "out/cad-art/hardware/install-guide/art/faucet-side.png",
-        "out/cad-art/hardware/install-guide/art/faucet-tails-front.png",
-        "out/cad-art/hardware/install-guide/art/flavor-1.png",
-        "out/cad-art/hardware/install-guide/art/flavor-2.png",
-        "out/cad-art/hardware/install-guide/art/machine-back-close.png",
-        "out/cad-art/hardware/install-guide/art/machine-back-iso.png",
-        "out/cad-art/hardware/install-guide/art/machine-front.png",
-        "out/cad-art/hardware/install-guide/art/machine-funnel-close.png",
-        "out/cad-art/hardware/install-guide/art/machine-ports-action.png",
-        "out/cad-art/hardware/install-guide/art/machine-ports-iso.png",
-        "out/cad-art/hardware/install-guide/art/machine-signal-iso.png",
-        "out/cad-art/hardware/install-guide/art/mount-drop.png",
-        "out/cad-art/hardware/install-guide/art/mount-final-clean.png",
-        "out/cad-art/hardware/install-guide/art/mount-lowered-clean.png",
-        "out/cad-art/hardware/install-guide/art/mount-seated.png",
-        "out/cad-art/hardware/install-guide/art/mount-slide-clean.png",
-        "out/cad-art/hardware/install-guide/art/mount-slide.png",
-        "out/cad-art/hardware/install-guide/art/mount-tighten-close.png",
-        "out/cad-art/hardware/install-guide/art/mount-tighten.png",
-        "out/cad-art/hardware/install-guide/art/mount-under-slide-clean.png",
-        "out/cad-art/hardware/install-guide/art/mount-under-tighten-clean.png",
-    ],
-    tags = ["requires-network"],
-    cmd = """
-set -e
-O0=$$PWD/$(location out/cad-art/hardware/install-guide/art/colors.css)
-O1=$$PWD/$(location out/cad-art/hardware/install-guide/art/connect-rear-connected.png)
-O2=$$PWD/$(location out/cad-art/hardware/install-guide/art/connect-rear-open.png)
-O3=$$PWD/$(location out/cad-art/hardware/install-guide/art/faucet-front.png)
-O4=$$PWD/$(location out/cad-art/hardware/install-guide/art/faucet-side-pressed.png)
-O5=$$PWD/$(location out/cad-art/hardware/install-guide/art/faucet-side.png)
-O6=$$PWD/$(location out/cad-art/hardware/install-guide/art/faucet-tails-front.png)
-O7=$$PWD/$(location out/cad-art/hardware/install-guide/art/flavor-1.png)
-O8=$$PWD/$(location out/cad-art/hardware/install-guide/art/flavor-2.png)
-O9=$$PWD/$(location out/cad-art/hardware/install-guide/art/machine-back-close.png)
-O10=$$PWD/$(location out/cad-art/hardware/install-guide/art/machine-back-iso.png)
-O11=$$PWD/$(location out/cad-art/hardware/install-guide/art/machine-front.png)
-O12=$$PWD/$(location out/cad-art/hardware/install-guide/art/machine-funnel-close.png)
-O13=$$PWD/$(location out/cad-art/hardware/install-guide/art/machine-ports-action.png)
-O14=$$PWD/$(location out/cad-art/hardware/install-guide/art/machine-ports-iso.png)
-O15=$$PWD/$(location out/cad-art/hardware/install-guide/art/machine-signal-iso.png)
-O16=$$PWD/$(location out/cad-art/hardware/install-guide/art/mount-drop.png)
-O17=$$PWD/$(location out/cad-art/hardware/install-guide/art/mount-final-clean.png)
-O18=$$PWD/$(location out/cad-art/hardware/install-guide/art/mount-lowered-clean.png)
-O19=$$PWD/$(location out/cad-art/hardware/install-guide/art/mount-seated.png)
-O20=$$PWD/$(location out/cad-art/hardware/install-guide/art/mount-slide-clean.png)
-O21=$$PWD/$(location out/cad-art/hardware/install-guide/art/mount-slide.png)
-O22=$$PWD/$(location out/cad-art/hardware/install-guide/art/mount-tighten-close.png)
-O23=$$PWD/$(location out/cad-art/hardware/install-guide/art/mount-tighten.png)
-O24=$$PWD/$(location out/cad-art/hardware/install-guide/art/mount-under-slide-clean.png)
-O25=$$PWD/$(location out/cad-art/hardware/install-guide/art/mount-under-tighten-clean.png)
-for f in $(SRCS); do
-  case $$f in
-    */node_modules/*) continue;;
-    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
-    */pysrc/*) t=$${f##*/pysrc/};;
-    *) t=$$f;;
-  esac
-  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
-done
-for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
-done
-cd work
-ln -sfn $$HSM_WORKSPACE/.cache .cache
-D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/install-guide/_cad_art.py > /dev/null
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/install-guide/installation_art.py > /dev/null
-cp hardware/install-guide/art/colors.css $$O0
-cp hardware/install-guide/art/connect-rear-connected.png $$O1
-cp hardware/install-guide/art/connect-rear-open.png $$O2
-cp hardware/install-guide/art/faucet-front.png $$O3
-cp hardware/install-guide/art/faucet-side-pressed.png $$O4
-cp hardware/install-guide/art/faucet-side.png $$O5
-cp hardware/install-guide/art/faucet-tails-front.png $$O6
-cp hardware/install-guide/art/flavor-1.png $$O7
-cp hardware/install-guide/art/flavor-2.png $$O8
-cp hardware/install-guide/art/machine-back-close.png $$O9
-cp hardware/install-guide/art/machine-back-iso.png $$O10
-cp hardware/install-guide/art/machine-front.png $$O11
-cp hardware/install-guide/art/machine-funnel-close.png $$O12
-cp hardware/install-guide/art/machine-ports-action.png $$O13
-cp hardware/install-guide/art/machine-ports-iso.png $$O14
-cp hardware/install-guide/art/machine-signal-iso.png $$O15
-cp hardware/install-guide/art/mount-drop.png $$O16
-cp hardware/install-guide/art/mount-final-clean.png $$O17
-cp hardware/install-guide/art/mount-lowered-clean.png $$O18
-cp hardware/install-guide/art/mount-seated.png $$O19
-cp hardware/install-guide/art/mount-slide-clean.png $$O20
-cp hardware/install-guide/art/mount-slide.png $$O21
-cp hardware/install-guide/art/mount-tighten-close.png $$O22
-cp hardware/install-guide/art/mount-tighten.png $$O23
-cp hardware/install-guide/art/mount-under-slide-clean.png $$O24
-cp hardware/install-guide/art/mount-under-tighten-clean.png $$O25
-""",
-)
-
-genrule(
     name = "install-art",
     srcs = [
         ":out/under-counter-plate/hardware/cut-parts/faucet/under-counter-plate/under-counter-plate.dxf",
@@ -2737,6 +2533,199 @@ cp hardware/install-guide/art/the-back-face.png $$O14
 cp hardware/install-guide/art/the-socket.png $$O15
 cp hardware/install-guide/art/two-tees.png $$O16
 cd .. && rm -rf work-install-art
+""",
+)
+
+genrule(
+    name = "cad-art",
+    srcs = [
+        "firmware/src_faucet/images/flavor0_faucet.h",
+        "firmware/src_faucet/images/flavor1_faucet.h",
+        ":out/under-counter-plate/hardware/cut-parts/faucet/under-counter-plate/under-counter-plate.dxf",
+        "pysrc/hardware/faucet-layout/faucet_assembly.py",
+        "pysrc/hardware/install-guide/_cad_art.py",
+        "pysrc/hardware/install-guide/installation_art.py",
+        ":out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.facts.json",
+        ":out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.step",
+        ":out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.step.mesh",
+        "pysrc/hardware/printed-parts/cadlib/fits.py",
+        "pysrc/hardware/printed-parts/cadlib/flute_skin.py",
+        "pysrc/hardware/printed-parts/cadlib/port_chip.py",
+        "pysrc/hardware/printed-parts/cadlib/reeding.py",
+        "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
+        "pysrc/hardware/printed-parts/enclosure/bulkhead-ring/bulkhead_ring.py",
+        "pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
+        "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+        "pysrc/hardware/printed-parts/faucet/_display_snap.py",
+        "pysrc/hardware/printed-parts/faucet/_faucet_interface.py",
+        "pysrc/hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py",
+        "pysrc/hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py",
+        "pysrc/hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py",
+        "pysrc/hardware/printed-parts/faucet/faucet-shell/faucet_shell.py",
+        "pysrc/hardware/printed-parts/faucet/faucet_paths.py",
+        ":out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-replica.step",
+        "pysrc/hardware/printed-parts/faucet/tpu-o-ring/tpu_o_ring.py",
+        ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-carb.step",
+        ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-co2.step",
+        ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-drain.step",
+        ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-a.step",
+        ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-b.step",
+        ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-water.step",
+        "pysrc/hardware/printed-parts/faucet/tube-collar/tube_collar.py",
+        "pysrc/hardware/printed-parts/faucet/umbilical-organizer/umbilical_organizer.py",
+        "pysrc/hardware/printed-parts/faucet/vent_seals.py",
+        "pysrc/hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py",
+        "pysrc/hardware/reference/neofit-bulkhead/neofit_bulkhead.py",
+        "pysrc/hardware/reference/neofit-drain-bulkhead/neofit_drain_bulkhead.py",
+        "hardware/reference/touch-flo-faucet/display-reference/buttons.json",
+        "hardware/reference/touch-flo-faucet/display-reference/component-envelopes.json",
+        ":out/westbrass-reference/hardware/reference/touch-flo-faucet/westbrass-reference/westbrass-reference.step",
+        "pysrc/hardware/scripts/_cadq_export.py",
+        "pysrc/hardware/scripts/_hsm_render.py",
+        "pysrc/hardware/scripts/_material_base.py",
+        "pysrc/hardware/scripts/_materials.py",
+        "pysrc/hardware/scripts/_mesh_payload.py",
+        "pysrc/hardware/scripts/_payload_rules.py",
+        "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
+        "pysrc/hardware/scripts/_rust_part.py",
+        "pysrc/hardware/scripts/_stated_bounds.py",
+        "pysrc/hardware/scripts/flute_payload.py",
+        "pysrc/hardware/scripts/meshcad/__init__.py",
+        "pysrc/hardware/scripts/meshcad/rule.py",
+        "pysrc/hardware/scripts/meshcad/write.py",
+        "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/Cargo.lock",
+        "tools/hsm/Cargo.toml",
+        "tools/hsm/render/Cargo.toml",
+        "tools/hsm/render/src/annotate.rs",
+        "tools/hsm/render/src/bin/hsm-render.rs",
+        "tools/hsm/render/src/camera.rs",
+        "tools/hsm/render/src/env.rs",
+        "tools/hsm/render/src/gpu.rs",
+        "tools/hsm/render/src/image.rs",
+        "tools/hsm/render/src/job.rs",
+        "tools/hsm/render/src/lib.rs",
+        "tools/hsm/render/src/overlay.rs",
+        "tools/hsm/render/src/payload.rs",
+        "tools/hsm/render/src/pick.rs",
+        "tools/hsm/render/src/plan.rs",
+        "tools/hsm/render/src/scene.rs",
+        "tools/hsm/render/src/shaders/common.wgsl",
+        "tools/hsm/render/src/shaders/env.wgsl",
+        "tools/hsm/render/src/shaders/line.wgsl",
+        "tools/hsm/render/src/shaders/shadow.wgsl",
+        "tools/hsm/render/src/shaders/surface.wgsl",
+        "tools/hsm/render/src/shadow.rs",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/hsm/run-slots/Cargo.toml",
+        "tools/hsm/run-slots/src/ipc.rs",
+        "tools/hsm/run-slots/src/lib.rs",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
+        "web/public/finishes.json",
+    ],
+    outs = [
+        "out/cad-art/hardware/install-guide/art/colors.css",
+        "out/cad-art/hardware/install-guide/art/connect-rear-connected.png",
+        "out/cad-art/hardware/install-guide/art/connect-rear-open.png",
+        "out/cad-art/hardware/install-guide/art/faucet-front.png",
+        "out/cad-art/hardware/install-guide/art/faucet-side-pressed.png",
+        "out/cad-art/hardware/install-guide/art/faucet-side.png",
+        "out/cad-art/hardware/install-guide/art/faucet-tails-front.png",
+        "out/cad-art/hardware/install-guide/art/flavor-1.png",
+        "out/cad-art/hardware/install-guide/art/flavor-2.png",
+        "out/cad-art/hardware/install-guide/art/machine-back-close.png",
+        "out/cad-art/hardware/install-guide/art/machine-back-iso.png",
+        "out/cad-art/hardware/install-guide/art/machine-front.png",
+        "out/cad-art/hardware/install-guide/art/machine-funnel-close.png",
+        "out/cad-art/hardware/install-guide/art/machine-ports-action.png",
+        "out/cad-art/hardware/install-guide/art/machine-ports-iso.png",
+        "out/cad-art/hardware/install-guide/art/machine-signal-iso.png",
+        "out/cad-art/hardware/install-guide/art/mount-drop.png",
+        "out/cad-art/hardware/install-guide/art/mount-final-clean.png",
+        "out/cad-art/hardware/install-guide/art/mount-lowered-clean.png",
+        "out/cad-art/hardware/install-guide/art/mount-seated.png",
+        "out/cad-art/hardware/install-guide/art/mount-slide-clean.png",
+        "out/cad-art/hardware/install-guide/art/mount-slide.png",
+        "out/cad-art/hardware/install-guide/art/mount-tighten-close.png",
+        "out/cad-art/hardware/install-guide/art/mount-tighten.png",
+        "out/cad-art/hardware/install-guide/art/mount-under-slide-clean.png",
+        "out/cad-art/hardware/install-guide/art/mount-under-tighten-clean.png",
+    ],
+    tags = ["no-sandbox"],
+    cmd = """
+set -e
+O0=$$PWD/$(location out/cad-art/hardware/install-guide/art/colors.css)
+O1=$$PWD/$(location out/cad-art/hardware/install-guide/art/connect-rear-connected.png)
+O2=$$PWD/$(location out/cad-art/hardware/install-guide/art/connect-rear-open.png)
+O3=$$PWD/$(location out/cad-art/hardware/install-guide/art/faucet-front.png)
+O4=$$PWD/$(location out/cad-art/hardware/install-guide/art/faucet-side-pressed.png)
+O5=$$PWD/$(location out/cad-art/hardware/install-guide/art/faucet-side.png)
+O6=$$PWD/$(location out/cad-art/hardware/install-guide/art/faucet-tails-front.png)
+O7=$$PWD/$(location out/cad-art/hardware/install-guide/art/flavor-1.png)
+O8=$$PWD/$(location out/cad-art/hardware/install-guide/art/flavor-2.png)
+O9=$$PWD/$(location out/cad-art/hardware/install-guide/art/machine-back-close.png)
+O10=$$PWD/$(location out/cad-art/hardware/install-guide/art/machine-back-iso.png)
+O11=$$PWD/$(location out/cad-art/hardware/install-guide/art/machine-front.png)
+O12=$$PWD/$(location out/cad-art/hardware/install-guide/art/machine-funnel-close.png)
+O13=$$PWD/$(location out/cad-art/hardware/install-guide/art/machine-ports-action.png)
+O14=$$PWD/$(location out/cad-art/hardware/install-guide/art/machine-ports-iso.png)
+O15=$$PWD/$(location out/cad-art/hardware/install-guide/art/machine-signal-iso.png)
+O16=$$PWD/$(location out/cad-art/hardware/install-guide/art/mount-drop.png)
+O17=$$PWD/$(location out/cad-art/hardware/install-guide/art/mount-final-clean.png)
+O18=$$PWD/$(location out/cad-art/hardware/install-guide/art/mount-lowered-clean.png)
+O19=$$PWD/$(location out/cad-art/hardware/install-guide/art/mount-seated.png)
+O20=$$PWD/$(location out/cad-art/hardware/install-guide/art/mount-slide-clean.png)
+O21=$$PWD/$(location out/cad-art/hardware/install-guide/art/mount-slide.png)
+O22=$$PWD/$(location out/cad-art/hardware/install-guide/art/mount-tighten-close.png)
+O23=$$PWD/$(location out/cad-art/hardware/install-guide/art/mount-tighten.png)
+O24=$$PWD/$(location out/cad-art/hardware/install-guide/art/mount-under-slide-clean.png)
+O25=$$PWD/$(location out/cad-art/hardware/install-guide/art/mount-under-tighten-clean.png)
+rm -rf work-cad-art
+for f in $(SRCS); do
+  case $$f in
+    */node_modules/*) continue;;
+    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
+    */pysrc/*) t=$${f##*/pysrc/};;
+    *) t=$$f;;
+  esac
+  mkdir -p work-cad-art/$$(dirname $$t); cp -L $$f work-cad-art/$$t
+done
+for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
+  if [ -d $$d ]; then mkdir -p work-cad-art/$$(dirname $$d); ln -sfn $$PWD/$$d work-cad-art/$$d; fi
+done
+cd work-cad-art
+ln -sfn $$HSM_WORKSPACE/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/install-guide/installation_art.py > /dev/null
+cp hardware/install-guide/art/colors.css $$O0
+cp hardware/install-guide/art/connect-rear-connected.png $$O1
+cp hardware/install-guide/art/connect-rear-open.png $$O2
+cp hardware/install-guide/art/faucet-front.png $$O3
+cp hardware/install-guide/art/faucet-side-pressed.png $$O4
+cp hardware/install-guide/art/faucet-side.png $$O5
+cp hardware/install-guide/art/faucet-tails-front.png $$O6
+cp hardware/install-guide/art/flavor-1.png $$O7
+cp hardware/install-guide/art/flavor-2.png $$O8
+cp hardware/install-guide/art/machine-back-close.png $$O9
+cp hardware/install-guide/art/machine-back-iso.png $$O10
+cp hardware/install-guide/art/machine-front.png $$O11
+cp hardware/install-guide/art/machine-funnel-close.png $$O12
+cp hardware/install-guide/art/machine-ports-action.png $$O13
+cp hardware/install-guide/art/machine-ports-iso.png $$O14
+cp hardware/install-guide/art/machine-signal-iso.png $$O15
+cp hardware/install-guide/art/mount-drop.png $$O16
+cp hardware/install-guide/art/mount-final-clean.png $$O17
+cp hardware/install-guide/art/mount-lowered-clean.png $$O18
+cp hardware/install-guide/art/mount-seated.png $$O19
+cp hardware/install-guide/art/mount-slide-clean.png $$O20
+cp hardware/install-guide/art/mount-slide.png $$O21
+cp hardware/install-guide/art/mount-tighten-close.png $$O22
+cp hardware/install-guide/art/mount-tighten.png $$O23
+cp hardware/install-guide/art/mount-under-slide-clean.png $$O24
+cp hardware/install-guide/art/mount-under-tighten-clean.png $$O25
+cd .. && rm -rf work-cad-art
 """,
 )
 
@@ -15791,22 +15780,6 @@ filegroup(
 )
 
 filegroup(
-    name = "render-step-posed-runtime",
-    srcs = glob(
-        [
-            "tools/render/node_modules/**",
-            "web/**",
-        ],
-        exclude = [
-            "web/package-lock.json",
-            "web/package.json",
-            "web/server.js",
-        ],
-        allow_empty = True,
-    ),
-)
-
-filegroup(
     name = "node-packages",
     srcs = glob(
         [
@@ -15844,8 +15817,8 @@ filegroup(
         ":under-counter-plate",
         ":faucet-assembly",
         ":faucet-industrial-assembly",
-        ":cad-art",
         ":install-art",
+        ":cad-art",
         ":render-modern-tee",
         ":plumbing-scenes",
         ":enclosure-assembly",

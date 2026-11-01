@@ -323,6 +323,7 @@ def trace(gen: str, files: set, argv=()) -> dict:
 #: A CHECK IS NOT A STEP. It runs when someone asks the question it answers (CLAUDE.md, "What
 #: Runs Every Time"), so these are run by hand and their records commit like any other file.
 ELSEWHERE = ("tools/", "hardware/pcb/pcba/",
+             "hardware/install-guide/_cad_art.py",  # installation_art.py calls its complete art pass
              "hardware/assembly/scenes/render_scenes.py",
              "hardware/scripts/check_faucet_geometry.py",
              "hardware/printed-parts/enclosure/pump-dock/review_core_stops.py",

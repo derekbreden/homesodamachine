@@ -12,8 +12,8 @@ exact touched parts and makes four deliberate presentation cuts:
   no source CAD. Their family installation geometry is shown without using them as dimensional
   authority.
 
-All generated STEP intermediates live in a temporary directory under ``hardware/`` so the browser
-renderer can serve them. Only the final PNGs land in ``art/``.
+All generated STEP intermediates and their render payloads live in a temporary directory under
+``hardware/``. Only the final PNGs land in ``art/``.
 
 ``--mount-studies`` renders only the registered mount frames into ``out/mount-studies/`` for fast
 visual review without touching the checked-in artwork.
@@ -39,7 +39,6 @@ HARDWARE = next(p for p in HERE.parents if p.name == "hardware")
 ROOT = HARDWARE.parent
 ART = HERE / "art"
 OUT = HERE / "out"
-RENDERER = ROOT / "tools" / "render" / "render-step-posed.js"
 FAUCET_SOURCE = HARDWARE / "faucet-layout" / "faucet_assembly.py"
 MACHINE_STEP = HARDWARE / "manifold-layout" / "enclosure-assembly.step"
 MACHINE_MESH = HARDWARE / "manifold-layout" / "enclosure-assembly.step.mesh"
@@ -67,7 +66,7 @@ UNDER_COUNTERTOP_Y = 72.0
 # That foreshortening leaves room for a large physical +Y withdrawal while the detached bundle's
 # modest projected move still clears the enclosure silhouette.
 CONNECT_CAM = (0.70, 1.0, 0.16)
-CONNECT_TARGET = (-6.0, 630.0, 370.0)
+CONNECT_TARGET = (44.0, 630.0, 370.0)
 CONNECT_ORTHO_SPAN = 180.0
 CONNECT_RENDER_SIZE = "1600x1800"
 CONNECT_OPEN_GAP = 160.0
@@ -79,6 +78,7 @@ CONNECT_CROP = (0, 650, 1350, 1800)
 sys.path.insert(0, str(HARDWARE / "scripts"))
 sys.path.insert(0, str(HARDWARE / "printed-parts" / "enclosure" / "y-wall-of-back-top"))
 from _cadq_export import _per_solid_color, _write_mesh_payload, note_read, note_write  # noqa: E402
+import _hsm_render  # noqa: E402
 import _y_wall_dimensions as _rear  # noqa: E402
 
 
@@ -236,14 +236,17 @@ def _build_steps(work: Path) -> dict[str, Path]:
             _add_child(above, child, obj=obj)
         return above
 
-    user_step = _export_colored(above_counter_with(lever_rest, "faucet-user"), work / "faucet-user.step")
+    user_step = _export_colored(above_counter_with(lever_rest, "faucet-user"),
+                                work / "faucet-user.step", mesh=True)
     pressed_step = _export_colored(
-        above_counter_with(lever_pressed, "faucet-user-pressed"), work / "faucet-user-pressed.step"
+        above_counter_with(lever_pressed, "faucet-user-pressed"),
+        work / "faucet-user-pressed.step",
+        mesh=True,
     )
 
     # This full, direct-front assembly is an intermediate for the exact rear-wall tail crop. The
     # lever is outside that crop; every pictured tube, sleeve and word collar comes from source CAD.
-    faucet_full_step = _export_colored(faucet, work / "faucet-full.step")
+    faucet_full_step = _export_colored(faucet, work / "faucet-full.step", mesh=True)
 
     # One literal countertop window appears in every mount state. The upper and lower cameras are
     # intentionally different, but the 220 x 72 mm footprint, opening and thickness are identical
@@ -372,7 +375,7 @@ def _build_steps(work: Path) -> dict[str, Path]:
     def add_render_frame(out: cq.Assembly):
         """Give every mount state one identical orthographic frame.
 
-        ``render-step-posed`` fits an orthographic camera from each subject's bounding box. Four
+        ``hsm-render`` fits an orthographic camera from each subject's bounding box. Four
         small anchors at the corners of the camera plane make that box, target, scale and horizon
         identical across the sequence. They are shaved off the rendered PNG before it is used.
         """
@@ -490,7 +493,7 @@ def _build_steps(work: Path) -> dict[str, Path]:
     add_countertop_section(factory)
     add_mount_product(factory, 35.0)
     add_render_frame(factory)
-    drop_step = _export_colored(factory, work / "mount-drop.step")
+    drop_step = _export_colored(factory, work / "mount-drop.step", mesh=True)
 
     # 2 — the same complete assembly is down and seated. Camera, countertop section, hardware and
     # tail ordering are unchanged; only the product's vertical position changes.
@@ -498,8 +501,8 @@ def _build_steps(work: Path) -> dict[str, Path]:
     add_countertop_section(lowered)
     add_mount_product(lowered, 0.0)
     add_render_frame(lowered)
-    lowered_clean_step = _export_colored(lowered, work / "mount-lowered-clean.step")
-    seated_step = _export_colored(lowered, work / "mount-seated.step")
+    lowered_clean_step = _export_colored(lowered, work / "mount-lowered-clean.step", mesh=True)
+    seated_step = _export_colored(lowered, work / "mount-seated.step", mesh=True)
 
     # 3 — the exact source plate approaches from -X. Sampling the exported solid confirms both
     # channel mouths open on +X, toward the fixed shank and tube pair. Its Z is already above the
@@ -514,8 +517,8 @@ def _build_steps(work: Path) -> dict[str, Path]:
         color=plate_steel,
     )
     add_render_frame(slide)
-    slide_clean_step = _export_colored(slide, work / "mount-slide-clean.step")
-    slide_step = _export_colored(slide, work / "mount-slide.step")
+    slide_clean_step = _export_colored(slide, work / "mount-slide-clean.step", mesh=True)
+    slide_step = _export_colored(slide, work / "mount-slide.step", mesh=True)
 
     # 4 — plate seated, same pair closed against it. The page-level circular cue asks for hand
     # rotation without hiding the zero-gap result behind an approximate CAD hand.
@@ -524,8 +527,8 @@ def _build_steps(work: Path) -> dict[str, Path]:
     add_mount_product(tight, 0.0, washer_top_z=final_washer_top_z)
     _add_child(tight, parts["under_counter_plate"], color=plate_steel)
     add_render_frame(tight)
-    final_clean_step = _export_colored(tight, work / "mount-final-clean.step")
-    tight_step = _export_colored(tight, work / "mount-tighten.step")
+    final_clean_step = _export_colored(tight, work / "mount-final-clean.step", mesh=True)
+    tight_step = _export_colored(tight, work / "mount-tighten.step", mesh=True)
 
     # 3A — once the faucet is seated, the installer is below the intact counter. The light steel
     # plate is the actual source DXF solid, still displaced at -X; its two open channels face the
@@ -541,7 +544,8 @@ def _build_steps(work: Path) -> dict[str, Path]:
         color=plate_steel,
     )
     add_under_render_frame(under_slide)
-    under_slide_step = _export_colored(under_slide, work / "mount-under-slide-clean.step")
+    under_slide_step = _export_colored(under_slide, work / "mount-under-slide-clean.step",
+                                       mesh=True)
 
     # 3B — identical counter, camera and hanging assembly. Only the source plate is seated and
     # the captive donor washer/nut pair has closed into the real stack. The page anchors its
@@ -556,7 +560,8 @@ def _build_steps(work: Path) -> dict[str, Path]:
         color=plate_steel,
     )
     add_under_render_frame(under_tight)
-    under_tight_step = _export_colored(under_tight, work / "mount-under-tighten-clean.step")
+    under_tight_step = _export_colored(under_tight, work / "mount-under-tighten-clean.step",
+                                       mesh=True)
 
     return {
         "faucet-user": user_step,
@@ -604,8 +609,6 @@ def _build_connection_steps(work: Path) -> dict[str, Path]:
     exact_names = {
         "c14-inlet",
         "keystone-jack",
-        "data-ring",
-        "data-ring-word",
         "co2-inlet",
         "bulkhead-water",
         "bulkhead-flavor-a",
@@ -674,18 +677,13 @@ def _build_connection_steps(work: Path) -> dict[str, Path]:
         return body, words
 
     card_ports = facts["card_ports"]
-    co2_bounds = facts["bodies"]["tube-customer-co2"]
-    stations = {
-        "tap": tuple(card_ports["bulkhead-water"]["outboard"]["pos"]),
-        "carb": tuple(card_ports["bulkhead-carb"]["tube-out"]["pos"]),
-        "co2": (
-            (co2_bounds[0] + co2_bounds[3]) / 2.0,
-            co2_bounds[1],
-            (co2_bounds[2] + co2_bounds[5]) / 2.0,
-        ),
-        "flavor-a": tuple(card_ports["bulkhead-flavor-a"]["tube-out"]["pos"]),
-        "flavor-b": tuple(card_ports["bulkhead-flavor-b"]["tube-out"]["pos"]),
-        "drain": tuple(card_ports["bulkhead-drain"]["outboard"]["pos"]),
+    ports = {
+        "tap": card_ports["bulkhead-water"]["outboard"],
+        "carb": card_ports["bulkhead-carb"]["tube-out"],
+        "co2": card_ports["gas-regulator"]["outboard"],
+        "flavor-a": card_ports["bulkhead-flavor-a"]["tube-out"],
+        "flavor-b": card_ports["bulkhead-flavor-b"]["tube-out"],
+        "drain": card_ports["bulkhead-drain"]["outboard"],
     }
     tube_colors = {
         "tap": tube_white,
@@ -738,9 +736,8 @@ def _build_connection_steps(work: Path) -> dict[str, Path]:
     # behind that tip and the far face 77.5 mm behind it, matching the production bare-tail rule
     # despite CO2's port living on a slightly different Y plane from the four push-fit stations.
     collar_tip_setback = 47.5
-    tube_radius = 6.35 / 2.0
     for which in ("tap", "co2", "carb", "flavor-a", "flavor-b", "drain"):
-        x, tube_start_y, z = stations[which]
+        x, tube_start_y, z = ports[which]["pos"]
         pack_x, pack_z = pack_stations[which]
         tube = round_sweep(
             (
@@ -751,7 +748,7 @@ def _build_connection_steps(work: Path) -> dict[str, Path]:
                 (pack_x, pack_y, pack_z),
                 (pack_x, tail_y, pack_z),
             ),
-            2.0 if which == "drain" else tube_radius,
+            ports[which]["diam"] / 2.0,
         )
         umbilical.add(
             tube,
@@ -771,8 +768,8 @@ def _build_connection_steps(work: Path) -> dict[str, Path]:
             color=collar_word_colors[which],
         )
 
-    # The jack's face is recessed behind the DATA trim. Its opening is centred
-    # 1 mm below the keystone show-face station in the production reference model.
+    # The jack opening is centred 1 mm below its show-face station in the production reference
+    # model.
     jack_x, jack_station_z = facts["constants"]["KEYSTONE_STATION"]
     jack_face_y = facts["bodies"]["keystone-jack"][4]
     jack_port_z = jack_station_z - 1.0
@@ -1023,7 +1020,6 @@ def _crop_registered_connection(path: Path) -> None:
 def main(*, mount_studies: bool = False) -> None:
     ART.mkdir(parents=True, exist_ok=True)
     OUT.mkdir(parents=True, exist_ok=True)
-    note_read(RENDERER)
     if not mount_studies:
         note_read(MACHINE_STEP)
         note_read(MACHINE_MESH)
@@ -1132,13 +1128,7 @@ def main(*, mount_studies: bool = False) -> None:
                 _job(MACHINE_STEP, work / "machine-back.png", (0.12, 1.0, 0.32)),
                 _job(MACHINE_STEP, "machine-back-iso.png", (1.0, 1.0, 1.0)),
             ]
-        subprocess.run(
-            ["node", str(RENDERER), "--jobs", "-"],
-            cwd=ROOT,
-            input=json.dumps(jobs),
-            text=True,
-            check=True,
-        )
+        _hsm_render.render(jobs)
         for job in jobs:
             output = Path(job["out"])
             if job not in connect_jobs:
