@@ -1,0 +1,11 @@
+{
+  "source": {
+    "commit": "7320c7c39a9d4e1485cb7dbcc3b95aa85d0802fb",
+    "path": "hardware/reference/basics-mtb-0606wp/basics_mtb_0606wp.py",
+    "sha256": "222a19202180eadabfa107e5b9563dcb609d3d8bf0b149e0bb22a68b22ea70d9"
+  },
+  "members": {
+    "basics-mtb-0606wp.step": "f3313444ebf3350ebf330f64676a7d9ce3729135b7086d197ffda14b228e5b98",
+    "basics-mtb-0606wp.step.mesh": "ad88d8ea9b91f9327c92de012ff127841a9f5c14b70ac6739427cbff5ad97583"
+  }
+}
