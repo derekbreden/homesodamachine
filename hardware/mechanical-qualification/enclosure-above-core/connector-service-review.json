@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "scope": "Current nominal continuous conservative JST housing sweeps against the native installed larger bodies. Wires, flexible jackets and free final joins are moved aside. The listed removed plumbing is an assembly/service prerequisite. Latch manipulation and flexible-lead handling are not rigid housing geometry.",
-  "assembly_step_sha256": "43de7a97158cfb3d2b9de706d7370fcb1c8b6c32dcb2d9cc09404d443c725655",
+  "assembly_step_sha256": "c264aefc6a1a1304af27e06af353ba9819de9be0daf85c3647c2a01058f7ebd7",
   "wiring_step_sha256": "2a8c293144335980423a212a1c462efefc2b7e5f218a2223664dce6d87ed8c27",
   "installed_housing_binding": "hardware/wiring/installed/above-core-review/installed-wiring-binding.json",
   "paths": {
@@ -1197,5 +1197,141 @@
     "assembly_step_sha256": "528e255c85f958f190d01a97508a7c5c1ee12f8f9e6c39cfa8349f5d01a56a6c",
     "wiring_step_sha256": "11abdd9af647494a8f30650df0464be1e9a27c84f342608ab05710a143ea1855",
     "scope": "The specified continuous housing stage boxes and prerequisites are retained. Current housing readback and changed-stock regressions bind those same sweeps to the current installed appliance."
+  },
+  "current_gate_review_binding": {
+    "record": "hardware/mechanical-qualification/enclosure-above-core/assembly-gate-review.json",
+    "record_sha256": "249689e9556cec4b5e5cc717fc26ca3fba8d795b2b673420deaf43759c379ed9",
+    "baseline_assembly_step_sha256": "43de7a97158cfb3d2b9de706d7370fcb1c8b6c32dcb2d9cc09404d443c725655",
+    "assembly_step_sha256": "c264aefc6a1a1304af27e06af353ba9819de9be0daf85c3647c2a01058f7ebd7",
+    "assembly_mesh_sha256": "ac4c208beb6a0104bc76c3a766093f1435c75ad662f22af6725bfc25c3815db5",
+    "scope": "The cradle is removed with the funnel/frame as the existing prerequisite. Each other changed body is disjoint from every complete retained housing stage box. All housing and other obstacle geometry is unchanged.",
+    "pairs": [
+      {
+        "connector": "terminal-J1",
+        "stage": 0,
+        "body": "soda-bend-holder",
+        "complete_sweep_aabb_clear": true
+      },
+      {
+        "connector": "terminal-J1",
+        "stage": 0,
+        "body": "soda-continuous-insulation",
+        "complete_sweep_aabb_clear": true
+      },
+      {
+        "connector": "terminal-J1",
+        "stage": 0,
+        "body": "tube-soda-core-rise",
+        "complete_sweep_aabb_clear": true
+      },
+      {
+        "connector": "terminal-J1",
+        "stage": 1,
+        "body": "soda-bend-holder",
+        "complete_sweep_aabb_clear": true
+      },
+      {
+        "connector": "terminal-J1",
+        "stage": 1,
+        "body": "soda-continuous-insulation",
+        "complete_sweep_aabb_clear": true
+      },
+      {
+        "connector": "terminal-J1",
+        "stage": 1,
+        "body": "tube-soda-core-rise",
+        "complete_sweep_aabb_clear": true
+      },
+      {
+        "connector": "terminal-J2",
+        "stage": 0,
+        "body": "soda-bend-holder",
+        "complete_sweep_aabb_clear": true
+      },
+      {
+        "connector": "terminal-J2",
+        "stage": 0,
+        "body": "soda-continuous-insulation",
+        "complete_sweep_aabb_clear": true
+      },
+      {
+        "connector": "terminal-J2",
+        "stage": 0,
+        "body": "tube-soda-core-rise",
+        "complete_sweep_aabb_clear": true
+      },
+      {
+        "connector": "terminal-J2",
+        "stage": 1,
+        "body": "soda-bend-holder",
+        "complete_sweep_aabb_clear": true
+      },
+      {
+        "connector": "terminal-J2",
+        "stage": 1,
+        "body": "soda-continuous-insulation",
+        "complete_sweep_aabb_clear": true
+      },
+      {
+        "connector": "terminal-J2",
+        "stage": 1,
+        "body": "tube-soda-core-rise",
+        "complete_sweep_aabb_clear": true
+      },
+      {
+        "connector": "terminal-J11",
+        "stage": 0,
+        "body": "soda-bend-holder",
+        "complete_sweep_aabb_clear": true
+      },
+      {
+        "connector": "terminal-J11",
+        "stage": 0,
+        "body": "soda-continuous-insulation",
+        "complete_sweep_aabb_clear": true
+      },
+      {
+        "connector": "terminal-J11",
+        "stage": 0,
+        "body": "tube-soda-core-rise",
+        "complete_sweep_aabb_clear": true
+      },
+      {
+        "connector": "terminal-J11",
+        "stage": 1,
+        "body": "soda-bend-holder",
+        "complete_sweep_aabb_clear": true
+      },
+      {
+        "connector": "terminal-J11",
+        "stage": 1,
+        "body": "soda-continuous-insulation",
+        "complete_sweep_aabb_clear": true
+      },
+      {
+        "connector": "terminal-J11",
+        "stage": 1,
+        "body": "tube-soda-core-rise",
+        "complete_sweep_aabb_clear": true
+      },
+      {
+        "connector": "terminal-J11",
+        "stage": 2,
+        "body": "soda-bend-holder",
+        "complete_sweep_aabb_clear": true
+      },
+      {
+        "connector": "terminal-J11",
+        "stage": 2,
+        "body": "soda-continuous-insulation",
+        "complete_sweep_aabb_clear": true
+      },
+      {
+        "connector": "terminal-J11",
+        "stage": 2,
+        "body": "tube-soda-core-rise",
+        "complete_sweep_aabb_clear": true
+      }
+    ]
   }
 }

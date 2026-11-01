@@ -20,7 +20,12 @@ The [enclosure fit review](enclosure-fit-review.json) binds the complete equipme
 lid, continuous pump clip, cold-core casing, pump routes and PSU pilots to the
 exported native appliance. The unchanged V-B, V-K, Y-A and flavor interfaces retain
 their separately bound native readings. All
-queried unconnected stock intersections are zero. V-K's outlet elbow has
+queried pump, casing and seat intersections are zero. The
+[assembly gate review](assembly-gate-review.json) binds the current drain cradle,
+soda holder and tube to the complete appliance. The holder stands 7.75 mm from
+the meter with a tangent transition from the fixed core guide. Two M3 relay
+heads overlap the approximate terminal-block reference by 0.25 mm; their
+actual fit remains unresolved and the pack gate stays red. V-K's outlet elbow has
 1.590 mm of lid clearance, its body has 17.567 mm below the continuous
 ceiling, and the tee has 3.622 mm. The fitted core lid remains 0.250 mm
 below the funnel frame.
@@ -80,10 +85,11 @@ wire entries resolve the conservative straight-approach probes. The neutral
 WAGO and its integral holder stand at X−61, clear of the pump saddle. The
 populated quadrant motion readings include all mounted WAGOs.
 
-The whole-scene scorecard's global pack-floor and flank-envelope rows include
-fitting engagement, insert/screw engagement and fitted clip gaps. The native
-records identify their finite receiving regions and query unconnected
-material separately.
+The whole-scene scorecard reads unconnected material outside finite named
+receiving regions. The flank check includes each fastener's own drilled lane
+and rejects displaced hardware. The generic 1 mm spacing preference is an
+informational goal; local fitted allowances remain separate. Conductors are
+excluded from these pack checks.
 
 Each record names its artifact hashes. The V-A feed has full straight
 receiving lengths, tangent circular bends of at least R14 and a filled-root
