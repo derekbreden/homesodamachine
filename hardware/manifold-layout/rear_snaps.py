@@ -178,21 +178,13 @@ def pockets(s):
     return out
 
 
-def cap(s, base, bottom, axis_z=None, hexed=False):
-    """One cap, extruded over the station's Y span: a body under `base` and its two side walls
-    rising from `base` to their hooks. With an axis the body is a half pipe about it down to
-    `bottom`, its sides running tangent from the side walls' outer faces, or, `hexed`, the lower
-    half of a hex about it, its side corners on those faces; without one it is a block the full
-    width of the side walls down to `bottom`."""
+def cap_section(s, base, bottom, axis_z=None, hexed=False):
+    """A cap's line/arc section in X/Z, with its Y span, independent of a CAD kernel."""
     c, W, wi, h = s['axis_x'], s['outer'], s['inner'], s['hook']
     catch, tip = s['catch'], s['tip']
-    y = s['y0']
-
-    def v(p):
-        return cq.Vector(p[0], y, p[1])
 
     def run(points):
-        return [cq.Edge.makeLine(v(p), v(q)) for p, q in zip(points, points[1:])]
+        return [{'line':(p,q)} for p,q in zip(points,points[1:])]
 
     west = [(c - W, base if axis_z is None else axis_z), (c - W, tip), (c - wi, tip), (c - h, tip - (wi - h)),
             (c - h, catch), (c - wi, catch), (c - wi, base)]
@@ -207,8 +199,25 @@ def cap(s, base, bottom, axis_z=None, hexed=False):
         r = axis_z - bottom
         tx, tz = r * r / W, -r * math.sqrt(max(1. - (r / W) ** 2, 0.))
         edges += run([east[-1], (c + tx, axis_z + tz)])
-        edges.append(cq.Edge.makeThreePointArc(v((c + tx, axis_z + tz)), v((c, bottom)), v((c - tx, axis_z + tz))))
+        edges.append({'arc':((c + tx, axis_z + tz),(c,bottom),
+                             (c - tx, axis_z + tz),(c,axis_z))})
         edges += run([(c - tx, axis_z + tz), west[0]])
+    return {'segments':edges, 'span':(s['y0'],s['y1'])}
+
+
+def cap(s, base, bottom, axis_z=None, hexed=False):
+    """One cap extruded over its station: two spring walls over a flat, round or hex body."""
+    section = cap_section(s,base,bottom,axis_z,hexed)
+    def v(p):
+        return cq.Vector(p[0],s['y0'],p[1])
+    edges = []
+    for segment in section['segments']:
+        if 'line' in segment:
+            p,q = segment['line']
+            edges.append(cq.Edge.makeLine(v(p),v(q)))
+        else:
+            a,mid,b,_centre = segment['arc']
+            edges.append(cq.Edge.makeThreePointArc(v(a),v(mid),v(b)))
     return cq.Solid.extrudeLinear(cq.Wire.assembleEdges(edges), [], cq.Vector(0., s['y1'] - s['y0'], 0.))
 
 

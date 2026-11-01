@@ -7,6 +7,7 @@ no exploratory assembly or exported study is a build input.
 from functools import cache
 import math
 import json
+from pathlib import Path
 
 import cadquery as cq
 import numpy as np
@@ -168,6 +169,12 @@ def ports(name):
     return None
 
 
+def snap_datums():
+    """The integral rear seats' axes and supporting wall planes."""
+    return {'asse_axis':(37.25,328.), 'asse_turn':90., 'pisco_axis':(77.5,328.),
+            'mouth_y':480.8, 'ceiling':346., 'rear':465.3, 'side':98.5}
+
+
 @cache
 def seats():
     """Integral back-top stock and four removable snap caps."""
@@ -223,6 +230,11 @@ def seats():
 
 def caps():
     from _materials import M_PETGF_BLACK
+    if getattr(cq,'MESH',False):
+        from _cadq_export import import_assembly
+        path = Path(__file__).resolve().parent.parent/'printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps-installed.step'
+        return {name:_world(shape,M_PETGF_BLACK)
+                for name,(shape,_color) in import_assembly(path).items()}
     return {name:_world(shape,M_PETGF_BLACK) for name,shape in seats().items() if name.endswith('snap-cap')}
 
 
