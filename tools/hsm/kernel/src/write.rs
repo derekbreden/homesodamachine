@@ -303,7 +303,7 @@ pub fn face_json(f: &Face) -> Value {
     let o = out.as_object_mut().unwrap();
     o.insert("kind".into(), f.surface.kind().into());
     o.insert("op".into(), f.op.into());
-    o.insert("src".into(), src_line(f.src).into());
+    o.insert("src".into(), if f.src.recorded() { src_line(f.src).into() } else { Value::Null });
     if let Some(via) = f.via {
         o.insert("via".into(), format!("{} at {}", via.op, src_line(via.src)).into());
     }
