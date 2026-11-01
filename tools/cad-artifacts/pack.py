@@ -265,6 +265,11 @@ BUNDLED_PAYLOAD_DIRS = (
 # The fit-trial assembly has a viewer payload. Its two separately printable
 # pieces are served from their STEP and STL without requiring duplicate payloads.
 BUNDLED_PAYLOAD_FILES = (
+    "hardware/printed-parts/electronics/pcba-tray/pcba-assembly.step.mesh",
+    "hardware/printed-parts/electronics/pcba-tray/pcba-board.step.mesh",
+    "hardware/printed-parts/cold-core/reed-bridge/reed-bridge.step.mesh",
+    "hardware/printed-parts/cold-core/reed-bridge/reed-bridge-setting-gauge.step.mesh",
+    "hardware/printed-parts/cold-core/prv-shroud/prv-shroud.step.mesh",
     "hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.step.mesh",
     "hardware/printed-parts/cold-core/reservoir/reservoir-cap-right.step.mesh",
     "hardware/printed-parts/cold-core/reservoir/reservoir-tube-grip.step.mesh",
