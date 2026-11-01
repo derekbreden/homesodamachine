@@ -233,9 +233,10 @@ def core_route(connection,attachments):
     return None
 
 
-def add_jackets(assembly,attachments):
+def inputs(attachments):
+    """Ordered annular-sweep inputs and the installed bundle facts."""
     import cadquery as cq
-    records={}
+    records={};bodies=[]
     for id,b in definitions().items():
         points,shared=centreline(b,attachments)
         if not b.get('jacket',True):
@@ -247,18 +248,29 @@ def add_jackets(assembly,attachments):
                          'minimum_bend_mm':min((s.get('radius_mm',s.get('minimum_bend_mm')) for s in shared if s['kind']!='line'),default=None)}
             continue
         segments=trimmed(shared,b['end_trim_mm'],b['end_trim_mm'])
+        name='terminal-'+id+'-jacket'
+        bodies.append((name,{'kind':'annular_sweep','points_mm':points,'segments':segments,
+                             'diameter_mm':b['outer_diameter_mm'],
+                             'inner_diameter_mm':b['inner_diameter_mm']},cq.Color(.035,.035,.04)))
+        records[id]={**b,'geometry_name':name,'points_mm':points,'segments':segments,
+                     'length_mm':sum(s['length_mm'] for s in segments),
+                     'minimum_bend_mm':min((s['radius_mm'] for s in segments if s['kind']=='arc'),default=None)}
+    return bodies,records
+
+
+def add_jackets(assembly,attachments):
+    import cadquery as cq
+    bodies,records=inputs(attachments)
+    for name,recipe,color in bodies:
+        segments=recipe['segments']
         edges=[]
         for s in segments:
             a,end=cq.Vector(*s['start_mm']),cq.Vector(*s['end_mm'])
             edges.append(cq.Edge.makeLine(a,end) if s['kind']=='line' else
                          cq.Edge.makeThreePointArc(a,cq.Vector(*s['midpoint_mm']),end))
         wire=cq.Wire.assembleEdges(edges);start=edges[0].startPoint();axis=edges[0].tangentAt(0)
-        outer=cq.Wire.makeCircle(b['outer_diameter_mm']/2,start,axis)
-        inner=cq.Wire.makeCircle(b['inner_diameter_mm']/2,start,axis)
+        outer=cq.Wire.makeCircle(recipe['diameter_mm']/2,start,axis)
+        inner=cq.Wire.makeCircle(recipe['inner_diameter_mm']/2,start,axis)
         jacket=cq.Solid.sweep(outer,[inner],wire,makeSolid=True,isFrenet=False)
-        name='terminal-'+id+'-jacket'
-        assembly.add(jacket,name=name,color=cq.Color(.035,.035,.04))
-        records[id]={**b,'geometry_name':name,'points_mm':points,'segments':segments,
-                     'length_mm':sum(s['length_mm'] for s in segments),
-                     'minimum_bend_mm':min((s['radius_mm'] for s in segments if s['kind']=='arc'),default=None)}
+        assembly.add(jacket,name=name,color=color)
     return records
