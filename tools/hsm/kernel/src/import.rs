@@ -7,8 +7,8 @@
 //! payload holds as `name/1`, `name/2`, …, come back as one body under its name.
 //!
 //! A STEP of B-rep faces is read through `.cache/hsm/import/<SHA-256>.step.mesh` at the
-//! checkout's root: OCCT's mesh of it at the kernel's rule, which `_rust_part.step` cuts once
-//! under the CAD lock. A STEP of triangles, which a mesh kernel writes, is read through the
+//! checkout's root, or in the directory `HSM_IMPORT_DIR` names: OCCT's mesh of it at the
+//! kernel's rule, which `_rust_part.step` cuts once under the CAD lock. A STEP of triangles, which a mesh kernel writes, is read through the
 //! payload its writer cut beside it (`<name>.step.mesh`, whose `src` is the STEP's SHA-256). A
 //! relative path is read from the working directory, which `_rust_part.cut` sets to the root.
 use crate::face::{Face, Surface, file_src};
@@ -85,6 +85,7 @@ impl Solid {
 pub fn payload(path: impl AsRef<Path>) -> Result<Vec<Imported>> {
     let path = path.as_ref();
     let bytes = std::fs::read(path).with_context(|| format!("reading {}", path.display()))?;
+    crate::reads::read(path, &bytes);
     bodies(&bytes, &name_of(path))
 }
 
@@ -94,10 +95,12 @@ pub fn step(path: impl AsRef<Path>) -> Result<Vec<Imported>> {
     let name = name_of(path);
     let data = std::fs::read(path).with_context(|| format!("reading {name}"))?;
     let digest = format!("{:x}", Sha256::digest(&data));
+    crate::reads::digest(path, &digest);
     if data[..data.len().min(200)].windows(MARK.len()).any(|w| w == MARK.as_bytes()) {
         let mut beside = path.as_os_str().to_owned();
         beside.push(".mesh");
         let bytes = std::fs::read(&beside).with_context(|| format!("{name} is triangles, and no payload stands beside it"))?;
+        crate::reads::read(Path::new(&beside), &bytes);
         ensure!(
             header(&bytes)?.get("src").and_then(Value::as_str) == Some(&digest),
             "{name} is triangles, and the payload beside it was not cut from it"
@@ -107,6 +110,7 @@ pub fn step(path: impl AsRef<Path>) -> Result<Vec<Imported>> {
     let cut = cache().join(format!("{digest}.step.mesh"));
     let bytes = std::fs::read(&cut)
         .with_context(|| format!("{name} has no payload cut from it; `_rust_part.step` cuts one into {}", cut.display()))?;
+    crate::reads::read(&cut, &bytes);
     bodies(&bytes, &name)
 }
 
@@ -188,8 +192,10 @@ fn root() -> &'static Path {
     Path::new(env!("CARGO_MANIFEST_DIR")).ancestors().nth(3).unwrap()
 }
 
+/// Where the payloads cut from B-rep STEPs are: the directory `HSM_IMPORT_DIR` names, which the
+/// part engine sets to the asking checkout's, else this checkout's.
 fn cache() -> PathBuf {
-    root().join(".cache/hsm/import")
+    std::env::var_os("HSM_IMPORT_DIR").map(PathBuf::from).unwrap_or_else(|| root().join(".cache/hsm/import"))
 }
 
 /// `path` as a face record names it: from the checkout's root, or from the working directory

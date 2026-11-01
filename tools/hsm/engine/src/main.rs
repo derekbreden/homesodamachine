@@ -1,3 +1,4 @@
+mod build;
 mod mcp;
 mod published;
 mod render;
@@ -21,6 +22,7 @@ use std::{
     },
     path::{Path, PathBuf},
     process::{Command, Stdio},
+    sync::Arc,
     thread,
     time::{Duration, Instant},
 };
@@ -41,6 +43,12 @@ struct Args {
     store: Option<PathBuf>,
     #[arg(long, global = true, default_value_t = 768)]
     cache_mb: u64,
+    /// Memory the part runs a daemon this call starts may hold at once, by their measured peaks.
+    #[arg(long, global = true, default_value_t = 1024)]
+    build_mb: u64,
+    /// What the kept part runs may hold on disk; the least recently used go at idle exit.
+    #[arg(long, global = true, default_value_t = 4096)]
+    keep_mb: u64,
     /// Minutes without a query before a daemon this call starts exits; 0 keeps it running.
     #[arg(long, global = true, default_value_t = 15.0)]
     idle_minutes: f64,
@@ -112,12 +120,15 @@ pub struct Client {
     root: PathBuf,
     scene: String,
     cache_mb: u64,
+    build_mb: u64,
+    keep_mb: u64,
     idle_minutes: f64,
 }
 
 fn build_id() -> String {
     let mut h = Sha256::new();
     h.update(include_str!("main.rs"));
+    h.update(include_str!("build.rs"));
     h.update(include_str!("service.rs"));
     h.update(include_str!("store.rs"));
     h.update(include_str!("mcp.rs"));
@@ -184,7 +195,12 @@ fn read_message(stream: &mut UnixStream, limit: u64) -> Result<Value> {
 
 fn send(socket: &Path, request: &Request) -> Result<Value> {
     let mut stream = UnixStream::connect(socket)?;
-    stream.set_read_timeout(Some(Duration::from_secs(300)))?;
+    // A part run waits its turn and may compile first; a query is answered or it is stuck.
+    let wait = match request.query {
+        Query::Run { .. } => None,
+        _ => Some(Duration::from_secs(300)),
+    };
+    stream.set_read_timeout(wait)?;
     serde_json::to_writer(&mut stream, request)?;
     stream.write_all(b"\n")?;
     read_message(&mut stream, 64 * 1024 * 1024)
@@ -287,6 +303,10 @@ impl Client {
             .arg(&self.store)
             .arg("--cache-mb")
             .arg(self.cache_mb.to_string())
+            .arg("--build-mb")
+            .arg(self.build_mb.to_string())
+            .arg("--keep-mb")
+            .arg(self.keep_mb.to_string())
             .arg("--idle-minutes")
             .arg(self.idle_minutes.to_string())
             .arg("daemon")
@@ -343,6 +363,7 @@ fn serve(client: &Client) -> Result<()> {
     let listener = UnixListener::bind(&client.socket)?;
     fs::set_permissions(&client.socket, fs::Permissions::from_mode(0o600))?;
     let mut store = store::Store::new(client.cache_mb)?;
+    let builds = Arc::new(build::Builder::new(&client.store, client.build_mb)?);
     let build = build_id();
     eprintln!(
         "hsm: pid {} listening at {}",
@@ -352,13 +373,29 @@ fn serve(client: &Client) -> Result<()> {
     let idle = Duration::from_secs_f64(client.idle_minutes * 60.0);
     let mut last = Instant::now();
     loop {
-        if client.idle_minutes > 0.0 && !pending(&listener, idle.saturating_sub(last.elapsed()))? {
+        // A part run answers on its own thread, so while one is going the loop looks again every
+        // few seconds for the moment the daemon has gone quiet.
+        let (asks, since) = builds.busy();
+        let wait = if asks > 0 {
+            Duration::from_secs(5)
+        } else {
+            idle.saturating_sub(last.elapsed().min(since))
+        };
+        if client.idle_minutes > 0.0 && !pending(&listener, wait)? {
+            let (asks, since) = builds.busy();
+            if asks > 0 || last.elapsed().min(since) < idle {
+                continue;
+            }
             // The socket goes first, so a new caller starts a fresh daemon; whoever connected
             // before it went is still answered.
             fs::remove_file(&client.socket)?;
             listener.set_nonblocking(true)?;
             while let Ok((stream, _)) = listener.accept() {
-                answer(stream, &mut store, &build)?;
+                answer(stream, &mut store, &builds, &build)?;
+            }
+            builds.wait_idle();
+            if let Err(e) = builds.prune(client.keep_mb.saturating_mul(1 << 20)) {
+                eprintln!("hsm: pruning kept part runs: {e:#}");
             }
             eprintln!(
                 "hsm: pid {} exiting after {} idle minutes",
@@ -368,12 +405,17 @@ fn serve(client: &Client) -> Result<()> {
             return Ok(());
         }
         let (stream, _) = listener.accept()?;
-        if answer(stream, &mut store, &build)? {
+        if answer(stream, &mut store, &builds, &build)? {
             break;
         }
         last = Instant::now();
     }
+    // A replacement may start at once: it waits on the socket and this lock, not on the part runs
+    // still finishing here, whose callers are answered before this process exits.
     fs::remove_file(&client.socket)?;
+    drop(listener);
+    drop(lock);
+    builds.wait_idle();
     Ok(())
 }
 
@@ -398,31 +440,64 @@ fn pending(listener: &UnixListener, timeout: Duration) -> Result<bool> {
     }
 }
 
-/// Answer one caller; true when it asked the service to stop.
-fn answer(mut stream: UnixStream, store: &mut store::Store, build: &str) -> Result<bool> {
+/// Answer one caller; true when it asked the service to stop. A part run is answered on a thread
+/// of its own, so the queries behind it are not held up while it waits its turn and runs.
+fn answer(
+    mut stream: UnixStream,
+    store: &mut store::Store,
+    builds: &Arc<build::Builder>,
+    build: &str,
+) -> Result<bool> {
     // An accepted socket inherits a non-blocking listener's mode on macOS.
     stream.set_nonblocking(false)?;
     stream.set_read_timeout(Some(Duration::from_secs(5)))?;
     let started = Instant::now();
     let mut stopping = false;
-    let response = (|| -> Result<Value> {
-        let request: Request = serde_json::from_value(read_message(&mut stream, 4 * 1024 * 1024)?)?;
+    let request = read_message(&mut stream, 4 * 1024 * 1024)
+        .and_then(|v| Ok(serde_json::from_value::<Request>(v)?));
+    if let Ok(Request {
+        query:
+            Query::Run {
+                workspace,
+                root,
+                krate,
+                name,
+                args,
+            },
+        ..
+    }) = request
+    {
+        let entered = builds.enter();
+        thread::spawn(move || {
+            let ask = build::Ask {
+                workspace,
+                root,
+                krate,
+                name,
+                args,
+            };
+            reply(stream, entered.answer(ask), started);
+        });
+        return Ok(false);
+    }
+    let response = request.and_then(|request| {
         stopping = matches!(request.query, Query::Shutdown);
-        service::execute(store, request, build)
-    })();
+        service::execute(store, builds, request, build)
+    });
+    reply(stream, response, started);
+    Ok(stopping)
+}
+
+fn reply(mut stream: UnixStream, response: Result<Value>, started: Instant) {
+    let elapsed_ms = started.elapsed().as_secs_f64() * 1000.0;
     let response = match response {
-        Ok(result) => {
-            json!({"ok": true, "result": result, "elapsed_ms": started.elapsed().as_secs_f64() * 1000.0})
-        }
-        Err(e) => {
-            json!({"ok": false, "error": format!("{e:#}"), "elapsed_ms": started.elapsed().as_secs_f64() * 1000.0})
-        }
+        Ok(result) => json!({"ok": true, "result": result, "elapsed_ms": elapsed_ms}),
+        Err(e) => json!({"ok": false, "error": format!("{e:#}"), "elapsed_ms": elapsed_ms}),
     };
     // A disconnected caller does not stop the shared service.
     if serde_json::to_writer(&mut stream, &response).is_ok() {
         let _ = stream.write_all(b"\n");
     }
-    Ok(stopping)
 }
 
 fn triple(v: Vec<f64>) -> Result<[f64; 3]> {
@@ -469,6 +544,8 @@ fn run() -> Result<bool> {
         root,
         scene: args.scene,
         cache_mb: args.cache_mb,
+        build_mb: args.build_mb,
+        keep_mb: args.keep_mb,
         idle_minutes: args.idle_minutes,
     };
     ensure!(
@@ -529,7 +606,9 @@ fn run() -> Result<bool> {
         },
         Action::Request { json: input } => {
             let mut request: Request = serde_json::from_str(&input)?;
-            if request.scene.as_os_str().is_empty() {
+            if matches!(request.query, Query::Run { .. }) {
+                // A part run names its own workspace and root, and reads no scene.
+            } else if request.scene.as_os_str().is_empty() {
                 request.scene = scene_path(&client.root, &client.scene);
             } else if request.scene.is_relative() {
                 request.scene = client.root.join(request.scene);
