@@ -177,6 +177,7 @@ export function parsePicks(text) {
     // the path is the head of the line; `fileLine`'s readings follow it after a ·
     if (label === "file") { files.push(body.split("·")[0].trim()); continue; }
     if (label === "solid") { solids.push(...parseNames(body)); continue; }
+    if (label === "sources") continue;
     if (label === "view") {
       const az = numAfter(body, new RegExp(`az=${NUM}`));
       const el = numAfter(body, new RegExp(`el=${NUM}`));

@@ -51,8 +51,6 @@ Units: inches.  DXF $INSUNITS = 1 (inches).
 import sys
 from pathlib import Path
 
-import ezdxf
-
 _here = Path(__file__).resolve()
 sys.path.insert(
     0,
@@ -63,7 +61,7 @@ sys.path.insert(
     str(next(p for p in _here.parents if p.name == "hardware") / "scripts"),
 )
 from docgen import substitute_py_comments
-from _cadq_export import export_dxf
+from _document_export import export_dxf
 sys.path.insert(0, str(next(p for p in _here.parents if p.name == "hardware")
                        / "printed-parts" / "cold-core"))
 from _float_interface import rod_axis_from_inner_wall
@@ -104,6 +102,8 @@ out_name = "endcap-circular-2hole"
 
 
 def make_disc() -> Path:
+    import ezdxf
+
     doc = ezdxf.new(dxfversion="R2010")
     doc.header["$INSUNITS"] = 1  # inches
     msp = doc.modelspace()

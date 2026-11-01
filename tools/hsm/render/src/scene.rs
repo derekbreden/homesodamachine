@@ -4,6 +4,7 @@
 use crate::payload;
 use anyhow::{Context, Result};
 use bytemuck::{Pod, Zeroable};
+use sha2::{Digest, Sha256};
 use std::{
     collections::HashMap,
     ops::Range,
@@ -85,6 +86,20 @@ pub struct Mesh {
     pub indices: Range<u32>,
     pub segments: Range<u32>,
     pub bbox: Aabb,
+    /// Inclusive local triangle ranges and their optional complete contributor groups.
+    pub faces: Vec<[u32; 2]>,
+    pub face_sources: Option<Vec<Vec<serde_json::Value>>>,
+}
+
+impl Mesh {
+    pub fn face(&self, triangle: u32) -> Option<usize> {
+        let i = self.faces.partition_point(|range| range[1] < triangle);
+        self.faces.get(i).filter(|range| range[0] <= triangle).map(|_| i)
+    }
+
+    pub fn sources(&self, face: Option<usize>) -> Option<&[serde_json::Value]> {
+        self.face_sources.as_ref()?.get(face?).map(Vec::as_slice)
+    }
 }
 
 /// A body is what the viewer's picker names: the solids `<body>/<n>` share one body.
@@ -105,6 +120,9 @@ pub struct VertexAux {
 pub struct Scene {
     pub path: PathBuf,
     pub stamp: (u64, SystemTime),
+    pub digest: String,
+    /// Conservative cache estimate for the retained face tables and JSON metadata.
+    pub metadata_bytes: u64,
     pub meshes: Vec<Mesh>,
     pub bodies: Vec<Body>,
     pub positions: Vec<[f32; 3]>,
@@ -135,6 +153,9 @@ impl Scene {
     pub fn load(path: &Path) -> Result<Scene> {
         let stamp = stamp(path)?;
         let bytes = std::fs::read(path).with_context(|| format!("read {}", path.display()))?;
+        let digest = format!("{:x}", Sha256::digest(&bytes));
+        let metadata_bytes = bytes.get(..4).map_or(0, |head|
+            u32::from_le_bytes(head.try_into().unwrap()) as u64 * 16);
         let raw = payload::decode(&bytes).with_context(|| format!("decode {}", path.display()))?;
         drop(bytes);
         let edges = edges_of_all(&raw);
@@ -143,6 +164,8 @@ impl Scene {
         let mut scene = Scene {
             path: path.to_owned(),
             stamp,
+            digest,
+            metadata_bytes,
             meshes: Vec::with_capacity(raw.len()),
             bodies: Vec::new(),
             positions: Vec::new(),
@@ -190,6 +213,11 @@ impl Scene {
             scene.bodies[b].meshes.push(i);
             scene.bodies[b].bbox.union(&bbox);
             scene.bbox.union(&bbox);
+            // Legacy malformed ranges still draw through the existing edge path; they cannot
+            // supply an unambiguous face identity or source record for a CPU hit.
+            let valid_faces = m.faces.iter().all(|r| r[0] <= r[1] && (r[1] as usize) < m.indices.len() / 3)
+                && m.faces.windows(2).all(|pair| pair[0][1] < pair[1][0]);
+            scene.metadata_bytes += m.faces.len() as u64 * 8;
             scene.meshes.push(Mesh {
                 name: m.name,
                 body: b,
@@ -200,6 +228,8 @@ impl Scene {
                 indices: i0..scene.indices.len() as u32,
                 segments: s0..scene.segments.len() as u32,
                 bbox,
+                faces: if valid_faces { m.faces } else { Vec::new() },
+                face_sources: if valid_faces { m.face_sources } else { None },
             });
         }
         Ok(scene)

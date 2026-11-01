@@ -23,6 +23,7 @@ struct Entry {
     fac: [usize; 2],
     col: Option<[usize; 2]>,
     uv: Option<[usize; 2]>,
+    face_sources: Option<serde_json::Value>,
 }
 
 pub struct RawMesh {
@@ -36,6 +37,16 @@ pub struct RawMesh {
     pub indices: Vec<u32>,
     /// Inclusive triangle ranges, one per B-rep face.
     pub faces: Vec<[u32; 2]>,
+    pub face_sources: Option<Vec<Vec<serde_json::Value>>>,
+}
+
+fn aligned_sources(value: Option<serde_json::Value>, faces: usize) -> Option<Vec<Vec<serde_json::Value>>> {
+    let serde_json::Value::Array(groups) = value? else { return None };
+    if groups.len() != faces { return None; }
+    groups.into_iter().map(|group| {
+        let serde_json::Value::Array(records) = group else { return None };
+        records.iter().all(|record| record.is_null() || record.is_object()).then_some(records)
+    }).collect()
 }
 
 fn words(blob: &[u8], [offset, count]: [usize; 2]) -> Result<&[u8]> {
@@ -111,7 +122,8 @@ pub fn decode(bytes: &[u8]) -> Result<Vec<RawMesh>> {
                 e.name
             );
             let flat: Vec<u32> = u32s(words(blob, e.fac)?).collect();
-            let faces = flat.chunks_exact(2).map(|c| [c[0], c[1]]).collect();
+            let faces: Vec<_> = flat.chunks_exact(2).map(|c| [c[0], c[1]]).collect();
+            let face_sources = aligned_sources(e.face_sources, faces.len());
             Ok(RawMesh {
                 name: e.name,
                 color: e.color,
@@ -121,6 +133,7 @@ pub fn decode(bytes: &[u8]) -> Result<Vec<RawMesh>> {
                 uv,
                 indices,
                 faces,
+                face_sources,
             })
         })
         .collect()

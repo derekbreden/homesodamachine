@@ -270,6 +270,27 @@ def aligned_face_sources(sources, ranges):
                        and all(isinstance(group, list) for group in sources)) else None
 
 
+def record_sources(record):
+    """A face record's complete source set in the payload/pick schema."""
+    if not isinstance(record, dict):
+        return [None]
+    if isinstance(record.get("contributors"), list):
+        sources = [dict(r) if (isinstance(r, dict) and isinstance(r.get("op"), str)
+                   and (r.get("src") is None or isinstance(r.get("src"), str))) else None
+                   for r in record["contributors"]]
+    elif "src" in record and isinstance(record.get("op"), str):
+        sources = [{"src": record["src"], "op": record["op"]}]
+    else:
+        return [None]
+    via = record.get("via")
+    if isinstance(via, str) and " at " in via:
+        op, src = via.split(" at ", 1)
+        via = {"op": op, "src": src or None}
+    if isinstance(via, dict):
+        sources = [{**r, "via": via} if r is not None else None for r in sources]
+    return sources
+
+
 def write(meshes, path, src=None, cut=None):
     """u32 header length, that many bytes of JSON, then one blob every array
     indexes into by [byteOffset, length]. Typed-array offsets must be aligned

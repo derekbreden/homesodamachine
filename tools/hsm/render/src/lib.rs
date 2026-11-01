@@ -175,7 +175,7 @@ impl Renderer {
         let t = Instant::now();
         let scene = Scene::load(path)?;
         let bytes = (scene.positions.len() * 24 + scene.indices.len() * 4
-            + scene.segments.len() * 32 + scene.attributes.len() * 32) as u64;
+            + scene.segments.len() * 32 + scene.attributes.len() * 32) as u64 + scene.metadata_bytes;
         self.scenes.push(Loaded {
             scene,
             buffers: None,
@@ -251,6 +251,7 @@ impl Renderer {
         }
         Ok(json!({
             "payload": path.display().to_string(),
+            "payload_sha256": scene.digest,
             "bodies": rows.iter().map(|(n, lo, hi)| json!({"name": n, "min": lo, "max": hi})).collect::<Vec<_>>(),
             "text": text,
         }))
@@ -281,7 +282,7 @@ impl Renderer {
             loaded.scene.normals = Vec::new();
             loaded.scene.segments = Vec::new();
             loaded.scene.attributes = Vec::new();
-            loaded.bytes = (loaded.scene.positions.len() * 12 + loaded.scene.indices.len() * 4) as u64 + buffers.bytes;
+            loaded.bytes = (loaded.scene.positions.len() * 12 + loaded.scene.indices.len() * 4) as u64 + loaded.scene.metadata_bytes + buffers.bytes;
             loaded.buffers = Some(buffers);
             upload_ms = Some(ms(t_upload));
             self.evict(i);
@@ -302,8 +303,8 @@ impl Renderer {
         let gaps: Vec<annotate::Gap> = job.gap.iter().map(|[a, b]| annotate::gap(scene, a, b)).collect();
         let mut lit = vec![false; scene.bodies.len()];
         for p in &picks {
-            if let Some((b, _, _)) = p.hit {
-                lit[b] = true;
+            if let Some(h) = p.hit {
+                lit[scene.meshes[h.mesh].body] = true;
             }
         }
         let mut selected = Vec::new();
@@ -412,6 +413,7 @@ impl Renderer {
             "height": img.height,
             "bytes": png.len(),
             "payload": path.display().to_string(),
+            "payload_sha256": scene.digest,
             "scene": {
                 "meshes": scene.meshes.len(),
                 "bodies": scene.bodies.len(),
@@ -433,16 +435,24 @@ impl Renderer {
             "selected": selected,
             "picks": picks.iter().map(|p| json!({
                 "px": p.px,
-                "name": p.hit.map(|(b, _, _)| body(b)),
-                "at": (p.hit.map(|(_, at, _)| [at.x, at.y, at.z].map(|v| rounded(v, 2)))),
-                "mm": p.hit.map(|(_, _, mm)| rounded(mm, 2)),
+                "name": p.hit.map(|h| body(scene.meshes[h.mesh].body)),
+                "at": (p.hit.map(|h| [h.point.x, h.point.y, h.point.z].map(|v| rounded(v, 2)))),
+                "mm": p.hit.map(|h| rounded(h.distance, 2)),
+                "mesh": p.hit.map(|h| h.mesh),
+                "triangle": p.hit.map(|h| h.triangle),
+                "face": p.hit.and_then(|h| h.face),
+                "sources": p.hit.and_then(|h| scene.meshes[h.mesh].sources(h.face)),
             })).collect::<Vec<_>>(),
             "rays": casts.iter().map(|c| json!({
                 "from": c.from,
                 "dir": c.dir,
                 "limit": c.limit,
-                "name": c.hit.map(|(b, _)| body(b)),
-                "mm": c.hit.map(|(_, mm)| rounded(mm, 2)),
+                "name": c.hit.map(|h| body(scene.meshes[h.mesh].body)),
+                "mm": c.hit.map(|h| rounded(h.distance, 2)),
+                "mesh": c.hit.map(|h| h.mesh),
+                "triangle": c.hit.map(|h| h.triangle),
+                "face": c.hit.and_then(|h| h.face),
+                "sources": c.hit.and_then(|h| scene.meshes[h.mesh].sources(h.face)),
                 "at": ([c.end.x, c.end.y, c.end.z].map(|v| rounded(v, 2))),
             })).collect::<Vec<_>>(),
             "gaps": gaps.iter().map(|g| match g {

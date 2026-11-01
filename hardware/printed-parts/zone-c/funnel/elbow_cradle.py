@@ -22,11 +22,10 @@ a slot and a wall.
 """
 
 import functools
+import json
 import math
 import sys
 from pathlib import Path
-
-import cadquery as cq
 
 _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
@@ -36,8 +35,21 @@ for _p in (_hw / "scripts", _hw / "printed-parts" / "cadlib",
     if str(_p) not in sys.path:
         sys.path.insert(0, str(_p))
 import fits                                                   # noqa: E402
-import neofit_stem_elbow as _stem                              # noqa: E402
 import above_core as _layout                                  # noqa: E402
+
+_stem_parameters = json.loads(
+    (_hw / "reference/neofit-stem-elbow/reference-parameters.json").read_text())
+
+
+def __getattr__(name):
+    if name == "cq":
+        import cadquery as value
+    elif name == "_stem":
+        import neofit_stem_elbow as value
+    else:
+        raise AttributeError(name)
+    globals()[name] = value
+    return value
 
 WEB = 3.0              # the frame's bottom web under the socket
 SLIP = fits.slip       # radial growth of the scanned pocket profile
@@ -64,11 +76,11 @@ END_SLIP = 0.25        # slot beyond each wing end
 PLUG_CORNER = 0.0      # square cast plug corners
 SOCKET_CORNER = 0.25   # PET-GF receiver corners; keep static room at the flat hook tips
 
-CORE_R = _stem.PARAMETERS['bend_radius_mm']
+CORE_R = _stem_parameters['bend_radius_mm']
 
 
 def _profiles(leg):
-    p = _stem.PARAMETERS['profiles']
+    p = _stem_parameters['profiles']
     if leg == 'y':
         return p['fixed_body_y'], p['release_collet_y']
     return sorted((-x, r) for x, r in p['stem_x']), []
@@ -77,7 +89,8 @@ def _profiles(leg):
 def elbow_z():
     """Bend axis in the cradle's insertion frame, from the full stem and silicone bore."""
     import funnel
-    return WEB + CATCH_GAP + funnel.plug_lift + funnel.stem_engagement - _stem.STEM_TIP_REACH
+    return (WEB + CATCH_GAP + funnel.plug_lift + funnel.stem_engagement
+            + _stem_parameters['stem_tip_x_mm'])
 
 
 def block():
@@ -87,18 +100,22 @@ def block():
     half = SOCKET_HALF - TIP_GAP - OVERLAP - SIDE
     stem_y = _layout.snapshot_pose('drain-outlet-stem')['translation_mm'][1]
     drain_y = _layout.specification()['fore_routes']['drain_union_corner_mm'][1]
-    aft = min(SLOT_AFT_Y, stem_y - drain_y - _stem.COLLAR_OD / 2 - STEM_BODY_AIR)
+    collar_radius = max(r for _t, r in _stem_parameters['profiles']['fixed_body_y'])
+    aft = min(SLOT_AFT_Y, stem_y - drain_y - collar_radius - STEM_BODY_AIR)
     return (half, SLOT_FORE_Y, aft, elbow_z() - ry, WING_ROOT_Z)
 
 
 def elbow_parts():
     """The scanned elbow's named parts, standing in the hole."""
+    import cadquery as cq
+    import neofit_stem_elbow as _stem
     return {n: p.val().rotate((0, 0, 0), (0, 1, 0), 90)
             .translate(cq.Vector(0, 0, elbow_z())) for n, p in _stem.build()}
 
 
 def _revolve(points, leg):
     """Solid of revolution of `(station, radius)` points about a leg through the elbow origin."""
+    import cadquery as cq
     raw = [(0.0, points[0][0])] + [(r, t) for t, r in points] + [(0.0, points[-1][0])]
     pts = []
     for p in raw:
@@ -122,6 +139,7 @@ def _upward_plan(horizontal, radius, height):
     side chain enclose every scanned plan station; the fore arc remains analytic.
     The separate vertical shadow retains its full scanned clearance footprint.
     """
+    import cadquery as cq
     points, reach = [], 0.0
     for station, r in horizontal:
         reach = max(reach, r + SLIP)
@@ -156,6 +174,7 @@ def _upward_plan(horizontal, radius, height):
 
 def shadow(top):
     """Profile clearance air and the broad open mouth, up to local Z `top`."""
+    import cadquery as cq
     c = SLIP
     zb, zc = _profiles("z")
     yb, yc = _profiles("y")
@@ -272,6 +291,7 @@ def hook_corner_clearance(half_width):
 
 def plug_outline(half_width, grow, z0, height, taper=0.0, *, corner_radius=None):
     """The plug's plan, grown by `grow`; an explicit corner radius is receiver-only."""
+    import cadquery as cq
     length = 2 * (plug_half_length(half_width) + grow)
     sketch = cq.Sketch().rect(2 * (half_width + grow), length)
     radius = PLUG_CORNER + grow if corner_radius is None else corner_radius
@@ -293,6 +313,7 @@ def socket(half_width, gap, depth, flare_h, flare, *, corner_radius=None):
 
 def web_cuts():
     """The drain hole and the two wing slots through the frame's bottom web."""
+    import cadquery as cq
     s = stations()
     cuts = [cq.Solid.makeCylinder(HOLE_D / 2, WEB + 2.0, cq.Vector(0, 0, -1.0))]
     for side in (-1, 1):
@@ -304,6 +325,7 @@ def web_cuts():
 
 def build():
     """The cradle, local."""
+    import cadquery as cq
     half, y0, y1, z0, z1 = block()
     s = stations()
     body = cq.Solid.makeBox(2 * half, y1 - y0, z1 - z0, cq.Vector(-half, y0, z0))
@@ -332,6 +354,7 @@ def build():
 
 def selftest(cradle=None):
     """The elbow drops straight in; both wings stand on the body."""
+    import cadquery as cq
     cradle = cradle or build()
     elbow = cq.Compound.makeCompound(list(elbow_parts().values()))
     for k in range(1, 61):
@@ -346,6 +369,7 @@ def selftest(cradle=None):
 
 
 def main():
+    import cadquery as cq
     from _cadq_export import export_assembly
     from _materials import M_PETGF_BLACK, one_body
     from flute_payload import cut
