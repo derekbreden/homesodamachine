@@ -1,0 +1,30 @@
+{
+  "printer": "Mark2",
+  "observed_at": "2026-11-01T22:07:25.740300+00:00",
+  "archive": {
+    "name": "2026-11-01-rear-retention-mark2-mark2-5162141f-print-only.gcode.3mf",
+    "sha256": "4aacf991e62535ee70921cdddc09c455d79a4b15bf30e4a5d7a9178a2fbcd10e",
+    "gcode_sha256": "9fad694378d3b809cc936316439fd9294cfbc164292c73b258ab643540c0dd7a",
+    "slots": {
+      "1": {
+        "type": "PET-CF",
+        "colour": "161616"
+      }
+    },
+    "objects": [
+      "pump-cap",
+      "meter-seat",
+      "meter-cap",
+      "regulator-seat",
+      "regulator-cap"
+    ]
+  },
+  "printer_task_id": "1398266343",
+  "gcode_state": "PREPARE",
+  "subtask_name": "2026-11-01-rear-retention-mark2-mark2-5162141f-print-only.gcode.3mf",
+  "print_error": 0,
+  "hms": [],
+  "layer_num": 227,
+  "total_layer_num": 227,
+  "mc_remaining_time": 0
+}

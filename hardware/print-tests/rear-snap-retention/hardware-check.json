@@ -1,0 +1,71 @@
+{
+  "rigid_object_intersections_mm3": {
+    "asse": {
+      "bulkhead-water": {
+        "seat": 0.0,
+        "cap": 0.0
+      },
+      "gagira-coupling": {
+        "seat": 0.0,
+        "cap": 0.0
+      },
+      "asse1022-assembly": {
+        "seat": 0.0,
+        "cap": 0.0
+      },
+      "jg-pi4512f6s": {
+        "seat": 0.0,
+        "cap": 0.0
+      },
+      "jg-pp061208w": {
+        "seat": 0.0,
+        "cap": 0.0
+      },
+      "asse-drain-adapter": {
+        "seat": 0.0,
+        "cap": 0.0
+      }
+    },
+    "pisco": {
+      "co2-inlet": {
+        "seat": 0.0,
+        "cap": 0.0
+      },
+      "gas-regulator": {
+        "seat": 0.0,
+        "cap": 0.0
+      },
+      "gas-check": {
+        "seat": 0.0,
+        "cap": 0.0
+      }
+    },
+    "regulator": {
+      "flow-regulator": {
+        "seat": 0.0,
+        "cap": 0.0
+      }
+    },
+    "meter": {
+      "digiten-flow": {
+        "seat": 0.0,
+        "cap": 0.0
+      }
+    },
+    "pump": {
+      "g-ganen-pump": {
+        "seat": 0.0,
+        "cap": 0.0
+      }
+    }
+  },
+  "cap_neighbors_mm3": {
+    "asse/pisco": 99.52597540009712,
+    "asse/regulator": 0.0,
+    "asse/meter": 0.0,
+    "pisco/regulator": 0.0,
+    "pisco/meter": 0.0,
+    "regulator/meter": 0.0
+  },
+  "scope": "Static native fit checks, not physical qualification."
+}
