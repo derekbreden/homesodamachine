@@ -52,12 +52,13 @@ def record(kind, src, op, **params):
     return {"kind": kind, "src": src, "op": op, **params}
 
 
-def solid(part):
-    """The part as a Manifold, its records kept under the id Manifold tracks it by."""
+def solid(part, *, snap_to_grid=True):
+    """A Manifold with face records; raw model reads retain their f64 coordinates."""
     oid = m3d.Manifold.reserve_ids(1)
     REGISTRY[oid] = part.records
     tris = np.ascontiguousarray(part.tris, dtype=np.uint64)
-    mesh = m3d.Mesh64(vert_properties=np.ascontiguousarray(snap(part.verts)),
+    vertices = snap(part.verts) if snap_to_grid else np.asarray(part.verts, np.float64)
+    mesh = m3d.Mesh64(vert_properties=np.ascontiguousarray(vertices),
                       tri_verts=tris,
                       face_id=np.ascontiguousarray(part.fids, dtype=np.uint64),
                       run_original_id=np.array([oid], dtype=np.uint32),
