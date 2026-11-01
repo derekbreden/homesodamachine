@@ -20,7 +20,7 @@ serde_json.workspace = true
 sha2.workspace = true
 spade = "2"
 ttf-parser = "0.25"
-manifold-csg = { version = "0.4.1", default-features = false, optional = true }
+manifold-csg = { version = "0.4.1", default-features = false, features = ["parallel"], optional = true }
 zip = { version = "9.1.2", default-features = false, features = ["deflate-flate2-zlib-rs"] }
 
 [target.'cfg(unix)'.dependencies]
@@ -28,4 +28,4 @@ hsm-run-slots = { path = "../run-slots" }
 
 [dev-dependencies]
 hsm-geometry = { path = "../geometry" }
-manifold-csg = { version = "0.4.1", default-features = false }
+manifold-csg = { version = "0.4.1", default-features = false, features = ["parallel"] }
