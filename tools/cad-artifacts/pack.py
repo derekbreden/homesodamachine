@@ -234,6 +234,7 @@ BUNDLED_PAYLOAD_DIRS = (
     "hardware/printed-parts/fixtures/pgfun-positioner",
     "hardware/printed-parts/enclosure/grip-cover",
     "hardware/printed-parts/enclosure/display-cover",
+    "hardware/printed-parts/enclosure/rear-identification",
     "hardware/printed-parts/faucet/industrial",
     "hardware/printed-parts/cold-core/magnetic-float",
     "hardware/printed-parts/zone-c/funnel-mold",
