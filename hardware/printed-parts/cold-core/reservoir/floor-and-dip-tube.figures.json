@@ -1,8 +1,8 @@
 {
   "/hardware/printed-parts/cold-core/reservoir/reservoir.py": {
     "DRAW_POSITION_A": "(84.2, -45)",
-    "DRAW_POSITION_B": "(-94.3, 9.5)",
-    "FILL_POSITION_A": "(102.5, -57.5)",
+    "DRAW_POSITION_B": "(-94.3, 6)",
+    "FILL_POSITION_A": "(102.5, -61)",
     "FILL_POSITION_B": "(-90.5, 43.5)",
     "FLOOR_Z": "5.25 mm",
     "RESERVOIR_CAPACITY": "1.37 L",

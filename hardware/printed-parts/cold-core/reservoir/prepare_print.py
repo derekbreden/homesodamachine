@@ -64,6 +64,7 @@ def write_archive(path: Path, members: dict[str, bytes]):
 
 
 def main():
+    import reservoir
     CACHE.mkdir(parents=True, exist_ok=True)
     recipe = json.loads((HERE / "print-settings.json").read_text())
     settings = recipe["project_settings"]
@@ -130,7 +131,7 @@ def main():
             source_hash = sha(source.read_bytes())
             if integration["files_sha256"].get(str(source.relative_to(ROOT))) != source_hash:
                 raise ValueError(f"{source.name} differs from the float integration record")
-            shape = cq.importers.importStep(str(source))
+            shape = reservoir.import_part(source)
             stl = CACHE / f"{name}.stl"
             cq.exporters.export(shape, str(stl), tolerance=0.025, angularTolerance=0.08)
             mesh = trimesh.load(stl, force="mesh", process=True)
