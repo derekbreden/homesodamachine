@@ -15,8 +15,8 @@ is an explicit electrical interface.
   native-solid and integration readings, bound to their actual artifact hashes.
 - [Exact contact follow-up](installed/contact-review.json): native-solid readings
   of the remaining mesh contact witnesses and their local electrical endpoints.
-- [Cap passage review](installed/cap-passage-review.json): native cup/lid validity
-  and the shared bore through all three assembly hosts.
+- [Cap passage review](installed/cap-passage-review.json): saved native cup/lid
+  geometry and shared-bore scope through its three assembly hosts.
 - [Integration record](installed/integration-review.json): wiring subassembly and
   retained physical assembly scope.
 - [Integral pump-mount wiring review](installed/integral-pump-mount-review.json):
@@ -103,30 +103,35 @@ signals and one continuous common, with insulated local taps. The carbonator's
 reed pair also shares one common. Each reservoir column's common is a straight
 spine beside the reeds, with short local soldered taps.
 
-Reservoir A's five conductors rise vertically through an aligned cap bore over
-the dry reed channel, with their turns above the lid. Reservoir B's five
-conductors leave the dry reed channel through
-the shell-rim notch and rise outside the cap beside the B-fill block. Its four
+Reservoir A's five conductors rise vertically through the equipment lid's
+aligned bore over the dry reed channel, with their turns above the lid.
+Reservoir B's five conductors leave its dry channel through the fore side
+window below the raised shell rim and rise outside the shell. Its four
 signals terminate at J7, and its common terminates at `wago-reeds-b`. Below the
-cap, four signals descend around the reed envelopes and the common runs beside
+lid, four signals descend around the reed envelopes and the common runs beside
 them. The temperature bus has one shared three-conductor path between probes.
 The incoming V/DATA/GND leads feed the coil probe first, then continue to the
 carbonator-wall probe. The coil-side route turns aft below the PRV vent at
 world Z184, then rises at Y347 to the shared riser. Its tangential splice rows
 are proposed harness joints; they do not specify the TO-92 package pin order.
 
-Reservoir A uses its top-cap reed conduit. Reservoir B uses an 8 mm-wide outlet
-cut 6 mm below the shell's top edge, with its conductors laid through the open rim
-before the cap is seated. The shared west-side Ø7.5 mm `sensor-cable` passage
-at world X−48/Y347 carries seven conductors: the three temperature-bus leads,
-CLO, CHI, their continuous common and the green 16 AWG carbonator PE lead.
-Its printed guide bends at R5.5 inside the cup to the lid exit at world X−78/Y320/Z253.4. The
+Reservoir B's fore side window is 8 mm wide and 6 mm high, at appliance
+Z227.4–233.4 below the Z245.85 shell rim. Feed its individual free wire ends
+through the window before fitting their lid-side terminations. For column
+service, free those conductors from their lid-side terminations and feed the
+ends back through the window before lifting the column from its dry channel.
+The column does not pass through the side window.
+
+The shared west-side `sensor-cable` loom at world X−48/Y347 carries seven
+conductors: the three temperature-bus leads, CLO, CHI, their continuous common
+and the green 16 AWG carbonator PE lead. It follows an R5.5 transition below
+the equipment lid to the Ø7.5 mm opening at world X−78/Y320/Z253.4. The
 nominal packed loom envelope is 6.6 mm. The fixed east-side reeds retain
 their positions; their three leads transfer over the open vessel head at
 world Z225/Y352 to the west riser. Lay these free lead transitions while the
-body is open, before the foam pour. Thread the free ends through the cup and
-lid before fitting the outside terminations. Above the lid the signal looms
-follow the west PCB approach; PE runs aft and drops into the rear PE WAGO. The
+body is open, before the foam pour. Foam locates the loom below the lid.
+Thread its free ends through the equipment lid before fitting the outside
+terminations. Above the lid the signal looms follow the west PCB approach; PE runs aft and drops into the rear PE WAGO. The
 temperature and reed commons keep their separate existing WAGO connections.
 
 ## Routing and assembly

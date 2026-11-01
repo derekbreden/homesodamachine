@@ -47,7 +47,7 @@ Read it inside out: the carbonator; the evaporator coil bonded to its outside; t
 
 The carbonator and reservoirs use the [one-piece ASA Aero float](/hardware/printed-parts/cold-core/magnetic-float/all-aero/README.md), 36 × 28 mm with an inserted RC62 at its midplane. Its [shared guide datums and reed calibration](/hardware/printed-parts/cold-core/magnetic-float/all-aero/installation.md) set the 20 mm inside-wall rod spacing. This is a trial article; pressure life and liquid compatibility remain unqualified.
 
-The layered build is in [`/hardware/assembly/cold-core.md`](/hardware/assembly/cold-core.md). The shells and the pour-in-place foam are in [`/hardware/printed-parts/cold-core/foam-shell/`](/hardware/printed-parts/cold-core/foam-shell/), with [`foam-cap/`](/hardware/printed-parts/cold-core/foam-cap/) and [`foam-assembly/`](/hardware/printed-parts/cold-core/foam-assembly/). The reservoirs — their floor and dip tube, their filtered vent, their reed-and-float level column, their watertight printing — are in [`/hardware/printed-parts/cold-core/reservoir/`](/hardware/printed-parts/cold-core/reservoir/). The relief-valve shroud is in [`prv-shroud/`](/hardware/printed-parts/cold-core/prv-shroud/).
+The casing comprises a taller shell, an equipment lid and an open-topped bottom cap. Both closures screw directly into the shell. Foam is poured through the bottom cap's underside ports and through the open main body. The layered build is in [`/hardware/assembly/cold-core.md`](/hardware/assembly/cold-core.md). The shells and the pour-in-place foam are in [`/hardware/printed-parts/cold-core/foam-shell/`](/hardware/printed-parts/cold-core/foam-shell/), with [`foam-cap/`](/hardware/printed-parts/cold-core/foam-cap/) and [`foam-assembly/`](/hardware/printed-parts/cold-core/foam-assembly/). The reservoirs — their floor and dip tube, their separate air tubes, their reed-and-float level column, their watertight printing — are in [`/hardware/printed-parts/cold-core/reservoir/`](/hardware/printed-parts/cold-core/reservoir/). The relief-valve shroud is in [`prv-shroud/`](/hardware/printed-parts/cold-core/prv-shroud/).
 
 ### Flavor
 
@@ -197,7 +197,7 @@ off disk is not an import, and `enclosure.py` makes no `import_step` call of its
 action declares 28 solids it reaches through what it imports.
 
 A SOLID ONE GENERATOR CUTS AND THE NEXT LOADS IS AN EDGE LIKE ANY OTHER HERE. `foam_assembly`
-reads `foam-cap-top.step` from `//:foam-cap` and `enclosure_assembly` reads
+reads `foam-cap-lid-top.step` from `//:foam-cap` and `enclosure_assembly` reads
 `foam-assembly.step` from `//:foam-assembly`; neither can fall back to the older copy fetched
 from the artifact pointer file. OCCT opens these below Python, so `_cadq_export.import_step` records the
 paths and `gen_build.py` resolves each one to its producer output.
