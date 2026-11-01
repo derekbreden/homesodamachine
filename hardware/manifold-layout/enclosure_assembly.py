@@ -737,9 +737,10 @@ CORE = "cold-core"
 _CORE_BODIES: dict = {}
 
 
-def core_bodies(carry):
+def core_bodies(carry, model=None):
     """Every body the cold core places, stood where this machine stands the core.
 
+    `model` explicitly names the source-frame fine model a materialized action consumes.
     `cold_core_assembly` builds in `foam-assembly`'s own frame — the same frame `build_foam`
     imports the envelope in — and `carry.where` is where the machine stands that frame, so
     moving each body by it is the whole of the transform.
@@ -747,11 +748,24 @@ def core_bodies(carry):
     IT IS THE CARRY AND NEVER THE CORE'S OWN BOX. Re-seating the stack the way `build_foam`
     seats the envelope would shift it: the core measures 285.0 x 184.2 where the foam measures
     283.0 x 181.0, and every clearance in the pack is struck off the foam's faces."""
-    key = repr(carry.where.toTuple())
+    key = (repr(carry.where.toTuple()), str(model) if model is not None else None)
     if key not in _CORE_BODIES:
-        _CORE_BODIES[key] = [(f"{CORE}{SOLID_INDEX_SEP}{c.name}",
-                              c.obj.moved(carry.where), c.color)
-                             for c in _cca.build_assembly().children]
+        meshcad = sys.modules.get("meshcad")
+        if model is not None and meshcad is not None and meshcad.mesh_mode():
+            import _assembly_model
+            from meshcad import scene
+            inputs = [_assembly_model.instance(model, prefix=CORE + SOLID_INDEX_SEP,
+                       transform=_assembly_model.location(carry.where))]
+            with _assembly_model.placed(inputs) as placed:
+                bodies = scene.load(placed, snap=False)
+            _CORE_BODIES[key] = [
+                (name, shape, cq.Color(*rgb, 1.0, False) if rgb is not None else None)
+                for name, (shape, rgb) in bodies.items()
+            ]
+        else:
+            _CORE_BODIES[key] = [(f"{CORE}{SOLID_INDEX_SEP}{c.name}",
+                                  c.obj.moved(carry.where), c.color)
+                                 for c in _cca.build_assembly().children]
     return _CORE_BODIES[key]
 
 
@@ -4156,7 +4170,7 @@ def posed_manifold(carrier_offset: float) -> list:
 PUMP_FACE_Z = ml.PUMP_Y - ml.BARB_INSET
 
 
-def build_pack() -> cq.Assembly:
+def build_pack(*, core_model=None) -> cq.Assembly:
     """The bodies, with no box around them. `enclosure` sizes itself off this, so it
     cannot be in it."""
     a = cq.Assembly(name="enclosure-assembly")
@@ -4268,7 +4282,7 @@ def build_pack() -> cq.Assembly:
     a.core_envelope = foam
     a.core_carry = foam_carry
     core = cq.Assembly(name=CORE)
-    for _name, _solid, _colour in core_bodies(foam_carry):
+    for _name, _solid, _colour in core_bodies(foam_carry, core_model):
         core.add(_solid, name=_name, color=_colour)
     import rear_plumbing
     selected = {**_above_parts.components(), **rear_plumbing.caps(),
@@ -5292,13 +5306,13 @@ def _seated(box):
 RIDGE_REACH = 60.0
 
 
-def machine():
+def machine(*, core_model=None):
     """The pack, and the box around it. One build: the box is sized on the pack's bodies,
     and then carries the stations they seat in its walls.
 
     The box is SEATED before its ledger is carried, so the card holds the throat's row whether
     or not a wall is ever cut from this box."""
-    a = build_pack()
+    a = build_pack(core_model=core_model)
     p = pack(a)
     box = _seated(_enc.stated_box(p))
     carry_enclosure_bounds()
@@ -5360,7 +5374,7 @@ def build_funnel_cover():
 
 def build_enclosure_assembly(*, require_box_spec=False) -> cq.Assembly:
     """The pack, what is seated in the walls, and the four printable pieces of the box."""
-    a, _p, live_box = machine()
+    a, _p, live_box = machine(core_model=_cca.MODEL_OUT if require_box_spec else None)
     box = live_box
     if require_box_spec:
         import _box_spec
