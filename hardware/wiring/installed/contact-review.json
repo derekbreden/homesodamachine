@@ -1,99 +1,40 @@
 {
-  "scope": "Manual exact-solid follow-up of the full-scene mesh contact witnesses. Only contact within 8.5 mm of a shared electrical node or the named endpoint part is excluded. No physical assembly acceptance is established.",
-  "assembly_step_sha256": "14baefeb40b299080928c61466bfe831cfec4bbf01713c36bbff36a745b48940",
-  "manifest_sha256": "2f2beca01f843c85021c5ee5182727e52f25da2c5f9977ad47194dafaaaf3795",
+  "schema": 2,
+  "scope": "Manual exact current native-solid follow-up of every recorded full-scene wire/larger-body mesh witness. Compound members are queried separately. Only the named electrical endpoint part or its own termination has a finite 8.5 mm spherical contact region; all unrelated stock remains in the reading. Wire-wire and wire-tube contacts are excluded.",
+  "assembly_step_sha256": "43de7a97158cfb3d2b9de706d7370fcb1c8b6c32dcb2d9cc09404d443c725655",
+  "assembly_mesh_sha256": "99c6fbd1328a9dc22b0ddf7ca6c0480ae7e08277b4d060c464f690d845bd02fb",
+  "wiring_step_sha256": "2a8c293144335980423a212a1c462efefc2b7e5f218a2223664dce6d87ed8c27",
+  "manifest_sha256": "2014cb424bd823115f40412491965b2b0189f6c829eca5957d6ad19abfde1f62",
+  "mesh_review_sha256": "0f2a6cbfd862f4ccf660221067b80cab7045c3cdbbda3d47907f8f89d0ddeceb",
+  "reader_sha256": "4cad3c709ae1996b7409fcdfb841677666e4cfb33888afc390b513bf07eb0170",
   "physical_pairs": [
     {
-      "a": "wire-J1-COM",
-      "b": "pcba",
-      "whole_overlap_mm3": 0.5155368412108271,
+      "wire": "AC1-PE",
+      "part": "c14-inlet",
+      "mesh_pair_indices": [
+        0
+      ],
+      "whole_overlap_mm3": 0.0,
       "outside_endpoint_overlap_mm3": 0.0,
-      "local_endpoint_nodes": [
-        "J1.COM"
-      ]
+      "local_endpoint_nodes": []
     },
     {
-      "a": "wire-J1-OUT1",
-      "b": "pcba",
-      "whole_overlap_mm3": 0.4853424697344766,
+      "wire": "J2-OUT1",
+      "part": "coil-v-i",
+      "mesh_pair_indices": [
+        1
+      ],
+      "whole_overlap_mm3": 0.0,
       "outside_endpoint_overlap_mm3": 0.0,
-      "local_endpoint_nodes": [
-        "J1.OUT1"
-      ]
+      "local_endpoint_nodes": []
     }
   ],
-  "packing_pairs": [
-    {
-      "a": "wire-J4-IO26",
-      "b": "wire-temp-bus-DATA",
-      "whole_overlap_mm3": 0.0,
-      "outside_endpoint_overlap_mm3": 0.0,
-      "local_endpoint_nodes": [
-        "temp-carbonator.DATA"
-      ]
-    },
-    {
-      "a": "wire-J6-GND",
-      "b": "wire-J6-earth-3",
-      "whole_overlap_mm3": 0.0,
-      "outside_endpoint_overlap_mm3": 0.0,
-      "local_endpoint_nodes": [
-        "reed-a-4.GND"
-      ]
-    },
-    {
-      "a": "wire-J6-earth-1",
-      "b": "wire-J6-earth-2",
-      "whole_overlap_mm3": 0.0,
-      "outside_endpoint_overlap_mm3": 0.0,
-      "local_endpoint_nodes": [
-        "reed-a-2.GND"
-      ]
-    },
-    {
-      "a": "wire-J6-earth-2",
-      "b": "wire-J6-earth-3",
-      "whole_overlap_mm3": 0.0,
-      "outside_endpoint_overlap_mm3": 0.0,
-      "local_endpoint_nodes": [
-        "reed-a-3.GND"
-      ]
-    },
-    {
-      "a": "wire-J7-earth-1",
-      "b": "wire-J7-earth-2",
-      "whole_overlap_mm3": 0.0,
-      "outside_endpoint_overlap_mm3": 0.0,
-      "local_endpoint_nodes": [
-        "reed-b-2.GND"
-      ]
-    },
-    {
-      "a": "wire-J7-earth-2",
-      "b": "wire-J7-earth-3",
-      "whole_overlap_mm3": 0.0,
-      "outside_endpoint_overlap_mm3": 0.0,
-      "local_endpoint_nodes": [
-        "reed-b-3.GND"
-      ]
-    },
-    {
-      "a": "wire-J7-earth-3",
-      "b": "wire-J7-earth-4",
-      "whole_overlap_mm3": 0.0,
-      "outside_endpoint_overlap_mm3": 0.0,
-      "local_endpoint_nodes": [
-        "reed-b-4.GND"
-      ]
-    },
-    {
-      "a": "wire-J7-carb-earth-1",
-      "b": "wire-J7-carb-earth-2",
-      "whole_overlap_mm3": 0.0,
-      "outside_endpoint_overlap_mm3": 0.0,
-      "local_endpoint_nodes": [
-        "reed-carb-2.GND"
-      ]
-    }
-  ]
+  "unresolved": [],
+  "all_current_mesh_witnesses_resolved": true,
+  "elapsed_seconds": 18.941953166999156,
+  "mesh_screen_binding": {
+    "unaugmented_routing_review_sha256": "0f2a6cbfd862f4ccf660221067b80cab7045c3cdbbda3d47907f8f89d0ddeceb",
+    "physical_interference_pairs_sha256": "461f0d8fcf0aefbd0166fe423e9bfc071d45fba59283cc49e53dbc1103c69611",
+    "scope": "The screen receipt hashes the unaugmented manual routing result at query time. The routing report subsequently links this native follow-up; the exact screened pair list is unchanged."
+  }
 }
