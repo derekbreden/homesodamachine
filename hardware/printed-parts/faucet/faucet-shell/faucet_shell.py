@@ -667,11 +667,11 @@ def _lower_signal_profile(z, x, y, width, depth, rounded, angle=0.0):
     return wire.rotate((x, y, z), (x, y, z + 1.0), angle)
 
 
-def _lower_signal_wires(width, depth, rounded, bottom_z, turn_clearance=0.0):
+def _lower_signal_profiles(width, depth, rounded, bottom_z, turn_clearance=0.0):
     """The sections the lower cable or its lane is ruled through, bottom first."""
     stations = _lower_signal_stations()
-    wires = [_lower_signal_profile(z, signal_lower_exit_x, signal_lower_exit_y,
-                                   width, depth, rounded, signal_lower_exit_angle)
+    profiles = [(z, signal_lower_exit_x, signal_lower_exit_y,
+                 width, depth, rounded, signal_lower_exit_angle)
              for z in (bottom_z, stations[0][0] - 1.0)]
     # Closely spaced angular sections preserve the complete ribbon envelope
     # through its edge-on turn. Constant-angle spans remain exact ruled lofts.
@@ -681,10 +681,15 @@ def _lower_signal_wires(width, depth, rounded, bottom_z, turn_clearance=0.0):
         turn_stations.extend(tuple(a + (b - a) * index / count
                                    for a, b in zip(first, last))
                              for index in range(1, count + 1))
-    wires.extend(_lower_signal_profile(z, x, y, width + 2.0 * turn_clearance,
-                                       depth + 2.0 * turn_clearance, rounded, angle)
+    profiles.extend((z, x, y, width + 2.0 * turn_clearance,
+                     depth + 2.0 * turn_clearance, rounded, angle)
                  for z, x, y, angle in turn_stations)
-    return wires
+    return profiles
+
+
+def _lower_signal_wires(width, depth, rounded, bottom_z, turn_clearance=0.0):
+    return [_lower_signal_profile(*profile) for profile in
+            _lower_signal_profiles(width, depth, rounded, bottom_z, turn_clearance)]
 
 
 def _lower_signal_solid(width, depth, rounded, bottom_z, turn_clearance=0.0):
@@ -933,27 +938,27 @@ def _ribbon_arc_frame(s):
     return point,tangent,_paths.positions(s)[4]
 
 
-def _ribbon_transition(frame_fn,start,end,clearance):
+def _ribbon_transition(frame_fn,start,end,clearance,section=_ribbon_section):
     # Ruled sections only cover the short quintic offsets. A 0.3 mm pitch
     # keeps their chord error below the print surface tolerance.
     count=max(2,math.ceil((end-start)/0.3))
-    return "loft",[_ribbon_section(*frame_fn(start+(end-start)*i/count),clearance)
+    return "loft",[section(*frame_fn(start+(end-start)*i/count),clearance)
                    for i in range(count+1)]
 
 
-def _ribbon_straight(z0,z1,clearance):
+def _ribbon_straight(z0,z1,clearance,section=_ribbon_section):
     point,_,width=_ribbon_lower_frame(z0)
-    return "extrude",_ribbon_section(point,(0,0,1),width,clearance),(0,0,z1-z0)
+    return "extrude",section(point,(0,0,1),width,clearance),(0,0,z1-z0)
 
 
-def _ribbon_constant_arc(s0,s1,n,width,clearance):
+def _ribbon_constant_arc(s0,s1,n,width,clearance,section=_ribbon_section):
     a=_paths.JOINT_ANGLE+s0/_paths.WATER_RADIUS
     b=_paths.JOINT_ANGLE+s1/_paths.WATER_RADIUS
     start,mid,end=[_paths.arc_point(t,n=n) for t in (a,(a+b)/2,b)]
-    return "sweep",_ribbon_section(start,(0,-math.sin(a),math.cos(a)),width,clearance),(start,mid,end)
+    return "sweep",section(start,(0,-math.sin(a),math.cos(a)),width,clearance),(start,mid,end)
 
 
-def _ribbon_spans(clearance=False,bottom_z=38.8):
+def _ribbon_spans(clearance=False,bottom_z=38.8,section=_ribbon_section):
     """The cable's spans up the neck, bottom first, as what each is cut from: `("extrude",
     section, rise)` for a straight run, `("loft", sections)` for an offset transition, ruled,
     and `("sweep", section, arc points)` for a constant arc."""
@@ -961,16 +966,16 @@ def _ribbon_spans(clearance=False,bottom_z=38.8):
         (display_ribbon_join_s-gn_tip_straight_len)/(gn_bend1_r+signal_lane_center_n))
     end_s=(end_angle-_paths.JOINT_ANGLE)*_paths.WATER_RADIUS
     arc_start_s=-_paths.JOINT_ANGLE*_paths.WATER_RADIUS
-    parts=[_ribbon_straight(bottom_z,_paths.LOWER_START_Z,clearance),
-           _ribbon_transition(_ribbon_lower_frame,_paths.LOWER_START_Z,_paths.LOWER_END_Z,clearance),
-           _ribbon_straight(_paths.LOWER_END_Z,_paths.ARC_START_Z,clearance),
+    parts=[_ribbon_straight(bottom_z,_paths.LOWER_START_Z,clearance,section),
+           _ribbon_transition(_ribbon_lower_frame,_paths.LOWER_START_Z,_paths.LOWER_END_Z,clearance,section),
+           _ribbon_straight(_paths.LOWER_END_Z,_paths.ARC_START_Z,clearance,section),
            _ribbon_constant_arc(arc_start_s,_paths.CONVERGE_START_S,
-                                _paths.TIGHT_RIBBON_N,signal_ribbon_max_width,clearance)]
+                                _paths.TIGHT_RIBBON_N,signal_ribbon_max_width,clearance,section)]
     parts.extend([
         _ribbon_transition(_ribbon_arc_frame,_paths.CONVERGE_START_S,
-                           _paths.CONVERGE_START_S+_paths.RIBBON_CONVERGE_LENGTH,clearance),
+                           _paths.CONVERGE_START_S+_paths.RIBBON_CONVERGE_LENGTH,clearance,section),
         _ribbon_constant_arc(_paths.CONVERGE_START_S+_paths.RIBBON_CONVERGE_LENGTH,
-                             end_s,_paths.FACE_RIBBON_N,signal_ribbon_max_width,clearance)])
+                             end_s,_paths.FACE_RIBBON_N,signal_ribbon_max_width,clearance,section)])
     return parts
 
 
@@ -1458,11 +1463,16 @@ display_foot_centers = tuple((x, display_s_bottom + display_cradle_clearance
 display_ribbon_terminal_y = -11.0
 display_ribbon_terminal_s = _display_housing_center_s + display_ribbon_terminal_y
 
+def _tip_frame_data():
+    """The tube exit, up-gooseneck tangent and display normal as coordinate triples."""
+    ta, tb = _tan_after_bend2
+    return ((0.0, soda_faucet_tube_y - _path_p5[0], zone5_z_top + _path_p5[1]),
+            (0.0, ta, -tb), (0.0, tb, ta))
+
+
 def _tip_frame():
     """(tube exit, up-gooseneck tangent, outward display normal)."""
-    ta, tb = _tan_after_bend2
-    tip_end = cq.Vector(0.0, soda_faucet_tube_y - _path_p5[0], zone5_z_top + _path_p5[1])
-    return tip_end, cq.Vector(0.0, ta, -tb), cq.Vector(0.0, tb, ta)
+    return tuple(cq.Vector(*point) for point in _tip_frame_data())
 
 
 def _cradle_prism(half_x: float, s0: float, s1: float, n0: float, n1: float,
@@ -1630,7 +1640,7 @@ def build_display_usb_keepout() -> cq.Workplane:
     ).translate(((low[0] + high[0]) / 2.0, 0.0, 0.0))
 
 
-def _display_ribbon_sections(width: float, depth: float, top_n: float):
+def _display_ribbon_frames(width: float, depth: float, top_n: float):
     """The flat ribbon leaves the neck into the open volume below the PCB, ruled through these
     sections, bottom first.
 
@@ -1638,7 +1648,7 @@ def _display_ribbon_sections(width: float, depth: float, top_n: float):
     turn, without the sudden ribbon twist of a Frenet frame at an inflection.
     The S bend passes inside the rear foot and reaches the southwest termination.
     """
-    origin, along, outward = _tip_frame()
+    origin, along, outward = _tip_frame_data()
     frames = []
 
     def natural(s):
@@ -1702,15 +1712,25 @@ def _display_ribbon_sections(width: float, depth: float, top_n: float):
         raise ValueError("ribbon termination must reach above its smooth PCB-side bend")
     add(x, s, top_n, 0.0, 0.0, 1.0)
 
-    wires = []
+    sections = []
     for (x, s, n), (dx, ds, dn) in frames:
-        centre = origin + cq.Vector(x, 0, 0) + along.multiply(s) + outward.multiply(n)
-        tangent = cq.Vector(dx, 0, 0) + along.multiply(ds) + outward.multiply(dn)
-        cross = cq.Vector(-ds, 0, 0) + along.multiply(dx)
-        if cross.Length < 1e-8:
-            cross = cq.Vector(1, 0, 0)
-        section = cq.Workplane(cq.Plane(origin=centre, xDir=cross, normal=tangent))
-        wires.append(section.rect(width, depth).val())
+        centre = tuple(a + q + u*s + v*n for a, q, u, v in
+                       zip(origin, (x, 0.0, 0.0), along, outward))
+        tangent = tuple(q + u*ds + v*dn for q, u, v in
+                        zip((dx, 0.0, 0.0), along, outward))
+        cross = tuple(q + u*dx for q, u in zip((-ds, 0.0, 0.0), along))
+        if math.sqrt(sum(v*v for v in cross)) < 1e-8:
+            cross = (1.0, 0.0, 0.0)
+        sections.append({"origin": centre, "xdir": cross, "normal": tangent,
+                         "rect": (width, depth)})
+    return sections
+
+
+def _display_ribbon_sections(width: float, depth: float, top_n: float):
+    wires = []
+    for section in _display_ribbon_frames(width, depth, top_n):
+        plane = cq.Plane(origin=section["origin"], xDir=section["xdir"], normal=section["normal"])
+        wires.append(cq.Workplane(plane).rect(*section["rect"]).val())
     return wires
 
 

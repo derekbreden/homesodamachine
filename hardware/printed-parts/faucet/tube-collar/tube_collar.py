@@ -32,6 +32,8 @@ Run:
     tools/cad-venv/bin/python hardware/printed-parts/faucet/tube-collar/tube_collar.py selftest
 """
 
+from __future__ import annotations
+
 import collections
 import math
 import sys
