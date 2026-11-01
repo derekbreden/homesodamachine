@@ -232,7 +232,7 @@ Lay out the ten Beduan valves and the [6](MANIFOLD_TEES) PP0208E tees. Cut stati
 
 Y-A and Y-B remain on the inner limbs with their branches facing one another across the
 mirror plane. V-A's inlet takes the water split through the flow regulator. V-B's inlet
-takes `fluid-4` from the PP0308E elbow carried by the removable funnel frame. No reservoir has a
+takes `fluid-4` from the uncut ATEU44W stem elbow carried by the removable funnel frame. No reservoir has a
 tee: V-F/V-E reach reservoir A's fill/draw conduits and V-I/V-H reach reservoir B's.
 
 Route and retain fixed spans while the front-top is accessible. The four reservoir lines
@@ -348,13 +348,20 @@ return tube go in; the return lies over J11
 ([wiring](wiring.md)). The single Y-A stem points aft and slightly east. The
 raised B connections clear that first elbow.
 
-The drain joint is made as the frame goes in, after commissioning. The drain
-cradle snaps into the removable frame’s 3 mm web and carries the PP0308E elbow
-and stub. Push `fluid-4`, the straight 10.95 mm exposed tube, fully into V-B's
-inlet turn, push the cradle's elbow onto its free end, then lower the
-frame so its web snaps over the cradle's wings. Complete the drain connection
-before fitting the silicone funnel. The plug, stub, elbow and cradle travel
-with the frame; disconnect the V-B feed before withdrawing it.
+The drain joint is made as the frame goes in, after commissioning. Snap its
+cradle into the removable frame’s 3 mm web and seat the uncut ATEU44W elbow
+with its male stem upward. Fit `drain-outlet-stem` into the elbow’s aft socket:
+its male stem retains 17.303 mm from shoulder to tip and enters the complete
+16.891 mm socket depth. Clock its female socket east and down by 12.725°;
+clock V-B’s inlet turn west and up to face it.
+
+Cut the straight black `fluid-4` link to 36.469 mm, including the 16.891 mm
+insertion at each socket. Mark and fully seat both ends; the exposed span is
+2.687 mm. Connect it through the open roof, then lower the frame onto its
+ledges. Complete and inspect the joint before fitting the silicone funnel.
+The funnel’s straight bore presses over 11.265 mm of the uncut stem, whose
+tip finishes at the bowl opening. The elbow and cradle travel with the frame;
+disconnect the V-B feed before withdrawing it.
 
 Confirm every push-fit witness, trim engagement, clamp and tie on the made-up
 hardware. Keep wiring clear of wet joints and preserve access to moving

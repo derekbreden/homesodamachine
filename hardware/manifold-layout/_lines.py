@@ -58,7 +58,7 @@ for _p in (_hw / "scripts", _here.parent,
            _hw / "reference" / "shok-blok-regulator",
            _hw / "reference" / "beduan-solenoid",
            _hw / "reference" / "jg-bulkhead-union",
-           _hw / "reference" / "jg-pp0308e-elbow",
+           _hw / "reference" / "neofit-stem-elbow",
            _hw / "reference" / "neofit-bulkhead",
            _hw / "reference" / "neofit-drain-bulkhead",
            _hw / "reference" / "neofit-flavor-reducer",
@@ -76,7 +76,7 @@ import diaphragm_pump_sleeve as _pump_elbow            # noqa: E402
 import neofit_achv44_check as _dis                     # noqa: E402
 import beduan_solenoid as _beduan                      # noqa: E402
 import jg_bulkhead_union as _jg                        # noqa: E402
-import elbow as _elbow                                 # noqa: E402
+import neofit_stem_elbow as _drain_elbow                # noqa: E402
 import neofit_drain_bulkhead as _drain_bulkhead
 import neofit_flavor_reducer as _flavor_reducer
 import neofit_bulkhead as _neofit                      # noqa: E402
@@ -193,12 +193,10 @@ STATIONS = {
     # wall carries it.
     "funnel": {"drain": ((lambda: (_funnel.drain_local, (0.0, 0.0, -1.0))),
                                 _funnel.spout_id)},
-    # The PP0308E elbow under that drain, standing in its cradle below the funnel frame. Its
-    # upper collet holds the drain stub the plug slides onto, and its aft one starts `fluid-4`,
-    # so the two are named for the joint rather than for flow: `stub` is the mouth a hand works
-    # and `outlet` is the mouth a run leaves by.
-    "funnel-drain-union": {"stub": (lambda: _elbow.port("z"), _elbow.TUBE_OD),
-                           "outlet": (lambda: _elbow.port("y"), _elbow.TUBE_OD)},
+    # The ATEU44W elbow under the drain: its uncut stem enters the silicone bore,
+    # and its aft female socket starts `fluid-4`.
+    "funnel-drain-union": {"stub": (_drain_elbow.stem_tip, _drain_elbow.STEM_OD),
+                           "outlet": (_drain_elbow.socket, _drain_elbow.TUBE_OD)},
 }
 
 # The three unions the machine dispenses through, all on one row of the +Y wall of back-top. Each carries

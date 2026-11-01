@@ -319,14 +319,14 @@ SCENES = (
     ),
     Scene(
         "funnel-drain", "Funnel frame and silicone",
-        roots=("funnel-frame", "elbow-cradle", "funnel-drain-union", "funnel-drain-stub"),
+        roots=("funnel-frame", "elbow-cradle", "funnel-drain-union"),
         inner=(), flip=((1, 0, 0), 180.0), also=(),
         later=(),
         cam=(0.55, -0.85, 0.9), up=(0, 0, 1), zoom=4.0, look="crown",
         note="The inverted frame shows its flat underside and full-width end corbels, with the "
-             "drain cradle snapped into its bottom web, the PP0308E elbow "
-             "standing in it and the drain stub up its collet. The silicone plug bears on the "
-             "web above.",
+             "drain cradle snapped into its bottom web and the uncut ATEU44W elbow "
+             "standing in it, with its stem up the silicone bore. The silicone plug bears on "
+             "the cradle's hook tops.",
     ),
     Scene(
         "back-half", "Enclosure back half",
@@ -401,7 +401,6 @@ BEARS_ON = {
     "display-gasket": "enclosure-front-top",         # in the same inset, under the plate's lap
     "funnel-frame": "enclosure-front-top",           # shared roof bearing; fitted after closure
     "funnel": "funnel-frame",                       # removable silicone in the frame's socket
-    "funnel-drain-stub": "funnel-drain-union",      # standing in the drain elbow's upper collet
     "drain-outlet-stem": "funnel-drain-union",
     # Hanging off the line they splice, on the wall that line is cradled against.
     "water-split": "enclosure-back-top",

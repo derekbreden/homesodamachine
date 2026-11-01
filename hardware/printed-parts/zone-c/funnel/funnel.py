@@ -5,8 +5,8 @@ collar and normal ramp wall lead to a substantial silicone plug, a 36 mm wide
 square-cornered rectangle centred on the outlet. Its flat underside bears on
 the elbow cradle's two hook tops. Its walls run up into
 the bowl's underside, so none of its top shows. A straight 6 mm bore grips the
-1/4-inch drain stub over its complete insertion depth. The frame's through
-hole and the drain stub are separate parts.
+1/4-inch elbow stem over its complete insertion depth. The frame's through
+hole passes the stem through the rigid frame.
 """
 
 import math
@@ -52,7 +52,6 @@ neck_dx = 0.0  # the outlet stands on the collar's centre
 neck_dy = 0.0  # outlet on the collar centre
 spout_id = 6.0  # straight outlet, formed by a stock 6 mm steel rod
 spout_wall = 4.5  # minimum radial stock around the throat
-neck_blend_drop = 6.25
 # Ramp and outlet elevations are independent of the plug's lower face.
 _ramp_rise = 14.199233063709995
 plug_width = 36.0  # the plug rectangle's X width; its underside spans the cradle's hooks
@@ -61,10 +60,10 @@ plug_lift = 3.15  # block underside above the frame's socket-floor datum
 plug_height = 16.0 - plug_lift
 drop = 46.1  # brim underside to the frame's socket-floor datum
 sealing_id = spout_id
-spout_land_z = brim_thickness - chute_h - _ramp_rise - neck_blend_drop
-# The stub's reach into the plug: from its bottom face to the top of its sealing land.
-stub_engagement = spout_land_z + drop - plug_lift
-sealing_land = stub_engagement  # the whole inserted tube contacts the straight bore
+spout_land_z = brim_thickness - chute_h - _ramp_rise
+# The uncut elbow stem reaches the bowl opening through the complete straight bore.
+stem_engagement = spout_land_z + drop - plug_lift
+sealing_land = stem_engagement
 
 # The drain, in the funnel's own frame: the bore's exit on the plug's bottom face. World
 # position = this + the funnel's placement; it rides the part.
@@ -202,7 +201,7 @@ def build_solids(drop=drop, ramp_wall=collar_wall, outer_air=0.0, plug=True, bri
     ramp_top_z = brim_thickness - chute_h
     neck_z = ramp_top_z - _ramp_rise
     end_z = -drop + plug_lift
-    land_z = neck_z - neck_blend_drop
+    land_z = neck_z
     spout_or = spout_id / 2.0 + spout_wall
     ramp = _loft_rc(bore_w, bore_d, cx, cy, ramp_top_z, spout_id / 2.0,
                     ncx, ncy, neck_z, mouth_corner_r)
@@ -248,7 +247,6 @@ def build_solids(drop=drop, ramp_wall=collar_wall, outer_air=0.0, plug=True, bri
         "spout_id": spout_id,
         "top_z": top_z, "ramp_top_z": ramp_top_z, "neck_z": neck_z,
         "spout_land_z": land_z, "end_z": end_z,
-        "neck_blend_drop": neck_blend_drop,
         "sealing_radius": sealing_id / 2,
         "sealing_land": sealing_land,
         "outlet_profile": "straight cylindrical bore",

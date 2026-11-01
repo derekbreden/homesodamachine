@@ -3,14 +3,14 @@
 The removable silicone funnel holds nominally [698 mL](FUNNEL_CAP). Its PET-GF
 frame lowers vertically through the closed upper enclosure and fastens from above
 with four M3 × 12 screws. The drain cradle snaps into the frame’s 3 mm lower web
-and supports the elbow and standing drain stub.
+and supports an uncut NeoFit ATEU44W stem elbow.
 Both flavors share this filling interface.
 
 Complete the four-quadrant joining, plumbing and electrical connections through the
 open roof. Fit the frame after the central connections, engage the drain cradle’s
 snap seat, and tighten the four screws. Complete the drain connection before
 seating the silicone funnel and smoothing its apron onto the roof. The plug,
-stub, elbow and cradle travel with the frame; disconnect the V-B feed before
+elbow and cradle travel with the frame; disconnect the V-B feed before
 removing it.
 The [lift-off cover](../funnel-cover/README.md) closes the mouth between fills.
 Remove it before pouring or lifting the silicone out, and reseat it after filling.
@@ -43,13 +43,14 @@ measured on a cast part.
 The integral silicone plug is a [36 × 41.0 mm](FUNNEL_PLUG) rectangle with square corners,
 centred on the outlet, 12.85 mm tall with its flat bottom at Z306.05 resting on the cradle's
 hook tops.
-Its walls run up into the bowl's underside, so none of its top shows. Its straight 6 mm outlet grips the 6.35 mm drain tube along the complete
-5.015 mm insertion depth. The tube stays in the elbow when the silicone
-funnel lifts out for cleaning.
+Its walls run up into the bowl's underside, so none of its top shows. Its straight
+6 mm outlet grips the elbow's 6.35 mm male stem over 11.265 mm, from Z306.05 to
+the bowl opening at Z317.315. The stem retains its full 20.912 mm length. The
+elbow stays in the cradle when the silicone funnel lifts out for cleaning.
 
 The intended cleaning motion is lifting the whole silicone funnel out by hand.
-Its straight bore slides off the raw 1/4-inch LLDPE drain stub, which stays standing in the drain
-elbow's collet under the frame. To refit, press the plug into the frame's socket
+Its straight bore slides off the uncut elbow stem under the frame.
+To refit, press the plug into the frame's socket
 until its flat bottom bears on the cradle's hook tops and the brim seats in the frame's roof recess.
 Fit it after the enclosure halves and upper seam screws are closed. Smooth
 the apron flat onto the roof, and lift it to wipe
@@ -74,7 +75,7 @@ The [175.5 mm](FRAME_BODY_WIDTH) lower body passes between the shell ledges.
 Its lower front and rear feet reach Z299.9 and keep their 30° end corbels.
 Plain open-bottom notches pass all four ledges. The lower body carries
 the drain socket and its 3 mm snap web. The empty frame’s vertical passage is
-reviewed with the drain cradle, elbow, stub and connected tubing removed.
+reviewed with the drain cradle, elbow and connected tubing removed.
 There are no sliding rails or outboard lower foot wings.
 
 Four broad shell-rooted ledges bear the flange: one pair in front-top and one in
@@ -113,10 +114,10 @@ plug and released hook tips. The plug’s lower face bears on the hooks at Z306.
 
 Only the [11.25 mm](FRAME_HOLE) drain hole and two straight
 [5.54 × 32.3 mm](FRAME_SLOTS) wing slots pierce this web. The complete catches
-bear above the 3 mm web on both sides. The elbow’s fixed nose face stands
-0.65 mm below the frame’s underside in the released pose.
+bear above the 3 mm web on both sides. The elbow's socket collar stands
+1.713 mm below the frame's underside in the released pose.
 
-The cradle, elbow and stub attach to the removable frame and travel with it;
+The cradle and elbow attach to the removable frame and travel with it;
 disconnect the V-B feed before frame withdrawal. The bare-frame lift review
 excludes those drain parts; it does not establish disconnection access, force
 or the motion of the connected tubing. Fit and inspect the drain before
@@ -124,36 +125,41 @@ seating the silicone funnel.
 
 ## Elbow cradle
 
-The PET-GF cradle holds the scanned [PP0308E elbow](/hardware/reference/jg-pp0308e-elbow/README.md)
-under the frame's drain hole, its vertical leg up the hole and its horizontal leg aft toward V-B.
-The pocket adds [0.15 mm](CRADLE_SLIP) radially to the scanned profile. Its forward lower
-following surface is 302.779 mm². Beyond the largest horizontal section at local Y15.5,
-the lower mouth holds that radius through the aft exit, leaving a full 3 mm floor.
-The trailing 3.337 mm of the fixed-body span opens into this exit rather than following
-the body's narrowing profile. The upward mouth carries the widest horizontal clearance
-through the aft opening and joins the bend-core circle with a tangent boundary.
-The elbow drops straight in. At the body's top, 1 mm under the top of the vertical leg's
-root band, the circular pocket wraps 249.7° (69.4%) around the leg. The collar, rung and nose
-stand free above it. The [drain stub](/hardware/reference/funnel-drain-stub/funnel_drain_stub.py)
-stands in the elbow's upper collet and up into the plug's bore, and `fluid-4` leaves the elbow's
-aft collet for V-B.
+The PET-GF cradle holds the scanned
+[NeoFit ATEU44W stem elbow](/hardware/reference/neofit-stem-elbow/README.md)
+under the frame's drain hole, with its stem up and female socket aft. The
+bend axis is X0, Y179.20, Z290.289. The uncut stem ends at the bowl opening;
+the socket collar has 1.713 mm air below the frame's lower web.
+
+The pocket adds [0.15 mm](CRADLE_SLIP) radially to the scanned profiles and
+axially across the socket collar's transitions. Its
+lower horizontal seat follows the body through the widest collar station and
+carries that radius through the aft exit, with a full 3 mm floor. The open
+upper mouth lets the elbow drop straight into the lower seat. The bend,
+shoulder and female socket retain their native geometry.
+
+The aft collet takes the trimmed stem of `drain-outlet-stem` to the complete
+16.891 mm female receiving depth, leaving 0.412 mm shoulder air. This elbow
+and V-B's inlet turn point along the same 12.725° descending line. Their
+straight black LLDPE link is 36.469 mm long including 16.891 mm insertion at
+each end, with 2.687 mm exposed tube. The frame carries this assembled drain
+joint; disconnect it before withdrawing the frame.
 
 The body is [30.1 mm](CRADLE_WIDTH) wide. Both X sides carry
-[1.3 mm](CRADLE_WING_T) wings along its full [31.8 mm](CRADLE_LENGTH) length,
+[1.3 mm](CRADLE_WING_T) wings along its full [30.0 mm](CRADLE_LENGTH) length,
 [15.64 mm](CRADLE_WING_H) above the body, through the frame's slots. Each flat hook
 reaches [3.1 mm](CRADLE_HOOK) outward, [2.6 mm](CRADLE_OVERLAP) past its slot's
 outer edge. The hook tip has [0.15 mm](CRADLE_TIP_GAP) X air to the socket wall;
 the receiver's R0.25 corners preserve at least 0.15 mm normal static air at the
-hook ends. The slot keeps its 0.25 mm allowance beyond each wing end.
+hook ends. The slots extend 0.25 mm beyond the fore wing ends and 2.10 mm
+beyond their aft ends.
 
-The plain lower side faces are relieved 0.65 mm per side to clear the two
-Y elbows by 1.313 mm in nominal CAD. A 45° return preserves the full-width
-3 mm of stock beneath the wing roots. The pocket, floor, wing roots, wings,
-hooks and mating-part stations retain their selected geometry. The removed
-side stock stands at least 6.237 mm from the purchased drain elbow's surface;
-it includes no seating surface. The
-[scoped native review](/hardware/mechanical-qualification/enclosure-above-core/cradle-side-clearance-review.json)
-records the retained interfaces and exported shape.
+The lower body begins at Z279.242 and ends at Z290.410. Its two plain lower
+side faces have 0.65 mm relief per side; a 45° return preserves the complete
+3 mm wing-root band. The flat aft face has 1 mm air to the attached elbow's
+collar. The flexure roots are at Z290.410;
+the wing slots, hooks and silicone bearing planes share the frame's fixed
+interface datums.
 
 The installed cradle stands [0.65 mm](CRADLE_CATCH) below its insertion datum.
 The hook undersides are at Z303.3, [0.40 mm](CRADLE_WEB_AIR) above the frame's
@@ -198,7 +204,7 @@ empty frame, ledges, silicone brim bearing, original snap web/socket and screw e
 With production shells included, it also measures the nominal Ø3.3 mm J10 tool
 passages with the frame and its cradled drain removed.
 Its [record](drop-in-review/native-review.json) states whether exported production
-upper shells are included. Its lift scope removes the drain cradle, elbow, stub
+upper shells are included. Its lift scope removes the drain cradle, elbow
 and connected tubing. Sampled geometry does not establish hand access,
 printed fit, support-removal effort, sealing, load capacity or lifetime.
 

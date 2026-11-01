@@ -121,7 +121,7 @@
           },
           {
             "material": "HSM-000330",
-            "quantity": 29,
+            "quantity": 24,
             "unit": "ea",
             "bodies": [
               "stem-elbow-y-c",
@@ -135,26 +135,21 @@
               "tee-fold",
               "lower-valve-elbow",
               "lower-pump-elbow",
-              "carbonator-fold",
               "reg-va-elbow",
               "va-outlet-elbow",
+              "va-south-elbow",
+              "carbonator-fold",
               "ya-stem-elbow",
               "drain-outlet-stem",
               "vb-inlet-turn",
               "vb-outlet-stem",
               "yb-stem-elbow",
-              "gas-inlet-elbow",
-              "gas-lower-a",
-              "gas-lower-b",
-              "gas-upper-a",
-              "gas-upper-b",
-              "soda-outlet-return-stem",
-              "soda-stem-elbow",
               "reservoir-a-fill-turn",
               "reservoir-a-draw-turn",
-              "reservoir-b-fill-turn"
+              "reservoir-b-fill-turn",
+              "funnel-drain-union"
             ],
-            "note": "Eight at the pump-dock lower returns, eighteen at the warm header and return joints and three at the reservoir valves V-F, V-E and V-I."
+            "note": "Eight at the pump-dock lower returns, twelve at the warm header and return joints, three at the reservoir valves V-F/V-E/V-I and one uncut at the funnel drain."
           },
           {
             "material": "HSM-000161",
@@ -417,14 +412,12 @@
           },
           {
             "material": "HSM-000074",
-            "quantity": 3,
+            "quantity": 1,
             "unit": "ea",
             "bodies": [
-              "funnel-drain-union",
-              "va-east-turn",
               "vb-outlet-return"
             ],
-            "note": "The funnel drain elbow in its cradle, the V-A east turn and the V-B return union."
+            "note": "V-B return union."
           },
           {
             "material": "HSM-000075",
@@ -563,14 +556,6 @@
             "bodies": [
               "tube-collar-co2",
               "tube-collar-co2-word"
-            ]
-          },
-          {
-            "material": "HSM-000276",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "funnel-drain-stub"
             ]
           },
           {
@@ -5105,30 +5090,6 @@
         {
           "title": "Enclosure assembly",
           "path": "assembly/enclosure-mechanical.md"
-        }
-      ],
-      "contexts": [
-        {
-          "material": "HSM-000001"
-        }
-      ]
-    },
-    {
-      "id": "HSM-000276",
-      "description": "Flavor-fill funnel drain stub \u00b7 1/4 inch LLDPE",
-      "kind": "manufactured",
-      "aliases": [
-        "funnel drain tube",
-        "Funnel drain stub \u00b7 1/4 inch LLDPE"
-      ],
-      "documents": [
-        {
-          "title": "Stub length and joint",
-          "path": "reference/funnel-drain-stub/funnel_drain_stub.py"
-        },
-        {
-          "title": "Internal plumbing",
-          "path": "assembly/internal-plumbing.md"
         }
       ],
       "contexts": [

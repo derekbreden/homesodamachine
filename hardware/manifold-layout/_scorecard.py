@@ -273,7 +273,6 @@ MOUNTS = (
     # The drain cradle snaps into the removable frame's original bottom web.
     ("elbow-cradle", "funnel-frame", "snap-capture"),
     ("funnel-drain-union", "elbow-cradle", "cradle"),
-    ("funnel-drain-stub", None, "tube-hung"),
     # The glass is captured between its housing seat and the rounded snap bezel.
     ("display", ("enclosure-front-top", "display-cover"), "plate-capture"),
     ("display-cover", "enclosure-front-top", "snap-capture"),
@@ -572,13 +571,9 @@ def fastened_by(name: str):
 NEVER = {
     "funnel":
         "The silicone brim rests in the removable frame's roof surround. Its plug locates on "
-        "the cradle snapped into the frame's web, with its sealing land on the drain stub. "
+        "the cradle snapped into the frame's web, with its sealing land on the elbow stem. "
         "The funnel lifts out by hand for the dishwasher, the "
-        "land sliding off the stub.",
-    "funnel-drain-stub":
-        "The elbow's upper collet grips it and the elbow stands in the cradle snapped into the "
-        "removable frame's web. The plug's land closes on its top end and "
-        "slides off it whenever the funnel is lifted out.",
+        "land sliding off the stem.",
     "fuse-clamp":
         "Both faces of the slot the clamp presses into are the compressor's own — the air its "
         "power box hangs over its mounting plate — so the clamp rides the can. The plate's "
@@ -649,15 +644,7 @@ def never_holds(rows) -> None:
 # pair as a seat through `TOUCHING_OK`, and the topology doc draws each as a butt that owes no
 # route id.
 MADE_UP = (
-    # The drain stub and the elbow's +Z collet. The stub IS the tube in that grip — it runs
-    # `funnel_drain_stub.UNION_INSERTION` down inside the fitting — so the collet grips the stub
-    # itself.
-    ("funnel-drain-stub.lower", "funnel-drain-union.stub"),
-    # And the same stub up the plug's bore to the top of its land. The funnel drains THROUGH the
-    # stub, so the drain's line is the stub's own bore.
-    ("funnel.drain", "funnel-drain-stub.upper"),
-    # The block's bottom face stands above the socket floor on the hook tops; the web and block
-    # lift, less the collet's projection, separate it from the elbow's release face.
+    # The silicone plug seals directly on the elbow's full male stem.
     ("funnel.drain", "funnel-drain-union.stub"),
 )
 
@@ -747,12 +734,12 @@ TOUCHING_OK = {frozenset(p) for p in (
     ("funnel", "funnel-frame"),
     # Drain joint interfaces. The cradle's hook tops support the silicone plug;
     # their undersides retain the supported static clearance above the frame web.
-    # The elbow fits the cradle pocket and the compliant plug closes on the stub.
+    # The elbow fits the cradle pocket and the compliant plug closes on its stem.
     ("funnel-frame", "funnel-drain-union"),
     ("elbow-cradle", "funnel-drain-union"),
     ("elbow-cradle", "funnel-frame"),
     ("elbow-cradle", "funnel"),
-    ("funnel", "funnel-drain-stub"),
+    ("funnel", "funnel-drain-union"),
     # A REDUCER IN ITS VALVE'S OUTLET. Its quarter-inch stem stands in the push-to-connect mouth
     # with its shoulder on the collet (`neofit_flavor_reducer`), so the pair reads 0 and it is
     # the fitting made up; `pack-closes` holds what they share to the stem.
@@ -1094,20 +1081,21 @@ def pump_cap_contact(a, bodies) -> dict:
 
 
 def drain_seal_contact(a, bodies) -> dict:
-    """Read the drain stub's common material with the silicone plug against the plug's land.
+    """Read the elbow stem's common material with the silicone plug against its land.
 
-    The land's bore is drawn at its moulded size, smaller than the stub, so the two share the
+    The land's bore is drawn at its moulded size, smaller than the stem, so the two share the
     interference ring the push-on seal closes. Anything they share outside that ring is still an
     interference.
     """
     import cadquery as cq
     import funnel as _funnel
 
-    stub, plug = bodies["funnel-drain-stub"], bodies["funnel"]
-    common = stub.intersect(plug)
+    from above_core_parts import stem_elbow_reference
+    stem, plug = bodies["funnel-drain-union"], bodies["funnel"]
+    common = stem.intersect(plug)
     (cx, cy, top), _axis = a.carries["funnel"](
         ((_funnel.neck_dx, _funnel.neck_dy, _funnel.spout_land_z), (0.0, 0.0, 1.0)))
-    od = stub.BoundingBox().xlen
+    od = stem_elbow_reference().STEM_OD
     ring = (cq.Solid.makeCylinder(od / 2 + 0.01, _funnel.sealing_land,
                                   cq.Vector(cx, cy, top - _funnel.sealing_land))
             .cut(cq.Solid.makeCylinder(_funnel.sealing_id / 2 - 0.01, _funnel.sealing_land,
@@ -1344,7 +1332,7 @@ def pack_clashes(a) -> tuple:
         except Exception as exc:
             unanswered.append(("stem-elbow", "its collet",
                                "elbow stems in their collets: " + str(exc).splitlines()[0]))
-    seal_pair = frozenset(("funnel-drain-stub", "funnel"))
+    seal_pair = frozenset(("funnel-drain-union", "funnel"))
     if any(frozenset((hit.a, hit.b)) == seal_pair for hit in bad):
         try:
             reading = drain_seal_contact(a, bodies)
@@ -1352,7 +1340,7 @@ def pack_clashes(a) -> tuple:
             if reading["pass"]:
                 bad = [hit for hit in bad if frozenset((hit.a, hit.b)) != seal_pair]
         except Exception as exc:
-            unanswered.append(("funnel-drain-stub", "funnel",
+            unanswered.append(("funnel-drain-union", "funnel",
                                "sealing land contact: " + str(exc).splitlines()[0]))
     result = bad, unanswered
     _clash_cache[id(a)] = (a, result)
@@ -1388,7 +1376,7 @@ def _pack_closes(a) -> Check:
             for n, (inside, out) in stems["stems"].items()))
     if seal := getattr(a, "drain_seal_contact_reading", None):
         detail.append(
-            f"Drain stub in the plug's land: {seal['land_contact_mm3']:.2f} mm³ in the push-on "
+            f"Elbow stem in the plug's land: {seal['land_contact_mm3']:.2f} mm³ in the push-on "
             f"seal's ring, {seal['outside_land_mm3']:.6f} mm³ outside it")
     if hose := getattr(a, "vent_hose_contact_reading", None):
         detail.append(

@@ -363,7 +363,7 @@ def main():
         'FRAME_SOCKET': f'{socket_width:g} × '
                         f'{2 * (elbow_cradle.plug_half_length(half) + gap):.1f} mm',
         'FRAME_SLOTS': f'{s["slot_out"] - s["slot_in"]:.2f} × '
-                       f'{s["y1"] - s["y0"] + 2 * elbow_cradle.END_SLIP:.1f} mm',
+                       f'{elbow_cradle.SLOT_AFT_Y - elbow_cradle.SLOT_FORE_Y + 2 * elbow_cradle.END_SLIP:.1f} mm',
     })
 
 

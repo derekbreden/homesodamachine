@@ -213,7 +213,7 @@ def _valve(v) -> frozenset:
 NODES = {
     # The funnel is SEATED IN THE BOX rather than placed in the pack, but it is placed: its
     # drain is an anchor like any other. The node stands for the funnel AND its drain joint — the
-    # plug, the stub its land closes on and the elbow the stub stands in are one source as far as
+    # plug and the elbow whose stem its land closes on are one source as far as
     # this chart is concerned, and `fluid-4` is drawn off the elbow's aft collet.
     "Funnel":     (_body("funnel", "drain")
                    | _body("funnel-drain-union", "stub", "outlet")),
