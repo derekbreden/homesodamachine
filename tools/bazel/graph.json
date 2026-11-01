@@ -6747,24 +6747,6 @@
       "hardware/reference/asse1022-threaded-chain/asse1022-threaded-chain.step"
     ]
   },
-  "hardware/reference/basics-mtb-0606wp/basics_mtb_0606wp.py": {
-    "reads": [
-      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
-      "hardware/reference/basics-mtb-0606wp/basics-mtb-0606wp.step",
-      "hardware/reference/basics-mtb-0606wp/basics_mtb_0606wp.py",
-      "hardware/scripts/_cadq_export.py",
-      "hardware/scripts/_material_base.py",
-      "hardware/scripts/_materials.py",
-      "hardware/scripts/_mesh_payload.py",
-      "hardware/scripts/_payload_rules.py",
-      "hardware/scripts/_run_lock.py",
-      "tools/docgen/__init__.py"
-    ],
-    "rewritten": [],
-    "writes": [
-      "hardware/reference/basics-mtb-0606wp/basics-mtb-0606wp.step"
-    ]
-  },
   "hardware/reference/beduan-solenoid/beduan_solenoid.py": {
     "reads": [
       "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
@@ -6820,33 +6802,6 @@
       "hardware/reference/compressor/compressor.step"
     ]
   },
-  "hardware/reference/digiten-flow-sensor/digiten_flow_sensor.py": {
-    "reads": [
-      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
-      "hardware/reference/digiten-flow-sensor/README.figures.json",
-      "hardware/reference/digiten-flow-sensor/README.md",
-      "hardware/reference/digiten-flow-sensor/digiten-flow-sensor.step",
-      "hardware/reference/digiten-flow-sensor/digiten_flow_sensor.py",
-      "hardware/scripts/_cadq_export.py",
-      "hardware/scripts/_material_base.py",
-      "hardware/scripts/_materials.py",
-      "hardware/scripts/_mesh_payload.py",
-      "hardware/scripts/_payload_rules.py",
-      "hardware/scripts/_realized.py",
-      "hardware/scripts/_run_lock.py",
-      "tools/docgen/__init__.py"
-    ],
-    "rewritten": [
-      "hardware/reference/digiten-flow-sensor/README.figures.json",
-      "hardware/reference/digiten-flow-sensor/README.md"
-    ],
-    "writes": [
-      "hardware/reference/digiten-flow-sensor/README.figures.json",
-      "hardware/reference/digiten-flow-sensor/README.md",
-      "hardware/reference/digiten-flow-sensor/digiten-flow-sensor.step",
-      "hardware/reference/digiten-flow-sensor/model-check.json"
-    ]
-  },
   "hardware/reference/flare38-14ptc/flare38_14ptc.py": {
     "reads": [
       "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
@@ -6899,24 +6854,6 @@
     "rewritten": [],
     "writes": [
       "hardware/reference/gasher-check-valve/gasher-check-valve.step"
-    ]
-  },
-  "hardware/reference/hlghlg-check-valve/hlghlg_check_valve.py": {
-    "reads": [
-      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
-      "hardware/reference/hlghlg-check-valve/hlghlg-check-valve.step",
-      "hardware/reference/hlghlg-check-valve/hlghlg_check_valve.py",
-      "hardware/scripts/_cadq_export.py",
-      "hardware/scripts/_material_base.py",
-      "hardware/scripts/_materials.py",
-      "hardware/scripts/_mesh_payload.py",
-      "hardware/scripts/_payload_rules.py",
-      "hardware/scripts/_run_lock.py",
-      "tools/docgen/__init__.py"
-    ],
-    "rewritten": [],
-    "writes": [
-      "hardware/reference/hlghlg-check-valve/hlghlg-check-valve.step"
     ]
   },
   "hardware/reference/iec-c14-inlet/iec_c14_inlet.py": {
@@ -7037,26 +6974,6 @@
       "hardware/reference/jg-pp061208w/jg-pp061208w.step"
     ]
   },
-  "hardware/reference/jhyossthi-pogo-dock/jhyossthi_pogo_dock.py": {
-    "reads": [
-      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
-      "hardware/reference/jhyossthi-pogo-dock/jhyossthi_pogo_dock.py",
-      "hardware/reference/jhyossthi-pogo-dock/pogo-dock-female.step",
-      "hardware/reference/jhyossthi-pogo-dock/pogo-dock-male.step",
-      "hardware/scripts/_cadq_export.py",
-      "hardware/scripts/_material_base.py",
-      "hardware/scripts/_materials.py",
-      "hardware/scripts/_mesh_payload.py",
-      "hardware/scripts/_payload_rules.py",
-      "hardware/scripts/_run_lock.py",
-      "tools/docgen/__init__.py"
-    ],
-    "rewritten": [],
-    "writes": [
-      "hardware/reference/jhyossthi-pogo-dock/pogo-dock-female.step",
-      "hardware/reference/jhyossthi-pogo-dock/pogo-dock-male.step"
-    ]
-  },
   "hardware/reference/kamoer-kphm400/kamoer_kphm400.py": {
     "reads": [
       "hardware/printed-parts/cadlib/snap.py",
@@ -7115,26 +7032,6 @@
       "hardware/reference/multiplex-asse1022/multiplex-asse1022.step"
     ]
   },
-  "hardware/reference/neofit-achv44-check/neofit_achv44_check.py": {
-    "reads": [
-      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
-      "hardware/reference/neofit-achv44-check/neofit-achv44-check.step",
-      "hardware/reference/neofit-achv44-check/neofit-achv44-check.step.mesh",
-      "hardware/reference/neofit-achv44-check/neofit_achv44_check.py",
-      "hardware/scripts/_cadq_export.py",
-      "hardware/scripts/_material_base.py",
-      "hardware/scripts/_materials.py",
-      "hardware/scripts/_mesh_payload.py",
-      "hardware/scripts/_payload_rules.py",
-      "hardware/scripts/_run_lock.py",
-      "tools/docgen/__init__.py"
-    ],
-    "rewritten": [],
-    "writes": [
-      "hardware/reference/neofit-achv44-check/neofit-achv44-check.step",
-      "hardware/reference/neofit-achv44-check/neofit-achv44-check.step.mesh"
-    ]
-  },
   "hardware/reference/neofit-bulkhead/neofit_bulkhead.py": {
     "reads": [
       "hardware/printed-parts/cadlib/world_workplane.py",
@@ -7172,42 +7069,6 @@
       "hardware/reference/neofit-drain-bulkhead/neofit-drain-bulkhead.step"
     ]
   },
-  "hardware/reference/neofit-flavor-reducer/neofit_flavor_reducer.py": {
-    "reads": [
-      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
-      "hardware/reference/neofit-flavor-reducer/neofit-flavor-reducer.step",
-      "hardware/reference/neofit-flavor-reducer/neofit_flavor_reducer.py",
-      "hardware/scripts/_cadq_export.py",
-      "hardware/scripts/_material_base.py",
-      "hardware/scripts/_materials.py",
-      "hardware/scripts/_mesh_payload.py",
-      "hardware/scripts/_payload_rules.py",
-      "hardware/scripts/_run_lock.py",
-      "tools/docgen/__init__.py"
-    ],
-    "rewritten": [],
-    "writes": [
-      "hardware/reference/neofit-flavor-reducer/neofit-flavor-reducer.step"
-    ]
-  },
-  "hardware/reference/neofit-flow-control/neofit_flow_control.py": {
-    "reads": [
-      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
-      "hardware/reference/neofit-flow-control/neofit-flow-control.step",
-      "hardware/reference/neofit-flow-control/neofit_flow_control.py",
-      "hardware/scripts/_cadq_export.py",
-      "hardware/scripts/_material_base.py",
-      "hardware/scripts/_materials.py",
-      "hardware/scripts/_mesh_payload.py",
-      "hardware/scripts/_payload_rules.py",
-      "hardware/scripts/_run_lock.py",
-      "tools/docgen/__init__.py"
-    ],
-    "rewritten": [],
-    "writes": [
-      "hardware/reference/neofit-flow-control/neofit-flow-control.step"
-    ]
-  },
   "hardware/reference/riteav-keystone/riteav_keystone.py": {
     "reads": [
       "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
@@ -7224,24 +7085,6 @@
     "rewritten": [],
     "writes": [
       "hardware/reference/riteav-keystone/riteav-keystone.step"
-    ]
-  },
-  "hardware/reference/seaflo-22-pump/seaflo_22_pump.py": {
-    "reads": [
-      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
-      "hardware/reference/seaflo-22-pump/seaflo-22-pump.step",
-      "hardware/reference/seaflo-22-pump/seaflo_22_pump.py",
-      "hardware/scripts/_cadq_export.py",
-      "hardware/scripts/_material_base.py",
-      "hardware/scripts/_materials.py",
-      "hardware/scripts/_mesh_payload.py",
-      "hardware/scripts/_payload_rules.py",
-      "hardware/scripts/_run_lock.py",
-      "tools/docgen/__init__.py"
-    ],
-    "rewritten": [],
-    "writes": [
-      "hardware/reference/seaflo-22-pump/seaflo-22-pump.step"
     ]
   },
   "hardware/reference/seaflo-discharge-chain/seaflo_discharge_chain.py": {
@@ -7300,25 +7143,6 @@
     "writes": [
       "hardware/reference/shok-blok-regulator/shok-blok-regulator.step",
       "hardware/reference/shok-blok-regulator/shok-blok-regulator.step.mesh"
-    ]
-  },
-  "hardware/reference/soda-rise-insulation/soda_rise_insulation.py": {
-    "reads": [
-      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
-      "hardware/reference/soda-rise-insulation/soda-rise-insulation.step",
-      "hardware/reference/soda-rise-insulation/soda-rise-insulation.step.mesh",
-      "hardware/reference/soda-rise-insulation/soda_rise_insulation.py",
-      "hardware/scripts/_cadq_export.py",
-      "hardware/scripts/_material_base.py",
-      "hardware/scripts/_materials.py",
-      "hardware/scripts/_mesh_payload.py",
-      "hardware/scripts/_payload_rules.py",
-      "hardware/scripts/_run_lock.py",
-      "tools/docgen/__init__.py"
-    ],
-    "rewritten": [],
-    "writes": [
-      "hardware/reference/soda-rise-insulation/soda-rise-insulation.step"
     ]
   },
   "hardware/reference/taprite-3741-regulator/taprite_3741_regulator.py": {
@@ -7407,24 +7231,6 @@
       "hardware/reference/waveshare-43b-display/README.md",
       "hardware/reference/waveshare-43b-display/waveshare-43b-display.step",
       "hardware/reference/waveshare-43b-display/waveshare_43b_display.py"
-    ]
-  },
-  "hardware/reference/worm-clamp/worm_clamp.py": {
-    "reads": [
-      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
-      "hardware/reference/worm-clamp/worm-clamp.step",
-      "hardware/reference/worm-clamp/worm_clamp.py",
-      "hardware/scripts/_cadq_export.py",
-      "hardware/scripts/_material_base.py",
-      "hardware/scripts/_materials.py",
-      "hardware/scripts/_mesh_payload.py",
-      "hardware/scripts/_payload_rules.py",
-      "hardware/scripts/_run_lock.py",
-      "tools/docgen/__init__.py"
-    ],
-    "rewritten": [],
-    "writes": [
-      "hardware/reference/worm-clamp/worm-clamp.step"
     ]
   },
   "hardware/reference/wr1110-regulator/wr1110_regulator.py": {
