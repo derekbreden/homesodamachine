@@ -364,7 +364,7 @@
       ],
       "translation_mm": [
         82.9,
-        373.51,
+        374.76,
         282.0
       ],
       "reference": "hardware/printed-parts/soda-bend-holder/soda-bend-holder.step"
@@ -4379,7 +4379,7 @@
     "tube_od_mm": 6.35,
     "tube_id_mm": 4.24,
     "meter_insertion_estimate_mm": 15.7,
-    "holder_to_meter_mm": 9.0,
+    "holder_to_meter_mm": 7.75,
     "holder": {
       "wall_mm": 2.0,
       "leg_mm": 3.0,
