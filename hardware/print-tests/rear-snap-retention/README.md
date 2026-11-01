@@ -40,7 +40,9 @@ shared localized cooling policy. Full-bead margins are 79.961 mm and
 93.058 mm. Printer-specific trims emit Z0.16 on Mark1 and Z0.02 on Mark2.
 
 [print-jobs.json](print-jobs.json) binds the reviewed native archives and
-launch records. `build.py` exports the samples; `prepare.py` prepares and
+launch records. Mark1 accepted task **1398257516**; Mark2 accepted task
+**1398266343**, 215 seconds later. The [progress](prints/progress.json) records
+both task IDs running without print errors or HMS alerts. `build.py` exports the samples; `prepare.py` prepares and
 reviews the two plates. Both run through `python3 tools/run.py`; the native
 export also takes `--cad`.
 
