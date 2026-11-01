@@ -2341,15 +2341,15 @@ genrule(
         ":out/flute-payload-faucet/hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step.mesh",
         ":out/above-counter-plate/hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.stl",
         "pysrc/hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py",
-        ":out/vent-seals/hardware/printed-parts/faucet/asse-vent-seals/asse-vent-downstream-bung.step",
-        ":out/flute-payload-faucet/hardware/printed-parts/faucet/asse-vent-seals/asse-vent-downstream-bung.step.mesh",
-        ":out/vent-seals/hardware/printed-parts/faucet/asse-vent-seals/asse-vent-downstream-bung.stl",
-        ":out/vent-seals/hardware/printed-parts/faucet/asse-vent-seals/asse-vent-perimeter-tool.step",
-        ":out/flute-payload-faucet/hardware/printed-parts/faucet/asse-vent-seals/asse-vent-perimeter-tool.step.mesh",
-        ":out/vent-seals/hardware/printed-parts/faucet/asse-vent-seals/asse-vent-perimeter-tool.stl",
-        ":out/vent-seals/hardware/printed-parts/faucet/asse-vent-seals/asse-vent-upstream-bung.step",
-        ":out/flute-payload-faucet/hardware/printed-parts/faucet/asse-vent-seals/asse-vent-upstream-bung.step.mesh",
-        ":out/vent-seals/hardware/printed-parts/faucet/asse-vent-seals/asse-vent-upstream-bung.stl",
+        "hardware/printed-parts/faucet/asse-vent-seals/asse-vent-downstream-bung.step",
+        "hardware/printed-parts/faucet/asse-vent-seals/asse-vent-downstream-bung.step.mesh",
+        "hardware/printed-parts/faucet/asse-vent-seals/asse-vent-downstream-bung.stl",
+        "hardware/printed-parts/faucet/asse-vent-seals/asse-vent-perimeter-tool.step",
+        "hardware/printed-parts/faucet/asse-vent-seals/asse-vent-perimeter-tool.step.mesh",
+        "hardware/printed-parts/faucet/asse-vent-seals/asse-vent-perimeter-tool.stl",
+        "hardware/printed-parts/faucet/asse-vent-seals/asse-vent-upstream-bung.step",
+        "hardware/printed-parts/faucet/asse-vent-seals/asse-vent-upstream-bung.step.mesh",
+        "hardware/printed-parts/faucet/asse-vent-seals/asse-vent-upstream-bung.stl",
         ":out/faucet-display-cover/hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover-seated.step",
         ":out/faucet-display-cover/hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover-seated.step.mesh",
         ":out/faucet-display-cover/hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step",
@@ -3585,15 +3585,15 @@ genrule(
         ":out/above-counter-plate/hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step",
         ":out/flute-payload-faucet/hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step.mesh",
         ":out/above-counter-plate/hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.stl",
-        ":out/vent-seals/hardware/printed-parts/faucet/asse-vent-seals/asse-vent-downstream-bung.step",
-        ":out/flute-payload-faucet/hardware/printed-parts/faucet/asse-vent-seals/asse-vent-downstream-bung.step.mesh",
-        ":out/vent-seals/hardware/printed-parts/faucet/asse-vent-seals/asse-vent-downstream-bung.stl",
-        ":out/vent-seals/hardware/printed-parts/faucet/asse-vent-seals/asse-vent-perimeter-tool.step",
-        ":out/flute-payload-faucet/hardware/printed-parts/faucet/asse-vent-seals/asse-vent-perimeter-tool.step.mesh",
-        ":out/vent-seals/hardware/printed-parts/faucet/asse-vent-seals/asse-vent-perimeter-tool.stl",
-        ":out/vent-seals/hardware/printed-parts/faucet/asse-vent-seals/asse-vent-upstream-bung.step",
-        ":out/flute-payload-faucet/hardware/printed-parts/faucet/asse-vent-seals/asse-vent-upstream-bung.step.mesh",
-        ":out/vent-seals/hardware/printed-parts/faucet/asse-vent-seals/asse-vent-upstream-bung.stl",
+        "hardware/printed-parts/faucet/asse-vent-seals/asse-vent-downstream-bung.step",
+        "hardware/printed-parts/faucet/asse-vent-seals/asse-vent-downstream-bung.step.mesh",
+        "hardware/printed-parts/faucet/asse-vent-seals/asse-vent-downstream-bung.stl",
+        "hardware/printed-parts/faucet/asse-vent-seals/asse-vent-perimeter-tool.step",
+        "hardware/printed-parts/faucet/asse-vent-seals/asse-vent-perimeter-tool.step.mesh",
+        "hardware/printed-parts/faucet/asse-vent-seals/asse-vent-perimeter-tool.stl",
+        "hardware/printed-parts/faucet/asse-vent-seals/asse-vent-upstream-bung.step",
+        "hardware/printed-parts/faucet/asse-vent-seals/asse-vent-upstream-bung.step.mesh",
+        "hardware/printed-parts/faucet/asse-vent-seals/asse-vent-upstream-bung.stl",
         ":out/faucet-display-cover/hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step",
         ":out/flute-payload-faucet/hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step.mesh",
         ":out/faucet-display-cover/hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl",
@@ -9576,63 +9576,6 @@ cp hardware/printed-parts/faucet/umbilical-organizer/README.md $$O4
 )
 
 genrule(
-    name = "vent-seals",
-    srcs = [
-        "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
-        "pysrc/hardware/printed-parts/faucet/faucet_paths.py",
-        "pysrc/hardware/printed-parts/faucet/vent_seals.py",
-        "pysrc/hardware/scripts/_cadq_export.py",
-        "pysrc/hardware/scripts/_material_base.py",
-        "pysrc/hardware/scripts/_materials.py",
-        "pysrc/hardware/scripts/_run_lock.py",
-        "pysrc/hardware/scripts/_run_slots.py",
-        "pysrc/tools/docgen/__init__.py",
-        "tools/hsm/run-slots.defaults.json",
-        "tools/run-slots.mjs",
-        "pysrc/tools/run.py",
-    ],
-    outs = [
-        "out/vent-seals/hardware/printed-parts/faucet/asse-vent-seals/asse-vent-downstream-bung.step",
-        "out/vent-seals/hardware/printed-parts/faucet/asse-vent-seals/asse-vent-downstream-bung.stl",
-        "out/vent-seals/hardware/printed-parts/faucet/asse-vent-seals/asse-vent-perimeter-tool.step",
-        "out/vent-seals/hardware/printed-parts/faucet/asse-vent-seals/asse-vent-perimeter-tool.stl",
-        "out/vent-seals/hardware/printed-parts/faucet/asse-vent-seals/asse-vent-upstream-bung.step",
-        "out/vent-seals/hardware/printed-parts/faucet/asse-vent-seals/asse-vent-upstream-bung.stl",
-    ],
-    cmd = """
-set -e
-O0=$$PWD/$(location out/vent-seals/hardware/printed-parts/faucet/asse-vent-seals/asse-vent-downstream-bung.step)
-O1=$$PWD/$(location out/vent-seals/hardware/printed-parts/faucet/asse-vent-seals/asse-vent-downstream-bung.stl)
-O2=$$PWD/$(location out/vent-seals/hardware/printed-parts/faucet/asse-vent-seals/asse-vent-perimeter-tool.step)
-O3=$$PWD/$(location out/vent-seals/hardware/printed-parts/faucet/asse-vent-seals/asse-vent-perimeter-tool.stl)
-O4=$$PWD/$(location out/vent-seals/hardware/printed-parts/faucet/asse-vent-seals/asse-vent-upstream-bung.step)
-O5=$$PWD/$(location out/vent-seals/hardware/printed-parts/faucet/asse-vent-seals/asse-vent-upstream-bung.stl)
-for f in $(SRCS); do
-  case $$f in
-    */node_modules/*) continue;;
-    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
-    */pysrc/*) t=$${f##*/pysrc/};;
-    *) t=$$f;;
-  esac
-  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
-done
-for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
-done
-cd work
-ln -sfn $$HSM_WORKSPACE/.cache .cache
-D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/faucet/vent_seals.py > /dev/null
-cp hardware/printed-parts/faucet/asse-vent-seals/asse-vent-downstream-bung.step $$O0
-cp hardware/printed-parts/faucet/asse-vent-seals/asse-vent-downstream-bung.stl $$O1
-cp hardware/printed-parts/faucet/asse-vent-seals/asse-vent-perimeter-tool.step $$O2
-cp hardware/printed-parts/faucet/asse-vent-seals/asse-vent-perimeter-tool.stl $$O3
-cp hardware/printed-parts/faucet/asse-vent-seals/asse-vent-upstream-bung.step $$O4
-cp hardware/printed-parts/faucet/asse-vent-seals/asse-vent-upstream-bung.stl $$O5
-""",
-)
-
-genrule(
     name = "fake-countertop",
     srcs = [
         "pysrc/hardware/printed-parts/cadlib/flute_skin.py",
@@ -13106,12 +13049,6 @@ genrule(
         ":out/above-counter-gasket/hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.stl",
         ":out/above-counter-plate/hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step",
         ":out/above-counter-plate/hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.stl",
-        ":out/vent-seals/hardware/printed-parts/faucet/asse-vent-seals/asse-vent-downstream-bung.step",
-        ":out/vent-seals/hardware/printed-parts/faucet/asse-vent-seals/asse-vent-downstream-bung.stl",
-        ":out/vent-seals/hardware/printed-parts/faucet/asse-vent-seals/asse-vent-perimeter-tool.step",
-        ":out/vent-seals/hardware/printed-parts/faucet/asse-vent-seals/asse-vent-perimeter-tool.stl",
-        ":out/vent-seals/hardware/printed-parts/faucet/asse-vent-seals/asse-vent-upstream-bung.step",
-        ":out/vent-seals/hardware/printed-parts/faucet/asse-vent-seals/asse-vent-upstream-bung.stl",
         ":out/faucet-display-cover/hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step",
         ":out/faucet-display-cover/hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl",
         ":out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step",
@@ -13139,9 +13076,6 @@ genrule(
     outs = [
         "out/flute-payload-faucet/hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step.mesh",
         "out/flute-payload-faucet/hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step.mesh",
-        "out/flute-payload-faucet/hardware/printed-parts/faucet/asse-vent-seals/asse-vent-downstream-bung.step.mesh",
-        "out/flute-payload-faucet/hardware/printed-parts/faucet/asse-vent-seals/asse-vent-perimeter-tool.step.mesh",
-        "out/flute-payload-faucet/hardware/printed-parts/faucet/asse-vent-seals/asse-vent-upstream-bung.step.mesh",
         "out/flute-payload-faucet/hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step.mesh",
         "out/flute-payload-faucet/hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step.mesh",
         "out/flute-payload-faucet/hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step.mesh",
@@ -13150,12 +13084,9 @@ genrule(
 set -e
 O0=$$PWD/$(location out/flute-payload-faucet/hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step.mesh)
 O1=$$PWD/$(location out/flute-payload-faucet/hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step.mesh)
-O2=$$PWD/$(location out/flute-payload-faucet/hardware/printed-parts/faucet/asse-vent-seals/asse-vent-downstream-bung.step.mesh)
-O3=$$PWD/$(location out/flute-payload-faucet/hardware/printed-parts/faucet/asse-vent-seals/asse-vent-perimeter-tool.step.mesh)
-O4=$$PWD/$(location out/flute-payload-faucet/hardware/printed-parts/faucet/asse-vent-seals/asse-vent-upstream-bung.step.mesh)
-O5=$$PWD/$(location out/flute-payload-faucet/hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step.mesh)
-O6=$$PWD/$(location out/flute-payload-faucet/hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step.mesh)
-O7=$$PWD/$(location out/flute-payload-faucet/hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step.mesh)
+O2=$$PWD/$(location out/flute-payload-faucet/hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step.mesh)
+O3=$$PWD/$(location out/flute-payload-faucet/hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step.mesh)
+O4=$$PWD/$(location out/flute-payload-faucet/hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step.mesh)
 for f in $(SRCS); do
   case $$f in
     */node_modules/*) continue;;
@@ -13174,12 +13105,9 @@ D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.
 HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/scripts/flute_payload_faucet.py > /dev/null
 cp hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step.mesh $$O0
 cp hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step.mesh $$O1
-cp hardware/printed-parts/faucet/asse-vent-seals/asse-vent-downstream-bung.step.mesh $$O2
-cp hardware/printed-parts/faucet/asse-vent-seals/asse-vent-perimeter-tool.step.mesh $$O3
-cp hardware/printed-parts/faucet/asse-vent-seals/asse-vent-upstream-bung.step.mesh $$O4
-cp hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step.mesh $$O5
-cp hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step.mesh $$O6
-cp hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step.mesh $$O7
+cp hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step.mesh $$O2
+cp hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step.mesh $$O3
+cp hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step.mesh $$O4
 """,
 )
 
@@ -13384,15 +13312,15 @@ genrule(
         ":out/above-counter-plate/hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step",
         ":out/flute-payload-faucet/hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step.mesh",
         ":out/above-counter-plate/hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.stl",
-        ":out/vent-seals/hardware/printed-parts/faucet/asse-vent-seals/asse-vent-downstream-bung.step",
-        ":out/flute-payload-faucet/hardware/printed-parts/faucet/asse-vent-seals/asse-vent-downstream-bung.step.mesh",
-        ":out/vent-seals/hardware/printed-parts/faucet/asse-vent-seals/asse-vent-downstream-bung.stl",
-        ":out/vent-seals/hardware/printed-parts/faucet/asse-vent-seals/asse-vent-perimeter-tool.step",
-        ":out/flute-payload-faucet/hardware/printed-parts/faucet/asse-vent-seals/asse-vent-perimeter-tool.step.mesh",
-        ":out/vent-seals/hardware/printed-parts/faucet/asse-vent-seals/asse-vent-perimeter-tool.stl",
-        ":out/vent-seals/hardware/printed-parts/faucet/asse-vent-seals/asse-vent-upstream-bung.step",
-        ":out/flute-payload-faucet/hardware/printed-parts/faucet/asse-vent-seals/asse-vent-upstream-bung.step.mesh",
-        ":out/vent-seals/hardware/printed-parts/faucet/asse-vent-seals/asse-vent-upstream-bung.stl",
+        "hardware/printed-parts/faucet/asse-vent-seals/asse-vent-downstream-bung.step",
+        "hardware/printed-parts/faucet/asse-vent-seals/asse-vent-downstream-bung.step.mesh",
+        "hardware/printed-parts/faucet/asse-vent-seals/asse-vent-downstream-bung.stl",
+        "hardware/printed-parts/faucet/asse-vent-seals/asse-vent-perimeter-tool.step",
+        "hardware/printed-parts/faucet/asse-vent-seals/asse-vent-perimeter-tool.step.mesh",
+        "hardware/printed-parts/faucet/asse-vent-seals/asse-vent-perimeter-tool.stl",
+        "hardware/printed-parts/faucet/asse-vent-seals/asse-vent-upstream-bung.step",
+        "hardware/printed-parts/faucet/asse-vent-seals/asse-vent-upstream-bung.step.mesh",
+        "hardware/printed-parts/faucet/asse-vent-seals/asse-vent-upstream-bung.stl",
         ":out/faucet-display-cover/hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step",
         ":out/flute-payload-faucet/hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step.mesh",
         ":out/faucet-display-cover/hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl",
@@ -16971,7 +16899,6 @@ filegroup(
         ":tpu-o-ring",
         ":tube-collar",
         ":umbilical-organizer",
-        ":vent-seals",
         ":fake-countertop",
         ":cover-retention-trial",
         ":faucet-display-snap-trial",

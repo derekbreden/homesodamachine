@@ -6910,27 +6910,6 @@
       "hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.step.mesh"
     ]
   },
-  "hardware/printed-parts/faucet/vent_seals.py": {
-    "reads": [
-      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
-      "hardware/printed-parts/faucet/faucet_paths.py",
-      "hardware/printed-parts/faucet/vent_seals.py",
-      "hardware/scripts/_cadq_export.py",
-      "hardware/scripts/_material_base.py",
-      "hardware/scripts/_materials.py",
-      "hardware/scripts/_run_lock.py",
-      "tools/docgen/__init__.py"
-    ],
-    "rewritten": [],
-    "writes": [
-      "hardware/printed-parts/faucet/asse-vent-seals/asse-vent-downstream-bung.step",
-      "hardware/printed-parts/faucet/asse-vent-seals/asse-vent-downstream-bung.stl",
-      "hardware/printed-parts/faucet/asse-vent-seals/asse-vent-perimeter-tool.step",
-      "hardware/printed-parts/faucet/asse-vent-seals/asse-vent-perimeter-tool.stl",
-      "hardware/printed-parts/faucet/asse-vent-seals/asse-vent-upstream-bung.step",
-      "hardware/printed-parts/faucet/asse-vent-seals/asse-vent-upstream-bung.stl"
-    ]
-  },
   "hardware/printed-parts/fixtures/fake-countertop/fake_countertop.py": {
     "reads": [
       "hardware/printed-parts/cadlib/flute_skin.py",
@@ -9059,12 +9038,6 @@
       "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.stl",
       "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step",
       "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.stl",
-      "hardware/printed-parts/faucet/asse-vent-seals/asse-vent-downstream-bung.step",
-      "hardware/printed-parts/faucet/asse-vent-seals/asse-vent-downstream-bung.stl",
-      "hardware/printed-parts/faucet/asse-vent-seals/asse-vent-perimeter-tool.step",
-      "hardware/printed-parts/faucet/asse-vent-seals/asse-vent-perimeter-tool.stl",
-      "hardware/printed-parts/faucet/asse-vent-seals/asse-vent-upstream-bung.step",
-      "hardware/printed-parts/faucet/asse-vent-seals/asse-vent-upstream-bung.stl",
       "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step",
       "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl",
       "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step",
@@ -9101,9 +9074,6 @@
       "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh",
       "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step.mesh",
       "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step.mesh",
-      "hardware/printed-parts/faucet/asse-vent-seals/asse-vent-downstream-bung.step.mesh",
-      "hardware/printed-parts/faucet/asse-vent-seals/asse-vent-perimeter-tool.step.mesh",
-      "hardware/printed-parts/faucet/asse-vent-seals/asse-vent-upstream-bung.step.mesh",
       "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step.mesh",
       "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step.mesh",
       "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step.mesh",
@@ -9189,12 +9159,6 @@
   },
   "hardware/scripts/flute_payload_faucet.py": {
     "reads": [
-      "hardware/printed-parts/faucet/asse-vent-seals/asse-vent-downstream-bung.step",
-      "hardware/printed-parts/faucet/asse-vent-seals/asse-vent-downstream-bung.stl",
-      "hardware/printed-parts/faucet/asse-vent-seals/asse-vent-perimeter-tool.step",
-      "hardware/printed-parts/faucet/asse-vent-seals/asse-vent-perimeter-tool.stl",
-      "hardware/printed-parts/faucet/asse-vent-seals/asse-vent-upstream-bung.step",
-      "hardware/printed-parts/faucet/asse-vent-seals/asse-vent-upstream-bung.stl",
       "hardware/printed-parts/faucet/faucet-shell/.gitignore",
       "hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.figures.json",
       "hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.md",
@@ -9223,9 +9187,6 @@
     ],
     "rewritten": [],
     "writes": [
-      "hardware/printed-parts/faucet/asse-vent-seals/asse-vent-downstream-bung.step.mesh",
-      "hardware/printed-parts/faucet/asse-vent-seals/asse-vent-perimeter-tool.step.mesh",
-      "hardware/printed-parts/faucet/asse-vent-seals/asse-vent-upstream-bung.step.mesh",
       "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step.mesh"
     ]
   },
