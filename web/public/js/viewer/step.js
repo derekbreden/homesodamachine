@@ -1,14 +1,11 @@
-// STEP-format module. Owns the occt-import-js loader (no importmap
-// support, so injected manually as a classic <script>), the STEP parser,
-// the mesh builder that turns occt output into a Three.js Group, the
-// network + parse + scene-mount loader, and the offscreen thumbnail
-// renderer (with a per-file dataURL cache via state).
+// STEP-format loader, mesh builder and thumbnail rendering. step-runtime.js
+// holds the page's parser, materials and thumbnail renderer across hot imports.
 
 import * as THREE from "three";
 import { state } from "./state.js";
-import { scene, camera, resetCamera, addStudioLighting, fitCameraDepth, fitFog,
-         BG_COLOR, TONE_EXPOSURE } from "./scene.js";
-import { applyXray, syncEdgeResolution, setMeshMaterial } from "./xray.js";
+import { scene, camera, resetCamera, fitCameraDepth, fitFog, BG_COLOR } from "./scene.js";
+import { applyXray, disposeXray, syncEdgeResolution, setMeshMaterial } from "./xray.js";
+import { getOcct, getThumbnailRuntime, stepRuntime } from "./step-runtime.js";
 import { setActiveEdges } from "./edge-picker.js";
 import { clearPickFind } from "./pick-find.js";
 import { dropHighlight } from "./part-highlight.js";
@@ -22,19 +19,9 @@ import { HSM_EVENTS } from "/contracts/client-events.js";
 import { stepLocation } from "/contracts/step-locations.js";
 import { matchesBody } from "/contracts/materials.js";
 
-// --- occt-import-js loader (no importmap support, loaded manually) ---
-let occtReady;
-export const occtPromise = new Promise((resolve) => { occtReady = resolve; });
-const occtScript = document.createElement("script");
-occtScript.src = "https://cdn.jsdelivr.net/npm/occt-import-js@0.0.23/dist/occt-import-js.js";
-occtScript.onload = () => {
-  window.occtimportjs().then((occt) => occtReady(occt));
-};
-document.head.appendChild(occtScript);
-
 // --- STEP parsing ---
 async function parseStep(buffer) {
-  const occt = await occtPromise;
+  const occt = await getOcct();
   const result = occt.ReadStepFile(buffer, null);
   backfillMeshNames(result);
   return result;
@@ -142,7 +129,7 @@ export function darkenBackFaces(shader) {
 // picture. Near black the sRGB curve is steep enough that a byte of linear
 // carries a couple of display steps: `1a1a1c` and `1c1c1f` are two such colours,
 // and the faucet took the manifold's when they were drawn in that order.
-const _matCache = new Map();
+const _matCache = stepRuntime.materials;
 
 // THE OTHER HALF OF A MATERIAL. A colour says what a body is made of and roughness says how that
 // stock takes the light, and only the first of the two fits down the pipe: a STEP carries
@@ -157,8 +144,6 @@ const _matCache = new Map();
 // blooms warm where the light grazes and the PET-GF beside it stays matte. Drawn at one
 // roughness they are the same object twice.
 export const DEFAULT_FINISH = { roughness: 0.6, metalness: 0.1 };
-let _finishes = [];
-let _finishesReady = null;
 
 // MATCHED ON DISTANCE, NOT ON A KEY. Both routes into buildMesh carry a float triple — the
 // payload states the exact doubles `_materials.linear` wrote, the wasm parse converts the STEP's
@@ -170,27 +155,35 @@ let _finishesReady = null;
 const FINISH_TOL2 = 4e-4 * 4e-4;
 
 export function loadFinishes() {
-  if (!_finishesReady) {
-    _finishesReady = fetch("/finishes.json")
+  if (!stepRuntime.finishesReady || stepRuntime.finishesVersion !== state.codeVersion) {
+    stepRuntime.finishesVersion = state.codeVersion;
+    const ready = fetch("/finishes.json")
       .then((r) => (r.ok ? r.json() : null))
       .then((d) => {
-        _finishes = Array.isArray(d?.finishes) ? d.finishes : [];
+        if (stepRuntime.finishesReady !== ready) return;
+        stepRuntime.finishes = Array.isArray(d?.finishes) ? d.finishes : [];
         // Anything already built was built at the default, and `_matCache` would hand that
         // same material out for the rest of the session. Drop it so the table applies.
-        if (_finishes.length) forgetMaterials();
+        forgetMaterials();
       })
-      .catch(() => { _finishes = []; });
+      .catch(() => {
+        if (stepRuntime.finishesReady === ready) {
+          stepRuntime.finishes = [];
+          forgetMaterials();
+        }
+      });
+    stepRuntime.finishesReady = ready;
   }
-  return _finishesReady;
+  return stepRuntime.finishesReady;
 }
 
 // A body whose colour names no material takes the default rather than its nearest neighbour's
 // surface: an unplaced colour is a gap in the table, and a gap should read as one.
 function finishFor(color) {
-  if (!color || !_finishes.length) return DEFAULT_FINISH;
+  if (!color || !stepRuntime.finishes.length) return DEFAULT_FINISH;
   let best = DEFAULT_FINISH;
   let bestD = FINISH_TOL2;
-  for (const f of _finishes) {
+  for (const f of stepRuntime.finishes) {
     const dr = f.rgb[0] - color[0], dg = f.rgb[1] - color[1], db = f.rgb[2] - color[2];
     const d = dr * dr + dg * dg + db * db;
     if (d <= bestD) { bestD = d; best = f; }
@@ -232,6 +225,7 @@ function materialFor(color, surface = null) {
 // tools/render/render-step-posed.js draws many pictures on one page and calls
 // this between them, so each one is the picture a fresh page would draw.
 export function forgetMaterials() {
+  for (const material of _matCache.values()) material.dispose();
   _matCache.clear();
 }
 
@@ -443,6 +437,7 @@ export async function loadStepFile(file, { preserveCamera = false } = {}) {
 
     if (state.currentGroup) {
       scene.remove(state.currentGroup);
+      disposeXray(state.currentGroup);
       state.currentGroup.traverse((c) => { if (c.geometry) c.geometry.dispose(); });
     }
 
@@ -485,22 +480,16 @@ export async function loadStepFile(file, { preserveCamera = false } = {}) {
 // doubles that again (`thumbSize` in grid.js). This is the square it starts at,
 // and what a caller naming no size gets.
 const THUMB_SIZE = 400;
-const thumbRenderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
-thumbRenderer.setSize(THUMB_SIZE, THUMB_SIZE);
-thumbRenderer.setPixelRatio(1);
-thumbRenderer.setClearColor(BG_COLOR);
-thumbRenderer.toneMapping = THREE.ACESFilmicToneMapping;
-thumbRenderer.toneMappingExposure = TONE_EXPOSURE;
-const thumbScene = new THREE.Scene();
-const thumbCam = new THREE.PerspectiveCamera(45, 1, 1, 1000);
-addStudioLighting(thumbScene, thumbRenderer);
 
 // Frame a group front-iso in the offscreen scene, snap it, and tear it down.
 // Shared with glb.js so every 3D thumbnail is composed the same way.
 function snapThumbnail(group, px = THUMB_SIZE, presentation = "viewer") {
+  const { renderer: thumbRenderer, scene: thumbScene, camera: thumbCam } = getThumbnailRuntime();
   // The drawing buffer only, so the canvas keeps no style of its own — nothing
   // puts this element on a page.
-  if (thumbRenderer.domElement.width !== px) thumbRenderer.setSize(px, px, false);
+  if (thumbRenderer.domElement.width !== px || thumbRenderer.domElement.height !== px) {
+    thumbRenderer.setSize(px, px, false);
+  }
   const shelf = presentation === "shelf";
   const background = shelf ? 0xe6ecf5 : BG_COLOR;
   thumbRenderer.setClearColor(background);
@@ -532,6 +521,7 @@ function snapThumbnail(group, px = THUMB_SIZE, presentation = "viewer") {
   const dataURL = thumbRenderer.domElement.toDataURL();
 
   thumbScene.remove(group);
+  disposeXray(group);
   group.traverse((c) => { if (c.geometry) c.geometry.dispose(); });
   return dataURL;
 }

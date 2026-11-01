@@ -8,6 +8,7 @@ import * as THREE from "three";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { state } from "./state.js";
 import { scene, resetCamera } from "./scene.js";
+import { disposeXray } from "./xray.js";
 import { fetchMember, memberLoaded, memberUrl, rememberMember } from "./member.js";
 
 const loader = new GLTFLoader();
@@ -107,6 +108,7 @@ export async function loadGlbFile(file, { preserveCamera = false } = {}) {
 
     if (state.currentGroup) {
       scene.remove(state.currentGroup);
+      disposeXray(state.currentGroup);
       state.currentGroup.traverse((c) => { if (c.geometry) c.geometry.dispose(); });
     }
     state.currentGroup = toZupGroup(gltf);

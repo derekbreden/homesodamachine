@@ -22,6 +22,7 @@
 import * as THREE from "three";
 import { state } from "./state.js";
 import { scene, camera, controls, resizeRenderer, fitCameraDepth, fitFog } from "./scene.js";
+import { disposeXray } from "./xray.js";
 
 const DXF_UNIT_TO_MM = {
   0: 1,        // unitless — treat as mm
@@ -400,6 +401,7 @@ export async function loadDxfFile(file, { preserveCamera = false } = {}) {
 
     if (state.currentGroup) {
       scene.remove(state.currentGroup);
+      disposeXray(state.currentGroup);
       state.currentGroup.traverse((c) => { if (c.geometry) c.geometry.dispose(); });
     }
 

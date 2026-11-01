@@ -4,7 +4,7 @@
 //   1. Read #grid into state, set the active nav class and document.title.
 //   2. Expose window.__hsm for the headless render tools (Puppeteer
 //      drives loadStepFile / loadDxfFile and reads scene/camera).
-//   3. fetchFiles() → buildGrid() → applyInitialRoute(occtPromise).
+//   3. fetchFiles() → buildGrid() → applyInitialRoute().
 //   4. Side-effect import ./live.js to register the live-update listeners, and
 //      ./hsm.js, which redraws a payload that moved where the server has hsm.
 
@@ -12,7 +12,7 @@ import * as THREE from "three";
 import { state } from "./state.js";
 import { buildGrid, currentSection } from "./grid.js";
 import { applyInitialRoute } from "./route.js";
-import { occtPromise, loadStepFile } from "./step.js";
+import { loadStepFile } from "./step.js";
 import { loadDxfFile } from "./dxf.js";
 import { renderer, scene, camera, controls } from "./scene.js";
 import "./live.js";
@@ -90,4 +90,4 @@ export async function fetchFiles() {
 }
 
 setupNav();
-fetchFiles().then(() => applyInitialRoute(occtPromise));
+fetchFiles().then(() => applyInitialRoute());
