@@ -334,11 +334,13 @@ pub struct Face {
     pub op: &'static str,
     pub src: Src,
     pub via: Option<Via>,
+    /// The complete model record was null, distinct from an object's nullable source.
+    pub record_null: bool,
 }
 
 impl Face {
     pub fn new(surface: Surface, op: &'static str, src: Src) -> Face {
-        Face { surface, op, src, via: None }
+        Face { surface, op, src, via: None, record_null: false }
     }
 
     pub fn transformed(&self, t: &Affine) -> Face {
@@ -347,6 +349,15 @@ impl Face {
 
     /// The analytic surface and source record written by `write::face_json` or meshcad.
     pub fn from_json(record: &Value) -> Result<Face> {
+        if record.is_null() {
+            return Ok(Face {
+                surface: Surface::Free { kind: "" },
+                op: "",
+                src: unknown_src(),
+                via: None,
+                record_null: true,
+            });
+        }
         let number = |key: &str| -> Result<f64> {
             let value = record[key].as_f64().with_context(|| format!("face has no numeric {key}"))?;
             ensure!(value.is_finite(), "face {key} is not finite");
