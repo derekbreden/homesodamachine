@@ -2565,5 +2565,361 @@
       "local_region_geometry_matches": true,
       "current_recipe_values_match": true
     }
+  },
+  "post_publication_surface_review": {
+    "scope": "Manual seven-class physical-STL reading after publication60f1f4006. The specified casing sections, named seam-channel metric and flat M5 head bearings retain instance-specific reasons and alternatives. This establishes nominal geometry and access; printed finish, cleanup force and lifetime remain physical article measurements. No automatic hook or gate is added.",
+    "publication_commit": "60f1f400661f31f60c3d66ffbba4356ee9d2e226",
+    "reader": "hardware/scripts/geometry_lint.py",
+    "reader_sha256": "bb7b1fa42e8d2985671eb2ebce6610074e65b6e2a22e5f014e498885ebfb030d",
+    "parts": {
+      "foam-shell": {
+        "physical_stl": "hardware/printed-parts/cold-core/foam-shell/foam-shell.stl",
+        "stl_sha256": "a8fc1a29ded8daaaae3498e0af15b5923d6149c187f68ba0790cba81773d92cf",
+        "log_sha256": "ab43f65e80dc578f419c0c0e452ad2550243c9ce0c67a3bb4f94dd43affb755f",
+        "classes_read": [
+          "step",
+          "bump",
+          "sliver",
+          "ceiling",
+          "slope",
+          "thin",
+          "ledge"
+        ],
+        "answers_path": "hardware/printed-parts/lint-answers/cold-core/foam-shell/foam-shell.lint-answers",
+        "answers_sha256": "78e57ce2aa42239e281d0299dab38a0f960f553384ed3a44b99721a93df4ffc2",
+        "answer_entries": [
+          {
+            "class": "sliver",
+            "reason": "The linter's strip metric is the specified 1.5 mm depth of the seam channel and its matching inward fold. These four faces turn a constant 2.38 mm casing section through the channel; the 1.5 mm face dimension is the recess depth, rather than a 1.5 mm material ligament. Both channel inside corners are the selected seams' placement surfaces.",
+            "alternatives": "A 1.6 mm channel leaves this face-width ranking but changes Derek's selected 1.5 mm channel. Sloping the sides removes the axis-aligned face while replacing the inside corners used by the seam placement.",
+            "clicks": [
+              "x=4.750 y=89.450 z=112.925",
+              "x=-4.750 y=89.450 z=112.925",
+              "x=-7.130 y=87.070 z=113.925",
+              "x=7.130 y=87.070 z=113.925"
+            ]
+          },
+          {
+            "class": "thin",
+            "reason": "Derek's specified 2 mm casing floor and 2.38 mm standing walls. This pair crosses the ordinary floor; the ranking collects the selected casing surfaces below its 2.5 mm threshold. The ten M5 hosts separately retain 2.6 mm radial insert stock and 3.2 mm screw-tail stock, with finite solid deposition through their wall roots.",
+            "alternatives": "A 3 mm floor raises the selected 253.4 mm cold-core stack by 1 mm or takes 1 mm from its foam depth. Increasing all walls changes the specified casing section and internal routing room. The retained ordinary section follows Derek's casing dimensions; it is not a remnant of a neighboring cut.",
+            "clicks": [
+              "x=-135.716 y=6.278 z=0.000",
+              "x=-135.716 y=6.278 z=2.000"
+            ]
+          },
+          {
+            "class": "thin",
+            "reason": "The seam fold's full 2.38 mm wall section above the PRV exit. It retains the same specified material section while the 1.5 mm channel turns inward; the sampled pair crosses that whole wall. This is the named fold of the selected casing profile.",
+            "alternatives": "Increasing it to 2.5 mm changes the selected wall section and takes 0.12 mm from the adjacent PRV-shroud room. Growing the outside instead changes the fixed casing footprint and the channel's mating position.",
+            "clicks": [
+              "x=-3.366 y=88.700 z=193.088",
+              "x=-3.366 y=86.320 z=193.088"
+            ]
+          }
+        ],
+        "findings": [
+          {
+            "class": "sliver",
+            "reading": "1.500 mm strip, 225.9 mm long",
+            "clicks": [
+              "x=4.750 y=89.450 z=112.925"
+            ],
+            "answer_indices": [
+              0
+            ]
+          },
+          {
+            "class": "sliver",
+            "reading": "1.500 mm strip, 225.9 mm long",
+            "clicks": [
+              "x=-4.750 y=89.450 z=112.925"
+            ],
+            "answer_indices": [
+              0
+            ]
+          },
+          {
+            "class": "sliver",
+            "reading": "1.500 mm strip, 223.9 mm long",
+            "clicks": [
+              "x=-7.130 y=87.070 z=113.925"
+            ],
+            "answer_indices": [
+              0
+            ]
+          },
+          {
+            "class": "sliver",
+            "reading": "1.500 mm strip, 223.9 mm long",
+            "clicks": [
+              "x=7.130 y=87.070 z=113.925"
+            ],
+            "answer_indices": [
+              0
+            ]
+          },
+          {
+            "class": "thin",
+            "reading": "2.000 mm of material at its thinnest \u00b7 775066.0 mm\u00b2 of surface under 2.5 mm \u00b7 spans 282.4 \u00d7 180.4 \u00d7 224.8 mm \u00b7 in 34 pieces",
+            "clicks": [
+              "x=-135.716 y=6.278 z=0.000",
+              "x=-135.716 y=6.278 z=2.000"
+            ],
+            "answer_indices": [
+              1
+            ]
+          },
+          {
+            "class": "thin",
+            "reading": "2.380 mm of material at its thinnest \u00b7 861.7 mm\u00b2 of surface under 2.5 mm \u00b7 spans 9.5 \u00d7 2.4 \u00d7 48.8 mm \u00b7 in 2 pieces",
+            "clicks": [
+              "x=-3.366 y=88.700 z=193.088",
+              "x=-3.366 y=86.320 z=193.088"
+            ],
+            "answer_indices": [
+              2
+            ]
+          }
+        ],
+        "counts_by_class": {
+          "sliver": 4,
+          "thin": 2
+        },
+        "unreviewed": []
+      },
+      "reservoir-b-fill-guide": {
+        "physical_stl": "hardware/printed-parts/cold-core/foam-cap/reservoir-b-fill-guide.stl",
+        "stl_sha256": "0fd7a6158d18c346622dfe5858c752b7cd26437bf29968ac4bcc92697937c4b6",
+        "log_sha256": "1dc097288945c8470f4a4f5e45bd25d9ba416bc2c31fb5543dec7eff6e243104",
+        "classes_read": [
+          "step",
+          "bump",
+          "sliver",
+          "ceiling",
+          "slope",
+          "thin",
+          "ledge"
+        ],
+        "answers_path": "hardware/printed-parts/lint-answers/cold-core/foam-cap/reservoir-b-fill-guide.lint-answers",
+        "answers_sha256": "968b9905be20ba9c41d675e8db1b98072c209f3430c6389f2a5dffb8afd7c6fc",
+        "answer_entries": [
+          {
+            "class": "thin",
+            "reason": "Derek's specified R14 bend-holder profile has a 2 mm wall, a flat D back and a teardrop channel roof. The small curved roof and slightly angled outlet are accepted specifically for B-fill in hardware/concerns.md; this guide has no straight outlet leg. These three samples lie on that same functional channel construction. The current native slice has no support bodies. That establishes emitted paths and access, not printed fit or lifetime.",
+            "alternatives": "A 3 mm wall grows the selected profile 1 mm around the channel and puts its flat back 1 mm farther from the tube axis, enlarging the matching lid clearance window. The specified 2 mm profile is retained; a different outside profile is not needed to remove an unintended remnant here.",
+            "clicks": [
+              "x=17.335 y=1.502 z=5.395",
+              "x=19.326 y=1.677 z=5.395",
+              "x=15.653 y=1.751 z=11.916",
+              "x=13.937 y=1.542 z=10.186",
+              "x=8.650 y=8.670 z=11.916",
+              "x=9.870 y=9.890 z=10.182"
+            ]
+          }
+        ],
+        "findings": [
+          {
+            "class": "thin",
+            "reading": "1.999 mm of material at its thinnest \u00b7 584.7 mm\u00b2 of surface under 2.5 mm \u00b7 spans 18.4 \u00d7 18.4 \u00d7 8.1 mm \u00b7 in 10 pieces",
+            "clicks": [
+              "x=17.335 y=1.502 z=5.395",
+              "x=19.326 y=1.677 z=5.395"
+            ],
+            "answer_indices": [
+              0
+            ]
+          },
+          {
+            "class": "thin",
+            "reading": "2.445 mm of material at its thinnest \u00b7 2.9 mm\u00b2 of surface under 2.5 mm \u00b7 spans 14.0 \u00d7 14.0 \u00d7 0.0 mm",
+            "clicks": [
+              "x=15.653 y=1.751 z=11.916",
+              "x=13.937 y=1.542 z=10.186"
+            ],
+            "answer_indices": [
+              0
+            ]
+          },
+          {
+            "class": "thin",
+            "reading": "2.446 mm of material at its thinnest \u00b7 2.2 mm\u00b2 of surface under 2.5 mm \u00b7 spans 10.5 \u00d7 10.5 \u00d7 0.0 mm",
+            "clicks": [
+              "x=8.650 y=8.670 z=11.916",
+              "x=9.870 y=9.890 z=10.182"
+            ],
+            "answer_indices": [
+              0
+            ]
+          }
+        ],
+        "counts_by_class": {
+          "thin": 3
+        },
+        "unreviewed": []
+      },
+      "foam-cap-bottom": {
+        "physical_stl": "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl",
+        "stl_sha256": "7e737e724d7031189e98a7b32bc4147a064c3055845f63949d76b30091c80387",
+        "log_sha256": "6c9a0a543648b664930f793d361b7a8191c7452cf99d90cc3355717b8047ad1a",
+        "classes_read": [
+          "step",
+          "bump",
+          "sliver",
+          "ceiling",
+          "slope",
+          "thin",
+          "ledge"
+        ],
+        "answers_path": "hardware/printed-parts/lint-answers/cold-core/foam-cap/foam-cap-bottom.lint-answers",
+        "answers_sha256": "d34ee2da2c646b624ba785eabe1b9eba725e8837430607f26fbcf60e4ad5fda4",
+        "answer_entries": [
+          {
+            "class": "ceiling",
+            "reason": "Ten functional flat M5 screw-head bearings. The \u00d88.5 \u00d7 5 mm socket heads require these Z5.4 mm planes; each pocket opens through the casing wall for its driver and support removal. The actual Normal(auto)/Snug slice has exactly ten short support bodies, all below Z5.03 mm and in these open mouths, with 21.019 mm minimum full-bead bed margin. Remove them outward before hardware and foil. See cold-core/foam-shell/printability-review.json for their individual footprints. Physical release force is not established by this access reading.",
+            "alternatives": "Tapering the bearing replaces the head's flat load surface. Opening it upward removes the screw-head bearing. Automatic Tree(auto)/Default trials, including zero extra support-foot flange, cross this wide cap's required 20 mm bed border; the compact normal choice is scoped to these ten pockets.",
+            "clicks": [
+              "x=45.000 y=-85.050 z=5.400",
+              "x=45.000 y=85.050 z=5.400",
+              "x=110.000 y=-85.050 z=5.400",
+              "x=110.000 y=85.050 z=5.400",
+              "x=-136.050 y=0.000 z=5.400",
+              "x=136.050 y=0.000 z=5.400",
+              "x=-136.050 y=60.000 z=5.400",
+              "x=-136.050 y=-60.000 z=5.400",
+              "x=136.050 y=-60.000 z=5.400",
+              "x=136.050 y=60.000 z=5.400"
+            ]
+          },
+          {
+            "class": "thin",
+            "reason": "Specified 2 mm floor and 2.38 mm standing casing section. Derek selected these sections and the 253.4 mm assembled cold-core height. The sampled pair spans the ordinary floor, rather than a cut remnant or a tapered fin. All ten M5 head pads and their wall/floor roots have separate 100% solid deposition modifiers.",
+            "alternatives": "A 3 mm floor raises the retained stack by 1 mm or reduces the foam depth by 1 mm; that changes the specified floor and stack. Additional local head-bearing stock is already part of the M5 pads and their solid root regions.",
+            "clicks": [
+              "x=-137.843 y=-82.565 z=0.000",
+              "x=-137.843 y=-82.565 z=2.000"
+            ]
+          }
+        ],
+        "findings": [
+          {
+            "class": "ceiling",
+            "reading": "63 mm\u00b2 flat print-down face at z=5.400 \u00b7 10.3 \u00d7 9.0 mm \u00b7 open to the bed (5.4 mm up)",
+            "clicks": [
+              "x=45.000 y=-85.050 z=5.400"
+            ],
+            "answer_indices": [
+              0
+            ]
+          },
+          {
+            "class": "ceiling",
+            "reading": "63 mm\u00b2 flat print-down face at z=5.400 \u00b7 10.3 \u00d7 9.0 mm \u00b7 open to the bed (5.4 mm up)",
+            "clicks": [
+              "x=45.000 y=85.050 z=5.400"
+            ],
+            "answer_indices": [
+              0
+            ]
+          },
+          {
+            "class": "ceiling",
+            "reading": "63 mm\u00b2 flat print-down face at z=5.400 \u00b7 10.3 \u00d7 9.0 mm \u00b7 open to the bed (5.4 mm up)",
+            "clicks": [
+              "x=110.000 y=-85.050 z=5.400"
+            ],
+            "answer_indices": [
+              0
+            ]
+          },
+          {
+            "class": "ceiling",
+            "reading": "63 mm\u00b2 flat print-down face at z=5.400 \u00b7 10.3 \u00d7 9.0 mm \u00b7 open to the bed (5.4 mm up)",
+            "clicks": [
+              "x=110.000 y=85.050 z=5.400"
+            ],
+            "answer_indices": [
+              0
+            ]
+          },
+          {
+            "class": "ceiling",
+            "reading": "63 mm\u00b2 flat print-down face at z=5.400 \u00b7 10.3 \u00d7 9.0 mm \u00b7 open to the bed (5.4 mm up)",
+            "clicks": [
+              "x=-136.050 y=0.000 z=5.400"
+            ],
+            "answer_indices": [
+              0
+            ]
+          },
+          {
+            "class": "ceiling",
+            "reading": "63 mm\u00b2 flat print-down face at z=5.400 \u00b7 10.3 \u00d7 9.0 mm \u00b7 open to the bed (5.4 mm up)",
+            "clicks": [
+              "x=136.050 y=0.000 z=5.400"
+            ],
+            "answer_indices": [
+              0
+            ]
+          },
+          {
+            "class": "ceiling",
+            "reading": "63 mm\u00b2 flat print-down face at z=5.400 \u00b7 10.3 \u00d7 9.0 mm \u00b7 open to the bed (5.4 mm up)",
+            "clicks": [
+              "x=-136.050 y=60.000 z=5.400"
+            ],
+            "answer_indices": [
+              0
+            ]
+          },
+          {
+            "class": "ceiling",
+            "reading": "63 mm\u00b2 flat print-down face at z=5.400 \u00b7 10.3 \u00d7 9.0 mm \u00b7 open to the bed (5.4 mm up)",
+            "clicks": [
+              "x=-136.050 y=-60.000 z=5.400"
+            ],
+            "answer_indices": [
+              0
+            ]
+          },
+          {
+            "class": "ceiling",
+            "reading": "63 mm\u00b2 flat print-down face at z=5.400 \u00b7 10.3 \u00d7 9.0 mm \u00b7 open to the bed (5.4 mm up)",
+            "clicks": [
+              "x=136.050 y=-60.000 z=5.400"
+            ],
+            "answer_indices": [
+              0
+            ]
+          },
+          {
+            "class": "ceiling",
+            "reading": "63 mm\u00b2 flat print-down face at z=5.400 \u00b7 10.3 \u00d7 9.0 mm \u00b7 open to the bed (5.4 mm up)",
+            "clicks": [
+              "x=136.050 y=60.000 z=5.400"
+            ],
+            "answer_indices": [
+              0
+            ]
+          },
+          {
+            "class": "thin",
+            "reading": "2.000 mm of material at its thinnest \u00b7 115365.0 mm\u00b2 of surface under 2.5 mm \u00b7 spans 282.4 \u00d7 180.4 \u00d7 18.7 mm \u00b7 in 54 pieces",
+            "clicks": [
+              "x=-137.843 y=-82.565 z=0.000",
+              "x=-137.843 y=-82.565 z=2.000"
+            ],
+            "answer_indices": [
+              1
+            ]
+          }
+        ],
+        "counts_by_class": {
+          "ceiling": 10,
+          "thin": 1
+        },
+        "unreviewed": []
+      }
+    }
   }
 }
