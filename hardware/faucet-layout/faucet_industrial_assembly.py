@@ -15,6 +15,9 @@ FAUCET = HARDWARE / "printed-parts" / "faucet"
 INDUSTRIAL = FAUCET / "industrial"
 for directory in (HARDWARE / "scripts", INDUSTRIAL, FAUCET / "faucet-shell"):
     sys.path.insert(0, str(directory))
+if __name__ == "__main__":
+    import _rust_part
+    _rust_part.start()
 
 import faucet_assembly
 import flute_payload

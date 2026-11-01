@@ -105,6 +105,13 @@ impl Solid {
         &self.faces
     }
 
+    /// Release the cached boolean representation, retaining every mesh array and face record.
+    /// A later boolean or simplification builds that representation again on demand.
+    pub fn forget_backend(&mut self) {
+        #[cfg(feature = "manifold")]
+        drop(self.built.take());
+    }
+
     /// The face record triangle `t` lies on.
     pub fn face_at(&self, t: usize) -> &Face {
         &self.faces[self.face_of[t] as usize]
@@ -413,4 +420,29 @@ pub(crate) fn point_triangle(p: V3, a: V3, b: V3, c: V3) -> f64 {
     let denom = 1.0 / (va + vb + vc);
     let (v, w) = (vb * denom, vc * denom);
     (p - (a + ab * v + ac * w)).norm()
+}
+
+#[cfg(all(test, feature = "manifold"))]
+mod cache_lifecycle {
+    use crate::{Plane, Solid, rule::TOLERANCE, step::model_bytes, write::Body};
+    use anyhow::Result;
+
+    fn bytes(solid: &Solid) -> Vec<u8> {
+        model_bytes(&[Body { name: "source", color: Some([0.1, 0.2, 0.3]), solid }])
+    }
+
+    #[test]
+    fn forgetting_releases_only_the_rebuildable_backend() -> Result<()> {
+        let mut solid = Plane::XY.cuboid(7.0, 9.0, 11.0);
+        let fine = bytes(&solid);
+        let shown = solid.simplified_to(TOLERANCE)?;
+        assert!(solid.built.get().is_some());
+        solid.forget_backend();
+        assert!(solid.built.get().is_none());
+        solid.forget_backend();
+        assert_eq!(bytes(&solid), fine);
+        assert_eq!(bytes(&solid.simplified_to(TOLERANCE)?), bytes(&shown));
+        assert!(solid.built.get().is_some());
+        Ok(())
+    }
 }

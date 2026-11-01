@@ -52,6 +52,11 @@ them when its producer exports a new payload.
 Parry bounding-volume tree. Distance, rays and triangle-plane sections use that tree. Ray hits
 and section segments keep viewer triangle and face IDs. Sections are raw triangle segments
 with coplanar triangles reported separately; they are not joined drawing outlines.
+When a payload has aligned `face_sources`, each ray hit or section segment also reports that
+face's complete contributor group. Missing or malformed metadata leaves attribution unknown.
+Renderer pixel picks and ray annotations retain the actual mesh, triangle and face IDs, and
+report the same contributors together with the payload digest. Body-centre labels and dimension
+leaders without an authored feature binding have no source attribution.
 
 Intersection volumes use the Manifold C++ backend through `manifold-csg`. Coincident seam
 vertices are joined before solid validation. Invalid solids return an error. These are
@@ -62,7 +67,7 @@ The service does not implement an exact boolean kernel.
 in another can have positive surface distance and zero clearance. When overlapping bounds
 require a solid query but conversion fails, clearance is unknown and the surface distance is
 still available. Mesh results carry the original tessellation limits; they do not recover
-analytic surfaces or source lines.
+analytic surfaces or infer missing source lines.
 
 ## Process and cache
 
@@ -243,6 +248,13 @@ containment. `Solid::shared_volume(&other)` reports intersection volume in mm³,
 containment. Both use the fine f64 mesh through Manifold, without the fabrication simplifier
 or boolean sliver filter.
 
+For cylindrical manufacturing stock, `step::RoundStock` exports an analytic AP214 solid
+with separate axial through or blind bores. Its planes, circles and cylinders form a closed
+B-rep for machining quotes. `RoundStock::solid()` builds the fine model from the same
+dimensions using the ordinary kernel builders. `part::write_shown_with_step` keeps that
+fine model and its source records, and binds the viewer payload to the analytic STEP's
+SHA-256. The carbonator tube and circular end-cap use this path.
+
 `import::model(path)` reads an explicitly named `.step.npz`: f64 vertices, triangles, face
 records, body names and linear colours. Stored and deflated NPZ files use maintained `npyz`
 and `zip` readers. Coordinates and face indices keep their original order and precision.
@@ -359,7 +371,18 @@ index of each emitted facet. Its `model_bytes` stores `print-F<i>.npy` and
 `print-records.npy` in the existing fine archive, with an STL path and digest in
 `document.printed`. Fine arrays/records and caller document fields stay intact. A reader
 uses the map only for those bound STL bytes; an absent or stale binding supplies no
-attribution. The shared part writer uses its existing fine-model export.
+attribution. The shared writer includes this binding when it emits an STL.
+
+The linter can read those recorded facet IDs on demand:
+
+```sh
+python3 tools/run.py -- tools/cad-venv/bin/python hardware/scripts/geometry_lint.py \
+    path/to/part.stl --sources path/to/part.step.npz
+```
+
+It adds contributor records to the findings without changing their geometry or ranking.
+The explicit model must bind the exact STL bytes; missing, stale or unrecorded data stays
+unknown. This source lookup runs only when requested.
 
 A generator that cuts a part begins its own run before it imports anything else:
 

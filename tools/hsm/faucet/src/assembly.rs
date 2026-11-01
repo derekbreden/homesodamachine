@@ -160,8 +160,44 @@ fn display(d: &Value) -> Result<(Solid, Solid)> {
     Ok((on_tip(&body), on_tip(&rounded(&d["screen"])?)))
 }
 
-/// A loft section, its edges `{"line": [a, b]}` and `{"conic": {"c", "x", "y", "t0", "t1"}}`.
+/// A loft section from an authored frame/profile, or explicit line and conic edges.
 fn section(v: &Value) -> Result<LoftSection> {
+    if v.is_object() {
+        if let Some(h) = v.get("hull") {
+            let mut section = hull_section(&circles(h)?, &level(num(&v["z"])?))?;
+            // A bottom face walks its first edge backwards, then the remaining
+            // edges in reverse order. Keep its seam on that original edge.
+            if v.get("bottom_face").and_then(Value::as_bool).unwrap_or(false) {
+                section.edges = std::iter::once(section.edges[0].reversed())
+                    .chain(section.edges[1..].iter().rev().map(LoftEdge::reversed)).collect();
+            }
+            return Ok(section);
+        }
+        let plane = Plane::new(point(&v["origin"])?, point(&v["xdir"])?, point(&v["normal"])?)?;
+        if let Some(r) = v.get("circle") {
+            let r = num(r)?;
+            return Ok(LoftSection::ellipse(plane.origin, plane.x * r, plane.y * r));
+        }
+        let shape = v.get("rect").or_else(|| v.get("slot")).context("a section needs a profile")?;
+        let (width, depth) = pair(shape)?;
+        if v.get("rect").is_some() {
+            let points = [v2(-width/2.0, -depth/2.0), v2(width/2.0, -depth/2.0),
+                          v2(width/2.0, depth/2.0), v2(-width/2.0, depth/2.0)];
+            return Ok(LoftSection::new((0..4).map(|i| LoftEdge::Line {
+                a: plane.point(points[i]), b: plane.point(points[(i+1)%4]),
+            }).collect()));
+        }
+        let (r, half) = (depth/2.0, (width-depth)/2.0);
+        let conic = |x, t0, t1| LoftEdge::Conic {
+            c: plane.point(v2(x, 0.0)), x: plane.x*r, y: plane.y*r, t0, t1,
+        };
+        return Ok(LoftSection::new(vec![
+            LoftEdge::Line { a: plane.point(v2(-half, -r)), b: plane.point(v2(half, -r)) },
+            conic(half, -std::f64::consts::FRAC_PI_2, std::f64::consts::FRAC_PI_2),
+            LoftEdge::Line { a: plane.point(v2(half, r)), b: plane.point(v2(-half, r)) },
+            conic(-half, std::f64::consts::FRAC_PI_2, 3.0*std::f64::consts::FRAC_PI_2),
+        ]));
+    }
     let mut edges = vec![];
     for e in rows(v)? {
         edges.push(if let Some(line) = e.get("line") {

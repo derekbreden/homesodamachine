@@ -1,0 +1,24 @@
+[
+  {
+    "printer": "H2C",
+    "observed_at_utc": "2026-11-01T22:38:01.572304+00:00",
+    "job_id": "1398257516",
+    "gcode_state": "RUNNING",
+    "layer_num": 7,
+    "total_layer_num": 161,
+    "mc_remaining_time": 189,
+    "print_error": 0,
+    "hms": []
+  },
+  {
+    "printer": "Mark2",
+    "observed_at_utc": "2026-11-01T22:38:02.560524+00:00",
+    "job_id": "1398266343",
+    "gcode_state": "RUNNING",
+    "layer_num": 10,
+    "total_layer_num": 227,
+    "mc_remaining_time": 132,
+    "print_error": 0,
+    "hms": []
+  }
+]

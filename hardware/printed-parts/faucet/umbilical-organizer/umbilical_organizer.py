@@ -11,13 +11,15 @@ adds CENTRE_XY and sets the bottom face below the chosen installed top face.
 from pathlib import Path
 import sys
 
-import cadquery as cq
-
 HERE = Path(__file__).resolve().parent
 HARDWARE = HERE.parents[2]
 sys.path.insert(0, str(HARDWARE / "scripts"))
-from _cadq_export import export_assembly
-from _materials import C_FAUCET_BLACK
+if __name__ == "__main__":
+    import _rust_part
+    _rust_part.start()
+
+import cadquery as cq
+from _materials import C_FAUCET_BLACK, linear
 sys.path.insert(0, str(HARDWARE / "printed-parts/faucet"))
 import _faucet_interface as interface
 import faucet_paths
@@ -90,14 +92,26 @@ def placed(top_z):
     return build_organizer().translate((*CENTRE_XY, top_z - LENGTH))
 
 
+def numbers():
+    """The round stock and its passages, in the upright print frame."""
+    return {
+        "name": "umbilical-organizer", "color": list(linear(C_FAUCET_BLACK)),
+        "stock_radius": OD / 2.0, "length": LENGTH, "outside_ease": OUTSIDE_EASE,
+        "bore_overrun": 1.0,
+        "slot_length": CABLE_SLOT_LENGTH, "slot_depth": CABLE_SLOT_DEPTH,
+        "bores": [{"name": name, "center": [xy[i] - CENTRE_XY[i] for i in (0, 1)],
+                   "radius": diameter / 2.0,
+                   "entry": CABLE_ENTRY if name == "SIG" else ENTRY}
+                  for name, xy, diameter in BORES],
+    }
+
+
 def main():
-    shape = build_organizer()
-    assembly = cq.Assembly(shape, name="umbilical-organizer", color=C_FAUCET_BLACK)
-    # The accepted trial used these tessellation settings.
+    import _rust_part
+
+    said = _rust_part.cut("faucet", "umbilical-organizer", numbers(), HERE)
     stl = HERE / "umbilical-organizer.stl"
-    cq.exporters.export(shape, str(stl), tolerance=0.05, angularTolerance=0.12)
     step = HERE / "umbilical-organizer.step"
-    export_assembly(assembly, str(step))
     import flute_payload
     flute_payload.cut(step, stl, preserve_print_triangles=True)
     sys.path.insert(0, str(HARDWARE.parent / "tools"))

@@ -20,7 +20,7 @@ from reportlab.pdfgen import canvas
 HERE = Path(__file__).resolve().parent
 ROOT = next(p for p in HERE.parents if (p / "tools" / "docgen").is_dir())
 sys.path.insert(0, str(ROOT / "hardware" / "scripts"))
-from _cadq_export import export_pdf
+from _document_export import export_pdf
 from endcap_circular_dxf import (
     disc_diameter,
     disc_thickness,

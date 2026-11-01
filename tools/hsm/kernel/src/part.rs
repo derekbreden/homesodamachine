@@ -19,7 +19,7 @@
 //! line of its own, which is all its standard output carries.
 use crate::solid::Solid;
 use crate::step::{model_bytes, step_bytes, step_of};
-use crate::write::{Body, payload_bytes_with_sources, stl_of};
+use crate::write::{Body, PrintOutput, payload_bytes_with_sources};
 use anyhow::{Context, Result, anyhow, ensure};
 use serde_json::{Value, json};
 use sha2::{Digest, Sha256};
@@ -87,31 +87,43 @@ pub fn args() -> Result<(Numbers, PathBuf)> {
 /// Write the part's files into `dir`, the STEP and the root of its assembly named `name`, and say
 /// what they hold: the files, and per body its name, volume, area, bounds and triangles.
 pub fn write_part(dir: &Path, name: &str, bodies: &[Body]) -> Result<Value> {
-    write_set(dir, name, bodies, true, true)
+    write_set(dir, name, bodies, true, true, None)
 }
 
 /// `write_part` without the STL.
 pub fn write_shown(dir: &Path, name: &str, bodies: &[Body]) -> Result<Value> {
-    write_set(dir, name, bodies, false, true)
+    write_set(dir, name, bodies, false, true, None)
+}
+
+/// `write_shown` with a manufacturing STEP supplied by the part's analytic exporter.
+/// The model and payload retain the bodies' fine geometry; the payload names the
+/// supplied STEP by its SHA-256. Names, frame and colours belong to the same part.
+pub fn write_shown_with_step(dir: &Path, name: &str, bodies: &[Body], step: Vec<u8>) -> Result<Value> {
+    write_set(dir, name, bodies, false, true, Some(step))
 }
 
 /// `write_part` without the payload.
 pub fn write_printed(dir: &Path, name: &str, bodies: &[Body]) -> Result<Value> {
-    write_set(dir, name, bodies, true, false)
+    write_set(dir, name, bodies, true, false, None)
 }
 
-fn write_set(dir: &Path, name: &str, bodies: &[Body], printed: bool, shown: bool) -> Result<Value> {
+fn write_set(dir: &Path, name: &str, bodies: &[Body], printed: bool, shown: bool, step_override: Option<Vec<u8>>) -> Result<Value> {
     // The STL takes the solids the STEP takes, so a printed set simplifies each once for both; a
     // set without one simplifies each as its STEP is written.
-    let (step, stl) = if printed {
+    let (step, stl, model) = if let Some(step) = step_override {
+        (step, None, model_bytes(bodies))
+    } else if printed {
         let simple: Vec<Solid> = bodies.iter().map(|b| b.solid.simplified()).collect::<Result<_>>()?;
         let filed: Vec<Body> = bodies.iter().zip(&simple).map(|(b, s)| Body { solid: s, ..*b }).collect();
-        (step_of(&filed, name)?, Some(stl_of(&simple.iter().collect::<Vec<_>>())))
+        let step = step_of(&filed, name)?;
+        let print = PrintOutput::new(&filed);
+        let model = print.model_bytes(bodies, &format!("{name}.stl"), None)?;
+        (step, Some(print.into_stl_bytes()), model)
     } else {
-        (step_bytes(bodies, name)?, None)
+        (step_bytes(bodies, name)?, None, model_bytes(bodies))
     };
     let digest: String = Sha256::digest(&step).iter().map(|b| format!("{b:02x}")).collect();
-    let mut files = vec![(format!("{name}.step"), step), (format!("{name}.step.npz"), model_bytes(bodies))];
+    let mut files = vec![(format!("{name}.step"), step), (format!("{name}.step.npz"), model)];
     if shown {
         files.push((format!("{name}.step.mesh"), payload_bytes_with_sources(bodies, Some(&digest), None)));
     }
@@ -170,6 +182,18 @@ pub fn write_assembly(
     bodies: &[AssemblyBody],
     document: Option<&Value>,
 ) -> Result<Value> {
+    write_assembly_with_root(dir, name, name, bodies, document)
+}
+
+/// Write an assembly whose public file stem and STEP product root have distinct names.
+/// A single body keeps its own product identity, as the default STEP writer does.
+pub fn write_assembly_with_root(
+    dir: &Path,
+    name: &str,
+    root_name: &str,
+    bodies: &[AssemblyBody],
+    document: Option<&Value>,
+) -> Result<Value> {
     let fine: Vec<Body> = bodies
         .iter()
         .map(|b| Body { name: b.name, color: b.color, solid: b.fine })
@@ -190,7 +214,7 @@ pub fn write_assembly(
         .zip(&shown_names)
         .map(|(b, name)| Body { name, color: b.color, solid: b.presentation })
         .collect();
-    let step = step_of(&shown, name)?;
+    let step = step_of(&shown, root_name)?;
     let digest: String = Sha256::digest(&step).iter().map(|b| format!("{b:02x}")).collect();
     let payload = crate::write::payload_bytes_with_sources(&shown, Some(&digest), None);
     let payload_name = format!("{name}.step.mesh");
@@ -274,6 +298,47 @@ mod tests {
         let header: Value = serde_json::from_slice(&payload[4..4 + size])?;
         assert_eq!(header["meshes"][0]["name"], "body/1");
         assert_eq!(header["meshes"][1]["name"], "body/2");
+        std::fs::remove_dir_all(dir)?;
+        Ok(())
+    }
+
+    #[test]
+    fn assembly_file_stem_and_product_root_bind_the_actual_payload() -> Result<()> {
+        use std::io::Read;
+        let dir = std::env::temp_dir().join(format!("hsm-assembly-names-{}", std::process::id()));
+        let old = dir.join("default");
+        let explicit = dir.join("explicit");
+        std::fs::create_dir_all(&old)?;
+        std::fs::create_dir_all(&explicit)?;
+        let fine = Plane::XY.cuboid(4., 5., 6.);
+        let bodies = [AssemblyBody { name: "wire", color: None, fine: &fine, presentation: &fine }];
+        let document = json!({"frame":"source", "schema":"fixture"});
+        write_assembly(&old, "same", &bodies, Some(&document))?;
+        write_assembly_with_root(&explicit, "same", "same", &bodies, Some(&document))?;
+        for suffix in ["step", "step.npz", "step.mesh"] {
+            assert_eq!(std::fs::read(old.join(format!("same.{suffix}")))?,
+                       std::fs::read(explicit.join(format!("same.{suffix}")))?);
+        }
+        let second = fine.translate(crate::math::v3(10., 0., 0.));
+        let assembly = [AssemblyBody {
+            name: "wire", color: None, fine: &fine, presentation: &fine,
+        }, AssemblyBody {
+            name: "connector", color: None, fine: &second, presentation: &second,
+        }];
+        write_assembly_with_root(&dir, "enclosure-wiring", "installed-wiring", &assembly, Some(&document))?;
+        let text = std::fs::read_to_string(dir.join("enclosure-wiring.step"))?;
+        assert!(text.lines().any(|line| line.contains("PRODUCT(") && line.contains("'installed-wiring'")));
+        assert!(!dir.join("installed-wiring.step").exists());
+        let mut archive = zip::ZipArchive::new(std::io::Cursor::new(std::fs::read(dir.join("enclosure-wiring.step.npz"))?))?;
+        let mut bytes = vec![];
+        archive.by_name("document.npy")?.read_to_end(&mut bytes)?;
+        let bytes = npyz::NpyFile::new(&bytes[..])?.into_vec::<u8>()?;
+        let read: Value = serde_json::from_slice(&bytes)?;
+        assert_eq!(read["frame"], document["frame"]);
+        assert_eq!(read["schema"], document["schema"]);
+        assert_eq!(read["presentation"]["path"], "enclosure-wiring.step.mesh");
+        let payload = std::fs::read(dir.join("enclosure-wiring.step.mesh"))?;
+        assert_eq!(read["presentation"]["sha256"], format!("{:x}", Sha256::digest(&payload)));
         std::fs::remove_dir_all(dir)?;
         Ok(())
     }

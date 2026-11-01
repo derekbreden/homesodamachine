@@ -9,6 +9,7 @@
 pub mod assembly;
 pub mod counter;
 pub mod display;
+pub mod metrics;
 pub mod shell;
 
 use anyhow::{Result, anyhow, ensure};

@@ -2225,6 +2225,8 @@ def _z_joints(placed, inner, stated, plate, y_joint):
 
 def back_top_flank_bound(placed, pack, y_joint, splits):
     """The existing flank envelope, including finite drilled hardware lanes."""
+    import _boxes
+
     bbs = [_boxes.boxed(shape) for shape, _colour in placed.values()]
     bt0, bt1 = back_top_flank_face()
     bt_y0 = y_joint + lip_len + z_lip_y_margin
