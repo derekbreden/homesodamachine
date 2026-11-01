@@ -15,6 +15,8 @@ STL, from them (`hardware/scripts/_rust_part.py`). The builders below draw the
 same shell in CadQuery, which is the body `faucet_assembly` and the industrial
 faucet seat."""
 
+from __future__ import annotations
+
 import io
 import ast
 import functools
@@ -24,9 +26,6 @@ import os
 import sys
 import time
 from pathlib import Path
-
-import cadquery as cq
-import trimesh
 
 _here = Path(__file__).resolve()
 sys.path.insert(
@@ -39,6 +38,12 @@ sys.path.insert(
 )
 sys.path.insert(0, str(_here.parent.parent))  # for _faucet_interface
 sys.path.insert(0, str(next(p for p in _here.parents if p.name == "printed-parts") / "cadlib"))
+if __name__ == "__main__":
+    import _rust_part
+    _rust_part.start()
+
+import cadquery as cq
+import trimesh
 import fits
 # Manifold validation and the ledger of named geometric bounds.
 import flute_skin as _flute_skin
