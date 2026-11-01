@@ -192,6 +192,10 @@
         "tree_support_branch_diameter": {
           "value": "3",
           "reason": "Thicker constant-diameter trunks at 0.5-degree growth (2026-10-11 preparation, drain-readiness/prints/2026-10-11-back-top-groove-supports-mark1/preparation.json). Back-top only."
+        },
+        "elefant_foot_compensation": {
+          "value": "0",
+          "reason": "The roof-down additive chamfer retains its uncompensated bed perimeter. X/Y locating fits begin above this roof band. enclosure/accepted-fit-integration/prepare_prints.py."
         }
       },
       "parts": [
