@@ -43,7 +43,7 @@ ART = HERE / "art"
 os.environ.setdefault("HSM_NO_BUILD_LOCK", "1")
 sys.path.insert(0, str(HARDWARE / "scripts"))
 sys.path.insert(0, str(HARDWARE / "reference" / "jg-pp0408w"))
-from _cadq_export import _per_solid_color, _write_mesh_payload, note_write  # noqa: E402
+from _cadq_export import _per_solid_color, _write_mesh_payload, import_step, note_write  # noqa: E402
 import _hsm_render  # noqa: E402
 import jg_pp0408w as union_ref  # noqa: E402
 
@@ -303,7 +303,7 @@ def _canonical_union_parts(
     pressed_right: bool,
     separate_right: bool = False,
 ) -> tuple[cq.Shape, ...]:
-    union = union_ref.build_jg_pp0408w().val()
+    union = import_step(str(union_ref.STEP)).val()
     if not pressed_right and not separate_right:
         return (union,)
 
