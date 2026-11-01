@@ -268,7 +268,7 @@ screw_clearance_radius = fits.m5_thread_pass_dia / 2.0
 insert_pocket_radius = 3.2  # ruthex RX-M5x9.5 recommended Ø6.4 pilot
 insert_pocket_depth = 10.5
 screw_boss_size = 11.6  # Ø6.4 pilot plus 2.6 mm radial insert stock
-screw_guard_diameter = 8.0  # unloaded tail passage, joined to the casing wall
+screw_guard_diameter = screw_boss_size  # one continuous host section through the casing
 
 # The top equipment plate is uniformly 7.4 mm thick. Bottom head pockets live
 # in integral pads inside the open-topped cap. Each head has a complete bearing

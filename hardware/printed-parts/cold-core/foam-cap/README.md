@@ -62,6 +62,15 @@ head pads enclose a 17.85 mm central foam depth beneath the shell's fixed floor.
 There is no printed ceiling in the cap. In the appliance its upper rim is Z19.85 mm,
 0.15 mm below the shell's Z20 mm base.
 
+Print the cap on its outside floor. Its ten outward-open M5 head pockets use
+Normal(auto)/Snug supports with no extra initial support-foot flange. This
+part-specific choice keeps the complete native model/support bead envelope
+21.02 mm inside the Mark2 bed; automatic tree feet exceed the required 20 mm
+border on this wide part. All ten support bodies stay under the head-pocket
+ceilings. Remove them outward before fitting hardware or foil. Other casing
+pieces retain their own support settings. The native reading establishes
+contact locations and removal access; physical release remains article-specific.
+
 Four Ø30 mm pour ports form a 2 × 2 pattern at native X±75/Y±40 mm.
 Two Ø6 mm holes vent air. Allocate the measured foam charge across the four local
 pour points so each quarter is filled directly. Foam appearing at a vent is not the
@@ -82,12 +91,17 @@ The top lid carries the inverse pattern in its pre-install half-turn frame.
 The selected fully threaded M5 × 100 screws have Ø8.5 × 5 mm heads and 4 mm hex sockets.
 The printed passages are Ø5.2 and the outward-open head pockets are Ø9.
 RX-M5×9.5 inserts seat in Ø6.4 × 10.5 mm pilots, with 2.6 mm radial host stock.
-The larger insert shoulders join the casing wall; Ø8 tail guards retain the long
-screw-clearance bores without occupying the tube lanes. Their 1.4 mm radial skin
-contains foam around the unloaded screw tails. The insert shoulders carry the clamp load.
+Continuous Ø11.6 hosts join the casing wall and retain 3.2 mm around the Ø5.2
+screw-tail bores. Bottom-facing blind ends and pilot transitions narrow by
+0.5 mm per millimetre of build rise, beyond their full cylindrical clearances.
 
 The upper screws project 97.6 mm beyond their insert mouths, the lower screws 85.4 mm.
 Each blind tail passage has 2.5 mm nominal tip air. All twenty clamp screws are the
 same stock as the enclosure's four seam screws.
+
+The [local solid regions](fore-snap-print-regions.json) fill the M5 head bearings,
+PCB insert posts and their plate/floor roots at 100%. The same record carries
+the fore C2 root and shell M5 hosts. Regenerate it from the current exported
+pieces before preparing their native print projects.
 
 Assembly order and foam work: [cold-core assembly](../../../assembly/cold-core.md).

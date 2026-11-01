@@ -1,7 +1,7 @@
-"""Write the fore snap receiver's local infill-only print specification.
+"""Write local solid-infill regions for the cold-core casing and equipment lid.
 
-Run manually after exporting the current lid. This reads source dimensions and
-the current STL without importing a CAD kernel, slicing or contacting a printer.
+Run manually after exporting the current pieces. This reads native construction
+datums and the current print meshes; it starts no generator, slice or printer.
 """
 from pathlib import Path
 import argparse
@@ -57,22 +57,64 @@ def main():
                machine_bounds_mm=native, applied_source_bounds_mm=clipped,
                world_bounds_mm=world, sparse_infill_density='100%',
                sparse_infill_pattern='zig-zag')
+    import _cold_core_interface as core
+    import _above_core_mounts as mounts
+    import _foam_cap as cap
+    paths = {'foam-cap-lid-top': stl,
+             'foam-cap-bottom': HERE / 'foam-cap-bottom.stl',
+             'foam-shell': HERE.parent / 'foam-shell' / 'foam-shell.stl'}
+    pieces = {'foam-cap-lid-top': [row], 'foam-cap-bottom': [], 'foam-shell': []}
+    mesh_bounds = {}
+    for name, path in paths.items():
+        points = _mesh.read_stl(path).reshape(-1, 3)
+        mesh_bounds[name] = (points.min(axis=0), points.max(axis=0))
+
+    def box(name, label, x, y, half, z0, z1):
+        bounds = [x-half, x+half, y-half, y+half, z0, z1]
+        lo, hi = mesh_bounds[name]
+        clipped = [value for axis in range(3) for value in
+                   (max(bounds[2*axis], float(lo[axis])),
+                    min(bounds[2*axis+1], float(hi[axis])))]
+        pieces[name].append(dict(name=label, machine_bounds_mm=bounds,
+            applied_source_bounds_mm=clipped, sparse_infill_density='100%',
+            sparse_infill_pattern='zig-zag'))
+
+    root = 3.0
+    for index, (x, y) in enumerate(core.attachment_xy_positions, 1):
+        box('foam-shell', f'M5 host {index}, both inserts, tail and wall root',
+            x, y, core.screw_guard_diameter/2.+root, 0., core.foam_shell_rim_z)
+        lo, hi = mesh_bounds['foam-cap-bottom']
+        box('foam-cap-bottom', f'M5 head pad {index} and floor/wall root',
+            x, y, core.head_cbore_radius+core.wall_thickness+root,
+            float(lo[2]), float(hi[2]))
+    for index, (x, y) in enumerate(core.lid_attachment_xy_positions, 1):
+        box('foam-cap-lid-top', f'M5 head bearing {index} and plate root',
+            x, y, core.head_cbore_radius+root, 0., cap.lid_total_height)
+    for name in core.deck_mounts:
+        top = cap.lid_total_height+core.deck_mount_standoff(name)
+        for index, (x, y) in enumerate(core.deck_mount_xy(name), 1):
+            box('foam-cap-lid-top', f'{name} insert post {index} and plate root',
+                x, y, core.deck_mount_boss_radius+root, 0., top)
     sources = [Path(__file__), Path(snap.__file__), Path(layout.__file__),
                ROOT / 'hardware/manifold-layout/above-core.json',
-               HERE.parent / '_reservoir_a_anchors.py', HERE / 'foam_cap.py']
+            HERE.parent / '_reservoir_a_anchors.py', HERE / 'foam_cap.py',
+            Path(core.__file__), Path(mounts.__file__), Path(cap.__file__)]
     record = dict(
-        scope='One infill-only modifier through the fore direct C2 shared base and '
-              'one wall into the lid root. No load capacity '
+        scope='Finite infill-only modifiers through the fore C2 shared base, '
+              'all M5 casing hosts/head bearings and PCB insert posts, '
+              'each with its supporting plate/wall root. No load capacity '
               'or lifetime qualification.',
-        use='Manual print preparation for foam-cap-lid-top only. The box intersects '
+        use='Manual print preparation for the equipment lid, shell and bottom cap. Each box intersects '
             'existing material and adds no geometry. All other lid walls, infill, '
             'pose, features and support settings retain their current recipe.',
         producer=relative(Path(__file__)),
-        coordinate_frames={'foam-cap-lid-top': 'Source STEP/STL coordinates before '
-                           'the installed cap half-turn; world_bounds_mm uses appliance coordinates.'},
+        coordinate_frames={name: 'Source STEP/STL coordinates before installed '
+                           'placement; world_bounds_mm, where present, uses appliance coordinates.'
+                           for name in pieces},
         source_sha256={relative(path): sha(path) for path in sources},
-        native_artifact_sha256={'foam-cap-lid-top': {'.step': sha(step), '.stl': sha(stl)}},
-        part_process_overrides={}, pieces={'foam-cap-lid-top': [row]})
+        native_artifact_sha256={name: {'.step': sha(path.with_suffix('.step')), '.stl': sha(path)}
+                               for name, path in paths.items()},
+        part_process_overrides={}, pieces=pieces)
     args.out.parent.mkdir(parents=True, exist_ok=True)
     args.out.write_text(json.dumps(record, indent=2)+'\n')
     print(json.dumps(dict(path=str(args.out), source_bounds_mm=clipped,

@@ -586,7 +586,9 @@
             "face_coordinate_mm": 4.75,
             "face_sign": -1,
             "reason": "Seat the plain seam in the seam channel's +X inside corner: a strip of the channel's side wall along that corner, the full height of the shell, where it faces across the channel rather than out of it."
-          }
+          },
+          "regions": "foam-shell",
+          "regions_file": "hardware/printed-parts/cold-core/foam-cap/fore-snap-print-regions.json"
         }
       ],
       "pose_reason": "Floor on the bed; the production shell retains its native upright pose. Tree(auto)/Default, localized PET-GF cooling and the plain seam painted into the seam channel's corner are saved in this entry."
@@ -616,13 +618,27 @@
         },
         "enable_support": {
           "value": "1",
-          "reason": "Tree(auto)/Default supports the underside M5 head-seat roofs where needed. Remove through the outward-open head pockets before inserting hardware and applying foil."
+          "reason": "Support the ten M5 head-seat roofs with the cap-specific automatic normal/snug choice. Their pockets open outward for cleanup before hardware and foil; review every emitted contact."
+        },
+        "raft_first_layer_expansion": {
+          "value": "0",
+          "reason": "Omit the extra initial support-foot flange on this wide cap so the complete bead envelope remains within the required bed border. Retain the automatically placed support bodies and contacts."
+        },
+        "support_type": {
+          "value": "normal(auto)",
+          "reason": "Only this cap: ten 5 mm high outward-open M5 head-seat roofs. Automatic tree placements spread their feet outside the required 20 mm bed border on the 282.4 mm wide cap, including the zero-extra-flange trial. Compact normal supports stay beneath these open head pockets; review all contacts and outward removal lanes before hardware or foil."
+        },
+        "support_style": {
+          "value": "snug",
+          "reason": "Confine this cap's normal support bodies to its ten short open M5 head-pocket ceilings, without large outside tree feet. This is a part-specific bed-footprint choice; all other casing pieces retain their own support settings."
         }
       },
       "plate_border_mm": 20.0,
       "parts": [
         {
-          "stl": "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl"
+          "stl": "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl",
+          "regions": "foam-cap-bottom",
+          "regions_file": "hardware/printed-parts/cold-core/foam-cap/fore-snap-print-regions.json"
         }
       ],
       "pose_reason": "As exported: the open-topped cap stands on its flat outside floor. Its M5 head pockets open out through the perimeter before hardware and foil are fitted."

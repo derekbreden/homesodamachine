@@ -39,7 +39,9 @@ reservoir wet interfaces belong to their respective native generators.
 The two dry reservoir reed channels continue to the raised rim. Their sensing
 windows stop at the internal body datum. Backing above those windows keeps pour
 foam out of the channels. Reservoir A's leads leave through the lid bore;
-Reservoir B's leads use the fore side window below the rim. Mask the channels
+Reservoir B's leads use the fore side window below the rim. Its peaked roof
+rises 8 mm above the straight cable opening and retains 4.2 mm of header stock.
+Mask the channels
 for the pour and install the proved reed columns before closing the lid.
 
 ## M5 closure stations
@@ -50,11 +52,12 @@ They clamp the short ends and aft long flanks while clearing the tube lanes,
 PCB inserts, and copper exits. The spun top lid carries the inverse pattern;
 the bottom cap uses the shell pattern directly.
 
-Each Ø6.4 × 10.5 mm insert pilot has 2.6 mm radial stock in an Ø11.6 shoulder
-joined to the outer wall. Ø8 guards carry the Ø5.2 blind screw-tail passages.
-The guard's 1.4 mm radial skin contains foam around an unloaded tail; the wide
-insert shoulders carry the clamp load. Each tail has 2.5 mm nominal tip air.
-The casing wall remains continuous behind the guard webs.
+Each Ø6.4 × 10.5 mm insert pilot has 2.6 mm radial stock in an Ø11.6 host
+joined to the outer wall. The same section runs between both insert faces,
+leaving 3.2 mm around the Ø5.2 screw-tail passages. Each tail has 2.5 mm of
+full-bore nominal tip air. Bottom-facing pilot transitions and blind ends
+narrow by 0.5 mm per millimetre of build rise, above their complete cylindrical
+clearance depths. The casing wall remains continuous behind the host webs.
 
 The upper screws reach 97.6 mm past their mouths; lower screws reach 85.4 mm.
 Both take the same acquired M5 × 100 stock as the enclosure's seam screws.
@@ -69,8 +72,10 @@ reservoir air-tube passages are Ø5.2 mm for separate 4 mm tubes. B-fill uses th
 accepted Ø6.8 teardrop-channel R14 holder, with a plain lid clearance window.
 The PCB's four full-length M3 inserts belong to the lid, above its flat bed face.
 
-The water line keeps R14 turns in the west lane. Its short upper approach clears
-the M5 tail guards before reaching the fixed lid guide. The soda and gas lines,
+The water line keeps R14 turns in the west lane. Its two opposed turns pass
+inboard of the M5 host before reaching the outer lane and fixed lid guide.
+The CO2 descent stands 2.5 mm inboard of the copper lane and retains R14 turns
+and the complete support-ring slot crossing. The soda and gas lines,
 PRV vent, reservoir tubes and carbonator sensor/earth loom retain their endpoints.
 ## Copper feed-throughs
 
@@ -108,9 +113,12 @@ remain open. Complete-appliance readiness is recorded in
 
 ## Print settings
 
-Print the shell floor-down on the H2C left 0.4 mm hardened Standard-flow nozzle.
+Print the shell floor-down on the configured Mark2 left 0.4 mm hardened Standard-flow nozzle.
 Use the saved PET-GF recipe, three Classic walls and 15% gyroid. The current
-casing's filament estimate is geometry-based until its native slice is recorded.
+casing's [native print review](printability-review.json) binds its physical
+STL, full-bead bed margin, local solid deposition and support bodies.
+The [local solid regions](../foam-cap/fore-snap-print-regions.json) fill all ten
+M5 hosts and their wall roots at 100%; the surrounding casing keeps its bulk recipe.
 The top lid prints on its uniform flat underside; the bottom cap prints on its
 outside floor. Print the R14 holder flat on its D back. Its teardrop channel
 prints without trapped tunnel supports. Follow the repository's Tree(auto)/Default

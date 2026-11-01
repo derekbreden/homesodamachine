@@ -238,7 +238,7 @@ def _routes():
     gas_guide = _above_mounts.above_core.specification()['gas_guide_world_mm']
     # The guide stands beside the bare tank. Below the cup, a pair of R14
     # turns shifts the descent out beyond the copper wrap before its top.
-    gas_lower_xy = (77.5, 371.8)
+    gas_lower_xy = (75.0, 371.8)
     gas_shift = math.dist(gas_guide[:2], gas_lower_xy)
     gas_theta = math.acos(1.0 - gas_shift / (2.0 * route_bend_radius))
     gas_setback = route_bend_radius * math.tan(gas_theta / 2.0)
@@ -250,7 +250,8 @@ def _routes():
     water_theta = math.pi/4.0 + math.asin((14.9/route_bend_radius-1.0)/math.sqrt(2.0))
     water_setback = route_bend_radius * math.tan(water_theta / 2.0)
     water_turn_start = -70.5 + route_bend_radius*(math.sin(water_theta)+math.cos(water_theta))
-    water_lane_x = -76.5
+    water_lane_x = -78.5
+    water_return_y = 363.0
     water_return_theta = math.acos(1.0 - abs(water_lane_x + 70.5) / (2.0 * route_bend_radius))
     water_return_setback = route_bend_radius * math.tan(water_return_theta / 2.0)
     water_return_run = 2.0 * route_bend_radius * math.sin(water_return_theta)
@@ -275,8 +276,8 @@ def _routes():
                 (-20.0, 283.0, 219.4),
                 (water_turn_start-water_setback, 283.0, 219.4),
                 (-70.5, 283.0, 204.5),
-                (-70.5, 338.0+water_return_setback, 204.5),
-                (water_lane_x, 338.0+water_return_run-water_return_setback, 204.5),
+                (-70.5, water_return_y+water_return_setback, 204.5),
+                (water_lane_x, water_return_y+water_return_run-water_return_setback, 204.5),
                 (water_lane_x, 385.0, 204.5),
                 (*water_guide[:2], 204.5), water_guide)],
         # Each reservoir's continuous draw tube is installed through its cap grip

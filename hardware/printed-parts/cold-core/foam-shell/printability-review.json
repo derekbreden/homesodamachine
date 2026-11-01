@@ -1,0 +1,2568 @@
+{
+  "schema": "cold-core-printability-review/1",
+  "scope": "Current stable shell, open bottom cap and independent B-fill guide. Exact physical STL bytes retain the named native Bambu slices; exchange metadata is bound separately. Pump support and reference are outside this independent casing publication. Native geometry establishes material clearance and emitted paths, not printed fit, support release force or structural life. No printer was contacted.",
+  "current_native_files": {
+    "hardware/printed-parts/cold-core/foam-shell/foam-shell.step": "5c62394f778266c266b8a239dcea443592a358b98ccaa97c02c2cbc70e324b3d",
+    "hardware/printed-parts/cold-core/foam-shell/foam-shell.stl": "3e2df5c20a57200e56a27dbba0ca512e2f2b9c5d795777bed16de18db7952501",
+    "hardware/printed-parts/cold-core/foam-shell/foam-shell.step.mesh": "9ab339295f5d12a7bcf61ab1c019b491865288bc6ba997c87c9ce651ff691685",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step": "5405075b66f7853c84ddfcc1d911845e4aab4303f6a06e3b08d18b6a08bd3e36",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl": "7e737e724d7031189e98a7b32bc4147a064c3055845f63949d76b30091c80387",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step.mesh": "8e95d61a3bb2f92dbeb6823481edaaaeaf71a3dd239e757c86d87993cf27ec37",
+    "hardware/printed-parts/cold-core/foam-cap/reservoir-b-fill-guide.step": "8a74a8056b6b6466d79b2885e8869e5ab78a1188d01333e6477cd8c58d573157",
+    "hardware/printed-parts/cold-core/foam-cap/reservoir-b-fill-guide.stl": "0fd7a6158d18c346622dfe5858c752b7cd26437bf29968ac4bcc92697937c4b6",
+    "hardware/printed-parts/cold-core/foam-cap/reservoir-b-fill-guide.step.mesh": "222dc2dfe04909040eef3d80c4e97018632291841a43bc6b480f51b973b1548e"
+  },
+  "retained_context_native_review": {
+    "scope": "Native exported complete M5 casing after self-supporting bottom pilot/tail tapers, one continuous11.6mm host section, peaked B cable side window and fitted CO2/water paths. Actual ports, M5 axes, fasteners, insert engagement and outside casing datums stay fixed. Nominal geometry only; printed force/cleanup and wet sealing are not qualified.",
+    "valid": true,
+    "solids": 1,
+    "pairs": [
+      {
+        "body": "foam-shell",
+        "neighbor": "cap-clamp-top-1",
+        "overlap_mm3": 0
+      },
+      {
+        "body": "foam-shell",
+        "neighbor": "cap-clamp-top-2",
+        "overlap_mm3": 0
+      },
+      {
+        "body": "foam-shell",
+        "neighbor": "cap-clamp-top-3",
+        "overlap_mm3": 0
+      },
+      {
+        "body": "foam-shell",
+        "neighbor": "cap-clamp-top-4",
+        "overlap_mm3": 0
+      },
+      {
+        "body": "foam-shell",
+        "neighbor": "cap-clamp-top-5",
+        "overlap_mm3": 0
+      },
+      {
+        "body": "foam-shell",
+        "neighbor": "cap-clamp-top-6",
+        "overlap_mm3": 0
+      },
+      {
+        "body": "foam-shell",
+        "neighbor": "cap-clamp-top-7",
+        "overlap_mm3": 0
+      },
+      {
+        "body": "foam-shell",
+        "neighbor": "cap-clamp-top-8",
+        "overlap_mm3": 0
+      },
+      {
+        "body": "foam-shell",
+        "neighbor": "cap-clamp-top-9",
+        "overlap_mm3": 0
+      },
+      {
+        "body": "foam-shell",
+        "neighbor": "cap-clamp-top-10",
+        "overlap_mm3": 0
+      },
+      {
+        "body": "foam-shell",
+        "neighbor": "cap-clamp-bottom-1",
+        "overlap_mm3": 0
+      },
+      {
+        "body": "foam-shell",
+        "neighbor": "cap-clamp-bottom-2",
+        "overlap_mm3": 0
+      },
+      {
+        "body": "foam-shell",
+        "neighbor": "cap-clamp-bottom-3",
+        "overlap_mm3": 0
+      },
+      {
+        "body": "foam-shell",
+        "neighbor": "cap-clamp-bottom-4",
+        "overlap_mm3": 0
+      },
+      {
+        "body": "foam-shell",
+        "neighbor": "cap-clamp-bottom-5",
+        "overlap_mm3": 0
+      },
+      {
+        "body": "foam-shell",
+        "neighbor": "cap-clamp-bottom-6",
+        "overlap_mm3": 0
+      },
+      {
+        "body": "foam-shell",
+        "neighbor": "cap-clamp-bottom-7",
+        "overlap_mm3": 0
+      },
+      {
+        "body": "foam-shell",
+        "neighbor": "cap-clamp-bottom-8",
+        "overlap_mm3": 0
+      },
+      {
+        "body": "foam-shell",
+        "neighbor": "cap-clamp-bottom-9",
+        "overlap_mm3": 0
+      },
+      {
+        "body": "foam-shell",
+        "neighbor": "cap-clamp-bottom-10",
+        "overlap_mm3": 0
+      },
+      {
+        "body": "foam-shell",
+        "neighbor": "reservoir-b-fill-guide",
+        "overlap_mm3": 0
+      },
+      {
+        "body": "foam-shell",
+        "neighbor": "carbonator-tube",
+        "overlap_mm3": 0
+      },
+      {
+        "body": "foam-shell",
+        "neighbor": "endcap-bottom",
+        "overlap_mm3": 0
+      },
+      {
+        "body": "foam-shell",
+        "neighbor": "endcap-top",
+        "overlap_mm3": 0
+      },
+      {
+        "body": "foam-shell",
+        "neighbor": "float-rod-carb",
+        "overlap_mm3": 0
+      },
+      {
+        "body": "foam-shell",
+        "neighbor": "float-stop-carb-top",
+        "overlap_mm3": 0
+      },
+      {
+        "body": "foam-shell",
+        "neighbor": "carbonator-earth-screw",
+        "overlap_mm3": 0
+      },
+      {
+        "body": "foam-shell",
+        "neighbor": "carbonator-earth-lockwasher",
+        "overlap_mm3": 0
+      },
+      {
+        "body": "foam-shell",
+        "neighbor": "carbonator-elbow-co2-in",
+        "overlap_mm3": 0
+      },
+      {
+        "body": "foam-shell",
+        "neighbor": "carbonator-elbow-carb-water-out",
+        "overlap_mm3": 0
+      },
+      {
+        "body": "foam-shell",
+        "neighbor": "carbonator-elbow-water-in",
+        "overlap_mm3": 0
+      },
+      {
+        "body": "foam-shell",
+        "neighbor": "carbonator-elbow-prv",
+        "overlap_mm3": 0
+      },
+      {
+        "body": "foam-shell",
+        "neighbor": "reservoir-a",
+        "overlap_mm3": 0
+      },
+      {
+        "body": "foam-shell",
+        "neighbor": "reservoir-a-cap",
+        "overlap_mm3": 0
+      },
+      {
+        "body": "foam-shell",
+        "neighbor": "reservoir-a-gasket",
+        "overlap_mm3": 0
+      },
+      {
+        "body": "foam-shell",
+        "neighbor": "reservoir-b",
+        "overlap_mm3": 0
+      },
+      {
+        "body": "foam-shell",
+        "neighbor": "reservoir-b-cap",
+        "overlap_mm3": 0
+      },
+      {
+        "body": "foam-shell",
+        "neighbor": "reservoir-b-gasket",
+        "overlap_mm3": 0
+      },
+      {
+        "body": "foam-shell",
+        "neighbor": "reservoir-grip-a-fill",
+        "overlap_mm3": 0
+      },
+      {
+        "body": "foam-shell",
+        "neighbor": "reservoir-grip-a-draw",
+        "overlap_mm3": 0
+      },
+      {
+        "body": "foam-shell",
+        "neighbor": "reservoir-grip-a-air",
+        "overlap_mm3": 0
+      },
+      {
+        "body": "foam-shell",
+        "neighbor": "tube-reservoir-air-a",
+        "overlap_mm3": 0
+      },
+      {
+        "body": "foam-shell",
+        "neighbor": "reservoir-grip-b-fill",
+        "overlap_mm3": 0
+      },
+      {
+        "body": "foam-shell",
+        "neighbor": "reservoir-grip-b-draw",
+        "overlap_mm3": 0
+      },
+      {
+        "body": "foam-shell",
+        "neighbor": "reservoir-grip-b-air",
+        "overlap_mm3": 0
+      },
+      {
+        "body": "foam-shell",
+        "neighbor": "tube-reservoir-air-b",
+        "overlap_mm3": 0
+      },
+      {
+        "body": "foam-shell",
+        "neighbor": "evap-coil",
+        "overlap_mm3": 0
+      },
+      {
+        "body": "foam-shell",
+        "neighbor": "evap-tail-inlet",
+        "overlap_mm3": 0
+      },
+      {
+        "body": "foam-shell",
+        "neighbor": "evap-tail-outlet",
+        "overlap_mm3": 0
+      },
+      {
+        "body": "foam-shell",
+        "neighbor": "water-inlet-jet-cap-nominal",
+        "overlap_mm3": 0
+      },
+      {
+        "body": "foam-shell",
+        "neighbor": "collet-water-in",
+        "overlap_mm3": 0
+      },
+      {
+        "body": "foam-shell",
+        "neighbor": "float-carb",
+        "overlap_mm3": 0
+      },
+      {
+        "body": "foam-shell",
+        "neighbor": "reed-carb-1",
+        "overlap_mm3": 0
+      },
+      {
+        "body": "foam-shell",
+        "neighbor": "reed-carb-2",
+        "overlap_mm3": 0
+      },
+      {
+        "body": "foam-shell",
+        "neighbor": "float-rod-a",
+        "overlap_mm3": 0
+      },
+      {
+        "body": "foam-shell",
+        "neighbor": "float-a",
+        "overlap_mm3": 0
+      },
+      {
+        "body": "foam-shell",
+        "neighbor": "reed-a-1",
+        "overlap_mm3": 0
+      },
+      {
+        "body": "foam-shell",
+        "neighbor": "reed-a-2",
+        "overlap_mm3": 0
+      },
+      {
+        "body": "foam-shell",
+        "neighbor": "reed-a-3",
+        "overlap_mm3": 0
+      },
+      {
+        "body": "foam-shell",
+        "neighbor": "reed-a-4",
+        "overlap_mm3": 0
+      },
+      {
+        "body": "foam-shell",
+        "neighbor": "float-rod-b",
+        "overlap_mm3": 0
+      },
+      {
+        "body": "foam-shell",
+        "neighbor": "float-b",
+        "overlap_mm3": 0
+      },
+      {
+        "body": "foam-shell",
+        "neighbor": "reed-b-1",
+        "overlap_mm3": 0
+      },
+      {
+        "body": "foam-shell",
+        "neighbor": "reed-b-2",
+        "overlap_mm3": 0
+      },
+      {
+        "body": "foam-shell",
+        "neighbor": "reed-b-3",
+        "overlap_mm3": 0
+      },
+      {
+        "body": "foam-shell",
+        "neighbor": "reed-b-4",
+        "overlap_mm3": 0
+      },
+      {
+        "body": "foam-shell",
+        "neighbor": "probe-carbonator-ds18b20",
+        "overlap_mm3": 0
+      },
+      {
+        "body": "foam-shell",
+        "neighbor": "probe-coil-ds18s20",
+        "overlap_mm3": 0
+      },
+      {
+        "body": "foam-shell",
+        "neighbor": "prv-sv125",
+        "overlap_mm3": 0
+      },
+      {
+        "body": "foam-shell",
+        "neighbor": "prv-shroud",
+        "overlap_mm3": 0
+      },
+      {
+        "body": "foam-shell",
+        "neighbor": "reed-bridge",
+        "overlap_mm3": 0
+      },
+      {
+        "body": "foam-shell",
+        "neighbor": "line-carb-water-out",
+        "overlap_mm3": 0
+      },
+      {
+        "body": "foam-shell",
+        "neighbor": "line-co2-in",
+        "overlap_mm3": 0
+      },
+      {
+        "body": "foam-shell",
+        "neighbor": "line-prv-vent",
+        "overlap_mm3": 0
+      },
+      {
+        "body": "foam-shell",
+        "neighbor": "line-reservoir-a",
+        "overlap_mm3": 0
+      },
+      {
+        "body": "foam-shell",
+        "neighbor": "line-reservoir-a-fill",
+        "overlap_mm3": 0
+      },
+      {
+        "body": "foam-shell",
+        "neighbor": "line-reservoir-b",
+        "overlap_mm3": 0
+      },
+      {
+        "body": "foam-shell",
+        "neighbor": "line-reservoir-b-fill",
+        "overlap_mm3": 0
+      },
+      {
+        "body": "foam-shell",
+        "neighbor": "line-water-in",
+        "overlap_mm3": 0
+      }
+    ],
+    "tail_clearances": [
+      {
+        "side": "bottom",
+        "station": 1,
+        "full_cylindrical_clearance_depth_mm": 87.9,
+        "minimum_nominal_tip_air_mm": 2.5,
+        "blocked_mm3": 0
+      },
+      {
+        "side": "bottom",
+        "station": 2,
+        "full_cylindrical_clearance_depth_mm": 87.9,
+        "minimum_nominal_tip_air_mm": 2.5,
+        "blocked_mm3": 0
+      },
+      {
+        "side": "bottom",
+        "station": 3,
+        "full_cylindrical_clearance_depth_mm": 87.9,
+        "minimum_nominal_tip_air_mm": 2.5,
+        "blocked_mm3": 0
+      },
+      {
+        "side": "bottom",
+        "station": 4,
+        "full_cylindrical_clearance_depth_mm": 87.9,
+        "minimum_nominal_tip_air_mm": 2.5,
+        "blocked_mm3": 0
+      },
+      {
+        "side": "bottom",
+        "station": 5,
+        "full_cylindrical_clearance_depth_mm": 87.9,
+        "minimum_nominal_tip_air_mm": 2.5,
+        "blocked_mm3": 0
+      },
+      {
+        "side": "bottom",
+        "station": 6,
+        "full_cylindrical_clearance_depth_mm": 87.9,
+        "minimum_nominal_tip_air_mm": 2.5,
+        "blocked_mm3": 0
+      },
+      {
+        "side": "bottom",
+        "station": 7,
+        "full_cylindrical_clearance_depth_mm": 87.9,
+        "minimum_nominal_tip_air_mm": 2.5,
+        "blocked_mm3": 0
+      },
+      {
+        "side": "bottom",
+        "station": 8,
+        "full_cylindrical_clearance_depth_mm": 87.9,
+        "minimum_nominal_tip_air_mm": 2.5,
+        "blocked_mm3": 0
+      },
+      {
+        "side": "bottom",
+        "station": 9,
+        "full_cylindrical_clearance_depth_mm": 87.9,
+        "minimum_nominal_tip_air_mm": 2.5,
+        "blocked_mm3": 0
+      },
+      {
+        "side": "bottom",
+        "station": 10,
+        "full_cylindrical_clearance_depth_mm": 87.9,
+        "minimum_nominal_tip_air_mm": 2.5,
+        "blocked_mm3": 0
+      },
+      {
+        "side": "top",
+        "station": 1,
+        "full_cylindrical_clearance_depth_mm": 100.1,
+        "minimum_nominal_tip_air_mm": 2.5,
+        "blocked_mm3": 0
+      },
+      {
+        "side": "top",
+        "station": 2,
+        "full_cylindrical_clearance_depth_mm": 100.1,
+        "minimum_nominal_tip_air_mm": 2.5,
+        "blocked_mm3": 0
+      },
+      {
+        "side": "top",
+        "station": 3,
+        "full_cylindrical_clearance_depth_mm": 100.1,
+        "minimum_nominal_tip_air_mm": 2.5,
+        "blocked_mm3": 0
+      },
+      {
+        "side": "top",
+        "station": 4,
+        "full_cylindrical_clearance_depth_mm": 100.1,
+        "minimum_nominal_tip_air_mm": 2.5,
+        "blocked_mm3": 0
+      },
+      {
+        "side": "top",
+        "station": 5,
+        "full_cylindrical_clearance_depth_mm": 100.1,
+        "minimum_nominal_tip_air_mm": 2.5,
+        "blocked_mm3": 0
+      },
+      {
+        "side": "top",
+        "station": 6,
+        "full_cylindrical_clearance_depth_mm": 100.1,
+        "minimum_nominal_tip_air_mm": 2.5,
+        "blocked_mm3": 0
+      },
+      {
+        "side": "top",
+        "station": 7,
+        "full_cylindrical_clearance_depth_mm": 100.1,
+        "minimum_nominal_tip_air_mm": 2.5,
+        "blocked_mm3": 0
+      },
+      {
+        "side": "top",
+        "station": 8,
+        "full_cylindrical_clearance_depth_mm": 100.1,
+        "minimum_nominal_tip_air_mm": 2.5,
+        "blocked_mm3": 0
+      },
+      {
+        "side": "top",
+        "station": 9,
+        "full_cylindrical_clearance_depth_mm": 100.1,
+        "minimum_nominal_tip_air_mm": 2.5,
+        "blocked_mm3": 0
+      },
+      {
+        "side": "top",
+        "station": 10,
+        "full_cylindrical_clearance_depth_mm": 100.1,
+        "minimum_nominal_tip_air_mm": 2.5,
+        "blocked_mm3": 0
+      }
+    ],
+    "radii": {
+      "water-in": {
+        "minimum_radius_mm": 14.0,
+        "endpoints_native_mm": [
+          [
+            0.0,
+            -19.049999999999997,
+            199.4
+          ],
+          [
+            96.19999999999999,
+            82.5,
+            233.4
+          ]
+        ],
+        "control_points_native_mm": [
+          [
+            0.0,
+            -19.049999999999997,
+            199.4
+          ],
+          [
+            -40.80000000000001,
+            20.0,
+            199.4
+          ],
+          [
+            -40.80000000000001,
+            56.896997811882045,
+            199.4
+          ],
+          [
+            -40.80000000000001,
+            70.5,
+            184.5
+          ],
+          [
+            44.91547606649408,
+            70.5,
+            184.5
+          ],
+          [
+            53.08044187577133,
+            78.5,
+            184.5
+          ],
+          [
+            61.19999999999999,
+            78.5,
+            184.5
+          ],
+          [
+            96.19999999999999,
+            82.5,
+            184.5
+          ],
+          [
+            96.19999999999999,
+            82.5,
+            233.4
+          ]
+        ]
+      },
+      "co2-in": {
+        "minimum_radius_mm": 14.0,
+        "endpoints_native_mm": [
+          [
+            30.863999999999976,
+            -59.101,
+            233.4
+          ],
+          [
+            0.0,
+            -19.049999999999997,
+            20.8
+          ]
+        ],
+        "control_points_native_mm": [
+          [
+            30.863999999999976,
+            -59.101,
+            233.4
+          ],
+          [
+            30.863999999999976,
+            -59.101,
+            198.54944085607812
+          ],
+          [
+            48.0,
+            -75.0,
+            194.6350684805417
+          ],
+          [
+            48.0,
+            -75.0,
+            20.8
+          ],
+          [
+            0.0,
+            -19.049999999999997,
+            20.8
+          ]
+        ]
+      }
+    },
+    "B_window": {
+      "axis_xy_mm": [
+        -134.5,
+        32.5
+      ],
+      "front_x_mm": -141.2,
+      "width_mm": 8.0,
+      "depth_mm": 6.0,
+      "top_z_mm": 213.4,
+      "bottom_z_mm": 207.4,
+      "roof_shoulder_z_mm": 213.65,
+      "roof_peak_z_mm": 221.65,
+      "notch_min_mm": [
+        -142.2,
+        28.5,
+        207.4
+      ],
+      "notch_max_mm": [
+        -134.5,
+        36.5,
+        221.65
+      ],
+      "header_above_roof_peak_mm": 4.199999999999989
+    },
+    "host_outer_diameter_mm": 11.6,
+    "tail_radial_stock_mm": 3.1999999999999997,
+    "insert_radial_stock_mm": 2.5999999999999996,
+    "files": {
+      "hardware/printed-parts/cold-core/foam-shell/foam-shell.step": "5c62394f778266c266b8a239dcea443592a358b98ccaa97c02c2cbc70e324b3d",
+      "hardware/printed-parts/cold-core/foam-shell/foam-shell.stl": "3e2df5c20a57200e56a27dbba0ca512e2f2b9c5d795777bed16de18db7952501",
+      "hardware/printed-parts/cold-core/foam-shell/foam-shell.step.mesh": "9ab339295f5d12a7bcf61ab1c019b491865288bc6ba997c87c9ce651ff691685",
+      "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step": "1b3c63bd10584a60815570d17850582bfbae3229ddd1b7e600c9f8435ab4d200",
+      "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step.mesh": "dd55896e91a03d6cdcedefc649fbe48ed6692963d625be8d51c92c90cc5bb330",
+      "hardware/cold-core-layout/cold-core-assembly.step": "c63007ab941f1a8c025870700105d758fde1d48ef34e8bde29d7f168f75ba927",
+      "hardware/cold-core-layout/cold-core-assembly.step.mesh": "51f0416fa7cfe5ec0990364f976f0fd19e858972001bdcd55765daacd82430fe"
+    },
+    "source_sha256": {
+      "hardware/printed-parts/cold-core/_cold_core_interface.py": "fa6571183b1a1e6274a232d90acf5d4052a21df7c9571ded8cab32ada03b9af3",
+      "hardware/printed-parts/cold-core/_outer_shell.py": "8d7dc9ac69dd78d31705046aa60654cc73347798e40235c01473cf5e6f165beb",
+      "hardware/printed-parts/cold-core/_reed_b_outlet.py": "5bf2fb7268a598178b40cfb63cad17309dfa781215668ef1c00297e796341885",
+      "hardware/printed-parts/cold-core/_internal_routes.py": "6166cdab9483824380309de96a60193d33d829cb9e9487aa234297305d7adcdd",
+      "hardware/printed-parts/cold-core/_port_cuts.py": "9710799e781b1be205c769d0d79edd7a27d4e0cf4c8a7c86ae098f5683048718"
+    },
+    "actual_route_rows": [
+      {
+        "id": "bodies-clear",
+        "label": "No two placed solids share volume",
+        "kind": "gate",
+        "status": "pass",
+        "value": "0 clash",
+        "target": "0 clash",
+        "detail": [
+          "carbonator-tube \u2229 evap-coil: the wrap rides it \u2014 see RIDES_ON",
+          "evap-coil \u2229 reed-bridge: the wrap rides it \u2014 see RIDES_ON",
+          "evap-coil \u2229 reed-carb-1: the wrap rides it \u2014 see RIDES_ON",
+          "evap-coil \u2229 reed-carb-2: the wrap rides it \u2014 see RIDES_ON"
+        ],
+        "active": true
+      },
+      {
+        "id": "routes-fit",
+        "label": "No line meets a solid",
+        "kind": "gate",
+        "status": "pass",
+        "value": "8/8 clear",
+        "target": "every line clear",
+        "detail": [],
+        "active": true
+      },
+      {
+        "id": "lines-apart",
+        "label": "No two runs want the same corridor",
+        "kind": "gate",
+        "status": "pass",
+        "value": "0 crossing",
+        "target": "0 crossing",
+        "detail": [],
+        "active": true
+      },
+      {
+        "id": "arcs-hold",
+        "label": "Every corner turns at the stock arc",
+        "kind": "gate",
+        "status": "pass",
+        "value": "19/19 corners at stock",
+        "target": "14.00 mm",
+        "detail": [],
+        "active": true
+      }
+    ],
+    "unresolved": [],
+    "pass": true,
+    "elapsed_seconds": 24.57417966600042,
+    "peak_resident_set_bytes": 1175552000
+  },
+  "parts": {
+    "foam-shell": {
+      "physical_stl": "hardware/printed-parts/cold-core/foam-shell/foam-shell.stl",
+      "physical_stl_sha256": "3e2df5c20a57200e56a27dbba0ca512e2f2b9c5d795777bed16de18db7952501",
+      "current_native_step_sha256": "5c62394f778266c266b8a239dcea443592a358b98ccaa97c02c2cbc70e324b3d",
+      "native_slice_step_sha256": "5c62394f778266c266b8a239dcea443592a358b98ccaa97c02c2cbc70e324b3d",
+      "preparation_directory": ".cache/prints/enclosure-continuous-clip-final-2eb222ae/2026-11-01-foam-shell-mark2-21008fb6",
+      "preparation_sha256": "d32a92cc780d39c814571feb0f21308c0fef80dd570591d4afae0dbf4d114ced",
+      "archive_sha256": "4807a4877f2830b469df8e682f812a92f698c815d65df7364fa3cefde5e7ea96",
+      "printer": "Mark2",
+      "nozzle": {
+        "side": "left",
+        "diameter_mm": 0.4,
+        "flow": "Standard",
+        "hardened": true,
+        "reason": "Smooth 2.38 mm cold-core casing: 0.42 mm outer and 0.45 mm inner lines at 0.24 mm layers, three loops from each boundary.",
+        "sliced_diameter_mm": 0.4,
+        "sliced_volume_type": "Standard"
+      },
+      "profile_sha256": "45c16e8c8517e0a205107d7b9f7412d013f51a8de7ecf86125cc940079d37ed0",
+      "settings_changes": {
+        "extruder_ams_count": {
+          "from": [
+            "1#0|4#1",
+            "1#0|4#0"
+          ],
+          "to": [
+            "1#0|4#0",
+            "1#0|4#0"
+          ],
+          "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface."
+        },
+        "support_filament": {
+          "from": "0",
+          "to": "1",
+          "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface."
+        },
+        "support_interface_filament": {
+          "from": "0",
+          "to": "1",
+          "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface."
+        },
+        "flush_into_support": {
+          "from": "1",
+          "to": "0",
+          "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface."
+        },
+        "filament_colour": {
+          "from": [
+            "#000000"
+          ],
+          "to": [
+            "#161616"
+          ],
+          "reason": "Mark2's loaded black PET-GF colour reading."
+        },
+        "wall_loops": {
+          "from": "2",
+          "to": "3",
+          "reason": "Derek selected 2.38 mm standing walls, packed with six perimeter beads."
+        },
+        "wall_generator": {
+          "from": "classic",
+          "to": "classic",
+          "reason": "Three fixed-width perimeters from each wall boundary."
+        },
+        "sparse_infill_pattern": {
+          "from": "gyroid",
+          "to": "gyroid",
+          "reason": "Retain 15% gyroid in thicker regions."
+        },
+        "enable_support": {
+          "from": "1",
+          "to": "1",
+          "reason": "Tree(auto)/Default decides support at the round copper passages and blind insert roofs; native support placement is reviewed for this production geometry."
+        },
+        "outer_wall_speed": {
+          "from": [
+            "200",
+            "200",
+            "200",
+            "200",
+            "200"
+          ],
+          "to": [
+            "100",
+            "100",
+            "100",
+            "100",
+            "100"
+          ],
+          "reason": "Full-height production shell: gentler deposition and motion through the continuous 2.38 mm walls."
+        },
+        "inner_wall_speed": {
+          "from": [
+            "300",
+            "300",
+            "300",
+            "300",
+            "300"
+          ],
+          "to": [
+            "150",
+            "150",
+            "150",
+            "150",
+            "150"
+          ],
+          "reason": "Full-height production shell: gentler deposition and motion through the continuous 2.38 mm walls."
+        },
+        "outer_wall_acceleration": {
+          "from": [
+            "5000",
+            "5000",
+            "5000",
+            "5000",
+            "5000"
+          ],
+          "to": [
+            "1500",
+            "1500",
+            "1500",
+            "1500",
+            "1500"
+          ],
+          "reason": "Full-height production shell: gentler deposition and motion through the continuous 2.38 mm walls."
+        },
+        "inner_wall_acceleration": {
+          "from": [
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+          ],
+          "to": [
+            "3000",
+            "3000",
+            "3000",
+            "3000",
+            "3000"
+          ],
+          "reason": "Full-height production shell: gentler deposition and motion through the continuous 2.38 mm walls."
+        },
+        "default_acceleration": {
+          "from": [
+            "8000",
+            "8000",
+            "8000",
+            "8000",
+            "8000"
+          ],
+          "to": [
+            "3000",
+            "3000",
+            "3000",
+            "3000",
+            "3000"
+          ],
+          "reason": "Full-height production shell: gentler deposition and motion through the continuous 2.38 mm walls."
+        },
+        "travel_acceleration": {
+          "from": [
+            "10000",
+            "10000",
+            "10000",
+            "10000",
+            "10000"
+          ],
+          "to": [
+            "5000",
+            "5000",
+            "5000",
+            "5000",
+            "5000"
+          ],
+          "reason": "Full-height production shell: gentler deposition and motion through the continuous 2.38 mm walls."
+        },
+        "support_type": {
+          "from": "tree(auto)",
+          "to": "tree(auto)",
+          "reason": "Tree(auto)/Default decides support at the round copper passages and blind insert roofs; native support placement is reviewed for this production geometry."
+        },
+        "support_style": {
+          "from": "default",
+          "to": "default",
+          "reason": "Tree(auto)/Default decides support at the round copper passages and blind insert roofs; native support placement is reviewed for this production geometry."
+        },
+        "filament_density": {
+          "from": [
+            "1.29"
+          ],
+          "to": [
+            "1.43"
+          ],
+          "reason": "Polymaker Fiberon PET-GF15 TDS density is 1.43 g/cm3; this corrects feed-mass and cost reporting without changing extrusion volume. https://fiberon.polymaker.com/wp-content/uploads/TDS_FIBERON-PET-GF15_V1.0_EN.pdf"
+        }
+      },
+      "checks": {
+        "archive": true,
+        "z_trim": true,
+        "bed_border": true,
+        "fine_and_transition_bands": true,
+        "show_faces_support_free": true,
+        "tie_windows_support_free": true,
+        "ribbons_support_free_and_printed": true,
+        "solid_hosts_sampled": true
+      },
+      "minimum_bed_margin_mm": 21.106814,
+      "bed_border_mm": 20.0,
+      "solid_host_deposition": [
+        {
+          "object": 1901,
+          "name": "M5 host 1, both inserts, tail and wall root",
+          "plate_bounds_mm": [
+            [
+              21.301003052,
+              91.2,
+              0.0010000000000047748
+            ],
+            [
+              35.89999999999999,
+              108.8,
+              225.84900610399998
+            ]
+          ],
+          "samples": [
+            {
+              "print_z_mm": 0.44,
+              "coverage": 0.9972242114743347,
+              "stock_mm2": 224.77577442204029
+            },
+            {
+              "print_z_mm": 113.0,
+              "coverage": 0.9946100120364795,
+              "stock_mm2": 162.45377177187524
+            },
+            {
+              "print_z_mm": 225.56,
+              "coverage": 0.9933574445600823,
+              "stock_mm2": 102.21191184137408
+            }
+          ],
+          "minimum_coverage": 0.9933574445600823
+        },
+        {
+          "object": 1901,
+          "name": "M5 host 2, both inserts, tail and wall root",
+          "plate_bounds_mm": [
+            [
+              21.301003052,
+              151.2,
+              0.0010000000000047748
+            ],
+            [
+              35.89999999999999,
+              168.8,
+              225.84900610399998
+            ]
+          ],
+          "samples": [
+            {
+              "print_z_mm": 0.44,
+              "coverage": 0.998314020690969,
+              "stock_mm2": 224.77577446007516
+            },
+            {
+              "print_z_mm": 113.0,
+              "coverage": 0.9955910289353556,
+              "stock_mm2": 161.59330005498134
+            },
+            {
+              "print_z_mm": 225.56,
+              "coverage": 0.9947877942647697,
+              "stock_mm2": 102.21189488054708
+            }
+          ],
+          "minimum_coverage": 0.9947877942647697
+        },
+        {
+          "object": 1901,
+          "name": "M5 host 3, both inserts, tail and wall root",
+          "plate_bounds_mm": [
+            [
+              21.301003052,
+              211.2,
+              0.0010000000000047748
+            ],
+            [
+              35.89999999999999,
+              228.8,
+              225.84900610399998
+            ]
+          ],
+          "samples": [
+            {
+              "print_z_mm": 0.44,
+              "coverage": 0.9973642329755223,
+              "stock_mm2": 224.7757744220406
+            },
+            {
+              "print_z_mm": 113.0,
+              "coverage": 0.9950752319130833,
+              "stock_mm2": 162.45377182967275
+            },
+            {
+              "print_z_mm": 225.56,
+              "coverage": 0.9949221825469687,
+              "stock_mm2": 102.21191184137416
+            }
+          ],
+          "minimum_coverage": 0.9949221825469687
+        },
+        {
+          "object": 1901,
+          "name": "M5 host 4, both inserts, tail and wall root",
+          "plate_bounds_mm": [
+            [
+              289.1,
+              91.2,
+              0.0010000000000047748
+            ],
+            [
+              303.698996948,
+              108.8,
+              225.84900610399998
+            ]
+          ],
+          "samples": [
+            {
+              "print_z_mm": 0.44,
+              "coverage": 0.9986863380407728,
+              "stock_mm2": 224.77577453271556
+            },
+            {
+              "print_z_mm": 113.0,
+              "coverage": 0.9950654573092689,
+              "stock_mm2": 162.4537716727943
+            },
+            {
+              "print_z_mm": 225.56,
+              "coverage": 0.9948974849329095,
+              "stock_mm2": 102.21191183055016
+            }
+          ],
+          "minimum_coverage": 0.9948974849329095
+        },
+        {
+          "object": 1901,
+          "name": "M5 host 5, both inserts, tail and wall root",
+          "plate_bounds_mm": [
+            [
+              289.1,
+              151.2,
+              0.0010000000000047748
+            ],
+            [
+              303.698996948,
+              168.8,
+              225.84900610399998
+            ]
+          ],
+          "samples": [
+            {
+              "print_z_mm": 0.44,
+              "coverage": 0.9986588002062518,
+              "stock_mm2": 224.77577457077888
+            },
+            {
+              "print_z_mm": 113.0,
+              "coverage": 0.995623898281753,
+              "stock_mm2": 161.59330005498126
+            },
+            {
+              "print_z_mm": 225.56,
+              "coverage": 0.995492949426382,
+              "stock_mm2": 102.2118948697208
+            }
+          ],
+          "minimum_coverage": 0.995492949426382
+        },
+        {
+          "object": 1901,
+          "name": "M5 host 6, both inserts, tail and wall root",
+          "plate_bounds_mm": [
+            [
+              289.1,
+              211.2,
+              0.0010000000000047748
+            ],
+            [
+              303.698996948,
+              228.8,
+              225.84900610399998
+            ]
+          ],
+          "samples": [
+            {
+              "print_z_mm": 0.44,
+              "coverage": 0.9986332643971741,
+              "stock_mm2": 224.7757745327159
+            },
+            {
+              "print_z_mm": 113.0,
+              "coverage": 0.9947798187023928,
+              "stock_mm2": 162.45377182522083
+            },
+            {
+              "print_z_mm": 225.56,
+              "coverage": 0.993460051922972,
+              "stock_mm2": 102.21191183055032
+            }
+          ],
+          "minimum_coverage": 0.993460051922972
+        },
+        {
+          "object": 1901,
+          "name": "M5 host 7, both inserts, tail and wall root",
+          "plate_bounds_mm": [
+            [
+              198.7,
+              69.801003052,
+              0.0010000000000047748
+            ],
+            [
+              216.3,
+              84.39999999999999,
+              225.84900610399998
+            ]
+          ],
+          "samples": [
+            {
+              "print_z_mm": 0.44,
+              "coverage": 0.9974575001972291,
+              "stock_mm2": 224.77577276793568
+            },
+            {
+              "print_z_mm": 113.0,
+              "coverage": 0.996536618125843,
+              "stock_mm2": 134.37845363091273
+            },
+            {
+              "print_z_mm": 225.56,
+              "coverage": 0.9937828650152363,
+              "stock_mm2": 102.2118798128912
+            }
+          ],
+          "minimum_coverage": 0.9937828650152363
+        },
+        {
+          "object": 1901,
+          "name": "M5 host 8, both inserts, tail and wall root",
+          "plate_bounds_mm": [
+            [
+              198.7,
+              235.60000000000002,
+              0.0010000000000047748
+            ],
+            [
+              216.3,
+              250.198996948,
+              225.84900610399998
+            ]
+          ],
+          "samples": [
+            {
+              "print_z_mm": 0.44,
+              "coverage": 0.9981804918944936,
+              "stock_mm2": 224.77577296082848
+            },
+            {
+              "print_z_mm": 113.0,
+              "coverage": 0.9965993662434662,
+              "stock_mm2": 134.37845364821774
+            },
+            {
+              "print_z_mm": 225.56,
+              "coverage": 0.9943986619119083,
+              "stock_mm2": 102.21187989987925
+            }
+          ],
+          "minimum_coverage": 0.9943986619119083
+        },
+        {
+          "object": 1901,
+          "name": "M5 host 9, both inserts, tail and wall root",
+          "plate_bounds_mm": [
+            [
+              263.7,
+              69.801003052,
+              0.0010000000000047748
+            ],
+            [
+              281.3,
+              84.39999999999999,
+              225.84900610399998
+            ]
+          ],
+          "samples": [
+            {
+              "print_z_mm": 0.44,
+              "coverage": 0.9986370576320245,
+              "stock_mm2": 224.7757751176132
+            },
+            {
+              "print_z_mm": 113.0,
+              "coverage": 0.996650487060164,
+              "stock_mm2": 134.3784794303672
+            },
+            {
+              "print_z_mm": 225.56,
+              "coverage": 0.9941709999886974,
+              "stock_mm2": 102.2119076816982
+            }
+          ],
+          "minimum_coverage": 0.9941709999886974
+        },
+        {
+          "object": 1901,
+          "name": "M5 host 10, both inserts, tail and wall root",
+          "plate_bounds_mm": [
+            [
+              263.7,
+              235.60000000000002,
+              0.0010000000000047748
+            ],
+            [
+              281.3,
+              250.198996948,
+              225.84900610399998
+            ]
+          ],
+          "samples": [
+            {
+              "print_z_mm": 0.44,
+              "coverage": 0.99844938723617,
+              "stock_mm2": 224.775775310528
+            },
+            {
+              "print_z_mm": 113.0,
+              "coverage": 0.9968463483192351,
+              "stock_mm2": 134.3784794421062
+            },
+            {
+              "print_z_mm": 225.56,
+              "coverage": 0.9946318200532595,
+              "stock_mm2": 102.21190776651068
+            }
+          ],
+          "minimum_coverage": 0.9946318200532595
+        }
+      ],
+      "support_audits": [
+        {
+          "schema": 1,
+          "piece": "foam-shell",
+          "inputs": {
+            "gcode": "support-labels-1901.gcode",
+            "gcode_sha256": "32dd301c685b12deec1fae548f89d6bb7ca90e09b10215585e1ccb434c438c41",
+            "model": "/Users/derekbredensteiner/Developer/hsm-approved-asse/hardware/printed-parts/cold-core/foam-shell/foam-shell.stl",
+            "model_sha256": "3e2df5c20a57200e56a27dbba0ca512e2f2b9c5d795777bed16de18db7952501",
+            "profile": ".cache/prints/enclosure-continuous-clip-final-2eb222ae/2026-11-01-foam-shell-mark2-21008fb6/2026-11-01-foam-shell-mark2-21008fb6.3mf",
+            "profile_sha256": "144d5a1330389c6fc93594234b1484bb928d4a369d8fcabfae6822a175b3381e"
+          },
+          "slicer": "BambuStudio 02.08.02.61",
+          "first_layer_z_mm": 0.2,
+          "coordinate_frame": {
+            "plate_to_cad_transform": [
+              1.0,
+              0.0,
+              0.0,
+              0.0,
+              1.0,
+              0.0,
+              0.0,
+              0.0,
+              1.0,
+              -162.5,
+              -160.0,
+              0.0
+            ],
+            "plate_to_cad_translation_mm": [
+              -162.5,
+              -160.0,
+              0.0
+            ]
+          },
+          "slicer_settings": {
+            "layer_height": "0.24",
+            "support_bottom_z_distance": "0.3",
+            "support_interface_bottom_layers": "2",
+            "support_interface_spacing": "0.5",
+            "support_interface_top_layers": "2",
+            "support_object_xy_distance": "0.4",
+            "support_on_build_plate_only": "0",
+            "support_style": "default",
+            "support_threshold_angle": "35",
+            "support_top_z_distance": "0.45",
+            "support_type": "tree(auto)"
+          },
+          "summary": {
+            "support_bodies": 0,
+            "interface_islands": 0,
+            "bed_rooted_bodies": 0,
+            "model_rooted_bodies": 0,
+            "shortest_build_up_mm": null,
+            "bodies_without_interface_labels": 0,
+            "explicit_interface_islands": 0,
+            "shortest_labelled_build_up_mm": null
+          },
+          "trees": [],
+          "interfaces": [],
+          "interface_feature_policy": "All support bodies are retained; unlabelled interfaces have unknown contact count and build-up."
+        }
+      ],
+      "actual_support_bodies": 0,
+      "local_region_geometry_matches": true,
+      "current_recipe_values_match": true
+    },
+    "foam-cap-bottom": {
+      "physical_stl": "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl",
+      "physical_stl_sha256": "7e737e724d7031189e98a7b32bc4147a064c3055845f63949d76b30091c80387",
+      "current_native_step_sha256": "5405075b66f7853c84ddfcc1d911845e4aab4303f6a06e3b08d18b6a08bd3e36",
+      "native_slice_step_sha256": "5405075b66f7853c84ddfcc1d911845e4aab4303f6a06e3b08d18b6a08bd3e36",
+      "preparation_directory": ".cache/prints/enclosure-continuous-clip-final-2eb222ae/2026-11-01-foam-cap-bottom-mark2-d9cd5c04",
+      "preparation_sha256": "b1101a76faab62e409899a0b4430b07ce4d1902d845190faecb6b71e6058991a",
+      "archive_sha256": "94b600708f46acd9f53a97b5c90b467d5270a001489696d7537d333961320b67",
+      "printer": "Mark2",
+      "nozzle": {
+        "side": "left",
+        "diameter_mm": 0.4,
+        "flow": "Standard",
+        "hardened": true,
+        "reason": "Smooth 2.38 mm cold-core casing: 0.42 mm outer and 0.45 mm inner lines at 0.24 mm layers, three loops from each boundary.",
+        "sliced_diameter_mm": 0.4,
+        "sliced_volume_type": "Standard"
+      },
+      "profile_sha256": "45c16e8c8517e0a205107d7b9f7412d013f51a8de7ecf86125cc940079d37ed0",
+      "settings_changes": {
+        "extruder_ams_count": {
+          "from": [
+            "1#0|4#1",
+            "1#0|4#0"
+          ],
+          "to": [
+            "1#0|4#0",
+            "1#0|4#0"
+          ],
+          "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface."
+        },
+        "support_filament": {
+          "from": "0",
+          "to": "1",
+          "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface."
+        },
+        "support_interface_filament": {
+          "from": "0",
+          "to": "1",
+          "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface."
+        },
+        "flush_into_support": {
+          "from": "1",
+          "to": "0",
+          "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface."
+        },
+        "filament_colour": {
+          "from": [
+            "#000000"
+          ],
+          "to": [
+            "#161616"
+          ],
+          "reason": "Mark2's loaded black PET-GF colour reading."
+        },
+        "wall_loops": {
+          "from": "2",
+          "to": "3",
+          "reason": "Derek selected 2.38 mm standing walls, packed with six perimeter beads."
+        },
+        "wall_generator": {
+          "from": "classic",
+          "to": "classic",
+          "reason": "Three fixed-width perimeters from each wall boundary."
+        },
+        "sparse_infill_pattern": {
+          "from": "gyroid",
+          "to": "gyroid",
+          "reason": "Retain 15% gyroid in thicker regions."
+        },
+        "enable_support": {
+          "from": "1",
+          "to": "1",
+          "reason": "Support the ten M5 head-seat roofs with the cap-specific automatic normal/snug choice. Their pockets open outward for cleanup before hardware and foil; review every emitted contact."
+        },
+        "raft_first_layer_expansion": {
+          "from": "-1",
+          "to": "0",
+          "reason": "Omit the extra initial support-foot flange on this wide cap so the complete bead envelope remains within the required bed border. Retain the automatically placed support bodies and contacts."
+        },
+        "support_type": {
+          "from": "tree(auto)",
+          "to": "normal(auto)",
+          "reason": "Only this cap: ten 5 mm high outward-open M5 head-seat roofs. Automatic tree placements spread their feet outside the required 20 mm bed border on the 282.4 mm wide cap, including the zero-extra-flange trial. Compact normal supports stay beneath these open head pockets; review all contacts and outward removal lanes before hardware or foil."
+        },
+        "support_style": {
+          "from": "default",
+          "to": "snug",
+          "reason": "Confine this cap's normal support bodies to its ten short open M5 head-pocket ceilings, without large outside tree feet. This is a part-specific bed-footprint choice; all other casing pieces retain their own support settings."
+        }
+      },
+      "checks": {
+        "archive": true,
+        "z_trim": true,
+        "bed_border": true,
+        "fine_and_transition_bands": true,
+        "show_faces_support_free": true,
+        "tie_windows_support_free": true,
+        "ribbons_support_free_and_printed": true,
+        "solid_hosts_sampled": true
+      },
+      "minimum_bed_margin_mm": 21.019000000000002,
+      "bed_border_mm": 20.0,
+      "solid_host_deposition": [
+        {
+          "object": 1901,
+          "name": "M5 head pad 1 and floor/wall root",
+          "plate_bounds_mm": [
+            [
+              21.301003051757817,
+              90.12,
+              0.0009999999999994458
+            ],
+            [
+              36.97999999999999,
+              109.88,
+              19.849000381469725
+            ]
+          ],
+          "samples": [
+            {
+              "print_z_mm": 0.44,
+              "coverage": 0.9985861685586888,
+              "stock_mm2": 225.8206826412715
+            },
+            {
+              "print_z_mm": 10.04,
+              "coverage": 0.9931601177668041,
+              "stock_mm2": 118.28207852278507
+            },
+            {
+              "print_z_mm": 19.64,
+              "coverage": 0.9944212440040354,
+              "stock_mm2": 118.28207887154007
+            }
+          ],
+          "minimum_coverage": 0.9931601177668041
+        },
+        {
+          "object": 1901,
+          "name": "M5 head pad 2 and floor/wall root",
+          "plate_bounds_mm": [
+            [
+              21.301003051757817,
+              150.12,
+              0.0009999999999994458
+            ],
+            [
+              36.97999999999999,
+              169.88,
+              19.849000381469725
+            ]
+          ],
+          "samples": [
+            {
+              "print_z_mm": 0.44,
+              "coverage": 0.9985503695981761,
+              "stock_mm2": 225.820682110834
+            },
+            {
+              "print_z_mm": 10.04,
+              "coverage": 0.9933661728740215,
+              "stock_mm2": 118.28207330360057
+            },
+            {
+              "print_z_mm": 19.64,
+              "coverage": 0.9944140896910442,
+              "stock_mm2": 118.2820741664791
+            }
+          ],
+          "minimum_coverage": 0.9933661728740215
+        },
+        {
+          "object": 1901,
+          "name": "M5 head pad 3 and floor/wall root",
+          "plate_bounds_mm": [
+            [
+              21.301003051757817,
+              210.12,
+              0.0009999999999994458
+            ],
+            [
+              36.97999999999999,
+              229.88,
+              19.849000381469725
+            ]
+          ],
+          "samples": [
+            {
+              "print_z_mm": 0.44,
+              "coverage": 0.9986387509289498,
+              "stock_mm2": 225.82068265483608
+            },
+            {
+              "print_z_mm": 10.04,
+              "coverage": 0.9935551116194492,
+              "stock_mm2": 118.28207832822052
+            },
+            {
+              "print_z_mm": 19.64,
+              "coverage": 0.9947263382414889,
+              "stock_mm2": 118.28207880340105
+            }
+          ],
+          "minimum_coverage": 0.9935551116194492
+        },
+        {
+          "object": 1901,
+          "name": "M5 head pad 4 and floor/wall root",
+          "plate_bounds_mm": [
+            [
+              288.02,
+              90.12,
+              0.0009999999999994458
+            ],
+            [
+              303.6989969482422,
+              109.88,
+              19.849000381469725
+            ]
+          ],
+          "samples": [
+            {
+              "print_z_mm": 0.44,
+              "coverage": 0.9986265769105958,
+              "stock_mm2": 225.82068265483696
+            },
+            {
+              "print_z_mm": 10.04,
+              "coverage": 0.9941724059832776,
+              "stock_mm2": 118.28207817842242
+            },
+            {
+              "print_z_mm": 19.64,
+              "coverage": 0.9953621721197892,
+              "stock_mm2": 118.28207862939982
+            }
+          ],
+          "minimum_coverage": 0.9941724059832776
+        },
+        {
+          "object": 1901,
+          "name": "M5 head pad 5 and floor/wall root",
+          "plate_bounds_mm": [
+            [
+              288.02,
+              150.12,
+              0.0009999999999994458
+            ],
+            [
+              303.6989969482422,
+              169.88,
+              19.849000381469725
+            ]
+          ],
+          "samples": [
+            {
+              "print_z_mm": 0.44,
+              "coverage": 0.9986148691011132,
+              "stock_mm2": 225.82068211083498
+            },
+            {
+              "print_z_mm": 10.04,
+              "coverage": 0.9940850540485142,
+              "stock_mm2": 118.28207332351286
+            },
+            {
+              "print_z_mm": 19.64,
+              "coverage": 0.9955442874325533,
+              "stock_mm2": 118.28207405944573
+            }
+          ],
+          "minimum_coverage": 0.9940850540485142
+        },
+        {
+          "object": 1901,
+          "name": "M5 head pad 6 and floor/wall root",
+          "plate_bounds_mm": [
+            [
+              288.02,
+              210.12,
+              0.0009999999999994458
+            ],
+            [
+              303.6989969482422,
+              229.88,
+              19.849000381469725
+            ]
+          ],
+          "samples": [
+            {
+              "print_z_mm": 0.44,
+              "coverage": 0.9985816538259169,
+              "stock_mm2": 225.82068264127247
+            },
+            {
+              "print_z_mm": 10.04,
+              "coverage": 0.9941568416631293,
+              "stock_mm2": 118.28207847641181
+            },
+            {
+              "print_z_mm": 19.64,
+              "coverage": 0.995326053545588,
+              "stock_mm2": 118.28207873323032
+            }
+          ],
+          "minimum_coverage": 0.9941568416631293
+        },
+        {
+          "object": 1901,
+          "name": "M5 head pad 7 and floor/wall root",
+          "plate_bounds_mm": [
+            [
+              197.62,
+              69.80100305175782,
+              0.0009999999999994458
+            ],
+            [
+              217.38,
+              85.47999999999999,
+              19.849000381469725
+            ]
+          ],
+          "samples": [
+            {
+              "print_z_mm": 0.44,
+              "coverage": 0.99827816237642,
+              "stock_mm2": 225.82068126961855
+            },
+            {
+              "print_z_mm": 10.04,
+              "coverage": 0.9934625168969793,
+              "stock_mm2": 118.28212376738767
+            },
+            {
+              "print_z_mm": 19.64,
+              "coverage": 0.9950217506665348,
+              "stock_mm2": 118.28212341697314
+            }
+          ],
+          "minimum_coverage": 0.9934625168969793
+        },
+        {
+          "object": 1901,
+          "name": "M5 head pad 8 and floor/wall root",
+          "plate_bounds_mm": [
+            [
+              197.62,
+              234.52,
+              0.0009999999999994458
+            ],
+            [
+              217.38,
+              250.19899694824218,
+              19.849000381469725
+            ]
+          ],
+          "samples": [
+            {
+              "print_z_mm": 0.44,
+              "coverage": 0.9987680428292426,
+              "stock_mm2": 225.820681648998
+            },
+            {
+              "print_z_mm": 10.04,
+              "coverage": 0.9939944921213003,
+              "stock_mm2": 118.28212386475714
+            },
+            {
+              "print_z_mm": 19.64,
+              "coverage": 0.9942587967197384,
+              "stock_mm2": 118.2821233476516
+            }
+          ],
+          "minimum_coverage": 0.9939944921213003
+        },
+        {
+          "object": 1901,
+          "name": "M5 head pad 9 and floor/wall root",
+          "plate_bounds_mm": [
+            [
+              262.62,
+              69.80100305175782,
+              0.0009999999999994458
+            ],
+            [
+              282.38,
+              85.47999999999999,
+              19.849000381469725
+            ]
+          ],
+          "samples": [
+            {
+              "print_z_mm": 0.44,
+              "coverage": 0.9983527722254093,
+              "stock_mm2": 225.82068130322256
+            },
+            {
+              "print_z_mm": 10.04,
+              "coverage": 0.9933967180886093,
+              "stock_mm2": 118.28214798727817
+            },
+            {
+              "print_z_mm": 19.64,
+              "coverage": 0.9950652431828825,
+              "stock_mm2": 118.28214795403957
+            }
+          ],
+          "minimum_coverage": 0.9933967180886093
+        },
+        {
+          "object": 1901,
+          "name": "M5 head pad 10 and floor/wall root",
+          "plate_bounds_mm": [
+            [
+              262.62,
+              234.52,
+              0.0009999999999994458
+            ],
+            [
+              282.38,
+              250.19899694824218,
+              19.849000381469725
+            ]
+          ],
+          "samples": [
+            {
+              "print_z_mm": 0.44,
+              "coverage": 0.9988237498021918,
+              "stock_mm2": 225.820681576458
+            },
+            {
+              "print_z_mm": 10.04,
+              "coverage": 0.9940880216950974,
+              "stock_mm2": 118.28214810087766
+            },
+            {
+              "print_z_mm": 19.64,
+              "coverage": 0.995201098811537,
+              "stock_mm2": 118.28214791361314
+            }
+          ],
+          "minimum_coverage": 0.9940880216950974
+        }
+      ],
+      "support_audits": [
+        {
+          "schema": 1,
+          "piece": "foam-cap-bottom",
+          "inputs": {
+            "gcode": "support-labels-1901.gcode",
+            "gcode_sha256": "4d0475e04d1ae64b7daedd4d69d8de10ef923812cdb884d0a243cfdd9fb4dd69",
+            "model": "/Users/derekbredensteiner/Developer/hsm-approved-asse/hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl",
+            "model_sha256": "7e737e724d7031189e98a7b32bc4147a064c3055845f63949d76b30091c80387",
+            "profile": ".cache/prints/enclosure-continuous-clip-final-2eb222ae/2026-11-01-foam-cap-bottom-mark2-d9cd5c04/2026-11-01-foam-cap-bottom-mark2-d9cd5c04.3mf",
+            "profile_sha256": "527121b5d602daddd41fa779498e0489f99132be4cdfbd98756d904c7e1dd5e6"
+          },
+          "slicer": "BambuStudio 02.08.02.61",
+          "first_layer_z_mm": 0.2,
+          "coordinate_frame": {
+            "plate_to_cad_transform": [
+              1.0,
+              0.0,
+              0.0,
+              0.0,
+              1.0,
+              0.0,
+              0.0,
+              0.0,
+              1.0,
+              -162.5,
+              -160.0,
+              -0.0
+            ],
+            "plate_to_cad_translation_mm": [
+              -162.5,
+              -160.0,
+              -0.0
+            ]
+          },
+          "slicer_settings": {
+            "layer_height": "0.24",
+            "support_bottom_z_distance": "0.3",
+            "support_interface_bottom_layers": "2",
+            "support_interface_spacing": "0.5",
+            "support_interface_top_layers": "2",
+            "support_object_xy_distance": "0.4",
+            "support_on_build_plate_only": "0",
+            "support_style": "snug",
+            "support_threshold_angle": "35",
+            "support_top_z_distance": "0.45",
+            "support_type": "normal(auto)"
+          },
+          "summary": {
+            "support_bodies": 10,
+            "interface_islands": 10,
+            "bed_rooted_bodies": 10,
+            "model_rooted_bodies": 0,
+            "shortest_build_up_mm": 4.562,
+            "bodies_without_interface_labels": 0,
+            "explicit_interface_islands": 10,
+            "shortest_labelled_build_up_mm": 4.562
+          },
+          "trees": [
+            {
+              "id": "tree-1",
+              "root": "bed",
+              "base_z_mm": 0.2,
+              "first_interface_z_mm": 4.762,
+              "shortest_build_up_mm": 4.562,
+              "top_z_mm": 5.03,
+              "bbox_xy_mm": [
+                21.2,
+                96.0,
+                31.2,
+                104.0
+              ],
+              "interfaces": [
+                "interface-1"
+              ],
+              "interface_reading": "explicit_feature",
+              "bbox_cad_xyz_mm": [
+                -141.3,
+                -64.0,
+                0.2,
+                -131.3,
+                -56.0,
+                5.03
+              ],
+              "removal_lane": "Outward through its short open M5 head pocket, before hardware, foil or foam; the cap is separate and unloaded. This states geometric access, not physical removal force."
+            },
+            {
+              "id": "tree-2",
+              "root": "bed",
+              "base_z_mm": 0.2,
+              "first_interface_z_mm": 4.762,
+              "shortest_build_up_mm": 4.562,
+              "top_z_mm": 5.03,
+              "bbox_xy_mm": [
+                21.2,
+                156.0,
+                31.2,
+                164.0
+              ],
+              "interfaces": [
+                "interface-2"
+              ],
+              "interface_reading": "explicit_feature",
+              "bbox_cad_xyz_mm": [
+                -141.3,
+                -4.0,
+                0.2,
+                -131.3,
+                4.0,
+                5.03
+              ],
+              "removal_lane": "Outward through its short open M5 head pocket, before hardware, foil or foam; the cap is separate and unloaded. This states geometric access, not physical removal force."
+            },
+            {
+              "id": "tree-3",
+              "root": "bed",
+              "base_z_mm": 0.2,
+              "first_interface_z_mm": 4.762,
+              "shortest_build_up_mm": 4.562,
+              "top_z_mm": 5.03,
+              "bbox_xy_mm": [
+                21.2,
+                216.0,
+                31.2,
+                224.0
+              ],
+              "interfaces": [
+                "interface-3"
+              ],
+              "interface_reading": "explicit_feature",
+              "bbox_cad_xyz_mm": [
+                -141.3,
+                56.0,
+                0.2,
+                -131.3,
+                64.0,
+                5.03
+              ],
+              "removal_lane": "Outward through its short open M5 head pocket, before hardware, foil or foam; the cap is separate and unloaded. This states geometric access, not physical removal force."
+            },
+            {
+              "id": "tree-4",
+              "root": "bed",
+              "base_z_mm": 0.2,
+              "first_interface_z_mm": 4.762,
+              "shortest_build_up_mm": 4.562,
+              "top_z_mm": 5.03,
+              "bbox_xy_mm": [
+                203.6,
+                70.0,
+                211.6,
+                79.6
+              ],
+              "interfaces": [
+                "interface-4"
+              ],
+              "interface_reading": "explicit_feature",
+              "bbox_cad_xyz_mm": [
+                41.1,
+                -90.0,
+                0.2,
+                49.1,
+                -80.4,
+                5.03
+              ],
+              "removal_lane": "Outward through its short open M5 head pocket, before hardware, foil or foam; the cap is separate and unloaded. This states geometric access, not physical removal force."
+            },
+            {
+              "id": "tree-5",
+              "root": "bed",
+              "base_z_mm": 0.2,
+              "first_interface_z_mm": 4.762,
+              "shortest_build_up_mm": 4.562,
+              "top_z_mm": 5.03,
+              "bbox_xy_mm": [
+                203.6,
+                240.4,
+                211.6,
+                250.0
+              ],
+              "interfaces": [
+                "interface-5"
+              ],
+              "interface_reading": "explicit_feature",
+              "bbox_cad_xyz_mm": [
+                41.1,
+                80.4,
+                0.2,
+                49.1,
+                90.0,
+                5.03
+              ],
+              "removal_lane": "Outward through its short open M5 head pocket, before hardware, foil or foam; the cap is separate and unloaded. This states geometric access, not physical removal force."
+            },
+            {
+              "id": "tree-6",
+              "root": "bed",
+              "base_z_mm": 0.2,
+              "first_interface_z_mm": 4.762,
+              "shortest_build_up_mm": 4.562,
+              "top_z_mm": 5.03,
+              "bbox_xy_mm": [
+                268.4,
+                70.0,
+                276.4,
+                79.6
+              ],
+              "interfaces": [
+                "interface-6"
+              ],
+              "interface_reading": "explicit_feature",
+              "bbox_cad_xyz_mm": [
+                105.9,
+                -90.0,
+                0.2,
+                113.9,
+                -80.4,
+                5.03
+              ],
+              "removal_lane": "Outward through its short open M5 head pocket, before hardware, foil or foam; the cap is separate and unloaded. This states geometric access, not physical removal force."
+            },
+            {
+              "id": "tree-7",
+              "root": "bed",
+              "base_z_mm": 0.2,
+              "first_interface_z_mm": 4.762,
+              "shortest_build_up_mm": 4.562,
+              "top_z_mm": 5.03,
+              "bbox_xy_mm": [
+                268.4,
+                240.4,
+                276.4,
+                250.0
+              ],
+              "interfaces": [
+                "interface-7"
+              ],
+              "interface_reading": "explicit_feature",
+              "bbox_cad_xyz_mm": [
+                105.9,
+                80.4,
+                0.2,
+                113.9,
+                90.0,
+                5.03
+              ],
+              "removal_lane": "Outward through its short open M5 head pocket, before hardware, foil or foam; the cap is separate and unloaded. This states geometric access, not physical removal force."
+            },
+            {
+              "id": "tree-8",
+              "root": "bed",
+              "base_z_mm": 0.2,
+              "first_interface_z_mm": 4.762,
+              "shortest_build_up_mm": 4.562,
+              "top_z_mm": 5.03,
+              "bbox_xy_mm": [
+                294.0,
+                96.0,
+                303.6,
+                104.0
+              ],
+              "interfaces": [
+                "interface-8"
+              ],
+              "interface_reading": "explicit_feature",
+              "bbox_cad_xyz_mm": [
+                131.5,
+                -64.0,
+                0.2,
+                141.1,
+                -56.0,
+                5.03
+              ],
+              "removal_lane": "Outward through its short open M5 head pocket, before hardware, foil or foam; the cap is separate and unloaded. This states geometric access, not physical removal force."
+            },
+            {
+              "id": "tree-9",
+              "root": "bed",
+              "base_z_mm": 0.2,
+              "first_interface_z_mm": 4.762,
+              "shortest_build_up_mm": 4.562,
+              "top_z_mm": 5.03,
+              "bbox_xy_mm": [
+                294.0,
+                156.0,
+                303.6,
+                164.0
+              ],
+              "interfaces": [
+                "interface-9"
+              ],
+              "interface_reading": "explicit_feature",
+              "bbox_cad_xyz_mm": [
+                131.5,
+                -4.0,
+                0.2,
+                141.1,
+                4.0,
+                5.03
+              ],
+              "removal_lane": "Outward through its short open M5 head pocket, before hardware, foil or foam; the cap is separate and unloaded. This states geometric access, not physical removal force."
+            },
+            {
+              "id": "tree-10",
+              "root": "bed",
+              "base_z_mm": 0.2,
+              "first_interface_z_mm": 4.762,
+              "shortest_build_up_mm": 4.562,
+              "top_z_mm": 5.03,
+              "bbox_xy_mm": [
+                294.0,
+                216.0,
+                303.6,
+                224.0
+              ],
+              "interfaces": [
+                "interface-10"
+              ],
+              "interface_reading": "explicit_feature",
+              "bbox_cad_xyz_mm": [
+                131.5,
+                56.0,
+                0.2,
+                141.1,
+                64.0,
+                5.03
+              ],
+              "removal_lane": "Outward through its short open M5 head pocket, before hardware, foil or foam; the cap is separate and unloaded. This states geometric access, not physical removal force."
+            }
+          ],
+          "interfaces": [
+            {
+              "id": "interface-1",
+              "first_z_mm": 4.762,
+              "last_z_mm": 5.03,
+              "bbox_xy_mm": [
+                21.2,
+                96.0,
+                31.2,
+                104.0
+              ],
+              "tree": "tree-1",
+              "build_up_mm": 4.562,
+              "bbox_cad_xyz_mm": [
+                -141.3,
+                -64.0,
+                4.762,
+                -131.3,
+                -56.0,
+                5.03
+              ]
+            },
+            {
+              "id": "interface-2",
+              "first_z_mm": 4.762,
+              "last_z_mm": 5.03,
+              "bbox_xy_mm": [
+                21.2,
+                156.0,
+                31.2,
+                164.0
+              ],
+              "tree": "tree-2",
+              "build_up_mm": 4.562,
+              "bbox_cad_xyz_mm": [
+                -141.3,
+                -4.0,
+                4.762,
+                -131.3,
+                4.0,
+                5.03
+              ]
+            },
+            {
+              "id": "interface-3",
+              "first_z_mm": 4.762,
+              "last_z_mm": 5.03,
+              "bbox_xy_mm": [
+                21.2,
+                216.0,
+                31.2,
+                224.0
+              ],
+              "tree": "tree-3",
+              "build_up_mm": 4.562,
+              "bbox_cad_xyz_mm": [
+                -141.3,
+                56.0,
+                4.762,
+                -131.3,
+                64.0,
+                5.03
+              ]
+            },
+            {
+              "id": "interface-4",
+              "first_z_mm": 4.762,
+              "last_z_mm": 5.03,
+              "bbox_xy_mm": [
+                203.6,
+                70.0,
+                211.6,
+                79.6
+              ],
+              "tree": "tree-4",
+              "build_up_mm": 4.562,
+              "bbox_cad_xyz_mm": [
+                41.1,
+                -90.0,
+                4.762,
+                49.1,
+                -80.4,
+                5.03
+              ]
+            },
+            {
+              "id": "interface-5",
+              "first_z_mm": 4.762,
+              "last_z_mm": 5.03,
+              "bbox_xy_mm": [
+                203.6,
+                240.4,
+                211.6,
+                250.0
+              ],
+              "tree": "tree-5",
+              "build_up_mm": 4.562,
+              "bbox_cad_xyz_mm": [
+                41.1,
+                80.4,
+                4.762,
+                49.1,
+                90.0,
+                5.03
+              ]
+            },
+            {
+              "id": "interface-6",
+              "first_z_mm": 4.762,
+              "last_z_mm": 5.03,
+              "bbox_xy_mm": [
+                268.4,
+                70.0,
+                276.4,
+                79.6
+              ],
+              "tree": "tree-6",
+              "build_up_mm": 4.562,
+              "bbox_cad_xyz_mm": [
+                105.9,
+                -90.0,
+                4.762,
+                113.9,
+                -80.4,
+                5.03
+              ]
+            },
+            {
+              "id": "interface-7",
+              "first_z_mm": 4.762,
+              "last_z_mm": 5.03,
+              "bbox_xy_mm": [
+                268.4,
+                240.4,
+                276.4,
+                250.0
+              ],
+              "tree": "tree-7",
+              "build_up_mm": 4.562,
+              "bbox_cad_xyz_mm": [
+                105.9,
+                80.4,
+                4.762,
+                113.9,
+                90.0,
+                5.03
+              ]
+            },
+            {
+              "id": "interface-8",
+              "first_z_mm": 4.762,
+              "last_z_mm": 5.03,
+              "bbox_xy_mm": [
+                294.0,
+                96.0,
+                303.6,
+                104.0
+              ],
+              "tree": "tree-8",
+              "build_up_mm": 4.562,
+              "bbox_cad_xyz_mm": [
+                131.5,
+                -64.0,
+                4.762,
+                141.1,
+                -56.0,
+                5.03
+              ]
+            },
+            {
+              "id": "interface-9",
+              "first_z_mm": 4.762,
+              "last_z_mm": 5.03,
+              "bbox_xy_mm": [
+                294.0,
+                156.0,
+                303.6,
+                164.0
+              ],
+              "tree": "tree-9",
+              "build_up_mm": 4.562,
+              "bbox_cad_xyz_mm": [
+                131.5,
+                -4.0,
+                4.762,
+                141.1,
+                4.0,
+                5.03
+              ]
+            },
+            {
+              "id": "interface-10",
+              "first_z_mm": 4.762,
+              "last_z_mm": 5.03,
+              "bbox_xy_mm": [
+                294.0,
+                216.0,
+                303.6,
+                224.0
+              ],
+              "tree": "tree-10",
+              "build_up_mm": 4.562,
+              "bbox_cad_xyz_mm": [
+                131.5,
+                56.0,
+                4.762,
+                141.1,
+                64.0,
+                5.03
+              ]
+            }
+          ],
+          "interface_feature_policy": "All support bodies are retained; unlabelled interfaces have unknown contact count and build-up."
+        }
+      ],
+      "actual_support_bodies": 10,
+      "local_region_geometry_matches": true,
+      "current_recipe_values_match": true,
+      "support_choice": {
+        "scope": "Only the ten short outward-open M5 head-pocket ceilings on this 282.4 mm wide cap.",
+        "retained": "Normal(auto)/Snug, no additional initial support-foot flange; the saved contact gaps are retained.",
+        "reason": "The automatic tree placements exceed the required 20 mm full-bead border. Compact normal supports remain within the short open head pockets. Other parts retain their own support settings.",
+        "automatic_tree_native_placements": [
+          {
+            "archive_sha256": "df05078d0470f29c1eabd904763ba6941253fd45a4be2316d8edec3b90201240",
+            "support_type": "tree(auto)",
+            "foot_expansion": "0.5",
+            "branch_angle": "default",
+            "branch_diameter_angle": "default",
+            "minimum_bed_margin_mm": 18.525905000000023,
+            "required_bed_border_mm": 20.0
+          },
+          {
+            "archive_sha256": "f0e28632e4bdbe685121399a8d07c60065cd943c3f22143765f75c34fb0c5acb",
+            "support_type": "tree(auto)",
+            "foot_expansion": "0",
+            "branch_angle": "0",
+            "branch_diameter_angle": "0",
+            "minimum_bed_margin_mm": 18.515904999999997,
+            "required_bed_border_mm": 20.0
+          },
+          {
+            "archive_sha256": "5fa49ec04f7df607b080a8551586fa7b0bbf160c5b818f9f0f092f083d22bb4c",
+            "support_type": "tree(auto)",
+            "foot_expansion": "automatic",
+            "branch_angle": "default",
+            "branch_diameter_angle": "default",
+            "minimum_bed_margin_mm": 17.019904999999994,
+            "required_bed_border_mm": 20.0
+          },
+          {
+            "archive_sha256": "8c97aa63f2603e9882e5a5601204271f9fc1ebd7325e9fe43781a9b282892305",
+            "support_type": "tree(auto)",
+            "foot_expansion": "0",
+            "branch_angle": "30",
+            "branch_diameter_angle": "default",
+            "minimum_bed_margin_mm": 19.027905000000032,
+            "required_bed_border_mm": 20.0
+          }
+        ],
+        "physical_release_qualified": false
+      }
+    },
+    "reservoir-b-fill-guide": {
+      "physical_stl": "hardware/printed-parts/cold-core/foam-cap/reservoir-b-fill-guide.stl",
+      "physical_stl_sha256": "0fd7a6158d18c346622dfe5858c752b7cd26437bf29968ac4bcc92697937c4b6",
+      "current_native_step_sha256": "8a74a8056b6b6466d79b2885e8869e5ab78a1188d01333e6477cd8c58d573157",
+      "native_slice_step_sha256": "8a74a8056b6b6466d79b2885e8869e5ab78a1188d01333e6477cd8c58d573157",
+      "preparation_directory": ".cache/prints/enclosure-continuous-clip-final/2026-11-01-reservoir-b-fill-guide-mark2-520a4fae",
+      "preparation_sha256": "bf343b3b638734ed3027aa4ba893818491439e89345cecbe8eb01fa6d3eb505d",
+      "archive_sha256": "88472757f6de1c146ffce1cc187bbc86cf2ac5110b00d896ae1dabdac7bdf269",
+      "printer": "Mark2",
+      "nozzle": {
+        "side": "left",
+        "diameter_mm": 0.4,
+        "flow": "Standard",
+        "hardened": true,
+        "reason": "Every abrasive stock runs on the left hotend (hardware/ledger/tools.md, Which hotends fit an H2C). Mark2's 2026-10-24 jobs ran black PET-GF on its fixed left hardened 0.4 mm Standard-flow hotend (faucet/industrial/prints/2026-10-24-buttons-sculpted-bands020-mark2/README.md, task 1372253517).",
+        "sliced_diameter_mm": 0.4,
+        "sliced_volume_type": "Standard"
+      },
+      "profile_sha256": "45c16e8c8517e0a205107d7b9f7412d013f51a8de7ecf86125cc940079d37ed0",
+      "settings_changes": {
+        "extruder_ams_count": {
+          "from": [
+            "1#0|4#1",
+            "1#0|4#0"
+          ],
+          "to": [
+            "1#0|4#0",
+            "1#0|4#0"
+          ],
+          "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface."
+        },
+        "support_filament": {
+          "from": "0",
+          "to": "1",
+          "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface."
+        },
+        "support_interface_filament": {
+          "from": "0",
+          "to": "1",
+          "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface."
+        },
+        "flush_into_support": {
+          "from": "1",
+          "to": "0",
+          "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface."
+        },
+        "filament_colour": {
+          "from": [
+            "#000000"
+          ],
+          "to": [
+            "#161616"
+          ],
+          "reason": "Mark2's loaded black PET-GF colour reading."
+        },
+        "wall_loops": {
+          "from": "2",
+          "to": "3",
+          "reason": "Three Classic loops at each boundary of the selected 2 mm holder wall."
+        },
+        "wall_generator": {
+          "from": "classic",
+          "to": "classic",
+          "reason": "Retain the cold-core fixed-width perimeter recipe."
+        },
+        "sparse_infill_pattern": {
+          "from": "gyroid",
+          "to": "gyroid",
+          "reason": "Retain the shared 15% bulk recipe in thicker regions."
+        }
+      },
+      "checks": {
+        "archive": true,
+        "z_trim": true,
+        "bed_border": true,
+        "fine_and_transition_bands": true,
+        "show_faces_support_free": true,
+        "tie_windows_support_free": true,
+        "ribbons_support_free_and_printed": true,
+        "solid_hosts_sampled": true
+      },
+      "minimum_bed_margin_mm": 150.1736125,
+      "bed_border_mm": 80.0,
+      "solid_host_deposition": [],
+      "support_audits": [
+        {
+          "schema": 1,
+          "piece": "reservoir-b-fill-guide",
+          "inputs": {
+            "gcode": "support-labels-1901.gcode",
+            "gcode_sha256": "4e01af8f744b9567706cd4b44eabb95a49cb665087899bb8aa7e4b90db13c2ad",
+            "model": "/Users/derekbredensteiner/Developer/hsm-approved-asse/hardware/printed-parts/cold-core/foam-cap/reservoir-b-fill-guide.stl",
+            "model_sha256": "0fd7a6158d18c346622dfe5858c752b7cd26437bf29968ac4bcc92697937c4b6",
+            "profile": ".cache/prints/enclosure-continuous-clip-final/2026-11-01-reservoir-b-fill-guide-mark2-520a4fae/2026-11-01-reservoir-b-fill-guide-mark2-520a4fae.3mf",
+            "profile_sha256": "a25e7fbdd71f2f20a2289db117fcada5951aeab03f2456f49f8f0a52e54afd3e"
+          },
+          "slicer": "BambuStudio 02.08.02.61",
+          "first_layer_z_mm": 0.2,
+          "coordinate_frame": {
+            "plate_to_cad_transform": [
+              1.0,
+              0.0,
+              0.0,
+              0.0,
+              1.0,
+              0.0,
+              0.0,
+              0.0,
+              1.0,
+              -152.800000191,
+              -150.300000191,
+              -0.0
+            ],
+            "plate_to_cad_translation_mm": [
+              -152.8,
+              -150.3,
+              -0.0
+            ]
+          },
+          "slicer_settings": {
+            "layer_height": "0.24",
+            "support_bottom_z_distance": "0.3",
+            "support_interface_bottom_layers": "2",
+            "support_interface_spacing": "0.5",
+            "support_interface_top_layers": "2",
+            "support_object_xy_distance": "0.4",
+            "support_on_build_plate_only": "0",
+            "support_style": "default",
+            "support_threshold_angle": "35",
+            "support_top_z_distance": "0.45",
+            "support_type": "tree(auto)"
+          },
+          "summary": {
+            "support_bodies": 0,
+            "interface_islands": 0,
+            "bed_rooted_bodies": 0,
+            "model_rooted_bodies": 0,
+            "shortest_build_up_mm": null,
+            "bodies_without_interface_labels": 0,
+            "explicit_interface_islands": 0,
+            "shortest_labelled_build_up_mm": null
+          },
+          "trees": [],
+          "interfaces": [],
+          "interface_feature_policy": "All support bodies are retained; unlabelled interfaces have unknown contact count and build-up."
+        }
+      ],
+      "actual_support_bodies": 0,
+      "local_region_geometry_matches": true,
+      "current_recipe_values_match": true
+    }
+  }
+}
