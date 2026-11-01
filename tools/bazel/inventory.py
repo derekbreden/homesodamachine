@@ -339,7 +339,8 @@ _FLUTE_ROOTS = {
         "hardware/printed-parts/faucet/faucet-shell/",
         "hardware/printed-parts/faucet/faucet-display-cover/",
         "hardware/printed-parts/faucet/above-counter-plate/",
-        "hardware/printed-parts/faucet/above-counter-gasket/"),
+        "hardware/printed-parts/faucet/above-counter-gasket/",
+        "hardware/printed-parts/faucet/asse-vent-seals/"),
 }
 _FLUTE_TREES = tuple(sorted(r for roots in _FLUTE_ROOTS.values() for r in roots))
 
