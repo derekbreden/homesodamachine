@@ -1228,7 +1228,7 @@ def clashes(assy: cq.Assembly, floor: float = 1.0, bodies: dict = None):
     solids = (list(bodies.items()) if bodies is not None else
               [(name, shape) for name, shape, _colour in placed_leaves(assy)])
     boxes = [(n, s, _boxes.loose(s)) for n, s in solids]
-    hits, unanswered = [], []
+    pairs = []
     for i in range(len(boxes)):
         ni, si, bi = boxes[i]
         for j in range(i + 1, len(boxes)):
@@ -1237,15 +1237,41 @@ def clashes(assy: cq.Assembly, floor: float = 1.0, bodies: dict = None):
                     or bi.ymin > bj.ymax - 1e-6 or bj.ymin > bi.ymax - 1e-6
                     or bi.zmin > bj.zmax - 1e-6 or bj.zmin > bi.zmax - 1e-6):
                 continue
+            pairs.append((ni, si, nj, sj))
+
+    # A compound is composed once for this pass, then released after its last candidate.
+    # A later-indexed body may be read as j long before its own i row begins.
+    meshcad = sys.modules.get("meshcad")
+    last = {}
+    if meshcad is not None and meshcad.mesh_mode():
+        from meshcad.solids import MeshCompound
+        for k, (_ni, si, _nj, sj) in enumerate(pairs):
+            for shape in (si, sj):
+                if isinstance(shape, MeshCompound):
+                    last[shape] = k
+
+    hits, unanswered = [], []
+    try:
+        for k, (ni, si, nj, sj) in enumerate(pairs):
             try:
                 inter, v = _overlap.common(si, sj)
             except Exception as exc:
                 unanswered.append((ni, nj, str(exc).splitlines()[0]))
                 continue
+            finally:
+                if last:
+                    for shape in (si, sj):
+                        if last.get(shape) == k:
+                            meshcad.forget(shape)
+                            del last[shape]
             # `floor` is above zero, so the shared solid is never the empty one a void box
             # would be taken from.
             if v > floor:
                 hits.append(Clash(ni, nj, v, extents(inter)))
+            del inter
+    finally:
+        for shape in last:
+            meshcad.forget(shape)
     return hits, unanswered
 
 
