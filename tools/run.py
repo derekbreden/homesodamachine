@@ -210,6 +210,7 @@ def main():
     slots._broker = broker
     env = slots.child_env()
     env['CARGO_BUILD_JOBS'] = '2'
+    env['CMAKE_BUILD_PARALLEL_LEVEL'] = '2'
     if Path(command[0]).name.startswith('python'):
         env['HSM_VIEWER_PRODUCER'] = '1'          # nested helpers cannot announce the outer run
     descriptors = slots.pass_fds()
