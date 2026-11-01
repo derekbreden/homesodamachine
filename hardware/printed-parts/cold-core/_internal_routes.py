@@ -25,7 +25,7 @@ WHERE EACH LINE GOES, and what it does at the end of it:
   reservoir-b      conduit through the bore in that reservoir's own cap to the floor, its
                    mouth the lowest point a line reaches in the cavity.
   reservoir-a-fill through its aligned guide into the reservoir's headspace.
-  reservoir-b-fill from the cap's Y− side entry, through the integral R14 channel
+  reservoir-b-fill from the cap's Y− side entry, through the independent R14 holder
                    and vertically into the original reservoir fill seat.
 
 The carbonator and both reservoirs are filled high and drawn low. Nothing that enters
@@ -250,7 +250,8 @@ def _routes():
     water_theta = math.pi/4.0 + math.asin((14.9/route_bend_radius-1.0)/math.sqrt(2.0))
     water_setback = route_bend_radius * math.tan(water_theta / 2.0)
     water_turn_start = -70.5 + route_bend_radius*(math.sin(water_theta)+math.cos(water_theta))
-    water_return_theta = math.acos(1.0 - 7.0 / (2.0 * route_bend_radius))
+    water_lane_x = -76.5
+    water_return_theta = math.acos(1.0 - abs(water_lane_x + 70.5) / (2.0 * route_bend_radius))
     water_return_setback = route_bend_radius * math.tan(water_return_theta / 2.0)
     water_return_run = 2.0 * route_bend_radius * math.sin(water_return_theta)
     # The carbonated water's LEAN at the top, and the rise it owes anything under the carbonator.
@@ -275,12 +276,12 @@ def _routes():
                 (water_turn_start-water_setback, 283.0, 219.4),
                 (-70.5, 283.0, 204.5),
                 (-70.5, 338.0+water_return_setback, 204.5),
-                (-77.5, 338.0+water_return_run-water_return_setback, 204.5),
-                (-77.5, 375.0, 204.5),
+                (water_lane_x, 338.0+water_return_run-water_return_setback, 204.5),
+                (water_lane_x, 385.0, 204.5),
                 (*water_guide[:2], 204.5), water_guide)],
-        # Each reservoir's dip tube: the draw line, one straight drop from its mouth on the
-        # floor up through the cap's draw bore and the conduit over it. It is the same tube
-        # the deck run to the draw gate is, so it is laid from above, after the cap is on.
+        # Each reservoir's continuous draw tube is installed through its cap grip
+        # before the body pour. Only its dry span above the reservoir is potted;
+        # the dip section inside remains free, ending at its floor mouth.
         "reservoir-a": [
             cap_conduit_shell_xy("reservoir-a") + (dip_tube_z,),
             cap_conduit_shell_xy("reservoir-a") + (conduit_mouth_z,),

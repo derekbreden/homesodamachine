@@ -7,30 +7,38 @@ them. Built by [`cold_core_assembly.py`](cold_core_assembly.py) →
 reads at [`/3d`](https://homesodamachine.com/3d).
 
 [`printed-parts/cold-core/foam-assembly`](/hardware/printed-parts/cold-core/foam-assembly/) is
-the same stack one frame out — five printed pieces, the faces the enclosure loads and stands
+the same stack one frame out — three casing pieces, the faces the enclosure loads and stands
 its own bodies off. `enclosure_assembly` places THAT, as one solid with a port table. Neither
 model supersedes the other, so **the card below is written beside both STEPs**: open either at
 `/3d` and the bottom bar reads the same verdict.
 
 ## Frame
 
-The foam shell's own. Z up, the shell floor's outer face at z = 0, the shell's open top at
-`foam_shell.foam_shell_outer_height`, which `foam-shell/README.md` states as `OUTER_H`. ±Y is the carbonator's port axis; −Y is the register azimuth, which the float
-rod and the reed bridge share, opposite both reservoirs' +Y sensing positions. A 4 mm stainless stop around the upper register limits the float below the inlet tip. The three reed conductors rise through their own straight upper-cup/lid passage at shell (0, −74) mm. `foam_assembly.stack_floor_z` and `.cap_face_z` are the two
-planes the appliance reads off the stack.
+The foam shell's own: Z up, with its floor's outer face at Z0 and its rim at
+`_cold_core_interface.foam_shell_rim_z` (225.85 mm). The internal vessel and
+reservoir layout retains its 213.4 mm upper datum. `foam_assembly.stack_floor_z`
+and `.cap_face_z` are the two planes the appliance reads off the casing.
+
+±Y is the carbonator's port axis. −Y is the register azimuth shared by its float
+rod and reed bridge, opposite both reservoirs' +Y sensing positions. A 4 mm
+stainless stop around the upper register limits the float below the inlet tip.
+The carbonator reed and temperature leads share the west sensor/earth passage
+through the equipment lid.
 
 ## What is here
 
 | | |
 |---|---|
-| foam stack | shell, both caps, both lids — loaded from `foam-assembly` |
+| foam stack | taller shell, top equipment lid and open-topped bottom cap — loaded from `foam-assembly` |
+| closure hardware | twenty M5 × 100 screws; ten in each shell face |
+| B-fill guide | independent R14 holder with a 2 mm wall, located by its tube and cured foam |
 | carbonator | 5" × 0.065" 316 tube, two 1/4" endcap plates recessed one thickness in, the 1/8" 316L float rod between their blind registers |
 | carbonator fittings | two TAISHER street elbows on the top plate's ports and two neoFit AME4-N2-E push-fit male elbows on the bottom plate's; the SV-125 and its shroud on port 4 |
-| pockets | both reservoirs and their caps |
+| reservoirs | both bodies and their caps |
 | lines | the eight `_internal_routes` centrelines — both reservoirs' dip tubes among them — each drawn at the arc its corridor leaves |
 | coil | the wrap as an exact helix on the carbonator's own radius, and both tails to their slot stations |
 | inlet jet | nominal 316 cap, Ø9.5 × 2 mm with a 1/16-inch passage, on the top water elbow's male tip |
-| pockets | both rods, both floats, six flush TPU grips and two independent air tubes |
+| reservoir internals | both rods, both floats, six flush TPU grips and two independent air tubes |
 | sensing | ten reeds — two on the bridge, four per reservoir — and both 1-wire probes |
 | collets | one PP010822E water adapter on the top water elbow |
 

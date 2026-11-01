@@ -22,10 +22,8 @@ import _routing                                        # noqa: E402
 
 FOAM_COLORS = {
     "foam-shell": _mat.C_FOAM_SHELL,
-    "foam-cap-top": _mat.C_CAP_TOP,
     "foam-cap-lid-top": _mat.C_CAP_LID_TOP,
     "foam-cap-bottom": _mat.C_CAP_BOTTOM,
-    "foam-cap-lid-bottom": _mat.C_CAP_LID_BOTTOM,
 }
 
 ROUTE_SPOOLS = {
@@ -45,6 +43,10 @@ def colour_for(name: str):
     """The material colour for one exact cold-core body or `line-<route>` leaf."""
     if name == 'digiten-flow':
         return _mat.C_DIGITEN
+    if name == 'reservoir-b-fill-guide':
+        return _mat.M_PETGF_BLACK
+    if name.startswith('cap-clamp-'):
+        return _mat.M_DONOR_BLACK
     if name == 'soda-bend-holder':
         return _mat.M_PETGF_BLACK
     if name == 'soda-continuous-insulation':
