@@ -5376,7 +5376,9 @@ def build_funnel_cover():
 
 def build_enclosure_assembly(*, require_box_spec=False) -> cq.Assembly:
     """The pack, what is seated in the walls, and the four printable pieces of the box."""
-    a, _p, live_box = machine(core_model=_cca.MODEL_OUT if require_box_spec else None)
+    a, _p, live_box = machine(core_model=_cca.MODEL_OUT
+                            if require_box_spec and os.environ.get('HSM_CORE_MODEL') == '1'
+                            else None)
     box = live_box
     if require_box_spec:
         import _box_spec

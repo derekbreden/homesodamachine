@@ -3105,7 +3105,6 @@ genrule(
         "pysrc/hardware/cold-core-layout/_fittings.py",
         "pysrc/hardware/cold-core-layout/_internals.py",
         "pysrc/hardware/cold-core-layout/_water_inlet_jet.py",
-        ":out/cold-core-model/hardware/cold-core-layout/cold-core-assembly.scene.npz",
         ":out/cold-core-assembly/hardware/cold-core-layout/cold-core-assembly.scorecard.json",
         ":out/cold-core-assembly/hardware/cold-core-layout/cold-core-assembly.step.mesh",
         "pysrc/hardware/cold-core-layout/cold_core_assembly.py",
