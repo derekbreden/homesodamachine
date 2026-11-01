@@ -2903,6 +2903,7 @@ genrule(
     srcs = [
         "pysrc/hardware/install-guide/plumbing/modern/render_modern_tee.py",
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+        "hardware/reference/jg-pp0408w/jg-pp0408w.step",
         "pysrc/hardware/reference/jg-pp0408w/jg_pp0408w.py",
         "pysrc/hardware/scripts/_cadq_export.py",
         "pysrc/hardware/scripts/_hsm_render.py",
@@ -10658,49 +10659,6 @@ cp hardware/reference/jg-pp0208e-tee/jg-pp0208e-tee.step $$O0
 )
 
 genrule(
-    name = "jg-pp0408w",
-    srcs = [
-        "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
-        "pysrc/hardware/reference/jg-pp0408w/jg_pp0408w.py",
-        "pysrc/hardware/scripts/_cadq_export.py",
-        "pysrc/hardware/scripts/_material_base.py",
-        "pysrc/hardware/scripts/_materials.py",
-        "pysrc/hardware/scripts/_mesh_payload.py",
-        "pysrc/hardware/scripts/_payload_rules.py",
-        "pysrc/hardware/scripts/_run_lock.py",
-        "pysrc/hardware/scripts/_run_slots.py",
-        "pysrc/tools/docgen/__init__.py",
-        "tools/hsm/run-slots.defaults.json",
-        "tools/run-slots.mjs",
-        "pysrc/tools/run.py",
-    ],
-    outs = [
-        "out/jg-pp0408w/hardware/reference/jg-pp0408w/jg-pp0408w.step",
-    ],
-    cmd = """
-set -e
-O0=$$PWD/$(location out/jg-pp0408w/hardware/reference/jg-pp0408w/jg-pp0408w.step)
-for f in $(SRCS); do
-  case $$f in
-    */node_modules/*) continue;;
-    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
-    */pysrc/*) t=$${f##*/pysrc/};;
-    *) t=$$f;;
-  esac
-  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
-done
-for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
-done
-cd work
-ln -sfn $$HSM_WORKSPACE/.cache .cache
-D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/jg-pp0408w/jg_pp0408w.py > /dev/null
-cp hardware/reference/jg-pp0408w/jg-pp0408w.step $$O0
-""",
-)
-
-genrule(
     name = "jg-pp061208w",
     srcs = [
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
@@ -10787,49 +10745,6 @@ ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
 HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/kamoer-kphm400/kamoer_kphm400.py > /dev/null
 cp hardware/reference/kamoer-kphm400/kamoer-kphm400.step $$O0
-""",
-)
-
-genrule(
-    name = "molex-micro-fit-4",
-    srcs = [
-        "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
-        "pysrc/hardware/reference/molex-micro-fit-4/molex_micro_fit_4.py",
-        "pysrc/hardware/scripts/_cadq_export.py",
-        "pysrc/hardware/scripts/_material_base.py",
-        "pysrc/hardware/scripts/_materials.py",
-        "pysrc/hardware/scripts/_mesh_payload.py",
-        "pysrc/hardware/scripts/_payload_rules.py",
-        "pysrc/hardware/scripts/_run_lock.py",
-        "pysrc/hardware/scripts/_run_slots.py",
-        "pysrc/tools/docgen/__init__.py",
-        "tools/hsm/run-slots.defaults.json",
-        "tools/run-slots.mjs",
-        "pysrc/tools/run.py",
-    ],
-    outs = [
-        "out/molex-micro-fit-4/hardware/reference/molex-micro-fit-4/molex-micro-fit-4-panel.step",
-    ],
-    cmd = """
-set -e
-O0=$$PWD/$(location out/molex-micro-fit-4/hardware/reference/molex-micro-fit-4/molex-micro-fit-4-panel.step)
-for f in $(SRCS); do
-  case $$f in
-    */node_modules/*) continue;;
-    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
-    */pysrc/*) t=$${f##*/pysrc/};;
-    *) t=$$f;;
-  esac
-  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
-done
-for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
-done
-cd work
-ln -sfn $$HSM_WORKSPACE/.cache .cache
-D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/molex-micro-fit-4/molex_micro_fit_4.py > /dev/null
-cp hardware/reference/molex-micro-fit-4/molex-micro-fit-4-panel.step $$O0
 """,
 )
 
@@ -11374,52 +11289,6 @@ ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
 HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/wr1110-regulator/wr1110_regulator.py > /dev/null
 cp hardware/reference/wr1110-regulator/wr1110-regulator.step $$O0
-""",
-)
-
-genrule(
-    name = "yyfkgcp-pogo-4p",
-    srcs = [
-        "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
-        "pysrc/hardware/reference/yyfkgcp-pogo-4p/yyfkgcp_pogo_4p.py",
-        "pysrc/hardware/scripts/_cadq_export.py",
-        "pysrc/hardware/scripts/_material_base.py",
-        "pysrc/hardware/scripts/_materials.py",
-        "pysrc/hardware/scripts/_mesh_payload.py",
-        "pysrc/hardware/scripts/_payload_rules.py",
-        "pysrc/hardware/scripts/_run_lock.py",
-        "pysrc/hardware/scripts/_run_slots.py",
-        "pysrc/tools/docgen/__init__.py",
-        "tools/hsm/run-slots.defaults.json",
-        "tools/run-slots.mjs",
-        "pysrc/tools/run.py",
-    ],
-    outs = [
-        "out/yyfkgcp-pogo-4p/hardware/reference/yyfkgcp-pogo-4p/pogo-4p-female.step",
-        "out/yyfkgcp-pogo-4p/hardware/reference/yyfkgcp-pogo-4p/pogo-4p-male.step",
-    ],
-    cmd = """
-set -e
-O0=$$PWD/$(location out/yyfkgcp-pogo-4p/hardware/reference/yyfkgcp-pogo-4p/pogo-4p-female.step)
-O1=$$PWD/$(location out/yyfkgcp-pogo-4p/hardware/reference/yyfkgcp-pogo-4p/pogo-4p-male.step)
-for f in $(SRCS); do
-  case $$f in
-    */node_modules/*) continue;;
-    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
-    */pysrc/*) t=$${f##*/pysrc/};;
-    *) t=$$f;;
-  esac
-  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
-done
-for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
-done
-cd work
-ln -sfn $$HSM_WORKSPACE/.cache .cache
-D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/yyfkgcp-pogo-4p/yyfkgcp_pogo_4p.py > /dev/null
-cp hardware/reference/yyfkgcp-pogo-4p/pogo-4p-female.step $$O0
-cp hardware/reference/yyfkgcp-pogo-4p/pogo-4p-male.step $$O1
 """,
 )
 
@@ -13029,7 +12898,7 @@ genrule(
         "pysrc/hardware/reference/iec-c14-inlet/iec_c14_inlet.py",
         "pysrc/hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py",
         "pysrc/hardware/reference/jg-pp0208e-tee/jg_pp0208e_tee.py",
-        ":out/jg-pp0408w/hardware/reference/jg-pp0408w/jg-pp0408w.step",
+        "hardware/reference/jg-pp0408w/jg-pp0408w.step",
         "pysrc/hardware/reference/jg-pp0408w/jg_pp0408w.py",
         "pysrc/hardware/reference/neofit-bulkhead/neofit_bulkhead.py",
         "pysrc/hardware/reference/neofit-drain-bulkhead/neofit_drain_bulkhead.py",
@@ -15832,10 +15701,8 @@ filegroup(
         ":jg-bulkhead-union",
         ":jg-pp010822e",
         ":jg-pp0208e-tee",
-        ":jg-pp0408w",
         ":jg-pp061208w",
         ":kamoer-kphm400",
-        ":molex-micro-fit-4",
         ":multiplex-asse1022",
         ":neofit-bulkhead",
         ":neofit-drain-bulkhead",
@@ -15848,7 +15715,6 @@ filegroup(
         ":westbrass-reference",
         ":waveshare-43b-display",
         ":wr1110-regulator",
-        ":yyfkgcp-pogo-4p",
         ":bom-masses",
         ":build-time",
         ":ledger-totals",
