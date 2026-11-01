@@ -3318,9 +3318,7 @@ def _funnel_cut(inner, outer, centre, wells=(), up=1.0):
     # (`rear_narrowing`), its aft corners rounded the way the frame's own are.
     half = inner[1] - y_stack_high_depth
     back = _funnel_frame_part.roof_datums(inner, centre, seat)['back'] + slide_slip
-    plumb = (cq.Workplane(obj=_ybox(-half, half, cy, back,
-                                    seat - funnel_seat_thickness - 1.0, seat + slide_slip))
-             .edges("|Z and >Y").fillet(_funnel_frame_part.corner_radius + slide_slip).val())
+    plumb = _funnel_plumb(half, cy, back, seat)
     # The frame's plain underside notches pass these complete insert hosts.
     # Keep their stock while the central passage remains open for J10 tools.
     for column in ('front', 'back'):
@@ -3341,6 +3339,12 @@ def _funnel_cut(inner, outer, centre, wells=(), up=1.0):
             opening = _ybox(*sorted((face, face - side * reach)), sy - gap, sy + gap, lid, floor)
             cut = cut.fuse(opening.intersect(clearance.translate((0.0, 0.0, lid - floor))))
     return cut
+
+
+def _funnel_plumb(half, front, back, seat):
+    return (cq.Workplane(obj=_ybox(-half, half, front, back,
+                                    seat - funnel_seat_thickness - 1.0, seat + slide_slip))
+             .edges("|Z and >Y").fillet(_funnel_frame_part.corner_radius + slide_slip).val())
 
 
 def _seat_ledge_corbels(solid, inner, outer, centre, y_joint):
@@ -4957,7 +4961,7 @@ def _back_top_ceiling(solid, inner, y_joint, box):
     channel = _ceiling_tie_channel_relief(box, lane)
     if channel is not None:
         stock = stock.cut(channel)
-    return solid.fuse(cq.Workplane(obj=stock).clean().val())
+    return solid.fuse(stock.clean())
 
 
 def cap_split_z(pump_trays):
