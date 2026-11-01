@@ -63,9 +63,7 @@ import endcap_circular_dxf as _endcap                    # noqa: E402
 IN = 25.4
 
 # --- The tube -----------------------------------------------------------------
-TUBE_OD = 2 * carbonator_outer_radius                  # 127.0 — 5" OD
-TUBE_WALL = 0.065 * IN                           # 1.651
-TUBE_ID = TUBE_OD - 2 * TUBE_WALL
+from _carbonator_stock import TUBE_OD, TUBE_WALL, TUBE_ID
 carbonator_bottom_z = wall_and_floor_thickness + carbonator_support_ring_height
 carbonator_top_z = carbonator_top_plate_z                    # the tube's own top, `carbonator_height` above
 

@@ -27,10 +27,10 @@ plain outside face. STEP is exported in millimetres (CadQuery / CNC default).
 Units: millimetres.
 """
 
+from __future__ import annotations
+
 import sys
 from pathlib import Path
-
-import cadquery as cq
 
 _here = Path(__file__).resolve()
 sys.path.insert(
@@ -41,8 +41,10 @@ sys.path.insert(
     0,
     str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"),
 )
-from _cadq_export import export_assembly
-from _materials import M_STAINLESS, one_body
+if __name__ == "__main__":
+    import _rust_part
+    _rust_part.start()
+
 from docgen import substitute_py_comments
 from endcap_circular_dxf import register_radius as _register_radius_in, register_position as _register_position_in
 
@@ -76,6 +78,8 @@ out_name = "endcap-circular-2hole"
 
 
 def build_endcap() -> cq.Workplane:
+    import cadquery as cq
+
     disc = cq.Workplane("XY").circle(disc_radius).extrude(disc_thickness)
 
     # Two 1/4"-18 NPT tap-drill holes, through the full plate (tool over-runs
@@ -102,10 +106,22 @@ def build_endcap() -> cq.Workplane:
     return disc.cut(npt_holes).cut(register)
 
 
+def numbers():
+    """The machined cap dimensions and appearance read by `endcap_circular_step.rs`."""
+    from _material_base import M_STAINLESS
+    from _materials import linear
+    return {"name": out_name, "radius": disc_radius, "height": disc_thickness,
+            "bores": [{"center": list(p), "radius": hole_radius, "floor": 0.0}
+                      for p in hole_positions] + [
+                          {"center": list(register_position), "radius": register_drill_diameter / 2.0,
+                           "floor": disc_thickness - register_depth}],
+            "color": list(linear(M_STAINLESS))}
+
+
 def main() -> None:
-    model = build_endcap()
+    import _rust_part
+    _rust_part.cut("cold-core", "endcap-circular-step", numbers(), out_dir)
     path = out_dir / f"{out_name}.step"
-    export_assembly(one_body(model, path.stem, M_STAINLESS), str(path))
 
     print(f"Exported: {path}")
     print(f"  Disc:      Ø{disc_diameter:.3f} × {disc_thickness:.3f} mm, 316 SS")
