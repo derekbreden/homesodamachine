@@ -14,10 +14,6 @@ import sys
 from pathlib import Path
 
 import cadquery as cq
-from cadquery.occ_impl.shapes import cut as cut_shapes, fuse as fuse_shapes
-from OCP.BRepOffsetAPI import BRepOffsetAPI_MakeOffsetShape
-from OCP.BRepOffset import BRepOffset_Mode
-from OCP.GeomAbs import GeomAbs_Arc
 
 _here = Path(__file__).resolve()
 _repo = next(p for p in _here.parents if (p / "hardware" / "scripts" / "_cadq_export.py").is_file())
@@ -137,7 +133,11 @@ def normal_envelope(shape, distance, faces=None, *, rounds_first=False):
     meshcad = sys.modules.get("meshcad")
     if whole_body and meshcad is not None and meshcad.mesh_mode():
         return meshcad.offset(shape, distance)
+    from cadquery.occ_impl.shapes import cut as cut_shapes, fuse as fuse_shapes
     if whole_body:
+        from OCP.BRepOffsetAPI import BRepOffsetAPI_MakeOffsetShape
+        from OCP.BRepOffset import BRepOffset_Mode
+        from OCP.GeomAbs import GeomAbs_Arc
         offset = BRepOffsetAPI_MakeOffsetShape()
         offset.PerformByJoin(shape.wrapped, distance, 1e-5,
                              BRepOffset_Mode.BRepOffset_Skin,
@@ -193,6 +193,7 @@ def build_solids(drop=drop, ramp_wall=collar_wall, outer_air=0.0, plug=True, bri
     Clearance grows the forming primitives along their own normal faces. `plug` and `brim`
     leave those blocks out of the envelope, for a receiver that cuts its own.
     """
+    from cadquery.occ_impl.shapes import fuse as fuse_shapes
     w, d = collar_w, collar_d
     cx = cy = 0.0
     ncx, ncy = neck_dx, neck_dy
@@ -256,6 +257,7 @@ def build_solids(drop=drop, ramp_wall=collar_wall, outer_air=0.0, plug=True, bri
 
 
 def build(drop=drop):
+    from cadquery.occ_impl.shapes import cut as cut_shapes
     solid, cavity, m = build_solids(drop)
     fill = cavity.intersect(_box(600, 600, m["end_z"], m["top_z"], 0, 0)).Volume()
     part = cut_shapes(solid, cavity, tol=0.0001).clean()

@@ -726,6 +726,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "hsm-funnel"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "hsm-kernel",
+ "serde_json",
+]
+
+[[package]]
 name = "hsm-geometry"
 version = "0.1.0"
 dependencies = [

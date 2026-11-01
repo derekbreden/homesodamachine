@@ -1,5 +1,5 @@
 [workspace]
-members = ["geometry", "engine", "kernel", "render", "refrigeration", "cold-core", "faucet"]
+members = ["geometry", "engine", "kernel", "render", "refrigeration", "cold-core", "faucet", "funnel"]
 resolver = "2"
 
 [workspace.package]
