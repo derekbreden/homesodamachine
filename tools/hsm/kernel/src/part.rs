@@ -33,6 +33,7 @@ pub struct Numbers {
 
 impl Numbers {
     pub fn read(path: impl AsRef<Path>) -> Result<Numbers> {
+        crate::reads::begin();
         let path = path.as_ref();
         let text = std::fs::read_to_string(path).with_context(|| format!("reading {}", path.display()))?;
         let v = serde_json::from_str(&text).with_context(|| format!("parsing {}", path.display()))?;
