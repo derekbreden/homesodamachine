@@ -2,9 +2,9 @@
   "schema": "cold-core-printability-review/1",
   "scope": "Current stable shell, open bottom cap and independent B-fill guide. Exact physical STL bytes retain the named native Bambu slices; exchange metadata is bound separately. Pump support and reference are outside this independent casing publication. Native geometry establishes material clearance and emitted paths, not printed fit, support release force or structural life. No printer was contacted.",
   "current_native_files": {
-    "hardware/printed-parts/cold-core/foam-shell/foam-shell.step": "ad683dc205a653d39b15ca3bd7d78ac033a1cced689ad5fed0c34e56faae790f",
-    "hardware/printed-parts/cold-core/foam-shell/foam-shell.stl": "e5fed94fd2f2b4004080d792db8d9c089db6499722036b16501c38bb29dfc549",
-    "hardware/printed-parts/cold-core/foam-shell/foam-shell.step.mesh": "92b472b5da0c491ac0865688ece1fb8fea54c858df94e6123c7ffbdf39041a98",
+    "hardware/printed-parts/cold-core/foam-shell/foam-shell.step": "6f9445c5100eda24e79e6986d1acba16b1335dba3484bffb0b64af2f28449c13",
+    "hardware/printed-parts/cold-core/foam-shell/foam-shell.stl": "a8fc1a29ded8daaaae3498e0af15b5923d6149c187f68ba0790cba81773d92cf",
+    "hardware/printed-parts/cold-core/foam-shell/foam-shell.step.mesh": "07ebf3dec12ace0cdc4ded418eed6b02ffa73c5e0cd347296ac29d52c20c81a4",
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step": "5405075b66f7853c84ddfcc1d911845e4aab4303f6a06e3b08d18b6a08bd3e36",
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl": "7e737e724d7031189e98a7b32bc4147a064c3055845f63949d76b30091c80387",
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step.mesh": "8e95d61a3bb2f92dbeb6823481edaaaeaf71a3dd239e757c86d87993cf27ec37",
@@ -689,13 +689,13 @@
     "tail_radial_stock_mm": 3.1999999999999997,
     "insert_radial_stock_mm": 2.5999999999999996,
     "files": {
-      "hardware/printed-parts/cold-core/foam-shell/foam-shell.step": "ad683dc205a653d39b15ca3bd7d78ac033a1cced689ad5fed0c34e56faae790f",
-      "hardware/printed-parts/cold-core/foam-shell/foam-shell.stl": "e5fed94fd2f2b4004080d792db8d9c089db6499722036b16501c38bb29dfc549",
-      "hardware/printed-parts/cold-core/foam-shell/foam-shell.step.mesh": "92b472b5da0c491ac0865688ece1fb8fea54c858df94e6123c7ffbdf39041a98",
-      "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step": "50ab1481e24e90f7f17d0ce3797d0bd115d089500790645bab7a5d01ba0ddeaa",
-      "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step.mesh": "108f7b2333d60d4b17736d8c565dd36e01fefe8cb2f91b6b7177f61c362e14fa",
-      "hardware/cold-core-layout/cold-core-assembly.step": "1b0ecc63fc5024b5a04fa026499450a11f2a734f1c265be6510a8c12704dc95d",
-      "hardware/cold-core-layout/cold-core-assembly.step.mesh": "73e4a2c3f0f4ac40eff8991fc67aec33ce9a71bf006d165298fb83fea29805a6"
+      "hardware/printed-parts/cold-core/foam-shell/foam-shell.step": "6f9445c5100eda24e79e6986d1acba16b1335dba3484bffb0b64af2f28449c13",
+      "hardware/printed-parts/cold-core/foam-shell/foam-shell.stl": "a8fc1a29ded8daaaae3498e0af15b5923d6149c187f68ba0790cba81773d92cf",
+      "hardware/printed-parts/cold-core/foam-shell/foam-shell.step.mesh": "07ebf3dec12ace0cdc4ded418eed6b02ffa73c5e0cd347296ac29d52c20c81a4",
+      "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step": "b3cc57114d5f48ff356d4cc6e7024d7e639ec8f70a1d377d0d964b61e1f95868",
+      "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step.mesh": "fa86fda7131d0a0718fd6de118dc36723aed3f11d4a9f39ea2b2027dbd4f0fb3",
+      "hardware/cold-core-layout/cold-core-assembly.step": "bcb851d3a08afe47ef305a361bb952f7ce58a9f07928d0f3d25b5a2fa9a183da",
+      "hardware/cold-core-layout/cold-core-assembly.step.mesh": "9e1ddc744df310bf2731647901c977cd6988eaf649406c4a95fdae91e2132b10"
     },
     "source_sha256": {
       "hardware/printed-parts/cold-core/_cold_core_interface.py": "fa6571183b1a1e6274a232d90acf5d4052a21df7c9571ded8cab32ada03b9af3",
@@ -703,7 +703,7 @@
       "hardware/printed-parts/cold-core/_reed_b_outlet.py": "5bf2fb7268a598178b40cfb63cad17309dfa781215668ef1c00297e796341885",
       "hardware/printed-parts/cold-core/_internal_routes.py": "6166cdab9483824380309de96a60193d33d829cb9e9487aa234297305d7adcdd",
       "hardware/printed-parts/cold-core/_port_cuts.py": "9710799e781b1be205c769d0d79edd7a27d4e0cf4c8a7c86ae098f5683048718",
-      "hardware/printed-parts/cold-core/_reed_channels.py": "24c25fe9059deb6104d6dcf77953035563cdbafe96cea8c18095a4a07569c876"
+      "hardware/printed-parts/cold-core/_reed_channels.py": "8d01f093e8949c658abb6614e77c6b6c49713894283afd56a40e44592ad932aa"
     },
     "actual_route_rows": [
       {
@@ -754,18 +754,18 @@
     ],
     "unresolved": [],
     "pass": true,
-    "elapsed_seconds": 27.96454487500887,
-    "peak_resident_set_bytes": 1189724160
+    "elapsed_seconds": 27.721461583001656,
+    "peak_resident_set_bytes": 989839360
   },
   "parts": {
     "foam-shell": {
       "physical_stl": "hardware/printed-parts/cold-core/foam-shell/foam-shell.stl",
-      "physical_stl_sha256": "e5fed94fd2f2b4004080d792db8d9c089db6499722036b16501c38bb29dfc549",
-      "current_native_step_sha256": "ad683dc205a653d39b15ca3bd7d78ac033a1cced689ad5fed0c34e56faae790f",
-      "native_slice_step_sha256": "ad683dc205a653d39b15ca3bd7d78ac033a1cced689ad5fed0c34e56faae790f",
-      "preparation_directory": ".cache/prints/enclosure-continuous-clip-final-2eb222ae/2026-11-01-foam-shell-mark2-f08a95e8",
-      "preparation_sha256": "80d89b091a202f558eb8264f1f1ba643fbdef020b5feb2c21daf8b3cfb290077",
-      "archive_sha256": "77774cc114ecf09622aec70feb133f773cc5db8e67d634968d62df7dc1807f83",
+      "physical_stl_sha256": "a8fc1a29ded8daaaae3498e0af15b5923d6149c187f68ba0790cba81773d92cf",
+      "current_native_step_sha256": "6f9445c5100eda24e79e6986d1acba16b1335dba3484bffb0b64af2f28449c13",
+      "native_slice_step_sha256": "6f9445c5100eda24e79e6986d1acba16b1335dba3484bffb0b64af2f28449c13",
+      "preparation_directory": ".cache/prints/enclosure-continuous-clip-final-2eb222ae/2026-11-01-foam-shell-mark2-e7c624c9",
+      "preparation_sha256": "fbcc715de9e4633967205e1e2de4bbaaf56057f331e3591a7e959bb0000868f1",
+      "archive_sha256": "e13da265e760924a80f821b88f072e04c2ffb650092f2c1790afaeba9781e8ca",
       "printer": "Mark2",
       "nozzle": {
         "side": "left",
@@ -986,7 +986,7 @@
           "samples": [
             {
               "print_z_mm": 0.44,
-              "coverage": 0.9972246187833944,
+              "coverage": 0.9972233830898196,
               "stock_mm2": 224.77577442204029
             },
             {
@@ -996,11 +996,11 @@
             },
             {
               "print_z_mm": 225.56,
-              "coverage": 0.9933574445600823,
+              "coverage": 0.993357135558268,
               "stock_mm2": 102.21191184137408
             }
           ],
-          "minimum_coverage": 0.9933574445600823
+          "minimum_coverage": 0.993357135558268
         },
         {
           "object": 1901,
@@ -1020,7 +1020,7 @@
           "samples": [
             {
               "print_z_mm": 0.44,
-              "coverage": 0.998314020690969,
+              "coverage": 0.9983144255230422,
               "stock_mm2": 224.77577446007516
             },
             {
@@ -1030,11 +1030,11 @@
             },
             {
               "print_z_mm": 225.56,
-              "coverage": 0.9947877942647697,
+              "coverage": 0.994787410868335,
               "stock_mm2": 102.21189488054708
             }
           ],
-          "minimum_coverage": 0.9947877942647697
+          "minimum_coverage": 0.994787410868335
         },
         {
           "object": 1901,
@@ -1054,21 +1054,21 @@
           "samples": [
             {
               "print_z_mm": 0.44,
-              "coverage": 0.9973632448858055,
+              "coverage": 0.9973639158518655,
               "stock_mm2": 224.7757744220406
             },
             {
               "print_z_mm": 113.0,
-              "coverage": 0.9950752319130833,
+              "coverage": 0.9950742300497148,
               "stock_mm2": 162.45377182967275
             },
             {
               "print_z_mm": 225.56,
-              "coverage": 0.9949221825469687,
+              "coverage": 0.9949218253018585,
               "stock_mm2": 102.21191184137416
             }
           ],
-          "minimum_coverage": 0.9949221825469687
+          "minimum_coverage": 0.9949218253018585
         },
         {
           "object": 1901,
@@ -1088,7 +1088,7 @@
           "samples": [
             {
               "print_z_mm": 0.44,
-              "coverage": 0.9986863380407728,
+              "coverage": 0.9986865166365847,
               "stock_mm2": 224.77577453271556
             },
             {
@@ -1098,11 +1098,11 @@
             },
             {
               "print_z_mm": 225.56,
-              "coverage": 0.9948974849329095,
+              "coverage": 0.9948979438093631,
               "stock_mm2": 102.21191183055016
             }
           ],
-          "minimum_coverage": 0.9948974849329095
+          "minimum_coverage": 0.9948979438093631
         },
         {
           "object": 1901,
@@ -1132,11 +1132,11 @@
             },
             {
               "print_z_mm": 225.56,
-              "coverage": 0.995492949426382,
+              "coverage": 0.9954927190898045,
               "stock_mm2": 102.2118948697208
             }
           ],
-          "minimum_coverage": 0.995492949426382
+          "minimum_coverage": 0.9954927190898045
         },
         {
           "object": 1901,
@@ -1156,7 +1156,7 @@
           "samples": [
             {
               "print_z_mm": 0.44,
-              "coverage": 0.9986332643971741,
+              "coverage": 0.9986333075351935,
               "stock_mm2": 224.7757745327159
             },
             {
@@ -1190,7 +1190,7 @@
           "samples": [
             {
               "print_z_mm": 0.44,
-              "coverage": 0.9974575001972291,
+              "coverage": 0.997457286110936,
               "stock_mm2": 224.77577276793568
             },
             {
@@ -1200,11 +1200,11 @@
             },
             {
               "print_z_mm": 225.56,
-              "coverage": 0.9937839806040268,
+              "coverage": 0.9937836402363991,
               "stock_mm2": 102.2118798128912
             }
           ],
-          "minimum_coverage": 0.9937839806040268
+          "minimum_coverage": 0.9937836402363991
         },
         {
           "object": 1901,
@@ -1224,7 +1224,7 @@
           "samples": [
             {
               "print_z_mm": 0.44,
-              "coverage": 0.9981804918944936,
+              "coverage": 0.9981805947818702,
               "stock_mm2": 224.77577296082848
             },
             {
@@ -1234,11 +1234,11 @@
             },
             {
               "print_z_mm": 225.56,
-              "coverage": 0.9943986619119083,
+              "coverage": 0.9943990915370251,
               "stock_mm2": 102.21187989987925
             }
           ],
-          "minimum_coverage": 0.9943986619119083
+          "minimum_coverage": 0.9943990915370251
         },
         {
           "object": 1901,
@@ -1258,7 +1258,7 @@
           "samples": [
             {
               "print_z_mm": 0.44,
-              "coverage": 0.9986370576320245,
+              "coverage": 0.998636227006012,
               "stock_mm2": 224.7757751176132
             },
             {
@@ -1268,11 +1268,11 @@
             },
             {
               "print_z_mm": 225.56,
-              "coverage": 0.994170954278764,
+              "coverage": 0.994171068320307,
               "stock_mm2": 102.2119076816982
             }
           ],
-          "minimum_coverage": 0.994170954278764
+          "minimum_coverage": 0.994171068320307
         },
         {
           "object": 1901,
@@ -1292,7 +1292,7 @@
           "samples": [
             {
               "print_z_mm": 0.44,
-              "coverage": 0.99844938723617,
+              "coverage": 0.998449412712234,
               "stock_mm2": 224.775775310528
             },
             {
@@ -1302,11 +1302,11 @@
             },
             {
               "print_z_mm": 225.56,
-              "coverage": 0.9946318200532595,
+              "coverage": 0.9946317487013222,
               "stock_mm2": 102.21190776651068
             }
           ],
-          "minimum_coverage": 0.9946318200532595
+          "minimum_coverage": 0.9946317487013222
         }
       ],
       "support_audits": [
@@ -1315,11 +1315,11 @@
           "piece": "foam-shell",
           "inputs": {
             "gcode": "support-labels-1901.gcode",
-            "gcode_sha256": "8d35bc3c20a45fd5508ec1aed3c59e28f77587523aaf95ead0e78851e2743f2c",
+            "gcode_sha256": "c69abc8f9aa4d0b40d804fadb193085aa01e85c5b1d75cb308e984db0d568931",
             "model": "/Users/derekbredensteiner/Developer/hsm-approved-asse/hardware/printed-parts/cold-core/foam-shell/foam-shell.stl",
-            "model_sha256": "e5fed94fd2f2b4004080d792db8d9c089db6499722036b16501c38bb29dfc549",
-            "profile": ".cache/prints/enclosure-continuous-clip-final-2eb222ae/2026-11-01-foam-shell-mark2-f08a95e8/2026-11-01-foam-shell-mark2-f08a95e8.3mf",
-            "profile_sha256": "5b4af32fc71af833a5c33fcb54649c7e24de186c9ead2b7570351c36063d53d7"
+            "model_sha256": "a8fc1a29ded8daaaae3498e0af15b5923d6149c187f68ba0790cba81773d92cf",
+            "profile": ".cache/prints/enclosure-continuous-clip-final-2eb222ae/2026-11-01-foam-shell-mark2-e7c624c9/2026-11-01-foam-shell-mark2-e7c624c9.3mf",
+            "profile_sha256": "cda1518cc96b20028a55e9fe7a07a7478c561a88f2d17d9aa55677359724d5bd"
           },
           "slicer": "BambuStudio 02.08.02.61",
           "first_layer_z_mm": 0.2,
