@@ -54,7 +54,6 @@ import sys
 from pathlib import Path
 
 import cadquery as cq
-from OCP.BRepExtrema import BRepExtrema_DistShapeShape
 
 _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
@@ -291,6 +290,7 @@ def _filament(rgb) -> "cq.Color":
 def flange_clearance(which: str) -> float:
     """The nearest one station's word comes to its fitting's flange: the letters against the
     flange's own footprint, standing outboard of the chip's face alongside them."""
+    from OCP.BRepExtrema import BRepExtrema_DistShapeShape
     flange = cq.Solid.makeCylinder(FAMILIES[family(which)].flange_footprint() / 2.0,
                                    WORD_RAISE + WORD_DEPTH, cq.Vector(0.0, THICK, 0.0),
                                    cq.Vector(0.0, 1.0, 0.0))
@@ -302,7 +302,7 @@ def flange_clearance(which: str) -> float:
     return probe.Value()
 
 
-def build_part(which: str) -> cq.Assembly:
+def build_part(which: str) -> "cq.Assembly":
     """One station as it prints: the chip, and the word standing in its recess and proud of its
     face, each in the filament it comes off. Two bodies of one part, in the frame `seat` places them
     by."""
