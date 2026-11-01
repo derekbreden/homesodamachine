@@ -68,7 +68,7 @@
   ],
   "construction": {
     "fixed_rails": "Axially fitted outer-upper, outer-lower and inner-return faces from both exposed scans at X28\u201352. Their intersections and motor-can join form the reentrant transverse outline, continued through removable-slider occlusions.",
-    "wire_cover": "Measured bottom and side planes with observed rounded lower corners, retained through the rear end. Beyond this face the fitted motor can supplies the central underside.",
+    "wire_cover": "Level lower face at the measured rear-center height, with measured side planes and rounded lower corners, retained through the rear end. Beyond this face the fitted motor can supplies the central underside.",
     "rear_cap": "Negative-Y lower cap arc at X80 and81.8, continued axially and reflected across Y0 through the positive-Y lead occlusion.",
     "clearance_hull": "Metadata bound only; the convex lower hull is excluded from visible/native components."
   },
@@ -297,5 +297,28 @@
     "head_underside_contact_allowed": false,
     "fore_stop_inner_native_y_max_mm": -26.0,
     "review": "underside-observation/mount-review.json"
+  },
+  "wire_cover_floor_datum": {
+    "coefficients": [
+      0.0,
+      0.0,
+      4.210582841597397
+    ],
+    "independent_coordinates": [
+      "X",
+      "Y"
+    ],
+    "dependent_coordinate": "Z",
+    "rear_datum_point_mm": [
+      64.65,
+      0.0,
+      4.210582841597397
+    ],
+    "rear_datum_source": "wire_cover_floor_plane",
+    "physical_observation": {
+      "source": "Derek, 2026-11-01, chat 01a19503-4047-7cf0-ad82-9e42d010912e",
+      "text": "Regarding the B-C clarification, sorry, it's the front of B that I meant there. I did not explain that very well. On the back of B, you see how it's higher, and the front of B, you see how it's lower. It's where it's higher on the back of B that the rail is correct. The rail just needs to be flattened."
+    },
+    "scope": "Level rigid cable-cover lower face at the center of its measured rear end. The optical floor fit remains separate evidence; it is not the construction plane."
   }
 }
