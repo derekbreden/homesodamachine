@@ -1,0 +1,75 @@
+{
+  "views": [
+    {
+      "name": "underside",
+      "caption": "The center cable-cover lower face is level at its rear height.",
+      "before": "underside-before.webp",
+      "after": "underside-after.webp",
+      "width": 1000,
+      "height": 700,
+      "marks": [
+        {
+          "x": 211.3,
+          "y": 392.8,
+          "r": 46.7,
+          "label": "Level cover B",
+          "at": [
+            8,
+            0,
+            4.21
+          ]
+        }
+      ],
+      "model": "reference/g-ganen-pump/g-ganen-pump.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          71.60952593625615,
+          -269.0966959193611,
+          17.359885075456038
+        ],
+        "target": [
+          33,
+          0,
+          8
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 30,
+        "near": 164.8410161945903,
+        "far": 459.5222889717985,
+        "aspect": 1.4285714285714286
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [
+        "rigid_casing_envelope"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "reference/g-ganen-pump/g-ganen-pump.step.mesh",
+          "from": "snapshot",
+          "sha256": "c832c78d13bf47ba0ffdffe66e2025edd77245b1921d970843ad1c49cc6b25b7",
+          "commit": "0b42f162438624ba7bee44b89c37d9ef1446c0a8",
+          "taken": "2026-11-01T08:53:41.192Z",
+          "published": false
+        },
+        "after": {
+          "payload": "reference/g-ganen-pump/g-ganen-pump.step.mesh",
+          "from": "tree",
+          "sha256": "6c7e82cec104661f3eec463f5351bf620caf9b88fe6ec0f409bf96fcdcf4c05e",
+          "commit": "7f2e8f32f1dcc07aa8b47c1035b45f30098d7c07",
+          "published": false
+        }
+      },
+      "changed": [
+        "rigid_casing_envelope"
+      ],
+      "withinMeshing": []
+    }
+  ]
+}

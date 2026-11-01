@@ -139,3 +139,7 @@ Top and bottom details: [closure reference](../foam-cap/README.md).
 
 [Python datums](foam_shell.py), [kernel geometry](foam_shell.rs), and
 [native construction builder](../_foam_shell.py).
+
+## Sources
+[value](NAME) texts are updated by:
+- `/hardware/printed-parts/cold-core/reservoir/reservoir.py`

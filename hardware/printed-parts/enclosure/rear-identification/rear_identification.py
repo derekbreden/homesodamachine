@@ -6,6 +6,7 @@ on the corresponding fitting.
 """
 
 import functools
+import json
 import sys
 from pathlib import Path
 
@@ -223,6 +224,7 @@ def plain_lands():
 def numbers():
     """The sliding tiles' native fitting-frame dimensions and filament colours."""
     from _materials import linear
+    artwork = json.loads((HERE / 'label-words.json').read_text())
     spec = above_core.specification()
     rows = []
     for which in STATIONS.values():
@@ -232,6 +234,7 @@ def numbers():
         rows.append({
             'name': f'rear-label-{which}', 'body_name': f'bulkhead-ring-{which}',
             'word_name': f'bulkhead-ring-{which}-word', 'word': label,
+            'word_profiles': artwork['words'][label],
             'top': _top(which),
             'bore_x': row['bore_x_mm']-row['center_x_mm'],
             'bore_z': row['bore_z_mm']-row['center_z_mm'],
@@ -242,7 +245,8 @@ def numbers():
             'word_width': original.WORD_WIDTHS[label]*WORD_EM/original.WORD_SIZE,
         })
     return {'width': WIDTH, 'thick': THICK, 'bottom': 12., 'bore_overrun': .1,
-            'word_size': WORD_EM, 'word_font': original.WORD_FONT,
+            'word_size': WORD_EM, 'word_profiles_em': artwork['em_mm'],
+            'word_font': original.WORD_FONT,
             'word_kind': original.WORD_KIND,
             'word_depth': WORD_DEPTH, 'word_raise': WORD_RAISE,
             'word_band_bottom': 12., 'stations': rows}
