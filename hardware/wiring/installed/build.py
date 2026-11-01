@@ -28,13 +28,30 @@ from hardware.wiring.installed.terminals import Attachments
 OUT=ROOT/'hardware/wiring/enclosure-wiring'
 
 
+def _model_assembly():
+    """Keep completed mesh components as fine models while routing the next one."""
+    import cadquery as cq
+
+    meshcad=sys.modules.get('meshcad')
+    if meshcad is None or not meshcad.mesh_mode():
+        return cq.Assembly(name='installed-wiring')
+
+    class ModelAssembly(cq.Assembly):
+        def add(self, obj, *args, **kwargs):
+            if meshcad.is_mesh(obj):
+                obj=meshcad.from_model(meshcad.model_bytes(obj),snap=False)
+            return super().add(obj,*args,**kwargs)
+
+    return ModelAssembly(name='installed-wiring')
+
+
 def compose(scene, ea):
     import cadquery as cq
     at=Attachments(scene,ea)
     at.resolve()
     graph=connections()
     routes=routed(graph,at)
-    assembly=cq.Assembly(name='installed-wiring')
+    assembly=_model_assembly()
     for route in routes:
         stock=STOCK[route.connection.stock]
         s=shape(route,stock['od_mm'])

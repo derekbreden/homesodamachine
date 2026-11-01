@@ -108,11 +108,11 @@ def model_bytes(shape):
     return _bytes(_solids(shape))
 
 
-def from_model(data):
+def from_model(data, *, snap=True):
     """The shape `model_bytes` wrote: one solid, or a compound of several."""
     from .imports import load_model
     from .solids import MeshCompound
-    solids = load_model(data)
+    solids = load_model(data, snap=snap)
     return solids[0] if len(solids) == 1 else MeshCompound(solids)
 
 
