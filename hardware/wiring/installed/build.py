@@ -80,22 +80,53 @@ def attach(assembly, ea):
     assembly.wiring_model=manifest
 
 
-def export_enclosure(assembly, target):
-    """One physical export followed by the separately replaceable wiring block."""
+def _enclosure_parts(assembly):
     import cadquery as cq
-    from _cadq_export import export_assembly
-    from hardware.wiring.installed.step_merge import install
+
     physical=cq.Assembly(name=assembly.name)
     wires=None
     for child in assembly.children:
         if child.name=='installed-wiring':wires=child
         else:physical.add(child,name=child.name)
+    return physical,wires
+
+
+def export_enclosure(assembly, target):
+    """One physical export followed by the separately replaceable wiring block."""
+    from _cadq_export import export_assembly
+    from hardware.wiring.installed.step_merge import install
+
+    physical,wires=_enclosure_parts(assembly)
     export_assembly(physical,str(target))
     if wires is not None:
         # Preserve native swept-face orientation through STEP readback.
         export_assembly(wires,str(OUT.with_suffix('.step')),precision_mode=1)
         write_manifest(assembly.wiring_model,Path(target))
         install(Path(target),OUT.with_suffix('.step'))
+
+
+def prepare_enclosure(assembly, target, directory):
+    """Capture exact exports before the geometry builder exits."""
+    from _machine_export import stage_assembly
+
+    physical,wires=_enclosure_parts(assembly)
+    return {'physical':stage_assembly(physical,target,directory),
+            'wires':None if wires is None else stage_assembly(
+                wires,OUT.with_suffix('.step'),directory),
+            'manifest':None if wires is None else assembly.wiring_model}
+
+
+def finish_enclosure(exports):
+    """Write captured exports and replace the wiring block in the physical STEP."""
+    from _machine_export import write_assembly
+    from hardware.wiring.installed.step_merge import install
+
+    write_assembly(exports['physical'])
+    if exports['wires'] is not None:
+        write_assembly(exports['wires'])
+        target=Path(exports['physical']['target'])
+        write_manifest(exports['manifest'],target)
+        install(target,Path(exports['wires']['target']))
 
 
 def digest(path): return hashlib.sha256(Path(path).read_bytes()).hexdigest()
@@ -112,6 +143,7 @@ def write_manifest(manifest,scene_step):
            Path(__file__).with_name('_model_input.py'),
            ROOT/'hardware/scripts/_assembly_model.py',
            ROOT/'hardware/manifold-layout/enclosure_assembly.rs',
+           ROOT/'hardware/manifold-layout/_machine_export.py',
            Path(__file__).with_name('routes.py'),Path(__file__).with_name('retainers.py'),
            Path(__file__).with_name('manifold_bank_routes.py'),
            Path(__file__).with_name('route-overrides.json'),

@@ -467,19 +467,35 @@ def _write_payload_glb(path, names, inner, outer_entries, core_entries,
     return path
 
 
-def write_glbs(assembly, require_core_payload=False) -> list:
-    """Write every viewer scene from the current appliance mesh and one current core mesh.
-
-    `enclosure_assembly.main` calls this after exporting and fluting the appliance payload, while
-    its named machine is still live. Scene membership and every material therefore come from
-    that machine. The inner model is stood and tessellated once; each scene after that is only a
-    named subset and two node transforms. No scene STEP, scene B-rep tessellation, or GLB graft
-    stands on the publication path."""
-    outer_entries = _payload_geometry(ASSEMBLY_MESH)
+def describe(assembly) -> dict:
+    """Scene membership, full RGBA and exact frames read off one live machine."""
     outer_rgba = _assembly_rgba(assembly)
     for name in getattr(assembly, 'core_external_components', ()):
         if 'cold-core/'+name in outer_rgba:
             outer_rgba[name] = outer_rgba['cold-core/'+name]
+    crossings = _scenes.crossings(assembly.runs)
+    scenes = []
+    for scene in _scenes.SCENES:
+        names = _scenes.members(scene, assembly)
+        scenes.append({"id": scene.id, "names": names,
+                       "inner": list(_scenes.inner_of(scene)), "flip": scene.flip,
+                       "overrides": {line: outer_rgba[half]
+                                     for line, half in crossings.items()
+                                     if line in names and half in names}})
+    return {"outer_rgba": outer_rgba, "scenes": scenes,
+            "core_to_world": _location_matrix(
+                assembly.carries[_scenes.INNER_ROOT].where).tolist()}
+
+
+def write_glbs(assembly, require_core_payload=False) -> list:
+    """Write viewer scenes from the machine's live membership, colours and frames."""
+    return write_described_glbs(describe(assembly), require_core_payload=require_core_payload)
+
+
+def write_described_glbs(description, require_core_payload=False) -> list:
+    """Write the same scenes after their geometry builder has exited."""
+    outer_entries = _payload_geometry(ASSEMBLY_MESH)
+    outer_rgba = description["outer_rgba"]
 
     # The Bazel action receives the exact mesh and scorecard from //:cold-core-assembly. A
     # missing, stale, or malformed handoff is an error, never permission to rebuild from some
@@ -494,21 +510,14 @@ def write_glbs(assembly, require_core_payload=False) -> list:
         core = cca.build_assembly()
         core_rgba = _assembly_rgba(core)
         core_entries = _mesh_payload.from_assembly(_per_solid_color(core))
-    core_to_world = _location_matrix(assembly.carries[_scenes.INNER_ROOT].where)
-    crossings = _scenes.crossings(assembly.runs)
+    core_to_world = np.asarray(description["core_to_world"])
 
     GLB_DIR.mkdir(parents=True, exist_ok=True)
     out = []
-    for scene in _scenes.SCENES:
-        names = _scenes.members(scene, assembly)
-        inner = set(_scenes.inner_of(scene))
-        # One continuous tube keeps the outer model's full RGBA across the core boundary.
-        overrides = {line: outer_rgba[half]
-                     for line, half in crossings.items()
-                     if line in names and half in names}
-        glb = GLB_DIR / f"{scene.id}.glb"
-        _write_payload_glb(glb, names, inner, outer_entries, core_entries,
-                           outer_rgba, core_rgba, scene.flip, core_to_world, overrides)
+    for scene in description["scenes"]:
+        glb = GLB_DIR / f"{scene['id']}.glb"
+        _write_payload_glb(glb, scene["names"], set(scene["inner"]), outer_entries, core_entries,
+                           outer_rgba, core_rgba, scene["flip"], core_to_world, scene["overrides"])
         note_write(glb)
         print(f"-> {glb.relative_to(_ROOT)}")
         out.append(glb)
