@@ -177,6 +177,9 @@ MADE_UP_ON = {
 
 
 def _load(path: Path):
+    if Path(path).parent == _cold / "reservoir":
+        import reservoir
+        return reservoir.import_part(path)
     return import_step(str(path)).val()
 
 
