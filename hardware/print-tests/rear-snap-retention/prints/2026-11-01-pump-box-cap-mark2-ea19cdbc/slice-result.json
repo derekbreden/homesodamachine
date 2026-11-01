@@ -1,0 +1,69 @@
+{
+  "error_string": "Success.",
+  "export_time": 634,
+  "layer_height": 0.23999999463558197,
+  "plate_index": 0,
+  "prepare_time": 16,
+  "return_code": 0,
+  "sliced_plates": [
+    {
+      "feature_type_times": {
+        "Bottom surface": 39.45521926879883,
+        "Custom": 303.05767822265625,
+        "Flush": 15.0,
+        "Gap infill": 107.45843505859375,
+        "Inner wall": 661.0198364257812,
+        "Internal solid infill": 100.38615417480469,
+        "Outer wall": 448.2835998535156,
+        "Sparse infill": 3482.640380859375,
+        "Top surface": 18.752161026000977,
+        "Travel": 329.1031494140625,
+        "Undefined": 321.8591613769531
+      },
+      "filament_change_times": 0,
+      "filaments": [
+        {
+          "filament_id": "GFT01",
+          "id": 1,
+          "main_used_g": 71.0717544555664,
+          "total_used_g": 71.0717544555664
+        }
+      ],
+      "generate_support_material_time": 42,
+      "id": 1,
+      "infill_time": 44,
+      "layer_filament_change": 0,
+      "main_predication": 5173.0703125,
+      "make_perimeters_time": 92,
+      "obj_cached_cnt": 0,
+      "objects": [
+        {
+          "bbox": {
+            "depth": 45.699501037597656,
+            "height": 54.5,
+            "width": 71.75836181640625,
+            "x": 126.62081909179688,
+            "y": 137.15025329589844,
+            "z": 0.0
+          },
+          "id": 5,
+          "name": "pump-box-cap",
+          "triangle_count": 612
+        }
+      ],
+      "sliced_time": 639,
+      "sliced_time_with_cache": 439,
+      "total_predication": 5498.8837890625,
+      "triangle_count": 612,
+      "warning_message": ""
+    }
+  ],
+  "sparse_infill_density": 100.0,
+  "upward_compatible_machine": [
+    "Bambu Lab H2S 0.4 nozzle",
+    "Bambu Lab H2D 0.4 nozzle",
+    "Bambu Lab H2D Pro 0.4 nozzle",
+    "Bambu Lab A2L 0.4 nozzle"
+  ],
+  "wall_loops": 3
+}

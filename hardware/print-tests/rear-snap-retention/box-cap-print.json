@@ -1,0 +1,20 @@
+{
+  "jobs": [
+    {
+      "plate": "pump-box-cap",
+      "printer": "Mark2",
+      "connection_key": "Mark2",
+      "preparation": "hardware/print-tests/rear-snap-retention/prints/2026-11-01-pump-box-cap-mark2-ea19cdbc",
+      "archive": "hardware/print-tests/rear-snap-retention/prints/2026-11-01-pump-box-cap-mark2-ea19cdbc/2026-11-01-pump-box-cap-mark2-ea19cdbc.gcode.3mf",
+      "print_only_archive": "hardware/print-tests/rear-snap-retention/prints/2026-11-01-pump-box-cap-mark2-ea19cdbc/2026-11-01-pump-box-cap-mark2-ea19cdbc-print-only.gcode.3mf",
+      "gcode_sha256": "c11698a5fafe3c767f8491653065935cb379959717078e3aa6f7e8f9f8b7b2c6",
+      "estimated_seconds": 5498.8837890625,
+      "filament_g": 71.07,
+      "minimum_bed_margin_mm": 126.55698799999999,
+      "requested_z_trim_mm": 0.04,
+      "emitted_trim_mm": 0.02,
+      "native_review_pass": true,
+      "submitted": false
+    }
+  ]
+}
