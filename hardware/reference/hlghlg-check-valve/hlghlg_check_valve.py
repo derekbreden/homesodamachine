@@ -15,20 +15,16 @@ listing's dimensioned photograph. Reconcile against a valve in hand.
 Frame: the valve stands on Z with water running DOWN it, the inlet collet's mouth at Z = 0 and
 the outlet's at −Z, centred on X and Y.
 
-Run:
-    tools/cad-venv/bin/python hardware/reference/hlghlg-check-valve/hlghlg_check_valve.py
+Geometry is in the frozen STEP and display payload beside this module.
+`frozen-asset.json` records their bytes and source snapshot.
 """
 
-import sys
 from pathlib import Path
 
-import cadquery as cq
-
 _here = Path(__file__).resolve()
-_hw = next(p for p in _here.parents if p.name == "hardware")
-sys.path.insert(0, str(_hw / "scripts"))
-from _cadq_export import export_assembly
-from _materials import M_JG_WHITE_PP, one_body
+STEP_PATH = _here.parent / "hlghlg-check-valve.step"
+PAYLOAD_PATH = _here.parent / "hlghlg-check-valve.step.mesh"
+ASSET_MANIFEST_PATH = _here.parent / "frozen-asset.json"
 
 TUBE_D = 6.35               # the 1/4" OD LLDPE both ends accept
 LENGTH = 51.0               # the listing's end-to-end dimension
@@ -70,29 +66,10 @@ def tube_port():
     return outlet()
 
 
-def build():
-    """The sections stacked down −Z from the inlet mouth."""
-    part, z = None, 0.0
-    for _label, dia, length in SECTIONS:
-        z -= length
-        seg = cq.Solid.makeCylinder(dia / 2.0, length, cq.Vector(0, 0, z), cq.Vector(0, 0, 1))
-        part = seg if part is None else part.fuse(seg)
-    return part.clean()
-
-
 def main():
-    part = build()
-    bb = part.BoundingBox()
-    print("HLGHLG 1/4\" OD push-to-connect check valve — the water-side check")
-    print(f"  Bounding box: X [{bb.xmin:.2f}, {bb.xmax:.2f}]  "
-          f"Y [{bb.ymin:.2f}, {bb.ymax:.2f}]  Z [{bb.zmin:.2f}, {bb.zmax:.2f}]")
-    for label, r, s0, s1 in sections():
-        print(f"  {label:14s} d {2 * r:5.2f}  s {s0:5.2f}..{s1:5.2f}")
-    for label, (pos, axis) in (("inlet ", inlet()), ("outlet", outlet())):
-        print(f"  {label}: ({pos[0]:7.2f}, {pos[1]:6.2f}, {pos[2]:7.2f})  out {axis}")
-    out = _here.parent / "hlghlg-check-valve.step"
-    export_assembly(one_body(part, "hlghlg-check-valve", M_JG_WHITE_PP), str(out))
-    print(f"-> {out.name}")
+    print("hlghlg-check-valve")
+    print(f"  STEP: {STEP_PATH}")
+    print(f"  Display payload: {PAYLOAD_PATH}")
 
 
 if __name__ == "__main__":

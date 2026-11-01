@@ -15,20 +15,16 @@ Coordinate convention:
   +X = the way the housing stands off the band, and the way the screw head
       faces. Origin = the clamped circle's own centre.
 
-Run:
-    tools/cad-venv/bin/python hardware/reference/worm-clamp/worm_clamp.py
+Geometry is in the frozen STEP and display payload beside this module.
+`frozen-asset.json` records their bytes and source snapshot.
 """
 
-import sys
 from pathlib import Path
 
-import cadquery as cq
-
 _here = Path(__file__).resolve()
-_hw = next(p for p in _here.parents if p.name == "hardware")
-sys.path.insert(0, str(_hw / "scripts"))
-from _cadq_export import export_assembly
-from _materials import M_STAINLESS, one_body
+STEP_PATH = _here.parent / "worm-clamp.step"
+PAYLOAD_PATH = _here.parent / "worm-clamp.step.mesh"
+ASSET_MANIFEST_PATH = _here.parent / "frozen-asset.json"
 
 STEP = _here.parent / "worm-clamp.step"
 
@@ -76,66 +72,10 @@ def holds(clamp_d: float) -> None:
             f"carries this diameter, or state the joint at one this clamp holds.")
 
 
-# --- the solid --------------------------------------------------------------
-
-def _band(clamp_d):
-    """The wrapped steel band: an annulus `BAND_T` thick, closed on `clamp_d`."""
-    r = clamp_d / 2.0
-    return (cq.Workplane("XY", origin=(0, 0, -BAND_W / 2.0))
-            .circle(r + BAND_T).circle(r)
-            .extrude(BAND_W).val())
-
-
-def _housing(clamp_d):
-    """The screw housing, straddling the band on +X: it sits on the band's outer face and
-    reaches `HOUSING_H` beyond it, its length along the band's arc."""
-    r0 = clamp_d / 2.0 + BAND_T
-    return (cq.Workplane("XY", origin=(r0 + HOUSING_H / 2.0, 0, 0))
-            .box(HOUSING_H, HOUSING_L, HOUSING_W).val())
-
-
-def _screw(clamp_d):
-    """The worm screw's head, on the housing's −Y end face, turned about the band's own
-    tangent — the axis a driver comes in on."""
-    r0 = clamp_d / 2.0 + BAND_T
-    y = -HOUSING_L / 2.0
-    return cq.Solid.makeCylinder(
-        SCREW_D / 2.0, SCREW_PROUD,
-        cq.Vector(r0 + HOUSING_H / 2.0, y - SCREW_PROUD, 0), cq.Vector(0, 1, 0))
-
-
-def _tail(clamp_d):
-    """The band's free end, out through the housing and standing off it along −Y."""
-    r0 = clamp_d / 2.0
-    return (cq.Workplane("XY", origin=(r0, HOUSING_L / 2.0 - TAIL_LEN, -BAND_W / 2.0))
-            .box(BAND_T, TAIL_LEN, BAND_W, centered=(False, False, False)).val())
-
-
-def build_worm_clamp(clamp_d: float):
-    """The clamp closed on `clamp_d`, as a single solid wrapped in a `cq.Workplane`."""
-    holds(clamp_d)
-    return cq.Workplane(obj=_band(clamp_d).fuse(_housing(clamp_d), _screw(clamp_d),
-                                                _tail(clamp_d)))
-
-
 def main():
-    # The STEP stands at the middle of the band. A placement builds its own at the diameter
-    # it closes on.
-    nominal = sum(RANGE) / 2.0
-    part = build_worm_clamp(nominal)
-    bb = part.val().BoundingBox()
-    print(f"LOKMAN worm-gear clamp, {RANGE[0]:g}–{RANGE[1]:g} mm, {MATERIAL} — simplified")
-    print(f"  Drawn closed on Ø{nominal:g}")
-    print(f"  Canonical-frame bounding box: "
-          f"X [{bb.xmin:.2f}, {bb.xmax:.2f}]  "
-          f"Y [{bb.ymin:.2f}, {bb.ymax:.2f}]  "
-          f"Z [{bb.zmin:.2f}, {bb.zmax:.2f}]")
-    print(f"  Band {BAND_W:g} wide × {BAND_T:g} thick; housing crown "
-          f"{stand_off(nominal):.2f} mm off the axis")
-    print(f"  Solid valid: {part.val().isValid()}")
-
-    export_assembly(one_body(part, "worm-clamp", M_STAINLESS), str(STEP))
-    print(f"-> {STEP.name}")
+    print("worm-clamp")
+    print(f"  STEP: {STEP_PATH}")
+    print(f"  Display payload: {PAYLOAD_PATH}")
 
 
 if __name__ == "__main__":
