@@ -30,6 +30,12 @@ payloads in the checkout. Claude Code and Codex sessions have its tools: `hsm_wh
 measured, so a source edit shows once its producer exports a new payload. `root` (`--root`)
 picks another worktree and `scene` (`--scene`) another assembly.
 
+## Mechanical Layout
+
+Finish the mechanical layout before placing Wagos or routing wires. Position
+Wagos and route wires around the finished mechanics. Their existing positions
+and routes do not constrain mechanical changes.
+
 ## Sourcing
 
 Two things decide where a part comes from: lead time and volume. It ships from stock and arrives in days, and it is the high-volume part for its job, the one most people buy for that job today.
