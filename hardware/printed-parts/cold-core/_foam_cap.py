@@ -242,3 +242,34 @@ def build_bottom_cap():
     for xy,radius in holes:
         cap = cap.cut(cq.Solid.makeCylinder(radius,height+.2,cq.Vector(*xy,-.1)))
     return cap.clean().unwrap()
+
+
+def import_cap_part(path):
+    """Read a cap piece for the caller's active native or mesh geometry API.
+
+    Mesh callers retain the emitted f64 model. Native readers use the same
+    construction surfaces as this module's compatibility builders.
+    """
+    from pathlib import Path
+    from _cadq_export import import_step
+
+    path = Path(path)
+    if not getattr(cq, 'MESH', False):
+        with path.open('rb') as stream:
+            triangles = b'meshcad tessellated' in stream.read(200)
+        if triangles:
+            if path.stem == 'foam-cap-bottom':
+                return build_bottom_cap().val()
+            if path.stem == 'foam-cap-lid-top':
+                import importlib.util
+                source = Path(__file__).parent / 'foam-cap' / 'foam_cap.py'
+                spec = importlib.util.spec_from_file_location('_native_foam_cap', source)
+                module = importlib.util.module_from_spec(spec)
+                spec.loader.exec_module(module)
+                return module.build_top_lid().val()
+            if path.stem == 'reservoir-b-fill-guide':
+                import _reservoir_b_fill
+                return _reservoir_b_fill.guide_native()
+            if path.stem == 'pump-snap-cap':
+                return _above_mounts.pump_snap_printable()
+    return import_step(str(path)).val()
