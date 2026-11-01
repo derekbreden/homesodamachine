@@ -1,0 +1,295 @@
+{
+  "views": [
+    {
+      "name": "foot-leg-removal",
+      "caption": "The complete rubber feet and their sliding legs come off the fixed casing rails.",
+      "before": "foot-leg-removal-before.webp",
+      "after": "foot-leg-removal-after.webp",
+      "width": 1000,
+      "height": 700,
+      "marks": [
+        {
+          "x": 446,
+          "y": 474,
+          "r": 31.1,
+          "label": "Foot and leg",
+          "at": [
+            -50,
+            378,
+            263
+          ]
+        },
+        {
+          "x": 740.3,
+          "y": 359.7,
+          "r": 31.1,
+          "label": "Rear slider",
+          "at": [
+            20,
+            436,
+            263
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          213.50643069611127,
+          313.44807079116663,
+          107.62017697791654
+        ],
+        "target": [
+          -15,
+          382,
+          279
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 90,
+        "near": 171.94781582151114,
+        "far": 490.1705969473083,
+        "aspect": 1.4285714285714286
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [
+        "cold-core/g-ganen-pump"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "b198dc9180b8db8f6218bf77c8198483b3832d71b8fd586ba3c65518880531cf",
+          "commit": "b44b5638a4aaea215a9b6175dc413a36da85ff59",
+          "taken": "2026-10-31T22:59:21.346Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "9ce25f72ed4dbc17d7ce60e81fbc26a924b87ce81c01b61f69605c48f58c3698",
+          "commit": "54b5a291fc5b04a8d5bf167e4c9178e398b78d8b",
+          "taken": "2026-11-01T07:38:52.615Z",
+          "published": true
+        }
+      },
+      "changed": [
+        "cold-core/g-ganen-pump",
+        "ground-stack",
+        "wire-PE-bus",
+        "cold-core/pump-snap-cap",
+        "ground-stack-insert",
+        "wire-AC6-PE",
+        "tube-above-core-va-fore-feed",
+        "cold-core/foam-cap-lid-top",
+        "wire-PE-carbonator",
+        "ya-stem-elbow",
+        "cold-core/tube-water-5",
+        "cold-core/line-water-in",
+        "tube-fluid-26",
+        "cold-core/foam-cap-top",
+        "enclosure-back-top",
+        "tube-fluid-14",
+        "tube-fluid-16",
+        "cold-core/suction-stem-key",
+        "cold-core/carbonator-fold",
+        "cold-core/discharge-chain",
+        "cold-core/suction-tube",
+        "cold-core/suction-stem-clamp",
+        "cold-core/suction-reducer",
+        "cold-core/discharge-tube",
+        "cold-core/discharge-reducer",
+        "cold-core/discharge-stem-clamp",
+        "cold-core/discharge-barb-clamp",
+        "cold-core/suction-barb-clamp",
+        "cold-core/discharge-stem-key",
+        "cold-core/suction-barb-key",
+        "cold-core/discharge-barb-key",
+        "cold-core/tube-above-core-pump-inlet-link",
+        "wire-DC1-V12",
+        "wire-AC2-L",
+        "wire-DC1-GND",
+        "wire-AC2-N",
+        "psu",
+        "psu-screw-1",
+        "psu-screw-2",
+        "psu-screw-3",
+        "psu-screw-4",
+        "psu-insert-1",
+        "psu-insert-2",
+        "psu-insert-3",
+        "psu-insert-4",
+        "cold-core/lower-pump-elbow",
+        "wire-DC3-negative",
+        "wire-DC3-positive"
+      ],
+      "withinMeshing": [
+        "tube-above-core-vb-yb-link",
+        "tube-above-core-gas-core-drop",
+        "wire-J6-RA4",
+        "tube-fluid-18",
+        "wire-J6-RA3",
+        "cold-core/evap-coil",
+        "wire-J6-RA1",
+        "tube-above-core-tee-regulator",
+        "wire-J6-GND",
+        "wire-J6-RA2",
+        "enclosure-back-bottom",
+        "wire-J7-CHI"
+      ]
+    },
+    {
+      "name": "psu-roof-skin",
+      "caption": "A section through one PSU pilot shows the full 3 mm exterior roof skin above its new blind end.",
+      "before": "psu-roof-skin-before.webp",
+      "after": "psu-roof-skin-after.webp",
+      "width": 1000,
+      "height": 700,
+      "marks": [
+        {
+          "x": 500,
+          "y": 213.9,
+          "r": 66.1,
+          "label": "Roof skin",
+          "at": [
+            2.851860046386719,
+            349.8,
+            353.5
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          2.851860046386719,
+          -248.9507266197167,
+          350
+        ],
+        "target": [
+          2.851860046386719,
+          349.8,
+          350
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 9,
+        "near": 343.93710651187746,
+        "far": 992.5837270165704,
+        "aspect": 1.4285714285714286,
+        "section": {
+          "at": [
+            2.851860046386719,
+            349.8,
+            351
+          ],
+          "normal": [
+            0,
+            -1,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [
+        "enclosure-back-top",
+        "psu",
+        "psu-screw-1",
+        "psu-insert-1"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "b198dc9180b8db8f6218bf77c8198483b3832d71b8fd586ba3c65518880531cf",
+          "commit": "b44b5638a4aaea215a9b6175dc413a36da85ff59",
+          "taken": "2026-10-31T22:59:21.346Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "9ce25f72ed4dbc17d7ce60e81fbc26a924b87ce81c01b61f69605c48f58c3698",
+          "commit": "54b5a291fc5b04a8d5bf167e4c9178e398b78d8b",
+          "taken": "2026-11-01T07:38:52.615Z",
+          "published": true
+        }
+      },
+      "changed": [
+        "cold-core/g-ganen-pump",
+        "ground-stack",
+        "wire-PE-bus",
+        "cold-core/pump-snap-cap",
+        "ground-stack-insert",
+        "wire-AC6-PE",
+        "tube-above-core-va-fore-feed",
+        "cold-core/foam-cap-lid-top",
+        "wire-PE-carbonator",
+        "ya-stem-elbow",
+        "cold-core/tube-water-5",
+        "cold-core/line-water-in",
+        "tube-fluid-26",
+        "cold-core/foam-cap-top",
+        "enclosure-back-top",
+        "tube-fluid-14",
+        "tube-fluid-16",
+        "cold-core/suction-stem-key",
+        "cold-core/carbonator-fold",
+        "cold-core/discharge-chain",
+        "cold-core/suction-tube",
+        "cold-core/suction-stem-clamp",
+        "cold-core/suction-reducer",
+        "cold-core/discharge-tube",
+        "cold-core/discharge-reducer",
+        "cold-core/discharge-stem-clamp",
+        "cold-core/discharge-barb-clamp",
+        "cold-core/suction-barb-clamp",
+        "cold-core/discharge-stem-key",
+        "cold-core/suction-barb-key",
+        "cold-core/discharge-barb-key",
+        "cold-core/tube-above-core-pump-inlet-link",
+        "wire-DC1-V12",
+        "wire-AC2-L",
+        "wire-DC1-GND",
+        "wire-AC2-N",
+        "psu",
+        "psu-screw-1",
+        "psu-screw-2",
+        "psu-screw-3",
+        "psu-screw-4",
+        "psu-insert-1",
+        "psu-insert-2",
+        "psu-insert-3",
+        "psu-insert-4",
+        "cold-core/lower-pump-elbow",
+        "wire-DC3-negative",
+        "wire-DC3-positive"
+      ],
+      "withinMeshing": [
+        "tube-above-core-vb-yb-link",
+        "tube-above-core-gas-core-drop",
+        "wire-J6-RA4",
+        "tube-fluid-18",
+        "wire-J6-RA3",
+        "cold-core/evap-coil",
+        "wire-J6-RA1",
+        "tube-above-core-tee-regulator",
+        "wire-J6-GND",
+        "wire-J6-RA2",
+        "enclosure-back-bottom",
+        "wire-J7-CHI"
+      ]
+    }
+  ]
+}
