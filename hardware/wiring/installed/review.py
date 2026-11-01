@@ -2,6 +2,7 @@
 
     tools/cad-venv/bin/python hardware/wiring/installed/review.py
     tools/cad-venv/bin/python hardware/wiring/installed/review.py --native
+    tools/cad-venv/bin/python hardware/wiring/installed/review.py --fine
 
 The mesh review checks wires against larger bodies. Wires and tubes do not
 obstruct wire routes. Endpoint contact exclusions are
@@ -142,7 +143,8 @@ def mesh_review():
             'termination_interference_pairs':termination_collisions,
             'wires_with_physical_interference':len({r['wire'] for r in collisions}),
             'endpoint_contact_scope':'Only the named endpoint part within 8.5 mm of its attachment. All other contact with that part remains in the reading.',
-            'native':json.loads(OUTPUT.read_text()).get('native') if OUTPUT.exists() else None}
+            'native':json.loads(OUTPUT.read_text()).get('native') if OUTPUT.exists() else None,
+            'fine':json.loads(OUTPUT.read_text()).get('fine') if OUTPUT.exists() else None}
     OUTPUT.write_text(json.dumps(report,indent=2)+'\n')
     print(json.dumps({'wires':len(wires),'physical_pairs':len(collisions),
                       'packing_pairs':len(packing),'bundle_pairs':len(bundle_collisions),
@@ -151,6 +153,8 @@ def mesh_review():
 
 
 def native_review():
+    if json.loads(MANIFEST.read_text()).get('wiring_fine_model_sha256'):
+        return fine_review()
     sys.path[:0]=[str(ROOT/'hardware/scripts')]
     from _cadq_export import import_assembly
     manifest=json.loads(MANIFEST.read_text())
@@ -196,5 +200,79 @@ def native_review():
     print(json.dumps(native),flush=True)
 
 
+def fine_review(manifest_path=MANIFEST,host=HOST,output=OUTPUT):
+    """Inspect authoritative wire topology and its explicit source/export bindings."""
+    sys.path[:0]=[str(ROOT/'hardware/scripts')]
+    import _assembly_model
+    from hardware.wiring.installed.step_merge import base_document
+    manifest_path,host,output=map(Path,(manifest_path,host,output))
+    manifest=json.loads(manifest_path.read_text())
+    if not manifest.get('wiring_fine_model_sha256'):
+        raise ValueError('Fine inspection requires the kernel wiring manifest and its bound model files')
+    step=manifest_path.with_suffix('.step')
+    wire_model=Path(str(step)+'.npz');physical_model=Path(str(host)+'.npz')
+    def sha(path):
+        with Path(path).open('rb') as stream:
+            return hashlib.file_digest(stream,'sha256').hexdigest()
+    def arrays(path):
+        with Path(path).open('rb') as stream:
+            size=struct.unpack('<I',stream.read(4))[0]
+            header=json.loads(stream.read(size));blob=4+size
+            result={}
+            for row in header['meshes']:
+                values={k:v for k,v in row.items() if k not in ('pos','nrm','idx','fac','col','uv')}
+                for key in ('pos','nrm','idx','fac','col','uv'):
+                    if key not in row:continue
+                    offset,count=row[key];stream.seek(blob+offset)
+                    remaining=count*4;h=hashlib.sha256()
+                    while remaining:
+                        data=stream.read(min(remaining,1<<20))
+                        if not data:raise EOFError(f'{path}: truncated {key}')
+                        h.update(data);remaining-=len(data)
+                    values[key]={'count':count,'sha256':h.hexdigest()}
+                result[row['name']]=values
+        return header,result
+    measured=_assembly_model.measure([_assembly_model.instance(wire_model)],())['bodies']
+    names=Counter(base_name(row['name']) for row in measured)
+    expected={f'wire-{r["id"]}' for r in manifest['routes']}
+    expected.update(manifest.get('terminations',{}))
+    expected.update(b['geometry_name'] for b in manifest.get('bundles',{}).values()
+                    if b['geometry_name'] is not None)
+    wire_header,wires=arrays(Path(str(step)+'.mesh'))
+    host_header,installed=arrays(Path(str(host)+'.mesh'))
+    with np.load(wire_model,allow_pickle=False) as model:
+        document=json.loads(bytes(model['document']))
+    sources=manifest.get('source_sha256',{})
+    source_errors=[name for name,want in sources.items()
+                   if not (ROOT/name).is_file() or sha(ROOT/name)!=want]
+    bindings={
+        'physical_fine_input':sha(physical_model)==manifest.get('physical_fine_model_sha256'),
+        'wiring_fine_model':sha(wire_model)==manifest.get('wiring_fine_model_sha256'),
+        'numbers':sha(manifest_path.with_suffix('.numbers.json'))==manifest.get('wiring_numbers_sha256'),
+        'physical_step':hashlib.sha256(base_document(host.read_text()).encode()).hexdigest()==manifest.get('physical_scene_sha256'),
+        'standalone_presentation_source':wire_header.get('src')==sha(step),
+        'installed_presentation_source':host_header.get('src')==sha(host),
+        'fine_document_presentation':document.get('presentation')=={
+            'path':step.name+'.mesh','sha256':sha(Path(str(step)+'.mesh'))},
+        'installed_presentation_arrays':all(installed.get(name)==row for name,row in wires.items()),
+        'source_files':bool(sources) and not source_errors,
+        'body_coverage':bool(expected) and set(names)==expected==set(wires),
+    }
+    fine={'scope':'Authoritative fine wire topology and source/export bindings, including exact installed presentation arrays. Contact, clearance and native B-rep readback retain their own artifact scopes.',
+          'physical_fine_model_sha256':sha(physical_model),'wiring_fine_model_sha256':sha(wire_model),
+          'wiring_step_sha256':sha(step),'manifest_sha256':sha(manifest_path),
+          'body_count':len(measured),'conductor_count':len(manifest['routes']),
+          'all_model_entries_passed_topology_check':True,
+          'single_model_entry_by_name':all(count==1 for count in names.values()),
+          'bindings':bindings,'all_bindings_match':all(bindings.values()),
+          'source_mismatches':source_errors,'missing_bodies':sorted(expected-set(names)),
+          'extra_bodies':sorted(set(names)-expected),
+          'unique_connection_ids':len({r['id'] for r in manifest['routes']})==len(manifest['routes'])}
+    report=json.loads(output.read_text()) if output.exists() else {}
+    report['fine']=fine;output.write_text(json.dumps(report,indent=2)+'\n')
+    print(json.dumps(fine),flush=True)
+    return fine
+
+
 if __name__=='__main__':
-    native_review() if '--native' in sys.argv else mesh_review()
+    fine_review() if '--fine' in sys.argv else native_review() if '--native' in sys.argv else mesh_review()

@@ -94,6 +94,21 @@ def numeric_inputs(scene,ea):
             _manifest(at,graph,routes,termination_facts,bundle_facts))
 
 
+def numeric_source_paths():
+    """Loaded repository readers and explicit placement data for the numeric handoff."""
+    paths={Path(module.__file__).resolve() for module in tuple(sys.modules.values())
+           if getattr(module,'__file__',None) and str(module.__file__).endswith('.py')}
+    paths.update(ROOT/path for path in (
+        'hardware/manifold-layout/above-core.json',
+        'hardware/manifold-layout/enclosure-box.json',
+        'hardware/reference/g-ganen-pump/reference-parameters.json',
+        'hardware/reference/g-ganen-pump/under-head-clearance.json',
+        'hardware/reference/g-ganen-pump/underside-observation/rigid-underside.json',
+    ))
+    return sorted(str(path.relative_to(ROOT)) for path in paths
+                  if path.is_relative_to(ROOT) and path.is_file())
+
+
 def attach(assembly, ea):
     """Include wiring in the normal enclosure composition without re-standing it."""
     scene={n:(s,c) for n,s,c in ea.ml.placed_leaves(assembly)}
@@ -200,6 +215,7 @@ def _kernel_main(target,output,verify_retained=False):
                    numbers_name='enclosure-wiring')
     from hardware.wiring.installed.step_merge import install
     sources=[Path(__file__).with_name('wire_geometry.py'),
+             *[ROOT/p for p in data['sources']],
              *[ROOT/p for p in sorted(_rust_part._READ_TARGETS) if (ROOT/p).is_file()]]
     receipt=install(target,output/'enclosure-wiring.step',verify_retained=verify_retained,
                     wire_model=output/'enclosure-wiring.step.npz')
@@ -239,7 +255,8 @@ def main():
         fine_digest=digest(model)
         numbers['physical_fine_model_sha256']=fine_digest
         manifest['physical_fine_model_sha256']=fine_digest
-        args.numbers_output.write_text(json.dumps({'numbers':numbers,'manifest':manifest})+'\n')
+        args.numbers_output.write_text(json.dumps({'numbers':numbers,'manifest':manifest,
+                                                  'sources':numeric_source_paths()})+'\n')
         return
     import enclosure_assembly as ea
     from _cadq_export import export_assembly
