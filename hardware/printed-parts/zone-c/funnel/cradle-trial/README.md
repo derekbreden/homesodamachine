@@ -28,7 +28,7 @@ tools/cad-venv/bin/python hardware/printed-parts/zone-c/funnel/cradle-trial/crad
 Both print in black PET-GF with the enclosure's settings: a 0.20 mm first layer and 0.24 mm
 layers above it. The receiver prints on its flat underside, as the frame does, and needs no
 support. The cradle prints on its bottom with the pocket opening upward. The two hooks' flat
-undersides are retention bearings [34.2 mm](TRIAL_HOOK_BED) above the bed and take accessible supports from the
+undersides are retention bearings [24.1 mm](TRIAL_HOOK_BED) above the bed and take accessible supports from the
 bed under them. Nothing else on the cradle needs support.
 
 The H2C print and its native slice are recorded in [`h2c-print/`](h2c-print/README.md).
@@ -56,7 +56,7 @@ Use the scanned [PP0308E elbow](/hardware/reference/jg-pp0308e-elbow/README.md).
 - The cradle goes home by hand with the wings pinched in, and comes back out the same way.
 - No wing cracks, whitens at its root, or stays bent after release.
 - Hanging from its hooks, the cradle holds the elbow's nose against, or within
-  [0.65 mm](TRIAL_NOSE) of, the receiver's underside, with the collet standing up the hole.
+  [0.8 mm](TRIAL_NOSE) of, the receiver's underside, with the collet standing up the hole.
 - Pulled down by hand, the cradle stays on its hooks.
 
 Record the result in `physical-acceptance.json` beside this file.

@@ -4,6 +4,11 @@ The PET-GF casing has three pieces: the taller shell, a top equipment lid and an
 open-topped bottom cap. The complete casing is 253.4 mm high in the appliance frame.
 The shell's internal vessel and reservoir datums are independent of its upper rim.
 
+`foam_cap.py` derives the current equipment and casing datums for `foam_cap.rs`,
+which writes the four pieces' STEP, full-precision model and print mesh. The
+generator cuts their viewer payloads from the print meshes. Its `--native` option
+retains the construction surfaces used by native assembly and installation readers.
+
 ## Top lid
 
 The uniform 7.4 mm plate spans 282.4 × 180.4 mm. Its flat underside is its print face.
@@ -36,7 +41,7 @@ upper clip. Its complete rubber feet and legs are removed. The motor seat
 runs from native X16.75–77.75. The saddle has broad fitted rail bearings and 3 mm
 axial rail stops. Its rail rooms open
 vertically onto broad fitted floors; the cover room ends at the plain lid face.
-One continuous 54.5 mm clip spans native X20–74.5, with a 2.4 mm working arch
+One continuous 54.5 mm clip spans native X20–74.5, with a 3.1 mm nominal arch
 and 3 mm wings. Its continuous side pockets span X19.75–74.75; the seat leaves
 3 mm of solid axial stock at each end. The clip closes after seating the bare
 motor and prints on one axial end with a constant outside profile.
@@ -99,8 +104,9 @@ Each blind tail passage has 2.5 mm nominal tip air. All twenty clamp screws are 
 same stock as the enclosure's four seam screws.
 
 At all ten lid axes, a straight Ø4.8 × 80 mm driver envelope clears the printed
-lid and its integral pump clip above the lid face. The [M5 driver reading](m5-lid-driver-review.json)
-binds these paths to the published lid STL.
+lid's integral features above the lid face. The [kernel print and driver review](kernel-print-review.json)
+records the Rust meshes, saved recipes, emitted paths and driver envelopes.
+The [native M5 driver reading](m5-lid-driver-review.json) retains the native reference.
 
 The [local solid regions](fore-snap-print-regions.json) fill the M5 head bearings,
 PCB insert posts and their plate/floor roots at 100%. The same record carries

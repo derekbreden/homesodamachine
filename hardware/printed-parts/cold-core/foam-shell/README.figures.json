@@ -1,8 +1,4 @@
 {
   "/hardware/printed-parts/cold-core/foam-shell/foam_shell.py": {},
-  "/hardware/printed-parts/cold-core/reservoir/reservoir.py": {
-    "RESERVOIR_D": "48.5 mm",
-    "RESERVOIR_H": "199.9 mm",
-    "RESERVOIR_W": "140.5 mm"
-  }
+  "/hardware/printed-parts/cold-core/reservoir/reservoir.py": {}
 }
