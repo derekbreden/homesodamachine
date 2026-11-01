@@ -14,8 +14,8 @@ the turn-in behind the +Y wall of back-top.
 EVERY FIGURE IS A PLACED BODY READ OFF A FACE OF THE BOX, and not a part's own datum carried
 here by arithmetic. What a cabinet has to give behind the wall is how far the fittings stand off
 the WALL'S OUTER FACE; `jg_bulkhead_union.PROUD_LENGTH` is how far one stands off the face its
-flange bears on, and the two are one figure only while the bulkhead ring under that flange lies
-flush in the wall. So `_facts` — the machine as the last build wrote it down — is what is read here, and
+flange bears on. The identification tiles sit inside their rear channels. `_facts` — the
+machine as the last build wrote it down — is what is read here, and
 a body that moves moves this page. A customer sizes a cabinet slot from these four.
 """
 
@@ -75,7 +75,7 @@ def agreed(what: str, readings: dict) -> float:
 
 
 def behind_the_rear_face():
-    """The turn-in a cabinet has to give behind the wall, and the two figures it is made of.
+    """Read fitting projection, tile thickness and tile inset from the installed bodies.
 
     ONE READING, TWO PAGES. `assembly/faucet-and-umbilical.md` §1 sums this same turn-in into
     the umbilical's cut length, so it takes it from here rather than deriving it a second time
@@ -84,33 +84,24 @@ def behind_the_rear_face():
     f = _facts.read()
     rear = f.box.outer[3]
 
-    # WHAT STANDS BEHIND THE REAR FACE. Each union is read off the wall's own outer plane, so
-    # whatever is between the flange and that plane is already in the figure: the bulkhead
-    # ring's pocket is cut one ring thickness INTO the face and the ring fills it, which is why
-    # the two come out level and the ring buys the tube behind the wall nothing.
+    # Each union is read off the wall's outer plane. The tile and channel dimensions
+    # are separate readings; a tile face does not redefine the cabinet datum.
     collet = max(f.bb(n).ymax - rear for n in UNIONS)
     ring = agreed("wall's bulkhead rings", {n: f.bb(n).ylen for n in BULKHEAD_RINGS})
 
-    # AND THAT THE RINGS ARE STILL LEVEL WITH THAT FACE, because the page says so in words.
-    # The figure above survives a ring that stands proud — it is measured past one — but the
-    # sentence around it does not, and a customer reads the sentence.
-    off = max(abs(f.bb(n).ymax - rear) for n in BULKHEAD_RINGS)
-    if off > TOL:
-        raise SystemExit(
-            f"  the wall's bulkhead rings stand {off:.4f} mm off its outer face and no longer come out "
-            f"level with it.\n  install-envelope.md says they lie flush, in the sentence the "
-            f"turn-in is stated in.")
-
-    return collet, ring
+    recess = agreed("identification tile insets",
+                    {n: rear - f.bb(n).ymax for n in BULKHEAD_RINGS})
+    return collet, ring, recess
 
 
 def main():
-    collet, ring = behind_the_rear_face()
+    collet, ring, recess = behind_the_rear_face()
 
     variables = {
         "CABINET_CLEAR_H": f"{CABINET_CLEAR_H:.4g} mm",
         "COLLET_PROUD": f"{collet:g} mm",
         "BULKHEAD_RING_THICK": f"{ring:g} mm",
+        "BULKHEAD_RING_RECESS": f"{recess:g} mm",
         "TURN_IN": f"{TURN_IN_LEAD_BEND + collet:g} mm",
     }
     substitute_md(MD, variables=variables)
