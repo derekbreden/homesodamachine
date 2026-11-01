@@ -1,0 +1,38 @@
+{
+  "jobs": [
+    {
+      "piece": "pump-fit-clip",
+      "printer": "Mark2",
+      "connection_key": "Mark2",
+      "print_only_archive": "hardware/print-tests/pump-mount-fit/prints/mark2/2026-11-01-pump-fit-clip-mark2.gcode.3mf",
+      "gcode_sha256": "946b40e0fd696ca67cd2439c13426a4112d3c0b5a8de576fca490c8ff9b5f0f9",
+      "estimated_seconds": 2994.32421875,
+      "filament_g": 26.23,
+      "minimum_bed_margin_mm": 127.002318,
+      "requested_z_trim_mm": 0.04,
+      "emitted_trim_mm": 0.02,
+      "native_review_pass": true,
+      "submitted": true,
+      "launch": "hardware/print-tests/pump-mount-fit/prints/mark2/launch.json",
+      "printer_task_id": "1397697235"
+    },
+    {
+      "piece": "pump-fit-base",
+      "printer": "Mark1",
+      "connection_key": "H2C",
+      "preparation": "hardware/print-tests/pump-mount-fit/prints/2026-11-01-pump-fit-base-mark1-fac38622",
+      "archive": "hardware/print-tests/pump-mount-fit/prints/2026-11-01-pump-fit-base-mark1-fac38622/2026-11-01-pump-fit-base-mark1-fac38622.gcode.3mf",
+      "print_only_archive": "hardware/print-tests/pump-mount-fit/prints/2026-11-01-pump-fit-base-mark1-fac38622/2026-11-01-pump-fit-base-mark1-fac38622-print-only.gcode.3mf",
+      "gcode_sha256": "37c762d3f0c438e8cc3a412775a0bbb3bc25a5c152d4f2c0240c8fd7ce5de50b",
+      "estimated_seconds": 5382.6484375,
+      "filament_g": 52.26,
+      "minimum_bed_margin_mm": 114.785,
+      "requested_z_trim_mm": 0.18,
+      "emitted_trim_mm": 0.16,
+      "native_review_pass": true,
+      "submitted": true,
+      "launch": "hardware/print-tests/pump-mount-fit/prints/2026-11-01-pump-fit-base-mark1-fac38622/launch.json",
+      "printer_task_id": "1397740351"
+    }
+  ]
+}

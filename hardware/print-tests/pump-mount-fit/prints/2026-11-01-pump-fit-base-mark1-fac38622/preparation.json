@@ -1,0 +1,222 @@
+{
+  "piece": "pump-fit-base",
+  "printer": "Mark1",
+  "connection_key": "H2C",
+  "nozzle": {
+    "side": "left",
+    "diameter_mm": 0.4,
+    "flow": "Standard",
+    "hardened": true,
+    "reason": "Top lid: hardened left 0.4 mm Standard nozzle with the shared PET-GF process.",
+    "sliced_diameter_mm": 0.4,
+    "sliced_volume_type": "Standard"
+  },
+  "material": "Polymaker Fiberon PET-GF15, black",
+  "bed_type": "Textured PEI Plate",
+  "requested_z_trim_mm": 0.18,
+  "emitted_textured_trim_mm": 0.16,
+  "project": "hardware/print-tests/pump-mount-fit/prints/2026-11-01-pump-fit-base-mark1-fac38622/2026-11-01-pump-fit-base-mark1-fac38622.3mf",
+  "project_sha256": "50767b2820e8a216884711c30a7d598b4420411d75659a5f1587925c88fb6d5b",
+  "profile": "hardware/printed-parts/petgf.3mf",
+  "profile_sha256": "45c16e8c8517e0a205107d7b9f7412d013f51a8de7ecf86125cc940079d37ed0",
+  "settings_sha256": "8260452bae9cf42ed8016bca971ee73ed8c4437f00091b5665e63af9ae153d61",
+  "settings_changes": {
+    "extruder_ams_count": {
+      "from": [
+        "1#0|4#1",
+        "1#0|4#0"
+      ],
+      "to": [
+        "1#0|4#0",
+        "1#0|4#0"
+      ],
+      "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface."
+    },
+    "support_filament": {
+      "from": "0",
+      "to": "1",
+      "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface."
+    },
+    "support_interface_filament": {
+      "from": "0",
+      "to": "1",
+      "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface."
+    },
+    "flush_into_support": {
+      "from": "1",
+      "to": "0",
+      "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface."
+    },
+    "filament_colour": {
+      "from": [
+        "#000000"
+      ],
+      "to": [
+        "#000000"
+      ],
+      "reason": "Mark1's loaded black PET-GF colour reading."
+    },
+    "wall_loops": {
+      "from": "2",
+      "to": "3",
+      "reason": "Retain the production lid receiver wall count."
+    },
+    "wall_generator": {
+      "from": "classic",
+      "to": "classic",
+      "reason": "Retain the production fixed-width perimeter recipe."
+    },
+    "sparse_infill_pattern": {
+      "from": "gyroid",
+      "to": "gyroid",
+      "reason": "Retain the production 15% gyroid bulk recipe."
+    },
+    "enable_support": {
+      "from": "1",
+      "to": "1",
+      "reason": "Tree(auto)/Default supports the outward-open hook-pocket ceilings with accessible cleanup."
+    }
+  },
+  "profile_changes": {
+    "machine_start_gcode": {
+      "from_sha256": "3cc9e41520dbf5622d6f9a96bce734db9d11b0b48b49f2abec047a6e01dc6a92",
+      "to_sha256": "409b1516f0401361a02b18a34420c10ca83bc33615e8896cade2fea42edee871",
+      "requested_z_trim_mm": 0.18
+    },
+    "printer_settings_id": {
+      "from": "Bambu Lab H2C 0.4 nozzle 04 first layer by agent",
+      "to": "Bambu Lab H2C 0.4 Standard +0.18 Z trim"
+    },
+    "print_compatible_printers": {
+      "from": [
+        "Bambu Lab H2C 0.4 nozzle"
+      ],
+      "to": [
+        "Bambu Lab H2C 0.4 nozzle",
+        "Bambu Lab H2C 0.4 Standard +0.18 Z trim"
+      ]
+    }
+  },
+  "usable_plate_mm": [
+    [
+      0.0,
+      0.0
+    ],
+    [
+      325.0,
+      320.0
+    ]
+  ],
+  "plate_border_mm": 80,
+  "brim_allowance_mm": 0.0,
+  "plate_offset_mm": null,
+  "objects": [
+    {
+      "name": "pump-mount-base",
+      "identify_id": 1901,
+      "object_id": 2,
+      "stl": "hardware/print-tests/pump-mount-fit/parts/pump-mount-base.stl",
+      "stl_sha256": "df8f6a8f287b502a1f955c364d576deb0fc7185c2af6eed421639a426c3e5eec",
+      "step_sha256": "982809a459b2357fd369d6aa4b9348f6385f29681c9fb12aa902d0e6d19900da",
+      "facets": 394,
+      "closed": {
+        "edges": 591,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "inconsistent_edges": 0,
+        "bodies": 1,
+        "closed_oriented_single_body": true
+      },
+      "pose": null,
+      "pose_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "yaw_degrees": 90,
+      "source_center_mm": [
+        0.0,
+        0.0,
+        19.139673233032227
+      ],
+      "build_rotation": [
+        [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "translation_mm": [
+        162.5,
+        160.0,
+        19.139673233032227
+      ],
+      "plate_bounds_mm": [
+        [
+          114.79999923706055,
+          121.67081832885742,
+          0.0
+        ],
+        [
+          210.20000076293945,
+          198.32918167114258,
+          38.27934646606445
+        ]
+      ],
+      "model_bed_margin_mm": 114.79999923706055,
+      "seam_enforcer": null,
+      "object_settings": {},
+      "features": [],
+      "ranges": [],
+      "verify_spans": [],
+      "ribbons": [],
+      "tie_windows": [],
+      "modifiers": [],
+      "fins": []
+    }
+  ],
+  "pause": null,
+  "show_faces": "hardware/print-tests/pump-mount-fit/prints/2026-11-01-pump-fit-base-mark1-fac38622/show-faces.npz",
+  "spec": "hardware/print-tests/pump-mount-fit/plate-spec.json",
+  "spec_sha256": "a5bd339c84867f9b1a22b90d206bea2a1557644b70fa0304cbf336232108d4cd",
+  "tool_sha256": {
+    "hardware/printed-parts/enclosure/trial-preparation/_derive.py": "1a3469b8f1a2a0cbfb29ffe07e7c709bb985373f2ebfa417eb9bff70e69be8be",
+    "hardware/printed-parts/enclosure/trial-preparation/_mesh.py": "7ab22db36e370608f52df3709c4af1994c8e804ee06e101dcbf79210db99eead",
+    "hardware/printed-parts/enclosure/trial-preparation/_native.py": "1c99ce10842a141a942a19d7def2329512d14b676c00618496187e0d93cd29da",
+    "hardware/printed-parts/enclosure/trial-preparation/_seam.py": "9ffa509df701826563e18388fd3bcc57c604f4b2b8e5e4288821ddcd00bcb176",
+    "hardware/printed-parts/enclosure/trial-preparation/labels.py": "b7eab37bf384b7d47e3ee7c0eed2afbf2451200ca5b0ee42c2eb47ec43fce783",
+    "hardware/printed-parts/enclosure/trial-preparation/prepare.py": "bc5495142592e777cb1b94eb2cfe06e64ba15ee6bae94f3e95e62a556741b513",
+    "hardware/printed-parts/enclosure/trial-preparation/review.py": "9bd303fe370842fd34eb559dc5f53f887f75c42e478c598737397dd49dd539f7",
+    "hardware/printed-parts/enclosure/trial-preparation/step_meshes.py": "b50f7b50f52f1e8516be3b1fc9ecdb10e87fb188f8b9bebc0fac56737320fc44"
+  },
+  "prepared_utc": "2026-11-01T18:43:56+00:00",
+  "sliced": true,
+  "submitted": false,
+  "archive": "hardware/print-tests/pump-mount-fit/prints/2026-11-01-pump-fit-base-mark1-fac38622/2026-11-01-pump-fit-base-mark1-fac38622.gcode.3mf",
+  "archive_sha256": "0277b6d021bff8a24e65aecfc62dcce6a73905e5d9c22483bb623312f0c6dea2",
+  "gcode_sha256": "37c762d3f0c438e8cc3a412775a0bbb3bc25a5c152d4f2c0240c8fd7ce5de50b",
+  "estimated_seconds": 5382.6484375,
+  "slicer_warnings": []
+}
