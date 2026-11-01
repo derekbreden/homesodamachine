@@ -760,6 +760,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "hsm-enclosure-shell"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "hsm-kernel",
+ "manifold-csg",
+ "serde",
+ "serde_json",
+]
+
+[[package]]
 name = "hsm-faucet"
 version = "0.1.0"
 dependencies = [
@@ -955,8 +966,6 @@ dependencies = [
 [[package]]
 name = "manifold-csg-sys"
 version = "3.5.105"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "58f034b8af43be927e7651da0c18a0205e8942acf275550acc4a8300042dee51"
 dependencies = [
  "cmake",
 ]

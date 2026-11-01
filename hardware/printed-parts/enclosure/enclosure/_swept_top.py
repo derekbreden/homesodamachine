@@ -34,15 +34,12 @@ def profile(outer):
     }
 
 
-def _roof_fill(outer):
-    """A side-edge fill whose leading end follows the curved display top.
+def roof_fill_sections(outer):
+    """Numeric sections of the side-edge fill at the curved display top.
 
-    Each section keeps the display's R6 side offset. An ellipse tangent to that
-    display plane joins it to the shared print-down roof chamfer. The fill's
-    inner surface overlaps the retained round, rather than ending on an exposed
-    horizontal underside.
+    The display keeps its R6 side offset. Each section's ellipse joins that
+    offset to the print-down roof chamfer and overlaps the retained round.
     """
-    from OCP.BRepOffsetAPI import BRepOffsetAPI_ThruSections
     from overhang_round import transition, OUTWARD_PER_HEIGHT
 
     p = profile(outer)
@@ -60,10 +57,7 @@ def _roof_fill(outer):
 
     fills = []
     for edge, inward in ((outer[0], 1), (outer[1], -1)):
-        loft = BRepOffsetAPI_ThruSections(True, True, 1e-6)
-        # The wires already have corresponding edges. Automatic realignment can
-        # shift their joins as the top arc changes from a circle to an ellipse.
-        loft.CheckCompatibility(False)
+        sections = []
         for depth in sorted(depths):
             side = radius - math.sqrt(max(0.0, radius**2 - (radius - depth)**2))
             roof = min(side, max(0.0, (foot - depth) / OUTWARD_PER_HEIGHT))
@@ -84,20 +78,48 @@ def _roof_fill(outer):
             upper_roof, lower_roof = (cy, cz + b), (cy, cz + inner_r)
             upper_aft, lower_aft = (aft, cz + b), (aft, cz + inner_r)
             x = edge + inward * depth
+            sections.append({
+                "x": x, "centre": (cy, cz),
+                "ellipse": (b, a, theta), "inner_radius": inner_r,
+                "start": start, "top_tangent": top_tangent,
+                "inner_end": inner_end, "inner_mid": inner_mid,
+                "inner_start": inner_start, "upper_roof": upper_roof,
+                "lower_roof": lower_roof, "upper_aft": upper_aft,
+                "lower_aft": lower_aft,
+            })
+        fills.append(tuple(sections))
+    return tuple(fills)
+
+
+def _roof_fill(outer):
+    """Native construction of the shared numeric display-roof fill sections."""
+    from OCP.BRepOffsetAPI import BRepOffsetAPI_ThruSections
+
+    fills = []
+    for sections in roof_fill_sections(outer):
+        loft = BRepOffsetAPI_ThruSections(True, True, 1e-6)
+        # The wires already have corresponding edges. Automatic realignment can
+        # shift their joins as the top arc changes from a circle to an ellipse.
+        loft.CheckCompatibility(False)
+        for section in sections:
+            x = section["x"]
+            cy, cz = section["centre"]
+            b, a, theta = section["ellipse"]
 
             def v(point):
                 return cq.Vector(x, *point)
 
             wire = cq.Wire.assembleEdges([
-                cq.Edge.makeLine(v(start), v(top_tangent)),
+                cq.Edge.makeLine(v(section["start"]), v(section["top_tangent"])),
                 cq.Edge.makeEllipse(b, a, (x, cy, cz), (1, 0, 0),
                                     (0, 0, 1), 0, theta),
-                cq.Edge.makeLine(v(upper_roof), v(upper_aft)),
-                cq.Edge.makeLine(v(upper_aft), v(lower_aft)),
-                cq.Edge.makeLine(v(lower_aft), v(lower_roof)),
-                cq.Edge.makeThreePointArc(v(lower_roof), v(inner_mid), v(inner_end)),
-                cq.Edge.makeLine(v(inner_end), v(inner_start)),
-                cq.Edge.makeLine(v(inner_start), v(start)),
+                cq.Edge.makeLine(v(section["upper_roof"]), v(section["upper_aft"])),
+                cq.Edge.makeLine(v(section["upper_aft"]), v(section["lower_aft"])),
+                cq.Edge.makeLine(v(section["lower_aft"]), v(section["lower_roof"])),
+                cq.Edge.makeThreePointArc(v(section["lower_roof"]), v(section["inner_mid"]),
+                                         v(section["inner_end"])),
+                cq.Edge.makeLine(v(section["inner_end"]), v(section["inner_start"])),
+                cq.Edge.makeLine(v(section["inner_start"]), v(section["start"])),
             ])
             loft.AddWire(wire.wrapped)
         loft.Build()
