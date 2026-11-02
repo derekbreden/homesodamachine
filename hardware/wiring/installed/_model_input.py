@@ -28,6 +28,43 @@ class Body:
         return tuple(max(s.upper[i] for s in self.solids) for i in range(3))
 
 
+def components(vertices, triangles):
+    """Solid measurements from immutable fine triangles, independent of display pairing.
+
+    One logical model entry can contain several disconnected solids. Keep each
+    positive shell and the voids it contains, as the native solid reader does.
+    The arrays retain their coordinates, indices and records unchanged.
+    """
+    import numpy as np
+    from scipy.sparse import coo_matrix
+    from scipy.sparse.csgraph import connected_components
+
+    v = np.asarray(vertices, dtype=np.float64)
+    t = np.asarray(triangles, dtype=np.int64).reshape(-1, 3)
+    if not len(t):
+        return ()
+    edges = np.concatenate((t[:, :2], t[:, 1:]))
+    count, labels = connected_components(coo_matrix(
+        (np.ones(len(edges), dtype=np.uint8), (edges[:, 0], edges[:, 1])),
+        shape=(len(v), len(v))), directed=False)
+    a, b, c = (v[t[:, k]] - v[0] for k in range(3))
+    volumes = np.bincount(labels[t[:, 0]],
+                          np.einsum('ij,ij->i', a, np.cross(b, c)) / 6., count)
+    lower = np.full((count, 3), np.inf)
+    upper = np.full((count, 3), -np.inf)
+    np.minimum.at(lower, labels, v)
+    np.maximum.at(upper, labels, v)
+    positive = np.flatnonzero(volumes > 0.)
+    sizes = np.prod(upper[positive] - lower[positive], axis=1)
+    for void in np.flatnonzero(volumes < 0.):
+        around = np.flatnonzero(np.all(lower[positive] <= lower[void], axis=1)
+                                & np.all(upper[positive] >= upper[void], axis=1))
+        if len(around):
+            volumes[positive[around[np.argmin(sizes[around])]]] += volumes[void]
+    return tuple(Solid(tuple(lower[i]), tuple(upper[i]), float(volumes[i]))
+                 for i in positive)
+
+
 def bodies(rows, *, grid=None):
     """Group the writer's per-solid suffixes under the installed component names."""
     def bound(values):
