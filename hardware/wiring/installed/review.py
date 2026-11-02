@@ -155,6 +155,9 @@ def mesh_review():
 def native_review():
     if json.loads(MANIFEST.read_text()).get('wiring_fine_model_sha256'):
         return fine_review()
+    model=ROOT/'hardware/wiring/enclosure-wiring.step.npz'
+    if model.is_file():
+        return production_solid_review(model)
     sys.path[:0]=[str(ROOT/'hardware/scripts')]
     from _cadq_export import import_assembly
     manifest=json.loads(MANIFEST.read_text())
@@ -198,6 +201,63 @@ def native_review():
     report=json.loads(OUTPUT.read_text()) if OUTPUT.exists() else {}
     report['native']=native;OUTPUT.write_text(json.dumps(report,indent=2)+'\n')
     print(json.dumps(native),flush=True)
+
+
+def production_solid_review(model):
+    """Read mesh-kernel solids and compare the installed viewer arrays directly."""
+    import manifold3d as m3d
+    manifest=json.loads(MANIFEST.read_text())
+    step=ROOT/'hardware/wiring/enclosure-wiring.step'
+    standalone=load_mesh(str(step)+'.mesh')
+    installed=load_mesh(str(HOST)+'.mesh')
+    grouped={}
+    with np.load(model,allow_pickle=False) as arrays:
+        names=json.loads(bytes(arrays['names']).decode())
+        for i,name in enumerate(names):
+            mesh=m3d.Mesh64(np.asarray(arrays[f'V{i}'],np.float64),
+                            np.asarray(arrays[f'T{i}'],np.uint64))
+            mesh.merge()
+            grouped.setdefault(base_name(name),[]).append(m3d.Manifold(mesh))
+    members=[]
+    for name,parts in grouped.items():
+        valid=all(p.status()==m3d.Error.NoError and not p.is_empty() for p in parts)
+        body=m3d.Manifold.batch_boolean(parts,m3d.OpType.Add) if valid else None
+        members.append({'name':name,'valid_closed_manifold':valid,
+                        'connected_solids':len(body.decompose()) if valid else 0,
+                        'volume_mm3':float(body.volume()) if valid else None})
+    missing=sorted(set(standalone)-set(installed))
+    changed=[name for name,pair in standalone.items() if name in installed and
+             any(not np.array_equal(a,b) for a,b in zip(pair,installed[name]))]
+    ids=[row['id'] for row in manifest['routes']]
+    expected={'wire-'+id for id in ids}|set(manifest.get('terminations',{}))
+    expected.update(b['geometry_name'] for b in manifest.get('bundles',{}).values()
+                    if b['geometry_name'] is not None)
+    bench={}
+    for j in ('J2','J13'):
+        guide=json.loads((ROOT/f'hardware/assembly/harnesses/{j.lower()}.json').read_text())
+        bench[j]=all(manifest['terminals'][f'{j}.{p["net"]}']['pin']==str(p['pin'])
+                     for p in guide['pins'] if p['net']!='OUT4')
+    invalid=[r for r in members if not r['valid_closed_manifold'] or r['connected_solids']!=1]
+    reading={'scope':'Production f64 mesh-kernel solids, closed and connected, with exact standalone-to-installed viewer vertex and triangle arrays. The installed STEP retains native physical bodies and attaches the separate mesh-kernel wiring export.',
+             'wiring_step_sha256':hashlib.sha256(step.read_bytes()).hexdigest(),
+             'wiring_model_sha256':hashlib.sha256(Path(model).read_bytes()).hexdigest(),
+             'assembly_step_sha256':hashlib.sha256(HOST.read_bytes()).hexdigest(),
+             'assembly_mesh_sha256':hashlib.sha256(Path(str(HOST)+'.mesh').read_bytes()).hexdigest(),
+             'wire_count':len(ids),'member_count':len(members),
+             'all_valid_single_solids':not invalid,'invalid':invalid,
+             'coverage_missing':sorted(expected-set(grouped)),
+             'coverage_extra':sorted(set(grouped)-expected),
+             'installed_missing':missing,'installed_changed':changed,
+             'all_installed_wire_vertex_and_triangle_arrays_identical':not missing and not changed,
+             'reference_frame_maximum_extent_residual_mm':max(r['maximum_extent_residual_mm'] for r in manifest['reference_frames'].values()),
+             'unique_connection_ids':len(set(ids))==len(ids),
+             'bench_pin_maps_match':bench,'members':members}
+    report=json.loads(OUTPUT.read_text()) if OUTPUT.exists() else {}
+    report.pop('native',None)
+    report['production_solids']=reading
+    OUTPUT.write_text(json.dumps(report,indent=2)+'\n')
+    print(json.dumps({k:v for k,v in reading.items() if k!='members'}),flush=True)
+
 
 
 def _source_mismatches(manifest,root):

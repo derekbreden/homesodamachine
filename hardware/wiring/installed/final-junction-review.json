@@ -1,18 +1,21 @@
 {
-  "scope": "All three final free WAGO bodies, as installed in the complete final native appliance, against all non-wire bodies, including plumbing, printed hosts and the other WAGOs. Finite nominal bodies only.",
-  "assembly_step_sha256": "43de7a97158cfb3d2b9de706d7370fcb1c8b6c32dcb2d9cc09404d443c725655",
-  "manifest_sha256": "2014cb424bd823115f40412491965b2b0189f6c829eca5957d6ad19abfde1f62",
-  "reader_sha256": "4cad3c709ae1996b7409fcdfb841677666e4cfb33888afc390b513bf07eb0170",
+  "schema": 2,
+  "scope": "All three final free WAGO bodies from the production closed-solid model against every installed non-wire body, including tubing and printed hosts. Nominal static placement only.",
+  "assembly_step_sha256": "d534a641b9b7018890fb103416b73c468f2f60b20d35982ac9f089d9e4168923",
+  "assembly_mesh_sha256": "f9b8d9c352483a94529ea85fc5d5bdd71e03e637809dd12d57fa65e49d5b13b2",
+  "wiring_model_sha256": "be4fead4405ecf422a95f75206a561dece2896de4bd28ad4d52f28e513e76dab",
+  "manifest_sha256": "0e559a1eb1209fc65ffbf4d8b3e3f51203a72ce62041f855dea3b78c78ed8d92",
+  "reader_sha256": "dda633caae0cffe7eed5d3211606409c326912961737f864e22a4078c34c2add",
   "bodies": {
     "wiring-junction-compressor-h": {
       "valid": true,
       "bounds_mm": [
-        -74.4,
-        237.7,
+        -74.4000015258789,
+        237.6999969482422,
         290.5,
-        -55.6,
-        256.3,
-        298.9
+        -55.599998474121094,
+        256.29998779296875,
+        298.8999938964844
       ],
       "placement": {
         "kind": "WAGO 221-413 final connection",
@@ -54,12 +57,12 @@
     "wiring-junction-compressor-n": {
       "valid": true,
       "bounds_mm": [
-        -94.4,
-        237.7,
+        -94.4000015258789,
+        237.6999969482422,
         290.5,
-        -75.6,
-        256.3,
-        298.9
+        -75.5999984741211,
+        256.29998779296875,
+        298.8999938964844
       ],
       "placement": {
         "kind": "WAGO 221-413 final connection",
@@ -101,12 +104,12 @@
     "wiring-junction-pump-positive": {
       "valid": true,
       "bounds_mm": [
-        -54.4,
-        245.7,
+        -54.400001525878906,
+        245.6999969482422,
         278.0,
-        -35.6,
-        264.3,
-        286.4
+        -35.599998474121094,
+        264.29998779296875,
+        286.3999938964844
       ],
       "placement": {
         "kind": "WAGO 221-413 final connection",
@@ -209,6 +212,5 @@
     }
   ],
   "unresolved": [],
-  "all_free_wagos_clear": true,
-  "elapsed_seconds": 11.262029125005938
+  "all_free_wagos_clear": true
 }

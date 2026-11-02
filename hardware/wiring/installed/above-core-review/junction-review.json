@@ -2,14 +2,14 @@
   "schema": 2,
   "units": "mm",
   "scope": "Manual reading of all nine installed WAGO bodies from the complete final native assembly against every other non-wire body, including tubes, their actual printed hosts and all other WAGOs. Each selected wire-mouth approach and current PSU driver column is tested in the same full physical scene. Nominal reference envelopes and digital insertion/clearance only; no physical lever-force claim.",
-  "assembly_step_sha256": "43de7a97158cfb3d2b9de706d7370fcb1c8b6c32dcb2d9cc09404d443c725655",
-  "assembly_mesh_sha256": "99c6fbd1328a9dc22b0ddf7ca6c0480ae7e08277b4d060c464f690d845bd02fb",
-  "physical_scene_sha256": "2d38ba6858e33f235e1fc955c474b170414f85081a68a6204a756d99ff3a1e76",
+  "assembly_step_sha256": "c26d50b5ef5761ebfe7932a29d5ad690fdad23dcef52a731dc2af00f31f51251",
+  "assembly_mesh_sha256": "a4b1a3b4e17f965674134427be5635c49cabd03aff6491f824209c0c28710bc5",
+  "physical_scene_sha256": "c26d50b5ef5761ebfe7932a29d5ad690fdad23dcef52a731dc2af00f31f51251",
   "source_sha256": {
-    "hardware/manifold-layout/above_core_wiring.py": "452b530c228969ac772b2b661a04714195722edac426336ba8890878004c2ec5",
-    "hardware/manifold-layout/above-core.json": "b886818274572dd35d0b7f5f2da255e855ff1e4420d7a74c2e1c81ea91b45a5a"
+    "hardware/manifold-layout/above_core_wiring.py": "12db2e2de8cb684785562f6784c6e5c64f3fdd4b3b75fd777b37b9a17eeae153",
+    "hardware/manifold-layout/above-core.json": "e0b80674504eabcbfa8ce36559b94b30c737d80f2a99b782dd45cbb7cec05dec"
   },
-  "reader_sha256": "83ee39dd4c49c0bc535dc13c100a7663bf59c2882c50798c7ec1758db7bc3e53",
+  "reader_sha256": "5a48113d06a475fc99e922351c039cd8ee3dee4de512d4337713d66efaaae980",
   "actual_poses": {
     "wago-h": {
       "size": "413",
@@ -38,33 +38,6 @@
       ],
       "purpose": "C14 live / PSU primary / relay 1 COM"
     },
-    "wago-n": {
-      "size": "413",
-      "parent": "back-top",
-      "rotation": [
-        [
-          -1.0,
-          0.0,
-          0.0
-        ],
-        [
-          0.0,
-          -1.0,
-          0.0
-        ],
-        [
-          0.0,
-          0.0,
-          1.0
-        ]
-      ],
-      "translation_mm": [
-        -61.0,
-        457.5,
-        266.0
-      ],
-      "purpose": "C14 neutral / PSU primary / compressor"
-    },
     "wago-g": {
       "size": "413",
       "parent": "back-top",
@@ -91,6 +64,33 @@
         296.5
       ],
       "purpose": "C14 PE / carbonator bond / compressor earth"
+    },
+    "wago-n": {
+      "size": "413",
+      "parent": "back-top",
+      "rotation": [
+        [
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        [
+          1.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "translation_mm": [
+        -69.4,
+        457.5,
+        267.5
+      ],
+      "purpose": "C14 neutral / PSU primary / compressor"
     },
     "wago-sensors": {
       "size": "413",
@@ -428,14 +428,14 @@
     "regulator-snap-cap",
     "relay-1",
     "relay-1-insert-1",
-    "relay-1-insert-4",
+    "relay-1-insert-2",
     "relay-1-screw-1",
-    "relay-1-screw-4",
+    "relay-1-screw-2",
     "relay-2",
     "relay-2-insert-1",
-    "relay-2-insert-4",
+    "relay-2-insert-2",
     "relay-2-screw-1",
-    "relay-2-screw-4",
+    "relay-2-screw-2",
     "reservoir-a",
     "reservoir-a-cap",
     "reservoir-a-draw-turn",
@@ -565,19 +565,6 @@
       ],
       "source_bounds_max_delta_mm": 5.684341886080802e-14
     },
-    "wago-n": {
-      "valid": true,
-      "solids": 1,
-      "bounds_mm": [
-        -70.4,
-        448.2,
-        266.0,
-        -51.6,
-        466.8,
-        274.4
-      ],
-      "source_bounds_max_delta_mm": 5.684341886080802e-14
-    },
     "wago-g": {
       "valid": true,
       "solids": 1,
@@ -588,6 +575,19 @@
         -75.6,
         466.8,
         304.9
+      ],
+      "source_bounds_max_delta_mm": 5.684341886080802e-14
+    },
+    "wago-n": {
+      "valid": true,
+      "solids": 1,
+      "bounds_mm": [
+        -69.4,
+        448.2,
+        258.1,
+        -61.0,
+        466.8,
+        276.9
       ],
       "source_bounds_max_delta_mm": 5.684341886080802e-14
     },
@@ -687,37 +687,32 @@
       "overlap_mm3": 0.0
     },
     {
-      "part": "wago-n",
+      "part": "wago-g",
       "obstacle": "tube-fluid-28",
       "overlap_mm3": 0.0
     },
     {
-      "part": "wago-n",
+      "part": "wago-g",
       "obstacle": "foam-cap-lid-top",
       "overlap_mm3": 0.0
     },
     {
-      "part": "wago-n",
-      "obstacle": "g-ganen-pump",
-      "overlap_mm3": 0.0
-    },
-    {
-      "part": "wago-n",
+      "part": "wago-g",
       "obstacle": "enclosure-back-top",
       "overlap_mm3": 0.0
     },
     {
-      "part": "wago-g",
+      "part": "wago-n",
       "obstacle": "tube-fluid-28",
       "overlap_mm3": 0.0
     },
     {
-      "part": "wago-g",
+      "part": "wago-n",
       "obstacle": "foam-cap-lid-top",
       "overlap_mm3": 0.0
     },
     {
-      "part": "wago-g",
+      "part": "wago-n",
       "obstacle": "enclosure-back-top",
       "overlap_mm3": 0.0
     },
@@ -952,6 +947,78 @@
       "overlap_mm3": 0.0
     },
     {
+      "part": "wago-g",
+      "port": 1,
+      "approach_length_mm": 8.0,
+      "approach_diameter_mm": 3.0,
+      "obstacle": "relay-1",
+      "overlap_mm3": 0.0
+    },
+    {
+      "part": "wago-g",
+      "port": 1,
+      "approach_length_mm": 8.0,
+      "approach_diameter_mm": 3.0,
+      "obstacle": "foam-cap-lid-top",
+      "overlap_mm3": 0.0
+    },
+    {
+      "part": "wago-g",
+      "port": 1,
+      "approach_length_mm": 8.0,
+      "approach_diameter_mm": 3.0,
+      "obstacle": "enclosure-back-top",
+      "overlap_mm3": 0.0
+    },
+    {
+      "part": "wago-g",
+      "port": 2,
+      "approach_length_mm": 8.0,
+      "approach_diameter_mm": 3.0,
+      "obstacle": "relay-1",
+      "overlap_mm3": 0.0
+    },
+    {
+      "part": "wago-g",
+      "port": 2,
+      "approach_length_mm": 8.0,
+      "approach_diameter_mm": 3.0,
+      "obstacle": "foam-cap-lid-top",
+      "overlap_mm3": 0.0
+    },
+    {
+      "part": "wago-g",
+      "port": 2,
+      "approach_length_mm": 8.0,
+      "approach_diameter_mm": 3.0,
+      "obstacle": "enclosure-back-top",
+      "overlap_mm3": 0.0
+    },
+    {
+      "part": "wago-g",
+      "port": 3,
+      "approach_length_mm": 8.0,
+      "approach_diameter_mm": 3.0,
+      "obstacle": "relay-1",
+      "overlap_mm3": 0.0
+    },
+    {
+      "part": "wago-g",
+      "port": 3,
+      "approach_length_mm": 8.0,
+      "approach_diameter_mm": 3.0,
+      "obstacle": "foam-cap-lid-top",
+      "overlap_mm3": 0.0
+    },
+    {
+      "part": "wago-g",
+      "port": 3,
+      "approach_length_mm": 8.0,
+      "approach_diameter_mm": 3.0,
+      "obstacle": "enclosure-back-top",
+      "overlap_mm3": 0.0
+    },
+    {
       "part": "wago-n",
       "port": 1,
       "approach_length_mm": 8.0,
@@ -1017,94 +1084,6 @@
     },
     {
       "part": "wago-n",
-      "port": 3,
-      "approach_length_mm": 8.0,
-      "approach_diameter_mm": 3.0,
-      "obstacle": "enclosure-back-top",
-      "overlap_mm3": 0.0
-    },
-    {
-      "part": "wago-g",
-      "port": 1,
-      "approach_length_mm": 8.0,
-      "approach_diameter_mm": 3.0,
-      "obstacle": "relay-1",
-      "overlap_mm3": 0.0
-    },
-    {
-      "part": "wago-g",
-      "port": 1,
-      "approach_length_mm": 8.0,
-      "approach_diameter_mm": 3.0,
-      "obstacle": "foam-cap-lid-top",
-      "overlap_mm3": 0.0
-    },
-    {
-      "part": "wago-g",
-      "port": 1,
-      "approach_length_mm": 8.0,
-      "approach_diameter_mm": 3.0,
-      "obstacle": "enclosure-back-top",
-      "overlap_mm3": 0.0
-    },
-    {
-      "part": "wago-g",
-      "port": 2,
-      "approach_length_mm": 8.0,
-      "approach_diameter_mm": 3.0,
-      "obstacle": "relay-1",
-      "overlap_mm3": 0.0
-    },
-    {
-      "part": "wago-g",
-      "port": 2,
-      "approach_length_mm": 8.0,
-      "approach_diameter_mm": 3.0,
-      "obstacle": "foam-cap-lid-top",
-      "overlap_mm3": 0.0
-    },
-    {
-      "part": "wago-g",
-      "port": 2,
-      "approach_length_mm": 8.0,
-      "approach_diameter_mm": 3.0,
-      "obstacle": "enclosure-back-top",
-      "overlap_mm3": 0.0
-    },
-    {
-      "part": "wago-g",
-      "port": 3,
-      "approach_length_mm": 8.0,
-      "approach_diameter_mm": 3.0,
-      "obstacle": "relay-1",
-      "overlap_mm3": 0.0
-    },
-    {
-      "part": "wago-g",
-      "port": 3,
-      "approach_length_mm": 8.0,
-      "approach_diameter_mm": 3.0,
-      "obstacle": "relay-1-screw-4",
-      "overlap_mm3": 22.217691177286238,
-      "bounds_mm": [
-        -92.76666676666666,
-        440.19999989999997,
-        299.19999989999997,
-        -89.98999989999864,
-        444.60013917925005,
-        302.2000001
-      ]
-    },
-    {
-      "part": "wago-g",
-      "port": 3,
-      "approach_length_mm": 8.0,
-      "approach_diameter_mm": 3.0,
-      "obstacle": "foam-cap-lid-top",
-      "overlap_mm3": 0.0
-    },
-    {
-      "part": "wago-g",
       "port": 3,
       "approach_length_mm": 8.0,
       "approach_diameter_mm": 3.0,
@@ -2034,172 +2013,1559 @@
   ],
   "driver_pairs": [],
   "unresolved": [],
+  "wire_entry_context": "Conservative straight D3 approach probes are context only. Actual source-bound curved conductors are clear of larger bodies in the complete final production model. Wire-to-tube contacts are excluded.",
   "geometrically_clear": true,
-  "elapsed_seconds": 59.996191000012914,
-  "straight_8mm_approach_witnesses": [
-    {
-      "part": "wago-g",
-      "port": 3,
-      "approach_length_mm": 8.0,
-      "approach_diameter_mm": 3.0,
-      "obstacle": "relay-1-screw-4",
-      "overlap_mm3": 22.217691177286238,
-      "bounds_mm": [
-        -92.76666676666666,
-        440.19999989999997,
-        299.19999989999997,
-        -89.98999989999864,
-        444.60013917925005,
-        302.2000001
-      ]
-    },
-    {
-      "part": "wago-reeds-b",
-      "port": 1,
-      "approach_length_mm": 8.0,
-      "approach_diameter_mm": 3.0,
-      "obstacle": "vb-outlet-return",
-      "overlap_mm3": 2.7421871733962444,
-      "bounds_mm": [
-        15.999999900000004,
-        270.2308399,
-        279.3333332333199,
-        18.125476138208004,
-        270.8442001,
-        282.3333334333334
-      ]
-    },
-    {
-      "part": "wago-reeds-b",
-      "port": 3,
-      "approach_length_mm": 8.0,
-      "approach_diameter_mm": 3.0,
-      "obstacle": "tube-fluid-18",
-      "overlap_mm3": 3.50305525717174,
-      "bounds_mm": [
-        16.140261363041922,
-        264.3521056207589,
-        293.9999999,
-        18.85973863695808,
-        267.6478943792411,
-        294.8666667666667
-      ]
+  "elapsed_seconds": 48.00399233397911,
+  "retained_measured_stage": {
+    "assembly_step_sha256": "c26d50b5ef5761ebfe7932a29d5ad690fdad23dcef52a731dc2af00f31f51251",
+    "assembly_mesh_sha256": "a4b1a3b4e17f965674134427be5635c49cabd03aff6491f824209c0c28710bc5",
+    "source_sha256": {
+      "hardware/manifold-layout/above_core_wiring.py": "12db2e2de8cb684785562f6784c6e5c64f3fdd4b3b75fd777b37b9a17eeae153",
+      "hardware/manifold-layout/above-core.json": "e0b80674504eabcbfa8ce36559b94b30c737d80f2a99b782dd45cbb7cec05dec"
     }
-  ],
-  "approach_resolution": {
-    "scope": "An arbitrary straight 8 mm diameter-3 probe is a diagnostic envelope, not the selected conductor route or a required insertion length. The source-bound installed wires turn after their actual terminal lands. Those complete native wire solids are clear at the two larger-body witnesses; wire-to-tube contact is excluded by the requested wire scope.",
-    "resolutions": [
+  },
+  "current_parent_binding": {
+    "assembly_step_sha256": "d534a641b9b7018890fb103416b73c468f2f60b20d35982ac9f089d9e4168923",
+    "assembly_mesh_sha256": "f9b8d9c352483a94529ea85fc5d5bdd71e03e637809dd12d57fa65e49d5b13b2",
+    "physical_step_sha256": "4f6ef5a9673063dfd377112603285ec9313420a59aad64748307322507e51cd9",
+    "scope": "All nine junction bodies and poses are identical to the native reading. The only subsequent host change removes front-top stock at the lever mouths, so cannot add a body or driver obstruction. The completed physical assembly and wire integration retain all other measured members."
+  },
+  "current_lever_access": {
+    "scope": "Manual conservative 6.85 mm lever-swing envelopes over the complete front half of all nine mounted WAGOs. Test each on its populated removable parent with the other parents separated on the bench. The rear junctions are wired before back-top is closed over the cold core. Conductors are dressed afterward.",
+    "physical_step_sha256": "4f6ef5a9673063dfd377112603285ec9313420a59aad64748307322507e51cd9",
+    "current_root_mesh_sha256": "eea9998619bde65cc392055164c0f7bb2d2abd17fdfc59a10cdc5be8502b1f73",
+    "levers": [
       {
-        "diagnostic_witness": {
-          "part": "wago-g",
-          "port": 3,
-          "approach_length_mm": 8.0,
-          "approach_diameter_mm": 3.0,
-          "obstacle": "relay-1-screw-4",
-          "overlap_mm3": 22.217691177286238,
-          "bounds_mm": [
-            -92.76666676666666,
-            440.19999989999997,
-            299.19999989999997,
-            -89.98999989999864,
-            444.60013917925005,
-            302.2000001
-          ]
-        },
-        "terminal": "wago-g.3",
-        "wire": "AC6-PE",
-        "actual_terminal_line_mm": 0.896000000000015,
-        "disposition": "actual_curved_wire_native_clear",
-        "actual_native_reading": {
-          "wire": "AC6-PE",
-          "part": "relay-1-screw-4",
-          "whole_overlap_mm3": 0.0,
-          "native_gap_mm": 0.699860920749984,
-          "endpoint_mask_applied": false
-        }
+        "junction": "wago-h",
+        "lever_face": 1.0,
+        "bounds_mm": [
+          -94.4,
+          448.2,
+          272.4,
+          -75.6,
+          457.499,
+          279.25
+        ],
+        "parent": "back-top",
+        "pairs": [
+          {
+            "obstacle": "enclosure-back-top",
+            "overlap_mm3": 0
+          }
+        ]
       },
       {
-        "diagnostic_witness": {
-          "part": "wago-reeds-b",
-          "port": 1,
-          "approach_length_mm": 8.0,
-          "approach_diameter_mm": 3.0,
-          "obstacle": "vb-outlet-return",
-          "overlap_mm3": 2.7421871733962444,
-          "bounds_mm": [
-            15.999999900000004,
-            270.2308399,
-            279.3333332333199,
-            18.125476138208004,
-            270.8442001,
-            282.3333334333334
-          ]
-        },
-        "terminal": "wago-reeds-b.1",
-        "wire": "J7-GND",
-        "actual_terminal_line_mm": 1.0,
-        "disposition": "actual_curved_wire_native_clear",
-        "actual_native_reading": {
-          "wire": "J7-GND",
-          "part": "vb-outlet-return",
-          "whole_overlap_mm3": 0.0,
-          "native_gap_mm": 1.8803919330549137,
-          "endpoint_mask_applied": false
-        }
+        "junction": "wago-g",
+        "lever_face": 1.0,
+        "bounds_mm": [
+          -94.4,
+          448.2,
+          304.9,
+          -75.6,
+          457.499,
+          311.75
+        ],
+        "parent": "back-top",
+        "pairs": [
+          {
+            "obstacle": "enclosure-back-top",
+            "overlap_mm3": 0
+          }
+        ]
       },
       {
-        "diagnostic_witness": {
-          "part": "wago-reeds-b",
-          "port": 3,
-          "approach_length_mm": 8.0,
-          "approach_diameter_mm": 3.0,
-          "obstacle": "tube-fluid-18",
-          "overlap_mm3": 3.50305525717174,
-          "bounds_mm": [
-            16.140261363041922,
-            264.3521056207589,
-            293.9999999,
-            18.85973863695808,
-            267.6478943792411,
-            294.8666667666667
-          ]
-        },
-        "terminal": "wago-reeds-b.3",
-        "wire": "J7-carb-earth-2",
-        "actual_terminal_line_mm": 2.129540822691581,
-        "disposition": "wire_to_tube_excluded",
-        "actual_native_reading": null
+        "junction": "wago-n",
+        "lever_face": 1.0,
+        "bounds_mm": [
+          -61.00000000000001,
+          448.2,
+          258.1,
+          -54.150000000000006,
+          457.499,
+          276.90000000000003
+        ],
+        "parent": "back-top",
+        "pairs": [
+          {
+            "obstacle": "enclosure-back-top",
+            "overlap_mm3": 0
+          }
+        ]
+      },
+      {
+        "junction": "wago-sensors",
+        "lever_face": 1.0,
+        "bounds_mm": [
+          6.450000000000003,
+          222.24419999999998,
+          277.7,
+          13.300000000000002,
+          231.54319999999998,
+          296.5
+        ],
+        "parent": "cold-core",
+        "pairs": [
+          {
+            "obstacle": "foam-cap-lid-top",
+            "overlap_mm3": 0
+          }
+        ]
+      },
+      {
+        "junction": "wago-v12",
+        "lever_face": 1.0,
+        "bounds_mm": [
+          6.450000000000003,
+          222.24419999999998,
+          255.59999999999997,
+          13.300000000000002,
+          231.54319999999998,
+          274.4
+        ],
+        "parent": "cold-core",
+        "pairs": [
+          {
+            "obstacle": "foam-cap-lid-top",
+            "overlap_mm3": 0
+          }
+        ]
+      },
+      {
+        "junction": "wago-gnd",
+        "lever_face": 1.0,
+        "bounds_mm": [
+          6.450000000000003,
+          253.5452,
+          255.6,
+          13.300000000000002,
+          262.8442,
+          274.4
+        ],
+        "parent": "cold-core",
+        "pairs": [
+          {
+            "obstacle": "foam-cap-lid-top",
+            "overlap_mm3": 0
+          }
+        ]
+      },
+      {
+        "junction": "wago-reeds-b",
+        "lever_face": 1.0,
+        "bounds_mm": [
+          6.450000000000003,
+          253.5452,
+          277.70000000000005,
+          13.300000000000002,
+          262.8442,
+          296.50000000000006
+        ],
+        "parent": "cold-core",
+        "pairs": [
+          {
+            "obstacle": "foam-cap-lid-top",
+            "overlap_mm3": 0
+          }
+        ]
+      },
+      {
+        "junction": "wago-mana",
+        "lever_face": 1.0,
+        "bounds_mm": [
+          86.05,
+          162.4,
+          262.1,
+          95.199,
+          169.25,
+          291.90000000000003
+        ],
+        "parent": "front-top",
+        "pairs": [
+          {
+            "obstacle": "enclosure-front-top",
+            "overlap_mm3": 0
+          }
+        ]
+      },
+      {
+        "junction": "wago-mana",
+        "lever_face": -1.0,
+        "bounds_mm": [
+          86.05,
+          185.05,
+          262.1,
+          95.199,
+          191.9,
+          291.90000000000003
+        ],
+        "parent": "front-top",
+        "pairs": [
+          {
+            "obstacle": "enclosure-front-top",
+            "overlap_mm3": 0
+          }
+        ]
+      },
+      {
+        "junction": "wago-manb",
+        "lever_face": 1.0,
+        "bounds_mm": [
+          85.74999999999999,
+          162.4,
+          228.0,
+          95.04899999999999,
+          169.25,
+          258.0
+        ],
+        "parent": "front-top",
+        "pairs": [
+          {
+            "obstacle": "enclosure-front-top",
+            "overlap_mm3": 0
+          },
+          {
+            "obstacle": "valve-v-g",
+            "overlap_mm3": 0
+          }
+        ]
       }
     ],
-    "actual_native_reader": {
-      "scope": "Exact installed native wire solids at the two conservative straight WAGO approach witnesses. The actual curved conductor, including its terminal land, is queried against the complete named larger body. No endpoint mask or geometry change is applied. Wire-to-tube approach witnesses are outside the requested obstacle scope.",
-      "assembly_step_sha256": "43de7a97158cfb3d2b9de706d7370fcb1c8b6c32dcb2d9cc09404d443c725655",
-      "manifest_sha256": "2014cb424bd823115f40412491965b2b0189f6c829eca5957d6ad19abfde1f62",
-      "reader_sha256": "2a34b64e556154dd3fec080601d426d919d6b9606332e2e3bf0147f38ccbd911",
-      "pairs": [
-        {
-          "wire": "AC6-PE",
-          "part": "relay-1-screw-4",
-          "whole_overlap_mm3": 0.0,
-          "native_gap_mm": 0.699860920749984,
-          "endpoint_mask_applied": false
-        },
-        {
-          "wire": "J7-GND",
-          "part": "vb-outlet-return",
-          "whole_overlap_mm3": 0.0,
-          "native_gap_mm": 1.8803919330549137,
-          "endpoint_mask_applied": false
-        }
+    "contacts": [],
+    "service_prerequisites": {
+      "cold-core": [
+        "Disconnect the removable V-B return before operating the core junction levers."
       ],
-      "unresolved": [],
-      "pass": true,
-      "elapsed_seconds": 14.425807791994885
+      "back-top": [
+        "Separate back-top from the cold core before wiring the rear junctions."
+      ]
     },
-    "installed_source_binding_sha256": "3cc68147c3bf4402a2d37db1fa728bf23180f5d8ea935565b5e5c7ff5b0d5260",
-    "full_larger_body_wire_review_sha256": "1d17400c06ce1fc84484ecd7f2c11ba4c75db3b8f03eebd4c43e85a2ee919423"
+    "pass": true
   },
-  "all_wago_bodies_clear": true,
-  "all_recorded_driver_columns_clear": true,
-  "all_actual_wire_entries_clear": true
+  "current_neutral_closing_motion": {
+    "scope": "Complete 300 mm rear closing interval of the neutral WAGO and every actual added host surface against the retained cold core. The front lever fix removes stock only and creates no new closing obstruction.",
+    "physical_mesh_sha256": "eea9998619bde65cc392055164c0f7bb2d2abd17fdfc59a10cdc5be8502b1f73",
+    "added_stock_stl_sha256": "4fc92f3715689ad147b4e16ce5680a209b54ca9d1dc4f7e73de5d0c8fe054a75",
+    "pairs": [
+      {
+        "moving": "wago-n",
+        "stationary": "cap-clamp-bottom-1",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "wago-n",
+        "stationary": "cap-clamp-bottom-10",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "wago-n",
+        "stationary": "cap-clamp-bottom-2",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "wago-n",
+        "stationary": "cap-clamp-bottom-3",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "wago-n",
+        "stationary": "cap-clamp-bottom-4",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "wago-n",
+        "stationary": "cap-clamp-bottom-5",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "wago-n",
+        "stationary": "cap-clamp-bottom-6",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "wago-n",
+        "stationary": "cap-clamp-bottom-7",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "wago-n",
+        "stationary": "cap-clamp-bottom-8",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "wago-n",
+        "stationary": "cap-clamp-bottom-9",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "wago-n",
+        "stationary": "cap-clamp-top-1",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "wago-n",
+        "stationary": "cap-clamp-top-10",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "wago-n",
+        "stationary": "cap-clamp-top-2",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "wago-n",
+        "stationary": "cap-clamp-top-3",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "wago-n",
+        "stationary": "cap-clamp-top-4",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "wago-n",
+        "stationary": "cap-clamp-top-5",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "wago-n",
+        "stationary": "cap-clamp-top-6",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "wago-n",
+        "stationary": "cap-clamp-top-7",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "wago-n",
+        "stationary": "cap-clamp-top-8",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "wago-n",
+        "stationary": "cap-clamp-top-9",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "wago-n",
+        "stationary": "carbonator-earth-lockwasher",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "wago-n",
+        "stationary": "carbonator-earth-screw",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "wago-n",
+        "stationary": "carbonator-elbow-carb-water-out",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "wago-n",
+        "stationary": "carbonator-elbow-co2-in",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "wago-n",
+        "stationary": "carbonator-elbow-prv",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "wago-n",
+        "stationary": "carbonator-elbow-water-in",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "wago-n",
+        "stationary": "carbonator-fold",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "wago-n",
+        "stationary": "carbonator-tube",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "wago-n",
+        "stationary": "collet-water-in",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "wago-n",
+        "stationary": "discharge-barb-clamp",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "wago-n",
+        "stationary": "discharge-barb-key",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "wago-n",
+        "stationary": "discharge-chain",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "wago-n",
+        "stationary": "discharge-reducer",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "wago-n",
+        "stationary": "discharge-stem-clamp",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "wago-n",
+        "stationary": "discharge-stem-key",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "wago-n",
+        "stationary": "discharge-tube",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "wago-n",
+        "stationary": "endcap-bottom",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "wago-n",
+        "stationary": "endcap-top",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "wago-n",
+        "stationary": "evap-coil",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "wago-n",
+        "stationary": "evap-tail-inlet",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "wago-n",
+        "stationary": "evap-tail-outlet",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "wago-n",
+        "stationary": "float-a",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "wago-n",
+        "stationary": "float-b",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "wago-n",
+        "stationary": "float-carb",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "wago-n",
+        "stationary": "float-rod-a",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "wago-n",
+        "stationary": "float-rod-b",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "wago-n",
+        "stationary": "float-rod-carb",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "wago-n",
+        "stationary": "float-stop-carb-top",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "wago-n",
+        "stationary": "foam-cap-bottom",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "wago-n",
+        "stationary": "foam-cap-lid-top",
+        "status": "clear_distance_intervals",
+        "queries": 7,
+        "minimum_queried_surface_distance_mm": 4.70001220703125,
+        "certified_surface_separation_lower_bound_mm": 0.01251220703125
+      },
+      {
+        "moving": "wago-n",
+        "stationary": "foam-shell",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "wago-n",
+        "stationary": "g-ganen-pump",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "wago-n",
+        "stationary": "line-carb-water-out",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "wago-n",
+        "stationary": "line-co2-in",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "wago-n",
+        "stationary": "line-prv-vent",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "wago-n",
+        "stationary": "line-reservoir-a",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "wago-n",
+        "stationary": "line-reservoir-a-fill",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "wago-n",
+        "stationary": "line-reservoir-b",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "wago-n",
+        "stationary": "line-reservoir-b-fill",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "wago-n",
+        "stationary": "line-water-in",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "wago-n",
+        "stationary": "pcba",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "wago-n",
+        "stationary": "probe-carbonator-ds18b20",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "wago-n",
+        "stationary": "probe-coil-ds18s20",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "wago-n",
+        "stationary": "prv-shroud",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "wago-n",
+        "stationary": "prv-sv125",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "wago-n",
+        "stationary": "pump-snap-cap",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "wago-n",
+        "stationary": "reed-a-1",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "wago-n",
+        "stationary": "reed-a-2",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "wago-n",
+        "stationary": "reed-a-3",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "wago-n",
+        "stationary": "reed-a-4",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "wago-n",
+        "stationary": "reed-b-1",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "wago-n",
+        "stationary": "reed-b-2",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "wago-n",
+        "stationary": "reed-b-3",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "wago-n",
+        "stationary": "reed-b-4",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "wago-n",
+        "stationary": "reed-bridge",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "wago-n",
+        "stationary": "reed-carb-1",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "wago-n",
+        "stationary": "reed-carb-2",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "wago-n",
+        "stationary": "reservoir-a",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "wago-n",
+        "stationary": "reservoir-a-cap",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "wago-n",
+        "stationary": "reservoir-a-gasket",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "wago-n",
+        "stationary": "reservoir-b",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "wago-n",
+        "stationary": "reservoir-b-cap",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "wago-n",
+        "stationary": "reservoir-b-fill-guide",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "wago-n",
+        "stationary": "reservoir-b-gasket",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "wago-n",
+        "stationary": "reservoir-grip-a-air",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "wago-n",
+        "stationary": "reservoir-grip-a-draw",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "wago-n",
+        "stationary": "reservoir-grip-a-fill",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "wago-n",
+        "stationary": "reservoir-grip-b-air",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "wago-n",
+        "stationary": "reservoir-grip-b-draw",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "wago-n",
+        "stationary": "reservoir-grip-b-fill",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "wago-n",
+        "stationary": "suction-barb-clamp",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "wago-n",
+        "stationary": "suction-barb-key",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "wago-n",
+        "stationary": "suction-reducer",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "wago-n",
+        "stationary": "suction-stem-clamp",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "wago-n",
+        "stationary": "suction-stem-key",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "wago-n",
+        "stationary": "suction-tube",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "wago-n",
+        "stationary": "tube-above-core-vb-yb-cross",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "wago-n",
+        "stationary": "tube-reservoir-air-a",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "wago-n",
+        "stationary": "tube-reservoir-air-b",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "wago-n",
+        "stationary": "tube-water-5",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "wago-n",
+        "stationary": "valve-v-b",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "wago-n",
+        "stationary": "vb-inlet-turn",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "wago-n",
+        "stationary": "vb-outlet-return",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "wago-n",
+        "stationary": "vb-outlet-stem",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "wago-n",
+        "stationary": "wago-gnd",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "wago-n",
+        "stationary": "wago-reeds-b",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "wago-n",
+        "stationary": "wago-sensors",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "wago-n",
+        "stationary": "wago-v12",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "wago-n",
+        "stationary": "water-inlet-jet-cap-nominal",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "neutral-added-stock",
+        "stationary": "cap-clamp-bottom-1",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "neutral-added-stock",
+        "stationary": "cap-clamp-bottom-10",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "neutral-added-stock",
+        "stationary": "cap-clamp-bottom-2",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "neutral-added-stock",
+        "stationary": "cap-clamp-bottom-3",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "neutral-added-stock",
+        "stationary": "cap-clamp-bottom-4",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "neutral-added-stock",
+        "stationary": "cap-clamp-bottom-5",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "neutral-added-stock",
+        "stationary": "cap-clamp-bottom-6",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "neutral-added-stock",
+        "stationary": "cap-clamp-bottom-7",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "neutral-added-stock",
+        "stationary": "cap-clamp-bottom-8",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "neutral-added-stock",
+        "stationary": "cap-clamp-bottom-9",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "neutral-added-stock",
+        "stationary": "cap-clamp-top-1",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "neutral-added-stock",
+        "stationary": "cap-clamp-top-10",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "neutral-added-stock",
+        "stationary": "cap-clamp-top-2",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "neutral-added-stock",
+        "stationary": "cap-clamp-top-3",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "neutral-added-stock",
+        "stationary": "cap-clamp-top-4",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "neutral-added-stock",
+        "stationary": "cap-clamp-top-5",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "neutral-added-stock",
+        "stationary": "cap-clamp-top-6",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "neutral-added-stock",
+        "stationary": "cap-clamp-top-7",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "neutral-added-stock",
+        "stationary": "cap-clamp-top-8",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "neutral-added-stock",
+        "stationary": "cap-clamp-top-9",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "neutral-added-stock",
+        "stationary": "carbonator-earth-lockwasher",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "neutral-added-stock",
+        "stationary": "carbonator-earth-screw",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "neutral-added-stock",
+        "stationary": "carbonator-elbow-carb-water-out",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "neutral-added-stock",
+        "stationary": "carbonator-elbow-co2-in",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "neutral-added-stock",
+        "stationary": "carbonator-elbow-prv",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "neutral-added-stock",
+        "stationary": "carbonator-elbow-water-in",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "neutral-added-stock",
+        "stationary": "carbonator-fold",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "neutral-added-stock",
+        "stationary": "carbonator-tube",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "neutral-added-stock",
+        "stationary": "collet-water-in",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "neutral-added-stock",
+        "stationary": "discharge-barb-clamp",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "neutral-added-stock",
+        "stationary": "discharge-barb-key",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "neutral-added-stock",
+        "stationary": "discharge-chain",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "neutral-added-stock",
+        "stationary": "discharge-reducer",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "neutral-added-stock",
+        "stationary": "discharge-stem-clamp",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "neutral-added-stock",
+        "stationary": "discharge-stem-key",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "neutral-added-stock",
+        "stationary": "discharge-tube",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "neutral-added-stock",
+        "stationary": "endcap-bottom",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "neutral-added-stock",
+        "stationary": "endcap-top",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "neutral-added-stock",
+        "stationary": "evap-coil",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "neutral-added-stock",
+        "stationary": "evap-tail-inlet",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "neutral-added-stock",
+        "stationary": "evap-tail-outlet",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "neutral-added-stock",
+        "stationary": "float-a",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "neutral-added-stock",
+        "stationary": "float-b",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "neutral-added-stock",
+        "stationary": "float-carb",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "neutral-added-stock",
+        "stationary": "float-rod-a",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "neutral-added-stock",
+        "stationary": "float-rod-b",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "neutral-added-stock",
+        "stationary": "float-rod-carb",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "neutral-added-stock",
+        "stationary": "float-stop-carb-top",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "neutral-added-stock",
+        "stationary": "foam-cap-bottom",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "neutral-added-stock",
+        "stationary": "foam-cap-lid-top",
+        "status": "clear_distance_intervals",
+        "queries": 12,
+        "minimum_queried_surface_distance_mm": 1.5500030517578125,
+        "certified_surface_separation_lower_bound_mm": 0.3781280517578125
+      },
+      {
+        "moving": "neutral-added-stock",
+        "stationary": "foam-shell",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "neutral-added-stock",
+        "stationary": "g-ganen-pump",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "neutral-added-stock",
+        "stationary": "line-carb-water-out",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "neutral-added-stock",
+        "stationary": "line-co2-in",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "neutral-added-stock",
+        "stationary": "line-prv-vent",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "neutral-added-stock",
+        "stationary": "line-reservoir-a",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "neutral-added-stock",
+        "stationary": "line-reservoir-a-fill",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "neutral-added-stock",
+        "stationary": "line-reservoir-b",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "neutral-added-stock",
+        "stationary": "line-reservoir-b-fill",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "neutral-added-stock",
+        "stationary": "line-water-in",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "neutral-added-stock",
+        "stationary": "pcba",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "neutral-added-stock",
+        "stationary": "probe-carbonator-ds18b20",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "neutral-added-stock",
+        "stationary": "probe-coil-ds18s20",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "neutral-added-stock",
+        "stationary": "prv-shroud",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "neutral-added-stock",
+        "stationary": "prv-sv125",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "neutral-added-stock",
+        "stationary": "pump-snap-cap",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "neutral-added-stock",
+        "stationary": "reed-a-1",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "neutral-added-stock",
+        "stationary": "reed-a-2",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "neutral-added-stock",
+        "stationary": "reed-a-3",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "neutral-added-stock",
+        "stationary": "reed-a-4",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "neutral-added-stock",
+        "stationary": "reed-b-1",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "neutral-added-stock",
+        "stationary": "reed-b-2",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "neutral-added-stock",
+        "stationary": "reed-b-3",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "neutral-added-stock",
+        "stationary": "reed-b-4",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "neutral-added-stock",
+        "stationary": "reed-bridge",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "neutral-added-stock",
+        "stationary": "reed-carb-1",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "neutral-added-stock",
+        "stationary": "reed-carb-2",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "neutral-added-stock",
+        "stationary": "reservoir-a",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "neutral-added-stock",
+        "stationary": "reservoir-a-cap",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "neutral-added-stock",
+        "stationary": "reservoir-a-gasket",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "neutral-added-stock",
+        "stationary": "reservoir-b",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "neutral-added-stock",
+        "stationary": "reservoir-b-cap",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "neutral-added-stock",
+        "stationary": "reservoir-b-fill-guide",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "neutral-added-stock",
+        "stationary": "reservoir-b-gasket",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "neutral-added-stock",
+        "stationary": "reservoir-grip-a-air",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "neutral-added-stock",
+        "stationary": "reservoir-grip-a-draw",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "neutral-added-stock",
+        "stationary": "reservoir-grip-a-fill",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "neutral-added-stock",
+        "stationary": "reservoir-grip-b-air",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "neutral-added-stock",
+        "stationary": "reservoir-grip-b-draw",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "neutral-added-stock",
+        "stationary": "reservoir-grip-b-fill",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "neutral-added-stock",
+        "stationary": "suction-barb-clamp",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "neutral-added-stock",
+        "stationary": "suction-barb-key",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "neutral-added-stock",
+        "stationary": "suction-reducer",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "neutral-added-stock",
+        "stationary": "suction-stem-clamp",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "neutral-added-stock",
+        "stationary": "suction-stem-key",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "neutral-added-stock",
+        "stationary": "suction-tube",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "neutral-added-stock",
+        "stationary": "tube-above-core-vb-yb-cross",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "neutral-added-stock",
+        "stationary": "tube-reservoir-air-a",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "neutral-added-stock",
+        "stationary": "tube-reservoir-air-b",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "neutral-added-stock",
+        "stationary": "tube-water-5",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "neutral-added-stock",
+        "stationary": "valve-v-b",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "neutral-added-stock",
+        "stationary": "vb-inlet-turn",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "neutral-added-stock",
+        "stationary": "vb-outlet-return",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "neutral-added-stock",
+        "stationary": "vb-outlet-stem",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "neutral-added-stock",
+        "stationary": "wago-gnd",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "neutral-added-stock",
+        "stationary": "wago-reeds-b",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "neutral-added-stock",
+        "stationary": "wago-sensors",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "neutral-added-stock",
+        "stationary": "wago-v12",
+        "status": "clear_aabb",
+        "queries": 0
+      },
+      {
+        "moving": "neutral-added-stock",
+        "stationary": "water-inlet-jet-cap-nominal",
+        "status": "clear_aabb",
+        "queries": 0
+      }
+    ],
+    "unresolved": [],
+    "pass": true
+  },
+  "all_actual_wire_entries_clear": true,
+  "actual_conductor_review": {
+    "path": "hardware/wiring/installed/contact-review.json",
+    "sha256": "64041283b89e42e3fa1078c29d7dd51fe6f191ad8234f04f4877927f3cbeb934",
+    "unresolved": []
+  }
 }
