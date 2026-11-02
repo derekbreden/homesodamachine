@@ -1,0 +1,30 @@
+{
+  "scope": "Reading of the frozen v2 print mesh in its intended modeled assembly. The photos do not establish every photographed axial orientation.",
+  "sources": {
+    "hardware/print-tests/rear-snap-retention/v2/parts/pisco-seat.stl": "3c6b479e2fb8d891f51472f74e86cb736c322301e252596033ca57639e8583eb",
+    "hardware/print-tests/rear-snap-retention/v2/parts/pisco-cap.stl": "d5bd5c192e557fe4206b7fbd57149ad05fc9c1d99b00c4d6f38dd684401d662d",
+    "hardware/reference/compact-inline-candidates/geometry/candidate-regulator-body.npz": "516e578e7e61f4fb5d4bb1fb5608b51a192d4e5e7ed7842b4c3b250426bcef6a",
+    "hardware/reference/compact-inline-candidates/geometry/candidate-regulator-outlet_fitting.npz": "50564e00c702f6292513e912d5339f61d4a2300e31c0e5db445715c8573ce5f8",
+    "hardware/reference/compact-inline-candidates/geometry/candidate-regulator-inlet_collet.npz": "54da3a1681998405d9bb0f4366127b65ef7efa23933a69a81821ee3a4537781c",
+    "hardware/reference/compact-inline-candidates/geometry/candidate-regulator-outlet_collet.npz": "6a4035d2ac59e81d47ff48426298cd81a6293c0ddeeb2b6637505a57b3552b7f"
+  },
+  "numbers_sha256": "eb4f929bfbe6a14b8115861502b00aafe74b9decca1b9e8c8ee054883affaba5",
+  "world_frame_mm": {
+    "axis_z": 328.0,
+    "spring_root_and_bridge_z": 318.0,
+    "cap_bottom_z": 313.6931,
+    "cap_span_y": [
+      420.34571720240064,
+      436.0
+    ],
+    "short_outlet_neck_cavity_radius": 7.124
+  },
+  "retaining_bridge_to_admitted_neck_circle_mm": 2.8759999999999764,
+  "reference_neck_section": {
+    "native_axial_station_mm": 58.5,
+    "bench_y_mm": -19.147858601200312,
+    "bridge_to_reference_neck_vertical_gap_mm": 5.043608954875953
+  },
+  "finding": "The central bridge is at the lowered spring-root plane, below the entire admitted neck circle. The neck cut misses the bridge, leaving no conforming neck lip. Only the larger body cut produces a shallow scallop. Zero hardware intersection did not establish hardware retention.",
+  "next_design": "Keep the retaining body/neck lip independent of the spring-root height; inspect actual neck and shoulder capture, axial play and vertical play. Review intermediate leaf thickness and the root transition after the remaining physical results arrive."
+}
