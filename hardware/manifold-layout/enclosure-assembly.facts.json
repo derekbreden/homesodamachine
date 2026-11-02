@@ -691,9 +691,9 @@
   "pisco-snap-cap": [
    62.0943843126297,
    420.3457172019407,
-   314.1930999998003,
+   313.7725999997929,
    90.9056156873703,
-   436.0,
+   462.04999999981374,
    342.84999999962747
   ],
   "psu": [
@@ -7927,12 +7927,12 @@
   }
  ],
  "schema": 2,
- "sources": "9d84c9c560802f3affabe763a43a71df",
- "step": "13548b21d0ee1dbe62afa1b5e1aca731",
+ "sources": "366b59f48db586314f9777ce96e80dac",
+ "step": "24400686edf58a30b67d9c29b4086295",
  "tube_export": {
   "fine_model": {
    "path": "hardware/manifold-layout/enclosure-assembly.step.npz",
-   "sha256": "bd8c4d1b722d628cac876e9c8aad5d280ff41a54492fa1cefdac0516b5ced98b"
+   "sha256": "b47b397e964dab5930db62373573f93ca3bb0b1126b98f8e25c8ef09a47ff156"
   },
   "routing": {
    "anchor_sites": [
@@ -40700,12 +40700,12 @@
   },
   "scene": {
    "path": "hardware/manifold-layout/enclosure-assembly.scene.npz",
-   "sha256": "cfa3f9a684155c7a74ea96df929781f9b52af30d15444d50052fdcc661b5ec0c"
+   "sha256": "d7db6e651387409fc17cb63264d6b7d893d7e2c238bafa6a80594d5235cefdbc"
   },
   "schema": 1,
   "step": {
    "path": "hardware/manifold-layout/enclosure-assembly.step",
-   "sha256": "32b03a8ae452bbe25605ce9431904ab0d8e699ff5f84c1dff8ec684c49419953"
+   "sha256": "7b69d196ba7386214cde509440d08e4d74a0b7e74f147216e2deed25ac5d586d"
   }
  },
  "valve_tray_stations": [
