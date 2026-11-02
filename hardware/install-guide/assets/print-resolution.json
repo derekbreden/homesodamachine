@@ -436,22 +436,22 @@
     "opening.png": {
       "reference_size": [
         3800,
-        3130
+        3129
       ],
       "render_size": [
         3800,
-        3130
+        3129
       ],
       "scale": [
         1.0,
         1.0
       ],
-      "render_sha256": "bfa6ce7a11f64b88d31b9ef07b8b53bad98ffac3af3c085239bd2692160e0959",
-      "source_sha256": "52bea7929ef0113341ff6e19bf1dfd076dc64a0bbe04142124c9dde3aa215ab3",
-      "scene_step_sha256": "729b15ec825b9b60207a771edc0abb72100afda537bc64ba345875f6dd1e0e92",
+      "render_sha256": "92ef9feeeb9f2b90dea24cabcbb12f4b0aa741af47963a682e0e7b8a961fe5e7",
+      "source_sha256": "f7a33ab30545a0d71912aabe09b56b0d298526ec82255234cae6a4a5ec50001a",
+      "scene_step_sha256": "2097e512d4d20d73912b7b40b1a4d230f52eeacf99b15805e7f8c8df157a3c34",
       "fixed_native_crop": [
         0,
-        70,
+        71,
         3800,
         3200
       ],
