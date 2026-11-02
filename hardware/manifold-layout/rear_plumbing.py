@@ -221,7 +221,8 @@ def regulator_datums():
     return dict(mount,profile_frame=frame,
         seat_profile=snaps.clearance_profile(profile,fit['receiver_radial_mm'],fit['axial_mm']),
         cap_profile=snaps.clearance_profile(profile,fit['cap_radial_mm'],fit['axial_mm']),
-        cap_stock=[(st['axis_x']-half,st['axis_x']+half,st['y0'],st['y1'],
+        cap_bearing_outlet_setback_mm=1.,
+        cap_stock=[(st['axis_x']-half,st['axis_x']+half,st['y0'],st['y1']-1.,
                     mount['cap_bottom'],mount['axis'][1])])
 
 

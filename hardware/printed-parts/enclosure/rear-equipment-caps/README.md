@@ -22,12 +22,14 @@ receiver's housing, flange, bosses and closed back have 0.75 mm clearance.
 Its cap uses 0.25 mm at its housing and port bearing surfaces. The water
 regulator uses its measured linear radius profile and true installed axis,
 with 0.30 mm receiver radial air, 0.25 mm cap radial air and 0.25 mm axial air.
-Its body-to-outlet shoulder retains the scanned position.
+Its body-to-outlet shoulder retains the scanned position. The central cap
+bearing ends 1 mm short of the spring ends beside the outlet release collet.
 All leaves are 2.0 mm thick, with a 1.5 mm inside root radius and 22.25 mm
 root-to-catch length; the water regulator uses 21.25 mm within its retained
 height. The straight wall above the root blend is 20.75 mm, or 19.75 mm on
 the water regulator. The insertion face has a
-2 mm-rise lead-in ramp above a 0.6 mm solid nose land. The retaining face is
+1 mm-rise lead-in ramp above a 1.6 mm solid nose land. The blade entry leaves
+0.6 mm of solid nose above it. The retaining face is
 flat with 2.6 mm overlap outside each centered 5 mm-wide by 1 mm-high flathead
 entry. The nominal catch clearance is 0.4 mm.
 ASSE, Pisco and meter enter their seats 16 mm forward and slide aft. The
