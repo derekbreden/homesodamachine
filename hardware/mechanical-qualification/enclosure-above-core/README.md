@@ -23,9 +23,10 @@ their separately bound native readings. All
 queried pump, casing and seat intersections are zero. The
 [assembly gate review](assembly-gate-review.json) binds the current drain cradle,
 soda holder and tube to the complete appliance. The holder stands 7.75 mm from
-the meter with a tangent transition from the fixed core guide. Two M3 relay
-heads overlap the approximate terminal-block reference by 0.25 mm; their
-actual fit remains unresolved and the pack gate stays red. V-K's outlet elbow has
+the meter with a tangent transition from the fixed core guide. Each relay has
+two header-end M3 screws and four solid edge ledges, clear of its terminals.
+The east core hold-down has its full 9 mm root outside the rear wet-field
+relief. V-K's outlet elbow has
 1.590 mm of lid clearance, its body has 17.567 mm below the continuous
 ceiling, and the tee has 3.622 mm. The fitted core lid remains 0.250 mm
 below the funnel frame.
@@ -78,12 +79,11 @@ artifact hashes. Wire obstacles are larger bodies; other wires and tubes are
 excluded. The [enclosure routing review](../../wiring/installed/above-core-review/routing-enclosure-review.json)
 records native readings of its named mesh witnesses.
 
-The final harness has 100 conductors and 119 native wiring bodies. All source
-curves and installed bodies agree with their standalone export. The nine
-mounted WAGOs and three free joins clear the installed bodies; actual curved
-wire entries resolve the conservative straight-approach probes. The neutral
-WAGO and its integral holder stand at X−61, clear of the pump saddle. The
-populated quadrant motion readings include all mounted WAGOs.
+These wiring records describe their named artifacts. The current mechanical
+assembly omits conductors while the equipment clamps are finalized. The
+neutral WAGO and its holder require placement around the finished pump
+saddle; the pack gate identifies that actual overlap. WAGO placement and
+wire routing follow the completed mechanical publication.
 
 The whole-scene scorecard reads unconnected material outside finite named
 receiving regions. The flank check includes each fastener's own drilled lane
@@ -99,14 +99,19 @@ B's draw line steps east above its cap mouth to clear the V-B return.
 
 The pump's complete rubber feet and raised legs slide out of the fixed
 rails. The motor sits in a 61 mm lid-integrated half pipe under one continuous
-54.5 mm upper clip. The clip has a 3.1 mm nominal arch, 3 mm spring wings and two continuous hooks;
+54.5 mm upper clip. The clip has a filled 6.2 mm crown, 2.6 mm spring wings and two continuous hooks;
 its outside axial end lands are 3 mm solid stock. Open rail and cover rooms
 admit the pump vertically. One broad outside wall joins both rail-end stops;
 the straight rail corridor stays open. The fore stock clears the head lug and
 the rear stock meets the saddle top. The clip
-clears the PSU by 1.111 mm. The PSU mounting face is Z347; all four 5 mm pilots
+clears the PSU by 0.261 mm. The PSU mounting face is Z347; all four 5 mm pilots
 end at Z352, below the continuous 3 mm show skin. The 6.7±1 mm ears leave
 2.3–4.3 mm screw engagement and at least 0.7 mm pilot tip air.
+
+The reinforced trials accept the pump and ASSE hardware fit and the meter
+receiver and lead room. Pisco and water-regulator capture and the spring-root
+behavior remain unresolved in the physical trial record. Their existing
+mounting gate stays red while the clamping bodies are revised.
 
 ## Assembly interfaces
 
