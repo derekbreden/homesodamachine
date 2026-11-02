@@ -12,16 +12,13 @@ valves keep their height and stand over their tees' run axes; the rear row stand
 its deck reference. The two source turns
 retain their own construction independently of the pump-port connections.
 """
+from __future__ import annotations
 
 import math
 import os
 import sys
 from pathlib import Path
 from typing import NamedTuple
-
-import cadquery as cq
-from OCP.Bnd import Bnd_Box
-from OCP.BRepBndLib import BRepBndLib
 
 _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
@@ -38,6 +35,10 @@ for _p in (_hw / "scripts",
            _hw / "printed-parts" / "enclosure" / "pump-tray"):
     sys.path.insert(0, str(_p))
 sys.path.insert(0, str(_tools))
+if __name__ == "__main__":
+    import _rust_part
+    _rust_part.start()
+import cadquery as cq
 from _cadq_export import export_assembly, import_step              # noqa: E402
 from docgen import substitute_md                      # noqa: E402
 import beduan_solenoid as vlv                         # noqa: E402
@@ -349,7 +350,7 @@ DECK_SEP = float(os.environ.get("HSM_DECK_SEP", 60.95))
 FOLD_BINDS = ("a folded valve's underside", "the spades of the one beneath it")
 HINGE_Z = DECK_Z + DECK_SEP / 2.0
 UPPER_Z = DECK_Z + DECK_SEP                  # the folded deck's port-axis height
-FOLD_AXIS = (cq.Vector(0.0, HINGE_Y, HINGE_Z), cq.Vector(1.0, HINGE_Y, HINGE_Z))
+FOLD_AXIS = ((0.0, HINGE_Y, HINGE_Z), (1.0, HINGE_Y, HINGE_Z))
 
 
 def fold_pt(p) -> tuple:
@@ -1135,6 +1136,148 @@ def build_assembly(carrier_offset: float = CARRIER_SQUEEZE, *, include_fixed_wet
     return a
 
 
+def _sum(a, b):
+    return tuple(x + y for x, y in zip(a, b))
+
+
+def _matrix(origin, x_dir=(1., 0., 0.), z_dir=(0., 0., 1.), carry=None):
+    """The same orthogonal frame as `place`, optionally carried to another frame."""
+    y_dir = _cross(z_dir, x_dir)
+    if carry is not None:
+        p = carry(origin)
+        x_dir = tuple(a-b for a,b in zip(carry(_sum(origin, x_dir)), p))
+        y_dir = tuple(a-b for a,b in zip(carry(_sum(origin, y_dir)), p))
+        z_dir = tuple(a-b for a,b in zip(carry(_sum(origin, z_dir)), p))
+        origin = p
+    return [[x_dir[k], y_dir[k], z_dir[k], origin[k]] for k in range(3)]
+
+
+def _source_segments(name, start, travel):
+    """The source run's authored arcs and lines, without constructing a native wire."""
+    off, cross = source_offset(name), step_cross(name)
+    jog = math.hypot(*cross)
+    back = hairpin_back(BEND_R, travel, jog)
+    lanes = [(off, hairpin_flat(BEND_R, math.hypot(*off), back))] if back > 1e-9 else []
+    lanes.append((cross, sbend_flat(BEND_R, travel+back, jog)))
+    origin, out = start, []
+    for axis, legs in lanes:
+        length = math.hypot(*axis)
+        direction = (axis[0]/length, axis[1]/length, 0.)
+        def point(p):
+            return _sum(_sum(origin, tuple(v*p[0] for v in direction)), (0., 0., p[1]))
+        for leg in legs:
+            out.append({'kind': leg[0], 'points': [point(p) for p in leg[1:]]})
+        origin = out[-1]['points'][-1]
+    return out
+
+
+def numbers():
+    """Fine reference parts, installed frames and authored tube centrelines for Rust."""
+    import _rust_part
+    from _materials import linear, M_NEOFIT_WHITE_ACETAL
+    import neofit_stem_elbow as stem_elbow
+    from _payload_rules import LINEAR_DEFLECTION_RATIO
+
+    sources = {key: _rust_part.step(path) for key, path in {
+        'valve': _hw/'reference/beduan-solenoid/beduan-solenoid.step',
+        'tee': TEE_STEP, 'elbow': ELBOW_STEP, 'pump': KAMOER_STEP,
+        'stem': _hw/'reference/neofit-stem-elbow/neofit-stem-elbow.step',
+    }.items()}
+    bodies, stems = [], []
+
+    def ref(name, source, groups, matrix, color, **extra):
+        bodies.append({'name': name, 'kind': 'reference', 'source': source,
+                       'groups': groups, 'transform': matrix, 'color': linear(color), **extra})
+
+    def tube(name, segments, normal, color, inside=None):
+        bodies.append({'name': name, 'kind': 'tube', 'segments': segments,
+                       'normal': normal, 'od': TUBE_D, 'id': inside, 'color': linear(color)})
+
+    for name, b in P.items():
+        if name in PUMP_JUNCTIONS:
+            continue
+        def carry(p):
+            if b['fold']:
+                p = fold_pt(p)
+            if name in BENT:
+                p = bend_pt(p, BENT[name])
+            if name in SHIFT:
+                p = _sum(p, SHIFT[name])
+            return _sum(p, (0., 0., fixed_aft_shift(name)))
+        if name.startswith('V-'):
+            frame = _matrix((b['x'], b['y'], DECK_Z-VALVE_PORT_Z), *valve_dirs(b['arg']), carry)
+            ref('valve-'+name.lower(), 'valve', [{'names': ['body','collets'], 'union': True}], frame, C_VALVE)
+            ref('coil-'+name.lower(), 'valve', [{'names': ['winding','yoke','screw-heads'], 'union': True},
+                                               {'names': ['terminals']}], frame, C_COIL)
+        else:
+            ref('tee-'+name.lower(), 'tee', [{}],
+                _matrix((b['x'], b['y'], DECK_Z), *tee_dirs(b['arg']), carry), C_TEE)
+    for _tee, (gate, side) in JOINS.items():
+        corner, _mouth, x_dir, z_dir, _seat = elbow_pose(gate, side)
+        ref('elbow-'+gate.lower()+'-i', 'elbow', [{}], _matrix(corner,x_dir,z_dir), C_TEE)
+    for pname, px in PUMPS.items():
+        at = (px+kp.cx, -BARB_INSET+PUMP_Y-kp.head_front_z, PUMP_BARB_Z-kp.body_y_face)
+        frame = [[-1.,0.,0.,at[0]],[0.,0.,1.,at[1]],[0.,1.,0.,at[2]]]
+        for suffix, part, color in (('head','head',C_HEAD),('boss','rotor_housing',C_BOSS),('motor','motor_body',C_MOTOR)):
+            ref(pname+'-'+suffix, 'pump', [{'names':[part]}], frame, color)
+    state_runs, state_stubs = runs(), fore_stubs()
+    for cid, _f, _t, how in SEGMENTS:
+        color = _routing.tube_color('fluid-'+str(cid))
+        if how in state_runs and dist(*state_runs[how]) > 1e-9:
+            a,b = state_runs[how]
+            tube('tube-fluid-'+str(cid), [{'kind':'line','points':[a,b]}],
+                 tuple(y-x for x,y in zip(a,b)), color)
+        elif how in state_stubs:
+            segments = _fore_segments(*state_stubs[how])
+            tube('tube-fluid-'+str(cid), [_segment_numbers(s) for s in segments],
+                 segments[0]['start_tangent'], color, _returns.TUBE_ID)
+    for cid, segments in lower_links().items():
+        tube('tube-fluid-'+str(cid), [_segment_numbers(s) for s in segments],
+             segments[0]['start_tangent'], _routing.tube_color('fluid-'+str(cid)), _returns.TUBE_ID)
+    fore = pump_wall_fore_y()
+    for name in sorted(PUMP_JUNCTIONS):
+        x,_y,z = enclosure_point(barb_station(name))
+        frame = _matrix((x,_returns.tee_axis_y(fore),z),(-1.,0.,0.),(0.,0.,1.),authoring_point)
+        ref(body_name(name),'tee',[{}],frame,C_TEE)
+        for host,row in ((name,pump_plumbing()[name]['return']['elbows'][0]),
+                         (PUMP_VALVES[name][1],pump_plumbing()[name]['return']['elbows'][1])):
+            ux,uy,_uz = row['socket']
+            frame = _matrix(row['crossing'],(0.,0.,-1.),(uy,-ux,0.),authoring_point)
+            keep = stem_elbow.HUB_BACK_REACH+row['stem']
+            cut = {'origin':[-keep-40.,-20.,-20.],'size':[40.,40.,40.]}
+            label = 'stem-elbow-'+host.lower()
+            ref(label,'stem',[{'names':['body_and_stem'],'cut_box':cut},{'names':['release_collet']}],frame,M_NEOFIT_WHITE_ACETAL)
+            profile = stem_elbow.PARAMETERS['profiles']['stem_x']
+            radius = stem_elbow.STEM_OD/2.
+            straight = [p for p,r in profile if abs(r-radius)<1e-6]
+            tip = min(straight)-profile[0][0]
+            root_end = max(p for p,r in profile if p<0 and r>radius)
+            root_allowance = root_end-max(straight)
+            root_radius = max(r for p,r in profile if p<=root_end)
+            lo,hi = max(-keep,min(straight)),max(straight)
+            stems.append({'elbow':label,'host':body_name(host),'transform':frame,
+                          'stem':[lo-tip-.01,hi+tip+.01,radius+.01],
+                          'root':[hi-.01,hi+root_allowance+.01,root_radius+.01]})
+    for cid,(x,z0) in QUARTERS.items():
+        shift = (0.,-INNER_LIMB_DROP+AFT_PACK_RISE,AFT_DECK_AFT_SHIFT)
+        r,k = BEND_R,BEND_R*math.sqrt(.5)
+        points = [_sum(p,shift) for p in ((x,BEND_Y,z0),(x,BEND_Y+k,z0+r-k),(x,BEND_Y+r,z0+r))]
+        tube('turn-fluid-'+str(cid),[{'kind':'arc','points':points}],(0.,1.,0.),_routing.tube_color('fluid-'+str(cid)))
+    for cid,name in SBENDS.items():
+        x,z0 = QUARTERS[cid]
+        start = (x,BEND_Y+BEND_R-INNER_LIMB_DROP+AFT_PACK_RISE,z0+BEND_R+AFT_DECK_AFT_SHIFT)
+        tube('step-fluid-'+str(cid),_source_segments(name,start,SOURCE_TRAVEL),(0.,0.,1.),_routing.tube_color('fluid-'+str(cid)))
+    for cid,_p,_what,p,axis in MOUTHS:
+        tube('stub-'+cid,[{'kind':'line','points':[p,_sum(p,tuple(v*STUB for v in axis))]}],axis,_routing.tube_color(cid))
+    return {'name':'manifold-layout','sources':sources,'bodies':bodies,'stems':stems,'clash_floor':1.0,
+            'presentation_ratio':LINEAR_DEFLECTION_RATIO}
+
+
+def _segment_numbers(segment):
+    return {'kind':segment['kind'], 'points':([segment['start_mm'],segment['midpoint_mm'],segment['end_mm']]
+            if segment['kind']=='arc' else [segment['start_mm'],segment['end_mm']])}
+
+
 # --- Controls --------------------------------------------------------------
 
 class Extents(NamedTuple):
@@ -1149,6 +1292,18 @@ class Extents(NamedTuple):
     xmax: float
     ymax: float
     zmax: float
+
+    @property
+    def xlen(self):
+        return self.xmax-self.xmin
+
+    @property
+    def ylen(self):
+        return self.ymax-self.ymin
+
+    @property
+    def zlen(self):
+        return self.zmax-self.zmin
 
     @property
     def escape(self) -> tuple:
@@ -1182,6 +1337,8 @@ def extents(shape) -> Extents:
     if meshcad is not None and meshcad.is_mesh(shape):
         b = shape.BoundingBox()
         return Extents(b.xmin, b.ymin, b.zmin, b.xmax, b.ymax, b.zmax)
+    from OCP.Bnd import Bnd_Box
+    from OCP.BRepBndLib import BRepBndLib
     bb = Bnd_Box()
     BRepBndLib.Add_s(shape.wrapped, bb, False)
     return Extents(*bb.Get())
@@ -1320,8 +1477,9 @@ def skew_deg(a, b, axis) -> float:
     return math.degrees(math.acos(max(-1.0, min(1.0, dot))))
 
 
-def report(assy: cq.Assembly) -> dict:
-    bb, reach = envelope(assy, stubs=False), envelope(assy, stubs=True)
+def report(assy: cq.Assembly | None, measurements=None) -> dict:
+    bb, reach = ((envelope(assy, stubs=False), envelope(assy, stubs=True)) if measurements is None
+                 else (Extents(*measurements['bb']), Extents(*measurements['reach'])))
     print("\nlimbs (front → back, y at each body's centre)")
     for limb, spec in LIMBS.items():
         row = "  ".join(f"{n}@{P[n]['y']:+.1f}" for n, _ in spec["chain"])
@@ -1414,11 +1572,14 @@ def report(assy: cq.Assembly) -> dict:
         if max(dx, dy) > 1e-6:
             print(f"  {a} / {b}   x sums to {dx:.4f}, y differs by {dy:.4f}")
 
-    bad, unanswered = clashes(assy)
+    bad, unanswered = (clashes(assy) if measurements is None else
+                        ([Clash(c['a'],c['b'],c['volume'],Extents(*c['where'])) for c in measurements['hits']],
+                         measurements['unanswered']))
     # A lower return's stem elbow shares its stem with the fitting it is bottomed in, and only what
     # lies outside the stem is an interference (`dock_structure.stem_overlap`).
-    stems = {}
-    for c in bad:
+    stems = ({frozenset((r['a'],r['b'])):(r['inside'],r['outside'])
+              for r in measurements['stems']} if measurements is not None else {})
+    for c in (bad if measurements is None else []):
         elbow = next((n for n in (c.a, c.b) if n.startswith("stem-elbow-")), None)
         if elbow is not None:
             import dock_structure
@@ -1479,12 +1640,7 @@ def selftest() -> int:
     return 0
 
 
-def main():
-    assy = build_assembly()
-    out = _here.parent / "manifold-layout.step"
-    export_assembly(assy, str(out))
-    print(f"-> {out.name}")
-    r = report(assy)
+def _write_readme(r):
     bb, reach = r["bb"], r["reach"]
     pump_tee_tube_count = len(FORE_STUBS) + len(LOWER_CONNECTIONS)
     swallowed_lldpe_count = sum(
@@ -1571,6 +1727,21 @@ def main():
         },
     )
     print("-> README.md")
+
+
+def _native_main():
+    assy = build_assembly()
+    out = _here.parent / "manifold-layout.step"
+    export_assembly(assy, str(out))
+    print(f"-> {out.name}")
+    _write_readme(report(assy))
+
+
+def main():
+    import _rust_part
+    said = _rust_part.cut("machine", "manifold-layout", numbers(), _here.parent)
+    print("-> manifold-layout.step")
+    _write_readme(report(None, said["results"][0]["measurements"]))
 
 
 if __name__ == "__main__":
