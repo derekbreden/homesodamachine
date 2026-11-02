@@ -401,7 +401,6 @@ def numbers(inner=DEFAULT_INNER, y_joint=200.0, centre=(0.0, center_y), seat=349
     """Current frame APIs expressed in the exported underside's coordinates."""
     import _enclosure_interface as enc
     from _materials import M_PETGF_BLACK, linear
-    import frame_forming_clearance
     from _payload_rules import LINEAR_DEFLECTION_RATIO
 
     cx, cy = centre
@@ -440,7 +439,7 @@ def numbers(inner=DEFAULT_INNER, y_joint=200.0, centre=(0.0, center_y), seat=349
         'slot_x': [snap['slot_in'], snap['slot_out']],
         'slot_y': [elbow_cradle.SLOT_FORE_Y - elbow_cradle.END_SLIP,
                    elbow_cradle.SLOT_AFT_Y + elbow_cradle.END_SLIP],
-        'forming_payload': frame_forming_clearance.ensure().relative_to(ROOT).as_posix(),
+        'funnel': funnel.numbers(), 'forming_air': forming_air,
         'forming_clip_z': [plug - floor, seat - floor],
     }
 
