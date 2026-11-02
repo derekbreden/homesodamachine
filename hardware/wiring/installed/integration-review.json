@@ -1,16 +1,16 @@
 {
   "schema": 1,
   "scope": "Wiring-only integration; existing physical parts retained",
-  "physical_step_sha256": "d2c6fa094b056574e3abb4e882ec96c5bf705ce98921a77280b77c255fdcb09e",
-  "installed_step_sha256": "ff740ecd2c86c8ee39d9f7381f4603446c6b7c112249add7bea537b977412be2",
+  "physical_step_sha256": "2b94fbf7cf10966cc3ef826aa79592607f78880fc28cef076e9e96572e78d464",
+  "installed_step_sha256": "32b03a8ae452bbe25605ce9431904ab0d8e699ff5f84c1dff8ec684c49419953",
   "physical_records_retained": 17145,
   "physical_meshes_retained": 438,
   "wiring_meshes": 119,
   "all_retained_viewer_arrays_identical": null,
-  "wiring_step_sha256": "4131975c6a93f70596fae15904a28df949bea7eda69d5a53f87d55b150b346d6",
+  "wiring_step_sha256": "8adca14af6e7cb8913ac31b288075c9f72e20612df06e57227223e996714ccfd",
   "wiring_fine_model": {
-    "path": "/Users/derekbredensteiner/Library/Caches/bazel/_bazel_derekbredensteiner/676256c57461751d37a0a850b4deca80/execroot/_main/work-enclosure-assembly/hardware/wiring/enclosure-wiring.step.npz",
-    "sha256": "b22182639839b5d9279551d76e97d4d2553396a0d1dad53ca04864a3bbb43e60"
+    "path": "/github/home/.cache/bazel/_bazel_root/d6ee9373cb24115080de1bca10992b9e/execroot/_main/work-enclosure-assembly/hardware/wiring/enclosure-wiring.step.npz",
+    "sha256": "9b7abdf623e5afcca64cd437779a30c48c3e30c3df03f8f0b71b0b62173bdf86"
   },
   "connection_count": 100
 }

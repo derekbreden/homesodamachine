@@ -20,10 +20,10 @@
   "sources": {
     "hardware/reference/touch-flo-faucet/display-reference/component-envelopes.json": "bc39121b5724d5551fa3144647f3e3c13280a0f0d38a84e1bac0ef91da30b3ac",
     "hardware/printed-parts/fixtures/faucet-display-snap/faucet_display_snap_trial.rs": "c9b62e81985ec175f72c73b7e2414e7370796b4716a140e16d9184018ccc233c",
-    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step.npz": "8a8741e245d5352a396f5cc6ef98ff6ebc98bf8e16a14dc259384f6935e57345",
-    "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step.npz": "b8f5134a5f7d6de20f7ccf81ed8fd8800e0f596b7b8331ca64addd7cdc432846",
-    "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover-seated.step.npz": "f92095b73c140d15ac99053791ab7cc0d65d258efca424a71a7e595e60523aae",
-    "hardware/faucet-layout/faucet-assembly.step.npz": "2e8e1e9c0b7c4ce36a52fa47e0115417420637ad389d671b2041f2264ea40e91"
+    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step.npz": "33a0d3054ab65ebd9cd7e905578060f86ae379ee72b43f5d94c16c29e504b3d8",
+    "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step.npz": "143b7302e19a7005eb07e83354aec3de349b4c16288f33acc0dc67e74ec16df5",
+    "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover-seated.step.npz": "724de39f5a9261f2a6931e52a25afc4661fb9bb55f94e725512942aed2a4670f",
+    "hardware/faucet-layout/faucet-assembly.step.npz": "533bd39a8abbd61ab3e7ec72f47a52aa1d87b439988c56f6b533ae61967f2238"
   },
   "source_code": {
     "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": "95cd7370b73f428791a1538f49033646",
@@ -37,7 +37,7 @@
   "parts": [
     {
       "stl": "display-trial-housing.stl",
-      "sha256": "fa607f3855c835f75af09d2a8ec6152c9039ecb3a2325e086c4a271a68c71da0",
+      "sha256": "559eab202da016a3c9632f2b1e3af5a58564e2e26a36396f4c38a46d389cc24e",
       "source_rotation_x_degrees": -105.0,
       "source_stl_already_in_print_pose": true,
       "source_translation_mm": [
@@ -45,8 +45,8 @@
         -227.36495454233523,
         -7.274073005009882
       ],
-      "volume_mm3": 24872.286748588172,
-      "triangles": 30478,
+      "volume_mm3": 24872.286748681006,
+      "triangles": 30476,
       "watertight": true,
       "body_count": 1,
       "bounds_mm": [
@@ -64,16 +64,16 @@
     },
     {
       "stl": "display-trial-cover.stl",
-      "sha256": "427eeb293f69f815ee17f9875272e308cf58c9cb921e35d8e1bbd4476bba7262",
+      "sha256": "afe15a540ce4f6c625bc69d75c29e6d02763e83f510507f70a83ab54d245c197",
       "source_rotation_x_degrees": -50.0,
       "source_stl_already_in_print_pose": true,
       "source_translation_mm": [
         -0.0,
         -77.74552018599408,
-        -221.89909346647073
+        -221.8990934664707
       ],
-      "volume_mm3": 4171.45076079631,
-      "triangles": 12286,
+      "volume_mm3": 4171.4507607988635,
+      "triangles": 12284,
       "watertight": true,
       "body_count": 1,
       "bounds_mm": [

@@ -58,7 +58,7 @@ Y-A and Y-B retain their fixed front-manifold stations. V-A and V-B stand above 
 **Y-C, Y-D, Y-F and Y-G are the pump tees.** The prepared pump's LLDPE tube
 passes front-top's collet plate into the branch, where the extended collet grips it, and
 bottoms at the tee's stop. The upper port reaches its fore
-valve on a straight tube with [15.251 mm](UPPER_LINK_EXPOSED) exposed. The lower port
+valve on a straight tube with [5.251 mm](UPPER_LINK_EXPOSED) exposed. The lower port
 reaches its rear valve on a lower return: a stem elbow in the tee's lower collet, one
 straight tube, and a stem elbow in the valve. Factory cuts and assembly
 follow [internal plumbing §3](/hardware/assembly/internal-plumbing.md#3-flavor-manifold-v-a-through-v-j--y-a-y-b-y-c-y-d-y-f-y-g--pumps).
@@ -83,9 +83,9 @@ connection inventory. A segment is a face-to-face `butt`, a known `straight`, a
 set of two stem `elbows` and a straight tube from a pump tee to its rear valve, a `pump-dock`
 connection, or a `drawn` connection made from its ordered native tubes and physical fittings. Reported lengths sum the actual tube centrelines; fitting flow paths add no connecting tube.
 Of [26](SEGMENT_COUNT) manifold segments, [3](BUTT_COUNT) carry no exposed tube,
-[4](UPPER_LINK_COUNT) short upper tubes have [15.251 mm](UPPER_LINK_EXPOSED) exposed
+[4](UPPER_LINK_COUNT) short upper tubes have [5.251 mm](UPPER_LINK_EXPOSED) exposed
 and [4](LOWER_RETURN_COUNT) lower return tubes are reported as cut stock, both socket
-insertions included. Reported LLDPE paths total [3414.5 mm](FLUID_TOTAL). Native routed
+insertions included. Reported LLDPE paths total [3037.9 mm](FLUID_TOTAL). Native routed
 paths include their authored socket insertions, with the insertion basis recorded
 in the production route data. The short upper links need their actual fitting
 insertions when making finished blanks. A butt
