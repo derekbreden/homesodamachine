@@ -50,6 +50,14 @@ path = "../../../hardware/printed-parts/shop-storage/holders.rs"
 name = "rear-snap-retention"
 path = "../../../hardware/print-tests/rear-snap-retention/rear_snap_retention.rs"
 
+[[bin]]
+name = "asse-drain-adapter"
+path = "../../../hardware/printed-parts/asse-drain-adapter/asse_drain_adapter.rs"
+
+[[bin]]
+name = "asse-straight-cuffs"
+path = "../../../hardware/printed-parts/asse-straight-cuffs/asse_straight_cuffs.rs"
+
 [dependencies]
 anyhow.workspace = true
 hsm-kernel = { path = "../kernel" }
