@@ -1396,15 +1396,15 @@ def clashes(assy: cq.Assembly, floor: float = 1.0, bodies: dict = None):
                 continue
             pairs.append((ni, si, nj, sj))
 
-    # A compound is composed once for this pass, then released after its last candidate.
+    # Reusable query backends are released after their last candidate.
     # A later-indexed body may be read as j long before its own i row begins.
     meshcad = sys.modules.get("meshcad")
     last = {}
     if meshcad is not None and meshcad.mesh_mode():
-        from meshcad.solids import MeshCompound
+        from meshcad.solids import MeshCompound, MeshModelSolid
         for k, (_ni, si, _nj, sj) in enumerate(pairs):
             for shape in (si, sj):
-                if isinstance(shape, MeshCompound):
+                if isinstance(shape, (MeshCompound, MeshModelSolid)):
                     last[shape] = k
 
     hits, unanswered = [], []
