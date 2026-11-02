@@ -62,6 +62,7 @@ import above_core as layout  # noqa: E402
 import above_core_parts as acp  # noqa: E402
 import asse1022_threaded_chain as tc  # noqa: E402
 import cold_core_assembly as cca  # noqa: E402
+import foam_assembly as foam  # noqa: E402
 import fits  # noqa: E402
 import jg_pp0208e_tee as union_tee  # noqa: E402
 import jg_pp061208w as reducer_ref  # noqa: E402
@@ -421,7 +422,7 @@ PUMP = ('g-ganen-pump', 'suction-elbow', *(f'{port}-{n}' for port in pump_joint.
 # The core builds in foam-assembly's frame; the machine turns that frame a quarter about +Z and
 # stands it on the foam assembly's box in the facts.
 yaw = cq.Location(cq.Vector(), cq.Vector(0., 0., 1.), 90.)
-fb = import_step(str(HW / 'printed-parts/cold-core/foam-assembly/foam-assembly.step')).val().moved(yaw).BoundingBox()
+fb = foam.import_body().moved(yaw).BoundingBox()
 wb = facts['bodies']['foam-assembly']
 CORE = cq.Location(cq.Vector(wb[0] - fb.xmin, wb[1] - fb.ymin, wb[2] - fb.zmin)) * yaw
 core = {n: (s.val() if hasattr(s, 'val') else s).moved(CORE) for n, s in cca.build_bodies().items()}

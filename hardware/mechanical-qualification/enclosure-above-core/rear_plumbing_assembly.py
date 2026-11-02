@@ -19,6 +19,7 @@ ROOT = Path(__file__).resolve().parents[3]
 HERE = Path(__file__).resolve().parent
 sys.path[:0] = [str(ROOT / 'hardware/scripts'),
                 str(ROOT / 'hardware/manifold-layout'),
+                str(ROOT / 'hardware/cold-core-layout'),
                 str(ROOT / 'hardware/printed-parts/cold-core')]
 import cadquery as cq
 from _cadq_export import import_assembly, import_step
@@ -26,6 +27,7 @@ import above_core as layout
 import above_core_parts as parts
 import above_core_wiring as electrical
 import _cold_core_interface as core
+import cold_core_assembly as core_assembly
 
 LATE_BODIES = ('bulkhead-carb', 'bulkhead-carb-nut', 'bulkhead-drain',
                'bulkhead-drain-nut', 'soda-stem-elbow',
@@ -176,9 +178,9 @@ def optional_late_connection_probe():
         if hit:
             nut_slide.append(dict(fraction=fraction, contacts=hit))
 
-    core_path = ROOT / 'hardware/cold-core-layout/cold-core-assembly.step'
+    core_path = core_assembly.MODEL_OUT
     fixed_core = {name: core_to_world(shape)
-                  for name, (shape, _color) in import_assembly(core_path).items()}
+                  for name, (shape, _color) in core_assembly.import_bodies(core_path).items()}
     fixed_core.update({name: row[0] for name, row in warm.items()
                        if name in layout.core_equipment_names()})
     fixed_core.update({name: row[0] for name, row in junctions.items()
@@ -248,7 +250,9 @@ def optional_late_connection_probe():
                shell_path, core_path, *label_paths]
     collet = meter.intersect(pair['soda-outlet-return-stem'])
     report = dict(
-        scope='Manual finite nominal CAD assembly envelopes. Current rear-wall STEP, purchased reference bodies, rear-region production tube spans and populated exported core are used. Electrical conductors and the flexible drain-vent line are dressed through the open roof afterward. No helical thread/collet release motion, tool or hand reach, installation force, hardware fit, retention, pressure, sealing or lifetime qualification.',
+        scope='Manual finite nominal CAD assembly envelopes. Current rear-wall STEP, purchased reference bodies, rear-region production tube spans and populated core geometry are used. Electrical conductors and the flexible drain-vent line are dressed through the open roof afterward. No helical thread/collet release motion, tool or hand reach, installation force, hardware fit, retention, pressure, sealing or lifetime qualification.',
+        core_geometry_basis=('fine model' if getattr(cq, 'MESH', False)
+                             else 'retained native construction; the fine model is artifact context'),
         primary_drawings={
             'PP1208E': dict(url='https://www.johnguest.com/sites/jg/files/2023-04/JG%20Drinks%20Polypropylene%20Bulkhead%20Connector%20Data%20Sheet.pdf',
                 drawing='PP4608_01/23', nominal_mount_hole_N_mm=17.,
