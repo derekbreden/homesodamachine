@@ -14,14 +14,11 @@ import sys
 ROOT=Path(__file__).resolve().parents[4]
 sys.path[:0]=[str(ROOT),str(ROOT/'hardware/scripts'),str(ROOT/'hardware/manifold-layout'),
              str(ROOT/'hardware/printed-parts/cold-core'),str(ROOT/'hardware/printed-parts/cadlib')]
-import cadquery as cq
 import fcl
 import numpy as np
 import above_core
 import above_core_bom
-import above_core_wiring
 import _above_core_mounts as mounts
-from _cadq_export import import_assembly
 from _mesh_payload import read_source
 from hardware.wiring.installed.review import load_mesh,base_name,wire_obstacle
 from hardware.wiring.installed.route_search import capsule,sampled
@@ -179,6 +176,7 @@ def preparation_lengths(manifest):
 
 
 def main():
+    global above_core_wiring
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--aggregate',type=Path,default=ROOT/'hardware/manifold-layout/enclosure-assembly.step')
     parser.add_argument('--manifest',type=Path,default=ROOT/'hardware/wiring/enclosure-wiring.json')
@@ -188,6 +186,13 @@ def main():
     args=parser.parse_args()
     meshpath=Path(str(args.aggregate)+'.mesh')
     manifest=json.loads(args.manifest.read_text())
+    if manifest.get('wiring_fine_model_sha256'):
+        parser.error('Kernel wiring requires the fine inspection: python3 tools/run.py -- '
+                     'tools/cad-venv/bin/python hardware/wiring/installed/review.py --fine. '
+                     'Fine contact-query migration is pending; native contact receipts are not updated.')
+    import cadquery as cq
+    import above_core_wiring
+    from _cadq_export import import_assembly
     step_hash=digest(args.aggregate)
     record={'scope':'Actual exported appliance: every installed wiring body against selected above-core equipment, fixed front interfaces and termination bodies, all six enclosure pieces, two top core caps, funnel frame and electronics roof panel. Current source-defined nominal retaining strips are separate supplemental targets. Both B-fill fittings are tested against every wiring body. The external compressor jacket also clears the physical foam shell. Wire-to-wire and wire-to-tube contacts are excluded. No physical fit, electrical or energization qualification.',
             'aggregate_sha256':step_hash,'aggregate_mesh_sha256':digest(meshpath),

@@ -5,10 +5,6 @@ from pathlib import Path
 import argparse,hashlib,json,sys,time
 ROOT=Path(__file__).resolve().parents[4]
 sys.path[:0]=[str(ROOT),str(ROOT/'hardware/scripts'),str(ROOT/'hardware/manifold-layout')]
-import cadquery as cq
-import enclosure_assembly as ea
-from hardware.wiring.installed import build
-from _cadq_export import import_assembly
 OUT=ROOT/'hardware/wiring/installed/above-core-review/installed-wiring-binding.json'
 STEP=ROOT/'hardware/wiring/enclosure-wiring.step';MANIFEST=STEP.with_suffix('.json');EA=ROOT/'hardware/manifold-layout/enclosure-assembly.step'
 sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
@@ -16,13 +12,20 @@ parser=argparse.ArgumentParser(description=__doc__)
 parser.add_argument('--source-cache',type=Path,help='Optional explicitly bound native signatures/curves, avoiding unchanged source sweeps.')
 parser.add_argument('--update-routing-review',action='store_true',help='Bind existing mesh witnesses and their scoped native resolutions; do not rerun contacts or packing.')
 args=parser.parse_args()
+manifest=json.loads(MANIFEST.read_text())
+if manifest.get('wiring_fine_model_sha256'):
+    parser.error('Kernel wiring requires the fine inspection: python3 tools/run.py -- '
+                 'tools/cad-venv/bin/python hardware/wiring/installed/review.py --fine. '
+                 'Fine source/contact reader migration is pending; native receipts are not updated.')
+import enclosure_assembly as ea
+from hardware.wiring.installed import build
+from _cadq_export import import_assembly
 def sig(s):
  b=s.BoundingBox()
  return {'valid':s.isValid(),'solids':len(s.Solids()),'faces':len(s.Faces()),'volume_mm3':s.Volume(),'center_mm':s.Center().toTuple(),'bounds_mm':[getattr(b,k)for k in('xmin','ymin','zmin','xmax','ymax','zmax')]}
 actual={n.rsplit('/',1)[-1]:s for n,(s,_c)in import_assembly(STEP).items()}
 assembly=import_assembly(EA)
 installed={n.rsplit('/',1)[-1]:s for n,(s,_c)in assembly.items()if n.rsplit('/',1)[-1]in actual}
-manifest=json.loads(MANIFEST.read_text())
 cache_errors=[]
 if args.source_cache:
     from hardware.wiring.installed.connections import connections
