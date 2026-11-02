@@ -248,7 +248,7 @@ def _wing_receiver(graph, wing, solid, station, y_outer, *, supported=None, up=-
 
 
 def _rear_well_roofs(wiring):
-    """Combined bounds of connected, principal rear stock boxes; no retained geometry."""
+    """Connected roof bounds and each placed rear stock box; no retained geometry."""
     from itertools import product
     import above_core as layout
     boxes = []
@@ -295,7 +295,7 @@ def _rear_well_roofs(wiring):
         roofs[name] = tuple(v for k in range(3) for v in
                             (min(b[2*k] for b in selected), max(b[2*k+1] for b in selected)))
         roofs.update((key, None) for key in group if key != name)
-    return roofs
+    return roofs, dict(boxes)
 
 
 def _wiring_features(shell, graph, parent):
@@ -304,7 +304,7 @@ def _wiring_features(shell, graph, parent):
     from types import SimpleNamespace
     additions,cuts,stations = [],[],[]
     wall = layout.specification()['enclosure']['rear_y_mm']-9.+.5
-    roofs = _rear_well_roofs(wiring) if parent == 'back-top' else {}
+    roofs,stock_bounds = _rear_well_roofs(wiring) if parent == 'back-top' else ({},{})
     for name,pose in wiring.placements().items():
         if pose['parent']!=parent:
             continue
@@ -326,9 +326,16 @@ def _wiring_features(shell, graph, parent):
                      if bounds is not None else None)
             run = max(0.,wall-b.ymin) if b is not None else 0.
             if run:
+                neutral = wiring.placements()['wago-n']['translation_mm']
+                neutral_cluster = (b.xmin<=neutral[0]<=b.xmax and
+                                   b.zmin<=neutral[2]<=b.zmax)
+                top = b.zmax if neutral_cluster else b.zmax+run
+                bottom = b.zmax-3.
+                if neutral_cluster:
+                    bottom = min(bottom,stock_bounds['wago-h'][5])
                 stock = stock.fuse(graph.prism(0,b.xmin,b.xmax,
-                    ((b.ymin,b.zmax-3),(b.ymin,b.zmax),
-                     (wall,b.zmax+run),(wall,b.zmax-3))))
+                    ((b.ymin,bottom),(b.ymin,b.zmax),
+                     (wall,top),(wall,bottom))))
         additions.append(stock)
         cuts.append(pocket)
         stations.append(dict(name=name,**pose))
