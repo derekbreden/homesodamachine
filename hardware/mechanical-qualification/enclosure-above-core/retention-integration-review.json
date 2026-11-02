@@ -1,0 +1,1686 @@
+{
+  "schema": "enclosure-retention-integration-review/1",
+  "scope": "Final mechanical layout, complete native assembly and identified physical print surfaces. WAGO placement and wiring are the subsequent phase. These nominal readings do not establish physical spring force, printed retention or support-removal effort.",
+  "assembly_step_sha256": "b8a1a5b893b4bd465d8bd1bdd781201ba4eb20e9186ffa85622790c1710233ed",
+  "assembly_mesh_sha256": "3ab60fa98d64305694e6678f5645f3aa064de1e63bead926448e995ed82d3e34",
+  "native_parent": {
+    "scope": "Current native enclosure and equipment lid with complete nominal native checks of the moved/added stock and their continuous assembly paths. Unchanged fluid routes, hardware poses, pump/clip interfaces and finite mating regions retain the separately bound successful native readings. All cap extraction paths remain clear by full swept bounds. Reinforced physical snap trials have reported ASSE corner flexing and excessive Pisco play; revised retention geometry and physical observations are separate work.",
+    "baseline_step_sha256": "c264aefc6a1a1304af27e06af353ba9819de9be0daf85c3647c2a01058f7ebd7",
+    "shapes": {
+      "foam-cap-lid-top": {
+        "valid": true,
+        "solids": 1,
+        "faces": 291,
+        "bounds_mm": [
+          -141.2,
+          -90.20000000000002,
+          -3.6637359812630166e-14,
+          141.2,
+          90.2,
+          53.650000000000034
+        ],
+        "volume_mm3": 441317.0183379585
+      },
+      "pump-snap-cap": {
+        "valid": true,
+        "solids": 1,
+        "faces": 19,
+        "bounds_mm": [
+          -37.17918070899178,
+          -28.154752818844948,
+          -7.105427357601002e-15,
+          37.17918070899178,
+          28.154752818845004,
+          54.50000000000694
+        ],
+        "volume_mm3": 65818.61148478302
+      },
+      "back-top": {
+        "valid": true,
+        "solids": 1,
+        "faces": 579,
+        "bounds_mm": [
+          -107.5000001,
+          200.14999999999995,
+          160.2499999,
+          107.5000001,
+          474.3,
+          355.0000001000254
+        ],
+        "volume_mm3": 1615883.9498933237
+      }
+    },
+    "contact_checks": [
+      {
+        "a": "g-ganen-pump",
+        "b": "foam-cap-lid-top",
+        "overlap_mm3": 0,
+        "gap_mm": 0.24318976155286576
+      },
+      {
+        "a": "g-ganen-pump",
+        "b": "pump-snap-cap",
+        "overlap_mm3": 0,
+        "gap_mm": 0.15007235880780906
+      },
+      {
+        "a": "pump-snap-cap",
+        "b": "foam-cap-lid-top",
+        "overlap_mm3": 0,
+        "gap_mm": 0.14999999999992042
+      },
+      {
+        "a": "asse-snap-cap",
+        "b": "psu",
+        "overlap_mm3": 0,
+        "gap_mm": 3.450000175649763
+      },
+      {
+        "a": "pump-snap-cap",
+        "b": "psu",
+        "overlap_mm3": 0,
+        "gap_mm": 0.26114743081114966
+      }
+    ],
+    "pump_pose": {
+      "rotation": [
+        [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "translation_mm": [
+        -15.181429835394693,
+        368.0680504420662,
+        247.9479625149461
+      ],
+      "reference": "hardware/reference/g-ganen-pump/g-ganen-pump.step"
+    },
+    "snap_datums": {
+      "asse_axis": [
+        28.8,
+        328.0
+      ],
+      "asse_turn": 90.0,
+      "pisco_axis": [
+        76.5,
+        328.0
+      ],
+      "mouth_y": 480.8,
+      "ceiling": 346.0,
+      "rear": 465.3,
+      "side": 98.5
+    },
+    "lid_floor_remaining_mm": 4.9,
+    "back_top_print": {
+      "scope": "Fresh whole physical print from the current clean native back-top. No interior patch meshes or intersecting independent cylinder tessellations are retained. The other four enclosure bodies supply the unchanged flute-neighbor surfaces.",
+      "stl_sha256": "ba82248ab1025a8f9936917beb3e7baae3bec01b82fa1cad31ac040cb303f3fe",
+      "watertight": true,
+      "nonmanifold_edges": 0,
+      "facets": 866278,
+      "elapsed_seconds": 29.853437375015346
+    },
+    "source_sha256": {
+      "hardware/manifold-layout/above-core.json": "1afefa80c54de76c563c8e144dd1653416e07ca71000a9d059f1b4938af5999f",
+      "hardware/manifold-layout/rear_plumbing.py": "76463d694426b73c1064baf41511555029021d5e83e96e0a4dd63dada2eeaca4",
+      "hardware/manifold-layout/_scorecard.py": "e69289374f350b7ea7bd13e1cc434e3559e712ba591b08f8a779316330a40c77",
+      "hardware/manifold-layout/rear_snaps.py": "269cb6aff9948cfc5946f7e0ce52a633e0df3690828499171ae551faad432187",
+      "hardware/printed-parts/cold-core/_above_core_mounts.py": "3977ec96924d0587c628be8417fae03176f67cf5db22f82e45237eb1ee496427",
+      "hardware/printed-parts/cold-core/foam-cap/foam_cap.py": "a01102f86551157c370992a4a10d8f3839c04fda4e50f532aa7d43fbc4b9d067",
+      "hardware/printed-parts/cold-core/foam-cap/foam_cap.rs": "30636d68c861683e083c0d8801d8d5ecb0fe808b0f32d176d2445eb280feeb50",
+      "hardware/printed-parts/enclosure/enclosure/_above_core_shell.py": "447fb6dfeea463868ffc9490b518cc9242025014ed677676dd5ddf285fbe2a73",
+      "hardware/manifold-layout/enclosure_assembly.py": "b4cf457ea0cffb86dd7f3a055a49e018785bd46e8d183869d1ac926db261e5c5",
+      "hardware/printed-parts/enclosure/rear-identification/rear_identification.py": "dcb17f316208864714c1254c2aeeccb5f8ec49899134d6813dc382d1f71a2163",
+      "hardware/printed-parts/enclosure/rear-identification/rear_identification.rs": "c1b019169d7b3e01d5c3a2e86cc5920c5d9d5a1abdec6ba2d31bbfee6ad01e56",
+      "hardware/printed-parts/cold-core/_cold_core_interface.py": "81dfa262e4ad7e321dca5ed4f86a85367b21123833013eb4dad75270e7faef44",
+      "hardware/printed-parts/cold-core/_foam_cap.py": "1a60d110a06b51c83bf245e365cd3436508e6c3e317a8ef353da93b9b662aa07",
+      "hardware/manifold-layout/reservoir-a-routes.json": "19e1578fe2b3764aad7cc941ab185612dec36ba53f1ede21d17a922934a7192f",
+      "hardware/printed-parts/cold-core/_reservoir_a_anchors.py": "20678df878e459e2b9254b505c586eeb17f212da3745ee3deda82ae49d7a6335"
+    },
+    "assembly_step_sha256": "b8a1a5b893b4bd465d8bd1bdd781201ba4eb20e9186ffa85622790c1710233ed",
+    "assembly_mesh_sha256": "3ab60fa98d64305694e6678f5645f3aa064de1e63bead926448e995ed82d3e34",
+    "elapsed_seconds": 334.0110370419861,
+    "card_red_gates": [
+      {
+        "id": "pack-closes",
+        "value": "1 clash, 0 unanswered",
+        "detail": [
+          "wago-n \u2229 foam-assembly   86.9 mm\u00b3, x[  -55.36,  -51.60] y[  448.20,  451.07] z[  266.00,  274.40]",
+          "Selected nominal mates: 51/51 within finite insertion/thread/heat-set regions at the existing 1 mm\u00b3 contact floor; maximum outside 0.146875 mm\u00b3. Physical insertion, sealing and retention remain unqualified.",
+          "Flavor reducer stems in their valve outlets: v-g 258.0 mm\u00b3 in the stem, 0.000000 mm\u00b3 outside it; v-j 258.0 mm\u00b3 in the stem, 0.000000 mm\u00b3 outside it",
+          "Stem elbows in their collets: v-c 80.1 mm\u00b3 in the stem, 0.000000 mm\u00b3 outside it; v-d 80.1 mm\u00b3 in the stem, 0.000000 mm\u00b3 outside it; v-g 80.1 mm\u00b3 in the stem, 0.000000 mm\u00b3 outside it; v-j 80.1 mm\u00b3 in the stem, 0.000000 mm\u00b3 outside it; y-c 3.0 mm\u00b3 in the stem, 0.017341 mm\u00b3 outside it; y-d 3.0 mm\u00b3 in the stem, 0.017341 mm\u00b3 outside it; y-f 3.0 mm\u00b3 in the stem, 0.017341 mm\u00b3 outside it; y-g 3.0 mm\u00b3 in the stem, 0.017341 mm\u00b3 outside it",
+          "Elbow stem in the plug's land: 37.87 mm\u00b3 in the push-on seal's ring, 0.000000 mm\u00b3 outside it"
+        ]
+      },
+      {
+        "id": "mounted",
+        "value": "PISCO neck capture unresolved",
+        "detail": [
+          "funnel: wall-capture \u2014 nothing fastens it; The silicone brim rests in the removable frame's roof surround. Its plug locates on the cradle snapped into the frame's web, with its sealing land on the elbow stem. The funnel lifts out by hand for the dishwasher, the land sliding off the stem.",
+          "fuse-clamp: gap-press \u2014 nothing fastens it; Both faces of the slot the clamp presses into are the compressor's own \u2014 the air its power box hangs over its mounting plate \u2014 so the clamp rides the can. The plate's four holes carry the floor's posts and the grommets, and every printed feature in reach of the clamp stands on the cabinet side of them.",
+          "tee-y-a: pack \u2014 nothing fastens it; Its collets make up onto V-C's, face to face on one stub with no tube between them, and that valve stands in four printed sockets \u2014 so what holds this tee is the seat under the valve it butts.",
+          "tee-y-b: pack \u2014 nothing fastens it; Its collets make up onto V-D's, face to face on one stub with no tube between them, and that valve stands in four printed sockets \u2014 so what holds this tee is the seat under the valve it butts.",
+          "Current physical retention: the PISCO cap bridge is about 2.9 mm below the neck-clearance circle. The reinforced v2 fit reports large play without useful retention. Its nominal retaining feature is unresolved; the spring and bridge revision is recorded in mechanical-qualification/enclosure-above-core/retention-integration-review.json."
+        ]
+      }
+    ],
+    "retained_native_basis": {
+      "path": ".cache/retention-integration/retained-native-parent-basis.json",
+      "sha256": "4ee3c583f7899700089d882062a537616750bb39e1d67eb89366124c82e9dac7",
+      "assembly_step_sha256": "327a3eb9a5e75996276107a38c337b2ffbb9e78d0a5c0fe286190c39ff42d5c6",
+      "scope": "Unchanged bodies and interfaces only. Pisco cap/receiver readings are replaced by the current local reading."
+    },
+    "current_pisco_native_neighbors": [
+      {
+        "part": "gas-regulator",
+        "overlap_mm3": 0
+      },
+      {
+        "part": "gas-check",
+        "overlap_mm3": 0
+      },
+      {
+        "part": "enclosure-back-top",
+        "overlap_mm3": 0
+      }
+    ],
+    "elapsed_seconds_current_pisco_window": 21.95834804099286,
+    "preserved_published_core": {
+      "scope": "The three unchanged cold-core print assets retain the exact published STEP/STL/payload triplets and the exact previously published installed viewer arrays. The new equipment lid and pump cap remain current. Native body signatures compare the same unchanged analytic construction at its installed frame.",
+      "native_signatures": {
+        "foam-cap-bottom": {
+          "before": [
+            144507.1644349593,
+            135896.30819677922,
+            -90.20000000000003,
+            182.59999989999997,
+            -3.552713678801e-15,
+            90.20000000000003,
+            464.9999999,
+            19.85,
+            8.656198036419293e-13,
+            326.1328518181342,
+            4.4942009380472
+          ],
+          "current": [
+            144507.16443495904,
+            135896.30819677896,
+            -90.20000000000003,
+            182.59999989999997,
+            -3.552713678801e-15,
+            90.20000000000003,
+            464.9999999,
+            19.85,
+            -4.4147012786950036e-13,
+            326.1328518181389,
+            4.494200938047185
+          ],
+          "absolute_difference": [
+            2.6193447411060333e-10,
+            2.6193447411060333e-10,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.3070899315114297e-12,
+            4.661160346586257e-12,
+            1.509903313490213e-14
+          ],
+          "same_faces": true,
+          "same_solids": true
+        },
+        "foam-shell": {
+          "before": [
+            1271915.7496889255,
+            950406.4965889499,
+            -90.2000001,
+            182.5999998,
+            19.9999999,
+            90.2000001,
+            464.9999999,
+            245.8500001,
+            -0.39231145681460167,
+            327.8642638458851,
+            117.14080154083064
+          ],
+          "current": [
+            1271915.7496890277,
+            950406.4965889578,
+            -90.2000001,
+            182.5999998,
+            19.9999999,
+            90.2000001,
+            464.9999999,
+            245.8500001,
+            -0.3923114568232223,
+            327.8642638458877,
+            117.1408015408453
+          ],
+          "absolute_difference": [
+            1.0221265256404877e-07,
+            7.916241884231567e-09,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            8.620659741609416e-12,
+            2.6147972675971687e-12,
+            1.4665602066088468e-11
+          ],
+          "same_faces": true,
+          "same_solids": true
+        },
+        "reservoir-b-fill-guide": {
+          "before": [
+            1765.1178093109552,
+            1560.2830000425429,
+            -50.30832621206,
+            219.2999998,
+            233.54999990000002,
+            -38.0999999,
+            238.7,
+            252.9500001,
+            -43.6664918884626,
+            228.75255592667295,
+            243.00255602655642
+          ],
+          "current": [
+            1765.117693570387,
+            1560.2831603262607,
+            -50.30832621206,
+            219.2999998,
+            233.54999990000002,
+            -38.0999999,
+            238.7,
+            252.9500001,
+            -43.666491869228885,
+            228.75255584553193,
+            243.00255594541545
+          ],
+          "absolute_difference": [
+            0.00011574056816243683,
+            0.00016028371783249895,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.923371684142694e-08,
+            8.114102456602268e-08,
+            8.114096772260382e-08
+          ],
+          "same_faces": true,
+          "same_solids": true
+        }
+      },
+      "assets": {
+        "hardware/printed-parts/cold-core/foam-shell/foam-shell.step": "a716b44ef657e0355fbceae6c2dcba6a4de45feefad6417245149f26abef5ad7",
+        "hardware/printed-parts/cold-core/foam-shell/foam-shell.stl": "132c06ecc887624ae36c98c168f97efaa533deb278a4b93a3d2f725455d93164",
+        "hardware/printed-parts/cold-core/foam-shell/foam-shell.step.mesh": "a380128b3febfa7107dfcdd4c2e339c2e32c472f2472770c7eb7d71209c58247",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step": "91ddfea3e9ca8cf046cb385a8d7e653b0b2deb3a343d6b1c9170ead4ed7c5929",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl": "acdcff8c0842d7158aa15ed797dc22ef6173eb27f662f7e19d505000f4c84e0a",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step.mesh": "e2bca7d4eea9c996014e67643d8bed9717f5c73badd7462be126137afe728d49",
+        "hardware/printed-parts/cold-core/foam-cap/reservoir-b-fill-guide.step": "d1503dc41b490a05b6d636e46868485c2929dfebcd6dc70aba1131ee36df07c0",
+        "hardware/printed-parts/cold-core/foam-cap/reservoir-b-fill-guide.stl": "3f1fb479bf4599050149102ac96e540a2d1ca1892a99460c8f63ab4cb62c4987",
+        "hardware/printed-parts/cold-core/foam-cap/reservoir-b-fill-guide.step.mesh": "35da35866aa64d8f768d4756f9f8c6d7efd74dd048ad4db01d1f5a66c8670e10"
+      },
+      "input_parent_step_sha256": "7b276e4881e020c1b00e2ece0f5a6e77c7f3d4961a30dec85e59d40464597c72",
+      "input_payload_sha256": "5720dbb770cc760b603bfe1bc376062f6f0d3fd96232d29e5ad9bc377f604be6",
+      "payload_sha256": "7f333136aa3e43bc609f77a56ee0cca90eeb7d30b38cea7a46752590510b984c",
+      "foam_aggregate_grafted_parts": 3
+    },
+    "retained_before_surface_cleanup": {
+      "record_sha256": "0e803e5c1926345dcf9d126246eaa6cf3e52e3fc94634b7fea58abad6fd90011",
+      "assembly_step_sha256": "7b276e4881e020c1b00e2ece0f5a6e77c7f3d4961a30dec85e59d40464597c72",
+      "assembly_mesh_sha256": "7f333136aa3e43bc609f77a56ee0cca90eeb7d30b38cea7a46752590510b984c"
+    },
+    "surface_cleanup": {
+      "parts": {
+        "scope": "Current source fixes the folded aft saddle profile, widens only the nonbearing fore pump admission, joins the meter lead chamber to its spring pocket, makes one plain Pisco fore opening, shifts relay edge ledges clear of screw bores and restores the east core hold on full wall stock. No fluid route or hardware pose changes.",
+        "before": {
+          "hardware/manifold-layout/enclosure-assembly.step": "7b276e4881e020c1b00e2ece0f5a6e77c7f3d4961a30dec85e59d40464597c72",
+          "hardware/manifold-layout/enclosure-assembly.step.mesh": "7f333136aa3e43bc609f77a56ee0cca90eeb7d30b38cea7a46752590510b984c",
+          "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step": "fa8a70b60663873351cec934a4ea8924e968b6cfeaeb0ad8a93b9b276e64c6dd",
+          "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step.mesh": "aaa9e947cf9444c082360e44a8ef5a7f8dad3fc456b7e3560a30a70fa80eaaf0",
+          "hardware/printed-parts/enclosure/enclosure/enclosure.step": "039dca2d2275aff7feef4414b84f2c1696b4692a5604fd66ee31c537d062c5d8",
+          "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh": "f8753ac791d898e3f0097e228471d74d92f7ddb3ec0da5538350bd29d6864ad6",
+          "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "e10f4381592608260104f7fdc280618b0f1a3bfe2aace261715d753553e7c18b",
+          "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh": "3be3b3045026581436e2c2beace1afd584fb8b614ee5857347b62e95e44408dd",
+          "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": "a524ff002d07a499cef5ec14ae15832d7206000d1c10d5b4ac66ddc6d8e8f94c",
+          "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step": "3defba49513d8176c9ed25b2b6c6323cf9f460af237320b2d2db4f7c0101d8cc",
+          "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh": "e41cad1d065b2d5681810eefcdb2331f958a7f725c143ac2d7d8fbd4debc5f74",
+          "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl": "770987d0be5569e0c7934318dfd3b681a7845fb512ff22e2ffcf618d3f8fecb1"
+        },
+        "native_back_top_valid": true,
+        "native_back_top_solids": 1,
+        "physical_back_top_watertight": true,
+        "physical_back_top_bodies": 1,
+        "physical_back_top_sha256": "ba82248ab1025a8f9936917beb3e7baae3bec01b82fa1cad31ac040cb303f3fe",
+        "native_lid_valid": true,
+        "native_lid_solids": 1,
+        "physical_lid_sha256": "2d0323731e27219e25a89f1b8ba87cf5a283126b8940d3bd0c75b221faa9dc12",
+        "pisco_station": {
+          "axis_x": 76.5,
+          "y0": 420.34571720240064,
+          "y1": 436.0,
+          "split": 335.0,
+          "neck": 9.683487859887089,
+          "ledge": 12.533487859887089,
+          "inner": 13.033487859887089,
+          "outer": 15.633487859887088,
+          "hook": 9.933487859887089,
+          "bearing": 339.85,
+          "catch": 340.5,
+          "tip": 343.1,
+          "ceiling": 343.6,
+          "root": 318.0,
+          "nose_land": 0.6
+        },
+        "meter_opening_bounds": [
+          [
+            82.05,
+            395.76,
+            260.30000000000007
+          ],
+          [
+            93.55,
+            420.26,
+            266.75
+          ]
+        ],
+        "east_hold_station": [
+          6.550000000000001,
+          15.55,
+          465.2999999,
+          253.4
+        ],
+        "aft_saddle": {
+          "id": "a-pair-aft-anchor",
+          "label": "Reservoir A aft paired anchor",
+          "world_y_mm": 390.5,
+          "station_length_mm": 9.2,
+          "curved_seats": true,
+          "seat_lip_below_axis_mm": 1.2,
+          "routes_west_to_east": [
+            "fluid-16",
+            "fluid-14"
+          ],
+          "closure": "tie",
+          "tube_centers_world_mm": [
+            [
+              45.444558288274074,
+              390.4999999999999,
+              267.4
+            ],
+            [
+              56.08058909292495,
+              390.49999999999994,
+              259.5
+            ]
+          ],
+          "stock_bounds_mm": [
+            [
+              38.66468884078643,
+              385.8999999999999,
+              248.0
+            ],
+            [
+              64.0929050145734,
+              395.09999999999997,
+              266.1567188120991
+            ]
+          ],
+          "tie_slot_bounds_mm": [
+            [
+              38.66468884078643,
+              388.8999999999999,
+              251.6
+            ],
+            [
+              64.0929050145734,
+              392.09999999999997,
+              253.175
+            ]
+          ],
+          "access_bounds_mm": [
+            [
+              [
+                38.66468884078643,
+                388.8999999999999,
+                251.6
+              ],
+              [
+                45.44455828827405,
+                392.09999999999997,
+                266.2567188120991
+              ]
+            ],
+            [
+              [
+                56.080589092924946,
+                388.8999999999999,
+                251.6
+              ],
+              [
+                64.0929050145734,
+                392.09999999999997,
+                266.2567188120991
+              ]
+            ]
+          ],
+          "nominal_tube_centers_world_mm": [
+            [
+              45.44455828827405,
+              390.49999999999994,
+              267.4
+            ],
+            [
+              56.080589092924946,
+              390.5,
+              259.5
+            ]
+          ],
+          "tube_axes_world": [
+            [
+              0.2500000000000082,
+              -0.9682458365518521,
+              0.0
+            ],
+            [
+              -0.10714285714286122,
+              0.9942436362196464,
+              0.0
+            ]
+          ],
+          "seat_roof_xz_mm": [
+            [
+              38.66468884078643,
+              266.1567188120991
+            ],
+            [
+              51.65775069242774,
+              266.1567188120991
+            ],
+            [
+              52.59036114742413,
+              258.3
+            ],
+            [
+              64.0929050145734,
+              258.3
+            ]
+          ]
+        },
+        "elapsed_seconds": 19.08562629201333,
+        "fresh_physical_back_top": {
+          "scope": "Fresh whole physical print from the current clean native back-top. No interior patch meshes or intersecting independent cylinder tessellations are retained. The other four enclosure bodies supply the unchanged flute-neighbor surfaces.",
+          "stl_sha256": "ba82248ab1025a8f9936917beb3e7baae3bec01b82fa1cad31ac040cb303f3fe",
+          "watertight": true,
+          "nonmanifold_edges": 0,
+          "facets": 866278,
+          "elapsed_seconds": 29.853437375015346
+        }
+      },
+      "native": {
+        "scope": "Only added or repositioned printed stock repeats its current native neighborhood. Subtractive cleanup preserves the preceding rigid clearances. Complete component bounding boxes swept over the6.5mm relay slide conservatively cover every continuous translation, including the PCB and all modeled pins. The source retainer, hardware and board poses are unchanged.",
+        "assembly_step_sha256": "b8a1a5b893b4bd465d8bd1bdd781201ba4eb20e9186ffa85622790c1710233ed",
+        "neighbors": {
+          "new-east-core-hold": [
+            {
+              "part": "tube-fluid-18",
+              "overlap_mm3": 0.0
+            },
+            {
+              "part": "tube-fluid-28",
+              "overlap_mm3": 0.0
+            },
+            {
+              "part": "foam-cap-lid-top",
+              "overlap_mm3": 0.0
+            }
+          ],
+          "aft-paired-saddle": [
+            {
+              "part": "tube-above-core-gas-core-drop",
+              "overlap_mm3": 0.0
+            },
+            {
+              "part": "tube-fluid-18",
+              "overlap_mm3": 0.0
+            },
+            {
+              "part": "tube-fluid-14",
+              "overlap_mm3": 0
+            },
+            {
+              "part": "tube-fluid-16",
+              "overlap_mm3": 0
+            },
+            {
+              "part": "enclosure-back-top",
+              "overlap_mm3": 0.0
+            }
+          ],
+          "relay-1-header-ledge-1": [
+            {
+              "part": "relay-1",
+              "overlap_mm3": 0
+            },
+            {
+              "part": "relay-1-screw-1",
+              "overlap_mm3": 0.0
+            }
+          ],
+          "relay-1-header-ledge-3": [
+            {
+              "part": "relay-1",
+              "overlap_mm3": 0
+            },
+            {
+              "part": "relay-1-screw-2",
+              "overlap_mm3": 0.0
+            },
+            {
+              "part": "relay-2-screw-1",
+              "overlap_mm3": 0.0
+            }
+          ],
+          "relay-2-header-ledge-1": [
+            {
+              "part": "relay-2",
+              "overlap_mm3": 0
+            },
+            {
+              "part": "relay-1-screw-2",
+              "overlap_mm3": 0.0
+            },
+            {
+              "part": "relay-2-screw-1",
+              "overlap_mm3": 0.0
+            }
+          ],
+          "relay-2-header-ledge-3": [
+            {
+              "part": "relay-2",
+              "overlap_mm3": 0
+            },
+            {
+              "part": "relay-2-screw-2",
+              "overlap_mm3": 0.0
+            }
+          ]
+        },
+        "relay_loading": {
+          "relay-1": [
+            {
+              "physical_layer": "pins",
+              "solid": 0,
+              "continuous_swept_box_overlap_mm3": 0
+            },
+            {
+              "physical_layer": "PCB",
+              "solid": 0,
+              "continuous_swept_box_overlap_mm3": 0
+            },
+            {
+              "physical_layer": "components",
+              "solid": 0,
+              "continuous_swept_box_overlap_mm3": 0
+            },
+            {
+              "physical_layer": "components",
+              "solid": 1,
+              "continuous_swept_box_overlap_mm3": 0
+            },
+            {
+              "physical_layer": "components",
+              "solid": 2,
+              "continuous_swept_box_overlap_mm3": 0
+            }
+          ],
+          "relay-2": [
+            {
+              "physical_layer": "pins",
+              "solid": 0,
+              "continuous_swept_box_overlap_mm3": 0
+            },
+            {
+              "physical_layer": "PCB",
+              "solid": 0,
+              "continuous_swept_box_overlap_mm3": 0
+            },
+            {
+              "physical_layer": "components",
+              "solid": 0,
+              "continuous_swept_box_overlap_mm3": 0
+            },
+            {
+              "physical_layer": "components",
+              "solid": 1,
+              "continuous_swept_box_overlap_mm3": 0
+            },
+            {
+              "physical_layer": "components",
+              "solid": 2,
+              "continuous_swept_box_overlap_mm3": 0
+            }
+          ]
+        },
+        "unresolved": [],
+        "pass": true,
+        "elapsed_seconds": 13.046275417000288
+      },
+      "motion": {
+        "scope": "Complete translation intervals for added or moved stock only. Retained whole-quadrant readings cover every unchanged face; all remaining changes remove stock. Wire bodies are excluded and the existing final flexible handoffs remain loose until rigid closure.",
+        "assembly_step_sha256": "b8a1a5b893b4bd465d8bd1bdd781201ba4eb20e9186ffa85622790c1710233ed",
+        "payload_sha256": "3ab60fa98d64305694e6678f5645f3aa064de1e63bead926448e995ed82d3e34",
+        "checks": {
+          "new back stock over core": [
+            {
+              "actor": "new-east-core-hold",
+              "other": "foam-cap-lid-top",
+              "status": "clear_distance_intervals",
+              "queries": 83,
+              "minimum_queried_surface_distance_mm": 0.25,
+              "certified_surface_separation_lower_bound_mm": 0.103515625
+            }
+          ],
+          "new back stock over base": [],
+          "moved aft seat under back stock": [
+            {
+              "actor": "aft-paired-saddle",
+              "other": "enclosure-back-top",
+              "status": "clear_distance_intervals",
+              "queries": 14,
+              "minimum_queried_surface_distance_mm": 15.348371412582248,
+              "certified_surface_separation_lower_bound_mm": 2.5219068109195817
+            }
+          ]
+        },
+        "unresolved": [],
+        "pass": true,
+        "elapsed_seconds": 3.156118624989176
+      }
+    }
+  },
+  "exact_retained_core_assets": {
+    "scope": "The three unchanged cold-core print assets retain the exact published STEP/STL/payload triplets and the exact previously published installed viewer arrays. The new equipment lid and pump cap remain current. Native body signatures compare the same unchanged analytic construction at its installed frame.",
+    "native_signatures": {
+      "foam-cap-bottom": {
+        "before": [
+          144507.1644349593,
+          135896.30819677922,
+          -90.20000000000003,
+          182.59999989999997,
+          -3.552713678801e-15,
+          90.20000000000003,
+          464.9999999,
+          19.85,
+          8.656198036419293e-13,
+          326.1328518181342,
+          4.4942009380472
+        ],
+        "current": [
+          144507.16443495904,
+          135896.30819677896,
+          -90.20000000000003,
+          182.59999989999997,
+          -3.552713678801e-15,
+          90.20000000000003,
+          464.9999999,
+          19.85,
+          -4.4147012786950036e-13,
+          326.1328518181389,
+          4.494200938047185
+        ],
+        "absolute_difference": [
+          2.6193447411060333e-10,
+          2.6193447411060333e-10,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.3070899315114297e-12,
+          4.661160346586257e-12,
+          1.509903313490213e-14
+        ],
+        "same_faces": true,
+        "same_solids": true
+      },
+      "foam-shell": {
+        "before": [
+          1271915.7496889255,
+          950406.4965889499,
+          -90.2000001,
+          182.5999998,
+          19.9999999,
+          90.2000001,
+          464.9999999,
+          245.8500001,
+          -0.39231145681460167,
+          327.8642638458851,
+          117.14080154083064
+        ],
+        "current": [
+          1271915.7496890277,
+          950406.4965889578,
+          -90.2000001,
+          182.5999998,
+          19.9999999,
+          90.2000001,
+          464.9999999,
+          245.8500001,
+          -0.3923114568232223,
+          327.8642638458877,
+          117.1408015408453
+        ],
+        "absolute_difference": [
+          1.0221265256404877e-07,
+          7.916241884231567e-09,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          8.620659741609416e-12,
+          2.6147972675971687e-12,
+          1.4665602066088468e-11
+        ],
+        "same_faces": true,
+        "same_solids": true
+      },
+      "reservoir-b-fill-guide": {
+        "before": [
+          1765.1178093109552,
+          1560.2830000425429,
+          -50.30832621206,
+          219.2999998,
+          233.54999990000002,
+          -38.0999999,
+          238.7,
+          252.9500001,
+          -43.6664918884626,
+          228.75255592667295,
+          243.00255602655642
+        ],
+        "current": [
+          1765.117693570387,
+          1560.2831603262607,
+          -50.30832621206,
+          219.2999998,
+          233.54999990000002,
+          -38.0999999,
+          238.7,
+          252.9500001,
+          -43.666491869228885,
+          228.75255584553193,
+          243.00255594541545
+        ],
+        "absolute_difference": [
+          0.00011574056816243683,
+          0.00016028371783249895,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.923371684142694e-08,
+          8.114102456602268e-08,
+          8.114096772260382e-08
+        ],
+        "same_faces": true,
+        "same_solids": true
+      }
+    },
+    "assets": {
+      "hardware/printed-parts/cold-core/foam-shell/foam-shell.step": "a716b44ef657e0355fbceae6c2dcba6a4de45feefad6417245149f26abef5ad7",
+      "hardware/printed-parts/cold-core/foam-shell/foam-shell.stl": "132c06ecc887624ae36c98c168f97efaa533deb278a4b93a3d2f725455d93164",
+      "hardware/printed-parts/cold-core/foam-shell/foam-shell.step.mesh": "a380128b3febfa7107dfcdd4c2e339c2e32c472f2472770c7eb7d71209c58247",
+      "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step": "91ddfea3e9ca8cf046cb385a8d7e653b0b2deb3a343d6b1c9170ead4ed7c5929",
+      "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl": "acdcff8c0842d7158aa15ed797dc22ef6173eb27f662f7e19d505000f4c84e0a",
+      "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step.mesh": "e2bca7d4eea9c996014e67643d8bed9717f5c73badd7462be126137afe728d49",
+      "hardware/printed-parts/cold-core/foam-cap/reservoir-b-fill-guide.step": "d1503dc41b490a05b6d636e46868485c2929dfebcd6dc70aba1131ee36df07c0",
+      "hardware/printed-parts/cold-core/foam-cap/reservoir-b-fill-guide.stl": "3f1fb479bf4599050149102ac96e540a2d1ca1892a99460c8f63ab4cb62c4987",
+      "hardware/printed-parts/cold-core/foam-cap/reservoir-b-fill-guide.step.mesh": "35da35866aa64d8f768d4756f9f8c6d7efd74dd048ad4db01d1f5a66c8670e10"
+    },
+    "input_parent_step_sha256": "7b276e4881e020c1b00e2ece0f5a6e77c7f3d4961a30dec85e59d40464597c72",
+    "input_payload_sha256": "5720dbb770cc760b603bfe1bc376062f6f0d3fd96232d29e5ad9bc377f604be6",
+    "payload_sha256": "7f333136aa3e43bc609f77a56ee0cca90eeb7d30b38cea7a46752590510b984c",
+    "foam_aggregate_grafted_parts": 3
+  },
+  "current_cap_extraction": {
+    "payload_sha256": "7f333136aa3e43bc609f77a56ee0cca90eeb7d30b38cea7a46752590510b984c",
+    "scope": "Complete distance-certified translation intervals of released caps. Back-top is separated from the cold core and inverted on the bench; flexible tubes/leads are disconnected and dressed aside, funnel/frame/drain and the ASSE vent adapter are removed. ASSE cap is removed before the meter cap. Wing displacement is a conservative linear 3.2mm outward shear from root to catch; force, nonlinear spring shape and fatigue require physical articles.",
+    "removed": [
+      "asse-vent-boot",
+      "cap-clamp-bottom-1",
+      "cap-clamp-bottom-10",
+      "cap-clamp-bottom-2",
+      "cap-clamp-bottom-3",
+      "cap-clamp-bottom-4",
+      "cap-clamp-bottom-5",
+      "cap-clamp-bottom-6",
+      "cap-clamp-bottom-7",
+      "cap-clamp-bottom-8",
+      "cap-clamp-bottom-9",
+      "cap-clamp-top-1",
+      "cap-clamp-top-10",
+      "cap-clamp-top-2",
+      "cap-clamp-top-3",
+      "cap-clamp-top-4",
+      "cap-clamp-top-5",
+      "cap-clamp-top-6",
+      "cap-clamp-top-7",
+      "cap-clamp-top-8",
+      "cap-clamp-top-9",
+      "carbonator-earth-lockwasher",
+      "carbonator-earth-screw",
+      "carbonator-elbow-carb-water-out",
+      "carbonator-elbow-co2-in",
+      "carbonator-elbow-prv",
+      "carbonator-elbow-water-in",
+      "carbonator-fold",
+      "carbonator-tube",
+      "collet-water-in",
+      "discharge-barb-clamp",
+      "discharge-barb-key",
+      "discharge-chain",
+      "discharge-reducer",
+      "discharge-stem-clamp",
+      "discharge-stem-key",
+      "discharge-tube",
+      "elbow-cradle",
+      "endcap-bottom",
+      "endcap-top",
+      "evap-coil",
+      "evap-tail-inlet",
+      "evap-tail-outlet",
+      "float-a",
+      "float-b",
+      "float-carb",
+      "float-rod-a",
+      "float-rod-b",
+      "float-rod-carb",
+      "float-stop-carb-top",
+      "foam-cap-bottom",
+      "foam-cap-lid-top",
+      "foam-shell",
+      "funnel",
+      "funnel-cover",
+      "funnel-drain-stub",
+      "funnel-drain-union",
+      "funnel-frame",
+      "g-ganen-pump",
+      "line-carb-water-out",
+      "line-co2-in",
+      "line-prv-vent",
+      "line-reservoir-a",
+      "line-reservoir-a-fill",
+      "line-reservoir-b",
+      "line-reservoir-b-fill",
+      "line-water-in",
+      "lower-pump-elbow",
+      "pcba",
+      "probe-carbonator-ds18b20",
+      "probe-coil-ds18s20",
+      "prv-shroud",
+      "prv-sv125",
+      "pump-snap-cap",
+      "reed-a-1",
+      "reed-a-2",
+      "reed-a-3",
+      "reed-a-4",
+      "reed-b-1",
+      "reed-b-2",
+      "reed-b-3",
+      "reed-b-4",
+      "reed-bridge",
+      "reed-carb-1",
+      "reed-carb-2",
+      "reservoir-a",
+      "reservoir-a-cap",
+      "reservoir-a-gasket",
+      "reservoir-b",
+      "reservoir-b-cap",
+      "reservoir-b-fill-guide",
+      "reservoir-b-gasket",
+      "reservoir-grip-a-air",
+      "reservoir-grip-a-draw",
+      "reservoir-grip-a-fill",
+      "reservoir-grip-b-air",
+      "reservoir-grip-b-draw",
+      "reservoir-grip-b-fill",
+      "soda-bend-holder",
+      "soda-continuous-insulation",
+      "soda-meter-elbow",
+      "suction-barb-clamp",
+      "suction-barb-key",
+      "suction-reducer",
+      "suction-stem-clamp",
+      "suction-stem-key",
+      "suction-tube",
+      "tube-above-core-drain-vb-east-link",
+      "tube-above-core-gas-core-drop",
+      "tube-above-core-pump-inlet-link",
+      "tube-above-core-reg-va-link",
+      "tube-above-core-tee-regulator",
+      "tube-above-core-tee-vk-link",
+      "tube-above-core-va-fore-feed",
+      "tube-above-core-vb-yb-cross",
+      "tube-above-core-vb-yb-link",
+      "tube-above-core-water-split-stub",
+      "tube-drain-vent",
+      "tube-fluid-10",
+      "tube-fluid-11",
+      "tube-fluid-12",
+      "tube-fluid-13",
+      "tube-fluid-14",
+      "tube-fluid-16",
+      "tube-fluid-17",
+      "tube-fluid-18",
+      "tube-fluid-19",
+      "tube-fluid-20",
+      "tube-fluid-21",
+      "tube-fluid-22",
+      "tube-fluid-23",
+      "tube-fluid-24",
+      "tube-fluid-26",
+      "tube-fluid-27",
+      "tube-fluid-28",
+      "tube-fluid-9",
+      "tube-refrig-1",
+      "tube-refrig-2",
+      "tube-refrig-3",
+      "tube-reservoir-air-a",
+      "tube-reservoir-air-b",
+      "tube-soda-core-rise",
+      "tube-soda-meter-bulkhead",
+      "tube-water-5",
+      "valve-v-b",
+      "vb-inlet-turn",
+      "vb-outlet-return",
+      "vb-outlet-stem",
+      "wago-gnd",
+      "wago-reeds-b",
+      "wago-sensors",
+      "wago-v12",
+      "water-inlet-jet-cap-nominal"
+    ],
+    "stages": [
+      {
+        "name": "ASSE released downward withdrawal",
+        "part": "asse-snap-cap",
+        "axis": [
+          0.0,
+          0.0,
+          -1.0
+        ],
+        "interval_mm": [
+          0,
+          30.0
+        ],
+        "start_bounds_mm": [
+          [
+            -0.1481396675109865,
+            396.4532470703125,
+            305.7014465332031
+          ],
+          [
+            57.74814147949219,
+            438.1142883300781,
+            343.1000061035156
+          ]
+        ],
+        "results": [
+          {
+            "body": "asse-drain-adapter",
+            "status": "clear_distance_intervals",
+            "queries": 125,
+            "minimum_queried_surface_distance_mm": 0.3033790588378906,
+            "certified_surface_separation_lower_bound_mm": 0.06900405883789062
+          },
+          {
+            "body": "asse1022-assembly",
+            "status": "clear_distance_intervals",
+            "queries": 13,
+            "minimum_queried_surface_distance_mm": 0.2639753189822117,
+            "certified_surface_separation_lower_bound_mm": 0.029600318982211715
+          },
+          {
+            "body": "enclosure-back-top",
+            "status": "clear_distance_intervals",
+            "queries": 65,
+            "minimum_queried_surface_distance_mm": 0.25,
+            "certified_surface_separation_lower_bound_mm": 0.015625
+          }
+        ]
+      },
+      {
+        "name": "meter released westward withdrawal",
+        "part": "meter-snap-cap",
+        "axis": [
+          -1.0,
+          0.0,
+          0.0
+        ],
+        "interval_mm": [
+          0,
+          20.0
+        ],
+        "start_bounds_mm": [
+          [
+            60.349998474121094,
+            397.0,
+            251.15000610351564
+          ],
+          [
+            91.44999694824219,
+            435.0,
+            313.0500061035156
+          ]
+        ],
+        "results": [
+          {
+            "body": "asse1022-assembly",
+            "status": "clear_distance_intervals",
+            "queries": 1,
+            "minimum_queried_surface_distance_mm": 13.291770648237433,
+            "certified_surface_separation_lower_bound_mm": 3.291770648237433
+          },
+          {
+            "body": "digiten-flow",
+            "status": "clear_distance_intervals",
+            "queries": 3,
+            "minimum_queried_surface_distance_mm": 5.75,
+            "certified_surface_separation_lower_bound_mm": 0.75
+          },
+          {
+            "body": "enclosure-back-top",
+            "status": "clear_distance_intervals",
+            "queries": 57,
+            "minimum_queried_surface_distance_mm": 0.25,
+            "certified_surface_separation_lower_bound_mm": 0.09375
+          }
+        ]
+      },
+      {
+        "name": "meter relaxed forward extraction",
+        "part": "meter-snap-cap",
+        "axis": [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        "interval_mm": [
+          0,
+          40.0
+        ],
+        "start_bounds_mm": [
+          [
+            40.349998474121094,
+            397.0,
+            254.35000610351562
+          ],
+          [
+            71.44999694824219,
+            435.0,
+            309.8500061035156
+          ]
+        ],
+        "results": [
+          {
+            "body": "asse1022-assembly",
+            "status": "clear_distance_intervals",
+            "queries": 15,
+            "minimum_queried_surface_distance_mm": 4.983141475836923,
+            "certified_surface_separation_lower_bound_mm": 2.4831414758369226
+          },
+          {
+            "body": "digiten-flow",
+            "status": "clear_distance_intervals",
+            "queries": 7,
+            "minimum_queried_surface_distance_mm": 5.771529369377543,
+            "certified_surface_separation_lower_bound_mm": 0.7715293693775429
+          },
+          {
+            "body": "enclosure-back-top",
+            "status": "clear_distance_intervals",
+            "queries": 3,
+            "minimum_queried_surface_distance_mm": 11.600006103515625,
+            "certified_surface_separation_lower_bound_mm": 1.600006103515625
+          }
+        ]
+      },
+      {
+        "name": "Pisco released short downward withdrawal",
+        "part": "pisco-snap-cap",
+        "axis": [
+          0.0,
+          0.0,
+          -1.0
+        ],
+        "interval_mm": [
+          0,
+          3.6
+        ],
+        "start_bounds_mm": [
+          [
+            57.66651229858398,
+            420.345703125,
+            313.693115234375
+          ],
+          [
+            95.33349151611328,
+            436.0,
+            343.1000061035156
+          ]
+        ],
+        "results": [
+          {
+            "body": "enclosure-back-top",
+            "status": "clear_distance_intervals",
+            "queries": 15,
+            "minimum_queried_surface_distance_mm": 0.25,
+            "certified_surface_separation_lower_bound_mm": 0.02499999999999991
+          },
+          {
+            "body": "gas-check",
+            "status": "clear_distance_intervals",
+            "queries": 1,
+            "minimum_queried_surface_distance_mm": 5.933104900545,
+            "certified_surface_separation_lower_bound_mm": 4.133104900545
+          },
+          {
+            "body": "gas-regulator",
+            "status": "clear_distance_intervals",
+            "queries": 1,
+            "minimum_queried_surface_distance_mm": 1.9603248883187308,
+            "certified_surface_separation_lower_bound_mm": 0.1603248883187307
+          }
+        ]
+      },
+      {
+        "name": "Pisco released forward extraction",
+        "part": "pisco-snap-cap",
+        "axis": [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        "interval_mm": [
+          0,
+          45.0
+        ],
+        "start_bounds_mm": [
+          [
+            57.66651229858398,
+            420.345703125,
+            310.093115234375
+          ],
+          [
+            95.33349151611328,
+            436.0,
+            339.5000061035156
+          ]
+        ],
+        "results": [
+          {
+            "body": "enclosure-back-top",
+            "status": "clear_distance_intervals",
+            "queries": 255,
+            "minimum_queried_surface_distance_mm": 0.24310913085935226,
+            "certified_surface_separation_lower_bound_mm": 0.06732788085935226
+          },
+          {
+            "body": "gas-check",
+            "status": "clear_distance_intervals",
+            "queries": 7,
+            "minimum_queried_surface_distance_mm": 5.767541503906273,
+            "certified_surface_separation_lower_bound_mm": 0.14254150390627274
+          },
+          {
+            "body": "gas-regulator",
+            "status": "clear_distance_intervals",
+            "queries": 6,
+            "minimum_queried_surface_distance_mm": 4.180726410177671,
+            "certified_surface_separation_lower_bound_mm": 1.3682264101776713
+          }
+        ]
+      },
+      {
+        "name": "regulator released downward withdrawal",
+        "part": "regulator-snap-cap",
+        "axis": [
+          0.0,
+          0.0,
+          -1.0
+        ],
+        "interval_mm": [
+          0,
+          30.0
+        ],
+        "start_bounds_mm": [
+          [
+            -55.323909759521484,
+            282.8036315917969,
+            315.92413330078125
+          ],
+          [
+            -19.323909759521484,
+            332.51002807617186,
+            343.0651550292969
+          ]
+        ],
+        "results": [
+          {
+            "body": "enclosure-back-top",
+            "status": "clear_distance_intervals",
+            "queries": 43,
+            "minimum_queried_surface_distance_mm": 0.25,
+            "certified_surface_separation_lower_bound_mm": 0.015625
+          },
+          {
+            "body": "flow-regulator",
+            "status": "clear_distance_intervals",
+            "queries": 5,
+            "minimum_queried_surface_distance_mm": 4.082100320328092,
+            "certified_surface_separation_lower_bound_mm": 0.33210032032809167
+          }
+        ]
+      }
+    ],
+    "unresolved": [],
+    "pass": true,
+    "elapsed_seconds": 3.3005226659879554,
+    "current_parent_binding": {
+      "assembly_step_sha256": "b8a1a5b893b4bd465d8bd1bdd781201ba4eb20e9186ffa85622790c1710233ed",
+      "assembly_mesh_sha256": "3ab60fa98d64305694e6678f5645f3aa064de1e63bead926448e995ed82d3e34",
+      "scope": "All new back-top stock is AABB-separated from every complete prior cap extraction sweep. Other back-top changes remove material. The changed aft saddle belongs to the cold core, which is absent during these bench operations.",
+      "added_stock_bounds_mm": {
+        "relay-2-header-ledge-1": [
+          [
+            -98.54000010000004,
+            378.3501389792559,
+            303.6566055937779
+          ],
+          [
+            -94.48999989999994,
+            384.1001391792561,
+            307.90660579377806
+          ]
+        ],
+        "relay-1-header-ledge-1": [
+          [
+            -98.54000010000006,
+            378.3501389792549,
+            283.1566055937779
+          ],
+          [
+            -94.48999989999994,
+            384.10013917925505,
+            287.40660579377806
+          ]
+        ],
+        "relay-2-header-ledge-3": [
+          [
+            -98.54000010000004,
+            378.3501389792559,
+            322.9066055937779
+          ],
+          [
+            -94.48999989999994,
+            384.1001391792561,
+            327.15660579377806
+          ]
+        ],
+        "relay-1-header-ledge-3": [
+          [
+            -98.54000010000006,
+            378.3501389792549,
+            302.4066055937779
+          ],
+          [
+            -94.48999989999994,
+            384.10013917925505,
+            306.65660579377806
+          ]
+        ],
+        "new-east-core-hold": [
+          [
+            6.54999989999992,
+            453.2999997999999,
+            253.64999989999995
+          ],
+          [
+            15.550000100000082,
+            462.3000001000001,
+            293.65000010000006
+          ]
+        ]
+      },
+      "proof": [
+        {
+          "stage": "ASSE released downward withdrawal",
+          "added_stock": "relay-2-header-ledge-1",
+          "complete_swept_bounds_separated": true
+        },
+        {
+          "stage": "ASSE released downward withdrawal",
+          "added_stock": "relay-1-header-ledge-1",
+          "complete_swept_bounds_separated": true
+        },
+        {
+          "stage": "ASSE released downward withdrawal",
+          "added_stock": "relay-2-header-ledge-3",
+          "complete_swept_bounds_separated": true
+        },
+        {
+          "stage": "ASSE released downward withdrawal",
+          "added_stock": "relay-1-header-ledge-3",
+          "complete_swept_bounds_separated": true
+        },
+        {
+          "stage": "ASSE released downward withdrawal",
+          "added_stock": "new-east-core-hold",
+          "complete_swept_bounds_separated": true
+        },
+        {
+          "stage": "meter released westward withdrawal",
+          "added_stock": "relay-2-header-ledge-1",
+          "complete_swept_bounds_separated": true
+        },
+        {
+          "stage": "meter released westward withdrawal",
+          "added_stock": "relay-1-header-ledge-1",
+          "complete_swept_bounds_separated": true
+        },
+        {
+          "stage": "meter released westward withdrawal",
+          "added_stock": "relay-2-header-ledge-3",
+          "complete_swept_bounds_separated": true
+        },
+        {
+          "stage": "meter released westward withdrawal",
+          "added_stock": "relay-1-header-ledge-3",
+          "complete_swept_bounds_separated": true
+        },
+        {
+          "stage": "meter released westward withdrawal",
+          "added_stock": "new-east-core-hold",
+          "complete_swept_bounds_separated": true
+        },
+        {
+          "stage": "meter relaxed forward extraction",
+          "added_stock": "relay-2-header-ledge-1",
+          "complete_swept_bounds_separated": true
+        },
+        {
+          "stage": "meter relaxed forward extraction",
+          "added_stock": "relay-1-header-ledge-1",
+          "complete_swept_bounds_separated": true
+        },
+        {
+          "stage": "meter relaxed forward extraction",
+          "added_stock": "relay-2-header-ledge-3",
+          "complete_swept_bounds_separated": true
+        },
+        {
+          "stage": "meter relaxed forward extraction",
+          "added_stock": "relay-1-header-ledge-3",
+          "complete_swept_bounds_separated": true
+        },
+        {
+          "stage": "meter relaxed forward extraction",
+          "added_stock": "new-east-core-hold",
+          "complete_swept_bounds_separated": true
+        },
+        {
+          "stage": "Pisco released short downward withdrawal",
+          "added_stock": "relay-2-header-ledge-1",
+          "complete_swept_bounds_separated": true
+        },
+        {
+          "stage": "Pisco released short downward withdrawal",
+          "added_stock": "relay-1-header-ledge-1",
+          "complete_swept_bounds_separated": true
+        },
+        {
+          "stage": "Pisco released short downward withdrawal",
+          "added_stock": "relay-2-header-ledge-3",
+          "complete_swept_bounds_separated": true
+        },
+        {
+          "stage": "Pisco released short downward withdrawal",
+          "added_stock": "relay-1-header-ledge-3",
+          "complete_swept_bounds_separated": true
+        },
+        {
+          "stage": "Pisco released short downward withdrawal",
+          "added_stock": "new-east-core-hold",
+          "complete_swept_bounds_separated": true
+        },
+        {
+          "stage": "Pisco released forward extraction",
+          "added_stock": "relay-2-header-ledge-1",
+          "complete_swept_bounds_separated": true
+        },
+        {
+          "stage": "Pisco released forward extraction",
+          "added_stock": "relay-1-header-ledge-1",
+          "complete_swept_bounds_separated": true
+        },
+        {
+          "stage": "Pisco released forward extraction",
+          "added_stock": "relay-2-header-ledge-3",
+          "complete_swept_bounds_separated": true
+        },
+        {
+          "stage": "Pisco released forward extraction",
+          "added_stock": "relay-1-header-ledge-3",
+          "complete_swept_bounds_separated": true
+        },
+        {
+          "stage": "Pisco released forward extraction",
+          "added_stock": "new-east-core-hold",
+          "complete_swept_bounds_separated": true
+        },
+        {
+          "stage": "regulator released downward withdrawal",
+          "added_stock": "relay-2-header-ledge-1",
+          "complete_swept_bounds_separated": true
+        },
+        {
+          "stage": "regulator released downward withdrawal",
+          "added_stock": "relay-1-header-ledge-1",
+          "complete_swept_bounds_separated": true
+        },
+        {
+          "stage": "regulator released downward withdrawal",
+          "added_stock": "relay-2-header-ledge-3",
+          "complete_swept_bounds_separated": true
+        },
+        {
+          "stage": "regulator released downward withdrawal",
+          "added_stock": "relay-1-header-ledge-3",
+          "complete_swept_bounds_separated": true
+        },
+        {
+          "stage": "regulator released downward withdrawal",
+          "added_stock": "new-east-core-hold",
+          "complete_swept_bounds_separated": true
+        }
+      ]
+    }
+  },
+  "mounting_stock_record": "hardware/mechanical-qualification/enclosure-above-core/wall-mount-review.json",
+  "flavor_clearance": {
+    "contacts": [],
+    "inner_fill_path": [
+      [
+        102.5,
+        -61.0,
+        208.15
+      ],
+      [
+        102.5,
+        -61.0,
+        220.18357003759607
+      ],
+      [
+        102.5,
+        -56.0,
+        227.38514938507527
+      ],
+      [
+        102.5,
+        -56.0,
+        233.4
+      ]
+    ],
+    "elapsed_seconds": 45.36955462500919
+  },
+  "gas_curvature": [
+    {
+      "minimum": {
+        "t": 0.18178724679621885,
+        "radius_mm": 25.297693357630887
+      },
+      "candidates": [
+        {
+          "t": 0.0,
+          "radius_mm": 31.88349208792014
+        },
+        {
+          "t": 1.0,
+          "radius_mm": 37.88304907120671
+        },
+        {
+          "t": 0.18178724679621885,
+          "radius_mm": 25.297693357630887
+        },
+        {
+          "t": 0.6481709330912471,
+          "radius_mm": 37.76650043344999
+        },
+        {
+          "t": 0.8762169393558289,
+          "radius_mm": 36.006250781751746
+        }
+      ]
+    },
+    {
+      "minimum": {
+        "t": 0.14070431351807441,
+        "radius_mm": 51.898685970756894
+      },
+      "candidates": [
+        {
+          "t": 0.0,
+          "radius_mm": 58.64724925390646
+        },
+        {
+          "t": 1.0,
+          "radius_mm": 58.64724925390646
+        },
+        {
+          "t": 0.14070431351807441,
+          "radius_mm": 51.898685970756894
+        },
+        {
+          "t": 0.859295686481925,
+          "radius_mm": 51.89868597075691
+        }
+      ]
+    }
+  ],
+  "relay_edge_rail_loading": {
+    "relay-1": [
+      {
+        "physical_layer": "pins",
+        "solid": 0,
+        "continuous_swept_box_overlap_mm3": 0
+      },
+      {
+        "physical_layer": "PCB",
+        "solid": 0,
+        "continuous_swept_box_overlap_mm3": 0
+      },
+      {
+        "physical_layer": "components",
+        "solid": 0,
+        "continuous_swept_box_overlap_mm3": 0
+      },
+      {
+        "physical_layer": "components",
+        "solid": 1,
+        "continuous_swept_box_overlap_mm3": 0
+      },
+      {
+        "physical_layer": "components",
+        "solid": 2,
+        "continuous_swept_box_overlap_mm3": 0
+      }
+    ],
+    "relay-2": [
+      {
+        "physical_layer": "pins",
+        "solid": 0,
+        "continuous_swept_box_overlap_mm3": 0
+      },
+      {
+        "physical_layer": "PCB",
+        "solid": 0,
+        "continuous_swept_box_overlap_mm3": 0
+      },
+      {
+        "physical_layer": "components",
+        "solid": 0,
+        "continuous_swept_box_overlap_mm3": 0
+      },
+      {
+        "physical_layer": "components",
+        "solid": 1,
+        "continuous_swept_box_overlap_mm3": 0
+      },
+      {
+        "physical_layer": "components",
+        "solid": 2,
+        "continuous_swept_box_overlap_mm3": 0
+      }
+    ]
+  },
+  "remaining_wago_work": [
+    {
+      "parts": [
+        "wago-n",
+        "foam-cap-lid-top"
+      ],
+      "native_overlap_mm3": 86.9,
+      "required_action": "Move the neutral junction and its holder after publishing the settled mechanics."
+    }
+  ],
+  "physical_trial": {
+    "record": "hardware/print-tests/rear-snap-retention/v2",
+    "state": "The reinforced v2 trial accepts the pump and ASSE hardware fits and the meter receiver/wire room. The2.6mm leaves bend at their roots. Pisco has excessive play without useful retention; the water regulator has an incorrect outlet-shoulder envelope and its cap misses smaller sections. Coordinator2 is revising the clamping bodies, meter cap, spring roots and release access. Current snap retention remains unqualified."
+  }
+}
