@@ -40,21 +40,29 @@ one plate-thickness off the deck.
 Run:
     tools/cad-venv/bin/python hardware/reference/compressor/compressor.py
     tools/cad-venv/bin/python hardware/reference/compressor/compressor.py selftest
+
+
+The reference STEP and payloads are declared in `frozen-asset.json`.
+Native builder functions remain available to current composition callers.
 """
+
+from __future__ import annotations
 
 import math
 import sys
 from pathlib import Path
 
-import cadquery as cq
+_REFERENCE_DIR = Path(__file__).resolve().parent
+STEP_PATH = _REFERENCE_DIR / 'compressor.step'
+PAYLOAD_PATH = _REFERENCE_DIR / 'compressor.step.mesh'
+FINE_PAYLOAD_PATH = _REFERENCE_DIR / 'compressor.step.mesh'
+ASSET_MANIFEST_PATH = _REFERENCE_DIR / "frozen-asset.json"
+
 
 _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
 sys.path.insert(0, str(_hw / "scripts"))
 sys.path.insert(0, str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"))
-from _cadq_export import export_assembly
-from _materials import C_COMP, one_body  # noqa: E402
-from docgen import substitute_md, substitute_py_comments  # noqa: E402
 
 # --- Calipered off the donor ----------------------------------------------
 BASE_X = 96.0          # the stamped base plate, across the machine
@@ -180,6 +188,7 @@ def build():
     """The three bodies as the pack carries them: the plate on the mounting plane with its
     four holes through it, the oblong shell standing on the plate's crown offset on Y, and
     the power box filling the plate's long reach at -Y."""
+    import cadquery as cq
     part = cq.Workplane("XY").box(BASE_X, BASE_Y, BASE_Z, centered=(True, True, False))
     shell = (
         cq.Workplane("XY", origin=(0.0, SHELL_OFFSET_Y, BASE_Z))
@@ -279,36 +288,9 @@ def selftest():
 
 
 def main():
-    part = build()
-    bb = part.BoundingBox()
-    print("compressor — HuaJun HD48Y11A, harvested (Antarctic Star HZB-12/Q)")
-    print(f"  X[{bb.xmin:.1f}, {bb.xmax:.1f}]  Y[{bb.ymin:.1f}, {bb.ymax:.1f}]"
-          f"  Z[{bb.zmin:.1f}, {bb.zmax:.1f}]")
-    print(f"  plate  {BASE_X:g} x {BASE_Y:g} x {BASE_Z:g}, centered on the origin")
-    print(f"  shell  {SHELL_X:g} x {SHELL_Y:g} ellipse x {SHELL_Z:g}, "
-          f"offset {SHELL_OFFSET_Y:g} on Y")
-    print(f"  power  {POWER_X:g} x {POWER_Y:g} x {POWER_Z:g}, y[{POWER_Y0:g}, "
-          f"{SHELL_TANGENT_Y:g}] z[{BASE_Z:g}, {POWER_Z1:g}] — the -Y end")
-    print(f"  belly overhangs the plate {SHELL_OVERHANG_X:g} each side, from {BASE_Z:g} up")
-    print(f"  plate reaches {PLATE_REACH_LONG:g} past the shell at -Y, "
-          f"{PLATE_REACH_SHORT:g} at +Y")
-    print(f"  4x Ø{MOUNT_D:g} on {MOUNT_PITCH_X:g} x {MOUNT_PITCH_Y:g}, "
-          f"{MOUNT_LIGAMENT:g} of plate outboard of each")
-
-    out = _here.parent / "compressor.step"
-    export_assembly(one_body(part, "compressor", C_COMP), str(out))
-    print(f"-> {out.name}")
-
-    variables = _docvars()
-    substitute_py_comments(
-        Path(__file__),
-        variables=variables,
-    )
-    substitute_md(
-        _here.parent / "README.md",
-        variables=variables,
-    )
-    print("-> README.md")
+    print(f"Frozen STEP: {STEP_PATH}")
+    print(f"Display payload: {PAYLOAD_PATH}")
+    print(f"Fine payload: {FINE_PAYLOAD_PATH}")
 
 
 if __name__ == "__main__":
@@ -318,3 +300,19 @@ if __name__ == "__main__":
         print("compressor selftest OK")
     else:
         main()
+
+
+def __getattr__(name):
+    if name == 'cq':
+        import cadquery as cq
+        return cq
+    if name in {'export_assembly'}:
+        import _cadq_export
+        return getattr(_cadq_export, name)
+    if name in {'C_COMP', 'one_body'}:
+        import _materials
+        return getattr(_materials, name)
+    if name in {'substitute_py_comments', 'substitute_md'}:
+        import docgen
+        return getattr(docgen, name)
+    raise AttributeError(f"module {__name__!r} has no attribute {name!r}")

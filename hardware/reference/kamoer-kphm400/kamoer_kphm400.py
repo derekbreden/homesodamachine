@@ -26,19 +26,40 @@ The pump's two outlet barbs sit on the body's +Y face (`body_y_face`) at the
 arch-notch positions and reach out toward the case wall (`y_face`); this model
 draws no tubing — `barb(i)` is each as a station in the pump's own frame, for
 whatever seats the pump and attaches downstream.
+
+
+The reference STEP and payloads are declared in `frozen-asset.json`.
+Native builder functions remain available to current composition callers.
+The native pump body retains its live authored `pump_case` dimensions and cavity.
 """
+
+from __future__ import annotations
 
 import sys
 from pathlib import Path
+from functools import cache as _reference_cache
 
-import cadquery as cq
+_REFERENCE_DIR = Path(__file__).resolve().parent
+STEP_PATH = _REFERENCE_DIR / 'kamoer-kphm400.step'
+PAYLOAD_PATH = _REFERENCE_DIR / 'kamoer-kphm400.step.mesh'
+FINE_PAYLOAD_PATH = _REFERENCE_DIR / 'kamoer-kphm400.step.mesh'
+ASSET_MANIFEST_PATH = _REFERENCE_DIR / "frozen-asset.json"
+
+def main():
+    print(f"Frozen STEP: {STEP_PATH}")
+    print(f"Display payload: {PAYLOAD_PATH}")
+    print(f"Fine payload: {FINE_PAYLOAD_PATH}")
+
+
+if __name__ == "__main__":
+    main()
+    raise SystemExit(0)
+
 
 _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
 for _p in (_hw / "scripts", _hw / "printed-parts" / "cadlib", _hw / "printed-parts" / "enclosure" / "pump-tray"):
     sys.path.insert(0, str(_p))
-from _cadq_export import export_assembly
-from _materials import C_PUMP_BOSS, C_PUMP_HEAD, C_PUMP_MOTOR
 import pump_case as pc
 
 
@@ -133,10 +154,12 @@ def barbs() -> tuple:
 
 
 def _zcyl(r, z0, z1, ox=cx, oy=cy):
+    import cadquery as cq
     return cq.Solid.makeCylinder(r, z1 - z0, cq.Vector(ox, oy, z0), cq.Vector(0, 0, 1))
 
 
 def _zbox(w, d, z0, z1, ox=cx, oy=cy):
+    import cadquery as cq
     return (cq.Workplane("XY")
             .box(w, d, z1 - z0, centered=(True, True, False))
             .translate((ox, oy, z0))
@@ -151,6 +174,7 @@ def build_head():
     plane, then steps to the narrower body on one horizontal face. The outlet side falls back
     under its tube casings, which is the one thing here the case did not shape and the
     datasheet does not carry — see `outlet_relief`."""
+    import cadquery as cq
     box = _zbox(head_w, head_w, head_front_z, base_plane_z)
     relief = (cq.Workplane("XY")
               .box(head_w + 2.0, outlet_relief + 2.0, outlet_relief_run,
@@ -167,6 +191,7 @@ def build_head():
 def build_rotor_housing():
     """The head's offset rear boss, shaped to the octagon bore (ledges included),
     from the base plane up to the tower-bore start."""
+    import cadquery as cq
     boss = (pc.WorldWorkplane(pc.xy_plane_z_up)
             .workplane(offset=base_plane_z)
             .center(cx, rear_axis_y)
@@ -178,46 +203,47 @@ def build_rotor_housing():
 def build_motor_body():
     """Silver DC motor: a plain round cylinder from the boss's rear face to the
     part's own end cap. The tower bore is what it turns inside, not its length."""
+    import cadquery as cq
     return cq.Workplane(obj=_zcyl(
         motor_dia / 2, octagon_top_z, motor_end_z, oy=rear_axis_y))
 
 
 # The pump's body sub-bodies as (name, builder, color). Public so the pump
 # assembly (pump + fittings) can seat the same body without redrawing it.
-BODY_PARTS = [
-    ("head",          build_head,          C_PUMP_HEAD),   # black moulded head
-    ("rotor_housing", build_rotor_housing, C_PUMP_BOSS),   # the white bracket under it
-    ("motor_body",    build_motor_body,    C_PUMP_MOTOR),  # the bare steel can
-]
+@_reference_cache
+def _body_parts():
+    from _materials import C_PUMP_BOSS, C_PUMP_HEAD, C_PUMP_MOTOR
+    return [
+        ("head",          build_head,          C_PUMP_HEAD),   # black moulded head
+        ("rotor_housing", build_rotor_housing, C_PUMP_BOSS),   # the white bracket under it
+        ("motor_body",    build_motor_body,    C_PUMP_MOTOR),  # the bare steel can
+    ]
 
 
 def build_assembly():
+    import cadquery as cq
     a = cq.Assembly(name="kamoer-kphm400")
-    for name, builder, color in BODY_PARTS:
+    for name, builder, color in _body_parts():
         a.add(builder(), name=name, color=color)
     return a
 
 
 def build_scene():
-    parts = [builder().val() for _, builder, _ in BODY_PARTS]
+    import cadquery as cq
+    parts = [builder().val() for _, builder, _ in _body_parts()]
     return cq.Compound.makeCompound(parts)
 
 
-def main():
-    export_assembly(build_assembly(), str(_here.parent / "kamoer-kphm400.step"))
-    scene = build_scene()
-    bb = scene.BoundingBox()
-    print("-> kamoer-kphm400.step")
-    print("pump envelope  X[%.1f, %.1f]  Y[%.1f, %.1f]  Z[%.1f, %.1f]   (Z = depth axis, motor +Z)"
-          % (bb.xmin, bb.xmax, bb.ymin, bb.ymax, bb.zmin, bb.zmax))
-    # The solids are what a consumer imports, so the length is checked on them
-    # rather than on the constants they were drawn from.
-    print("depth %.2f against the part's %.2f%s"
-          % (bb.zmax - bb.zmin, pump_len,
-             "" if abs((bb.zmax - bb.zmin) - pump_len) < 1e-6 else "   <-- DOES NOT MATCH"))
-    print(f"rear boss and motor axis  y {rear_axis_y:g}, {abs(rear_axis_y_shift):g} mm toward Y- "
-          f"from the head datum y {cy:g}")
-
-
-if __name__ == "__main__":
-    main()
+def __getattr__(name):
+    if name == "BODY_PARTS":
+        return _body_parts()
+    if name == 'cq':
+        import cadquery as cq
+        return cq
+    if name in {'export_assembly'}:
+        import _cadq_export
+        return getattr(_cadq_export, name)
+    if name in {'C_PUMP_BOSS', 'C_PUMP_MOTOR', 'C_PUMP_HEAD'}:
+        import _materials
+        return getattr(_materials, name)
+    raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
