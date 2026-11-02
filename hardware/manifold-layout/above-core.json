@@ -5047,7 +5047,6 @@
     ],
     "cap_east_roof_half_width_mm": 20.0,
     "cover_channel_recess_mm": 2.5,
-    "cover_channel_fore_native_x_mm": -20.0,
-    "aft_east_corner_chamfer_mm": 4.0
+    "cover_channel_fore_native_x_mm": -20.0
   }
 }

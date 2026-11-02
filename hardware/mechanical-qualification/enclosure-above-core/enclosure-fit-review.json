@@ -1,8 +1,8 @@
 {
   "schema": "enclosure-fit-review/3",
   "scope": "Artifact-bound current enclosure geometry and assembly. Complete native static contact readings, finite mounting stock, cap loading/removal and exact printed quadrant motion are bound separately. WAGO and wire completion follows the published mechanical layout. Physical force, actual spring life, bearing finish and purchased-part tolerances require the physical articles.",
-  "assembly_step_sha256": "781a5ac87054a542e2fd056179d98e3d2b858b9097ea990a30d8213eab0fbbe3",
-  "assembly_mesh_sha256": "1455d9085191e75fc301184e10689e6bd5d53f0458db3890a39cb5f9f2dc62f6",
+  "assembly_step_sha256": "7a174b60fbc0498134e5348ca72007363e067d33dd1fddf98c316b96ecd407f0",
+  "assembly_mesh_sha256": "ebc2affdf050f1b7454b0702e5d159d6e8b39eccdad0d6ed4ec1c5a79f3e9129",
   "integration_record": "hardware/mechanical-qualification/enclosure-above-core/retention-integration-review.json",
   "native_contacts": [
     {
@@ -53,7 +53,7 @@
   },
   "current_snap_geometry": {
     "scope": "Current closed physical meshes: seated cap/receiver volume and caught 0.5 mm withdrawal; all six 1 mm meter-housing translations. Nominal geometric capture, with physical force and fatigue unqualified.",
-    "assembly_mesh_sha256": "1455d9085191e75fc301184e10689e6bd5d53f0458db3890a39cb5f9f2dc62f6",
+    "assembly_mesh_sha256": "ebc2affdf050f1b7454b0702e5d159d6e8b39eccdad0d6ed4ec1c5a79f3e9129",
     "caps": {
       "asse-snap-cap": {
         "seated_overlap_mm3": 0.0,
@@ -103,11 +103,11 @@
     },
     "meter_travel": {
       "0:-1": 251.36715210723472,
-      "0:+1": 52.79046118090428,
+      "0:+1": 52.839137740037536,
       "1:-1": 17.467630928733158,
-      "1:+1": 7.317720877437239,
+      "1:+1": 15.071045768227059,
       "2:-1": 22.80268614570142,
-      "2:+1": 30.872731623638476
+      "2:+1": 30.87273162363849
     },
     "pass": true
   }

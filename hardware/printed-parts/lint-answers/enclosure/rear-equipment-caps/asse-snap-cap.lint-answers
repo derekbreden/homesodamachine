@@ -1,8 +1,3 @@
-[sliver] Outside this revision: the narrow fitted wrench-envelope face is retained with the accepted ASSE hardware cavity. Derek reports that the ASSE fit is in good shape; this revision changes its spring section, roots and centered tool access. The narrow cavity intersection remains a separate surface-consolidation task and is reported to Derek.
-alternatives: Reconciling the round and wrench cuts onto one fitted boundary would remove this strip and needs a separate ASSE cavity and hardware-fit review. Increasing the free spring thickness does not reconcile these cavity surfaces.
-file: hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step
-click: x=8.573 y=10.863 z=6.623
-
 [thin] Functional hook nose and insertion ramp. The 2.6 mm total hook height comprises a 1.6 mm nose and 1 mm lead-in rise. Across the centered 5 mm blade entry, the 1 mm opening leaves a finite 0.6 mm nose above it. The sampled 0.72 mm places lie in that tool-purchase roof; the 1.91–2.04 mm places lie across the adjoining insertion profile. Physical release force and repeated use remain unqualified in rear-snap-retention/v3.
 alternatives: Increasing roof thickness within this height reduces the requested blade opening or steepens the insertion ramp; increasing total hook height also deepens its receiving pocket into the fixed roof stock. Filling the entry removes centered tool access. The 2.6 mm flat retaining overlap remains on each side of the entry.
 file: hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step
@@ -26,16 +21,6 @@ click: x=-24.012 y=7.600 z=28.202
 click: x=-22.655 y=6.147 z=28.202
 click: x=24.012 y=7.600 z=13.459
 click: x=22.655 y=6.147 z=13.459
-
-[ledge] Outside this revision: these small axial faces belong to the accepted ASSE wrench and vent clearance cuts. Their fitted boundary is retained while the spring section, roots and tool access change. They remain separately recorded surface-consolidation work and are reported to Derek.
-alternatives: Merging the adjacent axial clearance runs can remove these faces but changes the fitted ASSE cavity and requires its own clearance review. Tree(auto)/Default remains the specified support treatment for these accessible interior faces.
-file: hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step
-click: x=8.199 y=6.813 z=36.647
-click: x=-7.916 y=7.036 z=36.647
-click: x=9.519 y=9.196 z=13.247
-click: x=-2.912 y=11.087 z=13.247
-click: x=9.398 y=9.105 z=31.647
-click: x=-9.389 y=7.803 z=31.647
 
 [ledge] The two axial end faces of each centered 5 × 1 mm blade entry are the functional tool-access boundaries under the hooks. Tree(auto)/Default retains accessible supports at these small ceilings; post-processing uses a tiny flathead that fits inside the cavity. The slot does not cut the continuous spring wall.
 alternatives: Filling the faces closes the blade entry. A ramped opening changes the flat screwdriver purchase and the remaining retaining bearing. Derek explicitly permits a tool and the extra edges for this release feature.

@@ -1,8 +1,8 @@
 {
   "schema": "enclosure-retention-integration-review/1",
   "scope": "Current native mechanical layout, identified physical print assets and complete nominal assembly/service readings. WAGOs and wires are the subsequent phase. Physical fit, release force, spring life, vibration and support cleanup require printed articles.",
-  "assembly_step_sha256": "781a5ac87054a542e2fd056179d98e3d2b858b9097ea990a30d8213eab0fbbe3",
-  "assembly_mesh_sha256": "1455d9085191e75fc301184e10689e6bd5d53f0458db3890a39cb5f9f2dc62f6",
+  "assembly_step_sha256": "7a174b60fbc0498134e5348ca72007363e067d33dd1fddf98c316b96ecd407f0",
+  "assembly_mesh_sha256": "ebc2affdf050f1b7454b0702e5d159d6e8b39eccdad0d6ed4ec1c5a79f3e9129",
   "native_parent": {
     "scope": "Retained native proof of unchanged equipment poses, selected finite mating regions, mounting stock, pump geometry and tube bend minima. Current cap surfaces and the finished lid are bound in the separate current readings.",
     "baseline_step_sha256": "c264aefc6a1a1304af27e06af353ba9819de9be0daf85c3647c2a01058f7ebd7",
@@ -976,7 +976,7 @@
     "foam_aggregate_grafted_parts": 3
   },
   "current_cap_extraction": {
-    "payload_sha256": "1455d9085191e75fc301184e10689e6bd5d53f0458db3890a39cb5f9f2dc62f6",
+    "payload_sha256": "ebc2affdf050f1b7454b0702e5d159d6e8b39eccdad0d6ed4ec1c5a79f3e9129",
     "scope": "Complete distance-certified translation intervals of released caps. Back-top is separated from the cold core and inverted on the bench; flexible tubes/leads are disconnected and dressed aside, funnel/frame/drain and the ASSE vent adapter are removed. ASSE cap is removed before the meter cap. Wing displacement is a conservative linear 3.2mm outward shear from root to catch. The meter shaped bearing stays rigid; the leaves flex beyond its 4 mm inward bearing stock; force, nonlinear spring shape and fatigue require physical articles.",
     "removed": [
       "asse-vent-boot",
@@ -1170,8 +1170,8 @@
             "body": "asse1022-assembly",
             "status": "clear_distance_intervals",
             "queries": 13,
-            "minimum_queried_surface_distance_mm": 0.30721866604936576,
-            "certified_surface_separation_lower_bound_mm": 0.07284366604936576
+            "minimum_queried_surface_distance_mm": 0.3072170735858141,
+            "certified_surface_separation_lower_bound_mm": 0.07284207358581413
           },
           {
             "body": "enclosure-back-top",
@@ -1418,7 +1418,7 @@
     ],
     "unresolved": [],
     "pass": true,
-    "elapsed_seconds": 0.4567255000001751
+    "elapsed_seconds": 0.43522645902703516
   },
   "mounting_stock_record": "hardware/mechanical-qualification/enclosure-above-core/wall-mount-review.json",
   "flavor_clearance": {
@@ -1577,6 +1577,78 @@
     "scope": "Retain the recorded production Box and every unrelated installed member. Current lid export replaces only its native body and viewer arrays."
   },
   "current_integration": {
+    "current_surface_completion": {
+      "scope": "Plain continuous ASSE wrench clearance and the meter collar end wall. The collar retains its 0.5 mm aft pose variation and 0.15 mm slip at that limit. All other native members and viewer arrays retain their geometry.",
+      "collars": [
+        {
+          "collar": -1.0,
+          "new_axial_air_mm": 0.65,
+          "permitted_aft_position_variation_mm": 0.5,
+          "minimum_air_at_aft_variation_mm": 0.15000000000000002,
+          "added_stock_mm3": 0,
+          "y_band_mm": [
+            397.05999999999995,
+            397.65999999999997
+          ]
+        },
+        {
+          "collar": 1.0,
+          "new_axial_air_mm": 0.65,
+          "permitted_aft_position_variation_mm": 0.5,
+          "minimum_air_at_aft_variation_mm": 0.15000000000000002,
+          "added_stock_mm3": 20.683369658010584,
+          "y_band_mm": [
+            443.46,
+            444.06
+          ]
+        }
+      ],
+      "hosts": {
+        "hardware/manifold-layout/enclosure-assembly.step": {
+          "step_sha256": "41dcde106a61964a93fd112e194f640738d88c1d6fa4eb662490c5f233beeec3",
+          "payload_sha256": "d9069e652e6ee8ce5825473b107575a6568829dcbbe50154917edc3515caf330",
+          "replaced_bodies": [
+            "asse-snap-cap",
+            "enclosure-back-top"
+          ]
+        },
+        "hardware/printed-parts/enclosure/enclosure/enclosure.step": {
+          "step_sha256": "2abe50e9992e755ecaf026423a27ca46bcc5e0bf56c9c0f54cafa9de474f4bee",
+          "payload_sha256": "9ae2a049f274769b7ef1db9b43e8a026cb0486c6a3f3362b5ea9252150d73e4f",
+          "replaced_bodies": [
+            "enclosure-back-top"
+          ]
+        },
+        "hardware/printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps-installed.step": {
+          "step_sha256": "d9dd50428c765b26c1bf8ec4be85b30dd4c69808fa8e1974ce8c037c3f0946be",
+          "payload_sha256": "8ca2474c8106f9a833e022d32beb0cb013592569dde5f5367195aaef274e8480",
+          "replaced_bodies": [
+            "asse-snap-cap"
+          ]
+        }
+      }
+    },
+    "current_open_corner_lid": {
+      "scope": "Only the finished equipment lid replaces its previous native body and viewer arrays. The published v3 receivers and five snap caps retain their current geometry. Every unrelated native member, physical print asset and viewer array retains its preceding geometry. This operation performs no complete assembly rebuild or all-pair contact rerun.",
+      "hosts": {
+        "hardware/manifold-layout/enclosure-assembly.step": {
+          "step_sha256": "7a174b60fbc0498134e5348ca72007363e067d33dd1fddf98c316b96ecd407f0",
+          "payload_sha256": "ebc2affdf050f1b7454b0702e5d159d6e8b39eccdad0d6ed4ec1c5a79f3e9129",
+          "changed_bodies": [
+            "foam-cap-lid-top"
+          ],
+          "elapsed_seconds": 29.73110525001539
+        },
+        "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step": {
+          "step_sha256": "5a44baee9ae828a4bab1d7a393608f64bf35bc0b6f274df517f9f362e274be43",
+          "payload_sha256": "5ae9fe6bedf14296c89beb8e01765eb41b2135d8ce08865796f5d1b90ee8e8a9",
+          "changed_bodies": [
+            "foam-cap-lid-top"
+          ],
+          "elapsed_seconds": 0.613901040982455
+        }
+      }
+    },
     "published_snap_integration": {
       "scope": "The retained published Box and every unrelated native member and viewer array are preserved. Only the back-top, equipment lid and five snap caps are replaced. This is a scoped integration, not a whole-pack layout rebuild.",
       "box_sha256": "030ef2fe087dbafc5a55f68f12a03421321604b4054a651cf5c850d1695ae307",
@@ -1694,13 +1766,14 @@
     "changed_viewer_members_from_published_snaps": [
       "asse-snap-cap",
       "meter-snap-cap",
-      "cold-core/foam-cap-lid-top"
+      "cold-core/foam-cap-lid-top",
+      "enclosure-back-top"
     ],
-    "unchanged_viewer_member_count": 451
+    "unchanged_viewer_member_count": 450
   },
   "current_cap_geometry_and_closure": {
     "scope": "Current five v3 caps against the complete installed non-wire scene, including tubes. Complete rear closure intervals cover the changed caps; the regulator receiver remains above the complete retained core. Flexible cross-parent spans retain the recorded loose-handoff prerequisites.",
-    "assembly_mesh_sha256": "1455d9085191e75fc301184e10689e6bd5d53f0458db3890a39cb5f9f2dc62f6",
+    "assembly_mesh_sha256": "ebc2affdf050f1b7454b0702e5d159d6e8b39eccdad0d6ed4ec1c5a79f3e9129",
     "static": [
       {
         "actor": "asse-snap-cap",
@@ -1715,8 +1788,8 @@
         "other": "asse1022-assembly",
         "status": "clear_distance_intervals",
         "queries": 1,
-        "minimum_queried_surface_distance_mm": 0.14569079459129347,
-        "certified_surface_separation_lower_bound_mm": 0.14569079459129347
+        "minimum_queried_surface_distance_mm": 0.19216141044062696,
+        "certified_surface_separation_lower_bound_mm": 0.19216141044062696
       },
       {
         "actor": "asse-snap-cap",
@@ -1992,7 +2065,7 @@
       "z_separated": true
     },
     "pass": true,
-    "elapsed_seconds": 3.6268954160041176
+    "elapsed_seconds": 3.4851447090040892
   },
   "current_snap_native_capture": {
     "record": "hardware/print-tests/rear-snap-retention/v3/geometry.json",
@@ -2232,9 +2305,9 @@
       "scope": "Consume the committed v3 spring design with the uniform pump corridor and broad aft-seat roof. Build only the equipment lid and motor cap; preserve the three accepted core articles.",
       "parts": {
         "foam-cap-lid-top": {
-          ".step": "7659ea711ff9926c8c851e79329b4458de56dc14faba5e9e55f6c5268bfb2b21",
-          ".stl": "b86e8875e4ee060bac65e7a90bb038b1a78be4f94455697d7ca85f0f5baa5ac1",
-          ".step.mesh": "2f8224ee653187e045865a8ef7a7f984f71a73ad4c5ce3e7fe10900b42e57846"
+          ".step": "59741816726bfa72b087c7dba766a6a4bc707deb658f98fe95bba44b67ad0b54",
+          ".stl": "06410da89817947dfd632caf156dea7cfb5d33026ff632a69dad7f73ebb54f85",
+          ".step.mesh": "25f59c269b37e786514ce7ceb89b2577dd43d5aa7dbc5c3a5f8d2476cbad9461"
         }
       },
       "complete_air_passages": [
@@ -2258,20 +2331,20 @@
         }
       ],
       "seated_cap_receiver_overlap_mm3": 0,
-      "elapsed_seconds": 3.657078415999422
+      "elapsed_seconds": 3.5610080000187736
     },
     "complete_changed_stock_closure": {
       "scope": "Complete closure intervals for the full current physical equipment lid against populated rear and front quadrants. The neutral WAGO remains for final placement; flexible handoffs stay loose until closure.",
-      "assembly_mesh_sha256": "1455d9085191e75fc301184e10689e6bd5d53f0458db3890a39cb5f9f2dc62f6",
+      "assembly_mesh_sha256": "ebc2affdf050f1b7454b0702e5d159d6e8b39eccdad0d6ed4ec1c5a79f3e9129",
       "checks": {
         "rear approach": [
           {
             "actor": "finished-equipment-lid",
             "other": "asse-drain-adapter",
             "status": "clear_distance_intervals",
-            "queries": 19,
-            "minimum_queried_surface_distance_mm": 3.087413787841797,
-            "certified_surface_separation_lower_bound_mm": 0.3925689277696094
+            "queries": 15,
+            "minimum_queried_surface_distance_mm": 3.090671369168617,
+            "certified_surface_separation_lower_bound_mm": 0.09621289692391244
           },
           {
             "actor": "finished-equipment-lid",
@@ -2294,8 +2367,8 @@
             "other": "bulkhead-drain",
             "status": "clear_distance_intervals",
             "queries": 4,
-            "minimum_queried_surface_distance_mm": 19.0792452748623,
-            "certified_surface_separation_lower_bound_mm": 0.3292452748622985
+            "minimum_queried_surface_distance_mm": 18.82660398701101,
+            "certified_surface_separation_lower_bound_mm": 0.07660398701100846
           },
           {
             "actor": "finished-equipment-lid",
@@ -2326,8 +2399,8 @@
             "other": "bulkhead-flavor-b",
             "status": "clear_distance_intervals",
             "queries": 11,
-            "minimum_queried_surface_distance_mm": 3.0999999046325684,
-            "certified_surface_separation_lower_bound_mm": 0.7562499046325684
+            "minimum_queried_surface_distance_mm": 2.8596016798330615,
+            "certified_surface_separation_lower_bound_mm": 0.5158516798330615
           },
           {
             "actor": "finished-equipment-lid",
@@ -2397,9 +2470,9 @@
             "actor": "finished-equipment-lid",
             "other": "tube-drain-vent",
             "status": "clear_distance_intervals",
-            "queries": 8,
-            "minimum_queried_surface_distance_mm": 8.024203220029712,
-            "certified_surface_separation_lower_bound_mm": 3.3367032200297118
+            "queries": 6,
+            "minimum_queried_surface_distance_mm": 9.67619347879082,
+            "certified_surface_separation_lower_bound_mm": 0.3011934787908199
           },
           {
             "actor": "finished-equipment-lid",
@@ -2471,7 +2544,7 @@
       },
       "unresolved": [],
       "pass": true,
-      "elapsed_seconds": 3.6620685829839204
+      "elapsed_seconds": 3.4585522919951472
     },
     "pump_admission": {
       "scope": "A flat full-width fore-stop roof replaces only the sloped terminal roof. The bearing end plane and rail contact bands retain their positions. This candidate adds stock; the actual bare-pump native reference is the obstacle.",
@@ -2494,7 +2567,7 @@
   },
   "complete_host_surface_contact_screen": {
     "scope": "Current complete physical back-top and equipment lid against the current non-wire scene. Triangle intersections identify candidates for native finite-joint follow-up; wires and final WAGOs are deferred.",
-    "assembly_mesh_sha256": "1455d9085191e75fc301184e10689e6bd5d53f0458db3890a39cb5f9f2dc62f6",
+    "assembly_mesh_sha256": "ebc2affdf050f1b7454b0702e5d159d6e8b39eccdad0d6ed4ec1c5a79f3e9129",
     "pairs": [
       {
         "a": "enclosure-back-top",
@@ -2551,7 +2624,7 @@
             284.20005741842317
           ]
         ],
-        "mesh_overlap_mm3": 2.3340357424572744e-13
+        "mesh_overlap_mm3": 2.3429175266542757e-13
       },
       {
         "a": "enclosure-back-top",
@@ -2591,8 +2664,8 @@
         "b": "bulkhead-flavor-a",
         "status": "clear_distance_intervals",
         "queries": 1,
-        "minimum_queried_surface_distance_mm": 0.14941095281127667,
-        "certified_surface_separation_lower_bound_mm": 0.14941095281127667
+        "minimum_queried_surface_distance_mm": 0.14941095281126338,
+        "certified_surface_separation_lower_bound_mm": 0.14941095281126338
       },
       {
         "a": "enclosure-back-top",
@@ -2617,7 +2690,7 @@
             257.50282678281593
           ]
         ],
-        "mesh_overlap_mm3": 4.2571848823946823e-13
+        "mesh_overlap_mm3": 3.965196226918266e-13
       },
       {
         "a": "enclosure-back-top",
@@ -2640,17 +2713,17 @@
         "surface_distance_mm": 0.0,
         "nearest_points": [
           [
-            21.206028329090906,
+            22.491652842950963,
             465.29998779296875,
-            257.9920642245391
+            258.32493239430187
           ],
           [
-            21.206028329090906,
+            22.491652842950963,
             465.29998779296875,
-            257.9920642245391
+            258.32493239430187
           ]
         ],
-        "mesh_overlap_mm3": 1.3070100557399655e-13
+        "mesh_overlap_mm3": 8.251732630526476e-14
       },
       {
         "a": "enclosure-back-top",
@@ -2932,8 +3005,8 @@
         "b": "digiten-flow",
         "status": "clear_distance_intervals",
         "queries": 1,
-        "minimum_queried_surface_distance_mm": 0.7493155297600645,
-        "certified_surface_separation_lower_bound_mm": 0.7493155297600645
+        "minimum_queried_surface_distance_mm": 0.649993896484375,
+        "certified_surface_separation_lower_bound_mm": 0.649993896484375
       },
       {
         "a": "enclosure-back-top",
@@ -3157,17 +3230,17 @@
         "surface_distance_mm": 0.0,
         "nearest_points": [
           [
-            -89.3238754272461,
-            258.32403564453125,
+            -89.29426574707031,
+            258.2839050292969,
             338.79998779296875
           ],
           [
-            -89.11213266559723,
-            258.3801634264794,
+            -89.10024947880419,
+            258.3353339552013,
             346.0
           ]
         ],
-        "mesh_overlap_mm3": 6.88338275267597e-14
+        "mesh_overlap_mm3": 6.705747068735946e-14
       },
       {
         "a": "enclosure-back-top",
@@ -3182,17 +3255,17 @@
         "surface_distance_mm": 0.0,
         "nearest_points": [
           [
-            89.38005065917969,
-            260.57659912109375,
+            85.85704803466797,
+            258.7146301269531,
             338.79998779296875
           ],
           [
-            89.61392272515556,
-            260.7380244934563,
+            85.91237554161006,
+            258.65548188076684,
             340.29998779296875
           ]
         ],
-        "mesh_overlap_mm3": 22.188401291916716
+        "mesh_overlap_mm3": 22.188401291916698
       },
       {
         "a": "enclosure-back-top",
@@ -3215,17 +3288,17 @@
         "surface_distance_mm": 0.0,
         "nearest_points": [
           [
-            -86.04752349853516,
-            260.6181335449219,
+            -89.54295349121094,
+            258.7146301269531,
             338.79998779296875
           ],
           [
-            -85.81439353204048,
-            260.7790466984156,
+            -89.48762598426885,
+            258.65548188076684,
             340.29998779296875
           ]
         ],
-        "mesh_overlap_mm3": 22.188401291916755
+        "mesh_overlap_mm3": 22.188401291916758
       },
       {
         "a": "enclosure-back-top",
@@ -3296,14 +3369,14 @@
         "surface_distance_mm": 0.0,
         "nearest_points": [
           [
-            -71.25,
+            -71.4749984741211,
             461.6000061035156,
-            283.28050089511294
+            283.32000732421875
           ],
           [
             -71.25,
             461.6000061035156,
-            283.28050089511294
+            282.5950012207031
           ]
         ],
         "mesh_overlap_mm3": 0.0
@@ -3688,16 +3761,16 @@
         "nearest_points": [
           [
             -96.98999786376953,
-            375.79294072879514,
-            286.113541818367
+            375.8501281738281,
+            286.1065979003906
           ],
           [
             -96.98999786376953,
-            375.79294072879514,
-            286.113541818367
+            375.8501281738281,
+            286.1065979003906
           ]
         ],
-        "mesh_overlap_mm3": 15.57076253928235
+        "mesh_overlap_mm3": 15.570762539282358
       },
       {
         "a": "enclosure-back-top",
@@ -3722,7 +3795,7 @@
             299.5844746759764
           ]
         ],
-        "mesh_overlap_mm3": 15.570762539282452
+        "mesh_overlap_mm3": 15.570762539282459
       },
       {
         "a": "enclosure-back-top",
@@ -3788,7 +3861,7 @@
             307.76165803292344
           ]
         ],
-        "mesh_overlap_mm3": 15.570762539282411
+        "mesh_overlap_mm3": 15.570762539282441
       },
       {
         "a": "enclosure-back-top",
@@ -3804,16 +3877,16 @@
         "nearest_points": [
           [
             -96.98999786376953,
-            376.7625732421875,
-            319.81072612535206
+            376.7178955078125,
+            319.79378130297283
           ],
           [
             -96.98999786376953,
-            376.7625732421875,
-            319.81072612535206
+            376.7178955078125,
+            319.79378130297283
           ]
         ],
-        "mesh_overlap_mm3": 15.570762539282487
+        "mesh_overlap_mm3": 15.570762539282493
       },
       {
         "a": "enclosure-back-top",
@@ -4231,7 +4304,7 @@
             337.8193796169883
           ]
         ],
-        "mesh_overlap_mm3": 0.00032158281638987475
+        "mesh_overlap_mm3": 0.0005018618139444242
       },
       {
         "a": "enclosure-back-top",
@@ -4278,17 +4351,17 @@
         "surface_distance_mm": 0.0,
         "nearest_points": [
           [
-            65.14226367915445,
+            63.54408264160156,
             295.81500244140625,
-            282.8330435291236
+            283.4565734863281
           ],
           [
-            65.14350891113281,
-            297.16485595703125,
-            282.8441162109375
+            63.42289195318499,
+            297.23640416990474,
+            283.57804230189316
           ]
         ],
-        "mesh_overlap_mm3": 0.00011161441851305351
+        "mesh_overlap_mm3": 0.00011161441862844339
       },
       {
         "a": "enclosure-back-top",
@@ -4359,8 +4432,8 @@
         "b": "asse-drain-adapter",
         "status": "clear_distance_intervals",
         "queries": 1,
-        "minimum_queried_surface_distance_mm": 4.228465657154203,
-        "certified_surface_separation_lower_bound_mm": 4.228465657154203
+        "minimum_queried_surface_distance_mm": 4.967769654159055,
+        "certified_surface_separation_lower_bound_mm": 4.967769654159055
       },
       {
         "a": "foam-cap-lid-top",
@@ -4383,16 +4456,16 @@
         "b": "bulkhead-drain",
         "status": "clear_distance_intervals",
         "queries": 1,
-        "minimum_queried_surface_distance_mm": 5.5905351661795795,
-        "certified_surface_separation_lower_bound_mm": 5.5905351661795795
+        "minimum_queried_surface_distance_mm": 5.52422018370782,
+        "certified_surface_separation_lower_bound_mm": 5.52422018370782
       },
       {
         "a": "foam-cap-lid-top",
         "b": "bulkhead-drain-nut",
         "status": "clear_distance_intervals",
         "queries": 1,
-        "minimum_queried_surface_distance_mm": 8.282712133780448,
-        "certified_surface_separation_lower_bound_mm": 8.282712133780448
+        "minimum_queried_surface_distance_mm": 8.11685883564616,
+        "certified_surface_separation_lower_bound_mm": 8.11685883564616
       },
       {
         "a": "foam-cap-lid-top",
@@ -4415,8 +4488,8 @@
         "b": "bulkhead-flavor-b",
         "status": "clear_distance_intervals",
         "queries": 1,
-        "minimum_queried_surface_distance_mm": 1.700085992623562,
-        "certified_surface_separation_lower_bound_mm": 1.700085992623562
+        "minimum_queried_surface_distance_mm": 1.4575294249688875,
+        "certified_surface_separation_lower_bound_mm": 1.4575294249688875
       },
       {
         "a": "foam-cap-lid-top",
@@ -4539,13 +4612,13 @@
         "surface_distance_mm": 0.0,
         "nearest_points": [
           [
-            59.15794885148127,
-            455.05223673136237,
+            57.504036213443214,
+            458.1048545647307,
             248.25
           ],
           [
-            59.15794885148127,
-            455.05223673136237,
+            57.504036213443214,
+            458.1048545647307,
             248.25
           ]
         ],
@@ -4664,13 +4737,13 @@
         "surface_distance_mm": 0.0,
         "nearest_points": [
           [
-            81.63805259285937,
-            430.6824138150343,
+            82.66266072959836,
+            429.94664458677545,
             248.25
           ],
           [
-            81.63805259285937,
-            430.6824138150343,
+            82.66266072959836,
+            429.94664458677545,
             248.25
           ]
         ],
@@ -5083,8 +5156,8 @@
         "b": "tube-drain-vent",
         "status": "clear_distance_intervals",
         "queries": 1,
-        "minimum_queried_surface_distance_mm": 8.041149064108627,
-        "certified_surface_separation_lower_bound_mm": 8.041149064108627
+        "minimum_queried_surface_distance_mm": 9.636769506315423,
+        "certified_surface_separation_lower_bound_mm": 9.636769506315423
       },
       {
         "a": "foam-cap-lid-top",
@@ -5099,14 +5172,14 @@
         "surface_distance_mm": 0.0,
         "nearest_points": [
           [
-            63.99999911734856,
+            63.64912516752844,
             205.7499969482422,
-            255.3249995044932
+            255.25938824385483
           ],
           [
-            64.0,
-            205.7499969482422,
-            255.3249969482422
+            63.60886811236581,
+            205.748055207703,
+            255.3724942276326
           ]
         ],
         "mesh_overlap_mm3": 0.0006657993049898665
@@ -5359,14 +5432,14 @@
         "surface_distance_mm": 0.0,
         "nearest_points": [
           [
-            64.0,
-            205.7499969482422,
-            255.3249969482422
+            63.60886811236581,
+            205.748055207703,
+            255.3724942276326
           ],
           [
-            63.99999911734856,
+            63.64912516752844,
             205.7499969482422,
-            255.3249995044932
+            255.25938824385483
           ]
         ],
         "mesh_overlap_mm3": 0.0006657993049908105
@@ -5774,17 +5847,17 @@
         "surface_distance_mm": 0.0,
         "nearest_points": [
           [
-            89.38005065917969,
-            260.57659912109375,
+            85.85704803466797,
+            258.7146301269531,
             338.79998779296875
           ],
           [
-            89.61392272515556,
-            260.7380244934563,
+            85.91237554161006,
+            258.65548188076684,
             340.29998779296875
           ]
         ],
-        "mesh_overlap_mm3": 22.188401291916716,
+        "mesh_overlap_mm3": 22.188401291916698,
         "resolution": "Named heat-set press interface. Host, insert, pose and finite annulus retain their measured native geometry; current wall/blind-floor witnesses are in wall-mount-review.json."
       },
       {
@@ -5800,17 +5873,17 @@
         "surface_distance_mm": 0.0,
         "nearest_points": [
           [
-            -86.04752349853516,
-            260.6181335449219,
+            -89.54295349121094,
+            258.7146301269531,
             338.79998779296875
           ],
           [
-            -85.81439353204048,
-            260.7790466984156,
+            -89.48762598426885,
+            258.65548188076684,
             340.29998779296875
           ]
         ],
-        "mesh_overlap_mm3": 22.188401291916755,
+        "mesh_overlap_mm3": 22.188401291916758,
         "resolution": "Named heat-set press interface. Host, insert, pose and finite annulus retain their measured native geometry; current wall/blind-floor witnesses are in wall-mount-review.json."
       },
       {
@@ -5931,16 +6004,16 @@
         "nearest_points": [
           [
             -96.98999786376953,
-            375.79294072879514,
-            286.113541818367
+            375.8501281738281,
+            286.1065979003906
           ],
           [
             -96.98999786376953,
-            375.79294072879514,
-            286.113541818367
+            375.8501281738281,
+            286.1065979003906
           ]
         ],
-        "mesh_overlap_mm3": 15.57076253928235,
+        "mesh_overlap_mm3": 15.570762539282358,
         "resolution": "Named heat-set press interface. Host, insert, pose and finite annulus retain their measured native geometry; current wall/blind-floor witnesses are in wall-mount-review.json."
       },
       {
@@ -5966,7 +6039,7 @@
             299.5844746759764
           ]
         ],
-        "mesh_overlap_mm3": 15.570762539282452,
+        "mesh_overlap_mm3": 15.570762539282459,
         "resolution": "Named heat-set press interface. Host, insert, pose and finite annulus retain their measured native geometry; current wall/blind-floor witnesses are in wall-mount-review.json."
       },
       {
@@ -5992,7 +6065,7 @@
             307.76165803292344
           ]
         ],
-        "mesh_overlap_mm3": 15.570762539282411,
+        "mesh_overlap_mm3": 15.570762539282441,
         "resolution": "Named heat-set press interface. Host, insert, pose and finite annulus retain their measured native geometry; current wall/blind-floor witnesses are in wall-mount-review.json."
       },
       {
@@ -6009,16 +6082,16 @@
         "nearest_points": [
           [
             -96.98999786376953,
-            376.7625732421875,
-            319.81072612535206
+            376.7178955078125,
+            319.79378130297283
           ],
           [
             -96.98999786376953,
-            376.7625732421875,
-            319.81072612535206
+            376.7178955078125,
+            319.79378130297283
           ]
         ],
-        "mesh_overlap_mm3": 15.570762539282487,
+        "mesh_overlap_mm3": 15.570762539282493,
         "resolution": "Named heat-set press interface. Host, insert, pose and finite annulus retain their measured native geometry; current wall/blind-floor witnesses are in wall-mount-review.json."
       },
       {
@@ -6079,7 +6152,7 @@
   },
   "current_capture": {
     "scope": "Current closed physical meshes: seated cap/receiver volume and caught 0.5 mm withdrawal; all six 1 mm meter-housing translations. Nominal geometric capture, with physical force and fatigue unqualified.",
-    "assembly_mesh_sha256": "1455d9085191e75fc301184e10689e6bd5d53f0458db3890a39cb5f9f2dc62f6",
+    "assembly_mesh_sha256": "ebc2affdf050f1b7454b0702e5d159d6e8b39eccdad0d6ed4ec1c5a79f3e9129",
     "caps": {
       "asse-snap-cap": {
         "seated_overlap_mm3": 0.0,
@@ -6129,11 +6202,11 @@
     },
     "meter_travel": {
       "0:-1": 251.36715210723472,
-      "0:+1": 52.79046118090428,
+      "0:+1": 52.839137740037536,
       "1:-1": 17.467630928733158,
-      "1:+1": 7.317720877437239,
+      "1:+1": 15.071045768227059,
       "2:-1": 22.80268614570142,
-      "2:+1": 30.872731623638476
+      "2:+1": 30.87273162363849
     },
     "pass": true
   },
@@ -6351,10 +6424,10 @@
     }
   },
   "cap_surface_completion": {
-    "scope": "One continuous rounded-hex ASSE cavity; lower outside meter-cap corner clearance. The central 9 mm meter spine, all fitted bearing surfaces, spring roots and hooks retain their specified stock. Both original A tube routes and the original D11 lid opening are retained.",
+    "scope": "One continuous six-flat ASSE cavity; lower outside meter-cap corner clearance, 2.54 mm meter-collar end wall and an open aft pump-mount corner beside the air passage. The central 9 mm meter spine, all fitted bearing surfaces, spring roots and hooks retain their specified stock. Both original A tube routes and the original D11 lid opening are retained.",
     "current_capture": {
       "scope": "Current closed physical meshes: seated cap/receiver volume and caught 0.5 mm withdrawal; all six 1 mm meter-housing translations. Nominal geometric capture, with physical force and fatigue unqualified.",
-      "assembly_mesh_sha256": "1455d9085191e75fc301184e10689e6bd5d53f0458db3890a39cb5f9f2dc62f6",
+      "assembly_mesh_sha256": "ebc2affdf050f1b7454b0702e5d159d6e8b39eccdad0d6ed4ec1c5a79f3e9129",
       "caps": {
         "asse-snap-cap": {
           "seated_overlap_mm3": 0.0,
@@ -6404,11 +6477,11 @@
       },
       "meter_travel": {
         "0:-1": 251.36715210723472,
-        "0:+1": 52.79046118090428,
+        "0:+1": 52.839137740037536,
         "1:-1": 17.467630928733158,
-        "1:+1": 7.317720877437239,
+        "1:+1": 15.071045768227059,
         "2:-1": 22.80268614570142,
-        "2:+1": 30.872731623638476
+        "2:+1": 30.87273162363849
       },
       "pass": true
     }

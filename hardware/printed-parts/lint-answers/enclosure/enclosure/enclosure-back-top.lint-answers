@@ -25,6 +25,7 @@ alternatives: 45° slot ends would change the receiver that the accepted namepla
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=-91.597 y=471.557 z=212.600
 click: x=15.456 y=471.557 z=212.600
+click: x=15.616 y=471.557 z=212.600
 
 [slope] Wrong slope classification for the nameplate's release diamond: its two roof faces stand 48° through the host wall and the receiver pad, Y462.3 to the pocket floor, a through-opening's gable roof carried by the stock beside it at every layer, not a corbel running along a wall.
 alternatives: Read hole roofs separately from sideways corbels.
@@ -275,6 +276,8 @@ click: x=93.940 y=263.999 z=264.062
 click: x=94.085 y=263.999 z=261.667
 click: x=94.215 y=263.999 z=252.926
 click: x=94.243 y=263.999 z=255.326
+click: x=93.940 y=266.001 z=264.062
+click: x=94.085 y=266.001 z=261.667
 
 [ceiling] Required common gas-carrier boundary: the two fixed-barrel seats share one 8 mm slab on Z293/301. The gas bodies, adjustment parts and collets occupy the space above that footprint. Tree(auto)/Default remains under the carrier; the source-bound Mark2 slice and its local support-path reading are in enclosure/enclosure/plain-mount-review. Physical support release remains unqualified.
 alternatives: Continuing the complete footprint to the roof enters the installed gas bodies. Retreating to a narrower roof column requires additional carrier transitions and long strap passages; a corbel requires further cuts around the gas bodies. The common flat slab preserves the selected bearings and one plain stock boundary.
@@ -301,32 +304,6 @@ click: x=-29.941 y=346.807 z=347.000
 alternatives: Moving the ground landing aft onto the core land reduces its fluted backing to 2.5 mm. Extending the adjacent land fore changes the retained core hold and dry-connector boundary.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=-50.442 y=461.700 z=315.694
-
-[sliver] Functional snap-seat catch bearings: the 0.85 mm horizontal face is the cap’s 0.60 mm engagement plus 0.25 mm running allowance. The spring walls and seat stock retain their 3 mm section. The square bearing captures the ASSE, Pisco, regulator or meter cap after insertion. Tree(auto)/Default approaches through the empty snap mouth before hardware installation; physical cleanup and spring life are not established by geometry.
-alternatives: Sloping the bearing provides a withdrawal ramp; filling beneath it occupies the spring-hook path. A 3 mm reach needs another 2.15 mm of spring travel and wider matching pockets. Thickening the vertical wall does not enlarge this horizontal bearing.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=17.027 y=417.284 z=331.250
-click: x=57.473 y=417.284 z=331.250
-click: x=87.550 y=416.000 z=308.825
-click: x=-29.174 y=291.529 z=338.000
-click: x=-29.174 y=323.785 z=338.000
-click: x=65.490 y=428.173 z=338.000
-click: x=89.510 y=428.173 z=338.000
-click: x=87.550 y=427.505 z=265.375
-
-[ceiling] Functional snap-seat catch bearings: the 0.85 mm horizontal face is the cap’s 0.60 mm engagement plus 0.25 mm running allowance. The spring walls and seat stock retain their 3 mm section. The square bearing captures the ASSE, Pisco, regulator or meter cap after insertion. Tree(auto)/Default approaches through the empty snap mouth before hardware installation; physical cleanup and spring life are not established by geometry.
-alternatives: Sloping the bearing provides a withdrawal ramp; filling beneath it occupies the spring-hook path. A 3 mm reach needs another 2.15 mm of spring travel and wider matching pockets. Thickening the vertical wall does not enlarge this horizontal bearing.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=17.027 y=417.284 z=331.250
-click: x=57.473 y=417.284 z=331.250
-
-[ledge] Functional snap-seat catch bearings: the 0.85 mm horizontal face is the cap’s 0.60 mm engagement plus 0.25 mm running allowance. The spring walls and seat stock retain their 3 mm section. The square bearing captures the ASSE, Pisco, regulator or meter cap after insertion. Tree(auto)/Default approaches through the empty snap mouth before hardware installation; physical cleanup and spring life are not established by geometry.
-alternatives: Sloping the bearing provides a withdrawal ramp; filling beneath it occupies the spring-hook path. A 3 mm reach needs another 2.15 mm of spring travel and wider matching pockets. Thickening the vertical wall does not enlarge this horizontal bearing.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=65.631 y=425.480 z=338.000
-click: x=89.652 y=425.480 z=338.000
-click: x=-32.541 y=291.670 z=338.000
-click: x=-32.541 y=323.643 z=338.000
 
 [sliver] Fitted ASSE round-to-wrench transition: this axial end face separates the swept round-body clearance from the wrench-flat pocket. The 0.801 mm face width is the difference between those two fitted profiles, with 0.25 mm running clearance, 1.5 mm thread-position allowance and 16 mm insertion travel.
 alternatives: Filling to the smaller profile enters the swept body envelope. Replacing both with the larger circular profile removes the hex-flat locating contact; enlarging the complete seat and cap changes their matched wrench capture.
@@ -362,14 +339,6 @@ click: x=-85.000 y=462.225 z=263.850
 click: x=-85.000 y=462.225 z=296.350
 click: x=-61.000 y=462.225 z=265.850
 
-[thin] Fitted meter aft end wall: its 2.44 mm section lies between the complete swept housing pocket ending at Y443.56 and the seat end at Y446. The neighboring CARB receiving union’s occupied envelope begins at Y446.510. This end plane retains the meter’s axial clearance while keeping that neighboring envelope clear.
-alternatives: Growing the wall to 3 mm moves its end to Y446.56, 0.05 mm into the neighboring occupied envelope. Moving the meter fore instead changes its direct SODA stub, both snap interfaces and the R14 inlet/foam holder. Narrowing its fitted pocket spends the housing and axial-position allowance.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=86.216 y=446.000 z=297.297
-click: x=86.216 y=443.560 z=297.297
-click: x=85.861 y=443.560 z=291.716
-click: x=85.861 y=446.000 z=291.716
-
 [ledge] Complete lower boundary of the six-port nut-seat relief: the rectangular field ends at Z250 below the Z264 row, retaining one flat 6 mm rear panel behind the nuts. The ranked face is the east end of that boundary where it meets the rounded case, rather than an added pad. Back-top prints ceiling-down; Tree(auto)/Default approaches through the empty interior before the fittings and labels are installed.
 alternatives: Extending the relief downward changes the wall adjacent to the accepted nameplate receiver. Filling or sloping its floor changes the common nut-installation field; separate local pockets add face breaks around the six fittings.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
@@ -382,3 +351,91 @@ click: x=13.351 y=398.800 z=346.625
 click: x=-39.898 y=398.800 z=346.625
 click: x=-13.274 y=453.550 z=346.625
 click: x=-13.274 y=344.050 z=346.625
+
+[step] Fitted PSU case running-well boundary: the case well ends at Z347.25, 1.25 mm above the ordinary inner roof and 0.25 mm above the screw-ear bearing plane. The rectangular boundary clears the complete purchased case while retaining the four mounting-ear planes and 3 mm above every blind insert pilot.
+alternatives: Removing the well lowers the PSU 1.25 mm and enters the pump snap arch by about 0.95 mm. Raising the surrounding inner roof changes the enclosure ceiling and its equipment seats. The well retains the selected mechanical clearance without moving those assemblies.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=-42.691 y=346.807 z=347.000
+
+[sliver] Fitted PSU case running-well boundary: the case well ends at Z347.25, 1.25 mm above the ordinary inner roof and 0.25 mm above the screw-ear bearing plane. The rectangular boundary clears the complete purchased case while retaining the four mounting-ear planes and 3 mm above every blind insert pilot.
+alternatives: Removing the well lowers the PSU 1.25 mm and enters the pump snap arch by about 0.95 mm. Raising the surrounding inner roof changes the enclosure ceiling and its equipment seats. The well retains the selected mechanical clearance without moving those assemblies.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=-26.024 y=344.050 z=346.625
+click: x=-26.024 y=453.550 z=346.625
+click: x=-52.648 y=398.800 z=346.625
+click: x=0.600 y=398.800 z=346.625
+
+[sliver] Fitted ASSE round-to-wrench transition: this axial end face separates the swept round-body clearance from the wrench-flat pocket. The 0.801 mm face width is the difference between those two fitted profiles, with 0.25 mm running clearance, 1.5 mm thread-position allowance and 16 mm insertion travel.
+alternatives: Filling to the smaller profile enters the swept body envelope. Replacing both with the larger circular profile removes the hex-flat locating contact; enlarging the complete seat and cap changes their matched wrench capture.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=20.687 y=401.452 z=342.489
+
+[sliver] Fitted relay-board edge capture: these are the bearing and retaining faces for the 1.5 mm PCB with 0.25 mm edge clearance. Each ledge retains 3 mm stock, the upper lip overlaps the PCB edge by 1.25 mm, and the underside leaves the specified 2.5 mm pin room. The board enters from the fore edge before the two header screws are fitted. Automatic supports are removed through the open inboard face before installation.
+alternatives: Filling the edge slot occupies the PCB; removing the lip loses the terminal-end capture. Sloping its flat catch creates a release ramp. Extending the rail across the underside enters the terminal-pin envelope.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=-92.740 y=441.225 z=286.782
+click: x=-92.740 y=441.225 z=303.032
+click: x=-92.740 y=441.225 z=307.282
+click: x=-92.740 y=441.225 z=323.532
+click: x=-94.490 y=441.225 z=286.782
+click: x=-94.490 y=441.225 z=303.032
+click: x=-94.490 y=441.225 z=307.282
+click: x=-94.490 y=441.225 z=323.532
+
+[ceiling] Fitted meter housing and snap profiles: the flat faces bound the complete housing flange, screw bosses, lead exit and cap hook, including the 16 mm aft installation sweep and 0.5 mm axial variation. They are the purchased-body and working-catch boundaries of one east-wall seat. Tree(auto)/Default reaches them through the empty west/fore opening before the meter is installed; geometric access does not establish easy support removal.
+alternatives: Filling or corbelling into these faces enters the housing/insertion sweep or cap-hook path. Sloping the catch changes retention; shortening the housing pocket spends the required complete envelope.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=85.625 y=416.000 z=306.750
+click: x=88.300 y=408.010 z=260.300
+click: x=89.600 y=392.585 z=263.900
+click: x=89.600 y=423.435 z=263.900
+click: x=89.950 y=416.000 z=303.900
+click: x=90.775 y=416.000 z=309.250
+click: x=94.850 y=408.010 z=263.850
+
+[ceiling] Functional bottom stops of the two continuous label channels: each 32.3 by 2.0 mm flat locates the sliding tile stack at Z252, with the channel open to the rear before the tiles are inserted. Tree(auto)/Default supports can leave through that mouth before installation; removal quality remains a print-preparation question.
+alternatives: A sloped stop changes the tile’s bottom bearing and bore registration. Filling the channel blocks tile insertion; removing the stop loses its axial datum.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=28.800 y=470.299 z=252.000
+click: x=76.500 y=470.299 z=252.000
+
+[ceiling] Fitted relay-board edge capture: these are the bearing and retaining faces for the 1.5 mm PCB with 0.25 mm edge clearance. Each ledge retains 3 mm stock, the upper lip overlaps the PCB edge by 1.25 mm, and the underside leaves the specified 2.5 mm pin room. The board enters from the fore edge before the two header screws are fitted. Automatic supports are removed through the open inboard face before installation.
+alternatives: Filling the edge slot occupies the PCB; removing the lip loses the terminal-end capture. Sloping its flat catch creates a release ramp. Extending the rail across the underside enters the terminal-pin envelope.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=-94.120 y=441.225 z=327.157
+click: x=-96.495 y=381.225 z=327.157
+
+[ceiling] Fitted v3 snap catch: the horizontal pocket projects 2.85 mm for 2.60 mm hook engagement and 0.25 mm running allowance. The free cap leaves are 2.0 mm with R1.5 roots; receiver walls retain 3 mm stock. These square faces provide positive capture. Tree(auto)/Default supports leave through the empty flank mouths before hardware and caps are fitted; the centered screwdriver entries release the catches. Physical release force and repeated bending remain unqualified.
+alternatives: Filling the pocket occupies the moving hook and leaf. Sloping its bearing makes a withdrawal ramp; reducing its reach reduces the selected capture. Increasing the wall thickness does not remove this working catch surface.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=-37.324 y=290.529 z=339.815
+click: x=-37.324 y=324.785 z=339.815
+click: x=50.023 y=417.284 z=339.850
+click: x=66.019 y=428.423 z=339.850
+click: x=7.577 y=417.284 z=339.850
+click: x=86.981 y=428.423 z=339.850
+
+[thin] Measured regulator outlet-neck bearing: the 1.854 mm minimum is the axial web between the purchased housing shoulder and the outlet collar, from its radius profile near native X48.8–52.1. The receiver keeps 0.30 mm radial and 0.25 mm axial clearance; the matched cap uses 0.25 mm radial clearance. This narrow bearing locates the regulator axially while its broad body saddle carries the housing.
+alternatives: Adding axial stock enters the housing or outlet collar. Removing the web loses shoulder capture; widening the hardware neck requires a different regulator. Thickening the surrounding roof does not change this fitted axial web.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=-40.878 y=307.092 z=340.073
+click: x=-42.557 y=307.124 z=339.289
+
+[ledge] Fitted relay-board edge capture: these are the bearing and retaining faces for the 1.5 mm PCB with 0.25 mm edge clearance. Each ledge retains 3 mm stock, the upper lip overlaps the PCB edge by 1.25 mm, and the underside leaves the specified 2.5 mm pin room. The board enters from the fore edge before the two header screws are fitted. Automatic supports are removed through the open inboard face before installation.
+alternatives: Filling the edge slot occupies the PCB; removing the lip loses the terminal-end capture. Sloping its flat catch creates a release ramp. Extending the rail across the underside enters the terminal-pin envelope.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=-90.740 y=440.267 z=287.407
+click: x=-90.740 y=440.267 z=307.907
+click: x=-93.323 y=440.267 z=286.157
+click: x=-93.323 y=440.267 z=306.657
+click: x=-95.323 y=381.066 z=287.407
+click: x=-95.323 y=381.100 z=307.907
+click: x=-96.157 y=442.183 z=287.407
+click: x=-96.157 y=442.183 z=307.907
+click: x=-97.827 y=381.577 z=286.157
+click: x=-97.827 y=381.933 z=306.657
+
+[ledge] Complete lower boundary of the six-port nut-seat relief: the rectangular field ends at Z250 below the Z264 row, retaining one flat 6 mm rear panel behind the nuts. The ranked face is the east end of that boundary where it meets the rounded case, rather than an added pad. Back-top prints ceiling-down; Tree(auto)/Default approaches through the empty interior before the fittings and labels are installed.
+alternatives: Extending the relief downward changes the wall adjacent to the accepted nameplate receiver. Filling or sloping its floor changes the common nut-installation field; separate local pockets add face breaks around the six fittings.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=85.971 y=464.611 z=250.000
