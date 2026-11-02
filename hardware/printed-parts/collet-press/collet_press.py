@@ -13,11 +13,11 @@ Run:
 
 from __future__ import annotations
 
+import argparse
 import math
 import sys
 from pathlib import Path
 
-import cadquery as cq
 
 
 _here = Path(__file__).resolve().parent
@@ -27,14 +27,26 @@ sys.path.insert(0, str(_hardware / "scripts"))
 sys.path.insert(0, str(_repo / "tools"))
 sys.path.insert(0, str(_hardware / "reference" / "jg-pp0408w"))
 
-from _cadq_export import (  # noqa: E402
-    _write_mesh_payload,
-    export_assembly,
-    note_write,
-)
-from _materials import M_PETGF_BLACK, one_body  # noqa: E402
-from docgen import substitute_md  # noqa: E402
+if __name__ == "__main__":
+    import _rust_part
+    _rust_part.start()
+
 import jg_pp0408w as jg  # noqa: E402
+
+
+def __getattr__(name):
+    import importlib
+    if name == "cq":
+        value = importlib.import_module("cadquery")
+    else:
+        modules = {"_write_mesh_payload": "_cadq_export", "export_assembly": "_cadq_export",
+                   "note_write": "_cadq_export", "M_PETGF_BLACK": "_materials",
+                   "one_body": "_materials", "substitute_md": "docgen"}
+        if name not in modules:
+            raise AttributeError(name)
+        value = getattr(importlib.import_module(modules[name]), name)
+    globals()[name] = value
+    return value
 
 
 # --- working fit -----------------------------------------------------------
@@ -101,6 +113,8 @@ def _rounded_prism(
     center_x: float,
 ) -> cq.Workplane:
     """Z extrusion of a plan-view rounded rectangle."""
+    import cadquery as cq
+    import _cadq_export
     return (
         cq.Workplane("XY")
         .center(center_x, 0.0)
@@ -113,6 +127,8 @@ def _rounded_prism(
 
 def build_handle() -> cq.Workplane:
     """Broad bed-contact paddle ending on the head's own 45° underside."""
+    import cadquery as cq
+    import _cadq_export
     # The raw rounded prism deliberately runs beyond the desired front.  The
     # XZ half-space then removes its whole nose on z = x + HEAD_Z_SHIFT, so no
     # horizontal material survives beyond the rising head.
@@ -145,6 +161,8 @@ def build_handle() -> cq.Workplane:
 
 def build_head_local() -> cq.Workplane:
     """The U-head before its local U/Y/W frame is tilted into world XYZ."""
+    import cadquery as cq
+    import _cadq_export
     outer = (
         cq.Workplane("XY")
         .center(HEAD_CENTER_U, 0.0)
@@ -202,6 +220,8 @@ def build_head() -> cq.Workplane:
 
 def build() -> cq.Workplane:
     """One supportless solid: flat handle, buried root, angled U-head."""
+    import cadquery as cq
+    import _cadq_export
     handle = build_handle()
     tool = handle.union(build_head()).clean()
 
@@ -229,13 +249,19 @@ def build() -> cq.Workplane:
     return tool
 
 
-def main() -> None:
+def _native_main(output=None) -> None:
+    import cadquery as cq
+    import _cadq_export
+    from _cadq_export import _write_mesh_payload, export_assembly, note_write
+    from _materials import M_PETGF_BLACK, one_body
     tool = build()
     solid = tool.val()
     bb = solid.BoundingBox()
 
-    step_out = _here / "collet-press.step"
-    stl_out = _here / "collet-press.stl"
+    out = Path(output) if output is not None else _here
+    out.mkdir(parents=True, exist_ok=True)
+    step_out = out / "collet-press.step"
+    stl_out = out / "collet-press.stl"
     payload_out = Path(str(step_out) + ".mesh")
     assembly = one_body(tool, "collet-press", M_PETGF_BLACK)
     export_assembly(assembly, str(step_out))
@@ -254,6 +280,30 @@ def main() -> None:
         f"volume {solid.Volume() / 1000.0:.2f} cm^3"
     )
 
+    _document(bb, solid.Volume())
+
+
+def numbers():
+    """The original handle, U-profile and print-pose dimensions."""
+    from _materials import M_PETGF_BLACK, linear
+    z0, z1 = -1.0, HANDLE_THICKNESS + 1.0
+    return {
+        "head_back": HEAD_BACK_U, "head_front": HEAD_FRONT_U,
+        "head_width": HEAD_WIDTH, "head_thickness": HEAD_THICKNESS,
+        "head_angle": HEAD_ANGLE, "head_z_shift": HEAD_Z_SHIFT,
+        "jaw_gap": JAW_GAP, "jaw_root": JAW_ROOT_U, "tip_radius": TIP_RADIUS,
+        "handle_x": [HANDLE_REAR_X, HANDLE_FRONT_TOP_X + 2.0],
+        "handle_width": HANDLE_WIDTH, "handle_thickness": HANDLE_THICKNESS,
+        "handle_corner_radius": HANDLE_CORNER_RADIUS,
+        "handle_clip": [HANDLE_REAR_X - 2.0, z0, _head_underside_x(z0), z0,
+                        _head_underside_x(z1), z1, HANDLE_REAR_X - 2.0, z1],
+        "tube_diameter": jg.PORT_D, "collet_bore": jg.COLLET_BORE,
+        "color": list(linear(M_PETGF_BLACK)),
+    }
+
+
+def _document(bb, volume):
+    from docgen import substitute_md
     variables = {
         "TUBE_D": f"{jg.PORT_D:.2f} mm",
         "JAW_GAP": f"{JAW_GAP:.2f} mm",
@@ -278,11 +328,30 @@ def main() -> None:
         "TOOL_X": f"{bb.xlen:.1f} mm",
         "TOOL_Y": f"{bb.ylen:.1f} mm",
         "TOOL_Z": f"{bb.zlen:.1f} mm",
-        "TOOL_VOLUME": f"{solid.Volume() / 1000.0:.1f} cm³",
+        "TOOL_VOLUME": f"{volume / 1000.0:.1f} cm³",
     }
     substitute_md(_here / "README.md", variables=variables)
     print("-> README.md")
 
 
+
+def main(output=None, native=False):
+    if native:
+        return _native_main(output)
+    import _rust_part
+    from types import SimpleNamespace
+    out = Path(output) if output is not None else _here
+    out.mkdir(parents=True, exist_ok=True)
+    said = _rust_part.cut("tooling", "collet-press", numbers(), out)
+    body = said["bodies"][0]
+    span = [high - low for high, low in zip(body["max"], body["min"])]
+    _document(SimpleNamespace(xlen=span[0], ylen=span[1], zlen=span[2]), body["volume"])
+    print(f"-> collet-press STEP, STL, fine model and payload; {body['volume'] / 1000:.2f} cm3")
+
+
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--output", type=Path)
+    parser.add_argument("--native", action="store_true")
+    options = parser.parse_args()
+    main(options.output, options.native)
