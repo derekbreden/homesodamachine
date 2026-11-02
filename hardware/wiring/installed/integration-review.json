@@ -1,9 +1,9 @@
 {
   "schema": 1,
   "scope": "Wiring-only integration; existing physical parts retained",
-  "physical_step_sha256": "125d2257431913bd6c44e679a6dba570a0ab279a492b48adedbc03251d4cb6cf",
-  "installed_step_sha256": "fe4dfd97a9a19ec03566672446d93584806ff2927c324acc96e393f762e16654",
-  "physical_records_retained": 2596536,
+  "physical_step_sha256": "500579f42d5aa3edec3542fa65d33711a52cd19626838114cc63a6eab82d0c3d",
+  "installed_step_sha256": "bb4d7807285bdd7d6fb4495d3a9a415600ba6717f94b291489f78fb8708cbb5a",
+  "physical_records_retained": 2596169,
   "physical_meshes_retained": 454,
   "wiring_meshes": 119,
   "all_retained_viewer_arrays_identical": true,

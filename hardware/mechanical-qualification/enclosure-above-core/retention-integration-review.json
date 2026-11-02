@@ -1,8 +1,8 @@
 {
   "schema": "enclosure-retention-integration-review/1",
   "scope": "Completed enclosure geometry, exact physical print assets, nominal assembly and service paths, mounted junctions and final wire routes. All 100 conductors are clear of larger bodies; wire-wire and wire-tube contacts are excluded. Physical retention, release force, spring life, vibration and support cleanup require printed articles.",
-  "assembly_step_sha256": "fe4dfd97a9a19ec03566672446d93584806ff2927c324acc96e393f762e16654",
-  "assembly_mesh_sha256": "5c168985d157d9fd5b31a471208abaf762f96c38922eb9d356ae219969180c32",
+  "assembly_step_sha256": "bb4d7807285bdd7d6fb4495d3a9a415600ba6717f94b291489f78fb8708cbb5a",
+  "assembly_mesh_sha256": "9c0247fb4ec0826f175fb84615660a09b3a8a863d745045c24b5dc510de623de",
   "native_parent": {
     "scope": "Retained native proof of unchanged equipment poses, selected finite mating regions, mounting stock, pump geometry and tube bend minima. Current cap surfaces and the finished lid are bound in the separate current readings.",
     "baseline_step_sha256": "c264aefc6a1a1304af27e06af353ba9819de9be0daf85c3647c2a01058f7ebd7",
@@ -8678,51 +8678,14 @@
         }
       },
       "current_parent_binding": {
-        "assembly_step_sha256": "fe4dfd97a9a19ec03566672446d93584806ff2927c324acc96e393f762e16654",
-        "assembly_mesh_sha256": "5c168985d157d9fd5b31a471208abaf762f96c38922eb9d356ae219969180c32",
-        "scope": "The complete exact native back-top change removes 266.888893 mm3 and adds no stock. All other 453 physical viewer members and all 119 installed wiring viewer members are byte-identical across every channel. Prior zero contacts, complete motion intervals and conservative lever sweeps remain clear under this subtraction. All wire route, terminal and source records are unchanged except the physical-scene digest.",
-        "physical_step_sha256": "125d2257431913bd6c44e679a6dba570a0ab279a492b48adedbc03251d4cb6cf",
-        "physical_mesh_sha256": "1bfdece9fe2e8692db4188866db134c476b76f259dd98ea07fb1732eae86c849",
-        "delta": {
-          "scope": "Replace the live/neutral cluster roof ramp with one level 3 mm roof beneath the data-jack seat. Apply only the subtractive actual local template difference; preserve all purchased-body poses, accepted jack catches and every other physical member.",
-          "removed_template_mm3": 266.88889346953016,
-          "actual_removed_mm3": 266.8888934530494,
-          "actual_added_mm3": 0,
-          "delta_region_mm": [
-            [
-              -98.0,
-              457.0,
-              279.0
-            ],
-            [
-              -56.0,
-              464.0,
-              287.0
-            ]
-          ],
-          "hosts": {
-            "hardware/manifold-layout/enclosure-assembly.step": {
-              "step_sha256": "125d2257431913bd6c44e679a6dba570a0ab279a492b48adedbc03251d4cb6cf",
-              "payload_sha256": "1bfdece9fe2e8692db4188866db134c476b76f259dd98ea07fb1732eae86c849",
-              "changed_members": [
-                "enclosure-back-top"
-              ]
-            },
-            "hardware/printed-parts/enclosure/enclosure/enclosure.step": {
-              "step_sha256": "7c86fe304981aab639fdc90788dff873703dc5ba55d731f3b7eaf650ba9e49fc",
-              "payload_sha256": "7e453ed8f0aa35ecaa34a5cf58c22fa590b664963253e3a9a723e0eebaf63ce6",
-              "changed_members": [
-                "enclosure-back-top"
-              ]
-            }
-          },
-          "final_installed_step_sha256": "fe4dfd97a9a19ec03566672446d93584806ff2927c324acc96e393f762e16654",
-          "final_installed_payload_sha256": "5c168985d157d9fd5b31a471208abaf762f96c38922eb9d356ae219969180c32",
-          "back_top_stl_sha256": "7486de436d7c33dc1232e29a9b009a78bfa720ead387cd436db98477d47396f2"
-        },
-        "other_physical_members_identical": 453,
-        "wire_members_identical": 119,
-        "routes_and_terminal_records_identical": true
+        "assembly_step_sha256": "bb4d7807285bdd7d6fb4495d3a9a415600ba6717f94b291489f78fb8708cbb5a",
+        "assembly_mesh_sha256": "9c0247fb4ec0826f175fb84615660a09b3a8a863d745045c24b5dc510de623de",
+        "physical_step_sha256": "500579f42d5aa3edec3542fa65d33711a52cd19626838114cc63a6eab82d0c3d",
+        "physical_mesh_sha256": "fb05b9fce452fbd92c169a46dcc932274fecbee66358aa97b5b68b512df69530",
+        "record": "hardware/mechanical-qualification/enclosure-above-core/retention-integration-review.json",
+        "section": "completed_junction_and_wire_integration.current_solid_level_roof",
+        "proof_sha256": "62241b4abe3fdb45a5c5b2c30d52c6d610a007d3da421e2d01ee723adb02c7e0",
+        "scope": "The central reading binds the complete roof addition, unchanged physical/wire members, native contacts, all 100 conductors, ten lever envelopes and the complete rear closing interval."
       },
       "current_lever_access": {
         "scope": "Manual conservative 6.85 mm lever-swing envelopes over the complete front half of all nine mounted WAGOs. Test each on its populated removable parent with the other parents separated on the bench. The rear junctions are wired before back-top is closed over the cold core. Conductors are dressed afterward.",
@@ -10259,17 +10222,17 @@
       "all_actual_wire_entries_clear": true,
       "actual_conductor_review": {
         "path": "hardware/wiring/installed/contact-review.json",
-        "sha256": "14a211f9e41c3e9d70ad3fb793b3fe6037d208c1c9777348d1df8e6db204b6ca",
+        "sha256": "320b4361e03346d1ed2dcb5b1771c21cff5c8e0a71605838c86a2bd181632fdf",
         "unresolved": []
       }
     },
     "free_junctions": {
       "schema": 2,
       "scope": "All three final free WAGO bodies from the production closed-solid model against every installed non-wire body, including tubing and printed hosts. Nominal static placement only.",
-      "assembly_step_sha256": "fe4dfd97a9a19ec03566672446d93584806ff2927c324acc96e393f762e16654",
-      "assembly_mesh_sha256": "5c168985d157d9fd5b31a471208abaf762f96c38922eb9d356ae219969180c32",
+      "assembly_step_sha256": "bb4d7807285bdd7d6fb4495d3a9a415600ba6717f94b291489f78fb8708cbb5a",
+      "assembly_mesh_sha256": "9c0247fb4ec0826f175fb84615660a09b3a8a863d745045c24b5dc510de623de",
       "wiring_model_sha256": "be4fead4405ecf422a95f75206a561dece2896de4bd28ad4d52f28e513e76dab",
-      "manifest_sha256": "8c5ab1bc491e2067d27d3d053b88fe3168c9c1d33d8463097c415e1a8bb1e9ef",
+      "manifest_sha256": "2a7b70e92ebee5641d3bc9b5daa9950774b7feb35ced7d4e3828a461f999ddf7",
       "reader_sha256": "dda633caae0cffe7eed5d3211606409c326912961737f864e22a4078c34c2add",
       "bodies": {
         "wiring-junction-compressor-h": {
@@ -10479,11 +10442,11 @@
       "unresolved": [],
       "all_free_wagos_clear": true,
       "retained_measured_artifact_binding": {
-        "assembly_step_sha256": "d534a641b9b7018890fb103416b73c468f2f60b20d35982ac9f089d9e4168923",
-        "assembly_mesh_sha256": "f9b8d9c352483a94529ea85fc5d5bdd71e03e637809dd12d57fa65e49d5b13b2",
-        "manifest_sha256": "0e559a1eb1209fc65ffbf4d8b3e3f51203a72ce62041f855dea3b78c78ed8d92"
+        "assembly_step_sha256": "fe4dfd97a9a19ec03566672446d93584806ff2927c324acc96e393f762e16654",
+        "assembly_mesh_sha256": "5c168985d157d9fd5b31a471208abaf762f96c38922eb9d356ae219969180c32",
+        "manifest_sha256": "8c5ab1bc491e2067d27d3d053b88fe3168c9c1d33d8463097c415e1a8bb1e9ef"
       },
-      "current_subtractive_host_binding": {
+      "retained_subtractive_host_binding": {
         "assembly_step_sha256": "fe4dfd97a9a19ec03566672446d93584806ff2927c324acc96e393f762e16654",
         "assembly_mesh_sha256": "5c168985d157d9fd5b31a471208abaf762f96c38922eb9d356ae219969180c32",
         "scope": "The complete exact native back-top change removes 266.888893 mm3 and adds no stock. All other 453 physical viewer members and all 119 installed wiring viewer members are byte-identical across every channel. Prior zero contacts, complete motion intervals and conservative lever sweeps remain clear under this subtraction. All wire route, terminal and source records are unchanged except the physical-scene digest.",
@@ -10529,6 +10492,16 @@
         "other_physical_members_identical": 453,
         "wire_members_identical": 119,
         "routes_and_terminal_records_identical": true
+      },
+      "current_roof_material_binding": {
+        "assembly_step_sha256": "bb4d7807285bdd7d6fb4495d3a9a415600ba6717f94b291489f78fb8708cbb5a",
+        "assembly_mesh_sha256": "9c0247fb4ec0826f175fb84615660a09b3a8a863d745045c24b5dc510de623de",
+        "physical_step_sha256": "500579f42d5aa3edec3542fa65d33711a52cd19626838114cc63a6eab82d0c3d",
+        "physical_mesh_sha256": "fb05b9fce452fbd92c169a46dcc932274fecbee66358aa97b5b68b512df69530",
+        "record": "hardware/mechanical-qualification/enclosure-above-core/retention-integration-review.json",
+        "section": "completed_junction_and_wire_integration.current_solid_level_roof",
+        "proof_sha256": "62241b4abe3fdb45a5c5b2c30d52c6d610a007d3da421e2d01ee723adb02c7e0",
+        "scope": "The central reading binds the complete roof addition, unchanged physical/wire members, native contacts, all 100 conductors, ten lever envelopes and the complete rear closing interval."
       }
     },
     "wire_contact_review": "hardware/wiring/installed/contact-review.json",
@@ -10618,6 +10591,711 @@
         "final_installed_step_sha256": "fe4dfd97a9a19ec03566672446d93584806ff2927c324acc96e393f762e16654",
         "final_installed_payload_sha256": "5c168985d157d9fd5b31a471208abaf762f96c38922eb9d356ae219969180c32",
         "back_top_stl_sha256": "7486de436d7c33dc1232e29a9b009a78bfa720ead387cd436db98477d47396f2"
+      },
+      "other_physical_members_identical": 453,
+      "wire_members_identical": 119,
+      "routes_and_terminal_records_identical": true
+    },
+    "current_solid_level_roof": {
+      "assembly_step_sha256": "bb4d7807285bdd7d6fb4495d3a9a415600ba6717f94b291489f78fb8708cbb5a",
+      "assembly_mesh_sha256": "9c0247fb4ec0826f175fb84615660a09b3a8a863d745045c24b5dc510de623de",
+      "scope": "The complete exact native back-top change fills the unused 1.5 mm slot above the live well. The added stock clears the complete mechanical scene, all 100 production conductors, all ten lever envelopes and the full 300 mm rear closing interval. All other 453 physical viewer members and all 119 installed wiring viewer members are byte-identical across every channel. All earlier unchanged contacts and service stages retain their readings; the complete added-stock checks extend them to this host. All wire route, terminal and source records are unchanged except the physical-scene digest.",
+      "physical_step_sha256": "500579f42d5aa3edec3542fa65d33711a52cd19626838114cc63a6eab82d0c3d",
+      "physical_mesh_sha256": "fb05b9fce452fbd92c169a46dcc932274fecbee66358aa97b5b68b512df69530",
+      "delta": {
+        "scope": "Fill the unused 1.5 mm slot above the live junction into the common level roof beneath the data-jack seat. Apply only the actual local template addition; preserve all purchased-body poses, accepted jack catches and every other physical member.",
+        "added_template_mm3": 168.8216264839657,
+        "removed_template_mm3": 0,
+        "actual_removed_mm3": 0,
+        "actual_added_mm3": 168.82162648387313,
+        "delta_region_mm": [
+          [
+            -98.0,
+            457.0,
+            275.0
+          ],
+          [
+            -56.0,
+            464.0,
+            278.0
+          ]
+        ],
+        "hosts": {
+          "hardware/manifold-layout/enclosure-assembly.step": {
+            "step_sha256": "500579f42d5aa3edec3542fa65d33711a52cd19626838114cc63a6eab82d0c3d",
+            "payload_sha256": "fb05b9fce452fbd92c169a46dcc932274fecbee66358aa97b5b68b512df69530",
+            "changed_members": [
+              "enclosure-back-top"
+            ]
+          },
+          "hardware/printed-parts/enclosure/enclosure/enclosure.step": {
+            "step_sha256": "1f0296293f716fd1fa6b7e450608dae4bc08938f3d245218feb2864dda79e719",
+            "payload_sha256": "85ca748e4e279856e34fb9bc89708cd809ef331877563f03d35f58da86598bf1",
+            "changed_members": [
+              "enclosure-back-top"
+            ]
+          }
+        },
+        "final_installed_step_sha256": "bb4d7807285bdd7d6fb4495d3a9a415600ba6717f94b291489f78fb8708cbb5a",
+        "final_installed_payload_sha256": "9c0247fb4ec0826f175fb84615660a09b3a8a863d745045c24b5dc510de623de",
+        "back_top_stl_sha256": "b09196f41a6a0ac2b67ec14ad77c2d17af4747feca3649ecdcd862361eb09c68"
+      },
+      "added_stock_review": {
+        "scope": "Exact native added roof stock against every neighboring mechanical body, all 100 production conductors against the closed added solid, and the complete 300 mm rear closure interval over the retained cold core. Only the named loose pump-inlet handoff prerequisites remain. All other bodies, poses, lever envelopes and wire curves are unchanged.",
+        "physical_step_sha256": "500579f42d5aa3edec3542fa65d33711a52cd19626838114cc63a6eab82d0c3d",
+        "added_stock_stl_sha256": "a4f3a7c57dd407177532930556c7174e98fd31ca679c91b51bc596b9fda72c59",
+        "added_stock_bounds_mm": [
+          [
+            -97.55000305175781,
+            457.5,
+            275.54998779296875
+          ],
+          [
+            -72.55000305175781,
+            462.29998779296875,
+            277.04998779296875
+          ]
+        ],
+        "static_pairs": [
+          {
+            "part": "tube-fluid-28",
+            "overlap_mm3": 0
+          },
+          {
+            "part": "cold-core/foam-cap-lid-top",
+            "overlap_mm3": 0
+          }
+        ],
+        "wire_count": 100,
+        "wire_pairs": [
+          {
+            "wire": "wire-AC2-L",
+            "overlap_mm3": 0.0
+          },
+          {
+            "wire": "wire-J6-GND",
+            "overlap_mm3": 0.0
+          },
+          {
+            "wire": "wire-J6-RA1",
+            "overlap_mm3": 0.0
+          },
+          {
+            "wire": "wire-J6-RA2",
+            "overlap_mm3": 0.0
+          },
+          {
+            "wire": "wire-J6-RA3",
+            "overlap_mm3": 0.0
+          },
+          {
+            "wire": "wire-J6-RA4",
+            "overlap_mm3": 0.0
+          }
+        ],
+        "complete_closing_pairs": [
+          {
+            "stationary": "cap-clamp-bottom-1",
+            "status": "clear_aabb",
+            "queries": 0
+          },
+          {
+            "stationary": "cap-clamp-bottom-10",
+            "status": "clear_aabb",
+            "queries": 0
+          },
+          {
+            "stationary": "cap-clamp-bottom-2",
+            "status": "clear_aabb",
+            "queries": 0
+          },
+          {
+            "stationary": "cap-clamp-bottom-3",
+            "status": "clear_aabb",
+            "queries": 0
+          },
+          {
+            "stationary": "cap-clamp-bottom-4",
+            "status": "clear_aabb",
+            "queries": 0
+          },
+          {
+            "stationary": "cap-clamp-bottom-5",
+            "status": "clear_aabb",
+            "queries": 0
+          },
+          {
+            "stationary": "cap-clamp-bottom-6",
+            "status": "clear_aabb",
+            "queries": 0
+          },
+          {
+            "stationary": "cap-clamp-bottom-7",
+            "status": "clear_aabb",
+            "queries": 0
+          },
+          {
+            "stationary": "cap-clamp-bottom-8",
+            "status": "clear_aabb",
+            "queries": 0
+          },
+          {
+            "stationary": "cap-clamp-bottom-9",
+            "status": "clear_aabb",
+            "queries": 0
+          },
+          {
+            "stationary": "cap-clamp-top-1",
+            "status": "clear_aabb",
+            "queries": 0
+          },
+          {
+            "stationary": "cap-clamp-top-10",
+            "status": "clear_aabb",
+            "queries": 0
+          },
+          {
+            "stationary": "cap-clamp-top-2",
+            "status": "clear_aabb",
+            "queries": 0
+          },
+          {
+            "stationary": "cap-clamp-top-3",
+            "status": "clear_aabb",
+            "queries": 0
+          },
+          {
+            "stationary": "cap-clamp-top-4",
+            "status": "clear_aabb",
+            "queries": 0
+          },
+          {
+            "stationary": "cap-clamp-top-5",
+            "status": "clear_aabb",
+            "queries": 0
+          },
+          {
+            "stationary": "cap-clamp-top-6",
+            "status": "clear_aabb",
+            "queries": 0
+          },
+          {
+            "stationary": "cap-clamp-top-7",
+            "status": "clear_aabb",
+            "queries": 0
+          },
+          {
+            "stationary": "cap-clamp-top-8",
+            "status": "clear_aabb",
+            "queries": 0
+          },
+          {
+            "stationary": "cap-clamp-top-9",
+            "status": "clear_aabb",
+            "queries": 0
+          },
+          {
+            "stationary": "carbonator-earth-lockwasher",
+            "status": "clear_aabb",
+            "queries": 0
+          },
+          {
+            "stationary": "carbonator-earth-screw",
+            "status": "clear_aabb",
+            "queries": 0
+          },
+          {
+            "stationary": "carbonator-elbow-carb-water-out",
+            "status": "clear_aabb",
+            "queries": 0
+          },
+          {
+            "stationary": "carbonator-elbow-co2-in",
+            "status": "clear_aabb",
+            "queries": 0
+          },
+          {
+            "stationary": "carbonator-elbow-prv",
+            "status": "clear_aabb",
+            "queries": 0
+          },
+          {
+            "stationary": "carbonator-elbow-water-in",
+            "status": "clear_aabb",
+            "queries": 0
+          },
+          {
+            "stationary": "carbonator-fold",
+            "status": "clear_aabb",
+            "queries": 0
+          },
+          {
+            "stationary": "carbonator-tube",
+            "status": "clear_aabb",
+            "queries": 0
+          },
+          {
+            "stationary": "collet-water-in",
+            "status": "clear_aabb",
+            "queries": 0
+          },
+          {
+            "stationary": "discharge-barb-clamp",
+            "status": "clear_aabb",
+            "queries": 0
+          },
+          {
+            "stationary": "discharge-barb-key",
+            "status": "clear_aabb",
+            "queries": 0
+          },
+          {
+            "stationary": "discharge-chain",
+            "status": "clear_aabb",
+            "queries": 0
+          },
+          {
+            "stationary": "discharge-reducer",
+            "status": "clear_aabb",
+            "queries": 0
+          },
+          {
+            "stationary": "discharge-stem-clamp",
+            "status": "clear_aabb",
+            "queries": 0
+          },
+          {
+            "stationary": "discharge-stem-key",
+            "status": "clear_aabb",
+            "queries": 0
+          },
+          {
+            "stationary": "discharge-tube",
+            "status": "clear_aabb",
+            "queries": 0
+          },
+          {
+            "stationary": "endcap-bottom",
+            "status": "clear_aabb",
+            "queries": 0
+          },
+          {
+            "stationary": "endcap-top",
+            "status": "clear_aabb",
+            "queries": 0
+          },
+          {
+            "stationary": "evap-coil",
+            "status": "clear_aabb",
+            "queries": 0
+          },
+          {
+            "stationary": "evap-tail-inlet",
+            "status": "clear_aabb",
+            "queries": 0
+          },
+          {
+            "stationary": "evap-tail-outlet",
+            "status": "clear_aabb",
+            "queries": 0
+          },
+          {
+            "stationary": "float-a",
+            "status": "clear_aabb",
+            "queries": 0
+          },
+          {
+            "stationary": "float-b",
+            "status": "clear_aabb",
+            "queries": 0
+          },
+          {
+            "stationary": "float-carb",
+            "status": "clear_aabb",
+            "queries": 0
+          },
+          {
+            "stationary": "float-rod-a",
+            "status": "clear_aabb",
+            "queries": 0
+          },
+          {
+            "stationary": "float-rod-b",
+            "status": "clear_aabb",
+            "queries": 0
+          },
+          {
+            "stationary": "float-rod-carb",
+            "status": "clear_aabb",
+            "queries": 0
+          },
+          {
+            "stationary": "float-stop-carb-top",
+            "status": "clear_aabb",
+            "queries": 0
+          },
+          {
+            "stationary": "foam-cap-bottom",
+            "status": "clear_aabb",
+            "queries": 0
+          },
+          {
+            "stationary": "foam-cap-lid-top",
+            "status": "clear_distance_intervals",
+            "queries": 4,
+            "minimum_queried_surface_distance_mm": 24.85178776391129,
+            "certified_surface_separation_lower_bound_mm": 6.10178776391129
+          },
+          {
+            "stationary": "foam-shell",
+            "status": "clear_aabb",
+            "queries": 0
+          },
+          {
+            "stationary": "g-ganen-pump",
+            "status": "clear_aabb",
+            "queries": 0
+          },
+          {
+            "stationary": "line-carb-water-out",
+            "status": "clear_aabb",
+            "queries": 0
+          },
+          {
+            "stationary": "line-co2-in",
+            "status": "clear_aabb",
+            "queries": 0
+          },
+          {
+            "stationary": "line-prv-vent",
+            "status": "clear_aabb",
+            "queries": 0
+          },
+          {
+            "stationary": "line-reservoir-a",
+            "status": "clear_aabb",
+            "queries": 0
+          },
+          {
+            "stationary": "line-reservoir-a-fill",
+            "status": "clear_aabb",
+            "queries": 0
+          },
+          {
+            "stationary": "line-reservoir-b",
+            "status": "clear_aabb",
+            "queries": 0
+          },
+          {
+            "stationary": "line-reservoir-b-fill",
+            "status": "clear_aabb",
+            "queries": 0
+          },
+          {
+            "stationary": "line-water-in",
+            "status": "clear_aabb",
+            "queries": 0
+          },
+          {
+            "stationary": "pcba",
+            "status": "clear_aabb",
+            "queries": 0
+          },
+          {
+            "stationary": "probe-carbonator-ds18b20",
+            "status": "clear_aabb",
+            "queries": 0
+          },
+          {
+            "stationary": "probe-coil-ds18s20",
+            "status": "clear_aabb",
+            "queries": 0
+          },
+          {
+            "stationary": "prv-shroud",
+            "status": "clear_aabb",
+            "queries": 0
+          },
+          {
+            "stationary": "prv-sv125",
+            "status": "clear_aabb",
+            "queries": 0
+          },
+          {
+            "stationary": "pump-snap-cap",
+            "status": "clear_aabb",
+            "queries": 0
+          },
+          {
+            "stationary": "reed-a-1",
+            "status": "clear_aabb",
+            "queries": 0
+          },
+          {
+            "stationary": "reed-a-2",
+            "status": "clear_aabb",
+            "queries": 0
+          },
+          {
+            "stationary": "reed-a-3",
+            "status": "clear_aabb",
+            "queries": 0
+          },
+          {
+            "stationary": "reed-a-4",
+            "status": "clear_aabb",
+            "queries": 0
+          },
+          {
+            "stationary": "reed-b-1",
+            "status": "clear_aabb",
+            "queries": 0
+          },
+          {
+            "stationary": "reed-b-2",
+            "status": "clear_aabb",
+            "queries": 0
+          },
+          {
+            "stationary": "reed-b-3",
+            "status": "clear_aabb",
+            "queries": 0
+          },
+          {
+            "stationary": "reed-b-4",
+            "status": "clear_aabb",
+            "queries": 0
+          },
+          {
+            "stationary": "reed-bridge",
+            "status": "clear_aabb",
+            "queries": 0
+          },
+          {
+            "stationary": "reed-carb-1",
+            "status": "clear_aabb",
+            "queries": 0
+          },
+          {
+            "stationary": "reed-carb-2",
+            "status": "clear_aabb",
+            "queries": 0
+          },
+          {
+            "stationary": "reservoir-a",
+            "status": "clear_aabb",
+            "queries": 0
+          },
+          {
+            "stationary": "reservoir-a-cap",
+            "status": "clear_aabb",
+            "queries": 0
+          },
+          {
+            "stationary": "reservoir-a-gasket",
+            "status": "clear_aabb",
+            "queries": 0
+          },
+          {
+            "stationary": "reservoir-b",
+            "status": "clear_aabb",
+            "queries": 0
+          },
+          {
+            "stationary": "reservoir-b-cap",
+            "status": "clear_aabb",
+            "queries": 0
+          },
+          {
+            "stationary": "reservoir-b-fill-guide",
+            "status": "clear_aabb",
+            "queries": 0
+          },
+          {
+            "stationary": "reservoir-b-gasket",
+            "status": "clear_aabb",
+            "queries": 0
+          },
+          {
+            "stationary": "reservoir-grip-a-air",
+            "status": "clear_aabb",
+            "queries": 0
+          },
+          {
+            "stationary": "reservoir-grip-a-draw",
+            "status": "clear_aabb",
+            "queries": 0
+          },
+          {
+            "stationary": "reservoir-grip-a-fill",
+            "status": "clear_aabb",
+            "queries": 0
+          },
+          {
+            "stationary": "reservoir-grip-b-air",
+            "status": "clear_aabb",
+            "queries": 0
+          },
+          {
+            "stationary": "reservoir-grip-b-draw",
+            "status": "clear_aabb",
+            "queries": 0
+          },
+          {
+            "stationary": "reservoir-grip-b-fill",
+            "status": "clear_aabb",
+            "queries": 0
+          },
+          {
+            "stationary": "suction-barb-clamp",
+            "status": "clear_aabb",
+            "queries": 0
+          },
+          {
+            "stationary": "suction-barb-key",
+            "status": "clear_aabb",
+            "queries": 0
+          },
+          {
+            "stationary": "suction-reducer",
+            "status": "clear_aabb",
+            "queries": 0
+          },
+          {
+            "stationary": "suction-stem-clamp",
+            "status": "clear_aabb",
+            "queries": 0
+          },
+          {
+            "stationary": "suction-stem-key",
+            "status": "clear_aabb",
+            "queries": 0
+          },
+          {
+            "stationary": "suction-tube",
+            "status": "clear_aabb",
+            "queries": 0
+          },
+          {
+            "stationary": "tube-above-core-vb-yb-cross",
+            "status": "clear_aabb",
+            "queries": 0
+          },
+          {
+            "stationary": "tube-reservoir-air-a",
+            "status": "clear_aabb",
+            "queries": 0
+          },
+          {
+            "stationary": "tube-reservoir-air-b",
+            "status": "clear_aabb",
+            "queries": 0
+          },
+          {
+            "stationary": "tube-water-5",
+            "status": "clear_aabb",
+            "queries": 0
+          },
+          {
+            "stationary": "valve-v-b",
+            "status": "clear_aabb",
+            "queries": 0
+          },
+          {
+            "stationary": "vb-inlet-turn",
+            "status": "clear_aabb",
+            "queries": 0
+          },
+          {
+            "stationary": "vb-outlet-return",
+            "status": "clear_aabb",
+            "queries": 0
+          },
+          {
+            "stationary": "vb-outlet-stem",
+            "status": "clear_aabb",
+            "queries": 0
+          },
+          {
+            "stationary": "wago-gnd",
+            "status": "clear_aabb",
+            "queries": 0
+          },
+          {
+            "stationary": "wago-reeds-b",
+            "status": "clear_aabb",
+            "queries": 0
+          },
+          {
+            "stationary": "wago-sensors",
+            "status": "clear_aabb",
+            "queries": 0
+          },
+          {
+            "stationary": "wago-v12",
+            "status": "clear_aabb",
+            "queries": 0
+          },
+          {
+            "stationary": "water-inlet-jet-cap-nominal",
+            "status": "clear_aabb",
+            "queries": 0
+          }
+        ],
+        "unresolved": [],
+        "pass": true,
+        "retained_lever_envelope_separation": [
+          {
+            "junction": "wago-h",
+            "face": 1.0,
+            "separated_from_added_stock": true
+          },
+          {
+            "junction": "wago-g",
+            "face": 1.0,
+            "separated_from_added_stock": true
+          },
+          {
+            "junction": "wago-n",
+            "face": 1.0,
+            "separated_from_added_stock": true
+          },
+          {
+            "junction": "wago-sensors",
+            "face": 1.0,
+            "separated_from_added_stock": true
+          },
+          {
+            "junction": "wago-v12",
+            "face": 1.0,
+            "separated_from_added_stock": true
+          },
+          {
+            "junction": "wago-gnd",
+            "face": 1.0,
+            "separated_from_added_stock": true
+          },
+          {
+            "junction": "wago-reeds-b",
+            "face": 1.0,
+            "separated_from_added_stock": true
+          },
+          {
+            "junction": "wago-mana",
+            "face": 1.0,
+            "separated_from_added_stock": true
+          },
+          {
+            "junction": "wago-mana",
+            "face": -1.0,
+            "separated_from_added_stock": true
+          },
+          {
+            "junction": "wago-manb",
+            "face": 1.0,
+            "separated_from_added_stock": true
+          }
+        ]
       },
       "other_physical_members_identical": 453,
       "wire_members_identical": 119,

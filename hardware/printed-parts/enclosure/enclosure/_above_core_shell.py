@@ -485,7 +485,7 @@ def stacked_well_towers(stock, inner):
 def rear_well_tower(stock, ceiling):
     """Join rear wells to the wall with a full 3 mm roof.
 
-    The live/neutral cluster has a level roof beneath the data-jack seat;
+    The live/neutral cluster has a solid level roof beneath the data-jack seat;
     the separate earth well rises at 45 degrees to the rear wall.
     """
     import above_core_wiring
@@ -496,11 +496,16 @@ def rear_well_tower(stock, ceiling):
         b=solid.BoundingBox()
         run=max(0.,wall-b.ymin)
         if run:
-            top=(b.zmax if b.xmin<=neutral[0]<=b.xmax and
-                 b.zmin<=neutral[2]<=b.zmax else b.zmax+run)
+            neutral_cluster=(b.xmin<=neutral[0]<=b.xmax and
+                             b.zmin<=neutral[2]<=b.zmax)
+            top=b.zmax if neutral_cluster else b.zmax+run
+            bottom=b.zmax-3.
+            if neutral_cluster:
+                live_stock,_=above_core_wiring._well('wago-h')
+                bottom=min(bottom,live_stock.BoundingBox().zmax)
             roofs.append((cq.Workplane('YZ')
-                .polyline([(b.ymin,b.zmax-3.),(b.ymin,b.zmax),
-                           (wall,top),(wall,b.zmax-3.)])
+                .polyline([(b.ymin,bottom),(b.ymin,b.zmax),
+                           (wall,top),(wall,bottom)])
                 .close().extrude(b.xmax-b.xmin).val().translate((b.xmin,0.,0.))))
     return stock.fuse(*roofs).clean() if roofs else stock
 
