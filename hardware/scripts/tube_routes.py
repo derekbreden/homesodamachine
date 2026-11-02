@@ -246,6 +246,12 @@ def _verify_displayed_run(run, bodies, tolerance_mm,
             # wall surrounds it on every side and the nearest face is the bore itself.
             ahead, behind = points[min(i + 1, len(points) - 1)], points[max(i - 1, 0)]
             axis = cq.Vector(*ahead) - cq.Vector(*behind)
+            if 0 < i < len(points) - 1:
+                # Developed-length spacing gives the local tangent when a short final leg
+                # leaves unequal intervals on either side of the sample.
+                ds0, ds1 = s - run["s"][i - 1], run["s"][i + 1] - s
+                axis = ((vector - cq.Vector(*behind)) * (ds1 / ds0)
+                        + (cq.Vector(*ahead) - vector) * (ds0 / ds1))
             side = axis.cross(cq.Vector(0, 0, 1) if abs(axis.normalized().z) < 0.9
                               else cq.Vector(1, 0, 0)).normalized()
             other = axis.cross(side).normalized()
