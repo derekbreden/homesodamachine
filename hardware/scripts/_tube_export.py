@@ -6,11 +6,13 @@ that hold its ends and the printed anchors that hold it between them — the rec
 returns the records. `s` is developed arc length along the authored centreline, from the
 `frm` mouth. Every station is the fitting's mouth — a collet face, a barb tip, the lid's outer
 face — so the gripped stock lies beyond the run's own [0, L]: `physical_contact_s` says where.
+`load()` reads the producer's fine model with its saved route handoff for the same export.
 """
 import hashlib
 import json
 import math
 import os
+import re
 import sys
 import time
 from pathlib import Path
@@ -76,6 +78,108 @@ def dot(u, v):
     return sum(u[k] * v[k] for k in range(3))
 
 
+def _resolve_end(a, name, at_pt, tangent, diam):
+    """A routing frame's port, or the native component's carried socket."""
+    comp, _, port = name.partition(".")
+    if comp in R._frames and port:
+        return R._anchor(name)
+    if comp in R._frames:
+        frame = R._frames[comp]
+        return frame, min(frame.ports, key=lambda p: math.dist(frame.at(p), at_pt))
+    if port:
+        import above_core_routes
+        point, outward, d = above_core_routes._station(a.carries, comp, port)
+        return R.Frame(comp, {port: (tuple(point), tuple(outward), d)}, None), port
+    return R.Frame(comp, {"socket": (tuple(at_pt), tuple(tangent), diam)}, None), "socket"
+
+
+def route_metadata(a):
+    """Exact route stations from the assembly already in the producer's memory.
+
+    The scene carries the runs and anchor stations. These are the runtime values
+    its reader also needs, including native socket frames and spool selections.
+    No body is built or tessellated here.
+    """
+    ends = {}
+    for run in a.runs:
+        ends[run.id] = {}
+        for which, name, point, tangent in (
+                ("frm", run.frm, run.pts[0], unit(run.pts[0], run.pts[1])),
+                ("to", run.to, run.pts[-1], unit(run.pts[-1], run.pts[-2]))):
+            frame, port = _resolve_end(a, name, point, tangent, run.diam)
+            ends[run.id][which] = {"frame": frame.name, "port": port,
+                                   "at": frame.at(port), "normal": frame.normal(port),
+                                   "diam": frame.diam(port)}
+    foam_carry = a.carries["foam-assembly"]
+    ids = {run.id for run in a.runs}
+    stations = tuple(a.tube_anchors) + tuple(a.cap_tube_anchors)
+    return {
+        "schema": 1,
+        "native_route_specs": getattr(a, "native_route_specs", {}),
+        "anchor_sites": ea.TUBE_ANCHOR_SITES,
+        "tube_anchor_sites": getattr(a, "tube_anchor_sites", None),
+        "ends": ends,
+        "cap_anchor_points": {name: foam_carry(ea.cap_anchor(name))[0]
+                              for name in _cci.cap_anchors if name in ids},
+        "cap_side_anchor_points": {name: foam_carry(ea.cap_side_anchor(name))[0]
+                                   for name in _cci.cap_side_anchors if name in ids},
+        "spools": {run.id: {"name": spool.name, "rgb": list(spool.rgb),
+                             "alpha": spool.alpha, "roughness": spool.roughness,
+                             "metalness": spool.metalness, "names": spool.names}
+                   for run in a.runs for spool in (R.spool_of(run.id),)},
+        "unsupported_spans": ea.unsupported_spans(a.runs, stations),
+    }
+
+
+def load(facts_path, scene_path, model_path):
+    """Read one producer cohort's routes and full fine bodies, without standing it.
+
+    The facts file is written after the STEP, scene and fine model. Its hashes
+    bind the small routing handoff to those exact outputs.
+    """
+    import types
+    import _facts
+    import _machine
+    from meshcad import scene
+
+    facts_path, scene_path, model_path = map(Path, (facts_path, scene_path, model_path))
+    facts = json.loads(facts_path.read_text())
+    handoff = facts.get("tube_export")
+    if not handoff or handoff.get("schema") != 1:
+        raise ValueError(f"{facts_path.name} has no producer tube-route handoff; "
+                         "run the enclosure assembly producer first")
+    if facts.get("sources") != _facts.source_digest():
+        raise ValueError(f"{facts_path.name} describes different assembly producer inputs")
+    for key, path in (("scene", scene_path), ("fine_model", model_path)):
+        digest = _mesh_payload.source_digest(path)
+        if handoff[key]["sha256"] != digest:
+            raise ValueError(f"{path.name} differs from the tube-route producer cohort")
+    step = ROOT / handoff["step"]["path"]
+    if handoff["step"]["sha256"] != _mesh_payload.source_digest(step):
+        raise ValueError(f"{step.name} differs from the tube-route producer cohort")
+    document = scene.document(scene_path)
+    if document is None or document.get("schema") != _machine.SCHEMA:
+        raise ValueError(f"{scene_path.name} has no supported machine document")
+    metadata = handoff["routing"]
+    if metadata.get("schema") != 1:
+        raise ValueError(f"{facts_path.name} has an unsupported tube-route document")
+    anchors = _machine._tupled(document["anchors"])
+    from meshcad.solids import MeshCompound
+    grouped = {}
+    for name, (shape, _rgb) in scene.load(model_path, snap=False).items():
+        grouped.setdefault(re.sub(r"/\d+$", "", name), []).append(shape)
+    return types.SimpleNamespace(
+        runs=[_machine._run(row) for row in document["runs"]],
+        native_route_specs=metadata["native_route_specs"],
+        tube_anchor_sites=metadata["tube_anchor_sites"],
+        tube_anchors=anchors["tube_anchors"], cap_tube_anchors=anchors["cap_tube_anchors"],
+        route_metadata=metadata,
+        producer_handoff=handoff,
+        leaves={name: shapes[0] if len(shapes) == 1 else MeshCompound(shapes)
+                for name, shapes in grouped.items()},
+    )
+
+
 def export(a):
     """The records for every run of the assembly `a`, the table the run prints, and what
     it could not classify or match."""
@@ -87,7 +191,9 @@ def export(a):
                       if name in ('fluid-14', 'fluid-16')}
     print(f"{len(runs)} runs: {', '.join(r.id for r in runs)}")
 
-    leaves = {name: shape for name, shape, _c in ea.ml.placed_leaves(a)}
+    metadata = getattr(a, "route_metadata", None)
+    leaves = (a.leaves if metadata is not None else
+              {name: shape for name, shape, _c in ea.ml.placed_leaves(a)})
     lap("placed_leaves")
     sleeve_like = sorted(n for n in leaves
                          if any(k in n.lower() for k in ("insul", "sleeve", "cargen")))
@@ -174,25 +280,6 @@ def export(a):
         # The CO₂ drop stands in the core's plain guide and runs on, potted, below it.
         "core-co2-guide": "cap-bore",
     })
-
-    def resolve_end(name, at_pt, tangent, diam):
-        """The fitting a run end lands in. A body the pack registers a routing frame for answers
-        by that frame; an above-core `component.port` answers by the layout's own port resolver
-        (`above_core_routes._station`); a native tube named only by the two fittings it joins
-        starts inside their sockets, so its own end and direction are the port."""
-        comp, _, port = name.partition(".")
-        if comp in R._frames and port:
-            return R._anchor(name)
-        if comp in R._frames:
-            # Named by the fitting alone: the end sits in the frame's nearest port.
-            frame = R._frames[comp]
-            return frame, min(frame.ports, key=lambda p: math.dist(frame.at(p), at_pt))
-        if port:
-            import above_core_routes
-            point, outward, d = above_core_routes._station(a.carries, comp, port)
-            return R.Frame(comp, {port: (tuple(point), tuple(outward), d)}, None), port
-        return R.Frame(comp, {"socket": (tuple(at_pt), tuple(tangent), diam)}, None), "socket"
-
 
     def end_kind(frame_name, port):
         spec = END_KINDS.get(frame_name)
@@ -302,16 +389,17 @@ def export(a):
         return None
 
 
-    foam_carry = a.carries["foam-assembly"]
+    foam_carry = a.carries["foam-assembly"] if metadata is None else None
     hold_rows = []      # (rid, dict) — every anchor row, resolved to its run
     unmatched = []
 
     # The box's ribs — TUBE_ANCHOR_SITES, one row per site the live pack stands
     # (`a.tube_anchor_sites`, as `_scorecard` reads it), matched to a.tube_anchors by its mid.
+    anchor_sites = ea.TUBE_ANCHOR_SITES if metadata is None else metadata["anchor_sites"]
     sites = getattr(a, "tube_anchor_sites", None)
     site_ids = ({row[0] for row in sites} if sites is not None else
-                {rid for rid, _leg, _root, _piece in ea.TUBE_ANCHOR_SITES})
-    for n, (rid, leg, root, piece) in enumerate(ea.TUBE_ANCHOR_SITES):
+                {rid for rid, _leg, _root, _piece in anchor_sites})
+    for n, (rid, leg, root, piece) in enumerate(anchor_sites):
         if rid not in site_ids:
             continue
         r = by_id.get(rid)
@@ -345,7 +433,8 @@ def export(a):
         r = by_id.get(name)
         if r is None:
             continue                         # a chain's rib, or a run not drawn
-        mid = tuple(foam_carry(ea.cap_anchor(name))[0])
+        mid = tuple(foam_carry(ea.cap_anchor(name))[0] if metadata is None else
+                    metadata["cap_anchor_points"][name])
         st = find_station(a.cap_tube_anchors, mid)
         if st is None:
             unmatched.append(f"cap_anchors[{name}]: no station in a.cap_tube_anchors at {mid}")
@@ -368,8 +457,8 @@ def export(a):
         r = by_id.get(name)
         if r is None:
             continue
-        mid, root = foam_carry(ea.cap_side_anchor(name))
-        mid = tuple(mid)
+        mid = tuple(foam_carry(ea.cap_side_anchor(name))[0] if metadata is None else
+                    metadata["cap_side_anchor_points"][name])
         st = find_station(a.cap_tube_anchors, mid)
         if st is None:
             unmatched.append(f"cap_side_anchors[{name}]: no station in a.cap_tube_anchors at {mid}")
@@ -423,7 +512,8 @@ def export(a):
             unmatched.append(f"station at {st[0]} (along {st[1]}) matched no run")
     lap("holds")
 
-    spans = ea.unsupported_spans(runs, all_stations)
+    spans = (ea.unsupported_spans(runs, all_stations) if metadata is None else
+             metadata["unsupported_spans"])
 
     # --- source digests ----------------------------------------------------------------
 
@@ -435,8 +525,9 @@ def export(a):
         "mesh": str(MESH.relative_to(ROOT)),
         "mesh_src": _mesh_payload.read_source(MESH) if MESH.exists() else None,
     }
-    source["mesh_matches_step"] = (source["step_sha256"] is not None
-                                   and source["step_sha256"] == source["mesh_src"])
+    model_digest = (a.producer_handoff["fine_model"]["sha256"] if metadata is not None else None)
+    source["mesh_matches_step"] = (source["mesh_src"] is not None
+                                   and source["mesh_src"] in (source["step_sha256"], model_digest))
     lap("digests")
 
     # --- per run -----------------------------------------------------------------------
@@ -458,22 +549,28 @@ def export(a):
             length_mismatch.append((r.id, s_total, length))
 
         stock = R.stock_of(r.kind, r.diam)
-        spool = R.spool_of(r.id)
+        spool = R.spool_of(r.id) if metadata is None else None
 
         # ends
         ends = []
         for which, name, at_pt, tangent in (
                 ("frm", r.frm, r.pts[0], unit(r.pts[0], r.pts[1])),
                 ("to", r.to, r.pts[-1], unit(r.pts[-1], r.pts[-2]))):
-            fact, port = resolve_end(name, at_pt, tangent, r.diam)
-            kind, grip, why = end_kind(fact.name, port)
+            if metadata is None:
+                fact, port = _resolve_end(a, name, at_pt, tangent, r.diam)
+                frame_name, port_diam = fact.name, fact.diam(port)
+                p_at, n_out = tuple(fact.at(port)), tuple(fact.normal(port))
+            else:
+                end = metadata["ends"][r.id][which]
+                port = end["port"]
+                frame_name, port_diam = end["frame"], end["diam"]
+                p_at, n_out = tuple(end["at"]), tuple(end["normal"])
+            kind, grip, why = end_kind(frame_name, port)
             if kind == "unknown":
                 unclassified.append(f"{r.id} {which} {name}")
-            p_at = tuple(fact.at(port))
-            n_out = tuple(fact.normal(port))
             skew = math.degrees(math.acos(max(-1.0, min(1.0, dot(n_out, tangent)))))
             ends.append({
-                "end": which, "port": name, "frame": fact.name, "port_name": port,
+                "end": which, "port": name, "frame": frame_name, "port_name": port,
                 "fitting_kind": kind,
                 "at": list(at_pt),
                 "port_at": list(p_at),
@@ -481,7 +578,7 @@ def export(a):
                 "tangent": list(tangent),
                 "port_normal": list(n_out),
                 "skew_deg": skew,
-                "port_diam": fact.diam(port),
+                "port_diam": port_diam,
                 "grip_length_mm": grip,
                 "grip_source": why,
                 # As briefed: the grip counted inside the run's own [0, L].
@@ -585,8 +682,10 @@ def export(a):
                             worst_out = max(worst_out, d)
                         expected = min(rad, s, s_total - s)   # nearest skin, on an on-centre point
                     worst = max(worst, abs(expected - d))
-                align = {"mode": "exact (BRepClass3d isInside the swept solid + BRepExtrema distance "
-                                 "to its faces; miss = |min(r, s, L-s) - distance|)",
+                mode = ("fine f64 model containment and radial face distance" if metadata is not None else
+                        "exact (BRepClass3d isInside the swept solid + BRepExtrema distance "
+                        "to its faces; miss = |min(r, s, L-s) - distance|)")
+                align = {"mode": mode,
                          "checked": len(pts), "outside": outside,
                          "max_surface_miss_mm": worst,
                          "max_outside_mm": worst_out,
@@ -612,9 +711,9 @@ def export(a):
             "material": material_of(r),
             "stock": {"name": stock.name, "od": stock.od, "min_bend": stock.min_bend,
                       "source": stock.source},
-            "spool": {"name": spool.name, "rgb": list(spool.rgb), "alpha": spool.alpha,
-                      "roughness": spool.roughness, "metalness": spool.metalness,
-                      "names": spool.names},
+            "spool": ({"name": spool.name, "rgb": list(spool.rgb), "alpha": spool.alpha,
+                       "roughness": spool.roughness, "metalness": spool.metalness,
+                       "names": spool.names} if metadata is None else metadata["spools"][r.id]),
             "bend_cap": r.bend if not isinstance(r.bend, dict) else {str(k): v for k, v in r.bend.items()},
             "min_bend": r.min_bend,
             "tightest": r.tightest,
