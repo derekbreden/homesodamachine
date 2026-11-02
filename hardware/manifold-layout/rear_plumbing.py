@@ -52,6 +52,7 @@ def _world(shape, color):
 
 def _discharge_pvc(end_frame):
     """The two seated cuff ends meet on their shared bend's bisecting plane."""
+    import cadquery as cq
     pj = joint()
     direction = np.array(end_frame['rotation'],float)[:,0]
     angle = math.acos(float(np.clip(direction[0],-1.,1.)))
