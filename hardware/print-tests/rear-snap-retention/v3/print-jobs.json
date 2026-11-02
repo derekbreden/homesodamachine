@@ -1,0 +1,36 @@
+{
+  "jobs": [
+    {
+      "plate": "rear-retention-mark1",
+      "printer": "Mark1",
+      "connection_key": "H2C",
+      "preparation": "hardware/print-tests/rear-snap-retention/v3/prints/2026-11-02-rear-retention-mark1-mark1-e3547655",
+      "archive": "hardware/print-tests/rear-snap-retention/v3/prints/2026-11-02-rear-retention-mark1-mark1-e3547655/2026-11-02-rear-retention-mark1-mark1-e3547655.gcode.3mf",
+      "print_only_archive": "hardware/print-tests/rear-snap-retention/v3/prints/2026-11-02-rear-retention-mark1-mark1-e3547655/2026-11-02-rear-retention-mark1-mark1-e3547655-print-only.gcode.3mf",
+      "gcode_sha256": "597b53e5b3ce1543bda19ce1089a3b964a92b4ca8ab8d10d46b0d98074f2d895",
+      "estimated_seconds": 11567.5224609375,
+      "filament_g": 112.16,
+      "minimum_bed_margin_mm": 86.5224425,
+      "requested_z_trim_mm": 0.18,
+      "emitted_trim_mm": 0.16,
+      "native_review_pass": true,
+      "submitted": false
+    },
+    {
+      "plate": "rear-retention-mark2",
+      "printer": "Mark2",
+      "connection_key": "Mark2",
+      "preparation": "hardware/print-tests/rear-snap-retention/v3/prints/2026-11-02-rear-retention-mark2-mark2-b09ca3c9",
+      "archive": "hardware/print-tests/rear-snap-retention/v3/prints/2026-11-02-rear-retention-mark2-mark2-b09ca3c9/2026-11-02-rear-retention-mark2-mark2-b09ca3c9.gcode.3mf",
+      "print_only_archive": "hardware/print-tests/rear-snap-retention/v3/prints/2026-11-02-rear-retention-mark2-mark2-b09ca3c9/2026-11-02-rear-retention-mark2-mark2-b09ca3c9-print-only.gcode.3mf",
+      "gcode_sha256": "e448ef42640513b961ef8522ddd505eb5b5da0c0c1d48e00998dc6aeed163c97",
+      "estimated_seconds": 15871.0029296875,
+      "filament_g": 173.85,
+      "minimum_bed_margin_mm": 96.222467,
+      "requested_z_trim_mm": 0.04,
+      "emitted_trim_mm": 0.02,
+      "native_review_pass": true,
+      "submitted": false
+    }
+  ]
+}

@@ -421,6 +421,12 @@ fn pump_cradle(n: &Numbers) -> Result<Solid> {
                 );
                 body = body.cut(&pump_cap_world(&pocket, cap)?)?;
             }
+            let radius=f(s,"root_radius")?;
+            let near=f(s,"axis_x")?+side*(f(s,"inner")?-radius-n.f("running")?);
+            let relief=box3(near,far,f(s,"y0")?-n.f("running")?,
+                f(s,"y1")?+n.f("running")?,f(s,"root")?-n.f("running")?,
+                f(s,"root")?+radius+n.f("running")?);
+            body=body.cut(&pump_cap_world(&relief,cap)?)?;
         }
     }
     let corner = f(selected, "aft_east_corner_chamfer_mm")?;
@@ -445,6 +451,8 @@ fn pump_snap(n: &Numbers) -> Result<Solid> {
     );
     let (catch, tip) = (f(s, "catch")?, f(s, "tip")?);
     let base = -n.f("slip")?;
+    let root = f(s,"root_radius")?;
+    let k = root / sqrt(2.);
     let r = f(d, "bore_radius_mm")? + f(&d["selected"], "cap_arch_wall_mm")?;
     let west = [
         v2(c - w, 0.),
@@ -453,22 +461,31 @@ fn pump_snap(n: &Numbers) -> Result<Solid> {
         v2(c - h, catch + f(s, "nose_land")?),
         v2(c - h, catch),
         v2(c - wi, catch),
-        v2(c - wi, base),
+        v2(c - wi, base+root),
     ];
     let mut pen = Pen::new(west[0]);
     for &p in &west[1..] {
         pen = pen.line_to(p);
     }
-    for p in west.iter().rev() {
+    pen=pen.arc_through(v2(c-wi+root-k,base+root-k),v2(c-wi+root,base))?
+        .line_to(v2(c+wi-root,base))
+        .arc_through(v2(c+wi-root+k,base+root-k),v2(c+wi,base+root))?;
+    for p in west.iter().rev().skip(1) {
         pen = pen.line_to(v2(2. * c - p.x, p.y));
     }
     pen = pen
         .line_to(v2(c + w, -r))
         .line_to(v2(c - f(&d["selected"], "cap_east_roof_half_width_mm")?, -r));
     let profile = Profile::new(pen.close()?);
-    let blank = Plane::XZ
+    let mut blank = Plane::XZ
         .at(v3(0., f(s, "y1")?, 0.))
         .extrude(&profile, f(s, "y1")? - f(s, "y0")?)?;
+    let middle=(f(s,"y0")?+f(s,"y1")?)/2.;
+    for side in [-1.,1.] {
+        blank=blank.cut(&box3(c+side*(h-0.1),c+side*wi,
+            middle-f(s,"pry_width")?/2.,middle+f(s,"pry_width")?/2.,
+            catch-0.1,catch+f(s,"pry_height")?))?;
+    }
     let snap = pump_cap_world(&blank, d)?
         .cut(&pump_room(n, d, false)?)?
         .rotate(V3::ZERO, V3::X, 90.);

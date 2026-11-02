@@ -205,6 +205,26 @@ def snap_datums():
             'mouth_y':p[1], 'ceiling':346., 'rear':465.3, 'side':98.5}
 
 
+def regulator_datums():
+    """The measured water-regulator profile in the snap's local +Y frame."""
+    import rear_snaps as snaps
+    mount=plan()['regulator_mount']
+    profile=json.loads((Path(__file__).resolve().parent.parent/
+        'reference/yzmsz-water-regulator/reference-parameters.json').read_text())['profile_x_radius_mm']
+    fit=mount['cavity_fit']
+    pose=layout.snapshot_pose('reg')
+    turn=np.array(((0.,1.,0.),(-1.,0.,0.),(0.,0.,1.)))
+    frame={'rotation':(turn@np.array(pose['rotation'])).tolist(),
+           'translation_mm':(turn@np.array(pose['translation_mm'])).tolist()}
+    st=mount['station']
+    half=st['inner']-snaps.ROOT_RADIUS-.5
+    return dict(mount,profile_frame=frame,
+        seat_profile=snaps.clearance_profile(profile,fit['receiver_radial_mm'],fit['axial_mm']),
+        cap_profile=snaps.clearance_profile(profile,fit['cap_radial_mm'],fit['axial_mm']),
+        cap_stock=[(st['axis_x']-half,st['axis_x']+half,st['y0'],st['y1'],
+                    mount['cap_bottom'],mount['axis'][1])])
+
+
 @cache
 def seats():
     """Integral back-top stock and four removable snap caps."""
@@ -225,13 +245,16 @@ def seats():
     d=snap_datums()
     result,numbers = snaps.build(rows,d['asse_axis'],layout.frame_location(plan()['chain_frame']),d['asse_turn'],
                            d['pisco_axis'],d['mouth_y'],d['ceiling'],d['rear'],d['side'],meter,layout.location('digiten-flow'))
-    mount = plan()['regulator_mount']
+    mount = regulator_datums()
     st, axis = mount['station'], mount['axis']
     a,b = mount['seat_y']; width = st['outer']
     b = max(b,st['y1']+fits.running+snaps.WALL)
-    seat = snaps.box(axis[0]-width,axis[0]+width,a,b,snaps.SPLIT,346.5).cut(snaps.turned(mount['seat_runs'],axis))
+    def room(name):
+        return snaps.radial_profile(mount[name]).moved(layout.frame_location(mount['profile_frame']))
+    seat = snaps.box(axis[0]-width,axis[0]+width,a,b,snaps.SPLIT,346.5).cut(room('seat_profile'))
     for pocket in snaps.pockets(st): seat = seat.cut(pocket)
-    cap = snaps.cap(st,st['root'],mount['cap_bottom']).cut(snaps.turned(mount['cap_runs'],axis))
+    cap = snaps.cap(st,st['root'],mount['cap_bottom']).fuse(
+        *(snaps.box(*bounds) for bounds in mount['cap_stock'])).cut(room('cap_profile'))
     result['regulator-seat'] = seat.clean().rotate((0,0,0),(0,0,1),90.)
     result['regulator-snap-cap'] = cap.clean().rotate((0,0,0),(0,0,1),90.)
     # Clear the installed vent sleeve and its two tie lands through the cap.

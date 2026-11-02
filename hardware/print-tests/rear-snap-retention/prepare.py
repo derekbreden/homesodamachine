@@ -52,7 +52,7 @@ def centered_layout(footprints,low,high,spacing,yaw):
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--plate',choices=('mark1','mark2','box','all'),default='all')
-    parser.add_argument('--trial',type=Path,default=HERE/'v2')
+    parser.add_argument('--trial',type=Path,default=HERE/'v3')
     args=parser.parse_args()
     case=args.trial.resolve()
     production=json.loads((TRIAL/'pieces.json').read_text())
@@ -77,7 +77,7 @@ def main():
           'spacing_mm':12.,'plate_border_mm':40.,
           'pose_reason':'Each full receiver and cap retains its production print orientation; XY yaw only packs the comparison.',
           'settings':{
-            'wall_loops':{'value':'3','reason':'Three Classic walls fill the specific 1.3 mm spring leaves.'},
+            'wall_loops':{'value':'3','reason':'Three Classic walls with solid stock through the 2.0 mm spring leaves.'},
             'wall_generator':{'value':'classic','reason':'Retain the production fixed-width wall recipe.'},
             'sparse_infill_density':{'value':'15%','reason':'Production receiver bulk recipe; caps have a local solid override.'},
             'sparse_infill_pattern':{'value':'gyroid','reason':'Production receiver bulk recipe.'},
