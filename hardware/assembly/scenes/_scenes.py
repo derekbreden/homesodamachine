@@ -430,6 +430,7 @@ def placed_names(assembly):
     import manifold_layout as ml
 
     names = {name for name, _shape, _colour in ml.placed_leaves(assembly)}
+    names.update(getattr(assembly, 'referenced_core_rgba', {}))
     aliases = getattr(assembly, 'core_external_components', ())
     names |= {name.rsplit('/', 1)[-1] for name in names
               if name.rsplit('/', 1)[-1] in aliases}

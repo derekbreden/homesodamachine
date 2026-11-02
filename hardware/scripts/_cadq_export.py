@@ -753,11 +753,11 @@ def export_step(model, target_path):
 # its flute cutter's, as above.
 
 
-def _mesh_bodies(assembly, parent=None):
-    """[(name, shape, linear rgb)] for every body of `assembly`, stood where it stands."""
+def _mesh_bodies(assembly, parent=None, model_blocks=None):
+    """World-placed live bodies and explicit fine-model blocks in assembly order."""
     from OCP.Quantity import Quantity_TypeOfColor
     loc = assembly.loc if parent is None else parent * assembly.loc
-    out = []
+    out = list((model_blocks or {}).get(assembly.name, ()))
     if assembly.obj is not None:
         vals = assembly.obj.vals() if hasattr(assembly.obj, "vals") else [assembly.obj]
         solids = [s.moved(loc) for v in vals for s in v.Solids()]
@@ -768,41 +768,97 @@ def _mesh_bodies(assembly, parent=None):
         else:
             out += [(assembly.name, s, rgb) for s in solids]
     for child in assembly.children:
-        out += _mesh_bodies(child, loc)
+        out += _mesh_bodies(child, loc, model_blocks)
     return out
 
 
 def _export_mesh(bodies, target_path, root_name=None):
+    """Export live bodies and explicit world-placed model blocks, without model Shapes."""
+    from contextlib import ExitStack
+    with ExitStack() as stack:
+        return _export_mesh_open(bodies, target_path, root_name, stack)
+
+
+def _export_mesh_open(bodies, target_path, root_name, stack):
     mw = sys.modules["meshcad"].writer()
     target = Path(target_path).resolve()
-    solids = [s for _, shape, _ in bodies for s in (shape.vals() if hasattr(shape, "vals") else [shape])]
-    names = [name for name, shape, _ in bodies
-             for _ in (shape.vals() if hasattr(shape, "vals") else [shape])]
-    colors = [rgb for _, shape, rgb in bodies
-              for _ in (shape.vals() if hasattr(shape, "vals") else [shape])]
+    solids, names, colors = [], [], []
+    has_blocks = any(isinstance(body, dict) for body in bodies)
+    for body in bodies:
+        if not isinstance(body, dict):
+            name, shape, rgb = body
+            for solid in shape.vals() if hasattr(shape, "vals") else [shape]:
+                solids.append(solid)
+                names.append(name)
+                colors.append(rgb)
+            continue
+        import _assembly_model
+        from meshcad.presentation import surfaces
+        model, summaries = stack.enter_context(_assembly_model.placed(
+            body['instances'], presentation=True, summaries=True))
+        shown = surfaces(model)
+        reader = stack.enter_context(_assembly_model.array_reader(model))
+        groups = {}
+        for index, (name, rgb) in enumerate(_assembly_model.identity(model)):
+            groups.setdefault(name, ([], rgb))[0].append(index)
+        for name, (indices, rgb) in groups.items():
+            rgb = body.get('colors', {}).get(name, rgb)
+            for ordinal, index in enumerate(indices, 1):
+                solids.append({'read': reader, 'index': index, 'surface': shown[index],
+                               'bounds': (summaries[index]['min'], summaries[index]['max'])})
+                names.append(f'{name}{SOLID_INDEX_SEP}{ordinal}'
+                             if rgb is not None and len(indices) > 1 else name)
+                colors.append(rgb)
     model = target.with_name(target.name + ".npz")
     stem = target.name.split(".")[0]
     # The STEP and the payload are drawn and handed on, not cut from: both carry one drawing of
     # each solid, at the deflection OCCT's export meshes the model at. The model file keeps
     # the solid.
     import _mesh_payload
-    boxes = [s.BoundingBox() for s in solids]
-    size = [max(getattr(b, k + "max") for b in boxes) - min(getattr(b, k + "min") for b in boxes)
-            for k in "xyz"]
+    bounds = []
+    for solid in solids:
+        if isinstance(solid, dict):
+            bounds.append(solid['bounds'])
+        else:
+            box = solid.BoundingBox()
+            bounds.append(([box.xmin, box.ymin, box.zmin], [box.xmax, box.ymax, box.zmax]))
+    size = [max(b[1][axis] for b in bounds) - min(b[0][axis] for b in bounds)
+            for axis in range(3)]
     deflection = sum(size) / 3.0 * _mesh_payload.LINEAR_DEFLECTION_RATIO
-    drawn = [mw.drawn(s, deflection) for s in solids]
+    def drawing(solid):
+        if not isinstance(solid, dict):
+            return mw.drawn(solid, deflection)
+        import numpy as np
+        surface = solid['surface']
+        return (np.asarray(surface['pos'], float).reshape(-1, 3),
+                np.asarray(surface['idx'], np.int64).reshape(-1, 3))
+    drawn = [drawing(s) for s in solids]
     _atomic_write(target, lambda p: mw.write_step(
         [(n or stem, a, c) for n, a, c in zip(names, drawn, colors)], p, root_name or stem))
-    _atomic_write(model, lambda p: mw.write_model(solids, p, names, colors))
+    def arrays(solid):
+        return (solid['read'](solid['index']) if isinstance(solid, dict)
+                else mw._arrays(solid))
+    def write_model(document=None):
+        _atomic_write(model, lambda p: mw.write_model(
+            solids, p, names, colors, arrays=arrays if has_blocks else None, document=document))
+    if not has_blocks:
+        write_model()
     if target.with_suffix(".stl").is_file() or os.environ.get("HSM_SKIP_MESH_PAYLOAD"):
+        if has_blocks:
+            write_model()
         return
-    meshes = [mw.shown_payload(s, n, c, deflection, a)
+    meshes = [({**s['surface'], 'name': n, 'color': c} if isinstance(s, dict)
+               else mw.shown_payload(s, n, c, deflection, a))
               for s, n, c, a in zip(solids, names, colors, drawn)]
-    paired = any(getattr(s, "_presentation", None) is not None for s in solids)
+    paired = has_blocks or any(getattr(s, "_presentation", None) is not None for s in solids)
     payload = target.with_name(target.name + ".mesh")
     _atomic_write(payload, lambda p: mw.write_payload(
         meshes, p, src=_mesh_payload.source_digest(target if paired else model)))
-    if paired:
+    if has_blocks:
+        with payload.open('rb') as source:
+            digest = hashlib.file_digest(source, 'sha256').hexdigest()
+        write_model({'presentation': {'path': payload.name, 'sha256': digest}})
+    elif paired:
         from meshcad.presentation import bind
         bind(model, payload)
 
@@ -868,9 +924,12 @@ def export_assembly(assembly, target_path, **kwargs):
     the viewer have to agree, and agreeing on the uncolored one is not the way.
     Keyword arguments pass through to CadQuery's exporter, including STEP precision."""
     import cadquery as cq
+    model_blocks = kwargs.pop('model_blocks', getattr(assembly, 'physical_model_blocks', None))
     if getattr(cq, "MESH", False):
-        _export_mesh(_mesh_bodies(assembly), target_path, assembly.name)
+        _export_mesh(_mesh_bodies(assembly, model_blocks=model_blocks), target_path, assembly.name)
         return
+    if model_blocks:
+        raise ValueError('Fine model blocks require the mesh assembly export path')
     colored = _per_solid_color(assembly)
     _atomic_write(target_path, lambda p: colored.export(p, **kwargs))
     _write_payload_beside(target_path, colored)

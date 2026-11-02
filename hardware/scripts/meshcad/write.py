@@ -261,14 +261,16 @@ def _jsonable(rec):
             for k, v in rec.items()}
 
 
-def write_model(solids, path, names=None, colors=None, *, preserve_partitions=False):
+def write_model(solids, path, names=None, colors=None, *, preserve_partitions=False,
+                arrays=None, document=None):
     """The mesh model a mesh-kernel run leaves beside each STEP it would have written:
     float64 vertices, triangles, a face per triangle and the face records, per solid, with
     each solid's name and linear colour. `preserve_partitions` keeps a separate record
     slot for every native face, including faces whose records are equal."""
     with open(path, "wb") as f:
         write_npz(f, model_items(solids, names, colors,
-                                preserve_partitions=preserve_partitions))
+                                preserve_partitions=preserve_partitions,
+                                arrays=arrays, document=document))
 
 
 def model_bytes(solids, names=None, colors=None, *, preserve_partitions=False):
@@ -279,14 +281,16 @@ def model_bytes(solids, names=None, colors=None, *, preserve_partitions=False):
     return buf.getvalue()
 
 
-def model_items(solids, names=None, colors=None, *, preserve_partitions=False):
+def model_items(solids, names=None, colors=None, *, preserve_partitions=False,
+                arrays=None, document=None):
     """`write_model`'s arrays, by name, each made as the file takes it, so a model of many
     solids holds one solid's mesh at a time."""
     records = []
     names = names or [""] * len(solids)
     colors = colors or [None] * len(solids)
     for i, s in enumerate(solids):
-        V, T, face, recs = _partition_arrays(s) if preserve_partitions else _arrays(s)
+        V, T, face, recs = (arrays(s) if arrays is not None else
+                            _partition_arrays(s) if preserve_partitions else _arrays(s))
         records.append(json.dumps([_jsonable(r) for r in recs], separators=(",", ":")))
         yield f"V{i}", V
         yield f"T{i}", T.astype(np.uint32)
@@ -295,6 +299,8 @@ def model_items(solids, names=None, colors=None, *, preserve_partitions=False):
     yield "colors", text_array(json.dumps(
         [None if c is None else [round(float(x), 9) for x in c] for c in colors]))
     yield "records", text_array("[" + ",".join(records) + "]")
+    if document is not None:
+        yield "document", text_array(json.dumps(document, separators=(",", ":"), sort_keys=True))
 
 
 #: The FILE_DESCRIPTION a mesh-kernel STEP carries, which `imports.step_solids` reads to take

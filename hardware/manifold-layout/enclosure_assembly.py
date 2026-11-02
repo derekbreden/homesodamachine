@@ -738,6 +738,26 @@ CORE = "cold-core"
 _CORE_BODIES: dict = {}
 
 
+def _core_reference(carry, model=None):
+    """The installed core as an ordered model instance and its material/name metadata."""
+    import _assembly_model
+    import numpy as np
+
+    model = _cca.MODEL_OUT if model is None else model
+    prefix = CORE + SOLID_INDEX_SEP
+    alpha = _assembly_model.document(model).get('alpha_by_name', {})
+    rgba = {}
+    for name, rgb in _assembly_model.identity(model):
+        # Quantity_ColorRGBA stores the installed material channels as float32.
+        rgba.setdefault(prefix + name, None if rgb is None else
+                        tuple(float(channel) for channel in
+                              np.asarray((*rgb, alpha.get(name, 1.0)), np.float32)))
+    block = {'instances': [_assembly_model.instance(
+        model, prefix=prefix, transform=_assembly_model.location(carry.where))],
+        'colors': {name: None if value is None else value[:3] for name, value in rgba.items()}}
+    return block, frozenset(rgba), rgba
+
+
 def core_bodies(carry, model=None):
     """Every body the cold core places, stood where this machine stands the core.
 
@@ -4218,7 +4238,7 @@ def posed_manifold(carrier_offset: float, *, model=None, exclude=(), offset=None
 PUMP_FACE_Z = ml.PUMP_Y - ml.BARB_INSET
 
 
-def build_pack(*, core_model=None, manifold_model=None) -> cq.Assembly:
+def build_pack(*, core_model=None, manifold_model=None, core_reference=False) -> cq.Assembly:
     """The bodies, with no box around them. `enclosure` sizes itself off this, so it
     cannot be in it."""
     a = cq.Assembly(name="enclosure-assembly")
@@ -4336,8 +4356,16 @@ def build_pack(*, core_model=None, manifold_model=None) -> cq.Assembly:
     a.core_envelope = foam
     a.core_carry = foam_carry
     core = cq.Assembly(name=CORE)
-    for _name, _solid, _colour in core_bodies(foam_carry, core_model):
-        core.add(_solid, name=_name, color=_colour)
+    if (core_reference and getattr(cq, 'MESH', False)
+            and (core_model is not None or os.environ.get('HSM_CORE_MODEL', '1') == '1')):
+        block, core_names, rgba = _core_reference(foam_carry, core_model)
+        a.physical_model_blocks = {CORE: [block]}
+        a.referenced_core_rgba = rgba
+    else:
+        core_rows = core_bodies(foam_carry, core_model)
+        core_names = frozenset(name for name, _solid, _colour in core_rows)
+        for _name, _solid, _colour in core_rows:
+            core.add(_solid, name=_name, color=_colour)
     import rear_plumbing
     selected = {**_above_parts.components(), **rear_plumbing.caps(),
                 **_enc._above_core_shell.mount_hardware()}
@@ -4345,7 +4373,7 @@ def build_pack(*, core_model=None, manifold_model=None) -> cq.Assembly:
     for name in sorted(core_equipment):
         solid, colour, _carry = selected[name]
         core.add(solid, name=f'{CORE}/{name}', color=colour)
-    a.core_body_names = frozenset(n for n, _s, _c in core_bodies(foam_carry, core_model)) | frozenset(
+    a.core_body_names = core_names | frozenset(
         f'{CORE}/{name}' for name in core_equipment)
     # WHAT THE BOX SHUTS ON IT WITH. The core carries no hole, so its two front corners go into
     # blocks on the front-bottom's slab and its aft crown under brackets off the back-top's rear
@@ -5359,13 +5387,14 @@ def _seated(box):
 RIDGE_REACH = 60.0
 
 
-def machine(*, core_model=None, manifold_model=None):
+def machine(*, core_model=None, manifold_model=None, core_reference=False):
     """The pack, and the box around it. One build: the box is sized on the pack's bodies,
     and then carries the stations they seat in its walls.
 
     The box is SEATED before its ledger is carried, so the card holds the throat's row whether
     or not a wall is ever cut from this box."""
-    a = build_pack(core_model=core_model, manifold_model=manifold_model)
+    a = build_pack(core_model=core_model, manifold_model=manifold_model,
+                   core_reference=core_reference)
     p = pack(a)
     box = _seated(_enc.stated_box(p))
     carry_enclosure_bounds()
@@ -5425,11 +5454,12 @@ def build_funnel_cover():
     return funnel_cover.build()
 
 
-def build_enclosure_assembly(*, require_box_spec=False, kernel_wiring=False) -> cq.Assembly:
+def build_enclosure_assembly(*, require_box_spec=False, kernel_wiring=False,
+                             core_reference=False) -> cq.Assembly:
     """The pack, what is seated in the walls, and the four printable pieces of the box."""
     manifold_model = (_here.parent / "manifold-layout.step.npz"
                       if require_box_spec and getattr(cq, "MESH", False) else None)
-    a, _p, live_box = machine(manifold_model=manifold_model)
+    a, _p, live_box = machine(manifold_model=manifold_model, core_reference=core_reference)
     box = live_box
     if require_box_spec:
         import _box_spec
@@ -5943,6 +5973,12 @@ def write_scene(a, path=None) -> Path:
     drain = write_drain(a)
     report(a, _card.pack_clashes(a))
     card = _card.to_dict(_card.report(a))
+    if getattr(a, 'physical_model_blocks', None):
+        inputs = physical_fine_inputs(a)
+        return _machine.write_from_fine(inputs['model'], path or _machine.PATH,
+            aliases=inputs['aliases'],
+            envelope={**inputs['envelope'], 'color': _machine._rgb(C_FOAM)},
+            document=_machine.document(a, card=card, drain=drain, solids=(), core=()))
     return _machine.write(a, path or _machine.PATH, card=card, drain=drain)
 
 
@@ -5965,14 +6001,18 @@ def main():
     # neither variable and always rebuild the live Box and cold core from source.
     action = bool(os.environ.get("HSM_INPUT_DIGEST")
                   or os.environ.get("HSM_BUILD_SOURCE") == "trace")
-    a = build_enclosure_assembly(require_box_spec=action, kernel_wiring=True)
+    a = build_enclosure_assembly(require_box_spec=action, kernel_wiring=True,
+                                 core_reference=action and getattr(cq, 'MESH', False))
     out = _here.parent / "enclosure-assembly.step"
     meshcad = sys.modules.get("meshcad")
     on_meshes = meshcad is not None and meshcad.mesh_mode()
     if on_meshes:
         meshcad.forget()                    # what the build fused for its own checks
     from hardware.wiring.installed.build import export_enclosure
-    export_enclosure(a, out)
+    blocks = getattr(a, 'physical_model_blocks', None)
+    physical_export = (lambda physical, target: export_assembly(
+        physical, str(target), model_blocks=blocks)) if blocks else None
+    export_enclosure(a, out, physical_export=physical_export)
     print(f"-> {out.name}")
     if on_meshes:
         print(f"-> {write_scene(a).name}")
