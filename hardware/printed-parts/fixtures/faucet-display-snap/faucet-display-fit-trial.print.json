@@ -1,8 +1,10 @@
 {
   "project": "faucet-display-fit-trial.3mf",
-  "settings_source": "/Users/derekbredensteiner/.codex/visualizations/2026/09/16/01a0ac4b-6b4c-7d72-8043-23e59cd4ede4/print-review/preformed-wing-slices/trial-settings-baseline.3mf",
-  "settings_source_sha256": "e326ffdaec588c8467de5033b827b25d558ae7280ebcdcf0ca3a17ee19d5e1a7",
+  "settings_source": "hardware/printed-parts/fixtures/faucet-display-snap/faucet-display-fit-trial.3mf",
+  "settings_source_sha256": "55861a5d49514d4e604512c48d8f28a164ab3cfa1a58b0aa061f5184d2c856a9",
   "settings_sha256": "7824aefdca52c9fcfee5723cd3a820b0f4e5e61ebca5bf1662b74ea3947075fa",
+  "source_settings_sha256": "7824aefdca52c9fcfee5723cd3a820b0f4e5e61ebca5bf1662b74ea3947075fa",
+  "settings_changes": {},
   "printer": "Bambu Lab H2C 0.4 nozzle",
   "process": "0.24mm Standard @BBL H2C",
   "filament": [
@@ -30,7 +32,7 @@
   "bed_type": "Textured PEI Plate",
   "shared_printable_area_mm": [
     [
-      25.0,
+      0.0,
       0.0
     ],
     [
@@ -38,6 +40,10 @@
       320.0
     ]
   ],
+  "printable_area_extruders": [
+    0
+  ],
+  "plate_border_mm": 20.0,
   "plate_count": 1,
   "parts": [
     {
@@ -48,13 +54,13 @@
       "member": "3D/Objects/object_1.model",
       "identify_id": 1901,
       "source": "hardware/printed-parts/fixtures/faucet-display-snap/display-trial-housing.stl",
-      "stl_sha256": "c22f7f35668db5936f512f4a3325ca21496ef48d04dac1d882323a5c95936989",
-      "triangles": 163346,
+      "stl_sha256": "fa607f3855c835f75af09d2a8ec6152c9039ecb3a2325e086c4a271a68c71da0",
+      "triangles": 30478,
       "rotation_x_degrees": 0.0,
       "source_center_mm": [
         0.0,
-        -9.5367431640625e-06,
-        42.4716708154142
+        0.0,
+        42.76107406616211
       ],
       "build_transform": [
         1.0,
@@ -66,14 +72,14 @@
         0.0,
         -0.0,
         1.0,
-        110.0,
+        97.5,
         160.0,
-        42.471658042007675
+        42.76107406616211
       ],
       "plate_translation_mm": [
-        110.0,
+        97.5,
         160.0,
-        42.471658042007675
+        42.76107406616211
       ],
       "plate_origin_mm": [
         0.0,
@@ -82,19 +88,19 @@
       ],
       "plate_bounds_mm": [
         [
-          96.98754501342773,
-          134.24826622009277,
+          84.00024604797363,
+          133.79909133911133,
           0.0
         ],
         [
-          123.01245498657227,
-          185.75173377990723,
-          84.94331608401535
+          110.99975395202637,
+          186.20090866088867,
+          85.52214813232422
         ]
       ],
       "watertight": true,
       "body_count": 1,
-      "embedded_vertex_error_mm": 5.000000413701855e-10
+      "embedded_vertex_error_mm": 5.000018177270249e-10
     },
     {
       "name": "display-trial-cover",
@@ -104,13 +110,13 @@
       "member": "3D/Objects/object_2.model",
       "identify_id": 1902,
       "source": "hardware/printed-parts/fixtures/faucet-display-snap/display-trial-cover.stl",
-      "stl_sha256": "a1823c98758c79029c40cff5ea3b6f006a5db34153b74896d7b9fb20ab555544",
-      "triangles": 29658,
+      "stl_sha256": "427eeb293f69f815ee17f9875272e308cf58c9cb921e35d8e1bbd4476bba7262",
+      "triangles": 12286,
       "rotation_x_degrees": 0.0,
       "source_center_mm": [
         0.0,
         0.0,
-        9.27499966853027
+        10.024999618530273
       ],
       "build_transform": [
         1.0,
@@ -122,14 +128,14 @@
         0.0,
         -0.0,
         1.0,
-        240.0,
+        227.5,
         160.0,
-        9.274999568530276
+        10.024999618530273
       ],
       "plate_translation_mm": [
-        240.0,
+        227.5,
         160.0,
-        9.274999568530276
+        10.024999618530273
       ],
       "plate_origin_mm": [
         0.0,
@@ -138,14 +144,14 @@
       ],
       "plate_bounds_mm": [
         [
-          226.00298690795898,
-          134.7566680908203,
+          213.34631156921387,
+          134.30884170532227,
           0.0
         ],
         [
-          253.99701309204102,
-          185.2433319091797,
-          18.549999137060553
+          241.65368843078613,
+          185.69115829467773,
+          20.049999237060547
         ]
       ],
       "watertight": true,
@@ -153,11 +159,11 @@
       "embedded_vertex_error_mm": 5.000000413701855e-10
     }
   ],
-  "project_sha256": "14c81fabe0c743553b10c9a20047ce03690ab7d6e5ee7758657d37997a7ecc3e",
+  "project_sha256": "55861a5d49514d4e604512c48d8f28a164ab3cfa1a58b0aa061f5184d2c856a9",
   "settings_preserved_byte_for_byte": true,
   "project_title": "Faucet display fit trial",
-  "geometry_report_sha256": "5306428b55183a5e4ac7d50d9520644c8a79e65b9e4458d79cfa8ef003c142ce",
-  "profile_source": "/Users/derekbredensteiner/.codex/visualizations/2026/09/16/01a0ac4b-6b4c-7d72-8043-23e59cd4ede4/print-review/preformed-wing-slices/trial-settings-baseline.3mf",
+  "geometry_report_sha256": "f333f16a2a8918da4f783fe99c7e2f4e38403000e783d0a14d78173bea36094a",
+  "profile_source": "hardware/printed-parts/fixtures/faucet-display-snap/faucet-display-fit-trial.3mf",
   "all_profile_members_preserved_byte_for_byte": true,
   "placement": {
     "left_to_right": [

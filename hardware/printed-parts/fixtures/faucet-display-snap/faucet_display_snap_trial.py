@@ -12,9 +12,6 @@ import json
 from pathlib import Path
 import sys
 
-import cadquery as cq
-import trimesh
-
 HERE = Path(__file__).resolve().parent
 HW = next(p for p in HERE.parents if p.name == "hardware")
 ROOT = HW.parent
@@ -22,6 +19,13 @@ for path in (HW / "scripts", HW / "faucet-layout", HW / "printed-parts/faucet",
              HW / "printed-parts/faucet/faucet-shell",
              HW / "printed-parts/faucet/faucet-display-cover"):
     sys.path.insert(0, str(path))
+if __name__ == "__main__":
+    import _rust_part
+    _rust_part.start()
+
+import cadquery as cq
+import trimesh
+
 import _display_snap as snap
 import faucet_shell as shell
 import faucet_display_cover as cover
@@ -95,16 +99,72 @@ def export_part(body, name, rotation):
             "bounds_mm": printed.bounds.tolist()}
 
 
+def numbers():
+    """Production fine models, the head's authored loft and the fixture's clip and print poses."""
+    from _cadq_export import note_read
+    from _materials import linear
+
+    def model(path):
+        path = Path(str(path) + ".npz")
+        note_read(path)
+        return path.relative_to(ROOT).as_posix()
+
+    poses = {name: angle for name, _, angle in production_print.PARTS}
+    origin, _, normal = shell._tip_frame_data()
+    return {
+        "tip_model": model(HW / "printed-parts/faucet/faucet-shell/faucet-shell-tip.step"),
+        "cover_model": model(HW / "printed-parts/faucet/faucet-display-cover/faucet-display-cover.step"),
+        "seated_model": model(cover.SEATED_STEP),
+        "assembly_model": model(HW / "faucet-layout/faucet-assembly.step"),
+        "origin": origin, "normal": normal, "neck_stub": NECK_STUB,
+        "head_outline_rows": [
+            [shell.display_cover_skirt_width, shell.display_cover_skirt_length,
+             shell.display_cover_skirt_r, height, shell._display_cover_center_s]
+            for height in (shell.display_cover_bottom_n, shell.display_cover_shoulder_n)
+        ] + [[shell.display_cover_face_width, shell.display_cover_face_length,
+              shell.display_cover_face_r, shell.display_cover_top_n, shell._display_cover_center_s]],
+        "head_clip_s": shell.display_head_s_max + 1.0,
+        "pad_end_s": max(s for _, s in shell.display_foot_centers) + shell.display_foot_pad_width / 2.0,
+        "lip_end_s": shell.display_clip_s_top,
+        "ribbon_start_s": shell.display_ribbon_reference_start_s,
+        "housing_angle": poses["faucet-shell-tip"], "cover_angle": poses["faucet-display-cover"],
+        "black": list(linear(C_FAUCET_BLACK)), "display": list(linear(C_FAUCET_DISPLAY)),
+        "glass": list(linear(C_FAUCET_DISPLAY_GLASS)),
+        "water": list(linear(cq.Color(0.2, 0.5, 0.9))),
+        "flavor": list(linear(cq.Color(0.9, 0.5, 0.1))),
+        "ribbon": list(linear(cq.Color(0.2, 0.7, 0.4))),
+        "context": [
+            {"name": "faucet_display", "source": "faucet_display", "color": "display", "clip": False},
+            {"name": "faucet_display_screen", "source": "faucet_display_screen", "color": "glass", "clip": False},
+            {"name": "soda_tube", "source": "soda_faucet_tube", "color": "water", "clip": True},
+            {"name": "flavor_left", "source": "flavor_tube_neg_x", "color": "flavor", "clip": True},
+            {"name": "flavor_right", "source": "flavor_tube_pos_x", "color": "flavor", "clip": True},
+            {"name": "ribbon", "source": "display_signal_ribbon", "color": "ribbon", "clip": True},
+        ],
+    }
+
+
 def main():
+    import _rust_part
+    from _realized import code_digest
+
+    data = numbers()
     sources = [Path(shell.__file__), Path(cover.__file__), Path(snap.__file__),
                Path(assembly.__file__), Path(production_print.__file__), Path(__file__),
                HW / "printed-parts/faucet/_faucet_interface.py",
-               HW / "reference/touch-flo-faucet/display-reference/component-envelopes.json"]
-    before = {str(p.relative_to(ROOT)): hashlib.sha256(p.read_bytes()).hexdigest()
+               HW / "reference/touch-flo-faucet/display-reference/component-envelopes.json",
+               Path(__file__).with_suffix(".rs"),
+               *(ROOT / data[key] for key in ("tip_model", "cover_model", "seated_model", "assembly_model"))]
+    before = {str(p.relative_to(ROOT)): (code_digest(p) if p.suffix == ".py"
+                                        else hashlib.sha256(p.read_bytes()).hexdigest())
               for p in sources}
-    housing, lid, clip, retained = build_trial()
-    poses = {name: angle for name, _, angle in production_print.PARTS}
-    report = {"schema_version": 2, "physical_trial_completed": False,
+    said = _rust_part.cut("tooling", "faucet-display-snap", data, HERE)
+    bodies = {body["name"]: body for body in said["bodies"]}
+    housing = bodies["display-trial-housing"]
+    retained = {key: housing[key] for key in (
+        "complete_head_end_s_mm", "neck_cut_s_mm", "missing_head_material_mm3")}
+    retained["minimum_neck_stub_mm"] = NECK_STUB
+    report = {"schema_version": 3, "physical_trial_completed": False,
               "trial": "complete faucet display housing and cover with short gooseneck stub",
               "cover_print_shape": "relaxed inward-preloaded wings",
               "assembly_cover_shape": "nominal seated fit reference, not an elastic deformation prediction",
@@ -114,25 +174,25 @@ def main():
                             "wing_inward_preload_at_lip_top_mm": snap.X_PRELOAD,
                             "wing_inward_preload_at_lip_bottom_mm": cover.preload_inward_at(shell.display_clip_bottom_n)},
               "retained_geometry": retained,
-              "sources": before,
+              "sources": {path: value for path, value in before.items() if not path.endswith(".py")},
+              "source_code": {path: value for path, value in before.items() if path.endswith(".py")},
               "parts": []}
-    for body, name, angle in ((housing, "display-trial-housing", poses["faucet-shell-tip"]),
-                              (lid, "display-trial-cover", poses["faucet-display-cover"])):
-        report["parts"].append(export_part(print_pose(body, angle), name, angle))
-    assy = cq.Assembly(name="faucet-display-fit-trial")
-    assy.add(housing, name="trial_housing", color=C_FAUCET_BLACK)
-    assy.add(cover.build_seated_display_cover(), name="trial_cover_seated", color=C_FAUCET_BLACK)
-    assy.add(assembly.build_display_body(), name="faucet_display", color=C_FAUCET_DISPLAY)
-    assy.add(assembly.build_display_screen(), name="faucet_display_screen", color=C_FAUCET_DISPLAY_GLASS)
-    for name, body, color in (
-        ("soda_tube", assembly.build_soda_faucet_tube(), cq.Color(0.2, 0.5, 0.9)),
-        ("flavor_left", assembly.build_flavor_tube(-1), cq.Color(0.9, 0.5, 0.1)),
-        ("flavor_right", assembly.build_flavor_tube(1), cq.Color(0.9, 0.5, 0.1)),
-        ("ribbon", assembly.build_display_ribbon(), cq.Color(0.2, 0.7, 0.4)),
-    ):
-        assy.add(body.intersect(clip), name=name, color=color)
-    export_assembly(assy, str(HERE / "faucet-display-fit-trial.step"))
-    after = {str(p.relative_to(ROOT)): hashlib.sha256(p.read_bytes()).hexdigest()
+    for name, angle in (("display-trial-housing", data["housing_angle"]),
+                         ("display-trial-cover", data["cover_angle"])):
+        path = HERE / f"{name}.stl"
+        mesh = trimesh.load(path, force="mesh")
+        if (not mesh.is_watertight or not mesh.is_winding_consistent
+                or mesh.body_count != 1 or mesh.volume <= 0.0):
+            raise ValueError(f"{name}: serialized STL is not one closed volume")
+        report["parts"].append({
+            "stl": path.name, "sha256": hashlib.sha256(path.read_bytes()).hexdigest(),
+            "source_rotation_x_degrees": angle, "source_stl_already_in_print_pose": True,
+            "source_translation_mm": bodies[name]["source_translation_mm"],
+            "volume_mm3": bodies[name]["volume"], "triangles": len(mesh.faces),
+            "watertight": True, "body_count": 1, "bounds_mm": mesh.bounds.tolist(),
+        })
+    after = {str(p.relative_to(ROOT)): (code_digest(p) if p.suffix == ".py"
+                                       else hashlib.sha256(p.read_bytes()).hexdigest())
              for p in sources}
     if before != after:
         raise ValueError("faucet sources changed during the trial build; regenerate from stable geometry")
