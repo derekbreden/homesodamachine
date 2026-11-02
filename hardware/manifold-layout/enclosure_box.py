@@ -21,7 +21,11 @@ import enclosure_assembly as _assembly  # noqa: E402
 
 
 def main() -> None:
-    _machine, _pack, box = _assembly.machine()
+    import cadquery as cq
+
+    manifold_model = (_HERE.parent / "manifold-layout.step.npz"
+                      if getattr(cq, "MESH", False) else None)
+    _machine, _pack, box = _assembly.machine(manifold_model=manifold_model)
     box = _enc.documented(box)
     # Exercise the actual description, including its nested lists, ordered dictionaries and
     # named records, before publishing it as another action's input.
