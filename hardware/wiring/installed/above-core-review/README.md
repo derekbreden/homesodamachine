@@ -31,8 +31,26 @@ python3 tools/run.py -- tools/cad-venv/bin/python hardware/wiring/installed/revi
 ```
 
 It checks the authoritative fine topology, source/model hashes and exact installed
-presentation arrays. STEP/source binding and contact scripts read native
-materializations; their receipts retain their own recorded artifact scope.
+presentation arrays. Both manual readers select fine geometry when the manifest
+names a kernel model:
+
+```sh
+python3 tools/run.py -- tools/cad-venv/bin/python hardware/wiring/installed/above-core-review/installed_wiring_binding.py
+python3 tools/run.py -- tools/cad-venv/bin/python hardware/wiring/installed/above-core-review/aggregate_review.py
+```
+
+The binding reader regenerates the bound numeric recipes through Rust and compares
+their authoritative fine bodies, current electrical graph, curves and conductor
+stock in `fine_source`. The contact reader's `fine_contacts` queries every fine
+AABB overlap, including contained stock, with exact closed-entry commons. Only
+the named endpoint and fuse-stub spheres are removed. The two physical empty J4
+cells apply only when both named cells contain the complete remaining contact.
+Presentation arrays do not select or measure those contacts. Existing native
+receipts retain their own artifact hashes.
+
+For a kernel materialization, `aggregate_review.py --refresh-cache` writes an
+explicit fine-model index under `tmp/above-core-electrical-fixture/fine/`.
+Native BREP fixture indexes remain scoped to native materializations.
 
 Use the workstation CAD queue. The optional `--source-cache PATH` reuses
 explicitly bound native source solids after matching current curves,
