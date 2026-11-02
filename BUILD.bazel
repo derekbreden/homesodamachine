@@ -3489,13 +3489,17 @@ genrule(
     srcs = [
         "firmware/src_faucet/images/flavor0_faucet.h",
         "firmware/src_faucet/images/flavor1_faucet.h",
-        ":out/under-counter-plate/hardware/cut-parts/faucet/under-counter-plate/under-counter-plate.dxf",
+        ":out/faucet-assembly/hardware/faucet-layout/faucet-assembly.step.mesh",
         "pysrc/hardware/faucet-layout/faucet_assembly.py",
         "hardware/faucet-layout/faucet_metrics.rs",
         "pysrc/hardware/install-guide/_cad_art.py",
+        "pysrc/hardware/install-guide/_cad_art_mesh.py",
+        "pysrc/hardware/install-guide/_install_art_mesh.py",
+        "hardware/install-guide/cad_art_props.rs",
+        "hardware/install-guide/install_art_props.rs",
         "pysrc/hardware/install-guide/installation_art.py",
+        "hardware/install-guide/plumbing_art_props.rs",
         ":out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.facts.json",
-        ":out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.step",
         ":out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.step.mesh",
         "pysrc/hardware/printed-parts/cadlib/fits.py",
         "pysrc/hardware/printed-parts/cadlib/flute_skin.py",
@@ -3512,21 +3516,20 @@ genrule(
         "pysrc/hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py",
         "pysrc/hardware/printed-parts/faucet/faucet-shell/faucet_shell.py",
         "pysrc/hardware/printed-parts/faucet/faucet_paths.py",
-        "hardware/printed-parts/faucet/lever-replica/lever-replica.frame.json",
-        "pysrc/hardware/printed-parts/faucet/lever-replica/lever_replica.py",
-        "pysrc/hardware/printed-parts/faucet/lever-replica/physical_acceptance.py",
         "pysrc/hardware/printed-parts/faucet/tpu-o-ring/tpu_o_ring.py",
+        ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-carb.step.mesh",
+        ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-co2.step.mesh",
+        ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-drain.step.mesh",
+        ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-a.step.mesh",
+        ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-b.step.mesh",
+        ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-water.step.mesh",
         "pysrc/hardware/printed-parts/faucet/tube-collar/tube_collar.py",
         "pysrc/hardware/printed-parts/faucet/umbilical-organizer/umbilical_organizer.py",
-        "pysrc/hardware/printed-parts/faucet/vent_seals.py",
         "pysrc/hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py",
         "pysrc/hardware/reference/neofit-bulkhead/neofit_bulkhead.py",
         "pysrc/hardware/reference/neofit-drain-bulkhead/neofit_drain_bulkhead.py",
         "hardware/reference/touch-flo-faucet/display-reference/buttons.json",
         "hardware/reference/touch-flo-faucet/display-reference/component-envelopes.json",
-        "hardware/reference/touch-flo-faucet/westbrass-reference/frozen-asset.json",
-        "hardware/reference/touch-flo-faucet/westbrass-reference/westbrass-reference.step",
-        "hardware/reference/touch-flo-faucet/westbrass-reference/westbrass-reference.step.mesh",
         "pysrc/hardware/scripts/_cadq_export.py",
         "pysrc/hardware/scripts/_document_export.py",
         "pysrc/hardware/scripts/_hsm_render.py",
@@ -3539,11 +3542,6 @@ genrule(
         "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/hardware/scripts/_rust_part.py",
         "pysrc/hardware/scripts/_stated_bounds.py",
-        "pysrc/hardware/scripts/flute_payload.py",
-        "pysrc/hardware/scripts/meshcad/__init__.py",
-        "pysrc/hardware/scripts/meshcad/presentation.py",
-        "pysrc/hardware/scripts/meshcad/rule.py",
-        "pysrc/hardware/scripts/meshcad/write.py",
         "pysrc/tools/docgen/__init__.py",
         "tools/hsm/Cargo.lock",
         "tools/hsm/Cargo.toml",
@@ -3608,6 +3606,7 @@ genrule(
         "tools/hsm/run-slots/Cargo.toml",
         "tools/hsm/run-slots/src/ipc.rs",
         "tools/hsm/run-slots/src/lib.rs",
+        "tools/hsm/tooling/Cargo.toml",
         "tools/hsm/vendor/manifold-csg-sys/.cargo_vcs_info.json",
         "tools/hsm/vendor/manifold-csg-sys/Cargo.lock",
         "tools/hsm/vendor/manifold-csg-sys/Cargo.toml",
@@ -3761,19 +3760,56 @@ cd .. && rm -rf work-cad-art
 genrule(
     name = "render-modern-tee",
     srcs = [
+        "pysrc/hardware/install-guide/_plumbing_art_mesh.py",
+        "hardware/install-guide/cad_art_props.rs",
+        "hardware/install-guide/install_art_props.rs",
         "pysrc/hardware/install-guide/plumbing/modern/render_modern_tee.py",
-        "hardware/reference/jg-pp0408w/jg-pp0408w.step",
+        "hardware/install-guide/plumbing_art_props.rs",
+        "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+        "hardware/reference/jg-pp0408w/jg-pp0408w.step.mesh",
         "pysrc/hardware/reference/jg-pp0408w/jg_pp0408w.py",
         "pysrc/hardware/scripts/_cadq_export.py",
         "pysrc/hardware/scripts/_document_export.py",
         "pysrc/hardware/scripts/_hsm_render.py",
-        "pysrc/hardware/scripts/_mesh_payload.py",
-        "pysrc/hardware/scripts/_payload_rules.py",
+        "pysrc/hardware/scripts/_material_base.py",
+        "pysrc/hardware/scripts/_materials.py",
+        "pysrc/hardware/scripts/_occt_color.py",
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/hardware/scripts/_rust_part.py",
+        "pysrc/tools/docgen/__init__.py",
         "tools/hsm/Cargo.lock",
         "tools/hsm/Cargo.toml",
+        "tools/hsm/kernel/Cargo.toml",
+        "tools/hsm/kernel/src/boolean.rs",
+        "tools/hsm/kernel/src/build.rs",
+        "tools/hsm/kernel/src/dxf.rs",
+        "tools/hsm/kernel/src/edge.rs",
+        "tools/hsm/kernel/src/face.rs",
+        "tools/hsm/kernel/src/import.rs",
+        "tools/hsm/kernel/src/lib.rs",
+        "tools/hsm/kernel/src/mapped.rs",
+        "tools/hsm/kernel/src/mass.rs",
+        "tools/hsm/kernel/src/math.rs",
+        "tools/hsm/kernel/src/part.rs",
+        "tools/hsm/kernel/src/plane.rs",
+        "tools/hsm/kernel/src/profile.rs",
+        "tools/hsm/kernel/src/reads.rs",
+        "tools/hsm/kernel/src/round.rs",
+        "tools/hsm/kernel/src/round/rolled.rs",
+        "tools/hsm/kernel/src/rule.rs",
+        "tools/hsm/kernel/src/screw.rs",
+        "tools/hsm/kernel/src/sketch_hull.rs",
+        "tools/hsm/kernel/src/solid.rs",
+        "tools/hsm/kernel/src/spline.rs",
+        "tools/hsm/kernel/src/step.rs",
+        "tools/hsm/kernel/src/step/analytic.rs",
+        "tools/hsm/kernel/src/sweep.rs",
+        "tools/hsm/kernel/src/text.rs",
+        "tools/hsm/kernel/src/thru.rs",
+        "tools/hsm/kernel/src/topo.rs",
+        "tools/hsm/kernel/src/triangulate.rs",
+        "tools/hsm/kernel/src/write.rs",
         "tools/hsm/render/Cargo.toml",
         "tools/hsm/render/src/annotate.rs",
         "tools/hsm/render/src/bin/hsm-render.rs",
@@ -3798,6 +3834,7 @@ genrule(
         "tools/hsm/run-slots/Cargo.toml",
         "tools/hsm/run-slots/src/ipc.rs",
         "tools/hsm/run-slots/src/lib.rs",
+        "tools/hsm/tooling/Cargo.toml",
         "tools/hsm/vendor/manifold-csg-sys/.cargo_vcs_info.json",
         "tools/hsm/vendor/manifold-csg-sys/Cargo.lock",
         "tools/hsm/vendor/manifold-csg-sys/Cargo.toml",
@@ -3836,6 +3873,7 @@ genrule(
         "out/render-modern-tee/hardware/install-guide/plumbing/modern/art/modern-water-on.png",
         "out/render-modern-tee/hardware/install-guide/plumbing/modern/out/modern-water-on.step",
         "out/render-modern-tee/hardware/install-guide/plumbing/modern/out/modern-water-on.step.mesh",
+        "out/render-modern-tee/hardware/install-guide/plumbing/modern/out/modern-water-on.step.npz",
     ],
     tags = ["no-sandbox"],
     cmd = """
@@ -3871,6 +3909,7 @@ O7=$$PWD/$(location out/render-modern-tee/hardware/install-guide/plumbing/modern
 O8=$$PWD/$(location out/render-modern-tee/hardware/install-guide/plumbing/modern/art/modern-water-on.png)
 O9=$$PWD/$(location out/render-modern-tee/hardware/install-guide/plumbing/modern/out/modern-water-on.step)
 O10=$$PWD/$(location out/render-modern-tee/hardware/install-guide/plumbing/modern/out/modern-water-on.step.mesh)
+O11=$$PWD/$(location out/render-modern-tee/hardware/install-guide/plumbing/modern/out/modern-water-on.step.npz)
 rm -rf work-render-modern-tee
 for f in $(SRCS); do
   case $$f in
@@ -3899,6 +3938,7 @@ copy_file hardware/install-guide/plumbing/modern/art/modern-water-off.png "$$O7"
 copy_file hardware/install-guide/plumbing/modern/art/modern-water-on.png "$$O8"
 copy_file hardware/install-guide/plumbing/modern/out/modern-water-on.step "$$O9"
 copy_file hardware/install-guide/plumbing/modern/out/modern-water-on.step.mesh "$$O10"
+copy_file hardware/install-guide/plumbing/modern/out/modern-water-on.step.npz "$$O11"
 cd .. && rm -rf work-render-modern-tee
 """,
 )
@@ -3906,17 +3946,54 @@ cd .. && rm -rf work-render-modern-tee
 genrule(
     name = "plumbing-scenes",
     srcs = [
+        "pysrc/hardware/install-guide/_plumbing_art_mesh.py",
+        "hardware/install-guide/cad_art_props.rs",
+        "hardware/install-guide/install_art_props.rs",
         "pysrc/hardware/install-guide/plumbing/plumbing_scenes.py",
+        "hardware/install-guide/plumbing_art_props.rs",
+        "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
         "pysrc/hardware/scripts/_cadq_export.py",
         "pysrc/hardware/scripts/_document_export.py",
         "pysrc/hardware/scripts/_hsm_render.py",
-        "pysrc/hardware/scripts/_mesh_payload.py",
-        "pysrc/hardware/scripts/_payload_rules.py",
+        "pysrc/hardware/scripts/_material_base.py",
+        "pysrc/hardware/scripts/_materials.py",
+        "pysrc/hardware/scripts/_occt_color.py",
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/hardware/scripts/_rust_part.py",
+        "pysrc/tools/docgen/__init__.py",
         "tools/hsm/Cargo.lock",
         "tools/hsm/Cargo.toml",
+        "tools/hsm/kernel/Cargo.toml",
+        "tools/hsm/kernel/src/boolean.rs",
+        "tools/hsm/kernel/src/build.rs",
+        "tools/hsm/kernel/src/dxf.rs",
+        "tools/hsm/kernel/src/edge.rs",
+        "tools/hsm/kernel/src/face.rs",
+        "tools/hsm/kernel/src/import.rs",
+        "tools/hsm/kernel/src/lib.rs",
+        "tools/hsm/kernel/src/mapped.rs",
+        "tools/hsm/kernel/src/mass.rs",
+        "tools/hsm/kernel/src/math.rs",
+        "tools/hsm/kernel/src/part.rs",
+        "tools/hsm/kernel/src/plane.rs",
+        "tools/hsm/kernel/src/profile.rs",
+        "tools/hsm/kernel/src/reads.rs",
+        "tools/hsm/kernel/src/round.rs",
+        "tools/hsm/kernel/src/round/rolled.rs",
+        "tools/hsm/kernel/src/rule.rs",
+        "tools/hsm/kernel/src/screw.rs",
+        "tools/hsm/kernel/src/sketch_hull.rs",
+        "tools/hsm/kernel/src/solid.rs",
+        "tools/hsm/kernel/src/spline.rs",
+        "tools/hsm/kernel/src/step.rs",
+        "tools/hsm/kernel/src/step/analytic.rs",
+        "tools/hsm/kernel/src/sweep.rs",
+        "tools/hsm/kernel/src/text.rs",
+        "tools/hsm/kernel/src/thru.rs",
+        "tools/hsm/kernel/src/topo.rs",
+        "tools/hsm/kernel/src/triangulate.rs",
+        "tools/hsm/kernel/src/write.rs",
         "tools/hsm/render/Cargo.toml",
         "tools/hsm/render/src/annotate.rs",
         "tools/hsm/render/src/bin/hsm-render.rs",
@@ -3941,6 +4018,7 @@ genrule(
         "tools/hsm/run-slots/Cargo.toml",
         "tools/hsm/run-slots/src/ipc.rs",
         "tools/hsm/run-slots/src/lib.rs",
+        "tools/hsm/tooling/Cargo.toml",
         "tools/hsm/vendor/manifold-csg-sys/.cargo_vcs_info.json",
         "tools/hsm/vendor/manifold-csg-sys/Cargo.lock",
         "tools/hsm/vendor/manifold-csg-sys/Cargo.toml",
@@ -3974,12 +4052,16 @@ genrule(
         "out/plumbing-scenes/hardware/install-guide/plumbing/art/plumbing-valve-on.png",
         "out/plumbing-scenes/hardware/install-guide/plumbing/out/plumbing-pre-tee.step",
         "out/plumbing-scenes/hardware/install-guide/plumbing/out/plumbing-pre-tee.step.mesh",
+        "out/plumbing-scenes/hardware/install-guide/plumbing/out/plumbing-pre-tee.step.npz",
         "out/plumbing-scenes/hardware/install-guide/plumbing/out/plumbing-tee-installed.step",
         "out/plumbing-scenes/hardware/install-guide/plumbing/out/plumbing-tee-installed.step.mesh",
+        "out/plumbing-scenes/hardware/install-guide/plumbing/out/plumbing-tee-installed.step.npz",
         "out/plumbing-scenes/hardware/install-guide/plumbing/out/plumbing-valve-off.step",
         "out/plumbing-scenes/hardware/install-guide/plumbing/out/plumbing-valve-off.step.mesh",
+        "out/plumbing-scenes/hardware/install-guide/plumbing/out/plumbing-valve-off.step.npz",
         "out/plumbing-scenes/hardware/install-guide/plumbing/out/plumbing-valve-on.step",
         "out/plumbing-scenes/hardware/install-guide/plumbing/out/plumbing-valve-on.step.mesh",
+        "out/plumbing-scenes/hardware/install-guide/plumbing/out/plumbing-valve-on.step.npz",
     ],
     tags = ["no-sandbox"],
     cmd = """
@@ -4010,12 +4092,16 @@ O2=$$PWD/$(location out/plumbing-scenes/hardware/install-guide/plumbing/art/plum
 O3=$$PWD/$(location out/plumbing-scenes/hardware/install-guide/plumbing/art/plumbing-valve-on.png)
 O4=$$PWD/$(location out/plumbing-scenes/hardware/install-guide/plumbing/out/plumbing-pre-tee.step)
 O5=$$PWD/$(location out/plumbing-scenes/hardware/install-guide/plumbing/out/plumbing-pre-tee.step.mesh)
-O6=$$PWD/$(location out/plumbing-scenes/hardware/install-guide/plumbing/out/plumbing-tee-installed.step)
-O7=$$PWD/$(location out/plumbing-scenes/hardware/install-guide/plumbing/out/plumbing-tee-installed.step.mesh)
-O8=$$PWD/$(location out/plumbing-scenes/hardware/install-guide/plumbing/out/plumbing-valve-off.step)
-O9=$$PWD/$(location out/plumbing-scenes/hardware/install-guide/plumbing/out/plumbing-valve-off.step.mesh)
-O10=$$PWD/$(location out/plumbing-scenes/hardware/install-guide/plumbing/out/plumbing-valve-on.step)
-O11=$$PWD/$(location out/plumbing-scenes/hardware/install-guide/plumbing/out/plumbing-valve-on.step.mesh)
+O6=$$PWD/$(location out/plumbing-scenes/hardware/install-guide/plumbing/out/plumbing-pre-tee.step.npz)
+O7=$$PWD/$(location out/plumbing-scenes/hardware/install-guide/plumbing/out/plumbing-tee-installed.step)
+O8=$$PWD/$(location out/plumbing-scenes/hardware/install-guide/plumbing/out/plumbing-tee-installed.step.mesh)
+O9=$$PWD/$(location out/plumbing-scenes/hardware/install-guide/plumbing/out/plumbing-tee-installed.step.npz)
+O10=$$PWD/$(location out/plumbing-scenes/hardware/install-guide/plumbing/out/plumbing-valve-off.step)
+O11=$$PWD/$(location out/plumbing-scenes/hardware/install-guide/plumbing/out/plumbing-valve-off.step.mesh)
+O12=$$PWD/$(location out/plumbing-scenes/hardware/install-guide/plumbing/out/plumbing-valve-off.step.npz)
+O13=$$PWD/$(location out/plumbing-scenes/hardware/install-guide/plumbing/out/plumbing-valve-on.step)
+O14=$$PWD/$(location out/plumbing-scenes/hardware/install-guide/plumbing/out/plumbing-valve-on.step.mesh)
+O15=$$PWD/$(location out/plumbing-scenes/hardware/install-guide/plumbing/out/plumbing-valve-on.step.npz)
 rm -rf work-plumbing-scenes
 for f in $(SRCS); do
   case $$f in
@@ -4039,12 +4125,16 @@ copy_file hardware/install-guide/plumbing/art/plumbing-valve-off.png "$$O2"
 copy_file hardware/install-guide/plumbing/art/plumbing-valve-on.png "$$O3"
 copy_file hardware/install-guide/plumbing/out/plumbing-pre-tee.step "$$O4"
 copy_file hardware/install-guide/plumbing/out/plumbing-pre-tee.step.mesh "$$O5"
-copy_file hardware/install-guide/plumbing/out/plumbing-tee-installed.step "$$O6"
-copy_file hardware/install-guide/plumbing/out/plumbing-tee-installed.step.mesh "$$O7"
-copy_file hardware/install-guide/plumbing/out/plumbing-valve-off.step "$$O8"
-copy_file hardware/install-guide/plumbing/out/plumbing-valve-off.step.mesh "$$O9"
-copy_file hardware/install-guide/plumbing/out/plumbing-valve-on.step "$$O10"
-copy_file hardware/install-guide/plumbing/out/plumbing-valve-on.step.mesh "$$O11"
+copy_file hardware/install-guide/plumbing/out/plumbing-pre-tee.step.npz "$$O6"
+copy_file hardware/install-guide/plumbing/out/plumbing-tee-installed.step "$$O7"
+copy_file hardware/install-guide/plumbing/out/plumbing-tee-installed.step.mesh "$$O8"
+copy_file hardware/install-guide/plumbing/out/plumbing-tee-installed.step.npz "$$O9"
+copy_file hardware/install-guide/plumbing/out/plumbing-valve-off.step "$$O10"
+copy_file hardware/install-guide/plumbing/out/plumbing-valve-off.step.mesh "$$O11"
+copy_file hardware/install-guide/plumbing/out/plumbing-valve-off.step.npz "$$O12"
+copy_file hardware/install-guide/plumbing/out/plumbing-valve-on.step "$$O13"
+copy_file hardware/install-guide/plumbing/out/plumbing-valve-on.step.mesh "$$O14"
+copy_file hardware/install-guide/plumbing/out/plumbing-valve-on.step.npz "$$O15"
 cd .. && rm -rf work-plumbing-scenes
 """,
 )
@@ -12723,16 +12813,77 @@ genrule(
     name = "water-inlet-jet-fixture",
     srcs = [
         "pysrc/hardware/cold-core-layout/_water_inlet_jet.py",
+        "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
         "hardware/printed-parts/fixtures/water-inlet-jet/README.md",
         "pysrc/hardware/printed-parts/fixtures/water-inlet-jet/water_inlet_jet_fixture.py",
-        "pysrc/hardware/scripts/_cadq_export.py",
-        "pysrc/hardware/scripts/_document_export.py",
+        "hardware/printed-parts/fixtures/water-inlet-jet/water_inlet_jet_fixture.rs",
         "pysrc/hardware/scripts/_material_base.py",
+        "pysrc/hardware/scripts/_materials.py",
+        "pysrc/hardware/scripts/_occt_color.py",
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/hardware/scripts/_run_slots.py",
+        "pysrc/hardware/scripts/_rust_part.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/Cargo.lock",
+        "tools/hsm/Cargo.toml",
+        "tools/hsm/kernel/Cargo.toml",
+        "tools/hsm/kernel/src/boolean.rs",
+        "tools/hsm/kernel/src/build.rs",
+        "tools/hsm/kernel/src/dxf.rs",
+        "tools/hsm/kernel/src/edge.rs",
+        "tools/hsm/kernel/src/face.rs",
+        "tools/hsm/kernel/src/import.rs",
+        "tools/hsm/kernel/src/lib.rs",
+        "tools/hsm/kernel/src/mapped.rs",
+        "tools/hsm/kernel/src/mass.rs",
+        "tools/hsm/kernel/src/math.rs",
+        "tools/hsm/kernel/src/part.rs",
+        "tools/hsm/kernel/src/plane.rs",
+        "tools/hsm/kernel/src/profile.rs",
+        "tools/hsm/kernel/src/reads.rs",
+        "tools/hsm/kernel/src/round.rs",
+        "tools/hsm/kernel/src/round/rolled.rs",
+        "tools/hsm/kernel/src/rule.rs",
+        "tools/hsm/kernel/src/screw.rs",
+        "tools/hsm/kernel/src/sketch_hull.rs",
+        "tools/hsm/kernel/src/solid.rs",
+        "tools/hsm/kernel/src/spline.rs",
+        "tools/hsm/kernel/src/step.rs",
+        "tools/hsm/kernel/src/step/analytic.rs",
+        "tools/hsm/kernel/src/sweep.rs",
+        "tools/hsm/kernel/src/text.rs",
+        "tools/hsm/kernel/src/thru.rs",
+        "tools/hsm/kernel/src/topo.rs",
+        "tools/hsm/kernel/src/triangulate.rs",
+        "tools/hsm/kernel/src/write.rs",
         "tools/hsm/run-slots.defaults.json",
+        "tools/hsm/run-slots/Cargo.toml",
+        "tools/hsm/run-slots/src/ipc.rs",
+        "tools/hsm/run-slots/src/lib.rs",
+        "tools/hsm/tooling/Cargo.toml",
+        "tools/hsm/vendor/manifold-csg-sys/.cargo_vcs_info.json",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.lock",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.toml",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.toml.orig",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-APACHE",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-MIT",
+        "tools/hsm/vendor/manifold-csg-sys/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/build.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/build.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/fetch.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/patch.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/wasm.rs",
+        "tools/hsm/vendor/manifold-csg-sys/cache-version",
+        "tools/hsm/vendor/manifold-csg-sys/patches/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/src/lib.rs",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/CMakeLists.txt",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/diagnose.sh",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__assertion_handler",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__config_site",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/memory",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/mutex",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/libcxx-extras.cpp",
         "tools/run-slots.mjs",
         "pysrc/tools/run.py",
     ] + glob(
@@ -12743,12 +12894,18 @@ genrule(
     ),
     outs = [
         "out/water-inlet-jet-fixture/hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-fixed.step",
+        "out/water-inlet-jet-fixture/hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-fixed.step.mesh",
+        "out/water-inlet-jet-fixture/hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-fixed.step.npz",
         "out/water-inlet-jet-fixture/hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-fixed.stl",
         "out/water-inlet-jet-fixture/hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-loose.step",
+        "out/water-inlet-jet-fixture/hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-loose.step.mesh",
+        "out/water-inlet-jet-fixture/hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-loose.step.npz",
         "out/water-inlet-jet-fixture/hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-loose.stl",
+        "out/water-inlet-jet-fixture/hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture.numbers.json",
         "out/water-inlet-jet-fixture/hardware/printed-parts/fixtures/water-inlet-jet/README.figures.json",
         "out/water-inlet-jet-fixture/hardware/printed-parts/fixtures/water-inlet-jet/README.md",
     ],
+    tags = ["no-sandbox"],
     cmd = """
 set -e
 case "$$(uname -s)" in
@@ -12772,11 +12929,17 @@ case "$$(uname -s)" in
   *) copy_file() { cp "$$@"; };;
 esac
 O0=$$PWD/$(location out/water-inlet-jet-fixture/hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-fixed.step)
-O1=$$PWD/$(location out/water-inlet-jet-fixture/hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-fixed.stl)
-O2=$$PWD/$(location out/water-inlet-jet-fixture/hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-loose.step)
-O3=$$PWD/$(location out/water-inlet-jet-fixture/hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-loose.stl)
-O4=$$PWD/$(location out/water-inlet-jet-fixture/hardware/printed-parts/fixtures/water-inlet-jet/README.figures.json)
-O5=$$PWD/$(location out/water-inlet-jet-fixture/hardware/printed-parts/fixtures/water-inlet-jet/README.md)
+O1=$$PWD/$(location out/water-inlet-jet-fixture/hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-fixed.step.mesh)
+O2=$$PWD/$(location out/water-inlet-jet-fixture/hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-fixed.step.npz)
+O3=$$PWD/$(location out/water-inlet-jet-fixture/hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-fixed.stl)
+O4=$$PWD/$(location out/water-inlet-jet-fixture/hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-loose.step)
+O5=$$PWD/$(location out/water-inlet-jet-fixture/hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-loose.step.mesh)
+O6=$$PWD/$(location out/water-inlet-jet-fixture/hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-loose.step.npz)
+O7=$$PWD/$(location out/water-inlet-jet-fixture/hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-loose.stl)
+O8=$$PWD/$(location out/water-inlet-jet-fixture/hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture.numbers.json)
+O9=$$PWD/$(location out/water-inlet-jet-fixture/hardware/printed-parts/fixtures/water-inlet-jet/README.figures.json)
+O10=$$PWD/$(location out/water-inlet-jet-fixture/hardware/printed-parts/fixtures/water-inlet-jet/README.md)
+rm -rf work-water-inlet-jet-fixture
 for f in $(SRCS); do
   case $$f in
     */node_modules/*) continue;;
@@ -12784,21 +12947,27 @@ for f in $(SRCS); do
     */pysrc/*) t=$${f##*/pysrc/};;
     *) t=$$f;;
   esac
-  mkdir -p "work/$$(dirname "$$t")"; copy_file -L "$$f" "work/$$t"
+  mkdir -p "work-water-inlet-jet-fixture/$$(dirname "$$t")"; copy_file -L "$$f" "work-water-inlet-jet-fixture/$$t"
 done
 for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
+  if [ -d $$d ]; then mkdir -p work-water-inlet-jet-fixture/$$(dirname $$d); ln -sfn $$PWD/$$d work-water-inlet-jet-fixture/$$d; fi
 done
-cd work
+cd work-water-inlet-jet-fixture
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/fixtures/water-inlet-jet/water_inlet_jet_fixture.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/fixtures/water-inlet-jet/water_inlet_jet_fixture.py > /dev/null
 copy_file hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-fixed.step "$$O0"
-copy_file hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-fixed.stl "$$O1"
-copy_file hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-loose.step "$$O2"
-copy_file hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-loose.stl "$$O3"
-copy_file hardware/printed-parts/fixtures/water-inlet-jet/README.figures.json "$$O4"
-copy_file hardware/printed-parts/fixtures/water-inlet-jet/README.md "$$O5"
+copy_file hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-fixed.step.mesh "$$O1"
+copy_file hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-fixed.step.npz "$$O2"
+copy_file hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-fixed.stl "$$O3"
+copy_file hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-loose.step "$$O4"
+copy_file hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-loose.step.mesh "$$O5"
+copy_file hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-loose.step.npz "$$O6"
+copy_file hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-loose.stl "$$O7"
+copy_file hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture.numbers.json "$$O8"
+copy_file hardware/printed-parts/fixtures/water-inlet-jet/README.figures.json "$$O9"
+copy_file hardware/printed-parts/fixtures/water-inlet-jet/README.md "$$O10"
+cd .. && rm -rf work-water-inlet-jet-fixture
 """,
 )
 
@@ -12806,19 +12975,80 @@ genrule(
     name = "weld-rotator",
     srcs = [
         "pysrc/hardware/printed-parts/cadlib/fits.py",
+        "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
         "hardware/printed-parts/fixtures/weld-rotator/README.md",
         "pysrc/hardware/printed-parts/fixtures/weld-rotator/_rotator_interface.py",
         "hardware/printed-parts/fixtures/weld-rotator/weld_rotator.py",
-        "pysrc/hardware/scripts/_cadq_export.py",
-        "pysrc/hardware/scripts/_document_export.py",
+        "hardware/printed-parts/fixtures/weld-rotator/weld_rotator.rs",
         "pysrc/hardware/scripts/_material_base.py",
+        "pysrc/hardware/scripts/_materials.py",
         "pysrc/hardware/scripts/_mesh_payload.py",
+        "pysrc/hardware/scripts/_occt_color.py",
         "pysrc/hardware/scripts/_payload_rules.py",
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/hardware/scripts/_run_slots.py",
+        "pysrc/hardware/scripts/_rust_part.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/Cargo.lock",
+        "tools/hsm/Cargo.toml",
+        "tools/hsm/kernel/Cargo.toml",
+        "tools/hsm/kernel/src/boolean.rs",
+        "tools/hsm/kernel/src/build.rs",
+        "tools/hsm/kernel/src/dxf.rs",
+        "tools/hsm/kernel/src/edge.rs",
+        "tools/hsm/kernel/src/face.rs",
+        "tools/hsm/kernel/src/import.rs",
+        "tools/hsm/kernel/src/lib.rs",
+        "tools/hsm/kernel/src/mapped.rs",
+        "tools/hsm/kernel/src/mass.rs",
+        "tools/hsm/kernel/src/math.rs",
+        "tools/hsm/kernel/src/part.rs",
+        "tools/hsm/kernel/src/plane.rs",
+        "tools/hsm/kernel/src/profile.rs",
+        "tools/hsm/kernel/src/reads.rs",
+        "tools/hsm/kernel/src/round.rs",
+        "tools/hsm/kernel/src/round/rolled.rs",
+        "tools/hsm/kernel/src/rule.rs",
+        "tools/hsm/kernel/src/screw.rs",
+        "tools/hsm/kernel/src/sketch_hull.rs",
+        "tools/hsm/kernel/src/solid.rs",
+        "tools/hsm/kernel/src/spline.rs",
+        "tools/hsm/kernel/src/step.rs",
+        "tools/hsm/kernel/src/step/analytic.rs",
+        "tools/hsm/kernel/src/sweep.rs",
+        "tools/hsm/kernel/src/text.rs",
+        "tools/hsm/kernel/src/thru.rs",
+        "tools/hsm/kernel/src/topo.rs",
+        "tools/hsm/kernel/src/triangulate.rs",
+        "tools/hsm/kernel/src/write.rs",
         "tools/hsm/run-slots.defaults.json",
+        "tools/hsm/run-slots/Cargo.toml",
+        "tools/hsm/run-slots/src/ipc.rs",
+        "tools/hsm/run-slots/src/lib.rs",
+        "tools/hsm/tooling/Cargo.toml",
+        "tools/hsm/vendor/manifold-csg-sys/.cargo_vcs_info.json",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.lock",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.toml",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.toml.orig",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-APACHE",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-MIT",
+        "tools/hsm/vendor/manifold-csg-sys/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/build.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/build.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/fetch.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/patch.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/wasm.rs",
+        "tools/hsm/vendor/manifold-csg-sys/cache-version",
+        "tools/hsm/vendor/manifold-csg-sys/patches/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/src/lib.rs",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/CMakeLists.txt",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/diagnose.sh",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__assertion_handler",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__config_site",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/memory",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/mutex",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/libcxx-extras.cpp",
         "tools/run-slots.mjs",
         "pysrc/tools/run.py",
     ] + glob(
@@ -12829,24 +13059,69 @@ genrule(
     ),
     outs = [
         "out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-assembly.step",
+        "out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-assembly.step.mesh",
+        "out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-assembly.step.npz",
         "out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ball-cage.step",
+        "out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ball-cage.step.mesh",
+        "out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ball-cage.step.npz",
+        "out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ball-cage.stl",
         "out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-base-foot.step",
+        "out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-base-foot.step.mesh",
+        "out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-base-foot.step.npz",
+        "out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-base-foot.stl",
         "out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-base.step",
+        "out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-base.step.mesh",
+        "out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-base.step.npz",
+        "out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-base.stl",
         "out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ground-arm.step",
+        "out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ground-arm.step.mesh",
+        "out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ground-arm.step.npz",
+        "out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ground-arm.stl",
         "out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ground-shoe.step",
+        "out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ground-shoe.step.mesh",
+        "out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ground-shoe.step.npz",
         "out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ground-tower.step",
+        "out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ground-tower.step.mesh",
+        "out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ground-tower.step.npz",
+        "out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ground-tower.stl",
         "out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-carriage.step",
+        "out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-carriage.step.mesh",
+        "out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-carriage.step.npz",
+        "out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-carriage.stl",
         "out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-clamp-pad.step",
+        "out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-clamp-pad.step.mesh",
+        "out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-clamp-pad.step.npz",
+        "out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-clamp-pad.stl",
         "out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-tower.step",
+        "out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-tower.step.mesh",
+        "out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-tower.step.npz",
+        "out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-tower.stl",
         "out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-pulley-coupon.step",
+        "out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-pulley-coupon.step.mesh",
+        "out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-pulley-coupon.step.npz",
+        "out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-pulley-coupon.stl",
         "out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-race-ring.step",
+        "out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-race-ring.step.mesh",
+        "out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-race-ring.step.npz",
+        "out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-race-ring.stl",
         "out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-spool.step",
+        "out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-spool.step.mesh",
+        "out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-spool.step.npz",
+        "out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-spool.stl",
         "out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-tube-nest.step",
+        "out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-tube-nest.step.mesh",
+        "out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-tube-nest.step.npz",
+        "out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-tube-nest.stl",
         "out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-turntable-90t.step",
+        "out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-turntable-90t.step.mesh",
+        "out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-turntable-90t.step.npz",
+        "out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-turntable-90t.stl",
+        "out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator.numbers.json",
         "out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/README.figures.json",
         "out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/README.md",
         "out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld_rotator.py",
     ],
+    tags = ["no-sandbox"],
     cmd = """
 set -e
 case "$$(uname -s)" in
@@ -12870,23 +13145,68 @@ case "$$(uname -s)" in
   *) copy_file() { cp "$$@"; };;
 esac
 O0=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-assembly.step)
-O1=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ball-cage.step)
-O2=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-base-foot.step)
-O3=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-base.step)
-O4=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ground-arm.step)
-O5=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ground-shoe.step)
-O6=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ground-tower.step)
-O7=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-carriage.step)
-O8=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-clamp-pad.step)
-O9=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-tower.step)
-O10=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-pulley-coupon.step)
-O11=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-race-ring.step)
-O12=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-spool.step)
-O13=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-tube-nest.step)
-O14=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-turntable-90t.step)
-O15=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/README.figures.json)
-O16=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/README.md)
-O17=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld_rotator.py)
+O1=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-assembly.step.mesh)
+O2=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-assembly.step.npz)
+O3=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ball-cage.step)
+O4=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ball-cage.step.mesh)
+O5=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ball-cage.step.npz)
+O6=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ball-cage.stl)
+O7=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-base-foot.step)
+O8=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-base-foot.step.mesh)
+O9=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-base-foot.step.npz)
+O10=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-base-foot.stl)
+O11=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-base.step)
+O12=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-base.step.mesh)
+O13=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-base.step.npz)
+O14=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-base.stl)
+O15=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ground-arm.step)
+O16=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ground-arm.step.mesh)
+O17=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ground-arm.step.npz)
+O18=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ground-arm.stl)
+O19=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ground-shoe.step)
+O20=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ground-shoe.step.mesh)
+O21=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ground-shoe.step.npz)
+O22=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ground-tower.step)
+O23=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ground-tower.step.mesh)
+O24=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ground-tower.step.npz)
+O25=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ground-tower.stl)
+O26=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-carriage.step)
+O27=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-carriage.step.mesh)
+O28=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-carriage.step.npz)
+O29=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-carriage.stl)
+O30=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-clamp-pad.step)
+O31=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-clamp-pad.step.mesh)
+O32=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-clamp-pad.step.npz)
+O33=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-clamp-pad.stl)
+O34=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-tower.step)
+O35=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-tower.step.mesh)
+O36=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-tower.step.npz)
+O37=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-tower.stl)
+O38=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-pulley-coupon.step)
+O39=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-pulley-coupon.step.mesh)
+O40=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-pulley-coupon.step.npz)
+O41=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-pulley-coupon.stl)
+O42=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-race-ring.step)
+O43=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-race-ring.step.mesh)
+O44=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-race-ring.step.npz)
+O45=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-race-ring.stl)
+O46=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-spool.step)
+O47=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-spool.step.mesh)
+O48=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-spool.step.npz)
+O49=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-spool.stl)
+O50=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-tube-nest.step)
+O51=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-tube-nest.step.mesh)
+O52=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-tube-nest.step.npz)
+O53=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-tube-nest.stl)
+O54=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-turntable-90t.step)
+O55=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-turntable-90t.step.mesh)
+O56=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-turntable-90t.step.npz)
+O57=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-turntable-90t.stl)
+O58=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator.numbers.json)
+O59=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/README.figures.json)
+O60=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/README.md)
+O61=$$PWD/$(location out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld_rotator.py)
+rm -rf work-weld-rotator
 for f in $(SRCS); do
   case $$f in
     */node_modules/*) continue;;
@@ -12894,33 +13214,78 @@ for f in $(SRCS); do
     */pysrc/*) t=$${f##*/pysrc/};;
     *) t=$$f;;
   esac
-  mkdir -p "work/$$(dirname "$$t")"; copy_file -L "$$f" "work/$$t"
+  mkdir -p "work-weld-rotator/$$(dirname "$$t")"; copy_file -L "$$f" "work-weld-rotator/$$t"
 done
 for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
+  if [ -d $$d ]; then mkdir -p work-weld-rotator/$$(dirname $$d); ln -sfn $$PWD/$$d work-weld-rotator/$$d; fi
 done
-cd work
+cd work-weld-rotator
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/fixtures/weld-rotator/weld_rotator.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/fixtures/weld-rotator/weld_rotator.py > /dev/null
 copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-assembly.step "$$O0"
-copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ball-cage.step "$$O1"
-copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-base-foot.step "$$O2"
-copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-base.step "$$O3"
-copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ground-arm.step "$$O4"
-copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ground-shoe.step "$$O5"
-copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ground-tower.step "$$O6"
-copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-carriage.step "$$O7"
-copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-clamp-pad.step "$$O8"
-copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-tower.step "$$O9"
-copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-pulley-coupon.step "$$O10"
-copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-race-ring.step "$$O11"
-copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-spool.step "$$O12"
-copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-tube-nest.step "$$O13"
-copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-turntable-90t.step "$$O14"
-copy_file hardware/printed-parts/fixtures/weld-rotator/README.figures.json "$$O15"
-copy_file hardware/printed-parts/fixtures/weld-rotator/README.md "$$O16"
-copy_file hardware/printed-parts/fixtures/weld-rotator/weld_rotator.py "$$O17"
+copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-assembly.step.mesh "$$O1"
+copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-assembly.step.npz "$$O2"
+copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ball-cage.step "$$O3"
+copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ball-cage.step.mesh "$$O4"
+copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ball-cage.step.npz "$$O5"
+copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ball-cage.stl "$$O6"
+copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-base-foot.step "$$O7"
+copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-base-foot.step.mesh "$$O8"
+copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-base-foot.step.npz "$$O9"
+copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-base-foot.stl "$$O10"
+copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-base.step "$$O11"
+copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-base.step.mesh "$$O12"
+copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-base.step.npz "$$O13"
+copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-base.stl "$$O14"
+copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ground-arm.step "$$O15"
+copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ground-arm.step.mesh "$$O16"
+copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ground-arm.step.npz "$$O17"
+copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ground-arm.stl "$$O18"
+copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ground-shoe.step "$$O19"
+copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ground-shoe.step.mesh "$$O20"
+copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ground-shoe.step.npz "$$O21"
+copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ground-tower.step "$$O22"
+copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ground-tower.step.mesh "$$O23"
+copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ground-tower.step.npz "$$O24"
+copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ground-tower.stl "$$O25"
+copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-carriage.step "$$O26"
+copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-carriage.step.mesh "$$O27"
+copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-carriage.step.npz "$$O28"
+copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-carriage.stl "$$O29"
+copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-clamp-pad.step "$$O30"
+copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-clamp-pad.step.mesh "$$O31"
+copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-clamp-pad.step.npz "$$O32"
+copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-clamp-pad.stl "$$O33"
+copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-tower.step "$$O34"
+copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-tower.step.mesh "$$O35"
+copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-tower.step.npz "$$O36"
+copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-tower.stl "$$O37"
+copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-pulley-coupon.step "$$O38"
+copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-pulley-coupon.step.mesh "$$O39"
+copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-pulley-coupon.step.npz "$$O40"
+copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-pulley-coupon.stl "$$O41"
+copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-race-ring.step "$$O42"
+copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-race-ring.step.mesh "$$O43"
+copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-race-ring.step.npz "$$O44"
+copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-race-ring.stl "$$O45"
+copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-spool.step "$$O46"
+copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-spool.step.mesh "$$O47"
+copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-spool.step.npz "$$O48"
+copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-spool.stl "$$O49"
+copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-tube-nest.step "$$O50"
+copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-tube-nest.step.mesh "$$O51"
+copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-tube-nest.step.npz "$$O52"
+copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-tube-nest.stl "$$O53"
+copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-turntable-90t.step "$$O54"
+copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-turntable-90t.step.mesh "$$O55"
+copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-turntable-90t.step.npz "$$O56"
+copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator-turntable-90t.stl "$$O57"
+copy_file hardware/printed-parts/fixtures/weld-rotator/weld-rotator.numbers.json "$$O58"
+copy_file hardware/printed-parts/fixtures/weld-rotator/README.figures.json "$$O59"
+copy_file hardware/printed-parts/fixtures/weld-rotator/README.md "$$O60"
+copy_file hardware/printed-parts/fixtures/weld-rotator/weld_rotator.py "$$O61"
+cd .. && rm -rf work-weld-rotator
 """,
 )
 
@@ -13091,18 +13456,105 @@ genrule(
         "pysrc/hardware/printed-parts/shop-storage/_holder.py",
         "pysrc/hardware/printed-parts/shop-storage/_kit.py",
         "pysrc/hardware/printed-parts/shop-storage/catalog.py",
+        "hardware/printed-parts/shop-storage/gridfinity-stock/bin-2x2-d0x0.stock.npz",
+        "hardware/printed-parts/shop-storage/gridfinity-stock/bin-2x2-d1x0.stock.npz",
+        "hardware/printed-parts/shop-storage/gridfinity-stock/bin-3x1-d1x0.stock.npz",
+        "hardware/printed-parts/shop-storage/gridfinity-stock/bin-3x1-d2x0.stock.npz",
+        "hardware/printed-parts/shop-storage/gridfinity-stock/bin-3x2-d0x0.stock.npz",
+        "hardware/printed-parts/shop-storage/gridfinity-stock/bin-3x2-d1x0.stock.npz",
+        "hardware/printed-parts/shop-storage/gridfinity-stock/bin-3x2-d2x0.stock.npz",
+        "hardware/printed-parts/shop-storage/gridfinity-stock/bin-3x2-d2x1.stock.npz",
+        "hardware/printed-parts/shop-storage/gridfinity-stock/bin-3x2-d4x0.stock.npz",
+        "hardware/printed-parts/shop-storage/gridfinity-stock/bin-3x3-d1x0.stock.npz",
+        "hardware/printed-parts/shop-storage/gridfinity-stock/bin-3x3-d1x1.stock.npz",
+        "hardware/printed-parts/shop-storage/gridfinity-stock/bin-3x3-d2x0.stock.npz",
+        "hardware/printed-parts/shop-storage/gridfinity-stock/bin-3x3-d2x1.stock.npz",
+        "hardware/printed-parts/shop-storage/gridfinity-stock/bin-3x3-d2x2.stock.npz",
+        "hardware/printed-parts/shop-storage/gridfinity-stock/bin-4x1-d0x0.stock.npz",
+        "hardware/printed-parts/shop-storage/gridfinity-stock/bin-4x2-d0x1.stock.npz",
+        "hardware/printed-parts/shop-storage/gridfinity-stock/blank-2x1.stock.npz",
+        "hardware/printed-parts/shop-storage/gridfinity-stock/blank-2x2.stock.npz",
+        "hardware/printed-parts/shop-storage/gridfinity-stock/blank-3x2.stock.npz",
+        "hardware/printed-parts/shop-storage/gridfinity-stock/blank-3x3.stock.npz",
+        "hardware/printed-parts/shop-storage/gridfinity-stock/dock-2x1.stock.npz",
+        "hardware/printed-parts/shop-storage/gridfinity-stock/dock-2x2.stock.npz",
+        "hardware/printed-parts/shop-storage/gridfinity-stock/dock-3x1.stock.npz",
+        "hardware/printed-parts/shop-storage/gridfinity-stock/dock-3x2.stock.npz",
+        "hardware/printed-parts/shop-storage/gridfinity-stock/dock-3x3.stock.npz",
+        "hardware/printed-parts/shop-storage/gridfinity-stock/dock-4x1.stock.npz",
+        "hardware/printed-parts/shop-storage/gridfinity-stock/dock-4x2.stock.npz",
+        "hardware/printed-parts/shop-storage/gridfinity-stock/manifest.json",
         "pysrc/hardware/printed-parts/shop-storage/holders.py",
+        "hardware/printed-parts/shop-storage/holders.rs",
         "pysrc/hardware/scripts/_cadq_export.py",
         "pysrc/hardware/scripts/_document_export.py",
         "pysrc/hardware/scripts/_material_base.py",
         "pysrc/hardware/scripts/_materials.py",
-        "pysrc/hardware/scripts/_mesh_payload.py",
-        "pysrc/hardware/scripts/_payload_rules.py",
+        "pysrc/hardware/scripts/_occt_color.py",
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/hardware/scripts/_run_slots.py",
+        "pysrc/hardware/scripts/_rust_part.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/Cargo.lock",
+        "tools/hsm/Cargo.toml",
+        "tools/hsm/kernel/Cargo.toml",
+        "tools/hsm/kernel/src/boolean.rs",
+        "tools/hsm/kernel/src/build.rs",
+        "tools/hsm/kernel/src/dxf.rs",
+        "tools/hsm/kernel/src/edge.rs",
+        "tools/hsm/kernel/src/face.rs",
+        "tools/hsm/kernel/src/import.rs",
+        "tools/hsm/kernel/src/lib.rs",
+        "tools/hsm/kernel/src/mapped.rs",
+        "tools/hsm/kernel/src/mass.rs",
+        "tools/hsm/kernel/src/math.rs",
+        "tools/hsm/kernel/src/part.rs",
+        "tools/hsm/kernel/src/plane.rs",
+        "tools/hsm/kernel/src/profile.rs",
+        "tools/hsm/kernel/src/reads.rs",
+        "tools/hsm/kernel/src/round.rs",
+        "tools/hsm/kernel/src/round/rolled.rs",
+        "tools/hsm/kernel/src/rule.rs",
+        "tools/hsm/kernel/src/screw.rs",
+        "tools/hsm/kernel/src/sketch_hull.rs",
+        "tools/hsm/kernel/src/solid.rs",
+        "tools/hsm/kernel/src/spline.rs",
+        "tools/hsm/kernel/src/step.rs",
+        "tools/hsm/kernel/src/step/analytic.rs",
+        "tools/hsm/kernel/src/sweep.rs",
+        "tools/hsm/kernel/src/text.rs",
+        "tools/hsm/kernel/src/thru.rs",
+        "tools/hsm/kernel/src/topo.rs",
+        "tools/hsm/kernel/src/triangulate.rs",
+        "tools/hsm/kernel/src/write.rs",
         "tools/hsm/run-slots.defaults.json",
+        "tools/hsm/run-slots/Cargo.toml",
+        "tools/hsm/run-slots/src/ipc.rs",
+        "tools/hsm/run-slots/src/lib.rs",
+        "tools/hsm/tooling/Cargo.toml",
+        "tools/hsm/vendor/manifold-csg-sys/.cargo_vcs_info.json",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.lock",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.toml",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.toml.orig",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-APACHE",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-MIT",
+        "tools/hsm/vendor/manifold-csg-sys/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/build.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/build.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/fetch.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/patch.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/wasm.rs",
+        "tools/hsm/vendor/manifold-csg-sys/cache-version",
+        "tools/hsm/vendor/manifold-csg-sys/patches/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/src/lib.rs",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/CMakeLists.txt",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/diagnose.sh",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__assertion_handler",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__config_site",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/memory",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/mutex",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/libcxx-extras.cpp",
         "tools/run-slots.mjs",
         "pysrc/tools/run.py",
     ] + glob(
@@ -13113,51 +13565,181 @@ genrule(
     ),
     outs = [
         "out/holders/hardware/printed-parts/shop-storage/holders/adapter-tub.step",
+        "out/holders/hardware/printed-parts/shop-storage/holders/adapter-tub.step.mesh",
+        "out/holders/hardware/printed-parts/shop-storage/holders/adapter-tub.step.npz",
+        "out/holders/hardware/printed-parts/shop-storage/holders/adapter-tub.stl",
         "out/holders/hardware/printed-parts/shop-storage/holders/brush-quiver.step",
+        "out/holders/hardware/printed-parts/shop-storage/holders/brush-quiver.step.mesh",
+        "out/holders/hardware/printed-parts/shop-storage/holders/brush-quiver.step.npz",
+        "out/holders/hardware/printed-parts/shop-storage/holders/brush-quiver.stl",
         "out/holders/hardware/printed-parts/shop-storage/holders/bulkhead-tub.step",
+        "out/holders/hardware/printed-parts/shop-storage/holders/bulkhead-tub.step.mesh",
+        "out/holders/hardware/printed-parts/shop-storage/holders/bulkhead-tub.step.npz",
+        "out/holders/hardware/printed-parts/shop-storage/holders/bulkhead-tub.stl",
         "out/holders/hardware/printed-parts/shop-storage/holders/copper-tub.step",
+        "out/holders/hardware/printed-parts/shop-storage/holders/copper-tub.step.mesh",
+        "out/holders/hardware/printed-parts/shop-storage/holders/copper-tub.step.npz",
+        "out/holders/hardware/printed-parts/shop-storage/holders/copper-tub.stl",
         "out/holders/hardware/printed-parts/shop-storage/holders/crimp-comb.step",
+        "out/holders/hardware/printed-parts/shop-storage/holders/crimp-comb.step.mesh",
+        "out/holders/hardware/printed-parts/shop-storage/holders/crimp-comb.step.npz",
+        "out/holders/hardware/printed-parts/shop-storage/holders/crimp-comb.stl",
         "out/holders/hardware/printed-parts/shop-storage/holders/cut-comb.step",
+        "out/holders/hardware/printed-parts/shop-storage/holders/cut-comb.step.mesh",
+        "out/holders/hardware/printed-parts/shop-storage/holders/cut-comb.step.npz",
+        "out/holders/hardware/printed-parts/shop-storage/holders/cut-comb.stl",
         "out/holders/hardware/printed-parts/shop-storage/holders/deburr-tub.step",
+        "out/holders/hardware/printed-parts/shop-storage/holders/deburr-tub.step.mesh",
+        "out/holders/hardware/printed-parts/shop-storage/holders/deburr-tub.step.npz",
+        "out/holders/hardware/printed-parts/shop-storage/holders/deburr-tub.stl",
         "out/holders/hardware/printed-parts/shop-storage/holders/depressor-quiver.step",
+        "out/holders/hardware/printed-parts/shop-storage/holders/depressor-quiver.step.mesh",
+        "out/holders/hardware/printed-parts/shop-storage/holders/depressor-quiver.step.npz",
+        "out/holders/hardware/printed-parts/shop-storage/holders/depressor-quiver.stl",
         "out/holders/hardware/printed-parts/shop-storage/holders/die-tub.step",
+        "out/holders/hardware/printed-parts/shop-storage/holders/die-tub.step.mesh",
+        "out/holders/hardware/printed-parts/shop-storage/holders/die-tub.step.npz",
+        "out/holders/hardware/printed-parts/shop-storage/holders/die-tub.stl",
         "out/holders/hardware/printed-parts/shop-storage/holders/dock-3x3.step",
+        "out/holders/hardware/printed-parts/shop-storage/holders/dock-3x3.step.mesh",
+        "out/holders/hardware/printed-parts/shop-storage/holders/dock-3x3.step.npz",
+        "out/holders/hardware/printed-parts/shop-storage/holders/dock-3x3.stl",
         "out/holders/hardware/printed-parts/shop-storage/holders/dowel-index.step",
+        "out/holders/hardware/printed-parts/shop-storage/holders/dowel-index.step.mesh",
+        "out/holders/hardware/printed-parts/shop-storage/holders/dowel-index.step.npz",
+        "out/holders/hardware/printed-parts/shop-storage/holders/dowel-index.stl",
         "out/holders/hardware/printed-parts/shop-storage/holders/drill-index.step",
+        "out/holders/hardware/printed-parts/shop-storage/holders/drill-index.step.mesh",
+        "out/holders/hardware/printed-parts/shop-storage/holders/drill-index.step.npz",
+        "out/holders/hardware/printed-parts/shop-storage/holders/drill-index.stl",
         "out/holders/hardware/printed-parts/shop-storage/holders/ferrule-tub.step",
+        "out/holders/hardware/printed-parts/shop-storage/holders/ferrule-tub.step.mesh",
+        "out/holders/hardware/printed-parts/shop-storage/holders/ferrule-tub.step.npz",
+        "out/holders/hardware/printed-parts/shop-storage/holders/ferrule-tub.stl",
         "out/holders/hardware/printed-parts/shop-storage/holders/fine-comb.step",
+        "out/holders/hardware/printed-parts/shop-storage/holders/fine-comb.step.mesh",
+        "out/holders/hardware/printed-parts/shop-storage/holders/fine-comb.step.npz",
+        "out/holders/hardware/printed-parts/shop-storage/holders/fine-comb.stl",
         "out/holders/hardware/printed-parts/shop-storage/holders/flux-tub.step",
+        "out/holders/hardware/printed-parts/shop-storage/holders/flux-tub.step.mesh",
+        "out/holders/hardware/printed-parts/shop-storage/holders/flux-tub.step.npz",
+        "out/holders/hardware/printed-parts/shop-storage/holders/flux-tub.stl",
         "out/holders/hardware/printed-parts/shop-storage/holders/heat-gun-tub.step",
+        "out/holders/hardware/printed-parts/shop-storage/holders/heat-gun-tub.step.mesh",
+        "out/holders/hardware/printed-parts/shop-storage/holders/heat-gun-tub.step.npz",
+        "out/holders/hardware/printed-parts/shop-storage/holders/heat-gun-tub.stl",
         "out/holders/hardware/printed-parts/shop-storage/holders/hotend-tub.step",
+        "out/holders/hardware/printed-parts/shop-storage/holders/hotend-tub.step.mesh",
+        "out/holders/hardware/printed-parts/shop-storage/holders/hotend-tub.step.npz",
+        "out/holders/hardware/printed-parts/shop-storage/holders/hotend-tub.stl",
         "out/holders/hardware/printed-parts/shop-storage/holders/insert-tub.step",
+        "out/holders/hardware/printed-parts/shop-storage/holders/insert-tub.step.mesh",
+        "out/holders/hardware/printed-parts/shop-storage/holders/insert-tub.step.npz",
+        "out/holders/hardware/printed-parts/shop-storage/holders/insert-tub.stl",
         "out/holders/hardware/printed-parts/shop-storage/holders/junction-tub.step",
+        "out/holders/hardware/printed-parts/shop-storage/holders/junction-tub.step.mesh",
+        "out/holders/hardware/printed-parts/shop-storage/holders/junction-tub.step.npz",
+        "out/holders/hardware/printed-parts/shop-storage/holders/junction-tub.stl",
         "out/holders/hardware/printed-parts/shop-storage/holders/keystone-tub.step",
+        "out/holders/hardware/printed-parts/shop-storage/holders/keystone-tub.step.mesh",
+        "out/holders/hardware/printed-parts/shop-storage/holders/keystone-tub.step.npz",
+        "out/holders/hardware/printed-parts/shop-storage/holders/keystone-tub.stl",
         "out/holders/hardware/printed-parts/shop-storage/holders/lever-tub.step",
+        "out/holders/hardware/printed-parts/shop-storage/holders/lever-tub.step.mesh",
+        "out/holders/hardware/printed-parts/shop-storage/holders/lever-tub.step.npz",
+        "out/holders/hardware/printed-parts/shop-storage/holders/lever-tub.stl",
         "out/holders/hardware/printed-parts/shop-storage/holders/m3-tub.step",
+        "out/holders/hardware/printed-parts/shop-storage/holders/m3-tub.step.mesh",
+        "out/holders/hardware/printed-parts/shop-storage/holders/m3-tub.step.npz",
+        "out/holders/hardware/printed-parts/shop-storage/holders/m3-tub.stl",
         "out/holders/hardware/printed-parts/shop-storage/holders/m5-tub.step",
+        "out/holders/hardware/printed-parts/shop-storage/holders/m5-tub.step.mesh",
+        "out/holders/hardware/printed-parts/shop-storage/holders/m5-tub.step.npz",
+        "out/holders/hardware/printed-parts/shop-storage/holders/m5-tub.stl",
         "out/holders/hardware/printed-parts/shop-storage/holders/npt-tub.step",
+        "out/holders/hardware/printed-parts/shop-storage/holders/npt-tub.step.mesh",
+        "out/holders/hardware/printed-parts/shop-storage/holders/npt-tub.step.npz",
+        "out/holders/hardware/printed-parts/shop-storage/holders/npt-tub.stl",
         "out/holders/hardware/printed-parts/shop-storage/holders/pigment-tub.step",
+        "out/holders/hardware/printed-parts/shop-storage/holders/pigment-tub.step.mesh",
+        "out/holders/hardware/printed-parts/shop-storage/holders/pigment-tub.step.npz",
+        "out/holders/hardware/printed-parts/shop-storage/holders/pigment-tub.stl",
         "out/holders/hardware/printed-parts/shop-storage/holders/pressure-tub.step",
+        "out/holders/hardware/printed-parts/shop-storage/holders/pressure-tub.step.mesh",
+        "out/holders/hardware/printed-parts/shop-storage/holders/pressure-tub.step.npz",
+        "out/holders/hardware/printed-parts/shop-storage/holders/pressure-tub.stl",
         "out/holders/hardware/printed-parts/shop-storage/holders/punch-comb.step",
+        "out/holders/hardware/printed-parts/shop-storage/holders/punch-comb.step.mesh",
+        "out/holders/hardware/printed-parts/shop-storage/holders/punch-comb.step.npz",
+        "out/holders/hardware/printed-parts/shop-storage/holders/punch-comb.stl",
         "out/holders/hardware/printed-parts/shop-storage/holders/reel-cradle-witness.step",
+        "out/holders/hardware/printed-parts/shop-storage/holders/reel-cradle-witness.step.mesh",
+        "out/holders/hardware/printed-parts/shop-storage/holders/reel-cradle-witness.step.npz",
         "out/holders/hardware/printed-parts/shop-storage/holders/reel-cradle.step",
+        "out/holders/hardware/printed-parts/shop-storage/holders/reel-cradle.step.mesh",
+        "out/holders/hardware/printed-parts/shop-storage/holders/reel-cradle.step.npz",
+        "out/holders/hardware/printed-parts/shop-storage/holders/reel-cradle.stl",
         "out/holders/hardware/printed-parts/shop-storage/holders/reel-spacer.step",
+        "out/holders/hardware/printed-parts/shop-storage/holders/reel-spacer.step.mesh",
+        "out/holders/hardware/printed-parts/shop-storage/holders/reel-spacer.step.npz",
+        "out/holders/hardware/printed-parts/shop-storage/holders/reel-spacer.stl",
         "out/holders/hardware/printed-parts/shop-storage/holders/roll-cradle.step",
+        "out/holders/hardware/printed-parts/shop-storage/holders/roll-cradle.step.mesh",
+        "out/holders/hardware/printed-parts/shop-storage/holders/roll-cradle.step.npz",
+        "out/holders/hardware/printed-parts/shop-storage/holders/roll-cradle.stl",
         "out/holders/hardware/printed-parts/shop-storage/holders/roll-spacer.step",
+        "out/holders/hardware/printed-parts/shop-storage/holders/roll-spacer.step.mesh",
+        "out/holders/hardware/printed-parts/shop-storage/holders/roll-spacer.step.npz",
+        "out/holders/hardware/printed-parts/shop-storage/holders/roll-spacer.stl",
         "out/holders/hardware/printed-parts/shop-storage/holders/saw-tub.step",
+        "out/holders/hardware/printed-parts/shop-storage/holders/saw-tub.step.mesh",
+        "out/holders/hardware/printed-parts/shop-storage/holders/saw-tub.step.npz",
+        "out/holders/hardware/printed-parts/shop-storage/holders/saw-tub.stl",
         "out/holders/hardware/printed-parts/shop-storage/holders/service-tub.step",
+        "out/holders/hardware/printed-parts/shop-storage/holders/service-tub.step.mesh",
+        "out/holders/hardware/printed-parts/shop-storage/holders/service-tub.step.npz",
+        "out/holders/hardware/printed-parts/shop-storage/holders/service-tub.stl",
+        "out/holders/hardware/printed-parts/shop-storage/holders/shop-storage.numbers.json",
         "out/holders/hardware/printed-parts/shop-storage/holders/shrink-tub.step",
+        "out/holders/hardware/printed-parts/shop-storage/holders/shrink-tub.step.mesh",
+        "out/holders/hardware/printed-parts/shop-storage/holders/shrink-tub.step.npz",
+        "out/holders/hardware/printed-parts/shop-storage/holders/shrink-tub.stl",
         "out/holders/hardware/printed-parts/shop-storage/holders/small-tub.step",
+        "out/holders/hardware/printed-parts/shop-storage/holders/small-tub.step.mesh",
+        "out/holders/hardware/printed-parts/shop-storage/holders/small-tub.step.npz",
+        "out/holders/hardware/printed-parts/shop-storage/holders/small-tub.stl",
         "out/holders/hardware/printed-parts/shop-storage/holders/stock-tub.step",
+        "out/holders/hardware/printed-parts/shop-storage/holders/stock-tub.step.mesh",
+        "out/holders/hardware/printed-parts/shop-storage/holders/stock-tub.step.npz",
+        "out/holders/hardware/printed-parts/shop-storage/holders/stock-tub.stl",
         "out/holders/hardware/printed-parts/shop-storage/holders/strip-comb.step",
+        "out/holders/hardware/printed-parts/shop-storage/holders/strip-comb.step.mesh",
+        "out/holders/hardware/printed-parts/shop-storage/holders/strip-comb.step.npz",
+        "out/holders/hardware/printed-parts/shop-storage/holders/strip-comb.stl",
         "out/holders/hardware/printed-parts/shop-storage/holders/terminal-tub.step",
+        "out/holders/hardware/printed-parts/shop-storage/holders/terminal-tub.step.mesh",
+        "out/holders/hardware/printed-parts/shop-storage/holders/terminal-tub.step.npz",
+        "out/holders/hardware/printed-parts/shop-storage/holders/terminal-tub.stl",
         "out/holders/hardware/printed-parts/shop-storage/holders/tie-tub.step",
+        "out/holders/hardware/printed-parts/shop-storage/holders/tie-tub.step.mesh",
+        "out/holders/hardware/printed-parts/shop-storage/holders/tie-tub.step.npz",
+        "out/holders/hardware/printed-parts/shop-storage/holders/tie-tub.stl",
         "out/holders/hardware/printed-parts/shop-storage/holders/tip-index.step",
+        "out/holders/hardware/printed-parts/shop-storage/holders/tip-index.step.mesh",
+        "out/holders/hardware/printed-parts/shop-storage/holders/tip-index.step.npz",
+        "out/holders/hardware/printed-parts/shop-storage/holders/tip-index.stl",
         "out/holders/hardware/printed-parts/shop-storage/holders/tube-comb.step",
+        "out/holders/hardware/printed-parts/shop-storage/holders/tube-comb.step.mesh",
+        "out/holders/hardware/printed-parts/shop-storage/holders/tube-comb.step.npz",
+        "out/holders/hardware/printed-parts/shop-storage/holders/tube-comb.stl",
         "out/holders/hardware/printed-parts/shop-storage/holders/xh-tub.step",
+        "out/holders/hardware/printed-parts/shop-storage/holders/xh-tub.step.mesh",
+        "out/holders/hardware/printed-parts/shop-storage/holders/xh-tub.step.npz",
+        "out/holders/hardware/printed-parts/shop-storage/holders/xh-tub.stl",
         "out/holders/hardware/printed-parts/shop-storage/README.figures.json",
         "out/holders/hardware/printed-parts/shop-storage/README.md",
     ],
+    tags = ["no-sandbox"],
     cmd = """
 set -e
 case "$$(uname -s)" in
@@ -13181,50 +13763,180 @@ case "$$(uname -s)" in
   *) copy_file() { cp "$$@"; };;
 esac
 O0=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/adapter-tub.step)
-O1=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/brush-quiver.step)
-O2=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/bulkhead-tub.step)
-O3=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/copper-tub.step)
-O4=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/crimp-comb.step)
-O5=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/cut-comb.step)
-O6=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/deburr-tub.step)
-O7=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/depressor-quiver.step)
-O8=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/die-tub.step)
-O9=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/dock-3x3.step)
-O10=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/dowel-index.step)
-O11=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/drill-index.step)
-O12=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/ferrule-tub.step)
-O13=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/fine-comb.step)
-O14=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/flux-tub.step)
-O15=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/heat-gun-tub.step)
-O16=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/hotend-tub.step)
-O17=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/insert-tub.step)
-O18=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/junction-tub.step)
-O19=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/keystone-tub.step)
-O20=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/lever-tub.step)
-O21=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/m3-tub.step)
-O22=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/m5-tub.step)
-O23=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/npt-tub.step)
-O24=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/pigment-tub.step)
-O25=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/pressure-tub.step)
-O26=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/punch-comb.step)
-O27=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/reel-cradle-witness.step)
-O28=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/reel-cradle.step)
-O29=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/reel-spacer.step)
-O30=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/roll-cradle.step)
-O31=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/roll-spacer.step)
-O32=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/saw-tub.step)
-O33=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/service-tub.step)
-O34=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/shrink-tub.step)
-O35=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/small-tub.step)
-O36=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/stock-tub.step)
-O37=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/strip-comb.step)
-O38=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/terminal-tub.step)
-O39=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/tie-tub.step)
-O40=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/tip-index.step)
-O41=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/tube-comb.step)
-O42=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/xh-tub.step)
-O43=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/README.figures.json)
-O44=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/README.md)
+O1=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/adapter-tub.step.mesh)
+O2=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/adapter-tub.step.npz)
+O3=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/adapter-tub.stl)
+O4=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/brush-quiver.step)
+O5=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/brush-quiver.step.mesh)
+O6=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/brush-quiver.step.npz)
+O7=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/brush-quiver.stl)
+O8=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/bulkhead-tub.step)
+O9=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/bulkhead-tub.step.mesh)
+O10=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/bulkhead-tub.step.npz)
+O11=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/bulkhead-tub.stl)
+O12=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/copper-tub.step)
+O13=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/copper-tub.step.mesh)
+O14=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/copper-tub.step.npz)
+O15=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/copper-tub.stl)
+O16=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/crimp-comb.step)
+O17=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/crimp-comb.step.mesh)
+O18=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/crimp-comb.step.npz)
+O19=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/crimp-comb.stl)
+O20=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/cut-comb.step)
+O21=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/cut-comb.step.mesh)
+O22=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/cut-comb.step.npz)
+O23=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/cut-comb.stl)
+O24=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/deburr-tub.step)
+O25=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/deburr-tub.step.mesh)
+O26=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/deburr-tub.step.npz)
+O27=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/deburr-tub.stl)
+O28=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/depressor-quiver.step)
+O29=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/depressor-quiver.step.mesh)
+O30=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/depressor-quiver.step.npz)
+O31=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/depressor-quiver.stl)
+O32=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/die-tub.step)
+O33=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/die-tub.step.mesh)
+O34=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/die-tub.step.npz)
+O35=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/die-tub.stl)
+O36=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/dock-3x3.step)
+O37=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/dock-3x3.step.mesh)
+O38=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/dock-3x3.step.npz)
+O39=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/dock-3x3.stl)
+O40=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/dowel-index.step)
+O41=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/dowel-index.step.mesh)
+O42=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/dowel-index.step.npz)
+O43=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/dowel-index.stl)
+O44=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/drill-index.step)
+O45=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/drill-index.step.mesh)
+O46=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/drill-index.step.npz)
+O47=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/drill-index.stl)
+O48=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/ferrule-tub.step)
+O49=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/ferrule-tub.step.mesh)
+O50=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/ferrule-tub.step.npz)
+O51=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/ferrule-tub.stl)
+O52=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/fine-comb.step)
+O53=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/fine-comb.step.mesh)
+O54=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/fine-comb.step.npz)
+O55=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/fine-comb.stl)
+O56=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/flux-tub.step)
+O57=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/flux-tub.step.mesh)
+O58=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/flux-tub.step.npz)
+O59=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/flux-tub.stl)
+O60=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/heat-gun-tub.step)
+O61=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/heat-gun-tub.step.mesh)
+O62=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/heat-gun-tub.step.npz)
+O63=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/heat-gun-tub.stl)
+O64=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/hotend-tub.step)
+O65=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/hotend-tub.step.mesh)
+O66=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/hotend-tub.step.npz)
+O67=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/hotend-tub.stl)
+O68=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/insert-tub.step)
+O69=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/insert-tub.step.mesh)
+O70=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/insert-tub.step.npz)
+O71=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/insert-tub.stl)
+O72=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/junction-tub.step)
+O73=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/junction-tub.step.mesh)
+O74=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/junction-tub.step.npz)
+O75=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/junction-tub.stl)
+O76=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/keystone-tub.step)
+O77=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/keystone-tub.step.mesh)
+O78=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/keystone-tub.step.npz)
+O79=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/keystone-tub.stl)
+O80=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/lever-tub.step)
+O81=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/lever-tub.step.mesh)
+O82=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/lever-tub.step.npz)
+O83=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/lever-tub.stl)
+O84=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/m3-tub.step)
+O85=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/m3-tub.step.mesh)
+O86=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/m3-tub.step.npz)
+O87=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/m3-tub.stl)
+O88=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/m5-tub.step)
+O89=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/m5-tub.step.mesh)
+O90=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/m5-tub.step.npz)
+O91=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/m5-tub.stl)
+O92=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/npt-tub.step)
+O93=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/npt-tub.step.mesh)
+O94=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/npt-tub.step.npz)
+O95=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/npt-tub.stl)
+O96=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/pigment-tub.step)
+O97=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/pigment-tub.step.mesh)
+O98=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/pigment-tub.step.npz)
+O99=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/pigment-tub.stl)
+O100=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/pressure-tub.step)
+O101=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/pressure-tub.step.mesh)
+O102=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/pressure-tub.step.npz)
+O103=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/pressure-tub.stl)
+O104=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/punch-comb.step)
+O105=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/punch-comb.step.mesh)
+O106=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/punch-comb.step.npz)
+O107=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/punch-comb.stl)
+O108=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/reel-cradle-witness.step)
+O109=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/reel-cradle-witness.step.mesh)
+O110=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/reel-cradle-witness.step.npz)
+O111=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/reel-cradle.step)
+O112=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/reel-cradle.step.mesh)
+O113=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/reel-cradle.step.npz)
+O114=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/reel-cradle.stl)
+O115=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/reel-spacer.step)
+O116=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/reel-spacer.step.mesh)
+O117=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/reel-spacer.step.npz)
+O118=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/reel-spacer.stl)
+O119=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/roll-cradle.step)
+O120=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/roll-cradle.step.mesh)
+O121=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/roll-cradle.step.npz)
+O122=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/roll-cradle.stl)
+O123=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/roll-spacer.step)
+O124=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/roll-spacer.step.mesh)
+O125=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/roll-spacer.step.npz)
+O126=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/roll-spacer.stl)
+O127=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/saw-tub.step)
+O128=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/saw-tub.step.mesh)
+O129=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/saw-tub.step.npz)
+O130=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/saw-tub.stl)
+O131=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/service-tub.step)
+O132=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/service-tub.step.mesh)
+O133=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/service-tub.step.npz)
+O134=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/service-tub.stl)
+O135=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/shop-storage.numbers.json)
+O136=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/shrink-tub.step)
+O137=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/shrink-tub.step.mesh)
+O138=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/shrink-tub.step.npz)
+O139=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/shrink-tub.stl)
+O140=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/small-tub.step)
+O141=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/small-tub.step.mesh)
+O142=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/small-tub.step.npz)
+O143=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/small-tub.stl)
+O144=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/stock-tub.step)
+O145=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/stock-tub.step.mesh)
+O146=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/stock-tub.step.npz)
+O147=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/stock-tub.stl)
+O148=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/strip-comb.step)
+O149=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/strip-comb.step.mesh)
+O150=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/strip-comb.step.npz)
+O151=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/strip-comb.stl)
+O152=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/terminal-tub.step)
+O153=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/terminal-tub.step.mesh)
+O154=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/terminal-tub.step.npz)
+O155=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/terminal-tub.stl)
+O156=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/tie-tub.step)
+O157=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/tie-tub.step.mesh)
+O158=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/tie-tub.step.npz)
+O159=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/tie-tub.stl)
+O160=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/tip-index.step)
+O161=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/tip-index.step.mesh)
+O162=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/tip-index.step.npz)
+O163=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/tip-index.stl)
+O164=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/tube-comb.step)
+O165=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/tube-comb.step.mesh)
+O166=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/tube-comb.step.npz)
+O167=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/tube-comb.stl)
+O168=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/xh-tub.step)
+O169=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/xh-tub.step.mesh)
+O170=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/xh-tub.step.npz)
+O171=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/holders/xh-tub.stl)
+O172=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/README.figures.json)
+O173=$$PWD/$(location out/holders/hardware/printed-parts/shop-storage/README.md)
+rm -rf work-holders
 for f in $(SRCS); do
   case $$f in
     */node_modules/*) continue;;
@@ -13232,60 +13944,190 @@ for f in $(SRCS); do
     */pysrc/*) t=$${f##*/pysrc/};;
     *) t=$$f;;
   esac
-  mkdir -p "work/$$(dirname "$$t")"; copy_file -L "$$f" "work/$$t"
+  mkdir -p "work-holders/$$(dirname "$$t")"; copy_file -L "$$f" "work-holders/$$t"
 done
 for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
+  if [ -d $$d ]; then mkdir -p work-holders/$$(dirname $$d); ln -sfn $$PWD/$$d work-holders/$$d; fi
 done
-cd work
+cd work-holders
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/shop-storage/holders.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/shop-storage/holders.py > /dev/null
 copy_file hardware/printed-parts/shop-storage/holders/adapter-tub.step "$$O0"
-copy_file hardware/printed-parts/shop-storage/holders/brush-quiver.step "$$O1"
-copy_file hardware/printed-parts/shop-storage/holders/bulkhead-tub.step "$$O2"
-copy_file hardware/printed-parts/shop-storage/holders/copper-tub.step "$$O3"
-copy_file hardware/printed-parts/shop-storage/holders/crimp-comb.step "$$O4"
-copy_file hardware/printed-parts/shop-storage/holders/cut-comb.step "$$O5"
-copy_file hardware/printed-parts/shop-storage/holders/deburr-tub.step "$$O6"
-copy_file hardware/printed-parts/shop-storage/holders/depressor-quiver.step "$$O7"
-copy_file hardware/printed-parts/shop-storage/holders/die-tub.step "$$O8"
-copy_file hardware/printed-parts/shop-storage/holders/dock-3x3.step "$$O9"
-copy_file hardware/printed-parts/shop-storage/holders/dowel-index.step "$$O10"
-copy_file hardware/printed-parts/shop-storage/holders/drill-index.step "$$O11"
-copy_file hardware/printed-parts/shop-storage/holders/ferrule-tub.step "$$O12"
-copy_file hardware/printed-parts/shop-storage/holders/fine-comb.step "$$O13"
-copy_file hardware/printed-parts/shop-storage/holders/flux-tub.step "$$O14"
-copy_file hardware/printed-parts/shop-storage/holders/heat-gun-tub.step "$$O15"
-copy_file hardware/printed-parts/shop-storage/holders/hotend-tub.step "$$O16"
-copy_file hardware/printed-parts/shop-storage/holders/insert-tub.step "$$O17"
-copy_file hardware/printed-parts/shop-storage/holders/junction-tub.step "$$O18"
-copy_file hardware/printed-parts/shop-storage/holders/keystone-tub.step "$$O19"
-copy_file hardware/printed-parts/shop-storage/holders/lever-tub.step "$$O20"
-copy_file hardware/printed-parts/shop-storage/holders/m3-tub.step "$$O21"
-copy_file hardware/printed-parts/shop-storage/holders/m5-tub.step "$$O22"
-copy_file hardware/printed-parts/shop-storage/holders/npt-tub.step "$$O23"
-copy_file hardware/printed-parts/shop-storage/holders/pigment-tub.step "$$O24"
-copy_file hardware/printed-parts/shop-storage/holders/pressure-tub.step "$$O25"
-copy_file hardware/printed-parts/shop-storage/holders/punch-comb.step "$$O26"
-copy_file hardware/printed-parts/shop-storage/holders/reel-cradle-witness.step "$$O27"
-copy_file hardware/printed-parts/shop-storage/holders/reel-cradle.step "$$O28"
-copy_file hardware/printed-parts/shop-storage/holders/reel-spacer.step "$$O29"
-copy_file hardware/printed-parts/shop-storage/holders/roll-cradle.step "$$O30"
-copy_file hardware/printed-parts/shop-storage/holders/roll-spacer.step "$$O31"
-copy_file hardware/printed-parts/shop-storage/holders/saw-tub.step "$$O32"
-copy_file hardware/printed-parts/shop-storage/holders/service-tub.step "$$O33"
-copy_file hardware/printed-parts/shop-storage/holders/shrink-tub.step "$$O34"
-copy_file hardware/printed-parts/shop-storage/holders/small-tub.step "$$O35"
-copy_file hardware/printed-parts/shop-storage/holders/stock-tub.step "$$O36"
-copy_file hardware/printed-parts/shop-storage/holders/strip-comb.step "$$O37"
-copy_file hardware/printed-parts/shop-storage/holders/terminal-tub.step "$$O38"
-copy_file hardware/printed-parts/shop-storage/holders/tie-tub.step "$$O39"
-copy_file hardware/printed-parts/shop-storage/holders/tip-index.step "$$O40"
-copy_file hardware/printed-parts/shop-storage/holders/tube-comb.step "$$O41"
-copy_file hardware/printed-parts/shop-storage/holders/xh-tub.step "$$O42"
-copy_file hardware/printed-parts/shop-storage/README.figures.json "$$O43"
-copy_file hardware/printed-parts/shop-storage/README.md "$$O44"
+copy_file hardware/printed-parts/shop-storage/holders/adapter-tub.step.mesh "$$O1"
+copy_file hardware/printed-parts/shop-storage/holders/adapter-tub.step.npz "$$O2"
+copy_file hardware/printed-parts/shop-storage/holders/adapter-tub.stl "$$O3"
+copy_file hardware/printed-parts/shop-storage/holders/brush-quiver.step "$$O4"
+copy_file hardware/printed-parts/shop-storage/holders/brush-quiver.step.mesh "$$O5"
+copy_file hardware/printed-parts/shop-storage/holders/brush-quiver.step.npz "$$O6"
+copy_file hardware/printed-parts/shop-storage/holders/brush-quiver.stl "$$O7"
+copy_file hardware/printed-parts/shop-storage/holders/bulkhead-tub.step "$$O8"
+copy_file hardware/printed-parts/shop-storage/holders/bulkhead-tub.step.mesh "$$O9"
+copy_file hardware/printed-parts/shop-storage/holders/bulkhead-tub.step.npz "$$O10"
+copy_file hardware/printed-parts/shop-storage/holders/bulkhead-tub.stl "$$O11"
+copy_file hardware/printed-parts/shop-storage/holders/copper-tub.step "$$O12"
+copy_file hardware/printed-parts/shop-storage/holders/copper-tub.step.mesh "$$O13"
+copy_file hardware/printed-parts/shop-storage/holders/copper-tub.step.npz "$$O14"
+copy_file hardware/printed-parts/shop-storage/holders/copper-tub.stl "$$O15"
+copy_file hardware/printed-parts/shop-storage/holders/crimp-comb.step "$$O16"
+copy_file hardware/printed-parts/shop-storage/holders/crimp-comb.step.mesh "$$O17"
+copy_file hardware/printed-parts/shop-storage/holders/crimp-comb.step.npz "$$O18"
+copy_file hardware/printed-parts/shop-storage/holders/crimp-comb.stl "$$O19"
+copy_file hardware/printed-parts/shop-storage/holders/cut-comb.step "$$O20"
+copy_file hardware/printed-parts/shop-storage/holders/cut-comb.step.mesh "$$O21"
+copy_file hardware/printed-parts/shop-storage/holders/cut-comb.step.npz "$$O22"
+copy_file hardware/printed-parts/shop-storage/holders/cut-comb.stl "$$O23"
+copy_file hardware/printed-parts/shop-storage/holders/deburr-tub.step "$$O24"
+copy_file hardware/printed-parts/shop-storage/holders/deburr-tub.step.mesh "$$O25"
+copy_file hardware/printed-parts/shop-storage/holders/deburr-tub.step.npz "$$O26"
+copy_file hardware/printed-parts/shop-storage/holders/deburr-tub.stl "$$O27"
+copy_file hardware/printed-parts/shop-storage/holders/depressor-quiver.step "$$O28"
+copy_file hardware/printed-parts/shop-storage/holders/depressor-quiver.step.mesh "$$O29"
+copy_file hardware/printed-parts/shop-storage/holders/depressor-quiver.step.npz "$$O30"
+copy_file hardware/printed-parts/shop-storage/holders/depressor-quiver.stl "$$O31"
+copy_file hardware/printed-parts/shop-storage/holders/die-tub.step "$$O32"
+copy_file hardware/printed-parts/shop-storage/holders/die-tub.step.mesh "$$O33"
+copy_file hardware/printed-parts/shop-storage/holders/die-tub.step.npz "$$O34"
+copy_file hardware/printed-parts/shop-storage/holders/die-tub.stl "$$O35"
+copy_file hardware/printed-parts/shop-storage/holders/dock-3x3.step "$$O36"
+copy_file hardware/printed-parts/shop-storage/holders/dock-3x3.step.mesh "$$O37"
+copy_file hardware/printed-parts/shop-storage/holders/dock-3x3.step.npz "$$O38"
+copy_file hardware/printed-parts/shop-storage/holders/dock-3x3.stl "$$O39"
+copy_file hardware/printed-parts/shop-storage/holders/dowel-index.step "$$O40"
+copy_file hardware/printed-parts/shop-storage/holders/dowel-index.step.mesh "$$O41"
+copy_file hardware/printed-parts/shop-storage/holders/dowel-index.step.npz "$$O42"
+copy_file hardware/printed-parts/shop-storage/holders/dowel-index.stl "$$O43"
+copy_file hardware/printed-parts/shop-storage/holders/drill-index.step "$$O44"
+copy_file hardware/printed-parts/shop-storage/holders/drill-index.step.mesh "$$O45"
+copy_file hardware/printed-parts/shop-storage/holders/drill-index.step.npz "$$O46"
+copy_file hardware/printed-parts/shop-storage/holders/drill-index.stl "$$O47"
+copy_file hardware/printed-parts/shop-storage/holders/ferrule-tub.step "$$O48"
+copy_file hardware/printed-parts/shop-storage/holders/ferrule-tub.step.mesh "$$O49"
+copy_file hardware/printed-parts/shop-storage/holders/ferrule-tub.step.npz "$$O50"
+copy_file hardware/printed-parts/shop-storage/holders/ferrule-tub.stl "$$O51"
+copy_file hardware/printed-parts/shop-storage/holders/fine-comb.step "$$O52"
+copy_file hardware/printed-parts/shop-storage/holders/fine-comb.step.mesh "$$O53"
+copy_file hardware/printed-parts/shop-storage/holders/fine-comb.step.npz "$$O54"
+copy_file hardware/printed-parts/shop-storage/holders/fine-comb.stl "$$O55"
+copy_file hardware/printed-parts/shop-storage/holders/flux-tub.step "$$O56"
+copy_file hardware/printed-parts/shop-storage/holders/flux-tub.step.mesh "$$O57"
+copy_file hardware/printed-parts/shop-storage/holders/flux-tub.step.npz "$$O58"
+copy_file hardware/printed-parts/shop-storage/holders/flux-tub.stl "$$O59"
+copy_file hardware/printed-parts/shop-storage/holders/heat-gun-tub.step "$$O60"
+copy_file hardware/printed-parts/shop-storage/holders/heat-gun-tub.step.mesh "$$O61"
+copy_file hardware/printed-parts/shop-storage/holders/heat-gun-tub.step.npz "$$O62"
+copy_file hardware/printed-parts/shop-storage/holders/heat-gun-tub.stl "$$O63"
+copy_file hardware/printed-parts/shop-storage/holders/hotend-tub.step "$$O64"
+copy_file hardware/printed-parts/shop-storage/holders/hotend-tub.step.mesh "$$O65"
+copy_file hardware/printed-parts/shop-storage/holders/hotend-tub.step.npz "$$O66"
+copy_file hardware/printed-parts/shop-storage/holders/hotend-tub.stl "$$O67"
+copy_file hardware/printed-parts/shop-storage/holders/insert-tub.step "$$O68"
+copy_file hardware/printed-parts/shop-storage/holders/insert-tub.step.mesh "$$O69"
+copy_file hardware/printed-parts/shop-storage/holders/insert-tub.step.npz "$$O70"
+copy_file hardware/printed-parts/shop-storage/holders/insert-tub.stl "$$O71"
+copy_file hardware/printed-parts/shop-storage/holders/junction-tub.step "$$O72"
+copy_file hardware/printed-parts/shop-storage/holders/junction-tub.step.mesh "$$O73"
+copy_file hardware/printed-parts/shop-storage/holders/junction-tub.step.npz "$$O74"
+copy_file hardware/printed-parts/shop-storage/holders/junction-tub.stl "$$O75"
+copy_file hardware/printed-parts/shop-storage/holders/keystone-tub.step "$$O76"
+copy_file hardware/printed-parts/shop-storage/holders/keystone-tub.step.mesh "$$O77"
+copy_file hardware/printed-parts/shop-storage/holders/keystone-tub.step.npz "$$O78"
+copy_file hardware/printed-parts/shop-storage/holders/keystone-tub.stl "$$O79"
+copy_file hardware/printed-parts/shop-storage/holders/lever-tub.step "$$O80"
+copy_file hardware/printed-parts/shop-storage/holders/lever-tub.step.mesh "$$O81"
+copy_file hardware/printed-parts/shop-storage/holders/lever-tub.step.npz "$$O82"
+copy_file hardware/printed-parts/shop-storage/holders/lever-tub.stl "$$O83"
+copy_file hardware/printed-parts/shop-storage/holders/m3-tub.step "$$O84"
+copy_file hardware/printed-parts/shop-storage/holders/m3-tub.step.mesh "$$O85"
+copy_file hardware/printed-parts/shop-storage/holders/m3-tub.step.npz "$$O86"
+copy_file hardware/printed-parts/shop-storage/holders/m3-tub.stl "$$O87"
+copy_file hardware/printed-parts/shop-storage/holders/m5-tub.step "$$O88"
+copy_file hardware/printed-parts/shop-storage/holders/m5-tub.step.mesh "$$O89"
+copy_file hardware/printed-parts/shop-storage/holders/m5-tub.step.npz "$$O90"
+copy_file hardware/printed-parts/shop-storage/holders/m5-tub.stl "$$O91"
+copy_file hardware/printed-parts/shop-storage/holders/npt-tub.step "$$O92"
+copy_file hardware/printed-parts/shop-storage/holders/npt-tub.step.mesh "$$O93"
+copy_file hardware/printed-parts/shop-storage/holders/npt-tub.step.npz "$$O94"
+copy_file hardware/printed-parts/shop-storage/holders/npt-tub.stl "$$O95"
+copy_file hardware/printed-parts/shop-storage/holders/pigment-tub.step "$$O96"
+copy_file hardware/printed-parts/shop-storage/holders/pigment-tub.step.mesh "$$O97"
+copy_file hardware/printed-parts/shop-storage/holders/pigment-tub.step.npz "$$O98"
+copy_file hardware/printed-parts/shop-storage/holders/pigment-tub.stl "$$O99"
+copy_file hardware/printed-parts/shop-storage/holders/pressure-tub.step "$$O100"
+copy_file hardware/printed-parts/shop-storage/holders/pressure-tub.step.mesh "$$O101"
+copy_file hardware/printed-parts/shop-storage/holders/pressure-tub.step.npz "$$O102"
+copy_file hardware/printed-parts/shop-storage/holders/pressure-tub.stl "$$O103"
+copy_file hardware/printed-parts/shop-storage/holders/punch-comb.step "$$O104"
+copy_file hardware/printed-parts/shop-storage/holders/punch-comb.step.mesh "$$O105"
+copy_file hardware/printed-parts/shop-storage/holders/punch-comb.step.npz "$$O106"
+copy_file hardware/printed-parts/shop-storage/holders/punch-comb.stl "$$O107"
+copy_file hardware/printed-parts/shop-storage/holders/reel-cradle-witness.step "$$O108"
+copy_file hardware/printed-parts/shop-storage/holders/reel-cradle-witness.step.mesh "$$O109"
+copy_file hardware/printed-parts/shop-storage/holders/reel-cradle-witness.step.npz "$$O110"
+copy_file hardware/printed-parts/shop-storage/holders/reel-cradle.step "$$O111"
+copy_file hardware/printed-parts/shop-storage/holders/reel-cradle.step.mesh "$$O112"
+copy_file hardware/printed-parts/shop-storage/holders/reel-cradle.step.npz "$$O113"
+copy_file hardware/printed-parts/shop-storage/holders/reel-cradle.stl "$$O114"
+copy_file hardware/printed-parts/shop-storage/holders/reel-spacer.step "$$O115"
+copy_file hardware/printed-parts/shop-storage/holders/reel-spacer.step.mesh "$$O116"
+copy_file hardware/printed-parts/shop-storage/holders/reel-spacer.step.npz "$$O117"
+copy_file hardware/printed-parts/shop-storage/holders/reel-spacer.stl "$$O118"
+copy_file hardware/printed-parts/shop-storage/holders/roll-cradle.step "$$O119"
+copy_file hardware/printed-parts/shop-storage/holders/roll-cradle.step.mesh "$$O120"
+copy_file hardware/printed-parts/shop-storage/holders/roll-cradle.step.npz "$$O121"
+copy_file hardware/printed-parts/shop-storage/holders/roll-cradle.stl "$$O122"
+copy_file hardware/printed-parts/shop-storage/holders/roll-spacer.step "$$O123"
+copy_file hardware/printed-parts/shop-storage/holders/roll-spacer.step.mesh "$$O124"
+copy_file hardware/printed-parts/shop-storage/holders/roll-spacer.step.npz "$$O125"
+copy_file hardware/printed-parts/shop-storage/holders/roll-spacer.stl "$$O126"
+copy_file hardware/printed-parts/shop-storage/holders/saw-tub.step "$$O127"
+copy_file hardware/printed-parts/shop-storage/holders/saw-tub.step.mesh "$$O128"
+copy_file hardware/printed-parts/shop-storage/holders/saw-tub.step.npz "$$O129"
+copy_file hardware/printed-parts/shop-storage/holders/saw-tub.stl "$$O130"
+copy_file hardware/printed-parts/shop-storage/holders/service-tub.step "$$O131"
+copy_file hardware/printed-parts/shop-storage/holders/service-tub.step.mesh "$$O132"
+copy_file hardware/printed-parts/shop-storage/holders/service-tub.step.npz "$$O133"
+copy_file hardware/printed-parts/shop-storage/holders/service-tub.stl "$$O134"
+copy_file hardware/printed-parts/shop-storage/holders/shop-storage.numbers.json "$$O135"
+copy_file hardware/printed-parts/shop-storage/holders/shrink-tub.step "$$O136"
+copy_file hardware/printed-parts/shop-storage/holders/shrink-tub.step.mesh "$$O137"
+copy_file hardware/printed-parts/shop-storage/holders/shrink-tub.step.npz "$$O138"
+copy_file hardware/printed-parts/shop-storage/holders/shrink-tub.stl "$$O139"
+copy_file hardware/printed-parts/shop-storage/holders/small-tub.step "$$O140"
+copy_file hardware/printed-parts/shop-storage/holders/small-tub.step.mesh "$$O141"
+copy_file hardware/printed-parts/shop-storage/holders/small-tub.step.npz "$$O142"
+copy_file hardware/printed-parts/shop-storage/holders/small-tub.stl "$$O143"
+copy_file hardware/printed-parts/shop-storage/holders/stock-tub.step "$$O144"
+copy_file hardware/printed-parts/shop-storage/holders/stock-tub.step.mesh "$$O145"
+copy_file hardware/printed-parts/shop-storage/holders/stock-tub.step.npz "$$O146"
+copy_file hardware/printed-parts/shop-storage/holders/stock-tub.stl "$$O147"
+copy_file hardware/printed-parts/shop-storage/holders/strip-comb.step "$$O148"
+copy_file hardware/printed-parts/shop-storage/holders/strip-comb.step.mesh "$$O149"
+copy_file hardware/printed-parts/shop-storage/holders/strip-comb.step.npz "$$O150"
+copy_file hardware/printed-parts/shop-storage/holders/strip-comb.stl "$$O151"
+copy_file hardware/printed-parts/shop-storage/holders/terminal-tub.step "$$O152"
+copy_file hardware/printed-parts/shop-storage/holders/terminal-tub.step.mesh "$$O153"
+copy_file hardware/printed-parts/shop-storage/holders/terminal-tub.step.npz "$$O154"
+copy_file hardware/printed-parts/shop-storage/holders/terminal-tub.stl "$$O155"
+copy_file hardware/printed-parts/shop-storage/holders/tie-tub.step "$$O156"
+copy_file hardware/printed-parts/shop-storage/holders/tie-tub.step.mesh "$$O157"
+copy_file hardware/printed-parts/shop-storage/holders/tie-tub.step.npz "$$O158"
+copy_file hardware/printed-parts/shop-storage/holders/tie-tub.stl "$$O159"
+copy_file hardware/printed-parts/shop-storage/holders/tip-index.step "$$O160"
+copy_file hardware/printed-parts/shop-storage/holders/tip-index.step.mesh "$$O161"
+copy_file hardware/printed-parts/shop-storage/holders/tip-index.step.npz "$$O162"
+copy_file hardware/printed-parts/shop-storage/holders/tip-index.stl "$$O163"
+copy_file hardware/printed-parts/shop-storage/holders/tube-comb.step "$$O164"
+copy_file hardware/printed-parts/shop-storage/holders/tube-comb.step.mesh "$$O165"
+copy_file hardware/printed-parts/shop-storage/holders/tube-comb.step.npz "$$O166"
+copy_file hardware/printed-parts/shop-storage/holders/tube-comb.stl "$$O167"
+copy_file hardware/printed-parts/shop-storage/holders/xh-tub.step "$$O168"
+copy_file hardware/printed-parts/shop-storage/holders/xh-tub.step.mesh "$$O169"
+copy_file hardware/printed-parts/shop-storage/holders/xh-tub.step.npz "$$O170"
+copy_file hardware/printed-parts/shop-storage/holders/xh-tub.stl "$$O171"
+copy_file hardware/printed-parts/shop-storage/README.figures.json "$$O172"
+copy_file hardware/printed-parts/shop-storage/README.md "$$O173"
+cd .. && rm -rf work-holders
 """,
 )
 
@@ -16593,10 +17435,15 @@ cd .. && rm -rf work-kit-art
 genrule(
     name = "opening-scene",
     srcs = [
-        ":out/under-counter-plate/hardware/cut-parts/faucet/under-counter-plate/under-counter-plate.dxf",
+        ":out/faucet-assembly/hardware/faucet-layout/faucet-assembly.step.mesh",
         "pysrc/hardware/faucet-layout/faucet_assembly.py",
+        "hardware/faucet-layout/faucet_metrics.rs",
         "pysrc/hardware/install-guide/_cad_art.py",
         "pysrc/hardware/install-guide/_install_art.py",
+        "pysrc/hardware/install-guide/_install_art_mesh.py",
+        "hardware/install-guide/cad_art_props.rs",
+        "hardware/install-guide/install_art_props.rs",
+        "hardware/install-guide/plumbing_art_props.rs",
         ":out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.facts.json",
         "pysrc/hardware/printed-parts/cadlib/fits.py",
         "pysrc/hardware/printed-parts/cadlib/flute_skin.py",
@@ -16613,22 +17460,15 @@ genrule(
         "pysrc/hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py",
         "pysrc/hardware/printed-parts/faucet/faucet-shell/faucet_shell.py",
         "pysrc/hardware/printed-parts/faucet/faucet_paths.py",
-        "hardware/printed-parts/faucet/lever-replica/lever-replica.frame.json",
-        "pysrc/hardware/printed-parts/faucet/lever-replica/lever_replica.py",
-        "pysrc/hardware/printed-parts/faucet/lever-replica/physical_acceptance.py",
         "pysrc/hardware/printed-parts/faucet/tpu-o-ring/tpu_o_ring.py",
         "pysrc/hardware/printed-parts/faucet/tube-collar/tube_collar.py",
         "pysrc/hardware/printed-parts/faucet/umbilical-organizer/umbilical_organizer.py",
-        "pysrc/hardware/printed-parts/faucet/vent_seals.py",
         "pysrc/hardware/reference/iec-c14-inlet/iec_c14_inlet.py",
         "pysrc/hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py",
         "pysrc/hardware/reference/neofit-bulkhead/neofit_bulkhead.py",
         "pysrc/hardware/reference/neofit-drain-bulkhead/neofit_drain_bulkhead.py",
         "hardware/reference/touch-flo-faucet/display-reference/buttons.json",
         "hardware/reference/touch-flo-faucet/display-reference/component-envelopes.json",
-        "hardware/reference/touch-flo-faucet/westbrass-reference/frozen-asset.json",
-        "hardware/reference/touch-flo-faucet/westbrass-reference/westbrass-reference.step",
-        "hardware/reference/touch-flo-faucet/westbrass-reference/westbrass-reference.step.mesh",
         "pysrc/hardware/scripts/_cadq_export.py",
         "pysrc/hardware/scripts/_document_export.py",
         "pysrc/hardware/scripts/_hsm_render.py",
@@ -16641,10 +17481,46 @@ genrule(
         "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/hardware/scripts/_rust_part.py",
         "pysrc/hardware/scripts/_stated_bounds.py",
-        "pysrc/hardware/scripts/flute_payload.py",
         "pysrc/tools/docgen/__init__.py",
         "tools/hsm/Cargo.lock",
         "tools/hsm/Cargo.toml",
+        "tools/hsm/faucet/Cargo.toml",
+        "tools/hsm/faucet/src/assembly.rs",
+        "tools/hsm/faucet/src/counter.rs",
+        "tools/hsm/faucet/src/display.rs",
+        "tools/hsm/faucet/src/lib.rs",
+        "tools/hsm/faucet/src/metrics.rs",
+        "tools/hsm/faucet/src/shell.rs",
+        "tools/hsm/kernel/Cargo.toml",
+        "tools/hsm/kernel/src/boolean.rs",
+        "tools/hsm/kernel/src/build.rs",
+        "tools/hsm/kernel/src/dxf.rs",
+        "tools/hsm/kernel/src/edge.rs",
+        "tools/hsm/kernel/src/face.rs",
+        "tools/hsm/kernel/src/import.rs",
+        "tools/hsm/kernel/src/lib.rs",
+        "tools/hsm/kernel/src/mapped.rs",
+        "tools/hsm/kernel/src/mass.rs",
+        "tools/hsm/kernel/src/math.rs",
+        "tools/hsm/kernel/src/part.rs",
+        "tools/hsm/kernel/src/plane.rs",
+        "tools/hsm/kernel/src/profile.rs",
+        "tools/hsm/kernel/src/reads.rs",
+        "tools/hsm/kernel/src/round.rs",
+        "tools/hsm/kernel/src/round/rolled.rs",
+        "tools/hsm/kernel/src/rule.rs",
+        "tools/hsm/kernel/src/screw.rs",
+        "tools/hsm/kernel/src/sketch_hull.rs",
+        "tools/hsm/kernel/src/solid.rs",
+        "tools/hsm/kernel/src/spline.rs",
+        "tools/hsm/kernel/src/step.rs",
+        "tools/hsm/kernel/src/step/analytic.rs",
+        "tools/hsm/kernel/src/sweep.rs",
+        "tools/hsm/kernel/src/text.rs",
+        "tools/hsm/kernel/src/thru.rs",
+        "tools/hsm/kernel/src/topo.rs",
+        "tools/hsm/kernel/src/triangulate.rs",
+        "tools/hsm/kernel/src/write.rs",
         "tools/hsm/render/Cargo.toml",
         "tools/hsm/render/src/annotate.rs",
         "tools/hsm/render/src/bin/hsm-render.rs",
@@ -16669,6 +17545,7 @@ genrule(
         "tools/hsm/run-slots/Cargo.toml",
         "tools/hsm/run-slots/src/ipc.rs",
         "tools/hsm/run-slots/src/lib.rs",
+        "tools/hsm/tooling/Cargo.toml",
         "tools/hsm/vendor/manifold-csg-sys/.cargo_vcs_info.json",
         "tools/hsm/vendor/manifold-csg-sys/Cargo.lock",
         "tools/hsm/vendor/manifold-csg-sys/Cargo.toml",
@@ -17085,6 +17962,14 @@ genrule(
 )
 
 genrule(
+    name = "pysrc-5088519af714",
+    srcs = ["hardware/install-guide/_cad_art_mesh.py"],
+    outs = ["pysrc/hardware/install-guide/_cad_art_mesh.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
     name = "pysrc-7f35251849f5",
     srcs = ["hardware/install-guide/_install_art.py"],
     outs = ["pysrc/hardware/install-guide/_install_art.py"],
@@ -17096,6 +17981,14 @@ genrule(
     name = "pysrc-9911f7c5c70f",
     srcs = ["hardware/install-guide/_install_art_mesh.py"],
     outs = ["pysrc/hardware/install-guide/_install_art_mesh.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
+    name = "pysrc-5dcbf7fa86fa",
+    srcs = ["hardware/install-guide/_plumbing_art_mesh.py"],
+    outs = ["pysrc/hardware/install-guide/_plumbing_art_mesh.py"],
     tools = ["tools/bazel/pysrc.py"],
     cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
 )
