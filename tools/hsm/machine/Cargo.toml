@@ -10,6 +10,10 @@ publish = false
 name = "machine-assembly-model"
 path = "../../../hardware/manifold-layout/enclosure_assembly.rs"
 
+[[bin]]
+name = "manifold-layout"
+path = "../../../hardware/manifold-layout/manifold_layout.rs"
+
 [dependencies]
 anyhow.workspace = true
 hsm-kernel = { path = "../kernel" }
