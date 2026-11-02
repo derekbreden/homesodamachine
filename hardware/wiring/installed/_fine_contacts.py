@@ -51,10 +51,9 @@ def mask_stages(manifest,name,target,empty_contacts):
         cells={key:frames[key]for key in empty_contacts
                if key in frames and key not in manifest['terminals'] and
                frames[key]['part'].rsplit('/',1)[-1]=='pcba'}
-        if len(cells)==len(empty_contacts)==2:
-            stages.append({'name':'named-empty-J4-cells',
-                           'spheres':[{'center_mm':frame['point'],'radius_mm':8.5}
-                                      for frame in cells.values()]})
+        stages.append({'name':'named-empty-J4-cells',
+                       'spheres':[{'center_mm':frame['point'],'radius_mm':8.5}
+                                  for frame in cells.values()]})
     return stages,cells
 
 

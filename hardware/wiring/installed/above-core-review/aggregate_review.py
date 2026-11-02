@@ -1,8 +1,8 @@
-"""Manual native contact review of the exported appliance's installed wiring.
+"""Manual contact review of the exported appliance's installed wiring.
 
-Run through the workstation CAD queue after enclosure-assembly.step and its
-wiring manifest/payload are materialized. Reads the actual assembly; it does not
-compose wiring, generate shells or update production geometry.
+Run through tools/run.py after the appliance and wiring are materialized.
+Kernel manifests select authoritative fine models; native manifests select B-rep
+bodies. This command does not compose wiring or update production geometry.
 """
 import argparse
 import ast
