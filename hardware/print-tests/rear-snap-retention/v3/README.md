@@ -39,6 +39,9 @@ six directions. These are geometric checks; hand force, distributed bending,
 release, fatigue and pump vibration require the physical trial.
 [production-comparison.json](production-comparison.json) binds the native
 trial caps to their matching Rust production exports.
+[surface-review.json](surface-review.json) records the post-publication
+surface findings, the specified spring/hook/tool features and the retained
+ASSE wrench/vent cavity faces that remain separate cleanup work.
 
 [assembly-integration.json](assembly-integration.json) binds the revised
 production receivers, lid and five caps in the retained assembly context.
