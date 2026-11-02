@@ -309,7 +309,7 @@ def _wiring_features(shell, graph, parent):
         if pose['parent']!=parent:
             continue
         width,depth,height,*_ = wiring.SIZES[pose['size']]
-        front = -.75 if name=='wago-mana' else 0.
+        front = -.75 if name in ('wago-mana','wago-manb') else 0.
         rear = -depth/2-wiring.FIT-wiring.WALL
         if parent=='back-top':
             rear = min(rear,pose['translation_mm'][1]-466.95)
