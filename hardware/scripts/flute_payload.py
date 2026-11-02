@@ -262,25 +262,6 @@ def _collapsed_sources(original, reduced, collapses, vertex_count, sources):
     return [by_triangle.get(tuple(sorted(map(int, triangle))), [None]) for triangle in reduced]
 
 
-def bind_print_sources(stl):
-    """Bind the front-top observer's optional table to the actual STL it accompanied."""
-    stl = Path(stl)
-    path = stl.with_name(stl.name + ".sources.json")
-    try:
-        document = json.loads(path.read_text())
-        if not isinstance(document, dict):
-            return
-        with stl.open("rb") as source:
-            source.seek(80)
-            count, = struct.unpack("<I", source.read(4))
-        if document.get("v") != 1 or len(document.get("triangles", [])) != count:
-            return
-        document["sha256"] = _mesh_payload.source_digest(stl)
-        path.write_text(json.dumps(document, separators=(",", ":")) + "\n")
-    except (OSError, ValueError, TypeError, struct.error):
-        pass
-
-
 def print_lineage(stl, printed):
     """Optional, SHA-bound records in exact STL facet order; stale metadata stays unknown."""
     stl = Path(stl)
