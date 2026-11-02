@@ -147,6 +147,27 @@ def hex_prism(axis, apothem, clock_deg, y0, y1, corner):
     return prism.intersect(cq.Solid.makeCylinder(corner, y1 - y0, cq.Vector(axis[0], y0, axis[1]), cq.Vector(0, 1, 0)))
 
 
+def asse_cap_profile(wrenches, air):
+    """One rounded wrench envelope through the cap's complete axial span."""
+    clock = sum(k for _y, _a, k, _r in wrenches) / len(wrenches)
+    apothem = max(a * (math.cos(math.radians(k-clock))
+                      + math.tan(math.pi/6) * abs(math.sin(math.radians(k-clock))))
+                   for _y, a, k, _r in wrenches)
+    return dict(apothem=math.ceil((apothem+air)*10.)/10., clock=clock,
+                corner=max(r for _y, _a, _k, r in wrenches)+air)
+
+
+def meter_cap_corner_room(west, centre_z, span):
+    """Lower outside corner clearance, retaining the full bearing and spring roots."""
+    top = centre_z - 8.
+    trim = METER_BACK - WALL
+    points = [(west-1., centre_z-40.), (west+trim, centre_z-40.),
+              (west+trim, top-trim), (west, top), (west-1., top)]
+    return {'segments': [{'line': (a,b)} for a,b in
+                         zip(points, points[1:]+points[:1])],
+            'span': (span[0]-.1, span[1]+.1)}
+
+
 def box(x0, x1, y0, y1, z0, z1):
     return cq.Solid.makeBox(x1 - x0, y1 - y0, z1 - z0, cq.Vector(x0, y0, z0))
 
@@ -392,16 +413,12 @@ def build(parts, asse_axis, asse_at, asse_turn, pisco_axis, mouth_y, ceiling, re
     widest = max(cav[m].max(), *(corner + c for *_, corner in wrenches))
     st_a = station(asse_axis[0], half_width(widest, split, asse_axis[1]) + WALL,
                    *cap_y, split=split, wing_root=asse_axis[1]-REAR_ROOT_DROP)
-    # The cap's room: the body's lower round swept by the thread either way, head on; both wrenches'
-    # lower faces; a slot through its bottom flat for the vent.
-    _, r_low = envelope(body[body[:, 2] <= asse_axis[1] + .01], asse_axis, LO, HI)
-    room = swept(r_low, THREAD, THREAD)
-    room = np.where((ys >= cap_y[0] - 1.) & (ys <= cap_y[1] + 1.) & (room > 0), room + s, 0.)
-    room_steps = steps(ys, room)
+    # One fitted rounded hex continues through the cap; its bottom slot clears the vent.
+    cap_profile = asse_cap_profile(wrenches, s)
     v_lo, v_hi = vent.min(axis=0), vent.max(axis=0)
-    snap = cap(st_a, asse_axis[1], None, asse_axis[1], hexed=True).cut(turned(room_steps, asse_axis))
-    for y0, y1, apothem, clock, corner in wrench_rooms:
-        snap = snap.cut(hex_prism(asse_axis, apothem + s, clock, y0, y1, corner + s))
+    snap = cap(st_a, asse_axis[1], None, asse_axis[1], hexed=True).cut(hex_prism(
+        asse_axis, cap_profile['apothem'], cap_profile['clock'],
+        cap_y[0]-.01, cap_y[1]+.01, cap_profile['corner']))
     slot = box(v_lo[0] - c, v_hi[0] + c, v_lo[1] - THREAD - c, v_hi[1] + THREAD + c, v_lo[2] - 1., asse_axis[1])
     out['asse-snap-cap'] = snap.cut(slot).clean()
     W = st_a['outer']
@@ -413,7 +430,7 @@ def build(parts, asse_axis, asse_at, asse_turn, pisco_axis, mouth_y, ceiling, re
     for p in pockets(st_a):
         seat = seat.cut(p)
     out['asse-seat'] = seat.clean()
-    numbers['asse'] = {'station': st_a, 'seat_runs': asse_steps, 'cap_runs': room_steps,
+    numbers['asse'] = {'station': st_a, 'seat_runs': asse_steps, 'cap_profile': cap_profile,
                        'wrenches': [{'y': y, 'apothem': a, 'clock': k, 'corner': r} for y, a, k, r in wrenches],
                        'gagira_fore_y': gag_fore, 'vent': [v_lo.tolist(), v_hi.tolist()]}
 
@@ -521,7 +538,8 @@ def build(parts, asse_axis, asse_at, asse_turn, pisco_axis, mouth_y, ceiling, re
     half=st_m['inner']-ROOT_RADIUS-.5
     blank=cap(st_m,st_m['root'],bottom).fuse(
         box(-half,half,*CAP_Y,bottom,st_m['root']+METER_BEARING_DEPTH))
-    body = to_world(blank).cut(hollow)
+    body = to_world(blank).cut(hollow).cut(section_solid(
+        meter_cap_corner_room(MX+bottom, MZ, CAP_Y)))
     out['meter-snap-cap'] = body.clean()
     numbers['meter'] = {'station': st_m, 'split_x': MX, 'axis': [MY, MZ],
                        'housing_air_mm':METER_AIR,'lower_leaf_span_mm':CAP_Y[1]-CAP_Y[0]}
