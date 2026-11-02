@@ -753,8 +753,8 @@
   "elapsed_seconds": 22.544379916012986,
   "passed": true,
   "current_parent_binding": {
-    "assembly_step_sha256": "b8a1a5b893b4bd465d8bd1bdd781201ba4eb20e9186ffa85622790c1710233ed",
-    "assembly_mesh_sha256": "3ab60fa98d64305694e6678f5645f3aa064de1e63bead926448e995ed82d3e34",
+    "assembly_step_sha256": "49d075a4791460c0c02461bd159d0f352e1d699d0ba5d37db18d3db57f911a40",
+    "assembly_mesh_sha256": "cf83a85e35d9c394882987f1664f7d507be7446c8351f43dee6a7d0f9cd55906",
     "scope": "The source PSU insert hosts, relay insert hosts and blind floors retain the measured geometry. Current relay edge ledges stand clear of the threaded lanes; their independent current native neighborhood and continuous loading boxes are recorded in the surface cleanup reading."
   }
 }
