@@ -1,0 +1,170 @@
+{
+  "reported_by": "Derek",
+  "reported_date": "2026-11-01",
+  "trial": "Ten first-generation rear-equipment fit pieces; Mark1 task1398257516 and Mark2 task1398266343",
+  "families": {
+    "pisco": {
+      "fit": "Insufficient neck/body clearance; visible cap/seat gap even after fracture.",
+      "retention": "Wings fractured during fitting.",
+      "requested_diameter_increase_mm": [
+        1.0,
+        1.5
+      ]
+    },
+    "meter": {
+      "fit": "Square housing binds in receiver and cap; cannot slide smoothly into the installed arrangement.",
+      "retention": "Wings fractured; lead-side leaf is too short.",
+      "wires": "Flexible leads may be flattened and redirected around a complete leaf."
+    },
+    "asse": {
+      "fit": "Fits well.",
+      "retention": "Wings survived careful insertion but are too thin.",
+      "threaded_adapter": "The 3/8 NPT to 1/4 NPT female adapter was finger-tight. Taped engagement may leave it longer. Record observation; do not change fit."
+    },
+    "regulator": {
+      "fit": "Fits.",
+      "retention": "Wings survived careful insertion but need more thickness. Extend conformity over smaller body sections where available; retain the existing lowest Z."
+    },
+    "pump": {
+      "fit": "Fits.",
+      "retention": "Wings survived; request thicker, taller leaves and retain the larger box body."
+    }
+  },
+  "cavity_supports": {
+    "reported_result": "Tiny cavity supports removed easily.",
+    "necessary_tool": "A tiny flathead screwdriver that fits inside the cavity.",
+    "scope": "The small automatically generated cavity supports on these fit-trial parts. This is observed removal, not a blanket result for every support topology.",
+    "preference": "Retain these accessible supports where needed for the fit surface.",
+    "user_report": "They actually removed pretty easily, just an extra step, to get the right size flathead screwdriver to remove them."
+  },
+  "orientation_request": "Print every cap on an axial end like the pump cap so spring bending lies within the layer plane.",
+  "photos": [
+    {
+      "batch": "first",
+      "photo": 1,
+      "sha256": "9a3719a9022fb613bcdd0e699c45f21cddf99763fabb422b55016489043abe68",
+      "bytes": 1234117,
+      "retained_photo": "pisco-fit-gap.jpg"
+    },
+    {
+      "batch": "first",
+      "photo": 2,
+      "sha256": "011d5796afddcdec755b31aa9a5c6c324d18fe6d10e4e2fdda1d3cb6bbfb90cb",
+      "bytes": 1215888
+    },
+    {
+      "batch": "first",
+      "photo": 3,
+      "sha256": "c1f95308566378b25357b302c385ce2c268a604747976019594b19083b228281",
+      "bytes": 1284275
+    },
+    {
+      "batch": "first",
+      "photo": 4,
+      "sha256": "858b363c38b469e3ab76d92c7d17f4312fa38452a67d5722c186a1c193ff8752",
+      "bytes": 1271900,
+      "retained_photo": "pisco-fracture.jpg"
+    },
+    {
+      "batch": "first",
+      "photo": 5,
+      "sha256": "5e36565dbf0bc3d0a9119b8092301a003f1e94c3040557448a9a740e5beff99f",
+      "bytes": 2058636,
+      "retained_photo": "meter-wire-side.jpg"
+    },
+    {
+      "batch": "first",
+      "photo": 6,
+      "sha256": "a97992c9b520cb7a1e46f9da09373ceaaf386d109339f30863dc8b6d14d0281f",
+      "bytes": 1263571
+    },
+    {
+      "batch": "first",
+      "photo": 7,
+      "sha256": "de0e835d7189e602690a44bfb6d8eb57474fe22d81655813537bfa6db6bdb590",
+      "bytes": 1627619
+    },
+    {
+      "batch": "first",
+      "photo": 8,
+      "sha256": "b060d9bfdaccc9f58a86b7a3fe4e6a5b0b9da727a0d6b2ddab258e2c51c1fcfc",
+      "bytes": 1137580
+    },
+    {
+      "batch": "first",
+      "photo": 9,
+      "sha256": "e899773ade54f7667744d1818c1bcd5220b1d3179da77b48806bd9d8742859ee",
+      "bytes": 1613058
+    },
+    {
+      "batch": "first",
+      "photo": 10,
+      "sha256": "c1f57c911ec10f3d8b30ddeaa9dfe76978747ca4b93449ea1bcc3e1d32adab95",
+      "bytes": 1658140
+    },
+    {
+      "batch": "second",
+      "photo": 1,
+      "sha256": "b7f033e24da159267dff5838ccdf7949026b5fe1b418ed1199e1a99e8a358053",
+      "bytes": 223398
+    },
+    {
+      "batch": "second",
+      "photo": 2,
+      "sha256": "5af448189f440fc05e2429534cfba6b68dc596c26fe4d2ca9721977267783b18",
+      "bytes": 1341701
+    },
+    {
+      "batch": "second",
+      "photo": 3,
+      "sha256": "7fdb595df51c2a16eebb09d1957f255e0b539b3fcf9a9cf2179326782bae2300",
+      "bytes": 1745565,
+      "retained_photo": "pump-fit.jpg"
+    },
+    {
+      "batch": "second",
+      "photo": 4,
+      "sha256": "2d9494153a6fccc74195b0f0b7adbf63ae02cc0952fa7520f1ca13344449a02a",
+      "bytes": 1318271
+    },
+    {
+      "batch": "second",
+      "photo": 5,
+      "sha256": "eaec3247967cc34434628f62edbd67c36cce83392d8c41e98e67e22531b76e5c",
+      "bytes": 1198034,
+      "retained_photo": "meter-fracture.jpg"
+    },
+    {
+      "batch": "second",
+      "photo": 6,
+      "sha256": "1f3271904338a3da037e973e3205ab864c993575978acd8c830ee6636a30b8b6",
+      "bytes": 1109579
+    },
+    {
+      "batch": "second",
+      "photo": 7,
+      "sha256": "5d565dd0abf0a4c177e673ba9ddcd9cbfe07cc9c0d935127afad6ecfa6c988f1",
+      "bytes": 1159201
+    },
+    {
+      "batch": "second",
+      "photo": 8,
+      "sha256": "c27fee9e6316f1171c2c00c06316383f95654e2c9f7e03348d48d39f7b1d7921",
+      "bytes": 1338467
+    },
+    {
+      "batch": "second",
+      "photo": 9,
+      "sha256": "15168b8e52e5f9276ab25fdaa54bb73a1abb1b1af6d9e0314d872596da952d5c",
+      "bytes": 1338900
+    },
+    {
+      "batch": "second",
+      "photo": 10,
+      "sha256": "569b9f2d8f379f80c6cbf921de9febdf830378b875dc28bce75c38fd6e476678",
+      "bytes": 1370947,
+      "retained_photo": "asse-fit.jpg"
+    }
+  ],
+  "status": "First-generation trial rejected for wing durability, PISCO fit and meter fit."
+}

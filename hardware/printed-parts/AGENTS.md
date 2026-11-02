@@ -63,6 +63,13 @@ footprint constraint needs an automatic tree-support placement review before
 choosing an explicit normal override. Do not impose a trees-only rule or add
 blanket blockers to Bambu's automatically generated normal sections.
 
+The [rear equipment fit trial](../print-tests/rear-snap-retention/physical-result/physical-result.json)
+records tiny automatic cavity supports that Derek removed easily with a tiny
+flathead screwdriver that fits inside the cavity. Retain such accessible
+supports beneath the functional ceilings on these mounts and list that tool
+in their post-processing instructions. The observed removal applies to these
+cavities; another support topology needs its own access reading.
+
 For visible overhang edges with reported roughness, follow the edge with a
 removable fin wall and retain Tree(auto)/Default on the remaining surfaces.
 Use interrupted arcs on curved edges, with release gaps away from the most
