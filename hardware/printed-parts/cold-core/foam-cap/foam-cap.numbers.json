@@ -2471,13 +2471,13 @@
      74.5
     ],
     "centre_world_mm": [
-     -15.368269476362315,
-     415.56776090725265,
-     284.279346931499
+     -15.181429835394722,
+     415.3180504420662,
+     282.02934693149894
     ],
     "cover_room_native_y_mm": [
-     -6.018479351409066,
-     6.074153537631092
+     -6.023302113211921,
+     6.107142384452413
     ],
     "frame": {
      "reference": "hardware/reference/g-ganen-pump/g-ganen-pump.step",
@@ -2499,9 +2499,9 @@
       ]
      ],
      "translation_mm": [
-      -15.368269476362286,
-      368.31776090725265,
-      250.19796251494617
+      -15.181429835394693,
+      368.0680504420662,
+      247.9479625149461
      ]
     },
     "pocket_band_native_x_mm": [
@@ -2545,14 +2545,17 @@
     "seat_bore_radius_mm": 25.696989753350408,
     "selected": {
      "axial_end_stock_mm": 3.0,
-     "cap_arch_wall_mm": 3.1,
+     "cap_arch_wall_mm": 6.2,
+     "cap_east_roof_half_width_mm": 20.0,
      "contact_scope": "Motor-side saddle native X16.75\u201377.75 and one continuous upper clip X20\u201374.5. End stops contact only fixed motor rail ends; the rough head underside remains clear throughout axial free play. The central wire-cover and lead corridor stays open.",
-     "insertion": "Bare pump lowers vertically into the open motor saddle; fixed rails and molded cover pass through open rooms. One continuous 54.5 mm clip snaps down after seating. Its pockets retain 3 mm solid axial stock at both outer ends. Broad stock flush with the saddle outside wall joins the two fixed-rail end stops; the straight rail corridor between them stays open.",
+     "cover_channel_fore_native_x_mm": -20.0,
+     "cover_channel_recess_mm": 2.5,
+     "insertion": "The bare pump lowers into the two fixed-rail seats above a straight shallow lid recess. A filled box half-pipe with one east clearance shoulder closes over the motor, using two independent spring leaves with flat catches. The continuous receiving pockets retain 3 mm solid axial end stock.",
      "motor_band_native_x_mm": [
       16.75,
       77.75
      ],
-     "print_pose": "Snap cap stands on one axial end; arch, spring wings and hooks print as vertical walls.",
+     "print_pose": "The cap stands on one axial end; its filled body, leaves and hooks grow as vertical walls.",
      "rail_stop_contact_native_y_mm": [
       -29.0,
       -26.0
@@ -2574,31 +2577,33 @@
      ]
     },
     "snap_station": {
-     "axis_x": -15.368269476362315,
-     "bearing": 3.0,
-     "catch": 3.4,
-     "ceiling": 6.9,
+     "axis_x": -15.181429835394722,
+     "bearing": 21.85,
+     "catch": 22.5,
+     "ceiling": 25.6,
      "hook": 31.479180708991777,
-     "inner": 32.32918070899178,
-     "ledge": 32.07918070899178,
+     "inner": 34.57918070899178,
+     "ledge": 34.07918070899178,
      "neck": 31.229180708991777,
-     "outer": 35.32918070899178,
+     "nose_land": 0.6,
+     "outer": 37.17918070899178,
+     "root": 0.0,
      "split": 0.0,
-     "tip": 6.4,
-     "y0": 388.31776090725265,
-     "y1": 442.81776090725265
+     "tip": 25.1,
+     "y0": 388.0680504420662,
+     "y1": 442.5680504420662
     },
-    "stock_half_width_mm": 35.32918070899178
+    "stock_half_width_mm": 37.17918070899178
    }
   ],
   "centre_world_mm": [
-   -15.368269476362315,
-   415.56776090725265,
-   284.279346931499
+   -15.181429835394722,
+   415.3180504420662,
+   282.02934693149894
   ],
   "cover_room_native_y_mm": [
-   -6.018479351409066,
-   6.074153537631092
+   -6.023302113211921,
+   6.107142384452413
   ],
   "end_stock_mm": [
    3.0,
@@ -2624,9 +2629,9 @@
     ]
    ],
    "translation_mm": [
-    -15.368269476362286,
-    368.31776090725265,
-    250.19796251494617
+    -15.181429835394693,
+    368.0680504420662,
+    247.9479625149461
    ]
   },
   "pocket_band_native_x_mm": [
@@ -2670,14 +2675,17 @@
   "seat_bore_radius_mm": 25.696989753350408,
   "selected": {
    "axial_end_stock_mm": 3.0,
-   "cap_arch_wall_mm": 3.1,
+   "cap_arch_wall_mm": 6.2,
+   "cap_east_roof_half_width_mm": 20.0,
    "contact_scope": "Motor-side saddle native X16.75\u201377.75 and one continuous upper clip X20\u201374.5. End stops contact only fixed motor rail ends; the rough head underside remains clear throughout axial free play. The central wire-cover and lead corridor stays open.",
-   "insertion": "Bare pump lowers vertically into the open motor saddle; fixed rails and molded cover pass through open rooms. One continuous 54.5 mm clip snaps down after seating. Its pockets retain 3 mm solid axial stock at both outer ends. Broad stock flush with the saddle outside wall joins the two fixed-rail end stops; the straight rail corridor between them stays open.",
+   "cover_channel_fore_native_x_mm": -20.0,
+   "cover_channel_recess_mm": 2.5,
+   "insertion": "The bare pump lowers into the two fixed-rail seats above a straight shallow lid recess. A filled box half-pipe with one east clearance shoulder closes over the motor, using two independent spring leaves with flat catches. The continuous receiving pockets retain 3 mm solid axial end stock.",
    "motor_band_native_x_mm": [
     16.75,
     77.75
    ],
-   "print_pose": "Snap cap stands on one axial end; arch, spring wings and hooks print as vertical walls.",
+   "print_pose": "The cap stands on one axial end; its filled body, leaves and hooks grow as vertical walls.",
    "rail_stop_contact_native_y_mm": [
     -29.0,
     -26.0
@@ -2699,21 +2707,23 @@
    ]
   },
   "snap_station": {
-   "axis_x": -15.368269476362315,
-   "bearing": 3.0,
-   "catch": 3.4,
-   "ceiling": 6.9,
+   "axis_x": -15.181429835394722,
+   "bearing": 21.85,
+   "catch": 22.5,
+   "ceiling": 25.6,
    "hook": 31.479180708991777,
-   "inner": 32.32918070899178,
-   "ledge": 32.07918070899178,
+   "inner": 34.57918070899178,
+   "ledge": 34.07918070899178,
    "neck": 31.229180708991777,
-   "outer": 35.32918070899178,
+   "nose_land": 0.6,
+   "outer": 37.17918070899178,
+   "root": 0.0,
    "split": 0.0,
-   "tip": 6.4,
-   "y0": 388.31776090725265,
-   "y1": 442.81776090725265
+   "tip": 25.1,
+   "y0": 388.0680504420662,
+   "y1": 442.5680504420662
   },
-  "stock_half_width_mm": 35.32918070899178
+  "stock_half_width_mm": 37.17918070899178
  },
  "relief_radius": 5.312571253013435,
  "reliefs": {
@@ -2746,11 +2756,11 @@
  "screw_radius": 2.6,
  "slip": 0.15,
  "snap": {
-  "CATCH": 0.4,
-  "HOOK": 3.0,
+  "CATCH": 0.65,
+  "HOOK": 2.6,
   "LEDGE": 3.0,
-  "REACH": 0.6,
-  "WING": 3.0
+  "REACH": 2.6,
+  "WING": 2.6
  },
  "straight_guides": [
   {
