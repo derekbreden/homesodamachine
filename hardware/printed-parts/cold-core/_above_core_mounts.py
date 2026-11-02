@@ -259,7 +259,8 @@ def pump_snap_cap(index=0):
     d = pump_cradle_datums()['caps'][index]
     s = d['snap_station']
     c, wide, inner, hook = (s[k] for k in ('axis_x','outer','inner','hook'))
-    west = [(c-wide,0.),(c-wide,s['tip']),(c-hook,s['tip']),
+    west = [(c-wide,0.),(c-wide,s['tip']),(c-inner,s['tip']),
+            (c-hook,s['catch']+s['nose_land']),
             (c-hook,s['catch']),(c-inner,s['catch']),(c-inner,-fits.slip)]
     east = [(2*c-x,z) for x,z in reversed(west)]
     roof = -(d['bore_radius_mm']+d['selected']['cap_arch_wall_mm'])
