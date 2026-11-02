@@ -2815,6 +2815,14 @@ def _shell_with_facet(inner, outer, fill=None, housing_back=None):
     return cq.Workplane(obj=shell)
 
 
+def _display_point(outer, point):
+    _angle, normal, origin, _dy, _dz = _facet_geom(outer)
+    x, y, z = point
+    return (display_centre_x(outer) + x,
+            origin[1] + normal[2] * y + normal[1] * z,
+            origin[2] - normal[1] * y + normal[2] * z)
+
+
 def display_plane(outer):
     """The display face as a workplane centred on the glass — the frame everything let into the
     facet is struck in, and the frame `enclosure_assembly` poses the cover plate onto. Its
@@ -2823,6 +2831,10 @@ def display_plane(outer):
     _a, normal, origin, _dy, _dz = _facet_geom(outer)
     center = (display_centre_x(outer), origin[1], origin[2])
     return cq.Plane(origin=cq.Vector(*center), xDir=cq.Vector(1, 0, 0), normal=cq.Vector(*normal))
+
+
+def _display_cut_exit_depth():
+    return 12.0
 
 
 def _display_cuts(outer, support_floor=None, support_fore=None, extend_wing_exits=True):
@@ -2840,7 +2852,7 @@ def _display_cuts(outer, support_floor=None, support_fore=None, extend_wing_exit
     """
     plane = display_plane(outer)
     place = cq.Location(plane)
-    canonical_exit = 12.0
+    canonical_exit = _display_cut_exit_depth()
     cut = _display_wings.cuts(
         display_facet_thickness+display_pcb_cut_through, canonical_exit).moved(place)
     round_r = _interface.display_inset_corner_r
@@ -3609,10 +3621,9 @@ def _y_knuckle(inner, outer, x_in, sx, y_joint, piece, z0, z1, depth):
             # (`tube-fluid-1`) turns past that corner under the frame.
             ex, ey, c = x_in + sx * depth, y_joint + lip_len, y_stack_upper_chamfer
             zlo, zhi = min(z0, z1) - 1.0, max(z0, z1) + depth + 1.0
-            corner = (cq.Workplane("XY").workplane(offset=zlo)
-                      .polyline([(ex + sx, ey + 1.0), (ex - sx * (c + 1.0), ey + 1.0),
-                                 (ex + sx, ey - c - 1.0)]).close()
-                      .extrude(zhi - zlo).val())
+            corner = _xy_prism(zlo, zhi, [
+                (ex + sx, ey + 1.0), (ex - sx * (c + 1.0), ey + 1.0),
+                (ex + sx, ey - c - 1.0)])
             body = body.cut(corner)
     else:
         # Back-bottom's knuckle under the Z seam runs its whole depth on to the flank, where
@@ -4220,6 +4231,16 @@ def _rail_keep(inner):
                     corner_round - wall)
 
 
+def _z_rail_crossing(x_face, x_inner, y_joint, lane_aft, floor, peak):
+    crossing = _xz_prism(y_joint, lane_aft, [
+        (x_face, floor), (x_inner, floor), (x_inner, peak), (x_face, peak)])
+    return crossing.transformGeometry(cq.Matrix([
+        [1.0, 0.0, 0.0, 0.0],
+        [0.0, 1.0, 0.0, 0.0],
+        [0.0, 1.0, 1.0, -y_joint],
+    ]))
+
+
 def _z_rail_channels(inner, y_joint, zj, col, plate, chase=(), *, runs=None):
     """The TOP piece's channel voids, one per rail — cut LAST of the piece's work, so
     everything the piece fused near a flank is carved to the slide's own section.
@@ -4293,13 +4314,7 @@ def _z_rail_channels(inner, y_joint, zj, col, plate, chase=(), *, runs=None):
             # it and the tongue resumes at full section above it.
             rise = lane_aft - y_joint
             floor = zj - 1.0 - rise
-            crossing = _xz_prism(y_joint, lane_aft, [
-                (x_f, floor), (x_in, floor), (x_in, z_peak), (x_f, z_peak)])
-            crossing = crossing.transformGeometry(cq.Matrix([
-                [1.0, 0.0, 0.0, 0.0],
-                [0.0, 1.0, 0.0, 0.0],
-                [0.0, 1.0, 1.0, -y_joint],
-            ]))
+            crossing = _z_rail_crossing(x_f, x_in, y_joint, lane_aft, floor, z_peak)
             void = void.fuse(crossing)
         void = void.intersect(keep)
         out = void if out is None else out.fuse(void)
@@ -7034,6 +7049,13 @@ def _digiten_bore(x_axis, z_axis, r, y0, y1, reach):
 # NOTHING FASTENS A VALVE TO IT. The four corner posts press into their sockets and the valve's
 # own round body boss lands on the plate's face, which is what sets its height — the same
 # bargain V-A's and V-K's plates on back-top's sidewalls strike (`_above_core_shell.valve_seats`).
+def _valve_tray_placed(shape, plane, sign, seat_x, seat_z):
+    turn = cq.Location(cq.Vector(0, 0, 0), cq.Vector(1, 0, 0),
+                       -90.0 if sign > 0 else 90.0)
+    at = cq.Location(cq.Vector(seat_x, plane, seat_z))
+    return shape.val().moved(turn).moved(at)
+
+
 def _valve_socket_cutters(plane, sign, seat_x, seat_z):
     """One tray seat's four complete post rooms with support-free roofs, in world coordinates.
 
@@ -7173,11 +7195,9 @@ def _valve_trays(solid, inner, stations, y0, y1, z0, z1,
                         (x_face, gable), (x_face, bedding),
                         (x_deep, roof)]))
         solid = solid.fuse(tray)
-        turn = cq.Location(cq.Vector(0, 0, 0), cq.Vector(1, 0, 0),
-                           -90.0 if sign > 0 else 90.0)
         for sx, sz in seats:
-            at = cq.Location(cq.Vector(sx, plane, sz))
-            clearance = _valve_tray.build_body_clearance().val().moved(turn).moved(at)
+            clearance = _valve_tray_placed(
+                _valve_tray.build_body_clearance(), plane, sign, sx, sz)
             if flank_bed_z is not None:
                 # Between the flanks only: what an outer valve brings into a flank is the flank
                 # pocket's (`front_flank_reliefs`).
@@ -7189,8 +7209,8 @@ def _valve_trays(solid, inner, stations, y0, y1, z0, z1,
                 solid = solid.cut(socket)
             chan = 2.0 * max(half + abs(sz - mid_z), top - sz)
             chan += 2.0 * wedge_depth
-            solid = solid.cut(_valve_tray.build_port_channel(chan + 2.0)
-                              .val().moved(turn).moved(at))
+            solid = solid.cut(_valve_tray_placed(
+                _valve_tray.build_port_channel(chan + 2.0), plane, sign, sx, sz))
     return solid
 
 
@@ -9118,6 +9138,21 @@ def _produced_back_top(box):
     _enclosure_back_top.cut(sys.modules[__name__], box, _here.parent)
     structural = load_model(_here.parent/'enclosure-back-top.step.npz')[0]
     return {'back-top': cq.Workplane(obj=structural)}
+
+
+def _produced_front_top(box):
+    """The complete front-top print with its structural body for the mesh assembly."""
+    meshcad = sys.modules.get('meshcad')
+    if meshcad is None or not meshcad.mesh_mode():
+        return {}
+    import _enclosure_front_top
+    if not _enclosure_front_top.can_cut(sys.modules[__name__], box):
+        return {}
+    from meshcad.imports import load_model
+    _enclosure_front_top.cut(sys.modules[__name__], box, _here.parent)
+    structural = load_model(_here.parent/'enclosure-front-top.step.npz')[0]
+    return {'front-top': cq.Workplane(obj=structural)}
+
 
 
 def main():
