@@ -15,11 +15,11 @@ Run with tools/cad-venv/bin/python. No argument exports both print parts;
 
 from __future__ import annotations
 
+import argparse
 import json
 import sys
 from pathlib import Path
 
-import cadquery as cq
 
 
 _here = Path(__file__).resolve()
@@ -28,10 +28,30 @@ _repo = next(p for p in _here.parents if (p / "tools" / "docgen").is_dir())
 for _path in (_hw / "scripts", _hw / "cold-core-layout", _repo / "tools"):
     sys.path.insert(0, str(_path))
 
-from _cadq_export import export_assembly, note_write  # noqa: E402
-from _material_base import M_PETGF_BLACK, one_body  # noqa: E402
 from _water_inlet_jet import JET_CAP_D, JET_PASSAGE_D  # noqa: E402
 from docgen import substitute_md  # noqa: E402
+
+
+if __name__ == "__main__":
+    import _rust_part
+    _rust_part.start()
+
+
+def _native():
+    if "cq" in globals():
+        return
+    import cadquery as cq
+    from _cadq_export import export_assembly, note_write
+    from _material_base import M_PETGF_BLACK, one_body
+    globals().update(cq=cq, export_assembly=export_assembly, note_write=note_write,
+                     M_PETGF_BLACK=M_PETGF_BLACK, one_body=one_body)
+
+
+def __getattr__(name):
+    if name not in {"cq", "export_assembly", "note_write", "M_PETGF_BLACK", "one_body"}:
+        raise AttributeError(name)
+    _native()
+    return globals()[name]
 
 
 ROD_D = JET_CAP_D
@@ -53,12 +73,14 @@ MESH_ANGLE = 0.15
 
 
 def _box(x0, x1, y0, y1, z0, z1):
+    _native()
     return cq.Workplane(obj=cq.Solid.makeBox(
         x1 - x0, y1 - y0, z1 - z0, cq.Vector(x0, y0, z0)
     ))
 
 
 def _groove():
+    _native()
     return cq.Workplane(obj=cq.Solid.makeCylinder(
         GROOVE_R, GRIP_Z + 2.0,
         cq.Vector(0, 0, BASE_T - 1.0), cq.Vector(0, 0, 1)
@@ -95,6 +117,7 @@ def _single_valid(name, shape):
 
 
 def selftest():
+    _native()
     fixed = build_fixed()
     loose = build_loose_in_use()
     _single_valid("fixed jaw and base", fixed)
@@ -135,10 +158,13 @@ def selftest():
     return fixed, build_loose_print()
 
 
-def _export_print(name, part):
+def _export_print(name, part, output=None):
+    _native()
     stem = f"water-inlet-jet-fixture-{name}"
-    stl = _here.parent / f"{stem}.stl"
-    step = _here.parent / f"{stem}.step"
+    out = Path(output) if output is not None else _here.parent
+    out.mkdir(parents=True, exist_ok=True)
+    stl = out / f"{stem}.stl"
+    step = out / f"{stem}.step"
     # A sibling slicer mesh keeps this isolated shop fixture out of viewer payloads.
     cq.exporters.export(part, str(stl), tolerance=MESH_TOLERANCE, angularTolerance=MESH_ANGLE)
     note_write(stl)
@@ -146,10 +172,29 @@ def _export_print(name, part):
     print(f"-> {step.name}, {stl.name}: {_volume(part) / 1000:.2f} cm³")
 
 
-def main():
+def _native_main(output=None):
     fixed, loose = selftest()
-    _export_print("fixed", fixed)
-    _export_print("loose", loose)
+    _export_print("fixed", fixed, output)
+    _export_print("loose", loose, output)
+    _document()
+
+
+
+def numbers():
+    """Existing drill jaws in their separate upright print frames."""
+    import _rust_part
+    _rust_part.start()
+    from _material_base import M_PETGF_BLACK
+    from _materials import linear
+    return {"base": [BASE_X, BASE_Y, BASE_T],
+            "jaw": [JAW_X, JAW_DEPTH, GRIP_Z],
+            "gap": OPEN_JAW_GAP, "groove_radius": GROOVE_R,
+            "stock_diameter": ROD_D, "radial_slip": GROOVE_RADIAL_SLIP,
+            "minimum_blank": MIN_HANDLING_BLANK_L, "drill_diameter": JET_PASSAGE_D,
+            "color": list(linear(M_PETGF_BLACK))}
+
+
+def _document():
     substitute_md(_here.parent / "README.md", variables={
         "JET_FIXTURE_BASE": f"{BASE_X:g} × {BASE_Y:g} × {BASE_T:g} mm",
         "JET_FIXTURE_GRIP": f"{GRIP_Z:g} mm",
@@ -162,10 +207,25 @@ def main():
     })
 
 
+
+def main(output=None, native=False):
+    if native:
+        return _native_main(output)
+    import _rust_part
+    out = Path(output) if output is not None else _here.parent
+    out.mkdir(parents=True, exist_ok=True)
+    result = _rust_part.cut("tooling", "water-inlet-jet-fixture", numbers(), out)
+    _document()
+    print(f"-> water inlet jet fixture: {len(result['files'])} files")
+
+
 if __name__ == "__main__":
-    if sys.argv[1:] == ["selftest"]:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("command", nargs="?", choices=["selftest"])
+    parser.add_argument("--native", action="store_true")
+    parser.add_argument("--output", type=Path)
+    options = parser.parse_args()
+    if options.command == "selftest":
         selftest()
-    elif sys.argv[1:]:
-        sys.exit("usage: water_inlet_jet_fixture.py [selftest]")
     else:
-        main()
+        main(options.output, options.native)
