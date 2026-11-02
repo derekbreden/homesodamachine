@@ -42,7 +42,7 @@ WORD_DEPTH = original.WORD_DEPTH
 WORD_RAISE = original.WORD_RAISE
 # Keep the short upper-row words above the water and soda fitting flanges
 # with at least the 1 mm assembly air gap. Chip outlines and clamp planes stay fixed.
-WORD_LIFT = {'water': .25, 'carb': .25}
+WORD_LIFT = {'water': .25, 'carb': .25, 'flavor-a':-.75, 'flavor-b':-.75}
 
 STATIONS = {
     'bulkhead-water': 'water', 'co2-inlet': 'co2',
@@ -92,7 +92,10 @@ def _station(which):
 
 def _top(which):
     row = _station(which)
-    return 355.-row['center_z_mm'] if row['center_z_mm']==328. else 19.8
+    z = row['center_z_mm']
+    above = [height for height in above_core.specification()['fluid_grid']['rows_z_mm']
+             if height > z]
+    return min(above)-12.-.2-z if above else 355.-z
 
 
 @functools.cache
@@ -103,7 +106,7 @@ def word(which):
     letters = flat.rotate((0,0,0),(1,0,0),90.).rotate((0,0,0),(0,0,1),180.).val()
     b = letters.BoundingBox()
     return letters.translate((-(b.xmin+b.xmax)/2.,THICK-WORD_DEPTH-b.ymin,
-                               (12.+_top(which))/2.-(b.zmin+b.zmax)/2.))
+                               (12.+_top(which))/2.+WORD_LIFT.get(which,0.)-(b.zmin+b.zmax)/2.))
 
 
 @functools.cache
@@ -236,6 +239,7 @@ def numbers():
             'word_name': f'bulkhead-ring-{which}-word', 'word': label,
             'word_profiles': artwork['words'][label],
             'top': _top(which),
+            'word_center_z':(12.+_top(which))/2.+WORD_LIFT.get(which,0.),
             'bore_x': row['bore_x_mm']-row['center_x_mm'],
             'bore_z': row['bore_z_mm']-row['center_z_mm'],
             'bore_diameter': (spec['rear_plumbing']['tap_tile_bore_mm']

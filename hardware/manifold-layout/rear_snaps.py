@@ -186,6 +186,29 @@ def pockets(s):
     return out
 
 
+def pisco_cap_service_cuts(s):
+    """Open the fore flank exits below the retained hook-bearing plane.
+
+    A released cap lowers 3.6 mm and slides forward with its leaves open.
+    The complete fore stops above the bearing plane retain the seated cap.
+    """
+    out=[]
+    for side in (-1.,1.):
+        inside=s['axis_x']+side*(s['ledge']-REACH-fits.running)
+        outside=s['axis_x']+side*(s['outer']+3.2+fits.running)
+        out.append(box(*sorted((inside,outside)),
+            s['y0']-fits.running-WALL-1.,s['y0']+fits.running,
+            s['split']-1.,s['bearing']))
+    return out
+
+
+def pisco_station(axis_x, admitted_radius, axis_z, y0, y1):
+    """Full 3 mm receiver walls beside the widened hardware passage."""
+    web=WALL-REACH-fits.running
+    return station(axis_x,half_width(admitted_radius,SPLIT,axis_z)+web,
+                   y0,y1,wing_root=axis_z-REAR_ROOT_DROP)
+
+
 def cap_section(s, base, bottom, axis_z=None, hexed=False):
     """A cap's line/arc section in X/Z, with its Y span, independent of a CAD kernel."""
     c, W, wi, h = s['axis_x'], s['outer'], s['inner'], s['hook']
@@ -335,14 +358,15 @@ def build(parts, asse_axis, asse_at, asse_turn, pisco_axis, mouth_y, ceiling, re
     step_face = mouth_y - neck_z
     pcap = (mouth_y - collet[0] + c + .01, mouth_y - fitting[0] - 2.6)
     m = (ys2 >= pcap[0] - .25) & (ys2 <= pcap[1] + .25)
-    st_p = station(pisco_axis[0], half_width(cav2[m].max(), SPLIT, pisco_axis[1]) + WALL,
-                   *pcap, wing_root=pisco_axis[1]-REAR_ROOT_DROP)
+    st_p = pisco_station(pisco_axis[0],cav2[m].max(),pisco_axis[1],*pcap)
     W = st_p['outer']
     front = pcap[0] - c - WALL
     seat = box(pisco_axis[0] - W, pisco_axis[0] + W, front, rear + INTO, SPLIT, ceiling + INTO)
     seat = seat.cut(turned(steps(ys2, np.where(ys2 >= front - 1, cav2, 0.)), pisco_axis))
     for p in pockets(st_p):
         seat = seat.cut(p)
+    for opening in pisco_cap_service_cuts(st_p):
+        seat = seat.cut(opening)
     out['pisco-seat'] = seat.clean()
     held = profile[(profile[:, 0] >= mouth_y - pcap[1] - 1.) & (profile[:, 0] <= neck_z)]
     r_body = held[:, 1].max() + s + PISCO_RADIAL_RELIEF
@@ -351,7 +375,8 @@ def build(parts, asse_axis, asse_at, asse_turn, pisco_axis, mouth_y, ceiling, re
     out['pisco-snap-cap'] = (cap(st_p, st_p['root'], pisco_axis[1] - r_body - WALL)
                              .cut(turned([(pcap[0] - 1., lip, r_neck), (lip, pcap[1] + 1., r_body)], pisco_axis))
                              .clean())
-    numbers['pisco'] = {'station': st_p, 'step_face_y': step_face, 'body_r': r_body, 'neck_r': r_neck}
+    numbers['pisco'] = {'station': st_p, 'step_face_y': step_face, 'body_r': r_body,
+        'neck_r': r_neck, 'cap_release_drop_mm':3.6, 'cap_service_fore_slide_mm':45.}
 
     # --- the meter: its seat on the side wall, its cap from the west -----------------------------
     # The housing's label side stands in a cup on the side wall, swept forward by the slide and aft

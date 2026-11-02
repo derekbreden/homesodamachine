@@ -21,6 +21,7 @@ from _cold_core_interface import (
     cap_passive_guides,
     cap_cable_guides,
     cap_conduit_bore_radius,
+    cap_conduit_bore_radii,
     cap_conduit_boss_radius,
     cap_conduit_links,
     cap_conduit_link_width,
@@ -99,6 +100,7 @@ def build_conduit_bores(height, radius=cap_conduit_bore_radius, overshoot=0.0,
     it a through-cut."""
     ordinary = [xy for name, xy in cap_conduits.items()
                 if name not in ('reservoir-b-fill','water-in','carb-water-out') and
+                not (frame == 'lid' and name in cap_conduit_bore_radii) and
                 (frame == 'lid' or name not in (*cap_passive_guides, *cap_cable_guides))]
     bores = (
         WorldWorkplane(xy_plane_z_up)
@@ -107,6 +109,12 @@ def build_conduit_bores(height, radius=cap_conduit_bore_radius, overshoot=0.0,
         .circle(radius)
         .extrude(height + overshoot)
     )
+    if frame == 'lid':
+        for name, bore_radius in cap_conduit_bore_radii.items():
+            bores = bores.union(
+                WorldWorkplane(xy_plane_z_up).workplane(offset=-overshoot)
+                .pushPoints([cap_conduits[name]]).circle(bore_radius)
+                .extrude(height+overshoot))
     band = cq.Solid.makeBox(outer_shell_x_length+40., outer_shell_y_length+40.,
         height+overshoot+1., cq.Vector(-outer_shell_x_length/2.-20.,
                                     -outer_shell_y_length/2.-20.,-overshoot))
@@ -151,7 +159,7 @@ def build_conduit_entry_reliefs(z_inner):
     for name, centre in cap_conduits.items():
         # The shared sensor loom stays vertical until above the lid. Its
         # straight mouth needs no leaning-tube relief beside the earth boss.
-        if name in ('reservoir-b-fill','water-in','sensor-cable'):
+        if name in ('reservoir-b-fill','water-in','sensor-cable',*cap_conduit_bore_radii):
             continue
         cone = (
             WorldWorkplane(xy_plane_z_up)

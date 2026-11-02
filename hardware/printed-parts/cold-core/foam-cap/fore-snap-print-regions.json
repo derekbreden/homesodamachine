@@ -11,25 +11,25 @@
     "hardware/printed-parts/cold-core/foam-cap/prepare_fore_snap_regions.py": "3e551ca46d108f22fffb0e0bc8eae9a6eee72af76cec4a51403a411d434372b0",
     "hardware/printed-parts/cold-core/_reservoir_a_c2.py": "073f314bf227dee8d5326b077fb4d2a050a70cc9164e2688dcb307393aea466e",
     "hardware/manifold-layout/above_core.py": "4ae1006309cfc55676c11ac286d0506a77d8fecd1b107818b2d6a665b787654e",
-    "hardware/manifold-layout/above-core.json": "b886818274572dd35d0b7f5f2da255e855ff1e4420d7a74c2e1c81ea91b45a5a",
+    "hardware/manifold-layout/above-core.json": "1afefa80c54de76c563c8e144dd1653416e07ca71000a9d059f1b4938af5999f",
     "hardware/printed-parts/cold-core/_reservoir_a_anchors.py": "f727c42ed0433ab36a9e4ec19cee24ddfea0272caa1e4b082c41bde5565eb639",
-    "hardware/printed-parts/cold-core/foam-cap/foam_cap.py": "4728acb208d3c3a77e0922ac90d6cfa222bbe0fe04f1bee8eabb5b3edd21a01a",
-    "hardware/printed-parts/cold-core/_cold_core_interface.py": "13dad083f79c799a491fb4217a275d05f5b47ed70fc38f71f4c9332cd35ccf3b",
-    "hardware/printed-parts/cold-core/_above_core_mounts.py": "3653b4442801e4b87b4f17a0c9b3191d09681a723c23c7e2503e0893d99beb66",
-    "hardware/printed-parts/cold-core/_foam_cap.py": "76f82b26681daa9dfd07b52688a5598abdb865b0d52719541d2f37af39c5cec3"
+    "hardware/printed-parts/cold-core/foam-cap/foam_cap.py": "a01102f86551157c370992a4a10d8f3839c04fda4e50f532aa7d43fbc4b9d067",
+    "hardware/printed-parts/cold-core/_cold_core_interface.py": "81dfa262e4ad7e321dca5ed4f86a85367b21123833013eb4dad75270e7faef44",
+    "hardware/printed-parts/cold-core/_above_core_mounts.py": "e3400c8fd922c8e0c179e5305cecc5a19805da2c253c3a4f52f67d9d548c7ea1",
+    "hardware/printed-parts/cold-core/_foam_cap.py": "1a60d110a06b51c83bf245e365cd3436508e6c3e317a8ef353da93b9b662aa07"
   },
   "native_artifact_sha256": {
     "foam-cap-lid-top": {
-      ".step": "ad0336a162227059cbf3ca4915dedd5a8db60f713171e9fd537f81f0de5c9546",
-      ".stl": "94c631183f2969989a848dc5154f10971bf518d626e9c46cf8e9b9be4323055a"
+      ".step": "3defba49513d8176c9ed25b2b6c6323cf9f460af237320b2d2db4f7c0101d8cc",
+      ".stl": "770987d0be5569e0c7934318dfd3b681a7845fb512ff22e2ffcf618d3f8fecb1"
     },
     "foam-cap-bottom": {
       ".step": "91ddfea3e9ca8cf046cb385a8d7e653b0b2deb3a343d6b1c9170ead4ed7c5929",
       ".stl": "acdcff8c0842d7158aa15ed797dc22ef6173eb27f662f7e19d505000f4c84e0a"
     },
     "foam-shell": {
-      ".step": "6f9445c5100eda24e79e6986d1acba16b1335dba3484bffb0b64af2f28449c13",
-      ".stl": "a8fc1a29ded8daaaae3498e0af15b5923d6149c187f68ba0790cba81773d92cf"
+      ".step": "a716b44ef657e0355fbceae6c2dcba6a4de45feefad6417245149f26abef5ad7",
+      ".stl": "132c06ecc887624ae36c98c168f97efaa533deb278a4b93a3d2f725455d93164"
     }
   },
   "part_process_overrides": {},

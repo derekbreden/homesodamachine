@@ -31,7 +31,7 @@ fn build(n: &Numbers, station: &Value) -> Result<(Solid, Solid, Solid)> {
     let word = letters.translate(v3(
         -(bounds.min.x + bounds.max.x) / 2.0,
         thick - depth - bounds.min.y,
-        (n.f("word_band_bottom")? + f(station, "top")?) / 2.0
+        f(station, "word_center_z")?
             - (bounds.min.z + bounds.max.z) / 2.0,
     ));
     let blank = Solid::cuboid(v3(-n.f("width")? / 2.0, 0.0, -n.f("bottom")?),

@@ -53,25 +53,46 @@ def psu_fastener_plan():
 
 
 def relay_fastener_plan():
-    """Two diagonal screws and four bearing pads support each relay PCB."""
-    tip=2.15
-    reach=8.-1.5-tip
+    """Two header-end screws and terminal-end edge rails hold each PCB."""
+    setback=2.5
+    reach=8.-1.5-setback
     pilot=reach+1.
-    return {'count':2, 'active_hole_indices':(0,3),
+    return {'count':2, 'active_hole_indices':(0,1),
             'screw':'M3x8 SHCS', 'screw_length_mm':8.,
             'insert':'RX-M3Sx4', 'insert_length_mm':4.,
             'pcb_thickness_mm':1.5, 'receiving_range_mm':(reach,reach),
             'pilot_depth_mm':pilot, 'minimum_tip_air_mm':1.,
             'minimum_blind_backing_mm':min(layout.pose(n)['translation_mm'][0]
-                for n in ('relay-1','relay-2'))-tip-pilot+107.5,
+                for n in ('relay-1','relay-2'))-setback-pilot+107.5,
             'minimum_fluted_backing_mm':min(layout.pose(n)['translation_mm'][0]
-                for n in ('relay-1','relay-2'))-tip-pilot+107.5-flute_depth,
+                for n in ('relay-1','relay-2'))-setback-pilot+107.5-flute_depth,
             'maximum_flute_depth_mm':flute_depth,
             'boss_radius_mm':5., 'pilot_radius_mm':2.,
-            'bearing_tip_height_mm':tip, 'bearing_tip_radius_mm':2.85,
+            'insert_face_setback_mm':setback,
             'screw_clearance_radius_mm':1.7,
-            'bearing_tip_basis':'The short bearing tip clears the reference pin envelope and the PSU. Its passage is unthreaded; the full 3 mm insert wall begins behind the pins. Actual pin fit, load and retention are unqualified.',
+            'pcb_support':'Four 3 mm edge ledges support the PCB; the terminal pair captures its top edges. The insert faces stand behind the pin envelope.',
             'parent':'enclosure-back-top', 'load_retention_qualified':False}
+
+
+def relay_edge_rails(name):
+    """Solid 3 mm rails capture the PCB edges beside its terminal block.
+
+    Both ends are open. Slide the board aft from 6.5 mm fore, then fit
+    the two screws at its header end. The rails hold the opposite end.
+    """
+    frame = layout.frame_location(layout.pose(name))
+    rails = []
+    for side in (-1.,1.):
+        outer = sorted((side*8.75,side*11.75))
+        lip = sorted((side*7.5,side*11.75))
+        root = box(29.5,35.25,*outer,-4.05,4.75)
+        bearing = box(29.5,35.25,*lip,1.75,4.75)
+        ledge = box(29.5,35.25,*lip,-3.,0.)
+        rails.append(root.fuse(bearing,ledge).clean().moved(frame))
+        front = box(-35.25,-29.5,*outer,-4.05,0.)
+        front = front.fuse(box(-35.25,-29.5,*lip,-3.,0.)).clean()
+        rails.append(front.moved(frame))
+    return tuple(rails)
 
 
 def wall_mount_datums():
@@ -86,7 +107,7 @@ def wall_mount_datums():
         axis = layout.vector(layout.pose(name)['rotation'], (0.,0.,1.))
         for index,(hx,hy) in enumerate(source.holes):
             point = layout.point(layout.pose(name),(hx,hy,0.))
-            face = tuple(p-plan.get('bearing_tip_height_mm',0.)*u for p,u in zip(point,axis))
+            face = tuple(p-plan.get('insert_face_setback_mm',0.)*u for p,u in zip(point,axis))
             root = (point[0],point[1],349.25) if name=='psu' else (-98.52,point[1],point[2])
             stations.append({'native_hole_index':index,'position_world_mm':point,
                 'insert_face_world_mm':face,'axis_world':axis,
@@ -145,19 +166,18 @@ def _wall_hosts(names):
                 ('position_world_mm','insert_face_world_mm','stock_root_world_mm','axis_world'))
             length = sum((p-r)*u for p,r,u in zip(face,root,axis))
             bosses.append(cq.Solid.makeCylinder(plan['boss_radius_mm'],length,cq.Vector(*root),cq.Vector(*axis)))
-            tip = plan.get('bearing_tip_height_mm',0.)
-            if tip:
-                bosses.append(cq.Solid.makeCylinder(plan['bearing_tip_radius_mm'],tip,cq.Vector(*face),cq.Vector(*axis)))
             if station['threaded']:
                 inward = tuple(-u for u in axis)
                 holes.append(cq.Solid.makeCylinder(plan['pilot_radius_mm'],plan['pilot_depth_mm']+.01,
                     cq.Vector(*(p+.01*u for p,u in zip(face,axis))),cq.Vector(*inward)))
-                if tip:
-                    holes.append(cq.Solid.makeCylinder(plan['screw_clearance_radius_mm'],tip+.02,
+                setback = plan.get('insert_face_setback_mm',0.)
+                if setback:
+                    holes.append(cq.Solid.makeCylinder(plan['screw_clearance_radius_mm'],setback+.02,
                         cq.Vector(*(p+.01*u for p,u in zip(point,axis))),cq.Vector(*inward)))
-    # The two boards share one plain bar at each end, with their full pin
-    # envelopes relieved by the short bearing tips.
+    # Plain bars join the insert roots behind the full pin envelope.
     if set(names)=={'relay-1','relay-2'}:
+        for name in names:
+            bosses.extend(relay_edge_rails(name))
         stations = [s for name in names for s in datums[name]['stations']]
         for y in sorted(set(round(s['position_world_mm'][1],6) for s in stations)):
             row = [s for s in stations if abs(s['position_world_mm'][1]-y)<1e-5]

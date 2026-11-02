@@ -581,7 +581,7 @@
               259.5
             ],
             [
-              75.0,
+              70.0,
               378.0,
               259.5
             ]
@@ -591,7 +591,7 @@
           "kind": "arc",
           "radius_mm": 14.0,
           "center_mm": [
-            75.0,
+            70.0,
             392.0,
             259.5
           ],
@@ -602,12 +602,12 @@
           ],
           "angle_rad": 1.5707963267948966,
           "start_mm": [
-            75.0,
+            70.0,
             378.0,
             259.5
           ],
           "end_mm": [
-            61.0,
+            56.0,
             392.0,
             259.5
           ]
@@ -616,7 +616,7 @@
           "kind": "arc",
           "radius_mm": 14.0,
           "center_mm": [
-            61.0,
+            56.0,
             392.0,
             273.5
           ],
@@ -627,12 +627,12 @@
           ],
           "angle_rad": 0.7700768882665452,
           "start_mm": [
-            61.0,
+            56.0,
             392.0,
             259.5
           ],
           "end_mm": [
-            61.0,
+            56.0,
             401.7466660966712,
             263.45
           ]
@@ -641,7 +641,7 @@
           "kind": "arc",
           "radius_mm": 14.0,
           "center_mm": [
-            61.0,
+            56.0,
             411.49333219334244,
             253.39999999999998
           ],
@@ -652,12 +652,12 @@
           ],
           "angle_rad": 0.7700768882665452,
           "start_mm": [
-            61.0,
+            56.0,
             401.7466660966712,
             263.45
           ],
           "end_mm": [
-            61.0,
+            56.0,
             411.49333219334244,
             267.4
           ]
@@ -666,12 +666,12 @@
           "kind": "line",
           "points_mm": [
             [
-              61.0,
+              56.0,
               411.49333219334244,
               267.4
             ],
             [
-              61.0,
+              56.0,
               412.3,
               267.4
             ]
@@ -681,7 +681,7 @@
           "kind": "arc",
           "radius_mm": 14.0,
           "center_mm": [
-            61.0,
+            56.0,
             412.3,
             253.39999999999998
           ],
@@ -692,19 +692,19 @@
           ],
           "angle_rad": 1.5707963267948966,
           "start_mm": [
-            61.0,
+            56.0,
             412.3,
             267.4
           ],
           "end_mm": [
-            61.0,
+            56.0,
             426.3,
             253.39999999999998
           ]
         }
       ],
       "reverse": false,
-      "illustrative_length_mm": 447.675189,
+      "illustrative_length_mm": 452.675189,
       "note": "Continuous fill tube through the fore snap at Z258.5, below V-B, then rising to Z259.5 for the curved aft seat and fixed reservoir fill guide."
     },
     "fluid-16": {
@@ -1293,10 +1293,10 @@
       "note": "Continuous draw tube from the fixed reservoir guide through the curved aft seat at Z259.5 and fore snap at Z258.5, below V-B, to its fixed front stem elbow."
     }
   },
-  "scope": "Continuous Reservoir A tubes connect the front-valve stem elbows to the plain cap guides through the two fixed paired lid anchors. Anchor centre points and axes retain their selected locations. Free line/arc bends and displayed lengths illustrate routing. The ATEU44W tube sockets retain their published 16.891 mm receiving length; each male stem is trimmed to its receiving valve's actual fully seated mark, nominally 12.7 mm in CAD. Each plain guide divides warm/internal CAD spans without a fitting, insertion or physical tube cut.",
+  "scope": "Continuous reservoir A tubes connect the front-valve stem elbows to the equipment lid through the fore paired snaps and aft tied saddle. The fill entry is X56/Y426.3; an internal R14 S bend reaches the fixed reservoir bore. The ATEU44W tube sockets retain their published 16.891 mm receiving length; each male stem is trimmed to its receiving valve's fully seated mark, nominally 12.7 mm in CAD. Each plain guide divides warm/internal CAD spans without a fitting, insertion or physical tube cut.",
   "constraints": {
-    "fixed_guide_and_front_valve_ports": true,
-    "intervening_tube_curves": "Routing candidates; bends/radii and the displayed lengths are illustrative rather than fixed manufacturing constraints.",
+    "fixed_guide_and_front_valve_ports": false,
+    "intervening_tube_curves": "Line/arc routing uses R14 or larger bends; displayed lengths describe the selected geometry.",
     "fixed_anchor_interfaces": [
       {
         "y_mm": 209.75,
@@ -1314,25 +1314,18 @@
           205.75,
           213.75
         ]
-      },
-      {
-        "y_mm": 304.0,
-        "x_centres_mm": [
-          86.5,
-          94.0
-        ],
-        "z_mm": 259.5,
-        "axis_world": [
-          0.0,
-          1.0,
-          0.0
-        ],
-        "seat_y_band_mm": [
-          299.0,
-          309.0
-        ]
       }
     ],
-    "anchor_fit_scope": "Tube axes pass through both paired anchor centres. Bends may depart within the open seat band where the actual tube, seat and nominal tie remain clear; seat stock and fixed centres are unchanged."
+    "anchor_fit_scope": "The fore pair retains its fixed axes. The aft tied saddle follows both curved paths and keeps the tie threading access open.",
+    "front_valve_ports": "Selected front-valve frames and socket engagements.",
+    "reservoir_entries": "The reservoir cap bores retain their native stations.",
+    "aft_anchor_interface": {
+      "y_mm": 390.0,
+      "routes_west_to_east": [
+        "fluid-16",
+        "fluid-14"
+      ],
+      "centres": "Derived from the selected curved tube axes at this Y station."
+    }
   }
 }
