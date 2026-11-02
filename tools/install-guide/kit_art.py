@@ -102,6 +102,13 @@ def regulator():
     return compound([shape, washer])
 
 
+def collet_press():
+    """The tool's native construction surfaces for the HLR illustration."""
+    sys.path.insert(0, str(HARDWARE / 'printed-parts/collet-press'))
+    import collet_press as tool
+    return tool.build().val()
+
+
 def power_cord():
     body = cq.Workplane('XY').box(28, 35, 19).edges('|Z').fillet(3)
     nose = (cq.Workplane('XY').box(24, 15, 15).edges('|Z').fillet(2)
@@ -183,8 +190,7 @@ def main():
         ('filtered-line', lambda: assembly_shape(shared.s_filter_in_cabinet()), CAMERA),
         ('water-tees', tees, (.6,-1,.65)),
         ('regulator-and-tether', regulator, (.15,1,.3)),
-        ('collet-press', lambda: cq.importers.importStep(str(shared.COLLET_PRESS)).val(),
-         (-.5,-.9,.85)),
+        ('collet-press', collet_press, (-.5,-.9,.85)),
         ('power-cord', power_cord, CAMERA),
         ('install-guide', book, CAMERA),
         ('cold-kit', cold_kit, CAMERA),
