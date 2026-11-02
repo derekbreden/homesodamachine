@@ -4,8 +4,6 @@ from pathlib import Path
 import importlib.util
 import json
 import math
-import os
-import subprocess
 import sys
 
 ROOT=Path(__file__).resolve().parents[2]
@@ -16,6 +14,7 @@ sys.path[:0]=[str(HARDWARE/'install-guide'),str(HARDWARE/'scripts')]
 import cadquery as cq
 import _install_art as install
 import _cad_art as original
+import _hsm_render
 
 def load(path,name):
     spec=importlib.util.spec_from_file_location(name,path)
@@ -120,41 +119,27 @@ def pour(pressed):
     (OUT/'pour-points.json').write_text(json.dumps({'tip':list(tip),'lever':[0,fa.lever_pivot_y,fa.lever_pivot_z]}))
     return a
 
+def materials():
+    """The glass and cola's authored presentation, addressed by solid name."""
+    return [
+        dict(names=['glass'], color='#d6e8ec', opacity=.06, roughness=.15,
+             metalness=.05, depth_write=False, side='double', order=10),
+        dict(names=['glass-rim', 'glass-base'], color='#d3e1e5', unlit=True,
+             side='front'),
+        dict(names=['glass-edge-*', 'glass-rim-edge', 'glass-base-edge'],
+             color='#8099a4', unlit=True, side='front'),
+        dict(names=['glass-highlight-*'], color='#ffffff', opacity=.74,
+             unlit=True, depth_write=False, side='front', order=11),
+        dict(names=['drink'], color='#351a0f', unlit=True, side='front'),
+        dict(names=['drink-top'], color='#6f422b', unlit=True, side='front'),
+    ]
+
+
 def render():
-    """Draw these snapshots with a clear glass, using a private copy of the renderer."""
-    source=original.RENDERER.read_text()
-    source=source.replace('from "./browser.js"',f'from {(original.RENDERER.parent/"browser.js").as_uri()!r}')
-    source=source.replace('from "../../web/server.js"',f'from {(ROOT/"web/server.js").as_uri()!r}')
-    source=source.replace('import sharp from "sharp";',f'import {{ createRequire }} from "module"; const sharp = createRequire({str(original.RENDERER)!r})("sharp");')
-    source=source.replace('const REPO_ROOT = path.resolve(__dirname, "..", "..");',f'const REPO_ROOT = {str(ROOT)!r};')
-    source=source.replace('renderer.render(scene, cam);', '''
-    currentGroup.traverse((part) => {
-      if (part.name === "glass") {
-        part.material = new THREE.MeshPhysicalMaterial({
-          color: "#d6e8ec", opacity: 0.06, transparent: true,
-          roughness: 0.15, metalness: 0.05, depthWrite: false,
-          side: THREE.DoubleSide,
-        });
-        part.renderOrder = 10;
-      } else if (part.name === "glass-rim" || part.name === "glass-base") {
-        part.material = new THREE.MeshBasicMaterial({color: "#d3e1e5"});
-      } else if (part.name.startsWith("glass-edge-") || part.name === "glass-rim-edge" || part.name === "glass-base-edge") {
-        part.material = new THREE.MeshBasicMaterial({color: "#8099a4"});
-      } else if (part.name.startsWith("glass-highlight-")) {
-        part.material = new THREE.MeshBasicMaterial({
-          color: "#ffffff", opacity: 0.74, transparent: true, depthWrite: false,
-        });
-        part.renderOrder = 11;
-      } else if (part.name === "drink") {
-        part.material = new THREE.MeshBasicMaterial({color: "#351a0f"});
-      } else if (part.name === "drink-top") {
-        part.material = new THREE.MeshBasicMaterial({color: "#6f422b"});
-      }
-    });
-    renderer.render(scene, cam);''')
-    renderer=OUT/'render-scenes.mjs';renderer.write_text(source)
-    (OUT/'scenes.json').write_text(json.dumps(jobs,indent=2))
-    subprocess.run(['node',str(renderer),'--jobs',str(OUT/'scenes.json')],cwd=ROOT,check=True)
+    """Draw the staged payloads with the clear glass and cola materials."""
+    entries = [dict(job, materials=materials()) for job in jobs]
+    (OUT/'scenes.json').write_text(json.dumps(entries,indent=2)+'\n')
+    _hsm_render.render(entries)
 
 def main():
     OUT.mkdir(parents=True,exist_ok=True);ART.mkdir(exist_ok=True)
