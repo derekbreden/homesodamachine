@@ -18,6 +18,10 @@ path = "../../../hardware/printed-parts/collet-press/collet_press.rs"
 name = "tube-miter-box"
 path = "../../../hardware/printed-parts/fixtures/tube-miter-box/tube_miter_box.rs"
 
+[[bin]]
+name = "faucet-display-snap"
+path = "../../../hardware/printed-parts/fixtures/faucet-display-snap/faucet_display_snap_trial.rs"
+
 [dependencies]
 anyhow.workspace = true
 hsm-kernel = { path = "../kernel" }
