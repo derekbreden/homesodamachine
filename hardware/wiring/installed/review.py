@@ -202,6 +202,7 @@ def native_review():
 
 def fine_review(manifest_path=MANIFEST,host=HOST,output=OUTPUT):
     """Inspect authoritative wire topology and its explicit source/export bindings."""
+    from functools import cache
     sys.path[:0]=[str(ROOT/'hardware/scripts')]
     import _assembly_model
     from hardware.wiring.installed.step_merge import base_document
@@ -211,15 +212,17 @@ def fine_review(manifest_path=MANIFEST,host=HOST,output=OUTPUT):
         raise ValueError('Fine inspection requires the kernel wiring manifest and its bound model files')
     step=manifest_path.with_suffix('.step')
     wire_model=Path(str(step)+'.npz');physical_model=Path(str(host)+'.npz')
+    @cache
     def sha(path):
         with Path(path).open('rb') as stream:
             return hashlib.file_digest(stream,'sha256').hexdigest()
-    def arrays(path):
+    def arrays(path,names=None):
         with Path(path).open('rb') as stream:
             size=struct.unpack('<I',stream.read(4))[0]
             header=json.loads(stream.read(size));blob=4+size
             result={}
             for row in header['meshes']:
+                if names is not None and row['name'] not in names:continue
                 values={k:v for k,v in row.items() if k not in ('pos','nrm','idx','fac','col','uv')}
                 for key in ('pos','nrm','idx','fac','col','uv'):
                     if key not in row:continue
@@ -239,7 +242,7 @@ def fine_review(manifest_path=MANIFEST,host=HOST,output=OUTPUT):
     expected.update(b['geometry_name'] for b in manifest.get('bundles',{}).values()
                     if b['geometry_name'] is not None)
     wire_header,wires=arrays(Path(str(step)+'.mesh'))
-    host_header,installed=arrays(Path(str(host)+'.mesh'))
+    host_header,installed=arrays(Path(str(host)+'.mesh'),names=set(wires))
     with np.load(wire_model,allow_pickle=False) as model:
         document=json.loads(bytes(model['document']))
     sources=manifest.get('source_sha256',{})
