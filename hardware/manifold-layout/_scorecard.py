@@ -82,12 +82,11 @@ PUMP_ELBOW_BODIES = tuple(f"pump-{port}-{part}" for port in ("inlet", "outlet")
 def pack_bodies() -> frozenset:
     """The flavour manifold's own bodies, by the name they go into the assembly under.
 
-    Read off `manifold_layout`'s own assembly rather than retyped, so a body the pack gains
-    arrives with it. This name census is immutable within one source execution; mounting
-    lookups reuse it without reconstructing the eight wet solids."""
+    Read the manifold's body declarations without constructing reference geometry.
+    The census is immutable within one source execution."""
     import manifold_layout as ml
-    return frozenset(c.name for c in ml.build_assembly().children
-                     if not c.name.startswith(TUBE_PREFIXES))
+    return frozenset(body['name'] for body in ml.numbers(prepare_sources=False)['bodies']
+                     if not body['name'].startswith(TUBE_PREFIXES))
 
 
 _placed_cache: dict = {}
