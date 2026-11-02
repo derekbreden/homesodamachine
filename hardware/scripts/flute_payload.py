@@ -142,7 +142,7 @@ def deviation(printed, reduced) -> float:
     return float(trimesh.proximity.closest_point(reduced, probe)[1].max())
 
 
-def simplify_within(printed, bound):
+def simplify_within(printed, bound, *, lineage=None):
     """`printed` collapsed as far as the ladder reaches while staying inside `bound`.
 
     Returns the mesh and the reading it was accepted on. A piece already inside the budget at
@@ -153,16 +153,23 @@ def simplify_within(printed, bound):
     f32 = printed.faces.astype(np.uint32)
     for rung in LADDER:
         if rung <= 0.0:
+            if lineage is not None:
+                lineage["reduced"] = lineage["printed"]
             return printed, 0.0
-        v, f = fast_simplification.simplify(v32, f32, rung, agg=AGGRESSION)
+        result = fast_simplification.simplify(v32, f32, rung, agg=AGGRESSION,
+                                              return_collapses=lineage is not None)
+        v, f = result[:2]
         reduced = trimesh.Trimesh(v, f, process=False)
         dev = deviation(printed, reduced)
         if dev <= bound:
+            if lineage is not None:
+                lineage["reduced"] = _collapsed_sources(
+                    printed.faces, f, result[2], len(printed.vertices), lineage["printed"])
             return reduced, dev
     return printed, 0.0
 
 
-def creased(mesh, angle_deg=CREASE_DEG):
+def creased(mesh, angle_deg=CREASE_DEG, *, lineage=None):
     """`mesh` as (positions, normals, indices, face ranges), split at creases.
 
     A CORNER BELONGS TO ITS OWN SMOOTH REGION. Faces joined across an edge gentler than
@@ -217,7 +224,100 @@ def creased(mesh, angle_deg=CREASE_DEG):
     firsts = np.concatenate([[0], edges])
     lasts = np.concatenate([edges - 1, [len(region) - 1]])
     fac = np.stack([firsts, lasts], axis=1).ravel()
+    if lineage is not None:
+        sources = lineage["reduced"]
+        lineage["face_sources"] = [_source_union(sources[int(i)] for i in order[a:b + 1])
+                                    for a, b in zip(firsts, lasts)]
     return pos, nrm, idx, fac
+
+
+def _source_union(groups):
+    """Complete contributors, including an explicit unknown when one is inherited."""
+    joined = {json.dumps(record, sort_keys=True, separators=(",", ":")): record
+              for group in groups for record in group}
+    return [joined[key] for key in sorted(joined)] or [None]
+
+
+def _collapsed_sources(original, reduced, collapses, vertex_count, sources):
+    """Surviving triangle ancestry from the reducer's actual vertex collapses.
+
+    Removed triangles claim no replacement. A triangle not recovered by its exact
+    collapsed indices stays unknown; no position or nearest-surface query fills it.
+    """
+    parent = np.arange(vertex_count, dtype=np.int64)
+    for keep, remove in collapses:
+        parent[int(remove)] = int(keep)
+    while not np.array_equal(parent, parent[parent]):
+        parent = parent[parent]
+    mapped = parent[np.asarray(original)]
+    keep = ((mapped[:, 0] != mapped[:, 1]) & (mapped[:, 1] != mapped[:, 2])
+            & (mapped[:, 2] != mapped[:, 0]))
+    mapped = mapped[keep]
+    used = np.unique(mapped)
+    mapped = np.searchsorted(used, mapped)
+    by_triangle = {}
+    for triangle, source in zip(mapped, (sources[int(i)] for i in np.flatnonzero(keep))):
+        key = tuple(sorted(map(int, triangle)))
+        by_triangle[key] = _source_union((by_triangle.get(key, []), source))
+    return [by_triangle.get(tuple(sorted(map(int, triangle))), [None]) for triangle in reduced]
+
+
+def bind_print_sources(stl):
+    """Bind the front-top observer's optional table to the actual STL it accompanied."""
+    stl = Path(stl)
+    path = stl.with_name(stl.name + ".sources.json")
+    try:
+        document = json.loads(path.read_text())
+        if not isinstance(document, dict):
+            return
+        with stl.open("rb") as source:
+            source.seek(80)
+            count, = struct.unpack("<I", source.read(4))
+        if document.get("v") != 1 or len(document.get("triangles", [])) != count:
+            return
+        document["sha256"] = _mesh_payload.source_digest(stl)
+        path.write_text(json.dumps(document, separators=(",", ":")) + "\n")
+    except (OSError, ValueError, TypeError, struct.error):
+        pass
+
+
+def print_lineage(stl, printed):
+    """Optional, SHA-bound records in exact STL facet order; stale metadata stays unknown."""
+    stl = Path(stl)
+    path = stl.with_name(stl.name + ".sources.json")
+    if stl.name != "enclosure-front-top.stl" or not path.is_file():
+        return None
+    try:
+        document = json.loads(path.read_text())
+        if not isinstance(document, dict):
+            return None
+        if document.get("v") != 1 or document.get("sha256") != _mesh_payload.source_digest(stl):
+            return None
+        faces, records = document["triangles"], document["records"]
+        def contributor(record):
+            if record is None:
+                return True
+            if not (isinstance(record, dict) and "src" in record and isinstance(record.get("op"), str)
+                    and (record.get("src") is None or isinstance(record.get("src"), str))):
+                return False
+            via = record.get("via")
+            return via is None or (isinstance(via, dict) and "src" in via and isinstance(via.get("op"), str)
+                                   and (via.get("src") is None or isinstance(via.get("src"), str)))
+        if (len(faces) != len(printed.faces) or not isinstance(records, list)
+                or any(not isinstance(group, list) for group in records)
+                or any(not contributor(record) for group in records for record in group)
+                or any(not isinstance(i, int) or not 0 <= i < len(records) for i in faces)):
+            return None
+        raw = stl.read_bytes()
+        count, = struct.unpack_from("<I", raw, 80)
+        dtype = np.dtype([("n", "<f4", 3), ("v", "<f4", (3, 3)), ("a", "<u2")])
+        facets = np.frombuffer(raw, dtype=dtype, count=count, offset=84)["v"]
+        # Welding the STL's corners must leave every facet in the observer's own order.
+        if not np.array_equal(facets.view("<u4"), printed.triangles.astype("<f4").view("<u4")):
+            return None
+        return {"printed": [records[i] or [None] for i in faces]}
+    except (OSError, ValueError, KeyError, TypeError, struct.error):
+        return None
 
 
 def solid_identity(step: Path):
@@ -401,16 +501,23 @@ def cut(step: Path, stl: Path, verbose=True, *, preserve_print_triangles=None):
     """Write the printed surface beside `step`, retaining every faucet triangle by default."""
     printed = trimesh.load_mesh(str(stl))
     printed.merge_vertices()
+    lineage = print_lineage(stl, printed)
     bound = deflection(printed)
     if keeps_print_triangles(step, preserve_print_triangles):
         reduced, dev = printed, 0.0
+        if lineage is not None:
+            lineage["reduced"] = lineage["printed"]
     else:
-        reduced, dev = simplify_within(printed, bound)
-    pos, nrm, idx, fac = creased(reduced)
+        reduced, dev = simplify_within(printed, bound, lineage=lineage)
+    pos, nrm, idx, fac = creased(reduced, lineage=lineage)
     name, color = solid_identity(step)
     mesh = {"name": name, "color": color,
             "pos": pos.ravel().tolist(), "nrm": nrm.ravel().tolist(),
             "idx": idx.ravel().tolist(), "fac": fac.tolist()}
+    if lineage is not None:
+        mesh["face_sources"] = lineage["face_sources"]
+    elif stl.name == "enclosure-front-top.stl":
+        mesh["face_sources"] = [[None] for _ in range(len(fac) // 2)]
     out = step.with_name(step.name + ".mesh")
     # The print is cut from this solid and the payload remains answerable to its source bytes.
     # On fluted parts the print also carries texture absent from the STEP. Without `src`, the

@@ -426,11 +426,17 @@ def print_payload(step, printed):
     (name, color), = model_identity(model)
     printed = printed.copy()
     printed.merge_vertices()
+    lineage = flute_payload.print_lineage(step.with_suffix(".stl"), printed)
     bound = flute_payload.deflection(printed)
-    reduced, dev = flute_payload.simplify_within(printed, bound)
-    pos, nrm, idx, fac = flute_payload.creased(reduced)
+    reduced, dev = flute_payload.simplify_within(printed, bound, lineage=lineage)
+    pos, nrm, idx, fac = flute_payload.creased(reduced, lineage=lineage)
     out = step.with_name(step.name + ".mesh")
-    write_payload([{"name": name, "color": color, "pos": pos, "nrm": nrm, "idx": idx, "fac": fac}],
+    mesh = {"name": name, "color": color, "pos": pos, "nrm": nrm, "idx": idx, "fac": fac}
+    if lineage is not None:
+        mesh["face_sources"] = lineage["face_sources"]
+    elif step.stem == "enclosure-front-top":
+        mesh["face_sources"] = [[None] for _ in range(len(fac) // 2)]
+    write_payload([mesh],
                   out, src=_mesh_payload.source_digest(model),
                   cut={"dev": round(float(dev), 4), "bound": round(float(bound), 4)})
     print(f"-> {out.name}  {len(printed.faces)} -> {len(reduced.faces)} facets, {len(pos)} vertices, "
