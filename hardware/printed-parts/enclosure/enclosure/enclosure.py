@@ -8448,7 +8448,7 @@ def _report_facet(half, box):
           f"x {display_centre_x(outer):g})")
 
 
-def _report_split(pieces, core=None, box=None):
+def _report_split(pieces, core=None, box=None, *, installed_retainer=None):
     for name, p in pieces.items():
         b = p.val().BoundingBox()
         fits = b.xlen <= H2C_X + 1 and b.ylen <= H2C_Y + 1 and b.zlen <= H2C_Z + 1
@@ -8457,7 +8457,8 @@ def _report_split(pieces, core=None, box=None):
               f"H2C bed: {'fits' if fits else 'OVER'}")
     installed = dict(pieces)
     if box is not None and "pump-retainer" in installed:
-        installed["pump-retainer"] = build_pump_retainer(box, seated=True)
+        installed["pump-retainer"] = (installed_retainer if installed_retainer is not None
+                                      else build_pump_retainer(box, seated=True))
     names = list(installed)
     for i, a in enumerate(names):
         for b in names[i + 1:]:
@@ -8866,7 +8867,7 @@ def _silhouette_bound(pieces, box):
             "interior lane or the wall it roots on"])))
 
 
-def build_pieces(box, *, produced=None):
+def build_pieces(box, *, produced=None, installed_retainer=None):
     """The four enclosure quadrants and the underside pump retainer, assembled in place.
 
     DRAWING A PIECE TAKES NO READING. Every bound the box states is in the ledger before this
@@ -8907,7 +8908,10 @@ def build_pieces(box, *, produced=None):
     _silhouette_bound(pieces, box)
     assy = cq.Assembly(name="enclosure")
     for name, piece in pieces.items():
-        installed = build_pump_retainer(box, seated=True) if name == "pump-retainer" else piece
+        installed = piece
+        if name == "pump-retainer":
+            installed = (installed_retainer if installed_retainer is not None
+                         else build_pump_retainer(box, seated=True))
         assy.add(installed, name=f"enclosure-{name}".replace("-", "_"),
                  color=PIECE_COLORS[name])
     if box.pump_bay and box.pack.collet_plate:
@@ -9112,10 +9116,10 @@ def _report_bounds():
 
 
 def _produced_back_bottom(box):
-    """The opt-in Rust print and its fine structural model for the mesh assembly.
+    """The complete Rust print and its fine structural model for the mesh assembly.
 
-    Native callers retain build_piece/build_pieces. With HSM_RUST_BACK_BOTTOM=1,
-    the mesh generator cuts its four files here and exports the remaining pieces.
+    Native callers retain build_piece/build_pieces. The normal mesh generator owns
+    the four files once; its export pass takes the remaining pieces only.
     """
     meshcad = sys.modules.get('meshcad')
     if meshcad is None or not meshcad.mesh_mode():
@@ -9127,10 +9131,55 @@ def _produced_back_bottom(box):
     return {'back-bottom': cq.Workplane(obj=structural)}
 
 
+def _produced_back_top(box):
+    """The complete back-top print with its structural body for the mesh assembly."""
+    meshcad = sys.modules.get('meshcad')
+    if meshcad is None or not meshcad.mesh_mode():
+        return {}
+    import _enclosure_back_top
+    if not _enclosure_back_top.can_cut(sys.modules[__name__], box):
+        return {}
+    from meshcad.imports import load_model
+    _enclosure_back_top.cut(sys.modules[__name__], box, _here.parent)
+    structural = load_model(_here.parent/'enclosure-back-top.step.npz')[0]
+    return {'back-top': cq.Workplane(obj=structural)}
+
+
+def _produced_front_bottom(box):
+    """The front-bottom print with its full fine body for the mesh assembly."""
+    meshcad = sys.modules.get('meshcad')
+    if meshcad is None or not meshcad.mesh_mode():
+        return {}
+    import _enclosure_front_bottom
+    from meshcad.imports import load_model
+    _enclosure_front_bottom.cut(sys.modules[__name__], box, _here.parent)
+    structural = load_model(_here.parent/'enclosure-front-bottom.step.npz')[0]
+    return {'front-bottom': cq.Workplane(obj=structural)}
+
+
+def _produced_pump_retainer(box):
+    """The relaxed print and the installed fine pose, each cut once."""
+    meshcad = sys.modules.get('meshcad')
+    if (meshcad is None or not meshcad.mesh_mode()
+            or not (box.pump_bay and box.pack.collet_plate)):
+        return {}, None
+    import _enclosure_pump_retainer
+    from meshcad.imports import load_model
+    _enclosure_pump_retainer.cut(sys.modules[__name__], box, _here.parent)
+    _enclosure_pump_retainer.cut(sys.modules[__name__], box, _here.parent, seated=True)
+    relaxed = load_model(_here.parent/'enclosure-pump-retainer.step.npz')[0]
+    seated = load_model(_here.parent/'enclosure-pump-retainer-seated.step.npz')[0]
+    return {'pump-retainer': cq.Workplane(obj=relaxed)}, cq.Workplane(obj=seated)
+
+
 def main():
     core, box = machine_of()
-    produced = _produced_back_bottom(box) if os.environ.get('HSM_RUST_BACK_BOTTOM') == '1' else {}
-    pieces, assy = build_pieces(box, produced=produced)
+    produced = _produced_back_bottom(box)
+    produced.update(_produced_back_top(box))
+    produced.update(_produced_front_bottom(box))
+    retainer, installed_retainer = _produced_pump_retainer(box)
+    produced.update(retainer)
+    pieces, assy = build_pieces(box, produced=produced, installed_retainer=installed_retainer)
     print("enclosure:")
     _report_slide(pieces, box)     # the slides swept and the catches lifted, into BOUNDS
     _report_bounds()          # the machine's, with its pieces cut and its slides swept
@@ -9141,7 +9190,7 @@ def main():
     _report_facet(pieces["front-top"], box)
     _report_seams(box)
     _report_stacks(box)
-    _report_split(pieces, core, box)
+    _report_split(pieces, core, box, installed_retainer=installed_retainer)
 
     bo = box.outer
     # The loops this box's ribs close, read off the seats the pack actually bored for a zip tie;
