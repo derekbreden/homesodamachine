@@ -6,12 +6,12 @@
   },
   "members": {
     "waveshare-43b-display.step": "6efb83f5a4b7c8b48d8e6fd9f862ae9461363068cf6eaf5b105bf35b6e5bb6c4",
-    "waveshare-43b-display.step.mesh": "7bbd18b965ae05702670024b7d5d9dca64f3e4fdc69bbdc607b9763d72667082"
+    "waveshare-43b-display.step.mesh": "0a590ccef77ed8e3d5e04683b761ff0a11bf826017c5fdf653f6aab72f7e809b"
   },
   "fine_payload": {
     "source_step_sha256": "6efb83f5a4b7c8b48d8e6fd9f862ae9461363068cf6eaf5b105bf35b6e5bb6c4",
     "path": "waveshare-43b-display.step.mesh",
-    "sha256": "7bbd18b965ae05702670024b7d5d9dca64f3e4fdc69bbdc607b9763d72667082",
+    "sha256": "0a590ccef77ed8e3d5e04683b761ff0a11bf826017c5fdf653f6aab72f7e809b",
     "linear_mm": 0.005,
     "angular_rad": 0.05,
     "producer": "hardware/scripts/_rust_part.py:_tessellate",
@@ -20,9 +20,9 @@
       {
         "name": "bezel",
         "color": [
-          0.12000000139546163,
-          0.13000000109304727,
-          0.1599999991998655
+          0.0134117491543293,
+          0.015325203537940979,
+          0.021980946883559227
         ],
         "vertices": 1040,
         "triangles": 1020,
@@ -31,14 +31,15 @@
       {
         "name": "body",
         "color": [
-          0.09399999706163065,
-          0.3060000004339034,
-          0.5249999935649226
+          0.009116772562265396,
+          0.07624500244855881,
+          0.23791469633579254
         ],
         "vertices": 24,
         "triangles": 12,
         "face_ranges": 6
       }
-    ]
+    ],
+    "color_space": "linear-rgb"
   }
 }
