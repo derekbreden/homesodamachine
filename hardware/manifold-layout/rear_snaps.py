@@ -28,18 +28,24 @@ THREAD = 1.5        # how far a taped joint may leave the ASSE body from its dra
 WALL = 3.0
 SPLIT = 335.0       # the Pisco's seat, and lines.py's regulator seat, stand down to here
 INTO = 0.5          # how far each seat runs into the walls it joins
-WING = 2.6          # reinforced equipment-cap spring section
+WING = 2.0          # intermediate section from the physical bending trial
 REACH = 2.6         # flat horizontal bearing beyond the receiver edge
 SIDE = 0.5         # relaxed spring face off the receiver edge
-FREE_LENGTH = 22.5  # straight spring length, root to hook underside
+FREE_LENGTH = 22.25 # root to hook underside; retains the tested receiver bearing plane
+ROOT_RADIUS = 1.5  # broad inside transition into each spring wall
+PRY_WIDTH = 5.0    # centered flathead access across the hook's underside
+PRY_HEIGHT = 1.0
 REAR_ROOT_DROP = 10.0
-PISCO_RADIAL_RELIEF = 0.75  # additional air after the physical fit trial, each side
+PISCO_RADIAL_RELIEF = 0.25  # receiver running air plus this radial relief
+PISCO_CAP_AIR = 0.4
 METER_AIR = 0.75    # drop-in hardware clearance on the square housing and flange
-METER_BACK = 6.0    # solid spine between the complete upper and lower leaves
+METER_BACK = 9.0    # solid spine between the complete upper and lower leaves
+METER_CAP_AIR = 0.25
+METER_BEARING_DEPTH = 4.0
 LEDGE = 3.0         # the ledge's height off the split
 HOOK = 2.6          # leading ramp above the complete flat retaining face
 NOSE_LAND = 0.6     # solid inner edge below the insertion ramp
-CATCH = fits.clearance(supported=True) + 0.25
+CATCH = fits.clearance(supported=True)
 VAR = 0.5           # how far the stub's seat in the soda union may leave the meter aft of its station
 
 CHAIN = ('jg-pp010822e', 'gagira-coupling', 'multiplex-asse1022', 'jg-pi4512f6s', 'jg-pp061208w')
@@ -170,7 +176,63 @@ def station(axis_x, neck, y0, y1, split=SPLIT, *, wing_root=None, free_length=FR
     tip = catch + HOOK
     return dict(axis_x=axis_x, y0=y0, y1=y1, split=split, neck=neck, ledge=ledge, inner=inner,
                 outer=inner + WING, hook=ledge - REACH, bearing=bearing, catch=catch, tip=tip,
-                ceiling=tip + 2 * fits.running, root=root, nose_land=NOSE_LAND)
+                ceiling=tip + 2 * fits.running, root=root, nose_land=NOSE_LAND,
+                root_radius=ROOT_RADIUS,pry_width=PRY_WIDTH,pry_height=PRY_HEIGHT)
+
+
+def pry_bounds(s):
+    """Two centered blade entries under the hooks; spring walls remain continuous."""
+    middle=(s['y0']+s['y1'])/2.
+    return [(*sorted((s['axis_x']+side*(s['hook']-.1),
+                      s['axis_x']+side*s['inner'])),
+             middle-PRY_WIDTH/2.,middle+PRY_WIDTH/2.,
+             s['catch']-.1,s['catch']+PRY_HEIGHT) for side in (-1.,1.)]
+
+
+def pry_cuts(s):
+    return [box(*bounds) for bounds in pry_bounds(s)]
+
+
+def clearance_profile(profile, radial, axial, tolerance=.06):
+    """A short outward line profile with the measured shoulders retained.
+
+    The axial window supplies fit air. Chord reduction stays outside that
+    envelope and adds no more than `tolerance` radial air; short shoulders
+    are not merged into a neighboring large cylinder.
+    """
+    profile=np.array(profile,float)
+    x,r=profile[:,0],profile[:,1]
+    stations=np.unique(np.concatenate((x-axial,x+axial)))
+    rows=[]
+    for t in stations:
+        within=r[(x>=t-axial-1.e-8)&(x<=t+axial+1.e-8)]
+        end=np.interp((t-axial,t+axial),x,r)
+        rows.append((float(t),float(max(*end,*within)+radial)))
+    points=np.array(rows)
+    kept=[0];i=0
+    while i<len(points)-1:
+        best=i+1
+        for j in range(i+2,len(points)):
+            line=np.interp(points[i:j+1,0],points[[i,j],0],points[[i,j],1])
+            extra=line-points[i:j+1,1]
+            if extra.min()>=-1.e-8 and extra.max()<=tolerance:best=j
+        kept.append(best);i=best
+    return points[kept].tolist()
+
+
+def radial_profile(points):
+    """A linear radius profile revolved about native +X."""
+    path=[(points[0][0],0.),*map(tuple,points),(points[-1][0],0.)]
+    return cq.Workplane('XY').polyline(path).close().revolve(360,(0,0,0),(1,0,0)).val()
+
+
+def pisco_grip_stock(s, axis_z, body_r, neck_r, lip):
+    """One broad body saddle and a raised outlet-neck lip between free springs."""
+    half=s['inner']-ROOT_RADIUS-.5
+    bottom=axis_z-body_r-WALL
+    top=axis_z-math.sqrt(max(body_r**2-(half-WALL)**2,0.))
+    return [(s['axis_x']-half,s['axis_x']+half,s['y0'],s['y1'],bottom,top),
+            (s['axis_x']-half,s['axis_x']+half,s['y0'],lip,bottom,axis_z)]
 
 
 def pockets(s):
@@ -183,6 +245,10 @@ def pockets(s):
         ledge, neck = s['axis_x'] + side * s['ledge'], s['axis_x'] + side * s['neck']
         out.append(box(*sorted((ledge, far)), s['y0'] - a, s['y1'] + a, s['split'] - 1., s['bearing']))
         out.append(box(*sorted((neck, far)), s['y0'] - a, s['y1'] + a, s['bearing'], s['ceiling']))
+        radius=s.get('root_radius',ROOT_RADIUS)
+        near=s['axis_x']+side*(s['inner']-radius-a)
+        out.append(box(*sorted((near,far)),s['y0']-a,s['y1']+a,
+                       s['root']-a,s['root']+radius+a))
     return out
 
 
@@ -215,11 +281,17 @@ def cap_section(s, base, bottom, axis_z=None, hexed=False):
 
     root = s.get('root', base if axis_z is None else axis_z)
     base = min(base, root)
+    radius=s.get('root_radius',ROOT_RADIUS)
     west = [(c - W, root), (c - W, tip), (c - wi, tip),
             (c - h, catch+s['nose_land']),
-            (c - h, catch), (c - wi, catch), (c - wi, base)]
+            (c - h, catch), (c - wi, catch), (c - wi, base+radius)]
     east = [(2 * c - x, z) for x, z in reversed(west)]
-    edges = run(west) + run([west[-1], east[0]]) + run(east)
+    a,b=(c-wi+radius,base),(c+wi-radius,base)
+    k=radius/math.sqrt(2.)
+    edges=run(west)+[{'arc':(west[-1],(c-wi+radius-k,base+radius-k),a,
+                           (c-wi+radius,base+radius)),'ccw':True}]
+    edges+=run([a,b])+[{'arc':(b,(c+wi-radius+k,base+radius-k),east[0],
+                             (c+wi-radius,base+radius)),'ccw':True}]+run(east)
     if axis_z is None:
         edges += run([east[-1], (c + W, bottom), (c - W, bottom), west[0]])
     elif hexed:
@@ -238,11 +310,10 @@ def cap_section(s, base, bottom, axis_z=None, hexed=False):
     return {'segments':edges, 'span':(s['y0'],s['y1'])}
 
 
-def cap(s, base, bottom, axis_z=None, hexed=False):
-    """One cap extruded over its station: two spring walls over a flat, round or hex body."""
-    section = cap_section(s,base,bottom,axis_z,hexed)
+def section_solid(section):
+    """Extrude the shared line/arc cap section without changing its boundaries."""
     def v(p):
-        return cq.Vector(p[0],s['y0'],p[1])
+        return cq.Vector(p[0],section['span'][0],p[1])
     edges = []
     for segment in section['segments']:
         if 'line' in segment:
@@ -251,7 +322,14 @@ def cap(s, base, bottom, axis_z=None, hexed=False):
         else:
             a,mid,b,_centre = segment['arc']
             edges.append(cq.Edge.makeThreePointArc(v(a),v(mid),v(b)))
-    return cq.Solid.extrudeLinear(cq.Wire.assembleEdges(edges), [], cq.Vector(0., s['y1'] - s['y0'], 0.))
+    return cq.Solid.extrudeLinear(cq.Wire.assembleEdges(edges), [],
+        cq.Vector(0.,section['span'][1]-section['span'][0],0.))
+
+
+def cap(s, base, bottom, axis_z=None, hexed=False):
+    """One cap extruded over its station: two spring walls over a flat, round or hex body."""
+    body=section_solid(cap_section(s,base,bottom,axis_z,hexed))
+    return body.cut(*pry_cuts(s))
 
 
 def at_world(location, point):
@@ -365,10 +443,13 @@ def build(parts, asse_axis, asse_at, asse_turn, pisco_axis, mouth_y, ceiling, re
         seat = seat.cut(opening)
     out['pisco-seat'] = seat.clean()
     held = profile[(profile[:, 0] >= mouth_y - pcap[1] - 1.) & (profile[:, 0] <= neck_z)]
-    r_body = held[:, 1].max() + s + PISCO_RADIAL_RELIEF
-    r_neck = profile[profile[:, 0] > neck_z][:, 1].max() + c + PISCO_RADIAL_RELIEF
+    r_body = held[:, 1].max() + PISCO_CAP_AIR
+    neck=profile[(profile[:,0]>=neck_z)&(profile[:,0]<=collet[0])]
+    r_neck = neck[:,1].max() + PISCO_CAP_AIR
     lip = step_face - s
-    out['pisco-snap-cap'] = (cap(st_p, st_p['root'], pisco_axis[1] - r_body - WALL)
+    snap=cap(st_p,st_p['root'],pisco_axis[1]-r_body-WALL)
+    snap=snap.fuse(*(box(*b) for b in pisco_grip_stock(st_p,pisco_axis[1],r_body,r_neck,lip)))
+    out['pisco-snap-cap'] = (snap
                              .cut(turned([(pcap[0] - 1., lip, r_neck), (lip, pcap[1] + 1., r_body)], pisco_axis))
                              .clean())
     numbers['pisco'] = {'station': st_p, 'step_face_y': step_face, 'body_r': r_body,
@@ -432,11 +513,15 @@ def build(parts, asse_axis, asse_at, asse_turn, pisco_axis, mouth_y, ceiling, re
     for p in pockets(st_m):
         seat = seat.cut(to_world(p))
     out['meter-seat'] = seat.clean()
-    hollow = stadium_x(MY, MZ, R_HOUSING + METER_AIR, 0., VAR, wx(CONE), core + 1.)
-    hollow = hollow.fuse(stadium_x(MY, MZ, R_CONE + METER_AIR, 0., VAR, west_end - METER_AIR, wx(CONE) + .01))
-    hollow = hollow.fuse(cq.Solid.makeCylinder(meter.port_neck_radius + METER_AIR, SEAT_Y[1] - SEAT_Y[0],
+    hollow = stadium_x(MY, MZ, R_HOUSING + METER_CAP_AIR, 0., METER_CAP_AIR, wx(CONE), core + 1.)
+    hollow = hollow.fuse(stadium_x(MY, MZ, R_CONE + METER_CAP_AIR, 0., METER_CAP_AIR, west_end - METER_CAP_AIR, wx(CONE) + .01))
+    hollow = hollow.fuse(cq.Solid.makeCylinder(meter.port_neck_radius + METER_CAP_AIR, SEAT_Y[1] - SEAT_Y[0],
                                                cq.Vector(soda_axis[0], SEAT_Y[0], soda_axis[1]), cq.Vector(0, 1, 0)))
-    body = to_world(cap(st_m, st_m['root'], west_end-METER_AIR-METER_BACK-MX)).cut(hollow)
+    bottom=west_end-METER_AIR-METER_BACK-MX
+    half=st_m['inner']-ROOT_RADIUS-.5
+    blank=cap(st_m,st_m['root'],bottom).fuse(
+        box(-half,half,*CAP_Y,bottom,st_m['root']+METER_BEARING_DEPTH))
+    body = to_world(blank).cut(hollow)
     out['meter-snap-cap'] = body.clean()
     numbers['meter'] = {'station': st_m, 'split_x': MX, 'axis': [MY, MZ],
                        'housing_air_mm':METER_AIR,'lower_leaf_span_mm':CAP_Y[1]-CAP_Y[0]}

@@ -6,23 +6,30 @@ seats share [rear_snaps.py](../../../manifold-layout/rear_snaps.py) and
 
 The ASSE cap holds the lower halves of both hexes, bears against the inlet
 coupling, and passes the downward vent cup through its bottom flat. The Pisco
-cap closes the slide seat, but its central bridge lies below the neck-clearance
-circle and does not provide useful neck retention in the current physical trial.
-Its bridge and spring geometry remain under revision. The meter cap enters from the west
-and has a solid 6 mm spine with two complete 38 mm-long leaves. Its flexible
+cap has a raised lip around the short outlet fitting's neck and a broad body
+bearing between its independent leaves. The meter cap enters from the west
+and has a solid 9 mm spine, shaped bearing stock extending toward the housing,
+and two complete 38 mm-long leaves. Its flexible
 leads turn west against the housing above the lower leaf. The water regulator
 cap spans 36 mm of the housing and smaller outlet neck, with its lowest face
 at Z315.924 mm. Each cap is one solid, with two integral spring walls and hooks.
 
 The ASSE seat uses 0.25 mm running clearance and its cap uses 0.15 mm slip
 clearance. The ASSE seat allows 1.5 mm of threaded-joint position variation.
-The Pisco seat and cap include an additional 0.75 mm of radial relief on the
-admitted body and neck. The meter's housing, flange and bosses have 0.75 mm
-clearance in both halves, including the receiver's closed back.
-All leaves are 2.6 mm thick, with 22.5 mm of free bending length; the water
-regulator uses 21.5 mm within its retained height. The insertion face has a
+The Pisco receiver has 0.5 mm radial air; its cap has 0.4 mm at the admitted
+body and exposed neck. The neck lip excludes the release collet. The meter
+receiver's housing, flange, bosses and closed back have 0.75 mm clearance.
+Its cap uses 0.25 mm at its housing and port bearing surfaces. The water
+regulator uses its measured linear radius profile and true installed axis,
+with 0.30 mm receiver radial air, 0.25 mm cap radial air and 0.25 mm axial air.
+Its body-to-outlet shoulder retains the scanned position.
+All leaves are 2.0 mm thick, with a 1.5 mm inside root radius and 22.25 mm
+root-to-catch length; the water regulator uses 21.25 mm within its retained
+height. The straight wall above the root blend is 20.75 mm, or 19.75 mm on
+the water regulator. The insertion face has a
 2 mm-rise lead-in ramp above a 0.6 mm solid nose land. The retaining face is
-flat and retains the complete 2.6 mm overlap.
+flat with 2.6 mm overlap outside each centered 5 mm-wide by 1 mm-high flathead
+entry. The nominal catch clearance is 0.4 mm.
 ASSE, Pisco and meter enter their seats 16 mm forward and slide aft. The
 regulator enters directly upward. The caps close after their bodies seat.
 
@@ -50,6 +57,11 @@ inside the opening. Derek reports that the original trial's small automatic
 cavity supports removed easily with that tool. Preserve the flat catch
 undersides while clearing them. The [physical record](../../../print-tests/rear-snap-retention/physical-result/physical-result.json)
 records this removal result and the hardware fit observations.
+
+For release, put a flat blade no wider than 5 mm and no thicker than 1 mm into
+the centered notch beneath each hook. Ease the leaf outward until its flat
+catch clears the receiver, then withdraw the cap along its installation path.
+The tool entries leave the spring walls continuous below the hooks.
 
 ```sh
 tools/cad-venv/bin/python hardware/printed-parts/enclosure/rear-equipment-caps/rear_equipment_caps.py

@@ -258,16 +258,14 @@ def pump_snap_cap(index=0):
     import fits
     d = pump_cradle_datums()['caps'][index]
     s = d['snap_station']
-    c, wide, inner, hook = (s[k] for k in ('axis_x','outer','inner','hook'))
-    west = [(c-wide,0.),(c-wide,s['tip']),(c-inner,s['tip']),
-            (c-hook,s['catch']+s['nose_land']),
-            (c-hook,s['catch']),(c-inner,s['catch']),(c-inner,-fits.slip)]
-    east = [(2*c-x,z) for x,z in reversed(west)]
+    import rear_snaps
+    c,wide=s['axis_x'],s['outer']
     roof = -(d['bore_radius_mm']+d['selected']['cap_arch_wall_mm'])
     edge = d['selected']['cap_east_roof_half_width_mm']
-    points = west+east+[(c+wide,roof),(c-edge,roof)]
-    wire = cq.Wire.makePolygon([cq.Vector(x,s['y0'],z) for x,z in points],close=True)
-    blank = cq.Solid.extrudeLinear(wire,[],cq.Vector(0.,s['y1']-s['y0'],0.))
+    section=rear_snaps.cap_section(s,-fits.slip,roof)
+    section['segments'][-2]={'line':((c+wide,roof),(c-edge,roof))}
+    section['segments'][-1]={'line':((c-edge,roof),(c-wide,s['root']))}
+    blank=rear_snaps.section_solid(section).cut(*rear_snaps.pry_cuts(s))
     return _pump_cap_to_world(blank, d).cut(_pump_motor_room(d)).clean()
 
 
