@@ -641,8 +641,8 @@
       }
     },
     "foam-cap-lid-top": {
-      "preparation_directory": ".cache/retention-integration/slices-v2-final-surface/2026-11-02-foam-cap-lid-top-mark1-9d1f0e9b",
-      "preparation_record_sha256": "e5dbc61828438ad7999ca3e0485e437938c1b3ec630e55216827999c9899e914",
+      "preparation_directory": ".cache/retention-integration/slices-v3-final/2026-11-02-foam-cap-lid-top-mark1-c146a5b6",
+      "preparation_record_sha256": "423100343a2496ec3d39f78c71e06e1823fd67489f58fd943ddd8557d873afac",
       "profile_sha256": "45c16e8c8517e0a205107d7b9f7412d013f51a8de7ecf86125cc940079d37ed0",
       "printer": "Mark1",
       "nozzle": {
@@ -661,11 +661,11 @@
           "identify_id": 1901,
           "object_id": 2,
           "stl": "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl",
-          "stl_sha256": "db0925913946d7d7d03a5fff06bc574df3b7a7cf329de71f29c6829abe5e2a63",
-          "step_sha256": "080494bdb415ba1ca30ee8fe829b200459c449cf9ae0691b7527396a8e910963",
-          "facets": 37504,
+          "stl_sha256": "b86e8875e4ee060bac65e7a90bb038b1a78be4f94455697d7ca85f0f5baa5ac1",
+          "step_sha256": "7659ea711ff9926c8c851e79329b4458de56dc14faba5e9e55f6c5268bfb2b21",
+          "facets": 37528,
           "closed": {
-            "edges": 56256,
+            "edges": 56292,
             "boundary_edges": 0,
             "nonmanifold_edges": 0,
             "inconsistent_edges": 0,
@@ -1216,12 +1216,12 @@
           "fins": [],
           "regions": {
             "record": "hardware/printed-parts/cold-core/foam-cap/fore-snap-print-regions.json",
-            "record_sha256": "6f677eb729732ae3d20a94b1ba055b086b94cbccede8345c0cffeb6db8c4741d",
+            "record_sha256": "8d196ff711d01e85b39bee98614ab1d081fea0efef592b2411d370eacc78e1c6",
             "part_process_overrides": null
           }
         }
       ],
-      "archive_sha256": "385f3d6115c1abeddb6ae89359f083c7e0933225a977a8f1b9c54463d3ee0cad",
+      "archive_sha256": "1250863718936a245eb4babbdec931359e1a0f77663757354c3fbd0dfc7fb49e",
       "checks": {
         "archive": true,
         "z_trim": true,
@@ -1232,20 +1232,20 @@
         "ribbons_support_free_and_printed": true,
         "solid_hosts_sampled": true
       },
-      "minimum_bed_margin_mm": 20.187428,
+      "minimum_bed_margin_mm": 20.196003,
       "bed_border_mm": 20.0,
       "support_audits": [
         {
-          "record_sha256": "eed346bbef46808d5ba1b564ddde2c8656f1fec144a83b67bbca6f75efba4c08",
+          "record_sha256": "5562b6ef05a7c305b3da9fd71465bbc1f85e957119a850f5e1ef27b6e95b72e0",
           "schema": 1,
           "piece": "foam-cap-lid-top",
           "inputs": {
             "gcode": "support-labels-1901.gcode",
-            "gcode_sha256": "89ece2f0f554d8ad8ed21d170abc857029335168df5c08789f7adb7cdb4587f1",
+            "gcode_sha256": "89da75cc9f68f4aaa27fc15f597c71743ae9f128ffa248b24c619baf82e708c2",
             "model": "/Users/derekbredensteiner/Developer/hsm-approved-asse/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl",
-            "model_sha256": "db0925913946d7d7d03a5fff06bc574df3b7a7cf329de71f29c6829abe5e2a63",
-            "profile": ".cache/retention-integration/slices-v2-final-surface/2026-11-02-foam-cap-lid-top-mark1-9d1f0e9b/2026-11-02-foam-cap-lid-top-mark1-9d1f0e9b.3mf",
-            "profile_sha256": "967631c764e4e2974251cd4eb46ffc87cc3034c7193bed8c569258721fcbb516"
+            "model_sha256": "b86e8875e4ee060bac65e7a90bb038b1a78be4f94455697d7ca85f0f5baa5ac1",
+            "profile": ".cache/retention-integration/slices-v3-final/2026-11-02-foam-cap-lid-top-mark1-c146a5b6/2026-11-02-foam-cap-lid-top-mark1-c146a5b6.3mf",
+            "profile_sha256": "f4c1853242e0c59fec77e9170f8cd0cdfda6787e8261a35153b4ac846af104f4"
           },
           "slicer": "BambuStudio 02.08.02.61",
           "first_layer_z_mm": 0.2,
@@ -1288,24 +1288,24 @@
             "interface_islands": 9,
             "bed_rooted_bodies": 1,
             "model_rooted_bodies": 6,
-            "shortest_build_up_mm": 2.16,
+            "shortest_build_up_mm": 1.92,
             "bodies_without_interface_labels": 0,
             "explicit_interface_islands": 9,
-            "shortest_labelled_build_up_mm": 2.16
+            "shortest_labelled_build_up_mm": 1.92
           },
           "trees": [
             {
               "id": "tree-1",
               "root": "model",
-              "base_z_mm": 11.0,
+              "base_z_mm": 11.24,
               "first_interface_z_mm": 13.16,
-              "shortest_build_up_mm": 2.16,
+              "shortest_build_up_mm": 1.92,
               "top_z_mm": 13.64,
               "bbox_xy_mm": [
                 43.2,
                 110.8,
                 96.8,
-                113.2
+                112.8
               ],
               "interfaces": [
                 "interface-2"
@@ -1314,9 +1314,9 @@
               "bbox_cad_xyz_mm": [
                 -118.3,
                 -49.2,
-                11.0,
+                11.24,
                 -64.7,
-                -46.8,
+                -47.2,
                 13.64
               ],
               "removal_lane": "Open motor saddle and rail-bearing rooms, with the pump absent. Remove the catch supports through the outward-open spring pockets and the bearing supports through their broad vertical/axial mouths before seating the pump. The central cover room opens to the plain lid."
@@ -1324,9 +1324,9 @@
             {
               "id": "tree-2",
               "root": "model",
-              "base_z_mm": 11.0,
+              "base_z_mm": 11.24,
               "first_interface_z_mm": 13.16,
-              "shortest_build_up_mm": 2.16,
+              "shortest_build_up_mm": 1.92,
               "top_z_mm": 13.64,
               "bbox_xy_mm": [
                 43.2,
@@ -1341,7 +1341,7 @@
               "bbox_cad_xyz_mm": [
                 -118.3,
                 16.8,
-                11.0,
+                11.24,
                 -64.7,
                 19.2,
                 13.64
@@ -1516,16 +1516,16 @@
                 43.2,
                 111.2,
                 96.8,
-                113.2
+                112.8
               ],
               "tree": "tree-1",
-              "build_up_mm": 2.16,
+              "build_up_mm": 1.92,
               "bbox_cad_xyz_mm": [
                 -118.3,
                 -48.8,
                 13.16,
                 -64.7,
-                -46.8,
+                -47.2,
                 13.64
               ]
             },
@@ -1540,7 +1540,7 @@
                 179.2
               ],
               "tree": "tree-2",
-              "build_up_mm": 2.16,
+              "build_up_mm": 1.92,
               "bbox_cad_xyz_mm": [
                 -118.3,
                 16.8,
@@ -1686,17 +1686,17 @@
           "interface_islands": 9,
           "bed_rooted_bodies": 1,
           "model_rooted_bodies": 6,
-          "shortest_build_up_mm": 2.16,
+          "shortest_build_up_mm": 1.92,
           "bodies_without_interface_labels": 0,
           "explicit_interface_islands": 9,
-          "shortest_labelled_build_up_mm": 2.16
+          "shortest_labelled_build_up_mm": 1.92
         }
       },
       "first_second_layer_stack": {
         "1901": {
-          "second_layer_model_bead_area_mm2": 49677.9210054967,
-          "fraction_over_first_layer": 0.9953677536860238,
-          "second_layer_centerline_outside_first_mm": 58.785060682193915
+          "second_layer_model_bead_area_mm2": 49677.91944526041,
+          "fraction_over_first_layer": 0.9953677769878778,
+          "second_layer_centerline_outside_first_mm": 58.78406068219393
         }
       },
       "settings_changes": {
@@ -2054,8 +2054,8 @@
       }
     },
     "pump-snap-cap": {
-      "preparation_directory": ".cache/retention-integration/slices-v2-final/2026-11-01-pump-snap-cap-mark2-0e994511",
-      "preparation_record_sha256": "d531ce1cde695c6a0246f696b825dbe33503c974ac1756cc2fb6de879177dcaa",
+      "preparation_directory": ".cache/retention-integration/slices-v3-final/2026-11-02-pump-snap-cap-mark2-5715edf5",
+      "preparation_record_sha256": "5b61216167b054edf1f03257fe76a5a52aaf533a2aee9e03ef67f9f9749593ed",
       "profile_sha256": "45c16e8c8517e0a205107d7b9f7412d013f51a8de7ecf86125cc940079d37ed0",
       "printer": "Mark2",
       "nozzle": {
@@ -2074,11 +2074,11 @@
           "identify_id": 1901,
           "object_id": 2,
           "stl": "hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.stl",
-          "stl_sha256": "0095d97a55071447da524c820f031e90092a66d668dc12d56f3848ea82a6bd29",
-          "step_sha256": "9dcc0ca3b7ae7928446d49a7f99dce43faf41c3fb362d7b79262e1957922e983",
-          "facets": 384,
+          "stl_sha256": "7daefd30519fc9562806f44b6ccdfa737c8c1fbb5e13a96ebaa881ff655e3e5a",
+          "step_sha256": "e218ab7622d05f35092c7f42efb173d50b62edc8860e0125aaeab632b1262d77",
+          "facets": 680,
           "closed": {
-            "edges": 576,
+            "edges": 1020,
             "boundary_edges": 0,
             "nonmanifold_edges": 0,
             "inconsistent_edges": 0,
@@ -2133,17 +2133,17 @@
           ],
           "plate_bounds_mm": [
             [
-              125.32081985473633,
-              131.84524726867676,
+              125.92081832885742,
+              131.97024726867676,
               0.0
             ],
             [
-              199.67918014526367,
-              188.15475273132324,
+              199.07918167114258,
+              188.02975273132324,
               54.5
             ]
           ],
-          "model_bed_margin_mm": 125.32081985473633,
+          "model_bed_margin_mm": 125.92081832885742,
           "seam_enforcer": null,
           "object_settings": {},
           "features": [],
@@ -2155,7 +2155,7 @@
           "fins": []
         }
       ],
-      "archive_sha256": "60ff06c208c0aa6b0281b536316462eedda63c18a4bba98e0bc8c2d743d542fd",
+      "archive_sha256": "56cf8b79bfe3d6801f2dffaae4e2ba75f35f12b73bb0fdba524829a6d6a19997",
       "checks": {
         "archive": true,
         "z_trim": true,
@@ -2166,20 +2166,20 @@
         "ribbons_support_free_and_printed": true,
         "solid_hosts_sampled": true
       },
-      "minimum_bed_margin_mm": 125.30600000000001,
+      "minimum_bed_margin_mm": 125.863953,
       "bed_border_mm": 80.0,
       "support_audits": [
         {
-          "record_sha256": "ca27afff6ff8f0ce02b9813d5fcce27b4436f692be2095ad5841d328859e1405",
+          "record_sha256": "621cd341a418353f22e8315015a7340959578e7ae0a3e78ea9c4425553ccc088",
           "schema": 1,
           "piece": "pump-snap-cap",
           "inputs": {
             "gcode": "support-labels-1901.gcode",
-            "gcode_sha256": "82ad692ad8d8e271133fcec860408f2ccd9b66aa765316ee2e712a11d4e9625f",
+            "gcode_sha256": "ccfbbd19e8c599d7774f6cbf1f548bd3aa2832a66d95d0f54c0d44b4a070ea34",
             "model": "/Users/derekbredensteiner/Developer/hsm-approved-asse/hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.stl",
-            "model_sha256": "0095d97a55071447da524c820f031e90092a66d668dc12d56f3848ea82a6bd29",
-            "profile": ".cache/retention-integration/slices-v2-final/2026-11-01-pump-snap-cap-mark2-0e994511/2026-11-01-pump-snap-cap-mark2-0e994511.3mf",
-            "profile_sha256": "985f606b8b76696e64ec869c902399c09727ac8ef3f023b88bc9c3ae595d5aac"
+            "model_sha256": "7daefd30519fc9562806f44b6ccdfa737c8c1fbb5e13a96ebaa881ff655e3e5a",
+            "profile": ".cache/retention-integration/slices-v3-final/2026-11-02-pump-snap-cap-mark2-5715edf5/2026-11-02-pump-snap-cap-mark2-5715edf5.3mf",
+            "profile_sha256": "5641c0fdca37768db5cd9bd16c81367c807aee34b975b480fde98d91652b4dd5"
           },
           "slicer": "BambuStudio 02.08.02.61",
           "first_layer_z_mm": 0.2,
@@ -2246,9 +2246,9 @@
       },
       "first_second_layer_stack": {
         "1901": {
-          "second_layer_model_bead_area_mm2": 1200.79728200239,
-          "fraction_over_first_layer": 0.9545292240818736,
-          "second_layer_centerline_outside_first_mm": 12.250935696152714
+          "second_layer_model_bead_area_mm2": 1146.8317584826389,
+          "fraction_over_first_layer": 0.9522476574902765,
+          "second_layer_centerline_outside_first_mm": 12.579409624633993
         }
       },
       "settings_changes": {
@@ -2290,7 +2290,7 @@
         "wall_loops": {
           "from": "2",
           "to": "3",
-          "reason": "Three Classic outer loops and solid infill retain the full2.6mm spring leaf section."
+          "reason": "Three Classic outer loops and solid infill retain the full 2.0 mm spring leaf section."
         },
         "wall_generator": {
           "from": "classic",
@@ -2338,7 +2338,7 @@
     "sha256": "ffe2a005cc3280af90bb3b78e446e348c2f80aea416e4cacbd35751d5b916392"
   },
   "source_sha256": {
-    "hardware/printed-parts/cold-core/foam-cap/foam_cap.py": "a01102f86551157c370992a4a10d8f3839c04fda4e50f532aa7d43fbc4b9d067",
-    "hardware/printed-parts/cold-core/foam-cap/foam_cap.rs": "19b43d958d9671cd7bdea65855a7cb7a2965fdc6eeaef48945778b6eb0d5ccbe"
+    "hardware/printed-parts/cold-core/foam-cap/foam_cap.py": "071283bbd757f329cf4bd53cabd3d846fcdef46a3cac3c28df30e22f4f168a7c",
+    "hardware/printed-parts/cold-core/foam-cap/foam_cap.rs": "76a5cb1c45baaff54fec5923b1076337a5231ae770cb3195628a739bcc8f6e1b"
   }
 }
