@@ -612,12 +612,16 @@ def _fluid_supports(graph):
     cuts = [p.rotate((0,0,0),(0,1,0),90).translate((mx,0.,mz)) for p in pockets(st)]
     result['meter-seat'] = stock.cut(cup,*cuts)
 
-    mount = plan['regulator_mount']
+    mount = plumbing.regulator_datums()
     st,axis = mount['station'],mount['axis']
     a,b = mount['seat_y']
     b = max(b,st['y1']+fits.running+snaps.WALL)
     stock = graph.box(axis[0]-st['outer'],axis[0]+st['outer'],a,b,snaps.SPLIT,346.5)
-    seat = stock.cut(turned(mount['seat_runs'],axis),*pockets(st))
+    profile = mount['seat_profile']
+    radius = max(r for _,r in profile)
+    room = graph.add('radial-profile',points=profile,
+        bounds=(profile[0][0],profile[-1][0],-radius,radius,-radius,radius))
+    seat = stock.cut(_placed(graph,room,mount['profile_frame']),*pockets(st))
     result['regulator-seat'] = seat.rotate((0,0,0),(0,0,1),90)
     return result
 
