@@ -7698,6 +7698,7 @@
       "hardware/printed-parts/cadlib/flute_skin.py",
       "hardware/printed-parts/cadlib/print_mesh.py",
       "hardware/printed-parts/cadlib/reeding.py",
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
       "hardware/printed-parts/fixtures/fake-countertop/README.figures.json",
       "hardware/printed-parts/fixtures/fake-countertop/README.md",
       "hardware/printed-parts/fixtures/fake-countertop/fake_countertop.py",

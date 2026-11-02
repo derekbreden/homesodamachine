@@ -10439,6 +10439,7 @@ genrule(
         "pysrc/hardware/printed-parts/cadlib/flute_skin.py",
         "pysrc/hardware/printed-parts/cadlib/print_mesh.py",
         "pysrc/hardware/printed-parts/cadlib/reeding.py",
+        "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
         "hardware/printed-parts/fixtures/fake-countertop/README.md",
         "pysrc/hardware/printed-parts/fixtures/fake-countertop/fake_countertop.py",
         "hardware/printed-parts/fixtures/fake-countertop/fake_countertop.rs",
