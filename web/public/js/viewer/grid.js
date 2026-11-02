@@ -50,9 +50,9 @@ export function paintStepThumb(card, { bust = false } = {}) {
   card._drawingSeq = drawing;
   if (bust) forgetThumbnail(file);
   card.dataset.drawing = "1";
-  renderThumbnail(file, thumbSize(card), finish, "shelf").then((url) => {
+  return renderThumbnail(file, thumbSize(card), finish, "shelf").then((url) => {
     if (card._drawingSeq !== drawing || card.dataset.file !== file) return;
-    if (url) img.src = url;
+    if (url && card.isConnected && card.dataset.mounted === "1") img.src = url;
     delete card.dataset.drawing;
   });
 }

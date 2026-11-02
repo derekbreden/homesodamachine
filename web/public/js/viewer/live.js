@@ -39,14 +39,38 @@ import { HSM_EVENTS } from "/contracts/client-events.js";
 import { isMounted } from "./lazy.js";
 import { stepLocation } from "/contracts/step-locations.js";
 
+// Keep one update in flight and one request to read again after it. A save
+// during a fetch must reach the next read without starting another full model.
+function latestUpdate(pending, key, update) {
+  const previous = pending.get(key);
+  if (previous) { previous.again = true; return previous.run; }
+  const entry = { again: false, run: null };
+  pending.set(key, entry);
+  entry.run = (async () => {
+    try {
+      do {
+        entry.again = false;
+        await update();
+      } while (entry.again);
+    } finally {
+      pending.delete(key);
+    }
+  })();
+  return entry.run;
+}
+
+const pendingStepCards = new Map();
+
 function refreshStepCard(file) {
   // The card draws the model, so a STEP that moved is a card that has to redraw:
   // drop every picture of it and let `paintStepThumb` read the fresh one.
-  forgetThumbnail(file);
-  const card = state.gridEl.querySelector(`.card[data-type="step"][data-file="${CSS.escape(file)}"]`);
-  if (!card) { fetchFiles(); return; }
-  if (!isMounted(card)) return;
-  paintStepThumb(card, { bust: true });
+  return latestUpdate(pendingStepCards, file, async () => {
+    forgetThumbnail(file);
+    const card = state.gridEl.querySelector(`.card[data-type="step"][data-file="${CSS.escape(file)}"]`);
+    if (!card) { await fetchFiles(); return; }
+    if (!isMounted(card)) return;
+    await paintStepThumb(card, { bust: true });
+  });
 }
 
 // NO PAGE DRAWS A CARD FOR A CUT OR A SCENE. /3d is the machine's two assemblies,
@@ -103,9 +127,7 @@ function openStepOf(file) {
   return open?.type === "step" && stepLocation(open.file).file === file ? open.file : null;
 }
 
-// One deferred reload per open file. The gate holds a reload for the length of a
-// drag, every save inside that window lands on the same key, and the ETag that
-// turns a repeat into a 304 isn't set until a load finishes.
+// One deferred reload per open file, held through the gesture and complete load.
 const pendingCadReloads = new Map();
 
 // Re-load a CAD part into the open modal, in place, camera preserved. Resolves
@@ -114,18 +136,18 @@ const pendingCadReloads = new Map();
 // any gesture in flight (the gate in scene.js).
 async function reloadCad(type, file) {
   const key = `${type}:${file}`;
-  const pending = pendingCadReloads.get(key);
-  if (pending) return pending;
-  const run = (async () => {
+  return latestUpdate(pendingCadReloads, key, async () => {
     await afterGesture();
-    pendingCadReloads.delete(key);
     // The modal may have closed, or swapped files, while the gesture ran on.
     if (!isOpenAs(type, file)) return;
+    const wrapper = state.currentCadWrapper;
     const load = await getLoader(type);
-    return load(file, { preserveCamera: true });
-  })();
-  pendingCadReloads.set(key, run);
-  return run;
+    if (!isOpenAs(type, file) || wrapper !== state.currentCadWrapper) return;
+    await load(file, { preserveCamera: true });
+    if (type === "step" && isOpenAs(type, file) && wrapper === state.currentCadWrapper && wrapper) {
+      mountScorecard(wrapper, file);
+    }
+  });
 }
 
 window.addEventListener(HSM_EVENTS.FILES_CHANGED, async (e) => {
@@ -149,9 +171,7 @@ window.addEventListener(HSM_EVENTS.FILES_CHANGED, async (e) => {
       if (open) {
         // A deferred reload can outlive the modal; mountScorecard reads the
         // wrapper's isConnected.
-        reloadCad("step", open).then(() => {
-          if (state.currentCadWrapper) mountScorecard(state.currentCadWrapper, open);
-        });
+        reloadCad("step", open);
       }
     } else if (file.endsWith(".dxf")) {
       refreshUncardedFile();
