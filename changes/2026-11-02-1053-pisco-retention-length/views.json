@@ -1,0 +1,78 @@
+{
+  "views": [
+    {
+      "name": "coverage",
+      "caption": "The PISCO cap covers 41.7 mm along the body and stops before a full rear receiver wall.",
+      "before": "coverage-before.webp",
+      "after": "coverage-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 671.6,
+          "y": 489.2,
+          "r": 25.2,
+          "label": "Body coverage",
+          "at": [
+            76.5,
+            455,
+            313.8
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          176.16103263865762,
+          372.20390048092935,
+          427.9610326386576
+        ],
+        "target": [
+          76.5,
+          441.2,
+          328.3
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 120.39291371849934,
+        "far": 215.35229245054424,
+        "aspect": 1.3333333333333333
+      },
+      "highlight": [
+        "pisco-snap-cap"
+      ],
+      "ghost": [],
+      "only": [
+        "pisco-snap-cap"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "4485d53483c0d6ce19a453588373aadf7add02a251b747b95a48e143309d4e2f",
+          "commit": "548f2a2a9fcffd7336d1f928887699c53413741b",
+          "taken": "2026-11-02T16:21:10.459Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "f55f20e073af4bfa70c0bda6c58753632a423a970ac8cd9abfe5dc2fc0cfb5aa",
+          "commit": "e318e5ce4b27d4dc9e1efbc89b610002947593a6",
+          "published": true
+        }
+      },
+      "changed": [
+        "pisco-snap-cap",
+        "enclosure-back-top"
+      ],
+      "withinMeshing": []
+    }
+  ]
+}
