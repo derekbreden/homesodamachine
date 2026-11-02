@@ -25,7 +25,8 @@ def numbers(routes, stock, *, components=()):
         from _materials import linear
         result['components']=[]
         for name,recipe,color in components:
-            row={**recipe,'name':name,'linear_rgb':linear(color)}
+            rgb=rgba(color,{})[:3] if isinstance(color,tuple) else linear(color)
+            row={**recipe,'name':name,'linear_rgb':rgb}
             if row['kind']=='import':row['step']=_rust_part.step(row['step'])
             result['components'].append(row)
     return result

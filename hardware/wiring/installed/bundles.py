@@ -88,23 +88,8 @@ def centreline(b,attachments):
         source_points=list(reversed(corridor['points_mm']))
         if b.get('above_cap_stations_mm'):
             source_points=[*map(tuple,b['above_cap_stations_mm']),*source_points]
-        native=_internal_routes.route_wire(source_points,
+        segments=_internal_routes.route_segments(source_points,
             b.get('above_cap_bend_radius_mm',corridor['bend_radius_mm']))
-        # Read the actual native bore's edges, including its own fitted radii.
-        # A different polyline fillet rule can drift outside this narrow bore.
-        remaining=list(native.Edges());segments=[];cursor=tuple(source_points[0])
-        while remaining:
-            i,edge,reverse=next((i,e,reverse) for i,e in enumerate(remaining)
-                                for reverse in (False,True)
-                                if math.dist(cursor,(e.endPoint() if reverse else e.startPoint()).toTuple())<1e-6)
-            remaining.pop(i)
-            end=(edge.startPoint() if reverse else edge.endPoint()).toTuple()
-            row={'kind':'line','start_mm':cursor,'end_mm':end,'length_mm':edge.Length()}
-            if edge.geomType()=='CIRCLE':
-                radius=edge.radius()
-                row.update(kind='arc',midpoint_mm=edge.positionAt(.5).toTuple(),
-                           radius_mm=radius,angle_radians=edge.Length()/radius)
-            segments.append(row);cursor=end
         first=tuple(source_points[0])
         points=source_points
         if not b.get('above_cap_stations_mm'):
@@ -249,7 +234,6 @@ def core_route(connection,attachments):
 
 def inputs(attachments):
     """Ordered annular-sweep inputs and the installed bundle facts."""
-    import cadquery as cq
     records={};bodies=[]
     for id,b in definitions().items():
         points,shared=centreline(b,attachments)
@@ -266,7 +250,7 @@ def inputs(attachments):
         name='terminal-'+id+'-jacket'
         bodies.append((name,{'kind':'annular_sweep','points_mm':points,'segments':segments,
                              'diameter_mm':b['outer_diameter_mm'],
-                             'inner_diameter_mm':b['inner_diameter_mm']},cq.Color(.035,.035,.04)))
+                             'inner_diameter_mm':b['inner_diameter_mm']},(.035,.035,.04)))
         records[id]={**b,'geometry_name':name,'points_mm':points,'segments':segments,
                      'length_mm':sum(s['length_mm'] for s in segments),
                      'minimum_bend_mm':min((s['radius_mm'] for s in segments if s['kind']=='arc'),default=None)}
@@ -287,5 +271,5 @@ def add_jackets(assembly,attachments):
         outer=cq.Wire.makeCircle(recipe['diameter_mm']/2,start,axis)
         inner=cq.Wire.makeCircle(recipe['inner_diameter_mm']/2,start,axis)
         jacket=cq.Solid.sweep(outer,[inner],wire,makeSolid=True,isFrenet=False)
-        assembly.add(jacket,name=name,color=color)
+        assembly.add(jacket,name=name,color=cq.Color(*color))
     return records
