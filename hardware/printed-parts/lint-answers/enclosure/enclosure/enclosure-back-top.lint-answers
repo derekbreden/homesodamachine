@@ -440,3 +440,18 @@ click: x=-97.827 y=381.933 z=306.657
 alternatives: Extending the relief downward changes the wall adjacent to the accepted nameplate receiver. Filling or sloping its floor changes the common nut-installation field; separate local pockets add face breaks around the six fittings.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=85.971 y=464.611 z=250.000
+
+[step] Separate fitted datums beneath the data jack: the common live/neutral roof ends at Z280.05 and the accepted jack receiver floor at Z280.695. The 0.645 mm offset joins two required surfaces; the neutral pocket retains a full 3 mm roof and the jack keeps its accepted catches and insertion profile. The live side is solid up to this common roof.
+alternatives: Making these surfaces coplanar requires thickening the common roof by 0.645 mm or lowering the accepted jack floor by that amount. They locate different components; neither surface is a stray pad or unsupported film.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=-64.662 y=460.450 z=280.695
+
+[ceiling] Upright neutral-junction pocket floor: the 9.5 by 8.7 mm flat at Z257.95 supports the 221-413 with 0.15 mm body clearance and 3 mm stock beneath it. Its full fore opening admits the connector and allows automatic supports to be removed before wiring back-top on the bench. The exact emitted support bodies and their removal lanes are recorded in print-preparation-review.json.
+alternatives: Filling or sloping this floor changes the connector bearing and installed pose. Removing the floor loses the integral well’s lower capture. A separate holder adds a part to perform the same locating function.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=-65.200 y=462.225 z=257.950
+
+[ceiling] Solid common live/neutral well roof at Z280.05: the level roof joins both blank-half wells to the rear wall beneath the retained jack receiver. It keeps 3 mm above the upright neutral pocket and 7.5 mm above the live pocket. The live side contains no narrow intermediate slot. Automatic supports approach through the unloaded fore opening and are removed before the WAGOs are installed; the matching production slice records every emitted support body.
+alternatives: A rising roof reaches the data-jack receiver’s fitted region. Separate roofs retain a narrow intermediate support pocket. Filling the connector pockets changes their fit; omitting the roof removes the well’s rear-wall load path.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=-77.700 y=459.900 z=280.050

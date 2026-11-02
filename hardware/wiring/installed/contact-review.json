@@ -1,12 +1,12 @@
 {
   "schema": 3,
   "scope": "Manual closed-solid follow-up of every final production full-scene wire/larger-body mesh witness. Conductors, connector housings and jackets are read from the production f64 model; larger bodies are read from the installed viewer payload, with failed closed meshes replaced only by a tessellation of the retained native physical body. Only a named endpoint or its own termination has a finite 8.5 mm spherical contact region. Thermal fuse native stub engagement uses its recorded 2.5 mm tip region. Wire-wire and wire-tube contacts are excluded.",
-  "assembly_step_sha256": "fe4dfd97a9a19ec03566672446d93584806ff2927c324acc96e393f762e16654",
-  "assembly_mesh_sha256": "5c168985d157d9fd5b31a471208abaf762f96c38922eb9d356ae219969180c32",
+  "assembly_step_sha256": "bb4d7807285bdd7d6fb4495d3a9a415600ba6717f94b291489f78fb8708cbb5a",
+  "assembly_mesh_sha256": "9c0247fb4ec0826f175fb84615660a09b3a8a863d745045c24b5dc510de623de",
   "wiring_step_sha256": "dbfdba39ac2bfac163eb64afd460abbf01fc575ae58b5a5a8130c62075f4b0c7",
   "wiring_model_sha256": "be4fead4405ecf422a95f75206a561dece2896de4bd28ad4d52f28e513e76dab",
-  "manifest_sha256": "8c5ab1bc491e2067d27d3d053b88fe3168c9c1d33d8463097c415e1a8bb1e9ef",
-  "mesh_review_sha256": "afccc69052a2b9fb9c393599efc33eec2c57e260ffce51483b0aa554aa5862b9",
+  "manifest_sha256": "2a7b70e92ebee5641d3bc9b5daa9950774b7feb35ced7d4e3828a461f999ddf7",
+  "mesh_review_sha256": "7c027cb463139b225c4bd543765ec25af1b08222e02217a93650f7e007282c8d",
   "reader_sha256": "dda633caae0cffe7eed5d3211606409c326912961737f864e22a4078c34c2add",
   "physical_pairs": [
     {
@@ -171,11 +171,11 @@
   "unresolved": [],
   "all_current_mesh_witnesses_resolved": true,
   "retained_measured_artifact_binding": {
-    "assembly_step_sha256": "d534a641b9b7018890fb103416b73c468f2f60b20d35982ac9f089d9e4168923",
-    "assembly_mesh_sha256": "f9b8d9c352483a94529ea85fc5d5bdd71e03e637809dd12d57fa65e49d5b13b2",
-    "manifest_sha256": "0e559a1eb1209fc65ffbf4d8b3e3f51203a72ce62041f855dea3b78c78ed8d92"
+    "assembly_step_sha256": "fe4dfd97a9a19ec03566672446d93584806ff2927c324acc96e393f762e16654",
+    "assembly_mesh_sha256": "5c168985d157d9fd5b31a471208abaf762f96c38922eb9d356ae219969180c32",
+    "manifest_sha256": "8c5ab1bc491e2067d27d3d053b88fe3168c9c1d33d8463097c415e1a8bb1e9ef"
   },
-  "current_subtractive_host_binding": {
+  "retained_subtractive_host_binding": {
     "assembly_step_sha256": "fe4dfd97a9a19ec03566672446d93584806ff2927c324acc96e393f762e16654",
     "assembly_mesh_sha256": "5c168985d157d9fd5b31a471208abaf762f96c38922eb9d356ae219969180c32",
     "scope": "The complete exact native back-top change removes 266.888893 mm3 and adds no stock. All other 453 physical viewer members and all 119 installed wiring viewer members are byte-identical across every channel. Prior zero contacts, complete motion intervals and conservative lever sweeps remain clear under this subtraction. All wire route, terminal and source records are unchanged except the physical-scene digest.",
@@ -221,5 +221,15 @@
     "other_physical_members_identical": 453,
     "wire_members_identical": 119,
     "routes_and_terminal_records_identical": true
+  },
+  "current_roof_material_binding": {
+    "assembly_step_sha256": "bb4d7807285bdd7d6fb4495d3a9a415600ba6717f94b291489f78fb8708cbb5a",
+    "assembly_mesh_sha256": "9c0247fb4ec0826f175fb84615660a09b3a8a863d745045c24b5dc510de623de",
+    "physical_step_sha256": "500579f42d5aa3edec3542fa65d33711a52cd19626838114cc63a6eab82d0c3d",
+    "physical_mesh_sha256": "fb05b9fce452fbd92c169a46dcc932274fecbee66358aa97b5b68b512df69530",
+    "record": "hardware/mechanical-qualification/enclosure-above-core/retention-integration-review.json",
+    "section": "completed_junction_and_wire_integration.current_solid_level_roof",
+    "proof_sha256": "62241b4abe3fdb45a5c5b2c30d52c6d610a007d3da421e2d01ee723adb02c7e0",
+    "scope": "The central reading binds the complete roof addition, unchanged physical/wire members, native contacts, all 100 conductors, ten lever envelopes and the complete rear closing interval."
   }
 }
