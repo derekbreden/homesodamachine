@@ -1,9 +1,9 @@
 [thin] Derek's specified R14 bend-holder profile has a 2 mm wall, a flat D back and a teardrop channel roof. The small curved roof and slightly angled outlet are accepted specifically for B-fill in hardware/concerns.md; this guide has no straight outlet leg. These three samples lie on that same functional channel construction. The current native slice has no support bodies. That establishes emitted paths and access, not printed fit or lifetime.
 alternatives: A 3 mm wall grows the selected profile 1 mm around the channel and puts its flat back 1 mm farther from the tube axis, enlarging the matching lid clearance window. The specified 2 mm profile is retained; a different outside profile is not needed to remove an unintended remnant here.
 file: hardware/printed-parts/cold-core/foam-cap/reservoir-b-fill-guide.step
-click: x=17.335 y=1.502 z=5.395
-click: x=19.326 y=1.677 z=5.395
-click: x=15.653 y=1.751 z=11.916
-click: x=13.937 y=1.542 z=10.186
-click: x=8.650 y=8.670 z=11.916
-click: x=9.870 y=9.890 z=10.182
+click: x=2.823 y=10.214 z=5.421
+click: x=2.290 y=8.287 z=5.421
+click: x=14.039 y=7.075 z=11.925
+click: x=12.501 y=6.301 z=10.205
+click: x=1.508 y=12.178 z=11.925
+click: x=1.718 y=13.886 z=10.205

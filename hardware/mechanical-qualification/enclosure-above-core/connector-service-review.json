@@ -341,9 +341,156 @@
   "unresolved": [],
   "all_paths_clear_after_prerequisites": true,
   "elapsed_seconds": 67.20460679099779,
+  "current_lid_delta": {
+    "assembly_step_sha256": "4e5166c4d9d280390cd13dde4280c381343cefb2547a8cba8ec80d59bf07d5a1",
+    "assembly_mesh_sha256": "98d8a1c1c637da00811ef25075231a2a0c5bd7090b6a036c64ada2fa0e3d6341",
+    "scope": "Complete conservative connector-stage bounds are separated from both changed lid stocks. Every other component and prerequisite retains its native reading.",
+    "proof": [
+      {
+        "connector": "terminal-J1",
+        "stage": 0,
+        "actor": "flat-pump-stop-added",
+        "complete_swept_bounds_separated": true
+      },
+      {
+        "connector": "terminal-J1",
+        "stage": 0,
+        "actor": "aft-paired-saddle-final",
+        "complete_swept_bounds_separated": true
+      },
+      {
+        "connector": "terminal-J1",
+        "stage": 1,
+        "actor": "flat-pump-stop-added",
+        "complete_swept_bounds_separated": true
+      },
+      {
+        "connector": "terminal-J1",
+        "stage": 1,
+        "actor": "aft-paired-saddle-final",
+        "complete_swept_bounds_separated": true
+      },
+      {
+        "connector": "terminal-J2",
+        "stage": 0,
+        "actor": "flat-pump-stop-added",
+        "complete_swept_bounds_separated": true
+      },
+      {
+        "connector": "terminal-J2",
+        "stage": 0,
+        "actor": "aft-paired-saddle-final",
+        "complete_swept_bounds_separated": true
+      },
+      {
+        "connector": "terminal-J2",
+        "stage": 1,
+        "actor": "flat-pump-stop-added",
+        "complete_swept_bounds_separated": true
+      },
+      {
+        "connector": "terminal-J2",
+        "stage": 1,
+        "actor": "aft-paired-saddle-final",
+        "complete_swept_bounds_separated": true
+      },
+      {
+        "connector": "terminal-J11",
+        "stage": 0,
+        "actor": "flat-pump-stop-added",
+        "complete_swept_bounds_separated": true
+      },
+      {
+        "connector": "terminal-J11",
+        "stage": 0,
+        "actor": "aft-paired-saddle-final",
+        "complete_swept_bounds_separated": true
+      },
+      {
+        "connector": "terminal-J11",
+        "stage": 1,
+        "actor": "flat-pump-stop-added",
+        "complete_swept_bounds_separated": true
+      },
+      {
+        "connector": "terminal-J11",
+        "stage": 1,
+        "actor": "aft-paired-saddle-final",
+        "complete_swept_bounds_separated": true
+      },
+      {
+        "connector": "terminal-J11",
+        "stage": 2,
+        "actor": "flat-pump-stop-added",
+        "complete_swept_bounds_separated": true
+      },
+      {
+        "connector": "terminal-J11",
+        "stage": 2,
+        "actor": "aft-paired-saddle-final",
+        "complete_swept_bounds_separated": true
+      }
+    ]
+  },
   "current_parent_binding": {
-    "assembly_step_sha256": "b8a1a5b893b4bd465d8bd1bdd781201ba4eb20e9186ffa85622790c1710233ed",
-    "assembly_mesh_sha256": "3ab60fa98d64305694e6678f5645f3aa064de1e63bead926448e995ed82d3e34",
-    "scope": "The current back-top and lid cleanup preserves the source connector/header poses. Added stock is separately bounded and the moved aft saddle lies beyond the retained connector paths; all other changes remove material. Original native stage boxes and prerequisites retain their exact scope."
+    "assembly_step_sha256": "781a5ac87054a542e2fd056179d98e3d2b858b9097ea990a30d8213eab0fbbe3",
+    "assembly_mesh_sha256": "1455d9085191e75fc301184e10689e6bd5d53f0458db3890a39cb5f9f2dc62f6",
+    "scope": "Connector/header poses and preceding native stage readings are retained. Every revised cap and changed lid stock is separated from the complete connector-stage sweeps."
+  },
+  "current_rear_equipment_delta": {
+    "assembly_step_sha256": "781a5ac87054a542e2fd056179d98e3d2b858b9097ea990a30d8213eab0fbbe3",
+    "assembly_mesh_sha256": "1455d9085191e75fc301184e10689e6bd5d53f0458db3890a39cb5f9f2dc62f6",
+    "proof": [
+      {
+        "connector": "terminal-J1",
+        "stage": 0,
+        "maximum_swept_y_mm": 274.05292002005,
+        "changed_rear_stock_minimum_y_mm": 280.0,
+        "separated": true
+      },
+      {
+        "connector": "terminal-J1",
+        "stage": 1,
+        "maximum_swept_y_mm": 274.05292002005,
+        "changed_rear_stock_minimum_y_mm": 280.0,
+        "separated": true
+      },
+      {
+        "connector": "terminal-J2",
+        "stage": 0,
+        "maximum_swept_y_mm": 274.05292002005,
+        "changed_rear_stock_minimum_y_mm": 280.0,
+        "separated": true
+      },
+      {
+        "connector": "terminal-J2",
+        "stage": 1,
+        "maximum_swept_y_mm": 274.05292002005,
+        "changed_rear_stock_minimum_y_mm": 280.0,
+        "separated": true
+      },
+      {
+        "connector": "terminal-J11",
+        "stage": 0,
+        "maximum_swept_y_mm": 201.05312829841546,
+        "changed_rear_stock_minimum_y_mm": 280.0,
+        "separated": true
+      },
+      {
+        "connector": "terminal-J11",
+        "stage": 1,
+        "maximum_swept_y_mm": 201.05312829841546,
+        "changed_rear_stock_minimum_y_mm": 280.0,
+        "separated": true
+      },
+      {
+        "connector": "terminal-J11",
+        "stage": 2,
+        "maximum_swept_y_mm": 201.05312829841546,
+        "changed_rear_stock_minimum_y_mm": 280.0,
+        "separated": true
+      }
+    ],
+    "scope": "The unchanged v3 receiver additions and all five caps lie aft of Y280; the changed pump and saddle lid stock lie farther aft. Original connector-stage prerequisites remain."
   }
 }

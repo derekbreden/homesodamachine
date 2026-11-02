@@ -1,0 +1,174 @@
+{
+  "reported_by": "Derek",
+  "reported_date": "2026-11-02",
+  "trial": "Reinforced v2, Mark1 task1398879198 and Mark2 task1398871736",
+  "status": "Hardware fit reports received for all five families. All spring leaves need intermediate thickness and root revision. PISCO retention and water-regulator fit rejected; meter and water-regulator caps need shaped bearing stock.",
+  "families": {
+    "pisco": {
+      "fit": "Large gap and loose hardware; no useful retention. Derek is unsure about orientation and pairing.",
+      "diagnosis": "pisco-reading.json",
+      "status": "Rejected for hardware retention."
+    },
+    "asse": {
+      "fit": "Derek reports the hardware fit is in good shape; preserve the fitted cavity.",
+      "spring": "2.6 mm leaves bend visibly at the corner/root rather than along the wall. Derek expects rapid wear; fatigue has not been measured.",
+      "status": "Hardware fit accepted; spring compliance needs revision."
+    },
+    "pump": {
+      "fit": "Derek reports the pump snap and base fit are very good; retain them.",
+      "spring": "Only complaint is leaf bending concentrated at the corners; use an intermediate thickness.",
+      "status": "Hardware fit accepted; spring compliance needs revision.",
+      "base_fracture_observation": "The base broke before the snaps during removal. Record only; Derek explicitly requests no geometry change based on this observation."
+    },
+    "meter": {
+      "receiver": "Derek reports a very good fit, including room for the wire. Preserve the receiver hardware cavity.",
+      "cap": "Does not clamp tightly enough. Add central thickness and shape to bear on the housing in more directions.",
+      "status": "Receiver fit accepted; cap bearing and spring compliance need revision."
+    },
+    "regulator": {
+      "receiver": "Large visible gaps with hardware shifted to either side; investigate scan/model/printed cavity relation.",
+      "cap": "Does not clamp tightly enough. Add central thickness and shape to secure the hardware in more directions.",
+      "status": "Receiver fit, cap bearing and spring compliance need revision."
+    }
+  },
+  "requested_leaf_revision": {
+    "bounds_mm": [
+      1.3,
+      2.6
+    ],
+    "provisional_trial_mm": 2.0,
+    "scope": "Intermediate thickness and root transition under review; not a selected production revision or new print launch."
+  },
+  "photos": [
+    {
+      "photo": 1,
+      "sha256": "6025a23dee4b6ebe629f85dbaa2281af6b664b881135567e4c94e6583ec13fc1",
+      "bytes": 243436,
+      "batch": "pisco-asse"
+    },
+    {
+      "photo": 2,
+      "sha256": "0775d9e28f6dd5d44cb1b6b6e257912d0da759c53ce275cb692c0fcbfbe5ae23",
+      "bytes": 213695,
+      "retained_photo": "pisco-side.jpg",
+      "batch": "pisco-asse"
+    },
+    {
+      "photo": 3,
+      "sha256": "c7c00e61bdc8702a0f9f5e9b897039404d9fc05ef1ba5f376ac13628e49f1a5a",
+      "bytes": 256970,
+      "batch": "pisco-asse"
+    },
+    {
+      "photo": 4,
+      "sha256": "b5d29431371504ee4af6bbfb0a29477aeb3b43200f236ae298688a8e228089c8",
+      "bytes": 290440,
+      "retained_photo": "pisco-end-gap.jpg",
+      "batch": "pisco-asse"
+    },
+    {
+      "photo": 5,
+      "sha256": "a0b5eff7c1e5a80601440bd70ba630bdeff5d4254680ff079daa65eaf9282741",
+      "bytes": 1654842,
+      "retained_photo": "asse-root.jpg",
+      "batch": "pisco-asse"
+    },
+    {
+      "photo": 6,
+      "sha256": "8a7ae4857263790c53f5a5e3ea760b5a82977b511265cb8f185ab83d007dc56a",
+      "bytes": 1451129,
+      "batch": "pisco-asse"
+    },
+    {
+      "photo": 7,
+      "sha256": "793fc3dabd4c3c41f32e97b18f05b1535499a6322d122181cba02f760771ca8e",
+      "bytes": 1915899,
+      "retained_photo": "asse-fit.jpg",
+      "batch": "pisco-asse"
+    },
+    {
+      "batch": "meter-pump-regulator",
+      "photo": 1,
+      "sha256": "ddf6edcd918e58cfb15dca39ec17ef87a791c334f3bfeb35ad1bb5b6bd71e14d",
+      "bytes": 1668805
+    },
+    {
+      "batch": "meter-pump-regulator",
+      "photo": 2,
+      "sha256": "5292250d87b4d2a33436680bdbfd3274bf5f406e5193a878b4c0b19d20d1e6fc",
+      "bytes": 1314741,
+      "retained_photo": "meter-cap-gap.jpg"
+    },
+    {
+      "batch": "meter-pump-regulator",
+      "photo": 3,
+      "sha256": "66361e81b99aaeea80054addde62427530c5ecfbc33ec0581de97d6642d4ea7d",
+      "bytes": 1505260
+    },
+    {
+      "batch": "meter-pump-regulator",
+      "photo": 4,
+      "sha256": "def9195f6bfda32821dce31c0dddae698d384774c5f9b2beec8b480cae1c1faf",
+      "bytes": 1722508
+    },
+    {
+      "batch": "meter-pump-regulator",
+      "photo": 5,
+      "sha256": "1b3e15bd302970313bfca73811470b4631817e982bf748637fffedb4302ab6a5",
+      "bytes": 1479205
+    },
+    {
+      "batch": "meter-pump-regulator",
+      "photo": 6,
+      "sha256": "ec259efc1b749439ee522a8e4d883625d304152f0dc899375591095cdec8dfc5",
+      "bytes": 1995730,
+      "retained_photo": "pump-fit.jpg"
+    },
+    {
+      "batch": "meter-pump-regulator",
+      "photo": 7,
+      "sha256": "203e900841d4647552df77254f889fe43cce022fac3b3d5e4bd1041097e52f46",
+      "bytes": 1575343,
+      "retained_photo": "regulator-gap-a.jpg"
+    },
+    {
+      "batch": "meter-pump-regulator",
+      "photo": 8,
+      "sha256": "aa7f20ad82d2706c3c79ba2599bfe2b1b264b2bc5757442f7e686bf74d07176c",
+      "bytes": 1232031,
+      "retained_photo": "regulator-gap-b.jpg"
+    },
+    {
+      "batch": "meter-pump-regulator",
+      "photo": 9,
+      "sha256": "e0b268a5826501b0a9fb619f09078366b06b122067ce7eefd30c3773955e5241",
+      "bytes": 1152463
+    },
+    {
+      "batch": "meter-pump-regulator",
+      "photo": 10,
+      "sha256": "d7f55162e831dff34a29a64541959d44769ef5e524b8717bba66da84763b8373",
+      "bytes": 1282375
+    },
+    {
+      "batch": "pump-removal",
+      "photo": 1,
+      "sha256": "be7e855f86730a09d4d11bcd2f7fe8eb3584c23816683ec34af49f7e89636527",
+      "bytes": 1903882,
+      "retained_photo": "pump-pry-location.jpg"
+    },
+    {
+      "batch": "pump-removal",
+      "photo": 2,
+      "sha256": "2c70cc278f33707c5254abff1151ba865895e8bd705f92849e09e473032273b3",
+      "bytes": 1948228,
+      "retained_photo": "pump-base-fracture.jpg"
+    }
+  ],
+  "release_tool_request": {
+    "feature": "Centered flathead slot for cap removal.",
+    "location": "Centered along the cap; the photo illustrates the purpose rather than the exact position.",
+    "tool_required": "A flathead screwdriver is acceptable.",
+    "shape": "Use the simplest functional slot."
+  }
+}

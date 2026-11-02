@@ -8,7 +8,7 @@ import * as THREE from "three";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { state } from "./state.js";
 import { scene, resetCamera } from "./scene.js";
-import * as xray from "./xray.js";
+import { beginCadLoad, cadGroupDisposed, disposeCadGroup, ownCadGroup } from "./cad-resources.js";
 import { fetchMember, memberLoaded, memberUrl, rememberMember } from "./member.js";
 
 const loader = new GLTFLoader();
@@ -24,7 +24,7 @@ function parseGlb(buffer) {
 function toZupGroup(gltf) {
   const group = new THREE.Group();
   group.add(gltf.scene);
-  return group;
+  return ownCadGroup(group);
 }
 
 // The board is the largest flat mesh (its 95×76 face dwarfs every part). Float a
@@ -58,6 +58,7 @@ function addBoardFaces(group, file) {
     texLoader.load(
       url,
       (tex) => {
+        if (cadGroupDisposed(group)) { tex.dispose(); return; }
         tex.colorSpace = THREE.SRGBColorSpace;
         // Facing -Z flips the texture's U; undo it so the bottom maps board→(x,y)
         // like the top and so its (already glyph-mirrored) silk reads forward from below.
@@ -66,7 +67,10 @@ function addBoardFaces(group, file) {
         mesh.material.needsUpdate = true;
       },
       undefined,
-      () => group.remove(mesh), // no texture rendered yet — drop the blank plane
+      () => {
+        group.remove(mesh);
+        disposeCadGroup(ownCadGroup(mesh));
+      }, // no texture rendered yet — drop the blank plane
     );
     group.add(mesh);
   };
@@ -75,6 +79,8 @@ function addBoardFaces(group, file) {
 }
 
 export async function loadGlbFile(file, { preserveCamera = false } = {}) {
+  const load = beginCadLoad();
+  const { current, signal } = load;
   const loadingEl = state.currentCadWrapper && state.currentCadWrapper.querySelector(".cad-loading");
   if (loadingEl) loadingEl.style.display = "block";
   try {
@@ -91,12 +97,12 @@ export async function loadGlbFile(file, { preserveCamera = false } = {}) {
     if (url) {
       if (mounted && memberLoaded(file, url)) return;
       try {
-        bytes = await fetchMember(url);
+        bytes = await fetchMember(url, { signal });
         rememberMember(file, url);
       } catch { /* the site's route has the same member */ }
     }
     if (!bytes) {
-      const resp = await fetch(`/models/${file}`, { headers });
+      const resp = await fetch(`/models/${file}`, { headers, signal });
       if (resp.status === 304) return;
       if (!resp.ok) return;
       const etag = resp.headers.get("etag");
@@ -104,20 +110,25 @@ export async function loadGlbFile(file, { preserveCamera = false } = {}) {
       bytes = new Uint8Array(await resp.arrayBuffer());
     }
 
+    if (!current()) return;
     const gltf = await parseGlb(bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength));
+    const group = toZupGroup(gltf);
+    if (!current()) { disposeCadGroup(group); return; }
 
     if (state.currentGroup) {
       scene.remove(state.currentGroup);
-      xray.disposeXray?.(state.currentGroup);
-      state.currentGroup.traverse((c) => { if (c.geometry) c.geometry.dispose(); });
+      disposeCadGroup(state.currentGroup);
     }
-    state.currentGroup = toZupGroup(gltf);
+    state.currentGroup = group;
     scene.add(state.currentGroup);
     addBoardFaces(state.currentGroup, file);
     state.mountedDetail = { type: "glb", file };
     if (!preserveCamera) resetCamera(state.currentGroup);
+  } catch (error) {
+    if (error.name !== "AbortError") throw error;
   } finally {
-    if (loadingEl) loadingEl.style.display = "none";
+    if (loadingEl && current()) loadingEl.style.display = "none";
+    load.finish();
   }
 }
 
