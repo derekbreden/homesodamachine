@@ -1387,7 +1387,27 @@ def clashes(assy: cq.Assembly, floor: float = 1.0, bodies: dict = None):
     card hands in when the assembly exports a body some other card is what checks."""
     solids = (list(bodies.items()) if bodies is not None else
               [(name, shape) for name, shape, _colour in placed_leaves(assy)])
-    boxes = [(n, s, _boxes.loose(s)) for n, s in solids]
+    meshcad = sys.modules.get("meshcad")
+    on_meshes = meshcad is not None and meshcad.mesh_mode()
+    if on_meshes:
+        from meshcad.solids import MeshCompound, MeshModelSolid
+
+        def candidate_bounds(shape):
+            if not isinstance(shape, MeshCompound):
+                return _boxes.loose(shape)
+            bounds = None
+            for child in shape._solids():
+                if isinstance(child, MeshModelSolid):
+                    if not len(child.model_arrays()[1]):
+                        continue
+                elif child.m.is_empty():
+                    continue
+                box = child.BoundingBox()
+                bounds = box if bounds is None else bounds.add(box)
+            return bounds if bounds is not None else _boxes.loose(shape)
+    else:
+        candidate_bounds = _boxes.loose
+    boxes = [(n, s, candidate_bounds(s)) for n, s in solids]
     pairs = []
     for i in range(len(boxes)):
         ni, si, bi = boxes[i]
@@ -1399,16 +1419,23 @@ def clashes(assy: cq.Assembly, floor: float = 1.0, bodies: dict = None):
                 continue
             pairs.append((ni, si, nj, sj))
 
-    # Reusable query backends are released after their last candidate.
+    # Compounds can share fine children; each backend follows its last use through any body.
     # A later-indexed body may be read as j long before its own i row begins.
-    meshcad = sys.modules.get("meshcad")
     last = {}
-    if meshcad is not None and meshcad.mesh_mode():
-        from meshcad.solids import MeshCompound, MeshModelSolid
+    release = {}
+    if on_meshes:
+        dependencies = {}
         for k, (_ni, si, _nj, sj) in enumerate(pairs):
             for shape in (si, sj):
-                if isinstance(shape, (MeshCompound, MeshModelSolid)):
-                    last[shape] = k
+                if shape not in dependencies:
+                    held = [shape] if isinstance(shape, (MeshCompound, MeshModelSolid)) else []
+                    if isinstance(shape, MeshCompound):
+                        held.extend(s for s in shape._solids() if isinstance(s, MeshModelSolid))
+                    dependencies[shape] = tuple(dict.fromkeys(held))
+                for held in dependencies[shape]:
+                    last[held] = k
+        for held, k in last.items():
+            release.setdefault(k, []).append(held)
 
     hits, unanswered = [], []
     try:
@@ -1419,19 +1446,17 @@ def clashes(assy: cq.Assembly, floor: float = 1.0, bodies: dict = None):
                 unanswered.append((ni, nj, str(exc).splitlines()[0]))
                 continue
             finally:
-                if last:
-                    for shape in (si, sj):
-                        if last.get(shape) == k:
-                            meshcad.forget(shape)
-                            del last[shape]
+                for shape in release.pop(k, ()):
+                    meshcad.forget(shape)
             # `floor` is above zero, so the shared solid is never the empty one a void box
             # would be taken from.
             if v > floor:
                 hits.append(Clash(ni, nj, v, extents(inter)))
             del inter
     finally:
-        for shape in last:
-            meshcad.forget(shape)
+        for shapes in release.values():
+            for shape in shapes:
+                meshcad.forget(shape)
     return hits, unanswered
 
 
