@@ -245,11 +245,12 @@ def route_specs():
     """Short quarter-inch tubes, ending at their actual receiving stops."""
     import above_core_parts as parts
     import above_core_routes as routes
-    selected, result = parts.components(), {}
+    result = {}
 
     def station(name, port):
         p,u,d = parts.port_stations(name)[port]
-        return selected[name][2]((p,u))
+        frame = parts.route_port_frame(name)
+        return layout.point(frame, p), layout.vector(frame['rotation'], u)
 
     def add(name, segments, owners, radius=None):
         points = routes._points(segments)

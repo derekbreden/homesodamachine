@@ -135,6 +135,15 @@ def _snapshot(name, local=None):
     return pose if local is None else _compose(pose, local)
 
 
+def route_port_frame(name):
+    """Reference port frame of a fitting in the short above-core tube routes."""
+    if name == 'suction-reducer':
+        import rear_plumbing
+        data = rear_plumbing.plan()
+        return _compose(data['suction-joint'], data['joint']['suction_bend']['end_frame'])
+    return _snapshot('reg' if name == 'flow-regulator' else name)
+
+
 def _placed(shape, frame):
     carry = _carry(frame)
     return shape.moved(carry.where), carry
