@@ -954,12 +954,13 @@ fn top_lid(n: &Numbers) -> Result<Solid> {
     body = body
         .union(&cable_seat(n, true)?)?
         .union(&cable_seat(n, false)?)?;
+    let air_top = body.bounds().max.z + 0.1;
     let mut air = vec![];
     for hole in a(n.get("air_holes")?)? {
         air.push(cylinder(
             p2(&hole["xy"])?,
             -0.1,
-            h + 0.1,
+            air_top,
             f(hole, "radius")?,
         )?);
     }
