@@ -204,6 +204,10 @@ fn query(parts: &mut [Imported], queries: &Value) -> Result<Vec<Value>> {
                 return Ok(result);
             }
             let result = match kind {
+                "gap" if a == b => {
+                    ensure!(!parts[a].solid.is_empty(), "a gap needs two nonempty solids");
+                    0.0
+                },
                 "gap" => {
                     for index in [a, b] {
                         if !gap_meshes.contains_key(&index) {
