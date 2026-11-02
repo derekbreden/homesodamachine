@@ -1,19 +1,19 @@
 {
   "dimensions_mm": {
     "cavity": [
-      247.0000002,
-      228.39151604656257,
-      62.150000000000006
+      247.0,
+      228.39151584729552,
+      62.15000000037253
     ],
     "core": [
       247.0,
-      228.39151584656258,
-      45.35380398688713
+      228.39151584729552,
+      45.35287663227784
     ],
     "funnel": [
-      215.0000002,
-      190.39151604656254,
-      51.950000200000005
+      215.0,
+      190.39151584729552,
+      51.950000000186265
     ],
     "rod": [
       6.0,
@@ -22,24 +22,24 @@
     ]
   },
   "volume_ml": {
-    "cavity": 1573.404158946902,
-    "core": 928.4740458634388,
-    "funnel": 330.9691711569869,
-    "rod": 0.7068583470577037
+    "cavity": 1573.3935344437746,
+    "core": 928.4742000614262,
+    "funnel": 330.976186215295,
+    "rod": 0.7065745103156015
   },
   "shell_thickness_mm": 5.0,
   "flange_thickness_mm": 5.0,
-  "minimum_cavity_backing_mm": 5.009979086918218,
+  "minimum_cavity_backing_mm": 5.01,
   "backing_join_allowance_mm": 0.01,
-  "minimum_core_backing_mm": 7.5015347633620335,
+  "minimum_core_backing_mm": 7.501516889518539,
   "liquid_containment": {
-    "cavity": {
-      "retained_volume_ml": 1047.0268935395736,
-      "casting_outside_retained_mm3": 0.0
-    },
     "assembled": {
-      "retained_volume_ml": 367.38607600220746,
-      "casting_outside_retained_mm3": 0.0
+      "casting_outside_retained_mm3": 0.0,
+      "retained_volume_ml": 367.35928419877774
+    },
+    "cavity": {
+      "casting_outside_retained_mm3": 0.0,
+      "retained_volume_ml": 1046.996787967769
     }
   },
   "parting_z_mm": 59.150000000000006,
@@ -87,7 +87,7 @@
     "finishing": "clean and apply release"
   },
   "funnel_to_mould_z_translation_mm": 50.150000000000006,
-  "finished_funnel_step_sha256": "533a24988cee5391f01aeaab7c11989fab7bd47638beb524efa950eb718b1a72",
+  "finished_funnel_step_sha256": "6353f25fbb61dfda34a6d537d1ba51e1c458f1a273aa19f88c37ff5a099603d5",
   "locators": {
     "diameter_mm": 8.0,
     "height_mm": 3.0,
@@ -276,16 +276,19 @@
     "process": "six walls, six top/bottom layers and 15% gyroid; slow evacuation and venting while silicone is fluid",
     "scope": "Applied liquid load only. No stiffness, lifetime or pressure rating is inferred from infill percentage."
   },
-  "status": "Complete two-body tooling with flat print bases and straight stock steel rod; native geometry verified",
-  "enclosing_diameter_mm": 297.635847681004,
-  "chamber_radial_clearance_mm": 1.0420761594980092,
-  "volume_measurement_scope": "Numerical integration of the final native STEP solids; whole-shape equality is established by complete CSG, separately from spline volume integration.",
-  "native_shell_sha256": {
-    "cavity.step": "3f25ee1c9ac13a76f61db51d090006b0c3c68d8a39279e64a32b32283930596c",
-    "cavity.stl": "bd31ecd8d3d0c8d42776e1a76404ad45392f2c79d54ad515cab699f97ee07529",
-    "cavity.step.mesh": "bb7fc72c23ab64d8fe3e4d0d4fd127e5fe93799557f83c53411f1476c19bc720",
-    "core.step": "22e9d3c2d65d5a3e420c32d5bd53731c21ec4c67fe05e1a4b77b1da9bc7abf06",
-    "core.stl": "a807b0fb29964b5f679877cd562b99f0557f2beb1852d611488d67fab322b946",
-    "core.step.mesh": "d7a995f22f03ce0a07c63922bf005d1717596cc02b6c4c2e3932f09ad9e086ea"
+  "status": "Complete two-body tooling with flat print bases and straight stock steel rod; authored fine geometry verified",
+  "cavity_backing_scope": "Analytic continuous-envelope design minimum: shell thickness plus forming-join allowance",
+  "enclosing_diameter_mm": 297.64168974669695,
+  "chamber_radial_clearance_mm": 1.0391551266515364,
+  "volume_measurement_scope": "Numerical integration of the fine f64 models; printed facets have their own bound records.",
+  "shell_sha256": {
+    "cavity.step": "722aebc15bd9f92422a64caf6ef017ce0bc95263f31de8c233cab57e92403d17",
+    "cavity.stl": "a5ae1b39b716e956d030fab9c10843968383bad95f15a89171f23c4574ba4ae5",
+    "cavity.step.mesh": "a7746571ddba9753b5e92b71f174156c5d1c55c8423c95808cd3143e4b75ff1d",
+    "cavity.step.npz": "7f18ac7a0762d0837acda71f09f765ae869e66040bef7f3a0025d86207a7febc",
+    "core.step": "da393b351e70b7f4c9937610b3badcf865c90bf524d7f7afecb5452ba507dea0",
+    "core.stl": "9939f10c4d2c0e78c26b7e3203819dda078bd3a32b2f6a75bc497b4ac2c9c2af",
+    "core.step.mesh": "d8796374f5192030060aad04349bfdd115d7b32c54346687f1030e722d6b30b1",
+    "core.step.npz": "4ad4d4bd1fce62c956a89ae7c74a911c95c324226e8f5b0481b62d9d99ab5b6b"
   }
 }

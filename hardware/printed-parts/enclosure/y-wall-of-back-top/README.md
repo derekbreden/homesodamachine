@@ -16,7 +16,7 @@ customer's connections. Both columns use 32 mm vertical pitch.
 | Row / Z | West / X37.25 | East / X77.5 |
 |---|---|---|
 | [328.000](GRID_TOP_Z) | TAP: PP010822E threaded inlet chain, white 1/4-inch | CO2: PISCO inlet neck, red 1/4-inch |
-| [296.000](GRID_MIDDLE_Z) | OVER: ABU44M-E, white 4 mm vent | SODA: PP1208E, blue 1/4-inch outlet |
+| [291.000](GRID_MIDDLE_Z) | OVER: ABU44M-E, white 4 mm vent | SODA: PP1208E, blue 1/4-inch outlet |
 | [264.000](GRID_BOTTOM_Z) | FLAVOR: ABU44M-E, black 4 mm B outlet | FLAVOR: ABU44M-E, black 4 mm A outlet |
 
 The main rear wall is 9 mm stock. The fluid field retains a 6 mm clamping
