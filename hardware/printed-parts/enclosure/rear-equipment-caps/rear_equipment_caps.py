@@ -70,14 +70,12 @@ def numbers():
     split = axis[1]+c
     st = snaps.station(axis[0],snaps.half_width(widest,split,axis[1])+snaps.WALL,
                        *cap_y,split=split,wing_root=axis[1]-snaps.REAR_ROOT_DROP)
-    cuts = [turned(runs(cap_profiles['asse']['cap_runs'],frame,s),axis)]
-    for (y0,y1),apothem,clock,corner in wrenches:
-        radius = (apothem+s)/math.cos(math.pi/6)
-        points = [(axis[0]+radius*math.sin(math.radians(clock+60*i)),
-                   axis[1]-radius*math.cos(math.radians(clock+60*i))) for i in range(6)]
-        cuts.append({'op':'hex','points':points,'axis':axis,'corner':corner+s,
-                     'span':(math.floor((y0-snaps.THREAD)*10.)/10.,
-                             math.ceil((y1+snaps.THREAD)*10.)/10.)})
+    profile = snaps.asse_cap_profile(wrenches,s)
+    radius = profile['apothem']/math.cos(math.pi/6)
+    points = [(axis[0]+radius*math.sin(math.radians(profile['clock']+60*i)),
+               axis[1]-radius*math.cos(math.radians(profile['clock']+60*i))) for i in range(6)]
+    cuts = [{'op':'hex','points':points,'axis':axis,'corner':profile['corner'],
+             'span':(cap_y[0]-.01,cap_y[1]+.01)}]
     lo,hi = _world_bounds(layout.pose('asse1022-assembly'),
                           *cap_profiles['asse']['vent_bounds'])
     cuts.append(box(lo[0]-c,hi[0]+c,lo[1]-snaps.THREAD-c,hi[1]+snaps.THREAD+c,
@@ -141,6 +139,7 @@ def numbers():
             {'op':'cylinder-y','centre':soda,'radius':meter.port_neck_radius+cap_air,'span':seat_y}]
     bottom=west-air-snaps.METER_BACK-mx
     half=st['inner']-snaps.ROOT_RADIUS-.5
+    cuts.append({'op':'section', **snaps.meter_cap_corner_room(mx+bottom,mz,cap_y)})
     caps.append({'name':'meter-snap-cap',
                  'section':snaps.cap_section(st,st['root'],bottom),
                  'stock':[box(-half,half,*cap_y,bottom,st['root']+snaps.METER_BEARING_DEPTH)],
