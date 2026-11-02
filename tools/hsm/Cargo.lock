@@ -828,6 +828,7 @@ name = "hsm-machine"
 version = "0.1.0"
 dependencies = [
  "anyhow",
+ "hsm-geometry",
  "hsm-kernel",
  "serde_json",
 ]

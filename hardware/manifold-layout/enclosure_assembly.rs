@@ -4,9 +4,10 @@
 //! drawing reduction remain separate, so importing a fine model cannot silently
 //! change the approved display mesh or any printed surface.
 use anyhow::{Context, Result, bail, ensure};
+use hsm_geometry::{payload::Mesh, queries as geometry_queries};
 use hsm_kernel::{Affine, Imported, Solid, V3, part, step, write::Body};
 use serde_json::{Value, json};
-use std::collections::BTreeSet;
+use std::collections::{BTreeMap, BTreeSet};
 use std::path::Path;
 
 fn text<'a>(value: &'a Value, key: &str) -> Result<&'a str> {
@@ -172,6 +173,7 @@ fn common(a: &Solid, b: &Solid, query: &Value) -> Result<Value> {
 }
 
 fn query(parts: &mut [Imported], queries: &Value) -> Result<Vec<Value>> {
+    let mut gap_meshes = BTreeMap::new();
     queries
         .as_array()
         .context("queries is an ordered array")?
@@ -202,7 +204,20 @@ fn query(parts: &mut [Imported], queries: &Value) -> Result<Vec<Value>> {
                 return Ok(result);
             }
             let result = match kind {
-                "gap" => parts[a].solid.gap(&parts[b].solid)?,
+                "gap" => {
+                    for index in [a, b] {
+                        if !gap_meshes.contains_key(&index) {
+                            let part = &parts[index];
+                            let mesh = Mesh::from_arrays(part.name.clone(),
+                                part.solid.verts().iter().map(|p| p.to_array()).collect(),
+                                part.solid.tris().to_vec())?;
+                            gap_meshes.insert(index, mesh);
+                        }
+                    }
+                    let reading = geometry_queries::gap(&gap_meshes[&a], &gap_meshes[&b], [0.0; 3])?;
+                    reading.clearance_mm.with_context(|| format!("fine gap: {}",
+                        reading.volume_error.as_deref().unwrap_or("no solid clearance")))?
+                },
                 "shared_volume" => parts[a].solid.shared_volume(&parts[b].solid)?,
                 _ => bail!("unknown model query {kind:?}"),
             };
