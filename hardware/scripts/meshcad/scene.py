@@ -45,14 +45,23 @@ def write(bodies, path, document=None, *, preserve_partitions=False):
         write_npz(f, items)
 
 
-def load(path, *, snap=True):
+def load(path, *, snap=True, presentation=False):
     """{name: (shape, linear rgb or None)}, in the order they were written. A name written
     for several solids comes back as one compound of them. `snap=False` retains the exact f64
-    coordinates of an already placed model."""
+    coordinates of an already placed model. `presentation=True` also carries its
+    explicitly bound display surfaces through placement and export."""
     from .imports import load_model
     from .solids import MeshCompound
     from .write import model_identity
+    if presentation and snap:
+        raise ValueError("a paired presentation requires snap=False")
     solids = load_model(path, snap=snap)
+    if presentation:
+        from .presentation import surfaces
+        shown = surfaces(path)
+        if shown is not None:
+            for solid, surface in zip(solids, shown, strict=True):
+                solid._presentation = surface
     out = {}
     for s, (name, rgb) in zip(solids, model_identity(path)):
         out.setdefault(name, ([], rgb))[0].append(s)

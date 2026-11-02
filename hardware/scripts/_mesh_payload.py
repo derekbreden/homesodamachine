@@ -215,8 +215,9 @@ def from_assembly(assembly):
                 for k in "xyz"]
         tol = sum(size) / 3.0 * LINEAR_DEFLECTION_RATIO
         rgb = lambda c: list(c.wrapped.GetRGB().Values(Quantity_TypeOfColor.Quantity_TOC_RGB)) if c else None
-        return [mw.drawn_payload(name, rgb(color), V, T)
-                for name, color, solid in placed for V, T in [mw.drawn(solid, tol)] if len(T)]
+        meshes = [mw.shown_payload(solid, name, rgb(color), tol)
+                  for name, color, solid in placed]
+        return [mesh for mesh in meshes if len(mesh['idx'])]
     meshed = _mesh_all([s for _, _, s in placed], deflection(assembly.toCompound().wrapped))
     return [m for (name, color, _), solid in zip(placed, meshed)
             if (m := _mesh(solid, name, color))]

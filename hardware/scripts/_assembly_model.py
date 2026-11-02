@@ -68,7 +68,7 @@ def location(location):
 
 
 @contextmanager
-def placed(instances):
+def placed(instances, *, presentation=False):
     """A temporary fine model assembled by Rust, available until the reader exits."""
     import _rust_part
 
@@ -77,4 +77,8 @@ def placed(instances):
         path = output / "placed.numbers.json"
         path.write_text(json.dumps(numbers(instances, name="placed"), sort_keys=True) + "\n")
         _rust_part.run("machine", "machine-assembly-model", path, output)
-        yield output / "placed.step.npz"
+        model = output / "placed.step.npz"
+        if presentation:
+            from meshcad.presentation import placed as carry_presentation
+            carry_presentation(instances, model)
+        yield model

@@ -91,6 +91,9 @@ DRAWN_AGGRESSION = 4.0
 def drawn(solid, tolerance):
     """(V float64, T int64) of one MeshSolid as a reader draws it, not as it prints: simplified
     to `tolerance`, then nine in ten triangles collapsed."""
+    if (surface := getattr(solid, "_presentation", None)) is not None:
+        return (np.asarray(surface["pos"], float).reshape(-1, 3),
+                np.asarray(surface["idx"], np.int64).reshape(-1, 3))
     V, T = _triangles(solid, tolerance)
     if len(T) <= 500:
         return V, T
@@ -108,6 +111,13 @@ def drawn_payload(name, color, V, T):
     return {"name": name, "color": color, "pos": pos.astype(np.float32),
             "nrm": nrm.astype(np.float32), "idx": np.asarray(idx, np.uint32),
             "fac": np.asarray(fac, np.uint32)}
+
+
+def shown_payload(solid, name, color, tolerance, arrays=None):
+    """A carried producer presentation, or this reader's ordinary drawing."""
+    surface = getattr(solid, "_presentation", None)
+    return ({**surface, "name": name, "color": color} if surface is not None
+            else drawn_payload(name, color, *(arrays if arrays is not None else drawn(solid, tolerance))))
 
 
 def _solids(shape):
@@ -224,6 +234,11 @@ def write_payload(meshes, path, src=None, cut=None, version=3):
             arr = np.ascontiguousarray(np.asarray(m[key]).reshape(-1), dtype=dt)
             e[key] = [len(blob), arr.size]
             blob += arr.tobytes()
+        if "face_sources" in m:
+            from _mesh_payload import aligned_face_sources
+            sources = aligned_face_sources(m["face_sources"], len(np.asarray(m["fac"]).reshape(-1)) // 2)
+            if sources is not None:
+                e["face_sources"] = sources
         entries.append(e)
     header = {"v": version, "meshes": entries}
     if src is not None:

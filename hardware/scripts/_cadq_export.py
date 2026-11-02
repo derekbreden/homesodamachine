@@ -796,9 +796,15 @@ def _export_mesh(bodies, target_path, root_name=None):
     _atomic_write(model, lambda p: mw.write_model(solids, p, names, colors))
     if target.with_suffix(".stl").is_file() or os.environ.get("HSM_SKIP_MESH_PAYLOAD"):
         return
-    meshes = [mw.drawn_payload(n, c, *a) for n, a, c in zip(names, drawn, colors)]
-    _atomic_write(target.with_name(target.name + ".mesh"),
-                  lambda p: mw.write_payload(meshes, p, src=_mesh_payload.source_digest(model)))
+    meshes = [mw.shown_payload(s, n, c, deflection, a)
+              for s, n, c, a in zip(solids, names, colors, drawn)]
+    paired = any(getattr(s, "_presentation", None) is not None for s in solids)
+    payload = target.with_name(target.name + ".mesh")
+    _atomic_write(payload, lambda p: mw.write_payload(
+        meshes, p, src=_mesh_payload.source_digest(target if paired else model)))
+    if paired:
+        from meshcad.presentation import bind
+        bind(model, payload)
 
 
 #: What separates a body from the index of one of its solids, in the names
