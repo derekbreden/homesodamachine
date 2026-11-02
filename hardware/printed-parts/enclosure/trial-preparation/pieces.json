@@ -1047,12 +1047,12 @@
           "stl": "hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.stl"
         }
       ],
-      "pose_reason": "The continuous 54.5 mm clip stands on one axial end as exported. Its arch, 3 mm spring wings and hooks grow as vertical walls with no intermediate cutouts; retain PET-GF Tree(auto)/Default.",
+      "pose_reason": "The continuous 54.5 mm filled box half-pipe stands on one axial end as exported. Its 6.2 mm crown, 1.3 mm spring leaves and flat hooks grow as vertical walls; retain PET-GF Tree(auto)/Default.",
       "plate_border_mm": 80.0,
       "settings": {
         "wall_loops": {
           "value": "3",
-          "reason": "Three Classic perimeters from each face of the working 2.4 mm spring arch and 3 mm wings."
+          "reason": "Three Classic perimeters fill the specific 1.3 mm spring leaves; the filled box body retains solid stock."
         },
         "wall_generator": {
           "value": "classic",
@@ -1060,7 +1060,7 @@
         },
         "sparse_infill_density": {
           "value": "100%",
-          "reason": "The complete spring arch, hooks and wing roots retain solid stock."
+          "reason": "The complete box half-pipe, hooks and leaf roots retain solid stock."
         },
         "sparse_infill_pattern": {
           "value": "zig-zag",

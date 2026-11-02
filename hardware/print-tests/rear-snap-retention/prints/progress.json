@@ -1,32 +1,28 @@
 [
   {
     "printer": "H2C",
-    "observed_at": "2026-11-01T22:12:56.688970+00:00",
+    "observed_at": "2026-11-01T23:17:16.795840+00:00",
     "job_id": "1398257516",
     "gcode_state": "RUNNING",
     "subtask_name": "2026-11-01-rear-retention-mark1-mark1-422bf475-print-only.gcode.3mf",
-    "mc_percent": 2,
-    "layer_num": 0,
+    "mc_percent": 33,
+    "layer_num": 27,
     "total_layer_num": 161,
-    "mc_remaining_time": 213,
+    "mc_remaining_time": 144,
     "print_error": 0,
-    "hms": [],
-    "nozzle_temper": 40.0,
-    "bed_temper": 80.0
+    "hms": []
   },
   {
     "printer": "Mark2",
-    "observed_at": "2026-11-01T22:12:57.963849+00:00",
+    "observed_at": "2026-11-01T23:17:17.288435+00:00",
     "job_id": "1398266343",
     "gcode_state": "RUNNING",
     "subtask_name": "2026-11-01-rear-retention-mark2-mark2-5162141f-print-only.gcode.3mf",
-    "mc_percent": 0,
-    "layer_num": 0,
+    "mc_percent": 41,
+    "layer_num": 36,
     "total_layer_num": 227,
-    "mc_remaining_time": 158,
+    "mc_remaining_time": 92,
     "print_error": 0,
-    "hms": [],
-    "nozzle_temper": 38.0,
-    "bed_temper": 46.0
+    "hms": []
   }
 ]

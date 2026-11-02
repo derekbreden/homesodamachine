@@ -1,0 +1,10 @@
+{
+  "frozen_receiver_stl_sha256": "6c7fe609e2471cfd17c7a06795cf729b87af9a97fa4978a58089c04783bf503c",
+  "frozen_receiver_step_sha256": "fdba3d76635bfab16ed9b33060dfc7dc07600086f74b893d899d23db7f51e209",
+  "new_cap_stl_sha256": "5d3111370e7129f64c9d0ad77fb11ee768d2687067fca1c1859dba3fd4059ff5",
+  "seated_overlap_mm3": 0.0,
+  "blocked_pullout_at_075_mm3": 28.3399999999869,
+  "flat_bearing_area_mm2": 283.399999999869,
+  "matching_station_dimensions": true,
+  "scope": "Native fit of the replacement box cap with the frozen receiver already printing. Physical retention remains to be tested."
+}
