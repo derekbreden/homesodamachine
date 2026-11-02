@@ -1585,12 +1585,12 @@
    258.0
   ],
   "wago-n": [
-   -70.4,
+   -69.4,
    448.2,
-   266.0,
-   -51.6,
+   258.1,
+   -61.0,
    466.8,
-   274.40000000000003
+   276.9
   ],
   "wago-reeds-b": [
    13.3,
@@ -2193,7 +2193,7 @@
    true
   ]
  },
- "card": "e513947f475a8eb41f9e637218a122eb",
+ "card": "46d528de16e4a3af25ecab7e1389471f",
  "card_ports": {
   "asse1022-assembly": {
    "tube-in": {
@@ -7927,8 +7927,8 @@
   }
  ],
  "schema": 2,
- "sources": "717fddbdb1cde0eb4dfcbaa78ea9a6ac",
- "step": "96123feb1cb0d34087ce391e92a49a04",
+ "sources": "a7a596e6c5ca05bc739d08b4c2722ade",
+ "step": "6693ccee29bf184258c42cf2fc9541d4",
  "valve_tray_stations": [
   [
    177.29,

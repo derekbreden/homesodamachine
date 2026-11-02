@@ -111,7 +111,7 @@ solenoid_count = 10
 # All values mm except where noted.
 len_short_mm = 150  # AC-3, including termination and dressing reserve.
 len_short_2_mm = 200  # AC-2, including termination and dressing reserve.
-len_dc1_mm = 350  # PSU secondary to the core DC WAGOs, including fitting reserve.
+len_dc1_mm = 550  # PSU secondary through the fixed hook to the core DC WAGOs, with fitting reserve.
 len_dc2_mm = 350  # Core V12 WAGO to relay 2, including fitting reserve.
 len_mid_mm = 150        # AC-1 (C14 → distribution block, over the foam-cap top), DC-4
 len_pump_mm = 350  # Pump negative to core GND, including fitting reserve.
