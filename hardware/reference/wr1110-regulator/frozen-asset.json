@@ -1,0 +1,32 @@
+{
+  "source": {
+    "commit": "a40b1dc0d4a41ea4dab2b765f997a841ed8b6678",
+    "path": "hardware/reference/wr1110-regulator/wr1110_regulator.py",
+    "sha256": "c03d2848209d140d64c25ed42785c145b3a6a9f3e9e2474358b7662e1fd31e87"
+  },
+  "members": {
+    "wr1110-regulator.step": "4b526a6bb16a662d9fe88ad2f4fba3f2208791f600a79cc88e59c7d7b5c8299b",
+    "wr1110-regulator.step.mesh": "f9f90ab66e8bff2659ae7bca863054143cb7975fd0304a09898078fa4b73128c"
+  },
+  "fine_payload": {
+    "source_step_sha256": "4b526a6bb16a662d9fe88ad2f4fba3f2208791f600a79cc88e59c7d7b5c8299b",
+    "path": "wr1110-regulator.step.mesh",
+    "sha256": "f9f90ab66e8bff2659ae7bca863054143cb7975fd0304a09898078fa4b73128c",
+    "linear_mm": 0.005,
+    "angular_rad": 0.05,
+    "producer": "hardware/scripts/_rust_part.py:_tessellate",
+    "meshes": [
+      {
+        "name": "wr1110-regulator",
+        "color": [
+          0.800000010877486,
+          0.8100000158846915,
+          0.8300000085287765
+        ],
+        "vertices": 19020,
+        "triangles": 23372,
+        "face_ranges": 96
+      }
+    ]
+  }
+}

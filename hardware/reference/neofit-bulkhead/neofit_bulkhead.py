@@ -27,21 +27,22 @@ Coordinate convention — jg_bulkhead_union's, so the two families seat the same
 Run:
     tools/cad-venv/bin/python hardware/reference/neofit-bulkhead/neofit_bulkhead.py
     tools/cad-venv/bin/python hardware/reference/neofit-bulkhead/neofit_bulkhead.py selftest
+
+Geometry is held in the frozen STEP and fine payload beside this module.
+`frozen-asset.json` records their bytes and source snapshot.
 """
+
+from __future__ import annotations
 
 import math
 import sys
 from pathlib import Path
 
-import cadquery as cq
 
 _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
 sys.path.insert(0, str(_hw / "scripts"))
 sys.path.insert(0, str(_hw / "printed-parts" / "cadlib"))
-from _cadq_export import export_assembly
-from _materials import M_NEOFIT_ACETAL, one_body  # noqa: E402
-from world_workplane import xz_plane_y_up  # noqa: E402
 
 STEP = _here.parent / "neofit-bulkhead.step"
 
@@ -117,6 +118,8 @@ def build_neofit_bulkhead():
 
     The barrel spans the manufacturer's A + E panel-and-nut region. The panel
     assembly supplies the independent nut at its actual clamp plane."""
+    import cadquery as cq
+    from world_workplane import xz_plane_y_up
     flange = (cq.Workplane(xz_plane_y_up)
               .circle(FLANGE_D / 2.0).extrude(near_ring_face_y))
     barrel = (cq.Workplane(xz_plane_y_up)
@@ -153,7 +156,9 @@ def selftest() -> int:
     return 1 if fails else 0
 
 
-def main():
+def _native_main():
+    from _cadq_export import export_assembly
+    from _materials import M_NEOFIT_ACETAL, one_body
     part = build_neofit_bulkhead()
     bb = part.val().BoundingBox()
     print("neoFit ABU44 — 1/4\" acetal bulkhead connector")
@@ -168,6 +173,41 @@ def main():
     print(f"  Solid valid: {part.val().isValid()}")
     export_assembly(one_body(part, "neofit-bulkhead", M_NEOFIT_ACETAL), str(STEP))
     print(f"-> {STEP.name}")
+
+
+
+
+_FROZEN_DIR = Path(__file__).resolve().parent
+STEP_PATH = _FROZEN_DIR / 'neofit-bulkhead.step'
+PAYLOAD_PATH = _FROZEN_DIR / 'neofit-bulkhead.step.mesh'
+ASSET_MANIFEST_PATH = _FROZEN_DIR / "frozen-asset.json"
+
+
+def __getattr__(name):
+    if name in globals():
+        return globals()[name]
+    if name in ('cq',):
+        import cadquery as cq
+        value = locals()[name]
+    elif name in ('export_assembly',):
+        from _cadq_export import export_assembly
+        value = locals()[name]
+    elif name in ('M_NEOFIT_ACETAL', 'one_body'):
+        from _materials import M_NEOFIT_ACETAL, one_body
+        value = locals()[name]
+    elif name in ('xz_plane_y_up',):
+        from world_workplane import xz_plane_y_up
+        value = locals()[name]
+    else:
+        raise AttributeError(name)
+    globals()[name] = value
+    return value
+
+
+def main():
+    print('neofit-bulkhead frozen reference')
+    print(f"  STEP: {STEP_PATH}")
+    print(f"  Fine/display payload: {PAYLOAD_PATH}")
 
 
 if __name__ == "__main__":

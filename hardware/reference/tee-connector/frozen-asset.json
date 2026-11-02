@@ -1,0 +1,32 @@
+{
+  "source": {
+    "commit": "a40b1dc0d4a41ea4dab2b765f997a841ed8b6678",
+    "path": "hardware/reference/tee-connector/tee_connector.py",
+    "sha256": "4c9b3d086073f4b1d237c7df3b64c9a82dc59b09d866f76afa729376230dd369"
+  },
+  "members": {
+    "tee-connector.step": "bba36626afe1765fefd3affc790120cad6de786a3a23992f745037bf549bac36",
+    "tee-connector.step.mesh": "326cb80bd047fee330cdc826189bc27b5224a2987cdf87c8c03ec4af5453060f"
+  },
+  "fine_payload": {
+    "source_step_sha256": "bba36626afe1765fefd3affc790120cad6de786a3a23992f745037bf549bac36",
+    "path": "tee-connector.step.mesh",
+    "sha256": "326cb80bd047fee330cdc826189bc27b5224a2987cdf87c8c03ec4af5453060f",
+    "linear_mm": 0.005,
+    "angular_rad": 0.05,
+    "producer": "hardware/scripts/_rust_part.py:_tessellate",
+    "meshes": [
+      {
+        "name": "tee-connector",
+        "color": [
+          0.12000000139546163,
+          0.12000000139546163,
+          0.13999999784656367
+        ],
+        "vertices": 14123,
+        "triangles": 14842,
+        "face_ranges": 25
+      }
+    ]
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "source": {
+    "commit": "a40b1dc0d4a41ea4dab2b765f997a841ed8b6678",
+    "path": "hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py",
+    "sha256": "62b13c9c562db4ef857c159beae7e6adac08d1bb0d35aaa0c8903117b696f5c4"
+  },
+  "members": {
+    "jg-bulkhead-union.step": "6991ac244069c1e6dc73f8bb786e7b08dfcca519fd88650862462f4a0465562d",
+    "jg-bulkhead-union.step.mesh": "d982f17d12b5d4d50a5b0b058e712cb933716784ce09692192b2d5bb69b488d1"
+  },
+  "fine_payload": {
+    "source_step_sha256": "6991ac244069c1e6dc73f8bb786e7b08dfcca519fd88650862462f4a0465562d",
+    "path": "jg-bulkhead-union.step.mesh",
+    "sha256": "d982f17d12b5d4d50a5b0b058e712cb933716784ce09692192b2d5bb69b488d1",
+    "linear_mm": 0.005,
+    "angular_rad": 0.05,
+    "producer": "hardware/scripts/_rust_part.py:_tessellate",
+    "meshes": [
+      {
+        "name": "jg-bulkhead-union",
+        "color": [
+          0.5500000090900438,
+          0.5600000132598123,
+          0.5699999996012601
+        ],
+        "vertices": 7070,
+        "triangles": 7052,
+        "face_ranges": 15
+      }
+    ]
+  }
+}

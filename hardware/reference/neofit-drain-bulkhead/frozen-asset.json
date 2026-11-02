@@ -1,0 +1,43 @@
+{
+  "source": {
+    "commit": "a40b1dc0d4a41ea4dab2b765f997a841ed8b6678",
+    "path": "hardware/reference/neofit-drain-bulkhead/neofit_drain_bulkhead.py",
+    "sha256": "97743ecaa9529ab351da4563dbda20a783b69afc04a8834a26cb572810e30243"
+  },
+  "members": {
+    "neofit-drain-bulkhead.step": "854cbc8e5329f9c72b75c92d02192b826aaf377a0f371562e03d9227079ad948",
+    "neofit-drain-bulkhead.step.mesh": "adcdc362a78f0c87965cf4e9435e38c756c69778f24f93900fe3aeb82e9083d8"
+  },
+  "fine_payload": {
+    "source_step_sha256": "854cbc8e5329f9c72b75c92d02192b826aaf377a0f371562e03d9227079ad948",
+    "path": "neofit-drain-bulkhead.step.mesh",
+    "sha256": "adcdc362a78f0c87965cf4e9435e38c756c69778f24f93900fe3aeb82e9083d8",
+    "linear_mm": 0.005,
+    "angular_rad": 0.05,
+    "producer": "hardware/scripts/_rust_part.py:_tessellate",
+    "meshes": [
+      {
+        "name": "captured_nut",
+        "color": [
+          0.13999999784656367,
+          0.13999999784656367,
+          0.14999999780761628
+        ],
+        "vertices": 4597,
+        "triangles": 4984,
+        "face_ranges": 53
+      },
+      {
+        "name": "fitting",
+        "color": [
+          0.13999999784656367,
+          0.13999999784656367,
+          0.14999999780761628
+        ],
+        "vertices": 30375,
+        "triangles": 34364,
+        "face_ranges": 91
+      }
+    ]
+  }
+}

@@ -39,20 +39,21 @@ the outlet below and the safety blow-off on the upper right of the body.
 
 Run:
     tools/cad-venv/bin/python hardware/reference/taprite-3741-regulator/taprite_3741_regulator.py
+
+Geometry is held in the frozen STEP and fine payload beside this module.
+`frozen-asset.json` records their bytes and source snapshot.
 """
+
+from __future__ import annotations
 
 import math
 import sys
 from pathlib import Path
 
-import cadquery as cq
 
 _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
 sys.path.insert(0, str(_hw / "scripts"))
-from _cadq_export import export_assembly, import_step
-from _materials import (M_BRASS, M_CHROME_PLATE, M_GAUGE_BLACK, M_GAUGE_GREEN, M_GAUGE_RED,
-                        M_GAUGE_WHITE, M_JG_GREY_ACETAL, M_MOULDED_BLACK, M_NICKEL_PLATE)
 
 STEP = _here.parent / "taprite-3741-regulator.step"
 
@@ -148,7 +149,6 @@ OUTLET_FULL_PSI = 160.0
 # The contents dial's bands, in psi: red at the empty end, green where a cylinder still holding
 # liquid CO2 reads (its vapour pressure, about 850 psi at room temperature). Placed off
 # Taprite's drawing and the product photograph; the received part fixes them.
-TANK_BANDS = (((0.0, 300.0), M_GAUGE_RED), ((600.0, 1000.0), M_GAUGE_GREEN))
 
 
 def _ring_spec(full, major, minor, labels):
@@ -156,13 +156,6 @@ def _ring_spec(full, major, minor, labels):
     return {"full": full, "major": major, "minor": minor, "labels": labels}
 
 
-TANK_DIAL = {
-    "outer": _ring_spec(TANK_FULL_PSI, 500.0, 100.0, (500, 1000, 1500, 2000)),
-    "inner": _ring_spec(TANK_FULL_PSI / 14.5038, 20.0, 10.0, (40, 60, 80, 100, 120)),
-    "units": ("psi", "bar"),
-    "stamp": "TAPRITE",
-    "bands": TANK_BANDS,
-}
 OUTLET_DIAL = {
     "outer": _ring_spec(OUTLET_FULL_PSI, 20.0, 5.0, (20, 40, 60, 80, 100, 120, 140, 160)),
     "inner": _ring_spec(OUTLET_FULL_PSI / 14.5038, 2.0, 1.0, (2, 4, 6, 8, 10)),
@@ -199,7 +192,6 @@ BAND_FAR_R = 23.6
 
 # A dial faces +Y and is read from +Y, so its own right hand is world −X. This is the plane every
 # mark on it is drawn on: the mark's `(u, v)` are its right and its up as the customer sees them.
-_dial_plane = cq.Plane(origin=(0.0, 0.0, 0.0), xDir=(-1.0, 0.0, 0.0), normal=(0.0, 1.0, 0.0))
 
 
 # --- the stations the rest of the world reaches ------------------------------
@@ -256,12 +248,14 @@ def _bearing(r: float, as_axis: bool = False):
 
 def _cyl(d: float, axis, near: float, far: float) -> cq.Solid:
     """A cylinder of `d` on `axis`, between two stations measured from the origin."""
+    import cadquery as cq
     direction = cq.Vector(*axis)
     return cq.Solid.makeCylinder(d / 2.0, far - near, direction.multiply(near), direction)
 
 
 def _hex(flats: float, axis, near: float, far: float) -> cq.Solid:
     """A wrench hex of `flats` across, on `axis`, between two stations."""
+    import cadquery as cq
     corners = flats / math.cos(math.radians(30.0))
     prism = cq.Workplane("XY").polygon(6, corners).extrude(far - near).val()
     up = cq.Vector(0, 0, 1)
@@ -279,6 +273,7 @@ def _hex(flats: float, axis, near: float, far: float) -> cq.Solid:
 
 def _block(width: float, axis, near: float, far: float) -> cq.Solid:
     """A square wrench block of `width` on `axis`, between two stations."""
+    import cadquery as cq
     direction = cq.Vector(*axis).normalized()
     across = direction.cross(cq.Vector(0, 1, 0)).normalized()
     plane = cq.Plane(origin=direction.multiply(near).toTuple(), xDir=across.toTuple(),
@@ -305,6 +300,7 @@ def build_body() -> cq.Solid:
 
 def build_blowoff() -> cq.Solid:
     """Taprite's safety blow-off: a brass body and a cap with its vents in the end face."""
+    import cadquery as cq
     bearing = _bearing(1.0, as_axis=True)
     body = _cyl(BLOWOFF_BODY_D, bearing, BLOWOFF_ROOT_R, BLOWOFF_BODY_R)
     cap = _cyl(BLOWOFF_CAP_D, bearing, BLOWOFF_BODY_R, BLOWOFF_CAP_R)
@@ -323,6 +319,7 @@ def build_blowoff() -> cq.Solid:
 
 def build_bonnet() -> cq.Solid:
     """The black zinc bonnet: diaphragm flange, hex neck and the round nose."""
+    import cadquery as cq
     flange = (cq.Workplane("XZ", origin=(0.0, BODY_FRONT_Y, 0.0)).circle(FLANGE_D / 2.0)
               .extrude(-(FLANGE_FRONT_Y - BODY_FRONT_Y)).edges("%Circle")
               .fillet(FLANGE_EDGE_R).val())
@@ -337,6 +334,7 @@ def build_bonnet() -> cq.Solid:
 
 def build_adjustment() -> cq.Solid:
     """The 3/8" slotted adjusting screw and the jam nut that locks it where the factory set it."""
+    import cadquery as cq
     nut = _hex(JAM_NUT_FLATS, (0.0, 1.0, 0.0), NOSE_FRONT_Y, JAM_NUT_FRONT_Y)
     screw = _cyl(SCREW_D, (0.0, 1.0, 0.0), NOSE_FRONT_Y - 12.0, SCREW_TIP_Y)
     slot = cq.Solid.makeBox(SLOT_W, SLOT_DEPTH + 0.1, SCREW_D + 2.0,
@@ -405,6 +403,7 @@ def _numeral(value: float, plane, r: float, deg: float, size: float) -> cq.Shape
 
 def _ring_marks(spec: dict, plane, numeral_r, major_r, minor_r, out_r) -> tuple:
     """One printed scale as `(the marks, the numerals)`, each a compound of its own bodies."""
+    import cadquery as cq
     full = spec["full"]
     marks = [_tick(minor_r, out_r, _scale_deg(v, full), MINOR_TICK_W, plane)
              for v in _steps(spec["minor"], full)]
@@ -435,6 +434,9 @@ def build_dial(spec: dict, centre) -> list:
     The case is a closed chromed cup and the bezel round its mouth leaves `WINDOW_D` of the dial
     showing; everything the customer reads stands on that disc. The lens over it and the works
     behind it are not modelled."""
+    import cadquery as cq
+    from _materials import M_BRASS, M_CHROME_PLATE, M_GAUGE_BLACK, M_GAUGE_GREEN, M_GAUGE_RED, M_GAUGE_WHITE, M_JG_GREY_ACETAL, M_MOULDED_BLACK, M_NICKEL_PLATE
+    _dial_plane = __getattr__('_dial_plane')
     cx, _cy, cz = centre
     face_y = GAUGE_FACE_Y
     front_y = face_y + BEZEL_PROUD
@@ -489,6 +491,9 @@ def build_dial(spec: dict, centre) -> list:
 
 def build_assembly() -> cq.Assembly:
     """Every body the customer sees, each in what it is made of."""
+    import cadquery as cq
+    from _materials import M_BRASS, M_CHROME_PLATE, M_GAUGE_BLACK, M_GAUGE_GREEN, M_GAUGE_RED, M_GAUGE_WHITE, M_JG_GREY_ACETAL, M_MOULDED_BLACK, M_NICKEL_PLATE
+    TANK_DIAL = __getattr__('TANK_DIAL')
     a = cq.Assembly(name="taprite-3741-regulator")
     a.add(build_body(), name="body", color=M_BRASS)
     a.add(build_inlet_nut(), name="cga320-nut", color=M_BRASS)
@@ -506,6 +511,7 @@ def build_assembly() -> cq.Assembly:
 def stations_hold():
     """Hold the six extremes to `taprite-3741-regulator.step` — every one of them a station this
     module states, so a picture posed on one is posed on the file it draws."""
+    from _cadq_export import export_assembly, import_step
     solid = import_step(str(STEP)).val()
     bb = solid.BoundingBox()
     for what, claimed, actual in (
@@ -521,7 +527,8 @@ def stations_hold():
                 f"{actual:.4f} — the station a picture is aimed at is not where the file is.")
 
 
-def main():
+def _native_main():
+    from _cadq_export import export_assembly, import_step
     assembly = build_assembly()
     bb = assembly.toCompound().BoundingBox()
     print(f"Taprite 3741 CGA-320 CO2 regulator — set at the factory to {FACTORY_SET_PSI:g} psi, "
@@ -538,6 +545,53 @@ def main():
     export_assembly(assembly, str(STEP))
     print(f"-> {STEP.name}")
     stations_hold()
+
+
+
+
+_FROZEN_DIR = Path(__file__).resolve().parent
+STEP_PATH = _FROZEN_DIR / 'taprite-3741-regulator.step'
+PAYLOAD_PATH = _FROZEN_DIR / 'taprite-3741-regulator.step.mesh'
+ASSET_MANIFEST_PATH = _FROZEN_DIR / "frozen-asset.json"
+
+
+def __getattr__(name):
+    if name in globals():
+        return globals()[name]
+    if name == 'TANK_BANDS':
+        from _materials import M_GAUGE_RED, M_GAUGE_GREEN
+        value = (((0.0, 300.0), M_GAUGE_RED), ((600.0, 1000.0), M_GAUGE_GREEN))
+    elif name == 'TANK_DIAL':
+        TANK_BANDS = __getattr__('TANK_BANDS')
+        value = {
+            "outer": _ring_spec(TANK_FULL_PSI, 500.0, 100.0, (500, 1000, 1500, 2000)),
+            "inner": _ring_spec(TANK_FULL_PSI / 14.5038, 20.0, 10.0, (40, 60, 80, 100, 120)),
+            "units": ("psi", "bar"),
+            "stamp": "TAPRITE",
+            "bands": TANK_BANDS,
+        }
+    elif name == '_dial_plane':
+        import cadquery as cq
+        value = cq.Plane(origin=(0.0, 0.0, 0.0), xDir=(-1.0, 0.0, 0.0), normal=(0.0, 1.0, 0.0))
+    elif name in ('cq',):
+        import cadquery as cq
+        value = locals()[name]
+    elif name in ('export_assembly', 'import_step'):
+        from _cadq_export import export_assembly, import_step
+        value = locals()[name]
+    elif name in ('M_BRASS', 'M_CHROME_PLATE', 'M_GAUGE_BLACK', 'M_GAUGE_GREEN', 'M_GAUGE_RED', 'M_GAUGE_WHITE', 'M_JG_GREY_ACETAL', 'M_MOULDED_BLACK', 'M_NICKEL_PLATE'):
+        from _materials import M_BRASS, M_CHROME_PLATE, M_GAUGE_BLACK, M_GAUGE_GREEN, M_GAUGE_RED, M_GAUGE_WHITE, M_JG_GREY_ACETAL, M_MOULDED_BLACK, M_NICKEL_PLATE
+        value = locals()[name]
+    else:
+        raise AttributeError(name)
+    globals()[name] = value
+    return value
+
+
+def main():
+    print('taprite-3741-regulator frozen reference')
+    print(f"  STEP: {STEP_PATH}")
+    print(f"  Fine/display payload: {PAYLOAD_PATH}")
 
 
 if __name__ == "__main__":
