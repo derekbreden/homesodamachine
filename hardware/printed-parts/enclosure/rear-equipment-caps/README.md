@@ -6,7 +6,9 @@ seats share [rear_snaps.py](../../../manifold-layout/rear_snaps.py) and
 
 The ASSE cap holds the lower halves of both hexes, bears against the inlet
 coupling, and passes the downward vent cup through its bottom flat. The Pisco
-cap catches the outlet fitting's neck. The meter cap enters from the west
+cap closes the slide seat, but its central bridge lies below the neck-clearance
+circle and does not provide useful neck retention in the current physical trial.
+Its bridge and spring geometry remain under revision. The meter cap enters from the west
 and has a solid 6 mm spine with two complete 38 mm-long leaves. Its flexible
 leads turn west against the housing above the lower leaf. The water regulator
 cap spans 36 mm of the housing and smaller outlet neck, with its lowest face

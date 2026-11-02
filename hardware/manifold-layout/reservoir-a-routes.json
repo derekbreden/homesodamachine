@@ -1320,7 +1320,7 @@
     "front_valve_ports": "Selected front-valve frames and socket engagements.",
     "reservoir_entries": "The reservoir cap bores retain their native stations.",
     "aft_anchor_interface": {
-      "y_mm": 390.0,
+      "y_mm": 390.5,
       "routes_west_to_east": [
         "fluid-16",
         "fluid-14"

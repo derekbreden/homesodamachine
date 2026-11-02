@@ -192,14 +192,10 @@ def pisco_cap_service_cuts(s):
     A released cap lowers 3.6 mm and slides forward with its leaves open.
     The complete fore stops above the bearing plane retain the seated cap.
     """
-    out=[]
-    for side in (-1.,1.):
-        inside=s['axis_x']+side*(s['ledge']-REACH-fits.running)
-        outside=s['axis_x']+side*(s['outer']+3.2+fits.running)
-        out.append(box(*sorted((inside,outside)),
-            s['y0']-fits.running-WALL-1.,s['y0']+fits.running,
-            s['split']-1.,s['bearing']))
-    return out
+    half=s['outer']+3.2+fits.running
+    return [box(s['axis_x']-half,s['axis_x']+half,
+        s['y0']-fits.running-WALL-1.,s['y0']+fits.running,
+        s['split']-1.,s['bearing'])]
 
 
 def pisco_station(axis_x, admitted_radius, axis_z, y0, y1):
@@ -414,9 +410,8 @@ def build(parts, asse_axis, asse_at, asse_turn, pisco_axis, mouth_y, ceiling, re
     # against the body above the complete lower leaf and its receiving ledge.
     root = at_world(meter_at, meter.wire_root)
     half = meter.wire_root_width / 2.
-    cup = cup.fuse(box(x0, wx(meter.wire_root[1] + meter.wire_root_depth / 2.) + METER_AIR,
-                       wy(-half) - fore - METER_AIR, wy(half) + aft + METER_AIR,
-                       float(root[2])-3., float(root[2]) + meter.wire_boss_len + METER_AIR)).clean()
+    wire_room=(x0,wx(meter.wire_root[1]+meter.wire_root_depth/2.)+METER_AIR,
+               wy(-half)-fore-METER_AIR,wy(half)+aft+METER_AIR)
     SEAT_Y = (386.0, 446.0)                       # clear of the soda inlet's foam and the carb bulkhead
     CAP_Y = (397.0, 435.0)                        # between the port collars
     core = wx(meter.boss_y_range[0]) - METER_AIR
@@ -424,6 +419,10 @@ def build(parts, asse_axis, asse_at, asse_turn, pisco_axis, mouth_y, ceiling, re
     st_m = station(0., soda_axis[1] + r_collar + METER_AIR - MZ + WALL,
                    *CAP_Y, split=0., wing_root=west_end-METER_AIR-MX)
     W = st_m['outer']
+    # Join the lead chamber to the lower spring pocket at one plane. The
+    # complete retaining face remains; no thin membrane roofs the pocket.
+    cup=cup.fuse(box(*wire_room,min(float(root[2])-3.,MZ-st_m['neck']),
+                    float(root[2])+meter.wire_boss_len+METER_AIR)).clean()
 
     def to_world(shape):
         """The snap's frame (insertion +z, lateral x, length y) to the world's: insertion +X."""

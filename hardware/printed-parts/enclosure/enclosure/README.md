@@ -505,19 +505,17 @@ Four features bearing on the core's own faces:
   face on the wall: a corner bracket in one piece with both faces it stands on, the card slot's
   own form.
 - **Aft brackets** (`_core_holds`, on `enclosure-back-top`). A right trapezoid in section,
-  [6.125 mm](CORE_HOLD_WIDE) wide on the west and 9 mm on the east: the bearing face along the cap from [12 mm](CORE_HOLD_REACH)
+  [6.1 mm](CORE_HOLD_WIDE) wide on the west and 9 mm on the east: the bearing face along the cap from [12 mm](CORE_HOLD_REACH)
   forward of the core's aft face back to the wall, a leg [40 mm](CORE_HOLD_RISE) up that wall in
   the `rear_seam_clear` band, and one straight from the head of the leg down to the foot's tip,
   [8 mm](CORE_HOLD_LAND) over the bracket's foot plane. The whole bracket profile stands
   0.25 mm above the core's cap crown, putting the cap-facing foot at Z253.65.
   This face prints upward with back-top inverted and adds no supported-face allowance.
-  The straight web carries
-  the flange. The west bracket occupies X−43.6..−37.6 between the PSU and rear jack;
-  the east bracket occupies X12..21, 3 mm west of the wet-field recess. Both
-  retain their complete 40 mm wall legs. The west bracket’s nominal gaps are
-  0.40 mm to the PSU and 0.275 mm to the rear jack. The complete 300 mm horizontal
-  back-column approach clears the populated core. These are CAD clearances;
-  printed fit and restraint strength remain unqualified.
+  The straight web carries the flange. The west bracket occupies X−43.6..−37.5;
+  the east bracket occupies X6.55..15.55, ending on the wet-field recess boundary.
+  Both retain their complete 40 mm wall legs and the Z253.65 bearing plane.
+  The populated back column slides over the core before the final flexible
+  handoffs are connected. Printed fit and restraint strength remain unqualified.
   The [native hold reading](core-hold-review/native.json) binds the complete east profile,
   wall root and cap gap to the current export, and preserves the west hold exactly.
   The [current slice](core-hold-review/slice.json) binds its print preparation.

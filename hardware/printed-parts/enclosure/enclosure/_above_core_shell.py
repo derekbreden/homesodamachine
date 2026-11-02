@@ -89,8 +89,8 @@ def relay_edge_rails(name):
         bearing = box(29.5,35.25,*lip,1.75,4.75)
         ledge = box(29.5,35.25,*lip,-3.,0.)
         rails.append(root.fuse(bearing,ledge).clean().moved(frame))
-        front = box(-35.25,-29.5,*outer,-4.05,0.)
-        front = front.fuse(box(-35.25,-29.5,*lip,-3.,0.)).clean()
+        front = box(-30.5,-24.75,*outer,-4.05,0.)
+        front = front.fuse(box(-30.5,-24.75,*lip,-3.,0.)).clean()
         rails.append(front.moved(frame))
     return tuple(rails)
 
