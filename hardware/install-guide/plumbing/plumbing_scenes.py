@@ -36,7 +36,7 @@ OUT = HERE / "out"
 ART = HERE / "art"
 
 sys.path.insert(0, str(HARDWARE / "scripts"))
-from _cadq_export import _payload_current, _per_solid_color, _write_mesh_payload, export_assembly  # noqa: E402
+from _cadq_export import _payload_current, _per_solid_color, _write_mesh_payload, export_assembly, note_write  # noqa: E402
 import _hsm_render  # noqa: E402
 
 
@@ -649,10 +649,10 @@ def main() -> None:
         bounds = compound.BoundingBox()
         path = output_dir / f"{name}.step"
         export_assembly(scene, str(path))
-        # A BUILD ACTION WRITES NO PAYLOAD BESIDE AN EXPORT (`HSM_SKIP_MESH_PAYLOAD`), and the
-        # renderer draws nothing else, so a run that renders writes its own.
-        if args.render and not _payload_current(path, Path(f"{path}.mesh")):
+        # The install pictures select these same bodies without rebuilding the scene.
+        if not _payload_current(path, Path(f"{path}.mesh")):
             _write_mesh_payload(path, _per_solid_color(scene))
+        note_write(Path(f"{path}.mesh"))
         step_paths[name] = path
         print(
             f"{name}: "
