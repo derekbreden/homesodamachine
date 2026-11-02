@@ -195,7 +195,10 @@ It writes the fine wiring to `enclosure-wiring.step.npz` and appends its STEP an
 viewer bodies to the populated enclosure. The physical fine model stays unchanged.
 The manifest binds the physical fine input, route numbers and fine wiring by SHA-256.
 
-The normal `enclosure_assembly.py` composition includes the same wiring model.
+The normal `enclosure_assembly.py` CLI resolves wiring from its placed hardware,
+exports the physical fine model, then builds the Rust wiring and installs its
+paired STEP and viewer payload. `enclosure-wiring.numbers.json` carries the bound
+conductor and component recipes.
 The wiring-only materializer replaces its own marked STEP subassembly and viewer
 meshes; existing physical component records and meshes are retained. Native and
 viewer outputs use the same `wire-<ID>` and `terminal-<ID>` names. For example,
