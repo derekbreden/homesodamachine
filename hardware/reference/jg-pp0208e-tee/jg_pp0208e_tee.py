@@ -26,6 +26,8 @@ Run:
     tools/cad-venv/bin/python hardware/reference/jg-pp0208e-tee/jg_pp0208e_tee.py
 """
 
+from __future__ import annotations
+
 import sys
 from pathlib import Path
 
