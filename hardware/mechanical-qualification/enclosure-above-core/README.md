@@ -79,11 +79,11 @@ artifact hashes. Wire obstacles are larger bodies; other wires and tubes are
 excluded. The [enclosure routing review](../../wiring/installed/above-core-review/routing-enclosure-review.json)
 records native readings of its named mesh witnesses.
 
-These wiring records describe their named artifacts. The current mechanical
-assembly omits conductors while the equipment clamps are finalized. The
-neutral WAGO and its holder require placement around the finished pump
-saddle; the pack gate identifies that actual overlap. WAGO placement and
-wire routing follow the completed mechanical publication.
+The completed assembly includes all 100 conductors. The neutral WAGO stands
+upright west of the pump saddle, with its mouths facing fore and levers east.
+All nine mounted WAGOs, three free joins and final wire routes clear the larger
+bodies. Rear closure and all mounted lever sweeps are clear with their recorded
+bench prerequisites. Physical snap retention remains for the printed trial.
 
 The whole-scene scorecard reads unconnected material outside finite named
 receiving regions. The flank check includes each fastener's own drilled lane
