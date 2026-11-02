@@ -19,7 +19,7 @@ import sys
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path[:0] = [str(ROOT / "tools/bazel"), str(ROOT / "hardware/scripts")]
-from gen_build import action_plan
+from gen_build import action_plan, dependency_rules, support_argv
 from pysrc import same_code, stripped
 from sync_tree import _SPLICE, _whole_rewritten, carried
 
@@ -56,6 +56,9 @@ def source_bytes(path, mode):
 
 def describe(target):
     actions, _ = action_plan()
+    rules = dependency_rules(actions)
+    providers = {path: (name, rule) for name, rule in rules.items()
+                 for path in rule.get("outs", ())}
     ordered, visited = [], set()
 
     def visit(name):
@@ -66,18 +69,36 @@ def describe(target):
         if name not in actions:
             raise ValueError("No declared generator action: " + name)
         action = actions[name]
-        if action["node_runtimes"] or action["support_inputs"]:
-            raise ValueError("Node and support actions still require the normal build: " + name)
+        if action["node_runtimes"]:
+            raise ValueError("Node actions still require the normal build: " + name)
         for dependency in action["dependencies"]:
             visit(dependency)
+        for output in sorted(set(action["support_inputs"].values())):
+            if output not in providers:
+                raise ValueError("No declared support provider for " + output)
+            provider, rule = providers[output]
+            if provider not in visited:
+                ordered.append(describe_support(provider, rule))
+                visited.add(provider)
         visited.add(name)
-        ordered.append(describe_action(name, action))
+        ordered.append(describe_action(name, action, providers))
 
     visit(target)
     return {"version": 2, "target": target, "actions": ordered}
 
 
-def describe_action(target, action):
+def describe_support(target, rule):
+    argv = support_argv(rule)
+    recipe = describe_action(target, {
+        "generators": [argv[0]], "entrypoints": [argv], "dependencies": [],
+        "reads": rule["srcs"] + rule["tools"], "solids": rule["outs"],
+        "docs": [], "optional": [], "stripped": [], "producers": {}, "support_inputs": {},
+    }, {})
+    recipe["support_provider"] = {"name": target, **rule}
+    return recipe
+
+
+def describe_action(target, action, providers):
     rewritten = sorted(set(action["docs"]))
     for name in rewritten:
         if Path(name).suffix not in _SPLICE and not _whole_rewritten(name):
@@ -86,6 +107,10 @@ def describe_action(target, action):
     for name in sorted(set(action["reads"]) | set(action["optional"]) | set(SUPPORT)):
         path = ROOT / relative(name)
         mode = "pysrc" if name in action["stripped"] else "raw"
+        if output := action["support_inputs"].get(name):
+            inputs.append({"path": name, "mode": "raw", "producer": providers[output][0],
+                           "producer_output": output})
+            continue
         producer = action["producers"].get(name)
         if producer and producer != target:
             # The engine binds this hash after this request completes the producer.
@@ -107,7 +132,9 @@ def describe_action(target, action):
             except importlib.metadata.PackageNotFoundError:
                 packages[name] = None
     return {"version": 2, "target": target, "generators": action["generators"],
-            "entrypoints": action["entrypoints"], "dependencies": action["dependencies"],
+            "entrypoints": action["entrypoints"],
+            "dependencies": sorted(set(action["dependencies"]) |
+                {providers[output][0] for output in action["support_inputs"].values()}),
             "inputs": inputs, "outputs": sorted(action["solids"] + action["docs"]),
             "rewritten": rewritten, "payload": any(p.endswith(".step.mesh") for p in action["solids"]),
             "runtime": {"python": sys.version, "executable_sha256": sha(sys.executable),
@@ -176,7 +203,7 @@ def execute(recipe, scratch, socket, blobs):
         subprocess.run([sys.executable, *argv], cwd=stage, check=True,
                        **_run_slots.subprocess_kwargs(env))
     nested = [json.loads(line) for line in reads_log.read_text().splitlines()] if reads_log.exists() else []
-    bound = {row["path"]: row["sha256"] for row in recipe["inputs"]}
+    bound = {row["path"]: row for row in recipe["inputs"]}
     external, bindings, keepable = {}, [], True
     for run in nested:
         for base, name, expected in run["reads"]:
@@ -186,13 +213,17 @@ def execute(recipe, scratch, socket, blobs):
                 rel = path.relative_to(stage).as_posix()
                 if rel in recipe["outputs"]:
                     role = "output"
-                elif rel in bound and bound[rel] == expected:
+                elif rel in bound and bound[rel]["sha256"] == expected:
                     role = "input"
                 else:
                     role = "unbound"; keepable = False
                 if not path.is_file() or sha(path) != expected:
                     keepable = False
-                bindings.append({"base": role, "path": rel, "sha256": expected})
+                binding = {"base": role, "path": rel, "sha256": expected}
+                if role == "input" and "producer" in bound[rel]:
+                    binding.update(producer=bound[rel]["producer"],
+                                   producer_output=bound[rel].get("producer_output", rel))
+                bindings.append(binding)
             else:
                 role = "workspace" if path.is_relative_to(ROOT) else "/"
                 name = path.relative_to(ROOT).as_posix() if role == "workspace" else str(path)
@@ -207,6 +238,8 @@ def execute(recipe, scratch, socket, blobs):
               "verified_run_lease": bool(_run_slots.current()),
               "entrypoints": recipe["entrypoints"], "separate_interpreters": True,
               "external_reads": [[base, name, digest] for (base, name), digest in sorted(external.items())]}
+    if "support_provider" in recipe:
+        result["support_provider"] = recipe["support_provider"]
     (scratch / "receipt.json").write_text(json.dumps(result))
 
 
