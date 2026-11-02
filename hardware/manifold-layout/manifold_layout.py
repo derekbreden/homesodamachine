@@ -1176,6 +1176,7 @@ def numbers():
     import _rust_part
     from _materials import linear, M_NEOFIT_WHITE_ACETAL
     import neofit_stem_elbow as stem_elbow
+    from _payload_rules import LINEAR_DEFLECTION_RATIO
 
     sources = {key: _rust_part.step(path) for key, path in {
         'valve': _hw/'reference/beduan-solenoid/beduan-solenoid.step',
@@ -1245,7 +1246,7 @@ def numbers():
             keep = stem_elbow.HUB_BACK_REACH+row['stem']
             cut = {'origin':[-keep-40.,-20.,-20.],'size':[40.,40.,40.]}
             label = 'stem-elbow-'+host.lower()
-            ref(label,'stem',[{'names':['body'],'cut_box':cut},{'names':['collet']}],frame,M_NEOFIT_WHITE_ACETAL)
+            ref(label,'stem',[{'names':['body_and_stem'],'cut_box':cut},{'names':['release_collet']}],frame,M_NEOFIT_WHITE_ACETAL)
             profile = stem_elbow.PARAMETERS['profiles']['stem_x']
             radius = stem_elbow.STEM_OD/2.
             straight = [p for p,r in profile if abs(r-radius)<1e-6]
@@ -1268,7 +1269,8 @@ def numbers():
         tube('step-fluid-'+str(cid),_source_segments(name,start,SOURCE_TRAVEL),(0.,0.,1.),_routing.tube_color('fluid-'+str(cid)))
     for cid,_p,_what,p,axis in MOUTHS:
         tube('stub-'+cid,[{'kind':'line','points':[p,_sum(p,tuple(v*STUB for v in axis))]}],axis,_routing.tube_color(cid))
-    return {'name':'manifold-layout','sources':sources,'bodies':bodies,'stems':stems,'clash_floor':1.0}
+    return {'name':'manifold-layout','sources':sources,'bodies':bodies,'stems':stems,'clash_floor':1.0,
+            'presentation_ratio':LINEAR_DEFLECTION_RATIO}
 
 
 def _segment_numbers(segment):
@@ -1739,7 +1741,7 @@ def main():
     import _rust_part
     said = _rust_part.cut("machine", "manifold-layout", numbers(), _here.parent)
     print("-> manifold-layout.step")
-    _write_readme(report(None, said["measurements"]))
+    _write_readme(report(None, said["results"][0]["measurements"]))
 
 
 if __name__ == "__main__":
