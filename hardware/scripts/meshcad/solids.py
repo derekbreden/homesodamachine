@@ -502,6 +502,7 @@ class MeshModelSolid(MeshSolid):
     def __init__(self, part):
         super().__init__(None)
         self._model = part
+        self._presentation = None
 
     @property
     def m(self):
@@ -528,6 +529,43 @@ class MeshModelSolid(MeshSolid):
 
     def Volume(self, tol=None):
         return self._mass()[0]
+
+    def Solids(self):
+        return [self] if self._presentation is not None else super().Solids()
+
+    def _carried(self, matrix):
+        from .presentation import carried
+        from .topo import placed
+
+        if np.array_equal(matrix, _IDENTITY):
+            return self
+        part = self._model
+        triangles = (part.tris[:, [0, 2, 1]] if np.linalg.det(matrix[:, :3]) < 0 else part.tris)
+        result = MeshModelSolid(build.Part(
+            part.verts @ matrix[:, :3].T + matrix[:, 3], triangles, part.fids,
+            [placed(record, matrix.T) for record in part.records]))
+        result._presentation = carried(self._presentation, matrix)
+        return result
+
+    def transformShape(self, tMatrix):
+        return (self._carried(_matrix_of(tMatrix)) if self._presentation is not None
+                else super().transformShape(tMatrix))
+
+    def translate(self, vector):
+        if self._presentation is None:
+            return super().translate(vector)
+        matrix = _IDENTITY.copy()
+        matrix[:, 3] = vec3(vector)
+        return self._carried(matrix)
+
+    def rotate(self, startVector, endVector, angleDegrees):
+        if self._presentation is None:
+            return super().rotate(startVector, endVector, angleDegrees)
+        from OCP.gp import gp_Ax1, gp_Dir, gp_Pnt, gp_Trsf
+        a, b = vec3(startVector), vec3(endVector)
+        transform = gp_Trsf()
+        transform.SetRotation(gp_Ax1(gp_Pnt(*a), gp_Dir(*(b - a))), math.radians(angleDegrees))
+        return self._carried(_matrix_of(transform))
 
 
 class MeshCompound(MeshShape, occ.Compound):
