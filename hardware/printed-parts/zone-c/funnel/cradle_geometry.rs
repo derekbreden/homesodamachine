@@ -113,17 +113,28 @@ pub fn selftest(n: &Numbers, cradle: &Solid) -> Result<()> {
 }
 
 pub fn trial_facts(n: &Numbers, receiver: &Solid, cradle: &Solid) -> Result<Value> {
+    use hsm_geometry::{payload::Mesh, queries};
+    let measured = |name, solid: &Solid| Mesh::from_arrays(name,
+        solid.verts().iter().map(|p| p.to_array()).collect(), solid.tris().to_vec());
     let elbow = elbow(n)?;
-    let hang = cradle.translate(v3(0.0,0.0,-n.f("catch_gap")?));
+    let receiver_mesh = measured("receiver", receiver)?;
+    let cradle_mesh = measured("cradle", cradle)?;
+    let elbow_mesh = measured("elbow", &elbow)?;
+    let home = queries::gap(&cradle_mesh, &receiver_mesh, [0.0; 3])?;
+    let hanging = queries::gap(&cradle_mesh, &receiver_mesh, [0.0, 0.0, -n.f("catch_gap")?])?;
+    let nose = queries::gap(&elbow_mesh, &receiver_mesh, [0.0; 3])?;
+    let seat = queries::gap(&elbow_mesh, &cradle_mesh, [0.0; 3])?;
+    let overlap = |gap: &queries::Gap| gap.intersection_volume_mm3.context("trial overlap requires a closed solid");
+    let clearance = |gap: &queries::Gap| gap.clearance_mm.context("trial clearance requires a closed solid");
     let mut facts = n.get("trial_facts")?.clone();
     for (key,value) in [
-        ("cradle_overlap_home_mm3",cradle.shared_volume(receiver)?),
-        ("cradle_gap_home_mm",cradle.gap(receiver)?),
-        ("cradle_overlap_hanging_mm3",hang.shared_volume(receiver)?),
-        ("cradle_gap_hanging_mm",hang.gap(receiver)?),
-        ("elbow_overlap_mm3",elbow.shared_volume(receiver)?+elbow.shared_volume(cradle)?),
-        ("elbow_nose_gap_mm",elbow.gap(receiver)?),
-        ("elbow_seat_gap_mm",(elbow.gap(cradle)?*1000.0).round_ties_even()/1000.0),
+        ("cradle_overlap_home_mm3",overlap(&home)?),
+        ("cradle_gap_home_mm",clearance(&home)?),
+        ("cradle_overlap_hanging_mm3",overlap(&hanging)?),
+        ("cradle_gap_hanging_mm",clearance(&hanging)?),
+        ("elbow_overlap_mm3",overlap(&nose)?+overlap(&seat)?),
+        ("elbow_nose_gap_mm",clearance(&nose)?),
+        ("elbow_seat_gap_mm",(clearance(&seat)?*1000.0).round_ties_even()/1000.0),
         ("receiver_volume_mm3",receiver.volume()),
         ("cradle_volume_mm3",cradle.volume()),
     ] { facts[key] = json!(value); }
