@@ -19,8 +19,6 @@ from pathlib import Path
 
 import math
 
-import cadquery as cq  # noqa: E402
-
 HERE = Path(__file__).resolve().parent
 HARDWARE = next(p for p in HERE.parents if p.name == "hardware")
 ROOT = HARDWARE.parent
@@ -32,6 +30,11 @@ sys.path.insert(0, str(HARDWARE / "install-guide"))
 sys.path.insert(0, str(HARDWARE / "printed-parts" / "cadlib"))
 sys.path.insert(0, str(HARDWARE / "reference" / "iec-c14-inlet"))
 
+if __name__ == "__main__":
+    import _rust_part
+    _rust_part.start()
+
+import cadquery as cq  # noqa: E402
 from _cadq_export import import_step, note_read, note_write  # noqa: E402
 from world_workplane import xz_plane_y_up  # noqa: E402
 import iec_c14_inlet as _c14  # noqa: E402
@@ -659,13 +662,15 @@ def render(names: list[str]) -> None:
     note_read(C14_SOURCE)
     with tempfile.TemporaryDirectory(prefix="install-art-", dir=OUT) as directory:
         work = Path(directory)
+        from _install_art_mesh import payloads
+        shown = payloads(sys.modules[__name__], names, work)
         jobs = []
         for name in names:
-            build, pose = SCENES[name]
+            _build, pose = SCENES[name]
             step = work / f"{name}.step"
-            _cad_art._export_colored(build(), step, mesh=True)
             jobs.append({
                 "step": str(step.relative_to(HARDWARE)),
+                "payload": str(shown[name]),
                 "out": str(ART / f"{name}.png"),
                 "up": (0, 0, 1),
                 "bg": "#ffffff",
