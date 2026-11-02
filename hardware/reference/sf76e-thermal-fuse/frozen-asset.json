@@ -6,12 +6,12 @@
   },
   "members": {
     "sf76e-thermal-fuse.step": "ee95f27a52c445bd9be8b24a6b1822a50ef1d60e0deb8d337acbc695733b47e8",
-    "sf76e-thermal-fuse.step.mesh": "93f0df7638f61ef4a126ff63474289b0e1054f9d7649ed8bd5cfe5c05eea172a"
+    "sf76e-thermal-fuse.step.mesh": "c4882921c1250afe714a660f812b691260cd25492186fd489bb9280f08995e2a"
   },
   "fine_payload": {
     "source_step_sha256": "ee95f27a52c445bd9be8b24a6b1822a50ef1d60e0deb8d337acbc695733b47e8",
     "path": "sf76e-thermal-fuse.step.mesh",
-    "sha256": "93f0df7638f61ef4a126ff63474289b0e1054f9d7649ed8bd5cfe5c05eea172a",
+    "sha256": "c4882921c1250afe714a660f812b691260cd25492186fd489bb9280f08995e2a",
     "linear_mm": 0.005,
     "angular_rad": 0.05,
     "producer": "hardware/scripts/_rust_part.py:_tessellate",
@@ -20,14 +20,15 @@
       {
         "name": "sf76e-thermal-fuse",
         "color": [
-          0.780000001770022,
-          0.7899999959075178,
-          0.800000010877486
+          0.5704815983772278,
+          0.5870163440704346,
+          0.6038273572921753
         ],
         "vertices": 3030,
         "triangles": 3020,
         "face_ranges": 7
       }
-    ]
+    ],
+    "color_space": "linear-rgb"
   }
 }
