@@ -36,7 +36,6 @@ def _ring_input(ea):
 
 def inputs(attachments,connections,routes):
     """Ordered source geometry inputs and the installed termination facts."""
-    import cadquery as cq
     from .model import sub,mul,rounded_segments
     records={};bodies=[]
     terminals=attachments.terminals
@@ -59,7 +58,7 @@ def inputs(attachments,connections,routes):
         }
     name = 'terminal-carbonator-pe'
     ring,bond = _ring_input(attachments.ea)
-    bodies.append((name,ring,cq.Color(.32,.55,.30)))
+    bodies.append((name,ring,(.32,.55,.30)))
     records[name] = {
         'kind': 'M3 closed-ring earth terminal',
         'terminal_ids': ['carbonator.PE'],
@@ -84,7 +83,7 @@ def inputs(attachments,connections,routes):
         bodies.append((name,{'kind':'housing','origin_mm':floor,'x_dir':row,'normal':axis,
                              'dimensions_mm':[width,5.7,7.5],
                              'bores':[_cylinder(.98,7.7,sub(pin.point,mul(axis,7.6)),axis)
-                                      for pin in pins]},cq.Color(.86,.85,.79)))
+                                      for pin in pins]},(.86,.85,.79)))
         records[name]={'kind':'JST-XH housing envelope','housing':f'XHP-{len(pins)}',
                        'dimensions_mm':[width,5.7,7.5],'assembled_height_above_board_mm':9.8,
                        'source':'https://www.jst-mfg.com/product/pdf/eng/eXH.pdf',
@@ -98,7 +97,7 @@ def inputs(attachments,connections,routes):
         name='terminal-fuse-'+label+'-lead'
         bodies.append((name,{'kind':'sweep','connection_id':'fuse-'+label,
                              'points_mm':lead['points_mm'],'segments':segments,
-                             'diameter_mm':lead['lead_diameter_mm']},cq.Color(.62,.63,.65)))
+                             'diameter_mm':lead['lead_diameter_mm']},(.62,.63,.65)))
         records[name]={**lead,'kind':'Dressed thermal-fuse lead','segments':segments,
                        'retained_lead_length_mm':lead['native_straight_mm']+sum(s['length_mm'] for s in segments)-1.5,
                        'reference_stub_overlap_mm':1.5,'terminal_ids':['fuse.'+label]}
@@ -106,7 +105,7 @@ def inputs(attachments,connections,routes):
         name='terminal-fuse-'+label+'-splice'
         bodies.append((name,{'kind':'sleeve','outer':_cylinder(1.6,6.,p,axis),
                              'inner':_cylinder(1.3,6.02,sub(p,mul(axis,.01)),axis)},
-                       cq.Color(.04,.04,.045)))
+                       (.04,.04,.045)))
         records[name]={'kind':'Insulated fuse-splice envelope','outer_diameter_mm':3.2,
                        'length_mm':6.,'status':'proposed joint and recovered sleeve profile',
                        'terminal_ids':['fuse.'+label]}
@@ -149,8 +148,10 @@ def carbonator_ring(ea):
 
 
 def add_terminations(assembly,attachments,connections,routes):
+    import cadquery as cq
     bodies,records=inputs(attachments,connections,routes)
     steps={}
     for name,recipe,color in bodies:
+        if isinstance(color,tuple):color=cq.Color(*color)
         assembly.add(_native(recipe,steps),name=name,color=color)
     return records

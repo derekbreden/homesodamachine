@@ -1,0 +1,23 @@
+{
+  "schema": 1,
+  "units": "mm",
+  "frame": "Reference source XYZ",
+  "references": {
+    "digiten-flow-sensor.step": {
+      "step_sha256": "181e81dc1e2e9757c671df7163998127dea32e24cbbeffcd885e84c2801a9975",
+      "fine_model_sha256": "2a15ee294d3904784197e5905ce4aa6a8f1dcae7e365f0f888c301fd96fa5fbf",
+      "bounds_mm": [
+        [
+          -30.5,
+          -9.400000000372529,
+          -9.150000000372529
+        ],
+        [
+          30.5,
+          18.90000000037253,
+          26.5
+        ]
+      ]
+    }
+  }
+}

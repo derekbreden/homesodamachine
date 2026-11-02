@@ -52,12 +52,15 @@ def write(instances, output, *, name="enclosure-assembly"):
                           numbers(instances, name=name), output)
 
 
-def measure(instances, queries):
-    """Queries name assembled solid indices and `gap` or `shared_volume`."""
+def measure(instances, queries, *, component_names=()):
+    """Fine queries and optional component bounds/volumes for named model entries."""
     import _rust_part
 
+    inputs = numbers(instances, queries=queries)
+    if component_names:
+        inputs['component_names'] = list(component_names)
     return _rust_part.check("machine", "machine-assembly-model",
-                            numbers(instances, queries=queries))
+                            inputs)
 
 
 def location(location):

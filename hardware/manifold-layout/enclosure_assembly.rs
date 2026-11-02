@@ -211,15 +211,22 @@ fn query(parts: &mut [Imported], queries: &Value) -> Result<Vec<Value>> {
         .collect()
 }
 
-fn summary(part: &Imported) -> Value {
+fn summary(part: &Imported, components: bool) -> Value {
     let bounds = part.solid.bounds();
-    json!({"name":part.name,"color":part.color,"vertices":part.solid.verts().len(),
+    let mut result = json!({"name":part.name,"color":part.color,"vertices":part.solid.verts().len(),
            "triangles":part.solid.tris().len(),"faces":part.solid.faces().len(),
            "volume":part.solid.volume(),"center":part.solid.centroid().to_array(),
-           "min":bounds.min.to_array(),"max":bounds.max.to_array()})
+           "min":bounds.min.to_array(),"max":bounds.max.to_array()});
+    if components {
+        result["components"] = json!(part.solid.components().iter().map(|solid| {
+            let bounds = solid.bounds();
+            json!({"volume":solid.volume(),"min":bounds.min.to_array(),"max":bounds.max.to_array()})
+        }).collect::<Vec<_>>());
+    }
+    result
 }
 
-fn model_summaries(instances: &Value) -> Result<Option<Vec<Value>>> {
+fn model_summaries(instances: &Value, components: &BTreeSet<String>) -> Result<Option<Vec<Value>>> {
     let Some(instances) = instances.as_array() else {
         return Ok(None);
     };
@@ -235,7 +242,7 @@ fn model_summaries(instances: &Value) -> Result<Option<Vec<Value>>> {
     let mut summaries = Vec::new();
     for instance in instances {
         hsm_kernel::import::visit_model(text(instance, "model")?, |_index, part| {
-            summaries.push(summary(&part));
+            summaries.push(summary(&part, components.contains(&part.name)));
             Ok(())
         })?;
     }
@@ -256,9 +263,15 @@ fn write_model(path: &Path, bodies: &[Body<'_>]) -> Result<()> {
 
 fn main() -> Result<()> {
     let (numbers, output) = part::args()?;
+    let components: BTreeSet<String> = match numbers.get("component_names") {
+        Ok(value) => value.as_array().context("component names is an array")?.iter()
+            .map(|value| value.as_str().map(str::to_owned).context("a component name is text"))
+            .collect::<Result<_>>()?,
+        Err(_) => BTreeSet::new(),
+    };
     let queries = numbers.get("queries")?;
     if output == Path::new("--check") && queries.as_array().is_some_and(|rows| rows.is_empty()) {
-        if let Some(summaries) = model_summaries(numbers.get("instances")?)? {
+        if let Some(summaries) = model_summaries(numbers.get("instances")?, &components)? {
             println!("{}", json!({"files":[],"bodies":summaries,"queries":[]}));
             return Ok(());
         }
@@ -285,7 +298,7 @@ fn main() -> Result<()> {
         write_model(&output.join(&file), &bodies)?;
         files.push(file);
     }
-    let summaries: Vec<Value> = parts.iter().map(summary).collect();
+    let summaries: Vec<Value> = parts.iter().map(|part| summary(part, components.contains(&part.name))).collect();
     println!(
         "{}",
         json!({"files":files,"bodies":summaries,"queries":readings})
