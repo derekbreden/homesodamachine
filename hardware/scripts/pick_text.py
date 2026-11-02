@@ -224,7 +224,6 @@ def from_edge(edge, label: str = "edge") -> str:
 def from_face(face, label: str = "face") -> str:
     """Pick line for a cq.Face: plane, cylinder, or curved-with-a-point."""
     import sys
-    from OCP.BRepAdaptor import BRepAdaptor_Surface
 
     center = face.Center()
     kind = face.geomType()
@@ -236,6 +235,8 @@ def from_face(face, label: str = "face") -> str:
         if meshcad is not None and meshcad.is_mesh(face):
             cyl = face._geomAdaptor().Cylinder()        # the cylinder the mesh face records
         else:
+            from OCP.BRepAdaptor import BRepAdaptor_Surface
+
             cyl = BRepAdaptor_Surface(face.wrapped).Cylinder()
         loc, axd = cyl.Position().Location(), cyl.Position().Direction()
         return cylinder_face(
