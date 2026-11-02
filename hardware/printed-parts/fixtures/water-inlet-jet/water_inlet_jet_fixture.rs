@@ -48,7 +48,7 @@ fn main() -> Result<()> {
     let mut files=vec![];let mut bodies=vec![];
     for (name,solid) in [("water-inlet-jet-fixture-fixed",&fixed),
                          ("water-inlet-jet-fixture-loose",&loose)] {
-        let said=part::write_printed(&out,name,&[Body{name,color:Some(n.color("color")?),solid}])?;
+        let said=part::write_part(&out,name,&[Body{name,color:Some(n.color("color")?),solid}])?;
         files.extend(said["files"].as_array().unwrap().iter().cloned());
         bodies.extend(said["bodies"].as_array().unwrap().iter().cloned());
     }
