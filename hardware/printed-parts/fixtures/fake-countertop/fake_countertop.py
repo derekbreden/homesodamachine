@@ -23,19 +23,30 @@ import json
 import sys
 from pathlib import Path
 
-import cadquery as cq
-
-
 _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
 _repo = next(p for p in _here.parents if (p / "tools" / "docgen").is_dir())
 for _path in (_hw / "scripts", _hw / "printed-parts" / "cadlib", _repo / "tools"):
     sys.path.insert(0, str(_path))
 
-from _cadq_export import export_assembly, note_write  # noqa: E402
-from _material_base import M_PETGF_BLACK, one_body  # noqa: E402
-from docgen import substitute_md  # noqa: E402
-from print_mesh import write_print_stl  # noqa: E402
+if __name__ == "__main__":
+    import _rust_part
+    _rust_part.start()
+
+
+def __getattr__(name):
+    import importlib
+    if name == "cq":
+        value = importlib.import_module("cadquery")
+    else:
+        modules = {"export_assembly": "_cadq_export", "note_write": "_cadq_export",
+                   "M_PETGF_BLACK": "_material_base", "one_body": "_material_base",
+                   "substitute_md": "docgen", "write_print_stl": "print_mesh"}
+        if name not in modules:
+            raise AttributeError(name)
+        value = getattr(importlib.import_module(modules[name]), name)
+    globals()[name] = value
+    return value
 
 
 INCH = 25.4
@@ -72,6 +83,7 @@ leg_inner_x = CAVITY / 2
 
 
 def _box(x0, x1, y0, y1, z0, z1):
+    import cadquery as cq
     return cq.Workplane(obj=cq.Solid.makeBox(
         x1 - x0, y1 - y0, z1 - z0, cq.Vector(x0, y0, z0)
     ))
@@ -107,6 +119,7 @@ def _rounded():
 
 
 def _hole():
+    import cadquery as cq
     return cq.Workplane(obj=cq.Solid.makeCylinder(
         COUNTER_HOLE_D / 2, T + 2.0, cq.Vector(0, 0, -1.0), cq.Vector(0, 0, 1)
     ))
@@ -135,6 +148,7 @@ def _section_extent(shape, z):
 
 
 def selftest():
+    import cadquery as cq
     part = build()
     _single_valid("fake countertop", part)
     bb = part.val().BoundingBox()
@@ -163,10 +177,14 @@ def selftest():
     return part
 
 
-def _export_print(part):
+def _export_print(part, output=None):
+    from _cadq_export import export_assembly, note_write
+    from _material_base import M_PETGF_BLACK, one_body
+    from print_mesh import write_print_stl
     stem = "fake-countertop"
-    stl = _here.parent / f"{stem}.stl"
-    step = _here.parent / f"{stem}.step"
+    out = Path(output) if output is not None else _here.parent
+    stl = out / f"{stem}.stl"
+    step = out / f"{stem}.step"
     # A sibling print mesh keeps this bench fixture out of viewer payloads.
     written = write_print_stl(part, stl)
     note_write(stl)
@@ -174,10 +192,23 @@ def _export_print(part):
     print(f"-> {step.name}, {stl.name}: {_volume(part) / 1000:.1f} cm³, {len(written.faces)} facets")
 
 
-def main():
-    part = selftest()
-    _export_print(part)
-    substitute_md(_here.parent / "README.md", variables={
+def numbers():
+    """The authored stock, rounds, counter hole and existing clearance checks."""
+    from _materials import M_PETGF_BLACK, linear
+    return {
+        "slab_x": SLAB_X, "slab_y": SLAB_Y, "cavity": CAVITY,
+        "thickness": T, "height": HEIGHT,
+        "corner_radius": CORNER_R, "root_radius": ROOT_R, "foot_radius": FOOT_R,
+        "hole_diameter": COUNTER_HOLE_D, "reach_x": LEFT_REACH_X, "reach_y": LEFT_REACH_Y,
+        "umbilical_below": UMBILICAL_BELOW_COUNTER, "bend_radius": UMBILICAL_BEND_R,
+        "hand_room": HAND_ROOM, "color": list(linear(M_PETGF_BLACK)),
+    }
+
+
+def _document(volume, output=None):
+    from docgen import substitute_md
+    out = Path(output) if output is not None else _here.parent
+    substitute_md(out / "README.md", variables={
         "FCT_SLAB": f"{SLAB_X:g} × {SLAB_Y:g} mm",
         "FCT_CAVITY": f"{CAVITY:g} mm",
         "FCT_T": f"{T:g} mm",
@@ -188,8 +219,39 @@ def main():
         "FCT_ROOT_R": f"{ROOT_R:g} mm",
         "FCT_FOOT_R": f"{FOOT_R:g} mm",
         "FCT_UMBILICAL": f"{UMBILICAL_BELOW_COUNTER + UMBILICAL_BEND_R:g} mm",
-        "FCT_VOLUME": f"{_volume(part) / 1000:.0f} cm³",
+        "FCT_VOLUME": f"{volume / 1000:.0f} cm³",
     })
+
+
+def _native_main(output=None):
+    part = selftest()
+    _export_print(part, output)
+    _document(_volume(part), output)
+
+
+def main(output=None, *, native=False):
+    """Write the current bench fixture, retaining its native construction helpers."""
+    if native:
+        return _native_main(output)
+    import _rust_part
+    import trimesh
+    from flute_skin import non_manifold_edges
+    out = Path(output) if output is not None else _here.parent
+    out.mkdir(parents=True, exist_ok=True)
+    said = _rust_part.cut("tooling", "fake-countertop", numbers(), out)
+    written = trimesh.load_mesh(out / "fake-countertop.stl")
+    loose = non_manifold_edges(written)
+    if loose or not written.is_watertight or not written.is_winding_consistent or len(written.split()) != 1:
+        raise ValueError(f"fake-countertop.stl: expected one closed, consistently wound printable body; {loose} non-manifold edges")
+    body = said["bodies"][0]
+    print(json.dumps({
+        "status": "CAD checks passed; the print is untested",
+        "envelope_mm": [round(b-a, 2) for a, b in zip(body["min"], body["max"])],
+        "clear_under_slab_mm": clear_height,
+        "volume_cm3": round(body["volume"] / 1000, 1),
+    }, indent=2))
+    print(f"-> fake-countertop.step, fake-countertop.stl: {body['volume'] / 1000:.1f} cm³, {len(written.faces)} facets")
+    _document(body["volume"], out)
 
 
 if __name__ == "__main__":
