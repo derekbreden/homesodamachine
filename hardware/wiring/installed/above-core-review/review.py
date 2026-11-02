@@ -1,219 +1,130 @@
-"""Manual native electrical-layout review; not part of a build or commit gate.
+"""Manual current-fine electrical layout, holder and driver study.
 
-Run through tmp/takeover/cadq. The optional --reuse-fixture flag only reuses the
-explicit temporary native fixture from the preceding run; no published model
-or aggregate export is changed.
+The explicit current fine cohort replaces the native fixture/cache. This tool
+never builds an appliance or writes BREP geometry and is not a build/commit gate.
 """
 import argparse
-from dataclasses import asdict
-import hashlib
 import json
 from pathlib import Path
 import sys
 
 ROOT=Path(__file__).resolve().parents[4]
 sys.path[:0]=[str(ROOT),str(ROOT/'hardware/scripts'),str(ROOT/'hardware/manifold-layout')]
-import cadquery as cq
-from hardware.wiring.installed import build
-from hardware.wiring.installed.terminals import Attachments,bounds
-from hardware.wiring.installed.connections import connections,interfaces
-from hardware.wiring.installed.routes import routed
-from hardware.wiring.installed.model import STOCK,shape
-from hardware.wiring.installed.terminations import add_terminations
-from hardware.wiring.installed.bundles import add_jackets
-
+from hardware.wiring.installed._fine_contacts import (
+    current_fine,fine_arguments,fine_overlap,junction_geometry,source_layout,
+    wire_source_reading,cap_trial_replacements)
+HERE=Path(__file__).resolve().parent
 TEMP=ROOT/'tmp/above-core-electrical-fixture'
-OUTPUT=Path(__file__).with_name('native-review.json')
+OUTPUT=HERE/'native-review.json'
 
 
-def overlapping(a,b,tol=1e-5):
-    aa,ab=bounds(a);ba,bb=bounds(b)
-    return all(ab[i]>ba[i]+tol and bb[i]>aa[i]+tol for i in range(3))
-
-
-def main():
-    parser=argparse.ArgumentParser()
-    parser.add_argument('--reuse-fixture',action='store_true')
+def main(argv=None):
+    parser=argparse.ArgumentParser(description=__doc__)
+    fine_arguments(parser,ROOT)
+    parser.add_argument('--reuse-fixture',action='store_true',help='Reuse only the explicit hash-bound fine index')
     parser.add_argument('--compose-only',action='store_true')
-    parser.add_argument('--pack-fixture',action='store_true')
-    parser.add_argument('--refresh-selected',action='store_true')
-    parser.add_argument('--aggregate',type=Path)
+    parser.add_argument('--pack-fixture',action='store_true',help='Select the bound pack/front/roof entries; build nothing')
+    parser.add_argument('--refresh-selected',action='store_true',help='Require the explicit fine cohort to match current source; never mix replacement CAD')
     parser.add_argument('--contact-wires',nargs='+')
-    parser.add_argument('--export-wiring',action='store_true')
-    parser.add_argument('--cap-cup',type=Path)
-    parser.add_argument('--cap-lid',type=Path)
-    args=parser.parse_args()
-    import enclosure_assembly as ea
-    TEMP.mkdir(parents=True,exist_ok=True)
-    index=TEMP/'index.json'
-    if args.aggregate:
-        from _cadq_export import import_assembly
-        scene=import_assembly(str(args.aggregate))
-        fixture={'scope':'materialized production assembly '+str(args.aggregate)}
-    elif args.reuse_fixture:
-        fixture=json.loads(index.read_text())
-        scene={n:(cq.Shape.importBrep(str(TEMP/file)),None)
-               for n,file in fixture['parts'].items()}
-    else:
-        print('Build the native physical fixture',flush=True)
-        attach=build.attach
-        build.attach=lambda *args:None
-        try:
-            if args.pack_fixture:
-                assembly,pack,box=ea.machine()
-                assembly.box,assembly.pack=box,pack
-                assembly.add(ea.build_display(box),name='display')
-                cover,_=ea.build_display_cover(box)
-                assembly.add(cover,name='display-cover')
-                centre=ea.funnel_centre(box);seat=ea._enc.funnel_seat_z(box.outer)
-                assembly.add(ea._funnel_frame.build(box.inner,box.y_joint,centre,seat),name='funnel-frame')
-                for name,solid,_colour,_carry in ea.build_drain_joint(box):
-                    assembly.add(solid,name=name)
-                for name,solid in ea._dock.parts(box.pack.collet_plate).items():
-                    assembly.add(solid,name=name)
-            else:
-                assembly=ea.build_enclosure_assembly()
-        finally:
-            build.attach=attach
-        scene={n:(s,c) for n,s,c in ea.ml.placed_leaves(assembly)}
-        files={}
-        for i,(name,(solid,_color)) in enumerate(scene.items()):
-            file=f'{i}.brep';solid.exportBrep(str(TEMP/file));files[name]=file
-        fixture={'scope':'pack, fixed front hardware and roof interfaces' if args.pack_fixture else 'complete native appliance',
-                 'parts':files}
-        index.write_text(json.dumps(fixture,indent=2)+'\n')
-        from _facts import _route_facts
-        logical,native=_route_facts(assembly)
-        (TEMP/'logical-routes.json').write_text(json.dumps({'runs':logical,'native_runs':native},indent=2)+'\n')
-    if args.refresh_selected:
-        import above_core_parts,above_core_wiring,above_core_routes
-        for name,(solid,color,_carry) in {**above_core_parts.components(),
-                                         **above_core_parts.core_components(),
-                                         **above_core_wiring.components()}.items():
-            target='cold-core/'+name if 'cold-core/'+name in scene else name
-            scene[target]=(solid,color)
-            if target!=name:scene.pop(name,None)
-        scene['funnel-frame']=(ea._funnel_frame.build(),None)
-    if args.cap_cup and args.cap_lid:
-        import above_core
-        location=above_core.frame_location(above_core.cap_lid_pose())
-        cup=cq.Shape.importBrep(str(args.cap_cup)).translate((0.,0.,-ea._foam.top_cap_height)).moved(location)
-        lid=cq.Shape.importBrep(str(args.cap_lid)).moved(location)
-        scene['cold-core/foam-cap-top']=(cup,None)
-        scene['cold-core/foam-cap-lid-top']=(lid,None)
-    print('Resolve actual terminal frames and complete electrical graph',flush=True)
-    at=Attachments(scene,ea);at.resolve()
-    graph=connections();routes=routed(graph,at)
-    records={'scope':'Focused native above-core junction, terminal-frame, lead and housing review; no physical wiring qualification.',
-             'physical_fixture_scope':fixture['scope'],
-             'physical_fixture_sha256':(hashlib.sha256(args.aggregate.read_bytes()).hexdigest()
-                                        if args.aggregate else None),
-             'cap_fixture_sha256':{str(path):hashlib.sha256(path.read_bytes()).hexdigest()
-                                   for path in (args.cap_cup,args.cap_lid) if path},
-             'contact_review_run':not args.compose_only,
-             'contact_wires':args.contact_wires if not args.compose_only else [],
-             'connection_count':len(graph),'fixture_names':sorted(scene),
-             'reference_frames':at.frame_checks,'cable_passages':at.passages,
-             'interfaces':interfaces(at.terminals,graph),'route_failures':[],
-             'route_intersections':[],'termination_failures':[]}
-    wires=cq.Assembly(name='review-wiring')
-    wire_shapes={}
-    for route in routes:
-        try:
-            solid=shape(route,STOCK[route.connection.stock]['od_mm'])
-            if not solid.isValid() or solid.Volume()<=0:
-                raise ValueError('Invalid or empty insulated conductor')
-            wire_shapes[route.connection.id]=solid
-            wires.add(solid,name='wire-'+route.connection.id)
-        except Exception as error:
-            records['route_failures'].append({'wire':route.connection.id,'error':str(error)})
-    print(f'{len(wire_shapes)}/{len(graph)} complete insulated conductors are valid',flush=True)
-    print('Route failures',records['route_failures'],flush=True)
-    try:
-        records['terminations']=add_terminations(wires,at,graph,routes)
-        records['bundles']=add_jackets(wires,at)
-    except Exception as error:
-        records['termination_failures'].append(str(error))
-    records['routes']=[r.record() for r in routes]
-    records['terminals']={k:asdict(v) for k,v in at.terminals.items()}
-    if args.export_wiring:
-        folder=TEMP/'wiring';folder.mkdir(exist_ok=True)
-        files={}
-        for i,(name,solid,_color) in enumerate(ea.ml.placed_leaves(wires)):
-            file=f'{i}.brep';solid.exportBrep(str(folder/file));files[name]=file
-        (folder/'index.json').write_text(json.dumps({'parts':files},indent=2)+'\n')
-        records['wiring_brep_index']=str((folder/'index.json').relative_to(ROOT))
-    records['review_complete']=False
-    OUTPUT.write_text(json.dumps(records,indent=2)+'\n')
-    import above_core
-    # Qualified core tenants include every native exterior tube as well as the
-    # purchased equipment. Closed wet internals remain outside this question.
-    exterior_tubes=frozenset(n.rsplit('/',1)[-1] for n in scene
-                              if n.rsplit('/',1)[-1].startswith('tube-'))
-    external_core=(exterior_tubes | above_core.core_equipment_names() |
-                   frozenset(('digiten-flow','soda-bend-holder',
-                              'soda-continuous-insulation','tube-soda-core-rise',
-                              'reservoir-b-fill-lower','reservoir-b-fill-upper',
-                              'wago-v12','wago-gnd','wago-sensors','wago-reeds-b')))
+    parser.add_argument('--export-wiring',action='store_true',help='Write a fine reference index; no BREP cache')
+    parser.add_argument('--cap-cup',type=Path,help='Optional exact fine cap trial model')
+    parser.add_argument('--cap-lid',type=Path,help='Optional exact fine lid trial model')
+    parser.add_argument('--cap-frames',type=Path,help='Explicit model SHA, qualified body and rigid 3x4 installed frame for cup/lid')
+    parser.add_argument('--junctions',nargs='+',help='Bounded source junction names for holder/driver questions')
+    parser.add_argument('--obstacles',nargs='+',help='Bounded qualified physical obstacle names')
+    parser.add_argument('--output',type=Path,default=OUTPUT)
+    args=parser.parse_args(argv)
+    if args.reuse_fixture and not args.fine_index:args.fine_index=TEMP/'fine/index.json'
+    context=current_fine(args);manifest=context.manifest
+    caps={}
+    if args.cap_cup or args.cap_lid or args.cap_frames:
+        caps=cap_trial_replacements(context,args.cap_cup,args.cap_lid,args.cap_frames)
+    source=wire_source_reading(context)
+    names=list(context.names())
+    if args.pack_fixture:
+        pieces=context.facts.get('pieces',{})
+        omitted={name if name.startswith('enclosure-')else'enclosure-'+name for name in pieces}
+        names=[name for name in names if name.rsplit('/',1)[-1]not in omitted]
+    if args.obstacles:
+        wanted={context.resolve(name)[1]for name in args.obstacles}
+        names=[name for name in names if name in wanted]
+    routes=manifest['routes'];terminals=manifest['terminals']
+    if args.contact_wires and set(args.contact_wires)-{row['id']for row in routes}:
+        raise ValueError('Unknown current conductor IDs')
+    body_rows={row['name']:row for row in source['bodies']}
+    failures=[{'wire':route['id'],'error':'Current fine body does not match its regenerated source recipe'}
+              for route in routes if not body_rows.get('wire-'+route['id'],{}).get('matches')]
+    term_failures=[name for name in manifest['terminations']if not body_rows.get(name,{}).get('matches')]
+    record={'scope':'Focused current authoritative fine above-core terminal/lead/housing, source holder and driver questions. Current-source numeric proof is reused when explicitly bound. No appliance/CAD build or physical wiring qualification.',
+        'physical_fixture_scope':'Bound current fine pack/front/roof entries'if args.pack_fixture else'Bound current complete fine appliance',
+        'physical_fixture_sha256':context.digest(context.aggregate),'cap_fixture_sha256':caps,
+        'contact_review_run':not args.compose_only,'contact_wires':args.contact_wires if not args.compose_only else[],
+        'connection_count':manifest['connection_count'],'fixture_names':names,
+        'reference_frames':manifest['reference_frames'],'cable_passages':manifest['cable_passages'],
+        'interfaces':manifest['interfaces'],'route_failures':failures,'route_intersections':[],
+        'termination_failures':term_failures,'terminations':manifest['terminations'],'bundles':manifest['bundles'],
+        'routes':routes,'terminals':terminals,'junction_driver_intersections':[],'holder_intersections':[],
+        'fine_boolean_count':0,'review_complete':False,'selected_obstacles':names,
+        'source_binding':{key:value for key,value in source.items()if key not in('bodies','source_curve_maximum_deltas_mm','source_conductor_recipe_deltas')}}
+    layout=source_layout(context)
+    exterior_tubes={name.rsplit('/',1)[-1]for name in names if name.rsplit('/',1)[-1].startswith('tube-')}
+    external_core=(exterior_tubes|set(layout.core_equipment_names())|{'digiten-flow','soda-bend-holder',
+        'soda-continuous-insulation','tube-soda-core-rise','reservoir-b-fill-lower','reservoir-b-fill-upper',
+        'wago-v12','wago-gnd','wago-sensors','wago-reeds-b'})
+    obstacles=[name for name in names if not name.startswith(('wire-','wiring-','terminal-'))and
+               (not name.startswith('cold-core/')or name.rsplit('/',1)[-1]in external_core or
+                name.rsplit('/',1)[-1]in('foam-cap-bottom','foam-cap-lid-top'))]
     if not args.compose_only:
-        print('Check routed leads against native equipment, cap, tubes and roof interfaces',flush=True)
-        # Foam fill and intact core-shell solids represent material around
-        # existing internal harness channels; this question concerns relocated
-        # external runs and their cap crossings, not requalification of them.
-        obstacles={n:s for n,(s,_c) in scene.items()
-                   if not n.startswith(('wire-','wiring-','terminal-')) and
-                   (not n.startswith('cold-core/') or
-                    n.rsplit('/',1)[-1] in external_core or
-                    n in ('cold-core/foam-cap-top','cold-core/foam-cap-lid-top'))}
+        pairs=[];owners=[]
         for route in routes:
-            if args.contact_wires and route.connection.id not in args.contact_wires:continue
-            solid=wire_shapes.get(route.connection.id)
-            if solid is None:continue
-            own={at.terminals[k].part.rsplit('/',1)[-1]
-                 for k in (route.connection.start,route.connection.end)}
-            for name,body in obstacles.items():
-                if name.rsplit('/',1)[-1] in own or name in ('funnel','funnel-cover','display-gasket'):
-                    continue
-                if not overlapping(solid,body):continue
-                volume=solid.intersect(body).Volume()
-                if volume>.05:
-                    records['route_intersections'].append({'wire':route.connection.id,'part':name,
-                                                          'volume_mm3':round(volume,5)})
-    import above_core_wiring as junctions
-    columns=junctions.driver_columns()
-    records['junction_driver_intersections']=[]
-    for name,(body,_color,_carry) in junctions.components().items():
-        for driver,tool in columns.items():
-            if overlapping(body,tool):
-                v=body.intersect(tool).Volume()
-                if v>.001:records['junction_driver_intersections'].append([name,driver,v])
-    records['holder_intersections']=[]
-    for parent in ('cold-core','front-top','back-top'):
-        features=(junctions.cap_features() if parent=='cold-core' else junctions.shell_features(parent))
-        holder=features['add'].cut(features['cut'])
-        for name,(body,_color) in scene.items():
-            if name.startswith('enclosure-') or (name.startswith('cold-core/') and
-                                                name.rsplit('/',1)[-1] not in external_core):
-                continue
-            if not overlapping(holder,body):continue
-            volume=holder.intersect(body).Volume()
-            if volume>.05:
-                records['holder_intersections'].append([parent,name,round(volume,5)])
-        for driver,tool in columns.items():
-            if overlapping(holder,tool):
-                volume=holder.intersect(tool).Volume()
-                if volume>.001:records['junction_driver_intersections'].append([parent+'-holder',driver,volume])
-    records['valid_wire_count']=len(wire_shapes)
-    records['review_complete']=True
-    records['source_sha256']={str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest()
-                             for p in [ROOT/'hardware/manifold-layout/above-core.json',
-                                       ROOT/'hardware/manifold-layout/above_core_wiring.py',
-                                       *[ROOT/'hardware/wiring/installed'/n for n in
-                                         ('terminals.py','routes.py','route-overrides.json','bundles.py','bundle-routes.json','terminations.py','connections.py')]]}
-    OUTPUT.write_text(json.dumps(records,indent=2)+'\n')
-    for key in ('connection_count','valid_wire_count','route_failures','termination_failures',
-                'route_intersections','junction_driver_intersections'):
-        print(key,records[key],flush=True)
+            if args.contact_wires and route['id']not in args.contact_wires:continue
+            if any(row['wire']==route['id']for row in failures):continue
+            wire=context.resolve('wire-'+route['id'],'wiring')
+            own={terminals[key]['part'].rsplit('/',1)[-1]for key in(route['start'],route['end'])}
+            for name in obstacles:
+                if name.rsplit('/',1)[-1]in own or name in('funnel','funnel-cover','display-gasket'):continue
+                target=context.resolve(name)
+                if fine_overlap(context.bounds(wire),context.bounds(target)):
+                    pairs.append((wire,target));owners.append((route['id'],name))
+        for(wire,name),reading in zip(owners,context.commons(pairs)):
+            record['fine_boolean_count']+=reading['entry_common_count'];hit=reading['raw']
+            if hit['volume_mm3']>.05:record['route_intersections'].append({'wire':wire,'part':name,
+                                                                          'volume_mm3':round(hit['volume_mm3'],5)})
+    geometry=junction_geometry(context,args.junctions)
+    record['invalid_holders']=[parent for parent,ref in geometry['holders'].items()
+                               if context.aux[ref[1]].is_empty()]
+    junctions=list(geometry['poses'])if not args.junctions else args.junctions
+    if set(junctions)-set(geometry['poses']):raise ValueError('Unknown source junction names')
+    pairs=[];owners=[]
+    for name in junctions:
+        body=context.resolve(name)
+        for driver,tool in geometry['drivers'].items():
+            if fine_overlap(context.bounds(body),context.bounds(tool)):
+                pairs.append((body,tool));owners.append(('driver',name,driver))
+    for parent,holder in geometry['holders'].items():
+        for name in names:
+            if name.startswith('enclosure-')or(name.startswith('cold-core/')and name.rsplit('/',1)[-1]not in external_core):continue
+            target=context.resolve(name)
+            if fine_overlap(context.bounds(holder),context.bounds(target)):
+                pairs.append((holder,target));owners.append(('holder',parent,name))
+        for driver,tool in geometry['drivers'].items():
+            if fine_overlap(context.bounds(holder),context.bounds(tool)):
+                pairs.append((holder,tool));owners.append(('driver',parent+'-holder',driver))
+    for(kind,name,other),reading in zip(owners,context.commons(pairs)):
+        record['fine_boolean_count']+=reading['entry_common_count'];volume=reading['raw']['volume_mm3']
+        if kind=='holder'and volume>.05:record['holder_intersections'].append([name,other,round(volume,5)])
+        if kind=='driver'and volume>.001:record['junction_driver_intersections'].append([name,other,volume])
+    if args.export_wiring:
+        index=context.export_index(TEMP/'fine/index.json');record['wiring_fine_index']=str(index)
+    record['valid_wire_count']=len(routes)-len(failures)
+    record['source_sha256']={str(Path(__file__).relative_to(ROOT)):context.digest(Path(__file__))}
+    record['fine_binding']=context.finish();record['review_complete']=True
+    record['geometrically_clear']=not any(record[key]for key in('route_failures','route_intersections',
+        'termination_failures','junction_driver_intersections','holder_intersections','invalid_holders'))
+    args.output.write_text(json.dumps(record,indent=2)+'\n')
+    print(json.dumps({key:record[key]for key in('connection_count','valid_wire_count','route_failures',
+        'termination_failures','route_intersections','junction_driver_intersections','fine_boolean_count')}),flush=True)
+    return record
 
 
 if __name__=='__main__':main()
