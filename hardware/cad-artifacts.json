@@ -1497,7 +1497,7 @@
   },
   "sidecars": {
     "hardware/cold-core-layout/cold-core-assembly.scorecard.json": "85ffcaf4e6654db3abadd0dc418b0bf30b29466985885ce5056dafdf572121ea",
-    "hardware/manifold-layout/enclosure-assembly.scorecard.json": "4eeb8c09bd9675f4330cc8b756977e3405c398611451c3ec974cf89feea8f765",
+    "hardware/manifold-layout/enclosure-assembly.scorecard.json": "b4af92fa5bee23ebafffbcac2b9fb70fc4b24ae670a6b12d5b85e8d0f500c8a0",
     "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.scorecard.json": "85ffcaf4e6654db3abadd0dc418b0bf30b29466985885ce5056dafdf572121ea"
   },
   "moved": {
@@ -3294,7 +3294,7 @@
     },
     "hardware/manifold-layout/enclosure-assembly.scorecard.json": {
       "inputs": "c701543721ce4e05ba70054815d3d83d39a0aedf2da0af0a735b93b553b4c8b1",
-      "commit": "e333cce06bd5d16238f709a82aeba1e730302fce",
+      "commit": "8e611f6ab066017f151468729bf3fe406d8a4778",
       "unproven": true
     },
     "hardware/manifold-layout/enclosure-assembly.step": {
