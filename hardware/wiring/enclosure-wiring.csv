@@ -10,7 +10,7 @@ AC4-H,Compressor,H_switched,join-compressor-h.2,fuse.in,18,431.38,selected_layou
 AC4-fuse,Compressor,H_switched,fuse.out,compressor.H,18,36.777,selected_layout,nominal,unlocated,fixed
 AC5-pigtail,Compressor,N,wago-n.3,join-compressor-n.1,16,241.194,selected_layout,nominal,nominal,final join
 AC5-N,Compressor,N,join-compressor-n.2,compressor.N,18,468.108,selected_layout,nominal,unlocated,final join
-AC6-PE,Compressor,PE,wago-g.3,compressor.PE,18,646.613,selected_layout,nominal,unlocated,fixed
+AC6-PE,Compressor,PE,wago-g.3,compressor.PE,18,646.614,selected_layout,nominal,unlocated,fixed
 PE-carbonator,Earth bonds,PE,wago-g.2,carbonator.PE,16,275.505,selected_layout,nominal,modeled,fixed
 DC1-V12,12V power,V12,psu.V12,wago-v12.1,16,460.379,selected_layout,nominal,nominal,fixed
 DC4-V12,12V power,V12,wago-v12.3,J10.V12,16,97.997,selected_layout,nominal,nominal,fixed
