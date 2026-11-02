@@ -11480,6 +11480,7 @@
     "reads": [
       "hardware/cut-parts/faucet/under-counter-plate/stock-profile.json",
       "hardware/cut-parts/faucet/under-counter-plate/under-counter-plate.dxf",
+      "hardware/cut-parts/faucet/under-counter-plate/under_counter_plate.py",
       "hardware/faucet-layout/faucet_assembly.py",
       "hardware/install-guide/assets/brand/mark-1024.png",
       "hardware/install-guide/assets/fill-scene-inputs.json",
@@ -11503,6 +11504,7 @@
       "hardware/install-guide/assets/print-resolution.json",
       "hardware/install-guide/assets/steps/co2-ready.png",
       "hardware/install-guide/assets/steps/connect-rear-open.png",
+      "hardware/install-guide/assets/steps/fill-closed.png",
       "hardware/install-guide/assets/steps/fill-ready.png",
       "hardware/install-guide/assets/steps/modern-tee-assembly-ready.png",
       "hardware/install-guide/assets/steps/modern-tee-complete.png",
