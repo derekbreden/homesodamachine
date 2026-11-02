@@ -27,6 +27,11 @@ RUN_ENV, CAD_ENV, COMPILER_ENV, BROKER_ENV = 'HSM_RUN_LEASE', 'HSM_CAD_LEASE', '
 _directory = None                         # private process fixtures may set this to a temporary directory
 _run = _cad = _compiler = _broker = None
 _broker_checked = False
+_WIRE_LIMIT = 16384                       # shared with the Rust broker receiver
+# Darwin can install all 512 rights in an mbuf even when the returned control data
+# is truncated. Receive the full set so every rejected excess descriptor is owned.
+# https://github.com/apple-oss-distributions/xnu/blob/main/bsd/kern/uipc_usrreq.c
+_ANCILLARY_SPACE = socket.CMSG_SPACE(512 * array.array('i').itemsize)
 
 
 def directory():
@@ -216,6 +221,56 @@ def adopt(metadata, fds):
         return False
 
 
+def _receive(peer, limit=_WIRE_LIMIT):
+    """One JSON line and its rights; close all received rights on a failed frame."""
+    data, fds = bytearray(), []
+    timeout = peer.gettimeout()
+    deadline = time.monotonic() + (timeout if timeout is not None else 1)
+    try:
+        while True:
+            remaining = deadline - time.monotonic()
+            if remaining <= 0:
+                raise TimeoutError('lease frame timed out')
+            peer.settimeout(remaining)
+            chunk, ancillary, flags, _addr = peer.recvmsg(4096, _ANCILLARY_SPACE)
+            for level, typ, value in ancillary:
+                if (level, typ) == (socket.SOL_SOCKET, socket.SCM_RIGHTS):
+                    numbers = array.array('i')
+                    numbers.frombytes(value[:len(value) - len(value) % numbers.itemsize])
+                    fds.extend(numbers)
+                    for fd in numbers:
+                        os.set_inheritable(fd, False)
+            if flags & socket.MSG_CTRUNC or len(fds) > capacity() + 2:
+                raise ValueError('truncated or excess lease descriptors')
+            data.extend(chunk)
+            if len(data) > limit:
+                raise ValueError('oversized lease frame')
+            if b'\n' in data:
+                value = json.loads(data)
+                if not isinstance(value, dict):
+                    raise ValueError('a lease frame must be an object')
+                return value, fds
+            if not chunk:
+                raise ValueError('socket closed before a complete lease frame')
+    except BaseException:
+        for fd in fds:
+            os.close(fd)
+        raise
+    finally:
+        peer.settimeout(timeout)
+
+
+def _send(peer, value, fds=()):
+    data = (json.dumps(value) + '\n').encode()
+    if len(data) > _WIRE_LIMIT or len(fds) > capacity() + 2:
+        raise ValueError('oversized lease frame')
+    ancillary = [(socket.SOL_SOCKET, socket.SCM_RIGHTS, array.array('i', fds))] if fds else []
+    sent = peer.sendmsg([data], ancillary)
+    if sent <= 0:
+        raise OSError('socket accepted no lease bytes')
+    peer.sendall(data[sent:])                 # rights belong only to the first write
+
+
 def _from_broker():
     global _broker_checked
     fds = []
@@ -231,15 +286,9 @@ def _from_broker():
         with socket.socket(socket.AF_UNIX, socket.SOCK_STREAM) as peer:
             peer.settimeout(1)
             peer.connect(str(path))
-            peer.sendall(json.dumps({'v': 1, 'token': owner['token']}).encode() + b'\n')
-            data, ancillary, flags, _addr = peer.recvmsg(16384, socket.CMSG_SPACE(32 * 4))
-        for level, typ, value in ancillary:
-            if (level, typ) == (socket.SOL_SOCKET, socket.SCM_RIGHTS):
-                numbers = array.array('i')
-                numbers.frombytes(value[:len(value) - len(value) % numbers.itemsize])
-                fds.extend(numbers)
-        reply = json.loads(data)
-        if not reply.get('ok') or flags & socket.MSG_CTRUNC:
+            _send(peer, {'v': 1, 'token': owner['token']})
+            reply, fds = _receive(peer)
+        if not reply.get('ok'):
             for fd in fds:
                 os.close(fd)
             return False
@@ -284,6 +333,21 @@ class TimingLeaseError(RuntimeError):
     """A nested timing run cannot reserve more than its already-admitted parent."""
 
 
+class InheritanceError(RuntimeError):
+    """An advertised parent lease must validate before a child can run."""
+
+
+def _expects_parent():
+    if any(os.environ.get(name) for name in (RUN_ENV, CAD_ENV, COMPILER_ENV)):
+        return True
+    if config := os.environ.get(BROKER_ENV):
+        try:
+            return _broker is None or Path(json.loads(config)['path']) != _broker.path
+        except (KeyError, TypeError, ValueError):
+            return True
+    return False
+
+
 @functools.cache
 def _sysctl():
     import ctypes
@@ -317,6 +381,8 @@ def acquire(key=None, timing=False):
         if timing and len(inherited.entries) < capacity():
             raise TimingLeaseError('request timing at the logical root so it can reserve all slots')
         return inherited
+    if _expects_parent():
+        raise InheritanceError('the advertised parent lease or broker could not be validated; refusing a second logical run')
     waiting = None
     token = secrets.token_hex(16)
     while True:
@@ -461,12 +527,18 @@ class Broker:
                 continue
             with peer:
                 try:
-                    asked = json.loads(peer.recv(4096))
-                    metadata, descriptors = wire()
-                    ok = asked.get('v') == 1 and secrets.compare_digest(asked.get('token', ''), self.token)
-                    reply = {'ok': bool(ok and metadata), '_lease': metadata if ok else None}
-                    ancillary = [(socket.SOL_SOCKET, socket.SCM_RIGHTS, array.array('i', descriptors))] if ok and metadata else []
-                    peer.sendmsg([(json.dumps(reply) + '\n').encode()], ancillary)
+                    peer.settimeout(1)
+                    asked, incoming = _receive(peer, 4096)
+                    try:
+                        if incoming:
+                            raise ValueError('a broker request carries no lease descriptors')
+                        metadata, descriptors = wire()
+                        ok = asked.get('v') == 1 and secrets.compare_digest(asked.get('token', ''), self.token)
+                        reply = {'ok': bool(ok and metadata), '_lease': metadata if ok else None}
+                        _send(peer, reply, descriptors if ok and metadata else ())
+                    finally:
+                        for fd in incoming:
+                            os.close(fd)
                 except (OSError, ValueError, TypeError):
                     pass
 
