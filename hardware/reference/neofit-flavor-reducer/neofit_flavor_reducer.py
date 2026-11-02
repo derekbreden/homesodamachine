@@ -29,6 +29,23 @@ def port():
     return ((0.0, PROUD_LENGTH, 0.0), (0.0, 1.0, 0.0))
 
 
+def placed(mouth, axis):
+    """Carry the frozen shoulder datum onto a valve's outward port axis."""
+    import math
+    import cadquery as cq
+    from _cadq_export import import_step
+
+    direction = cq.Vector(*axis).normalized()
+    source = cq.Vector(0.,1.,0.)
+    spin = source.cross(direction)
+    angle = math.degrees(math.acos(max(-1.,min(1.,source.dot(direction)))))
+    shape = import_step(str(STEP)).val()
+    if angle > 1e-9:
+        shape = shape.rotate((0.,0.,0.),spin.toTuple() if spin.Length > 1e-9
+                             else (1.,0.,0.),angle)
+    return shape.translate(tuple(mouth))
+
+
 def main():
     print("neofit-flavor-reducer")
     print(f"  STEP: {STEP_PATH}")
