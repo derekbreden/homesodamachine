@@ -14,8 +14,19 @@ path = "../../../hardware/printed-parts/zone-c/funnel-cover/funnel_cover.rs"
 name = "funnel-frame"
 path = "../../../hardware/printed-parts/zone-c/funnel/funnel_frame.rs"
 
+[[bin]]
+name = "funnel-mold"
+path = "../../../hardware/printed-parts/zone-c/funnel-mold/funnel_mold.rs"
+
+[[bin]]
+name = "funnel"
+path = "../../../hardware/printed-parts/zone-c/funnel/funnel.rs"
+
 [dependencies]
 anyhow.workspace = true
 hsm-kernel = { path = "../kernel" }
+hsm-geometry = { path = "../geometry" }
+serde.workspace = true
 serde_json.workspace = true
 sha2.workspace = true
+manifold-csg = { version = "0.4.1", default-features = false, features = ["parallel"] }

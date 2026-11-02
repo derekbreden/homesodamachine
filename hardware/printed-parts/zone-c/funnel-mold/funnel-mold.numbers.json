@@ -1,0 +1,191 @@
+{
+ "apron_radius": 6.0,
+ "apron_size": [
+  215.0,
+  190.39151584656256
+ ],
+ "apron_y": 3.0,
+ "apron_z": [
+  6.0,
+  9.0
+ ],
+ "back_z": 14.0,
+ "base_radius": 22.424999999999997,
+ "base_size": [
+  197.85,
+  179.24151584656255
+ ],
+ "base_thickness": 5.0,
+ "bolt_diameter": 5.0,
+ "bolt_edge_margin": 6.0,
+ "bolt_limits": [
+  117.5,
+  108.19575792328128
+ ],
+ "bolt_pocket_width": 12.0,
+ "bolt_station": 50.0,
+ "bolt_xy": [
+  [
+   -117.5,
+   -50.0
+  ],
+  [
+   -117.5,
+   50.0
+  ],
+  [
+   117.5,
+   -50.0
+  ],
+  [
+   117.5,
+   50.0
+  ],
+  [
+   -50.0,
+   -108.19575792328128
+  ],
+  [
+   50.0,
+   -108.19575792328128
+  ],
+  [
+   -50.0,
+   108.19575792328128
+  ],
+  [
+   50.0,
+   108.19575792328128
+  ]
+ ],
+ "bore_radius": 3.0,
+ "bore_size": [
+  153.0,
+  146.39151584656256
+ ],
+ "brim_height": 6.0,
+ "brim_radius": 27.0,
+ "brim_size": [
+  179.0,
+  172.39151584656256
+ ],
+ "cavity_color": [
+  0.04666508361697197,
+  0.3185468316078186,
+  0.31398874521255493
+ ],
+ "chamber_diameter": 299.72,
+ "collar_wall": 6.0,
+ "color": [
+  0.007194409146904945,
+  0.007194409146904945,
+  0.007194409146904945
+ ],
+ "corbel_run_per_rise": 0.5,
+ "corbel_z": [
+  -45.150000000000006,
+  4.0
+ ],
+ "core_color": [
+  0.6866854429244995,
+  0.3864295184612274,
+  0.08228271454572678
+ ],
+ "drain_xy": [
+  0.0,
+  0.0
+ ],
+ "end_z": -42.95,
+ "finish_allowance": 0.3,
+ "flange_margin": 16.0,
+ "flange_radius": 47.0,
+ "flange_size": [
+  247.0,
+  228.39151584656256
+ ],
+ "flange_thickness": 5.0,
+ "floor_reserve": 0.7,
+ "floor_z": -50.150000000000006,
+ "forming_join_allowance": 0.01,
+ "funnel_color": [
+  0.09084173291921616,
+  0.10702311247587204,
+  0.1384316235780716
+ ],
+ "locator_clearance": 0.6,
+ "locator_diameter": 8.0,
+ "locator_front_land": 11.0,
+ "locator_height": 3.0,
+ "locator_leadin": 1.0,
+ "locator_slot_travel": 1.5,
+ "locator_x": 25.0,
+ "locator_xy": [
+  [
+   25.0,
+   -103.19575792328128
+  ],
+  [
+   -25.0,
+   -103.19575792328128
+  ]
+ ],
+ "mouth_radius": 14.0,
+ "plug_height": 12.85,
+ "plug_size": [
+  36.0,
+  41.02478
+ ],
+ "pour_diameter": 11.0,
+ "pour_xy": [
+  -93.0,
+  -82.19575792328128
+ ],
+ "pry_depth": 5.0,
+ "pry_height": 1.0,
+ "pry_width": 16.0,
+ "ramp_z": [
+  -17.485946291005064,
+  -31.68517935471506
+ ],
+ "rod_clearance": 0.4,
+ "rod_color": [
+  0.40197786688804626,
+  0.48514997959136963,
+  0.5775805115699768
+ ],
+ "rod_diameter": 6.0,
+ "rod_end_depth": 1.5,
+ "rod_guide_length": 8.0,
+ "rod_length": 25.0,
+ "rod_seat_wall": 5.0,
+ "rod_socket_depth": 1.5,
+ "rod_socket_diameter": 6.4,
+ "shell_thickness": 5.0,
+ "spout_radius": 7.5,
+ "tolerance": 0.0001,
+ "top_z": 9.0,
+ "vent_diameter": 4.0,
+ "vent_xy": [
+  [
+   93.0,
+   -82.19575792328128
+  ],
+  [
+   93.0,
+   86.19575792328128
+  ],
+  [
+   -93.0,
+   86.19575792328128
+  ],
+  [
+   -100.5,
+   0
+  ],
+  [
+   100.5,
+   0
+  ]
+ ],
+ "viewer_deflection_ratio": 0.001
+}
