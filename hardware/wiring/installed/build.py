@@ -94,7 +94,7 @@ def numeric_inputs(scene,ea):
             _manifest(at,graph,routes,termination_facts,bundle_facts))
 
 
-def numeric_source_paths():
+def numeric_source_paths(numbers=None):
     """Loaded repository readers and explicit placement data for the numeric handoff."""
     paths={Path(module.__file__).resolve() for module in tuple(sys.modules.values())
            if getattr(module,'__file__',None) and str(module.__file__).endswith('.py')}
@@ -105,17 +105,60 @@ def numeric_source_paths():
         'hardware/reference/g-ganen-pump/under-head-clearance.json',
         'hardware/reference/g-ganen-pump/underside-observation/rigid-underside.json',
     ))
+    if numbers is not None:
+        paths.update(ROOT/row['step'] for row in numbers.get('components',())
+                     if row['kind']=='import')
     return sorted(str(path.relative_to(ROOT)) for path in paths
                   if path.is_relative_to(ROOT) and path.is_file())
 
 
-def attach(assembly, ea):
+def attach(assembly, ea, *, kernel=False):
     """Include wiring in the normal enclosure composition without re-standing it."""
     scene={n:(s,c) for n,s,c in ea.ml.placed_leaves(assembly)}
+    if kernel:
+        import cadquery as cq
+        if not getattr(cq,'MESH',False):
+            raise ValueError('Kernel wiring attachment requires the mesh assembly path')
+        numbers,manifest=numeric_inputs(scene,ea)
+        return _defer_kernel(assembly,numbers,manifest)
     wires,manifest=compose(scene,ea)
     assembly.add(wires,name='installed-wiring')
     assembly.wiring_body_names=frozenset(child.name for child in wires.children)
     assembly.wiring_model=manifest
+
+
+def _defer_kernel(assembly,numbers,manifest,*,output=OUT):
+    """Retain numeric inputs until the physical export and checks have finished."""
+    assembly.wiring_model=manifest
+    assembly.wiring_body_names=frozenset()
+    assembly.wiring_kernel_pending={'numbers':numbers,'manifest':manifest,'output':output,
+                                    'sources':numeric_source_paths(numbers)}
+
+
+def _attach_kernel(assembly,numbers,manifest,*,output=OUT,sources=()):
+    """Attach lazy fine bodies while retaining the producer's paired display files."""
+    import cadquery as cq
+    import _rust_part
+    from meshcad import scene
+    if not getattr(cq,'MESH',False):
+        raise ValueError('Kernel wiring attachment requires the mesh assembly path')
+    output=Path(output)
+    output.parent.mkdir(parents=True,exist_ok=True)
+    numbers={**numbers,'file_stem':output.name}
+    _rust_part.cut('machine','installed-wires',numbers,output.parent,numbers_name=output.name)
+    # The file's f64 arrays stay exact and its native backend is built only if queried.
+    bodies=scene.load(Path(str(output)+'.step.npz'),snap=False)
+    wires=cq.Assembly(name='installed-wiring')
+    for name,(shape,rgb) in bodies.items():
+        wires.add(shape,name=name,color=cq.Color(*rgb,1.,False) if rgb is not None else None)
+    assembly.add(wires,name='installed-wiring')
+    assembly.wiring_body_names=frozenset(bodies)
+    assembly.wiring_model=manifest
+    assembly.wiring_kernel={
+        'output':output,
+        'sources':[*[ROOT/p for p in sources],
+                   *[ROOT/p for p in sorted(_rust_part._READ_TARGETS) if (ROOT/p).is_file()]],
+    }
 
 
 def export_enclosure(assembly, target):
@@ -129,7 +172,32 @@ def export_enclosure(assembly, target):
         if child.name=='installed-wiring':wires=child
         else:physical.add(child,name=child.name)
     export_assembly(physical,str(target))
+    pending=getattr(assembly,'wiring_kernel_pending',None)
+    if pending is not None:
+        numbers={**pending['numbers'],'physical_fine_model_sha256':digest(Path(str(target)+'.npz'))}
+        _attach_kernel(assembly,numbers,pending['manifest'],output=pending['output'],
+                       sources=pending['sources'])
+        del assembly.wiring_kernel_pending
+        wires=next(child for child in assembly.children if child.name=='installed-wiring')
     if wires is not None:
+        kernel=getattr(assembly,'wiring_kernel',None)
+        if kernel is not None:
+            output=kernel['output']
+            receipt=install(Path(target),Path(str(output)+'.step'),
+                            wire_model=Path(str(output)+'.step.npz'))
+            manifest=assembly.wiring_model
+            manifest['physical_fine_model_sha256']=digest(Path(str(target)+'.npz'))
+            manifest['wiring_fine_model_sha256']=receipt['wiring_fine_model']['sha256']
+            manifest['wiring_numbers_sha256']=digest(output.with_suffix('.numbers.json'))
+            write_manifest(manifest,Path(target),output=output,
+                           additional_sources=[Path(__file__).with_name('wire_geometry.py'),
+                                               *[ROOT/p for p in numeric_source_paths()],
+                                               *kernel['sources']])
+            receipt['connection_count']=manifest['connection_count']
+            review=output.parent/'installed/integration-review.json'
+            review.parent.mkdir(parents=True,exist_ok=True)
+            review.write_text(json.dumps(receipt,indent=2)+'\n')
+            return
         # Preserve native swept-face orientation through STEP readback.
         export_assembly(wires,str(OUT.with_suffix('.step')),precision_mode=1)
         write_manifest(assembly.wiring_model,Path(target))
@@ -256,7 +324,7 @@ def main():
         numbers['physical_fine_model_sha256']=fine_digest
         manifest['physical_fine_model_sha256']=fine_digest
         args.numbers_output.write_text(json.dumps({'numbers':numbers,'manifest':manifest,
-                                                  'sources':numeric_source_paths()})+'\n')
+                                                  'sources':numeric_source_paths(numbers)})+'\n')
         return
     import enclosure_assembly as ea
     from _cadq_export import export_assembly
