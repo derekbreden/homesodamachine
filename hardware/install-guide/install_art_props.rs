@@ -4,6 +4,9 @@ use hsm_kernel::part::args;
 use hsm_kernel::*;
 use serde_json::Value;
 
+mod cad_art_props;
+mod plumbing_art_props;
+
 type Shown = Vec<(String, Solid, [f64; 3])>;
 
 fn numbers(v: &Value) -> Vec<f64> {
@@ -199,6 +202,23 @@ fn c13(n: &hsm_kernel::part::Numbers, out: &mut Shown) -> Result<()> {
 
 fn main() -> Result<()> {
     let (n, directory) = args()?;
+    if let Ok(scenes) = n.get("surface_scenes") {
+        for scene in scenes.as_array().context("surface scenes")? {
+            let imported = import::payload(scene["payload"].as_str().context("scene payload")?)?;
+            let bodies: Vec<_> = imported.iter().map(|b| Body {
+                name: &b.name, solid: &b.solid, color: b.color,
+            }).collect();
+            println!("{}", hsm_kernel::part::write_shown(&directory,
+                scene["name"].as_str().context("scene name")?, &bodies)?);
+        }
+        return Ok(());
+    }
+    if n.get("cad_art").is_ok() {
+        return cad_art_props::write(&n, &directory);
+    }
+    if n.get("plumbing_art").is_ok() {
+        return plumbing_art_props::write(&n, &directory);
+    }
     for name in n.get("scenes")?.as_array().unwrap() {
         let name = name.as_str().unwrap();
         let mut props = vec![];
