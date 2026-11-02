@@ -14,11 +14,15 @@ import uuid
 import xml.etree.ElementTree as ET
 import zipfile
 
+HERE = Path(__file__).resolve().parent
+ROOT = HERE.parents[2]
+sys.path.insert(0, str(ROOT / "hardware/scripts"))
+import _rust_part
+_rust_part.start()
+
 import numpy as np
 import trimesh
 
-HERE = Path(__file__).resolve().parent
-ROOT = HERE.parents[2]
 CORE = "http://schemas.microsoft.com/3dmanufacturing/core/2015/02"
 PROD = "http://schemas.microsoft.com/3dmanufacturing/production/2015/06"
 REL = "http://schemas.openxmlformats.org/package/2006/relationships"
