@@ -24,20 +24,40 @@ Z = 0 and the outlet collet mouth at −Z. Centered on X and Y.
 
 Run:
     tools/cad-venv/bin/python hardware/reference/seaflo-discharge-chain/seaflo_discharge_chain.py
+
+
+The reference STEP and payloads are declared in `frozen-asset.json`.
+Native builder functions remain available to current composition callers.
 """
+
+from __future__ import annotations
 
 import sys
 from pathlib import Path
 
-import cadquery as cq
+_REFERENCE_DIR = Path(__file__).resolve().parent
+STEP_PATH = _REFERENCE_DIR / 'seaflo-discharge-chain.step'
+PAYLOAD_PATH = _REFERENCE_DIR / 'seaflo-discharge-chain.step.mesh'
+FINE_PAYLOAD_PATH = _REFERENCE_DIR / 'seaflo-discharge-chain.fine.step.mesh'
+ASSET_MANIFEST_PATH = _REFERENCE_DIR / "frozen-asset.json"
+
+
+def main():
+    print(f"Frozen STEP: {STEP_PATH}")
+    print(f"Display payload: {PAYLOAD_PATH}")
+    print(f"Fine payload: {FINE_PAYLOAD_PATH}")
+
+
+if __name__ == "__main__":
+    main()
+    raise SystemExit(0)
+
 
 _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
 sys.path.insert(0, str(_hw / "scripts"))
 sys.path.insert(0, str(_hw / "reference" / "gasher-check-valve"))
 sys.path.insert(0, str(_hw / "reference" / "jg-pp010822e"))
-from _cadq_export import export_assembly
-from _materials import M_STAINLESS, one_body
 import gasher_check_valve as check   # the middle fitting's own three sections
 import jg_pp010822e as male          # the inlet fitting's collet, hex and shank
 
@@ -94,6 +114,7 @@ def build():
     """The three fittings stacked along −Z, inlet mouth at Z = 0, made up at each NPT joint
     so the stack stands its real length. The check's three sections come off its own module —
     socket boss, hex barrel, male stub, at the sizes it draws them."""
+    import cadquery as cq
     part, z = None, 0.0
     for _label, dia, length in SECTIONS:
         z -= length
@@ -103,19 +124,14 @@ def build():
     return part
 
 
-def main():
-    part = build()
-    bb = part.BoundingBox()
-    print("Water check chain — PP010822E + GASHER check + PP450822E")
-    print(f"  Bounding box: X [{bb.xmin:.2f}, {bb.xmax:.2f}]  "
-          f"Y [{bb.ymin:.2f}, {bb.ymax:.2f}]  Z [{bb.zmin:.2f}, {bb.zmax:.2f}]")
-    print(f"  made up {LENGTH:.1f} mm inlet mouth to outlet mouth")
-    for label, (pos, axis) in (("inlet    ", inlet()), ("tube-port", tube_port())):
-        print(f"  {label}: ({pos[0]:7.2f}, {pos[1]:6.2f}, {pos[2]:7.2f})  out {axis}")
-    out = _here.parent / "seaflo-discharge-chain.step"
-    export_assembly(one_body(part, "seaflo-discharge-chain", M_STAINLESS), str(out))
-    print(f"-> {out.name}")
-
-
-if __name__ == "__main__":
-    main()
+def __getattr__(name):
+    if name == 'cq':
+        import cadquery as cq
+        return cq
+    if name in {'export_assembly'}:
+        import _cadq_export
+        return getattr(_cadq_export, name)
+    if name in {'one_body', 'M_STAINLESS'}:
+        import _materials
+        return getattr(_materials, name)
+    raise AttributeError(f"module {__name__!r} has no attribute {name!r}")

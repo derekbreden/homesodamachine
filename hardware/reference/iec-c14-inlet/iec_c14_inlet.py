@@ -44,6 +44,10 @@ blade below the line and neutral pair.
 Run:
     tools/cad-venv/bin/python hardware/reference/iec-c14-inlet/iec_c14_inlet.py
     tools/cad-venv/bin/python hardware/reference/iec-c14-inlet/iec_c14_inlet.py selftest
+
+
+The reference STEP and payloads are declared in `frozen-asset.json`.
+Native builder functions remain available to current composition callers.
 """
 
 from __future__ import annotations
@@ -52,15 +56,17 @@ import math
 import sys
 from pathlib import Path
 
-import cadquery as cq
+_REFERENCE_DIR = Path(__file__).resolve().parent
+STEP_PATH = _REFERENCE_DIR / 'iec-c14-inlet.step'
+PAYLOAD_PATH = _REFERENCE_DIR / 'iec-c14-inlet.step.mesh'
+FINE_PAYLOAD_PATH = _REFERENCE_DIR / 'iec-c14-inlet.step.mesh'
+ASSET_MANIFEST_PATH = _REFERENCE_DIR / "frozen-asset.json"
+
 
 _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
 sys.path.insert(0, str(_hw / "scripts"))
 sys.path.insert(0, str(_hw / "printed-parts" / "cadlib"))
-from _cadq_export import export_assembly  # noqa: E402
-from _materials import C_C14, one_body  # noqa: E402
-from world_workplane import xz_plane_y_up  # noqa: E402
 
 STEP = _here.parent / "iec-c14-inlet.step"
 
@@ -189,6 +195,7 @@ def _flange_landmarks() -> dict:
 
 def flange_profile(clearance: float = 0.0) -> cq.Sketch:
     """The flange's silhouette, offset outward by ``clearance``."""
+    import cadquery as cq
     if clearance < 0.0:
         raise ValueError("flange-profile clearance must be non-negative")
     p = _flange_landmarks()
@@ -226,6 +233,8 @@ def flange_profile(clearance: float = 0.0) -> cq.Sketch:
 
 def flange_prism(clearance: float, y0: float, y1: float) -> cq.Workplane:
     """The flange's silhouette extruded from ``y0`` to ``y1``, without its screw holes."""
+    import cadquery as cq
+    from world_workplane import xz_plane_y_up
     if y1 <= y0:
         raise ValueError(f"flange prism ends at {y1:g}, not beyond its start {y0:g}")
     return (cq.Workplane(xz_plane_y_up).workplane(offset=y0)
@@ -233,11 +242,13 @@ def flange_prism(clearance: float, y0: float, y1: float) -> cq.Workplane:
 
 
 def _rounded_rect(w: float, h: float, r: float) -> cq.Sketch:
+    import cadquery as cq
     return cq.Sketch().rect(w, h).vertices().fillet(r).reset()
 
 
 def _polygon_xz(points) -> cq.Sketch:
     """A closed sketch from world (x, z) corners on `xz_plane_y_up`, whose local y runs along -Z."""
+    import cadquery as cq
     local = [(px, -pz) for px, pz in points]
     sketch = cq.Sketch()
     for p0, p1 in zip(local, local[1:] + local[:1]):
@@ -247,6 +258,7 @@ def _polygon_xz(points) -> cq.Sketch:
 
 def _mouth_profile() -> cq.Sketch:
     """The cavity mouth: rounded upper corners, chamfered lower corners."""
+    import cadquery as cq
     hw, hh, k = MOUTH_W / 2.0, MOUTH_H / 2.0, MOUTH_CHAMFER
     sketch = _polygon_xz(((-hw, hh), (hw, hh), (hw, -(hh - k)), (hw - k, -hh),
                           (-(hw - k), -hh), (-hw, -(hh - k))))
@@ -255,6 +267,7 @@ def _mouth_profile() -> cq.Sketch:
 
 def _body_profile() -> cq.Sketch:
     """The housing section: 45 degree chamfers below, rounds above."""
+    import cadquery as cq
     hw, hh, k = BODY_W / 2.0, BODY_H / 2.0, BODY_CHAMFER_LEG
     sketch = _polygon_xz(((-hw, hh), (hw, hh), (hw, -(hh - k)), (hw - k, -hh),
                           (-(hw - k), -hh), (-hw, -(hh - k))))
@@ -262,12 +275,16 @@ def _body_profile() -> cq.Sketch:
 
 
 def _prism(sketch: cq.Sketch, y0: float, y1: float) -> cq.Workplane:
+    import cadquery as cq
+    from world_workplane import xz_plane_y_up
     return (cq.Workplane(xz_plane_y_up).workplane(offset=y0)
             .placeSketch(sketch).extrude(y1 - y0))
 
 
 def build_flange() -> cq.Workplane:
     """Measured flange from Y=-3.25 to the seating plane, with its countersunk holes."""
+    import cadquery as cq
+    from world_workplane import xz_plane_y_up
     flange = flange_prism(0.0, flange_back_y, 0.0)
     for sx, sz in panel_screws():
         bore = (cq.Workplane(xz_plane_y_up).workplane(offset=flange_back_y - 1.0)
@@ -280,16 +297,19 @@ def build_flange() -> cq.Workplane:
 
 def build_rim() -> cq.Workplane:
     """The rim standing on the flange's outboard face."""
+    import cadquery as cq
     return _prism(_rounded_rect(RIM_W, RIM_H, RIM_R), 0.0, RIM_PROUD)
 
 
 def build_body() -> cq.Workplane:
     """Measured chamfered wiring housing behind the flange."""
+    import cadquery as cq
     return _prism(_body_profile(), body_end_y, flange_back_y)
 
 
 def build_bosses() -> cq.Workplane:
     """Three tab bosses proud of the housing's end face."""
+    import cadquery as cq
     bosses = None
     for bx, bz in BOSS_STATIONS:
         boss = _prism(_rounded_rect(BOSS_W, BOSS_H, BOSS_R), boss_end_y, body_end_y).translate((bx, 0.0, bz))
@@ -299,11 +319,14 @@ def build_bosses() -> cq.Workplane:
 
 def cavity_cutter() -> cq.Workplane:
     """The mouth profile carried from above the rim down to the cavity floor."""
+    import cadquery as cq
     return _prism(_mouth_profile(), CAVITY_FLOOR_Y, RIM_PROUD + 1.0)
 
 
 def build_blades() -> cq.Workplane:
     """Three IEC male blades standing from the cavity floor toward +Y."""
+    import cadquery as cq
+    from world_workplane import xz_plane_y_up
     blades = None
     for bx, bz, tip in BLADE_STATIONS:
         blade = (cq.Workplane(xz_plane_y_up).workplane(offset=CAVITY_FLOOR_Y - 0.5)
@@ -314,6 +337,8 @@ def build_blades() -> cq.Workplane:
 
 def build_terminals() -> cq.Workplane:
     """Three solder tabs projecting from their bosses toward -Y, each with its hole."""
+    import cadquery as cq
+    from world_workplane import xz_plane_y_up
     tabs = None
     for tx, tz in TAB_STATIONS:
         tab = (cq.Workplane(xz_plane_y_up).workplane(offset=TAB_TIP_Y)
@@ -326,6 +351,7 @@ def build_terminals() -> cq.Workplane:
 
 def build_iec_c14_inlet() -> cq.Workplane:
     """The complete inlet as one reference solid."""
+    import cadquery as cq
     moulding = (build_flange().union(build_rim()).union(build_body()).union(build_bosses())
                 .cut(cavity_cutter()))
     return moulding.union(build_blades()).union(build_terminals())
@@ -418,22 +444,29 @@ def readme() -> None:
     print("-> README.md")
 
 
-def main() -> None:
-    part = build_iec_c14_inlet()
-    bb = part.val().BoundingBox()
-    print("IEC 60320 C14 panel-mount AC inlet — MXR AC-04 / B07DCXKNXQ")
-    print(f"  X [{bb.xmin:.2f}, {bb.xmax:.2f}]  Y [{bb.ymin:.2f}, {bb.ymax:.2f}]  "
-          f"Z [{bb.zmin:.2f}, {bb.zmax:.2f}]")
-    print(f"  flange {FLANGE_W:g} x {FLANGE_H:g} x {FLANGE_T:g}, rim {RIM_W:g} x {RIM_H:g} "
-          f"proud {RIM_PROUD:g}, mouth {MOUTH_W:g} x {MOUTH_H:g}")
-    print(f"  housing {BODY_W:g} x {BODY_H:g} x {BODY_DEPTH:g}, lower chamfer leg {BODY_CHAMFER_LEG:g}")
-    print(f"  solid valid: {part.val().isValid()}")
-    export_assembly(one_body(part, "iec-c14-inlet", C_C14), str(STEP))
-    print(f"-> {STEP.name}")
-    readme()
+def main():
+    print(f"Frozen STEP: {STEP_PATH}")
+    print(f"Display payload: {PAYLOAD_PATH}")
+    print(f"Fine payload: {FINE_PAYLOAD_PATH}")
 
 
 if __name__ == "__main__":
     if len(sys.argv) > 1 and sys.argv[1] == "selftest":
         sys.exit(selftest())
     main()
+
+
+def __getattr__(name):
+    if name == 'cq':
+        import cadquery as cq
+        return cq
+    if name in {'export_assembly'}:
+        import _cadq_export
+        return getattr(_cadq_export, name)
+    if name in {'one_body', 'C_C14'}:
+        import _materials
+        return getattr(_materials, name)
+    if name in {'xz_plane_y_up'}:
+        import world_workplane
+        return getattr(world_workplane, name)
+    raise AttributeError(f"module {__name__!r} has no attribute {name!r}")

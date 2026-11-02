@@ -1,0 +1,33 @@
+{
+  "source": {
+    "commit": "30bb5cb2d5b95f18f43637bd9be26daced05f1f5",
+    "path": "hardware/reference/multiplex-asse1022/multiplex_asse1022.py",
+    "sha256": "b5721046ffd06d10d2d0b325177c8a0f4a0fc4c522b1bb7ef7c490147b6f84b0"
+  },
+  "members": {
+    "multiplex-asse1022.step": "8d357ab7bf93f99130ea024c00c35e0f4e93e0f4de4613e15215db0c0a02c069",
+    "multiplex-asse1022.step.mesh": "93e88603dfd69287cfb247df822d0d455f12297d9b4ba31f69a163df23bf3b2a"
+  },
+  "fine_payload": {
+    "source_step_sha256": "8d357ab7bf93f99130ea024c00c35e0f4e93e0f4de4613e15215db0c0a02c069",
+    "path": "multiplex-asse1022.step.mesh",
+    "sha256": "93e88603dfd69287cfb247df822d0d455f12297d9b4ba31f69a163df23bf3b2a",
+    "linear_mm": 0.005,
+    "angular_rad": 0.05,
+    "producer": "hardware/scripts/_rust_part.py:_tessellate",
+    "origin": "new one-time immutable published STEP conversion",
+    "meshes": [
+      {
+        "name": "multiplex-asse1022",
+        "color": [
+          0.7099999974147344,
+          0.5600000132598123,
+          0.3299999972442969
+        ],
+        "vertices": 33524,
+        "triangles": 40546,
+        "face_ranges": 148
+      }
+    ]
+  }
+}

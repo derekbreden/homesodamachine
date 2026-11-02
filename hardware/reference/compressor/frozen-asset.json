@@ -1,0 +1,44 @@
+{
+  "source": {
+    "commit": "30bb5cb2d5b95f18f43637bd9be26daced05f1f5",
+    "path": "hardware/reference/compressor/compressor.py",
+    "sha256": "3e81c68115eb419ebefc2339ec715a145168cae77faa3d6dc65164803b09f06a"
+  },
+  "members": {
+    "compressor.step": "8eaf3cd580b7ffa68578a00c2401673bbc45246eb565614d3d6175f5598b9d62",
+    "compressor.step.mesh": "0878b29ad96daee74a7e3d03c140cda2b1177717af3841b4192adf192d88985f"
+  },
+  "fine_payload": {
+    "source_step_sha256": "8eaf3cd580b7ffa68578a00c2401673bbc45246eb565614d3d6175f5598b9d62",
+    "path": "compressor.step.mesh",
+    "sha256": "0878b29ad96daee74a7e3d03c140cda2b1177717af3841b4192adf192d88985f",
+    "linear_mm": 0.005,
+    "angular_rad": 0.05,
+    "producer": "hardware/scripts/_rust_part.py:_tessellate",
+    "origin": "new one-time immutable published STEP conversion",
+    "meshes": [
+      {
+        "name": "compressor/1",
+        "color": [
+          0.18000000230218868,
+          0.18000000230218868,
+          0.190000001765487
+        ],
+        "vertices": 5518,
+        "triangles": 5496,
+        "face_ranges": 17
+      },
+      {
+        "name": "compressor/2",
+        "color": [
+          0.18000000230218868,
+          0.18000000230218868,
+          0.190000001765487
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      }
+    ]
+  }
+}
