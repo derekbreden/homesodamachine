@@ -138,7 +138,7 @@ test("CAD adoption keeps committed guides and leaves archived cards retired", as
   }
 });
 
-for (const failure of ["download-error", "stale-success"]) {
+for (const failure of ["download-error", "stale-success", "missing-current"]) {
   test(`CAD adoption backs off after ${failure} and verifies recovery`, async (t) => {
     const root = await mkdtemp(path.join(tmpdir(), "hsm-adoption-retry-"));
     const realFetch = globalThis.fetch;
@@ -154,12 +154,12 @@ for (const failure of ["download-error", "stale-success"]) {
       const have = {
         bundle: { sha256: "bundle" },
         release: { url: "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/bundle.gz" },
-        solids: { "hardware/body.step": "old" },
+        solids: { "hardware/body.step": failure === "missing-current" ? "new" : "old" },
       };
       let next = { ...have, solids: { "hardware/body.step": "new" } };
       const pointerPath = path.join(root, "hardware/cad-artifacts.json");
       await writeFile(pointerPath, JSON.stringify(have));
-      await writeFile(path.join(root, "hardware/body.step"), "old");
+      if (failure !== "missing-current") await writeFile(path.join(root, "hardware/body.step"), "old");
       await writeFile(path.join(root, "mode"), failure);
       await writeFile(path.join(root, "web/scripts/fetch-cad-artifacts.mjs"), `
         import { readFileSync, writeFileSync, appendFileSync } from 'node:fs';
