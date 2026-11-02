@@ -210,6 +210,7 @@ def digest(path):
 
 
 def write_manifest(manifest,scene_step,*,output=OUT,additional_sources=()):
+    from _realized import code_digest
     # The physical scene digest excludes this wiring subassembly, avoiding a
     # circular hash when the same wiring is materialized a second time.
     from hardware.wiring.installed.step_merge import base_document
@@ -219,6 +220,7 @@ def write_manifest(manifest,scene_step,*,output=OUT,additional_sources=()):
            Path(__file__).with_name('model.py'),Path(__file__).with_name('terminals.py'),
            Path(__file__).with_name('_model_input.py'),
            ROOT/'hardware/scripts/_assembly_model.py',
+           ROOT/'hardware/scripts/_realized.py',
            ROOT/'hardware/manifold-layout/enclosure_assembly.rs',
            Path(__file__).with_name('routes.py'),Path(__file__).with_name('retainers.py'),
            Path(__file__).with_name('manifold_bank_routes.py'),
@@ -240,7 +242,11 @@ def write_manifest(manifest,scene_step,*,output=OUT,additional_sources=()):
            ROOT/'hardware/cold-core-layout/_carbonator_bond.py',
            ROOT/'hardware/assembly/harnesses/j2.json',ROOT/'hardware/assembly/harnesses/j13.json']
     paths.extend(Path(p) for p in additional_sources)
-    manifest['source_sha256']={str(p.relative_to(ROOT)):digest(p) for p in dict.fromkeys(paths)}
+    paths=list(dict.fromkeys(paths))
+    manifest['source_sha256']={str(p.relative_to(ROOT)):digest(p) for p in paths}
+    manifest['source_code_digest_algorithm']='_realized.code_digest'
+    manifest['source_code_digest']={str(p.relative_to(ROOT)):code_digest(p)
+                                    for p in paths if p.suffix=='.py'}
     output.with_suffix('.json').write_text(json.dumps(manifest,indent=2)+'\n')
     with output.with_suffix('.csv').open('w',newline='') as stream:
         writer=csv.writer(stream,lineterminator='\n')
