@@ -4,17 +4,19 @@ Fixed roots/collars use the unscaled scan envelope; run and branch faces and
 their distinct operating strokes use Derek's calipers. Terminal-ring detail
 remains explicitly unqualified. This is an external clearance reference,
 not a detailed internal fitting or manufacturing tolerance specification.
+
+Geometry is held in the frozen STEP and fine payload beside this module.
+`frozen-asset.json` records their bytes and source snapshot.
 """
+
+from __future__ import annotations
 import json
 import sys
 from pathlib import Path
-import cadquery as cq
 
 _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
 sys.path.insert(0, str(_hw / "scripts"))
-from _cadq_export import export_assembly, import_step
-from _materials import M_JG_BLACK_PP, one_body
 
 STEP = _here.parent / "tee-connector.step"
 BRANCH_MEASUREMENTS = _hw / "reference/jg-pp0208e-tee/branch-operating-measurements.json"
@@ -106,6 +108,7 @@ def carrier_collet_depression(offset: float) -> float:
 
 
 def _cylinder(radius, near, far, axis):
+    import cadquery as cq
     return cq.Solid.makeCylinder(radius, far - near,
                                  cq.Vector(*(near * a for a in axis)), cq.Vector(*axis))
 
@@ -117,6 +120,7 @@ def _fixed_arm(axis, shoulder, collar_end, fixed_end):
     root union and flat transition faces are conservative clearance envelopes;
     their edges do not claim measured molded shoulder stations.
     """
+    import cadquery as cq
     near, far = shoulder
     root = _cylinder(ARM_R, 0.0, near, axis)
     transition = cq.Solid.makeCone(
@@ -149,6 +153,7 @@ def build(depression: float = 0.0):
 
 def depress_branch(solid, depression: float):
     """Move the terminal proxy sleeve, preserving every measured fixed patch."""
+    import cadquery as cq
     if not 0.0 <= depression <= BRANCH_COLLET_TRAVEL + 1e-9:
         raise ValueError("branch depression exceeds the measured sleeve stroke")
     if depression <= 1e-9:
@@ -184,12 +189,14 @@ def stations():
 
 
 def _branch_radius(solid, lo, hi):
+    import cadquery as cq
     band = cq.Solid.makeBox(40, hi - lo, 50, cq.Vector(-20, lo, -25))
     bb = solid.intersect(band).BoundingBox()
     return max(bb.xmax, -bb.xmin, bb.zmax, -bb.zmin)
 
 
 def _arm_radius(solid, lo, hi):
+    import cadquery as cq
     band = cq.Solid.makeBox(40, 50, hi - lo, cq.Vector(-20, -25, lo))
     bb = solid.intersect(band).BoundingBox()
     return max(bb.xmax, -bb.xmin)
@@ -197,6 +204,7 @@ def _arm_radius(solid, lo, hi):
 
 def stations_hold():
     """CAD consistency of the export, NOT qualification of UNQUALIFIED_DATUMS."""
+    from _cadq_export import export_assembly, import_step
     solid = import_step(str(STEP)).val()
     bb = solid.BoundingBox()
     for name, expected, got in (
@@ -220,13 +228,48 @@ def selftest():
             "terminal-ring seam/OD and conservative fixed-nose envelope ends remain unqualified"]
 
 
-def main():
+def _native_main():
+    import cadquery as cq
+    from _cadq_export import export_assembly, import_step
+    from _materials import M_JG_BLACK_PP, one_body
     solid = build()
     if not solid.isValid() or len(solid.Solids()) != 1:
         raise ValueError("tee clearance reference must be one valid solid")
     export_assembly(one_body(cq.Workplane(obj=solid), "tee-connector", M_JG_BLACK_PP), str(STEP))
     for line in selftest():
         print(line)
+
+
+
+
+_FROZEN_DIR = Path(__file__).resolve().parent
+STEP_PATH = _FROZEN_DIR / 'tee-connector.step'
+PAYLOAD_PATH = _FROZEN_DIR / 'tee-connector.step.mesh'
+ASSET_MANIFEST_PATH = _FROZEN_DIR / "frozen-asset.json"
+
+
+def __getattr__(name):
+    if name in globals():
+        return globals()[name]
+    if name in ('cq',):
+        import cadquery as cq
+        value = locals()[name]
+    elif name in ('export_assembly', 'import_step'):
+        from _cadq_export import export_assembly, import_step
+        value = locals()[name]
+    elif name in ('M_JG_BLACK_PP', 'one_body'):
+        from _materials import M_JG_BLACK_PP, one_body
+        value = locals()[name]
+    else:
+        raise AttributeError(name)
+    globals()[name] = value
+    return value
+
+
+def main():
+    print('tee-connector frozen reference')
+    print(f"  STEP: {STEP_PATH}")
+    print(f"  Fine/display payload: {PAYLOAD_PATH}")
 
 
 if __name__ == "__main__":
