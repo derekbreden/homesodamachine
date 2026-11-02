@@ -4,10 +4,26 @@ This small panel reproduces the enclosure's four horizontal socket bores, body b
 face and open port channel. It tests the actual valve against the current production
 profile before the large enclosure print.
 
+The parametric coupon uses the selected **V69 / 6.90 mm** sockets. The
+[physical fit selection](../../../enclosure/enclosure/magnet-retention/fit-coupons/physical-fit-selection.json)
+identifies the tested V69 specimens; V70 / 7.00 mm is an explicit alternative
+for a valve or print orientation that fits V69 poorly.
+
+Generate the coupon through the shared run wrapper:
+
+```sh
+python3 tools/run.py -- tools/cad-venv/bin/python hardware/printed-parts/fixtures/valve-socket-fit/valve_socket_fit.py
+```
+
+The Rust generator writes the matched STEP, fine model, viewer payload and STL.
+[kernel-geometry-check.json](kernel-geometry-check.json) records the current
+dimensions and five sampled valve insertions. The native geometry and print
+records below retain the exact article and profile each one identifies.
+
 Derek reports that the existing printed sockets fit pretty well. That is the physical
 baseline; the exact prior printed artifact has not been identified. The
 [source comparison](physical-baseline.json) records Ø7.1 mm sockets on a 24.4 × 24.4 mm
-pattern in the pre-scan source. The coupon uses the measured reference: Ø7.2 mm sockets
+pattern in the pre-scan source. The printed control uses Ø7.2 mm sockets
 on a 24.4 × 24.85 mm pattern, with a 5.2 mm body bearing height and 6.2 mm socket depth.
 The [printed coupon is physically accepted](physical-acceptance.json): Derek reports
 easy insertion, a perfect fit when used with zip ties, and some retention even when held
