@@ -61,6 +61,7 @@ TAG = "cad-artifacts"
 
 #: Trees of local intermediates, each already ignored by the rule named beside it.
 NOT_BUNDLED_DIRS = (
+    "hardware/printed-parts/zone-c/funnel/forming-clearance",
     "hardware/printed-parts/enclosure/tee-carrier",  # retained physical articles
     "hardware/pcb/pcba/.cad-cache",          # manufacturer downloads, keyed by LCSC
     "hardware/assembly/scenes/out",          # local bench-service view intermediates
