@@ -528,6 +528,10 @@ def _fluid_supports(graph):
         with _replace(snaps,{'box':graph.box}):
             return snaps.pockets(st)
 
+    def service_cuts(st):
+        with _replace(snaps,{'box':graph.box}):
+            return snaps.pisco_cap_service_cuts(st)
+
     axis,frame = datums['asse_axis'],plan['chain_frame']
     profile = runs('asse',frame,axis)
     bonnet = max(x for x,r in bfp.CAP_PROFILE if r==max(r for _,r in bfp.CAP_PROFILE))
@@ -560,11 +564,10 @@ def _fluid_supports(graph):
                        for k in ('outlet_fitting','outlet_collet'))
     cap_y = (datums['mouth_y']-collet[0]+c+.01,datums['mouth_y']-fitting[0]-2.6)
     widest = max(r for y0,y1,r in profile if y1>=cap_y[0]-.25 and y0<=cap_y[1]+.25)
-    st = snaps.station(axis[0],snaps.half_width(widest,snaps.SPLIT,axis[1])+snaps.WALL,
-                       *cap_y,wing_root=axis[1]-snaps.REAR_ROOT_DROP)
+    st = snaps.pisco_station(axis[0],widest,axis[1],*cap_y)
     stock = graph.box(axis[0]-st['outer'],axis[0]+st['outer'],cap_y[0]-c-snaps.WALL,
                        datums['rear']+snaps.INTO,snaps.SPLIT,datums['ceiling']+snaps.INTO)
-    result['pisco-seat'] = stock.cut(turned(profile,axis),*pockets(st))
+    result['pisco-seat'] = stock.cut(turned(profile,axis),*pockets(st),*service_cuts(st))
 
     meter = parts._module('back_top_seat_meter','reference/digiten-flow-sensor/digiten_flow_sensor.py')
     frame = layout.pose('digiten-flow')
@@ -597,12 +600,14 @@ def _fluid_supports(graph):
             ya-fore-2.,yb+aft+2.,soda[1]-collar-1.,soda[1]+collar+1.)))
     root = at(meter.wire_root)
     half = meter.wire_root_width/2
-    cup = cup.fuse(graph.box(x0,wx(meter.wire_root[1]+meter.wire_root_depth/2)+air,
-        wy(-half)-fore-air,wy(half)+aft+air,float(root[2])-3.,float(root[2])+meter.wire_boss_len+air))
+    wire_room = (x0,wx(meter.wire_root[1]+meter.wire_root_depth/2)+air,
+                 wy(-half)-fore-air,wy(half)+aft+air)
     seat_y,cap_y = (386.,446.),(397.,435.)
     west = wx(meter.underside_y)
     st = snaps.station(0.,soda[1]+collar+air-mz+snaps.WALL,
                        *cap_y,split=0.,wing_root=west-air-mx)
+    cup = cup.fuse(graph.box(*wire_room,min(float(root[2])-3.,mz-st['neck']),
+                            float(root[2])+meter.wire_boss_len+air))
     stock = graph.box(mx,datums['side']+snaps.INTO,*seat_y,mz-st['outer'],mz+st['outer'])
     cuts = [p.rotate((0,0,0),(0,1,0),90).translate((mx,0.,mz)) for p in pockets(st)]
     result['meter-seat'] = stock.cut(cup,*cuts)
