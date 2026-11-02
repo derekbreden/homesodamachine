@@ -3476,6 +3476,8 @@ genrule(
         ":out/enclosure-box/hardware/manifold-layout/enclosure-box.json",
         "pysrc/hardware/manifold-layout/enclosure_assembly.py",
         "hardware/manifold-layout/enclosure_assembly.rs",
+        ":out/manifold-layout/hardware/manifold-layout/manifold-layout.step.mesh",
+        ":out/manifold-layout/hardware/manifold-layout/manifold-layout.step.npz",
         "pysrc/hardware/manifold-layout/manifold_layout.py",
         "pysrc/hardware/manifold-layout/rear_plumbing.py",
         "pysrc/hardware/manifold-layout/rear_snaps.py",
@@ -4007,6 +4009,7 @@ genrule(
         "pysrc/hardware/manifold-layout/above_core_routes.py",
         "pysrc/hardware/manifold-layout/above_core_wiring.py",
         "pysrc/hardware/manifold-layout/enclosure_assembly.py",
+        "hardware/manifold-layout/enclosure_assembly.rs",
         "pysrc/hardware/manifold-layout/enclosure_box.py",
         "pysrc/hardware/manifold-layout/manifold_layout.py",
         "pysrc/hardware/manifold-layout/rear_plumbing.py",
@@ -4189,6 +4192,7 @@ genrule(
         "pysrc/hardware/reference/wr1110-regulator/wr1110_regulator.py",
         "pysrc/hardware/reference/y-divider/y_divider.py",
         "hardware/reference/yzmsz-water-regulator/geometry/yzmsz-water-regulator.step",
+        "pysrc/hardware/scripts/_assembly_model.py",
         "pysrc/hardware/scripts/_box_spec.py",
         "pysrc/hardware/scripts/_boxes.py",
         "pysrc/hardware/scripts/_cadq_export.py",
@@ -4218,6 +4222,7 @@ genrule(
         "pysrc/hardware/scripts/meshcad/imports.py",
         "pysrc/hardware/scripts/meshcad/presentation.py",
         "pysrc/hardware/scripts/meshcad/rule.py",
+        "pysrc/hardware/scripts/meshcad/run.py",
         "pysrc/hardware/scripts/meshcad/scene.py",
         "pysrc/hardware/scripts/meshcad/solids.py",
         "pysrc/hardware/scripts/meshcad/sweep.py",
@@ -4225,16 +4230,76 @@ genrule(
         "pysrc/hardware/scripts/meshcad/write.py",
         "pysrc/hardware/scripts/pick_text.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/Cargo.lock",
+        "tools/hsm/Cargo.toml",
+        "tools/hsm/kernel/Cargo.toml",
+        "tools/hsm/kernel/src/boolean.rs",
+        "tools/hsm/kernel/src/build.rs",
+        "tools/hsm/kernel/src/dxf.rs",
+        "tools/hsm/kernel/src/edge.rs",
+        "tools/hsm/kernel/src/face.rs",
+        "tools/hsm/kernel/src/import.rs",
+        "tools/hsm/kernel/src/lib.rs",
+        "tools/hsm/kernel/src/mapped.rs",
+        "tools/hsm/kernel/src/mass.rs",
+        "tools/hsm/kernel/src/math.rs",
+        "tools/hsm/kernel/src/part.rs",
+        "tools/hsm/kernel/src/plane.rs",
+        "tools/hsm/kernel/src/profile.rs",
+        "tools/hsm/kernel/src/reads.rs",
+        "tools/hsm/kernel/src/round.rs",
+        "tools/hsm/kernel/src/round/rolled.rs",
+        "tools/hsm/kernel/src/rule.rs",
+        "tools/hsm/kernel/src/screw.rs",
+        "tools/hsm/kernel/src/sketch_hull.rs",
+        "tools/hsm/kernel/src/solid.rs",
+        "tools/hsm/kernel/src/spline.rs",
+        "tools/hsm/kernel/src/step.rs",
+        "tools/hsm/kernel/src/step/analytic.rs",
+        "tools/hsm/kernel/src/sweep.rs",
+        "tools/hsm/kernel/src/text.rs",
+        "tools/hsm/kernel/src/thru.rs",
+        "tools/hsm/kernel/src/topo.rs",
+        "tools/hsm/kernel/src/triangulate.rs",
+        "tools/hsm/kernel/src/write.rs",
+        "tools/hsm/machine/Cargo.toml",
         "tools/hsm/run-slots.defaults.json",
+        "tools/hsm/run-slots/Cargo.toml",
+        "tools/hsm/run-slots/src/ipc.rs",
+        "tools/hsm/run-slots/src/lib.rs",
+        "tools/hsm/vendor/manifold-csg-sys/.cargo_vcs_info.json",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.lock",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.toml",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.toml.orig",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-APACHE",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-MIT",
+        "tools/hsm/vendor/manifold-csg-sys/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/build.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/build.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/fetch.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/patch.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/wasm.rs",
+        "tools/hsm/vendor/manifold-csg-sys/cache-version",
+        "tools/hsm/vendor/manifold-csg-sys/patches/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/src/lib.rs",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/CMakeLists.txt",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/diagnose.sh",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__assertion_handler",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__config_site",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/memory",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/mutex",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/libcxx-extras.cpp",
         "tools/run-slots.mjs",
         "pysrc/tools/run.py",
     ],
     outs = [
         "out/enclosure-box/hardware/manifold-layout/enclosure-box.json",
     ],
+    tags = ["no-sandbox"],
     cmd = """
 set -e
 O0=$$PWD/$(location out/enclosure-box/hardware/manifold-layout/enclosure-box.json)
+rm -rf work-enclosure-box
 for f in $(SRCS); do
   case $$f in
     */node_modules/*) continue;;
@@ -4242,16 +4307,17 @@ for f in $(SRCS); do
     */pysrc/*) t=$${f##*/pysrc/};;
     *) t=$$f;;
   esac
-  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
+  mkdir -p work-enclosure-box/$$(dirname $$t); cp -L $$f work-enclosure-box/$$t
 done
 for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
+  if [ -d $$d ]; then mkdir -p work-enclosure-box/$$(dirname $$d); ln -sfn $$PWD/$$d work-enclosure-box/$$d; fi
 done
-cd work
+cd work-enclosure-box
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
 HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/manifold-layout/enclosure_box.py > /dev/null
 cp hardware/manifold-layout/enclosure-box.json $$O0
+cd .. && rm -rf work-enclosure-box
 """,
 )
 
