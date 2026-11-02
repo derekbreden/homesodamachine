@@ -1,0 +1,185 @@
+{
+  "project_sha256_matches": true,
+  "objects": [
+    {
+      "name": "pump-cap",
+      "vertices": 342,
+      "source_sha256_matches": true,
+      "embedded_vertex_error_mm": 4.98516598668175e-07,
+      "source_comparison": "source vertices in order",
+      "seam_painted_facets": 0,
+      "placed_bounds_mm": [
+        [
+          92.099743574,
+          85.945817619,
+          0.0
+        ],
+        [
+          148.159249574,
+          159.104181619,
+          54.5
+        ]
+      ],
+      "bed_contact_z_mm": 0.0,
+      "blocked_facets": 0,
+      "partially_painted_facets": 0,
+      "parts": {
+        "normal_part": 1
+      },
+      "layer_ranges": [],
+      "ribbon_and_fin_parts": 0,
+      "modifiers_expected": 0
+    },
+    {
+      "name": "meter-seat",
+      "vertices": 1839,
+      "source_sha256_matches": true,
+      "embedded_vertex_error_mm": 4.984336214874929e-07,
+      "source_comparison": "source vertices in order",
+      "seam_painted_facets": 0,
+      "placed_bounds_mm": [
+        [
+          86.79680241700001,
+          176.00418067099997,
+          -3.8099999954965824e-07
+        ],
+        [
+          178.096790417,
+          229.154182671,
+          60.299999619
+        ]
+      ],
+      "bed_contact_z_mm": -3.8099999954965824e-07,
+      "blocked_facets": 0,
+      "partially_painted_facets": 0,
+      "parts": {
+        "normal_part": 1
+      },
+      "layer_ranges": [],
+      "ribbon_and_fin_parts": 0,
+      "modifiers_expected": 0
+    },
+    {
+      "name": "meter-cap",
+      "vertices": 1444,
+      "source_sha256_matches": true,
+      "embedded_vertex_error_mm": 5.004086887083758e-07,
+      "source_comparison": "source vertices in order",
+      "seam_painted_facets": 0,
+      "placed_bounds_mm": [
+        [
+          160.159249543,
+          95.374999619,
+          0.0
+        ],
+        [
+          194.00924754300001,
+          149.674999619,
+          38.0
+        ]
+      ],
+      "bed_contact_z_mm": 0.0,
+      "blocked_facets": 0,
+      "partially_painted_facets": 0,
+      "parts": {
+        "normal_part": 1
+      },
+      "layer_ranges": [],
+      "ribbon_and_fin_parts": 0,
+      "modifiers_expected": 0
+    },
+    {
+      "name": "regulator-seat",
+      "vertices": 2679,
+      "source_sha256_matches": true,
+      "embedded_vertex_error_mm": 5.004233400995872e-07,
+      "source_comparison": "source vertices in order",
+      "seam_painted_facets": 0,
+      "placed_bounds_mm": [
+        [
+          190.09678989600002,
+          171.104181671,
+          0.0
+        ],
+        [
+          238.203197896,
+          234.05418167099998,
+          20.0
+        ]
+      ],
+      "bed_contact_z_mm": 0.0,
+      "blocked_facets": 0,
+      "partially_painted_facets": 0,
+      "parts": {
+        "normal_part": 1
+      },
+      "layer_ranges": [],
+      "ribbon_and_fin_parts": 0,
+      "modifiers_expected": 0
+    },
+    {
+      "name": "regulator-cap",
+      "vertices": 2131,
+      "source_sha256_matches": true,
+      "embedded_vertex_error_mm": 4.998931881772251e-07,
+      "source_comparison": "source vertices in order",
+      "seam_painted_facets": 0,
+      "placed_bounds_mm": [
+        [
+          206.009247968,
+          101.471795619,
+          0.0
+        ],
+        [
+          232.900255968,
+          143.578203619,
+          36.0
+        ]
+      ],
+      "bed_contact_z_mm": 0.0,
+      "blocked_facets": 0,
+      "partially_painted_facets": 0,
+      "parts": {
+        "normal_part": 1
+      },
+      "layer_ranges": [],
+      "ribbon_and_fin_parts": 0,
+      "modifiers_expected": 0
+    }
+  ],
+  "z_trim_block": [
+    "+0.0",
+    "0.04 - 0.01",
+    "0.04 - 0.02",
+    "0.04 + 0.01",
+    "0.04"
+  ],
+  "cooling": {
+    "fan_min_speed": [
+      "0"
+    ],
+    "fan_max_speed": [
+      "0"
+    ],
+    "overhang_fan_speed": [
+      "70"
+    ],
+    "overhang_fan_threshold": [
+      "50%"
+    ],
+    "additional_cooling_fan_speed": [
+      "0"
+    ]
+  },
+  "support": {
+    "support_type": "tree(auto)",
+    "support_style": "default",
+    "support_object_xy_distance": "0.4",
+    "max_bridge_length": "0",
+    "tree_support_branch_diameter": "2",
+    "tree_support_branch_diameter_angle": "5",
+    "brim_type": "auto_brim"
+  },
+  "problems": [],
+  "pass": true
+}
