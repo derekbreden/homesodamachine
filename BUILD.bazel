@@ -3781,6 +3781,7 @@ genrule(
         "pysrc/hardware/scripts/_rust_part.py",
         "pysrc/hardware/scripts/_seating.py",
         "pysrc/hardware/scripts/_stated_bounds.py",
+        "pysrc/hardware/scripts/_tube_export.py",
         "pysrc/hardware/scripts/check_asse_drain.py",
         "pysrc/hardware/scripts/flute_payload.py",
         "pysrc/hardware/scripts/meshcad/__init__.py",
@@ -13770,6 +13771,8 @@ genrule(
         "hardware/manifold-layout/above_core_parts.py",
         "hardware/manifold-layout/above_core_routes.py",
         "hardware/manifold-layout/above_core_wiring.py",
+        ":out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.facts.json",
+        ":out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.scene.npz",
         ":out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.scorecard.json",
         ":out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.step",
         ":out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.step.mesh",
@@ -17181,6 +17184,14 @@ genrule(
     name = "pysrc-1a8d46263baa",
     srcs = ["hardware/scripts/_tools_totals.py"],
     outs = ["pysrc/hardware/scripts/_tools_totals.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
+    name = "pysrc-438a86ae94ce",
+    srcs = ["hardware/scripts/_tube_export.py"],
+    outs = ["pysrc/hardware/scripts/_tube_export.py"],
     tools = ["tools/bazel/pysrc.py"],
     cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
 )
