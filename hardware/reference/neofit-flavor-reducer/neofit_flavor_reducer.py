@@ -29,27 +29,6 @@ def port():
     return ((0.0, PROUD_LENGTH, 0.0), (0.0, 1.0, 0.0))
 
 
-def placed(origin, direction):
-    """Frozen reducer, shoulder at the valve mouth and outlet along its axis."""
-    import math
-    import sys
-
-    import cadquery as cq
-
-    sys.path.insert(0, str(HARDWARE / "scripts"))
-    from _cadq_export import import_step
-
-    start, end = cq.Vector(0, 1, 0), cq.Vector(*direction).normalized()
-    shape = import_step(STEP_PATH).val()
-    cross = start.cross(end)
-    if cross.Length > 1e-9:
-        shape = shape.rotate((0, 0, 0), cross.toTuple(),
-                             math.degrees(start.getAngle(end)))
-    elif start.dot(end) < 0:
-        shape = shape.rotate((0, 0, 0), (1, 0, 0), 180)
-    return shape.translate(origin)
-
-
 def main():
     print("neofit-flavor-reducer")
     print(f"  STEP: {STEP_PATH}")
