@@ -250,7 +250,28 @@ def _box_plain(box):
     return {k: _plain(src[k]) for k in _BOX_FACT_ORDER}
 
 
-def gather(whole=None, module=None):
+def _tube_handoff(whole):
+    """The route consumer's exact metadata, bound to this producer's fine outputs."""
+    meshcad = sys.modules.get("meshcad")
+    if meshcad is None or not meshcad.mesh_mode():
+        return None
+    import _tube_export
+    import _mesh_payload
+
+    def artifact(path):
+        return {"path": path.relative_to(_ROOT).as_posix(),
+                "sha256": _mesh_payload.source_digest(path)}
+
+    return {
+        "schema": 1,
+        "step": artifact(STEP),
+        "fine_model": artifact(Path(str(STEP) + ".npz")),
+        "scene": artifact(STEP.with_suffix(".scene.npz")),
+        "routing": _plain(_tube_export.route_metadata(whole)),
+    }
+
+
+def gather(whole=None, module=None, *, tube_routes=False):
     """Every fact this file adds, off ONE build of the machine.
 
     `whole` is a machine somebody already stood. The assembly's own run has one in hand when
@@ -440,6 +461,7 @@ def gather(whole=None, module=None):
         "run_near": run_near,
         "runs": runs,
         "native_runs": native_runs,
+        "tube_export": _tube_handoff(whole) if tube_routes else None,
         "wall_ports": {"union": _plain(union), "co2": _plain(co2), "drain": _plain(drain)},
         "pieces": piece_boxes,
         "faces": faces,
@@ -448,10 +470,10 @@ def gather(whole=None, module=None):
     }
 
 
-def write(facts=None, whole=None, module=None) -> Path:
+def write(facts=None, whole=None, module=None, *, tube_routes=False) -> Path:
     from _cadq_export import _atomic_write
 
-    facts = facts if facts is not None else gather(whole, module)
+    facts = facts if facts is not None else gather(whole, module, tube_routes=tube_routes)
     text = json.dumps(facts, indent=1, sort_keys=True) + "\n"
     _atomic_write(ARTIFACT, lambda p: Path(p).write_text(text))
     return ARTIFACT
