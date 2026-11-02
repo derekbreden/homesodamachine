@@ -258,9 +258,9 @@ sections inside remain free
 Reservoir A’s two continuous tubes use two integral fore C2 clips on one broad base
 and one aft tied seat. Draw is west of fill: their centreline X stations are
 50.5/64.0 mm at the fore clips, Y209.75 and Z258.5 mm, and approximately X45.584/Z267.4 and X61.144/Z259.5 at the aft
-saddle, Y390 mm. Its open grooves follow the actual curved paths. Press each tube down through its clip's open +Z mouth.
+saddle, Y390.5 mm. Its open grooves follow the actual curved paths. Press each tube down through its clip's open +Z mouth.
 For removal, release the exposed jaws and lift the tube upward.
-At the aft saddle, Y390 mm, thread one four-inch narrow tie through the empty transverse
+At the aft saddle, Y390.5 mm, thread one four-inch narrow tie through the empty transverse
 slot before laying in the pair; retain both tubes there with that shared tie on the
 open core.
 Leave the front valve ends free during the column slide and dress the

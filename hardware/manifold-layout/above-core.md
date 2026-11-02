@@ -17,7 +17,7 @@ of tip air. The four blind pilots end below the full 3 mm roof show skin.
 | Equipment | Arrangement | Support |
 |---|---|---|
 | Multiplex ASSE 1022 | Threaded inlet chain fore–aft on TAP; both wrench flats horizontal; vent down | Integral swept hex seat and lower hex snap cap |
-| PISCO RVFUP1/4-1/4-0.3 | Its own inlet neck crosses the upper-right rear hole; ACVUS-44 stem check directly in its outlet | Integral slide seat and neck-catching snap cap |
+| PISCO RVFUP1/4-1/4-0.3 | Its own inlet neck crosses the upper-right rear hole; ACVUS-44 stem check directly in its outlet | Integral slide seat and lower cap; current neck capture remains unresolved |
 | DIGITEN meter | Outlet directly against the soda union; larger housing side down, label east | Integral east-wall slide seat and west-entering snap cap |
 | JG PP0208E water split | Raised on one gentle bend in the ASSE outlet stub | Connected header; V-K and regulator have their own mounts |
 | YZMSZ water regulator | East–west, above the pump | Integral ceiling seat and lower snap cap |
@@ -106,7 +106,7 @@ upward-opening rear snap at X35/Y414/Z264. Their 4.10 mm bores and 1.52 mm sprin
 retain the selected modeled 4 mm section. Flavor A descends ahead of the meter and runs above its complete lower wing. All free 4 mm bends are R25 or larger.
 
 Reservoir A uses its fore paired C2 snaps and a filled, open paired saddle
-at Y390, inside the casing footprint. One tie holds both existing curved
+at Y390.5, inside the casing footprint. One tie holds both existing curved
 paths in their unequal-height seats. The front valve fittings and reservoir
 mouths retain their datums. The fill entry in the equipment lid is X56/Y426.3;
 an internal R14 S bend joins the fixed reservoir bore through the open space

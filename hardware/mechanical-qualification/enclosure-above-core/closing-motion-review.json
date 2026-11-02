@@ -1,27 +1,16 @@
 {
-  "schema": "enclosure-closing-motion-review/2",
-  "scope": "Complete retained rigid front-column, rear-base and rear-over-core translation intervals with mounted WAGOs on the same physical quadrants. The four current substituted bodies are removed or dressed after rigid closure and occur in none of the retained motion sets. All motion-set geometry and viewer arrays are unchanged. Pump service prerequisites and physical flexure limits remain as recorded.",
-  "current_assembly_step_sha256": "c264aefc6a1a1304af27e06af353ba9819de9be0daf85c3647c2a01058f7ebd7",
-  "current_payload_sha256": "ac4c208beb6a0104bc76c3a766093f1435c75ad662f22af6725bfc25c3815db5",
-  "current_stl_sha256": {
-    "front-top": "169a9a2dad02b09dde59d4e19f2e49e632c55e5ca1531de880140f27cb5b4d9b",
-    "front-bottom": "4831c305bf5f080898b2f9011f9eef4a103cd9b85ce38f096210a2e58f5cbadc",
-    "back-top": "863574898e98f143a9383f2951d2ce00fd00d68502c34a90d66ac40beb6d2d59",
-    "back-bottom": "c9fa5fb8726465cd7cae16075fc3ece8f8ada0c045defb4822a197b637b6c5c2"
-  },
-  "assembly_prerequisites": [
-    "Keep the pump suction elbow and short inlet link loose during the populated rear approach; complete their round joints through the uncovered funnel opening after closure.",
-    "Dress cross-parent flexible tube spans after positioning the rigid quadrants.",
-    "Separate back-top and disconnect pump joints/leads before pump service; release and remove the continuous cap before lifting the pump."
-  ],
+  "schema": "enclosure-closing-motion-review/3",
+  "scope": "Complete rigid translation intervals of the settled enclosure, including all nine mounted WAGOs. The final Pisco host/cap has its own complete delta intervals; all other rigid members retain identical geometry. Cross-parent flexible spans and the pump inlet handoff stay loose until closure.",
+  "current_assembly_step_sha256": "b8a1a5b893b4bd465d8bd1bdd781201ba4eb20e9186ffa85622790c1710233ed",
+  "current_payload_sha256": "3ab60fa98d64305694e6678f5645f3aa064de1e63bead926448e995ed82d3e34",
   "current_complete_motion_reading": {
-    "payload_sha256": "99c6fbd1328a9dc22b0ddf7ca6c0480ae7e08277b4d060c464f690d845bd02fb",
+    "payload_sha256": "4107c4f6dfb392ba108fb3ae31d31e930d7380e0fc85a99f921f51844cf061c5",
     "mesh_source": "hardware/manifold-layout/enclosure-assembly.step.mesh",
     "method": "Complete translation intervals certified from triangle-surface distances using the 1-Lipschitz translation bound. Broad-phase separation uses complete swept AABBs. Any surface contact or unresolved interval remains a witness for native follow-up. Cross-parent tubes and the loose pump inlet elbow are connected after closure through the funnel opening, per the accepted rotating-joint assembly sequence. This does not infer flexible handling or printed force.",
     "printed_mesh_sha256": {
       "front-top": "169a9a2dad02b09dde59d4e19f2e49e632c55e5ca1531de880140f27cb5b4d9b",
       "front-bottom": "4831c305bf5f080898b2f9011f9eef4a103cd9b85ce38f096210a2e58f5cbadc",
-      "back-top": "863574898e98f143a9383f2951d2ce00fd00d68502c34a90d66ac40beb6d2d59",
+      "back-top": "b6b228d9b05972b2396d663875d630040409a8e3f83b0d487abf8dcf2d94e8f1",
       "back-bottom": "c9fa5fb8726465cd7cae16075fc3ece8f8ada0c045defb4822a197b637b6c5c2"
     },
     "checks": {
@@ -288,9 +277,9 @@
             "moving": "enclosure-front-top",
             "stationary": "foam-cap-lid-top",
             "status": "clear_distance_intervals",
-            "queries": 39,
+            "queries": 41,
             "minimum_queried_surface_distance_mm": 1.3000030517578125,
-            "certified_surface_separation_lower_bound_mm": 0.0061861171864370235
+            "certified_surface_separation_lower_bound_mm": 0.5370343017578119
           },
           {
             "moving": "enclosure-front-top",
@@ -521,16 +510,16 @@
             "stationary": "foam-cap-lid-top",
             "status": "clear_distance_intervals",
             "queries": 4,
-            "minimum_queried_surface_distance_mm": 6.263728276385902,
-            "certified_surface_separation_lower_bound_mm": 0.15997827638590234
+            "minimum_queried_surface_distance_mm": 6.243991644566896,
+            "certified_surface_separation_lower_bound_mm": 0.14024164456689636
           },
           {
             "moving": "yb-stem-elbow",
             "stationary": "foam-cap-lid-top",
             "status": "clear_distance_intervals",
             "queries": 2,
-            "minimum_queried_surface_distance_mm": 28.21601096123736,
-            "certified_surface_separation_lower_bound_mm": 3.8010109612373597
+            "minimum_queried_surface_distance_mm": 28.200749829915576,
+            "certified_surface_separation_lower_bound_mm": 3.785749829915577
           },
           {
             "moving": "yb-stem-elbow",
@@ -597,14 +586,10 @@
           "regulator-snap-cap",
           "relay-1",
           "relay-1-insert-1",
-          "relay-1-insert-4",
           "relay-1-screw-1",
-          "relay-1-screw-4",
           "relay-2",
           "relay-2-insert-1",
-          "relay-2-insert-4",
           "relay-2-screw-1",
-          "relay-2-screw-4",
           "tee-fold",
           "tube-above-core-reg-va-link",
           "tube-above-core-tee-regulator",
@@ -699,14 +684,10 @@
           "regulator-snap-cap",
           "relay-1",
           "relay-1-insert-1",
-          "relay-1-insert-4",
           "relay-1-screw-1",
-          "relay-1-screw-4",
           "relay-2",
           "relay-2-insert-1",
-          "relay-2-insert-4",
           "relay-2-screw-1",
-          "relay-2-screw-4",
           "tee-fold",
           "tube-above-core-reg-va-link",
           "tube-above-core-tee-regulator",
@@ -848,65 +829,97 @@
             "moving": "asse-drain-adapter",
             "stationary": "foam-cap-lid-top",
             "status": "clear_distance_intervals",
+            "queries": 19,
+            "minimum_queried_surface_distance_mm": 3.08740234375,
+            "certified_surface_separation_lower_bound_mm": 0.20900259052723769
+          },
+          {
+            "moving": "asse-drain-adapter",
+            "stationary": "g-ganen-pump",
+            "status": "clear_distance_intervals",
             "queries": 7,
-            "minimum_queried_surface_distance_mm": 11.603885720572963,
-            "certified_surface_separation_lower_bound_mm": 2.228885720572963
+            "minimum_queried_surface_distance_mm": 12.33537694390304,
+            "certified_surface_separation_lower_bound_mm": 2.9603769439030394
+          },
+          {
+            "moving": "asse-drain-adapter",
+            "stationary": "pump-snap-cap",
+            "status": "clear_distance_intervals",
+            "queries": 48,
+            "minimum_queried_surface_distance_mm": 1.0874570869871851,
+            "certified_surface_separation_lower_bound_mm": 0.05088554346899277
           },
           {
             "moving": "asse-snap-cap",
             "stationary": "g-ganen-pump",
             "status": "clear_distance_intervals",
-            "queries": 5,
-            "minimum_queried_surface_distance_mm": 22.14938502197525,
-            "certified_surface_separation_lower_bound_mm": 3.399385021975249
+            "queries": 8,
+            "minimum_queried_surface_distance_mm": 13.978738549599523,
+            "certified_surface_separation_lower_bound_mm": 4.603738549599523
           },
           {
             "moving": "asse-snap-cap",
             "stationary": "pump-snap-cap",
             "status": "clear_distance_intervals",
-            "queries": 7,
-            "minimum_queried_surface_distance_mm": 18.240437214117136,
-            "certified_surface_separation_lower_bound_mm": 1.9969665589193717
+            "queries": 43,
+            "minimum_queried_surface_distance_mm": 2.222332394960913,
+            "certified_surface_separation_lower_bound_mm": 1.050457394960913
           },
           {
             "moving": "asse1022-assembly",
             "stationary": "g-ganen-pump",
             "status": "clear_distance_intervals",
             "queries": 5,
-            "minimum_queried_surface_distance_mm": 27.58581221297762,
-            "certified_surface_separation_lower_bound_mm": 8.835812212977618
+            "minimum_queried_surface_distance_mm": 20.46925410902579,
+            "certified_surface_separation_lower_bound_mm": 1.7192541090257905
+          },
+          {
+            "moving": "asse1022-assembly",
+            "stationary": "pump-snap-cap",
+            "status": "clear_distance_intervals",
+            "queries": 9,
+            "minimum_queried_surface_distance_mm": 12.26220803952283,
+            "certified_surface_separation_lower_bound_mm": 2.8872080395228306
           },
           {
             "moving": "bulkhead-carb",
             "stationary": "foam-cap-lid-top",
             "status": "clear_distance_intervals",
-            "queries": 3,
-            "minimum_queried_surface_distance_mm": 41.348997088547335,
-            "certified_surface_separation_lower_bound_mm": 3.8489970885473355
+            "queries": 4,
+            "minimum_queried_surface_distance_mm": 29.421458898911062,
+            "certified_surface_separation_lower_bound_mm": 10.671458898911062
           },
           {
             "moving": "bulkhead-carb-nut",
             "stationary": "foam-cap-lid-top",
             "status": "clear_distance_intervals",
             "queries": 2,
-            "minimum_queried_surface_distance_mm": 77.7488118767173,
-            "certified_surface_separation_lower_bound_mm": 2.7488118767172978
+            "minimum_queried_surface_distance_mm": 75.93268629807847,
+            "certified_surface_separation_lower_bound_mm": 0.9326862980784654
           },
           {
             "moving": "bulkhead-drain",
             "stationary": "foam-cap-lid-top",
             "status": "clear_distance_intervals",
-            "queries": 3,
-            "minimum_queried_surface_distance_mm": 39.457103612655374,
-            "certified_surface_separation_lower_bound_mm": 1.9571036126553736
+            "queries": 4,
+            "minimum_queried_surface_distance_mm": 18.9252709364142,
+            "certified_surface_separation_lower_bound_mm": 0.17527093641420066
+          },
+          {
+            "moving": "bulkhead-drain",
+            "stationary": "g-ganen-pump",
+            "status": "clear_distance_intervals",
+            "queries": 1,
+            "minimum_queried_surface_distance_mm": 150.2739041637744,
+            "certified_surface_separation_lower_bound_mm": 0.27390416377440374
           },
           {
             "moving": "bulkhead-drain-nut",
             "stationary": "foam-cap-lid-top",
             "status": "clear_distance_intervals",
-            "queries": 2,
-            "minimum_queried_surface_distance_mm": 75.94609747451942,
-            "certified_surface_separation_lower_bound_mm": 0.9460974745194193
+            "queries": 3,
+            "minimum_queried_surface_distance_mm": 41.47273184139855,
+            "certified_surface_separation_lower_bound_mm": 3.9727318413985486
           },
           {
             "moving": "bulkhead-flavor-a",
@@ -929,8 +942,16 @@
             "stationary": "foam-cap-lid-top",
             "status": "clear_distance_intervals",
             "queries": 11,
-            "minimum_queried_surface_distance_mm": 3.100006103515625,
-            "certified_surface_separation_lower_bound_mm": 0.756256103515625
+            "minimum_queried_surface_distance_mm": 2.933101014659118,
+            "certified_surface_separation_lower_bound_mm": 0.5893510146591181
+          },
+          {
+            "moving": "bulkhead-flavor-b",
+            "stationary": "g-ganen-pump",
+            "status": "clear_distance_intervals",
+            "queries": 1,
+            "minimum_queried_surface_distance_mm": 150.56615220369042,
+            "certified_surface_separation_lower_bound_mm": 0.5661522036904216
           },
           {
             "moving": "bulkhead-flavor-b-nut",
@@ -945,8 +966,8 @@
             "stationary": "foam-cap-lid-top",
             "status": "clear_distance_intervals",
             "queries": 10,
-            "minimum_queried_surface_distance_mm": 16.111182571664205,
-            "certified_surface_separation_lower_bound_mm": 6.736182571664205
+            "minimum_queried_surface_distance_mm": 11.100006103515625,
+            "certified_surface_separation_lower_bound_mm": 1.725006103515625
           },
           {
             "moving": "enclosure-back-top",
@@ -961,8 +982,8 @@
             "stationary": "cap-clamp-top-4",
             "status": "clear_distance_intervals",
             "queries": 15,
-            "minimum_queried_surface_distance_mm": 20.603858601204916,
-            "certified_surface_separation_lower_bound_mm": 1.8538586012049159
+            "minimum_queried_surface_distance_mm": 18.863094533039437,
+            "certified_surface_separation_lower_bound_mm": 0.11309453303943684
           },
           {
             "moving": "enclosure-back-top",
@@ -1000,8 +1021,8 @@
             "moving": "enclosure-back-top",
             "stationary": "cap-clamp-top-9",
             "status": "clear_distance_intervals",
-            "queries": 39,
-            "minimum_queried_surface_distance_mm": 2.3770230188793087,
+            "queries": 83,
+            "minimum_queried_surface_distance_mm": 1.100006103515625,
             "certified_surface_separation_lower_bound_mm": 0.03327301887930867
           },
           {
@@ -1041,8 +1062,8 @@
             "stationary": "carbonator-fold",
             "status": "clear_distance_intervals",
             "queries": 75,
-            "minimum_queried_surface_distance_mm": 1.2596435546875,
-            "certified_surface_separation_lower_bound_mm": 0.015612175120897742
+            "minimum_queried_surface_distance_mm": 1.2811431884765625,
+            "certified_surface_separation_lower_bound_mm": 0.1092681884765625
           },
           {
             "moving": "enclosure-back-top",
@@ -1065,56 +1086,56 @@
             "stationary": "discharge-barb-clamp",
             "status": "clear_distance_intervals",
             "queries": 4,
-            "minimum_queried_surface_distance_mm": 40.18473815917969,
-            "certified_surface_separation_lower_bound_mm": 2.6847381591796875
+            "minimum_queried_surface_distance_mm": 40.371578216552734,
+            "certified_surface_separation_lower_bound_mm": 2.8715782165527344
           },
           {
             "moving": "enclosure-back-top",
             "stationary": "discharge-barb-key",
             "status": "clear_distance_intervals",
             "queries": 6,
-            "minimum_queried_surface_distance_mm": 19.00167642907821,
-            "certified_surface_separation_lower_bound_mm": 0.2516764290782092
+            "minimum_queried_surface_distance_mm": 21.04288722867897,
+            "certified_surface_separation_lower_bound_mm": 2.292887228678971
           },
           {
             "moving": "enclosure-back-top",
             "stationary": "discharge-chain",
             "status": "clear_distance_intervals",
-            "queries": 91,
+            "queries": 93,
             "minimum_queried_surface_distance_mm": 1.5974960327148438,
-            "certified_surface_separation_lower_bound_mm": 0.006780453377459139
+            "certified_surface_separation_lower_bound_mm": 0.058495196992512266
           },
           {
             "moving": "enclosure-back-top",
             "stationary": "discharge-reducer",
             "status": "clear_distance_intervals",
             "queries": 14,
-            "minimum_queried_surface_distance_mm": 13.858940124511719,
-            "certified_surface_separation_lower_bound_mm": 2.092625245434075
+            "minimum_queried_surface_distance_mm": 14.385871887207031,
+            "certified_surface_separation_lower_bound_mm": 2.328402029063934
           },
           {
             "moving": "enclosure-back-top",
             "stationary": "discharge-stem-clamp",
             "status": "clear_distance_intervals",
             "queries": 8,
-            "minimum_queried_surface_distance_mm": 26.82617950439453,
-            "certified_surface_separation_lower_bound_mm": 8.076179504394531
+            "minimum_queried_surface_distance_mm": 27.83786392211914,
+            "certified_surface_separation_lower_bound_mm": 9.08786392211914
           },
           {
             "moving": "enclosure-back-top",
             "stationary": "discharge-stem-key",
             "status": "clear_distance_intervals",
             "queries": 8,
-            "minimum_queried_surface_distance_mm": 27.073333740234375,
-            "certified_surface_separation_lower_bound_mm": 8.323333740234375
+            "minimum_queried_surface_distance_mm": 28.433868408203125,
+            "certified_surface_separation_lower_bound_mm": 9.683868408203125
           },
           {
             "moving": "enclosure-back-top",
             "stationary": "discharge-tube",
             "status": "clear_distance_intervals",
             "queries": 8,
-            "minimum_queried_surface_distance_mm": 26.500892639160156,
-            "certified_surface_separation_lower_bound_mm": 7.750892639160156
+            "minimum_queried_surface_distance_mm": 27.44226837158203,
+            "certified_surface_separation_lower_bound_mm": 8.692268371582031
           },
           {
             "moving": "enclosure-back-top",
@@ -1193,8 +1214,8 @@
             "stationary": "g-ganen-pump",
             "status": "clear_distance_intervals",
             "queries": 11,
-            "minimum_queried_surface_distance_mm": 22.645530486801594,
-            "certified_surface_separation_lower_bound_mm": 3.0933537538209777
+            "minimum_queried_surface_distance_mm": 22.45155341552563,
+            "certified_surface_separation_lower_bound_mm": 3.4204958878226677
           },
           {
             "moving": "enclosure-back-top",
@@ -1226,15 +1247,15 @@
             "status": "clear_distance_intervals",
             "queries": 8,
             "minimum_queried_surface_distance_mm": 28.394435382101673,
-            "certified_surface_separation_lower_bound_mm": 2.6708708309057556
+            "certified_surface_separation_lower_bound_mm": 0.42383295446798996
           },
           {
             "moving": "enclosure-back-top",
             "stationary": "line-reservoir-a-fill",
             "status": "clear_distance_intervals",
             "queries": 13,
-            "minimum_queried_surface_distance_mm": 22.022148851205923,
-            "certified_surface_separation_lower_bound_mm": 5.658823646512836
+            "minimum_queried_surface_distance_mm": 23.459586803433602,
+            "certified_surface_separation_lower_bound_mm": 5.488900316297315
           },
           {
             "moving": "enclosure-back-top",
@@ -1296,9 +1317,9 @@
             "moving": "enclosure-back-top",
             "stationary": "pump-snap-cap",
             "status": "clear_distance_intervals",
-            "queries": 11,
-            "minimum_queried_surface_distance_mm": 22.684539794921875,
-            "certified_surface_separation_lower_bound_mm": 1.9966737195326942
+            "queries": 15,
+            "minimum_queried_surface_distance_mm": 15.011138916015625,
+            "certified_surface_separation_lower_bound_mm": 0.30850143031658916
           },
           {
             "moving": "enclosure-back-top",
@@ -1385,16 +1406,16 @@
             "stationary": "reservoir-grip-a-draw",
             "status": "clear_distance_intervals",
             "queries": 6,
-            "minimum_queried_surface_distance_mm": 45.566077840061936,
-            "certified_surface_separation_lower_bound_mm": 9.217957437437505
+            "minimum_queried_surface_distance_mm": 41.42381294284649,
+            "certified_surface_separation_lower_bound_mm": 3.9238129428464887
           },
           {
             "moving": "enclosure-back-top",
             "stationary": "reservoir-grip-a-fill",
             "status": "clear_distance_intervals",
             "queries": 13,
-            "minimum_queried_surface_distance_mm": 32.04010009765625,
-            "certified_surface_separation_lower_bound_mm": 13.29010009765625
+            "minimum_queried_surface_distance_mm": 26.91973328408869,
+            "certified_surface_separation_lower_bound_mm": 9.773988914838824
           },
           {
             "moving": "enclosure-back-top",
@@ -1425,48 +1446,48 @@
             "stationary": "suction-barb-clamp",
             "status": "clear_distance_intervals",
             "queries": 4,
-            "minimum_queried_surface_distance_mm": 38.3006949243612,
-            "certified_surface_separation_lower_bound_mm": 0.8006949243612027
+            "minimum_queried_surface_distance_mm": 38.11549619929676,
+            "certified_surface_separation_lower_bound_mm": 0.6154961992967571
           },
           {
             "moving": "enclosure-back-top",
             "stationary": "suction-barb-key",
             "status": "clear_distance_intervals",
             "queries": 6,
-            "minimum_queried_surface_distance_mm": 24.047044144423932,
-            "certified_surface_separation_lower_bound_mm": 5.297044144423932
+            "minimum_queried_surface_distance_mm": 25.9838589294378,
+            "certified_surface_separation_lower_bound_mm": 7.233858929437801
           },
           {
             "moving": "enclosure-back-top",
             "stationary": "suction-reducer",
             "status": "clear_distance_intervals",
             "queries": 20,
-            "minimum_queried_surface_distance_mm": 3.3178513719859057,
-            "certified_surface_separation_lower_bound_mm": 0.9741013719859057
+            "minimum_queried_surface_distance_mm": 4.534921772947835,
+            "certified_surface_separation_lower_bound_mm": 2.1911717729478353
           },
           {
             "moving": "enclosure-back-top",
             "stationary": "suction-stem-clamp",
             "status": "clear_distance_intervals",
             "queries": 10,
-            "minimum_queried_surface_distance_mm": 10.10274887084961,
-            "certified_surface_separation_lower_bound_mm": 0.7277488708496094
+            "minimum_queried_surface_distance_mm": 11.501789093017578,
+            "certified_surface_separation_lower_bound_mm": 2.126789093017578
           },
           {
             "moving": "enclosure-back-top",
             "stationary": "suction-stem-key",
             "status": "clear_distance_intervals",
             "queries": 8,
-            "minimum_queried_surface_distance_mm": 9.669567108154297,
-            "certified_surface_separation_lower_bound_mm": 0.304071211314179
+            "minimum_queried_surface_distance_mm": 11.636119842529297,
+            "certified_surface_separation_lower_bound_mm": 2.2688753100048835
           },
           {
             "moving": "enclosure-back-top",
             "stationary": "suction-tube",
             "status": "clear_distance_intervals",
             "queries": 10,
-            "minimum_queried_surface_distance_mm": 12.373977661132812,
-            "certified_surface_separation_lower_bound_mm": 3.2244760989013095
+            "minimum_queried_surface_distance_mm": 13.373095688112228,
+            "certified_surface_separation_lower_bound_mm": 4.224802705079039
           },
           {
             "moving": "enclosure-back-top",
@@ -1497,8 +1518,8 @@
             "stationary": "tube-water-5",
             "status": "clear_distance_intervals",
             "queries": 42,
-            "minimum_queried_surface_distance_mm": 6.169159449664075,
-            "certified_surface_separation_lower_bound_mm": 0.45917821767124956
+            "minimum_queried_surface_distance_mm": 6.15381804092623,
+            "certified_surface_separation_lower_bound_mm": 0.3766313721536392
           },
           {
             "moving": "enclosure-back-top",
@@ -1576,25 +1597,33 @@
             "moving": "keystone-jack",
             "stationary": "foam-cap-lid-top",
             "status": "clear_distance_intervals",
-            "queries": 8,
-            "minimum_queried_surface_distance_mm": 6.05255126953125,
-            "certified_surface_separation_lower_bound_mm": 1.36505126953125
+            "queries": 16,
+            "minimum_queried_surface_distance_mm": 1.5001180799923035,
+            "certified_surface_separation_lower_bound_mm": 0.11704676870017261
           },
           {
             "moving": "lower-valve-elbow",
             "stationary": "foam-cap-lid-top",
             "status": "clear_distance_intervals",
             "queries": 136,
-            "minimum_queried_surface_distance_mm": 1.4138018143380666,
-            "certified_surface_separation_lower_bound_mm": 0.24192681433806662
+            "minimum_queried_surface_distance_mm": 1.59014892578125,
+            "certified_surface_separation_lower_bound_mm": 0.41827392578125
           },
           {
             "moving": "meter-snap-cap",
             "stationary": "foam-cap-lid-top",
             "status": "clear_distance_intervals",
-            "queries": 17,
-            "minimum_queried_surface_distance_mm": 7.482770998035759,
-            "certified_surface_separation_lower_bound_mm": 2.7952709980357593
+            "queries": 120,
+            "minimum_queried_surface_distance_mm": 0.95001220703125,
+            "certified_surface_separation_lower_bound_mm": 0.3125604428985407
+          },
+          {
+            "moving": "psu",
+            "stationary": "discharge-barb-key",
+            "status": "clear_distance_intervals",
+            "queries": 2,
+            "minimum_queried_surface_distance_mm": 78.12427100248419,
+            "certified_surface_separation_lower_bound_mm": 3.1242710024841926
           },
           {
             "moving": "relay-1",
@@ -1602,71 +1631,55 @@
             "status": "clear_distance_intervals",
             "queries": 8,
             "minimum_queried_surface_distance_mm": 17.356597900390625,
-            "certified_surface_separation_lower_bound_mm": 3.52719852181103
+            "certified_surface_separation_lower_bound_mm": 3.571869674864736
           },
           {
             "moving": "relay-1-screw-1",
             "stationary": "foam-cap-lid-top",
             "status": "clear_distance_intervals",
             "queries": 6,
-            "minimum_queried_surface_distance_mm": 19.91950363325147,
-            "certified_surface_separation_lower_bound_mm": 1.1695036332514697
-          },
-          {
-            "moving": "relay-1-screw-4",
-            "stationary": "foam-cap-lid-top",
-            "status": "clear_distance_intervals",
-            "queries": 3,
-            "minimum_queried_surface_distance_mm": 48.12743676934585,
-            "certified_surface_separation_lower_bound_mm": 10.627436769345849
+            "minimum_queried_surface_distance_mm": 19.91960124366077,
+            "certified_surface_separation_lower_bound_mm": 1.1696012436607717
           },
           {
             "moving": "tube-drain-vent",
             "stationary": "foam-cap-lid-top",
             "status": "clear_distance_intervals",
-            "queries": 4,
-            "minimum_queried_surface_distance_mm": 18.945552300064737,
-            "certified_surface_separation_lower_bound_mm": 0.19555230006473678
+            "queries": 8,
+            "minimum_queried_surface_distance_mm": 7.77793718856783,
+            "certified_surface_separation_lower_bound_mm": 3.0904371885678303
           },
           {
             "moving": "tube-soda-meter-bulkhead",
             "stationary": "foam-cap-lid-top",
             "status": "clear_distance_intervals",
-            "queries": 3,
-            "minimum_queried_surface_distance_mm": 39.56190966641841,
-            "certified_surface_separation_lower_bound_mm": 2.0619096664184084
-          },
-          {
-            "moving": "valve-v-a",
-            "stationary": "discharge-stem-key",
-            "status": "clear_distance_intervals",
-            "queries": 1,
-            "minimum_queried_surface_distance_mm": 150.6034471945989,
-            "certified_surface_separation_lower_bound_mm": 0.6034471945989139
+            "queries": 4,
+            "minimum_queried_surface_distance_mm": 34.425018310546875,
+            "certified_surface_separation_lower_bound_mm": 15.675018310546875
           },
           {
             "moving": "valve-v-a",
             "stationary": "foam-cap-lid-top",
             "status": "clear_distance_intervals",
-            "queries": 13,
-            "minimum_queried_surface_distance_mm": 15.06595923950066,
-            "certified_surface_separation_lower_bound_mm": 1.37001221415726
+            "queries": 17,
+            "minimum_queried_surface_distance_mm": 11.60630347607961,
+            "certified_surface_separation_lower_bound_mm": 2.2439181116889717
           },
           {
             "moving": "vk-solenoid",
             "stationary": "foam-cap-lid-top",
             "status": "clear_distance_intervals",
             "queries": 20,
-            "minimum_queried_surface_distance_mm": 11.096825600560125,
-            "certified_surface_separation_lower_bound_mm": 1.7218256005601251
+            "minimum_queried_surface_distance_mm": 13.38260632881842,
+            "certified_surface_separation_lower_bound_mm": 4.0076063288184205
           },
           {
             "moving": "wago-g",
             "stationary": "foam-cap-lid-top",
             "status": "clear_distance_intervals",
             "queries": 3,
-            "minimum_queried_surface_distance_mm": 47.80375945827414,
-            "certified_surface_separation_lower_bound_mm": 10.303759458274143
+            "minimum_queried_surface_distance_mm": 42.642757941021216,
+            "certified_surface_separation_lower_bound_mm": 5.142757941021216
           },
           {
             "moving": "wago-h",
@@ -1679,396 +1692,67 @@
           {
             "moving": "wago-n",
             "stationary": "foam-cap-lid-top",
-            "status": "clear_distance_intervals",
-            "queries": 5,
-            "minimum_queried_surface_distance_mm": 11.520881069162986,
-            "certified_surface_separation_lower_bound_mm": 2.1458810691629857
+            "status": "surface_contact",
+            "offset_mm": [
+              0.0,
+              2.34375,
+              0.0
+            ],
+            "queries": 9,
+            "surface_distance_mm": 0.0,
+            "nearest_points": [
+              [
+                -70.4000015258789,
+                451.06805419921875,
+                266.0
+              ],
+              [
+                -55.36061096191406,
+                451.06805419921875,
+                266.0
+              ]
+            ]
           },
           {
             "moving": "wago-n",
             "stationary": "g-ganen-pump",
             "status": "clear_distance_intervals",
             "queries": 3,
-            "minimum_queried_surface_distance_mm": 37.64092227485247,
-            "certified_surface_separation_lower_bound_mm": 0.14092227485247122
+            "minimum_queried_surface_distance_mm": 37.75984747221025,
+            "certified_surface_separation_lower_bound_mm": 0.2598474722102466
           }
         ]
-      },
-      "pump_vertical_admission": {
-        "moving": [
-          "g-ganen-pump"
-        ],
-        "stationary": [
-          "cap-clamp-bottom-1",
-          "cap-clamp-bottom-10",
-          "cap-clamp-bottom-2",
-          "cap-clamp-bottom-3",
-          "cap-clamp-bottom-4",
-          "cap-clamp-bottom-5",
-          "cap-clamp-bottom-6",
-          "cap-clamp-bottom-7",
-          "cap-clamp-bottom-8",
-          "cap-clamp-bottom-9",
-          "cap-clamp-top-1",
-          "cap-clamp-top-10",
-          "cap-clamp-top-2",
-          "cap-clamp-top-3",
-          "cap-clamp-top-4",
-          "cap-clamp-top-5",
-          "cap-clamp-top-6",
-          "cap-clamp-top-7",
-          "cap-clamp-top-8",
-          "cap-clamp-top-9",
-          "carbonator-earth-lockwasher",
-          "carbonator-earth-screw",
-          "carbonator-elbow-carb-water-out",
-          "carbonator-elbow-co2-in",
-          "carbonator-elbow-prv",
-          "carbonator-elbow-water-in",
-          "carbonator-tube",
-          "collet-water-in",
-          "endcap-bottom",
-          "endcap-top",
-          "evap-coil",
-          "evap-tail-inlet",
-          "evap-tail-outlet",
-          "float-a",
-          "float-b",
-          "float-carb",
-          "float-rod-a",
-          "float-rod-b",
-          "float-rod-carb",
-          "float-stop-carb-top",
-          "foam-cap-bottom",
-          "foam-cap-lid-top",
-          "foam-shell",
-          "pcba",
-          "probe-carbonator-ds18b20",
-          "probe-coil-ds18s20",
-          "prv-shroud",
-          "prv-sv125",
-          "reed-a-1",
-          "reed-a-2",
-          "reed-a-3",
-          "reed-a-4",
-          "reed-b-1",
-          "reed-b-2",
-          "reed-b-3",
-          "reed-b-4",
-          "reed-bridge",
-          "reed-carb-1",
-          "reed-carb-2",
-          "reservoir-a",
-          "reservoir-a-cap",
-          "reservoir-a-gasket",
-          "reservoir-b",
-          "reservoir-b-cap",
-          "reservoir-b-fill-guide",
-          "reservoir-b-gasket",
-          "reservoir-grip-a-air",
-          "reservoir-grip-a-draw",
-          "reservoir-grip-a-fill",
-          "reservoir-grip-b-air",
-          "reservoir-grip-b-draw",
-          "reservoir-grip-b-fill",
-          "valve-v-b",
-          "vb-inlet-turn",
-          "vb-outlet-return",
-          "vb-outlet-stem",
-          "water-inlet-jet-cap-nominal"
-        ],
-        "axis": [
-          0.0,
-          0.0,
-          1.0
-        ],
-        "offset_interval_mm": [
-          0.0,
-          80.0
-        ],
-        "pairs": [
-          {
-            "moving": "g-ganen-pump",
-            "stationary": "foam-cap-lid-top",
-            "status": "clear_native_and_physical_mesh_intervals",
-            "offset_mm": [
-              0.0,
-              0.0,
-              0.078125
-            ],
-            "queries": 135,
-            "surface_distance_mm": 0.0,
-            "nearest_points": [
-              [
-                -21.177327397220736,
-                433.01060539007494,
-                259.3912019622274
-              ],
-              [
-                -21.44242286682129,
-                433.010200884862,
-                259.257668611975
-              ]
-            ],
-            "raw_screening_witness": {
-              "moving": "g-ganen-pump",
-              "stationary": "foam-cap-lid-top",
-              "status": "surface_contact",
-              "offset_mm": [
-                0.0,
-                0.0,
-                0.078125
-              ],
-              "queries": 135,
-              "surface_distance_mm": 0.0,
-              "nearest_points": [
-                [
-                  -21.177327397220736,
-                  433.01060539007494,
-                  259.3912019622274
-                ],
-                [
-                  -21.44242286682129,
-                  433.010200884862,
-                  259.257668611975
-                ]
-              ],
-              "payload_sha256": "d7b582e366f5b56f14b8e41de9317821d2cb436e30e3f0d2082d2ee61bdca400"
-            },
-            "native_near_seat_interval_certificate": [
-              {
-                "offset_interval_mm": [
-                  0.0,
-                  0.078125
-                ],
-                "native_gap_lower_bound_mm": 0.12210846369412126,
-                "physical_lid_allowance_mm": 0.0051,
-                "physical_lid_gap_lower_bound_mm": 0.11700846369412127
-              },
-              {
-                "offset_interval_mm": [
-                  0.078125,
-                  0.15625
-                ],
-                "native_gap_lower_bound_mm": 0.15065897425922758,
-                "physical_lid_allowance_mm": 0.0051,
-                "physical_lid_gap_lower_bound_mm": 0.1455589742592276
-              },
-              {
-                "offset_interval_mm": [
-                  0.15625,
-                  0.25
-                ],
-                "native_gap_lower_bound_mm": 0.1724572407444172,
-                "physical_lid_allowance_mm": 0.0051,
-                "physical_lid_gap_lower_bound_mm": 0.1673572407444172
-              },
-              {
-                "offset_interval_mm": [
-                  0.25,
-                  0.5
-                ],
-                "native_gap_lower_bound_mm": 0.11903594904868245,
-                "physical_lid_allowance_mm": 0.0051,
-                "physical_lid_gap_lower_bound_mm": 0.11393594904868246
-              }
-            ],
-            "upper_physical_mesh_interval_certificate": {
-              "physical_lid_stl_sha256": "4f0fc7e699f9f41a91ebeebf527f3ddf2334f60d64e83531d5c8b7a958d7d3c0",
-              "lid_pose": {
-                "rotation": [
-                  [
-                    0,
-                    1,
-                    0
-                  ],
-                  [
-                    -1,
-                    0,
-                    0
-                  ],
-                  [
-                    0,
-                    0,
-                    1
-                  ]
-                ],
-                "translation_mm": [
-                  0.0,
-                  323.8,
-                  246.0
-                ]
-              },
-              "interval_mm": [
-                0.5,
-                80.0
-              ],
-              "result": {
-                "status": "clear_distance_intervals",
-                "queries": 123,
-                "minimum_queried_surface_distance_mm": 0.11075816422823902,
-                "certified_surface_separation_lower_bound_mm": 0.025280062090273336
-              },
-              "scope": "Complete interval against the exact physical lid STL. The near-seat0..0.5mm interval is certified separately using actual native gaps and the print tessellation allowance."
-            },
-            "native_input_binding": {
-              "reference_parameters_sha256": "69ac39b3b5ec8a4de1c5b6abee49ef0335d3b96df61e358c5b2db1f23d808ffe",
-              "above_core_json_sha256": "b886818274572dd35d0b7f5f2da255e855ff1e4420d7a74c2e1c81ea91b45a5a",
-              "lid_step_sha256": "fd455d4fd3b6466abed3aa882356fb4310e355b43a249786dc7e06fde7723a81"
-            },
-            "native_offset_readings": [
-              {
-                "offset_z_mm": 0.0,
-                "gap_mm": 0.14652078805502425,
-                "overlap_mm3": 0
-              },
-              {
-                "offset_z_mm": 0.078125,
-                "gap_mm": 0.17582113933321825,
-                "overlap_mm3": 0
-              },
-              {
-                "offset_z_mm": 0.15625,
-                "gap_mm": 0.2036218091852369,
-                "overlap_mm3": 0
-              },
-              {
-                "offset_z_mm": 0.25,
-                "gap_mm": 0.2350426723035975,
-                "overlap_mm3": 0
-              },
-              {
-                "offset_z_mm": 0.5,
-                "gap_mm": 0.2530292257937674,
-                "overlap_mm3": 0
-              },
-              {
-                "offset_z_mm": 1.0,
-                "gap_mm": 0.2530292257937674,
-                "overlap_mm3": 0
-              },
-              {
-                "offset_z_mm": 2.0,
-                "gap_mm": 0.2530292257937674,
-                "overlap_mm3": 0
-              }
-            ],
-            "retained_other_core_geometry_binding": "Every other core body is unchanged under the retained exact physical arrays or native analytic comparison in enclosure-fit-review.json. Core-mounted WAGOs have additional complete service travel readings below."
-          }
-        ]
-      },
-      "upper_cap_lift": {
-        "moving": [
-          "pump-snap-cap"
-        ],
-        "stationary": [
-          "cap-clamp-bottom-1",
-          "cap-clamp-bottom-10",
-          "cap-clamp-bottom-2",
-          "cap-clamp-bottom-3",
-          "cap-clamp-bottom-4",
-          "cap-clamp-bottom-5",
-          "cap-clamp-bottom-6",
-          "cap-clamp-bottom-7",
-          "cap-clamp-bottom-8",
-          "cap-clamp-bottom-9",
-          "cap-clamp-top-1",
-          "cap-clamp-top-10",
-          "cap-clamp-top-2",
-          "cap-clamp-top-3",
-          "cap-clamp-top-4",
-          "cap-clamp-top-5",
-          "cap-clamp-top-6",
-          "cap-clamp-top-7",
-          "cap-clamp-top-8",
-          "cap-clamp-top-9",
-          "carbonator-earth-lockwasher",
-          "carbonator-earth-screw",
-          "carbonator-elbow-carb-water-out",
-          "carbonator-elbow-co2-in",
-          "carbonator-elbow-prv",
-          "carbonator-elbow-water-in",
-          "carbonator-tube",
-          "collet-water-in",
-          "endcap-bottom",
-          "endcap-top",
-          "evap-coil",
-          "evap-tail-inlet",
-          "evap-tail-outlet",
-          "float-a",
-          "float-b",
-          "float-carb",
-          "float-rod-a",
-          "float-rod-b",
-          "float-rod-carb",
-          "float-stop-carb-top",
-          "foam-cap-bottom",
-          "foam-shell",
-          "g-ganen-pump",
-          "pcba",
-          "probe-carbonator-ds18b20",
-          "probe-coil-ds18s20",
-          "prv-shroud",
-          "prv-sv125",
-          "reed-a-1",
-          "reed-a-2",
-          "reed-a-3",
-          "reed-a-4",
-          "reed-b-1",
-          "reed-b-2",
-          "reed-b-3",
-          "reed-b-4",
-          "reed-bridge",
-          "reed-carb-1",
-          "reed-carb-2",
-          "reservoir-a",
-          "reservoir-a-cap",
-          "reservoir-a-gasket",
-          "reservoir-b",
-          "reservoir-b-cap",
-          "reservoir-b-fill-guide",
-          "reservoir-b-gasket",
-          "reservoir-grip-a-air",
-          "reservoir-grip-a-draw",
-          "reservoir-grip-a-fill",
-          "reservoir-grip-b-air",
-          "reservoir-grip-b-draw",
-          "reservoir-grip-b-fill",
-          "valve-v-b",
-          "vb-inlet-turn",
-          "vb-outlet-return",
-          "vb-outlet-stem",
-          "water-inlet-jet-cap-nominal"
-        ],
-        "axis": [
-          0.0,
-          0.0,
-          1.0
-        ],
-        "offset_interval_mm": [
-          0.0,
-          60.0
-        ],
-        "pairs": [
-          {
-            "moving": "pump-snap-cap",
-            "stationary": "g-ganen-pump",
-            "status": "clear_distance_intervals",
-            "queries": 23,
-            "minimum_queried_surface_distance_mm": 0.2772027809188283,
-            "certified_surface_separation_lower_bound_mm": 0.038895375798419285
-          }
-        ],
-        "retained_geometry_basis": {
-          "payload_sha256": "d7b582e366f5b56f14b8e41de9317821d2cb436e30e3f0d2082d2ee61bdca400",
-          "scope": "The cap and retained purchased core bodies are unchanged. Its own released lid catches are omitted as the specifically named spring interface. The current core WAGOs have the separately recorded complete vertical sweep reading.",
-          "fit_record_sha256": "feae41c6accc1890e6b65ef48a5de8657513e2d662389f45312057b93ae88c99"
-        }
       }
     },
     "scope": "Fresh complete rigid front-column, rear-base and rear-over-core translation intervals against the exact current physical quadrant STLs and current installed core, including all mounted WAGO bodies. Cross-parent flexible spans and the named pump inlet handoff remain loose until the rigid quadrants are seated. Wire handling and physical flexure force are separate.",
-    "assembly_step_sha256": "43de7a97158cfb3d2b9de706d7370fcb1c8b6c32dcb2d9cc09404d443c725655",
-    "unresolved": [],
+    "assembly_step_sha256": "327a3eb9a5e75996276107a38c337b2ffbb9e78d0a5c0fe286190c39ff42d5c6",
+    "unresolved": [
+      {
+        "scope": "back_carried_equipment_over_core",
+        "moving": "wago-n",
+        "stationary": "foam-cap-lid-top",
+        "status": "surface_contact",
+        "offset_mm": [
+          0.0,
+          2.34375,
+          0.0
+        ],
+        "queries": 9,
+        "surface_distance_mm": 0.0,
+        "nearest_points": [
+          [
+            -70.4000015258789,
+            451.06805419921875,
+            266.0
+          ],
+          [
+            -55.36061096191406,
+            451.06805419921875,
+            266.0
+          ]
+        ]
+      }
+    ],
     "mounted_wagos_in_motion": {
       "back": [
         "wago-g",
@@ -2087,7 +1771,7 @@
       ]
     },
     "physical_pump_upper_admission": {
-      "physical_lid_stl_sha256": "4f0fc7e699f9f41a91ebeebf527f3ddf2334f60d64e83531d5c8b7a958d7d3c0",
+      "physical_lid_stl_sha256": "770987d0be5569e0c7934318dfd3b681a7845fb512ff22e2ffcf618d3f8fecb1",
       "lid_pose": {
         "rotation": [
           [
@@ -2118,11 +1802,24 @@
       ],
       "result": {
         "status": "clear_distance_intervals",
-        "queries": 123,
-        "minimum_queried_surface_distance_mm": 0.11075816422823902,
-        "certified_surface_separation_lower_bound_mm": 0.025280062090273336
+        "queries": 125,
+        "minimum_queried_surface_distance_mm": 0.24319415394405902,
+        "certified_surface_separation_lower_bound_mm": 0.017447590657096224
       },
       "scope": "Complete interval against the exact physical lid STL. The near-seat0..0.5mm interval is certified separately using actual native gaps and the print tessellation allowance."
+    },
+    "physical_pump_near_seat_admission": {
+      "interval_mm": [
+        0.0,
+        0.5
+      ],
+      "result": {
+        "status": "clear_distance_intervals",
+        "queries": 3,
+        "minimum_queried_surface_distance_mm": 0.24319415394405902,
+        "certified_surface_separation_lower_bound_mm": 0.11819415394405902
+      },
+      "scope": "Complete near-seat interval against the exact physical lid STL, starting from the separately checked native nonintersecting installed position."
     },
     "core_wago_pump_service": [
       {
@@ -2190,95 +1887,1369 @@
         }
       }
     ],
-    "pass": true,
-    "elapsed_seconds": 319.4555662500061,
-    "native_near_seat_readings": [
-      {
-        "offset_z_mm": 0.0,
-        "gap_mm": 0.14652078805502425,
-        "overlap_mm3": 0
-      },
-      {
-        "offset_z_mm": 0.078125,
-        "gap_mm": 0.17582113933321825,
-        "overlap_mm3": 0
-      },
-      {
-        "offset_z_mm": 0.15625,
-        "gap_mm": 0.2036218091852369,
-        "overlap_mm3": 0
-      },
-      {
-        "offset_z_mm": 0.25,
-        "gap_mm": 0.2350426723035975,
-        "overlap_mm3": 0
-      },
-      {
-        "offset_z_mm": 0.5,
-        "gap_mm": 0.2530292257937674,
-        "overlap_mm3": 0
-      },
-      {
-        "offset_z_mm": 1.0,
-        "gap_mm": 0.2530292257937674,
-        "overlap_mm3": 0
-      },
-      {
-        "offset_z_mm": 2.0,
-        "gap_mm": 0.2530292257937674,
-        "overlap_mm3": 0
-      }
-    ],
-    "native_near_seat_interval_certificate": [
-      {
-        "offset_interval_mm": [
-          0.0,
-          0.078125
-        ],
-        "native_gap_lower_bound_mm": 0.12210846369412126,
-        "physical_lid_allowance_mm": 0.0051,
-        "physical_lid_gap_lower_bound_mm": 0.11700846369412127
-      },
-      {
-        "offset_interval_mm": [
-          0.078125,
-          0.15625
-        ],
-        "native_gap_lower_bound_mm": 0.15065897425922758,
-        "physical_lid_allowance_mm": 0.0051,
-        "physical_lid_gap_lower_bound_mm": 0.1455589742592276
-      },
-      {
-        "offset_interval_mm": [
-          0.15625,
-          0.25
-        ],
-        "native_gap_lower_bound_mm": 0.1724572407444172,
-        "physical_lid_allowance_mm": 0.0051,
-        "physical_lid_gap_lower_bound_mm": 0.1673572407444172
-      },
-      {
-        "offset_interval_mm": [
-          0.25,
-          0.5
-        ],
-        "native_gap_lower_bound_mm": 0.11903594904868245,
-        "physical_lid_allowance_mm": 0.0051,
-        "physical_lid_gap_lower_bound_mm": 0.11393594904868246
-      }
-    ],
-    "cap_lift_omission": "The lid is omitted only from cap lift because its two catches are the released spring interface. The complete actual lid remains in the bare-pump admission check. The cap remains clear of every retained purchased core body."
+    "pass": false,
+    "elapsed_seconds": 225.06067370800884
   },
-  "unresolved_after_prerequisites": [],
-  "all_recorded_rigid_closing_intervals_clear_after_prerequisites": true,
-  "limits": "Nominal rigid translation geometry and triangle-distance bounds. Released hook flexure, physical force, hose dressing and printed support cleanup need their actual article evidence.",
-  "current_geometry_binding": {
-    "record": "hardware/mechanical-qualification/enclosure-above-core/assembly-gate-review.json",
-    "record_sha256": "249689e9556cec4b5e5cc717fc26ca3fba8d795b2b673420deaf43759c379ed9",
-    "baseline_assembly_step_sha256": "43de7a97158cfb3d2b9de706d7370fcb1c8b6c32dcb2d9cc09404d443c725655",
-    "assembly_step_sha256": "c264aefc6a1a1304af27e06af353ba9819de9be0daf85c3647c2a01058f7ebd7",
-    "assembly_mesh_sha256": "ac4c208beb6a0104bc76c3a766093f1435c75ad662f22af6725bfc25c3815db5",
-    "scope": "The complete retained closing intervals remove the drain cradle with its funnel/frame and dress the soda holder, tube and occupied foam after rigid quadrant closure. None of the four substituted bodies belongs to a retained moving or stationary set. All members of those sets have unchanged native geometry and byte-identical viewer arrays.",
-    "baseline_record_sha256": "c3eeebd45c9f3321c7e73cd8fdb246ae981833a71cc37dbbe1c8174ce45f35ce"
-  }
+  "current_pisco_motion_delta": {
+    "assembly_step_sha256": "7b276e4881e020c1b00e2ece0f5a6e77c7f3d4961a30dec85e59d40464597c72",
+    "payload_sha256": "7f333136aa3e43bc609f77a56ee0cca90eeb7d30b38cea7a46752590510b984c",
+    "scope": "Only the rebuilt back-top and narrower Pisco cap repeat their complete rear-base and rear-over-core rigid intervals. Other rigid bodies retain their separately bound full translation reading. The neutral WAGO is reserved for the subsequent WAGO phase. Wires are excluded.",
+    "checks": {
+      "back_column_slide": [
+        {
+          "moving": "enclosure-back-top",
+          "stationary": "enclosure-back-bottom",
+          "status": "clear_distance_intervals",
+          "queries": 1023,
+          "minimum_queried_surface_distance_mm": 0.25,
+          "certified_surface_separation_lower_bound_mm": 0.01806640625
+        }
+      ],
+      "back_carried_equipment_over_core": [
+        {
+          "moving": "enclosure-back-top",
+          "stationary": "cap-clamp-top-10",
+          "status": "clear_distance_intervals",
+          "queries": 37,
+          "minimum_queried_surface_distance_mm": 3.3809890747070312,
+          "certified_surface_separation_lower_bound_mm": 0.30664258955774937
+        },
+        {
+          "moving": "enclosure-back-top",
+          "stationary": "cap-clamp-top-4",
+          "status": "clear_distance_intervals",
+          "queries": 15,
+          "minimum_queried_surface_distance_mm": 18.863094533039437,
+          "certified_surface_separation_lower_bound_mm": 0.11309453303943684
+        },
+        {
+          "moving": "enclosure-back-top",
+          "stationary": "cap-clamp-top-5",
+          "status": "clear_distance_intervals",
+          "queries": 19,
+          "minimum_queried_surface_distance_mm": 0.399993896484375,
+          "certified_surface_separation_lower_bound_mm": 0.107025146484375
+        },
+        {
+          "moving": "enclosure-back-top",
+          "stationary": "cap-clamp-top-6",
+          "status": "clear_distance_intervals",
+          "queries": 27,
+          "minimum_queried_surface_distance_mm": 0.399993896484375,
+          "certified_surface_separation_lower_bound_mm": 0.107025146484375
+        },
+        {
+          "moving": "enclosure-back-top",
+          "stationary": "cap-clamp-top-7",
+          "status": "clear_distance_intervals",
+          "queries": 27,
+          "minimum_queried_surface_distance_mm": 2.3770230188793087,
+          "certified_surface_separation_lower_bound_mm": 0.03327301887930867
+        },
+        {
+          "moving": "enclosure-back-top",
+          "stationary": "cap-clamp-top-8",
+          "status": "clear_distance_intervals",
+          "queries": 35,
+          "minimum_queried_surface_distance_mm": 3.3809890747070312,
+          "certified_surface_separation_lower_bound_mm": 0.5059890747070312
+        },
+        {
+          "moving": "enclosure-back-top",
+          "stationary": "cap-clamp-top-9",
+          "status": "clear_distance_intervals",
+          "queries": 83,
+          "minimum_queried_surface_distance_mm": 1.100006103515625,
+          "certified_surface_separation_lower_bound_mm": 0.03327301887930867
+        },
+        {
+          "moving": "enclosure-back-top",
+          "stationary": "carbonator-earth-lockwasher",
+          "status": "clear_distance_intervals",
+          "queries": 7,
+          "minimum_queried_surface_distance_mm": 31.191917419433594,
+          "certified_surface_separation_lower_bound_mm": 1.4419174194335938
+        },
+        {
+          "moving": "enclosure-back-top",
+          "stationary": "carbonator-earth-screw",
+          "status": "clear_distance_intervals",
+          "queries": 9,
+          "minimum_queried_surface_distance_mm": 28.59966278076172,
+          "certified_surface_separation_lower_bound_mm": 7.584047978005472
+        },
+        {
+          "moving": "enclosure-back-top",
+          "stationary": "carbonator-elbow-prv",
+          "status": "clear_distance_intervals",
+          "queries": 4,
+          "minimum_queried_surface_distance_mm": 54.89258210078819,
+          "certified_surface_separation_lower_bound_mm": 17.39258210078819
+        },
+        {
+          "moving": "enclosure-back-top",
+          "stationary": "carbonator-elbow-water-in",
+          "status": "clear_distance_intervals",
+          "queries": 4,
+          "minimum_queried_surface_distance_mm": 64.53569917560297,
+          "certified_surface_separation_lower_bound_mm": 27.03569917560297
+        },
+        {
+          "moving": "enclosure-back-top",
+          "stationary": "carbonator-fold",
+          "status": "clear_distance_intervals",
+          "queries": 75,
+          "minimum_queried_surface_distance_mm": 1.2811431884765625,
+          "certified_surface_separation_lower_bound_mm": 0.1092681884765625
+        },
+        {
+          "moving": "enclosure-back-top",
+          "stationary": "carbonator-tube",
+          "status": "clear_distance_intervals",
+          "queries": 9,
+          "minimum_queried_surface_distance_mm": 27.867118330527774,
+          "certified_surface_separation_lower_bound_mm": 7.216988219552263
+        },
+        {
+          "moving": "enclosure-back-top",
+          "stationary": "collet-water-in",
+          "status": "clear_distance_intervals",
+          "queries": 2,
+          "minimum_queried_surface_distance_mm": 81.15731620788574,
+          "certified_surface_separation_lower_bound_mm": 6.157316207885742
+        },
+        {
+          "moving": "enclosure-back-top",
+          "stationary": "discharge-barb-clamp",
+          "status": "clear_distance_intervals",
+          "queries": 4,
+          "minimum_queried_surface_distance_mm": 40.371578216552734,
+          "certified_surface_separation_lower_bound_mm": 2.8715782165527344
+        },
+        {
+          "moving": "enclosure-back-top",
+          "stationary": "discharge-barb-key",
+          "status": "clear_distance_intervals",
+          "queries": 6,
+          "minimum_queried_surface_distance_mm": 21.04288722867897,
+          "certified_surface_separation_lower_bound_mm": 2.292887228678971
+        },
+        {
+          "moving": "enclosure-back-top",
+          "stationary": "discharge-chain",
+          "status": "clear_distance_intervals",
+          "queries": 93,
+          "minimum_queried_surface_distance_mm": 1.5974960327148438,
+          "certified_surface_separation_lower_bound_mm": 0.058495196992512266
+        },
+        {
+          "moving": "enclosure-back-top",
+          "stationary": "discharge-reducer",
+          "status": "clear_distance_intervals",
+          "queries": 14,
+          "minimum_queried_surface_distance_mm": 14.385871887207031,
+          "certified_surface_separation_lower_bound_mm": 2.328402029063934
+        },
+        {
+          "moving": "enclosure-back-top",
+          "stationary": "discharge-stem-clamp",
+          "status": "clear_distance_intervals",
+          "queries": 8,
+          "minimum_queried_surface_distance_mm": 27.83786392211914,
+          "certified_surface_separation_lower_bound_mm": 9.08786392211914
+        },
+        {
+          "moving": "enclosure-back-top",
+          "stationary": "discharge-stem-key",
+          "status": "clear_distance_intervals",
+          "queries": 8,
+          "minimum_queried_surface_distance_mm": 28.433868408203125,
+          "certified_surface_separation_lower_bound_mm": 9.683868408203125
+        },
+        {
+          "moving": "enclosure-back-top",
+          "stationary": "discharge-tube",
+          "status": "clear_distance_intervals",
+          "queries": 8,
+          "minimum_queried_surface_distance_mm": 27.44226837158203,
+          "certified_surface_separation_lower_bound_mm": 8.692268371582031
+        },
+        {
+          "moving": "enclosure-back-top",
+          "stationary": "endcap-top",
+          "status": "clear_distance_intervals",
+          "queries": 9,
+          "minimum_queried_surface_distance_mm": 29.72850444999941,
+          "certified_surface_separation_lower_bound_mm": 8.916549459381415
+        },
+        {
+          "moving": "enclosure-back-top",
+          "stationary": "evap-coil",
+          "status": "clear_distance_intervals",
+          "queries": 9,
+          "minimum_queried_surface_distance_mm": 21.52711633823629,
+          "certified_surface_separation_lower_bound_mm": 0.7270915438847396
+        },
+        {
+          "moving": "enclosure-back-top",
+          "stationary": "evap-tail-outlet",
+          "status": "clear_distance_intervals",
+          "queries": 12,
+          "minimum_queried_surface_distance_mm": 17.84815216064453,
+          "certified_surface_separation_lower_bound_mm": 1.5644956192746342
+        },
+        {
+          "moving": "enclosure-back-top",
+          "stationary": "float-rod-a",
+          "status": "clear_distance_intervals",
+          "queries": 7,
+          "minimum_queried_surface_distance_mm": 56.674076080322266,
+          "certified_surface_separation_lower_bound_mm": 19.174076080322266
+        },
+        {
+          "moving": "enclosure-back-top",
+          "stationary": "float-rod-b",
+          "status": "clear_distance_intervals",
+          "queries": 2,
+          "minimum_queried_surface_distance_mm": 88.624117673416,
+          "certified_surface_separation_lower_bound_mm": 13.624117673415995
+        },
+        {
+          "moving": "enclosure-back-top",
+          "stationary": "float-rod-carb",
+          "status": "clear_distance_intervals",
+          "queries": 4,
+          "minimum_queried_surface_distance_mm": 55.0750732421875,
+          "certified_surface_separation_lower_bound_mm": 17.5750732421875
+        },
+        {
+          "moving": "enclosure-back-top",
+          "stationary": "float-stop-carb-top",
+          "status": "clear_distance_intervals",
+          "queries": 4,
+          "minimum_queried_surface_distance_mm": 51.93563461303711,
+          "certified_surface_separation_lower_bound_mm": 14.43563461303711
+        },
+        {
+          "moving": "enclosure-back-top",
+          "stationary": "foam-cap-lid-top",
+          "status": "clear_distance_intervals",
+          "queries": 407,
+          "minimum_queried_surface_distance_mm": 0.25,
+          "certified_surface_separation_lower_bound_mm": 0.103515625
+        },
+        {
+          "moving": "enclosure-back-top",
+          "stationary": "foam-shell",
+          "status": "clear_distance_intervals",
+          "queries": 509,
+          "minimum_queried_surface_distance_mm": 0.5500030517578125,
+          "certified_surface_separation_lower_bound_mm": 0.060374880340448245
+        },
+        {
+          "moving": "enclosure-back-top",
+          "stationary": "g-ganen-pump",
+          "status": "clear_distance_intervals",
+          "queries": 11,
+          "minimum_queried_surface_distance_mm": 22.45155341552563,
+          "certified_surface_separation_lower_bound_mm": 3.4204958878226677
+        },
+        {
+          "moving": "enclosure-back-top",
+          "stationary": "line-carb-water-out",
+          "status": "clear_distance_intervals",
+          "queries": 20,
+          "minimum_queried_surface_distance_mm": 10.00501335322374,
+          "certified_surface_separation_lower_bound_mm": 1.43052380377501
+        },
+        {
+          "moving": "enclosure-back-top",
+          "stationary": "line-co2-in",
+          "status": "clear_distance_intervals",
+          "queries": 11,
+          "minimum_queried_surface_distance_mm": 20.34815216064453,
+          "certified_surface_separation_lower_bound_mm": 1.5981521606445312
+        },
+        {
+          "moving": "enclosure-back-top",
+          "stationary": "line-prv-vent",
+          "status": "clear_distance_intervals",
+          "queries": 65,
+          "minimum_queried_surface_distance_mm": 0.5500030517578125,
+          "certified_surface_separation_lower_bound_mm": 0.2570343017578125
+        },
+        {
+          "moving": "enclosure-back-top",
+          "stationary": "line-reservoir-a",
+          "status": "clear_distance_intervals",
+          "queries": 8,
+          "minimum_queried_surface_distance_mm": 28.394435382101673,
+          "certified_surface_separation_lower_bound_mm": 0.42383295446798996
+        },
+        {
+          "moving": "enclosure-back-top",
+          "stationary": "line-reservoir-a-fill",
+          "status": "clear_distance_intervals",
+          "queries": 13,
+          "minimum_queried_surface_distance_mm": 23.459586803433602,
+          "certified_surface_separation_lower_bound_mm": 5.488900316297315
+        },
+        {
+          "moving": "enclosure-back-top",
+          "stationary": "line-reservoir-b",
+          "status": "clear_distance_intervals",
+          "queries": 2,
+          "minimum_queried_surface_distance_mm": 94.51554153694825,
+          "certified_surface_separation_lower_bound_mm": 19.51554153694825
+        },
+        {
+          "moving": "enclosure-back-top",
+          "stationary": "line-reservoir-b-fill",
+          "status": "clear_distance_intervals",
+          "queries": 3,
+          "minimum_queried_surface_distance_mm": 49.932176989523974,
+          "certified_surface_separation_lower_bound_mm": 12.432176989523974
+        },
+        {
+          "moving": "enclosure-back-top",
+          "stationary": "line-water-in",
+          "status": "clear_distance_intervals",
+          "queries": 32,
+          "minimum_queried_surface_distance_mm": 5.149993149225713,
+          "certified_surface_separation_lower_bound_mm": 0.46249314922571294
+        },
+        {
+          "moving": "enclosure-back-top",
+          "stationary": "pcba",
+          "status": "clear_distance_intervals",
+          "queries": 11,
+          "minimum_queried_surface_distance_mm": 10.530075073242188,
+          "certified_surface_separation_lower_bound_mm": 1.1312754416581825
+        },
+        {
+          "moving": "enclosure-back-top",
+          "stationary": "probe-coil-ds18s20",
+          "status": "clear_distance_intervals",
+          "queries": 10,
+          "minimum_queried_surface_distance_mm": 16.599998474121094,
+          "certified_surface_separation_lower_bound_mm": 5.599998474121094
+        },
+        {
+          "moving": "enclosure-back-top",
+          "stationary": "prv-shroud",
+          "status": "clear_distance_intervals",
+          "queries": 16,
+          "minimum_queried_surface_distance_mm": 5.125999450683594,
+          "certified_surface_separation_lower_bound_mm": 0.12599945068359375
+        },
+        {
+          "moving": "enclosure-back-top",
+          "stationary": "prv-sv125",
+          "status": "clear_distance_intervals",
+          "queries": 10,
+          "minimum_queried_surface_distance_mm": 13.0260009765625,
+          "certified_surface_separation_lower_bound_mm": 2.0260009765625
+        },
+        {
+          "moving": "enclosure-back-top",
+          "stationary": "pump-snap-cap",
+          "status": "clear_distance_intervals",
+          "queries": 15,
+          "minimum_queried_surface_distance_mm": 15.011138916015625,
+          "certified_surface_separation_lower_bound_mm": 0.30850143031658916
+        },
+        {
+          "moving": "enclosure-back-top",
+          "stationary": "reed-a-3",
+          "status": "clear_distance_intervals",
+          "queries": 7,
+          "minimum_queried_surface_distance_mm": 43.5,
+          "certified_surface_separation_lower_bound_mm": 6.0
+        },
+        {
+          "moving": "enclosure-back-top",
+          "stationary": "reed-a-4",
+          "status": "clear_distance_intervals",
+          "queries": 7,
+          "minimum_queried_surface_distance_mm": 43.5,
+          "certified_surface_separation_lower_bound_mm": 6.0
+        },
+        {
+          "moving": "enclosure-back-top",
+          "stationary": "reservoir-a",
+          "status": "clear_distance_intervals",
+          "queries": 14,
+          "minimum_queried_surface_distance_mm": 20.5,
+          "certified_surface_separation_lower_bound_mm": 1.75
+        },
+        {
+          "moving": "enclosure-back-top",
+          "stationary": "reservoir-a-cap",
+          "status": "clear_distance_intervals",
+          "queries": 14,
+          "minimum_queried_surface_distance_mm": 22.722010490762838,
+          "certified_surface_separation_lower_bound_mm": 3.9720104907628375
+        },
+        {
+          "moving": "enclosure-back-top",
+          "stationary": "reservoir-a-gasket",
+          "status": "clear_distance_intervals",
+          "queries": 14,
+          "minimum_queried_surface_distance_mm": 21.93375958586356,
+          "certified_surface_separation_lower_bound_mm": 3.183759585863559
+        },
+        {
+          "moving": "enclosure-back-top",
+          "stationary": "reservoir-b",
+          "status": "clear_distance_intervals",
+          "queries": 5,
+          "minimum_queried_surface_distance_mm": 28.25,
+          "certified_surface_separation_lower_bound_mm": 9.5
+        },
+        {
+          "moving": "enclosure-back-top",
+          "stationary": "reservoir-b-cap",
+          "status": "clear_distance_intervals",
+          "queries": 5,
+          "minimum_queried_surface_distance_mm": 28.25,
+          "certified_surface_separation_lower_bound_mm": 9.5
+        },
+        {
+          "moving": "enclosure-back-top",
+          "stationary": "reservoir-b-fill-guide",
+          "status": "clear_distance_intervals",
+          "queries": 3,
+          "minimum_queried_surface_distance_mm": 46.41539232901021,
+          "certified_surface_separation_lower_bound_mm": 8.91539232901021
+        },
+        {
+          "moving": "enclosure-back-top",
+          "stationary": "reservoir-b-gasket",
+          "status": "clear_distance_intervals",
+          "queries": 5,
+          "minimum_queried_surface_distance_mm": 28.25,
+          "certified_surface_separation_lower_bound_mm": 9.5
+        },
+        {
+          "moving": "enclosure-back-top",
+          "stationary": "reservoir-grip-a-air",
+          "status": "clear_distance_intervals",
+          "queries": 7,
+          "minimum_queried_surface_distance_mm": 48.334770093587906,
+          "certified_surface_separation_lower_bound_mm": 10.834770093587906
+        },
+        {
+          "moving": "enclosure-back-top",
+          "stationary": "reservoir-grip-a-draw",
+          "status": "clear_distance_intervals",
+          "queries": 6,
+          "minimum_queried_surface_distance_mm": 41.42381294284649,
+          "certified_surface_separation_lower_bound_mm": 3.9238129428464887
+        },
+        {
+          "moving": "enclosure-back-top",
+          "stationary": "reservoir-grip-a-fill",
+          "status": "clear_distance_intervals",
+          "queries": 13,
+          "minimum_queried_surface_distance_mm": 26.91973328408869,
+          "certified_surface_separation_lower_bound_mm": 9.773988914838824
+        },
+        {
+          "moving": "enclosure-back-top",
+          "stationary": "reservoir-grip-b-air",
+          "status": "clear_distance_intervals",
+          "queries": 2,
+          "minimum_queried_surface_distance_mm": 86.57457939640895,
+          "certified_surface_separation_lower_bound_mm": 11.57457939640895
+        },
+        {
+          "moving": "enclosure-back-top",
+          "stationary": "reservoir-grip-b-draw",
+          "status": "clear_distance_intervals",
+          "queries": 2,
+          "minimum_queried_surface_distance_mm": 96.93070777856197,
+          "certified_surface_separation_lower_bound_mm": 21.930707778561967
+        },
+        {
+          "moving": "enclosure-back-top",
+          "stationary": "reservoir-grip-b-fill",
+          "status": "clear_distance_intervals",
+          "queries": 3,
+          "minimum_queried_surface_distance_mm": 53.41970412326168,
+          "certified_surface_separation_lower_bound_mm": 15.919704123261681
+        },
+        {
+          "moving": "enclosure-back-top",
+          "stationary": "suction-barb-clamp",
+          "status": "clear_distance_intervals",
+          "queries": 4,
+          "minimum_queried_surface_distance_mm": 38.11549619929676,
+          "certified_surface_separation_lower_bound_mm": 0.6154961992967571
+        },
+        {
+          "moving": "enclosure-back-top",
+          "stationary": "suction-barb-key",
+          "status": "clear_distance_intervals",
+          "queries": 6,
+          "minimum_queried_surface_distance_mm": 25.9838589294378,
+          "certified_surface_separation_lower_bound_mm": 7.233858929437801
+        },
+        {
+          "moving": "enclosure-back-top",
+          "stationary": "suction-reducer",
+          "status": "clear_distance_intervals",
+          "queries": 20,
+          "minimum_queried_surface_distance_mm": 4.534921772947835,
+          "certified_surface_separation_lower_bound_mm": 2.1911717729478353
+        },
+        {
+          "moving": "enclosure-back-top",
+          "stationary": "suction-stem-clamp",
+          "status": "clear_distance_intervals",
+          "queries": 10,
+          "minimum_queried_surface_distance_mm": 11.501789093017578,
+          "certified_surface_separation_lower_bound_mm": 2.126789093017578
+        },
+        {
+          "moving": "enclosure-back-top",
+          "stationary": "suction-stem-key",
+          "status": "clear_distance_intervals",
+          "queries": 8,
+          "minimum_queried_surface_distance_mm": 11.636119842529297,
+          "certified_surface_separation_lower_bound_mm": 2.2688753100048835
+        },
+        {
+          "moving": "enclosure-back-top",
+          "stationary": "suction-tube",
+          "status": "clear_distance_intervals",
+          "queries": 10,
+          "minimum_queried_surface_distance_mm": 13.373095688112228,
+          "certified_surface_separation_lower_bound_mm": 4.224802705079039
+        },
+        {
+          "moving": "enclosure-back-top",
+          "stationary": "tube-above-core-vb-yb-cross",
+          "status": "clear_distance_intervals",
+          "queries": 4,
+          "minimum_queried_surface_distance_mm": 51.94136428833008,
+          "certified_surface_separation_lower_bound_mm": 14.986099241907695
+        },
+        {
+          "moving": "enclosure-back-top",
+          "stationary": "tube-reservoir-air-a",
+          "status": "clear_distance_intervals",
+          "queries": 7,
+          "minimum_queried_surface_distance_mm": 37.00916856851227,
+          "certified_surface_separation_lower_bound_mm": 7.7769256906870865
+        },
+        {
+          "moving": "enclosure-back-top",
+          "stationary": "tube-reservoir-air-b",
+          "status": "clear_distance_intervals",
+          "queries": 2,
+          "minimum_queried_surface_distance_mm": 82.60845177714897,
+          "certified_surface_separation_lower_bound_mm": 7.6084517771489715
+        },
+        {
+          "moving": "enclosure-back-top",
+          "stationary": "tube-water-5",
+          "status": "clear_distance_intervals",
+          "queries": 42,
+          "minimum_queried_surface_distance_mm": 6.15381804092623,
+          "certified_surface_separation_lower_bound_mm": 0.3766313721536392
+        },
+        {
+          "moving": "enclosure-back-top",
+          "stationary": "valve-v-b",
+          "status": "clear_distance_intervals",
+          "queries": 41,
+          "minimum_queried_surface_distance_mm": 1.5,
+          "certified_surface_separation_lower_bound_mm": 0.05625152587890625
+        },
+        {
+          "moving": "enclosure-back-top",
+          "stationary": "vb-inlet-turn",
+          "status": "clear_distance_intervals",
+          "queries": 3,
+          "minimum_queried_surface_distance_mm": 46.17120899713363,
+          "certified_surface_separation_lower_bound_mm": 8.671208997133633
+        },
+        {
+          "moving": "enclosure-back-top",
+          "stationary": "vb-outlet-return",
+          "status": "clear_distance_intervals",
+          "queries": 4,
+          "minimum_queried_surface_distance_mm": 59.503381537493006,
+          "certified_surface_separation_lower_bound_mm": 22.003381537493006
+        },
+        {
+          "moving": "enclosure-back-top",
+          "stationary": "vb-outlet-stem",
+          "status": "clear_distance_intervals",
+          "queries": 4,
+          "minimum_queried_surface_distance_mm": 42.68422534115636,
+          "certified_surface_separation_lower_bound_mm": 7.280026581096919
+        },
+        {
+          "moving": "enclosure-back-top",
+          "stationary": "wago-gnd",
+          "status": "clear_distance_intervals",
+          "queries": 3,
+          "minimum_queried_surface_distance_mm": 69.79999923706055,
+          "certified_surface_separation_lower_bound_mm": 32.29999923706055
+        },
+        {
+          "moving": "enclosure-back-top",
+          "stationary": "wago-reeds-b",
+          "status": "clear_distance_intervals",
+          "queries": 3,
+          "minimum_queried_surface_distance_mm": 69.79999923706055,
+          "certified_surface_separation_lower_bound_mm": 32.29999923706055
+        },
+        {
+          "moving": "enclosure-back-top",
+          "stationary": "wago-sensors",
+          "status": "clear_distance_intervals",
+          "queries": 2,
+          "minimum_queried_surface_distance_mm": 77.77485392216217,
+          "certified_surface_separation_lower_bound_mm": 2.7748539221621655
+        },
+        {
+          "moving": "enclosure-back-top",
+          "stationary": "wago-v12",
+          "status": "clear_distance_intervals",
+          "queries": 2,
+          "minimum_queried_surface_distance_mm": 77.77485392216217,
+          "certified_surface_separation_lower_bound_mm": 2.7748539221621655
+        },
+        {
+          "moving": "enclosure-back-top",
+          "stationary": "water-inlet-jet-cap-nominal",
+          "status": "clear_distance_intervals",
+          "queries": 4,
+          "minimum_queried_surface_distance_mm": 74.73463249206543,
+          "certified_surface_separation_lower_bound_mm": 37.23463249206543
+        }
+      ]
+    },
+    "unresolved": [],
+    "pass": true,
+    "elapsed_seconds": 307.6166339170013,
+    "current_parent_binding": {
+      "assembly_step_sha256": "b8a1a5b893b4bd465d8bd1bdd781201ba4eb20e9186ffa85622790c1710233ed",
+      "assembly_mesh_sha256": "3ab60fa98d64305694e6678f5645f3aa064de1e63bead926448e995ed82d3e34",
+      "scope": "Current added/moved stock has complete independent translation intervals. Every other current surface retains the preceding interval or is a material subtraction.",
+      "delta_reading": {
+        "scope": "Complete translation intervals for added or moved stock only. Retained whole-quadrant readings cover every unchanged face; all remaining changes remove stock. Wire bodies are excluded and the existing final flexible handoffs remain loose until rigid closure.",
+        "assembly_step_sha256": "b8a1a5b893b4bd465d8bd1bdd781201ba4eb20e9186ffa85622790c1710233ed",
+        "payload_sha256": "3ab60fa98d64305694e6678f5645f3aa064de1e63bead926448e995ed82d3e34",
+        "checks": {
+          "new back stock over core": [
+            {
+              "actor": "new-east-core-hold",
+              "other": "foam-cap-lid-top",
+              "status": "clear_distance_intervals",
+              "queries": 83,
+              "minimum_queried_surface_distance_mm": 0.25,
+              "certified_surface_separation_lower_bound_mm": 0.103515625
+            }
+          ],
+          "new back stock over base": [],
+          "moved aft seat under back stock": [
+            {
+              "actor": "aft-paired-saddle",
+              "other": "enclosure-back-top",
+              "status": "clear_distance_intervals",
+              "queries": 14,
+              "minimum_queried_surface_distance_mm": 15.348371412582248,
+              "certified_surface_separation_lower_bound_mm": 2.5219068109195817
+            }
+          ]
+        },
+        "unresolved": [],
+        "pass": true,
+        "elapsed_seconds": 3.156118624989176
+      }
+    }
+  },
+  "cap_removal": {
+    "payload_sha256": "7f333136aa3e43bc609f77a56ee0cca90eeb7d30b38cea7a46752590510b984c",
+    "scope": "Complete distance-certified translation intervals of released caps. Back-top is separated from the cold core and inverted on the bench; flexible tubes/leads are disconnected and dressed aside, funnel/frame/drain and the ASSE vent adapter are removed. ASSE cap is removed before the meter cap. Wing displacement is a conservative linear 3.2mm outward shear from root to catch; force, nonlinear spring shape and fatigue require physical articles.",
+    "removed": [
+      "asse-vent-boot",
+      "cap-clamp-bottom-1",
+      "cap-clamp-bottom-10",
+      "cap-clamp-bottom-2",
+      "cap-clamp-bottom-3",
+      "cap-clamp-bottom-4",
+      "cap-clamp-bottom-5",
+      "cap-clamp-bottom-6",
+      "cap-clamp-bottom-7",
+      "cap-clamp-bottom-8",
+      "cap-clamp-bottom-9",
+      "cap-clamp-top-1",
+      "cap-clamp-top-10",
+      "cap-clamp-top-2",
+      "cap-clamp-top-3",
+      "cap-clamp-top-4",
+      "cap-clamp-top-5",
+      "cap-clamp-top-6",
+      "cap-clamp-top-7",
+      "cap-clamp-top-8",
+      "cap-clamp-top-9",
+      "carbonator-earth-lockwasher",
+      "carbonator-earth-screw",
+      "carbonator-elbow-carb-water-out",
+      "carbonator-elbow-co2-in",
+      "carbonator-elbow-prv",
+      "carbonator-elbow-water-in",
+      "carbonator-fold",
+      "carbonator-tube",
+      "collet-water-in",
+      "discharge-barb-clamp",
+      "discharge-barb-key",
+      "discharge-chain",
+      "discharge-reducer",
+      "discharge-stem-clamp",
+      "discharge-stem-key",
+      "discharge-tube",
+      "elbow-cradle",
+      "endcap-bottom",
+      "endcap-top",
+      "evap-coil",
+      "evap-tail-inlet",
+      "evap-tail-outlet",
+      "float-a",
+      "float-b",
+      "float-carb",
+      "float-rod-a",
+      "float-rod-b",
+      "float-rod-carb",
+      "float-stop-carb-top",
+      "foam-cap-bottom",
+      "foam-cap-lid-top",
+      "foam-shell",
+      "funnel",
+      "funnel-cover",
+      "funnel-drain-stub",
+      "funnel-drain-union",
+      "funnel-frame",
+      "g-ganen-pump",
+      "line-carb-water-out",
+      "line-co2-in",
+      "line-prv-vent",
+      "line-reservoir-a",
+      "line-reservoir-a-fill",
+      "line-reservoir-b",
+      "line-reservoir-b-fill",
+      "line-water-in",
+      "lower-pump-elbow",
+      "pcba",
+      "probe-carbonator-ds18b20",
+      "probe-coil-ds18s20",
+      "prv-shroud",
+      "prv-sv125",
+      "pump-snap-cap",
+      "reed-a-1",
+      "reed-a-2",
+      "reed-a-3",
+      "reed-a-4",
+      "reed-b-1",
+      "reed-b-2",
+      "reed-b-3",
+      "reed-b-4",
+      "reed-bridge",
+      "reed-carb-1",
+      "reed-carb-2",
+      "reservoir-a",
+      "reservoir-a-cap",
+      "reservoir-a-gasket",
+      "reservoir-b",
+      "reservoir-b-cap",
+      "reservoir-b-fill-guide",
+      "reservoir-b-gasket",
+      "reservoir-grip-a-air",
+      "reservoir-grip-a-draw",
+      "reservoir-grip-a-fill",
+      "reservoir-grip-b-air",
+      "reservoir-grip-b-draw",
+      "reservoir-grip-b-fill",
+      "soda-bend-holder",
+      "soda-continuous-insulation",
+      "soda-meter-elbow",
+      "suction-barb-clamp",
+      "suction-barb-key",
+      "suction-reducer",
+      "suction-stem-clamp",
+      "suction-stem-key",
+      "suction-tube",
+      "tube-above-core-drain-vb-east-link",
+      "tube-above-core-gas-core-drop",
+      "tube-above-core-pump-inlet-link",
+      "tube-above-core-reg-va-link",
+      "tube-above-core-tee-regulator",
+      "tube-above-core-tee-vk-link",
+      "tube-above-core-va-fore-feed",
+      "tube-above-core-vb-yb-cross",
+      "tube-above-core-vb-yb-link",
+      "tube-above-core-water-split-stub",
+      "tube-drain-vent",
+      "tube-fluid-10",
+      "tube-fluid-11",
+      "tube-fluid-12",
+      "tube-fluid-13",
+      "tube-fluid-14",
+      "tube-fluid-16",
+      "tube-fluid-17",
+      "tube-fluid-18",
+      "tube-fluid-19",
+      "tube-fluid-20",
+      "tube-fluid-21",
+      "tube-fluid-22",
+      "tube-fluid-23",
+      "tube-fluid-24",
+      "tube-fluid-26",
+      "tube-fluid-27",
+      "tube-fluid-28",
+      "tube-fluid-9",
+      "tube-refrig-1",
+      "tube-refrig-2",
+      "tube-refrig-3",
+      "tube-reservoir-air-a",
+      "tube-reservoir-air-b",
+      "tube-soda-core-rise",
+      "tube-soda-meter-bulkhead",
+      "tube-water-5",
+      "valve-v-b",
+      "vb-inlet-turn",
+      "vb-outlet-return",
+      "vb-outlet-stem",
+      "wago-gnd",
+      "wago-reeds-b",
+      "wago-sensors",
+      "wago-v12",
+      "water-inlet-jet-cap-nominal"
+    ],
+    "stages": [
+      {
+        "name": "ASSE released downward withdrawal",
+        "part": "asse-snap-cap",
+        "axis": [
+          0.0,
+          0.0,
+          -1.0
+        ],
+        "interval_mm": [
+          0,
+          30.0
+        ],
+        "start_bounds_mm": [
+          [
+            -0.1481396675109865,
+            396.4532470703125,
+            305.7014465332031
+          ],
+          [
+            57.74814147949219,
+            438.1142883300781,
+            343.1000061035156
+          ]
+        ],
+        "results": [
+          {
+            "body": "asse-drain-adapter",
+            "status": "clear_distance_intervals",
+            "queries": 125,
+            "minimum_queried_surface_distance_mm": 0.3033790588378906,
+            "certified_surface_separation_lower_bound_mm": 0.06900405883789062
+          },
+          {
+            "body": "asse1022-assembly",
+            "status": "clear_distance_intervals",
+            "queries": 13,
+            "minimum_queried_surface_distance_mm": 0.2639753189822117,
+            "certified_surface_separation_lower_bound_mm": 0.029600318982211715
+          },
+          {
+            "body": "enclosure-back-top",
+            "status": "clear_distance_intervals",
+            "queries": 65,
+            "minimum_queried_surface_distance_mm": 0.25,
+            "certified_surface_separation_lower_bound_mm": 0.015625
+          }
+        ]
+      },
+      {
+        "name": "meter released westward withdrawal",
+        "part": "meter-snap-cap",
+        "axis": [
+          -1.0,
+          0.0,
+          0.0
+        ],
+        "interval_mm": [
+          0,
+          20.0
+        ],
+        "start_bounds_mm": [
+          [
+            60.349998474121094,
+            397.0,
+            251.15000610351564
+          ],
+          [
+            91.44999694824219,
+            435.0,
+            313.0500061035156
+          ]
+        ],
+        "results": [
+          {
+            "body": "asse1022-assembly",
+            "status": "clear_distance_intervals",
+            "queries": 1,
+            "minimum_queried_surface_distance_mm": 13.291770648237433,
+            "certified_surface_separation_lower_bound_mm": 3.291770648237433
+          },
+          {
+            "body": "digiten-flow",
+            "status": "clear_distance_intervals",
+            "queries": 3,
+            "minimum_queried_surface_distance_mm": 5.75,
+            "certified_surface_separation_lower_bound_mm": 0.75
+          },
+          {
+            "body": "enclosure-back-top",
+            "status": "clear_distance_intervals",
+            "queries": 57,
+            "minimum_queried_surface_distance_mm": 0.25,
+            "certified_surface_separation_lower_bound_mm": 0.09375
+          }
+        ]
+      },
+      {
+        "name": "meter relaxed forward extraction",
+        "part": "meter-snap-cap",
+        "axis": [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        "interval_mm": [
+          0,
+          40.0
+        ],
+        "start_bounds_mm": [
+          [
+            40.349998474121094,
+            397.0,
+            254.35000610351562
+          ],
+          [
+            71.44999694824219,
+            435.0,
+            309.8500061035156
+          ]
+        ],
+        "results": [
+          {
+            "body": "asse1022-assembly",
+            "status": "clear_distance_intervals",
+            "queries": 15,
+            "minimum_queried_surface_distance_mm": 4.983141475836923,
+            "certified_surface_separation_lower_bound_mm": 2.4831414758369226
+          },
+          {
+            "body": "digiten-flow",
+            "status": "clear_distance_intervals",
+            "queries": 7,
+            "minimum_queried_surface_distance_mm": 5.771529369377543,
+            "certified_surface_separation_lower_bound_mm": 0.7715293693775429
+          },
+          {
+            "body": "enclosure-back-top",
+            "status": "clear_distance_intervals",
+            "queries": 3,
+            "minimum_queried_surface_distance_mm": 11.600006103515625,
+            "certified_surface_separation_lower_bound_mm": 1.600006103515625
+          }
+        ]
+      },
+      {
+        "name": "Pisco released short downward withdrawal",
+        "part": "pisco-snap-cap",
+        "axis": [
+          0.0,
+          0.0,
+          -1.0
+        ],
+        "interval_mm": [
+          0,
+          3.6
+        ],
+        "start_bounds_mm": [
+          [
+            57.66651229858398,
+            420.345703125,
+            313.693115234375
+          ],
+          [
+            95.33349151611328,
+            436.0,
+            343.1000061035156
+          ]
+        ],
+        "results": [
+          {
+            "body": "enclosure-back-top",
+            "status": "clear_distance_intervals",
+            "queries": 15,
+            "minimum_queried_surface_distance_mm": 0.25,
+            "certified_surface_separation_lower_bound_mm": 0.02499999999999991
+          },
+          {
+            "body": "gas-check",
+            "status": "clear_distance_intervals",
+            "queries": 1,
+            "minimum_queried_surface_distance_mm": 5.933104900545,
+            "certified_surface_separation_lower_bound_mm": 4.133104900545
+          },
+          {
+            "body": "gas-regulator",
+            "status": "clear_distance_intervals",
+            "queries": 1,
+            "minimum_queried_surface_distance_mm": 1.9603248883187308,
+            "certified_surface_separation_lower_bound_mm": 0.1603248883187307
+          }
+        ]
+      },
+      {
+        "name": "Pisco released forward extraction",
+        "part": "pisco-snap-cap",
+        "axis": [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        "interval_mm": [
+          0,
+          45.0
+        ],
+        "start_bounds_mm": [
+          [
+            57.66651229858398,
+            420.345703125,
+            310.093115234375
+          ],
+          [
+            95.33349151611328,
+            436.0,
+            339.5000061035156
+          ]
+        ],
+        "results": [
+          {
+            "body": "enclosure-back-top",
+            "status": "clear_distance_intervals",
+            "queries": 255,
+            "minimum_queried_surface_distance_mm": 0.24310913085935226,
+            "certified_surface_separation_lower_bound_mm": 0.06732788085935226
+          },
+          {
+            "body": "gas-check",
+            "status": "clear_distance_intervals",
+            "queries": 7,
+            "minimum_queried_surface_distance_mm": 5.767541503906273,
+            "certified_surface_separation_lower_bound_mm": 0.14254150390627274
+          },
+          {
+            "body": "gas-regulator",
+            "status": "clear_distance_intervals",
+            "queries": 6,
+            "minimum_queried_surface_distance_mm": 4.180726410177671,
+            "certified_surface_separation_lower_bound_mm": 1.3682264101776713
+          }
+        ]
+      },
+      {
+        "name": "regulator released downward withdrawal",
+        "part": "regulator-snap-cap",
+        "axis": [
+          0.0,
+          0.0,
+          -1.0
+        ],
+        "interval_mm": [
+          0,
+          30.0
+        ],
+        "start_bounds_mm": [
+          [
+            -55.323909759521484,
+            282.8036315917969,
+            315.92413330078125
+          ],
+          [
+            -19.323909759521484,
+            332.51002807617186,
+            343.0651550292969
+          ]
+        ],
+        "results": [
+          {
+            "body": "enclosure-back-top",
+            "status": "clear_distance_intervals",
+            "queries": 43,
+            "minimum_queried_surface_distance_mm": 0.25,
+            "certified_surface_separation_lower_bound_mm": 0.015625
+          },
+          {
+            "body": "flow-regulator",
+            "status": "clear_distance_intervals",
+            "queries": 5,
+            "minimum_queried_surface_distance_mm": 4.082100320328092,
+            "certified_surface_separation_lower_bound_mm": 0.33210032032809167
+          }
+        ]
+      }
+    ],
+    "unresolved": [],
+    "pass": true,
+    "elapsed_seconds": 3.3005226659879554,
+    "current_parent_binding": {
+      "assembly_step_sha256": "b8a1a5b893b4bd465d8bd1bdd781201ba4eb20e9186ffa85622790c1710233ed",
+      "assembly_mesh_sha256": "3ab60fa98d64305694e6678f5645f3aa064de1e63bead926448e995ed82d3e34",
+      "scope": "All new back-top stock is AABB-separated from every complete prior cap extraction sweep. Other back-top changes remove material. The changed aft saddle belongs to the cold core, which is absent during these bench operations.",
+      "added_stock_bounds_mm": {
+        "relay-2-header-ledge-1": [
+          [
+            -98.54000010000004,
+            378.3501389792559,
+            303.6566055937779
+          ],
+          [
+            -94.48999989999994,
+            384.1001391792561,
+            307.90660579377806
+          ]
+        ],
+        "relay-1-header-ledge-1": [
+          [
+            -98.54000010000006,
+            378.3501389792549,
+            283.1566055937779
+          ],
+          [
+            -94.48999989999994,
+            384.10013917925505,
+            287.40660579377806
+          ]
+        ],
+        "relay-2-header-ledge-3": [
+          [
+            -98.54000010000004,
+            378.3501389792559,
+            322.9066055937779
+          ],
+          [
+            -94.48999989999994,
+            384.1001391792561,
+            327.15660579377806
+          ]
+        ],
+        "relay-1-header-ledge-3": [
+          [
+            -98.54000010000006,
+            378.3501389792549,
+            302.4066055937779
+          ],
+          [
+            -94.48999989999994,
+            384.10013917925505,
+            306.65660579377806
+          ]
+        ],
+        "new-east-core-hold": [
+          [
+            6.54999989999992,
+            453.2999997999999,
+            253.64999989999995
+          ],
+          [
+            15.550000100000082,
+            462.3000001000001,
+            293.65000010000006
+          ]
+        ]
+      },
+      "proof": [
+        {
+          "stage": "ASSE released downward withdrawal",
+          "added_stock": "relay-2-header-ledge-1",
+          "complete_swept_bounds_separated": true
+        },
+        {
+          "stage": "ASSE released downward withdrawal",
+          "added_stock": "relay-1-header-ledge-1",
+          "complete_swept_bounds_separated": true
+        },
+        {
+          "stage": "ASSE released downward withdrawal",
+          "added_stock": "relay-2-header-ledge-3",
+          "complete_swept_bounds_separated": true
+        },
+        {
+          "stage": "ASSE released downward withdrawal",
+          "added_stock": "relay-1-header-ledge-3",
+          "complete_swept_bounds_separated": true
+        },
+        {
+          "stage": "ASSE released downward withdrawal",
+          "added_stock": "new-east-core-hold",
+          "complete_swept_bounds_separated": true
+        },
+        {
+          "stage": "meter released westward withdrawal",
+          "added_stock": "relay-2-header-ledge-1",
+          "complete_swept_bounds_separated": true
+        },
+        {
+          "stage": "meter released westward withdrawal",
+          "added_stock": "relay-1-header-ledge-1",
+          "complete_swept_bounds_separated": true
+        },
+        {
+          "stage": "meter released westward withdrawal",
+          "added_stock": "relay-2-header-ledge-3",
+          "complete_swept_bounds_separated": true
+        },
+        {
+          "stage": "meter released westward withdrawal",
+          "added_stock": "relay-1-header-ledge-3",
+          "complete_swept_bounds_separated": true
+        },
+        {
+          "stage": "meter released westward withdrawal",
+          "added_stock": "new-east-core-hold",
+          "complete_swept_bounds_separated": true
+        },
+        {
+          "stage": "meter relaxed forward extraction",
+          "added_stock": "relay-2-header-ledge-1",
+          "complete_swept_bounds_separated": true
+        },
+        {
+          "stage": "meter relaxed forward extraction",
+          "added_stock": "relay-1-header-ledge-1",
+          "complete_swept_bounds_separated": true
+        },
+        {
+          "stage": "meter relaxed forward extraction",
+          "added_stock": "relay-2-header-ledge-3",
+          "complete_swept_bounds_separated": true
+        },
+        {
+          "stage": "meter relaxed forward extraction",
+          "added_stock": "relay-1-header-ledge-3",
+          "complete_swept_bounds_separated": true
+        },
+        {
+          "stage": "meter relaxed forward extraction",
+          "added_stock": "new-east-core-hold",
+          "complete_swept_bounds_separated": true
+        },
+        {
+          "stage": "Pisco released short downward withdrawal",
+          "added_stock": "relay-2-header-ledge-1",
+          "complete_swept_bounds_separated": true
+        },
+        {
+          "stage": "Pisco released short downward withdrawal",
+          "added_stock": "relay-1-header-ledge-1",
+          "complete_swept_bounds_separated": true
+        },
+        {
+          "stage": "Pisco released short downward withdrawal",
+          "added_stock": "relay-2-header-ledge-3",
+          "complete_swept_bounds_separated": true
+        },
+        {
+          "stage": "Pisco released short downward withdrawal",
+          "added_stock": "relay-1-header-ledge-3",
+          "complete_swept_bounds_separated": true
+        },
+        {
+          "stage": "Pisco released short downward withdrawal",
+          "added_stock": "new-east-core-hold",
+          "complete_swept_bounds_separated": true
+        },
+        {
+          "stage": "Pisco released forward extraction",
+          "added_stock": "relay-2-header-ledge-1",
+          "complete_swept_bounds_separated": true
+        },
+        {
+          "stage": "Pisco released forward extraction",
+          "added_stock": "relay-1-header-ledge-1",
+          "complete_swept_bounds_separated": true
+        },
+        {
+          "stage": "Pisco released forward extraction",
+          "added_stock": "relay-2-header-ledge-3",
+          "complete_swept_bounds_separated": true
+        },
+        {
+          "stage": "Pisco released forward extraction",
+          "added_stock": "relay-1-header-ledge-3",
+          "complete_swept_bounds_separated": true
+        },
+        {
+          "stage": "Pisco released forward extraction",
+          "added_stock": "new-east-core-hold",
+          "complete_swept_bounds_separated": true
+        },
+        {
+          "stage": "regulator released downward withdrawal",
+          "added_stock": "relay-2-header-ledge-1",
+          "complete_swept_bounds_separated": true
+        },
+        {
+          "stage": "regulator released downward withdrawal",
+          "added_stock": "relay-1-header-ledge-1",
+          "complete_swept_bounds_separated": true
+        },
+        {
+          "stage": "regulator released downward withdrawal",
+          "added_stock": "relay-2-header-ledge-3",
+          "complete_swept_bounds_separated": true
+        },
+        {
+          "stage": "regulator released downward withdrawal",
+          "added_stock": "relay-1-header-ledge-3",
+          "complete_swept_bounds_separated": true
+        },
+        {
+          "stage": "regulator released downward withdrawal",
+          "added_stock": "new-east-core-hold",
+          "complete_swept_bounds_separated": true
+        }
+      ]
+    }
+  },
+  "all_recorded_rigid_closing_intervals_clear_after_prerequisites": false,
+  "remaining_material_findings": [
+    {
+      "parts": [
+        "wago-n",
+        "foam-cap-lid-top"
+      ],
+      "native_overlap_mm3": 86.9,
+      "required_action": "Move the neutral junction and its holder after publishing the settled mechanics."
+    }
+  ],
+  "assembly_prerequisites": [
+    "Keep the pump suction elbow and short inlet link loose during the rear approach; complete their round joints through the uncovered funnel opening after closure.",
+    "Dress cross-parent flexible tube spans after positioning the rigid quadrants.",
+    "Separate back-top from the core before releasing the pump or rear equipment caps. Remove the ASSE cap, then the meter cap, before servicing the Pisco cap."
+  ]
 }
