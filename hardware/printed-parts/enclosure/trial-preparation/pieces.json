@@ -823,7 +823,7 @@
           "stl": "hardware/printed-parts/asse-drain-adapter/asse-drain-adapter.stl"
         }
       ],
-      "pose_reason": "As exported: upright, the large socket on the bed and the small socket up (asse-drain-adapter/README.md)."
+      "pose_reason": "As exported: the exterior flat on the bed, with both sealing sockets rising at45 degrees (asse-drain-adapter/README.md)."
     },
     "asse-cuffs": {
       "printer": "Mark1",

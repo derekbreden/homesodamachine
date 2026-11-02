@@ -717,8 +717,9 @@ def build_foam(front_y: float):
     Returns `(placed, carry)` like every other seated body, so the cap's conduit mouths ride the
     placement — a line reaching one is drawn to where the bore actually comes out."""
     f = _foam.import_body(FOAM_STEP.with_name(FOAM_STEP.name + ".npz"))
-    shell = box(import_step(str(_foam.SHELL_STEP)).val())
-    datum = (_cci.front_wall_x, (shell.ymin + shell.ymax) / 2.0, _foam.stack_floor_z)
+    # The shell is authored about Y0. Its construction frame seats the core;
+    # tessellation and exterior details do not redefine that frame.
+    datum = (_cci.front_wall_x, 0.0, _foam.stack_floor_z)
     return seat_body(f, (((0.0, 0.0, 1.0), FOAM_YAW),), seat="foam-assembly",
                      station=((datum, (-1.0, 0.0, 0.0)), (0.0, front_y, 0.0)))
 
@@ -1293,7 +1294,8 @@ _COND_UNPRINTED = "NOT PRINTED — no piece owns this station"
 # clear of the reservoir-A cable guide; the east foot stands west of the wet
 # recess. Both keep their full-height roots on the unrecessed rear wall.
 KEYSTONE_FACE = _above.specification()['rear_wall']['dry_openings']['keystone']['face_center_mm']
-CORE_HOLD_LANES = ((-43.6, -37.5), (12.0, 21.0))
+_CORE_HOLD_EAST_EDGE = _above.specification()['rear_wall']['interior_panel_relief']['xmin']
+CORE_HOLD_LANES = ((-43.6, -37.5), (_CORE_HOLD_EAST_EDGE-9., _CORE_HOLD_EAST_EDGE))
 
 
 def core_stops(foam) -> tuple:

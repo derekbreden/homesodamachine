@@ -416,26 +416,31 @@ even though the whole enclosure does not — that is the point of the split.
 ## Above-core mounts
 
 The [production arrangement](/hardware/manifold-layout/above-core.md) owns the native
-component frames. `_above_core_shell.py` builds back-top's PSU and relay hosts,
-V-A/V-K sidewall plates, rear ports and fluid supports. `_back_top_meter.py`
-constructs two straight roof piers for the meter's fixed collars. The broad
-fore column has faces on X44.5 and X63; the aft pier starts on X52.5. Each
-has one west-open circular seat and one straight horizontal strap passage,
-with at least 3 mm of ordinary stock.
-The fore column also carries the ASSE's aft bearing. Its straight meter
-mouth admits the complete collar from the west; the strap approach opens
-into the ASSE bore with no narrow intervening web. Both ASSE and meter
-passages run through the shared stock. The aft pier has one flat fore setback
-below Z315 for the meter housing. Both gas bearings join as one flat sidewall carrier
-between Z293 and Z301, with two circular seats and two straight tie passages.
-The PCB, pump and V-B belong to the cold-core mounts. Junction wells follow
-their actual branch points on the rear wall, core lid and front manifold.
+component frames. Back-top carries integral upper seats for the ASSE and
+Pisco, an east-wall meter seat, and the water regulator's ceiling seat.
+Four removable caps close these seats with reinforced 2.6 mm spring leaves.
+The ASSE and Pisco load 16 mm fore of their seated positions and slide aft;
+the meter slides aft onto its soda outlet stub before its cap enters from
+the west. Ordinary supporting stock is at least 3 mm.
+Fit and service the meter cap with back-top separated from the cold core.
+Fit it before the ASSE cap. For removal, disconnect and dress the tubes and
+leads aside, remove the ASSE cap, spread the meter leaves, withdraw 20 mm west,
+relax the leaves and move 40 mm fore. This bench sequence leaves room for
+the complete lower leaf to open.
 
-The PSU mounts to the dry west sidewall with its AC end aft; both relays sit
-above it. Relay mounting uses two diagonal screws per module and four support
-pads. The shared V69 socket sections on back-top carry V-A and V-K. Preserve
-the [accepted valve-fit scope](/hardware/mechanical-qualification/README.md);
-the complete installed load paths remain separate qualification items.
+The PSU mounts base-up to four ceiling hosts with its AC end aft. The two
+relay boards sit on the dry west wall, 20.5 mm apart. Four edge ledges support
+each PCB; rigid 3 mm terminal-end rails retain the opposite end from its two
+header-end M3×8 screws. Slide each board 6.5 mm aft into the rails before
+fitting the screws. The insert faces stand 2.5 mm behind the PCB underside,
+leaving 0.5 mm over the nominal pin envelope.
+
+The shared V69 socket sections carry V-A and V-K. Preserve the
+[accepted valve-fit scope](/hardware/mechanical-qualification/README.md).
+The PCB, bare pump and V-B belong to the cold-core lid. Its broad pump base
+has a straight cover channel, fixed rail-end stops, a filled 6.2 mm cap and
+one 4 mm chamfer clearing the rear flavor bulkhead. Junction wells follow
+their branch points on the rear wall, core lid and front manifold.
 
 The rear six-port field has a 6 mm clamping land within the 9 mm wall. C14 uses
 two short-insert hosts around its shallow flange pocket; RJ11 uses its keyed
@@ -500,19 +505,17 @@ Four features bearing on the core's own faces:
   face on the wall: a corner bracket in one piece with both faces it stands on, the card slot's
   own form.
 - **Aft brackets** (`_core_holds`, on `enclosure-back-top`). A right trapezoid in section,
-  [6.125 mm](CORE_HOLD_WIDE) wide on the west and 9 mm on the east: the bearing face along the cap from [12 mm](CORE_HOLD_REACH)
+  [6.1 mm](CORE_HOLD_WIDE) wide on the west and 9 mm on the east: the bearing face along the cap from [12 mm](CORE_HOLD_REACH)
   forward of the core's aft face back to the wall, a leg [40 mm](CORE_HOLD_RISE) up that wall in
   the `rear_seam_clear` band, and one straight from the head of the leg down to the foot's tip,
   [8 mm](CORE_HOLD_LAND) over the bracket's foot plane. The whole bracket profile stands
   0.25 mm above the core's cap crown, putting the cap-facing foot at Z253.65.
   This face prints upward with back-top inverted and adds no supported-face allowance.
-  The straight web carries
-  the flange. The west bracket occupies X−43.6..−37.6 between the PSU and rear jack;
-  the east bracket occupies X12..21, 3 mm west of the wet-field recess. Both
-  retain their complete 40 mm wall legs. The west bracket’s nominal gaps are
-  0.40 mm to the PSU and 0.275 mm to the rear jack. The complete 300 mm horizontal
-  back-column approach clears the populated core. These are CAD clearances;
-  printed fit and restraint strength remain unqualified.
+  The straight web carries the flange. The west bracket occupies X−43.6..−37.5;
+  the east bracket occupies X6.55..15.55, ending on the wet-field recess boundary.
+  Both retain their complete 40 mm wall legs and the Z253.65 bearing plane.
+  The populated back column slides over the core before the final flexible
+  handoffs are connected. Printed fit and restraint strength remain unqualified.
   The [native hold reading](core-hold-review/native.json) binds the complete east profile,
   wall root and cap gap to the current export, and preserves the west hold exactly.
   The [current slice](core-hold-review/slice.json) binds its print preparation.

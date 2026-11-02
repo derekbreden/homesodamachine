@@ -2,10 +2,10 @@
   "/hardware/printed-parts/asse-drain-adapter/asse_drain_adapter.py": {
     "BARB_BORE": "6.10",
     "BARB_DEPTH": "8.6",
-    "REDUCER_LENGTH": "0.50",
-    "SOCKET_DROP": "4.55",
+    "REDUCER_LENGTH": "5.50",
+    "SOCKET_DROP": "9.55",
     "TUBE_BORE": "3.80",
     "TUBE_DEPTH": "14",
-    "VOLUME": "4.250"
+    "VOLUME": "4.923"
   }
 }

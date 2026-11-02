@@ -50,6 +50,29 @@ def _world(shape, color):
     return shape, color, parts._carry(parts._frame())
 
 
+def _discharge_pvc(end_frame):
+    """The two seated cuff ends meet on their shared bend's bisecting plane."""
+    pj = joint()
+    direction = np.array(end_frame['rotation'],float)[:,0]
+    angle = math.acos(float(np.clip(direction[0],-1.,1.)))
+    axis = np.cross((1.,0.,0.),direction)
+    axis /= np.linalg.norm(axis)
+    radial = direction.copy()
+    radial[0] = 0.
+    radial /= np.linalg.norm(radial)
+    pivot = cq.Vector(*(-pj.pivot('discharge')[2]*radial))
+    half = (cq.Location(pivot)
+            * cq.Location(cq.Vector(),cq.Vector(*axis),math.degrees(angle)/2.)
+            * cq.Location(-pivot))
+    crease = cq.Solid.makeBox(100.,200.,200.,cq.Vector(-100.,-100.,-100.)).moved(half)
+    rows = pj.bore('discharge')
+    past = pj.TUBE_OD*math.tan(angle/2.)+1.
+    on_barb = pj.turned(rows[:-2]+[(past,rows[-3][1])]).intersect(crease)
+    on_stem = pj.turned([(-past,rows[-1][1]),rows[-1]]).moved(
+        layout.frame_location(end_frame)).cut(crease)
+    return on_barb.fuse(on_stem).clean()
+
+
 @cache
 def components():
     import cadquery as cq
@@ -106,13 +129,17 @@ def components():
             steel, key = steel.moved(bend), key.moved(bend)
         result['suction-'+name+'-clamp'] = _placed(steel, data['suction-joint'], pj.M_STAINLESS)
         result['suction-'+name+'-key'] = _placed(key, data['suction-joint'], pj.M_POM_ORANGE)
-    for name, (shape, color) in pj.build('discharge', (j['discharge_keys'],)*2, j['DISCHARGE_BEND']).items():
-        if name in ('barb-clamp','barb-key'):
-            shape=shape.moved(cq.Location(cq.Vector(),cq.Vector(1,0,0),j['discharge_barb_roll']))
-        result['discharge-'+name] = _placed(shape, data['discharge-joint'], color)
-    turn = pj.turn('discharge', j['DISCHARGE_BEND'])
-    reducer = result['discharge-reducer']
-    result['discharge-reducer'] = (*reducer[:2], parts._carry(parts._compose(data['discharge-joint'], _datum(turn))))
+    discharge = j['discharge_bend']
+    turn = layout.frame_location(discharge['end_frame'])
+    result['discharge-tube'] = _placed(_discharge_pvc(discharge['end_frame']),
+                                      data['discharge-joint'],pj.M_PVC_CLEAR)
+    result['discharge-reducer'] = _placed(pj.build_reducer(),
+        parts._compose(data['discharge-joint'],discharge['end_frame']),pj.M_JG_WHITE_PP)
+    xc, diameter = pj.bands('discharge')['barb']
+    steel, key = pj.build_clamp(diameter,xc,j['discharge_keys'])
+    roll = cq.Location(cq.Vector(),cq.Vector(1.,0.,0.),j['discharge_barb_roll'])
+    for name, shape, color in (('clamp',steel,pj.M_STAINLESS),('key',key,pj.M_POM_ORANGE)):
+        result['discharge-barb-'+name] = _placed(shape.moved(roll),data['discharge-joint'],color)
     xc, diameter = pj.bands('discharge')['stem']
     steel, key = pj.build_clamp(diameter, xc, j['discharge_keys'])
     roll = cq.Location(cq.Vector(), cq.Vector(1.,0.,0.), j['STEM_ROLL'])
@@ -272,6 +299,28 @@ def route_specs():
              'lower-pump-elbow','socket',parts.stem_elbow_reference().SOCKET_INSERTION)):
         flex = plan().get('flex_links', {}).get(name)
         if flex:
+            if flex['kind'] == 'tangent_cubic':
+                a,ua = station(first,port_a)
+                b,ub = station(second,port_b)
+                a = routes._sub(a,routes._mul(ua,depth_a))
+                b = routes._sub(b,routes._mul(ub,depth_b))
+                length = math.dist(a,b)
+                control = [a,routes._add(a,routes._mul(ua,length/3.)),
+                           routes._add(b,routes._mul(ub,length/3.)),b]
+                # Derivative controls bound speed along the chord from below;
+                # the two acceleration controls bound its norm from above.
+                # Consequently curvature <= max_acceleration / min_speed².
+                chord = [(b[i]-a[i])/length for i in range(3)]
+                velocity = [[3.*(q[i]-p[i]) for i in range(3)]
+                            for p,q in zip(control,control[1:])]
+                speed = min(sum(v[i]*chord[i] for i in range(3)) for v in velocity)
+                acceleration = max(math.sqrt(sum((6.*(r[i]-2.*q[i]+p[i]))**2
+                                                  for i in range(3)))
+                                   for p,q,r in zip(control,control[1:],control[2:]))
+                radius = (speed*speed/acceleration if acceleration else None) if speed>0. else 0.
+                add('above-core-'+name,[routes._bezier(control)],(first,second),radius)
+                result['above-core-'+name]['radius_basis'] = 'Conservative derivative bound on the tangent cubic'
+                continue
             segment = (_arc_three(flex['points_mm']) if flex['kind'] == 'arc'
                        else routes._bezier(flex['points_mm']))
             add('above-core-'+name, [segment], (first, second),
@@ -313,7 +362,7 @@ def continuations(station):
     c1 = [a,[a[0],a[1]-da,a[2]],[top[0],top[1],top[2]+db],top]
     c2 = [top,[top[0],top[1],top[2]-pb],[floor[0],floor[1],floor[2]+pa],floor]
     add('above-core-gas-core-drop',[r._line((a[0],a[1]+check().INSERTION,a[2]),a),r._bezier(c1),r._bezier(c2)],
-        ('gas-check','outlet'),('foam-assembly','co2-in'),25.,spool='red')
+        ('gas-check','outlet'),('foam-assembly','co2-in'),gas['minimum_radius_mm'],spool='red')
 
     # Full receiving straights and tangent bends through the occupied layout.
     add('above-core-va-fore-feed',layout.specification()['fore_routes']['native_segments']['va-fore-feed'],
@@ -347,10 +396,22 @@ def _flavor_rear(flavor, destination):
     """Shared descending bend, lower straight and rear socket approach."""
     import above_core_routes as r
     radius = 25.
-    peak, low_z = (282., 257.) if flavor=='a' else (303.5, destination[2])
-    aisle = 62. if flavor=='a' else 35.
-    start = (aisle, 368. if flavor=='a' else 348., peak)
-    offset = (15.5 if flavor=='a' else 0., 0., low_z-peak)
+    if flavor=='a':
+        # Finish the descent ahead of the meter's complete lower spring.
+        # The rear straight passes above that leaf, beneath the housing.
+        start = (61.,369.5,276.5)
+        low_z = 262.
+        offset = (destination[0]-start[0],0.,low_z-start[2])
+        normal = r._unit(r._cross((0.,1.,0.),offset))
+        fall,low = _flavor_s_bend(start,(0.,1.,0.),offset,normal)
+        rise = (0.,0.,destination[2]-low_z)
+        angle = math.acos(1.-r._norm(rise)/(2.*radius))
+        shift_start = (low[0],destination[1]-2.*radius*math.sin(angle),low_z)
+        shift,stop = _flavor_s_bend(shift_start,(0.,1.,0.),rise,(1.,0.,0.))
+        return [*fall,r._line(low,shift_start),*shift]
+    peak, low_z = 303.5, destination[2]
+    start = (35.,348.,peak)
+    offset = (0.,0.,low_z-peak)
     normal = r._unit(r._cross((0.,1.,0.),offset))
     fall, low = _flavor_s_bend(start,(0.,1.,0.),offset,normal)
     offset = (destination[0]-low[0],0.,destination[2]-low_z)
@@ -388,19 +449,13 @@ def flavor_routes(station):
             lane_segments,approach = _flavor_s_bend(lead_end,(0.,1.,0.),offset,normal)
         crossing = r._rounded([approach,(lane,cross_y,cross_z),(aisle,cross_y,cross_z),
                                 (aisle,lift_y,cross_z)],radius)
-        peak,low_z = (282.,257.) if flavor=='a' else (303.5,destination[2])
-        rise,end = _flavor_s_bend((aisle,lift_y,cross_z),(0.,1.,0.),(0.,0.,peak-cross_z),
-                          (1. if peak>cross_z else -1.,0.,0.))
-        transfer = []
-        if flavor=='a':
-            transfer_start = (aisle,330.,peak)
-            shifted,shift_end = _flavor_s_bend(transfer_start,(0.,1.,0.),(6.5,0.,0.),(0.,0.,-1.))
-            transfer = [r._line(end,transfer_start),*shifted]
-            end = shift_end
-            aisle = 62.
+        peak,low_z = (276.5,262.) if flavor=='a' else (303.5,destination[2])
+        offset = (5.5 if flavor=='a' else 0.,0.,peak-cross_z)
+        normal = r._unit(r._cross((0.,1.,0.),offset))
+        rise,end = _flavor_s_bend((aisle,lift_y,cross_z),(0.,1.,0.),offset,normal)
         rear = _flavor_rear(flavor,destination)
         stop = rear[-1]['points_mm'][-1]
-        segments = [*lead,*lane_segments,*crossing,*rise,*transfer,
+        segments = [*lead,*lane_segments,*crossing,*rise,
                     r._line(end,rear[0]['points_mm'][0]),*rear,
                     r._line(stop,r._sub(destination,r._mul(outward,10.)))]
         points = r._points(segments)

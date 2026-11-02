@@ -1,60 +1,68 @@
 {
-  "scope": "Manual native local-window clearance of the printed vent elbow and its 4 mm return. A body outside the tube bounding box expanded by 1 mm cannot violate that clearance. Candidate native solids are clipped to that window before intersection and distance, preserving the complete local question without processing remote faces. Connected receiving interfaces are omitted; wire bodies, jackets and wire-end insulation are excluded. Connector housings and Wagos remain.",
-  "assembly_step_sha256": "528e255c85f958f190d01a97508a7c5c1ee12f8f9e6c39cfa8349f5d01a56a6c",
+  "scope": "Nominal exact B-rep clearance of the direct TPU ASSE sleeve and dedicated drain against the complete installed assembly population, including cold-core bodies and retained flavor returns. Connected interfaces are excluded. Tubes exclude flexible conductors and jackets as obstacles; connector housings remain. The white 4 mm return requires at least 1 mm to every other unconnected body. Pump occupied envelopes are read per component. The sleeve's expanded shape is an occupancy approximation. Hardware tolerances, zip-tie heads, actual bending, seals and vent performance are unmeasured.",
+  "conservative_cold_core_envelope_included": true,
+  "installed_body_count": 295,
+  "checked_members": [
+    "asse-drain-adapter",
+    "tube-drain-vent",
+    "tube-fluid-18",
+    "tube-fluid-28"
+  ],
   "checks": {
     "asse-drain-adapter": {
       "valid": true,
       "solids": 1,
-      "required_gap_mm": 0.0,
-      "candidates": [
+      "minimum_unconnected_gap_mm": 0.0,
+      "neighbors": [
         {
-          "part": "asse-snap-cap",
-          "common_mm3": 0,
-          "gap_lower_bound_mm": 0.0,
-          "local_material_present": false,
-          "passed": true
+          "name": "asse-snap-cap",
+          "gap_mm": 0.2500001,
+          "overlap_mm3": 0
         },
         {
-          "part": "tube-fluid-18",
-          "common_mm3": 0,
-          "gap_lower_bound_mm": 0.0,
-          "local_material_present": false,
-          "passed": true
+          "name": "tube-fluid-18",
+          "gap_mm": 42.263895,
+          "overlap_mm3": 0
         },
         {
-          "part": "tube-fluid-28",
-          "common_mm3": 0,
-          "gap_lower_bound_mm": 0.0,
-          "local_material_present": false,
-          "passed": true
+          "name": "tube-fluid-28",
+          "gap_mm": 19.1167611,
+          "overlap_mm3": 0
         },
         {
-          "part": "tube-fluid-14",
-          "common_mm3": 0,
-          "gap_lower_bound_mm": 0.0,
-          "local_material_present": false,
-          "passed": true
+          "name": "tube-fluid-14",
+          "gap_mm": 23.8181498,
+          "overlap_mm3": 0
         },
         {
-          "part": "foam-cap-lid-top",
-          "common_mm3": 0,
-          "gap_lower_bound_mm": 0.0,
-          "local_material_present": false,
-          "passed": true
+          "name": "tube-fluid-16",
+          "gap_mm": 22.9052158,
+          "overlap_mm3": 0
         },
         {
-          "part": "g-ganen-pump",
-          "common_mm3": 0,
-          "gap_lower_bound_mm": 0.0,
-          "local_material_present": false,
-          "passed": true
+          "name": "g-ganen-pump",
+          "gap_mm": 12.2433821,
+          "overlap_mm3": 0
         },
         {
-          "part": "enclosure-back-top",
-          "common_mm3": 0,
-          "gap_lower_bound_mm": 0.0,
-          "local_material_present": false,
-          "passed": true
+          "name": "pump-snap-cap",
+          "gap_mm": 1.0406965,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "enclosure-back-top",
+          "gap_mm": 17.2221201,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "foam-assembly",
+          "gap_mm": 3.8874791,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "cold-core/foam-cap-lid-top",
+          "gap_mm": 3.8874791,
+          "overlap_mm3": 0
         }
       ],
       "passed": true
@@ -62,274 +70,898 @@
     "tube-drain-vent": {
       "valid": true,
       "solids": 1,
-      "required_gap_mm": 1.0,
-      "candidates": [
+      "minimum_unconnected_gap_mm": 1.0,
+      "neighbors": [
         {
-          "part": "bulkhead-drain-nut",
-          "common_mm3": 0,
-          "gap_lower_bound_mm": 1.0,
-          "local_material_present": false,
-          "passed": true
+          "name": "bulkhead-drain-nut",
+          "gap_mm": 5.5,
+          "overlap_mm3": 0
         },
         {
-          "part": "tube-fluid-18",
-          "common_mm3": 0,
-          "gap_lower_bound_mm": 1.0,
-          "local_material_present": false,
-          "passed": true
+          "name": "tube-fluid-18",
+          "gap_mm": 50.8076902,
+          "overlap_mm3": 0
         },
         {
-          "part": "tube-fluid-28",
-          "common_mm3": 0,
-          "gap_lower_bound_mm": 1.0,
-          "local_material_present": false,
-          "passed": true
+          "name": "tube-fluid-28",
+          "gap_mm": 23.0,
+          "overlap_mm3": 0
         },
         {
-          "part": "foam-cap-lid-top",
-          "common_mm3": 0,
-          "gap_lower_bound_mm": 1.0,
-          "local_material_present": false,
-          "passed": true
+          "name": "tube-fluid-14",
+          "gap_mm": 33.9178574,
+          "overlap_mm3": 0
         },
         {
-          "part": "enclosure-back-top",
-          "common_mm3": 0,
-          "gap_lower_bound_mm": 1.0,
-          "local_material_present": false,
-          "passed": true
+          "name": "enclosure-back-top",
+          "gap_mm": 7.8578668,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "foam-assembly",
+          "gap_mm": 7.7595506,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "cold-core/foam-cap-lid-top",
+          "gap_mm": 7.7595506,
+          "overlap_mm3": 0
+        }
+      ],
+      "passed": true
+    },
+    "tube-fluid-18": {
+      "valid": true,
+      "solids": 1,
+      "minimum_unconnected_gap_mm": 0.0,
+      "neighbors": [
+        {
+          "name": "tee-y-a",
+          "gap_mm": 13.9790879,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "coil-v-e",
+          "gap_mm": 21.7861015,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "coil-v-f",
+          "gap_mm": 9.8952794,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "tee-y-b",
+          "gap_mm": 13.9274406,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "coil-v-h",
+          "gap_mm": 21.8007964,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "asse1022-assembly",
+          "gap_mm": 47.2591647,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "digiten-flow",
+          "gap_mm": 0.0771638,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "vk-solenoid",
+          "gap_mm": 1.2356906,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "asse-drain-adapter",
+          "gap_mm": 42.263895,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "lower-valve-elbow",
+          "gap_mm": 12.3915478,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "ya-stem-elbow",
+          "gap_mm": 3.5653718,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "drain-outlet-stem",
+          "gap_mm": 25.3871161,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "yb-stem-elbow",
+          "gap_mm": 6.6158069,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "soda-bend-holder",
+          "gap_mm": 6.6916739,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "soda-continuous-insulation",
+          "gap_mm": 0.8011419,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "bulkhead-drain",
+          "gap_mm": 44.2559864,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "bulkhead-drain-nut",
+          "gap_mm": 42.4195661,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "bulkhead-carb",
+          "gap_mm": 16.43,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "bulkhead-flavor-b",
+          "gap_mm": 37.4527408,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "bulkhead-flavor-b-nut",
+          "gap_mm": 36.7000011,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "bulkhead-flavor-a-nut",
+          "gap_mm": 5.5,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "meter-snap-cap",
+          "gap_mm": 3.05,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "tube-above-core-drain-vb-east-link",
+          "gap_mm": 37.6757804,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "tube-above-core-vb-yb-link",
+          "gap_mm": 10.415,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "tube-soda-core-rise",
+          "gap_mm": 10.3261419,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "tube-soda-meter-bulkhead",
+          "gap_mm": 21.825,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "tube-above-core-gas-core-drop",
+          "gap_mm": 0.3273178,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "tube-above-core-va-fore-feed",
+          "gap_mm": 2.7949391,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "tube-drain-vent",
+          "gap_mm": 50.8076902,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "tube-fluid-28",
+          "gap_mm": 3.6157731,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "tube-fluid-14",
+          "gap_mm": 0.8821374,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "tube-fluid-16",
+          "gap_mm": 1.825,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "tube-fluid-26",
+          "gap_mm": 2.025,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "tube-fluid-24",
+          "gap_mm": 22.9678225,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "discharge-barb-clamp",
+          "gap_mm": 60.1090364,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "discharge-barb-key",
+          "gap_mm": 62.7105529,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "discharge-stem-clamp",
+          "gap_mm": 70.3251626,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "discharge-tube",
+          "gap_mm": 67.6003267,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "g-ganen-pump",
+          "gap_mm": 22.1787138,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "lower-pump-elbow",
+          "gap_mm": 0.3695488,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "pcba",
+          "gap_mm": 17.8178174,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "pump-snap-cap",
+          "gap_mm": 39.3334839,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "suction-barb-clamp",
+          "gap_mm": 36.8562692,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "suction-barb-key",
+          "gap_mm": 40.7085296,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "suction-reducer",
+          "gap_mm": 2.1263918,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "suction-stem-clamp",
+          "gap_mm": 13.4254572,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "suction-stem-key",
+          "gap_mm": 7.7124575,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "suction-tube",
+          "gap_mm": 13.5593305,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "valve-v-b",
+          "gap_mm": 6.0794642,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "vb-inlet-turn",
+          "gap_mm": 40.0119418,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "vb-outlet-return",
+          "gap_mm": 5.5721091,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "vb-outlet-stem",
+          "gap_mm": 10.0187165,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "wago-sensors",
+          "gap_mm": 23.1558,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "wago-v12",
+          "gap_mm": 31.1568134,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "wago-gnd",
+          "gap_mm": 19.8293168,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "wago-reeds-b",
+          "gap_mm": 1.1558,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "tube-above-core-vb-yb-cross",
+          "gap_mm": 14.7411465,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "tube-above-core-pump-inlet-link",
+          "gap_mm": 3.8947445,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "funnel",
+          "gap_mm": 15.7539551,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "funnel-frame",
+          "gap_mm": 1.9,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "elbow-cradle",
+          "gap_mm": 9.95575,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "funnel-drain-union",
+          "gap_mm": 16.1983932,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "enclosure-front-top",
+          "gap_mm": 14.7433189,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "enclosure-back-top",
+          "gap_mm": 0.7385339,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "foam-assembly",
+          "gap_mm": 0.0499999,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "cold-core/cap-clamp-top-1",
+          "gap_mm": 19.8662401,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "cold-core/cap-clamp-top-2",
+          "gap_mm": 43.110808,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "cold-core/cap-clamp-top-4",
+          "gap_mm": 14.298006,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "cold-core/cap-clamp-top-5",
+          "gap_mm": 71.0453626,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "cold-core/cap-clamp-top-7",
+          "gap_mm": 25.3117799,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "cold-core/cap-clamp-top-9",
+          "gap_mm": 7.48077,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "cold-core/reservoir-b-fill-guide",
+          "gap_mm": 39.4302926,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "cold-core/foam-shell",
+          "gap_mm": 14.2859602,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "cold-core/foam-cap-lid-top",
+          "gap_mm": 0.0499999,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "cold-core/tube-reservoir-air-a",
+          "gap_mm": 46.6424071,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "cold-core/tube-reservoir-air-b",
+          "gap_mm": 59.3420944,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "cold-core/line-carb-water-out",
+          "gap_mm": 24.6676888,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "cold-core/line-co2-in",
+          "gap_mm": 21.1,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "cold-core/line-reservoir-a",
+          "gap_mm": 27.6940235,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "cold-core/line-reservoir-a-fill",
+          "gap_mm": 17.3420688,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "cold-core/line-reservoir-b",
+          "gap_mm": 46.8095581,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "cold-core/line-reservoir-b-fill",
+          "gap_mm": 35.8044027,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "cold-core/line-water-in",
+          "gap_mm": 73.9465147,
+          "overlap_mm3": 0
+        }
+      ],
+      "passed": true
+    },
+    "tube-fluid-28": {
+      "valid": true,
+      "solids": 1,
+      "minimum_unconnected_gap_mm": 0.0,
+      "neighbors": [
+        {
+          "name": "tee-y-a",
+          "gap_mm": 71.82,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "tee-y-b",
+          "gap_mm": 41.22,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "relay-1",
+          "gap_mm": 110.8839581,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "relay-2",
+          "gap_mm": 115.0338348,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "asse1022-assembly",
+          "gap_mm": 27.9133198,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "valve-v-a",
+          "gap_mm": 70.5713506,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "asse-drain-adapter",
+          "gap_mm": 19.1167611,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "keystone-jack",
+          "gap_mm": 85.2320765,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "va-south-elbow",
+          "gap_mm": 87.0138907,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "ya-stem-elbow",
+          "gap_mm": 82.3064107,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "drain-outlet-stem",
+          "gap_mm": 40.3554778,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "yb-stem-elbow",
+          "gap_mm": 37.1647643,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "bulkhead-drain",
+          "gap_mm": 17.5,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "bulkhead-drain-nut",
+          "gap_mm": 14.6076952,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "bulkhead-flavor-b-nut",
+          "gap_mm": 5.5,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "asse-snap-cap",
+          "gap_mm": 28.5665109,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "wago-h",
+          "gap_mm": 102.3999989,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "wago-n",
+          "gap_mm": 78.4248706,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "wago-g",
+          "gap_mm": 107.341711,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "tube-above-core-drain-vb-east-link",
+          "gap_mm": 47.8347582,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "tube-above-core-vb-yb-link",
+          "gap_mm": 7.4266568,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "tube-above-core-va-fore-feed",
+          "gap_mm": 5.7949391,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "tube-drain-vent",
+          "gap_mm": 23.0,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "tube-fluid-18",
+          "gap_mm": 3.6157731,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "tube-fluid-14",
+          "gap_mm": 15.825,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "tube-fluid-16",
+          "gap_mm": 4.825,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "tube-fluid-26",
+          "gap_mm": 21.5910669,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "tube-fluid-24",
+          "gap_mm": 13.9323252,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "carbonator-fold",
+          "gap_mm": 70.2238022,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "discharge-barb-clamp",
+          "gap_mm": 49.6368796,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "discharge-barb-key",
+          "gap_mm": 52.9453152,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "discharge-chain",
+          "gap_mm": 88.8078944,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "discharge-reducer",
+          "gap_mm": 64.9672491,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "discharge-stem-clamp",
+          "gap_mm": 59.5713175,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "discharge-stem-key",
+          "gap_mm": 38.342062,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "discharge-tube",
+          "gap_mm": 57.3083405,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "g-ganen-pump",
+          "gap_mm": 14.168134,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "pcba",
+          "gap_mm": 16.3292749,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "pump-snap-cap",
+          "gap_mm": 5.6228185,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "suction-barb-clamp",
+          "gap_mm": 18.1550694,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "suction-barb-key",
+          "gap_mm": 14.6724409,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "suction-reducer",
+          "gap_mm": 22.9109388,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "suction-stem-clamp",
+          "gap_mm": 13.0600293,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "suction-stem-key",
+          "gap_mm": 4.2328814,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "suction-tube",
+          "gap_mm": 19.6692477,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "valve-v-b",
+          "gap_mm": 14.440492,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "vb-inlet-turn",
+          "gap_mm": 53.7574435,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "vb-outlet-return",
+          "gap_mm": 2.8344589,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "vb-outlet-stem",
+          "gap_mm": 3.0467595,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "wago-sensors",
+          "gap_mm": 31.2493526,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "wago-v12",
+          "gap_mm": 36.0982866,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "wago-gnd",
+          "gap_mm": 19.7666621,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "wago-reeds-b",
+          "gap_mm": 9.3627472,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "tube-above-core-vb-yb-cross",
+          "gap_mm": 7.415,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "tube-above-core-pump-inlet-link",
+          "gap_mm": 27.3614521,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "tube-water-5",
+          "gap_mm": 109.6178027,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "funnel",
+          "gap_mm": 25.3831124,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "funnel-frame",
+          "gap_mm": 4.9,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "elbow-cradle",
+          "gap_mm": 36.6753729,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "funnel-drain-union",
+          "gap_mm": 43.9755319,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "enclosure-front-top",
+          "gap_mm": 14.7433189,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "enclosure-back-top",
+          "gap_mm": 5.7999989,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "foam-assembly",
+          "gap_mm": 0.05,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "cold-core/cap-clamp-top-2",
+          "gap_mm": 63.7062816,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "cold-core/cap-clamp-top-3",
+          "gap_mm": 19.8662401,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "cold-core/cap-clamp-top-5",
+          "gap_mm": 24.8004654,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "cold-core/cap-clamp-top-6",
+          "gap_mm": 83.2306565,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "cold-core/reservoir-b-fill-guide",
+          "gap_mm": 37.0186153,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "cold-core/foam-shell",
+          "gap_mm": 14.3599999,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "cold-core/foam-cap-lid-top",
+          "gap_mm": 0.05,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "cold-core/tube-reservoir-air-a",
+          "gap_mm": 2.8226239,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "cold-core/tube-reservoir-air-b",
+          "gap_mm": 66.9021933,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "cold-core/line-carb-water-out",
+          "gap_mm": 45.2019979,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "cold-core/line-co2-in",
+          "gap_mm": 33.9390852,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "cold-core/line-reservoir-b",
+          "gap_mm": 48.5837706,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "cold-core/line-reservoir-b-fill",
+          "gap_mm": 29.6938578,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "cold-core/line-water-in",
+          "gap_mm": 69.1338947,
+          "overlap_mm3": 0
         }
       ],
       "passed": true
     }
   },
   "bend_radii": {
-    "drain-vent": {
-      "minimum_radius_mm": 55.674112848721414,
-      "segment_minimum_radii_mm": [
-        null,
-        55.674112848721414,
-        null
+    "tube-drain-vent": {
+      "centerline_radii_mm": [
+        55.6741128
       ],
-      "stock_minimum_mm": 25.0,
-      "passed": true,
-      "source_segments_sha256": "299e950e15edf022743a368ff0a1fc9387b90913eadb610022169ee84a2a6efa"
+      "method": "Producer centerline; circular arcs and cubic curvature extrema",
+      "passed": true
     },
-    "fluid-18": {
-      "minimum_radius_mm": 25.0,
-      "segment_minimum_radii_mm": [
-        null,
-        25.0,
-        null,
-        25.0,
-        null,
-        25.0,
-        37.881193577734614,
-        null,
-        25.0,
-        null,
-        25.0,
-        25.0,
-        25.0,
-        null,
-        25.0,
-        25.0,
-        null,
-        25.0,
-        25.0,
-        null,
-        25.0,
-        25.0,
-        null
+    "tube-fluid-28": {
+      "centerline_radii_mm": [
+        25.0
       ],
       "stock_minimum_mm": 25.0,
-      "passed": true,
-      "source_segments_sha256": "e69e6f7431e85422078cb2a8af9b7adfcbf16d153f1f5b46a19b940edb24ecc2"
+      "passed": true
     },
-    "fluid-28": {
-      "minimum_radius_mm": 25.0,
-      "segment_minimum_radii_mm": [
-        null,
-        25.0,
-        25.0,
-        25.0,
-        null,
-        25.0,
-        null,
-        25.0,
-        null,
-        25.0,
-        25.0,
-        null,
-        25.0,
-        25.0,
-        null,
-        25.0,
-        25.0,
-        null
+    "tube-fluid-18": {
+      "centerline_radii_mm": [
+        25.0
       ],
       "stock_minimum_mm": 25.0,
-      "passed": true,
-      "source_segments_sha256": "a2fe2fff4e50743401fcc41ab9eba529a2dd50d8ebb5049c564566712900eade"
+      "passed": true
     }
   },
-  "curvature_method": "Every real stationary root of squared Bezier curvature on [0,1], with endpoints, and each circular arc radius. Numerical roots are compared with a dense parameter sample.",
-  "placement_facts_sha256": "9a74f9a4d166dd587bd694159cf2a5d8654fc0cb9f9008e384d9c1208b0e43e5",
-  "passed": true,
-  "flavor_b_clearance": {
-    "payload_sha256": "18bc721bbf8f0a0aa1855f2a4f827dedbb51ed988ff2d1be1cef2055ab1ac4f3",
-    "unconnected_mesh_overlaps": [],
-    "connected_receiving_interfaces": [
-      {
-        "part": {
-          "id": "#59",
-          "name": "flavor-reducer-v-j"
-        },
-        "volume_mm3": 0.4554556359286396
-      },
-      {
-        "part": {
-          "id": "#143",
-          "name": "bulkhead-flavor-b"
-        },
-        "volume_mm3": 0.4262473773741805
-      }
-    ],
-    "native_mesh_unknown_followup": [
-      {
-        "part": "ya-stem-elbow",
-        "common_mm3": 0.0
-      },
-      {
-        "part": "drain-outlet-stem",
-        "common_mm3": 0.0
-      },
-      {
-        "part": "yb-stem-elbow",
-        "common_mm3": 0.0
-      },
-      {
-        "part": "carbonator-fold",
-        "common_mm3": 0.0
-      },
-      {
-        "part": "vb-inlet-turn",
-        "common_mm3": 0.0
-      },
-      {
-        "part": "vb-outlet-stem",
-        "common_mm3": 0.0
-      }
-    ],
-    "passed": true,
-    "preceding_payload_sha256": "d085834e77722a0c1a1b0f9e42ce435d170703380f307eed20a4bfd1374a9ea5"
+  "source_sha256": {
+    "hardware/scripts/check_asse_drain.py": "90bc936d8d6e64ed7cc80b6be6a54f138dfacceac679a32906974d2a3d081c5c",
+    "hardware/manifold-layout/_drain.py": "d4f6db44b344125cf6f9b1bc6be341002dae887d78966ada3029e1e452b94c2a",
+    "hardware/manifold-layout/enclosure_assembly.py": "822237c4f8458ffd0c2e220b57800ff604fabe6757e6ae3dc831717bc1b1e2db",
+    "hardware/manifold-layout/_lines.py": "c8688372a9c8afbd98709ddf760d608a8e78e0b83ca79533cf392292f30a310f",
+    "hardware/manifold-layout/rear_plumbing.py": "76463d694426b73c1064baf41511555029021d5e83e96e0a4dd63dada2eeaca4",
+    "hardware/manifold-layout/above-core.json": "1afefa80c54de76c563c8e144dd1653416e07ca71000a9d059f1b4938af5999f",
+    "hardware/reference/neofit-drain-bulkhead/neofit_drain_bulkhead.py": "97743ecaa9529ab351da4563dbda20a783b69afc04a8834a26cb572810e30243",
+    "hardware/reference/asse1022-assembly/asse1022_assembly.py": "4481085380d131f5d85696f5c366058382b07577c6881a274495e5d67ec2b3eb",
+    "hardware/printed-parts/asse-drain-adapter/asse_drain_adapter.py": "c67b3ce53df90a27628e906ae23a5cdede9ef10b1a3e3432376e3586c29a4c7b"
   },
-  "preceding_assembly_step_sha256": "0fdd2027ee81c401ec317aef34462b95b366ee6688b5e51ca729b0a85089e4ea",
-  "root_stock_update": {
-    "changed_body": "enclosure-back-top",
-    "added_stock": [
-      {
-        "bounds_xyzxyz_mm": [
-          18.0999988712316,
-          469.299,
-          252.0,
-          21.0999988712316,
-          471.31,
-          355.0
-        ],
-        "unconnected_native_overlaps": []
-      },
-      {
-        "bounds_xyzxyz_mm": [
-          53.399998871231595,
-          469.299,
-          252.0,
-          61.35,
-          471.31,
-          355.0
-        ],
-        "unconnected_native_overlaps": []
-      },
-      {
-        "bounds_xyzxyz_mm": [
-          93.65,
-          469.299,
-          252.0,
-          96.65,
-          471.31,
-          355.0
-        ],
-        "unconnected_native_overlaps": []
-      },
-      {
-        "bounds_xyzxyz_mm": [
-          24.0,
-          455.0,
-          346.0,
-          91.0,
-          465.3,
-          352.0
-        ],
-        "unconnected_native_overlaps": []
-      }
-    ],
-    "unchanged_review_windows": [
-      {
-        "name": "asse-drain-adapter",
-        "bounds_xyzxyz_mm": [
-          29.936233923209997,
-          412.21948851658,
-          290.11676099612833,
-          44.703766076790004,
-          445.00325459337,
-          309.15
-        ]
-      },
-      {
-        "name": "tube-drain-vent",
-        "bounds_xyzxyz_mm": [
-          34.24999877123105,
-          430.00325459337,
-          292.99999989999776,
-          40.32000010000032,
-          460.83890402469,
-          299.00000010000025
-        ]
-      },
-      {
-        "name": "terminal-J1-complete-service-sweep",
-        "bounds_xyzxyz_mm": [
-          -75.37999389648441,
-          260.35292002004996,
-          260.9,
-          -50.5799938964844,
-          274.05292002005,
-          285.4
-        ]
-      },
-      {
-        "name": "terminal-J2-complete-service-sweep",
-        "bounds_xyzxyz_mm": [
-          -49.37999389648441,
-          260.35292002004996,
-          260.9,
-          -32.0799938964844,
-          274.05292002005,
-          285.4
-        ]
-      },
-      {
-        "name": "terminal-J11-complete-service-sweep",
-        "bounds_xyzxyz_mm": [
-          -28.800090412957466,
-          195.35271174168452,
-          260.9,
-          -6.499897380011333,
-          201.05312829841546,
-          294.4
-        ]
-      }
-    ],
-    "reason": "The label-rail roots and the closed upper panel relief add material only outside every recorded vent-clearance window and complete connector-service sweep. Native intersections against every other installed body are zero. The tube and connector shapes, installed curves, and service transforms are unchanged."
-  }
+  "passed": true,
+  "assembly_step_sha256": "b8a1a5b893b4bd465d8bd1bdd781201ba4eb20e9186ffa85622790c1710233ed",
+  "assembly_mesh_sha256": "3ab60fa98d64305694e6678f5645f3aa064de1e63bead926448e995ed82d3e34"
 }
