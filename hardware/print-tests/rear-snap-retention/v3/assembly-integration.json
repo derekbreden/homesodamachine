@@ -10,8 +10,8 @@
   },
   "hosts": {
     "hardware/manifold-layout/enclosure-assembly.step": {
-      "step_sha256": "57ef16eaf91e7100904001f98b61d82179ba211f2ede98527a76e1fd8effe379",
-      "payload_sha256": "3a91ff0d88457a19bcd80c713ab9c13ae5a3deac7fcbcb965388cf4e82398069",
+      "step_sha256": "74433998a379516e4d3e1990d88ee1ed652d77e89ff42c8d22f08b01b294c51f",
+      "payload_sha256": "32e8fa8fb4e1e6eba6e6f05cb4075ea7482022b0b3b7c0ecd41304163ed5d274",
       "replaced_native_members": [
         "asse-snap-cap",
         "pisco-snap-cap",
@@ -31,7 +31,7 @@
         "enclosure-back-top"
       ],
       "unrelated_viewer_members_preserved": 447,
-      "seconds": 35.98170958299306
+      "seconds": 38.71436354101752
     },
     "hardware/printed-parts/enclosure/enclosure/enclosure.step": {
       "step_sha256": "256a51e0f7f3365a143b4cfb0174641d925bab2481bc11f9dc8392c6e47119de",
@@ -43,11 +43,11 @@
         "enclosure-back-top"
       ],
       "unrelated_viewer_members_preserved": 4,
-      "seconds": 9.2107427919982
+      "seconds": 11.535388041986153
     },
     "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step": {
-      "step_sha256": "020cbfcd40a15aa07ca040877b34fae98d6860c3b227fca590bde8d9f6c52559",
-      "payload_sha256": "8bd6cf113766ae697d3088e897a03ab4b7fa6fc4ce6fdcadd3f5238e22bb6a52",
+      "step_sha256": "57e4c0cf07c2374198b754eddf58f299df2df5a17f7151013f51ff03bbe21e44",
+      "payload_sha256": "fc196663f0b4221186bb8cf1d4fd1da8f9f0912588d5d507692280b8615e14ff",
       "replaced_native_members": [
         "foam-cap-lid-top"
       ],
@@ -55,7 +55,7 @@
         "foam-cap-lid-top"
       ],
       "unrelated_viewer_members_preserved": 2,
-      "seconds": 1.4186859580222517,
+      "seconds": 1.615807958994992,
       "retained_lid_placement": {
         "rotation": [
           [

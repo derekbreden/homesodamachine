@@ -44,7 +44,7 @@ METER_CAP_AIR = 0.25
 METER_BEARING_DEPTH = 4.0
 LEDGE = 3.0         # the ledge's height off the split
 HOOK = 2.6          # leading ramp above the complete flat retaining face
-NOSE_LAND = 0.6     # solid inner edge below the insertion ramp
+NOSE_LAND = PRY_HEIGHT + 0.6  # solid 0.6 mm nose remains over the blade entry
 CATCH = fits.clearance(supported=True)
 VAR = 0.5           # how far the stub's seat in the soda union may leave the meter aft of its station
 

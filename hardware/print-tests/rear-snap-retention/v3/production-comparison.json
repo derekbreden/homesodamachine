@@ -1,52 +1,52 @@
 {
   "pump": {
-    "trial_sha256": "b9dddd7fdcdcaee595985d1ccfb09e1cdc70c0689a44154a4968052980d63cb3",
-    "production_sha256": "69bafa7242a96d061fee530a14c7abd4a2a39d58c26fccb9e9d4080b5f381f52",
+    "trial_sha256": "3ed80fb158d15cc2d3f78d75e83940c7c31dbc7fe104fa515d428dfee01c1d83",
+    "production_sha256": "7daefd30519fc9562806f44b6ccdfa737c8c1fbb5e13a96ebaa881ff655e3e5a",
     "production_path": "hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.stl",
     "trial_watertight": true,
     "production_watertight": true,
-    "bounds_max_difference_mm": 6.764366844436154e-12,
-    "trial_volume_mm3": 62618.78800900358,
-    "production_volume_mm3": 62628.43428298704
+    "bounds_max_difference_mm": 6.821210263296962e-12,
+    "trial_volume_mm3": 62786.49813221828,
+    "production_volume_mm3": 62796.144356998535
   },
   "asse": {
-    "trial_sha256": "d21dd54a566fca64ef0fd7698942d764e8f14cc17eb49cfb92c5b6467cebfd91",
-    "production_sha256": "22f42b426429ba9ded707e6d0397f0a5a268ed49a24c7b013a15f24a72cbd22b",
+    "trial_sha256": "0ff28366e65edebfcb2eb50d26d9617a541bb092208e7b2afbe6c034c6a39f3a",
+    "production_sha256": "3233bbfa06a77e93fc0a793c6ff59a038f0b538f550308b30ab36f68364db6b3",
     "production_path": "hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.stl",
     "trial_watertight": true,
     "production_watertight": true,
     "bounds_max_difference_mm": 1.621929074709517e-15,
-    "trial_volume_mm3": 16726.335998273335,
-    "production_volume_mm3": 16726.56763490476
+    "trial_volume_mm3": 16854.24530948779,
+    "production_volume_mm3": 16854.476908507117
   },
   "pisco": {
-    "trial_sha256": "902d19b1fe6d50728c5cf47ea305c27d607273af7636968f82ff934a4c9aba48",
-    "production_sha256": "4552be3bda1644605f8b93353b1cc263883ddca37b54a0900fca76dc499d71c1",
+    "trial_sha256": "8fb47423ba9465ce7c90ba26da7c153cf98b32e12837f67a994ef1076fb67d68",
+    "production_sha256": "42f2075d1be4bdeba9c7a4d6cd687f3827aba1a253ac045b018817c90cac4c65",
     "production_path": "hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.stl",
     "trial_watertight": true,
     "production_watertight": true,
     "bounds_max_difference_mm": 9.881550948930896e-16,
-    "trial_volume_mm3": 4103.637292010505,
-    "production_volume_mm3": 4104.037635957568
+    "trial_volume_mm3": 4150.925584937403,
+    "production_volume_mm3": 4151.32592470432
   },
   "meter": {
-    "trial_sha256": "c398da1681afec79a3b61816b1b6f35db012978d356379235124d02ff55d26ae",
-    "production_sha256": "e96e897f9d59b3518f66565285b4da105c7056702dfd864ef97fe3d59ed7427f",
+    "trial_sha256": "df1bf9de41cdb74ea8117ea97bfbe8a7486a315aee36a58c29a6964d089eb96f",
+    "production_sha256": "698312c8bf71ec309de4c94ab67482808eab58e2496fdfc6c5875293c78cddfe",
     "production_path": "hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.stl",
     "trial_watertight": true,
     "production_watertight": true,
     "bounds_max_difference_mm": 9.999996564147295e-08,
-    "trial_volume_mm3": 26892.3307042566,
-    "production_volume_mm3": 26892.415411516613
+    "trial_volume_mm3": 27008.89077510977,
+    "production_volume_mm3": 27008.97545586246
   },
   "regulator": {
-    "trial_sha256": "8e1b6162aeab004bc8cdd099c8d82cac596945ff8023036f58c6cb0cbb8fd7a8",
-    "production_sha256": "273f434d9e3712c6af2fc48829d6ed51e0edc4ed7a19a6f6e56c1d5d958086c8",
+    "trial_sha256": "580767579da95e50a4f85c424c493b351497fcca35c3f1b48a8bac9fb4f6849a",
+    "production_sha256": "29c43a5f314e7dae558ba1a796062b50379838ddd5e1961c25d727198dccd587",
     "production_path": "hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.stl",
     "trial_watertight": true,
     "production_watertight": true,
     "bounds_max_difference_mm": 1.000001930151484e-07,
-    "trial_volume_mm3": 16763.250963995964,
-    "production_volume_mm3": 16764.03299598668
+    "trial_volume_mm3": 16576.510015494296,
+    "production_volume_mm3": 16577.25615393824
   }
 }

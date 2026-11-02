@@ -1802,8 +1802,8 @@
     "root_integration": ".cache/enclosure-review-work/install_surface_cleanup_parts.py replaces only the changed native bodies and their matching physical viewer arrays in the current retained root and aggregates.",
     "current_lid_integration": ".cache/enclosure-review-work/install_final_lid_surface.py",
     "current_native_bindings": {
-      "assembly_step_sha256": "57ef16eaf91e7100904001f98b61d82179ba211f2ede98527a76e1fd8effe379",
-      "assembly_mesh_sha256": "3a91ff0d88457a19bcd80c713ab9c13ae5a3deac7fcbcb965388cf4e82398069"
+      "assembly_step_sha256": "74433998a379516e4d3e1990d88ee1ed652d77e89ff42c8d22f08b01b294c51f",
+      "assembly_mesh_sha256": "32e8fa8fb4e1e6eba6e6f05cb4075ea7482022b0b3b7c0ecd41304163ed5d274"
     },
     "pending_source_paths": [],
     "canonical_core_assets": {
