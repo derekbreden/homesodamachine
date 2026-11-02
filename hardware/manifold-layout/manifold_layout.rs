@@ -1,6 +1,6 @@
 //! The fixed manifold from Python's reference selections, frames and tube centrelines.
 use anyhow::{Context, Result, bail, ensure};
-use hsm_kernel::{Affine, Bounds, Imported, Path, Plane, Profile, Solid, V2, V3, part, v3, write::Body};
+use hsm_kernel::{Affine, Bounds, Imported, Loop, Path, Plane, Profile, Solid, V2, V3, part, v3};
 use serde_json::{Value, json};
 use std::collections::HashMap;
 
@@ -66,9 +66,9 @@ fn tube(v: &Value) -> Result<Solid> {
     let z = point(&v["normal"])?.unit();
     let x = if z.x.abs()<0.8 { V3::X } else { V3::Y };
     let plane = Plane::new(point(&first[0])?,x,z)?;
-    let outside = plane.sweep(&Profile::circle(V2::ZERO,num(&v["od"])?/2.),&path)?;
-    if v["id"].is_null() { Ok(outside) }
-    else { outside.cut(&plane.sweep(&Profile::circle(V2::ZERO,num(&v["id"])?/2.),&path)?) }
+    let mut profile = Profile::circle(V2::ZERO,num(&v["od"])?/2.);
+    if !v["id"].is_null() { profile = profile.with_hole(Loop::circle(V2::ZERO,num(&v["id"])?/2.)); }
+    Solid::sweep_with_tolerance(&profile.place(&plane),&path,0.003)
 }
 
 struct Placed { name: String, color: [f64;3], solid: Solid }
@@ -109,7 +109,7 @@ fn region(v: &Value) -> Result<Solid> {
     Ok(stem(&v["stem"])?.union(&stem(&v["root"])?)?.transformed(&frame(&v["transform"])?))
 }
 
-fn measurements(n: &part::Numbers, bodies: &[Placed]) -> Result<Value> {
+fn measurements(n: &part::Numbers, bodies: &mut [Placed]) -> Result<Value> {
     let boxes: Vec<Bounds> = bodies.iter().map(|b|b.solid.bounds()).collect();
     let envelope = |stubs: bool| {
         let mut low = v3(f64::INFINITY,f64::INFINITY,f64::INFINITY);
@@ -127,6 +127,7 @@ fn measurements(n: &part::Numbers, bodies: &[Placed]) -> Result<Value> {
     let mut hits = vec![];
     let mut unanswered = vec![];
     let mut stems = vec![];
+    let (bb,reach) = (envelope(false),envelope(true));
     let floor = n.f("clash_floor")?;
     for i in 0..bodies.len() {
         for j in i+1..bodies.len() {
@@ -149,17 +150,31 @@ fn measurements(n: &part::Numbers, bodies: &[Placed]) -> Result<Value> {
                 },
             }
         }
+        bodies[i].solid.forget_backend();
     }
-    Ok(json!({"bb":envelope(false),"reach":envelope(true),"hits":hits,"unanswered":unanswered,"stems":stems,
+    Ok(json!({"bb":bb,"reach":reach,"hits":hits,"unanswered":unanswered,"stems":stems,
               "bodies":bodies.iter().zip(&boxes).map(|(body,bb)|json!({"name":body.name,"volume":body.solid.volume(),"bounds":bounds(*bb)})).collect::<Vec<_>>()}))
 }
 
 fn main() -> Result<()> {
     let (n,out) = part::args()?;
-    let placed = bodies(&n)?;
-    let measured = measurements(&n,&placed)?;
-    let bodies: Vec<Body> = placed.iter().map(|b| Body { name:&b.name,color:Some(b.color),solid:&b.solid }).collect();
-    let mut said = part::write_shown(&out,n.text("name")?,&bodies)?;
+    let mut placed = bodies(&n)?;
+    let measured = measurements(&n,&mut placed)?;
+    let b = rows(&measured["reach"])?;
+    let extent = ((num(&b[3])?-num(&b[0])?) + (num(&b[4])?-num(&b[1])?)
+                  + (num(&b[5])?-num(&b[2])?))/3.0;
+    let tolerance = (extent*n.f("presentation_ratio")?).max(hsm_kernel::TOLERANCE);
+    let drawing: Vec<Solid> = placed.iter_mut().map(|b| {
+        let drawn = b.solid.simplified_to(tolerance/2.)?;
+        b.solid.forget_backend();
+        Ok(drawn)
+    }).collect::<Result<_>>()?;
+    let bodies: Vec<part::AssemblyBody> = placed.iter().zip(&drawing).map(|(b,drawn)| part::AssemblyBody {
+        name:&b.name,color:Some(b.color),fine:&b.solid,presentation:drawn
+    }).collect();
+    let document = json!({"presentation_tolerance_mm":tolerance,
+                          "presentation_simplification_tolerance_mm":tolerance/2.});
+    let mut said = part::write_assembly(&out,n.text("name")?,&bodies,Some(&document))?;
     said["measurements"] = measured;
     println!("{said}");
     Ok(())
