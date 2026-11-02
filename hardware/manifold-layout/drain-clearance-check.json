@@ -574,13 +574,13 @@
           "overlap_mm3": 0.0
         },
         {
-          "name": "wago-n",
-          "gap_mm": 78.4254687,
+          "name": "wago-g",
+          "gap_mm": 107.3417648,
           "overlap_mm3": 0.0
         },
         {
-          "name": "wago-g",
-          "gap_mm": 107.3417648,
+          "name": "wago-n",
+          "gap_mm": 87.7999989,
           "overlap_mm3": 0.0
         },
         {
@@ -875,14 +875,14 @@
       "method": "Producer centerline; circular arcs and cubic curvature extrema",
       "passed": true
     },
-    "tube-fluid-28": {
+    "tube-fluid-18": {
       "centerline_radii_mm": [
         25.0
       ],
       "stock_minimum_mm": 25.0,
       "passed": true
     },
-    "tube-fluid-18": {
+    "tube-fluid-28": {
       "centerline_radii_mm": [
         25.0
       ],
