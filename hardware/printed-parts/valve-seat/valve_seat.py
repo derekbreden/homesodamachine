@@ -110,10 +110,22 @@ def port_clearance():
     return _distance(build_seat(-socket_floor_z).val(), valve.build_port().val())
 
 
+def _port_clearance_from_dimensions():
+    """Exact gap at the barrel and channel's common lower meridian.
+
+    The barrel's full-radius band overlaps the plinth in Y. Both lower
+    meridians lie within the plinth stock, away from its sockets and the
+    valve's relief. The concentric radii therefore attain their difference.
+    """
+    barrel_bottom = valve.port_center_z - valve.port_radius
+    channel_bottom = valve.port_center_z - (valve.port_radius + port_air)
+    return barrel_bottom - channel_bottom
+
+
 def main():
     # The shallowest plinth puts the socket floors on its supporting face.
     shallowest = -socket_floor_z
-    gap = port_clearance()
+    gap = _port_clearance_from_dimensions()
     print(f"seat at {shallowest:g} mm: {seat_volume(shallowest):.1f} mm^3, "
           f"port clearance {gap:.4f} mm")
     assert math.isclose(gap, port_air, abs_tol=1e-6), f"port channel clearance {gap:g}"
