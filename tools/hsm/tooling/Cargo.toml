@@ -22,6 +22,10 @@ path = "../../../hardware/printed-parts/fixtures/tube-miter-box/tube_miter_box.r
 name = "fake-countertop"
 path = "../../../hardware/printed-parts/fixtures/fake-countertop/fake_countertop.rs"
 
+[[bin]]
+name = "soda-bend-holder"
+path = "../../../hardware/printed-parts/soda-bend-holder/soda_bend_holder.rs"
+
 [dependencies]
 anyhow.workspace = true
 hsm-kernel = { path = "../kernel" }

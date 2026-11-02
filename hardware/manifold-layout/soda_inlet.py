@@ -150,6 +150,19 @@ def _holder_section():
     return p, r, outer, p['wall_mm']+r, (math.sqrt(2.)-1.)*r
 
 
+def holder_geometry_numbers():
+    """The accepted printable holder's sections, legs and ruled entry mouths."""
+    p, radius, outer, zc, lift = _holder_section()
+    half = math.radians(p['turn_degrees']/2.)
+    return {
+        'bend_radius': p['centreline_bend_r_mm'], 'channel_radius': radius,
+        'outer_radius': outer, 'channel_z': zc, 'stock_arc_z': zc+lift,
+        'leg': p['leg_mm'], 'turn_degrees': p['turn_degrees'],
+        'mirror_normal': [math.sin(half), -math.cos(half), 0.],
+        'mouth_y': [-.3, .55], 'mouth_radii': [radius+.8, radius-.05],
+    }
+
+
 def _teardrop(wp, x, z, radius):
     k = radius/math.sqrt(2.)
     return (wp.moveTo(x+k, z+k).lineTo(x, z+math.sqrt(2.)*radius)
@@ -160,22 +173,22 @@ def _teardrop(wp, x, z, radius):
 def holder_native():
     """Accepted PET-GF holder(2,3), in its flat-back printable frame."""
     import cadquery as cq
-    p, r, outer, zc, lift = _holder_section()
-    bend = p['centreline_bend_r_mm']
-    leg = p['leg_mm']
+    n = holder_geometry_numbers()
+    r, outer, zc = n['channel_radius'], n['outer_radius'], n['channel_z']
+    bend, leg = n['bend_radius'], n['leg']
     def section():
-        x0, x1, zd = bend-outer, bend+outer, zc+lift
+        x0, x1, zd = bend-outer, bend+outer, n['stock_arc_z']
         return (cq.Workplane('XZ').moveTo(x0, 0.).lineTo(x1, 0.).lineTo(x1, zd)
                 .threePointArc((bend, zd+outer), (x0, zd)).close())
     axis = ((0., 0., 0.), (0., 1., 0.))
-    body = section().revolve(p['turn_degrees'], *axis)
-    channel = _teardrop(cq.Workplane('XZ'), bend, zc, r).revolve(p['turn_degrees'], *axis)
-    half = math.radians(p['turn_degrees']/2.)
-    plane, origin = cq.Vector(math.sin(half), -math.cos(half), 0.), cq.Vector(0., 0., 0.)
+    body = section().revolve(n['turn_degrees'], *axis)
+    channel = _teardrop(cq.Workplane('XZ'), bend, zc, r).revolve(n['turn_degrees'], *axis)
+    plane, origin = cq.Vector(*n['mirror_normal']), cq.Vector(0., 0., 0.)
     def mouth_at(y, radius):
         plane = cq.Plane(origin=(0., y, 0.), xDir=(1., 0., 0.), normal=(0., -1., 0.))
         return _teardrop(cq.Workplane(plane), bend, zc, radius).wires().val()
-    mouth = cq.Solid.makeLoft([mouth_at(-.3, r+.8), mouth_at(.55, r-.05)], ruled=True)
+    mouth = cq.Solid.makeLoft([mouth_at(y, radius)
+                              for y, radius in zip(n['mouth_y'], n['mouth_radii'])], ruled=True)
     if leg > 0.:
         body_leg = section().extrude(leg)
         channel_leg = _teardrop(cq.Workplane('XZ'), bend, zc, r).extrude(leg)
