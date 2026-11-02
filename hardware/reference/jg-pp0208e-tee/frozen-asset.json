@@ -1,0 +1,38 @@
+{
+  "source": {
+    "commit": "a40b1dc0d4a41ea4dab2b765f997a841ed8b6678",
+    "path": "hardware/reference/jg-pp0208e-tee/jg_pp0208e_tee.py",
+    "sha256": "88170a0d27d0dc48cbfc7c0ec3b16922dbdfbc890019b2612044417a76ada96d"
+  },
+  "members": {
+    "jg-pp0208e-tee.step": "231311fedf8cfe57d46ff9c2cc6969efeb878e65d30b14eefd5dce97b8bab17f",
+    "jg-pp0208e-tee.step.mesh": "a91a5bdafa71f516b616f93e3441456c603a6301c3c59ada12ba8146301c49ff"
+  },
+  "fine_payload": {
+    "source_step_sha256": "231311fedf8cfe57d46ff9c2cc6969efeb878e65d30b14eefd5dce97b8bab17f",
+    "path": "jg-pp0208e-tee.step.mesh",
+    "sha256": "a91a5bdafa71f516b616f93e3441456c603a6301c3c59ada12ba8146301c49ff",
+    "linear_mm": 0.005,
+    "angular_rad": 0.05,
+    "producer": "hardware/scripts/_rust_part.py:_tessellate",
+    "meshes": [
+      {
+        "name": "jg-pp0208e-tee",
+        "color": [
+          0.12000000139546163,
+          0.12000000139546163,
+          0.13999999784656367
+        ],
+        "vertices": 16395,
+        "triangles": 16364,
+        "face_ranges": 31
+      }
+    ],
+    "normalization": {
+      "method": "trimesh.merge_vertices(digits_vertex=7) for coincident tessellation seam vertices",
+      "max_vertex_displacement_mm": 1.4508377435041757e-08,
+      "triangles_preserved": 16364,
+      "face_ranges_and_triangle_order_preserved": true
+    }
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "source": {
+    "commit": "a40b1dc0d4a41ea4dab2b765f997a841ed8b6678",
+    "path": "hardware/reference/gasher-check-valve/gasher_check_valve.py",
+    "sha256": "bc6043a5736f6a5ca93b9814fdc8f844eb19e80a37e4f762ca9016f540967892"
+  },
+  "members": {
+    "gasher-check-valve.step": "8a5e0c0de6a65319e2f52b0fd9682ecbc9dbac7cb649d18b9472a68660bba1ff",
+    "gasher-check-valve.step.mesh": "218af67574f59ac5355040236998b0683eb09dd53348fbe473d32e5f87880c2c"
+  },
+  "fine_payload": {
+    "source_step_sha256": "8a5e0c0de6a65319e2f52b0fd9682ecbc9dbac7cb649d18b9472a68660bba1ff",
+    "path": "gasher-check-valve.step.mesh",
+    "sha256": "218af67574f59ac5355040236998b0683eb09dd53348fbe473d32e5f87880c2c",
+    "linear_mm": 0.005,
+    "angular_rad": 0.05,
+    "producer": "hardware/scripts/_rust_part.py:_tessellate",
+    "meshes": [
+      {
+        "name": "gasher-check-valve",
+        "color": [
+          0.7600000136009657,
+          0.7500000009342138,
+          0.7099999974147344
+        ],
+        "vertices": 2094,
+        "triangles": 2050,
+        "face_ranges": 23
+      }
+    ]
+  }
+}

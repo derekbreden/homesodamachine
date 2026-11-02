@@ -25,18 +25,20 @@ at +X. Centered on Y and Z.
 
 Run:
     tools/cad-venv/bin/python hardware/reference/flare38-14ptc/flare38_14ptc.py
+
+Geometry is held in the frozen STEP and fine payload beside this module.
+`frozen-asset.json` records their bytes and source snapshot.
 """
+
+from __future__ import annotations
 
 import sys
 from pathlib import Path
 
-import cadquery as cq
 
 _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
 sys.path.insert(0, str(_hw / "scripts"))
-from _cadq_export import export_assembly
-from _materials import M_JG_GREY_ACETAL, one_body
 
 # --- PI4512F6S, 3/8" FFL swivel x 3/8" PTC -------------------------------
 NUT_ACROSS_CORNERS = 22.0   # 3/4" swivel nut hex, on the ASSE's 3/8" flare thread
@@ -71,6 +73,7 @@ def tube_port():
 def build():
     """Swivel nut (X = 0, at the flare) → neck → 3/8" collet → the reducer's
     collar → 1/4" PTC collet (+X)."""
+    import cadquery as cq
     nut = cq.Workplane("YZ").polygon(6, NUT_ACROSS_CORNERS).extrude(NUT_LENGTH).val()
     nut = nut.cut(cq.Solid.makeCylinder(
         NUT_BORE_D / 2.0, NUT_LENGTH, cq.Vector(0, 0, 0), cq.Vector(1, 0, 0)))
@@ -85,7 +88,9 @@ def build():
     return part
 
 
-def main():
+def _native_main():
+    from _cadq_export import export_assembly
+    from _materials import M_JG_GREY_ACETAL, one_body
     part = build()
     bb = part.BoundingBox()
     print("ASSE 1022 outlet adapter — 3/8\" FFL x 1/4\" PTC (PI4512F6S + PP061208W)")
@@ -97,6 +102,38 @@ def main():
     out = _here.parent / "flare38-14ptc.step"
     export_assembly(one_body(part, out.stem, M_JG_GREY_ACETAL), str(out))
     print(f"-> {out.name}")
+
+
+
+
+_FROZEN_DIR = Path(__file__).resolve().parent
+STEP_PATH = _FROZEN_DIR / 'flare38-14ptc.step'
+PAYLOAD_PATH = _FROZEN_DIR / 'flare38-14ptc.step.mesh'
+ASSET_MANIFEST_PATH = _FROZEN_DIR / "frozen-asset.json"
+
+
+def __getattr__(name):
+    if name in globals():
+        return globals()[name]
+    if name in ('cq',):
+        import cadquery as cq
+        value = locals()[name]
+    elif name in ('export_assembly',):
+        from _cadq_export import export_assembly
+        value = locals()[name]
+    elif name in ('M_JG_GREY_ACETAL', 'one_body'):
+        from _materials import M_JG_GREY_ACETAL, one_body
+        value = locals()[name]
+    else:
+        raise AttributeError(name)
+    globals()[name] = value
+    return value
+
+
+def main():
+    print('flare38-14ptc frozen reference')
+    print(f"  STEP: {STEP_PATH}")
+    print(f"  Fine/display payload: {PAYLOAD_PATH}")
 
 
 if __name__ == "__main__":

@@ -1,0 +1,32 @@
+{
+  "source": {
+    "commit": "a40b1dc0d4a41ea4dab2b765f997a841ed8b6678",
+    "path": "hardware/reference/shok-blok-regulator/shok_blok_regulator.py",
+    "sha256": "d30ed83777c4d7adb42f69d2f192a889e4dc9f3f8b1c15afc0b215c3279355f1"
+  },
+  "members": {
+    "shok-blok-regulator.step": "847d8b1c999a1d635cc3cfcca61ca17d593ba3202e53f435251a555c32b488f5",
+    "shok-blok-regulator.step.mesh": "ead22c9fd61f7d6757124528b5f81e3e35f565a581843315cb2f19038c0e3842"
+  },
+  "fine_payload": {
+    "source_step_sha256": "847d8b1c999a1d635cc3cfcca61ca17d593ba3202e53f435251a555c32b488f5",
+    "path": "shok-blok-regulator.step.mesh",
+    "sha256": "ead22c9fd61f7d6757124528b5f81e3e35f565a581843315cb2f19038c0e3842",
+    "linear_mm": 0.005,
+    "angular_rad": 0.05,
+    "producer": "hardware/scripts/_rust_part.py:_tessellate",
+    "meshes": [
+      {
+        "name": "shok-blok-regulator",
+        "color": [
+          0.5500000090900438,
+          0.5600000132598123,
+          0.5699999996012601
+        ],
+        "vertices": 9090,
+        "triangles": 9068,
+        "face_ranges": 19
+      }
+    ]
+  }
+}

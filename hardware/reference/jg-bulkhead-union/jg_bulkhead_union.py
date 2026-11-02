@@ -21,10 +21,14 @@ Coordinate convention:
 
 Run:
     tools/cad-venv/bin/python hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py
+
+Geometry is held in the frozen STEP and fine payload beside this module.
+`frozen-asset.json` records their bytes and source snapshot.
 """
 
+from __future__ import annotations
+
 import sys
-import cadquery as cq
 from pathlib import Path
 
 
@@ -37,9 +41,6 @@ sys.path.insert(
     0,
     str(next(p for p in _here.parents if p.name == "hardware") / "printed-parts" / "cadlib"),
 )
-from _cadq_export import export_assembly
-from _materials import M_JG_GREY_ACETAL, one_body
-from world_workplane import xz_plane_y_up
 
 BODY_D = 22.86       # flange + collet barrel
 RING_D = 11.43       # release ring
@@ -100,6 +101,8 @@ def port(side: float) -> tuple:
 def build_near_end():
     """Body (Y=0 to near_body_to_ring_y) and release ring out to
     near_ring_face_y, bored PORT_DEPTH in from the ring face."""
+    import cadquery as cq
+    from world_workplane import xz_plane_y_up
     body = (
         cq.Workplane(xz_plane_y_up)
         .circle(BODY_D / 2)
@@ -122,6 +125,8 @@ def build_near_end():
 
 def build_threading():
     """Panel pass-through barrel spanning far_thread_to_body_y to Y=0."""
+    import cadquery as cq
+    from world_workplane import xz_plane_y_up
     return (
         cq.Workplane(xz_plane_y_up)
         .circle(THREAD_D / 2)
@@ -133,6 +138,8 @@ def build_far_end():
     """Mirror of the near end behind the panel: body from
     far_thread_to_body_y to far_body_to_ring_y, release ring out to
     far_ring_face_y, bored PORT_DEPTH in from the ring face."""
+    import cadquery as cq
+    from world_workplane import xz_plane_y_up
     body = (
         cq.Workplane(xz_plane_y_up)
         .workplane(offset=far_thread_to_body_y)
@@ -159,7 +166,9 @@ def build_jg_bulkhead_union():
     return build_near_end().union(build_threading()).union(build_far_end())
 
 
-def main():
+def _native_main():
+    from _cadq_export import export_assembly
+    from _materials import M_JG_GREY_ACETAL, one_body
     part = build_jg_bulkhead_union()
     bb = part.val().BoundingBox()
     print("1/4\" push-to-connect through-wall union — simplified (McMaster 51055K3)")
@@ -175,6 +184,41 @@ def main():
     out = here / "jg-bulkhead-union.step"
     export_assembly(one_body(part, "jg-bulkhead-union", M_JG_GREY_ACETAL), str(out))
     print(f"-> {out.name}")
+
+
+
+
+_FROZEN_DIR = Path(__file__).resolve().parent
+STEP_PATH = _FROZEN_DIR / 'jg-bulkhead-union.step'
+PAYLOAD_PATH = _FROZEN_DIR / 'jg-bulkhead-union.step.mesh'
+ASSET_MANIFEST_PATH = _FROZEN_DIR / "frozen-asset.json"
+
+
+def __getattr__(name):
+    if name in globals():
+        return globals()[name]
+    if name in ('cq',):
+        import cadquery as cq
+        value = locals()[name]
+    elif name in ('export_assembly',):
+        from _cadq_export import export_assembly
+        value = locals()[name]
+    elif name in ('M_JG_GREY_ACETAL', 'one_body'):
+        from _materials import M_JG_GREY_ACETAL, one_body
+        value = locals()[name]
+    elif name in ('xz_plane_y_up',):
+        from world_workplane import xz_plane_y_up
+        value = locals()[name]
+    else:
+        raise AttributeError(name)
+    globals()[name] = value
+    return value
+
+
+def main():
+    print('jg-bulkhead-union frozen reference')
+    print(f"  STEP: {STEP_PATH}")
+    print(f"  Fine/display payload: {PAYLOAD_PATH}")
 
 
 if __name__ == "__main__":

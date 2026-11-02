@@ -15,18 +15,20 @@ Frame: +X = flow axis, the 1/4" (upstream) end at X = 0; centered on Y and Z.
 
 Run:
     tools/cad-venv/bin/python hardware/reference/gagira-reducing-coupling/gagira_reducing_coupling.py
+
+Geometry is held in the frozen STEP and fine payload beside this module.
+`frozen-asset.json` records their bytes and source snapshot.
 """
+
+from __future__ import annotations
 
 import sys
 from pathlib import Path
 
-import cadquery as cq
 
 _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
 sys.path.insert(0, str(_hw / "scripts"))
-from _cadq_export import export_assembly
-from _materials import M_STAINLESS, one_body
 
 HEX_ACROSS_CORNERS = 25.67  # 7/8" hex (22.23 across flats)
 LENGTH = 30.5               # along the flow axis (1.20")
@@ -50,6 +52,7 @@ def large_end():
 
 def build():
     """A hex barrel along +X, bored from each end to the depth its male threads in."""
+    import cadquery as cq
     barrel = (
         cq.Workplane("YZ")
         .polygon(6, HEX_ACROSS_CORNERS)
@@ -64,7 +67,9 @@ def build():
     return barrel.cut(small).cut(large)
 
 
-def main():
+def _native_main():
+    from _cadq_export import export_assembly
+    from _materials import M_STAINLESS, one_body
     part = build()
     bb = part.BoundingBox()
     print("GAGIRA 316L SS reducing coupling, 3/8\" NPT F × 1/4\" NPT F")
@@ -75,6 +80,38 @@ def main():
     out = _here.parent / "gagira-reducing-coupling.step"
     export_assembly(one_body(part, out.stem, M_STAINLESS), str(out))
     print(f"-> {out.name}")
+
+
+
+
+_FROZEN_DIR = Path(__file__).resolve().parent
+STEP_PATH = _FROZEN_DIR / 'gagira-reducing-coupling.step'
+PAYLOAD_PATH = _FROZEN_DIR / 'gagira-reducing-coupling.step.mesh'
+ASSET_MANIFEST_PATH = _FROZEN_DIR / "frozen-asset.json"
+
+
+def __getattr__(name):
+    if name in globals():
+        return globals()[name]
+    if name in ('cq',):
+        import cadquery as cq
+        value = locals()[name]
+    elif name in ('export_assembly',):
+        from _cadq_export import export_assembly
+        value = locals()[name]
+    elif name in ('M_STAINLESS', 'one_body'):
+        from _materials import M_STAINLESS, one_body
+        value = locals()[name]
+    else:
+        raise AttributeError(name)
+    globals()[name] = value
+    return value
+
+
+def main():
+    print('gagira-reducing-coupling frozen reference')
+    print(f"  STEP: {STEP_PATH}")
+    print(f"  Fine/display payload: {PAYLOAD_PATH}")
 
 
 if __name__ == "__main__":
