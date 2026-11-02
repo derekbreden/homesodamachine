@@ -6,12 +6,12 @@
   },
   "members": {
     "gagira-reducing-coupling.step": "a30ce13ed70c41e630b4a6cb5ce402fb846cc55c90b6bf765600fba67fe4a768",
-    "gagira-reducing-coupling.step.mesh": "678d076e84c9998e560331fbfad1b6759d0a1fb18342008b6b8d680a6213802f"
+    "gagira-reducing-coupling.step.mesh": "bdd3cbb79ef3b476f6db550a229403c69f2c2586f0d2a0342e0d85452daff844"
   },
   "fine_payload": {
     "source_step_sha256": "a30ce13ed70c41e630b4a6cb5ce402fb846cc55c90b6bf765600fba67fe4a768",
     "path": "gagira-reducing-coupling.step.mesh",
-    "sha256": "678d076e84c9998e560331fbfad1b6759d0a1fb18342008b6b8d680a6213802f",
+    "sha256": "bdd3cbb79ef3b476f6db550a229403c69f2c2586f0d2a0342e0d85452daff844",
     "linear_mm": 0.005,
     "angular_rad": 0.05,
     "producer": "hardware/scripts/_rust_part.py:_tessellate",
@@ -19,14 +19,15 @@
       {
         "name": "gagira-reducing-coupling",
         "color": [
-          0.7200000033238448,
-          0.7299999951670297,
-          0.7600000136009657
+          0.47699978947639465,
+          0.4919050335884094,
+          0.5382355451583862
         ],
         "vertices": 2056,
         "triangles": 2036,
         "face_ranges": 12
       }
-    ]
+    ],
+    "color_space": "linear-rgb"
   }
 }
