@@ -5901,6 +5901,35 @@ def graft_printed_surfaces(a, mesh):
     return landed
 
 
+def physical_fine_inputs(a):
+    """The fresh physical model, logical aliases and exact installed casing reference."""
+    import check_asse_drain
+    import _assembly_model
+    reading = getattr(a, 'physical_fine_reading', None)
+    if reading is None:
+        raise ValueError('Write the fresh physical fine export before its scene')
+    inside = getattr(a, 'core_body_names', frozenset())
+    external = getattr(a, 'core_external_components', frozenset())
+    aliases = {}
+    for row in reading['bodies']:
+        name = row['name']
+        stem, _, tail = name.rpartition('/')
+        name = stem if tail.isdigit() else name
+        if name in inside and name.rsplit('/', 1)[-1] in external:
+            aliases[name] = name.rsplit('/', 1)[-1]
+    casing = FOAM_STEP.with_name(FOAM_STEP.name + '.npz')
+    envelope = {'path':str(casing.resolve()), 'sha256':check_asse_drain.sha(casing),
+                'transform':_assembly_model.location(a.core_carry.where)}
+    return {'model':reading['path'], 'physical_reading':reading,
+            'envelope':envelope, 'aliases':aliases, 'route_specs':a.native_route_specs}
+
+
+def write_drain(a):
+    """The existing drain reading from this assembly's fresh physical fine export."""
+    import check_asse_drain
+    return check_asse_drain.write(**physical_fine_inputs(a))
+
+
 def write_scene(a, path=None) -> Path:
     """The built assembly `a` as its scene file, on the mesh kernel: its checks run on the
     meshes and the bodies written with their readings (`_machine.write`).
@@ -5911,9 +5940,7 @@ def write_scene(a, path=None) -> Path:
     scene, and the drain check's file beside the STEP is this same reading."""
     import _machine
     import _scorecard as _card
-    import check_asse_drain
-    drain = check_asse_drain.write({**_solids(a), **_core_solids(a)},
-                                   route_specs=a.native_route_specs)
+    drain = write_drain(a)
     report(a, _card.pack_clashes(a))
     card = _card.to_dict(_card.report(a))
     return _machine.write(a, path or _machine.PATH, card=card, drain=drain)
@@ -5944,11 +5971,12 @@ def main():
     on_meshes = meshcad is not None and meshcad.mesh_mode()
     if on_meshes:
         meshcad.forget()                    # what the build fused for its own checks
-        print(f"-> {write_scene(a).name}")
-        meshcad.forget()                    # and what the scene's checks fused
     from hardware.wiring.installed.build import export_enclosure
     export_enclosure(a, out)
     print(f"-> {out.name}")
+    if on_meshes:
+        print(f"-> {write_scene(a).name}")
+        meshcad.forget()                    # and what the scene's checks fused
     # `export_assembly` keeps the last good sidecar when tessellation fails so a drawing can
     # still be made from the STEP. That fallback is not safe here: the service scenes below
     # are composed from this payload, and grafting the flute skin would otherwise refresh an
@@ -5977,10 +6005,8 @@ def main():
     grafted = graft_printed_surfaces(a, mesh)
     if grafted:
         print(f"-> {out.name}.mesh  ({grafted} fluted piece(s))")
-    if not on_meshes:                       # the scene's run wrote this reading
-        import check_asse_drain
-        check_asse_drain.write({**_solids(a), **_core_solids(a)},
-                               route_specs=a.native_route_specs)
+    if not on_meshes:
+        write_drain(a)
     report(a, _card.pack_clashes(a))
     _card.report(a)
     print(f"-> {_card.write(a, out).name}")
