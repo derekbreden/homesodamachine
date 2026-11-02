@@ -28,12 +28,17 @@ THREAD = 1.5        # how far a taped joint may leave the ASSE body from its dra
 WALL = 3.0
 SPLIT = 335.0       # the Pisco's seat, and lines.py's regulator seat, stand down to here
 INTO = 0.5          # how far each seat runs into the walls it joins
-WING = 1.3          # specific spring section of the accepted funnel v4 trial
+WING = 2.6          # reinforced equipment-cap spring section
 REACH = 2.6         # flat horizontal bearing beyond the receiver edge
 SIDE = 0.5         # relaxed spring face off the receiver edge
-FREE_LENGTH = 12.49 # minimum straight spring length, root to hook underside
+FREE_LENGTH = 22.5  # straight spring length, root to hook underside
+REAR_ROOT_DROP = 10.0
+PISCO_RADIAL_RELIEF = 0.75  # additional air after the physical fit trial, each side
+METER_AIR = 0.75    # drop-in hardware clearance on the square housing and flange
+METER_BACK = 6.0    # solid spine between the complete upper and lower leaves
 LEDGE = 3.0         # the ledge's height off the split
-HOOK = 2.0          # flat hook thickness of the accepted funnel v4 trial
+HOOK = 2.6          # leading ramp above the complete flat retaining face
+NOSE_LAND = 0.6     # solid inner edge below the insertion ramp
 CATCH = fits.clearance(supported=True) + 0.25
 VAR = 0.5           # how far the stub's seat in the soda union may leave the meter aft of its station
 
@@ -155,17 +160,17 @@ def half_width(radius, z, axis_z):
 
 # --- one snap station -----------------------------------------------------------------------------
 
-def station(axis_x, neck, y0, y1, split=SPLIT, *, wing_root=None):
+def station(axis_x, neck, y0, y1, split=SPLIT, *, wing_root=None, free_length=FREE_LENGTH):
     """A cap station's flank numbers, from the seat's neck half-width and the cap's Y span."""
     ledge = neck + REACH + fits.running
     inner = ledge + SIDE
     root = split if wing_root is None else wing_root
-    catch = max(root + FREE_LENGTH, split + LEDGE + CATCH)
+    catch = max(root + free_length, split + LEDGE + CATCH)
     bearing = catch - CATCH
     tip = catch + HOOK
     return dict(axis_x=axis_x, y0=y0, y1=y1, split=split, neck=neck, ledge=ledge, inner=inner,
                 outer=inner + WING, hook=ledge - REACH, bearing=bearing, catch=catch, tip=tip,
-                ceiling=tip + 2 * fits.running, root=root)
+                ceiling=tip + 2 * fits.running, root=root, nose_land=NOSE_LAND)
 
 
 def pockets(s):
@@ -191,7 +196,8 @@ def cap_section(s, base, bottom, axis_z=None, hexed=False):
 
     root = s.get('root', base if axis_z is None else axis_z)
     base = min(base, root)
-    west = [(c - W, root), (c - W, tip), (c - h, tip),
+    west = [(c - W, root), (c - W, tip), (c - wi, tip),
+            (c - h, catch+s['nose_land']),
             (c - h, catch), (c - wi, catch), (c - wi, base)]
     east = [(2 * c - x, z) for x, z in reversed(west)]
     edges = run(west) + run([west[-1], east[0]]) + run(east)
@@ -288,7 +294,7 @@ def build(parts, asse_axis, asse_at, asse_turn, pisco_axis, mouth_y, ceiling, re
     m = (ys >= cap_y[0] - .25) & (ys <= cap_y[1] + .25)
     widest = max(cav[m].max(), *(corner + c for *_, corner in wrenches))
     st_a = station(asse_axis[0], half_width(widest, split, asse_axis[1]) + WALL,
-                   *cap_y, split=split, wing_root=asse_axis[1])
+                   *cap_y, split=split, wing_root=asse_axis[1]-REAR_ROOT_DROP)
     # The cap's room: the body's lower round swept by the thread either way, head on; both wrenches'
     # lower faces; a slot through its bottom flat for the vent.
     _, r_low = envelope(body[body[:, 2] <= asse_axis[1] + .01], asse_axis, LO, HI)
@@ -321,7 +327,7 @@ def build(parts, asse_axis, asse_at, asse_turn, pisco_axis, mouth_y, ceiling, re
     ys2, r_p = envelope(np.concatenate([pts[n] for n in pts if n.startswith('pisco-')]), pisco_axis, LO, HI)
     _, r_c = envelope(pts['co2-check'], pisco_axis, LO, HI)
     cav2 = np.maximum(swept(r_p, 0., SLIDE), swept(r_c, .5, SLIDE + .5))
-    cav2 = np.where(cav2 > 0, cav2 + c, 0.)
+    cav2 = np.where(cav2 > 0, cav2 + c + PISCO_RADIAL_RELIEF, 0.)
     # The cap runs from the outlet collet to 2.6 mm short of the outlet fitting's aft end, clear of
     # the ring there, its lip in front of the step down to the outlet's neck.
     fitting, collet = ranges['outlet_fitting'], ranges['outlet_collet']
@@ -330,7 +336,7 @@ def build(parts, asse_axis, asse_at, asse_turn, pisco_axis, mouth_y, ceiling, re
     pcap = (mouth_y - collet[0] + c + .01, mouth_y - fitting[0] - 2.6)
     m = (ys2 >= pcap[0] - .25) & (ys2 <= pcap[1] + .25)
     st_p = station(pisco_axis[0], half_width(cav2[m].max(), SPLIT, pisco_axis[1]) + WALL,
-                   *pcap, wing_root=pisco_axis[1])
+                   *pcap, wing_root=pisco_axis[1]-REAR_ROOT_DROP)
     W = st_p['outer']
     front = pcap[0] - c - WALL
     seat = box(pisco_axis[0] - W, pisco_axis[0] + W, front, rear + INTO, SPLIT, ceiling + INTO)
@@ -339,9 +345,10 @@ def build(parts, asse_axis, asse_at, asse_turn, pisco_axis, mouth_y, ceiling, re
         seat = seat.cut(p)
     out['pisco-seat'] = seat.clean()
     held = profile[(profile[:, 0] >= mouth_y - pcap[1] - 1.) & (profile[:, 0] <= neck_z)]
-    r_body, r_neck = held[:, 1].max() + s, profile[profile[:, 0] > neck_z][:, 1].max() + c
+    r_body = held[:, 1].max() + s + PISCO_RADIAL_RELIEF
+    r_neck = profile[profile[:, 0] > neck_z][:, 1].max() + c + PISCO_RADIAL_RELIEF
     lip = step_face - s
-    out['pisco-snap-cap'] = (cap(st_p, pisco_axis[1], pisco_axis[1] - r_body - WALL, pisco_axis[1])
+    out['pisco-snap-cap'] = (cap(st_p, st_p['root'], pisco_axis[1] - r_body - WALL)
                              .cut(turned([(pcap[0] - 1., lip, r_neck), (lip, pcap[1] + 1., r_body)], pisco_axis))
                              .clean())
     numbers['pisco'] = {'station': st_p, 'step_face_y': step_face, 'body_r': r_body, 'neck_r': r_neck}
@@ -363,31 +370,34 @@ def build(parts, asse_axis, asse_at, asse_turn, pisco_axis, mouth_y, ceiling, re
 
     # The lower housing's cones and the cover flange, as the reference builds them.
     UNDER, CONE, FLANGE, R_CONE, R_HOUSING, R_FLANGE = meter.underside_y, -8.1, 7.3, 15.1, 15.45, 17.5
-    MX = wx(FLANGE) - c                           # the split: the cap holds what is west of it
+    MX = wx(FLANGE) - METER_AIR                   # the split: the cap holds what is west of it
     fore, aft = SLIDE + VAR, VAR
     x0 = MX - 1.
-    east = wx(meter.screw_head_y_range[1]) + c
-    cup = stadium_x(MY, MZ, R_FLANGE + c, fore, aft, x0, east)
+    east = wx(meter.screw_head_y_range[1]) + METER_AIR
+    cup = stadium_x(MY, MZ, R_FLANGE + METER_AIR, fore, aft, x0, east)
     for dy in (-meter.boss_x, meter.boss_x):
         for dz in (-meter.boss_z, meter.boss_z):
-            cup = cup.fuse(stadium_x(MY + dy, MZ + dz, meter.boss_radius + c, fore, aft, x0, east))
+            cup = cup.fuse(stadium_x(MY + dy, MZ + dz, meter.boss_radius + METER_AIR, fore, aft, x0, east))
     r_collar = max(meter.port_collar_radii)
     for sign in (-1., 1.):
         ya, yb = sorted((wy(sign * meter.port_neck_end), wy(sign * meter.port_collar_end)))
-        collar = cq.Solid.makeCylinder(r_collar + c, (yb + aft + c) - (ya - fore - c),
-                                       cq.Vector(soda_axis[0], ya - fore - c, soda_axis[1]), cq.Vector(0, 1, 0))
+        collar = cq.Solid.makeCylinder(r_collar + METER_AIR, (yb + aft + METER_AIR) - (ya - fore - METER_AIR),
+                                       cq.Vector(soda_axis[0], ya - fore - METER_AIR, soda_axis[1]), cq.Vector(0, 1, 0))
         cup = cup.fuse(collar.intersect(box(x0, soda_axis[0] + r_collar + 1., ya - fore - 2., yb + aft + 2.,
                                             soda_axis[1] - r_collar - 1., soda_axis[1] + r_collar + 1.)))
-    # The lead leaves the housing's underside; its slot runs out through the seat's floor.
+    # The fixed lead boss enters a shallow chamber. Flexible leads turn west
+    # against the body above the complete lower leaf and its receiving ledge.
     root = at_world(meter_at, meter.wire_root)
     half = meter.wire_root_width / 2.
-    cup = cup.fuse(box(x0, wx(meter.wire_root[1] + meter.wire_root_depth / 2.) + c, wy(-half) - fore - c,
-                       wy(half) + aft + c, MZ - 60., float(root[2]) + meter.wire_boss_len + c)).clean()
+    cup = cup.fuse(box(x0, wx(meter.wire_root[1] + meter.wire_root_depth / 2.) + METER_AIR,
+                       wy(-half) - fore - METER_AIR, wy(half) + aft + METER_AIR,
+                       float(root[2])-3., float(root[2]) + meter.wire_boss_len + METER_AIR)).clean()
     SEAT_Y = (386.0, 446.0)                       # clear of the soda inlet's foam and the carb bulkhead
     CAP_Y = (397.0, 435.0)                        # between the port collars
-    core = wx(meter.boss_y_range[0]) - s
-    st_m = station(0., soda_axis[1] + r_collar + c - MZ + WALL,
-                   *CAP_Y, split=0., wing_root=core-MX)
+    core = wx(meter.boss_y_range[0]) - METER_AIR
+    west_end = wx(UNDER)
+    st_m = station(0., soda_axis[1] + r_collar + METER_AIR - MZ + WALL,
+                   *CAP_Y, split=0., wing_root=west_end-METER_AIR-MX)
     W = st_m['outer']
 
     def to_world(shape):
@@ -398,16 +408,12 @@ def build(parts, asse_axis, asse_at, asse_turn, pisco_axis, mouth_y, ceiling, re
     for p in pockets(st_m):
         seat = seat.cut(to_world(p))
     out['meter-seat'] = seat.clean()
-    core = wx(meter.boss_y_range[0]) - s          # the cap's block ends at the screw bosses' west ends
-    west_end = wx(UNDER)
-    hollow = stadium_x(MY, MZ, R_HOUSING + s, 0., VAR, wx(CONE), core + 1.)
-    hollow = hollow.fuse(stadium_x(MY, MZ, R_CONE + s, 0., VAR, west_end - s, wx(CONE) + .01))
-    hollow = hollow.fuse(cq.Solid.makeCylinder(meter.port_neck_radius + s, SEAT_Y[1] - SEAT_Y[0],
+    hollow = stadium_x(MY, MZ, R_HOUSING + METER_AIR, 0., VAR, wx(CONE), core + 1.)
+    hollow = hollow.fuse(stadium_x(MY, MZ, R_CONE + METER_AIR, 0., VAR, west_end - METER_AIR, wx(CONE) + .01))
+    hollow = hollow.fuse(cq.Solid.makeCylinder(meter.port_neck_radius + METER_AIR, SEAT_Y[1] - SEAT_Y[0],
                                                cq.Vector(soda_axis[0], SEAT_Y[0], soda_axis[1]), cq.Vector(0, 1, 0)))
-    body = to_world(cap(st_m, core - MX, west_end - s - WALL - MX)).cut(hollow)
-    # The lower wall's hook has no ledge over the lead's slot; the wall stops short of it.
-    slot_aft = wy(half) + aft + c + .75
-    out['meter-snap-cap'] = body.cut(box(core, MX + 10., CAP_Y[0] - 7., slot_aft, MZ - W - 1.,
-                                         MZ - st_m['hook'] + .1)).clean()
-    numbers['meter'] = {'station': st_m, 'split_x': MX, 'axis': [MY, MZ], 'lower_wall_from_y': slot_aft}
+    body = to_world(cap(st_m, st_m['root'], west_end-METER_AIR-METER_BACK-MX)).cut(hollow)
+    out['meter-snap-cap'] = body.clean()
+    numbers['meter'] = {'station': st_m, 'split_x': MX, 'axis': [MY, MZ],
+                       'housing_air_mm':METER_AIR,'lower_leaf_span_mm':CAP_Y[1]-CAP_Y[0]}
     return {n: out[n] for n in SOLIDS}, numbers
