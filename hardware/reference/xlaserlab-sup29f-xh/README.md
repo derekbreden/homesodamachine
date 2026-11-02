@@ -127,4 +127,12 @@ The final union retains Y ≥ 0 and reflects it. A 0.0001 mm CSG cleanup removes
 numerical seam slivers before export; the saved binary STL is reloaded and
 checked. `validate.py` checks topology, reflected surfaces, hollow probes,
 glTF scale and scan agreement. `measure_photos.py` recreates the marked photos.
-`render_reference.py` runs in Blender to generate the four inspection views.
+`render_reference.py` draws the four inspection views from the detailed GLB
+with `hsm-render`:
+
+```sh
+python3 tools/run.py -- tools/cad-venv/bin/python \
+  hardware/reference/xlaserlab-sup29f-xh/render_reference.py
+```
+
+`--model` selects another delivered GLB path; `--out` selects the picture directory.
