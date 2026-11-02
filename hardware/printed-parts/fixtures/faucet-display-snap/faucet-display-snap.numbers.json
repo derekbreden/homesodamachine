@@ -1,0 +1,114 @@
+{
+ "assembly_model": "hardware/faucet-layout/faucet-assembly.step.npz",
+ "black": [
+  0.03310476616024971,
+  0.03310476616024971,
+  0.036306485533714294
+ ],
+ "context": [
+  {
+   "clip": false,
+   "color": "display",
+   "name": "faucet_display",
+   "source": "faucet_display"
+  },
+  {
+   "clip": false,
+   "color": "glass",
+   "name": "faucet_display_screen",
+   "source": "faucet_display_screen"
+  },
+  {
+   "clip": true,
+   "color": "water",
+   "name": "soda_tube",
+   "source": "soda_faucet_tube"
+  },
+  {
+   "clip": true,
+   "color": "flavor",
+   "name": "flavor_left",
+   "source": "flavor_tube_neg_x"
+  },
+  {
+   "clip": true,
+   "color": "flavor",
+   "name": "flavor_right",
+   "source": "flavor_tube_pos_x"
+  },
+  {
+   "clip": true,
+   "color": "ribbon",
+   "name": "ribbon",
+   "source": "display_signal_ribbon"
+  }
+ ],
+ "cover_angle": -50.0,
+ "cover_model": "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step.npz",
+ "display": [
+  0.005981059744954109,
+  0.005981059744954109,
+  0.005981059744954109
+ ],
+ "flavor": [
+  0.7874122858047485,
+  0.21404114365577698,
+  0.010022825561463833
+ ],
+ "glass": [
+  0.009264310821890831,
+  0.009264310821890831,
+  0.009264310821890831
+ ],
+ "head_clip_s": 52.239999999999995,
+ "head_outline_rows": [
+  [
+   29.900000000000002,
+   53.589999999999996,
+   10.0,
+   3.3,
+   24.244999999999997
+  ],
+  [
+   29.900000000000002,
+   53.589999999999996,
+   10.0,
+   10.6,
+   24.244999999999997
+  ],
+  [
+   27.5,
+   48.489999999999995,
+   7.25,
+   23.35,
+   24.244999999999997
+  ]
+ ],
+ "housing_angle": -105.0,
+ "lip_end_s": 38.03999999999999,
+ "neck_stub": 20.0,
+ "normal": [
+  0.0,
+  -0.7660444431189779,
+  0.6427876096865395
+ ],
+ "origin": [
+  0.0,
+  -133.99672200476698,
+  180.38874339162197
+ ],
+ "pad_end_s": 45.739999999999995,
+ "ribbon": [
+  0.03310476616024971,
+  0.4479884207248688,
+  0.13286831974983215
+ ],
+ "ribbon_start_s": 46.5,
+ "seated_model": "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover-seated.step.npz",
+ "tip_model": "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step.npz",
+ "water": [
+  0.03310476616024971,
+  0.21404114365577698,
+  0.7874122858047485
+ ]
+}

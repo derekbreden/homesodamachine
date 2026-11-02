@@ -1,8 +1,7 @@
 # Faucet display fit trial
 
 Two PET-GF prints make the complete faucet-display enclosure: its shell
-with a short gooseneck stub, and the complete cover. They come directly from
-the faucet's current CAD builders. The display supports, snaps, tube
+with a short gooseneck stub, and the complete cover. They use the faucet's current fine models. The display supports, snaps, tube
 passages, ribbon route, cosmetic surfaces and cover seam keep their actual
 dimensions. Only the neck beyond the complete housing is shortened.
 
@@ -24,7 +23,7 @@ validated print meshes. `faucet-display-fit-trial.step` shows the nominal
 seated cover, display, tubes and ribbon together. The standalone cover STEP,
 STL and print project contain the relaxed, inward-preformed cover.
 
-Generate with the project's CadQuery Python:
+Generate with the project's Python:
 
 ```sh
 tools/cad-venv/bin/python hardware/printed-parts/fixtures/faucet-display-snap/faucet_display_snap_trial.py
