@@ -1,0 +1,23 @@
+{
+  "schema": 1,
+  "units": "mm",
+  "frame": "Reference source XYZ",
+  "references": {
+    "iec-c14-inlet.step": {
+      "step_sha256": "778d68ef2a4231bbaaa80abdebcddb25c190d83af11bbf920e6a4fede2a2f6c8",
+      "fine_model_sha256": "225efe1d883320b2817bcdb984fd6771d10cf71048e316fafec5935ee742f050",
+      "bounds_mm": [
+        [
+          -24.884999999776483,
+          -25.0,
+          -11.065000000409782
+        ],
+        [
+          24.884999999776483,
+          1.8399999998509884,
+          11.065000000409782
+        ]
+      ]
+    }
+  }
+}

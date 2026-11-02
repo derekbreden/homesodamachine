@@ -1,0 +1,23 @@
+{
+  "schema": 1,
+  "units": "mm",
+  "frame": "Reference source XYZ",
+  "references": {
+    "teyleten-relay.step": {
+      "step_sha256": "a941bb075f7c1b34e0d5033a3cd084bcaf4c8ad5bdc86fdfb0f2e0cf409515cd",
+      "fine_model_sha256": "bd1121a5ced0cbcff63b6b432ef402c2e9a92f0b63cfbc6940fa82157bbc9f1f",
+      "bounds_mm": [
+        [
+          -35.0,
+          -8.5,
+          -2.0
+        ],
+        [
+          35.0,
+          8.5,
+          17.0
+        ]
+      ]
+    }
+  }
+}

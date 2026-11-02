@@ -96,8 +96,10 @@ def numeric_inputs(scene,ea):
 
 def numeric_source_paths(numbers=None):
     """Loaded repository readers and explicit placement data for the numeric handoff."""
+    from hardware.wiring.installed._model_input import QUERY_SOURCES
     paths={Path(module.__file__).resolve() for module in tuple(sys.modules.values())
            if getattr(module,'__file__',None) and str(module.__file__).endswith('.py')}
+    paths.update(QUERY_SOURCES)
     paths.update(ROOT/path for path in (
         'hardware/manifold-layout/above-core.json',
         'hardware/manifold-layout/enclosure-box.json',
@@ -114,25 +116,22 @@ def numeric_source_paths(numbers=None):
 
 def attach(assembly, ea, *, kernel=False):
     """Include wiring in the normal enclosure composition without re-standing it."""
-    scene={n:(s,c) for n,s,c in ea.ml.placed_leaves(assembly)}
     if kernel:
         import cadquery as cq
         if not getattr(cq,'MESH',False):
             raise ValueError('Kernel wiring attachment requires the mesh assembly path')
-        numbers,manifest=numeric_inputs(scene,ea)
-        return _defer_kernel(assembly,numbers,manifest)
+        return _defer_kernel(assembly,ea)
+    scene={n:(s,c) for n,s,c in ea.ml.placed_leaves(assembly)}
     wires,manifest=compose(scene,ea)
     assembly.add(wires,name='installed-wiring')
     assembly.wiring_body_names=frozenset(child.name for child in wires.children)
     assembly.wiring_model=manifest
 
 
-def _defer_kernel(assembly,numbers,manifest,*,output=OUT):
-    """Retain numeric inputs until the physical export and checks have finished."""
-    assembly.wiring_model=manifest
+def _defer_kernel(assembly,ea,*,output=OUT):
+    """Resolve attachments from the physical fine export once its checks finish."""
     assembly.wiring_body_names=frozenset()
-    assembly.wiring_kernel_pending={'numbers':numbers,'manifest':manifest,'output':output,
-                                    'sources':numeric_source_paths(numbers)}
+    assembly.wiring_kernel_pending={'module':ea,'output':output}
 
 
 def _attach_kernel(assembly,numbers,manifest,*,output=OUT,sources=()):
@@ -174,9 +173,12 @@ def export_enclosure(assembly, target):
     export_assembly(physical,str(target))
     pending=getattr(assembly,'wiring_kernel_pending',None)
     if pending is not None:
-        numbers={**pending['numbers'],'physical_fine_model_sha256':digest(Path(str(target)+'.npz'))}
-        _attach_kernel(assembly,numbers,pending['manifest'],output=pending['output'],
-                       sources=pending['sources'])
+        from hardware.wiring.installed._model_input import read
+        model=Path(str(target)+'.npz')
+        numbers,manifest=numeric_inputs(read(model),pending['module'])
+        numbers['physical_fine_model_sha256']=digest(model)
+        _attach_kernel(assembly,numbers,manifest,output=pending['output'],
+                       sources=numeric_source_paths(numbers))
         del assembly.wiring_kernel_pending
         wires=next(child for child in assembly.children if child.name=='installed-wiring')
     if wires is not None:

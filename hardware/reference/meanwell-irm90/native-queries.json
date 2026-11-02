@@ -1,0 +1,23 @@
+{
+  "schema": 1,
+  "units": "mm",
+  "frame": "Reference source XYZ",
+  "references": {
+    "meanwell-irm90.step": {
+      "step_sha256": "27cc1e5c3f5bf010f6df8a15a4b9b96dfef7b3836eee4905347e8a0035d033d7",
+      "fine_model_sha256": "0696a56767469174e7dda8ed34ad7521cd6859eef150f60727b00d45ea2e772d",
+      "bounds_mm": [
+        [
+          -26.0,
+          -54.5,
+          0.0
+        ],
+        [
+          26.0,
+          54.5,
+          33.5
+        ]
+      ]
+    }
+  }
+}
