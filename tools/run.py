@@ -13,6 +13,7 @@ The Bazel wrapper uses one action at a time; Cargo compiles with two jobs.
 """
 import argparse
 import fcntl
+import hashlib
 import json
 import os
 from pathlib import Path
@@ -30,7 +31,12 @@ def script_key(command):
     if program in ('bazel', 'bazelisk'):
         verb = next((a for a in command[1:] if not a.startswith('-')), 'build')
         targets = sorted(a for a in command[1:] if a.startswith(('//', '@')))
-        return 'bazel:' + verb + ':' + ','.join(targets)
+        key = 'bazel:' + verb + ':' + ','.join(targets)
+        if len(key) <= 512:
+            return key
+        digest = hashlib.sha256(key.encode()).hexdigest()[:16]
+        sample = ','.join(targets[:3])[:384]
+        return f'bazel:{verb[:32]}:{len(targets)} targets:{sample}...:{digest}'
     for arg in command:
         if arg.endswith(('.py', '.js', '.mjs', '.sh', '.ts', '.tsx')):
             path = Path(arg)
@@ -198,7 +204,7 @@ def main():
         wait_legacy()                         # older CAD parents may still need a kernel child
     try:
         slots.acquire(key, timing=args.timing)
-    except slots.TimingLeaseError as error:
+    except (slots.TimingLeaseError, slots.InheritanceError) as error:
         print(f'[run] {error}', file=sys.stderr)
         return 2
     if args.cad or bazel_heavy:
