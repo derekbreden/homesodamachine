@@ -26,6 +26,11 @@ path = "../../../hardware/printed-parts/fixtures/fake-countertop/fake_countertop
 name = "soda-bend-holder"
 path = "../../../hardware/printed-parts/soda-bend-holder/soda_bend_holder.rs"
 
+[[bin]]
+name = "install-art-props"
+path = "../../../hardware/install-guide/install_art_props.rs"
+
 [dependencies]
 anyhow.workspace = true
 hsm-kernel = { path = "../kernel" }
+serde_json.workspace = true
