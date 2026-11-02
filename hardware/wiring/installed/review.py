@@ -200,6 +200,24 @@ def native_review():
     print(json.dumps(native),flush=True)
 
 
+def _source_mismatches(manifest,root):
+    """Compare Python code across raw/staged sources and all other files by their bytes."""
+    from _realized import code_digest
+    sources=manifest.get('source_sha256',{})
+    code=manifest.get('source_code_digest',{})
+    if 'source_code_digest' in manifest:
+        expected={name for name in sources if Path(name).suffix=='.py'}
+        if (manifest.get('source_code_digest_algorithm')!='_realized.code_digest' or
+                not isinstance(code,dict) or set(code)!=expected):
+            return ['source_code_digest']
+    def current(name):
+        path=Path(root)/name
+        if name in code:return code_digest(path)==code[name]
+        with path.open('rb')as stream:
+            return hashlib.file_digest(stream,'sha256').hexdigest()==sources[name]
+    return [name for name in sources if not (Path(root)/name).is_file()or not current(name)]
+
+
 def fine_review(manifest_path=MANIFEST,host=HOST,output=OUTPUT):
     """Inspect authoritative wire topology and its explicit source/export bindings."""
     from functools import cache
@@ -246,8 +264,7 @@ def fine_review(manifest_path=MANIFEST,host=HOST,output=OUTPUT):
     with np.load(wire_model,allow_pickle=False) as model:
         document=json.loads(bytes(model['document']))
     sources=manifest.get('source_sha256',{})
-    source_errors=[name for name,want in sources.items()
-                   if not (ROOT/name).is_file() or sha(ROOT/name)!=want]
+    source_errors=_source_mismatches(manifest,ROOT)
     bindings={
         'physical_fine_input':sha(physical_model)==manifest.get('physical_fine_model_sha256'),
         'wiring_fine_model':sha(wire_model)==manifest.get('wiring_fine_model_sha256'),
