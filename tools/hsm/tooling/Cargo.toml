@@ -42,6 +42,10 @@ path = "../../../hardware/printed-parts/fixtures/weld-rotator/weld_rotator.rs"
 name = "water-inlet-jet-fixture"
 path = "../../../hardware/printed-parts/fixtures/water-inlet-jet/water_inlet_jet_fixture.rs"
 
+[[bin]]
+name = "shop-storage"
+path = "../../../hardware/printed-parts/shop-storage/holders.rs"
+
 [dependencies]
 anyhow.workspace = true
 hsm-kernel = { path = "../kernel" }
