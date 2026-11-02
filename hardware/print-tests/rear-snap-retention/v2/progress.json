@@ -1,0 +1,28 @@
+[
+  {
+    "printer": "H2C",
+    "observed_at": "2026-11-02T03:04:05.410624+00:00",
+    "job_id": "1398879198",
+    "gcode_state": "RUNNING",
+    "subtask_name": "2026-11-01-rear-retention-mark1-mark1-594172c0-print-only.gcode.3mf",
+    "layer_num": 0,
+    "total_layer_num": 174,
+    "mc_percent": 0,
+    "mc_remaining_time": 198,
+    "print_error": 0,
+    "hms": []
+  },
+  {
+    "printer": "Mark2",
+    "observed_at": "2026-11-02T03:04:05.416308+00:00",
+    "job_id": "1398871736",
+    "gcode_state": "RUNNING",
+    "subtask_name": "2026-11-01-rear-retention-mark2-mark2-50e676ad-print-only.gcode.3mf",
+    "layer_num": 1,
+    "total_layer_num": 231,
+    "mc_percent": 2,
+    "mc_remaining_time": 220,
+    "print_error": 0,
+    "hms": []
+  }
+]

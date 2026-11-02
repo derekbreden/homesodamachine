@@ -1,0 +1,41 @@
+{
+  "jobs": [
+    {
+      "plate": "rear-retention-mark1",
+      "printer": "Mark1",
+      "connection_key": "H2C",
+      "preparation": "hardware/print-tests/rear-snap-retention/v2/prints/2026-11-01-rear-retention-mark1-mark1-594172c0",
+      "archive": "hardware/print-tests/rear-snap-retention/v2/prints/2026-11-01-rear-retention-mark1-mark1-594172c0/2026-11-01-rear-retention-mark1-mark1-594172c0.gcode.3mf",
+      "print_only_archive": "hardware/print-tests/rear-snap-retention/v2/prints/2026-11-01-rear-retention-mark1-mark1-594172c0/2026-11-01-rear-retention-mark1-mark1-594172c0-print-only.gcode.3mf",
+      "gcode_sha256": "35f7d5808c561cb971d1593fcb577b944201268303424644079526edcde59e23",
+      "estimated_seconds": 11951.6865234375,
+      "filament_g": 118.9,
+      "minimum_bed_margin_mm": 85.5474425,
+      "requested_z_trim_mm": 0.18,
+      "emitted_trim_mm": 0.16,
+      "native_review_pass": true,
+      "submitted": true,
+      "printer_task_id": "1398879198",
+      "accepted_at": "2026-11-02T02:57:15.686321+00:00"
+    },
+    {
+      "plate": "rear-retention-mark2",
+      "printer": "Mark2",
+      "connection_key": "Mark2",
+      "preparation": "hardware/print-tests/rear-snap-retention/v2/prints/2026-11-01-rear-retention-mark2-mark2-50e676ad",
+      "archive": "hardware/print-tests/rear-snap-retention/v2/prints/2026-11-01-rear-retention-mark2-mark2-50e676ad/2026-11-01-rear-retention-mark2-mark2-50e676ad.gcode.3mf",
+      "print_only_archive": "hardware/print-tests/rear-snap-retention/v2/prints/2026-11-01-rear-retention-mark2-mark2-50e676ad/2026-11-01-rear-retention-mark2-mark2-50e676ad-print-only.gcode.3mf",
+      "gcode_sha256": "74f52e2a5b4aa80a36e4be5625f7fc26e04e24f8a0cd7da233a1baf898ad6a31",
+      "estimated_seconds": 13615.82421875,
+      "filament_g": 156.4,
+      "minimum_bed_margin_mm": 95.69996800000001,
+      "requested_z_trim_mm": 0.04,
+      "emitted_trim_mm": 0.02,
+      "native_review_pass": true,
+      "submitted": true,
+      "printer_task_id": "1398871736",
+      "accepted_at": "2026-11-02T02:52:58.064233+00:00"
+    }
+  ],
+  "accepted_start_spacing_seconds": 257.622088
+}

@@ -1,5 +1,12 @@
 # Rear equipment snap fit samples
 
+The selected [reinforced end-down trial](v2/README.md) uses 2.6 mm leaves,
+21.5–22.5 mm free bending lengths, insertion ramps above full flat catches,
+PISCO and meter clearance corrections, complete meter leaves and the larger
+water-regulator span. The [first trial's physical result](physical-result/physical-result.json)
+records wing fractures and fit failures. Its frozen geometry and print records
+below identify those tested pieces.
+
 Five complete hardware seats and their matching caps test the pump, ASSE
 chain, Pisco CO2 regulator, water regulator and Digiten flow meter. Remove the
 pump's four rubber foot assemblies before fitting its rigid casing.
