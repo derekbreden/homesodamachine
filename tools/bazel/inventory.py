@@ -296,13 +296,8 @@ IMPLICIT_SOLIDS = {
     ),
 }
 
-# Outputs whose bytes cross from one Bazel action to another and stop there. The cold-core mesh
-# saves the enclosure-assembly action from standing and tessellating the core a second time; the
-# public artifact remains the cold-core STEP, so neither sync_tree nor the release pack may carry
-# this ignored handoff into the source tree or the artifact pointer file.
-ACTION_INTERMEDIATE = frozenset({
-    "hardware/cold-core-layout/cold-core-assembly.step.mesh",
-})
+# Outputs whose bytes cross between build actions without becoming public artifacts.
+ACTION_INTERMEDIATE = frozenset()
 
 # ONE RUN THAT DOES TWO SEPARABLE JOBS IS TWO RULES, and each wrapper below is the real script
 # an action runs for its half. The reading is still one traced run of the source; what a wrapper
