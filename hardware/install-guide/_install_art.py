@@ -218,8 +218,6 @@ REAR_CHILDREN = frozenset({
     "bulkhead-drain",
     "c14-inlet",
     "keystone-jack",
-    "data-ring",
-    "data-ring-word",
     "co2-inlet",
     "bulkhead-water",
     "bulkhead-carb",
