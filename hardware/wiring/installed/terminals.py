@@ -13,7 +13,7 @@ from pathlib import Path
 import sys
 
 from .model import Terminal, add, mul, sub, unit
-from ._model_input import Body as ModelBody, Solid as ModelSolid
+from ._model_input import Body as ModelBody, Solid as ModelSolid, components
 
 ROOT = Path(__file__).resolve().parents[3]
 HW = ROOT / "hardware"
@@ -27,7 +27,12 @@ def bounds(shape):
 
 
 def solids(shape):
-    return shape.solids if isinstance(shape, ModelBody) else shape.Solids()
+    if isinstance(shape, ModelBody):
+        return shape.solids
+    if (arrays := getattr(shape, 'model_arrays', None)) is not None:
+        vertices, triangles, _faces, _records = arrays()
+        return components(vertices, triangles)
+    return shape.Solids()
 
 
 def volume(shape):
