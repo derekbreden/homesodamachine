@@ -18,8 +18,13 @@ path = "../../../hardware/printed-parts/zone-c/funnel/funnel_frame.rs"
 name = "elbow-cradle"
 path = "../../../hardware/printed-parts/zone-c/funnel/elbow_cradle.rs"
 
+[[bin]]
+name = "cradle-trial"
+path = "../../../hardware/printed-parts/zone-c/funnel/cradle-trial/cradle_trial.rs"
+
 [dependencies]
 anyhow.workspace = true
 hsm-kernel = { path = "../kernel" }
+hsm-geometry = { path = "../geometry" }
 serde_json.workspace = true
 sha2.workspace = true
